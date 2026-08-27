@@ -1,120 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED7F332601
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC7845000
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814347; cv=none; b=U+4eEgMiQOdtcP/Fo51OIjKbLwUR2KzhMkJf4JNSzGkkMIbxA1JpqHdMsqZst9iowuWa/UBGabDLsXV69bbozEgZPfKfSA0TZbTpe8ZkMjE2jSvYI9UuXcamCi9OunrH6fMsN7ckOZX6C5j53ogZwFP/iBtIg5IWhYZOHYl9P4k=
+	t=1787814362; cv=none; b=II6NqFzl83ql7YiaZpPNW3CEbNeXcKshTGKjkuPvt6Vb4kir4COODE6vKCQgmawWckRU9uF19IIOkL7Gy0dNgmq9zJdim05qt9SIqALIZsIViDpocgGRMTJ8y4MHELp1NVaE7cdpj2ZnDMZltl7eU/NrfBuUlepH6APrGvTwNWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814347; c=relaxed/simple;
-	bh=nMTbEVw3RcNjJfD1vTgvqY4FAbMk8rOLmwGPWcIVMTU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JQ3haMVF8D0vmPrHpGnQlJ38gZuQrB6CKEtrW7W3doW2AVzBY0FFJ23B2Yj+blfjFPMr7+jyBk2oqEcsoV6NaFY8kn9EIj1v9jmvgvDpyXgUnk2hylXiH+6yhM+nIqA6l0yffI9KlQ2tFscq/rvwmkrVfsHVHD3OGMYiUW38q1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cWrqvU4p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787814362; c=relaxed/simple;
+	bh=mq6bgW9Y3BpplM0SeTP3IpFOd1r2MD18zWg1xWm28+A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J6kefPuEPf6VoAATz+FqXsNzAhMtDlyf8jl7n+PHcGg8076o/lK5baXhdLAgF3GD49uIJvguUvOnMFrClyouKyBzru/bq9Dzwk4oFeXz4VUcVoQWq0jF+KJcFi9y8RKpM0OdnvEAHrtIIk1XcObGuCbBSgoFmhKbYIIxCq/vmK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DdVOXXs3; arc=none smtp.client-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cWrqvU4p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81ED51F000E9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787814345;
-	bh=LWlFzFyjeGVWa3x/W+d9uSXivZwkp/VMFn82P2+QEZI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cWrqvU4pg2E68pi2/8NQrXvAWC1z3J/NaT4PK4ocWBdH6oV+PhKO2lToplRSnly7N
-	 CCoB4aDoDAyOC3HL+WcZcyX+1zfQuKIHCeekqBR3RqXyuy3Ts9myyNAi3MpwHg1mom
-	 PaZu+WC0O5gyyoGGFS3ezdJh3vKEQmcA2wyKBjqZO/nNs/zWxUnsDiB5mLV7b125wx
-	 F3n611Qj4QMmG/z558zzB3SpLyEdBDI9lFEBysba+bgHvy8p3gpy09SAms2qxnyrKG
-	 d6YRTBA3gWkUyHK89YSfObQnV5OzLdHGkGI+pjArd2dNKVcolasyOHNFayW7MpSyCg
-	 ouhIJoZkzFsqA==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c253425b253so122821066b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:05:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrACcysh/u7pie6bNQOkEUaSiYL/Ott4pO+8VCpK/Umh5akX8S4wTNeRifqG6klKnWWai0MXr9c6zMv83s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltti5WdcsdC4mB2MkIabc0Mr4xCcF6fR8Hq/gYrV4D5VUpy90Z
-	mmdItuZRrOfoKhOMCk2anoRBnoYhTHnXMcX6VHrorXdRf/3e34VuFpGBr5WJ5oLyYnycfmDRiW9
-	4617spa8vH6gv3JL4hCRTllxmgbuf154=
-X-Received: by 2002:a17:906:fe08:b0:c1f:e9d9:64d4 with SMTP id
- a640c23a62f3a-c250bc2dc95mr1393749566b.11.1787814344469; Thu, 27 Aug 2026
- 00:05:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DdVOXXs3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mq6bgW9Y3BpplM0SeTP3IpFOd1r2MD18zWg1xWm28+A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787814358; v=1; x=1788419158;
+ b=DdVOXXs3RiMVQWXUcguJ5bITYl4aArdK8EBs+usbcaymas5JVjRrOp8ESm818qOBbf5cGymA
+ 2QQuZAB9hqMu89w/1DXU3wnqb42w9+prxeuABNmw6hrKWbf9srdoOryOrRmWhhQy+DMwrdIg2Hg
+ bdiFco3rF8Y9aChz3NrayHlw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from teawater-KVM-Virtual-Machine (39.156.73.13)
+	by smtp.migadu.com with ESMTPS id d0f96db2f5e32cbb;
+	Thu, 27 Aug 2026 07:05:58 +0000
+X-Mizu-Trace-ID: d0f96db2f5e32cbb
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH] mm/vmstat: annotate data race for per-cpu pageset fields
+Date: Thu, 27 Aug 2026 15:05:46 +0800
+Message-ID: <20260827070546.1336383-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-3-seanjc@google.com>
-In-Reply-To: <20260826211844.884951-3-seanjc@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 00:05:32 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMA-E7UYzNDT=0rn7sv7+=Ydxy2zzikMPV1_YarH9sOeg@mail.gmail.com>
-X-Gm-Features: AcwNN1XM6PuhzQ_j2HN5IXmQM0Vec6jv-s7HRnmZUMa7bCnwGWQzzSHKWS76EvM
-Message-ID: <CAO9r8zMA-E7UYzNDT=0rn7sv7+=Ydxy2zzikMPV1_YarH9sOeg@mail.gmail.com>
-Subject: Re: [PATCH 2/4] KVM: x86/mmu: Bug the VM if KVM attempts to walk more
- levels than the MMU has
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> Extend the "EFER.LMA && !CR4.PAE" check, which exists largely to guard
-> against KVM configuring a paging32 MMU with more than 2 levels of paging,
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Is there value in keeping the original check? I suppose yes as you
-said it exists "largely" for this, but it would probably be nice to
-spell it out (if we know).
+zoneinfo_show_print() reads pcp->count, pcp->high, pcp->batch,
+pcp->high_min, pcp->high_max and the per-cpu stat_threshold while
+holding only zone->lock, which does not synchronize these fields.
+The writers are the page allocation and free fast paths under
+pcp->lock, decay_pcp_high() which updates pcp->high without any
+lock, pageset_update() which writes batch/high_min/high_max with
+WRITE_ONCE(), and refresh_zone_stat_thresholds() which writes
+stat_threshold locklessly.
 
-> with a very explicit check for exactly that: that KVM isn't trying to wal=
-k
-> more levels of paging than the MMU template provides.  I.e. harden KVM
-> against all bugs that would cause KVM to generates accesses beyond the
-> bounds of guest_walker's arrays, regardless of how KVM ended up with the
-> misconfigured MMU.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/kvm/mmu/paging_tmpl.h | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmp=
-l.h
-> index 27427e7f22fa..46a0f7796e55 100644
-> --- a/arch/x86/kvm/mmu/paging_tmpl.h
-> +++ b/arch/x86/kvm/mmu/paging_tmpl.h
-> @@ -368,13 +368,14 @@ static int FNAME(walk_addr_generic)(struct guest_wa=
-lker *walker,
->         pte_access =3D ~0;
->
->         /*
-> -        * Queue a page fault for injection if this assertion fails, as c=
-allers
-> -        * assume that walker.fault contains sane info on a walk failure.=
-  I.e.
-> -        * avoid making the situation worse by inducing even worse badnes=
-s
-> -        * between when the assertion fails and when KVM kicks the vCPU o=
-ut to
-> -        * userspace (because the VM is bugged).
-> +        * Queue a page fault for injection if any of the below assertion=
-s fail,
-> +        * as callers assume that walker.fault contains sane info on a wa=
-lk
-> +        * failure.  I.e. avoid making the situation worse by inducing ev=
-en
-> +        * worse badness between when the assertion fails and when KVM ki=
-cks
-> +        * the vCPU out to userspace (because the VM is bugged).
->          */
-> -       if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
-> +       if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
-> +           KVM_BUG_ON(w->cpu_role.base.level > PT_MAX_FULL_LEVELS, vcpu-=
->kvm))
->                 goto error;
->
->         ++walker->level;
-> --
-> 2.55.0.887.g758fc8c411-goog
->
+The race is benign: the values are only printed to /proc/zoneinfo,
+they are naturally aligned integers, and pageset_update() already
+documents that users of batch/high_min/high_max must cope with the
+fields changing asynchronously.  Annotate the reads with data_race(),
+following commit af1c31acc853 ("mm/vmstat: annotate data race for
+zone->free_area[order].nr_free").
+
+Found by KCSAN testing on an older kernel; the same race still
+exists on mainline.  No functional change intended.
+
+BUG: KCSAN: data-race in zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
+race at unknown origin, with read to 0xffff8e1835410808 of 4 bytes by task 22653 on cpu 12:
+zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
+walk_zones_in_node root/klinux/mm/vmstat.c:1496 [inline]
+zoneinfo_show+0x41/0x70 root/klinux/mm/vmstat.c:1806
+seq_read_iter+0x30c/0x970 root/klinux/fs/seq_file.c:230
+proc_reg_read_iter+0x10c/0x170 root/klinux/fs/proc/inode.c:305
+copy_splice_read+0x2a1/0x4e0 root/klinux/fs/splice.c:365
+do_splice_read root/klinux/fs/splice.c:985 [inline]
+do_splice_read+0x139/0x1a0 root/klinux/fs/splice.c:959
+splice_direct_to_actor+0x16b/0x540 root/klinux/fs/splice.c:1089
+do_splice_direct_actor root/klinux/fs/splice.c:1207 [inline]
+do_splice_direct+0x10a/0x180 root/klinux/fs/splice.c:1233
+do_sendfile+0x6ea/0x7e0 root/klinux/fs/read_write.c:1363
+__do_sys_sendfile64 root/klinux/fs/read_write.c:1424 [inline]
+__se_sys_sendfile64 root/klinux/fs/read_write.c:1410 [inline]
+__x64_sys_sendfile64+0x117/0x130 root/klinux/fs/read_write.c:1410
+x64_sys_call+0x1cc7/0x1ee0 root/klinux/./arch/x86/include/generated/asm/syscalls_64.h:41
+do_syscall_x64 root/klinux/arch/x86/entry/common.c:46 [inline]
+do_syscall_64+0x75/0x2c0 root/klinux/arch/x86/entry/common.c:76
+entry_SYSCALL_64_after_hwframe+0x76/0xe0
+value changed: 0x000001b2 -> 0x000001b1
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 12 PID: 22653 Comm: syz-executor.12 Not tainted 6.6.140+ #672
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+---
+ mm/vmstat.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/mm/vmstat.c b/mm/vmstat.c
+index cb57714539fb..a3e809c57f29 100644
+--- a/mm/vmstat.c
++++ b/mm/vmstat.c
+@@ -1837,6 +1837,11 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
+ 		struct per_cpu_zonestat __maybe_unused *pzstats;
+ 
+ 		pcp = per_cpu_ptr(zone->per_cpu_pageset, i);
++		/*
++		 * Access to the per-cpu pageset fields is lockless as they
++		 * are used only for printing purposes. Use data_race to
++		 * avoid KCSAN warning.
++		 */
+ 		seq_printf(m,
+ 			   "\n    cpu: %i"
+ 			   "\n              count:    %i"
+@@ -1845,15 +1850,15 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
+ 			   "\n              high_min: %i"
+ 			   "\n              high_max: %i",
+ 			   i,
+-			   pcp->count,
+-			   pcp->high,
+-			   pcp->batch,
+-			   pcp->high_min,
+-			   pcp->high_max);
++			   data_race(pcp->count),
++			   data_race(pcp->high),
++			   data_race(pcp->batch),
++			   data_race(pcp->high_min),
++			   data_race(pcp->high_max));
+ #ifdef CONFIG_SMP
+ 		pzstats = per_cpu_ptr(zone->per_cpu_zonestats, i);
+ 		seq_printf(m, "\n  vm stats threshold: %d",
+-				pzstats->stat_threshold);
++				data_race(pzstats->stat_threshold));
+ #endif
+ 	}
+ 	seq_printf(m,
+-- 
+2.53.0
+
