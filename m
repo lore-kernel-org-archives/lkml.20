@@ -1,71 +1,128 @@
-Received: from smtp153-162.sina.com.cn (smtp153-162.sina.com.cn [61.135.153.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E089B21A453
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59161257845
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787791611; cv=none; b=IzlxCDDMEFfv+ATQ84FWFPsT7URBRzwAEdRNfKMe5df+YJGKokDetzDTZq45o76P0qLEOIYou2tXDSNzsCC9WcGqCkZOUsabTQqMvhhfOi4M06KJxTxNnxboswu5Y6GOjEY4I290rq8yAqAgB9W8lsJZH2DL5Ig1Xq2vDIC8HFg=
+	t=1787791622; cv=none; b=HZZMYADCJuc5njOa3pdp1Wvmev+u5zQccIpDLv6dDa7okS7RhLPrUScAJix9RsXsOi3DNVPDZTChLo7pe7nw5DWgoZnMSSXi6hi+TyX3iYXAg+ElWqbpidPLpUmAwNAXkuNK8Vqy+V0KBgLVqqVUssudEffFijZjVEmPY02ieUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787791611; c=relaxed/simple;
-	bh=BwXs9sXjPxBuBWPcTIiteCDojP6r8tjBBzNRXAGprqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aRHy4jcSuAyW/B2fkGrI8eS3+GKtmQIsYh9ywoM++KwG0OWOZz9bzwvKoSZYGXq9l8gNlonQT8fAJ/mxpRYYDfFwh/VLGWQIaBnXuNmNiNK/MTFdFA+onD50frZKCLSp8MQTTdJucWPom2HmKEFgnZhHXv3MOpR1vsaUs7TDjSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=exiv8gqc; arc=none smtp.client-ip=61.135.153.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787791622; c=relaxed/simple;
+	bh=4zf7+mPWPGCfOdkH9jTVWkCuXpWtEtW+l62A+47KE0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Olk32kc21KLVR9uIwHpLratWMMGB4BTU1198dna8qqHEyVmdXrpQcWVizFoj9lcLTNg5KZKOVbDy4JXPP2LOD/pvqZcE2HdI+PrAv3WHvSBn8UjfUOBy1ZAlOkUpAAfoIdzrz8KIywp8aHQ06p3FuamklhP9jcFf2hGcn/5QBBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=snXqPfTT; arc=none smtp.client-ip=95.215.58.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="exiv8gqc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787791604;
-	bh=Bzbw5GXehUKlDyJD9N5lUq+z9BfwSV9Q0pnIkgGy8GU=;
-	h=From:Subject:Date:Message-ID;
-	b=exiv8gqcWqPHURO/9ts/6bJ0AwnxdEWDBlvUg3C/4GKdUy92Uu6ObIamyvyq1A03+
-	 SCY+p3VEfEOXTdOFWC2puFd1ZfS+Xd0e1d8+zeAUBONMKOzU3iXKJb6RZ9TTcl4QtI
-	 HaN8VfjsRF5j1zIBe2LMsTl7RJtccdZgilievbkI=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6A8F88C9000037C1; Thu, 27 Aug 2026 08:46:04 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 5347296815927
-X-SMAIL-UIID: 96494F32C0BF46E78E7B35667A41DD6F-20260827-084604-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in stub_rx_loop
-Date: Thu, 27 Aug 2026 08:46:01 +0800
-Message-ID: <20260827004601.134804-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6a8f1920.1d9ded08.62e62.00b7.GAE@google.com>
-References: <6a8f1920.1d9ded08.62e62.00b7.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="snXqPfTT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4zf7+mPWPGCfOdkH9jTVWkCuXpWtEtW+l62A+47KE0E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787791617; v=1; x=1788396417;
+ b=snXqPfTT3SM1I7GqDRONgh/UewOVrSxqrMDm5ipWKZwnN5EWj41sAe0dIIfzXjsManuAv8Ik
+ ilIHBLcwWpnT+fAyHCZfbadOMBqCDzqBEBjKXhclQuwIrx4vKrNsiGlUuV+vh5GcYJIMgZ3tTJQ
+ SB6Ndde7SocTSTCGRlzdF3so=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (3.112.29.171)
+	by mta11.migadu.com with ESMTPS id 49c01e81593a4588;
+	Thu, 27 Aug 2026 00:46:46 +0000
+X-Mizu-Trace-ID: 49c01e81593a4588
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 27 Aug 2026 08:46:42 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
+	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
+	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
+	shakeel.butt@linux.dev, stevensd@chromium.org,
+	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com,
+	zhangbo56@xiaomi.com
+Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in
+ inc_min_seq()
+Message-ID: <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
+References: <20260821102538.22642-1-baohua@kernel.org>
+ <20260821102538.22642-4-baohua@kernel.org>
+ <ao6qTTtk2xkkeKob@fedora>
+ <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
 
-From: Edward Aadm Davis <eadavis@sina.com>
+On 08/27/26 at 05:43am, Barry Song wrote:
+> On Wed, Aug 26, 2026 at 4:56 PM Baoquan He <baoquan.he@linux.dev> wrote:
+> >
+> > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
+> > > During aging, a folio's generation may already have been updated by
+> > > folio_update_gen(), even though it has not yet been moved to the
+> > > corresponding generation list. Such folios are hotter than those
+> > > already in that generation.
+> > >
+> > > It makes sense for inc_min_seq() to increment the generation of
+> > > folios that were never promoted during aging and move them to the
+> > > tail of the new oldest generation. However, folios that were already
+> > > promoted should instead be moved to the head of their updated
+> > > generation, just as sort_folio() does in scan_folios().
+> >
+> > While sort_folio() move protected folio to the head of next gen too.
+> > It only moves ineligible folios to the tail of next gen.
+> >
+> 
+> Hi Baoquan,
+> 
+> Thanks for the review! I’m not quite sure I understand what you mean :-)
+> Could you please clarify what you’re suggesting?
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 818bebeb63dd
+Sorry for the confusion, Barry. I meant this is a good one, and
+sort_folio() has the similar issue in which the protected folios are
+moved to the head, wondering if that need be adjusted too. One consistent
+rule for both is better.
 
-diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
-index 1e9ae578810d..85370b3bc600 100644
---- a/drivers/usb/usbip/stub_rx.c
-+++ b/drivers/usb/usbip/stub_rx.c
-@@ -606,7 +606,7 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
- 		return;
- 
- 	/* urb is now ready to submit */
--	for (i = 0; i < priv->num_urbs; i++) {
-+	for (i = 0; i < num_urbs; i++) {
- 		if (!is_tweaked) {
- 			ret = usb_submit_urb(priv->urbs[i], GFP_KERNEL);
- 
+> 
+> I can explain the design in more detail.
+> 
+> Yes. For both promoted and protected folios, `sort_folio()` moves them
+> to the head of the corresponding generation.
+> 
+> Here, `inc_min_seq()` is a bit different. We are overlapping `max_seq`
+> and `min_seq`, so the `min_seq` generation should be moved to the
+> second-oldest generation. Therefore, I think non-promoted folios should
+> be placed at the tail.
+> They are genuinely not promoted, so they shouldn't be at the head.
+> 
+> For example, suppose we have the following folios:
+> 
+> Second-oldest gen: f1, f2, f3, f4
+> 
+> Oldest gen:        f5 (promoted), f6 (not promoted),
+> f7 (promoted), f8 (not promoted)
+> 
+> Without my patchset, the result is:
+> 
+> Second-oldest:
+> 
+> f1, f2, f3, f4, f8 (promoted), f7 (not promoted),
+> f6 (not promoted), f5 (promoted)
+> 
+> So you can see that both promoted and non-promoted folios are at the tail
+> of the second-oldest generation?
+> 
+> With my patchset, the result is:
+> 
+> Second-oldest:
+> 
+> f5 (promoted), f8 (promoted), f1, f2, f3, f4,
+> f7 (not promoted), f6 (not promoted)
+> 
+> Best Regards
+> Barry
