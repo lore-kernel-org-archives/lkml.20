@@ -1,110 +1,94 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC9037F8D6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851978; cv=pass; b=Ue6vquKAxCX1cly1doAs52N4KyedxerHNvrGAMyXqe3Ag/spQX/Ejgse1gTg/U6vBDaalnoKEweqaJW1fB9iN2dz+eA7/P1FmXhNtOfvDaeFyXJQKDu1KImudsnAe4WeZp1DXE8EH6dT4I3OuBg4vPXF3tc17EZPcZ85YNx4Q68=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851978; c=relaxed/simple;
-	bh=3JUS29UpP0tjMzt5rlQ6iVe2Fv70kH7TSVP13qbejKc=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=tAK5fpxLhOJv6VuFCBg1Xd3x4l2bquBxZvDuKkzvA7rCfcS4n7TzIjfmDS7PwAcWbKEFLQ4e6fa1k/zBa89wvSWNE5a/XoEhpfh7CEgMUkR91mVuXQOFF98JUpZbR6IT8V+qqAo9vAg5Is4nf+EGeX1/ELQx3RDAO1QR6QTngOA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TZMv71J+; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BC137B007;
+	Thu, 27 Aug 2026 17:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787851992; cv=none; b=AXNBa1vSziItipA+6bkLL04mlq6cwVOEms5NnUSc1CoJuvOfIE+VHIuCcY0PaNSxDmQ5xnO3x1l8C5HC9jLmvWC65PXX5QELyAoA0bUGLPCZCcVTSFX9xtgdC+xGvzbX4rUcsO/I4MOO8ELrLJzeOIvL8IujvoQPGQo+wf3gACk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787851992; c=relaxed/simple;
+	bh=+s0gZwEVs+NNGL8SgUBqt8+kdikbnE8E+z4ksacIbUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=maoBmjDeRq7kCdesvm5XhAbDwBhNr9BUJnEtm713n0NCLl9An6LdWZOkctKs+RA6HAle6JIZoBlFkm5sLUSxw22u0Y/jV6saD/QEGa3UNGWD/tSICyXZk9Gq8DMXs69GmrIwY8splQamBtw8+xel3/hn1FlV27UpESMjRJ73aBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6CPT8M8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZMv71J+"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d7200b2e15so987175ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:32:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851976; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hfp66WiGsEtU6zf/ZeB13gl2Vhx71Pt7yCVv9FBDLYJOjOcJvuo/Yr2yLbKr26JP3k
-         jYSdxKEqAAhhS59mNvAPuCz5KjCLmvp87wlUSuCWjjFst3vMZXUw19mEGD4Yrom8twPU
-         b57amVcfhD48kaBEx4G7/Y5NZIDGMJ81s43NPoguxdqC3Ty6WlvHWlabHLowpv1T3C0b
-         X5hCwC5H+1YmLcFzJ7RwSaZt58j8lhOVwUhnFX0UcHpdrhANhZca5fWQd2hirOKZhTj/
-         SJwsjb3ZNv17coG1D1Aa5gquPobWPzm6+hw3iHNJYBAmOxk0Gj7I3tVstdmoZnf3r//F
-         lZxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
-        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
-        b=Ag0CLgdjeAWF6XTEECZnD2L/cOnuoNwwGygVOdO5RgjpzdJf3hWK9DPd3BLo7OHq1b
-         IYTaA1Rd4fT2zFIFjD1YUjqmSYwUBhfA1nay26TPJJ2Rpi+vMdsytqUlrzZPuoo1YQF5
-         jObwp22HdZW71LPt0KrvatyKd/hWAW2tAv/kZam2Q8Xk76keKLBiU9dLZQwckmlrzIQC
-         XKLKnR5d4661D8IBrpR6EKVnRDEo5F1LIFCkq6UCPmS3n6610HU3kMPJYp/LlfjFKEl8
-         kT8/dZeYnM5B2y+4RVdUL5/C/+ii9Bv9rvjvGXLArqGvIpscFyu9T9iZGh3qlUvxLskp
-         5LFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851976; x=1788456776; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
-        b=TZMv71J+JzIBSXhkZbEPlPz637/P1w5QtMJYe9wc2B3/5/sVm4npkbtoFdFk5qFZZc
-         Sql+mWDnh2glG5oGnKrrJPXFYIqRRLVyaiSdPQRorQWh9pfBVskmwXt7uUhe1fnfi+/Q
-         VGDp7puw04Ixw8hsrLzvWOsiogt77goMs/XQLmw5EUx8uPFR8OGIovhwAP/58mL3DxnE
-         ky5Aze7tTWzSVuIt7f/O+MqRxElJl/sHSWqKb3V/y8GAtxpc/JjSOzgjJE09rSJIK75g
-         BA/mUeYg6TawbmcWroEVsWvr6C9Gx5tiQ6i092ktLO9OTtAPlu/lcLtBD1+5YQJkABpk
-         dcHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851976; x=1788456776;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
-        b=WIcn6x/e8ZxtMBho42WTKSMLtzJMc35DOTReh4sgQBx4DmCZvbCqEinhpAbiIoN4zJ
-         4MDaC0RDbm14MQnht+w8AFX+oUx0exKNGBGgqXbU2ZNUiimm1M0kzdswXDK3TuCbf774
-         Gb+a+Ur8+mqG7PH/okxMwXiiMCrrJCixT36Dn9EGvNPdJbhlCj/D0sHNZHQjf0dwL1w8
-         A6ZTsQbsMcPRfDQ6h0/cO11E9AnMFgvqWgKuTXGteYdcQ+sEaIsgOdd4ait1JTipVGuc
-         H/iSJur2x1YQbCt82bPQflYvSVUkWP+JZdIZECfTfBCFb+AFit6/SC9P4F3RtiCRwx40
-         pKfg==
-X-Gm-Message-State: AFuF++lUXNBVLc1TJSPNtbLH3SjtVY13V8MLsfq7KH6U3NffhySNSx1R
-	nXix6TWHbwjiuOyJPs1ejSheUdg/40UL7qAcFsLP6OeQTkvBmhYngEjjGAufR7t4UAurvFjA68E
-	ojeefqit9mG3taPtCNSer9nb8hAQilT2Kk8mQOls=
-X-Gm-Gg: AR+sD123i2nz1ZLOsJktcFz9gnzgtRpSTDB1lXfB9eB1h71Ck4kaK4tVR6RapDjMNc+
-	2y6CgCo9ldM+A/ZQ438BDh1a0S7cEDCZ8clUto99GaAXnDxMGps+J+ZKrtVI6fRu1KzYVwJo/6L
-	dEaxifhVcDRlhCmUb9uOxOpIGdWcO2ZzvgP8pxdvAIlgsGc2nKMknFa7jF+1HTs0SQsxJmmPW5J
-	2KVEdbkjOeIhSyVfUqJersVKz5W5jDpZd0+1PI7HjWqk2ZfrUEngvVknUsX0JpvIYLAuR7oRwhT
-	OX7EN0gH3EyU39MQxltBKyH2k9lMJUM+H9/49u/pTo9bUSg=
-X-Received: by 2002:a17:902:e549:b0:2ca:6eca:492f with SMTP id
- d9443c01a7336-2d74df5f87cmr7374385ad.14.1787851976378; Thu, 27 Aug 2026
- 10:32:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6CPT8M8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611B11F000E9;
+	Thu, 27 Aug 2026 17:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787851990;
+	bh=+s0gZwEVs+NNGL8SgUBqt8+kdikbnE8E+z4ksacIbUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q6CPT8M8A1oGqfOeZ9xjZFHLIeCJdiHHtXX8nUg7UiQQ0DX0xc+ccyrOeQpQN0fy+
+	 HMPoQco++J17+F4K+Qz/ckq7OC6+uv/giwDZbY1K38bnRh+vfq/jGXkpG4RyIZicqk
+	 iQIMm0sRp+Qh2TfEQzkeIDfIZWxS7pXmKitY+zs3wUiTZOJhFXfPrejk8NHNP/WQtY
+	 AUK0iUobs7qqfsfziE3exfOu8GQk2BcdFOolcF2SmCRa1ayEHah4HOd1V1vXEWuWqM
+	 QjE6U56dUqj2FlJNIvE4fhn1HfhwSMZKol5qjVmXMbsfXwFBahBdvb1WpGQsB+A9hx
+	 3m3xwZpklPeEQ==
+Date: Thu, 27 Aug 2026 18:33:06 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <20260827-disband-retrain-ad995df47784@spud>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
+ <20260827-riverbank-cinema-d898d4e5a522@spud>
+ <apBwZwOkctBETKVJ@orome>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: viney kumar <viney.kumar@gmail.com>
-Date: Thu, 27 Aug 2026 23:02:44 +0530
-X-Gm-Features: AcwNN1XO8q-N4xTBjKw263XYvJBVkowoDLNTZyMzjC7g6h2IsnOgGsQNl5LeRTU
-Message-ID: <CA+NqQMLJ8-S=S3qUyJvj-aJUbcZ4SV6akn_RhQWuUSngykQ2pg@mail.gmail.com>
-Subject: [QUESTION] Memory isolation between critical and deferrable workloads
- in embedded Linux
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UzhbiDLoeUae/VAg"
+Content-Disposition: inline
+In-Reply-To: <apBwZwOkctBETKVJ@orome>
+
+--UzhbiDLoeUae/VAg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-I am working on a memory-constrained embedded Linux system and looking
-for an effective way to reduce RAM pressure.
+On Thu, Aug 27, 2026 at 07:17:15PM +0200, Thierry Reding wrote:
+> On Thu, Aug 27, 2026 at 05:35:28PM +0100, Conor Dooley wrote:
+> > On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > >=20
+> > > This header file defines the set of thermal zones exposed by the BPMP=
+ on
+> > > Tegra264.
+> >=20
+> > Does this need to be a binding, since you're just using it in the dts?
+> > Can it just go into your dts directory insteaD?
+>=20
+> I don't think we've ever used these headers outside of DTS files, so,
+> yes, they could go into the DTS directory.
+>=20
+> We've never done that before and there's a bunch of Tegra-specific files
+> that would be in the same basket. What's your recommendation for any of
+> the existing headers? Should I move those into the DTS directory, too?
+> If they are not used outside, that is? Or not worth the churn?
 
-approach under consideration:  To classify threads into categories
-based on their importance:
-Critical =E2=80=93 must remain operational
-Normal =E2=80=93 regular functionality
-Deferrable =E2=80=93 activity can be delayed or suspended under memory
-pressure, till memory is available in this category pool.
+Up to you re: churn I think, but were it my platform I'd probably move
+them.=20
 
-I am considering assigning a shared, bounded memory pool/budget to
-each category.
-which would be used by all threads belonging to that category.
-Query:
-1. Is this approach effective for managing RAM pressure in Linux?
-2. If yes, What is the recommended way to implement category-level
-memory pools or memory budgets for groups of threads in Linux?
+--UzhbiDLoeUae/VAg
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks in anticipation !
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapB00gAKCRB4tDGHoIJi
+0t7NAQD0sDGi1VUfV9Utq6HbCWKUJKS+cT4Lxg1zNAgkj+/hZwD/SOfR7S7mJATc
+yY8irvYGTrJhqtvHRfYaLyxMvy4Kewc=
+=JTpm
+-----END PGP SIGNATURE-----
+
+--UzhbiDLoeUae/VAg--
