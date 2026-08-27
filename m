@@ -1,99 +1,126 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9863374A14;
-	Thu, 27 Aug 2026 12:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BFB3FFACC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835579; cv=none; b=pf8lrgeq6bLhekF9Za7EeCv2LAriuPbJru3GgFrqXWZs04hGIgWuzCEugxWaeWATtj8yUL90P6K8RxDOo3dMBQjPN7WzUdrPByiSUFBichbDZyF/EBG1v2QS1XG/3gFttl86vAQaomhZ/qRlDBAGIKA1sBgURgrWRDgLug0kXlc=
+	t=1787835598; cv=none; b=aNR3ZHdBwlpdcbcS8nMCDjtu7klhXDFkNbxVnTPWBtRWmjkZn1z6VMv2tdrXe7NeawYgAPooRPvz7MfRvgn/29OEkWuq+FJC3FHeKsgXdP/0Ogozi6RDQGqoElmbKNJl0+dJEXsAGfQkYZwtLHTCXTBBPz3aXo6mpDLz7YYNlwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835579; c=relaxed/simple;
-	bh=n4g67O2ahbEYQjmAR1A9xvd9Q4M5H24NCJnflkw+TVQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Z9nfw703RmupiFCj/oHKZLb/rWE1fFuRMzUgadFUTO1RzkRJCdtow4O6QISD3xoJkArza/QAmmOm8a4wnMunWI30uewuz6xT09ImsMI/AVnA24p1ShAnZZT8vmO4Qfw9KWdyhY1GmDYl9aFQufJX4yW1iaF731Tp7y+yNgPXT6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Q6Np/Wdc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=b+vOAjAR; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787835598; c=relaxed/simple;
+	bh=T+PbAjvDjs9UkwDIYLfn+71BTvBU7oss2V2Irly2PNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hyA4wArkld5sh4I3a7rglq3822JhN7M5odrKAOcmDQHP2fU779fc06RaUIhXF6ktfQKyGEZ/kX4TrLB60Dhtzj9gQvvCAKx78DCmuNXzRyIaonnAszSlb1ySiRlZ2tU02QTLwcmQp/ixFbC56tSLlqyIDpj6lmBlXOiTM6b00Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=YfcbUzr6; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Q6Np/Wdc";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="b+vOAjAR"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787835566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ttq7Bkjlgdu0Zd+0ixn9ELU0etKIRWqFZqD1UHLmrgc=;
-	b=Q6Np/WdcLDbTppRHdNIsZvsXbCV0VpGuqjeHIZskuxVG5gp/xViV56RHP/72Ps82a5j0/s
-	1s/gEQAnxzZSsMq/La7yHyH0z5nn5tzI4yyhYP8P9VBkTA6gUAQ7WJHLsad/NvJhRSwVS6
-	Jh4LrPZ/KRZxmetrSJgMJCPzgy8jD8leK/k3gLZm47eSFkIuvUnnUwjEw8SFbQP3Nw2wji
-	8DXoij2zHhNE/ikjGIZAXN8N1NWvbSNGbp2I3OT7Kx2SmjNuilEvGqXZy1+ydlCudCLtJx
-	+CufXmP+B6Q33F1mmis+AGQPGF4kjpikugaRN3E8utw/DYHK2V+x+K2QvuKh7g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787835566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ttq7Bkjlgdu0Zd+0ixn9ELU0etKIRWqFZqD1UHLmrgc=;
-	b=b+vOAjAR3tlzs71HRuvPRJL98R7RFTZxC81KnRjz15M3vLEBFLjfmN/ud4z7HbyHAXkWWH
-	b0LhPwbuPhUw8CCA==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Petr Mladek
- <pmladek@suse.com>, Jon Hunter <jonathanh@nvidia.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Andy Shevchenko <andy.shevchenko@gmail.com>,
- linux-kernel@vger.kernel.org, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Hugo Villeneuve
- <hvilleneuve@dimonoff.com>, Kees Cook <kees@kernel.org>, Stepan Ionichev
- <sozdayvek@gmail.com>, Xin Zhao <jackzxcui1989@163.com>, Osama Abdelkader
- <osama.abdelkader@gmail.com>, Fushuai Wang <wangfushuai@baidu.com>, Marco
- Felsch <m.felsch@pengutronix.de>, linux-serial@vger.kernel.org,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-Subject: Re: [PATCH tty v11 1/2] serial: 8250: Switch to nbcon console, take 2
-In-Reply-To: <20260826075925.WTEVoXWi@linutronix.de>
-References: <aoR_9g7W0qyqWbOj@pathway.suse.cz>
- <fd1802c3-4b38-4127-b988-a9ff059bcebf@nvidia.com>
- <877bll9d91.fsf@jogness.linutronix.de>
- <eb0f2c8b-2c7b-4bfd-9144-6786999c4c31@nvidia.com>
- <875x139eqr.fsf@jogness.linutronix.de>
- <6b46866f-548f-4963-bc41-48ce15ae9012@nvidia.com>
- <877ble714e.fsf@jogness.linutronix.de>
- <d058012e-2be7-4e70-9c10-5e4c00a23b05@nvidia.com>
- <87pkz56epl.fsf@jogness.linutronix.de> <ao6XVfmvV6HjBiEv@pathway.suse.cz>
- <20260826075925.WTEVoXWi@linutronix.de>
-Date: Thu, 27 Aug 2026 15:05:25 +0206
-Message-ID: <875x0vpvma.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="YfcbUzr6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787835484;
+	bh=hDj/p8jypRxjLRWVJMSiEO7QZK3O8045pLQDz9Be/Nk=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=YfcbUzr6kc/zrwXJdIq8Dp3p/RbAQgccXE8rgAPejKsDfowzF389u7IX46b2umrib
+	 ylvZ01rf+fVvr317xgCOLITOybvgF+TKejbC5smI9qG9KYqSQA+HeJIm/rVteCzjN+
+	 0Cg/9L4TWqWOV1kxy7D91Jc+/HJXHUjU1EXGLhVE=
+X-QQ-mid: esmtpgz11t1787835467tf13d2e15
+X-QQ-Originating-IP: UjMqKlSEJhg9MokEB+W+80+C2/HVxYCgg29CDkeaDgk=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 20:57:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18087141386268091049
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: kbusch@kernel.org
+Cc: axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com
+Subject: [PATCH nvme-7.3 v2 0/4] nvme-fabrics: localize string option parsing
+Date: Thu, 27 Aug 2026 20:57:10 +0800
+Message-ID: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Ma4CB9LXNscGQSrFP+zBHA91J6Tsd20GrJfFaO2KXCh9lyEKa4l3EdBS
+	ZuaxGF2yPdDLWMllj5yMSDHQJXKTgqpY9y9xApopkEunYyqBmcWmgOJPW8piwIFOUD3nQpo
+	3LqsSti/cprOOJNhBP4nc9kETMOrcjIm27X2Yf4NzFAE8EOPyCeqUOk02VsPCRz1pov19BB
+	gKBL7KQ+G84Ev/EfUvxGGLprdvZUyY/Fgd6supbkH66IWKdF+4U+dDi9Mk2vZ9GuDOhDUzu
+	k+nL2x2OJzJijdQtLaeb14WuT01Z1PP/PdHrA6+cmacG0xEKm+U915Fq7WoQtzPzGMt43B0
+	1IK5kRvBzjEjY6AwGu/hPE9B9DF49JQU1m0WkF1ajZNcX7i1naPzkyG5V7DPfp4UZha61Dy
+	oBZmLRvdKRrF5IHB0Iy0RGJ5ZX6lcLEKBXEghZsJdu9VhDSM2abjtMOzSlne+MZiY2jrARW
+	GtVqK5vmdPaa1wrstfFqsInavDaTCe8pJVYWZ5CNJEVC3LI4CiNj0+ReK4G15ReiKp3jm5x
+	HToVH/Eqj9OcnWDMmmf2w/5rxyDbdlJA0fJlT15v/65AKXZjr8UBdtX743SJom+tId30YCA
+	OJa27UXuWo8ia72Oyaws0F+ozBYT6JTSrqp9kkin8acnQnuT/FGQzTc1cNZ5dInKvmaNU7P
+	EY2Lfz1ag5BEwkh1/zLlr+tDZcWwwk+6EQ6ukDnpTOCD6srPN0JLxqHiJahxSDG7+7iPP7j
+	/p0du61stI+cIrU9svvD5Y5Iw0TTkipnYUjP4rnQurxWGWdY6W3f4WCs5hMrNphotjWMIqo
+	G4hg6c5pHQuBTrMO+sU2JxPoLqG3XtETRnaqDlAie/H2FYeOkBh1HE4Bt9XN9qvnBVT7iaG
+	TKSQi3JkOUkl1kw1pqmvQ50bnObVyiQUr7bcekaOgkDkkX6bxu7RFsJhoWUYFoShGnJzJ0W
+	MtjYGOIXFIKTerx1JKCcmsn4jda0g5QAwZMs5Ad3taBTO0/k/PTrYX/5zNcuCpRoobh0Dxc
+	2ESzT5CIRRqG5KuAmP/ctR3aRxfUqwMRiezZfil7fwhSYy26IMoOmkD+m1f8w=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Hi Jon,
+From: Xu Rao <raoxu@uniontech.com>
 
-On 2026-08-26, Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
-> If that irq_work is the problem that making nbcon_irq_work LAZY should
-> delay it, masking the problem.
+nvmf_parse_options() currently uses the same temporary pointer for option
+tokenization and for strings returned by match_strdup().  It also contains
+several copies of the same string replacement and DH-CHAP parsing logic.
 
-Making nbcon_irq_work LAZY should work around this problem. And,
-actually, it should be fine to make nbcon_irq_work LAZY in general since
-it is only related to non-emergency messages, which are delayed anyway.
+This series keeps the changes deliberately small.  It separates the option
+tokenizer pointer from allocated strings, factors only parsing operations
+that are actually shared, and otherwise leaves option-specific code in
+place.
 
-Jon, could you run your tests with only the following patch applied? If
-this works for you, I will submit an official version of the patch.
+The series is split as follows:
 
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index a5921a84a80ed..ad79e30afd647 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1782,7 +1782,7 @@ bool nbcon_alloc(struct console *con)
- 	}
- 
- 	rcuwait_init(&con->rcuwait);
--	init_irq_work(&con->irq_work, nbcon_irq_work);
-+	con->irq_work = IRQ_WORK_INIT_LAZY(nbcon_irq_work);
- 	atomic_long_set(&ACCESS_PRIVATE(con, nbcon_prev_seq), -1UL);
- 	nbcon_state_set(con, &state);
- 
+  1/4 separates the option tokenizer pointer from the temporary pointer
+      used for match_strdup() results.
+
+  2/4 adds nvmf_parse_string_option() for the five direct owned-string
+      replacements: transport, traddr, trsvcid, host_traddr and host_iface.
+
+  3/4 reuses that helper for the subsystem NQN replacement only.  The
+      existing NQN length check and discovery-NQN update are left
+      unchanged, and hostnqn and hostid are not modified.
+
+  4/4 adds nvmf_parse_dhchap_secret() for dhchap_secret and
+      dhchap_ctrl_secret, which share the same validation and ownership
+      rules, including sensitive cleanup on rejection.
+
+This series is based on nvme-7.3 after the accepted
+"nvme-fabrics: fix DHCHAP secret leak on parse failure" change.
+
+No functional changes are intended.
+
+Changes in v2:
+  - Rework 3/4 in response to Sagi's feedback.  Drop the dedicated
+    identity helpers and limit the patch to reusing
+    nvmf_parse_string_option() for the subsystem NQN replacement.
+  - Leave hostnqn, hostid, nqnlen and the discovery-NQN code unchanged.
+  - Keep p for the remaining option-specific match_strdup() users.
+  - Keep the reviewed DH-CHAP helper logic unchanged; p remains declared
+    because hostnqn and hostid still use it.
+  - Add Sagi's Reviewed-by tags to 2/4 and 4/4.
+
+Xu Rao (4):
+  nvme-fabrics: separate option tokenizer pointer
+  nvme-fabrics: add helper for owned string options
+  nvme-fabrics: reuse string helper for subsystem NQN
+  nvme-fabrics: add helper for DH-CHAP secret options
+
+ drivers/nvme/host/fabrics.c | 119 ++++++++++++++++--------------------
+ 1 file changed, 54 insertions(+), 65 deletions(-)
+
+-- 
+2.50.1
