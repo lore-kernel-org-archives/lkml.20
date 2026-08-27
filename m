@@ -1,135 +1,165 @@
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD56443A98;
-	Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A8B4A23
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787859520; cv=none; b=LlakZfGXvrMmYltFZ3nmTg8ua2kmYmiqfdNVJMtZenpYH0TT9Cw48CHO+a9AkgJ9ezAfWUABnNWo+fD/nydZTqUuZXKWMEZSzchbJa7cgAqGFc8G7Jx78eXy/ZVnj1fVAgn0Nw0H1dbrCb7c9gNFNnVcwe/Ht7+xkUiKJPwCw3o=
+	t=1787859554; cv=none; b=TCmFeRSNkvsA09GXon1V3xXEU5olgDulLO23lupqCNnpgxCOdS8fWBOE0d3tNXyRetII8DFo7agsqIlwvVF+qIvJdkONWcsKtx0nZdbo5AgNW0bdDmskAUJy6VbeZkw9uD71b3B+Uwy/CXtWEWxUmXrJymq3bVpeFGKiA/ReLcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787859520; c=relaxed/simple;
-	bh=eP/hk2DNSiSupAaKn6szi62QjYKLXlDV8zQagv49aiQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OrukahlYovVVDHXZ3WVJjfvQNveeF3JRIiT7/LChtYRlEvm0/Vo2af+LWBDAG+CZlhYB3h+p8OyFRH3FOFbqDUJrBak3k3N/lADctI/OXDoy1kVVUf9h5atIxYtO97iGzdZjkH1djWzok5sYRhE2zLw2yFD4zonpWY2ZimRKAxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qKBwYd22; arc=none smtp.client-ip=35.162.73.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1787859554; c=relaxed/simple;
+	bh=iPf7ChaqIsVoGcvfLFkYqgjfgPL7ty9oLZe40l5pQ94=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=V2QfnbnpsGn6aui5uiBkfxAblrOIgzishOgj/sN1NpPArH9FP/AY7yMfCV/+at9NrpH4VtiFrc9TRY6sbMassuOuKcBEtOkE3F7fHONZlQjPQ9YsregoTCBaRfl/nB0nUetbRFZQUFYTrY1xpJGb+4gDnfTrmC1JSk0FtKqtYQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=HpOZ5ZZW; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qKBwYd22"
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="HpOZ5ZZW"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90ce08834feso1418296d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:39:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1787859519; x=1819395519;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=oLAeOmZrtq36A1IcHxniw47pbRoh1qR6Um5nSXbPo1A=;
-  b=qKBwYd22K1Ojz4OmfLVoLdQbkdN8XXtvzM9CgqsnFoJYs+hpRCEpDbCH
-   Tc8bURvnevO8oOp3jn+iRccmRG9qDh3BLEQjqi1EnmirsCmn8YW8dsFhP
-   BP9EKkqNuI7LKUaDmBy3qjYrJVBDWLMPkiQU0nSQJQWw9HKNPAi9/ShjH
-   OguRXBDFISYhPpa9+g/u7pR/QboiMn4KQA+uOsHMKwRNA7kIhazJ3mA00
-   pLctVM9unzLVX/h/cQMt2X7mcOGXayQLAf4xsROm4QDHsruN0GFsbgtfC
-   oC0yuNSBOZf2BhgHucMleuYQL1SMTecM97Xd9oqpkk0jT6kPoVjybwth1
-   w==;
-X-CSE-ConnectionGUID: ZMdiy7luSDy5KUaN1uRScw==
-X-CSE-MsgGUID: LWv9H5gNTwqEPlTS5WdLNQ==
-X-IronPort-AV: E=Sophos;i="6.25,247,1779148800"; 
-   d="scan'208";a="26951848"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 19:38:39 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:24810]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.27:2525] with esmtp (Farcaster)
- id 2c62c1b5-ce79-4e1b-b168-d99646deb830; Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
-X-Farcaster-Flow-ID: 2c62c1b5-ce79-4e1b-b168-d99646deb830
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 27 Aug 2026 19:38:38 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.170.26) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 27 Aug 2026 19:38:38 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: <sj@kernel.org>, <akpm@linux-foundation.org>
-CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>, Nathan Gao
-	<zcgao@amazon.com>, <stable@vger.kernel.org>
-Subject: [PATCH] mm/damon: use a page-aligned sampling address
-Date: Thu, 27 Aug 2026 12:38:21 -0700
-Message-ID: <20260827193821.46115-1-zcgao@amazon.com>
-X-Mailer: git-send-email 2.50.1
+        d=paul-moore.com; s=google; t=1787859552; x=1788464352; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mtXig1FMjrSYmMbsrTikOQfn2mLp1bwY+1B2vUa6dN4=;
+        b=HpOZ5ZZW8h78vYnfkwrPzKV8DX0KqSCR//l4g862xZTEXiKVVxyIcR2zzsem301V5o
+         P/4fPlMtdSMoYxb3tqRXMVZnPeaLd4uWE713kzq1d3jwoxdnDwKE5FuOY3gZXTJblRak
+         QQkjj5JncGdZ3w3Dq4iveA73hPubX69bFD3/I2G82ECysx4QaH/2KgUtdEPDvEFenTUZ
+         jYRhuLyJ4KzX9ZoAcjQsDbqtuBA+6TRMr+uxDibVsiMXe118kJGre5+Ic8Hx+0fusc5z
+         T/YZ+lgB4Ojagsb3774ECWnXt5iNCShHu3rzfaJJAIEAqIXHvT20aofkChCffRUTrvk/
+         fmtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787859552; x=1788464352;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mtXig1FMjrSYmMbsrTikOQfn2mLp1bwY+1B2vUa6dN4=;
+        b=WERm5PxztRNokOYkbmXyTI5hrw4DjfFpH0VAZx33UtwZBr133o3vXPCUE3Q6wSJoSP
+         6SxEg5BBVR7dn6W/zdqDO4VzGfKZAemCc1WoxKtd8YfhpDvs8uNXEC18mvym5U1q5QpM
+         SsfCsaX2X5Oges5EOGKq46RQDBoT05YghcpK4yRsgVWCtlK50Gq3NNK2VtFAxmip7d0r
+         mnVjzhqF440BgnGj0iehzQtwz8PhsPer5XlAsJWDV+9SSl1WDRe1tqcMYTFTeFI80upN
+         OBt+sW0qkGT5nSiQ7S9YxDD4T9y34RhfTiBwZYio2DimeVuWsZSUz+dBiVESQYZ1lPQC
+         kG2w==
+X-Forwarded-Encrypted: i=1; AHgh+RrDMsTw68BT4+jOCcHif9gWpvRFDMLoeXxvrj11JeL6fyj3wezpIdAUNT2TelMPIB3T1Zq0QYoJXYZoFuY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3ZZyOJo/1G5M7iSACIUWJWIel2la/ThPO8TjmyeZqdMdU0uj6
+	cCrQLQ9XwrE6Mam2BINF5ygyWU6n9M781HP5DeIJvuvShJjjPVq27+vFxEZ1ywa2mg==
+X-Gm-Gg: AR+sD11Cz5bvxnTQjoMABD5faurA4u9Cn17UU8ipDfgn+0Qt5ovpgUAZcK3jor4kn9M
+	+nyI8BhPzqpJyxlr1VBKs4twijIjA9WgWceD1xewSiQK0XL8zRSnoxkZCqfGrEUyBhiqAjrxsmi
+	ZhyM2HiMXKuToWvmn4yAH/jp3Y2nrZxLcOOfExnKf3TtK4lbxL/cTOHjRYOP6jRwfDvAaKa6LuI
+	WUH0ysMHozSdpH2UPrG1+NUte9u3+hNXJqSYnVZfW/6+96jNEvn6aehjQHaFu0s/joXRoBRsTEE
+	egzTgbeUA8R5zUdnQHnqOxg8q7+CrVBXC7BWofgWLZ2fmE2qMLDMrraP/4bwLKihS7ezWAm1aLO
+	wSASkuKDaJJmMyfQLx5fR1n4KDBHg8kUu+1vxFXdrrsP26Lt4z7T7CjxKVzvMija+D7kfwTXyIS
+	y43LPDE5EouA/UEmgK0MULKBNy4JQM4U9Nf/IMhOJvsv7AV7Cl4M+d55ROjWCuPehHq2fWKhTqd
+	98cFzDq8OptE/isoDFFETUR98bFXK3mvKm0kcKbB2pk
+X-Received: by 2002:a05:6214:e43:b0:908:9fd5:ed42 with SMTP id 6a1803df08f44-90ce0f06bdbmr20681366d6.28.1787859551742;
+        Thu, 27 Aug 2026 12:39:11 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc28dsm24026946d6.34.2026.08.27.12.39.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 12:39:10 -0700 (PDT)
+Date: Thu, 27 Aug 2026 15:39:10 -0400
+Message-ID: <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260827_1122/pstg-lib:20260827_1501/pstg-pwork:20260827_1122
+From: Paul Moore <paul@paul-moore.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
+References: <20260820175832.44512-1-kmehltretter@gmail.com>
+In-Reply-To: <20260820175832.44512-1-kmehltretter@gmail.com>
 
-__damon_va_prepare_access_check() picks a random byte address within the
-region and stores it in r->sampling_addr. There are two users of
-r->sampling_addr in vaddr.c that pass it into a page table walk, and
-both use it as the address of a page.
+On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> 
+> SELinux saves the user file SID in a backing-file security blob so it
+> remains available after mmap() replaces vma->vm_file with a backing file.
+> 
+> For nested backing files (overlayfs over overlayfs, or FUSE passthrough
+> backed by overlayfs), user_file may itself be a backing file.  Its
+> fsec->sid is the SID of the mounter that opened it, rather than the user
+> that opened the top-level file.  mprotect() then checks fd { use } against
+> the mounter SID.  This can incorrectly deny access without a domain
+> transition, or check the wrong target SID after one.
+> 
+> Copy the saved user SID when user_file is a backing file.  Keep using the
+> regular file SID for the first backing layer.
+> 
+> With two nested overlayfs mounts and SELinux enforcing,
+> mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
+> mounter SID.  With this change, mprotect() succeeds.
+> 
+> Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> ---
+> Changes in v2:
+> - Add selinux_file_user_sid() helper instead of open-coding the lookup
+>   (Amir).
+> 
+> Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
+> nested overlayfs mounts. The policy omitted only
+> base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
+> 
+>   baseline: mprotect(PROT_READ) returned EACCES with that denial
+>   patched:  mprotect(PROT_READ) succeeded; test exited 0
 
-  damon_va_mkold(mm, r->sampling_addr)
-    damon_va_walk_page_range(mm, addr, addr + 1)
-      damon_mkold_pmd_entry()
-        damon_ptep_mkold(pte, vma, addr)
-          ptep_test_and_clear_young(vma, addr, pte)
-          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+If you could share the distro and some more details on the testing
+methodology that would be helpful.
 
-  damon_va_young(mm, r->sampling_addr, &folio_sz)
-    damon_va_walk_page_range(mm, addr, addr + 1)
-      damon_young_pmd_entry()
-        ptep_get(pte)
-        mmu_notifier_test_young(walk->mm, addr)
+> This patch fixes SID propagation only. backing_file_user_path() still
+> resolves to the middle layer for a nested mapping, so the audit path and
+> inode do not correspond to uf_sid, and that layer's mounter is not
+> re-checked. Preserving the full user path likely needs a VFS-side change,
+> such as having backing_file_open() store file_user_path(user_file).
 
-test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
-arm64, documents @addr as "Address the first page is mapped at".
+Additional comments below, and while this patch is useful in fixing some
+of the problems (thank you!), we obviously need to fix the others as
+well.  Is this something you think you will be able to work on?
 
-For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-clearing of the young flag for large folios"), the contpte helper walked
-exactly CONT_PTES entries from the aligned-down page table pointer and
-used @addr only to pass down to each entry, so an unaligned value was
-harmless:
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 1ead2eee1944..171b90412ff1 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct file *file)
+>  	return 0;
+>  }
+>  
+> +static inline u32 selinux_file_user_sid(const struct file *file)
+> +{
+> +	if (unlikely(file->f_mode & FMODE_BACKING))
+> +		return selinux_backing_file(file)->uf_sid;
+> +	return selinux_file(file)->sid;
+> +}
 
-        ptep = contpte_align_down(ptep);
-        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
-        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+I'm a little concerned that this only works for one additional level of
+filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
+FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
+unreasonable concern that at some point in the future that number will
+increase without proper notification or testing and we will once again
+have a problem.
 
-Now the range to walk is derived from @addr instead: end = addr +
-nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-page of a contpte block, the sub-page offset puts end just past the
-block boundary, so the round-up lands a whole block further and the
-walk clears PTE_AF in CONT_PTES entries beyond the sampled block. Seen
-on an arm64 guest running the DAMON selftests as random slab and page
-table corruption.
+At the absolute minimum we should have a BUILD_BUG_ON() for the stacking
+depth.  It would be good if we could watch both the overlayfs and vfs
+constants, but the overlayfs constant isn't available outside
+fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit).
 
-Align the sampled address down to a page boundary. It is the address of
-the page to sample, so this matches its intended meaning and fixes both
-users in vaddr.c.
+  BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
 
-Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nathan Gao <zcgao@amazon.com>
----
- mm/damon/vaddr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Ideally, the code would be written to keep diving down the stack until
+it hit the true backing file.  No one likes to see recursion, but at the
+point where this function is called there should already be a reasonable
+bound on the stacking depth and the work involved.
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 2c1c1952c008d..e26e426a56af2 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -360,7 +360,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
- 					struct damon_region *r,
- 					struct damon_ctx *ctx)
- {
--	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
-+	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
-+						      r->ar.end));
- 
- 	damon_va_mkold(mm, r->sampling_addr);
- }
--- 
-2.50.1
-
+--
+paul-moore.com
