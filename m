@@ -1,170 +1,122 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A64F415F3A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851230; cv=pass; b=lX8s1SzT8ndq/7OOs8iRK9U1JK/Tk/tGmHHWgEY+Rkz4GQERkLLRDE5RiiuGVEJSTT9+pxlX2LIq035UJ7iEaby3NSOyZuoiSPJ0CtpTNhZL7Q9NtYz21xITRicvGhEaPVhffWMJdEuEMc8qQBDfEpODtR6S88Bt8skELVsdQ0w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851230; c=relaxed/simple;
-	bh=68nBQNUxR5fNISsNqp21UpLPEGDIlMeweWukrd9kiKQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QWOjKCQ0pWoFkAOhdcDmADbwf0lwe+X6CM9dOZdm2jR3JNRlZO9N50P3AR5qX47xVv8Gr/IwsvZcdJyM5FpwqAawri8E3lA7yU4VTHzgZORVmCU9YnC3yL69/9zj0a/uT5Qg0BbE9vqRYYcr/nPA/PS5uBmZn1Dq0NOcnPvxMUk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gf1i73yD; arc=pass smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2B01E0DE8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787851295; cv=none; b=C6d2ECT7L6CZdOmp/ORZxqBETlpgs/4xIEn9I+oq43R4Jw5iZ5KI109fWq1W30XBxztvtbOadsvhBZb79g+LpGxodxGH+1Vr4ZTwopSWrvNR/9pB7Q6RrO2ZHMKmQExEhUQSiGLxwYRhvGRGzIE/Kfz8oU3wuEN+izIXwJUPHF0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787851295; c=relaxed/simple;
+	bh=TUonyImlFY/rVwlfDRO8v/UDvMzUF1i/lMk0MIe4OQY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MGmpSwINwjNbP8Fv5zj7jkkcywhq6Hyu/bzCk72lVwmKMMYUqWQCs8HEPmywLBZLDly0cKEXafVgqhi5MTtEEaf8r23Ww+E6h3WzPV+17VGLwHoGHPpw6sX9vA5wFhXtUH+P0uf/9Gpt1ddGDIU0IYQu2nSzVcW/bfKFJgrtEdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pcw5T/F/; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gf1i73yD"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so40241e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:20:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851227; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R3Nwq9Nh3s2zf1pYEX0ieuUBtEYYuS2vXMk93jB80K82/axDWMKFu0uk4F0K7KITzW
-         1dIptnp18HkbnbImWd3X2TYnG8E3qCVdehXTUSIogyIqzbWVV+cGYbyEgqb3eZFLskR6
-         F9FhnzaJNLDeesbFQBOe+kFOi+G7rKiSMkuTbHqxg3HmZ/jrmfahXiJ/5Nuq6hkI7VC1
-         7oCDUByPB5lcKZjwD2iOkSt++oa3DEGGwXVLzEioorkKgmPPfPBC/SnebLx7vcVbDUpg
-         CnzkWxApIWT806uyh6E+lD//qBrm1iXUSYpaiwNmoFxrWGQnZecrRav5fpXNz8qwbRyn
-         Ba9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Q2WP3xYXvtNm+8JHX/keBD8T0fHDerrdRWjZNJYCX0=;
-        fh=lX7Bh3k7llCOtBdyk4+1P/sNAaMmi/MUMh34ib/15Go=;
-        b=qBNlqUIUIa7GPG4EBQ4UQxQaHgWc0wdlFdQvMWQkq+T1teFtD7JSIt1QL3A9lqr262
-         a3Yxztz67BTi2wNyZIhGxA3VyzI7b4nyMFVv0JckOl/7GYou8Uadkhso2zD36hDBwCTH
-         QxhnhJ9QGcvFctaq5tjKpFDgSKrx1Wfk2se9ApVcXZZqOgg9MDg3YNd0tEZfuZhQwvlb
-         ISSQPUXCvEvPVW8ZR5/ibT4ALT/2ooKOZPgEa/w4P831vsawz+LYQMkmna0ojXxMcP+l
-         phIpIdw1seb8w4IJn5xKed9nYFrh6Zi9FgI6y6rbJ2SUNGHSmdTwrs7A0VSIvlWq1nqZ
-         Pg8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pcw5T/F/"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso272556a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851227; x=1788456027; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4Q2WP3xYXvtNm+8JHX/keBD8T0fHDerrdRWjZNJYCX0=;
-        b=Gf1i73yD4bZl8y6gW+FTqtsBjziKGyxvTtXeigvBXTCAhZ85EiHf9Osdss99W4gfmi
-         UM/8N7ck4STKb39Jt6CK6i+cfFBpexCnQr/zJFr+KWhGTQCKrMgLctSHSfJSd0MHHK9j
-         hf7vvdLh/DduGW2/XyjoJKna/9NHXiabSTdjgbQRE1P9cjx7Fkf438YjVyS5DNUd5PiZ
-         HLeRk+NTRNXjEePJuhyPAPHBPq5po9x8idBawu19z4yvsf1jxCFB92BFy9+EEDVBQyd6
-         zN20MQAhWe2+zSggHN5GDvzXNt26SiQWX8dsTB0HjFc45IiKFeofbZuFIJtpgDWNSwxV
-         1Jkg==
+        d=gmail.com; s=20251104; t=1787851293; x=1788456093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F4arbSueCZ9tfuttAJ7Jp1lnf9RoIfNdNZ1KOU8xkt0=;
+        b=Pcw5T/F/ZBt9n41E+hERCR85NlqKpFAI492ZQceN39hdQCtM3T8eEQpf/Nl6Csi9QM
+         S98cKf6csMDeaAgh/Se5zRR6/jXWQaYrSGvr6dk2+MAr0xhfcECiXJrh8TEBA7PWo1Lu
+         O4gVuhMDKbjuK56klQ2FPSjg+XrR23s3XJNq/4hfw4J2oRQLUZJqiifBpzkLvsFNNjJM
+         PD3lNjWVQWIpYD5SnL1ukcbmOTureBZhXanSkAuXa5mI/6pxCQcFll9vbmvqDco526TH
+         Nim7+yaJyJ1avrt7W9DfkM1nct3cei9TYhr38766VLT0NMpkWlOl8M14kGrZvhRIdrfk
+         KSiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851227; x=1788456027;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Q2WP3xYXvtNm+8JHX/keBD8T0fHDerrdRWjZNJYCX0=;
-        b=DZdnUlf9Lz7/hDjcKxo5TFnAyXDr75V7WlhnjNTDcJo75HC3+g6rH8tOeS9IFrqqlA
-         Z1l5yhqkbk/akqMDTBhXBaYB6TPHjEzrTqxwpjaSqdV3x55EAewk4sKNW/Yo8QPVH9P8
-         CX7dof1FyJyj7/3z8TneeRym7HS3qppJhMnJXre6cILhpqlOxNCpC7njBwkF053QtrG2
-         sC5fRR4OuezYZrdWnrAAprQznPnfZmPmSLZ0xbdEO9kSaYgx4rLTjhRscjZBb6vOUzUI
-         AEuAyWUBp7zzRoU01t6kH0H5+IGrFrSlp9dIhB0FliRfun5Fp++SWrNt9VGsQdI6gk97
-         +y0A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5JwM3eEUxf/2prRhiD72yYnMK1nMb+1nql2R3rRchse+R3zmHs//Hbi6exLyR98Wwhw0uRHHdzKRrSdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUz9WrsGRCckwZZP+QWgs3FCwJDiKdi25IlETyrWXKSyqwaBgj
-	uL/AcmzXcdxXHKzU15K30UBWnv3m9Z26OqhVOlE5brd/rQIBWMpbU+9O+nIazWckj9V7IoJHIRk
-	XSZEIol21k7DpwzgeVoslFqRgpojp0S0=
-X-Gm-Gg: AR+sD10y3baEwqangEEuNkTry5f621+YlU/Nbcm0Z+JF9YbiulASKObCNyPMr04JMjX
-	wBI6oh6BZW+EIhlQknlgvt6chW3D76uDWmqWNRWCOpqSWy/Q2GzuvuTqrm6ZxLTPa4AO43ojzcO
-	34PWNjo2EE13FeiadcSmbfgBBRR/JLuC3HYk2ZugHyMTrIuojpRSnKhmcmEXFZu3N/2tmkmlVrE
-	gBgC2W53Hiq4beOQNSVyQFZkjhOoV1Nd2p4fi7LNOktW1ItSBOMestx3iVT7gM8KoCasa6gMRHx
-	ezhNdXywVjjCJqZ3SyHYza05JJcPD5siLCSEBtbjUtiliFbV8Q5N0RQX0XHm1k/MiUMpk0bmzFG
-	d2akHVKC6ettQBWSVDUqP5Q5jzqm00noR
-X-Received: by 2002:a05:6512:220c:b0:5b4:3ddd:8996 with SMTP id
- 2adb3069b0e04-5b5e68de595mr55082e87.15.1787851227372; Thu, 27 Aug 2026
- 10:20:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787851293; x=1788456093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F4arbSueCZ9tfuttAJ7Jp1lnf9RoIfNdNZ1KOU8xkt0=;
+        b=QyWaqE/1OsfioR9M1eWjq15R2qpcAL4G4Dvw8YKbP5UVWMv0IKSKMKCrMGmTHyInwz
+         PI3vp3WSEg772EhGi4RP5AOowp+CHFX3q+41bxpKrbz0Ciy3C1tAHZCaYh0lh8Rk7am3
+         OJV8eCKiC7OWRYd/6V5eCEB//EY5388vp+lfn5/h/sILazhM2Z4EKp3EgF7fHIHSGNnG
+         1D3qDchX4DDQ4CXI2wODAJfDhRtg6xDs7CYCJvj4S+s3UtB/zSffL1VVrNt2UZ2BxsX5
+         IteQ6myJ2H484SAUFFbjqKJsYxTA0G++o53BTCSf68tn+KRUUs5R+VIUbvpMy9DS+JgJ
+         sIWg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrfqqveavtg9pv6MJLdp4MAmjMNsmx0VaE5laVB+luOcTMteRS9aQgN+5WJi0cFdMBU3VPvx/C1mlPWa6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJtajEpruo+ecdLkWM2AP9GQdxeALPD2QkMLdv899W0lTb8I5B
+	+frth8W1F0cIEl2SkmnGtwBHcQKdZhOiIpnQoXMjHWOcJPTzgipRxMX1
+X-Gm-Gg: AR+sD10hmp7XtIboTZMJz/+xE7Mvpciu4LzTLPGC3ybSeFUGohWs0A0GfnAoB4W5B2J
+	+l61RE/GTAjnpg7bJMhMwIxevmOmaWqjfzvQoFlJ5LGHNIgLMnlng77nAUW4WxP2/1KQG0zyxk9
+	i0toUj7L1yQ8Bv/Mk+B2YgR+nzr7KqwTMeXfYW33wRawI/c9D1q99HLKjOkc5ZxxR3ByhHVhDHX
+	zJr2EPyZ1M5v8ikSEcorYtYoszSWAkEOS26bmJ5QM1R+0c8zTDWmMCnwOKq78Q+/iDjO2aODOYk
+	VhSgfB63L8tM3EPwZtP/5CDPvkNAwEePC56AnrGvJyuPE8pLNmaOmdyd26BdEj2QLubHyGacjY4
+	D0ragy7nEGhXOHKXp1nBPSPyXkf/9u/jSWiMzVwpKzJoWtQeQslb7aaC1L/QmidsIoQyDAByAxf
+	gxpvu9nhJDcN5r+gE4bAYAqlGLVaiK9Tj1Z3aw5Wc9lIp9YraBZTgM4CGVDAXdJWbl5aqA+R0vv
+	3UVYRgWTF5iWImmo+WWTZZ1GcAdlNKHw+8f
+X-Received: by 2002:a17:90a:e185:b0:37f:eafd:3505 with SMTP id 98e67ed59e1d1-396d0ecbdb9mr1509289a91.6.1787851293068;
+        Thu, 27 Aug 2026 10:21:33 -0700 (PDT)
+Received: from debian.ari ([47.30.51.191])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:21:32 -0700 (PDT)
+From: Archit Anant <architanant5@gmail.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	nuno.sa@analog.com,
+	u.kleine-koenig@baylibre.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Archit Anant <architanant5@gmail.com>
+Subject: [PATCH v4 0/8] iio: adc: ti-ads1015: modernize driver
+Date: Thu, 27 Aug 2026 22:50:52 +0530
+Message-Id: <20260827172100.39176-1-architanant5@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825130126.2078627-1-chao@kernel.org> <20260825130126.2078627-10-chao@kernel.org>
- <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com> <8e02060f-6921-4d3c-abb2-cc36fe1e9594@kernel.org>
-In-Reply-To: <8e02060f-6921-4d3c-abb2-cc36fe1e9594@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Thu, 27 Aug 2026 10:20:14 -0700
-X-Gm-Features: AcwNN1U7PNNLW0IUB1V-PjZHUSzb3AnJaCjYPBfr_1O0hFm2d1nERUvn4m841Rk
-Message-ID: <CACOAw_ySh3pW5tg7pa6r7Rr7tuqp9btPWvN-rrWN7mOpKcw3kQ@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v3 09/12] f2fs: cache: use compress cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 8:24=E2=80=AFPM Chao Yu <chao@kernel.org> wrote:
->
-> On 8/27/26 04:04, Daeho Jeong wrote:
-> >> -static void f2fs_truncate_cache(struct f2fs_cached_block *entry,
-> >> +void f2fs_truncate_cache(struct f2fs_cached_block *entry,
-> >>                                         bool drop_dirty)
-> >
-> > -> __f2fs_truncate_cache() without locking?
-> Or, I guess you mean we need a cleanup here?
->
-> What about:
->
-> void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirty=
-)
-> {
->         if (!entry->cache)
->                 return;
->         f2fs_do_truncate_cache(entry, drop_dirty);
-> }
->
-> static void f2fs_truncate_cache_locked(struct f2fs_cached_block *entry, b=
-ool drop_dirty)
-> {
->         f2fs_lock_cache(entry);
->         f2fs_truncate_cache(entry, drop_dirty);
->         f2fs_unlock_cache(entry);
-> }
->
-> f2fs_truncate_cache() was exported for using in other .c file, in the mea=
-ntime,
-> static f2fs_truncate_cache_locked() can be used inside cache.c.
+This series modernizes the ti-ads1015 driver by updating its runtime PM
+handling, error handling, resource management, and register bitfield
+operations.
 
-Splitting them into two helpers (one with locking, one without) makes
-total sense.
+This series builds on the series [1] and:
+- replaces SET_RUNTIME_PM_OPS() with DEFINE_RUNTIME_DEV_PM_OPS().
+- sorts the driver headers.
+- uses a local device pointer in probe.
+- converts suitable error paths to dev_err_probe().
+- drops unneeded < 0 error checks.
+- converts mutex and runtime PM handling to managed resources.
+- replaces custom shift macros with FIELD_PREP()/FIELD_GET().
+- removes the redundant ads1015_set_conv_mode() helper.
 
-However, in the Linux kernel convention, having `_locked` or `__`
-usually indicates that the caller is expected to ALREADY hold the lock
-(e.g. `__list_add()`, `__folio_mark_dirty()`).
+[1] https://lore.kernel.org/all/20260529183708.17819-1-sozdayvek@gmail.com/
 
-If an exported function is named `f2fs_truncate_cache()` without `__`,
-callers would naturally assume it handles locking internally.
+---
+v4:
+- Rebased the series as requested by Jonathan Cameron.
+- Use devm_pm_runtime_set_active_enabled() for runtime PM setup.
+- Reworked the register bitfield changes and inlined
+  ads1015_set_conv_mode() following review feedback.
+- Incorporated review feedback from Jonathan Cameron and Andy Shevchenko.
 
-So I'd suggest following the standard kernel pattern:
+v3: https://lore.kernel.org/linux-iio/20260812164433.23011-1-architanant5@gmail.com/
 
-/* Caller must hold f2fs_lock_cache(entry) */
-void __f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirty=
-)
-{
-if (!entry->cache)
-return;
-f2fs_do_truncate_cache(entry, drop_dirty);
-}
+Archit Anant (8):
+  iio: adc: ti-ads1015: use DEFINE_RUNTIME_DEV_PM_OPS()
+  iio: adc: ti-ads1015: sort headers alphabetically
+  iio: adc: ti-ads1015: use local device pointer in probe
+  iio: adc: ti-ads1015: use dev_err_probe() for error handling
+  iio: adc: ti-ads1015: drop unneeded < 0 error checks
+  iio: adc: ti-ads1015: Convert to managed resources
+  iio: adc: ti-ads1015: replace custom shift macros with FIELD_PREP/GET
+  iio: adc: ti-ads1015: inline ads1015_set_conv_mode()
 
-/* Safe wrapper that acquires entry lock internally */
-void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirty)
-{
-f2fs_lock_cache(entry);
-__f2fs_truncate_cache(entry, drop_dirty);
-f2fs_unlock_cache(entry);
-}
+ drivers/iio/adc/ti-ads1015.c | 153 ++++++++++++++++-------------------
+ 1 file changed, 69 insertions(+), 84 deletions(-)
 
-Then compress.c (which already holds the lock to check entry->ino) can
-call `__f2fs_truncate_cache()`, while other callers can safely use
-`f2fs_truncate_cache()`.
+-- 
+2.39.5
 
-What do you think?
-
-Thanks,
-
->
-> Thanks,
