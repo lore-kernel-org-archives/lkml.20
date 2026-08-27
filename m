@@ -1,59 +1,60 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A15246770
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD56443A98;
+	Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787859496; cv=none; b=T1cKpD4n3nYUznbDfagY5nRZOOvXej3w1YxtWViHpHYYpo3tnCXJZItQo1sgp28MHOrW42gQ4Nh9tQeY/RCplBEGWuheH4M3dyFlhUX1WEwhX5nfUU7U5EqvgoqG1+xsgjrCL31iaXvJU2JbJWn95GHownOyod6z9eVlwbvXu0M=
+	t=1787859520; cv=none; b=LlakZfGXvrMmYltFZ3nmTg8ua2kmYmiqfdNVJMtZenpYH0TT9Cw48CHO+a9AkgJ9ezAfWUABnNWo+fD/nydZTqUuZXKWMEZSzchbJa7cgAqGFc8G7Jx78eXy/ZVnj1fVAgn0Nw0H1dbrCb7c9gNFNnVcwe/Ht7+xkUiKJPwCw3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787859496; c=relaxed/simple;
-	bh=Cc+DvbiYY/ooLehhxSq3Bx4qgnUQVzZhgaXdBIvk2yc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D0/jsSRapz188aHQ5rLRXU/eLriw/b+3l8j2SB5y+hZlqgifLlAAVLRKRaxC1lko7YZIbdSShfq6tCq8Hwqbu13cx+tCprj/QNtKLFNqqy1RuNSWEpwYchpALAmHgY3zYEvIWsRBV2zM9vIpw7lH/4tLw1nlspgec1YZGgHrHfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TuYVqiMq; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787859520; c=relaxed/simple;
+	bh=eP/hk2DNSiSupAaKn6szi62QjYKLXlDV8zQagv49aiQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OrukahlYovVVDHXZ3WVJjfvQNveeF3JRIiT7/LChtYRlEvm0/Vo2af+LWBDAG+CZlhYB3h+p8OyFRH3FOFbqDUJrBak3k3N/lADctI/OXDoy1kVVUf9h5atIxYtO97iGzdZjkH1djWzok5sYRhE2zLw2yFD4zonpWY2ZimRKAxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qKBwYd22; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TuYVqiMq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787859493;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Kt0iMpDBFlmiHQAy/q1M3G998Q+sldYNRt9UNMrTIzg=;
-	b=TuYVqiMqV0A5lOlJomytMuJOvKne6/09tPa3HVIW1oUhSldmwt0VffAwsQ1lWv7aX0Sifi
-	B/qyEZF4dufq+YDnYuZHE1Wp/nUGSsHIJQWXLL3oqhO8mZozHrGvQNTtgZVt29pyPcGGLJ
-	ohr2TzXSjMWTgSkpa16pdXjyjFM1gGQ=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-547-DSgbXbAIMnu3mYMVbwhzjA-1; Thu,
- 27 Aug 2026 15:38:09 -0400
-X-MC-Unique: DSgbXbAIMnu3mYMVbwhzjA-1
-X-Mimecast-MFC-AGG-ID: DSgbXbAIMnu3mYMVbwhzjA_1787859488
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 114E91801356;
-	Thu, 27 Aug 2026 19:38:08 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5C40F1800640;
-	Thu, 27 Aug 2026 19:38:06 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mikelley@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH v3] Drivers: hv: Avoid infinite retry loop in init_vp_index()
-Date: Thu, 27 Aug 2026 15:37:50 -0400
-Message-ID: <20260827193750.662623-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qKBwYd22"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1787859519; x=1819395519;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=oLAeOmZrtq36A1IcHxniw47pbRoh1qR6Um5nSXbPo1A=;
+  b=qKBwYd22K1Ojz4OmfLVoLdQbkdN8XXtvzM9CgqsnFoJYs+hpRCEpDbCH
+   Tc8bURvnevO8oOp3jn+iRccmRG9qDh3BLEQjqi1EnmirsCmn8YW8dsFhP
+   BP9EKkqNuI7LKUaDmBy3qjYrJVBDWLMPkiQU0nSQJQWw9HKNPAi9/ShjH
+   OguRXBDFISYhPpa9+g/u7pR/QboiMn4KQA+uOsHMKwRNA7kIhazJ3mA00
+   pLctVM9unzLVX/h/cQMt2X7mcOGXayQLAf4xsROm4QDHsruN0GFsbgtfC
+   oC0yuNSBOZf2BhgHucMleuYQL1SMTecM97Xd9oqpkk0jT6kPoVjybwth1
+   w==;
+X-CSE-ConnectionGUID: ZMdiy7luSDy5KUaN1uRScw==
+X-CSE-MsgGUID: LWv9H5gNTwqEPlTS5WdLNQ==
+X-IronPort-AV: E=Sophos;i="6.25,247,1779148800"; 
+   d="scan'208";a="26951848"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 19:38:39 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:24810]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.27:2525] with esmtp (Farcaster)
+ id 2c62c1b5-ce79-4e1b-b168-d99646deb830; Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
+X-Farcaster-Flow-ID: 2c62c1b5-ce79-4e1b-b168-d99646deb830
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 27 Aug 2026 19:38:38 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.26) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Thu, 27 Aug 2026 19:38:38 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>, <akpm@linux-foundation.org>
+CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>, Nathan Gao
+	<zcgao@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Thu, 27 Aug 2026 12:38:21 -0700
+Message-ID: <20260827193821.46115-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,60 +62,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-There is a retry loop in init_vp_index() where the CPUs from a certain
-node are stripped out if they have already been in the allocated cpumask
-or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
-CPU left, the allocated cpumask is ignored and the process is retried
-again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
-out not to contain any CPU in that particular node, that will become an
-infinite retry loop.  This particular problem was reported by sashiko
-[1]. This should rarely happen, but we still need to guard against this.
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr. There are two users of
+r->sampling_addr in vaddr.c that pass it into a page table walk, and
+both use it as the address of a page.
 
-Fix this infinite loop problem by also skipping NUMA node that has no
-housekeeping CPU in the inner while loop of init_vp_index(). As the outer
-for loop will only be reached if the housekeeping cpumask isn't empty,
-a NUMA node with housekeeping CPUs will eventually be found.
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 
-Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
-Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
-Signed-off-by: Waiman Long <longman@redhat.com>
+  damon_va_young(mm, r->sampling_addr, &folio_sz)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_young_pmd_entry()
+        ptep_get(pte)
+        mmu_notifier_test_young(walk->mm, addr)
+
+test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+arm64, documents @addr as "Address the first page is mapped at".
+
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+clearing of the young flag for large folios"), the contpte helper walked
+exactly CONT_PTES entries from the aligned-down page table pointer and
+used @addr only to pass down to each entry, so an unaligned value was
+harmless:
+
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+Now the range to walk is derived from @addr instead: end = addr +
+nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+page of a contpte block, the sub-page offset puts end just past the
+block boundary, so the round-up lands a whole block further and the
+walk clears PTE_AF in CONT_PTES entries beyond the sampled block. Seen
+on an arm64 guest running the DAMON selftests as random slab and page
+table corruption.
+
+Align the sampled address down to a page boundary. It is the address of
+the page to sample, so this matches its intended meaning and fixes both
+users in vaddr.c.
+
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
 ---
- drivers/hv/channel_mgmt.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ mm/damon/vaddr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index 89d214dda360..ed121d74d73f 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -752,6 +752,7 @@ static void init_vp_index(struct vmbus_channel *channel)
- 	u32 i, ncpu = num_online_cpus();
- 	cpumask_var_t available_mask;
- 	struct cpumask *allocated_mask;
-+	const struct cpumask *node_mask;
- 	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_MANAGED_IRQ);
- 	u32 target_cpu;
- 	int numa_node;
-@@ -780,14 +781,16 @@ static void init_vp_index(struct vmbus_channel *channel)
- 				next_numa_node_id = 0;
- 				continue;
- 			}
--			if (cpumask_empty(cpumask_of_node(numa_node)))
-+			node_mask = cpumask_of_node(numa_node);
-+			if (cpumask_empty(node_mask) ||
-+			    !cpumask_intersects(node_mask, hk_mask))
- 				continue;
- 			break;
- 		}
- 		allocated_mask = &hv_context.hv_numa_map[numa_node];
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 2c1c1952c008d..e26e426a56af2 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -360,7 +360,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
+ 					struct damon_region *r,
+ 					struct damon_ctx *ctx)
+ {
+-	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
++	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
++						      r->ar.end));
  
- retry:
--		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
-+		cpumask_xor(available_mask, allocated_mask, node_mask);
- 		cpumask_and(available_mask, available_mask, hk_mask);
- 
- 		if (cpumask_empty(available_mask)) {
+ 	damon_va_mkold(mm, r->sampling_addr);
+ }
 -- 
-2.55.0
+2.50.1
 
