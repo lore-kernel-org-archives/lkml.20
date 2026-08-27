@@ -1,126 +1,77 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD02D2931D5
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE05377EB8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787792897; cv=none; b=OYK2ZWHpBB5RQwMNgjy4oZNBXxGA6BNfFiZ+BHfsvprVd+joWS5vvM52rEX1OiYXa9WRvCejw6s68ZPw74TuNkFOdbNO4sbxc3e5JpUOfyKYmpOIADibaLN30C8plcuyG7OZjv8cWzjDf+ha52RXNfbLzpQdzTJJE6WEeEZYonA=
+	t=1787792907; cv=none; b=Ok6p93bwcyi6vx+Y64c/NeiFCnha/OMACDVoohdLKC+h20NRtg62BzG0mlNEG8+KjKLI3HOisBcEZG9NRaGf7kRcgtDcb8gYXV079H2pgnIc1z8adcNRHh+6Dyd2auTzShkp7LXs20kGz9gE/KbBUR3pfa1qlyZCYdqjkoXxedg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787792897; c=relaxed/simple;
-	bh=p9jb4SZyvm6HR3mUvLv+68wZ1px6C2vDJxzW1XERtP0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Yx94ub1XTkPm27jGD0BLZAZMil2sadxoZUecsJMEy5vX6TN6yqstEEK9OsFMz+daLxyTn/5pO9pcexoyLtWyjAEAiObD074KpzNLZRN812JeALaww2/jIXSLDhnLQWGPHunkn0Bg8//c3udLRnNDMMawr3T7tAbPgsqxsVSSsiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c40d9438a1b311f19a56ed5b684f684d-20260827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:96c0cc05-3e7b-441c-b281-c055d2eb5c28,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:6fc1603edcbcc9bb94a20c64b10ec073,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:ni
-	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
-	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c40d9438a1b311f19a56ed5b684f684d-20260827
-X-User: yanglinlin@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yanglinlin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 910434891; Thu, 27 Aug 2026 09:08:08 +0800
-From: Linlin Yang <yanglinlin@kylinos.cn>
-To: harry.wentland@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Linlin Yang <yanglinlin@kylinos.cn>
-Subject: [PATCH] drm/amd/display: fix misspelling of "overridden"
-Date: Thu, 27 Aug 2026 09:08:02 +0800
-Message-Id: <20260827010802.56422-1-yanglinlin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787792907; c=relaxed/simple;
+	bh=VOVf2jgsbDW7zRL1jNwLvOVtNkmNk5Jy/OBqDy4omJU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZhOyaZ2KaF6ENTc+F1vXs24cXEG+5iX3D421W2seT1YbI48sJyoZdjYAilSCWhwsfn++T5fijNobeM0wyujLDq0k+t88o2dfuhi6rCdst6Wn/K1+dZu8KVotZgxeGEY7z0PbIKPB/VqxnsaZerUlbL/nDgtflqpB6X6Rt5tN+aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFVHwHqZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFVHwHqZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC67C1F00A3D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:08:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787792905;
+	bh=U0nb/TwXUmCEr1H01OzNJo0vAVtUQauj50no/8k3br0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YFVHwHqZ02MVnH6FlpkdMb5MY41lnZ6TshruOkSitD9wR+1M24ca0RiJVsNWmCMvv
+	 Ef4A5rvwYuje/kpRB+eIOgVqjTIZWH8f980KOs+oT+VWB99qIRojkIZ5zOJ++q80mY
+	 ez8EpHUqxAnDillUMRTQ1unwm97+VoxkF9ECldhBjZfZd5T75oDqEjq9+o9TYzxwX/
+	 gGEFN0t/nDXOHsLMGstk6/6TgEznIJocwhc273CSq70YQq/vxbajXZzewV3VzoqiCf
+	 L5Xz6q2YeWrrQPVw5GM8NSKjjJivinDJGWVLWrt3VGCPY0BoFKVv7FqIO3eqI0YCRQ
+	 4hGOHMtMsHt7w==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso2599418a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:08:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr9OBBH2vqYiHjCAJtco/AmXxiDDwxM+qd9TuCGfWdsgI8bBcKmfi3r41nC2VJp99nlWm0dZK1dUb/Iqag=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLq+dKi6OoCiXCyUDFBvaR47kZWa2/E21dyJO6+TVqV+Z+smkC
+	6gXmkUrUGF4snKM37fPctIwehEEoG9UDPhTux5znGBrisEa86z2jN3shrJkZHx10KyAB/7D6YWr
+	N5hYL4so1RSAHaraaf2cn00jljqVw2pk=
+X-Received: by 2002:a05:6402:a503:10b0:6a5:f1bb:8376 with SMTP id
+ 4fb4d7f45d1cf-6a5f1bb857emr4670209a12.3.1787792904440; Wed, 26 Aug 2026
+ 18:08:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260821100531.998196-1-chizhiling@163.com> <20260821100531.998196-7-chizhiling@163.com>
+In-Reply-To: <20260821100531.998196-7-chizhiling@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 27 Aug 2026 10:08:11 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_MxctBGgP6_daddk1q9Dwr0ZMAQchXqvEZME_Yo6xSuA@mail.gmail.com>
+X-Gm-Features: AcwNN1VvGk8tUaKOvxF7zAh4jb3QjLjFC7J392nsMV9mI8fktnumpSzTbPVQSUI
+Message-ID: <CAKYAXd_MxctBGgP6_daddk1q9Dwr0ZMAQchXqvEZME_Yo6xSuA@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 6/6] exfat: take s_lock in read mode for iomap
+ mapping paths
+To: Chi Zhiling <chizhiling@163.com>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
+	Chi Zhiling <chizhiling@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 
-Fix misspelling of "overridden" (missing a 'd') in comments.
-No functional change.
+> @@ -68,7 +68,7 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>         num_clusters = exfat_bytes_to_cluster_round_up(sbi,
+>                         offset + length) - exfat_bytes_to_cluster(sbi, offset);
+>
+> -       down_write(&sbi->s_lock);
+> +       down_read(&sbi->s_lock);
+If may_alloc is true, Should we use down_write() ?
 
-Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
----
- .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
- .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
- .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 33b5136f7ce3..75bdad22bf69 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -1805,7 +1805,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	v->DISPCLKWithRamping = 0;
- 	v->DISPCLKWithoutRamping = 0;
- 	v->GlobalDPPCLK = 0.0;
--	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
-+	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
- 	v->IdealSDPPortBandwidthPerState[v->VoltageLevel][v->maxMpcComb] = dml_min3(
- 			v->ReturnBusWidth * v->DCFCLK,
- 			v->DRAMSpeedPerState[v->VoltageLevel] * v->NumberOfChannels * v->DRAMChannelWidth,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index 8064c4b3fd25..3f62ea493787 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -2045,7 +2045,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 	v->DISPCLKWithRamping = 0;
- 	v->DISPCLKWithoutRamping = 0;
- 	v->GlobalDPPCLK = 0.0;
--	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
-+	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
- 	{
- 	double IdealFabricAndSDPPortBandwidthPerState = dml_min(
- 			v->ReturnBusWidth * v->DCFCLKState[v->VoltageLevel][v->maxMpcComb],
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 16951a9550f2..d3fe6e024891 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -108,7 +108,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
- 			/* alternate scrambler reset is required for Travis
- 			 * for the case when external chip does not
- 			 * provide sink device id, alternate scrambler
--			 * scheme will  be overriden later by querying
-+			 * scheme will  be overridden later by querying
- 			 * Encoder features
- 			 */
- 			if (strncmp(
-@@ -124,7 +124,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
- 			/* alternate scrambler reset is required for NUTMEG
- 			 * for the case when external chip does not provide
- 			 * sink device id, alternate scrambler scheme will
--			 * be overriden later by querying Encoder feature
-+			 * be overridden later by querying Encoder feature
- 			 */
- 			if (strncmp(link->dpcd_caps.branch_dev_name,
- 				DP_VGA_LVDS_CONVERTER_ID_3,
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 204375f1eff8..587d26c742cd 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -584,7 +584,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 		return false;
- 	}
- 
--	/* set default inbox type if not overriden */
-+	/* set default inbox type if not overridden */
- 	if (dmub->inbox_type == DMUB_CMD_INTERFACE_DEFAULT) {
- 		if (default_inbox_type != DMUB_CMD_INTERFACE_DEFAULT) {
- 			/* use default inbox type as specified by DCN rev */
--- 
-2.25.1
-
+>         iomap->bdev = inode->i_sb->s_bdev;
+>         iomap->offset = offset;
+>
+> @@ -135,7 +135,7 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>
+>         iomap->flags |= IOMAP_F_MERGED;
+>  out:
+> -       up_write(&sbi->s_lock);
+> +       up_read(&sbi->s_lock);
+>         return err;
+>  }
