@@ -1,176 +1,178 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B224DD17
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2562580F3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787789475; cv=pass; b=Ht/wzclc9MFyklPfR2t0dNg7YfCiGPAqjHUJUwedb++Muz+botOZiQgu9S/FE8di26RdR32yuRgUG7sNyi1Te5j9CWHI+LWgKizlNGunyZPncoCFQ0qnZ4wI+qeSbgx+nw7y/MB5gzqLpZvS6DOxxngKS9uC65uS0dwOSthkfxI=
+	t=1787789494; cv=pass; b=EYC2vR67xQo+f+1OgIgxOfCePPZw0+gg4rajiWs4C0zkfyRX/A5DKFA8fOSOL2QIgTyuHfZBvqFXhzKpdkU2KBsKDo5HEhfpI7QUPwMVQqanfTiyJpPICDDGZz5ZRPmbThCko0cyu4kcXIzQFYPmuu+0o34YrdKrcYIwnLwVcxw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787789475; c=relaxed/simple;
-	bh=q9fPaqLMvwojY1sDSJE1KOtBByV27/rWMVd0RMgF7LA=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jUc+HVcq84WHVH33wa/1wmAskcFGCN1i/DcTnFprRpouankAtkJJYCdtVvcAyr3PajlN07sg34HgeNHwaHoywiD2mRVSKhRrDHeNh2iq0kNnjWEzE6Wii0f8HqcMbAXxq6T3r7JaTWbtdgDz8MA1kBTJKZ9BgSCSMhL+JTNm03U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DDHytNYH; arc=pass smtp.client-ip=209.85.219.50
+	s=arc-20240116; t=1787789494; c=relaxed/simple;
+	bh=U0ZVJdy2xlpPXTTE9DVaFvSQYGlWfk/i2EZPp5O3aR0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qymk75/hEEUvRSSZKFPx/DhzGxu1QgqDBiBqHe3hCuZ4tR0U9+IO5EggmDShtuAGj8gxXyTVSCoRj/uquypncUj7O43alGKE1vI/2eSLvaSZg73Cz/LlxdnMLBMMGG7gkrbaqkqA08a1ozoigLp4SH97lZ3E20EqTXJojyHzuNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DQ4RaDox; arc=pass smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DDHytNYH"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90ccbca8bdeso8406656d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:11:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787789473; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DQ4RaDox"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c10ed63c0so62621cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:11:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787789492; cv=none;
         d=google.com; s=arc-20260327;
-        b=khSjs79vkj9zStEsVDNMM+A9vrN70YT/3gIwOBteqsxUQDd2jsFOpcipVwyt+wK54J
-         APWQetTLMfkGGz5sk0Ru0QU/Cm6HWuTmeHX/Z//WPtVOPePHCGpQKV6u3ECs8l0iWhGH
-         AzXR+1OA8OPLRizdyCiWGUUJoKZJfTjxgqVX1Zt0R4cKFpAA7fQfPkL93PcQds3ICmfn
-         I4DdKdnxxoyeUAu/VdgJ20xJJoSwT+lYihpZw1GWO61v7mjJ/ZVOhjKLFPsmW4gUb2z+
-         hgkizPeDbPgs7FX9wBy7o/QEYs5RCStOpO1K4JWaOt1y99MPC6lT/9YlDRKDzgL1WPUP
-         8l/g==
+        b=ntKZ9Nq1mFEGSOuNVJLdEfoRZj4xz61W0KEIGf0fxUUFsCYNdtZnpWrwnXVfOyGY1n
+         TmBOC8TeWN0r0NUGESNdJw36Zy9USOKoLYqStZM5qqPGm2f24os16luaRIWVVlwGqrPd
+         JxExbenYrZo+dRPlyf0mm9+h0TjkGiX1sb/s+dJ9Xdc0bCsisVj8g3l2d5+8mG4WMyyh
+         upjcwWgpL4kp38uWJ8TRZz2TkdNI0yBlS23M0nopN1TQr4jyNCJXZSZ3pfRllPiFtBAH
+         gVKipmlIf1GkCAR8xsZMHXUhrpAKPgZ2NV7cQt4sNW1YTtOyI0LmnEiiFUFGSx7ms0fb
+         3wwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
-        fh=VPNBPzIIr2ZDHGsAtkI3Jf5gmhgDSHG0rhAFoL8UMC8=;
-        b=ZheVPqI0yb1LoOqrZmYStY9ATLo3Tv4jd5uAWwJGYvTy0+nRQldKdmHvwpwPhRJXYS
-         Y/Y9Jf1ee1wZ0Y+dsw+0YdMl5cRTFXYXa7mm+lYpuFr3bnb0f34w1XoVYhA2qo43rXq0
-         5ee7BQqrUcHUcQ8Q9oGJAZPvNMyUMh6cishfAFgSrLCkuga3G2BmfmuRZ3s5VMdX2NEo
-         GO7QJuxqH/fHzo9v2mqFczGbJ2zqYOF5r8tpbZ7T0i8ZhngPFyMYkGP7yuBOElOfu9uo
-         u+6//ezmeo7T0gSil4RaZF6I6uGOWBdBaqfLBIlMgnAZ2oUocdDUlh2Ea2jF8x4WtNVc
-         5baA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5/sDIPJWVvy4M9xDKoTn87D0a2lykeAfDHJvuULa0K8=;
+        fh=eK1ZXod82PfqX9RXhj4NDU93T2+/v8tZXFSr7C1P5TQ=;
+        b=pRbX67dg1WI9xs7Hgcg04JhdSFR7+KYk3rewpoPxVedi/V9JjssRhZsvflqMak7LNP
+         ufe4kKGFkYkgtiiJo7TMfRp7tAz2BDhdDIc25eqT+aB8BbCArMZ1Cfu9OpFMAZPSvg43
+         Zz6W26rW9HPajQCx9OSu+W1m6JO7GMmoSeNtSbZIeIGS2bqorWmNkYotSUdpwrb5M2BQ
+         KrcpLDBfBGQpNIBikBns2ZV1/eVEV3dmhmy0fHK1NziVNSby0EpGdC26I8gs7mVi9gFw
+         yPJ/m6uEDlP89/ImZdLilK1vfdHRtRq0gT2nGwFGXjg+pc87Wm354/LyIBqvdhO2fuT1
+         ozxg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787789473; x=1788394273; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
-        b=DDHytNYHmL8ZZFfUZQMn9dv9i2pHGtixDiXKH9NcxPc4aJG167NL84W4W1eFrg82s6
-         K6FGfBmIu0OB/N4HK5JAFeA1UGR0z5TlKmc3aM+GLZARcczL7zef3x1NOk3gnKVBbErt
-         xi4wq6VzqorqIOe3iRB2OmS6mFTNQfV99usutBR7zO4DRLOWqjr7mfDN5C7fBQb5JJdH
-         p2T/sZgpckboyIVBPJAuAoTIcUqpQdX0fSP1tMUoo2TLb4tdTLhQG1ds/xrwWWn36i8l
-         cCnl653nK2rd+DQLX4EaUe9yQIPUT0c7flfn4QVBnz+eNFPfHNpbIF014eIJsP8Ak4Tx
-         3CoA==
+        d=google.com; s=20251104; t=1787789492; x=1788394292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5/sDIPJWVvy4M9xDKoTn87D0a2lykeAfDHJvuULa0K8=;
+        b=DQ4RaDoxwPXoleY2/DBK5nA5egrX5/rVO6rCLgHpgLh7OQpjXL1R1BPPMKMSefrtg3
+         VZAI3oRnBNh+K45mJN3dzORZ6ac8QCknlVyB0wcX0IMGC0L2MnIbzlmKKPKvD0/phVvK
+         +cq5saE9yqb6gzglLrOlrO6zfn+EgzavCDGkhNB2GRbnp0HYz5CCjclJiX3QTIKTLJ5o
+         xoBQR7Kve3l5QX39NQhf1chGNzc1o4qEJV7OlRp930P77qHt91by4bn95+soYrmb0pgg
+         /oC/vmBsWkCzr5T3nuliA3iI4+Enqy+h+p/7J9In04Uyq3c13ckCmyPBCbiKXb4xBdYq
+         ogHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787789473; x=1788394273;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
-        b=T3eXzGa3a4TZMrFoqWzR1cr8HNupoFPuL8Bs5n+qRnAVqWclhQlXtcC8gYtjuUVkY7
-         bpndMiA5L5shkbBtQsHCznON9rAOtinLJVKSYupe+wpdnTLXjRU447fEZk5Y5v0JSkCY
-         mFeGh2aGkPXAEmpuQtPiDOX3HVywjKXFC0EpqndUTfwcmPrjPR4D7d2cwfTyPWjcEMqg
-         +reUSKP8M1yxOKlk0eyUWYyBUp8HU7aAUxjrtcJdmaUD2VbTvlzDVI4LRnOVQtFaQ4fq
-         c6W/b7knC9IwcMQkdURchzZGIL82Rw9QWTOxlhy+SweUl2o4m8E7/Ly4Vp7KESJIMUFG
-         Ckeg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/nmPqSwPFA20TPj1ntPrzMoxaiZ0mZKIpbofmSbGN/rHnBbVEo4aaf65uhUKynultHkimmhxzGGIMFdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/c0js508q42qACyDkHJmHjcXxOk9f+DqbAUNyXuU4rtlrtWEQ
-	lyY9WkOx7lu6IEM8L+F89egk8MTHe3sTUZIBoztYOqzYxO3px/RgUPCVUHTsFUJ5E9WY//WpocB
-	EZ9OvgRf4FbhtCnPblvBbc0qvyuFzm3WZ4f3zYkba
-X-Gm-Gg: AR+sD13jhvAdkIfwZw0zyDU21qKdMwP/BzMjOAmYnJA2PJnn6m70N0sb7JScWjS1r4W
-	/sgAKcHuTkOeYbKvErdjHsPkomHjUCa9tTOQ90+9NW0edV20Btt1jMVXhjPy705AE9cXU8MODDI
-	c9R02iJ5J2+cay66SrfzUTJxVfbIjhLCXnDPkAVvt5UmVsFzVSkXdHpUTfxT2Gg9aph262nQlWx
-	GMX5a+cx0Nefab4Nv3UJACuyVrpb6WFWK3vKpmei22Rr5zRADHn7DFtLM//+oib1SyAXAyVbsI7
-	oL7s9CFcjSkE8Pkk9x/F0S7BvgVBSP2fFB5FUj3qiTW6FyvXbjTUoqJUfoaq59myN3suEdZWmYv
-	PuVU=
-X-Received: by 2002:a05:6214:4602:b0:908:98fa:f374 with SMTP id
- 6a1803df08f44-90cc7858733mr168107566d6.6.1787789472172; Wed, 26 Aug 2026
- 17:11:12 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 26 Aug 2026 17:11:11 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 26 Aug 2026 17:11:11 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <ao8pCI3AaUssIO8S@google.com>
-References: <20260823-memory-failure-mf-delayed-fix-v5-0-d97a5703e45a@google.com>
- <20260823-memory-failure-mf-delayed-fix-v5-5-d97a5703e45a@google.com>
- <8a99f753-0713-4194-8eb5-90da0724e647@kernel.org> <ao8pCI3AaUssIO8S@google.com>
+        d=1e100.net; s=20251104; t=1787789492; x=1788394292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5/sDIPJWVvy4M9xDKoTn87D0a2lykeAfDHJvuULa0K8=;
+        b=NUMDnAZFt9p2wEeIg/3CON1KayuzhTk+vMcPRnzdF4sfy8gj91y1FnyxaqVBwtNP9W
+         YollJXE/AEIpJtlclmt23u2l0ZK682M98Fq2CNmU/BTjmbFxUdz1xlc04ozKYORYpYwP
+         EIvZYDMzbx/NgLodMiYiSHNM4BOX+r3kUVfkpQWTvFLpyrdTqWx3/Z480lPNuF+WYYl8
+         eIAKGfVysjAuG31BxOSXTx/4ZAgeqGaZCLmtkqNs4RE5FNkmvrvVic9NPF8TUHcseNVM
+         EyJ+8YHbwNZaf0I7BSOo4MuvqEgrU0VBUYKkRtn3XNhMd3+r4lOoBVmhFgPdGqxPjVgJ
+         iZKg==
+X-Forwarded-Encrypted: i=1; AHgh+RrST9zeozLEPZcJkRzsgq2KlwNgyCCitrlv9ZmzRDUhYq7bpJwUX1hG+a9MLPMAesQsS9bkJWmgBAxEC+g=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0jnOICCh3u0w9GY0VMQSpyJnyLRewhhdLGKrFbK6P16ha2Bz+
+	/nlxf3WJQ4/j1sCqOaQ4EkzIk5gf9VK6JLmUAQLfrwYvPDnmfOGsT4Vk5M70ptyZMR4HSK8JSwC
+	hSNNYGR1g24AAcO6xB7n8inRb4lw1MfVJWJM+KWFd
+X-Gm-Gg: AR+sD12aq8a5RLHXIQ6Nm0uicuWoAssb1+ACgnusvpDlfdxhJZVjudBK2kAoVSkfJdU
+	oe8P+sxm6FcOZla4l8saGwM1qxIeNPKLT1IB/rbqR/eKI5qMRChAvAb0M38R0SZoaYYs7wxOxPT
+	1E+X7/dWsorOOvnQ5J+OWmyqKCqcrThzbwnMHdKrnnWRewE7AVQzNQTgfczDqjuXJc/rWjrqf21
+	OkX+AAq4SRV7kqaU8Rq5kRF1gpwwIZhXnrZFilurAD4TiFeRib/u+0iVr0DzSyrW83kjTsahHBf
+	fHbbq7aUeiemxiWaYCFJqJeFabx5r7W4ShQbHvh16ag=
+X-Received: by 2002:a05:622a:155:b0:52f:9ed4:8d74 with SMTP id
+ d75a77b69052e-52fa36b4dedmr7284201cf.14.1787789491416; Wed, 26 Aug 2026
+ 17:11:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 26 Aug 2026 17:11:11 -0700
-X-Gm-Features: AcwNN1XfQOKyfEIZtdcwN4-zBTAXGB_PV6TdJFFinygb6qNke6evcDePz3wbfQE
-Message-ID: <CAEvNRgHAwAJee6_ra9-zioDh_BqHM9Lbu+TGXxWHbG7za=g5Aw@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] mm: selftests: Add shmem into memory failure test
-To: Lisa Wang <wyihan@google.com>, "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Andi Kleen <andi@firstfloor.org>, 
-	Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>, Rik van Riel <riel@redhat.com>, 
-	Yu Zhang <yu.c.zhang@linux.intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, rientjes@google.com, seanjc@google.com, 
-	vannapurve@google.com, michael.roth@amd.com, jiaqiyan@google.com, 
-	tabba@google.com, dave.hansen@linux.intel.com, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>
+References: <20260824014736.35026-1-hao.ge@linux.dev> <cd6b372d-cc68-445d-bcae-6cfc83d9e4db@suse.com>
+In-Reply-To: <cd6b372d-cc68-445d-bcae-6cfc83d9e4db@suse.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 26 Aug 2026 17:11:19 -0700
+X-Gm-Features: AcwNN1VDomkisfTnAtHt4KtA-jTwfLuIMQLzObQetyS450qtuGh4E69anVaRXCw
+Message-ID: <CAJuCfpEzkuYBY2dBtUrR0pquajr_2LV3N=Ti6xTZB6MqhqAx8g@mail.gmail.com>
+Subject: Re: [PATCH] module: fix lost error code from codetag_load_module()
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Hao Ge <hao.ge@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Lisa Wang <wyihan@google.com> writes:
+On Wed, Aug 26, 2026 at 2:24=E2=80=AFAM Petr Pavlu <petr.pavlu@suse.com> wr=
+ote:
+>
+> On 8/24/26 3:47 AM, Hao Ge wrote:
+> > If codetag_load_module() fails, err is never set and load_module()
+> > returns 0 after the module has been torn down.
+> >
+> > Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as m=
+odule load failures")
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > ---
+> >  kernel/module/main.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/kernel/module/main.c b/kernel/module/main.c
+> > index 46dd8d25a605..afb810f0154c 100644
+> > --- a/kernel/module/main.c
+> > +++ b/kernel/module/main.c
+> > @@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info, co=
+nst char __user *uargs,
+> >                       goto sysfs_cleanup;
+> >       }
+> >
+> > -     if (codetag_load_module(mod))
+> > +     err =3D codetag_load_module(mod);
+> > +     if (err)
+> >               goto sysfs_cleanup;
+> >
+> >       /* Get rid of temporary copy. */
+>
+> This looks ok to me but there appears another bug related to this code
+> that would be good to fix at the same time. If the module is
+> a livepatch, the preceding call to copy_module_elf() allocates
+> mod->klp_info. However, if codetag_load_module() fails, the code doesn't
+> free it.
 
-> On Mon, Aug 24, 2026 at 03:00:47PM +0200, David Hildenbrand (Arm) wrote:
->> > +++ b/tools/testing/selftests/mm/memory-failure.c
->> > @@ -20,6 +20,10 @@
->> >
->> >  #include "vm_util.h"
->> >
->> > +#ifndef fallthrough
->> > +# define fallthrough __attribute__((__fallthrough__))
->> > +#endif
->>
->> This doesn't belong into this test.
->>
->> rseq/rseq.c selftest already uses it.
->>
->> I think tools/testing/include/ already provides it.
->>
->> Maybe
->>
->> 	#include <linux/compiler.h>
->>
->> does the trick?
->
-> Hi David,
-> Thank you for replying.
-> Would it be better to change it to /* FALLTHROUGH */
-> like the rest of the mm selftests?
->
-> If we prefer to include <linux/compiler.h>, we can
-> certainly do that, but we would also need to update
-> the Makefile and fix a redefinition in pkey-helpers.h.
->
-> --- a/tools/testing/selftests/mm/Makefile
-> +++ b/tools/testing/selftests/mm/Makefile
-> @@ -37,7 +37,7 @@ endif
->  # LDLIBS.
->  MAKEFLAGS += --no-builtin-rules
->
-> -CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
-> +CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES) -I$(top_srcdir)/tools/include
->  CFLAGS += -Wunreachable-code
->  LDLIBS = -lrt -lpthread -lm
->
-> --- a/tools/testing/selftests/mm/pkey-helpers.h
-> +++ b/tools/testing/selftests/mm/pkey-helpers.h
-> @@ -22,7 +22,7 @@
->  typedef __u8   u8;
->  typedef __u16  u16;
->  typedef __u32  u32;
-> -typedef __u64  u64;
-> +// typedef __u64       u64;
-
-Removing this u64 typedef seems to be unrelated, the layers of includes
-probably has some weirdness that needs to be ironed out.
-
-If the weirdness is not too complex to iron out to be in time for 7.4, I
-think we can iron that out, if not perhaps using /* FALLTHROUGH */ is
-fine, to be aligned with the other mm selftests.
+Ah, I see. Nice catch!
 
 >
+> I think we want something like this (not tested):
+
+Yep, that looks like the right fix to me. Thanks!
+
 >
-> Lisa
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index d0e1e0bd2ad0..c1b34dc1e89a 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -3581,8 +3581,9 @@ static int load_module(struct load_info *info, cons=
+t char __user *uargs,
+>                         goto sysfs_cleanup;
+>         }
+>
+> -       if (codetag_load_module(mod))
+> -               goto sysfs_cleanup;
+> +       err =3D codetag_load_module(mod);
+> +       if (err)
+> +               goto livepatch_cleanup;
+>
+>         /* Get rid of temporary copy. */
+>         free_copy(info, flags);
+> @@ -3592,6 +3593,9 @@ static int load_module(struct load_info *info, cons=
+t char __user *uargs,
+>
+>         return do_init_module(mod);
+>
+> + livepatch_cleanup:
+> +       if (is_livepatch_module(mod))
+> +               free_module_elf(mod);
+>   sysfs_cleanup:
+>         mod_sysfs_teardown(mod);
+>   coming_cleanup:
+>
+> --
+> Thanks,
+> Petr
