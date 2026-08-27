@@ -1,124 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFCB3655FA;
-	Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E441E353A64
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812615; cv=none; b=V84eLuqfDzpv4GuOHRiBn8/Z3jYKJTi57yIs9wyb4Kf1+7735Qkio74ZPebkwX2qdFJq2VtsKV3wpQOOhWwjQ2hOTW4Nx7EhoX6/3YO8jMrCoqE340+SM/ekUcuauYKSuPmJrPwcoJIVtB3ITQB9z+0TxaBQhOf1FO4t7kWlyKs=
+	t=1787812622; cv=none; b=UOha1ifR8i+T8AmLZBzOoQzp/hHd3EI94FIKQ6gWjO1BAUR7KoQYW9UFuKmdHqWqoF/QQELM0nC8E0DNGwkby7OVOczag0XVaYeUsjdy7PrY2w0FdtzWUVmLbw6d4sIjkF3e7puwq4egphkEba//cqrWKg+b1Q4zYnR03d1e/ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812615; c=relaxed/simple;
-	bh=obqsZ4uc1rQY9yfVPhKm+FWc6uLw7m/hLiUV6KnEyz8=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Jrc7k2Bsj/sSdJMOnS+Bhv1IbZ+AlBtlkA09oGpT7P7ilpoxJ1uZD0byhGKMIa4vajz/X79TN6URj8Z6uT+kbjbb8ZLxJPigHXpnc5daRIbNT2Diosw1OMiEYG5xuufD2Naqos4xSxuyNv6oZh8wsjGsc+qIsS09BAfmYjm9uwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtKl8EWi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787812622; c=relaxed/simple;
+	bh=774X5XYQfk2yYWBsf0UUS3OosFUHf1+lQ1N65JAXb9Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=V+L5y4FKF3YpGlE/2P/g4YxU30BvOMlnUkZlBBB8tPwuTB89DD43gP68CNPwqGChKA/YECfoYAeQzt1e5SXhJi+D98WTCg1mOkFYalntwKFAsGtPXSWP/m7+1m4DxjGTvTGbyUyTUkiinKYH/eO6x2lngzaHip3RiuGd+ZXgqc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=e7OBJsjn; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtKl8EWi"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 61C941F00A3A;
-	Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787812612;
-	bh=vDITXMHkUeseGMzoeKaLCCD7eXKdPq/heHr+EsapH3g=;
-	h=From:To:Cc:Subject:Date;
-	b=VtKl8EWiIKdzcH8n/jvyzIr+eEVUllRBxh/h9K3xFMCPZ6hS6QKmJ8qskKFYWkTZc
-	 JPgfVWYrRvsDQIlbCPjEOA1B7Sr3uScF4nWnvbjbPByd7RBgesrfzYKJiMbHb3G7AU
-	 ZG5c+zMM741+0wTGh6QDsiRNiO1zIXEUmZ/FOilBX/EccdzJqTHL7YptC0n2Dau7ka
-	 LMTBk+qDJbT9Vb5upxNdT1pjDXmrRwTygYGlALVVEcije4wppgWIE80T/Hy1YC4WLD
-	 3kcHdFWVju8h2DmkEIwhPGMAzltEM1sKoP8ZwTXK+DAApyLko+UW2NCjtzjP3WCYV7
-	 Fhuj1ly8cBglA==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Slawomir Stepien <sst@poczta.fm>, "Basavaraj Natikar" <basavaraj.natikar@amd.com>, "Benjamin Tissoires" <bentiss@kernel.org>, "Jiri Kosina" <jikos@kernel.org>, <linux-input@vger.kernel.org>, "Sandeep Singh" <sandeep.singh@amd.com>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] HID: amd_sfh: Validate PCI BAR size before mapping
-Message-ID: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="e7OBJsjn"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6Vc2L2266280;
+	Thu, 27 Aug 2026 06:36:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=774X5X
+	YQfk2yYWBsf0UUS3OosFUHf1+lQ1N65JAXb9Y=; b=e7OBJsjnRMpFf9wetTIfnZ
+	cRSIaBwpBoZbiJ6y96yFXOrj2FFooJrqveN1GbiE7FjkWSevwhqHAXAcZcDj9sYM
+	WYrhGRjs71plXN/vkCcdDDmBM/Cb1cV6/u8gGRreagg4IXdYk9aVI0/JW4dFxYhF
+	C4J5NmMESGSxhiV3z6KOYv0bs6Rsaq8WlHsw6JJfoo5xT1Ofd8RUjD9gYsDtwNjJ
+	TG+zqO4NGhQ+ERGqKC2hAhergsWxbSS7QV4YJ3tRuH9phNYYCge4KgA2cGFPo6+2
+	T9nbo3FqGD99aNXi98/h+LjhwCMq9FKXDygnB5vWAMsPOubSLhDtw8I9af27cLpA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxkafv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:36:47 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67R6QeqT028927;
+	Thu, 27 Aug 2026 06:36:47 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsye9gh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:36:47 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67R6ahsW50725218
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 06:36:43 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4E4D920043;
+	Thu, 27 Aug 2026 06:36:43 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C9AC20040;
+	Thu, 27 Aug 2026 06:36:41 +0000 (GMT)
+Received: from shivang.upadyay (unknown [9.123.12.247])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 06:36:40 +0000 (GMT)
+Message-ID: <7ed10640c0b27403d7e9ef9807b957cff59eba60.camel@linux.ibm.com>
+Subject: Re: [PATCH v2] ppc/fadump: collect dump if the collected size is
+ lesser than reserved
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: adityag@linux.ibm.com, adri.vero.dev@gmail.com,
+        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com
+Date: Thu, 27 Aug 2026 12:06:39 +0530
+In-Reply-To: <1a0a3a16-b92e-47ec-8545-035022583de7@linux.ibm.com>
+References: <20260826125626.2108771-1-shivangu@linux.ibm.com>
+	 <1a0a3a16-b92e-47ec-8545-035022583de7@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA1MiBTYWx0ZWRfXwp01h2IqJNBB
+ JCKG/0W6PdQQjIB+HjkDmLaF34bkCSNkMfWhQvs2NRl7pKQZN3bhXxejAXvkBu30XmRoX5nMJfk
+ Pdx8ZQf1fccObXNCjkatC2ayRpQaQn4=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a8fdb00 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=KmcBeXU3GxEOogffeAkA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: FCF_hExInMVtTzag69QzXVWCkA5buUqY
+X-Proofpoint-GUID: fIJQqww17JMr5S6blgc3OLLDhCy5cRAo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA1MiBTYWx0ZWRfXwN9U1ZECMXiD
+ t17vb3b3nZmqIjxajKdz43UPCYbijdQX79C4rVWLuO8UkjFVM9KKKfU1pfDC/fWk1rhuInprQ8a
+ auZvUVgN7Q1Hd2jMsLoLxeUzbg5xgBSOnXcWeMyZbzlyfxymxNGeALCrUrDZrCLKGp9QwfvgIQz
+ 5TDKJs5gzcsGjBlZKP2Pm3esvhneUTiI9DbtHiHyIPmq7vwKPgqPLUEQHsQc2LlS8fKDooKYUSj
+ sE/Bn38YNqcBomMgzLja2AOC/e7j+nxXCT3bVu9ee9utQsSc14l82MCa5Vr7jQVVApILdLvyRTh
+ iWHAwqldG/BhJL2N7wcy1o5nPKJ6DH4HgmQiiNYJ+bboJmSVKAtaPl4oTadec15z9k3L7ZvQ5kR
+ 9XwcphxbNFcm3gJkfgNtFKnSVuUcM8oc4IUL3hRbt26IDT59BWHCS2er2pGovywn1caVhYe98v/
+ EG6OUeOTEGmn+7LJLmw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270052
 
-From: Slawomir Stepien <sst@poczta.fm>
+On Thu, 2026-08-27 at 11:05 +0530, Sourabh Jain wrote:
+>=20
+> > bytes_dumped <=3D source_len));
+>=20
+> Do we really need region_collected variable? Can't we manage with rc
+> only?
+>=20
+> Is bytes_dumped < source_len is good enough instead of <=3D. There are
+> a=20
+> couple of warnings/errors reported by the checkpatch script.
+> Please address them in the next version.
+>=20
+> - Sourabh Jain
+>=20
+Hi Sourabh,=20
 
-The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
-subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
-AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
-size is large enough to cover these accesses. If the driver is bound to a
-device with a smaller BAR 2, this leads to an out-of-bounds memory access
-and a page fault during the probe function.
+bytes_dumped < source_len should also be correct, but "<=3D" is more
+expressive. Why not leave such optimizations to compiler.
 
-For example, a page fault can occur when reading from privdata->mmio +
-AMD_P2C_MSG3 in mp2_select_ops():
+For the region_collected, RC should be used to manage the return code,
+so I as per me it is more appropriate to use new variable here. Or
+maybe, type the condition in the bracket itself(?).
 
-  BUG: unable to handle page fault for address: ffffc9000390368c
-  PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
-  RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
-  [inline]
-  RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
-  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
-  Call Trace:
-   <TASK>
-   local_pci_probe drivers/pci/pci-driver.c:332 [inline]
-   pci_call_probe drivers/pci/pci-driver.c:394 [inline]
-   __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
-   pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
+Thanks for pointing out the checkpatch bugs, I'll send a revision soon.
 
-Fix this by verifying that the length of BAR 2 is at least 128KB before
-attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
-BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
-at least 128KB.
-
-Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
-Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
-
----
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-index 78f830c13..c0c324565 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-@@ -17,6 +17,8 @@
- #define PCI_DEVICE_ID_AMD_MP2		0x15E4
- #define PCI_DEVICE_ID_AMD_MP2_1_1	0x164A
- 
-+#define AMD_SFH_MIN_BAR_SIZE		(128 * 1024)
-+
- #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
- #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
- 
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-index 4b81cebdc..039b6ac32 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-@@ -451,6 +451,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 	if (rc)
- 		return rc;
- 
-+	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
-+		dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
-+		return -ENODEV;
-+	}
-+
-+	if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
-+		dev_err(&pdev->dev, "BAR 2 is too small\n");
-+		return -EINVAL;
-+	}
-+
- 	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
- 	if (rc)
- 		return rc;
-
-
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+~Shivang.
