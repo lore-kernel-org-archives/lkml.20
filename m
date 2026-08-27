@@ -1,187 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ED01A6806;
-	Thu, 27 Aug 2026 21:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A211A6806
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787865384; cv=none; b=E4dKQ3GkQRZTmJfr+a5abtvLCixdrFgiwqMaQCjJr06GVqZOQT6OsybD5ZlAj0jJb0f7IkrNVBt4ZbuGymfplfH9R5zzzXNcOlbtkpkHapTZRfLEe4T/GOISLc6MSWIng2sciK4GLu7G6ZOWgz3Grce2R4WUKrf/2+85IPL2Z68=
+	t=1787865405; cv=none; b=D5lIk0Ray6191Yp09/2qn7X4po/0iGMQ1q5eIuSubxDCWKAfU0XOL/+vREJnTgSHIA0LLsCBnSDgav4T3pwlQGdRBMeet6lKvFlOsYngpm6+1TJIZHhsax+58wOAaGOAj0Fn8JRKDtYRReN+LfUNUVJBxg23uycpVTNkthOxaFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787865384; c=relaxed/simple;
-	bh=5+u3IiiS1gjuh/J7N55q0qfKgrmm2bxsgXAIyLjW3AQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Bf3bo0a7e7B8JxB5GjUInKBrva3+jDatOwsaGYIBH9BOsVEtfw7lsBLxKA1HHxNTwXrCgvcpBZMN/aVZOgN9k4WJ+TnjaXTnFcX4SnyIYwWNWeat3AXMYI475zm06R0llTIXO3bnztISyCAEozXD9/vCQbZKjwuzpHY+9t9Wtsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8qn3Zcf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787865405; c=relaxed/simple;
+	bh=AR64SDuxnMpneMLXVmzP4quV6lxzlo+i3B6F+PmJfh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D9Y9HtIMSeQxD80WW3Cm8kv7gLx/ioRsNARALwKWvZEaTeQo8uDJuIHDRjpLZbeKrxj1a/BQFD8N8pd567HXQHXUNkawbuYPyjW30FErv2HJp+bi2327Z2WblpQ+JWfcjOfsJ7gbONXvTUM8wiiynxVKMOpuonsnaL2qDACggk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=bvV+j1wI; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8qn3Zcf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 13CE4C19425;
-	Thu, 27 Aug 2026 21:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787865384;
-	bh=5+u3IiiS1gjuh/J7N55q0qfKgrmm2bxsgXAIyLjW3AQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=a8qn3Zcfrax2SbRw3UFD+sX1Vt9hLQkPdz739mHuaDkvkUfkVwcA3cI1YkkLDS1OX
-	 bneUv0O9/uQro4r/J7KEepcLNgi2zfPbehCL8TL07cNgxvzs57TnptSNz2pACVRwS2
-	 3wy5ywwGhRpzIWbD5RmNECaMjewra2qf5S02y7LQnSI1SO6pQfFAn53WqwzJcPNtaV
-	 +uShVt7El5+Z39OLpPEI/m0EW7yAgH/QLU1ZXUt3R7b/TvcsyLb/cje0VQLVXxqtAl
-	 GelDIICOlzCM2E/V7KhkGJojb81n3YXyD7RXPUzxoeJ8NHhP8P0ovDPsmJJ7ZPtmnT
-	 BjQPTwh5dKcKA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5097C61DC2;
-	Thu, 27 Aug 2026 21:16:23 +0000 (UTC)
-From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Thu, 27 Aug 2026 21:16:17 +0000
-Subject: [PATCH] usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event
- handling
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="bvV+j1wI"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso57244f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:16:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1787865402; x=1788470202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2DPEMDKFtcxksuqGCh4W940+4YKssrwswGnRzpjY1qw=;
+        b=bvV+j1wIsq5rdhx+ANcVRGtHw3pASZZYsSafySNlUgGOOl9qS+Teq2vh8v2vNVTN6H
+         JEQy8KwvzltFqzRLiT1TyE1f9i+NAFjEjrwt7fHpYQYmIBZAD2KOnLCXYbOmi7N144Wj
+         K4Ir6KLAJy5P/Di2TcN962KlE4Sf6LXMG1yAGTyrc3D4heQRdZ/W81wnaWY9X1F+sOK8
+         ow9Dn5r+IfskFEF+/Y+MI2ygQcGiUJ6ue1YlEz0udpxQtrIRlFbyc8kMHeyNK30kgmmG
+         K/cG494W1O1U37n7QPL/UgB8Ky3qcxsq3YZIVI835ebv2/mjf1no9Ab8LRyvH1NwNTdF
+         Fzyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787865402; x=1788470202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2DPEMDKFtcxksuqGCh4W940+4YKssrwswGnRzpjY1qw=;
+        b=Ev9k9DjFLM690Bq1dfqratdhH99O2aBpfahbKmqqJQG9pHi7f2TGeK4Yv0nM8xlY6h
+         kdksI60j29K1GsHQrm4SyFWHNNMTyPFsGdgw+60aWrkmrqz8B+L63SuB/vGyGBFdOdPF
+         FU1XTsTSS64z3AsJ3FK61FiNHRz2B35okYteJiACpePhS6OJbkvzQMq4ykvSpLlcxLcE
+         a53x0Su1lYR/mjjMzqwYvR9LIEYqvheOq78LgkFQqjnbvzAMYUb0nSJFO/QtYlGpRnW/
+         gx/LL+Vywro0WLgShybtg781lC0/mn1+12EMNStkPkIKS/DIn+UFUPBLwMTZeuceI0av
+         j7RA==
+X-Forwarded-Encrypted: i=1; AHgh+RoVMy72bDZIkLq7wgVanFieJUBpRBwuJqOR+gqfU1XwoOTWM1cMZNOoSGMQxE2k+dDzp3biXrRB4i2xJ2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRYN1Ky3+fmCfHeoEqaIGs+tbGK2U7R1HTkqV0UB+wen6799bl
+	iPCd22O8aQ2nibqJbPe9BCh9s5X2M15z/tjhA13dhX8WM+pe224D1lkswAWnAUcyCC0=
+X-Gm-Gg: AR+sD10hHoI3c/kkxLkFV4I8d4YtbhX1cerUO9PJRIBwxMi/0MrZ9L8fbWP5Q5//07c
+	uy8WsKtycBibXPy3MEk+LiNG/OwDITAOGxd9Qmo3EejGowyHq3M30oGnLcNxABCz5lC+zaxM9E1
+	nSnMWOLlJH2Fmo8+gbZ+PyD5tN75DU2wLjD6D3FVVAtjHkk5yieYiVSkb0uGcS2lvQFHQnpHCim
+	z2OzTblMqov8Z8F9iMOgVhE9X6rk3xS4KB/XzbM6+envlxwUKWRbteLPBfqZIUTFxuI/rUyByjA
+	v+8VtTCDjHUgq7hnc/2L5KMUF+fX9vL0Jk+pJA3yhj9f23haPuazAoQ+qv+PvRZzr2g7Bhi368f
+	GulunPFmKFPHkxolo0vCTrKdNF7tP5iyaKlSk25qD3kXu9ehB3TOYLG6eUe/u5L6yAu8vAbESeD
+	+yO7272qNcbqjYLspV+9Sa5kTKH8z91AZtrPNCTZ62j7zHYQYGZex6qXPjyT9BMcnEPg==
+X-Received: by 2002:a05:6000:4a1e:b0:482:e658:bb8e with SMTP id ffacd0b85a97d-482f79bf4f4mr2483593f8f.12.1787865401526;
+        Thu, 27 Aug 2026 14:16:41 -0700 (PDT)
+Received: from ownbook ([31.146.92.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e4f0c8f7sm11423442f8f.27.2026.08.27.14.16.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 27 Aug 2026 14:16:41 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Aleksei Sviridkin <f@lex.la>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/2] net: fix a stale phylink PHY pointer and a lost PHY interrupt
+Date: Fri, 28 Aug 2026 00:16:36 +0300
+Message-ID: <20260827211638.63395-1-f@lex.la>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-sourcing-vbus-v1-1-9be1aca991a0@google.com>
-X-B4-Tracking: v=1; b=H4sIACCpkGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDCyNz3eL80qLkzLx03bKk0mJdyzQL8+RkkyQzI1NzJaCegqLUtMwKsHn
- RsbW1ABFhy4VfAAAA
-X-Change-ID: 20260827-sourcing-vbus-9f87cc4b6257
-To: Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>, 
- stable@vger.kernel.org, Amit Sunil Dhamne <amitsd@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787865383; l=5389;
- i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=gaGRedxsfMiw49b510/kkrdqTxwg1oPfINQUp7PootY=;
- b=9iW5Sva4MeTGBN2PD1qqfEDMcVLM+9SZtj+/C5hSg1WJV+vOJ1WpGFPJgrp+SL6UljSVtLMN4
- 43SijATKFW0DYOOd2acHxdPS5r0i1pxT5u/A4F3oSSDxxkLuH6dg0sl
-X-Developer-Key: i=amitsd@google.com; a=ed25519;
- pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
-X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
- auth_id=262
-X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
-Reply-To: amitsd@google.com
+Content-Transfer-Encoding: 8bit
 
-From: Amit Sunil Dhamne <amitsd@google.com>
+Two independent fixes, both found while chasing a PHY whose driver is a
+module on a rootfs that is not mounted yet when a DSA switch probes.
+Neither one depends on that setup, and neither depends on the other.
 
-When a sink detach occurs while waiting for TX send status, the old
-TCPM_SOURCING_VBUS event along with TCPM_VBUS_EVENT and TCPM_CC_EVENT
-can be queued in port->pd_events. Because TCPM_SOURCING_VBUS is
-evaluated after TCPM_VBUS_EVENT and TCPM_CC_EVENT in
-tcpm_pd_event_handler(), a stale TCPM_SOURCING_VBUS event can override
-the detach handling and incorrectly set port->vbus_source and
-port->vbus_present to true.
+Patch 1: phylink_bringup_phy() records the PHY in pl->phydev before its
+last fallible step, so a failure there leaves a pointer to a PHY the
+caller has already detached. A later phylink_disconnect_phy() detaches
+it a second time and drops references the first detach already
+released.
 
-Add a state guard to check that the port is either operating as a
-Source (tcpm_port_is_source(port)) or in a Fast Role Swap (FRS) state
-up to FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED before processing
-TCPM_SOURCING_VBUS. Otherwise, discard and log the event.
+Patch 2: a PHY that goes through a generic-driver bind cycle comes out
+of it in polling mode for good. The specific driver that binds
+afterwards never sees the interrupt the firmware node declared.
 
-Log snippet for error condition before fix:
-[72792.204955] state change SRC_ATTACHED -> SRC_STARTUP [rev3 NONE_AMS]
-[72792.204960] sourcing vbus
-[72792.204962] VBUS on
-[72792.204970] AMS POWER_NEGOTIATION start
-[72792.204974] cc:=4
-[72792.205319] state change SRC_STARTUP -> AMS_START [rev3 POWER_NEGOTIATION]
-[72792.205325] state change AMS_START -> SRC_SEND_CAPABILITIES [rev3 POWER_NEGOTIATION]
-[72792.205332] PD TX, header: 0x11a1
-[72792.216911] PD TX complete, status: 2
-[72792.216957] pending state change SRC_SEND_CAPABILITIES -> SRC_SEND_CAPABILITIES @ 150 ms [rev3 POWER_NEGOTIATION]
-[72792.218005] VBUS off
-[72792.218013] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
-[72792.218020] VBUS VSAFE0V
-[72792.218024] state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED [rev3 POWER_NEGOTIATION]
-[72792.218458] CC1: 2 -> 0, CC2: 0 -> 0 [state SNK_UNATTACHED, polarity 0, disconnected]
-[72792.218467] VBUS on --> VBUS left on
-[72792.218980] disable vbus discharge ret:0
-[72792.235193] Start toggling
-
-After fix:
-[ 1195.291691] state change SRC_ATTACHED -> SRC_STARTUP [rev3 NONE_AMS]
-[ 1195.291698] sourcing vbus
-[ 1195.291700] VBUS on
-[ 1195.291707] AMS POWER_NEGOTIATION start
-[ 1195.291710] cc:=4
-[ 1195.291758] state change SRC_STARTUP -> AMS_START [rev3 POWER_NEGOTIATION]
-[ 1195.291794] state change AMS_START -> SRC_SEND_CAPABILITIES [rev3 POWER_NEGOTIATION]
-[ 1195.291798] PD TX, header: 0x11a1
-[ 1195.297056] PD TX complete, status: 2
-[ 1195.297092] pending state change SRC_SEND_CAPABILITIES -> SRC_SEND_CAPABILITIES @ 150 ms [rev3 POWER_NEGOTIATION]
-[ 1195.297177] VBUS off
-[ 1195.297184] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
-[ 1195.297227] CC1: 2 -> 0, CC2: 0 -> 0 [state SRC_SEND_CAPABILITIES, polarity 0, disconnected]
-[ 1195.307469] cc:=2
-[ 1195.307544] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
-[ 1195.307555] Discarding sourcing vbus! Invalid state SRC_SEND_CAPABILITIES
-[ 1195.957636] state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED [delayed 650 ms]
-[ 1195.957732] disable vbus discharge ret:0
-[ 1195.970196] Start toggling
-[ 1195.970468] VBUS off
-[ 1196.051637] VBUS off
-[ 1196.051642] VBUS VSAFE0V
-
-Fixes: 8dc4bd073663 ("usb: typec: tcpm: Add support for Sink Fast Role SWAP(FRS)")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
----
- drivers/usb/typec/tcpm/tcpm.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index a8cd1959c426..2d6b14aa2085 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -7119,16 +7119,32 @@ static void tcpm_pd_event_handler(struct kthread_work *work)
- 			}
- 		}
- 		if (events & TCPM_SOURCING_VBUS) {
--			tcpm_log(port, "sourcing vbus");
- 			/*
- 			 * In fast role swap case TCPC autonomously sources vbus. Set vbus_source
--			 * true as TCPM wouldn't have called tcpm_set_vbus.
-+			 * true conditionally as TCPM wouldn't have called tcpm_set_vbus.
-+			 * If TCPM calls tcpm_set_vbus to source vbus, vbus_source would already
-+			 * be true.
- 			 *
--			 * When vbus is sourced on the command on TCPM i.e. TCPM called
--			 * tcpm_set_vbus to source vbus, vbus_source would already be true.
-+			 * When TCPM_FRS_EVENT and TCPM_SOURCING_VBUS arrive simultaneously,
-+			 * handling TCPM_FRS_EVENT above transitions the state to AMS_START
-+			 * with upcoming_state FR_SWAP_SEND.
- 			 */
--			port->vbus_source = true;
--			_tcpm_pd_vbus_on(port);
-+
-+			if (tcpm_port_is_source(port) ||
-+			    tcpm_port_is_debug_source(port) ||
-+			    (port->state == AMS_START && port->upcoming_state == FR_SWAP_SEND) ||
-+			    port->state == FR_SWAP_SEND ||
-+			    port->state == FR_SWAP_SEND_TIMEOUT ||
-+			    port->state == FR_SWAP_SNK_SRC_TRANSITION_TO_OFF ||
-+			    port->state == FR_SWAP_SNK_SRC_NEW_SINK_READY ||
-+			    port->state == FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED) {
-+				tcpm_log(port, "sourcing vbus");
-+				port->vbus_source = true;
-+				_tcpm_pd_vbus_on(port);
-+			} else {
-+				tcpm_log(port, "Discarding sourcing vbus! Invalid state %s",
-+					 tcpm_states[port->state]);
-+			}
- 		}
- 		if (events & TCPM_PORT_CLEAN) {
- 			tcpm_log(port, "port clean");
+Tested on an MT7981B board: an Airoha EN8811H on an MT7531 switch port,
+its interrupt declared in the device tree, its driver a module on the
+rootfs. lan4 attaches with irq=15 rather than irq=POLL, the line is
+claimed as mt-eint 0 in /proc/interrupts, and its counter goes 1 -> 3
+-> 5 across two forced aneg restarts, matching the link dropping and
+coming back each time, and holding steady in between. wan, whose
+internal PHY has no interrupt in the device tree, still attaches with
+irq=POLL: that is the observation which says the bus table cannot hand
+back an interrupt the device never had. Patch 2's other exit, the one
+in phy_attach_direct(), needs a generic probe to fail and is
+compile-tested only.
 
 ---
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-sourcing-vbus-9f87cc4b6257
+Changes in v3:
+ - retargeted at net (Andrew Lunn, Paolo Abeni)
+ - patch 2: added a Fixes: tag naming the commit that introduced
+   phylib, where both halves of the cycle arrived together; the commit
+   message drops the phrase Andrew flagged and says what
+   mdiobus_alloc() does to bus->irq[] instead, and answers why the
+   restore is conditional; the analysis below the scissors is replaced
+   by a link to v2 (Andrew Lunn, Paolo Abeni)
+ - patch 2: reword the new helper's comment to the mdiobus_alloc()
+   form (Andrew Lunn)
+ - patch 1: carries Andrew's Reviewed-by, otherwise untouched
+ - that comment is the only diff change since v2; no code flow
+   changed, so the test results above still describe this code
+ - v2: https://lore.kernel.org/netdev/20260824024029.41310-1-f@lex.la/
+ - v1: https://lore.kernel.org/netdev/20260822155259.87146-1-f@lex.la/
 
-Best regards,
+Aleksei Sviridkin (2):
+  net: phylink: unwind the PHY binding when bringup fails late
+  net: phy: restore the interrupt after a generic-driver bind cycle
+
+ drivers/net/phy/phy_device.c | 14 ++++++++++++++
+ drivers/net/phy/phylink.c    | 29 ++++++++++++++++++++---------
+ 2 files changed, 34 insertions(+), 9 deletions(-)
+
 -- 
-Amit Sunil Dhamne <amitsd@google.com>
-
+2.55.0
 
