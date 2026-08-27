@@ -1,80 +1,123 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 609DC47A0D7;
-	Thu, 27 Aug 2026 14:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606BF335BDB;
+	Thu, 27 Aug 2026 14:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840842; cv=none; b=iuyZW3n4jbQ40uL4DOorwIcmwhS1iInqTtZ8N1m2XuqpE57LZ4NKRDWHR0DBGP0/j7ifY+c2AFc+ZpK4ea2K8zgdDoPV+LrRvXHK5HekExf/05fA2oPK0tqbVbL8njst6RmtyF86pzmT/ai4TqFu9ol66lgf42jHZnzrehxpI1g=
+	t=1787840870; cv=none; b=jsfOMc1/FFU7J6MGczGDs9w3F0s79Wyqd1LPXhXvO6knM2AlOHUcZ88i2fNij+cw+BBWnp99UFICfgUL2xTzXu7+HVnzarUS+3zd6DcOQuSPexMut0SOvgRVWTOS6kkrJRKpbtumHo0eUulvC6vEg3946UP+kU42+O27ixqPiIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840842; c=relaxed/simple;
-	bh=r0ySLqPyuNENyTpsvEaGFphpnJIcH3tX6bc1QHr9jqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=exfOroNXRZSQ1hEH3stUTk3tscAfJvZVMYNjfW25VfplgksqapX+spZW91o+T00LI4BzM1R4uA04zczAvRPPeXfKHQlsSP87dAZsXirpo48pGJpQRglZSn54E5jqFJv/tHHinq1TVat+FNg7vEZ2Dolc2Wmk3ESW8GJAHVsHKQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IeV45dqg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787840870; c=relaxed/simple;
+	bh=96d1y6IwNLTHpd55ifEQd9+Whi3rWgelovKHkNLq1J8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Qdx3M+I4KZ2WA+9zhT6QCbTiWH8XbzlrRHTuvaN07F+idPWn5nUE0a0k/OOteDS3PWShOQfRl0EcyKTWDcR1BQFrpiN6ovgGABF+OAwgY0yf5swmd+9FOBnLhejcJIv//muGComOToYaOivhLmsYywiFHd/x3lRuySq4ay7uAY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxPXoCr3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IeV45dqg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77BF71691;
-	Thu, 27 Aug 2026 07:27:12 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F32CB3F7D8;
-	Thu, 27 Aug 2026 07:27:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787840836; bh=r0ySLqPyuNENyTpsvEaGFphpnJIcH3tX6bc1QHr9jqg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IeV45dqgx4mRaxoEbmuZZLi7m359mdGCaHjEZzT8ye+3dWAGoS8D9re32lynaa88z
-	 JeSfSWhc2s3EO8J3VgE/iJvR6Od4/WQWFvSAn5IM61hKHm5org2eLQ1hd31ZLY6VFx
-	 qy4wuTAMTjSNYGKKfU4BMKZpRvEeF5DPdPO/fCsU=
-Date: Thu, 27 Aug 2026 15:27:14 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
-	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 05/14] perf cs-etm: Increase default timestamp
- generation period
-Message-ID: <20260827142714.GM8904@e132581.arm.com>
-References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
- <20260821-james-cs-unformatted-per-thread-fix-v2-5-00c4fd0701b4@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxPXoCr3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DB34FC19425;
+	Thu, 27 Aug 2026 14:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787840869;
+	bh=96d1y6IwNLTHpd55ifEQd9+Whi3rWgelovKHkNLq1J8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BxPXoCr3q80QCcbic4B0BLtj9jdQ3mYAVR33/5vBgGLshojZEINb0A+4G1EOgLYsw
+	 Ofs5xhQAapyLZST8J0xNRDXYD+4I23cnaNTeOp7ZmeRWUAYk0ECvjHKAUhm6+jLnJF
+	 h7tXvQO9EfXR9QEFiLju9Kbd3UGptrNuNoGFa/r7vJFzyMLWjMMfDfmeOKQPRMUE+s
+	 al0qK0ZP+UelcpsOS0sELbdpBJUxn0071z93pJQwaKHBExYhuIxhZEnHyiFCpQhK3s
+	 FCZVV8vECzzRggG/tlvn3sG2Pk0KLSmiyH3JnkkPkd0ggNhHVzKz6r63YcDuHW8T6k
+	 yqen3UKtrn4Qg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7E51C61DB9;
+	Thu, 27 Aug 2026 14:27:49 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 27 Aug 2026 16:27:41 +0200
+Subject: [PATCH] mfd: Fix MAX77705 dependency on regmap
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-5-00c4fd0701b4@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-deps-reg-max77705-v1-1-c83a74d3d428@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrmlSxkAHrkJcjFCxJvxkimYSw
+ t0ddfkt3jvAJKoYdMUBUd5qui4ZVVnA8AjLJKhjNjhyDXnHOMpmGGXCOSRmphrJX+rQkm+ZG8j
+ dFuWu6ffsr3/b6/aUYf+O4Dw/ONQoLnUAAAA=
+X-Change-ID: 20260827-deps-reg-max77705-0835a9089776
+To: Lee Jones <lee@kernel.org>, Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1508; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=QX7JkiZbHlW0D55dPU0RlQr972FkBkLXUTJRO6pdqeY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkElknuZIm/NYkZXg7Xt2bid7sZ6JEAFx+AMRt
+ PXGnID3HHaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapBJZAAKCRBgAj/E00kg
+ chMOEACpS6o4pAozT1WKpIs7KcZyTvKxndxnrZpXi1iGLUPhkGd5dU0GZoiOEk+D5iyY50emJvR
+ nw9iLvGZn2TyTgtQzB18XwMVPxUlv6DBYvoR2shXdxRxF5Rll8jh0PCxLPOeT82XOUsudOXmc6B
+ 1vBGgiCMc8SbRBTw0zK9CLfyKZfUGubRlKxMeNJbgf1MmJh026Pil2SSxNIDQnLH2MVmVmJQzEv
+ w5alpjNGPM6T+TIqeBIUoTuZupSHihh4sQTT7OGm7vfHp3IU8BOGqHfFlZRBU3hE/9YaPHsReyL
+ NPIFv83r1s1ylog3+sThQItEyqPrJfQH7YCrDT18yYkCeU3hE9+dWWbbf1ujQJvxA17A25u3yjo
+ F7pFiz3y/OBO0c8G2XoDnlcDbbenW60rKAPj+mKW6aL7qy5oJ6us/GYM8VNImtA/VFhDMPOT1AF
+ R87hOY7D1WRvpeBvGL+7KmwsT2GPkcRksmjqa6avPJC60w83i4dcUuloDoOJoy/bSdjS7f9ROiV
+ kQJmPI6l9RmJBpsER/lXnxcTYACTJldjwY9+ATB2ZADpWVrmcseYjD8eMWnQBjVSpavYm4BNyqt
+ 7RlSi0i+Uzv915slto0Y7TWUU7PUpJbUDD+ALd+Du11DSVUi2qajmCnE4yyxx0GkwhIgYE95/29
+ ffzu6KRdQQwYyRQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Fri, Aug 21, 2026 at 10:49:03AM +0100, James Clark wrote:
-> The original purpose of timestamps in per-CPU mode was to roughly emit
-> samples in the order they occurred across multiple CPUs, rather than
-> emit all the trace from CPU 1 followed by all from CPU 2 etc.
-> Previously there was no way to change the interval from the minimum of 1
-> cycle, but custom intervals are now supported by the driver.
-> 
-> Drastically reduce the number of timestamps emitted by increasing the
-> interval, which is more than enough to interleave sample generation.
-> This reduces the size of the trace generated.
-> 
-> Signed-off-by: James Clark <james.clark@linaro.org>
+From: David Heidelberg <david@ixit.cz>
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+The max77705 uses devm_regmap_add_irq_chip(), so add REGMAP_IRQ
+and REGMAP_I2C to what the core driver selects in order to provide
+thise APIs.
+This fixes a build error:
+
+drivers/mfd/max77705.o: in function `max77705_i2c_probe':
+max77705.c:(.text+0x250): undefined reference to `devm_regmap_add_irq_chip'
+
+Cc: stable@vger.kernel.org
+Fixes: c8d50f029748 ("mfd: Add new driver for MAX77705 PMIC")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/mfd/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index e4fd4572472f9..857ca3bb0d5bf 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -1001,16 +1001,18 @@ config MFD_MAX77693
+ 	  additional drivers must be enabled in order to use the functionality
+ 	  of the device.
+ 
+ config MFD_MAX77705
+ 	tristate "Maxim MAX77705 PMIC Support"
+ 	depends on I2C
+ 	select MFD_CORE
+ 	select MFD_SIMPLE_MFD_I2C
++	select REGMAP_I2C
++	select REGMAP_IRQ
+ 	help
+ 	  Say yes here to add support for Maxim Integrated MAX77705 PMIC.
+ 	  This is a Power Management IC with Charger, safe LDOs, Flash, Haptic
+ 	  and MUIC controls on chip.
+ 	  This driver provides common support for accessing the device;
+ 	  additional drivers must be enabled in order to use the functionality
+ 	  of the device.
+ 
+
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260827-deps-reg-max77705-0835a9089776
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
