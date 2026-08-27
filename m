@@ -1,119 +1,143 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57E213F1072;
-	Thu, 27 Aug 2026 22:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB9C23E35F;
+	Thu, 27 Aug 2026 22:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787868711; cv=none; b=VzjSNS5jOD8g34yvW0THVjeq2u40MD8tVI48QS+AWYAn/lf3rNQtLOFfB7Bq0Gllc4b+xn+YMBYqTGeKHlBwbW/3xo2inJDnc61TMsDk4sgvFIcFn1n3MFKHp6gq5lPnYnm7hDTFI3FPppBBsEE4Nr1F6cfeHTcBWelipUSTt90=
+	t=1787868799; cv=none; b=rFUnCjMYMI6ZAGqg1m1i2r8xSsswXAtCqhcIbnoSGNtPp+sct0RsmLQcLklOJZCdcLKWkALtLMOBjBpA1invWCwy5ASPlvkC3zKn2LyYfH7kMdQLEi3CMMqkysVRjK4U0N/S8WDWvXEgxtK8dMoODcDtMa9kVEcnn1LH7Vf1/Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787868711; c=relaxed/simple;
-	bh=mBkgzZiTkzfnWoJHWaSXz+J9IHU5F76u8a1Plg3Xa7Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Iab8n/HhAEMaRMnXbkCG5uf2Kei/YCi35+0DQqG8csAP+0YJuV/WhF6i4n6sEEEX8ewtpvsb10ALBIhyORQKtWVZ8+hF873XUZhtcHUUNm9FxywlE+01/18Cgd+UhUVGclGCEgO0CzWP5wsEm5wjdFBcz0vfgCfkfMzn9g3R+GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=QhZl6WKn; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	s=arc-20240116; t=1787868799; c=relaxed/simple;
+	bh=oaclEGCFj0tbpBqUyYhr79xTsEv4PS0vCLrB3/XE5X0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HA7QCrlAW4im7ESuhTt7dqmvlikXU5TrxSL3+CMhGFpLneVVsUejiX4rNVwDg1FdAfzgF4VvsHB6Or+J8y0SGBK7eMBwE5C8kVGasSAthV5Mmk2zvW7UWtKz0Sf41WDaYQ5i6rtTPjU3fA1u0ZKfYkowExMb3XIdeqTh12fm+cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=FXfxdqbt; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="QhZl6WKn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:Content-Type:
-	Content-Transfer-Encoding; bh=mBkgzZiTkzfnWoJHWaSXz+J9IHU5F76u8a
-	1Plg3Xa7Y=; b=QhZl6WKnN2V5jHNVbEa+N9cAQNtp/9h021Qjstn+VPFDO5FAUA
-	LojwIMtxhyZaaAHXUs3t8WyTNUdNdiCAtt2ydpdnxdQ7C7N7jfZh30A8jzXzIAy5
-	9zKc79Qc2xxUxMZ4ooA9Fsx92mJnmpxq/iVoOYG4ih78KFUNXIe3q2byg=
-Received: from skw.ustc.edu.cn (unknown [211.86.152.107])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB3fDP5tZBqp6aqAA--.3738S2;
-	Fri, 28 Aug 2026 06:11:30 +0800 (CST)
-From: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
-To: miquel.raynal@bootlin.com,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
-Subject: Re: [PATCH net v2] mac802154: fix data race and NULL deref on local->assoc_dev
-Date: Fri, 28 Aug 2026 06:11:01 +0800
-Message-Id: <20260827221101.884762-1-skwkevin@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <878q5sdj1y.fsf@bootlin.com>
-References: <878q5sdj1y.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="FXfxdqbt"
+Received: from [10.10.12.8] (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: wse@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 2A8CB2FC0048;
+	Fri, 28 Aug 2026 00:13:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1787868786;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JxISbfItN0NuzUGCyiyBKqofiPDb+/OmKGbmP4tONNQ=;
+	b=FXfxdqbtzpTHms0mFwItIBBR/w+5VaDhSdruFbd6/oUADYbAnadqaIuaL5xc+YIzdvy3XZ
+	Pu0WYb37Nw8TTx8/gp4ZkWVilUMAjz3b+vb8Pw1l3rV3l8d0eBn6/DyfAwkz0Gr9IZamiv
+	TBFDO2LPQOoSKZYQ+Sra2o37XEwBBVQ=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
+Date: Fri, 28 Aug 2026 00:13:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB3fDP5tZBqp6aqAA--.3738S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4xZFyxJF18tr4fAryxKrg_yoW8tF1fpr
-	WY9ws0krn7tr1Ivws5Jw4rJry3uF45Ca43Xr1YqrWY93Z8XF1SvFy2qr1qva4Yvrn7ZFWF
-	vrs0v39xCFs0v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_ZwCF04k20xvY0x0EwI
-	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU6MKtUUUUU=
-X-CM-SenderInfo: 5vnzyvxylqqzxdloh3xvwfhvlgxou0/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] HID: generic: add LampArray support via hid-lamparray
+ helper
+To: Cristian Mazzotta <cmmazzo@icloud.com>,
+ Aaron Erhardt <aer@tuxedocomputers.com>
+Cc: tgu@tuxedocomputers.com, jikos@kernel.org, bentiss@kernel.org,
+ hansg@kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org
+References: <8c05e11f-6e63-420a-996b-5d1986743ce7@tuxedocomputers.com>
+ <20260827184715.136843-1-cmmazzo@icloud.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <20260827184715.136843-1-cmmazzo@icloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Miquèl,
+Hi,
 
-> Can you justify the choice of a spinlock vs. mutex here? This is an open
-> question, not a request for changes.
+Am 27.08.26 um 20:47 schrieb Cristian Mazzotta:
+> Am 25.03.26 um 11:35 schrieb Werner Sembach:
+>> as Tim went on to other endeavors, I'm taking over this patch. I have
+>> yet to test it myself, but i was already in the feedback loop while he
+>> was writing it, so I'm not unfamiliar with the code.
+taking Aaron into the loop who actually ended up taking over the development.
+> Hi Werner,
+>
+> I recently got a new laptop (Acer Predator PT14-52T) with absolutely zero
+> support for any RGB outside of Windows 11; while studying the behavior of
+> the Windows driver, I found out about LampArray devices and so I ended up
+> landing here.
+>
+> This laptop has 2 LampArray devices: a USB attached keyboard (05AF:767A)
+> and an I2C ENE controller (0CF2:5130) for 3 zones in total. The original
+> motivation was power draw during s2idle; the lights would stay on and
+> constantly draw power. I measured 12.35W drop to 2.84W when I
+> blanked the lights and measured with a simple usb power meter, so I've
+> been working off of Tim's code for the past little bit.
 
-Both users run in process context (the response handler runs from a
-workqueue), so either lock is legal. I used a spinlock because the
-critical sections are tiny and never sleep: caching a __le64 address and
-flipping the associating bit, or validating a frame, storing a short
-address plus a status byte, and completing the waiter. The lock is never
-held across wait_for_completion_killable_timeout(), so a sleeping lock
-would add nothing.
+The plan for the in kernel driver was to intentionally only provide basic 
+support. Reason is the current UAPI of the leds subsystem does not offer the 
+full flexibility lamp array offers, so it's a challange to map that already. 
+Also most current DEs also only support very basic controls interacting with the 
+leds subsystem.
 
-I also looked at reusing wpan_dev->association_lock rather than adding a
-lock. It is not held on either of the two paths involved here
-(mac802154_perform_association() and mac802154_process_association_resp()),
-and pan.c has several lockdep_assert_held() on it, so widening its scope
-to the response path looked like a bigger change than this fix should
-carry. Happy to revisit if you would rather see one lock covering both.
+If more control is needed a userspace driver should disable the leds subsystem 
+control and directly control the device via hidraw. One such driver will 
+probably be openRGB in the near future, but it only has initial, currently 
+broken support for lamp array.
 
-> Shouldn't we also make sure that accessing assoc_status/assoc_addr is
-> serialized? Typically, I believe the IS_ASSOCIATING bit should be
-> cleared earlier in mac802154_perform_association(), just after the
-> wait_for_completion call returns ...
+>
+> Getting full support required touching most of the driver:
+>
+>   - Multi-zone support with individual zone states instead of a single
+>     monolithic zone taking every device.
+The driver tries to represent every device as one leds device with one zone to 
+not confuse the DEs
+>   - lamparray_read_lamp_count() used hid_hw_request(), which is
+>     asynchronous, so the value was read before the transfer completed.
+>     Switched to hid_hw_raw_request()
+Probably something Aaron already fixed on his dev branch, but thanks for 
+pointing it out.
+>   - lamparray_parse_update_report() would bind to the last HID_LAIP_LAMP_COUNT
+>     (usage 0x0003) parsed rather than the first, so LampCount ended up
+>     being on the wrong field. This has been fixed by binding the first match.
+Not familiar enough with the code myself to comment on that, but maybe a hint 
+for Aaron
+>   - Added suspend and resume hooks, including an autonomous mode refresh
+>     on S4 that my laptop needed
+Same as above
+>   - use_leds_uapi=0 now leaves the LED class devs registered, but ignores
+>     all writes rather than unregistering them.
+Unregistering is important for userspace to know what happens, otherwise kde for 
+example would still offer brightness control while it isn't actually doing 
+anything.
+>   - Also added ABI documentation since it was missing previously
+Thanks, I think Aaron did something there too.
+>
+> About half of the driver changed, so I don't think it would be easily
+> reviewable as a delta from v4.
+>
+> Would you prefer that I post it as a v5 with Tim's patch as a base, or
+> should I just send you the changes that you can add to your own version?
+> I don't want to duplicate work if you already have a v5 in progress.
+>
+> I have hardware in front of me so I can test whatever is useful.
 
-You are right. The success path reads assoc_status/assoc_addr after the
-wait returns but before clearing the bit, so a second (e.g. malicious)
-response accepted in that window can still overwrite them mid-read.
+I think it's best for Aaron sending his version first and then you reacting on 
+that on the LKML and getting in touch. It's unfortunate that parallel work 
+happened here.
 
-With a debug delay inserted between the wait returning and the result
-being read, and a peer that keeps answering the same request with an
-increasing short address, the association path reads 0x08f0 right after
-the wait and 0x0903 after the delay; 38 further responses were accepted
-in between. v3 clears the associating bit and snapshots both fields under
-assoc_lock right after the wait returns, and in the same test no response
-is accepted in that window and both reads return the same address.
+Also you might wanna take a look at the openRGB userspace implementation for 
+LampArray control. It still needs a lot of work. I too dabbled in there but 
+still not quite enough.
 
-This is also what the scan path already does: mac802154_scan_cleanup_locked()
-clears IEEE802154_IS_SCANNING first, "to prevent any further use of the
-scan request", and only then replaces and frees the request.
+Best regards,
 
-A v3 follows.
+Werner
 
-Thanks,
-Kaiwen
-
+>
+> Thank you,
+> Cristian Mazzotta
