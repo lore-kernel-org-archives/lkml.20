@@ -1,200 +1,136 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E01364044
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B242E717B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787808927; cv=none; b=NZVdVxh/a6hM/HMwCo/57L0yftpu5xYJCSr+C1LxzDmEPtpaX2izpcq5yt1v4oQ4IfeNn222Nr25Q6/UkdTURDL6JpTjZ6utthGkGcmgYLu2O9ERLvpqWuypVq5Rjg1etY5WKbPA0awXknnX5v70+GuHbS/F6V4hLJ4o23Xu/gg=
+	t=1787808947; cv=none; b=a5So4Sct5t/0Z2gv4V97hxd/JOCztibf09MU4UBGgeejZn7YV9XiwYJg/hmgSbbx8/Jm+c+QQmo58qY57uS+yFy4/Hh6Nf/NYtwTaCz0wqS+3YBS963haF+dW29dC0YwzJ4q/wmoYtS7iEnBQ86bqFewEMiQ6g/lrPTOgPCRArU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787808927; c=relaxed/simple;
-	bh=D5Pa38OmQCszuboP6P50cnP3CwSgfe2QcNC04IOehv4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qrGIZmA3gjUUplvYZbhg669/nteBhaeh2G19cJEXh6ePdA46ZBaKVvJkc0xZt/ebuo9ONQdNo1/9+IV11EzLioLqaLz9D1svB0wLOAd/LbmXKd0bTmADj36Yk60ZtLC+kcY0Dcn4mJOOSsSTBqmTrSEKMJQnXVF4fauHj3fMcPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JY/fGY2T; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787808947; c=relaxed/simple;
+	bh=CztYMdjLZpKGzEVJeG55tEt7ujyjlh1YgMpcAGn0CQY=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=DmJcZ2A3ZFh2t0x+Vp8E0qgsiBOwt5LCy6kuko864DEBtYwAVAeVyi2l8m4Rfv+uMSU+EqJakBz83PmzAOtxbWJfnSi4uwg+G7nqlHb+Ew7ZEWFMHjj4aKwTtZnYmMCDGVIeVz1kkKwfD6XBVFX+DJYdeeItDNQYNChERMEq+wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BjEUT7ZE; arc=none smtp.client-ip=95.215.58.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JY/fGY2T"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R3VdpC1879080;
-	Thu, 27 Aug 2026 05:35:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=PbfunT
-	Pv+ubg+Wq4QaYVc79N46RrIw5Rc8wiV1owOog=; b=JY/fGY2TK8wY4aS1n85dbw
-	TIPOBtLLE8q6XnNSHZ6bCACyCNHGSdd+58TfEZsQ2sXXNRijLvolq4n1V9zK2TKo
-	rlZSRdkX2y1vZMYglBQ/3s7eDxyyxa6H/2ZhKAC9mNjBZxKS4+/M9WfassKmZG+o
-	GkakOu3qs1ak+nGFMreu+oMB8oQWuyy2jm6G3wKd4PANKA1Cas/nXXvQ50GYTrHI
-	9wo8qBDMI7oOFlK6jdYwUq3lhW59L9Um5+8QPtLZPg6B0fDsUMatLGzrv/6PE0AJ
-	vHoS7hTLSV6ZoK606FVccgkR3iVfb1W/lWVpfpSNLJW/DqIytp7+m1q85nEDhWQg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxk22w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 05:35:11 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67R5QHES016918;
-	Thu, 27 Aug 2026 05:35:10 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsye1hb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 05:35:10 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67R5Z6P438928770
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 05:35:07 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D1F1F20043;
-	Thu, 27 Aug 2026 05:35:06 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DB91020040;
-	Thu, 27 Aug 2026 05:35:02 +0000 (GMT)
-Received: from [9.67.147.197] (unknown [9.67.147.197])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 05:35:02 +0000 (GMT)
-Message-ID: <1a0a3a16-b92e-47ec-8545-035022583de7@linux.ibm.com>
-Date: Thu, 27 Aug 2026 11:05:00 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BjEUT7ZE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CztYMdjLZpKGzEVJeG55tEt7ujyjlh1YgMpcAGn0CQY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787808942; v=1; x=1788413742;
+ b=BjEUT7ZEdFGr0GuuzX2Aq3QNiG66AJw1b3UD17yr26kkLC+M9CRUg2ea0NIB3nDsLhhhlo6v
+ DnaDOMFCuiB7XBP0lEn9+mS/UV/d5twgGWyxmC8dbmZd07Pp9hnsQh+dYNYZOikeQ3qcz8hcy5S
+ B7alX2oz6uecfyWYFXvwOSX4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from webmail.migadu.com (2001:41d0:303:fc7a::)
+	by smtp.migadu.com with ESMTPS id 7b273cdc8630cbad;
+	Thu, 27 Aug 2026 05:35:32 +0000
+X-Mizu-Trace-ID: 7b273cdc8630cbad
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ppc/fadump: collect dump if the collected size is
- lesser than reserved
-To: Shivang Upadhyay <shivangu@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: adityag@linux.ibm.com, adri.vero.dev@gmail.com,
-        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com
-References: <20260826125626.2108771-1-shivangu@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260826125626.2108771-1-shivangu@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA0MyBTYWx0ZWRfX7+kJ/lKZR3KQ
- DsiBhreBPENg/WPseyN1laGu1Qz8zPzuUSnv7I0BSTmXEp3biLsU6oieE6NBt/6jk6pwe0py/+U
- g+pvbPGF4VcUGb+Mw1ktujUWWGFAFIk=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a8fcc8f cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=HLng7LQRm-ufaKjakIwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: c-z67YWCwM-Sxyl86tPn2VC_yGDTp8S9
-X-Proofpoint-GUID: ipjDirF0m3_YrVg7yQwnzhrHSel1RsyH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA0MyBTYWx0ZWRfX0ROjx0Sd0wgb
- dB/Z6N5vY7D53h9UACi6IWKsShe/eNEF7qdz6TpTxisZj+OMhNRkNMG3sAM6N0mbM/GMeQ7TT85
- Z5JQAUz/ppx0CsdDSAHe+ALRY12tHJnuOP+Y4zrk95qSAqW43AB0ZwrAl+aCi47TJiZ+KolVexW
- H0+YuQyXp4kllEJmimpSLrzTbuzC8utr5vO97MhGYbJGz69/slpOaOSJPTeIxj/plth+h0EP/09
- 7nmk+dlMFdvXV3LpxrJhEgnsvlY7WyiFYHSmuLKa+SpXOXgmzyiVb8KH4XHHZUhHAGx8OtrBl87
- OMAoKH0c+1e6ytZX+IjAwaKUE6NwVdLjXl2UgnVjx2bDdEQfhx4EWZwPpienKAmBPrEl+Z/zWY7
- 22+Doyhf2xuffcgAABfYQj5SQlrub2r6kvXW5wsrPAJf3pPIKlBeNVvU4KqnnvN0NGRhjZzOUXz
- TgA+gPfCZadgSOsXwcQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_02,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270043
+Date: Thu, 27 Aug 2026 05:35:32 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Hui Zhu" <hui.zhu@linux.dev>
+Message-ID: <f33eaa0c730feb9f598738ff79d98cb25b4b2bcd@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] maple_tree: Annotate lockless pivot reads for KCSAN
+To: "Liam R. Howlett" <liam@infradead.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Andrew Ballance"
+ <andrewjballance@gmail.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, linux-kernel@vger.kernel.org,
+ maple-tree@lists.infradead.org, linux-mm@kvack.org, "Hui Zhu"
+ <zhuhui@kylinos.cn>
+In-Reply-To: <kpzm3pcwxwnzk5kngcsfcybzst5jtyrdcphd3hcpmoc6dbtswq@atn5yddl23qx>
+References: <20260826074430.1139325-1-hui.zhu@linux.dev>
+ <20260826094147.42e1e71e91a5a537ced30a21@linux-foundation.org>
+ <kpzm3pcwxwnzk5kngcsfcybzst5jtyrdcphd3hcpmoc6dbtswq@atn5yddl23qx>
 
+>=20
+>=20On 26/08/26 09:41AM, Andrew Morton wrote:
+>=20
+>=20>=20
+>=20> On Wed, 26 Aug 2026 15:44:30 +0800 "Hui Zhu" <hui.zhu@linux.dev> wr=
+ote:
+> >=20=20
+>=20>  In RCU mode, replaced maple nodes are marked dead and freed via RC=
+U
+> >  after the new node has been published. Arming the RCU free writes
+> >  node->rcu.next and node->rcu.func, which share storage with
+> >  pivot[0] and pivot[1] (see struct maple_node), while lockless
+> >  readers may still walk the dead node. These stores therefore race
+> >  with the pivot loads performed by the walkers.
+> >=20=20
+>=20>  This is harmless: the writer marks the node dead with an smp_wmb()
+> >  before arming the rcu_head, and the walkers re-check ma_dead_node()
+> >  after reading the node and restart the walk when the node is dead,
+> >  so any pivot read that raced with the rcu_head stores is discarded.
+> >  KCSAN cannot see this protocol and reports the plain accesses, so
+> >  annotate the lockless pivot reads with data_race() through a new
+> >  ma_pivot_rcu() helper.
+> >=20=20
+>=20>  Found by fuzzing on a 6.6 kernel; the race still exists on
+> >  mainline. No functional change intended.
+> >=20=20
+>=20>=20=20
+>=20>  Thanks. AI review suggests that the patch is correct, but incomple=
+te?
+> >=20=20
+>=20>  https://sashiko.dev/#/patchset/20260826074430.1139325-1-hui.zhu@li=
+nux.dev
+> >=20
+>=20Yes, this is literally every read of numerous pivots on any reader th=
+at
+> would need something like this. Most code is shared with the writer
+> side, so we'll have data_race() annotation where it is not needed there=
+.
+>=20
+>=20I don't like the name of the function and I don't agree that it is wo=
+rth
+> doing, especially half of it. If you notice ma_ functions take a maple
+> node as the first argument, but your new function takes an array pointe=
+r
+> in the node.
+>=20
+>=20The from address does not agree with the sign-off on the patch.
+>=20
+>=20I also don't think a benign race needs a Fixes tag?
+>=20
+>=20It might be worth looking at other ways to calm kcsans down such as t=
+he
+> type qualifier __data_racy, or maybe the makefile option.
 
+Hi Liam,
 
+__data_racy is defined as volatile for KCSAN kernels, so the qualifier
+has to propagate to every access site: ma_pivots() would return a
+volatile pointer, and all the "unsigned long *pivots" locals and helper
+parameters in maple_tree.c (about 25 sites) would need the qualifier
+too.
+It also marks the whole pivot array as racy, while only pivot[0] and
+pivot[1] actually overlap the rcu_head.
 
-On 26/08/26 18:26, Shivang Upadhyay wrote:
-> During Fadump in Qemu VM, when maxcpus value is set to more than current
-> cpus, following failure is observed.
+The Makefile option (KCSAN_SANITIZE_maple_tree.o :=3D n) is a one-liner,
+but it disables KCSAN for the entire file, so any real data race
+introduced in maple_tree.c later would go unnoticed.
+
+Do you think one of these two is still the better choice, or should I
+keep the current approach and fix the patch according to your review
+comments?
+
+Best,
+Hui
+
+>=20
+>=20Thanks,
+> Liam
 >
->      [0.000000] rtas: Dump taken by platform is incomplete (-1)
->
-> This is because the CPU_STATE_DATA is allocated for maxcpus, while the
-> data is only filled for current cpus. As per current implementation
-> of Fadump, dumped_bytes and source_len for a region have to match,
-> Which is failing for qemu's case, Even tough the dumped bytes are
-> reported correctly for only the current cpus. After this /proc/vmcore
-> generatition also fails.
->
-> Allowing dumped_bytes to be lesser than or equal to allocated length, for
-> CPU_STATE_DATA Fadump region.
-
-The overall logic looks good to me. And as per PAPR, firmware only 
-promises to
-send CPU data of online CPUs, so it is OK to accept bytes dumped less 
-than the
-source_len for CPU_STATE_DATA.
-
->
-> Reported-by: Anushree Mathur <anushree.mathur@linux.vnet.ibm.com>
-> Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
-> ---
-> ChangeLog:
->
-> v2: Only allowing lesser size for CPU_STATE_DATE Fadump region.
->
-> v1: https://lore.kernel.org/qemu-devel/20260429065127.366813-1-shivangu@linux.ibm.com/
-> ---
->   arch/powerpc/platforms/pseries/rtas-fadump.c | 17 +++++++++++++++--
->   1 file changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/rtas-fadump.c b/arch/powerpc/platforms/pseries/rtas-fadump.c
-> index 3bb4ac2ab6cc..ea1a0a8ac9eb 100644
-> --- a/arch/powerpc/platforms/pseries/rtas-fadump.c
-> +++ b/arch/powerpc/platforms/pseries/rtas-fadump.c
-> @@ -459,7 +459,10 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   	/* Check if the dump data is valid. */
->   	for (int i = 0; i < be16_to_cpu(fdm_active->header.dump_num_sections); i++) {
->   		int type = be16_to_cpu(fdm_active->rgn[i].source_data_type);
-> +		uint64_t bytes_dumped = be64_to_cpu(fdm_active->rgn[i].bytes_dumped);
-> +		uint64_t source_len = be64_to_cpu(fdm_active->rgn[i].source_len);
->   		int rc = 0;
-> +		int region_collected;
->   
->   		switch (type) {
->   		case RTAS_FADUMP_CPU_STATE_DATA:
-> @@ -469,8 +472,18 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   				pr_err("Dump taken by platform is not valid (%d)\n", i);
->   				rc = -EINVAL;
->   			}
-> -			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len) {
-> +			/*
-> +			 * Make sure that dump is collected for entire region.
-> +			 * CPU_STATE_DATA region is allowed to dump less than allocated space.
-> +			 */
-> +			region_collected = (bytes_dumped == source_len ||
-> +	                         (type == RTAS_FADUMP_CPU_STATE_DATA && bytes_dumped <= source_len));
-
-Do we really need region_collected variable? Can't we manage with rc only?
-
-Is bytes_dumped < source_len is good enough instead of <=. There are a 
-couple of warnings/errors reported by the checkpatch script.
-Please address them in the next version.
-
-- Sourabh Jain
-
-
-> +
-> +
-> +			if (! region_collected) {
->   				pr_err("Dump taken by platform is incomplete (%d)\n", i);
-> +				pr_debug("type -> %d, bytes_dumped -> %llx, source_len -> %llx\n",
-> +				         type, bytes_dumped, source_len);
->   				rc = -EINVAL;
->   			}
->   			if (rc) {
-> @@ -482,7 +495,7 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   			}
->   			break;
->   		case RTAS_FADUMP_PARAM_AREA:
-> -			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len ||
-> +			if (bytes_dumped != source_len ||
->   			    fdm_active->rgn[i].error_flags != 0) {
->   				pr_warn("Failed to process additional parameters! Proceeding anyway..\n");
->   				fadump_conf->param_area = 0;
-
