@@ -1,217 +1,297 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252E7494833
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D241D648
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857071; cv=none; b=l7C1OBpguA7SwDvjtvPzjN/pTH6L7mnZUYuseTAKuTVe1JgSwoBsAvQnP7JI21y19ZmATL/ZJYzvxE1yQFmf2Gec0xhUfMlFfsJsG9WMSiWQjk0DiT24Seb80c+/N2DUbR+bqy5BPnbHNBA90Y4Ljwi/aeY1d56OPliKx21n5c8=
+	t=1787857071; cv=none; b=Lej8dd6/Dl17ULS32NTvwkLLySFAdRR2FCSWIENgsGSRujxv1ECbmQJXbyz1FZpzJ6CORPrCp62vfWeB2SZZk83aKgSfjbQxOripSAZb9RSe81ooLK/7qlMSts8RVyoMRo/OIvD3vMwoPerNgBIzXuIg2aQjQiRGrFOkMsyDzHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787857071; c=relaxed/simple;
-	bh=mAHHUsoZXJKt4PRoppmG4agr4sysisrSRDaStOA5n88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A0MxJCh3FJ1KN3fjnXVDtpf8dJbcUTymXH4+kO0k/QpAHVg5NA3d0750YFUjCM+dKRw6s5ggqYeRZcTUn6pxXj12bXD1If7voFRRw/hjd37K5/dQtVlbobgVfJu3P2WH6xE3fiXArtZ+uoeh3yRC8uNFeEwXEYx7++WAvas/swA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dlis0DEG; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	bh=2sOodfgfsJvhsqW94qeYn0qkhe9uEMRF+lcymC2ACNk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jYrALZGLkXxgLkIiExub29mhg2p9IN9iRDQ5i5O+vCB1SbdjHg1P8XWI4pqaA//ogcv3urXKLhvURTiIEtQyBvC6XveTyrtOj//ulMmeDBqQiMPS6hDkg6HVKrTRod8ZWET4BTzTaiaEu5+1pBlLf+TgDmolC7sZbC/mBMhSJmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ey28pnFV; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dlis0DEG"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d3b445a84fso23225ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:57:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ey28pnFV"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8525efa7274so245794b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787857054; x=1788461854; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aX0MxhiMRKYlP1maDxCRQnyd/bhRIltclM/n9JE7KG8=;
-        b=dlis0DEGyv2KcKXGzdOrpBOVZpVyJAR8IA4qfkLZvlUZuRUYQ+6IbkaBCEIXsJzCbF
-         3ogn/NdULyT2obZwY19zmLVGEQizjUTxACHzlYRNiRoOp9yXYjjNeo4PuKckwEfBa/uO
-         NVGPLiefio6LKLB1J1cMYpezco3hA/l8KVDQ6fqpwTYHbYE/43/Q3QcfpN6BckTY0LZ7
-         QUWEcQ7QxN/nn07lKabL7gIynJwHJ5+KLvLTuCiCQBNjHQFzxQpYqtor8+DUx1MUD3Tz
-         jnirba/FXTlyp4y6jpAjIrYIKEz3ovx6efmNkel388vSR9XUFg3p0UTzFxvqLLBHPoca
-         293Q==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787857056; x=1788461856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l6buHA8XL3FoLT9T4LeVf/7ku8y2shlH2FUen9mPz6c=;
+        b=ey28pnFVtbturuRJRAVpQ2FirCc1pFV029jreFdMvUpDfk+ZuuMWgaI8sCi0d0FseL
+         VWj7Wnoxa8lz5pTXm4MQCoatUE424lgV3cqjVvgdsR/5WjgWcpeK9zhQ3kaWJyl65sRV
+         aRoLVdlKRNj1brJMwidirWtfAh2avcDr8zxc7pVKpd0AU1hPw6VXWYCrbziAliXUE/A/
+         gn6AXgRWDQ6BWHefozm3nXqngsBZs44bX4XIMsfL2Yy8lj2dl2BZ0xH7jdMHRaUwm67Z
+         JqEfZSYaM3HtHl2pRlCHWA93tNSVJK1KbKzUu2YVA1gBRsd4UC0D4U9WftHzJSJFpviV
+         ZKKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787857054; x=1788461854;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aX0MxhiMRKYlP1maDxCRQnyd/bhRIltclM/n9JE7KG8=;
-        b=oTxE4ZYcwBfsGb1s8SGSYKljmi6NI4Ef8IfmnEifi2GfCbNJ+s7+eFm+3gRvu/pjcV
-         ZogRcE3IHtPZUTPEtyiMg1B9w+BlD5uV5FIIfgZeCdm7B5nbUxfWfuk2q4r3haS4vS24
-         Tj8IDooY4DQRX98Lu1wXJ4Uy99lEYcvAzBxL09gSX4Jjcq6O2dEFn2K9OsAqCOvdJ1MJ
-         zr8yT326rT9HNc/2DAGavuo8CG8ef20k3Q+H0PZPihvAw0fkDzjC2yoq32SI+LazoyG+
-         FYmyG/PcUjt3ISjNYiB1Gjj1YudQKNDHMWy8Iwb8FtdLcQ7fHzuA3+StwbMdtJWlmACa
-         b7oA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0lPjB5PSHMlSLzuQnmbxBuh5y5VkNXqTUyYmUEe/6rR87O65NTs9/rlf+2QwAE9Wg+ArfQvEDhIdALI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwhPsk28G3d6v8Nc5TW/nv2soxomTQ7i9g5WDpn2M2VTiKCMOO
-	gbye0prOenEOLeMZV7lUJHP6Gx7YasnL4jUdZs4vMoYFQUSfK/0ekIps3Us7k1mtLQ==
-X-Gm-Gg: AR+sD13bjOGls1DiyRpTBJNcs+hag5cxIGX50bH6F9UybelIv9KANEZR7a1Mo8wXZIe
-	KqHLQTt9Oo6O91ocFZhy9YodswDrwpqWMuoqdkyNDxGPss9smwDg1sjnRy6EJu1XKDiHCo6gBkY
-	NOmPQ6H53jGaOr4r/LpuMnrHGXBilpr8LGpN7qmQ++SPkI4HBVWVBINWqBzrKzG/klfXeZQIAX+
-	HyH+D99FTTeJX8fpve8ZDekKC50WL+TGb49rULOlzKCwufwdSxQpXSWXGNWBBQ7lf/lu4BJmXHh
-	YpVWGYlIbPIKJ+ChqTGoiogbSqBgZSTfeOVzuTixLKvodhxXnRlB/guR6CE8+Uh5X01hatQb09s
-	zjRSthWupFl3vBQscVEJlK5gCj0lhJtcuX7q2GB5H1stgrJEFSt9Ul38Em4xX1iLEA+PjeO350l
-	5k+lM4fApqVCipcFWxI2iS2YRE6o0DdJCN8PNrqU2KmzQOkq4kaFLzKCXHrpdUMXBnzsCNCi7yk
-	2DImbjaQhcIHaRtinoWvQMoSGoeJ/4ph2PBF5O8vygjidzl0BNP8y24ktk=
-X-Received: by 2002:a17:903:2283:b0:2c7:a13a:7fe6 with SMTP id d9443c01a7336-2d74f558e3amr1143855ad.10.1787857053361;
-        Thu, 27 Aug 2026 11:57:33 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d44651sm3782064a91.4.2026.08.27.11.57.32
+        d=1e100.net; s=20251104; t=1787857056; x=1788461856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l6buHA8XL3FoLT9T4LeVf/7ku8y2shlH2FUen9mPz6c=;
+        b=MnYYuAi0ylbMmix0OI/ObauripU9TEyV9pfFZTlC1zQLfLQrw4ookY4PDFgkibxI/g
+         cbFKIcTEEWLl0b5bgvrrzFP9HMaZ1z6V1nIoMhelWNw3V7N5Iguqpygr8Hb6wi38WtNZ
+         sISBv0XVexWMlZ+YT1jJFfOw2pM0Zu9XtXz5vCfDHA7l3BUlauVMbTx2wH+QDBwpkIHT
+         cklFxI17vMmUzq81bR+otHzf4C98RCX5/o6FNFelYW2fh/TUi9rUj/Ul9wmmf6EIyxVh
+         lkFk4XXuCeK7sXDNWeop6T63PEnKp4f7a01RA++S25wiGt0coaJRJDIL9SbFXsal+zm8
+         9uGg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9M1f7QBMj0P9V2wb6HgKUB3whZdCHjhK2yztXKoGznOSuYmB/MPAbic6bG+KXuzfDDBmcjLWGieKqxhk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgpy0+aUvPyLxhmll5nlJBaYv4nviVI0t8BU9JCNjdF7ivHVNc
+	dEGokM1t+fEA3bDDoDGdc97Zu/0ILpufmjGxg6MmKDwjBoFMS6W2+NNmgt4m91tQeMQ=
+X-Gm-Gg: AR+sD13gBQq0JdS+v8R35cn2aTt2k22FAXqUKGpDaWQxZEKCAGsGzRUG5ahOYyCn3H0
+	HfzX5LoNidsv7Cs8m4zYjJqQsbST5EyapjmRiH9312BBm306wyxGRb0/F0ObTELSBYlCExd91lR
+	Npofc60kYQQR/sBXuKJi3YAUqszUHggsPzTlQdtQaisEp1WvRpWEUCeflcOmlg7DgNVTsq4VxQt
+	LLw+pmj9+uddreOSFt5EO5M6gPMs+tL7ypNK39T0vM1WpS8GMPxjQGkRHNEOnfX+KKfkWNUTAbU
+	yKuIwQdZCtgHYjEPv/AEOawxPurn1lcYgJ55JtTk8UPN5FeQVwPJnhLcSZlp/tHiuk1QBL01jH+
+	jHV061Xvjp1QFEaRx+Z0euLVPrnxUuNYpE0jFQG3jEm+nOWicfF5jLrqPY2WW986BfIp6DsuI2+
+	CiZNeil9XB9pe2zgU4K6h7KOlD7i1A4sqEpGWKvQ==
+X-Received: by 2002:a05:6a00:4109:b0:852:38ea:3fd with SMTP id d2e1a72fcca58-85629a252e3mr2408405b3a.11.1787857056352;
+        Thu, 27 Aug 2026 11:57:36 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85359cd5f3asm2327602b3a.3.2026.08.27.11.57.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:57:32 -0700 (PDT)
-Date: Thu, 27 Aug 2026 18:57:28 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v4 08/18] iommu/vt-d: Clear unpreserved context entries
- during shutdown
-Message-ID: <apCGj7ePWtmpnOzk@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-9-skhawaja@google.com>
- <446684d8-44d0-47c5-9301-172c55efd950@linux.intel.com>
- <ao9ADjoGzgNX4t1M@google.com>
- <5862e3cc-e7e4-43be-a829-8569d12d6bb4@linux.intel.com>
+        Thu, 27 Aug 2026 11:57:35 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>,
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
+Cc: horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	raphaelcf@meta.com,
+	Joe Damato <joe@dama.to>,
+	stable@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH net v3] bnxt_en: Bound SW TPA IDs to prevent crashes
+Date: Thu, 27 Aug 2026 11:56:58 -0700
+Message-ID: <20260827185700.2157164-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5862e3cc-e7e4-43be-a829-8569d12d6bb4@linux.intel.com>
 
-On Thu, Aug 27, 2026 at 02:09:26PM +0800, Baolu Lu wrote:
->On 8/27/26 04:30, Samiullah Khawaja wrote:
->>
->>>>+static void clear_unpreserved_context(struct device_domain_info 
->>>>*info, u8 bus, u8 devfn)
->>>>+{
->>>>+    struct context_entry *context;
->>>>+
->>>>+    /*
->>>>+     * This cleanup is done during shutdown, so it should be 
->>>>fine to only
->>>>+     * clear the entries here and issue one global invalidation 
->>>>later to
->>>>+     * invalidate all cleared entries.
->>>>+     *
->>>>+     * Note that the device IOTLB invalidation for unpreserved 
->>>>devices is
->>>>+     * skipped this way, but that should not be needed as the 
->>>>devices are
->>>>+     * quiesced at this point. This should improve the 
->>>>performance of the
->>>>+     * cleanup process and avoids any invalidation timeouts 
->>>>because drivers
->>>>+     * might have moved devices to D3 state.
->>>>+     */
->>>>+    context = iommu_context_addr(info->iommu, bus, devfn, 0);
->>>>+    if (context) {
->>>>+        context_clear_entry(context);
->>>>+        __iommu_flush_cache(info->iommu, context, sizeof(*context));
->>>
->>>For tearing down a present context entry, please follow the VT-d
->>>recommended sequence:
->>>
->>>- clear only the Present bit,
->>>- flush the updated entry to memory if necessary,
->>>- issue the required cache invalidations,
->>
->>Do we still need the individual cache invalidations if we issue global
->>invalidations (context, pasid-cache and iotlb), after clearing all
->>entries, as they would be done if a new root table was being setup?
->>
->>Looking at the VT-d specs (Invalidation of Translation Caches), each
->>invalidation type (cache, pasid and iotlb) defines granularity in both
->>register and queue based interface. And the granularity indicates that
->>Global invalidations clear the cached entries for that specific type.
->>For example following text is used for each cache type (in queue
->>interface):
->>
->>   Context-cache:
->>   Global Invalidation (01b): All context-cache entries cached at the
->>   remapping hardware are invalidated.
->>
->>   Pasid-cache:
->>   Global Invalidation (11b): All PASID-cache entries are invalidated.
->>
->>   Iotlb:
->>   Global Invalidation (01b):
->>   - All IOTLB entries are invalidated.
->>   - All paging-structure-cache entries are invalidated.
->>
->>A similar note about using Global invalidation is suggested in the specs
->>when setting up root table (Set Root Table Pointer Operation).
->>
->>   ... software must perform a global invalidate of the contextcache,
->>   PASID-cache (if applicable), and IOTLB, in that order. This is
->>   required to ensure hardware references only the remapping structures
->>   referenced by the new root table pointer and not stale cached entries.
->>
->>Also please note that this is happening during dmar unit teardown and
->>system shutdown, and while the context table entries in root table are
->>being cleared, the memory is not freed until the global invalidation is
->>issued.
->>
->>Since this is during shutdown, issuing global invalidations instead of
->>multiple individual invalidations for devices and aliases is simpler and
->>would likely also have shutdown time improvements and reduce the
->>blackout time during liveupdate.
->>
->>Please let me know if my global invalidations and granularity
->>understanding is not correct.
->
->The global-invalidation approach (similar to the “set new root table”
->flow) looks correct to me.
->
->On the device side: if ATS is enabled, some translations may still be
->cached in the device. My understanding is that unpreserved devices are
->already DMA-quiesced and then go through reset + reprobe (as in a normal
->reboot), which should flush those device-side caches. Are we aligned on
->that assumption?
+TPA IDs are generated by FW and can be up to 1024. bnxt_alloc_agg_idx is
+intended to wrap the FW ID down to a software ID which is used to index
+rxr->rx_tpa, and to generate a mapping between FW IDs and the wrapped
+software ID.
 
-Yes, we are aligned on it. I already added a note about unpreserved
-devices being quiesced at this point, in a comment above in this
-function.
->
->>
->>I added a comment at the top of this function to explain this, let me
->>know if you want me to expand it with more details.
->>
->>>- then clear the remaining fields of the entry.
->
->One important point remains: even if cache invalidation is deferred and
->done globally, we should still clear the Present bit before clearing the
->rest of a context entry. While Present is set, hardware may fetch the
->256-bit entry in multiple chunks. Rewriting the full entry is not atomic
->(it becomes multiple CPU writes), so hardware could observe a torn value
->(a mix of old and new fields), which may lead to undefined behavior or
->spurious faults.
+On a 57608 with firmware version 233, the firmware advertises 32
+concurrent TPAs. As of the commit under fixes, bp->max_tpa on this NIC
+is set to 32.
 
-Ah yes, I wanted to write that in my previous reply but it seems I
-missed that.
->
->So the recommended sequence is:
->- clear only the Present bit,
->- flush the updated entry to memory if necessary,
->- [add a comment about the delayed global invalidation approach,]
->- then clear the remaining fields of the entry.
+If the software ID from bnxt_alloc_agg_idx is above 31, this results in
+an invalid address being loaded on this line:
 
-This is exactly my plan for the next revision. We are aligned on it.
->
->Thanks,
->baolu
->
+  tpa_info = &rxr->rx_tpa[agg_id];
 
-Thanks,
-Sami
+because rx_tpa is allocated with only bp->max_tpa (32) entries. Writes
+to tpa_info later in the code are out of bounds.
+
+This bug results in a crash at boot:
+
+Oops: general protection fault, kernel NULL pointer dereference 0x8: 0000 [#1] SMP NOPTI
+RIP: 0010:bnxt_rx_pkt+0xc0/0x1560
+RSP: 0018:ffffc900009b8c78 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 0000000000000048 RCX: 0000000206682516
+RDX: ffffc900009b8db4 RSI: 0000000000000000 RDI: 01ffffff038fe1c0
+RBP: ffffc9006e687480 R08: ffffc9006e687000 R09: 0000000000003048
+R10: 0000000000000480 R11: ffff8881c6083900 R12: 0000000006682516
+R13: ffff8881c6095400 R14: 0000000000000016 R15: ffff8881c6b66680
+FS:  0000000000000000(0000) GS:ffff88fef3c77000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc8bda40584 CR3: 000000807c812001 CR4: 0000000008772ef0
+PKRU: 55555554
+Call Trace:
+ <IRQ>
+ ? __netif_receive_skb_list_core+0x1ca/0x250
+ __bnxt_poll_work+0x152/0x280
+ bnxt_poll_p5+0x1cd/0x480
+ __napi_poll+0x30/0x180
+ net_rx_action+0x20b/0x3b0
+ ? note_gp_changes+0x53/0xe0
+ ? tick_setup_sched_timer+0x180/0x180
+ ? __napi_schedule+0x9a/0xb0
+ ? bnxt_msix+0x24/0x30
+ handle_softirqs+0xdd/0x2c0
+ __irq_exit_rcu.llvm.3171231171502365008+0x47/0xf0
+ common_interrupt+0x85/0x90
+ </IRQ>
+ <TASK>
+ asm_common_interrupt+0x22/0x40
+
+This stack trace is from a crash triggered when an out of bounds rx_tpa
+is dereferenced. The invalid write mentioned above is silent in this
+particular crash.
+
+Fix this by allocating rx_tpa with bp->max_tpa rounded up to the next
+power of 2 (bp->max_tpa_roundup_size) entries and masking the FW TPA ID
+with that size, so the wrapped ID can never index past the end of the
+array.
+
+Fixes: 54c28fab2fa5 ("bnxt_en: Set bp->max_tpa according to what the FW supports")
+Reported-by: Raphael Cardoso Fernandes <raphaelcf@meta.com>
+Suggested-by: Michael Chan <michael.chan@broadcom.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
+---
+
+v3:
+  - Addressed an issue Sashiko pointed out, where max_tpa_roundup_size may be
+    left unset if bnxt_alloc_tpa_info returns early, which would lead to out
+    of bounds access.
+  - The other pre-existing issues Sashiko pointed out are unrelated to this
+    patch and would need different Fixes tags, so they are better served with
+    separate patches in the future.
+
+v2: https://lore.kernel.org/netdev/20260825001842.2501798-1-joe@dama.to/
+  - Followed Michael's suggestion on the v1 to increase the size of the tpa
+    array so that wrapping indexes into the array is a simple mask.
+  - Add Suggested-by because the approach was suggested by Michael.
+  - Add a Reported-by so that Raphael gets credit for reporting this bug.
+  - Boot tested on a machine with a 57608 and the crash did not reproduce.
+
+v1: https://lore.kernel.org/netdev/20260821233549.3134699-1-joe@dama.to/
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 25 ++++++++++++++---------
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h |  2 +-
+ 2 files changed, 16 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d59bcca73a2b..8f4791fb468d 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -1514,14 +1514,16 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
+ 	return 0;
+ }
+ 
+-static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
++static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
++			      u16 agg_id)
+ {
+ 	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
+-	u16 idx = agg_id & MAX_TPA_P5_MASK;
++	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
+ 
+ 	if (test_bit(idx, map->agg_idx_bmap)) {
+-		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
+-		if (idx >= MAX_TPA_P5)
++		idx = find_first_zero_bit(map->agg_idx_bmap,
++					  bp->max_tpa_roundup_size);
++		if (idx >= bp->max_tpa_roundup_size)
+ 			return INVALID_HW_RING_ID;
+ 	}
+ 	__set_bit(idx, map->agg_idx_bmap);
+@@ -1586,7 +1588,7 @@ static void bnxt_tpa_start(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
+ 
+ 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
+ 		agg_id = TPA_START_AGG_ID_P5(tpa_start);
+-		agg_id = bnxt_alloc_agg_idx(rxr, agg_id);
++		agg_id = bnxt_alloc_agg_idx(bp, rxr, agg_id);
+ 		if (unlikely(agg_id == INVALID_HW_RING_ID)) {
+ 			netdev_warn(bp->dev, "Unable to allocate agg ID for ring %d, agg 0x%x\n",
+ 				    rxr->bnapi->index,
+@@ -3584,7 +3586,7 @@ static void bnxt_free_one_tpa_info_data(struct bnxt *bp,
+ {
+ 	int i;
+ 
+-	for (i = 0; i < bp->max_tpa; i++) {
++	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+ 		struct bnxt_tpa_info *tpa_info = &rxr->rx_tpa[i];
+ 		u8 *data = tpa_info->data;
+ 
+@@ -3781,7 +3783,7 @@ static void bnxt_free_one_tpa_info(struct bnxt *bp,
+ 	kfree(rxr->rx_tpa_idx_map);
+ 	rxr->rx_tpa_idx_map = NULL;
+ 	if (rxr->rx_tpa) {
+-		for (i = 0; i < bp->max_tpa; i++) {
++		for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+ 			kfree(rxr->rx_tpa[i].agg_arr);
+ 			rxr->rx_tpa[i].agg_arr = NULL;
+ 		}
+@@ -3807,13 +3809,14 @@ static int bnxt_alloc_one_tpa_info(struct bnxt *bp,
+ 	struct rx_agg_cmp *agg;
+ 	int i;
+ 
+-	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info, bp->max_tpa);
++	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info,
++				   bp->max_tpa_roundup_size);
+ 	if (!rxr->rx_tpa)
+ 		return -ENOMEM;
+ 
+ 	if (!(bp->flags & BNXT_FLAG_CHIP_P5_PLUS))
+ 		return 0;
+-	for (i = 0; i < bp->max_tpa; i++) {
++	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+ 		agg = kzalloc_objs(*agg, MAX_SKB_FRAGS);
+ 		if (!agg)
+ 			return -ENOMEM;
+@@ -3831,6 +3834,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+ 	int i, rc;
+ 
+ 	bp->max_tpa = MAX_TPA;
++	bp->max_tpa_roundup_size = MAX_TPA;
+ 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
+ 		if (!bp->max_tpa_v2)
+ 			return 0;
+@@ -3838,6 +3842,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+ 		/* Older P5 FW sets max_tpa_v2 low by mistake except NPAR */
+ 		if (bp->max_tpa <= 32 && BNXT_CHIP_P5(bp) && !BNXT_NPAR(bp))
+ 			bp->max_tpa = MAX_TPA_P5;
++		bp->max_tpa_roundup_size = roundup_pow_of_two(bp->max_tpa);
+ 	}
+ 
+ 	for (i = 0; i < bp->rx_nr_rings; i++) {
+@@ -4551,7 +4556,7 @@ static int bnxt_alloc_one_tpa_info_data(struct bnxt *bp,
+ 	u8 *data;
+ 	int i;
+ 
+-	for (i = 0; i < bp->max_tpa; i++) {
++	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+ 		data = __bnxt_alloc_rx_frag(bp, &mapping, rxr,
+ 					    GFP_KERNEL);
+ 		if (!data)
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index ab894f8addef..de46b42d7c98 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -789,7 +789,6 @@ struct nqe_cn {
+ 
+ #define MAX_TPA		64
+ #define MAX_TPA_P5	256
+-#define MAX_TPA_P5_MASK	(MAX_TPA_P5 - 1)
+ #define MAX_TPA_SEGS_P5	0x3f
+ 
+ #if (BNXT_PAGE_SHIFT == 16)
+@@ -2380,6 +2379,7 @@ struct bnxt {
+ 
+ 	u16			max_tpa_v2;
+ 	u16			max_tpa;
++	u16			max_tpa_roundup_size;
+ 	u32			rx_buf_size;
+ 	u32			rx_buf_use_size;	/* useable size */
+ 	u16			rx_offset;
+
+base-commit: e2a6641e3bfde58f2284f9859c2b0fdcc6d1c0da
+-- 
+2.53.0-Meta
+
