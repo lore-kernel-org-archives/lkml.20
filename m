@@ -1,181 +1,149 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C804499F0B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851340; cv=pass; b=nrL6xh996qGc/a17nHXikh8yqLa6ZGCYFUN93NJe193SDy2dt7fh+PIVr3Mt/UQXciX1NvLL2IeKqaoWPHIt8EFabkLDuvVeqwIfD1wEa9gZHCcVEux5O1qDmpXn0ck/HYaj6Cb58HxaTTQWA+xTQxf8LvKlqcFabUEBGUOzrAc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851340; c=relaxed/simple;
-	bh=8bd2Y797uynTFPXBQtKo4OLxQ13DQqaAlC1NDt3Dco8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RK8UqNL8Qw9RbyEGXllSiZynW6PJUqe1q2LaF9CO+k1ACVSEIgu4DjYBMv7JooO9SXNiuWQVki9MaZqMfI5Zi+KbsY2N0oRMzBEs3XQKuAZ3GV7dqQ5Xp+sg0XCMgs0amnvuk72CBKDQTo+eM1Nl4KFX96IyILite5e0x8ZOS3c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EO/d++Ue; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D072641F5D5;
+	Thu, 27 Aug 2026 17:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787851444; cv=none; b=GLNmndFHvT7hMA4LFoLAPYq1yOKQRaQGFBcpIqk3m/+B4Tko8yLd+57QUleBCSdykKu8R0BVZOBNEWaPqcFNXRc3Nz35jLNlqDZvE9TyujW1031OH11smtS/ITumAgIaAmgf19wN0rh0orhvB5wuGMkoBdrM7v19QhryHA+TG6A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787851444; c=relaxed/simple;
+	bh=H5ZRMIE38fbrqt3mKWehWW9NwT08Qp2Sc2+mr9vS/as=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uMdx21Ywj2lkbjkW4VZxumdUJZ9xex+j5iyMQGHwf92a0M1VGCxYoNOxrxeT3etBUNP64zp8Xh1ws9L1vOsYQUxGgP4rfb7uiMCMtamBNixRnCPKeGj2To/dTAa6t2bc2Mk/skiJ+iGQTHYTejRPKHwmXCoJTk6fMufpIPuJoHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EzLpiBjN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EO/d++Ue"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69fc9f25118so23922a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:22:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851337; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C4DfVot/tOtf9eD885DrLtstVvjbl1PvmjTTKowo5lq9HheZidGVPhejclcDwH7Yqd
-         wRdBSuYdZQZP5rW9+ECiRTOd+4M70A8k635UXqw6OF0MiSeWEyZFvjynEAWIUyd9up5K
-         PIoIb47R2qfLrwlP3tgxJHPUErXiVAMRE3ISO09+oDDGG3RRNgLoHaflZzT+kEekHTaW
-         xU+QPuw9a/cTBXjiobsCjxaoxxha/WO5/IHgnvb3ZcqnIUBvrk5mfDvtMUMpyROdS+Hm
-         XmjtA4JF67wuttOQD8YFHIuvp7fR0TZoaLBgnLJtUU+SM/ZcSrUvlEA5ynm97mYUoXrn
-         gl6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tltuI5yMhdPmNzhZrv3APrkDegnN9eE8RZrbuDy3HtE=;
-        fh=8OT3HhMhpVTdKOVj6Yo6wNbTa+xu9VBrDB//hM/t3Ac=;
-        b=j2mmko9cXNL5inp5TgkqGU/aPhkC/ATHqGcvjKxwaJBsN8gHe5wnCWT0b7EZZs/sux
-         xBpJHG7GBsgAp1L0Frts0B9zPiRdRSEiY9ZYuxZv47k4T+SE5DAlIdybAExPWZBOxPcX
-         R53oObPVWkyLnm1gSYq0q75pDOYAjg7bt3qpGpOeAnbcMVdu3bhfXhB9s17zkJIa1ue7
-         5H/Q3E5+zFDgbF58WxEe7JT5PIJQOPAwM5Pt7u3J8+92PzThAPLtep594rqRPJ8Rzgb4
-         7SSIMtpENAAV3JcBThrvF1oBXKGZvKPlOP5s7YMWMDsI0++iz1s+G+PgCLhlwjj2c7xd
-         Ex5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851337; x=1788456137; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tltuI5yMhdPmNzhZrv3APrkDegnN9eE8RZrbuDy3HtE=;
-        b=EO/d++UeJXZ6t7A17VU5mCqXCR7xPZ4pC06ZppwoYxIXs8e6OIud97B8B362IpA2EU
-         bTr+4lg1kIEEzR+kubXy59184pTJlr22DKEVl1AyXh5o87gmUEiJJdtRku4TGe9Sli4x
-         SgAampJwHkewmRrlud5l5/jldqYiKR8npysZpWXzn2Gv/RERPXZf0SqaeNk1gGViUoZW
-         efBhoPrh0/RJtesHrrDBP8LfRLkkaZu98++thmu9mHXd7uP5o62pyUuwqbOhBUwMbB2s
-         b2w/OIKe5sqEliVcDqqvFfE4k3fKTRYk+z2ZxJZ2+pWloGGSDs8i5e1MsEdI0iKjUkit
-         Rp3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851337; x=1788456137;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tltuI5yMhdPmNzhZrv3APrkDegnN9eE8RZrbuDy3HtE=;
-        b=nxKtk1ma3gP6vwHf3uKIbZngYTExX6cKf6ubilikztWgETMkEpLh7oj7lMH+e+nZZ2
-         dezZ8WdhTGJnpUYCwf5M0DCTLYSBEnl3kCQw2F8Vc9PQ/nCQHVDCp+lfTzCVwCxRh20l
-         lvZI7cyYoZ7XykG9ZbysUXZ2TPAeSAIxxJ5A8F+VvTzfGh8+/UePPVPuypkVwPqhLOPc
-         hU0Afv3OqPbErdmwYUmnhGQH+DPqxROP+5MEsVBIvWLzj/8K5zgG6QVf125LSun++IM4
-         WVB37aWS0WP4IFGqdBSi86mezZDcsfuuix14AC/OTAX/v5eCLC71A42oQRACYd8jo0i3
-         WGRw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7wHuzRaJhj0QcwwsmKL+FyVdoHUr9ZvTrtifTUfBPuiVcqxkyolBxwgCTL1wRNvq1A8nGVW6STQuyP/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmPZxqq1O9ZWt+ahMJ05jCxc8IcPQQyMVOY9pozRflTWAP+szb
-	2CMMPlJotG22Op2oiLvnYXfBWUMU6HSdT70cRxZs4ldW30Z2yFtSA6NrfOYzlXEcSVTiBkZ9LuF
-	uunSVhcp2gdNUFiCOUkLruVn9NC2zEso=
-X-Gm-Gg: AR+sD1348rwbKe86wulVJvTIX+T1LfdnzwL2KRv2dZIbTOzrkMO0dhtZq3cyyghEWj/
-	6bT6U0fvLQl6uekyu/gvdzpQXQFftQyhIEPnEvqDTy4egAwSuEeHXYwgEaMnPM61KZfYkqQgFBA
-	RR5D9RTo6KVNTbEBjOVqJpvIb7isxGwrXTOl5Fen6hGsW7QByFXpA3UGmILZDd3eKsB8ugDxYCy
-	dhxTDx60kPO8IL/1wl2yg5foZPWc/Ili+qPMYfnkNarRFwEJyJ1cwRay6BjnSKdnjyDSl4dMUnj
-	rgx8FkSGHO8ul6tvqqClgWZ2KGBJ0v58J4q64URrQ4kXCfQQp3+sWxVfZyNS0sksb0Fy9R/Gyhc
-	H
-X-Received: by 2002:a05:6402:23c3:b0:6a5:f4f4:5c0e with SMTP id
- 4fb4d7f45d1cf-6a5f4f45ca1mr5745899a12.14.1787851336822; Thu, 27 Aug 2026
- 10:22:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EzLpiBjN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14011F000E9;
+	Thu, 27 Aug 2026 17:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787851443;
+	bh=BjfGfa7gS4D2wDK9mCCSlkjUdk96fAt8iFKlJ66xdXk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EzLpiBjNYRL+cecuiQoLhAzu7P8qyHCBg5rZkgBcp23SnYHYI83dN1J3k3hnXWUun
+	 sf5NLBe4/3OssrfnO52PXIBY48h6Xl9YhU1d7FCXkCP2aLD0U1fdzcIBv3WdqSgFIz
+	 hjadHXoPzSbMVpUQiJ+eVBHaNsUAcC6l+ka6F9DHPXTRCtvOgwIhoh0mup9ELuSwDL
+	 MfL8FqK5PMcINwus6FEHP6gldl8wXFCgjAYaKrMo2JcyUVvoFRvoOWZfcgT/LyrVJu
+	 9tcvciVYTK+I3cB2kbcTTqpwx3p1mK4QvoFlxEMKppupZfkHiMpFIOMhFXMGViy5Lu
+	 9L8/+h48xIwDA==
+Message-ID: <7fb30b85-ea60-45bd-aef2-494943b524a0@kernel.org>
+Date: Thu, 27 Aug 2026 19:23:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-5-9b43f5163238@tencent.com> <apBQqJZ89MHZi2RJ@thinkstation>
- <c796694d-7783-4f99-9ce2-331e1c551415@kernel.org>
-In-Reply-To: <c796694d-7783-4f99-9ce2-331e1c551415@kernel.org>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 28 Aug 2026 01:21:40 +0800
-X-Gm-Features: AcwNN1XqqM0BAQHr_O9sXhmt_pq-8O_uB9N2siAFg-mlZCN69ElipsNI9_k2JTA
-Message-ID: <CAMgjq7CnErLhEE1RSaY=-CdK6WErNedycCD3eRBn_o3edVrO=A@mail.gmail.com>
-Subject: Re: [PATCH v3 05/18] mm/huge_memory: rename __split_unmapped_folio()
- to __split_frozen_folio()
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kirill@shutemov.name>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/25] mm/fbatch: remove !CONFIG_SMP special case of
+ folio_activate()
+To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Ackerley Tng <ackerleytng@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
+ Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
+ <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
+ <imbrenda@linux.ibm.com>, JP Kobryn <jp.kobryn@linux.dev>,
+ Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Marcelo Tosatti <mtosatti@redhat.com>, Matthew Wilcox <willy@infradead.org>,
+ Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Rik van Riel <riel@surriel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
+ <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
+ Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+ <3f18ab7d-c12a-d2a3-4d3e-f9908f94f27d@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <3f18ab7d-c12a-d2a3-4d3e-f9908f94f27d@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 28, 2026 at 12:22=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 8/27/26 17:06, Kiryl Shutsemau wrote:
-> > On Fri, Aug 21, 2026 at 02:55:18AM +0800, Kairui Song via B4 Relay wrot=
-e:
-> >> From: Kairui Song <kasong@tencent.com>
-> >>
-> >> The helper splits a folio whose refcount is frozen: the frozen refcoun=
-t
-> >> is the state it relies on, while unmapping is arranged by the caller
-> >> beforehand. The old name caused confusion and people may try to call t=
-he
-> >> helper on non-frozen folios.
-> >>
-> >> Suggested-by: Zi Yan <ziy@nvidia.com>
-> >> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> >> Signed-off-by: Kairui Song <kasong@tencent.com>
-> >
-> > This patch is fine:
-> >
-> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> >
-> >> @@ -3989,8 +3989,8 @@ static int __folio_freeze_split_unmapped_anon(st=
-ruct folio *folio, unsigned int
-> >>      if (do_lru)
-> >>              lruvec =3D folio_lruvec_lock(folio);
-> >>
-> >> -    ret =3D __split_unmapped_folio(folio, new_order, split_at, NULL,
-> >> -                                 NULL, split_type);
-> >> +    ret =3D __split_frozen_folio(folio, new_order, split_at, NULL,
-> >> +                               NULL, split_type);
-> >>
-> >>      /*
-> >>       * Unfreeze the post-split folios and put them back to the right
-> >> @@ -4053,8 +4053,8 @@ static int __folio_freeze_split_unmapped_file(st=
-ruct folio *folio, unsigned int
-> >>      if (do_lru)
-> >>              lruvec =3D folio_lruvec_lock(folio);
-> >>
-> >> -    ret =3D __split_unmapped_folio(folio, new_order, split_at, xas,
-> >> -                                 mapping, split_type);
-> >> +    ret =3D __split_frozen_folio(folio, new_order, split_at, xas,
-> >> +                               mapping, split_type);
-> >>
-> >>      /*
-> >>       * Unfreeze after-split folios and put them back to the right
-> >
-> > But now you have *unmapped_anon/file() call *frozen_folio().
-> >
-> > Given that you introduced *unmapped_anon/file() in the previous patch,
-> > why not give them the right names from the start?
-> >
->
-> +1
->
-> And just for completeness:  we cannot possibly freeze a mapped folio. So =
-frozen
-> implies unmapped.
->
-> So the function can possibly just be called
->
->         __folio_freeze_split_file
->
-> And we can can add a
->
->         VM_WARN_ON_ONCE(folio_mapped(folio));
->
-> to self-document the expectation in the code.
->
+On 8/24/26 15:52, Hugh Dickins wrote:
+> 3.0 commit eb709b0d062e ("mm: batch activate_page() to reduce lock
+> contention") brought in an ifdef CONFIG_SMP around activate batching:
+> https://lore.kernel.org/linux-mm/20100805140755.501af8a7.akpm@linux-foundation.org/
+> shows a sensitivity to bloat that day, not any incompatibility with UP.
+> 
+> No other batching here has a UP alternative, and it's a bit confusing:
+> simplify mm/folio.c a little by removing it now.
+> 
+> Certainly we can reduce UP bloat (and/or 32-bit bloat) by, say, lowering
+> FOLIO_BATCH_SIZE from 31: traditionally 16, 14, 15, then raised to 31 by
+> 6.9 commit 9cecde80aae0 ("mm: increase folio batch size"); or by giving
+> just the static per-cpu folio batches a type of their own with a smaller
+> array size on UP (1? or a little batching worthwhile even on UP?). But
+> not right now, it's orthogonal to this series.
+> 
+> And I suspect that the old ifdef led to lru_activate being placed last,
+> whereas it's usually the second most popular fbatch: move it there, to
+> match cpu_needs_drain() comment "Check these in order of likelihood that
+> they're not zero".
+> 
 
-Right, I'll just squash this into the previous commit then?
+This fits the theme of removing CONFIG_SMP conditionals where they are not
+really warranted and cause maintenance overhead.
+
+Let's see if this actually creates real problems we have to worry about.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
