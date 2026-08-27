@@ -1,245 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64B348C400
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5523348EBEF
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848716; cv=none; b=EZFFUUyHmcdFmn7AvRMk38CKL8XotMCKgdMgiuYuvD3Uvoh+ldTmUrcmF2Nf3m2QMmXJVnsp9kl3pqfR6BhcSJhiUDfGYpFLcAvDwpv0Qw1dlbPZG20Ae6bKbC3+7IIWe3/l4+1DmKEaUt1p8K62gpJOOTf/Kch6mfCexXkQBy8=
+	t=1787848721; cv=none; b=Bby0xDG0TMso/FpVtaw0ItLRntLvbsBOntGqlu7XCxfqowDTs0Ob++8dMXJXJPn9SBSWgTjVRiJAINYlPcTcNYTP93ukbA9/AmPyPZz9BuM5Ab3eoJ7IKOMk0YaVvuXH9SglvamJTMcvC+tEb4tuDuzVgtvLj2hRV23kqrEpsAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848716; c=relaxed/simple;
-	bh=cCkF8f6xFgMdW8Cd6s+O/9FMEWCLYTUUuKxw51rIXgU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lQQkPiQDJnwswSiCVJN7jF0f4SlHH3bUB2L1i7krhszMfkikNktIdQxUYKKgS51r2KZBHLxGXgRG/+UD4sChhRaFS5YyO2cBb0V2ve50OhXURk0+WgBPZoBBgANhEszFq1o0QTbkL5/xQfvDEUBuXEGfrs4RJzcCoWgcaxLRoPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jywE9fJs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787848721; c=relaxed/simple;
+	bh=ZHsN8zM/JbhignLDIxWKpOEJ0dJLsvtVmGGylPc0eUU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=P2DiGZYNuULJANV85U8Der0J3EG9e8ECJd7fJ5LcqQ3ZPRYYP2NCva7BuZMYYGndMYeGWWQl9mTfi49DTRYFCr/1u/7WdEVqojokiZhVpj6Ov3gBpVg4/CnQNfQYudGgCDcEretkh2vvM1u0y3/926GoZa+KVG/95SADckr63F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SaMxRdth; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VaR6zClE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jywE9fJs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E071F00A3D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787848714;
-	bh=79LT1FTf1EQ7iIO60cu5IupbbRNT9ep0N1MKx/iPMBY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jywE9fJsbOGEFcxhVFrJn0YxQOwZfmxfrhSw0E97IvQSOzwumMNc6PkrXjr6/S6Na
-	 hwjAHSd2FV+zdrG9BDBFLXzbEK1foihG8GDC1F4v/hoX33MjVOBvkME91y4wNbpCy1
-	 hSV8mNFaSCwCQt19NaH8wU95eNTiAyrnapCuW1lxJj0Zc38zQmTGoXWwWxtp5BoIDH
-	 9nZ8UzJ6BB5VGqHM/GpHix9faX9ZQeAOwFdMdRCJtS5havJ3C//kaBClrEE28sgTL+
-	 K3SigqHpdhswSAUJvXwKZ9Vjcefdr2pqWkaTLwu1+BlCQxNOzQtSGNiCAWgNQL0Udu
-	 qDm9BQcS/BksA==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2544ff970dso4487666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq+bO3Prj3jmB3wksRagNxNvPbY4dwuGL1D0IkLyK2u+G+tpPPskZex8kGl5+jXzCctojMo+3RdJheQf3U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSSDOBeEkNJo2qlN77ysYAA/N6UpCN+oWpgC+V5DgntgmUVqft
-	/aGeN5PIo4QqIyHZexHMQL13KgFpJvtZy6lovlDKg9l3GgNRL45Gt41thvO7jFsYJeLPiuEwSLW
-	Ocyh9YvDnCW+mRV95yZoiI4Se6ILmBDM=
-X-Received: by 2002:a17:907:3e0b:b0:c21:450d:cd7e with SMTP id
- a640c23a62f3a-c250bbbf096mr1528043866b.9.1787848713280; Thu, 27 Aug 2026
- 09:38:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SaMxRdth";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VaR6zClE"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RGIMdl707841
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tKKYzTTyUQNx49FteOTvUbeUFOC22ARPMGkTLmOUYjE=; b=SaMxRdthBszwPxye
+	ahAPAjCu8wN15TieayAgyNv1rpccx0g2otWevM0wh1Vxiou7v5lCf6Eji6kot0Hq
+	cJfWmknf3m0iXl2a4/J4e6NkYhw76YbfNr6mkgG/psRCZcJ2v94g3pQdDNuxaTmp
+	z+AaWYdFQ5aUgbtfdZUSYIQJnD+PFTNogq6Oc3lrm3pazT8fCFSodLWRN0LvQLH/
+	RkhbLete0IpvHZGYV58U5iaRYVJBYMf0Cd14esQA1pio3Hr5sTjbSmFu0LhCowOG
+	p9cji3oDM2wF681yaqVAhsq9GjG3rhn1XCjpbvhOhDQ8Q+/0nA45A4Eyd3enyIBZ
+	xbyLmg==
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4garn0g2jb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:37 +0000 (GMT)
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b325074c26so219653b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787848717; x=1788453517; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tKKYzTTyUQNx49FteOTvUbeUFOC22ARPMGkTLmOUYjE=;
+        b=VaR6zClEaHCksA+uzy6NQNsRFUf6nPjN5Y8iGTo19saELLW6wOQqM1BpMgfNnCZTTg
+         q47qjpSIg2YzbBIzSHIr6Fn5H/hPJPRfztUnny0EUDYaW3w3GWf+m3v1svl2d6L9TSTa
+         Ihit/p/ey6TSvl3OZi5bE7ZrbgazSfESfAVN2RofDY63BZKyKtabIIsUkZr2PGT8SNcQ
+         /V+UpDEtXWScAhcecM64Lk7MrWgXaAzF7AjM8oGm5u7Gu+GkxvlxEEtw30BcN+3oOxvV
+         piFuVFjo7WBzJgkdZB7TbNWipzQpz49gL+qcjSfkbK8Ww8TKGq156MrHl2yqWJWMUvm2
+         zKKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787848717; x=1788453517;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tKKYzTTyUQNx49FteOTvUbeUFOC22ARPMGkTLmOUYjE=;
+        b=C9p21G4L1ikIk4ZkGo+yqWKC2kRs/l9N6nnz08E+AUiIpJM3ZmLnr/j54tDkuj30KX
+         Qc2BWbPXRHWxt6Mk9GOSAi3WUSETj6/8Oja5zI0p7t7wWcNYEtH/bQf0tXJiH/IdY6hA
+         gAjuBakYP1dU1KLNhd8MKE3Jl1jPw4/Z0i3sxFWGt9HAjBDRKuhObjUqPbKZ/aB+wWgr
+         3+2lkLZnjHYBDWtAxaQyrOCGcINYd/yLdMnyMD3bB9nS8ZwL8puWOCYDYOqB+SLES26h
+         Xi5qVvqgqbGlBm3JnKctNr/JArx6ekzmnjumpgh+3WI7TzqwlYZZ+wcc+BshJboDHgI3
+         NVng==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3p6k6Ze3SaBndtbpNYzK49SStMxKsE5cn0KrFuhZnm3q5zZZQ1MYc4Lh8jsyLSuOobKtIiutrb8g9d3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqbP+1sYedjzGjKFBuO7mtSoOjRcb78bU0Oyb6zBaIxVaSDvUj
+	/a1ZRfpOLNdTZ0HrH/lqnwijhuh2e1kifRdsScwXnQmpYJLktAD3uSmJAAtZrcd8fi4gEZRlU8w
+	mz5/F2OIV4tMbb14WG3/rvCDXrru6SIUG8999Q97OhjVTkKXqCuPMHu7/B/pZocxcG+o=
+X-Gm-Gg: AR+sD106fU0QqTWpVPV9G2pHrFM7ujwvM3NfY6FKfYZpFJlJBkW8jHcN2bULBYgWjh7
+	RikzPQaPfOMp34jPA0gu7RJ1GYpqnwRUP+uV/47VVq5CqE7LJs6U+WNYTNfYyn5k75t54AC0sww
+	tNVnwgyZ63ssvdSwrGc2kFXKgle4wiG8krIKGzqfodrqDhaEorXnCJgK96lrcF0CpXBtoQRlUl4
+	CDkpaWGDf147KtWQeE48YB5GpJx3I4jxXyvf36KSKzXnH2ITR82LiljqqY0eTSWxi1++XTkDr7p
+	9sH6iw90MW1/aX1Ety8T7ZsF3juD/H+jUaxyRitbeRN1Hggro4Ea7v9koRaQkexkWtab/IGDCcO
+	chS3u0u6zhXU9u4T7tURqkUhUOuNfvgAgOWwyl36bt+YotfcT0gzTHPR55olRzDX8DGjTXHDGxo
+	mqdFILHNM5l1GduijUh8TUXX8=
+X-Received: by 2002:a05:6820:83c2:10b0:6b1:4061:4193 with SMTP id 006d021491bc7-6b1a01f68a6mr13170123eaf.0.1787848717217;
+        Thu, 27 Aug 2026 09:38:37 -0700 (PDT)
+X-Received: by 2002:a05:6820:83c2:10b0:6b1:4061:4193 with SMTP id 006d021491bc7-6b1a01f68a6mr13170053eaf.0.1787848716826;
+        Thu, 27 Aug 2026 09:38:36 -0700 (PDT)
+Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a24bce78sm4253171eaf.3.2026.08.27.09.38.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:38:36 -0700 (PDT)
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Date: Thu, 27 Aug 2026 22:08:03 +0530
+Subject: [PATCH v4 02/15] dt-bindings: power: rpmpd: Document Kuno RPMh
+ power domains
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
- <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com> <apBQYmmBC8lE-KiQ@google.com>
-In-Reply-To: <apBQYmmBC8lE-KiQ@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 09:38:20 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
-X-Gm-Features: AcwNN1Uf16kIBoba-w3xAyfXDcio3hnpMiCJElKz9P4Lzge3Sr8Lt37bi3y7Xp4
-Message-ID: <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
-Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
- EFER.LMA=1 && CR4.PAE=0
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-kuno-soc-support-v4-2-dd34f235fc1a@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org,
+        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787848688; l=871;
+ i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
+ bh=ZHsN8zM/JbhignLDIxWKpOEJ0dJLsvtVmGGylPc0eUU=;
+ b=RdWF85ZMBnw5+LTfMUb/XNYcxEP72DT9HKX+qTDzgA+lEhyPfHN012Y7yPzPmglz+6fhKR4F0
+ g2mkfFKmFy9Dy+hrx7vcKwg2/5OCovy3VzCQSV8WPXTRk3eBrdKwbof
+X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
+ pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfX17vob2IJpQE0
+ Tw3UJvnb6KeQcWf365MgOgRxcUEhfSPyQ5guQ5Z0+TxUWuBbgIFAuRd/TgBJ6bU0rOWZOMgN+2O
+ Lhz602PlTZ9uJv2XMT2rnKqbUa+PseNT3QtrLogI9OLutj2EMO+vwbCbZJ3qxKz8g00+n3o98OX
+ yXjtPUjCvosIy6g75naXDmWrO6ch85YhU1gyyjpu0YRkDzyD2RX9+iWfMX3l51LMixn6cCaIUxI
+ v47Yzr94kMPuX7VZ1jMCS9Dc5yHL+2zy8gFlk+4GAqUQoMejfU9/lCnDofUS1vkbyCF9ipfaR4U
+ Uqq6qxEVjScRvnm6h5Fr+Ai/mjhV8cGVSo+OfVtC0baTX6r0xFMaprXVjY3biLzCSGAYUawXbTv
+ A+uzC7V7p9seFF8pXXrCmOKvSOsnVgj+Lv9V96JJcubxSjzyDacyMz4+nftI2UtLFvBeZ7cEfQG
+ Vv4veTl3IBYHDa6tUAg==
+X-Proofpoint-GUID: I_hZhEwkaHSf1-1qMZu7U_DEaALvQDtu
+X-Authority-Analysis: v=2.4 cv=C+3ZDwP+ c=1 sm=1 tr=0 ts=6a90680d cx=c_pps
+ a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=lHgBgSUrZIjjmBdF2hoA:9 a=QEXdDO2ut3YA:10
+ a=efpaJB4zofY2dbm2aIRb:22
+X-Proofpoint-ORIG-GUID: I_hZhEwkaHSf1-1qMZu7U_DEaALvQDtu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfXyAU3KVxAsnrT
+ jnoeZuUtoxW86FIG99AQZC/ACYbYSDofMxeVXcaEs0VEJ6NbbawTio6KDVHmGJNhsVvWfDInmmc
+ uAY800NpTL7mGrVVmJF8NrXk9lXapoE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270140
 
-On Thu, Aug 27, 2026 at 7:57=E2=80=AFAM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc@goo=
-gle.com> wrote:
-> > >
-> > > Bug the VM if KVM attempts to construct a CPU role with the should-be=
--
-> > > impossible combination of long mode being active without PAE paging b=
-eing
-> > > enabled.  KVM's MMU construction assumes that EFER.LMA can be set if =
-and
-> > > only CR4.PAE is set, and will create a completely invalid MMU if that
-> > > assumption fails.  FNAME(walk_addr_generic) already has sanity checks=
- to
-> > > try and mitigate the fallout, but attempt to catch such bugs earlier,=
- as
-> > > this is (at least) the second time KVM has had bugs that escaped into
-> > > FNAME(walk_addr_generic), and it's entirely possible the bad state co=
-uld
-> > > cause problems elsewhere.
-> > >
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > > ---
-> > >  arch/x86/kvm/mmu/mmu.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > >
-> > > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> > > index 064ecc33b926..81c30e2c74f3 100644
-> > > --- a/arch/x86/kvm/mmu/mmu.c
-> > > +++ b/arch/x86/kvm/mmu/mmu.c
-> > > @@ -5910,6 +5910,9 @@ static union kvm_cpu_role kvm_calc_cpu_role(str=
-uct kvm_vcpu *vcpu,
-> > >                 return role;
-> > >         }
-> > >
-> > > +       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs)=
-, vcpu->kvm))
-> >
-> > Can we shove this into the existing if (____is_efer_lma(regs)) below?
->
-> No, because there are three more checks on EFER.LMA:
->
->         role.ext.cr4_pke =3D ____is_efer_lma(regs) && ____is_cr4_pke(regs=
-);
->         role.ext.cr4_la57 =3D ____is_efer_lma(regs) && ____is_cr4_la57(re=
-gs);
->         role.ext.efer_lma =3D ____is_efer_lma(regs);
->
-> and I don't want to have to condition them all on something that shouldn'=
-t happen.
+Document the RPMh power domains for the Qualcomm Kuno SoC.
 
-Yeah I assumed that we don't care about the state anymore if we'll
-KVM_BUG_ON(), but apparently that's not the case based on your comment
-below.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
->
-> OMG, I hate SVM.  I resurrected the selftest hack I used to verify this b=
-ug, to
-> demonstrate that Sashiko's "technically that's undefined behavior and thi=
-s is
-> useless" complaint is wrong, because even though it's undefined behavior =
-and the
-> compiler *could* ignore the change, in practice the compiler probably won=
-'t ignore
-> the change.  And since this is defense-in-depth, it's "fine" if the paran=
-oid
-> hardening only isn't guaranteed to kick in.
->
-> And in doing so managed to trip this KVM_BUG_ON() in *L0* when running th=
-e test
-> in L1, because as you kinda sorta noted in patch 1, KVM doesn't ignore EF=
-ER.LMA
-> when loading L2 state.
->
-> I had actually tried to do exactly that, by having nested_vmcb_check_save=
-() clear
-> EFER.LMA if EFER.LME=3D0, but that doesn't work because svm_set_nested_st=
-ate() uses
-> the "cache" only for the checks, not for the actual loading of state.  *s=
-igh*
->
-> So in addition to patch 1, we also need this to guard against configuring=
- L2's
-> walk_mmu with bad state.
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index 0a45e1f55062..7fc3927efa27 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -21,6 +21,7 @@ properties:
+           - qcom,glymur-rpmhpd
+           - qcom,hawi-rpmhpd
+           - qcom,kaanapali-rpmhpd
++          - qcom,kuno-rpmhpd
+           - qcom,mdm9607-rpmpd
+           - qcom,milos-rpmhpd
+           - qcom,msm8226-rpmpd
 
-Hmm wouldn't it be simpler at this point to let KVM_SET_NESTED_STATE
-and nested VMRUN have the invalid LMA/LME combination and just ignore
-EFER.LMA if EFER.LME (or just always check EFER.LMA && EFER.LME)?
+-- 
+2.43.0
 
->
-> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> index 49fb10ad1f9f..23d29597d6bf 100644
-> --- a/arch/x86/kvm/svm/nested.c
-> +++ b/arch/x86/kvm/svm/nested.c
-> @@ -789,6 +789,10 @@ static void nested_vmcb02_prepare_save(struct vcpu_s=
-vm *svm)
->
->         kvm_set_rflags(vcpu, save->rflags | X86_EFLAGS_FIXED);
->
-> +       /* SVM ignores EFER.LMA if EFER.LME=3D0 (instead of failing VMRUN=
-). */
-> +       if (!(svm->nested.save.efer & EFER_LME))
-> +               svm->nested.save.efer &=3D ~EFER_LMA;
-> +
->         svm_set_efer(vcpu, svm->nested.save.efer);
->
->         svm_set_cr0(vcpu, svm->nested.save.cr0);
->
-> Anyways, back to Sashiko's "technically this is wrong" statement, I confi=
-rmed
-> that tweaking the code to do this does NOT trigger the KVM_BUG_ON() with =
-at least
-> clang-21.  I.e. my assertion that clearing regs->efer.LMA could be useful=
- holds
-> true.
->
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> index b515a49c5e86..cab8690d0fa0 100644
-> --- a/arch/x86/kvm/mmu/mmu.c
-> +++ b/arch/x86/kvm/mmu/mmu.c
-> @@ -5932,8 +5932,10 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct=
- kvm_vcpu *vcpu,
->                 return role;
->         }
->
-> -       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vc=
-pu->kvm))
-> +       if (____is_efer_lma(regs) && !____is_cr4_pae(regs)) {
-> +               pr_warn("Forcing EFER.LMA=3D0 in calc CPU role\n");
->                 *(u64 *)&regs->efer &=3D ~EFER_LMA;
-> +       }
->
->         role.base.efer_nx =3D ____is_efer_nx(regs);
->         role.base.cr0_wp =3D ____is_cr0_wp(regs);
-> @@ -5941,6 +5943,8 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct =
-kvm_vcpu *vcpu,
->         role.base.smap_andnot_wp =3D ____is_cr4_smap(regs) && !____is_cr0=
-_wp(regs);
->         role.base.has_4_byte_gpte =3D !____is_cr4_pae(regs);
->
-> +       KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vcpu->=
-kvm);
-> +
->         if (____is_efer_lma(regs))
->                 role.base.level =3D ____is_cr4_la57(regs) ? PT64_ROOT_5LE=
-VEL
->                                                         : PT64_ROOT_4LEVE=
-L;
->
-> Side topic, I also (inadvertantly) somewhat justified keeping the
->
->         if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
->
-> check in FNAME(walk_addr_generic) when testing the above.  If KVM manages=
- to
-> configure a sane MMU, but still has a vCPU with the above state, then we =
-still
-> want to WARN and bail.
-
-Good point.
-
->
-> > > +               *(u64 *)&regs->efer &=3D ~EFER_LMA;
-> >
-> > Why do this if we will crash the VM anyway (and Sashiko doesn't like it=
-)?
->
-> Because there's a lot of code between here and checking KVM_VM_DEAD in
-> vcpu_enter_guest().  And has been proven far too many times this year, de=
-tecting
-> a flaw doesn't automagically mitigate true badness.
-
-Interesting, I always assumed we can do whatever we want after KVM_BUG_ON()=
- :P
-
->
-> > > +
-> > >         role.base.efer_nx =3D ____is_efer_nx(regs);
-> > >         role.base.cr0_wp =3D ____is_cr0_wp(regs);
-> > >         role.base.cr4_smep =3D ____is_cr4_smep(regs);
-> > > --
-> > > 2.55.0.887.g758fc8c411-goog
-> > >
