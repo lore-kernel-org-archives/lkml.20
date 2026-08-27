@@ -1,64 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51ACE46F495
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBDA376A0D;
+	Thu, 27 Aug 2026 13:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837021; cv=none; b=XxKznXQITbT0zmUcjrD/atTp4KJHOb4H4uccZShsp5oioQUkU3ZBedKFL5yHOk5++nWPzFpMjc7Nf6h4z/6+998IYbdp3V/Pe9Dh/D8ar0CMZywBD9pY6juoPCfy4oQ7RTLz7KSfwfvEHQYy9m1sXquyUe6KBFoPWctnO3Mhz3k=
+	t=1787837045; cv=none; b=KQA0bVSWt2cvZwZPmkwz1x5iINZ2wmjkfgFkIMxVqidSreO09sAiFoaFWXGLyBo8LjSYLhktPI9NNV5dUaOIsFOTXGY/VCzMHkDtMrKElLSSoPE52imBbTdyleN0EEvIGR8mAvLFiXA6dfpdusQWxoNzvPNMZzAYRufwCxpe63A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837021; c=relaxed/simple;
-	bh=Z4V9L4f2EvO+rQiFAjfvuaH1AwCSb2Sgoy7toF63Lfc=;
-	h=Message-ID:From:To:Cc:Subject:Date; b=Ecaq8M+geD03/rJnRPjp/fQIvUHCE/b1CkkmK09bF5Z7YXcBqdHl+Svgh74IKU2aAQYfjzsoovKPR6VYxm5Zk9pI+J4QREx+4eXhnAA4esZdr8QAC6OBQdDfRMXiT5+DgWlaK7WUqRq2T/T9E/FcP8qQmwlEb2ZU6vBlgNL5FrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVJ284L4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787837045; c=relaxed/simple;
+	bh=TluuxE/PMkuwS+zipm+ceg6seocyhMUh8MzIxJv0fik=;
+	h=Message-ID:From:To:Cc:Subject:Date; b=LGWzqbenqCQ9WANcGpwg9nT5A0XQqq8W2Y9KATGnzCJTqtt1vuN5dVaSTHXZZe8RK6Z7M3/LYWqd6XE84ndoXiNhewPHjtYprdWBshIov3sVUhuaHsb8w0BmPUiRD4Mp1D8/8ZaeBfwOmWejL14GA9rnXaeeROBccOTH1fM+elU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zlkmr21V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVJ284L4"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 990CF1F000E9;
-	Thu, 27 Aug 2026 13:23:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zlkmr21V"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 04BD51F000E9;
+	Thu, 27 Aug 2026 13:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837009;
-	bh=W7hRIVWkg+7WULsBW/mDSAk2ouIQ+FxYJORh7pmdna4=;
+	s=k20260515; t=1787837028;
+	bh=vmQtSDsc1o8LGthenfKte8jOi5cnWoMFGYnbQo2XSZM=;
 	h=From:To:Cc:Subject:Date;
-	b=UVJ284L4sI+EOSH6ffXeff6QXfFUqiVy+Pr3PTgqtOvbv1+IuVxw/JUHOqUUFhIcj
-	 jeeigNA4YIkas1tsY28QB0xbNSJLQyOsAKWQiiLy0boft7h73KXLf9NZaPF5IAcmC3
-	 /TZh/35Hb7rHo2aGpywvVzTuJ6xkuZPEYXSDrh5yVxLyE7Hh884OKypu4+rUBmqNhL
-	 uJZHwngoJwXsBN5CCpfHOGcB96QLLPZ9J2eEJ89JC6DmIPO+7KyANFO1z+fbWnFCOp
-	 uywtzifN8sLjwSFrBGb+07Hv/tgowgEBws5pCqi9MsFO9PSzfk+wcLEeNkYlewEXp0
-	 YjkHmzZMZ++3g==
-Message-ID: <3b632d103057ea6801fc357dda0384fa@kernel.org>
+	b=Zlkmr21VZx57XB7+JiW2QS1KgcGbV8m6Ohjw0IxJOt5v8/PaMi3FwC2930umrj0Rk
+	 9oaIvV4/d4P5bX/MTWbKBx+3M0oaQ1hMerZhhGDKrH3X2AdGuEVtl7i2xZU2gWvcST
+	 +EXtf630NRfaIeu46iP4CdasKVbmwfU8FhAXAQttZM9VuTr+PgVgxnNJ8SbmSzfbej
+	 MPKYIRufb7XWRmqeGkFEXZEO1bsVL6OLtv1fzvogcjp5kPOgBSKH1Q2QlUsiUa6Oy9
+	 vBSw6V/HIZcHVw1SjnAmBmH52Dn2j1t4IpOVwWEN2eHv1bG1Zt4Xjh7yNLRNIavwa4
+	 D2EyKdqVkMwJQ==
+Message-ID: <35d342b33f882cd09e0eaee43805648a@kernel.org>
 From: Mark Brown <broonie@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] regulator fixes for v7.3-merge-window
-Date: Thu, 27 Aug 2026 14:23:14 +0100
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] SPI fixes for v7.3-merge-window
+Date: Thu, 27 Aug 2026 14:23:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The following changes since commit e739acbe05b06de78ef7089470f122432f651faa:
+The following changes since commit 23688febe4b44b10f4b454eb1cde0ba379a84119:
 
-  regulator: fan53555: Add support for FAN53555BUC23X type (2026-08-12 17:48:37 +0100)
+  spi: Fix DMA mapping ownership on partial map failure (2026-08-14 16:48:53 +0100)
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git tags/regulator-fix-v7.3-merge-window
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-merge-window
 
-for you to fetch changes up to 44f7b876b7c6c7b3a219b7a810d3d9548df21540:
+for you to fetch changes up to a9c2f0d401fd1e11ce59e4243946a59bd818e8c5:
 
-  regulator: tps65185: wait for the IC to wake before the first I2C access (2026-08-17 17:58:29 +0100)
-
-----------------------------------------------------------------
-regulator: Fix for v7.3
-
-One fix here, for a race condition on startup in the tps65185 driver
-which is seen on actual boards - we need a delay after waking the chip
-before it is ready to talk to the host.
+  spi: loongson: pm: add .freeze .poweroff .thaw .restore (2026-08-20 13:14:02 +0100)
 
 ----------------------------------------------------------------
-Mario Rugiero (1):
-      regulator: tps65185: wait for the IC to wake before the first I2C access
+spi: Fixes for v7.3
 
- drivers/regulator/tps65185.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+A couple of fixes that came in during the merge window, Geert fixed an
+uninitialised data bug in the amlogic-spisg driver which could crash and
+in the Loongson driver Li Jun hooked up the existing suspend operations
+more fully to fix hibernation.
+
+----------------------------------------------------------------
+Geert Uytterhoeven (1):
+      spi: amlogic-spisg: Make sure clk_init_data is fully initialized
+
+Li Jun (1):
+      spi: loongson: pm: add .freeze .poweroff .thaw .restore
+
+ drivers/spi/spi-amlogic-spisg.c | 2 +-
+ drivers/spi/spi-loongson-core.c | 6 ++----
+ 2 files changed, 3 insertions(+), 5 deletions(-)
