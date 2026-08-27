@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF12483BDE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:09:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B9E483BD0;
+	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843366; cv=none; b=Xoq1PzAR7Xrww7T40Z0DP2ow+MHd+dN6aU2NS9FRRXKRnHQ/2okSP5+4fkx2KPqIyoxzsI2zDsCOeuCc+LS8mxx4W74Diw/4qA5DvLF4rmnEUNNRTOKrg+9Dhp+PxxBPscfvquoQaia5/CURnJqXszdw7VfRG1k8IZm3p0oKXws=
+	t=1787843366; cv=none; b=mPaUvuwFFPwLIRxvKYrtVcpV8eRqVjRUTC9qFwvI//feduwwwvn0Rkq4e+jjQS7izeTjFmkYoHscAgH6I7044TVg0PrEdMzDkRqZ5YcMqukKmz18XzKdrtAOm+KMgoVsdS13tvCqYuFPlppDP8ufPD7Am1L0frN5CC+dQN+n8sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787843366; c=relaxed/simple;
-	bh=THvfUMg5TbfzBxeyN4QirCFqOs9S7SFIChRddP64VeM=;
+	bh=kyz2dtWICwa7+Pyo/t4DfHeokFCJ25WI2pLckoWiW1c=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=dTIcRFjJv89ZKJ4r2/BPbw7uwQGcKL6zdsODhFTWPOD0QADvybGVPtoS7nnEfeLywfWfrFcJ+osU6g8eH3DYGcvXRyjzrj2eEwKIzXHpMybKkS/moL8BVMEo6KjV0sRO9Kaw+WVX8nhqpk4bOBtuxTVcmJIRqfCwxGQZrG1hqLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3Xc6vnv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=JDjTcgg6En79GohHo0fC4qXdIfxzYp+QRaa4lp3YVGz2gk2Rj5RqY0Am4YdlxrILR1Fffvuuj2Vtn1G83RbyGoPE44Oc1kY7kjf2Daz02Q2xzITnVtzuir+ACnKIV0bD/ADA7CurHeZcQSWYW3+t1PAu9gbKhMuVUfr/MFi653s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+vYhec+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3Xc6vnv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DC41F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+vYhec+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BD01F00A3E;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=OoOb25/cKzKtyIcy2W/62Wt5IvtdO4qR8/ih5HeWboY=;
+	bh=6/5YtY7kTxdIotP3/iaXXG+tvNSlRhJ1vz2QoNLsBNU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=l3Xc6vnvOOfGj26hVfx232SQZA/YZYTqqyRxpt1Bn3+V65oE5hkIk8Cpedkm+gPhN
-	 n4wG7gZvBxrUpranFA2Ftrq8nAsqJx9gyLznnKuzp2dO5pR+1a3SQzJ/FuQqCUwOxm
-	 wRvJyZPZhqakZN0+/6WeqwmAL9ZmFQXUG7Vn05rSRmDcRIOyTyIAoOg/DmeQ+K7ld8
-	 ldlNy39C7slc+HhD9NjSU/CE/wumj1fALa8MWGdtg+oJJCRiduh1QP6a/NDwXgznJ2
-	 uScUv0i+u7/BOOM1UXpgX3yvQZfejsBwktSTSmlCPvP2TPIHsH/tvRtmdWVQ0EIP21
-	 pyLCspLJTNEcw==
+	b=O+vYhec+QDe6tmChCFszDHwFHqr9pNe954APZp4RJhDTkUXBnJ33QHe+HCwKFcKhG
+	 ok86UbA/x1jGB/tnbCN3eqQMVuxWlkysy+IwfhHW7kGTaM6BfoTz0GFwOC+6yGcfyN
+	 2lrTqxof0O1odZ7JuDKms9ofSp78XQv9MsRiknu62D/fpY61iy770LB7TtRL7yZXMB
+	 ZYi7LGoa/AocK3+CgyPLr5NB2YTwzfoVu2H5sj/mjDh98cMqvwbs98htz2W2jlYtRq
+	 gKfZ5baz0l+Xbe85JNhyWTNIeI6bqc/t8rEc4HIDiaM4fHJwrZkLXSXboZVzGGjpgg
+	 7af/JEB2IHRWw==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk3-00000008PGy-2onS;
+	id 1wzbk3-00000008PFW-0teQ;
 	Thu, 27 Aug 2026 11:10:11 -0400
-Message-ID: <20260827151011.539857810@kernel.org>
+Message-ID: <20260827151011.069475087@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:55 -0400
+Date: Thu, 27 Aug 2026 11:09:52 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -42,8 +42,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Deepanshu Kartikey <kartikey406@gmail.com>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 6/7] samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-modify
+ Vincent Donnefort <vdonnefort@google.com>,
+ stable@vger.kernel.org
+Subject: [for-linus][PATCH 3/7] tracing: Fix crash passing ERR_PTR to kthread_stop()
 References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -53,50 +54,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Haotian Zhang <vulab@iscas.ac.cn>
+From: Hui Su <sh_def@163.com>
 
-ftrace_direct_init() assigns kthread_run()'s return value to simple_tsk
-without an IS_ERR() check. When kthread_run() fails it returns
-ERR_PTR(-ENOMEM), but init still returns 0, so the module loads with
-simple_tsk holding an error pointer. On unload, ftrace_direct_exit()
-then passes that ERR_PTR to kthread_stop(), leading to a
-null-pointer-dereference.
+event_test_stuff() calls kthread_run() and unconditionally passes the
+returned task_struct pointer to kthread_stop(). kthread_run() returns an
+error pointer such as ERR_PTR(-ENOMEM) when kthread creation fails, for
+example under memory pressure during the boot-time event self-test.
+kthread_stop() then dereferences the invalid pointer, crashing the kernel.
 
-Check the return value of kthread_run() with IS_ERR(); on failure,
-unregister the ftrace direct call and propagate the error code.
+Check the result of kthread_run() before passing it to kthread_stop(). Use
+WARN_ON() so that a failure to create the self-test thread does not go
+unnoticed, matching the ring-buffer self-test fix in commit
+91542863abad ("ring-buffer: Fix crash passing ERR_PTR to kthread_stop()").
 
-Link: https://patch.msgid.link/20260826015034.10755-1-vulab@iscas.ac.cn
-Fixes: ae0cc3b7e7f5 ("ftrace/samples: Add a sample module that implements modify_ftrace_direct()")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org
+Fixes: e6187007d6c3 ("tracing/events: add startup tests for events")
+Link: https://patch.msgid.link/20260817120642.668375-3-sh_def@163.com
+Signed-off-by: Hui Su <sh_def@163.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- samples/ftrace/ftrace-direct-modify.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ kernel/trace/trace_events.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
-index 1ba1927b548e..164d9dd6fd92 100644
---- a/samples/ftrace/ftrace-direct-modify.c
-+++ b/samples/ftrace/ftrace-direct-modify.c
-@@ -320,9 +320,15 @@ static int __init ftrace_direct_init(void)
- 	ftrace_set_filter_ip(&direct, (unsigned long) my_ip, 0, 0);
- 	ret = register_ftrace_direct(&direct, my_tramp);
+diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+index 9f8f2d02276c..1d39eaf6a0f7 100644
+--- a/kernel/trace/trace_events.c
++++ b/kernel/trace/trace_events.c
+@@ -5019,6 +5019,8 @@ static __init void event_test_stuff(void)
+ 	struct task_struct *test_thread;
  
--	if (!ret)
--		simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
--	return ret;
-+	if (ret)
-+		return ret;
-+	simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
-+	if (IS_ERR(simple_tsk)) {
-+		unregister_ftrace_direct(&direct, my_tramp, true);
-+		return PTR_ERR(simple_tsk);
-+	}
-+
-+	return 0;
+ 	test_thread = kthread_run(event_test_thread, NULL, "test-events");
++	if (WARN_ON(IS_ERR(test_thread)))
++		return;
+ 	msleep(1);
+ 	kthread_stop(test_thread);
  }
- 
- static void __exit ftrace_direct_exit(void)
 -- 
 2.53.0
 
