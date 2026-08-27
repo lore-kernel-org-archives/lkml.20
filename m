@@ -1,76 +1,79 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010005.outbound.protection.outlook.com [52.101.193.5])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011004.outbound.protection.outlook.com [52.101.65.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706B042BC5E;
-	Thu, 27 Aug 2026 10:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D68842A14D;
+	Thu, 27 Aug 2026 10:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787827367; cv=fail; b=PL5H4+Pey8qp1vTagniEIodq5WorlHpcHtoxCgeCQhw2wSXSuWapLoscgzPomugBfXsPfdfaghT9XwF2/pyorKuwk78qjdG1qVUJKuS+SlLYF9dZx1aueTOK0RcY6aFTeK0MEqVCML8q23thcRj43M8qT1ST6L2zD6KF4VahwBg=
+	t=1787827398; cv=fail; b=LBscwnLjJCpeNQm3kkjtkISr+96gTBrCIC6lER1oMFxzgCuGOmwLdCahyDA1LwOGTytMptfQTJ3w1fnAyHQW1CQkGY/jQ+TzkNds6BW2g14vZ0WQQa2kzKnRvnYQZ2+X6kNQML4Qg/0K1pVGTS+AJymBzICBBjSVvx0gX78DqDQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787827367; c=relaxed/simple;
-	bh=JWdSCIF0lM2zfdviy8TdDMaE0EYEIaTiU81AUPBBggU=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=aqGkKqmtWRpvCtX36YcU7yL4kc+0cwxvMM52tVVclwVj89q6sXTHuErmBmAQCiZuOrfrX95T7C+2UIeI+pYIRBgAepe8dgMsVAyDsZfm5tdLAfRnlINo0p8+kDFLgT0TKb+aRGul1XL+y7kWIbsn3g1bgXtM4bJOlNcFS5OeXcE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AGCjgI7x; arc=fail smtp.client-ip=52.101.193.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1787827398; c=relaxed/simple;
+	bh=DrmDOhWDiLw31wjYNGFzK8gZYZibfNTAOH5l6eK9yt4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bZ7lPwU7UETzVInUcWBiLbJL+pxN9ua22H8k47Un1XQk5g6wE1bwiOqnpkL3Z+ikHKNfUhAp74evv3l+UP0QmkwT/mHRrgLcxcyFtlS9X4lFhybhEZF7+cJm9cP9Bd8MdTsKeb4zq1w2FXys8aH6Za7+Pl2QBOVLyDrkxg7a0dg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=R3XR+GGr; arc=fail smtp.client-ip=52.101.65.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AGCjgI7x"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="R3XR+GGr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IvpWy5prUKxWVYVdcYSg5K/NWUDZp9qnCvDY3MNNZZtE4Zw9NBWteOAD9sAUyO70QJ6aY8IfGw5mlKfKGQZYeV/ylbD6+0VTV1wCzAEAY9e2/mZS3+gEEEtVII2jZXwOncjHBZJejXKnrUTj+gtGGpYFmWdpVcIc4DPzNGZrhtbRXz2f/lA6kerhQo+uYJs9yx0CoM9bM2PFEv5NxfrxJCmy9b9HOVg0chOqz7knjZbvnjJTHekOcg9+EM7kaLKAOWGSoqSpXPscRCisin0zrq/x3I3Awl/zSYBi+Ix9jy61OL0tp2Y42mFvENR0Cem0C+/F4UfzRu0IEGl9+EMcig==
+ b=k3AbeqN9YUCxnUC9ZbnOcwUPlbZhq7yiOP3Uzn7Jmz0rOIUsEAW8EVjgN7xCW1sUiu3L6KXPaDmHbgs/FE/4hvXBe6DgJgO0MoBMS325uZjcwP2zTjtDdwJa0+fZv9VW/r3Ig9OZjyrqhIkiunirMhRJEKj4TXViG5MgFHEjnVuoavJrGlthhPaBBQx1PVxVdqCYIvzTwnJF9Xg3WmNCBhWfHZzB6RGnHPdgSX+q7y5FMiHbeQDCdNivXXMyCq5N+4u39GWYdCzHkKNq883AMRLXYdgZvWGZMGfbxcj4OQDA5Tkuj98Ke2m4n3DYSCiKB3hk0fifP4CTh76/fHXMGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gOstUSvGvsDFm3zaSmWG+zOrPwRH8Lk+vhw21hz/bR4=;
- b=pzNYhby24CbK1zPhNCCI/1cmBvWr6ae3TRmqwivcabzcQ+a+GiGxb9J6+OQRwaG72KAAKMYNf4HwVeLEOMbfO6kC2d/fHylslB+2gZtVlUT+b05v2vH+v9SxRwrs4oUZkG1u3sulwOMjQtWt8y7QPm8DIosUP86M58RIdeG4tlUrEK/aGPV+CMNaEZRzjot6SjBn+VhuZq8ZVYxP7WZUHdK+tf9vj95zFpz2Ma7H6MyBHvpzVwwCJYmNsHFFysXrP6YCNUISqVCSCAQ7i85H9QO/m60a3bjBqZjgklYowFUBXPnw8VCT4IefEOR7sQFopKRsz6OKxNG03Eln2eWobw==
+ bh=H3Hd9sjhuHnEJSWpNWhcIzcip0KTOhv4GekjdLwhpw0=;
+ b=D4spfcJFWA/GBLz1rAWUYee21S2FQgitYo6zRONOqqXRRd2Ype70155b3WVHspkwD+7vkDLTswGDNnWdkNmHS0mQm6ifgXb0Ycq9i9Lzs59kxne40ITK2Gsy2Li3al5YpHbbZlsXzsG0ZT6kiPK3x0yzX27Pfh0l41NohLW6H3/ko11NgzbtHN1fC4RWa3+EsB+wvAMItBQjK5sWlrnBJkuWKfXem4A7ud/EWj0jmxHNQJ3FMsk67Oa/uRi4Nyix2CDB/Phd2H5YhFbLNo3gpTKGGem4KCNEYXk6GOjHz2YCd7kS6gAUjYDhr5cZA5FoBmDeNdsXsOHA+XhVivs4Dg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gOstUSvGvsDFm3zaSmWG+zOrPwRH8Lk+vhw21hz/bR4=;
- b=AGCjgI7x1sUthhLxfSvCJQaka6jREL2+S20hvlCk8E5emQhl26CiehgqJQsOvxkD1CgY7NeD8PEPL8Pr1oK0u2IJ1uOhDB3HJzUqYD8guASKWA2ShodsMCvI6b2B738432D1FnsBnYDvPYoioPwrN3I2U+t2dyV9AiN4qacjEcs1g7jWwUn/0K+NyFOOboLEtErkqVnzuWIeMYAv6pSNCMlQcF04nJ6BMWwDXwe30hviAbJqSf+xpsKOCXZSwdUWzoOmPrWqRRfSO3QrNLP8S4IZft1NUQIdU7LIDBYC1r7bbyHXUSD74Nz4/qU0C/OmvilUMM5/FKHYohNWUbqebQ==
+ bh=H3Hd9sjhuHnEJSWpNWhcIzcip0KTOhv4GekjdLwhpw0=;
+ b=R3XR+GGrx+Y89dLPjblmZk1t8792n0AeH8nGJRBRMCZQ1S8qUFaBawbYQQJGD0KAYNbXkeCPzuCn1aPro4wWSqvCU/aCkTekiec9GFmukRtjJ/78UbYNxHJfjLwF4TxVGXWuX1P1qEah4KrVA3Ppf+YjCDBvoJ7JdNShQ4SNoIHSNZCM77qp6UFWHJuZ07rh3csNDfcgYSJuykap4gFlyHTkrveEZEpZPPe46ZSpdGf9DyujTIRk8IZtYLHSgSLjcAXSCgVYb8oo/71PuOI6VzP+xveHivdVn5P2ztTcy9Au5es5RZtKORZMYfICD+9BUafpBKu/LYCn1tputKl6Eg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MW4PR12MB7286.namprd12.prod.outlook.com (2603:10b6:303:22f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Thu, 27 Aug
- 2026 10:42:39 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
- 10:42:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 19:42:33 +0900
-Message-Id: <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
-To: "Alice Ryhl" <aliceryhl@google.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
- constant expressions
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
-In-Reply-To: <apAEK9CUZICDTL1i@google.com>
-X-ClientProxiedBy: TY4PR01CA0083.jpnprd01.prod.outlook.com
- (2603:1096:405:36c::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22) by PAXPR01MB10415.eurprd04.prod.outlook.com
+ (2603:10a6:102:247::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Thu, 27 Aug
+ 2026 10:43:11 +0000
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2%7]) with mapi id 15.21.0360.006; Thu, 27 Aug 2026
+ 10:43:11 +0000
+Date: Thu, 27 Aug 2026 18:47:15 +0800
+From: Bough Chen <haibo.chen@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 04/10] scsi: ufs: Move Versal2 M-PHY CREG access helpers
+ into ufshcd-dwc
+Message-ID: <20260827104715.a4w7zdrjbp7wwtig@shlinux89>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-5-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826134048.854748-5-larisa.grigore@oss.nxp.com>
+X-ClientProxiedBy: SI1PR02CA0055.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::16) To PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,117 +81,364 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW4PR12MB7286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06c35aed-671a-40fd-2fdc-08df0427e938
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|PAXPR01MB10415:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7eccd7f-6bcc-4a86-117c-08df0427fd77
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|366016|23010399003|18002099003|22082099003|4143699003|56012099006|11063799006|10067099003;
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|19092799006|366016|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	IMVrI4P4248kjOqvATHMfBXFcEOsG5ox9OuwSoELNvLtGsBtoIL3foTxuQ2XkSzENn688AUxi07d9g4PxqmLxUYiwf6TyvWUuX7Viz3Ac/Z4pi/XT8Tndp+MkuZBXCEJUhydx1loOlffq679uDWJy33rvKT+zrhI9oeKEAqQOGb3WRc59urQxCzq3jB4z3TWw6Q0DyTFpFGvkGzSxbl5n4K2dHvCBlG+G7iCfwMJQfU/TOcxK5akan4xHPN6wRSWgq0XzcaYPHeRG1TQ1OuofrJ7iVj95yjVgyu0n/MzLo1G0vKe4b8JKvbjrvBq7JkZOZMevRhkLSrrEYFYb8rhUOZyDxhcHApKL5P/H7VEZHxJEhWTCJeCSFMUq7p/O9J/8cimT+tcI/gYwpv3mAbcXlUYZNhNRnczewG5Jsbk4JQ/NaaKxAQwyCdOyJLMYRlPx+ty8glTeK4OLjzAUeJCZKFwz7AHp5Heh8aLmJVJPoLToBB1YZY4IU+m+bIAoNxi6F1BaTMwAdV0Zh0pZGseNrwMV01ISEa3uRyLx+V+whXQ/3X/orrV7eJq0qBCV/zuzKcFWdq7nchIXan2iIDIo2+77JShumuxDZY1vO2Iri+liWRXfrNWJXRrtVPL8fPjFWjO5kDr/uJx4nRDCDODL2TyvrSSRv5WsyRoyed2pM8=
+ vDODsuGb7kUAXQGRJkabEP3sQ0tFXMpG9Pdxmj3gqcePVMG3nzYVFUU0onpjO+15Z9F6yv0H9VgziuM9fp0HiS9cR6OLsFl5NHq124J28aavPUWznqx/joPdBnQWsqkMZoMWlxrQAmtrLK86VZjbF2XHEEAhiXiIc/bmpur6AkDi5wKPHqjaJnSe2gD5+t0IGxK1sfbYXZOMw9kLG6Hf3SUJOj0htMZg41q6aGhdA6VQBB6XaonIRVI84qAOTKmGIoHQeaOPlotnHgTTlYiXOeV9SYY5zwsZL34zSGB6nFF1urvvFEXDQmoQ2+0R4ib09XFlKFYpWpNjMP1foi4Rl/mC5XttvZWthRbBUbnr+yYrFBJMU99D4jve2WDlxJC3mPBSJRGpuAyP1QRkBIpSfAzGWWIUrA7E9jgArzwHl8sumz8P5aIIgPMipHg2HDbjKw3eeQ8OQJgZ2clmeP/yy786AyJhIaLZsnJsrF+m9xQ/qqE4NZw7GcHmyew8/LLZUNMeAfPwrQ/3kXuFa8vBKPOx8t/YOgABMsPGSFmOepd0PoRsLwff/WJoh7WD+Cm9TGcLGHd8yubRh1Yho5cLz24zDCeOxB3qtqqnubR9s3OFqBMo2+KEtg1iss38bwH4yxn+8AIO/XMjPV8qEtJE9FVA3qMODs6HAw/KF/IFsRw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(19092799006)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZGJuUngxT3pIdEVEMUlTUHMxQURRR2R3TnhKOUl5M0JBU0syTlcvZkNQbUd3?=
- =?utf-8?B?VVMwcDJVRHU4UEdWOWRDaU9JUWFRRmY2a0xlckp5ZXdwclIyNFZzcDE5VXU5?=
- =?utf-8?B?QlFwbTk2QTRINkJkdWxOc1dCUVVHWEhodGlXdEE4YXBNZEFUajc1NXl1ZXdF?=
- =?utf-8?B?MWwyRE5TNVpCVEk4N2xMWnY2Yis5RmNQNXFvS0o3NEtGcFhqVW9wdkZUeHEy?=
- =?utf-8?B?d2RsWFV4OUxuMjlUV2c0MDVaSWNjeXk1Z0ppOGFWL2NSMDVkbHl2d1pySUJB?=
- =?utf-8?B?bzdieTh4QitwS3BNVllVOW12ZHhjbVBxTW02V3JKNXNQSlJobU1QRG5zazBL?=
- =?utf-8?B?cUEyVTZWQkV1M1pVSDJCMlIyZHNvTjB5Vko4NENvcjdYUUtnakpzaThMbjIx?=
- =?utf-8?B?dlNacVFlMGNFWnl6cTV2ZUF4eFZPU2lka1hnR2NjVmZLUEFBRW1rV2ZuWnBE?=
- =?utf-8?B?SElITGN5cFgyMTVlRTkrWjZRSHJwMmNOWUVINTFpdlIvb3c4L1VpcXY3eHI1?=
- =?utf-8?B?Z3Vzcm1QR3lDOEIrUEQ1YW1VUFAzVlIxNWlzbVJxd1pYbTBQK3BydkI1andr?=
- =?utf-8?B?ZkVpb2JFSG9HT29NNGdaeThBa25nbjhKQTl5Rkh1SStXWUY2YmZkdzREamF6?=
- =?utf-8?B?SElGVFAxQ2FFRjFBdmlOOUpLSU8waG95TW40QXMzRGRxY1AwSnRzYlVzZnJ0?=
- =?utf-8?B?VnhabEtYNTlTNWloYlBqdTJXV24xQlpFcmppbTRFSjZHTzN5cm9XQThKTVZS?=
- =?utf-8?B?dWs4ZHdocHJhbzljTlc1WTNldDF1ZHpUeElMZG9FWDhma2UyOUVKRFJiN2ov?=
- =?utf-8?B?alVGVHV4SGlQTGJUUys1ZUZ1eUk3cHp2L3I2dFltWno0dTJpL2ZBcnpFWG9Y?=
- =?utf-8?B?VHdFMjVHTW16dnA5b3hZWlJubHBlTEU1RVFvYS9CcFNMcFhvdXdXcnVpc29P?=
- =?utf-8?B?L20xc2pSUTJ6T3NHeGI5WXlrbXQxbStkVXBnS1NUcUVTVjBZWm9HOVkzUXlN?=
- =?utf-8?B?ejBaRU1jWXVyTzFWT2RObmNDYjUvVk85NUhZWTBPQ21FeEgxSVdMbk9FUWx3?=
- =?utf-8?B?V24yWkxoamxKTzRqZGlPcnZTaDZUS213WFl3cGhYZjJXR251Yi82YTRSWlJQ?=
- =?utf-8?B?MUhnK0R2bnhzdklTc1RENkRzWFZndFRoSzJUeThZcFRjRmFvMFl4OGl4dkY0?=
- =?utf-8?B?NWlwZWxOSlVXNXcvUnBhQzdwV1ZBWUZqWEFiU3JSOURPY1p5VlJRbzdQeUxo?=
- =?utf-8?B?NWZOVC9jY0duWjMza3pEMzBBTVJ3TDJtcVZvK3lBd05GdUFSdFFEMW5KbWgw?=
- =?utf-8?B?L0lOT2dnYU5DZUVSTkozNWwyZHdnL0F0eVUzRlAzTWY1ODdCczRnZ3AyM1hn?=
- =?utf-8?B?UzlEU2NXQk5rZnpYZWZTM3RkenFnd1FxeWpacUJrR0pPSHdyRFBFckttSDhG?=
- =?utf-8?B?M29FRjZCRjFITmNjaWdMRnFtN2FDSVJRdytOTWk1MjYzQjhZbTFWR2NaZGRk?=
- =?utf-8?B?Wno1VTZQNWxIM3RVNTdiWVplWWM3eDRsQXJsRzBBMUpuK3hYUnRkNlZSanQv?=
- =?utf-8?B?cVFRWjJXb2xxUy9xOW84LzF3RDhselBOTjVvcVdiY3lIeWZXenFRK2NSRzV4?=
- =?utf-8?B?V1c0MnRmMDFUQ05OL1dEeTY3NVJFeHI3YTN3eUJJdXU3TjlaS1hvT1ZCRXQy?=
- =?utf-8?B?MXdvM2pQTUFqY0dKSGpNVnloc05zaDBsMHlxTVlsM0tVQ2dKTm5SSWpSYmVU?=
- =?utf-8?B?M2JsZUxlRVdkUU9VUm1kQzh2dUtoZFRTVEVPR2NBdnE4T2NVTnhTWlQxbjQw?=
- =?utf-8?B?Vzk1K2NoUkJzNjFaYWZQc1N5YlpPSWVpMndKdkdIR3Fmd3lpcjU5bUhQc3J6?=
- =?utf-8?B?QS9QaUxtRmdIRWVvZnB5T0c0R1VNNUF1MGpoSkZubUFIRitqRkUzUWtLQWJ2?=
- =?utf-8?B?Q24vWDVnU09OTXc5V2MyemdJTlZCVG5pb3dwdEVDL3NVVEtyL3pKTkxWSFI4?=
- =?utf-8?B?NnNDdHBlRC9xK3FicmJFdjZlT3l5Rm5iQXc4aXhBYnExdDAyd0NKdEJscktZ?=
- =?utf-8?B?VmVpb1gwTW9FTjBiTWlFUlNtUzVwelAxaWJzSkZKc0RmQW1HeURwSjJCTW9m?=
- =?utf-8?B?K1dMczlOSXliSmo3NWVLRXRBekdxT0oxOEgyTTA4MkQ2U3FkakhnbEV3Sjc3?=
- =?utf-8?B?dW41OFFmRDB2dlhOS2lYZk95UHk4UGI0S0UwMi9pQXlOZyt0ZHBBOEFZeGxI?=
- =?utf-8?B?M0lzamZEMjEwY01BNzdWbDN2NFpzNllsZE01Yml0dU4wWGRQVWRyaVhRK2Vh?=
- =?utf-8?B?UWU3dWgvUkoxbDQ0ZHFLOU03bTBlTmVYWHhCSExVOUhISnV6VzNVbmVGUFM1?=
- =?utf-8?Q?pWxBSt8RIeTIipBJydi2UVexQ32gJU/CPP4GRoNPStnp+?=
-X-MS-Exchange-AntiSpam-MessageData-1: 1xcWGX8iUaLUPA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06c35aed-671a-40fd-2fdc-08df0427e938
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+ =?us-ascii?Q?BpVyfJlhrnioQ7K4jxPpJQTUN2CE0nR+4rf6VqwzkmBWj7YYmp1WIbOmABps?=
+ =?us-ascii?Q?lxjn+7jfGQFVwLwg3BE3lcZH3tJGZwcl24OGuPyUeLp3GSYXnyj8XkJeQKI9?=
+ =?us-ascii?Q?V4gsbehi5xjFwfRPAMMdrnbNUHKO45QDY4ev4IqMTV5/pwKLA7FPFDVbpxvI?=
+ =?us-ascii?Q?vmL0NcJ/LnVLB0lmZUi7Jx/MYcabeAh8XjOWjl6rwIZ73Gd74kj8ZyGJV9to?=
+ =?us-ascii?Q?7fOp4UbeFCTs49W+ls6VcN3VH8d5FYYn1m8MRZxMapuea4BRyOOE9zSZi7ev?=
+ =?us-ascii?Q?urHPRi8dJPk8FXm5h5o0fzSHHe1hIo7ThGW+3Abt8ZuYZX4NYvyzYSTfaXSd?=
+ =?us-ascii?Q?DKVuqewnjis28vMqczWThOYCbTqRWQjUKMWssWbbFBBG9Y7DOlMtmsgTYJb0?=
+ =?us-ascii?Q?ChncRSJXeZUriJEyPDtB3gZLKmGluRtVjpwFLlVdKVsOqEaNLrQrXUwJw8v0?=
+ =?us-ascii?Q?1sWq4nd0m+1Xbe76s8E2hn03wvBO5vGyZQ5GlJhO3EEBUrkNAS2Uu6sU0cjl?=
+ =?us-ascii?Q?cHQwJ6bp3nWOAZkGWrPvLX/OcoXiigcX0W3dLWfDFoYJQcWmXnttB1xqamcv?=
+ =?us-ascii?Q?tsjGrB0YzBmRaHJQOOkQ4cr8YmFMUFuaRnrlkgzoo4iI1GIGOPHvqJfu6vyi?=
+ =?us-ascii?Q?glQ2JsOvYPHt2v3Qo371R61G9LzbuurSa08gvsvelF0xLUr/KivQrFmW8zR8?=
+ =?us-ascii?Q?FZdRv+3SUAEmbjdHe4gcWstqYJ7PUI07gBKYnZB8nCevKWaMrRSVfMoFQHPo?=
+ =?us-ascii?Q?THeOk+2auit6JuTwXYeBsYwBtwNyfaDr5s4yD2j1Yt0OqS2xy+Wt9aXMDAcS?=
+ =?us-ascii?Q?V0Qh1h6qH+rW7foSWeZFw+zB1cVbLxMvqHKW+TF+MEd594FfeQiXaCXRD+c+?=
+ =?us-ascii?Q?lyXUc8zxl7tVe0d4X4IcGMIXlNKoe7K/KL7curE5zWrCeU7Jo5hU7Na/S8gG?=
+ =?us-ascii?Q?xpcT/7vwiSuEV9W2r0v3bSyxVMl5m0goiOPAHFmsJ2X4VrU34A396qGVA8Ua?=
+ =?us-ascii?Q?AsP3kD1cgB4dtzZhVLSlZszDu081CDNbpBI3pzPCgfma4cwuMZ9Jt3OiWsJ2?=
+ =?us-ascii?Q?JSUSTlYDdOqrnFRE/C0z2O0IRKSUmKopP4uSx9f+ME8RUOrPuFIw950BMiBl?=
+ =?us-ascii?Q?qRwXEdX2Isb8J3WUukUOGlzQezr59kEdFGQD1vFEFiTLvx4KXWK2OuEslGeg?=
+ =?us-ascii?Q?GjAt+4iOjzCfS2PeCVXZ9M6Jzk+f+AZMLyzPFPrgskb46SUP9B64HtJcg5Gj?=
+ =?us-ascii?Q?YisDLtKQMYvgwAtFZBBzmdIsmddgLhS3F91TueHD0OKUiqHIHA0YYE0tJkm5?=
+ =?us-ascii?Q?iFB35TOiq9IYrWlCwCsLfw2fAwjlQ/YfebmK9Juj9Oz9ELzWoeysfJ2u4Nwo?=
+ =?us-ascii?Q?+u2e0FHlKU1jDxCtsWO4ZCwBxkbIH8RD/jIF9unQsn1tfqZjvjYNbzQxR+z+?=
+ =?us-ascii?Q?JltWQIiguCuG3JKKhfusLe96b9ozteYOBLO8Ns/Lk159Rd3mfgHhkh+441y7?=
+ =?us-ascii?Q?IEFyXilhr8ZatiBH9VQ6HyK0gGGIownyxV/y30vQwEqSWqDA3n+h0n/kKrtm?=
+ =?us-ascii?Q?pyUXP9oWhtns3RdmOGL/fSiVyonoxLI24RRvkt5/++lrIKmN17ofIztAze2B?=
+ =?us-ascii?Q?EC6oR+9BVzP3eVprSFdGou+eem0P7BxN6zFMO0+LxM6Kd+lRGLO7AAtyPNT+?=
+ =?us-ascii?Q?F9cgXVocOirq9MD3nSknnVFhHZD5nLlWO1BB6hB4NZGfweZqM3YUTasiq+rY?=
+ =?us-ascii?Q?sC3m90BOnHG+yumnq7VP7e8qmOOXtyAAIcV4m8TnKgopLzSRkTBr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7eccd7f-6bcc-4a86-117c-08df0427fd77
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:42:38.6173
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:43:11.5411
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EnR+3KMR056TNWOMpxGoolwOcYA4qEEM90zjdkLcsTzs03tXcuv5FFzB4BMBtlGatCPehIIfm01QwtM3Zqt+rQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7286
+X-MS-Exchange-CrossTenant-UserPrincipalName: HLfc/EthyXTVDSm/0qRA1kQdQ4L1mu7clszhyo+bsB7KKmsbDKNL/l5dE1PHtNAUdShNIGW82U2qjSKGvGF0ViZRkZ7ogEcQTkoRl5c52KkOULCatbe8bTRCnC30ozFD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR01MB10415
 
-On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
-> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
->> Currently, using NonZero/Bounded constants is quite verbose. It's
->> unfortunate because it disincentivizes using it in interface boundaries.
->> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
->> value) takes a const integer expression and widens it to i128 (at build
->> time only) before passing it as a const generic value to a new trait
->> function `FromConst::from_const`. The trait is implemented by NonZero,
->> Bounded, and Alignment and lets values of each be constructed from
->> constants without a verbose turbofish syntax. For example,
->> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
->>=20
->> Suggested-by: Gary Guo <gary@garyguo.net>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->
-> This doesn't work in const context, so I don't think this is a great
-> strategy.
->
-> I would want to use it for cases like this:
->
-> drivers/android/binder/netlink.rs
->         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPORT a=
-s u8;
->         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_REP=
-ORT_ERROR as c_int;
->         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_A_R=
-EPORT_CONTEXT as c_int;
->         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_FROM_PID as c_int;
->         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_FROM_TID as c_int;
->         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A_RE=
-PORT_TO_PID as c_int;
->         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A_RE=
-PORT_TO_TID as c_int;
->         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_IS_REPLY as c_int;
->         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_REP=
-ORT_FLAGS as c_int;
->         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_REPO=
-RT_CODE as c_int;
->         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_DATA_SIZE as c_int;
+On Wed, Aug 26, 2026 at 03:40:42PM +0200, Larisa Grigore wrote:
+> The AMD Versal Gen 2 UFS platform driver carries local helpers to access
+> M-PHY control registers through the UniPro CREG interface.
+> 
+> Move these helpers into the common Synopsys DWC layer as
+> ufshcd_dwc_phy_reg_read() and ufshcd_dwc_phy_reg_write(). This avoids code
+> duplication in DWC-based glue drivers and provides a single implementation
+> for future reuse.
+> Dropped `static` from `phy_write_attrs` and `phy_read_attrs` since there
+> is no benefit in keeping them persistent.
+> 
+> Update the AMD Versal2 glue driver to use the new ufshcd-dwc helpers.
 
-`const_as!` [1] should do the trick for this, provided you don't need to
-create a const `NonZero`.
+ufs-sprd.c also contain similar code, seems can also re-use this helper, but it
+do not include ufshcd-dwc.h, Unisoc(sprd) guys can do the further check.
 
-[1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvidia.=
-com/
+Regards
+Haibo Chen
+> 
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> ---
+>  drivers/ufs/host/ufs-amd-versal2.c | 85 ++++++------------------------
+>  drivers/ufs/host/ufshcd-dwc.c      | 77 +++++++++++++++++++++++++++
+>  drivers/ufs/host/ufshcd-dwc.h      |  2 +
+>  3 files changed, 96 insertions(+), 68 deletions(-)
+> 
+> diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
+> index 0d4d5e98ad65..c7da95999c85 100644
+> --- a/drivers/ufs/host/ufs-amd-versal2.c
+> +++ b/drivers/ufs/host/ufs-amd-versal2.c
+> @@ -43,57 +43,6 @@ struct ufs_versal2_host {
+>  	u8 ctlecompval1;
+>  };
+>  
+> -static int ufs_versal2_phy_reg_write(struct ufs_hba *hba, u32 addr, u32 val)
+> -{
+> -	static struct ufshcd_dme_attr_val phy_write_attrs[] = {
+> -		{ UIC_ARG_MIB(CBCREGADDRLSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGADDRMSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGWRLSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGWRMSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGRDWRSEL), 1, DME_LOCAL },
+> -		{ UIC_ARG_MIB(VS_MPHYCFGUPDT), 1, DME_LOCAL }
+> -	};
+> -
+> -	phy_write_attrs[0].mib_val = (u8)addr;
+> -	phy_write_attrs[1].mib_val = (u8)(addr >> 8);
+> -	phy_write_attrs[2].mib_val = (u8)val;
+> -	phy_write_attrs[3].mib_val = (u8)(val >> 8);
+> -
+> -	return ufshcd_dwc_dme_set_attrs(hba, phy_write_attrs, ARRAY_SIZE(phy_write_attrs));
+> -}
+> -
+> -static int ufs_versal2_phy_reg_read(struct ufs_hba *hba, u32 addr, u32 *val)
+> -{
+> -	u32 mib_val;
+> -	int ret;
+> -	static struct ufshcd_dme_attr_val phy_read_attrs[] = {
+> -		{ UIC_ARG_MIB(CBCREGADDRLSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGADDRMSB), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(CBCREGRDWRSEL), 0, DME_LOCAL },
+> -		{ UIC_ARG_MIB(VS_MPHYCFGUPDT), 1, DME_LOCAL }
+> -	};
+> -
+> -	phy_read_attrs[0].mib_val = (u8)addr;
+> -	phy_read_attrs[1].mib_val = (u8)(addr >> 8);
+> -
+> -	ret = ufshcd_dwc_dme_set_attrs(hba, phy_read_attrs, ARRAY_SIZE(phy_read_attrs));
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = ufshcd_dme_get(hba, UIC_ARG_MIB(CBCREGRDLSB), &mib_val);
+> -	if (ret)
+> -		return ret;
+> -
+> -	*val = mib_val;
+> -	ret = ufshcd_dme_get(hba, UIC_ARG_MIB(CBCREGRDMSB), &mib_val);
+> -	if (ret)
+> -		return ret;
+> -
+> -	*val |= (mib_val << 8);
+> -
+> -	return 0;
+> -}
+> -
+>  static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+>  {
+>  	u32 offset, reg;
+> @@ -162,64 +111,64 @@ static int ufs_versal2_setup_phy(struct ufs_hba *hba)
+>  	u32 reg;
+>  
+>  	/* Bypass RX-AFE offset calibrations (ATT/CTLE) */
+> -	ret = ufs_versal2_phy_reg_read(hba, FAST_FLAGS(0), &reg);
+> +	ret = ufshcd_dwc_phy_reg_read(hba, FAST_FLAGS(0), &reg);
+>  	if (ret)
+>  		return ret;
+>  
+>  	reg |= MPHY_FAST_RX_AFE_CAL;
+> -	ret = ufs_versal2_phy_reg_write(hba, FAST_FLAGS(0), reg);
+> +	ret = ufshcd_dwc_phy_reg_write(hba, FAST_FLAGS(0), reg);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = ufs_versal2_phy_reg_read(hba, FAST_FLAGS(1), &reg);
+> +	ret = ufshcd_dwc_phy_reg_read(hba, FAST_FLAGS(1), &reg);
+>  	if (ret)
+>  		return ret;
+>  
+>  	reg |= MPHY_FAST_RX_AFE_CAL;
+> -	ret = ufs_versal2_phy_reg_write(hba, FAST_FLAGS(1), reg);
+> +	ret = ufshcd_dwc_phy_reg_write(hba, FAST_FLAGS(1), reg);
+>  	if (ret)
+>  		return ret;
+>  
+>  	/* Program ATT and CTLE compensation values */
+>  	if (host->attcompval0) {
+> -		ret = ufs_versal2_phy_reg_write(hba, RX_AFE_ATT_IDAC(0), host->attcompval0);
+> +		ret = ufshcd_dwc_phy_reg_write(hba, RX_AFE_ATT_IDAC(0), host->attcompval0);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+>  	if (host->attcompval1) {
+> -		ret = ufs_versal2_phy_reg_write(hba, RX_AFE_ATT_IDAC(1), host->attcompval1);
+> +		ret = ufshcd_dwc_phy_reg_write(hba, RX_AFE_ATT_IDAC(1), host->attcompval1);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+>  	if (host->ctlecompval0) {
+> -		ret = ufs_versal2_phy_reg_write(hba, RX_AFE_CTLE_IDAC(0), host->ctlecompval0);
+> +		ret = ufshcd_dwc_phy_reg_write(hba, RX_AFE_CTLE_IDAC(0), host->ctlecompval0);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+>  	if (host->ctlecompval1) {
+> -		ret = ufs_versal2_phy_reg_write(hba, RX_AFE_CTLE_IDAC(1), host->ctlecompval1);
+> +		ret = ufshcd_dwc_phy_reg_write(hba, RX_AFE_CTLE_IDAC(1), host->ctlecompval1);
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+> -	ret = ufs_versal2_phy_reg_read(hba, FW_CALIB_CCFG(0), &reg);
+> +	ret = ufshcd_dwc_phy_reg_read(hba, FW_CALIB_CCFG(0), &reg);
+>  	if (ret)
+>  		return ret;
+>  
+>  	reg |= MPHY_FW_CALIB_CFG_VAL;
+> -	ret = ufs_versal2_phy_reg_write(hba, FW_CALIB_CCFG(0), reg);
+> +	ret = ufshcd_dwc_phy_reg_write(hba, FW_CALIB_CCFG(0), reg);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = ufs_versal2_phy_reg_read(hba, FW_CALIB_CCFG(1), &reg);
+> +	ret = ufshcd_dwc_phy_reg_read(hba, FW_CALIB_CCFG(1), &reg);
+>  	if (ret)
+>  		return ret;
+>  
+>  	reg |= MPHY_FW_CALIB_CFG_VAL;
+> -	return ufs_versal2_phy_reg_write(hba, FW_CALIB_CCFG(1), reg);
+> +	return ufshcd_dwc_phy_reg_write(hba, FW_CALIB_CCFG(1), reg);
+>  }
+>  
+>  static int ufs_versal2_phy_init(struct ufs_hba *hba)
+> @@ -406,7 +355,7 @@ static int ufs_versal2_phy_ratesel(struct ufs_hba *hba, u32 activelanes, u32 rx_
+>  
+>  	for (lane = 0; lane < activelanes; lane++) {
+>  		time_left = TIMEOUT_MICROSEC;
+> -		ret = ufs_versal2_phy_reg_read(hba, RX_OVRD_IN_1(lane), &reg);
+> +		ret = ufshcd_dwc_phy_reg_read(hba, RX_OVRD_IN_1(lane), &reg);
+>  		if (ret)
+>  			return ret;
+>  
+> @@ -416,12 +365,12 @@ static int ufs_versal2_phy_ratesel(struct ufs_hba *hba, u32 activelanes, u32 rx_
+>  		else
+>  			reg &= ~MPHY_RX_OVRD_VAL;
+>  
+> -		ret = ufs_versal2_phy_reg_write(hba, RX_OVRD_IN_1(lane), reg);
+> +		ret = ufshcd_dwc_phy_reg_write(hba, RX_OVRD_IN_1(lane), reg);
+>  		if (ret)
+>  			return ret;
+>  
+>  		do {
+> -			ret = ufs_versal2_phy_reg_read(hba, RX_PCS_OUT(lane), &reg);
+> +			ret = ufshcd_dwc_phy_reg_read(hba, RX_PCS_OUT(lane), &reg);
+>  			if (ret)
+>  				return ret;
+>  
+> @@ -483,12 +432,12 @@ static int ufs_versal2_pwr_change_notify(struct ufs_hba *hba, enum ufs_notify_ch
+>  
+>  		/* Remove rx_req override */
+>  		for (lane = 0; lane < dev_req_params->lane_tx; lane++) {
+> -			ret = ufs_versal2_phy_reg_read(hba, RX_OVRD_IN_1(lane), &reg);
+> +			ret = ufshcd_dwc_phy_reg_read(hba, RX_OVRD_IN_1(lane), &reg);
+>  			if (ret)
+>  				return ret;
+>  
+>  			reg &= ~MPHY_RX_OVRD_EN;
+> -			ret = ufs_versal2_phy_reg_write(hba, RX_OVRD_IN_1(lane), reg);
+> +			ret = ufshcd_dwc_phy_reg_write(hba, RX_OVRD_IN_1(lane), reg);
+>  			if (ret)
+>  				return ret;
+>  		}
+> diff --git a/drivers/ufs/host/ufshcd-dwc.c b/drivers/ufs/host/ufshcd-dwc.c
+> index 21b1cf912dcc..45920793d1a8 100644
+> --- a/drivers/ufs/host/ufshcd-dwc.c
+> +++ b/drivers/ufs/host/ufshcd-dwc.c
+> @@ -141,6 +141,83 @@ int ufshcd_dwc_link_startup_notify(struct ufs_hba *hba,
+>  }
+>  EXPORT_SYMBOL(ufshcd_dwc_link_startup_notify);
+>  
+> +/**
+> + * ufshcd_dwc_phy_reg_write - Write a DWC M-PHY CREG register
+> + * @hba: private structure pointer
+> + * @addr: M-PHY CREG register address
+> + * @val: value to write
+> + *
+> + * Write a 16-bit M-PHY CREG register through the Synopsys DesignWare
+> + * UniPro indirect register access interface.
+> + *
+> + * Return: 0 on success, non-zero value on failure.
+> + */
+> +int ufshcd_dwc_phy_reg_write(struct ufs_hba *hba, u32 addr, u32 val)
+> +{
+> +	struct ufshcd_dme_attr_val phy_write_attrs[] = {
+> +		{ UIC_ARG_MIB(CBCREGADDRLSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGADDRMSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGWRLSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGWRMSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGRDWRSEL), 1, DME_LOCAL },
+> +		{ UIC_ARG_MIB(VS_MPHYCFGUPDT), 1, DME_LOCAL }
+> +	};
+> +
+> +	phy_write_attrs[0].mib_val = (u8)addr;
+> +	phy_write_attrs[1].mib_val = (u8)(addr >> 8);
+> +	phy_write_attrs[2].mib_val = (u8)val;
+> +	phy_write_attrs[3].mib_val = (u8)(val >> 8);
+> +
+> +	return ufshcd_dwc_dme_set_attrs(hba, phy_write_attrs,
+> +					ARRAY_SIZE(phy_write_attrs));
+> +}
+> +EXPORT_SYMBOL(ufshcd_dwc_phy_reg_write);
+> +
+> +/**
+> + * ufshcd_dwc_phy_reg_read - Read a DWC M-PHY CREG register
+> + * @hba: private structure pointer
+> + * @addr: M-PHY CREG register address
+> + * @val: pointer where the read value is stored
+> + *
+> + * Read a 16-bit M-PHY CREG register through the Synopsys DesignWare
+> + * UniPro indirect register access interface.
+> + *
+> + * Return: 0 on success, non-zero value on failure.
+> + */
+> +int ufshcd_dwc_phy_reg_read(struct ufs_hba *hba, u32 addr, u32 *val)
+> +{
+> +	struct ufshcd_dme_attr_val phy_read_attrs[] = {
+> +		{ UIC_ARG_MIB(CBCREGADDRLSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGADDRMSB), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(CBCREGRDWRSEL), 0, DME_LOCAL },
+> +		{ UIC_ARG_MIB(VS_MPHYCFGUPDT), 1, DME_LOCAL }
+> +	};
+> +	u32 mib_val;
+> +	int ret;
+> +
+> +	phy_read_attrs[0].mib_val = (u8)addr;
+> +	phy_read_attrs[1].mib_val = (u8)(addr >> 8);
+> +
+> +	ret = ufshcd_dwc_dme_set_attrs(hba, phy_read_attrs,
+> +				       ARRAY_SIZE(phy_read_attrs));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_get(hba, UIC_ARG_MIB(CBCREGRDLSB), &mib_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = mib_val;
+> +	ret = ufshcd_dme_get(hba, UIC_ARG_MIB(CBCREGRDMSB), &mib_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val |= (mib_val << 8);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(ufshcd_dwc_phy_reg_read);
+> +
+>  MODULE_AUTHOR("Joao Pinto <Joao.Pinto@synopsys.com>");
+>  MODULE_DESCRIPTION("UFS Host driver for Synopsys Designware Core");
+>  MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+> index 0406f2bb576b..d8673cd54d4c 100644
+> --- a/drivers/ufs/host/ufshcd-dwc.h
+> +++ b/drivers/ufs/host/ufshcd-dwc.h
+> @@ -45,4 +45,6 @@ int ufshcd_dwc_link_startup_notify(struct ufs_hba *hba,
+>  					enum ufs_notify_change_status status);
+>  int ufshcd_dwc_dme_set_attrs(struct ufs_hba *hba,
+>  				const struct ufshcd_dme_attr_val *v, int n);
+> +int ufshcd_dwc_phy_reg_write(struct ufs_hba *hba, u32 addr, u32 val);
+> +int ufshcd_dwc_phy_reg_read(struct ufs_hba *hba, u32 addr, u32 *val);
+>  #endif /* End of Header */
+> -- 
+> 2.43.0
+> 
