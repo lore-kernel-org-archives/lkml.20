@@ -1,124 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.hofmaniac.de (v2202607385953487451.hotsrv.de [45.157.178.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB2322F01;
-	Thu, 27 Aug 2026 12:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121911643B;
+	Thu, 27 Aug 2026 12:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.178.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833893; cv=none; b=TP4ZfZPqbUwvxls1KzgVEjPyprUypkeSq3NbiPmlreTcbpfxgzzqH921zAx3MF/2adetTOvKKxj+ziRmV1MlWFvkjh53tYXNhmMK0GMFWM32RhSWNxdPVjOzmoO6mjGvquiQAICUXVc1v1I3PkNJ9Y8T+JTEmgmVigOGHsPuAUc=
+	t=1787833914; cv=none; b=G/oRg9osb77GUj5Rr8rTZ8RhTEpl+U2wFjjxSJWY6GFmoG81l4eUFSouHlCZ+6VtwfpFGON08gXMfJCn0jwljvufk7DdQw+I60nERY0APfa6QwX3v8KGEzTVtOK5ZLySW5gDbMPkD23y1dcboB0XtGhrK7hx5L7mKtCiKuxGjb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833893; c=relaxed/simple;
-	bh=+Z2W5McbiqrE4ijZjPAp/irZz0EG/d4js4OVs93GplU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QcgmiX2TRTjI1hR06e5W4O3r1Ty0CuWmeR+aC/IbOryN7lRj/aFggW/O4U8idlF7nv1DBVh15B6WJTkwHWxxDblt4zea9idaFgtC0K2bz1Q8CZKexrB+OM45a0gqOoMBj8nvDfdDfATk7jAzMu56FcRFOpqtNDgEhQzOFZtFpEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz8/edXd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787833914; c=relaxed/simple;
+	bh=epm4upELTA6FgrAxEbKumsN5HtwBJh9YKjZmI9HLtzs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UOJp1GVUjGrXdFQPuikbAPLltOAhtBtAzUGboJryx19dHUUyUYcrOKBZB8aJd/4/coVrNOVG/48SKdZp3jgcj+qFpSL2+9V1YDRMAhXgH5iYCw/KTwUrfh26Xu/qhAz/6kiBcOrYI7ysFzRun1zD8nWWoqM9nlGxrDWkaBek2hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hofmania.de; spf=pass smtp.mailfrom=hofmania.de; dkim=permerror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b=ZmrWa2zV; dkim=temperror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b=lecdQvSn; arc=none smtp.client-ip=45.157.178.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hofmania.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hofmania.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz8/edXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34771F000E9;
-	Thu, 27 Aug 2026 12:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787833892;
-	bh=AaGO490XUVsCCgOmJ5kt/dJ1fxvEit+/Kusrwcy5OKw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bz8/edXdBGO+73w0u/sR8vMqXjSNeYzy8PPXDAShx3rZiZLB5oBOC+DM/AATinxq4
-	 H7cWa9vgAM/EgmFI78kBe/ck1/rFOTT4F4dMwqsN+zXkyRIlwMV9DbhaXtaNt4IA6Q
-	 hU3i5hHGQo2Z/FrgYok1sFZFURWSNOogHUNp38bwiJfaSz3eSaxE5wjNX+XXqfEMmg
-	 0sysfeIrCvmrKA2vuxipa14+5P1QspBrqKxDBmrvSTg6d2Az6p3OwtlfiirXYu+xVL
-	 dOi2u6O/Y+BO5TZ7qfAQBpnn6RBv4w66ribmf05zpD4KGrCVBAlauWdIgk6R7UI6Xb
-	 Wd+r3sKHJEOgw==
-Message-ID: <12761d4c-3f06-43ac-9f22-5d13e95e935e@kernel.org>
-Date: Thu, 27 Aug 2026 14:31:25 +0200
+	dkim=permerror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b="ZmrWa2zV";
+	dkim=temperror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b="lecdQvSn"
+DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260822; d=hofmania.de; c=relaxed/relaxed; r=y;
+	h=Message-ID:Date:Subject:To:From; t=1787833859; bh=2Oz1MxgiShj1tL2/lO3VGad
+	AAeQQwfjBsEUSB93W3OE=; b=ZmrWa2zVKvLaXkN/HK6B0JHnsjdWOV02a4JsaJyFo/PHL8k9ea
+	FvNqqkO+N/Dq7DNKwtXpmrYFYhqFbFBuYNAw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260822; d=hofmania.de; c=relaxed/relaxed; r=y;
+	h=Message-ID:Date:Subject:To:From; t=1787833859; bh=2Oz1MxgiShj1tL2/lO3VGad
+	AAeQQwfjBsEUSB93W3OE=; b=lecdQvSnAe7FSEmVAXM7cp+vUV9wiZdVyFNt8QMvKNShN3mibJ
+	PT9Xv9A2Z/r1Vt75ey8Z9PlBYGPJzk23zcP+D6Se6d6Gnes0ZOk3cNNORIT8ZVuPfJNz3ttM3T2
+	FT5cIXMGaQcroUlyi+bx174OqL2Lm8v/AV0wILPiRbVDySrSCMO7kHUoo6ziU6+1XcphQ+nJest
+	/qt4Gb0+CoXuuXhgDGXux2x8eDCemBNevaEuQ1/DAuohcBaSZoMsTrOhGl+bZWQoO7j3BqI2HsI
+	yLv7S2UHnJ2ZAgabeU9Tq/EiixsH2hJgGuQGWQiGCN4r5NxVPMT+fFTMg8s7/tcD29g==;
+From: Marcel Hofmann <marcel@hofmania.de>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+Subject: [PATCH v2] remoteproc: imx_rproc: allow mappings ending at region boundary
+Date: Thu, 27 Aug 2026 14:31:36 +0200
+Message-ID: <20260827123136.438798-1-marcel@hofmania.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
-To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260821-sound-for-next-cs35l45-sync-v4-v4-0-20d3a07c3b8d@opensource.cirrus.com>
- <20260821-sound-for-next-cs35l45-sync-v4-v4-1-20d3a07c3b8d@opensource.cirrus.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260821-sound-for-next-cs35l45-sync-v4-v4-1-20d3a07c3b8d@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/08/2026 00:41, Ricardo Rivera-Matos wrote:
-> Introduces support for the multidevice synchronization (SYNC)
-> bus. The properties introduced allow for the configuration
-> of the device's transmitter IDs.
-> 
-> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-> ---
->  .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-> index 70f6c62aedca..20d758dc442f 100644
-> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-> @@ -53,6 +53,29 @@ properties:
->      maximum: 3
->      default: 2
->  
-> +  sync:
+From: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
 
-Same comment. You did not respond to Sashiko report because "it
-contradicts itself" is pointless. It did not... unless you meant
-irrelevant part about example. But that is just irrelevant to the binding.
+The address range checks in imx_rproc_da_to_sys() and
+imx_rproc_da_to_va() use a strict comparison for the exclusive end
+address of the requested range.
 
-Best regards,
-Krzysztof
+As a result, a valid request that ends exactly at the end of an address
+translation or mapped memory region is rejected. For a region
+[start, start + size), a request [addr, addr + len) is contained when:
+
+    addr >= start && addr + len <= start + size
+
+This occurs when a loadable ELF segment fills an entire mapped memory
+region. This can be produced by a linker script that extends the
+resource table section to the end of its designated region:
+
+    .resource_table :
+    {
+      . = ALIGN(8);
+      KEEP(*(.resource_table)) /* Resource table */
+      . = ALIGN(8);
+      . = ORIGIN(m_rsc_tbl) + LENGTH(m_rsc_tbl);
+    } > m_rsc_tbl =0x00
+
+This produces a ELF program header like:
+
+    LOAD  0x010000 0xa4220000 0xa4220000 0x01000 0x01000 R   0x1000
+
+In this case, the segment size matches the mapped region size exactly,
+causing the address translation to fail with:
+
+    bad phdr da 0xa4220000 mem 0x1000
+
+Rework the upper-bound checks to allow ranges ending exactly at the region
+boundary while guarding against integer overflow. 
+
+Fixes: a0ff4aa6f010 ("remoteproc: imx_rproc: add a NXP/Freescale imx_rproc driver")
+Signed-off-by: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+---
+
+Changes in v2: 
+- Reworked the bounds check to guard against 64-bit integer overflow
+- Use u64 for offset instead of unsigned integer
+- calculate offset first and then validate len against remaining region
+  size
+
+v1: https://lore.kernel.org/r/20260826155123.AEB731F000E9@smtp.kernel.org/
+
+ drivers/remoteproc/imx_rproc.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index 745ce52cd822..ea852ca143bb 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -540,6 +540,7 @@ static int imx_rproc_da_to_sys(struct imx_rproc *priv, u64 da,
+ 	/* parse address translation table */
+ 	for (i = 0; i < dcfg->att_size; i++) {
+ 		const struct imx_rproc_att *att = &dcfg->att[i];
++		u64 offset;
+ 
+ 		/*
+ 		 * Ignore entries not belong to current core:
+@@ -552,9 +553,11 @@ static int imx_rproc_da_to_sys(struct imx_rproc *priv, u64 da,
+ 				continue;
+ 		}
+ 
+-		if (da >= att->da && da + len < att->da + att->size) {
+-			unsigned int offset = da - att->da;
++		if (da < att->da)
++			continue;
+ 
++		offset = da - att->da;
++		if (offset <= att->size && len <= att->size - offset) {
+ 			*sys = att->sa + offset;
+ 			if (is_iomem)
+ 				*is_iomem = att->flags & ATT_IOMEM;
+@@ -585,9 +588,14 @@ static void *imx_rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *i
+ 		return NULL;
+ 
+ 	for (i = 0; i < IMX_RPROC_MEM_MAX; i++) {
+-		if (sys >= priv->mem[i].sys_addr && sys + len <
+-		    priv->mem[i].sys_addr +  priv->mem[i].size) {
+-			unsigned int offset = sys - priv->mem[i].sys_addr;
++		u64 offset;
++
++		if (sys < priv->mem[i].sys_addr)
++			continue;
++
++		offset = sys - priv->mem[i].sys_addr;
++		if (offset <= priv->mem[i].size &&
++		    len <= priv->mem[i].size - offset) {
+ 			/* __force to make sparse happy with type conversion */
+ 			va = (__force void *)(priv->mem[i].cpu_addr + offset);
+ 			break;
+-- 
+2.55.0
+
+
