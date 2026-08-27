@@ -1,45 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FE646D095
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D5A466AF5;
+	Thu, 27 Aug 2026 13:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836031; cv=none; b=Ucnt9Y7/RhhCGLEJoql+/RZSRvrdbpgVWzKEBw/jC28Mkk7q6JcYaMgI/uMs1NjWCPqJJrOZfR30eSi2tfTaexQO1b/fzxFzptbo5KS4HLpZNVgz/shUK3fr2fxQLk3stfmuaOaN/2JJZgdiJv9qzLDcQCtHPvTU/a+ogPorlTc=
+	t=1787836052; cv=none; b=gt34KLKRHv1EDJe6ZGO7pwiBntoATJbZ5WTzUPSc4JqZ0piTmk2vaL7UuCkoZgOOE/Q+weOJVdvCHrkAwNB7V5Avv9y+8c9X3ewYH0mFa1FmqHwsB+ncpYandKnSyu3fB1VSlSXnvQvw3HOO22YOLXYaOoGd4GMuawJwZKRViAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836031; c=relaxed/simple;
-	bh=aJa8GkM03fEh8NtHJaRKAJ/tp0xmeMNgj/Rj1HV5SfA=;
+	s=arc-20240116; t=1787836052; c=relaxed/simple;
+	bh=E7idqHOncmG7mF6Fij9tBltdrtulZ+mN4mIw16QKjBY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uB3i8QQkKOPl/gtx3C7WHewKnREUavp9VZtjmOFdEXOqcADWIsEOs4JnjxLozPOg2wNABmnuVhVAYas7fotNfpYkj8Gs9oKF2cKtxaq2UgEH9M85Y163NWUAp2qkAv5lM4zF/gZ6dBxRdRfNxXNnBu7/yoQXLiqwOaZVttcb7pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lfne+dj1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uGGRChldbHthSWZj7PyGyMTqp1ElvXT14Yvf26uPij5v1rLzS8UlrRDq6wd0QBPryI64ewhuV3guy2RwgzKDaecXAJQwrSeN/1ip7e/R29GQD8HaLPIXq3a3U2MhephiEo3TuzthwTR3wzNoJt2b0GTQwgyq9lWG0VYaEaRdTuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbkNkqof; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lfne+dj1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9951F000E9;
-	Thu, 27 Aug 2026 13:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbkNkqof"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119E81F000E9;
+	Thu, 27 Aug 2026 13:07:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787836015;
-	bh=ZSuTZwdeaDVo8ilObKv1yNCokL2S+sutd5WfT+a22kU=;
+	s=k20260515; t=1787836036;
+	bh=E7idqHOncmG7mF6Fij9tBltdrtulZ+mN4mIw16QKjBY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lfne+dj1c3eOzsZQQYORIe2wqZ8Hd+nnFmlXRR9bizxkA+mm4PhiSkK5JctbFRHGz
-	 qgV8h6Wc0gV0ZMxA6x+hSPrSm3ygBn0HrueK7XlRZb0iNKWW+8FGnTj8q+f2biCu+4
-	 Q9cSAqrKCLhK+c/U70mG8ugw5cyQpbyozWw+Cj/P3JXRfnTpWNe0OYlLR1zgldPcjO
-	 FtA9ORbeowfPJFxXkZhf225GQXYsT4V7MqyFWcevVPYKDfx8LKp1bDsXfmtIWmlq6f
-	 arXv9VxGH+aF1hWSC4X+N52gAZlC2aQ11S0n1JhbViwPKu7JCs0XpI1G0HzUsfNo3X
-	 bZ3Xv5Ul1Qsiw==
-Date: Thu, 27 Aug 2026 14:06:49 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
-Message-ID: <apA1Bm2BwpqPc86v@gremlin>
-References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
- <ao7Nr_FALfP7cTY5@gremlin>
- <20260827082352.26769-1-lianux.mm@gmail.com>
+	b=HbkNkqofgca0N5Jj0aw+z4giRuz2xH3T4sWKZErKe9iV4Rla0Ul7qRVW3meU6hTXL
+	 RzzC9URElHLfzSvuCUSJYk3m1rOoSCwWZF9jw7cIi3PZc2OncHlWQ+h4B8Y5z6Ddiw
+	 n77PfXAVcTjuX5X9CAcdV7kvHjURMrI4WdBes/IYYEwo4uXXFeoFb4SfCnK71sp965
+	 30BGGHUNDgnXCTK7aoRz3uiKhnspaGD/wTywqrV4qixFUcFlswhKBVUbRn4tVS+DEd
+	 KJQ7cLa5lGntEhy47ujyEYXAFoaD8QVFk6JXT5hbfLWbh+7/oCVqr6vR334kaCWYGd
+	 VfEUHF4prbYhA==
+Date: Thu, 27 Aug 2026 15:07:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, 
+	Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
+	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v3 7/9] dt-bindings: arm: stm32: Switch
+ st,stm32mp23/25-syscfg into simple-mfd
+Message-ID: <20260827-skilled-optimal-shellfish-c548e5@quoll>
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-8-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,98 +52,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827082352.26769-1-lianux.mm@gmail.com>
+In-Reply-To: <20260822074816.548662-8-marex@nabladev.com>
 
-On Thu, Aug 27, 2026 at 04:23:27PM +0800, Lian Wang (ProcessMission) wrote:
-> On Wed, 26 Aug 2026 12:31:09 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
-> >
-> > 	~107,000 words of review across 948 emails (in 279 distinct
-> > 	threads), counting only prose you actually wrote — quoted text,
-> > 	signatures and attribution lines stripped. That's a full novel's
-> > 	worth of review commentary.
-> >
-> > 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
-> > 	and your longest single review was 2,404 words (mTHP collapse
-> > 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
-> > 	of your top-10 longest reviews).
-> >
-> > 	Estimated review time: roughly 300–500 hours, centred around ~400
-> > 	(i.e. ~7 hours/week for 14 months).
-> >
-> > 	1,615 THP-related emails in the window: 948 reviews of others'
-> > 	work, 278 replies on your own THP-touching series threads (~31k
-> > 	more words responding to review), 382 patch emails, and a handful
-> > 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
-> > 	emails), June 2026 (113), August 2026 (111); quietest was December
-> > 	2025 (5).
-> >
-> > Think I can be happy with that!
-> >
-> > --
-> > Cheers, Lorenzo
->
-> You certainly can.  Thank you very much for everything you have done for
-> THP and for all the people whose work you have reviewed.
-Thanks :)
+On Sat, Aug 22, 2026 at 09:46:40AM +0200, Marek Vasut wrote:
+> The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
+> represent the USB 2.0 FEMTO-PHY. Turn the syscfg into "simple-mfd" so the
+> PHYs would get populated by the OS.
 
->
-> You and David were among the first people to review the first patch I
-> sent.  Later, SJ, Zi Yan, Mark Brown, and many others also began helping
-> me.  Although I kept making mistakes, I genuinely wanted to learn enough
-> to share some of the review and maintenance load that you have been
-> carrying.
+Sashiko comment is partially valid - you change the ABI in incompatible
+way, by requiring a new compatible. Commit msg should briefly explain
+the impact, e.g. that there is no impact because phy was not
+implemented by Linux and was not described in the binding.
 
-I'm glad I was able to help :) and mistakes are just part of being human, I
-make the dumbest mistakes _constantly_ :>) so the key is really trying to
-always find ways to quickly fix things up and improve.
+OTOH, adding simple-mfd means children have no dependency on the parent,
+so this should be considered or even explicitly mentioned in commit msg
+(parent clock is irrelevant to child, right?)
 
->
-> I still have a great deal to learn, but I have started to slow down, think
-> more carefully, and improve both the technical quality of my work and the
-> way I submit it.  The help I have received from the community means a lot
-> to me, and your patience and reviews were an important part of that.
+OTOH2, you have now patchset dependency which is nowwhere explained.
+Merging constraints are the most important part of cover letter so must
+be clearly stated. IMO, should be stated also here, because many
+maintainers do not read cover letters. Or just decouple dependencies
+with using 'compatibles' pattern (see Qualcomm msm/mdss display
+bindings).
 
-I really think going over and thinking carefully about the code and the
-approach is really helpful.
+Best regards,
+Krzysztof
 
-Also review really helps with getting perspective on what other people are
-doing and how things fit together so is super helpful for improving too
-(part of why I do a lot of it!).
-
-Am very glad the feedback has helped :) I know that sometimes I am not
-quite as patient as I could be but I do try to do my best, and felt I've
-developed over time as a reviewer, albeit never quite being perfect on that
-front :)
-
->
-> I know none of this changes the workload that led you to step down, but
-> reading this made me realize again how much time and care you gave to all
-> of us.  I will be at LPC this year, and I hope I can thank you in person.
-
-Thanks, feel free to come say hi :)
-
->
-> I will also be more disciplined about patch preparation, testing evidence,
-> email formatting, revision history, and the overall submission and review
-> workflow.  I hope that, over time, I can take on a useful share of the work
-> rather than add to it.
-
-Amazing, yeah I think the key thing to realise is that while feedback can
-be painful (for me too!), everybody is aiming at the same thing - trying to
-make things better and improve the kernel for everybody.
-
->
-> Thank you again, Lorenzo.  I will miss having you as a THP co-maintainer,
-> though I am very glad that you will still be around.
-
-Thanks again for your kind words! :)
-
->
-> Thanks,
-> Lian
-
---
-Cheers, Lorenzo
