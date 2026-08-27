@@ -1,193 +1,133 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65A0284690;
-	Thu, 27 Aug 2026 11:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8766443E25
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829193; cv=none; b=FiEm4oxjupnmJLkrrW6VP6FEK3NzQfahUBSXy9ENUqYwaT7cIQgaZWyK8UwIq9K+gPK2m/Pqj2mmsJYk5xu1DtADounbUgb2s6E5FoIQIFMHTpi8i54BLalLSrbuuvx2l1HYa1yRD/wkhy+o4s/owHsTzC1h4bz2sEAIvj8sjy8=
+	t=1787829209; cv=none; b=EdoT8KCVG2CPTy3cO+WeQo0daWHyIXiy9U5KzB2hkSyI5EkK2B32tzdEJnjKrcm/u0Ar79Nby8PULXhTjVjJrAymymz8OZeDnaoTeQYnkSQLTf+L3uw2tJWlE7brDfpRLbBp229JXSAW6iEr74oPFLn0lIbs95GSphZLKeZsysQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829193; c=relaxed/simple;
-	bh=bTC6x/24k0isLblpzPLOwwPeAbmEkv0/EIyCKVCIMnA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m6pdIMn1cYeidx8wopNojeqAZmVDMCS3TMnQUrIQnq8F8VrImPMkEaaPCEGAUNYYHpmDzjP/d2SdcHslphGYJIxjj15Cb5HGc9epYpHGCiZ2YZ4A6xgGM7UPHUkXTeCkSn78mX0b3p2p0norpxkE1Kz9lbhuwOB1JhwHAHA2xvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=w6pCQLuB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SMg0u+0A; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LcTQufRG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nyzjiJc9; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1787829209; c=relaxed/simple;
+	bh=VIBFLSp6vCSrLBB8roQJG9kGbGDTxq434AI4pWWKGCs=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=GQEQcIfHiare4uFn1kUXnbWLnDWl2NKAr81vRwQtodZLvbOqhQ0wu4lbYs4Yi3iImPhj8jQE5yFZrVqgozwpIlu0nigPCmpn8cD7z7+R91ihIOzS9j3qHyegRyp+inWIb5wlUUwCc7OGWITnOypkGpmjVEud7AQElCt8hkeGKXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LVSplgYM; arc=none smtp.client-ip=95.215.58.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="w6pCQLuB";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SMg0u+0A";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LcTQufRG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nyzjiJc9"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BD22B1F841;
-	Thu, 27 Aug 2026 11:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787829183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
-	b=w6pCQLuBUi6kgshHVeAQu2cRDZe+c/zB36HD7f5/+vKW3O9z/2W0F8rSMVDBD8J4Ky4Pfk
-	iE8vUCUpmMxtspDmTP5KZvMMGX1E463nQScbpTHkMxwbVRi9ocVR/gM6SC+xSoIkJB4sSb
-	B9sROcruDj7+8Ixb8x8HoerJq+dMHJg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787829183;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
-	b=SMg0u+0AWa79eVQm8Aj+9z5nE9y4e9/lyCmCsaB0mdiaoh4o/fMjB43j9PfF00Za97EEpq
-	hpU5pS+U/VCCDxBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LcTQufRG;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nyzjiJc9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787829178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
-	b=LcTQufRG+bO01qVw5fv+gVa7i4Q48nI+R+EqSl++rN463CHoo2LfRlPpbDPCVRQyPgELPy
-	WXclsQsUGKrM1BIwOcoYnsOjIyudCXtJ8iViGSVEA+GHi3Dh+X5QBDSpKvufA2sh/rnlqD
-	aM+7ywOJq78DYGsQV6rFr1AwwyKcVDQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787829178;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
-	b=nyzjiJc9uZJOLhdSEWVg3x2jF9bJBtJmaKfG7RiiSMcXwxuH688zQrQyDRKeBjpGarum5L
-	J337qOKgSvHHayAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B36F813354;
-	Thu, 27 Aug 2026 11:12:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id o5vKK7obkGrIYQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 27 Aug 2026 11:12:58 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 566D8A1324; Thu, 27 Aug 2026 13:12:54 +0200 (CEST)
-Date: Thu, 27 Aug 2026 13:12:54 +0200
-From: Jan Kara <jack@suse.cz>
-To: Bill Wendling <morbo@google.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, codemender-patching+linux@google.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] vfs: Annotate struct fdtable's fd field with
- __counted_by_ptr
-Message-ID: <7wmcr2qkkasokniszgbsegmglmyibshtq7ecwstwm5fwdidtom@67ubpgapnkte>
-References: <20260810204118.1981755-1-morbo@google.com>
- <20260827041732.188707-1-morbo@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LVSplgYM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VIBFLSp6vCSrLBB8roQJG9kGbGDTxq434AI4pWWKGCs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787829200; v=1; x=1788434000;
+ b=LVSplgYMvMFKVy72UpOCVyhuL4hGAjmvXxAnbJxiX+hvQS2pWZUcP9THkQH9+TgGX+UfTkix
+ 7bUdOwNPFNf62eBP0ObqSV3hwOJ23JdS9G+5RNHDO0VlhODo5xgSXoJNBQSOWHfmQZzPzguXnTR
+ /qHyer9mf1+XkGnDSU1XPNng=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1bd3b72e5361c2bd;
+	Thu, 27 Aug 2026 11:13:20 +0000
+X-Mizu-Trace-ID: 1bd3b72e5361c2bd
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827041732.188707-1-morbo@google.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BD22B1F841
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.org.uk:email];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Date: Thu, 27 Aug 2026 11:13:20 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev>
+TLS-Required: No
+Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
+ 78a38cbf6f20
+To: "Sunho Park" <shpark061104@gmail.com>, rcu@vger.kernel.org
+Cc: paulmck@kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+In-Reply-To: <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
+References: <20260824105625.3725157-1-shpark061104@gmail.com>
+ <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
+ <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
+ <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
+ <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+ <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+ <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
 
-On Thu 27-08-26 04:17:29, Bill Wendling wrote:
-> The 'struct fdtable' holds the file descriptor table information,
-> including the current file descriptor array 'fd' and its size 'max_fds'.
-> To harden the kernel against out-of-bounds accesses, we can annotate the
-> 'fd' pointer field with the '__counted_by_ptr' attribute, referencing
-> 'max_fds'.
-> 
-> The compiler uses the '__counted_by_ptr' attribute to track the
-> size of the memory allocated for the pointer field, enabling
-> runtime bounds checks under KASAN and fortified functions. There are
-> three places where a 'struct fdtable' is initialized, and in all of
-> them, 'max_fds' is set before the 'fd' pointer is accessed or assigned
-> in all allocation and initialization places.
-> 
-> No accesses to 'fd' occur before 'max_fds' is set, preventing any
-> potential runtime false-positives or panics due to uninitialized count
-> fields.
-> 
-> Assisted-by: Gemini:3.1-pro-preview
-> Signed-off-by: Bill Wendling <morbo@google.com>
+>=20
+>=20On 8/27/26 08:53, Zqiang wrote:
+>=20
+>=20>=20
+>=20> Based on your description below, the 5.srcu_barrier() did not inter=
+cept the callback of 4.call_srcu(),
+> >  this means that 4.call_srcu() and 5.srcu_barrier() concurrent calls,=
+ or calls after 5.srcu_barrier().
+> >  The combination of srcu_barrier() and cleanup_srcu_struct() typicall=
+y occurs on the module exit path.
+> >  srcu_barrier() ensures that all previously inserted callbacks comple=
+te=EF=BC=8Cso therefore, theoretically,
+> >  there shouldn't be any callbacks left to execute after we finish exe=
+cuting srcu_barrier().
+> >  and of course, there are also shouldn't be any ongoing or newly star=
+ted SRCU grace period and the
+> >  WARN_ON() in cleanup_srcu_struct() is designed to detect it.
+> >  If when the cleanup_srcu_struct() detects an incomplete SRCU grace p=
+eriod or any srcu callbacks
+> >  that have not yet been executed, this is a risk that needs to be rep=
+orted, even if the
+> >  cleanup_srcu_struct() can intercept it internally.
+> >  > Therefore, we should investigate this issue to ensure that 5.srcu_=
+barrier() can intercept the step 4 callback.
+> >  Thanks
+> >  Zqiang
+> >=20
+>=20Before 5. srcu_barrier() call, the 4. call_srcu() is finished and the=
+ callback was enqueued, and srcu_barrier() did intercept it by appending =
+barrier cb after it. They can't be called concurrently because when call_=
+srcu() is called inside kvm_io_bus_register_dev(), the kvm reference coun=
+t is nonzero and kvm_destroy_vm() which calls srcu_barrier() could not be=
+ started.
+>
 
-Looks good. Feel free to add:
+Which tree is your test based on? (rcu tree or linux-next tree)
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The step 4 call_srcu() is finished and then the step5 call srcu_barrier()=
+, it failed to intercept it?
+(theoretically, this shouldn't happen)
 
-								Honza
+=20
+>=20In my debugging, all five __free_bus() callbacks enqueued by kvm_io_b=
+us_register_dev() were invoked before the barrier cb, and only then the b=
+arrier cb is called and srcu_barrier() returns. So all the real callbacks=
+ were executed and practically there were no callbacks left to execute wh=
+en srcu_barrier() returns, but a stale n_cbs > 0 is left because srcu_inv=
+oke_callbacks()'s invoking loop has not finished.
+>=20
+>=20KVM logic correctly called srcu_barrier() and cleanup_srcu_struct() w=
+ithout calling call_srcu() in between. In my opinion, the root causes are=
+ as follows:
+>=20
+>=201) for timer_delete_sync(): the srcu_gp_end() which ended the last gr=
+ace period (from 4. ) arms sdp->delay_work to expire at jiffies + 1 even =
+though the invoke work (queued in 3. ) is already queued, and cleanup_src=
+u_struct() runs before that one-jiffy timer expires, so timer_delete_sync=
+() cancels that pending timer and returns true.
+>=20
+>=202) for n_cbs: srcu_invoke_callbacks() calls rcu_segcblist_add_len(-le=
+n) only at the end of the work item, after the barrier callback has been =
+invoked and srcu_barrier() has already returned, so cleanup_srcu_struct()=
+ observes a stale n_cbs > 0 while the cblist is physically empty.
 
-> ---
-> v3 - Add version to the PATCH subject line
-> ---
-> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Kees Cook <kees@kernel.org>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: codemender-patching+linux@google.com
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-fsdevel@vger.kernel.org
-> Cc: linux-hardening@vger.kernel.org
-> ---
->  include/linux/fdtable.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
-> index c45306a9f007..3a5c88291125 100644
-> --- a/include/linux/fdtable.h
-> +++ b/include/linux/fdtable.h
-> @@ -25,7 +25,7 @@
->  
->  struct fdtable {
->  	unsigned int max_fds;
-> -	struct file __rcu **fd;      /* current fd array */
-> +	struct file __rcu **fd __counted_by_ptr(max_fds);      /* current fd array */
->  	unsigned long *close_on_exec;
->  	unsigned long *open_fds;
->  	unsigned long *full_fds_bits;
-> -- 
-> 2.55.0.897.gb25b4bd76c-goog
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+because you say the 5.srcu_barrier() can not intercept setp4 call_srcu() =
+enqueue callback func,=20
+that=20means that the step4 srcu callback shuold not be run, the cblist a=
+lso not empty.
+
+Thanks
+Zqiang=20
+
+>=20
+> Thanks
+> Sunho Park
+>
