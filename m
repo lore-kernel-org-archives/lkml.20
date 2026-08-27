@@ -1,362 +1,410 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B35A2931FF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5183090C6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:21:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811667; cv=none; b=u4jqMP4wTTS9K1l4qJlpyDwj85dZ6dLNGElGfcfyMBaxkTkebMIAAx6fkCGyWIZjNkubgldtpIgJfLKzrZsm9lWO6uqz6djJNmiPcBsmwS5YPBE3Xq2T6k6GrdTW8z4RGvo8N53UefNKbylay4SJCxwxaGpiM4+I/j+g6asQVtM=
+	t=1787811707; cv=none; b=b8vIaPRBPfrtPURe5Yfzb9FBCKHLC+k4eU4kMLQMFe9+3F9ZxmhkAgDRmK5jKB+HxqPG6VTAtgRBWKI8gVLrzxKFwfn+gupGAnGZoPuf7Ha48QLOfIPKTtK2hwVMSTDrfj1E+ztdJPlK5J8b2clBYKVZisvO/JQa0JSHlqPGPpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811667; c=relaxed/simple;
-	bh=7i+6bXBzesU5+ozNMIvi8ydZGTiGz8duOAXWoA19Kgo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=qoV/QP/G+tWnflaMbCA2U5kqEFCy2UCJMX7pRvD/wG3QeRZoy3n39BmmJQ85W0CYSZShYkBeAkPu2TgW9gl/hj9jAvwz6NisautUnZRYbzvVjEOEENFXvAltJwajKeTNf6qcd2T8WAhFLgQzD73guYu4F6ACMwmZzATwntgcx10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-463ddb3b4f7so2402161fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:21:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787811664; x=1788416464;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rSmIE+XnvWRAVD1SDx5r5GNoYowf1FIchYmEzE7pVKM=;
-        b=XYAKwX5dNmwYl+etlzKQG2Oem/wNuzfCtSi8F2VReSE6isIooAuDEtOFL03QceCESN
-         zjMfPoQTjMJvz0GvDoEjSXQu9LUgeA8B7DBVQvPlsgDInYO637yT1IsSxJhcDkVzQEnK
-         n8mj/0KsueYG5JZQY9AFnN+n7YRMkYV5Nl8yBeNcnQiILAHos1fWB/36e4Wnz9+eX8tH
-         TkKOrisbzAY2/jmaau79jTsR1d1GiNLGcasXRMFQZwQWNpeRG2YT3VvnVQ9aeK/leXCQ
-         u0+QBusNo5bQwUP4beFm40QZA7Jy6iVxYlMu0WnSv2cC+1d0cAHHiP7bxD4fpSIZC4qI
-         PGzw==
-X-Forwarded-Encrypted: i=1; AHgh+RrXPVlKvvjQYLr2FB/7+ylE9r0I0jHjQtgVxhawQe1f5+yPDUOacEIGGuODDm4PQVVhJ6MH1nj75R8aYoQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ/fuY9gcieOEeCJMTd7AoD4ShqQe9BFsoY6vSOktuW+e495VC
-	cT9ZQ/fIuUFgMXx4q3382G46EHKlvmzBTwLHrPY9bit5TiFKXYrucwpspKE4mv6WjgLNgVTRiHL
-	sb/t79ic0XBZzMO98ce5lzHOEHlJH3sOYcmwJb49a+9gUKea04vna0JlMK9w=
+	s=arc-20240116; t=1787811707; c=relaxed/simple;
+	bh=DidEs+Fu3upQhavGDahduKlaRKb4bM7KQeyqeHD0/ro=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YjQyP886+Flo3Kmz0Rzzm4szKxJNePYGCk30C7l7psWxBu3qCKRNt8ar9YKI2xn4V+scMS4RR7qBAw0KRYDkDy+4FmSWAsh5pIEqFjqSeVrTXkCMKZqZky0Wl+qBHFzSA/d6y8lFKjXiuNC6Oa6EYl8Yrm+wcbzATiAwDgxl8LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aX9mLAla; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aX9mLAla"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787811696; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=ImPFWFRY5szdCXqhm0kmdf+B5mDUicA3YITvPHDWZdY=;
+	b=aX9mLAlaqOS9HE9bYTxNJW/LkBZTiqZOegd1rF/fBQqCRSimhoJH23xBRu7reVb4m9AohU1/Q59w3SAWZBzlgnsMz7DGwmqlUPbFmutMvyeNbHWLfpsIPSyQCvtACNdaGY6qq3Xv1jsnOUjQb2QH7RD79KBahj0U9he/l5LrBWs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0X9ir0wo_1787811692;
+Received: from 30.74.144.120(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9ir0wo_1787811692 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 27 Aug 2026 14:21:33 +0800
+Message-ID: <70133332-966f-4bd2-99da-cfc5ad5fb6b6@linux.alibaba.com>
+Date: Thu, 27 Aug 2026 14:21:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:561c:b0:6b1:9f9d:79f3 with SMTP id
- 006d021491bc7-6b1a049aa50mr7244587eaf.17.1787811663746; Wed, 26 Aug 2026
- 23:21:03 -0700 (PDT)
-Date: Wed, 26 Aug 2026 23:21:03 -0700
-In-Reply-To: <20260827060314.1793-1-hdanton@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8fd74f.4d659fcc.734b4.000c.GAE@google.com>
-Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
-From: syzbot <syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com>
-To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-possible deadlock in kernfs_link_sibling
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kworker/0:4/5891 is trying to acquire lock:
-ffff88801d6a5a10 (&root->kernfs_iattr_rwsem){++++}-{4:4}, at: kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
-
-but task is already holding lock:
-ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
-
-which lock already depends on the new lock.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mm/mglru: clean up isolate_folios and scan_folios for
+ readability and clarity
+To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
+ baoquan.he@linux.dev, chenridong@xiaomi.com, david@kernel.org,
+ hannes@cmpxchg.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org,
+ ljs@kernel.org, lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com,
+ weixugc@google.com, yuanchu@google.com
+References: <20260820045603.68809-1-baohua@kernel.org>
+ <7e897a4e-2075-485a-8cc5-5bb928fba437@linux.alibaba.com>
+ <CAMgjq7DFpKU=QdT4QNAREL8oLg-OAxM6zMcYkCECBVg=U5ECsg@mail.gmail.com>
+ <56b8e283-f849-4fd7-9c2a-64b604176a82@linux.alibaba.com>
+ <CAMgjq7Aemn51JRVx1_zxG=Z3ZhTBUW01erEpgHfDWT=BPGBLMw@mail.gmail.com>
+ <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-the existing dependency chain (in reverse order) is:
 
--> #9 (&root->kernfs_rwsem){++++}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
-       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
-       internal_create_group+0x36f/0xfb0 fs/sysfs/group.c:176
-       cpuhp_invoke_callback+0x3b4/0x9a0 kernel/cpu.c:194
-       cpuhp_issue_call+0x1b8/0x970 kernel/cpu.c:2354
-       __cpuhp_setup_state_cpuslocked+0x431/0x880 kernel/cpu.c:2507
-       __cpuhp_setup_state+0xf7/0x2f0 kernel/cpu.c:2536
-       do_one_initcall+0x11c/0x6f0 init/main.c:1353
-       do_initcall_level init/main.c:1415 [inline]
-       do_initcalls init/main.c:1431 [inline]
-       do_basic_setup init/main.c:1451 [inline]
-       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
-       kernel_init+0x21/0x1e0 init/main.c:1556
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+On 8/26/26 5:11 AM, Barry Song wrote:
+> On Wed, Aug 26, 2026 at 2:10 AM Kairui Song <ryncsn@gmail.com> wrote:
+>>
+>> On Tue, Aug 25, 2026 at 5:06 PM Baolin Wang
+>> <baolin.wang@linux.alibaba.com> wrote:
+>>> On 8/24/26 7:05 PM, Kairui Song wrote:
+>>>> On Mon, Aug 24, 2026 at 3:25 PM Baolin Wang
+>>>> <baolin.wang@linux.alibaba.com> wrote:
+>>>>> On 8/20/26 12:56 PM, Barry Song (Xiaomi) wrote:
+>>>>>> This is a cleanup series split out from the MGLRU swappiness series [1],
+>>>>>> with the cleanup changes separated to make them easier to review.
+>>>>>>
+>>>>>> Right now, isolate_folios() is quite difficult to follow:
+>>>>>>
+>>>>>> 1. It uses for_each_evictable_type(i, swappiness) to iterate over the
+>>>>>> types, but i is not actually used as the type within the loop body.
+>>>>>>
+>>>>>> 2. It uses scanned == 0 to detect whether the current reclaim type is
+>>>>>> exhausted, but this is not an accurate indication.
+>>>>>>
+>>>>>> 3. It has an internal retry when no folios can be isolated after scanning
+>>>>>> some folios, but the retry is implemented in a way nobody can understand.
+>>>>>>
+>>>>>> This patchset makes these behaviors explicit and much easier to follow.
+>>>>>>
+>>>>>> Run kernel builds for several rounds in a 1 GB memcg and take the
+>>>>>> average build time. The patchset shows almost no performance impact,
+>>>>>> with a very small improvement that could simply be noise:
+>>>>>
+>>>>> Just FYI:
+>>>>>
+>>>>> I tested this patchset with a 3G memcg limit and a 10G zram device,
+>>>>> running 'make -j32' to build kernel on my 32-core Arm machines, and got
+>>>>> some performance improvement for ths sys time:
+>>>>>           w/o patch       w/patch
+>>>>> sys     1845s           1570s
+>>>>>
+>>>>
+>>>> Hi Baoliln
+>>>>
+>>>> That's a very interesting result, can you share a bit more info about
+>>>> it? e.g. vmstat? I'm curious how this happens.
+>>>
+>>> Sure.
+>>>
+>>>> I suspect patch 2 or 3 changes the swappiness / reclaim / aging type
+>>>> selection behavior, or maybe it reduced the reclaim amount?
+>>>
+>>> I gathered the memcg stats as shown below.
+>>>
+>>> It looks like the direct reason for the performance improvement is an
+>>> obvious reduction in anon refaults, which is what this patch aims to
+>>> achieve I think. That is to say, we should respect the type chosen by
+>>> the PID for reclaim, and try to exhaust that type before falling back to
+>>> another.
+>>>
+>>> Before this series:
+>>> workingset_refault_anon 59706846
+>>> workingset_refault_file 9229283
+>>> workingset_activate_anon 15108561
+>>> workingset_activate_file 365660
+>>> workingset_restore_anon 15108561
+>>> workingset_restore_file 1018493
+>>> workingset_nodereclaim 0
+>>> pgsteal_kswapd 0
+>>> pgsteal_direct 92589340
+>>> pgsteal_khugepaged 549
+>>> pgsteal_proactive 0
+>>> pgscan_kswapd 0
+>>> pgscan_direct 456629355
+>>> pgscan_khugepaged 549
+>>>
+>>> After this series:
+>>> workingset_refault_anon 41277086
+>>> workingset_refault_file 9131522
+>>> workingset_activate_anon 12924656
+>>> workingset_activate_file 345901
+>>> workingset_restore_anon 12924656
+>>> workingset_restore_file 1005959
+>>> workingset_nodereclaim 0
+>>> pgsteal_kswapd 0
+>>> pgsteal_direct 71723800
+>>> pgsteal_khugepaged 4013
+>>> pgsteal_proactive 0
+>>> pgscan_kswapd 0
+>>> pgscan_direct 342179445
+>>> pgscan_khugepaged 9311
+>>
+>> Thanks for the info!
+>>
+>> I think it might matches what I had in mind: we currently have a very
+>> subtle behavior for MGLRU: in try_to_inc_min_seq, it will refuse to
+>> increase the gen min_seq beyound (max_seq - MIN_NR_GENS) even if the
+>> last gen is empty, if another type still have MAX_NR_GENS left. As a
+>> result, if one type is reclaimed more, and another type have many
+>> folios stuck in the olest gen, the over reclaimed type will have a
+>> very tiny oldest generation (all new folios land on the oldest
+>> generation and are reclaimed immediately), that olest gen will stay at
+>> a near zero size and gets exhausted very frequently, with min_seq not
+>> increased.
+>>
+>> This will happen to file type very frequently if swappiness is low, or
+>> happen very frequently to anon if files are frequently reclaimed,
+>> really depends on the workload.
+>>
+>> The old "if (!scanned && type_fallback_allowed)" will return false and
+>> raise the priority very frequently. Raising the priority means the
+>> next reclaim cycle with run with larger reclaim ratio, resulting in
+>> over-reclaim on both folios and slab. What's more, it might trigger
+>> aging.
+>>
+>> With this series, it will see that as exhausted, and fall back to
+>> other type, which in fact respects the swappiness / PID less, but also
+> 
+> We could have the following cases:
+> 
+>   1. If the reclaimed type has 3 generations left (with its oldest generation
+>     exhausted), while !type still has 4 generations left, falling back might
+>     be the best behavior. There is no way to avoid the fallback by increasing
+>     `sc->priority`, because `should_run_aging()` will not trigger aging while
+>     !type still has 4 generations.
+> 
+> 2. If the reclaimed type has 3 generations left (and its oldest generation is
+>     exhausted), while !type also has 3 generations left, falling back might
+>     violate swappiness. If we return and increase `sc->priority`,
+>     `should_run_aging()` may return true and trigger aging instead:
+> 
+> return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
+> 
+> So maybe we could slightly adjust the code as shown below, although I’m
+> not sure if the added complexity is worthwhile:
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 1f302386d8ab..181285463bbe 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4878,9 +4878,10 @@ static int isolate_folios(unsigned long
+> nr_to_scan, struct lruvec *lruvec,
+> 
+>          /*
+>           * We are running out of the current reclaim type. Fall back to
+> -        * the other type if allowed.
+> +        * the other type if it has at least two generations to reclaim.
+>           */
+> -       if (exhausted && type_fallback_allowed) {
+> +       if (exhausted && type_fallback_allowed &&
+> +           get_nr_gens(lruvec, !type) > MIN_NR_GENS + 1) {
+>                  type = !type;
+>                  type_fallback_allowed = false;
+>                  goto retry;
+> 
+>> avoid the raised priority and over reclaim in some cases. I did a test
+>> on my machine and it seems matches that model:
 
--> #8 (cpuhp_state_mutex){+.+.}-{4:4}:
+With the above changes, I can also reproduce the slight regression with 
+NVMe swap (set swappiness = 100) mentioned by Kairui (but the zram case 
+still looks good):
 
--> #7 (cpu_hotplug_lock){++++}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
-       percpu_down_read include/linux/percpu-rwsem.h:77 [inline]
-       cpus_read_lock+0x42/0x170 kernel/cpu.c:490
-       static_key_slow_inc+0x12/0x30 kernel/jump_label.c:190
-       nbd_genl_reconnect_sock_cb+0x39f/0x990 drivers/block/nbd.c:1377
-       nbd_genl_foreach_sock+0x2ab/0x3e0 drivers/block/nbd.c:2152
-       nbd_genl_reconfigure+0x861/0xde0 drivers/block/nbd.c:2477
-       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
-       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
-       sock_sendmsg_nosec net/socket.c:800 [inline]
-       __sock_sendmsg net/socket.c:815 [inline]
-       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
-       __do_sys_sendto net/socket.c:2288 [inline]
-       __se_sys_sendto net/socket.c:2284 [inline]
-       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Before:
+sys: 757
+refault_anon 5554715
+refault_file 3867998
 
--> #6 (&nsock->tx_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
-       nbd_queue_rq+0x42d/0xfa0 drivers/block/nbd.c:1207
-       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
-       process_scheduled_works kernel/workqueue.c:3470 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+After:
+sys: 765
+refault_anon 5791349
+refault_file 3939552
 
--> #5 (&cmd->lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       nbd_queue_rq+0xba/0xfa0 drivers/block/nbd.c:1199
-       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
-       process_scheduled_works kernel/workqueue.c:3470 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>> Before:
+>> *** Executing swappiness 1 ***
+>> sys: 665.941
+>> refault_file: 945242
+>> refault_anon: 916129
+>> pgscan_anon: 13195435
+>> pgscan_file: 2419874
+>> *** Executing swappiness 60 ***
+>> sys: 650.801
+>> refault_file: 238839
+>> refault_anon: 1026646
+>> pgscan_anon: 13082867
+>> pgscan_file: 809642
+>> *** Executing swappiness 100 ***
+>> sys: 621.135
+>> refault_file: 211113
+>> refault_anon: 931943
+>> pgscan_anon: 12008517
+>> pgscan_file: 778586
+>> *** Executing swappiness 150 ***
+>> sys: 633.591
+>> refault_file: 198239
+>> refault_anon: 987093
+>> pgscan_anon: 12645094
+>> pgscan_file: 709927
+>> *** Executing swappiness 200 ***
+>> sys: 627.747
+>> refault_file: 163649
+>> refault_anon: 1024657
+>> pgscan_anon: 12088189
+>> pgscan_file: 653841
+>>
+>> After:
+>> *** Executing swappiness 1 ***
+>> sys: 729.234
+>> refault_file: 962067
+>> refault_anon: 1175614
+>> pgscan_anon: 14588298
+>> pgscan_file: 2396037
+>> *** Executing swappiness 60 ***
+>> sys: 677.685
+>> refault_file: 238877
+>> refault_anon: 1008627
+>> pgscan_anon: 13744350
+>> pgscan_file: 888445
+>> *** Executing swappiness 100 ***
+>> sys: 668.947
+>> refault_file: 250359
+>> refault_anon: 994929
+>> pgscan_anon: 13307019
+>> pgscan_file: 794981
+>> *** Executing swappiness 150 ***
+>> sys: 649.764
+>> refault_file: 180899
+>> refault_anon: 971073
+>> pgscan_anon: 12238885
+>> pgscan_file: 709684
+>> *** Executing swappiness 200 ***
+>> sys: 648.377
+>> refault_file: 228112
+>> refault_anon: 1237758
+>> pgscan_anon: 12653346
+>> pgscan_file: 734499
+>>
+>> So I think in theory we might see more ineffective swappiness after
+>> this series, I'm also a bit concerned about the "lrugen->min_seq[type]
+>> + MIN_NR_GENS == lrugen->max_seq;" check which is strictly related to
+>> the limitation of try_to_inc_min_seq I mentioned here... In the long
+>> term I think we better get rid of that limitation, not sure how the
+>> behavior will change or fit after this.
+> 
+> In the earlier RFC, I got rid of the generation sync in
+> `try_to_inc_min_seq()`:
+> 
+> https://lore.kernel.org/linux-mm/20260726122123.7614-4-baohua@kernel.org/
+> 
+> It does help with swappiness, but also slightly increases sys time at
+> swappiness values around 60, so I dropped it from RFC v4.
+> 
+> Basically, letting file and anon catch up with each other seems to offer
+> the best performance at normal swappiness values such as 60–100, but it
+> essentially makes MGLRU's swappiness a toy.
+> 
+>>
+>> BTW the above tests were done with ordinary block SWAP, with ZRAM, I
+>> see an improvement instead (it's related to how SYNC SWAP discards the
+>> folio immediately and blocks the thread while ordinary SWAP does IO
+>> asynchronously so there would be less concurrent reclaim, and changes
+>> the dirty/writeback mix that evict_folios()'s
+>>   loop sees, especially nr_reclaimed, and here we will avoid raise of priority):
+>>
+>> Before:
+>> *** Executing swappiness 1 ***
+>> sys: 599.135
+>> refault_file: 925843
+>> refault_anon: 1838025
+>> pgscan_anon: 20390687
+>> pgscan_file: 2423955
+>> *** Executing swappiness 60 ***
+>> sys: 591.367
+>> refault_file: 336184
+>> refault_anon: 2350551
+>> pgscan_anon: 21099503
+>> pgscan_file: 1109003
+>> *** Executing swappiness 100 ***
+>> sys: 593.672
+>> refault_file: 328276
+>> refault_anon: 2332940
+>> pgscan_anon: 20894727
+>> pgscan_file: 954910
+>> *** Executing swappiness 150 ***
+>> sys: 585.939
+>> refault_file: 296374
+>> refault_anon: 2063673
+>> pgscan_anon: 20537898
+>> pgscan_file: 935107
+>> *** Executing swappiness 200 ***
+>> sys: 574.283
+>> refault_file: 313356
+>> refault_anon: 2065897
+>> pgscan_anon: 20145043
+>> pgscan_file: 881381
+>>
+>> After:
+>> *** Executing swappiness 1 ***
+>> sys: 578.699
+>> refault_file: 844457
+>> refault_anon: 1793171
+>> pgscan_anon: 19307170
+>> pgscan_file: 2364248
+>> *** Executing swappiness 60 ***
+>> sys: 582.053
+>> refault_file: 390580
+>> refault_anon: 2066277
+>> pgscan_anon: 20413030
+>> pgscan_file: 1201373
+>> *** Executing swappiness 100 ***
+>> sys: 567.520
+>> refault_file: 295709
+>> refault_anon: 1923291
+>> pgscan_anon: 19299837
+>> pgscan_file: 978007
+>> *** Executing swappiness 150 ***
+>> sys: 582.983
+>> refault_file: 311833
+>> refault_anon: 2041126
+>> pgscan_anon: 20547029
+>> pgscan_file: 940061
+>> *** Executing swappiness 200 ***
+>> sys: 562.710
+>> refault_file: 301914
+>> refault_anon: 2005846
+>> pgscan_anon: 19257095
+>> pgscan_file: 839522
+>>
+>> So in summary I think the gain is avoiding priority increase (by
+>> falling back to another type and satisfying the reclaim target in one
+>> iteration, when one type have a tailing draning gen); the loss is less
+>> effective swappiness. In fact, I think we might fall back to another
+>> type MORE, especially when under pressure, not less, contrary to what
+>> the patch message suggests. Not really against this change, just a
+>> headup that there is a impact on swappiness / aging of this change in
+>> an unexpected way, and things may gets more interesting if we want to
+>> lift that limitation in try_to_inc_min_seq as this is directly related
+>> to that.
 
--> #4 (set->srcu){.+.+}-{0:0}:
-       lock_sync kernel/locking/lockdep.c:5968 [inline]
-       lock_sync+0x9d/0x110 kernel/locking/lockdep.c:5956
-       srcu_lock_sync include/linux/srcu.h:199 [inline]
-       __synchronize_srcu+0xa2/0x300 kernel/rcu/srcutree.c:1481
-       blk_mq_wait_quiesce_done block/blk-mq.c:284 [inline]
-       blk_mq_wait_quiesce_done block/blk-mq.c:281 [inline]
-       blk_mq_quiesce_queue block/blk-mq.c:304 [inline]
-       blk_mq_quiesce_queue+0x149/0x1c0 block/blk-mq.c:299
-       elevator_switch+0x17b/0x7e0 block/elevator.c:576
-       elevator_change+0x352/0x530 block/elevator.c:681
-       elevator_set_default+0x29e/0x360 block/elevator.c:754
-       blk_register_queue+0x48e/0x630 block/blk-sysfs.c:992
-       __add_disk+0x73f/0xe40 block/genhd.c:524
-       add_disk_fwnode+0x118/0x480 block/genhd.c:593
-       add_disk include/linux/blkdev.h:798 [inline]
-       nbd_dev_add+0x779/0xb10 drivers/block/nbd.c:2026
-       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
-       do_one_initcall+0x11c/0x6f0 init/main.c:1353
-       do_initcall_level init/main.c:1415 [inline]
-       do_initcalls init/main.c:1431 [inline]
-       do_basic_setup init/main.c:1451 [inline]
-       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
-       kernel_init+0x21/0x1e0 init/main.c:1556
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Thanks Kairui for your data and anylysis.
 
--> #3 (&q->elevator_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       elevator_change+0x1bc/0x530 block/elevator.c:679
-       elevator_set_none+0x92/0xf0 block/elevator.c:769
-       blk_mq_elv_switch_none block/blk-mq.c:5102 [inline]
-       __blk_mq_update_nr_hw_queues block/blk-mq.c:5147 [inline]
-       blk_mq_update_nr_hw_queues+0x4c1/0x15f0 block/blk-mq.c:5212
-       nbd_start_device+0x1a6/0xbd0 drivers/block/nbd.c:1530
-       nbd_genl_connect+0xfc2/0x1760 drivers/block/nbd.c:2310
-       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
-       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
-       sock_sendmsg_nosec net/socket.c:800 [inline]
-       __sock_sendmsg net/socket.c:815 [inline]
-       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
-       __do_sys_sendto net/socket.c:2288 [inline]
-       __se_sys_sendto net/socket.c:2284 [inline]
-       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+I mostly agree. But on whether we should fallback more, I still prefer 
+Barry's idea. The current patch might be a bit too aggressive, cause it 
+only fallback to another type when the oldest generation is fully 
+exhausted. I've always felt that falling back too easily doesn't really 
+respect the PID's choice.
 
--> #2 (&q->q_usage_counter(io)#49){++++}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       blk_alloc_queue+0x610/0x790 block/blk-core.c:504
-       blk_mq_alloc_queue+0x174/0x290 block/blk-mq.c:4420
-       __blk_mq_alloc_disk+0x29/0x120 block/blk-mq.c:4467
-       nbd_dev_add+0x491/0xb10 drivers/block/nbd.c:1996
-       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
-       do_one_initcall+0x11c/0x6f0 init/main.c:1353
-       do_initcall_level init/main.c:1415 [inline]
-       do_initcalls init/main.c:1431 [inline]
-       do_basic_setup init/main.c:1451 [inline]
-       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
-       kernel_init+0x21/0x1e0 init/main.c:1556
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Of course, there's also the concern you raised about the limitation in 
+try_to_inc_min_seq() when updating the min_seq. I think we can address 
+that together later, so that we respect the PID's choice (i.e., try the 
+reclaimed type as much as possible) without ending up with a tailing 
+draining generation that blocks aging. That may not be simple, though.
 
--> #1 (fs_reclaim){+.+.}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
-       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
-       might_alloc include/linux/sched/mm.h:314 [inline]
-       slab_pre_alloc_hook mm/slub.c:4539 [inline]
-       slab_alloc_node mm/slub.c:4899 [inline]
-       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
-       __kernfs_iattrs+0x126/0x450 fs/kernfs/inode.c:36
-       kernfs_iattrs fs/kernfs/inode.c:60 [inline]
-       __kernfs_setattr+0x4d/0x3c0 fs/kernfs/inode.c:73
-       kernfs_iop_setattr+0xda/0x130 fs/kernfs/inode.c:127
-       notify_change+0xb25/0x1330 fs/attr.c:556
-       do_truncate+0x1df/0x240 fs/open.c:68
-       handle_truncate fs/namei.c:4300 [inline]
-       do_open fs/namei.c:4841 [inline]
-       path_openat+0x1e6d/0x2440 fs/namei.c:5000
-       do_file_open+0x20e/0x430 fs/namei.c:5029
-       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-       do_sys_open fs/open.c:1423 [inline]
-       __do_sys_openat fs/open.c:1439 [inline]
-       __se_sys_openat fs/open.c:1434 [inline]
-       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Anyway, personally I'd prefer to keep the original code until more 
+impact investigation is done.
 
--> #0 (&root->kernfs_iattr_rwsem){++++}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1508/0x1f20 kernel/locking/lockdep.c:5287
-       lock_acquire kernel/locking/lockdep.c:5920 [inline]
-       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
-       kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
-       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
-       sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
-       create_dir lib/kobject.c:73 [inline]
-       kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
-       kobject_add_varg lib/kobject.c:374 [inline]
-       kobject_add+0x16a/0x1e0 lib/kobject.c:426
-       device_add+0x294/0x1970 drivers/base/core.c:3699
-       hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
-       uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
-       process_scheduled_works kernel/workqueue.c:3470 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  &root->kernfs_iattr_rwsem --> cpuhp_state_mutex --> &root->kernfs_rwsem
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&root->kernfs_rwsem);
-                               lock(cpuhp_state_mutex);
-                               lock(&root->kernfs_rwsem);
-  lock(&root->kernfs_iattr_rwsem);
-
- *** DEADLOCK ***
-
-locks held by kworker/0:4/5891: 3, last CPU#0:
- #0: ffff88801c0aa940 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
- #1: ffffc90003487d08 ((work_completion)(&uhid->worker)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
- #2: ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5891 Comm: kworker/0:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events uhid_device_add_worker
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1508/0x1f20 kernel/locking/lockdep.c:5287
- lock_acquire kernel/locking/lockdep.c:5920 [inline]
- lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
- down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
- kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
- kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
- kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
- sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
- create_dir lib/kobject.c:73 [inline]
- kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
- kobject_add_varg lib/kobject.c:374 [inline]
- kobject_add+0x16a/0x1e0 lib/kobject.c:426
- device_add+0x294/0x1970 drivers/base/core.c:3699
- hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
- uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-input: shield Haptics as /devices/virtual/input/input5
-shield 0003:0955:7214.0002: Registered Thunderstrike controller
-shield 0003:0955:7214.0002: : USB HID v0.00 Gamepad [shield] on 
-
-
-Tested on:
-
-commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=159e6d49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=dd764a450d93885d847f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=111eb415580000
-
+Just my 2 cents.
