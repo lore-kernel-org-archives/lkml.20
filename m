@@ -1,51 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF32284690;
-	Thu, 27 Aug 2026 14:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F164C2D73B9;
+	Thu, 27 Aug 2026 14:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841143; cv=none; b=f/6Pgl/d8CS+Cene98gpbosO4WIsg0AHhcymfvBKWYv0W/lZBDRdwYvYEALFAanhAwdN07rvbydQxHWRlhtjPJMeWfxHV/HWisWa9wI9HAVPcKzvXjWPwNDzWZJIEVXBNkL7sNeYiYOH48Ud5sAlQypqqMVARrbqnpG3WaBdaHI=
+	t=1787841172; cv=none; b=PnPNZgrDi4WD/o8IcTTsgcqSKUZEaCvfhL/keNVJKWiVXY1joLj6zurIDZpn4adIc/P11fNtun4uLRurBVUFvPcixyMH2bVScrkiTn6vEJRWosrHFcLnBvVebRPdF82WBCUkkgRupgWJwH7rWyJse2ZE8v5ihUcX17KzxFrzxAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841143; c=relaxed/simple;
-	bh=32W/YkfA2YFHY9KJT8XuRLvbKnhjrEAh7fIoYP4Fyg0=;
+	s=arc-20240116; t=1787841172; c=relaxed/simple;
+	bh=z5Pi0VPfTvC7nqMX0V205C3Qmo8YbY5AiDLIxa9ThB4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UinFQNjJ5wSQTVnLDYxIy9vcnfJmgCOhVpztbcPFM7lKaUz6mWOPVJMHaHKq3Y3qcx++MDB9AyXrd33mw1BjHn2gWKUgGQ8QtSgTJXoq4qyjKB7wybrUmQHFNhbgEBlFeG8/+P0QcROMHr2rJ+RhEN+CC+38HUJD6H+QE+s8JT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZYpZniKZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=n10GZ1WEJWuRm4JxHqS6P6WQiSOxGT5MeF5H/nBPHc2VLHIuYU3lR19nWMP+HVinUHUgeNTAg3nYFK6X3/SeYXKunbA/hnALvv8pCwacOmndiWHYweqYXXit6MLtoQZoU6qK4kR1JhYXftSSFMjNXWQPtl+/GD+XchG3n7/FN1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W8Asmg2K; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZYpZniKZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77EC61F000E9;
-	Thu, 27 Aug 2026 14:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787841138;
-	bh=163b9z3lbMkc0FEcq1dbE3pOnD7g0ons6yqBuYTNQqo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZYpZniKZHJ61ki9gDq4SjzydVU49iCyvWcBJHaRvY1HjJYNMGVeaTPMjVP6Vtn4C5
-	 FgMiSaXRrPI6oP/Ezzc9n6d8tG3LIm9ILhy82ienk5B++gTQq4zTWyI3gAgGhObWPv
-	 GaqMHK/ZvtQCExiPsyaYunzDSvbfHcCjFw3piwSQ=
-Date: Thu, 27 Aug 2026 16:30:36 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] module: pull out add_taint_module() to be public
-Message-ID: <2026082713-award-dreamless-3aa7@gregkh>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826-bind_taint-v1-1-52b05f4a965c@linuxfoundation.org>
- <apA9aTiIpBz4inof@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W8Asmg2K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787841170; x=1819377170;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=z5Pi0VPfTvC7nqMX0V205C3Qmo8YbY5AiDLIxa9ThB4=;
+  b=W8Asmg2KtvuQwfsnEZ61gOf5i2ttia48PDuBczkZmPq0N4YX97fTRkED
+   MP4zrS6k1aSzksBTtcOTeCjaGCiQiVyQMmCS/tSX1bCTJaMp1Pw2r5d+J
+   mdjy1VoMnv4ZRHmWxDBll8Y5EmspWE47eRu6L0SWZ2Bd9j2aptElv1/E0
+   rc6qSqvH50XK8THYJKpDOmNS/Sooee1Ed45FELZ9VoK8ki/YT7s7g5owy
+   VPVOsxLDoQn7+wNYbmJ6Vfut4ouNFuUkOzcGO/hgCOu4vMC4i7zXxwVAB
+   PAP0nJFCuMKbQfn+kI8p0gbRtC9IfKZo/dZ+BeslaF06wUIXP+YuEz1t4
+   A==;
+X-CSE-ConnectionGUID: /qSVKL43SC2rTYEbDyPKtw==
+X-CSE-MsgGUID: 0A0QA7azRViz0yBaNMGkSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98676606"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="98676606"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:32:49 -0700
+X-CSE-ConnectionGUID: jAfuLjBxS5K96+QewPIuag==
+X-CSE-MsgGUID: Yteh2gwlQeOPIesoS59t8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="266095813"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:32:46 -0700
+Date: Thu, 27 Aug 2026 17:32:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/8] media: ov2740: add manual white balance controls
+Message-ID: <apBKi1MJI5pMwPUh@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-7-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,41 +67,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apA9aTiIpBz4inof@hovoldconsulting.com>
+In-Reply-To: <20260826132256.3343451-7-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 27, 2026 at 03:36:41PM +0200, Johan Hovold wrote:
-> On Wed, Aug 26, 2026 at 11:19:32AM +0200, Greg Kroah-Hartman wrote:
-> > Other kernel code might want to call add_taint_module() so pull it out
-> > and make it global.  If modules are not enabled, this defaults to a call
-> > to add_taint(), so all is fine.
-> > 
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On Wed, Aug 26, 2026 at 03:22:54PM +0200, Maurizio Casciano wrote:
+> The sensor has separate red, green and blue manual white-balance gain
+> registers, but the driver currently writes the same digital-gain value
+> to all three channels. This prevents userspace from correcting the
+> strong color cast of raw Bayer capture.
 > 
-> > -static inline void add_taint_module(struct module *mod, unsigned flag,
-> > -				    enum lockdep_ok lockdep_ok)
-> > +/**
-> > + * add_taint_module: add a taint flag if not already set for a specific module
-> > + * @mod: pointer to the module that caused the problem
-> > + * @flag: one of the TAINT_* constants.
-> > + * @lockdep_ok: whether lock debugging is still OK.
-> > + *
-> > + * If something bad has gone wrong, you'll want @lockdebug_ok = false, but for
-> > + * some noteworthy-but-not-corrupting cases, it can be set to true.
-> > + */
-> > +void add_taint_module(struct module *mod, unsigned flag,
-> > +		      enum lockdep_ok lockdep_ok)
-> >  {
-> >  	add_taint(flag, lockdep_ok);
+> Expose red- and blue-balance controls relative to the digital gain,
+> update all three channels under group hold, and always release and
+> launch the group even when a channel write fails.
 > 
-> >  	set_bit(flag, &mod->taints);
-> 
-> As has been pointed out, this crashes with built-in drivers. If you go
-> with a simple mod NULL check before this call (and updated kernel-doc)
-> you can add my:
+> Tested on the Yoga Book OV2740 with live gain changes and continuous raw
+> capture.
 
-Yeah, I've fixed this locally and will be resolved in v2.
+...
 
-> Reviewed-by: Johan Hovold <johan@kernel.org>
-> Tested-by: Johan Hovold <johan@kernel.org>
+> -static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
+> +static int ov2740_update_mwb_gains(struct ov2740 *ov2740)
+>  {
+> -	int ret;
+> +	u32 green_gain = ov2740->digital_gain->val;
+> +	u32 red_gain, blue_gain;
 
-Thanks!
+Split assignment and combine all three on a single line.
+Also, why not u64 from the start?
+
+> +	int end_ret, launch_ret, ret;
+> +
+> +	/* Balance controls use 1024 as unity relative to the digital gain. */
+> +	red_gain = min_t(u64,
+
+No min_t() in the new code. This macro is very exceptional.
+
+> +			 DIV_ROUND_CLOSEST_ULL((u64)green_gain *
+> +					       ov2740->red_balance->val,
+> +					       OV2740_DGTL_GAIN_DEFAULT),
+
+Is _ULL variant really required? What are the ranges of the _gain and ->val?
+
+> +			 OV2740_DGTL_GAIN_MAX);
+> +	blue_gain = min_t(u64,
+> +			  DIV_ROUND_CLOSEST_ULL((u64)green_gain *
+> +						ov2740->blue_balance->val,
+> +						OV2740_DGTL_GAIN_DEFAULT),
+> +			  OV2740_DGTL_GAIN_MAX);
+>  
+>  	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+>  			       OV2740_GROUP_HOLD_START);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, d_gain);
+> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, red_gain);
+>  	if (ret)
+> -		return ret;
+> +		goto release_group;
+>  
+> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, d_gain);
+> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, green_gain);
+>  	if (ret)
+> -		return ret;
+> +		goto release_group;
+>  
+> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, d_gain);
+> -	if (ret)
+> -		return ret;
+> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, blue_gain);
+>  
+> -	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+> -			       OV2740_GROUP_HOLD_END);
+> -	if (ret)
+> -		return ret;
+> +release_group:
+> +	end_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+> +				   OV2740_GROUP_HOLD_END);
+> +	launch_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+> +				      OV2740_GROUP_HOLD_LAUNCH);
+>  
+> -	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+> -			       OV2740_GROUP_HOLD_LAUNCH);
+> -	return ret;
+> +	return ret ?: end_ret ?: launch_ret;
+
+To make this looking better it might be good to convert the driver to use CCI
+accessors [1]. Maybe Hans knows more about this as he worked a lot on this drivers
+and sensors in the past.
+
+>  }
+
+[1]: include/media/v4l2-cci.h
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
