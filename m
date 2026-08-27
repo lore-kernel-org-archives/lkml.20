@@ -1,53 +1,46 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F078C364EAA;
-	Thu, 27 Aug 2026 06:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B89357CF8;
+	Thu, 27 Aug 2026 06:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812302; cv=none; b=CnD1B2UKXqJcNNLstwnwjQuhOvdQRCfU2viQ51dHKltqsY3iwqW/PXn6n7r2gzNvvwio2+USk05VVhTVEU8C9Z/+ro+szMUr6OIoxmY1Y1joMhy1zOhCFbLDfJPynFvML/pD1xahmTY15JdCj1I6yU4ApyAKK1oJHjB0aZ9vxEU=
+	t=1787812306; cv=none; b=VseEFO5C+n7dv7/Ecixtm/9pL422yDaHGI0ecTAytSxUDMRSv5YWj5uIt9DC/Tnn6Qg6Ur+cXDetXRNsovelnuGo31LSSGd/O1P6ojEhznqw3VuSGpLd907JBtvTcEklw9F4W3EOCTD7nAFRgk1G0zoqqVVOfa3MKUVLKxwFI6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812302; c=relaxed/simple;
-	bh=pKoTNaV5uTjmczuk05FrTbeYCimwTUMRNY2S3fZnUMQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IjFNLHsUdESyU6s0GMMxjjBLebpVyGwWZlRPDPJlUiXPw38ytKGqtBkScHzdp59LcX+7YaKkNaHnCr27P5yb9lrSwP/TRNVL7qiORty5OdbEJUuWiUk/3efysnxNwICSm0k6tY05U6gt4ep3VGIJgHe1gUtMmDYw/BMqVsymSAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vGWUzbX9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vGWUzbX9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 01FEA1691;
-	Wed, 26 Aug 2026 23:31:32 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.73.34])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8B3A93F85F;
-	Wed, 26 Aug 2026 23:31:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787812295; bh=pKoTNaV5uTjmczuk05FrTbeYCimwTUMRNY2S3fZnUMQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=vGWUzbX9V6TzR4voyzcmGL4Vr4T39hZB1ZQqMQuha7gr8W0Y60rWHoO4A/XIbshlK
-	 EJVaVU0doo9ZpzPCgM1mfPlP/k7XkZsF+gEmo9BzTv106jN6MIxzDNjGFYuEykODnr
-	 C8n+8GOf1M3s68SxbxvtQ/vBJhlTKV+mQ/9amzuk=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
+	s=arc-20240116; t=1787812306; c=relaxed/simple;
+	bh=LoIxppfXfkAKK5goic8HLKwwdZaSM4Vo0F8gA33eUvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qaKLKIPRCTYMwknC/4QhxTrQKFowBZttl3FA7NYRPQ7DuXWPiJOAU1Sf2ySzV8y/M1kpffZsSy6Ep/MkKTcosJcKhyQcDU4pI8218vmWecVmzHm6g+dM+6kRsT2WclRqEyKLefAFdfMIaeWUMh9sXbBPcCfFs2IV72qSEdPBcu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: esmtpsz20t1787812240tcdf2c45d
+X-QQ-Originating-IP: 1DJtWNx3YhLenhIB0FYvT59Ray3IYrfdfdAfsbybCLQ=
+Received: from localhost.localdomain ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 14:30:31 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3173617341218191905
+EX-QQ-RecipientCnt: 10
+From: Liu Dalin <liudalin@kylinsec.com.cn>
+To: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v5 10/15] ACPI: CPPC: Reject direct reads of write-only controls
-Date: Thu, 27 Aug 2026 07:30:55 +0100
-Message-Id: <20260827063100.2741066-11-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260827063100.2741066-1-christian.loehle@arm.com>
-References: <20260827063100.2741066-1-christian.loehle@arm.com>
+	Liu Dalin <liudalin@kylinsec.com.cn>,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: [PATCH v1 1/3] rtc: ftrtc010: fix clock resource leak on probe failure
+Date: Thu, 27 Aug 2026 14:30:17 +0800
+Message-ID: <16D871E1646724FD+20260827063019.3342085-2-liudalin@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827063019.3342085-1-liudalin@kylinsec.com.cn>
+References: <20260827021054.0963C1F000E9@smtp.kernel.org>
+ <20260827063019.3342085-1-liudalin@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,121 +48,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MiIS17MxlZUaSUXmqhs+oyd4Ya7cdXLy5uVOEZqu60WNmIskGOPozYZG
+	ESqbBgqIxnejlaTaIG3LaXyR/iKrM8oEWtu5nkM1O9rbs+/r0EAN4Qlog859neHDsffg3N7
+	+RKJQx8WvrMfz11eSd7tdrcbC5Sn9GFdMvdbvbWiIYVwBDaZY2516h2RnajDydbYTp9zNz6
+	wg5IbdFZWdNBRD72W6PafQHfnJ0c4n5g47Rj2fANMp+qYCIJhqGchqAwa6HabMyAu8mxkb8
+	BylwGpHSmDb2mIeua+/TsPETFuw6Z9oL2kQtsM1hdDuYLNYG/goSsYuPPgDawIOs84mp+Is
+	tJyS+fB20pwh921aeXTrDHlGxuWhgwZ/ibv0XZw8idFFmQoZXPAZYnFngbwlUwT4yNylZAy
+	LAUGgfwkKgdKPuyAVZ37ZfxTQyFH1+2ljVyGpNlQN/knCQZEhzu9RkX0jB5Vu/m+XPiXggQ
+	yHOAq6vInBS+5lN8z+4uvMxqRiQ+lWy/DRJ79NRigsZ//fRAwF7MEHOP7iDA0IQbXtX7V9u
+	8gz6q9nsrXZ5el9LsLBxbsTsIEvBbF+qGAfVNzQvXpVhkrjXK7KYJ8u8L8wfk5s+Oe8xYsI
+	JzUSp94Q4g3SBfVmn7cQxsctrn+BW4vCIopvQY2lKLXyxwThUc0QfXgt4mQ83AGdJcizimL
+	jCmIKwCWJ4NDAyNH9XBra7puPML9VTxXcG5EjNyem9KIm131EWW0wKAE2ng9Qudkp+g4XOq
+	9DNs/fkmAO8ADsc8TGRslmY+cPGs8aqGAesOQpRTupz9VhbDb3CnV9mHIS3iy4KDK6m3Kpk
+	lwYXTsZPuxY9vmEWNfllO0qxiyJdKplLgNBi+UXmHx/V5d5XMlg9asHDw9O+k3Oq4LDfD6Z
+	emUFhr6rpdp49iq6fw9Jd1xNS7C0kAqc+WphPn3JpotMY1jDpKJ8+wJsr+dyAZAmGR1N4Y6
+	pcKkuaDf3UZht4eLeNH91ggvDNyZo4u7R7jbL6Sc0JioO/SZ+0QbSW0Et+2RzDxHYvtXa1E
+	hXwSieKVUiVZM87guuU55Onp1reYZhFxeyY7THHaSM9sRLTxq/u/1m2cSpz/UgqTq4ksev8
+	m6hSJ9mOko8WjCARjT6DH38tIjorfhnKkpDWpCQyd3g6RGf0JVwzQtr15oxysraMg==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Between _CPC revision 3 and revision 4, Desired Performance changed from
-Read/Write to Write. Revision 4 also added the write-only OSPM Nominal
-Performance control. ACPI 6.6 section 4.6.3 says reads of write-only bit
-positions produce undefined results.
+When devm_rtc_register_device() fails, ftrtc010_rtc_probe() returns
+the error directly without releasing clocks obtained via
+clk_prepare_enable(). This leaks both extclk and pclk resources,
+which may prevent subsequent probe attempts or module removal.
 
-The public Desired Performance helper already rejects revision-4 readback,
-but the common register accessor still permits either write-only control to
-be read. Reject both centrally so new callers cannot consume undefined
-values.
+Capture the return value and jump to the error handling path to
+properly release clocks via clk_disable_unprepare().
 
-A partial SystemMemory field still makes cpc_write() read its complete
-access unit to preserve bits outside the field. MASK_VAL_WRITE() replaces
-every bit of the field being written, so that field's undefined readback is
-not propagated. However, another writer sharing the access unit would
-preserve and replay the write-only field when performing its own RMW.
-Reject such pairs; a partial write-only field may share its access unit
-only with disjoint read-only fields. The descriptor lock serializes
-supported RMW, and the preceding validation rejects unsafe cross-descriptor
-partial writers.
+Fixes smatch warnings:
+- drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+  'rtc->extclk' from clk_prepare_enable() not released on lines: 183.
+- drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+  'rtc->pclk' from clk_prepare_enable() not released on lines: 183.
 
-Mark an inaccessible OSPM Nominal Performance control unsupported because
-it is optional. Do the same for inaccessible Desired Performance while
-parsing, then let the post-parse control check accept it only for immutable
-autonomous selection. This preserves the autonomous-only exception without
-accepting an unusable Desired control in non-autonomous mode.
-
-Fixes: 71e1815113f7 ("ACPI: CPPC: Add support for CPPC v4")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260807111303.1062391-1-christian.loehle%40arm.com
-Link: https://sashiko.dev/#/patchset/20260808082644.1251332-1-christian.loehle%40arm.com
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Fixes: fdcfd854333b ("rtc: rework rtc_register_device() resource management")
+Assisted-by: smatch:2.0 [static analysis]
+Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
 ---
- drivers/acpi/cppc_acpi.c | 40 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ drivers/rtc/rtc-ftrtc010.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index e1fbbf46128e..aa5bf02b85a4 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -347,6 +347,21 @@ static bool cpc_reg_is_writable(unsigned int reg_idx)
- 	}
- }
+diff --git a/drivers/rtc/rtc-ftrtc010.c b/drivers/rtc/rtc-ftrtc010.c
+index 98fa0f518303..512790bc3f2b 100644
+--- a/drivers/rtc/rtc-ftrtc010.c
++++ b/drivers/rtc/rtc-ftrtc010.c
+@@ -180,7 +180,11 @@ static int ftrtc010_rtc_probe(struct platform_device *pdev)
+ 	if (unlikely(ret))
+ 		goto err_disable_extclk;
  
-+static bool cpc_reg_is_write_only(const struct cpc_desc *cpc_desc,
-+				  unsigned int reg_idx)
-+{
-+	return cpc_desc->version >= CPPC_V4_REV &&
-+	       (reg_idx == DESIRED_PERF || reg_idx == OSPM_NOMINAL_PERF);
-+}
+-	return devm_rtc_register_device(rtc_dev);
++	ret = devm_rtc_register_device(rtc_dev);
++	if (ret)
++		goto err_disable_extclk;
 +
-+static void cpc_disable_reg(struct cpc_desc *cpc_desc, unsigned int reg_idx)
-+{
-+	struct cpc_register_resource *reg = &cpc_desc->cpc_regs[reg_idx];
-+
-+	reg->type = ACPI_TYPE_INTEGER;
-+	reg->cpc_entry.int_value = 0;
-+}
-+
- static bool cpc_sysmem_reg_needs_rmw(const struct cpc_register_resource *reg)
- {
- 	const struct cpc_reg *gas = &reg->cpc_entry.reg;
-@@ -495,6 +510,14 @@ static int cpc_validate_sysmem_pair(const struct cpc_desc *a_desc,
- 	    (a_desc != b_desc && a_writable && b_writable))
- 		goto conflict;
++	return 0;
  
-+	/*
-+	 * RMW of either writer preserves the other field.  If that field is
-+	 * write-only, its readback is undefined and cannot safely be replayed.
-+	 */
-+	if ((cpc_reg_is_write_only(a_desc, a_idx) && b_writable) ||
-+	    (cpc_reg_is_write_only(b_desc, b_idx) && a_writable))
-+		goto conflict;
-+
- 	return 0;
- 
- conflict:
-@@ -1336,6 +1359,17 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 					size_t access_width;
- 
- 					err = cpc_validate_sysmem_reg(cpc_ptr, gas_t, i - 2);
-+					if (err && (i - 2 == DESIRED_PERF ||
-+						    i - 2 == OSPM_NOMINAL_PERF)) {
-+						const char *name = i - 2 == DESIRED_PERF ?
-+								   "Desired Performance" :
-+								   "OSPM Nominal Performance";
-+
-+						pr_warn("CPU%d: disabling inaccessible %s register\n",
-+							pr->id, name);
-+						cpc_disable_reg(cpc_ptr, i - 2);
-+						continue;
-+					}
- 					if (err) {
- 						ret = err;
- 						goto out_free;
-@@ -1726,6 +1760,10 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 		}
- 
- 		if (reg->bit_offset || reg->bit_width != size) {
-+			/*
-+			 * MASK_VAL_WRITE() discards the field's old bits, so undefined
-+			 * readback from a write-only field is not propagated.
-+			 */
- 			switch (size) {
- 			case 8:
- 				prev_val = readb_relaxed(vaddr);
-@@ -1817,6 +1855,8 @@ static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
- 		pr_debug("No CPC descriptor for CPU:%d\n", cpu);
- 		return -ENODEV;
- 	}
-+	if (cpc_reg_is_write_only(cpc_desc, reg_idx))
-+		return -EOPNOTSUPP;
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
+ err_disable_extclk:
+ 	clk_disable_unprepare(rtc->extclk);
 -- 
-2.34.1
+2.43.0
 
