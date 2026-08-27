@@ -1,259 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA844B048A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9D64C901B;
+	Thu, 27 Aug 2026 18:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853629; cv=none; b=JxA8ZBulCvTuctZ4gRIYzagf4WnuI1Cs3ICgVcbSKC81N+mtw7wq6Gcrm9rCG4H7/amFuXnlBhsOJ4GUKUpJYO0yYgt6FxfluDxkpHbh/zga+tFhzM0JE4RSJCKGzl3opG7X7dGaqQEfBT8b/wmj6ZBz50oTVq+OzbneZd9MHsY=
+	t=1787853633; cv=none; b=mQ8AkkicawCcWfT86BQKxiJIy3MLhJTQB5ELRdsGAvLNtVokfBmy20i0IfaXlmqsOllZCnFlk62LsEWjqTpndKe9oqFye5jALOR/VRTVBSG6M8tpzXOXNSKllH67b0h2AlZaDgHqqsaeXS8DS6HPYnCatkFW60RJ5pb6ddCYz2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853629; c=relaxed/simple;
-	bh=UFbtM3Wi59vHG7aQiqHHkhJP0XzUIMUsc/8Fo4UwloU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LjKd5o7W+Ra86E+Gah8ztiPoBU+XXI6kaX77UHRHZoRHHu9vi6NJRogJsHVHYO3Bt940SVKEQPV7Uqu8LqcVK7xRS5WXO+xrQyO3ofJZALk+0TFiqAuO9nPq5T2YnuRuKDsYQKodzQ9c2SGTSJtMatyFp8y9H1kffiA62jKk+f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=og+R+JU0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bkae4TtW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787853633; c=relaxed/simple;
+	bh=RF9+sPfdS/ZMkivsjCQ9ZEB+oSkbBQi93O/a/c+SYKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rPM3wg9tuoethB8n0VtgxU6vfVAQUKbgFnvF+5pcLNusIRohiuK9XQNR9xo6Q9ncwMmjV54ni4q1LLD/xn6AYt11VNEW7CvLPSOaxNHUqlwbB4lL2QV6PT6BwkLgD8FfJIQYL7DwGocYnaVp2wMqAU3/QOHip35Tpkl7IvMCRTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1X/4BJf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="og+R+JU0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bkae4TtW"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXcWj614547
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:00:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gOQ6tcmRQHIn01iUxXOVIhspNTiTc1cqfMZOOm1oy+s=; b=og+R+JU0M/Xyh+NY
-	il8boC8rRpr2LcJNFgKK3uRjBgXrJCotMPGRzS+MKtXlD/vZfvpsqYTwNZL+n74+
-	ZikFJENA/nvVdHFCghsFjUHOYMG/7z1OEn7f8opKvUvY3g3OHMpXFgjTKkB92S4j
-	DcuexOthjFH1MABKMS38AvH3ZESEbwesBPWJdh3Kg2eWXTpaZbk9sNzCVlCXHj7E
-	e8KvOzxc6zjzbzmYrYzd7Fh+6jT53jFWBAfCrXmhuEr85be9WLgxjicnPaw1bVZW
-	+xHpQlVtcJ9N7+6JXpBwLkAJ5fKgJycFGdRzOVgqXtTMZNK5gcLrod9DWUddz/JF
-	g0WH3A==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ganr69b6b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:00:23 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f5ac7416eso247962a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787853622; x=1788458422; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gOQ6tcmRQHIn01iUxXOVIhspNTiTc1cqfMZOOm1oy+s=;
-        b=Bkae4TtWpZlXXpR1X9WgOwIUQ5N6V5hc8rzDJFI31/H0T6PjR3edqPkMfm1UplONB/
-         6uq13zx0nf1uejA7oud2Oi3/OqGcplEU4P33AAX0Zy52lm4PXzhxCUpPmI1aN75bu7W4
-         9bIpPkVwpgLSk7EpxE3tWtIu1izoIcZD9OIpGOo22u3v9byv0PP9P6TUz/HwaJMmGvbf
-         Yu9ONW6hh4Ov8FyR2hA45X+J3iD1FTByZZopnH5UN0XmcB7G1n3c+AfJ+u9GHZuniTp3
-         SOcveLDfZj9jKMWEltnft5+gm8XkyGfITJ4FpGhUQ0U+AGcq9BNi7MChYLWC3yhblAA1
-         vR1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853622; x=1788458422;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gOQ6tcmRQHIn01iUxXOVIhspNTiTc1cqfMZOOm1oy+s=;
-        b=sVm9jl77mE9Hypdn3XZub951GngLdHeBKmJTta6sG8k2FULZ4WUvcuFUtHybZseo9f
-         TDB2nygBNm698TLNvV4ak51PvP+g6iTqlFMfXD5nmyK6PxwjgUDkG3dgI1vn6h5kXz2H
-         JE8gC121DR/2sXbPc4VfHclcMtck0mqpUEg62VzofFKs1wMhY7FnL98oSUq0ea4LTcK5
-         FT2DwA/PyeffjKf73kKiFKWq+qlH0E1hJF2ArGouCrT5V1bP4lYN82XVLcQeouMmy+om
-         SAl3evpXVz0YwN1s7f6G4YgwX3NVZYw6XU6uf1DIgdhvNkWC8nMb+imDUWvm5au3PMPc
-         D5pw==
-X-Forwarded-Encrypted: i=1; AHgh+RqzQqmy1/7Wdy+Jq5OvOHurTM/T3vmPjAj9cMFDs0olpvYvakmcfihQy2OgEZ7GsOwO1vSZBeZpK6b6rWw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2YLaaNIPDuV9549BG+lwaDPhzNDQ3GGlTsUJl18RPSrqlpJ4J
-	NSI34RdQtSHojZOLaDPdJMOj6FHT3G1Wgs8rZyy3hgZxoGtqfPK23ZHt9Ve4uHqddxWr5lc1YxT
-	4YGiljftAESWEBKPxhDSHddNvwEgB1e6wx6OJ1U1gc1whd06IClmgMkphvx4HJuKc0js=
-X-Gm-Gg: AR+sD12FQbE1hyea+JNa3a8Dmb2prIKmw+Ma2Lrl2tI0jmx5alrqs1n6IrEtVzFpBv5
-	nghMCqTTSj+wAsG2Blk0DZa1aJv/AfoiIIUezyKk9QwDHuNP6FrI4oN5dt75/nH5zvZdRa00O8z
-	drlxhkvuAHVUtk3bF0qWWDQc689QqPeKNSJZA8bEjiGypgaRV96OIq1cCQWvgPZV60QdGQaMPpI
-	Wq1EqG9Y4U7Lp+g1k57OupUFntSpkAaBZtl5qcs/YN754V5nWr1BqrtfPQJDgtXZ7jqJFnZAmkz
-	Z5YxKMqyzmwJG6/QKDYJZ4RPsjQFbpkurIe79+GH0TUNnBtcYCyOatuYb4MWrrCgbTc4h7DpMNH
-	als1Vg3bcHkjakbs6oAdN5ADSE0Kmpyq/nA==
-X-Received: by 2002:a17:90b:2d82:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-396d0f2f709mr1910702a91.11.1787853620731;
-        Thu, 27 Aug 2026 11:00:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d82:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-396d0f2f709mr1910262a91.11.1787853619265;
-        Thu, 27 Aug 2026 11:00:19 -0700 (PDT)
-Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905cf38sm27437523c88.12.2026.08.27.11.00.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:00:18 -0700 (PDT)
-From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 23:29:24 +0530
-Subject: [PATCH v2 7/9] i2c: qcom-geni: Vote for SE clock rate using OPP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1X/4BJf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA5F1F000E9;
+	Thu, 27 Aug 2026 18:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787853624;
+	bh=17+/WLVfRR8qwNCmLtmWH0gUYCkuZEmB63rt6uapm4E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=d1X/4BJf3TSanFwHTDLZz9awrjbLowU5qIiV7p0/dNS3p1PbVtpiVindvSzaUCyUf
+	 5sWyTlAqKqPe8SmZCsFIl48Qa+lVa8wXSYX12N31sbSf5aoiL4UzsrsdcFCzHA/EcM
+	 9Ybl15P/XB4DcEFikzXd8ocOl/gzH8+QsyLV5TQ8bseS1fEsAIA5yWbAOu6J/18asn
+	 Gw6FQQbz7qyFWRTwKecd116wZPaDfxiEiir5TpwWzCNPJrEKHbdqjFp+ISI/56gQEZ
+	 iof55IvG+mu56KczLyAqqBeateOaxtkrj2Rfff01oKLyfrjl6jsYYkO4oOTq9XtInE
+	 +dtv1re8VLUtg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: marsy12010123@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com,
+	tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	nicoyip.dev@gmail.com
+Subject: Re: [PATCH net v2] net/smc: prevent device removal during connection setup
+Date: Thu, 27 Aug 2026 11:00:22 -0700
+Message-ID: <20260827180022.3948710-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260823071908.93212-1-marsy12010123@gmail.com>
+References: <20260823071908.93212-1-marsy12010123@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-7-091697dbeb02@oss.qualcomm.com>
-References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
-In-Reply-To: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
-To: konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: mukesh.savaliya@oss.qualcomm.com, chandana.chiluveru@oss.qualcomm.com,
-        arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-serial@vger.kernel.org,
-        linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org,
-        Praveen Talari <praveen.talari@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853566; l=3900;
- i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
- bh=UFbtM3Wi59vHG7aQiqHHkhJP0XzUIMUsc/8Fo4UwloU=;
- b=SuK46GH8fU7Buoy8TzORlm6WEiTSHXMtcOF2tPugNtpZDBh4ldOCJthkNf1e+NaN4d1ZK5Edy
- hg5t7jDP88uBZIMEGFemCXKBci5gBezainJ+OKoU0BCFjS0noAt1+I5
-X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
- pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX4GnUAOYLhv3t
- PyuGiGPLOIQE/nD875uChk6MaDMB1bVdSAqybqXUVViFHlAnf6avENuGQm4i1pN+pPjWukCtw3Y
- RR442V2kWa6Z9B1xykSLAH2TCeZmlmdS3kN0SO00/SHhQIztj/ADnEdadJNgb4Xy5zdw+jRzpxX
- pitn60jm5W4SwG8uvP9gTKXiHwWXpuvpMU9Zcj4xlJy2dEIGV0Sjfm1FyPQSroHxMfZ8PwMs+BL
- MgqAqW+jm6bJePBfHhWJPuSQ4tEO0/gq+KVJekbqd5OAu0lgpLWXYVvHXoavt0kYkXx0yQ6VI4n
- rDR88jxutm565p7zu4RXBlfq94fviS2TvzykA6Gv/DwMfHOEDb54FYt6Wdn10w1eLfpp4cfRhSi
- AlZHLo+a5QB7B1No1/w2TuOilllc4lV5MTggScTXr6kl45JT8cIP1HxUtTqWgQ8lBJi/cUD15MT
- N3DcoaEwZ5rKHmKT/Ew==
-X-Authority-Analysis: v=2.4 cv=d5DFDxjE c=1 sm=1 tr=0 ts=6a907b37 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=YnqcSKFZeAXWn-m59-0A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: VCZsjQ08Y4dxEORzcyoNCbqUEjMuf1vY
-X-Proofpoint-ORIG-GUID: VCZsjQ08Y4dxEORzcyoNCbqUEjMuf1vY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX5fSsfxV+ocwy
- HZ2+fpV9Wg+5X+sbEglcIP02dN1joicEM1/+VNUXZRcgNh7faF5j226SRBvkCyzaCSp7FVoYJtG
- LR7dx2LSfQrzc4mfCdVrDPKUHEY2gHY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270151
+Content-Transfer-Encoding: 8bit
 
-The I2C driver currently assumes a fixed source clock selection and always
-programs SE_GENI_CLK_SEL to 0, which is not sufficient when the controller
-needs to switch between different source clocks.
-
-Add the source clock index and frequency to the I2C clock map entries and
-use them while configuring the controller. Request the required
-source clock rate through dev_pm_opp_set_rate() and program SE_GENI_CLK_SEL
-with the matching source index.
-
-Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 35 +++++++++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 8 deletions(-)
+net/smc: prevent device removal during connection setup
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..a3b7609e3cf9 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -16,6 +16,7 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_opp.h>
- #include <linux/pm_runtime.h>
- #include <linux/soc/qcom/geni-se.h>
- #include <linux/spinlock.h>
-@@ -165,8 +166,13 @@ struct geni_i2c_clk_fld {
- 	u8	t_high_cnt;
- 	u8	t_low_cnt;
- 	u8	t_cycle_cnt;
-+	u8	src_indx;
-+	u32	src_clk_freq;
- };
- 
-+#define CLK_19P2MHZ	(19200 * HZ_PER_KHZ)
-+#define CLK_32MHZ	(32 * HZ_PER_MHZ)
-+
- /*
-  * Hardware uses the underlying formula to calculate time periods of
-  * SCL clock cycle. Firmware uses some additional cycles excluded from the
-@@ -180,17 +186,17 @@ struct geni_i2c_clk_fld {
-  * source_clock = 19.2 MHz
-  */
- static const struct geni_i2c_clk_fld geni_i2c_clk_map_19p2mhz[] = {
--	{ I2C_MAX_STANDARD_MODE_FREQ, 7, 10, 12, 26 },
--	{ I2C_MAX_FAST_MODE_FREQ, 2,  5, 11, 22 },
--	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 1, 2,  8, 18 },
-+	{ I2C_MAX_STANDARD_MODE_FREQ, 7, 10, 12, 26, 0, CLK_19P2MHZ },
-+	{ I2C_MAX_FAST_MODE_FREQ, 2,  5, 11, 22, 0, CLK_19P2MHZ },
-+	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 1, 2,  8, 18, 0, CLK_19P2MHZ },
- 	{}
- };
- 
- /* source_clock = 32 MHz */
- static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
--	{ I2C_MAX_STANDARD_MODE_FREQ, 8, 14, 18, 38 },
--	{ I2C_MAX_FAST_MODE_FREQ, 4,  3, 9, 19 },
--	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 2, 3, 5, 15 },
-+	{ I2C_MAX_STANDARD_MODE_FREQ, 8, 14, 18, 38, 1, CLK_32MHZ },
-+	{ I2C_MAX_FAST_MODE_FREQ, 4,  3, 9, 19, 1, CLK_32MHZ },
-+	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 2, 3, 5, 15, 1, CLK_32MHZ },
- 	{}
- };
- 
-@@ -198,7 +204,7 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- {
- 	const struct geni_i2c_clk_fld *itr;
- 
--	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
-+	if (clk_get_rate(gi2c->se.clk) == CLK_32MHZ)
- 		itr = geni_i2c_clk_map_32mhz;
- 	else
- 		itr = geni_i2c_clk_map_19p2mhz;
-@@ -218,8 +224,13 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
- 	struct geni_i2c_dev *gi2c = dev_get_drvdata(se->dev);
- 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
- 	u32 val;
-+	int ret;
-+
-+	ret = dev_pm_opp_set_rate(se->dev, itr->src_clk_freq);
-+	if (ret)
-+		return ret;
- 
--	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
-+	writel_relaxed(itr->src_indx, gi2c->se.base + SE_GENI_CLK_SEL);
- 
- 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
- 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
-@@ -1228,6 +1239,8 @@ static int __maybe_unused geni_i2c_runtime_suspend(struct device *dev)
- 		}
- 	}
- 
-+	dev_pm_opp_set_rate(dev, 0);
-+
- 	return 0;
- }
- 
-@@ -1236,6 +1249,12 @@ static int __maybe_unused geni_i2c_runtime_resume(struct device *dev)
- 	int ret = 0;
- 	struct geni_i2c_dev *gi2c = dev_get_drvdata(dev);
- 
-+	if (gi2c->clk_fld && gi2c->clk_fld->src_clk_freq) {
-+		ret = dev_pm_opp_set_rate(dev, gi2c->clk_fld->src_clk_freq);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	if (gi2c->dev_data->power_on) {
- 		ret = gi2c->dev_data->power_on(&gi2c->se);
- 		if (ret)
+This patch adds a refcount to struct smc_ib_device so that an smcibdev
+selected during SMC-R connection setup cannot be freed while the
+initialization data still points at it. It also adds an init_cnt/init_wait
+pair so that ib device removal waits for the interval between revalidating
+the selected device and publishing the resulting link group.
 
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 181647982490..d97bc7323106 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -55,6 +55,17 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft);
+>  
+>  static void smc_link_down_work(struct work_struct *work);
+>  
+> +void smc_init_info_free(struct smc_init_info *ini)
+> +{
+> +	if (!ini)
+> +		return;
+> +	if (ini->ib_dev_ref)
+> +		smc_ibdev_put(ini->ib_dev);
+> +	if (ini->smcrv2.ib_dev_v2_ref)
+> +		smc_ibdev_put(ini->smcrv2.ib_dev_v2);
+> +	kfree(ini);
+> +}
+> +
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but since the commit message
+mentions the SMC-D case only in passing, can the smcd_dev pointer in
+ini->ism_dev[] be used after free in the same way?
+
+smc_pnet_find_ism_by_pnetid() publishes the raw pointer and then drops the
+selection lock:
+
+net/smc/smc_pnet.c:smc_pnet_find_ism_by_pnetid() {
+	...
+			ini->ism_dev[0] = ismdev;
+			break;
+		}
+	}
+	mutex_unlock(&smcd_dev_list.mutex);
+}
+
+The removal side only waits for already published link groups via lgr_cnt
+and then frees the object:
+
+net/smc/smc_ism.c:smcd_unregister_dev() {
+	...
+	smc_smcd_terminate_all(smcd);
+	destroy_workqueue(smcd->event_wq);
+	kfree(smcd);
+}
+
+A setup that has selected the device but has not created a link group yet
+is not counted anywhere, so the borrowed pointer is still dereferenced
+afterwards by smc_connect_ism_vlan_setup() and
+smc_connect_ism_vlan_cleanup():
+
+	if (ini->vlan_id && smc_ism_get_vlan(ini->ism_dev[0], ini->vlan_id))
+
+and by smc_lgr_create():
+
+		smcd = ini->ism_dev[ini->ism_selected];
+		get_device(&smcd->dibs->dev);
+
+smc_ism_get_vlan() takes spin_lock_irqsave(&smcd->lock), so this is a write
+into the freed object as well. Since smc_init_info_free() only drops the two
+SMC-R references, would it be worth stating in the commit message that
+ini->ism_dev[] stays an unowned pointer on purpose?
+
+> @@ -882,6 +900,7 @@ int smcr_link_init(struct smc_link_group *lgr, struct smc_link *lnk,
+>  	if (!atomic_dec_return(&smcibdev->lnk_cnt))
+>  		wake_up(&smcibdev->lnks_deleted);
+>  	smc_lgr_put(lgr); /* lgr_hold above */
+> +	smc_ibdev_init_end(smcibdev);
+>  	return rc;
+>  }
+
+[Severity: High]
+
+This is a pre-existing issue, but now that a refcount exists, should it also
+cover the lnk_cnt decrement and wakeup above and the identical sequence in
+__smcr_link_clear()?
+
+net/smc/smc_core.c:__smcr_link_clear() {
+	...
+	smcibdev = lnk->smcibdev;
+	memset(lnk, 0, sizeof(struct smc_link));
+	lnk->state = SMC_LNK_UNUSED;
+	if (!atomic_dec_return(&smcibdev->lnk_cnt))
+		wake_up(&smcibdev->lnks_deleted);
+	...
+}
+
+Links take get_device(&lnk->smcibdev->ibdev->dev) but never smc_ibdev_get(),
+so nothing pins the smc_ib_device allocation across the decrement and the
+wake_up().
+
+The waiter can leave the wait purely by re-evaluating the counter:
+
+net/smc/smc_core.c:smc_smcr_terminate_all() {
+	...
+		if (atomic_read(&smcibdev->lnk_cnt))
+			wait_event(smcibdev->lnks_deleted,
+				   !atomic_read(&smcibdev->lnk_cnt));
+	...
+}
+
+If the clearing task is preempted between atomic_dec_return() returning 0 and
+wake_up(), smc_ib_remove_dev() can proceed to smc_ibdev_put() ->
+smc_ibdev_release() -> kfree(smcibdev), and the clearing task then takes the
+waitqueue spinlock inside freed memory. Would an smc_ibdev_get() in
+smcr_link_init() paired with an smc_ibdev_put() after the wakeup close this?
+
+> diff --git a/net/smc/smc_ib.c b/net/smc/smc_ib.c
+> index 9bb495707445..d858453c64d9 100644
+> --- a/net/smc/smc_ib.c
+> +++ b/net/smc/smc_ib.c
+> @@ -1000,11 +1042,14 @@ static void smc_ib_remove_dev(struct ib_device *ibdev, void *client_data)
+>  	mutex_unlock(&smc_ib_devices.mutex);
+>  	pr_warn_ratelimited("smc: removing ib device %s\n",
+>  			    smcibdev->ibdev->name);
+> +	if (atomic_read(&smcibdev->init_cnt))
+> +		wait_event(smcibdev->init_wait,
+> +			   !atomic_read(&smcibdev->init_cnt));
+>  	smc_smcr_terminate_all(smcibdev);
+>  	smc_ib_cleanup_per_ibdev(smcibdev);
+>  	ib_unregister_event_handler(&smcibdev->event_handler);
+>  	cancel_work_sync(&smcibdev->port_event_work);
+> -	kfree(smcibdev);
+> +	smc_ibdev_put(smcibdev);
+>  }
+
+[Severity: High]
+
+This is a pre-existing behaviour of the termination scan rather than
+something the patch introduces, but does the new init_cnt interval really
+give the guarantee the commit message claims?
+
+The commit message says:
+
+  "Device removal waits for this interval before terminating links, ensuring
+  that it cannot miss a link being created concurrently."
+
+smcr_link_init() returns with the new link in SMC_LNK_ACTIVATING:
+
+	lnk->state = SMC_LNK_ACTIVATING;
+	return 0;
+
+and every caller releases init_cnt right away, for example smc_lgr_create():
+
+	if (!ini->is_smcd)
+		smc_ibdev_init_end(lnk->smcibdev);
+
+so the interval ends long before smc_llc_link_active() promotes the link to
+SMC_LNK_ACTIVE. After the init_cnt wait drains, the single scan in
+smc_smcr_terminate_all() reaches smcr_link_down_cond_sched(), which only acts
+on an ACTIVE link:
+
+net/smc/smc_core.c:smcr_link_down_cond_sched() {
+	if (smc_link_downing(&lnk->state)) {
+		...
+}
+
+smc_link_downing() is a cmpxchg from SMC_LNK_ACTIVE to SMC_LNK_INACTIVE, so
+an ACTIVATING link is skipped and the scan is not repeated. The following
+
+		if (atomic_read(&smcibdev->lnk_cnt))
+			wait_event(smcibdev->lnks_deleted,
+				   !atomic_read(&smcibdev->lnk_cnt));
+
+then has no timeout, so if the connection completes and stays up,
+smc_ib_remove_dev() and therefore ib_unregister_device() block until the link
+goes down for an unrelated reason. The ACTIVATING window spans the
+peer-controlled CONFIRM_LINK exchange, so a remote peer can widen it. Would
+it be more robust to hold init_cnt until the link reaches SMC_LNK_ACTIVE, or
+to have the scan also handle ACTIVATING links?
 -- 
-2.34.1
-
+pw-bot: cr
