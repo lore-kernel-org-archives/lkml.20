@@ -1,132 +1,150 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D008F43C05E;
-	Thu, 27 Aug 2026 09:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7165743F4C3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824044; cv=none; b=k8Yfl74ZDIs8WRogjmPp2NmHQRUloj9c7r2FpzyXR1CNx/NFWevR/W+W5RTayhtVJhSaoglvmtKZUO4THQTsM0ZEibVPJnTqU+lYof/+aThMALXsKyZ/tN2ppqckw+2jIUiZxTz/oDKxJvTYyBQUR2xy48YWnVVQO0HYqPsJDu4=
+	t=1787824056; cv=none; b=UsWQLk0kOuJC2wDik+dHJ3LN3Fw8slsnIYPtlPn5TvQoik41UHWxc6uKBMbgtEd25yWY29DVexDteuDYMAn48S45T2YvwXnhzoJebjMvz78rKMw6sCFdN/oGF0JVZiBR96RNCbh+1xhvqFJMmuHXUw1UTUWlp6RVAfmwSLegZbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824044; c=relaxed/simple;
-	bh=Qvg7bPgD3vrjS9i0U/zL03YKpk9GMf5F5fIrX1khiZA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QW2IPPJzMLnXcqI4UYis4d+zQRjmjgrRzF97IbymzrLdf/ML01alLOxiHjB1VZwWhv6U3nm4V39wwFshr1Y5G5ff25d9aBPmGzoFduKPrAt0N+YREMEimn4+qZKhS++siU2vjtApY+LWl9MCmZc2i9zo7JD1rOoShqvZIJhRLA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=BsbwnLJg; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="BsbwnLJg"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9I5SU3193198;
-	Thu, 27 Aug 2026 02:47:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=O
-	5ol7cohRvAeM9S0hczRVt1bvW7Ce0kfRf/WofVMvTk=; b=BsbwnLJghlAqvdF2D
-	U14NcC6qBY7+FVwQPvLyDkCeKEZ7Td4w4oFtMVFzh2oJ8qiX1EeUdZMESkSEF2DC
-	YMGnKkg+oKnGeSo/IrQrS1bvJAFRNihp2f3+DgiOPdBt9k2xOeZG3QmDF6HgPsO/
-	n18bH2sEKNjEyoe1OFVUjK5CZ9JGFpSoNlLXu+GfefNDOYrRgb2TOUIcX+bs6hI5
-	3TwBozzXe6b09CSxVf3EXZK95v5qTrr2X62P0QqXPXqBVUnYQY5e81j++iWClTx/
-	Q7ShOBAtuu9SKsAsWL0s8xHd3fcrpOttfdW1jZGemoJ1nGebaBtT2LY4m2fo4yG9
-	LYNCA==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4ga970sh3c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 02:47:08 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 27 Aug 2026 02:47:07 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Thu, 27 Aug 2026 02:47:07 -0700
-Received: from numbat.caveonetworks.com (unknown [10.29.36.45])
-	by maili.marvell.com (Postfix) with ESMTP id 027923F70C4;
-	Thu, 27 Aug 2026 02:47:03 -0700 (PDT)
-From: Subrat Pandey <subratp@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: <pabeni@redhat.com>, <kuba@kernel.org>, <edumazet@google.com>,
-        <davem@davemloft.net>, <andrew+netdev@lunn.ch>, <sbhatta@marvell.com>,
-        <rkannoth@marvell.com>, <gakula@marvell.com>, <sgoutham@marvell.com>,
-        <subratp@marvell.com>
-Subject: [PATCH net v5 2/2] octeontx2-af: mcs: Fix SC resource cleanup loop
-Date: Thu, 27 Aug 2026 15:16:54 +0530
-Message-ID: <20260827094654.1391105-3-subratp@marvell.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827094654.1391105-1-subratp@marvell.com>
-References: <20260827094654.1391105-1-subratp@marvell.com>
+	s=arc-20240116; t=1787824056; c=relaxed/simple;
+	bh=tk3Ai/Jo2XGI9xcsIXzPCRSuWSXRRpdmIHLsH363YZg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Ff0gko9M+2ty1KVQnbkorOob9iEdIfpxO1+8vWia4RXkgBY7Y7UfGi9kXGOBSLUWrpu6ALTraphGwfbb8k1nNltRlhM2zY8ABEC/dqEtyKd/OGimvxzy7OT2/woEZQtJj6WyR1AzwJBk86NDaKfMzgqDl2uEab5ElCB79ttSVMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ebe970a21fso2683139a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:47:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787824051; x=1788428851;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YflxLRauQaVc21/roAiOh/raFm7Kh6g8H2z5rAAAdkQ=;
+        b=HV6vxwcp69DGxMB/zPNyzdEj79yI94MRYgGWY8siQmATd9F92XTsfdeBnmokIToGIL
+         bjDNPnPnj/0WmCWPteEScjA4kMiS9aoY1MkEtK3Zyklg2/YSLuYnR+ymHOewH/shWhS9
+         d7OhZIM3kR78Sl/yGbZvga0yEoCX0v8ybKkwnwNH0K7OT+48d65cIvX9VT+P5DHIaVSE
+         OYCS/vv3broN5zHpqpyoUh3q5WPL7W9KE6OHQ3gmfYjEd7fqYBSK2U2uWqpxplxhZV+v
+         5n2LNIAzdL0MxbGm8DOtvz72QIWv6wf566RY18gUGmzA1yWH4fC/hAt5t79LsrLRYKof
+         eS4w==
+X-Gm-Message-State: AFuF++nYN6RFKKlG2dhXJtkoa5t7ISK5LReA34S+Rxdh0hd99Y0GBApm
+	Eqkzfd65ETNiMVugtwssYNy4jnFrwPK4mLg29XPVzEAdkPbIQbm33PFb4waQsC4LC++sfU4X8S8
+	PsRpqCYwrhtwXAoFWoFoic4FvzCiNtwACewTPcTjiu6Xdzq3dWrkfqMVuzc8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: q57ma1FNYCMn6FgJEYqIqj0oTna9WpVM
-X-Proofpoint-GUID: q57ma1FNYCMn6FgJEYqIqj0oTna9WpVM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA4MCBTYWx0ZWRfX6H3v2EJ2R95q
- +tgRSkCXtpmEHQiGD4i4/Sg177auE0csq1/YYO9YeHV/rAZOWv9NG7zyXCcnsxZjIcHp9qf0cUv
- bOGLo6oLO07eEbMGDOurTakLGYjE38A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA4MCBTYWx0ZWRfXyRIWlsp533A9
- M6/iH7xFpVn+aQx9EhPMiyiMPjs3BUzgQMB8YGMcte4OiIgQxFhK/uBDo63ukkDG+yYgOZeML/m
- 1FKB1lr+6XJQCrUyouiQEm+6M8iYWByXsyeyOP/DPpJuhmV9GPjXJbMc+2TqOjGz/lMhukdj/fN
- ZaYXUfsILyBFShDW+xnlmSfqvqA8EUKTdMNhUf5rtjAQ+8de7jAuH/OFBXvhBB5iQpvYUL+PJtz
- Ak1jn58aOAzEw+KUlWbDKHSud/HsEtjbCmv0/aPtKHNp3i9U7/OZSKKoGsFXUwc4QvmwVyLXoTc
- JngCLq6hkj8TW+4+TX4H0tEihHGA4gh1lCy4o8d49Cc6vOY95w4y8Lgo9y+XZ850seshFenOcba
- 6bqovBkpLzLagC2BLPCu+sJ0dJezMitTjlaIrsqwby2XBRni7EYEXYR/vwtxdQ/qsp1/LPMDs7g
- NFLC7/mpBYAh9BlOYeA==
-X-Authority-Analysis: v=2.4 cv=NvbhtcdJ c=1 sm=1 tr=0 ts=6a90079c cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=QXcCYyLzdtTjyudCfB6f:22 a=9qxNCY_qAAAA:8 a=M5GUcnROAAAA:8
- a=zu5CyLosWp3-ngOb9goA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
+X-Received: by 2002:a4a:ded8:0:b0:6ac:b178:97f9 with SMTP id
+ 006d021491bc7-6b1a0529045mr10823866eaf.31.1787824051711; Thu, 27 Aug 2026
+ 02:47:31 -0700 (PDT)
+Date: Thu, 27 Aug 2026 02:47:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9007b3.1d9ded08.62e62.00cd.GAE@google.com>
+Subject: [syzbot] [sound?] BUG: unable to handle kernel NULL pointer
+ dereference in snd_ctl_led_get
+From: syzbot <syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Baha Mesleh <baha.mesleh@nokia.com>
+Hello,
 
-The SC resource cleanup loop was incorrectly iterating over secy.max
-instead of sc.max. Use sc.max as the loop bound.
+syzbot found the following issue on:
 
-Fixes: cfc14181d497 ("octeontx2-af: cn10k: mcs: Manage the MCS block hardware resources")
-Signed-off-by: Baha Mesleh <baha.mesleh@nokia.com>
-Signed-off-by: Subrat Pandey <subratp@marvell.com>
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=12a3d579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=b7fe2760ea6f1ee44b4d
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=178bb415580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com
+
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+#PF: supervisor instruction fetch in kernel mode
+#PF: error_code(0x0010) - not-present page
+PGD 0 P4D 0 
+Oops: Oops: 0010 [#1] SMP KASAN NOPTI
+CPU: 2 UID: 0 PID: 6042 Comm: syz-executor129 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+RSP: 0018:ffffc900034b7948 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff88802e2ff400 RCX: 0000000000000000
+RDX: 1ffff11005c5fe8c RSI: ffffffff9bda4620 RDI: ffff88802e2ff400
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffffff9bda4620 R11: 0000000000000000 R12: 0000000000000000
+R13: ffffffff90b73bc8 R14: ffff88802e2ff400 R15: ffffffff90b73bc8
+FS:  000055555669f400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffffffffffffd6 CR3: 0000000027234000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ snd_ctl_led_get+0x231/0x430 sound/core/control_led.c:122
+ snd_ctl_led_set_state+0x5c1/0x7f0 sound/core/control_led.c:168
+ snd_ctl_led_notify+0x15b/0x1e0 sound/core/control_led.c:239
+ snd_ctl_led_set_id sound/core/control_led.c:268 [inline]
+ set_led_id+0xb0f/0xe80 sound/core/control_led.c:557
+ dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa7e64de2b7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffe15525110 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055555669f400 RCX: 00007fa7e64de2b7
+RDX: 0000000000000002 RSI: 00007ffe155251a0 RDI: 0000000000000004
+RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffe155251a0
+R13: 00007fa7e6517024 R14: 00007fa7e6541cc0 R15: 0000000000000002
+ </TASK>
+Modules linked in:
+CR2: 0000000000000000
+---[ end trace 0000000000000000 ]---
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+RSP: 0018:ffffc900034b7948 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff88802e2ff400 RCX: 0000000000000000
+RDX: 1ffff11005c5fe8c RSI: ffffffff9bda4620 RDI: ffff88802e2ff400
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffffff9bda4620 R11: 0000000000000000 R12: 0000000000000000
+R13: ffffffff90b73bc8 R14: ffff88802e2ff400 R15: ffffffff90b73bc8
+FS:  000055555669f400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffffffffffffd6 CR3: 0000000027234000 CR4: 0000000000352ef0
+
+
 ---
-v4:
- - Correct the Fixes: tag commit subject to match the actual upstream
-   commit title.
-v3:
- - Extend the sc.max fix to the SC stats loop in mcs_clear_all_stats()
-   (v2 fixed only mcs_free_all_rsrc()).
- - Add Fixes: tag and reword commit message.
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
- drivers/net/ethernet/marvell/octeontx2/af/mcs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/mcs.c b/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-index a07e0b3d8d00..aa0ed24bb3de 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-@@ -314,7 +314,7 @@ int mcs_clear_all_stats(struct mcs *mcs, u16 pcifunc, int dir)
- 	}
- 
- 	/* Clear SC stats */
--	for (id = 0; id < map->secy.max; id++) {
-+	for (id = 0; id < map->sc.max; id++) {
- 		if (map->sc2pf_map[id] != pcifunc)
- 			continue;
- 		mcs_clear_stats(mcs, MCS_SC_STATS, id, dir);
-@@ -738,7 +738,7 @@ int mcs_free_all_rsrc(struct mcs *mcs, int dir, u16 pcifunc)
- 	}
- 
- 	/* free sc entries */
--	for (id = 0; id < map->secy.max; id++) {
-+	for (id = 0; id < map->sc.max; id++) {
- 		if (map->sc2pf_map[id] != pcifunc)
- 			continue;
- 		mcs_free_rsrc(&map->sc, map->sc2pf_map, id, pcifunc);
--- 
-2.43.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
