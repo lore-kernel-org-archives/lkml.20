@@ -1,52 +1,48 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE6F4483A2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9AE448D03
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834643; cv=none; b=u30Njd+BPdlv2KSaxVbGjOXu/3w0T0vQDHbvMU+v1HQ+z4VUGAfY7Xzkk2A7k3vrbmPxxKZp7WAN0jsHIXcJtj60E08ITjkT/pgEITxV42TROUvZ7fejxEAs/qIn3WxB7pNW2fkBtG5+BgKJ/gX56G+zTlWkzGumMMMXifGIwcE=
+	t=1787834647; cv=none; b=H5DTAUi4m87qMHA5VsyyZD9SieEqOQSTzf+I0asY+wDTX653gFLtDSISAlEXP8lko9AYiykazVP49yV9hAvBBlSQoouuWNx72IM1XpT+Fca/Qqv9WcDifKK6sVG+XaVY9QA1cC+5WD6Py2g25O45Czq7wQX9lO2ISXKRkxeBNGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834643; c=relaxed/simple;
-	bh=uKH+BnJ8BwULUBNwrth04oBdJK0t5SnpKxbLc0f+6S0=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=GGSWkGsy6jDPA3cRZKN7WkP7g3l4Om+MRFhkWbl5HXfIg6SAk7y7n7KY8/FG7QG4yp0tgebmGSYRncwkd9HzUH/pahDulmT+Gb4r99polzYwcYQv46MnWz1dwgNy0wbGvRNn9I2ZnWsidHegVxzLBDlkxlPqlDTmRhTHdm4w/Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=S7MNqn0Z; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=DUH4FUou; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834647; c=relaxed/simple;
+	bh=LPv4Z/p6wQWKl9SGeAjGOmxLHSFAlnBjojdhStDI3rw=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=Mrre9FiKtJJnw4IVBcxz0fTznYkU3crfxLMszVkcfzDrulyVrEw77qEmOunsWliFcCqMp781AM7kXQon1pAfOZbfoyrCHvshEAES4y0Ch3Fyzh/Q6Ob3ma729EC43r/RlLoIGtHwDlE1/8mpgHouPbDG4J2drE5w83458pr099c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=JXEjjsap; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=VIIPaCr8; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="S7MNqn0Z";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="DUH4FUou"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="JXEjjsap";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="VIIPaCr8"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834634; x=1788439434; bh=xp2UYImYLvVNRXatr5
-	a5DXypt3Cwtz69p7mp3b3OH5I=; b=S7MNqn0Zrjbu2N/jPZw1oYctnM6k/4Ruu1N3H+k4dAX1F
-	vaExgGIQgb3oqOnIkgNGnifZ4aj9U+WV34QGDov7b1pBSH5ZH4sWoVio7qJfHLV+tgMuDRM3cJA
-	ddHULM+RE4/w3vTwADQMticPRtVbmYe5T0eYo0F4aL3uYYHGFRgBrnrG16bIn0EdDJzu+/2IfMN
-	z06BjCEW0xtXl93IN0vjMWwtDP1uWq7OVQkZMYc+0FB7haWrcTS5hk6CFGjXd6GRQwHitOgzacs
-	QyHSJX63EydtdFxmLjKIPS0ai2GiiCt21n8PBTL2Lze7EZKpRi6XM1o15ABSyCtgStFyUdGw==;
+	:list-owner:list-archive; t=1787834638; x=1788439438; bh=CtMj3tj90W1+L9QjJW
+	pEeQE0iVf4lRqG1yY3kLY7D3o=; b=JXEjjsapYvAdFCJaPf8yXT2bGjShTeMz9SotZFU9KytF5
+	HxgUgFdqdRJFZ5OBmlWxvb2GKE8iD0LIuHKTPoRMBr38EjPS6R94oBdyrt690P1djqYaeaMG4HZ
+	SzPNBRyrgmIBEM11UwRmsJrW8JAKX+h/B8fjhqZBBfoGIGWWCJT0tR+upczaLSqBqqT3yHavh40
+	+X+6kU1PNcr8Ps+/m+pebWPtERKYsYN2GuddVLOkfOyeoOPbcirGEK2ufuKSrUaA0+Yub6fHVtv
+	d4fWqIfh6gp9pvEQNV0XWH4x82bU+f3mLkkKCF44NO9tIUwZrXFEa/uR0K07PYLw18zp2XLQ==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834634; x=1788439434; bh=xp2UYImYLvVNRXatr5
-	a5DXypt3Cwtz69p7mp3b3OH5I=; b=DUH4FUouvi6B/OIq2VewwfTspEV5YKU0bOgvH1juxi3Dk
-	2cl67BGtXe9S1CU2uut7dx551s5b4cEpUTIAHOYj9Pttv1w5gYot/tDMAWOgWH730m0qBa9WMXR
-	b/q40RmbJvroistsHf6QfoFt5VVPbqnGVjaAKtFspVIjtUvyVgcrstntGFhnKK7LnAq1Tj3InNE
-	YNv5GyKWd3gwnIRYJZ1qS9zKx+JAvv6pHiJkgFJGZ/PkwVnCaj0cQwkfFR1WTdjUA6MM3NdQqFG
-	NgYponU5LQPtJ195meIPomCSKwPWS4X4D2C0aTAm++Ve9G/iACBMeSwa81szucFTf+KqhRHQ==;
+	:list-owner:list-archive; t=1787834638; x=1788439438; bh=CtMj3tj90W1+L9QjJW
+	pEeQE0iVf4lRqG1yY3kLY7D3o=; b=VIIPaCr88eklH5lgODZGfpW88/v+y8GOCIxqkdDnqg3vs
+	MUju0K0I+0eG4sIFRD7CdS+dSGC3gRnqG84CvU+A7XGTKl2weO688RmfslCLDe/Lwnbm54+uH08
+	b4TEOFm8lGcpWvKdY2YmJTA7RzA8KuA8AF5hEunMALpDb3PYkiV6PoU/DrGXm2udFLN01OetNMc
+	/LLUY2uoliB8CVkrEPA1lVKrn0FvGs5fRPuKabCWU5pjLnYNaBWmatcI6QibzZDq+qQwlz3W5A+
+	bPFYaK+ZcCXWAyFkEYi2oaDxfJsRVaP59RAO233/IkjUTLesbbNqBGbN+m19RvEtxEHVGVYg==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+cd639b9313e09550@bugs.sh>
-Message-ID: <v5hPFETntwh5YjR1fbSXichnMBMrX4irbVAf@bugs.sh>
-Date: Thu, 27 Aug 2026 12:43:47 +0000
-Subject: [BUG] use-after-free in ar5523_rx_refill_work()
-To: linux-wireless@vger.kernel.org, "Petr Mladek" <pmladek@suse.com>, "Geert
- Uytterhoeven" <geert+renesas@glider.be>, "John Ogness" <john.ogness@linutronix.de>, "Josh
- Poimboeuf" <jpoimboe@kernel.org>, "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Oleg
- Nesterov" <oleg@redhat.com>, "Biju Das" <biju.das.jz@bp.renesas.com>, "Kees
- Cook" <kees@kernel.org>, "Song Liu" <song@kernel.org>, "Pontus Fuchs" <pontus.fuchs@gmail.com>, "John
- W. Linville" <linville@tuxdriver.com>, linux-kernel@vger.kernel.org
+From: co <co+b240dc164119a46c@bugs.sh>
+Message-ID: <UFZgYBPFzraRy8BQcngd1LpE4nCofXZsBVbb@bugs.sh>
+Date: Thu, 27 Aug 2026 12:43:52 +0000
+Subject: [BUG] drivers/hid: use-after-free in u2fzero_recv()
+To: linux-input@vger.kernel.org, "Jiri Kosina" <jikos@kernel.org>, "Benjamin
+ Tissoires" <bentiss@kernel.org>, "Andrej Shadura" <andrew.shadura@collabora.co.uk>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,10 +54,9 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    lib
-    crash   use-after-free in ar5523_rx_refill_work()
-    commit  3cd8b194bf34 ("Merge tag 'v7.1-rc-part1-smbdirect-fixes' of git=
-://git.samba.org/ksmbd")
+    path    drivers/hid
+    crash   use-after-free in u2fzero_recv()
+    commit  6f232446a629 ("Linux 6.12.77")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -71,7 +66,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+cd639b9313e09550@bugs.sh
+Reported-by: co+b240dc164119a46c@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -81,8 +76,8 @@ Reported-by: co+cd639b9313e09550@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/cd639b9313e09550/patch.diff
-        report.md   https://bugs.sh/b/cd639b9313e09550/report.md
+        patch.diff  https://bugs.sh/b/b240dc164119a46c/patch.diff
+        report.md   https://bugs.sh/b/b240dc164119a46c/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -96,50 +91,106 @@ Reported-by: co+cd639b9313e09550@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  3cd8b194bf34 ("Merge tag 'v7.1-rc-part1-smbdirect-fixes'=
- of git://git.samba.org/ksmbd")
-    VM setup       https://bugs.sh/b/cd639b9313e09550/run.sh
-    config         https://bugs.sh/b/cd639b9313e09550/config.gz
-    poc            https://bugs.sh/b/cd639b9313e09550/repro.c
+    Reproduced on  6f232446a629 ("Linux 6.12.77")
+    VM setup       https://bugs.sh/b/b240dc164119a46c/run.sh
+    config         https://bugs.sh/b/b240dc164119a46c/config.gz
+    poc            https://bugs.sh/b/b240dc164119a46c/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in ar5523_rx_refill_work (./include/linux/u=
-sb.h:1739 drivers/net/wireless/ath/ar5523/ar5523.c:743)
-Write of size 8 at addr ffff8880173a3940 by task kworker/u8:0/12
-Workqueue: ar5523 ar5523_rx_refill_work
+BUG: KASAN: slab-use-after-free in u2fzero_recv.constprop.0 (drivers/hid/hi=
+d-u2fzero.c:160)
+Read of size 4 at addr ffff88801fd0ad84 by task exploit/5205
+CPU: 0 UID: 0 PID: 5205 Comm: exploit Not tainted 6.12.77 #31
 Call Trace:
 dump_stack_lvl (lib/dump_stack.c:123)
-print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:597)
-ar5523_rx_refill_work (./include/linux/usb.h:1739 drivers/net/wireless/ath/=
-ar5523/ar5523.c:743)
-process_one_work (kernel/workqueue.c:3307)
-worker_thread (kernel/workqueue.c:3379 (discriminator 2) kernel/workqueue.c=
-:3466 (discriminator 2))
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:164)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:255)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:481)
+kasan_report (mm/kasan/report.c:596)
+u2fzero_recv.constprop.0 (drivers/hid/hid-u2fzero.c:160)
+u2fzero_rng_read (drivers/hid/hid-u2fzero.c:226)
+rng_dev_read (drivers/char/hw_random/core.c:223 drivers/char/hw_random/core=
+.c:257)
+vfs_read (fs/read_write.c:567)
+ksys_read (fs/read_write.c:713)
+do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+Allocated by task 5193:
+kasan_save_stack (mm/kasan/common.c:49)
+kasan_save_track (mm/kasan/common.c:61  mm/kasan/common.c:70)
+__kasan_kmalloc (mm/kasan/common.c:378 mm/kasan/common.c:395)
+__kmalloc_noprof (mm/slub.c:4333 mm/slub.c:4344)
+usb_alloc_urb (./include/linux/slab.h:882 drivers/usb/core/urb.c:75)
+u2fzero_probe (drivers/hid/hid-u2fzero.c:288  drivers/hid/hid-u2fzero.c:344)
+hid_device_probe (drivers/hid/hid-core.c:2703 drivers/hid/hid-core.c:2740)
+really_probe (drivers/base/dd.c:579 drivers/base/dd.c:657)
+__driver_probe_device (drivers/base/dd.c:799)
+device_driver_attach (drivers/base/dd.c:1127)
+bind_store (drivers/base/bus.c:268)
+drv_attr_store (drivers/base/bus.c:125)
+sysfs_kf_write (fs/sysfs/file.c:136)
+kernfs_fop_write_iter (fs/kernfs/file.c:88 fs/kernfs/file.c:356)
+vfs_write (fs/read_write.c:591  fs/read_write.c:683)
+ksys_write (fs/read_write.c:737)
+do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+Freed by task 5223:
+kasan_save_stack (mm/kasan/common.c:49)
+kasan_save_track (mm/kasan/common.c:61  mm/kasan/common.c:70)
+kasan_save_free_info (mm/kasan/generic.c:582)
+__kasan_slab_free (mm/kasan/common.c:272)
+kfree (mm/slub.c:4651  mm/slub.c:4803)
+usb_free_urb.part.0 (drivers/usb/core/urb.c:98)
+usb_free_urb (drivers/usb/core/urb.c:98)
+hid_device_remove (drivers/hid/hid-core.c:2764)
+device_remove (drivers/base/dd.c:570)
+device_release_driver_internal (drivers/base/dd.c:1274 drivers/base/dd.c:12=
+95)
+unbind_store (drivers/base/bus.c:245)
+drv_attr_store (drivers/base/bus.c:125)
+sysfs_kf_write (fs/sysfs/file.c:136)
+kernfs_fop_write_iter (fs/kernfs/file.c:88 fs/kernfs/file.c:356)
+vfs_write (fs/read_write.c:591  fs/read_write.c:683)
+ksys_write (fs/read_write.c:737)
+do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+The buggy address belongs to the object at ffff88801fd0ad00
 which belongs to the cache kmalloc-192 of size 192
-freed 192-byte region [ffff8880173a3900, ffff8880173a39c0)
-list_del corruption, ffff88801bf220d0->next is LIST_POISON1 (dead0000000001=
-00)
-kernel BUG at lib/list_debug.c:56!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-Workqueue: ar5523 ar5523_rx_refill_work
-RIP: 0010:__list_del_entry_valid_or_report (lib/list_debug.c:56 (discrimina=
-tor 1))
-Call Trace:
-ar5523_rx_refill_work (./include/linux/list.h:223 (discriminator 1) ./inclu=
-de/linux/list.h:306 (discriminator 1) drivers/net/wireless/ath/ar5523/ar552=
-3.c:748 (discriminator 1))
-process_one_work (kernel/workqueue.c:3307)
-worker_thread (kernel/workqueue.c:3379 (discriminator 2) kernel/workqueue.c=
-:3466 (discriminator 2))
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:164)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:255)
+The buggy address is located 132 bytes inside of
+freed 192-byte region [ffff88801fd0ad00, ffff88801fd0adc0)
+The buggy address belongs to the physical page:
+page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1fd0a
+flags: 0xfff00000000000(node=3D0|zone=3D1|lastcpupid=3D0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff88801ac413c0 ffffea0000af0fc0 dead000000000002
+raw: 0000000000000000 0000000000100010 00000001f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x52cc0(GF=
+P_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP), pid 1, tgid 1 (swapper/0),=
+ ts 19090575597, free_ts 16417876266
+post_alloc_hook (./include/linux/page_owner.h:32 mm/page_alloc.c:1592)
+get_page_from_freelist (mm/page_alloc.c:1602 mm/page_alloc.c:3540)
+__alloc_pages_noprof (mm/page_alloc.c:4840)
+alloc_pages_mpol_noprof (mm/mempolicy.c:2271)
+new_slab (mm/slub.c:2463 mm/slub.c:2633 mm/slub.c:2687)
+___slab_alloc (mm/slub.c:3881)
+__slab_alloc.isra.0 (mm/slub.c:3971)
+__kmalloc_cache_noprof (mm/slub.c:4024 mm/slub.c:4185 mm/slub.c:4358)
+drm_atomic_helper_plane_duplicate_state (./include/linux/slab.h:878 drivers=
+/gpu/drm/drm_atomic_state_helper.c:374)
+drm_simple_kms_plane_duplicate_state (drivers/gpu/drm/drm_simple_kms_helper=
+.c:345)
+drm_atomic_get_plane_state (drivers/gpu/drm/drm_atomic.c:545)
+drm_client_modeset_commit_atomic (drivers/gpu/drm/drm_client_modeset.c:1030)
+drm_client_modeset_commit_locked (drivers/gpu/drm/drm_client_modeset.c:1180)
+drm_fb_helper_pan_display (drivers/gpu/drm/drm_fb_helper.c:1372 drivers/gpu=
+/drm/drm_fb_helper.c:1431)
+fb_pan_display (drivers/video/fbdev/core/fbmem.c:191)
+bit_update_start (drivers/video/fbdev/core/bitblit.c:406)
+page last free pid 83 tgid 83 stack trace:
+free_unref_page (./include/linux/page_owner.h:25 mm/page_alloc.c:1161 mm/pa=
+ge_alloc.c:2721)
 
 
 ---
