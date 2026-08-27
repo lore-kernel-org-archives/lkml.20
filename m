@@ -1,67 +1,94 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D044379C22;
-	Thu, 27 Aug 2026 02:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEEA379C22
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797350; cv=none; b=SbI8yy4Fd6OWCJ1nEjJ/zmfL84aQJ4YK/rKo0t5h2v5X/RSZ4Xc0fBf4P1XLYIkMMAZA1XiU+0utxfVjJoNSwlzNut1XrkpVV7fzTOUN+Re7m4JDJQcuYTVOOJCc5Ii4YSPljdAyOfaE6pLWzoe2fIjq402jL05AANB4hPpIyqo=
+	t=1787797371; cv=none; b=neeNP4kEjKYjwbWku04AAG8BlQmRSvMGxYGgrI21a/ziUA35D/MAcQASmR5LEkGBCFVpMQzpiWSvlDUmO1MXwHRwEilycNa/VnKwIE7lNn3E1qWHhco48zIDuOYky6hjUBTY4Oc/TAe9EqDMau+mqmg0Ee1PDnwwv7KiX8t7iAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797350; c=relaxed/simple;
-	bh=n46nLhzeNHaVzGnSpQ0O/BbCtM+5OHKtjp1dOYVhBug=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=K2lOBDNm65paEqJiDQ6d9aKPy7FUgstD0/ffugaUVBWVU5W2Wy6b3F1nlErFko93oZwzeZYxq40xYMcEvzP7m4sDGfQixFPmXIcStR02DvxuL3fUEa6Gn+VoEHTpQrL24Ez+/519dTUYx43sovuLimLGffXNHdq/55WK8tBimQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=6TZOt7tw; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1787797371; c=relaxed/simple;
+	bh=tV2tbkWIuRZE7RBPTiClufk3HfIcr+YCmZkrRVMvy7Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y0jGSQMuHoEwMq2Rzj5RsJqzMrjMoRMQqMo4rSucxM2rqPt7rtq1EfRHMrSzcrkiDz2RyXOeQyuUNDeelvqszWAVXnXhcayQ75LiOHiOw1mziHMmWVTZZDz0oC8iJakoSdhAxYhXYKkDR6t5uhqSdD+4ZTVzjpJO0dXABgau23g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bX6sAUtH; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="6TZOt7tw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=n46nLhzeNHaVzGnSpQ0O/BbCtM+5OHKtjp1dOYVhBug=; b=6TZOt7twnd4Vbhu5rt17EGY4Vh
-	9yTZgkszFkM4p3KoirBfICHkwY4IJDYwtmxlXqiKqui+xaKsA5diCN+nUk1a2BDkkR17UMSNVstSM
-	eNRNXTRfZTl/HEMQrexdUVy6VMrvAXZpjDXb3cWk+Ss2df21ENFuXqY9HhCGXz+zTgycvrA19vvZs
-	6mFgDQyQcVLOxx7jFKfq8iWUOYw2WUyaF8RnYZ2ySPbtbKoOr5rxUbwWN/Jth1jiIvWESrKad7yhk
-	SrvpXT3l+MzQi13dkGpIH2aCoAcy3opvxrxlzHMxnjV9dKC/0gMOT7QNAtwNHbi+r2K4SdxDTnapt
-	dP0w+cPg==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1wzPl3-000000004jv-27gS;
-	Wed, 26 Aug 2026 23:22:25 -0300
-Message-ID: <3b76251fb75c681910acb36fea7075db@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steve French
- <stfrench@microsoft.com>, David Howells <dhowells@redhat.com>,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Tom
- Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] smb: client: transport: Fix debug printing in
- __release_mid()
-In-Reply-To: <20260825083043.4037868-1-andriy.shevchenko@linux.intel.com>
-References: <20260825083043.4037868-1-andriy.shevchenko@linux.intel.com>
-Date: Wed, 26 Aug 2026 23:22:25 -0300
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bX6sAUtH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=VddDkYSW5n+ZYdHhj9idPFFuTMZ7oydpcPx/fvm3eLk=;
+	b=bX6sAUtH+FD74qX1Op6nNshNVH+UwE18euGhPIKNQonon5eiUQdsVYp/7x4JCP
+	SRbtSXHy9TlWRfO4jXpYZmEVE8oYldsKHe3tZKAkrItsz3xvVKIgpPnAWaZRk/OS
+	bx98/pJDUD13AEtlRhKJtT99QjeWpoPYoe/y/pOaEwJJg=
+Received: from [10.42.0.64] (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wA30YVHn49qSa4nRw--.63972S2;
+	Thu, 27 Aug 2026 10:22:00 +0800 (CST)
+Message-ID: <de355170-d57d-4247-93ba-521080ca30eb@163.com>
+Date: Thu, 27 Aug 2026 10:21:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 6/6] exfat: take s_lock in read mode for iomap
+ mapping paths
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20260821100531.998196-1-chizhiling@163.com>
+ <20260821100531.998196-7-chizhiling@163.com>
+ <CAKYAXd_MxctBGgP6_daddk1q9Dwr0ZMAQchXqvEZME_Yo6xSuA@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd_MxctBGgP6_daddk1q9Dwr0ZMAQchXqvEZME_Yo6xSuA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wA30YVHn49qSa4nRw--.63972S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WrW5CrWkGFW7ZFyxWr4DArb_yoW8GF4Up3
+	90gayUKayaq348urWkJFnYgF1Fyw4aqr47JryxKr95Zas0vF1kKa47ua4a9wn3Jwn2kr40
+	qFWFkr15W3ZrGwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U7EfOUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3Ah4FmqPn0hpTAAA3t
 
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> writes:
+On 8/27/26 9:08 AM, Namjae Jeon wrote:
+>> @@ -68,7 +68,7 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>>          num_clusters = exfat_bytes_to_cluster_round_up(sbi,
+>>                          offset + length) - exfat_bytes_to_cluster(sbi, offset);
+>>
+>> -       down_write(&sbi->s_lock);
+>> +       down_read(&sbi->s_lock);
+> If may_alloc is true, Should we use down_write() ?
 
-> Long time ago during upgrading printk():s to the respective pr_<level>()
-> calls one misconversion happened and nobody has noticed that. So,
-> previously printk(KERN_DEBUG) + printk() worked as one long debug print
-> since the trailing '\n' is only present in the followup printk() format
-> string. The culprit change missed that and split the message to two on
-> the different levels. Restore the original behaviour to make users be
-> less confused in the most likely never happen cases of partially getting
-> that message.
-> ...
+IMO, there is no need for down_write(); the block mapping of an inode is 
+protected by the inode lock, not s_lock. see exfat_fallocate(), where we 
+don't hold s_lock.
 
-Applied.
+If may_alloc is true, we need to allocate clusters and append them to 
+the file's FAT chain. The allocation is protected by bitmap_lock, while 
+the FAT chain is protected by the inode lock, since we hold the inode 
+write lock in exfat_file_write_iter(), exfat_fallocate() and 
+exfat_truncate(), there is no race when modifying the FAT chain.
+
+Besides, I'm trying to remove s_lock in the next version and am 
+considering adding a per-inode lock to exfat_inode_info, since the inode 
+lock has a relatively large scope.
+
+Thanks,
+
+> 
+>>          iomap->bdev = inode->i_sb->s_bdev;
+>>          iomap->offset = offset;
+>>
+>> @@ -135,7 +135,7 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>>
+>>          iomap->flags |= IOMAP_F_MERGED;
+>>   out:
+>> -       up_write(&sbi->s_lock);
+>> +       up_read(&sbi->s_lock);
+>>          return err;
+>>   }
+
