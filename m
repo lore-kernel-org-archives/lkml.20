@@ -1,274 +1,180 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECD921A434
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1D723E324
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834374; cv=none; b=A3CuBfE3A0LnVM25T9x4yNxI0G2WyL+fw1KgD8PkfJsPxJBm012h7d8zwzvuxk/w5Q6im8ASP7weK3GXBcw19XD186vLOoa1Bxo6N4W9PiIGLTrviPlda0/FCCY7NcdEu4x7riHeyBDSwcujOw7NB+3zj4bv55SryLu1BMOa1PM=
+	t=1787834411; cv=none; b=NLGJZmP+yUVrjPHRzPXu055/ThViO49Ttu9LE6dChuyw3JY3dUzZDgIC2GNgwf1tZ9ykFrS0SZVR3OsHtyDsYGCcrKfvN4UqzXrVHeXdQIbvgSInFHU7t2wFxFUkyK2OFr+JR4VfdVI7S9SXD+6/gNVIsm4w5zBS0yCuWzzpuJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834374; c=relaxed/simple;
-	bh=CO2kOUM7TRdFECxqr1r/jfAIjFWfUBLeC303UsBtMew=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=allVJFiJYosX+JuUO1i/ndaZklyO/o6AbVSAbQwXteVZiJml7oWkbbnJdBLJMqq/Wdy24VdRwnFr7GS/ZnmmdZbGn09Uh3h0sNVtBK/C6RkcuVUwskh7VEYcef0wv3hPz4Hv2iV8Gcw2UapHpIRB0X6FMI2IYFOI1rtPOAHTD+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAXHz3kL5Bq4ERiBg--.38527S2;
-	Thu, 27 Aug 2026 20:39:03 +0800 (CST)
-From: Jiakai Xu <xujiakai2025@iscas.ac.cn>
-To: xujiakai2025@iscas.ac.cn
-Cc: alex@ghiti.fr,
-	aou@eecs.berkeley.edu,
-	dev.mbstr@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	qirui.001@bytedance.com,
-	samuel.holland@sifive.com,
-	zhangchunyan@iscas.ac.cn
-Subject: Re: [PATCH v5] riscv: stacktrace: fix stack-out-of-bounds in walk_stackframe()
-Date: Thu, 27 Aug 2026 20:38:48 +0800
-Message-Id: <20260827123849.816-1-xujiakai2025@iscas.ac.cn>
-X-Mailer: git-send-email 2.35.1.windows.2
-In-Reply-To: <20260705063656.237676-1-xujiakai2025@iscas.ac.cn>
-References: <20260705063656.237676-1-xujiakai2025@iscas.ac.cn>
+	s=arc-20240116; t=1787834411; c=relaxed/simple;
+	bh=DhfxAz7/8PH1H8xb58KTOK9hBAen2mqjwlQZdSBXKrc=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=ugcJ1s2tD3QH8BBOQ4P1jF83dqeo2fuzNzWU7fFSfMCKh4+6rXTIIdxjkpb0fHtWf6yFEfYerG1HSATQ2fqHG9ff/e3hcVIW9FoH/MMlXuWC2Fc4NyQ4anfIaMEZwgC92TiKkICgsPBVrLiDDv7zAdfiplUcHVU2XZm9MAiOW9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h6z5bwh7; arc=none smtp.client-ip=95.215.58.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h6z5bwh7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DhfxAz7/8PH1H8xb58KTOK9hBAen2mqjwlQZdSBXKrc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787834406; v=1; x=1788439206;
+ b=h6z5bwh7bTzdLm4772bnu4+LP2nq2iOAr6g+AQ2nfgr08WEJhRhkFMM1BeUn5IOnrXeGsAOm
+ a00tFbo2XPTYeHj0f8+s8VEviwITRQHuXmJblL9akeJuS34rYQVhNvj1ZaBn6n1OYS/oAE5S0Xy
+ gG4Zr/UZnLfu1kpTu5nJq92g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 50b022db7692f65a;
+	Thu, 27 Aug 2026 12:40:06 +0000
+X-Mizu-Trace-ID: 50b022db7692f65a
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Thu, 27 Aug 2026 12:40:06 +0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:rQCowAAXHz3kL5Bq4ERiBg--.38527S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKF13Aw4Uuw1DZryDGFyxGrg_yoW3uw48pF
-	Z8CFnrArZrKryIva4avrn7WFy5Jrs5W345KFW7Jw15Aa1rtFyrZr909as0qr1UAry0qa40
-	qF12yws3Can0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWxJVW8Jr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUC1v3UUUUU=
-X-CM-SenderInfo: 50xmxthndljiysv6x2xfdvhtffof0/1tbiCRMMCWqP79DjiwAAst
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <d036078f31cd8f0fdf0b9185ce8cadef803cc375@linux.dev>
+TLS-Required: No
+Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
+ 78a38cbf6f20
+To: "Sunho Park" <shpark061104@gmail.com>, rcu@vger.kernel.org
+Cc: paulmck@kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+In-Reply-To: <698a4d8b6c559f9049ee6fa6b0bc99d45a3d7e44@linux.dev>
+References: <20260824105625.3725157-1-shpark061104@gmail.com>
+ <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
+ <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
+ <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
+ <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+ <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+ <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
+ <e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev>
+ <698a4d8b6c559f9049ee6fa6b0bc99d45a3d7e44@linux.dev>
 
-gentle ping ?=0D
-=0D
-> The fp_is_valid() function uses ALIGN(sp, THREAD_SIZE) as the upper=0D
-> bound for the frame pointer check. This bound is calculated relative=0D
-> to the current sp and shifts upward when sp itself exceeds the valid=0D
-> stack region, allowing the unwinder to read past the end of the=0D
-> allocated task stack and triggering KASAN stack-out-of-bounds.=0D
-> =0D
-> Fix this by using absolute stack boundaries determined once before=0D
-> the unwind loop:=0D
-> =0D
-> - When sp is on the task stack, use the task's pt_regs as the upper=0D
->   bound.=0D
-> - When sp is on the overflow_stack (CONFIG_VMAP_STACK=3Dy), use the=0D
->   overflow_stack's top as the boundary.=0D
-> - When sp is on the IRQ stack (CONFIG_IRQ_STACKS=3Dy), use the IRQ=0D
->   stack's top as the boundary.=0D
-> - When sp is not on any known stack, warn and return.=0D
-> - For remote tasks (task !=3D current), if sp is not on the task=0D
->   stack, warn and return since we cannot reliably determine the=0D
->   correct boundary from a different CPU's stacks.=0D
-> =0D
-> Make the DECLARE_PER_CPU(overflow_stack) unconditional in=0D
-> asm/stacktrace.h so that stacktrace.c can use=0D
-> IS_ENABLED(CONFIG_VMAP_STACK) instead of #ifdef, in line with the=0D
-> kernel coding style which discourages the use of #ifdef in .c files=0D
-> (https://docs.kernel.org/process/coding-style.html).  This is safe=0D
-> because the DEFINE_PER_CPU (memory allocation) in traps.c remains=0D
-> guarded by CONFIG_VMAP_STACK; the reference in stacktrace.c is only=0D
-> compiled when IS_ENABLED(CONFIG_VMAP_STACK) evaluates to true.=0D
-> =0D
-> Fixes: a2a4d4a6a0bf ("riscv: stacktrace: fixed walk_stackframe()")=0D
-> Signed-off-by: Jiakai Xu <xujiakai2025@iscas.ac.cn>=0D
-> Assisted-by: YuanSheng:DeepSeek-V3.2=0D
-> ---=0D
-> V4 -> V5:=0D
-> - Made DECLARE_PER_CPU(overflow_stack) unconditional in=0D
->   asm/stacktrace.h so that stacktrace.c can use IS_ENABLED()=0D
->   instead of #ifdef, as suggested by Nam Cao.=0D
-> - Converted #ifdef CONFIG_VMAP_STACK to else if=0D
->   (IS_ENABLED(CONFIG_VMAP_STACK)) in walk_stackframe() and folded=0D
->   the overflow_stack and IRQ stack checks into a single if-else=0D
->   chain, eliminating the !high sentinel variable.=0D
-> Link: https://lore.kernel.org/linux-riscv/20260630090535.4103888-1-xujiak=
-ai2025@iscas.ac.cn/T/#u=0D
-> =0D
-> V3 -> V4:=0D
-> - Switched to #include <asm/irq_stack.h> instead of hand-written=0D
->   DECLARE_PER_CPU, as suggested by Nam Cao.  This also fixes a=0D
->   build failure when CONFIG_IRQ_STACKS=3Dn since the header=0D
->   unconditionally declares irq_stack_ptr.=0D
-> - Added dedicated overflow_stack handling (CONFIG_VMAP_STACK)=0D
->   with the correct 4 KiB boundary. v3 fell through to the 32 KiB=0D
->   IRQ stack bound when unwinding from the overflow_stack,=0D
->   triggering KASAN OOB reads past the small overflow_stack=0D
->   allocation. Reported by Sashiko AI review and reproduced by Xiao Wu.=0D
-> - Changed the fallback else branch to warn and return instead of=0D
->   silently falling back to task_pt_regs(), as suggested by Nam Cao.=0D
-> - For remote tasks (task !=3D current), bail out with a warning when=0D
->   sp is not on the task stack, since we cannot reliably use the=0D
->   local CPU's IRQ/overflow stacks as the boundary.=0D
-> Link: https://lore.kernel.org/linux-riscv/20260625123906.211981-1-xujiaka=
-i2025@iscas.ac.cn/T/#u=0D
-> =0D
-> V2 -> V3:=0D
-> - Handled the case where sp is on the IRQ stack (CONFIG_IRQ_STACKS),=0D
->   as suggested by Nam Cao: when sp is not within the task stack=0D
->   range, use the IRQ stack's top (irq_stack_ptr + IRQ_STACK_SIZE)=0D
->   as the upper bound instead of task_pt_regs(), which would point=0D
->   to the wrong stack. The check uses the sp variable directly rather=0D
->   than on_thread_stack(), because on_thread_stack() reads the=0D
->   current CPU register sp which may differ from the unwinder's sp=0D
->   when regs is provided.=0D
-> - Used IS_ENABLED(CONFIG_IRQ_STACKS) to guard the IRQ stack check,=0D
->   and cast irq_stack_ptr to unsigned long for byte-level arithmetic.=0D
-> Link: https://lore.kernel.org/linux-riscv/20260517143704.659416-1-xujiaka=
-i2025@iscas.ac.cn/T/#u=0D
-> =0D
-> V1 -> V2:=0D
-> - Moved the NULL task check from fp_is_valid() into walk_stackframe(),=0D
->   as suggested by Matthew Bystrin.=0D
-> - Changed the upper bound from task_stack_page(task) + THREAD_SIZE to=0D
->   task_pt_regs(task) for a tighter boundary, as suggested by Matthew=0D
->   Bystrin.=0D
-> Link: https://lore.kernel.org/linux-riscv/20260514100711.838895-1-xujiaka=
-i2025@iscas.ac.cn/t/#u=0D
-> ---=0D
->  arch/riscv/include/asm/stacktrace.h |  8 +++++--=0D
->  arch/riscv/kernel/stacktrace.c      | 37 ++++++++++++++++++++++++-----=0D
->  2 files changed, 37 insertions(+), 8 deletions(-)=0D
-> =0D
-> diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm=
-/stacktrace.h=0D
-> index b1495a7e06ce..2d13c35a8c05 100644=0D
-> --- a/arch/riscv/include/asm/stacktrace.h=0D
-> +++ b/arch/riscv/include/asm/stacktrace.h=0D
-> @@ -22,8 +22,12 @@ static inline bool on_thread_stack(void)=0D
->  }=0D
->  =0D
->  =0D
-> -#ifdef CONFIG_VMAP_STACK=0D
-> +/*=0D
-> + * Declare unconditionally so that arch/riscv/kernel/stacktrace.c can us=
-e=0D
-> + * IS_ENABLED(CONFIG_VMAP_STACK) rather than #ifdef, in line with the ke=
-rnel=0D
-> + * coding style. The DEFINE_PER_CPU (memory allocation) remains guarded =
-by=0D
-> + * CONFIG_VMAP_STACK in traps.c.=0D
-> + */=0D
->  DECLARE_PER_CPU(unsigned long [OVERFLOW_STACK_SIZE/sizeof(long)], overfl=
-ow_stack);=0D
-> -#endif /* CONFIG_VMAP_STACK */=0D
->  =0D
->  #endif /* _ASM_RISCV_STACKTRACE_H */=0D
-> diff --git a/arch/riscv/kernel/stacktrace.c b/arch/riscv/kernel/stacktrac=
-e.c=0D
-> index c7555447149b..7a66c7ee2c81 100644=0D
-> --- a/arch/riscv/kernel/stacktrace.c=0D
-> +++ b/arch/riscv/kernel/stacktrace.c=0D
-> @@ -12,6 +12,7 @@=0D
->  #include <linux/stacktrace.h>=0D
->  #include <linux/ftrace.h>=0D
->  =0D
-> +#include <asm/irq_stack.h>=0D
->  #include <asm/stacktrace.h>=0D
->  =0D
->  #ifdef CONFIG_FRAME_POINTER=0D
-> @@ -35,12 +36,12 @@=0D
->  extern asmlinkage void handle_exception(void);=0D
->  extern unsigned long ret_from_exception_end;=0D
->  =0D
-> -static inline int fp_is_valid(unsigned long fp, unsigned long sp)=0D
-> +static inline int fp_is_valid(unsigned long fp, unsigned long sp,=0D
-> +			       unsigned long high)=0D
->  {=0D
-> -	unsigned long low, high;=0D
-> +	unsigned long low;=0D
->  =0D
->  	low =3D sp + sizeof(struct stackframe);=0D
-> -	high =3D ALIGN(sp, THREAD_SIZE);=0D
->  =0D
->  	return !(fp < low || fp > high || fp & 0x07);=0D
->  }=0D
-> @@ -48,7 +49,7 @@ static inline int fp_is_valid(unsigned long fp, unsigne=
-d long sp)=0D
->  void notrace walk_stackframe(struct task_struct *task, struct pt_regs *r=
-egs,=0D
->  			     bool (*fn)(void *, unsigned long), void *arg)=0D
->  {=0D
-> -	unsigned long fp, sp, pc;=0D
-> +	unsigned long fp, sp, pc, high =3D 0;=0D
->  	int graph_idx =3D 0;=0D
->  	int level =3D 0;=0D
->  =0D
-> @@ -68,19 +69,43 @@ void notrace walk_stackframe(struct task_struct *task=
-, struct pt_regs *regs,=0D
->  		pc =3D task->thread.ra;=0D
->  	}=0D
->  =0D
-> +	if (!task)=0D
-> +		task =3D current;=0D
-> +=0D
-> +	if (sp >=3D (unsigned long)task_stack_page(task) &&=0D
-> +	    sp < (unsigned long)task_stack_page(task) + THREAD_SIZE) {=0D
-> +		high =3D (unsigned long)task_pt_regs(task);=0D
-> +	} else if (task !=3D current) {=0D
-> +		pr_warn("%s: sp (%lx) is not in task stack of %s\n",=0D
-> +			__func__, sp, task->comm);=0D
-> +		return;=0D
-> +	} else if (IS_ENABLED(CONFIG_VMAP_STACK) &&=0D
-> +		   sp >=3D (unsigned long)this_cpu_ptr(overflow_stack) &&=0D
-> +		   sp < (unsigned long)this_cpu_ptr(overflow_stack) + OVERFLOW_STACK_S=
-IZE) {=0D
-> +		high =3D (unsigned long)this_cpu_ptr(overflow_stack) + OVERFLOW_STACK_=
-SIZE;=0D
-> +	} else if (IS_ENABLED(CONFIG_IRQ_STACKS) &&=0D
-> +		   sp >=3D (unsigned long)this_cpu_read(irq_stack_ptr) &&=0D
-> +		   sp < (unsigned long)this_cpu_read(irq_stack_ptr) + IRQ_STACK_SIZE) =
-{=0D
-> +		high =3D (unsigned long)this_cpu_read(irq_stack_ptr) + IRQ_STACK_SIZE;=
-=0D
-> +	} else {=0D
-> +		pr_warn("%s: sp (%lx) is not on any known stack\n",=0D
-> +			__func__, sp);=0D
-> +		return;=0D
-> +	}=0D
-> +=0D
->  	for (;;) {=0D
->  		struct stackframe *frame;=0D
->  =0D
->  		if (unlikely(!__kernel_text_address(pc) || (level++ >=3D 0 && !fn(arg,=
- pc))))=0D
->  			break;=0D
->  =0D
-> -		if (unlikely(!fp_is_valid(fp, sp)))=0D
-> +		if (unlikely(!fp_is_valid(fp, sp, high)))=0D
->  			break;=0D
->  =0D
->  		/* Unwind stack frame */=0D
->  		frame =3D (struct stackframe *)fp - 1;=0D
->  		sp =3D fp;=0D
-> -		if (regs && (regs->epc =3D=3D pc) && fp_is_valid(frame->ra, sp)) {=0D
-> +		if (regs && (regs->epc =3D=3D pc) && fp_is_valid(frame->ra, sp, high))=
- {=0D
->  			/* We hit function where ra is not saved on the stack */=0D
->  			fp =3D frame->ra;=0D
->  			pc =3D regs->ra;=0D
-> -- =0D
-> 2.34.1=
+>=20
+>=20>=20
+>=20> On 8/27/26 08:53, Zqiang wrote:
+> >=20=20
+>=20>=20=20
+>=20>  Based on your description below, the 5.srcu_barrier() did not inte=
+rcept the callback of 4.call_srcu(),
+> >  this means that 4.call_srcu() and 5.srcu_barrier() concurrent calls,=
+ or calls after 5.srcu_barrier().
+> >  The combination of srcu_barrier() and cleanup_srcu_struct() typicall=
+y occurs on the module exit path.
+> >  srcu_barrier() ensures that all previously inserted callbacks comple=
+te=EF=BC=8Cso therefore, theoretically,
+> >  there shouldn't be any callbacks left to execute after we finish exe=
+cuting srcu_barrier().
+> >  and of course, there are also shouldn't be any ongoing or newly star=
+ted SRCU grace period and the
+> >  WARN_ON() in cleanup_srcu_struct() is designed to detect it.
+> >  If when the cleanup_srcu_struct() detects an incomplete SRCU grace p=
+eriod or any srcu callbacks
+> >  that have not yet been executed, this is a risk that needs to be rep=
+orted, even if the
+> >  cleanup_srcu_struct() can intercept it internally.
+> >  > Therefore, we should investigate this issue to ensure that 5.srcu_=
+barrier() can intercept the step 4 callback.
+> >  Thanks
+> >  Zqiang
+> >=20=20
+>=20>  Before 5. srcu_barrier() call, the 4. call_srcu() is finished and =
+the callback was enqueued, and srcu_barrier() did intercept it by appendi=
+ng barrier cb after it. They can't be called concurrently because when ca=
+ll_srcu() is called inside kvm_io_bus_register_dev(), the kvm reference c=
+ount is nonzero and kvm_destroy_vm() which calls srcu_barrier() could not=
+ be started.
+> >=20=20
+>=20>  Which tree is your test based on? (rcu tree or linux-next tree)
+> >=20=20
+>=20>  The step 4 call_srcu() is finished and then the step5 call srcu_ba=
+rrier(), it failed to intercept it?
+> >  (theoretically, this shouldn't happen)
+> >=20
+>=20Sorry, here I missed.
+>=20
+>=20>=20
+>=20> In my debugging, all five __free_bus() callbacks enqueued by kvm_io=
+_bus_register_dev() were invoked before the barrier cb, and only then the=
+ barrier cb is called and srcu_barrier() returns. So all the real callbac=
+ks were executed and practically there were no callbacks left to execute =
+when srcu_barrier() returns, but a stale n_cbs > 0 is left because srcu_i=
+nvoke_callbacks()'s invoking loop has not finished.
+> >=20=20
+>=20>  KVM logic correctly called srcu_barrier() and cleanup_srcu_struct(=
+) without calling call_srcu() in between. In my opinion, the root causes =
+are as follows:
+> >=20=20
+>=20>  1) for timer_delete_sync(): the srcu_gp_end() which ended the last=
+ grace period (from 4. ) arms sdp->delay_work to expire at jiffies + 1 ev=
+en though the invoke work (queued in 3. ) is already queued, and cleanup_=
+srcu_struct() runs before that one-jiffy timer expires, so timer_delete_s=
+ync() cancels that pending timer and returns true.
+> >=20
+>=20The step5 srcu_barrier() has been intercept the srcu callback which b=
+y step4 call_srcu() insert,
+> so at here, the srcu_barrier should not be return, and the step4 srcu c=
+allback should not be run.
+> the cleanup_srcu_struct() also should not be called.
+>=20
+>=20Thanks
+> Zqiang
+>=20
+>=20>=20
+>=20> 2) for n_cbs: srcu_invoke_callbacks() calls rcu_segcblist_add_len(-=
+len) only at the end of the work item, after the barrier callback has bee=
+n invoked and srcu_barrier() has already returned, so cleanup_srcu_struct=
+() observes a stale n_cbs > 0 while the cblist is physically empty.
 
+
+
+Now, I am trying to rephrase your problem in the following way:
+
+1- the step1 call_srcu() trigger SRCU grace period has been end and queue=
+ sdp->work.
+2- the step4 queue srcu callback has been intercepted by step5 srcu_barri=
+er()
+   and start a new SRCU grace period.
+3- this new SRCU grace period end, and invoke rcu_seq_end(&sup->srcu_gp_s=
+eq), queue a timer.
+4- the sdp->work begin run, and call srcu_segcblist_advance() with curren=
+t sup->srcu_gp_seq.
+   so the step4's srcu callback and step5's barrier calback both to be ru=
+n.
+   all callback finished, but the len not yet update.
+5- the srcu_barrier() return, begin call srcu_clean_up(), and then the sr=
+cu_clean_up
+   find the a timer is still pending and the cb_len also not be zero, tri=
+gger WARN_ON()
+
+right?
+
+Thanks
+Zqiang
+=20=20=20
+
+
+
+
+
+>=20>=20=20
+>=20>  because you say the 5.srcu_barrier() can not intercept setp4 call_=
+srcu() enqueue callback func,=20
+>=20>  that means that the step4 srcu callback shuold not be run, the cbl=
+ist also not empty.
+> >=20=20
+>=20>  Thanks
+> >  Zqiang=20
+>=20>=20=20
+>=20>=20=20
+>=20>  Thanks
+> >  Sunho Park
+> >
+>
