@@ -1,98 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A2937187C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF47F1397
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871413; cv=none; b=exwc1zzkew0wdqcy1bxL+lIKrfAcDbntXkyuAKoIg6vQuAIeTMY+grefqTzS8FCUz/oxU+bzyYhglj/AsC42/c8/7gZOmQV318dXPI6YTb+DuI06zgCiQGFcziSmg1/+Ou7vo5aTQKPUe/pDBGpHVd/VMfc7wSo+SOCLbzX4D+I=
+	t=1787871438; cv=none; b=uJR6G+vkNi0reKI2cspJUF8AtbNNvUMhIbEl2BPsq9ytPYjvDyz7Nsv9f7iR7zTQjZLbxlLcCMSfa2325xCk6dKvcywhfadNhvdcrOEhU8nt9GWYU7nwV2eYgQ0oYiF4qH9Ry2CSKZYTZuyPqwKKyLlI/l1dKSxHvbNqLtN1C3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871413; c=relaxed/simple;
-	bh=+DsFvs2gwRAYrmYQAIAj7itcrQcQux4DQAEjvjsolgw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bqWYZP70KWOPU8Trz93a4cTY+mHOySSfivJeyaaxxsfbXmLjg6RwvqTPslcmPyWOrvu04LRuYCZaXkqn0jejQy8wV+NBbjwgC+a0GtCPbClgYdZTSv7ypQy6VPaGjetkGNc4czPIwhdSuhDPUfVDEVzSRPMqZlb60vfy8BzTjIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogz5yE/8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787871438; c=relaxed/simple;
+	bh=PrYnc1NVIONTNqZ6gF7P1SFs9erfmuZJsF0BLbbLBFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kdNauhrTQ+IgrD8HoSk06ddxo0/1Dulb+pGWIykr+cw1C5GOgZKtOwSGQhdWORBSfF/jAPOcq206+QdPfh+SoBEBnTbjBYoYgjRxS196LlBWhbIYQNM44DnYYfSTnR/l2ZUsabYb3SbunOShXUfurKzEowDJIqr2qwmTt+JXGLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=nQEL8PMI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=w4/FZdrz; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogz5yE/8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FFBB1F000E9;
-	Thu, 27 Aug 2026 22:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787871411;
-	bh=9eameWyDFPGm2IGfMjVLZrh83mYxw9Nw2llG859msx0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ogz5yE/8+SLQ6dvqcENWpUNfOmKdqVH8wtN/Fg2pgJH0Tn1HraMx7JOHURN5ED+8S
-	 Lg5xeC6DLmwpyS9eSg23w2eL5ZMrk/OYUeGIgoE6LRMADs9N/AFbi0vq8yMotXaF+7
-	 I7RBpDPbKaAwptoxXJ7wNnmKHK+TGzeIwb314tT0Mcms6CfmigU6NNxQkMPdb1c9hc
-	 YKVDgrfxKkUwUyHFmPudKDBmEDNCQP+qztkHvxJ8IZzdMX2lprK5XC8Bj2PyBEyC72
-	 qtYNararJVBS1gCsWXu1m5KWvsMMJVbFni+E36MgNm433V85g2QiL8ZhSiYrOkEfPR
-	 b0BZ3TGTtwyRQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker
- <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
- brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] signal: Use list_del_init_careful() in flush_sigqueue()
-In-Reply-To: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
-References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
- <aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
- <aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
- <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
- <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
- <ao8_NUo0ACPAA4QB@redhat.com>
- <87ecfki6l5.fsf@email.froward.int.ebiederm.org> <87se3zgb3m.ffs@fw13>
- <87mru7h09e.fsf@email.froward.int.ebiederm.org>
-Date: Fri, 28 Aug 2026 00:56:49 +0200
-Message-ID: <87tsofdvf2.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="nQEL8PMI";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="w4/FZdrz"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1787871427; bh=TZTH3k1EIdDPbqjZFjizcEv
+	kOl02obDXXhHiLQsGXcI=; b=nQEL8PMIJTrQA1AW8DzrrUz+xBAvQdVHftPACDCY2W41dEHT+V
+	EXJETha3BvIWEFu5GNZJJEYzDEnlePoxOerxlw+ZapaLQHnSTPq+9NcBMFJpYIGC0fHRf83zYA+
+	G9FmvORqkO9H4uGCiK/qlL2HTMQJrgmTpIAK7zIj2FsmGMrXXuwD20oRGH28p3tTXOMR97xkdS6
+	R1t0vGWiHn6HWOqdXZAf8o5DoqZoBm9NAi+xJxV5VJBpgYt9jo+1+jYEEbQ1+uig3Tw5E8+QN0+
+	u+cN93H4e51xJe8EuNfQ1zxEbKQo3gLPpAn1tv0l8hZUudZxQdA7+HGsREwvbZ1EUsA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1787871427; bh=TZTH3k1EIdDPbqjZFjizcEv
+	kOl02obDXXhHiLQsGXcI=; b=w4/FZdrzSVJmYbUod2WEtI9dNTXUysnLcDJW51YShogkRKtJYB
+	6UAYvXN+n3bkCGBdQb4wPppyHccZqQ/ZBCBQ==;
+From: Bradley Morgan <include@grrlz.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH 1/2] reboot: log the task that initiated the reboot
+Date: Thu, 27 Aug 2026 22:57:07 +0000
+Message-ID: <20260827225708.6831-1-include@grrlz.net>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27 2026 at 13:43, Eric W. Biederman wrote:
-> Thomas Gleixner <tglx@kernel.org> writes:
->> The safe and obvious place is to do that is _after_ setting
->> task::sighand to NULL because that ensures that no new signal can be
->> queued and nothing can touch task::pending anymore.
->
-> Not really.  Using release_task (which is what is called when a zombie
-> is reaped) for anything except cleaning up state that a zombie needs is
-> a bit of a misfeature.  Timers should not be active in a zombie.
-> Signals also should be deactivated long before then.
+From: Bradley Morgan <brads@mainlining.org>
 
-I agree.
+When a machine reboots or powers off, the kernel log records what
+happened but not who asked for it. The reboot syscall throws the
+caller identity away, and userspace does not reliably record it either:
+systemd only journals shutdowns that go through logind, anything calling
+reboot(2) directly (watchdog daemons, container agents, orchestration
+tooling) leaves no record at all, and the journal is being torn down
+while the machine goes away, so even the lines that should be written
+can be lost. The kernel is the only place that always sees the caller,
+and a kernel log line survives via pstore or a serial console when
+userspace logs do not.
 
->
-> The obvious place to clean up task::pending i.e. signals is in
-> exit_signals().
->
-> I expect if I read through the history again that I would find that
-> exit_signals() used to call flush_sigqueue, and that during the addition
-> of posix thread signal handling flush_sigqueue was moved into
-> __exit_signal in release_task because knowing if the entire thread group
-> is dead was not available during that part of 2.5.
->
-> We should honor PF_EXITING on a task and simply stop delivering
-> signals to it.  Today the code goes halfway there and does not
-> set sig-pending after PF_EXITING is set.
+Log the comm and pid of the calling task in the reboot syscall, once
+the requested command is committed and can no longer fail, e.g:
 
-If flushing tsk::pending in exit_signals() is safe and stopping signals
-to be queued when PF_EXITING is observed under sighand lock, then sure
-that's the right thing to do. I'll look into that tomorrow.
+  reboot: initiated by systemd-shutdow[1]
+  reboot: Restarting system
 
-> There is the goofy case that we need to be able to deliver signals
-> to the entire process through a zombie thread (in particular a zombie
-> thread group leader).  That goofy case unfortunately means that except
-> for signals to just the thread we have to deliver signals when
-> PF_EXITING is set.  That goofy case also unfortunately means that
-> sighand_struct needs to be retained past the point where signals
-> are delivered.
+The existing "Restarting system", "System halted" and "Power down"
+lines are left untouched, so anything parsing dmesg today keeps working.
+The two ctrl alt del toggle commands are excluded so init setting the
+mode does not add a line to dmesg on every boot.
 
-There's a lot of goofy stuff in this code :)
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ include/linux/reboot.h |  1 +
+ kernel/reboot.c        | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-Thanks
+diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+index aa08c3bbbf59..3fb8d8533563 100644
+--- a/include/linux/reboot.h
++++ b/include/linux/reboot.h
+@@ -172,6 +172,7 @@ extern void kernel_restart(char *cmd);
+ extern void kernel_halt(void);
+ extern void kernel_power_off(void);
+ extern bool kernel_can_power_off(void);
++void reboot_log_initiator(void);
+ 
+ void ctrl_alt_del(void);
+ 
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index f070c5c1103a..42517e0b621b 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -717,6 +717,19 @@ EXPORT_SYMBOL_GPL(kernel_power_off);
+ 
+ DEFINE_MUTEX(system_transition_mutex);
+ 
++/*
++ * Log the task that asked for the transition once the requested
++ * command is committed and can no longer fail, e.g:
++ *
++ *   reboot: initiated by systemd-shutdow[1]
++ *   reboot: Restarting system
++ */
++void reboot_log_initiator(void)
++{
++	pr_emerg("initiated by %s[%d]\n", current->comm, task_pid_nr(current));
++}
++EXPORT_SYMBOL_GPL(reboot_log_initiator);
++
+ /*
+  * Reboot system call: for obvious reasons only root may call it,
+  * and even root needs to set up some magic numbers in the registers
+@@ -764,6 +777,7 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+ 	mutex_lock(&system_transition_mutex);
+ 	switch (cmd) {
+ 	case LINUX_REBOOT_CMD_RESTART:
++		reboot_log_initiator();
+ 		kernel_restart(NULL);
+ 		break;
+ 
+@@ -776,10 +790,12 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+ 		break;
+ 
+ 	case LINUX_REBOOT_CMD_HALT:
++		reboot_log_initiator();
+ 		kernel_halt();
+ 		do_exit(0);
+ 
+ 	case LINUX_REBOOT_CMD_POWER_OFF:
++		reboot_log_initiator();
+ 		kernel_power_off();
+ 		do_exit(0);
+ 		break;
+@@ -792,6 +808,7 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+ 		}
+ 		buffer[sizeof(buffer) - 1] = '\0';
+ 
++		reboot_log_initiator();
+ 		kernel_restart(buffer);
+ 		break;
+ 
+-- 
+2.47.3
 
-        tglx
