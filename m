@@ -1,188 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4213EEACB;
-	Thu, 27 Aug 2026 22:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8C837F006;
+	Thu, 27 Aug 2026 22:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787870899; cv=none; b=HRkneAFou5qEzWCWf5vYAC5VvzwJTaZHB2jt5mfnUtyuGne73iOK37aFA6J3/ddBkHvreSImpfc7hP9cwht/nmrCTNdmO4PstlhSFhALpaPzhKqot0Yrk/UjYpd885LIXJOa07EQAWxpYb90dA+Z4/H0Hp+N7dbRTtCgSVzDb3g=
+	t=1787870981; cv=none; b=mQPRs/1mLYYK7lLCznypWHkKJ2Q3Tm7x+4TrPGaUYYhoSasX0VaqmUeiqoiAkGS20zPnxUUCbJ7YBLum2FUpfJI+fQlPCpTvaegxLjIAogH994cvvopLjaD713hJwPuE05N/a2ZrCkxXCXdtQZE2Sl3YqkVlvjOUTUMLEUCXkQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787870899; c=relaxed/simple;
-	bh=e2hkXbHMQWstYz+VEcQqgKu52pILBTL7z3hYG3gwxJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PD/jRQhjeXB2pSYkufzCyAVap1k+RL89WtdvPwdPCw8CkPFIXIe9VZ1TQx9s78I1JAUmfIZtxtHVfW5NqQ79tlEEke+9AkLH6P4STw7Hfzc52LdppGkSa9P1/XoBznjijVEcDxrA3WNCgQuC2C6N+TQMGvUu14cvZf5dOBYLY1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N2jPmW+/; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787870981; c=relaxed/simple;
+	bh=AsAJimASckofigolyEI58UqX0qWhCl6ynCHTgiBJiZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aKKe7wO6PQhUGrgDXhCCi8leFZuNtJgWTehEtUqOqucR0AQdUK2cXap61QEyvp3x4ZKd96nAxvLAoqmuirgjt2xbkCl1qoiWEJ2wA/yChiHZpIJrNVNBaEHxqaJFRabCwHctGk9LaFZeBY3u7SEGXBMdbozJBfDUPy9hOD81DTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7owyRTY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N2jPmW+/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787870898; x=1819406898;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=e2hkXbHMQWstYz+VEcQqgKu52pILBTL7z3hYG3gwxJ0=;
-  b=N2jPmW+/9nocPolyI43askee+DcoH26HMAPmfIlTFtUK+3FHY5zWT9p8
-   nYLGpqCCkTg5+rcSAfhL9SPa6c0fDE13RhKIat7CeuRHEqbEMGHr0N3wB
-   OFHRqncMz144FxNoORfGHiia1LivrXhT7+2wWPDlO2tb/dZ/aLFKfCAEC
-   3H8XoBTBrMfwg6PR2Da4DyEVbpqMSPEojVvIxdZfMK4sTzQ6LLuRLtP4W
-   NhlLTATpuHjXCIX6WxARG0V8ld/QynJbODaNo6STK/c4ZNyMO/n/JHggR
-   QTRUq7H785QNHxK8SNn092tNPwSN+B7OTM5Cpd3p6G6Y6b0R0vbToZ7Db
-   g==;
-X-CSE-ConnectionGUID: Shg44gYXRH2c/atyMGUUyA==
-X-CSE-MsgGUID: BX3kUau2T5ax+o/WwkhqMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="113914906"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="113914906"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:48:10 -0700
-X-CSE-ConnectionGUID: bOiApUoRTRGi6Fi+BWyoXA==
-X-CSE-MsgGUID: BJ2pF+qoQP2zWGC3g5bVYA==
-X-ExtLoop1: 1
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:48:10 -0700
-From: Zide Chen <zide.chen@intel.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org,
-	Andi Kleen <ak@linux.intel.com>,
-	Jim Mattson <jmattson@google.com>,
-	Stephane Eranian <eranian@google.com>,
-	linux-kernel@vger.kernel.org,
-	Mingwei Zhang <mizhang@google.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Das Sandipan <Sandipan.Das@amd.com>,
-	Shukla Manali <Manali.Shukla@amd.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v2 16/16] KVM: selftests: Support fixed counters bitmap in pmu_counters_test
-Date: Thu, 27 Aug 2026 15:37:55 -0700
-Message-ID: <20260827223755.143247-17-zide.chen@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827223755.143247-1-zide.chen@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7owyRTY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08251F000E9;
+	Thu, 27 Aug 2026 22:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787870979;
+	bh=68syJxZkjpSLZN3n1r5s9zsJAZnVmmg6kz4DLqjyf/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O7owyRTYg/3Ns9qDNGKlo4sy57A+oQ40gBWUwI+dXh1iTNmReTjVuNOWn5C/KQDcL
+	 uUePHTDmOY1ZaKlRGsEcTu65xIcQux8oJ7RlKQfG+YF3ohizk+ZvPO9qpKZYmAgfm/
+	 rhXOCKKyU00QJdNjfcUArs1T4+Gw0L2H5sEW86bPA93ybUPQC0RO0xJTHK1r2KOlun
+	 kQtoh8cIBoRyEd/P1EhdrltF9pz4rgh/yq1v23teYyUlnHs8xBfD4YEdCiZx8M/DnP
+	 CQzVXEbLYTumFuITITX8XZGGpIImr9N8IhwojJkLDrnojUTYdhWoSDMmYFCcUQMtjp
+	 PP2YbEfUqHLFw==
+Date: Thu, 27 Aug 2026 15:49:37 -0700
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Miroslav Benes <mbenes@suse.cz>
+Cc: Shihao Ren <rsh15355756202@163.com>, pmladek@suse.com, 
+	jikos@kernel.org, joe.lawrence@redhat.com, live-patching@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] livepatch/klp-build: Fix wrong index in error cleanup
+ loop
+Message-ID: <apC-XG-jCLJHvcil@jpoimboe>
+References: <20260701060655.2343093-1-rsh15355756202@163.com>
+ <akYnGv_tDPouw8nM@pathway.suse.cz>
+ <alpine.LSU.2.21.2608241541220.17149@pobox.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <alpine.LSU.2.21.2608241541220.17149@pobox.suse.cz>
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+On Mon, Aug 24, 2026 at 03:42:46PM +0200, Miroslav Benes wrote:
+> On Thu, 2 Jul 2026, Petr Mladek wrote:
+> 
+> > On Wed 2026-07-01 14:06:55, Shihao Ren wrote:
+> > > In the funcs allocation failure path, the cleanup loop iterates with
+> > > 'j' but frees objs[i].funcs, which uses the outer loop index 'i'
+> > > instead of the loop variable 'j'. As a result the just-failed (NULL)
+> > > entry is freed repeatedly, while the funcs buffers already allocated
+> > > for objs[0..i-1] are leaked.
+> > > 
+> > > Use objs[j].funcs so the previously allocated entries are correctly
+> > > released.
+> > > 
+> > > Fixes: 59adee07b568 ("livepatch/klp-build: Add stub init code for livepatch modules")
+> > > Signed-off-by: Shihao Ren <rsh15355756202@163.com>
+> > 
+> > Great catch!
+> > 
+> > Reviewed-by: Petr Mladek <pmladek@suse.com>
+> > 
+> > I assume that Josh would take this together with other klp-build
+> > related changes.
+> 
+> I do not see it merged yet. Josh, could you take it, please?
 
-On PerfMon v5, CPUID.0AH:ECX represents the fixed counter bitmask,
-while EDX[4:0] indicates the number of contiguous fixed counters
-starting from 0:
+Sorry, I missed seeing this one, but I do have an identical patch
+already queued:
 
-FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i).
+  https://lore.kernel.org/aocdq0hr_iQTimG0@jpoimboe
 
-Fix test_fixed_counters() to derive supported fixed counters using the
-above formula instead of relying solely on EDX[4:0]. This allows the
-test to cover non-contiguous fixed counter configurations.
-
-Update this_pmu_has() to take the PMU version into consideration.
-Without this fix, it could return incorrect results in test cases such
-as test_arch_events(), which configure a PMU version different from
-the one originally advertised by KVM without explicitly updating
-CPUID.0AH.{ECX,EDX} to match the new PMU version.
-
-For example, after downgrading a guest from PMU v5 to PMU v2,
-this_pmu_has() would still consult CPUID.0AH.ECX while KVM ignores it,
-resulting in a mismatch in the reported fixed counter capabilities.
-
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Co-developed-by: Zide Chen <zide.chen@intel.com>
-Signed-off-by: Zide Chen <zide.chen@intel.com>
----
-v2:
-- Fix this_pmu_has() to honor the guest's configured PMU version.
-- Update the pmu_vm_create_with_vcpus() calls after rebasing.
----
- .../selftests/kvm/include/x86/processor.h     |  6 ++++-
- .../selftests/kvm/x86/pmu_counters_test.c     | 26 ++++++++++++++-----
- 2 files changed, 25 insertions(+), 7 deletions(-)
-
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 6e6f70035508..c983dbfd9d70 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -827,6 +827,7 @@ static __always_inline bool this_cpu_has_p(struct kvm_x86_cpu_property property)
- 
- static inline bool this_pmu_has(struct kvm_x86_pmu_feature feature)
- {
-+	u8 pmu_version;
- 	u32 nr_bits;
- 
- 	if (feature.f.reg == KVM_CPUID_EBX) {
-@@ -836,7 +837,10 @@ static inline bool this_pmu_has(struct kvm_x86_pmu_feature feature)
- 
- 	GUEST_ASSERT(feature.f.reg == KVM_CPUID_ECX);
- 	nr_bits = this_cpu_property(X86_PROPERTY_PMU_NR_FIXED_COUNTERS);
--	return nr_bits > feature.f.bit || this_cpu_has(feature.f);
-+	pmu_version = this_cpu_property(X86_PROPERTY_PMU_VERSION);
-+
-+	return (pmu_version < 5) ? nr_bits > feature.f.bit :
-+	       nr_bits > feature.f.bit || this_cpu_has(feature.f);
- }
- 
- static __always_inline u64 this_cpu_supported_xcr0(void)
-diff --git a/tools/testing/selftests/kvm/x86/pmu_counters_test.c b/tools/testing/selftests/kvm/x86/pmu_counters_test.c
-index c3e784e16348..21bd8ec90c98 100644
---- a/tools/testing/selftests/kvm/x86/pmu_counters_test.c
-+++ b/tools/testing/selftests/kvm/x86/pmu_counters_test.c
-@@ -3,6 +3,7 @@
-  * Copyright (C) 2023, Tencent, Inc.
-  */
- #include <x86intrin.h>
-+#include <linux/bitmap.h>
- 
- #include "pmu.h"
- #include "processor.h"
-@@ -631,23 +632,36 @@ static void __test_fixed_counters(struct kvm_vcpu *vcpu, u8 nr_fixed_counters,
- static void test_fixed_counters(u8 pmu_version, u64 perf_capabilities)
- {
- 	u8 nr_fixed_counters = kvm_cpu_property(X86_PROPERTY_PMU_NR_FIXED_COUNTERS);
-+	unsigned long fixed_subset;
- 	struct kvm_vcpu **vcpus;
- 	struct kvm_vm *vm;
-+	u32 fixed_bitmap;
- 	int i = 0;
--	u32 k;
--	u8 j;
- 
- 	pr_info("Testing %u fixed counters, PMU version %u, perf_caps = %lx\n",
- 		nr_fixed_counters, pmu_version, perf_capabilities);
- 
-+	fixed_bitmap = BIT_ULL(nr_fixed_counters) - 1;
-+	if (pmu_version >= 5)
-+		fixed_bitmap |= kvm_cpu_property(X86_PROPERTY_PMU_FIXED_COUNTERS_BITMASK);
- 
--	vm = pmu_vm_create_with_vcpus((nr_fixed_counters + 1) * BIT(nr_fixed_counters),
-+	vm = pmu_vm_create_with_vcpus((1 << __builtin_popcount(fixed_bitmap)),
- 				      guest_test_fixed_counters,
- 				      pmu_version, perf_capabilities, &vcpus);
- 
--	for (j = 0; j <= nr_fixed_counters; j++) {
--		for (k = 0; k <= (BIT(nr_fixed_counters) - 1); k++)
--			__test_fixed_counters(vcpus[i++], j, k);
-+	for (fixed_subset = 0; fixed_subset <= fixed_bitmap; fixed_subset++) {
-+		u32 nr_contiguous;
-+
-+		/*
-+		 * The loop walks all values from 0 to fixed_bitmap, so skip any
-+		 * value that is not a subset of fixed_bitmap.
-+		 */
-+		if (fixed_subset & ~fixed_bitmap)
-+			continue;
-+
-+		nr_contiguous = find_first_zero_bit(&fixed_subset,
-+						    MAX_NR_FIXED_COUNTERS);
-+		__test_fixed_counters(vcpus[i++], nr_contiguous, fixed_subset);
- 	}
- 
- 	pmu_vm_free(vm, vcpus);
 -- 
-2.55.0
-
+Josh
