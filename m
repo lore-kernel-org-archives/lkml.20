@@ -1,82 +1,82 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1558E480359
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F663F9277
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850797; cv=pass; b=M2rdzAs7ur2ZA6ikF9fJAHcgY+5s9P+e6LFPvhuYwwKO/laKZeC85Pthmy7BY5JITjv3TiBCAePa60GCq4P3Ip0dtlra7x5Om9TqBLXf26U+YcqCbof49ZzWtdO+H1Ri1a0s70/rQGAOAP/nJMidCggSJw+mITMpifromiBrn+M=
+	t=1787850851; cv=pass; b=gl8ZZF/0XlO45qFN8UarClUG8WY8WvrJQtOFXl5Z16YSfT+Cb5AZTH5Kie/o9qY1sOu7E9jZ4sWfeR6ih3BBG8nqu9B5Zy/AFEqbBtNH8E8vn1Ey9c5oT68/lwJcqzo6vupXVMAHpYpx+kM9N1gX3Yqr6cj0PZXEWHSzscUW1Mw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850797; c=relaxed/simple;
-	bh=EpR5Q83iRmWye568at78lGG2SWU2ayd19Zyyk8Mh6Rk=;
+	s=arc-20240116; t=1787850851; c=relaxed/simple;
+	bh=1LT+JvYSs1lq3nLoYNxkH2Zq+dzk0k0gfXz25027rwg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=st0AJkgi3yWi51LtzDmx3kWHmUAMSc7y9lnk0CWwggp9Y00e67r/zl7lRBr/CDkMbfDNFAv7x1rTug7j0IyKSY6LxhTiq0w4U6W7C0zjeNq4XGrsVMdnUd9EZwMIhBhTR06SjV7+oQ+gnObkkXfruNjKnr1aJDg0wj9MNnr/trA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q2tXPl5/; arc=pass smtp.client-ip=209.85.167.41
+	 To:Cc:Content-Type; b=pcwJ6ertCjIdkqo9q5WTKdNDSvvp6kc9Mg0BQAJPjdq1WEtncNJMJlVmzlttOXQ6LE9IH5gK84DUnHRYUZLyrtOTMcz5Vd6P00Ggc3PYW1JduplQSRWNOvp8XczXLdEdt1vApuufzlnkx2M11V4vxarvoIfBtP847KMKYK02Tvw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERbHUQHm; arc=pass smtp.client-ip=209.85.167.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q2tXPl5/"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b01cb18515so22248e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:13:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787850793; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERbHUQHm"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b4ab4b4179so46917e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:14:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787850847; cv=none;
         d=google.com; s=arc-20260327;
-        b=NiTbIZ0oCukKLBynRfmand0lc9zodQtJFsbiimwcO/Y6W8O/Jts2I5Mzr4eSlI9GgW
-         OvPRJMpZfbSMpQjfTHGv4Ta1rNve187Pl4R35YnnyekwzMnGx3hauNCni5UPYSmU9mkD
-         lWI3ZZcj92zAy8OXDAHeHj5F9/lmmeVMwDhHLuAQKokRnTIYrWdLAACs0XQPhUxLGGHc
-         GJ4/rfaJVMpZE99FSTJZUtXDMr+PuqgFslzViXuOUceQcOFS6zUT1GO/Zb7fvBg/VNgM
-         ZdSHtAikXG/AqjVeCI77cMpjfJsgpFcgSVhL+etF6g5AlEoywBZtFqtc2pgPeBkpPHiU
-         iwgQ==
+        b=irezkICyWRXDFkaee7UXi5rT2cxNwl2BpnDYRfA/oWCf3i4csMBLxe4Pn3syzHkgeE
+         KivnO7JOfTjDo1NlznPn5dIzfOIG0XN1CxOV46w7pZrKVgj6LVgTnGOqH1INqUUC5LJp
+         +HXcA/qtnZ49C54MZ3wBQY5ZcDr4BDrWQNtOcoCmdEwLJYRqeIkNg+2LMlqnnHVxCl0E
+         uWis7fIYtq5Jiu8IpdOWI51wddl4VfmQMf9rcpF7JH28AoRiFoY6A7jDkKTC82eUBnPp
+         A60E1BT0Mr/EH73msUKBuXhY+MSmJZxmC+mvNBuBTbZG6Q5aaF9X7J0UOxrCz3sTZnnt
+         uJUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Wf/0FmsZk0+qq/+HptXdZY2dytK1f1cTpIPCJB0BFmE=;
-        fh=PC1lO4Yg2vhtNnePC6ALC7uwWejQWq+emtG+tmbA7Jk=;
-        b=KmqY9m4fC/WF1GMCwOlgxCeqyExqqhQ11K11ejk3zW2hxbvcOakY3v6oUfhn+1EtJ+
-         K0kdOzzLZpe5m7eH/7fB1qMr+QqOCc0anaBT32IJDwVUBRg4Y1lwRP9/h2rdPDiiRiPj
-         bGTT6UoGXKXyugWjFdyF9hCplZU6HqUOhuhkJR463u+Ve/DmemcF/fhgp9zzy4jpYXGx
-         sRn36NcE1UI3Rw9v0atCwAGmfXbbsGcWrExywzywPnvMf5t7ZTUYrMg1FXKDNy3dWO6W
-         mI6IApjPp1G4AN7SzA0YtOF7IYuFzXSgSIfauNP/ewLOl4ldI4MnS8UnhT0oBFB9srTf
-         qSZg==;
+        bh=qtZt7y9mHNUiUw5uw0uJAAgnVkdR4TjXIiqjQ67aekE=;
+        fh=+jHY5NC6AUEbe6vykTd8pHq/nQ3+YKE1XWmtGHETryI=;
+        b=qVioxM2JCT8Hj0MCxJJcbF9+2MOC+mJQB2t4Co5W/RL45BTS3k8rB2UVhCSTINYzF/
+         Hf6jDGBlCqEcJgv2rr9m8Koe+KSJtajI+RegOmTPQ1eFdYcKDbVvFxShDJ4V9HmsiwpR
+         gRziCSDhATtPVbTjRoPAFBjYOFCqy5k9JZYLfJhMqFaa6NTnSzHsWRKxerC1NHRWWdMc
+         wKcEfXwB9vWehrV+tCghTGllDFy/FDoS1qWFBsFD7DnWuOrqZw276sbwMGJ95EPQ4AV4
+         G3clfmYIGEm3M7US54oXo7yB+HkouSR6D+VYHLA8rHSjHjmFQ78w6Szwtucz7qnkq+cr
+         i8xg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787850793; x=1788455593; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787850847; x=1788455647; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Wf/0FmsZk0+qq/+HptXdZY2dytK1f1cTpIPCJB0BFmE=;
-        b=Q2tXPl5/UGtbig0BWWAmRXZ7YnjoK2McBWJ5W3Ek9VxzZXtawlss1aMZKlG+BsTDmT
-         oJjz4n+x3d2klweYhb/WpiLN7e89TDKofqKneUAkhqpRj1R8LoFWb+YKhv7LMKptaGxb
-         o+gxmU5yCKXQSPK29RMsiC2EjzkaJvl4Hl9Uy8mEPb2FEfpYQ9uwMfF5gQtptUk/a/Ae
-         PEEWSfkdxn2zfaEZUTthJ0nW+Ab67QFEQx/9nTcND48x5b3TArB5Dw/RxQwzN5EPRoBw
-         gEIh1ssRxHvZixLCwkctjncxbwxIYY2AeiSzfKIJGyyTnijWgH8AVRY85XSm8AVG3fNR
-         lnlA==
+        bh=qtZt7y9mHNUiUw5uw0uJAAgnVkdR4TjXIiqjQ67aekE=;
+        b=ERbHUQHmyoMZDfsJ1awsj2psz80PlX54GV18hj0AK6ijqIR+cu+WiolgKLMkDkf5Qz
+         mlYRQ0CJhPqAFVNJJRUnvZBZfrbk9dk/byE7m+J4zY+pwqXCdz/Q4ufd4dv8K5yzoylB
+         6pv810U6mZVUwawuQ7p0J6g7FRa34HPQJyNOlh+rdEDOU05a6Slod/n94PgFm2OsGAB7
+         m3Nm9pdO3Rw1OrTu/l4pCmndt1ibaaB0B2jCA5YDQZvq72cIQpmOkv73XPlI8tK7Jzfu
+         GlfsFxBzM/H5ckuX7zKvM7e3fF/HsFrmClmZPNPWlTalj4uDbS/NgIt47qS0dJ6JbGEE
+         jpqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787850793; x=1788455593;
+        d=1e100.net; s=20251104; t=1787850847; x=1788455647;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wf/0FmsZk0+qq/+HptXdZY2dytK1f1cTpIPCJB0BFmE=;
-        b=V0if8x/KxEANfKx3Kq59PfQtnVoM1B9s6qAs9lNkM5H3/J9OzD8FhQprb3Fo3HAgat
-         LCxGnrq9zmXoxQju7/u5nQIBzigmtjfQMZtkmZGPmuWIBki6uVzLg5dsYQIlSwFtPRiW
-         +wSGtgMmk23v8xVsJPBhFTW5V4fIZZwxNfnbpKIosv0mGenuHYzbodc0C7ywnvWf1LiS
-         smgW9slLh9QMh0SKq57Or9UAg0MLglaxsVfPD+ifipe0N5zfEgr3CBAxS+H9k/VltWt5
-         mCdOIxnMK4mxkWjl7x1w1OkxmxN+ewMHu9heWU9KbqcqBBVQ9V3gvJ0R5Xkq3XUpnuSs
-         tiLg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1T+I4jWKQD0fv6jkbvGhB1sDcoEV3HRTdNsO67WDELIno26SSL/Zn0RnlMFpfyNQRpF15PN830hs1glU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbA+1WKngGH6olO9w1zl3kYnkgaxzjd80jnd4P7xKFa+PvC0/7
-	627IhLZ5oh32PsA8o9DXFcCvfzy3MRRGQgfTkaZg08L5eIS1I7sicavR7ZARGR3+D5bBPKVqVk3
-	6wO4ZhlfNd7S0hyqZ1HJ4RDa2l2JKCKTY19of
-X-Gm-Gg: AR+sD1367vcmlTMVEp1iCAC3u8iUpKyuYfPz+KqHCtnYIiBSK//gvXGUhEvRNHV51Ds
-	ru6hQUKLEMdzNjdowathmHleBFycJ8V241HJlIIWcuU7hjsWFroCjNphiAGRb6DmPtu8+7yT/oj
-	TVDqZxEwTpZ6Xlx7ZVDfvZ67Y1jICnNUobG7T08D9wo1Rsh5hZs/8jAEGBZ81zEiLS02uVFtJSf
-	LtGGEV/3PARjvMT+Z8UFP5ZguyszS4QOEaUhSeTSF/7WSonLHo+V1H2UYRguY60od3Lpz1aCtHr
-	PGIAtUkqJuIcT6mk+0Hzy+fAGlOB4BGBQthHoV7p/pSKb9DvRH6YqHkCXKODy5VAQvc1h1pYeHn
-	yi1g6OXZUnZ/dGmex/1rDz4aiwqH8kUo=
-X-Received: by 2002:a05:6512:2586:b0:5b4:4c28:2249 with SMTP id
- 2adb3069b0e04-5b5e6b05172mr20193e87.24.1787850792413; Thu, 27 Aug 2026
- 10:13:12 -0700 (PDT)
+        bh=qtZt7y9mHNUiUw5uw0uJAAgnVkdR4TjXIiqjQ67aekE=;
+        b=IzIlovHej8Pnh0QrP+Dd8sb8v2beq/jX/SWApZ5fuXWZHUkuqUzOQ9G+v3vfeZw7ta
+         1KHMP7fLRti4NKi2ZzPi71tE06cv5Lie5tEQD9AwNagDBzbKhqQy7yT/+0l5bv7dgubC
+         7AL1RUz/5/tnaD1Z0gLC/UIu2LE+f9qstbVqe4yXk7J0oIaWVfcYvpGgHjLZSFCg7G6B
+         BbfHA1MZFVWtcF2+iaAZYAYu7buS4MD+LRXnx0rvxW1pLydBXxjGguByy1f6E3TtIWFC
+         Lb4SYRlvJUggwDkZmWDEMG3G3ONr09hO+njkIFj8t85wL8gwPOQRMX4b6I3sbaAuKOwp
+         FWrw==
+X-Forwarded-Encrypted: i=1; AHgh+RohBbMbj9N0oIk0QSc5Hrdmp08Gn6vOJ8VC9NAnRmV5PRFh5AmgeSQhydrg5DY0/A9IeqlqmScR5iazrzI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHrjTKHdioj4US0j+Q53GBJ1hatNGoUzHX9thVhdcDS4kS+sJC
+	dRtW3pupsYqVW2xDm/DNCnFKDpODtqTC4Dc5pjWCI67/w5EkUJKRJPiBNUEJgVOPMn8zdpreGuv
+	4nVnhUsE5iBdiJNTZJh9jfVJ8+zuni5I=
+X-Gm-Gg: AR+sD12pC1r1navUt6j5rfoDKJUpvlDTq/dOTOkF3eagy/fur+1aYmy+dkMmaO+jWmT
+	gEBS+h7uuUazqt2RwvnFqIL4k2Nr6RLzGZHKI/M9sOBZCTzgxwZMg1dllxZgIl61szuDtA8+xmk
+	fakacolx7cLLo+7EAi2WKcoh+N+L8QGrZ25bZBf/Qfk4hDhNhQWGjGRHyxFfdL9UCLwMlK2AS9B
+	Z+KlSL9RbGeAEzi9WC9JEZaac7h0/nmuXU6LFkqqUYwxzT1yz+IXnUSAqxxPbfTAOeuRuOx9gF7
+	vLTno9W4hSBIO8RW0coEn2tamll6ASs33I2I2WiHMwr5Ef/RxyT2aUCyPas/Gn0PbyORoTsCMdC
+	oDsUJOOaJaK34u8AAVJJL/O1sPpXioNs=
+X-Received: by 2002:a05:6512:1590:b0:5b5:e2d1:b7b8 with SMTP id
+ 2adb3069b0e04-5b5e68c8c83mr39741e87.11.1787850847149; Thu, 27 Aug 2026
+ 10:14:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,12 +84,12 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260825130126.2078627-1-chao@kernel.org> <20260825130126.2078627-10-chao@kernel.org>
- <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com> <2109b8de-bd1c-447a-b78d-cd0cd9f2e451@kernel.org>
-In-Reply-To: <2109b8de-bd1c-447a-b78d-cd0cd9f2e451@kernel.org>
+ <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com> <18859958-147c-4703-9070-d79601ab6831@kernel.org>
+In-Reply-To: <18859958-147c-4703-9070-d79601ab6831@kernel.org>
 From: Daeho Jeong <daeho43@gmail.com>
-Date: Thu, 27 Aug 2026 10:12:59 -0700
-X-Gm-Features: AcwNN1XKRaxqGBtJCncQmAxdr3cU3aMABc_ILdG1H5WKtM1TzGLPiPfjFQWerW0
-Message-ID: <CACOAw_yAJb50FeL5+R4isU+-KULeKqDuuuDaUOd69svj2s7SPQ@mail.gmail.com>
+Date: Thu, 27 Aug 2026 10:13:54 -0700
+X-Gm-Features: AcwNN1UgNX7ttrBByBi5XXOkIBNmsJ8SOJ_yiZiPX9xJRFVAWpWnC1tBsYJxHP0
+Message-ID: <CACOAw_zqTtvyka-1Tczaoq3x8N8WgUuEz=OikPhqs4B1DoaJTQ@mail.gmail.com>
 Subject: Re: [f2fs-dev] [PATCH v3 09/12] f2fs: cache: use compress cache
 To: Chao Yu <chao@kernel.org>
 Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
@@ -97,7 +97,7 @@ Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 7:22=E2=80=AFPM Chao Yu <chao@kernel.org> wrote:
+On Wed, Aug 26, 2026 at 8:08=E2=80=AFPM Chao Yu <chao@kernel.org> wrote:
 >
 > On 8/27/26 04:04, Daeho Jeong wrote:
 > > On Tue, Aug 25, 2026 at 6:03=E2=80=AFAM Chao Yu via Linux-f2fs-devel
@@ -140,11 +140,6 @@ ached_block *entry,
 > >>                                         bool drop_dirty)
 > >
 > > -> __f2fs_truncate_cache() without locking?
->
-> Actually, I'v relocated the lock into callers of f2fs_truncate_cache(),
-> in order to support check entry->ino, entry->cache w/ the lock in
-> f2fs_invalidate_compress_pages(), please take a look.
->
 > >
 > >>  {
 > >> -       f2fs_lock_cache(entry);
@@ -328,27 +323,9 @@ no)
 > > indexed by physical block address (blkaddr) and hold immutable disk
 > > data, the cached blocks remain valid even after the inode is
 > > closed/evicted.
->
-> So you mean like extent cache policy, right? cache still keep valid befor=
-e
-> unlink/umount.
->
 > >    We should evaluate whether we actually need to synchronously purge
 > > clean compress cache entries upon inode eviction, or if we can simply
 > > let the memory shrinker reclaim them via LRU under memory pressure.
->
-> I think your idea is good, also I'm good to improve compress cache, actua=
-lly,
-> in this patch I just want to do minimum replacement in between folio and =
-internal
-> cache, what do you think of improving it w/ a separated patch a bit later=
-?
-
-Makes sense. We can add it to the TO-DO list.
-
-Thanks,
-
->
 > >
 > >>  {
 > >> -       struct address_space *mapping =3D COMPRESS_MAPPING(sbi);
@@ -366,7 +343,14 @@ Thanks,
 > >
 > > Why did you remove this line?
 >
-> Because compress_inode's mapping is not existing?
+> Oh, I see your point, we need to check cache->num_entries here.
+
+That's right.
+
+Thanks,
+
+>
+> Thanks,
 >
 > >
 > >> +       if (!test_opt(sbi, COMPRESS_CACHE))
@@ -426,11 +410,6 @@ index,
 > >
 > > How is this possible?
 > > or if (!entry->cache)?
->
-> Looks like a impossible case, let me chaneg it to a f2fs_bug_on().
->
-> Thanks,
->
 > >
 > > Thanks,
 > >
