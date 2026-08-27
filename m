@@ -1,88 +1,98 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2D730C179
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD26641DDEC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787839348; cv=none; b=aKGynil5P6shk0ecDXFIM9+kzn6vs5TGjwlaambyF/YsstV9AdUZZpUhgvAizL4yyk20vSiZZuWO6MXwqeFC8RF6p7qe/aOaqSz0RrInRbYxknAk5JYDQySwHOY8W7fqs+AlCy3J9hGtMIgv+k4Z9jpcdSKp147jE1X5GelotOQ=
+	t=1787839405; cv=none; b=YEXjMoIoMb8mONPs5clDGCITSmJYwYKRTo37JqX2+xLvx+31J8QzF1a87m+HMaPIzlj+aoBCVUI8f9fnyPxVl8/GlHsCHiTgSx4cv+NDnIlgRMGu8o0/lBwK5e3uH0ROnJtmlMHDT62Ie9/lsPYU1F1yYvtKa/Z16/g5g2ZH05M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787839348; c=relaxed/simple;
-	bh=svxFq16jhgUwujetnMHf4NGpGV3nz/ISyT60/BUazac=;
+	s=arc-20240116; t=1787839405; c=relaxed/simple;
+	bh=GxgWL05/rarsl7qmMHY1BfRfDlahGl4tISwa4ALF/BI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NvES9d5Zzofd0hSJ+eJdHL25kH865ZV8PZwFm3vRW1dZPMmku07z+tTG/iCIzVYXPdyv9Ro7qXr+OlXw5rVSq9xEV+FDZCL/Ucy1N0YY9WXEMlCzKtxl/gjmePuB3r3Lkb6O0wo3KiU/r3nUsYm8uUo8ltgTqqkgMXoANpxyjTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aUJ6aqgd; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WdfZlT8LPZ3tO9VnOCb5g6IBCDTbQAMjhForjY9iHJKTg2r1yjhV2aR294JoIz37uVfGZDYGjYxT65cz1jDcQQtWn/dXWI963ukxTWoShxpm7rU2QOp+oQQl+OE6B4Gq60onvSFL0qX6gV+3PEk9UbA6UwJ5S47oDojh51+ymDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fr8zB410; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aUJ6aqgd"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so2991007a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:02:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fr8zB410"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso993271f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:03:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787839344; x=1788444144; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1787839395; x=1788444195; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eDQwLy7w6jGmaKdMCoLcam164nOHb3RGtOUt5TvcQcg=;
-        b=aUJ6aqgdc7lB0MYT97zhFm3BKF4VbtAUUU+rIIKwxCq5DLh0YDVTxydMjSS98jsuz0
-         igirDowxj076/mH1COYePoY1V9FOv/WRBYZzKhBL0q9uprhWrdk64lHN2wBlJHEYFJtu
-         i9Pz/9Qn8rWil2mCwxv8yfFBsPmFU4njR6d7QKzkue2zZ0OHTveI4Vr6eFcMmvWDOd6J
-         2gxaf7A0wg5vHnX/zUxkVbtGlpob0Omfv8nuKdyLfCZtbyqff2413FvB/Nwb2pd0Ijbs
-         ZSohLWE//HNMvVy018tgKtob6dL9zUzRgmhaO38WMaSBZTFxOTGAkXarbvEjBwAJyh03
-         zoUw==
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ALN+Th3VygsiiqX2bmJC+etz4YolkrPm7RtMfzNo3Zc=;
+        b=fr8zB410KWJECu7jlCjEEPe3kLGxHn0v63QkGXDA3NcRKF0/Y9cA71CUoKKJ6QwqQJ
+         wAPacttxGsWkRYubH4Xs0HuwuHR51/L5mmdgu0MT5gO110BsH/9DU+CG481RRkS9FgdO
+         CjZU+F0poCi8weHK+JqqhcPjmRK3arqhFYt23zIkm9ZKTnyWC8SL9l7JvBWBn86cyxRR
+         n4srMPGCEV9mpR9cf3TXIUNlBcSWH2xdyRyW09LCBGuZu2vmjA15OPBhIBVCFgMHPQhT
+         xR5oVt+Hm3ddtHzPmGCPyp1DzP/Jbgw01q/N3M0jfHA8SDKnQ3K3rbJWF2eL+63UfZKK
+         1fUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787839344; x=1788444144;
+        d=1e100.net; s=20251104; t=1787839395; x=1788444195;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eDQwLy7w6jGmaKdMCoLcam164nOHb3RGtOUt5TvcQcg=;
-        b=NMq6CpNV5n6S5on7Nu2E+RdWVByYGtcfXfDRGCKDgaYVk9pUhypAGFHmS3x5ULJZXp
-         /jUZVvOrjYl0icqmizDDnO+q4+IQ1XvKThCUbbaT4Z5zbH9qc3ZwM0V7pOi+R7wkMwrL
-         qSWy2ohoV3FTjJffFKK1stoiuvg7Qq3XHlpbwhW3MhoD6/qGoZhSfezFodJP2KQVAnvr
-         SWFCYwQNdhjL1xv1JfbGV5s4BoF/iZDqiKh3TAW99zMSp/arxQWIhGrjbf0IGxkSksOB
-         8ZGRMzzsvbhUAjIt8cEBGVVP3hMlsuvAphaGGyxnifbgZV7DrstcLwgU7zFq5zT+y5k/
-         +QAw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7E72Nfsh0XvVOxfIcwx3pAEaJSoRp709lRdwPUIUE8KoWKhc2lk6wr1TzfSpPGc100mvuk/Pl6tcF9TM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNQeMgF8IyJaI1WqrO6nkAz5Z3/xA2Ci62JgOlRx3VkjqyYgkU
-	OY3SjOCVY7QJzFwRmWN3wlgwAkFWEekXBb9Z6vcYQnuWHYm+s8fN4kgm
-X-Gm-Gg: AR+sD11IobpJCmkB9ZXCFfbAc9LQ9qs9DeCiYjxOEq+ZClsfLgdCpxdXVgGH2bpMnvK
-	Eie10CchuY8N514491nQQHEI+7i0MmjKybCTCRYX8TQYljpG6u8YjASB+r1ijGhiA/gtmakRmiG
-	0MgXmCmAM+h2M9Z0niiKi9HqlbAAxpBBZJCdjsQKFay44ZOyPr9V/dERfK62477eY3YpQEG6o86
-	0ZOea/CNZgWGnnpQpDRWc74ZmcF2M+jBcvZw0xtyIjvr9vPVZ7FMCVQasKrv2gZW3mZsFZ8ZUr3
-	+Rppg3EPisa7t7nuJhShyEQkG1my49IviqeowAMj68efWF7HNWd67qwM3rkD/gchLxOvDN8u0KC
-	eOzwl04JO10um6de2n6ROAAYSmcfFmo1tG+Q0q3Cvbd17BA7ox6fsiuCK6lLIqnf+ZJCKySJGcL
-	82vK8vJsfsul6NnRxSpPG8+/F74YKfdY00PXVV8pBRQuV4bnG9qUkOF9QKqUb0mTDkpCbIMbqhH
-	g==
-X-Received: by 2002:a17:90b:4c8d:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-3966d1443a1mr31804030a91.3.1787839344389;
-        Thu, 27 Aug 2026 07:02:24 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396759cab6esm2023470a91.4.2026.08.27.07.02.23
+        bh=ALN+Th3VygsiiqX2bmJC+etz4YolkrPm7RtMfzNo3Zc=;
+        b=N16E4Uq0PHUj6k30PQQ8ex43WHxbdSyqDxmf8brJaXAiKTUuQGLq57D7LEQEO7EagG
+         NJsQyxM5d9nAKh5U7TdQeyag8tJ+hu8/DP2QvYzb2HqQUcEgUoZTD6IUjYLeiaG1Ovm7
+         8pzePEPqfzYvwQbiOTaYFBzLHD8nJ9G2Zaepxe+3LwU3ZFfN7LaG0SqlEqpcVRCxq6rO
+         kqkKsDATc0XERa96OdDD+GZZ3wlIGU8xb1BXfN2/dO37GgbAIelgtMUPUlrhEdj4nJ+b
+         E32upE8L10gEwebkI0y7coXOyXwXvz9zGW1MwUYdjgAwkY1yCwUaifFWM3ryJ1V3oHTC
+         mjbQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqQJk2qfPmEH3dsunwjpNrTNTdNyDIQIqNXRAV0X1Tx83ZMg4qxuKmnh5WyjBdU33Lw9sjzkr+t/701wiU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXEkGW+3PY34wazjXOANdsMWeV25iksUbiPPpPN1g3R6oEaELe
+	yJka8uFLiMF07h2a+dEGWY2xEOQSlhA7fqvMO8TZ/kVCrHZ+2TkT85P6xsjkQN4JHSI=
+X-Gm-Gg: AR+sD113MTli9s7yLTBDIoZwMW0aCpAEJMmWBPX+BvRb41j6mY37x3hic/wh+mZPFAn
+	dKGpvL3zPJFVpvYBQUosDXZhDeFpnWyLCpeWJJYcqDKiQjsHiyhoaqzYqakPkLwOWlTb/VdxrQ9
+	NLf5BHDgZuQ1nY8Xj2yfUs+n+6mGbIXLdvgRfddoVvdCTKinIv5asfzIsoWTcWfYGtOP5tz3nXd
+	njgtp8WbZT9udcUeqYvpYa2kSlkI2+r3cmmmRG5kvyX2/eNcVSgw7YEBeqZLJFsR8LvCpKXTXqe
+	GuhZ9rsqjsSsML2lHU2PJmm8fwCqYmgp4x0EG1ZDo8vm1Lqt8VjhRX9hQ5hadnJbZJ8k2jxnbSv
+	DEdYGtGTIZi8Z4rTsBhuEj8uzEDbmL1fpQZAovCy6M4ukQ1V57MYdbfUugxoOSFwLmND+gXzpGQ
+	/MZl+GlO51y60nX1X1oLPKAQO0ksZ56HBTZ6yOHQRXPmEpf3CT3rl6C5m2y+WfgDljtS3BfmihU
+	Q==
+X-Received: by 2002:a05:600c:4e55:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-499dc723fadmr189406965e9.9.1787839394561;
+        Thu, 27 Aug 2026 07:03:14 -0700 (PDT)
+Received: from localhost (109-81-32-216.rct.o2.cz. [109.81.32.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dbe1dsm9947082f8f.22.2026.08.27.07.03.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:02:23 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 27 Aug 2026 07:02:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v4 4/7] dt-bindings: watchdog: renesas,r9a09g057-wdt: Add
- CPG/MSSR syscon support
-Message-ID: <9c9982cf-6fe9-4904-b75b-c0725db5073a@roeck-us.net>
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260817192540.423994-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        Thu, 27 Aug 2026 07:03:13 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:03:12 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Eric Chanudet <echanude@redhat.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Maxime Ripard <mripard@redhat.com>,
+	Albert Esteve <aesteve@redhat.com>
+Subject: Re: [PATCH 00/11] mm/cma: charge cma allocation to memcg using per
+ area counters
+Message-ID: <apBDoJEq_4UuJAaP@tiehlicka>
+References: <20260821-cma-memcg-regions-v1-0-d21b165b8440@redhat.com>
+ <aowHqqaqK7TeexQH@tiehlicka>
+ <ao2gA_m3BCBu2esy@echanude-thinkpadx1carbongen13.rmtusma.csb>
+ <ao2t6HP-Zt5KDg30@tiehlicka>
+ <ao3UKM5SbxBmxuR0@echanude-thinkpadx1carbongen13.rmtusma.csb>
+ <ao3quaSze8YjPjxZ@tiehlicka>
+ <ao3tFg4JLNlbylTR@echanude-thinkpadx1carbongen13.rmtusma.csb>
+ <ao6eC2SUIGVz3Qct@tiehlicka>
+ <ao8uZ0cNyqaAJuPB@echanude-thinkpadx1carbongen13.rmtusma.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,32 +101,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817192540.423994-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <ao8uZ0cNyqaAJuPB@echanude-thinkpadx1carbongen13.rmtusma.csb>
 
-On Mon, Aug 17, 2026 at 08:25:37PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Wed 26-08-26 16:31:56, Eric Chanudet wrote:
+> On Wed, Aug 26, 2026 at 10:04:27AM +0200, Michal Hocko wrote:
+> > On Tue 25-08-26 16:58:51, Eric Chanudet wrote:
+> > > On Tue, Aug 25, 2026 at 09:19:21PM +0200, Michal Hocko wrote:
+> > > > On Tue 25-08-26 14:33:48, Eric Chanudet wrote:
+> > > > > On Tue, Aug 25, 2026 at 04:59:52PM +0200, Michal Hocko wrote:
+> > > > > [...]
+> > > > > The administrator opts in by mounting cgroupfs with
+> > > > > memory_cma_accounting. At which point the cma allocator will charge CMA
+> > > > > allocations against memcg and manages a per area counter depending on
+> > > > > what area the allocation was made into.
+> > > > 
+> > > > So each CMA area will have its own counter and limits?
+> > > 
+> > > Yes, in order to enforce a limit per CMA area this series add a page
+> > > counter for each area. Areas are fixed and discovered early so the
+> > > counters are added to struct mem_cgroup and initialized when the cgroup
+> > > is created.
+> > > 
+> > > An admin would then use the cgroupfs entries to assign an area limit to
+> > > a given cgroup, something like the following, using the reserved area
+> > > for example:
+> > >   mount -o remount,memory_cma_accounting /sys/fs/cgroup
+> > >   echo +memory > /sys/fs/cgroup/cgroup.subtree_control
+> > >   mkdir /sys/fs/cgroup/mycg
+> > >   echo 16M > /sys/fs/cgroup/mycg/memory.cma.reserved.max
+> > >   echo 64M > /sys/fs/cgroup/mycg/memory.max
+> > 
+> > OK, thanks for the clarification. This confirms my initial suspicion but
+> > it is better to have it clearly articulated. I can see several problems
+> > with this approach. First and formost I do not think dealing with all
+> > cmas this way is manageable. This can become a mess very quickly if we
+> > have one limit per cma and too coarse if there is a single one. I also
+> > have my doubts about space allocation control through a simple limit for
+> > something that is effectively a reserved physical space.
+> > 
+> > I might be proven wrong but unless cma serves objects of a uniform
+> > size then this will simply not work in practice. Hitting ENOSPC without
+> > hitting limits and thus impractical for shared space management.
 > 
-> On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
-> resides within the CPG/MSSR block rather than the WDT address space
-> itself.
-> 
-> Previously, this was handled by including a second register range in the
-> "reg" property. However, this is architecturally incorrect as the CPG/MSSR
-> block consists of two distinct regions (0x80280000 and 0x81280000) that
-> contain registers for multiple peripheral blocks.
-> 
-> Since the CPG/MSSR block is a multi-function block, introduce the
-> "renesas,sysc" phandle-array property to allow the WDT driver to access
-> its control register via this shared regmap.
-> 
-> Mark the use of a second "reg" entry as deprecated in favor of the
-> new phandle-array approach for SoCs that require WDTDCR access.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Isn't that an inherent limit with CMA as it is? If the area gets
+> fragmented, some buffers may no longer be allocated since there is no
+> remaining hole big enough to accommodate them? I do hear that putting
+> arbitrary limits would make this worse, which might breach the threshold
+> at which it becomes a problem.
 
-Applied.
+I wanted to say that a limit for something that is basically a
+reservation problem for shared pool is an ineffective solution.
+Exactly for reasons you are mentioning. You might set limits for parties
+sharing the same pool but that will not ensure they will be able to use
+their promised portion - that makes low,min limits effectively
+impossible. And hard/high limits are only to stop runaways.
 
-Thanks,
-Guenter
+[...]
+
+> > Thanks. Yes this is more clear now. And it resembles hugetlb situation
+> > more than memcg. You simply need a memory pool specific access and usage
+> > control. Dispersing that to a global memcg limit seems rather coarse and 
+> > I would say impractical. So it really calls for a per pool control with
+> > an understanding of how the specific pool really works.
+> 
+> Thank you for the feedback. It looks like this won't work. It also
+> excludes the attempt through double charging dmem[1] as it would have
+> similar issues trying to use memcg.
+> 
+> >From your last sentence, would this rather call for a different
+> controller entirely that would handle CMA semantics?
+
+I would recommend focusing on specific CMA users rather than trying to
+define a sane semantic for all potential CMA users because that might be
+a lot of different things.
+Then I would suggest focusing on the ultimate goal. Do you really want
+to provide any sort of guarantees (a reservation system) for a shared
+pool or merely cap maximum usage.
+Last but not least think about whether the whole sharing of a
+constrained memory area between uncooperative parties really makes sense
+in the first place. Especially when the pool serves objects of different
+sizes and fragmentation becomes a real problem.
+
+> [1] https://lore.kernel.org/all/20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com/
+> [2] https://lore.kernel.org/all/7e4e9662-d876-4493-a0b3-e31640937dd1@kernel.org/
+> 
+> > -- 
+> > Michal Hocko
+> > SUSE Labs
+> > 
+> 
+> -- 
+> Eric Chanudet
+
+-- 
+Michal Hocko
+SUSE Labs
