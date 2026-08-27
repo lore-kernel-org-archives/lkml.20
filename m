@@ -1,69 +1,69 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2707A384CC3
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BFA390219
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803133; cv=none; b=Mc3K35erwOLlDltHJ5OoQaqRy7ayY6wCN32suRY81ObqnjS5M7fszK0CHy6jHrgDmYZS676rRvdaSXtw4w4RqNZNkTJDE8Ttc14lcm5fWkEGA4riywVHH6P84BjbSOFoDal+WIEbKGW2Qw1FMaKYp6/SRwlgXvLi2cMUy1e4qD0=
+	t=1787803137; cv=none; b=m4szEiu6p4xhAuYabOurR2MWn/UJQlW39MXNzswA+pmygk4r/lEVx1ugo5AJfQYeM8vxOkibuPDCoruoyRUOYPB0r6rMeBM8ZixsO8ckzX8fN5SkMFSRdGa0iZ0Tl0dtVuOxHmerM2+sLte71vH3ab0hBTufIGSmdY5YiIsxWP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803133; c=relaxed/simple;
-	bh=BzqgNjOdN0qWM98KhttEMRv4SJhBp4Q8vk+Bnvl2unQ=;
+	s=arc-20240116; t=1787803137; c=relaxed/simple;
+	bh=5rx5ERvKixj7FGUQj37v/bHFSs/DaokMES+BAqJO8D0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LC44IxGisNQY1rUdbpUb5KbDMLjRFpecoHzjlxK0+hk4IeOfg907h04zCSS7U2h1Z4jaPqjkmr0YwX9Qbg1rVXr9Xeb+c40F2XhqK7lQHptQ3AZCyobujcBTcUMmEzViKvcpTk9M7AnwzI+OJ9svmisXk6USFGN8HMxlQ4XdtKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xf5CW7Pl; arc=none smtp.client-ip=209.85.210.41
+	 In-Reply-To:To:Cc; b=Kn3zeDhzBlVrPrKclWezXBOQYdxoA8baLCFCcUJc+Woeai5kuBOQZyvUoAJG+Iu0njxFfaJq0ROLBX0RNldROOOIHpoYGIG6417Dn/krE51mJLsg3eN8sZrSNnZIoVs80WYKQKoLiy7FEQBmzJDiULMtO4WPPKEwjblsolX3GIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BZTPaNqN; arc=none smtp.client-ip=209.85.160.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xf5CW7Pl"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f4dedd67b8so290214a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BZTPaNqN"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-45e6d266921so140827fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787803128; x=1788407928; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787803130; x=1788407930; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XDTVl8cWfdTr0o46le//A8VK9qr8kHkjMhgj3GG9T/8=;
-        b=Xf5CW7PlFI6Ws8j3JYQcE+FC78l4ExlOK+TomvRgwJqcmHBPJo4B8RIrerwtb0ymAc
-         ITZWgI2Xt30ErNw3xVPg1bu7fSDxd0plcaK5Pm5K39pQEPKcRyO8ix0nOKkCLtsU2WYa
-         Hb13OOrnUGW44pO+ogGRkAky3yTJTm3TMmqAwsQ6vIY7QLN7oY9RBJrcYqTpLiUFuS2Q
-         ZFEEJ14LuEnyjHlPtoHKV/+fZfB42aopGwU6lmCbtcHOTmJV9KQFtFT13GRRAzlr8tcu
-         MF+XljN8zQm0Uf2zXWbM3ylXny+UX38sjNtRZivQz+OWzMkhr794BxkWmVDlxnoLFCxY
-         H+lg==
+        bh=gcJXoO2PZbvQNti1IoEfyjxaC4/aOEYoKd3T652pnHU=;
+        b=BZTPaNqN3UZfv6HK7BgxTF2i9YM4J8iPlf2rVfnH9kLtO2jFGamMOYkSdBaeFFQ6jV
+         BrR3HRqzKGAUGUsta5GlwnlEO3iroVlKBOPYhOGKoJaoArVT+A51Y40jSq/uoYoQo58n
+         y/7DiAGYeagcujx72Tut8mDv0+7fEQ8pYS07rr7dWcMfvDuW+nDcWjOpA/cPTSxkhdsB
+         ejQYjIV4BONfpYCsqRdZ3l0NLvLf9zr07VeEY1IZYbQTVCMIppMmygMp3XWDYxq+Jw0k
+         x+fUADtmFgN+WfvznkCDfo5KfXjCNbJ82AmGcfdVDNfNNW0QsvfFiEaJykTa5/+oer95
+         fqJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787803128; x=1788407928;
+        d=1e100.net; s=20251104; t=1787803130; x=1788407930;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XDTVl8cWfdTr0o46le//A8VK9qr8kHkjMhgj3GG9T/8=;
-        b=buJcf6VjFzcVs+1C3qFjwDF4c2x6HpvjkPZS+tpfknLX4i8f5dspCz4j/4Crkg3iAa
-         vY0wsWjet22QBW7F30AyJACB/aay+VDWNNvHL/gbuP3DnBhsLVJi/ENJ6GLv3yyQjnKx
-         f/p/m4lXeWf3pKo0naiQDWAvBU9iP6imv3WffkuJiVKAjQ9QFEKJZjKRJoGCvOVC3S7x
-         Fs9Mlbqk2wSGe3cPPsHVD/HoI5UX8s+CWajIXFTSYdsnffjuqtmkdnhLHx9DZnTz6OaZ
-         MLw+SSq8PsTrG4zjMhCE6eoqA8tTuiwh8rM6hqi7DyUdMKBKgwMV2fk30eAdK3+6g+t0
-         kAtA==
-X-Gm-Message-State: AFuF++lXIPVQRD00lKpQ73jhon16DdTmnffv8rd+4Cx9LQloGAW8kzdJ
-	EIZLpJlADfS5mji+nDEr3Y/ZUjTeZI6srNfHq0DLqjZ4gno13reXElIv
-X-Gm-Gg: AR+sD11O82P3tn7iEH2JzyQxGhZe1KOTi5Y3fWo+OJnFTJ4yqmdJUN4he5ToL6jyWeY
-	TsnTNjr6V+4G6oQnuL22bgPPwzsHogXtCZ8gJMgquJRs5WpFOIFAWNonhKrfKq2Pgcyq+LYHug2
-	0woaSHgvJAyrP9S89unYe2wSYTZcK0WAnvPvd4vz4ULFpE/ekMGwyr+Zn+Te5N+ixkLoCFTzInL
-	nfqJBRkacngsYC3f9OAarR3khKwCANav2fvDRKOShWsdwjtArZkhacmn4XdmqHmJxYC6diRgS5n
-	jSD0pi4dDrmOvkm1FP/6472u9OI908tS53q7pt8XW0n8d5nxU15Bk++C3EclH9lLyfgKnXv1PmD
-	JYEsRB2s70HTcLI1vZ9xb8vdQdUJogMhL1ZXxLc8DxjuVhdpMqB8v9bDhhKrVCSTuZGI+U+ocuZ
-	06brnKX8gRNT2i+/zG5tYwUS28t70/OQZRxULHuU1rzQTZ+IXs8xHI728cuatHzkBYTku6LIzV2
-	fw1vc4nua9TPAhSetWHCiN8LSDg7CXe0HISeGp5YcIjMH+HMNibqlqSBIXEO9lF2/ZcNhnlJqdu
-	qJaSzE+jmaYfFffUlTA=
-X-Received: by 2002:a05:6820:8593:10b0:6b1:3756:f77a with SMTP id 006d021491bc7-6b1a0389cdcmr9677806eaf.4.1787803128002;
-        Wed, 26 Aug 2026 20:58:48 -0700 (PDT)
+        bh=gcJXoO2PZbvQNti1IoEfyjxaC4/aOEYoKd3T652pnHU=;
+        b=Nj8gaUNfjGdsMqN9kqAVkUP+Mj60p/bm6klDdWQk4wxfkwE+BOks8hyT5pG140tq+c
+         1PONBuvPAqeJTSkyZQYcaRtvMvNPfE3nd7ZuoqOrZzDy2Hdg9j7oJvP2nXzpIFbIQlr5
+         WGlpBo2qMiaUKU/teeW/7gjdpnw0sGwsSn6uIGdwdoJgxOZwDiHaPD/Oo+THwyuDRbmO
+         CGlFoEfp+4Ln7mVCXBgJgH/UmWoH96jRi4MVfhFPw1zB10j7U313tDPThbmJ4/cLLV3Y
+         LrkkWNINvbEkRElv9NZLU6xIDDu6CisXK2pvMhUrSh7Ko5vza65kMbhmtuvnAE1uMmDR
+         hyGQ==
+X-Gm-Message-State: AFuF++l2XQjdUJFSV/ERiLPV4UFRvpe/E/Cuz8oHWknBS2Ipj+MF3M/v
+	IyVZEzKuz0Aywt0iV1517RugdU9BjQasdmpwDoLg9+vpING4DKSoE3YU
+X-Gm-Gg: AR+sD11Rfd9HP7Hsbq2MXz6nm0FxhBsmjrLPMbEm7zIUVnmKS9vUARSygANPhm/nf/S
+	Qh6lYBm+aiHUaTeX4NATegUmpmdKtFG2VZ+2BbFsyHMo+C/9+h/1pijdcPcQ/W2UST3mXUAoB1U
+	842WUzOKTcWU7yUsMFFYBvqzrU8p9T1Q3K/H9pDuqPYsa4ijxQdr+Gc6r2vnbW6S0Fc3/2c0NB2
+	FpQJz5Db75d++ksO2jKpFb/0GmeKqAGqpUaWf/w+0owwEIjUidaEG+5qlaH5r7W4C5MD1w4D07y
+	0H3sW/fjAwrDpePJiYZddCHaa3Qmc/+er+uHu9HKW4hE2Fa/jBzcva4Crgt/4PRMTbUtOgn/UCG
+	lyzG5boE8K22dmraxioV2/vglFjpJVJYD++217/iTcpEA410vOWFVCNTb6M6/zwZu2hk+l5yZg+
+	vQpexxRwJw1JIfhc+1/uDGVOV4CfWz9SnXxbJtiQSQ9onJsD7DRV6XYk0YIfnJr1ujx+uOzEqfU
+	ArNO9AEsI9mYT7CfieZa48aw3teR4Aou1tCsbXqtxWL+knHxUe/A5z6trRx2Ayf4o5dwFS5Pl6p
+	wDofmgan
+X-Received: by 2002:a05:6870:fb8e:b0:464:f373:b579 with SMTP id 586e51a60fabf-46594ee315bmr13253951fac.0.1787803130005;
+        Wed, 26 Aug 2026 20:58:50 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.47
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:58:47 -0700 (PDT)
+        Wed, 26 Aug 2026 20:58:49 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 26 Aug 2026 21:58:38 -0600
-Subject: [PATCH 6/8] lockdep: Free unused reservation slabs to buddy
- allocator at late boot
+Date: Wed, 26 Aug 2026 21:58:40 -0600
+Subject: [PATCH 8/8] lockdep: on debug_locks_off or OOM, recycle all slabs
+ to buddy
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,8 +71,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-lockdep-memblock-v1-v1-6-e2db855391ec@gmail.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260826-lockdep-memblock-v1-v1-8-e2db855391ec@gmail.com>
 References: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
 In-Reply-To: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -80,183 +80,151 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Waiman Long <longman@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=5965;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=4293;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=BzqgNjOdN0qWM98KhttEMRv4SJhBp4Q8vk+Bnvl2unQ=;
- b=MDUgGiEKUryrVrUZTIzcm+YR05qsgFsIkE6zi/LCIGQDrkqmFmPPCH9mkQ5wfUrkqM5PcB3V8
- OGWx/1mTYZZAEucbtYQYVoA70FFWI/xHZwNw4uGsbkAS1/2izErx2M1
+ bh=5rx5ERvKixj7FGUQj37v/bHFSs/DaokMES+BAqJO8D0=;
+ b=h4GLEdvX2vSDycelajSVWzrtr4X5YrylJFcbesojZF33QpWgLG6zxjve68ZDwetZGiBBE7QUc
+ hbDCfRUijcbD5+YvKdREkfLskWN6G5wNNvsipXin5pWF2227TbskGO4
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-During early boot, lockdep reserves a generous slab pool (e.g. 64 slabs =
-4 MB) from memblock to guarantee uninterrupted initialization. Once
-the kernel reaches late_initcall, the boot locking storm is complete,
-and lockdep's steady-state working set is known.
+If lockdep breaks, by assertion failure or for ENOMEM-ish reasons, we
+can no longer use the graph-db.  Since most of the graph-db is now
+allocated from memblock_alloc() slabs, we can release them all back to
+buddy, and hope that freeing ~1.5MB will help. (v7.2 has ~10MB tied up
+in .bss).
 
-Add lockdep_post_init_trim() as a late_initcall_sync handler. Calculate
-required runtime headroom (default 100% headroom over boot usage, with
-a floor of 32 slabs, or custom lockdep_slabs=N / lockdep_headroom=M%),
-and return all excess slabs to the buddy page allocator via
-free_reserved_page().
+0. Hook debug_locks_off() / print_lockdep_off() via an asynchronous
+   work item (lockdep_sacrifice_work) to release all held slabs back
+   to the buddy allocator via free_reserved_page() in process context.
 
-Also register a reboot notifier to log total lifetime slab consumption
-and remaining headroom on clean system shutdown.
+1. Register an OOM notifier (lockdep_oom_nb) at late_initcall. If the
+   system encounters an out-of-memory emergency, lockdep sacrifices its
+   entire dynamic slab pool (1..8 MB of physical RAM), reporting freed
+   pages to the OOM killer to avoid terminating user processes.
+
+2. Clear lockdep_slabs[] pointers and zero lockdep_nr_slabs under
+   graph_lock to seal off subsequent allocations.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- kernel/locking/lockdep.c      | 71 +++++++++++++++++++++++++++++++++++++++++++
- kernel/locking/lockdep_proc.c | 23 +++++++-------
- 2 files changed, 83 insertions(+), 11 deletions(-)
+ kernel/locking/lockdep.c | 81 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
 diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index b2dc7619a5e3..3fb6c07cea36 100644
+index b6048e7c8b56..9f28530b2f1d 100644
 --- a/kernel/locking/lockdep.c
 +++ b/kernel/locking/lockdep.c
-@@ -6992,6 +6992,77 @@ void __init lockdep_init(void)
- 	       sizeof(((struct task_struct *)NULL)->held_locks));
+@@ -60,7 +60,9 @@
+ #include <linux/kasan.h>
+ #include <linux/mm.h>
+ #include <linux/memblock.h>
++#include <linux/oom.h>
+ #include <linux/reboot.h>
++#include <linux/workqueue.h>
+ 
+ #include <asm/sections.h>
+ 
+@@ -638,6 +640,82 @@ static int verbose(struct lock_class *class)
+ 	return 0;
  }
  
-+static int lockdep_shutdown_notify(struct notifier_block *nb,
-+				   unsigned long code, void *unused)
++/*
++ * Release all memblock slabs (used and unused) back to the buddy allocator
++ * when lockdep is disabled or during system OOM emergencies.
++ * Must run in process context (workqueue or OOM notifier).
++ */
++static unsigned int lockdep_release_slabs_to_buddy(void)
 +{
-+	unsigned int used = lockdep_slabs_used - lockdep_nr_free_slabs;
-+	unsigned int total = lockdep_nr_slabs;
-+	unsigned int free_slabs = total > used ? total - used : 0;
-+	unsigned int headroom_pct = used ? (free_slabs * 100) / used : 0;
++	unsigned int freed_slabs = 0;
++	unsigned int nr = lockdep_nr_slabs;
++	unsigned long flags;
++	unsigned int i;
 +
-+	pr_info("lockdep: shutdown summary : %u/%u slabs (%u kB/%u kB, %u%% headroom left), %lu classes, %lu chains, %u hlocks\n",
-+		used, total,
-+		(used * LOCKDEP_SLAB_SIZE) / 1024,
-+		(total * LOCKDEP_SLAB_SIZE) / 1024,
-+		headroom_pct,
-+		nr_lock_classes, lock_chain_count(), chain_hlocks_used());
++	if (!nr)
++		return 0;
++
++	/* Invalidate table bounds under graph_lock */
++	raw_local_irq_save(flags);
++	if (!graph_lock()) {
++		raw_local_irq_restore(flags);
++		return 0;
++	}
++	lockdep_nr_slabs = 0;
++	lockdep_slabs_used = 0;
++	graph_unlock();
++	raw_local_irq_restore(flags);
++
++	for (i = 0; i < nr; i++) {
++		struct page *page;
++		unsigned long p;
++
++		if (!lockdep_slabs[i])
++			continue;
++
++		page = virt_to_page(lockdep_slabs[i]);
++		for (p = 0; p < (LOCKDEP_SLAB_SIZE >> PAGE_SHIFT); p++)
++			free_reserved_page(page + p);
++
++		lockdep_slabs[i] = NULL;
++		freed_slabs++;
++	}
++
++	if (freed_slabs)
++		pr_info("lockdep: emergency sacrifice — released %u slabs (%u kB) to buddy allocator\n",
++			freed_slabs, (freed_slabs * LOCKDEP_SLAB_SIZE) / 1024);
++
++	return freed_slabs;
++}
++
++static void lockdep_sacrifice_work_fn(struct work_struct *work)
++{
++	lockdep_release_slabs_to_buddy();
++}
++static DECLARE_WORK(lockdep_sacrifice_work, lockdep_sacrifice_work_fn);
++
++static int lockdep_oom_notify(struct notifier_block *self,
++			      unsigned long dummy, void *parm)
++{
++	unsigned long *freed = parm;
++	unsigned int freed_slabs;
++
++	if (!lockdep_nr_slabs)
++		return NOTIFY_OK;
++
++	/* Turn off lockdep before sacrificing tables */
++	debug_locks_off();
++	freed_slabs = lockdep_release_slabs_to_buddy();
++	if (freed && freed_slabs)
++		*freed += (freed_slabs * (LOCKDEP_SLAB_SIZE >> PAGE_SHIFT));
 +
 +	return NOTIFY_OK;
 +}
 +
-+static struct notifier_block lockdep_reboot_nb = {
-+	.notifier_call = lockdep_shutdown_notify,
++static struct notifier_block lockdep_oom_nb = {
++	.notifier_call = lockdep_oom_notify,
 +};
 +
-+static int __init lockdep_post_init_trim(void)
-+{
-+	unsigned int used = lockdep_slabs_used - lockdep_nr_free_slabs;
-+	unsigned int initial_slabs = lockdep_nr_slabs;
-+	unsigned int target_slabs, kept_headroom_slabs;
-+	unsigned int freed_slabs = 0;
-+	unsigned int i;
-+
-+	if (!lockdep_nr_slabs)
-+		return 0;
-+
-+	/* Compute headroom requirement (default 100% or custom percentage) with 32-slab floor */
-+	kept_headroom_slabs = DIV_ROUND_UP(used * requested_lockdep_headroom_pct, 100);
-+	if (kept_headroom_slabs < 32)
-+		kept_headroom_slabs = 32;
-+
-+	target_slabs = used + kept_headroom_slabs;
-+
-+	/* Satisfy both: target_slabs >= requested_lockdep_slabs AND headroom >= M% */
-+	if (requested_lockdep_slabs > target_slabs)
-+		target_slabs = requested_lockdep_slabs;
-+
-+	target_slabs = clamp_t(unsigned int, target_slabs, used, lockdep_nr_slabs);
-+
-+	/* Release excess slabs to buddy allocator */
-+	if (target_slabs < lockdep_nr_slabs) {
-+		for (i = target_slabs; i < lockdep_nr_slabs; i++) {
-+			struct page *page = virt_to_page(lockdep_slabs[i]);
-+			unsigned long p;
-+
-+			for (p = 0; p < (LOCKDEP_SLAB_SIZE >> PAGE_SHIFT); p++)
-+				free_reserved_page(page + p);
-+
-+			lockdep_slabs[i] = NULL;
-+		}
-+		freed_slabs = lockdep_nr_slabs - target_slabs;
-+		lockdep_nr_slabs = target_slabs;
-+	}
-+
-+	pr_info("lockdep: boot complete : %u/%u slabs used, %u kept (%u%% headroom), %u returned to buddy (%u kB freed)\n",
-+		used, initial_slabs, lockdep_nr_slabs,
-+		lockdep_nr_slabs > used ? ((lockdep_nr_slabs - used) * 100) / used : 0,
-+		freed_slabs, (freed_slabs * LOCKDEP_SLAB_SIZE) / 1024);
-+
-+	register_reboot_notifier(&lockdep_reboot_nb);
-+	return 0;
-+}
-+late_initcall_sync(lockdep_post_init_trim);
-+
- static void
- print_freed_lock_bug(struct task_struct *curr, const void *mem_from,
- 		     const void *mem_to, struct held_lock *hlock)
-diff --git a/kernel/locking/lockdep_proc.c b/kernel/locking/lockdep_proc.c
-index 1916db9aa46b..95b76047918d 100644
---- a/kernel/locking/lockdep_proc.c
-+++ b/kernel/locking/lockdep_proc.c
-@@ -32,16 +32,17 @@
-  * bitmap and max_lock_class_idx.
-  */
- #define iterate_lock_classes(idx, class)				\
--	for (idx = 0, class = lock_classes; idx <= max_lock_class_idx;	\
--	     idx++, class++)
-+	for (idx = 0, class = idx_to_lock_class(0);			\
-+	     idx <= max_lock_class_idx;					\
-+	     idx++, class = idx_to_lock_class(idx))
- 
- static void *l_next(struct seq_file *m, void *v, loff_t *pos)
+ static void print_lockdep_off(const char *bug_msg)
  {
--	struct lock_class *class = v;
-+	unsigned long idx = ++*pos;
- 
--	++class;
--	*pos = class - lock_classes;
--	return (*pos > max_lock_class_idx) ? NULL : class;
-+	if (idx > max_lock_class_idx)
-+		return NULL;
-+	return idx_to_lock_class(idx);
+ 	printk(KERN_DEBUG "%s\n", bug_msg);
+@@ -645,6 +723,8 @@ static void print_lockdep_off(const char *bug_msg)
+ #ifdef CONFIG_LOCK_STAT
+ 	printk(KERN_DEBUG "Please attach the output of /proc/lock_stat to the bug report\n");
+ #endif
++	if (system_state >= SYSTEM_RUNNING)
++		schedule_work(&lockdep_sacrifice_work);
  }
  
- static void *l_start(struct seq_file *m, loff_t *pos)
-@@ -50,7 +51,7 @@ static void *l_start(struct seq_file *m, loff_t *pos)
+ unsigned long nr_stack_trace_entries;
+@@ -7105,6 +7185,7 @@ static int __init lockdep_post_init_trim(void)
+ 		lockdep_nr_slabs > used ? ((lockdep_nr_slabs - used) * 100) / used : 0,
+ 		freed_slabs, (freed_slabs * LOCKDEP_SLAB_SIZE) / 1024);
  
- 	if (idx > max_lock_class_idx)
- 		return NULL;
--	return lock_classes + idx;
-+	return idx_to_lock_class(idx);
++	register_oom_notifier(&lockdep_oom_nb);
+ 	register_reboot_notifier(&lockdep_reboot_nb);
+ 	return 0;
  }
- 
- static void l_stop(struct seq_file *m, void *v)
-@@ -59,7 +60,7 @@ static void l_stop(struct seq_file *m, void *v)
- 
- static void print_name(struct seq_file *m, struct lock_class *class)
- {
--	char str[KSYM_NAME_LEN];
-+	char str[128];
- 	const char *name = class->name;
- 
- 	if (!name) {
-@@ -79,9 +80,9 @@ static int l_show(struct seq_file *m, void *v)
- 	struct lock_class *class = v;
- 	struct lock_list *entry;
- 	char usage[LOCK_USAGE_CHARS];
--	int idx = class - lock_classes;
-+	int idx = class->class_idx;
- 
--	if (v == lock_classes)
-+	if (idx == 0)
- 		seq_printf(m, "all lock classes:\n");
- 
- 	if (!test_bit(idx, lock_classes_in_use))
-@@ -133,7 +134,7 @@ static void *lc_start(struct seq_file *m, loff_t *pos)
- 	if (*pos == 0)
- 		return SEQ_START_TOKEN;
- 
--	return lock_chains + (*pos - 1);
-+	return idx_to_lock_chain(*pos - 1);
- }
- 
- static void *lc_next(struct seq_file *m, void *v, loff_t *pos)
 
 -- 
 2.55.0
