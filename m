@@ -1,136 +1,85 @@
-Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B242E717B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A23285058
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787808947; cv=none; b=a5So4Sct5t/0Z2gv4V97hxd/JOCztibf09MU4UBGgeejZn7YV9XiwYJg/hmgSbbx8/Jm+c+QQmo58qY57uS+yFy4/Hh6Nf/NYtwTaCz0wqS+3YBS963haF+dW29dC0YwzJ4q/wmoYtS7iEnBQ86bqFewEMiQ6g/lrPTOgPCRArU=
+	t=1787809015; cv=none; b=fu0ImWtma5lrFeNebMMDAKkI4qWXn+muLCAtm7OH/dpNTLKfmOX7z8W3CQEISThmtHMWQpgRdHkzamusylMs0YX63L+rJAbXqy9E5Ux8wsZntYrftvRTjvwaEGywrv1sq5adDLFs2ByYMYyBoSk/Wr81ztHyOAWGmrFP0P+QJVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787808947; c=relaxed/simple;
-	bh=CztYMdjLZpKGzEVJeG55tEt7ujyjlh1YgMpcAGn0CQY=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=DmJcZ2A3ZFh2t0x+Vp8E0qgsiBOwt5LCy6kuko864DEBtYwAVAeVyi2l8m4Rfv+uMSU+EqJakBz83PmzAOtxbWJfnSi4uwg+G7nqlHb+Ew7ZEWFMHjj4aKwTtZnYmMCDGVIeVz1kkKwfD6XBVFX+DJYdeeItDNQYNChERMEq+wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BjEUT7ZE; arc=none smtp.client-ip=95.215.58.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787809015; c=relaxed/simple;
+	bh=EO1L2TeQ17O2KPCvU6H8XkwQRS56pa00oW6MBI1UTjg=;
+	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Subject; b=mWzFOUwUj77yybOcn0dJEed+5nDN9pOAaqJH8komlLbMf+A4YMmOvCHph0FJ86CgesWIA0BlBvDDkPGoclxG1yD6/XZKE6vv4zBaVgreS99T70bMl/MESY3w6h/QHT8VYA8kQHRwqAk7y5ukxFt9y7ykefyjITJBBi9eqaBQ/qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=pQzD4pt3; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BjEUT7ZE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CztYMdjLZpKGzEVJeG55tEt7ujyjlh1YgMpcAGn0CQY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787808942; v=1; x=1788413742;
- b=BjEUT7ZEdFGr0GuuzX2Aq3QNiG66AJw1b3UD17yr26kkLC+M9CRUg2ea0NIB3nDsLhhhlo6v
- DnaDOMFCuiB7XBP0lEn9+mS/UV/d5twgGWyxmC8dbmZd07Pp9hnsQh+dYNYZOikeQ3qcz8hcy5S
- B7alX2oz6uecfyWYFXvwOSX4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from webmail.migadu.com (2001:41d0:303:fc7a::)
-	by smtp.migadu.com with ESMTPS id 7b273cdc8630cbad;
-	Thu, 27 Aug 2026 05:35:32 +0000
-X-Mizu-Trace-ID: 7b273cdc8630cbad
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="pQzD4pt3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787809009; bh=EO1L2TeQ17O2KPCvU6H8XkwQRS56pa00oW6MBI1UTjg=;
+	h=From:To:Cc:Subject;
+	b=pQzD4pt3zM/xp10Dk5IOIvrt/0SOS7M8GajVCHHinWF4ZDM4T6kUiJ5IMwa8Vhlrd
+	 gykpngEtZUSWQOmqzeITpeXbRY7KC4VQ63OY+QOvMawLvt+oaFkPe1rTYqKzSQkm1/
+	 L239YjuhkXnfi0hghR9jf3IUCU1NVdOeLLbHCtPA=
+Received: from [192.168.137.1] ([2409:8a28:2472:b2a1:3000:48a1:cb6d:82ef])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 8E6B34A2; Thu, 27 Aug 2026 13:35:38 +0800
+X-QQ-mid: xmsmtpt1787808938tewbvhx7b
+Message-ID: <tencent_DB8D234F4E3B341F73D78849C17E50D19B06@qq.com>
+X-QQ-XMAILINFO: NxKoLLhE22aTcI+DdYyMDRRMdCLQc6wOvyI2oF2qpVI3VZ7zTmIY01s5sMJu8Q
+	 632HICMZQChTRIYK8mYJ/vJQYCWb9jkgQbAnhvIt55Y7k6sPqovXjmNSQXUCKUFBSlZP/H46tsTR
+	 gTcIlVBNLaPaoexLN2IxowC3IOFqxSPC/waqqWAB9M+gOE0RRrMDBN8UdrOGGRdBh2vPj2FK7JsI
+	 MjflP+c38yNCEPdAwt2jbLX7F39DnF7QFrgCYo7mvLA20zHuv903fk07BEMkuReqizDyYQKui56K
+	 ns0DoXJjHARcsKuk3pwf0mZvpzN3nUjQv2R2wLo2Gf9x/Vi9p6RZ8UgaIYiEGbHTq+4mFmbUJ+jl
+	 ua/eHVdh2lM1zwprYQ7Ugkm/EFcb4W5DAN6uGDK/IfwJpPW0s9ZYqFXTuKDwRQkWm2bQgsrhp1Kf
+	 znArRgW8SlhcBvdaejx4KqJq4Rvblmv8Hq80MTjuv34/Y6HYl1cQYI+ifVsDc4RMrTd8m8KyGRjY
+	 HLaVeJQhszhCIj+GVgdHNuYvqnc1FHpPZ2fM9niYjIcxdfZTIWTW3c149Uxg8B83kcW6UTfRn1LN
+	 /rWBHQA9ikS+TBRoAEXZ43S9b8nFxLEmfbuVlTSUdlZt1g+7tbXLRERwZfmcgw3H2Qlkk0E2YiM0
+	 TmfsXrotPXnQHoE3Pdr+OsvHjyQ0A0NT6k7E7vLyDSzQbFOniPSiP1kAdMVkskf4v5tY7WRuYamT
+	 hjYLdEgA07anaseVXjWrHBs2mGyiV4LTM5GY6Q082HIkuQ2TkmdaDJYMZYYNweqa4bxDOOEjlvzx
+	 3WdryoHzxiXCkYQSPtaG8D+PEUkLSr1I9MPlxcuBpE0giwMoD6oXjgmZwevCekRkE/nqncUp4s7I
+	 5U/QL2/tul6oX/xR/ozOrVoVLE3LiSzu5U/Bvr4nZMda4ZlXvAFOjeLKK53P8v/kU2fCQbx5RCxV
+	 4rss+oTetz9yv90D61SlnpGeY9APPm5UVLF/MNdv7cW92LnLz3UGFolDqvKMxgQ2cdQw7U2zsTfd
+	 p3c4jkw8dKZZmVRsOl
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+Content-Type: multipart/mixed; boundary="===============4210373017446004769=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 05:35:32 +0000
+From: 3237174131@qq.com
+To: linux-kernel@vger.kernel.org
+Cc: tglx@kernel.org, gregkh@linuxfoundation.org
+Subject: [PATCH] scripts/spdxcheck: add friendly error message for missing ply
+ module
+
+--===============4210373017446004769==
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Hui Zhu" <hui.zhu@linux.dev>
-Message-ID: <f33eaa0c730feb9f598738ff79d98cb25b4b2bcd@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] maple_tree: Annotate lockless pivot reads for KCSAN
-To: "Liam R. Howlett" <liam@infradead.org>, "Andrew Morton"
- <akpm@linux-foundation.org>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Andrew Ballance"
- <andrewjballance@gmail.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, linux-kernel@vger.kernel.org,
- maple-tree@lists.infradead.org, linux-mm@kvack.org, "Hui Zhu"
- <zhuhui@kylinos.cn>
-In-Reply-To: <kpzm3pcwxwnzk5kngcsfcybzst5jtyrdcphd3hcpmoc6dbtswq@atn5yddl23qx>
-References: <20260826074430.1139325-1-hui.zhu@linux.dev>
- <20260826094147.42e1e71e91a5a537ced30a21@linux-foundation.org>
- <kpzm3pcwxwnzk5kngcsfcybzst5jtyrdcphd3hcpmoc6dbtswq@atn5yddl23qx>
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
->=20
->=20On 26/08/26 09:41AM, Andrew Morton wrote:
->=20
->=20>=20
->=20> On Wed, 26 Aug 2026 15:44:30 +0800 "Hui Zhu" <hui.zhu@linux.dev> wr=
-ote:
-> >=20=20
->=20>  In RCU mode, replaced maple nodes are marked dead and freed via RC=
-U
-> >  after the new node has been published. Arming the RCU free writes
-> >  node->rcu.next and node->rcu.func, which share storage with
-> >  pivot[0] and pivot[1] (see struct maple_node), while lockless
-> >  readers may still walk the dead node. These stores therefore race
-> >  with the pivot loads performed by the walkers.
-> >=20=20
->=20>  This is harmless: the writer marks the node dead with an smp_wmb()
-> >  before arming the rcu_head, and the walkers re-check ma_dead_node()
-> >  after reading the node and restart the walk when the node is dead,
-> >  so any pivot read that raced with the rcu_head stores is discarded.
-> >  KCSAN cannot see this protocol and reports the plain accesses, so
-> >  annotate the lockless pivot reads with data_race() through a new
-> >  ma_pivot_rcu() helper.
-> >=20=20
->=20>  Found by fuzzing on a 6.6 kernel; the race still exists on
-> >  mainline. No functional change intended.
-> >=20=20
->=20>=20=20
->=20>  Thanks. AI review suggests that the patch is correct, but incomple=
-te?
-> >=20=20
->=20>  https://sashiko.dev/#/patchset/20260826074430.1139325-1-hui.zhu@li=
-nux.dev
-> >=20
->=20Yes, this is literally every read of numerous pivots on any reader th=
-at
-> would need something like this. Most code is shared with the writer
-> side, so we'll have data_race() annotation where it is not needed there=
-.
->=20
->=20I don't like the name of the function and I don't agree that it is wo=
-rth
-> doing, especially half of it. If you notice ma_ functions take a maple
-> node as the first argument, but your new function takes an array pointe=
-r
-> in the node.
->=20
->=20The from address does not agree with the sign-off on the patch.
->=20
->=20I also don't think a benign race needs a Fixes tag?
->=20
->=20It might be worth looking at other ways to calm kcsans down such as t=
-he
-> type qualifier __data_racy, or maybe the makefile option.
+RnJvbTogWGlhIFpob3hpbiA8MzIzNzE3NDEzMUBxcS5jb20+ClN1YmplY3Q6IFtQQVRDSF0gc2Ny
+aXB0cy9zcGR4Y2hlY2s6IGFkZCBmcmllbmRseSBlcnJvciBtZXNzYWdlIGZvciBtaXNzaW5nIHBs
+eSBtb2R1bGUKVG86IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKQ2M6IHRnbHhAa2VybmVs
+Lm9yZywgZ3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmcKClRoZSBzcGR4Y2hlY2sucHkgc2NyaXB0
+IHJlcXVpcmVzIHRoZSAncGx5JyBQeXRob24gbW9kdWxlLCBidXQgd2hlbgppdCBpcyBtaXNzaW5n
+LCB0aGUgc2NyaXB0IGNyYXNoZXMgd2l0aCBhIHJhdyBJbXBvcnRFcnJvciB0cmFjZWJhY2suClRo
+aXMgaXMgZXNwZWNpYWxseSBwcm9ibGVtYXRpYyBpbiBDSSBlbnZpcm9ubWVudHMgd2hlcmUgdGhl
+IGVycm9yCmlzIG5vdCBpbW1lZGlhdGVseSBvYnZpb3VzLgoKQWRkIGEgZnJpZW5kbHkgZXJyb3Ig
+bWVzc2FnZSB0aGF0IHRlbGxzIHRoZSB1c2VyIGV4YWN0bHkgd2hhdCBpcwpuZWVkZWQgYW5kIGhv
+dyB0byBpbnN0YWxsIGl0LgoKU2lnbmVkLW9mZi1ieTogWGlhIFpob3hpbiA8MzIzNzE3NDEzMUBx
+cS5jb20+Ci0tLQogc2NyaXB0cy9zcGR4Y2hlY2sucHkgfCA4ICsrKysrKystCiAxIGZpbGUgY2hh
+bmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc2NyaXB0
+cy9zcGR4Y2hlY2sucHkgYi9zY3JpcHRzL3NwZHhjaGVjay5weQotLS0gYS9zY3JpcHRzL3NwZHhj
+aGVjay5weQorKysgYi9zY3JpcHRzL3NwZHhjaGVjay5weQpAQCAtNSw3ICs1LDEzIEBACiBmcm9t
+IGFyZ3BhcnNlIGltcG9ydCBBcmd1bWVudFBhcnNlcgotZnJvbSBwbHkgaW1wb3J0IGxleCwgeWFj
+YwordHJ5OgorICAgIGZyb20gcGx5IGltcG9ydCBsZXgsIHlhY2MKK2V4Y2VwdCBJbXBvcnRFcnJv
+ciBhcyBlOgorICAgIGltcG9ydCBzeXMKKyAgICBzeXMuc3RkZXJyLndyaXRlKCdFcnJvcjogJXNc
+bicgJSBlKQorICAgIHN5cy5zdGRlcnIud3JpdGUoJ1BsZWFzZSBpbnN0YWxsIHRoZSBwbHkgbW9k
+dWxlIChlLmcuLCBwaXAgaW5zdGFsbCBwbHkpXG4nKQorICAgIHN5cy5leGl0KDEpCiBpbXBvcnQg
+bG9jYWxlCiBpbXBvcnQgdHJhY2ViYWNrCiBpbXBvcnQgZm5tYXRjaAo=
 
-Hi Liam,
+--===============4210373017446004769==--
 
-__data_racy is defined as volatile for KCSAN kernels, so the qualifier
-has to propagate to every access site: ma_pivots() would return a
-volatile pointer, and all the "unsigned long *pivots" locals and helper
-parameters in maple_tree.c (about 25 sites) would need the qualifier
-too.
-It also marks the whole pivot array as racy, while only pivot[0] and
-pivot[1] actually overlap the rcu_head.
-
-The Makefile option (KCSAN_SANITIZE_maple_tree.o :=3D n) is a one-liner,
-but it disables KCSAN for the entire file, so any real data race
-introduced in maple_tree.c later would go unnoticed.
-
-Do you think one of these two is still the better choice, or should I
-keep the current approach and fix the patch according to your review
-comments?
-
-Best,
-Hui
-
->=20
->=20Thanks,
-> Liam
->
