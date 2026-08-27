@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F754734E4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:43:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0849F476077
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838211; cv=none; b=jekSkhuYPtloG+LoL8LvmWQn8VITBbe/hwuI0G1DSR0sIdojWvb4LU2BKMK+DKmXAzvcd8gYkBYbMwvv7YTllBFQXiX42eFxf6xNEIbl+RykAC2BtIJn14auGrHSKP2upc6vmSC07t3uJJGj7u3rluo0KlpH+RWbwfBGmEv0Ezo=
+	t=1787838216; cv=none; b=sntLDN/7LNQdkubpb2yJ+4/aMQ/eWbnkMyTkpJwsxgsyjsD+bD8dqp2qlOXCeVvjeoBEjW8aUE84kEXese97YdveMzNBPErR7dknlxK/4nyYgPfDWDdjtE0sbyTA9WmwW0HaoUvAgjuQ+Jxi/OJaBieF2NqhQcZ4NVwuzk2U4QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838211; c=relaxed/simple;
-	bh=IizGxEfTjfhZJVkwhDscGC2P/a5HlqU4Kr8qrccX6z4=;
+	s=arc-20240116; t=1787838216; c=relaxed/simple;
+	bh=TbyvXkUkP/iFkWLvIM6Uiy2D1Zai+6kwljmDrYii1Qs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qoyU1UAXMchHLjf8tqlunsxkx+ssKSalv5QQZX5i1IsjUpd9lZOoWPOLMF9GRgefBi/2JX7qAXLIFM7Ppy+/xTiiz5/uWuRZZvXaPaSlakqs6a/TY2l5Jb8cYOJTGIN4MQsKQpwExMXPs0NeN9V3Cw+U+xqAi9IUeTvaorRPIxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wq+9OnDY; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=n/eTPFgh4iFqYbopZBmnwa6GKeatN7STzCLRmtviC2bWXHgMzyenA+0W2itAF6zOFLH5ZfJuP3rkvONKEpEvUjlp9c5z5XU8oiXBNI0k52TSSCYSPwsqfvaOR7uiaNOHpZGPHTWlTUaTJwbKN4NpuTPXca13qGDh3dSvvoXevMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c+JlEP7H; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wq+9OnDY"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c+JlEP7H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787838207;
+	s=mimecast20190719; t=1787838212;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bPPEzvtBLG/nC8I1Bmob/2jRQbbQ9nOnJ6K+0h7yLO8=;
-	b=Wq+9OnDYlT8JHY+VCzlJOek68euChJ/bLi0tjaOY0Adl2cx7BrQyPoKnnSg2iYdOUT//mb
-	SsnQkRB0Vb+xQm2W012wAc83+wS9MU/qICibto09bJd+SYF5xA3qPqFCNaXFZJ4wkDen+Y
-	NdXhPasu1yC2LVijx6MRtx9jwjpkgUo=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=r3vRJq2sMz9APK4rZhV/g2MBBVrXWqzKAsYSWHku/NM=;
+	b=c+JlEP7HImzg+7n5PSudaVhKaqkM6IvGT2utiFT9UlNIjd58mAFMg89f6teN65DNEO4AW1
+	OZ5vAW+35FK+V/FBeaS6a6MS9RXusep7V6fiTjic8rz3udPcwyYeP6JgxVrvCO8tp6dupk
+	Zx8bCoIoJIsEMHOx6DDAVpRL5hsMOPY=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-657-XRizu61CPsuLjMwlmWSQMA-1; Thu,
- 27 Aug 2026 09:43:25 -0400
-X-MC-Unique: XRizu61CPsuLjMwlmWSQMA-1
-X-Mimecast-MFC-AGG-ID: XRizu61CPsuLjMwlmWSQMA_1787838204
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-MJxsoGYQNcC3GaxZhbknZw-1; Thu,
+ 27 Aug 2026 09:43:29 -0400
+X-MC-Unique: MJxsoGYQNcC3GaxZhbknZw-1
+X-Mimecast-MFC-AGG-ID: MJxsoGYQNcC3GaxZhbknZw_1787838206
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5C8A41862D74;
-	Thu, 27 Aug 2026 13:43:23 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AAC65195411F;
+	Thu, 27 Aug 2026 13:43:26 +0000 (UTC)
 Received: from warthog.com (unknown [10.22.88.47])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 42F131955F70;
-	Thu, 27 Aug 2026 13:43:21 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B83DC1800641;
+	Thu, 27 Aug 2026 13:43:24 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>
 Cc: David Howells <dhowells@redhat.com>,
@@ -52,9 +52,9 @@ Cc: David Howells <dhowells@redhat.com>,
 	ceph-devel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 03/10] netfs: Fix error vs transferred passed to ->ki_complete()
-Date: Thu, 27 Aug 2026 14:42:56 +0100
-Message-ID: <20260827134304.2075713-4-dhowells@redhat.com>
+Subject: [PATCH v4 04/10] netfs: Fix i_size update for partial transfer
+Date: Thu, 27 Aug 2026 14:42:57 +0100
+Message-ID: <20260827134304.2075713-5-dhowells@redhat.com>
 In-Reply-To: <20260827134304.2075713-1-dhowells@redhat.com>
 References: <20260827134304.2075713-1-dhowells@redhat.com>
 Precedence: bulk
@@ -64,11 +64,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
 Fix netfs_unbuffered_write_done() to pass the amount written to
-->ki_complete() rather than the error in the event of a partially complete
-transfer.
+netfs_update_i_size() in the event of a partial transfer that ends in an
+error.
+
+That said, it might be better for the filesystem to mark the inode data as
+invalid and recheck it in case something like a network error occurred that
+prevented the reply from the server from being received.
 
 Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
 Link: https://sashiko.dev/#/patchset/20260824120224.504575-1-dhowells%40redhat.com
@@ -81,16 +85,16 @@ cc: linux-fsdevel@vger.kernel.org
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index 544a4243fc59..f7d7e1b54653 100644
+index f7d7e1b54653..f33ccddaa826 100644
 --- a/fs/netfs/direct_write.c
 +++ b/fs/netfs/direct_write.c
-@@ -51,7 +51,7 @@ static void netfs_unbuffered_write_done(struct netfs_io_request *wreq)
- 		wreq->iocb->ki_pos += written;
- 		if (wreq->iocb->ki_complete) {
- 			trace_netfs_rreq(wreq, netfs_rreq_trace_ki_complete);
--			wreq->iocb->ki_complete(wreq->iocb, wreq->error ?: written);
-+			wreq->iocb->ki_complete(wreq->iocb, written ?: wreq->error);
- 		}
- 		wreq->iocb = VFS_PTR_POISON;
- 	}
+@@ -21,7 +21,7 @@ static void netfs_unbuffered_write_done(struct netfs_io_request *wreq)
+ 	/* Okay, declare that all I/O is complete. */
+ 	trace_netfs_rreq(wreq, netfs_rreq_trace_write_done);
+ 
+-	if (!wreq->error)
++	if (wreq->transferred)
+ 		netfs_update_i_size(ictx, &ictx->inode, wreq->start, wreq->transferred);
+ 
+ 	if (wreq->origin == NETFS_DIO_WRITE &&
 
