@@ -1,36 +1,36 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597D746A61A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC55C4477E8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835907; cv=none; b=XMXmSwtaH1tF8pB0MNlgUyxgjGpY9lI561VAu3LrM/yiB+sS0U8bUnnVo6Hq/7sTaMcNFyHpV7xU/PusYQVCwOxS4ZvVDdTHcszQaLX7G5kcLqJorl2km5J7PPSyiFPyZc1dvEqLc41r3sicJhRd83f2pKpsx9SHY+KSD95G6uI=
+	t=1787835901; cv=none; b=bbvJ3wJOczvoZwadHnnFKS4Jl8TpXt3qAQ4Gv350kmES3upq3NqxG6iT3BMdTB9Hk2lbxX713UZ/CJmWL8Tu9qW6/KSX9cf0puhmcD0NJ6TIZ4XoVFQCmZEzc7yQBfPKdQxfbY7C84nYTQYBLc5eccGCdJQU/AE9swVyOE7st6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835907; c=relaxed/simple;
-	bh=I8aYjQfk+OE6swXIGCwAs7CpD3xqQAL5xAKiiv2ZBZk=;
+	s=arc-20240116; t=1787835901; c=relaxed/simple;
+	bh=U3oUhCeFlm8VHw10BhaQEjChiC9PpUD3nBM7wDVO22k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z5MiM+L+vh6yLLx5LhxUZjgK7F8eKuIIvpOj/MUjGxb07z45QMmfPnwySfk5xbrrCfcCQN+njKh2reTqEeCdWIPqovJr60+wozcZL9GxIfFkp6QtYBqSKm5k2bDAfou32qOwl+Hq5BSxi6dvCQDk+qCOcS4QjEfxALW3fhWC8q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RLlL2+LO; arc=none smtp.client-ip=54.243.244.52
+	 MIME-Version; b=YNpHFmTfD/tbVeiigSITzXNS8rZZtPEWSgkOXt6vuZ6psm3Xj++41kGyrQ1+QvxRp/cyid+fri4lYLDwyl501pL6vmX5u+PhksZEonKd1/jfICVvxNeKLNYmEK4uspwAVp5zuZjWnJKLTmXlkBwRf+M2BRckZbYrANobPEK9d8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ZfgG4wnb; arc=none smtp.client-ip=54.254.200.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RLlL2+LO"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ZfgG4wnb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787835827;
-	bh=NqU/OQY6xhI/9fc50QMVTcXsqM0l3RNkUoJ6o7t1gxg=;
+	s=onoh2408; t=1787835839;
+	bh=DudSYiu0l51smEG9rCcrUuSsdx8R0ivwHpjL+SnU4yU=;
 	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=RLlL2+LOzXy2PGCMgo3DWBhTqbBJETRZse9gyf5rJWXg7PBpoJwfPDH/FZ0AtJJi2
-	 keoDw3A+tXOHqx2EE6wU4DSoBPmLvS/ADqS7Nj8cYnOcNa/ea5x+T01zZ3CJu3KlEI
-	 rMtxPKy/W2f2pZ7qSY1OzHKFw+oQm+Osxl+mG1Kk=
-X-QQ-mid: zesmtpgz9t1787835809t88c8b7c0
-X-QQ-Originating-IP: mDjmIxSPwg/48udOaXPPDFGt4FwgJ2jGc+3qsTD8nC4=
+	b=ZfgG4wnbzGRdwf7CkqJj8ptZrvGPfaEKYQSxdtJNWtIxIqX47ZBBDxrqiwauKOiEw
+	 L11M7zbKsXzzgr89NyuIu5gjEtLXzCxl2hYPZ/k7uUXkdeNjAwaZnP8uAREzw72Wi+
+	 5CsT9Ec3teM6JNiPgUDfzwIIbumI7cPQ/+xQEbHM=
+X-QQ-mid: esmtpgz16t1787835823t85a16d86
+X-QQ-Originating-IP: WPzcot1uElX5wBNmxkZ7Vir9EpYhUzqvQOGUV0oKGjs=
 Received: from PEN202512010004 ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 21:03:27 +0800 (CST)
+	id ; Thu, 27 Aug 2026 21:03:41 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8082855683011287643
+X-BIZMAIL-ID: 17996740236134004177
 EX-QQ-RecipientCnt: 7
 From: raoxu <raoxu@uniontech.com>
 To: raoxu@uniontech.com
@@ -40,9 +40,9 @@ Cc: axboe@kernel.dk,
 	linux-kernel@vger.kernel.org,
 	linux-nvme@lists.infradead.org,
 	sagi@grimberg.me
-Subject: [PATCH nvme-7.3 v2 1/4] nvme-fabrics: separate option tokenizer pointer
-Date: Thu, 27 Aug 2026 21:03:26 +0800
-Message-ID: <B5DBFE863C2BC94C+20260827130326.1390222-1-raoxu@uniontech.com>
+Subject: [PATCH nvme-7.3 v2 2/4] nvme-fabrics: add helper for owned string options
+Date: Thu, 27 Aug 2026 21:03:40 +0800
+Message-ID: <92BDA706885092E8+20260827130340.1390531-1-raoxu@uniontech.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
 References: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
@@ -54,88 +54,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MCEqJnTzsXC9tEXexN3Apj0cm/wYZAyTNRMvty3fdKz4aib8Ja4SlcjV
-	ykAdJ/ZtbTackWk7QglTIn1WMuVaE3071hqYGdks1snWUOGO/zJ78j9gI4ujelNoXaL8VFs
-	uunk8kHZYsZooR3ESxqHdQZdOjKw1vQfaYfuiTyvp8K+zPpkOpbCgPUPGheYEnG8fSzJc6m
-	BGiWTTyPga3XwNYIzMdoLsNTnb2sd/1BwXkR6LVK/YuALvbCnfv58J3+repBm6NILlAQ5bc
-	okYD4RmsvRh+JPQLByh2vq3P0Z69jdFtqFinLxRgbz4/w1MHU2iXIPjgoMfhlToaOWvXF4S
-	qjU/P2WiYSo/oXQhPQ+d2g7E6SJG7Uq5rI9D/QnXZugAqp0pqFZazymBnRAhIQ9VJZwRSot
-	TGq4wJvrqxuJzaWqx7DVolpk0YiEeAD0aB3ZI114sapVsyWsqch1Pqkj3r4wP7kqM1WTAjS
-	L0wO6y/jwaD1KaMCD/rIzzFlzPFYQ8YV4wHK2Cn5LFaOm20bUjgETBCCpKF3r4YLl17ZMB/
-	f9h0VcSPkh1gKoxIwF4LKHNUkN2y29FUnzxQCs+HiLsr8rFr3kVGjWU/idD0d9A9L9v0xVC
-	q31CzI1L4visxKy79LFzLQunTlfSkIvzB8AQk77I00TbNg4TYMJKl2yJt4RWVRQJm8qSxYy
-	NZwVRokTvplfumnG3BUU1e3IC1W2WTeTpuuYyldgxechPvVO7tsUZH6u+h0UZL5QooMMeUO
-	+04k8+SglqrHjJP+wB5zRrdgpgnEi5vnbVyVNVQqUoFA+NpxAtS4E1SYoHCxrs68sDBy8AZ
-	1f+NkQdHiDaHDNls8Qv6vW+X8f58IJuGZ/ESvTckxsBntEwHc7DFVdmzzxMHC6bULEKosgl
-	Mu479a8UUaR2AgbgUD2EEU27OoN5WU0ZMGMd1eTSykiMB5vx1mQRv6NVsYbKdfvMeKxSjcU
-	SQxkkiCQQGV0P42ne/iboN969KHMST2lQYW3NtZj4cP+/Iae+auSiipPrU2wdYHEP9l0flz
-	VCT7XtXny7aE8sa3gNNHHSXTmBMIe9YaFQClPmRhRxKVrO21poEf3Y/xdeJiOse4lR6IoZJ
-	gdHpg9nE/5MKzh+vvn/APo=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NWth7vBa++Gd6mfcxCMtAhqX+p60hOcvzQEJq0+432Zdddw1dG5Ln2ys
+	yu9v20ggu23w2TYrlbbss146UZWKdka17cBXhDcVzhHmRfp+E7bGA2OD/FKNoI86sRV5ZWA
+	KgFZXbeUAUdg/nFYq3NikTu3Br1E+WtakXSgqIA3yyDwyI+HvKalNYrOAc3s9xhnJSCD3gn
+	Oct0JysX4rkpzTCx3yuGI5L3vLxsy71BxwxCiA06SyPiH1AjoVV3J1aCj7rComMCV1wKnT6
+	X7ZZg473VAbQ+eCBl+KeXrQrygH+x4wkEjhRo01BF3bjYxJ5aMnXKtM8xBKmZm1tyXQUnnB
+	aJJ+huqY8VO0VZpIjklnvuTFJtFlIoDTzjdOc5D56Q+BO0OCQMtjstq2c1gcfgoO6m9MNLh
+	kKs2WeB/eNMAAA5o7lLrZUiFrETZ1JR2T8+WhzbzZX7sOBENAkp/9haPaKRY0cOyA9HbpRb
+	li8EFg05w1PWJEMPlnyC5owJl2cuTI586xXk8beaFcvfBJz145NYtLPeR6/H0cuiVt0YLT3
+	AModY112uo7Fo1IVO3gxkZQ+vYx0goXIJurVe1yYKT3cXA1uBYculD3b7Jw3+xJxxie2JRT
+	HBSzVWVsuSXXxEzryNM3dbutuJsEAIgVYzxodEsTLQbQP0C8YFBG5SGyoMiWNvrjLPNqy71
+	2IQlBnuMN28RV+bXMLqM404xeV6D2BCXwEyS7ctYIkTkzQA+X89zBzxYD8jBUMENGDeCztJ
+	BO9443jtJwMuW3529zmmITAVj5nJ2uBvkyigRW3aDGu92cUR3WBrwVE2FRBAGGW4jiCcjbv
+	XDKp796WvJ2rI9TbPCw9pc4CrVRCDGzwKR0ov+OVrMwkfmCqIahZpIQzs6iSyKs0ODpfRAP
+	aGh3wCl1RW2m6+2xiui6C522lbMk2XMpRyAv7VLW/z+XZUITouHetBRLsxxqvo49UJHasnV
+	YfpmQ/8U/AaRfuSAHkb3nQxS/matkIbNEcMaSiQ4R0JpOZO0F7dJNEo3qgmx2DJ/0h/E08g
+	tvMOyGYlXj21rqd1RZ3aL0rPtU5qBRv1EfKSesqaHfsNazYvBHekBCPl5F1DC05QqpQx9FO
+	A==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 X-QQ-RECHKSPAM: 0
 
 From: Xu Rao <raoxu@uniontech.com>
 
-nvmf_parse_options() currently uses p both for the option returned by
-strsep() and for strings allocated by match_strdup().  The former points
-into the temporary options buffer while the latter owns a separate
-allocation, so the same variable represents two different lifetimes.
+Five string options -- transport, traddr, trsvcid, host_traddr and
+host_iface -- have exactly the same parsing and ownership rule: duplicate
+the matched value, free the previously stored string, and transfer the new
+allocation to the corresponding struct nvmf_ctrl_options field.
 
-Introduce option for the current string token passed to match_token().
-Leave p for temporary strings returned by match_strdup(), giving option
-tokenization and allocated string storage distinct variables without
-changing the parsing logic.
+Add nvmf_parse_string_option() for that common operation.  The helper owns
+the match_strdup() result until it either fails or stores the new pointer
+in the destination field, keeping this simple allocation lifetime in one
+scope and removing five copies of the same sequence from
+nvmf_parse_options().
 
-The name option is intentional: options remains the backing buffer for the
-full request, option is one comma/newline-delimited entry, and token names
-the integer result returned by match_token().
+The helper is intentionally limited to direct string replacement and does
+not absorb option-specific validation, conversion, or sensitive cleanup.
 
-This is a mechanical preparation with no functional change.
+No functional change is intended.
 
 Suggested-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- drivers/nvme/host/fabrics.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/nvme/host/fabrics.c | 53 ++++++++++++++++---------------------
+ 1 file changed, 23 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-index 59f823dfbbcc..1ec6da49167d 100644
+index 1ec6da49167d..aab3fd279d0e 100644
 --- a/drivers/nvme/host/fabrics.c
 +++ b/drivers/nvme/host/fabrics.c
-@@ -716,7 +716,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
+@@ -712,6 +712,19 @@ static const match_table_t opt_tokens = {
+ 	{ NVMF_OPT_ERR,			NULL			}
+ };
+ 
++static int nvmf_parse_string_option(substring_t *args, char **dst)
++{
++	char *value;
++
++	value = match_strdup(args);
++	if (!value)
++		return -ENOMEM;
++
++	kfree(*dst);
++	*dst = value;
++	return 0;
++}
++
+ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
  		const char *buf)
  {
- 	substring_t args[MAX_OPT_ARGS];
--	char *options, *o, *p;
-+	char *options, *o, *option, *p;
- 	int token, ret = 0;
- 	size_t nqnlen  = 0;
- 	int ctrl_loss_tmo = NVMF_DEF_CTRL_LOSS_TMO, key_id;
-@@ -747,11 +747,11 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
- 	uuid_copy(&hostid, &nvmf_default_host->id);
- 	strscpy(hostnqn, nvmf_default_host->nqn, NVMF_NQN_SIZE);
- 
--	while ((p = strsep(&o, ",\n")) != NULL) {
--		if (!*p)
-+	while ((option = strsep(&o, ",\n")) != NULL) {
-+		if (!*option)
- 			continue;
- 
--		token = match_token(p, opt_tokens, args);
-+		token = match_token(option, opt_tokens, args);
+@@ -755,13 +768,9 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
  		opts->mask |= token;
  		switch (token) {
  		case NVMF_OPT_TRANSPORT:
-@@ -1068,7 +1068,7 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
+-			p = match_strdup(args);
+-			if (!p) {
+-				ret = -ENOMEM;
++			ret = nvmf_parse_string_option(args, &opts->transport);
++			if (ret)
+ 				goto out;
+-			}
+-			kfree(opts->transport);
+-			opts->transport = p;
  			break;
- 		default:
- 			pr_warn("unknown parameter or missing value '%s' in ctrl creation request\n",
--				p);
-+				option);
- 			ret = -EINVAL;
- 			goto out;
- 		}
+ 		case NVMF_OPT_NQN:
+ 			p = match_strdup(args);
+@@ -783,22 +792,14 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
+ 					 NVME_DISC_SUBSYS_NAME));
+ 			break;
+ 		case NVMF_OPT_TRADDR:
+-			p = match_strdup(args);
+-			if (!p) {
+-				ret = -ENOMEM;
++			ret = nvmf_parse_string_option(args, &opts->traddr);
++			if (ret)
+ 				goto out;
+-			}
+-			kfree(opts->traddr);
+-			opts->traddr = p;
+ 			break;
+ 		case NVMF_OPT_TRSVCID:
+-			p = match_strdup(args);
+-			if (!p) {
+-				ret = -ENOMEM;
++			ret = nvmf_parse_string_option(args, &opts->trsvcid);
++			if (ret)
+ 				goto out;
+-			}
+-			kfree(opts->trsvcid);
+-			opts->trsvcid = p;
+ 			break;
+ 		case NVMF_OPT_QUEUE_SIZE:
+ 			if (match_int(args, &token)) {
+@@ -907,22 +908,14 @@ static int nvmf_parse_options(struct nvmf_ctrl_options *opts,
+ 			opts->reconnect_delay = token;
+ 			break;
+ 		case NVMF_OPT_HOST_TRADDR:
+-			p = match_strdup(args);
+-			if (!p) {
+-				ret = -ENOMEM;
++			ret = nvmf_parse_string_option(args, &opts->host_traddr);
++			if (ret)
+ 				goto out;
+-			}
+-			kfree(opts->host_traddr);
+-			opts->host_traddr = p;
+ 			break;
+ 		case NVMF_OPT_HOST_IFACE:
+-			p = match_strdup(args);
+-			if (!p) {
+-				ret = -ENOMEM;
++			ret = nvmf_parse_string_option(args, &opts->host_iface);
++			if (ret)
+ 				goto out;
+-			}
+-			kfree(opts->host_iface);
+-			opts->host_iface = p;
+ 			break;
+ 		case NVMF_OPT_HOST_ID:
+ 			p = match_strdup(args);
 -- 
 2.50.1
 
