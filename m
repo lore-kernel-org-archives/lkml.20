@@ -1,288 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878DF3CEBB8;
-	Thu, 27 Aug 2026 17:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852168; cv=none; b=YPxLVE7PRFDD0X254ymPqYZeTewLcsLaJXjWqSjp1dbSQH36UeNEAB9+fAsTtJ3Te3lunFFcXFRs2uyRTjFPtVT3HOcZ6MnvsdLrigitgT3XLVWCwtBnw8cV1HiCotS6eOK4dQ/0lKRwb509/OIFkfYiTN1U29jsUe2z59oSwHo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852168; c=relaxed/simple;
-	bh=kMQjf/EQdHt7FND8qem72DXwfRXSrGKRwXhdVhAtewM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rrqt9pV7j9ucqf9EelnWrz46zEsdlaRmSgdIvULj3c8WG5WHH9e79yzMdbZHuFy6Dvdo9Pji+30seLL6kFgfEFDC0R5f04noZN69LxksDtseKESFHTTeZelJi4RSpfizY8W0PqIwhqyIk90zPbsyhkYsbujYEwotux9sqhIiE+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7Z5niTt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE405416859
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787852198; cv=pass; b=qyOvLyEr2/V9BbJrhcJh4Ayi+tUskN9vXIUjS5fjQJsGr2/s9JcTpUEsjQjszlptm8WNIsELViptXhTzZQ60k0UMiMOSRMUpa7qxS8bqMsn7FkiA754vSVCxgnQWhcx6JQ8jWHZy8mH8tr8CoAURyIRp/lJiPXVLp1ZyRiGR7CM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787852198; c=relaxed/simple;
+	bh=kARueGusiE6vikFVSBgIU3Ldw5P4wXSUUt0Bb3uZ85Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s1sUc3C3iBD0ywN9ijcsUGjthu1xZkEf/hiBkZM4odkqB8hR3mVYQIJREufWOLbvAlPpOqR9sBu8pEuSwENsDL5uMiB703zdRpgefZxpXC3CqBerFQ626w4b37k51amLZXKUl3hQ+IcTVpBoa9UdhHwltrxn8BRhOgQZFLRnC5A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RqJvykjT; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7Z5niTt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A81D1F000E9;
-	Thu, 27 Aug 2026 17:35:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787852167;
-	bh=2DDVHpJux4Ptnn/zNnVoJKBlru2hK4rDAvwWQZHsc/k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k7Z5niTt7xai93ANTmHBXk/cNl/JwAUqSQsSU/IV53pXiJwa0lPrt+4i0KRd+RRdN
-	 g6IL9KhSNTJ8yTLeyZXeQ68jcMAgqeBYiuSNJJjMEHLOGhqs7HCkfUtfRI9oO+qpOK
-	 4VJGqm8nL4vVYUxZ9VHwYX8EUczxXB+IKsD4FRlMFmgihyTXFKa46iDz+OuHMjiIMg
-	 xIRCgCi2HdHATCpL17lS3hUpZb+D9fl0AcR+8lW7hn9rDC86QCJVUjpIonY1dqc/B0
-	 RXwXa+9MA00B0s/07AimaLzJl+FpnUIt9IgSaX/NwYJOW4Ukv7QaqMbhHY4JAum3W/
-	 ZIf+y0Xx1qCIA==
-Message-ID: <bd83481f-d25b-441e-90bf-18d49ab9322d@kernel.org>
-Date: Thu, 27 Aug 2026 19:35:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqJvykjT"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1c26d7e951so22923566b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:36:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787852195; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kM8sCAU9tRBEc+f83GrEwQ9Zj8+LCYShRKCBkYwRb0VKr7wVMx3QJPlPUtMeXgi0sW
+         JY5qQCea4qMEhmdxSOJEi2JBbmfmMCrdGkBHy9V1+ir93GpkdW6DbEo1PPct6GmFkD1R
+         PfEd6Kb9f/rDPdd4RH8Y41/d/T7DM1clWTQEUK1dVCbcKlUfO3nKY0AUWGKTwiWvR543
+         JLHiUXD/RQwtfzxKc4jObu9eXCMGxxrTh2A1wVDWOX2Y5VL6z//RNb2xgPqXU3Sc2pjr
+         ZGiQ6Nvmj58OoZqSJPRh5xhSrdZQ30Z97MRiVgIK2q+uOm+qPOAuJzWOT9juh7/UWbdl
+         62wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9lkMm8lvYUjv5dpOxr25jt/qefHlkYagepcQl8vTMUc=;
+        fh=Y4mrYa+wP6iW1VDptI1xtDrz+1q8FjB1hhbqOF3DEcQ=;
+        b=ntUFJzQzitVjwvb60tJ3qYAvSJi6XiaEHePoLD3btk9xHc+BmM4H5GSVsLkZyHB4wc
+         PhGpF9l7pfNEJq0bWvRU1BkmWy7F4oJEATPmg2+kdHD8lbrb3wwdgDl3Hj0m1TobeX3m
+         Y5cfJIEMGGzWekSjv9ChXdseMEH8w2KrP7A3p0cww59YPMCtqBgVKQp1DN4FKWx6JvzX
+         zL0XkPhPbtHbjq7Q1ecaTltd2S4VimrySCNu3TY8vbWUjrd5fX6ns7Be8eESxapT4Kg1
+         3lBoHdB99EiW7I9KlqiRjJvW3qxUSxVTfeRRe1J0UP+NkM1WqohCVLIICFUy07zGL+3A
+         RuTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787852195; x=1788456995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9lkMm8lvYUjv5dpOxr25jt/qefHlkYagepcQl8vTMUc=;
+        b=RqJvykjTBic7gidQDRzyBLU0aDCop2HIWuAwmMAqT/kReV/mq5HElRvdLMs4ZWmatK
+         cpKIat7REWv3VyE7ZzltxxglLBdYl6Y3e/y4ec+hQj7ciyE0LffyniYD5/Qrs5yWEyoP
+         byqjGAx0J9W7FrH+Z8VtRK3HWhGGlAheWf/qskWWwNgKyTEU1oReWPQCHFIJDsJSr11P
+         AxlVz96OiSY5wz6seF7p6YULAb4qYDJl3MllYxkpKf+Mji3aYNXAR/U16tUDQlnLP3eQ
+         qUb6jNooqZTapX7KfP06MphwO236vyQ4wCDoELX4BPCW5icCGUu3aL7hulJ0omqfZ0Bd
+         5vFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787852195; x=1788456995;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9lkMm8lvYUjv5dpOxr25jt/qefHlkYagepcQl8vTMUc=;
+        b=e/imzD8hnq6rw5vIqoB9awLrB+RqLTRgms92jNd4aIAiI+f/RFkBs6cWXumCv1vzla
+         XXboMknWF7sZNQr7/Ede3kuVtTAnQaXD+GiI++9668dQHv956YRCs2NzyFHG6bAmJ7a1
+         ZeOckfO3LILhwfe02f/e6sCdDm2M9de6M1qW+t3LB5jkLGkqLp5fp4x7zqsDGBHAG0Ts
+         w+55XWYOMOX1R2PXAUZff2yqeb7kqks+g3+/xf5Dkd9Kq7xNN9tfEQPmgX1ZyqlL0KXf
+         +fWJGDuGMf86wDaKl5yPCqRJR6+DUHcRWbTKjzP2r9GrjESy/kcptjvGRF0JTVPAb9wh
+         39TA==
+X-Forwarded-Encrypted: i=1; AHgh+RpbtVCunwgIdaNqHacMvAIHZByMU8o2ZkFregCxlSxYRBwA6aYkMoJQSaionx2b9LKbOFaqDsJffHAPgbU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nV7sp42Yh7lb2h+YkL7B+wDkitkOjo1jpHaz8bh9xlPPndW24i
+	PVA7+X3dLmUBlZiO3Z//g9HY8rglB+XoGxp6AYN0sC6ROdQ/rQxMysLvsyxdqT1VtamMdduKKSq
+	AWFrql1KOqdflE6MCz0iUW+YDzS24RaU=
+X-Gm-Gg: AR+sD12VGTC+gG6bLYbc+Ty3iXNdmHNmTsmuY4NYvsdeR19IYfS1/nPzkjmBZMkG3jZ
+	sU2VoblCY+bKVoWE52jhFFmXjREbzoBJSTayjxxdYU2HRBLCrzHxQWMGY35aic7Foa9oFkSNrSU
+	5uRD4kyr1GT3QTbdTzj+mzEX5yRNIhLy8Pvdt8aFc8YE+DcGozNGsANnbPvWf0cuHzzLUkNlQbg
+	G+JEUgk3zD6Ho/PlTTOxeqWMQw0e74qpeUaWg1Yez+46LwYczZ/s2Kyvv+WZDwE7FogVqQduo8B
+	F4UakefqBnjexnRYax/LtsJUdRoK8imYmxbrmHYtgesUop/coiw26Xi73YSwSlg/4kxKNQZLwmZ
+	HUYWOhO1P09M=
+X-Received: by 2002:a17:906:9fc7:b0:c20:ff26:336e with SMTP id
+ a640c23a62f3a-c25570191c9mr22400166b.14.1787852195125; Thu, 27 Aug 2026
+ 10:36:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/25] mm/fbatch: allow folios_put_refs() to skip
- xa_is_value() entries
-To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
- <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, JP Kobryn <jp.kobryn@linux.dev>,
- Jan Kara <jack@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
- Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>,
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
- <44c7773e-5806-d24a-83c9-f39b3a134138@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <44c7773e-5806-d24a-83c9-f39b3a134138@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-8-9b43f5163238@tencent.com> <a7f16d6b-217e-400e-812a-528493d45134@kernel.org>
+In-Reply-To: <a7f16d6b-217e-400e-812a-528493d45134@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 28 Aug 2026 01:35:58 +0800
+X-Gm-Features: AcwNN1VEQiDmkFeAKmco0RotUE5B_rZNwsXG2Mgge4ASxKJzjjIY7BucqenQtDk
+Message-ID: <CAMgjq7Ay3T6BRJ2E1kGD7BNq=4bMMOpw_EKOskM-9im_fjq-MQ@mail.gmail.com>
+Subject: Re: [PATCH v3 08/18] mm/huge_memory: move unmap and remap into the
+ split helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/24/26 15:55, Hugh Dickins wrote:
-> Let folios_put_refs() (hence folio_batch_release()) skip xa_is_value()
-> entries, and therefore remove unneeded folio_batch_remove_exceptionals().
-> 
-> It made some sense when introduced in 3.1 for shmem swap entries only,
-> but workingset shadows popularized exceptional entries in 3.15, and it's
-> silly for so many sites to be squashing exceptionals out of the fbatch,
-> merely to suit an inadequacy in folios_put_refs().
-> 
-> But remove exceptionals on leaving truncate_folio_batch_exceptionals(),
-> one of whose callers then passes the fbatch on to others less tolerant.
-> 
-> No longer essential to this series, since 7.2 commit 9669b87065a6
-> ("mm/lruvec: preemptively free dead folios during lru_add drain")
-> allowed folios_put_refs() to skip NULLs; but still an improvement.
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
-> ---
->  include/linux/folio_batch.h |  5 +----
->  mm/folio.c                  | 25 ++++---------------------
->  mm/shmem.c                  |  2 --
->  mm/truncate.c               | 16 ++++++++++------
->  4 files changed, 15 insertions(+), 33 deletions(-)
-> 
-> diff --git a/include/linux/folio_batch.h b/include/linux/folio_batch.h
-> index b45946adc50b..e1cc8ae023f1 100644
-> --- a/include/linux/folio_batch.h
-> +++ b/include/linux/folio_batch.h
-> @@ -22,8 +22,7 @@ struct folio;
->   * The folio_batch is used to amortise the cost of retrieving and
->   * operating on a set of folios.  The order of folios in the batch may be
->   * significant (eg delete_from_page_cache_batch()).  Some users of the
-> - * folio_batch store "exceptional" entries in it which can be removed
-> - * by calling folio_batch_remove_exceptionals().
-> + * folio_batch store "exceptional" (xa_is_value) entries in it too.
->   */
->  struct folio_batch {
->  	unsigned char nr;
-> @@ -100,6 +99,4 @@ static inline void folio_batch_release(struct folio_batch *fbatch)
->  	if (folio_batch_count(fbatch))
->  		__folio_batch_release(fbatch);
->  }
-> -
-> -void folio_batch_remove_exceptionals(struct folio_batch *fbatch);
->  #endif /* _LINUX_FOLIO_BATCH_H */
-> diff --git a/mm/folio.c b/mm/folio.c
-> index 62b96c9ce19e..b2bce6b77498 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -983,6 +983,10 @@ void folios_put_refs(struct folio_batch *folios, unsigned int *refs)
->  		if (!folio)
->  			continue;
->  
-> +		/* Skip any "exceptional" (workingset or shmem swap) entry. */
-> +		if (xa_is_value(folio))
-> +			continue;
-> +
->  		if (is_huge_zero_folio(folio))
->  			continue;
->  
-> @@ -1088,27 +1092,6 @@ void __folio_batch_release(struct folio_batch *fbatch)
->  }
->  EXPORT_SYMBOL(__folio_batch_release);
->  
-> -/**
-> - * folio_batch_remove_exceptionals() - Prune non-folios from a batch.
-> - * @fbatch: The batch to prune
-> - *
-> - * find_get_entries() fills a batch with both folios and shadow/swap/DAX
-> - * entries.  This function prunes all the non-folio entries from @fbatch
-> - * without leaving holes, so that it can be passed on to folio-only batch
-> - * operations.
-> - */
-> -void folio_batch_remove_exceptionals(struct folio_batch *fbatch)
-> -{
-> -	unsigned int i, j;
-> -
-> -	for (i = 0, j = 0; i < folio_batch_count(fbatch); i++) {
-> -		struct folio *folio = fbatch->folios[i];
-> -		if (!xa_is_value(folio))
-> -			fbatch->folios[j++] = folio;
-> -	}
-> -	fbatch->nr = j;
-> -}
-> -
->  #ifdef CONFIG_MEMCG
->  static void lruvec_reparent_lru(struct lruvec *child_lruvec,
->  				struct lruvec *parent_lruvec,
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 89a1495e55f7..3911721e1e55 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1156,7 +1156,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
->  				truncate_inode_folio(mapping, folio);
->  			folio_unlock(folio);
->  		}
-> -		folio_batch_remove_exceptionals(&fbatch);
->  		folio_batch_release(&fbatch);
->  		cond_resched();
->  	}
-> @@ -1276,7 +1275,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
->  			}
->  			folio_unlock(folio);
->  		}
-> -		folio_batch_remove_exceptionals(&fbatch);
->  		folio_batch_release(&fbatch);
->  	}
->  
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..4151f7a167e3 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -53,7 +53,7 @@ static void clear_shadow_entries(struct address_space *mapping,
->  /*
->   * Unconditionally remove exceptional entries. Usually called from truncate
->   * path. Note that the folio_batch may be altered by this function by removing
-> - * exceptional entries similar to what folio_batch_remove_exceptionals() does.
-> + * exceptional entries.
->   * Please note that indices[] has entries in ascending order as guaranteed by
->   * either find_get_entries() or find_lock_entries().
->   */
-> @@ -95,7 +95,7 @@ static void truncate_folio_batch_exceptionals(struct address_space *mapping,
->  				dax_delete_mapping_entry(mapping, indices[i]);
->  			}
->  		}
-> -		goto out;
-> +		goto squash;
->  	}
->  
->  	xas_set(&xas, indices[j]);
-> @@ -113,8 +113,14 @@ static void truncate_folio_batch_exceptionals(struct address_space *mapping,
->  	if (mapping_shrinkable(mapping))
->  		inode_lru_list_add(mapping->host);
->  	spin_unlock(&mapping->host->i_lock);
-> -out:
-> -	folio_batch_remove_exceptionals(fbatch);
-> +
-> +squash:
-> +	for (i = j + 1; i < nr; i++) {
-> +		folio = fbatch->folios[i];
-> +		if (!xa_is_value(folio))
-> +			fbatch->folios[j++] = folio;
-> +	}
-> +	fbatch->nr = j;
->  }
+On Fri, Aug 28, 2026 at 12:32=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> >
+> > To prepare for further cleanup, move the unmap/remap handling from
+> > __folio_split() into the split helpers.  Only anon folios need to
+> > be remapped, so remap_page() is now only called for anon splits and
+> > the anon check in remap_page() is redundant and can be removed.
+>
+> I can understand why we would want to move the remap_page().
+>
+> But why the unmap_folio()?
+>
+> >
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >  mm/huge_memory.c | 58 ++++++++++++++++++++++++++++++------------------=
+--------
+> >  1 file changed, 31 insertions(+), 27 deletions(-)
+> >
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 01c8cf428595..af9c2edd1fba 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -3589,9 +3589,6 @@ static void remap_page(struct folio *folio, unsig=
+ned long nr, int flags)
+> >  {
+> >       int i =3D 0;
+> >
+> > -     /* If unmap_folio() uses try_to_migrate() on file, remove this ch=
+eck */
+> > -     if (!folio_test_anon(folio))
+> > -             return;
+> >       for (;;) {
+> >               remove_migration_ptes(folio, folio, TTU_RMAP_LOCKED | fla=
+gs);
+> >               i +=3D folio_nr_pages(folio);
+>
+> I think we should rename that function now to unmap_folio, but likely bet=
+ter
+> unmap_anon_folio().
+>
+> > @@ -3933,19 +3930,23 @@ static unsigned int folio_cache_ref_count(const=
+ struct folio *folio)
+> >       return folio_nr_pages(folio);
+> >  }
+> >
+> > -static int __folio_freeze_split_unmapped_anon(struct folio *folio, uns=
+igned int new_order,
+> > -                                           struct page *split_at, bool=
+ do_lru,
+> > -                                           struct list_head *list, enu=
+m split_type split_type)
+> > +static int __folio_split_unmap_and_freeze_anon(struct folio *folio, un=
+signed int new_order,
+> > +                                            struct page *split_at, boo=
+l do_lru, bool unmap,
+> > +                                            struct list_head *list, en=
+um split_type split_type)
+> >  {
+> >       struct folio *end_folio =3D folio_next(folio);
+> >       struct swap_cluster_info *ci =3D NULL;
+> >       struct folio *new_folio, *next;
+> >       int old_order =3D folio_order(folio);
+> > +     enum ttu_flags ttu_flags =3D 0;
+> >       struct list_lru_one *lru;
+> >       struct lruvec *lruvec;
+> >       bool dequeue_deferred;
+> >       int ret =3D 0;
+> >
+> > +     if (unmap)
+> > +             unmap_folio(folio);
+>
+> I really hate that "bool unmap" parameter.
+>
+> folio_split_unmapped() has this VM_WARN_ON_ONCE_FOLIO(folio_mapped(folio)=
+, folio);
+>
+> So you can really just do
+>
+> if (folio_mapped())
+>         unmap_folio(folio);
+>
+> Or have an early exit and hide it in unmap_folio().
 
-One caller of truncate_folio_batch_exceptionals() just calls
-folio_batch_release(). I was wondering whether that one could just stop calling
-truncate_folio_batch_exceptionals().
+The only special case here is device private memory, from folio_split_unmap=
+ped.
 
-But truncate_folio_batch_exceptionals() does too many other things I don't quite
-understand.
+Maybe I can just keep the unmap_folfio where it is, but
+__folio_split_unmap_and_freeze_anon need to know if the folio need to
+be remapped.
 
-I guess one could move the loop into the only remaining caller that does not
-call folio_batch_release() afterwards.
-
-But that changes the whole purpose of the function and the name would no longer
-match.
-
-Which brings me back to my point that truncate_folio_batch_exceptionals() does a
-lot of things besides folio_batch_remove_exceptionals() that I don't understand :)
-
-So I'm sure there is room for future cleanups for somebody that actually
-understands what truncate_folio_batch_exceptionals() does besides ... removing
-exceptionals.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
--- 
-Cheers,
-
-David
+Will a "bool remap" parameter look good?
