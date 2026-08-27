@@ -1,145 +1,180 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B77B33A029;
-	Thu, 27 Aug 2026 09:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6640043B3E6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824536; cv=none; b=ReZLy5OYPpSKovcbHdo+6lBMBnjpIFnVvu7IS73pFqNeTu7tNx6IZD8321JoYv6jVulCqUl0rwic3A5RrkpITt0YhMxxtHgQL7sTbvJMTj3Akii2UUkhZP9Kp8bcFyDmAdK8E6IjV/iqU2VRLGVte312RGSvWptWQ95ltUXj7zQ=
+	t=1787824588; cv=none; b=JJhQox9RDH+IjUCQBGvMd2yQTST92ySUyL23DDHla2knxy53gvOO/DTnHf7DvK+dJ7jLZ3hIVgtqQKPH3Euwymrl1V3p6EwO8/2a0oL1DaFyX+IG0p3a4EOOKqOSNROPOLm3iZsJrdqRxwZ8HDvXQzaAqabzZgRgzrinENcsocw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824536; c=relaxed/simple;
-	bh=wn6vNR+gNApMgA3EqRDt1zjZM4Fnlcaf5/SPd9MBERw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RT4/r8iX+Iqi3uQtmbH25TcMHKD+8gsitaR0tcXqbOjBQZ13UvBR3EtNKFg6WfrA5wAFlB8d9vYWJvDD8GrVna7s815sY0NRSgbl7L6F2x+5KNeWxhXonvLXy/7OQO/qyDY55Z0aCtrSblsylO8x5l9qIiHHHZSHS0GsbYK38TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=hf7JzrWl; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1787824588; c=relaxed/simple;
+	bh=XVwxuwVv9J8klcfz+P0rkEtNX7AV6V6/RcSwg0haeL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=swJZRrqM0xSuaIrXECF3Ok/kGj+RoJdMGzN2MI8V4GTYV9czbkSLtMakml7t0Uc/CiKtDKBqlEepo9XspPu70AJPsFDwTGKELhx5FK22mkDIuAbpWtcJFhWiaVRa2IumiW+LACz0/t/AR6NJmPiNgKn4RhIkEFoDtjYg997d5Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Uz1FxSCi; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="hf7JzrWl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=Hv8N+7TnTbbe4S2bY6DaK8vTQFSVSFqTOo/XZ1y38WM=; b=hf7JzrWlRhCogPg/MxeDgdZY/9
-	a5nrtLdMXGiAmmad/53Q5RRVJohxAKi1xxAz6mQAW6EaOb7267i3Dxnme1P4jzksuPOvfm1Jqi8jq
-	+nYhVBD75+cbgdzEhwyVhBDtAsSnCkTMCckToaaZQ2p97MiEgC9KhccC1xxuKRPxxRdKcJrcgxqpP
-	yJvnr3QyMMjtJw1HpFde3Qb6ZYYzEPv9bc1oPscnCJ9Gr/rf3cm7Dzk0V/ys5bxLkqEJy5xyYcMN2
-	+OfKzWzteyhQIiGJV96rKXlyLAGySCr40DHb6wTnzwzq25Gc1uYFQLj7ADhKpp4Xcjc66lArf37us
-	RFRJxX7A==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wzWpF-00FuVP-0d;
-	Thu, 27 Aug 2026 09:55:13 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 27 Aug 2026 02:52:14 -0700
-Subject: [PATCH] x86/mce: Rate-limit the CMCI storm transition notices
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Uz1FxSCi"
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BB2243FE28
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1787824571;
+	bh=twtaGX9keTthWlD8Iz9JDELL7y9v94YhHTzfCCgZVkY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=Uz1FxSCibNfL4jH0ATZjeFge2Q8AfHnXFgIon3LvgJFa9X5r+o9X9DxaIzeeDXvLz
+	 iKrZsg4vDPeGlSThaJgSrnQAkNJxgXha8EF7knyLsoM3IbuIB6Qw83YwJxHm2JGLBI
+	 PY/z3V9YKWdYOue0M1OrzJiNlVdN28W27MkL3tUGspR9HmA5YjuO6fgCRCPMhKc0Ii
+	 vDajfBt9sWseooPPiEJAoWsrOMR8gYGYDKcMa1oLNLKDaByzEGKJpK91A1PLib8eyu
+	 yeAcQ6Y/J44bUIKXuerf0gTU75KO7Cvlb48APu0vNZ6qy/fPvgNq6H6OzKiBKHNqT7
+	 TapzUZtFknij38LIlzGoi0YYa9qwLfnmyAfqKoBS0ptCJv4MRxbvmNxaoMwY9BKlx4
+	 8aUm0WrXH2UsbqQuDsXY5a5jFYrEog2SrPXDl0f+hIyX7LxwMaJzMYKvQxI+hr+3JL
+	 zv9DTUan40+RupRwsbrn5Fai7/suDhOFeHS1cuLLwJ2ySb9s6fVrOPvLwbst/Z3muQ
+	 fXVUPcnHiRavTFeAe0sPzcq1HZ2Mwz4iAv3q8WU2IkEUq178Ezt+nMlLT7uEyzPcbS
+	 lmFEAP+7GZZ7pMCEJSlpiM79Wr/oAdpq9v6VHTHerS+36DCU7lHhyJhiKKrsh1z2hy
+	 PNraum6R3qMo0+Scjg5SF/zU=
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4954c2d4081so15628225e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:56:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787824571; x=1788429371;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=twtaGX9keTthWlD8Iz9JDELL7y9v94YhHTzfCCgZVkY=;
+        b=lEcVYB6BG6ViW1eSdAhEK+xDcYvhsvAAt/mMRFOL54L4n4sAaNaXm1Dy8cyJhHGfJo
+         7M+xzzMwUN9vJB5s8iqZyTrz70+wgxqUEYmfZ1KWuFHBBYmBVfS5BQgH5fO+f790sFhr
+         mOmv72gNak6PTLwNevmqxx2Jghdy0fPqPab8OxDK3OFshmCiULgIsmWg5WDklEZ63vlY
+         9q6eMDi9LB/5JfK/e8QMc7qrG3MwfOYD3fWf0Va+jWXMTJynqh3+aQuLmKLSVs1fUeFr
+         mPYA1XtSjOQbFQdDOZW0ntEF35/Amcq3FMvmjsjwTm7rOUa9FowUBR36sJxvUlEksgvI
+         wUNw==
+X-Forwarded-Encrypted: i=1; AHgh+RqSaTJ35/aosUw7ClqNE2tpR2ihiyGzkBoYUSz1mus3PY18uVrKn2pDVUMqMdISnL7Wk6WNO0+c9oie6NI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMmNkNgM23dP+FWLEQnyRhqHgtclvTYwzDlNQMfvjgQrlXL8DF
+	F2qmLNukYa+CAo7yTMmFsDhJsE54FG5XDzRTIjpEPSLDiAHcdk9f/EHp9Br84AKFyiLQ4LI/NOQ
+	wrMYjd3zoG5y7i15hTu6sS5h5RUHtL33OgbAxi8oS8qz+VdmuYRS/qk3NvOwy8UiKZ4J83Sm7qs
+	hxSktsSA==
+X-Gm-Gg: AR+sD10tBQFPPs2OW817Yb/gC0W33Lx3/TR+ArDWiDz1veM4MEaQIzUtLFOhAbajOBc
+	QOMHrww/sxjntoteuqLK9co4T19cpag1M/d8KJH4RuViBmltGjRrHiz6DGwHyPeDaoE2JLwORXZ
+	i8+sJ5MQwTGjV897TRHlRTJhJprh1TEoW4WBdfBiWPr543XKUNB2ZGw4V9ovxl4j5AaKy6sC7N7
+	DxhdkFpXNYNuahnKWbLmiFcjJtBtb6Um3sgTLj7rbkokQoEW4RGMRwOPXvRffIWa7WqO94pzUVS
+	3a8E1W6XPNoiMvoE6cWETjii199fafLhSQYFsa94W9nq7UcoTulKAZuU/lmGA8of9UpEZbCWUJj
+	eKSe68svWKB5Q7g3nMG1eq4/PupjO08pgXOxpvlwr9mYkSJKWOu1+J3VwdgafkPE8MOA=
+X-Received: by 2002:a05:600c:3acf:b0:499:db5a:1049 with SMTP id 5b1f17b1804b1-499dc70246bmr162323595e9.8.1787824571156;
+        Thu, 27 Aug 2026 02:56:11 -0700 (PDT)
+X-Received: by 2002:a05:600c:3acf:b0:499:db5a:1049 with SMTP id 5b1f17b1804b1-499dc70246bmr162323025e9.8.1787824570756;
+        Thu, 27 Aug 2026 02:56:10 -0700 (PDT)
+Received: from localhost (93-35-56-63.ip53.fastwebnet.it. [93.35.56.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm36964705e9.4.2026.08.27.02.56.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 02:56:10 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:56:09 +0200
+From: Alessio Faina <alessio.faina@canonical.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
+	stefano.salsano@uniroma2.it
+Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh if
+ iproute2 too old
+Message-ID: <apAJuZzDOvjkVx60@cicciput>
+References: <20260824091537.2305107-1-alessio.faina@canonical.com>
+ <20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
+ <ao7S04LkWVXAQpgq@cicciput>
+ <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-mci_ratelimit-v1-1-ac43df769b36@debian.org>
-X-B4-Tracking: v=1; b=H4sIAM0IkGoC/x3M2wmAMAwF0FXC/bZQQ1HpKiIibdSAL1oRQdxd8
- AxwHmRJKhmeHiS5NOu+wVNZEMI8bJMYjfAEtlzZhmuzBu3TcMqiq57GVs5xKRybEFEQjiSj3v/
- Xdu/7AXDRRVNfAAAA
-X-Change-ID: 20260827-mci_ratelimit-064421e2d8cd
-To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2507; i=leitao@debian.org;
- h=from:subject:message-id; bh=wn6vNR+gNApMgA3EqRDt1zjZM4Fnlcaf5/SPd9MBERw=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqkAl9gxs6NoVVUlVKa/RaZcBKH/NSwvSYC3w1X
- zDtOIphCWyJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCapAJfQAKCRA1o5Of/Hh3
- bfnND/9iFrvPPzfimRF8BK+uJ1NHqmyfKVa90GR2cXJY8kxZMs7tLt61MuPQZL5ICnVCLHoGOXc
- 2ftmQwxs45jBxf0VqrG8RLrBC6SCshM7LESIE6+x/Z9t5U8nCyxB1s1P60G3Vtoa0k2/9uNaaDo
- Y/kU94HtZU8f9vhj6PAupWrIQ9GiCewTpufPvhUkk8x/mIpNP6MXWrg5yijGieaCznt+26peAl7
- AiM2Cqe+DaTsShkprZ54dkosZj1qfHpEUguT7NEFBSx5GxcjknxHW6I+Alj7/9kpbm2we6s1vVv
- Gz248ySf7EZdXgQ8kzWkxq2QvRQMBzhop8T9W7gqC7iGs6pK49vqwWgf02u4jpf4JdOsoQKV/HR
- ZZXAe+YA7DzkTSCVcrvWqVf6O1ZzUOV/30uYijjS2vhsCm9YcQ4GNFFKGbl7g7XsJtbbtE3S8z5
- qTdHVmxteUlPFLJetjlamOIz6Gro6/JEmUPoslQ84xbXBqsu463LyZou909c5c+utU4faOyhBYo
- 3pPP82kMXY7emIrf53V/2le+Jo388VM10zQ06MWVi0/4AcrypPGMuwZDWbJTpw2c8M7KP/Z8iXu
- 4wxmSmxUyOKe+tUunZyPlb3TBf0vMg/0XFRdkMlxVi5C88AxY1RV6oIgqLIwcuGT6RdbgKmDIvB
- p0ARtgvRrcSXZQg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
 
-mce_track_storm() prints a line every time a bank enters storm mode and
-another every time it leaves. Neither is bounded, so the log volume
-follows whatever rate the bank flaps at.
+On Thu, Aug 27, 2026 at 03:07:01AM +0200, Andrea Mayer wrote:
+> On Wed, 26 Aug 2026 13:49:39 +0200
+> Alessio Faina <alessio.faina@canonical.com> wrote:
+> 
+> Hi Alessio,
+> 
+> > I was running kernel 5.15 (5.15.0-139-generic).
+> >
+> > Removing the sink to /dev/null in check_hs_connectivity
+> > I can see the following error:
+> >
+> > ------------
+> > PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+> >
+> > --- 10.0.0.2 ping statistics ---
+> > 1 packets transmitted, 0 received, 100% packet loss, time 0ms
+> >
+> >     TEST: Hosts connectivity: hs-t100-1 -> hs-t100-2 (tenant 100)       [FAIL]
+> >
+> > .....
+> > ------------
+> >
+> > The error I can see upon installing the route in the setup is the
+> > following:
+> >
+> > ------------
+> > Error: either "to" is duplicate, or "vrftable" is a garbage.
+> > ------------
+> 
+> This error comes from the route parser: the seg6local action was
+> parsed, and "vrftable" was not recognised. The End.DT4/DT6/DX4/DX6
+> actions have been in iproute2 since v4.14.0, but the vrftable
+> attribute only since v5.11.0.
+> 
+> > I can see that iproute2 doesn't support any End routes
+> >
+> > ------------
+> > ~$ ip route help 2>&1 | grep -qo "End"
+> > ~$ echo $?
+> > 1
+> > ------------
+> 
+> The help text reports the names of these four actions only since
+> v5.14.0.
+> 
+> > It's similar to the case we added last month(-ish) for
+> > srv6_end_dt46_l3vpn_test.sh.
+> 
+> End.DT46 was different: parsing and help line came in one commit,
+> so no upstream release has one without the other.
+> 
+> The two DX tests do not use vrftable, their seg6local routes only
+> need nh4 and nh6, which are as old as the actions. Which error do
+> the DX tests give on your setup?
+> 
+> Thanks,
+> 
+> Ciao
+> Andrea
 
-One host in our fleet logged 9970726 "CMCI storm detected" and 9970734
-"CMCI storm subsided" lines for a single bank over four days, which is
-a bit excessive for all monitoring purposes.
+For the DX tests I was doing a local test but it's not in the original
+kernel, sorry, I must have confused 2 tasks with one, so disregard the
+DX4 and DX6 tests, they are not relevant to this issue; if we manage to
+agree on a solution for the DT4 and DT6 tests, I will discard those
+modification in a subsequent patch.
 
-Put both transitions behind one ratelimit.
+About the DT4 and DT6 tests, I thought to use the same method as the failure
+was practically the same as End.DT46.
+This is the version I'm currently using 
+ip utility, iproute2-ss200127 (should be 5.5.0 if I'm not mistaken)
+and I can confirm 
+[SEG6_LOCAL_ACTION_END_DT4]		= "End.DT4"
+[SEG6_LOCAL_ACTION_END_DT6]		= "End.DT6",
+is available.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Acked-by: Tony Luck <tony.luck@intel.com>
----
- arch/x86/kernel/cpu/mce/threshold.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+What do you suggest would be the right way forward to check what is
+going on?
 
-diff --git a/arch/x86/kernel/cpu/mce/threshold.c b/arch/x86/kernel/cpu/mce/threshold.c
-index 6c370d5af5bd2..8591715ce2430 100644
---- a/arch/x86/kernel/cpu/mce/threshold.c
-+++ b/arch/x86/kernel/cpu/mce/threshold.c
-@@ -4,6 +4,7 @@
-  */
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
-+#include <linux/ratelimit.h>
- 
- #include <asm/irq_vectors.h>
- #include <asm/traps.h>
-@@ -111,6 +112,13 @@ void cmci_storm_end(unsigned int bank)
- 		mce_timer_kick(false);
- }
- 
-+/*
-+ * Shared by both transitions so that a bank flapping between them cannot
-+ * outrun the console.
-+ */
-+static DEFINE_RATELIMIT_STATE(storm_rs, DEFAULT_RATELIMIT_INTERVAL,
-+			      DEFAULT_RATELIMIT_BURST);
-+
- void mce_track_storm(struct mce *mce)
- {
- 	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
-@@ -150,13 +158,17 @@ void mce_track_storm(struct mce *mce)
- 	if (storm->banks[mce->bank].in_storm_mode) {
- 		if (history & GENMASK_ULL(STORM_END_POLL_THRESHOLD, 0))
- 			return;
--		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
-+		if (__ratelimit(&storm_rs))
-+			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n",
-+					smp_processor_id(), mce->bank);
- 		mce_handle_storm(mce->bank, false);
- 		cmci_storm_end(mce->bank);
- 	} else {
- 		if (hweight64(history) < STORM_BEGIN_THRESHOLD)
- 			return;
--		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n", smp_processor_id(), mce->bank);
-+		if (__ratelimit(&storm_rs))
-+			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n",
-+					smp_processor_id(), mce->bank);
- 		mce_handle_storm(mce->bank, true);
- 		cmci_storm_begin(mce->bank);
- 	}
+Kind regards,
 
----
-base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
-change-id: 20260827-mci_ratelimit-064421e2d8cd
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+    -Alessio Faina
