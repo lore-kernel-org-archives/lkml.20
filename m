@@ -1,166 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1612E385D6B;
-	Thu, 27 Aug 2026 17:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850467; cv=none; b=EscIUGC9gmY/qocRgENyevcCoa4YPWCYLTreedx2XJFhVo55+PsJdyaJjnVVjNyVvIhUFvgbQba3iIOVkSbyZENTEQokfCluhIPMHWkMACG8a7U0PXPT/JKjzQ2sssuG0LxnX9eAk+z96L4u9FC8c1FMdSW+fUEkpIrZRLWLMJ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850467; c=relaxed/simple;
-	bh=fxigzrezC8cr7rKcepltp+zIdguU7F/EVLGsBJ/Jo/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kMUTszi0FEesBbmT11qG8Xpw19lueENP66uqRWhLZVVsO0ZosbqgP8g05g2gf6tZUgf7UeDNEUrg7atXUDM3JyxwDFoqBWvDSHdnKvRUj3wGrSF3ryE6aatghpvk0LZnBVRTRMo3Gp2kmBhg9s4BsczqV65MkDRUpB7nW4FLP8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpG3+WHr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703C638C2A7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787850472; cv=pass; b=CM/o4lfxHaMRBsyhWDJebWTNiHvrXGj7g+HYqeQ6pI+oKSBaXPE9tR86wiXVEIsEVq74zhh2IMXHYgziKmOF02Zyf4GRx3LEtO0nbf2M6vZf4fADYH63+9Z+2uFZwVbytGisr/SkqtDDaw184W6bY1m8WoWNabseCJ/JIckUl1A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787850472; c=relaxed/simple;
+	bh=ZvO95aYTeLNto1ToAwhvP9IKtjwpw8L8vjGiZcBnmKs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oga0nHPgxwz6upMnwkhEBG2//mRFpe3VbSGyWneZ4JzJ2dqPHD8l88YlW7LRsvoBmYELeDwdOJ5vsY046tWjbAGv+kVlwu7htORgpI00a3ciNf2YKjvhDTmgE/Q3HW7J1JtAIZub89w1Exw9dI0cWLju6jtx+IZFhJAPvSFzIn0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nBwbO2is; arc=pass smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpG3+WHr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39FF1F000E9;
-	Thu, 27 Aug 2026 17:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850465;
-	bh=7Z6o8710DzidIAipF/VZF9PscAZF/OQSOxpmYRB67qA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cpG3+WHrJbTUk6ZbVbYSUULv/PzBHhY+6COJiJmNTPFJTKr6aJSWimMlfMvmMnu6P
-	 F2R3oOVDJnLy9vt9Awvh2AUDRruAD+t92f9ZLGW4VHZ6CqW2nhJWaF6xFgviPPCyPL
-	 dXup5fMDE1HeIDpgjezNcmCLC1xcdq6TbRAE2z86KNgiR4nreCif9Ij1sWdrEahZi/
-	 +pqoBwMQ/LZd9h5nchLgeUifDMhcUX9+pU95sGscOSJIgbxAL1ENTo+SB2NRNYu0Eo
-	 uxp2yaS9dj37FaBXFnWeRueqTu+WU2BB9iWVd1joBj52hSJu0chjoiQ/+LDuflsUgh
-	 fZfGfIEAvuwdA==
-Message-ID: <01865a13-2c18-464e-94eb-466613de7bb3@kernel.org>
-Date: Thu, 27 Aug 2026 19:07:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nBwbO2is"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2529b3139fso10309366b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:07:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787850470; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QYokHfxPXWXU77QJQ8IwtQ0gQZf3IDpAV8dnjpsBcmVXp+BMuehns/8Vh+xWajG8SB
+         du7Mg5HwvzIqIzfEVzEIc9yIL8Rok2XUypmTiviIrIqUClK1TsojsK61FjHUpR983XvV
+         NALkJc0cW48enGOQzie4VHvqt+C1hSffuSiRlS6QhYTWEztKGx27iaKceFnNs/EfvXDG
+         b69Z/sC0JxHE6oD/XG8khrCrFvXC5UN6dX1qR8pTg5UkuY1lnU6d/vVlpuvxR1XnsMXu
+         N/IL6mcOBBA0fAQZCv2UHAECl3UuvnUu8BsAieY6fGzEdeO8N4arPAgKgjkJ2Bw5RvKC
+         zFQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=X1Wah6nl+6SXRnAC3yP5MjJt6U0qsEQsAHa2pGjMsI8=;
+        fh=pZu75vRxB1R6GWlU0zzcW4sdVhrFRwL9Z2ULQd9Pn7E=;
+        b=nTmHOixGDKO2+3ghg6/gR8LGMePibKX9H5a+yF4wrDwtUu1l+v3cKSsvtIwXWfrrwS
+         ImZNLVET057r6XXIvqKIM3L0oJiubYj63cg1JQs8C8yF5Li5lHJs2L4X2K2NVgHPNjPi
+         eWcVTtw27/bXHyw3ey1ZukmTGHvdj/vOm3hx0Zx/wmA69AADgN492QeHaZVXu2pDCGdx
+         Fb5KH1IZtlKaX4TnOFts/Nvn/DhDEEf0hty4NvRe6wcy3WTxTGyZxCs6Qh573qytAHTM
+         TdYlPqB9GONc0gqrzDoLZdTlRl/fCAuQgfHTluELUdw0z3IqNQZSzsfF4Nfmz+muq7Ty
+         r35Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787850470; x=1788455270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X1Wah6nl+6SXRnAC3yP5MjJt6U0qsEQsAHa2pGjMsI8=;
+        b=nBwbO2isVWI0llooVq8v/7k/0DH9xWf+Bw2n/mzLsrugfbJ+SkCnP+eyvajSJTmS6+
+         3NWNvju1sionFzmRyx7uQjTidpw/07HZpRQ1Cln7dkw7uZ4iPV4jmOve8zlAw8MEwv9O
+         oDdr4k7wOAh6jczVPabhFCzpOpMIJh1gvsBR7ylBRUi+szCt7yaC1bLn2CmByedIZP6K
+         21Ue6RllwzxWR/ct+0DZpcc7qA9sWXLeMQqDLhqJI4KO4xp4UA9Iu/dRG7TxB+VDUqdu
+         YVz6kVKNpBLMD2EUYepgh6gERwhMuUoGKoQH0Rg486DD0alhs7kzwGEHw8LFwAc7/OPp
+         NNWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787850470; x=1788455270;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X1Wah6nl+6SXRnAC3yP5MjJt6U0qsEQsAHa2pGjMsI8=;
+        b=kl0mdEZNNADT7lNi8GaneE7NVW13uKDmZE9gaamzsEuGPAxej9edOGrPBsxag+4Cj4
+         w1qOYvZxRP2NEJh25JqauL9D+zqR+iMCQumibJeAqeIYhlrtLQys3ZfyHJMDFwhohj2Q
+         hkDcZs8q8d09alb6/xhcGsLBUa1ks8+mMCyRza6nnRLQ4Zdf2fLys5NS2hALh5AsDSYo
+         t/LeLY0DNyYXcxeJeI2RQRGW3tBvNEkszOBhaQL7JVHDAYjvZmWI2sXByvZhqZ2qXlkI
+         UqRvF90GIJz7kP+aexOdxlxUp53VWNcnyTHT1kgOfa1/IOy7JClwokZruMvrLf1yrJUT
+         Wlaw==
+X-Forwarded-Encrypted: i=1; AHgh+RrXi1vSj1pJWDhpWWwpjAV2buo7sK4xK0tXv2KFlKVOXeDoZDSB88yaKEpUO95rbBf/iuFvvHA6zBJXLkY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ8ADUojivfkGqmPrQIZroPUAfxt1BhArpb4M0vmdwtes0ONUy
+	MiIcCkzaMRq5ls/oEkmyw68e/p8KrNBjrq4R1D2z4KsBY4L46ekGYrivvjDoOzkOwSjNGQKiwtw
+	w/AXwB9g7sg3rqIoU5ARCHMmfQYt6DPc=
+X-Gm-Gg: AR+sD11mQ4vS9Tk6clQHZco//T6zmtl1Zh2UKnM7NqDpvAQddJlPxMvkPOHQQRAy/He
+	cSbfaioXiJhOSiC5sRFv/avEunnGZ57drGwILNuIMFas2L2JSROk678MvRyMR8yb2tPb0KKM+su
+	4ZMQ8irdcn+jF+AB/rXtsKMQ1fIRYMua72ANbqulbDnBmwllMBf7wjh8uYw1kiXjQ9XhoA+4YDH
+	ZlbmoA5NYIZzs06FCqn74mqQhstVyogPKe7wVqPFXLgzCxX0349nP4HrcNlAviyWTYHJR1q8rM9
+	+VJ/Ta3cD4oZVNSYS/ML0AWDNoIONi4ZOWYmqUjy7dBIA0Cmi6nFfr4TvzmAhb+zg2YsqoUvA5K
+	w
+X-Received: by 2002:a17:907:9612:b0:c16:4e5:944a with SMTP id
+ a640c23a62f3a-c25574341c1mr5180266b.21.1787850469508; Thu, 27 Aug 2026
+ 10:07:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm/madvise: use vm_normal_folio_pmd() in cold/pageout
- PMD range
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
- vbabka@kernel.org, jannh@google.com, ziy@nvidia.com,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- peterx@redhat.com, jgg@ziepe.ca, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20260821144947.167382-1-gourry@gourry.net>
- <20260821144947.167382-3-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260821144947.167382-3-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com> <50bb70bc-d442-43df-ab4f-a158c8b05ac7@kernel.org>
+In-Reply-To: <50bb70bc-d442-43df-ab4f-a158c8b05ac7@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 28 Aug 2026 01:07:12 +0800
+X-Gm-Features: AcwNN1VW04jGDYJxUtXMKMvDJ1L6CFo4aT-tplWH99K5U7NNuODw0RlF0OYIkHQ
+Message-ID: <CAMgjq7DNdaBdQ5Y3ctg6kfydt6cKHWtO4hitx-MO2YDu4Q-Obw@mail.gmail.com>
+Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
+ folios with a mapping
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/21/26 16:49, Gregory Price wrote:
-> mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
-> vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN to
-> open - then
-> 
-> 	madvise(p, PMD_SIZE, MADV_PAGEOUT);
-> 
-> With a stand-in module for the driver:
-> 
->   BUG: unable to handle page fault for address: fffff587c0000008
->   RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
->    walk_pgd_range+0x52b/0xaf0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_vma_unsafe+0x8e/0x120
->    madvise_pageout+0xb2/0x180
->    madvise_vma_behavior+0x46b/0xa90
->    do_madvise+0x108/0x190
->    __x64_sys_madvise+0x26/0x30
-> 
-> Nothing validates the pfn on the way in:
-> 
->   can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
->   can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
->   vmf_insert_pfn_pmd()   no pfn_valid() check
->   pmd_folio()            pfn_to_page() -> unpopulated vmemmap
-> 
-> Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
-> folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
-> folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
-> folio this mapping does not own.
-> 
-> Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
-> walker already does with vm_normal_folio().  The huge zero PMD is already
-> handled further up by is_huge_zero_pmd().
+On Fri, Aug 28, 2026 at 12:00=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> >
+> > A folio in the swap cache cannot be split if it has a mapping (shmem).
+> > The split code does a defensive check for this in
+> > __folio_freeze_and_split_unmapped, after the folio ref has been frozen
+> > and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
+> > rejects the split and returns -EINVAL without unfreezing the folio or
+> > restoring the counters. That error path is buggy: if it is ever taken,
+> > it leaves the folio frozen and stuck, skews the counters, and fires
+> > the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+> >
+> > Check for this case up front in folio_check_splittable and return
+> > -EBUSY before any state is modified, so the split routine always backs
+> > out cleanly.
+> >
+> > Also fix a bracket style issue that checkpatch.pl keeps complaining
+> > about.
+> >
+> > Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functi=
+ons for folio_split()")
+> > Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __=
+folio_split")
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >  mm/huge_memory.c | 27 ++++++++++++++++-----------
+> >  1 file changed, 16 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index ced400f72d43..a6759a14e057 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -3878,6 +3878,9 @@ static int __split_unmapped_folio(struct folio *f=
+olio, int new_order,
+> >  int folio_check_splittable(struct folio *folio, unsigned int new_order=
+,
+> >                          enum split_type split_type)
+> >  {
+> > +     bool is_anon =3D folio_test_anon(folio);
+> > +     bool is_swapcache =3D folio_test_swapcache(folio);
+>
+> Both const please.
 
-The last part doesn't make sense, see below.
+Thanks for the review, got it, will update and try to use const more.
 
-> 
-> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-> Cc: <stable@vger.kernel.org> # v6.19+
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/madvise.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index ffd6a68320a8..ab362bc482a5 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -393,7 +393,9 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->  			goto huge_unlock;
->  		}
->  
-> -		folio = pmd_folio(orig_pmd);
-> +		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
-> +		if (!folio)
-> +			goto huge_unlock;
-I think you can now drop the is_huge_zero_pmd() check, because
-!vm_normal_folio_pmd() includes the huge zero folio.
-
--- 
-Cheers,
-
-David
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
