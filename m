@@ -1,134 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2911B345731
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852943; cv=none; b=m5Bfey4my0DMQD0GGw/oUY1kSojovoLgW5TEhyjOt/gpDPaxwkq1RRQcsdXADXgiWbDbNPtkj7IG6in/ifpZDGIvTvHoNVn/6WBbc3ZsrYtJyrkSMoV0JRDHxx2temeTv4Xo5IPdgfOKOCTV3ONcnT9AGlpqsqwqKT7WDrSvNrM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852943; c=relaxed/simple;
-	bh=ZCnKqSef0aqr+81xVS1JE4n3VLRsH2+hOAI5+W0cJww=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D36F411FB2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787852950; cv=pass; b=YNfsUCfGWxbIfzrUM2/KYulaned5g6KsIBpZXYrGWaEd7ZwYkem47XwuDGvIvzKTzU5bBy0thwDN4/rg6YbCp3wuB2tVQmQ6tWYWPZlf1fycgY3MiUHNpCf5bDnY2hN7qK52P9Do1WiBeYjyLm7qaxVafwIaotqRkk+2/t6Ygsk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787852950; c=relaxed/simple;
+	bh=Kl5pSnCX22Pcpw/tUycVQnuIXaPY9vzNtDRAxRmP2lI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bEXltVdO14Y+q2OdiDBnI9yInr2qCFUWpphe/Pq/HecJl0jYhNUq3Xnib1c9mVXatuiEKz3axUfNasfZzDySpLfoXXQiyn6aFkEdWrk7FZwyjIQDycIow7Qi3KGT0yjqiZSsZS3MI/AVdp8U8lx4MQEkSIkS9gPWI/zxXN8k4Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DQgOpyBX; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=hEPmO4XPozvkINnYHnCGD5kSQjypPoElKK5DmR+JWaXxGneLZvWKF2CktM9H8xQxEdyevuY4w2fKCYnR1n/5eUNPwe/PQtfZDyj86MNl+VuYL5dLGQy6HBjQexXiCI5E8cAFWIc3xSHbsdfneujwl/7HkqFyS3BlmLGh+3Pb6qQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TlBr0qCw; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DQgOpyBX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C091F000E9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787852941;
-	bh=ev6jidi1QREvbxSu6OdcvcMl8MWG3QwkEno5tcVFAtk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DQgOpyBXuR41Nr18lIdfT4gFngCpqEi09PdMwcabkzlaXA7hCGvz62C9WJhWrI61W
-	 ATTx9Vw3kODA5t1UsToiVSbdjDd5ijcd6Rtt98c+O2G+cLp0cmiLkPylKNNaxU7Ow5
-	 cDvf6cqBxUCNsCxK8RZoeXh9qTv7Q3lGFLp5iPBxHLdDinTylf415DNY8CozJM9ssi
-	 OeDI97/c9RcmPt0nKB/D3YFlPwMRPlEEEJyXE2i3gxOh0oVs0U060fs3Xw2qMwYqUp
-	 4da8rf7sAYQtVd4lWskm3rYsL6ws8lkm/vCUR15PMaAa8JAFwW8Kn9m4hGeFR6xSXL
-	 7pXDXXCSn9z7g==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c25420fe973so24863866b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:49:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rom47N9E+EpwgaJvX0vEbPAn0YWjDadyjOQCd8bB/FPpZyV8vDQvfg7n99/jx2EQa5Jq6/B4wJXaY2Otas=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1whYetVL0VZC9E0KuUv9MLKofo1ovWWRGZs35E2/dJk3Yo9tp
-	cjQmn37cn0IS2CJax5B51mpdlL3rd9g5mZ3hBdUXz+TRjfnlpWmpIGYo/sH2DPqPEo/mFf3hS/L
-	F/r+EyxyvDNktKpAMsYhCv5QtPs/2m8g=
-X-Received: by 2002:a17:906:6a29:b0:c20:9447:bd6d with SMTP id
- a640c23a62f3a-c25574337a0mr33261166b.11.1787852940696; Thu, 27 Aug 2026
- 10:49:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TlBr0qCw"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a60d406a5cso26954a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:49:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787852947; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QxioUEgTD+Kk39wUfm4ka9dZ9QN2KYb8lbFtHnNISUNz4IK0Z0uVmC9mozdMJUWlR7
+         d/mLvCmLO89uF8wOC9BKmeqtt4jFcxrkkj1+o7XIMVXV5xo8Dk24nao8M8/0Obn3A73v
+         b5pfbtSJOY/MlC3hn+xvy+Vce4+ZDAkRCjd6uT11lk9W9wftAzR57bnsaR8CrBwofY2v
+         rVkaWfCSS0/sPRPeRYnlaVbSxbqetx78gd/36lT3ZavsEMsUxx+Neh5h8X2mhCtNx/UW
+         BqHNxoZktd3DdNfFxXGP+vjesHe9oQxtivV/k8lBYfWQ1e2Dmh4S5Bgoec9BrJWygJwY
+         gcuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yW6biE5fdFGdJHeb2R6IVd0GCVVjxtlUxzSI9ivUYnw=;
+        fh=UCGu+hjoSU13WLpHlay2AUArCM+xCJ+x9XWZPDY3FuU=;
+        b=R/1L2u+OyEpSdSOBFDMkzYuPKJELcF8JduHFzrrqXFM3c6GadJ3KoZMsNog6G+bj9P
+         4D+QyXdrz9npsy00a6bqoumrdHEc+AnJ21bgq7rdoBCGJ+c6KZUN/uaoPyE46d0q7tpR
+         EGYFcHLts/MV3pmAN7PX9XyIvGUZ94enDvvnfEmAVGZ/Wki5uAeUht7wzyatFygbl/iq
+         abr0df8/v4QAyFUsZ6jWS2PZQ97yVTDEK0efvToW4J2kY48M71pkiAMwlgx+qy/b+eEs
+         +02HbuBMhgJ9W1ooyDvijr/iJEJsrv+4CHTLuBICFsLDLuol9ZaaHZmaT+wgZD1C/8QT
+         ViWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787852947; x=1788457747; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yW6biE5fdFGdJHeb2R6IVd0GCVVjxtlUxzSI9ivUYnw=;
+        b=TlBr0qCwQ82QmQCwqpeMjmzWoAFM3T4Oyg+A/pRiYd1Jbe2ChK0kujUFqqTnNyzyxp
+         b95FaqaIrwylU9JcJPb+UCFyV3rLATrpkkqLDP4SuRf/xbz9MF2JgRbSZ3F6tb+QNwtm
+         5C5wEmxM6oPOa8nHPBXja0MVMlVBpCNhIKFSMz1eBTm73rLawgtaefaQHEOBbE3bwH12
+         ZI23lq/V7UPntlduJQKnxHEC/PU/IBtJRLrtIVw7GFpGzcsduP3GuECZnYfKpfzNfIza
+         6c7s8OxAYF5qkFMChRQc5fCk4PQ7qs56OeWZZVwxZuVKeRYZMhSsHp+vhcfuQhNBAUiu
+         CkMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787852947; x=1788457747;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yW6biE5fdFGdJHeb2R6IVd0GCVVjxtlUxzSI9ivUYnw=;
+        b=VkzC6g7uHF/EnjpNTygfOSDY3BP2JXjhVX4j6qC+4g0b636pNcvvkz9oHxp+8dZtYB
+         +HZBKjnEmuH0B9a0c+OVTiZigngP2cpPbFWwEvzZngaMhejn/WG33PPa3YDVDJaimNzq
+         CH+5r2NiDUTNFn5Q+X/dTKr7evyeCGQzSr3K6O7oWtVpk2ctBsZl9mgDNfGxSkdMcWJ8
+         ScrxMWgMQW1HZGGaowJLzG5C4tiyQhdOb1GyZpcqRl51j6fkvJpjdio8tj7ve8CjN9aX
+         XIJLduSLu9VBKFz1OS9o4O7ODffJLomZKQ597jFgc2kZpb73Aw4fQvniegIWe9Qs01Je
+         F8RQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/1iAYo7S/uks6wOXxpun7AhGtbYptoxmOoKToEAtLux8PwjvjVrCnLMW+UHbZyeZanw/LUWS0tbUDLi0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6cYoOW6PCskm5eI48K+I5vfwwbu7x8KQiAt+zpbOa8hozk9e3
+	sYQsti2/dgmB5eM4c7iEo2GieDQxBhNlVVGuuDxVmT4lzXs8bWENl3L8zSSbfMuCszsnyto3jon
+	ppTOla6ADj5goLTv2vSrmqQCjGHgB47E=
+X-Gm-Gg: AR+sD115wz4nahceR3WoC3L2r10fKWksXArwS/A0IfKwW+yfHQJPUigpqL21Lk3d6Dc
+	tkLuhB5GM09KjwQ/S+qyhAfZuhKVMANOYzK1vLinh5kTEr6clhRTjpOI8+E1mSKwP4rnklbyZTV
+	Wi5LWjwrDfsgrL963VWl+9rX4v/9HA205OWvn8rs1tJ0j4OVRhrdyJf7V972Liyfx8OunRZPPa1
+	SE6z4MFuSc8aIr2EVzQYVgYBOc0sXWpDYBy0xbO3Tf/RnJ/cLarhcs20xew+uBJKCJdNFa2KgkH
+	DU4QhOwALEM7Nvxsh0ZSZzr9WzOLxOSbyFSGDtMAZR3PV8ThPPA4FHrGOKnY0Ja5WfkTHgvcYbC
+	4OM39g0cI7LgF
+X-Received: by 2002:a05:6402:d0b:b0:6a6:4a5:bd37 with SMTP id
+ 4fb4d7f45d1cf-6a60d33913dmr89806a12.8.1787852946307; Thu, 27 Aug 2026
+ 10:49:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
- <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
- <apBQYmmBC8lE-KiQ@google.com> <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
- <apB0FLZGZPmAEk8o@google.com>
-In-Reply-To: <apB0FLZGZPmAEk8o@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 10:48:48 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMbhEg76dKSXWtyKf_=HFvNC3f1gX3xFZ5iPmA=9L1JVg@mail.gmail.com>
-X-Gm-Features: AcwNN1XNbyC6SdYR4LPRNtrKJhyQFyhXQyG8HbPIQ4j8qhaddcgCK1KumBHFbjs
-Message-ID: <CAO9r8zMbhEg76dKSXWtyKf_=HFvNC3f1gX3xFZ5iPmA=9L1JVg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
- EFER.LMA=1 && CR4.PAE=0
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-16-9b43f5163238@tencent.com> <DKYI7U97KSE1.2S1M7CWBNBYFW@nvidia.com>
+In-Reply-To: <DKYI7U97KSE1.2S1M7CWBNBYFW@nvidia.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 28 Aug 2026 01:48:30 +0800
+X-Gm-Features: AcwNN1XhnSrcGWzKjxM9OlQz8QONVR283xx9Jx4nU8W4sLhXLThIBH32-pmHlLU
+Message-ID: <CAMgjq7CXqtbCH1cEJpNEta8KJbqDzd+ZQEd81dS9botZmCsQZg@mail.gmail.com>
+Subject: Re: [PATCH v3 16/18] mm/huge_memory: clarify supported split orders
+ in comment
+To: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > > OMG, I hate SVM.  I resurrected the selftest hack I used to verify this bug, to
-> > > demonstrate that Sashiko's "technically that's undefined behavior and this is
-> > > useless" complaint is wrong, because even though it's undefined behavior and the
-> > > compiler *could* ignore the change, in practice the compiler probably won't ignore
-> > > the change.  And since this is defense-in-depth, it's "fine" if the paranoid
-> > > hardening only isn't guaranteed to kick in.
-> > >
-> > > And in doing so managed to trip this KVM_BUG_ON() in *L0* when running the test
-> > > in L1, because as you kinda sorta noted in patch 1, KVM doesn't ignore EFER.LMA
-> > > when loading L2 state.
-> > >
-> > > I had actually tried to do exactly that, by having nested_vmcb_check_save() clear
-> > > EFER.LMA if EFER.LME=0, but that doesn't work because svm_set_nested_state() uses
-> > > the "cache" only for the checks, not for the actual loading of state.  *sigh*
-> > >
-> > > So in addition to patch 1, we also need this to guard against configuring L2's
-> > > walk_mmu with bad state.
+On Wed, Aug 26, 2026 at 10:02=E2=80=AFAM Zi Yan <ziy@nvidia.com> wrote:
+>
+> On Thu Aug 20, 2026 at 2:55 PM EDT, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
 > >
-> > Hmm wouldn't it be simpler at this point to let KVM_SET_NESTED_STATE
-> > and nested VMRUN have the invalid LMA/LME combination and just ignore
-> > EFER.LMA if EFER.LME
->
-> Definitely not a straight "ignore", because that would end up being an even worse
-> game of whack-a-mole, because very path that checks vcpu->arch.efer would have to
-> account for that possibility.
-
-All paths that check EFER.LMA/EFER.LME only, right?
-
-Don't get me wrong, it's still a lot, but I was hoping it's something
-a couple of helpers can help with. Looking at the code, maybe not so
-easy because it's not just vcpu->arch.efer.
-
-> We could forcefully sanitize EFER in flows that write EFER,
-
-Hmm that's exactly what we're doing here, except that we sanitize when
-creating the vmcb02 and reject in KVM_SET_NESTED_STATE.
-
-> but (a) that's still
-> a (must smaller) game of whack-a-mole and (b) it would actively hide KVM bugs for
-> flows that are supposed to reject the invalid state.  And if we WARNed to address
-> (b), we'll be right back where we are today: playing whack-a-mole to prevent the
-> WARN from being triggered.
-
-Either way it's a game of whack-a-mole, unfortunately, whether it's on
-the write side or the read side. What I am hoping is that if we do
-miss one case, we don't crash or corrupt the VM. Ideally, we can just
-ignore EFER.LMA if EFER.LME is not set in these cases?
-
->
-> > (or just always check EFER.LMA && EFER.LME)?
->
-> No can do, because we can't disallow the combination for L2 on VMRUN without
-> violating AMD's architecture.  And practically speaking, we *are* doing that,
-> just in a bunch of places because there's no one rule to rule them all.
-
-Well, "always" except for this one case :P
-
->
-> > > Because there's a lot of code between here and checking KVM_VM_DEAD in
-> > > vcpu_enter_guest().  And has been proven far too many times this year, detecting
-> > > a flaw doesn't automagically mitigate true badness.
+> > The doc comment for __split_huge_page_to_list_to_order() needs an
+> > update: only order 1 is rejected for anon and swapcache folios,
+> > matching the new_order =3D=3D 1 check in folio_check_splittable().
 > >
-> > Interesting, I always assumed we can do whatever we want after KVM_BUG_ON() :P
+> > Also realign the continuation line of the function signature while at
+> > it.
+> >
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >  mm/huge_memory.c | 11 +++++------
+> >  1 file changed, 5 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 06f353f937d1..0a971ca48151 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -4400,11 +4400,10 @@ int folio_split_unmapped(struct folio *folio, u=
+nsigned int new_order)
+> >   *    GUP pins, will result in the folio not getting split; instead, t=
+he caller
+> >   *    will receive an -EAGAIN.
+> >   *
+> > - * 4) @new_order > 1, usually. Order-1 is not supported for anon or sw=
+apcache
+> > - *    folios: anon folios need subpage 2 for _deferred_list, which ord=
+er-1
+> > - *    folios lack, and a swapcache folio may become anon once faulted =
+in.
+> > - *    File-backed order-1 folios are supported, since they do not use
+> > - *    _deferred_list.
+> > + * 4) @new_order !=3D 1 for anon or swapcache. Anon folios need subpag=
+e 2 for
 >
-> Nope.  In addition to KVM_VM_DEAD not being checked until vcpu_enter_guest(),
-> more broadly it only kicks in for cross-task behaviors on the next ioctl.  E.g.
-> if KVM_BUG_ON() guards against bad VM state, as opposed to bad vCPU state, i.e.
-> if *other* vCPUs could consume the bad state, then it's especially important to
-> take evasive action.
+> We use head page + tail pages instead of subpages, so the sentence could
+> be
 >
-> KVM_BUG_ON() is as much about protecting the guest as it is about protecting the
-> host.  E.g. if KVM *knows* it fatally screwed up, then continuing to run the
-> guest risks corrupting guest state and thus causing far worse problems than DoSing
-> the guest.
+> Anon folios stores _deferred_list in second tail page, which order-1
+> folios lack, ...
+
+Good to know, will update.
+>
+> > + *    _deferred_list, which order-1 folios lack, and a swapcache folio=
+ may
+> > + *    become anon once faulted in. File-backed order-1 folios are supp=
+orted,
+> > + *    since they do not use _deferred_list.
+> >   *
+> >   * After splitting, the caller's folio reference will be transferred t=
+o @page,
+> >   * resulting in a raised refcount of @page after this call. The other =
+pages may
+> > @@ -4432,7 +4431,7 @@ int folio_split_unmapped(struct folio *folio, uns=
+igned int new_order)
+> >   * with the folio. Splitting to order 0 is compatible with all folios.
+> >   */
+> >  int __split_huge_page_to_list_to_order(struct page *page, struct list_=
+head *list,
+> > -                                  unsigned int new_order)
+> > +                                    unsigned int new_order)
+> >  {
+> >       struct folio *folio =3D page_folio(page);
+> >
+>
+> Otherwise, LGTM.
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+>
+
+Thanks!
