@@ -1,165 +1,130 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5160718A6D4;
-	Thu, 27 Aug 2026 04:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79004175A6D;
+	Thu, 27 Aug 2026 04:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803504; cv=none; b=JauJNXNCNkvrd6lYVRIe39wDeN9UQWCWn/l8onrKd26SwGAdMPSE42Tb9BsOkhQPNrX80Sx0eQYC0SzBmzKR9A21WZyg3t0ayteM1CIOARn8sDKe5gdpLzr4JqwoMX62hPuqJ9/Kvu3Oq/Nxl1w6sjdyGuBl9/VfbLGj78o4u/k=
+	t=1787803612; cv=none; b=bTpKIqW62JYClkBZlkkLpjCBAsnJOu/XWDTdh24OkbM4I+eg0vTPlyyna0xY2x4lbPFT/jZNTbOIymPT3+eM+MWepVJXjPLflDY+XAkr5isuLQ2o+gY98KdmjG3I4izpB+NkqmKo4LSJMN6KVrj6jTY8dpXHb4ZoXENCGDdHS8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803504; c=relaxed/simple;
-	bh=dMuq1DxVmQiU7b+us0xp/kJ/V1CQFxeMax37t2ZK0BQ=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=auHUURFnLAOODhH3UN9Pvs9RL3M1E17hGs2r4AdN1lAcf2SfaNiBuYl6z+y7qsBTxass10mVwP6tvbCiBxf2W6jFRRNVx5WA6fhxPGKPfrx/v06HUGKGBVJlW1wQVuNazdHkmmkJO/4OmR+3csTHOTuasnEP2Jrvf0S2B+VqmR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Ei7WZ4Xj; arc=none smtp.client-ip=220.197.31.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1787803612; c=relaxed/simple;
+	bh=E7Qb6Z+Ep2s7d65G9EgLZ0UDHre8gJvvJ/zc///mxcA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y9ShjvEDBTUV6FPIJFIkmS4zAO+W+GaK6E4hz3xRCpEgopOBRiTWQon60Ji4jOvUnfm75dRenTmsTQjqxIJrdGQM07sDFectXDM+Yfz5Rzt7YsFKPesFRDR+g+qyXipS8KG6iUOFep/Qo+7KNAGXdnIptN23Oy7dodCpJQyVdKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=X12VNfG9; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Ei7WZ4Xj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=drS/ZvD0XeA/LQvCSDdwA6CuJiJoYkF8nFoRrZL6PZo=;
-	b=Ei7WZ4XjM4ZTgCpT1uleP/5hnp+x9m86fzjJJxgynLDmk+PzgXL2ITvRntHyGJ
-	gpj7yvPapMP1ZMNavaTBaTzCKs4Jyo9UgJLvZygphLgvxR9cs3OCO+uBXImS/yQr
-	0a3DaAhpCHqy3T6eQeDWz4NdtkcInMIR0fEKqJcZHklpA=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSkvCgDnD+tWt49qYbuMFQ--.57571S2;
-	Thu, 27 Aug 2026 12:04:39 +0800 (CST)
-Message-ID: <6A8FB73D.30104@126.com>
-Date: Thu, 27 Aug 2026 12:04:13 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="X12VNfG9"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=L+L3pyxYhokonQIOqxie4jLVf2GeZhI+oJSiPttLZOY=;
+	b=X12VNfG9xpY0vI44Hwm5d0+g9VEzSXfpF6FBMf5lzNP0QjMWPUtFjlEWntrN2Jc8Qb4dmiyrT
+	eLtVEnEAGt6/6lKNfUkdsZg0G/xRBrxRKHQFKH+2S8Cd3Ztehj6tsbWAmr6+bl7SlFBx+ZARt5I
+	/wulnLjyfEpO05QW+2aq/N4=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hVnk56JSkzmV91;
+	Thu, 27 Aug 2026 11:55:57 +0800 (CST)
+Received: from kwepemo100013.china.huawei.com (unknown [7.202.195.244])
+	by mail.maildlp.com (Postfix) with ESMTPS id 291814057A;
+	Thu, 27 Aug 2026 12:06:44 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemo100013.china.huawei.com (7.202.195.244) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Thu, 27 Aug 2026 12:06:43 +0800
+From: Junhao He <hejunhao3@h-partners.com>
+To: <linux-edac@vger.kernel.org>, <mchehab+huawei@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <tony.luck@intel.com>,
+	<shijujose2008@gmail.com>, <xueshuai@linux.alibaba.com>,
+	<tanxiaofei@huawei.com>, <xieyuanbin1@huawei.com>, <linuxarm@huawei.com>,
+	<hejunhao3@h-partners.com>
+Subject: [PATCH] rasdaemon: ras-events: Adapt to kernel v6.19 memory-failure trace event directory change
+Date: Thu, 27 Aug 2026 12:06:41 +0800
+Message-ID: <20260827040641.25143-1-hejunhao3@h-partners.com>
+X-Mailer: git-send-email 2.33.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: liubaolin <liubaolin12138@163.com>, 
- Hongling Zeng <zenghongling@kylinos.cn>,
- linkinjeon@kernel.org, hyc.lee@gmail.com
-CC: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
-References: <20260827031647.1605970-1-zenghongling@kylinos.cn> <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com>
-In-Reply-To: <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSkvCgDnD+tWt49qYbuMFQ--.57571S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFWxXw4ftw1kKr1UXF18Krg_yoW5KFyrpr
-	WqgF4jkrs5XrWUuF1kWw4UuF18Ww10grW5CrWfX3W0vrn8KFn2gF1UKr4fWFySyFZ3Jrsx
-	Xa1UXrZruFyav3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-rc-UUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrxeBUmqPt1fN3AAA3-
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemo100013.china.huawei.com (7.202.195.244)
 
+Kernel v6.19 moves memory_failure_event from the "ras" trace event
+group to a separate "memory_failure" group, as the event's
+TRACE_SYSTEM changed from "ras" to "memory_failure". This changes
+the tracefs path from events/ras/memory_failure_event to
+events/memory_failure/memory_failure_event.
 
-在 2026年08月27日 11:37, liubaolin 写道:
->
->
-> 在 2026/8/27 11:16, Hongling Zeng 写道:
->> The fallocate implementation only takes invalidate_lock for punch hole,
->> collapse range, and insert range operations. For standard allocation 
->> modes
->> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
->>
->> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
->> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). 
->> This
->> creates a window where concurrent mmap page faults can read 
->> uninitialized
->> disk data.
->>
->> Since mmap uses filemap_fault() which takes invalidate_lock in shared 
->> mode,
->> it can fault in pages during this window and expose old disk contents to
->> userspace. This is an information leak and data integrity issue.
->>
->> Fix by taking invalidate_lock for all fallocate operations, not just for
->> punch/collapse/insert modes. This prevents concurrent page faults from
->> accessing unzeroed clusters during the allocation window.
->>
->> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
->> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->> ---
->> Change in v2:
->>   -Remove now-unnecessary map_locked variable.
->> ---
->>   fs/ntfs/file.c | 7 ++-----
->>   1 file changed, 2 insertions(+), 5 deletions(-)
->>
->> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
->> index 88747217ba61..779baafa0319 100644
->> --- a/fs/ntfs/file.c
->> +++ b/fs/ntfs/file.c
->> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, 
->> int mode, loff_t offset, loff_t le
->>       }
->>         inode_dio_wait(vi);
->> -    if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
->> -            FALLOC_FL_INSERT_RANGE)) {
->> -        filemap_invalidate_lock(vi->i_mapping);
->> -        map_locked = true;
->> -    }
->> +    /* Take invalidate_lock for all fallocate operations to prevent 
->> races */
->> +    filemap_invalidate_lock(vi->i_mapping);
->>         switch (mode & FALLOC_FL_MODE_MASK) {
->>       case FALLOC_FL_ALLOCATE_RANGE:
->
-> Hi Hyunchul and Hongling,
->
-> I think map_locked might still be needed though.
->
-> Before filemap_invalidate_lock() is taken, there's this check:
->
->         inode_lock(vi);
->         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
-> NInoWofCompressed(ni)) {
->                 err = -EOPNOTSUPP;
->                 goto out;
->         }
->
->         inode_dio_wait(vi);
->         filemap_invalidate_lock(vi->i_mapping);
->
-> If that goto is taken, we reach the exit path without having locked.
-> Without map_locked, we'd call filemap_invalidate_unlock() on a lock
-> we never took.
->
-> Would it make sense to either:
-> 1. Keep map_locked as a guard for the unlock, or
-> 2. Change that goto to inode_unlock() + direct return, so the shared
->      exit path always holds the lock?
->
-> I'd appreciate your thoughts on this.
->
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->
-> Thanks,
-> Baolin.
-Hi  Baolin and Hyunchul
-  You're right — that's exactly the unbalanced-unlock path we spotted while
-   preparing v3, and option 2 is what v3 implements. The early exit now does
-   inode_unlock() + direct return, so every path reaching out: holds
-   invalidate_lock, which let us drop map_locked entirely:
+Add get_memory_failure_group_name() to dynamically detect which
+path exists, ensuring backward compatibility with older kernels
+that still use the "ras" group.
 
-    inode_lock(vi);
-    if (NInoCompressed(...) ) {
-            inode_unlock(vi);
-            return -EOPNOTSUPP;
-    }
-    inode_dio_wait(vi);
-    filemap_invalidate_lock(vi->i_mapping);
-    ...
-    out:
-            filemap_invalidate_unlock(vi->i_mapping);
-    v3 with this cleanup is on its way / attached.
+kernel commit:
+    https://lore.kernel.org/all/20251119095943.67125-1-xieyuanbin1@huawei.com/
 
-  Would this v3 approach be OK with you?
+Signed-off-by: Junhao He <hejunhao3@h-partners.com>
+---
+ ras-events.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-    Thanks,
-    Hongling
+diff --git a/ras-events.c b/ras-events.c
+index ab2dd51..229ea93 100644
+--- a/ras-events.c
++++ b/ras-events.c
+@@ -66,6 +66,20 @@ static const struct event_trigger event_triggers[] = {
+ #endif
+ };
+ 
++#ifdef HAVE_MEMORY_FAILURE
++static const char *get_memory_failure_group_name(struct ras_events *ras)
++{
++	char fname[MAX_PATH + 1];
++
++	snprintf(fname, sizeof(fname), "%s/events/memory_failure/memory_failure_event",
++					ras->tracing);
++	if (access(fname, F_OK) == 0)
++		return "memory_failure";
++
++	return "ras"; /* fallback to old path */
++}
++#endif
++
+ static int get_mountdir_by_type(char *mount_type, char *tracing_dir, size_t len)
+ {
+ 	FILE *fp;
+@@ -325,7 +339,9 @@ int toggle_ras_mc_event(int enable)
+ #endif
+ 
+ #ifdef HAVE_MEMORY_FAILURE
+-	rc |= __toggle_ras_mc_event(ras, "ras", "memory_failure_event", enable);
++	const char *group = get_memory_failure_group_name(ras);
++
++	rc |= __toggle_ras_mc_event(ras, group, "memory_failure_event", enable);
+ #endif
+ 
+ #ifdef HAVE_CXL
+@@ -1166,13 +1182,15 @@ int handle_ras_events(int record_events, int enable_ipmitool)
+ #endif
+ 
+ #ifdef HAVE_MEMORY_FAILURE
+-	rc = add_event_handler(ras, pevent, page_size, "ras", "memory_failure_event",
++	const char *group = get_memory_failure_group_name(ras);
++
++	rc = add_event_handler(ras, pevent, page_size, group, "memory_failure_event",
+ 			       ras_memory_failure_event_handler, NULL, MF_EVENT);
+ 	if (!rc)
+ 		num_events++;
+ 	else if (rc != EVENT_DISABLED)
+ 		log(ALL, LOG_ERR, "Can't get traces from %s:%s\n",
+-		    "ras", "memory_failure_event");
++		    group, "memory_failure_event");
+ #endif
+ 
+ #ifdef HAVE_CXL
+-- 
+2.33.0
 
