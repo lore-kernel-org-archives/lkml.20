@@ -1,360 +1,167 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489034A13AE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856044; cv=none; b=KgMljXe+HyUuTtxLEHFdZrseAzUnrtt9u5wh6Eg/hMuqoE3plOc0kmFcO11ro0fP6E2pFBW8m0SrBr1X2UuMFx6z0BA0cf99Hl306n17FICMNZdYZb777BaCb0Ny1diYptqCNI5ijn07qRl7EHn6Kbcxc8k2Hp9ABLsGaUTIoVo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856044; c=relaxed/simple;
-	bh=s38raES+aYLadiG+3JXZ2zNKydA9RD56IOss05saA6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hMhpthh3jwRK39vRyIcc2B97ZPVRO4HkqvzE+8/A/FDioDN1t1q/ZGxeOmc2L2YazA7YIhTpS3NV+2b3sjEfB8jSYoGp0EcxCpO2SRUIqwe3BTB9tntLDMPI2MCWxDlz5FuGaFbFx/JX9rrzlt9scAKFU7aXy57N0fvZX94khJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=BjcytC7E; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9477A4A1387
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787856063; cv=pass; b=ica94BcM6wBBUSrjVdN/sUlhouqn37pX0ZumheVWmxCWxlaXNi+DY1i5xCsqQCjtcJOQ/FyKR6jdk5HYQ1IJMtN1+soR0yl5/sUNrENHPsiUcBMW45cwSaQ264av47Eaysf8LK1D7Ly+wo6wzzHA+y8mWac69L0CbCITkB05Rk8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787856063; c=relaxed/simple;
+	bh=XHXEc3lb89R5K4e6zCupjYllWsi9Y8mBxV+FdAQWd9w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jm3G/mpIfJqz5lfUKxTGTLxDMW/JXkTN1KAtUeCBq13J2NOicR6twJU5gvLzGGvihWt3QocQG1NVhHD1/KZGxzrijZGWDss7sA4LznMlR3SxUfaFtU6wJ/wqzmPTIQuuWyPNiZrr8yDW5QYyucDiha3IEsXqZGnnjcxr4Ufkgy0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aP7sqGcj; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="BjcytC7E"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d01663d816so1444695ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:40:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aP7sqGcj"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66c9995ca60so2521914d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:41:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787856061; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mb2HVR74Id1CFGEkBXy/lJm3TrSrkH4pggxeic/5HcuHiiX8RZIqfMOo5Wlw0POqk7
+         oT6dPDgZEXEITD+Xp5OZuCXzERLG4g5oaO1ID0iTC6jIMMTdY+E7eAYBYEAD8lyrIlSM
+         uTRkg0UjoIsFqekkMxkr376MM0zEsgFgIbu9dosMK84OQ0R2Regmso5fhnAcgYVFB6k2
+         ZFdVtWtXoyDMgcHIDFFxzhG9WWhYAVNQeRPqCLVle5HGJNh4ETW64tQV3+KzQQ77A0Pe
+         fuKu8VQI5KPRqDJAKp4cGbcxmxOH3d1gA+nWO1OFq/1zt5jGbQIdwwwnGKriQyY4T6fU
+         yCtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XHXEc3lb89R5K4e6zCupjYllWsi9Y8mBxV+FdAQWd9w=;
+        fh=wZfhuZhr/cPUGH/ZHTLi3ZqjjOmUCI80sFvv18vRvgI=;
+        b=bqOamHQtyU2OEsyLp8tU3+zCP24fQWFj5Bpb6QGfgYtfa7EIj9/RQx4gcBiSAG5Vn4
+         yyEDMQ+Bc/ZB+wGIWZArLMMdik+Go65QWVCwR/7BZTcR1x5q/mflnKc0qPJWSn7udh8Z
+         AAzzln12bjm1BdD5mLdg9Pd51VGKY2B7xJSUW1JDMafrPhY4LnpU2decsCEdWt3v+b09
+         Tjo6jS08vuGaGgDSHtECS+oH9DvNcTTLAa+OdFsMguGpIsymi692xIBNH9/PO//O/M8t
+         4jS6ViwSGGXYcy7h+t+BTysOHziHToaR8k5qjnrk9HWMLSnK5GPcA9lDSy5oGxr37z33
+         yKGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787856041; x=1788460841; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XejAmH/KP2JAkT0dl9by3HENDzeG7XsT4Hjw5tlQtvk=;
-        b=BjcytC7EngX77ZT0CBzXfyIWi/6zrwODKinxvh/rUbJE21IC/kFXRVMHAvNV+XxleM
-         k5ZMcroEpgbB3pao9L62mIUIRtp6lPKggUdRpd+ScI7zd9cBckASjOWgJ3xgnPARE8zi
-         Th+1WAGEl385smDZeCNCIPO13bEmsL+iOKjSm9ptntCx+49TXwp0hVKzsVWjBwpr49Ix
-         GBb4OmdNj+jzvHPW1VbF8hZANGkQsaiVNXBWnCiDwNqNLha5xiNIbDbz+VX7e3fcoow3
-         ZazImkDPzOFzhz3LSqkBFdIleQfs/JjakYAeRU3G37UEeFEaRzhstlDDDRtIJeoTTw6X
-         dWig==
+        d=gmail.com; s=20251104; t=1787856061; x=1788460861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XHXEc3lb89R5K4e6zCupjYllWsi9Y8mBxV+FdAQWd9w=;
+        b=aP7sqGcj439UJKA3d4tx9f6AUO0zB72lMqJbP8XzQ2qeH2vByNECsPXtZnV+w4g9Z1
+         C+28ulztqIIPNa/6e77Mv0UFuUI7UAi2mBRW8IWGJqwjNTKIOb+9subHvpCPqsmkEV5s
+         0HDG74cAwmus1ysxRCZ9UGz6+EiPy7WeMt8gL77RFI+s4IkW/hYD5vW+9dmL2OFMnCwx
+         x2MG9lUBo/eVaWjpfbg0dhgSN4qctVMtO87/S6lvpxe8/iWr6lJCeUoAo7AWE3p6sVNl
+         BjVDGBBvMvhLNQo2fscJiGiS+jC/XZD4QTNviiR5G2FGGjsODyuFSQjyVXYoopt2MWB6
+         wN3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787856041; x=1788460841;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XejAmH/KP2JAkT0dl9by3HENDzeG7XsT4Hjw5tlQtvk=;
-        b=UF6pWfi6eH/ryBsoMqOuzsRISoOJTjJMul0Tb++a/ux8xhxBrU6mWip7QVMRQnQrmT
-         xsCHlkhviKnayJXGkkBDAMshlHmGkLf3SfNVrhbnUy32HPrzXc3iN0oboZg586rcvq4z
-         aiBDBoViP4yi1kgV0xSa+ZMp2hTg4kcY5Ql2fbVLRnMKs94hLvKSxTwAQNDh3TvuIYEH
-         kMkjC6ga+APPrZzxYPvLHdQgQ8piaHPA5d3EhYelFLURLwNJyUSP5OtgZHm6mXKTRkQA
-         MCvVa7l0V+IEYFr7HsSKeUUY/uxNnl/DzXbyoA2Zz+7Am1kncWie1GQQUErOMmBHg1iH
-         7WPg==
-X-Forwarded-Encrypted: i=1; AHgh+RqN10NsUWyhqxBXmuabXocpVYXqr55A9jELEfHSspqJn6dTfBlUHqYNH2Olq81tpaU4UnQEabH5SqI1MuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH6RS/OGjJwPJ+18+l5FVxI0+9YVMa9/eHhSwUByy5zV9tNMRz
-	z0cdvL4u6NC4liOLj0K2HFXQ5oWtydmcjxyk0o/rzN4hLfE0B1GkWRchS27N9MTNdIk=
-X-Gm-Gg: AR+sD12hOSBRrnTPV6fp/xUw9uF+Wo2NMWLdBV1PQN69dbOSbBUMpIpH3lIoNERVA8S
-	S9/srC29RFdW9ROkncagXfKMVjTnFOxWKUaQhkpetBHnCU6U4PF46pxntFiVkSmL3wr6h3lbpzP
-	55+fXdYYniQK7fwJ6/cQQZFCdc37gN2wZIVYDY+AvRK14MMn2vJbxejdwXCPGFqI4PIVRk7V9xr
-	2ASkwrdjJm9TxubENM/axh6ipCe4MD0gscExLoBKRCcIjCO5LC8S+q16hybIfvuPx5D5YauJuTu
-	rlo/ai4FBze+7oo+K44VL7u2JOsIHivzTn7ZMKaJyacvrZvcCXn+z2DgSJXlzJ8YFS22CkKEKEV
-	5RuD8IpwJxYm5iXt3L5PrSTyDaqkwzV3bNjQQK535/11llMOQfn8n1Ch4sZyl3NQPqbXusBAZqR
-	k3a2Pwz4fsDRDlQk5IUhnOD5ju4VeOVnwlJbh0b6Gtvg==
-X-Received: by 2002:a17:903:324c:b0:2c2:62ee:5a0d with SMTP id d9443c01a7336-2d74df1c634mr18207755ad.14.1787856041391;
-        Thu, 27 Aug 2026 11:40:41 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:72::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70498ca3csm20150005ad.31.2026.08.27.11.40.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:40:40 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:40:40 -0700
-From: Joe Damato <joe@dama.to>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com,
-	justinstitt@google.com, colin.winegarden@broadcom.com,
-	rukhsana.ansari@broadcom.com, horms@kernel.org,
-	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net v2] bnxt_en: Bound SW TPA IDs to prevent crashes
-Message-ID: <apCEqAkcuo27VOp/@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com,
-	justinstitt@google.com, colin.winegarden@broadcom.com,
-	rukhsana.ansari@broadcom.com, horms@kernel.org,
-	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260825001842.2501798-1-joe@dama.to>
- <20260827083139.91346-1-pabeni@redhat.com>
+        d=1e100.net; s=20251104; t=1787856061; x=1788460861;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XHXEc3lb89R5K4e6zCupjYllWsi9Y8mBxV+FdAQWd9w=;
+        b=L5c2XDvTDRzaH/zTfNPbL7Lng7GS4LXz9msfAaMnHJgprce3r0OAxX026RwmcK+s21
+         QIF19FAIJ7rDRcEstJx7znYCKW2Y4gxk0ZMhhPuovBGce/U39aBvR7Nk/mi6HlZtF15V
+         K95SNvmdAjxoJP31swUr8t04XIo/0iCzN5QY84IHRuC07aa0NLJp68J9wYBKiz6wi4mK
+         QpYJ7DAOASgRrgZSZHmXBCWJWeeokcwKpSTAN3a3MJWCkV+luY0LENLIeuPv+VbiHpQ/
+         sYkWYdKG0UacJtLEvC4mf6DmJmE13Olbu+HjU5Zom/8zP+0t5IuScmOK9Hb1OBU/wkcF
+         yrKg==
+X-Forwarded-Encrypted: i=1; AHgh+RoDAbhvOlLNGNstb6ffJ7y8dobPyn6nn7FQTD8zSmzpgnA37dk//Dg5ERDW8mXeVRZLIyWiyQWZVzQ9d7I=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4Xogrlff7UjJRyA++ZiMHpIRTgqVd/zInDncCPc0+5CnSfCIg
+	VQ1NtHwSvz6DYjCeS8rLDSBzPNPRdBrKpI/DW4/V2Pjdo0R7hWqI0+TB/pjADVH5CrWapPA0cvN
+	q2D+v1UiR2thEmv+KW1Kbb615GeN4TM0=
+X-Gm-Gg: AR+sD113IUM4OeYNjV7NAUr4qH2I/WSrHH2CXA6fly9k2yEFB6Su4gZddnRHpFt79iO
+	kw9gaDJ0275SdQnAeBN459g4gVIptf/KaR7oxmRlpGgaXNKdXyAkhi6uoFEewkkNVWAB4bIHQ5U
+	XDuAqmQjTrZcNrcYaHGsWAmbL+ijljPRiCCrIBK6RcNSn27gq44Wxq7Ui/XmY2Dk9TssOMGJTwo
+	WIaRXnVV1myOwHXbDjUAQUCDvIUJ8xgQDtHFRr84zqReCiOGXCkZiv0jhlIms1eA4fNT3L1vwD7
+	JknMtRLV/9KlL3Qy1lxQkQU4p6PpRWyt4km9hsSb5FmeUsHGRUMedDz3n+ebVUGFKKJxrjc+FHI
+	bTvDZFDaOtKhZuZL97fh0+d0=
+X-Received: by 2002:a05:690e:d86:b0:666:c4c5:7525 with SMTP id
+ 956f58d0204a3-66e4b916cf8mr533718d50.24.1787856061361; Thu, 27 Aug 2026
+ 11:41:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827083139.91346-1-pabeni@redhat.com>
+References: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
+ <20260827064619.GB4121339@noisy.programming.kicks-ass.net>
+ <CAJfuBxwOHiWsoQVLahW7c1+2f-=itRBLEi_4rbQGr+vtqLyBWg@mail.gmail.com> <20260827090300.GD4121339@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260827090300.GD4121339@noisy.programming.kicks-ass.net>
+From: jim.cromie@gmail.com
+Date: Thu, 27 Aug 2026 12:40:34 -0600
+X-Gm-Features: AcwNN1Wo8VG8RUV4OgUypLiCBNNBoO3R9CkXL8zx5MTZCZPs0PFnpfnRuIXwxnc
+Message-ID: <CAJfuBxyw6xCQTisF+srYcEhvUycZZOpTGFGhRO4DSDuwsiAp5w@mail.gmail.com>
+Subject: Re: [PATCH 0/8] lockdep: change 5 graph-db arrays to AofAs, fill from
+ memblock pool
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 10:31:39AM +0200, Paolo Abeni wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
-> ---
-> bnxt_en: Bound SW TPA IDs to prevent crashes
-> 
-> The patch allocates rxr->rx_tpa with bp->max_tpa rounded up to the next
-> power of two, stored in a new bp->max_tpa_roundup_size field, and masks the
-> firmware TPA ID with that size in bnxt_alloc_agg_idx() instead of using
-> MAX_TPA_P5_MASK.  All of the TPA info allocation and free loops now use the
-> new field as their bound.
-> 
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > index 9c2cc50276a59..ba710704b1921 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > @@ -1517,14 +1517,16 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
-> >  	return 0;
-> >  }
-> >  
-> > -static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
-> > +static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
-> > +			      u16 agg_id)
-> >  {
-> >  	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
-> > -	u16 idx = agg_id & MAX_TPA_P5_MASK;
-> > +	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
-> >  
-> >  	if (test_bit(idx, map->agg_idx_bmap)) {
-> > -		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
-> > -		if (idx >= MAX_TPA_P5)
-> > +		idx = find_first_zero_bit(map->agg_idx_bmap,
-> > +					  bp->max_tpa_roundup_size);
-> > +		if (idx >= bp->max_tpa_roundup_size)
-> >  			return INVALID_HW_RING_ID;
-> >  	}
-> >  	__set_bit(idx, map->agg_idx_bmap);
-> 
-> [Severity: Medium]
-> 
-> This isn't a bug introduced by this patch, but the value stored is now
-> bounded while the index it is stored at is still the raw firmware ID, just
-> below the last quoted line:
-> 
-> 	map->agg_id_tbl[agg_id] = idx;
-> 
-> agg_id comes from TPA_START_AGG_ID_P5(), whose descriptor field is 12 bits
-> wide:
-> 
-> 	#define RX_TPA_START_CMP_AGG_ID_P5	(0x0fff << 16)
-> 
-> and the table it indexes is 1024 entries, immediately followed by the
-> in-use bitmap:
-> 
-> struct bnxt_tpa_idx_map {
-> 	u16		agg_id_tbl[1024];
-> 	DECLARE_BITMAP(agg_idx_bmap, MAX_TPA_P5);
-> };
-> 
-> Can an ID of 1024 or above write past agg_id_tbl[] into agg_idx_bmap?
+On Thu, Aug 27, 2026 at 3:03=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Thu, Aug 27, 2026 at 02:54:12AM -0600, jim.cromie@gmail.com wrote:
+> > On Thu, Aug 27, 2026 at 12:46=E2=80=AFAM Peter Zijlstra <peterz@infrade=
+ad.org> wrote:
+> > >
+> > > On Wed, Aug 26, 2026 at 09:58:32PM -0600, Jim Cromie wrote:
+> > > > Lockdep cannot rely upon any other subsystem that uses locks, so si=
+nce
+> > > > inception, its graph-db has been stored in static arrays, pinning ~=
+10
+> > > > MB in .bss. This is a hardcoded compromise between embedded and
+> > > > enterprise hardware.
+> > > >
+> > > > However, if it acts early, lockdep can pre-allocate a pool of slabs
+> > > > from memblock_alloc(), enough for its lifetime of anticipated workl=
+oads.
+> > > > Then it can allocate them as needed to provide new segments/slabs t=
+o
+> > > > the graph-db.
+> > > >
+> > >
+> > > Why? I really don't understand why. Who cares about this bss stuff.
+> >
+> > I thought embedded folk might value 10mb less bss ?
+> > Or have they stopped using lockdep already, for size or other reasons.
+>
+> I've never heard complaints from embedded people that this is a problem.
+> Very few Linux capable machines can't spare 10mb.
+>
+> This is about kernel development, if you need to develop a driver (only
+> case you might be tied to specific hardware) just get your developer a
+> board that has a spare 10mb of memory? Your developer is probably
+> served by having the most beefy board available anyway.
+>
+> There was a case on sparc where the bss was a problem because the kernel
+> image had definite size constraints, but I don't think any 'modern'
+> systems suffer that particular problem.
+>
 
-I don't think this is possible. bp->max_tpa is min_t(u16, bp->max_tpa_v2,
-MAX_TPA_P5), never going above 256. 1024 is 4x the headroom and if FW returned
-that, it would be ignoring the count it advertised... which seems like a FW
-bug.
+Fair points on embedded.
+So the value proposition is narrow:
 
-> The same raw ID is used for the read side in bnxt_lookup_agg_idx(), whose
-> result is used unchecked by bnxt_tpa_end() and bnxt_tpa_agg():
-> 
-> 	agg_id = bnxt_lookup_agg_idx(rxr, agg_id);
-> 	tpa_info = &rxr->rx_tpa[agg_id];
-> 
-> The commit message says "TPA IDs are generated by FW and can be up to
-> 1024", which matches the table size, and I could not find a capability
-> field that would allow firmware to emit an ID above 1023, so this may not
-> be reachable in practice.
+folks hitting "BUG: MAX_LOCKDEP_* too low!"
+who cannot build, deploy a kernel with tweaked MAX_LOCKDEP constants.
+They're running a distro-debug kernel.
 
-Agreed, it is not reachable.
+this group might include:
+Distro QA, enterprise testers, Syzbot/CI runners.
+For these users, lockdep sometimes turns off permanently,
+silently invalidating the rest of the test run.
 
-> 
-> > @@ -3784,7 +3786,7 @@ static void bnxt_free_one_tpa_info(struct bnxt *bp,
-> >  	kfree(rxr->rx_tpa_idx_map);
-> >  	rxr->rx_tpa_idx_map = NULL;
-> >  	if (rxr->rx_tpa) {
-> > -		for (i = 0; i < bp->max_tpa; i++) {
-> > +		for (i = 0; i < bp->max_tpa_roundup_size; i++) {
-> >  			kfree(rxr->rx_tpa[i].agg_arr);
-> >  			rxr->rx_tpa[i].agg_arr = NULL;
-> >  		}
-> > @@ -3810,13 +3812,14 @@ static int bnxt_alloc_one_tpa_info(struct bnxt *bp,
-> >  	struct rx_agg_cmp *agg;
-> >  	int i;
-> >  
-> > -	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info, bp->max_tpa);
-> > +	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info,
-> > +				   bp->max_tpa_roundup_size);
-> >  	if (!rxr->rx_tpa)
-> >  		return -ENOMEM;
-> >  
-> >  	if (!(bp->flags & BNXT_FLAG_CHIP_P5_PLUS))
-> >  		return 0;
-> > -	for (i = 0; i < bp->max_tpa; i++) {
-> > +	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
-> >  		agg = kzalloc_objs(*agg, MAX_SKB_FRAGS);
-> >  		if (!agg)
-> >  			return -ENOMEM;
-> 
-> [Severity: High]
-> 
-> This is a pre-existing issue, but this loop now runs up to
-> bp->max_tpa_roundup_size times (for example 33 becoming 64), so there are
-> more chances for the 272 byte kzalloc_objs(*agg, MAX_SKB_FRAGS) to fail.
-> 
-> On failure, bnxt_alloc_one_tpa_info() returns before rx_tpa_idx_map is
-> replaced, and the caller for a queue restart goes to the cleanup path:
-> 
-> 	if (bp->flags & BNXT_FLAG_TPA) {
-> 		rc = bnxt_alloc_one_tpa_info(bp, clone);
-> 		if (rc)
-> 			goto err_free_tpa_info;
-> 	...
-> err_free_tpa_info:
-> 	bnxt_free_one_tpa_info(bp, clone);
-> 
-> clone is a shallow copy of the live ring made in bnxt_queue_mem_alloc():
-> 
-> 	memcpy(clone, rxr, sizeof(*rxr));
-> 	bnxt_init_rx_ring_struct(bp, clone);
-> 	bnxt_reset_rx_ring_struct(bp, clone);
-> 	...
-> 	clone->rx_agg_bmap = NULL;
-> 
-> Only rx_agg_bmap is cleared there, and bnxt_reset_rx_ring_struct() does not
-> touch rx_tpa or rx_tpa_idx_map.
-> 
-> So does bnxt_free_one_tpa_info(bp, clone) free the running ring's map here?
-> 
-> 	kfree(rxr->rx_tpa_idx_map);
-> 	rxr->rx_tpa_idx_map = NULL;
-> 
-> The live ring's own rx_tpa_idx_map field is not cleared by that, and the
-> NAPI path writes through it on every TPA completion, in
-> bnxt_alloc_agg_idx():
-> 
-> 	__set_bit(idx, map->agg_idx_bmap);
-> 	map->agg_id_tbl[agg_id] = idx;
-> 
-> with a second kfree() of the same pointer when the source ring is torn down.
-> Should clone->rx_tpa and clone->rx_tpa_idx_map be set to NULL alongside
-> clone->rx_agg_bmap before allocating?
+if they had the lockdep_slabs=3DN knob, they might use it,
+and throw more workload on the box without a possible hard-fail looming.
 
-I think this is a real bug, but as mentioned above this is a pre-existing
-issue and not related to the patch I posted.
+> > How about OOM, when kernel needs mem,
+> > or lockdep debug-off, when the slabs tied up in the graph-db could be r=
+eturned
+>
+> If you're running into OOM while doing kernel dev you're doing it wrong?
 
-I can send a separate patch in the future addressing this, if desired, but I
-don't think it makes sense to try to address this in this patch since it would
-need a different fixes.
- 
-> > @@ -3843,6 +3846,8 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
-> >  			bp->max_tpa = MAX_TPA_P5;
-> >  	}
-> >  
-> > +	bp->max_tpa_roundup_size = roundup_pow_of_two(bp->max_tpa);
-> > +
-> >  	for (i = 0; i < bp->rx_nr_rings; i++) {
-> >  		struct bnxt_rx_ring_info *rxr = &bp->rx_ring[i];
-> >  
-> 
-> [Severity: Medium]
-> 
-> Can the early return earlier in bnxt_alloc_tpa_info() skip this assignment
-> while bp->max_tpa is already set?
-> 
-> 	bp->max_tpa = MAX_TPA;
-> 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
-> 		if (!bp->max_tpa_v2)
-> 			return 0;
-> 
-> On a P5+ device whose firmware does not report max_aggs_supported,
-> bp->max_tpa_v2 is 0, so bp->max_tpa_roundup_size keeps its zero value while
-> bp->max_tpa is MAX_TPA.
-> 
-> bnxt_alloc_one_tpa_info() is also reachable from bnxt_queue_mem_alloc(),
-> which is gated only on the TPA flag and not on max_tpa_v2:
-> 
-> 	if (bp->flags & BNXT_FLAG_TPA) {
-> 		rc = bnxt_alloc_one_tpa_info(bp, clone);
-> 
-> With a count of 0, does kzalloc_objs(struct bnxt_tpa_info, 0) return
-> ZERO_SIZE_PTR and pass the following check?
-> 
-> 	if (!rxr->rx_tpa)
-> 		return -ENOMEM;
-> 
-> And in bnxt_alloc_agg_idx(), does the new mask become a no-op when the field
-> is 0?
-> 
-> 	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
-> 
-> That would leave idx as large as 4095 for the test_bit()/__set_bit() calls
-> on the 256 bit agg_idx_bmap and for &rxr->rx_tpa[idx] in bnxt_tpa_start().
-> 
-> BNXT_FLAG_TPA can be set in that state because bnxt_set_rx_skb_mode(), which
-> bnxt_xdp_set() calls on XDP detach, adds NETIF_F_LRO to hw_features without
-> a BNXT_SUPPORTS_TPA() check:
-> 
-> 		if (rx > 1) {
-> 			bp->flags &= ~BNXT_FLAG_NO_AGG_RINGS;
-> 			bp->dev->hw_features |= NETIF_F_LRO;
-> 		}
-> 
-> Would setting bp->max_tpa_roundup_size next to every bp->max_tpa assignment
-> keep the two in sync?
+heh - not me, that was the other guy.
+it was a "feature", I thought it might help the sale. :-)
 
-OK, this is real and I will fix this in the v3.
-
-> > @@ -4554,7 +4559,7 @@ static int bnxt_alloc_one_tpa_info_data(struct bnxt *bp,
-> >  	u8 *data;
-> >  	int i;
-> >  
-> > -	for (i = 0; i < bp->max_tpa; i++) {
-> > +	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
-> >  		data = __bnxt_alloc_rx_frag(bp, &mapping, rxr,
-> >  					    GFP_KERNEL);
-> >  		if (!data)
-> 
-> [Severity: High]
-> 
-> This is a pre-existing issue, but this loop now performs up to twice as many
-> GFP_KERNEL allocations, and the queue restart caller ignores the -ENOMEM
-> that follows the quoted check, in bnxt_queue_mem_alloc():
-> 
-> 	if (bp->flags & BNXT_FLAG_TPA)
-> 		bnxt_alloc_one_tpa_info_data(bp, clone);
-> 
-> 	return 0;
-> 
-> The open path checks the same call, so is the missing check here
-> intentional?
-> 
-> If the first __bnxt_alloc_rx_frag() fails, the remaining rxr->rx_tpa[i]
-> entries keep data == NULL and mapping == 0, and bnxt_queue_start() installs
-> the array into the live ring:
-> 
-> 	rxr->rx_tpa = clone->rx_tpa;
-> 	rxr->rx_tpa_idx_map = clone->rx_tpa_idx_map;
-> 
-> Does bnxt_tpa_start() then post a zero DMA address to the device and a NULL
-> buffer into the software ring for such an entry?
-> 
-> 	prod_rx_buf->data = tpa_info->data;
-> 	prod_rx_buf->data_ptr = tpa_info->data_ptr;
-> 
-> 	mapping = tpa_info->mapping;
-> 	prod_rx_buf->mapping = mapping;
-> 	...
-> 	prod_bd->rx_bd_haddr = cpu_to_le64(mapping);
-> 
-> When that descriptor completes, bnxt_rx_pkt() uses rx_buf->data without a
-> NULL check.
-
-This seems like it is real, but also not related to this patch and this would
-needs its own fixes, so I don't think it is worth wrapping that into the
-proposed bugfix.
+ thanks
