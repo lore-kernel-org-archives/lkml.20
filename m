@@ -1,108 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEAF480354;
-	Thu, 27 Aug 2026 14:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119FA4749E2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842248; cv=none; b=Y84pvObXfCVr6lw0rTy4DOKBu1ageQYs7poJxDE+kvnNk6jkML7qdriIFqQXh2flUsfFtVhpgxXySdlhs+y3idYtH+DN0wFoiNVaJDtngVNC51yKoOzYl1CYrHLeeC4QBDgzB/cIczK+n2fxpecnsW+oEpG6/0Ct1+rOfPQSyTY=
+	t=1787842299; cv=none; b=IJUhsgxKOyZ/ARYzgZvKT00vpkYGMVWFl5dDU9ycSn3DRRzu0yI5w+2ONC0hHqOi6QA//F3l7S1tqQaT2xyn1BVBgOEbPFXfXjpX8xfvh77orfKx2RoFkBvouz0aIx31OTqiyHg6YQ43c6o3IzOMi1WQStASm3VvXhtIQO4xWPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842248; c=relaxed/simple;
-	bh=QCMp60rPejMmtLUO74Ys+Vd6q6kUHrvuIrFHwS8YNd8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aEvVrvKAcAiALrqIcxaK4Tnk8I9Mde9v53haoptDgxZOJubqxjYNOi7Trqr8QUVRpMVhYGngmnumKTDWI5lMzfrn1Do9gKJpeb/iyl43b+IqjRlOTB+nOp9zYCED2rn0fYj2tvAMc3VDwFqfE3vZ3KB3ONzhvn5dCuEQYRM+eO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwkLqxC/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787842299; c=relaxed/simple;
+	bh=AS+pIe3ozPZ3Vw0ac5MFTRpJosHOxYPCnu8rsmbBlmg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C8IZkOMXlSSzO9OitWFaWJss7prcC1RX9IL5Me5REyzUTU+Xd79HyhcUse8o+23CDfTnBwOSwljOWzXj4vxXFR+AiWU1AHEyUkl09fuqBQ437T64HN8iHnnyiHAMlRNpBG5UQvKNgnQIN1q6YziAui80fhlzfbmyyiV9oLM6Qo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=McCKq9lw; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwkLqxC/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B503A1F000E9;
-	Thu, 27 Aug 2026 14:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787842236;
-	bh=Rz1MXuTYqGT0qOcMQteSTxUVF3c4hY2xoKIxAzfmWk0=;
-	h=Date:From:To:Cc:Subject;
-	b=GwkLqxC/ePiPt2G69jpvnCDbBzoghBn+RZLFB6Pan4NlsiH9mg2qDcpLO9trOiILO
-	 AP7XKN8btzYjRPCyLJwNeJRvBSbI5SHpXokPMzihXEs7Ujfl7qpnCFujRAKlfPmJG4
-	 13BcGJnU8MyiIh+Gg8LIrScKf9YDOMcw741eogrPzlE8zAhSsVuUX2qu8OTb3WnWtu
-	 LKpATmF7EFPq7wVH2uXazyFXUAjsOGTJTLmVd58yUDEf4iuuq9zTPlqlSHniKiiIrk
-	 NEybHFExhziLzjBIaSF5Zu/C7aDjgh4p4qW2ErRrbrzBdgSv+EnOM1VZS/Ub4PO1Cn
-	 HpQenmR4cJuOQ==
-Date: Thu, 27 Aug 2026 15:50:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Aug 27
-Message-ID: <apBOuaY8-2BfCNLS@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="McCKq9lw"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cc891373e0so27832735ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787842289; x=1788447089; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AS+pIe3ozPZ3Vw0ac5MFTRpJosHOxYPCnu8rsmbBlmg=;
+        b=McCKq9lw2evRtvRZ9avefG51qCIndWuHPR4ocYGhcop9GEIb0YhlSIMnoQXOTlrHKn
+         2AxHXyqLcEUFvmscL7XHruJbjrpj7sdP0FlI/5paaKIqJTIh1ZnWtvihshLyqWzhzI2w
+         Ps4uwlXsvSIyrubwt71jtejQwk3f+dUzESIRXGk6BeGWwhalQ4tOnCiFT/uOl04CoKud
+         ygrHh2Cy8kLBsuJbkcYTuHNpBPLOj6CyxpqSzDQzuaKBssVhkCQsH83xH6QXVIaMvqMq
+         7ZPQFGcYCbKwRnXE+R6YDb20iOOeOChPZqKF8xB3+QVYssY9CYuj3roNKh9DfjwEagtY
+         iE7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787842289; x=1788447089;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AS+pIe3ozPZ3Vw0ac5MFTRpJosHOxYPCnu8rsmbBlmg=;
+        b=LTO1DV4vZGaTI23cropyXS1V99cxfJiuwIaaBxPmXaZOJvKqg1uHMAaTK61j6saiN9
+         ai/QzIPiHNBr32Ad8mx1HaDY270vet5FalgDy3ThzdOWp6ldXG63UNyznbpx+eUUarAu
+         AxX9DGFTQcyNVpoWOqrxlS/CUXzy8kgOmFsrWQgWhzAWR9pMfOLnAi4dEfDntmZeV6yo
+         TbyUS/gr11Zw4cdk5NLvVG6Ic8WuWU7PdVm1G3cNw5hAV1Q38ucHKAfMffbvMAk4jQan
+         BioFMr1q+r828w197c4gdsNe8lGfRflJzQsztM/LKbqJxO6rYTTgJBoHRWA4iyxe/gqB
+         hdOg==
+X-Forwarded-Encrypted: i=1; AHgh+RrNCRV8VD/73lWtpGaLUS4jxeKlb1JoSruvCC/BYbtCR+Qbb67nH9mW/oXLPvfpq4InWKSAWnocRiJB1jQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m71b2IP0+AOOR08Np1+8qBAElTdLJSluD9+BpOa26v4CVmr9vj
+	tjfLVkRxSjC4m0FgSCPfV09wfJvjvXozipYiyomhRs6INEnY90a1uzx8
+X-Gm-Gg: AR+sD10KVNXRM9Iuwd9y9iMFGKFI+yvxQycS9IDid+4ZBfnCh3OX4GyaWSbOwHIARA6
+	5SkjvbFkbGExhPyWD0qW5RnxIyc/f7yN7yvSx+mso+uiQjLjY+Ju54m2kw4MqJkVRf4E1ppijHa
+	IkWyR74kKXGbB9MKi9Vmy4hi8z2+uDgSBcT086bR1TaT+AE1iucQQxfZIKnk0bNeslCmEyHwB7F
+	9RFEKo1X0wNch/HBiCKrGRSKe2DNScXxWYHHy6TAproO7LOycm+hNW0w9wHT3T9QQuwzOfctWDB
+	zgJAVrWsc5HBlkeKE6vXS1w8YHrHXzGGHWvXAgcIxVctBRSsIAZhy8wxpDXdGM70MPI7NJgN67D
+	oZSZYEi9idZ3nsNQwS0MYzT1QpGO2UqnmFLSHMIxhBtr+HWImpxGL5dTIcJ341vLbOGz07UTxuU
+	MWh54TXkdws/VPgrnqDwhJTRIbCq17Mlo3qAKfr9XVFErGfIe+XsFYHqtj/h6aYAkvJ3eyb9rm1
+	A==
+X-Received: by 2002:a17:902:e54f:b0:2c0:a555:80d6 with SMTP id d9443c01a7336-2d707a2f08bmr279793485ad.2.1787842288946;
+        Thu, 27 Aug 2026 07:51:28 -0700 (PDT)
+Received: from localhost.localdomain ([47.100.192.162])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704bfb684sm18063645ad.62.2026.08.27.07.51.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 07:51:28 -0700 (PDT)
+From: Yang Wen <anmuxixixi@gmail.com>
+To: anmuxixixi@gmail.com
+Cc: exfat@lists.linux.dev,
+	linkinjeon@kernel.org,
+	linux-kernel@vger.kernel.org,
+	sj1557.seo@samsung.com,
+	yuezhang.mo@sony.com
+Subject: Re: [PATCH] exfat: validate vendor allocation directory entries
+Date: Thu, 27 Aug 2026 22:51:08 +0800
+Message-Id: <20260827145108.979738-1-anmuxixixi@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260820150508.736275-1-anmuxixixi@gmail.com>
+References: <20260820150508.736275-1-anmuxixixi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CT6IssbDeS3D+xZA"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---CT6IssbDeS3D+xZA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+A gentle ping on this patch.
 
-Hi all,
+When you have time, I’d appreciate any review or feedback.
 
-Changes since 20260826:
-
-The ceph tree acquired a build failure, I used the version from
-next-20260826 instead.
-
-The pwrseq tree lost it's build failure.
-
-Non-merge commits (relative to Linus' tree): 1507
- 1468 files changed, 38297 insertions(+), 13728 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 425 trees (counting Linus' and 131 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---CT6IssbDeS3D+xZA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQTrgACgkQJNaLcl1U
-h9CZbwf8C9UBwxx0sh1HHXXqkTKuRkX4PNnHoiWBcAex/98C48X1NV+8zAaK7MoC
-+tF1PXJIP/oZYBIllj/zSFAPJXNcBzyv3X05dW+6gsjUxH8i54dBJJocNEqFSzzO
-ALIdvO2XoSSeuCCF7PoSid3hecq3bUo7yWwESry9Os0xT2vHwvn2AmtYMVQbv7mY
-ZPTDk4bISw6PalKVbSbNSnNL/y4o6NRvv0zvnGuzsz4DxELU8lvv+yrIagxe9mQk
-Csje9Xsh0yaokLwEPdZ2IW710KdyK7GsNgkLQ7iZknLEeB5kNpOrtD4PpLGGaR5e
-I1LSo0VmVONHwQVQlXqnhxW99F8/RA==
-=ulhU
------END PGP SIGNATURE-----
-
---CT6IssbDeS3D+xZA--
+Thanks!
