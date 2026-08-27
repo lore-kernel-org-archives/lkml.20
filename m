@@ -1,126 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C57448BB8;
-	Thu, 27 Aug 2026 12:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834765; cv=none; b=GnVVUAfXqop9kUC+X1UC5qZw1rDSWjKULF18d1FxLq1aYITkc6azhJJw/aye4iR1gi03X8tl8sMvH1V/uuc/coZNb4ssNeYVJ++tLF/K4II/aLyA2B69rxS4/Av3nO+/N26Z9xzrL9mcUyQfWK+FfID+2N/vogMP+1duzEL65U0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834765; c=relaxed/simple;
-	bh=4TGEQlmOAwBLPiZtNtS5rn6bKGl17x/a8r/1ran7K28=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=na7iI1dl9nB71wkfDyVw/X0VFQ2ja+lu08rWcBu/n/6u3UIVOTO6Ahm9B0TLDEHyBYAq1fu7wTcawlMFhzCi3m8TewDIvNTwsVZNZMYab/flz9s3yhleV2kpSHy7sVeaOLBxEoi61trsGVUgp3OCOMhr+zxgD3tZuXMRmYFG5nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivOFOESm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829CD27FD74
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787834777; cv=pass; b=mY0gLg00BwXqLZMlyRDs7k696xjJxbnpjRcQfIwgnGu9HC5EgtZNEhkMmGcOTm5gjYjDourrX4vYEgTKV6IWQWrZ7V8kV0ISsI+sq/dTCNGFvXpey1bZIzncns5bgqxUtFhTsoEHRlIgfBzXnq+ceMDhQPOzpD7ctMmzCmhcLGs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787834777; c=relaxed/simple;
+	bh=VtSG3PkCoqr4SYLiHTFlkhdpj+dkerjUWfVmiPHXaOU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DCRPCs6QbSBpWPN+7p6YiPlOT+VgP65jM99DYWsr9nZnTzQG45+o7lc2eFaqnysO/SiZJVA5cmtyq4TBqIThwxONYrp8wxpFTFslWih5sMZuQ3CYjU9vxa3ygFKIKQasH2+RaRj1C0+E9eyzXhx7L9U6nSh9MYMrNshdSfxJ6Ss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L/vm6d6d; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivOFOESm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F4B1F000E9;
-	Thu, 27 Aug 2026 12:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787834758;
-	bh=+sYt7i5XntU1/U2nUgpYrTTnvRfhUvlGBRLHyY9vjIo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ivOFOESmg1g2mD8iA2YNmQu+3hN27qXYTyJc0jKlpLDxxMUTMpx16MBAGz/VLfJ3X
-	 vSXrDAY29nLjOekBeDtQXUMqR9DBP0gTeaCRRkhqnPZQ8rArhx3+UlNzVPErHj9dvO
-	 nUKIK6qYEvoPxUsM0BEyJbzLFN7Tcd7PRmaR/1WD7otr1ibnNwyN5HPzuF+gh6WW3D
-	 TUzcnn6tf/lP/1aOecHd3BOXmFxXFq3i4/0REey89Hshsushu4nUczJtOkH88RTw3N
-	 RSYmfLJlhCayC1vlPABAZ8Zy0mcloZeOhh46fxg/gksJmzkd8Fa+4yTfDNi6G2a8s3
-	 EJ6L2c+IwTLuw==
-Message-ID: <86441e95-d335-4ce5-8e8a-7abdb541f9d7@kernel.org>
-Date: Thu, 27 Aug 2026 14:45:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L/vm6d6d"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a5e866bca0so2946595a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:46:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787834768; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KSICLJCgE4ns3o8oKRh2ktIIx3/OcO3xZiRWITPXu3CjbBcTBDnqVGW7HyqHMF7C1D
+         vK+z31ssob9jMeDNZh8c/1KUYzcfrBoSGEptsfKyjEwCmFTw2JxZ6kSXRRv6cY3hWXhf
+         DRYPgjbjVEwtdpK6QwnmpDprcFVYOPipQTaOBBzlcBvWxIDo9y4c7yKYdz/pzI6KoLzs
+         qEUgSiuACWBsWrZb/47+n5OpN4yFPCvHNgpL4m3lHCnKFJ5bIJ/c4vagqbyDStB7dbfJ
+         ouX8+zxEZoLOMikxw5BlnFy9nryb9Zv3/T3xbII22lUby7vQLIgtbuxTtoO3uCqk8lK9
+         iGaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TiFeCb1mWzRNV32sFee9OVcleAQF9Zjh0wO6Dwjz8+0=;
+        fh=hQvS7FwhtSgw8IAcwMpdCbIyXYoLJUsusMoLtuWiuDA=;
+        b=pSGlbLdVv+0Ze577Epm268qGY9MUaMhI7f2viZTrKJYGZtEofhXW+c1UxjwbWc/EoG
+         zXOHi2OVXylA7JT8YU817x5C5xXMBkpFYTOtl3A1KfsSq2x9RGuV7Z3PLKGL0Doh9nmr
+         +ufVcOz+B8VAHJA7Vh+5wfR4MsVqb6THtoPORy8gtWBKfPyzKodKCdIe7tLnWI5PD2cu
+         E8xfh/hms/HA45yzwm1tftcjlTjTPVlDlE9Hn+xhMfAJ1pDdkBPLrbwDsGozAlcIqTeA
+         Swm9UcFpprGazEA1GdqJcShS4xtk0dIsp48G5OSe3dUjAQp2Bo3xKn5QMjCoRjfGzsyj
+         /HTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787834768; x=1788439568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TiFeCb1mWzRNV32sFee9OVcleAQF9Zjh0wO6Dwjz8+0=;
+        b=L/vm6d6d5ux+ohBM4fopVrFQC9bKM2XHBZBJH5iEzFSDNszsbth7B+xPRqj/BCMyEN
+         aC45FkFw3w5kn6b4PpNo2P2tISSntXCJLe4VbLkbmo0lSOYaKQtP33tDZlYSt7kRs6tz
+         VwUIEeKlAhTQQCpITMFsrdTE9sbJMtaL38xBAFjx8Z1SVRsGOlskl1p9FGel9HppLEC9
+         qjClF5MKbb6lGV4xBjgRcAo+/bGD9HpzeGewXaZv9sHqXauo92LbONN0E+dF6N0DZObR
+         npDayFBIt5QLcPnmJLj3MWHUQrTWfIdKeqq/Nw3u4o2FsUDYxvC8ovi4qxDoM85Lj0my
+         OLvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787834768; x=1788439568;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TiFeCb1mWzRNV32sFee9OVcleAQF9Zjh0wO6Dwjz8+0=;
+        b=rB90dY7H1oraYRbP0TDvcZJxxGWbYULMqj21tO6fDgILgphcK1svb8SLX/Zv+6dJgX
+         yLrnj8CQIpaUEC7EixU5OcPV7GvY4nVEwwkSbAc69U5MPOVz4cOmgwgsO5FgDDBSLeFA
+         1DzAigiThILFGDflJ0jRK0yZK9zSGHkyzstQcgg9eNDOFGE4BSlTCMnxqkPTMWo6T/2E
+         YjsrREw7t+7J9g5/n4nWpNy+m+Hnu7BydqfCeH0ETGf3cgnc8jkSg6F3qyuRK8SCUa96
+         nWipBxbaVB7SVNiWjKEFOCdkfL9LjUhho6d3YBSnqBvsoOccdU4YPYCr0KRSsXV0bYW4
+         8tYA==
+X-Forwarded-Encrypted: i=1; AHgh+RoOSrLDFFY0rIAnvkZeucxRvfOa2pr4R0IrYJQbzSmzfzOKv3hyVOmB9rNbD7bAJA7nbK8YQRl5bzehT5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++m74jGNFmT97bMpfh1NW9lODc3AZxGcCUaa7JoBKaL3zqTe7MPK
+	Qnm/YmghkUe8w9DnVlpBOMx25jT81DmaaGwuNoHvlV9Ek1g9XJAT08D4C/asZlW4Ht5mZHUgkxW
+	YYof6sKAt/nkiMm03YHZ4xR7Hh7svqkM=
+X-Gm-Gg: AR+sD13vfC+o9rtEDWfC3yXorJhHkBZWL4oXzysrek//ec7ZOLIo+n2ZsoXHVfEeV8L
+	WnfhpR3Ld/3Gs9iIIWdwvzk+kdqTU9ekHBmrJpe3V0LatAGdpET7KL8vwiJl5YWmmzwIHPfJTVH
+	obcIr5i3EqKh4MhgM2fa18X7cfTGJcCx8VPUfbg6oazOg9qSS1mKkaQFZE4B1r0SPN4Cct8IU6b
+	FvqyV6YDdtt65ivBjwUD0oGubfLUtikJaoO/3mYLPwRZ1/pI04KpElLAp14s80rFFHuBY6Ye5p8
+	gLPqjgGN3EoUxILaFV0p7TNCxx07G0kS+Em8UkxdiP4hhk/UQQA2pWPp
+X-Received: by 2002:a05:6402:a5cf:10b0:6a5:f912:b092 with SMTP id
+ 4fb4d7f45d1cf-6a5f912ba3emr2236191a12.6.1787834767865; Thu, 27 Aug 2026
+ 05:46:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] Add support for USB Type-C on STM32MP25
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- Thomas Bourgoin <thomas.bourgoin@foss.st.com>
-References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260827045007.3831259-1-4ncienth@gmail.com>
+In-Reply-To: <20260827045007.3831259-1-4ncienth@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 27 Aug 2026 14:45:56 +0200
+X-Gm-Features: AcwNN1V-c4xu4UcDTK90nLAOAcPgyGpCSFwT49PXfHRzCVesR89Joqxdat255j0
+Message-ID: <CAOQ4uxjtzGLVHeQT+J1rCaPhhT+NG237EVJC+3DhP3DRH6Npqw@mail.gmail.com>
+Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/08/2026 18:23, Fabrice Gasnier wrote:
-> Add support for the UCPD controller found in STM32MP23 and STM32MP25 platforms.
-> It is tigtly coupled with external TCPP02/03 I2C companion chip to interface
-> and to protect UCB-C DRP port.
-> 
-> Purpose is to propose a complete set of drivers and bindings to enable USB
-> Type-C support on STM32MP25 reference design boards, EVAL and DK, compared
-> to alternate UCPD series [1].
-> 
-> This is an on-going work on top of over series [2] and [3].
-> 
-> [1] https://lore.kernel.org/all/20260819163410.119755-1-marex@nabladev.com/
-> [2] https://lore.kernel.org/linux-phy/20260816213849.1044073-1-marex@nabladev.com/
-> [3] https://lore.kernel.org/linux-usb/20260817163101.6203-1-fabrice.gasnier@foss.st.com/
+On Thu, Aug 27, 2026 at 6:50=E2=80=AFAM Daehyeon Ko <4ncienth@gmail.com> wr=
+ote:
+>
+> Hello,
+>
+> I found an unprivileged race in fsnotify_destroy_marks() that can leave a=
+n
+> attached fanotify mark on a detached connector. On unmodified Linux v7.2 =
+and
+> v6.12.105 source builds, it naturally reaches the fsnotify_conn_mask()
+> warning from fanotify_mark(). On unmodified builds, the only observed
+> system-wide failure was a v7.2 panic when panic_on_warn=3D1; no memory
+> corruption or privilege escalation was observed.
+>
+> Tested and source-inspected versions:
+>
+>   - Linux v7.2, commit
+>     8d3ae59288f1e7d58d76558a6ee96d533bc5019f: reproduced.
+>   - Linux v6.12.105, commit
+>     14c37ff05f22da2fa7076d10f6a07c7ede330c83: reproduced.
+>   - Torvalds master at
+>     73e3f0710014fe6d4ed98cfc02292f6121db7558: the relevant destroy
+>     iterator and fdinfo consumer remain present. Commit e422777fdd47
+>     changed mark-mask updates and can mask the immediate warning, but it
+>     did not change this iterator or the detached-connector state.
+>
+> The unconditional connector detachment involved in the race appears to
+> originate in commit 6b3f05d24d35 ("fsnotify: Detach mark from object list
+> when last reference is dropped"), released in v4.12-rc1. My unprivileged
+> runtime results are limited to the two versions listed above. The limited
+> unprivileged fanotify functionality used by this reproducer was introduce=
+d
+> by 7cea2a3c505e ("fanotify: support limited functionality for unprivilege=
+d
+> users"), released in v5.13-rc1; I am not asserting ordinary-user
+> reachability before that change.
+>
+> Root cause:
+>
+> fsnotify_destroy_marks() holds a reference to the current mark, drops
+> conn->lock, destroys that mark, and then continues the hlist walk. While =
+the
+> lock is dropped, an equal-priority mark can be inserted immediately befor=
+e
+> the current entry. The walk resumes from the current entry's next pointer=
+,
+> so it never visits the new predecessor, but it still detaches the connect=
+or
+> from the object after the walk.
+>
+> The skipped mark remains ALIVE|ATTACHED and remains on both its group lis=
+t
+> and the connector list. At the same time, the object no longer points to =
+the
+> connector, conn->obj is NULL, and conn->type is DETACHED.
+>
+> Representative v6.12.105 output is:
+>
+>   WARNING: CPU: 1 PID: 163 at fs/notify/mark.c:128
+>   fsnotify_conn_mask+0x113/0x150
+>   CPU: 1 UID: 65534 PID: 163 Comm: fanotify_destro
+>   ...
+>   do_fanotify_mark
+>   __x64_sys_fanotify_mark
+>
+> The source reproducer ran on ext4 as UID/GID 65534 with CapEff=3D0 and
+> NoNewPrivs=3D1. It uses ordinary FAN_REPORT_FID groups and races final un=
+link
+> against fd-based mark insertion. Both builds used a KASAN-enabled researc=
+h
+> configuration, but neither positive was a KASAN report.
+>
+> With panic_on_warn=3D0 and panic_on_oops=3D0, the unmodified v7.2 run emi=
+tted the
+> warning and then completed 10,000 iterations and powered off cleanly. A
+> separate fresh v7.2 run with panic_on_warn=3D1 reached the same warning a=
+nd
+> panicked through check_panic_on_warn(). The v6.12.105 run emitted seven
+> warnings and reached its 10,000-iteration progress line; it later timed o=
+ut
+> during post-loop teardown, for which I am not assigning a kernel cause.
+>
+> A timing-only diagnostic kernel also demonstrated that fdinfo can combine
+> the old INODE type with the detached NULL object and reach
+> fanotify_show_fdinfo() -> igrab(NULL). I have not reproduced that Oops on=
+ an
+> unmodified kernel, so it is not part of the impact claim. The skipped mar=
+k's
+> group-list reference keeps the connector allocated; I have no evidence of=
+ a
+> connector UAF, arbitrary read or write, information disclosure, or LPE.
+>
+> I do not have a submission-ready patch. During fix development I rejected=
+ a
+> survivor-preservation prototype because it introduced a mask race, a
+> drain/restart prototype because additions could starve cleanup, and a bou=
+nded
+> retry prototype because review found an unresolved lock-order/deadlock ri=
+sk
+> when generic callers hold external locks needed by cleanup. I am reportin=
+g
+> the root cause rather than sending an unsafe fix.
+>
+> A tested source reproducer, full serial logs, configs, and diagnostic det=
+ails
+> are available privately to the maintainers on request. AI-assisted toolin=
+g
+> was used during discovery and analysis; I reviewed the source and the lit=
+eral
+> runtime evidence above and am reporting publicly without the reproducer a=
+s
+> required by Documentation/process/security-bugs.rst.
+>
 
-Why? This makes review difficult and inflates the patch count for no
-real gain.
+Hi Daehyeon,
 
-Above patches have issues, so just reply there and tell what is the
-issue instead of fixing it here!
+Thanks for the detailed report.
 
-Best regards,
-Krzysztof
+Without getting into discussions on solutions to the race, do we even care
+that a detached connector has a leftover attached mark in this tiny corner =
+case?
+
+I mean the assertion was added because we did not anticipate it,
+but now that we understand that it can happen, the assertion could be remov=
+ed
+or relaxed if there are no other major consequences.
+
+Regarding the reproduced igrab(NULL), this could be fixed by
+using a helper like this in show fdino code:
+
+static inline struct inode *fsnotify_conn_get_inode_safe(struct
+fsnotify_mark_connector *conn)
+{
+        struct inode *inode =3D conn->obj;
+
+        return inode ? igrab(inode) : NULL;
+}
+
+WDYT?
+
+Thanks,
+Amir.
