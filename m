@@ -1,750 +1,390 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351C841CB39;
-	Thu, 27 Aug 2026 10:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D03941A92C;
+	Thu, 27 Aug 2026 10:16:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787825800; cv=none; b=OArkGiAzsv/7sY76/lYQ3jearbo5NRgHzG3WmZdI9YIzhbI+Z/+PjeqSpFdyApFyYKlJRb5CwAyQlwfA46rMyEgYMJ5COhFLW7FsqMUrz3+oC7vLLgy2SqsygK2CnP++D33Ve0nJG/uueFfDeDCVYg1L9Ku2kYMxsCwe2QX13pk=
+	t=1787825822; cv=none; b=iUkms0gJho0FHTKlxVXZ83uUXtoo8Qn6pMbPRJaEzibM1jHbeczSBBLakCsxLZJhQhAzCsNQ6A+ysJqFqD4nW3L8arhzwRIvIwkqgH1ZXWGfc8FkEoVzfs2iF811iC3ptre65lrYM/IqKjlQa9fhk1PsgnyEb1e1qGNJwc+8RZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787825800; c=relaxed/simple;
-	bh=t/npOUta5D5kvnhxV+B9zZPNVl3Rws5yfaKtbmemjD8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RjphEpctYilHR3H2Bjum5cfpbmXYuxWCmZRV9otNT7fb6ZlZK2iuK1f4j5ZFHZ+FneVAv5DD6jLEztJdOB9ojYqRCx0VlRB/tKFMqoJnHOV4FCyh9dw0E5OfifPcRnZt+Zm57QXNqlABV2dGtcT/ZNnNaldRj52Mio1bgJ2n2yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKMJ8o+3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787825822; c=relaxed/simple;
+	bh=l3/YrC1PPPK71x8oD74z4pQvhnpdj6gch8cUe1f2b6I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R7bkiKptqvDLe1g4uvMrEcwo1GrLS/IwhPJA/rNWA0smlCllP/OC3pXNhIWzzC3ieR1hTz0edY08GeqTcyisvujCVWMuVWhAWjvhLnZTXfKYqXxgTkDC+772/B5YfY+CpDfUQGW8YCxfxCGy6R0opQH5IUkrpaHamItGR3P/uC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bP0BDM7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKMJ8o+3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 384FAC2BCF7;
-	Thu, 27 Aug 2026 10:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787825799;
-	bh=t/npOUta5D5kvnhxV+B9zZPNVl3Rws5yfaKtbmemjD8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KKMJ8o+3u8R4K3rizYMy5hGGTLueR2BjG2pyE4CH8OfbRsOGfR4MdOIxnedjD0Qul
-	 yqW/JpnzpaMRwwcnfoWzob2Huzfz+iU76w4zTPVdePO+CLyBO+dfjWMsCRC3Iw+8+d
-	 bvfHPrcJTDpldCc9qJJIKh/0panxE2r93dVOH4FagdFzyLFnM5Eq3xM8NFdokS7OTr
-	 XZRSMZpneLEfBRHx7nuqE/qozlsjda2lwTt2W1/NHeyOk7BzjDiL3cefgDpyfqUssc
-	 2Lx0TkmvhdISeAo8DG84f0hPiwPsCTKdz0/1PZFiw4XJP6QRd861U3pOCoQhwrXYaS
-	 avqOmuBSkeHLQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C177C61DCB;
-	Thu, 27 Aug 2026 10:16:39 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Thu, 27 Aug 2026 03:16:04 -0700
-Subject: [PATCH v6 2/2] ceph: add 'lazyio' mount option to kclient
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bP0BDM7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6341F000E9;
+	Thu, 27 Aug 2026 10:16:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787825813;
+	bh=GSFSKsvDnlEU0y2eCld40uwcZtAwLvmq/TjVFtBgspM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bP0BDM7vNHP/mN3GiCBJ/mfXhaWrYj+52OBTl+4mUAeGaEtWDRXwES3i9V3gA9a6U
+	 dQsmgDQC7n0cwIhJkxjsNGhQPmPhUeKyrwl6DSAs0JI+qk7hhV7W6aOuRFi6Okju8V
+	 ZKkovTImFNQ7qRTI9IxOE/J/9CjwHUWwU0KIP/Lu4oXzvh4uZWNRwYev4w0n8LZ048
+	 RNdUGvLVffUeZSzb1XnYaVarFts3QLevcR0gFfpGvyZUsrD039AbDb4ZnidQlSfLjF
+	 lP/fpif7S8rpYEUSce41duCYIKhV9IaXHTv4L2SIOKe46KmB6YiiQKO4kEIO9Qi5zF
+	 URlhqA7LmR4Fg==
+Message-ID: <91090730-b8b5-4346-a151-c11489abf2b3@kernel.org>
+Date: Thu, 27 Aug 2026 12:16:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260827-lazyio-v6-2-2755b379b8de@clyso.com>
-References: <20260827-lazyio-v6-0-2755b379b8de@clyso.com>
-In-Reply-To: <20260827-lazyio-v6-0-2755b379b8de@clyso.com>
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787825763; l=26264;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=dzkxCsGeXf7Y/WXJ3aen2qYOzyHPlNjEyoxRy6CMCLw=;
- b=VPg660incPT39F3EJBRgHayfyOKoKDnRgXE3nVYT/RkBmc5FiR8n7N2loBthkdpDxOb/pIlZE
- FvgB9UxUrW9BLEydRIlhpLdDMDc8oKUG2/+sQdcj1oNDGnl7j4IF6hw
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 7/8] i3c: hub: p3h2x4x: Add support for NXP P3H2x4x
+ I3C hub functionality
+To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
+ linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+ krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
+ Frank.Li@nxp.com, lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com, priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-8-lakshay.piplani@nxp.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260826103819.1614843-8-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On 26/08/2026 12:38, Lakshay Piplani wrote:
+> +
+> +static int p3h2x4x_configure_ldo(struct device *dev)
+> +{
+> +	static const char * const supplies[] = {
+> +		"vcc1",
+> +		"vcc2",
+> +		"vcc3",
+> +		"vcc4"
+> +	};
+> +	int ret, i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(supplies); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, supplies[i]);
+> +		if (ret && ret != -ENODEV)
+> +			return dev_err_probe(dev, ret, "Failed to enable %s\n",
+> +					     supplies[i]);
+> +	}
+> +
+> +	/* This delay is required for the regulator to stabilize its output voltage */
+> +	fsleep(5000);
 
-Add a 'lazyio' mount option to the kernel Ceph client that enables
-LazyIO globally for all regular file opens on a mount. This is the
-kclient equivalent of the 'client_force_lazyio=true' config option
-in the ceph-fuse userspace client.
+Instead your regulators miss ramp delays.
 
-When 'lazyio' is specified, CEPH_FILE_MODE_LAZY is automatically
-added to every regular file's fmode at open time in ceph_open() and
-ceph_atomic_open(), causing the I/O paths to request
-CEPH_CAP_FILE_LAZYIO from the MDS. This permits buffered I/O via
-the page cache even when multiple clients have the file open for
-write — beneficial for HPC workloads that can tolerate relaxed
-cache coherency.
-
-The mount option is exposed as 'lazyio' / 'nolazyio' via the VFS
-fsparam_flag_no mechanism and supports remount.
-
-Link: https://tracker.ceph.com/issues/77594
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
- fs/ceph/addr.c               | 138 +++++++++++++++++++++++++++++++++
- fs/ceph/caps.c               | 177 ++++++++++++++++++++++++++++++++++++++++---
- fs/ceph/file.c               |  33 ++++++--
- fs/ceph/super.c              |  15 ++++
- fs/ceph/super.h              |  17 +++++
- fs/ceph/util.c               |   4 -
- include/linux/ceph/ceph_fs.h |   1 +
- 7 files changed, 365 insertions(+), 20 deletions(-)
-
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 18cbb18eee75..1e4f03625912 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -493,6 +493,10 @@ static int ceph_init_request(struct netfs_io_request *rreq, struct file *file)
- 			rreq->netfs_priv = priv;
- 			return 0;
- 		}
-+
-+		/* If this is a lazy fd, also try to get LAZYIO caps */
-+		if (fi->fmode & CEPH_FILE_MODE_LAZY)
-+			want |= CEPH_CAP_FILE_LAZYIO;
- 	}
- 
- 	/*
-@@ -1994,6 +1998,42 @@ static void ceph_restore_sigs(sigset_t *oldset)
- 	sigprocmask(SIG_SETMASK, oldset, NULL);
- }
- 
-+/*
-+ * True if the page cache is only being kept alive by LAZYIO: CACHE is no
-+ * longer present in the implemented cap set, while LAZYIO still is, so
-+ * handle_cap_grant() left the pages in place for the lazy openers.
-+ *
-+ * Such pages are only valid under the lazy semantics, and a non-lazy reader
-+ * must not be served from them.  try_get_cap_refs() already refuses to
-+ * satisfy a non-lazy CACHE want with LAZYIO for read_iter()/write_iter();
-+ * faults need the same gate.
-+ *
-+ * Unlike __prep_cap(), which has to reason about a single cap, the question
-+ * here is whether the cached data can have gone stale, so the aggregate of
-+ * all caps is the right granularity: as long as any one of them still has
-+ * CACHE implemented, its revocation has not been ACKed and the MDS cannot
-+ * have handed CACHE to another client.  Note that __ceph_caps_issued()
-+ * reports i_snap_caps in "have" only and not in "implemented", hence the
-+ * OR; snap caps never include LAZYIO, so folding them in can only make this
-+ * more conservative.
-+ */
-+static bool ceph_pages_retained_for_lazyio(struct inode *inode)
-+{
-+	struct ceph_inode_info *ci = ceph_inode(inode);
-+	int have, implemented;
-+
-+	if (!inode->i_data.nrpages)
-+		return false;
-+
-+	spin_lock(&ci->i_ceph_lock);
-+	have = __ceph_caps_issued(ci, &implemented);
-+	implemented |= have;
-+	spin_unlock(&ci->i_ceph_lock);
-+
-+	return !(implemented & CEPH_CAP_FILE_CACHE) &&
-+	       (implemented & CEPH_CAP_FILE_LAZYIO);
-+}
-+
- /*
-  * vm ops
-  */
-@@ -2029,6 +2069,43 @@ static vm_fault_t ceph_filemap_fault(struct vm_fault *vmf)
- 	doutc(cl, "%llx.%llx %llu got cap refs on %s\n", ceph_vinop(inode),
- 	      off, ceph_cap_string(got));
- 
-+	/*
-+	 * Don't fault a non-lazy mapping in from page cache that only LAZYIO
-+	 * covers.  The "every opener is lazy" gate in handle_cap_grant() can't
-+	 * catch this on its own: an open that happens after the cache was
-+	 * retained sends no cap message, so nothing re-evaluates the decision.
-+	 * Drop the range here instead and let the fault below re-read it.
-+	 */
-+	if (!(fi->fmode & CEPH_FILE_MODE_LAZY) &&
-+	    !(got & CEPH_CAP_FILE_CACHE) &&
-+	    ceph_pages_retained_for_lazyio(inode)) {
-+		struct address_space *mapping = inode->i_mapping;
-+
-+		doutc(cl, "%llx.%llx %llu dropping LAZYIO page cache\n",
-+		      ceph_vinop(inode), off);
-+		err = invalidate_inode_pages2_range(mapping, vmf->pgoff,
-+						    vmf->pgoff);
-+		if (err == -EBUSY) {
-+			/*
-+			 * The folio is dirty and ceph has no launder_folio(),
-+			 * so invalidate_inode_pages2_range() cannot drop it.
-+			 * Write it back and retry -- handing a folio that only
-+			 * LAZYIO covers to a non-lazy vma is not an option.
-+			 */
-+			err = filemap_write_and_wait_range(mapping, off,
-+							   off + PAGE_SIZE - 1);
-+			if (!err)
-+				err = invalidate_inode_pages2_range(mapping,
-+						vmf->pgoff, vmf->pgoff);
-+		}
-+		if (err) {
-+			doutc(cl, "%llx.%llx %llu failed to drop LAZYIO page cache: %d\n",
-+			      ceph_vinop(inode), off, err);
-+			ceph_put_cap_refs(ci, got);
-+			goto out_restore;
-+		}
-+	}
-+
- 	if ((got & (CEPH_CAP_FILE_CACHE | CEPH_CAP_FILE_LAZYIO)) ||
- 	    !ceph_has_inline_data(ci)) {
- 		CEPH_DEFINE_RW_CONTEXT(rw_ctx, got);
-@@ -2088,6 +2165,30 @@ static vm_fault_t ceph_filemap_fault(struct vm_fault *vmf)
- 	return ret;
- }
- 
-+/*
-+ * Return true if the MDS has issued us a cap that covers buffered
-+ * dirtying: either BUFFER, or LAZYIO (as long as LAZYIO itself is not
-+ * being revoked).  This mirrors the conditions under which
-+ * try_get_cap_refs() will hand out a BUFFER or LAZYIO ref.
-+ */
-+static bool ceph_have_dirtyable_caps(struct inode *inode)
-+{
-+	struct ceph_inode_info *ci = ceph_inode(inode);
-+	int have, implemented;
-+	bool ret = false;
-+
-+	spin_lock(&ci->i_ceph_lock);
-+	have = __ceph_caps_issued(ci, &implemented);
-+	if (have & CEPH_CAP_FILE_BUFFER) {
-+		ret = true;
-+	} else if ((have & CEPH_CAP_FILE_LAZYIO) &&
-+		   !((implemented & ~have) & CEPH_CAP_FILE_LAZYIO)) {
-+		ret = true;
-+	}
-+	spin_unlock(&ci->i_ceph_lock);
-+	return ret;
-+}
-+
- static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
-@@ -2126,6 +2227,7 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
- 	else
- 		want = CEPH_CAP_FILE_BUFFER;
- 
-+retry_caps:
- 	got = 0;
- 	err = ceph_get_caps(vma->vm_file, CEPH_CAP_FILE_WR, want, off + len, &got);
- 	if (err < 0)
-@@ -2134,6 +2236,42 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
- 	doutc(cl, "%llx.%llx %llu~%zd got cap refs on %s\n", ceph_vinop(inode),
- 	      off, len, ceph_cap_string(got));
- 
-+	/*
-+	 * ceph_write_iter() makes the same check and falls back to
-+	 * synchronous writes, but a page fault has no such fallback:
-+	 * dirtying the folio without BUFFER or LAZYIO would leave dirty
-+	 * data uncovered by any issued cap (e.g. while LAZYIO is being
-+	 * revoked, or after it has been released).  Wait for the MDS to
-+	 * (re)grant a covering cap, matching how the exclude gate in
-+	 * try_get_cap_refs() blocks buffered writes while BUFFER is
-+	 * revoking.
-+	 */
-+	if ((fi->fmode & CEPH_FILE_MODE_LAZY) &&
-+	    (got & (CEPH_CAP_FILE_BUFFER | CEPH_CAP_FILE_LAZYIO)) == 0) {
-+		ceph_put_cap_refs(ci, got);
-+		got = 0;
-+		doutc(cl, "%llx.%llx %llu~%zd waiting for BUFFER or LAZYIO\n",
-+		      ceph_vinop(inode), off, len);
-+		/*
-+		 * Bail out if the inode is being shut down: the caps are gone
-+		 * for good, so ceph_have_dirtyable_caps() would never become
-+		 * true again.  Note that we cannot rely on ceph_get_caps()
-+		 * failing with -ESTALE on the retry either -- if WR is still
-+		 * held it would succeed without BUFFER or LAZYIO and send us
-+		 * straight back here.
-+		 */
-+		err = wait_event_killable(ci->i_cap_wq,
-+					  ceph_have_dirtyable_caps(inode) ||
-+					  ceph_inode_is_shutdown(inode));
-+		if (err)
-+			goto out_free;
-+		if (ceph_inode_is_shutdown(inode)) {
-+			err = -ESTALE;
-+			goto out_free;
-+		}
-+		goto retry_caps;
-+	}
-+
- 	/* Update time before taking folio lock */
- 	file_update_time(vma->vm_file);
- 	inode_inc_iversion_raw(inode);
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index bcb04c6cb92c..ba079483b145 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -1028,6 +1028,53 @@ int __ceph_caps_used(struct ceph_inode_info *ci)
- 	return used;
- }
- 
-+/*
-+ * Substitute LAZYIO for CACHE/BUFFER when they are not issued.
-+ * If we have LAZYIO but not CACHE/BUFFER, report LAZYIO as used instead
-+ * so the MDS knows we're fine with the weaker consistency guarantee.
-+ *
-+ * Base the substitution on "implemented" rather than "issued": while
-+ * LAZYIO is being revoked, "issued" no longer contains it but
-+ * "implemented" still does.  If used reverted to CACHE/BUFFER at that
-+ * point, ceph_check_caps() would see (revoking & cap_used) == 0 and
-+ * ACK the revoke while dirty or stale pages were still present.  Only
-+ * once the revoke is ACKed does "implemented" drop LAZYIO.
-+ *
-+ * Caller must hold i_ceph_lock.
-+ */
-+static inline int ceph_adjust_caps_used_for_lazyio(struct ceph_inode_info *ci,
-+						   int used, int issued,
-+						   int implemented)
-+{
-+	if (!(used & (CEPH_CAP_FILE_CACHE | CEPH_CAP_FILE_BUFFER)))
-+		return used;
-+	if (!(implemented & CEPH_CAP_FILE_LAZYIO))
-+		return used;
-+	/*
-+	 * While LAZYIO is still issued, it only covers the cached data if
-+	 * every opener has accepted the lazy semantics.  With a non-lazy
-+	 * opener around, keep reporting CACHE/BUFFER so that a pending
-+	 * revocation is not ACKed before the invalidation queued by
-+	 * handle_cap_grant() has emptied the page cache.
-+	 *
-+	 * Once LAZYIO is itself being revoked ("implemented" has it but
-+	 * "issued" no longer does) the substitution is unconditional: the
-+	 * revoke must not be ACKed while pages are still around, no matter
-+	 * who has the file open.
-+	 */
-+	if ((issued & CEPH_CAP_FILE_LAZYIO) && !__ceph_all_opens_lazy(ci))
-+		return used;
-+	if (!(issued & CEPH_CAP_FILE_CACHE)) {
-+		used &= ~CEPH_CAP_FILE_CACHE;
-+		used |= CEPH_CAP_FILE_LAZYIO;
-+	}
-+	if (!(issued & CEPH_CAP_FILE_BUFFER)) {
-+		used &= ~CEPH_CAP_FILE_BUFFER;
-+		used |= CEPH_CAP_FILE_LAZYIO;
-+	}
-+	return used;
-+}
-+
- #define FMODE_WAIT_BIAS 1000
- 
- /*
-@@ -1449,6 +1496,20 @@ static void __prep_cap(struct cap_msg_args *arg, struct ceph_inode_info *ci,
- 	 * dirty pages _before_ allowing sync writes to avoid reordering.
- 	 */
- 	arg->wake = cap->implemented & ~cap->issued;
-+	/*
-+	 * "used" decides which of the revoked caps stay in cap->implemented,
-+	 * i.e. which revocations this message does _not_ ack yet.  Callers on
-+	 * the flush paths (try_flush_caps(), __kick_flushing_caps()) hand us
-+	 * the raw __ceph_caps_used(), which reports CACHE/BUFFER as long as
-+	 * the page cache is populated.  While LAZYIO is being revoked it is no
-+	 * longer in cap->issued, so a raw used set would drop it from
-+	 * cap->implemented and implicitly ack the revoke with pages still
-+	 * cached -- the MDS could then hand CACHE to another client.  Report
-+	 * LAZYIO as used instead, and only stop doing so once writeback and
-+	 * invalidation have emptied the page cache.
-+	 */
-+	used = ceph_adjust_caps_used_for_lazyio(ci, used, cap->issued,
-+						cap->implemented);
- 	cap->implemented &= cap->issued | used;
- 	cap->mds_wanted = want;
- 
-@@ -2094,6 +2155,7 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
- 	 * usually because they have outstanding references).
- 	 */
- 	issued = __ceph_caps_issued(ci, &implemented);
-+
- 	revoking = implemented & ~issued;
- 
- 	want = file_wanted;
-@@ -2185,6 +2247,19 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
- 		if (ci->i_auth_cap && cap != ci->i_auth_cap)
- 			cap_used &= ~ci->i_auth_cap->issued;
- 
-+		/*
-+		 * Substitute LAZYIO for CACHE/BUFFER when they are not issued.
-+		 * Do this per cap and not once for the whole inode: only the
-+		 * cap that actually holds LAZYIO may report it as used.  A cap
-+		 * that is revoking CACHE without holding LAZYIO must keep
-+		 * reporting CACHE as used, or the (revoking & cap_used) test
-+		 * below would treat the revocation as completed while the page
-+		 * cache is still populated.
-+		 */
-+		cap_used = ceph_adjust_caps_used_for_lazyio(ci, cap_used,
-+							   cap->issued,
-+							   cap->implemented);
-+
- 		revoking = cap->implemented & ~cap->issued;
- 		doutc(cl, " mds%d cap %p used %s issued %s implemented %s revoking %s\n",
- 		      cap->mds, cap, ceph_cap_string(cap_used),
-@@ -2209,10 +2284,13 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
- 			 * at most 5 seconds. That means the MDS needs to wait at
- 			 * most 5 seconds to finished the Fb capability's revocation.
- 			 *
--			 * Let's queue a writeback for it.
-+			 * Let's queue a writeback for it.  The same applies when
-+			 * LAZYIO is revoked while it was covering for BUFFER
-+			 * (dirty pages exist, but BUFFER isn't issued).
- 			 */
- 			if (S_ISREG(inode->i_mode) && ci->i_wrbuffer_ref &&
--			    (revoking & CEPH_CAP_FILE_BUFFER))
-+			    (revoking & (CEPH_CAP_FILE_BUFFER |
-+					 CEPH_CAP_FILE_LAZYIO)))
- 				queue_writeback = true;
- 		}
- 
-@@ -2957,9 +3035,45 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
- 				}
- 				snap_rwsem_locked = true;
- 			}
--			if ((have & want) == want)
-+			/*
-+			 * Allow LAZYIO to act as a substitute for
-+			 * CACHE or BUFFER when those caps are not
-+			 * issued, but only for callers that
-+			 * explicitly requested LAZYIO.  This
-+			 * prevents a non-lazy fd from having its
-+			 * CACHE/BUFFER wants satisfied by LAZYIO
-+			 * on an inode where a different fd is lazy.
-+			 *
-+			 * A missing LAZYIO cap, however, must never
-+			 * cost us the CACHE/BUFFER refs that are
-+			 * actually issued: the MDS only grants
-+			 * LAZYIO for files opened with CEPH_O_LAZY
-+			 * and it can be revoked at any time.  If we
-+			 * made the whole want unsatisfiable without
-+			 * it, the I/O paths would silently drop
-+			 * CACHE/BUFFER (e.g. take no wrbuffer refs)
-+			 * and degrade to synchronous writes.
-+			 */
-+			if ((have & (want & ~CEPH_CAP_FILE_LAZYIO)) ==
-+			    (want & ~CEPH_CAP_FILE_LAZYIO)) {
-+				*got = need | (want & ~exclude &
-+					       ~CEPH_CAP_FILE_LAZYIO);
-+				if ((want & CEPH_CAP_FILE_LAZYIO) &&
-+				    (have & CEPH_CAP_FILE_LAZYIO) &&
-+				    !(exclude & CEPH_CAP_FILE_LAZYIO))
-+					*got |= CEPH_CAP_FILE_LAZYIO;
-+			} else if ((want & CEPH_CAP_FILE_LAZYIO) &&
-+				   (have & CEPH_CAP_FILE_LAZYIO) &&
-+				   !(exclude & CEPH_CAP_FILE_LAZYIO) &&
-+				   ((have & want) ==
-+				    (want & ~(CEPH_CAP_FILE_CACHE |
-+					      CEPH_CAP_FILE_BUFFER)))) {
-+				/*
-+				 * LAZYIO substitutes for missing CACHE/BUFFER;
-+				 * it is already included via (want & ~exclude).
-+				 */
- 				*got = need | (want & ~exclude);
--			else
-+			} else
- 				*got = need;
- 			ceph_take_cap_refs(ci, *got, true);
- 			ret = 1;
-@@ -3048,6 +3162,14 @@ static void check_max_size(struct inode *inode, loff_t endoff)
- 		ceph_check_caps(ci, CHECK_CAPS_AUTHONLY);
- }
- 
-+/*
-+ * The inverse of ceph_caps_for_mode().  LAZYIO has to be mapped back as
-+ * well: __ceph_get_caps() feeds the result to ceph_get_fmode() to bias
-+ * i_nr_by_mode[] by FMODE_WAIT_BIAS while it waits, and dropping LAZY
-+ * here would bias the open count without biasing the lazy count, making
-+ * __ceph_all_opens_lazy() report a phantom non-lazy opener for as long
-+ * as a lazy fd is waiting for caps.
-+ */
- static inline int get_used_fmode(int caps)
- {
- 	int fmode = 0;
-@@ -3055,6 +3177,8 @@ static inline int get_used_fmode(int caps)
- 		fmode |= CEPH_FILE_MODE_RD;
- 	if (caps & CEPH_CAP_FILE_WR)
- 		fmode |= CEPH_FILE_MODE_WR;
-+	if (caps & CEPH_CAP_FILE_LAZYIO)
-+		fmode |= CEPH_FILE_MODE_LAZY;
- 	return fmode;
- }
- 
-@@ -3590,13 +3714,29 @@ static void handle_cap_grant(struct inode *inode,
- 
- 
- 	/*
--	 * If CACHE is being revoked, and we have no dirty buffers,
--	 * try to invalidate (once).  (If there are dirty buffers, we
--	 * will invalidate _after_ writeback.)
-+	 * Check the revocation of *both* CACHE and LAZYIO, because
-+	 * CACHE may have been revoked earlier and cap->issued no
-+	 * longer contains it -- at that point only LAZYIO was
-+	 * covering us.  If LAZYIO is now also being revoked and no
-+	 * cache cap remains, we must invalidate the page cache.
-+	 * Without this, a CACHE-revoked-then-LAZYIO-revoked sequence
-+	 * leaves stale pages in memory until the next periodic
-+	 * check_caps (up to 60s).  Also invalidate when we have no
-+	 * dirty buffers (if dirty, invalidate after writeback).
-+	 *
-+	 * Keeping the page cache alive on a remaining LAZYIO is only
-+	 * safe if every opener has accepted the lazy semantics: those
-+	 * pages are retained for the lazy fds alone, and a non-lazy
-+	 * reader (mmap, or an fd that never asked for LAZYIO) must not
-+	 * be served from them.  So drop the cache as well whenever a
-+	 * non-lazy opener is around.
- 	 */
- 	if (S_ISREG(inode->i_mode) && /* don't invalidate readdir cache */
--	    ((cap->issued & ~newcaps) & CEPH_CAP_FILE_CACHE) &&
--	    (newcaps & CEPH_CAP_FILE_LAZYIO) == 0 &&
-+	    ((cap->issued & ~newcaps) &
-+	     (CEPH_CAP_FILE_CACHE | CEPH_CAP_FILE_LAZYIO)) &&
-+	    !(newcaps & CEPH_CAP_FILE_CACHE) &&
-+	    (!(newcaps & CEPH_CAP_FILE_LAZYIO) ||
-+	     !__ceph_all_opens_lazy(ci)) &&
- 	    !(ci->i_wrbuffer_ref || ci->i_wb_ref)) {
- 		if (try_nonblocking_invalidate(inode)) {
- 			/* there were locked pages.. invalidate later
-@@ -3740,6 +3880,8 @@ static void handle_cap_grant(struct inode *inode,
- 	/* check cap bits */
- 	wanted = __ceph_caps_wanted(ci);
- 	used = __ceph_caps_used(ci);
-+	used = ceph_adjust_caps_used_for_lazyio(ci, used, cap->issued,
-+						cap->implemented);
- 	dirty = __ceph_caps_dirty(ci);
- 	doutc(cl, " my wanted = %s, used = %s, dirty %s\n",
- 	      ceph_cap_string(wanted), ceph_cap_string(used),
-@@ -3767,13 +3909,26 @@ static void handle_cap_grant(struct inode *inode,
- 		doutc(cl, "revocation: %s -> %s (revoking %s)\n",
- 		      ceph_cap_string(cap->issued), ceph_cap_string(newcaps),
- 		      ceph_cap_string(revoking));
-+		/*
-+		 * If BUFFER is being revoked and we have dirty data,
-+		 * trigger writeback before acking.  When LAZYIO was
-+		 * covering for BUFFER (BUFFER not issued, dirty refs
-+		 * held), also trigger writeback.  Clean cached pages
-+		 * under LAZYIO are handled by queue_invalidate below.
-+		 */
- 		if (S_ISREG(inode->i_mode) &&
- 		    (revoking & used & CEPH_CAP_FILE_BUFFER)) {
- 			writeback = true;  /* initiate writeback; will delay ack */
- 			revoke_wait = true;
-+		} else if (S_ISREG(inode->i_mode) &&
-+			   (revoking & used & CEPH_CAP_FILE_LAZYIO) &&
-+			   (ci->i_wrbuffer_ref || ci->i_wb_ref)) {
-+			/* LAZYIO was covering for dirty data — flush first */
-+			writeback = true;
-+			revoke_wait = true;
- 		} else if (queue_invalidate &&
--			 revoking == CEPH_CAP_FILE_CACHE &&
--			 (newcaps & CEPH_CAP_FILE_LAZYIO) == 0) {
-+			 (revoking & (CEPH_CAP_FILE_CACHE | CEPH_CAP_FILE_LAZYIO)) &&
-+			 !(newcaps & (CEPH_CAP_FILE_CACHE | CEPH_CAP_FILE_LAZYIO))) {
- 			revoke_wait = true; /* do nothing yet, invalidation will be queued */
- 		} else if (cap == ci->i_auth_cap) {
- 			check_caps = 1; /* check auth cap only */
-diff --git a/fs/ceph/file.c b/fs/ceph/file.c
-index bd3e3f5c269e..b621930b59f0 100644
---- a/fs/ceph/file.c
-+++ b/fs/ceph/file.c
-@@ -347,10 +347,6 @@ int ceph_renew_caps(struct inode *inode, int fmode)
- 		flags = O_RDONLY;
- 	else if (wanted & CEPH_CAP_FILE_WR)
- 		flags = O_WRONLY;
--#ifdef O_LAZY
--	if (wanted & CEPH_CAP_FILE_LAZYIO)
--		flags |= O_LAZY;
--#endif
- 
- 	req = prepare_open_request(inode->i_sb, flags, 0);
- 	if (IS_ERR(req)) {
-@@ -358,6 +354,10 @@ int ceph_renew_caps(struct inode *inode, int fmode)
- 		goto out;
- 	}
- 
-+	if (wanted & CEPH_CAP_FILE_LAZYIO) {
-+		req->r_fmode |= CEPH_FILE_MODE_LAZY;
-+		req->r_args.open.flags |= cpu_to_le32(CEPH_O_LAZY);
-+	}
- 	req->r_inode = inode;
- 	ihold(inode);
- 	req->r_num_caps = 1;
-@@ -409,6 +409,19 @@ int ceph_open(struct inode *inode, struct file *file)
- 	doutc(cl, "%p %llx.%llx file %p flags %d (%d)\n", inode,
- 	      ceph_vinop(inode), file, flags, file->f_flags);
- 	fmode = ceph_flags_to_mode(flags);
-+
-+	/*
-+	 * If lazyio mount option is set, enable lazyio for all regular
-+	 * files.  Skip snapped files: snap caps never include LAZYIO,
-+	 * so including it in wanted would force an unnecessary MDS
-+	 * round-trip for every open of a snapped file.
-+	 */
-+	if (S_ISREG(inode->i_mode) &&
-+	    ceph_snap(inode) == CEPH_NOSNAP &&
-+	    (fsc->mount_options->flags & CEPH_MOUNT_OPT_LAZYIO)) {
-+		fmode |= CEPH_FILE_MODE_LAZY;
-+	}
-+
- 	wanted = ceph_caps_for_mode(fmode);
- 
- 	if (fmode & CEPH_FILE_MODE_WR)
-@@ -485,13 +498,16 @@ int ceph_open(struct inode *inode, struct file *file)
- 		err = PTR_ERR(req);
- 		goto out;
- 	}
-+	req->r_fmode |= fmode & CEPH_FILE_MODE_LAZY;
-+	if (fmode & CEPH_FILE_MODE_LAZY)
-+		req->r_args.open.flags |= cpu_to_le32(CEPH_O_LAZY);
- 	req->r_inode = inode;
- 	ihold(inode);
- 
- 	req->r_num_caps = 1;
- 	err = ceph_mdsc_do_request(mdsc, NULL, req);
- 	if (!err)
--		err = ceph_init_file(inode, file, req->r_fmode);
-+		err = ceph_init_file(inode, file, fmode);
- 	ceph_mdsc_put_request(req);
- 	doutc(cl, "open result=%d on %llx.%llx\n", err, ceph_vinop(inode));
- out:
-@@ -836,6 +852,9 @@ int ceph_atomic_open(struct inode *dir, struct dentry *dentry,
- 		} else {
- 			int fmode = ceph_flags_to_mode(flags);
- 
-+			if (fsc->mount_options->flags & CEPH_MOUNT_OPT_LAZYIO)
-+				fmode |= CEPH_FILE_MODE_LAZY;
-+
- 			mask = MAY_READ;
- 			if (fmode & CEPH_FILE_MODE_WR)
- 				mask |= MAY_WRITE;
-@@ -878,6 +897,10 @@ int ceph_atomic_open(struct inode *dir, struct dentry *dentry,
- 		err = PTR_ERR(req);
- 		goto out_ctx;
- 	}
-+	if (fsc->mount_options->flags & CEPH_MOUNT_OPT_LAZYIO) {
-+		req->r_fmode |= CEPH_FILE_MODE_LAZY;
-+		req->r_args.open.flags |= cpu_to_le32(CEPH_O_LAZY);
-+	}
- 	req->r_dentry = dget(dentry);
- 	req->r_num_caps = 2;
- 	mask = CEPH_STAT_CAP_INODE | CEPH_CAP_AUTH_SHARED;
-diff --git a/fs/ceph/super.c b/fs/ceph/super.c
-index 6c6e9a1100db..1667f0be6d82 100644
---- a/fs/ceph/super.c
-+++ b/fs/ceph/super.c
-@@ -181,6 +181,7 @@ enum {
- 	Opt_pagecache,
- 	Opt_sparseread,
- 	Opt_nearfull_sync,
-+	Opt_lazyio,
- };
- 
- enum ceph_recover_session_mode {
-@@ -207,6 +208,7 @@ static const struct fs_parameter_spec ceph_mount_parameters[] = {
- 	fsparam_flag_no	("fsc",				Opt_fscache), // fsc|nofsc
- 	fsparam_string	("fsc",				Opt_fscache), // fsc=...
- 	fsparam_flag_no ("ino32",			Opt_ino32),
-+	fsparam_flag_no	("lazyio",			Opt_lazyio),
- 	fsparam_string	("mds_namespace",		Opt_mds_namespace),
- 	fsparam_string	("mon_addr",			Opt_mon_addr),
- 	fsparam_flag_no	("nearfull_sync",		Opt_nearfull_sync),
-@@ -604,6 +606,12 @@ static int ceph_parse_mount_param(struct fs_context *fc,
- 		else
- 			fsopt->flags |= CEPH_MOUNT_OPT_NEARFULL_SYNC;
- 		break;
-+	case Opt_lazyio:
-+		if (result.negated)
-+			fsopt->flags &= ~CEPH_MOUNT_OPT_LAZYIO;
-+		else
-+			fsopt->flags |= CEPH_MOUNT_OPT_LAZYIO;
-+		break;
- 	case Opt_test_dummy_encryption:
- #ifdef CONFIG_FS_ENCRYPTION
- 		fscrypt_free_dummy_policy(&fsopt->dummy_enc_policy);
-@@ -762,6 +770,8 @@ static int ceph_show_options(struct seq_file *m, struct dentry *root)
- 		seq_puts(m, ",sparseread");
- 	if (fsopt->flags & CEPH_MOUNT_OPT_NEARFULL_SYNC)
- 		seq_puts(m, ",nearfull_sync");
-+	if (fsopt->flags & CEPH_MOUNT_OPT_LAZYIO)
-+		seq_puts(m, ",lazyio");
- 
- 	fscrypt_show_test_dummy_encryption(m, ',', root->d_sb);
- 
-@@ -1423,6 +1433,11 @@ static int ceph_reconfigure_fc(struct fs_context *fc)
- 	else
- 		ceph_clear_mount_opt(fsc, SPARSEREAD);
- 
-+	if (fsopt->flags & CEPH_MOUNT_OPT_LAZYIO)
-+		ceph_set_mount_opt(fsc, LAZYIO);
-+	else
-+		ceph_clear_mount_opt(fsc, LAZYIO);
-+
- 	if (strcmp_null(fsc->mount_options->mon_addr, fsopt->mon_addr)) {
- 		kfree(fsc->mount_options->mon_addr);
- 		fsc->mount_options->mon_addr = fsopt->mon_addr;
-diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-index 72d4e30304dc..cbe898c56a49 100644
---- a/fs/ceph/super.h
-+++ b/fs/ceph/super.h
-@@ -46,6 +46,7 @@
- #define CEPH_MOUNT_OPT_NOPAGECACHE     (1<<16) /* bypass pagecache altogether */
- #define CEPH_MOUNT_OPT_SPARSEREAD      (1<<17) /* always do sparse reads */
- #define CEPH_MOUNT_OPT_NEARFULL_SYNC   (1<<18) /* sync writes when nearfull */
-+#define CEPH_MOUNT_OPT_LAZYIO          (1<<19) /* force lazyio for all file opens */
- 
- #define CEPH_MOUNT_OPT_DEFAULT			\
- 	(CEPH_MOUNT_OPT_DCACHE |		\
-@@ -875,6 +876,22 @@ static inline bool __ceph_is_file_opened(struct ceph_inode_info *ci)
- {
- 	return ci->i_nr_by_mode[0];
- }
-+
-+/*
-+ * True if the inode is open and every opener is a lazy one.  Bit 0 of
-+ * i_nr_by_mode[] is set for every open regardless of mode (see
-+ * ceph_get_fmode()), so it doubles as the total open count.
-+ *
-+ * Callers must hold i_ceph_lock.
-+ */
-+static inline bool __ceph_all_opens_lazy(struct ceph_inode_info *ci)
-+{
-+	int nr_open = ci->i_nr_by_mode[ffs(CEPH_FILE_MODE_PIN)];
-+	int nr_lazy = ci->i_nr_by_mode[ffs(CEPH_FILE_MODE_LAZY)];
-+
-+	return nr_open > 0 && nr_lazy >= nr_open;
-+}
-+
- extern int __ceph_caps_file_wanted(struct ceph_inode_info *ci);
- extern int __ceph_caps_wanted(struct ceph_inode_info *ci);
- 
-diff --git a/fs/ceph/util.c b/fs/ceph/util.c
-index 2c34875675bf..be3db3f20344 100644
---- a/fs/ceph/util.c
-+++ b/fs/ceph/util.c
-@@ -73,10 +73,6 @@ int ceph_flags_to_mode(int flags)
- 		mode = CEPH_FILE_MODE_RDWR;
- 		break;
- 	}
--#ifdef O_LAZY
--	if (flags & O_LAZY)
--		mode |= CEPH_FILE_MODE_LAZY;
--#endif
- 
- 	return mode;
- }
-diff --git a/include/linux/ceph/ceph_fs.h b/include/linux/ceph/ceph_fs.h
-index 69ac3e55a3fe..01fd5f6647c8 100644
---- a/include/linux/ceph/ceph_fs.h
-+++ b/include/linux/ceph/ceph_fs.h
-@@ -414,6 +414,7 @@ extern const char *ceph_mds_op_name(int op);
- #define CEPH_O_CREAT		00000100
- #define CEPH_O_EXCL		00000200
- #define CEPH_O_TRUNC		00001000
-+#define CEPH_O_LAZY		00020000
- #define CEPH_O_DIRECTORY	00200000
- #define CEPH_O_NOFOLLOW		00400000
- 
-
--- 
-2.53.0
+> +
+> +	return 0;
+> +}
 
 
+...
+
+> +
+> +static void p3h2x4x_get_target_port_dt_conf(struct device *dev,
+> +					    const struct device_node *node)
+> +{
+> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub = dev_get_drvdata(dev);
+> +	struct p3h2x4x *p3h2x4x = dev_get_drvdata(dev->parent);
+> +	u64 tp_port;
+> +
+> +	for_each_available_child_of_node_scoped(node, dev_node) {
+
+Why do you need scoped loop?
+
+> +		if (of_property_read_reg(dev_node, 0, &tp_port, NULL))
+> +			continue;
+> +
+> +		if (tp_port < p3h2x4x->num_target_ports) {
+> +			if (p3h2x4x_i3c_hub->tp_bus[tp_port].of_node) {
+> +				dev_warn(dev, "Duplicate target port %llu in DT\n", tp_port);
+> +				continue;
+> +			}
+> +
+> +			p3h2x4x_i3c_hub->tp_bus[tp_port].of_node = of_node_get(dev_node);
+> +			p3h2x4x_i3c_hub->tp_bus[tp_port].tp_mask = P3H2X4X_SET_BIT(tp_port);
+> +			p3h2x4x_i3c_hub->tp_bus[tp_port].p3h2x4x_i3c_hub = p3h2x4x_i3c_hub;
+> +			p3h2x4x_i3c_hub->tp_bus[tp_port].tp_port = tp_port;
+> +		}
+> +	}
+> +}
+> +
+> +static int p3h2x4x_parse_tp_dt_settings(struct device *dev,
+> +					const struct device_node *node,
+> +					struct tp_configuration tp_config[])
+> +{
+> +	struct p3h2x4x *p3h2x4x = dev_get_drvdata(dev->parent);
+> +	u64 id;
+> +	int ret;
+> +
+> +	for_each_available_child_of_node_scoped(node, tp_node) {
+> +		enum p3h2x4x_tp_mode mode;
+> +
+> +		/*
+> +		 * Only "i3c" and "smbus" children describe target ports. Skip any
+> +		 * other child (for example the MFD "regulators" container), which
+> +		 * has no "reg" property.
+> +		 */
+> +		if (of_node_name_eq(tp_node, "i3c"))
+> +			mode = P3H2X4X_TP_MODE_I3C;
+> +		else if (of_node_name_eq(tp_node, "smbus"))
+> +			mode = P3H2X4X_TP_MODE_SMBUS;
+> +		else
+> +			continue;
+> +
+> +		ret = of_property_read_reg(tp_node, 0, &id, NULL);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to read reg for %pOF\n",
+> +					     tp_node);
+> +
+> +		if (id >= p3h2x4x->num_target_ports)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Invalid target port index %llu\n",
+> +					     id);
+> +
+> +		tp_config[id].mode = mode;
+> +		tp_config[id].pullup_en =
+> +			of_property_read_bool(tp_node, "nxp,pullup-enable");
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int p3h2x4x_get_hub_dt_conf(struct device *dev,
+> +				   const struct device_node *node)
+> +{
+> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub = dev_get_drvdata(dev);
+> +
+> +	of_property_read_u32(node, "nxp,tp0145-pullup-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.tp0145_pullup);
+> +	of_property_read_u32(node, "nxp,tp2367-pullup-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.tp2367_pullup);
+> +	of_property_read_u32(node, "nxp,cp0-io-strength-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.cp0_io_strength);
+> +	of_property_read_u32(node, "nxp,cp1-io-strength-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.cp1_io_strength);
+> +	of_property_read_u32(node, "nxp,tp0145-io-strength-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.tp0145_io_strength);
+> +	of_property_read_u32(node, "nxp,tp2367-io-strength-ohms",
+> +			     &p3h2x4x_i3c_hub->hub_config.tp2367_io_strength);
+> +
+> +	return p3h2x4x_parse_tp_dt_settings(dev, node,
+> +					    p3h2x4x_i3c_hub->hub_config.tp_config);
+> +}
+> +
+> +static void p3h2x4x_default_configuration(struct device *dev)
+> +{
+> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub = dev_get_drvdata(dev);
+> +	int tp_count;
+> +
+> +	p3h2x4x_i3c_hub->hub_config.tp0145_pullup = P3H2X4X_DFT_TP_PULLUP_OHMS;
+> +	p3h2x4x_i3c_hub->hub_config.tp2367_pullup = P3H2X4X_DFT_TP_PULLUP_OHMS;
+> +	p3h2x4x_i3c_hub->hub_config.cp0_io_strength = P3H2X4X_DFT_IO_STRENGTH_OHMS;
+> +	p3h2x4x_i3c_hub->hub_config.cp1_io_strength = P3H2X4X_DFT_IO_STRENGTH_OHMS;
+> +	p3h2x4x_i3c_hub->hub_config.tp0145_io_strength = P3H2X4X_DFT_IO_STRENGTH_OHMS;
+> +	p3h2x4x_i3c_hub->hub_config.tp2367_io_strength = P3H2X4X_DFT_IO_STRENGTH_OHMS;
+> +
+> +	for (tp_count = 0; tp_count < P3H2X4X_TP_MAX_COUNT; ++tp_count)
+> +		p3h2x4x_i3c_hub->hub_config.tp_config[tp_count].mode = P3H2X4X_TP_MODE_I3C;
+> +}
+> +
+> +static void p3h2x4x_unregister_smbus_adapters_action(void *data)
+> +{
+> +	p3h2x4x_unregister_smbus_adapters(data);
+> +}
+> +
+> +static void p3h2x4x_put_target_port_of_nodes(void *data)
+> +{
+> +	struct p3h2x4x_i3c_hub_dev *hub = data;
+> +	int tp;
+> +
+> +	for (tp = 0; tp < P3H2X4X_TP_MAX_COUNT; tp++) {
+> +		of_node_put(hub->tp_bus[tp].of_node);
+> +		hub->tp_bus[tp].of_node = NULL;
+> +	}
+> +}
+> +
+> +static void p3h2x4x_clear_i3c_hub_priv(void *data)
+> +{
+> +	struct p3h2x4x *p3h2x4x = data;
+> +
+> +	/* Drop the IBI handler backpointer; see the ordering note at the registration site. */
+> +	p3h2x4x->i3c_hub_priv = NULL;
+> +}
+> +
+> +static int p3h2x4x_i3c_hub_probe(struct platform_device *pdev)
+> +{
+> +	struct p3h2x4x *p3h2x4x = dev_get_drvdata(pdev->dev.parent);
+> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub;
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node;
+> +	int ret, i;
+> +
+> +	p3h2x4x_i3c_hub = devm_kzalloc(dev, sizeof(*p3h2x4x_i3c_hub), GFP_KERNEL);
+> +	if (!p3h2x4x_i3c_hub)
+> +		return -ENOMEM;
+> +
+> +	p3h2x4x_i3c_hub->regmap = p3h2x4x->regmap;
+> +	p3h2x4x_i3c_hub->dev = dev;
+> +
+> +	platform_set_drvdata(pdev, p3h2x4x_i3c_hub);
+> +	device_set_of_node_from_dev(dev, dev->parent);
+> +
+> +	p3h2x4x_default_configuration(dev);
+> +
+> +	ret = devm_mutex_init(dev, &p3h2x4x_i3c_hub->etx_mutex);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < P3H2X4X_TP_MAX_COUNT; i++) {
+> +		ret = devm_mutex_init(dev, &p3h2x4x_i3c_hub->tp_bus[i].port_mutex);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* get hub node from DT */
+> +	node = dev_of_node(dev);
+> +	if (!node)
+> +		return dev_err_probe(dev, -ENODEV, "No Device Tree entry found\n");
+> +
+> +	ret = p3h2x4x_get_hub_dt_conf(dev, node);
+> +	if (ret)
+> +		return ret;
+> +
+> +	p3h2x4x_get_target_port_dt_conf(dev, node);
+> +
+> +	ret = devm_add_action_or_reset(dev,
+> +				       p3h2x4x_put_target_port_of_nodes,
+> +				       p3h2x4x_i3c_hub);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = p3h2x4x_configure_hw(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to configure the HUB\n");
+> +
+> +	/* Register virtual I3C master controllers for I3C target ports */
+> +	if (p3h2x4x->i3cdev) {
+> +		p3h2x4x_i3c_hub->i3cdev = p3h2x4x->i3cdev;
+> +		/*
+> +		 * Publish the hub context in the MFD parent struct rather than
+> +		 * via i3cdev_set_drvdata(), which would overwrite the parent's
+> +		 * drvdata (struct p3h2x4x) that the IBI handler and other MFD
+> +		 * callbacks rely on. Publish it before p3h2x4x_tp_i3c_algo()
+> +		 * enables IBI, since the IBI handler dereferences it.
+> +		 */
+> +		p3h2x4x->i3c_hub_priv = p3h2x4x_i3c_hub;
+> +
+> +		/*
+> +		 * Register the clear action before enabling IBI so that, on the
+> +		 * devm LIFO unwind (probe failure or removal), the pointer is
+> +		 * cleared only after IBI has been disabled and freed.
+> +		 */
+> +		ret = devm_add_action_or_reset(dev, p3h2x4x_clear_i3c_hub_priv,
+> +					       p3h2x4x);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = p3h2x4x_tp_i3c_algo(p3h2x4x_i3c_hub);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to register i3c bus\n");
+> +	}
+> +
+> +	/* Register virtual I2C adapters for SMBus target ports */
+> +	ret = p3h2x4x_tp_smbus_algo(p3h2x4x_i3c_hub);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add i2c adapter\n");
+> +
+> +	ret = devm_add_action_or_reset(dev,
+> +				       p3h2x4x_unregister_smbus_adapters_action,
+> +				       p3h2x4x_i3c_hub);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct platform_device_id p3h2x4x_i3c_hub_id[] = {
+> +	{ "p3h2x4x-i3c-hub" },
+
+Use named initializers. In every patch of yours.
+
+> +	{ }
+> +};
+
+..
+
+
+> +
+> +/**
+> + * p3h2x4x_tp_i3c_algo - Register I3C virtual masters for I3C target ports.
+> + * @p3h2x4x_hub: p3h2x4x device structure.
+> + * Return: 0 in case of success, negative error code on failure.
+> + */
+> +int p3h2x4x_tp_i3c_algo(struct p3h2x4x_i3c_hub_dev *p3h2x4x_hub)
+> +{
+> +	struct i3c_master_controller *parent = i3c_dev_get_master(p3h2x4x_hub->i3cdev->desc);
+> +	struct p3h2x4x *p3h2x4x = dev_get_drvdata(p3h2x4x_hub->dev->parent);
+> +	u8 tp, ntwk_mask = 0;
+> +	int ret;
+> +
+> +	p3h2x4x_hub->hub = devm_kzalloc(p3h2x4x_hub->dev,
+> +					sizeof(*p3h2x4x_hub->hub),
+> +					GFP_KERNEL);
+> +
+
+In multiple places you added blank lines between the call and if()
+check. Don't.
+
+> +	if (!p3h2x4x_hub->hub)
+> +		return -ENOMEM;
+
+
+Best regards,
+Krzysztof
