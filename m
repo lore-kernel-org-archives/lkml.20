@@ -1,253 +1,320 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-oi2-f3.google.com (mail-oi2-f3.google.com [74.125.231.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047393168EE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723C83264C1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:59:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810378; cv=none; b=Tno8m/dBvQ9HEF+YUZqoeGPaysDRDQ3cDjgjDUog1xVFL+TPORprpOsD4cEDNMFc5LuY4XFkbQdHKRoiNFLiuao29musJXH5gGCEyACppVEtbbvZ6mfbMRPJh1uBeFNOs8Cw+4bCc5sVgOPtJMINAEyD4BpwcBiSzIC1Y8EXDbg=
+	t=1787810384; cv=none; b=r7ldYumAMO4+p0o601C2MdIz1+Kk7QuBtprL/ERsIMrD+QDa81H7UFBDkKCxUAB0S+gvLrFcUqzP/U7PeBrxr1XMj0TOFFMQmJ6fMmYwpVVBG+7baFiSxiKuKcEAZrFs1Vxlhs2+cJit/mqj8lyNC+KY5n1Doiq0VqG3daI16uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810378; c=relaxed/simple;
-	bh=6xGaRyHabjqQHSPfBdLVdAauPJVqvcRRuz9CkwkMyeE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lQY2uR7g6ebHLWs5xm7fDyKcHV4DrdFMPrJdwixKHmzIbdCMJCiuCD8w+wl8dMqV743EOY9Kju2pJLOLqspz1vWOPeVJA/knMUlWK+yLsk0qf8WLDyFrmDDYh3a+j6QwXUUlMwoVLGS8axskZfs2UXNCAVs1FD+DPCUy71qYHmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xs0FqDlj; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xs0FqDlj"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d6f624c323so20669185ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787810376; x=1788415176; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O+Chh90ybpjMvhqrL9ZavLsHC4dx+fqvxodSXo5kx7g=;
-        b=Xs0FqDljlZn6x2APeKbbN8j5+UH+bW7gCj4xE83ZZvJJNxFhu7A4Ncc1cNleiuAigo
-         ZedauA0g9W8IRsdrDZ19PCtRhtu4MWDsSIKcOMO+so7BsQEnJ2vTanX8+wzs9cirJWJW
-         IVhddrbpRIzYA8N4FZ7AJff8pt1OAPzea6Rx4L6pN7JVFOlpU9oDdXQXUKWDMd2nMO9U
-         qj8UObvAoPdP9goHhsQU+tb2IQq0WOnlUft04TQaePTDKsgXB/IfKpuV1ZiEb6eNEVSb
-         ptUZ9aAqy9QVcxBcD9ZqGCNGThjyEHFn5i81kBYGr1cNR1smJynm1p8Gj1bYz19ouZJe
-         YAZg==
+	s=arc-20240116; t=1787810384; c=relaxed/simple;
+	bh=sE0jyLL8f7iiiSCXU8T46j9ChZ3NolmazXfuTjsIOo4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=YWa/9cJl+A1lePJBpKjfqKeIHfRYYwa03d2FyGj6YLdYKQ933XFm2lzxLi5SdGXGclvXBDQwUQA7vZXv/ptDbwV2NQAKrgTkOeAgfaT/YonrzNGag6UlwTuMys3M26TKd5283fh7+1nwiJQGpJf1WmyTpV6I5/t/LH1Jdd9fXE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f3.google.com with SMTP id 46e09a7af769-7e9f9a3167aso628802a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:59:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787810376; x=1788415176;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O+Chh90ybpjMvhqrL9ZavLsHC4dx+fqvxodSXo5kx7g=;
-        b=DWI9s0hEhij7/bpHsXULR4sOVhSa555eI680DcX9SH+Uz6F4qbcFPYc6DWV1e8EZ/M
-         XxeMJGWREs5nRQ4HxtuIXYYxVCOrfVeQhSFhpcAK8NIwBH39AOpTzTcygHElJnhUBnbc
-         ZGyOxpja6i81tWmeHhQx6h1cTJg1EOTQ+flF+s9gd0GlOYGGoc+aCyuMhmmrZ2QBjyMA
-         roNyvQYqiHrIBfXodTiVJ2QbSS9pBzd6uJiQX4XQiiVxyJPLa72v5KNzOoRUcmfE43IZ
-         KhJAKAJiP/0W5sCwkOcngdt0WwfieSX8pzT5HiWecKH5vFd8OXa2zpkpEemnVivmBBbY
-         E/4A==
-X-Forwarded-Encrypted: i=1; AHgh+RpbBQ7Q5kG6smCsf9jBCxaPUVf0Y2QJhlCbfN/caJQ4s9c4s3qEMZLSu3zHNOBZRl1nUTgYx3jgS9iJBlU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmCri5xiVX75RhoAAlCwDiHzZWLRNt1hrWROUFKSrC9n6BD7Qa
-	3CLi10/RN6Qsk7jEzwUBozTY1lHhUKdQeQyWWUjxfad30DzIk2H1+mkh
-X-Gm-Gg: AR+sD11tlNzfqvTnlTb5nYjfEWd8TtBQID3F850PRt2cQNvFByvXkoOlCuqd2lV0gHU
-	y7rqPJgRZuSci6TFfKYBtBf/Uk3EnjFs6yHX/1n6Fc0QdUhBKtdwjXUClHlU23wcLSHCKK7AAv5
-	SRqHoRG64FxZIXjnstH57VbFDFTn2JBCwWc586RlHCn93dBqq893CrLCuN9i36ZwUQSu/3sOdRg
-	N2F+FYfKQSxqeZivcNN7JqnJdLtZ3bhc8P5YaRY6kdIi6vnWv+TiOMFfsM2iyddiijBlfNMzllZ
-	tf9fX841N95LjXpHmDf+kJEEsoS2OyCfEIV8svl1DWFC5pDYaDvmKeybe5xn27vN1VEnCy/R29h
-	efQdQAH8pScL3z7cXTUN3Hf11/3W+uZ/j6SLT6vkO9PfHcu1nF25H+4kdeYNLZwpsHJqWZG9PF1
-	Z4hLi780TySla44R3UmU3+HECUPZ0q3P1IFcywkS229H1+Taefizo2zY8MQzIWrtP+TQn63H8=
-X-Received: by 2002:a17:903:26c5:b0:2d1:1a18:4d0a with SMTP id d9443c01a7336-2d707b3c6a6mr237304505ad.9.1787810375877;
-        Wed, 26 Aug 2026 22:59:35 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70493f3f5sm13971145ad.1.2026.08.26.22.59.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 22:59:35 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] vhost/vsock: batch RX used-ring updates
-Date: Thu, 27 Aug 2026 13:58:50 +0800
-Message-Id: <20260827055850.26951-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1787810380; x=1788415180;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ca059/CJy7VrIyAYpHOE3VQf+Ph2ySr0tflRr19HY6M=;
+        b=UvIJZRYpgBGlkEAZf+ZtsS9qf1vV8iOUXvMizb9fEVypmjEBfwrTodVy4Fdd7+3LSe
+         s9xlcOqFg8UNOMRLM+mmehNDDf4Wucr3rlgX/cnTY2twYlOuC9tOnTnUoVjRZ1Wn/EJW
+         DDixUWyQbDP7R0GmynEF8c20eTcKA8p53lGU43tqjAYsNX8o+eWGEjLXmZLt05hHQE8c
+         IyECJiUKlLQjUNcDm17wXJxBbRp1Csj8mhLAQKDW2eOu9y0tV/ZvhKAE6uGuVlpVwqzw
+         dbmRR6UhOFJ7DgNlJ+659bhdcpXbTqxLsCtbkk+vMri2+LAqW4QS6/i61pL7jKmE5+/w
+         SFcw==
+X-Gm-Message-State: AFuF++lhw+JZPGIuePvFhlDzDP594Oun1kWOt8YNYYbdZEtEurgJM9/h
+	x24H55Z+h9hsqmWXYZfufUKKfPTpwZ+Vf9IsDBJC2NVKJe8j6dhjPHHKx18dnt3PPaJGjkrpH/l
+	p+pIXkz1i1GC9K738Dblh0JO9K6we29zKWJmRq3FkFkhBLYbwYGxh3C/Fab0afA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:16a2:b0:6b1:7f02:a9b6 with SMTP id
+ 006d021491bc7-6b1a035971fmr11312086eaf.5.1787810379979; Wed, 26 Aug 2026
+ 22:59:39 -0700 (PDT)
+Date: Wed, 26 Aug 2026 22:59:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8fd24b.50659fcc.60cd.000d.GAE@google.com>
+Subject: [syzbot] [kernel?] INFO: task hung in sdio_reset
+From: syzbot <syzbot+e8678cd3d8b65d1f2c74@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, ulfh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
-buffer even though it delays the Guest signal until the worker finishes.
-Each call publishes one used entry and updates the used index separately.
+Hello,
 
-Collect the completed buffer heads in the arrays already allocated for the
-virtqueue and publish them with vhost_add_used_n().  Bound the batch by the
-ring size, array capacity, and worker packet budget.  Flush before
-re-enabling notifications or leaving the worker.
+syzbot found the following issue on:
 
-Each used entry describes one completed RX buffer and keeps its actual used
-length, so set nheads to 1 for every entry.  This patch does not change
-negotiated features or compress multiple buffers into one used entry.
+HEAD commit:    502d45774af0 Merge tag 'clk-for-linus' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17cde979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=dfd8ec781284be4e
+dashboard link: https://syzkaller.appspot.com/bug?extid=e8678cd3d8b65d1f2c74
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-This patch is limited to the current skb-based vhost-vsock RX path.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Performance:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/fb0ebb231418/disk-502d4577.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/82fe4e8c3ba9/vmlinux-502d4577.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/40eb9f92a77c/bzImage-502d4577.xz
 
-Tested with a QEMU/KVM guest on a host with 4 online CPUs, using 2 vCPUs
-pinned to host CPUs 2 and 3, QEMU 10.2.1, q35, 1536 MiB, and Linux
-7.2.0-rc3-next-20260713-next-debug-kasan.  The vhost-vsock source is based
-on linux-next master at 49362394dad7df66c274c867a271394c10ca2bb8.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e8678cd3d8b65d1f2c74@syzkaller.appspotmail.com
 
-Current vhost-vsock does not implement VIRTIO_F_IN_ORDER or
-VIRTIO_F_RING_PACKED, so both configurations used packed=off and
-in_order=off:
+INFO: task kworker/0:0:9 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:0     state:D stack:23560 pid:9     tgid:9     ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable mmc_rescan
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
+ mmc_wait_for_req_done+0x37/0x490 drivers/mmc/core/core.c:408
+ mmc_wait_for_cmd+0x183/0x2a0 drivers/mmc/core/core.c:645
+ mmc_io_rw_direct_host drivers/mmc/core/sdio_ops.c:83 [inline]
+ sdio_reset+0xf4/0x3a0 drivers/mmc/core/sdio_ops.c:209
+ mmc_rescan_try_freq drivers/mmc/core/core.c:2121 [inline]
+ mmc_rescan+0x6eb/0x1040 drivers/mmc/core/core.c:2316
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task kworker/0:5:5737 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:5     state:D stack:20688 pid:5737  tgid:5737  ppid:2      task_flags:0x4288060 flags:0x00080000
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
+ __flush_work+0xa63/0xca0 kernel/workqueue.c:4439
+ __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4559
+ __mmc_stop_host drivers/mmc/core/core.c:2368 [inline]
+ mmc_stop_host+0xd9/0x460 drivers/mmc/core/core.c:2373
+ mmc_remove_host+0x15/0x60 drivers/mmc/core/host.c:681
+ vub300_disconnect+0x154/0x2f0 drivers/mmc/host/vub300.c:2387
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-  baseline:                 RX batching=off
-  vhost-vsock RX batching:  RX batching=on
+Showing all locks held in the system:
+locks held by kworker/0:0/9: 2, on CPU#0:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc900000e7c40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+locks held by kworker/0:1/10: 4, last CPU#0:
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #2: ffff88802912d1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802912d1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff88801ff411d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88801ff411d8 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450 drivers/base/dd.c:1073
+locks held by pr/ttyS0/16: 2, last CPU#1:
+ #0: ffffffff8ec36278 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
+ #0: ffffffff8ec36278 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
+ #0: ffffffff8ec36278 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x30/0x60 kernel/printk/printk.c:291
+ #1: ffffffff9ad28018 (&port_lock_key){-.-.}-{3:3}, at: __uart_port_lock_irqsave include/linux/serial_core.h:613 [inline]
+ #1: ffffffff9ad28018 (&port_lock_key){-.-.}-{3:3}, at: univ8250_console_device_lock+0x67/0xc0 drivers/tty/serial/8250/8250_core.c:413
+locks held by khungtaskd/32: 1, last CPU#0:
+ #0: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6793
+locks held by klogd/4964: 1, last CPU#0:
+ #0: ffffffff8ed4e8c0 (syslog_lock){+.+.}-{4:4}, at: syslog_print+0x4ad/0x610 kernel/printk/printk.c:1663
+locks held by udevd/4975: 1, last CPU#0:
+ #0: ffffffff8f4ec0b8 (tomoyo_ss){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
+ #0: ffffffff8f4ec0b8 (tomoyo_ss){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
+ #0: ffffffff8f4ec0b8 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_read_lock security/tomoyo/common.h:1112 [inline]
+ #0: ffffffff8f4ec0b8 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_check_open_permission+0x1d3/0x470 security/tomoyo/file.c:772
+locks held by getty/5366: 2, on CPU#0:
+ #0: ffff888033e7b0a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
+ #1: ffffc9000322b2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
+locks held by kworker/0:5/5737: 5, on CPU#0:
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff888022280d40 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc90003e27c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003e27c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003e27c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc90003e27c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #2: ffff888028c601d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff888028c601d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff888077d641d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff888077d641d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
+ #4: ffff8880318b41a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff8880318b41a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #4: ffff8880318b41a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+locks held by syz-executor/7993: 4, last CPU#0:
+ #0: ffffffff8ee35b50 (dup_mmap_sem){++++}-{0:0}, at: dup_mm kernel/fork.c:1542 [inline]
+ #0: ffffffff8ee35b50 (dup_mmap_sem){++++}-{0:0}, at: copy_mm+0x10f/0x480 kernel/fork.c:1595
+ #1: ffff88807b4b7678 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
+ #1: ffff88807b4b7678 (&mm->mmap_lock){++++}-{4:4}, at: dup_mmap+0x195/0x1dc0 mm/mmap.c:1716
+ #2: ffff888032bf5038 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:552 [inline]
+ #2: ffff888032bf5038 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x221/0x1dc0 mm/mmap.c:1723
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
+locks held by syz-executor/8232: 4, last CPU#0:
+ #0: ffffffff8ee35b50 (dup_mmap_sem){++++}-{0:0}, at: dup_mm kernel/fork.c:1542 [inline]
+ #0: ffffffff8ee35b50 (dup_mmap_sem){++++}-{0:0}, at: copy_mm+0x10f/0x480 kernel/fork.c:1595
+ #1: ffff888027f7c378 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
+ #1: ffff888027f7c378 (&mm->mmap_lock){++++}-{4:4}, at: dup_mmap+0x195/0x1dc0 mm/mmap.c:1716
+ #2: ffff888032bf4378 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:552 [inline]
+ #2: ffff888032bf4378 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x221/0x1dc0 mm/mmap.c:1723
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #3: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
+locks held by syz.6.3137/15081: 2, last CPU#1:
+ #0: ffff88801c2f2460 (sb_writers#5){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2754 [inline]
+ #0: ffff88801c2f2460 (sb_writers#5){.+.+}-{0:0}, at: vfs_write+0x22b/0xba0 fs/read_write.c:683
+ #1: ffff888027f0acc0 (&sb->s_type->i_mutex_key#15){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1025 [inline]
+ #1: ffff888027f0acc0 (&sb->s_type->i_mutex_key#15){+.+.}-{4:4}, at: shmem_file_write_iter+0x7f/0x120 mm/shmem.c:3419
+locks held by syz.2.3141/15090: 4, last CPU#0:
+ #0: ffff8880766110b0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x246/0x320 fs/file.c:1259
+ #1: ffff88807c202480 (&sb->s_type->i_mutex_key#43){.+.+}-{4:4}, at: iterate_dir+0x209/0x4d0 fs/readdir.c:103
+ #2: ffffffff8ee8f5e0 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
+ #2: ffffffff8ee8f5e0 (fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4636 [inline]
+ #2: ffffffff8ee8f5e0 (fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:4974 [inline]
+ #2: ffffffff8ee8f5e0 (fs_reclaim){+.+.}-{0:0}, at: __kmalloc_cache_noprof+0x61/0x600 mm/slub.c:5559
+ #3: ffffffff8eea4d40 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}, at: fs_reclaim_acquire+0x7c/0x100 mm/page_alloc.c:4392
+locks held by syz.0.3142/15091: 2, last CPU#0:
+ #0: ffff88807dc19078 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_lock include/linux/mmap_lock.h:600 [inline]
+ #0: ffff88807dc19078 (&mm->mmap_lock){++++}-{4:4}, at: exit_mmap+0x1a4/0x9f0 mm/mmap.c:1299
+ #1: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffffff8ed5c6a0 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
 
-The test used vsock_perf.  The Guest receiver was started with:
+=============================================
 
-  vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 32 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
+ nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
+ trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
+ __sys_info lib/sys_info.c:157 [inline]
+ sys_info+0x135/0x170 lib/sys_info.c:165
+ check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
+ watchdog+0xfd7/0x1030 kernel/hung_task.c:561
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 0 to CPUs 1:
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 5610 Comm: syz-executor Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:__hlist_del include/linux/list.h:1043 [inline]
+RIP: 0010:hlist_del include/linux/list.h:1059 [inline]
+RIP: 0010:debug_object_free+0x1f4/0x340 lib/debugobjects.c:1037
+Code: ff ff ff 05 ae 95 91 0b e9 51 fe ff ff 4c 89 f8 48 c1 e8 03 48 89 04 24 42 80 3c 30 00 74 08 4c 89 ff e8 ef b7 4e fd 4d 8b 2f <49> 8d 6f 08 49 89 ec 49 c1 ec 03 43 80 3c 34 00 74 08 48 89 ef e8
+RSP: 0018:ffffc900036d7c88 EFLAGS: 00000046
+RAX: 1ffff1100ff3875e RBX: ffffffff9ac13938 RCX: 0000000000000001
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffffc900036d7be0
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff520006daf7c R12: ffffc900036d7d40
+R13: ffff88802a5f9bd0 R14: dffffc0000000000 R15: ffff88807f9c3af0
+FS:  0000555562070500(0000) GS:ffff888124de3000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5e4a3ff000 CR3: 0000000058ce7000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ destroy_hrtimer_on_stack kernel/time/hrtimer.c:501 [inline]
+ hrtimer_nanosleep+0x2cc/0x3a0 kernel/time/hrtimer.c:2490
+ __do_sys_clock_nanosleep kernel/time/posix-timers.c:1406 [inline]
+ __se_sys_clock_nanosleep+0x35b/0x3b0 kernel/time/posix-timers.c:1383
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff61fd5e90e
+Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+RSP: 002b:00007ffc9ba67d28 EFLAGS: 00000246 ORIG_RAX: 00000000000000e6
+RAX: ffffffffffffffda RBX: 0000555562070500 RCX: 00007ff61fd5e90e
+RDX: 00007ffc9ba67d80 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 00007ffc9ba67dec R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000001388
+R13: 00000000000927c0 R14: 0000000000076ac4 R15: 00007ffc9ba67e40
+ </TASK>
 
-The Host sender was started with:
 
-  vsock_perf --sender 3 --port PORT --bytes BYTES \
-      --buf-size SEND_BUF --vsk-size 64M
-
-Each workload transferred BYTES=1 GiB.  The SEND_BUF values were 256 B
-(SEND_BUF=256), 512 B (SEND_BUF=512), 4 KiB (SEND_BUF=4K), and 64 KiB
-(SEND_BUF=64K).
-Each state used a fresh Guest.  Each workload uses 20 paired runs, with 10
-runs in each order.  The reported values are
-Guest RX throughput in Gbits/s.  The baseline and batching columns are the
-geometric means over the 20 runs; change is batching / baseline - 1,
-computed from the unrounded values:
-
-  workload   baseline RX    batching RX   change   faster
-  256 B      0.0795724      0.0831509      +4.497%  20/20
-  512 B      0.1194885      0.1210297      +1.290%  14/20
-  4 KiB      0.7208273      0.7242053      +0.469%  11/20
-  64 KiB     2.1712797      2.1951941      +1.101%  13/20
-
-For reference, the table below gives the 95% normal-approximation intervals
-obtained from the 20 paired log(batching / baseline) values:
-
-  workload   paired 95% interval
-  256 B      +3.985% to +5.011%
-  512 B      +0.206% to +2.385%
-  4 KiB      -1.442% to +2.416%
-  64 KiB     -1.474% to +3.745%
-
-All transfers passed byte-count checks, and no kernel errors were observed
-in the logs.  The 256-byte workload improved in every pair.  The 512 B
-workload was faster in 14 of 20 pairs, with a small gain.  The 4 KiB and
-64 KiB workloads showed no material throughput change; the difference
-between their results may be due to scheduling and execution variation.
-
-Link: https://lore.kernel.org/r/20181214082146-mutt-send-email-mst@kernel.org
-Link: https://lore.kernel.org/r/20220901055434.824-4-qtxuning1999@sjtu.edu.cn
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
 ---
- drivers/vhost/vsock.c | 41 +++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index 9aaab6bb8..d8050cca2 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -103,12 +103,37 @@ static bool vhost_transport_has_remote_cid(struct vsock_sock *vsk, u32 cid)
- 	return found;
- }
- 
-+static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
-+				   unsigned int *used_count)
-+{
-+	if (!*used_count)
-+		return false;
-+
-+	vhost_add_used_n(vq, vq->heads, vq->nheads, *used_count);
-+	*used_count = 0;
-+	return true;
-+}
-+
-+static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
-+				 unsigned int *used_count,
-+				 unsigned int head, unsigned int len)
-+{
-+	struct vring_used_elem *used = &vq->heads[*used_count];
-+
-+	used->id = cpu_to_vhost32(vq, head);
-+	used->len = cpu_to_vhost32(vq, len);
-+	vq->nheads[*used_count] = 1;
-+	(*used_count)++;
-+}
-+
- static void
- vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 			    struct vhost_virtqueue *vq)
- {
- 	struct vhost_virtqueue *tx_vq = &vsock->vqs[VSOCK_VQ_TX];
- 	int pkts = 0, total_len = 0;
-+	unsigned int used_count = 0;
-+	unsigned int used_limit;
- 	bool added = false;
- 	bool restart_tx = false;
- 
-@@ -120,6 +145,12 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 	if (!vq_meta_prefetch(vq))
- 		goto out;
- 
-+	used_limit = min_t(unsigned int, vq->num,
-+			   min_t(unsigned int, vq->dev->iov_limit,
-+				 vq->dev->weight));
-+	if (unlikely(!used_limit))
-+		goto out;
-+
- 	/* Avoid further vmexits, we're already processing the virtqueue */
- 	vhost_disable_notify(&vsock->dev, vq);
- 
-@@ -134,9 +165,13 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 		u32 offset;
- 		int head;
- 
-+		if (used_count == used_limit)
-+			added |= vhost_vsock_flush_used(vq, &used_count);
-+
- 		skb = virtio_vsock_skb_dequeue(&vsock->send_pkt_queue);
- 
- 		if (!skb) {
-+			added |= vhost_vsock_flush_used(vq, &used_count);
- 			vhost_enable_notify(&vsock->dev, vq);
- 			break;
- 		}
-@@ -153,6 +188,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 			/* We cannot finish yet if more buffers snuck in while
- 			 * re-enabling notify.
- 			 */
-+			added |= vhost_vsock_flush_used(vq, &used_count);
- 			if (unlikely(vhost_enable_notify(&vsock->dev, vq))) {
- 				vhost_disable_notify(&vsock->dev, vq);
- 				continue;
-@@ -230,8 +266,8 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 		 */
- 		virtio_transport_deliver_tap_pkt(skb);
- 
--		vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
--		added = true;
-+		vhost_vsock_add_used(vq, &used_count, head,
-+				     sizeof(*hdr) + payload_len);
- 
- 		VIRTIO_VSOCK_SKB_CB(skb)->offset += payload_len;
- 		total_len += payload_len;
-@@ -264,6 +300,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
- 			virtio_transport_consume_skb_sent(skb, true);
- 		}
- 	} while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
-+	added |= vhost_vsock_flush_used(vq, &used_count);
- 	if (added)
- 		vhost_signal(&vsock->dev, vq);
- 
--- 
-2.53.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
