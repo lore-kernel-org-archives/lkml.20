@@ -1,85 +1,116 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A23285058
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAD82FE074
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787809015; cv=none; b=fu0ImWtma5lrFeNebMMDAKkI4qWXn+muLCAtm7OH/dpNTLKfmOX7z8W3CQEISThmtHMWQpgRdHkzamusylMs0YX63L+rJAbXqy9E5Ux8wsZntYrftvRTjvwaEGywrv1sq5adDLFs2ByYMYyBoSk/Wr81ztHyOAWGmrFP0P+QJVs=
+	t=1787809085; cv=none; b=DKHbr9j7m6TdBd5KsSKv+UbN/HTrUb9+7WEC4zgg6+OYg/aDLgdkFaLSeDnjlmhm7AP4CFSFPeWKmUO2N6BIm/KXVr2doLPC+o5uHZCCy2Ti3B9YxaCeWX7TvbtKmqz+JEMNq0UA2IWwLHhBsy99wdMs/pYUGcZqSouuppksNww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787809015; c=relaxed/simple;
-	bh=EO1L2TeQ17O2KPCvU6H8XkwQRS56pa00oW6MBI1UTjg=;
-	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Subject; b=mWzFOUwUj77yybOcn0dJEed+5nDN9pOAaqJH8komlLbMf+A4YMmOvCHph0FJ86CgesWIA0BlBvDDkPGoclxG1yD6/XZKE6vv4zBaVgreS99T70bMl/MESY3w6h/QHT8VYA8kQHRwqAk7y5ukxFt9y7ykefyjITJBBi9eqaBQ/qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=pQzD4pt3; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1787809085; c=relaxed/simple;
+	bh=Fi9frtw8kMPt1GrRNX58s9IxyDACuZ8FrDv4qp2ewVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j4detzzoSGLjhP8g1AGz/d2lJEaiFPYhbgo0Ac09TP7/vnO9yUjvXFi8xsx15ZgaKqmQPCAQd7tICJ11JqPSj6F6LJ+oahrhztPP+f3MAg1mq6EEMp9C3Hg2qnpo7jptTpTQHIB+Vvo3Uu2s7m9Ds238C+MM7oalYDqhkPkHbZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdZ3x/kD; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="pQzD4pt3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787809009; bh=EO1L2TeQ17O2KPCvU6H8XkwQRS56pa00oW6MBI1UTjg=;
-	h=From:To:Cc:Subject;
-	b=pQzD4pt3zM/xp10Dk5IOIvrt/0SOS7M8GajVCHHinWF4ZDM4T6kUiJ5IMwa8Vhlrd
-	 gykpngEtZUSWQOmqzeITpeXbRY7KC4VQ63OY+QOvMawLvt+oaFkPe1rTYqKzSQkm1/
-	 L239YjuhkXnfi0hghR9jf3IUCU1NVdOeLLbHCtPA=
-Received: from [192.168.137.1] ([2409:8a28:2472:b2a1:3000:48a1:cb6d:82ef])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 8E6B34A2; Thu, 27 Aug 2026 13:35:38 +0800
-X-QQ-mid: xmsmtpt1787808938tewbvhx7b
-Message-ID: <tencent_DB8D234F4E3B341F73D78849C17E50D19B06@qq.com>
-X-QQ-XMAILINFO: NxKoLLhE22aTcI+DdYyMDRRMdCLQc6wOvyI2oF2qpVI3VZ7zTmIY01s5sMJu8Q
-	 632HICMZQChTRIYK8mYJ/vJQYCWb9jkgQbAnhvIt55Y7k6sPqovXjmNSQXUCKUFBSlZP/H46tsTR
-	 gTcIlVBNLaPaoexLN2IxowC3IOFqxSPC/waqqWAB9M+gOE0RRrMDBN8UdrOGGRdBh2vPj2FK7JsI
-	 MjflP+c38yNCEPdAwt2jbLX7F39DnF7QFrgCYo7mvLA20zHuv903fk07BEMkuReqizDyYQKui56K
-	 ns0DoXJjHARcsKuk3pwf0mZvpzN3nUjQv2R2wLo2Gf9x/Vi9p6RZ8UgaIYiEGbHTq+4mFmbUJ+jl
-	 ua/eHVdh2lM1zwprYQ7Ugkm/EFcb4W5DAN6uGDK/IfwJpPW0s9ZYqFXTuKDwRQkWm2bQgsrhp1Kf
-	 znArRgW8SlhcBvdaejx4KqJq4Rvblmv8Hq80MTjuv34/Y6HYl1cQYI+ifVsDc4RMrTd8m8KyGRjY
-	 HLaVeJQhszhCIj+GVgdHNuYvqnc1FHpPZ2fM9niYjIcxdfZTIWTW3c149Uxg8B83kcW6UTfRn1LN
-	 /rWBHQA9ikS+TBRoAEXZ43S9b8nFxLEmfbuVlTSUdlZt1g+7tbXLRERwZfmcgw3H2Qlkk0E2YiM0
-	 TmfsXrotPXnQHoE3Pdr+OsvHjyQ0A0NT6k7E7vLyDSzQbFOniPSiP1kAdMVkskf4v5tY7WRuYamT
-	 hjYLdEgA07anaseVXjWrHBs2mGyiV4LTM5GY6Q082HIkuQ2TkmdaDJYMZYYNweqa4bxDOOEjlvzx
-	 3WdryoHzxiXCkYQSPtaG8D+PEUkLSr1I9MPlxcuBpE0giwMoD6oXjgmZwevCekRkE/nqncUp4s7I
-	 5U/QL2/tul6oX/xR/ozOrVoVLE3LiSzu5U/Bvr4nZMda4ZlXvAFOjeLKK53P8v/kU2fCQbx5RCxV
-	 4rss+oTetz9yv90D61SlnpGeY9APPm5UVLF/MNdv7cW92LnLz3UGFolDqvKMxgQ2cdQw7U2zsTfd
-	 p3c4jkw8dKZZmVRsOl
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-Content-Type: multipart/mixed; boundary="===============4210373017446004769=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdZ3x/kD"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-395cf2535acso831382a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:38:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787809084; x=1788413884; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iswCVfsJzx7eQJFCwsKKR1zCuDmwXO4EX3JbVp3VQ/s=;
+        b=qdZ3x/kD+wHKjqXl6vuSYxjWaJsxLEzTg0r0NhXFSz1srsGIQDZ0GkwDedGWG6WIvl
+         r2drE0tIEZYUPWGmKYCySFcYxERnTJ24tScyQyTldjQe7OBEdC9tjVfuWwqucL44gTDb
+         xKJrnoimk+jeOvcNjq00qWG/scFoWVu5anspOvJSTFymFNnooLRARQ8K/ZbmWOwaUFAl
+         JM+MBvr/iCFQPgMZKTe0V6+L+dxsSAy0an08vuc7xgfVFbpl05DAORo7vaQOkLdk56yt
+         J0DVmCbEegrDqXuMhnTdYbO8YQfj2wcSbW1eiVPnlr9Tp6qy5g/zXRRNY1Lx65HHCjCs
+         azXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787809084; x=1788413884;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iswCVfsJzx7eQJFCwsKKR1zCuDmwXO4EX3JbVp3VQ/s=;
+        b=rouraBDPVTd+KP4ENM9YvpKlxNj8Wwiw3RFT1qcceKeRJoUWveHJcQrt+MnVWHjdb0
+         4gmWMkffHzAwVhso1xpY5wqoh0UWHWV+oK5oKG0rgQw9rnoOVDZ9Xf1T1pY8ErIcJs7T
+         Xz4MdzHPCw5t9l4JnmreiX7tKJ/L+1kDHjlyxd3kLwOVuWRx04A1ekSSaA4bMcPGngmN
+         5vqq4W8RFpdpry+SmuxDZpp7AK8aAw3bh0yKcmdMlIJlSjKj8E+3USTDn8KTTnVEK4Xl
+         VPiWvWTvw9JuNKti3qLxDl2MOkVjs0vfN8uu95S7fkXQoCl5HY6ANag/gCaQ8UFRrGKO
+         dnzA==
+X-Forwarded-Encrypted: i=1; AHgh+RqT9mYG+Ej67y7J+JmC/AI2tSkfN4B3MfMzmhDGewWMk3csYfdlV7QLj19vl8w64i2SysC45hxvixK69f0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOI0uOhjAHIYQmswzD51dNmD7CAW8y1yppJi2TRsv9xY1XLBHr
+	S8lQsKa83/jgOgPXJ+FkbqEgXfXVoldoajgrHKdphjEsOQJ+nzbKIPtN+b0RGA==
+X-Gm-Gg: AR+sD10njY+Khq4oeLQaj7MB+zjmQYOdLBKWew14gd2B+UbUtdrWkALwdIP4I3BdaTL
+	6BfLhfjEsxltl82ZxLygcqB2jfpdmnst8xxwUUmd7EgpFGUheqV/wAObElKTVT61dZSbizkwLFg
+	RPPhUa0MN05V3jt0AA5Qn6bIIex9vQNgeUlW8u/8e4U0gLTNAxAYFwhdMjEQRSMEuSpbKzLzvaP
+	oBfUdLQIJkics2FD7eMO4bf5btzobJZ9DGIcgDIo9anw1J9xiw2yMevWSJGB3D6rWg9xDhqVRXm
+	AzYe5QuKZis++7a1TL60zrmTwynxcuCR7FLkqZxe3sU7stPYMsUeNrjHdshV8WEmRIXGJDrhzgM
+	oJaTcqYxbktGWq2hJAJGgv6t+YAzJ96+XvE27dv7NOCsp6IkCyl6oaN5+RGSXC5QOp/zr9WdeRj
+	oELUoo8J7423GNfmIwNiIHNBrn0RLVqNdrihlLG0qeHs/8z0GAhZ/8KYBwa+BNnyA/vel4m5rxz
+	dhdZ/7apAzi1JtEbsXBpQgDXD/3DBlzYNSLtAnjt4arI4DDELFISTxUjlD8WQ0C
+X-Received: by 2002:a17:90b:2884:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-3969ba558eamr5029727a91.2.1787809083744;
+        Wed, 26 Aug 2026 22:38:03 -0700 (PDT)
+Received: from localhost.localdomain (KD059138194111.ppp-bb.dion.ne.jp. [59.138.194.111])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1123142sm1242134a91.15.2026.08.26.22.38.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 22:38:03 -0700 (PDT)
+From: Youngjoon Lee <getfeus@gmail.com>
+To: Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Niklas Neronin <niklas.neronin@linux.intel.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: xhci: fix ERST max field conversion
+Date: Thu, 27 Aug 2026 05:37:48 +0000
+Message-ID: <20260827053748.3755-1-getfeus@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: 3237174131@qq.com
-To: linux-kernel@vger.kernel.org
-Cc: tglx@kernel.org, gregkh@linuxfoundation.org
-Subject: [PATCH] scripts/spdxcheck: add friendly error message for missing ply
- module
+Content-Transfer-Encoding: 8bit
 
---===============4210373017446004769==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Commit 6d45e9556d4a ("usb: xhci: standardize multi bit-field
+macros") converted the ERST maximum calculation from BIT() to a
+left shift. These operations are not equivalent because the
+HCS_ERST_MAX field contains an exponent.
 
-RnJvbTogWGlhIFpob3hpbiA8MzIzNzE3NDEzMUBxcS5jb20+ClN1YmplY3Q6IFtQQVRDSF0gc2Ny
-aXB0cy9zcGR4Y2hlY2s6IGFkZCBmcmllbmRseSBlcnJvciBtZXNzYWdlIGZvciBtaXNzaW5nIHBs
-eSBtb2R1bGUKVG86IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKQ2M6IHRnbHhAa2VybmVs
-Lm9yZywgZ3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmcKClRoZSBzcGR4Y2hlY2sucHkgc2NyaXB0
-IHJlcXVpcmVzIHRoZSAncGx5JyBQeXRob24gbW9kdWxlLCBidXQgd2hlbgppdCBpcyBtaXNzaW5n
-LCB0aGUgc2NyaXB0IGNyYXNoZXMgd2l0aCBhIHJhdyBJbXBvcnRFcnJvciB0cmFjZWJhY2suClRo
-aXMgaXMgZXNwZWNpYWxseSBwcm9ibGVtYXRpYyBpbiBDSSBlbnZpcm9ubWVudHMgd2hlcmUgdGhl
-IGVycm9yCmlzIG5vdCBpbW1lZGlhdGVseSBvYnZpb3VzLgoKQWRkIGEgZnJpZW5kbHkgZXJyb3Ig
-bWVzc2FnZSB0aGF0IHRlbGxzIHRoZSB1c2VyIGV4YWN0bHkgd2hhdCBpcwpuZWVkZWQgYW5kIGhv
-dyB0byBpbnN0YWxsIGl0LgoKU2lnbmVkLW9mZi1ieTogWGlhIFpob3hpbiA8MzIzNzE3NDEzMUBx
-cS5jb20+Ci0tLQogc2NyaXB0cy9zcGR4Y2hlY2sucHkgfCA4ICsrKysrKystCiAxIGZpbGUgY2hh
-bmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc2NyaXB0
-cy9zcGR4Y2hlY2sucHkgYi9zY3JpcHRzL3NwZHhjaGVjay5weQotLS0gYS9zY3JpcHRzL3NwZHhj
-aGVjay5weQorKysgYi9zY3JpcHRzL3NwZHhjaGVjay5weQpAQCAtNSw3ICs1LDEzIEBACiBmcm9t
-IGFyZ3BhcnNlIGltcG9ydCBBcmd1bWVudFBhcnNlcgotZnJvbSBwbHkgaW1wb3J0IGxleCwgeWFj
-YwordHJ5OgorICAgIGZyb20gcGx5IGltcG9ydCBsZXgsIHlhY2MKK2V4Y2VwdCBJbXBvcnRFcnJv
-ciBhcyBlOgorICAgIGltcG9ydCBzeXMKKyAgICBzeXMuc3RkZXJyLndyaXRlKCdFcnJvcjogJXNc
-bicgJSBlKQorICAgIHN5cy5zdGRlcnIud3JpdGUoJ1BsZWFzZSBpbnN0YWxsIHRoZSBwbHkgbW9k
-dWxlIChlLmcuLCBwaXAgaW5zdGFsbCBwbHkpXG4nKQorICAgIHN5cy5leGl0KDEpCiBpbXBvcnQg
-bG9jYWxlCiBpbXBvcnQgdHJhY2ViYWNrCiBpbXBvcnQgZm5tYXRjaAo=
+On an MT8173 xHCI controller where HCS_ERST_MAX is zero, the new
+calculation produces zero event ring segments. This reaches
+dma_alloc_coherent() with a zero size, triggers a page allocator
+warning, and prevents xHCI from probing with -ENOMEM.
 
---===============4210373017446004769==--
+Preserve the original calculation by applying BIT() to the value
+extracted with FIELD_GET().
+
+This restores the USB 2.0 and USB 3.0 root hubs on MT8173. A USB
+webcam and both USB 2.0 and USB 3.0 hubs enumerate successfully,
+and the previous ERST allocation failure is no longer present.
+
+Fixes: 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
+Signed-off-by: Youngjoon Lee <getfeus@gmail.com>
+---
+ drivers/usb/host/xhci-mem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+index 7a21ac81f9c8..af8d4b74c4ba 100644
+--- a/drivers/usb/host/xhci-mem.c
++++ b/drivers/usb/host/xhci-mem.c
+@@ -2301,7 +2301,7 @@ xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs, gfp_t flags)
+ 	if (!segs)
+ 		segs = ERST_DEFAULT_SEGS;
+ 
+-	max_segs = FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2) << 2;
++	max_segs = BIT(FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2));
+ 	segs = min(segs, max_segs);
+ 
+ 	ir = kzalloc_node(sizeof(*ir), flags, dev_to_node(dev));
+-- 
+2.55.0
 
