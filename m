@@ -1,119 +1,251 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5E3489898
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02738486B8C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847549; cv=none; b=Pe/KoGF//pIRBv73NWTs2jeIr2BjbrZofc9lSmwnFtto7oeu5uLbL4skzxw3P9amuwmexCbrmjcR2DBSyjAOKOi2EyscAxVtGVsa8wcbfy0oXmjNagedXsI7tK05ezNhi9ZF2scMq+oqoNNeVhAeB+1x4elxEFzaRYRd26wjmfk=
+	t=1787847563; cv=none; b=YhgVtvwz+X1Tmx8SgjowSeq0m7fw0WmWyw6cerVDK6Rn0S3ij5Ln7Zpb9KAzHRkVnQhE7WVY4dRpx5DNGKra1jm2u+YYkT9d6GZo7dzs11UxgiL28PYjW/4YgdOJDtgAlHDo418rVh9OaeuB/0akFx0wySuDbbLaGYzdP1crTWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847549; c=relaxed/simple;
-	bh=DiUjG0T0zuWI7L/yvvGgeVYz8NadRp7w7Ygor662/N0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Suro/HtlVsfMmsjUCmUnLU/YblKfmdbu1jwMD689xscXNotell37R7xFqoMk2rQPjGJAvQROJBAkGrAUaILQB2xRvps94flYC49RLrG0+G+Z0SdGAX2Wfj1TT7YdCUTOPFOH9mF58f9PkiDiMfKZMGV0Doe0u1KFaCOcjZRmasU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=LYDRm7th; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1787847563; c=relaxed/simple;
+	bh=36rkTElYZ+kd5H+8QpRpwBsZrZEs9BI1oeAeoJ95A10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b/8SIoTyb4sNWJJagqMDWvc7Bcluu/OrutATHKNfg8IIwLdq9l3f76IaSyhWrSoGuPqEAeqhtFpFYPsZx1CNtUm5w3DvNBj0k9aZqZDBB8un1ZzDsJhpt+GBEe5EnSSZwBuYY+c5HRXBChO7D7xc5BgR5tTl7rBSImLQRjgibp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COSR07O1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="LYDRm7th"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8ee43b3e5abso808376d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:19:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1787847547; x=1788452347; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PHNKzqddJq8qH4vR69ILQzFreGWmgpWijEaEyQN0PLk=;
-        b=LYDRm7th34enxBDsL7TqbF/MVAVnirCgzdLFdEG9e3Jr9EIWaxU+hjjhCKHrVu4YJL
-         wAYiCR2R8gp+c8qd80cgntoknhR8OUjm0UEmUH5GoKlLTQLYchP4WSaZXIsohrD1rH8I
-         BJHlUzt/+ak7u8/fNI1jMfac5V4GIZ5vabyo+sWlYrZwH2sP5ELt52xSctSd2MkOxdGe
-         pg+p6LL4cj5iWjF/Tb8+F71zksgIKF1Q+hPnaHSM9pYgsxYSQ1Mwv0I3VHKQ9e7ErEig
-         B7SRD5uPZSHCjqGuIWsOXQRpX/DGDWZnXKosjl95ife5LBy41jybXnbbHjVmTVb6Xm8m
-         waKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787847547; x=1788452347;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PHNKzqddJq8qH4vR69ILQzFreGWmgpWijEaEyQN0PLk=;
-        b=jqdw019kIRJvsK/ZyTrXr8HAhOl8JRJCPj5vcmUQykutK/uKul6DILYGbdFiXqC8Lp
-         wBSIExSehydkXq/RFYO9nXCwU4ts7TND2MXDSNhQ4DlEXqtKX/BzF5Stn1sCm9jeLJb6
-         zg+7lDJ7bmiWKONS/fzZ6MCQk9R9UjAPtIy48Jx/1Y6j8Ipr0aFOIqxq7t2bGP7wbuZe
-         p9v4z7m4gjzLm2/Md5IXFbC1jqHXaFuIzk2NfddG7HCjflqJMGEwAbLufZk5qEJgjggK
-         ofNSoASaaF0/f3G4xqE37qJkIRdAlL8r5txVl/sh4g2oQmUJqlWmFanuThQB9vcaF+08
-         kI9A==
-X-Forwarded-Encrypted: i=1; AHgh+RoCVVvc9umRh+f0cPaa6KtNk7RPnczpJlX50pWiE/EPHSV9DmGxe9qkoIhrkZLWojHPCd6luyaUtwuF5r4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ4VHns4vNIe1BB6ooUbzKaHBuH6pQ5BAZDjrGsDDplQnL+4X0
-	d+X92fFIdvcdKV9nexnO0J5qqTsnK15xxJv5KLRs0dVNeUoNlmS+UmJdymCCouO3TQQ=
-X-Gm-Gg: AR+sD11wcXDDAErS5siQVEbGw0sO7Gp4hyF9uPfpwMrTRQgiZnuqgz7GfK0JZn6746l
-	qz+i5qRshINTeFVhlGq7/jLJSnwaCu33NBIdsiFrxYk9MF0SKe1a1nAObd5Ccpfc2RQSNZCkjbP
-	urSZBbonKJ3cVHW8KZHXdGLwAwFa9GucaTrD9/ARVTL5X/694Mp5dcCxE+fRvA6pay48xbCXfbA
-	MKWAs5CpaZFbn4/6JM6XsmDYMJX74cJV5X8cLVqMxRQxGySCGcq9MxTDvTM1DHya34NdkAj9ySv
-	Ni2K7PmeD+Ji4doXssHdBQoGEZn9u9Ehm1eIVHqIWvgfIQdgv7pNF1W+iFC2TS6brZghGeg7baQ
-	KVYnuoeF+753SLcqNCknaMtVX90ACnvC6TLowDDSVjuY3LKZBYmGSYtOLic8PZej2zeMOa108r7
-	vR+upfZ4yhqGVYBg6AzIh7b+fGjV05+1nbUQ9xZxgtadmvRtDqg5Xn445rQLB2ED9To03d4RTcd
-	nowXYbbyjO4tbPaRHHrPk3solfcuIXJde88r9+KyCyrnw==
-X-Received: by 2002:a05:6214:5b0f:b0:90c:5947:7e60 with SMTP id 6a1803df08f44-90ce0c3d7bemr5926226d6.4.1787847510292;
-        Thu, 27 Aug 2026 09:18:30 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc2c9sm19944946d6.35.2026.08.27.09.18.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:18:29 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wzco8-0000000G4Wr-2czS;
-	Thu, 27 Aug 2026 13:18:28 -0300
-Date: Thu, 27 Aug 2026 13:18:28 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
-	baolu.lu@linux.intel.com, kevin.tian@intel.com, smostafa@google.com,
-	praan@google.com, skhawaja@google.com, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iommupt: Drop pagealloc references during domain
- deinit
-Message-ID: <20260827161828.GA3769797@ziepe.ca>
-References: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
- <20260827145855.1616223-3-xiangzao@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COSR07O1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C251F000E9;
+	Thu, 27 Aug 2026 16:19:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787847561;
+	bh=oQK9VCo/irKfPIXKEc3cGBdHJHvWvT42ZgRi4sLaCGA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=COSR07O1y9vXawm8HIwW9LxygFma/VKVqoPNcX145+K96FfaBJInTFBOjhATg/CN2
+	 Nnjs63s5nnC1BdacteJ+YgvU0mjd28gfSShjoncowGKxW+T9m+i1cBpNsR6G6WzgeC
+	 3IHZ+allCqPbZfG5YNxccc5PKxmLNfIAIUmqXu1ooE2P6GUXc2DItVJln8nL9bBTjH
+	 mOKMyCB1fU/szqNcRxBTNRwx2D770iE3Xxx2bE5Gi7au9IE/sujSsBI8tG8SI3xfJJ
+	 mh2fmjGxb+4zqGMe1C7ya/Vgz/o/hNb1aRrgA50HG7wFXK5Zl+C4rhzReORrBo01hS
+	 4KykD3YYV9H6Q==
+Message-ID: <e156c931-69b4-48d6-84bf-c06df134c9da@kernel.org>
+Date: Thu, 27 Aug 2026 18:19:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827145855.1616223-3-xiangzao@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/18] mm/huge_memory: split the routine for splitting
+ anon and file folio
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-4-9b43f5163238@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260821-swap-thp-cleanup-v3-4-9b43f5163238@tencent.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 10:58:55PM +0800, Yuanhe Shu wrote:
-> Since commit b948a8722848 ("iommu: Fix up map/unmap debugging for
-> iommupt domains") iommu_map() takes an IOMMU_DEBUG_PAGEALLOC reference
-> for every page it maps into a generic_pt domain, and those references
-> are only dropped by the IOVA based unmap path.  When a domain is freed
-> while mappings are still installed, pt_iommu_deinit() releases the page
-> table memory without dropping them, so every mapped page stays counted
-> as IOMMU-mapped after it returns to the buddy allocator and each later
-> allocation or free of it reports:
+On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
->     WARNING: drivers/iommu/iommu-debug-pagealloc.c:91 at __iommu_debug_check_unmapped+0x4e/0x70, CPU#0: init/1
->     iommu: Detected page leak!
+> No functional change intended. Before adding more logic, split
+> __folio_freeze_and_split_unmapped() into an anon and a file variant so
+> each path can evolve independently. The two paths shared little beyond
+> the folio freeze call, the LRU locking, and the unfreeze skeleton, but
+> differed in all other per-folio bookkeeping and routines.
+
+Splitting that up makes sense.
+
 > 
-> Freeing a domain with mappings still installed is not driver misuse:
-> the deinit contract in include/linux/generic_pt/iommu.h only requires
-> the table to be removed from HW access and caches, with no requirement
-> to unmap first, and the kunit suite itself frees domains with live
-> mappings in pt_kunit_iommu_exit().
+> While splitting, some cleanups become easy to apply, and helped drop a
+> few now-redundant checks. Also introduce a folio iteration helper to
+> avoid a common pitfall of iterating post-split sub-folios: a sub folio
+> might get freed mid-iteration as pointed out by Zi [1].
+> 
+> Link: https://lore.kernel.org/linux-mm/DKJSFCLP967N.YBR4DNK1NM2N@nvidia.com/ [1]
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  mm/huge_memory.c | 119 +++++++++++++++++++++++++++++++++++--------------------
+>  1 file changed, 75 insertions(+), 44 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 7fb603ac500f..c3fd6757c14c 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3933,11 +3933,9 @@ static unsigned int folio_cache_ref_count(const struct folio *folio)
+>  	return folio_nr_pages(folio);
+>  }
+>  
+> -static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int new_order,
+> -					     struct page *split_at, struct xa_state *xas,
+> -					     struct address_space *mapping, bool do_lru,
+> -					     struct list_head *list, enum split_type split_type,
+> -					     pgoff_t end, int *nr_shmem_dropped)
+> +static int __folio_freeze_split_unmapped_anon(struct folio *folio, unsigned int new_order,
+> +					      struct page *split_at, bool do_lru,
+> +					      struct list_head *list, enum split_type split_type)
 
-It is not misusing iommupt, but it is definitely misusing any iommu
-API built on top of it. How did you trigger this?
+Switch to double tab indentation instead while at it. Same for the other function.
 
-> Verified with the generic_pt kunit suite as an in-tree reproducer:
-> running the x86_64 format's test_pgsize_boundary() with
+>  {
+>  	struct folio *end_folio = folio_next(folio);
+>  	struct swap_cluster_info *ci = NULL;
+> @@ -3948,7 +3946,6 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+>  	bool dequeue_deferred;
+>  	int ret = 0;
+>  
+> -	VM_WARN_ON_ONCE(!mapping && end);
+>  	/*
+>  	 * If this folio can be on the deferred split queue, lock out
+>  	 * the shrinker before freezing the ref. If the shrinker sees
+> @@ -3956,7 +3953,7 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+>  	 * lock and must clean up the LRU state - the same dequeue we
+>  	 * will do below as part of the split.
+>  	 */
+> -	dequeue_deferred = folio_test_anon(folio) && old_order > 1;
+> +	dequeue_deferred = old_order > 1;
+>  	if (dequeue_deferred) {
+>  		struct mem_cgroup *memcg;
+>  
+> @@ -3986,24 +3983,72 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+>  		rcu_read_unlock();
+>  	}
+>  
+> -	if (mapping) {
+> +	if (folio_test_swapcache(folio))
+> +		ci = swap_cluster_get_and_lock(folio);
+> +
+> +	if (do_lru)
+> +		lruvec = folio_lruvec_lock(folio);
+> +
+> +	ret = __split_unmapped_folio(folio, new_order, split_at, NULL,
+> +				     NULL, split_type);
+> +
+> +	/*
+> +	 * Unfreeze the post-split folios and put them back to the right
 
-If this is the only trigger, then it is different testing things
-interacting badly and I don't think it should be fixed like this.
+Why call it "post-split" here when it's "after-split" in the other comment?
 
-Probably have the kunits directly unmap as they were being lazy
+> +	 * place. Keep the head @folio frozen until the end: sub entries
+> +	 * in swap cache must be updated first, so a concurrent
+> +	 * swap_cache_get_folio() cannot return the head folio for a sub
+> +	 * entry (folio_try_get() will fail on the head @folio until unfreeze).
+> +	 */
+> +	for (new_folio = folio_next(folio); new_folio != end_folio;
+> +	     new_folio = next) {
+> +		next = folio_next(new_folio);
+> +		zone_device_private_split_cb(folio, new_folio);
+> +		folio_ref_unfreeze(new_folio,
+> +				   folio_cache_ref_count(new_folio) + 1);
+> +		if (do_lru)
+> +			lru_add_split_folio(folio, new_folio, lruvec, list);
+> +		if (ci)
+> +			__swap_cache_replace_folio(ci, folio, new_folio);
+> +	}
 
-Jason
+This smells like duplicate code now. That should better be factored out?
+
+[...]
+
+> -	zone_device_private_split_cb(folio, NULL);
+>  	/*
+>  	 * Unfreeze @folio only after all page cache entries, which
+>  	 * used to point to it, have been updated with new folios.
+> @@ -4075,8 +4105,6 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+>  
+>  	if (do_lru)
+>  		lruvec_unlock(lruvec);
+> -	if (ci)
+> -		swap_cluster_unlock(ci);
+>  
+>  	return ret;
+>  }
+> @@ -4230,10 +4258,14 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>  			ret = -EAGAIN;
+>  			goto fail;
+>  		}
+> +		ret = __folio_freeze_split_unmapped_file(folio, new_order, split_at, &xas, mapping,
+> +							 true, list, split_type, end,
+> +							 &nr_shmem_dropped);
+> +	} else {
+> +		ret = __folio_freeze_split_unmapped_anon(folio, new_order, split_at, true,
+> +							 list, split_type);
+>  	}
+
+
+I was briefly wondering whether shmem folios in the swapcache would now go
+through __folio_freeze_split_unmapped_anon(). But folio_check_splittable()
+rejects them.
+
+I think we should consider changing all the "if (mapping)" checks there to
+"is_anon" instead.
+
+is_anon implies no mapping and !is_anon implies that we need a mapping.
+
+
+This patch LGTM, but I think we should clean up __folio_split() further. Maybe
+taht happens in the next patches in this series :)
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
