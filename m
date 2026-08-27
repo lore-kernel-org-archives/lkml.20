@@ -1,69 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583CF38A71F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483D21FC0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854272; cv=none; b=gsh+tLhCFLXSTR8gNuIzjogBHVUXoi/jezkOH6JzbvN0bIY3u4CBiomMXFKwcy5Irh6aGyRn+c0YWAWFLdNLzBqIDwFHFtkmrhzSH6T8dvNUm596QBofDDIsWMhv5yPuhpkYqk4wuPJiYp6/04zdt7TbcWS3LyW6eL7dkYhrdcI=
+	t=1787854366; cv=none; b=KiUikCUi/+sc67+YO0UgY79Wd/RCLsKjJrcY3/XGc+1Q199FX8FqATzDvm1QYnSrLJGwd5hoSz2B3YVhEXheXvPEwvY/GPb21ge5NmB/xE6fOhLF333vhCuJZwBQ1Fnjx25gUTpjCsf3q7PwlUu5K02YJhqoSZceocTLzzpFaGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854272; c=relaxed/simple;
-	bh=lN9I1ArjYqp5/3BS9rnpljlF5FI+XXWTt/M3dAbs6Ls=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tQQMWVRu/XGzQWN1AJttv/UngGGaZ688psTrx4wpN5IawQGnYYsehCgvm4MhiqNIV6rDohcouDWIeItoinCRimw3q/Ez8PgVH9yFKSjJ90R5leRsRUzNYHexNbJTgwMRoAmuNdVz1haregi36VAdMwlfp5zTzlq3Sla8Wyi8uNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7A7dwBq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787854366; c=relaxed/simple;
+	bh=VfBDgBywuHcUolB/YWcRwEoLGfwjCaSjkMUCi0RCP48=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ACxAyteJB8RrBclxPjv08QNBJ4DEIGR0+J0XesLdZG0hte9DOu1I/mhTXSCJpAK/IEajcn1RPAsv6H67lepfzrPI/4fElHE1cUOXKt2x+cyHxL9W2LSJecSPxdSKj933v5t3MlZ7o44L5a55QqUNv603FqOIJ3q9zgh+hymJCnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X4Eci3o1; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7A7dwBq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5551F000E9;
-	Thu, 27 Aug 2026 18:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787854270;
-	bh=hOW49uuJwmo8NBAn6wYRhXexQ4V8weHNlo67FAviZRI=;
-	h=From:To:Cc:Subject:Date;
-	b=f7A7dwBqLqdnq5xjhtgsT5z8Nl2C902zU/pk7eoloCIRiRWXE5HIU6eki4wSieCYg
-	 38fOKvJRCM266Aq+1wCjtAxKCuGnEVVVM/IP1J9poLtENrIr9Z7iui1254Tb88afGy
-	 xKDl962AzM1peUMcij3f0wuV7sQEIKo5qFEbuwF+V5wmT9uexxLK9l4vkwH2mAcXNS
-	 QQk/35paXY3GDMnzcBof0P01yBuBfOo8c0i4hRAAEuqmKAiDxm7GanyEbxef1PGXmE
-	 e2QptMKUGqKAw4rjqGVdfib5Y8D1ICmkJK0X9eODEQVyUZP/YoyCOhckNpMTce91K6
-	 Z1rjaQdHGfVnw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.phl.internal (Postfix) with ESMTP id AFDA2F40066;
-	Thu, 27 Aug 2026 14:11:09 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 27 Aug 2026 14:11:09 -0400
-X-ME-Sender: <xms:vX2QalFbjPweG4p4mAc9927XHfqa0ugDelIkBN3uHruDrFxcA1simg>
-    <xme:vX2QasmrRw25KoI5YROArko9VUucX-fEKswcXvEFQQzCBfcBxQ0kM_POOQ4LlLOUo
-    plYAgbcp5Ng1ItWsdPMsLCT9PrPKFK7bbbHbDxudbPiiNFWrONT_w>
-X-ME-Received: <xmr:vX2QapaWaqKYFLLY_Kee3HetAG5cUyS9Tu9hWh3YcnTcWmLW1W66OogyW8uJOfb4ZNDQ9CI2V-fd8r_DSSoitDn-vyznVqsX>
-X-ME-Proxy-Cause: dmFkZTEKcNTLMkLyP7X1AMl61TMtAkEcUI7bXqcUbPS5IvIIKDVYAyAVyoeo0a8DFipGM6
-    qp9AhHvmR/TC/oLewcxP8U2hyNw0drh7dn3D4wZ3zd5ONoCPlOnv5SlT9/IasKwIEaIeqw
-    GfCV4zdNfo/bk6wOpmb6DcvuoBrgUVd2czGjyAHn4a/bNVgrgaMScyFwsP8uioeZjkEsQ1
-    aazLPfgD+d46Bktavc1ULQAeyxWY8GMOPzAFtSZn1Ac75idKBKClqSslmuqcte3XkDX8nw
-    OijRqKxddzRvIKJO73OReSsqI1G5UcVwhOHUCjRyvY1mb91uFn+znoQPH9tf3bc05lOnqc
-    Nn4k8WbjLNrqByTOd/yIoy9OdAZaoTZpmSjTS94UNrbAGXKXAbCKxE3r/3lW0r6g+j3ogX
-    kOpqX96iLIsOvbjSDCGi/NN6oUJCWDi4z6YuZv4ByzKU1ONF5bWVAumosI9duid96UOyut
-    quGRxZIrlgN+JMRgQW/4BqZ4kKH3xZX9g2+6UKVj5O1CXN1kpKzYgmaxNUGyaEdDhQ87Ae
-    LYqEFYTs91lJQs9ZFbF9ggjQl1a8ZYZlwxUaqkUREdkLNGm7uFKK8m9MFqglZn/++/ZBby
-    M8L/Dx0mrFT2kYbQ8EscGdUm2cMAFtI66xO0U1fxPh7wWoUcdDyrYAwjS5tQ
-X-ME-Proxy: <xmx:vX2QahFQpF_4Sl3OPWoHZavBV1j8wfZUO4bIcZ8jcSnBq_HNB1gr6w>
-    <xmx:vX2QaqIxRi7_wybZOGH8XN8bdwJl2NukmH2I5m-JBi87pTl7M-7mXg>
-    <xmx:vX2QasMNIFTfR_Sfx7wSQ3jU5RuitPKFbvMjnINt9Kj0yAfbdd68vA>
-    <xmx:vX2QaqlpoduatIWzfrwS5F4ZZUEF_zZfnoyK2XT5JtHLVSHEN3qGLA>
-    <xmx:vX2Qag7O3Az3YHsIJzboVMnoVP9td3ZVr4hYs5JQ2WuCQJYOJJPwgJMm>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 27 Aug 2026 14:11:09 -0400 (EDT)
-From: Boqun Feng <boqun@kernel.org>
-To: tglx@kernel.org
-Cc: Boqun Feng <boqun@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] interrupt: Disable interrupt before modifying hardirq_disable counter
-Date: Thu, 27 Aug 2026 11:10:48 -0700
-Message-ID: <20260827181106.30090-1-boqun@kernel.org>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X4Eci3o1"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4815bce4652so110209f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:12:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787854361; x=1788459161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MjgsUEfJhTLWj4OhJtQc/ONYm7msM9cUfhdUubV3ctI=;
+        b=X4Eci3o1+d2F7w4MLsfQSiWXIKpTBlZWt+hrInIHO5DBIro3F9OZ+r1xiS8FanGgvX
+         Kw/+/IXr5aHn/TQ0lRvfsW8Q0mRRkhcfQxRrZDYOhg3fjXgGfYbOVF7LkFURtsDqCmbj
+         bO8aOQUVgJGpTniH5k9noXQ1DZuVg10xRxmM7wdOIfU5NEloeE6P2+ZxNpNPDW54nrVX
+         QeGzfsdkXv7Zj/g81Jh/yqc2IS6Hj2duKkNFMAF99uiJsnqkVyPGHcrNFkjoCCi8ELC6
+         Rb9VMDx8p1HrQ9aTHAzrcSrTqpL5qH/k6j/HOE40zMiS/ed7YaziA7dEoN+0ZliRdi9y
+         s/1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787854361; x=1788459161;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MjgsUEfJhTLWj4OhJtQc/ONYm7msM9cUfhdUubV3ctI=;
+        b=pGw5004A24dLogHW8l2OEJmwLcakY+Q85dsR+VuYVakb+tgJmb9f/sddpEXpCxXvst
+         thDZA47an8GYlcgJBXVK6AWaFJZHfa8tXKWzd6pTNl64cAE5lAv98JASK3xLgnQlM5Dw
+         Jpa5tOqcESXgFgbgdRytVbEuquvqhIh4N5aUOFRCxJBj8fEuYkE8GKsDN0gu6SQYGTEB
+         0awqV8o2yTx+O7AoB22Q9ri69nvGJtDTat6ezuTZxS9VK0mKHjUhTJO21ybzjtUVGJyv
+         KJE4kT6TSNDaJb3wD0bZJ4gqVqyaUeykdTrP0tg7Nv74xLH/p4vhcJCVQfnHsjPf9ED/
+         WdNA==
+X-Gm-Message-State: AFuF++n8BiXRNTtE3Vec6qreZ+qZva490eX83xSa4TWFyWcGnXouXQba
+	Ax/E+83fl5AZjORmdGHxKrYmcTbNH75rsQEzQXAYO48yWfXLMOvOWXrS
+X-Gm-Gg: AR+sD11phsz431ld3DUyiSUvRsjVKIKcljYqH68ajt2Gvoypa5cV+C4es+R1YHrbrOk
+	oVRa/hg46lu7z02hxSDw7T2Z9isZzEFDsAKM666Hbl1q3rkU23lHqkF08RQFyd2CuH3lx8tC3QL
+	pExuA/Pc3QJDoRW0u5qiMA2eSxAWm9Hon2WFpwrtxipzmJY3u13l7/VRlx5ElrpYoLmdcadjlq8
+	Iey6+w5FZA/3EyzZOGboKVFmXO6KK1Oh0WreoSTRIKEix3jC9+PfKrYpt99FxfZco34EwVTrJqW
+	FtY+YI4OxzvDzpR27jL7wp0xgzitURETNd/O6Uzv/AiUeSzAzYq17fhDHOIp8mdbu4iVsqbR0bV
+	+orVkU5+P4DBAFMK0m2CeQpN86VsG0wBsjj37VkPZSPRzSczQY1lUOCxc+VWfMIzZjpJIMGDtlZ
+	5E+6b56uB/1UmJoILzb148tk0v/tP+dfMx60XZw5O2pU+Cw8pz0Xxplaky1ZA6RAX69lrD7D7Zu
+	g6isehkNnUVQTzZ+lgusPUV7HohK/zlNS2TeHQ3bmcBoVoWfrkp8ss=
+X-Received: by 2002:a05:6000:2288:b0:47f:e377:8d61 with SMTP id ffacd0b85a97d-482f79c9511mr902625f8f.11.1787854360471;
+        Thu, 27 Aug 2026 11:12:40 -0700 (PDT)
+Received: from 1Z10 ([78.213.170.242])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6917sm10189895f8f.35.2026.08.27.11.12.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:12:39 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Yauhen Kharuzhy <jekhor@gmail.com>,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v5 0/2] ASoC: Intel: Add Lenovo Yoga Book RT5677 support
+Date: Thu, 27 Aug 2026 20:12:33 +0200
+Message-ID: <20260827181236.2421882-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
+References: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,149 +86,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently a softirq may be pending longer then expected if the
-triggering interrupt happens in-between hardirq_disable_enter() and
-_local_interrupt_disable() in local_interrupt_disable():
+The Lenovo Yoga Book YB1-X91F/L uses a Cherry Trail SSP2 link with an
+RT5677 codec and a TS3A227E headset detector. Its amplifiers and
+headphone path also require board-specific GPIO sequencing.
 
-    local_interrupt_disable():
-      hardirq_disable_enter();
-      <interrupt>
-      ...
-      __irq_exit_rcu():
-        // false because hardirq_disable_count() is not 0
-        if (.. && !hardirq_disable_count() && ..) {
-	  invoke_softirq();
-	}
-      _local_interrupt_disable();
+Add a generic Cherry Trail RT5677 machine driver and match the Yoga Book
+ACPI codec ID. The machine entry supports both the legacy SST firmware
+and the separately maintained SOF IPC3 topology.
 
-, it'll defer the softirq to the next interrupt which can be forever.
+This continues Yauhen Kharuzhy's v3 work and supersedes my RFC series.
+The driver retains Yauhen's copyright, Co-developed-by and Signed-off-by
+trailers, and links to both his original implementation and v3 posting.
 
-The order between hardirq_disable_enter() and _local_interrupt_disable()
-is to optimize re-disabling interrupts if they are already disabled, but
-as 1) local_interrupt_disable() is not widely used yet and 2) the proper
-way to achieve this optimization may need fixing up the counter at
-entry/exit time [1], so reverse the order for now to avoid the softirq
-pending issue.
+Changes since v4:
 
-Since we are doing this, the part of saving the current state is
-separated from irq disabling, and we basically do the following in
-local_interrupt_disable():
+- restore Yauhen's Co-developed-by and immediately adjacent Signed-off-by
+  trailers on both patches;
+- format the complete trailer blocks without separating blank lines; and
+- clear the existing PCM format mask before selecting S24_LE in the codec
+  fixup, since params_set_format() is additive.
 
-    local_irq_save(flags);
-    if (counter++ == 0) {
-      this_cpu(local_interrupt_disable_state) = flags;
-    }
+The series is based on ASoC for-next at 8a070652d919. Both touched C
+files passed sparse 0.6.5-rc1. Strict checkpatch reports no errors; its
+only warning is the generic new-file MAINTAINERS prompt, while the
+existing sound/soc/intel/ entry already covers the driver. A clean
+20-job bindeb-pkg build completed successfully.
 
-Change _local_interrupt_disable() to _local_interrupt_save_state().
+Runtime testing used an integration kernel containing the same v5 source
+state on a Lenovo Yoga Book YB1-X91L. It used the stock signed
+intel/sof/sof-cht.ri firmware, version 2.2.0-57864, and the separately
+maintained sof-cht-rt5677.tplg topology. The following passed:
 
-Link: https://lore.kernel.org/lkml/87v78wezid.ffs@fw13/ [1]
-Reported-by: Thomas Gleixner <tglx@kernel.org>
-Fixes: e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
-Signed-off-by: Boqun Feng <boqun@kernel.org>
----
- include/linux/interrupt_rc.h | 19 ++++++++-----------
- kernel/softirq.c             | 17 ++++-------------
- 2 files changed, 12 insertions(+), 24 deletions(-)
+- UCM Speaker1 and Mic1 route enablement;
+- PCM0 playback and capture at 48 kHz stereo in S16_LE, S24_LE and
+  S32_LE formats;
+- PCM1 deep-buffer playback at 48 kHz stereo in S32_LE format;
+- a bounded routed speaker tone and a non-empty three-second Mic1
+  capture; and
+- PipeWire playback and capture with advancing PCM pointers and clean
+  PCM closure after each stream.
 
-diff --git a/include/linux/interrupt_rc.h b/include/linux/interrupt_rc.h
-index b9a7f05ecf42..e68e1bedba66 100644
---- a/include/linux/interrupt_rc.h
-+++ b/include/linux/interrupt_rc.h
-@@ -20,11 +20,8 @@
- /* Per-CPU interrupt disabling state for local_interrupt_{disable,enable}(). */
- DECLARE_PER_CPU(unsigned long, local_interrupt_disable_state);
- 
--static __always_inline void __local_interrupt_disable(void)
-+static __always_inline void __local_interrupt_save_state(unsigned long flags)
- {
--	unsigned long flags;
--
--	local_irq_save(flags);
- 	raw_cpu_write(local_interrupt_disable_state, flags);
- }
- 
-@@ -36,9 +33,9 @@ static __always_inline void __local_interrupt_enable(void)
- }
- 
- #ifndef INSTANTIATE_EXPORTED_INTERRUPT_DISABLE
--static __always_inline void _local_interrupt_disable(void)
-+static __always_inline void _local_interrupt_save_state(unsigned long flags)
- {
--	__local_interrupt_disable();
-+	__local_interrupt_save_state(flags);
- }
- 
- static __always_inline void _local_interrupt_enable(void)
-@@ -46,27 +43,27 @@ static __always_inline void _local_interrupt_enable(void)
- 	__local_interrupt_enable();
- }
- #else
--extern void _local_interrupt_disable(void);
-+extern void _local_interrupt_save_state(unsigned long flags);
- extern void _local_interrupt_enable(void);
- #endif
- 
- #else /* !MODULE */
--extern void _local_interrupt_disable(void);
-+extern void _local_interrupt_save_state(unsigned long flags);
- extern void _local_interrupt_enable(void);
- #endif /* !MODULE */
- 
- static inline void local_interrupt_disable(void)
- {
- 	int new_count;
-+	unsigned long flags;
- 
- 	WARN_ON_ONCE(in_nmi());
- 
-+	local_irq_save(flags);
- 	new_count = hardirq_disable_enter();
- 
--	/* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
--
- 	if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
--		_local_interrupt_disable();
-+		_local_interrupt_save_state(flags);
- }
- 
- static inline void local_interrupt_enable(void)
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index 7980a4a232f9..5d02c36c40e3 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -91,11 +91,11 @@ EXPORT_PER_CPU_SYMBOL_GPL(hardirq_context);
- 
- DEFINE_PER_CPU(unsigned long, local_interrupt_disable_state);
- 
--void _local_interrupt_disable(void)
-+void _local_interrupt_save_state(unsigned long flags)
- {
--	__local_interrupt_disable();
-+	__local_interrupt_save_state(flags);
- }
--EXPORT_SYMBOL(_local_interrupt_disable);
-+EXPORT_SYMBOL(_local_interrupt_save_state);
- 
- void _local_interrupt_enable(void)
- {
-@@ -749,16 +749,7 @@ static inline void __irq_exit_rcu(void)
- #endif
- 	account_hardirq_exit(current);
- 	preempt_count_sub(HARDIRQ_OFFSET);
--	/*
--	 * Interrupts may happen between hardirq_disable_enter() and
--	 * local_irq_save() in local_interrupt_disable(), if irq_exit() invokes
--	 * softirq here, we may have a softirq handler calling
--	 * local_interrupt_disable() but it won't disable the IRQ because
--	 * hardirq disabling count is already 1, hence we need to prevent
--	 * invoking softirq when a local_interrupt_disable() is ongoing.
--	 */
--	if (!in_interrupt() && !hardirq_disable_count() &&
--	    local_softirq_pending()) {
-+	if (!in_interrupt() && local_softirq_pending()) {
- 		/*
- 		 * If we left hrtimers unarmed, make sure to arm them now,
- 		 * before enabling interrupts to run softirq.
+The GNOME Settings speaker and microphone tests also passed physical
+verification. No SOF, IPC, XRUN or ASoC errors were logged during those
+tests. The SOF topology source is maintained separately at:
+
+https://github.com/Yoga-Book/Yoga-Book-Sound-Open-Firmware/commits/feature/cht-rt5677-topology2-ipc3/
+
+Maurizio Casciano (2):
+  ASoC: Intel: Add Cherry Trail RT5677 machine driver
+  ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
+
+ sound/soc/intel/boards/Kconfig                |  14 +
+ sound/soc/intel/boards/Makefile               |   2 +
+ sound/soc/intel/boards/cht_rt5677.c           | 612 ++++++++++++++++++
+ .../intel/common/soc-acpi-intel-cht-match.c   |   8 +
+ 4 files changed, 636 insertions(+)
+ create mode 100644 sound/soc/intel/boards/cht_rt5677.c
+
+
+base-commit: 8a070652d9194babdd35bf7cbd2c6722b441e8f4
 -- 
-2.50.1 (Apple Git-155)
-
+2.53.0
