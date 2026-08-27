@@ -1,174 +1,146 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011017.outbound.protection.outlook.com [52.101.62.17])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F71635CB81;
-	Thu, 27 Aug 2026 06:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811805; cv=fail; b=f/iBADKZcxcPQGWx/reI1g1GJfggQzGvwqnKM50D+Vfb10YiLWgdRIWc32jAN0eEnkrFxeI7AQ/+z3CynWrUcFNfZo/Z96Y4EdnDjOYqNvWDZm8c3ROSAjJ6dqUUVWlwcew6l7rlX1RZ8lbjFS7Dg9nQdy4Ll/7mRQocRi2hO9g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811805; c=relaxed/simple;
-	bh=erOe2tmSWUTnVc0pTn08jMCr/kFvbb7veylURatv2Ik=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HNCRfErfz3EeHIespiNtjwwZujjXQMc/49ykxJ+4/4AIETzVkUk0zMf8L/SAOCl1eHXlbgL5cC67brDJ3Dqn5CY3RgiCLHzDedevUj/lGD5tlA5PnLzFozQPjhg7k/Abp7KWgNDusg0PUhbiCcGcXoBV8mt3gVqO04ELbmpwk9I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o0wpZ+2f; arc=fail smtp.client-ip=52.101.62.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9674435CB60;
+	Thu, 27 Aug 2026 06:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787811828; cv=none; b=XFZFoY1LXMOIrLP/OKlMAyh2gBTqCfdU2BA7Z7QzcTEMKv5xKoPviieYDip/ZtAFpBWkZwoJCyoJohah+pZI5g0hm4PboE81z9dbBySGcWCc+mssxBdW84eaWGtTTa6wK9E6kefNNBDvEjaf4AmQ+jXRoQi5eSZ5Hsh/rSq01nM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787811828; c=relaxed/simple;
+	bh=H/nY6FHTc9WKFAZwZWSoXmVvAP2y6OjzohTVZsAyhoU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HAPpNHkHn4MpOKVw6AxyQRqTNp46l0TUhHp7udM6nVUR6j/97oi9EBSQWpECgcd59RaTc5tazrn61+qGDiy5A7Qw/IJsfBDjiyT/pESbZc7Pe3s18HJbEb2cwPJBifUqeCGE5M3Qfk44Q5aVCv2iJGFphlhw9Kj0azM7fnwiP5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=reiRl5us; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o0wpZ+2f"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NX8dOup2C/A9KzaFK+NHahoQ0ywrfTWI1nd2fVJlWzN+l9A+c1mfJkYKa4n1PH232cGNSnV+iKLd/G7E8Yvz76mTgc3DfEaABHpH6fFrefDekO8hK2B4x0VFUDFW5/Ntz+6uuuvot/qhbxbQOQecjTOurum4SMhaIShfKyHVzJw9DhhDIKDn3TWB9PZJDO/L7bFOaN1g9hYUE3bdEFy8Wxyuu+NyzjPGgMBicRt/GDWPHPkx7nwz62fsvWvgGo35i0g2VL3qtZXxKQX6klAFO6JU8b1+b6Y7sirMUBGMawHfY1TNmuwNb41njHjrGRbkkBjKhDleAGkjW+JMtyZkkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hUCI94qSoX0tJ5S/YxS0FkLQWVT2BwihTKfpSyFRTIs=;
- b=aJaGSYCV6OBi2gtxFQOTV2ov8pJFm/uMkjR1OSN+Sd2zo2Fg9FScGyhuvLWtauGm8nUN/pddc8Yg+lqrLm+17czHTT5utrn2kWCJrD2sP7tk/DHhs6DHcyFr4j1vWYLyJCaLMaAgATQxRLqO1tW5ES9WRZE9f454qeS/4xkaUDmoV0BW3GZOq0DLpu5ytCk1xNI46+jtO7SerAjeFeRiR/90bZh203nB2eevjdFYl+8hZ4ZRnCUC3M/TqNumYyL+ZBeXFvyg1O5ufFoYH9JOYW6J90B80exyvFp18iyFztSz8FdaoxdVM5iB7VV/z68ciOo/5JioONSIxKOBCu+BvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hUCI94qSoX0tJ5S/YxS0FkLQWVT2BwihTKfpSyFRTIs=;
- b=o0wpZ+2fjXTmx0Ee/ThYfZ5OBGwuBXg/fc1KDhXXozPzkKISv1kcYMctIpRAE6G2bffUzXmgUdEsFFs8l1/PEeGeCiNMX6Zq9XU9VWegPHl0dtaQPqVNPyEH2Gbf36l1zf5kS/YOuzFwyeaSS3/k/XwwZyCioGWBZNvxjqS+7Dk=
-Received: from BN9PR03CA0108.namprd03.prod.outlook.com (2603:10b6:408:fd::23)
- by BN5PR12MB9540.namprd12.prod.outlook.com (2603:10b6:408:2a8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 06:22:05 +0000
-Received: from LV8PEPF0000005F.namprd02.prod.outlook.com
- (2603:10b6:408:fd:cafe::d) by BN9PR03CA0108.outlook.office365.com
- (2603:10b6:408:fd::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Thu, 27
- Aug 2026 06:22:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF0000005F.mail.protection.outlook.com (10.167.245.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 06:22:05 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 27 Aug 2026 01:22:00 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
-	<srinivasan.shanmugam@amd.com>, Matthew Brost <matthew.brost@intel.com>,
-	"Mika Kuoppala" <mika.kuoppala@linux.intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
-	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 0/2] drm: Add Common drm_user_fence helper and Convert XE
-Date: Thu, 27 Aug 2026 11:51:40 +0530
-Message-ID: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="reiRl5us"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R3VdO61715236;
+	Thu, 27 Aug 2026 06:23:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=wDkkBq/zQRjvyGz/fv752jvBhNJjNG8gKU9apD71w
+	gA=; b=reiRl5usw1lINty/gEgjr9NSOi8+ogsIHO2hurHS9IVGWV4ZnC9AK8/3n
+	S8Lr1VDyiwszhT3cz182tiBR9Y9yBD2bvMvfOcVZbXWOsY7eb//76hA+n8EoAkYH
+	XFwFgCzCrkV0/69BH1agRMRx911yGHn5in5675Gpcw5tR4U0ZHcIKqFYytRVsH35
+	k/ehxI49mzUkVJzhNMGvOs+GwuZSd/whMA6ibyI3iqE3V3/HZEToUuyqv1AY7wHj
+	7tCmghJoUDI+CZnpI/3NrQbviaEiAxdcazWoBDCf+a47M+aQ5Cp35XO2Qw0xwMkb
+	k9TYRQ8W/M5vU0vxn+2upVKuCjtEA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716j3ndd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:23:29 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67R6BIfS025454;
+	Thu, 27 Aug 2026 06:23:28 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7q3k6fhy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:23:28 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67R6NOBe30867940
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 06:23:24 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81E4920043;
+	Thu, 27 Aug 2026 06:23:24 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9DE3520040;
+	Thu, 27 Aug 2026 06:23:13 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com.com (unknown [9.76.202.253])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 06:23:12 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
+        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com, ssrish@linux.ibm.com
+Subject: [PATCH 0/8] Extend PKWM to support user-created wrapping keys
+Date: Thu, 27 Aug 2026 11:53:00 +0530
+Message-ID: <20260827062309.724808-1-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005F:EE_|BN5PR12MB9540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 016dd069-4a69-4887-69f9-08df040383cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|7416014|1800799024|36860700016|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T5B4VpOl8TnGp4thRsH2NMYK0FkM1k86bKV4i7rC8tIW/rq6DBf9AtEU1xBequJDQfxIhAHhMzWjDT8tl60XZvKoqMjV7YyO/a8I4I2TsYXqx11XoSXAm/DbchIMOAVd6oeXx0eH4u51NKPJSP6dbemD7aKDMdV54O7x/nfgxaq/6U4IB7SSX5eVUkg/pRnikwWkEs7+P8Jaoo3oA1UTYGqSr5SZCbFZQZArMGXc4MkBi0VXCNVzrgBW/TBnImqMoNTbV+J0QgMRRYemtkt3r5bvm3wiCNjJOURW4jXYA8dFv5wM+9zLKM1vOsLyt8ew8NaFNxfQZ9xorhQkqcZ7ReDWsfj5x8SMtkQ507mVubwOVTHmQqd3J5IVDqNO2QtP1bLt65HUf+eoiwJvU4gy2DHzGMFQ0P8mTh9gyg4oQHQOlgqoVSiqn6Y6FSFsewVNawzbMTF39LEcJcBmf1hHtomSWCIMedEnsu+uAKAqOlw+7YF98p09Tgo0BNj9Ldqc71U1vki48fsbRmpMgLGoNyWGuDzF9YbxEoVbB/zpJkmISwoS40K2te24DIoejmtBDcUAzbyWCXIlt9/SmFP2IdbPNiVwhLfbXuEmkwoiy0SIM8zeGL/IMqLfw56fFehP5G8cm64zcrdj+jyFZnpHFDgJ7RKSdAE8kQ4KFi68QnIIXyzg3ulohqLDgvJliZ3VcHQO3vbdvUG5M45Py6na3g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(7416014)(1800799024)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	igEPQTg8ZEh1uuqKwFZmNmlBW2kcLl/CJ0T0c0QrDJP4joBNYKvAmxRBAUdHGCOMh4wDooVJKh6bfi/OiK3K9UL2QTayjUMoxGe6aDeaV1amZ/x48VBIqLm7s5Uj4MDFwaxe0ObFj7Fw+po0sUWwQmgJHyKMiuidG8bHerHsyFI0etGkZ871b9KgRDTyiE9tpsAeS103/Vd0iYTxdUMKsD/4WHOJNdkcosMGjgzfbo1Ww9+9jQIHvnA74zXZv7hkTN3nrIjZk6sc5l4/6chKR0aQ4uDFYt3TyVCgWqgWSVhUuKI2KkAuKC52S1zo6dX4sVqjv5H5o6tI+kF7lLed+/C7yaUUZB+RaIpOavQalEFiBC0D996p7worPrEnwDUWi79pZZsWSGaiCKI6atui2l4SZJ4rxqkoQWdHC3vbPp0QPmgrEWNr+28YjJpe/dEV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 06:22:05.2166
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 016dd069-4a69-4887-69f9-08df040383cd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9540
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA0OCBTYWx0ZWRfX2X5Glst8xwqu
+ hMrbTtfNiANWbpwzLVDkyUHzc1wpnAcV7yOU/Rfdk5QHwb0/KUM6McxFTCxC9ko5XXUy93OavkS
+ G27q3Y3W+ORuHjGkqPM9o07XbbOKRl8=
+X-Proofpoint-GUID: zawEhz905MFPrAEf-En517P1M1_zeAGf
+X-Proofpoint-ORIG-GUID: EFJOoTvm_tREc0dQ_TZE1nks12qiD96N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA0OCBTYWx0ZWRfX8elJOjg6cFbB
+ vd1NOyDrNLqntbGxs+6HjFPnOymXqFYRN186HtZ2gkm1257Q4mR6lo+ypRAlx5rd7xzAx86vXVa
+ gk2ooxyA1Z6xWGad4WQbm47ln6Wqkny/Xvv5TcTCp2NHnFj98gkoAMhiDRsWKvMiZXdssvzBA/c
+ CWIsjVt/Onkk6mV/asRqvkuz2nPryhEIkHymdYwAjQDUlB17aLD7sAV1rr20jgmHeiMGLP4Vd64
+ vvgdG8XijK8YlsIau2VkAvTuSaj8kZRRMPHMMsHfigzXw0Bqc8/D9xw888+rDP7mAuO6pIqpUxs
+ gZ11U/Z8FmTbvsbhwrmZWV0VUERo6fSNrPZZL5zPELUt0excvIDJ7pYINAyNmzA3qgto3PX1gJX
+ 7MceXIySo5BDwKYsqAlqg5vDzRJ4a3609HQLYvi8zd/qU9+4vuPBbcnLHI7gzUOEy6rywwhkrN1
+ anZQLNXEghAbCF4VK0g==
+X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8fd7e1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=A93gRhB2vYe917ExAJkA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_02,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270048
 
-When a GPU dma-fence signals, drivers often need to access userspace
-memory from a kthread context — either to write a fence completion
-value to a userspace VA (XE) or to signal a per-queue eventfd (AMDGPU).
-Both require borrowing the process MM via kthread_use_mm(), and both
-use the same kref-managed dma-fence-callback-to-workqueue pattern.
+The PKWM trusted source currently uses a single default wrapping key per
+LPAR. This key is created during trusted source initialization, and all
+trusted keys backed by PKWM are sealed and unsealed using it.
 
-Extracting this pattern into a shared DRM helper allows both XE and
-AMDGPU to use it instead of maintaining independent open-coded
-implementations.
+Recent versions of PKWM allow users to create and manage their own wrapping
+keys through a set of lifecycle operations. This patch series brings these
+PKWM capabilities into the kernel, allowing users to create, manage, and
+select wrapping keys for sealing and unsealing their trusted keys, rather
+than requiring all trusted keys to use the default wrapping key.
 
-This series does that:
+In addition to implementing user-created wrapping key support, this series
+includes five prerequisite cleanup patches for the PLPKS and PKWM code.
+These patches improve error handling and type consistency, rename a macro
+for clarity, prevent unsupported capabilities from being exposed through
+the sysfs, and make minor documentation and MAINTAINERS updates.
 
-Patch 1 introduces drm_user_fence — an embeddable base structure with
-driver-supplied worker/destroy callbacks. The common code handles:
- - process MM grab at init (mmgrab)
- - dma-fence callback registration
- - workqueue dispatch on fence signal
- - mmget_not_zero/kthread_use_mm/mmput in the worker
- - kref lifetime management
+Srish Srinivasan (8):
+  pseries/plpks: update PKS documentation and maintainer entry
+  pseries/plpks: fix error handling in plpks_read_var()
+  pseries/plpks: improve type consistency and parameter validation
+  pseries/plpks: rename the default wrapping key macro
+  pseries/plpks: hide wrapping_features when unsupported
+  pseries/plpks: add HCALLs for PKWM wrapping key life cycle management
+  keys/trusted_keys: enable PKWM wrapping key selection by label
+  pseries/plpks/wrapkey: expose PKWM wrapping key management to
+    userspace via sysfs
 
-Patch 2 converts XE to use the new helper. struct xe_user_fence embeds
-struct drm_user_fence as its base. XE-specific fields (xe_device pointer
-for ufence_wq wake-up, userspace VA, expected value, signalled flag)
-remain in the wrapper. No behavioral change is intended.
-
-A follow-on patch (not in this series) will wire AMDGPU's render-node
-EOP eventfd signaling path to the same helper.
-
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
-
-Srinivasan Shanmugam (2):
-  drm: Add common drm_user_fence helper
-  drm/xe: Convert xe_user_fence to drm_user_fence
-
- drivers/gpu/drm/Makefile           |   1 +
- drivers/gpu/drm/drm_user_fence.c   | 130 +++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_sync.c       | 114 ++++++++++---------------
- drivers/gpu/drm/xe/xe_sync_types.h |   1 -
- include/drm/drm_user_fence.h       |  68 +++++++++++++++
- 5 files changed, 244 insertions(+), 70 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_user_fence.c
- create mode 100644 include/drm/drm_user_fence.h
+ .../ABI/testing/sysfs-firmware-plpks          | 106 ++++
+ Documentation/arch/powerpc/papr_hcalls.rst    |  49 +-
+ .../security/keys/trusted-encrypted.rst       |   4 +-
+ MAINTAINERS                                   |   2 +-
+ arch/powerpc/include/asm/hvcall.h             |   5 +-
+ arch/powerpc/include/asm/plpks.h              |  40 +-
+ arch/powerpc/platforms/pseries/Kconfig        |  13 +
+ arch/powerpc/platforms/pseries/Makefile       |   1 +
+ arch/powerpc/platforms/pseries/plpks-sysfs.c  |  31 +-
+ .../platforms/pseries/plpks-wrapkey-sysfs.c   | 407 +++++++++++++
+ arch/powerpc/platforms/pseries/plpks.c        | 557 ++++++++++++++++--
+ include/keys/trusted_pkwm.h                   |   3 +
+ security/keys/trusted-keys/trusted_pkwm.c     |  40 +-
+ 13 files changed, 1188 insertions(+), 70 deletions(-)
+ create mode 100644 arch/powerpc/platforms/pseries/plpks-wrapkey-sysfs.c
 
 -- 
-2.34.1
+2.52.0
 
