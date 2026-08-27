@@ -1,652 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA804908A7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D1946AA94
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848840; cv=none; b=Ltw8MQ0HfUGd2bbLRgjf6L6vd9wOeBSwgzh0ds+i4S7iLnoVsFtxJulwg5DNv6fM1cL1T8VlKFxquz0B+KEjZYdVV7WregFqIafAyPpSuo2wY0cZtr+3tSpJC0hWmGKEmhd/rGg9LKcgWbHjnYopGLF8sOoI3q0YI+XzY4Pr5bo=
+	t=1787848859; cv=none; b=OyzybWV7mr1XTHmhrgZQmGAY+PfpNK3XRPyUxiki6s1GWlDnBW+it41D9sXJEy3SmaQWfpAhM5GIe1OshwZmQfch4Iu2USgkTTajrfNkVMfvxXXJHqZHnl874SqMuC4lOJqsvi7eyNi/6bBQHHLcybMXXmL6Kn2VyJ7GHjekz8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848840; c=relaxed/simple;
-	bh=VMPk8iPi43dEtmYkKXt01Gm+7aUp6TmVF3AL6pfOShE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Sku3zUjYp6pNwLCir1l1aF1fofsfCHWgYGN8cGRwGyplaqAuAb5fBxex/v3Z5RGcMr86hCTPzqLpItOkcbGK3RliAzci4U1Qt5L/y/qxklrMkbbapfOhqKsHxu66/YDJIXXUaoNiwVudfVrZTwT23ZU7S42rfI1kSq6xBhYxmoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZIz7gNZh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XFwUxMkY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787848859; c=relaxed/simple;
+	bh=3RgWJPqR+k2kAyb+h26t7VLBS/Y8cHOim0OG+ifIW/A=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=GIR0YWiKQGXxQ8ACaIZPJ+1Uyf4Lp/76xAIFdIJnvelmqWVgpuvS3vaIYzuGHHci4TYYwY0Ms32VvWy5EajLG47tt0ik6oq2c3szgeqUwc6dy9sJBb2nvVQQ61fXhG2UMWv86cWnKy3e6aA8vfLa2fzrjHY2yM6w5jn5Itu9YZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XN5UQnY5; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZIz7gNZh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XFwUxMkY"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFbuD6297107
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:40:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=; b=ZIz7gNZhskc8aILc
-	bxHHRGHVCTVHcxR+fdwonbQlkc2xMG6Bj5l1Ww4O65Rv23O0ZsETh+185LDlOiIZ
-	dwH80625bwDxPNGfd89YQnldI+qBE3j1KpCkhr+achh4lz/lMMsJHCXjAuYtvx/t
-	gNVxzl3rvOomBl0lHWgzGQZVra/2MKlPOMrzxUiVLlcRI3V8gkZCyW9CsKfjE5c3
-	lUEUvSAnxKtL6jSbZKCS57SqfFExVlb5+aZTHFMHCC6WcCI+wH7usBq1tJYMggck
-	aT+SG/rGUpcU61SgW+NGd6FJzusQ8ui6ASFz2j/rs/4hwPDNRaaNGebQWfPuFIc8
-	84Fb9A==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gam6fh8j0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:40:36 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45952ce9ee0so250326fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:40:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XN5UQnY5"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so204965ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:40:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787848836; x=1788453636; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=;
-        b=XFwUxMkYJokW74lkZ5o/78L/CMoOfuEjcrv2MCkLSjWtz5GNXIIPjuPeBHwgz/Y8+d
-         IWgjIW5eC4vqyzauEZ/pP9IUopztL/vlwqYtRTDJz8nxIzNmUZ+YuZL7YGtIk44pfdIs
-         AqDJPWwhgPPsHeaUDybIaPd++dd6vJZKKaQKDHvdJGv9KTa5t278Etu9i7R56WHkqvRq
-         WO4Y4DpJiCZAm02Fg1EydtQoptPbZkR892WifxOJz2c2d3bWLoDfS+phJS0G+XBKBeZm
-         k6i7oiL8QFPdAUZWm/X8ooOJFSPo/O1Jlb0DCUHoxs45m+uvIchEBAsKklx0VpNQWlE6
-         JTXA==
+        d=google.com; s=20251104; t=1787848858; x=1788453658; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EXTcnuR86zTqexqR/SscPdSfeGGfX0bPmu2TCfahQQ4=;
+        b=XN5UQnY5tn4uxiPpTm/sHjbsWwm7W4KjW+eN8JRZ60YQvF8ZDgtC7aGxr9PWD+RIdl
+         x0wJSNpnAEmFoQ9FeWhDpKb1NMHUqAg/E0pDMftITVkTxjvCmYAOUJO8GOiNYGt0HiQA
+         n+TrEkQr3vB6vH/jVoo/FS9VP+E5pyYp9fFB+8GTOTkLc9k4EVFnIGk86q20GQzVE1jw
+         NThU5k2TR8Hc8xXiA6qFEUVb69KeMKABL84ltDG1afAvpHhAcYeuGTHmylr92Ox92AgC
+         Gqg/faki9i0V2fCTebkBDnTe5zonb0uxY1+3VTBON1wtubaXiDpqmdYxchOTiSkurclv
+         vTkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787848836; x=1788453636;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1787848858; x=1788453658;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=;
-        b=njJrcGJp+ZeF2thlKvYH2wkjO+e/MtYgCQ9DCezf8LCVmRPQ8aCpP15LVTIQ7QekYe
-         aA75MnpIMGBSkVyXofyQT2vwPs0uSfJlg4+MCw6KqM6kyCKEvZH9s/MiFPi+aBt9y4w8
-         3w1DcPR0c7pdNvg+J2Vgg9u0Dcfb5WuM33STWkpGUmUMVty0m/w8AqOd28bmdaSLisAT
-         9NFcdBqhBQoh8GKWiYe7WVEKf98gquvRjWDkuPTwBwYjgDz0d5ugnxmQRh+9lwJgVFH5
-         TqnN0r+p1c2Y73enONzLMV/4kT95pF2YQN1xg15pBgcRr5gOe+C0i++1PluJuySgMRJ6
-         CoYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpMoItV6zRQm2jEQKmxKPnMq/OfFi1qFXaE6L/tTYejLmRct/SWlHMhvbzj0wS0Rb+J3Wd8YyQPJfhHFhs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFC1p8VHfSxKBrp8SlHJXX5Q9tlpgWf1U1vH9O81zxGRT4nwm5
-	q6DjjyOdiHQA2Q2YeE7GGvP+fkNYYgyjwtbLlM1Zoee3me416uA6c2kFMVy+TzosrxOSxOoJ5/y
-	oa0HFD9GgnZ2NptbWJ4bscibV888htKxMm/04KYCB346rm/0Ox7LeQz5WIN1nJo6EkWs=
-X-Gm-Gg: AR+sD13WzSciELMx6HqmrytMMQpYMvkm76GiF843eJ3RKRuXDlbTqMcX+46zcUxztZi
-	+zePY4l44LJ4P1nUCO+afXAPhOsfPE/+ISQTqbN304iLWldD0My4JKMpmNRjrfPI8Exq8JrsmIb
-	LKvl4CvaMcDGjXKm7xN0amupJLH+wBm7r+M36zPLPki/Gna9yP0puM/t4hkF2wmG8eGgG90G1/w
-	Jt9lwMJDmIcwh/r/Ose/ku3SslyGykhIhqqF9iE0Kwv1hgRdQ82nCvPcwTnnCWlpiopjuSZMxkN
-	CN1mmDVe9a+U8a9HmObqhGVwxj0T+XLIy8D+/WPIqEp5C+esNyOD2YOoe1mNSqGZ9NWjfx2tAPY
-	TSWudEgANb/iZLoTHyCj7i2+FPl3AOykivMu+HFstxEZdAnXAzDwpZZm+UzzZicfL6CnActeLMq
-	dK3sxFwfrMxOPrJ08A7k/P6JE=
-X-Received: by 2002:a05:6820:618:b0:6a0:f44b:1265 with SMTP id 006d021491bc7-6b1a035e476mr14878585eaf.4.1787848835991;
-        Thu, 27 Aug 2026 09:40:35 -0700 (PDT)
-X-Received: by 2002:a05:6820:618:b0:6a0:f44b:1265 with SMTP id 006d021491bc7-6b1a035e476mr14878512eaf.4.1787848835490;
-        Thu, 27 Aug 2026 09:40:35 -0700 (PDT)
-Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a24bce78sm4253171eaf.3.2026.08.27.09.40.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:40:35 -0700 (PDT)
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 22:08:16 +0530
-Subject: [PATCH v4 15/15] ARM: dts: qcom: Add initial device tree for Kuno
- SoC
+        bh=EXTcnuR86zTqexqR/SscPdSfeGGfX0bPmu2TCfahQQ4=;
+        b=dfYdEBlDFJZq0aar4DIDLSMk7Z7FQRyz479xNC1VrDjVJrdxDpgmeW6+f1zgOujIm8
+         FtKObz17Dw0ayDzwdQ9nGgwORApsBLJRNqsygB5NNKvT6kGQ5cAtHAwb1GfQXl37xv0m
+         CynCPylKRChed4pOUiAx53BXPwoUEgPXfJ8ocNFCFNv/Phu78/K4HyRzQh+a1UrqtsQk
+         uHestQo/5SPgAnd5CPwmOLZ1vc02eyVaYA/V0bBW0v3rKgFceGyVIrp3lrgcEK0jkea9
+         ymmAJnxi7KBSU3yTn76rYXX2xfNIwKE3MFHMkBmQaQuMUxC9t4YCrk95okhO6M4Topec
+         irGA==
+X-Forwarded-Encrypted: i=1; AHgh+RrzfbYvM9G7vH/0J3OtWi9jGhQQRwq4nqbbqT6hvZ8/0bVE9F2Ea/xolwuS6IDzLibviaG5+pvidT8dClc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0CIl4qmVtDC79hdLYF8kb/8O/jv+mOUe2MBh4+0YNpXiw+Ho0
+	36QwrAYfrQb6zbLC0Ww10VdBHBfhmfV0g3ybGSbGI8oj49saqhqazCPcO3gJQVE3KzkCCp3gR8C
+	7X1fx/Q==
+X-Received: from plbmb13.prod.google.com ([2002:a17:903:98d:b0:2d7:1639:625a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22ca:b0:2d6:fd55:3a9d
+ with SMTP id d9443c01a7336-2d74dc111bcmr4867765ad.3.1787848857248; Thu, 27
+ Aug 2026 09:40:57 -0700 (PDT)
+Date: Thu, 27 Aug 2026 09:40:56 -0700
+In-Reply-To: <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+ <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+Message-ID: <apBomFOn1ZqHEnAQ@google.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-kuno-soc-support-v4-15-dd34f235fc1a@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787848688; l=12320;
- i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
- bh=VMPk8iPi43dEtmYkKXt01Gm+7aUp6TmVF3AL6pfOShE=;
- b=SPbz05t3R8boKbDajcmBt7Z66jqziTESt5X5RZnlljA91R+TkwG0nj3SOxGLNyD7pHFtzTe+y
- AZbRkSgMRSQBlNcf+1WEz/9RZpp8mj8iI7RVY+T2Vzb1gFRsNQzPeoB
-X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
- pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfXzJGpdOTON8/7
- hjoX34w6B/uu/svBBE+qzEbVnW/OyWfs64cyPT0yndpS0gWbdOjtWirzWICOFxif5yaUALE+9cO
- tlRhrOwwJyGDF86H2XboXrZMYFkfM8M=
-X-Proofpoint-GUID: jgxuss6jGi2cGMevbD05JAaRIqNZih5E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfX+WsCTxFm6RWT
- slfDIZN8dAOHx28Z26RQaJx08tnUHLbzjVnldZihcwzl/RcxBOdRW08YC1MdZcm7NIwJCcxLWNA
- n6+LGH9jCsuHE8QX/mMhh9LT19fL5YUuwXdojGOB/08t1vuSvLGByMYCcZ6FczS7QnjMDcC3nVJ
- 4Au50xum2M0TTLEANRI+i5nN1nzcNX0y4ORkbtqr32dNhjfC+X2/CI3IvTl6DGspjL0Wj29vQkX
- PJgxsS+l5HC+PXHrk389CBq/Jao3HB1kxoy/UcpBn/YzWycZC4pwlVP2McVkg3xbsx2Jk1OfqsD
- G9CQVbFAMBp/6NrvkZ8sl3YNVWyDueRZxKZIJCNcqG++U6EOmAd5RiiLC4exJXgeT9K/sB0QgMO
- oo2YF31NhKGc5MxaVUcrJc2XiOfF6yi/SV+99YIowAp64Ob0833rwFuH0Zi1LC/dEeXuVa2Ighj
- 2cJOzJu8Bf74Jt21P3Q==
-X-Authority-Analysis: v=2.4 cv=eIgjSnp1 c=1 sm=1 tr=0 ts=6a906884 cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=lKFnvmfiA1OmcLezn0cA:9 a=QEXdDO2ut3YA:10
- a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-ORIG-GUID: jgxuss6jGi2cGMevbD05JAaRIqNZih5E
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- bulkscore=0 phishscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270140
+Content-Transfer-Encoding: quoted-printable
 
-Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
-(qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
+On Wed, Aug 26, 2026, Yosry Ahmed wrote:
+> On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@googl=
+e.com> wrote:
+> >
+> > Dedup the assembly code from VMLAUNCH vs. VMRESUME, the difference is
+> > literally only the actual VM-Enter instruction.
+>=20
+> You couldn't resist macrofiying this too.
 
-Peripherals included in this initial set:
-  - Single Cortex-A7 CPU with PSCI idle states
-  - RPMh RSC with clock controller, power domains, and BCM voter
-  - GCC (Global Clock Controller)
-  - TLMM pin controller (110 GPIOs)
-  - Interconnect (aggre-noc, cnoc-main)
-  - GENI UART console (QUP SE3)
-  - SMEM, hardware spinlocks (TCSR mutex)
+It's either that or throw a branch in the asm blob, which is surprisingly
+difficult because VMX_SWITCH_GPRS_ASM subtly clobbers RFLAGS and obviously
+clobbers GPRs.  Which basically leaves pushing the value on the stack, whic=
+h is
+totally doable, but still annoying, and needs to be done immediately, befor=
+e
+vmcs.HOST_RSP is loaded.  Branching at runtime also makes the generated cod=
+e
+harder to read, e.g. when debugging, as it's not immediately obvious which
+instruction was actually attempted.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
----
- arch/arm/boot/dts/qcom/Makefile          |   1 +
- arch/arm/boot/dts/qcom/qcom-kuno-idp.dts |  25 ++
- arch/arm/boot/dts/qcom/qcom-kuno.dtsi    | 423 +++++++++++++++++++++++++++++++
- 3 files changed, 449 insertions(+)
+That said, looking at this again made me realize evmcs_{vmlaunch,vmresume}(=
+) have
+the same core copy+paste mess.  Blech.  Macrofying the standard flows but n=
+ot the
+eVMCS flows is rather silly.
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index 026d5b682b2b..7327a7b8180e 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -26,6 +26,7 @@ dtb-$(CONFIG_ARCH_QCOM) += \
- 	qcom-ipq4019-ap.dk07.1-c2.dtb \
- 	qcom-ipq8064-ap148.dtb \
- 	qcom-ipq8064-rb3011.dtb \
-+	qcom-kuno-idp.dtb \
- 	qcom-msm8226-microsoft-dempsey.dtb \
- 	qcom-msm8226-microsoft-makepeace.dtb \
- 	qcom-msm8226-microsoft-moneypenny.dtb \
-diff --git a/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts b/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts
-new file mode 100644
-index 000000000000..c2f6650d3fe6
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "qcom-kuno.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Kuno IDP";
-+	compatible = "qcom,kuno-idp", "qcom,kuno";
-+
-+	aliases {
-+		serial0 = &uart3;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&uart3 {
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/qcom/qcom-kuno.dtsi b/arch/arm/boot/dts/qcom/qcom-kuno.dtsi
-new file mode 100644
-index 000000000000..d0c6e3f21a14
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/qcom-kuno.dtsi
-@@ -0,0 +1,423 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <dt-bindings/clock/qcom,kuno-gcc.h>
-+#include <dt-bindings/clock/qcom,rpmh.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/power/qcom,rpmhpd.h>
-+#include <dt-bindings/power/qcom-rpmpd.h>
-+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&intc>;
-+
-+	clocks {
-+		xo_board: xo-board {
-+			compatible = "fixed-clock";
-+			clock-frequency = <38400000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a7";
-+			reg = <0x0>;
-+			enable-method = "psci";
-+			cpu-idle-states = <&little_cpu_sleep_0>,
-+					  <&little_cpu_sleep_1>;
-+			power-domains = <&cpu_pd0>;
-+			power-domain-names = "psci";
-+		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+
-+			little_cpu_sleep_0: cpu-sleep-0 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "standalone-pc";
-+				entry-latency-us = <350>;
-+				exit-latency-us = <450>;
-+				min-residency-us = <1774>;
-+				arm,psci-suspend-param = <0x40000003>;
-+				local-timer-stop;
-+			};
-+
-+			little_cpu_sleep_1: cpu-sleep-1 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "pc";
-+				entry-latency-us = <550>;
-+				exit-latency-us = <750>;
-+				min-residency-us = <6700>;
-+				arm,psci-suspend-param = <0x40000004>;
-+				local-timer-stop;
-+			};
-+		};
-+
-+		domain-idle-states {
-+			cluster_sleep_0: cluster-sleep-0 {
-+				compatible = "domain-idle-state";
-+				idle-state-name = "cx-min";
-+				entry-latency-us = <750>;
-+				exit-latency-us = <2350>;
-+				min-residency-us = <9144>;
-+				arm,psci-suspend-param = <0x40000008>;
-+			};
-+		};
-+	};
-+
-+	firmware {
-+		scm {
-+			compatible = "qcom,scm-kuno", "qcom,scm";
-+		};
-+	};
-+
-+	memory {
-+		device_type = "memory";
-+		/* Bootloader will fill base and size */
-+		reg = <0x0 0x0>;
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-1.0";
-+		method = "smc";
-+
-+		cpu_pd0: power-domain-cpu0 {
-+			#power-domain-cells = <0>;
-+			power-domains = <&cluster_pd>;
-+		};
-+
-+		cluster_pd: power-domain-cluster {
-+			#power-domain-cells = <0>;
-+			domain-idle-states = <&cluster_sleep_0>;
-+		};
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		quickboot@82100000 {
-+			reg = <0x82100000 0x100000>;
-+			no-map;
-+		};
-+
-+		aop-image@82200000 {
-+			reg = <0x82200000 0x20000>;
-+			no-map;
-+		};
-+
-+		aop-cmd-db@82220000 {
-+			compatible = "qcom,cmd-db";
-+			reg = <0x82220000 0x20000>;
-+			no-map;
-+		};
-+
-+		aop-config@82240000 {
-+			reg = <0x82240000 0x20000>;
-+			no-map;
-+		};
-+
-+		uefi-log@82260000 {
-+			reg = <0x82260000 0x10000>;
-+			no-map;
-+		};
-+
-+		ipa-fw@82270000 {
-+			reg = <0x82270000 0x10000>;
-+			no-map;
-+		};
-+
-+		smem@82280000 {
-+			compatible = "qcom,smem";
-+			reg = <0x82280000 0xc0000>;
-+			hwlocks = <&tcsr_mutex 3>;
-+			no-map;
-+		};
-+
-+		tme-crashdump@82340000 {
-+			reg = <0x82340000 0x40000>;
-+			no-map;
-+		};
-+
-+		tme-log@82380000 {
-+			reg = <0x82380000 0x4000>;
-+			no-map;
-+		};
-+
-+		access-control-db@82384000 {
-+			reg = <0x82384000 0x40000>;
-+			no-map;
-+		};
-+
-+		secdata@823c4000 {
-+			reg = <0x823c4000 0x1000>;
-+			no-map;
-+		};
-+
-+		modem-efs@823c5000 {
-+			reg = <0x823c5000 0x10000>;
-+			no-map;
-+		};
-+
-+		cpucp-fw@82400000 {
-+			reg = <0x82400000 0x80000>;
-+			no-map;
-+		};
-+
-+		xbl-dt-log@824c0000 {
-+			reg = <0x824c0000 0x20000>;
-+			no-map;
-+		};
-+
-+		qtee@82500000 {
-+			reg = <0x82500000 0x180000>;
-+			no-map;
-+		};
-+
-+		trusted-apps@82680000 {
-+			reg = <0x82680000 0x600000>;
-+			no-map;
-+		};
-+
-+		mpss-audio@82e00000 {
-+			reg = <0x82e00000 0x5a00000>;
-+			no-map;
-+		};
-+	};
-+
-+	soc: soc@0 {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0 0 0xffffffff>;
-+
-+		gcc: clock-controller@80000 {
-+			compatible = "qcom,kuno-gcc";
-+			reg = <0x00080000 0x1f4200>;
-+			clocks = <&rpmhcc RPMH_CXO_CLK>,
-+				 <&rpmhcc RPMH_CXO_CLK_A>,
-+				 <&sleep_clk>,
-+				 <0>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		qup0: geniqup@9c0000 {
-+			compatible = "qcom,geni-se-qup";
-+			reg = <0x009c0000 0x2000>;
-+			clocks = <&gcc GCC_QUPV3_WRAP_0_M_AHB_CLK>,
-+				 <&gcc GCC_QUPV3_WRAP_0_S_AHB_CLK>;
-+			clock-names = "m-ahb", "s-ahb";
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges = <0x0 0x0 0x0 0x0 0x1000000>;
-+
-+			uart3: serial@98c000 {
-+				compatible = "qcom,geni-debug-uart";
-+				reg = <0x0 0x0098c000 0x0 0x4000>;
-+				interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&gcc GCC_QUPV3_WRAP0_S3_CLK>;
-+				clock-names = "se";
-+				pinctrl-0 = <&uart_console_active>;
-+				pinctrl-1 = <&uart_console_sleep>;
-+				pinctrl-names = "default", "sleep";
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		cnoc_main: interconnect@1580000 {
-+			compatible = "qcom,kuno-cnoc-main";
-+			reg = <0x01580000 0x19200>;
-+			#interconnect-cells = <1>;
-+			qcom,bcm-voters = <&apps_bcm_voter>;
-+		};
-+
-+		aggre_noc: interconnect@1640000 {
-+			compatible = "qcom,kuno-aggre-noc";
-+			reg = <0x01640000 0x33400>;
-+			clocks = <&gcc GCC_SYS_NOC_USB_SF_AXI_CLK>,
-+				 <&rpmhcc RPMH_IPA_CLK>;
-+			#interconnect-cells = <1>;
-+			qcom,bcm-voters = <&apps_bcm_voter>;
-+		};
-+
-+		tcsr_mutex: hwlock@1f40000 {
-+			compatible = "qcom,tcsr-mutex";
-+			reg = <0x01f40000 0x40000>;
-+			#hwlock-cells = <1>;
-+		};
-+
-+		pdc: interrupt-controller@b220000 {
-+			compatible = "qcom,kuno-pdc", "qcom,pdc";
-+			reg = <0x0b220000 0x10000>;
-+			qcom,pdc-ranges = <1 148 6>,
-+					  <9 156 2>,
-+					  <17 164 7>;
-+			#interrupt-cells = <2>;
-+			interrupt-parent = <&intc>;
-+			interrupt-controller;
-+		};
-+
-+		restart@c264000 {
-+			compatible = "qcom,pshold";
-+			reg = <0x0c264000 0x1000>;
-+		};
-+
-+		tlmm: pinctrl@f000000 {
-+			compatible = "qcom,kuno-tlmm";
-+			reg = <0x0f000000 0x400000>;
-+			interrupts = <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&tlmm 0 0 110>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+
-+			uart_console_active: uart-console-active-state {
-+				pins = "gpio8", "gpio9";
-+				function = "qup0_se3_mira";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			uart_console_sleep: uart-console-sleep-state {
-+				pins = "gpio8", "gpio9";
-+				function = "gpio";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+		};
-+
-+		intc: interrupt-controller@17000000 {
-+			compatible = "qcom,msm-qgic2";
-+			reg = <0x17000000 0x1000>,
-+			      <0x17002000 0x1000>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+		};
-+
-+		timer@17020000 {
-+			compatible = "arm,armv7-timer-mem";
-+			reg = <0x17020000 0x1000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges;
-+
-+			frame@17021000 {
-+				reg = <0x17021000 0x1000>,
-+				      <0x17022000 0x1000>;
-+				frame-number = <0>;
-+				interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
-+					     <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+		};
-+
-+		apps_rsc: rsc@17040000 {
-+			compatible = "qcom,rpmh-rsc";
-+			reg = <0x17040000 0x10000>,
-+			      <0x17050000 0x10000>,
-+			      <0x17060000 0x10000>;
-+			reg-names = "drv-0",
-+				    "drv-1",
-+				    "drv-2";
-+			interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+				     /* drv-1: placeholder (unused) */
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			qcom,tcs-offset = <0xd00>;
-+			qcom,drv-id = <2>;
-+			qcom,tcs-config = <ACTIVE_TCS 2>,
-+					  <SLEEP_TCS 3>,
-+					  <WAKE_TCS 3>,
-+					  <CONTROL_TCS 1>;
-+			power-domains = <&cluster_pd>;
-+
-+			rpmhcc: clock-controller {
-+				compatible = "qcom,kuno-rpmh-clk";
-+				clocks = <&xo_board>;
-+				clock-names = "xo";
-+				#clock-cells = <1>;
-+			};
-+
-+			rpmhpd: power-controller {
-+				compatible = "qcom,kuno-rpmhpd";
-+				#power-domain-cells = <1>;
-+				operating-points-v2 = <&rpmhpd_opp_table>;
-+
-+				rpmhpd_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					rpmhpd_opp_ret: opp1 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_RETENTION>;
-+					};
-+
-+					rpmhpd_opp_min_svs: opp2 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+					};
-+
-+					rpmhpd_opp_low_svs: opp3 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					};
-+
-+					rpmhpd_opp_svs: opp4 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					};
-+
-+					rpmhpd_opp_svs_l1: opp5 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					};
-+
-+					rpmhpd_opp_nom: opp6 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					};
-+
-+					rpmhpd_opp_nom_l1: opp7 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					};
-+
-+					rpmhpd_opp_nom_l2: opp8 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L2>;
-+					};
-+
-+					rpmhpd_opp_turbo: opp9 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					};
-+
-+					rpmhpd_opp_turbo_l1: opp10 {
-+						opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+					};
-+				};
-+			};
-+
-+			apps_bcm_voter: bcm-voter {
-+				compatible = "qcom,bcm-voter";
-+			};
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv7-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
-+};
+Inlining these blobs *twice* (VMCS vs. eVMCS) at every VM-Enter is also rid=
+iculous.
+E.g. at a glance, it's responsible for something ~100k bytes of code in the=
+ compiled
+state_test.  While the code footprint of selftests isn't a priority, that's=
+ still
+absurd.
 
--- 
-2.43.0
+So instead of macrofying everything, how about this?  Depending on how one =
+feels
+about macro shenanigans, it's either horrific or amazing.  Or both.  But IM=
+O it's
+worth eliminating all of the copy+paste, and it makes the control flow much=
+ easier
+to read, which in practice is likely what most people care about?  At least=
+ until
+the entry/exit sequence fails and they have to debug macro hell :-)
 
+vmx.c:
+
+ =20
+  #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwrite_o=
+perand,	\
+  				    __host_rsp, __host_rip)				\
+  static int __##prefix##_##insn(void)							\
+  {											\
+  	int ret;									\
+  											\
+  	__asm__ __volatile__("push $0;"							\
+  			     __stringify(vmwrite_insn) " %%rsp, %[host_rsp];"		\
+  			     "lea 1f(%%rip), %%rax;"					\
+  			     __stringify(vmwrite_insn) " %%rax, %[host_rip];"		\
+  			     VMX_SWITCH_GPRS_ASM					\
+  			     __stringify(insn)";"					\
+  			     "incq (%%rsp);"						\
+  			     "1: ;"							\
+  			     VMX_SWITCH_GPRS_ASM					\
+  			     "pop %%rax;"						\
+  			     : [ret]"=3D&a"(ret)						\
+  			     : [host_rsp]__stringify(vmwrite_operand)(__host_rsp),	\
+  			       [host_rip]__stringify(vmwrite_operand)(__host_rip),	\
+  			       GUEST_REGS_OFFSETS					\
+  			     : "memory", "cc");						\
+  	return ret;									\
+  }
+ =20
+  #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
+  	__BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RSP, (u64)HOS=
+T_RIP)	\
+  	__BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,				\
+  				    current_evmcs->host_rsp, current_evmcs->host_rip)
+ =20
+  BUILD_VMX_VM_ENTRY_HELPER(vmlaunch)
+  BUILD_VMX_VM_ENTRY_HELPER(vmresume)
+ =20
+  int __vmlaunch(void)
+  {
+  	if (enable_evmcs) {
+  		current_evmcs->hv_clean_fields =3D 0;
+  		return ____evmcs_vmlaunch();
+  	}
+ =20
+  	return ____vmlaunch();
+  }
+ =20
+  int __vmresume(void)
+  {
+  	if (enable_evmcs) {
+  		/* HOST_RIP */
+  		current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_CLEAN_FIELD_HOS=
+T_GRP1;
+  		/* HOST_RSP */
+  		current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_CLEAN_FIELD_HOS=
+T_POINTER;
+  		return ____evmcs_vmresume();
+  	}
+ =20
+  	return ____vmresume();
+  }
+
+vmx.h:
+
+  int __vmlaunch(void);
+  int __vmresume(void);
+ =20
+  static inline int vmlaunch(void)
+  {
+  	return __vmlaunch();
+  }
+ =20
+  static inline int vmresume(void)
+  {
+  	return __vmresume();
+  }
+
+And then the next patch becomes:
+
+    KVM: selftests: Assert success in vmlaunch() and vmresume()
+   =20
+    Assert success in the "outer" APIs for VMLAUNCH and VMRESUME to dedup a
+    pile of code, and switch to the double-underscores versions as necessar=
+y,
+    to make it more obvious which paths expect VM-Enter *failure*.
+   =20
+    Signed-off-by: Sean Christopherson <seanjc@google.com>
+
+diff --git tools/testing/selftests/kvm/include/x86/vmx.h tools/testing/self=
+tests/kvm/include/x86/vmx.h
+index d0ac8e128d98..1419043b41dd 100644
+--- tools/testing/selftests/kvm/include/x86/vmx.h
++++ tools/testing/selftests/kvm/include/x86/vmx.h
+@@ -362,14 +362,14 @@ static inline u64 vmptrst(void)
+ int __vmlaunch(void);
+ int __vmresume(void);
+=20
+-static inline int vmlaunch(void)
++static inline void vmlaunch(void)
+ {
+-	return __vmlaunch();
++	__GUEST_ASSERT(!__vmlaunch(), "vmlaunch hit VM-Fail");
+ }
+=20
+-static inline int vmresume(void)
++static inline void vmresume(void)
+ {
+-	return __vmresume();
++	__GUEST_ASSERT(!__vmresume(), "vmresume hit VM-Fail");
+ }
+=20
+ static inline void vmcall(void)
+
+> > +#define BUILD_VMX_VM_ENTRY_HELPERS(insn)                              =
+ \
+>=20
+> s/HELPERS/HELPER?
+>=20
+> or maybe better: DEFINE_VMX_VM_ENTRY_HELPER()?
+
+Because after the next patch, there are two helpers for each instruction, v=
+mresume()
+and __vmresume(), and churning the macros to add the 'S' felt silly.  But, =
+with the
+above, this is a moot point.
+
+> With the rename:
+>=20
+> Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+>=20
+> (Who's f734222792@gmail.com?)
+
+An anonymous bug reporter: https://bugzilla.kernel.org/show_bug.cgi?id=3D22=
+1841
