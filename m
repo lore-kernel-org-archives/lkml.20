@@ -1,154 +1,234 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205F437A826
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C5137C119
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787794599; cv=none; b=dAQtfuWs4loLknwIUxVP1TAXz0abL4wQ6g1aLBIDPq6qGr5gGbDDtucwsZQRf3ATcmr3E+nUTFCn0uIzAweJQhF6Amvm0HFAAlMf2Yu2Clxml5RhTHdlGdk0cYUOUEt1ztR6Y1Ta80BBwKV8Bj61uCcEGRD5G5AHhbm/CTA6McE=
+	t=1787794646; cv=none; b=Lly00Nc60b070X7PgsoxvT4IGwg+nknjcz2vnuLfrnjfeLfi+CNBKx6V9LsSQtjkKoDUNVR2iOTPDh7I8DdoN+ht2IQBfpmLg57cZrkBR8McynyB871x+hzgEAwOgYTHvcpYc+LOKZsQpWwUHkoX7wPxgW9LjWqdB5bJxdm817U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787794599; c=relaxed/simple;
-	bh=8o4QhqDTzyiRPqZdKBYvXh4MWPFiKRWcYZxGTdgZi7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OImX/Ayq5Szu8FzlycbEFr0fZgRiKIvrFzwHN2ZI7P2eFAImL/TNuzrFb+JbQoZpVmRP4VFYWigjnpGhhZ1x0RmzAwBjVSWUFPURNc60Eb1m17ZSD3KEZVD1kZB5XbK8yDieBLT3TFef+fBhT6SxXvvGk1hy4oC4bpUn1k/GzD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaS8bosp; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787794646; c=relaxed/simple;
+	bh=htyAKBUKag4BkmqelGoVlxjJ7s9eT/i2PDyfgKhi+pQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQ8B6LDGZ7CsBSnBqd+hx9SdM/AbgoM1Rar9oRFHrbqgeUPlF3sAQzi+fUq9C5X/PTLOqUPWB1BPfD55r9fyoaPKN26of7NLHLh5wmNMqOX7KGhV9mFi+tZomXb3Er5+yJ4FVLGNPT1gsaCzWPlIWbnAZGwFrNkIK4+89XPFZ6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=utTf4NcU; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaS8bosp"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso2187978a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:36:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787794596; x=1788399396; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P8RslJAAyqdhFQpyr/sYYgRXhKwruiBZvG6osvNqKxk=;
-        b=PaS8bospJeklCDTCXrREPGzFxpUsdegBhhhnglLtejoTiXIl4pt1yCQNesm3++5lQy
-         XFrnFrtDRzBOjgeSo3B8wyUBa2YohkYLYXHSARZUS9Dtf0jVSZR9phnfKjLlvVYghTGT
-         GoagHLY4PuqgEG7J0QwEtz7v0lSe3cK0T2az6wtqcGW/EshQLP14Dg+vdszfMBcBRfOl
-         dsc/xoTJr30MsAQc5PeySFm3XJI3ph2ZHgCPpNZvQptLo2S55x/bUdQeJdTLrSG3XQmI
-         Q0TohLUBFzjKZNq8LP4MKhZFLy1nVqP4pqE+CSmE1Lcv8Qz2bjA9QBustVolr/pDDTyy
-         onzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787794596; x=1788399396;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P8RslJAAyqdhFQpyr/sYYgRXhKwruiBZvG6osvNqKxk=;
-        b=L6ekY6v7CU/ogKxqvzppx36+v47OEEUTMVS1IS7JaRc3TPSc9JX2p5xATDSc9hzcOx
-         aa/2fgAUp1dj5k+5R4va7ZIAs59OMTX8HfJHgjoBlk8mzWyl+vjNqUwYFcZAiehcVdQs
-         yjN7S3wLRSRSicyq5ejfKF/SdFYEW8HX9ihqKL2pQt5Q3TqXR6a0R7wG7r/3E9pnOakl
-         VO8K+2H9bS26L6DADBynLHC/MTwAqCCiTQh80cCRoIXy/IZFgc0c9mQ2bkwmUli4N2eM
-         NhMQmPOYjqNTVTXMRe9kiD0ukLoAGSLPEgO5bC8kYxX0F0xw3LIdburvmJJsjNatTe5c
-         6bDA==
-X-Forwarded-Encrypted: i=1; AHgh+RqVpa/rmsLW5IV96oiYapmNFPqTSImEg4lik+l1XjVyVv57HAw12dbbWRSon5scyAWi0jivMpcf1onLmQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFwOURuPRY4akUQ8qeNGNmLjqzg68UR61t3/M0mzcDpl4vmKC5
-	lZADkT9tfifmlaYrCVsdeJA4kbMJ08o7lBLMSOdxT0bmNBbdv9iG9Uco
-X-Gm-Gg: AR+sD13B/VpCK7XWu7tF1x3k13MyFvdbtdhcY1IFmOMjI9Q43ZN36H13Zax1eCNLBPu
-	BGDNZlLqc2zksWdBLYhzIvCBK4WcWdktoS9LsbzSdenMfIk3Xa1n+PCso7z3Wx+y2dfrYuZ3FAd
-	nIx4D25hislqSsZ2s3EJretHq8YK8Z9OUeUrCsX8Qo8cRoqNcFXpEltcQvdmHBa6AJQEoKKGnN5
-	CRMxhD/L5Y2Sjp4chtQGyd1JpT3jb7DgOIvuRvz8CC2f97qDhvjnEOOe8nL9fRSZmUt6Q+gNEq8
-	DARbnlR/iXdECGvcK1Nz0Kh2FJW/PYaq/2gJs2wHknKtC2xTx+ZO9svhu8+NCYiXpG+kODGOu1J
-	a2ZWh4ETH0oaAxn85mtQyP49FS+wBXorxxKXtoHZ4erbpQvHHR933nSqE3S8OYTRf5D/dA1yCPU
-	4c69E1tLdAyDqpgUL/P3xeCXepwb+Ku+KcvAv/2dZwV3283Klbp4s76KFNX90yPSbBSEfoAZ1KS
-	d+RMJzXYxlPSBnEQ33hND4ySlZp2WErSKchr+UQG22SQ77c4PB5aqXr0kJcHK194J6FLcmHRhtn
-	Hlo/ACvJwBMx9hr7QvP/aRwpCLZUA5FxnPr+PCAa0gmfcf8K
-X-Received: by 2002:a17:90b:390a:b0:396:5785:843 with SMTP id 98e67ed59e1d1-3966d203a94mr20643518a91.8.1787794596431;
-        Wed, 26 Aug 2026 18:36:36 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea7fa9sm551887a91.4.2026.08.26.18.36.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 18:36:35 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Imre Kaloz <kaloz@openwrt.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/INTEL IXP4XX ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: ixp4xx_eth: handle probe deferral from of_get_mac_address()
-Date: Wed, 26 Aug 2026 18:36:34 -0700
-Message-ID: <20260827013634.167932-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="utTf4NcU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=htyAKBUKag4BkmqelGoVlxjJ7s9eT/i2PDyfgKhi+pQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787794641; v=1; x=1788399441;
+ b=utTf4NcU4n4TAvT83CXkJlQuWI5F9l6oAwfGYXPaHINyrIH/Dv9j91QVa6tPrjNMJsgSzrVM
+ oA7331wY/Z/ZOOCr+e+LdDsf9BveJqQUKuokTVX3RQHi/SyJWXio1XQ0pHcLLcIea8PI53GlPw0
+ c6utCRWxj5NUf4p8C7tf2zmM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from [10.63.107.123] (14.29.108.92)
+	by smtp.migadu.com with ESMTPS id 00f404dab48392af;
+	Thu, 27 Aug 2026 01:37:21 +0000
+X-Mizu-Trace-ID: 00f404dab48392af
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <49c19d73-beca-473f-96b9-23ff8ee9d445@linux.dev>
+Date: Thu, 27 Aug 2026 09:37:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>, David Hildenbrand
+ <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260826133054.88529-1-ridong.chen@linux.dev>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260826133054.88529-1-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ixp4xx_of_get_platdata() returns NULL on failure, which the probe converts
-to -ENODEV, discarding the real cause of the failure. Return ERR_PTR()
-with the appropriate error so callers can distinguish cases such as
-missing DT properties (-EINVAL) and, importantly, handle -EPROBE_DEFER
-from of_get_mac_address().
 
-Fixes: 95aafe911db6 ("net: ethernet: ixp4xx: Support device tree probing")
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/ethernet/xscale/ixp4xx_eth.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/xscale/ixp4xx_eth.c b/drivers/net/ethernet/xscale/ixp4xx_eth.c
-index b0faa0f1780d..b8889f87ca03 100644
---- a/drivers/net/ethernet/xscale/ixp4xx_eth.c
-+++ b/drivers/net/ethernet/xscale/ixp4xx_eth.c
-@@ -1444,13 +1444,13 @@ static struct eth_plat_info *ixp4xx_of_get_platdata(struct device *dev)
- 
- 	plat = devm_kzalloc(dev, sizeof(*plat), GFP_KERNEL);
- 	if (!plat)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	ret = of_parse_phandle_with_fixed_args(np, "intel,npe-handle", 1, 0,
- 					       &npe_spec);
- 	if (ret) {
- 		dev_err(dev, "no NPE engine specified\n");
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 	/* NPE ID 0x00, 0x10, 0x20... */
- 	plat->npe = (npe_spec.args[0] << 4);
-@@ -1468,7 +1468,7 @@ static struct eth_plat_info *ixp4xx_of_get_platdata(struct device *dev)
- 					       &queue_spec);
- 	if (ret) {
- 		dev_err(dev, "no rx queue phandle\n");
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 	plat->rxq = queue_spec.args[0];
- 
-@@ -1477,11 +1477,13 @@ static struct eth_plat_info *ixp4xx_of_get_platdata(struct device *dev)
- 					       &queue_spec);
- 	if (ret) {
- 		dev_err(dev, "no txready queue phandle\n");
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 	plat->txreadyq = queue_spec.args[0];
- 
- 	ret = of_get_mac_address(np, mac);
-+	if (ret == -EPROBE_DEFER)
-+		return ERR_PTR(ret);
- 	if (!ret) {
- 		dev_info(dev, "Setting macaddr from DT %pM\n", mac);
- 		memcpy(plat->hwaddr, mac, ETH_ALEN);
-@@ -1501,8 +1503,8 @@ static int ixp4xx_eth_probe(struct platform_device *pdev)
- 	int err;
- 
- 	plat = ixp4xx_of_get_platdata(dev);
--	if (!plat)
--		return -ENODEV;
-+	if (IS_ERR(plat))
-+		return PTR_ERR(plat);
- 
- 	if (!(ndev = devm_alloc_etherdev(dev, sizeof(struct port))))
- 		return -ENOMEM;
+On 8/26/2026 9:30 PM, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> memory.min/low is silently bypassed for MGLRU during global proactive
+> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+> It can be reproduced as follows:
+> 
+>    # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>    # cd /sys/fs/cgroup
+>    # mkdir -p a/b
+>    # echo 100M > a/memory.min
+>    # echo +memory > a/cgroup.subtree_control
+>    # echo 100M > a/b/memory.min
+>    # echo $$ > a/b/cgroup.procs
+>    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>    # cat a/b/memory.current
+>    222650368
+>    # echo 500M > memory.reclaim
+>    -bash: echo: write error: Resource temporarily unavailable
+>    # cat a/b/memory.current
+>    6070272
+> 
+> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+> protection.  The traditional LRU path is not affected because
+> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+> visits during a top-down tree walk.
+> 
+> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+> moved the protection computation into lru_gen_age_node(), which only
+> runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+> lru_gen_shrink_node() -> shrink_many() without any protection
+> computation, so emin/elow remain stale or zero.
+> 
+> Introduce mem_cgroup_protection_path() which computes emin/elow along
+> the root-to-target path only by iterating through the cgroup ancestors
+> array top-down.  This avoids the full tree traversal that would be
+> needed with mem_cgroup_calculate_protection(), limiting the cost to
+> O(depth) per memcg - typically 3-5 levels.
+> 
+
+Hi all,
+
+This is an RFC patch.
+
+My initial attempt to address this issue involved traversing the entire memcg 
+tree, similar to what kswapd does. However, Sashiko raised concerns that this 
+could introduce performance regressions [1].
+
+To address that, this patch instead walks the cgroup ancestors array in a 
+top-down manner, as outlined above, and I'd like to gather feedback on this 
+approach.
+
+[1] https://lore.kernel.org/linux-mm/20260723130559.2343690-1-ridong.chen@linux.dev/
+
+> Call it from shrink_one() for the non-kswapd path so that each memcg
+> about to be shrunk has correct protection values.
+> 
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>   include/linux/memcontrol.h |  7 +++++++
+>   mm/memcontrol.c            | 42 ++++++++++++++++++++++++++++++++++++++
+>   mm/vmscan.c                |  8 +++++++-
+>   3 files changed, 56 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 7d1c0ce189a8..26be8277d64b 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -605,6 +605,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+>   
+>   void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>   				     struct mem_cgroup *memcg);
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +				struct mem_cgroup *memcg);
+>   
+>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>   					  struct mem_cgroup *memcg)
+> @@ -1133,6 +1135,11 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>   {
+>   }
+>   
+> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +					      struct mem_cgroup *memcg)
+> +{
+> +}
+> +
+>   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>   					  struct mem_cgroup *memcg)
+>   {
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 1271d390b617..c739db33b917 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>   	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+>   }
+>   
+> +/**
+> + * mem_cgroup_protection_path - compute protection along root->memcg path
+> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
+> + * @memcg: the target memory cgroup
+> + *
+> + * Walk the ancestor path from @root down to @memcg and compute the effective
+> + * protection at each level.  This is safe for isolated queries because it
+> + * ensures parents are computed before children.
+> + */
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +				struct mem_cgroup *memcg)
+> +{
+> +	bool recursive_protection =
+> +		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
+> +	struct cgroup *cg;
+> +	int root_level, i;
+> +
+> +	if (mem_cgroup_disabled())
+> +		return;
+> +
+> +	if (!root)
+> +		root = root_mem_cgroup;
+> +
+> +	if (memcg == root)
+> +		return;
+> +
+> +	root_level = root->css.cgroup->level;
+> +	cg = memcg->css.cgroup;
+> +
+> +	rcu_read_lock();
+> +	for (i = root_level + 1; i <= cg->level; i++) {
+> +		struct mem_cgroup *cur;
+> +
+> +		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
+> +						    &memory_cgrp_subsys));
+> +		if (cur)
+> +			page_counter_calculate_protection(&root->memory,
+> +					&cur->memory, recursive_protection);
+> +	}
+> +	rcu_read_unlock();
+> +}
+> +
+>   static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+>   			gfp_t gfp)
+>   {
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 6dff207ad8c6..e572d2742c8c 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+>   	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+>   	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>   
+> -	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
+> +	/*
+> +	 * For kswapd, lru_gen_age_node() has already called
+> +	 * mem_cgroup_calculate_protection()
+> +	 */
+> +	if (!current_is_kswapd())
+> +		mem_cgroup_protection_path(NULL, memcg);
+> +
+>   	if (mem_cgroup_below_min(NULL, memcg))
+>   		return MEMCG_LRU_YOUNG;
+>   
+
 -- 
-2.55.0
+Best regards
+Ridong
 
