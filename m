@@ -1,208 +1,139 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8984DA537
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4D84D90A1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856829; cv=none; b=ZKqhU3vVFlXwZ/JuEToBP+AMVei35oVNbsBdo5/NnjQuR5Q1TexjZa7h0kWAR2GJF/nDdn6vbu54EnM07YXAwvB2/j9KQmK8vPdXu6VMFJfv9U4cV5wmL4zfq8ySacy2TEJLGkRGQqL+j6YEMbDhln3Z0OoGZWgYaxtNOvWuAkw=
+	t=1787856867; cv=none; b=LAfeCW7lFybmlCXJVFaGG/aIQOTClihDgJBVmA1lJ3p1M33JlXTwb3vnsxyikIV2yo0mtyoQqAHRQmn9ThiTM+1NIKlwSnbovDqOUo3z3gNmQed8nggET5N5Kaix14S0X9KIJm19N+1KuAYv3Ye2JbX/C8vJhKfzhLfT2UbDbFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856829; c=relaxed/simple;
-	bh=3evSWErH5X9gbxTM+X5A5VAKoMQxNhR3lW84sXuwYgA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=q1joz42LAoUCRziQFk0Tb9H97oycbeFt57Sb9RwhQF27EeUX/LUFyok4VHiORYqS5J2Cl2GhoS1jvdoFD/Qbq9y+2lt89m35/eEQRySm8PKbtqZlf5ku+b71Ts2dz1IW43T/OchPPbb8kgOPeUE3AWnU2E81DHcPO43PMAJlAzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-4489b7aa0e7so2615fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:53:26 -0700 (PDT)
+	s=arc-20240116; t=1787856867; c=relaxed/simple;
+	bh=Rt8ALBK0oQhAgyKgcFtv4DDLxR5VZFbjwVXygxIm3jw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hGS4IrFRRecGbXQ9jWLzrGOw+bITjp6w5Odtk2b9OH1Vf9d+2O4z6Q2EZgz7RqeFdQEk+rAF7AXdJfvXVC6pR+JtPCa5X5A1VgdLAnmewEkhgINR0YkEg8C4Qs/D+OsksKvyDmkwoOmuL7lkPeHWfTqldXo8RfQWt8wAW9zD+pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D3xYvG9F; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D3xYvG9F"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482dbc9a00bso938554f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787856854; x=1788461654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DXZbVhYz9N3eTXaQaEC1u1/IkHAm8yMqNG5vDMny+/w=;
+        b=D3xYvG9FpQESwJheX2sSzz2TYs6CEaxA22WhQcZl3Bxiq7KIcCnK/mBkFjnLfnTxQG
+         mYo5n966ckm/tU8UItoVzB789UHT6hYuG1voIXMkQ8pUBoGFGJo0t/H4rasM7BTZIhVf
+         KGMOuuJQrGBr5rP7+BHFzP74PYE6nbo77nbCdBcudXt85AHcyZtfQm8JcejDP8aBJD0c
+         uefD05tTZAztTQv9vL7VjoIThsNYobRR3YL3lxbn/eONsDEySqH5goUIrKsyUCF1M6Xc
+         CWFUsQo4r00AILpm27TwAxTrzIEjuyBVkkfFQvEeD6lSgML3W6wHfEeIAOX+1E3HTyll
+         wWTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787856804; x=1788461604;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7ClyFyv+LzA9R4j6L5nlr5tYhByGpJNxBtzqsdMJIEs=;
-        b=gNq+5nc7OaUqISRbWuHfsIYw152SFrzzzL1fnfKPv+d1E3ywVmjJ5WqiTTlxUakmUw
-         cL4mxEB17i17hYZlkDvXnaAQY9+aVUUQQKMMPNTOZ+VwSl9WfEgrNeZHQyJZC3FsEZVR
-         8hgwVpUgyzKcbbNu1Ukx+Gigbzd4qR4K1jNvL4f8C6EbFFUU73jc/h9M2R5VVllwXN+9
-         codQcXH6+HyzB7MfdIN0U1uHwgwaI5mf26tqT66At00LwyZIS0I2cYlvHCtVAWU/BLX5
-         Jawxlwv8C4kdL4mTYZXye46jjTTKtfvEH6/rgxiSUowFkyYEKuBxr7RqKkNWxAA8Phsq
-         1PVQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2jZpyzT68FIfGRmwtxdtD+cjSjZ6Dk0PTdPv/2wJP0DHnJlZfwnj3rESs3+uDeDsduhWxpkYBQ1Ffoc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lulTpEMJKzfAHP37E22so4K5k2+VUfID10rRx2xn+/PdUiRcoY
-	BRCIOkZJvVSxa/qctTdNZWjSXlGPt8X3zWjO1nn5PiRzL0SrSnw3CZ+RkHSex6UzyPa0YJ0V9Ss
-	lPpSLC8ROR2J9idXjINMZNrwQLLlo/XF4us8E0Rf/3u05JuNJT3oHRTWL2xY=
+        d=1e100.net; s=20251104; t=1787856854; x=1788461654;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DXZbVhYz9N3eTXaQaEC1u1/IkHAm8yMqNG5vDMny+/w=;
+        b=pZ4PugtOH5gRPGYTd4Xo2mE6rcfYE4+3VH33SofdMh7ZLDG5d4Q16b2WYXg4xCsKc9
+         ReEwWysrKt9gufnWLlfI5qGBDrLoMUp5oWGAe2wwAPXtAeDctdk+sGK6PAaHO6yh2TDh
+         OEZyXWU+L/1+nbO3M1jwzU7r45QdjfSYAUsTkOSlZ62OgQ3yZ+2mbOUy1/pdQyS4Brqh
+         ID5nMwIQTQ9Iu4qpMG31xjWskbLVLdEUcqYsdJR3bo1G0nDOn0tXV1G8UwgK+kKFzBsx
+         dHu25i8NRWKXtDpQZz8FN/SmXyJ8sFWZ4gP37TA9keTNCyzTP5HkIGh/9VcJvwAgGoBh
+         +QjQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoBvYpKzE7PvGkXIORioAoPrCidh6FV+Itqr/YRDsIi53rjfdz+e3KLtKQOpEuaGZQVMNyq207BWiB+51E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAIcC3O2JfUBc4EAlYC4taAPnnogELm8eCHphjp9StjDIZAw3d
+	pA7eVRiaFYmoeRFiKhlOSgWHhYa3PCkxijHKhYZJqrvDr9v3FoHFUV2l
+X-Gm-Gg: AR+sD13vHlrITUbrk2tMbzGO6dkf3QpVQznm+cFQVrwcm6wLLzmAHvgpOvTqHHXwvsN
+	I2u072UXma4pofmO+VAVaIsx4I+8wajH2woqyOq6TrAx8UOcd2QKyft2Qq1rYtn5xc74dZ4R3UN
+	SlXFNU8QJESvMnZ9WlreNxdU1LQax9Kz4y6k+XZf/uu5AJxlZPs6uUctHvJUCVg7VLbUtftoYtP
+	AVdUvh8/G0FOSICl1OIkPArWmKpJtFbx0FfLAm8lTRf0jxlEep+45wn+E7JlaowkzbNaYjOyfZd
+	lcVSCMnOgmxyAbU+sv4KPxQYyY4hPeM2eUO9nmfMe6KQoIazx86JmkViJtuQZSb5YMesBWf9vdF
+	k6LS5in82XTqQ4YrZW+nbCj+Aj2+jK/vb2fZSwUeHMTh2x00z34N6ZnZH/yvWqMV4aN27qwkSgW
+	f5stLFUl3ToQA8BEo8z8XQ8JaVvFJmtWrD9Mqf7zFkcLJoOPfd7JClKDfvrIQ=
+X-Received: by 2002:a05:6000:310e:b0:482:e627:8e4d with SMTP id ffacd0b85a97d-482eab8aea7mr11109477f8f.8.1787856853846;
+        Thu, 27 Aug 2026 11:54:13 -0700 (PDT)
+Received: from m2.. ([37.142.156.156])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28f854dsm10980986f8f.36.2026.08.27.11.54.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:54:13 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C fixes
+Date: Thu, 27 Aug 2026 21:53:45 +0300
+Message-ID: <20260827185345.10224-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827132718.GK770273@google.com>
+References: <20260827132718.GK770273@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1787:b0:6b1:3f1e:64a6 with SMTP id
- 006d021491bc7-6b1c6700c7bmr561031eaf.23.1787856803909; Thu, 27 Aug 2026
- 11:53:23 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:53:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9087a3.4d659fcc.734b4.0012.GAE@google.com>
-Subject: [syzbot] [usb?] [input?] INFO: task hung in trigger_card_free
-From: syzbot <syzbot+a149ad38eaf1930d3e31@syzkaller.appspotmail.com>
-To: anna-maria@linutronix.de, frederic@kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Thu, Aug 27, 2026 at 14:27 +0100, Lee Jones wrote:
+> What is this?  4 device drivers in one, shoved into HID?  Each
+> component; HID, I2C, GPIO, UART, should live in its respective
+> subsystem, surely?
 
-syzbot found the following issue on:
+The FT260 is a USB HID protocol converter, not four MMIO blocks behind
+an MFD. I2C, UART and GPIO are HID reports on one chip. Mainline
+hid-ft260 already hosts the I2C adapter in HID for that reason. This
+series adds GPIO and UART the same way.
 
-HEAD commit:    2709dd5ae32f Merge tag 'sched-urgent-2026-08-22' of git://..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=17f7a415580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b0978f5ed2905b98
-dashboard link: https://syzkaller.appspot.com/bug?extid=a149ad38eaf1930d3e31
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15418979580000
+hid-cp2112 and hid-mcp2221 already register an i2c_adapter and a
+gpiochip from a hid_driver. They are not split into i2c/ and gpio/.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/1b8578cfc5d0/disk-2709dd5a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/08516f9ee501/vmlinux-2709dd5a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/94796f512f2e/bzImage-2709dd5a.xz
+A subsystem split does not give independent drivers here. The control
+and pin mux live in one feature report, and input is one raw_event.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a149ad38eaf1930d3e31@syzkaller.appspotmail.com
+System status (HID feature 0xA1) is chip-wide, not per USB interface.
+chip_mode (DCNF0/DCNF1), the 12/24/48 MHz clock, i2c_enable, uart_mode,
+UART configuration (baud/frame/flow), I2C reset and I2C clock, GPIO2/A/G
+function select, DCD/RI enable, and power-save are fields or SET
+requests on that same report. Probe on either HID interface reads 0xA1
+and then decides I2C vs UART from chip_mode plus bInterfaceNumber.
 
-INFO: task syz.0.17:5991 blocked for more than 143 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.0.17        state:D stack:25192 pid:5991  tgid:5991  ppid:5810   task_flags:0x400140 flags:0x00080002
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- schedule+0xdd/0x2c0 kernel/sched/core.c:7362
- schedule_timeout+0x1b2/0x280 kernel/time/sleep_timeout.c:75
- do_wait_for_common kernel/sched/completion.c:100 [inline]
- __wait_for_common+0x2e7/0x4c0 kernel/sched/completion.c:121
- snd_card_free sound/core/init.c:665 [inline]
- trigger_card_free+0x127/0x190 sound/core/init.c:868
- release_nodes+0xa5/0x120 drivers/base/devres.c:546
- devres_release_all+0x112/0x180 drivers/base/devres.c:576
- device_unbind_cleanup+0x81/0x270 drivers/base/dd.c:597
- __device_release_driver drivers/base/dd.c:1354 [inline]
- device_release_driver_internal+0x4c4/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f948ef9e0d9
-RSP: 002b:00007ffeb02836d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f948f225fa0 RCX: 00007f948ef9e0d9
-RDX: 000000000000000b RSI: 00002000000002c0 RDI: 0000000000000003
-RBP: 00007f948f035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f948f225fac R14: 00007f948f225fa0 R15: 00007f948f225fa0
- </TASK>
+GPIO is not a third USB function. It is feature report 0xB0. Which pins
+are GPIO depends on that 0xA1 map: I2C enable takes GPIO0/1 (SCL/SDA);
+uart_mode takes or frees RX/TX, RTS/CTS, DTR/DSR and DCD/RI; GPIO2/A/G
+are UART/power LEDs vs GPIO; GPIO3 is wakeup vs GPIO. The gpiochip is
+attached to the I2C HID interface in I2C-only mode and to the UART HID
+interface in UART or dual mode. TIOCMGET/TIOCMSET use that gpiochip
+when the modem pins are in GPIO mode. Changing UART flow control
+rewrites 0xA1 and then updates the GPIO enable mask.
 
-Showing all locks held in the system:
-locks held by kworker/u8:1/13: 4, last CPU#0:
- #0: ffff88801c08c140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
- #1: ffffc90000127d08 ((work_completion)(&(&kfence_timer)->work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
- #2: ffffffff8ec7a830 (cpu_hotplug_lock){++++}-{0:0}, at: static_key_disable+0x12/0x20 kernel/jump_label.c:247
- #3: ffffffff8ef3d400 (jump_label_mutex){+.+.}-{4:4}, at: jump_label_lock kernel/jump_label.c:27 [inline]
- #3: ffffffff8ef3d400 (jump_label_mutex){+.+.}-{4:4}, at: static_key_disable_cpuslocked+0x110/0x1c0 kernel/jump_label.c:238
-locks held by khungtaskd/31: 1, last CPU#1:
- #0: ffffffff8ede9d40 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
- #0: ffffffff8ede9d40 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
- #0: ffffffff8ede9d40 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3d/0x184 kernel/locking/lockdep.c:6793
-locks held by getty/5355: 2, on CPU#1:
- #0: ffff88803848c0a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x24/0x80 drivers/tty/tty_ldisc.c:243
- #1: ffffc900032332e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x419/0x14e0 drivers/tty/n_tty.c:2211
-locks held by syz.0.17/5991: 3, on CPU#1:
- #0: ffff8880302a4460 (sb_writers#8){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #1: ffff8880273d4080 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
- #2: ffff8880338ca138 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #2: ffff8880338ca138 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
- #2: ffff8880338ca138 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb2/0x620 drivers/base/dd.c:1369
+Input is one hid_driver.raw_event. It dispatches I2C read payloads
+(0xD0-0xDE), UART RX, and UART interrupt status (0xB1) by report ID.
+Dual-mode still has two USB HID interfaces, but they are two pipes to
+one chip. There is one 0xA1; there are not two register files.
 
-=============================================
+USB reset (the TN_189 workaround) resets the whole device and rebinds
+every interface. Idle wakeup uses chip-wide GET reports (0xA0 / 0xC0)
+and power_saving_en from 0xA1.
 
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 31 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- nmi_cpu_backtrace.cold+0x12d/0x151 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x21f/0x2a0 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x141/0x190 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xcb1/0x1030 kernel/hung_task.c:561
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 1 to CPUs 0:
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: 08 a1 02 e9 43 4f 03 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 83 e0 21 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-RSP: 0018:ffffffff8ea07cf0 EFLAGS: 00000246
-RAX: 00000000002e8403 RBX: ffffffff8ea91500 RCX: ffffffff8bc9c115
-RDX: 0000000000000001 RSI: ffffffff8e3dfa2f RDI: ffffffff8c619080
-RBP: fffffbfff1d522a0 R08: 0000000000000001 R09: ffffed101708678d
-R10: ffff8880b8433c6b R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: 1ffffffff1d40fa2 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888123b88000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffe96a6cff8 CR3: 000000007cb49000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
- default_idle+0x9/0x10 arch/x86/kernel/process.c:768
- default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
- cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
- rest_init+0x2d3/0x2e0 init/main.c:723
- start_kernel+0x48e/0x490 init/main.c:1181
- x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
- x86_64_start_kernel+0x12b/0x130 arch/x86/kernel/head64.c:291
- common_startup_64+0x13e/0x158
- </TASK>
+UART is still HID reports on the UART interface (0xE0 / 0xB1 / data
+reports), not an 8250-style port. Putting it in drivers/tty would not
+remove the 0xA1/0xB0 coupling.
 
+An MFD split would still need a HID core that owns 0xA1, 0xB0 and
+raw_event, with I2C/GPIO/UART cells calling back into it, and with GPIO
+availability depending on UART/I2C mode and on which interface probed.
+That cell-and-core layout is this driver already. Splitting it does
+not give I2C, GPIO, or UART their own independent devices; it is
+still one HID protocol converter, in four files to keep aligned
+across kernel versions.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Michael
