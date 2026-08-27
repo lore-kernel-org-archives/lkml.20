@@ -1,91 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04294175A6D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5F52472AF
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787813704; cv=none; b=XfjEc+YwkVEmySOSYY222WFfPd/uSLLDPpc4dzZ6cEqmgihsZRwm9dZqEbbw2x/no+mwMBXu9IC/C0Nts6g9i/5q+qPcMmwUK3Xe1N+ayrTUTOkPsj/+tGCLhmIypcUyv0U1mSeK16KqpJTpXRLgW0Jtz+xpduTOKQh65wEWykw=
+	t=1787813747; cv=none; b=Rfy+f6bjL6COT7yqOGarkJiNKs13qDRlB6+LwpG6aVeS1eR7DZqnLPM5YqVfxeRSZcFck/hR8aScmuPc6Q2RdKdf0n7G6Ig8Qhzayo5hDyDarNTo6Zh7m7GeMmcuv/3w8Q43tzIRrl3RgIpnO9pO1BKUzv7dDXjLLEhnC1XAfB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787813704; c=relaxed/simple;
-	bh=4v0wsZQBgOoxIfhCPkKxsnwpzY7s7D5GN09eNeSOc2I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n5KazrfK81q/QaK6w0z2aoF9MblM5oYkdRZGkdoOcEixyxRRs4YEzwRwDSQ03d5OfTfPx/NupYbBEBfxfFNG2KdXgwdW3uhwInAnAgP1C41y/yVpll09psijBSCvxUJkdSaRq0KfquLAZXg5MWnJlIfRf1eTZ/VGxN+ZsawAI98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvjNQCdO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787813747; c=relaxed/simple;
+	bh=gOdxdAdgfT+lDwRxuvnqY6Qmt/W+UFC8uGlAIGjNFHc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lMnZyVUeWRDOYC1wbbf2QDy/7aXeI7JBKVpy1hHZwYjEF1GtwE88WQJwbyezMeOy/iAd4hK1e8wOf/268kMQl9oPTorLWKZa6tV2uAvyHVNb20Sxe+58aYSzYdnle7qOJNShUSCLc5x6wGrvPFDwL5tlPjCrb/fVQZXFCHRiJDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=axG9gDAn; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvjNQCdO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7398E1F00A3E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787813702;
-	bh=r/roSa9GGsZfdTA9/z5YLVUXMOK4nzv/ktueYonYa78=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YvjNQCdOsCrehbUOr44HypB45KQO2nXQTp7XZq4KLZZeZGtpGeszID9FXWIUrqbCQ
-	 Zcom/xgZ7IwR/6KvmWZinrBI+CIrwZZGMT5d8u2pPh/ODgVDvv1WIuTsnEADi0tAFu
-	 Eu76vnPhEqGaItV5sSub/tay7JuVvRbUp6LDDf+/QrOic3zKc+VK4Yk63Sdfrx1lv+
-	 BwO43f8dGCkpnA0EWrW69M849Fy5KMpsiLUhnfgNwSf3xGh5XXvFiVTM7K410V5un3
-	 A8xPxp7oPT+4ZxInSKj2VjMfzk6tRxRoIp+7klvH5zrYoVHsCL1+lwPy4ZwrOXhiO+
-	 PktjHf5e/V8VA==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25344a8c6cso116190266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:55:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rpcn2quSW/MfJ9LmeIvcEwQkN8dkTQ4W8hv4835Y/MJ9aNQde6LBwvQJFcI74bdXcDGG5CbPA1N3Q/Fgc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw0Z96eZ+wWPknry6cy/dEl7eRShmmldCvDPJwRwnx6V4j5rrA
-	6O3VekpGelgYfBCVIYPbi5Tm545zqQ9t3yDQw9OPNxAcSkWnXz5b+ak8Ab3a+90Hqq2jSlf5HzW
-	YK2H8mWdTyXveMHp/R62tctYeoIHVmVk=
-X-Received: by 2002:a17:907:6d27:b0:c20:3679:a2e6 with SMTP id
- a640c23a62f3a-c250bbda55cmr1288946666b.10.1787813701063; Wed, 26 Aug 2026
- 23:55:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="axG9gDAn"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so820632a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:55:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787813744; x=1788418544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j/98K6HfAltFoLz2cK1JewwCkCtJGw16wbBrVm8XK8Q=;
+        b=axG9gDAnFVygOqlS+tRc7W6FCha2PmPBG8AUYuvz/wN4sS/z4RbcCwnqq7mkw5UmF5
+         1tMQCa4eVoRoMx3/ZheG2lr0Wtj6hGzLHhaLqPo/7NhNDQPBE7ceHtNmsNdwfAVmJnZL
+         VhHuRPpeAMw8ToTHZS4yu3JU2saBwGRGDEaUA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787813744; x=1788418544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j/98K6HfAltFoLz2cK1JewwCkCtJGw16wbBrVm8XK8Q=;
+        b=pMOtQB63aTfnUSUdrA3Rrd+bcBFbAMMsJzj+ZY6ZTCVmubLhqInauplGXBed0+UKpc
+         6kTJkekmLBMSyrFDxz47IMyfoppX+Og9QfkgGag1sKTW6HH5W49TxmEFdEULXaFMSo3f
+         ezU7u2SUCv7VjEvArp05cMM7cBwLgryvzB9RXh6tY0K04feN6vTqEa8ohmfyjxwIEinx
+         Z9mxyCe8qDeGlWPdGQ0kLKnkeOE6B32fNGlXNqMoisryjpqvYxwaj9EqG+7/SiSBPseh
+         +7YQum8mXzrJ3L731B3Tdv85U67dJXJroyRKdZcBfYRpQteKlmXd2QLoQ2uvUlNTr9bA
+         MC0A==
+X-Forwarded-Encrypted: i=1; AHgh+RpBJ31Fu8G43WUU/fEmKuTgFlr+mJTeJJL3ptHvgDJvkE6XRFlxufPZgEa1QmgwPCcCrJlWnSzdlFi+K7Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9FCRlbdKbMsJ1q2xt50+XtJMh6Z4MUh8mQtzfKXUC+RzNGhrt
+	17AfvOxLuaQFMu9rr2ythmDC+6x/hpDFv7UUORNeSuNIs8mTKSBkGx585Fdi9+v2Eg==
+X-Gm-Gg: AR+sD12lkPaZKaOBa5XM94wgBw1CFAIJi6yK0M/p/fhTDeLPWBPk2LNoYtnijm1IzGF
+	dHT+4uLjsgmA9QV6qZi99D0Hq4FajgUGQBKVJ7DXgBYa/lwJ+Z5epBzx91TBPucsZwLWuDTCi2V
+	ls2soJbX8LFNXlJzGYiEz4BZkuTmIu55AxaMdGqmgKfBae7FoUbNmN7lWfHfgvnB0gS2rJV8xEd
+	4W3Wypr9Drh7nN6lLMWf0SALbKiEDWgkfOeEYe5o2Xbkcml2yhg1loRtFFkaHyLKeYskgBlEolz
+	TBPr8V6cS7eCHpiTYeArf/+OGQGJjXHLGkjX900KPMHTU02hpPMdqjDFX2zlpPTf4EwHvYiBkIM
+	vOL+rAThvmWDHAhVLEc2l3sxcAvW2mQDyPFiEGe1/cXoliWBVlamfoiQLzcrQb/vLsyp4rhfpdS
+	GDPp4CEDncxcc/WcSMrg+wOnf4+iIOiTHT1s+6Bq7vHYmdxC/67S7OK7ZIvI+Rj1qb8wRtLpZJH
+	3JKnWHBAq4+k+jkqbidBazmrAPuGbdZDAGzmqjfQFQ43GKfVnA=
+X-Received: by 2002:a17:90b:2884:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-3969ba558eamr5421490a91.2.1787813744520;
+        Wed, 26 Aug 2026 23:55:44 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:ff0:ad84:24b0:9e52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d81682sm1501920a91.7.2026.08.26.23.55.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 23:55:43 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	x86@kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [RFC PATCH] perf/x86/intel: downgrade alloc_bts_buffer() WARN() to pr_err()
+Date: Thu, 27 Aug 2026 15:55:10 +0900
+Message-ID: <20260827065529.3835720-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821100531.998196-1-chizhiling@163.com> <20260821100531.998196-7-chizhiling@163.com>
- <CAKYAXd_MxctBGgP6_daddk1q9Dwr0ZMAQchXqvEZME_Yo6xSuA@mail.gmail.com> <de355170-d57d-4247-93ba-521080ca30eb@163.com>
-In-Reply-To: <de355170-d57d-4247-93ba-521080ca30eb@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 27 Aug 2026 15:54:47 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd95S7zNP3nJw-2FMp3P8J4y7HkGvjHzNU-zCw+vSLrv3w@mail.gmail.com>
-X-Gm-Features: AcwNN1V9Lrpw180WYKXpeLn743AE4E1hRl13AqqsRJ9W9uzLtiq2NXhDfH6Uxcs
-Message-ID: <CAKYAXd95S7zNP3nJw-2FMp3P8J4y7HkGvjHzNU-zCw+vSLrv3w@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 6/6] exfat: take s_lock in read mode for iomap
- mapping paths
-To: Chi Zhiling <chizhiling@163.com>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
-	Chi Zhiling <chizhiling@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 11:22=E2=80=AFAM Chi Zhiling <chizhiling@163.com> w=
-rote:
->
-> On 8/27/26 9:08 AM, Namjae Jeon wrote:
-> >> @@ -68,7 +68,7 @@ static int __exfat_iomap_begin(struct inode *inode, =
-loff_t offset, loff_t length
-> >>          num_clusters =3D exfat_bytes_to_cluster_round_up(sbi,
-> >>                          offset + length) - exfat_bytes_to_cluster(sbi=
-, offset);
-> >>
-> >> -       down_write(&sbi->s_lock);
-> >> +       down_read(&sbi->s_lock);
-> > If may_alloc is true, Should we use down_write() ?
->
-> IMO, there is no need for down_write(); the block mapping of an inode is
-> protected by the inode lock, not s_lock. see exfat_fallocate(), where we
-> don't hold s_lock.
-Okay.
->
-> If may_alloc is true, we need to allocate clusters and append them to
-> the file's FAT chain. The allocation is protected by bitmap_lock, while
-> the FAT chain is protected by the inode lock, since we hold the inode
-> write lock in exfat_file_write_iter(), exfat_fallocate() and
-> exfat_truncate(), there is no race when modifying the FAT chain.
-Okay.
->
-> Besides, I'm trying to remove s_lock in the next version and am
-> considering adding a per-inode lock to exfat_inode_info, since the inode
-> lock has a relatively large scope.
-Okay, Sounds great!
-Thanks!
+We see alloc_bts_buffer() allocation failures under memory pressure,
+while those allocation failures are non-fatal the WARN_ONCE() triggers
+our fleet monitoring.  Given that alloc_bts_buffer() can be called from
+various paths (e.g. syscall() or kvm_emulate_wrmsr()) and fail multiple
+times, there seem to be little value in that one single backtrace (for
+first allocation failure only).
+
+Downgrade WARN_ONCE() to pr_err_once().
+
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ arch/x86/events/intel/ds.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+index 8940f0292229..29c24b2925a7 100644
+--- a/arch/x86/events/intel/ds.c
++++ b/arch/x86/events/intel/ds.c
+@@ -918,7 +918,7 @@ static int alloc_bts_buffer(int cpu)
+ 
+ 	buffer = dsalloc_pages(BTS_BUFFER_SIZE, GFP_KERNEL | __GFP_NOWARN, cpu);
+ 	if (unlikely(!buffer)) {
+-		WARN_ONCE(1, "%s: BTS buffer allocation failure\n", __func__);
++		pr_err_once(1, "%s: BTS buffer allocation failure\n", __func__);
+ 		return -ENOMEM;
+ 	}
+ 	hwev->ds_bts_vaddr = buffer;
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
