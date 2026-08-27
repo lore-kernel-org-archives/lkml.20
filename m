@@ -1,340 +1,129 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013046.outbound.protection.outlook.com [40.107.201.46])
+Received: from frasgout12.his.huawei.com (frasgout12.his.huawei.com [14.137.139.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A219474265;
-	Thu, 27 Aug 2026 13:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837599; cv=fail; b=EHTPCfhAlj2mIQouI+YmnxCHQHThSwg3TT9EYaULF1qEf9GZsCw9fqCHO5PZ5z6C+HDpOFtIgjrbuK+sc4Xk6CcUK1KASuyi+GzlhTGLv6tnisn9YfdQyMLGFubthcJwrmVlr+TWglExAKTFzaSVfWGXisxeGNaUYnorEA7BGkQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837599; c=relaxed/simple;
-	bh=8dYhHw8k3c3pl270m6dpe6lyItSxmVNcj9b+EOMOuxU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IWOaZu/G9CLKGgPWmBhYcsG+M/u2099nLYbL/1yCOg8nyB4wqwrvTgfWAffeRBehIK7Atf32rGT/f78zPioXSCmWd4l9iiaGsOaUszQCt1K84MWZDn58PGg8ZYZvTU8q5YFDgxgdG3N9l2tz2uMRAaQpPa4gQPGq1ZfXVHGGoOY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Zr71fCh9; arc=fail smtp.client-ip=40.107.201.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Zr71fCh9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BXN0vVUx/OuyuZM7sKL80BLpyxY/y83mZpzl51fCCZ3r/+FlSIUeR1q+ecccqEytYSwFLoKEXTBD96yHNOv0cMIqPr9hLRkqsPBkuFRwkMwmB5bzRFwMyxLknwuUNtB1QTtij492gIFIDE+xm+YJk5eABVVhi3CzJOuwZmTiZN36DxHFA63l8wfpMdGoyOstAQuXfPsqGil5RZKG6GFHTc0EjMp9ZoAZNHixPIU9q5Vqsrhx87k221eWKzP/Nvv3UHSB08T+vVA36IoID286ueCx2BSpLyhcKOvQkQtYDw4B8RSfSYlBDyeFdPS0lJtymToHDhXAFyiJmdmMBVJOuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EbLr7oJlpBkWZQPrWpFexsORj59xTv8BK+LST4NN228=;
- b=j+cCefVGFSr3pa2u4iHl9FpQZJ6WwADnMCPvM7lErFOLecEyaDWXXwhBgOYn4ncblK9B9Kde+DUBY/mjzJotlByFOPvoCou2oK8LUVbNXPFvecAJQQA+abFmOIDQvrn4v6Bki15qASoUy6gCsV3RWKXcZ0WWtrg00h9cbus5i2CLOrlvip9bPAdlsn1tgrxquwMs9CiDxDuHkRMa51x11KtxneAtRg/ozNKqllLrQH+HHLPT6ErNlNcrkgD7qKfSnBJxE/7f1LPanDuOFksCyU0zbbocllZEWJywxLARtg3rpj3wgR4PP9UCE094pAyJAko9zLTlgqRJ/dAeCljcnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EbLr7oJlpBkWZQPrWpFexsORj59xTv8BK+LST4NN228=;
- b=Zr71fCh9aP6LNXWd1WTwKiRBhEfWotjdL+h9VCdRrkazTemw4potOR4YZFrcZrZvGw/iIvnqcCgbOxVoW3m6OA2HvvZIkX4c8A0ukw4PSFVNNLqt9Xf/l/GcvCMZLmHvOogkD9RKbyuD2acjO4rZqTKrlU6VTpUPLpA7SO2hLmc=
-Received: from PH7P223CA0012.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::9)
- by SAWPR12MB999292.namprd12.prod.outlook.com (2603:10b6:806:55c::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Thu, 27 Aug
- 2026 13:33:01 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:510:338:cafe::9b) by PH7P223CA0012.outlook.office365.com
- (2603:10b6:510:338::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Thu,
- 27 Aug 2026 13:33:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 13:33:01 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 27 Aug 2026 08:32:52 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
-	<srinivasan.shanmugam@amd.com>, Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Mika Kuoppala
-	<mika.kuoppala@linux.intel.com>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
-	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 2/2] drm/xe: Convert xe_user_fence to drm_user_fence
-Date: Thu, 27 Aug 2026 19:02:26 +0530
-Message-ID: <20260827133226.4076593-3-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260827133226.4076593-1-srinivasan.shanmugam@amd.com>
-References: <20260827133226.4076593-1-srinivasan.shanmugam@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54B44746B6;
+	Thu, 27 Aug 2026 13:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=14.137.139.154
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787837606; cv=none; b=LbmDbEdNntPB6uS3ISl1gHS1T5IoXooq84Xf/qrFrW8x5cUk+yrtrdEg5PNq8VcihKAsMM4+f8aHWETE9Wxwr73yl3U1hzFz7D8TqlCa7JCna2dDLCVEy2Neg4S9x2pMlIRz6YrbqwVSkJW7Ue0rhRnXPHbnHBVzvM4+ZMDUXZE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787837606; c=relaxed/simple;
+	bh=sADAEZNGrHrwnogfdaHVcKl0hh65+2nxXvW9QfVCfVg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pWrSlX5w9t1tJBCZRHZ0GKzErJEFlT2H0T2PdNV0zA6LFZBgMoQi6i/oM2mklfoPxWXN9uzBLBlR3yv0zkgeCY7wQxEE8HKwqWS+c4oZVmpWbOI6P3p5y8CafS5KYFAgnnpltLsG/9tt6e9IFY8NUYeqKxKBdEDa2qSO3rDrAyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=14.137.139.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.235])
+	by frasgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hW22H2bnnzt50v;
+	Thu, 27 Aug 2026 21:10:47 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.27])
+	by mail.maildlp.com (Postfix) with ESMTP id 760CB4055D;
+	Thu, 27 Aug 2026 21:17:24 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by APP2 (Coremail) with UTF8SMTPA id GxC2BwBnCE7aOJBq+abuAQ--.58194S2;
+	Thu, 27 Aug 2026 14:17:23 +0100 (CET)
+Message-ID: <92bf67810c6ed6bc4764f330d77c3ac2279781eb.camel@huaweicloud.com>
+Subject: Re: [PATCH] ima: select the SHA384 PCR bank for the boot aggregate
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: Mimi Zohar <zohar@linux.ibm.com>, "Singh, Jashandeep"
+ <jashandeep.singh@hpe.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>, 
+ "linux-integrity@vger.kernel.org"
+	 <linux-integrity@vger.kernel.org>, "linux-security-module@vger.kernel.org"
+	 <linux-security-module@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>, Jashandeep Singh <jdsw@juniper.net>
+Date: Thu, 27 Aug 2026 15:17:11 +0200
+In-Reply-To: <21bf74a181df485f9daf47f9740972443e31471d.camel@linux.ibm.com>
+References: <20260826191051.219090-1-jashandeep.singh@hpe.com>
+	 <4ea0433a82c219d6efdb83ad0bf267045c91a374.camel@linux.ibm.com>
+	 <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
+	 <21bf74a181df485f9daf47f9740972443e31471d.camel@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|SAWPR12MB999292:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ddf7e00-2434-4092-0de1-08df043fb732
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|7416014|82310400026|56012099006|10067099003|18002099003|22082099003|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	OBdBlgJG7fyAdqhGOt8/1dmWt+4WTNp3ldwlSTnLi8oHFAgCS6qt4ghTWziMWcBHk2IQRGCU0JDVIFpxtOl2EFNjuqWtuKOfokgFzY3DRlvCp02egEWha1KfYQAxDcOnO39eoS8dWRKG+rmCTu4Cn2rK0TiCHiPgQibZzdyteSBWFYnvpsEzNifbOQVY2Qev/BuELmniMs5JmpLqCRSNrfuwj5AxdAxuvzuhIlidsqLCEUXCuhBIl3Pj8tUzgLMJFErHD/Y76vqaD6xcJWDFkriEY3UPJBUOi/Rwjybnk/elPykosnKL7HSW3f0YIJK0CPjM1y5grw5yWvDQ1MlfMTY8Id6v/hEb8FZUpmVHi2sMaWkXlg9cvbmYCB0r0onEKTxlvEtA/YjNCwscaEwatmOFZKBvKzp0ZJ4qmTLY1ZEIlhT+96apOkLK71uRfdmoNGWZROncEB1cQ0NzE7H3Bfcx6fqy4PEKH1th/qoC6w/aNt4xnxH5BAch2+jE/VlhSnfuvAOiSs9Lo9PBqERjLjj8zSwSoAwWZh3IY1RHpUqmvNbqqmajnNekvUhkvM6BQ3ANwphfoIdCM7jRHEkaOl8ECgQTJF+06Ya4vH1W28xO08mABEp0ySMznlbFSLOzlBHbz3bYGgw7KZ9x+MalCE3BedaH/hKYSR8wT9s13XcgpoI2ISR+f9f908Lvwn1I0fmX3F8PG2zxrF8mjbX7Xg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(7416014)(82310400026)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Pl56KfsAjLBiYBq/e4EnZmCjmE4e+uUGBT8yt3NRSFLTrgAXjGIEuQe/pPtIWVbFeCbbi7DsywAu/LvXv5+mnAKVb6SrwrzacKrVa678MZHrVtxL9CqRxTKJWIEgUm6ujKpiAHkQMiWpCYWWf8fx4ocSFqkWc1j0d3b1z2sRxs4F+/AA6j8w9OM+Y+Io/SCWredFCvfq+ROGkXsUE4XJQUPRe3GKe+Lw80TKUb3QkMWj2XGoZ0cm3Sks+1erfm1yYFply3u/lSXRgxZE+DjxoaEWB+Mp9aOss5whTcTacQGWYsRpF5K3CbF79YrR3Vcny1mWZPA/R2a9Rhx1q25mtxID11f0vXy3r4ffRq09DRlaos7NzYDnc1vjB9Q87uE3rH7PK2wtodkiobp23ALaB1pseEfKnonrIu04s8xq4/TD1wEl5+a8pgNJ9Yil3Fpb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:33:01.2172
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ddf7e00-2434-4092-0de1-08df043fb732
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00026369.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999292
+X-CM-TRANSID:GxC2BwBnCE7aOJBq+abuAQ--.58194S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw4fKFy7Jw1UJw17ZFW5Jrb_yoW8Aryrpr
+	4kJ3WUJFnIqr1IyrZFv3y8Kr12v397Jw4xGF1jqFy8Arn8XFs29anxZ34FqFWq93WkXFyY
+	vFWa9wnFyr48Za7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyvb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
+	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQASBGqP4nAggwAAsD
 
-Replace the open-coded user fence implementation in xe_sync.c with the
-new common drm_user_fence helper.
+On Wed, 2026-08-26 at 19:14 -0400, Mimi Zohar wrote:
+> Hi Jashan,
+>=20
+> Mail to the kernel mailing lists are in plain text. Please refer to
+> https://docs.kernel.org/process/submitting-patches.html#no-mime-no-links-=
+no-compression-no-attachments-just-plain-text
+>=20
+> On Wed, 2026-08-26 at 22:35 +0000, Singh, Jashandeep wrote:
+> > Thanks Mimi.
+> >=20
+> >=20
+> > Agreed that all allocated banks are extended via tpm_pcr_extend() - but=
+ that's
+> > the PCR-extend (write) path. The failure is in ima_calc_boot_aggregate(=
+), which
+> > reads PCRs 0-9 from a *single* selected bank.
+> >=20
+> >=20
+> > The issue is that a TPM can be provisioned with *only* the SHA-384 bank=
+ enabled,
+> > while the default IMA hash algorithm is SHA-256. In this configuration,=
+ the
+> > current selection logic only matches the configured IMA default, then S=
+HA-256,
+> > and then SHA-1 - it never considers SHA-384.
+>=20
+> It's walking the list of allocated TPM banks and, if allocated, sets bank=
+_idx.
+>=20
+>         for (i =3D 0; i < ima_tpm_chip->nr_allocated_banks; i++) {
+>                 crypto_id =3D ima_tpm_chip->allocated_banks[i].crypto_id;
+>                 if (crypto_id =3D=3D hash->algo) {
+>                         bank_idx =3D i;
+>                         break;
+>                 }
+>=20
+> The question is why isn't the sha384 bank found in the list of
+> nr_allocated_banks?
 
-struct xe_user_fence now embeds struct drm_user_fence as its base.
-XE-specific fields (xe_device pointer for the ufence_wq wake-up,
-userspace VA, expected value, signalled flag) remain in the wrapper.
+The boot aggregate algorithm is the same as the default hash algorithm.
 
-The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
-functions are removed. Their logic moves to xe_ufence_ops.worker and
-xe_ufence_ops.destroy, which are called by drm_user_fence_work().
+Please try ima_hash=3Dsha384.
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
-v2:
- - Remove unconditional dma_fence_put(fence) after
-   drm_user_fence_add_callback() in xe_sync_entry_signal(). The fence
-   reference is now consumed by drm_user_fence_add_callback() in all
-   paths — transferred to the callback on success, released internally
-   on the already-signaled and error paths. (Sashiko review)
+Thanks
 
- drivers/gpu/drm/xe/xe_sync.c       | 112 ++++++++++++-----------------
- drivers/gpu/drm/xe/xe_sync_types.h |   1 -
- 2 files changed, 44 insertions(+), 69 deletions(-)
+Roberto
 
-diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-index 37866768d64c..7549123f8486 100644
---- a/drivers/gpu/drm/xe/xe_sync.c
-+++ b/drivers/gpu/drm/xe/xe_sync.c
-@@ -6,12 +6,11 @@
- #include "xe_sync.h"
- 
- #include <linux/dma-fence-array.h>
--#include <linux/kthread.h>
--#include <linux/sched/mm.h>
- #include <linux/uaccess.h>
- 
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
-+#include <drm/drm_user_fence.h>
- #include <uapi/drm/xe_drm.h>
- 
- #include "xe_device.h"
-@@ -19,36 +18,51 @@
- #include "xe_macros.h"
- #include "xe_sched_job_types.h"
- 
-+/*
-+ * xe_user_fence wraps drm_user_fence with XE-specific fields.
-+ * The drm_user_fence base handles MM borrowing and work-item lifetime.
-+ */
- struct xe_user_fence {
--	struct xe_device *xe;
--	struct kref refcount;
--	struct dma_fence_cb cb;
--	struct work_struct worker;
--	struct mm_struct *mm;
--	u64 __user *addr;
--	u64 value;
--	int signalled;
-+	struct drm_user_fence base;
-+	struct xe_device     *xe;
-+	u64 __user           *addr;
-+	u64                   value;
-+	int                   signalled;
- };
- 
--static void user_fence_destroy(struct kref *kref)
-+static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
- {
--	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
--						 refcount);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
- 
--	mmdrop(ufence->mm);
--	kfree(ufence);
--}
-+	/*
-+	 * Mark signalled before waking waiters so UMD can safely reuse
-+	 * the same ufence without hitting -EBUSY.
-+	 */
-+	WRITE_ONCE(ufence->signalled, 1);
- 
--static void user_fence_get(struct xe_user_fence *ufence)
--{
--	kref_get(&ufence->refcount);
-+	if (mm_ok) {
-+		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-+			XE_WARN_ON("Copy to user failed");
-+	} else {
-+		drm_dbg(&ufence->xe->drm,
-+			"mmget_not_zero() failed, ufence wasn't signaled\n");
-+	}
-+
-+	wake_up_all(&ufence->xe->ufence_wq);
- }
- 
--static void user_fence_put(struct xe_user_fence *ufence)
-+static void xe_ufence_destroy(struct drm_user_fence *base)
- {
--	kref_put(&ufence->refcount, user_fence_destroy);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
-+
-+	kfree(ufence);
- }
- 
-+static const struct drm_user_fence_ops xe_ufence_ops = {
-+	.worker  = xe_ufence_worker,
-+	.destroy = xe_ufence_destroy,
-+};
-+
- static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 					       u64 value)
- {
-@@ -63,51 +77,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 	if (!ufence)
- 		return ERR_PTR(-ENOMEM);
- 
--	ufence->xe = xe;
--	kref_init(&ufence->refcount);
--	ufence->addr = ptr;
-+	ufence->xe    = xe;
-+	ufence->addr  = ptr;
- 	ufence->value = value;
--	ufence->mm = current->mm;
--	mmgrab(ufence->mm);
-+	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
- 
- 	return ufence;
- }
- 
--static void user_fence_worker(struct work_struct *w)
--{
--	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
--
--	WRITE_ONCE(ufence->signalled, 1);
--	if (mmget_not_zero(ufence->mm)) {
--		kthread_use_mm(ufence->mm);
--		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
--			XE_WARN_ON("Copy to user failed");
--		kthread_unuse_mm(ufence->mm);
--		mmput(ufence->mm);
--	} else {
--		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
--	}
--
--	/*
--	 * Wake up waiters only after updating the ufence state, allowing the UMD
--	 * to safely reuse the same ufence without encountering -EBUSY errors.
--	 */
--	wake_up_all(&ufence->xe->ufence_wq);
--	user_fence_put(ufence);
--}
--
--static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
-+static void user_fence_get(struct xe_user_fence *ufence)
- {
--	INIT_WORK(&ufence->worker, user_fence_worker);
--	queue_work(ufence->xe->ordered_wq, &ufence->worker);
--	dma_fence_put(fence);
-+	drm_user_fence_get(&ufence->base);
- }
- 
--static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-+static void user_fence_put(struct xe_user_fence *ufence)
- {
--	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
--
--	kick_ufence(ufence, fence);
-+	drm_user_fence_put(&ufence->base);
- }
- 
- int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
-@@ -282,24 +267,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
- 	} else if (sync->syncobj) {
- 		drm_syncobj_replace_fence(sync->syncobj, fence);
- 	} else if (sync->ufence) {
--		int err;
--
- 		drm_syncobj_add_point(sync->ufence_syncobj,
- 				      sync->ufence_chain_fence,
- 				      fence, sync->ufence_timeline_value);
- 		sync->ufence_chain_fence = NULL;
- 
- 		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
--		user_fence_get(sync->ufence);
--		err = dma_fence_add_callback(fence, &sync->ufence->cb,
--					     user_fence_cb);
--		if (err == -ENOENT) {
--			kick_ufence(sync->ufence, fence);
--		} else if (err) {
-+		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
- 			XE_WARN_ON("failed to add user fence");
--			user_fence_put(sync->ufence);
--			dma_fence_put(fence);
--		}
-+		/* fence ref consumed by drm_user_fence_add_callback */
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
-index b88f1833e28c..67048199b070 100644
---- a/drivers/gpu/drm/xe/xe_sync_types.h
-+++ b/drivers/gpu/drm/xe/xe_sync_types.h
-@@ -12,7 +12,6 @@ struct drm_syncobj;
- struct dma_fence;
- struct dma_fence_chain;
- struct drm_xe_sync;
--struct user_fence;
- 
- struct xe_sync_entry {
- 	struct drm_syncobj *syncobj;
--- 
-2.34.1
+> Mimi
+>=20
+> >=20
+> > Adding a SHA-384 match allows the boot aggregate to be computed correct=
+ly
+> > (sha384:...) instead of returning 0 and logging "No suitable TPM algori=
+thm for
+> > boot aggregate". The fact that the SHA-384 bank can be selected and the=
+ boot
+> > aggregate computed also confirms that the SHA-384 bank is recognized an=
+d
+> > allocated, rather than being missing.
 
