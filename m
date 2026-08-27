@@ -1,163 +1,146 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5D41E5B88
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787789334; cv=pass; b=PLUUPWXR+u1BYwo4h0uxf3Flv9RCXScaAc7ormuRW1rWxP0WY/pSKHmxnr2GxzAEpGjb0Q/9otSRGAQTnG5UtX7G/JnSpwolhIkwl1QyJ8IR5/rTnUUvRUzMZD0aOScRv1qGvzw+LQGdlbqX/tanC/Vr0J68isaPkrRzr6OYv5M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787789334; c=relaxed/simple;
-	bh=6xPZGjm1Wu5mytRKkg/F0NHC7jcbm8cOuhKBGBc5leo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M7eOvvqUZGOQgctxILWd809SscMJsYEox8aww2f+uMklx7U9o2EC1ZGMCQ1LofF4/1SomFk6GW0Q9nYeN3f55Zg5CB+dBTM9F1wjQLL3Q5GudHCUcezfAub8bq/0AvcxNjuYGbAtoMXceq1DtXSGsgBtmhtDJIc6vm7jWvbjnqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ABak3XHV; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A8C22FDE6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787789405; cv=none; b=hk+w7k/DJllugdvqPKNulqby1VW4w7RhLAe/uk0gPV8l+avjw4UNguRUVeTt9QPzpFmb17Qx/rW1yJW3Si0E0pDm/ZlrwPYiIbY//UV/w1e9WTepLRGWVAglIHAoqUIYWFePDzFalMnQaRdlwahAluyS7F87kqPNejfTpv5OER4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787789405; c=relaxed/simple;
+	bh=CUrmups8zRYwGr8eSo5qvrN5x3TVbRqyxt/Rd7wydgA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cVW3nqTfABNVaXex0aKLzNCmATyE6PcD5Ior0FWqCsz1tBGL6AGqB8wTWV21AerMnrrntT2vot/vU2YuNY0z/giKgW8nR6inegJKb7bmGVTgzgOUMQgJliKhP0lQcwMTxrywBjByU/PUWXdRNgEOfopcEqLvueMF9duW5zhXtgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IGY4cYVM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CAXaz7Sw; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ABak3XHV"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a5f95a879cso586a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:08:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787789331; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ha8TPnvSPE6Yhr6oBzHb9f6RodllybK5oP6xWEKLWKYafylYYgYPzuSO/GPivTBHBr
-         N89W8YGoSc86anEiQVgVTHfjhh81uACVdK5/qFnYMK1ctK+2Lyn4jYBP9VuMuLOm+9MK
-         KfD/E87Gijq/ijF5O1+LKpEdG7aROz5GoVlV1eaXCjt1jjbSrZvr4Eojyknd/0U5FZIl
-         q3PqM4MnM0JRo5EYHZXEU3Zaj+B2OAmSGu0Et9ZdzYLpQh0FaG2IsN9MAOeadG5TeNKN
-         s0YeRF9jpEd7CkVMcOXxU++dPdVj1mDekXe08Z+frqEsn4vmbpNkhTuFMMGHPXogb8od
-         i17g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ra61REZzO3eiF6dyZGE8JODsfglmTWsuzSdXYZS81DM=;
-        fh=mLtecnOSuE6s+ayFawGdka7Pux6It8E7zbJ4OSCAA5Q=;
-        b=F38mMGw6F79JjBHNh3QcJJaBYKs2Lwu2wo2KJXVAwcJMPUAR/yh4u+7Qg3ksZvI3Tn
-         y+yH1MNjtIEqDDVc4Vvd6Tk9TVHgyV6XPVeZtVbp4Tj3G1py9HBMBr2t98h+X6Z/Ngkh
-         4+NCH5iKTvwjrOq8b7xaWkImp8idQQADMgM9x7rtabN8KVRqbqFDMEtihbamtf1n2cv8
-         aXFE75qEhVBMnKBEW4zI2SuRv20rQHIZ/rzE7j8GgwXrjTjGj1O0s7EIXIPnuY7Q1JNK
-         C+G1qinnNWRAZvrCg4FmNpqYkk+AESkqw3lVKxOQzkTW6C1mrR5oKHs8bdCH96w+JBfC
-         SWwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IGY4cYVM";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CAXaz7Sw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787789402;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P4C9bzIpuuaLAtIJfd/nedrnMHSui02xazThUpELcIQ=;
+	b=IGY4cYVMXeyy0fwI9QIBVWRLV9Td/MLZf0mc7eT3pCBB5obJv/KzVADrGm0XgSPHPbRLU2
+	4IJqlEPiEjIcYaXdcSvZu+n45Hx3b026Z8wFp2/OtlDcPK9mpUubwuY5Xd55y8fP7q7fD9
+	/7vXRQNgLFm5bjPs/o1odlEGno8Skno=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-240-pwHdQKQeMiSHBSgCYRpsaw-1; Wed, 26 Aug 2026 20:10:01 -0400
+X-MC-Unique: pwHdQKQeMiSHBSgCYRpsaw-1
+X-Mimecast-MFC-AGG-ID: pwHdQKQeMiSHBSgCYRpsaw_1787789400
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-396638f9a18so2855651a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787789331; x=1788394131; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ra61REZzO3eiF6dyZGE8JODsfglmTWsuzSdXYZS81DM=;
-        b=ABak3XHVt1XxWCEGPMjurcYqtavQmFSmLs8posXVTVSnzV9sHEJRrqNxjS5S7T3P1J
-         mh4kk8IGyear9g4A0mSIg39JPqD4wjKDf5TWb2yfcKHO9jKi8syK9Uy7OixxKWrwXYSo
-         FrDqYrYNV4abDfN92AJjQZLD/HQitMLi/dUtDzQcwEm4onp7SKfoZ7K33C/TWtllAkf4
-         HZhbFGhsIBe7Ota+X6YYevYxzc1TOiBf1WceDc62ZPyPbpHe0OI8WM9m1ZqT1FEE8hU0
-         oYKIrj8t2EqENFFHBg2FP2i69ZtUMn1cUh6bzAljmZDErLU9kdqJt+dWSTi4Jc+PF/jy
-         dsaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787789331; x=1788394131;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1787789400; x=1788394200; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ra61REZzO3eiF6dyZGE8JODsfglmTWsuzSdXYZS81DM=;
-        b=T7xHbbH0sv7COcC0hdw6qCXlKnLH8nDZtkmmLcFUVEeHVyNM1sob78oPXvuZkcz73I
-         gcDyWOAekP9mstfxtb7hQ2TmC/X3+OJ0QhYrhVkRghvFjfo4wg6JyuWn8I0qOwlstI4f
-         Y6j2hjfvVLSvTEVu6jgrykSSjlR1xpJ2QmiPAjMjm9Bbg937ZtuqzxO3ry6tHvPXSGqB
-         uvCsRxof/IeCRzcks/O8PyPJDn/H8qT8qZlrzM99L8nFimwAtD+DygwoNqobJTUi0C6v
-         9qdKdAs66376BTv+RNdDQnFG8wQmeOUQ9VJhEFINaDJcHxc/w0909ZXFFzHS7Mu/5y1a
-         jNaA==
-X-Forwarded-Encrypted: i=1; AHgh+RphiS3onP7SFoGuCMcDv0nh5tKNqY13niu+xaidIa1Q7O2cN3uyR4ZTWTdVAvwQ7KkaOD7ImY4fq87ZvVc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZ6hsPb9DU9BbQviKOHwUE+kIF3t5xPfAVhGJVLESSEE3BrVlH
-	3WouH6Q2Vt8NuslZhVYPa15M6OvjyZEj7aXPQPVMnppsI3N6vWD60JHl2EaaIJjVN0aiIpMJ8V7
-	jRCqjWi/Jgal0mIcyJFRSUrZgJvkunPOnjlfGzzRI
-X-Gm-Gg: AR+sD11dLc0Y+FCO7Z4XU5eeEGHM/hrKkgmesRIAggbho4zuCIpyM7I3Z7NIftFVwao
-	SydBjQladNrDBDdGtMdCyKh3VVTZcAWK2VHwalA/HKgbxJ6XZG6SxWx7gGJFjZJYDI6b5ziMTBd
-	1ZvaopkVD6nnM4dVKA6aYxtJSMAUisRrOFMUE4n9hL+AOQUGPcP0wg/hq7diwlfIyGTjiLRmpmc
-	lnPTpLsLdKtj1WyAX2ZRf2H8lnEjSokSTIjAEJJkI9dh/lMpj22NvJiNEiMs3hBNqm57rITQCFM
-	8W24FgubHiA1RRJ+JrtLGQXFvbcC75k9gy9TZ38/PQCb
-X-Received: by 2002:aa7:d411:0:b0:69a:f1cf:4849 with SMTP id
- 4fb4d7f45d1cf-6a5f5487f32mr22583a12.2.1787789331080; Wed, 26 Aug 2026
- 17:08:51 -0700 (PDT)
+        bh=P4C9bzIpuuaLAtIJfd/nedrnMHSui02xazThUpELcIQ=;
+        b=CAXaz7SwWOsJMJmNuFnZ2oZoGDPHuznLI0IhBSteY3KB0la82SgcGOqPwSeK15HCV0
+         Ogg4wG8gbTt1wDQoBi1+kD8SpzMkoK/EPmfcDZ5hYBDfhkxI7e6KCXtoQ2a0A7Wo3ZNe
+         i0aY4HMhVzC99rdlP0YFT7YqviCH8sWGrYjtuZzcYEs51O1YXC7V7wkj+L7aFUD6bKsR
+         0HHGtYIrA2rJORKMUxa29OjxBuB4dG6IFNlOS736lIx6x6L2RSS6GdO+twghyFruPTJ/
+         trPG8UU53iUsi8s83loLykbNT9HBgNIX8Wu3pyY6l5WlOb2GhORyBIE2hjy/a21Dh1hv
+         yeOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787789400; x=1788394200;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P4C9bzIpuuaLAtIJfd/nedrnMHSui02xazThUpELcIQ=;
+        b=TZEItIIfd1ufomh/OiChdLYyYa0zToUBkZEwEjJaolfraygN+/S9VkUDS26H4B1hRy
+         xSrpIJyA66JNkXZ7E5MTcY0RGmrcgPewRQ5k2VjUfmjT8/hDDptGEB70j9oFr5rIClf7
+         i1qzfKoLZp+7FJrrq87OlSt88ajfcLCu/uuSNVGFsXVhuuFkSrArO/iFwQI6aR2iYZ8Q
+         VbolHp1cGgliSxbLU+FvTY5L7ehKE3T7F3DvCeh8lpJozlKdUQ+ujqWhTzedit5snTqf
+         bf9jFzQebFdMRg7rfZ6ERhyHmj2TruG51ldaVjZ6QBZOdQMYkpO21Ao+5dv4LI6amI5N
+         1kOg==
+X-Forwarded-Encrypted: i=1; AHgh+RonDY0tjOUUnTBvABj+Bfnv/bSL/I3+PAAICS8yNrfdTEhrsF2wSihbhzN/m7NUdlrWx43911SfXZPhQes=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIIBDvL7+sJvLjFEDi6Iz1fX2yx4FbgUsfqMZEHZBsuMP3nyuD
+	jDqaIHchxWlV5bWB8FZgnF2NCQxIzntdAyoBdMWWVyVxsWgtPbphR380TuT/bAv9ZELeiZPNF1t
+	PafPZXtXNb5gg2f4BdIXlyV0JPT8ehl5sHVY9dtpL/Kaf8eWywMDFXtOoPej525KNRA==
+X-Gm-Gg: AR+sD10xq8UCPGogMdb5t6chlwLgze3i7Erw1gydSdisWRD3eSQ68M7sNvhvNoeDb5c
+	r4NEkukijg/XjC3mYBBBILcZ8a0qK5MkUV03nBJIjf7F9+4zAVdLVSwx9O45B96rIT7C5KvR7Sk
+	FbhSFgJkUEkhPir/LUytU2ni9EgF0pn7Gcig5XKnsd9/3QRbcJ4l+HXF2o9hqg6VArggzF20j3P
+	W2s8gxX4h7ghYw02kHLNYF+8IBVm8O72aRi5PiPmAoWoK5Oa9Zod2nRB//K7/AseF+7TumJd/zp
+	KZlPbtknd6oFeDJ8R1L9RQ2hrObNJCGWM03evw0lZCctAmffAjVSIsSxahiZDLEslzwjRGh0JBN
+	nXazU6Wth/TZ7ELbuM9N27yBkWARvgf+43JVAQaa1dQ==
+X-Received: by 2002:a17:90b:4e8f:b0:38e:2517:5d1f with SMTP id 98e67ed59e1d1-3966d4032e5mr24140881a91.9.1787789399984;
+        Wed, 26 Aug 2026 17:09:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:4e8f:b0:38e:2517:5d1f with SMTP id 98e67ed59e1d1-3966d4032e5mr24140764a91.9.1787789399495;
+        Wed, 26 Aug 2026 17:09:59 -0700 (PDT)
+Received: from [192.168.68.51] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a9035ff1sm10395038c88.11.2026.08.26.17.09.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 17:09:58 -0700 (PDT)
+Message-ID: <a2ac5d0f-1fe3-4dc6-92cc-d6aae82a9baa@redhat.com>
+Date: Thu, 27 Aug 2026 10:09:49 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAL1mVc0W0oirnpd-im6r+Vewo6yfsWuXQB7UecEenYnE4BOJ4A@mail.gmail.com>
- <ao9y-cJfL-F9K4gV@google.com>
-In-Reply-To: <ao9y-cJfL-F9K4gV@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 26 Aug 2026 17:08:38 -0700
-X-Gm-Features: AcwNN1UM6_sr5sLfgH6qx2xiVGRvK01i7COiWkE_ljyEU0K67uE-spEEemrVR7g
-Message-ID: <CALMp9eTsb+sRbVODN7MKJFZVKPJsq=bNfmrzBzXYZDgxJHESxA@mail.gmail.com>
-Subject: Re: x86/KVM: host reads guest IDT gates after VMexit on Cascade Lake
-To: Sean Christopherson <seanjc@google.com>
-Cc: Yaohui Hu <yhu@digitalocean.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Chao Gao <chao.gao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 11/12] arm_mpam: change MPAM-Fb error IRQ to use a
+ threaded IRQ handler
+To: Andre Przywara <andre.przywara@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
+ <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+ Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
+ Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+ Ritwick Sharma <ritwick.sharma@arm.com>, linux-acpi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260807105451.3728284-1-andre.przywara@arm.com>
+ <20260807105451.3728284-12-andre.przywara@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260807105451.3728284-12-andre.przywara@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 4:19=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> +Chao, who has helped with errata in the past
->
-> On Wed, Aug 26, 2026, Yaohui Hu wrote:
-> > Hi,
-> >
-> > We are chasing a host crash on Intel Cascade Lake that we believe is a
-> > CPU defect, but the exposure changed sharply across a kernel upgrade
-> > and we would like input on the kernel side.
-> >
-> > Symptom: nine hypervisor crashes over ~120 days, all the same shape.
-> > On a KVM vCPU thread, shortly after a VM-exit, the host faults at an
-> > address unmapped in the host, then faults again on every subsequent
-> > exception delivery, recursing until the #DF stack is exhausted.
-> >
-> > The phantom handler addresses are not random. In one dump we located
-> > the IDT they came from: it lives in the tmpfs-backed guest RAM of the
-> > VM running on that CPU. The host read gate descriptors out of the
-> > *guest's* IDT and tried to deliver host exceptions to guest handler
-> > addresses. A second dump shows this in software rather than by
-> > inference, with the oops registers caught in vmx_do_interrupt_irqoff()
-> > having read a garbage gate from host_idt_base.
-> >
-> > Linux maps the IDT through the CPU-entry-area alias at a fixed
-> > virtual address (0xfffffe0000000000) that KASLR never relocates, so a
-> > Linux guest and a Linux host use the same address for their own IDTs.
-> > With VPID enabled the guest's translation survives the VM-exit, and a
-> > host access tagged VPID 0000H must not match the guest-tagged entry.
-> > On these parts it appears to.
-> >
-> > Environment:
-> >
-> >   - Xeon, family 6 model 85 stepping 7 (Cascade Lake-SP), microcode
-> >     0x05003901 (latest public for this stepping) on all nine hosts.
-> >   - Two server vendors, three datacenters, VPID enabled.
-> >   - 6.1.51 ran this fleet without such a crash; 6.12.51 produces
-> >     them. Microcode and hardware are unchanged across the upgrade.
-> >
-> > There is a documented precedent for the failure class on a different
-> > part: Arrow Lake erratum ARL029, "Incorrect Core TLB Entry May be
-> > Retrieved Following VM Exit". Cascade Lake has no public equivalent.
-> >
-> > We diffed the relevant paths between the two versions. The gate read
-> > in handle_external_interrupt_irqoff() is functionally identical, and
-> > the TLB/VPID/EPT invalidation layer is byte-identical
-> > (vmx_flush_tlb_*, allocate_vpid, vmx_vcpu_load_vmcs, and the
-> > INVVPID/INVEPT sites), so we do not believe KVM changed its
-> > invalidation behaviour. The one change we found that plausibly alters
-> > exposure is 97e3d26b5e5f ("x86/mm: Randomize per-cpu entry area",
-> > v6.2), which changes the paging topology of exactly this region. We
-> > can see the effect in our builds, but we have no mechanism that
-> > predicts its sign.
-> >
-> > Questions:
-> >
-> > 1. Has anyone seen this signature? A host faulting after VM-exit at
-> >    an address that turns out to belong to a guest seems distinctive
-> >    enough to be memorable.
->
-It doesn't ring a bell, but I'm curious if it goes away with
-hyperthreading disabled.
+On 8/7/26 8:54 PM, Andre Przywara wrote:
+> When an MPAM MSC gets into an error condition, it can trigger an error
+> IRQ. We cannot really do much about those errors, but we at least query
+> and log the error, then disable MPAM functionality.
+> 
+> This error report relies on reading the MSC's error status register
+> (ESR) in the current hard-IRQ handler, which is not possible for MPAM-Fb
+> based MSC accesses, since they involve mailbox routines that might sleep.
+> The same is true for clearing the interrupt at the source, which requires
+> a (potentially sleeping) MSC access as well.
+> 
+> Change the error IRQ handler to be a threaded interrupt, but keep the
+> handling in the hard-IRQ part for MMIO MSCs. This is needed since the
+> CPU affinity check in the MSC accessors requires a non-preemptible
+> context.
+> When the MSC is using an MPAM-Fb based access, we push the work into the
+> threaded part of the handler, where the accessors are allowed to sleep.
+> Also forbid per-CPU interrupts (PPIs) for MPAM-Fb, as we cannot use a
+> threaded IRQ here.
+> 
+> The actual IRQ handler learns how to deal with errors. We cannot really
+> handle them, but we can try our best to disable the IRQ anyway.
+> Should the level IRQ line deactivation fail on the device side, we mask
+> the IRQ on the irqchip level, to prevent an interrupt storm.
+> 
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> ---
+>   drivers/resctrl/mpam_devices.c | 77 ++++++++++++++++++++++++++++------
+>   1 file changed, 65 insertions(+), 12 deletions(-)
+> 
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+
