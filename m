@@ -1,403 +1,212 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4030B3CB548
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864798; cv=pass; b=pxNqxQgnr/fuNNLLCMKfxCJ2lcMs/huQ1O2iFWQ7fb7UtsX+DBgaQHu+dbGczAgk7ZrxX2rYyqaU8rJuBKgk7UjX7v5BWppL1dlysvS0DZU1GCBCLxh1BzFGpMjxJ8bOblC7+JKI2xRFYNxYj8uXKkVPOjBMIBTSecTyGwCN4oM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864798; c=relaxed/simple;
-	bh=txXSOg/T8koJP0HfFGZ2JWSPH9am2a+YjYlGxsfgVKA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rhd4LMkhKFF4bujvd6ZX++CsOvZeUvlnK1ee+zuQ8Y/EvRicKJP9f7nQeM/KUU8yzLUEZ0uIAcG97zQ7GYKmuwJxU2pq+iVc1XQWczZY1pQSNcyRTQh8+jvyAQI/xRP7M66ODO+CbQviuBAyXN8HtW0/PKhXuZXwCsb1cy6Z8iQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gWkRNnzk; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923B5241686;
+	Thu, 27 Aug 2026 21:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787864863; cv=none; b=PY38cXy55aW9PaXF7NoD/TZnK6XGC53wlfVrZHIZZNKcFlQtf6gUMmac3bhvfQ7Tle4Z8rMh13SszwUImyDRoJx6MXKEH7Fw7h1yhReTM+siaYkM0RwP+5qEMgLWEd+6k5t7vlYxwb8gHGluABlZoPKz5jsl2MyvWoGRrPOvXrU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787864863; c=relaxed/simple;
+	bh=MVKR6Pzrh5/lF15W562Ofyk5fmn1OdffMASDTRdZFps=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QmGNaxtRPjLiJF6DWwjCLIR5he2hx6UHs18bo1KRr14y7PdXx/xs275alPiVYk9lI4PuKC1nBqHUokUcRgqiOfRMMoTn692+p7QAO4D9ugHXnRnXx6Fd3NGDqA8sAfhp39WLK2WVBHzi+h9nBym0ynGRHZZ2fFD1XIYrD8eBLOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=spasswolf@web.de header.b=njWA3koQ; arc=none smtp.client-ip=212.227.17.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gWkRNnzk"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a20c95e412so723941fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:06:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787864792; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sVBNT6oJ9DKMNd3o1RIt+T1o7Qn6JgUZkjEfhOLcUtbPtEkYV2xP7B8hc8KlIwWRrr
-         5LyA3/J/wBx2Xepg293iqwUyEpwxBWgl7ey7dd9M7tGO2Pl3KRTq8P7lFfcy51baaecL
-         RABulQefbSkYrG+FM4d+HcQnx2VhJPcWYKtTVt6lh9NIv9A0qIWgUL1dk+x1Cc0Qn6eT
-         cm0vDhrCLo9tJz0N40Wjhm9Q2D5jB+o+ORnZNO9g+b1qPQQ/LhN8WCMLZudxmXpWtzkL
-         DQXfS/wBCaKhm5hezDX7vJckM2i9vzF2eg5eqFDay1SHAwiduqTDCl/IqGKSOhP9zSUa
-         1n3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hTI6lCE3SeUi2bNFMaFjCIDOpOsKreE1i5lVGRhuwhM=;
-        fh=PcbUmcZL3tHZRkhpCyqpnbLk7m3eH8pqZA5/hIRZI2I=;
-        b=dS4KirGXh6lYSKHly6zm9BplJPumo3klfpzgE2Syw8JNanKGiLL6Y32hOKK4pRC5kT
-         4ewV3eEaxFq3PxXs3y4ss8fQ5/fMhjgX6kF69GE3KJ6Ywx+FakSzDQAtGSSSZ5OynDl4
-         6FO17vbgSWV29nrPLqsxxrUt04KPfgXRswma0vsHa6eUZDLmhWE4izeqrTkKgHH0SdDn
-         gSwiwvzodFtYPMnuruZN8jUI0u2sxsE5JsfC1fs2iRDMf9IoEBDR1J10U0Vl3jfV7Y9w
-         1V0uEAQy12YAswbUAnm1UrJ/uPq4dyPqrAjKG5GIl5HMFJItNLbmDrDx21hKJ+4qOV7a
-         KDxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787864792; x=1788469592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hTI6lCE3SeUi2bNFMaFjCIDOpOsKreE1i5lVGRhuwhM=;
-        b=gWkRNnzkkdPbEuJzBfG5/StM4bVWicKqyr7ETmVq4L6ZnwUS675R6S323z45SybObp
-         A4oE7thcX2c4g1EoGf7OwQUw528XWOkPlFUlKZNKkz+HiRwDurWtKdjLyDSZNFUSZJlv
-         GEzMpOqUAZCh3XbQ0D+sTUNN+jaFlD9rM0/enDp89CYJiucYvbW1lbcFztBzICNcY9ED
-         Bpn8EZj6XznszmPtAv4sMoTPZ+ZUfks5PuqRkpEstoynuLau6GTs0NId2FMXeyheDh4v
-         /Gua/TX3OtlD+B+uOKH1Clq3eE5yhL4Q0h/VajTEj/W1DgB3Et0+u1zMhSv05CeBesrq
-         IvZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787864792; x=1788469592;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hTI6lCE3SeUi2bNFMaFjCIDOpOsKreE1i5lVGRhuwhM=;
-        b=FBdXKP0mDwWW07uqQDYjV0sm1fUtOU7WuCb7lvzxdGNbK8hIrzo/cJBbep2yN0/zno
-         QwgWGWC/1FFFiaSy/nUY/7DKNfQyESO9s198vV/+IjkaqKj8al6AldXh5cdnxxt/BLq4
-         ILVArKw+qDrY4NnmChkHdsQRNEey7OWtVNe7rzIep5gyOcdjjn4qVzXaEI3W3S433VEj
-         rtSBodGSwz/stVLzTg3id1vSdc/nnsHNteSwtqzXZcULaSxMJwd0YVCdrCjMFPbF8zBc
-         xrj3ick0N+b3DYuPAqiO1CJybwz7xKY4s4QYU29IBmYRa5axeC4wRjG6wxnzcXh++ugD
-         u0aQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoQoGsFVAuRBiMv0Jz0VsUl/2FTGaNSkgmgpXLUXDmOxH3vq0kr/BwouiO66jmr6QRqaIfvQ+GvhMDwfdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM+eHJLy2INoxgWco/cwvTRjckSeAbhwqcZDqiMqy69Nevr2Mu
-	QnuQMR+r6uDOVMYJbox0KJlr+a+MdlJQRd9rE8WwwpzAS1nBnWaPc1Aor2EijcI+IAI9r8hwGvB
-	F1mr97dVeS3GWiGisQpxajQyD3V1eZP4=
-X-Gm-Gg: AR+sD10VSGHjTCzDN6XWHP4ms7QjXaVKRKqju2aLW+CwLdPtXCcsvjC6yH2xR401rtF
-	kbiwlneFJUVLKMaLUdHoFqFj82bNnHjXhhyeTuQdA6AmrEbUx4TpJHltIPe8VLo2vFsN13EbFnR
-	V8zQyW0U8IQ2GPTRlCmDr1WhurAYm8guaBAwEaCkqKeI/YDeid7ksznKgt8kvJQMGkDel8OCgTN
-	0rzbol4mXFSi+qjtHMIHsRTIFPuFgV9mL/jMNVFn+U4LpGIicAnL8ZLKrDaANLSy40WYa91bmEE
-	uFpjc0TRkp0XlM4XbA5r4G8HQdhhco4bX501C62W8BoPG7VqsspMpu2UlFWu1ZsRZ15vyRjmFUA
-	68M8D0biynLzpFag6cf5NpYQ4kNiHzN4=
-X-Received: by 2002:a05:6512:6682:20b0:5b1:5fb6:5cf6 with SMTP id
- 2adb3069b0e04-5b5e68ece63mr301414e87.17.1787864792124; Thu, 27 Aug 2026
- 14:06:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=web.de header.i=spasswolf@web.de header.b="njWA3koQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1787864830; x=1788469630; i=spasswolf@web.de;
+	bh=nRFDhaUwXIpLuDk3iWQUwhzno7/oihih62AfZPsxbcQ=;
+	h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=njWA3koQP/zz02RoVbXej5yrA00SHF5DAagJmrTejv5k/3hGy+WAZ+/afSXBd1ln
+	 uqoL5FlyfQBKwDgCj51ESJe2XFSv8JylkjZXRWobNHcqS5SgnMvTrgBzBNPopVng7
+	 Wp2cnQQFoRgqYxaqY1SVS+axoyw7HYBPtAc/4bj0su160bbIzpwXd5P7kC8sFpGhD
+	 L8oPvoQwZdjpZIa2xPu5mq/aNhAFPicbqqqA2rIRtY29zyhJE5EjMCTf4fR1cM/oZ
+	 ChnUKck/LLFoezq0p6wHfanYJbUMxE1oNOTFOn3hbKk6VXqL1/B7zGAZ1e+IAHtHY
+	 B+YGzpFATvKrqpAanQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1M3m9J-1x0WOU3AnL-00EZ3j; Thu, 27
+ Aug 2026 23:07:09 +0200
+Message-ID: <bd31938661f178abaa68d3958bacdc1ebb70ff5c.camel@web.de>
+Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
+ DC_FPU_{BEGIN,END} with PREEMPT_RT
+From: Bert Karwatzki <spasswolf@web.de>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org, Mikhail
+ Gavrilov	 <mikhail.v.gavrilov@gmail.com>, Alex Deucher
+ <alexander.deucher@amd.com>,  Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Thomas Gleixner	
+ <tglx@linutronix.de>, spasswolf@web.de
+Date: Thu, 27 Aug 2026 23:07:08 +0200
+In-Reply-To: <20260827124931.ocQEF6MW@linutronix.de>
+References: <202608061233.eufnR5Qm-lkp@intel.com>
+	 <20260807124944.154232-1-spasswolf@web.de>
+	 <20260827124931.ocQEF6MW@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-10+b1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
- <20260826082641.2007658-3-zhaonanzhe@xiaomi.com> <3771dfee-db35-4af4-a15d-28b8fa98fe96@kernel.org>
-In-Reply-To: <3771dfee-db35-4af4-a15d-28b8fa98fe96@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Thu, 27 Aug 2026 14:06:19 -0700
-X-Gm-Features: AcwNN1UX8cF71OpWNF9Pyckc-1xTjNYb0rpc7VN9R2dNndNrBT_Op7vETJIX9VE
-Message-ID: <CACOAw_xpxprNSnEuvToxn7wjr3Expi+pq6S=46TN7Yi5AJJ-cw@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 02/14] f2fs: carry subpage offset and count in
- write IO
-To: Chao Yu <chao@kernel.org>
-Cc: Nanzhe Zhao <zhaonanzhe@xiaomi.com>, linux-f2fs-devel@lists.sourceforge.net, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>, 
-	Pengfei Li <lipengfei28@xiaomi.com>, Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:FLlOinNoAtPvryHrUdhVjzwwbi6AJBeMaErejUpJnr3lgrmbPgN
+ lsn7tFl6s8OyIke16QXKk3fvEIRW2wwBfg02FplE7yMNiNSt1yHVqQWkwvPsUfEBfe/dcgV
+ mdI0cO8r8fLgl5xVB5AlB8fjKukQRJIPpEAWcLh7dagnsqYSkTjCfaimnNRhAl2c1U4Wgb9
+ 5UJVCWSUDbO1HcEWhxNjw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:1SueLRKDMEk=;EB7DoTz2zd9YmVPsxpY2n518BSp
+ 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
+ d3of9SJQFTjTrqXbk2ZfvlatKCTPdlXy
 
-On Thu, Aug 27, 2026 at 12:18=E2=80=AFAM Chao Yu via Linux-f2fs-devel
-<linux-f2fs-devel@lists.sourceforge.net> wrote:
->
-> On 8/26/26 16:26, Nanzhe Zhao wrote:
-> > Large folio write paths need to submit I/O for a range inside a
-> > folio instead of always submitting the whole folio from offset zero.
-> > Add folio_offset and folio_blkcnt to f2fs_io_info to describe the
-> > block offset inside the folio and the number of contiguous blocks
-> > covered by the I/O.
-> >
-> > Apply the new fields to the bio submit paths that need the subpage
-> > offset or contiguous block count.
-> >
-> > Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> > ---
-> >  fs/f2fs/data.c    | 59 ++++++++++++++++++++++++++++++++---------------
-> >  fs/f2fs/f2fs.h    | 11 +++++++++
-> >  fs/f2fs/segment.c |  3 ++-
-> >  3 files changed, 54 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> > index 578a90d427e2..8649d443ca74 100644
-> > --- a/fs/f2fs/data.c
-> > +++ b/fs/f2fs/data.c
-> > @@ -783,6 +783,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
-> >       struct folio *fio_folio =3D fio->folio;
-> >       struct folio *data_folio =3D fio->encrypted_page ?
-> >                       page_folio(fio->encrypted_page) : fio_folio;
-> > +     pgoff_t fio_lblk =3D F2FS_FIO_LBLK(fio_folio, fio);
-> > +     size_t bio_offset =3D F2FS_FIO_BIO_OFFSET(fio);
-> > +     size_t bio_len =3D F2FS_FIO_BIO_SIZE(fio);
-> >
-> >       if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
-> >                       fio->is_por ? META_POR : (__is_meta_io(fio) ?
-> > @@ -795,11 +798,11 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio=
-)
-> >       bio =3D __bio_alloc(fio, 1);
-> >
-> >       f2fs_set_bio_crypt_ctx(bio, fio_folio->mapping->host,
-> > -                     fio_folio->index, fio, GFP_NOIO);
-> > -     bio_add_folio_nofail(bio, data_folio, folio_size(data_folio), 0);
-> > +                     fio_lblk, fio, GFP_NOIO);
-> > +     bio_add_folio_nofail(bio, data_folio, bio_len, bio_offset);
-> >
-> >       if (fio->io_wbc && !is_read_io(fio->op))
-> > -             wbc_account_cgroup_owner(fio->io_wbc, fio_folio, PAGE_SIZ=
-E);
-> > +             wbc_account_cgroup_owner(fio->io_wbc, fio_folio, bio_len)=
-;
-> >
-> >       inc_page_count(fio->sbi, is_read_io(fio->op) ?
-> >                       __read_io_type(data_folio) : WB_DATA_TYPE(fio->fo=
-lio, false));
-> > @@ -844,7 +847,8 @@ static bool io_is_mergeable(struct f2fs_sb_info *sb=
-i, struct bio *bio,
-> >  }
-> >
-> >  static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
-> > -                             struct folio *folio, enum temp_type temp)
-> > +                             struct folio *folio, size_t len, size_t o=
-ffset,
-> > +                             enum temp_type temp)
-> >  {
-> >       struct f2fs_bio_info *io =3D sbi->write_io[DATA] + temp;
-> >       struct bio_entry *be;
-> > @@ -853,7 +857,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi,=
- struct bio *bio,
-> >       be->bio =3D bio;
-> >       bio_get(bio);
-> >
-> > -     bio_add_folio_nofail(bio, folio, folio_size(folio), 0);
-> > +     bio_add_folio_nofail(bio, folio, len, offset);
-> >
-> >       f2fs_down_write(&io->bio_list_lock);
-> >       list_add_tail(&be->list, &io->bio_list);
-> > @@ -870,6 +874,9 @@ static int add_ipu_page(struct f2fs_io_info *fio, s=
-truct bio **bio,
-> >                                                       struct folio *fol=
-io)
-> >  {
-> >       struct folio *fio_folio =3D fio->folio;
-> > +     pgoff_t fio_lblk =3D F2FS_FIO_LBLK(fio_folio, fio);
-> > +     size_t bio_offset =3D F2FS_FIO_BIO_OFFSET(fio);
-> > +     size_t bio_len =3D F2FS_FIO_BIO_SIZE(fio);
-> >       struct f2fs_sb_info *sbi =3D fio->sbi;
-> >       enum temp_type temp;
-> >       bool found =3D false;
-> > @@ -892,8 +899,8 @@ static int add_ipu_page(struct f2fs_io_info *fio, s=
-truct bio **bio,
-> >                                                           fio->new_blka=
-ddr));
-> >                       if (f2fs_crypt_mergeable_bio(*bio,
-> >                                       fio_folio->mapping->host,
-> > -                                     fio_folio->index, fio) &&
-> > -                         bio_add_folio(*bio, folio, folio_size(folio),=
- 0)) {
-> > +                                     fio_lblk, fio) &&
-> > +                         bio_add_folio(*bio, folio, bio_len, bio_offse=
-t)) {
-> >                               ret =3D 0;
-> >                               break;
-> >                       }
-> > @@ -1007,6 +1014,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio=
-)
-> >       struct folio *data_folio =3D fio->encrypted_page ?
-> >                       page_folio(fio->encrypted_page) : fio->folio;
-> >       struct folio *folio =3D fio->folio;
-> > +     pgoff_t fio_lblk =3D F2FS_FIO_LBLK(folio, fio);
-> > +     unsigned int fio_cnt =3D F2FS_FIO_BLKCNT(fio);
-> > +     size_t bio_offset =3D F2FS_FIO_BIO_OFFSET(fio);
-> > +     size_t bio_len =3D F2FS_FIO_BIO_SIZE(fio);
-> >
-> >       if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
-> >                       __is_meta_io(fio) ? META_GENERIC : DATA_GENERIC))
-> > @@ -1021,9 +1032,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio=
-)
-> >       if (!bio) {
-> >               bio =3D __bio_alloc(fio, BIO_MAX_VECS);
-> >               f2fs_set_bio_crypt_ctx(bio, folio->mapping->host,
-> > -                             folio->index, fio, GFP_NOIO);
-> > +                             fio_lblk, fio, GFP_NOIO);
-> >
-> > -             add_bio_entry(fio->sbi, bio, data_folio, fio->temp);
-> > +             add_bio_entry(fio->sbi, bio, data_folio, bio_len,
-> > +                          bio_offset, fio->temp);
-> >       } else {
-> >               if (add_ipu_page(fio, &bio, data_folio))
-> >                       goto alloc_new;
-> > @@ -1034,7 +1046,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
-> >
-> >       inc_page_count(fio->sbi, WB_DATA_TYPE(folio, false));
-> >
-> > -     *fio->last_block =3D fio->new_blkaddr;
-> > +     *fio->last_block =3D fio->new_blkaddr + fio_cnt - 1;
-> >       *fio->bio =3D bio;
-> >
-> >       return 0;
-> > @@ -1070,6 +1082,10 @@ void f2fs_submit_page_write(struct f2fs_io_info =
-*fio)
-> >       struct folio *bio_folio;
-> >       struct f2fs_lock_context lc;
-> >       enum count_type type;
-> > +     pgoff_t fio_lblk;
-> > +     unsigned int fio_cnt;
-> > +     size_t bio_offset;
-> > +     size_t bio_len;
-> >
-> >       f2fs_bug_on(sbi, is_read_io(fio->op));
-> >
-> > @@ -1108,6 +1124,9 @@ void f2fs_submit_page_write(struct f2fs_io_info *=
-fio)
-> >       /* set submitted =3D true as a return value */
-> >       fio->submitted =3D 1;
-> >
-> > +     fio_lblk =3D F2FS_FIO_LBLK(fio->folio, fio);
-> > +     fio_cnt =3D F2FS_FIO_BLKCNT(fio);
-> > +
-> >       type =3D WB_DATA_TYPE(bio_folio, fio->compressed_page);
-> >       inc_page_count(sbi, type);
+Am Donnerstag, dem 27.08.2026 um 14:49 +0200 schrieb Sebastian Andrzej Sie=
+wior:
+> On 2026-08-07 14:49:42 [+0200], Bert Karwatzki wrote:
+> > On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> > converted to rt_mutex. dc_create_plane_state() can be called while
+> > inside an FPU-guarded region, resuling in "scheduling while atomic"
+> > errors on PREEMPT_RT kernels.
+> >  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLE=
+D().
+> > Also fix the error path in dc_create_stream_for_sink().
+> >=20
+> > Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC =
+- Part 1")
+> > Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web=
+.de/
+> > Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+>=20
+> Thank you Bert. Got this somewhere in the meantime?
 
-inc_page_count() is called only once, but the completion
-path in f2fs_write_end_bio() decrements the counter by `fi.length >>
-PAGE_SHIFT`.
-Even though folio_blkcnt is currently always 1, for robustness and
-future multi-block
-support, please account for fio_cnt:
-    for (i =3D 0; i < fio_cnt; i++)
-        inc_page_count(sbi, type);
+No, this is seems to be stuck somewhere ...
 
-Thanks,
+>=20
+> Could the FPU regions with disabled preemption be limited to where we
+> have actually have FPU usage in way that you don't have to worry when it
+> is needed to use DC_RUN_WITH_PREEMPTION_ENABLED() and when not? Also the
+> dc_fpu_begin()/ end() can nest and if they do the usage of
+> DC_RUN_WITH_PREEMPTION_ENABLED() is futile, isn't it?
+>=20
 
-> >
-> > @@ -1115,26 +1134,28 @@ void f2fs_submit_page_write(struct f2fs_io_info=
- *fio)
-> >           (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bi=
-o,
-> >                             fio->new_blkaddr) ||
-> >            !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
-> > -                             bio_folio->index, fio)))
-> > +                             fio_lblk, fio)))
-> >               __submit_merged_bio(io);
-> >  alloc_new:
-> >       if (io->bio =3D=3D NULL) {
-> >               io->bio =3D __bio_alloc(fio, BIO_MAX_VECS);
-> >               f2fs_set_bio_crypt_ctx(io->bio, fio_inode(fio),
-> > -                             bio_folio->index, fio, GFP_NOIO);
-> > +                             fio_lblk, fio, GFP_NOIO);
-> >               io->fio =3D *fio;
-> >       }
-> >
-> > -     if (!bio_add_folio(io->bio, bio_folio, folio_size(bio_folio), 0))=
- {
-> > +     bio_offset =3D F2FS_FIO_BIO_OFFSET(fio);
-> > +     bio_len =3D F2FS_FIO_BIO_SIZE(fio);
-> > +
-> > +     if (!bio_add_folio(io->bio, bio_folio, bio_len, bio_offset)) {
-> >               __submit_merged_bio(io);
-> >               goto alloc_new;
-> >       }
-> >
-> >       if (fio->io_wbc)
-> > -             wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
-> > -                             folio_size(fio->folio));
-> > +             wbc_account_cgroup_owner(fio->io_wbc, fio->folio, bio_len=
-);
-> >
-> > -     io->last_block_in_bio =3D fio->new_blkaddr;
-> > +     io->last_block_in_bio =3D fio->new_blkaddr + fio_cnt - 1;
-> >
-> >       trace_f2fs_submit_folio_write(fio->folio, fio);
-> >  #ifdef CONFIG_BLK_DEV_ZONED
-> > @@ -3039,7 +3060,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *=
-fio)
-> >               set_new_dnode(&dn, inode, NULL, NULL, 0);
-> >
-> >       if (need_inplace_update(fio) &&
-> > -         f2fs_lookup_read_extent_cache_block(inode, folio->index,
-> > +         f2fs_lookup_read_extent_cache_block(inode,
-> > +                                             F2FS_FIO_LBLK(folio, fio)=
-,
-> >                                               &fio->old_blkaddr)) {
-> >               if (!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
-> >                                               DATA_GENERIC_ENHANCE))
-> > @@ -3058,7 +3080,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *=
-fio)
-> >       if (fio->need_lock =3D=3D LOCK_REQ && !f2fs_trylock_op(fio->sbi, =
-&lc))
-> >               return -EAGAIN;
-> >
-> > -     err =3D f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
-> > +     err =3D f2fs_get_dnode_of_data(&dn, F2FS_FIO_LBLK(folio, fio),
-> > +                                  LOOKUP_NODE);
-> >       if (err)
-> >               goto out;
-> >
-> > diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> > index 2e8f85cea6d0..31ddd321daf6 100644
-> > --- a/fs/f2fs/f2fs.h
-> > +++ b/fs/f2fs/f2fs.h
-> > @@ -1357,6 +1357,8 @@ struct f2fs_io_info {
-> >       blk_opf_t op_flags;     /* req_flag_bits */
-> >       block_t new_blkaddr;    /* new block address to be written */
-> >       block_t old_blkaddr;    /* old block address before Cow */
-> > +     pgoff_t folio_offset;   /* offset in large folio */
-> > +     unsigned int folio_blkcnt;      /* block count in large folio */
-> >       union {
-> >               struct page *page;      /* page to be written */
-> >               struct folio *folio;
-> > @@ -1378,6 +1380,15 @@ struct f2fs_io_info {
-> >       sector_t *last_block;           /* last block number in bio */
-> >  };
-> >
-> > +#define F2FS_FIO_LBLK(folio, fio)                                    \
-> > +     ((folio)->index + (fio)->folio_offset)
->
-> #define F2FS_FIO_LBLK(fio)                                      \
->         (((fio)->folio)->index + (fio)->folio_offset)
->
-> > +#define F2FS_FIO_BLKCNT(fio)                                         \
-> > +     ((fio)->folio_blkcnt ? (fio)->folio_blkcnt : 1)
->
-> Hmm, it's better to not leaving fio.folio_blkcnt as zero, can we set
-> fio.folio_blkcnt to 1 by default? and use fio->folio_blkcnt.
->
-> Thanks,
->
-> > +#define F2FS_FIO_BIO_OFFSET(fio)                                     \
-> > +     ((fio)->folio_offset << PAGE_SHIFT)
-> > +#define F2FS_FIO_BIO_SIZE(fio)                                       \
-> > +     F2FS_BLK_TO_BYTES(F2FS_FIO_BLKCNT(fio))
-> > +
-> >  struct bio_entry {
-> >       struct bio *bio;
-> >       struct list_head list;
-> > diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> > index df10119d94ad..5bb1e51a38a0 100644
-> > --- a/fs/f2fs/segment.c
-> > +++ b/fs/f2fs/segment.c
-> > @@ -3816,7 +3816,8 @@ static int __get_segment_type_6(struct f2fs_io_in=
-fo *fio)
-> >               if (file_is_cold(inode) || f2fs_need_compress_data(inode)=
+I'm not very familiar with the amd display engine, and it's a lot of code,
+but there I think there's some room for improvement, e.g. dml2_destroy():
+
+dml2_destroy is called from dc_state_free() from within DC_FP_{START,END}(=
 )
-> >                       return CURSEG_COLD_DATA;
-> >
-> > -             type =3D __get_age_segment_type(inode, fio->folio->index)=
-;
-> > +             type =3D __get_age_segment_type(inode,
-> > +                                          F2FS_FIO_LBLK(fio->folio, fi=
-o));
-> >               if (type !=3D NO_CHECK_TYPE)
-> >                       return type;
-> >
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+and then basically just calls vfree with DC_RUN_WITH_PREEMPTION_ENABLED().
+(directly or through dml21_destroy()). Here both the DC_FP_*() tags and
+DC_RUN_WITH_PREEMPTION_ENABLED() could be dropped I think (not tested, yet=
+)
+
+Regarding nesting DC_FP_*()s: When I was searching for the cause of the
+kernel panics I monitored every DC_FP_{START,END}() with printk(), and I
+don't think I encountered nesting (the logs are lost unfortunately)
+
+
+> The first usage kernel_fpu_begin() saves the FPU state to the user task.
+> kernel_fpu_end() does not restore it. Therefore the subsequent
+> invocation of kernel_fpu_begin() is cheaper.
+>=20
+> Sebastian
+
+Bert Karwatzki
