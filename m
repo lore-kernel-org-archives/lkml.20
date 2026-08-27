@@ -1,104 +1,216 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m15594.qiye.163.com (mail-m15594.qiye.163.com [101.71.155.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF2E233958
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600BA47F790;
+	Thu, 27 Aug 2026 14:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842081; cv=none; b=Cuh9bDmxidfUG9OfH7V1lxut+6oqpl0C9Bx2ll5/0y2KjyFQ6PUqy5TNp++yMyleEp3dpK0cEecrsAPWzFumyR6ZrJXoFcidIOsmwkD0PGTVNSx55+S8A9CX4YEN6hHIV6KF8NDzd+f+/Kl+ppAMep3guT3HAk8Uc3Arm7xRo/E=
+	t=1787842146; cv=none; b=K67FNjM/PVl2Jo5zS+PMZp4d21DpnJZXmVIZZ4JV3vqt1GKAj7VOanwhE7L2gjp1YbXFcvVr8IO3drg5UiEOL9nhLb8ye17E7+L/6aWu/PdTy8iNTDHsWMJ+gBbrIkMYxCTLS/UaWKqYjXsHVdQJvnIYAYURBTHyVAxseGFd07o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842081; c=relaxed/simple;
-	bh=4Qz/vscKrFKJKXW/7cJ97quWQtZtjd/PLHgXcvpvrSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=szqr2Gdiwx5Wetaf6hMAQKeIhV2q20IPzT7boFNLVWRPsSiIhKSs9wTnWWtbWI4R7vNoRnpLvq96SiiW2spKPV/rG/6tFUaQXqvvr0k20G58NlQcWEUzyHHfRnPDlj3+Dm7rqDUWmB/Qyvq98abYefA4uqfyJf4M0g6rFT0utaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRKEBfcQ; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787842146; c=relaxed/simple;
+	bh=raH/sGMEW6ZLjJvBqwPUPPTj+FCVd9+eJyem3P7gPcQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=fQ7UWt/3F90PE6zoAugOrv1Q3fjKcfuiUf/KNizPUQ7PEfUAj9EWUDKQYeRoz4XT2ZfjZRDb/VUWH/F+nJugotwdnZKKolo8OMfsrAb+c6Gia+qRED35lbV2mhJFwSXmjYSum5FgKAPIupR9nHztXnZsZk4A+Qwsl+IgBtZ/OCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e/FNhmD+; arc=none smtp.client-ip=101.71.155.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRKEBfcQ"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d58efc7356so26324645ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:47:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787842074; x=1788446874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qbEkvagZ9qeyC6jVzXtKZoIKK94uFwUXLSPjBHZM3eg=;
-        b=gRKEBfcQv/GbsKy792xm55YEDmcKdg5rOa+a/+JMC1KntLyNHjc3Ee0Ea7i47dRKZh
-         s2w+JlhuWuA0at744Nl7CyrNTSWfAjpsPBjKBc4knJ7oTcpNbg9uoh3c+s6R/VsT1RJi
-         lPj6ZgMeLiBUCTHYCFbaUyxnoI1ifTYF5ufyMdQESXyyOoc4AST/UAJFpVEswdXIDAK7
-         g3NjBdA1mHIH6oDlv7hUntqUFdNJ5fnf6N2uMtQea7zGMO6x0vwFYS1/i8DYvwQxs9TG
-         M7lS7ep6O12UqJ0aIe6AU9i5ka7c0l/+jFT9AarV0hgXc9du7PJNGcBVw4govGIvLfDM
-         hLGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787842074; x=1788446874;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qbEkvagZ9qeyC6jVzXtKZoIKK94uFwUXLSPjBHZM3eg=;
-        b=QUtR4OP1IW8biETEwGB7ZFROR9iq+H1YO7sd16d9VhhRE8y9V+BB4j1RZaRpKY3CvW
-         +eoMFUCSv4HTL7jfL1rQXh+06n9aRfAFQPAvkbybYOjduCGZirvBI9+agkUVIJ1cvUqS
-         +lU6Jfdw7r00EuBMSWHAedFa8QiDmFj8BbTI+Kavmr/pjK0gnXqUoq9SLjIhVhzW5rZy
-         0gKJFO846IDnmHq1lwugs3NHGoBlPcNFPV8bE8Zgz6U7lACkvuFMHHnuGW0D96e+TaTR
-         SKwV5WsaLCvpxRNAS6lKUwSX998rsiwnY2MKv+LyzY/JA6QIGjfurr44qSA+vfvakGNo
-         k85g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7DhpGQxWyfceF6BqVxPMvihSvDOYLnIXMyQ8FwW8bScAihteB1FIkyE6AyzoY5hv1mkqULlhXoSgHzqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8l0sglNhs83yq3wDtSsVmsm56nCmm1t5CnjtHSwnuv4ozCOrB
-	pUzzgl1/AGLh0e1RqVhwXFtfMOSylTMaYBdUHNtTeL/HiBXvB00WDuNI
-X-Gm-Gg: AR+sD13aCsh/a4xnTv/LUN4dhLL435l9q1BnubkUL0cWKNrNkiYOG+0ywy4qBMUSwTU
-	dtlK1zns5reFeslY5vylOc6bQ17JIq5ChwD8F1RhkM66LbKh/wlLJu2jou2XAbrz3pjyQYe33Lr
-	HVGu3RlKRd80DgZzVesKC/dMRrbLiSJBq8yKqTPAzsBEykgu/p4xXHcFVcL8C6VeQ6MJUnNadky
-	oF0fynRTWccvWl02SB0a00zfsAGgORklijk1KMgYgIKNW+HzHZ15i2hwMb2jEP1e7K66WHIdi7P
-	SOaIbrAfqufBofVUqBOX9mJDpWDHLqaGn5kAq5TkQ4d3rxqCEi3dJn4JxpX6gpuN6WwyLyltqzB
-	5lZ6v7hyabZyhrePKEd61+jza5i9g7mOetRs/0aP0F31Nw8EGOTFmqzf59W4ZeMscFHHMiKqsyB
-	E9bse3sQI23aEj5IPhEZ0rHeX+4OE5PmA7bMBjT5Gh2iOGcwVcFsQjdd4=
-X-Received: by 2002:a17:903:2383:b0:2d7:71e:575d with SMTP id d9443c01a7336-2d707af8a58mr304661165ad.9.1787842073561;
-        Thu, 27 Aug 2026 07:47:53 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c2bb7dsm17953815ad.71.2026.08.27.07.47.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:47:52 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/ras: drop redundant memset in amdgpu_virt_ras_get_cper_records()
-Date: Thu, 27 Aug 2026 23:46:13 +0900
-Message-ID: <20260827144614.487229-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e/FNhmD+"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4b88a3214;
+	Thu, 27 Aug 2026 15:58:43 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Jaehoon Chung <jh80.chung@samsung.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH 2/4] mmc: dw_mmc: convert DTO onto the central watchdog
+Date: Thu, 27 Aug 2026 15:58:04 +0800
+Message-Id: <1787817486-137277-3-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1787817486-137277-1-git-send-email-shawn.lin@rock-chips.com>
+References: <1787817486-137277-1-git-send-email-shawn.lin@rock-chips.com>
+X-HM-Tid: 0aa0423a78b903a4kunm6c47a0ea1fecd9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQh5LGlZIGR1IH0IdGE
+	wZSEtWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=e/FNhmD+BO6cPR6nKOTdzfDNBT7MMHDuyIcaxGovjwyRzg2B9fE7Szf4tQeg4AGbVufrW32SE9gyRp/MQ8+qtZcPxq6MzAsJszyjvI8nD/gI2rrjaHCITQ4B3UJw66l+SVb7t+EUk4QDxg3qqZWnDXSQeslKonhukuNFwTaqFm0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=qdQ0mWOFr10vR63BA6DRLoAdLcpAF3Ay2MyP1ObNvDA=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-kzalloc() returns zeroed memory, so the memset after the allocation is
-redundant.
+The data timeout joins the command timeout on the central watchdog;
+dto_timer is deleted.
 
-No functional change.
+ dw_mci_set_drto() arms DW_MCI_WD_DATA_EVENTS with EVENT_DATA_COMPLETE
+ as its precheck mask: a DATA_ERROR that arrived while still waiting
+ for the paired completion must not prevent the watch -- the legacy
+ mod_timer() guard tested exactly that one bit, and the fault-injection
+ machinery relies on this by injecting DATA_ERROR early.
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+The EXTENDED_TMOUT quirk semantics fall out naturally now:
+
+  * On quirk hosts the data-error branch delivers the whole watched
+    set, stopping the watch since no further data events will come --
+    this mirrors the former conditional timer_delete() plus the manual
+    EVENT_DATA_COMPLETE side-post.
+  * Without the quirk nothing is delivered there and the outstanding
+    watch keeps guarding until a genuine DATA_OVER arrives, exactly
+    like leaving dto_timer running did.
+
+The DATA_OVER branch delivers unconditionally, superseding its
+unconditional timer_delete().  The stale-timer WARN_ON +
+timer_delete_sync() dance in dw_mci_clear_pending_data_complete() goes
+away for the same reason as on the command leg: a callback racing past
+its checks is idempotent under irq_lock.
+
+No functional change intended.
+
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
 ---
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-index 1e83cb5064ff..f021719ff0a8 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-@@ -298,8 +298,6 @@ static int amdgpu_virt_ras_get_cper_records(struct ras_core_context *ras_core,
- 		return RAS_CMD__ERROR_GENERIC;
- 	}
+ drivers/mmc/host/dw_mmc.c | 64 ++++-------------------------------------------
+ drivers/mmc/host/dw_mmc.h |  2 --
+ 2 files changed, 5 insertions(+), 61 deletions(-)
+
+diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
+index cefc873..31cf728 100644
+--- a/drivers/mmc/host/dw_mmc.c
++++ b/drivers/mmc/host/dw_mmc.c
+@@ -1998,9 +1998,9 @@ static void dw_mci_set_drto(struct dw_mci *host)
+ 	drto_ms += 10;
  
--	memset(out_buf, 0, req->buf_size);
+ 	spin_lock_irqsave(&host->irq_lock, irqflags);
+-	if (!test_bit(EVENT_DATA_COMPLETE, &host->pending_events))
+-		mod_timer(&host->dto_timer,
+-			  jiffies + msecs_to_jiffies(drto_ms));
++	dw_mci_wd_arm(host, drto_ms, BIT(EVENT_DATA_COMPLETE),
++		      DW_MCI_WD_DATA_EVENTS,
++		      BIT(STATE_SENDING_DATA) | BIT(STATE_DATA_BUSY));
+ 	spin_unlock_irqrestore(&host->irq_lock, irqflags);
+ }
+ 
+@@ -2019,8 +2019,6 @@ static bool dw_mci_clear_pending_data_complete(struct dw_mci *host)
+ 	if (!test_bit(EVENT_DATA_COMPLETE, &host->pending_events))
+ 		return false;
+ 
+-	/* Extra paranoia just like dw_mci_clear_pending_cmd_complete() */
+-	WARN_ON(timer_delete_sync(&host->dto_timer));
+ 	clear_bit(EVENT_DATA_COMPLETE, &host->pending_events);
+ 
+ 	return true;
+@@ -2813,7 +2811,7 @@ static irqreturn_t dw_mci_interrupt(int irq, void *dev_id)
+ 			spin_lock(&host->irq_lock);
+ 
+ 			if (host->quirks & DW_MMC_QUIRK_EXTENDED_TMOUT)
+-				timer_delete(&host->dto_timer);
++				dw_mci_wd_deliver(host, DW_MCI_WD_DATA_EVENTS);
+ 
+ 			/* if there is an error report DATA_ERROR */
+ 			mci_writel(host, RINTSTS, DW_MCI_DATA_ERROR_FLAGS);
+@@ -2834,7 +2832,7 @@ static irqreturn_t dw_mci_interrupt(int irq, void *dev_id)
+ 		if (pending & SDMMC_INT_DATA_OVER) {
+ 			spin_lock(&host->irq_lock);
+ 
+-			timer_delete(&host->dto_timer);
++			dw_mci_wd_deliver(host, DW_MCI_WD_DATA_EVENTS);
+ 
+ 			mci_writel(host, RINTSTS, SDMMC_INT_DATA_OVER);
+ 			if (!host->data_status)
+@@ -3128,57 +3126,6 @@ static void dw_mci_cmd11_timer(struct timer_list *t)
+ 	queue_work(system_bh_wq, &host->bh_work);
+ }
+ 
+-static void dw_mci_dto_timer(struct timer_list *t)
+-{
+-	struct dw_mci *host = timer_container_of(host, t, dto_timer);
+-	unsigned long irqflags;
+-	u32 pending;
 -
- 	for (i = 0; i < req->cper_num; i++) {
- 		batch_id = req->cper_start_id + i;
- 		if (batch_id >= overview->last_batch_id)
+-	spin_lock_irqsave(&host->irq_lock, irqflags);
+-
+-	/*
+-	 * The DTO timer is much longer than the CTO timer, so it's even less
+-	 * likely that we'll these cases, but it pays to be paranoid.
+-	 */
+-	pending = mci_readl(host, MINTSTS); /* read-only mask reg */
+-	if (pending & SDMMC_INT_DATA_OVER) {
+-		/* The interrupt should fire; no need to act but we can warn */
+-		dev_warn(host->dev, "Unexpected data interrupt latency\n");
+-		goto exit;
+-	}
+-	if (test_bit(EVENT_DATA_COMPLETE, &host->pending_events)) {
+-		/* Presumably interrupt handler couldn't delete the timer */
+-		dev_warn(host->dev, "DTO timeout when already completed\n");
+-		goto exit;
+-	}
+-
+-	/*
+-	 * Continued paranoia to make sure we're in the state we expect.
+-	 * This paranoia isn't really justified but it seems good to be safe.
+-	 */
+-	switch (host->state) {
+-	case STATE_SENDING_DATA:
+-	case STATE_DATA_BUSY:
+-		/*
+-		 * If DTO interrupt does NOT come in sending data state,
+-		 * we should notify the driver to terminate current transfer
+-		 * and report a data timeout to the core.
+-		 */
+-		host->data_status = SDMMC_INT_DRTO;
+-		set_bit(EVENT_DATA_ERROR, &host->pending_events);
+-		set_bit(EVENT_DATA_COMPLETE, &host->pending_events);
+-		queue_work(system_bh_wq, &host->bh_work);
+-		break;
+-	default:
+-		dev_warn(host->dev, "Unexpected data timeout, state %d\n",
+-			 host->state);
+-		break;
+-	}
+-
+-exit:
+-	spin_unlock_irqrestore(&host->irq_lock, irqflags);
+-}
+-
+ static int dw_mci_parse_dt(struct dw_mci *host)
+ {
+ 	struct device *dev = host->dev;
+@@ -3329,7 +3276,6 @@ int dw_mci_probe(struct dw_mci *host)
+ 	hrtimer_setup(&host->wd_timer, dw_mci_watchdog_fn, CLOCK_MONOTONIC,
+ 		      HRTIMER_MODE_REL);
+ 	timer_setup(&host->cmd11_timer, dw_mci_cmd11_timer, 0);
+-	timer_setup(&host->dto_timer, dw_mci_dto_timer, 0);
+ 
+ 	spin_lock_init(&host->lock);
+ 	spin_lock_init(&host->irq_lock);
+diff --git a/drivers/mmc/host/dw_mmc.h b/drivers/mmc/host/dw_mmc.h
+index 7a14f3f..7af2b45 100644
+--- a/drivers/mmc/host/dw_mmc.h
++++ b/drivers/mmc/host/dw_mmc.h
+@@ -128,7 +128,6 @@ struct dw_mci_dma_slave {
+  * @wd_events: pending_events bits still awaited by the armed watch.
+  * @wd_states: host->state values for which the armed watch is valid.
+  * @cmd11_timer: Timer for SD3.0 voltage switch over scheme.
+- * @dto_timer: Timer for broken data transfer over scheme.
+  * @mmc: The mmc_host representing this dw_mci.
+  * @flags: Random state bits associated with the host.
+  * @ctype: Card type for this host.
+@@ -244,7 +243,6 @@ struct dw_mci {
+ 	unsigned long		wd_states;
+ 
+ 	struct timer_list       cmd11_timer;
+-	struct timer_list       dto_timer;
+ 
+ #ifdef CONFIG_FAULT_INJECTION
+ 	struct fault_attr	fail_data_crc;
 -- 
-2.43.0
+2.7.4
 
