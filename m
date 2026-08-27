@@ -1,186 +1,143 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1989938D6B5;
-	Thu, 27 Aug 2026 09:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766EE12F585;
+	Thu, 27 Aug 2026 09:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822472; cv=none; b=T8bWHJLF/HPH/RUhEXPCWoBNen79T+vknEp+llrDh6pqUpx9HmKo45leKMBwunijCuGQ+NVJvHvrnJK//9/jOlgyW8TGMpzu37nLUqnyzYWKlyCPQESNiMHLAteGMYtJeSjXWb17kDetKVRLmKaczUvfjV8pMQBOpY+uKdtnZes=
+	t=1787822492; cv=none; b=kHiwzDbXtV40kQAhAq3nMPTp/zkc4HlLDoZJOLkYpRT6HWvM4yDqf5cLhcMrZpxtOmkDQ++h1JN6bavtZBWNiiJdiT5A30rM3EycJNJmtS9PRioqnIn1J9N+GuhICv9BwCeLXLZIqZT35/ym/W050B68DfZxS/soidmESVS7Ga0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822472; c=relaxed/simple;
-	bh=WSdt2tsyHAa5JFOp0JQT8C+WLq/BfAWYCNKF8klKlGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a2rLhWVAhnS4Sx6aMg5gBu7VdX2KQXhJzVSMkIhIDlKEeve5TXRQsbcg/8g8cxt4rw8nuxLbrUWcmlGo5gZSulLRW71PwnpOrbNpour09LPH6wRVcy39SR8s/oTaSJAnRJIrkWflDXFv1I4ZDavfMoMLi2HsE5FXvtSX/3nIh0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=kz7bH0oV; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1787822492; c=relaxed/simple;
+	bh=4IzhJh3lBWAOHfE4wJbpsM9iGrvkz87YVBb3Imb3jJM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Lh+hDmD+TsidZ2uDP6VFSuODTkee2CzB0nYi2iNAIwelXDaKk7l3QveOdrSkXegFMoBUrryRejGIx1GvMrWy/bzrPyo7zdn7SHXpn9HHYDoWvDgyp167K7+RB5lhz9dy4L1x25s1r69rcpRhcg+cPUtZR2l3pjMwft6KTs84T0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=dPRMr4HX; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="kz7bH0oV"
-Received: from [10.0.0.94] (unknown [79.142.128.251])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 267AE5340789;
-	Thu, 27 Aug 2026 11:21:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787822461;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QLJaUAOjKhzMPiVbviAnkyKdfqksMQk35UVALf0VbU4=;
-	b=kz7bH0oV0Qfol3XlCFHCPncD1E7Sd3QUhoAPd/c+qkiTx1YZYtBsKafU4gJz1uc9z4nSYQ
-	TXgMpyqHWUroQxi3ntyIY/pcnnz1aqQ2fQYZcfHUslupE4NpVwo0KgvQDfDDmCn0Hp/dfb
-	u0f/W5uXWsr9Li5J/N17zNNGuY7dHB8=
-Message-ID: <e03b34d6-e61f-48bd-9e13-970d7034c379@ixit.cz>
-Date: Thu, 27 Aug 2026 11:21:00 +0200
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="dPRMr4HX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1787822490; x=1819358490;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=x7TNb3PzZ5LF/z0aOAcLHf9VQM7UzSXd9dJnzyzxr1A=;
+  b=dPRMr4HX8uEBgzbwATOM8D755h7xcAGuGer1Z80qt+JWXoCvDZb1q/da
+   e2ExPLrLGjutSQyNMXGGMJPVahdXT+LjoCDrl83eYn8GyBBZNRTRLMBrD
+   LxfbpH357Ez6KueLWxSaLHUeFSAVc9/Fj3TCZ1RhVj1zOSxQWffxbjD39
+   GdVaOrPnIBbC2u0pTmpAs3IklouK69/8g5t2WVujyzgD9JcnxWJeBaDk0
+   EN+82sqJEhzZwfYTFuflFwFckTVtJcHefBXZw7+BWdtvdEdzF0zKtQczA
+   If8BaTRJ9GYKXxNZPAc+cBgPqbimbHy212DRj37pZB1xEiBebLRzAFK1d
+   A==;
+X-CSE-ConnectionGUID: TIVzVIwxQRGxNhHQ7zupIg==
+X-CSE-MsgGUID: HUlh8tT+SpuI9Eceq6oHvA==
+X-IronPort-AV: E=Sophos;i="6.25,246,1779148800"; 
+   d="scan'208";a="26899945"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 09:21:28 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:31814]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.0.244:2525] with esmtp (Farcaster)
+ id 3d6197ce-b226-432b-8cc0-0137c0d8e6d7; Thu, 27 Aug 2026 09:21:27 +0000 (UTC)
+X-Farcaster-Flow-ID: 3d6197ce-b226-432b-8cc0-0137c0d8e6d7
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 27 Aug 2026 09:21:27 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 27 Aug 2026
+ 09:21:24 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <vbabka@kernel.org>, <hannes@cmpxchg.org>, <willy@infradead.org>
+CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <rvvandan@amazon.com>, <brauner@kernel.org>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hch@infradead.org>, <jackmanb@google.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux-xfs@vger.kernel.org>, <mhocko@suse.com>,
+	<ritesh.list@gmail.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<ziy@nvidia.com>
+Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Thu, 27 Aug 2026 09:21:00 +0000
+Message-ID: <20260827092100.3988386-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
+References: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] media: imx355: reuse existing CCS defines
-To: Jai Luthra <jai.luthra@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz>
- <178772520896.9142.15892216055046447878@freya>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <178772520896.9142.15892216055046447878@freya>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ClientProxiedBy: EX19D040UWA003.ant.amazon.com (10.13.139.6) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 26/08/2026 08:20, Jai Luthra wrote:
-> Hi David,
-> 
-> Quoting David Heidelberg via B4 Relay (2026-08-20 01:47:08)
->> From: David Heidelberg <david@ixit.cz>
->>
->> The driver may not be MIPU CCS compliant, but does use same address and
->> often set same values as compliant drivers. Do not define for every Sony
->> imx* driver registers we already know and are standard.
->>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->> I'm sending this as RFC, because we'll need to upstream at least 4 - 6
->> drivers, which aren't compliant with MIPI CCS. Quirking these drivers in
->> mipi-ccs would be pointless, thou we could at least simplify and unify
->> what needs to be separate.
->>
-> 
-> Indeed, while working on IMX708 I realized it was in the same bucket, and
-> ended up implementing a similar approach (of reusing register defines and
-> helpers from CCS).
-> 
->> Thanks for the feedback, just did few lines for the idea how the final
->> changes will look like. Anything ambiguous will be left as is.
->> ---
->>   drivers/media/i2c/imx355.c | 46 +++++++++++++++-------------------------------
->>   1 file changed, 15 insertions(+), 31 deletions(-)
->>
->> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
->> index 8eb8588cb71bb..57f7c70d18453 100644
->> --- a/drivers/media/i2c/imx355.c
->> +++ b/drivers/media/i2c/imx355.c
->> @@ -14,50 +14,34 @@
->>   #include <linux/unaligned.h>
->>   
->>   #include <media/v4l2-cci.h>
->>   #include <media/v4l2-ctrls.h>
->>   #include <media/v4l2-device.h>
->>   #include <media/v4l2-event.h>
->>   #include <media/v4l2-fwnode.h>
->>   
->> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
->> -#define IMX355_MODE_STANDBY            0x00
->> -#define IMX355_MODE_STREAMING          0x01
->> +#include "ccs/ccs-regs.h"
->>   
->> -/* Chip ID */
->> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
->>   #define IMX355_CHIP_ID                 0x0355
->>   
->> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
->> -
->>   /* PLL registers that depend on the external clock frequency */
->>   #define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
->>   #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
->> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
->>   #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
->>   #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
-> 
-> I think rest of the PLL registers could also be reused here?
-> 
-> While they are defined as CCI_REG16, I think writing just a byte to it
-> should work okay.
 
-It could work, but I wouldn't risk some undefined behavior. The datasheet define 
-it as is, so I would go against it (at least without seeing bigger benefit).
+On Wed, Jul 22, 2026 at 02:35:00PM +0200, Vlastimil Babka (SUSE) wrote:
+> AFAICS both your v3 and the implemented Johannes' suggestion effectively
+> make all the compact_first logic dead code - at least for the intended THP
+> use case based on costly_order. It will only continue to do something for
+> the non-movable order>0  case. So that's a significant change which will not
+> show up in your results, but might affect other workloads (I'd expect mainly
+> by having fewer THPs).
 
-> 
-> You could also reuse the CCS PLL calculation helpers instead of hardcoding
-> the values.
+Right - the change above modifies THP allocation requests as well. So instead
+of applying it to every costly __GFP_NORETRY allocation, I restrict it to
+callers that do not ask for __GFP_THISNODE. That leaves the local-node THP
+attempt untouched: the same bit pair is already tested further down the function 
+to bail out of the compact_first block (page_alloc.c:4899), and alloc_pages_mpol()
+sets both flags on the local-node-first attempt (mempolicy.c:2476-2478).
 
-I tried, but I would skip it for now, so we keep the verified configurations 
-against datasheet. Maybe in the future if there is need for it and we can 
-validate against more configurations.
+I tested this with my PostgreSQL workload on kernel v7.2-rc7 and results look good:
 
-I'm sending v2 cleaning the driver up with the basic scope :)
+Baseline:       70,735 tps
+This version:  144,670 tps  (145,280 / 144,037 / 144,694)  +104.5%
 
-Thank you
-David
 
-> 
-> [snip]
-> 
-> Thanks,
->      Jai
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ee902a468c2f..1e4b0c1e7296 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4725,10 +4725,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4743,6 +4743,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
+
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
++	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
++	    !(gfp_mask & __GFP_THISNODE))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
++
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
