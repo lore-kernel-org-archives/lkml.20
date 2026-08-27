@@ -1,150 +1,85 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877A232AABC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFD84746D5;
+	Thu, 27 Aug 2026 13:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837158; cv=none; b=Hqw8jLEGBBLKSK/wDMy9tM52Jyrv5YJ5p0e+6J/YWk4/F8kWQ3+AmY/HqHnGzdV3T55WjcWHQ41u/ZIkK7pGBB6jjP8jDBl1+53nJH+QqZEjcOD+ByDfgbjvV8CIxJSJkPJZY+gg7pNklZxFc/LR1dM+uzwYkcvEH2z6RLq5/rE=
+	t=1787837256; cv=none; b=biKW+JfzDbDmXMpzLA8mnnbgzeouJuxwjHA/clxDD25W2ilRB0DLSAFALJeysb4jUEPxeIcbEnuX/yXG660oqOAZldZev50ZcHc6EdwoVxm8d9v/9oZz8bNrRG39sBnlBBrjUkxrL2SdrGVuCyUpoB6Jh9J/mvliNe3oimpASA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837158; c=relaxed/simple;
-	bh=Ev9496wX/GmZ0M5RMEVi2p22hgJdEnNH9+JHMnghZlw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gMqjn+ARuvye4zY4/sR0tb9LTfqV+mavQ7jelubSTuTkE1fWH0JIdLOj+MXOMzeqMM7sR97lL3KyUsc2ud/BVrO5tHuUYbAsrtlvAcZZMa4xFqpAD0yPcFG7i+uGmZZ9+MYrW93EvmWQqM/Y4bI4uoWabUXIYK0JPh+WfrxG+YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W9D/cIZz; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787837256; c=relaxed/simple;
+	bh=HjKVzbx0ka2ysw5tJK5V1jc6iPgys042GFj8Xu8Z4ZU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ki3iLpEFSG6sqib5ovQ2cpeVcW5koptmmna842haq5FUaI5ssr/wLRWpwWyp5w3tEvL9fok/V67ZQPfIH2/KV2QdRk4/36H9bo9ufyP+XK3436/uHEXqGFeQIO35lgEPmQDlqnsJZ0k9tRM43UgONgjSBA+/lh/n47i8sG5wxUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGAfIwmt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W9D/cIZz"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1303259a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:25:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787837134; x=1788441934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Un2xD3niCIxDwPX+RYBO+nQcggpod9FBbKzFwsZnNlw=;
-        b=W9D/cIZzlvPNQLuq1bye5ky9kNXdAuq7+gecm8fQswpYGNfnMqS7bcgW/LwPmPDbjg
-         tfUEt4J8YnfAVsGSxdimn6Sy9PiwkcuMafvxsOELH+GwdBKJISxDWCsFqIqv3dpNv5Bu
-         RPFvcmQK2Krgm2R3W/G/ufaL6ndHgG7lZYPvTFxCc71w6ydFipQRISyxdODt/U4HfWsN
-         4fPdoDqaQA3AZZiCwMQLIExWF4+Dus1AJHHliZ0j3qgBpmLxvL2qyEo4PN+O5Z/PPlJk
-         Ey4JU0b2K2por4UQS8/GW0hZ6PxxxAZ9fvW0q1AGydOSgswc5csSkrPrFRTW8TBCdD1B
-         13hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787837134; x=1788441934;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Un2xD3niCIxDwPX+RYBO+nQcggpod9FBbKzFwsZnNlw=;
-        b=Sp4A6RKaxWGTt4WYr3Ba3eAe2/STV+U279FW6t+h7eWGjgtpcemXxhUKOOqQMqjdsH
-         hEKHHkpndYJyDzfJuWsyndRMfG/h+EveVkSCYkxk5yhtWtHMsc5ZClLTH3egf4Vbxdn6
-         FNONUlKAJq8Uq9Nls5pNodXfKzqvowoejJrgJmOa3m2qpIcJE7l852+mxFAACDwO9thD
-         2kFYG1yLaQlaP8pH8Cb3R1mN1+P/4NY1ZQa+J8UqmR6LnLt73Rx2aLX1qswoPmLRFJxh
-         zg0Gztu+9oxjLZ8NUpmpuPLWP3RTEitlqOyGLimsBfWvYIuVTDDDFXa5bp3QJi5ceMbU
-         xgXQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4bn3f5PgB+k8kyg1qeitHfVoupjc9VqH0MG/3pbUkdGOXESEVE8zVMz7Oh7qJQ8aS4PlZbVFnZMfKEqw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/IbIyrZN5RVJHTue7NDvAYzZGZ2A7aFhg6ZtV3W16486urrw9
-	+/JDrvAiUSD5Xks9ECwAzyrao0kZPIlWleYefsUahxw8WVBMIpwytlp5
-X-Gm-Gg: AR+sD12zO2Ry2H8t3MiaEMoIXH+NF6lqj6dBqMRc4XaRxKg6g3B1O3bASu/i/VjKNdJ
-	86ZQANXHi5SKRU955LtKXXhi0FT5mAA37N3cVTpWyuB24A79G85EcakBSc9TF6G2VMgXKd2m7OH
-	6XKtDpQfwOpBaTeFJVoAIZBGf9GIbF4N5i4kixglQsgO58EM4XcCIXjE9tLvIqv9c2w9yc7v4m0
-	ozLohbe4KioR0Oss6Sxv3Mp/hR2njm16wGvfKV2Uwr4YgrMtEG+D3Fjo4iba18y+9JvbPdYT/Sd
-	cANwGzqXfFsiW7hwZMFa4CVaOwHiAfCoTwikUW/BG7J0sx6P49+jvA4rvpYyJvOOWVMj8QH2j5h
-	gdod5/OAnbcMpSTfThDfA2P8CDHnWYUI/DBbsF5V61uRqaiNNQPjklwe3W7d3FRC5Mv3jAAA/7R
-	h5q1xPGve+orTUXRkfysoeWtagaHl1PV6bjuDJOxglx4/RtpasPGMwSp8bfvJkk1dGJIwg9fTzK
-	VJl+cl0Mq4XcP3zVwwBgD5JOzM73LPu9wT1hw==
-X-Received: by 2002:a05:6a20:4b93:b0:3d0:c5c0:d9b3 with SMTP id adf61e73a8af0-3d0c5c0dd51mr12555652637.18.1787837134346;
-        Thu, 27 Aug 2026 06:25:34 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1becae882sm2185217a12.29.2026.08.27.06.25.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 06:25:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <9f099c1c-ccc8-41f7-bae4-d0354bb4eec7@roeck-us.net>
-Date: Thu, 27 Aug 2026 06:25:30 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGAfIwmt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23AF1F000E9;
+	Thu, 27 Aug 2026 13:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787837244;
+	bh=2hBO9m0vTd/jCO9LU/z38lMIHBJ+dYBt/6htURH1XbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aGAfIwmtuk9++SPdW6FRgTgug2ia1wvEzaHSv1xBVBVCmb5RWlJlK3peSPAFgR9ZY
+	 cVf2XWDqZrLsihSFF3LzFIeZSKMoOuyJPlQ9UT6vSRBCUP5FyDOpu7rDivLrAI2o9w
+	 lDHz6X5Oqg9V+8Uo5amRdFqoyLtrO9ysxljH97jfKEdXWLnq44ttmWYVE4KHAWhXkY
+	 DPTSExS7FJwzNkjOz0hrEIZY/9c9nWLOeKty0gen/iKiiTQ4Roa5DhxAQubSXsf4Xj
+	 yKNsKpCBBT+KYhksv32RQdZZ9ZzZuGZ5ZSXLcRmoZNJXpdO/MOS7XeQP1riJZRuHY0
+	 9Qtq8iZTZiwTA==
+Date: Thu, 27 Aug 2026 14:27:18 +0100
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Michael Zaidman <michael.zaidman@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Germain Hebert <germain.hebert@ca.abb.com>, Rio Liu <rio@r26.me>,
+	Bruno Giacomazzi <brunoceg1@gmail.com>,
+	Christina Quast <contact@christina-quast.de>,
+	linux-input@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
+ fixes
+Message-ID: <20260827132718.GK770273@google.com>
+References: <20260822213941.98882-1-michael.zaidman@gmail.com>
+ <CAD++jL=DZnKeSUu7TrC1uFn83eUu=WAFh5FGiVkO=oT3DZ6yzQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] watchdog: da9062: Convert to
- DEFINE_SIMPLE_DEV_PM_OPS()
-To: Tzung-Bi Shih <tzungbi@kernel.org>,
- Triet Hoang <triet.hoang.dev@gmail.com>
-Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260826060839.203297-1-triet.hoang.dev@gmail.com>
- <20260826060839.203297-3-triet.hoang.dev@gmail.com>
- <ao_qdLdFmcyIkLM1@google.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <ao_qdLdFmcyIkLM1@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=DZnKeSUu7TrC1uFn83eUu=WAFh5FGiVkO=oT3DZ6yzQ@mail.gmail.com>
 
-On 8/27/26 00:42, Tzung-Bi Shih wrote:
-> On Wed, Aug 26, 2026 at 01:08:33PM +0700, Triet Hoang wrote:
->> diff --git a/drivers/watchdog/da9062_wdt.c b/drivers/watchdog/da9062_wdt.c
-> ...
->> -static SIMPLE_DEV_PM_OPS(da9062_wdt_pm_ops,
->> +static DEFINE_SIMPLE_DEV_PM_OPS(da9062_wdt_pm_ops,
->>   			 da9062_wdt_suspend, da9062_wdt_resume);
+On Tue, 25 Aug 2026, Linus Walleij wrote:
+
+> Hi Michael,
 > 
-> To be neat, it'd probably like to align the parameters to '(' or simply
-> combine them into a single line if it fits within the 100-col limit.
+> thanks for your patch!
 > 
-> The suggestion applies to all other patches in the series as well.
+> On Sat, Aug 22, 2026 at 11:40 PM Michael Zaidman
+> <michael.zaidman@gmail.com> wrote:
+> 
+> > Mainline supports only the FT260's I2C bridge. This series adds the
+> > UART/TTY interface and GPIO on top of it, and carries the I2C fixes made
+> > alongside them - two years of out-of-tree work [1], now replayed upstream.
+> (...)
+> >   HID: ft260: add serial driver
+> (...)
+> >   HID: ft260: add GPIO support on top of UART
+> 
+> This comment isn't pertaining to this one device in particular.
+> 
+> I'm not a HID maintainer but this trend to make HID devices spawn
+> serial and GPIO devices sort of turns HID into the new MFD, but
+> I suppose Jiri and Lee has discussed this phenomenon in the past?
 
+What is this?  4 device drivers in one, shoved into HID?  Each
+component; HID, I2C, GPIO, UART, should live in its respective
+subsystem, surely?
 
-I agree.
-
-Thanks,
-Guenter
-
+-- 
+Lee Jones
