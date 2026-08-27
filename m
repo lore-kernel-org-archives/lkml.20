@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF7731F9A5
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9672936E466
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:33:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862812; cv=none; b=b20ygB67ryggRLWZhHgFuYpBzsZ0AkNbVCY4gRIgDPbP2ZJHQDcbkmlJtMGD9cdiOLDReAq4++UhyxvCwFVjHAaTTzZLdblCF7pu39fsvEb+Tz4YEo/2oJO5t/7VtOfbmsQnvuFqaLmyUEX6wWQROm+Wkx13SJvkRAL3r/Xjiyo=
+	t=1787862812; cv=none; b=KP2hobLetBXbW0hk+5T9m7iD1FMzcqR2wfHFlihJqpyT0AVNjTJxFHzty7P7ON4hHBm2clCCBvDDjl4SvLuqOeK+oqp0kdLnJBj3agM6zIFmz0QiZa8AaHLK0MoGA96/vR+ZFVVxhmlexdQ/smRCNUeHtciLD5RC6SqNpxrrSVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787862812; c=relaxed/simple;
-	bh=3BAaltnCkbdgENCRtuIxeD3voB1ggAQUkOZ4SyHFgWo=;
+	bh=AA6t6PxVHGhAqlHnhQ/mznRkK6lhMb6izEIp6UPyr8k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Or0Yk1lIFMWyZkCCcS5yL9jnhcLXVRXXygAd0BZsdc86DToINqmBlDa4+jNIsyx5sKtryU5/4B4EelIX28feIUlozeMge+ixCOocEYPsB2rkmwejpH7jg/qBF1HcV8DYfUEyfe0A01c+h2loKYo+kmMM7Ajdi5pbD4/UXoWBifc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZjBjz2i; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=uHbIhg3vD9BvwgbBbyOASFdHEXwVkL+9MEaW0iSBDQ+3RWIQLWGDNHNFTX4Rq0hMbQUPCZWw3wKioKf+hgk5ClZAdG6Q3C/HQ91huA5CfUSBDF9XSgMRfXDzmttudX82zow2cFQj9NkCW0F3uVTpCV6lCMBuNU7GprTn2vPOkFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BKhvmget; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZjBjz2i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0E11F00A3F;
-	Thu, 27 Aug 2026 20:33:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BKhvmget"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33791F00ADB;
+	Thu, 27 Aug 2026 20:33:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787862801;
-	bh=dN++67rDjyqdMbNr9GA584bXADDlqA1mW/Fue7rbdF0=;
+	s=k20260515; t=1787862804;
+	bh=soqnG960tBHGLpWSzIdlomnC6GrsL7rtWYMUTaVI+vo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FZjBjz2iuHmvca0Joxx8flKYOPpCp2GjHnzDVk39GGYuo495dslkA14YDTSpu0kr5
-	 d7F5AZM9rklq78LNtaPlkQU7ZZqmEGYnedtbLKOhmkEsQ8q/COJZkQl2p6zJLigTiY
-	 bakfQroTL0zkJxnIVATv2MTIDtQN9QA0rZz950od/Hb10qhNv9qkG2igD0mH3cc/4/
-	 EJzCcdwNOvEFjpDiy4I1hSOWi5ea1t7grQb+Rr9w+UDgRD0/3vIkw9k5TMME1xHzy5
-	 YCpKzkvC0p/aYNQVjXQHvXK9L2frwZriiP7tG/zLXzFkTWdITYkl/mo4xIdI2LeeTV
-	 N9Eql8oqAXY5Q==
+	b=BKhvmgetFhBeRwz1VwBKvv6FI+f8RZtJ8HFBshs8gmvWtMdUICqTgwWbPhgZeJLLV
+	 hieQOB3QAgu2zgfuGJZ8bAdJ6J4FIMgSUtJLirYXaio8+a1sGPFfLgPXU/uTjXJrb1
+	 Lr705/uq8Ob5YwR8RK7TxY0Y6ekiEwsvQgfslFiq8FaGy3wsqC9xSfvmpi4Dswidce
+	 tAR8vXoei/yUC0mx9LKqvhUNfvQy88lyJLisdLfBnFAsW97GhC6xO/y6ATLsKxs+OS
+	 PbmhOMix6M8gfO92uf/Ko/JO5zOKPHH/uCT8Aeux+foWyq3Q+093EvV2LQKGuQX4ix
+	 wduBSZGvniB1g==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 27 Aug 2026 15:33:04 -0500
-Subject: [PATCH 05/11] accel: ethosu: Ensure SRAM region size matches job
+Date: Thu, 27 Aug 2026 15:33:07 -0500
+Subject: [PATCH 08/11] accel: ethosu: Validate secondary streams
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
+Message-Id: <20260827-ethosu-fixes-v1-8-346f9ea8791c@kernel.org>
 References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
 In-Reply-To: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -45,43 +45,54 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-It is possible for userspace to set the job SRAM size to 0, but then still
-have SRAM accesses in the command stream. When the job SRAM size is 0,
-setting the region base register is skipped and a stale base address from
-a prior job is used.
+The command-stream validator records the additional U65 scale and
+weight stream addresses and the U85 weight decoder addresses, but only
+checked stream 0 against its region buffer.
 
-Check the region size against the job's SRAM size instead of just the size
-of the SRAM. The job's SRAM size was already checked against the total SRAM
-size.
+Check every configured secondary stream against the matching weight or
+scale region before accepting a kernel operation.
 
-Fixes: 9cff90774872 ("accel: ethosu: Validate SRAM size on submit")
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/accel/ethosu/ethosu_job.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index c33f2877b385..0982722a9195 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -441,13 +441,13 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 			if (!cmd_info->region_size[i])
- 				continue;
- 			if (i == ETHOSU_SRAM_REGION) {
--				if (cmd_info->region_size[i] <= edev->npu_info.sram_size)
-+				if (cmd_info->region_size[i] <= ejob->sram_size)
- 					continue;
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 9fce7caeeb9a..3d1f4121db4f 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -321,6 +321,15 @@ static int calc_sizes(struct drm_device *ddev,
+ 			st->weight[0].base + st->weight[0].length - 1);
+ 		if (buffer_size(info, &st->weight[0], st->weight[0].region))
+ 			return -EINVAL;
++
++		for (int i = 1; i < ARRAY_SIZE(st->weight); i++) {
++			if (st->weight[i].base == U64_MAX &&
++			    st->weight[i].length == U32_MAX)
++				continue;
++
++			if (buffer_size(info, &st->weight[i], st->weight[0].region))
++				return -EINVAL;
++		}
+ 	}
  
- 				dev_err(dev->dev,
--					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
-+					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n",
- 					i, cmd_info->region_size[i],
--					edev->npu_info.sram_size);
-+					ejob->sram_size);
- 				ret = -EINVAL;
- 				goto out_cleanup_job;
- 			}
+ 	if (scale) {
+@@ -329,6 +338,12 @@ static int calc_sizes(struct drm_device *ddev,
+ 			st->scale[0].base + st->scale[0].length - 1);
+ 		if (buffer_size(info, &st->scale[0], st->scale[0].region))
+ 			return -EINVAL;
++
++		if (ethosu_is_u65(edev) &&
++		    (st->scale[1].base != U64_MAX ||
++		     st->scale[1].length != U32_MAX) &&
++		    buffer_size(info, &st->scale[1], st->scale[0].region))
++			return -EINVAL;
+ 	}
+ 
+ 	len = feat_matrix_length(edev, info, &st->ofm, st->ofm.width,
 
 -- 
 2.53.0
