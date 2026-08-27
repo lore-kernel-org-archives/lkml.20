@@ -1,94 +1,112 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA36E2116F4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF9D353A64;
+	Thu, 27 Aug 2026 02:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787798760; cv=none; b=Hj2SdzZcP4PQr2rgkeEYeynNWMbOhM3g1WVR7Vo32aZmOMWH+QbjaKsTiz89/fYlanc93VHWpKIi3rDRDSzdFeEkCG7/ynfZ1fySosCQ1/dd8cwqzPIKT8H4xi5khs9OV2O12DzahibIHRy3e2EymC5/w+x4+oSDTRaeKcbBym4=
+	t=1787798789; cv=none; b=OHzG0omPVzNN8t9zJgHBohp0NnshQGi6gJzh1FLwhpMWe2GcbJFeupke8LeLPP3hGY+/zmV33klcvgG6Qm2F1NlrlMfh/dLDQoU9VxIoo9uNHXhpwfluj/3mpzgeLnlgGNeepk+yi+SbLSxRiMOMIcG56VWIWUOkm97NDPOd8X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787798760; c=relaxed/simple;
-	bh=kVjLJTnJ5maTFqok+1OJSTLHeI+c0xNm3o+qOFbIEBo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dDP/cBemXZnQqdtqIvfZOpwDOiuEyM1yYgTVSTF4iZL2FyebRpy+OKlUKe12XUeW9/PYwp3lePcUMOltU9Pu3v9GPIcZm6RM32yG+f9q4cXmjR82LQ+nxPOYYl/FUHFZCPee/WGS/QI2uCW+CmAWFFjYcpR6Ofhqx1F3ZAs8X+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6bb35936a1c111f19a56ed5b684f684d-20260827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ba88b4f8-c0a9-480c-911b-8324a38a3f7d,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:9e8c55e655d10901818f6f3b5e4886fc,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:-3,IP
-	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
-	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6bb35936a1c111f19a56ed5b684f684d-20260827
-X-User: liuxixin@kylinos.cn
-Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuxixin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 923733502; Thu, 27 Aug 2026 10:45:53 +0800
-From: Xixin Liu <liuxixin@kylinos.cn>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me, hare@suse.de, dwagner@suse.de, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn
-Subject: [PATCH v2 1/1] nvme-tcp: fix wrong status on deferred digest error
-Date: Thu, 27 Aug 2026 09:05:00 +0800
-Message-ID: <1.nvme-tcp-req-status.v2.git.liuxixin@kylinos.cn>
-In-Reply-To: <cover.nvme-tcp-req-status.v2.git.liuxixin@kylinos.cn>
-References: <cover.nvme-tcp-req-status.v1.git.liuxixin@kylinos.cn> <cover.nvme-tcp-req-status.v2.git.liuxixin@kylinos.cn>
+	s=arc-20240116; t=1787798789; c=relaxed/simple;
+	bh=0dXjWTo19D2E3ml75KHH0Al/zvpUFf+k4OwGb0ydw4A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nuAlLiq05LaOPqG3L2HS091SbbnWDAmjKGbmsEU6+WvV6aZLm5jkC/GDE8r+MkwRU0s+gNjfszzDp6OWl9/UNHNqsqaplLoVU+iJuqPOdx7QYVcEV+YXk3mhrUZL0hdcHFteq73WT2X1g55Kp/5z9hlH5fqeGQA9lkGrtzamemU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=amLerCpJ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="amLerCpJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=04LV//Qqu8AJccIRCStGRzmejSwdi5G60bO+SIOXoKQ=; b=amLerCpJ/Smpy9mCR2c6EZPLHv
+	8uYNlnRnUKBmnI/Ik/B6ExblrZ0E0hP0t5flRLXUxlTF+bCL+0zEb7IaU7FHed2bHZoyz+yMLx5pW
+	CubhHcNuReLflxAQkihRVcoCssPUMZXohqnEYx3yVGuyPYmb/jXd+dpuk9HAujgNRRX0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wzQ7t-001arp-R8; Thu, 27 Aug 2026 04:46:01 +0200
+Date: Thu, 27 Aug 2026 04:46:01 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
+	dmaengine@vger.kernel.org
+Subject: Re: [PATCH 11/12] riscv: dts: ultrarisc: Add Shenzhen Rongda M0
+ board device tree
+Message-ID: <db174bcd-3b21-464f-ab56-439d65e2a064@lunn.ch>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-11-61ab7aebe9e5@ultrarisc.com>
+ <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
+ <178779718359.1423015.16616466921659081322.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: patches/scripts/send-local.py
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178779718359.1423015.16616466921659081322.b4-reply@b4>
 
-A C2HData digest error stores a host status code in req->status. Without
-DATA_SUCCESS completion goes through the rsp path, which passed that host
-value straight into complete as CQE Status wire encoding.
+On Thu, Aug 27, 2026 at 10:19:43AM +0800, Jia Wang wrote:
+> On 2026-08-24 15:02 +0200, Andrew Lunn wrote:
+> > > +&ethernet {
+> > > +	phy-handle = <&phy0>;
+> > > +	/*
+> > > +	 * YT8531 RGMII timing on this board requires no PHY internal delays.
+> > 
+> > Please extend this sentence with an explanation why it needs no delay?
+> > 
+> > There are times this is correct, but it is also mostly wrong. Without
+> > an explanation, i cannot say if this is correct or not.
+> > 
+> 
+> Thanks for the review.
+> 
+> The DP1000 SoC integration provides the required TX and RX RGMII clock
+> skew, so enabling the YT8531 internal delays would apply the delay twice.
 
-On the rsp path, shift left when a deferred host error is stored,
-otherwise use cqe->status.
+Please take a read of
 
-Fixes: 1ba2e507f55c ("nvme-tcp: Do not reset transport on data digest errors")
-Signed-off-by: Xixin Liu <liuxixin@kylinos.cn>
----
- drivers/nvme/host/tcp.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -617,6 +617,7 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- {
- 	struct nvme_tcp_request *req;
- 	struct request *rq;
-+	__le16 status;
- 
- 	rq = nvme_find_rq(nvme_tcp_tagset(queue), cqe->command_id);
- 	if (!rq) {
-@@ -628,10 +629,12 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- 	}
- 
- 	req = blk_mq_rq_to_pdu(rq);
- 	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
--		req->status = cqe->status;
-+		status = cqe->status;
-+	else
-+		status = cpu_to_le16(le16_to_cpu(req->status) << 1);
- 
--	if (!nvme_try_complete_req(rq, req->status, cqe->result))
-+	if (!nvme_try_complete_req(rq, status, cqe->result))
- 		nvme_complete_rq(rq);
- 	queue->nr_cqe++;
- 
--- 
-2.53.0
+You need to make the MAC driver do the correct thing:
 
+# There are a small number of cases where the MAC has hard coded
+# delays which cannot be disabled. The 'phy-mode' only describes the
+# PCB.  The inability to disable the delays in the MAC does not change
+# the meaning of 'phy-mode'. It does however mean that a 'phy-mode' of
+# 'rgmii' is now invalid, it cannot be supported, since both the PCB
+# and the MAC and PHY adding delays cannot result in a functional
+# link. Thus the MAC should report a fatal error for any modes which
+# cannot be supported. When the MAC implements the delay, it must
+# ensure that the PHY does not also implement the same delay. So it
+# must modify the phy-mode it passes to the PHY, removing the delay it
+# has added. Failure to remove the delay will result in a
+# non-functioning link.
+
+    Andrew
