@@ -1,135 +1,204 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4537268C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787861134; cv=pass; b=AUoE4db2W9QHKqF+iTZQIbOZ70mK8SUwqSubZ/t17OLe6ktTfkNqTw5YNl/ONvl23HH00jYXnSuGO7VB1ggKx7JqbGf60NYiHPZSaCN8ugiZ2JvP4Aimmr/OMTyV0v/ToC0JrYlwiypE6lhWO97XV8VmpuBQs59QdcUWWFo0PW0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787861134; c=relaxed/simple;
-	bh=Amq2Nq7g4Rvhi+A8MmnZy28GeuV84bebu12tbajvslg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GkR/30dY4eFJpeVS7RHh7Oce7KkRzlaEzcl0Omv+B6mmrKcJ2E5aIPjxlgwIUCVV/SQS+gDKDBDD6snp/a9CAj5VUxNd/+q1vaqUk9VEvbKC9dmKgwSGZaCueT33aPDdGiIFHZTsuuwJ3Ln09R9qd0f0IM+Q2qBiMUbF1jvghII=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jBTcaEmd; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0A63F1052
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787861260; cv=none; b=WO2uWKqeWHe/RoN+USojgvsUmA6NNksYs34ty22ZgdijHjoVwgxPqicUu6NNUgSJpn/yaIyFDhwq4Ch2DIiGCu53IcQBc4dRVE8ZPZLo83CGkqnjfX341+vfXA9FmaQB6V2KnV4tO5xXfpChmnF8uaBzKsAi/+kFS6bK8vHGlU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787861260; c=relaxed/simple;
+	bh=XGNnluYMjVsPKHYbpot+lm10wNfPEEfRYzSCrmXvQNs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=lv7oce5WRMpzG3jsDssBvreboI8yLSzMoJMX/mUYzJ2lyytwmb7zTk1F3NVasxE4b6ApQ9m5vItwCR/9Ldu0POjvxkDlVN3dUlfFFlKgeAcmt+pbbD+GqaAT3cnl6SuMZeFuOQvIqUQpPFdIGFm3AXLbXAmci7fkUsXkwfFO5Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=iiqCC2vB; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=8jpQwkMe; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jBTcaEmd"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so1178045e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:05:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787861128; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Uw94fMS2NNGrpqrx6ZhZ27K9a6YSod7+Nl7qqypow9stQ+lHsuuE2zSGgh8nIQFAwT
-         zLW+BTZllKrxeHCn80FXDugBmdpzMtr4Af+sqrW2NQWbRrWDhDW8xxp54IyStPpzXl7j
-         bAaD0pWCDFkzDwguBoeFb4bUPrpCJHrvRbJxxdi4sYF6ckvKMSrRWEIhjzzIBHWORYA2
-         mnWokmhtD/y8XvHUto8hxiV9BPy5CMNRAtBNNjbSxfFhvNmaMRJky9lb8MAxYvIuUT/y
-         8rzbDdP0njd0jM5wnvrGeLnnxIEeS5oHhQk9uo4Vf3Dm3qMVJQZmaEmE9iFJ4G0cmfIl
-         X8MQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BIsnd6xgeWrgcQT3jCCMdd8DVWxNR+Gr3QkvZG2o5wQ=;
-        fh=7M7jS4GFeqDX3nkcoMAZ3+igsAn6G4qpXVF8Vs4MY8s=;
-        b=doFMWvNz/BOXyfmbe54lOXda1TZmL9sQbp8XE65SHhICqEUfSMl3xH9HC9E5CwLv3W
-         qoeH/8XsjqZvov2zXXR/+wLoNn5UxGeWxMRj6/Thur9jVQLn5AJ/r2LHxfapjX0UQhil
-         b75xhCGL4yJ/zd5aK/NiWi9NyrVgiKtTxuMYLj7+ihGzKoU6XuS6CbI7deM78Hburh7i
-         ixgJU9J9QsHb2Arub58/j6fZQNAsLWwslyeqhDayWPYJ0xOvXepOtB21z7HtZ20LhObD
-         fGdYhVlyuO5dAYt/y0baCV0QGR0yRWwh3fpuc6fmF2l6FY3yjSIEVZMWhFr2twQtQgov
-         BtgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787861128; x=1788465928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BIsnd6xgeWrgcQT3jCCMdd8DVWxNR+Gr3QkvZG2o5wQ=;
-        b=jBTcaEmdwdW1DRedprV3w9bCe6/SEJs/DHjsy+D+PHot4C/PbHh5tD3BM6AzYCRCi6
-         pWnhe7FihJi7qfBJNS+BVYisD9dMsX12faXTjzTw/9IRGDEtAaH35EU+ihqp2Uu33ynq
-         uhZIwC3LG35wBKRoLsXUPWgEl4QAOtGU46rOl9i566IVSK9phMB5SNzdSqaXtnnPIoqQ
-         H9sy42ymjOdy+f63Je0waSafi6q1BeCdb6uW23+Y+Sv6XzOv32pHLYs+qlaK6knAMBza
-         CkfyYJEVtbS/VyPG1h9ao2I1/CL4JxF13UInCu9/qA+jqeRjk3uNvG3ELapCPsDwbqta
-         iJGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787861128; x=1788465928;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BIsnd6xgeWrgcQT3jCCMdd8DVWxNR+Gr3QkvZG2o5wQ=;
-        b=cbwNXdSCOkBrPgbj2V+i7VGeHO6/EhmftKBGURXKpca+LSeru6Ix1EIKKWOyXpt+ae
-         10MBrxYcZP9KUjeQ4aKaKE3SmEeKT1fHRuROVjjevo0bcLUF1DTOxrMxFy9CylD6EzN4
-         hFDoXWD+YLO8odQL5/DqVrnCDAVL93EoD+5yq8bHMIJjbTxVsYVe/nSUfCDFwy6fm53K
-         cVeJ7Y/Ya6Xr3JJ1Q2LX4vjHMbnBqHUzgAR9+FFSRPDKcJqnjb237AhFMSzkJFAvqTQO
-         VBYxwKfBoeHtqqyvV8+800XWUyoVn3pl0j2C/kg6pVxjXzwEcJS4Uw0MnMHtYhyGJy6G
-         t0dw==
-X-Forwarded-Encrypted: i=1; AHgh+RoFvNtMTQEu2awO68VKMOBpCmsYkBuS31ewhAPFX96KS+dZ7tMTeDxC1NNl52p3doSde2dPCY5sqs57QFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDJaDGD4nFtrb1aAoa/GqiDJ8cswOgwhWroWhwS2eFaLOdeFx5
-	uGZi7Fq/dYYKdwPHugzd/xmMgpx2RCZ2zM6dp4vBq7dRr+t7dr0f0qUo8iIHkgMN8O+XOYLnh07
-	ymJ3ZgyeiolA/GOJbdotnEVhhGX8nSEw=
-X-Gm-Gg: AR+sD11LElAEp+MI8NED1qU7sjqhW+o9IBbACniW7hj9weIjG8dLArHik9blEZOBoTS
-	05qnuKqJj4SfQdr4OgSY3EAAJ7sLblp7hELCvoL4dyipXVlorY6z2RVwl54TG8pH0ba82WKatH7
-	xAE87avBrpolflb2K9MBE7J2Nnm6IEUiLJKU6nJaBzeQbsIRf3FVvgyTNJUFk+L0ratGYAOPeG6
-	N2u75B8DgkDNTURuYuETvy2mgRhYbQnJ+L/XYR7Ycn1A77QubqHsXyCb5Ham4HZNHB6thj6gZOY
-	PxKkB34I8UPG5dbGTxoGhFqhE1zXKVkBxIbbvJlMLpmsUJGvrOGWdNn0pnm0Jz56l2BaWE7njts
-	GpyDiBwEDZ7WRvtZoQy75ZecBJXE=
-X-Received: by 2002:a05:600c:c4aa:b0:499:d513:e507 with SMTP id
- 5b1f17b1804b1-49b91c17d72mr16962265e9.2.1787861127504; Thu, 27 Aug 2026
- 13:05:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="iiqCC2vB";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="8jpQwkMe"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787861234; bh=1Jer9tgFXkC/FvHEjO0Tomt
+	ZXVeE2IyY75XNJRo6+OM=; b=iiqCC2vBPnV0/SC8EWe90ASI+eNefaiSU8F1EfFGYdaQTYBfI5
+	7gPLhP0uqekLNnAyjvNTNQ7Y6mhj9yNt9geoRsLSH+0GkC38Zv/blNhB4z9Af9DxXa3SJdNQtky
+	qFV8AnVUnueQEg8HXfzY8f0cuD+8nWpsxZo7nki2oOZbRoEeQniSfayquTzdVLVf10MKLPTdIIB
+	OwMcnOWNtGWNbR8M+sN8Fy025/VyR+M7+XXKNFzJ/CnReoyaflPAtViICJWABhNnQiMP1Rz5//V
+	zJ7R+fKSpqGQATkY7szSK3FOcfu6Ycg0/FTZsmSfbpCog9zMgdv9XEuAjStJkCmcVVQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787861234; bh=1Jer9tgFXkC/FvHEjO0Tomt
+	ZXVeE2IyY75XNJRo6+OM=; b=8jpQwkMeu6ooapYVLRHou/9rDnNxGxwEE103zZSFmgftjUdeTr
+	TPQnh83iWf/FfGjCpNwankZz4G7lC8xwzhDw==;
+Date: Thu, 27 Aug 2026 21:07:14 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: boqun@kernel.org
+CC: bigeasy@linutronix.de, joelagnelf@nvidia.com, linux-kernel@vger.kernel.org,
+ lyude@redhat.com, peterz@infradead.org, tglx@kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_interrupt=3A_Disable_interrupt?=
+ =?US-ASCII?Q?_before_modifying_hardirq=5Fdisable_counter?=
+In-Reply-To: <20260827181106.30090-1-boqun@kernel.org>
+Message-ID: <5292B0E1-930E-4999-A448-53749A7D8D21@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827185722.3234622-1-csander@purestorage.com> <20260827185722.3234622-2-csander@purestorage.com>
-In-Reply-To: <20260827185722.3234622-2-csander@purestorage.com>
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 27 Aug 2026 13:05:15 -0700
-X-Gm-Features: AcwNN1UExlY2vL2SpJh0tNQapsYMiZcr3z5sWaZZFYGrbWrJd63x35h50FR6wzE
-Message-ID: <CAJnrk1YfTg-Lz+TmM+c=Asc8N4QGuY9_g8zUXtaNr4O7hG1Djw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Ming Lei <tom.leiming@gmail.com>, 
-	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>, 
-	Bernd Schubert <bernd@bsbernd.com>, Miklos Szeredi <miklos@szeredi.hu>, linux-block@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	linux-btrfs@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Caleb,
-
-On Thu, Aug 27, 2026 at 11:57=E2=80=AFAM Caleb Sander Mateos
-<csander@purestorage.com> wrote:
+On 27 August 2026 19:10:48 BST, Boqun Feng <boqun@kernel.org> wrote:
+>Currently a softirq may be pending longer then expected if the
+>triggering interrupt happens in-between hardirq_disable_enter() and
+>_local_interrupt_disable() in local_interrupt_disable():
 >
-> In preparation for setting the io_uring NVMe passthru CQE results from
-> the blk-mq request completion rather than the task work callback, split
-> out functions io_uring_cmd_set_res{,32}() from io_uring_cmd_done{,32}().
-> This allows io_uring_cmd_done{,32}() and __io_uring_cmd_done() to be
-> consolidated into a single CQE-size-agnostic function with 3 fewer
-> arguments than __io_uring_cmd_done().
+>    local_interrupt_disable():
+>      hardirq_disable_enter();
+>      <interrupt>
+>      ...
+>      __irq_exit_rcu():
+>        // false because hardirq_disable_count() is not 0
+>        if (.. && !hardirq_disable_count() && ..) {
+>	  invoke_softirq();
+>	}
+>      _local_interrupt_disable();
+>
+>, it'll defer the softirq to the next interrupt which can be forever.
+>
+>The order between hardirq_disable_enter() and _local_interrupt_disable()
+>is to optimize re-disabling interrupts if they are already disabled, but
+>as 1) local_interrupt_disable() is not widely used yet and 2) the proper
+>way to achieve this optimization may need fixing up the counter at
+>entry/exit time [1], so reverse the order for now to avoid the softirq
+>pending issue.
+>
+>Since we are doing this, the part of saving the current state is
+>separated from irq disabling, and we basically do the following in
+>local_interrupt_disable():
+>
+>    local_irq_save(flags);
+>    if (counter++ == 0) {
+>      this_cpu(local_interrupt_disable_state) = flags;
+>    }
+>
+>Change _local_interrupt_disable() to _local_interrupt_save_state().
+>
+>Link: https://lore.kernel.org/lkml/87v78wezid.ffs@fw13/ [1]
+>Reported-by: Thomas Gleixner <tglx@kernel.org>
+>Fixes: e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
+
+LGTM, thanks 
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+>Signed-off-by: Boqun Feng <boqun@kernel.org>
+>---
+> include/linux/interrupt_rc.h | 19 ++++++++-----------
+> kernel/softirq.c             | 17 ++++-------------
+> 2 files changed, 12 insertions(+), 24 deletions(-)
+>
+>diff --git a/include/linux/interrupt_rc.h b/include/linux/interrupt_rc.h
+>index b9a7f05ecf42..e68e1bedba66 100644
+>--- a/include/linux/interrupt_rc.h
+>+++ b/include/linux/interrupt_rc.h
+>@@ -20,11 +20,8 @@
+> /* Per-CPU interrupt disabling state for
+> local_interrupt_{disable,enable}(). */
+> DECLARE_PER_CPU(unsigned long, local_interrupt_disable_state);
+> 
+>-static __always_inline void __local_interrupt_disable(void)
+>+static __always_inline void __local_interrupt_save_state(unsigned long flags)
+> {
+>-	unsigned long flags;
+>-
+>-	local_irq_save(flags);
+> 	raw_cpu_write(local_interrupt_disable_state, flags);
+> }
+> 
+>@@ -36,9 +33,9 @@ static __always_inline void __local_interrupt_enable(void)
+> }
+> 
+> #ifndef INSTANTIATE_EXPORTED_INTERRUPT_DISABLE
+>-static __always_inline void _local_interrupt_disable(void)
+>+static __always_inline void _local_interrupt_save_state(unsigned long flags)
+> {
+>-	__local_interrupt_disable();
+>+	__local_interrupt_save_state(flags);
+> }
+> 
+> static __always_inline void _local_interrupt_enable(void)
+>@@ -46,27 +43,27 @@ static __always_inline void _local_interrupt_enable(void)
+> 	__local_interrupt_enable();
+> }
+> #else
+>-extern void _local_interrupt_disable(void);
+>+extern void _local_interrupt_save_state(unsigned long flags);
+> extern void _local_interrupt_enable(void);
+> #endif
+> 
+> #else /* !MODULE */
+>-extern void _local_interrupt_disable(void);
+>+extern void _local_interrupt_save_state(unsigned long flags);
+> extern void _local_interrupt_enable(void);
+> #endif /* !MODULE */
+> 
+> static inline void local_interrupt_disable(void)
+> {
+> 	int new_count;
+>+	unsigned long flags;
+> 
+> 	WARN_ON_ONCE(in_nmi());
+> 
+>+	local_irq_save(flags);
+> 	new_count = hardirq_disable_enter();
+> 
+>-	/* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
+>-
+> 	if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
+>-		_local_interrupt_disable();
+>+		_local_interrupt_save_state(flags);
+> }
+> 
+> static inline void local_interrupt_enable(void)
+>diff --git a/kernel/softirq.c b/kernel/softirq.c
+>index 7980a4a232f9..5d02c36c40e3 100644
+>--- a/kernel/softirq.c
+>+++ b/kernel/softirq.c
+>@@ -91,11 +91,11 @@ EXPORT_PER_CPU_SYMBOL_GPL(hardirq_context);
+> 
+> DEFINE_PER_CPU(unsigned long, local_interrupt_disable_state);
+> 
+>-void _local_interrupt_disable(void)
+>+void _local_interrupt_save_state(unsigned long flags)
+> {
+>-	__local_interrupt_disable();
+>+	__local_interrupt_save_state(flags);
+> }
+>-EXPORT_SYMBOL(_local_interrupt_disable);
+>+EXPORT_SYMBOL(_local_interrupt_save_state);
+> 
+> void _local_interrupt_enable(void)
+> {
+>@@ -749,16 +749,7 @@ static inline void __irq_exit_rcu(void)
+> #endif
+> 	account_hardirq_exit(current);
+> 	preempt_count_sub(HARDIRQ_OFFSET);
+>-	/*
+>-	 * Interrupts may happen between hardirq_disable_enter() and
+>-	 * local_irq_save() in local_interrupt_disable(), if irq_exit() invokes
+>-	 * softirq here, we may have a softirq handler calling
+>-	 * local_interrupt_disable() but it won't disable the IRQ because
+>-	 * hardirq disabling count is already 1, hence we need to prevent
+>-	 * invoking softirq when a local_interrupt_disable() is ongoing.
+>-	 */
+>-	if (!in_interrupt() && !hardirq_disable_count() &&
+>-	    local_softirq_pending()) {
+>+	if (!in_interrupt() && local_softirq_pending()) {
+> 		/*
+> 		 * If we left hrtimers unarmed, make sure to arm them now,
+> 		 * before enabling interrupts to run softirq.
 >
 
-The conversion looks logically correct to me but the interface feels a
-bit annoying / fragile on the caller side.
-
-Is there a way nvme can get what it needs without changing the other
-callers? Would it work to just keep the existing
-io_uring_cmd_done{,32}() as is and add a separate API for special
-callers like nvme, eg:
-
-  void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret, u64 res2);
-  void __io_uring_cmd_done(struct io_uring_cmd *cmd, unsigned issue_flags);
-
-where io_uring_cmd_done{,32} would then just be inline wrappers over
-those? afaict, then only the nvme callsite would have to change and
-fuse, btrfs, block, ublk, and scsi_bsg could just stay as is. Do you
-think something like that makes sense to do?
-
-Thanks,
-Joanne
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
