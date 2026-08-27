@@ -1,130 +1,128 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7573B3AEF36
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D697D3AEF36
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864666; cv=none; b=cIAHycBjMJe7r1xR420hygVcVfMoC6Hi0JfWWh7d/FCWkaKo529qdvhkJHAL5qA7BwLhYN/fh5C8U+eizst1PIHXy6kdR9ZxWeuHFva6fQPP1ByzCPMcoGfABRPrhkQSZs6Vg+UfkDzF7CMymzULSb5mBONte1YxhzC5u0JYXeo=
+	t=1787864730; cv=none; b=b+xHczmOBGUp5ASDPFi0kGPS15+WrzFA5VktYpo7+bNbHWu8E3OJ90dh4ULmF6k9L/+uzSVaSIoj7qAr9APqPHwO9x54OlDlAHesYht+437A2Zj+iU1KkRoHYhqYjxWTbY7xnJEiRGwnp2oUIWzX/trBeag9rXqLh7C0aC3j4Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864666; c=relaxed/simple;
-	bh=Mmzu5piDzOR5VLGdR8g1iQaVB12Pi3zQ2wPUvmLua/8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mJYwPJ4lNC/TxAOY9GelZvfy+RK0FY7Na8S+800YvWpwRDeZ39kX5lrQ3jsINRqKP8NUGmmiBkzA8wBFL42i3te4DWmWAtAAu0NvrW+Jd5Upgma7dmJpfCfXaVf1qx8SJtO/7M6RFxztLHotOOUfN3+NWizqq960/9IuPJmeWBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HessqCvS; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787864730; c=relaxed/simple;
+	bh=G2Y5rmOgrcJW1cYHfLRhmBcItkWKTWHzdt4zZ7DPXFM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D+EUgn6dJPGChWq0ClD0j+oOHUo07g4KKdr2/bxeJUqOBAnGpS2lLymAmWwIoWIYD4XFR7M/68l3jiyiPTIjcZk9aCvsTrzLaEveYORuR1qXuwOGq27pmuqQBvOwL4/6j56IvNEItpcvA8my51xdX77vJs0H3XjVhY+nNc5SzS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWEwvAYb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HessqCvS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787864662;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ow8pCpus5Oqslb30nDP6hej/UoGp7POUQCVM9ygYWLY=;
-	b=HessqCvSsU5jbkBlUjV2sLMu6xihNGG2bo0M512+wj8tdMcORykBui0wbMgJMko8JMKEvm
-	noJIZSEJJljKd9YI+4oJvpFQDF4KqCPWNSJFHQ+5y2wPNN60PHmLdAmO1PQU22rnO1OHYY
-	qppGu56ll5RWMJWsJm96CSPxBRJHFOg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-541-a5NFsN_XOTGcR-41eqdJyQ-1; Thu,
- 27 Aug 2026 17:03:53 -0400
-X-MC-Unique: a5NFsN_XOTGcR-41eqdJyQ-1
-X-Mimecast-MFC-AGG-ID: a5NFsN_XOTGcR-41eqdJyQ_1787864601
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E1A031800657;
-	Thu, 27 Aug 2026 21:03:20 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2FDF27DF;
-	Thu, 27 Aug 2026 21:03:19 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mikelley@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH v4] Drivers: hv: Avoid infinite retry loop in init_vp_index()
-Date: Thu, 27 Aug 2026 17:03:13 -0400
-Message-ID: <20260827210313.670241-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWEwvAYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57241F00A3A
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787864729;
+	bh=cpC0zyFRw5TvxsK0TeNhl+fOmLRq9beFCwpmebsEwOc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QWEwvAYbv058jZpdyY9ydndiKF4wo080Ybihk0bMaYjAnSSDt4/7ck5ap9J74c97q
+	 3ldGkSOWX7H+xhAAcIG/iPNQQDOsYkXAIbl1kH+LGIYO4iBSFcygVQJbGPb0tprSss
+	 P3HxvcIJP10u7wSrT9GqIZdLC9316IfoptaQmUZTw2nNDdM5wdYOB57hgpm1l0NPbp
+	 Qs1LqURsiGlxaDWGmtTYFVwfcWa/gvXekMBAB8Nme1beTy1Gu+6C6l5b7jT+cdS0eZ
+	 HQtWg9II3VkvcCOXBm3pMLIUo+FgkXJpkjewZNYlY/1YVrEKvitmArH+QLeQyCBX2i
+	 PNWuRMBZ+dCBg==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1712a04ddaso19580966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:05:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqGoBN6VGds6Jg5aNFnufQGukIscUCv2GwV0xwkt7SXBuu8O6jvZeMlNWlguXv+UnLOSMCF0WLOY2dKpxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ms2ldb+K6tmbqo9R1c7BlpPONzQTVAWxEcUBAs0cNtHOGjidwZ
+	PnSJptch07/3hvcx4mT/H8e0kOmMJxFzzb8WaTp5VwsuPf5iS3X5Cb/vGeBNLdffgkT6YC6YRf9
+	ekxpBGQUcT4zciuBIn0BERwM9qby+sjY=
+X-Received: by 2002:a17:907:1c03:b0:c24:6505:8f66 with SMTP id
+ a640c23a62f3a-c2557166b75mr104597366b.13.1787864728647; Thu, 27 Aug 2026
+ 14:05:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
+ <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
+ <apCd5RSDYH13g0qR@google.com> <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
+ <apCitFa82WHmiebf@google.com> <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
+ <apClyjROxUd8ACEs@google.com>
+In-Reply-To: <apClyjROxUd8ACEs@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 14:05:16 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPkh=CT6EjuJOLPQrmPuO2WZ3A_OHdDEGG8zUY=sFOAuA@mail.gmail.com>
+X-Gm-Features: AcwNN1XV_ZR_uEy39clrVjEEi29Q3PO5FZhfQV4QGhsigLg4h9AJvJ8va8cAa_A
+Message-ID: <CAO9r8zPkh=CT6EjuJOLPQrmPuO2WZ3A_OHdDEGG8zUY=sFOAuA@mail.gmail.com>
+Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
+ versions of vmlaunch() and vmresume()
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-There is a retry loop in init_vp_index() where the CPUs from a certain
-node are stripped out if they have already been in the allocated cpumask
-or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
-CPU left, the allocated cpumask is ignored and the process is retried
-again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
-out not to contain any CPU in that particular node, that will become an
-infinite retry loop.  This particular problem was reported by sashiko
-[1]. This should rarely happen, but we still need to guard against this.
+On Thu, Aug 27, 2026 at 2:02=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > On Thu, Aug 27, 2026 at 1:48=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > > > On Thu, Aug 27, 2026 at 1:28=E2=80=AFPM Sean Christopherson <seanjc=
+@google.com> wrote:
+> > > > > Yeah.  Another idea would be:
+> > > > >
+> > > > >   void vmenter(bool do_vmlaunch)
+> > > > >   {
+> > > > >         if (do_vmlaunch)
+> > > > >                 vmlaunch();
+> > > > >         else
+> > > > >                 vmresume();
+> > > > >   }
+> > > > >
+> > > > > To yield:
+> > > > >
+> > > > >         vmenter(vector =3D=3D SS_VECTOR);
+> > > > >         vmenter(!i);
+> > > > >
+> > > > > Never mind, that's a terrible idea, the call sites are inscrutabl=
+e.
+> > > >
+> > > > Yeah, but I do agree that vmlaunch() vs vmresume() handling in
+> > > > selftests is annoying (e.g. see run_l2() in [1]).
+> > > >
+> > > > If you wanna go scorched earth on the nested VMX infra, what if we
+> > > > track launch vs resume (e.g. set launch=3Dtrue in prepare_vmcs() an=
+d
+> > > > lauch=3Dfalse in vmlaunch()), then provide a single vmenter() API f=
+or
+> > > > tests (with no arguments)?
+> > >
+> > > For selftests, it would be much more difficult to do correctly, as co=
+mpared to
+> > > KUT.  KUT has a "fixed" number of vCPUs, doesn't need to worry about =
+pCPU:vCPU
+> > > bindings, and has a strong need for per-vCPU state for other reasons =
+(because
+> > > it's more like per-pCPU state than per-vCPU state).
+> > >
+> > > Selftests doesn't have per-vCPU state, so making the tracking thread-=
+safe would
+> > > be challenging.  And I don't really want to add per-vCPU state becaus=
+e making
+> > > GS (or FS) off-limits is actually problematic when the goal is often =
+to do "bad"
+> > > things to vCPU state (I've debugged weird KUT failures due to GS gett=
+ing clobbered
+> > > more than once).
+> >
+> > Isn't vmx_pages effectively per-vCPU state (for nested)?
+>
+> Yeah, but you said "with no arguments", there are tests that use helpers,=
+ and
+> IMO passing in a vmx_pages pointer is uglier than implicitly tracking lau=
+nched
+> state.
 
-Fix this infinite loop problem by also skipping NUMA node that has no
-housekeeping CPU in the inner while loop of init_vp_index(). Also update
-the early abort check to check for the absence of online housekeeping
-CPUs instead of just the emptiness of the cpumask. As the outer for
-loop will only be reached if the housekeeping cpumask has at least one
-online CPU, a NUMA node with housekeeping CPUs will eventually be found.
-
-Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
-Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- drivers/hv/channel_mgmt.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index 89d214dda360..9b5ac09fbcf0 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -752,13 +752,14 @@ static void init_vp_index(struct vmbus_channel *channel)
- 	u32 i, ncpu = num_online_cpus();
- 	cpumask_var_t available_mask;
- 	struct cpumask *allocated_mask;
-+	const struct cpumask *node_mask;
- 	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_MANAGED_IRQ);
- 	u32 target_cpu;
- 	int numa_node;
- 
- 	if (!perf_chn ||
- 	    !alloc_cpumask_var(&available_mask, GFP_KERNEL) ||
--	    cpumask_empty(hk_mask)) {
-+	    !cpumask_intersects(hk_mask, cpu_online_mask)) {
- 		/*
- 		 * If the channel is not a performance critical
- 		 * channel, bind it to VMBUS_CONNECT_CPU.
-@@ -780,14 +781,16 @@ static void init_vp_index(struct vmbus_channel *channel)
- 				next_numa_node_id = 0;
- 				continue;
- 			}
--			if (cpumask_empty(cpumask_of_node(numa_node)))
-+			node_mask = cpumask_of_node(numa_node);
-+			if (cpumask_empty(node_mask) ||
-+			    !cpumask_intersects(node_mask, hk_mask))
- 				continue;
- 			break;
- 		}
- 		allocated_mask = &hv_context.hv_numa_map[numa_node];
- 
- retry:
--		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
-+		cpumask_xor(available_mask, allocated_mask, node_mask);
- 		cpumask_and(available_mask, available_mask, hk_mask);
- 
- 		if (cpumask_empty(available_mask)) {
--- 
-2.55.0
-
+That's fair.
