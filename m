@@ -1,86 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C847ACFA;
-	Thu, 27 Aug 2026 19:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D18E30E0FE;
+	Thu, 27 Aug 2026 19:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787859277; cv=none; b=KlBy11Uc8ffrAI5tqbLdtdVpUe5+pJHG7PUF5qvOFQp3kax18h8/xInv+c/PqpkTzVlEG09vNrUpEJL+7X6UTi2gHKo90zrpGQB+bEu9tL1pQb8m502szQI6q8LqB5v53sdY5luF1eEelkEBr6jKuN8fN5lok9djLglfG93IlZA=
+	t=1787859283; cv=none; b=WAK0rhSiGaFcbi+Fp3Kg/4x6qoLfcN97jpUHejImU07fUX3g5Kn6TpI2D1rPiitbS8rlOq/qHVD5jc71moQQUvUUzOydQOgqWBsW8GUZN0IpcflP+X6p+93J7j9mKwDTP326EAYQXOWIB48c1QxTskGYjjYCKL2LuqBTEXaZL2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787859277; c=relaxed/simple;
-	bh=SC82EU3g8vvl6n+Q6umeXkJHZxNOmy5jEGlrfO9K3Bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dp4BL6QzyYCNPncFSTgE5Nr2spqoBm8IrTxgm3CcQfHp7nhNiCGOug7U84zFr5mHZ80cgOpc2a1x/4SJH3U5b2wi4+9yzv9nvShiA6vqqfDDrXK4dGbE+FkkeWPDXCdQwY2FP69WJUKtLyCXTHGyR4UBA7rpu23eBoQYoztQdQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yz/4r1S5; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787859283; c=relaxed/simple;
+	bh=5pDmZX89itqKoKJ9A3hSOA9iC6V/f0PzaEuakE3HF34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZViLdyzR2h0P6vn+G00Ka3VT9pc73mfMGZxKPmEZtp3sN1MHSa/GZeAJmjcBVKS+sxcwiajSHajSEEEtwR/jeIFFKcHKEbyk59rkh5mGnm0vCmXOxejqVghTZTV9j28gTntVsb69tzOnUvV+TQs08bczifwcSyZHZxXdcfpLsBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aTRs+Evx; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yz/4r1S5"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aTRs+Evx"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787859275; x=1819395275;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SC82EU3g8vvl6n+Q6umeXkJHZxNOmy5jEGlrfO9K3Bo=;
-  b=Yz/4r1S5P8E0/Cs2uCyybJ5YMqBH+B7iqn3wTtYfXCROQYUZBADNKal6
-   NrR4t15Gj3yXwpMMWSpIrfWzgfX4iwhpcLYigTZTuS6Hj+EvdOiHkKLIH
-   u2uxALwQXBOXITLnKK5fdkpeZVoCveDEyXOCTllzDWhvDb+8C+1cRx8/I
-   TTf4FCse8f0V4sRfaUkuoMYKVnGIJzB2X31QSJAk+FiV/jQNpQD305l/V
-   UKkeJvcD1Ib91CZ3Ss6nnR/pnp9lgxq8l6LBu/kZqiHLd3AYq6V0ncBmk
-   pDUECAA4xYfkaSgL0rXWVI8DKBJF+C0nlVYbByICnulD0NXdNkXk9yI+I
-   w==;
-X-CSE-ConnectionGUID: rjUKYIW3RPGMPc3m2cmC+w==
-X-CSE-MsgGUID: coNUab3ASTiezTBDC672jA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88573288"
+  t=1787859282; x=1819395282;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=5pDmZX89itqKoKJ9A3hSOA9iC6V/f0PzaEuakE3HF34=;
+  b=aTRs+Evxx+GWKQVIK6FSbtiLbk7EFqBvzChvaKT3IeIy17afM2uPgDuu
+   aU0cZg+Ch1e1JcIo5INc5fLd127s+JESQKylL38EsD+9/BV3+mN0Y3a1d
+   uJl49uOmq8/95bu8hSTfQf4BEKDg6XdYaic+/feLaOIrA9YUgCYyBuFe5
+   05VoC8099RsjQp7rwN6yAYwJqFvAwo9lAn1cOi7eMJZxMTFziaMeTNwUB
+   6JfMaiaj4L/OcHpdal3Cp5mxWbwer6gDb3jyPMiFEbsq/vCTe6635ZBG7
+   1cVAn+PRzkHAcq8QNasW3S7g3k+zYvf2fLKBrutSgwq+0ZhEdbPwZeoTB
+   A==;
+X-CSE-ConnectionGUID: n/kDvqfSSmatzSScWywNLg==
+X-CSE-MsgGUID: fXwSJEloQGK/y3dVBPQlFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="75909793"
 X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="88573288"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:34:35 -0700
-X-CSE-ConnectionGUID: JtzZGL/hRiKBZZloT4kGxg==
-X-CSE-MsgGUID: itJG9c+xQjSWwnsZXykS1g==
+   d="scan'208";a="75909793"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:34:39 -0700
+X-CSE-ConnectionGUID: 5BP2QpfsQZG8Dn/MRn243Q==
+X-CSE-MsgGUID: TfbbbNvwT7qLxPE0sE3hNg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="267982382"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:34:32 -0700
-Date: Thu, 27 Aug 2026 22:34:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Archit Anant <architanant5@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
-	nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 8/8] iio: adc: ti-ads1015: inline
- ads1015_set_conv_mode()
-Message-ID: <apCRRiO9wUiLlQ3W@ashevche-desk.local>
-References: <20260827172100.39176-1-architanant5@gmail.com>
- <20260827172100.39176-9-architanant5@gmail.com>
+   d="scan'208";a="272181922"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.244.166]) ([10.245.244.166])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:34:37 -0700
+Message-ID: <6ef9d29e-e0f1-4807-b7aa-ee0b54861fa8@linux.intel.com>
+Date: Thu, 27 Aug 2026 22:34:28 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827172100.39176-9-architanant5@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+Cc: Mathieu Fluhr <mathieu.fluhr@gmail.com>,
+ Michal Pecio <michal.pecio@gmail.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, linux-usb@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
+ Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
+References: <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
+ <aosGtkE_diwVJJtB@eggarch> <20260823174059.46fec036.michal.pecio@gmail.com>
+ <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
+ <ao1ovvdPAy6n_F7I@eggarch>
+ <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
+ <ao7aLXk9q_v_jEyX@eggarch>
+ <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+ <ao8bM2SrASNh2u84@eggarch>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <ao8bM2SrASNh2u84@eggarch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 10:51:00PM +0530, Archit Anant wrote:
-> The ads1015_set_conv_mode() helper function is a single-line wrapper
-> around regmap_update_bits().
+On 8/26/26 21:11, Lovekesh Solanki wrote:
+> On Wed, Aug 26, 2026 at 04:40:14PM +0300, Mathias Nyman wrote:
+>> Roothub needs some time to settle as well, but 200ms might be excessive.
+>>
+>> xHC can triggers wake (PME) when a connected USB3 device starts signalling wake,
+>> but port registers changes are not always visible to driver before link training
+>> between roothub and device is successful.
+>>
+>> My educated guess is that 120ms should always be enough for the roothub.
+>> This is also the lecagy msleep() still apparently left in xhci resume
+>> to detect port changes in xhci runtime resume if there are USB3 devices.
+>> That msleep was supposed to be removed now that we got the hub changes.
+>>
+>> This 120ms can probably be further tuned for roothub in some cases,
+>> especially if resume is due to userspace action instead of xHC wake signal (PME).
+> So the patch I sent above unintentionally brought the total hold from hub
+> and xhci side down to 120ms, which worked.
 > 
-> With the transition to the FIELD_PREP() macro, the raw register updates
-> are now self-documenting and easy to read. Remove the wrapper function
-> and inline the regmap calls directly at the call sites.
+> And the correct fix would be to bring USB_SS_PORT_U0_WAKE_TIME down to
+> 120ms and clean up the msleep from xhci_resume?
+
+120ms for the USB3 roothub, I'd keep the 200ms for external hubs
+
 > 
-> This also allows for the removal of the final custom shift macro,
-> ADS1015_CFG_MOD_SHIFT.
+> I can prepare a patch that addresses both if you'd like.
 
-Ah, this patch should be done before previous one, so that one will use 'map'.
+Sounds good, but better to split the hub and xhci changes into separate patches.
 
--- 
-With Best Regards,
-Andy Shevchenko
+The hub.c tuning might end up in stable as it mitigates the issue seen on
+unfixed AMD based platform.
 
+Thanks
+Mathias
 
