@@ -1,309 +1,182 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 851F1483802
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com [14.137.139.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC21C480359;
+	Thu, 27 Aug 2026 15:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=14.137.139.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843567; cv=none; b=EGvGuTIfQgPi8WHbS7L2cnMhkGSIauRYKAW7xt/LB32EPJqqb/46qyRq8YMtnVu0BgrgFfR3XyqvHFi7rtYNuV7wUd4NPQAu9dHpRJwAr2D9LFi9crdDFruh47hRlWMZ6T4ZBUGzqB54hky+kcvIDO5DeIQxsUteW9RsOEbk0rQ=
+	t=1787843585; cv=none; b=qN9byYLPnGuSbiibiuzPvWyalaTsAuf0ak2vS/zAGpF8tj0tnmG9xcmSrs2F4YKK6pMI2M7GOMXq3QPg5J/R5Y1koUUzDi62wH+haNeEI0Li9TwFLN6XtbtjJHyv6nYVy8uiSrYq31H2sGj0nE6H6lzQF2zsKtMe0Aimf/W4u5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787843567; c=relaxed/simple;
-	bh=KkLYSOWi5UsqSDzxZZHjUrZJOhLkzRyn4aZC3IYcT/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=baFZjx93q01ryZVEktQw0s/VJai3GGk02k51T9fIrf/YBqwhHdsFICYQvLFpuwK8bavt2k5135q0al7YZ/8EvnVh/Tbq053tXKVAEhJNnvdgMYVETNdQ6jh6VYUWqtgLz/PYq/xUDigG0OuxNhYibCEpGxZxsSFVf0UJh+Wpgtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iVVuNwsc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iVVuNwsc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D8751684
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:12:37 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 44BFA3F66F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:12:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787843561; bh=KkLYSOWi5UsqSDzxZZHjUrZJOhLkzRyn4aZC3IYcT/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iVVuNwscxUt4qgnSknVXCeqwMxUci6Xv57cRPw1Upnqcll5LR8C2Kv+nEUPMGdbil
-	 SGSuF+i6QmKBq3+X+7QWeEna/8KBAq5mSTHOyUQwGwzp5V1Rtn9UTnnSxFLdh5yfms
-	 RDZFjEkgCMU5/XRxVvMzUaoM4uUgqvvXWTV+9ERY=
-Date: Thu, 27 Aug 2026 16:12:30 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 03/18] drm/panthor: Make panthor_device::pm::state
- non-atomic
-Message-ID: <apBT3tGIiQNNRe_r@e142607>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
+	s=arc-20240116; t=1787843585; c=relaxed/simple;
+	bh=8XP+3iFvKeqHuHIKqKyr1ZqegPzvcSy8tM88odHicKw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bxWnEr8sSGtxLh0RvMRraGC8kEaEXeAfEfXCCxXDc/e/l70+TznVbbc1cEGwq2Ii/B+poHEQWc6A+tj86y82nLUwbG4pguk01oe85p7s0O71ha/jt4kr6NCoFVEgeZu174aMfQ4E3/gdKncuqsmvo9SR9xDC7ZlfiqFU/FC2FMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=14.137.139.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.235])
+	by frasgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hW4DV383cz1HCFf;
+	Thu, 27 Aug 2026 22:49:46 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.47])
+	by mail.maildlp.com (Postfix) with ESMTP id 44C3240558;
+	Thu, 27 Aug 2026 22:56:52 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by APP1 (Coremail) with UTF8SMTPA id LxC2BwAHWtApUJBqpUVuAA--.42007S2;
+	Thu, 27 Aug 2026 15:56:51 +0100 (CET)
+Message-ID: <d63a007c6d371496780d3577e64e57b4d0e11e1a.camel@huaweicloud.com>
+Subject: Re: [PATCH] ima: select the SHA384 PCR bank for the boot aggregate
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: "Singh, Jashandeep" <jashandeep.singh@hpe.com>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu
+ <roberto.sassu@huawei.com>,  Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>, 
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Jashandeep Singh <jdsw@juniper.net>
+Date: Thu, 27 Aug 2026 16:56:38 +0200
+In-Reply-To: <037C125E-9343-464E-A1AF-8078D3B7BA38@hpe.com>
+References: <20260826191051.219090-1-jashandeep.singh@hpe.com>
+	 <4ea0433a82c219d6efdb83ad0bf267045c91a374.camel@linux.ibm.com>
+	 <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
+	 <21bf74a181df485f9daf47f9740972443e31471d.camel@linux.ibm.com>
+	 <92bf67810c6ed6bc4764f330d77c3ac2279781eb.camel@huaweicloud.com>
+	 <037C125E-9343-464E-A1AF-8078D3B7BA38@hpe.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
+X-CM-TRANSID:LxC2BwAHWtApUJBqpUVuAA--.42007S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4UuFWxWr47Ar4UJr4ktFb_yoW5uF18pr
+	WkX3WUAFn7XF1xArZ2va1xKr12y3yxGw4UWr1YyFy8Awn0gFn29wsFk3yrWrWq9F1kJF90
+	9FW3Kw12yr4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUylb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1v3UUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASBGqP4mYnTwABsc
 
-On Wed, Aug 26, 2026 at 04:56:02PM +0200, Boris Brezillon wrote:
-> Now that the reset logic has been reworked to use disable/enable_work(),
-> there's no need for panthor_device::pm::state to be an atomic. It can
-> simply be accessed under the same lock we use to touch MMIO mappings.
-> 
-> While at it, rename the lock to make it clear it protects more than just
-> the MMIO logic, and transition locked sections to scoped_guard().
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 97 +++++++++++++++++---------------
->  drivers/gpu/drm/panthor/panthor_device.h | 16 ++++--
->  2 files changed, 63 insertions(+), 50 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 2974f4bc0bb1..133e3895cd0a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -147,8 +147,10 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	/* If the device is entering suspend, we don't reset. A slow reset will
->  	 * be forced at resume time instead.
->  	 */
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> -		return;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> +			return;
-> +	}
->  
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return;
-> @@ -204,7 +206,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> -	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.mmio_lock);
-> +	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.lock);
->  	if (ret)
->  		return ret;
->  
-> @@ -213,7 +215,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	INIT_LIST_HEAD(&ptdev->gems.node);
->  #endif
->  
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
->  	p = alloc_page(GFP_KERNEL | __GFP_ZERO);
->  	if (!p)
->  		return -ENOMEM;
-> @@ -432,40 +434,39 @@ static vm_fault_t panthor_mmio_vm_fault(struct vm_fault *vmf)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	struct panthor_device *ptdev = vma->vm_private_data;
-> -	u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
-> -	unsigned long pfn;
-> -	pgprot_t pgprot;
->  	vm_fault_t ret;
-> -	bool active;
->  	int cookie;
->  
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return VM_FAULT_SIGBUS;
->  
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> -	active = atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		bool active = ptdev->pm.state == PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +		u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
-> +		unsigned long pfn;
-> +		pgprot_t pgprot;
->  
-> -	switch (offset) {
-> -	case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
-> +		switch (offset) {
-> +		case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
-> +			if (active)
-> +				pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
-> +			else
-> +				pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
-> +			break;
-> +
-> +		default:
-> +			ret = VM_FAULT_SIGBUS;
-> +			goto out_dev_exit;
-> +		}
-> +
-> +		pgprot = vma->vm_page_prot;
->  		if (active)
-> -			pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
-> -		else
-> -			pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
-> -		break;
-> +			pgprot = pgprot_noncached(pgprot);
->  
-> -	default:
-> -		ret = VM_FAULT_SIGBUS;
-> -		goto out_unlock;
-> +		ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
->  	}
->  
-> -	pgprot = vma->vm_page_prot;
-> -	if (active)
-> -		pgprot = pgprot_noncached(pgprot);
-> -
-> -	ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
-> -
-> -out_unlock:
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +out_dev_exit:
->  	drm_dev_exit(cookie);
->  	return ret;
->  }
-> @@ -526,10 +527,13 @@ int panthor_device_resume(struct device *dev)
->  	struct panthor_device *ptdev = dev_get_drvdata(dev);
->  	int ret, cookie;
->  
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
-> -		return -EINVAL;
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
-> +			return -EINVAL;
-> +
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_RESUMING;
-> +	}
->  
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_RESUMING);
->  
->  	ret = clk_prepare_enable(ptdev->clks.core);
->  	if (ret)
-> @@ -574,11 +578,11 @@ int panthor_device_resume(struct device *dev)
->  	 * are removed and the real iomem mapping will be restored on next
->  	 * access.
->  	 */
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> +	mutex_lock(&ptdev->pm.lock);
->  	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
->  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_ACTIVE;
-> +	mutex_unlock(&ptdev->pm.lock);
+On Thu, 2026-08-27 at 14:46 +0000, Singh, Jashandeep wrote:
+> Mimi, the patch covers the case where the TPM is provisioned with a singl=
+e PCR
+> bank, SHA-384, while the default IMA hash is configured as SHA-256.
+>=20
+> The SHA-384 bank is present in nr_allocated_banks, but it matches neither=
+ the
+> configured default (SHA-256) nor the current hardcoded fallbacks (SHA-256=
+, then
+> SHA-1). As a result, bank_idx remains -1, and we hit "No suitable TPM alg=
+orithm
+> for boot aggregate", leaving the boot aggregate zeroed.
+>=20
+> Roberto, it is not strictly true that the boot aggregate algorithm is alw=
+ays the
+> same as the default IMA hash algorithm.
+>=20
+> When the bank corresponding to the default hash is not allocated, the exi=
+sting
+> SHA-256/SHA-1 fallback logic selects a different bank than the default.
+> Therefore, the boot aggregate can already use a different algorithm from =
+the
+> configured IMA hash.
+>=20
+> My patch adds SHA-384 as one more fallback for the case where SHA-384 is =
+the
+> only allocated bank. This allows users with such a configuration to have =
+the
+> boot aggregate computed, without requiring them to change their default I=
+MA
+> hash to SHA-384.
 
-Can this also use scoped_guard()?
+That would work for your use case, but what about anyone using a single
+SHA-512 PCR bank?
 
-Otherwise, this looks good to me!
+Would it be fine to add a new Kconfig and kernel option to specify a
+custom boot aggregate algorithm?
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Thanks
 
-Best regards,
-Liviu
+Roberto
 
->  
->  	/* Now that everything is resumed, we can re-enable the reset work. */
->  	enable_resets(ptdev);
-> @@ -595,7 +599,9 @@ int panthor_device_resume(struct device *dev)
->  	clk_disable_unprepare(ptdev->clks.core);
->  
->  err_set_suspended:
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +	scoped_guard(mutex, &ptdev->pm.lock)
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
-> +
->  	atomic_set(&ptdev->pm.recovery_needed, 1);
->  	return ret;
->  }
-> @@ -605,21 +611,21 @@ int panthor_device_suspend(struct device *dev)
->  	struct panthor_device *ptdev = dev_get_drvdata(dev);
->  	int cookie;
->  
-> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> -		return -EINVAL;
-> -
->  	/* Clear all IOMEM mappings pointing to this device before we
->  	 * shutdown the power-domain and clocks. Failing to do that results
->  	 * in external aborts when the process accesses the iomem region.
->  	 * We change the state and call unmap_mapping_range() with the
-> -	 * mmio_lock held to make sure the vm_fault handler won't set up
-> +	 * lock held to make sure the vm_fault handler won't set up
->  	 * invalid mappings.
->  	 */
-> -	mutex_lock(&ptdev->pm.mmio_lock);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDING);
-> -	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
-> -			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> -	mutex_unlock(&ptdev->pm.mmio_lock);
-> +	scoped_guard(mutex, &ptdev->pm.lock) {
-> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> +			return -EINVAL;
-> +
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDING;
-> +		unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
-> +				    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
-> +	}
->  
->  	/* Make sure we're not interrupted by resets after that point
->  	 * until the GPU is resumed.
-> @@ -644,6 +650,9 @@ int panthor_device_suspend(struct device *dev)
->  	clk_disable_unprepare(ptdev->clks.coregroup);
->  	clk_disable_unprepare(ptdev->clks.stacks);
->  	clk_disable_unprepare(ptdev->clks.core);
-> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
-> +
-> +	scoped_guard(mutex, &ptdev->pm.lock)
-> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
-> +
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index f55baa21b25e..217eec811bdb 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -298,18 +298,22 @@ struct panthor_device {
->  
->  	/** @pm: Power management related data. */
->  	struct {
-> -		/** @state: Power state. */
-> -		atomic_t state;
-> +		/**
-> +		 * @state: Power state.
-> +		 *
-> +		 * Must be accessed with the panthor_device::pm::lock held.
-> +		 */
-> +		enum panthor_device_pm_state state;
->  
->  		/**
-> -		 * @mmio_lock: Lock protecting MMIO userspace CPU mappings.
-> +		 * @lock: Lock protecting PM related fields.
->  		 *
->  		 * This is needed to ensure we map the dummy IO pages when
->  		 * the device is being suspended, and the real IO pages when
-> -		 * the device is being resumed. We can't just do with the
-> -		 * state atomicity to deal with this race.
-> +		 * the device is being resumed. We can't just do with an
-> +		 * atomic state to deal with this race.
->  		 */
-> -		struct mutex mmio_lock;
-> +		struct mutex lock;
->  
->  		/**
->  		 * @dummy_latest_flush: Dummy LATEST_FLUSH page.
-> 
-> -- 
-> 2.55.0
-> 
+> Thanks,
+> Jashan
+>=20
+> > On 27 Aug 2026, at 6:47=E2=80=AFPM, Roberto Sassu <roberto.sassu@huawei=
+cloud.com> wrote:
+> >=20
+> > On Wed, 2026-08-26 at 19:14 -0400, Mimi Zohar wrote:
+> > > Hi Jashan,
+> > >=20
+> > > Mail to the kernel mailing lists are in plain text. Please refer to
+> > > https://docs.kernel.org/process/submitting-patches.html#no-mime-no-li=
+nks-no-compression-no-attachments-just-plain-text=20
+> > >=20
+> > > On Wed, 2026-08-26 at 22:35 +0000, Singh, Jashandeep wrote:
+> > > > Thanks Mimi.
+> > > >=20
+> > > >=20
+> > > > Agreed that all allocated banks are extended via tpm_pcr_extend() -=
+ but that's
+> > > > the PCR-extend (write) path. The failure is in ima_calc_boot_aggreg=
+ate(), which
+> > > > reads PCRs 0-9 from a *single* selected bank.
+> > > >=20
+> > > >=20
+> > > > The issue is that a TPM can be provisioned with *only* the SHA-384 =
+bank enabled,
+> > > > while the default IMA hash algorithm is SHA-256. In this configurat=
+ion, the
+> > > > current selection logic only matches the configured IMA default, th=
+en SHA-256,
+> > > > and then SHA-1 - it never considers SHA-384.
+> > >=20
+> > > It's walking the list of allocated TPM banks and, if allocated, sets =
+bank_idx.
+> > >=20
+> > >        for (i =3D 0; i < ima_tpm_chip->nr_allocated_banks; i++) {
+> > >                crypto_id =3D ima_tpm_chip->allocated_banks[i].crypto_=
+id;
+> > >                if (crypto_id =3D=3D hash->algo) {
+> > >                        bank_idx =3D i;
+> > >                        break;
+> > >                }
+> > >=20
+> > > The question is why isn't the sha384 bank found in the list of
+> > > nr_allocated_banks?
+> >=20
+> > The boot aggregate algorithm is the same as the default hash algorithm.
+> >=20
+> > Please try ima_hash=3Dsha384.
+> >=20
+> > Thanks
+> >=20
+> > Roberto
+> >=20
+> > > Mimi
+> > >=20
+> > > >=20
+> > > > Adding a SHA-384 match allows the boot aggregate to be computed cor=
+rectly
+> > > > (sha384:...) instead of returning 0 and logging "No suitable TPM al=
+gorithm for
+> > > > boot aggregate". The fact that the SHA-384 bank can be selected and=
+ the boot
+> > > > aggregate computed also confirms that the SHA-384 bank is recognize=
+d and
+> > > > allocated, rather than being missing.
+>=20
+>=20
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
