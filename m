@@ -1,118 +1,309 @@
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC78447F2C3
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 851F1483802
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843517; cv=none; b=tM00uRVO3LhcHMMN48jeHuHp4EPStHZDmYRXgmxwx4j41ynf8yzCIgOM8F8CZNHvfEbwFOhvar7vL2qSe6GgPhjnB157dyEiGCteUk1VWmzhajzkT6RzUp6Nuykin9ejGfp5Qyrnjc7RggqwhnzYmfKbyH9MIKzVZpyQIl/EmWk=
+	t=1787843567; cv=none; b=EGvGuTIfQgPi8WHbS7L2cnMhkGSIauRYKAW7xt/LB32EPJqqb/46qyRq8YMtnVu0BgrgFfR3XyqvHFi7rtYNuV7wUd4NPQAu9dHpRJwAr2D9LFi9crdDFruh47hRlWMZ6T4ZBUGzqB54hky+kcvIDO5DeIQxsUteW9RsOEbk0rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787843517; c=relaxed/simple;
-	bh=TS8uJOxY0VqqIlMJUo9bqOEciSpsr3A5gB1Tj/EyK2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Arq6DvBpUKLpmwXUiUtjOF+VX+Np8d7X6tJAD0sF/mrslDUOHnKiziTYRP9xrv18YyzpPVI4c2evXLZzB3kfrxDwGq7UkZaL/ufihJ+jZN5m8wC12nUghfSfiZu14DrC6EGqZxGCWQxdwhaTUQr27TjHpOrmNif4q8a0riiIIXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F3IsbMW8; arc=none smtp.client-ip=209.85.160.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787843567; c=relaxed/simple;
+	bh=KkLYSOWi5UsqSDzxZZHjUrZJOhLkzRyn4aZC3IYcT/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=baFZjx93q01ryZVEktQw0s/VJai3GGk02k51T9fIrf/YBqwhHdsFICYQvLFpuwK8bavt2k5135q0al7YZ/8EvnVh/Tbq053tXKVAEhJNnvdgMYVETNdQ6jh6VYUWqtgLz/PYq/xUDigG0OuxNhYibCEpGxZxsSFVf0UJh+Wpgtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iVVuNwsc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F3IsbMW8"
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4563ac048f4so113556fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:11:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787843515; x=1788448315; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NmdIKvxkFSGNeSljb2NxmA94mTGO/+oX2AMXwxdIcUM=;
-        b=F3IsbMW82AWwTL6Ogw7yy3cMqU1FarlbaDJqCntwBRZPrS2nrWEMCHDBZ409RBXS50
-         vHry3QRzxVfsjR5+mKywBY+inKv3cyFkVTHPOQbJa9UjZnMucHt7NKVybUyNPpcEKwvU
-         RrxuKT9oDS5m8G6flKN5PcvJYUY2YzltsvpMcOKP5H03aCj6Oboza4vcTctlhcy0oFix
-         mkqbv178fEg9bCnaKam7fSqrjGAogjP3wVPaDCTveUQV2j+OpUNCY3TbtpWjEo4F6vO+
-         lmHBeXurxDpyQdQmbYT3rZ7zaVoexkZX/UPPefzSnHBd9tpCjlpf6Kszk542SvhB0ueK
-         0yzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787843515; x=1788448315;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NmdIKvxkFSGNeSljb2NxmA94mTGO/+oX2AMXwxdIcUM=;
-        b=ftRQdX840ZmWL+W7DkkpKtw5y9L0/ZV28oBmhuX+FBgjs+kPe2ppS6kVMc11S+u+F4
-         /JrK/cyAEIhhMxdevfdCYxK0MW4QSsb9N60KXXYLlUSv2q65kUCdL7qSGru8PsPphsmS
-         0mWuiXHSNQi7mT6HEUSYnw0nNk/eVWm16f0o+e+s7eqAxDgLzuI8PTGhf1MYia4gb5iP
-         NywOqbP4HBGkgqTIRxtdUf99Ev6O25LvvjOlmYpnH27KtHUrj4yRXqPb6khyEU/g8VSl
-         c4BvBparZWHuZMOPtT3reLjHPKf+OQRMGUBmZeBOdaMrGSwlo5iMDZu/byc5c4xn5uuI
-         3Jdg==
-X-Forwarded-Encrypted: i=1; AHgh+RrJ+WwijOoUfTmI+DcE2kPu5CBAN9sLxTGrH/UT8EbY3hI4Dy93eJf6lRH/admGxwoZWZ3TTjt+u7K4+qU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSmMROt44jSSnLsi8TtY8cYsuSopn99xvBRQ0x47WBXefddS/I
-	x7QqJcBeg02JZHM5957zn/GLB3ZQCtWNn6TbMRTSYvGivfGRH08JoYE3
-X-Gm-Gg: AR+sD13pupDHeKPPaxDK0NUMj33W6PcdHzIWJJGkFdLxKHcR3ivsPjhYJrz9PeXq9KM
-	fx0LXUg62kWlIuiClKgkQXGdHlnGYbnxmry7LccOmNvyJztfavSPu4w+gDLTKMCrF5bIT8UYtmq
-	AfCeyVoM1LR/pQFRADqYO6bCUEyhrKGOygfPLuB/y9RnDJNyGHQ/l34h8QKue7AkQHZx2QhhHEj
-	SH0elruy4+hkuqJWscUILi+MGx2ZSxSxmi2E+4pdntYhXzBjakry2HYKN+oVgJ5d1TXa9lLwv6C
-	xPjb8I9GMW4VWF3o3U3wj8a2vSRYD95eXBsIwezevb0asUWvTkZx1bBV4SGEC1jUfhWxDaxjzDx
-	u8bprlw4AhsK6vpWx0QXrjcqpQx1bJXzoAor/oftMe6rDXshhwF1zyEvBZGedTyZQbSU2rDeZuJ
-	oCXHJqzAoN5iCNDI2sQ1bHwDfN55vVwF0T3mJ63DR8UtdenbG4PDafPAa1EfLQjyyGCjkNyJ+AO
-	Sq7vo2uhjA2rg9QMsYzy+xEyWoYv01gdn0=
-X-Received: by 2002:a05:6820:829:b0:6b1:b771:bc43 with SMTP id 006d021491bc7-6b1b771bccfmr4253535eaf.23.1787843514529;
-        Thu, 27 Aug 2026 08:11:54 -0700 (PDT)
-Received: from archlinux ([2409:40d5:415:fb30:8fb3:a7e9:62b3:e2c9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f47d8csm17142074c88.8.2026.08.27.08.11.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 08:11:54 -0700 (PDT)
-From: Suryansh Singh <technosfan14@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Suryansh Singh <technosfan14@gmail.com>,
-	Otoniel Matute <otonielgrang@users.noreply.github.com>
-Subject: [PATCH] platform/x86: hp-wmi: Add OMEN board 8D40 thermal profile support
-Date: Thu, 27 Aug 2026 20:40:18 +0530
-Message-ID: <20260827151018.25991-1-technosfan14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iVVuNwsc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D8751684
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:12:37 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 44BFA3F66F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:12:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787843561; bh=KkLYSOWi5UsqSDzxZZHjUrZJOhLkzRyn4aZC3IYcT/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iVVuNwscxUt4qgnSknVXCeqwMxUci6Xv57cRPw1Upnqcll5LR8C2Kv+nEUPMGdbil
+	 SGSuF+i6QmKBq3+X+7QWeEna/8KBAq5mSTHOyUQwGwzp5V1Rtn9UTnnSxFLdh5yfms
+	 RDZFjEkgCMU5/XRxVvMzUaoM4uUgqvvXWTV+9ERY=
+Date: Thu, 27 Aug 2026 16:12:30 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 03/18] drm/panthor: Make panthor_device::pm::state
+ non-atomic
+Message-ID: <apBT3tGIiQNNRe_r@e142607>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
 
-The HP OMEN Slim 16t-an000 (board ID: 8D40) uses the existing
-OMEN v1 WMI interface but does not use the standard EC thermal
-profile parameters.
+On Wed, Aug 26, 2026 at 04:56:02PM +0200, Boris Brezillon wrote:
+> Now that the reset logic has been reworked to use disable/enable_work(),
+> there's no need for panthor_device::pm::state to be an atomic. It can
+> simply be accessed under the same lock we use to touch MMIO mappings.
+> 
+> While at it, rename the lock to make it clear it protects more than just
+> the MMIO logic, and transition locked sections to scoped_guard().
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 97 +++++++++++++++++---------------
+>  drivers/gpu/drm/panthor/panthor_device.h | 16 ++++--
+>  2 files changed, 63 insertions(+), 50 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 2974f4bc0bb1..133e3895cd0a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -147,8 +147,10 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	/* If the device is entering suspend, we don't reset. A slow reset will
+>  	 * be forced at resume time instead.
+>  	 */
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> -		return;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> +			return;
+> +	}
+>  
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return;
+> @@ -204,7 +206,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.mmio_lock);
+> +	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.lock);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -213,7 +215,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	INIT_LIST_HEAD(&ptdev->gems.node);
+>  #endif
+>  
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+>  	p = alloc_page(GFP_KERNEL | __GFP_ZERO);
+>  	if (!p)
+>  		return -ENOMEM;
+> @@ -432,40 +434,39 @@ static vm_fault_t panthor_mmio_vm_fault(struct vm_fault *vmf)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct panthor_device *ptdev = vma->vm_private_data;
+> -	u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
+> -	unsigned long pfn;
+> -	pgprot_t pgprot;
+>  	vm_fault_t ret;
+> -	bool active;
+>  	int cookie;
+>  
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return VM_FAULT_SIGBUS;
+>  
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> -	active = atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		bool active = ptdev->pm.state == PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +		u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
+> +		unsigned long pfn;
+> +		pgprot_t pgprot;
+>  
+> -	switch (offset) {
+> -	case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
+> +		switch (offset) {
+> +		case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
+> +			if (active)
+> +				pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
+> +			else
+> +				pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
+> +			break;
+> +
+> +		default:
+> +			ret = VM_FAULT_SIGBUS;
+> +			goto out_dev_exit;
+> +		}
+> +
+> +		pgprot = vma->vm_page_prot;
+>  		if (active)
+> -			pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
+> -		else
+> -			pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
+> -		break;
+> +			pgprot = pgprot_noncached(pgprot);
+>  
+> -	default:
+> -		ret = VM_FAULT_SIGBUS;
+> -		goto out_unlock;
+> +		ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
+>  	}
+>  
+> -	pgprot = vma->vm_page_prot;
+> -	if (active)
+> -		pgprot = pgprot_noncached(pgprot);
+> -
+> -	ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
+> -
+> -out_unlock:
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +out_dev_exit:
+>  	drm_dev_exit(cookie);
+>  	return ret;
+>  }
+> @@ -526,10 +527,13 @@ int panthor_device_resume(struct device *dev)
+>  	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	int ret, cookie;
+>  
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
+> -		return -EINVAL;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
+> +			return -EINVAL;
+> +
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_RESUMING;
+> +	}
+>  
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_RESUMING);
+>  
+>  	ret = clk_prepare_enable(ptdev->clks.core);
+>  	if (ret)
+> @@ -574,11 +578,11 @@ int panthor_device_resume(struct device *dev)
+>  	 * are removed and the real iomem mapping will be restored on next
+>  	 * access.
+>  	 */
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> +	mutex_lock(&ptdev->pm.lock);
+>  	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+>  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +	mutex_unlock(&ptdev->pm.lock);
 
-Furthermore, it is the closest sibling of board 8D41 and 8D42,
-which are already included in the table with
-omen_v1_no_ec_board_params.
+Can this also use scoped_guard()?
 
-Add the DMI board name to hp_wmi_feature_boards[] and map it to
-omen_v1_no_ec_board_params.
+Otherwise, this looks good to me!
 
-This enables the existing board-specific handling for 8D40,
-including platform profile and fan control support.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Link: https://github.com/CachyOS/kernel-patches/issues/157
+Best regards,
+Liviu
 
-Tested-by: Otoniel Matute <otonielgrang@users.noreply.github.com>
-Signed-off-by: Suryansh Singh <technosfan14@gmail.com>
----
- drivers/platform/x86/hp/hp-wmi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+>  
+>  	/* Now that everything is resumed, we can re-enable the reset work. */
+>  	enable_resets(ptdev);
+> @@ -595,7 +599,9 @@ int panthor_device_resume(struct device *dev)
+>  	clk_disable_unprepare(ptdev->clks.core);
+>  
+>  err_set_suspended:
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +	scoped_guard(mutex, &ptdev->pm.lock)
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+> +
+>  	atomic_set(&ptdev->pm.recovery_needed, 1);
+>  	return ret;
+>  }
+> @@ -605,21 +611,21 @@ int panthor_device_suspend(struct device *dev)
+>  	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	int cookie;
+>  
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> -		return -EINVAL;
+> -
+>  	/* Clear all IOMEM mappings pointing to this device before we
+>  	 * shutdown the power-domain and clocks. Failing to do that results
+>  	 * in external aborts when the process accesses the iomem region.
+>  	 * We change the state and call unmap_mapping_range() with the
+> -	 * mmio_lock held to make sure the vm_fault handler won't set up
+> +	 * lock held to make sure the vm_fault handler won't set up
+>  	 * invalid mappings.
+>  	 */
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDING);
+> -	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+> -			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> +			return -EINVAL;
+> +
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDING;
+> +		unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+> +				    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> +	}
+>  
+>  	/* Make sure we're not interrupted by resets after that point
+>  	 * until the GPU is resumed.
+> @@ -644,6 +650,9 @@ int panthor_device_suspend(struct device *dev)
+>  	clk_disable_unprepare(ptdev->clks.coregroup);
+>  	clk_disable_unprepare(ptdev->clks.stacks);
+>  	clk_disable_unprepare(ptdev->clks.core);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +
+> +	scoped_guard(mutex, &ptdev->pm.lock)
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+> +
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index f55baa21b25e..217eec811bdb 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -298,18 +298,22 @@ struct panthor_device {
+>  
+>  	/** @pm: Power management related data. */
+>  	struct {
+> -		/** @state: Power state. */
+> -		atomic_t state;
+> +		/**
+> +		 * @state: Power state.
+> +		 *
+> +		 * Must be accessed with the panthor_device::pm::lock held.
+> +		 */
+> +		enum panthor_device_pm_state state;
+>  
+>  		/**
+> -		 * @mmio_lock: Lock protecting MMIO userspace CPU mappings.
+> +		 * @lock: Lock protecting PM related fields.
+>  		 *
+>  		 * This is needed to ensure we map the dummy IO pages when
+>  		 * the device is being suspended, and the real IO pages when
+> -		 * the device is being resumed. We can't just do with the
+> -		 * state atomicity to deal with this race.
+> +		 * the device is being resumed. We can't just do with an
+> +		 * atomic state to deal with this race.
+>  		 */
+> -		struct mutex mmio_lock;
+> +		struct mutex lock;
+>  
+>  		/**
+>  		 * @dummy_latest_flush: Dummy LATEST_FLUSH page.
+> 
+> -- 
+> 2.55.0
+> 
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 6ecc033e5af3..fba6d202672a 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -323,6 +323,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D26") },
- 		.driver_data = (void *)&omen_v1_legacy_board_params,
- 	},
-+	{
-+		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D40") },
-+		.driver_data = (void *)&omen_v1_no_ec_board_params,
-+	},
- 	{
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D41") },
- 		.driver_data = (void *)&omen_v1_no_ec_board_params,
 -- 
-2.55.0
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
