@@ -1,117 +1,157 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569C236EAB2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D342937C109;
+	Thu, 27 Aug 2026 08:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817607; cv=none; b=GSrXiWtwwL3eHVLbBIHt6FPHd4t5yB8d2nnoGmJfd5/s+QErg2rrXiyai8tgmbT5Se3+Q0V4VsJVwWKd7+fedWELcDaf+C6oMT7/hvTWUizfbFiCGIhiG8IHCDugCvk/WX+3o+2ahKAQNwaXdlG+xfgpe/zfAQloRWgml/7ftcY=
+	t=1787817701; cv=none; b=sI+UKUhbaYLjM92lJfhaV0ej5OQvA3gb5mU+G8LXj9J4CPI02QDfKfpZ+INqF5MVPpQrUgNXmHlT+4S2Jw3hHivoUxm+OBkVcvaaFLgOwMNlQ6jek7wb03yGhkOtK3uxSDmghMwnBolN/CrzjKZMc5qqki//xtTIeexuoewOZc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817607; c=relaxed/simple;
-	bh=5nRAf9v7X/AN+mvMm/2alr2Z8jGICfCcxCsJPFg9MZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VE3SG5vLPgWFxywnbiJBGu0I0Z1X9lMKjFTojfOUrU704f0Mo+GSBa25K5eKg2fO4Upl9ELmYkNodtWPzn9GfdHlDyqVCEy+nMaK1peboVKnytlhVN4yZR9pqpCE9HD+pFjO6SNofoFTKVzt7aPg5IjLooJt/rWBCHVguAQSN8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AoHCE76S; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787817701; c=relaxed/simple;
+	bh=Wmdr0hoqNBZwZfY4RPaKUuFoMfMYXlwXpLbrI6oTzqI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sDDfBiZt2x71BmB20iPBKnJBfqxBICFDZU6JlLA4uHrdl8JjltENrVaSqf/KHx7O7Iyp409pQKhYlBbAxuzd+LNzTZ5xOJdDFkgSD2cvqVdstCJN9ctdhb9ShvIL7wVYpXEOeNw42/r2iJg3wCvm5rQJ+f3KsFdcaYDEuEkV9DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RS0nKWei; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AoHCE76S"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e58034d05so436669a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:00:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787817605; x=1788422405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xtynvZadmT9n7iXGBfDWjegw1818rbUL1ZR1absKuqg=;
-        b=AoHCE76SIa6+8g/g9+4CR23q0UkwQe0ejL+7QzkOJiWLncytD/qecqv38MGWTQlROR
-         utMuiSWQ/w0mznqa3Efe2+z0LdzWjhFksQH8P1LUU64N2BVlBB8431GR+Qw6B59zgqQa
-         bUNMDpduatDjWp3dC98osouamA7Vy2/p901IWEOHX0xWoS/6VV8iCyeUqetqk3aOtIPz
-         0swhsPA5wnVjLPWRPYSXvd6vgqARjibij3lX32Xpaj5eAqk2dZvVkb9dCczCVnvsO5Kw
-         UZTQDkTjTLlgwyvXh4fLb2TuCSqty1T8ZAkkEKLPAXzIFkzjidoy/U/u5obGt+jh7XuI
-         U8vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787817605; x=1788422405;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xtynvZadmT9n7iXGBfDWjegw1818rbUL1ZR1absKuqg=;
-        b=syBQGyIehc0zuUF96piIpRJ3y4FqIhlcWyM4gatORX2JOuQ13BU47+K/DfIfmJeFOu
-         d6QLAlcdIPt2ShvDBwazyq5mPWv+N6mOkspo5XnwFmc06gyROgrjd0bVfn3csVHp84bc
-         3HZzx3xxZYwiYnIvUFOm3/Cjx0SKk8mzInxs01a8YVIsvpcDUOP9q14ADucp4rXzi/zW
-         29c7pZzbIX3wbBQ3pjiqb+iYCDTJPqd9glGGUQ47/pnWfMsnuLVPQ5l6YudgyCsWRfCi
-         nD1ZerxaKfvqF/cfyDIfFWBFj/EVEuTxwu6ZU4sOP1ZvzXS7NPtjKfzFiY1sRqqRrYrv
-         mZFw==
-X-Forwarded-Encrypted: i=1; AHgh+RrdwjFn4nJahe7PudbXXChHOir24FPTPaXKsGwJ66/Ig5DulV40Gxdn+NKBWUaYHLfpjc4AoI4j5fHb1Ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSycjXaWjS7b4KACoNoiFruemAcC/ZX8q45AyuBF+MoL9zbjtC
-	qE0pmH16e49YrnNoINm2zI6+Q3M3DFrrX4nQSOE6gKnZJG0twMTebiIE
-X-Gm-Gg: AR+sD13/aEo95CNG170Xz7OL9DdMHUFZo6zNEPpH2+12e1QzEdD45+B6ba+k1EYHk7v
-	rNfihom3ONFMdLpR1tgbmZWAoV0rxMWcnJ6F8ZalOGkwRBDyQ1i6Qd/DHmGMbVHo1glROrRLI13
-	jgF7zcujnFZ8CLqzuC0uE/C5zDlVk9LeimSYT8lg8H0oncpUOHHAnU1ZvJgEk6IN7SKov1oihfR
-	hsotc5yov79YECLzZOU86kI7X/0D915gIevAJFpxxlXAbaFIkR2x1PunBtPm0HqhMDgmVLtjgiL
-	IbLelyHrOsz+/ergPuPTzdF5148U7zThrzmqrPVyG91BImFpowipGq1p7TkKFsrNg537/zu/n4x
-	s2fcuorOUpGFXQAn314J/rO8ucOx1lca2l8O8s+5gIBYJtrOua95yBLOdD9KbchaRmyJS9Qja7x
-	xQPMpYAxgJ9ikSMwN/zLB06e070Rr41h/ffkjjftNw/tICh9eEKN6lxvaW9UAY0IQRt646xXE59
-	zIBFjTUM8jqGlqRg90GnNYkkS2gUEcoYuCkhzRh5rkR9XP2TK2JZj00EQm+erZu+aGU6+ERR88+
-	ErajtRiJujHJcELD/3qMt7Es
-X-Received: by 2002:a17:90b:3890:b0:395:bbfe:fc6f with SMTP id 98e67ed59e1d1-3966d401db6mr25766414a91.3.1787817605188;
-        Thu, 27 Aug 2026 01:00:05 -0700 (PDT)
-Received: from myserver ([14.51.250.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd9085sm1678619a91.12.2026.08.27.01.00.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:00:04 -0700 (PDT)
-From: Seokgyu Choi <tjrrb0313@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f613f9f010ec98eb9d86@syzkaller.appspotmail.com,
-	Seokgyu Choi <tjrrb0313@gmail.com>
-Subject: [PATCH] nvmet: reject namespace enable without device path
-Date: Thu, 27 Aug 2026 07:52:21 +0000
-Message-ID: <20260827075221.312935-1-tjrrb0313@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RS0nKWei"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787817697;
+	bh=Wmdr0hoqNBZwZfY4RPaKUuFoMfMYXlwXpLbrI6oTzqI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=RS0nKWeiWBR8rQquaaVLxnS6KWk0r3UNq0fGrQEJ+IXhhVqlbILCNKzyGYwVTgkPk
+	 mkhhgHKUBYwcjmnzhODeCYILa5UXgghSkClU5yn3WA2/aZ7GTnGOWlCljcdT5XpCzt
+	 Rsl4mNV8JrTkNu4+/gA6rXhy8rwquNBMs3UgqGrqDu7K6UO8rs/G2/v2S39SCjKxUy
+	 7jFf56ZIphkUsXfECvuwjzgcNxDo0noD4ScgRry6NFAbnRD8IMnnxSzmxNZNWTyNCv
+	 dLV1x26GQ453tOLdV8HPY3JP7bGIn3xkOyURUnKm70pS5iJSh5+RD9qkFJ3P4IJOIW
+	 n1yxGrtA3rilw==
+Received: from laura.lan (unknown [100.64.0.215])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laura.nao)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BC9117E0467;
+	Thu, 27 Aug 2026 10:01:37 +0200 (CEST)
+From: Laura Nao <laura.nao@collabora.com>
+Subject: [PATCH v6 0/2] drm/tyr: add Job IRQ handling
+Date: Thu, 27 Aug 2026 10:01:09 +0200
+Message-Id: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMXuj2oC/3XO3wrCIBTH8VcJrzOOx51tdtV7RBfuzJVQWS6kG
+ Hv3XBD9ocCbn/D56iB6F73rxXI2iOiS73045lHOZ4J39rh10rd5CwQsocJaXm5R+niWCSU0mgk
+ QG6e1yOAUXeevj9h6k/fO95cQb492wun2mTHvmXyUZKwIOlaqJbPisN/bJkS74HAQUyrpd/7xi
+ 6QzN2waJgY0TL948eI10AcvMq+VLSpQpVIMvzj9f50yJ9O1pnXWENpvPo7jHe1rc4BlAQAA
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, kernel@collabora.com, 
+ Laura Nao <laura.nao@collabora.com>, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.12.0
 
-A newly allocated namespace has a NULL device_path until userspace
-configures the device_path attribute.
+Changes in v6:
+- Split changes into two separate commits: the first one creates a new 
+  file with TyrIrq/TyrIrqTrait and their related impls, the second 
+  commit imports and uses TyrIrq/TyrIrqTrait from crate::irq instead of
+  crate::driver
+- Removed irq() accessor, unmasking the interrupts in TyrIrq::request() 
+  by accessing the private irq field directly instead
+- Add JobIrqMaskGuard to mask the Job IRQ before free_irq() runs, fixing 
+  incorrect drop order in the IRQ teardown path 
+- Combined fw_ready/job_irq_wait into a separate JobIrqEvents type
+- Store firmware-ready state only once and always wake waiters 
+  unconditionally
+- Clear the status once the handler has been successfully registered
+- Use mask() in reenable_mask() to reduce code duplication
+- Reworded commit messages to reflect the changes
+- Link to v5: https://lore.kernel.org/r/20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com
 
-If buffered_io is enabled before device_path is configured,
-nvmet_bdev_ns_enable() returns -ENOTBLK and nvmet_ns_enable() falls
-back to nvmet_file_ns_enable(). The latter passes the NULL
-device_path to filp_open(), causing a NULL pointer dereference in
-getname_kernel().
+Changes in v5:
+- Implement PinnedDrop on TyrIrq to clear the interrupt mask on teardown 
+- Link to v4: https://lore.kernel.org/r/20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com
 
-Reject namespace enable when device_path has not been configured.
+Changes in v4:
+- Replaced c_str! with C-String in irq.rs
+- Moved clear_status() before handle() in handle_threaded(), to avoid 
+  losing events if hw re-asserts the bit while handle() is running.
+- Only unmask interrupt sources in job_irq_init() when the handler is 
+  correctly registered.
+- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
 
-Reported-by: syzbot+f613f9f010ec98eb9d86@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f613f9f010ec98eb9d86
-Signed-off-by: Seokgyu Choi <tjrrb0313@gmail.com>
+Changes in v3:
+- Propagated request_threaded_irq_by_name safety requirement up the
+  call chain, made TyrIrq::request() and job_irq_init() unsafe
+- Dropped CSG bits masking, added TODO comment to note this will be
+  handled at a later stage. Reworded commit message to reflect the
+  change.
+- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
+- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
+
+Changes in v2:
+- Dropped Wait custom type in favor of WaitQueue
+- Renamed JobIrq lifetime to generic 'a
+
+This series follows up to [1], which adds support for firmware loading
+and MCU booting to the Tyr driver. The changes included here were
+originally introduced in its v4[2], then dropped to reduce the scope of
+the series, and have been adjusted to work with the HRT (Higher-Ranked
+Lifetime Types) driver architecture recently introduced.
+
+The series adds a threaded IRQ wrapper for the firmware Job interrupts,
+used to signal events from the global CSF (GLB) and Command Stream Group
+(CSG) interfaces.
+
+These changes will be later used to wait for global CSF interface
+readiness after firmware boot, as part of the CSF firmware interfaces
+support that will be submitted as a separate series.
+
+This series is based on drm-rust-next and depends on:
+- [PATCH v2] rust: irq: make Registration compatible with lifetime-bound drivers[3]
+- [PATCH 0/5] rust: sync: add WaitQueue infrastructure[4]
+
+Note: [4] doesn't apply cleanly on drm-rust-next at the moment, due to
+missing changes in rust/kernel/sync/lock/spinlock.rs[5]. I've applied
+all dependencies and fixed conflicts for the purpose of testing this
+patch on top of drm-rust-next, a branch with these changes is available
+here: https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v6
+
+[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
+[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
+[3] https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@kernel.org/
+[4] https://lore.kernel.org/rust-for-linux/20260726223613.1242940-1-dakr@kernel.org/
+[5] https://lore.kernel.org/all/20260302232154.861916-1-lyude@redhat.com/
+
+Signed-off-by: Laura Nao <laura.nao@collabora.com>
 ---
- drivers/nvme/target/core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Laura Nao (2):
+      drm/tyr: add TyrIrq threaded IRQ wrapper
+      drm/tyr: add Job IRQ handling
 
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index d74c01c98f19..336013139ef6 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -591,6 +591,11 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ns->enabled)
- 		goto out_unlock;
- 
-+	if (!ns->device_path) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	ret = nvmet_bdev_ns_enable(ns);
- 	if (ret == -ENOTBLK)
- 		ret = nvmet_file_ns_enable(ns);
+ drivers/gpu/drm/tyr/fw.rs     |   1 +
+ drivers/gpu/drm/tyr/fw/irq.rs | 174 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/irq.rs    | 114 +++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs    |   1 +
+ 4 files changed, 290 insertions(+)
+---
+base-commit: d7962d990307dc28dfded8cf6ba96d7498af7631
+change-id: 20260728-tyr-irq-v2-0b3c5022be33
+
+Best regards,
 -- 
-2.53.0
+Laura Nao <laura.nao@collabora.com>
 
