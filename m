@@ -1,62 +1,39 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD25351C02
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8F22BD00C;
+	Thu, 27 Aug 2026 05:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806787; cv=none; b=jKQgAPcNA3nq0a9XIaq6FeOXCzhdHnTcWswcyUC+PaQjGvfOIc6nk27Lzq5S2NAV4ozxFB+UJuzfNHD/uuowFg5A1Rwsqb+lkXRw/P3/33fftsEF+ouXu9Wb9G5J5KXwnxePRyCDwi22jlvE37BHhr7qwVPByB2o4kyHO1oMUZ8=
+	t=1787806991; cv=none; b=c0X1pyNBGBTTSTLOAXJF/5EJsyKpYQs5DFbzjruTfaR4PEKOuN7yO4gdd6ZDVfkDZbHI6QSAU6HjX6KDXsKLVQ4reptnk4aZucZELAzPrOto2CjHSlCr2n3DiQTZwzGoEv49HfwdYsruzfosN4A8kBx5pBgwGYMZfnGykpQokIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806787; c=relaxed/simple;
-	bh=FziruScaaOWq0LK3XVR61Ry9XJ7dEZG3+5BXszHYL04=;
+	s=arc-20240116; t=1787806991; c=relaxed/simple;
+	bh=+qARVZ3Vn+bsJZVhP/UquKzhmNyNprXMkZymPd3mNyI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hymx08DKo50bffoplkcdEOo+d+/unKMBuxfg/mgl/e3aFHqNSzu/cOXe9vhGmMrhI3nEbc/OoNjqCpB6ffSWyCZuJSwVyH1gdfaS9nSXl09w6sFaHoX1x400bd2jgjC4HWDP68bgS8xp+gBORfyJxYzMe3iBAdMzPjaKMGckumA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OvQlK8zr; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qtnMAPvpMqEkJ+EuIUXGk+LoZwh7xz0b8khHEDUT95QXWEkWrecT0HpZ3/rQ8IkRT8llS7Kc0ppKBDFN6H0ZfXWhIc5x9X68BJx4pF+FSY5Gz8Sdquq3orwvgEsISEPK08NWfdVLLYY4qgqzctsSicqsz1vhpLJqLS6lDtZwSrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WBXIqTCB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OvQlK8zr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787806785; x=1819342785;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FziruScaaOWq0LK3XVR61Ry9XJ7dEZG3+5BXszHYL04=;
-  b=OvQlK8zrveMpAFnndvZ8i5JoSCLmq2mUr9gWmIHH1YAk2YZ3iYHTl1Ar
-   itkIMWSbtIV8nXCKNGlNxviZKE38LysD10SxIRbQ+rp+4OqBiWAPd/Z6K
-   6EV1utBKCpqjYvOWXP0tlCPwxIeWyUStqbV7Ru2pgOAd4388VKrf4Vsoh
-   9jcEkdD7EM9eQs3bKjqBY/lc64AFIYEwbYw88O84MBhGFTCqj3oiIg6te
-   WwnFEUV159gbZOKXhgWY5iBu9R5k2JEBw8g7eg1H4512yKz7b4VKuLgoR
-   B7s4/AejpuBrWt5J/OnKMTtp83cdVjVWlauC7xyl8olF8w6kk/ZzgHNM7
-   w==;
-X-CSE-ConnectionGUID: 9dToMnufTC6u+K2AyVJWaw==
-X-CSE-MsgGUID: VwoCI/BvSJ6bxtH2zunnng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105674769"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="105674769"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:59:45 -0700
-X-CSE-ConnectionGUID: Ag2r0dIUQYGFqptMmtY2VA==
-X-CSE-MsgGUID: u3cUCjUGRGqwyhDBlEpjSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271978406"
-Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:59:45 -0700
-Date: Wed, 26 Aug 2026 21:59:30 -0700
-From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-To: Kim Phillips <kim.phillips@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
-	Borislav Petkov <borislav.petkov@amd.com>, Borislav Petkov <bp@alien8.de>, Naveen Rao <naveen.rao@amd.com>, 
-	David Kaplan <david.kaplan@amd.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Nathan Fontenot <nathan.fontenot@amd.com>, stable@kernel.org
-Subject: Re: [PATCH] x86/bugs: Only log missing retpoline when it's actually
- the missing mitigation
-Message-ID: <ccy6cxmro4hyvradyddbqubt5jlth3l7cwp3v4obz2lviazyry@2d4ixypnltll>
-References: <20260826222228.3668418-1-kim.phillips@amd.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WBXIqTCB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F000E9;
+	Thu, 27 Aug 2026 05:03:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787806990;
+	bh=CkOiFqyPeNWAL1IU6w4pHRdEzxW6E2h2tS/Qf1gbZBg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WBXIqTCB7zZMoB816mnWlxYNCo+Q0vWrji+WlGQgkyuRh1HzojIHGzGCHTgkSxjgC
+	 TD2ByP8IAh1ywdDQ75RG1s6AwHZ4U3oUzM/7toI1OSKmfkm22QdpcY8FHAgCUna0o8
+	 CTnX2jUN7IaL/TooiMAuN9fFF6yWWP0AErAKGbx0=
+Date: Thu, 27 Aug 2026 07:03:08 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: balbi@ti.com, bigeasy@linutronix.de, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, stable@vger.kernel.org,
+	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: gadget: fix null pointer dereference in
+ usb_put_function_instance()
+Message-ID: <2026082739-shudder-stylist-86ac@gregkh>
+References: <20260816061712.15547-1-jeffinphilip14@gmail.com>
+ <20260827043746.13087-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,86 +42,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826222228.3668418-1-kim.phillips@amd.com>
+In-Reply-To: <20260827043746.13087-1-jeffinphilip14@gmail.com>
 
-On Wed, Aug 26, 2026 at 05:22:28PM -0500, Kim Phillips wrote:
-> spectre_v2_select_retpoline() unconditionally emits
+On Thu, Aug 27, 2026 at 10:07:46AM +0530, Jeffin Philip wrote:
+> On Sun, 16 Aug 2026 11:47:12 +0530, Jeffin Philip wrote:
 > 
->   "Kernel not compiled with retpoline; no mitigation available!"
+> >usb_put_function_instance() attempts to dereference fd inside fi struct
+> >to get mod in uvc_alloc_inst() error path. However, fd is not allocated
+> >until later in try_get_usb_function_instance() after allocating fi in
+> >uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
+> >by adding a null check for fi->fd that returns if fd is null.
 > 
-> when the kernel lacks retpoline support, before returning SPECTRE_V2_NONE
-> to its callers.  SPECTRE_V2_NONE is not the final answer, though:
-> spectre_v2_update_mitigation() runs afterwards and can still upgrade the
-> mitigation.
-> 
-> On an Intel CPU affected by RETBleed, built with
-> CONFIG_MITIGATION_IBRS_ENTRY=y and CONFIG_MITIGATION_RETPOLINE=n, and
-> booted with spectre_v2=auto, retbleed_select_mitigation() picks
-> RETBLEED_MITIGATION_IBRS, and spectre_v2_update_mitigation() then promotes
-> SPECTRE_V2_NONE to SPECTRE_V2_IBRS.  The boot log claims no mitigation is
-> available immediately before reporting "Spectre V2 : Mitigation: IBRS",
-> and sysfs reports the machine as mitigated.  The message is alarming and
-> simply wrong.
-> 
-> Drop the pr_err from the helper and emit it once from
-> spectre_v2_update_mitigation(), after the final mitigation is known, so it
-> only fires when the system really is left unmitigated.  Guard it on
-> !IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) so it fires only when retpoline
-> truly cannot be built in, and restrict it to the cases where retpoline was
-> the implied choice: SPECTRE_V2_CMD_FORCE, or SPECTRE_V2_CMD_AUTO when
-> should_mitigate_vuln(X86_BUG_SPECTRE_V2) indicates a mitigation was
-> actually intended.
-> 
-> Fixes: 480e803dacf8 ("x86/bugs: Restructure spectre_v2 mitigation")
-> Cc: stable@kernel.org
-> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
-> Assisted-by: ClaudeCode:claude-opus-4-7
-> ---
->  arch/x86/kernel/cpu/bugs.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-> index 82436b3534fa..46c68feef339 100644
-> --- a/arch/x86/kernel/cpu/bugs.c
-> +++ b/arch/x86/kernel/cpu/bugs.c
-> @@ -1956,10 +1956,8 @@ early_param("spectre_v2", spectre_v2_parse_cmdline);
->  
->  static enum spectre_v2_mitigation __init spectre_v2_select_retpoline(void)
->  {
-> -	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE)) {
-> -		pr_err("Kernel not compiled with retpoline; no mitigation available!");
+> Friendly ping, let me know if you want me to fix anything.
 
-The claim "No mitigation available" is really the problem. And, it is
-redundant here because the final mitigation state is anyways printed in
-spectre_v2_update_mitigation().
+It's the middle of the merge window, we can't do anything until after
+-rc1 is out.
 
-How about just change the message to:
+In the meantime, please help review other patches on the list so that
+yours rises to the top.
 
-	pr_err("Kernel not compiled with retpoline");
+thanks,
 
-It stays accurate here, telling retpoline mitigation was attempted.
-
-> +	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE))
->  		return SPECTRE_V2_NONE;
-> -	}
->  
->  	return SPECTRE_V2_RETPOLINE;
->  }
-> @@ -2247,6 +2245,13 @@ static void __init spectre_v2_update_mitigation(void)
->  		}
->  	}
->  
-> +	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) &&
-> +	    spectre_v2_enabled == SPECTRE_V2_NONE &&
-> +	    (spectre_v2_cmd == SPECTRE_V2_CMD_FORCE ||
-> +	     (spectre_v2_cmd == SPECTRE_V2_CMD_AUTO &&
-> +	      should_mitigate_vuln(X86_BUG_SPECTRE_V2))))
-> +		pr_err("Kernel not compiled with retpoline; no mitigation available!");
-> +
-
-With the above message tweak, this check can be dropped.
-
->  	if (boot_cpu_has_bug(X86_BUG_SPECTRE_V2))
->  		pr_info("%s\n", spectre_v2_strings[spectre_v2_enabled]);
->  }
-
+greg k-h
