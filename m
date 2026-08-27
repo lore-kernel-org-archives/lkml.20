@@ -1,252 +1,144 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D1946AA94
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D76A4503FA
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848859; cv=none; b=OyzybWV7mr1XTHmhrgZQmGAY+PfpNK3XRPyUxiki6s1GWlDnBW+it41D9sXJEy3SmaQWfpAhM5GIe1OshwZmQfch4Iu2USgkTTajrfNkVMfvxXXJHqZHnl874SqMuC4lOJqsvi7eyNi/6bBQHHLcybMXXmL6Kn2VyJ7GHjekz8s=
+	t=1787848886; cv=none; b=Cknw8wcdw4f9m79EisfrOqvRkNw87ros4seFTe2BkDlRFVqyyFCrDLZkuJLsWBFQoMhc9fMxNmhI9pe4Ifm0zYp7JidtRupszNneb5++41j13XE5aqbq2KhM4MtNizFmMzOANsmKj7sdEAABoE1FqEdJTKMVOURswPL9U+jslDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848859; c=relaxed/simple;
-	bh=3RgWJPqR+k2kAyb+h26t7VLBS/Y8cHOim0OG+ifIW/A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GIR0YWiKQGXxQ8ACaIZPJ+1Uyf4Lp/76xAIFdIJnvelmqWVgpuvS3vaIYzuGHHci4TYYwY0Ms32VvWy5EajLG47tt0ik6oq2c3szgeqUwc6dy9sJBb2nvVQQ61fXhG2UMWv86cWnKy3e6aA8vfLa2fzrjHY2yM6w5jn5Itu9YZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XN5UQnY5; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787848886; c=relaxed/simple;
+	bh=2zTYhk88WLx2och3aa0V7gw2pEB+rHtf/p4xCkJ87D4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oTG9ExWO8HsRotAPfLGspCXbt/txeXtZj49oDjufeBdjKBhtItt8yCmOU3yR2/yr+37ce6sYEe0FgRaLXaYuB0XTbVtn0+L4CVsO7RsWwuN10WEK0Wmh+Imz/rF76l0+/v9YhEL4jlZCZ2l9kTI2Cyqbmvtwd8xY1UNQZ4ME/YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b6xaLIzY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XN5UQnY5"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so204965ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787848858; x=1788453658; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EXTcnuR86zTqexqR/SscPdSfeGGfX0bPmu2TCfahQQ4=;
-        b=XN5UQnY5tn4uxiPpTm/sHjbsWwm7W4KjW+eN8JRZ60YQvF8ZDgtC7aGxr9PWD+RIdl
-         x0wJSNpnAEmFoQ9FeWhDpKb1NMHUqAg/E0pDMftITVkTxjvCmYAOUJO8GOiNYGt0HiQA
-         n+TrEkQr3vB6vH/jVoo/FS9VP+E5pyYp9fFB+8GTOTkLc9k4EVFnIGk86q20GQzVE1jw
-         NThU5k2TR8Hc8xXiA6qFEUVb69KeMKABL84ltDG1afAvpHhAcYeuGTHmylr92Ox92AgC
-         Gqg/faki9i0V2fCTebkBDnTe5zonb0uxY1+3VTBON1wtubaXiDpqmdYxchOTiSkurclv
-         vTkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787848858; x=1788453658;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EXTcnuR86zTqexqR/SscPdSfeGGfX0bPmu2TCfahQQ4=;
-        b=dfYdEBlDFJZq0aar4DIDLSMk7Z7FQRyz479xNC1VrDjVJrdxDpgmeW6+f1zgOujIm8
-         FtKObz17Dw0ayDzwdQ9nGgwORApsBLJRNqsygB5NNKvT6kGQ5cAtHAwb1GfQXl37xv0m
-         CynCPylKRChed4pOUiAx53BXPwoUEgPXfJ8ocNFCFNv/Phu78/K4HyRzQh+a1UrqtsQk
-         uHestQo/5SPgAnd5CPwmOLZ1vc02eyVaYA/V0bBW0v3rKgFceGyVIrp3lrgcEK0jkea9
-         ymmAJnxi7KBSU3yTn76rYXX2xfNIwKE3MFHMkBmQaQuMUxC9t4YCrk95okhO6M4Topec
-         irGA==
-X-Forwarded-Encrypted: i=1; AHgh+RrzfbYvM9G7vH/0J3OtWi9jGhQQRwq4nqbbqT6hvZ8/0bVE9F2Ea/xolwuS6IDzLibviaG5+pvidT8dClc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0CIl4qmVtDC79hdLYF8kb/8O/jv+mOUe2MBh4+0YNpXiw+Ho0
-	36QwrAYfrQb6zbLC0Ww10VdBHBfhmfV0g3ybGSbGI8oj49saqhqazCPcO3gJQVE3KzkCCp3gR8C
-	7X1fx/Q==
-X-Received: from plbmb13.prod.google.com ([2002:a17:903:98d:b0:2d7:1639:625a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22ca:b0:2d6:fd55:3a9d
- with SMTP id d9443c01a7336-2d74dc111bcmr4867765ad.3.1787848857248; Thu, 27
- Aug 2026 09:40:57 -0700 (PDT)
-Date: Thu, 27 Aug 2026 09:40:56 -0700
-In-Reply-To: <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b6xaLIzY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A42D1F000E9;
+	Thu, 27 Aug 2026 16:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787848884;
+	bh=bCC2CkHOGwlKpi+16PhEFCGSE3IEc/igKIbUU+uMh80=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b6xaLIzYah4sJVfBReqcEi5FQT78DXP9WZ9cbcGxuv06r/N6WfCkWKg/xp1UBhRPP
+	 Hyk0oWIix07jekjKLzCKIEqj/ottYR2QZR0DgQwyCNTM098m2ur1cma/eJM8+jCjmZ
+	 fBaL8WR3ptaZK/QPO5BETCTgamTASyLgnU8jhziDK4faVCLPUjSEQAjsuhMIizvrk9
+	 bDXmGFi0V+2lKxGqX8tM5BvqNbSj2r13pkPpZtQRn+spAXvMeA5ao70UJfpt6civlM
+	 Qj7ZzlWe7VA7pdpK5Pc07Zb8ijR8Bi7vrzKDFX9/jt9uQzIgEVQoccxBAJnfIpIlUK
+	 hdkd4kxMJm2Yw==
+Message-ID: <5ee65970-abb9-47ea-b548-5430b382cf7c@kernel.org>
+Date: Thu, 27 Aug 2026 18:41:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
- <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
-Message-ID: <apBomFOn1ZqHEnAQ@google.com>
-Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
- and VMRESUME
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/18] mm/huge_memory: allow splitting mappingless swap
+ cache folios
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-11-9b43f5163238@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260821-swap-thp-cleanup-v3-11-9b43f5163238@tencent.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026, Yosry Ahmed wrote:
-> On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > Dedup the assembly code from VMLAUNCH vs. VMRESUME, the difference is
-> > literally only the actual VM-Enter instruction.
->=20
-> You couldn't resist macrofiying this too.
 
-It's either that or throw a branch in the asm blob, which is surprisingly
-difficult because VMX_SWITCH_GPRS_ASM subtly clobbers RFLAGS and obviously
-clobbers GPRs.  Which basically leaves pushing the value on the stack, whic=
-h is
-totally doable, but still annoying, and needs to be done immediately, befor=
-e
-vmcs.HOST_RSP is loaded.  Branching at runtime also makes the generated cod=
-e
-harder to read, e.g. when debugging, as it's not immediately obvious which
-instruction was actually attempted.
+> +	if (anon_vma) {
+>  		if (!ret && !folio_is_device_private(folio))
+>  			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+>  		remap_page(folio, 1 << old_order, ttu_flags);
+> @@ -4259,6 +4261,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>  		struct page *split_at, struct page *lock_at,
+>  		struct list_head *list, enum split_type split_type)
+>  {
+> +	bool is_swapcache = folio_test_swapcache(folio);
+>  	struct folio *end_folio = folio_next(folio);
+>  	bool is_anon = folio_test_anon(folio);
+>  	int old_order = folio_order(folio);
+> @@ -4285,8 +4288,11 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>  	}
+>  
+>  	if (is_anon)
+> -		ret = __folio_split_unmap_and_freeze_anon(folio, new_order, split_at, true,
+> -							  true, list, split_type);
+> +		ret = __folio_split_unmap_and_freeze(folio, new_order, split_at, true,
+> +						     true, list, split_type);
+> +	else if (is_swapcache)
+> +		ret = __folio_split_unmap_and_freeze(folio, new_order, split_at, true,
+> +						     false, list, split_type);
 
-That said, looking at this again made me realize evmcs_{vmlaunch,vmresume}(=
-) have
-the same core copy+paste mess.  Blech.  Macrofying the standard flows but n=
-ot the
-eVMCS flows is rather silly.
+These two boolean parameters are really a pain. There must be a better way.
 
-Inlining these blobs *twice* (VMCS vs. eVMCS) at every VM-Enter is also rid=
-iculous.
-E.g. at a glance, it's responsible for something ~100k bytes of code in the=
- compiled
-state_test.  While the code footprint of selftests isn't a priority, that's=
- still
-absurd.
+Also, I don't like that __folio_split_unmap_and_freeze() sounds generic again.
 
-So instead of macrofying everything, how about this?  Depending on how one =
-feels
-about macro shenanigans, it's either horrific or amazing.  Or both.  But IM=
-O it's
-worth eliminating all of the copy+paste, and it makes the control flow much=
- easier
-to read, which in practice is likely what most people care about?  At least=
- until
-the entry/exit sequence fails and they have to debug macro hell :-)
+There must be a better way for that as well. We had a clean split and now we
+mangle it again.
 
-vmx.c:
 
- =20
-  #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwrite_o=
-perand,	\
-  				    __host_rsp, __host_rip)				\
-  static int __##prefix##_##insn(void)							\
-  {											\
-  	int ret;									\
-  											\
-  	__asm__ __volatile__("push $0;"							\
-  			     __stringify(vmwrite_insn) " %%rsp, %[host_rsp];"		\
-  			     "lea 1f(%%rip), %%rax;"					\
-  			     __stringify(vmwrite_insn) " %%rax, %[host_rip];"		\
-  			     VMX_SWITCH_GPRS_ASM					\
-  			     __stringify(insn)";"					\
-  			     "incq (%%rsp);"						\
-  			     "1: ;"							\
-  			     VMX_SWITCH_GPRS_ASM					\
-  			     "pop %%rax;"						\
-  			     : [ret]"=3D&a"(ret)						\
-  			     : [host_rsp]__stringify(vmwrite_operand)(__host_rsp),	\
-  			       [host_rip]__stringify(vmwrite_operand)(__host_rip),	\
-  			       GUEST_REGS_OFFSETS					\
-  			     : "memory", "cc");						\
-  	return ret;									\
-  }
- =20
-  #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
-  	__BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RSP, (u64)HOS=
-T_RIP)	\
-  	__BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,				\
-  				    current_evmcs->host_rsp, current_evmcs->host_rip)
- =20
-  BUILD_VMX_VM_ENTRY_HELPER(vmlaunch)
-  BUILD_VMX_VM_ENTRY_HELPER(vmresume)
- =20
-  int __vmlaunch(void)
-  {
-  	if (enable_evmcs) {
-  		current_evmcs->hv_clean_fields =3D 0;
-  		return ____evmcs_vmlaunch();
-  	}
- =20
-  	return ____vmlaunch();
-  }
- =20
-  int __vmresume(void)
-  {
-  	if (enable_evmcs) {
-  		/* HOST_RIP */
-  		current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_CLEAN_FIELD_HOS=
-T_GRP1;
-  		/* HOST_RSP */
-  		current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_CLEAN_FIELD_HOS=
-T_POINTER;
-  		return ____evmcs_vmresume();
-  	}
- =20
-  	return ____vmresume();
-  }
+... but I am just before my PTO and out of puff, so others can brainstorm on how
+to do this cleaner :)
 
-vmx.h:
+-- 
+Cheers,
 
-  int __vmlaunch(void);
-  int __vmresume(void);
- =20
-  static inline int vmlaunch(void)
-  {
-  	return __vmlaunch();
-  }
- =20
-  static inline int vmresume(void)
-  {
-  	return __vmresume();
-  }
-
-And then the next patch becomes:
-
-    KVM: selftests: Assert success in vmlaunch() and vmresume()
-   =20
-    Assert success in the "outer" APIs for VMLAUNCH and VMRESUME to dedup a
-    pile of code, and switch to the double-underscores versions as necessar=
-y,
-    to make it more obvious which paths expect VM-Enter *failure*.
-   =20
-    Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-diff --git tools/testing/selftests/kvm/include/x86/vmx.h tools/testing/self=
-tests/kvm/include/x86/vmx.h
-index d0ac8e128d98..1419043b41dd 100644
---- tools/testing/selftests/kvm/include/x86/vmx.h
-+++ tools/testing/selftests/kvm/include/x86/vmx.h
-@@ -362,14 +362,14 @@ static inline u64 vmptrst(void)
- int __vmlaunch(void);
- int __vmresume(void);
-=20
--static inline int vmlaunch(void)
-+static inline void vmlaunch(void)
- {
--	return __vmlaunch();
-+	__GUEST_ASSERT(!__vmlaunch(), "vmlaunch hit VM-Fail");
- }
-=20
--static inline int vmresume(void)
-+static inline void vmresume(void)
- {
--	return __vmresume();
-+	__GUEST_ASSERT(!__vmresume(), "vmresume hit VM-Fail");
- }
-=20
- static inline void vmcall(void)
-
-> > +#define BUILD_VMX_VM_ENTRY_HELPERS(insn)                              =
- \
->=20
-> s/HELPERS/HELPER?
->=20
-> or maybe better: DEFINE_VMX_VM_ENTRY_HELPER()?
-
-Because after the next patch, there are two helpers for each instruction, v=
-mresume()
-and __vmresume(), and churning the macros to add the 'S' felt silly.  But, =
-with the
-above, this is a moot point.
-
-> With the rename:
->=20
-> Reviewed-by: Yosry Ahmed <yosry@kernel.org>
->=20
-> (Who's f734222792@gmail.com?)
-
-An anonymous bug reporter: https://bugzilla.kernel.org/show_bug.cgi?id=3D22=
-1841
+David
