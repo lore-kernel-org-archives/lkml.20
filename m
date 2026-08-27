@@ -1,55 +1,55 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096893E16B9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA163DCD9B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787873486; cv=none; b=nAYIN5GAm0pyS8L72nrm4q+gOhHgumAVFmPIjLU059mTRq1WhRQUQx0y+QZNkALcmo6wPdE6ZabwTZ0TfVJRHI5utIo4HjSW7BWrq8zAL4pV1nUZkFNVuO6QgavaN/RDz3jHb52psLWnoxsdoavtlkw6fse/rSju2Kkq7ERst/o=
+	t=1787873488; cv=none; b=dYrD23iJalIBXRS33akKyv71X4BqNEHE7T2xAkEgme47D/2KCPck589O41gX9FdDmdKxgJ7tKK2eCqZ/I2ATUap9LE1jn5Dls5ZND50whpRZzkjWwo3HSHe4i38kCb3W8WQhWXqOMzSOtmq3zaEbfKfEDbAl9NR5YeaPTQELTYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787873486; c=relaxed/simple;
-	bh=K+D5Y6brOLXG1aN+myxhErHXOB0qjYSBze5FnYnXukE=;
+	s=arc-20240116; t=1787873488; c=relaxed/simple;
+	bh=OL5kyzzH3pevyaGpCfzUthvi5UyUYi/GZsUUb63MbgA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=G7c4WDRvYOh1jKh8BhkqeAAf4b62WbbcFluQFFWmy8mOFmCycNMoBLDzCbxpBWg9AIemA252Gw0kfxJjeKM8ku33tzEEh8ROpTTT8tgJsW8m3kiSqcH9whZ85yIPcHAeU5mQxNvVrJZp8eVmsjOhiCNtspFHxsH5XOWyWy8RV88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jsHHRjku; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=qWutvfyBIBNMYFZf5xxW/zE2CzyiqrxtcOzPdY6ZaIddv9UFK6z862+7IJQcgyI9uLOTofOhJ1S6d4/rF2y/b21aSuXDvp2akOvtdFmdSwNqR4T61bwd4zZnc31yXp+3hwRPn3qVSt/G6AgXJITGIK06d9QnnUtENp5j+DMRmho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EnnqF4V/; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jsHHRjku"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so1115637a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EnnqF4V/"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccb687f82eso3260405ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787873484; x=1788478284; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787873486; x=1788478286; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LOrBCjVl+Gsil1QM8OKlKDVjeh9PhasgM5tVDAHOOrA=;
-        b=jsHHRjkujr+z7AdG2T8A0WmfXHOj/0izZM6MEoJd9JfiDzNg5R1CJ4xvcAks0fI8ju
-         EC7MaTGu8bGIo4biLfzJP6vWZOUOrrSRKSUf8c1ddtOzl2RFA022HjIrHIeY4KjN6gZQ
-         xLVg356CwxuLv7tUvqJpjiAUig4zcx1BAQffJQaKEQ73Z6uxppIGXMKVRKatq6wN85RV
-         DPrUtiWM4VdfG4GwACRNxRgKzDzkI62r2JLnyWyNn7gPA7LRUi1ChzUXhQu4rZ7LujW1
-         jJFsXtH7tdccr3kSrKUJRoSUBJYfGdBePSmn1xQrvlKxQhVyEB+/95T+sBrZ04P6zImY
-         uqdA==
+        bh=/lOzSmEZ51hzHprpWRTTa0ItgwWLWckqKQo+nDAEYGw=;
+        b=EnnqF4V/hmj76dHndqgFoNkxdLWMWu2xhJC+n1smXB2RMIUla8CfUp+jl59LRjmCm4
+         3CUJ2nQi+zv4eRxpJ0qoyiObwFRb9KLA+QTYtvxdJVvT0NANAyP6/3YouiUTmk/ZU+QI
+         OvqFvYX879aqrmkafCTOuACsXXmec7qshPzdi3Ppo2Y5GwrQE7Mp17gKh2YdrEUhf+Ct
+         scsb1RrPw1jxfpu6fWaZ4KtAj9pWNhpkC4xVrmQSl0hoytRF/qsWNnuGg7i4HCLcv/+W
+         sZjSxk1BCHmgfwu77n/GFhVDI5pupAU14RaeNBbvM4DwmH+wV+yIVtcUul5yaaUMhLki
+         iowQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787873484; x=1788478284;
+        d=1e100.net; s=20251104; t=1787873486; x=1788478286;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LOrBCjVl+Gsil1QM8OKlKDVjeh9PhasgM5tVDAHOOrA=;
-        b=ISTa5WLApMY4NTz7MRrlHGckMngyd544XNE1TP2QRMaSDb36AVZRNAmJIMQLurgf08
-         7hm36+6RXLYGgtL5JgdUPmuWeoqGoZxyuOnxffS2O1iXS9J0e/c+9Af6Fc8Tav4gTRHI
-         RHfoGn1s8Hhz6tCpMoAhPUVuA5JXpCQKO10RRcUQAB+ZBiawxi3wyFSaF+froR03cAup
-         S3Ak9Ery5erGxLd7tG+i4N+GTV/4kbbevjTWbqDeKjx36aG4p9PUhPXb0Vp8HVOYQRab
-         /f32AXHzgvozEDnNU3ASmgR1D7j+K8jZQC8/JS2tgu5JgXD5ikQKz2Nc80I/m3mvgIol
-         2Zww==
-X-Gm-Message-State: AFuF++nfqmWNUKwZuRX0YTqXDtjPR4DPzHkaD5ohWMpB2SVd2syMQv0/
-	QGUAdI717XZYOnKPBoauUfhq9lN0tkULT9FJxRX2H9e/QkOXl15sK7P1VQIWLSjbJu/V4BXOha/
-	IHyEij56nec5jYA==
-X-Received: from dlbqi2.prod.google.com ([2002:a05:7022:ebc2:b0:13f:bdf3:f58])
+        bh=/lOzSmEZ51hzHprpWRTTa0ItgwWLWckqKQo+nDAEYGw=;
+        b=TgoduZh3lyLsfNXvbRC+fVq92g5WIzbOP28xijwzUcZ1SNx0BdpRwkh2aeR6GPnN+C
+         MR1Y8Lyd0ThWG+NqHZeNaHtNT0b9kpEAQD/owfkHLvBeLeFhHrKEeE8oer6PRL5gDUkF
+         yoVTT0BjpmSEhIZ5nq0K8a4BYI4/ARoaczx9Si3UUPIOdISV/1dYeGWbyj4j+wtf4B6o
+         lwLZKo2d5/0vkRoAYLhEbpi2IQ5/2pkK2MvFOn3hkt68ba/Z9jZys0iTv6fFxcOiAa82
+         gd5sDqGGGL+GrpfrR4PV6ySFuoOH15PlymKMKsLORIC4dwF2afrmZLWaNDD8hCbeV58o
+         MSwg==
+X-Gm-Message-State: AFuF++lqQZ8JD3EbiSjz3+pRON2MXNRW32pcPjQksKpYAl7v3bcEZTH0
+	g3zynk5xn86RtS2MO90LKRC2jwqzJg6KBSKtRqR8+HLfMg0yjxHIRD1XIGrRLfxh7j/3MJcx5+E
+	OfZd1iFtjp/iiQQ==
+X-Received: from dybud10.prod.google.com ([2002:a05:7300:f60a:b0:311:6ce7:736d])
  (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:4cc2:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-396d27bb20emr3178120a91.10.1787873484126;
- Thu, 27 Aug 2026 16:31:24 -0700 (PDT)
-Date: Thu, 27 Aug 2026 16:29:42 -0700
+ 2002:a17:903:458b:b0:2d6:f3f0:3e7a with SMTP id d9443c01a7336-2d74dc2ade3mr36340345ad.3.1787873485885;
+ Thu, 27 Aug 2026 16:31:25 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:29:43 -0700
 In-Reply-To: <20260827232948.2520558-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260827232948.2520558-1-stevensd@google.com>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260827232948.2520558-5-stevensd@google.com>
-Subject: [RFC 04/10] mm: vmalloc: support creating aligned vm areas
+Message-ID: <20260827232948.2520558-6-stevensd@google.com>
+Subject: [RFC 05/10] fork: allocate reclaimable stacks with VM_SPARSE
 From: David Stevens <stevensd@google.com>
 To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -81,70 +81,136 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	David Stevens <stevensd@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Expose a get_vm_area_node() function that supports passing an alignment
-when allocating a vm area.
+Since the pages of reclaimable stacks will not always be populated, we
+need to set VM_SPARSE on their vm_structs to avoid crashes when
+vread_iter sees a partially reclaimed stack. Note that stacks will only
+be partially reclaimed when they are associated with a live task, so the
+stack management and caching code in fork.c won't actually ever see a
+partially reclaimed stack.
+
+Directly managing the vm_structs instead of going through vmalloc also
+requires doing the freeing of the stack on a work queue instead of in an
+RCU callback. Previously, we were relying on deferred vfree work to move
+much of the cleanup work from softirq to process context.
+
+The fact that vmap stack pages are included in vmalloc's vmstat is well
+known. We should continue that to avoid changing procfs.
 
 Signed-off-by: David Stevens <stevensd@google.com>
 ---
- include/linux/vmalloc.h |  2 ++
- mm/vmalloc.c            | 24 +++++++++++++++++++++++-
- 2 files changed, 25 insertions(+), 1 deletion(-)
+ kernel/fork.c | 92 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index d87dc7f77f4e..5ed9c5b25026 100644
---- a/include/linux/vmalloc.h
-+++ b/include/linux/vmalloc.h
-@@ -246,6 +246,8 @@ static inline size_t get_vm_area_size(const struct vm_struct *area)
- extern struct vm_struct *get_vm_area(unsigned long size, unsigned long flags);
- extern struct vm_struct *get_vm_area_caller(unsigned long size,
- 					unsigned long flags, const void *caller);
-+extern struct vm_struct *get_vm_area_node(unsigned long size, unsigned long align,
-+					  unsigned long flags, int node);
- extern struct vm_struct *__get_vm_area_caller(unsigned long size,
- 					unsigned long flags,
- 					unsigned long start, unsigned long end,
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index d39897300f29..059cd0748514 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3280,7 +3280,7 @@ struct vm_struct *__get_vm_area_caller(unsigned long size, unsigned long flags,
-  * @flags:	 %VM_IOREMAP for I/O mappings or VM_ALLOC
-  *
-  * Search an area of @size in the kernel virtual mapping area,
-- * and reserved it for out purposes.  Returns the area descriptor
-+ * and reserved it for our purposes.  Returns the area descriptor
-  * on success or %NULL on failure.
-  *
-  * Return: the area descriptor on success or %NULL on failure.
-@@ -3301,6 +3301,28 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
- 				  NUMA_NO_NODE, GFP_KERNEL, caller);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 10bd76f6dd20..6acad0038b78 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -267,6 +267,97 @@ static bool try_release_thread_stack_to_cache(struct vm_struct *vm_area)
+ 	return false;
  }
  
-+/**
-+ * get_vm_area_node - reserve a contiguous kernel virtual area
-+ * @size:	 size of the area
-+ * @align:	 alignment of the area
-+ * @flags:	 %VM_IOREMAP for I/O mappings or VM_ALLOC
-+ * @node:	 node from which to allocate data structures
-+ *
-+ * Search an area of @size in the kernel virtual mapping area,
-+ * and reserve it for our purposes.  Returns the area descriptor
-+ * on success or %NULL on failure.
-+ *
-+ * Return: the area descriptor on success or %NULL on failure.
-+ */
-+struct vm_struct *get_vm_area_node(unsigned long size, unsigned long align,
-+				   unsigned long flags, int node)
++#ifdef CONFIG_RECLAIMABLE_STACK
++static void free_vmap_stack(struct vm_struct *vm_area)
 +{
-+	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
-+				  VMALLOC_START, VMALLOC_END,
-+				  node, GFP_KERNEL,
-+				  __builtin_return_address(0));
++	int i;
++
++	remove_vm_area(vm_area->addr);
++
++	for (i = 0; i < vm_area->nr_pages; i++) {
++		mod_node_page_state(page_pgdat(vm_area->pages[i]), NR_VMALLOC, -1);
++		__free_page(vm_area->pages[i]);
++	}
++
++	kfree(vm_area->pages);
++	kfree(vm_area);
 +}
 +
- /**
-  * find_vm_area - find a continuous kernel virtual area
-  * @addr:	  base address
++static struct vm_struct *alloc_vmap_stack(int node)
++{
++	struct vm_struct *vm_area;
++	int ret;
++
++	vm_area = get_vm_area_node(THREAD_SIZE, THREAD_ALIGN, VM_MAP | VM_SPARSE, node);
++	if (!vm_area)
++		return NULL;
++
++	vm_area->pages = kcalloc_node(THREAD_SIZE >> PAGE_SHIFT, sizeof(*vm_area->pages),
++				      GFP_KERNEL | __GFP_ZERO, node);
++	if (!vm_area->pages)
++		goto alloc_failure;
++
++	while (vm_area->nr_pages < THREAD_SIZE >> PAGE_SHIFT) {
++		struct page *page;
++		gfp_t gfp = GFP_VMAP_STACK | __GFP_HIGHMEM;
++
++		if (node == NUMA_NO_NODE)
++			page = alloc_pages(gfp, 0);
++		else
++			page = alloc_pages_node(node, gfp, 0);
++
++		if (!page)
++			goto alloc_failure;
++
++		/*
++		 * Non-reclaimable vmap stacks pages aren't charged against an
++		 * memcg until account_kernel_stack(), but they are added to
++		 * the node's NR_VMALLOC counter. Copy that behavior to avoid
++		 * confusing userspace.
++		 */
++		mod_node_page_state(page_pgdat(page), NR_VMALLOC, 1);
++		vm_area->pages[vm_area->nr_pages++] = page;
++	}
++
++	ret = vmap_pages_range((unsigned long)vm_area->addr,
++			       (unsigned long)vm_area->addr + THREAD_SIZE,
++			       PAGE_KERNEL, vm_area->pages, PAGE_SHIFT);
++	if (ret)
++		goto alloc_failure;
++
++	return vm_area;
++
++alloc_failure:
++	free_vmap_stack(vm_area);
++	return NULL;
++}
++
++struct vm_stack {
++	struct rcu_work work;
++	struct vm_struct *stack_vm_area;
++};
++
++static void thread_stack_free_work(struct work_struct *work)
++{
++	struct vm_stack *vm_stack = container_of(to_rcu_work(work), struct vm_stack, work);
++	struct vm_struct *vm_area = vm_stack->stack_vm_area;
++
++	if (try_release_thread_stack_to_cache(vm_stack->stack_vm_area))
++		return;
++
++	free_vmap_stack(vm_area);
++}
++
++static void thread_stack_delayed_free(struct task_struct *tsk)
++{
++	struct vm_stack *vm_stack = tsk->stack;
++
++	vm_stack->stack_vm_area = tsk->stack_vm_area;
++	INIT_RCU_WORK(&vm_stack->work, thread_stack_free_work);
++	queue_rcu_work(system_wq, &vm_stack->work);
++}
++
++#else /* !CONFIG_RECLAIMABLE_STACK */
+ static void free_vmap_stack(struct vm_struct *vm_area)
+ {
+ 	vfree(vm_area->addr);
+@@ -305,6 +396,7 @@ static void thread_stack_delayed_free(struct task_struct *tsk)
+ 	vm_stack->stack_vm_area = tsk->stack_vm_area;
+ 	call_rcu(&vm_stack->rcu, thread_stack_free_rcu);
+ }
++#endif /* CONFIG_RECLAIMABLE_STACK */
+ 
+ static int free_vm_stack_cache(unsigned int cpu)
+ {
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
