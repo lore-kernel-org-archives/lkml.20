@@ -1,24 +1,25 @@
 Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022130.outbound.protection.outlook.com [52.101.101.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F273515D9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA2C361962
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:18:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869097; cv=fail; b=N3CfhE52wM/GYE1fvZkMILY8QcJXBfrics0idcLI0ek3kdMAhcfqECzlr8NSf6C74msgPSiw9jT7lYw3wJ9GWiYX/mBHEmfglXNLb7NYWL+urpAVe2mHLeAyrHDrthsUUY6euDpid6fSIEtBWxp6k3gnAOC3NYLhh4alViI0amY=
+	t=1787869102; cv=fail; b=IQFhHQ3aJfTge4npOTluCafl6uNjGPAFzK4e0WraBU6Wwg4RvOPPzWdF5RcB3nf7M0F7Tc7WBVU6Sv5CcoJkN70P72lWt2PJVgdDZDX0U5RLHpfQ8EYfQ0t9QFpIbrED1i8JBfzwcEXRBvsH+bfnwa2zyN2fal1AtoYNhKYtiug=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869097; c=relaxed/simple;
-	bh=ES9ErbrqKxUNa1TqdebCt1AwjnZ6/EXnqMKX37qKb3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=WzZuSN3SwAsliqOL5i35xZFZ6QGYh+EgmW8ebx1Vd39kZw6lczXQSufxmWcsQC7UiBiGlUt9zjiiCLKLs3CPY3xMa/P1fMi5HlziM188Osv+eoNVNEtDJ45Hxxq2BKQ/oV7jhboMb6CM+fwQjBLeu4kDkcrMpGqXTcyUfH7B/QQ=
+	s=arc-20240116; t=1787869102; c=relaxed/simple;
+	bh=+XkfxlbpQKgMEeXYx5zk8rSq2o9H67LqImXVv43uosE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cTZVzTcRlocbxfk5TLAJPb/vTavUy8Wlj+6Y/hQdqDSTWbIuHc81MWgooJqCH6klMVUWT1zi7w5hMeGHxeJDwrRmXFX9kJuC9pggNSQQ5lt8WnYiExI2aBhaNyOD8Z1fwCWkh2d+8N+Ipi8JNKc0LhgxVs2apsj0ueLTZtmqD9c=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I8fHfMVtkSLnfHB/Wt2nNR/AIAurRoFVVpVFtMtOKEucEOY2w05CzSpBoIvzHPF7ihUDaN3HWKu/vgw28F4uT7uVuhgg+wFcHqro5wtaCyXLUjq/Dt+61s4InLNPRMoaK1s1NxWeD4G7tp1mTo8WW5nM0qsYr281O6dmjjfaqSFHa9bmxxwZ8somxScCXIf4p93ws11ODiYtrooNz9uzbupMzFH0A7YDGeDrshb261f+LoV6L5bvpkifvAVBJAtEJlF8fTlJRrJr+KyVz5iZTBFcT2YFTYlMa8selEz/eTlUpIvw3n+0ZGlb6akHx6vHy4E5LMtWOFJZvy/vSgmqnw==
+ b=kaU1/vrZMHTCYEO+DkjA0KN79lLlT4PGq5PkKEwcKceDUAi3+rYZpucJZJV85FowBBhEoGdNystzNqhpEDNdGf4haEGeErjHHzbbzr9j8cR+FGzZnjzxmjrW5DfaARlS/tTkKXHNntIyG55EWRn456zP2/5xHdo3OlLcrFYFlRcaZGIJQocf4SulUUjAKUmqkhHy2Q7iwEa21PHlBDz51/idLeVnP0uMMMDW8Mr52z1eM6592hE1z8J8wWCTfS6NILZF0qnw+/JwUMm34iRESVd0mm7nMPbIlZehlzWzUsHYgglOBgG98cJkPARyfNw56D+xkWzwdVxeJL60nM904A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=KO1VMURaZJU78RS/eLk8ykfzvr4vM7aeXNhtUKfHyd4=;
- b=REeyR+AkPqPmpWRP4hZP6vOmNLeb5v1fRURdzOB+apRTmlRnF9x3hxxPvRNcv9MVdam4A8JAfwGC5hT1LEAHDNHgtaATiGz4gEZCKVTSUUGZWBfhl55izRKU4XKVIMVS87h1982tBYidPqzEdwUL/NBrH/Z+vs/hM31WbJM/dpNZtpN2xtG+CF+iQOHAFxMZmMXBoIBcVQTqF2ANh0xuGp9AWRw+q2FOeWcWD0QGcbu3HHT5N+PIhUJ7EqnMKHcME8maiyDBxCW9fL/cP7PW/golk9o3Mk1qrIxpVxo7PVEJWjBA4yqq7puFM5ij5oi7HdSJdYQYcv8oA+fWi8GywA==
+ bh=UYwraUWxnT9P+Xj2zx8xXWpCIPcqPzZxozbnwcWDgKA=;
+ b=wuKA55pwj7sh60etfJmM7SK5qdu1zHBIajsV/gsn/dfgSJnpvezsnUJ3YhX4DypPrQCSFWgKjROjnyW3hyzq/GBXo3+KgoNex1hlCrWc8KlcFwqAeijqWoCZveE7XJuD6+8a4IY01s69mkvY98YCuOyLycF6G0y2F+lYeiQZ9y3+tLmngTG72gnlCS/86tAhVydvQ4JI1tjpNEMd8YEY/2mYv+u9+HNWAn2Sbij6PM+KrzTv0zOtdk8OdHpqO0N53OEXiFuRPNmkvMFjGUQibisTfS4xHT0g/1o+wcfYSlC3+C27jND/JZt/kyPJ6m3v5PdgzpYSNUkJG86YzD/m7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -28,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO6P123MB7095.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:342::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 22:18:11 +0000
+ 2026 22:18:14 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 22:18:10 +0000
+ 22:18:13 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -54,14 +55,16 @@ Cc: paulmck@kernel.org,
 	steve@abita.co,
 	rishil1999@outlook.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 0/6] Introduce per-CPU debugfs files
-Date: Thu, 27 Aug 2026 18:18:02 -0400
-Message-ID: <20260827221809.988394-1-atomlin@atomlin.com>
+Subject: [PATCH v9 2/6] sched/debug: Protect lockless rq->rd access in print_dl_rq()
+Date: Thu, 27 Aug 2026 18:18:04 -0400
+Message-ID: <20260827221809.988394-3-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260827221809.988394-1-atomlin@atomlin.com>
+References: <20260827221809.988394-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0029.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::16) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P302CA0041.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::19) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -71,252 +74,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB7095:EE_
-X-MS-Office365-Filtering-Correlation-Id: be868935-dfac-49ef-40de-08df04891419
+X-MS-Office365-Filtering-Correlation-Id: d44f42f8-953d-4e31-dea0-08df0489161d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|5023799004|6133799003|3023799007|18002099003;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	rsn845bF7Uin5Y1rv0It8LhZgvwJxJwwXhGftHB0NM3knqXPclwWjlIaDd5lBWg5hylGL+ApyqF0zB5Y6b91Ir+ItMlvYa7k8PUej8vAw0rO+bQ/VaaiRrlAN+om4GJfHsQMBIdJSpXhC5JNQ0XEqfmjHC5ElPustqa5uRzZrr21BJ0mWOFdxD0k+fh5+ZCX+xIjZgmVFJFOzFLZkDuEJDg3RKPC7X9Q5x07tyntk7KcV04JsafnqephiaE5z0z31qYhdM3ujATHJVXf9QOupE9jZeEixr4IyB+AoEd5TMZSbDQxaa0YTgt83C7KfWPVPBQPmgmj8abT0CjakDEEYOK5roJC7J8ACpj2b8tv0Yd8bQ6p2ntwj1C2x7GDJRu8TxihbNirVfhz4N8WCZ/zPLL7EfDRU+S5ssodRiS0aOU+QKtT8OR6bO0VBL5NLls/B6Ect0VauR/37VhPq36atBVPyKrqasqzZyxrND4i7d2VElyuRP4V7HQ8Lnwo7c5XHhZNi812GsyqsdQX8fWe8Tynz4UNJmh2L5LAIYy82YE9qLh6M/lYvHl5LQI48z5enpdBL5kbz55Ez+SuN04wNQJUorqoe6CBW4Yp/NJ88ySVs0Xfm7DK2pneo9x5suV4Q2yohKMW6sh+vQszoR6yio//6jqy+aYMFWZJlp1nQ14=
+	ZGkjyqdnhLltzwyiKCLSDRb6DZCSj8BkMEg2VQ9guqBY1ZryehavTkzUj9ilYUiMQhdsewTIUu+V+JxTXG9oqh1fqi17BZ0TqKueGg8JdWHlWvL/yHc4hFWPVRpNSg5v60Wr4/9ISTX+g6e7ufSXjwrcEgCc/8Bv3ujMbcn/PW2jcr0iB+Trn0qWVkGu4ls9lwaD58wZ3al50wljQf9IAYbyUdCe3JAvTljZQe8Ib0d4OuugMarIHTXECvN0l4zv+9Hf8fY9rb6LNhlMpxhpPnrM0p8yWvV/Jrq9P268Yz7+y+jyHDzqx4squsp9DCZ77ykfwsiMeSqMWvOcDqU3UPv0zSaxA/tiXzJr5ufFd5u+GDldRo8ZKjoSA7oLLyEMIAdZpyPpJ8fjvlFIMS57g/4rsawRFVlkhKE1Hw3BuN0Gu2vEFDougv7Bek03HZ1UVWJtBN4zAmyz0tg7TmwXfQRbflqEBTvI1qQA/g/YWy+KtkQvwavfSXocKdi7TbQgNq7ChKk9pml7LSOUGl4kFO5tvK29L8mTpCwdSUsbesD2K4BQ8pzJlp7MLlwBXG1KmSHKDF04AveVhy12hlboVEgajHMSt8IhYbhzOwWAi2NnF1qTj3zi6DZUP0jiBbtWxIPmY8pQkz9PL+nQ2rh5Cwv7vFfrcuFxM9lbbfwxo9s=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(5023799004)(6133799003)(3023799007)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Pj4sJDp8zxsDzggztMcsQOfi5q46TCE0mSVWXafmhUgrxxHchAwbiYv9HPt7?=
- =?us-ascii?Q?UlCNaTsFcbvMHJXvZlMqrazkaPgjy5TDG/Ua1ZeitGcglWSPARJpXEncTz62?=
- =?us-ascii?Q?EBru+BBwP0E+fOcs5dXbh5aoafazBMbGlSwhim8pRkMN/PXRtefBEjCjH+mO?=
- =?us-ascii?Q?Wv4c1oTuWeSeimJRJsrwWAKZsfPiiDM43Nn8OClYKSfoR/gTx3f5rSnYSmln?=
- =?us-ascii?Q?sstBFtHWJrnQsCN6quZuZjmd3GIqkZ3wHQtqT1fgK9FzE549bGXqUdwX45Ym?=
- =?us-ascii?Q?c0VriK506s/v0+moZUtT+eI3Gq1UFN1YFrN04k/TG7SprLGGU7osW26NKLST?=
- =?us-ascii?Q?EIuZ9jIKzmMDtu0dIOIX368YQUFsWyQpbld5NbOhmUZ+kxpb5HMk29Szcnbz?=
- =?us-ascii?Q?f81wqIpvEdsIgHhQyf1QvbvcebihO8m5Cmeea5l0Gcw2sBsPOqpXWDjVQMmD?=
- =?us-ascii?Q?qm8ZaeW3cIGrfJFfLR6L9+irYErPHMzHOvbWlRZjQYJUrJL9RejyS1b4fbzL?=
- =?us-ascii?Q?sKtmBmEXVZ7rQ3S+BPIUO1ct7GVc8ktv0k8FiokWKo9XuV7GqCCnYXjmN/SR?=
- =?us-ascii?Q?hImc36J4yYoIdD0ubsrhgyp1MO9ti20KriJkMLGIKv+MQj8A6cf0PLL7miQ/?=
- =?us-ascii?Q?pKx5LyrL2nLsqkVlvzXKgU9vx/+B4Pwj16JfUFMni6fWJ6CLoK/p47XJZ9NB?=
- =?us-ascii?Q?9vc7GZe4d/YQWcCL/WmSOQDj8AV3f5Hsu80CHGHiJP5HWEPJ7t41W3oc1Cos?=
- =?us-ascii?Q?7PRyEOSOtcRkc/1h4RvDdXluv2ywTKMWvJR9WaDk+XHzkfk1jTfkzyLFxD17?=
- =?us-ascii?Q?tm/xU+i3PTjz+ybnkFmH7g+Ws2zJyaIJhV/DxoN5kUrbDxyHG/WmnJNE30sH?=
- =?us-ascii?Q?BiPtBxQzZB5jD5Jn28wUoxT7Pr4Cw+UhMkrzG7J5wZN1LMhPulekI4uLlSpf?=
- =?us-ascii?Q?3vg7o4vQOMOFvsTBNmdCBZoAjSsCUbNA9J49UORuF7+1k45CFOd1ikQhhxyf?=
- =?us-ascii?Q?EvHRWGxlEKC8xJMUWCZPyyOjNNCHw0Dxqht8kLGI+xUOwe+kHQTEAJwJwNGn?=
- =?us-ascii?Q?9L0uWpmgGAFlzrM2ckIK9Pbv8lrqBc5PXhB9XTiG7811lf0FblKo67w00V7r?=
- =?us-ascii?Q?O9iMloYvMO+CD9reUQpW055aI5UNBTTQfqlqIbxQG8JFDc2RVgOTLbkTwS3p?=
- =?us-ascii?Q?gq3dWiZQTAABw9tLCWA7lUoLpjQ7e69T7M+qWtPdhM9Iwx+jhfCkD322fCpd?=
- =?us-ascii?Q?awn7NsVEdMs4XQNRWtHVwDfErCMgbmKGt8BTfRFTR4lFUsUqnejMc1FBQ7fk?=
- =?us-ascii?Q?u7KJkGFSJRDiaY8RfO4GLvyI02Qh9yPwKezxnfP0f+6F5UoXQSca1buJhpIC?=
- =?us-ascii?Q?/OkQWYTIV3J5VYyXXZfJo1pud3LTCuQL0u3YjNYhUY3iSc3afffOZKu2wrh4?=
- =?us-ascii?Q?2PxnHs2KDdrtjsh5m1ke1gE73pZx91osPzl9H8pFywgpyh/XmSpY8Aw5GRHD?=
- =?us-ascii?Q?2pBwhIqSxSDc0cPdq/jJDyVkPQzwthhCdPheCj/odSUuXzNQsmJ9woKnHYda?=
- =?us-ascii?Q?Ng+T2fDPdUcA9I/6VJTE6tC3R2AeO5ExNaEN9w56fevSsNXVvM3qBjkCLI1Z?=
- =?us-ascii?Q?XYOh4NCXrAiIBiszXiNXUKLzJvZDbhm/NVNvPgK1WfjQW6RW49aE2pS2G8er?=
- =?us-ascii?Q?RrPiclAnsSUzbBj3TSe+vNjkNUfKLJM7MDmG4IKYtstwPfjv?=
+	=?us-ascii?Q?bDJ6H2iRj3uWTMlvM0og69OanrgXXtI8ehuXt9lbZjzjIUHUo7pW4Q5ykiEJ?=
+ =?us-ascii?Q?B+tLqimgo/6UYzQQvjTrPWjV4UoOsA73AMH29Z2/D2w7C5ZJ+x3UsLwLotHX?=
+ =?us-ascii?Q?ZnPXhqKahgf5Y5UmqElracajeGRcQVp7f931Pa/26/MaPzZYxW/P+K8r8V6y?=
+ =?us-ascii?Q?vRnfIupuYsy50x1mHwK64Iaoj2o4hQO084JJ3x3MUyxXAkW8FpSFa2EMEF8Y?=
+ =?us-ascii?Q?1t85vV4er6onU3eSp1wmfXE8MlH4fbBGntMA0EmMuHbVbaQL9L7TzpH31IVD?=
+ =?us-ascii?Q?FVehKEIjhtFa8JOcV4RNN99F6KIfOfdS3KngXbUUYLEcNVozNU3cGZrWSJn3?=
+ =?us-ascii?Q?/NLUF0I811lEhkFLM07Y8BfdgqDbYHYjSPSasekb7QFVB+rCHswSruzBy6WI?=
+ =?us-ascii?Q?dunNjtBfrgcmXK5NBGcrZaO98bWc2JChqDoCoX98hv1aKTaTDpeMS67Xq6vX?=
+ =?us-ascii?Q?9iMUwn3iId8ye4Ih8zeGnLwGLTnqD/zaQNZVUhQE8HVDdChE35YloteI9chA?=
+ =?us-ascii?Q?MAccH4SEmMDY8XgatdvqK7nANtq1mzN/85sg3R83jtw48A+F7oDdaD0hV7Ob?=
+ =?us-ascii?Q?rNuBcJm28N+e0VoH6lXWUGqs848lhrsPoY8QBQxgw5s9kha4lgyfDDOdpC7P?=
+ =?us-ascii?Q?x4B/iVAaZ4oqQUVZmBQpGza3y3ZeuB+fCemTphGgQrt7jS6BlxxRuZm9hol6?=
+ =?us-ascii?Q?yMM81qigJqp+g5IwNLvWDzaGOklI3sewAMAp7D3bP/JC0/ObO3dipfXL9ANu?=
+ =?us-ascii?Q?Nb6IWWuna+ALJTk94qMdfBr4jAfcSjZyuuspzT1bsc95FecmYOAcSiexv7FB?=
+ =?us-ascii?Q?RrTLaFPurUjRTCUgTskmJWkMoIk+SGjZGIpIONGk3Z5/Mj51hRr2w7BVtL5M?=
+ =?us-ascii?Q?rb0ghPclXAVlbEnj8wugjoYSW7OrexHL+a3UGbLnafNW61Fzj5CcUrH8Z2+E?=
+ =?us-ascii?Q?SvxJ2l1kWMssYy+bU8vc+3ExgWH3an28WQyTiyaXhcbvtWFbGu1hYdE0MDbn?=
+ =?us-ascii?Q?/akLAVtQtZBTrjCY3d4FsumHIIj6V9+Ij8gvYg3bO20BygOX7TSV1iSIlIXE?=
+ =?us-ascii?Q?GGwCvxdbrxhe9Ehb3Y9itvvG+YjJypGX7/2tkZq42xhaQG90YmE/5mhHfpGq?=
+ =?us-ascii?Q?+pEB/9Pcsck8vTGuIegj67flhPVEE0CMov5hMjf6E8A7b30pC17Unnqueg8D?=
+ =?us-ascii?Q?+r6ipnPiejZ4AJpJ7YTApN/R2nkb324Orwovsu/uyZH+GV3cNzfPivG2K8uZ?=
+ =?us-ascii?Q?RM80CDcMDI345zQdSVEPtUHaTpiok+laeUI/SUjNf+zEPTjY7nCt214yDI+/?=
+ =?us-ascii?Q?PqY6gk7BIf0+pjkBSRQ7b5zqoQvTSEJfC8ZyoiUOFMuwATL7QLuEwl88mMSP?=
+ =?us-ascii?Q?7LgUAbXrLOPTK2M+dwRs8KioyeszBNtja2hDRdzq/pgKXd/eegLZYPRfqRv7?=
+ =?us-ascii?Q?Tdm7A3ChraqEYvNV5O1HMFEqpA7vYNNmPJJMP+77hOWmaMFX7Y9rYm4A9iHr?=
+ =?us-ascii?Q?ob7k3/CxMFeGWbD7yia30ef4jy76xDR5awT9GBbaR+dPFK9jCuhj51eDCMwU?=
+ =?us-ascii?Q?RFE+nBHAoI1ssMywa5G0nSkeTqCbswF/41j5CdBwceQOYjd86yN2wA/XSBME?=
+ =?us-ascii?Q?xjBCkFAgRImCfFra/ZAqGWYUCH13CYpXKGPwkzEo3pq3Fr9SVlgSe65QnKj5?=
+ =?us-ascii?Q?LMSIit+3V0LmWdk+mHt+DsDczLxLWj9+onVhfm3gkqAjc3tH?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be868935-dfac-49ef-40de-08df04891419
+X-MS-Exchange-CrossTenant-Network-Message-Id: d44f42f8-953d-4e31-dea0-08df0489161d
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 22:18:10.6167
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 22:18:13.8722
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t0Nr79MSvB1rtPD70UpxEICxXJqfiSLzMyxD+JPHa7BYn9SwoJRsZYh0FdVtrqTDWNFOi0khceyezKMgFKI+pg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: N8AuIgurTdGaV3KyQjjLjrHyqyGEsY+xjph+yoHjSwTjpY0UArEKOic6vY4WQUaqDmB75d0VFonPPZooh8Of5w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB7095
 
-Hi Peter, Juri, Ingo, Vincent,
+In print_dl_rq(), cpu_rq(cpu)->rd is dereferenced locklessly to display
+deadline bandwidth statistics.
 
-This patch series addresses a few pre-existing memory safety and list
-traversal concurrency issues in scheduler debugfs handlers, and introduces
-per-CPU debugfs files under /sys/kernel/debug/sched/cpu/cpu<N>/debug.
+During CPU hot-unplug or cgroup cpuset repartitioning events,
+partition_sched_domains() calls cpu_attach_domain(), which executes
+rq_attach_root() to detach the CPU from its root_domain. When the
+reference count of the detached root_domain drops to zero,
+rq_attach_root() calls call_rcu(&old_rd->rcu, free_rootdomain) to
+schedule memory teardown after an RCU grace period.
 
-Patch 1 introduces a prerequisite patch that annotates struct rq's rd
-(root_domain) pointer with __rcu in kernel/sched/sched.h and introduces the
-rcu_dereference_root_domain() helper macro (i.e., mirroring
-rcu_dereference_sched_domain()), updating readers across the scheduler
-subsystem to ensure Sparse compliance, correct memory ordering, and clean
-Lockdep-RCU validation under both sched_domains_mutex and RCU-sched
-contexts.
+However, rq_attach_root() previously updated rq->rd using a plain C store
+without an RCU publication barrier (i.e., rcu_assign_pointer()). Without a
+release memory barrier on the writer side, CPU or compiler reordering could
+allow the new rq->rd pointer store to become visible to other CPUs before
+the initialization writes to rd->dl_bw are committed.
 
-Patch 2 fixes a use-after-free in print_dl_rq() where cpu_rq(cpu)->rd is
-dereferenced locklessly to display deadline bandwidth statistics. During
-CPU hot-unplug or cgroup cpuset repartitioning events,
-partition_sched_domains() calls rq_attach_root() to detach the CPU from its
-root_domain and schedules free_rootdomain() via call_rcu(). Without an RCU
-read lock, an RCU grace period can resolve concurrently while debugfs reads
-the file, allowing free_rootdomain() to execute kfree() and causing a
-use-after-free when reading dl_bw->bw. This patch adds rcu_assign_pointer()
-on the writer side in rq_attach_root() and uses guard(rcu)() with
-rcu_dereference() in print_dl_rq().
+Furthermore, because print_dl_rq() did not hold an RCU read lock while
+dereferencing cpu_rq(cpu)->rd, an RCU grace period could elapse
+concurrently while debugfs is reading the file, allowing
+free_rootdomain() to execute kfree(old_rd) and causing a use-after-free
+race condition when print_dl_rq() reads dl_bw->bw.
 
-Patch 3 fixes a potential use-after-free in print_cpu() where rq->curr is
-dereferenced locklessly to output the running task's PID. If the task exits
-concurrently and its reference count drops to zero, put_task_struct()
-schedules __put_task_struct_rcu_cb() via call_rcu(). Without holding an RCU
-read lock, an RCU grace period can elapse concurrently and free the task
-structure via free_task(), leading to a use-after-free race condition. This
-patch protects rq->curr access using rcu_dereference() inside an RCU
-read-side critical section.
+Resolve this by using rcu_assign_pointer(rq->rd, rd) in rq_attach_root() to
+guarantee a release memory barrier when publishing a root_domain.
+Finally, fetch rq->rd using guard(rcu)() and rcu_dereference() in print_dl_rq().
 
-Patch 4 fixes both a time-of-check to time-of-use race condition and a
-potential use-after-free in sched_show_numa(), where p->mm is checked
-locklessly and then passed to P(mm->numa_scan_seq). If the task exits
-concurrently via exit_mm(p), current->mm is set to NULL under task_lock(p)
-before mmput() is called to free the struct mm_struct. Wrapping the p->mm
-check and dereference in task_lock(p) eliminates both hazards.
+Fixes: 02968ccf7b80 ("sched: add /proc/sched_debug file")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ kernel/sched/debug.c    | 3 ++-
+ kernel/sched/topology.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Patch 5 fixes an RCU traversal violation in print_cfs_stats() where
-rq->leaf_cfs_rq_list is traversed locklessly using
-for_each_leaf_cfs_rq_safe(), which expands to list_for_each_entry_safe().
-Although leaf_cfs_rq_list is modified using list_add_rcu(),
-list_for_each_entry_safe() lacks READ_ONCE() and pre-fetches the next
-pointer without memory barriers. Furthermore, because cfs_rq nodes are
-re-linked on enqueue/dequeue without waiting for RCU grace periods,
-concurrent list churn can cause backward jumps or infinite loops. This
-patch introduces for_each_leaf_cfs_rq_rcu() using guard(rcu)(), bounds
-traversal with a per-CPU circuit-breaker ceiling, and emits an explicit
-truncation notice if the ceiling is reached.
-
-Patch 6 introduces per-CPU debugfs entries under
-/sys/kernel/debug/sched/cpu/cpu<N>/debug, allowing targeted inspection of
-an individual CPU's runqueue on demand. If the target CPU is currently
-offline, reading its file returns -ENODEV.
-
-Changes since v8:
-
- - Added guard(rcu)() to dl_task_needs_bw_move() to prevent false-positive
-   warnings under CONFIG_PROVE_RCU when invoked from cpuset_can_attach()
-
- - Converted remaining direct rq->rd accessors across in add_nr_running(),
-   __sched_setscheduler(), and dl_task_check_affinity() to use
-   rcu_dereference_root_domain()
-
- - Linked to v8: https://lore.kernel.org/lkml/20260827194014.977758-1-atomlin@atomlin.com/
-
-Changes since v7:
-
- - Removed incorrect rcu_dereference_protected() usages with
-   lockdep_is_held(&rq->__lock) in favour of a newly introduced
-   rcu_dereference_root_domain() helper, properly validating access under
-   either sched_domains_mutex or RCU-sched read-side critical sections
-   (Peter Zijlstra)
-
- - Restored the comment in check_update_overutilized_status() in
-   kernel/sched/fair.c (Vincent Guittot)
-
- - Linked to v7: https://lore.kernel.org/lkml/20260826224238.936456-1-atomlin@atomlin.com/
-
-Changes since v6:
-
- - Updated rq->rd accessors across kernel/sched/ to use
-   rcu_dereference_sched() for lockless readers and
-   rcu_dereference_protected() for lock-held paths, eliminating false
-   Lockdep-RCU warnings under CONFIG_PROVE_RCU and all Sparse noderef
-   warnings
-
- - Removed the __printf(3, 4) attribute from the !CONFIG_CGROUP_SCHED
-   fallback stub of SEQ_printf_task_group_path() in kernel/sched/sched.h to
-   prevent -Wformat build errors when CONFIG_CGROUP_SCHED is disabled
-  
- - Expanded the commit changelog to clarify the per-CPU scope of
-   SCHED_DEBUG_MAX_ITER and the RCU memory safety guarantees for recycled
-   cfs_rq nodes
-
- - Linked to v6: https://lore.kernel.org/lkml/20260825184637.888364-1-atomlin@atomlin.com/
-
-Changes since v5:
-
- - Rebased against tip/sched/core (sched-core-2026-08-17)
-
- - Linked to v5: https://lore.kernel.org/lkml/20260825141413.868997-1-atomlin@atomlin.com/
-
-Changes since v4:
-
- - Added a new prerequisite patch to annotate struct rq's rd field with
-   __rcu and updated lockless readers to use
-   rcu_dereference()/rcu_dereference_sched()
-
- - Updated print_dl_rq() to use guard(rcu)() and rcu_dereference() on
-   rq->rd (Daniel Vacek and K Prateek Nayak)
-
- - Replaced READ_ONCE(p->mm) with task_lock(p)/task_unlock(p) in
-   sched_show_numa() to prevent use-after-free against concurrent exit_mm()
-   and mmput()
-
- - Updated print_cfs_stats() to use guard(rcu)()
-
- - Increased SCHED_DEBUG_MAX_ITER from 1024 to 4096 and added an explicit
-   truncation notice
-
- - Moved SEQ_printf() and SEQ_printf_task_group_path() to
-   kernel/sched/sched.h, replaced strcpy() with strscpy(), and used
-   IS_ENABLED(CONFIG_FAIR_GROUP_SCHED) with a typed static inline fallback
-   stub
-
- - Corrected the "Fixes:" commit tag in Patch 5 to 039ae8bcf7a5 ("sched/fair:
-   Fix O(nr_cgroups) in the load balancing path")
-
- - Linked to v4: https://lore.kernel.org/lkml/20260810015812.428999-1-atomlin@atomlin.com/
-
-Changes since v3:
-
- - Updated Patch 1 to use rcu_dereference(rq->curr) instead of READ_ONCE()
-   to preserve __rcu
-
- - Added missing writer-side RCU publication barrier (rcu_assign_pointer())
-   in rq_attach_root() for Patch 2
-
- - Added Patch 3 to fix a TOCTOU condition in sched_show_numa() using
-   READ_ONCE(p->mm)
-
- - Added a safety iteration ceiling in print_cfs_stats() for Patch 4 to
-   prevent unbounded list iteration and RCU stalls under heavy
-   leaf_cfs_rq_list churn
-
- - Linked to v3: https://lore.kernel.org/lkml/20260808235522.380038-1-atomlin@atomlin.com/
-
-Changes since v2:
-
- - Protected lockless rq->curr dereferencing in print_cpu() with
-   rcu_read_lock() and READ_ONCE()
-
- - Protected lockless rq->rd dereferencing in print_dl_rq() against CPU
-   hot-unplug and cgroup cpuset repartitioning races
-
- - Introduced for_each_leaf_cfs_rq_rcu() using list_for_each_entry_rcu()
-   for lockless leaf_cfs_rq_list iteration
-
- - Linked to v2: https://lore.kernel.org/lkml/20260728205238.18447-1-atomlin@atomlin.com/
-
-Changes since v1:
-
- - Reframed commit message motivation around targeted interactive
-   debugging on large SMP topologies (Peter Zijlstra and Zhan Xusheng)
-
- - Gated sched_debug_cpu_show() with a cpu_online(cpu) check
-   returning -ENODEV when target CPU is offline (Zhan Xusheng)
-
- - Linked to v1: https://lore.kernel.org/lkml/20260728020309.6169-1-atomlin@atomlin.com/
-
-Aaron Tomlin (6):
-  sched: Annotate rq->rd with __rcu and update lockless readers
-  sched/debug: Protect lockless rq->rd access in print_dl_rq()
-  sched/debug: Protect lockless rq->curr access in print_cpu()
-  sched/debug: Protect p->mm access in sched_show_numa()
-  sched/fair: Use list_for_each_entry_rcu() in print_cfs_stats()
-  sched/debug: Introduce per-CPU debugfs files
-
- kernel/sched/core.c     | 24 +++++++----
- kernel/sched/deadline.c | 77 ++++++++++++++++++----------------
- kernel/sched/debug.c    | 92 ++++++++++++++++++++++++-----------------
- kernel/sched/fair.c     | 60 ++++++++++++++++++++-------
- kernel/sched/rt.c       | 64 ++++++++++++++++------------
- kernel/sched/sched.h    | 58 +++++++++++++++++++++++++-
- kernel/sched/syscalls.c |  8 ++--
- kernel/sched/topology.c | 13 +++---
- 8 files changed, 261 insertions(+), 135 deletions(-)
-
-
-base-commit: 68e37487810a3da43c48340fab7a55b3b6efdae3
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index 72236db67983..61932ef7ec4f 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -1172,7 +1172,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl_rq *dl_rq)
+ 	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
+ 
+ 	PU(dl_nr_running);
+-	dl_bw = &cpu_rq(cpu)->rd->dl_bw;
++	guard(rcu)();
++	dl_bw = &rcu_dereference_root_domain(cpu_rq(cpu)->rd)->dl_bw;
+ 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->bw", dl_bw->bw);
+ 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->total_bw", dl_bw->total_bw);
+ 
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index bf83ceee23e9..58913dc3a8f2 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -495,7 +495,7 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+ 	}
+ 
+ 	atomic_inc(&rd->refcount);
+-	rq->rd = rd;
++	rcu_assign_pointer(rq->rd, rd);
+ 
+ 	cpumask_set_cpu(rq->cpu, rd->span);
+ 	if (cpumask_test_cpu(rq->cpu, cpu_active_mask))
 -- 
 2.55.0
 
