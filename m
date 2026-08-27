@@ -1,67 +1,67 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC41B37B007
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7D635294E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787804168; cv=none; b=V56EvlF8OlImcwE5Dwcz7DCvHW7tY94UcQiIPYibpLsFwaPl+HvvqKE/sCsPsXYoeDMEw00YjvphB41SP+w3Sdgk+0HmVqLquh+o7jyEjaL9pkMLKbIP3MQBAf3ph83RCzKToDXvWR6uYZ2dvHoynMat1FFJZD395JaHmzkyGbI=
+	t=1787804168; cv=none; b=ISUCv5+NCPFSWO6Iv055Xg1u51EUUWgKVVrX3mtGi0zi8Dy7uxEAVinZojvzBPZvSg9SQVzicTYb1jSpCGf9s5ILewtEj2cx5TQIY1wlXwvRnTdsCfvFZdVb5SVVFQbKSxADg6qfZ2xgJc+/JDNoZoMVtDFwDCVUDHGAOaxwNEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787804168; c=relaxed/simple;
-	bh=UWzUvtID8syz4sGuom2ZigoVHQiCo7GCx8hU0w977u8=;
+	bh=n+SjTCjuYTXl5KayVO6WXewqVZcudCQw53KO0rshhwo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 Cc:Content-Type; b=frq64dsqdPVc5z5XxJjpY1w5NFCgUZI+3ab5o47PAqiqGDr0jWGQnA1oi629cq5MU2catbx+WuTIhBwTA12rbq1plNc4zIayZHRO3R34NNeCiURYJ8mqmU0wW9dX2NT/cgSrMS+CPws+63p3Kmu2JyrnACcXUh+NyvDEpXGAMa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kqBgjLoc; arc=none smtp.client-ip=209.85.214.198
+	 Cc:Content-Type; b=enWRdaSi3QtLS9QMWlFXPCXtkcTeB2deMVDtyaET7R6A3xmzoJ09HkElmThI11VRmWEIlx0OQ+rISTDZ9gWAimVpQDj+i47TUBycwyFnlUFihP5rvC3v3kClUqo9JynmgHD9Z1QiJ8GgDrN1XJZIY9T5TRIESOoJ9zy4r8P8F44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U08KaW0w; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kqBgjLoc"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfe48ca1efso26782955ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:16:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U08KaW0w"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so2251867a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787804166; x=1788408966; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787804165; x=1788408965; darn=vger.kernel.org;
         h=content-type:cc:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RYByO2UIdNlghf6qo3FWAyAUG9bYH3XbqKc7jalZmSU=;
-        b=kqBgjLocOeSrkxMe6lcBL2pLLB5ksuG3zg8ZU9SMOeIViFWBQdUGmSgmp+4vt+nZE9
-         SRSJBemGWV2/CJjnL2pVtP/p9BjAOT6n1mayovLUoOiLI4mTUSvTzWGeZZaM69qgMsKp
-         XwQv4ZuGAiZzUIkGhEzj10iKuJVuXaaoIN8vN1ARhrOvLey1W/zYU4iRRqDEJm06aHHB
-         sZljLGfzg35gAimFSKtL768/1qLsrk1VWKki21ZvEOGEQxSLVITzTmJkg4cxZckQHZc1
-         StXWgSiUO8gVYkRxrrfzKBHKBbCFgeIhAG/sljj2iHY/4lYS/Zaa3mCiGSdODiQTsqUQ
-         l0IA==
+        bh=tC+1FnIjErVH9SYEpec69S04EuD4PIv2jo4qBhMrSCE=;
+        b=U08KaW0wwvnTvFuZBryYuf/W1bOYZ57SKAe8ry/bh/G+00lvhaDPLgst970UQ/iOrD
+         Q0M3LFBVp1L0fPwPyWkTaWRLxdvK4dEvgRt5RgeZIesQVnfxLShUQCFxghrX49nVCPhg
+         +IyNQlUYfkHJqdP3BrmgkkuKExUt0t4woFLtZGSz03daXughR62eHJardSqq9Ue6D3QQ
+         ra0fbKnYxAuuxDKPuRYCstIeEWncLweAOUn/M3KKCMDKF0FHgkyguATjm+FpEPGuIkQ0
+         5B8DMJqzqFAff5hnq3NwIVqj2wgEz3XHS/JY8Zw/8R4qEcY+bamCnaf9e85DpMwRyHff
+         zlIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787804166; x=1788408966;
+        d=1e100.net; s=20251104; t=1787804165; x=1788408965;
         h=content-type:cc:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RYByO2UIdNlghf6qo3FWAyAUG9bYH3XbqKc7jalZmSU=;
-        b=Gj0tkDypOmRE3kH+Y50tpuwyHpmLL72dv17tIjnZ6CWbf3YI1gGygoZviuh8o4ZXs5
-         zPPPiB5OiqYwbJFCUNypWmvkCWKgAZgyAL9/zOI37CNbIhvebIFUUlsnK1FL9l64E6ZF
-         3tUQ8Td2iyhp7vjpabeOFTqg7P8dy54XHf8RfMzXUCNyHwueSg5JwNxVDsBe5sxjqBws
-         t1grqGOI9TnBMZ4T2UsSsFcn9Fl3KYbkpOY7UvQBOepbjyxKdTkDCfh512ehZfIFqwyD
-         fBoFoVQeKRPH3fB+84Cved5XPqPljDoMr1JM2qp4plxoZl6mstCMsdpOnG7nRN9SnvQQ
-         nl4A==
-X-Forwarded-Encrypted: i=1; AHgh+RqsTxhIPjza/OFoapQf8S2JD5Jd9TwerDdgrFFx1wsuJkVe3ItYgION0B+okEUxRMTKWNwVP1uzrYMsrZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kET3xaSJHYV+oR2K1cobnyX85XkIAaPxfXk5vhFYuedJRTEBIZ
-	SV4mJNRPlulyIT0Er8Yo7GIHRLuh+PluyWeLQS1yi99FnYWs4TJlagP9FsHoC40aJpIoG2FAwi7
-	r
-X-Received: from plok12.prod.google.com ([2002:a17:903:3bcc:b0:2cc:97d3:e244])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2c03:b0:2ca:e19c:97b
- with SMTP id d9443c01a7336-2d707a3f857mr189197875ad.5.1787804165952; Wed, 26
+        bh=tC+1FnIjErVH9SYEpec69S04EuD4PIv2jo4qBhMrSCE=;
+        b=sVQPFb5joOZ/PSIBdO2ZUfS+sFbPB69CFSXg9tY2uqmt2IktfizHVX5+JFhey8S3la
+         QdvzNHw4Imm1TanQL4FlMPvKl40tsD2qqc+5rIaO+I/aHuU8AgEJweApacfWoiDo9LOp
+         db3wLoqaL2tn9M0kXXWquicUO3KP1+MrR6x59b2EToDrhQjJ2Zwi7BXGHYCSQgteFPJ2
+         cTUEqYx3WwMvgE14XawOpHNR0En4lkQqj5F4RDpZmb6Wx87A9Dmp4Qbr0uPdJFVle9VZ
+         p6ZmINJdnXbnI5Rqmz1j25lHb8geVA694QuM9Fkb2D6unmQ9AsfQvxhAkmVbGoOQ3FBi
+         DpvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpoTorHUeeYbXKEhfkGWT/Lc2jq1al/QUQ7yo61Ot/vOcx8IeawBD+sctxRY3EhkR9iqRPIEXo5xXYRdp0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzn0hyk4xvN49fVvSV7MwQeb5vFZRML7YUEr6X81HhfIkbv6aX
+	nl8jIib2XjHhJcmxZFbxWamj8oB+nlyw/b6EmErsAL1GyQ/G26tUEkCqNG2OGXBFslStFHp9C2Z
+	a
+X-Received: from pfblb17.prod.google.com ([2002:a05:6a00:4f11:b0:84a:1bf6:cb4a])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:8005:b0:848:76c4:fba9
+ with SMTP id d2e1a72fcca58-8537279f105mr23418409b3a.7.1787804165145; Wed, 26
  Aug 2026 21:16:05 -0700 (PDT)
-Date: Thu, 27 Aug 2026 04:15:56 +0000
-In-Reply-To: <20260827041601.187608-1-morbo@google.com>
+Date: Thu, 27 Aug 2026 04:15:55 +0000
+In-Reply-To: <20260810204118.1981755-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260810204118.1981755-1-morbo@google.com> <20260827041601.187608-1-morbo@google.com>
+References: <20260810204118.1981755-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260827041601.187608-2-morbo@google.com>
-Subject: [PATCH 2/2] vfs: Add KUnit tests for fdtable
+Message-ID: <20260827041601.187608-1-morbo@google.com>
+Subject: [PATCH 1/2] vfs: Annotate struct fdtable's fd field with __counted_by_ptr
 From: Bill Wendling <morbo@google.com>
 Cc: Bill Wendling <morbo@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
 	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
@@ -70,14 +70,25 @@ Cc: Bill Wendling <morbo@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-This adds a KUnit test suite for fdtable to verify correct allocation,
-max_fds initialization, and dynamic object size of the fd array under
-__counted_by_ptr when CONFIG_CC_HAS_COUNTED_BY_PTR is enabled.
+The 'struct fdtable' holds the file descriptor table information,
+including the current file descriptor array 'fd' and its size 'max_fds'.
+To harden the kernel against out-of-bounds accesses, we can annotate the
+'fd' pointer field with the '__counted_by_ptr' attribute, referencing
+'max_fds'.
+
+The compiler uses the '__counted_by_ptr' attribute to track the
+size of the memory allocated for the pointer field, enabling
+runtime bounds checks under KASAN and fortified functions. There are
+three places where a 'struct fdtable' is initialized, and in all of
+them, 'max_fds' is set before the 'fd' pointer is accessed or assigned
+in all allocation and initialization places.
+
+No accesses to 'fd' occur before 'max_fds' is set, preventing any
+potential runtime false-positives or panics due to uninitialized count
+fields.
 
 Assisted-by: Gemini:3.1-pro-preview
 Signed-off-by: Bill Wendling <morbo@google.com>
----
-v2 - Added 'test_dup_fd' testcase for separate allocation path.
 ---
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>
 Cc: Christian Brauner <brauner@kernel.org>
@@ -89,129 +100,22 @@ Cc: linux-kernel@vger.kernel.org
 Cc: linux-fsdevel@vger.kernel.org
 Cc: linux-hardening@vger.kernel.org
 ---
- fs/Kconfig               |  8 +++++
- fs/file.c                |  4 +++
- fs/tests/.kunitconfig    |  2 ++
- fs/tests/fdtable_kunit.c | 72 ++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 86 insertions(+)
- create mode 100644 fs/tests/.kunitconfig
- create mode 100644 fs/tests/fdtable_kunit.c
+ include/linux/fdtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/Kconfig b/fs/Kconfig
-index e05917adcd60..05b63f7506a7 100644
---- a/fs/Kconfig
-+++ b/fs/Kconfig
-@@ -421,4 +421,12 @@ source "fs/unicode/Kconfig"
- config IO_WQ
- 	bool
+diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
+index c45306a9f007..3a5c88291125 100644
+--- a/include/linux/fdtable.h
++++ b/include/linux/fdtable.h
+@@ -25,7 +25,7 @@
  
-+config FDTABLE_KUNIT_TEST
-+	bool "KUnit test for fdtable" if !KUNIT_ALL_TESTS
-+	depends on KUNIT=y
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the fdtable KUnit tests, which tests various aspects
-+	  of the fdtable structure and allocation.
-+
- endmenu
-diff --git a/fs/file.c b/fs/file.c
-index 628ca07dc4b1..9c7001b901cf 100644
---- a/fs/file.c
-+++ b/fs/file.c
-@@ -1529,3 +1529,7 @@ int iterate_fd(struct files_struct *files, unsigned n,
- 	return res;
- }
- EXPORT_SYMBOL(iterate_fd);
-+
-+#ifdef CONFIG_FDTABLE_KUNIT_TEST
-+#include "tests/fdtable_kunit.c"
-+#endif
-diff --git a/fs/tests/.kunitconfig b/fs/tests/.kunitconfig
-new file mode 100644
-index 000000000000..de67125a9421
---- /dev/null
-+++ b/fs/tests/.kunitconfig
-@@ -0,0 +1,2 @@
-+CONFIG_KUNIT=y
-+CONFIG_FDTABLE_KUNIT_TEST=y
-diff --git a/fs/tests/fdtable_kunit.c b/fs/tests/fdtable_kunit.c
-new file mode 100644
-index 000000000000..6abd2a8d8f5d
---- /dev/null
-+++ b/fs/tests/fdtable_kunit.c
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <kunit/test.h>
-+#include <linux/fdtable.h>
-+#include <linux/file.h>
-+
-+static void test_alloc_fdtable(struct kunit *test)
-+{
-+	struct fdtable *fdt;
-+	unsigned int slots = 64;
-+
-+	fdt = alloc_fdtable(slots);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
-+
-+	/* Check that max_fds is set correctly and is >= slots */
-+	KUNIT_EXPECT_GE(test, fdt->max_fds, slots);
-+
-+	/* Check that fd is allocated */
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
-+
-+	/*
-+	 * Check dynamic object size of fdt->fd if compiler supports
-+	 * __counted_by_ptr.
-+	 */
-+#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-+	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
-+			fdt->max_fds * sizeof(struct file *));
-+#endif
-+
-+	__free_fdtable(fdt);
-+}
-+
-+static void test_dup_fd(struct kunit *test)
-+{
-+	struct files_struct *newf;
-+	struct fdtable *fdt;
-+
-+	newf = dup_fd(&init_files, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, newf);
-+
-+	fdt = rcu_dereference_raw(newf->fdt);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
-+
-+	/* Check that max_fds is set correctly and is >= NR_OPEN_DEFAULT */
-+	KUNIT_EXPECT_GE(test, fdt->max_fds, NR_OPEN_DEFAULT);
-+
-+	/* Check that fd is allocated */
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
-+
-+	/*
-+	 * Check dynamic object size of fdt->fd if compiler supports
-+	 * __counted_by_ptr.
-+	 */
-+#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-+	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
-+			fdt->max_fds * sizeof(struct file *));
-+#endif
-+
-+	put_files_struct(newf);
-+}
-+
-+static struct kunit_case fdtable_test_cases[] = {
-+	KUNIT_CASE(test_alloc_fdtable),
-+	KUNIT_CASE(test_dup_fd),
-+	{}
-+};
-+
-+static struct kunit_suite fdtable_test_suite = {
-+	.name = "fdtable",
-+	.test_cases = fdtable_test_cases,
-+};
-+
-+kunit_test_suite(fdtable_test_suite);
+ struct fdtable {
+ 	unsigned int max_fds;
+-	struct file __rcu **fd;      /* current fd array */
++	struct file __rcu **fd __counted_by_ptr(max_fds);      /* current fd array */
+ 	unsigned long *close_on_exec;
+ 	unsigned long *open_fds;
+ 	unsigned long *full_fds_bits;
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
