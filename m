@@ -1,229 +1,193 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011020.outbound.protection.outlook.com [40.107.208.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7600F427F93;
-	Thu, 27 Aug 2026 11:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829173; cv=fail; b=JfA1Ur78oOdEQ8YiKSbmbv8LTtOMretKgqI8eJaCBJED2Z5OH1ZUJNoYyhJWJlisAQen9ZhogPW15txIzkE/Z8QYW4lOl+dloMyDv/W0r5yQvgKC0W3RslRxlWRG+rmeePABa2W61/13FAT12v4HgvQoEHdGVo7itF/kPC4Ii5k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829173; c=relaxed/simple;
-	bh=J7Yb+sxAJooL30wVvj9LoTfm5LuojnQBLHtBVrR7fsk=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=YUQ+6X+AiRvPqV6L4br/Mldy5Ce2kKuXg7tyHlkwkgZEAl8qt59Adtj4zpQDV6r2Kj3o3FXQoSC1F09OREHyITI3W0B6ARfwK1teLjZXCdQAuLm1ScHCfx/bM0Q7By8qYkU1/7FmQxN8h0iH8Vz8lJfgFH5cUmenaW7Pl8qL0pg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Q0BUPGGZ; arc=fail smtp.client-ip=40.107.208.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65A0284690;
+	Thu, 27 Aug 2026 11:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787829193; cv=none; b=FiEm4oxjupnmJLkrrW6VP6FEK3NzQfahUBSXy9ENUqYwaT7cIQgaZWyK8UwIq9K+gPK2m/Pqj2mmsJYk5xu1DtADounbUgb2s6E5FoIQIFMHTpi8i54BLalLSrbuuvx2l1HYa1yRD/wkhy+o4s/owHsTzC1h4bz2sEAIvj8sjy8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787829193; c=relaxed/simple;
+	bh=bTC6x/24k0isLblpzPLOwwPeAbmEkv0/EIyCKVCIMnA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m6pdIMn1cYeidx8wopNojeqAZmVDMCS3TMnQUrIQnq8F8VrImPMkEaaPCEGAUNYYHpmDzjP/d2SdcHslphGYJIxjj15Cb5HGc9epYpHGCiZ2YZ4A6xgGM7UPHUkXTeCkSn78mX0b3p2p0norpxkE1Kz9lbhuwOB1JhwHAHA2xvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=w6pCQLuB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SMg0u+0A; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LcTQufRG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=nyzjiJc9; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q0BUPGGZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b6vvn0fAF3PYQSYK023IVrtSxMl878Kx1tX6CMKCM75DSXHj0BNBu7PiGOYV/9wv0RHiQU35suQvZvEp2fqj0shd5oCYFKVMG0H5RRW5N0xITEtRrlrS94EhdHeM38tkE1K9b6bzm2vkJs/cHQgzksVWCV2JCrYiWBjZegJGAcvvXrbwyxgbapR0zqDFbwljC2qHSdght4VguZOKriKgT9vmDWqpzyzdd1+gAj/9x8x3/GqqFt7XU991Ubw4WuL/EcG4e+zMBYsWKRKaNYfjabf0NdrDcNiXC/Uq6MuwHf8mAe9wfahkXvDEh/5oEYE6ppaS2ZRFurueWLzUckR/Lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SEn6ctfPOrWPA6QDIIXpOE/NTpEQMLKqe5nsyKCURuo=;
- b=O+HenhOYy2KBzFQ2Cvy/46mB9eysZjXUcxJ0u697KnstAmILQ33kOBnHVQgFptx9qRuw4x7l/9BBkpL1C9kn7Ak2Pt2GzFYKGyQcEyEV/Pbd+wwXuizJPxi7GFY64aeuj9iWjtDwkW2RGyn6u1ze9m9pRta192cThkQ/P402Xjxv1qqFUPx+nqdA+fu2X5WeGj3EWKof+wO47X4ZbYm9lGe5UQJi05K7PHrNqzJ4uqEP2Ue/e/TRgiDEHUj8Rc35tsEo5vQFHDGhhJtiZIrdPDTNFFJkgfoz5bwECx51Bxf3O0Y/0NTW94di80StkYoO2uyqrq7MeT4+lGxXRV1MQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SEn6ctfPOrWPA6QDIIXpOE/NTpEQMLKqe5nsyKCURuo=;
- b=Q0BUPGGZ2fxJsUVYdKrDyvnLSM0mXsk/cFUrSBi2y/oAJn9dlU9Zqfk6tVSHbpU/wB1C8RhiIAhiqEIqmol1U0drbSMc2vkwKRkX19orja2GuAnD4aCNEQhYAytn9gIq2VW5FU26DAWrJr0KWa9wj/8E/QvAACS6Zr2O9s7a8ARC/aQX5LCe3eVDJq2QYbMjuPXCFaZkl5ue8njNo07JuBN+AguX4GSmx6MMO0nm7yxJrSo3/uZL6NZHXruTqPbZ2ThxRmPcAnK6IxWIv0GgRfrTN0PNGZFo4WO05ejDrRKwASswUlgmDeHFgmX3k87tM0Ue9ifyT76hlW2opyC39A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Thu, 27 Aug
- 2026 11:12:43 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
- 11:12:42 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 20:12:39 +0900
-Message-Id: <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
-To: "Alice Ryhl" <aliceryhl@google.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
- constant expressions
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
- <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
-In-Reply-To: <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0024.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:381::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="w6pCQLuB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SMg0u+0A";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LcTQufRG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nyzjiJc9"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BD22B1F841;
+	Thu, 27 Aug 2026 11:12:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787829183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
+	b=w6pCQLuBUi6kgshHVeAQu2cRDZe+c/zB36HD7f5/+vKW3O9z/2W0F8rSMVDBD8J4Ky4Pfk
+	iE8vUCUpmMxtspDmTP5KZvMMGX1E463nQScbpTHkMxwbVRi9ocVR/gM6SC+xSoIkJB4sSb
+	B9sROcruDj7+8Ixb8x8HoerJq+dMHJg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787829183;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
+	b=SMg0u+0AWa79eVQm8Aj+9z5nE9y4e9/lyCmCsaB0mdiaoh4o/fMjB43j9PfF00Za97EEpq
+	hpU5pS+U/VCCDxBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LcTQufRG;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nyzjiJc9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787829178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
+	b=LcTQufRG+bO01qVw5fv+gVa7i4Q48nI+R+EqSl++rN463CHoo2LfRlPpbDPCVRQyPgELPy
+	WXclsQsUGKrM1BIwOcoYnsOjIyudCXtJ8iViGSVEA+GHi3Dh+X5QBDSpKvufA2sh/rnlqD
+	aM+7ywOJq78DYGsQV6rFr1AwwyKcVDQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787829178;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zc2nVPHbEDtMm+7SYCSdS9Lgw0Mj1r3Q9/id4xINcx8=;
+	b=nyzjiJc9uZJOLhdSEWVg3x2jF9bJBtJmaKfG7RiiSMcXwxuH688zQrQyDRKeBjpGarum5L
+	J337qOKgSvHHayAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B36F813354;
+	Thu, 27 Aug 2026 11:12:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id o5vKK7obkGrIYQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 27 Aug 2026 11:12:58 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 566D8A1324; Thu, 27 Aug 2026 13:12:54 +0200 (CEST)
+Date: Thu, 27 Aug 2026 13:12:54 +0200
+From: Jan Kara <jack@suse.cz>
+To: Bill Wendling <morbo@google.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] vfs: Annotate struct fdtable's fd field with
+ __counted_by_ptr
+Message-ID: <7wmcr2qkkasokniszgbsegmglmyibshtq7ecwstwm5fwdidtom@67ubpgapnkte>
+References: <20260810204118.1981755-1-morbo@google.com>
+ <20260827041732.188707-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB6799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d48051d-1dfe-4495-c5fc-08df042c1d1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|10070799003|1800799024|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Vi17sojkfXhEs57ufaA1UpwQ03oW5rEQe6oPdhLXpSngoq1DTuNek4OOlYrVyfckXDgIC6sZX6jJXZ/hmvOQ904IWFsOaTVMokJhB5TNfyiFAHHHNMU8hFDqV3jxiUFJrdMFBNfxEWfkcO33YplP7C2Cbhmjk2rjMsUD3kBIzqek7cFdZy/R+OnXgNkuxfSxlpPotmYKPaQgyaD34/agKVdYGLAuqUhrwDpomipn+dAiYZILaaBh6RR2OVOWxS3NukUeqrKsp7+RcGVWyGqu2fksacBaLAmCqrzEqux8x/liQo8nhyCOnc3oOIPCG1QbefXXwHxLItE6cx0XAgod9Dt5U8+xrRkgMDiIOdNJ83VLRkstZBTkufTj2tzejKtUCTl7FFPgbA7KZMtPLk7eoqeyXpw77WPpfTvImUQJTh9ldG1YRr0TRxQZC0hpYQyM/AVYmuT+qtx7J/kyk0woo0Ee3gRIUuu1Kq2RczQsdBIpX/X0QFrTImBxDEQ6ljbfenanInUySw3iINHZx1Z9Lh8/JtcLqn+mCW6xDpMptX5c1+EyDPbHfxfRg1BIPr2lrVy6e8wMbLGrtvDC2J5/Xsri0+cRkYAUAW6Z5v2mtpVUQ2ht6XA4lkalz94tfyJ8rzYLyCia7j5IrEJgQMHO4yVNY0119UW1ujQcI2odvRM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(10070799003)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OUphTFRpR2pIYmgzeTRqVVQzd3RoZmptSnArZXhWTGVPMkVFeUlZb2xhZENo?=
- =?utf-8?B?VHZhUG0vVTUrYW40ZzRCNi9EQXBCdVNKd2ZVN29YZVE3RDgwUlc3WklmOWcz?=
- =?utf-8?B?QTdHc0FQR0pGVnlIWWxkSjNkNUIyR0pEN3dGaEM0eU1FQjNVOHNSVEpYVzFR?=
- =?utf-8?B?NjdFZU9Ld1ByMjBuUE5NdDNpSjdhNGpBL3dYZE1nT0M3S2phZTlNNmJScEl2?=
- =?utf-8?B?aFpFc0pFaDNHRUNYVzE1T3ZjdytkOTFtdW9xTzQwdFpNaktCUURyZkhnNXZF?=
- =?utf-8?B?UE9zaTA0TlFSUHpVTVZtMDNKUUdpN3V3ZzhaOWZydTBzM3hqd1ZjM1AyY0Zk?=
- =?utf-8?B?dmhBLzZtSVpQS3M5dVNJUEl1M1IwQkxJY2haVHZZZVlFQWNuQ1NubUlEYngx?=
- =?utf-8?B?M2kyK0FHNHJUQXZJZXVtcCs5OVcxaEt6NXREMnFrN0NDMnlsL2VhNGovU2Q2?=
- =?utf-8?B?ZjNBc0ZXcldQTnpYeVNHWDg1YXR0ZTU5a3BBMk1EOExqbWpkL1RLRlNDajR4?=
- =?utf-8?B?WkI3bTZabU8xQkptL2J6YVZFYlhWZUtnNUN5RzYvNURxdlRFK1VvajdGRUd3?=
- =?utf-8?B?UndpemljVUxqVCtZZGNXQlZwZDNyOXpzNnYxV0grQ0Z0L1I0WmZKTWVucThx?=
- =?utf-8?B?RkJHVkZiMHBacll6UnVUT21LUzBnSmxUYnhpSnpPOUE2QnZTVmYvdWp3VnZL?=
- =?utf-8?B?Q2hXNUJTNk9DcHIrZnRIM0NTcm1VMUxmNWNCZzlsR1RzRkx4SlQ4MFVudkxi?=
- =?utf-8?B?d3lUWU1mckhnVFFxS1RLdFJDNm5MdEUxR0JLbEVVVXhXWVphdHdXeXFzWGZW?=
- =?utf-8?B?N0RqQnZ3d0R2S0Robk9ob016WkM4T0ZEbCtnZWlDSlRRYmhHaVRrVElZYUNP?=
- =?utf-8?B?bHFnckVMVk1DemFCQllmZFN3NW80UFZLZGYyZDllUjhONXBYajVPaWY5dXNO?=
- =?utf-8?B?Zll4QW9oV28rYmZxSThnM0RUa2QvTm1DVTlMNitqQ093dWpibVZoa01TRTN1?=
- =?utf-8?B?d1BZUmpPaG9LNStmU2ZqUjRMaGdVUDdUZkxXVkF3K2wvYlZzMU5LSUlSUDVu?=
- =?utf-8?B?Vk52MHJieW1QYlpzYkJSZGVIei9qSUpXVmZ6dHZicTBzeno0TnFDTE4zNzhI?=
- =?utf-8?B?Qk1lWDUxdXVEbVB6NitjcVk2R21PdXpXMkloODl6ekE1VStsTjlETzNCY2l3?=
- =?utf-8?B?MWt5R1VucVp0V3poaXd3b1Q1cDI3emYvZ08wdlFZZXlsWUdrMjk3bGowVmM4?=
- =?utf-8?B?MmFiOVJFMDZvMFhZL0FLUElOa1dYSDZnRW0vTWliWURJL2RrNXZ1YmNzcUhv?=
- =?utf-8?B?RzcwUHJrb2RjOW94YWpnZnE1cm1DVG50VVVNVEM2ZEtyMklEaEFoSCtmTjlN?=
- =?utf-8?B?a3pCL2Q2L0RyUmtYWmF5eEw0MmJubEZGQmNtb0Y2ZVhIYnUzOStaVjIrdCto?=
- =?utf-8?B?MkNIamxOOWJ4VWtJdnhTS2RhYlF2aEhKU2dlVVJkeXRySmcrakV6OXYveHF3?=
- =?utf-8?B?NFpPWU5iMnJ0bmJweEIxU2tQdWtkMUxOWHNOWlJkS3ZXWlVpN0JjTVFNczBR?=
- =?utf-8?B?bUVIVThQUlIvZG1TazBOYXExZ0tvMXFEdmsyWXhDRzlKbW4vNDVYOHJlTVdT?=
- =?utf-8?B?SElRVnVkcHh0NjdZUHpYYlhKbDRYcVFmenBYZDc2bnVwaGwxc0M5UmcrcmJx?=
- =?utf-8?B?TUQ2aEQwcWMxeHR1QVI4ZndmSWM5dkRNM3I1ZDNXZTRyMzVZVEdocHU4RTlo?=
- =?utf-8?B?MWRQNW5jeXJtM0RNRkxUdVROSFNNd3duTFRuRkFaWDl4RWxkcHp6T3phWW1U?=
- =?utf-8?B?Q0JPSFl1M1pLaGsrV1MxVWpJeW5LeHFwMkF3cjVuTk1iWGdQdGw1SjlTay9V?=
- =?utf-8?B?ckNtVWpzaWdaTkEvd2xWTXJaWXJ5bkZWQjhRNERpYWxJdVVoNUttNlF3LzBK?=
- =?utf-8?B?ajJBT3JwODJrUVlJR3V1YThIKzI1WlVkOEVQMmhEYzEvWG8yd0phM00yTkVZ?=
- =?utf-8?B?OFR5UjAzY2N0c0VFYWxxeDlzekljY29VUjl1YTE1NVd5S0VVZHNKUUxSVGU2?=
- =?utf-8?B?cmFEc0FMUTlxU2Iwa0t5WTI0UmtXbWJWQno5RW83UzhWblBDQ0ZCa1JkLzZy?=
- =?utf-8?B?Q0krenZxQjA4S1kvZFljZjRyRjFrUllDWUE2WlUxRXRFeEdCQnpDdi9yeUo3?=
- =?utf-8?B?Mnhma2lkdTVhY0hBSStyb0YvL2lwamkvSnJlbFV5YkkybVF4WFhhVEJhdUJZ?=
- =?utf-8?B?MXFIK0ZzUXVxNnJUSTdzKzk4L0VDSHFxSXplYmlidEV3aVFDd1dkWG1pcG5Z?=
- =?utf-8?B?bTdCMVRFZDdobnlCbUkxeU54cW9VMDlZTGMvRXBrUEprYjNtSGZCTFVBbm9m?=
- =?utf-8?Q?RvIVl/Y74VhDTL+OYRSLyEj4SjENaAf/N+VyDtCaHhisg?=
-X-MS-Exchange-AntiSpam-MessageData-1: Yhu6L3e5OuKUBw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d48051d-1dfe-4495-c5fc-08df042c1d1e
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 11:12:42.7988
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IkgPeInDMI8YDr0mHQBnc+FMOOtW+w51AJdWWxz/dh4dswJjzk8nkW6eCcvR1knOzbHiUSHO9kcQCfwocX/gYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6799
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827041732.188707-1-morbo@google.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BD22B1F841
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.org.uk:email];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
-> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
->> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
->>> Currently, using NonZero/Bounded constants is quite verbose. It's
->>> unfortunate because it disincentivizes using it in interface boundaries=
-.
->>> Introduce a macro to make it nicer to use. The macro `cv!` (for constan=
-t
->>> value) takes a const integer expression and widens it to i128 (at build
->>> time only) before passing it as a const generic value to a new trait
->>> function `FromConst::from_const`. The trait is implemented by NonZero,
->>> Bounded, and Alignment and lets values of each be constructed from
->>> constants without a verbose turbofish syntax. For example,
->>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
->>>=20
->>> Suggested-by: Gary Guo <gary@garyguo.net>
->>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->>
->> This doesn't work in const context, so I don't think this is a great
->> strategy.
->>
->> I would want to use it for cases like this:
->>
->> drivers/android/binder/netlink.rs
->>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPORT =
-as u8;
->>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_RE=
-PORT_ERROR as c_int;
->>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_CONTEXT as c_int;
->>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_FROM_PID as c_int;
->>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_FROM_TID as c_int;
->>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A_R=
-EPORT_TO_PID as c_int;
->>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A_R=
-EPORT_TO_TID as c_int;
->>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_IS_REPLY as c_int;
->>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_RE=
-PORT_FLAGS as c_int;
->>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_REP=
-ORT_CODE as c_int;
->>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDER_=
-A_REPORT_DATA_SIZE as c_int;
->
-> `const_as!` [1] should do the trick for this, provided you don't need to
-> create a const `NonZero`.
->
-> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvidi=
-a.com/
+On Thu 27-08-26 04:17:29, Bill Wendling wrote:
+> The 'struct fdtable' holds the file descriptor table information,
+> including the current file descriptor array 'fd' and its size 'max_fds'.
+> To harden the kernel against out-of-bounds accesses, we can annotate the
+> 'fd' pointer field with the '__counted_by_ptr' attribute, referencing
+> 'max_fds'.
+> 
+> The compiler uses the '__counted_by_ptr' attribute to track the
+> size of the memory allocated for the pointer field, enabling
+> runtime bounds checks under KASAN and fortified functions. There are
+> three places where a 'struct fdtable' is initialized, and in all of
+> them, 'max_fds' is set before the 'fd' pointer is accessed or assigned
+> in all allocation and initialization places.
+> 
+> No accesses to 'fd' occur before 'max_fds' is set, preventing any
+> potential runtime false-positives or panics due to uninitialized count
+> fields.
+> 
+> Assisted-by: Gemini:3.1-pro-preview
+> Signed-off-by: Bill Wendling <morbo@google.com>
 
-... but I agree it would be nice to be able to use this in const
-context. And there is an overlap with `const_as!` that becomes more
-obvious the more I look at it.
+Looks good. Feel free to add:
 
-In for a penny, in for a pound of macro code as they say. Since we
-agreed on using macros, how about unifying both under the same `cv!`
-macro, with as many branches as we have types we want to initialize from
-a constant value? For instance:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-    // Does what `const_as!` currently does under the hood.
-    const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER_CMD_R=
-EPORT));
-    // Calls `NonZero::new().unwrap()` under the hood.
-    const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi::NONZ=
-ERO_VALUE));
-    // Calls `Bounded::new::<{ ...}>()` under the hood.
-    const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::uapi::=
-SMALL_VALUE));
+								Honza
 
-I.e. we would have one extra matching arm in `cv!` per type it handles
-instead of implementing a trait. The syntax of the macro would look more
-natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have the
-limitations of such a semantic dispatch.
-
-Even the name `const_as!` wasn't really accurate to begin with: what it
-really emulates is a const `try_from`, and we even discussed
-implementing it in these terms in the future.
-
-I'm sure the idea needs more polishing but I think there's something to
-explore here.
+> ---
+> v3 - Add version to the PATCH subject line
+> ---
+> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> Cc: codemender-patching+linux@google.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-hardening@vger.kernel.org
+> ---
+>  include/linux/fdtable.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
+> index c45306a9f007..3a5c88291125 100644
+> --- a/include/linux/fdtable.h
+> +++ b/include/linux/fdtable.h
+> @@ -25,7 +25,7 @@
+>  
+>  struct fdtable {
+>  	unsigned int max_fds;
+> -	struct file __rcu **fd;      /* current fd array */
+> +	struct file __rcu **fd __counted_by_ptr(max_fds);      /* current fd array */
+>  	unsigned long *close_on_exec;
+>  	unsigned long *open_fds;
+>  	unsigned long *full_fds_bits;
+> -- 
+> 2.55.0.897.gb25b4bd76c-goog
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
