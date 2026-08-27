@@ -1,110 +1,82 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E070F33F5BE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BCC330659;
+	Thu, 27 Aug 2026 07:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814441; cv=none; b=OMQ6/XromQ+DZAaYbqaiuEfQfsuI2yd9LPqto2Fe2xc8eYDgShmWi6W1rVFMA7FXkjV3+vn5r7FEWOBdvTu/AXqK+d1mjqc0wwYKz04PKgjDGngNI11SN96Ny5vc42cW1JDj44A+QoGy4VNT4Dx2JGeB9KokEArj2kGLJ31Muko=
+	t=1787814495; cv=none; b=paiJMnEgcV1ujidIwgUQyvmbGfL+Fl5uaV802T4rPxD8poj3lntSNgu9WYwEKdcSMWdLXuKKL0rmq6iAdKUCKTEqYoeI95lt/E5jjH3qf0K4JLnSP07/96WvVUMSI9TVUj1CniwdCYnL3b5AZs5UiNfrjLYMq2b3ALab3RxiMlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814441; c=relaxed/simple;
-	bh=frSre1v5Om1Mt9PRWv9NljklK2QQii8E839jlKyf2es=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XwguHAGB52qqs9y3bEsMVfpHUbzndgQryvq1bNsVbUZ0sRtcmTBNmuJKEEmnlU2m18ykq1++7T+WMj7C9/wiVXKMbUUOeG5zRFV4fPR/7jR9DVhbDRp//YaLjqsrhFfo2cdO/8CFEmFCo2f6OMgrmVfA505ujcMMGm6DqjKjeAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SN6o4TFh; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1787814495; c=relaxed/simple;
+	bh=l9KEf0r5sCVU6nqwZPCowgL9QNHlmvVxYQkL4RKqc3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y42dvnFYFiTBsDfff7DJ4iLR7Ub6R1zgrd/40Paf9vC14EbHBL/HKntp0AyG4H28gzFggoQ4T11CeQJjGzErdvMC0VVCzLQogd/gXDro6ke46iasmYBuwan5c9BARYj7m9bIEEQzrLddHQfYW9q5mHh6fqufXAGn9AiJpauRnCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EeDoB+Eo; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SN6o4TFh"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-495569acf8dso7373605e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787814438; x=1788419238; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MdBlfvNYe443u9na/jxTiwQT1qyXEmR9O5lMoXJvQMg=;
-        b=SN6o4TFh+jKAKYstRJWDqEIVK19slEQZ2ixpUz+CIPm8dTWB8F7GiE8Q4UwJ4z4e4C
-         rGoxHDQr9h2RG4Cko+DUgZ6sOhNRSuiRp/USGAZ+lAnqkHhYnZLx21ltBFUeRhmnXEcA
-         QU9LGnWWzz1Wn5kNskJIpHyLPM4vsA1W7x4cVr4Rei1Y3/Ub/5hE49+CU/7yCOgQoOJR
-         On/v4aHYw5n74maflCi2voKtm0GLTvasVP7Y7Wtk/Lv5XeTTYR72kkvxia2QWsGjMdc1
-         Y3SX5UQxA9cViwgtH/dNUeRknElloXhUo51Tl4mKjaYrguFVTQ6osCyzXoAZ0KOOJlxy
-         8ubg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787814438; x=1788419238;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MdBlfvNYe443u9na/jxTiwQT1qyXEmR9O5lMoXJvQMg=;
-        b=oOtV8d8reh4QaWSoWIMLJwnw1KDXskS/VPxQYNeMLBMoReIjGBu/YAyBFG6RaVQR7g
-         qUDShO9mAlrJ/5cWPe0toaEXQgEYZEn0hJeRa+KHQd2HLm43/qTQMHqmqeAaytQ8QJiL
-         wYZ+wpWBdQjZq3eOz6lLYziRrJbrLcs5/s/OB2zqgbyiNxRQC05EfpRZufqWVhQix9+l
-         haZZmHjC8FFLfyyeqDRM2HgPeZDPh5DJyLq0prd8gmo7+b1aeIjtW4CHwdH5z5tDeKXl
-         zOmneDufaX4Pl5ccXScNuAf78xyRyZ309ha9nx2JFWTwPSoQTko1fCXvVicO2fDchL/L
-         wZ6A==
-X-Gm-Message-State: AFuF++kPN9vTN8qytLTMnA3SUznIXezGIiiMnU0Bnj04DUpWvg+SdRBi
-	NHXGh+OG06skbr1lJIvaLY5o2lVESn1bu75BYs+T830gyMXPhwGmaicW8Vz9+BpYGRiUUhGXTuQ
-	QYrR27Cp689t7KuhUwQ==
-X-Received: from wmdp22.prod.google.com ([2002:a05:600c:5d6:b0:49b:1255:efaf])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8b5b:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-499dc703474mr121726535e9.7.1787814437822;
- Thu, 27 Aug 2026 00:07:17 -0700 (PDT)
-Date: Thu, 27 Aug 2026 07:07:16 +0000
-In-Reply-To: <20260825161712.41471-1-scadastrangelove@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EeDoB+Eo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787814493; x=1819350493;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=l9KEf0r5sCVU6nqwZPCowgL9QNHlmvVxYQkL4RKqc3Q=;
+  b=EeDoB+EoJ00gRYvstoiyTNdgRFEQvIGAczp6qXjGcDDsA7o/F3C66hpc
+   Kbwb8aQmDwsTn0v5+vU4y6ZqqzcHfJQhvFOWGGK6DFLi76C7c/AesaUpN
+   lDjgi91V/lhoiuk30ImsoBvfzDU7qQqwBhLz1rf3CzoNYNB8k/+TaH//M
+   Nny6O/qlVchq+AVUAWE991ryCCbyJFVGQ659lCMxLRMNhEOMrzwH3oCoJ
+   04V20i7rsyI8TpJ+43YWgJVTsK/WF85w3KIJx/Z49yjZKQ4M4RAdPV0w7
+   w7TwcbNGaMKKAYxsEYuy6WyihylY5NBlsIPSgQq9DxgOLGhQi0Rv6IM16
+   Q==;
+X-CSE-ConnectionGUID: /6fwVaPaQMaD+lpYwFql5w==
+X-CSE-MsgGUID: deVhsyhkQWSH3CtTEkm4Fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88335394"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="88335394"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:08:13 -0700
+X-CSE-ConnectionGUID: zhjCxEpOSAKsxWAsp4C5Ag==
+X-CSE-MsgGUID: sVuUyIrzTQ22u9FihpLYCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="261666899"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:08:09 -0700
+Date: Thu, 27 Aug 2026 10:08:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yash Suthar <yashsuthar983@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
+	hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
+	srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: accel: bmc150: use
+ iio_push_to_buffers_with_ts()
+Message-ID: <ao_iV2xg-1Oc5Ttb@ashevche-desk.local>
+References: <20260825085156.212042-1-yashsuthar983@gmail.com>
+ <20260825085156.212042-4-yashsuthar983@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260825161712.41471-1-scadastrangelove@gmail.com>
-Message-ID: <ao_iJG-f8707OjL9@google.com>
-Subject: Re: rust_binder: use KVVec for files_to_translate
-From: Alice Ryhl <aliceryhl@google.com>
-To: scadastrangelove <scadastrangelove@gmail.com>
-Cc: linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <christian@brauner.io>, Carlos Llamas <cmllamas@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825085156.212042-4-yashsuthar983@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Aug 25, 2026 at 07:17:12PM +0300, scadastrangelove wrote:
-> From: Sergey Gordeychik <scadastrangelove@gmail.com>
-> 
-> The num_fds value in a binder_fd_array_object is bounded by the
-> transaction buffer. However, its in-kernel metadata is larger than the
-> u32 array on the wire.
-> 
-> On 64-bit systems, FileEntry occupies 24 bytes. About 900,000 entries
-> therefore make files_to_translate request roughly 20.6 MiB of
-> physically contiguous memory, triggering a warning in
-> __alloc_frozen_pages_noprof.
-> 
-> translate_fds() later allocates Reservation entries from the same
-> count. At 16 bytes per entry, this requires another 13.7 MiB contiguous
-> allocation.
-> 
-> Neither vector requires physical contiguity. Use KVVec for both so
-> large allocations can fall back to vmalloc.
-> 
-> Keep close_on_free as KVec because its u32 storage matches the wire
-> representation and does not reach the allocation sizes above.
-> 
-> Tested under QEMU/KVM. The 900,000-entry reproducer no longer triggers
-> a page allocator warning, and a 300,000-entry transaction that repeats
-> one valid fd reaches translate_fds() without WARN or BUG.
-> 
-> Suggested-by: rust-in-peace agentic pipeline
-> Signed-off-by: Sergey Gordeychik <scadastrangelove@gmail.com>
+On Tue, Aug 25, 2026 at 02:21:56PM +0530, Yash Suthar wrote:
+> Replace deprecated iio_push_to_buffers_with_timestamp() with
+> iio_push_to_buffers_with_ts() to allow source size runtime checks.
 
-A few things. One it looks like you're missing [PATCH] in the email
-title. Also, as checkpatch points out, Suggested-by must be an email
-address.
+With this you might want to use IIO_DECLARE_DMA_BUFFER_WITH_TS() in the
+definition of the scan buffer.
 
-Also, should the close_on_free vector also be a KVVec?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Otherwise this looks good to me.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-
-Alice
