@@ -1,155 +1,255 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012048.outbound.protection.outlook.com [40.93.195.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6157C4457BC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832674; cv=fail; b=KXezO/prWhzLi69ZI8QsPXSDWXiRjp7hC/sd4zg05+cyPy/rJUare4nJEhXhBuJD/b002quivjonMWGC0M4LMTU06BF10aGyeJ4q+tdAhC6uVelKfj9+kuOXmntsm8XG/s88u1s5hy/tJ4+Wwtqu9JD7E4yry6Y4+mtVC+QFvF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832674; c=relaxed/simple;
-	bh=deEPRo4GYZ0TyEr56GWr9mqhfm9lUTE0TFJx6ZTavl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=SEaGo3K9peC40TGHYVjFKLfUXBBWYv6NH0dCyXepsoPeYjX0LQsyNMKgbBDaYL61iLJsERqdigoh+AM8sjBzSEv7Hjk+hiuefnEDh+n/5U+lvzFUzx67y45gJaA9TJkXpsy5AoBbrNWC17ItuJlTFDQ3bCncLgd2XV9SjbYSDJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V7GD7rwb; arc=fail smtp.client-ip=40.93.195.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E39D43E4B0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787832720; cv=none; b=FHZc+EL/eopZFrKOfz/M8zU6sAG46zF29fhQxxQJItilBvShT1Jz7/yN1mJxlRsbhDgGvwoGZSS2ItwGlpTutTlQt/Hx3/A+2blPn7RMaQ2hu04kN2uMVBTu4gWN8VLpm0klytoc79UXFmaIEDA6uofBMpllRjT2H2rbm2pex6o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787832720; c=relaxed/simple;
+	bh=OmZ4HMNJEKn5n8PIiCPbESGHuRzCDj7TC5nRy66T5lU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R4aKhgKiQdcW0G+qMxcHMP3+F/HAuRhMM6TCY8ooWEg8Zr403t4xh4duv2FEdOiqN63edlpUUtVjvDnZcgUPo1Qmelp14XNLXwkCNc8IWavK9OeKoDiydZiXsvrJ2E5yt95QVMKGauMK1CdYxiTkWNJMXnsAmRacbadNolr1xJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sghyhz76; arc=none smtp.client-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V7GD7rwb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UmhRGRWP1rBrsyFJJ1drLUtJgUyNmJZFb9Sto/lVIHurIrNkWD5n79Rh0e4GugkgEpOvhZXQUmmgF2wADDVI/CPL/ezotdAKtN3ACI5oXm4Q6iDfDW9fZ1WCNnbSE+NS/YnEsrtst5gJ1WVa/NwPs+lRgcJnUjKhy8d3lKE2m35j4JHmZXMSak5aADVDTq+lIIhKZ9Ys3JGGSEDVoO8fC16pipexvlStsxpQklWb8idiklEgllPuJQ0PFAy8C91QgFkOlnkt9itQZydF/wGEGCCFr8YWnCqz1B1RH7HiHli1KPncXuhx1CpjFfi4wxxGoOfI57dtRiBGj1JR3AZjag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=deEPRo4GYZ0TyEr56GWr9mqhfm9lUTE0TFJx6ZTavl8=;
- b=PMbjQkY3A2rV32zd1dnrnSbLpiUl9nri4yxq7mmEUl/CQe0wcTP24OUfPKwqkKiaETgCx2MOJ+nXyRiTd0L6t5Grbo6X/Nxp62tyKAXg8V+qoUR3xiofv2kPkD45X8qfHPZcCrzqFMx3uGE1J43xbpJvAhPGR8HCKGD87lH7IKrpqjVHwzD1CcIdKkFSa32L7yiSv7gE09Oog+N9qi48rLF4jDhb8Cin9f73fIDmHNozQ6puVfkZzKBsN4eBaqm0aftkb55OFwnRbLfrM0Vfum4JeSdjaS6qezrztVnLQyjBKqKtnBxu9H5Ggg4HBiP+9QAj/+OsMoRQmDAqngEKjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=deEPRo4GYZ0TyEr56GWr9mqhfm9lUTE0TFJx6ZTavl8=;
- b=V7GD7rwbawqJNbfmmFteNjwJU4ArqGQNmQiLNBEUVEG7DNPCLApvBo74sQxsCcL03IeVEjvMNSvhqaZQ/I41cBYlgCOWb/AqfIAdwa8v2o8iM6iYrH1FbtFJnlYdN5pNPWC0nDXxiFwZgFdHAPlz8wSVcDfAnHUB11eYN+fLmKKe0aet6xMraG6+2gvEvNqZYHFImQYJuoozuGIC9J0o/rkYCv3BM2kpMEY0txG/6qNLxnpA0bvGsn1l4WtXOHdlVo3A/8R/FLlV12crSo3OfOF49kjf2ZcKSmSAoh6WvXeCpwK3EsSwHYuNHPPUdMiwzEe4rljQGKSko8DZwvPJxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Thu, 27 Aug
- 2026 12:11:07 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 12:11:07 +0000
-Date: Thu, 27 Aug 2026 09:11:05 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
-	tjeznach@rivosinc.com, joro@8bytes.org, will@kernel.org,
-	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
-	anup@brainfault.org, tglx@kernel.org, kevin.tian@intel.com,
-	fangyu.yu@linux.alibaba.com
-Subject: Re: [PATCH v4 02/21] iommufd: Add iommufd_sw_map_msi()
-Message-ID: <20260827121105.GQ3325090@nvidia.com>
-References: <3gdj54zcs5dncgom3zlntyredyuh2xe5ueg7nd4pdrcksmnwfl@k3fyky4h6556>
- <20260825140334.GA3325090@nvidia.com>
- <cxbneh42ui3gbkoqrsnoatxoec5exzbprfbgxcy4iekqmbceho@gouiwn5q5uzs>
- <20260825165209.GB3325090@nvidia.com>
- <iltwtfmgnmofsroo7eqrvjx6yhqbptwutywq65mgm7adudz7pq@2mdg3dhvtoud>
- <20260825175901.GE3325090@nvidia.com>
- <pzutriwhwe4whonj3veoo4hzxmq5tlmmyui5u6gt4bgl5wxxrg@qjsq2pvd7by3>
- <20260826163234.GN3325090@nvidia.com>
- <l3xyzbhqfremod6swwiks54znvoqy57hmqpsdlpcji5czjja4w@4qgiuwhwlie3>
- <lxrej2bonrvt5ew7e6wjupcaptj7nxpesnzwvktjusawg3od2u@v3zb2bdjdilo>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <lxrej2bonrvt5ew7e6wjupcaptj7nxpesnzwvktjusawg3od2u@v3zb2bdjdilo>
-X-ClientProxiedBy: BN1PR10CA0021.namprd10.prod.outlook.com
- (2603:10b6:408:e0::26) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sghyhz76"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OmZ4HMNJEKn5n8PIiCPbESGHuRzCDj7TC5nRy66T5lU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787832716; v=1; x=1788437516;
+ b=sghyhz76ZGQ1HyGNO4mpw7Wuj33xXQly/O+AM/JrD3r07379EZYipF+0lEbXN9QV1uK02byQ
+ ahUMrm/rxCXIm+hlkLYX2lrCvs3Qf/qiq/ZFNm5XSXTYlSla9raOOh49GujPhLGOwfP93ABdo5m
+ v5YsGQwDhgDnRBgxu8sKBNeQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a5aa79f41822b67a;
+	Thu, 27 Aug 2026 12:11:55 +0000
+X-Mizu-Trace-ID: a5aa79f41822b67a
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	pedrodemargomes@gmail.com
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH mm-stable] mm/khugepaged: avoid unnecessary checking for swap entries when collapsing a mTHP
+Date: Thu, 27 Aug 2026 20:11:51 +0800
+Message-Id: <20260827121151.7837-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <d02405a5-1d0d-49d5-9056-1a34ccdeef10@kernel.org>
+References: <d02405a5-1d0d-49d5-9056-1a34ccdeef10@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SJ0PR12MB6760:EE_
-X-MS-Office365-Filtering-Correlation-Id: 832cb32b-7dd8-42c2-724f-08df043445f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|4143699003|22082099003|56012099006|11063799006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	eF0hxMUFdILJPqHuFYuQTGpTLaOZXvpS9E5BqFViHqAlbTfNn18KdiYO93BU1p2x9s8mHw74LezjqlLZfPz4u0SaKS5Smce3EwxjSZDnxCOuAzi+b5d+h9JI4yyP608c5nZWWxeC803HaoNsfFRiOghKOrAz2FxOsbCIb6wXazx1GwDsgqK04qfHxu+DsyFTgEPtqJtrJjzcZYi+CwV4wlC56musSS2a9X7aRBM/M2m5ZJFlh7Jc6+bw37V56zeIW9GFub8xrCk82YHAkZ5SvVcd+hQitQGLJ01Hf3803H0Ta2kW/1i0OUDv9GBzP42nu7sm/Yl7bsRbSNV65nvy9Yv3oMMjWrhFRoJGu0OO1MYOicY9TMPp10g4CiiBUWTn1pihBILXwqwPtXesllo1562u/Y3gxluQ36BCZ59/4n8wVpjZpWuLmGttiSadWSCNMlDk6SKM6OE3c1/jsnNoHnQ2yejw8zpaMraFpuZ9pHV5YiQ+TDUAt6IoqxVCuxA8uVStHH1lKz4PzBlRKODGXXy58MYMq5fhyU7xJ7ELHiVlg4vyGDbs4qbbPCeGLS1WvxE2JELKGPCR2QgI1Hk9SeMzfTEReHWUHQ41xSPfCvgJSk4Rbeld1j4FTr1qiwVIAv9pNpDrMveGfMgvciGLwCeK7WQO2MY9Dw09h7YeV9k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(4143699003)(22082099003)(56012099006)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3mEFv3iZ995FLykcY20soRac4a40bXlYRoQPXkU8ZPkHMHHUV07KPR2L93+L?=
- =?us-ascii?Q?9DWXV6Dfinxp6UQ7SD0E9Z453TB8Hh66+XoHyQhU1KZleRX7Y2UoUwQk9yv/?=
- =?us-ascii?Q?8jv8pxEPye3eoA+puF8NcfyCVL1WWQMA7QHaGwr1ou43TEJuuixL4iYVxRY/?=
- =?us-ascii?Q?X8Lnl87Z28hwcDiDvDjVoKk9JK+mHBc7IQizXrdbnQH2XuoYcwoCT4Um6W0H?=
- =?us-ascii?Q?oLuYW1ncLdygo3X9kMVayE8zY8WJhwAnV0k/OEf1MBDkxd2f8EaWbGRvV/GW?=
- =?us-ascii?Q?pMpOCNuGYa3pY5bqJElH8+SV7pmUSZaRx8IqOYj7vQdRaKRSv4Ky6Ivwu3sx?=
- =?us-ascii?Q?PFmUttOi24hsZr5Eogo+RQblCBIub+4c9kNYRqF3izTRz44lR4jMPRSTNsG+?=
- =?us-ascii?Q?tNOu51sCyGKA5WTd0fOdyrPINH/Oae+SHUGB1IZB/z5MdnZc/l1DOJRTZTfN?=
- =?us-ascii?Q?YtI18wdohiPB23PN32vkkOv0N6tMJR4wnXHuxPV+yApjWGpnzj8W3MAiek7A?=
- =?us-ascii?Q?LZQadc9Toh7+cHQY1xxtLSle1bzwENfazuAqUrkPF/GtcNpPmWPG0rEdjkzy?=
- =?us-ascii?Q?N890YHIOpPpZT6ygGf1OLIatBK10LbWLg/2+WHp08yULuoEpzIgtKa1ZnyTp?=
- =?us-ascii?Q?5qGAqzzkoXN4KrqwZghv/wAZuThCO6xMzUVOeKSpbJ169OTqkeHAflEoe1qo?=
- =?us-ascii?Q?2KSiBUppS06Au5SSbf5uQwRzsf4rgJ9l0RS1oQ/Z78t4LcrMuTVrJM7o9AN6?=
- =?us-ascii?Q?3OyBo6mEHllSVZK41ctHiUnByeIUa5jynrAMU27P1cPd7ESsyZM1FBuq0FiJ?=
- =?us-ascii?Q?/K81fZlG/gvRLiFIB24zhhJ3V9fKThjq803f7dICbiArTQZW/clnBws/KhuZ?=
- =?us-ascii?Q?qe6vwUMAlajWNzy7KZh+WL0iIahkp6PRWw+Rvtai5RQryFjhgJAlMYKajtVr?=
- =?us-ascii?Q?EeaG725RaITnP8m100RlBHr8cYUsWxUSCpgOuJb6cwrWuzqdDnGaR5ak2dJZ?=
- =?us-ascii?Q?qc8zWtbdR5iPAyW4hGB3W7h0CUUvOef1HtC5vif8jtpbWVvYneXl0GpOxjMk?=
- =?us-ascii?Q?MHni143+V6tGI56stoT3gUjxlonXd2g1inA5REZIRNSWXNKAX4O4+aRHi91S?=
- =?us-ascii?Q?6XvOZeIA6PGUb50HcD8BW8+OhsHFWIDOowU+ATkfmH8vWib7TsIxJgG/c3P3?=
- =?us-ascii?Q?ijghvsfs1ebjSz6YEeg73IJPcuTQKbkcR+r4r2cBihwqKyT2c8x+3Wdy5ZL+?=
- =?us-ascii?Q?//HwEe98wvT9mi6NjxarrJnjg8Yjiz40MsHC5akoTlQmDvavkp9a3tXMaB3d?=
- =?us-ascii?Q?YFJsk84VA7NKRbycr+JEmMNP6A3ERnO31zCicdz39gZQgHrP+w+gNyC1iMVX?=
- =?us-ascii?Q?XaZUWTFC7i+54jj54RfysFrAE1D+bEXIS5UJYBc9IZMzho6NReqW81myh//Q?=
- =?us-ascii?Q?Wn7EyJGp6qqGY6kKTn1jtDLh91ONF1aE8+qIO6OZ9kcZ7yOxyGtDA9XZcUNU?=
- =?us-ascii?Q?gl1HElFncU3xdIYoK46oPpWdiwE+uo6OK3wrh764pk6jAbw7B+HinDU7XaVx?=
- =?us-ascii?Q?CMOov7+JZ94mC+tlrBFnScUnaEIyKwWxqqEHnH7ng9zP0dZxyO+vQAsTnVyF?=
- =?us-ascii?Q?x/6g51nUNnr5af6dJCf8GVzHyKWztqL/3eL1PkFkPGeAC3hVHUz/pz5HmFbH?=
- =?us-ascii?Q?zVSmajJ2HrVM+VC5POVRtYfY51BF+AGzky3FpqFbk8f9UXyL?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 832cb32b-7dd8-42c2-724f-08df043445f2
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 12:11:07.0538
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3fEaHg99yQsB7nibzknwpjxv6FBXM40OwQMdSRTbsmOPlmYpYdHzaBE3WrEDy8AK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6760
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 10:47:47AM +0200, Andrew Jones wrote:
 
-> I think it should be possible to follow AMD's model more closely. I'll
-> create one IOMMU-owned irqdomain and install it as each device's MSI
-> parent at probe time, provided the device currently uses the expected
-> IMSIC MSI domain, which will be the IOMMU irqdomain's parent. The
-> irqdomain will contain no per-device or MSI-table state and its callbacks
-> can recover the device and operate on its currently attached S2 domain.
-> This is better than the per-device irqdomain since sharing it avoids
-> redundant domains.
+On Thu, Aug 27, 2026 at 01:02:14PM +0200, David Hildenbrand (Arm) wrote:
+>On 8/27/26 10:06, Baolin Wang wrote:
+>> 
+>> 
+>> On 8/26/26 3:24 AM, Pedro Demarchi Gomes wrote:
+>>> mthp_collapse() tries to swap in PTEs when collapsing a mTHP if there are any
+>>> swap PTEs in the PMD range, even if none of those swap PTEs are
+>>> actually part of the mTHP's range.
+>> 
+>> Are you sure? I wonder how you tested your patch? Because we never swapin PTEs
+>> for mTHP collapse, see the code in __collapse_huge_page_swapin():
+>
+>I'm confused as well, this doesn't really make sense.
 
-I would still like to go over this with Thomas. It does feel more
-logical to me that there would be one irqdomain per MSI table.
+Well ... the change does remove a redundant PTE walk, IIUC ...
 
-I dislike this implicit weak coupling between the iommufd viommu
-operating the S2 and representing the VM and the irqdomain then
-"magically" discovering what VM it is part of and what MSI table the
-device is supposed to us.
+I think Pedro's wording is causing the confusion :)
 
-I also don't want the iommu side to be managing msi tables. It would
-be more reasonable for the generic viommu world to create irqdomains
-per-VM...
+Yeah, Baolin is right that __collapse_huge_page_swapin() never reaches
+do_swap_page() for a mTHP. For an otherwise eligible lower-order
+candidate, current code still calls it and walks the candidate's PTE range
+when an unrelated swap PTE exists elsewhere in the same PMD :)
 
-Jason
+Assume an otherwise eligible lower-order candidate has no swap PTE, while
+another subrange in the PMD has one. collapse_scan_pmd() counts unmapped
+over the full PMD and passes that PMD-wide value into mthp_collapse():
+
+static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+		struct vm_area_struct *vma, unsigned long start_addr,
+		bool *lock_dropped, struct collapse_control *cc)
+{
+...
+	int node = NUMA_NO_NODE, unmapped = 0;
+...
+	for (i = 0; i < HPAGE_PMD_NR; i++) {
+		_pte = pte + i;
+		addr = start_addr + i * PAGE_SIZE;
+		pteval = ptep_get(_pte);
+...
+		if (pte_none_or_zero(pteval)) {
+...
+			continue;
+		}
+		if (!pte_present(pteval)) {
+			if (++unmapped > max_ptes_swap) {
+...
+			}
+...
+			if (pte_swp_uffd_any(pteval)) {
+				result = SCAN_PTE_UFFD;
+				goto out_unmap;
+			}
+			continue;
+		}
+...
+	}
+	if (cc->is_khugepaged &&
+		   (!referenced ||
+		    (unmapped && referenced < HPAGE_PMD_NR / 2))) {
+		result = SCAN_LACK_REFERENCED_PAGE;
+	} else {
+		result = SCAN_SUCCEED;
+	}
+...
+	if (result == SCAN_SUCCEED) {
+...
+		result = mthp_collapse(mm, start_addr, referenced,
+				       unmapped, cc, enabled_orders);
+...
+	}
+...
+	return result;
+}
+
+unmapped is PMD-wide above. mthp_collapse() then passes the same value to
+every attempted candidate:
+
+static enum scan_result mthp_collapse(struct mm_struct *mm,
+		unsigned long address, int referenced, int unmapped,
+		struct collapse_control *cc, unsigned long enabled_orders)
+{
+	unsigned int nr_occupied_ptes, nr_ptes, max_ptes_none;
+...
+	unsigned int order = HPAGE_PMD_ORDER;
+
+	while (offset < HPAGE_PMD_NR) {
+		nr_ptes = 1UL << order;
+
+		if (!test_bit(order, &enabled_orders))
+			goto next_order;
+
+		max_ptes_none = collapse_max_ptes_none(cc, NULL, order);
+		nr_occupied_ptes = bitmap_weight_from(cc->mthp_present_ptes, offset,
+						      offset + nr_ptes);
+
+		/*
+		 * Swap PTEs accepted during the scan are counted in @unmapped,
+		 * not in the present-PTE bitmap. Account them for the PMD-order
+		 * candidate.
+		 */
+		if (is_pmd_order(order))
+			nr_occupied_ptes += unmapped;
+
+		if (nr_occupied_ptes >= nr_ptes - max_ptes_none) {
+			enum scan_result ret;
+
+			collapse_address = address + offset * PAGE_SIZE;
+			ret = collapse_huge_page(mm, collapse_address, referenced,
+						 unmapped, cc, order);
+...
+		}
+
+next_order:
+...
+		if (order > KHUGEPAGED_MIN_MTHP_ORDER &&
+			(enabled_orders & GENMASK(order - 1, 0))) {
+			order--;
+			continue;
+		}
+next_offset:
+...
+		offset += nr_ptes;
+		order = max_order_from_offset(offset);
+	}
+...
+}
+
+Once it reaches the lower-order candidate with no swap PTE, unmapped is
+still nonzero and collapse_huge_page() calls the swapin helper:
+
+static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long start_addr,
+		int referenced, int unmapped, struct collapse_control *cc,
+		unsigned int order)
+{
+...
+	if (unmapped) {
+...
+		result = __collapse_huge_page_swapin(mm, vma, start_addr, pmd,
+						     referenced, order);
+...
+	}
+...
+}
+
+__collapse_huge_page_swapin() only calls do_swap_page() after finding a
+non-present, non-none PTE, and lower orders return before that call:
+
+static enum scan_result __collapse_huge_page_swapin(struct mm_struct *mm,
+		struct vm_area_struct *vma, unsigned long start_addr,
+		pmd_t *pmd, int referenced, unsigned int order)
+{
+...
+	unsigned long addr, end = start_addr + (PAGE_SIZE << order);
+	enum scan_result result;
+	pte_t *pte = NULL;
+	spinlock_t *ptl;
+
+	for (addr = start_addr; addr < end; addr += PAGE_SIZE) {
+...
+		vmf.orig_pte = ptep_get_lockless(pte);
+		if (pte_none(vmf.orig_pte) ||
+		    pte_present(vmf.orig_pte))
+			continue;
+...
+		if (!is_pmd_order(order)) {
+...
+			result = SCAN_EXCEED_SWAP_PTE;
+			goto out;
+		}
+
+		vmf.pte = pte;
+		vmf.ptl = ptl;
+		ret = do_swap_page(&vmf);
+...
+	}
+...
+	result = SCAN_SUCCEED;
+out:
+...
+	return result;
+}
+
+For the candidate above, the loop only reads its PTEs and returns
+SCAN_SUCCEED. Pedro's bitmap lets mthp_collapse() determine that upfront
+and skip the walk.
+
+Emm ... as I asked before[1], any numbers showing how much the extra scan
+costs?
+
+[1] https://lore.kernel.org/lkml/20260825192433.3185880-1-pedrodemargomes@gmail.com/
+
+Cheers, Lance
