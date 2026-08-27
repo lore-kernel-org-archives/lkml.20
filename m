@@ -1,160 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFA029D27D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C3C360EFC;
+	Thu, 27 Aug 2026 20:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862818; cv=none; b=LqMkAe0ASHk3HcmmVN4Ex69rxtQbvkvNElFNKPttq7q/SnpBO6TTiwMG5MSg9XnpLW81JRf5Z6NIIrWWvX2T28prfWs7QlOBBvfLkX8vzclv3oGGZvotaxcMLGLi5qAhdKdqlhIoIOVwJIgA9uYHeAsvjAIVrX4pJwu+JEYJPkw=
+	t=1787862951; cv=none; b=V9UwlNfZtJ0jGXoWmWU3hIONsDtDRFCVUiFz8fWLCwMDhA9heGilEbiwCS4bEt7Mls7RZPmtChC2eB6xt43roWkXAcBKE0OnFXuj8sma0MOhucPvG3eXr+zPDceiNdRBJj/gpNY4BAniSAHDWdAWDeYCAAt9/WA6NumaCxRyY6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787862818; c=relaxed/simple;
-	bh=huEt1lMN433bAjsn6Lg3/b+Uv2boty/Am2Kn/arZixE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uFzCtqQpMVwvL0kZHsJ8Iq/6v7jB5BpEgdpiuiZI5wx6NcPgYZbfHsKRCo/V5vyiNQpnghL9IkmT6r41FeUUs86d80r7s9Nxhf/REMFs0HpPdwWWJ8RVfa8GiRDMIeARcfR59DD8DSsYsgh0kDIbv9ssc/E7VXoAK2OAJXEEtEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghoQbs1r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787862951; c=relaxed/simple;
+	bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hi2DDhVFIYUuPYejd8MhLRdpJRZNOOWNyEi4U4t8/Cd0CO59ZCkk2206sXMU+9E0U2UDBdSKxTSwZegRWk2D5jekbuXzL6HE3HVttwcgnKZbxYDlo5VqW4PMaVFPplg4vDmB68uJOPh2aPpKuFRcCj2rZut2NzM6b8xthjOiFRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hSa60bDg; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghoQbs1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54D31F00A3E;
-	Thu, 27 Aug 2026 20:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787862806;
-	bh=S09KMKeejzD64bM7Mo69fZD6EyqOgGCSj8/rAtNwTt8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ghoQbs1rBX4gZHHxLvGMeDqxgTlWT2vHzff0iBVNoRcycqoL75Np82wQYoH+JRLAU
-	 OGjsyzodrEjIv4HgUNhPHcii8Vota2epXwmRD7ZCneKzcMO5YBNAtI1ZeFOanMqhfo
-	 HD/3rhRTiCnD22wYn5LxpzCt2HeZUrDE2LsW4nXUXfnA4joERkfGxs3X/aIpKuRDxw
-	 G0BrhMLvpKq3MunURfO7uYc7WhNDLcucVrkeQ+WsxAvlCWFUZdEKkI8o33Yidv/Zs2
-	 BKIaTMSkDybaOfVfushMnM9iV0sQ58hdVwYY+H6OUg720dphSLQfY8qxdqG7MWbKBu
-	 sxSCEBqGF7VeQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 27 Aug 2026 15:33:10 -0500
-Subject: [PATCH 11/11] accel: ethosu: Validate OFM transpose
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hSa60bDg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787862947; x=1819398947;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
+  b=hSa60bDgyhYXXLLbHEP8hpiBpuOVkYQ5T59kaN1v4513kGe2g5ejqnZw
+   kBwAnDwP0QwOb0ETDCuc+4+byq5ei1ghyogSg+kj+CPF/iCZW1RmwWXTA
+   ZOGhnTmcx59vA9yAdGccX/PzDnqdrvK3RLgvFeZyhExV2gq2vPnkzQXOm
+   xQQyWlYKhCLm3zpbniALgChbELvppjhYzLBaklzhJ/y/I8Cc+pN7GdBg3
+   OM37nQxAlT2UBV+30MYymm9BbgCrP3tNbRuBOKeOX8CZvQOTHJ+FEIjCM
+   n+bZas6RlzY7m4UL/4GWW5gmR5fDSE20w31x7O/l3/VRJFdvkUF/ULgbA
+   w==;
+X-CSE-ConnectionGUID: S9Ye/XdnQdKEyx5OPemQzw==
+X-CSE-MsgGUID: gOgd5ppfQTO50Mx46gqWwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88248928"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="88248928"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:44 -0700
+X-CSE-ConnectionGUID: LuCavyYhReqzqLj8SdY7cA==
+X-CSE-MsgGUID: N+PM9AHaSem5Dc2Ha0IxcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="273230951"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:41 -0700
+Date: Thu, 27 Aug 2026 23:35:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, linux-media@vger.kernel.org,
+	mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	v.vitovt@gmail.com
+Subject: Re: [PATCH v9 3/6] platform/x86: int3472: tps68470: fix clock
+ consumer registration for Dell Latitude 5285
+Message-ID: <apCfmoIBKLhjexav@ashevche-desk.local>
+References: <20260827201611.99825-1-tchatard@gmail.com>
+ <20260827201611.99825-4-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-ethosu-fixes-v1-11-346f9ea8791c@kernel.org>
-References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
-In-Reply-To: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827201611.99825-4-tchatard@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-U85 OFM dimensions are specified before transposition, while
-tile bases and strides address the transposed feature map. Permute
-the output endpoint before validating its tile and stride accesses.
+On Thu, Aug 27, 2026 at 10:16:08PM +0200, Thierry Chatard wrote:
+> The BIOS on the Dell Latitude 5285 leaves GNVS field C0TP at zero.
+> With C0TP=0 the ACPI _DEP method on INT3479 (OV5670, front camera)
+> resolves to PCI0 instead of the INT3472 (TPS68470 PMIC) device.
+> 
+> Because for_each_acpi_consumer_dev() walks the _DEP reverse-mapping,
+> INT3479 is invisible to it: the clock consumer lookup entry for the
+> front camera is never registered with the tps68470-clk driver, and the
+> OV5670 sensor driver cannot acquire its MCLK.
+> 
+> Add optional static clock consumer fields to the board data so probe can
+> register the consumers directly, bypassing the broken _DEP traversal.
+> Platforms that do not set these fields keep using the existing ACPI
+> traversal path unchanged.
 
-Allow the defined U85 transpose encodings and reject the two
-reserved encodings.
+Are your patches assisted by AI?
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- drivers/accel/ethosu/ethosu_device.h |  1 +
- drivers/accel/ethosu/ethosu_gem.c    | 58 ++++++++++++++++++++++++++++++++++--
- 2 files changed, 57 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index c330048dbcca..1731c43aa045 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -87,6 +87,7 @@ struct gen_pool;
- #define PMU_EV_TYPE_IDLE	0x20
- 
- #define NPU_DMA_REGION_INDEX_MODE	BIT(11)
-+#define NPU_OFM_TRANSPOSE_MASK		GENMASK(13, 11)
- 
- enum ethosu_cmds {
- 	NPU_OP_STOP = 0x0,
-diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index a042e650f626..ad36fb8b3b30 100644
---- a/drivers/accel/ethosu/ethosu_gem.c
-+++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -199,6 +199,52 @@ static bool feat_matrix_chained(struct ethosu_device *edev, struct feat_matrix *
- 	return !ethosu_is_u65(edev) && storage == 2;
- }
- 
-+static int feat_matrix_permute(struct ethosu_device *edev,
-+			       struct feat_matrix *fm, u32 *x, u32 *y,
-+			       u32 *c, bool ofm)
-+{
-+	u32 width = *x;
-+	u32 height = *y;
-+	u32 depth = *c;
-+	u32 transpose;
-+
-+	if (ethosu_is_u65(edev) || !ofm)
-+		return 0;
-+
-+	transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, fm->precision);
-+
-+	switch (transpose) {
-+	case 0: /* HWC */
-+		break;
-+	case 1: /* WHC */
-+		*x = height;
-+		*y = width;
-+		break;
-+	case 2: /* HCW */
-+		*x = depth;
-+		*c = width;
-+		break;
-+	case 3: /* WCH */
-+		*x = depth;
-+		*y = width;
-+		*c = height;
-+		break;
-+	case 6: /* CHW */
-+		*x = height;
-+		*y = depth;
-+		*c = width;
-+		break;
-+	case 7: /* CWH */
-+		*y = depth;
-+		*c = height;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static u64 feat_matrix_length(struct ethosu_device *edev,
- 			      struct ethosu_validated_cmdstream_info *info,
- 			      struct feat_matrix *fm,
-@@ -283,6 +329,9 @@ static int feat_matrix_size(struct ethosu_device *edev,
- 	int ret;
- 
- 	*max_len = 0;
-+	ret = feat_matrix_permute(edev, fm, &x, &y, &c, ofm);
-+	if (ret)
-+		return ret;
- 
- 	if (ethosu_is_u65(edev) || storage == 0) {
- 		for (int xi = 0; xi < 2; xi++) {
-@@ -641,8 +690,13 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 		case NPU_SET_OFM_PRECISION:
- 			if (((param >> 6) & 0x3) > 1)
- 				return -EINVAL;
--			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
--				return -EINVAL;
-+			if (!ethosu_is_u65(edev)) {
-+				switch (FIELD_GET(NPU_OFM_TRANSPOSE_MASK, param)) {
-+				case 4:
-+				case 5:
-+					return -EINVAL;
-+				}
-+			}
- 			st.ofm.precision = param;
- 			break;
- 		case NPU_SET_OFM_REGION:
+>  static int skl_int3472_tps68470_probe(struct i2c_client *client)
+>  {
+> -	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
+> +	struct device *dev = &client->dev;
+
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+
+Split the assignment at the same time...
+
+>  	const struct int3472_tps68470_board_data *board_data;
+>  	struct tps68470_clk_platform_data *clk_pdata;
+> +	struct gpiod_lookup_table * const *tables;
+>  	struct mfd_cell *cells;
+>  	struct regmap *regmap;
+>  	int n_consumers;
+
+...and put it here.
+
+>  	if (!adev)
+>  		return -ENODEV;
+
+> +	board_data = int3472_tps68470_get_board_data(dev_name(dev));
+> +	if (!board_data)
+> +		return dev_err_probe(dev, -ENODATA,
+> +				     "No board-data found for this model\n");
+> +
+> +	if (board_data->n_clk_consumers) {
+> +		clk_pdata = devm_kzalloc(dev,
+> +					 struct_size(clk_pdata, consumers,
+> +						     board_data->n_clk_consumers),
+> +					 GFP_KERNEL);
+> +		if (!clk_pdata)
+> +			return -ENOMEM;
+> +		clk_pdata->n_consumers = board_data->n_clk_consumers;
+> +		for (i = 0; i < board_data->n_clk_consumers; i++)
+> +			clk_pdata->consumers[i] = board_data->clk_consumers[i];
+> +		n_consumers = board_data->n_clk_consumers;
+> +	} else {
+> +		n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
+> +		if (n_consumers < 0)
+> +			return n_consumers;
+> +	}
+> +
+> +	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
+> +	if (!cells)
+> +		return -ENOMEM;
+> +
+> +	/*
+> +	 * The order of the cells matters here! The clk must be first
+> +	 * because the regulator depends on it. The gpios must be last,
+> +	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
+> +	 * the clk + regulators must be ready when this happens.
+> +	 */
+> +	cells[0].name = "tps68470-clk";
+> +	cells[0].platform_data = clk_pdata;
+> +	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
+> +	cells[1].name = "tps68470-regulator";
+> +	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
+> +	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
+> +	cells[2].name = "tps68470-gpio";
+> +
+> +	tables = board_data->tps68470_gpio_lookup_tables;
+> +	for (i = 0; i < board_data->n_gpiod_lookups; i++)
+> +		gpiod_add_lookup_table(tables[i]);
+> +
+> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+> +				   cells, TPS68470_WIN_MFD_CELL_COUNT,
+> +				   NULL, 0, NULL);
+> +	kfree(cells);
+> +
+> +	if (ret) {
+> +		for (i = 0; i < board_data->n_gpiod_lookups; i++)
+> +			gpiod_remove_lookup_table(tables[i]);
+> +	}
+> +
+
+...
+
+> +++ b/drivers/platform/x86/intel/int3472/tps68470.h
+
+>  struct gpiod_lookup_table;
+
++ blank line to separate generic and local groups of forward declarations.
+
+> +struct tps68470_clk_consumer;
+>  struct tps68470_regulator_platform_data;
 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
