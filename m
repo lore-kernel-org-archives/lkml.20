@@ -1,99 +1,100 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF99C2C326D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7050E29B79B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803617; cv=none; b=aAvExuenLmHGvWpi+gB8+atIeRRlAOBdrVkZeDu/D/y5wKixxxLqyji1gLYYIuh26D3aJAoEzNKdq0h5LDYeq8OH7PlO+AzgD5OnvsSatYi+s+GzXVKqiFgw/UF3EM3CmAZdkTUYzFLcIQhqU5EfU70VMBjtlOqMsVN7Ui+CuGo=
+	t=1787803876; cv=none; b=S1kIxzyRAy6i7rj6RV8YTmBLuSGsJNrEgy/xTeGJ0/JTIT+bj6HDzu6X8kl/0Vnh3fbypJNex8sY28fSW+3HOFn5lvDqGKKbm/3N2dCMQPZf+9ZujO3BfugQwloJwyEvel8Ne7mLUgqTvsrE0qVg1+HY1c4/gyJmNIV8tw54U6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803617; c=relaxed/simple;
-	bh=kEI9OvVbWJ7wq71P6L9MVOAfwamjGbck54SdcC+yBG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P9d4wVtDJkdkjTfYHHGel0g8mnN35Us1e2jM/8drU3kYTQu9VdCPZOScyRPzqVOqhH7RgASbjms6+dulHGmM3vFXRpuXWrkfF/Db5hNaqxNK2bN87FWNdvnSg6kxSOUQEduYqd2TeUrKVRLyz+GHAEhK5QlRgF2sQHcHEKbCCH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GeoU4gv1; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787803876; c=relaxed/simple;
+	bh=cL9x6Pd5g4ypYhwSfC1QHJU86Y71iXecsHAlMHgRVOI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=RVOD6sgpndDs7DEmfpjp4pR8tbqcQs4yKUJb9xzW8tLWzTGeJdcxN9TKJDSOnJ4JqX85KZeTyOTEtzd2CTVNf2/yqfbZlJdEgxbl7bjy48xaw2AHotDhDYJOOJab33Dgt1YU5GgVtHZyivJiUrujwMdx3Ajom2LraDiGFbZ6HDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Az50jHWP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GeoU4gv1"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso14388145e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:06:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Az50jHWP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67651F000E9;
+	Thu, 27 Aug 2026 04:11:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787803614; x=1788408414; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=leRlXbqgKULRfa+v/5YQeWOCF+c2KyYlCCc0f3p+zUs=;
-        b=GeoU4gv18qe+m5EXpyWtKQn+QXoF6dFXTcxTV3Gs67lZ1/jOX2N1Bvge6NQBbi8wIM
-         gRUDBfgwvUFNoDCd0LvaxIr8pg3TRRPGDbyCcQ56EvqxtkKdPAi+k5RSCbLljGXeTwFz
-         M4U7VXSJPbVJQfAzmanBK/aHR2+H8ROOK7TbKbDYYgDi/TWNFWT71i/2BRHHmxUWaZMt
-         Laq7nGPqyZSgUrzucE5K+nm/yFEue3pGOkNr8tilykxfmFeTOfAYClG2p/1i2QEGf1xM
-         RYOsL9UYOBdrhI6/7VzTE+FRW79Te3v64c2ERxNMMoL2u4oc2WtNox2g9A6OkCSnlp1h
-         ZuPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787803614; x=1788408414;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=leRlXbqgKULRfa+v/5YQeWOCF+c2KyYlCCc0f3p+zUs=;
-        b=ZTwxkQlrBfvNAB8BIFXzx3p6HWqWXEVPmbcK9CEvCgiM72sb9p+G0AP6p2ScBUKTV6
-         pmBonVGs9uZxN0MhjWFHBpQEzdSQsC994Q1Un22jtx9vXjayFFq2TG2U1aiGh9GOAfJ8
-         W3lqAIrQIodRH288Qmk4Ik4FugCj+1BhL43GuGnueSnrb8ffzZsksEQ+Plr9KcmhGdWQ
-         CSgMC0TIMy5hNd7BXt4l7EN12wR0TTxiM6SF1kqkWlj02uUbXpqBoo3HOolEuO76lsQP
-         rknA4PLlp8TWX7kpQRhDdxgkz3DeWlV42Y8gN+MQQicu0NVQsXbiPR/6VLyrZiAyd3zU
-         Tv1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqCjvHdCeJbC1Le0zxtqTlvqnk8bazioQCq/LTL15RQ61+MqLmkWv6jQMwEEl50zwazCfY658OY5IincCQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLQCJi1mPWdXPpQxYakFhkkl7IoRV7WWIL2ObiQMJPqHGE6Gx2
-	Uwx5CwgYKVeA/0Nbz8YMpDiE+Ciktty8aIKVOX9jOttkAavIwlzW5sSq
-X-Gm-Gg: AR+sD12KG/eTOucsESvJwLF99i4oXoLg4WFmaiZlW/PjChH7oU7rtV1Gtg0zh7YTDQ9
-	fBvx7HkKGl0OvVnsMGZIO/kr3roKVlpGxP8cfaUDXgnZ6OCMiYGaEi9rqxVkWRriMTZhr8X/4Su
-	DaMvUSiB0qUzTtzDtf4F+zNQwFt6GWNh6s9bD4h0bPJNAd/mQNU82yARj9gyOLu4oRRzXfBGbRp
-	5zRSg1BmLcFKeZfUubIiQun3MLeAt4f4jIQk9L52oTwxNtxB0UKExdF08Fgn0IxT8QhFT/yxe75
-	ha0JW+rALuCtp+UxFYCQrdylXLk0rUbNpXK+o2xEkIrNywwVzq6bpWzYEZReYWwZE0AEOAy/XSr
-	0MW2TLsuH5p62A+B+21LfKlVvwvBfo+w6OVk9m7cDyEJwiqtcOfLpvT7jWCkTowq9VEYwPWwcmw
-	5p8DfZx99alfjqXm3sitUUmN8X8RSmXvGbN3pStyjlEMIsdEYIYjXFr9VJdxntnjH9BAKRFwoqA
-	6X4e1FfA/OPwGisU0hxC0wmdZ9jbPUQ3zXqq1ET/BChJyq4rOQL+nQEFyJIx+ZK2vC+Zwf8394h
-	j7IovwnwtAOYBDAzlsJ4rvY=
-X-Received: by 2002:a05:600c:c118:b0:49b:c8e:8e6 with SMTP id 5b1f17b1804b1-49b0c8e0911mr59314915e9.0.1787803614027;
-        Wed, 26 Aug 2026 21:06:54 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499fa55f458sm31127865e9.0.2026.08.26.21.06.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 21:06:53 -0700 (PDT)
-Date: Thu, 27 Aug 2026 06:06:22 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Michal Simek <monstr@monstr.eu>
-Cc: Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>, 
-	kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev, 
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
-Message-ID: <ao-3jrT0aP0_fSBA@gmail.com>
-References: <20260813024026.5402-1-kmehltretter@gmail.com>
+	d=linux-foundation.org; s=korg; t=1787803875;
+	bh=TckfMnyGR0QCFTyUeCahI52REXoUQAOwubXzvRhQ4gs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Az50jHWPmNGAf+1eO7jEzdxff10EYwWZxfaDfuitiEb0pKgsZOnu0iaj75hCSubdL
+	 M8Fcal1LsD+PvuTbl4EzeY/baHFhuZu+rLA6Q8AV27gD36tgxJB1PGrRFo3FqD5ejI
+	 isGkPvnqImF+bW1v8iRHmb3peI81x0Xs2H1qDgXs=
+Date: Wed, 26 Aug 2026 21:11:14 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, Al Viro
+ <viro@zeniv.linux.org.uk>, NeilBrown <neil@brown.name>, Manfred Spraul
+ <manfred@colorfullife.com>, Jan Kara <jack@suse.cz>,
+ linux-kernel@vger.kernel.org, Davidlohr Bueso <dave@stgolabs.net>
+Subject: Re: [PATCH] ipc/mqueue: release notification resources during inode
+ eviction
+Message-Id: <20260826211114.69f01811929877dc73f41914@linux-foundation.org>
+In-Reply-To: <20260824042359.925145-1-4ncienth@gmail.com>
+References: <20260824042359.925145-1-4ncienth@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813024026.5402-1-kmehltretter@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 13, 2026 at 04:40:26AM +0100, Karl Mehltretter wrote:
-> The suspend mnemonic is an alias for mbar 24, and both encode as
-> 0xbb020004. Use the underlying instruction, which GNU as 2.30 already
-> supports.
+On Mon, 24 Aug 2026 13:23:59 +0900 Daehyeon Ko <4ncienth@gmail.com> wrote:
+
+> mqueue_flush_file() removes an mq_notify() registration only when the
+> closing task belongs to the thread group stored in notify_owner.
 > 
-> Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
-> Suggested-by: Michal Simek <monstr@monstr.eu>
+> A task in a separate thread group created with CLONE_FILES can register
+> SIGEV_THREAD notification and exit without closing the shared file table.
+> If another thread group then unlinks and last-closes the queue, ->flush()
+> skips the registration and inode eviction loses the only pointers to its
+> resources.
+> 
+> The orphaned registration permanently retains the notification skb, its
+> netlink socket, a pid reference and a user namespace reference. An
+> unprivileged process can repeat the sequence with new queues and sockets.
+> 
+> No inode users remain during eviction. Remove any stale registration there
+> after dropping info->lock, since netlink_sendskb() may release the final
+> socket reference.
+
+Thanks.
+
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Just a friendly ping in case this got missed.
+Pity the poor -stable maintainers (and others downstream from them)
+wondering "why was I sent this".
 
-Thanks,
-Karl
+To answer this, please, in all bugfix changelogs, provide a concise
+description of the userspace-visible runtime effects of the bug.
+
+I asked Gemini that exact question and was told
+
+  This bug creates an unkillable kernel resource leak by failing to
+  free netlink socket, PID, and user namespace references when a POSIX
+  message queue is evicted.  An unprivileged process can exploit this
+  leak repeatedly to cause kernel memory exhaustion and lead to a
+  Denial of Service (DoS).
+
+which I'll paste into the changelog.
+
+> Assisted-by: LLM
+
+OK ;)
+
+> A reproducer and regression selftest are available on request.
+> 
+> Tested on x86_64 KASAN at the stated base. The unpatched oracle reproduced
+> 3/3 and the patched oracle passed 3/3, with no KASAN report, WARNING splat,
+> Oops or panic.
+
+Useful info, thanks for including.
+
+
