@@ -1,177 +1,276 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC459391842;
-	Thu, 27 Aug 2026 11:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD0741DED5;
+	Thu, 27 Aug 2026 11:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829319; cv=none; b=N2nhiJR5SqyQVRK6bGwekBBZYnVLz1RF8gcVCClu26PAshK18gaYcZ5NU8LhSJjscmOdYYcJQ8fEU9Ya33SW63DFS5n9L3phmEOCVZAoGWJEiB0bB9eQKKiGa3v5FmdBFqWE4sdxalFQgAe5AqJPFD1qCUrdgf5kXlMpNsyFoos=
+	t=1787829385; cv=none; b=Z/tzQXvfLiAmFhoj3wS0jIAQ0fNv6wJ2OZXr46VbxzDdnUS/M8syB7WBcOpWyGDsR6HXwdMvoBC5PZ/OfbGKPCEqVnEVLRw1cuClAcEXirVFN78N2yYSR1KggLkbPreyH3zREFKbEehv8XSs/KuTaNsz75cXG3JHW395GXgwXlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829319; c=relaxed/simple;
-	bh=kMffwQp7QJmgRqeS4+ibpI4m911rke1OCCAhP4E3MkA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f+hP+4gQXNuZRB5Ll4nsbhfHwM1/Q3tp+IV0mpLLvY6A48J07PrvupyZFvwVsfS7gpbdb8HirR/uYMJo8ZsLYA5h3zb7Ih7RWLO14T/jxIOXh8e0JWVvA5MEYuUuopUSFy1rJiqMMXkzEQnKaQsuZ3OBJrkb9ugi2psqfBSIoNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ytm7LBMA; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787829385; c=relaxed/simple;
+	bh=rJgaNg4NXkvxyL00fRFsfz4wVf5liHo6wpMPYbNvnCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RNvjC9M2VXACQzm0bVV2PuN52Ts69S4JfO802tkPilbTJnFLNtCMcN8gfsbBITgO9NiMDloGVD+5sAPIt2j29CoYH28XqQ13ITVBAVV62sTcYz9F1bT65mMc3tZOrQjnYleIFlbp6hreEog1KsJUiGEa2JI/JKlMlPuUgvBeTMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ete13qD/; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Sy4Pw6KA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qKKBZ/11; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=/PzQCwM0; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ytm7LBMA"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9VfAg731829;
-	Thu, 27 Aug 2026 11:15:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=B0FsYX
-	UywV5BIPLK1dyqVmLPLQYunEhLYe1qEaTUCCs=; b=Ytm7LBMAaj0ADIY+oIDR+v
-	rc7Uc+l6NDGJ5JTuIV8IlKFv8csMST3CtbKszl0tCl/1o2c6jIju8rnsedZUC/0k
-	lx9mk137NoP3QHsr8zTZc40tH7c19eCmSY1Eiq07PFjvvOjQKU/wArtty8xe0kOV
-	T4h7EH2ls/KeGUBfHVMgIp4sq+DwAme0nojkVyyO4EZOHrYRQ4XtcMi+2ZorDXgv
-	iUyNv/wjgSCSGoRqSMfZrs3Tzm82dxt3OlMKg7Ha8o7k8XL+PMP41RNgM8l7zydZ
-	N8ehGtWNEaW86vyQq6oLqfZb1RGzhzzwLqnzOkkig9BI32i2SEkFef5flejOHUUw
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73er4uss-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 11:15:14 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RBBIa0029758;
-	Thu, 27 Aug 2026 11:15:14 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7p3qfwd5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 11:15:13 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RBF9n251511588
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 11:15:10 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D054020040;
-	Thu, 27 Aug 2026 11:15:09 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9A82E20043;
-	Thu, 27 Aug 2026 11:15:09 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.64.177])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 11:15:09 +0000 (GMT)
-Message-ID: <c641bbfe-04cb-4f2c-8533-1955368931a1@linux.ibm.com>
-Date: Thu, 27 Aug 2026 13:15:09 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ete13qD/";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Sy4Pw6KA";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qKKBZ/11";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="/PzQCwM0"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EEF21211E6;
+	Thu, 27 Aug 2026 11:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787829374; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3WqQUP7lvA0V2Zho7rSjsm+X9ByhdA5NvsknnG2kcg=;
+	b=Ete13qD/ZOmgyA4OIpfqjFAJ5/zepvqabbuRcESIavpiklqqAtg6eOdpvQlXUU/OADMEcp
+	qXVWHpbomWOBMEqZbZUbe1ZjHLrbgH5trFTMNMzE8jSkErdTIk68p1skeOvUVWBVjYdPXz
+	OXXY5ZACirhEReZPspy76pQovPZZnvM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787829374;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3WqQUP7lvA0V2Zho7rSjsm+X9ByhdA5NvsknnG2kcg=;
+	b=Sy4Pw6KAVABoKmV/U/rQ7lPmP0r1IlOP9fJ0EdEyokOcYsxNeE0tk0smWy0ARW0ZCei7bE
+	wytanyCgNXzjWsCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787829369; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3WqQUP7lvA0V2Zho7rSjsm+X9ByhdA5NvsknnG2kcg=;
+	b=qKKBZ/11v0xQBRpfeXbkxtjiSiT9kjhENPp9RwHb6JKRWiYamvLZ18huca4eHrPYNbquzP
+	np0szK5v+dmCvbjhZKQXPb44c5OTS4qnZ1CsOD32YJ2PQzxzxR0BspAYlzFio1f/0xv2s3
+	3KCcDqRUzHP0qaj7aFJ3HUTYbpQYn/c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787829369;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3WqQUP7lvA0V2Zho7rSjsm+X9ByhdA5NvsknnG2kcg=;
+	b=/PzQCwM0lXkaCw4bWKYswoWH5RpREzgU9+uZG5cByksL9UGKQp+Jq79cZlm3eEs8GHPjuJ
+	OuOEfvyfYRpVcxAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E659A13354;
+	Thu, 27 Aug 2026 11:16:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id SWk7OHkckGr0ZAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 27 Aug 2026 11:16:09 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8D252A1324; Thu, 27 Aug 2026 13:16:09 +0200 (CEST)
+Date: Thu, 27 Aug 2026 13:16:09 +0200
+From: Jan Kara <jack@suse.cz>
+To: Bill Wendling <morbo@google.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] vfs: Add KUnit tests for fdtable
+Message-ID: <egqqrzdu6e44fmlyh6p3h2zitq6jbuboupyveys6nbtszkliat@fx226q5x6txh>
+References: <20260810204118.1981755-1-morbo@google.com>
+ <20260827041732.188707-1-morbo@google.com>
+ <20260827041732.188707-2-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] s390: Warn if kernel command line contains non-printable
- EBCDIC characters
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260825150840.537653-1-iii@linux.ibm.com>
- <20260826145129.204b6517@pumpkin>
- <4ed90c1e-0edf-4d12-b4d7-d439a8113669@linux.ibm.com>
- <20260827093224.6d4b1971@pumpkin>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20260827093224.6d4b1971@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: Y7oVLa6tKloRsd5F8x1tJf1zjeDGWHbr
-X-Proofpoint-ORIG-GUID: PPkaj8Scknf73jeFwcLxVQncgTlSCvOl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA5MSBTYWx0ZWRfX+UavrJkfZSMQ
- 0ggO4vUNR0v0soDsnFY9e6pTygfYjkE/JPgisthPGtWj62+MCfDJpSf0sBNmxCtmlDk/R1fRq6X
- EC983zNel/IremOAYnTWGNXCNSuepnKU1cjGwguZ0g5KDPnb9V2ZadgOeJtXkIZ+r6N84MJKLJE
- p6WZDLQmT1Kl1QBGTF4k8b/iRK9P966Si/MXx8d9exfmkGbPOF1wdRzHFNELTjCtR3Dg9Bqwokf
- RjN2ClyMv+KE+gWW7G7FCPNcb2qsDuMI3yKwtZXAzBhb4JMtQ6ra7XDa9ARejL8IlevYduRoElA
- z60u0z2bRV7IZZWXrluxkN9vmaPwz4nBOsGYElnxuuJwM6kvQ4LSkfQDiUXu8d8F07pdA9cTlSs
- MAe4+cHEbzGhn7jEN3ZdqWXCxKTGeh01VEICK/5Fkab3b4Va8XyZRq+PrRG4lg3Br6yGxt0JoZa
- SKtmCHi8FCsBlFehgSw==
-X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a901c43 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=SQuqiZtJNYRooU-z6-4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA5MSBTYWx0ZWRfXyGXJg6TnkN9f
- +KloDqNqMEqsc27+R0X+UUK9cnM7sdq0raCbp7OXz2oWnZP2y4MFmdU13CxbmIvsn7eewa2Ocn8
- xW491VnKREtT44+bJHIjxZT/8WB3DBk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270091
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827041732.188707-2-morbo@google.com>
+X-Spam-Level: 
+X-Spam-Score: -2.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,linux.org.uk:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-
-
-On 8/27/26 10:32, David Laight wrote:
-> On Wed, 26 Aug 2026 16:08:50 +0200
-> Ilya Leoshkevich <iii@linux.ibm.com> wrote:
+On Thu 27-08-26 04:17:30, Bill Wendling wrote:
+> This adds a KUnit test suite for fdtable to verify correct allocation,
+> max_fds initialization, and dynamic object size of the fd array under
+> __counted_by_ptr when CONFIG_CC_HAS_COUNTED_BY_PTR is enabled.
 > 
->> On 8/26/26 15:51, David Laight wrote:
->>> On Tue, 25 Aug 2026 17:08:08 +0200
->>> Ilya Leoshkevich <iii@linux.ibm.com> wrote:
->>>    
->>>> Users may accidentally add multi-byte UTF-8 characters to zipl.conf
->>>> parmline, for example, by copying snippets containing non-breaking
->>>> spaces (\xC2\xA0) from web pages.
->>>>
->>>> The kernel will then interpret the entire command line as EBCDIC,
->>>> making it unusable. Distinguish this situation from the legitimate
->>>> EBCDIC conversion by looking for non-printable characters and issue
->>>> a warning.
->>>
->>> Would it be better to check for the entire line being printable ebcdic?
->>> All of EBCDIC a-zA-Z0-9 have the 0x80 bit set and most of 0x20..0x7f
->>> are invalid or control characters (or punctuation).
->>>
->>> David
->>
->> I actually started with that, but this required introducing a new
->> _ctype-like table (unfortunately it's not as simple as checking a
->> couple ranges), so I decided against that and took a shortcut via
->> ASCII.
+> Assisted-by: Gemini:3.1-pro-preview
+> Signed-off-by: Bill Wendling <morbo@google.com>
+
+Looks sensible. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> v2 - Added 'test_dup_fd' testcase for separate allocation path.
+> v3 - Add version to the PATCH subject line
+> ---
+> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> Cc: codemender-patching+linux@google.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-hardening@vger.kernel.org
+> ---
+>  fs/Kconfig               |  8 +++++
+>  fs/file.c                |  4 +++
+>  fs/tests/.kunitconfig    |  2 ++
+>  fs/tests/fdtable_kunit.c | 72 ++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 86 insertions(+)
+>  create mode 100644 fs/tests/.kunitconfig
+>  create mode 100644 fs/tests/fdtable_kunit.c
 > 
-> Could you get the conversion function to return an error if it found
-> invalid EBCDIC characters?
-> If there is a single UTF8 character (eg non-breaking space) you really
-> want to treat the line as ASCII.
-> Actually you could count the number of characters with the 0x80 bit set.
-> If more than 1/2 assume EBCDIC (all of 0-9a-zA-Z have the bit set).
-
-I also considered that, but setting any threshold feels arbitrary and
-will probably fail for punctuation-heavy command lines.
-
-I also didn't want to make it a hard fail, because I'm not certain that
-I know all uses cases. Perhaps there are people who wants umlauts and
-what not? It would be bad to break whatever they are doing.
-
-But at the same time it was very painful to debug the &nbsp; issue, so
-I settled for the compromise: add a warning that will be helpful to
-99.9% users and will only mildly annoy the 0.1% umlaut users.
-
-
-I just had an off-list discussion with Heiko and we think about going
-with your first proposal for v3: a new _ctype table for EBCDIC for
-determining whether characters are printable. The overhead from this is
-not bad as I thought it would be.
-> (I didn't realise anyone still used EBCDIC.
-> I guess the unix implementation(s) use ASCII (otherwise too much code
-> is broken) but the old IBM OS uses EBCDIC.
-> I worked for ICL for a while, their old 1900 series (from the early
-> 1970s) used 6bit characters (4 in a 24bit word) that were ACSII codes
-> 32-95. The replacement 2900 series (very late 1970s) used EBCDIC internally
-> (I guess because IBM used it...) but all the peripherals were ASCII.)
-
-Linux on s390 still uses it for interfacing with traditional IBM
-hypervisors (z/VM and PR/SM), which are very much alive and used today.
-> David
+> diff --git a/fs/Kconfig b/fs/Kconfig
+> index e05917adcd60..05b63f7506a7 100644
+> --- a/fs/Kconfig
+> +++ b/fs/Kconfig
+> @@ -421,4 +421,12 @@ source "fs/unicode/Kconfig"
+>  config IO_WQ
+>  	bool
+>  
+> +config FDTABLE_KUNIT_TEST
+> +	bool "KUnit test for fdtable" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT=y
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  This builds the fdtable KUnit tests, which tests various aspects
+> +	  of the fdtable structure and allocation.
+> +
+>  endmenu
+> diff --git a/fs/file.c b/fs/file.c
+> index 628ca07dc4b1..9c7001b901cf 100644
+> --- a/fs/file.c
+> +++ b/fs/file.c
+> @@ -1529,3 +1529,7 @@ int iterate_fd(struct files_struct *files, unsigned n,
+>  	return res;
+>  }
+>  EXPORT_SYMBOL(iterate_fd);
+> +
+> +#ifdef CONFIG_FDTABLE_KUNIT_TEST
+> +#include "tests/fdtable_kunit.c"
+> +#endif
+> diff --git a/fs/tests/.kunitconfig b/fs/tests/.kunitconfig
+> new file mode 100644
+> index 000000000000..de67125a9421
+> --- /dev/null
+> +++ b/fs/tests/.kunitconfig
+> @@ -0,0 +1,2 @@
+> +CONFIG_KUNIT=y
+> +CONFIG_FDTABLE_KUNIT_TEST=y
+> diff --git a/fs/tests/fdtable_kunit.c b/fs/tests/fdtable_kunit.c
+> new file mode 100644
+> index 000000000000..6abd2a8d8f5d
+> --- /dev/null
+> +++ b/fs/tests/fdtable_kunit.c
+> @@ -0,0 +1,72 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +#include <kunit/test.h>
+> +#include <linux/fdtable.h>
+> +#include <linux/file.h>
+> +
+> +static void test_alloc_fdtable(struct kunit *test)
+> +{
+> +	struct fdtable *fdt;
+> +	unsigned int slots = 64;
+> +
+> +	fdt = alloc_fdtable(slots);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
+> +
+> +	/* Check that max_fds is set correctly and is >= slots */
+> +	KUNIT_EXPECT_GE(test, fdt->max_fds, slots);
+> +
+> +	/* Check that fd is allocated */
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
+> +
+> +	/*
+> +	 * Check dynamic object size of fdt->fd if compiler supports
+> +	 * __counted_by_ptr.
+> +	 */
+> +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+> +	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
+> +			fdt->max_fds * sizeof(struct file *));
+> +#endif
+> +
+> +	__free_fdtable(fdt);
+> +}
+> +
+> +static void test_dup_fd(struct kunit *test)
+> +{
+> +	struct files_struct *newf;
+> +	struct fdtable *fdt;
+> +
+> +	newf = dup_fd(&init_files, NULL);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, newf);
+> +
+> +	fdt = rcu_dereference_raw(newf->fdt);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
+> +
+> +	/* Check that max_fds is set correctly and is >= NR_OPEN_DEFAULT */
+> +	KUNIT_EXPECT_GE(test, fdt->max_fds, NR_OPEN_DEFAULT);
+> +
+> +	/* Check that fd is allocated */
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
+> +
+> +	/*
+> +	 * Check dynamic object size of fdt->fd if compiler supports
+> +	 * __counted_by_ptr.
+> +	 */
+> +#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+> +	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
+> +			fdt->max_fds * sizeof(struct file *));
+> +#endif
+> +
+> +	put_files_struct(newf);
+> +}
+> +
+> +static struct kunit_case fdtable_test_cases[] = {
+> +	KUNIT_CASE(test_alloc_fdtable),
+> +	KUNIT_CASE(test_dup_fd),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite fdtable_test_suite = {
+> +	.name = "fdtable",
+> +	.test_cases = fdtable_test_cases,
+> +};
+> +
+> +kunit_test_suite(fdtable_test_suite);
+> -- 
+> 2.55.0.897.gb25b4bd76c-goog
 > 
->>
->> [...]
-> 
-
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
