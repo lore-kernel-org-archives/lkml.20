@@ -1,62 +1,66 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E684191F94
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED703A453A
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787873478; cv=none; b=YmT8B4JLXigsNP2/kA7URRSmDORgo5NaLvHojQ5YJpThJhb6QOhoBLAB2MfH/NuzEEd7A3GXkLrS3bBtoM5nYkPbkIfiV5NcE7nAS0/aeGBV28yNFmCqCShLNhQZNYnagWXPBeFV+MVblajYzI/mYnCFI6F/Lr3N3OQcbWx6Dwo=
+	t=1787873480; cv=none; b=Us3bc6lce15+ut5dBNxV+zN3H5nYiyshHi3NgN1Vqi/b/elqlDxC+s/vlI/nSN3V3u9ecuu9WeXoBKwLl9jgrwuw3P0C8XrVLp6VMD2ZLdZJG9f/PH/P6jkandADjMIAcd/AqrPor44BItSRxLq9wiey9uKBxzrpiT9XC09n21M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787873478; c=relaxed/simple;
-	bh=GWG8+Fkc5xjGAGYyc6PWpSSDUOddYLJcJz9k8WGAfTo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cBkrDEZCogfsXQ42KKF4a91wjhYKfDvB+gaFwDbzQs5zFdivCDkEx88/pfWogW0FxqJgRFytDTY+1xHfbGu7SUCoILkzw1iTsw8KTc/z/CUmza8HLucjnWnjmeG15JYm8N5sYc0VEChPlEWfLk/io76IFx8pVHqT8xzpYsMFFtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=anLUy4lp; arc=none smtp.client-ip=209.85.214.199
+	s=arc-20240116; t=1787873480; c=relaxed/simple;
+	bh=3I5dS/SQ6pCyb3i0Ix/G3rblivqux+gR9oaHKYEaKnY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=sqIsuFyJggabtS0+pEDFGgdIVfqgkkvmrdgH/arU7DUHe8zjDY2tCDHKCvn5CoKCeOBQ352R22x/ZXA24DNr/U6xiiJcREY7qOqTDG9+neSxSSTy5BL3qmZZ+fxoZ5RAdBB2RL45VmEvtAYgZgBnOsqHoYd3Yqeg454oojhi7lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F0WE0Vee; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="anLUy4lp"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cce14a21faso4786135ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F0WE0Vee"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d52734fc41so4602075ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787873476; x=1788478276; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ByhfPFFYRyQOKzwOCdD7VT4FkrQ9JW/PGTIdcjTJE7E=;
-        b=anLUy4lpRuMFuCJVpHkxVkttGAqUe+r5KRX24N2ZtelLuxC/9KPdOnxygjS+oovgll
-         4+oGAhc54mxBHxvm5aSfKuAjrOS0JJx8mGDkStICjhlcM8c4pKZm2iqE7H+KtR7duWvO
-         2kQw0ucR8MGOtCOoLHyNRlV5wo3c2pri55F6za/kD8jiQmR8jg4kOs3wVYoqweqUJV+o
-         okWepnN6Z0To5PKdpb3mS31TAziFpNrAhL88BrDezbcgvL3BAESsBonvqTVclRxGVFKm
-         R+sjF+IJxaxs4b8LgiX4ZlOLAK2SKoPig+V5gsDRczdSnCrIN7Ej9gftTF9UmuNH5vdt
-         IVUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787873476; x=1788478276;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787873479; x=1788478279; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ByhfPFFYRyQOKzwOCdD7VT4FkrQ9JW/PGTIdcjTJE7E=;
-        b=DXC/3U9k/vQxGXw27vGGc9v38bqaUdXM6t+520G71vVuki/PLnGivlTaTijLaav0mk
-         xQtFM6hUDfPlCjfvtvm32h5CJPAQC2XJRuk0Hj0mD9WfHU2IPrkWuxFFNaAROesMV5+y
-         vNmIBzB90Nk9IKBLruvzVSslE1y+/EfrsCbeM6oI+dLLQ/Lq/l4uvSJkZsm19IOqJVSC
-         Y68olActCtOizwhkBbrB7yBta5rTW+eDDd/5luTRUFRv8naN7gn597dvwZuZhDP+IPqf
-         TBxByCmxgXJuhFIDIkBdoVd9U5h72BMZy6tl/sXEpDhAU1H2PvNYNLLcnYqkk6Sc87p1
-         cmdg==
-X-Gm-Message-State: AFuF++mjjKpfc2ufKBJsQZKamjaklDMj0SFRyozZph+nCB/y6z/ajYl5
-	zNEhxf7pOryX5MfIRVpaZZWWqBL+81FD6WHk2rBhmHVxJUAUJFrtttTxSnttPDx2+EHlhqowbC9
-	FzzoBnGmZRaRsJQ==
-X-Received: from dybnj45.prod.google.com ([2002:a05:7300:d0ad:b0:322:61cd:851e])
+        bh=brDKxupp32vlfYsuON/JY3iAK7z2zOrfUeaeP3zp25g=;
+        b=F0WE0VeeAQdzh0CIlwv1meqQbhzCsbR96VDhR0EaTiqYsmWRamm8ir76N2R0XrYMwZ
+         l8xcCIZJ2d/B9i7wQdrdQiM/bB2ZQEutThINttOILceOC1swN03B9ctKDgsYGG1JC8Tv
+         FzzUJSQbp5zeJkbiG6TEnVPX9R7VbgzcZOU2HFZfA1maAZ44o2nEERunsZBYIaj22hlx
+         zGUAMD6h4Pg6DgkubIrXCKcLC4aKaxoU0NuiL6sXg+mgXgy+3hN0kayGgHmmF49W8Wil
+         nLiCl9VLgyTyq73qDqdmQDzGyP15I9fupqSw2+InLeOsxXDROEBFYymCS8JBf+kEW5KE
+         2eJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787873479; x=1788478279;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=brDKxupp32vlfYsuON/JY3iAK7z2zOrfUeaeP3zp25g=;
+        b=OrrgGwY+CEQMGcTNznRGi3tBWiPLQdFhyecfIFDMZ5asXbBt/v8NViUzi7UGEMu2aI
+         rtoUNwDjLp1Y8peEzfyedJ9cf1NEeFONjP5j9h9+YVHq/pBnuSjnmXWkxTvOvNnWhg+1
+         9axfcV7NWpqUW+i5NUiun0BrMF3IMnSHdMGhqdgY1jXf0MWEQBGYJIfenShbBlKBQfsu
+         MmvJXvhsJsARiq0SZVb075Q2X7gN9/KK4kf9SOFDkV5Hk8I5P4BffyMJ2mwJOf6eX4Tp
+         2Mj7sA3iQXn4PI/JqzNfbhWeiibVTniT9J+ukJgB/yHeKBlSTcYm0yVVWA4Qx+kMOZ8r
+         yFIQ==
+X-Gm-Message-State: AFuF++kTbvZyAS+zZQEjk/MwCeQbs+ZhdUqLYOSCWD3clRp9GwGJi/hM
+	iQjNAtJvHDtBX56m9jyJGaNgEV++aRnUeKU5JyLV40Ei+Tv91avcsCSp6DfgKkafaRye5AnllcP
+	3dy6RQA2T24PwRw==
+X-Received: from dybeb10.prod.google.com ([2002:a05:7300:a2ca:b0:328:4d52:8cd0])
  (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:ebc4:b0:2d6:f80c:6ff1 with SMTP id d9443c01a7336-2d726784320mr120542355ad.9.1787873476188;
- Thu, 27 Aug 2026 16:31:16 -0700 (PDT)
-Date: Thu, 27 Aug 2026 16:29:38 -0700
+ 2002:a17:903:458b:b0:2d6:f3f0:3e7a with SMTP id d9443c01a7336-2d74dc2ade3mr36333205ad.3.1787873478170;
+ Thu, 27 Aug 2026 16:31:18 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:29:39 -0700
+In-Reply-To: <20260827232948.2520558-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260827232948.2520558-1-stevensd@google.com>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260827232948.2520558-1-stevensd@google.com>
-Subject: [RFC 00/10] Reclaimable kernel stacks
+Message-ID: <20260827232948.2520558-2-stevensd@google.com>
+Subject: [RFC 01/10] Add !MEMCG memcg_list_lru_alloc implementation
 From: David Stevens <stevensd@google.com>
 To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -77,110 +81,42 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	David Stevens <stevensd@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This RFC is a different approach to reducing kernel stack usage from the
-earlier dynamic kernel stack RFC [1]. This patch series aims to reduce
-the cost of kernel stacks by partially reclaiming stacks of blocked
-tasks when it is safe to do so.
+Add a stub implementation of memcg_list_lru_alloc() when CONFIG_MEMCG
+isn't enabled.
 
-On Android, system processes typically have 2000-3000 threads. App
-processes add 1000s more threads on top of this. The number of app
-processes varies based on device RAM size, but the end result is that
-1-2% of system RAM is consumed by kernel stacks. However, most of these
-threads spend extended periods of time blocked. As such, reclaiming
-blocked kernel stacks can reduce total kernel stack memory usage by
-upwards of 50% in various multi-tasking test cases.
+Signed-off-by: David Stevens <stevensd@google.com>
+---
+ include/linux/list_lru.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-When a task is blocked, we know exactly where the top of its stack is
-and can reclaim any pages past that point. Since any accesses to that
-portion of the stack are bugs like use-after-return or buffer overflow,
-turning those invalid accesses into hard crashes could even be
-considered a positive.
-
-Tracking blocked state and when it is safe to reclaim a stack is done
-via a series of hooks in the scheduler. The actual reclaim of stacks is
-done asynchronously in a shrinker.
-
-Once a task's stack has been reclaimed, it cannot be rescheduled until
-its stack is repopulated. Although there can be a repopulation fast path
-within the scheduler, reliably allocating memory to repopulate the stack
-requires a fallback path that defers the repopulation and wakeup to a
-workqueue context that can use GFP_KERNEL.
-
-The primary challenge is avoiding reclaim deadlocks. If a task blocks
-while holding a lock used by direct reclaim and then has its stack
-reclaimed, using GFP_KERNEL to reallocate its stack risks deadlock. To
-avoid this, only tasks which are known not to hold any locks upon which
-reclaim depends are considered eligible for stack reclaim. Automatically
-inferring this property is not feasible, so instead a new
-PF_RECLAIMABLE_STACK task flag is used to annotate blocking locations
-that are known safe. While annotating all safe blocking locations is not
-feasible, the vast majority of userspace threads block using a fairly
-small number of syscalls - futex, epoll, nanosleep, etc. The 10
-annotations added in this series cover >95% of userspace threads on
-Android based on my testing. Since missing annotations are leaving an
-optimization on the table rather than an actual bug, other annotations
-can be added later as needed.
-
-Although reclaimable stacks will not cause reclaim to deadlock, it does
-introduce a dependency on needing to allocate memory before an OOM
-victim can exit, as reclaimed stacks need to be repopulated before their
-tasks can run. While the OOM reaper will still be able to immediately
-free the victim's mm, the freeing of non-mm memory may be delayed. This
-can lead to more OOM kills. While this is not a significant concern on
-Android due to the reliance on lmkd over the kernel OOM killer, it may
-be a concern on other systems.
-
-This RFC was developed primarily on 6.18 and 7.1 based kernels. I have
-done fairly heavy stress testing, but it has not yet been deployed to
-any production systems. If initial feedback on the RFC is somewhat
-positive, I will work on deploying it to production systems for further
-stability and performance testing as well as resolving the handful of
-TODOs left in the RFC.
-
-[1] https://lore.kernel.org/linux-mm/20260424191456.2679717-1-stevensd@google.com/
-
-David Stevens (10):
-  Add !MEMCG memcg_list_lru_alloc implementation
-  mm/vmalloc: Skip vmallocinfo NUMA stats for VM_SPARSE
-  fork: refactor vmap stack alloc/free into helpers
-  mm: vmalloc: support creating aligned vm areas
-  fork: allocate reclaimable stacks with VM_SPARSE
-  Reclaim memory from blocked kernel stacks
-  Reclaim stacks via a shrinker
-  Set PF_RECLAIMABLE_STACK in various places
-  x86: Enable reclaimable stacks
-  arm64: Enable reclaimable stacks
-
- arch/Kconfig                       |  18 +
- arch/arm64/Kconfig                 |   1 +
- arch/arm64/include/asm/processor.h |   5 +
- arch/x86/Kconfig                   |   1 +
- arch/x86/include/asm/processor.h   |   5 +
- drivers/android/binder/thread.rs   |  14 +
- fs/eventpoll.c                     |   3 +
- fs/pipe.c                          |  28 +-
- fs/select.c                        |   3 +
- include/linux/list_lru.h           |   7 +-
- include/linux/sched.h              |  44 +-
- include/linux/sched/task_stack.h   |  23 +
- include/linux/vmalloc.h            |   2 +
- kernel/Makefile                    |   2 +
- kernel/fork.c                      | 140 +++++-
- kernel/futex/waitwake.c            |   3 +
- kernel/sched/core.c                |  18 +-
- kernel/sched/sched.h               |   3 +
- kernel/signal.c                    |  36 +-
- kernel/stack_shrinker.c            | 760 +++++++++++++++++++++++++++++
- kernel/stack_shrinker.h            |  58 +++
- kernel/time/hrtimer.c              |   3 +
- mm/vmalloc.c                       |  27 +-
- rust/kernel/task.rs                |  16 +
- 24 files changed, 1175 insertions(+), 45 deletions(-)
- create mode 100644 kernel/stack_shrinker.c
- create mode 100644 kernel/stack_shrinker.h
-
-
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
+index a450fffe1550..40eaeaa3424c 100644
+--- a/include/linux/list_lru.h
++++ b/include/linux/list_lru.h
+@@ -79,10 +79,10 @@ static inline int list_lru_init_memcg_key(struct list_lru *lru, struct shrinker
+ 	return list_lru_init_memcg(lru, shrinker);
+ }
+ 
++#ifdef CONFIG_MEMCG
+ int memcg_list_lru_alloc(struct mem_cgroup *memcg, struct list_lru *lru,
+ 			 gfp_t gfp);
+ 
+-#ifdef CONFIG_MEMCG
+ /**
+  * folio_memcg_list_lru_alloc - allocate list_lru heads for shrinkable folio
+  * @folio: the newly allocated & charged folio
+@@ -106,6 +106,11 @@ static inline int folio_memcg_list_lru_alloc(struct folio *folio,
+ {
+ 	return 0;
+ }
++
++static inline int memcg_list_lru_alloc(struct mem_cgroup *memcg, struct list_lru *lru, gfp_t gfp)
++{
++	return 0;
++}
+ #endif
+ 
+ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *parent);
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
