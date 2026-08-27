@@ -1,274 +1,176 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4122E4734F3
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847490; cv=pass; b=Vg1zZGpYnsDOEbz4lkVeXgbYtJTLMT5MMimBBwvwdWfU5DtxgNfvSebgdLSDVQb/r1ZxksrTxckpmtmkEY0PDbGW3Y+Ca+yEgSwbKqZw5Aey5kdaBITZ856JDN4ts+NYx2m1MI5qJbHPAEHxdBfPLTn3Iflt5PlYitV0lesOYzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847490; c=relaxed/simple;
-	bh=Bl9N4NIOdfVqZOwR5kgJa0N0qb0p2zQM+IJ95fURflg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iHHWqstTkc/ertTiZ7/sT4JEv6ZWHkqTjMfmWB6w3CZWmML4HlFrkAh+7iYzdswibA+150m/qxnpCt2q0DOBPoDSYi3QVzLzxk0dB5H/4dYjfiS3BUiXTUCHsHunKVQLJda9fU2iqbkP41nCAOy4ucZOKYpvIuvPejqi991fabM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T1PGb84t; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EBC36C588;
+	Thu, 27 Aug 2026 16:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787847503; cv=none; b=jL2aIOTECUbKosHjo64on0MZ8qW/5+6oQZqCUhsr20gWh8V5ffQpAlW8b18SZWWO9xX/2tZSEeNnX0B3YixJePKn93yS+UZ56gJoDC0sDi3AReil25B2Bs3wvUdwF+y/l3IWlT9uELydl7ducKuEnbFMhFiR/T3SuMTV+dAdwMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787847503; c=relaxed/simple;
+	bh=NcrmYDp3/x1knGoO/dIS8c/CdSMEhACAx1xS7AEVeFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R/gBBam6rPIwavS+5ZoRLZtJpEmOkNI4zJ46Qvtv0+p0WezFWlhaLAdIgiwTMKx6fCMJLi6hjDb0kWtbpm3suoVnYbmc6smHnYEmkrBLGXrhAdWyap7yNz3Dvjys3qaVSxdhegXMY+n6zskuH4JyqF9usyyLONpxE9p8mA3X8po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTh/KTi+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T1PGb84t"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a5f9b036f9so11397a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:18:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787847486; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gq108ebsvHnyrV97OaHnEktsTH69xdo8UeasnD5tsouV5inB4IzXkYFoedz2wIjVX8
-         4c7pZ0bM3h0mpPQuPxnjI2Szz0oP8wW7AkvVX8voJZMXfXPk2YzcbNt9eS7Q4gJ190bZ
-         +jtssHDsjhHYxx2iB6qoPuighdhdrTl+SR8+zMZb4uOfhGwOWdTrJGcFL8LWuvvm5NpA
-         DRQCsw01RHb4R/ZN/wk1SKFNcV+gs30Uly+uNZpo2/FP+U72DUY2pHc9HzkT+R3pgsip
-         XB6EhNiOj5q4e6WI+rkY/E8emwM864v13Nq0MF5Hhd55xcFGlx7kPUD+1etR5mSgZPQ3
-         jn7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m7ZkTNQPG4sK1dnK6dVjipvBVeIi19Kxu7dkafH7UEY=;
-        fh=e+Girt6PoFPTCt1D9JqCmx6pL2ORx+haDuNatqJLn/o=;
-        b=URxG6vN5K8detkCj2YeGclE5ZS5PW+TufQjpj3xl0T/J12baf/UpKxlgVwWh6FCXxU
-         dtgZYsECnTR6KsephaH3+llqFido07SR9vq+wYIdS64K1M9RMSypSs0o9rORGFPEebM0
-         IIvO39h0IW0McsEvagLvwuxppb5YZ/pUkDDujivAHmJuc2PRASff9+ZzZliJXkHaNw0m
-         Bj7Vu6BoDVEzS2Lpeqtvp+0yDgy0FGPq70aB1Xh8xDqeesbFB0fR3gCZtKvjRrC5y3XG
-         ScRBjdsyFPao+0jaNYMtQb3sjC8VQaIDmfAguLSdnf4/L9bw+MgBnztVz8vMnvMxa6cK
-         3BnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787847486; x=1788452286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m7ZkTNQPG4sK1dnK6dVjipvBVeIi19Kxu7dkafH7UEY=;
-        b=T1PGb84tD/lPoa7sJkTASBWfDOmkgemFOcOS2aBxu3NmH0kkUQUJiK6JidqijvohMp
-         WkNxQL6guXZivI/+MePZTrkNb1kLaSI3fOAwRX/1iDYKHccZm5RtnDDE5hJDqbzSNdWY
-         dzz+0ChQmKrSUhc2V9kICw2/EuULs/DU5Qiitst7tMUiXrAZoauxIpkKQP+dIZIrEpCe
-         GEvdvvbWQag9V8J3R+fCZKp8duINnvvvKBRvcWawZDNdRb10aIZ3Pa695LgpDlJooKSO
-         ohT77MG0kef/KNOQcBMJEJDy9GKgT7K4W1MWK/Hyc+l3fx5XZuO7G5YvJidlZQyqZMW7
-         Bv+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787847486; x=1788452286;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m7ZkTNQPG4sK1dnK6dVjipvBVeIi19Kxu7dkafH7UEY=;
-        b=ABxhENanINmutdQaTTqxE8w+FZT+9rq/j/kNA3sXcjHz11VqK8ytWq1a/8cmwWSHjc
-         EcjcXdXqOJtMVe+k5HoJC3IFs3xayANz5WUecw4tJoNxLS/1rKSU9l1w79Nh0XRG1ZFs
-         uX2xTRbmikhIFVBz3mKg9GSWLFk+KtIFBvLwaAEQhDItf1+SEq9MGg507v1T9fpS6M9i
-         OrrMx6WwrxApml+7MiXQQlX8QGls9In3xoHb2s8KQnilWglwbNv7T98F/ojueVQTzf+w
-         OvBlDL+ydkdokS2eTgUbsUhA4MpGAx5lyv/lvP4dclDZpTKv0dkMQWLE9oy1A97tgeVh
-         ki8Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqA2Ug2Bm/RwUTA9FsJcleAkm6NiaL6ysy/Lma3GQMhYMsr4ceKh9jLd1uGvpa3On7cmkk6N1fTs26B84Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAcoQeOYTXrUdY1K8wO1tHRIMt2CCHCANpauDuKZBuPtlEDhhs
-	ZYS3Z4hReEFJm9MBvl1pOuxOWhyJELdKfG8sPg8POYzkSUwzTom+92ZjBsjsNVC+tChNQTSSQSI
-	cpfWgFH2kqOjtvK3XuREwNtx+vLhjQtzk6T8quutc
-X-Gm-Gg: AR+sD11j2bGm6FF8B1c3vie386/7dH8pIC+4FNpeMPkSxtBol869bu2okHy9UfC8bhS
-	YAZEkg+9wM28QR069dl2M9XFpMjgpf/LTfWJS2HDnwrDK63r5Jbj3NodE+HZbNFD2LpVnSTlD8C
-	TUZQtjHgAkH8Pcyl/O14IQrIZ99MPMAUmyX8XbQLD/b2+ufA+O1GbMWWXNZwqOHXnEJf6Mej2Hj
-	9M3Rxi8yWI2+4eIccAPKebzMOtJePvjwXlVfEjWdYkHeTz3yimSjj/CqM0AnZUQHi6tX2snIDOz
-	h3pduo22v5h5JrmydpzJNJWXUdgxftdERnhD0D16zyTxmT/Co27w/2S94gsO2Lim3j3wpePVJuU
-	ipw==
-X-Received: by 2002:aa7:d514:0:b0:672:117e:55d4 with SMTP id
- 4fb4d7f45d1cf-6a5f56fbb2amr67818a12.0.1787847485181; Thu, 27 Aug 2026
- 09:18:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTh/KTi+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B8B1F000E9;
+	Thu, 27 Aug 2026 16:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787847502;
+	bh=mOqEaDKgcLq2GJL2+kULDh7kIMO3nrYg/DVzSD/Tr6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CTh/KTi+UnPULcjofyifqpF+4INUxrIxK1gcckqL7oc9RqIeS6Q9PPPW0/Klsh945
+	 NvwUXOgyOJ2rBoRiXjeI6ybstSPM20ii8QW5oLKWzV7h9+B4PO0qS3MxguFEECZ2UQ
+	 RbaBwtwE9Az8wteDRrlyBsaLuSyDopsgPef+udTF/yJMasfN1uoLd9Q41KZMBY1SH5
+	 QXcYZbSEe7dMPURmcn6t5tqTH3rwowFs02sz6LsFCKGV/uiaEDNETEVX249P3mDN24
+	 GrtUgY3OhcqKmv8uRxn6/UuIf1p2y2BaadVtKHm5szTwagBtiCwIYiU5v+UneEPXh+
+	 fcBBwXznJ7NAg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: ljp1205831794@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	achender@kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	kerneljasonxing@gmail.com,
+	henrymei@tencent.com,
+	corvus@tencent.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: rds: fix uninitialized trans dereference in CM event handler
+Date: Thu, 27 Aug 2026 09:18:20 -0700
+Message-ID: <20260827161820.3867858-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825021223.3483044-1-ljp1205831794@gmail.com>
+References: <20260825021223.3483044-1-ljp1205831794@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
- <20260827145855.1616223-2-xiangzao@linux.alibaba.com> <apBiJk_zhaNjW0er@google.com>
-In-Reply-To: <apBiJk_zhaNjW0er@google.com>
-From: Mostafa Saleh <smostafa@google.com>
-Date: Thu, 27 Aug 2026 17:17:53 +0100
-X-Gm-Features: AcwNN1WR6tg9hLH542gIZv7DpP21v-yYeSwugCbSEAU1tVFSn-44FUNwUbQjGhs
-Message-ID: <CAFgf54qF=nyLvyOPKB=aLmWJ=C40ZTXeNaBhsdFgnzT3jyLKEA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] iommu: Add __iommu_debug_unmap_phys() to drop refs by
- physical address
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: joro@8bytes.org, will@kernel.org, jgg@ziepe.ca, robin.murphy@arm.com, 
-	baolu.lu@linux.intel.com, kevin.tian@intel.com, praan@google.com, 
-	skhawaja@google.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 5:13=E2=80=AFPM Mostafa Saleh <smostafa@google.com>=
- wrote:
->
-> On Thu, Aug 27, 2026 at 10:58:54PM +0800, Yuanhe Shu wrote:
-> > The IOMMU_DEBUG_PAGEALLOC sanitizer takes a reference on each page at
-> > iommu_map() time, keyed by physical address, and the only way to drop
-> > them is the IOVA based iommu_debug_unmap_begin()/end().  A path that
-> > tears down a page table with mappings still installed has no IOVA to
-> > unmap with, so add a physical address based counterpart of
-> > __iommu_debug_map() for those paths, sharing the counting loop through
-> > __iommu_debug_update_phys().
->
-> But the IOVA can be calculated when walking the table from freeing
-> context or am I missing something?
->
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: rds: fix uninitialized trans dereference in CM event handler
 
-Ok I am missing that it might not be possible to call in the table
-(iova_to_phys) while it is being freed.
+This initializes trans to &rds_ib_transport at declaration in
+rds_rdma_cm_event_handler_cmn(), drops the conditional assignment based on
+cm_id->device->node_type, and adds an early bail-out that returns 1 for any
+event arriving on a device that is not RDMA_NODE_IB_CA.
 
-> Thanks,
-> Mostafa
->
-> >
-> > Export the iommu_debug_initialized static key, as the generic_pt format
-> > code using these helpers can be built as a module.
-> >
-> > Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> > ---
-> > Build tested as built-in and as a module (AMD_IOMMU=3Dn,
-> > CONFIG_IOMMU_PT_AMDV1=3Dm).
-> >
-> >  drivers/iommu/iommu-debug-pagealloc.c | 30 ++++++++++++++++++++++++---
-> >  drivers/iommu/iommu-priv.h            | 24 +++++++++++++++++++++
-> >  2 files changed, 51 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/iommu/iommu-debug-pagealloc.c b/drivers/iommu/iomm=
-u-debug-pagealloc.c
-> > index 80164df5bab1..a2e55164e6a4 100644
-> > --- a/drivers/iommu/iommu-debug-pagealloc.c
-> > +++ b/drivers/iommu/iommu-debug-pagealloc.c
-> > @@ -15,6 +15,8 @@
-> >
-> >  static bool needed;
-> >  DEFINE_STATIC_KEY_FALSE(iommu_debug_initialized);
-> > +/* The generic_pt format code using the key can be built as a module *=
-/
-> > +EXPORT_SYMBOL_GPL(iommu_debug_initialized);
-> >
-> >  struct iommu_debug_metadata {
-> >       atomic_t ref;
-> > @@ -96,7 +98,8 @@ void __iommu_debug_check_unmapped(const struct page *=
-page, int numpages)
-> >       }
-> >  }
-> >
-> > -void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys, =
-size_t size)
-> > +static void __iommu_debug_update_phys(struct iommu_domain *domain,
-> > +                                   phys_addr_t phys, size_t size, bool=
- inc)
-> >  {
-> >       size_t off, end;
-> >       size_t page_size =3D iommu_debug_page_size(domain);
-> > @@ -104,9 +107,30 @@ void __iommu_debug_map(struct iommu_domain *domain=
-, phys_addr_t phys, size_t siz
-> >       if (WARN_ON(!phys || check_add_overflow(phys, size, &end)))
-> >               return;
-> >
-> > -     for (off =3D 0 ; off < size ; off +=3D page_size)
-> > -             iommu_debug_inc_page(phys + off);
-> > +     for (off =3D 0 ; off < size ; off +=3D page_size) {
-> > +             if (inc)
-> > +                     iommu_debug_inc_page(phys + off);
-> > +             else
-> > +                     iommu_debug_dec_page(phys + off);
-> > +     }
-> > +}
-> > +
-> > +void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys, =
-size_t size)
-> > +{
-> > +     __iommu_debug_update_phys(domain, phys, size, true);
-> > +}
-> > +
-> > +/*
-> > + * Physical address counterpart of __iommu_debug_map(), for teardown p=
-aths
-> > + * that destroy mapped entries without an IOVA.  The OAs must have bee=
-n
-> > + * accounted by a prior iommu_map().
-> > + */
-> > +void __iommu_debug_unmap_phys(struct iommu_domain *domain, phys_addr_t=
- phys,
-> > +                           size_t size)
-> > +{
-> > +     __iommu_debug_update_phys(domain, phys, size, false);
-> >  }
-> > +EXPORT_SYMBOL_GPL(__iommu_debug_unmap_phys);
-> >
-> >  static void __iommu_debug_update_iova(struct iommu_domain *domain,
-> >                                     unsigned long iova, size_t size, bo=
-ol inc)
-> > diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
-> > index aaffad5854fc..12528a40bcd8 100644
-> > --- a/drivers/iommu/iommu-priv.h
-> > +++ b/drivers/iommu/iommu-priv.h
-> > @@ -71,11 +71,18 @@ int iommu_replace_device_pasid(struct iommu_domain =
-*domain,
-> >
-> >  void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys,
-> >                      size_t size);
-> > +void __iommu_debug_unmap_phys(struct iommu_domain *domain, phys_addr_t=
- phys,
-> > +                           size_t size);
-> >  void __iommu_debug_unmap_begin(struct iommu_domain *domain,
-> >                              unsigned long iova, size_t size);
-> >  void __iommu_debug_unmap_end(struct iommu_domain *domain,
-> >                            unsigned long iova, size_t size, size_t unma=
-pped);
-> >
-> > +static inline bool iommu_debug_pagealloc_enabled(void)
-> > +{
-> > +     return static_branch_unlikely(&iommu_debug_initialized);
-> > +}
-> > +
-> >  static inline void iommu_debug_map(struct iommu_domain *domain,
-> >                                  phys_addr_t phys, size_t size)
-> >  {
-> > @@ -83,6 +90,13 @@ static inline void iommu_debug_map(struct iommu_doma=
-in *domain,
-> >               __iommu_debug_map(domain, phys, size);
-> >  }
-> >
-> > +static inline void iommu_debug_unmap_phys(struct iommu_domain *domain,
-> > +                                       phys_addr_t phys, size_t size)
-> > +{
-> > +     if (static_branch_unlikely(&iommu_debug_initialized))
-> > +             __iommu_debug_unmap_phys(domain, phys, size);
-> > +}
-> > +
-> >  static inline void iommu_debug_unmap_begin(struct iommu_domain *domain=
-,
-> >                                          unsigned long iova, size_t siz=
-e)
-> >  {
-> > @@ -101,11 +115,21 @@ static inline void iommu_debug_unmap_end(struct i=
-ommu_domain *domain,
-> >  void iommu_debug_init(void);
-> >
-> >  #else
-> > +static inline bool iommu_debug_pagealloc_enabled(void)
-> > +{
-> > +     return false;
-> > +}
-> > +
-> >  static inline void iommu_debug_map(struct iommu_domain *domain,
-> >                                  phys_addr_t phys, size_t size)
-> >  {
-> >  }
-> >
-> > +static inline void iommu_debug_unmap_phys(struct iommu_domain *domain,
-> > +                                       phys_addr_t phys, size_t size)
-> > +{
-> > +}
-> > +
-> >  static inline void iommu_debug_unmap_begin(struct iommu_domain *domain=
-,
-> >                                          unsigned long iova, size_t siz=
-e)
-> >  {
-> > --
-> > 2.43.5
-> >
+> diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
+> index b15cf316b23a2..2c5481f1fcb4f 100644
+> --- a/net/rds/rdma_transport.c
+> +++ b/net/rds/rdma_transport.c
+
+[ ... ]
+
+> @@ -80,6 +77,12 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
+>  		}
+>  	}
+>  
+> +	/* Only the IB transport is supported. */
+> +	if (cm_id->device->node_type != RDMA_NODE_IB_CA) {
+> +		ret = 1;
+> +		goto out;
+> +	}
+> +
+
+[Severity: High]
+Should this non-zero return be limited to RDMA_CM_EVENT_CONNECT_REQUEST?
+As written it applies to every event type.
+
+include/rdma/rdma_cm.h documents what a non-zero return means:
+
+/**
+ * rdma_cm_event_handler - Callback used to report user events.
+ *
+ * Notes: Users may not call rdma_destroy_id from this callback to destroy
+ *   the passed in id, or a corresponding listen id.  Returning a
+ *   non-zero value from the callback will destroy the passed in id.
+ */
+
+The cma dispatchers implement exactly that, for example addr_handler() and
+cma_work_handler() in drivers/infiniband/core/cma.c:
+
+	if (cma_cm_event_handler(id_priv, &event)) {
+		destroy_id_handler_unlock(id_priv);
+		return;
+	}
+
+But RDS keeps ownership of connection cm_ids.  rds_ib_conn_path_connect()
+stores it:
+
+	ic->i_cm_id = rdma_create_id(&init_net, handler, conn,
+				     RDMA_PS_TCP, IB_QPT_RC);
+
+and rds_ib_conn_path_shutdown() later dereferences and destroys the same
+pointer, clearing it only afterwards:
+
+	if (ic->i_cm_id) {
+		rdsdebug("disconnecting cm %p\n", ic->i_cm_id);
+		err = rdma_disconnect(ic->i_cm_id);
+	...
+		rdma_destroy_id(ic->i_cm_id);
+	...
+		ic->i_cm_id = NULL;
+
+So if any event other than CONNECT_REQUEST is delivered with conn != NULL on
+a cm_id whose device node_type is not RDMA_NODE_IB_CA, does the core free the
+cm_id while ic->i_cm_id still points at it?  Can the following conn drop,
+socket close or module unload then hit freed memory in
+rds_ib_conn_path_shutdown(), including a second rdma_destroy_id() on the same
+id?
+
+A reachable path without any race: rds_ib_laddr_check() short-circuits via
+rds_ib_get_device(), which only walks the ipaddr_list of RDS's own IB
+devices:
+
+net/rds/ib_rdma.c:rds_ib_get_device() {
+	list_for_each_entry_rcu(rds_ibdev, &rds_ib_devices, list) {
+		list_for_each_entry_rcu(i_ipaddr, &rds_ibdev->ipaddr_list, list) {
+			if (i_ipaddr->ipaddr == ipaddr) {
+	...
+}
+
+while the device actually bound for the outgoing connection is picked later
+by cma_acquire_dev_by_src_ip(), which walks the global cma dev_list and can
+match a siw device on the same address.  siw_device_create() sets:
+
+	base_dev->node_type = RDMA_NODE_RNIC;
+
+In that configuration, rdma_resolve_addr() from rds_ib_conn_path_connect()
+binds a RDMA_NODE_RNIC device, and the resulting RDMA_CM_EVENT_ADDR_RESOLVED
+with conn != NULL now returns 1, so addr_handler() destroys the id while RDS
+still tracks it.
+
+The same function a few lines above already documents the opposite
+convention:
+
+		/* If the connection is being shut down, bail out
+		 * right away. We return 0 so cm_id doesn't get
+		 * destroyed prematurely */
+		if (rds_conn_state(conn) == RDS_CONN_DISCONNECTING) {
+			/* Reject incoming connections while we're tearing
+			 * down an existing one. */
+			if (event->event == RDMA_CM_EVENT_CONNECT_REQUEST)
+				ret = 1;
+			goto out;
+		}
+
+Separately, does the unconditional goto out also skip the rds_conn_drop()
+that the ADDR_ERROR, ROUTE_ERROR, CONNECT_ERROR, UNREACHABLE,
+DEVICE_REMOVAL, ADDR_CHANGE, DISCONNECTED and TIMEWAIT_EXIT cases perform,
+leaving the RDS connection stuck in CONNECTING or UP with no error
+propagated?
+
+Would something along these lines match the existing convention, while still
+dropping the conn for the remaining events:
+
+	ret = (event->event == RDMA_CM_EVENT_CONNECT_REQUEST) ? 1 : 0;
+
+or moving the node_type test into the RDMA_CM_EVENT_CONNECT_REQUEST case?
