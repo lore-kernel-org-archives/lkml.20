@@ -1,114 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0F2481AAC;
-	Thu, 27 Aug 2026 14:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E504481FA8;
+	Thu, 27 Aug 2026 14:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842369; cv=none; b=isMbquVFhkcxyGUUMwwK0Fhu6GgRzWvi1UkEypPwdHNx2EQuYhtmM5KMIhsiwVTrbNTYmAQ4pm18I7T5LFNKnkB3KW9cLfj52i9kqusZXIda/ea1bPv2ajAlR8QQsOcA5wmRthhL0DwKcuaEoOrxLR3FGnOvtJUCFh7o3QxmQ4k=
+	t=1787842398; cv=none; b=AU2EyADyafinHqUXU6r/y7xVoRNpRvdpEJoxDywYhjNL1YANRDwy9Rni1uMj/rCeuktG9Hv7ucbQ3UKsxc/kKNp21Bn6u+HHEddT6HkdTJavRRWp1woFuRKbt8/kZFDVpeR4Dhf3S6LSA0gGmoCP5V3TR6jhygVG+l52piLzDNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842369; c=relaxed/simple;
-	bh=TOwwUCm3aMU3KaYZSXThW3DCIQz1ArqP+11cnzza8rk=;
+	s=arc-20240116; t=1787842398; c=relaxed/simple;
+	bh=81QOSb6WHiTKKuL4HTBq9LMB2pHRbvz1D7SZ4iyMt5Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GJhl9c/gzL87Z0pm2avMR51VlfUoHoLeYENvUDoCug7wrjVPV6iczoodh34two7Uo378WoRyIGZLTJFKUAL2v/fSc6kFsxxKPcA/0hso3lZW1mxtXMVd65XbH1dhaB1U1gnN1PgnmVJJ1TI38e6C1pCaHs91p/xRedD4wMXrVDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/Wrgi1c; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=iLeL837iVqxWWuxq61duGkzNGl+v0hLxZ3XPGOvg71oXRDCyVcx+A9/k331jsXfJtIG9klrrjr9EVocD/aDt9FllXQKzhv03dNM2ith9yidiZliEDXg5SLQmLWxkzyIB7A8T4qp2AXfNA8vlCMEwN7bzZTvNZYp4HULIGBc92E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=X/51bqOV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/Wrgi1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BF71F000E9;
-	Thu, 27 Aug 2026 14:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787842359;
-	bh=j6K2IwFpe5CIehfsd9uWcWn+lN920C2qwKtqbLQ7Ggk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W/Wrgi1cgPXGQr7nZnU2yykJLHlcAqRYK5r781zx3+yA+pCBpNZGLISHJr7oQ9FU8
-	 yS3dYforbQCQWwRWGC/w/BkvlZg3qAp9Y+I8HID2xb3dFamTJ45UmIBJtDD3nf8NSg
-	 hY6yZKwGj6SylM0ZXmoqhpJWO2pwXIYA3Wjngnuv6xXyG7JUwD1eHcRlqhheVvGxIz
-	 LFB5vxQ0jPAAr4IfdDeME4Sb2rKFSsSliwOUa6ZXz4kQItQHJGXphr2XuXrywMWij7
-	 4pEw7VQaeRVg5eHJz9O/On7XF0Jyum/ftLq7NpoErdje9XHs7R+m9OO0UXc6/tI7x8
-	 FpIIMPG7gXjzA==
-Date: Thu, 27 Aug 2026 09:52:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/10] of: hold a reference on of_aliases during alias
- path resolution
-Message-ID: <20260827145237.GA3212208-robh@kernel.org>
-References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
- <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="X/51bqOV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD5D1F000E9;
+	Thu, 27 Aug 2026 14:53:00 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=X/51bqOV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1787842379;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n0sCK6SUbWHFXdTQsqY/bqP4+Ssz96ab2ersrw+ylnU=;
+	b=X/51bqOVZ/euTp5hF3rLnoHGZX97rol+LUHQEvTOnu5HbJobEUwiu4fL+LKVDyx9qOVSlC
+	9EvVlqsECxsGxZYFSICDJRjly2+GFAR9zGJDxd+XEV+x/6xvcsjQO76Me0pBdCybiOQ1+o
+	xqdDpjLMIuB9eaQyfVJj6iX6Xnkb+Bc=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id d311fca1 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Thu, 27 Aug 2026 14:52:59 +0000 (UTC)
+Date: Thu, 27 Aug 2026 16:52:58 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Zhichen Wang <wangzhichen@manus.ai>
+Cc: Theodore Ts'o <tytso@mit.edu>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] virt: vmgenid: set driver_data before registering
+ notification handlers
+Message-ID: <apBPSpFLsjlOTcxi@zx2c4.com>
+References: <20260825135054.54883-1-wangzhichen@manus.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
+In-Reply-To: <20260825135054.54883-1-wangzhichen@manus.ai>
 
-On Wed, Aug 05, 2026 at 01:31:01PM -0700, Abdurrahman Hussain wrote:
-> of_find_node_opts_by_path() walks the property list of of_aliases
-> without taking a reference on the node and passes pp->value straight
-> to of_find_node_by_path().
+On Tue, Aug 25, 2026 at 09:50:54PM +0800, Zhichen Wang wrote:
+> Both probe paths register their notification handler before assigning
+> driver_data, which the handler dereferences.
 > 
-> Take a reference across the walk. The walk itself stays lock-free
-> like every other property iteration: it can race property surgery and
-> see a stale view (a removed property's ->next is repointed at the
-> deadprops list), but nothing it can reach is freed while the node
-> reference is held. devtree_lock covers only the pointer load,
-> pairing it with a later patch in this series that clears of_aliases
-> and drops its reference when the node is detached at runtime.
+> In the devicetree path, the notification IRQ can fire as soon as
+> devm_request_irq() registers the handler: the interrupt may already be
+> pending at probe time, for example when a VMM injects the
+> generation-changed notification while restoring a guest from a snapshot
+> that was taken before the driver had probed (Firecracker does exactly
+> this on snapshot restore). The IRQ is also requested with IRQF_SHARED,
+> so another device sharing the line can trigger the handler just as
+> early. The handler then calls vmgenid_notify(), which dereferences the
+> still-NULL driver_data and panics:
 > 
-> Validate the value before resolving it. of_alias_value_ok() requires
-> a non-empty, NUL-terminated, absolute path:
+>   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
+>   CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.18.38+ #1 PREEMPT(none)
+>   Hardware name: linux,dummy-virt (DT)
+>   pc : vmgenid_notify.isra.0+0x24/0x8c
+>   lr : vmgenid_of_irq_handler+0x14/0x34
+>   Call trace:
+>    vmgenid_notify.isra.0+0x24/0x8c (P)
+>    vmgenid_of_irq_handler+0x14/0x34
+>    __handle_irq_event_percpu+0x44/0x1bc
+>    handle_irq_event+0x4c/0xb4
+>    handle_fasteoi_irq+0xf8/0x1f8
 > 
->   - an empty property has a NULL value and crashes in strchr()
->   - a value without a NUL inside the property is read past its end
->   - a relative value naming another alias (loop = "loop") recurses
->     through of_find_node_by_path() until the stack is exhausted
+> The ACPI path has the same ordering problem: the handler is installed
+> with acpi_install_notify_handler() before driver_data is assigned.
+> ACPI notifications are dispatched asynchronously from a workqueue, so
+> the window is narrow, but a notification arriving between the two calls
+> hits the same NULL dereference.
 > 
-> All three are reachable with a malformed boot FDT today.
+> Assign driver_data before registering the handlers. The state is fully
+> initialized at that point, so the handlers are safe to run. Should
+> registration fail, the probe error path leaves no dangling pointer
+> behind: the driver core clears driver_data in device_unbind_cleanup().
 > 
-> The name comparison loses its redundant strlen() pass while here.
-> 
-> Assisted-by: Claude:claude-fable-5 [Claude Code]
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Fixes: 7b1bcd6b50a6 ("virt: vmgenid: add support for devicetree bindings")
+> Fixes: e07606713a90 ("virt: vmgenid: change implementation to use a platform driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhichen Wang <wangzhichen@manus.ai>
 > ---
->  drivers/of/base.c       | 20 +++++++++++++++-----
->  drivers/of/of_private.h |  8 ++++++++
->  2 files changed, 23 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 477017ed6f49..eca1f55eee87 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -995,6 +995,8 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
->  
->  	/* The path could begin with an alias */
->  	if (*path != '/') {
-> +		struct device_node *aliases;
-> +		const char *value = NULL;
->  		int len;
->  		const char *p = strchrnul(path, '/');
->  
-> @@ -1002,16 +1004,24 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
->  			p = separator;
->  		len = p - path;
->  
-> -		/* of_aliases must not be NULL */
-> -		if (!of_aliases)
-> +		/* the load pairs with writers that retire the node */
-> +		raw_spin_lock_irqsave(&devtree_lock, flags);
-> +		aliases = of_node_get(of_aliases);
-> +		raw_spin_unlock_irqrestore(&devtree_lock, flags);
+> Verified on Firecracker v1.14 (aarch64, devicetree) with a snapshot
+> taken before the vmgenid driver had probed, so the injected
+> notification IRQ is pending when the restored guest reaches probe:
+> the unpatched kernel panics with the trace above, while the patched
+> kernel handles the pending IRQ as soon as devm_request_irq()
+> registers the handler (/proc/interrupts shows the vmgenid IRQ count
+> at 1) and boot completes normally. The ACPI path change is
+> compile-tested; the window there is analogous but much harder to hit.
+ 
 
-There's no need to take the spinlock for just a get. Furthermore, as 
-long as the of_aliases pointer is exposed to the rest of the kernel, a 
-reference should always be held. Not that you should rely on that 
-here...
+This patch went to gmail spam! I only saw it by accident just now.
 
-Rob
+Thanks for this. I'll try to test and verify this on Monday. Do you have
+a handy repro script you were using that you can share? Also, wondering
+if you saw this happen in the wild.
+
+Jason
