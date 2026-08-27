@@ -1,73 +1,72 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874A5386C1B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E013DD867
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872607; cv=none; b=qEJOzgTyrMTzUtzXi+zdmiUHfCMz59jm3Q9EbBmpCoCXbLTTXJ9Zu0fWdjWF22IjizH3k/7PGY464miwdrnsnCMJIPSGVyiO+h8T4M5Ja/o2XL37YGD89z5rVB54JVjH05Ni+L6zUVW+9VaAdNqUqKLJVZTI1bbZj/jB+Qctnp4=
+	t=1787872609; cv=none; b=c6PRSQeDcrsjN662wdJY2CvrLoEU/crA2/RLcESIGLfNCiwW3Wew1FmPiq9RKFf0kXCecYXjhDxMw04fFbZhAW7G6blfStPKu5ErozXSxcbEwr2h2PjJdxSEtP3YIyM/vzr5Gpx8K1egzqii29Russ2e3N2P3PCEEj98qhvB1jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872607; c=relaxed/simple;
-	bh=oCddYuoTsYPPcLkUBXWxx1kKdBtdMsF20eD0FytAAIc=;
+	s=arc-20240116; t=1787872609; c=relaxed/simple;
+	bh=n567tHGqvor1+SDF3naMt/LtkzaL4BIx5mwW0lj2VXk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hWI59rezbIMQxDeoS8FXgPfA/Go71RBv15MZ2GYHWy0Zme98uVng67LhNX8OgEfnu/50IuL5C0IBPnX0cT2BLrTt2bOhyzVaCWNjmtIKREXs35huZ9z/kbHNUSiW1vomD2pwkrzyl8Sd2CSVjut3QkBFNViGRBFbsBYY/tKGHHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cp3ISGIo; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=YWSZFjgSDF+2C51rs3L7+U0mq5JH37tlNYN7ruoSxdn4U9Jry0s/bCNMWIqcBesJlva39DVWJqd5PGUR338N1gvlxAqdyjNWxwDLaeGQgIG5sRF31a/mlHo1T5cLQgqvIFIOX1PfYj03SbzVM23GAPqUJwxBs54V2fgEEVc9bJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNJGxtYw; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cp3ISGIo"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so3762805e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:16:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNJGxtYw"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso2385045e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:16:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787872604; x=1788477404; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787872606; x=1788477406; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KgM2YmzxkKBqGF8ip3+p7pPQCfGLs74Br2HySqIdTbo=;
-        b=Cp3ISGIowMc3mS8puCjdTXWG1dO+PDppSzQwUnallrrEOmu8i0LA68W0NV7KY6Shib
-         2pyIYyGnSseTHGpA+MoAahKsslNEeTtkJZzF1qJZOfh1Mvb5JndrgHJu3Gw0m09DtNci
-         GcCaXDhaVKgFaUOuqHHpObOKVPthlIjOEgjJAPq4VRTheQCwHYFb9WzXnnUwkVYUmSZb
-         n/892VV7S5FtqHZPHMW0JyPXcH54YlLehQI3qw2z3kifEsXYZDIc3TiSZNyi/LG1ED+E
-         V2Z5GGWrcEYCNjBX4ZckL/Nkit9drK/etY7dX9TKLN+PmVMEuD7t+rs1OVpZlfnXu8R9
-         WqpQ==
+        bh=f+9S170MlscuNSfo8WIf7pJC/QBmqFjzihs/uLiPowo=;
+        b=pNJGxtYwssZylexF3uJoA+WGlzU58BY1O6WR8Fe7I+RIPx4bkOeZUtWH+UBY1dehJ+
+         00CK4for+gx2ajBgNRRXFk3/MwGB/ZIlxUEOPc7AFSOBYqwqreQTJgIdMovHrSKez16m
+         bS/YHxLuIjy+rPXgsZcZk88sTpu7i9d3u7SsbC3Dw7K3z/dujSK7qPbgwEFCzb0uWpT0
+         cmaKmw8alRQtZ9FueurPWFge+nrgWkSYyPP4UGc0846O9LKaG4U8p4c73sbe5wd5gaLl
+         ieCk3TCJptkxanZO71fRbynj92H1BsUINPRxTWw+xs/zy7H2yRfAs8dQ1RXLIBSDODEk
+         GqhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787872604; x=1788477404;
+        d=1e100.net; s=20251104; t=1787872606; x=1788477406;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KgM2YmzxkKBqGF8ip3+p7pPQCfGLs74Br2HySqIdTbo=;
-        b=MYxWHWppT8hpmNEYtIeywvY2edcMkmVF62lUeU8uSYYY++KlTJ3l9rLkN6T5VPwami
-         TqH+SJNaMiJy95cE7hnexB/O6oqDqiLMxpyRLUMIcm7AAhh8ilWjTBJaTVYa98OOuAa/
-         FALQtRIS7FYxH7NUwPe5wM6+dFBVa5Y0jeuxBaIrecK8FRT7rlF4v5rNCQ6gDxkINDzg
-         wtdB4ay0J5j+1Huc6V4TrAV6H1UnWWtdUo8MWgq6sJtMpat0004eNNS6jYZAAGHRKSFw
-         1hn2OFkPRUE7Gv9P5AqZSUE830CH5N8vfA7rhXZ0Or4TDI5MlqgWnFC6fLyIFyfkMBDG
-         LXhg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8vbgCgdgz6vAEhHJibbU1CiGu2ahZeZoa6mlb7T/TGhWRFouo2CQi16ajrlEgnK9mEYHmoEMSkmlrz9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8EYbaz5+y2J6kfdxPCzWb3bETL8UwjUeOQwkILcqtoh8tTz1X
-	+Hy4/joPWiRVbU4USEXlKFt9L+tVj0jzfMIEvFbA/H55KRCNHVC7VBTg
-X-Gm-Gg: AR+sD11WLXUt/Zu+mVtEtDUQabsZBHkKsFCPYj6xbMBKQl8UEODCR4Tsl0AaCaMOMPS
-	oi1TrJrKeBylGNuV/dHq7Nu/HO+LTFAfnU0lzv+dY7uAg4JB6UJuTa2rFbZlsLxlJqcL9XrTy7S
-	C1j1kb7F9+hMmVdvQZ+oiqJl6/Bdl4UVHHfAQxu3YpwC2IpmJGstqQPKrjd1Xosg8LVMBYYi11A
-	zH+K4dSNz0yphB0VNJveg2QxOBdyLgF2otppDE04+JX6sl9uU1ORmizUhhynKm0mxFGW5sjuWJF
-	hwePRd3sYEtCfKosRkyzTLsgbu9hGzbA18h81Yd4FJsPbRWHgpbkf4q5H4pjbKqaWvusOcOFh/j
-	fLV9hOl8BS3tY/3UUY2Sz9eXcRtzTJRgpnPYvb8nCFprhcSrNAxJfnnrUwqssd5hmKhr/vykL4D
-	1eJiH866az5kptrEOhh6UR8sWXxqh0Ovo5LXQoz7OopC5gzpS7VIixrKHEXfpYMtj7LaXQWzkJS
-	+d/U4Syyu4Gaf9c6tbpsGajWVQXFq9Y4zZLjL1gnveZ7dCiYj+kbFo=
-X-Received: by 2002:a05:600c:4f86:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49b91c4faa6mr27292105e9.12.1787872603783;
-        Thu, 27 Aug 2026 16:16:43 -0700 (PDT)
+        bh=f+9S170MlscuNSfo8WIf7pJC/QBmqFjzihs/uLiPowo=;
+        b=Bp8E3Ok86bqBrkW/mSMSGyEzfYXSOnXwXc8YmyD55sp5RL+msV13nLRiieGJCe9tJB
+         rt+KhDpaJDiox+lQaurKMYdvf3DJ6BiWVA7+QPD41N3Q3BV15lZCyLFQC5uQ/GLlqfPM
+         kHDhQWkZUx0LLPJEampQQmdhtUTImrw8E/IFmPghI33YSB/x1ozJzvnKziFjzDRSISUf
+         SIzskAbLSI2dpFZmK1Ga5X+HWvPRNa273V6LTdPXYsCJn9/W2L+FZJZzRIvZzm3qfbrL
+         fEfrSsGL5OmbdhRWEsDamFSHdXCqNp3lkT4la81laRcPjjOT0sfErukl38bCczUNbb4a
+         q8Xg==
+X-Forwarded-Encrypted: i=1; AHgh+RrRklf7YXvvyS7mlRLH+6qhLUyUrlS0UMWKncBMfqBYq4k/tP67TIxj5lqOgdiFOvU1gNKMpX4LymRB1CI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrdiXPLNlESEff152n7mMIwAgrVtgJi25iV4lrMFxAyF+mKudE
+	U/HpVK/KbF2LedEDMSMarQJK6ALTolUQi6s6RzD12+nb8vxV/xYbQ90P
+X-Gm-Gg: AR+sD10au3NF1r6mfGcu5K+fwr1Tj2B/gcGbMlBP2/zmrqQ+5FwrJTwWP0w2u9RJIAj
+	5U99HnHm1nVn3VIWbzRGr7+K/HDOMwALoq/DbSowUyv/RNhyPc5mYPG70wa4Su4Hvzwi2oCfwxP
+	tcUFXtzy6F5FDqSFhO48scogsXsXmiaf46v/glxOkLd0dyrr/9gPpOAFKmiDRo9ig6YVwLk3ILu
+	gIM0/r8eKvZal5EeUp03wSdA00GfoqEPl1PrwxOETraNSlXdzUa2XbzJRl7TxWoF5swuyPuywgS
+	07xojZp+D9OA6jvpXr0bjGamHSPnKeJxf2GKMEKDbfp0GpKHK1aABv2pf+7sQqtFMAC5K2OQeKP
+	wSXO+JAEqD0QpAWZiOmN6AJDxV5wJbwz28C/5C0ybRtvVZNEq+7jfmWGG6tFhkr1OPZKyjhndFV
+	za6fYqHDlwqavVwW1depyumqwwp9nf1fOkovt3GrbzT7t82uqJk1Rb0+8YLGXHtYPA2HvUfaZV6
+	YybTlZJwoRx5Dw+QHhJOkKup8njofyXlk7zemlnkEqof2qgd3S9zk1e
+X-Received: by 2002:a05:600c:870c:b0:499:dc34:bdc with SMTP id 5b1f17b1804b1-49b91c1c401mr40582115e9.1.1787872605613;
+        Thu, 27 Aug 2026 16:16:45 -0700 (PDT)
 Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9269f1b6sm9835725e9.4.2026.08.27.16.16.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9269f1b6sm9835725e9.4.2026.08.27.16.16.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 16:16:42 -0700 (PDT)
+        Thu, 27 Aug 2026 16:16:44 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH v2 1/2] Input: drv260x: Restore configuration after device close
-Date: Fri, 28 Aug 2026 01:16:36 +0200
-Message-ID: <684969b0f53a9e5f83636b219c139e904e74e14f.1787872237.git.mauriziocasciano7@gmail.com>
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v2 2/2] Input: drv260x: Fix suspend and resume sequencing
+Date: Fri, 28 Aug 2026 01:16:37 +0200
+Message-ID: <4454f96d3f5b78db90732cea5c1b1373ed0a2d65.1787872237.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.input-v2.1787872237.git.mauriziocasciano7@gmail.com>
 References: <cover.input-v2.1787872237.git.mauriziocasciano7@gmail.com>
@@ -79,65 +78,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The enable GPIO resets volatile device registers when it is lowered. The
-input close callback lowers that GPIO, but the next open currently starts
-playback without restoring the actuator configuration.
+Force-feedback playback is queued asynchronously, but system suspend
+can cut the enable GPIO and vbat supply while the worker is pending.
+Quiesce the worker and reject new playback requests after suspend
+begins.
 
-Raise the enable GPIO, observe the startup delay and reinitialize the
-controller when the input device is opened. Keep the configured actuator
-mode unchanged during playback so later initialization follows the mode
-selected by firmware.
+The enable pin also disables I2C and resets volatile configuration.
+Raise it before communicating on resume, observe the startup delay,
+and rerun device initialization. Restore the same state if regulator
+shutdown aborts suspend.
 
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-input/20260827182855.DE8E91F000E9@smtp.kernel.org/
+Assisted-by: Codex:gpt-5.6-sol sparse
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 ---
- drivers/input/misc/drv260x.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/input/misc/drv260x.c | 42 ++++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
-index 6c5c4c53753b..f26a9052edd2 100644
+index f26a9052edd2..c64a86bc9bfd 100644
 --- a/drivers/input/misc/drv260x.c
 +++ b/drivers/input/misc/drv260x.c
-@@ -243,8 +243,6 @@ static int drv260x_haptics_play(struct input_dev *input, void *data,
+@@ -181,6 +181,7 @@
+  * @work: Work item used to off load the enable/disable of the vibration
+  * @enable_gpio: Pointer to the gpio used for enable/disabling
+  * @regulator: Pointer to the regulator for the IC
++ * @suspended: Whether force-feedback work must remain quiesced
+  * @magnitude: Magnitude of the vibration event
+  * @mode: The operating mode of the IC (LRA_NO_CAL, ERM or LRA)
+  * @library: The vibration library to be used
+@@ -194,6 +195,7 @@ struct drv260x_data {
+ 	struct work_struct work;
+ 	struct gpio_desc *enable_gpio;
+ 	struct regulator *regulator;
++	bool suspended;
+ 	u8 magnitude;
+ 	u32 mode;
+ 	u32 library;
+@@ -215,6 +217,13 @@ static int drv260x_calculate_voltage(unsigned int voltage)
+ 	return (voltage * 255 / 5600);
+ }
+ 
++static void drv260x_set_suspended(struct drv260x_data *haptics,
++				  bool suspended)
++{
++	scoped_guard(spinlock_irqsave, &haptics->input_dev->event_lock)
++		haptics->suspended = suspended;
++}
++
+ static void drv260x_worker(struct work_struct *work)
+ {
+ 	struct drv260x_data *haptics = container_of(work, struct drv260x_data, work);
+@@ -243,6 +252,9 @@ static int drv260x_haptics_play(struct input_dev *input, void *data,
  {
  	struct drv260x_data *haptics = input_get_drvdata(input);
  
--	haptics->mode = DRV260X_LRA_NO_CAL_MODE;
--
++	if (haptics->suspended)
++		return 0;
++
  	/* Scale u16 magnitude into u8 register value */
  	if (effect->u.rumble.strong_magnitude > 0)
  		haptics->magnitude = effect->u.rumble.strong_magnitude >> 8;
-@@ -426,6 +424,21 @@ static int drv260x_init(struct drv260x_data *haptics)
- 	return 0;
- }
+@@ -583,17 +595,21 @@ static int drv260x_probe(struct i2c_client *client)
+ static int drv260x_suspend(struct device *dev)
+ {
+ 	struct drv260x_data *haptics = dev_get_drvdata(dev);
+-	int error;
++	int error, restore_error;
  
-+static int drv260x_open(struct input_dev *input)
-+{
-+	struct drv260x_data *haptics = input_get_drvdata(input);
-+	int error;
+ 	guard(mutex)(&haptics->input_dev->mutex);
+ 
+ 	if (input_device_enabled(haptics->input_dev)) {
++		drv260x_set_suspended(haptics, true);
++		cancel_work_sync(&haptics->work);
 +
-+	gpiod_set_value(haptics->enable_gpio, 1);
-+	usleep_range(250, 500);
+ 		error = regmap_update_bits(haptics->regmap,
+ 					   DRV260X_MODE,
+ 					   DRV260X_STANDBY_MASK,
+ 					   DRV260X_STANDBY);
+ 		if (error) {
+ 			dev_err(dev, "Failed to set standby mode\n");
++			drv260x_set_suspended(haptics, false);
+ 			return error;
+ 		}
+ 
+@@ -602,9 +618,15 @@ static int drv260x_suspend(struct device *dev)
+ 		error = regulator_disable(haptics->regulator);
+ 		if (error) {
+ 			dev_err(dev, "Failed to disable regulator\n");
+-			regmap_update_bits(haptics->regmap,
+-					   DRV260X_MODE,
+-					   DRV260X_STANDBY_MASK, 0);
 +
-+	error = drv260x_init(haptics);
-+	if (error)
-+		gpiod_set_value(haptics->enable_gpio, 0);
++			gpiod_set_value(haptics->enable_gpio, 1);
++			usleep_range(250, 500);
++			restore_error = drv260x_init(haptics);
++			if (restore_error)
++				dev_err(dev, "Failed to restore configuration: %d\n",
++					restore_error);
 +
-+	return error;
-+}
++			drv260x_set_suspended(haptics, false);
+ 			return error;
+ 		}
+ 	}
+@@ -626,16 +648,18 @@ static int drv260x_resume(struct device *dev)
+ 			return error;
+ 		}
+ 
+-		error = regmap_update_bits(haptics->regmap,
+-					   DRV260X_MODE,
+-					   DRV260X_STANDBY_MASK, 0);
++		gpiod_set_value(haptics->enable_gpio, 1);
++		usleep_range(250, 500);
 +
- static const struct regmap_config drv260x_regmap_config = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-@@ -528,6 +541,7 @@ static int drv260x_probe(struct i2c_client *client)
++		error = drv260x_init(haptics);
+ 		if (error) {
+-			dev_err(dev, "Failed to unset standby mode\n");
++			dev_err(dev, "Failed to restore configuration: %d\n", error);
++			gpiod_set_value(haptics->enable_gpio, 0);
+ 			regulator_disable(haptics->regulator);
+ 			return error;
+ 		}
+ 
+-		gpiod_set_value(haptics->enable_gpio, 1);
++		drv260x_set_suspended(haptics, false);
  	}
  
- 	haptics->input_dev->name = "drv260x:haptics";
-+	haptics->input_dev->open = drv260x_open;
- 	haptics->input_dev->close = drv260x_close;
- 	input_set_drvdata(haptics->input_dev, haptics);
- 	input_set_capability(haptics->input_dev, EV_FF, FF_RUMBLE);
+ 	return 0;
 -- 
 2.53.0
 
