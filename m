@@ -1,103 +1,118 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77176448D03;
-	Thu, 27 Aug 2026 12:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E3744E67D;
+	Thu, 27 Aug 2026 12:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834884; cv=none; b=XQjMU7ZzoT4USUns/3UwUi8RboiBsZ7jaPaMDEB0jZY7x9qOl4AhMaay7a+gzaDTEJqjSk7Sbkzw+t/pX7B1q77EiP1SsbsSCC7Dil+ZQpqVxG5aKKfQtrOPgHz1uE5mvYO1ee+/xTLanV8CUM3MVeTSVLqIm6c34oTmIO/8Kh4=
+	t=1787834910; cv=none; b=RmjJ3PSW03c4XekwjIHbbEyySa0mCb+IhyGHBykxgbkfzMGiBxzoyVZqhbltZPComdU/kX5+Nq8l05dJEXK2KopZHZGc6Pd9Wz1DHnKv4/4f5l5A7sTgaTt9aYPp3bcbJsBsqogloa5gL8wdhCKO0GvSFMVSRO9xBwF75ApWb1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834884; c=relaxed/simple;
-	bh=v1JaVfxuyGv/K74VJD51tsMnf1tz0lr+uJWFqv3nvvA=;
+	s=arc-20240116; t=1787834910; c=relaxed/simple;
+	bh=LSe4ClYHyzoUMjPQ2O2AIJo3kbtl9bxf0qFjcfWnhxI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AR/lWPb9ELUfH61+ScARpKa9RX6RN6Md03XjOtojRvARmzyt5wNQ4vZJxeHinkgT8ZcvfBnGNSzrjuyvfep1ydoydtG7qJPEZcEpFQ2AZauDZgX2tOSV6ImIk8/uUFcQ+d9hOHJ92qEyw4D+W5ERC4SbFJgrJPlYKPjJkeIMrbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JA111HCB; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=RrcBN1Q4TEUMXrdD78pnmYtDOcWIb4yFmJDpWXjriVwVKTFmtXXA8KzONefcng6MgtnK7Mmeb3yFms9NzG9rVplxN4Dug4vjrCw3dLdaw8/wuuRTuRceceQCqTVgISnASQLziJG9raDB3d9yqGBH1HIxu2UjB+W+Jnt+a/3dBjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H0en+QKU; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JA111HCB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9GvVHe0werWHOnB5OKAezI41CKNF471yfbWq1NBqM6I=; b=JA111HCBUnv1a1obfctaO5gAQG
-	5zsPQXXv8AndgRDdRiSQgyzO1z3QZJL6rvZVgu2I5kFTsMM3r1azON03fbAv37lovBdcbLtUdzSka
-	1i7qY5qj2LuSAVHe0etcDlBIvj2I0DW8ZsUJBcdpwwFkoxknUyUYeBzqxp4ql9B0Vvwg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzZVy-001fK9-19; Thu, 27 Aug 2026 14:47:30 +0200
-Date: Thu, 27 Aug 2026 14:47:30 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H0en+QKU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787834892; x=1819370892;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LSe4ClYHyzoUMjPQ2O2AIJo3kbtl9bxf0qFjcfWnhxI=;
+  b=H0en+QKUMhnOmVWXKY7E3/GkeNWmuwbK9r2Qew8Hhj0gC3NQUxMMcTD8
+   vxU1SoakSXjd/PsR79XsHUG04x4tbK3TrdKTFx+a2TJB0DEDHTTQBS1cH
+   XMATIco6XqkOri0wQ7Bd8GDPH0+ppTUtHM5bXdE3KaKpAHvymc0T/roxS
+   ZFPTT+jUjEh/jIZfnubQeLMHs4Ey4Uul6qT+85/vfzgyXcBxPv8WETxck
+   DkYhMrGRBLN2rQWE+PYidwS1CzK5TVfke6FClhqMtEFleh7zMvaDepMJz
+   X5OGsLg5FpBulPIYLGvQ635wR70vUscdxsN3dwNzjlMv9ZRV539AD9rbn
+   w==;
+X-CSE-ConnectionGUID: cCKBK2g0RQiIQntxRzc7+g==
+X-CSE-MsgGUID: G8nVrgYfQMOQF148UCRGKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88189819"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="88189819"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:48:07 -0700
+X-CSE-ConnectionGUID: 5r8ZA7vORXinB4cAgEhcqQ==
+X-CSE-MsgGUID: wbyizxAKSNCFhTkpZJP1mA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="271386983"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:48:01 -0700
+Date: Thu, 27 Aug 2026 15:47:57 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <jan.sun97@gmail.com>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
- output-impedance
-Message-ID: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
-References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
- <20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
- <20260826-salutary-skype-524c69932dc2@spud>
- <87ik4wgfbc.fsf@pengutronix.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mark Brown <broonie@kernel.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
+Message-ID: <apAx_ZUDQ6G6XVuc@ashevche-desk.local>
+References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
+ <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
+ <ao_z9QTJC_q8gH0v@ashevche-desk.local>
+ <aed972ef-3776-4055-81aa-63255d072b8d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <87ik4wgfbc.fsf@pengutronix.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aed972ef-3776-4055-81aa-63255d072b8d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
-> On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
+On Thu, Aug 27, 2026 at 01:17:13PM +0200, Janani Sunil wrote:
+> On 8/27/26 10:23, Andy Shevchenko wrote:
+> > On Thu, Aug 27, 2026 at 09:34:48AM +0200, Janani Sunil wrote:
+
+...
+
+> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(ad5529r_vss_supply_names); i++) {
+> > > +		ret = devm_regulator_get_enable_optional(dev,
+> > > +							 ad5529r_vss_supply_names[i]);
+> > > +		if (ret && ret != -ENODEV)
+> > > +			return dev_err_probe(dev, ret,
+> > > +					     "Failed to get and enable %s regulator\n",
+> > > +					     ad5529r_vss_supply_names[i]);
+> > > +	}
+> > Hmm... Can we use bulk regulator approach here?
 > 
-> > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
-> > > Currently, the output-impedance can only be set to default, minimum or
-> > > maximum or via a nvmem cell.
-> > > In cases where there is no backend for a nvmem cell, a value can not be
-> > > set.
-> > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
-> > > output-impedance via a fixed value. The existing boolean values for
-> > > minimum and maximum still take precedence over the new value.
-> > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > > ---
-> > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
-> > >  1 file changed, 16 insertions(+)
-> > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > index 7a6fe516bab27..49fafe3ce6f47 100644
-> > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > @@ -38,6 +38,16 @@ properties:
-> > >      items:
-> > >        - const: io_impedance_ctrl
-> > >  > +  ti,output-impedance-ohms:
-> > > +    description: |
-> > > +      MAC Interface Impedance control to set the programmable output impedance.
-> > > +      Valid range is 0x00 to 0x1f (32 steps).
-> > > +      - 0x1f = 35 ohms (minimum impedance)
-> > > +      - 0x00 = 70 ohms (maximum impedance)
-> > > +      - Step size varies with process.
-> > > +    minimum: 0
-> > > +    maximum: 31
-> > 
-> > Your property is named in ohms, but not implemented in ohms.
-> 
-> So without the -ohms?
+> I don´t think the bulk helper fits here. Each VSS supply is independently
+> optional, and there is currently no optional bulk get-enable regulator
+> helper.
 
-No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
-etc.
+Ah, I see. Yeah, then we have to live with a for-loop...
 
-Have the driver do the conversion from Ohms to the magical register
-value.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-	Andrew
+
