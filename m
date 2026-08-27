@@ -1,80 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D5A466AF5;
-	Thu, 27 Aug 2026 13:07:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10799456DE0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836052; cv=none; b=gt34KLKRHv1EDJe6ZGO7pwiBntoATJbZ5WTzUPSc4JqZ0piTmk2vaL7UuCkoZgOOE/Q+weOJVdvCHrkAwNB7V5Avv9y+8c9X3ewYH0mFa1FmqHwsB+ncpYandKnSyu3fB1VSlSXnvQvw3HOO22YOLXYaOoGd4GMuawJwZKRViAg=
+	t=1787836081; cv=none; b=EwmcO2xuW0bL91FOF1cshN8Om6Fyk5xl9V2ZJ3IZAes40UjIBKuiZsfVEuAaRdFc7VYkpjHqxc1dozSF+wocGJuwHohh+/QDbSdHOYNADEW53q+OnlIkFPPl+4yS5wavJ9eKHp28TvGE3i7nELPxLsCzcORQegolhjtluH7ewko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836052; c=relaxed/simple;
-	bh=E7idqHOncmG7mF6Fij9tBltdrtulZ+mN4mIw16QKjBY=;
+	s=arc-20240116; t=1787836081; c=relaxed/simple;
+	bh=oP+7K0U7f/7k6ULptFAlBCzvX6+UF6UEPqqqOr6WHTY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uGGRChldbHthSWZj7PyGyMTqp1ElvXT14Yvf26uPij5v1rLzS8UlrRDq6wd0QBPryI64ewhuV3guy2RwgzKDaecXAJQwrSeN/1ip7e/R29GQD8HaLPIXq3a3U2MhephiEo3TuzthwTR3wzNoJt2b0GTQwgyq9lWG0VYaEaRdTuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbkNkqof; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=b10fkJvgtf65ei9IAoPnJGvckCYzI+cEQy7RoNup9P3lSIVlmSwDDjtBPAFy872dLtiDzSiWFFSbJC0hxMKgknTC1fOPCq3ETa1z9sEIHScUYG0dRT0M0e/K2SWKyV13xyAmnrSfmrooi6pz5WefSl7bQY8/TyQINzjYTxNW9Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1ZTwjkk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbkNkqof"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119E81F000E9;
-	Thu, 27 Aug 2026 13:07:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1ZTwjkk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011471F000E9;
+	Thu, 27 Aug 2026 13:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787836036;
-	bh=E7idqHOncmG7mF6Fij9tBltdrtulZ+mN4mIw16QKjBY=;
+	s=k20260515; t=1787836070;
+	bh=oP+7K0U7f/7k6ULptFAlBCzvX6+UF6UEPqqqOr6WHTY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HbkNkqofgca0N5Jj0aw+z4giRuz2xH3T4sWKZErKe9iV4Rla0Ul7qRVW3meU6hTXL
-	 RzzC9URElHLfzSvuCUSJYk3m1rOoSCwWZF9jw7cIi3PZc2OncHlWQ+h4B8Y5z6Ddiw
-	 n77PfXAVcTjuX5X9CAcdV7kvHjURMrI4WdBes/IYYEwo4uXXFeoFb4SfCnK71sp965
-	 30BGGHUNDgnXCTK7aoRz3uiKhnspaGD/wTywqrV4qixFUcFlswhKBVUbRn4tVS+DEd
-	 KJQ7cLa5lGntEhy47ujyEYXAFoaD8QVFk6JXT5hbfLWbh+7/oCVqr6vR334kaCWYGd
-	 VfEUHF4prbYhA==
-Date: Thu, 27 Aug 2026 15:07:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, 
-	Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
-	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 7/9] dt-bindings: arm: stm32: Switch
- st,stm32mp23/25-syscfg into simple-mfd
-Message-ID: <20260827-skilled-optimal-shellfish-c548e5@quoll>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-8-marex@nabladev.com>
+	b=g1ZTwjkku8NYz28tCgrC7ro8xgeZQIXfzQPBhs5PJHXFNMwZeTFG9jSnsgWtNJvO9
+	 pzjf9YygEswaMc4vm0upoTYTJ5Jy1uDlZlYvTeS8WUe7BeZQxZh8XQZmVGh5eoVVz2
+	 dlbYSCtk/1iGgs9KMO7tp5WP0HXwJI7tBQz3vBl+nOOzyzjhLKShNjIyeU7qglrU28
+	 qwM1d+elfM8jndjAP8AFyEU/0bIzzIdDM/a78gMxoXndkcDKRcvItpkCFhmTk3ZOF2
+	 3gVonNoZ0FH7GnXDv304QoWGSTsszNvSZKrUfRKrCwxk0+tkESGT/KcE01Fac3vtH+
+	 VnVSTCZ8XhsWA==
+Date: Thu, 27 Aug 2026 14:07:44 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kirill@shutemov.name>, 
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Message-ID: <apA2lxYv7r5qaJR5@gremlin>
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+ <ao7S-wjzcMIgM3s-@thinkstation>
+ <adf90329-020f-4a2a-bac5-fe815b692a7d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260822074816.548662-8-marex@nabladev.com>
+In-Reply-To: <adf90329-020f-4a2a-bac5-fe815b692a7d@kernel.org>
 
-On Sat, Aug 22, 2026 at 09:46:40AM +0200, Marek Vasut wrote:
-> The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
-> represent the USB 2.0 FEMTO-PHY. Turn the syscfg into "simple-mfd" so the
-> PHYs would get populated by the OS.
+On Wed, Aug 26, 2026 at 02:52:27PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/26/26 14:04, Kiryl Shutsemau wrote:
+> > On Wed, Aug 26, 2026 at 10:56:39AM +0100, Lorenzo Stoakes (ARM) wrote:
+> >> Unfortunately my workload is such that I simply no longer have the time to
+> >> give THP the focus that it deserves.
+> >
+> > Ouch.
+> >
+> > I guess my 57-patch series did help the situation :/ Sorry about that.
+> >
+> > It would be only fair if I share review load for THP. I will try to be
+> > more active on review.
+> >
+> > David, I can send patch if you are interested in my R:. I know thing or
+> > two about THP and can be useful there.
+>
+> Yes, please! :)
 
-Sashiko comment is partially valid - you change the ABI in incompatible
-way, by requiring a new compatible. Commit msg should briefly explain
-the impact, e.g. that there is no impact because phy was not
-implemented by Linux and was not described in the binding.
+Thanks Kiryl :)
 
-OTOH, adding simple-mfd means children have no dependency on the parent,
-so this should be considered or even explicitly mentioned in commit msg
-(parent clock is irrelevant to child, right?)
+>
+> --
+> Cheers,
+>
+> David
 
-OTOH2, you have now patchset dependency which is nowwhere explained.
-Merging constraints are the most important part of cover letter so must
-be clearly stated. IMO, should be stated also here, because many
-maintainers do not read cover letters. Or just decouple dependencies
-with using 'compatibles' pattern (see Qualcomm msm/mdss display
-bindings).
-
-Best regards,
-Krzysztof
-
+--
+Cheers, Lorenzo
