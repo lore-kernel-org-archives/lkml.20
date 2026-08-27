@@ -1,126 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D9738238A;
-	Thu, 27 Aug 2026 03:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4003859F9
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787799959; cv=none; b=cZL2+lfa+YCjupHZ3pkZvEVWbsE6YeDbYQUumH8kSIMzXf+ITvSRsONhgPAqKsn9Z0fJKa/zHTg8lUa+/8rrTnidcqfuI34WWzPP8VMmvv5NVVzkvaumF5bRgQt7tyee8pNmrHs2K8DnnKB0LlvtMX15AqCq2R9W44dqLQ84SD4=
+	t=1787799960; cv=none; b=eRvlII+YDppiGINVjvNRxab39UmJcDE4vsEewq1kxuGyWKb183+aonWSbC24w2cKptiuT2g7fyNhoe/kdIXbyh2xsCjBCbJKNXi+oixQwCFc+2blJ2AOD1EM5pMqGYrMlEvO34L0sWOZbHun0Zr8yua3jSnR9ATxvEvCiZ3hDQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787799959; c=relaxed/simple;
-	bh=AUx7U3OpWJcrye93z38lmXpDH4ADz5pRhq1T4nZWzLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZtRoTCqqL1Xl+o5zN12uSdsCVkqj5orMZ24y0GgztLgWnIFGp2BBO7XG8X7Ys4CP/JVYJ2EYMRe3AEvjQXOgorFadGS+76aJfqSfl9DuYqrMBcMgDP2FJU2gLhChMRv5643RjKNYyyY3beCLWyPm5apdqwlEE4yRSYMdd9+s+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgtOCfGU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787799960; c=relaxed/simple;
+	bh=PgTwae9rp5+uHQu2x5Plm8RvuP6NFVgtME4CwAVFnT4=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=T+1rE27pRhlUPDMxMgPFRe1uQmgB+IPBFCldo/8xvgg4f6eNtuKIc1n3Ayt3Zu8kLT1G4Ezhvmn9XJIIrYiumAFXlUpSxiVs8ga70AJBg02SL7L1907zYc9wTsUAK6eQeqvV1WCuG+u0iyDTDhk+cQaTltcAqN/EzAxRX23yg6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mbou9KgA; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgtOCfGU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F0F1F000E9;
-	Thu, 27 Aug 2026 03:05:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787799957;
-	bh=k8RVPVMvXObg79Z+d2yr4Qr7Zpo99L01oMO9TL4qGKk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KgtOCfGUqH0E3we6ceMOklZKjQ7GgeMzUFGCsSG4Gbdkf7i+Brr6QCWOX+5dvr4+w
-	 /A1Otz23lnUucA33XK2Mb+LW13Zy/Di9CFjCwaPXutTvM7vYooZkjNJ2ZSdGetPoX/
-	 5Bf/CJT84LA1HlMhycAVG4kgYdYnZ2870exm6pEv/QNIKEWASijtInLXgTMCn5Xo+j
-	 +KOqY0r3GkxN24UBvdDS5WcRgaC6tKeUL8cc9JvA7UFcsgFIUop0Cqp21bahgWbaZP
-	 Z16KRunuY6kNKzyc2msM2C4O8DVQy18DXn8C6buLTmSPq8nuZLJnLJEsY4hTDg44+s
-	 OqI0YELdylTsg==
-Date: Wed, 26 Aug 2026 20:03:52 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Yury Norov <ynorov@nvidia.com>, David Gow <david@davidgow.net>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
-Message-ID: <20260827030352.GB2327@sol>
-References: <20260826163004.3365-1-mike@fireburn.co.uk>
- <20260826163004.3365-3-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mbou9KgA"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso245157266b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787799957; x=1788404757; darn=vger.kernel.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ABL0lVs2T4omHeNrhqinBnCW8Qg/CEyqGSbYpdEGHI=;
+        b=Mbou9KgA0FluplSnZFho7MCf90PdKQNY1Llrq0/Q+MyfueS3FANY8zafx9ZG0HS1+6
+         XmynzRc+izjBj7AGP0lfYUmtpL707t3emIVp51qdLWk66c8Pxrz0sM+h9sBMf+68s4bh
+         BOdPbBZSLopJmMUm3e6EORAsIy9pWZ0StwyfGZOHFxiUK9SZV8fG2e60FyfyxbhG8xKT
+         K4opxrVYSVvwRXY5lSzOBRbZW6OE6ae8x5HmkxcD70qWgnFoju9cuc5qL4GgkKyqtruE
+         pGuGmN03q3vVgtINpVYwa5FIktlk3dGh1PxzbhwroKVNrlAqeuSKY11csdsHCmPc7nCp
+         GJxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787799957; x=1788404757;
+        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ABL0lVs2T4omHeNrhqinBnCW8Qg/CEyqGSbYpdEGHI=;
+        b=kCH88qL90Dp1cOGaImKtbCIyUo3aWr8arUrvURV+FYGjZDEtWgYH7vC8UDr2qpwWbe
+         HE9Ze7lBy/8bSbpmIymZmu+wr7TyXpaDMu3AvbaUcnwBY+oOpDkNLEP+KTlGu1CZO741
+         CtoWr80EUt+gfX/kC1lfLcSHgrPT7CXU0Yeb6jff4aZo3tmYWH2MeO1pPVbwFeTxr8qS
+         +8EuXMiHHyD2asx1UAFTbICPerEi28n6wNVvDHnrHy5JfZ59ulM9AZV+ydKkB4fIcGn6
+         d9h+CufN2p0FpzqwoQEAnKJYfhStIMpMy8Sy9wkCdnos5K4MOzjmPCUor5l0ww07iV+l
+         li/g==
+X-Forwarded-Encrypted: i=1; AHgh+RoUWggK2dXGmKqPhnqJlgUQ2gAeGsJiC8uYnPVifv8vDJJzw8uvIwTfowOdccxwPl5+lGjspYCXSzhBVKQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljtA68tLC7f3stOVlZ7pVZ3+qZFZYSIO/vKHQGWJtVUtNJWHr7
+	70/Y/b/8YdzRmHGvDR+s9CYjnyrUfTDFou4VDBh8xsjtIed58miske87
+X-Gm-Gg: AR+sD12TR7OlHdmvubBv7WnKCVeEASNGJEOS4IU/4wD4VMg9RpwOlRvMCyrkYrbKMdI
+	Hy2Qg1DnypThw7kzgLnvkiylYtD9v3dmAiPZm2JhLIAE/18oyi+cMZcnhvEAOR9z1zCbg/iRWeH
+	/A41spW9tgdhGcqYbzwzyXIb35fBKO4J/sPexwRCNGCd9lAYhuzCIgGYOumCp2obyQ9aN7yOgH+
+	3y1PidBRXU1N+THrCYe8wo/36fMuE5pAN10GHWfRTyoA67iBxhGwcc9E1bBZ3Gvna61HXqlFGyC
+	6svdDx2HyoEcjNFb3pF72XUNhT2pwWYUR+pOub3eJ4or6KwjTyatTs6yy3Pka2VsvEiGqzHsBsd
+	AMKnTLy4VikVjvK8gSNgNIUfK8dL+IBobNfgRQ3A4sASrxq49kBaaBCxPrsTJnhbw05fCamnijD
+	fTmhr/S8U3yCK1M8ZYkgNzhgguU1dh8a5MihNvVmoC4HwFNCMei9Cu7K8XR6p9
+X-Received: by 2002:a17:907:944e:b0:c24:f8e0:f092 with SMTP id a640c23a62f3a-c250bac7f88mr1102590766b.1.1787799956563;
+        Wed, 26 Aug 2026 20:05:56 -0700 (PDT)
+Received: from localhost ([185.92.221.13])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9ef92csm690682266b.63.2026.08.26.20.05.54
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Wed, 26 Aug 2026 20:05:55 -0700 (PDT)
+From: Wei Yang <richard.weiyang@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Baokun Li <libaokun1@huawei.com>
+Subject: [PATCH] mm: remove out-dated document of __GFP_NOFAIL
+Date: Thu, 27 Aug 2026 03:05:48 +0000
+Message-Id: <20260827030548.16631-1-richard.weiyang@gmail.com>
+X-Mailer: git-send-email 2.11.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826163004.3365-3-mike@fireburn.co.uk>
 
-On Wed, Aug 26, 2026 at 05:29:49PM +0100, Mike Lothian wrote:
-> +config RUST_CRYPTO_LIB_AES
-> +	bool
-> +	depends on RUST
-> +	select CRYPTO_LIB_AES
-> +	select CRYPTO_LIB_AES_CBC_MACS
-> +	help
-> +	  Enable the Rust bindings for the synchronous AES library functions.
-> +	  The selected C libraries are built into the kernel because Rust
-> +	  abstractions are part of the built-in kernel crate.
+Commit ee040cbd6e48 ("mm/page_alloc: don't warn about large allocations
+with __GFP_NOFAIL") remove a warning on allocating large folio with
+__GFP_NOFAIL, which is adjusted by commit 903edea6c53f ("mm: warn about
+illegal __GFP_NOFAIL usage in a more appropriate location and manner").
 
-This is being added in the wrong patch.
+While in that commit, it also documented this behavior which is
+out-dated now.
 
->  config CRYPTO_LIB_AESGCM
->  	tristate
->  	select CRYPTO_LIB_AES
-> @@ -216,6 +226,15 @@ config CRYPTO_LIB_SHA256
->  	  Select this if your module uses any of these functions from
->  	  <crypto/sha2.h>.
->  
-> +config RUST_CRYPTO_LIB_SHA256
-> +	bool
-> +	depends on RUST
-> +	select CRYPTO_LIB_SHA256
-> +	help
-> +	  Enable the Rust bindings for the synchronous SHA-256 and HMAC-SHA256
-> +	  library functions. The selected C library is built into the kernel
-> +	  because Rust abstractions are part of the built-in kernel crate.
+Adjust the document to align to current code, and adjust the comment
+while at it.
 
-Likewise.
+Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
+Cc: Baokun Li <libaokun1@huawei.com>
+---
+ include/linux/gfp_types.h | 2 --
+ mm/page_alloc.c           | 2 +-
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
-As I've been commenting on other of these bindings patches, it also
-doesn't really make sense to have the kconfig symbol be in lib/ but then
-have the actual code be in rust/.  They should be in the same place.
+diff --git a/include/linux/gfp_types.h b/include/linux/gfp_types.h
+index 190191411009..24fde8eb73df 100644
+--- a/include/linux/gfp_types.h
++++ b/include/linux/gfp_types.h
+@@ -243,8 +243,6 @@ enum {
+  * used only when there is no reasonable failure policy) but it is
+  * definitely preferable to use the flag rather than opencode endless
+  * loop around allocator.
+- * Allocating pages from the buddy with __GFP_NOFAIL and order > 1 is
+- * not supported. Please consider using kvmalloc() instead.
+  */
+ #define __GFP_IO	((__force gfp_t)___GFP_IO)
+ #define __GFP_FS	((__force gfp_t)___GFP_FS)
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ab385bc252cc..146f7e0a9462 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4804,7 +4804,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 
+ 	if (unlikely(nofail)) {
+ 		/*
+-		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
++		 * We don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+ 		 * otherwise, we may result in lockup.
+ 		 */
+ 		WARN_ON_ONCE(!can_direct_reclaim);
+-- 
+2.34.1
 
-> +__rust_helper void rust_helper_memzero_explicit(void *s, size_t count)
-> +{
-> +	memzero_explicit(s, count);
-> +}
-
-Isn't there a standard Rust solution for this?
-
-> +#ifdef CONFIG_RUST_CRYPTO_AKCIPHER
-> +__rust_helper void rust_helper_crypto_free_akcipher(struct crypto_akcipher *tfm)
-> +{
-> +	crypto_free_akcipher(tfm);
-> +}
-
-If you need RSA, then please just create an API for RSA specifically.
-The crypto_akcipher abstraction has never worked well, due to
-differences between the algorithms and various other reasons.
-
-> +__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
-> +{
-> +	memzero_explicit(key, sizeof(*key));
-> +}
-
-Similarly, isn't there a standard Rust solution to zeroize memory?
-
-- Eric
