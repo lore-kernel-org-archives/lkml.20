@@ -1,120 +1,100 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A50B3FA5D4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:06:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2FE3DC4D7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821620; cv=none; b=ho6xbkyAPcNcpAiXBbF+giEfpQiy+fOemv9fDMdN/axAc910HI5X7/LHB52SNqnXTNAzmUJAsfjvGMHWthHW3iI8kki8l9SSE/ME4nZh3rLeerHa0NtLaLZbICnTk1PHK6UFfPuCeDcVcLds/Edf7syq+tepQTgTqlSMxFbb/PE=
+	t=1787821693; cv=none; b=pKdjHJXuXV0C4e0cxwI6PPKkW3PzHknhwQlTrX0xvfTjkOnyZqzbRTG5yFsnTVTiL5l4fr81h0ixq3l99m3LfrzE/vayRCpq01qDyd0rV0GrrLqDsf/FgHjvS3HzDDpJ6QbMpuvw45oZzw9ZggwU6GnjghUmmXzR+xWO9n9TlCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821620; c=relaxed/simple;
-	bh=Dv5HfCA1mSh6i3Acx6oZ4tgPaqHqwItmYmm43jb19IE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XoeogKmtQMyl+aNnxjeCkXDLwoa+O08qGIov/Zgwwpv8QjMmavJaT7O+yF3qSKBZK2iDbp31WBhBm8BWfrct99JI8ZsRFeIiphIbwfYX1hWwbsZhjO+AZPr/iy5VV/36UOG9mvC+5Zfve0/Eczn5j8mvkUh1bwR64eNWcZLi1BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e4z6cNlw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oYjW2WBg; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787821693; c=relaxed/simple;
+	bh=Wn97tQUxuyvvv1tJFmLHl464HCpS2Xix17TyRvVpILE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AlwmoSb28OLNTM5tkEyTA/YdKlR2yEOQ3K+/zmiAn7DEeuoX5AWtYoN4aUY4C4Ls5nQvKkLgYf1Mc8qlMRCKxOd36W7Y8los1oCcZGFvZVICWT6hSHltBMnhRSz3BjXtO75EjBIFxrH2uJtGS9oO02y0KmTJmdD8PpROiE7Kyts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IeUHKjyF; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e4z6cNlw";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oYjW2WBg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787821605;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=UnIBDxp0KwBLclKxiCvoL0emivWc8/d/qvxTInSqzl0=;
-	b=e4z6cNlwkhkpmHov3QS3aIc4xb3Qp9+XWalZTysRqdkhFIhcaI80uKyxYqGY7iOtetBMql
-	r/QqYF6KXwwM6OohpJs7Ccd/dsmdpVZLOxz+e3Pova+YwHEw7QvFpCdLPMocl1mR+MpyI2
-	weN0wtpJAGqskC8FCNXC+haybrrXjOQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-557--KwsTIZ1P4-7jFP0xx01wg-1; Thu, 27 Aug 2026 05:06:44 -0400
-X-MC-Unique: -KwsTIZ1P4-7jFP0xx01wg-1
-X-Mimecast-MFC-AGG-ID: -KwsTIZ1P4-7jFP0xx01wg_1787821603
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4997b060af8so10402105e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:06:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IeUHKjyF"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so18164355e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787821603; x=1788426403; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UnIBDxp0KwBLclKxiCvoL0emivWc8/d/qvxTInSqzl0=;
-        b=oYjW2WBgwaPCifGU9A71LJ3LNtT3IRqfjNBW0EzIJpXU3VRDAu9QmknI+ZrTvwLIHf
-         +iKPhzarcZosnU80dN2Qb0B25u2NIDnC0Lql5EnPzoRycyrCOB9oVmuwC+NL8/M/8a5T
-         CFo4bWwYJ8jQkgBdfQ1Q9S5/E3OC9sZpBuT+hYXcFODxjVicy4JUmJ4ktrwd9qyduG8i
-         e12VaLHpT45UawLrcQcQ7pwfi++OdzXd0yy83lHfcUmc8kr1/XiB4tJt7Vn5crXZIGjh
-         40pipkaMmXPk7clzG6R4iLnmTzzT4KWmYANOUu9lc2JrFLn8k+dF4m5zvjdxQf6u4MM7
-         UkAQ==
+        d=gmail.com; s=20251104; t=1787821688; x=1788426488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c47rpv9RyurGDhGGYkGZTDAHfRgUQeclm5jfaqZLKqk=;
+        b=IeUHKjyFCuNNDOO3Tzn4JGoPiX4Guq7rXFcnBRwQXZEdKzlDMuHmBvzuS4g/CQ7giW
+         vf0CgJGD+OEdR2NgCj08EHQ0X65hnRufL6GIfF2JIedAUwnRTvs0RDvCqcblGm+VGgDl
+         5pSH/VOc1lmEpymx+55ePB6WytuyAFH3h4v4xAOBU9sMg6R03X+ruHjslzFsyvuom8Wa
+         fC3T6XDVucjQPBeFEby4lJxn0V+8idcbbDmR2I/tFs7EdWeMk3/F7lUR3CHvGBd4S04r
+         8QcCS3cW5jn3AD0At1wBN78zf5pLvj0p3nefCrN+LMcf7YOwl2FnaCG3oPEHbHLxzM5y
+         voDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821603; x=1788426403;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UnIBDxp0KwBLclKxiCvoL0emivWc8/d/qvxTInSqzl0=;
-        b=bpIqlL3MIhJvZAxFq+XCy46dP1ivyQzdSKHQm1VyFIAo5zc1bY3QL02IaUHrOjH4bC
-         rwzdn3G2Sg6tN8wzG90xZjuyvCHn2KCW3MixFPOCJtYuXFEjJW4nGmaB++Ul2szMelPv
-         V0Uy9tKK2MqOrZRbgoHwwDxaQTRDNZmJfCAvWUmbQzKzKfYYID1PdnYNqjTvJuORlYWf
-         Dcm46UgvUPSI1Q7zzUWoE8E7FVgx7TrNmrldovbgP3cXmThRNRE/f7Yz3gBvG4SRH+iB
-         YyBF3dhL9JRXltMx41QgkD1m9Lt/BM+0ObdiECUEJDmQPnqMQU34TK8h/Sd72R4t5cM9
-         DNig==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3Ua8cdPiVKZBQpFw0CMzWvZP0uO2vuxE0ofa8VpL2LU3kkEvH4ozE17Jyw/d/YYqJSg4u6gKaxAyeE1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz1+lG+60dRVMEnymTZoWlv4pIwODGeM60ixo6PXEGVRqwJY74
-	m4veAVw0zg2wmmNF2BXmyDeV926sV23+96QaOePjAmQ2K/fDBiOf2jDM7Jaczqy+RV9/Esd1Ch9
-	3E5JooGx+SLgWxU9UohGvUiiRFExE1oHIO2//+m/XV1di/Z9s908PPJWIDQPbhrDjdg==
-X-Gm-Gg: AR+sD12P4J/ZgsUpcZK78Z7iNh6mn9syrxiHTYy9S1XmeHbsY+Nk1wdLlvhVWChbv1Q
-	nmh0n7bvzSWPOHyjItZFui+QigquDptW9jLn3afCZCZUApyirliV8n6HtApmo3jdW/tIKJTPUP6
-	oDDfQa9NEyXxZqri7lYXsjQ6P4xnZCfAJaaeSuXCW6PkqxlOInDN5rg/oCNHfANaAbGwZg2II6G
-	HMBW7i4FXZlPJJrUSTY55kVdJvRhXWRp9bv9ZFlQVh2vFxdOhDqKKBblhJ9MXia5XiAWzsp+cBe
-	lPFRea++ic1KJ3Zjrt8SDHXSIvePsh4cPUS6PUo6OQKe82p7XivyX30G+bmfrkYaCstHQF4+GNl
-	nu2rmQ/FXMwo9LRz2
-X-Received: by 2002:a05:600c:37c9:b0:49b:2796:be30 with SMTP id 5b1f17b1804b1-49b2796c07cmr65580705e9.11.1787821602720;
-        Thu, 27 Aug 2026 02:06:42 -0700 (PDT)
-X-Received: by 2002:a05:600c:37c9:b0:49b:2796:be30 with SMTP id 5b1f17b1804b1-49b2796c07cmr65579825e9.11.1787821602271;
-        Thu, 27 Aug 2026 02:06:42 -0700 (PDT)
-Received: from cshulyup.raanaii.csb ([2a00:a041:e223:1b00:cde9:6812:f4a4:646])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd55dd4bsm54770655e9.3.2026.08.27.02.06.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:06:41 -0700 (PDT)
-From: Costa Shulyupin <costa.shul@redhat.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>,
-	rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v1] doc: RCU: Fix typo
-Date: Thu, 27 Aug 2026 12:05:06 +0300
-Message-ID: <20260827090506.1172620-1-costa.shul@redhat.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1787821688; x=1788426488;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c47rpv9RyurGDhGGYkGZTDAHfRgUQeclm5jfaqZLKqk=;
+        b=mKHx4mwGi49ERP1m8JPLEyLtl1qsinPww85l/hH/raTWRd9IMyp/Bg2d6QZazPfZ2a
+         ecXB5ueJpWdS5jEoXs4GAm2gEEhRXX4HtX/zOiHrGtymndXHUzD9NaB3z9Xg9corIVxS
+         bDiEXF7BoI1ATL6fXenx2FOPsbVt/32OTEv4DYoYSsQ+nXvlXxsxftFKLhyR7q5PZRtn
+         FmLD0gFJJ8uaHh9dVyRu8GmtxtRrFXuekQatUwVQZyWNYY+LWLP+BZLlO7de3wsqviRE
+         QI5au2vAyAagVOFlI8ww3u14BC+/i039AyF1tZb2/vxJZi1H9xIBkE/UZbZXlJSBbPcD
+         qfOw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+qyNHRy0rcdfWkV9gYg3rN1KnDt54KdKxWY4c5PTix3W5D++Hsx8ykIiAB4PnAiKtVQZNYrxRn94zH58=@vger.kernel.org
+X-Gm-Message-State: AFuF++lA8rR/OOupmv73fgNydtc3wQ5IXMLc/3UPKRzOR/IoxbF3H+bg
+	peELnKgMDiKa6gu731JuMmDXGpExSTUnxcusg5CHfZxocvZZ2OxpDwzf
+X-Gm-Gg: AR+sD11ljCFWaJEixHtT+m3s6vWwhMV2ropPU8WJCOTlrovJsmBeai9xo33zcSF2GaP
+	6qnlcKqh/wdKsHxAZ9bRyXHlAjVrMI4OaZ/VnT4QNW7imEBvrhtrxJjsuwc+slecC4+NoglNx4+
+	HTbR10GvTSOBKa1fzP9VCtcesrXc+W3dhG/44mAu/GFfu2foQcQvkJBFtu4w/0qrlohpugG5rDB
+	XL8nkqzlsdaZSu+3pfQD688exbWUaGSxMNq+oHhzGx9WyUizd7G8qb39xJH/p9d8uRvgmX8VAvO
+	0sVViZ4fbSsHJ3EXjrsr09fmZCq8SZaOvq+/wYTpfqBHrvjse4ckHc58pp3dRAOX+slrAVKZgq5
+	3EAwXJN6cA/JU/zGGwkG4VmoJbkbQ0InytV5PnOWOecm0TX2XLKqpQLjcmqnzWG5TcCn0qVTl0I
+	r6YrYGDb8Fao8jnZxs7qk6mUI7740UyBUKnwW9mbaNzF3Nvg4ZK4cnlQcQIVU/6sY5LjI=
+X-Received: by 2002:a05:600c:45c4:b0:499:8ae1:b900 with SMTP id 5b1f17b1804b1-499dc8230e3mr148761345e9.12.1787821688010;
+        Thu, 27 Aug 2026 02:08:08 -0700 (PDT)
+Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49236515sm53937925e9.1.2026.08.27.02.08.07
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 27 Aug 2026 02:08:07 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:08:03 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: syzbot <syzbot+fd7be5ad9795b7f29df3@syzkaller.appspotmail.com>,
+ dakr@kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, rafael@kernel.org,
+ syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [usb?] INFO: task hung in unbind_store
+Message-ID: <20260827110803.49790ae3.michal.pecio@gmail.com>
+In-Reply-To: <20260827110006.66b07ea4.michal.pecio@gmail.com>
+References: <6a8adc31.ae6ddae5.3da009.0064.GAE@google.com>
+	<2026082307-negligent-lusty-750a@gregkh>
+	<20260827110006.66b07ea4.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=true
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-strategem -> stratagem.
+On Thu, 27 Aug 2026 11:00:06 +0200, Michal Pecio wrote:
+> And something is also wrong with those timeouts, because 20 times 5s
+> should still be less than 143 s. I asked Syzbot to try 500ms instead,
+> which ended up being over 3s in practice:
+> 
+> [  566.662036][ T6636] usb 4-1: sisusb_send_bulk_msg()
+> [  569.717341][ T6636] usb 4-1: sisusb_send_bulk_msg()
+> [  572.777761][ T6636] usb 4-1: sisusb_send_bulk_msg()
+> [  575.845365][ T6636] usb 4-1: sisusb_send_bulk_msg()
+> 
+> Same on my system, but patch below reduces the timeout to 500ms.
+> 
+> I have no idea what's happening here. Looks like a bug?
+> Is it known that jiffies are totally unreliable like that?
 
-Signed-off-by: Costa Shulyupin <costa.shul@redhat.com>
----
- Documentation/RCU/Design/Requirements/Requirements.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/RCU/Design/Requirements/Requirements.rst b/Documentation/RCU/Design/Requirements/Requirements.rst
-index 8101fe6229d5..b10e0484ae13 100644
---- a/Documentation/RCU/Design/Requirements/Requirements.rst
-+++ b/Documentation/RCU/Design/Requirements/Requirements.rst
-@@ -1442,7 +1442,7 @@ periods:
-    corresponding CPU's next scheduling-clock.
- #. CPUs mentioned in the ``nohz_full`` kernel boot parameter can run
-    indefinitely in the kernel without scheduling-clock interrupts, which
--   defeats the above need_resched() strategem. RCU will therefore
-+   defeats the above need_resched() stratagem. RCU will therefore
-    invoke resched_cpu() on any ``nohz_full`` CPUs still holding out
-    after 109 milliseconds.
- #. In kernels built with ``CONFIG_RCU_BOOST=y``, if a given task that
--- 
-2.55.0
-
+Sorry for the noise, timeouts are 500ms as inteneded but the function
+tries 6 times, which makes it 3 seconds.
