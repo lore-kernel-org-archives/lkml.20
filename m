@@ -1,64 +1,64 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68C2495036
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64A547D461
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851320; cv=none; b=KdjRBSTvs3xtZ9E8Xp6jlDWJh0XePqXoABL80ZNF6AJ4CTjnaw4Kv1xh91w8N/HfxxReeXjTsyAOs/4VooABMGzaeezd37RB4KLMlJ/UMp8qA+KFliYZpyIeJGa7/KZmHSKQs5uvFhkVutnijIH0NNc/olUmRKyEs/cfLZPSAF8=
+	t=1787851324; cv=none; b=d4NHrUbfMfk9U+3pjuTijClKBu8vm0jEYEx7GWEHjU8i7buDnVVXY6QIMxekDY9A3fVsjijLALb/9RqcrTDOYbzAe3ZnjRqfrxAOSdIU+pY6KtL9tGW/wLgkWt7ow1J4y3lg+O4SWZvAhUrKReE98odtBXS6r5PpWr0bIXq2RhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851320; c=relaxed/simple;
-	bh=lXuGALADpdYx0vO4VSK8tnkYBICnr5QRqUa7sGpDYUo=;
+	s=arc-20240116; t=1787851324; c=relaxed/simple;
+	bh=SQjMM6e5l1eXQ326406VN4Ppfu0Q1sDCfdFbTQj8lmk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DTK0x157NsuzFw+g94CRbrSMspXtLnMjXo2eMJQDYW4MVsy5AibGuu5H6CC/bLsJu/ZzDV2oHA75Tz/1bz3nv/epT3A7kDcXp+QsJvwH9MCGoDKp2BJU6h8bkqXBUZ4RgDa0kLZrrUamqsOXY+BuN8wGJ4C6zrJPlBpKeFBmlNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HU5r6rJ/; arc=none smtp.client-ip=209.85.216.54
+	 MIME-Version; b=Ztd7r2OAS8UUYLPdjTfIUhDaQuaJogdDql5H9EzKkWAL9uCILhRQiJznNOpk21L4BT5R7FYqCzMyZQdbIcuTp+5CvYherLplDWYQvHUFN1creE6rwDkO3WQYBLC7EvH4IGJqjIUeE+d4zhrBS4vI2eWS3fPyRcWYqPUw+estY38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahecb6Lj; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HU5r6rJ/"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e347638adso323290a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahecb6Lj"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so214686a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851318; x=1788456118; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787851323; x=1788456123; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gw3dvZrCiTdARZjyeMDfU+Lq93+rhoJslG7bH+ap744=;
-        b=HU5r6rJ/MlNZhwGSamRiFC+QCpdTHstCmx16xh4AaXhPvY0ACJHGClhC7bFqgacDP+
-         I/nBiPvHdH+dfrR23fYGD9opvIjRZkNLSNg1zp/BIOMzADaapAbYL3B5LUOYIRu8nXE9
-         edqjxYcNt3WpePJPW+OiNxwU5D/mBq2Cf+rhdpEfTMm4AWft3z/8sOggdKuLMAr3z16D
-         +San9h92BJG4vgtyX/R3/viF03F8dQhpeOtYtMEZOBCYAVEDASQCyNr1H1Q3hq0nO/ro
-         azg4wkG+j7JODInTXeABJOizdsc8jQ4YIevLyGgxOMywymdxqUVw9tNk0nm29GNPDuYc
-         iCCw==
+        bh=zSPvpz+bFRPPrDJKLP2l884CdP+OIZCEuQCCyJqs4wI=;
+        b=ahecb6Lj8hn7UHxE4gAGhXJf4rfsX/io5wMhKVgL6cRjm3Do3dzKWiOFmBDxSl56+f
+         OqyWjJHSardnItpUllhAU0+LDOlmbJjIBPyx1QsKKCk+LCfSo95nimLYePBRX2Zbltqa
+         fxoPjwOQ6zkTDwwee8HV9ogC6Q9OcO5pTZrba56M+Hq3DNaCPX6fvxTiJY7APDB0Fz5g
+         pHQwN6ArnLWZxG1wFiinBBsRubsuDTH9i/B1cwhoqDwUHk8+kJbFN+jWIpgUtES1+JrJ
+         giWSRmrxG9wxWkHNp3BemQwLIqyD6dCzOHe9YgPlpEwiJ7YcKoO8x+Jl7AhXycsMeBRm
+         xVEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851318; x=1788456118;
+        d=1e100.net; s=20251104; t=1787851323; x=1788456123;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gw3dvZrCiTdARZjyeMDfU+Lq93+rhoJslG7bH+ap744=;
-        b=VxzGimSEIwMXP1DQ3pZEPhmUapudeQE/52Ma2/qIBYVxZXF8BCfPL1TRikGq1f7lv7
-         kyxbDnG60qojMk+ZBorj+SGofqHlf14mo+P5zvDAb1/sC0F5DOGgpcGsjySkCJ3SPNxE
-         pgv6tF/0fKC6Ig5iKH2h9eyiUNA3OwK2w363eOIsoaLxAeoYKrbxPfDLuRr6wY1IdzGO
-         LSssk0AXSCXC9yRF8Jpp14nTSw5huQ8rYfhT7JwO3D+zw6X49oV0MD5OeBp6W3PXqKfE
-         F100F9h7RLVgb/pd+A4otkGTUG6ziOZCJsMMJ/r32JTyx9MMLFGAkhJGKFm/FrA9aJQL
-         KAEA==
-X-Forwarded-Encrypted: i=1; AHgh+RqrowfaaVhBtxBMBN+SySeWz3CKVkUVAYlrLX+BD2sIH+18DDUUqo5hw0AQghpkOUhN21GmoTgbE9+MK9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEYsJZdpaD6G6rRgu07gMwHZkSewCPhEkwtL4FD0giMuXJkvzV
-	2Rty+cDP26Wy3geQXLW+dFfHAzGQX/0H7ks73zUa8cg5vFnHqph2XArp
-X-Gm-Gg: AR+sD12pSq++ZpUxl/lyhMQQQI7tADjf27ifEqcZ6w9LFfR8RhVLqB3Tmz0I5XyD+YW
-	TdVvOmyRDgDvoSmqLR0GjnDMeqyf6M1QW5lms/qcFBlZUzamWrT5NJAtKze3nljPezPIz+1U0nb
-	aGYN+JsipvSyyup5NPKOeSLYGXtuAQ2JVovmumSzcX5pI7MlUJ3f+CnucYZTwOsXQRChL2izp+P
-	8VowgQeLF0aji9aF8EVbYvPdEMuNbiWMkqZZqh9ZwxKFqS2M2PoUVeJVBJXeNd0x+oekb0Xq8ZV
-	uNQiq7IQO9xtgWzOcAWXD7mO5+8stywBpLSQS7jS/Be28FNxSIeqvjh+ja1hGOKkTSjiND+2UVi
-	B4k81h+7h865BVyIO3BMRuu92Nxr/FNsyt2po9JQZ/aS+G6gLUmqr/LunNd5oiiGAz9dIIyZymB
-	dMkS020oTf2GYOLGmItsG3Spn9vx6WNUKhD6NeQxQHOilnT3R6cJ5M8PVFtX7QZ0pPTRqmtkKGL
-	BnGapuw41DlijQyaYqNHh2p81cOKjudQujU
-X-Received: by 2002:a17:90a:e7cf:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-396d0fccec0mr1155735a91.12.1787851317751;
-        Thu, 27 Aug 2026 10:21:57 -0700 (PDT)
+        bh=zSPvpz+bFRPPrDJKLP2l884CdP+OIZCEuQCCyJqs4wI=;
+        b=Ni+iM/qG7cd5eCSg6HVdDmc+bD2i+ZlEDiSRD3d8LkaQmz4J1EMBIii6ofhIqKkVYI
+         AT4fY6oh46t6+Rm25JiE9zpimMNP12gQsXPOA0Tqn2Z4iIDneubtcqAUcQHA+q0nOSNm
+         zTs8PaJ6IeLG5oYUikmUSccKdX1x9FiwDxg4yDcQ90fO5kcuwtWzqNdmVoy9005t+xO+
+         kNwqn1dqnugenzT/VsvChNr5qzKJQpymRfl6O0BPFYWNKTuzHWbToERyYg7Qb5AmTz8x
+         dy5wfyaw+xFdi0SnPtIugXVTkhwMCO+zaqyyWO4Jx0RZ+TIKPM21S8XbZi9yuY7zUYuu
+         XO1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rri3P2o+tsoyYm3i3k26viDlk+kq53Z/zCR+Q8vT9bJaYzdC9qXJ5jA5SBlS95H9iCp/TOIztjpj+4n2XI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvNjUnJkxRcVQwN2qOm92fBvFYr4iWKyrxAEBTbo5HCibl/mGw
+	7GyZNvH5tcv1EV63hraKO8Za3t412q/Z37sGBGjhYlfIEzwIIXBG7LX/
+X-Gm-Gg: AR+sD12JsN8xuPMuyJGjQe+jWkJPfS0ebFq4f2peF362lMhioXCiIFl0irqzqyfV1T1
+	qnJERZCes59ED82BIjvzqrH+bq5VN63u5mXG7wjGlkzdwx9cl8b0dSU3pU4D7CfgienmBb1AHdQ
+	BH6uMe39iIzPjsGYc+dQcPsoEPBSrYwxzaZsT8cdzN4rZtsiBow8zJtNMKdfk5+6dbfcLb1IgzD
+	o202Flh1kn0N9bZsr8pNkPfSYRDJyJBw5gPfjKizlwvIFaWzlQQSktdEzM7aPz7Qi5owOH3ahGP
+	AsWKgMKMZhplRdr+QS4Bwb+4OwCdKnCAV/DeD9LRyWFhmFB2U1KDA9jNJ7sGNx2XIyoTT1jAkon
+	Iy25fcysscucHtuv6kGC/aDxCtJ5uQ78UA66AvPErPZtkhqpA9sOayXYQsXRDH+sP/wVWWrcYwS
+	eLJC/v/oS/o1u+YtilgCYFW83paE5PAB0cZc7CwNpAncMSSDcXyjk7rN862GMkJeQ0e2ktUBcM4
+	v6W0GWZjJUWNOdDM00XaeT6sb/nKhIRdKIg
+X-Received: by 2002:a17:90b:384e:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-396d104d0bfmr1151199a91.15.1787851322882;
+        Thu, 27 Aug 2026 10:22:02 -0700 (PDT)
 Received: from debian.ari ([47.30.51.191])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.52
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:21:56 -0700 (PDT)
+        Thu, 27 Aug 2026 10:22:02 -0700 (PDT)
 From: Archit Anant <architanant5@gmail.com>
 To: jic23@kernel.org
 Cc: dlechner@baylibre.com,
@@ -67,11 +67,10 @@ Cc: dlechner@baylibre.com,
 	u.kleine-koenig@baylibre.com,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Archit Anant <architanant5@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v4 5/8] iio: adc: ti-ads1015: drop unneeded < 0 error checks
-Date: Thu, 27 Aug 2026 22:50:57 +0530
-Message-Id: <20260827172100.39176-6-architanant5@gmail.com>
+	Archit Anant <architanant5@gmail.com>
+Subject: [PATCH v4 6/8] iio: adc: ti-ads1015: Convert to managed resources
+Date: Thu, 27 Aug 2026 22:50:58 +0530
+Message-Id: <20260827172100.39176-7-architanant5@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260827172100.39176-1-architanant5@gmail.com>
 References: <20260827172100.39176-1-architanant5@gmail.com>
@@ -83,48 +82,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several functions in the driver only return 0 on success
-or a negative error code on failure.
+Use managed resource helpers for the mutex and runtime PM setup.
 
-Change the error checking to align with standard kernel
-coding style.
+Replace mutex_init() with devm_mutex_init() and replace the separate
+pm_runtime_set_active() and devm_pm_runtime_enable() calls with
+devm_pm_runtime_set_active_enabled().
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+This simplifies resource management and ensures resources are
+automatically cleaned up on probe failure and device removal.
+
 Signed-off-by: Archit Anant <architanant5@gmail.com>
 ---
- drivers/iio/adc/ti-ads1015.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/iio/adc/ti-ads1015.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0d1006041819..ba4a01850531 100644
+index ba4a01850531..a6dd85debc0e 100644
 --- a/drivers/iio/adc/ti-ads1015.c
 +++ b/drivers/iio/adc/ti-ads1015.c
-@@ -539,7 +539,7 @@ static int __ads1015_read_info_raw(struct ads1015_data *data,
- 		return -EBUSY;
+@@ -959,7 +959,9 @@ static int ads1015_probe(struct i2c_client *client)
+ 	data = iio_priv(indio_dev);
+ 	i2c_set_clientdata(client, indio_dev);
  
- 	ret = ads1015_set_power_state(data, true);
--	if (ret < 0)
+-	mutex_init(&data->lock);
++	ret = devm_mutex_init(dev, &data->lock);
 +	if (ret)
- 		return ret;
++		return ret;
  
- 	ret = ads1015_get_adc_result(data, chan->address, val);
-@@ -727,7 +727,7 @@ static int ads1015_enable_event_config(struct ads1015_data *data,
- 		return ret;
+ 	indio_dev->name = ADS1015_DRV_NAME;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+@@ -1044,12 +1046,9 @@ static int ads1015_probe(struct i2c_client *client)
  
- 	ret = ads1015_set_power_state(data, true);
--	if (ret < 0)
-+	if (ret)
- 		return ret;
+ 	data->conv_invalid = true;
  
- 	ads1015_event_channel_enable(data, chan->address, comp_mode);
-@@ -994,7 +994,7 @@ static int ads1015_probe(struct i2c_client *client)
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
- 					      ads1015_trigger_handler,
- 					      &ads1015_buffer_setup_ops);
--	if (ret < 0)
-+	if (ret)
- 		return dev_err_probe(dev, ret,
- 				     "iio triggered buffer setup failed\n");
+-	ret = pm_runtime_set_active(dev);
+-	if (ret)
+-		return ret;
+ 	pm_runtime_set_autosuspend_delay(dev, ADS1015_SLEEP_DELAY_MS);
+ 	pm_runtime_use_autosuspend(dev);
+-	ret = devm_pm_runtime_enable(dev);
++	ret = devm_pm_runtime_set_active_enabled(dev);
+ 	if (ret)
+ 		return ret;
  
 -- 
 2.39.5
