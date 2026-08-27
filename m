@@ -1,131 +1,87 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945D0499F3B;
-	Thu, 27 Aug 2026 19:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552DD347533;
+	Thu, 27 Aug 2026 19:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858994; cv=none; b=cUStnzDFQg/I7xD3jtxaGQT9bDnBYnWduYml3o/LvfrnkR93R7eOz6n1ULb9rY9B+gcDSDUaRemAI0o47Sa4MO+aQ/a2WPkgeLol0ICZSpLX5nRKHY3Rw2obxg9dRacMmSayTrbM2cZlCs26IaiAnMNlUMQVETQUYhiqy5aFKJ0=
+	t=1787859071; cv=none; b=Ubvp6KWHeg61VfS/jRivud8AbzVAPkrJJUfofC4Ei1jzu41OHqbbhyCbGu5IYWsSRP1GSceSCvJ4NW5B5uxZSYB0u5MglFX6dar7c/RLmovQzRKGRho05Rb5xfGayM2Fe4bINbqhMvIdU5Qu+uw6xqA9qZ+dkGPfNbKwiszuv04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858994; c=relaxed/simple;
-	bh=HakblkERuJ8lxUcZ1No75a/kXLlrNKrK0yRSRw1Fsz8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TvfIn4nBcX+DCj2ir9VX7guGgn2nSF0eJhHn5QADWc5qoPe2pneB8WqKXr20veVOD/PD/E2W3tGO7RAFQ6fkeUXwqrvM6cZ+eiKo6W22RjtrDHA07m6WpBAScRIx637g6fNxZGOEMh9ahObTvWPzj5WbFJeg68JbOZPfXIxJLBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bne3dwsn; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787859071; c=relaxed/simple;
+	bh=dkM/eV2i8ziNqb0JFSIc3qrWW3dds31N8UuB4ZqUZ+0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PsRvQuRAAxcQqMc4HLT1XTAu88s3TrKP2z8dWZdQrpVH7F2iHjlJVGfAyBaI2l59K8PUeaPMQ9O47GG86I0RkcjKOvMsjPEPN4awA0v45YF2cpV6sCiSBOsvqVeddwU6GqHR1t0IhW0wO9/HVf5G4I1ASi0WB66zPgvIUQW7nT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=Su7CpnaH; arc=none smtp.client-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bne3dwsn"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RIVcCV3876912;
-	Thu, 27 Aug 2026 19:29:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=S59u3T
-	RnsKVWGoWTMHD50JnHRjTpgKKLIHcP2taOCtc=; b=bne3dwsnf80iDYIgrV5mWR
-	yK6RHL+Xqti0MnuFPSUbi1UKcT5E2DLnaUSvppfOrfovhep/HHHfhGK4gVede6SP
-	hFCDacKXGs/o+4phBMON0Eq2LmyQR9y1T8fIINBXmfrQcfJatsaPRkfSdMlAple4
-	Xt9ioWW6HlikXrEeJEBQFlW+hSqOo2skfJDQqj4RXOwJruYpWPNDDjpw0wEqaGB8
-	Qg6BXvZZqqF/+/T97rGh7/8FsCZESuDqKixP/xp35pLGoj/d1QFMI2RBldkwgG0T
-	hGcu5hgqh1oJg9xODtX13ojVKpETdkdQqeAlpXb0DOGOkmDAU7joEv3gSEfB5Dzg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxq677-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 19:29:29 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RJQcWD021730;
-	Thu, 27 Aug 2026 19:29:28 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsyhp42-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 19:29:28 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RJTRdj51315146
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 19:29:27 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9F37F58053;
-	Thu, 27 Aug 2026 19:29:27 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 640E058043;
-	Thu, 27 Aug 2026 19:29:26 +0000 (GMT)
-Received: from [9.61.79.161] (unknown [9.61.79.161])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 19:29:26 +0000 (GMT)
-Message-ID: <b96e1cdf-bf10-464d-9fb9-5afc625d8984@linux.ibm.com>
-Date: Thu, 27 Aug 2026 12:29:25 -0700
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="Su7CpnaH"
+Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RJM83G1856212;
+	Thu, 27 Aug 2026 12:31:05 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=shF7wMAjN
+	GRHtx3LeWbd0oPw0D1xUZvDE6iVECoHxf0=; b=Su7CpnaHwZkzK+bUj7bqW4DuG
+	emV5msdzWh1nAeETEgWhYDMN//rxdFJ9IvNNuh25SYlgf7KWO0aeLcw+g0vc0DtQ
+	QF8gQR3jhnAGEry6+PG2TmERTvN8hBTjWDNBWk5RoU7h4a6Xb1Jo0k6v2kbtp0Hq
+	BChYNWkIZkywXkyCi9EU2jkQlRjrIJtypxLdFazgS39BYygj3jxg+gPNaxx6oMtm
+	a25hrVCiHfjW6KH5zFc1YIIqvSY8457vkKXp1EGlciyWYGBzpaO3ucOrY2wwfgX6
+	hBO2o2XroIpewyLOrFy777+AMb1JWTvxRfOtr04p0YzLOuO4FrFoGZmpm5BSw==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4gak20ksv5-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Thu, 27 Aug 2026 12:31:05 -0700 (PDT)
+Received: from devbig011.atn7.facebook.com (2620:10d:c085:108::150d) by
+ mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Thu, 27 Aug 2026 19:31:04 +0000
+From: Chris Mason <clm@meta.com>
+To: <clm@meta.com>, <mason@kernel.org>, <dsterba@suse.com>,
+        <torvalds@linux-foundation.org>, <linux-btrfs@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/1] Update my MAINTAINERS entry
+Date: Thu, 27 Aug 2026 12:29:15 -0700
+Message-ID: <20260827193032.786461-1-clm@meta.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] scsi: ibmvfc: document protocol parameter of
- ibmvfc_alloc_target()
-To: Muhammad Falak R Wani <falakreyaz@gmail.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel test robot <lkp@intel.com>,
-        Madhavan Srinivasan
- <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        linuxppc-dev@lists.ozlabs.org
-References: <dd866cf2321381694af027fbd726bcbd63ac3751.1787828961.git.falakreyaz@gmail.com>
- <b073968ae020b6ae0240e91341a92f428587ebd9.1787828961.git.falakreyaz@gmail.com>
-Content-Language: en-US
-From: Tyrel Datwyler <tyreld@linux.ibm.com>
-In-Reply-To: <b073968ae020b6ae0240e91341a92f428587ebd9.1787828961.git.falakreyaz@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE2MSBTYWx0ZWRfXzlWOBqC9HRUO
- ++8bm4Puiev9eabSGcxJ4pLaVVP4fIdg60N0LwqB5e2Il4IMIssuaQ5uEmsefsq/0PgfruA097A
- /63KZXCeH7bpkaQZOQn8QVdhCR8hB4g=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a909019 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=xP4I_6v4Ii45Jom1HAIA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: VA61OV9oQxz5OlhCAXktmQ5nW6BdwtE5
-X-Proofpoint-GUID: 1sVxm5x9ea8oTlMhMr8MewCaWL1plwGh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE2MSBTYWx0ZWRfXw6MNoQrSvALG
- lcXHZ7kMcY1Z2CvQ4LSR2mBFjBcjYlQnX8fZGYESmQtr3bQA0kZgeAAba0KCtTsprQ6YPKdrlhz
- 0MzpU+ZtQepip7L1ISIHR/Gvt++SoJbPAuglWR5+mci2smj4lwGWznEvSUcNPrCfvZh5WTbCRjF
- +gZDS9R/2WqQrsOZZdKfffN1weHIlEmgEb0Ps8LGJWeVuZ14X+Yksc1+UMWU937I7zhLc6uYAAs
- 1Vz62LTmlqZ52cVj3eEftdyV2U1WwJ2HVvzhum7PH7tgFDFNp+qmE9529Wp06yDp7UENmiBpmaS
- OLKUPhHQQs64/qCSyTsBZ+63C825/GMThTBsaz8kYyTa/dxNA3w8s4x+DQLuyqg7iA5VDp4EC7E
- UOlapKTa5uO1tEC+iJ1wQyn6PZknhFkX8G0Te1ErLvi1nBJZ0wt4gvmW9AwfbfQCg/y+++fYuYo
- n1qoe4jg+M9jt4GwLkQ==
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE2NCBTYWx0ZWRfX/AumBnfjYn1K
+ JuFtNZPOzdWqS2U/edZ3NfusakdLDi8YBXtuA1+5bz7DBaUYwhNlGCIObMHqzVs/IdL3VTME/OM
+ 8htzN5VLzMcO6u9D671pWtlGxk1bsYs=
+X-Authority-Analysis: v=2.4 cv=D6x37PRj c=1 sm=1 tr=0 ts=6a909079 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=4h92JMTCafKA-fb_NiOh:22 a=VabnemYjAAAA:8 a=FOH2dFAWAAAA:8
+ a=stUR-zCGr9S5OmqkrUgA:9 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: dBj6E2UZq9g8A3rgBEbw9KFLJ2onpxgc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE2NCBTYWx0ZWRfX2f8XRKmIWhM/
+ L0oj687U4MgVr4RGj1PCqmWTwh9hE9srnCBUgVD4qvTukRrE5YSPCMCmhqb1/bAKVsOLy+lYrIW
+ 469AeEELp/2cMzx+VHPtblU53Ok4pg3y/9FnOH7JZKXMm2t9WcasCFsRuYRFsboRGKhq+seFH96
+ DlPaG/53y8E3xjJjqaQ/KZS9omKoL39jAuHTQa9eLnXQjPQbS7eECseM2iiOIQbki6pgjf4T1zp
+ gFtqggVzmAmfRpu9bVK3b0AVIzAMUehIZkyjgTL1dsx4zYoe/ZYEPhWNAIzn2mibzsqXstkwDos
+ Ag4pXPT1uBuPenciDrWFKk/SWfg10UleLFVtmJeFtzyjmr+neUG2k++Oo15dyg8+KOZCP1VyIKL
+ pmbPSC5AQZcce6mMbD71mXJ5bRa3vcNmrok5xUn2nv0F2BoyyPkaMYvCB5QHehuIKFhcxJKCHKz
+ NOQnfilcVWaRejC3SnQ==
+X-Proofpoint-ORIG-GUID: dBj6E2UZq9g8A3rgBEbw9KFLJ2onpxgc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270161
+ definitions=2026-08-27_08,2026-08-27_02,2025-10-01_01
 
-On 8/27/26 4:20 AM, Muhammad Falak R Wani wrote:
-> Commit 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
-> added a protocol parameter to ibmvfc_alloc_target() but did not describe
-> it in the function's kernel-doc comment, so a W=1 build warns:
-> 
->   drivers/scsi/ibmvscsi/ibmvfc-core.c:4996: warning: Function parameter
->   or struct member 'protocol' not described in 'ibmvfc_alloc_target'
-> 
-> Add the missing parameter description.
-> 
-> Fixes: 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202608270829.lHI1FAdO-lkp@intel.com/
-> Signed-off-by: Muhammad Falak R Wani <falakreyaz@gmail.com>
-> ---
-Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+Hi everyone,
+
+My last day at Meta is Aug 28, so my meta.com/fb.com emails will stop
+working soon.  Meta's commitment to the kernel and btrfs isn't changing, and
+my own kernel contributions will continue as well.
+
+This update better reflects that I handed off most of the btrfs
+maintainership duties years ago.  Many thanks to David Sterba, and all
+of the btrfs developers for their work moving the filesystem forward.
+
+-chris
+
