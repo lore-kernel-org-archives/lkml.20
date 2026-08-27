@@ -1,30 +1,29 @@
 Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C803A25B085
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD12923E324
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834017; cv=none; b=itOfXFRweW44UlrhdgIVcrlR7eaPljwoUvAqnI663etemDzSguvc91MPh6t6YHUz5mo0eu6CpPsf8698P8yoj6LkJ4AbRRYxYixGs6gLr/nVHFE4tEg/cn54BU2XE2G3uIvCK8wBV/1V/0X+8Ckm9s24kt5+vPEIXbplyponT48=
+	t=1787834017; cv=none; b=tCFpoj5Ijd62TpQPCR8Jyh41yt0jGTE/EMckO/cP8B774tk+3p4NSl6vlJoOFY5OX/XCIVDoxEQE+KjWTlWyne01F/6/ke7AijvhY2u9xKVxa6bVwydORpqXmktD5XgLz3UPWepn1N4O5zut6z15EnVNG+9Kxz7l22AX7cYwrus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787834017; c=relaxed/simple;
-	bh=hFdYaA3ii1vyF1SrC5UNn8ETxkUVvhBqAzTKcvX2c5c=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BFvbXqBC/AUdADtR6VT139nDebjU0yzG/gkNQ+aWR55BFhNsTK2IHx7ELdXNv97EHGme3XpUK3R5TaYgsCtUvEE8N2n0XvauxFDFY3mBBT8yjUV+XFWNLPBj1/6G/skrLPina4DPq1X8z4yDOm66TaeNpZgAfQ7EW8nPlx7KU7c=
+	bh=mUGsN8VW39zhNVB/hg+55QbbuMjXjR0NzDWlW5PKpUk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l9i2D7gHUpCmZa2R2XcV+o68gEhkaJALcFK4Ag9LcooBi/MUY3mxJxC4RpxP0al3Mn//MVHkOTkjEnX46uLYE2MjGm57SiRHs1SfHnNq7xBajADc0EVheqqNtqRsLsZgZMnNf1lSDnXdF7cF4+AroeSZoqN5p/hy5f/SeJQ+SJQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
 Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bt0Vx7zBJY4k;
-	Thu, 27 Aug 2026 20:33:10 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bm0Vvcz34Dg;
+	Thu, 27 Aug 2026 20:33:04 +0800 (CST)
 Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bq1hNPzBJY4k;
-	Thu, 27 Aug 2026 20:33:07 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bj6Zngz34Dg;
+	Thu, 27 Aug 2026 20:33:01 +0800 (CST)
 Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 0AA7B36F1F84;
-	Thu, 27 Aug 2026 20:29:25 +0800 (CST)
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id AFDF736F1F84;
+	Thu, 27 Aug 2026 20:29:19 +0800 (CST)
 Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
  (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 27 Aug
- 2026 20:33:05 +0800
+ 2026 20:33:00 +0800
 From: Jianyong Wu <wujianyong@hygon.cn>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
 	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
@@ -39,12 +38,10 @@ CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
 	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
 	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
 	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
-Subject: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance matrix with unique distance values
-Date: Thu, 27 Aug 2026 20:27:55 +0800
-Message-ID: <20260827122816.756234-3-wujianyong@hygon.cn>
+Subject: [RFC PATCH v2 00/23] sched: Scale cache-aware aggregation at LLC granularity
+Date: Thu, 27 Aug 2026 20:27:53 +0800
+Message-ID: <20260827122816.756234-1-wujianyong@hygon.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,351 +53,338 @@ Content-Type: text/plain
 X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
  (172.23.18.114)
 
-Builds a refined node distance matrix based on the raw NUMA distance matrix
-provided by BIOS. The refined matrix preserves the relative ordering of
-NUMA distances, while assigning distinct distance values to node pairs that
-originally shared identical distances within each matrix row. This matrix
-is exclusively used for cache-aware scheduling and has no impact on existing
-NUMA topology logic such as sched domain construction.
+[Problem Statement]
+The current cache-aware scheduling implementation adopts an
+LLC-centric task aggregation model. While effective for workloads
+that fit within a single LLC domain, this design is fundamentally
+limited by its fixed aggregation scope and cannot scale across LLCs.
 
-For example, consider a system with 4 NUMA nodes. The raw BIOS-provided
-distance matrix may look like this:
+[Proposal]
+Peter Zijlstra suggested scaling resources at LLC granularity instead,
+and this patch set implements that idea.
 
-        NODE0  NODE1  NODE2  NODE3
-NODE0   10     20     20     30
-NODE1   20     10     20     25
-NODE2   20     20     10     20
-NODE3   30     25     20     10
+To achieve this goal, we need to answer two questions: in which order
+should LLCs be considered, and how far along that order does a thread
+group need to spread? The scheduler aggregates threads near the
+preferred LLC first, then expands through the ordered LLCs as the
+thread group's aggregate demand requires.
 
-Multiple duplicate distance values exist within each row. After the
-deduplication step, the refined distance matrix becomes:
+For each preferred LLC, the topology-based affinity model defines a
+fixed order in which LLCs should be used. The scheduler estimates the
+thread group's total utilization and selects the smallest leading
+portion of that order whose allowed capacity can accommodate the
+group. A task may migrate to an LLC in that portion only if the
+destination can also accommodate the task.
 
-        NODE0  NODE1  NODE2  NODE3
-NODE0   10     15     20     30
-NODE1   15     10     12     25
-NODE2   20     12     10     15
-NODE3   30     25     15     10
+For example, in a simplified system, there are 4 NUMA nodes, each
+node with 4 LLCs. The node distance matrix is:
+        NODE0    NODE1    NODE2    NODE3
+NODE0   10       20       30       40
+NODE1   20       10       25       30
+NODE2   30       25       10       20
+NODE3   40       30       20       10
 
-All entries in each row are now unique, while adhering to two core principles:
-1. The relative distance ordering from the original matrix is preserved.
-   For instance, original distance(NODE0, NODE1) < distance(NODE0, NODE3),
-   and this relative relationship is retained in the refined matrix as well.
-2. The matrix remains symmetric across its main diagonal. Maintaining
-   symmetry is critical to guarantee consistent pairwise node distances.
+Given a preferred LLC, its node's distance row ranks the other NUMA
+nodes. For example, if the preferred LLC is in NODE0, NODE1 is ranked
+before NODE2, so LLCs in NODE1 precede LLCs in NODE2 in the resulting
+affinity sequence.
 
-Each row of this refined NUMA distance matrix is sorted in ascending order to
-generate a unique per-node affinity sequence. This sequence will guide
-thread migration logic introduced in subsequent patches.
+To rank LLCs inside the node containing the preferred LLC, there is no
+existing LLC distance matrix to use. So, we construct one which has no
+real physical meaning and is only a hint for constructing the affinity
+sequence. For example, consider this LLC distance matrix:
 
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
----
- include/linux/topology.h |   1 +
- kernel/sched/topology.c  | 243 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 240 insertions(+), 4 deletions(-)
+        LLC0    LLC1    LLC2    LLC3
+LLC0    0       2       3       4
+LLC1    2       0       4       1
+LLC2    3       4       0       2
+LLC3    4       1       2       0
 
-diff --git a/include/linux/topology.h b/include/linux/topology.h
-index 9967739a180c..e01bc9ae6209 100644
---- a/include/linux/topology.h
-+++ b/include/linux/topology.h
-@@ -179,6 +179,7 @@ static inline int cpu_to_mem(int cpu)
- 
- #ifdef CONFIG_SCHED_CACHE
- int llc_to_node(int llc);
-+int sched_cache_node_distance(int node0, int node1);
- #endif
- 
- #if defined(topology_die_id) && defined(topology_die_cpumask)
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index c6928c6b17b6..4c68dfe86019 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -685,9 +685,22 @@ DEFINE_PER_CPU(struct sched_domain __rcu *, sd_asym_cpucapacity);
- DEFINE_STATIC_KEY_FALSE(sched_asym_cpucapacity);
- DEFINE_STATIC_KEY_FALSE(sched_cluster_active);
- 
-+#ifdef CONFIG_NUMA
-+/*
-+ * The de-duplicated NUMA distance tiers. Defined here, rather than next to
-+ * the rest of the NUMA topology state further down, because the cache aware
-+ * code below has to reach them as well.
-+ */
-+static int			sched_numa_node_levels;
-+static int			*sched_numa_node_distance;
-+#endif
-+
- #ifdef CONFIG_SCHED_CACHE
- static int __rcu *llc_to_node_map;
- static void rebuild_llc_node_map(int size);
-+static int __rcu *sched_cache_node_dist_matrix;
-+static int sched_cache_node_dist_size;
-+static void rebuild_node_distance_matrix(int size);
- #endif
- 
- static void update_top_cache_domain(int cpu)
-@@ -875,6 +888,38 @@ int llc_to_node(int llc)
- 	return node;
- }
- 
-+/*
-+ * De-duplicated NUMA-node distance, looked up from
-+ * sched_cache_node_dist_matrix[]. Unlike node_distance(), no two nodes
-+ * seen from the same node compare equal, while every relative ordering
-+ * of the original node_distance() values (e.g. node_distance(a,b) >
-+ * node_distance(a,c)) is preserved. Falls back to the raw
-+ * node_distance() if the matrix has not been built yet (e.g. very
-+ * early boot, before the first rebuild_node_distance_matrix() call).
-+ */
-+int sched_cache_node_distance(int node0, int node1)
-+{
-+	int *matrix;
-+	int size;
-+	int dist = -1;
-+
-+	if (node0 == node1)
-+		return 0;
-+
-+	rcu_read_lock();
-+	matrix = rcu_dereference(sched_cache_node_dist_matrix);
-+	size = READ_ONCE(sched_cache_node_dist_size);
-+	if (matrix && node0 >= 0 && node0 < size
-+		   && node1 >= 0 && node1 < size)
-+		dist = matrix[node0 * size + node1];
-+	rcu_read_unlock();
-+
-+	if (dist >= 0)
-+		return dist;
-+
-+	return node_distance(node0, node1);
-+}
-+
- static void rebuild_llc_node_map(int size)
- {
- 	int *new_map, *old_map;
-@@ -911,6 +956,197 @@ static void rebuild_llc_node_map(int size)
- 	kfree(old_map);
- }
- 
-+/*
-+ * Build a de-duplicated NUMA-node distance matrix using a tiering +
-+ * greedy edge-coloring technique, applied directly to node pairs.
-+ * Reuses the already sorted, de-duplicated distance tier list
-+ * (sched_numa_node_distance[]/sched_numa_node_levels).
-+ *
-+ * Guarantees, compared to the raw node_distance() table:
-+ *   - still symmetric;
-+ *   - every relative ordering between two node_distance() values is
-+ *     preserved (if node_distance(a,b) > node_distance(a,c) then
-+ *     sched_cache_node_distance(a,b) > sched_cache_node_distance(a,c),
-+ *     and likewise for equal/less-than);
-+ *   - looked at from any single node, the distances to every other
-+ *     node are pairwise distinct (this is the property the raw table
-+ *     can violate, e.g. two nodes genuinely equidistant from a third).
-+ */
-+static void rebuild_node_distance_matrix(int size)
-+{
-+	int *matrix = NULL, *old_matrix;
-+	int *tier_dist = NULL;
-+	int *tier_ncolors = NULL;
-+	int nr_tiers = 0;
-+	unsigned long **used_colors = NULL;
-+	int i, j, t;
-+	int scale;
-+
-+	if (size <= 0)
-+		return;
-+
-+#ifdef CONFIG_NUMA
-+	nr_tiers = READ_ONCE(sched_numa_node_levels);
-+	if (nr_tiers > 0) {
-+		tier_dist = kmalloc_array(nr_tiers, sizeof(int), GFP_KERNEL);
-+		if (tier_dist) {
-+			int *d;
-+
-+			rcu_read_lock();
-+			d = rcu_dereference(sched_numa_node_distance);
-+			if (d)
-+				memcpy(tier_dist, d, nr_tiers * sizeof(int));
-+			else
-+				nr_tiers = 0;
-+			rcu_read_unlock();
-+		} else {
-+			nr_tiers = 0;
-+		}
-+
-+		if (!nr_tiers) {
-+			kfree(tier_dist);
-+			tier_dist = NULL;
-+		}
-+	}
-+#endif
-+
-+	matrix = kcalloc(size * size, sizeof(int), GFP_KERNEL);
-+	if (!matrix)
-+		goto out;
-+
-+	if (!tier_dist) {
-+		/*
-+		 * NUMA distance tiers not available yet (e.g. very early
-+		 * boot or a non-NUMA build): fall back to the raw
-+		 * node_distance() table, same as sched_cache_node_distance()
-+		 * would have returned anyway.
-+		 */
-+		for (i = 0; i < size; i++) {
-+			for (j = 0; j < size; j++) {
-+				if (i == j)
-+					continue;
-+				matrix[i * size + j] = node_distance(i, j);
-+			}
-+		}
-+		goto commit;
-+	}
-+
-+	tier_ncolors = kcalloc(nr_tiers, sizeof(*tier_ncolors), GFP_KERNEL);
-+	if (!tier_ncolors)
-+		goto out;
-+
-+	used_colors = kcalloc(size, sizeof(*used_colors), GFP_KERNEL);
-+	if (!used_colors)
-+		goto out;
-+	for (i = 0; i < size; i++) {
-+		used_colors[i] = bitmap_zalloc(size, GFP_KERNEL);
-+		if (!used_colors[i])
-+			goto out;
-+	}
-+
-+	/* Greedy edge-color each tier; pack (tier, color) into matrix[]. */
-+	for (t = 0; t < nr_tiers; t++) {
-+		int dist = tier_dist[t];
-+		int tier_max_color = 0;
-+
-+		for (i = 0; i < size; i++)
-+			bitmap_zero(used_colors[i], size);
-+
-+		for (i = 0; i < size; i++) {
-+			for (j = i + 1; j < size; j++) {
-+				int color;
-+
-+				if (node_distance(i, j) != dist)
-+					continue;
-+
-+				/* smallest color free at both endpoints */
-+				color = 0;
-+				for (;;) {
-+					color = find_next_zero_bit(used_colors[i], size, color);
-+					if (WARN_ONCE(color >= size,
-+						      "sched_cache: no free color left in NUMA tier (node=%d)",
-+						      i)) {
-+						color = size - 1;
-+						break;
-+					}
-+					if (!test_bit(color, used_colors[j]))
-+						break;
-+					color++;
-+				}
-+
-+				set_bit(color, used_colors[i]);
-+				set_bit(color, used_colors[j]);
-+				if (color + 1 > tier_max_color)
-+					tier_max_color = color + 1;
-+
-+				matrix[i * size + j] = t * (size + 1) + color;
-+				matrix[j * size + i] = matrix[i * size + j];
-+			}
-+		}
-+		tier_ncolors[t] = tier_max_color;
-+	}
-+
-+	/*
-+	 * Pick the smallest integer scale such that every tier's
-+	 * span of increments (0..tier_ncolors[t]-1) still fits strictly
-+	 * inside the gap to the next distinct tier once scaled.
-+	 */
-+	scale = 1;
-+	for (;;) {
-+		bool need_more = false;
-+
-+		for (t = 0; t < nr_tiers - 1; t++) {
-+			int gap;
-+
-+			if (tier_ncolors[t] <= 1)
-+				continue;
-+			gap = tier_dist[t + 1] - tier_dist[t];
-+			if (tier_ncolors[t] - 1 >= gap * scale) {
-+				need_more = true;
-+				break;
-+			}
-+		}
-+		if (!need_more)
-+			break;
-+		if (++scale > 1000) {
-+			scale = 1000;
-+			break;
-+		}
-+	}
-+
-+	/* Unpack (tier, color) into the final, close-to-original value. */
-+	for (i = 0; i < size; i++) {
-+		for (j = 0; j < size; j++) {
-+			int packed, t2, color;
-+
-+			if (i == j)
-+				continue;
-+
-+			packed = matrix[i * size + j];
-+			t2 = packed / (size + 1);
-+			color = packed % (size + 1);
-+			matrix[i * size + j] = tier_dist[t2] * scale + color;
-+		}
-+	}
-+
-+commit:
-+	old_matrix = rcu_dereference_protected(sched_cache_node_dist_matrix, true);
-+	sched_cache_node_dist_size = size;
-+	rcu_assign_pointer(sched_cache_node_dist_matrix, matrix);
-+	synchronize_rcu();
-+	kfree(old_matrix);
-+	matrix = NULL;
-+out:
-+	if (used_colors) {
-+		for (i = 0; i < size; i++)
-+			bitmap_free(used_colors[i]);
-+		kfree(used_colors);
-+	}
-+	kfree(tier_ncolors);
-+	kfree(tier_dist);
-+	kfree(matrix);
-+}
-+
- /*
-  * Get the effective LLC size in bytes that @cpu's bottom sched_domain
-  * can use. A CPU within a cpuset partition can only use a proportion
-@@ -981,6 +1217,7 @@ static bool alloc_sd_llc(const struct cpumask *cpu_map,
- 	}
- 
- 	rebuild_llc_node_map(max_lid + 1);
-+	rebuild_node_distance_matrix(nr_node_ids);
- 	return true;
- err:
- 	for_each_cpu(i, cpu_map) {
-@@ -1949,15 +2186,13 @@ enum numa_topology_type sched_numa_topology_type;
- 
- /*
-  * sched_domains_numa_distance is derived from sched_numa_node_distance
-- * and provides a simplified view of NUMA distances used specifically
-- * for building NUMA scheduling domains.
-+ * (defined near the top of this file) and provides a simplified view of
-+ * NUMA distances used specifically for building NUMA scheduling domains.
-  */
- static int			sched_domains_numa_levels;
--static int			sched_numa_node_levels;
- 
- int				sched_max_numa_distance;
- static int			*sched_domains_numa_distance;
--static int			*sched_numa_node_distance;
- static struct cpumask		***sched_domains_numa_masks;
- #endif /* CONFIG_NUMA */
- 
+Each row ranks the other LLCs relative to the LLC represented by that
+row. With LLC0 as the preferred LLC, its row ranks LLC1 before LLC2 and
+LLC2 before LLC3. A different preferred LLC selects a different row and
+may therefore produce a different order.
+
+Combining the node ranking, the selected preferred-LLC row, and the
+ascending LLC-ID order used inside other nodes produces one affinity
+sequence for a given preferred LLC. It does not define a global order
+between arbitrary LLC pairs.
+
+Note that there may be identical numbers inside a row of a real
+node distance. So, we should build a new node distance matrix in
+which the distance values within each row are unique. This node
+distance matrix is only used for migration decisions in the
+cache-aware scheduling (CAS) extension.
+
+Once a preferred LLC affinity sequence is constructed, the scheduler
+uses it as an input to migration decisions. For example, assume LLC0
+is the preferred LLC and its affinity sequence is as follows:
+LLC0->LLC1->LLC2->LLC3...->LLC15. (Note that this is a simple example.
+Generally, for the node containing the preferred LLC, the sequence is
+decided by the LLC distance matrix inside the node. For other nodes,
+LLCs are ordered by ascending LLC ID within each node,
+while the node sequence is decided by the node distance matrix.)
+
+The affinity sequence gives an ordered expansion preference, rather
+than an unconditional per-LLC saturation gate. The scheduler estimates
+the aggregate utilization of a thread group and derives the furthest
+LLC-distance tier required for that demand. A destination LLC within
+the resulting range is eligible when it has capacity for the task,
+even if an earlier LLC in the sequence is not yet saturated. For
+example, LLC3 may be selected when the estimated range reaches LLC3
+and LLC3 has capacity. A destination outside that range still uses
+the ordered saturation check to preserve aggregation.
+
+Thus, for a given preferred LLC, the affinity sequence is fixed, while
+the scheduler dynamically determines how many LLCs from the beginning
+of that sequence the thread group may use, based on its estimated total
+utilization.
+
+Before this implementation, we tried to maintain an LLC mask for each
+process's thread group to record its current resource scope. However,
+this approach proved to be difficult to maintain. The mask is updated in
+task_cache_work() but consulted during load balancing, so rapid
+workload changes can leave the mask temporarily out of date. As a
+result, it may no longer accurately represent the thread group's
+actual resource usage, making migration decisions unreliable.
+
+The LLC mask is also insufficient for guiding source group
+selection during load balancing. The mask is associated with a
+specific thread group, but when load balancing searches for a
+source sched_group or runqueue, there is no available task context
+to retrieve the corresponding LLC mask. We need a task-independent
+mechanism that can provide such information during load balancing.
+
+This patch set also tries to address NUMA balancing-related impacts.
+With NUMA balancing enabled, the preferred LLC fails to stay stable
+since the scan range is limited to the current task's preferred node.
+We fix this by adding all preferred nodes of active tasks in the thread
+group to the scan range.
+
+We also seek to suppress task-migration conflicts between CAS and
+NUMA balancing, including splitting NUMA balancing into task and page
+migration paths (suggested by Chen Yu <yu.c.chen@intel.com>) and removing
+unnecessary preferred node checks in load balancing code. These parts
+are unfinished and open for further discussion.
+
+[Patch organization]
+The series is organized as follows:
+
+  Patches 1-6 build the topology infrastructure: LLC-to-node mapping,
+  unique node-distance values, node/LLC traversal helpers, and an sd_node
+  scheduling domain.
+
+  Patches 7-10 collect preferred-NUMA-node information for tasks and CPUs,
+  and add the per-sched-domain state needed by load balancing.
+
+  Patches 11-16 implement LLC-granular migration decisions. They calculate
+  affinity gain, select source runqueues and groups, decide migration
+  eligibility, and allow active balancing to expand to another LLC.
+
+  Patches 17-19 handle the interaction with NUMA balancing: they make its
+  decisions LLC-granular, scan all preferred nodes of a thread group, and
+  remove no-longer-needed preferred LLC/node restrictions.
+
+  Patches 20-22 estimate whole-thread-group utilization, derive the LLC
+  range needed for that utilization, allow migration within that range, and
+  walk the preferred node starting from the preferred LLC.
+
+  Patch 23 exposes a task's preferred LLC for scheduler debugging.
+
+This patch set is far from perfect and still contains some unresolved
+issues. Before proceeding further, I would like to confirm whether I am
+heading in the right direction. Therefore, I am sending these patches
+out to gather early feedback.
+
+v1: https://lore.kernel.org/all/20260625030759.25928-1-wujianyong@hygon.cn/
+
+Changes since v1:
+(1) No longer scale resources based on sched domain boundaries.
+(2) Add a new node distance matrix with no duplicate values within a row.
+(3) Add an intra-node LLC distance matrix to rank candidate LLCs
+    relative to a given preferred LLC within a node.
+(4) Change the way affinity gain is calculated.
+(5) Change the way migration permission is decided.
+(6) Fix saturation issues in some tests like schbench.
+(7) Include all preferred nodes related to the thread group into the scan
+    range.
+(8) Add a tunable to enable/disable task/page migration for NUMA balancing
+    independently. (Suggested by Chen Yu)
+(9) Estimate whole thread-group utilization to derive its LLC capacity
+    range.
+(10) Permit migration to an LLC within that estimated range, even when an
+     earlier LLC in the affinity sequence is not saturated.
+(11) Walk LLCs in the preferred node from the preferred LLC.
+(12) Fix a bug in the debug print patch. (Suggested by XIAO WU)
+
+Tested on a Hygon machine with the following topology:
+* 2 sockets
+* 4 NUMA nodes per socket
+* 4 LLCs per NUMA node
+* 4 cores per LLC domain
+* 2 SMT threads per core
+
+The scheduler changes apply cleanly on Linus' tree at 0f23d56f17fd
+("Merge tag 'linux_kselftest-next-7.3-rc1' of ...kselftest") and build
+there.
+
+Functional test:
+Ran a busy loop test program with 4, 8, 12, 16, 20, 24, 28, 32, and
+64 threads. The scheduler is able to roughly scale resources at LLC
+granularity.
+
+Performance test:
+* llc_gran refers to this patch set.
+* The baseline is the same tree without this series, that is Linus' tree at
+  0f23d56f17fd. Note that the baseline already carries CONFIG_SCHED_CACHE,
+  so these numbers compare the existing single-LLC aggregation against the
+  LLC-granular expansion this series adds, not against a kernel without
+  cache-aware scheduling.
+* Both kernels run with NUMA balancing disabled and with 'aggr_tolerance'
+  set to 90, so the two aggregate under the same threshold and the
+  difference reflects the code rather than the tunable.
+* Each test is repeated at least 20 times; results take the average value.
+
+To reproduce:
+
+  # baseline
+  git checkout 0f23d56f17fd
+  make olddefconfig && make -j$(nproc) && install and boot it
+
+  # llc_gran
+  git am v2-00*.patch     # the 23 patches of this series
+  make olddefconfig && make -j$(nproc) && install and boot it
+
+  # on each kernel, before measuring
+  echo 0  > /proc/sys/kernel/numa_balancing
+  echo 90 > /sys/kernel/debug/sched/llc_balancing/aggr_tolerance
+
+  # then
+  for f in 2 4 8 12 16 20 24 32 48; do
+      for g in 1 2; do
+          hackbench -T -p -f $f -g $g -l 100000
+      done
+  done
+  for t in 2 4 6 8 12 16 32 48 64 96 128; do
+      schbench -m 1 -t $t -r 30
+  done
+
+The reported schbench figure is the 99.0th percentile of the Wakeup
+Latencies block from the final cumulative report.
+
+[hackbench]
+(lower is better, normalized to baseline; the figure in parentheses is the
+standard deviation, as a percentage of the mean)
+test cmd: hackbench -T -p -f $f -g $g -l 100000
+
+pipe   groups  baseline          llc_gran          lg improve
+============================================================
+2      1       1.000 (47.90%)    0.919 (3.73%)     8.094%
+2      2       1.000 (58.79%)    0.799 (11.97%)    20.126%
+4      1       1.000 (42.69%)    0.930 (26.53%)    6.966%
+4      2       1.000 (29.86%)    0.717 (8.96%)     28.312%
+8      1       1.000 (20.44%)    0.654 (7.32%)     34.613%
+8      2       1.000 (11.39%)    0.711 (12.57%)    28.928%
+12     1       1.000 (13.72%)    0.646 (9.45%)     35.399%
+12     2       1.000 (10.97%)    0.701 (6.73%)     29.907%
+16     1       1.000 (12.48%)    0.703 (7.51%)     29.711%
+16     2       1.000 (5.28%)     0.728 (6.41%)     27.171%
+20     1       1.000 (5.89%)     0.663 (3.76%)     33.651%
+20     2       1.000 (5.47%)     0.861 (4.25%)     13.894%
+24     1       1.000 (6.18%)     0.678 (2.88%)     32.167%
+24     2       1.000 (6.23%)     0.942 (6.78%)     5.776%
+32     1       1.000 (4.64%)     0.690 (3.70%)     31.023%
+32     2       1.000 (1.51%)     1.002 (4.86%)     -0.151%
+48     1       1.000 (2.08%)     0.942 (2.45%)     5.847%
+48     2       1.000 (1.51%)     1.041 (2.49%)     -4.060%
+
+llc_gran is faster at 16 of the 18 configurations, by a median of 27.7%.
+The largest gains occur in the middle of the range, especially for one group
+from 8 to 32 pipes; gains taper off at both ends and vary with group count.
+
+Two configurations are slower. Only 48 pipes with 2 groups exceeds
+run-to-run noise, at -4.1%; 32 pipes with 2 groups is within it.
+
+Run-to-run variance improves at 12 of the 18 configurations, most clearly
+at the small end, where the baseline reaches 30-59% against 4-27% for
+llc_gran.
+
+[schbench]
+p99 wakeup latency (lower is better, normalized to baseline; the figure in
+parentheses is the standard deviation, as a percentage of the mean)
+test cmd: schbench -m 1 -t $threads -r 30
+
+threads   baseline          llc_gran          lg improve
+=========================================================
+2         1.000 (33.11%)    0.801 (6.27%)     19.86%
+4         1.000 (31.09%)    0.787 (11.43%)    21.32%
+6         1.000 (21.89%)    0.832 (11.11%)    16.79%
+8         1.000 (15.20%)    0.863 (14.70%)    13.72%
+12        1.000 (14.23%)    0.883 (1.97%)     11.68%
+16        1.000 (11.30%)    0.919 (1.21%)     8.14%
+32        1.000 (12.81%)    0.784 (2.97%)     21.55%
+48        1.000 (6.79%)     0.670 (3.67%)     33.02%
+64        1.000 (3.04%)     0.647 (3.28%)     35.33%
+96        1.000 (3.18%)     0.863 (18.11%)    13.72%
+128       1.000 (4.66%)     0.952 (15.24%)    4.79%
+
+llc_gran improves the p99 wakeup latency at all 11 thread counts, by a
+median of 16.8%, and 10 of the 11 exceed run-to-run noise. The gain is
+largest at 48 and 64 threads (+33.0% and +35.3%). Only 128 threads, at
++4.8%, stays within noise.
+
+Variance improves at 8 of the 11 thread counts. It remains higher than the
+baseline at 96 and 128 threads, where llc_gran runs at 15-18% against
+3-5%.
+
+The root cause of the hackbench regression at 48 pipes, and of the wider
+spread in wakeup latency at high thread counts, will be investigated in
+future work.
+
+Further testing across a wider range of workloads and hardware platforms
+is needed.
+
+Jianyong Wu (23):
+  sched/topology: Add llc_to_node() to translate LLC id to NUMA node
+  sched/topology: Introduce a NUMA distance matrix with unique distance
+    values
+  sched/topology: Introduce a macro to traverse node
+  sched/topology: Introduce a method to calculate the llc distance
+  sched/topology: Introduce a macro to traverse LLC inside node
+  sched/topology: Add sd_node for the NODE sched domain
+  sched/cache: Prioritize preferred NUMA node selection over LLC
+    selection
+  sched/topology: Introduce a per-CPU tasks NUMA preferred counter
+  sched/cache: Account percpu sd task NUMA preference
+  sched/topology: Add per-sd scratch for the load balance affinity score
+  sched/cache: Introduce helpers for task migration decisions
+  sched/cache: Introduce rq affinity gain calculation
+  sched/cache: Pick optimal src rq/group using affinity promotion metric
+  sched/cache: Drop prefer_sibling restriction for llc_balance
+  sched/cache: Judge migration eligibility in LLC granularity
+  sched/cache: Allow un-throttled active balance to spread out of a full
+    LLC
+  sched/fair: Fine-granularity NUMA balancing
+  sched/cache: Scan all prefer nodes in thread group
+  sched/cache: Remove preferred LLC/node check no longer needed
+  sched/cache: Estimate utilization of the whole thread group
+  sched/cache: Spread workloads within an estimated LLC range
+  sched/cache: Walk the preferred node from the preferred LLC
+  sched/debug: Print task preferred LLC for scheduler debugging
+
+ include/linux/mm_types.h       |    6 +-
+ include/linux/sched.h          |    5 +
+ include/linux/sched/sysctl.h   |   12 +
+ include/linux/sched/topology.h |    7 +
+ include/linux/topology.h       |    6 +
+ kernel/sched/core.c            |   87 +++
+ kernel/sched/debug.c           |   28 +-
+ kernel/sched/fair.c            | 1112 +++++++++++++++++++++++++++-----
+ kernel/sched/sched.h           |   49 ++
+ kernel/sched/topology.c        |  873 ++++++++++++++++++++++++-
+ mm/memory.c                    |    3 +
+ 11 files changed, 2007 insertions(+), 181 deletions(-)
+
 -- 
 2.34.1
-
 
