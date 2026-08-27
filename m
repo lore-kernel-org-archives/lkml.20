@@ -1,90 +1,118 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFF343E06B;
-	Thu, 27 Aug 2026 15:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC78447F2C3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843465; cv=none; b=PeAmhIy9CaLQQbw7MtbIjYstzG5r0Ro8oGqk1w8PCUaGitqgrSEcy6tgXfwcnk/LkYUZdhG1LZ+SB2k35Khbs6jDXxmy8U8PMSuFzPuRxjgcWQ3REN8VG8tBUUsDeO2rIBS1NtFj3mDDNF/F6Lr6fW5pQyrqqhni/rpmsZDBY7M=
+	t=1787843517; cv=none; b=tM00uRVO3LhcHMMN48jeHuHp4EPStHZDmYRXgmxwx4j41ynf8yzCIgOM8F8CZNHvfEbwFOhvar7vL2qSe6GgPhjnB157dyEiGCteUk1VWmzhajzkT6RzUp6Nuykin9ejGfp5Qyrnjc7RggqwhnzYmfKbyH9MIKzVZpyQIl/EmWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787843465; c=relaxed/simple;
-	bh=wypQmDHUmcBJmH1nhaLuSZ2cqQW4q1hP00xbJAXnlJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PeOXvhECovIf3pz7cFwIWxjcYCG/qy+HFVV6fcL1W8JK0i3YgATfw7R0uT+be/NTIWxA7frGtCLFjqeKPMJppecWqExU4JF1nmyOHlge/Pds53jZyV4DjhUmBFX06YZ4BxDyxYdKrKFE8t/omEYRI6YJclU49jgoa6QYNKL76Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=M1pVnvi5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Z+IzuBO2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787843517; c=relaxed/simple;
+	bh=TS8uJOxY0VqqIlMJUo9bqOEciSpsr3A5gB1Tj/EyK2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Arq6DvBpUKLpmwXUiUtjOF+VX+Np8d7X6tJAD0sF/mrslDUOHnKiziTYRP9xrv18YyzpPVI4c2evXLZzB3kfrxDwGq7UkZaL/ufihJ+jZN5m8wC12nUghfSfiZu14DrC6EGqZxGCWQxdwhaTUQr27TjHpOrmNif4q8a0riiIIXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F3IsbMW8; arc=none smtp.client-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="M1pVnvi5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Z+IzuBO2"
-Date: Thu, 27 Aug 2026 17:10:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787843457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wypQmDHUmcBJmH1nhaLuSZ2cqQW4q1hP00xbJAXnlJI=;
-	b=M1pVnvi5/FOctF+AJQ3fJd4zoa9BaWw8XL/6bw+AYqZ7joQGG48ky2PIxfM/l8ARJk22T3
-	zTzevqto632G7v66F5Cua0qZZFz5jmt1vIJ7iIe9MjfoCz3I/cbZRiEQy3WMhL2VBkRXAx
-	oPBYk+3gQcuG510TbF8rkYPJHHMa86Ee/+gwrSJiz8SkdYjOPurf/nbQalO7pnXKG9aql8
-	J6WXqKGsuYOOokapNZZk/LbO4hBWqZptYKqBH444tygtKQa75z6U61UlqFYRJPx027Av7Y
-	w73RoaZBYmt/yfXsxevOKp4Bjt+49RgIR1uxxooqp0N8hFBgI4O2zNdGHHsfSA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787843457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wypQmDHUmcBJmH1nhaLuSZ2cqQW4q1hP00xbJAXnlJI=;
-	b=Z+IzuBO2jz4XIuRKpsm6Kra6CrM0Db+wSUt9ljjkuUb3ojtR1Vn9faOSPItXGTQW7uFiyx
-	ohhUj+hn41Xcj+AQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Ju Nan <junan76@163.com>
-Cc: antonio.borneo@foss.st.com, linusw@kernel.org,
-	alexandre.torgue@foss.st.com, arnd@arndb.de, clrkwllms@kernel.org,
-	lee@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
-	mfd@lists.linux.dev, rostedt@goodmis.org,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH v3] pinctrl: stm32: program the EXTI mux from .alloc
- instead of .activate
-Message-ID: <20260827151056.QrjGOPuG@linutronix.de>
-References: <20260803061718.43210-1-junan76@163.com>
- <20260804141402.86911-2-junan76@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F3IsbMW8"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4563ac048f4so113556fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:11:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787843515; x=1788448315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NmdIKvxkFSGNeSljb2NxmA94mTGO/+oX2AMXwxdIcUM=;
+        b=F3IsbMW82AWwTL6Ogw7yy3cMqU1FarlbaDJqCntwBRZPrS2nrWEMCHDBZ409RBXS50
+         vHry3QRzxVfsjR5+mKywBY+inKv3cyFkVTHPOQbJa9UjZnMucHt7NKVybUyNPpcEKwvU
+         RrxuKT9oDS5m8G6flKN5PcvJYUY2YzltsvpMcOKP5H03aCj6Oboza4vcTctlhcy0oFix
+         mkqbv178fEg9bCnaKam7fSqrjGAogjP3wVPaDCTveUQV2j+OpUNCY3TbtpWjEo4F6vO+
+         lmHBeXurxDpyQdQmbYT3rZ7zaVoexkZX/UPPefzSnHBd9tpCjlpf6Kszk542SvhB0ueK
+         0yzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787843515; x=1788448315;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NmdIKvxkFSGNeSljb2NxmA94mTGO/+oX2AMXwxdIcUM=;
+        b=ftRQdX840ZmWL+W7DkkpKtw5y9L0/ZV28oBmhuX+FBgjs+kPe2ppS6kVMc11S+u+F4
+         /JrK/cyAEIhhMxdevfdCYxK0MW4QSsb9N60KXXYLlUSv2q65kUCdL7qSGru8PsPphsmS
+         0mWuiXHSNQi7mT6HEUSYnw0nNk/eVWm16f0o+e+s7eqAxDgLzuI8PTGhf1MYia4gb5iP
+         NywOqbP4HBGkgqTIRxtdUf99Ev6O25LvvjOlmYpnH27KtHUrj4yRXqPb6khyEU/g8VSl
+         c4BvBparZWHuZMOPtT3reLjHPKf+OQRMGUBmZeBOdaMrGSwlo5iMDZu/byc5c4xn5uuI
+         3Jdg==
+X-Forwarded-Encrypted: i=1; AHgh+RrJ+WwijOoUfTmI+DcE2kPu5CBAN9sLxTGrH/UT8EbY3hI4Dy93eJf6lRH/admGxwoZWZ3TTjt+u7K4+qU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSmMROt44jSSnLsi8TtY8cYsuSopn99xvBRQ0x47WBXefddS/I
+	x7QqJcBeg02JZHM5957zn/GLB3ZQCtWNn6TbMRTSYvGivfGRH08JoYE3
+X-Gm-Gg: AR+sD13pupDHeKPPaxDK0NUMj33W6PcdHzIWJJGkFdLxKHcR3ivsPjhYJrz9PeXq9KM
+	fx0LXUg62kWlIuiClKgkQXGdHlnGYbnxmry7LccOmNvyJztfavSPu4w+gDLTKMCrF5bIT8UYtmq
+	AfCeyVoM1LR/pQFRADqYO6bCUEyhrKGOygfPLuB/y9RnDJNyGHQ/l34h8QKue7AkQHZx2QhhHEj
+	SH0elruy4+hkuqJWscUILi+MGx2ZSxSxmi2E+4pdntYhXzBjakry2HYKN+oVgJ5d1TXa9lLwv6C
+	xPjb8I9GMW4VWF3o3U3wj8a2vSRYD95eXBsIwezevb0asUWvTkZx1bBV4SGEC1jUfhWxDaxjzDx
+	u8bprlw4AhsK6vpWx0QXrjcqpQx1bJXzoAor/oftMe6rDXshhwF1zyEvBZGedTyZQbSU2rDeZuJ
+	oCXHJqzAoN5iCNDI2sQ1bHwDfN55vVwF0T3mJ63DR8UtdenbG4PDafPAa1EfLQjyyGCjkNyJ+AO
+	Sq7vo2uhjA2rg9QMsYzy+xEyWoYv01gdn0=
+X-Received: by 2002:a05:6820:829:b0:6b1:b771:bc43 with SMTP id 006d021491bc7-6b1b771bccfmr4253535eaf.23.1787843514529;
+        Thu, 27 Aug 2026 08:11:54 -0700 (PDT)
+Received: from archlinux ([2409:40d5:415:fb30:8fb3:a7e9:62b3:e2c9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f47d8csm17142074c88.8.2026.08.27.08.11.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 08:11:54 -0700 (PDT)
+From: Suryansh Singh <technosfan14@gmail.com>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Suryansh Singh <technosfan14@gmail.com>,
+	Otoniel Matute <otonielgrang@users.noreply.github.com>
+Subject: [PATCH] platform/x86: hp-wmi: Add OMEN board 8D40 thermal profile support
+Date: Thu, 27 Aug 2026 20:40:18 +0530
+Message-ID: <20260827151018.25991-1-technosfan14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260804141402.86911-2-junan76@163.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-04 22:14:03 [+0800], Ju Nan wrote:
-=E2=80=A6
-> Nothing requires the mux to be reprogrammed at interrupt startup time:
-> the domain has no .deactivate, .free() only releases the irqmux_map bit
-> without touching the registers, and the resume path reprograms the mux
-> itself in stm32_pinctrl_restore_gpio_regs().
+The HP OMEN Slim 16t-an000 (board ID: 8D40) uses the existing
+OMEN v1 WMI interface but does not use the standard EC thermal
+profile parameters.
 
-The deactivate was last removed in commit db0f032512443 ("pinctrl:
-stm32: check for IRQ MUX validity during alloc()")
+Furthermore, it is the closest sibling of board 8D41 and 8D42,
+which are already included in the table with
+omen_v1_no_ec_board_params.
 
-=E2=80=A6
-> While moving the code, release the mux reservation when the hwspinlock
-> cannot be taken, which the .activate callback had no way of doing.
+Add the DMI board name to hp_wmi_feature_boards[] and map it to
+omen_v1_no_ec_board_params.
 
-It makes sense.
-Acked-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+This enables the existing board-specific handling for 8D40,
+including platform profile and fan control support.
 
-> Reported-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
-> Closes: https://lore.kernel.org/all/20220202174430.pf37tt6lua2op3gc@pengu=
-tronix.de/
-> Signed-off-by: Ju Nan <junan76@163.com>
+Link: https://github.com/CachyOS/kernel-patches/issues/157
 
-Sebastian
+Tested-by: Otoniel Matute <otonielgrang@users.noreply.github.com>
+Signed-off-by: Suryansh Singh <technosfan14@gmail.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 6ecc033e5af3..fba6d202672a 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -323,6 +323,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D26") },
+ 		.driver_data = (void *)&omen_v1_legacy_board_params,
+ 	},
++	{
++		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D40") },
++		.driver_data = (void *)&omen_v1_no_ec_board_params,
++	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D41") },
+ 		.driver_data = (void *)&omen_v1_no_ec_board_params,
+-- 
+2.55.0
+
