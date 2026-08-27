@@ -1,143 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D335AC2C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A04367283;
+	Thu, 27 Aug 2026 07:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814759; cv=none; b=Lo2Cs7PS8wn2kQ0rwraTNxIv9b9HBTsv47MQrd5nQVvN2Cflqd87Btb1stOeDDyxW+z8hG5lINzemTRZ/UGhNmICUhTxLp8BsdiV0O8WGIucHGXmIPyEAZyQ9BgmKFoWJRUwQiTZ1g8/z4uT1QGZO58uryPyGPscU6+cteQ2aLE=
+	t=1787814806; cv=none; b=BSYqB5Jfv1Va1PQDgpygAl9RWSdfmrj5LYSgP8ZWSJfvK6XeQ9hpABinis5b07IdxiUUx2x1jnkTKMQNxF2eIGEbdk/CdYMc73malxl0Q97C7pufCTb49LRXLegrWXQMl4vaTAvHanW3HkRVtDhUE0POx8GGu9t4YZtPFj4D64I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814759; c=relaxed/simple;
-	bh=+M2lq8eXiQpWBpa+2ZtEAztL2BJXiQ6mAIcL7vywVEI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tTLX/1ha7mM3a4feEDTVwbaUFQCUTB04vQsBdUtdR6QRvfDea92pBoVNjYxYmZMePCaU/GFPKXLEK0TQVHff9/1iOFwrg6JN/gSaWskF92zQqQlOfIlL95C1tyljBSJ7uFhW8Egp86xwAEJbMsPrVMe3QF1e9LRbQ2QgBqg+nmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RYcBYR09; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fxJgXgBK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787814806; c=relaxed/simple;
+	bh=vo1KBADmx8VTmnrxF0EBVFe9m872EmDBj3vs19TZEi8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E/FdY1uaTZ6CPQ1oaB6rAUG3AGvspnko1KfssmKw4ykCr1N9BIFzjZ3nqbm7oMdOEo3p94ZaxXiEYEe0IKQqllZ36HgjwgxH9Eb+q/1mD4A+YnoPp2h9BwILFXSKbTxv24sznLHKzoNUQjpShMbyv2atUw/KSM2ezUx0GQVDpLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=YpHj/4Bj; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RYcBYR09";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fxJgXgBK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787814756;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
-	b=RYcBYR09E9TwNgzXvewl9SHws5XQr+RsMJGyMXfdOEiDF7+YU3iT4zoBBgrpGZcHI8WtmJ
-	FKUnbe7zhqfZkAPZlgwH8meS7ct6Z2gngJ95AwsNIe7HtMe5PP5yrwIbSl2hZ84Z5zBnY+
-	cFbwgTwZDdas+sWNybtIvohyTZUEzVY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-670-X_tiWG1bPY2UWEfdTNpNJg-1; Thu, 27 Aug 2026 03:12:34 -0400
-X-MC-Unique: X_tiWG1bPY2UWEfdTNpNJg-1
-X-Mimecast-MFC-AGG-ID: X_tiWG1bPY2UWEfdTNpNJg_1787814753
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49808ea1b64so4821045e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:12:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787814753; x=1788419553; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
-        b=fxJgXgBK2nrilfCan+XEljyJ/15SZXqzCeLYosrRmwT2z4K5GfDA40FHMEcuwaIk9f
-         Tu8C2mUXVRPz0GVJhJGRutjOWqX6qHz6nRmPxzagHSy+FteLeiS1L6YY+YOS9tIBdRWA
-         pIatOwxueE0nCvtxV8vJlAGEjoM18lCajB6YXdljP/CQoJQ/yHs9tED4zlD67mMNWYiU
-         SX72N1zw5EZH9HLJcYi/n3AYIkzIYs7y/vxMA2RpFLpqrZUjl1kEsGH71XuadqovB+ZK
-         wU8oCLNh6bSgV4K55NldlHjxDaVHr0Lt8Fw32Jmy6ELoh3qYutHdvoqFlBVXE998ddlH
-         Aj1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787814753; x=1788419553;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
-        b=KLR5a5C01AksySHrQQZvEIcUkwi7QR06TtgLSx4WNFH7FOm/LK6Vn5UZDOCGjduGGk
-         2BXYFF0A8ZKxCGgxUL2AbAKOaRvrswG8DJseo7oe7zjCEg11Vi78Q4PFEcN9Qqd5Uto8
-         3HA6s+8JlJe+CsQ401y6QttHLoS5bRKZhSNrZXJ6URojgqKiXIOoSNGE2u1blYfoDxD0
-         Lv3agQdxFopEgZv/TLOJZh7Cl1N8V+mUsotYKCPsd40TqZAxppe4hOy5GruqOaNSiRRN
-         Vp3enB3+N5JHQZPHFBCb59AFzewqcuQ6xlsl/kFq7WbaKS3yOfoCSs5f1I6fa/Xih6O7
-         UF9w==
-X-Forwarded-Encrypted: i=1; AHgh+Rof4rIAAmuKLXoiUSnqccbTzlx5Ii5JKMCYkx9a/N3rQxKr9DORNP+Dl2oo4MgphhM4B/3BZ2I1z7xmCBw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0xD7F8/SIjjf9U1aaGV7P+8blsouktG6VYM+onq6vHjXIwop6
-	PUHR/5ZwMiib7UzGqT8Boi+NMiQd+aSNFUUpCMYzegtIQ/nFpJAWyJkHSZh1LPY1/UL0h06yxVN
-	gOhgK0D7iLJhZSbEzd7TfFTuU+lTpzYIYymq1ZYUPuRTdOA0cFDkxCnAV5oQmvhxAbw==
-X-Gm-Gg: AR+sD13csZ3RKOVEmxsbLhPx4V2TXOgjmFbG8vaCJGRNMCGPjyu70lVKqclPYQTq/b8
-	7a+5gl1xXkCZQuLjhlCkZNpqng9m0+u+H9Nyvo+y3R8STarRjEuq1bkvEIUCAC7nf+H8YrdUThf
-	HEd4SAVsk4ToeBkDWm9/vAPWpBdgRUe5/eTht4IoNbWlGmCLA+c9diXaQ8NLHMevwef/kzjqXz+
-	DA/YE76uIWqneMVLGnoThakXK+aZkJ02OpYibOwPr4ks9SFdqUQAGDrqSu9B8XqvomIs6xkLapx
-	mvoHPtyv6IZUDGUJ3JVzQ99ugQklJ9L4pu2sxCS6qCptfGZ7Zyzmonb0q7fRcyfn/d9kPCcp0Vc
-	=
-X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr41981095e9.6.1787814752599;
-        Thu, 27 Aug 2026 00:12:32 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr41978785e9.6.1787814751222;
-        Thu, 27 Aug 2026 00:12:31 -0700 (PDT)
-Received: from 172.16.32.78 ([95.12.116.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b465226d8sm29209475e9.0.2026.08.27.00.12.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 00:12:30 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Stefan Teodorescu
- <fane@google.com>
-Subject: Re: [PATCH] KVM: x86: Zero reserved synic flags when delivering
- message to avoid stack leak
-In-Reply-To: <20260826184449.814130-1-seanjc@google.com>
-References: <20260826184449.814130-1-seanjc@google.com>
-Date: Thu, 27 Aug 2026 09:12:29 +0200
-Message-ID: <874iggnijm.fsf@172.16.32.78>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="YpHj/4Bj"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D6781F1760;
+	Thu, 27 Aug 2026 09:13:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1787814799; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=JHAy/NzVPXyzEamEkl/c/g9e4oxVYuroBuj/BO0tMnc=;
+	b=YpHj/4BjOQMitBuAToYnJ+MFb3Ng59HM2s9QjtcM9ZInIgzLvITdP0v13kzTBgjyL4+4xQ
+	EV/CS6xOf3CCn9NgaNGHd9lpsNR6RzuCwhXCTVLcgMj4Ld6Us72XpdRH6FMkdnWX66/nbG
+	OS5jp0cC8ZLexVNMiTq+FHcF2G7HxzgXMW8+Tv2kxUntMXsSyTjXiAIp0O35iNjq7vQxkC
+	5bErW8ML9GWHmFSCJziOqnFYJ7c6ytZbcxmviSWjR7vGW8vpWaJ1T6YqIWavB4YgdornY4
+	S7XBQUaRozyKiNY0VUc7Iw+hp0tS/vU8im/kqUjgQGdyi6FYYWDqNd+bWVywTw==
+Message-ID: <d305329a-f8c8-41a6-a265-8a1eeaeca19c@cjdns.fr>
+Date: Thu, 27 Aug 2026 09:13:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next] net: phy: mediatek: add driver for EcoNet Fast
+ Ethernet SoC PHYs
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, daniel@makrotopia.org,
+ naseefkm@gmail.com, joey@tinyisr.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260825180421.1804729-1-cjd@cjdns.fr>
+ <177dc347-4cf9-48ca-97fe-b0f3cd46d8e3@lunn.ch>
+ <4fa1ab31-cdcb-4488-b038-c5869966b6ec@cjdns.fr>
+ <e37d97cf-f4aa-499e-b372-21701f2e3782@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <e37d97cf-f4aa-499e-b372-21701f2e3782@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Sean Christopherson <seanjc@google.com> writes:
 
-> Ensure all reserved flags are zeroed when setting the msg_pending flag as
-> part of SynIC message delivery, as setting only msg_pending can leak seven
-> bits of kernel stack data to the guest.  E.g. gcc typically uses a
-> bitwise-OR to set the msg_pending flag, without initializing the on-stack
-> variable.
+On 26/08/2026 04:08, Andrew Lunn wrote:
+> On Wed, Aug 26, 2026 at 02:08:50AM +0200, Caleb James DeLisle wrote:
+>> On 25/08/2026 21:40, Andrew Lunn wrote:
+>>>> Also provide support for the older EN7512 Fast Ethernet SoC PHYs found
+>>>> in EN751221 chips with do not have the MCM switch. That is chips which
+>>>> do not have a "G" in the name. As these PHYs bear the ID 03a2.9412
+>>>> which collides with MTK_GPHY_ID_MT7530 gigabit PHY, do not match them
+>>>> and instead rely on the user to override the PHY ID in the device tree
+>>>> if they wish to use this driver.
+>>> Is there a way to tell them apart using other registers?
+>>
+>> The reference code differentiates this PHY from the other because this one
+>> does not advertise gigabit capability. I sent it like this because the idea
+>> of a matcher made me nervous and this felt more conservative, but I'm open
+>> to guidance about what is the most appropriate solution.
+> If it is as simple as that, i suggest you detect it at runtime.
 >
-> Precisely zero the flags, e.g. as opposed to zeroing the entire structure,
-> to make it somewhat more obvious that the flags *need* to be zeroed.  E.g.
-> it would be quite easy to misread the initial read of guest memory and
-> think that zeroing the entire structure is completely superfluous.
+> In the driver structure, you provide a match_phy_device()
+> function. This get called independent of what ID value you have in the
+> structure. So you first need to check if the ID matches. Then check
+> the 1G capability.
 >
-> Fixes: 3a0e7731724f ("x86: kvm: hyperv: simplify SynIC message delivery")
-> Cc: stable@vger.kernel.org
-> Reported-by: Stefan Teodorescu <fane@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/kvm/hyperv.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Ideally you want the code in the same driver, because module loading
+> happens based on the ID. I'm not sure user space will load two drivers
+> if they both indicate the same ID. Something you can experiment with.
+Tested and it worked, re-sent.
 >
-> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-> index 604651cb2739..8d2669d8ef34 100644
-> --- a/arch/x86/kvm/hyperv.c
-> +++ b/arch/x86/kvm/hyperv.c
-> @@ -802,7 +802,9 @@ static int synic_deliver_msg(struct kvm_vcpu_hv_synic *synic, u32 sint,
->  		if (no_retry)
->  			return 0;
->  
-> +		hv_hdr.message_flags.asu8 = 0;
->  		hv_hdr.message_flags.msg_pending = 1;
-> +
->  		r = kvm_vcpu_write_guest_page(vcpu, msg_page_gfn,
->  					      &hv_hdr.message_flags,
->  					      msg_off +
+>>>> +	for (;;) {
+>>> It is unusual to do loops like this. Can it be turned into a do while
+>>> loop? And without looking deep into it, it is not clear if this is
+>>> endless if the hardware stops responding.
+>>
+>> You raise a good point in that it's hard to reason out the default exit
+>> scenario, and I will figure out how to improve that. I'm not sure I can
+>> actually get rid of the infinite loop without making the code worse, because
+>> the default exit condition needs to assign ret and goto the error out label.
+> Consider adding comments as well. Also consider replacing the infinite
+> loop with a bounded loop, and return -EIO if the it goes around the
+> loop too many times. What you are trying to avoid is on hardware error
+> a CPU constantly spinning until power off.
+Changed loop for readability, return -EIO, and added a comment as well.
 >
-> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+>>>> +static int en751221_fephy_config_init(struct phy_device *phydev)
+>>>> +{
+>>>> +	struct econet_socphy_shared *shared = phy_package_get_priv(phydev);
+>>>> +	u16 l0r26_temp;
+>>>> +	int ret;
+>>>> +	int i;
+>>>> +
+>>>> +	if (!shared->phydev_p0) {
+>>>> +		phydev_err(phydev, "Port zero must be configured\n");
+>>>> +		return -EOPNOTSUPP;
+>>>> +	}
+>>> What is the issue here? Why must port 0 be first?
+>> It doesn't need to be configured first but it must be probed because these
+>> PHYs are not independent, they exist as a group and some configuration must
+>> be done on the first phy in the group. I will re-send with clarification in
+>> a comment.
+> Consider using phy_package_init_once() to configure the shared things
+> by the first PHY to probe, independent of what address it is.
 
-Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
+That doesn't solve the problem, but I re-sent with much more effort put 
+into explaining what the problem is. In short, these PHYs are not 
+independent - they exist in a group, and there is a "master" PHY of the 
+group which has extra registers that are used by all PHYs of the group. 
+If the master is not configured, then calibration cannot proceed for any 
+PHY of the group.
 
-(although, I kind of like the idea of zeroing the whole structure with a
-comment that we don't read it as a whole from guest's memory too)
 
--- 
-Vitaly
+Thank you for your review and advice.
 
+Caleb
+
+>
+> 	Andrew
+>
