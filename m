@@ -1,122 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027AE486624
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E7B4756C1;
+	Thu, 27 Aug 2026 16:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847935; cv=none; b=qZFrzGzDG6piepQOtVdwXipBvKupNp4uv53UZbmn6H8GBqNVZp9G5QOHyn+fP16pPLhH0+KAPTHrDz06zTP4VXKr1s+SfuL1CycaHzdXcXvuuoxVPalWKyEZ8XHKBQuKPrRVAXtdrUvI9SxUVYHhEL/XT7ICPCD+IAl983iSSrc=
+	t=1787848116; cv=none; b=ewLhbGnT6Q5MlQQvOd9iU4zRVYpiID6QNwe5cOnU9x3c5yAtrIgCe3Oq1r1WrJ3L+2kLojiihoUNucpwDbqNYrD2vJVij2bNsX+NqYMKaD1824BqP02HiI6CtuIkpnZfra1o6cq8vHk3Ru0v5//oP2f6zaPEFrdzHOEuc9Twlf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847935; c=relaxed/simple;
-	bh=YKRxRIfopdd6GscWS2iNLWOA0NlWic1haNdPfoqDsoE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IzOKTbc9VJyYRWU8voLq/kZjrNwc0lvZuWSJlcDDOij9eeeS6s6TP8TuZBGPCyDxyffA785zDUQ3TqBlVelQPYI9c6SoAQErDoiF0eEfJEv5aaXsfW4dHxutYHvAxA00pVZsJZdNEZauhKA3rHBeQaMucJmgSmGYPznfEzb7Q/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6HwUcWA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787848116; c=relaxed/simple;
+	bh=ebaBF7Wm57jhnHCdB2Tivrcc0WgePRhWe4w6HflJXUY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PKYDSLS1U5q4UU/u4qENuErJa9kdovNXpkh8Gm217qjEPaz//Wr+Y3pZ5pZQPS3UD9kt0B4xKOlovS/0pmQc7qbFMpXgRWBm9Wg7Xqd80uJEZEBy6EF5BU6I00fwC0hdLPxnY20nU6ENOdXK0LxsyEunVA/wFAitk4E7CiE0mo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=il8vsbVO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6HwUcWA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E2C1F000E9;
-	Thu, 27 Aug 2026 16:25:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="il8vsbVO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA701F000E9;
+	Thu, 27 Aug 2026 16:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787847933;
-	bh=iY6zgDeLvAnr8KWZhMBh9zbagc0eZjyG95uh/kXDxZM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k6HwUcWACxjcZl0drCOj9s6kp0cnk2xFIZny5ZjgIUu/IOToibmDSzD3deidgjdI4
-	 MC7xi9LAFKHupZmsQEytJpNIM8CtzqLWLtX5NGdypiZ3dR+iUp2lo+YIup72ASN9pP
-	 UGCd5Vs5l8ltRJ4uI8spv1XqdBKBYRGHXsnIqHF3+TdOz254x5Bo1u9Ug1IhLOCZIe
-	 jdNfnggRee0uoqRoSQKEEFQO1Q5K/IpsfUKI12Hz0RabmHq3SB2lpMbAcdc627ygM2
-	 ekZ5WxjI/g7eGi0IJKsK0jE7pcDxEpdknSuumQe1K5y1ctnn3uHK0ZXArUQaC6NzTM
-	 h2BlSwbwd553w==
-Message-ID: <df328aca-1134-46c2-babc-754e3ef94be3@kernel.org>
-Date: Thu, 27 Aug 2026 18:25:25 +0200
+	s=k20260515; t=1787848115;
+	bh=ebaBF7Wm57jhnHCdB2Tivrcc0WgePRhWe4w6HflJXUY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=il8vsbVOCFUwes1trTtQUc+VPgHBNT8pQgbTC8TYPhIAsGILGCdk6BFKvKtouFF7w
+	 0PPcJVg5Gtfpy5/z5OLyJm4e0mv6CKzd2VaBzIKnLXQSKgpgHrlFsfjGPqNFaiCQeH
+	 uSVFdJ3k4Gk1OrESYOEx9lMTr5pPWqfhVFZd5dqCM2lB9C2vumY5EEuFN71EkbxGsI
+	 samfySvYLnoD4SGk5eCruJsS7oPPKnK/AB1On85pcTaP/Wgw4pb8ZU0I9NBG+9Q6Nl
+	 rf2zi7gzoJFdt2h8BnzEIFE8xLX9AhTb03u2FhNY+FTmul/19RTVJOTl22NmuMKNVp
+	 i28zpeufjzvOw==
+Date: Thu, 27 Aug 2026 17:28:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Subject: Re: [PATCH v2 2/4] ASoC: mediatek: mt8183: Fix APLL enable error
+ handling
+Message-ID: <98b11d2d-8157-4c1b-8562-42ff11cdff60@sirena.org.uk>
+References: <20260821122928.41343-1-phucduc.bui@gmail.com>
+ <20260821122928.41343-3-phucduc.bui@gmail.com>
+ <47c14ad6-0311-467b-907c-517ff5044438@intel.com>
+ <CAABR9nHyDL8=EiSi+_GBpHM0xLZraH8az+HRXQWudG=1hLZ7qQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/18] mm/huge_memory: move EOF trimming into the file
- split helper
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-7-9b43f5163238@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260821-swap-thp-cleanup-v3-7-9b43f5163238@tencent.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0wMx2L5PNJE4zS3t"
+Content-Disposition: inline
+In-Reply-To: <CAABR9nHyDL8=EiSi+_GBpHM0xLZraH8az+HRXQWudG=1hLZ7qQ@mail.gmail.com>
+X-Cookie: Alimony is the high cost of leaving.
 
-On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> Instead of receiving @end and @nr_shmem_dropped from the caller, the
-> file split helper now computes the EOF boundary and trims pages beyond
-> it itself, as this is only needed for file split.  This drops the
-> redundant parameter passing and sanity check.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+--0wMx2L5PNJE4zS3t
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--- 
-Cheers,
+On Thu, Aug 27, 2026 at 02:58:04PM +0700, Bui Duc Phuc wrote:
 
-David
+> To be honest, after looking at the code for other MediaTek SoCs, I found quite
+> a few logic issues and inconsistent clock handling. This, along with
+> the git log history,
+> makes me wonder whether these code paths were ever properly tested on
+> real hardware.
+> Therefore, I have stopped at mt8186 for now.
+
+There's a lot of code there with shaky error handling; probably the
+default case works but things blow up relatively easily on error.
+
+--0wMx2L5PNJE4zS3t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQZa0ACgkQJNaLcl1U
+h9DUGwf+MCKXjmklPUUS4YqdH7aXXG4NE645E1C5lIakFBlUZ2EMKk7d0PfJyYJ8
+1k50GnIm/Ud5wuZAvf5TWmKCRxtOHlOO3mK46E6jgJDVSEYu8D5G5hJGUoPuZDEF
+A/V6u4gDYz+UbUiuNEGgcUJAAxcAY0n5vQzDvrZgv+PKaxGdOlTL5j1BzZtX+UlD
+IDiuE6SkNZQ6MiSeAU/zyw5RLZES6NX3qliToDQnWYNcyWKUl8fdgVkAJWD75jAo
+85rJGgqvAPd6kQg3qTf43+PgBovSgwE/oZg1EEyUZrEQpZ2r79S/cFZHfpFz/TV+
+DRCLEIOXjwDCmSO5jYZOQXTCLRg4YA==
+=UBIx
+-----END PGP SIGNATURE-----
+
+--0wMx2L5PNJE4zS3t--
