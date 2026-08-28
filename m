@@ -1,141 +1,117 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE0937F8A5;
-	Fri, 28 Aug 2026 10:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE2F3F44C1;
+	Fri, 28 Aug 2026 10:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912882; cv=none; b=Vd6/9p4DKL+9jSG78TLx1xLx6tn6zlD3C1tQN907F4M0TcONtOrtKVC83dejfNXuqYqFSZw7zes0y7wEvq2mn7g565yg2oDvIex4CcrbyJa9QhK4ax3LvjN+CiIwQSwB6fNo6J1VRMpeHpGj7tMhlHn1vOy2C2iQEL+8VZQ2mRQ=
+	t=1787912891; cv=none; b=MOkOGcrYkIKZ0jdQTvHPsmBWorLs7keJ3MusgdpRx20ssYaMaoy83hetl5dy3Md8kcFC8VR8ofSxB/FC/XMML39aJB0qLypXoEznu9KtUdfcfM3RKRQnbAHp6y+244zJxSYsEOvl5vE5iSvyVyhR5uvv29zy18RD+uetqU6c6ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787912882; c=relaxed/simple;
-	bh=0vvpMMamFLgrqOE4BxD14J+1SAbnF620PL4OJIHBmDA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EnRTE6HEEqwZe1OfhhDRZHb2S+2kODoo2onO37u5wfuDPKkrWqLkSMmbmC9cb440b4QMQlnSkyfuI3M3+zMyZX8V6ZzpDBpwop1wUNPuEuJh3PIWXtXBKi179oobLdogynvG4/YQ+p/CL+99c5tOKJ23gGgBVokudbTqNU6SiXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S4ahZAnT; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787912891; c=relaxed/simple;
+	bh=aoKZWDUHo+Fcao1jZ8fwlVQ+ANgNQirHdxSNu9tQk14=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nkEfQQdt0QwcWsM5TcK0mf3IcozZZDbpb9k7xaMXjiYZ85Vmq5t6vDSV8oXP+zSsnrU0sPrnWw7rUob+7oXkcipYqQr/IsNfJV4QtcxaW2AaGZCY2UAEFQn9Nzt+N0qlZ7rMeFbmn9CwSZkxSDwWCu58OlZ+vIAHCm7rIZOtavk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIjWXox8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S4ahZAnT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=aL
-	9IUsm619dDhd54bRWHMTptXFJavLViAY6k08ZTYwo=; b=S4ahZAnT7WvQebnZcL
-	CYVE8AqbiVK1WlLCisaAA8E8SSvn8NKRhv9ygLMEJKxVVxnsUkuXeA/6CaKi5SPQ
-	gGXeshuixAu8Xs01x5hNDzdswU+sdZSmUpyF/v2cu/tiI58zX5RAdr00TwlD9qrj
-	m/8KHNuj9ENCFd4xcZ1OkkgYA=
-Received: from zengchi (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDn7zOTYpFq+qltRg--.31394S2;
-	Fri, 28 Aug 2026 18:27:32 +0800 (CST)
-From: Zeng Chi <zeng_chi911@163.com>
-To: seanjc@google.com
-Cc: chao.p.peng@linux.intel.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pbonzini@redhat.com,
-	zeng_chi911@163.com,
-	zengchi@kylinos.cn
-Subject: [PATCH v2] KVM: Don't treat reserved xarray entries as having memory attributes
-Date: Fri, 28 Aug 2026 18:27:28 +0800
-Message-Id: <20260828102728.1308266-1-zeng_chi911@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <apCD3F3oOyC6E5oN@google.com>
-References: <apCD3F3oOyC6E5oN@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIjWXox8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052001F000E9;
+	Fri, 28 Aug 2026 10:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787912889;
+	bh=O19Kqaz7Dc0R78cpyBBCb7hRpvdqq1kuEoC+NWYg7mY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HIjWXox84GVYA5/r5qnIDGTHPXsVfcElHLj7e6zkZzow0JfkOrlXCrbBE9kcfljnT
+	 rO62Mb40W98e75UU5oJhfnTA8MOIfKbeshdvlhuz2m1iMDND8DDfxUs/xTD/oFC8hn
+	 MQMcrg70klncgs4VW1DD5B9ztlK7OyaOretgMGZIfgpidmjJKzk03fyFmyuDU1eKCO
+	 ds7RXxsyPjg7MmMsTlx4rAU3KlKszflh2YE30YS7idK8ObpOk0U3OpgvZXIhOBmwDk
+	 kpGhW+kZLDc00wdSdW2Rs4kJGE5/E2N+ZTn8P2A2lZODO5KmikRbWceHDwvgCBIWlt
+	 ib4IxtNfdRJtw==
+Date: Fri, 28 Aug 2026 12:28:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K . Petersen" <martin.petersen@oracle.com>, 
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Ajay Neeli <ajay.neeli@amd.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com, 
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com, 
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
+ Controller platform driver
+Message-ID: <20260828-dark-foamy-guillemot-0b60be@quoll>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn7zOTYpFq+qltRg--.31394S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4DtryfXrW3WF43uF18Grg_yoW5uFyrpF
-	95GryDGws8tr1xXFZ2yw4Du3Wru34Sgw48Jr9rKr1DZr45J3ZIqryrKr1jqrW3ArWrW34j
-	qa1jq34xu3y5Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEfOz7UUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwBS8eGqRYpQjggAA38
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
 
-From: Zeng Chi <zengchi@kylinos.cn>
+On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
+> +  clocks:
+> +    maxItems: 1
+> +    description: UFS core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core_clk
 
-kvm_vm_set_mem_attributes() reserves an xarray entry for every gfn in
-the range before storing the new attributes, so that the store loop
-can't fail partway through.  If one of the reservations fails, e.g. with
--ENOMEM, the entries that were already reserved are left in the array.
-That is harmless as far as xa_reserve() is concerned, as the reserved
-entries read back as NULL via xa_load(), but it confuses the "does this
-range have no attributes at all" check:
+_clk is redundant, just "core". Or skip names, not really useful in this
+case.
 
-	if (!attrs)
-		return !xas_find(&xas, end - 1);
+> +
+> +  nxp,mphy-boot-mode:
+> +    description: |
+> +      MPHY initialization mode. Defines how the MPHY firmware should be
+> +      initialized and executed during UFS controller startup.
+> +      If this property is not specified, MPHY initialization will be skipped.
 
-A reserved entry is XA_ZERO_ENTRY, not NULL, and xas_find() returns it
-as present.  So a leftover reservation makes KVM report that a fully
-shared range has attributes even though kvm_get_memory_attributes()
-returns none for every gfn in the range.  On x86, the next time
-mixed-attribute tracking is recomputed for the range (memslot creation,
-or a later attribute change that straddles the 2MiB page),
-hugepage_has_attrs() treats a fully shared 2MiB range as mixed and
-refuses to map it with a hugepage, until userspace happens to set
-attributes on the range again.
+Isn't this implied by the compatible?
 
-Walk the range and ignore reserved-but-unset entries when checking for
-the absence of attributes, so a leftover reservation is treated the same
-as an empty slot.  Note, the generic loop for the attrs != 0 case
-already skips zero entries via xas_retry(), i.e. only the !attrs shortcut
-was affected.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - rom
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: ufs-common.yaml
+> +  - if:
+> +      required:
+> +        - nxp,mphy-boot-mode
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 2
+> +        reg-names:
+> +          minItems: 2
+> +      required:
+> +        - reg-names
+> +        - clocks
+> +        - clock-names
+> +    else:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +        reg-names:
+> +          maxItems: 1
 
-While at it, skip the reservation loop entirely when clearing attributes,
-as storing NULL only erases the entry and never needs to allocate, so no
-reservation (and no cleanup of a failed one) is required in that case.
+I don't get why for the SAME device diffeernt initialization means
+device has different address space or clocks. It's the same device, same
+wiring, same hardware setup.
 
-Fixes: 5a475554db1e ("KVM: Introduce per-page memory attributes")
-Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
----
- virt/kvm/kvm_main.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 65eb26a0520d..29534bcc7f02 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2447,8 +2447,19 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
- 		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
- 
- 	guard(rcu)();
--	if (!attrs)
--		return !xas_find(&xas, end - 1);
-+	if (!attrs) {
-+		/*
-+		 * Reserved but unset entries (XA_ZERO_ENTRY, e.g. left behind by
-+		 * a failed reservation in kvm_vm_set_mem_attributes()) are
-+		 * returned as present by xas_find(), but hold no attributes.
-+		 * Skip them so that the range is correctly reported as having no
-+		 * attributes.
-+		 */
-+		xas_for_each(&xas, entry, end - 1)
-+			if (!xa_is_zero(entry))
-+				return false;
-+		return true;
-+	}
- 
- 	for (index = start; index < end; index++) {
- 		do {
-@@ -2571,9 +2582,11 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
- 
- 	/*
- 	 * Reserve memory ahead of time to avoid having to deal with failures
--	 * partway through setting the new attributes.
-+	 * partway through setting the new attributes.  Clearing attributes
-+	 * only stores NULL, which never needs to allocate, so skip the
-+	 * reservations entirely in that case.
- 	 */
--	for (i = start; i < end; i++) {
-+	for (i = start; entry && i < end; i++) {
- 		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
- 		if (r)
- 			goto out_unlock;
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Best regards,
+Krzysztof
 
