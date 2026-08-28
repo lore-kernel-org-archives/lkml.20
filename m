@@ -1,933 +1,336 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B57472F7D;
-	Fri, 28 Aug 2026 16:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0606119B5A3;
+	Fri, 28 Aug 2026 16:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935087; cv=none; b=iFFVEaNsZ4fY3fQr2k4ybe8/Touee//16kh0gXCJ0ow7D+jDW2hOXWMFwh8bCgi8VLEr2jOW1vnD9+aUsxURxE4O8yyEu0xW4rsdP0kyUG7K1XAgWRRWH78inNX824XH+MXQ0zrcDTr1XVkNCx/ioLGwkO2t7tDCL1CYnk3iygc=
+	t=1787935189; cv=none; b=MeohO57il4OG1Bvt0adzP4mR/ya3wJThiKpLj9sR56Wn/Lt2ZVKCr5naG8avDmcnA1sdRcyvTvOnv4b0aciRUxex3jJvRQ7h4mBSYd0yAaUUET8ajZUXQZmizQUnxn6aZ967qOAiqPug8RxdqyDr1zbQIHf2Vziugjurg5S8aGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935087; c=relaxed/simple;
-	bh=th48vMrVvf58O7nk4N1WnDhM2y9ibVFDXAp4BTCNaHc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H5DJxHh6NPJxGWWm/0DvZ8dgA0q85gBKvsrniXC156iFvvZWvmiyV622Kmkq3bNpE8jtZKerYujOrYJJOkLu5gJoNW3slbEZn7Shom0zA8LqUxPZnnpbxBuqhQtMeP3o2cz8MrNG7TcjVKQI0mIcCUivC2XxSlZ9HAND5yZes7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAst78ME; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787935189; c=relaxed/simple;
+	bh=/s6kUIX0BwNhNQrHUmOjHRd80OMtnSGCY0HjO6QMZww=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e+0x2voV+YTDAu33esyfuo2YBKhTtrSr2A7KAqC19SpVxoXPI9dSEq3EOh5K4sst/Ps++3gv/JFTwxve7mmsb2fm0LnBM9VvjSXmheEGmAbqldj+oguo44K97odxmg5IU7WrsYEoKOQO8sqp0g6mEX1L0YotOnv2flzG61G9Tw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=Fv4vkQga; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ed61ivDv; arc=none smtp.client-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAst78ME"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA961F00A3D;
-	Fri, 28 Aug 2026 16:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787935085;
-	bh=0wHkz9gKCDlM8SccDujfwP2D/PQWOv/mcr4bCZIAihY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZAst78MEiibyB31LqLHpKJ6BHjqKtvVMeQH9+QK6J1bJE1gv5OcvEiDmVYn1H46sP
-	 ABNneFQtL6oR8oc49J/fKyUzhTqn7QwXZCsgvH+5SvxQJFpxHteV2rQBvdFP98xR1b
-	 QHkHEJZH8kPr4XLR7Z0HfVVyAe299rRUg3gYnA98dRsG/24DOugQI3hLjSk0y3re8p
-	 rdLXucvPfDke3Bo/qNpQuBdYzqblDggOP7WncwVbyhflnfNQkVWo+mvNKiAfj9ykIa
-	 YFarrSXUvNxmrqFuxJF/gB73T8nKJ7wkxCiNneNcc3yWi9NkMVE5oNGx2OC/W/dFgs
-	 BqKeEM9NZjMOA==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 28 Aug 2026 12:37:42 -0400
-Subject: [PATCH v3 12/14] selftests/nfsd: add a per-netns rpcbind stub and
- the listener round-trips
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="Fv4vkQga";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ed61ivDv"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 1ECC27A016D;
+	Fri, 28 Aug 2026 12:39:44 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Fri, 28 Aug 2026 12:39:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787935183;
+	 x=1788021583; bh=5NNbE1j8L0e/TPEqDv7jms/SKOZtBYmIxxgzvKw/064=; b=
+	Fv4vkQgajXDhtps/zlmbW7XhvKvQepPWsSq5japtziAUJ1/3iFxlOizhSBMIbBr3
+	Y2ZOtZWvrWUbtp5NhaGptyua1eFEMTct4UBgjA8Yha54JY2ET4iUcOPSmJjebRPn
+	TJecxBAJhF13YGUbxD56KLMeZ6olKmSnl0ozIg62xtEXDwH2JIqxdFjLbUhnKqU6
+	UT4ly8srKVt/lBlpkTUOAIO46smbveEYk/V3qC3H+wTj1FUXxvFNdTmDUT5us+Fb
+	6hXect+ACWvF8zPtUu23p7ALrZx08lN+lZOxjXnN6+Pf8ui9YJdQDKbNiuDW+ntb
+	8N6SbW01pK+uDqxVMPKbWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787935183; x=
+	1788021583; bh=5NNbE1j8L0e/TPEqDv7jms/SKOZtBYmIxxgzvKw/064=; b=e
+	d61ivDv29DHNU4nWWRO41vZ1LzpY1kC2WdHUgkMI9VBjIhUuDaQ7ooKpC1XljB94
+	GO7QuwTeXnbVMQ7P7CWlwLrw/Q47PSynCNjX5QDG5IirPJ3K2S9nfTOYAInQDxV9
+	7//jUCKwQbh5Ra0u250SLWwYJGf/zDKVFB1/A73N5TyiAxpjKPxG2oktzS+x9IIB
+	SCejNzHT0lEOoxKtd9muKzIjobmGhTQdRFzaPj6FiOgwStGQt8V6rK04u2QbXtdr
+	Kx+zjhhDSQV1lvdnmU0j5c2XH8r79PbTbyWhkPIH4o3Os+gvwNRIf1nL9EYFC4yM
+	IboGOVpd8Pz/fPV6/6Y2w==
+X-ME-Sender: <xms:z7mRahcHswUsBygA7InzYMBr8j9cwQjlSVngSgr5Jm8SH__51Ogs8w>
+    <xme:z7mRas1pbA4-dAyNNC2KJrTUBzDigL0Pob1K6vM8cTMwtGFcnVImWO59dLFnKc7Ta
+    9QGcBuUfbZiDKg6hAvBi_IQ9ryUJUHGwe3mKIjozIaABO3jefmFLTU>
+X-ME-Received: <xmr:z7mRah7Ma6l3nnxDN8kXO_84xQfJI3tQzSwDiwKplADTTZeMJeBEp8Lc0I_Wow>
+X-ME-Proxy-Cause: dmFkZTF8hhBUV9lp0uidJZuInZvlH+8zhcIpC5t/ZoJuX1SYP7C+kQ4g6OJDHvK3q7yZrF
+    DQW59G/l3XmBbnYIF5B6etDZZizsYbPk1n5ISmcrxJvH0p4nvayk7XjkkPeTJAmu50Vmg8
+    YsvWJ2f/s1cBV0ojTgLg8b0Xwijyi5fuVrBzopcsxmNwVlrUy5NOh684DIFy3DRbj/bXgq
+    9pOyHxFYbnb8eTxAF6QaeFajGybz7IC3EJuPaQtnBDBne/BQXiCXZiBZ4RhB5CNEVwWwa3
+    ORv6BblV7j2tHgtxcL21GxXZd2p2DmlQXaCU/zjH3pb1+t4bXaZZK6dbmGrLb22CwnzhY1
+    HQSjiKoSpM4MnyqwcR6hG7RUl0LLP9w6aEAssPcvpV8KksrLvUbgEyZMWAvgg0oxg3zAED
+    kbZHp+4t+sDNPPHFvh7YPg1GGlTuil9ADLmAxcKotugvblKQuoUHbIOIJIpSGYniPSP8kN
+    Le5gCbwPm6Zmx+JR/wy2MGrYE+BljL9UNwx3jY/95KiJysS7HPPkWWXz7CQmZjf8r2nT/q
+    QE8cnonknTL7uA7P0vE/naCOu/e16qzyMr99tLI5whoe9DOSP9IbHULw+BR1mF8NuBnyQk
+    n+6VxVObEIqF1ZdhNPJu6ASpWsYqKQn4x7eLMG5+6w7tSBY6C26nTxb5KQBg
+X-ME-Proxy: <xmx:z7mRajKpGP6xW-t8pfJSzKdZeRiD5VMq1f-p2pwu7GpnXUWSu2x6Kg>
+    <xmx:z7mRalaugriYT3bI7IEMHdhPhMSKxrDBT1ry7mJQnZxwU-qlEiXHZQ>
+    <xmx:z7mRao3_HCewNujLOG1REXq_UHIv7qHOchr03AvPiNMz7TLVekstUg>
+    <xmx:z7mRavPHy5tj3XtljSYQmy_BT6weHpqCa3f8yO8XVapALkocm5So8w>
+    <xmx:z7mRakID4pvmyWRykgJzDbwu4NjdApFpkx236vUt7eTuHzmzBSmwaKvb>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 12:39:40 -0400 (EDT)
+Date: Fri, 28 Aug 2026 10:39:38 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: <mhonap@nvidia.com>
+Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
+ <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+ <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <dave@stgolabs.net>, <alison.schofield@intel.com>,
+ <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+ <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
+ <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+ alex@shazbot.org
+Subject: Re: [PATCH v4 17/27] vfio/cxl: Virtualize the CXL DVSEC
+Message-ID: <20260828103938.3f8fb983@shazbot.org>
+In-Reply-To: <20260813093631.2288172-18-mhonap@nvidia.com>
+References: <20260813093631.2288172-1-mhonap@nvidia.com>
+	<20260813093631.2288172-18-mhonap@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-nfsd-nl-hang-v3-12-55026685c75d@kernel.org>
-References: <20260828-nfsd-nl-hang-v3-0-55026685c75d@kernel.org>
-In-Reply-To: <20260828-nfsd-nl-hang-v3-0-55026685c75d@kernel.org>
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, 
- Anna Schumaker <anna@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Shuah Khan <shuah@kernel.org>
-Cc: Slawomir Stepien <sst@poczta.fm>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- Trond Myklebust <trondmy@gmail.com>, linux-kselftest@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=30213; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=th48vMrVvf58O7nk4N1WnDhM2y9ibVFDXAp4BTCNaHc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqkblWHJ5lTPc7EVys7uN0sDruLYS3La5iyAghl
- 6pVsCnU6Q6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapG5VgAKCRAADmhBGVaC
- FZhMEACPENM6GoXOGAntehyudWhHR7zrWeNwQsOY6VjMOkosZTCkJhI/ZBlY/AmSybyk2E6w1P0
- I7n6z/O9K+YUwcrL98b4HC3YJmSK+xK6Sxw7sD/bodpIQ981z5M1jzKIlWJ2sIcxW6k1x75eXrm
- zWGKOUnoSBT49ltbPpZcsTt/S7JNtnaMCaV6ms8h1fUBOWTrFcp/zd4xZj+wnd1ckMCyH0DtzCu
- JZisys2LtH5XhyPbZB5dX3MiqtqGbatJ3+kYwsF6Jwnxvrxyw1Yjd+SD1KMadur3vtkxyk7VSNj
- Vncaf7REWIq63cstU1HOa5C8btiyk33inphwpJywLjeckHli9YYywZ542C8iF8esPv7SAHLD2te
- jHBFcRG68jn+e2MzkgYbaJwxPEiwTXMU/XquR8i2YNtz/FObPaXXK8ZDNg5XRIa3jG2gKFLX+u7
- WrPp+yQPVnhyLkskW639ek53srFbEKS+a0Bfx/u+IchwYdR3+KybbuBjhzEFyilSXyp2i5L7SCv
- OUplNwRoYq1paTaFNk4aKwya0ZcGxDSaNGn7O6wcOk/9C3ViZCJvtsMBqUknFTeCZZBgPHEu+Wz
- 7o2Ohjk3xDDBP9hPuGcFJckH5Ju/npx2sKz/b6UnCFAa1yTD2i+QbLkOsyy2Qz5lzA2IKDIJvhd
- t/j+Pxk4CEi3wvA==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-The creation of a listener registers with rpcbind.
-svc_xprt_create_from_sa() passes flags of 0, so pmap_register is true in
-svc_setup_socket(). A fresh netns has no rpcbind. Every registration
-therefore waits out the local rpcbind timeout, once for each program and
-version, and the registration failure then takes the listener down. The
-host's rpcbind is not an option either. svc_rpcb_setup() opens with a call
-to svc_unregister(), which would clear the host's nfsd entries.
+On Thu, 13 Aug 2026 15:06:21 +0530
+<mhonap@nvidia.com> wrote:
 
-Serve rpcbind from inside the namespace instead. The abstract AF_LOCAL
-name that the kernel tries first is per-netns, because
-unix_find_abstract() takes a struct net. Bind "\0/run/rpcbind.sock" and
-fork a minimal responder:
+> From: Manish Honap <mhonap@nvidia.com>
+> 
+> Serve reads of the CXL DVSEC body from the per-open shadow and keep guest
+> writes in the shadow rather than letting them reach the hardware, so a
+> guest cannot reprogram the device through the DVSEC. Accesses outside the
+> CXL DVSEC return -ENODEV and take the default DVSEC handling, so a device
+> that also exposes a vendor DVSEC is unaffected.
+> 
+> Route each shadow write through the CXL r4.0 field class rather than
+> storing it verbatim: Control stays programmable, Status is
+> write-1-to-clear, and Capability, Lock and the Range registers keep their
+> firmware snapshot. The guest can no longer set Config Lock or scribble the
+> capability and range fields.
+> 
+> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> ---
+>  drivers/vfio/pci/cxl/vfio_cxl_core.c | 88 ++++++++++++++++++++++++++++
+>  drivers/vfio/pci/vfio_pci_config.c   | 36 +++++++++++-
+>  include/linux/vfio_pci_core.h        |  5 ++
+>  include/uapi/linux/pci_regs.h        |  1 +
+>  4 files changed, 129 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> index 2e516a0929c6..9fed909cb9d3 100644
+> --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> @@ -148,11 +148,99 @@ static void vfio_cxl_close_device(struct vfio_pci_core_device *vdev)
+>  	cxl->dvsec_shadow = NULL;
+>  }
+>  
+> +/* Read a 16-bit DVSEC field from the shadow; @off is DVSEC-relative. */
+> +static u16 vfio_cxl_dvsec16(struct vfio_cxl_state *cxl, u32 off)
+> +{
+> +	u32 dw = cxl->dvsec_shadow[off / sizeof(u32)];
+> +
+> +	return (dw >> (8 * (off % sizeof(u32)))) & 0xffff;
+> +}
 
-- the responder never decodes arguments. The NULL procedure gets an empty
-  success, and SET and UNSET get TRUE.
-- the responder answers RPCBVERS_4 as well as RPCBVERS_2. A v4 refusal
-  makes __svc_rpcb_register6() return -EAFNOSUPPORT, which would leave
-  every IPv6 listener unregistered.
-- the responder counts accepted connections and received calls in a page
-  that it shares with the test, and reads its mode from that page on every
-  call. The mode lives there rather than in the child so that a test can
-  change it with a serv already up: killing and restarting the stub would
-  close the connection the kernel holds, and rpcb_register_call() issues
-  UNSET over AF_LOCAL with RPC_TASK_NOCONNECT, so the next call would fail
-  at once with -ENOTCONN instead of waiting out a timeout.
-- PR_SET_PDEATHSIG plus an explicit kill in FIXTURE_TEARDOWN make sure that
-  no stub outlives its test.
+I don't understand the contract this function is providing.  It claims
+to read a 16-bit field, but an odd offset either crosses between 16-bit
+fields or drops the upper byte.  The contract would be more clear as:
 
-With the stub in place, add the tests that need a serv. These cover the
-create, add and remove paths and the LISTENER_GET round trips: tcp, udp,
-several listeners at once, an idempotent re-set, the removal of a subset,
-the destruction of a serv from an empty list, and IPv6. Two more tests
-cover the empty-list request and the -EBUSY refusal after THREADS_SET has
-started threads.
+	return (off & 2) ? (dw >> 16) : (dw & 0xffff);
 
-The netlink socket asks for NETLINK_EXT_ACK, so that the tests can read the
-extack message. It also asks for NETLINK_CAP_ACK, so that the kernel does
-not echo the request back and the TLVs sit at a fixed offset.
+The comment could also specify _aligned_ 16-bit fields.
 
-FIXTURE_TEARDOWN drops whatever a test left running. A listener holds a
-reference to the netns, and that netns outlives the test process. Threads
-pin the listeners. Anything left up therefore leaks the namespace.
+> +
+> +/*
+> + * Apply the CXL r4.0 8.1.3 write class for the 16-bit DVSEC register at @off.
+> + * Control is programmable, Status is write-1-to-clear, and Capability, Lock and
+> + * the Range registers stay fixed at their firmware snapshot.
+> + */
+> +static u16 vfio_cxl_dvsec_field(u32 off, u16 old, u16 wval, u16 wmask)
+> +{
+> +	switch (off) {
+> +	case PCI_DVSEC_CXL_CTRL:
+> +		/*
+> +		 * CXL.mem stays enabled for as long as the guest owns the device.
+> +		 * The HDM decoder maps the guest window to device memory, so a
+> +		 * store to it while CXL.mem is disabled completes on the device as
+> +		 * an error that the host fabric reports as an SError, which is
+> +		 * fatal. The spec does not pin down accesses to a decoder whose
+> +		 * CXL.mem is off and many hosts SError, so ignore a guest request
+> +		 * to clear the enable and keep the bit set.
+> +		 */
+> +		return ((old & ~wmask) | (wval & wmask)) | PCI_DVSEC_CXL_MEM_ENABLE;
+> +	case PCI_DVSEC_CXL_CTRL2:
+> +		return (old & ~wmask) | (wval & wmask);
+> +	case PCI_DVSEC_CXL_STATUS:
+> +	case PCI_DVSEC_CXL_STATUS2:
+> +		return old & ~(wval & wmask);
+> +	default:
+> +		return old;
+> +	}
+> +}
+> +
+> +/* Config accesses never cross a dword, so a single shadow entry covers them. */
+> +static int vfio_cxl_config_read(struct vfio_pci_core_device *vdev, int pos,
+> +				int count, __le32 *val)
+> +{
+> +	struct vfio_cxl_state *cxl = vdev->cxl;
+> +	int boff = (pos - cxl->dvsec) % sizeof(u32);
+> +	__le32 dword;
+> +
+> +	if (pos < cxl->dvsec || pos >= cxl->dvsec + cxl->dvsec_len)
+> +		return -ENODEV;
+> +
+> +	dword = cpu_to_le32(cxl->dvsec_shadow[(pos - cxl->dvsec) / sizeof(u32)]);
+> +	memcpy(val, (u8 *)&dword + boff, count);
+> +
+> +	return count;
+> +}
+> +
+> +static int vfio_cxl_config_write(struct vfio_pci_core_device *vdev, int pos,
+> +				 int count, __le32 val)
+> +{
+> +	struct vfio_cxl_state *cxl = vdev->cxl;
+> +	int idx = (pos - cxl->dvsec) / sizeof(u32);
+> +	int boff = (pos - cxl->dvsec) % sizeof(u32);
+> +	u32 off = idx * sizeof(u32);
+> +	__le32 le_wval = 0, le_wmask = 0;
+> +	u32 old, wval, wmask;
+> +	u16 lo, hi;
+> +
+> +	if (pos < cxl->dvsec || pos >= cxl->dvsec + cxl->dvsec_len)
+> +		return -ENODEV;
+> +
+> +	/*
+> +	 * Place the guest bytes and a matching byte mask at the write offset,
+> +	 * then let the per-field class decide what actually lands in the shadow.
+> +	 * The hardware is never touched.
+> +	 */
+> +	memcpy((u8 *)&le_wval + boff, &val, count);
+> +	memset((u8 *)&le_wmask + boff, 0xff, count);
+> +	old = cxl->dvsec_shadow[idx];
+> +	wval = le32_to_cpu(le_wval);
+> +	wmask = le32_to_cpu(le_wmask);
+> +
+> +	lo = vfio_cxl_dvsec_field(off, old, wval, wmask);
+> +	hi = vfio_cxl_dvsec_field(off + 2, old >> 16, wval >> 16, wmask >> 16);
+> +	cxl->dvsec_shadow[idx] = lo | ((u32)hi << 16);
+> +
+> +	return count;
+> +}
+> +
+>  static const struct vfio_cxl_ops vfio_cxl_ops = {
+>  	.init_device	= vfio_cxl_init_device,
+>  	.release_device	= vfio_cxl_release_device,
+>  	.open_device	= vfio_cxl_open_device,
+>  	.close_device	= vfio_cxl_close_device,
+> +	.config_read	= vfio_cxl_config_read,
+> +	.config_write	= vfio_cxl_config_write,
+>  	.owner		= THIS_MODULE,
+>  };
+>  
+> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
+> index a10ed733f0e3..f088e4ce5e07 100644
+> --- a/drivers/vfio/pci/vfio_pci_config.c
+> +++ b/drivers/vfio/pci/vfio_pci_config.c
+> @@ -1102,6 +1102,39 @@ void vfio_pci_uninit_perm_bits(void)
+>  	free_perm_bits(&ecap_perms[PCI_EXT_CAP_ID_PWR]);
+>  }
+>  
+> +/*
+> + * DVSEC accesses are dispatched to vfio-cxl for a CXL device. It handles the
+> + * CXL DVSEC and returns -ENODEV for any other DVSEC, for which the default
+> + * handling then applies.
+> + */
+> +static int vfio_pci_dvsec_config_read(struct vfio_pci_core_device *vdev, int pos,
+> +				      int count, struct perm_bits *perm,
+> +				      int offset, __le32 *val)
+> +{
+> +	if (vdev->cxl_ops && vdev->cxl_ops->config_read) {
+> +		int ret = vdev->cxl_ops->config_read(vdev, pos, count, val);
+> +
+> +		if (ret != -ENODEV)
+> +			return ret;
+> +	}
+> +
+> +	return vfio_direct_config_read(vdev, pos, count, perm, offset, val);
+> +}
+> +
+> +static int vfio_pci_dvsec_config_write(struct vfio_pci_core_device *vdev,
+> +				       int pos, int count, struct perm_bits *perm,
+> +				       int offset, __le32 val)
+> +{
+> +	if (vdev->cxl_ops && vdev->cxl_ops->config_write) {
+> +		int ret = vdev->cxl_ops->config_write(vdev, pos, count, val);
+> +
+> +		if (ret != -ENODEV)
+> +			return ret;
+> +	}
+> +
+> +	return vfio_raw_config_write(vdev, pos, count, perm, offset, val);
+> +}
+> +
+>  int __init vfio_pci_init_perm_bits(void)
+>  {
+>  	int ret;
+> @@ -1121,7 +1154,8 @@ int __init vfio_pci_init_perm_bits(void)
+>  	ret |= init_pci_ext_cap_err_perm(&ecap_perms[PCI_EXT_CAP_ID_ERR]);
+>  	ret |= init_pci_ext_cap_pwr_perm(&ecap_perms[PCI_EXT_CAP_ID_PWR]);
+>  	ecap_perms[PCI_EXT_CAP_ID_VNDR].writefn = vfio_raw_config_write;
+> -	ecap_perms[PCI_EXT_CAP_ID_DVSEC].writefn = vfio_raw_config_write;
+> +	ecap_perms[PCI_EXT_CAP_ID_DVSEC].readfn = vfio_pci_dvsec_config_read;
+> +	ecap_perms[PCI_EXT_CAP_ID_DVSEC].writefn = vfio_pci_dvsec_config_write;
+>  
+>  	if (ret)
+>  		vfio_pci_uninit_perm_bits();
+> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> index 7354dae1dd85..b9202cb29d96 100644
+> --- a/include/linux/vfio_pci_core.h
+> +++ b/include/linux/vfio_pci_core.h
+> @@ -72,6 +72,11 @@ struct vfio_cxl_ops {
+>  	void	(*release_device)(struct vfio_pci_core_device *vdev);
+>  	int     (*open_device)(struct vfio_pci_core_device *vdev);
+>  	void    (*close_device)(struct vfio_pci_core_device *vdev);
+> +	int     (*config_read)(struct vfio_pci_core_device *vdev, int pos,
+> +			       int count, __le32 *val);
+> +	int     (*config_write)(struct vfio_pci_core_device *vdev, int pos,
+> +				int count, __le32 val);
+> +
+>  	/* Pinned per bound CXL device so vfio-cxl cannot unload under usage */
+>  	struct module *owner;
+>  };
+> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+> index 4f5942ebd29b..00ca1c777b44 100644
+> --- a/include/uapi/linux/pci_regs.h
+> +++ b/include/uapi/linux/pci_regs.h
+> @@ -1359,6 +1359,7 @@
+>  #define  PCI_DVSEC_CXL_CTRL				0xC
+>  #define   PCI_DVSEC_CXL_CACHE_ENABLE			_BITUL(0)
+>  #define   PCI_DVSEC_CXL_MEM_ENABLE			_BITUL(2)
+> +#define  PCI_DVSEC_CXL_STATUS				0xE
+>  #define  PCI_DVSEC_CXL_CTRL2				0x10
+>  #define   PCI_DVSEC_CXL_DISABLE_CACHING			_BITUL(0)
+>  #define   PCI_DVSEC_CXL_INIT_CACHE_WBI			_BITUL(1)
 
-Several of these tests exist to catch a revert, not to describe the
-interface. The errno alone shows none of them:
+This is still not the correct implementation.  We're only doing
+virtualized and writable bit manipulation, with some RW1C manipulation
+that doesn't require CXL callouts or module dependencies.  This could
+all live in vfio_pci_config.c gated on fields in the core vdev, ex.
+vdev->cxl_dvsec, vdev->cxl_dvsec_len.  We can setup a vdev->cxl_perms
+field with similar use and initialization to msi_perms.  This would
+also avoid the CXL DVSEC shadow setup in the previous patch as vconfig
+already shadows this range.
 
-- val_reject_keeps_listeners. An unknown transport name ends in
-  -EPROTONOSUPPORT either way, because svc_xprt_create_from_sa() returns
-  that error too. The difference is the state that it leaves. Without the
-  up-front check, nfsd_nl_listener_set_doit() has already destroyed the
-  listeners that did not match by the time the name fails.
-- val_bad_transport. This test now also requires that the stub saw no
-  traffic. A request that reaches svc_xprt_create_from_sa() has run
-  nfsd_create_serv(). svc_bind() then pings rpcbind at client creation and
-  sweeps stale entries with svc_unregister(). Silence at the stub is
-  therefore what shows that the kernel refused the request up front.
-- val_second_entry_bad. This test now also sends a LISTENER_GET.
-  svc_xprt_create_from_sa() also returns -EAFNOSUPPORT for the bad entry,
-  and the doit keeps the listeners that it did create. The well-formed tcp
-  entry ahead of it would otherwise still be up.
-- sem_register_refused. This test puts the stub in a mode that answers
-  RPCBPROC_SET with FALSE. rpcb_register_call() turns that answer into
-  -EACCES, svc_register() then fails, and svc_setup_socket() creates no
-  listener. The bare errno does not show that, because a bind can return
-  -EACCES too, so the test reads the listener set back and requires that
-  it is empty.
-- sem_create_failure_extack. This test squats on the port first, so the
-  listener cannot bind. The extack must then name the transport that
-  failed.
-- func_empty_destroys. This test uses the connection count. LISTENER_GET
-  replies empty both for a destroyed serv and for a live serv with no
-  permsocks. But only nfsd_destroy_serv() reaches
-  svc_xprt_destroy_all(..., unregister=true) -> svc_rpcb_cleanup() ->
-  rpcb_put_local(), which drops the last user and shuts the local client
-  down. The next serv has to connect again.
-- sem_busy_on_change and sem_busy_on_remove read the listeners back,
-  because -EBUSY says nothing about what the doit did before it returned.
+The only CXL callouts I see later in the series are for reset, where
+we can make much more discrete ops callouts for store flags to avoid
+direct CXL module dependencies.  Thanks,
 
-find_listener() matches the address as well as the transport, the family
-and the port. Every listener here is created on loopback, so a reply that
-names 0.0.0.0 has to fail.
-
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- .../testing/selftests/nfsd/nfsd_netlink_listener.c | 637 ++++++++++++++++++++-
- 1 file changed, 627 insertions(+), 10 deletions(-)
-
-diff --git a/tools/testing/selftests/nfsd/nfsd_netlink_listener.c b/tools/testing/selftests/nfsd/nfsd_netlink_listener.c
-index ae28c224255f..99c320e2f7c2 100644
---- a/tools/testing/selftests/nfsd/nfsd_netlink_listener.c
-+++ b/tools/testing/selftests/nfsd/nfsd_netlink_listener.c
-@@ -3,30 +3,41 @@
-  * Regression tests for the NFSD generic-netlink listener interface
-  * (NFSD_CMD_LISTENER_SET / NFSD_CMD_LISTENER_GET).
-  *
-- * These cover the request validation that nfsd_nl_validate_listeners() does
-- * before nfsd_mutex is taken: bad or absent transport name, missing address,
-- * truncated or unsupported sockaddr, oversized list. None of them reach
-- * nfsd_create_serv(), so nothing here creates a serv or talks to rpcbind.
-+ * Three groups:
-+ *   validation  - malformed/abusive LISTENER_SET requests are rejected by
-+ *                 nfsd_nl_validate_listeners(), before nfsd_mutex is taken.
-+ *   functional  - create/add/remove listeners and verify LISTENER_GET
-+ *                 reflects the set (round-trip of transport + addr:port).
-+ *   semantics   - once threads are running (THREADS_SET) a listener change
-+ *                 is refused with -EBUSY.
-  *
-  * Each test runs in its own private net + mount namespace (unshare in
-  * FIXTURE_SETUP). /run is masked there: a pathname AF_LOCAL connect is not
-  * scoped by the network namespace, since unix_find_bsd() resolves by inode
-  * and takes no struct net, so the kernel's rpcbind client would otherwise be
-- * able to reach the rpcbind running on the host.
-+ * able to reach the rpcbind running on the host. Anything that creates a
-+ * serv is served by the per-netns rpcbind stub below instead.
-  */
- #define _GNU_SOURCE
- #include <errno.h>
-+#include <poll.h>
- #include <sched.h>
-+#include <signal.h>
-+#include <stddef.h>
- #include <stdint.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
- #include <unistd.h>
-+#include <sys/mman.h>
- #include <sys/mount.h>
-+#include <sys/prctl.h>
- #include <sys/socket.h>
- #include <sys/ioctl.h>
- #include <sys/stat.h>
- #include <sys/time.h>
-+#include <sys/un.h>
-+#include <sys/wait.h>
- #include <net/if.h>
- #include <netinet/in.h>
- #include <linux/netlink.h>
-@@ -36,8 +47,10 @@
- 
- /* NFSD generic-netlink constants (from linux/nfsd_netlink.h). */
- #define NFSD_FAMILY_NAME		"nfsd"
-+#define NFSD_CMD_THREADS_SET		2
- #define NFSD_CMD_LISTENER_SET		6
- #define NFSD_CMD_LISTENER_GET		7
-+#define NFSD_A_SERVER_THREADS		1
- #define NFSD_A_SERVER_SOCK_ADDR		1	/* per-listener nest */
- #define NFSD_A_SOCK_ADDR		1	/* inside the nest */
- #define NFSD_A_SOCK_TRANSPORT_NAME	2	/* inside the nest */
-@@ -47,7 +60,10 @@
- #define MAX_LISTENERS			8
- #define RECV_TIMEO_SEC			30
- 
--static int nfsd_family;			/* set per-test in FIXTURE_SETUP */
-+static int nfsd_family = -1;		/* set per-test in FIXTURE_SETUP */
-+
-+/* Extack message from the last genl_request(); empty if there was none. */
-+static char last_extack[128];
- 
- static void die(const char *msg)
- {
-@@ -62,15 +78,50 @@ static int genl_open(void)
- 	struct sockaddr_nl sa = { .nl_family = AF_NETLINK };
- 	struct timeval tv = { .tv_sec = RECV_TIMEO_SEC };
- 	int fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-+	int on = 1;
- 
- 	if (fd < 0)
- 		die("socket(NETLINK_GENERIC)");
- 	if (bind(fd, (void *)&sa, sizeof(sa)) < 0)
- 		die("bind(netlink)");
- 	setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-+	/*
-+	 * Ask for extack, and cap the ack so the request is not echoed back:
-+	 * the TLVs then always follow the fixed part of the error message.
-+	 */
-+	setsockopt(fd, SOL_NETLINK, NETLINK_EXT_ACK, &on, sizeof(on));
-+	setsockopt(fd, SOL_NETLINK, NETLINK_CAP_ACK, &on, sizeof(on));
- 	return fd;
- }
- 
-+/* Stash the extack message of an ack, if it carries one. */
-+static void parse_extack(const char *rbuf)
-+{
-+	const struct nlmsghdr *nlh = (const void *)rbuf;
-+	const struct nlattr *na;
-+	int off, left;
-+
-+	last_extack[0] = '\0';
-+	if (nlh->nlmsg_type != NLMSG_ERROR ||
-+	    !(nlh->nlmsg_flags & NLM_F_ACK_TLVS))
-+		return;
-+
-+	off = NLMSG_HDRLEN + NLMSG_ALIGN(sizeof(struct nlmsgerr));
-+	left = nlh->nlmsg_len - off;
-+	na = (const void *)(rbuf + off);
-+
-+	while (left >= (int)NLA_HDRLEN) {
-+		if ((na->nla_type & NLA_TYPE_MASK) == NLMSGERR_ATTR_MSG) {
-+			strncpy(last_extack, (const char *)na + NLA_HDRLEN,
-+				sizeof(last_extack) - 1);
-+			last_extack[sizeof(last_extack) - 1] = '\0';
-+			return;
-+		}
-+		left -= NLA_ALIGN4(na->nla_len);
-+		na = (const void *)((const char *)na + NLA_ALIGN4(na->nla_len));
-+	}
-+}
-+
- /* Append an attribute at @off; return the new (aligned) offset. */
- static int put_attr(char *buf, int off, uint16_t type,
- 		    const void *data, int len)
-@@ -117,13 +168,16 @@ static int genl_request(uint8_t cmd, const char *attrs, int attrs_len)
- 	if (send(fd, buf, off, 0) < 0)
- 		die("send(genl)");
- 
-+	last_extack[0] = '\0';
- 	n = recv(fd, rbuf, sizeof(rbuf), 0);
--	if (n < 0)
-+	if (n < 0) {
- 		ret = (errno == EAGAIN || errno == EWOULDBLOCK) ? -ETIMEDOUT : -errno;
--	else if (((struct nlmsghdr *)rbuf)->nlmsg_type == NLMSG_ERROR)
-+	} else if (((struct nlmsghdr *)rbuf)->nlmsg_type == NLMSG_ERROR) {
- 		ret = ((struct nlmsgerr *)NLMSG_DATA(rbuf))->error;
--	else
-+		parse_extack(rbuf);
-+	} else {
- 		ret = 0;
-+	}
- 	close(fd);
- 	return ret;
- }
-@@ -327,10 +381,296 @@ static int listener_get(struct listener_ent *out, int max)
- 	return parse_listener_get(rbuf, n, out, max);
- }
- 
-+/*
-+ * Every listener these tests create comes from put_listener_af(), so the
-+ * address is always loopback. Match on it too: without that, a reply that
-+ * gave the right transport and port on the wrong address (0.0.0.0, say)
-+ * would pass.
-+ */
-+static struct listener_ent *find_listener(struct listener_ent *e, int n,
-+					  const char *xprt, int family,
-+					  uint16_t port)
-+{
-+	int i;
-+
-+	for (i = 0; i < n; i++) {
-+		if (e[i].family != family || e[i].port != port ||
-+		    strcmp(e[i].xprt, xprt))
-+			continue;
-+		if (family == AF_INET6) {
-+			if (memcmp(&e[i].a6, &in6addr_loopback, sizeof(e[i].a6)))
-+				continue;
-+		} else if (e[i].a4.s_addr != htonl(INADDR_LOOPBACK)) {
-+			continue;
-+		}
-+		return &e[i];
-+	}
-+	return NULL;
-+}
-+
-+/* Start (@n > 0) or stop (@n == 0) nfsd threads in this netns. */
-+static int threads_set(int n)
-+{
-+	char attrs[64];
-+	uint32_t v = n;
-+	int off = put_attr(attrs, 0, NFSD_A_SERVER_THREADS, &v, sizeof(v));
-+
-+	return genl_request(NFSD_CMD_THREADS_SET, attrs, off);
-+}
-+
-+/* ------------------- per-netns local rpcbind stub ------------------- */
-+
-+/*
-+ * Creating a listener registers with rpcbind: nfsd_nl_listener_set_doit()
-+ * passes no SVC_SOCK_ANONYMOUS for the first entry of a request, so
-+ * pmap_register is true in svc_setup_socket(). The fixture's server has v3
-+ * enabled, and nfsd_version3 does not set vs_rpcb_optnl, so a failure there
-+ * comes back out of svc_register() and takes the listener down with it.
-+ * With nothing listening, every attempt first waits out the local rpcbind
-+ * timeout. The abstract AF_LOCAL name the kernel tries first is per-netns
-+ * (unix_find_abstract() takes a struct net), so answer it here and stay out
-+ * of the host's rpcbind.
-+ *
-+ * Arguments are never decoded. The NULL procedure gets an empty success and
-+ * SET/UNSET get TRUE, for both RPCBVERS_2 and RPCBVERS_4. v4 has to be
-+ * answered because __svc_rpcb_register6() turns a v4 refusal into
-+ * -EAFNOSUPPORT, which would leave every IPv6 listener unregistered.
-+ *
-+ * In RPCB_STUB_REFUSE mode SET is answered FALSE instead, which
-+ * rpcb_register_call() reports as -EACCES. UNSET is left alone: only
-+ * svc_unregister() issues it, and it discards the result.
-+ *
-+ * The stub also keeps counters and the mode in a page shared with the test, so
-+ * a test can assert that the kernel never talked to rpcbind at all, or that it
-+ * dropped the local rpcbind client and had to reconnect.
-+ *
-+ * The mode lives there rather than in the child so that a test can change it
-+ * with a serv already up. Killing and restarting the stub would close the
-+ * connection the kernel holds, and rpcb_register_call() issues UNSET over
-+ * AF_LOCAL with RPC_TASK_NOCONNECT, so the next call would fail at once with
-+ * -ENOTCONN instead of waiting out a timeout.
-+ */
-+#define RPCB_PROGRAM		100000
-+#define RPCB_PROC_NULL		0
-+#define RPCB_PROC_SET		1
-+#define RPCB_PROC_UNSET		2
-+#define RPCB_ABSTRACT_NAME	"/run/rpcbind.sock"
-+#define RPCB_STUB_MAXCONN	4
-+
-+enum { RPCB_STUB_ACCEPT, RPCB_STUB_REFUSE };
-+
-+struct rpcb_stub_stats {
-+	unsigned int conns;		/* connections accepted */
-+	unsigned int calls;		/* calls received */
-+	unsigned int mode;		/* RPCB_STUB_*, read on every call */
-+};
-+
-+static volatile struct rpcb_stub_stats *rpcb_stats;	/* MAP_SHARED */
-+
-+static int rpcb_stats_alloc(void)
-+{
-+	void *p = mmap(NULL, sizeof(*rpcb_stats), PROT_READ | PROT_WRITE,
-+		       MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+
-+	if (p == MAP_FAILED)
-+		return -1;
-+	rpcb_stats = p;
-+	return 0;
-+}
-+
-+/*
-+ * The stub bumps these before it replies and the kernel waits for that reply,
-+ * so whatever a netlink request provoked is visible once it returns.
-+ */
-+static int rpcb_calls(void)
-+{
-+	return rpcb_stats ? (int)rpcb_stats->calls : 0;
-+}
-+
-+static int rpcb_conns(void)
-+{
-+	return rpcb_stats ? (int)rpcb_stats->conns : 0;
-+}
-+
-+/* Takes effect on the stub's next call; the caller has not sent one yet. */
-+static void rpcb_stub_set_mode(int mode)
-+{
-+	rpcb_stats->mode = mode;
-+}
-+
-+static int rpcb_stub_listen(void)
-+{
-+	struct sockaddr_un sun = { .sun_family = AF_UNIX };
-+	size_t nlen = strlen(RPCB_ABSTRACT_NAME);
-+	socklen_t alen;
-+	int fd;
-+
-+	/* Abstract names are length-delimited, so the length must match. */
-+	memcpy(sun.sun_path + 1, RPCB_ABSTRACT_NAME, nlen);
-+	alen = offsetof(struct sockaddr_un, sun_path) + 1 + nlen;
-+
-+	fd = socket(AF_UNIX, SOCK_STREAM, 0);
-+	if (fd < 0)
-+		return -1;
-+	if (bind(fd, (struct sockaddr *)&sun, alen) < 0 ||
-+	    listen(fd, RPCB_STUB_MAXCONN) < 0) {
-+		close(fd);
-+		return -1;
-+	}
-+	return fd;
-+}
-+
-+static int rpcb_stub_read(int fd, void *buf, size_t len)
-+{
-+	size_t done = 0;
-+
-+	while (done < len) {
-+		ssize_t n = read(fd, (char *)buf + done, len - done);
-+
-+		if (n <= 0)
-+			return -1;
-+		done += n;
-+	}
-+	return 0;
-+}
-+
-+/* Handle one record-marked RPC call. Returns -1 when the peer is done. */
-+static int rpcb_stub_call(int fd)
-+{
-+	unsigned int len, nrep = 6, mode = rpcb_stats->mode;
-+	uint32_t mark, call[6], rep[7];
-+	size_t replen;
-+
-+	if (rpcb_stub_read(fd, &mark, sizeof(mark)))
-+		return -1;
-+	len = ntohl(mark) & 0x7fffffff;
-+	if (len < sizeof(call) || len > 4096)
-+		return -1;
-+	if (rpcb_stub_read(fd, call, sizeof(call)))
-+		return -1;
-+
-+	/* xid, msg_type, rpcvers, prog, vers, proc; the rest is discarded */
-+	for (len -= sizeof(call); len; ) {
-+		char sink[256];
-+		unsigned int n = len > sizeof(sink) ? sizeof(sink) : len;
-+
-+		if (rpcb_stub_read(fd, sink, n))
-+			return -1;
-+		len -= n;
-+	}
-+
-+	if (rpcb_stats)
-+		rpcb_stats->calls++;
-+
-+	rep[0] = call[0];		/* xid */
-+	rep[1] = htonl(1);		/* REPLY */
-+	rep[2] = htonl(0);		/* MSG_ACCEPTED */
-+	rep[3] = htonl(0);		/* verifier flavor AUTH_NULL */
-+	rep[4] = htonl(0);		/* verifier length */
-+	rep[5] = htonl(0);		/* SUCCESS */
-+
-+	if (ntohl(call[3]) != RPCB_PROGRAM) {
-+		rep[5] = htonl(1);	/* PROG_UNAVAIL */
-+	} else {
-+		switch (ntohl(call[5])) {
-+		case RPCB_PROC_NULL:
-+			break;
-+		case RPCB_PROC_SET:
-+			rep[6] = htonl(mode == RPCB_STUB_REFUSE ? 0 : 1);
-+			nrep = 7;
-+			break;
-+		case RPCB_PROC_UNSET:
-+			rep[6] = htonl(1);	/* TRUE */
-+			nrep = 7;
-+			break;
-+		default:
-+			rep[5] = htonl(3);	/* PROC_UNAVAIL */
-+		}
-+	}
-+
-+	replen = nrep * sizeof(rep[0]);
-+	mark = htonl(0x80000000 | replen);
-+	if (write(fd, &mark, sizeof(mark)) != (ssize_t)sizeof(mark) ||
-+	    write(fd, rep, replen) != (ssize_t)replen)
-+		return -1;
-+	return 0;
-+}
-+
-+static void rpcb_stub_serve(int lfd)
-+{
-+	struct pollfd pfd[1 + RPCB_STUB_MAXCONN];
-+	nfds_t n = 1, i;
-+
-+	pfd[0].fd = lfd;
-+
-+	for (;;) {
-+		/* stop polling the listener when full, or poll() spins */
-+		pfd[0].events = n < 1 + RPCB_STUB_MAXCONN ? POLLIN : 0;
-+
-+		if (poll(pfd, n, -1) < 0)
-+			return;
-+
-+		if (pfd[0].revents & POLLIN) {
-+			int c = accept(lfd, NULL, NULL);
-+
-+			if (c >= 0) {
-+				pfd[n].fd = c;
-+				pfd[n].events = POLLIN;
-+				/*
-+				 * poll() ran with the old n, so it did not
-+				 * write this revents. The loop below reads it.
-+				 */
-+				pfd[n].revents = 0;
-+				n++;
-+				if (rpcb_stats)
-+					rpcb_stats->conns++;
-+			}
-+		}
-+
-+		for (i = 1; i < n; i++) {
-+			if (!(pfd[i].revents & (POLLIN | POLLHUP | POLLERR)))
-+				continue;
-+			if (rpcb_stub_call(pfd[i].fd)) {
-+				close(pfd[i].fd);
-+				pfd[i] = pfd[--n];
-+			}
-+		}
-+	}
-+}
-+
-+/* Returns the stub's pid, or -1. The socket is listening before we fork. */
-+static pid_t rpcb_stub_start(int mode)
-+{
-+	int lfd = rpcb_stub_listen();
-+	pid_t pid;
-+
-+	if (lfd < 0)
-+		return -1;
-+
-+	rpcb_stats->mode = mode;
-+
-+	pid = fork();
-+	if (pid < 0) {
-+		close(lfd);
-+		return -1;
-+	}
-+	if (pid == 0) {
-+		signal(SIGPIPE, SIG_IGN);
-+		prctl(PR_SET_PDEATHSIG, SIGKILL);
-+		if (getppid() == 1)		/* raced with parent exit */
-+			_exit(0);
-+		rpcb_stub_serve(lfd);
-+		_exit(0);
-+	}
-+
-+	close(lfd);
-+	return pid;
-+}
-+
- /* --------------------------- fixture --------------------------- */
- 
- FIXTURE(nfsd_listener) {
--	int placeholder;
-+	pid_t rpcbd;
- };
- 
- FIXTURE_SETUP(nfsd_listener)
-@@ -369,14 +709,43 @@ FIXTURE_SETUP(nfsd_listener)
- 	nfsd_family = genl_resolve_nfsd();
- 	if (nfsd_family < 0)
- 		SKIP(return, "nfsd genl family not found (modprobe nfsd?)");
-+
-+	if (rpcb_stats_alloc() < 0)
-+		SKIP(return, "mmap(rpcbind stub counters): %s", strerror(errno));
-+
-+	self->rpcbd = rpcb_stub_start(RPCB_STUB_ACCEPT);
-+	if (self->rpcbd < 0)
-+		SKIP(return, "cannot start the rpcbind stub: %s",
-+		     strerror(errno));
- }
- 
- FIXTURE_TEARDOWN(nfsd_listener)
- {
-+	/*
-+	 * A listener holds a reference to this netns, which outlives the test
-+	 * process, so anything still up leaks it. Threads pin the listeners in
-+	 * turn; dropping them destroys the serv and everything under it.
-+	 */
-+	if (nfsd_family >= 0 && listener_set(NULL, 0) == -EBUSY)
-+		threads_set(0);
-+
-+	if (self->rpcbd > 0) {
-+		kill(self->rpcbd, SIGKILL);
-+		waitpid(self->rpcbd, NULL, 0);
-+	}
-+	if (rpcb_stats) {
-+		munmap((void *)rpcb_stats, sizeof(*rpcb_stats));
-+		rpcb_stats = NULL;
-+	}
- }
- 
- /* ===================== validation / negative ===================== */
- 
-+TEST_F(nfsd_listener, val_empty_list_ok)
-+{
-+	EXPECT_EQ(0, listener_set(NULL, 0));
-+}
-+
- TEST_F(nfsd_listener, val_too_many)
- {
- 	static char attrs[1 << 20];
-@@ -411,13 +780,21 @@ TEST_F(nfsd_listener, val_missing_transport)
-  * A name matching no transport class must be refused before nfsd_mutex is
-  * taken, so it never reaches svc_xprt_create_from_sa() and its
-  * request_module("svc%s", name) upcall.
-+ *
-+ * The errno cannot show that -- svc_xprt_create_from_sa() returns
-+ * -EPROTONOSUPPORT for an unknown name too. The rpcbind traffic can:
-+ * getting that far means nfsd_create_serv() ran, and svc_bind() pings
-+ * rpcbind at client creation and then sweeps stale entries with
-+ * svc_unregister(). A silent stub is the proof nothing was created.
-  */
- TEST_F(nfsd_listener, val_bad_transport)
- {
- 	char attrs[64];
- 	int off = put_listener(attrs, 0, "bogus_xprt", TEST_PORT);
- 
-+	ASSERT_EQ(0, rpcb_calls());
- 	EXPECT_EQ(-EPROTONOSUPPORT, listener_set(attrs, off));
-+	EXPECT_EQ(0, rpcb_calls());
- }
- 
- TEST_F(nfsd_listener, val_addr_too_short)
-@@ -469,14 +846,49 @@ TEST_F(nfsd_listener, val_second_entry_bad)
- 	struct sockaddr_storage ss = { .ss_family = AF_UNIX };
- 	struct raw_listener bad = { .xprt = "tcp", .emit_addr = 1, .addr = &ss,
- 				    .addr_len = sizeof(struct sockaddr_in) };
-+	struct listener_ent got[MAX_LISTENERS];
- 	char attrs[128];
- 	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
- 
- 	off = put_raw_listener(attrs, off, &bad);
- 	/* The whole request is rejected during validation; nothing applied. */
- 	EXPECT_EQ(-EAFNOSUPPORT, listener_set(attrs, off));
-+	/*
-+	 * Again the errno alone does not say so: svc_xprt_create_from_sa()
-+	 * also returns -EAFNOSUPPORT, and the doit keeps the listeners it did
-+	 * manage to create, so the well-formed tcp entry ahead of the bad one
-+	 * would still be up.
-+	 */
-+	EXPECT_EQ(0, listener_get(got, MAX_LISTENERS));
-+}
-+
-+/*
-+ * A rejected request must leave the listeners that are already up alone.
-+ * The errno alone does not show that: svc_xprt_create_from_sa() returns
-+ * -EPROTONOSUPPORT for an unknown name too. What differs is how far the
-+ * request gets -- without the check in nfsd_nl_validate_listeners(),
-+ * nfsd_nl_listener_set_doit() has already moved the unmatched tcp listener
-+ * off sv_permsocks and run svc_xprt_destroy_all() on it by the time the
-+ * name fails.
-+ */
-+TEST_F(nfsd_listener, val_reject_keeps_listeners)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char good[64], bad[64];
-+	int og = put_listener(good, 0, "tcp", TEST_PORT);
-+	int ob = put_listener(bad, 0, "bogus_xprt", TEST_PORT);
-+
-+	ASSERT_EQ(0, listener_set(good, og));
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+
-+	EXPECT_EQ(-EPROTONOSUPPORT, listener_set(bad, ob));
-+
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
- }
- 
-+/* ===================== functional / round-trip ===================== */
-+
- /* LISTENER_GET with no serv in this netns returns an empty list. */
- TEST_F(nfsd_listener, func_get_empty)
- {
-@@ -485,4 +897,209 @@ TEST_F(nfsd_listener, func_get_empty)
- 	EXPECT_EQ(0, listener_get(got, MAX_LISTENERS));
- }
- 
-+TEST_F(nfsd_listener, func_create_tcp)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	EXPECT_STREQ("", last_extack);		/* nothing to warn about */
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
-+}
-+
-+TEST_F(nfsd_listener, func_create_udp)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "udp", TEST_PORT);
-+
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "udp", AF_INET, TEST_PORT));
-+}
-+
-+TEST_F(nfsd_listener, func_create_multi)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[128];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+
-+	off = put_listener(attrs, off, "udp", TEST_PORT);
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	ASSERT_EQ(2, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 2, "tcp", AF_INET, TEST_PORT));
-+	EXPECT_NE(NULL, find_listener(got, 2, "udp", AF_INET, TEST_PORT));
-+}
-+
-+TEST_F(nfsd_listener, func_idempotent)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	EXPECT_EQ(0, listener_set(attrs, off));		/* re-set same list */
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
-+}
-+
-+TEST_F(nfsd_listener, func_add)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char one[64], two[128];
-+	int o1 = put_listener(one, 0, "tcp", TEST_PORT);
-+	int o2 = put_listener(two, 0, "tcp", TEST_PORT);
-+
-+	o2 = put_listener(two, o2, "udp", TEST_PORT);
-+	ASSERT_EQ(0, listener_set(one, o1));
-+	ASSERT_EQ(0, listener_set(two, o2));		/* add udp, keep tcp */
-+	ASSERT_EQ(2, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 2, "tcp", AF_INET, TEST_PORT));
-+	EXPECT_NE(NULL, find_listener(got, 2, "udp", AF_INET, TEST_PORT));
-+}
-+
-+TEST_F(nfsd_listener, func_remove_subset)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char both[128], one[64];
-+	int ob = put_listener(both, 0, "tcp", TEST_PORT);
-+	int oo = put_listener(one, 0, "tcp", TEST_PORT);
-+
-+	ob = put_listener(both, ob, "udp", TEST_PORT);
-+	ASSERT_EQ(0, listener_set(both, ob));
-+	ASSERT_EQ(0, listener_set(one, oo));		/* drop udp */
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
-+}
-+
-+/*
-+ * LISTENER_GET cannot tell a destroyed serv from a live one with no
-+ * permsocks: nfsd_nl_listener_get_doit() replies empty either way. The
-+ * rpcbind client can. nfsd_destroy_serv() is the only path that reaches
-+ * svc_xprt_destroy_all(..., unregister=true) -> svc_rpcb_cleanup() ->
-+ * rpcb_put_local(), which drops the last user and shuts the local client
-+ * down; the next serv then has to connect again. Leaving the serv in place
-+ * would keep the first connection and the stub would see just the one.
-+ */
-+TEST_F(nfsd_listener, func_empty_destroys)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+	int conns;
-+
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	conns = rpcb_conns();
-+	ASSERT_GT(conns, 0);
-+
-+	EXPECT_EQ(0, listener_set(NULL, 0));		/* empty -> destroy serv */
-+	EXPECT_EQ(0, listener_get(got, MAX_LISTENERS));
-+
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	EXPECT_GT(rpcb_conns(), conns);
-+}
-+
-+TEST_F(nfsd_listener, func_ipv6)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off, s;
-+
-+	s = socket(AF_INET6, SOCK_STREAM, 0);
-+	if (s < 0)
-+		SKIP(return, "IPv6 unavailable: %s", strerror(errno));
-+	close(s);
-+
-+	off = put_listener_af(attrs, 0, "tcp", AF_INET6, TEST_PORT);
-+	ASSERT_EQ(0, listener_set(attrs, off));
-+	ASSERT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET6, TEST_PORT));
-+}
-+
-+/* ===================== rpcbind registration ===================== */
-+
-+/*
-+ * A rpcbind that refuses the registration takes the listener down with it.
-+ * svc_register() fails, so svc_setup_socket() fails, so no listener is
-+ * created. -EACCES alone does not show that, since a bind can return it
-+ * too, so read the listener set back as well.
-+ */
-+TEST_F(nfsd_listener, sem_register_refused)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+
-+	rpcb_stub_set_mode(RPCB_STUB_REFUSE);
-+
-+	EXPECT_EQ(-EACCES, listener_set(attrs, off));
-+	EXPECT_STRNE("", last_extack);
-+	EXPECT_EQ(0, listener_get(got, MAX_LISTENERS));
-+}
-+
-+/*
-+ * A listener that cannot be created reports which one it was: the errno
-+ * alone does not name the entry in a multi-listener request.
-+ */
-+TEST_F(nfsd_listener, sem_create_failure_extack)
-+{
-+	struct sockaddr_in s4 = { .sin_family = AF_INET,
-+				  .sin_port = htons(TEST_PORT),
-+				  .sin_addr.s_addr = htonl(INADDR_LOOPBACK) };
-+	struct listener_ent got[MAX_LISTENERS];
-+	char attrs[64];
-+	int off = put_listener(attrs, 0, "tcp", TEST_PORT);
-+	int s;
-+
-+	/* squat on the port so the listener cannot bind */
-+	s = socket(AF_INET, SOCK_STREAM, 0);
-+	ASSERT_GE(s, 0);
-+	ASSERT_EQ(0, bind(s, (struct sockaddr *)&s4, sizeof(s4)));
-+
-+	EXPECT_EQ(-EADDRINUSE, listener_set(attrs, off));
-+	EXPECT_STRNE("", last_extack);
-+	EXPECT_EQ(0, listener_get(got, MAX_LISTENERS));
-+	close(s);
-+}
-+
-+/* ===================== threads / -EBUSY semantics ===================== */
-+
-+TEST_F(nfsd_listener, sem_busy_on_change)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char one[64], two[128];
-+	int o1 = put_listener(one, 0, "tcp", TEST_PORT);
-+	int o2 = put_listener(two, 0, "tcp", TEST_PORT);
-+
-+	o2 = put_listener(two, o2, "udp", TEST_PORT);
-+	ASSERT_EQ(0, listener_set(one, o1));
-+	ASSERT_EQ(0, threads_set(1));			/* threads now running */
-+	EXPECT_EQ(-EBUSY, listener_set(two, o2));	/* add refused */
-+
-+	/* refused means refused: the udp listener must not have been added */
-+	EXPECT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
-+
-+	threads_set(0);					/* stop before netns exit */
-+}
-+
-+TEST_F(nfsd_listener, sem_busy_on_remove)
-+{
-+	struct listener_ent got[MAX_LISTENERS];
-+	char one[64];
-+	int o1 = put_listener(one, 0, "tcp", TEST_PORT);
-+
-+	ASSERT_EQ(0, listener_set(one, o1));
-+	ASSERT_EQ(0, threads_set(1));
-+	EXPECT_EQ(-EBUSY, listener_set(NULL, 0));	/* remove refused */
-+
-+	/* the doit moves the permsocks to a temp list before it can fail */
-+	EXPECT_EQ(1, listener_get(got, MAX_LISTENERS));
-+	EXPECT_NE(NULL, find_listener(got, 1, "tcp", AF_INET, TEST_PORT));
-+
-+	threads_set(0);
-+}
-+
- TEST_HARNESS_MAIN
-
--- 
-2.55.0
-
+Alex
