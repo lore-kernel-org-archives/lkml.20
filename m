@@ -1,155 +1,140 @@
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC2F384CDD
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CEA3AAF65
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787955868; cv=none; b=dvuRVqvsmG+xwfzSO9yMQf13EgIQFAjH1p/ZFnYheJRC6Ih2uKeLFg+2Gda9pknFWOOZ7dyoGORm/qNBVs3M+4OSGKyxNZrRyo3XnDmmiaB+rS55f8etEWA+60WyawFRQ3qJX8uyjRUYkncM+At2JuXJ/3bwD2eJ8rf/MSeqyvE=
+	t=1787956010; cv=none; b=UI+BVU2U8IejwRV1MuJTqLhsS53zTiBQsigK4KUDYf8NFbh+IcyasQQ9O1HBR3kzcFrMDTNJxOZoZSzqERANZTsaiprGuRHEgLiSCiIzoSAhoxSz3f7IetQNT3s0bwwO4ZOafCEBBrrX28s0oM2gGdLCvtb/PQu6ZK9jL+NqKZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787955868; c=relaxed/simple;
-	bh=Xk/2itNGGwvzQ5Ct3+3m6nZce7+JaAyYCzQ8fHFJ0sU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L61ZSxz2sziIs4Pfu1sfQP/Ou3wMWE/OpbgTrsRQf40KdD3VzPe+Yn+2MaUhv/6Rma7ekZbw2DmkmLT8BuiugnMDWwiJBNsFszpCr3cPPf8QpUWDANRhTTCN93CNRN8TUoXZWKvLdNZPYFV5nr7RrcjDFpFql8KXzCB2InynylQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b=LOqxK3Xn; arc=none smtp.client-ip=209.85.222.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
+	s=arc-20240116; t=1787956010; c=relaxed/simple;
+	bh=m1+rCSt91Jphcwaj86X1T10TuVUcrZvXIyXWFpploj8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=aySrLu+60o2Sa3WyWzk6oFrvRioJdAueLBIoNWtXGbw9n01Vd5YGYHtysiQGGdineTjkJ8gZjqJGZPWh8rPnjmWcMWgPUTuh8H/rMSg+RqMV24rj3oX9k5/ZvDflsukCOF0+xCcHEWzeKIZ6QGGGHNKxWVxHbkAx1PTy/2xlxGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U+dBzxuR; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b="LOqxK3Xn"
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97c7afa485bso854998241.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:24:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U+dBzxuR"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84a251c2e3eso386091b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:26:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=idkmanager.com; s=google; t=1787955861; x=1788560661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w5YEgwBz/daywwMQ/sIV3Y54o6ngA3GwC0jiF687Iio=;
-        b=LOqxK3Xn5B3AiP6eYIbhUCr1MjSkE6ss5oHfHHmqEHdhEj5OnBbHUa0iS8OvmTY6eD
-         utoEOe4tlDXmJGJqznGtT7R6B4bGyCyZtgsAiYqh8gZoPq1RjLCYG9LbZDOvQSvh1lIE
-         /43ABVMSMP2MWXxDw4lDMnMnxHNSWI7oZ/CJmHzd+qef5M4R/r+/iOWmd+52q1oyIvIN
-         PFA5DgPVHDgPMS/00huDTwVp5vdsgf3zicSJbJuaM4TyMUsuJ4u1U5GE/aCSqrW+sJk6
-         mJfWuFtkkP2GgFn2UGlaSquLIjVHR1BcCnK4A1OCCjQ4HcMEhd4T8cdmJJ39OAWHLkTK
-         twGQ==
+        d=google.com; s=20251104; t=1787956009; x=1788560809; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2hySmi/S0MNUtUUZ5XQrsRwLdmYAgAagHNThvawMZTs=;
+        b=U+dBzxuRBjErwRo91jTMeW7C5WOC/28nsI4jCSFH3lXNJgRahfzs/HOIBlEbFzmD8t
+         bod0UhbzLVkzdX0E+2RgSYyI4UuGIqJQUqEM5UpCrdPuFnkYTx6dQNLS/t/3DU6zeDQb
+         cTo+7lNThsPvPm4jqu8mIJAvkkHHdU7m55LIkAGXGsSCFuMxURiUT3pw50chsA3PQQf1
+         5esZ6pi4oA9g8Bi03br/PD7kC5qNdi9/bBR6bknjSWYMpP7T0Hn8V+LTl3JJJCF1d8qV
+         /mkcGz33Zwfolr4x6dE1+9/ZVH6QInnmcFWizkgrla+Dwb2S0G7Kqj9vLC/Y2TtbpGfA
+         IzdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787955861; x=1788560661;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w5YEgwBz/daywwMQ/sIV3Y54o6ngA3GwC0jiF687Iio=;
-        b=lygcXFqTED5k9qwZ8VUgnjYtNVysgwP7eoJm77PVYiTh2Sz2Fpa8FyHU6kWEZj9y2C
-         1eozi+EB/I11iDRP4C1zaZLIL5xjk5lBZd2GN/ELVc+Vc4Mu/HMxH05u/yhr6Xz8mAfW
-         JAS7RtdLzSGaz0ok0mTQcC3PBS7K+bDRV5IDrtcz9pFyvXWVXmSQPjatRYArPjYMmEQc
-         80OtvMrzh3HppmLeTHyKVTnhiT3gbKMTUMvffw2/JEmnRTjOTsrzCuFM+v7uuBVpb6RJ
-         2ow8YIwF3R2c4lUYbCIhKh04rvV4nDvUu739/u0LP/opyw7Z6geqxc6KQykmm0jPePJJ
-         wsWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrKu4HtkzukdqAvrovMowg5fw7liAmum10YBa35Zx+yxF+UwlXHRKR6eiyOtdUNqan54VRypH6F0/nwdV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPpSNY0iLJkSjnIvC0I6BJymyNM37BAEMmotj+SoYIOIU88mJm
-	tZTIZjLAlVB89loAg8VFduzP14FqRXf5KuPRmZ0sX1OEU8ihHDvE3d65ayJnc8Wo63M=
-X-Gm-Gg: AR+sD128bkWji/NGj6fpp964poJnT+WZOB3EtZABRxLSzEEF6y31VGYpRTpNhxiBV1m
-	04XFue6hpcdtjtkIXmk0ZOL0fZrlvSXV0t+nyXwhrSURdwmr3h/5RZh/w74tcTxv2VnsMZ6YWu2
-	LJKdygZfjK7gRmRJ7WUU8eSN1/L+JXuuj+WehW1Lnqi22oxicIR+ud7vghxGs8Nx67AXMFrZJHM
-	d+TiLxE1ZkNvssnCSLtbsbA3LQWnfbw5oozNvW1icGb9yKXq6GQ2z7WdYQXNH3OYAiJNXNxzUoh
-	y72kcceTVXyiwcet9p1T3LPJ1qlgmbkRmCjcR17xomAT5n4hiaAez/8ya53BzWPO7ToVrVFDTK8
-	IdY8dlxH9P/jUysdBb3Bn8mf+/254EiUChSA1GBBeHIXp0Lj0lIb0LfFwchpxYcWUm4ZSB5tdO9
-	geKuSNZEyeSADLbDRfQwdm/tYZ7QETJJlkrZ3Sq3KjTlM5//ExKC/7uUr/+em+E9pmG8IZVWpY/
-	yq0VGK2KDDBEmDwyCR0AeUDvRicm6UhDm+W5u73C7I8tbfjmInjbbueKmuy56VFy9c=
-X-Received: by 2002:a05:6102:580f:b0:786:c86c:4f5e with SMTP id ada2fe7eead31-786c86c569emr1400782137.3.1787955860913;
-        Fri, 28 Aug 2026 15:24:20 -0700 (PDT)
-Received: from localhost.localdomain (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e84bd6b3bsm2305936241.11.2026.08.28.15.24.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 15:24:20 -0700 (PDT)
-From: Alfonso Kuen <gerencia@idkmanager.com>
-To: hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alfonso Kuen <gerencia@idkmanager.com>
-Subject: [PATCH] nvmet-tcp: report a bounded MDTS instead of "no limit"
-Date: Fri, 28 Aug 2026 17:24:07 -0500
-Message-ID: <20260828222407.1280-1-gerencia@idkmanager.com>
-X-Mailer: git-send-email 2.53.0.windows.1
+        d=1e100.net; s=20251104; t=1787956009; x=1788560809;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2hySmi/S0MNUtUUZ5XQrsRwLdmYAgAagHNThvawMZTs=;
+        b=VCM7lhfy1eKBK9y3JCjNkakf6yGkifIBEwj/AmPWAhdN35RqMxKbrVi88qnLFXQfwx
+         6jCHH7O4DNVk5fK8NNM7gOQAffAav/y58PhUjqUMH82IgNHkpHUjoSQGiZMpztbdN2+n
+         NxaWEfCdtBdvNC1QjXoYUsw50ApPeYQ+JYLmNmqlwpApaVHNnH4DOtPaq12zNzvFDdgM
+         TvBdjrYGYk4eLd4Il/OYD4gMsqIPAON73ae5CdSa5/pPyf6iqWvtuzN89GGyimuYtQRW
+         BREmjro9chseQYTbJog8d7U5Jw1+UO2+sVkp7SCZyGVgtBbYVt7dAH7eCErkC06EEY9Y
+         NFFw==
+X-Forwarded-Encrypted: i=1; AHgh+RrUnZCDed8GJ5wIpbuRjfXd217zbXRxleUKw0FJU9qSUUwCcLtGJpFMBM2w/aTyw30cHGTG5qUJhI9pYsU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAJsQDrL8dLXZcQRCQGWANDQnINyZJx9UJYYm6NU2ItIpwq4Nd
+	U55Y8WzSpe2PeSaZjnbRJoNyiGtNRosxmphp7V+MO91IPcrf7XUeplbePU0vf7PI1GJyvr2xxPj
+	HT5deVr4lx7rt0nWimKENZg==
+X-Received: from pfo26.prod.google.com ([2002:a05:6a00:2fa:b0:84a:3b83:9673])
+ (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2d0b:b0:851:80de:db56 with SMTP id d2e1a72fcca58-854c892307bmr20792523b3a.13.1787956008574;
+ Fri, 28 Aug 2026 15:26:48 -0700 (PDT)
+Date: Fri, 28 Aug 2026 22:26:40 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260828222640.1638457-1-jthoughton@google.com>
+Subject: [PATCH v2] mm/khugepaged: Don't install PMDs in uffd-minor-registered VMAs
+From: James Houghton <jthoughton@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com, 
+	hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, jthoughton@google.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-nvmet-tcp does not implement .get_mdts, so nvmet_ctrl_mdts() falls back
-to 0 and identify-controller advertises "no maximum data transfer size".
-The initiator takes that literally: max_hw_sectors becomes UINT_MAX, and
-the block layer then merges requests up to its generic ceiling -- 32 MiB
-on the hosts we measured.
+Userfaultfd minor faults provides userspace with the ability to manually
+install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+map holes in the VMA when a naturally-aligned THP is present without
+explicit action from userspace.
 
-The target cannot actually serve those. nvmet_tcp_map_data() allocates
-the command scatterlist with
+This is a problem, as it bypasses userfaultfd minor faults that
+userspace is expecting to handle.
 
-	cmd->req.sg = sgl_alloc(len, GFP_KERNEL | __GFP_NOWARN,
-				&cmd->req.sg_cnt);
-	if (!cmd->req.sg)
-		return NVME_SC_INTERNAL;
+If userspace implements post-copy live migration using userfaultfd minor
+faults, this situation is currently possible:
+1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+   is mapped in the page tables.
+2. A stale copy of a page is present in a naturally-aligned THP (from
+   pre-copy live migration).
+3. khugepaged collapses the mapping of the THP, installs a PMD.
+4. The VM now has access to the stale contents => VM is broken.
+5. After installing the correct contents, userspace attempts to map the
+   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+   unexpectedly mapped the page.
 
-For a 32 MiB command that is 8192 scatterlist entries, so
-sgl_alloc_order() asks kmalloc for an order-5/6 block. Under memory
-fragmentation that fails, and because of __GFP_NOWARN it fails silently
--- nothing is logged on the target side. The initiator gets
-NVME_SC_INTERNAL, which is a generic status, so NVMe multipath does not
-fail the command over to another path. A 1 MiB command needs 256
-entries, an order-0 allocation, which does not fail. This is why the
-failure is intermittent and load-dependent rather than deterministic.
+The naturally-aligned THP case is the only case where this is a problem.
+khugepaged otherwise requires all PTEs to be present for
+userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+correct. This check is essentially bypassed for naturally-aligned THPs.
 
-nvmet-rdma has advertised a bounded MDTS since the series "nvmet: Add
-mdts setting op for controllers" (Max Gurtovoy, Mar 2020), which
-deliberately left other transports untouched. Do the same for TCP, using
-the same 1 MiB value, so initiators size their requests to something the
-target can allocate.
+No changes are needed for file_backed_vma_is_retractable(), as zapping
+PTEs is safe. Userspace must already handle cases where PTEs are zapped
+without explicit action (e.g. due to reclaim).
 
-Measured against a Linux nvmet TCP target with three initiators: of
-~1040 failed I/O commands, 980 were exactly 65536 blocks (32 MiB).
-Capping the initiator side with max_sectors_kb=1024 removed them
-entirely. With the failures reaching a page-cached writer, a 2 TiB image
-copy lost roughly 98 GiB while the copy tool exited 0.
-
-Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
+Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+Cc: <stable@vger.kernel.org> # 6.1
+Suggested-by: Lance Yang <lance.yang@linux.dev>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- drivers/nvme/target/tcp.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v1->v2:
+ - Applied Lance's change to move the userfaultfd_minor() check to the
+   right place.
+ - Suggested-by: and Tested-by: Lance. Thank you!
+ - Adjusted the commit description.
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index e4f603b2a..414ba896e 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -23,6 +23,9 @@
- #include "nvmet.h"
+v1: https://lore.kernel.org/linux-mm/20260828005004.2870750-1-jthoughton@google.com/
+---
+ mm/khugepaged.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index b237f6e7662a..22356229c1e4 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1899,6 +1899,13 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 	if (userfaultfd_protected(vma))
+ 		return SCAN_PTE_UFFD;
  
- #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
++	/*
++	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
++	 * userspace is expecting to explicitly install PTEs.
++	 */
++	if (userfaultfd_minor(vma))
++		return SCAN_PTE_UFFD;
 +
-+/* Assume mpsmin == device_page_size == 4KB */
-+#define NVMET_TCP_MAX_MDTS		8
- #define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
- #define NVMET_TCP_BACKLOG 128
- 
-@@ -2243,6 +2246,11 @@ static ssize_t nvmet_tcp_host_port_addr(struct nvmet_ctrl *ctrl,
- 			(struct sockaddr *)&queue->sockaddr_peer);
- }
- 
-+static u8 nvmet_tcp_get_mdts(const struct nvmet_ctrl *ctrl)
-+{
-+	return NVMET_TCP_MAX_MDTS;
-+}
-+
- static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
- 	.owner			= THIS_MODULE,
- 	.type			= NVMF_TRTYPE_TCP,
-@@ -2254,6 +2262,7 @@ static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
- 	.install_queue		= nvmet_tcp_install_queue,
- 	.disc_traddr		= nvmet_tcp_disc_port_addr,
- 	.host_traddr		= nvmet_tcp_host_port_addr,
-+	.get_mdts		= nvmet_tcp_get_mdts,
- };
- 
- static int __init nvmet_tcp_init(void)
+ 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
+ 			       linear_page_index(vma, haddr));
+ 	if (IS_ERR(folio))
+
+base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
 -- 
-2.47.3
+2.55.0.897.gb25b4bd76c-goog
 
