@@ -1,81 +1,129 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 776E93DA7D2
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390C03DAAD6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916343; cv=none; b=I4GY7frFbmOC4os0PKOsd1uSLRowS9C4EdsEqToyyqDzrwJo6TwnEf4ub+AHacEEEIoo9Ey1GoCfopr96wQ0Qe83vHjOI5edrLAPrWbLA9BeSbE3PtzA08LrYvVIgE9B2ss1/2Mmc7p1REvTixUd5TnfXFIy5j2hUxyCBqrulqc=
+	t=1787916449; cv=none; b=iL9Wb/DzYTpZWEKhlIzETRASXv42DQwOnEK2i9Yg3K5PSR8RdOhg5sJNsg62P35l3xITiy+2DTJIzf+dyDwydgfatKJvquS/lYwJ+hCTl/olPYMJpCyR0LSVfHCuq/OPSquJen/0M4SUy+AiQGhOxG52MzocFCkhRFFALhxj/ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916343; c=relaxed/simple;
-	bh=G4NNTqXUUlllGRV82KBeaeI9jVQh6puFB8yXhyo25yM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XoE2ufPFO1n5lS7RbEPo9G1YyCmgws7KNibSNK7iEg98J3a+jMNFJ2binWiJRMDWoTm1O2Bk4R+8qSvPRW3huNDihRNJ2XX/TMzy/aZl/dGsX7cQRu00Pap0hiCuUwjxCs6aBaHgV68NweriDU0e6nOLg5fWVJj/W4wh2h9/g5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ing26+oI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ing26+oI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EEE451595;
-	Fri, 28 Aug 2026 04:25:36 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0A31D3F7D8;
-	Fri, 28 Aug 2026 04:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787916340; bh=G4NNTqXUUlllGRV82KBeaeI9jVQh6puFB8yXhyo25yM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ing26+oIP/P8N81Cz0AeBYfSEGQrRytcer4hynY8HTK1RARADq78fljn8zIaS5qon
-	 v74nbv0UxIr4G9H3syTtgYa3CbckU3o7cgpF2bNV73rjyb0KqdNe7U6Us3DwZrbZYi
-	 eSYgG5SkYnO/uh5cMN0f89dZRDWjJa8XvCzhTm7Y=
-Date: Fri, 28 Aug 2026 12:25:27 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mark Brown <broonie@kernel.org>, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v5] arm64: Don't read GMID_EL1 when MTE is disabled
-Message-ID: <apFwJ-HHukM7XLCD@arm.com>
-References: <20260827185937.1369099-1-fuad.tabba@linux.dev>
+	s=arc-20240116; t=1787916449; c=relaxed/simple;
+	bh=5xtlgA5vHCXpabX1E6ApXm9OLw17V/cAeGETIc9pLmU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WD+IxN7OtQD4Zsd2eFobbZpuOMebqplztv4zf8wEYtsRUNTYgc+F32fXJ9VARAwN3GTDqn+CgCUVQxn5RbpnAQpeL+pxrmYit+7Qd0RZhQsVjLOALqvU87xJ/8VqTS+WKxRPIlYxFb1CEsxrz72IXryHwtrUKa95KDNX/8y0FQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso525929b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:27:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787916447; x=1788521247;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AkRz50F5kxQk8r1w8lTDqf7Ji8sdF1ZuHE2PMMhiBaA=;
+        b=Kw8278DWmYrfzYrfahvjEZNfwrNDCwAtmXUvNvaoPJVNnNPvyOrAItDO+CLo+Q8uiD
+         H3iV2lA3o3/b3Nr9U8s1796kFOYw3/8kJJF3skXwOP6jDMberR8u7DfbTgJDh6soSkJL
+         L1Xck9zspaexcRmcScciiDeDSUNl1zqICl1caPnLwKPJtdvuF1KgvCIFRQoCUhFnxeBa
+         qZxnDZUDmNLPBasqvNAqCDhfQmrNJzvooF2kI0VPGXnwWeLO0b2kBmXx0V1MTPGzwEG0
+         bgv7HXcAWBNLO7HVNA9pB2aAAv/2Z2kcxZjbZmoGk8/UKNXfBjg/lGjfs9pQgqs5QIVD
+         a6ZA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2LnEDobh6oKcymWDNH0jB4CmWNcxgTTMk4Z1xbTTIBPBF45K4WA7jRVNVSbEvegKHji4UaaxY+ohfiM0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN/6grP4rR384/yleIgsjKSyF3jMW48e3HGFbUy7cCFG/tIcRN
+	T3DzpV5e8TV2eMyL2rXFaYQ7yMZYAjRZH7FAFrqH7Row0RK6qZzMnIkWHBghdpUqptP0lj5nI+Q
+	HahiUG4wjtUVo5nPmkgUtUS1pFJ0PJFj3BrJn+ksgWpHXnH1sqRBPZ8eAtOk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827185937.1369099-1-fuad.tabba@linux.dev>
+X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
+ 5614622812f47-4b397f71712mr6006346b6e.1.1787916447328; Fri, 28 Aug 2026
+ 04:27:27 -0700 (PDT)
+Date: Fri, 28 Aug 2026 04:27:27 -0700
+In-Reply-To: <6a8c13ee.91706f20.16b6e3.02d5.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a91709f.4d659fcc.734b4.001c.GAE@google.com>
+Subject: Re: [syzbot] [fs?] [trace?] WARNING in eventfs_create_events_dir
+From: syzbot <syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, kartikey406@gmail.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, mark.rutland@arm.com, 
+	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
+	rostedt@kernel.org, sh_def@163.com, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, vdonnefort@google.com, vulab@iscas.ac.cn
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 27, 2026 at 07:59:37PM +0100, Fuad Tabba wrote:
-> +bool gmid_el1_accessible(const struct cpuinfo_arm64 *info)
-> +{
-> +	const struct arm64_ftr_bits *ftrp;
-> +	s64 mte, ovr;
-> +	u64 ftr_mask;
-> +
-> +	/* No ID register reflects CONFIG_ARM64_MTE. */
-> +	if (!IS_ENABLED(CONFIG_ARM64_MTE))
-> +		return false;
-> +
-> +	for (ftrp = ftr_id_aa64pfr1; ftrp->width; ftrp++) {
-> +		if (ftrp->shift == ID_AA64PFR1_EL1_MTE_SHIFT)
-> +			break;
-> +	}
-> +
-> +	ftr_mask = arm64_ftr_mask(ftrp);
-> +	mte = arm64_ftr_value(ftrp, info->reg_id_aa64pfr1);
-> +
-> +	/* The boot CPU runs before init_cpu_ftr_reg() strips unsafe overrides. */
-> +	if ((id_aa64pfr1_override.mask & ftr_mask) == ftr_mask) {
-> +		ovr = arm64_ftr_value(ftrp, id_aa64pfr1_override.val);
-> +		mte = arm64_ftr_safe_value(ftrp, ovr, mte);
-> +	}
+syzbot has found a reproducer for the following issue on:
 
-This works. Or we could cut a few lines and just do
-cpuid_feature_extract_unsigned_field() for mte and ovr and do a
-hard-coded min(mte, ovr) as we now it's lower-safe. I don't have a
-strong opinion either way, so for this patch:
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16eddd49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17986d79580000
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
+R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
+ </TASK>
+------------[ cut here ]------------
+!list_empty(&ei->children)
+WARNING: fs/tracefs/event_inode.c:128 at free_ei fs/tracefs/event_inode.c:128 [inline], CPU#0: syz-executor340/6037
+WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:150 [inline], CPU#0: syz-executor340/6037
+WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:145 [inline], CPU#0: syz-executor340/6037
+WARNING: fs/tracefs/event_inode.c:128 at eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838, CPU#0: syz-executor340/6037
+Modules linked in:
+CPU: 0 UID: 0 PID: 6037 Comm: syz-executor340 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:free_ei fs/tracefs/event_inode.c:128 [inline]
+RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:150 [inline]
+RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:145 [inline]
+RIP: 0010:eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838
+Code: 00 e8 e7 82 fa 00 e9 ab fb ff ff e8 1d 4e e1 fd 48 8b 7c 24 10 be 03 00 00 00 e8 ce 82 fa 00 e9 c2 fd ff ff e8 04 4e e1 fd 90 <0f> 0b 90 e9 59 fe ff ff e8 e6 21 54 fe e9 4b f7 ff ff 48 89 44 24
+RSP: 0018:ffffc90005867b88 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff888045883028 RCX: 0000000000000000
+RDX: ffff88802ecd2580 RSI: ffffffff8429b3cc RDI: ffffffff8e69c920
+RBP: ffff888030052f10 R08: 00000000ffffffff R09: fffffbfff1dff612
+R10: ffffffff8effb093 R11: 0000000000000001 R12: ffff888030052f50
+R13: 0000000000000003 R14: ffff888030052f4c R15: ffff888030052f00
+FS:  000055555739d400(0000) GS:ffff8880d5ba2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055c8902f3204 CR3: 0000000022b49000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ create_event_toplevel_files+0x12d/0x1a0 kernel/trace/trace_events.c:4709
+ event_trace_add_tracer+0x72/0x260 kernel/trace/trace_events.c:4740
+ trace_array_create_dir+0x8e/0x210 kernel/trace/trace.c:8550
+ trace_array_create_systems+0x8b3/0xc30 kernel/trace/trace.c:8641
+ trace_array_create kernel/trace/trace.c:8668 [inline]
+ instance_mkdir+0xca/0x140 kernel/trace/trace.c:8683
+ tracefs_syscall_mkdir+0x10e/0x180 fs/tracefs/inode.c:121
+ vfs_mkdir+0x364/0x850 fs/namei.c:5410
+ filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
+ __do_sys_mkdir fs/namei.c:5470 [inline]
+ __se_sys_mkdir fs/namei.c:5467 [inline]
+ __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fae2c9d8ec7
+Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 53 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007ffcc38a20c8 EFLAGS: 00000202 ORIG_RAX: 0000000000000053
+RAX: ffffffffffffffda RBX: 0000000000000006 RCX: 00007fae2c9d8ec7
+RDX: 0000000000000000 RSI: 00000000000001ed RDI: 00007ffcc38a2160
+RBP: 00007ffcc38a2160 R08: 0000000000000001 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
+R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
