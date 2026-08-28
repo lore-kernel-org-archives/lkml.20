@@ -1,162 +1,178 @@
-Received: from mail-wm2-f1.google.com (mail-wm2-f1.google.com [74.125.225.129])
+Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6097739B96A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A759396D03
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908976; cv=none; b=jisG3E0uBcerDqfDxI0SQSj9eC9hqCI9S2QWPJFytKqA2GWce7uBbYTo97Ii4BRScEUwDS70LCLeF/hkYOc5MCt6WPjBGNfNlZOrfTPoId9Nusk0EBnkEstAy7aS5TcSCGT1YJWzSwE7zgtfdxPSn3nS0pz/0GVoQ6GtXVSZgQ8=
+	t=1787908990; cv=none; b=mdlwoSD63Oj8t85w7WLHuQL7MAQWDaUk3031mLr22ilSRh4RyAgn5aQqaHb34I5ApYRaOVlt6Ge8S2Kyfdy4Ecyuj2gtYlKVPls9WprTupfEWA3D+d1tdmq/F4KhiCYAtjEvrUFY/jL4UoGMBqDDZoMzLwtjtK4kMyHIIH3KcbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908976; c=relaxed/simple;
-	bh=ey7QBCaDld1Q/XVKLLwtP0hYutZJghLE6jPBnqkv3CE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=syy8c/YlDzHZwcwSv7O21xi1AtW1A5cbz+01tlCLhOwgUHnM4jYvtbgi0V4RiTl1bBbyBdQwA+pemCi1WPJx6/mV8o1G7OFkqrO8/sWHTnST4zBgfceLkLAMTu4wwYm2H28W+mk3czEqOvDip4v9zfhkpfR/BO9i+tja0IRJ74Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iit.org.ua; spf=pass smtp.mailfrom=iit.org.ua; dkim=pass (2048-bit key) header.d=iit.org.ua header.i=@iit.org.ua header.b=u4IrY0Z6; arc=none smtp.client-ip=74.125.225.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iit.org.ua
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iit.org.ua
+	s=arc-20240116; t=1787908990; c=relaxed/simple;
+	bh=W2mLHB6kx+ymVq/ryG0/Ntgfi59bYxFBsTJVA6D4EUk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JwAXJomqn7FeZR+EF2lYta9IaRmBeVybKdOLdVbdzAHWeAGxmxUFAxXc+evOWeyL1/3tu6V6n2JFLrsDsu/GOU3OrzD+/Qh20a4wrIWhaxErNK+heobMoDtFLooJOfFdo9fGE6zfxwL+Irhl6IklNqGg2LViXwy9WohXMFbvsEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LOZOCZel; arc=none smtp.client-ip=95.215.58.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iit.org.ua header.i=@iit.org.ua header.b="u4IrY0Z6"
-Received: by mail-wm2-f1.google.com with SMTP id 5b1f17b1804b1-492367f3094so2109935e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iit.org.ua; s=google; t=1787908972; x=1788513772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/oMl6tXRVOo96S1AJPzpgtCrziqZeX/47A+u1zT3/48=;
-        b=u4IrY0Z6hqWgpA1FMsAbYBIcOgHWh7Nk0FJXvpNEYfcCEWAS2WAV3CVQ24LgDm+Q0F
-         hvE+QaUyE+AS+eQhAQ5XCxC3Gme54/cnzvun9C4EcjGTHRMB21pEN6duj+XGcdV8sV71
-         DSknZ27sYfUghik0ypBqjqTSMVfFp2V+2vRs4prCSYkMzrM1eT01oLfS9R2fuQvd22IH
-         7GB0HSZzyyVTlDBKTsXOAP6t/ndpl97rR4EQceDsS3hCxd/rG85tm4tdx2l9XDwjPVox
-         LN2GPJh4hRBz+qtoQSaBUiJT9BeIzg6rS9UVgdjZEgsZYtvROG8a5OxSTgDzHZaZDdvq
-         g/pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787908972; x=1788513772;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/oMl6tXRVOo96S1AJPzpgtCrziqZeX/47A+u1zT3/48=;
-        b=TYlv5lG+tIW6Xe/7h+QXwraYc8Yb5wgG4mYNDeGLJbFRhJeKQHtu7vdfVH8c4ATRfe
-         1+73HyFFHUlijxXB9FhPVS8mfKciGb7G1lOmr9eTaw7EkL3pCLMHKsSAiScNmhbQTRk5
-         ybaEOkANIG17Jl5GW1HbrJomErU3dPiDaDIgpf/hwZoK26FYquKIPiqnnj8fjwK0QRW7
-         NifCEkKozJVLFKsOSgzB+wegu+hh+qYsTTkKja1Y1gzQv0ZwsFbnJZV4NrNdjvE+I1uI
-         SkJEJU4xkGclRO05LM0SJS8q0/6jorbqN2Ei0/Xj0V4XezwuTgmR+w2PnEqogZ5/my36
-         nYgw==
-X-Forwarded-Encrypted: i=1; AHgh+RrZDnWsQId0cTlCcR+8P4ZqWap8InXPG91wSBaYtsWzux8X91P64EZwXRm0/kzcE1nyiSzZ067iKF7fNLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7wTSP5MivqjLONbn2ibcHtwuRwY55jTZrZg2MZPUaizG3+onT
-	ex9kJdaDVQcZaJmYpCjimSZ04yeSpyDzsPIG3HMghaHcRbyrX0TVjW/hyoVP5ryeyUKtThnovKW
-	m+hZ9k/lAi5zV
-X-Gm-Gg: AR+sD112vi0BmkgXNuTyShzVupiSdld5PW6WO0sLxxFj9BXt7qUAp+2GbBG8JvmEI6T
-	2EUNMYgaby+9W2PD9rrTfiv+PJIRR5FMzFBhB0Vsiol1ylMmpsiz9S7lesXRszAn2AjpHa4lr7I
-	kBs8n7tnxLSjLYD9fto071HJyNmIC6HorgsPWVGNR0m1om3u201yXD4hjWnX4pVKttI0rgT3dKi
-	Cf3cQCT+DV6mYKV+jyBkJgpXRK+sgI148M9rDjcj2FuHwXUCgCSIkIaI5VQcJ9zNiJIu4nLy/TM
-	7KYyM0X+LBhd8VCzjpyzHRQEYrFgSLZWX7TF9UVPpoCXHKvsYEkHyBd36n303v2BBxogdKM3VC1
-	IVo4Gv6KIjyG9E7ous8YWBHWyq1MuuWb+kWb2dracoRoPU3civVDerOS5DsVXOUgoA3rj4K1l2b
-	TCNejp0EZwGnjOaB8bu3L/Fls4CT5syDOyjCeQoTQMXC68euOpckWdqA==
-X-Received: by 2002:a05:600c:45d4:b0:499:7219:122f with SMTP id 5b1f17b1804b1-49b91c1ebd7mr67005445e9.4.1787908972528;
-        Fri, 28 Aug 2026 02:22:52 -0700 (PDT)
-Received: from archbtw ([212.1.106.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm111484255e9.4.2026.08.28.02.22.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 02:22:52 -0700 (PDT)
-From: Stepan Svatenko <ssvatenko@iit.org.ua>
-To: Raju.Rangoju@amd.com,
-	PrashanthKumar.K.R@amd.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stepan Svatenko <ssvatenko@iit.org.ua>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] amd-xgbe: fix an_irq leak causing permanent -EBUSY on PHY (re)start
-Date: Fri, 28 Aug 2026 12:20:23 +0300
-Message-ID: <20260828092023.105405-3-ssvatenko@iit.org.ua>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828092023.105405-1-ssvatenko@iit.org.ua>
-References: <20260828092023.105405-1-ssvatenko@iit.org.ua>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LOZOCZel"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W2mLHB6kx+ymVq/ryG0/Ntgfi59bYxFBsTJVA6D4EUk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787908985; v=1; x=1788513785;
+ b=LOZOCZel2WuPPetP6DJLe5RFL0fj4gx0vJb0kV4F5FWQxqff6NEHeCYbMW7ktKCB/fa7+ns1
+ 5NTGqdYlKg6uB8EN39f0+b4EqYJdB8lg0ApEGdxGNoe9fGwXQB8YtFgX3afaUV0Fo7338I69S37
+ w0MR1uckg4PjWjOg5iNsTMaA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cd96e012bdad3c10;
+	Fri, 28 Aug 2026 09:23:04 +0000
+X-Mizu-Trace-ID: cd96e012bdad3c10
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bd452f33-a34c-443a-bad9-a03012de7c29@linux.dev>
+Date: Fri, 28 Aug 2026 17:22:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/2] hung_task: Reset warning budget when problem gets
+ resolved
+Content-Language: en-US
+To: Petr Mladek <pmladek@suse.com>
+Cc: atomlin@atomlin.com, akpm@linux-foundation.org, mhiramat@kernel.org,
+ linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, neelx@suse.com,
+ sean@ashe.io, chjohnst@gmail.com, steve@abita.co, mproche@gmail.com,
+ nick.lange@gmail.com
+References: <ao7LW7-3GjJzKNp0@pathway.suse.cz>
+ <20260827153001.18515-1-lance.yang@linux.dev>
+ <apFPXhPynOlfON4B@pathway.suse.cz>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <apFPXhPynOlfON4B@pathway.suse.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-xgbe_phy_start() requests the separate AN/PCS interrupt (an_irq) and,
-on any failure past that point, is expected to free it again via the
-err_irq/err_stop labels before returning an error. The last error path
-skips that cleanup:
 
-  pdata->phy_started = 1;
-  xgbe_an_init(pdata);
-  xgbe_an_enable_interrupts(pdata);
-  return xgbe_phy_config_aneg(pdata);   <- returns directly on error
 
-xgbe_phy_config_aneg() (via __xgbe_phy_config_aneg()) can genuinely
-fail, e.g. when phy_impl.an_config() fails against a non-functional
-SFP module. When it does, xgbe_phy_start() returns that error without
-going through err_irq/err_stop, so:
+On 2026/8/28 17:05, Petr Mladek wrote:
+> On Thu 2026-08-27 23:30:01, Lance Yang wrote:
+>> On Wed, Aug 26, 2026 at 01:17:47PM +0200, Petr Mladek wrote:
+>>>> @@ -314,6 +317,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+>>>>   	if (test_taint(TAINT_DIE) || did_panic)
+>>>>   		return;
+>>>>   
+>>>> +	if (atomic_xchg(&reset_hung_task_warnings, 0))
+>>>
+>>> I would use here atomic_xchg_acquire(). It serializes the ordering
+>>> of reset_hung_task_warnings vs sysctl_hung_task_warnings.
+>>> It would make it symetric with the barrier in the sysctl handler.
+>>
+>> Yep, _acquire is enough here. Plain atomic_xchg() is already fully
+>> ordered, though, so this looks like making the intent clearer rather
+>> than fixing the ordering :)
+> 
+> Yes, my intention was to make the ordering more clear and symmetric.
 
- - an_irq is never freed with devm_free_irq(), and
- - pdata->phy_started is left set to 1, even though the caller
-   (xgbe_start()) now treats this as a failed start and does not call
-   phy_if->phy_stop() itself on that path.
+Yep, that makes sense. atomic_xchg_acquire() is a better fit here :)
 
-Any later retry of xgbe_phy_start() (interface bring-up retried by
-userspace, or the driver's own recovery logic) then calls
-devm_request_irq() for the same still-registered an_irq and gets
--EBUSY every time, with no way to recover short of a reboot/power
-cycle:
+> The original code worked because the barrier was even stronger.
+> 
+>> The old-value return already makes plain atomic_xchg() fully ordered :)
+>>
+>> ORDERING  (see memory-barriers.txt)
+>> --------
+>>
+>> The rule of thumb:
+>> ...
+>> - RMW operations that have a return value are fully ordered;
+>> ...
+>> Except of course when a successful operation has an explicit ordering
+>> like:
+>>
+>> {}_relaxed: unordered
+>> {}_acquire: the R of the RMW (or atomic_read) is an ACQUIRE
+>> {}_release: the W of the RMW (or atomic_set)  is a  RELEASE
+>>
+>>>
+>>>> +		hung_task_warnings_printed =
+>>>> +			READ_ONCE(sysctl_hung_task_warnings);
+>>>
+>>> This would work only when "sysctl_hung_task_warnings"
+>>> is updated using WRITE_ONCE(). But it seems that this
+>>> is not the case. My understading is that it is updated by:
+>>
+>> Wait, I think proc_dointvec_minmax() already handles this.
+> 
+> You are right.
+> 
+>> For proc_dointvec_minmax(), the converter is:
+>>
+>> int proc_dointvec_minmax(const struct ctl_table *table, int dir,
+>> 		  void *buffer, size_t *lenp, loff_t *ppos)
+>> {
+>> 	return do_proc_dointvec(table, dir, buffer, lenp, ppos,
+>> 				do_proc_int_conv_minmax);
+>> }
+>>
+>> Here, i is table->data, while lval is local:
+> 
+> I have missed this.
 
-  genirq: Flags mismatch irq 63. 00200000 (enp8s0f3-pcs) vs. 00200000 (enp8s0f3-pcs)
-  amd-xgbe 0000:08:00.3: error -EBUSY: request_irq(63) xgbe_an_isr [amd_xgbe] 0x0 enp8s0f3-pcs
-  amd-xgbe 0000:08:00.3 enp8s0f3: phy irq request failed
+No worries at all. This was easy to miss in that call chain ...
 
-Reproduced on a SolidRun Bedrock V3000 (AMD Ryzen Embedded V3C48) by
-inserting a non-functional SFP module, then bringing the interface up.
+> 
+>> static int do_proc_dointvec(const struct ctl_table *table, int dir,
+>> 		  void *buffer, size_t *lenp, loff_t *ppos,
+>> 		  int (*conv)(bool *negp, unsigned long *u_ptr, int *k_ptr,
+>> 			      int dir, const struct ctl_table *table))
+>> {
+>> ...
+>> 	i = (int *) table->data;
+>> 	vleft = table->maxlen / sizeof(*i);
+>> ...
+>> 	for (; left && vleft--; i++, first=0) {
+>> 		unsigned long lval;
+>> 		bool neg;
+>>
+>> 		if (SYSCTL_USER_TO_KERN(dir)) {
+>> 			proc_skip_spaces(&p, &left);
+>>
+>> 			if (!left)
+>> 				break;
+>> 			err = proc_get_long(&p, &left, &lval, &neg,
+>> 					     proc_wspace_sep,
+>> 					     sizeof(proc_wspace_sep), NULL);
+> 
+> I have missed that proc_get_long() assigns the value to the local
+> variable @lval.
+> 
+>> 			if (err)
+>> 				break;
+>> 			if (conv(&neg, &lval, i, 1, table)) {
+>> 				err = -EINVAL;
+>> 				break;
+> 
+> The real asigment to table->data is done here. And I agree that it
+> goes down to proc_int_conv() which does WRITE_ONCE().
+> 
+> So, we are on the safe side and do _not_ need the proxy table.
 
-Fix this by routing the xgbe_phy_config_aneg() failure through
-xgbe_phy_stop(), which already contains the correct, symmetric
-teardown (disables AN, frees an_irq if separate, cancels the bh work,
-stops the PHY implementation) and is safe to call here because it is
-gated on pdata->phy_started.
+Agreed.
 
-Fixes: 7c12aa08779c ("amd-xgbe: Move the PHY support into amd-xgbe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stepan Svatenko <ssvatenko@iit.org.ua>
-Assisted-by: Claude Code:claude-sonnet-5 [Bash] [Read] [Edit]
----
- drivers/net/ethernet/amd/xgbe/xgbe-mdio.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> Now, I am not sure whether we need v10. It might be worth it.
+> AFAIK, Andrew has not taken this patchset yet...
 
-diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-index 12770af031eb..638c24b9c83c 100644
---- a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-+++ b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-@@ -1445,7 +1445,19 @@ static int xgbe_phy_start(struct xgbe_prv_data *pdata)
- 	xgbe_an_init(pdata);
- 	xgbe_an_enable_interrupts(pdata);
- 
--	return xgbe_phy_config_aneg(pdata);
-+	ret = xgbe_phy_config_aneg(pdata);
-+	if (ret) {
-+		/* Tear down what was just brought up above (including
-+		 * freeing the an_irq) instead of returning with phy_started
-+		 * left set and an_irq still registered - otherwise a retry
-+		 * calls devm_request_irq() on an already-owned an_irq and
-+		 * gets stuck in a permanent -EBUSY loop.
-+		 */
-+		xgbe_phy_stop(pdata);
-+		return ret;
-+	}
-+
-+	return 0;
- 
- err_irq:
- 	if (pdata->dev_irq != pdata->an_irq)
--- 
-2.55.0
+I think we do. Definitely :) And if Andrew hasn't picked it up
+yet, even better. There's still time to fold the changes in :)
+
+> 
+> I am sorry for complications.
+
+No need to apologize at all, Petr. I really appreciate you taking
+another careful look!
+
+Cheers, Lance
 
