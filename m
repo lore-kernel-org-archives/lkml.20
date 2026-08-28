@@ -1,155 +1,156 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010020.outbound.protection.outlook.com [52.101.229.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31753472771
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929824; cv=none; b=YSOCt2KnGem7z+qhMM7X60ssh0RXcepYQxVO3sgJV8UiYs+7HIbkHAfed8jGBCOjIQMwPSclSQQNBY7iIN5oIjZe5DlHlJnudRi332/AQpiim8KuBjfmlbw8y7RnnE/pna5UuMQFgZej7CJfYSlSwofP4P+W2A1734pl/+8T/tw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929824; c=relaxed/simple;
-	bh=HUCJAHpdxO3SqP8mncblfqGC9JyCR84Ecpg3rTGRQn8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pOXb+yt8RpxiYC+DyQwM7bGB7wb52hpDNTOmQ4ILAkc0eOLPeV6arxrYMMoukc0ckDBOX7DaAOQC+jdn9M3pOGQFHObdMhQEFw8kCjXpPGOZhHXr07u4B+0P1bhNUO+cVt7eV2C1lBSMsOPk1EZmBb3+TtCehtd9tSjYdFarpC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=k1yC3/1T; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4BPKwfdr; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FFD36E49B;
+	Fri, 28 Aug 2026 15:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787929893; cv=fail; b=GhzPyciWtAVqq0FQqA727arACZ+HzxPWddbe9VF0ksvDzLAUWA0p1weNuOIEWE/0suf+y6Y735Lzp12KwH1CbsjfZTiHPePr6P69OfxVkC2jziV8/3Yk7Q+aLX0SKT+SA6qMr6QegiJl+TC7UYeTkifVYi2O2E4i0V+peFFSiIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787929893; c=relaxed/simple;
+	bh=eHc7PwISImydJTemRTkQnIF2EgFY+GKkc3amWIpQy64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Fc2QQxGaJrbWnd/FKGOCj6Ryax/AJCzsmZTm4+M6M0SKbV9roohCWYk8ZVOtKMv3XcyFsN496Qg8epm4XReZA9x2JrZDiKTu6nU9lPXyKd5Qzo/09MF/E45Y3Oh15BnunhLhkvSO9Sg09W9YrVhnTHMNKQqhcu+Cts5i3FYTU3o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=l4H+wSvv; arc=fail smtp.client-ip=52.101.229.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="k1yC3/1T";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4BPKwfdr"
-Date: Fri, 28 Aug 2026 17:10:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787929820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=txJxc7ggr3poI2FLO7VfIUDXdgIFyMuKHMC/a4AMXzQ=;
-	b=k1yC3/1TSLVucW+G2hOymttYJNyxemcF0Wij24KbbvzrWJWTl2dTj6e6PoI5S0HrfHyPXp
-	oI4RGa6W3u5aoEJG/2uXG7Yr1esVzqcii9kIAcVvca2UlTbIgjnuyFklJJzrTKZXRqX+fu
-	ejgAg7ZLLzBYuFgz7MtDzaMLtFU/HLtc0BAfv8hKr3HpJsrtlz2g3lJ/Sqlfh3LdKWrn1S
-	GTsJ4NmbyXAzkDLkFbgBjQNfoTov42PXv67fjZOSlBNDbwHx3Uq0FYD8NUjYTI3ReNlsL6
-	lO/wJgykH2TvEmnn79Xfqs7ZjEmbXcCqXW/IiJFI0ER3lTMAlcw/3g0ZxDwYLg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787929820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=txJxc7ggr3poI2FLO7VfIUDXdgIFyMuKHMC/a4AMXzQ=;
-	b=4BPKwfdrdUNYh8LjOXHLTIAFqeXqMCtM1JBZhaIPoExx/1SClqrf3LjHhwWJfGMIRfuC0h
-	PrxrqZaP9E/FVKAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260828151018.HnR9xV1N@linutronix.de>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="l4H+wSvv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZmmCeNvxfgAU6lKNGYX0FCqxoLXPjM7WmBcWIUTVe+yqAfWYjwQXMCETF2r1q8x5IEI1G0+wbCb/c7FGqdEPa+iUQdTKo23c6wSTZAF+wGfTzQuRkdw8OePYhZ4tdNoJWZPxAno77bgvrJiHA1kNw1D9Y8W9rp0sJYzsCv10gBIi7YipDJou9CIKe1E8y65ZoiWXgiSvHMlRZVaBx/eD8nU40Qywse8O04YwSO4dGpoMES3JF2g9RGs0hMWvhP3lQz+fdoWSxyA9bL0S/fo6VOXgG4GzjhZ0yAQTmt3DySBy6dUiqWk/10v1XEImZrQYVIKJZiRLiSrDLoS6MiXEAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9YWwAG66g4/5kprFAgwLoUWD1q0j+qw6AqWV+HnWtQ0=;
+ b=oR4r7Tox0BnlvitBP0LYTrHWanUNwCdK/P5mYL1iG30BbqNvtrVavf93+7xXj45Y9HlilvlL+7RVC5h7KWHthq0fY049tPIc11q2t7TMlN+PT4OejS/ORMpJP8nkppDVUcVZbgP9Cm+epOuRSvrm9dP/imEVtvvkl4anyPMfk+aWbav2s7cayFvCrFzRoggRfkSrArXxWRBY2trf8LENW/oSqxU+qRI8PiOlglRefW8lHJojDOblthMSW/+/cObuiZoKxH3ijXV3iagTShn6NsF02PN1qkE6uljth1owLIkyPmkd5NDc4EU5Ry9fIBA5iH6vqxfF7nhVbCRYkAq4uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9YWwAG66g4/5kprFAgwLoUWD1q0j+qw6AqWV+HnWtQ0=;
+ b=l4H+wSvvxSnzA2EMP0+o33GMrSkhgHWJ4vzPR5aewy7cJxbsQi9bobk6jEzvZKdPL7Pz535or1VRVHHjsKSktugkVkhVTKBZYPi44WfPch+Q81mbbTr9BtoeB925S4nfQLOTvb2AnD63raJDxDOY2F6h9rrT4rK00dDvbp7Qbug=
+Received: from TYWP286CA0019.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:262::6)
+ by TYCPR01MB11621.jpnprd01.prod.outlook.com (2603:1096:400:3b8::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 15:11:26 +0000
+Received: from TY2PEPF00005621.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262:cafe::a5) by TYWP286CA0019.outlook.office365.com
+ (2603:1096:400:262::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
+ 28 Aug 2026 15:11:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TY2PEPF00005621.mail.protection.outlook.com (10.167.240.52) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Fri, 28 Aug 2026 15:11:26 +0000
+Received: from demon-pc (REE-0055761.adwin.renesas.com [10.226.92.7])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 9F41530001E6;
+	Sat, 29 Aug 2026 00:11:24 +0900 (JST)
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Seraj Alijan <seraj.alijan@sondrel.com>
+Cc: dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH v2] dmaengine: dmatest: fix race between wait for thread and thread start
+Date: Fri, 28 Aug 2026 18:10:24 +0300
+Message-ID: <20260828151024.2081478-1-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF00005621:EE_|TYCPR01MB11621:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: fb3fc89a-0f05-4dd4-1496-08df0516a198
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	2wxmhUwMdy7tyCcxylGYjfHikLHSuJMTqb8ajVwPQ8+ajupRWu1a4SgTpn0kaee5U+91mLaI48/WctK66vtz2sN/iZ4u3FKJWrvszHo88dIejVc8HHMrs8zPvavDNo3k0LL0slJUiE1/ZaQGj6TfUI36p52zUErWtDZ/X8zSAP7Ksrtsl1KNuMP9ykbNdXtEpssHNKtxcpTMLd6R2TChC2hTJ4xOOCPBqX7M0c/7dOfRgyC2wr+beRX2ouxLVlceQKqa+DNQ/orYe602wykQlMKpsYqKPacy3B1B0ZDSzRaKtLBRyX04IeGIzl1EHU2ut+bahoGpKmSpOXDifqfry4loC4w+7N+PMEfqFDLvAuz2TKqcmyYfrKDOGdxDRCyoW2XoFVFzueUF2iu3RtTDQJhM/5+Y278escXxJE0zSX4eJvayb57k6mGjkg50vH57YOpaV85EP6FiuzC57NuVbRuwlRI9iSFybEMZs4TAiDUPYrttblvu7h60BuH33RpmO9kpoMen1Bg19Ldru1uBfty6h5OWiFDdy0nSKaqQGCs/conbNaCKWYCtqgfNmzetk1EpCKLM4lbAJSBOOvDhxB1GedWHoWsBCG1eFOzbFuaLyZnxGiEnnR4b/8nl3+ls0zwYv1F3KY2AARrq4CzDUTmj0ln9F7espBlT5bs4c7/njnS6mldzi8HK/NWQRDauiwlA1hjFxesHqb3RRJlUmw==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yTj0UjdhPVOXoMR1fXjSLexDLc4v5DO3xI+qiDUDHwjmLZpvCG644QYHA+kgU0eSHNeOsSfoMea2lz9kiKOqNNfPjhUXTwAcBQ792Y4H2OASN2cd5DE58rxq8/DQWC4P8TYfIKRC++Wf6MvB6ITzSs8m3NHBZSNFHqRQVesDVv0/Q0fds+/PcMzlJoRLnXKkgZCsJvgjARpSK3vRciPHKLZAUssQpBzQ6+1NtsLMFPY1DPhrQ2AWjA1WhtyhOZ7snd/zDolPT3cUneUG/cfabJh88ZeWNcLq6zvSqDQK4dAw3ECjC6qK8G1XKHHOIawUa4ErcPEpjl/yQUbcB2dB7sqFRdJhWBQcN05gwcp3iDZN3tNcwWz7Qr9FW+TqupOrx+k06Z9R8iDseeY6HsBv3rgq4A0JECr0wPEEUGiJlDyiCLHJj3vVmZ8prIbQT4vI
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:11:26.7915
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb3fc89a-0f05-4dd4-1496-08df0516a198
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005621.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11621
 
-On 2026-08-28 15:59:47 [+0200], Peter Zijlstra wrote:
-> > > +
-> > > +	  The wakeup latency of tasks with reclaimed stacks may increase,
-> > > +	  especially while the system is under memory pressure.
-> >=20
-> > It says *may* increase and on RT it _definitely_ will increase since
-> > there is a kworker involved not to mention the memory allocation itself.
-> > Anyway. This either needs to stay away from PREEMPT_RT or find a way to
-> > exclude at the very least mlock()ed tasks.
-> > Did lockdep see this?
->=20
-> It should have. They're taking spinlock inside raw_spinlock and lockdep
-> should very much warn about that by default.
+Each dmatest worker thread has a pending and a done flag which describe
+the thread's lifecycle.
 
-Yes. My point was that this was hidden from lockdep.
+pending is initialized to true when the thread is added to the threads
+list. pending is set to false once the thread is actually running. done
+is set to true once the thread has finished its testing.
 
-> > If I understood the whole exercise correct then you have a kernel stack
-> > of two pages and in best case you can unmap and release the second page
-> > while the task is napping.
->=20
-> THREAD_SIZE_ORDER	2
-> THREAD_SIZE		(PAGE_SIZE << THREAD_SIZE_ORDER)
->=20
-> that makes for 4 pages.
+When the wait module parameter is set to true, dmatest_init() waits for
+the !is_threaded_test_run() condition to become true.
 
-Oh. I wasn't aware that we have 16kib stacks these days. But looking
-at it we have it now for over 10 years=E2=80=A6 Judging from 6538b8ea886e4
-("x86_64: expand kernel stack to 16K") it might be temporary and things
-are better now? Arm64 has a different story according to 845ad05ec31e0
-("arm64: Change kernel stack size to 16K"). Risc-V also mentions "for
-now" in 0cac21b02ba5f ("riscv: use 16KB kernel stack on 64-bit").
+If the worker thread is not started and running by the time
+dmatest_init() waits, the !is_threaded_test_run() condition will be true
+and the wait will stop early, before the worker thread is even started.
+dmatest_init() exits, defeating the whole purpose of the wait.
 
-I just booted my XFS kvm box and did things and 8KiB works so far.
+If then we try to remove the module, kthread_stop() will try to cleanup
+the worker threads, interrupting wait_event_freezable_timeout(), which
+will return -ERESTARTSYS, causing the "test timed out" message to be
+printed.
 
-> > What might be a tad simpler is to memset(,0,) the remaining part of the
-> > stack. Since the stack is vmap-ed it should be swapped out on its own
-> > without additional tricks. That memset() would help zram to compress
-> > better so it uses less memory. ta-da.
->=20
-> That would still be a 12k memset with IRQs-disabled and rq->lock held.
+Clear the pending flag once we wake up the worker thread to avoid this
+race.
 
-Right, because the stack grew a bit. Probably still cheaper compared to
-the other things done here ;)
+Fixes: d53513d5dc28 ("dmaengine: dmatest: Add support for multi channel testing")
+Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+---
 
-> > What also should be simpler (and I am not saying just to move you away
-> > from the scheduler) is to have a shrinker which iterates over all tasks
-> > which are marked for reclaim and then similar to swap just unmap both
-> > stack pages and release the second page which is not used.
-> > Upon wake up the task should create a page_fault which would be used to
-> > allocate the second stack page and map the whole stack again.
->=20
-> Right, so you can FREEZE the task, unmap its stack and then thaw it or
-> something. But there should be a definite opt-out on all this, because
-> taking faults on your stack will be horrible.
+V2:
+ * move pending = false before wake_up_process() as suggested by Sashiko
 
-Definitely. Not something for the currently visible app.
+ drivers/dma/dmatest.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Not to mention you'll suffer wakeup latencies while frozen.
-
-Right but you would use it under memory pressure and steal the stack
-=66rom the most idle tasks rather from everyone.=20
-
-> This all really sounds like what should be addressed is this insane
-> number of tasks rather than trying to cope with the consequences of
-> that.
-
-Sebastian
+diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
+index 2ae3469397f3..f654a00e0040 100644
+--- a/drivers/dma/dmatest.c
++++ b/drivers/dma/dmatest.c
+@@ -610,7 +610,6 @@ static int dmatest_func(void *data)
+ 	ret = -ENOMEM;
+ 
+ 	smp_rmb();
+-	thread->pending = false;
+ 	info = thread->info;
+ 	params = &info->params;
+ 	chan = thread->chan;
+@@ -1141,6 +1140,7 @@ static void run_pending_tests(struct dmatest_info *info)
+ 
+ 		thread_count = 0;
+ 		list_for_each_entry(thread, &dtc->threads, node) {
++			thread->pending = false;
+ 			wake_up_process(thread->task);
+ 			thread_count++;
+ 		}
+-- 
+2.55.0
