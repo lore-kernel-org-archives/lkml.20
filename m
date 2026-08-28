@@ -1,160 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C6C340401;
-	Fri, 28 Aug 2026 06:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA4E17B425
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899060; cv=none; b=Sjb+Lj+Fyteh8ORgFgHEyNKh/Zg6CRk6GcZt1phzwvL7aSIoGgzIOPlNMfiCNa37TqHuXvAtZ8ro7dG1ocWU9B9jzEsuCMuZ+XLjwJ+EA8sPwyhq36AuD2ZrHGa0SPkLf9Hevu+YfC7HDUZjBU896sI3QwC/4euJ82PZldlIduY=
+	t=1787899121; cv=none; b=ReI87newrckQnbhaZO0QRED2Ni7Ca8FiroD7Sn7afh2I/bLgK8I1k75Jl/HcSvJDSm0HS/LXni/WdD/TysCZS1e2f5dObnZEHzad5d9h8IkCX4T+ya8r4WLcslPW73SWVXuj9iEC+JYOJs59bIDLSWNxfwlqpyiMsDGzJNeX0hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899060; c=relaxed/simple;
-	bh=4lTjn++J8zQS3iUxuL05tEh+l5195RqVkf27xkVE2i0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iLAR4KZn2Itv0XB5+XclyEPHK3yydTlxAZ+mr8lN7HN9T3buruc71/TdCrWIzspQE6ncf8FD3R7y6Fn5jdKFX7omYOTeaqzpVl/Sd8PJkjKalfceLV2B3DcZl9I5JBmJM8ZL7lNpjqvQHs1RvhJhWFqIej0PY0BJsbocxxFU/zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZ+WrHq1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787899121; c=relaxed/simple;
+	bh=LMl3MwNwdk8lr079qi38EPV0VgIgGMLtf2m58Py53CA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tEQo1SEYZUjyRP2C0/+A2I/97X6tHVD6Y8Bl2OGKxceIaE1QGmKxS7e/UKuprpMFwv9bnf9ZT97GBtViz1Htg7tgrbUCl96koT0KJcaGl7Wytklbw47zQYPJp2WFE/ioJuuFbx9885TyMtsnehFHWsbE9WTKhGDtx9D0aAaZZ9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=St16YRBs; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZ+WrHq1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAF61F000E9;
-	Fri, 28 Aug 2026 06:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787899058;
-	bh=3H4EoVXJ4IMJ0GbBjlrwyyJVCkd+CZt4ut1EDis3HKE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AZ+WrHq17G6HVcBIKNjONnllcjj9O6qpNkmw0PAr3zntbuOCg1zyzat5PHpipgoik
-	 YtoBFkqr7AP3AAxnfKBi+Fw7E87Vw1TWVc4QILLwtlvJ2PVQAHP2hD2QBMgw2WPoiw
-	 L8nw0RCnGHm+T0Tw2iiwtzb8ZQpJ2juEDqDVGUN5miSg8/EU+Brrh5K0YTmYNlGZdc
-	 kiQ/TtP2bo+DorqBE85dkOP9I3RwuKOQdSrEH9KjdPwhPbiYx1tPKuBrQhGig11Yzm
-	 xWpZg+F4lLqDBmowccVXvVS6TNCOQ+IQknEmqK49hvjgJWlV8TFGA23KuCdXdpA2hT
-	 fe5k2ZK8AD6dg==
-Message-ID: <fcab4f39-87b4-4fd9-bcc3-12159591d946@kernel.org>
-Date: Fri, 28 Aug 2026 08:37:27 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="St16YRBs"
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ccfeeeb11so177493241.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:38:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787899119; x=1788503919; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6nr4iuxsRFUzlJ07bpFXoYYtCZeiUT8HmrlrMlGcxIc=;
+        b=St16YRBsYbPEaW5GAFK1h4D8aMmL+KjRh7Ea9cqNJVY1AxhT5woRtM6steyQ5PqBrI
+         7TKBl5l0zOazWg7uhlAolW5jp4mouGF3IGrmS1AtMyFHUA3xmULWhr27HMrJvARqqVJH
+         tyuuCumwbLiArxT+2kuSQz+FZDSyo4dpjssWrQ0vdfNtIPFp0ArvreA91nm2fSG+7U4L
+         zrmhNUN01DmYPYOfO57npNw8D4+CGnlTjgPmwlUbdvYPZoTps67dKq4pJF/pNzvl7IRC
+         uCPxt+46uqyYCVy+EjMZjCcILeNywejH9LFy0jKzOa0s16TForTLwt9OyiaxbQegjcEN
+         GEeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787899119; x=1788503919;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6nr4iuxsRFUzlJ07bpFXoYYtCZeiUT8HmrlrMlGcxIc=;
+        b=AlUCITHlzpvhJsEJv2ZZNQ+/rZDaWlxDo6xFkxV20VB1XyFfIJMUUA4NOKNzpcKbZ5
+         nF1OvA9Zeawyf64brQas6TY4lBV5dq+5JI9OgOHTXj0PO3ctqs5Yn7mZt5dYEhXguNuN
+         Uqep1ETci7fm9AAiQMGUJl7MXX3CFzAyz+NinsilkQM8b4I3D7PZYkkGrs9eLmxIu9ok
+         JGagI9VuIio1jRHwNq4N/829ZJ0ENwEadYIGvKldIcGdA45/MVM/OVZBIKadqUgalMPQ
+         ehNtBKBjTUTjovlWKPSY455ugmaImwBlaHA4gm44oxC5CRK+7hD+v3gD4TAEA7aGl7jZ
+         MPFA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqe33YX0hO2jAfSo2i0wA96kkqUe7bJKwNYry4ZqKn5DYRl+zbiJ8AxDpJEci4v71OEFS7pMXuFzCIwmOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPSTDe5K91BYfxnE0M8AW16jmrDwVtUuap6y8JhNM19lkjCfXR
+	sN55rAL/A3HFT9LO48M+3Ccv9TLPdYpuy6YFrup8XuGdFjGknZ2aiXzq
+X-Gm-Gg: AR+sD10fc7GAuv/HpLwjfVLkO6EG2AbhXci6lQb/afkZvEZsEssGHt/GxQiVYV0Y93U
+	tzhS3Cc2u90KogDMtebgfqvrxX1FZfCMQmrEZDCBaNTIWlRwoKBPSNmnXEIfH8YNyke2rk3HyJw
+	7fdxxzWE7qFZD8OJdl8eqiCCOPRnSQFOcfQQgYySrOOuJbs5OhWChkuQT3nrOnSu+vpEec4S7zI
+	9DC8p0vQnm/sZC9JqcEXh2C1VdE0z1FKU3Bc1LAs88d3AaH2Rz3zLnrxT1fGFulvStd3zfJO+50
+	d8UYI/T7Vi/W38lQUk8RFkGmP/W41bIkkTq9wz7PN98NcKybCflYPdT+NZfOx2Z3rqmA7OiyFuv
+	9E5Qqtx7vs1/O1hkYq0kiv2Rd2tcMByL67PDm+KeFnlfl8QP7Bs/2m7TryZ+YtOrV5YWhLcvhsk
+	QC6+Zrnn6x0nHpnY1PpZnZrHPJdPoADuaBwAAhrE4CsXnVnLYzON7vN09o8cDNiQ7d
+X-Received: by 2002:a05:6102:3ecf:b0:784:5883:9cc4 with SMTP id ada2fe7eead31-7859aab00d9mr1264019137.11.1787899118923;
+        Thu, 27 Aug 2026 23:38:38 -0700 (PDT)
+Received: from [192.168.100.153] ([2800:bf0:61:1127:ab87:5602:531c:8dfb])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 23:38:38 -0700 (PDT)
+From: Kurt Borja <kuurtb@gmail.com>
+Subject: [PATCH v4 00/10] iio: adc: Add TI ADS126X ADC family support
+Date: Fri, 28 Aug 2026 01:38:15 -0500
+Message-Id: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-To: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-2-marex@nabladev.com>
- <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
- <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
- <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
- <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12QQQ6CMBBFr0K6tqYzpbR15T2Mi0KLNBHQVomGc
+ HcLGjEu/8+8l/wZSXTBu0h22UiCG3z0fZdCvslI1Zju5Ki3KRNkKABQU2MjYPGgdVkAk4KJyji
+ Sri/B1f6xmA7HlBsfb314LuIB5nZ2FKwA/DoGoIwqnVdSKcu4s/tTa/x5W/UtmR0D/nCoVg4Tl
+ 5dQIgeOojT/HF85xeTK8cTVSmsUVqLU+MtN7xHBXe/pC7fPkml6AWCPa6UjAQAA
+X-Change-ID: 20251129-ads126x-fb6107505cae
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5912; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=LMl3MwNwdk8lr079qi38EPV0VgIgGMLtf2m58Py53CA=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdR5+l81U3hIgu7vG5FpmnL/ljm8t0p3zvzNfcI8zc
+ hFKnVzdUcrCIMbFICumyNKesOjbo6i8t34HQu/DzGFlAhnCwMUpABPxFWNkuFvSoqGzj+FPw1rn
+ T1p9t9T5eb1kTVhXsb+U+ney8sKqywz/i43rHgSreS962u7x4qBYjGC6g8D3P1O/bb9yJv3r/Sl
+ FHAA=
+X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
+ fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-On 28/08/2026 01:14, Marek Vasut wrote:
-> On 8/27/26 11:33 PM, Krzysztof Kozlowski wrote:
->> On 27/08/2026 16:53, Marek Vasut wrote:
->>> On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
->>>> On 22/08/2026 09:46, Marek Vasut wrote:
->>>>> +description:
->>>>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
->>>>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
->>>>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
->>>>> +  bits in the system control register are different for each variant.
->>>>> +
->>>>> +maintainers:
->>>>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>>>> +  - Marek Vasut <marex@nabladev.com>
->>>>> +  - Pankaj Dev <pankaj.dev@st.com>
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    enum:
->>>>> +      - st,stm32mp25-usb2phy1
->>>>> +      - st,stm32mp25-usb2phy2
->>>>> +
->>>>> +  "#clock-cells":
->>>>> +    const: 1
->>>>> +
->>>>
->>>> As pointed out by different patchset built on top of it, this is wrong.
->>>
->>> What is wrong in this (V3) of the patchset ? I think the ST patches were
->>> fixing up V2 and what they were fixing up is already fixed here in V3.
->>
->> Probably I got confused... but I had impression the ST patches were
->> adding here "reg" property, no?
-> It is there in V3:
-> 
-> "
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  "#phy-cells":
-> +    const: 0
-> +
-> +  reg: <------------------ HERE
-> +    maxItems: 1
-> +
+Hi all,
 
-Ah, indeed. BTW, reg usually follows compatible.
+This series introduces support for TI ADS1262 and ADS1263 ADCs [1].
+These devices are very similar (if not the same), except ADS1263
+includes a secondary auxiliary ADC.
 
-Best regards,
-Krzysztof
+I plan to add these features to the main driver soon:
+
+  - Filters
+  - Calibration (manual and automatic)
+  - GPIO controller capabilities
+  - Channel hot-reloading in buffer mode
+  - SPI offload support (38400 SPS turns out to be too high for some
+    systems)
+  - Conversion delay support
+  - The ti-ads1263-adc2 driver for ADC2
+
+The auxiliary ADC operates almost completely independent of the main
+ADC. The only consideration that has to be taken for interoperability is
+when reading conversion data in direct mode (Datasheet 9.4.7.1), which
+happens only in buffer mode, when multiple channels are enabled.
+
+When reading data in direct mode, all SPI activity is forbidden between
+the data-ready signal and the data retrieval. To achieve this a second
+mutex called xfer_lock was introduced to block SPI activity on the
+device.
+
+This is one of the biggest drivers I've developed, so I hope the code
+and the comments are self-explanatory. If not, please let me know so I
+can clarify them.
+
+As always, thanks for your reviews and help. Submitting upstream is
+always a great learning experience :)
+
+[1] https://www.ti.com/lit/ds/symlink/ads1263.pdf
+
+Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+---
+v4:
+  dt-bindings
+  -----------
+
+  - Added excitation-current-chopping property to adc.yaml. I decided to
+    go for *current* instead of *channel* because the current source is
+    what's actually being swapped in-between conversions. IMO this is
+    more accurate and also matches the terminology used in ad4170-4's
+    datasheet.
+
+  - Remove monitor channels from devicetree as their configuration is
+    usually fixed
+
+  - Allow ADS1263 parts to also specify #io-channel-cells = 1 and be
+    fully compatible with ADS1262. (Sashiko)
+
+  - In interrupt-names description, explain 'drdy' and 'doutdrdy' are
+    two independent physical interrupts which output the same DRDY
+    signal. (Sashiko)
+
+  - Clarify the ground assumption on refp and refn regulators
+
+  - In the example, describe vbias as an empty object instead of adding
+    a redundant regulator-name.
+
+  ti-ads1262
+  ----------
+
+  - Multi-channel buffered sampling is now done in PULSE mode to avoid
+    missing interrupts due to latency
+
+  - Monitor channels are defined statically, as opossed to parsing them
+    from devicetree
+
+  - Stop using devicetree 'reg' as the channel's scan_index because
+    there might be "disabled" channels.
+
+  - Setup power supplies before enabling the clock
+
+  - Get the RESET GPIOD locally in ads1262_dev_reset() to avoid having
+    to store the pointer to it
+
+  - Only register regulators if the "regulator" node is present in
+    firmware
+
+  - Add .is_enabled() callback to refout (Sashiko)
+
+  - Removed include <linux/mod_devicetable.h>
+
+  - Restrict the available sample rates to those compatible with the FIR
+    filter until other filters are supported
+
+  - There's a few conditions that require the voltage magnitude of the
+    power supplies. Instead of keeping track of each individually, get a
+    handle to the regulator and get the voltage on demand.
+
+  - Add fwnode_xlate callback to prepare for future ADC2 support
+
+  - Added validate_scan_mask callback because the DRDY trigger is not
+    supported when multiple channels are enabled (although it would not
+    be the end of the world, the buffer would just fail to fill)
+
+  Misc:
+    - Renamed ads1262_dev_cmd() to ads1262_dev_send_cmd()
+    - Removed __aligned(IIO_DMA_MIN_ALIGN) from rx[] buffer
+    - Add ADS1262_SPI_XFER_SZ macro and a couple of static_assert()
+    - Removed sign_extend32() because a simple cast is enough
+    - Replaced regmap_read_bypassed() with plain regmap_read() in
+      debugfs callback
+    - Use -ENODEV instead of -ENXIO in some error paths
+    - Added macro for internal/nominal clock rate
+    - Reword dt-bindings patch for more clarity
+    - Reword main driver patch for more clarity and some development
+      details
+    - Move register field values to macros instead of enums
+    - Refactor ads1262_find_two()
+    - Use regmap_test_bits() in regulator callbacks
+    - Improve style of reg defaults table
+    - Regulators are now registered only if there is a "regulators" node
+      on the device
+
+v3: https://patch.msgid.link/20260807-ads126x-v3-0-f89925d72792@gmail.com
+v2: https://patch.msgid.link/20260628-ads126x-v2-0-4b1b231325ba@gmail.com
+v1: https://patch.msgid.link/20260612-ads126x-v1-0-894c788d03ed@gmail.com
+
+---
+Kurt Borja (10):
+      dt-bindings: adc: add excitation-current-chopping property
+      dt-bindings: iio: adc: support the TI ADS126x ADC family
+      iio: adc: add the ti-ads1262 driver
+      iio: adc: ti-ads1262: support per-channel sampling frequency
+      iio: adc: ti-ads1262: support per-channel reference and gain
+      iio: adc: ti-ads1262: support input chopping
+      iio: adc: ti-ads1262: support excitation currents
+      iio: adc: ti-ads1262: support triggered buffer sampling
+      iio: adc: ti-ads1262: support REFOUT and VBIAS regulators
+      iio: adc: ti-ads1262: support common mode supplies
+
+ Documentation/devicetree/bindings/iio/adc/adc.yaml |    8 +
+ .../devicetree/bindings/iio/adc/ti,ads1262.yaml    |  376 ++++
+ MAINTAINERS                                        |    7 +
+ drivers/iio/adc/Kconfig                            |   14 +
+ drivers/iio/adc/Makefile                           |    1 +
+ drivers/iio/adc/ti-ads1262.c                       | 2163 ++++++++++++++++++++
+ 6 files changed, 2569 insertions(+)
+---
+base-commit: 22359083a9e74d538ce383d5c0ee30cc20182187
+change-id: 20251129-ads126x-fb6107505cae
+
+-- 
+Thanks, 
+ ~ Kurt
+
