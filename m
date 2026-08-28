@@ -1,205 +1,177 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433E135202A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787948146; cv=none; b=tc6DBKaSUsDsCYFxNWbpXNGzGU8q0Yq1T+uAZVQi8P+XwdoRpeakhxI7MTnst74ULUZkOgvEodBbVoCGf/XAUfqk2OLmEnIQU2aDx5jUG9IIzbkEHgTXtfFxRhcSDlwp/45KHVgNqx4nk2Pcz6c7olCon1zGRa/k2+ED5PDIC6o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787948146; c=relaxed/simple;
-	bh=lMQmMsI6NESUnC9Kx4umf7FdQATWdGD+CG9btCbCLUo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gO3SEKQ0fqt6Eyx5katHR4aEDR0J2XRybUujlS2q7n9c4wnEySmAnqlidsIoyTHqpuHWdmtjIxYuVg2UXLIJBGpdtSitYnissw4nWporiTAh4DIbOhlNlDA2ciwx8EO/b4WO5ql21NJMoPeUoL/fNHKljUAd6BM5qb4RiLwV7rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ClBVXgOK; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC12E24DCF6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787948192; cv=fail; b=LFsJrR1wh2hjx9V4LIlDDe5S+U5lmmQVmbuOHRxEqQG6hg/M0s5pOqOAPntgzfMhMsxtSNQD/vrHrwG6e6/LyFJFjpBYgoh43DVcui7iMu7QIB1lIEQ1bnRjBG1Hr+gjlAn8AKNJmVl+GRQzJQzn0wGKgIdb5nSS5+oOlDQe5Wo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787948192; c=relaxed/simple;
+	bh=dopjmq5N7OgMyURvVDJ1IYGm5Ay/VM8Ul27F8CHD3Ck=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kioTTVW2/dU5YZy/A/74IayvEesEzhxPfzvIPbIJZobiqjG9oExgRl54bFDeadvHUM5TzZUxNnOCXyHf8+M6gqvuwNh0f01nU1J08AF2vw3r5QFqRu8KhunKV/GXZW4+Mc4/8DYZjgLf08Y4uku7ioTe/mypIWFxIYJNzxnZjq0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lsVJnplW; arc=fail smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ClBVXgOK"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-836ce6cbe1eso19982337b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:15:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1787948143; x=1788552943; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
-        b=ClBVXgOKDm6ny0nqEUbSSc9cr/WjmAhS4BQWGEe55LEdjISJLH8PWPl9RCwZxPtzJS
-         qD0AKy7wBNMI16+I2eftiTo7YM10ECg4Rxb8iaoG/xLAFLDC2n12hf+UCNbqk9zILk1m
-         yJ8BNWgZaQ6o//pycmG4xYCFj/XaM2nN6dy53nW4LqD9tdfgzhHyZR9YecoInBkdVCVy
-         di806HBdMnKkLunCfOBaEILI1cMkdIBUwIncpi5lC9lW58HlDdwOLFeidqTpgatsWFEr
-         GFSdUeKJQCaUqW+h/WsTZ/7otVMb/sacHd9Zmfsda24nOQTDn20Q0tU4nF2ACx9Ntzll
-         xOLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787948143; x=1788552943;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
-        b=ItuTS65IWz2sBT87EaFf3/KKqGcwghwg0Mv+G/54VEdbIY/m6rh0bc1jnoBIeqL9Yk
-         uu0Jr0hfx37yDIdjo3fZndYkN4eGGA6OIrGJOkdsPW1AblK+taIhywR7iLaKws2XHqF1
-         H1XrD4l/eqWX0OH0rvLIA9oGZ9GOPp6mBCWaRnwufOALL7XvKjupAWHCTKFq7TzFx4yH
-         TTJkzlPT331jPtxGVG+HiGsssGzrcNP86IwygwONCe3yobuZXlNWcFvRywZbyqGkVhh1
-         PJVzWgDmoWziQ0ept+vImeUwpJYgodHIfN/djeiUHBR3OSnXw3YYsb8326t9+GKz4Zm9
-         /ctA==
-X-Forwarded-Encrypted: i=1; AKwUvBygniAwiiFixKKBhZcrgEkmoyEGOhDM5PHFoOeGEtk0rt9IxljKXMvapJ87AfAV2oVlkw27haz+GFCUYBw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiI/oZ2yUueUEPkWe04A/htU9Yb5+tPD/bYPNCHOXpAYFFU9Y0
-	mb3ROvSlIuX9G/q/zqtiUFROalN29SEn4yNw/uL+JwsXLRydqOVXGBKD/TQDOCKnxRc=
-X-Gm-Gg: AYBFou1+INhIFU2EV42IN5zM9UVN6seFs+uo1oPcBt+qD7wN+YsI6J4aRG6c5S3jv/w
-	wFgdRtqkXUAgzunU1/vyQsqaM+VNuQ5ReV4LinDu4yMnY+hPv65O79GnsxcKpSi/s5ZnJ88ocMx
-	Aiik6owNwFgOIysOtsQ6e5ZpAzt3gTyZEb35mGM6EHXU1XLbaV3zu2bU5SyRBxa3zEU1Irb4kJo
-	edCueSw5NnVh5mJF2a0ifn/Eg0BAAKV79qxd1PZbZfbmI0ii4D5+tGDxM6QLiZ9ZRreRk5zU0MO
-	C2mTvJDajt7gmUpt8mvHgOkN3eKQm0oxAA4TjE0oSDUK5tnO5Mf9jedY7ReqHAL9hC5ca0K90DX
-	VHEtSVGOdRsB8uCw3P9Hy/aVaEplgjIDWRJTetQqKMNOJ1Tl2oXmdy3eQpANTWeMHaKGIz82cuY
-	IWHxmU6B+okJOzkcSyJCv5b8DPqwBa4BP9C/aHQTGmNPCU1i29hGuffDovjDPtz60e6q3X+XqUV
-	V3RAHh6bDyMaUSmS8wngfIbtKmuObFCBS2tuE5hQRGg9DZFEZUyxL5ey3yh1aXqxS21Rr864yFk
-	EH/qqr/UiA79ExGz8Q==
-X-Received: by 2002:a05:690c:a1cd:b0:85a:634:169f with SMTP id 00721157ae682-85d6d4a8561mr34088607b3.28.1787948143021;
-        Fri, 28 Aug 2026 13:15:43 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:ea83:524e:5ab7:94d1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5e180b20sm11971547b3.3.2026.08.28.13.15.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 13:15:42 -0700 (PDT)
-Message-ID: <14ac44cb09ba3a7f22f14fb4d5c6818d235c0297.camel@dubeyko.com>
-Subject: Re: [PATCH] hfsplus: fix truncated xattr names in listxattr()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: maurycy@maurycy.com, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, Kees Cook
-	 <kees@kernel.org>, Justin Stitt <justinstitt@google.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Fri, 28 Aug 2026 13:15:36 -0700
-In-Reply-To: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
-References: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lsVJnplW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787948190; x=1819484190;
+  h=message-id:date:subject:to:references:from:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=dopjmq5N7OgMyURvVDJ1IYGm5Ay/VM8Ul27F8CHD3Ck=;
+  b=lsVJnplWlx6GJaIF4rdqITXikw/cx1spn8He+GmJK1UE4WqEq4lZNfvS
+   zZOQ6E/5seT6H7pdM9m9YhBmHewUn6tmixAQ+pujJlmRtznDt+ipgGSaK
+   3/zYBLCvayJB0/hukizeL6uWhT75fhhI7gLuDvKXIcHN2CnE7ZqWRxUYv
+   t4shgSz47GZmbFdxzNquP04xnQRhDVJOvAUXy3c6X/NV/zLji5kQV90QP
+   jB7ihIjGYVfSWE4zusceNoB1K6DsfGPiEo4Q8h/Jpuxe24GQNSxj9LmVM
+   XSxaSkWDxS90XwhjucMKrv3fZdoPfeGyxfReCmRFghDNlw13ezXbxz15U
+   Q==;
+X-CSE-ConnectionGUID: devx6+TzTwujf5TP7VDkTQ==
+X-CSE-MsgGUID: m9XEtcbsTxSeRnqfPZccTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88384846"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="88384846"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 13:16:30 -0700
+X-CSE-ConnectionGUID: Zyl+KUD1Q7ShmH/JX6nFFg==
+X-CSE-MsgGUID: PGi1dqQcS7qbuVZHgT4x4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="263964454"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 13:16:29 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 13:16:28 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 13:16:28 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.30) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 13:16:28 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C3qADuEwv1U6l+vw6LmkTYwLZodd9QHhsz/t6P7XkgXTOxT6WMXTFseIaXrLH6YFop0B7klncjR2EcavjPCnJzMmfQl5KQ6k9Qd8hfRE9oebh2SiIFfAaOkpGwjr3fqb6oWd+7ZJjJCyKaV0qOIqVgH7geM2/dabv6zp+9WAtiRilvdFbFxM62TO+XKrAsXUZtySu1xoLBFS34I/GAV8HXcq5/neT/R/8S4FdEm5DcPf0h128Eqlcfpr06720FeQ/h3swk02D87qBoJ5Jrbj2qwf9L5M6zS7R57qIE5SRDxgNcQTC1dsbYWgkLsZH3sHM1eCghDK15HBsh+E5kGLCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d33KCBYVYubxmcAAGui+H5df/VNFu4XF1vKBwnyZvjw=;
+ b=v2mha+EoXnGIYsctouPXxlmQNfok81QAbePfuqHat85BH9bxFgihARgvSrDFji12bf9WpgfR3Kf60U4LYeTlI8J2ClZfTexdIVSdA7Nkd7Y8l8DAyY/55/hB4AEht5KAY5836sGw90t4auUKpvjdIc8b6eJz+caI6nWQOJdArbfaVzHIcceFz0P0uzE4mbbB59+sddonCf7yBJCidFW8RrwrzTkYpOUYDS90CS0636I455XFq9HN/imYctsbiMsyvnulWrAopV5I3w3t3rjIsO+DFeaFIItYX4C66h6sW9kFmpaUfZH0uJUsCM87aYlAgG+Qgim+o8pL1Mh7b+ukHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM3PPF63A6024A9.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f27) by DSVPR11MB9741.namprd11.prod.outlook.com
+ (2603:10b6:8:351::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 20:16:27 +0000
+Received: from DM3PPF63A6024A9.namprd11.prod.outlook.com
+ ([fe80::ed8b:1455:8b29:144c]) by DM3PPF63A6024A9.namprd11.prod.outlook.com
+ ([fe80::ed8b:1455:8b29:144c%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 20:16:27 +0000
+Message-ID: <09570109-8cb8-4c43-b3fb-d1dacf68c41f@intel.com>
+Date: Fri, 28 Aug 2026 22:16:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BISECTED]: Non-working USB mouse
+To: Harald Arnesen <linux@skogtun.org>, Linux Kernel Mailing List
+	<linux-kernel@vger.kernel.org>
+References: <e31cb69a-e5ff-4870-a9ab-8a8c4e35e445@skogtun.org>
+Content-Language: en-US
+From: "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>
+In-Reply-To: <e31cb69a-e5ff-4870-a9ab-8a8c4e35e445@skogtun.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM0P190CA0002.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:208:190::12) To DM3PPF63A6024A9.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f27)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PPF63A6024A9:EE_|DSVPR11MB9741:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee0878c5-e5f3-4f54-d660-08df05413d47
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|56012099006|3023799007|6133799003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: eaZOpUx1JmiQwpMewhtjfLIZV2uyqo2SGjlrR7Cysk35xr5j6rcZKyUReV36qWbHvJXZcEWXlWy1SwRiBd+O+ocQxokUEmbnrxzSSwSaWle4pIBR1uqcM+ry+gdxh8pqDRb4Xj3d0slUJapH3AVc1CtMAYBej7h9ZE3H51VvJvrF3GD3PhnBH5oAiDC9KA30BuQd1Rdqgl98x3vikr2BWoG4i4wutowoVxgwzqWpu8m6r3k1ufEOZFxnJwBAPlgAV2MYJnRSbe/ousfGmi5zJu47/xiNoZii9PT72MkGP2mL0+6wqJ1xqtj+MsREUC9d0RYzO7/KcClC351747EDNV0jlBazNx2IS7TcqixkDuZLR37GsP4uKOmIaYFVcPzVXy8rGYC3oPoaCz/BZYcw0E60rjXr22qQRXZLKpC4XzQxvMWsMf4rwifJwdsNjaH3obsuzXecC85FuRAk7J58YepCm/lHg1FK2Ki7X7XPixy0NeB9CSHJnczj95l1sQfIwW8XVOF/h8zCQLCZqJzeUlX+ya/9U0v4IlkK1b0n7Uo5mBfiRwRt6AE8aXqjw4fJUGIB9yyl3YyR4Qagw6VufRZz+bQ0sQ+8qjgty8gDWGosuIyL10e+8jogsaqLTz7g0SAA9RLd9MSMMvQk3GvEUZzjUriFAM4rnvzJzplTtKo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PPF63A6024A9.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(3023799007)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXFDVzhxNnp1UDA3MXJDblV2ZG5rUkhpM2JrSkZKRnJIckpnOHBIODBWQTA5?=
+ =?utf-8?B?UVJ3RFFXbVorbDd2UkZISWdZOHBvWHY2MXhvRWE5VDR4dGtQYTNvNkEvZko2?=
+ =?utf-8?B?ZDVjT3FYRFVCZWFRenl2dXRqY21lRWxiZXYxMGpwZHFvZ3o0WE5EbngwZzlp?=
+ =?utf-8?B?RlcxL2VUTEJiVmw2NTJ6TFZ4RGlmcTNTYnc2cVd0ZldwM1RZYXlQamhtRkh3?=
+ =?utf-8?B?NldBRWR1U1IyM0IxeFhTQVdpRWJqamJYQUN6Z0FnbExSQmZZV0lLczR3c0xr?=
+ =?utf-8?B?ZjZ4cnVmY3dmYXJJQVAwVXNHOTM5dlNzTW43NWhlenJYNVk0cGRYZlVMRGVR?=
+ =?utf-8?B?TCt3MXBCQ3ZSTXd3RGlDNitUbHJRZmErQ2VqbklnU0xxZU9OTVM5emJYWEx2?=
+ =?utf-8?B?S1cvU1F5cUNmbkZSUlNTekJyV1BnRVZOM0NnTHI5Y1ZuM01nSjVLd0phTWJR?=
+ =?utf-8?B?bnRYQzByYUoxN3NaVFROTzVXbGl1UkthQTQ0S01LNXBDb2JLbllQZU90RmJ1?=
+ =?utf-8?B?Q2w5L0pnUUw0V3JEMkZNVStPaWM5Mkg0N2RuU0pSMVZ6amVZWFlqdmxjLzFz?=
+ =?utf-8?B?TTZRc2xBOXZiTnFBWGgyOVprcEl4cDBHYS9TbDdmYjR6YnR4eXNJcE0ybC9l?=
+ =?utf-8?B?c1ZVSmRiNzQwQWM0REVHZWRYZGFDUWFxbzBMTGlkRTQ3RzdJQlJMVXVmN2R5?=
+ =?utf-8?B?MFlab2J5ZHJWd2UvMUNLNGRKTVM5K1A2TkFMVHhUZjdxM2tRTXVSWEpmeVI1?=
+ =?utf-8?B?YTRGaDlaVXJGVGtKdDltcVo0QmxrRHhlOGI0NTlNbkFIMXhVTUp6OGdXQ1VN?=
+ =?utf-8?B?dWY2N1hGZWtsSVVzYmhUNmN5OUZlNjlJTXlJWHB6eEdCaFV0aTJGcS9peDVp?=
+ =?utf-8?B?TytOVGI2UWxOaDJJTXFQTTZ6TzJTUVJGYW9SN2xCRFQrV001YUMvN0NrK04r?=
+ =?utf-8?B?SmtZN1BWNTEwUVQrREJLTlQ5R0hmaUYvZHFjWFNrdEFVbWMrSkFNUjVyZm1h?=
+ =?utf-8?B?UUc2VXFzMzJXSjRXRGFqZDk2N21lSXdZZ1lhNHV6S1hPUkdGZVBkNm9taUVR?=
+ =?utf-8?B?Y0wyWXUrUmhyWjJSZDFkbkJpbk5SaGloZGFyblduVGNoemVkTVM3RVRuSFVL?=
+ =?utf-8?B?eHhicTlCUHBWMG1mU1FFeXNYbDV2UW15eWRib3hqRmUwOG5Qc0NhcnJIS2V5?=
+ =?utf-8?B?aUtvZzRuRWEvazBwMTFoRGhpeXlMbDRxSGdCV0Z6Q3hJeDVSZjFBS1FlVFZl?=
+ =?utf-8?B?SUtzS1dETDZOZVF1NjJwOXlhVVpuelZTNEZ1YnNudW1qVVZXM1RKd084TFZV?=
+ =?utf-8?B?NThwSjRPd2pBVE5EL0crQllkQ0Nmc2JCaDE1ZGpLd3pDZWp1MmY1d0JnU2sv?=
+ =?utf-8?B?cDVoVytxMVNLZWtDSXd5bWo2bHVUUTJOemxNbEQwVy8rVW9FTmtrL0ppaHhr?=
+ =?utf-8?B?MEx4NkxPR21hVStRci9BMVJEWEhGRDljL21QNnNncVZ5ZDE5QlgyYlBHbjI2?=
+ =?utf-8?B?UjlGa3dDU3A1YkhRTnByUE9DemthMkdOa0VBK1h3OGRNYjhQc1lNNldEcE1o?=
+ =?utf-8?B?UnMwTitZeGJpZEpWcHhEd3pOZnVBbkU1YSt1bFNSOTkrRFlkNzlzVytqVldq?=
+ =?utf-8?B?NzVrZVYwQitpSkJZSVQwc0lwRXYwZTVHTEdGS3JqNEZqVXhrZGgrTWlyS29p?=
+ =?utf-8?B?WW5USjZ2UmErajJxeUhCRnY3T2kza0lENjB4bzhxU2VjcENNTzJzT1E1dUpS?=
+ =?utf-8?B?RmdQcENCTlg5eEp1dkIyYXc4Q2RZdGJpSE91aHBUSmd1TUY1WWQ3YnMxMFdL?=
+ =?utf-8?B?UUxic0xKanhnck1aNEJBSTFtanNpdWoyR2xnSG8xRkVzYWgvZkFDbEY4a2Rs?=
+ =?utf-8?B?M2RDZE8yYVVpYW5MWVVRd3FlQ0U3VHB2NENDZllUQXpaRXpZSTFZWnVaWWw5?=
+ =?utf-8?B?dVZJNGI2M3hxWklaeWhudFhLODZqWmtHRENXMkk3cXQ1ZUVKZ0xpNFZZU0c0?=
+ =?utf-8?B?aDl5QmNDRmcrWGx1Z3UyOGRTR0pwdlJYanJSRnhtVllHdWFzSlNEYjZnRTZG?=
+ =?utf-8?B?d1RONVBtNjRDRWR0bmNpMi9uRGdML3BRelJ3K3NNeHdDdjZBa2ZNUUtMN3M5?=
+ =?utf-8?B?K1NzMzY0L2dEWDlFOEhsaDZrRWxLbmwrbEZzSS9qdmtBcUs5eUtWeFZsQ3Bp?=
+ =?utf-8?B?bVBsbkoreldkc3UvSEEwcGhPd29UYTdiaFZ6TzhiaGd4d0dpRXIrM2FIMytv?=
+ =?utf-8?B?TURrM3d6T01iaW82elVQTkVGSVJUQTdTbjN6Wjk1QU1ka1JINlJxdkRuZWtL?=
+ =?utf-8?B?enFJN1ZtMUNYTTMxTmNjU2xFMFhJNDFmUDR3SGRTbEE3ZmxqQi9yVFZXUmJl?=
+ =?utf-8?Q?+8Zz2+TMSZyMtsBU=3D?=
+X-Exchange-RoutingPolicyChecked: p/f4bTIqjzVQw+x4Yp87V9udYQsoKfWb4UcSTM41HkHrmlbA2mF0kSuBfjsbFTz/n3TBn64auH4RM0o7u9xUckKz//elf+EEq+YwFuyGFYQ5hRzaNOvm5ARGcKey4oX6wu0uJ/01v4HvYdw+xhNfxF/GYUZAJZbJq7c6q5KUerqFHQP/3XArKc81Khfp61IDBYOZyjrWewTe65U7jYv0eRarLtHrCLevuWKwla8wwJDE5xMDfiOtyPd/26Oua14KtFFCPOna79B6x6t5bYu+iaarku+1n/5RkfaILzHA5h4GkW6jcYgsAe6lVayDKcADal872QY2QZVSy7hB5mcVjQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee0878c5-e5f3-4f54-d660-08df05413d47
+X-MS-Exchange-CrossTenant-AuthSource: DM3PPF63A6024A9.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 20:16:27.2200
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f1b3on6cx03IjnnO86FClA6t32pEx2/NkvCGZpVQnY/vB57KU5mPmeEEeWFZSx8uw1P6rlj+EH333DiYcj7P0CxxnGlDV5dgvL1FOpUC5QI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB9741
+X-OriginatorOrg: intel.com
 
-On Fri, 2026-08-28 at 15:38 +0200, Maurycy Pawlowski-Wieronski via B4
-Relay wrote:
-> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->=20
-> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> changed copy_name() to build names in the osx. namespace with
-> scnprintf().
->=20
-> The supplied buffer size includes room for the prefix and the name,
-> but
-> not for the terminating NUL:
->=20
-> =C2=A0 $ python3 -c "import os; print(os.listxattr('/mnt/tm/.DS_Store'))"
-> =C2=A0 ['osx.com.apple.FinderInf']
->=20
-> The truncated names cannot be passed back to getxattr(), so getfattr
-> -d,
-> rsync -X, cp --preserve=3Dxattr and tar --xattrs etc. seem to lose all
-> Apple attributes on hfsplus volumes.
->=20
-> Names in other namespaces go through the strscpy() branch, which
-> already
-> sizes the buffer correctly. That's `why xfstests generic/377 does not
-> catch it.
+On 8/28/2026 1:21 PM, Harald Arnesen wrote:
+> My Logitech M350 USB mouse does not work with the latest kernel. 
+> Pointer doesn't move, buttons do not work.
+>
+> Bisected to commit dc948f8b384a516ac5c471eb9382959f838e02f4
+> (ACPI: scan: Defer device power initialization), which does not revert 
+> cleanly.
+>
+> Attached is output from dmesg, lsusb and lsmod, both for good and bad 
+> kernels.
 
-Do you mean that you can reproduce some issue for generic/377? I don't
-see any issues with this test-case.
+That one has been reverted from the mainline already.
 
->=20
-> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> Cc: stable@vger.kernel.org=C2=A0# v6.10+
-> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-> ---
-> =C2=A0fs/hfsplus/xattr.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 21a1c196c71f..4a3c97373682 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char
-> *xattr_name, size_t name_len)
-> =C2=A0	memset(buffer, 0, name_len);
-> =C2=A0
-> =C2=A0	if (!is_known_namespace(xattr_name)) {
-> -		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN,
-> -				 "%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
-> +		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN + 1,
-> +				"%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
+Thanks!
 
-I don't quite follow how this could solve anything. If we have enough
-buffer size that was defined by caller, then this buffer should be
-zeroed and NUL is already there. If we have not enough buffer size,
-then we write out of available memory. Could you please explain your
-fix? Have you tested the fix by running all xfstests?
 
-Thanks,
-Slava.
-
-> =C2=A0	} else {
-> =C2=A0		len =3D strscpy(buffer, xattr_name, name_len + 1);
-> =C2=A0		if (len < 0) {
->=20
-> ---
-> base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
-> change-id: 20260828-hfsplus-copy_name-fix-a6e2a0a4485e
->=20
-> Best regards,
-> --=C2=A0=20
-> Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->=20
