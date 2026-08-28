@@ -1,109 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17933F8ECA
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1894028D9;
+	Fri, 28 Aug 2026 10:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913174; cv=none; b=mFh4v6Faz7tuyWtdfnbWP8CpwCPx7VEo+ZI+t2385/bJQ252rzaXC8khZT/9Z/0H/MDfc4uqFx/5tUmEcKzqPGATCfEfhK4rNJW8kgvI1CksWGG+UMUHAEf6Mqgyz+dft+b9DXRtPlpqYDly6m9ciY2x0DEu6bN/3Z9BauEtP7Q=
+	t=1787913471; cv=none; b=bKXgXLNQ7X0J2VudiLx8X//j50Gf45Y1CP359Ta/60Rt4beKr4AP+D2bQSQQprMBBtjF0QmS19MJw6TzaShYsE+OXW2p3UonAa6DsOTocabsDeg4zrgEgK3+JSl8gow/6bpelj+Pqe6C3ojp3mYET1Np1OjKTYb6BIcAh7tQCVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913174; c=relaxed/simple;
-	bh=UJnV+cllfeOv0VeeSIei/FJsmHfrLvqxs1SP2W1tkwM=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=cR1bxxB0S/GS8CupMcfnERS7zWPnDcCnMs55+Rdib7YokQCd5v/kSCGfFqYE/k/MNsR3SRUsrTtU9KoP6QA3Ctx5Q4CCo+/Hm8/j9t58wML8ILaSnsLMRw5ZlLGujqRgXm93Jj2aLpBzfXeVwGQvo3cQ5Hmjo58mYyZexJAcw7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNV6cJmD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787913471; c=relaxed/simple;
+	bh=ltHu4o9DSVYfGXew/KMlXMSYuPXlOVlGQ14eXPGQjvI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IkeGOb94Y6qfMzMhz2AB6jP951/gCvvmhPHIpM9y+ffka6C/peS1Rq3oe35cdcKutfVMCJv/lf/SDlx/VTM++k4TcnSB7zVcJv+su5Ep3HUrx4srvPSPimaTMq+udXvp1M3EihIukJDZIgLKZXUBpkkt9qfkDMrc4ajCInn1n6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oEkOva8L; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNV6cJmD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BE21F00A3A;
-	Fri, 28 Aug 2026 10:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787913172;
-	bh=UJnV+cllfeOv0VeeSIei/FJsmHfrLvqxs1SP2W1tkwM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=SNV6cJmDYmhTes86sL7gtL7NvJNpQ7h1iJs/ndBn7MU61XXbmDVf5lkSMp5w1mTHv
-	 mbcdaS/PQLenxgIV9vh4IwivYCB/wBL7dlVCzWj/o2gl+Lv5KZx4g+cVdnGsd+8qBx
-	 Ec3196EYuYG2p699hLeMSxAiGj5H7oBp/2I1ZL+R8+XCKueUCWCHPBEsogbu4IyoZf
-	 ahpfJ7KzyHPTPSAkpKkvTLmwJyC2GjaLAAsacCDZwJLpDV6slRaTrWiw4lQASMYvah
-	 CLOCz/lWMBtzVEV3br7+YEXVVWqoagtgAqJn4q5o4rGKjcKW9utcFmPaTkz713qzYD
-	 UDY4e8CjtLQJQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 4B445198003A;
-	Fri, 28 Aug 2026 06:32:50 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 28 Aug 2026 06:32:50 -0400
-X-ME-Sender: <xms:0GORap9j1MT_suefMlkjp33LUpCrzOlygw7ZXkoliwh4hEDgKCXYcQ>
-    <xme:0GORaogYEjTsytuYcqTjoMuVVuO-ka7PS88C1PQYYsPRYaaWmVTNBxCOsAAB74A_j
-    rg4r0hEnF60I1m1VUAoUorgZwpp-ZGT63ZRc9GzkZh2kmbhxwOSXeEK>
-X-ME-Proxy-Cause: dmFkZTFZLtHyc0mfoLhyYS2kAfo678+yTRdZrbHWl//oP8sLV8EWFLfFZ3lao6PZpFjixZ
-    WOeEAwEfA7ymvmUzQAGYm+bBEfMXiH8VpjDXsvRjl2uniLh63jJT96oL5pk1E2IA+ARxIW
-    xAuAOX2CCYFzBRMmXQnOQtMSzcwO04OSiFHrv7FsTJCynFXyS2sgihBhrLIFaLRCEuxQ/1
-    22aOWCbwfQ1rqlQwPMx81AL/aH66i4KQEmI6LYniqDFMUwKKIWWRkfQO9EN3wtNTJvrjCt
-    wBFX5nDQgHQinLndZ1fp7rMxlP54kCFtgdhg6e7iiPfrRw15cGYR5JJbE1EI3xDoQHfzfa
-    VmCgzDzuKxYHhmbdAXTxW27+GCagvcK58UPLxLurAAgifxKEKiVtTvg3ErP4iUvRJQPdA3
-    K1pED8g5b3DGfH29/Z25lUg2yFnxq1Ty3qpwn+H2no6FxA+PWJMP8N0GaMocPod1nXSPZF
-    6D5wNQndPO2JylJpu8WZ+cTk52FCGaxZyzo5KC+1vRtBVpOEZ9zua/GBzItlHkLvWvWzXL
-    6cA8vB5QB3eEep/XX4BhZi0rW23O/+g+KeA4ssaZDg9yiBBb7q+KN7ewGnFLBJps3JohZ3
-    1pi3tVl7WwwRgYaIVN6e2lkyG9hfFLp4fMeIByf3KTGX5TzBnCHuSaSn88cg
-X-ME-Proxy: <xmx:0mORareFdZLu45K-4oivNGhH5lPQTcrtP14-RsP9S1ZwEhuRffw-RQ>
-    <xmx:0mORatNWmMmyARe6MiJoV-l6nuZqJwd44ZU7y2hVIVR6tLn6RMwjxA>
-    <xmx:0mORamvaJTvNhfXEX_cH8iw7wLaejBQK0tfBmvzXt9-JxO8mVZrySg>
-    <xmx:0mORauABsogHBrkn5DhDRfufz8Jt0bxzsu6gknAo7b7XTx8EcN0kGw>
-    <xmx:0mORalbhF6NkTBzKNpdSHdEyrj0iGwQIEkRubrZah8RUCbB9PIR2e_r3>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 53211F8007D; Fri, 28 Aug 2026 06:32:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oEkOva8L"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 993B74E413FF;
+	Fri, 28 Aug 2026 10:37:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 644DC60537;
+	Fri, 28 Aug 2026 10:37:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6EAA511C780D1;
+	Fri, 28 Aug 2026 12:37:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787913460; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=hDHLfZf5tPMsJrYh28B2Mi+dPjwBy0qVlHBF2yzTOCY=;
+	b=oEkOva8LUzRsQh1c7/WvesEuyA2G/MnbQsh4POw8tskYduXCWBjbLn4LzabrvepbnqV7in
+	4gNIOMT/4p17vvGlxrG2Qkcahk5yNn5b1ZCPBFPJ5/+2m6itctqP5ugsqoVZ/GLJqdR2sQ
+	msGhkql1l8s8KPQ4QuTTbscPjwhCrm6Vg9n3mRixAJXSAO+FwLsa2rRIcKjARiaA/pkSOW
+	lNMR/1Qiy5Xhsakxh+YSTYGEPYu0KbqjQtK0T9AmcsAATTt+sgXQyscJBlmACJChqWPq+l
+	QMGdlSWB16VU989mMsARUnBT590MTOlB6DO26qrDV6QsQ0kWCdgp5FlchbRAjg==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dennis Gilmore <dennis@ausil.us>, "moderated
+ list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..."
+ <linux-arm-kernel@lists.infradead.org>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ARM: dts: helios4: fix lm75 supply name
+In-Reply-To: <20260823234326.71111-1-rosenp@gmail.com>
+References: <20260823234326.71111-1-rosenp@gmail.com>
+Date: Fri, 28 Aug 2026 12:37:36 +0200
+Message-ID: <874iger0nj.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 28 Aug 2026 12:32:27 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bradley Morgan" <brads@mainlining.org>, "Will Deacon" <will@kernel.org>
-Cc: "Catalin Marinas" <catalin.marinas@arm.com>,
- "Mark Rutland" <mark.rutland@arm.com>, "James Morse" <james.morse@arm.com>,
- "Marc Zyngier" <maz@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Message-Id: <4cc971de-2fc9-496a-a5f5-002bd6b6bd43@app.fastmail.com>
-In-Reply-To: <20260825205839.14571-1-brads@mainlining.org>
-References: <20260825205839.14571-1-brads@mainlining.org>
-Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Bradley,
+Rosen Penev <rosenp@gmail.com> writes:
 
-On Tue, 25 Aug 2026, at 22:58, Bradley Morgan wrote:
-> Everything object compiles and passes checkpatch and sparse. I could not
-> boot or run a hibernate cycle on real hardware here, so that still wants
-> doing before anyone gets excited.
+> The lm75 driver requests a regulator named "vs" (the +VS power pin
+> of the chip).  The Helios4 DTS incorrectly used vcc-supply instead
+> of vs-supply, causing the regulator core to emit:
+>
+>   lm75 0-004c: supply vs not found, using dummy regulator
+>
+> Fix the property name to match the binding and the driver.
+
+
+Applied on mvebu/dt
+
+Thanks,
+
+Gregory
+
+>
+> Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
+boot/dts/marvell/armada-388-helios4.dts
+> index 626a7339a5d0..af96d27e7159 100644
+> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> @@ -200,7 +200,7 @@ usb3-ilimit-hog {
+>  				temp_sensor: temp@4c {
+>  					compatible =3D "ti,lm75";
+>  					reg =3D <0x4c>;
+> -					vcc-supply =3D <&reg_3p3v>;
+> +					vs-supply =3D <&reg_3p3v>;
+>  				};
+>=20=20
+>  				eeprom@53 {
+> --=20
+> 2.55.0
 >
 
-You can easily test hibernate under QEMU/mach-virt: just create a file on
-the host, mkswap it and pass it to the VM as a virtio drive (e.g., /dev/vda)
-
-You can then swapon it in the VM and do 'echo disk >/sys/power/state', which
-will perform the hibernate and exit QEMU. If you then restart it with
-'resume=/dev/vda' on the command line, it will perform the resume from
-hibernate at boot.
-
-I've had a go with your series on a NV capable system (Mac Mini M2). Without
-the series applied, I can hibernate and resume 4 vCPUs without issue, so it
-is not entirely clear to me what your series intends to fix.
-
-With the series applied resume from hibernate still works - I did see one
-intermittent failure where the secondaries failed to come up, but I only
-saw it once and so I cannot say for certain whether your series triggered
-it or not.
-
-Tested-by: Ard Biesheuvel <ardb@kernel.org>
-
-
-
-
-
-
-
-
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
