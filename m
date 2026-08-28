@@ -1,188 +1,118 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazolkn19010021.outbound.protection.outlook.com [52.103.20.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEE8373BE7;
-	Fri, 28 Aug 2026 17:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787937677; cv=fail; b=Q1mSUtjSm1XGE6AssZtYCny6SrhkAnkfOC0ZhOKKah7g1wnimLx3s7zqFs/ZpMYvAhw38buD5/M7yU2MRqi5Owof8WFipyTueFjkPnFgSZXgmtWRq0UTM2KBMagtCWXQgew3R002zSfAzeqUFWp5ynoFwUp1KjLCfKmcEWgGBDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787937677; c=relaxed/simple;
-	bh=SMjzccn2lewmW/sYScQfk16ZuNSNTq1OW9bzzL2FOfA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=a/50LI9p69kC0ZJPnSUhRIfhVr4hidhetyCzdm3S5hwU/5vT/yF2jXVUdXenq+QWVpx2tTt6qyAVmylCFo4MHuXqMn9vIQXunITjgHj3OIanP8Dmj2tiARidTMZjxbZ+jt0L1jzAcyLIi+kHMo2YCqWuWx5XjPiRGSZd81Twp5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=GDfJJIB2; arc=fail smtp.client-ip=52.103.20.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="GDfJJIB2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S4Rm3yuP5HyV4fiAaKGgOWfoMiwBlR7aiN3TSu2me+/ueNq513mZOz+0QsthvVsCzeasB2Yy5maF3VUDZYL2OymHifEX/BflYIDaYGSH12hLh4ligsq+jdNO/pg95Q3KW9Iig3ZHT9tJXE8hDmgBZ9sg4EOWEdrSYjQHhQHRfkyiC+JLe2/WTqB+ZqO5MNH1vC3SF8QR8rzpo1ha+X18Hd5aiX5Wj83y4bOnXwgojkIxU8LAOHqYuIeFjOQeF36iSBkhLZJRDyJIgPvzz8MnLcPvp97cI2qdL4uH9QPSH9YgC9zSmHM37KanX3VS+TI3znvyPI/GQCPXvsQU7hpQTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GjR7CVGan6e+V3VSCgNMq1DOCZpC/yo+g1uSunHxlGY=;
- b=eoTEPjOgPdOd8IyGV0/zsX5J4mY0lrpXlan/MzqDnIi9Eva2ztI2keSPXOnUMW5pKWW4PX2vcqIhrc9FYFrvr8M96c1RuSrWBdoaUlk6VDL0cSPS9lHGWN4S57Mvqni7stwjQgH4rvakVTHSQjgWIUsG9hVNUNmiizDHz7zgvmhdPeP0yX9qhvk3pij1brPa5JWJJBznL5GFVwXu6h5DxgBkEW7BbxbSLFMrGraLqMSRhizgy1DoIyhBLHnp5Bv56WyTuhczWKxrFltWx8sVpZiMGiKtxY6ksVvarfmI4dxh7Le3AcKvpxf5lSMLt3NDfZcAHa+GvJfTkNk8B/ERqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GjR7CVGan6e+V3VSCgNMq1DOCZpC/yo+g1uSunHxlGY=;
- b=GDfJJIB26K4jW6IcNWXdCSE1wXnPH7pqsGlWp3VEli0rBiNLGmrIc6Zrgs7NrTrWkFAYdKCZLXZpDjb7HDttQPlhV05/octgUblL0h3eh0drOLodlpaDeFml2mDOS+rzfxb/ErbDzaqOlpuE590t095U2YxFOZwMbS3rMtlqK6m8mIsliFgkPBm0vcGZOB1wyod7dZ4NGwleOy1V1JgTU/L4YAMUnzRqXrJVuDiH5HzZrJvfdM0zNIAUOpyykBDnLdFiMaBR3xNDQhv8yhUdkQhnktGcidj2bhvq3B9I3l/j3yO8Fzz1Um3SZ8j6KGAfRWEnnWIS+6/T0aogo0J/wg==
-Received: from BN7PR02MB4148.namprd02.prod.outlook.com (2603:10b6:406:f6::17)
- by MN2PR02MB6973.namprd02.prod.outlook.com (2603:10b6:208:20d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 17:21:12 +0000
-Received: from BN7PR02MB4148.namprd02.prod.outlook.com
- ([fe80::6007:d1a1:bcf9:58ef]) by BN7PR02MB4148.namprd02.prod.outlook.com
- ([fe80::6007:d1a1:bcf9:58ef%3]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 17:21:12 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Yu Zhang <zhangyu1@linux.microsoft.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-arch@vger.kernel.org"
-	<linux-arch@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>
-CC: "wei.liu@kernel.org" <wei.liu@kernel.org>, "kys@microsoft.com"
-	<kys@microsoft.com>, "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
-	"decui@microsoft.com" <decui@microsoft.com>, "longli@microsoft.com"
-	<longli@microsoft.com>, "joro@8bytes.org" <joro@8bytes.org>,
-	"will@kernel.org" <will@kernel.org>, "robin.murphy@arm.com"
-	<robin.murphy@arm.com>, "bhelgaas@google.com" <bhelgaas@google.com>,
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "lpieralisi@kernel.org"
-	<lpieralisi@kernel.org>, "mani@kernel.org" <mani@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "arnd@arndb.de" <arnd@arndb.de>,
-	"jgg@ziepe.ca" <jgg@ziepe.ca>, Michael Kelley <mhklinux@outlook.com>,
-	"jacob.pan@linux.microsoft.com" <jacob.pan@linux.microsoft.com>,
-	"tgopinath@linux.microsoft.com" <tgopinath@linux.microsoft.com>,
-	"easwar.hariharan@linux.microsoft.com"
-	<easwar.hariharan@linux.microsoft.com>, "mrathor@linux.microsoft.com"
-	<mrathor@linux.microsoft.com>, "baolu.lu@linux.intel.com"
-	<baolu.lu@linux.intel.com>, "suravee.suthikulpanit@amd.com"
-	<suravee.suthikulpanit@amd.com>, "vasant.hegde@amd.com"
-	<vasant.hegde@amd.com>
-Subject: RE: [PATCH v4 1/5] hyperv: Introduce new hypercall interfaces used by
- Hyper-V guest IOMMU
-Thread-Topic: [PATCH v4 1/5] hyperv: Introduce new hypercall interfaces used
- by Hyper-V guest IOMMU
-Thread-Index: AQHdMXDIfQUKjMLd50yyWV+rJanBB7azwFoQ
-Date: Fri, 28 Aug 2026 17:21:12 +0000
-Message-ID:
- <BN7PR02MB4148D654408E5D3DBE075DD4D4AC2@BN7PR02MB4148.namprd02.prod.outlook.com>
-References: <20260821132654.211730-1-zhangyu1@linux.microsoft.com>
- <20260821132654.211730-2-zhangyu1@linux.microsoft.com>
-In-Reply-To: <20260821132654.211730-2-zhangyu1@linux.microsoft.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR02MB4148:EE_|MN2PR02MB6973:EE_
-x-ms-office365-filtering-correlation-id: ce7ff51e-4034-4035-206d-08df0528c229
-x-microsoft-antispam:
- BCL:0;ARA:14566002|12121999013|15080799012|37011999003|24021099003|55001999006|51005399006|13091999003|31061999003|25010399006|19110799012|8060799015|8062599012|40105399003|2607281247196008|102099032|3412199025|440099028|1710799026;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?db3ZHWG7MIFMqEixJ0lSsyTor4Q1CBbw8+5+pQUS4qkiKO1vEJV+QHW6zs0Y?=
- =?us-ascii?Q?/1Jem1hlfVfyOrfRxZZBPAfrTGxd8nvZsolTlNusGrpyi3fOl6khS1CpEmmO?=
- =?us-ascii?Q?Rj8DlUxf+V/dDhsFKnG4uLZSLSuRkMv38d1fBwhJVobr1zOsxmN5U+4qa/BG?=
- =?us-ascii?Q?4Li+DULc9FJXiNPMTO4cWBzQrAAjGR/cK3dh1vLjnkVBTtCq07Yn5tGAhVQM?=
- =?us-ascii?Q?yWqxATKQLNlJ8k9qDTkCgp666/Zq/jCTuFEV2JzRG9TUqypwVqfG7Qu9f17L?=
- =?us-ascii?Q?YQyYm/sxgoQKFEEOjsBOHQ5zryYBgq1EVo06S6JKjMOKurCFOU9sGlGawSy4?=
- =?us-ascii?Q?+ci0mhAnffAj4S4uCa/lWFuNf5Oi4li0gGlMCIO2BIOJwhVJE7PfUzik/yRm?=
- =?us-ascii?Q?TOAgrdLu+bwNoqs6f6yfCwB1PAxhI0xHM/y0zUWflPmbwKgpKTEGzpoM8WOo?=
- =?us-ascii?Q?kC0yaKmDjPscaEJ1fe6wCNRnalc2X7aO5ikYKYvpDeQQCmqpU0wY0PTDZ33z?=
- =?us-ascii?Q?mbRVwvvnIxDDWwgV/UwNX+qH7F/u5bK3YlzzRo0HHDpLLPaIAOapHPkYVT2w?=
- =?us-ascii?Q?RGotlY7P9slFywcuPc9v/utNTrlmYb0KF2ynKKviNTQzqrBPZUJm7uDXaL6R?=
- =?us-ascii?Q?ILRqszSaVxgNsH9i0fH4qGWu0Qmqf7jF9hb41PAdjRIQiV4jDL/OtPSU5aku?=
- =?us-ascii?Q?hzSKsZsClfYUdoed4pj7CXfa9AvPc1mJbvAGB1Js3X/LdEllGFNI+26VOFhz?=
- =?us-ascii?Q?dYGDf1wSFV3/1Don4Ygp6/Y0TX1n2vOWctoxcD+qvzU97nE4odzirPTcMAbw?=
- =?us-ascii?Q?MQW1WY+3fLqX06navneR/+Psg41moHeyPIw/gfC3RM0NPuGl7nYgCLQVlNDN?=
- =?us-ascii?Q?c2BzfFUN5bG3HurU1+wrL0EWX868WeuU9OdLjFPqjIOfJ0YYpVTbIPAc2iwN?=
- =?us-ascii?Q?PIqHzd2BHLnPIWdVuSdD93niyUGwbYKFpkh2LzFYdsPibbGtKqUR/KQteKUL?=
- =?us-ascii?Q?hwDR96MkNZ4Z7gpzMDCLPCJa/2S79OHl8nabGpfq6SYnwHHTq3So7AJsCEV3?=
- =?us-ascii?Q?HscODr67gOfr0ZN6Dt1VY1QO3wHFEeO59uvZzsx+P3Sc00TGDTE=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?zkYJeJUFAbkzKNTnd9iyfmv5lE1VIUaIYQRfOYboQGgJzo//RMN4Y/VzPAxX?=
- =?us-ascii?Q?KANY49blh1YYgj4zCUskqx2BirJlsrQ6qfFXQHzFXzhcyUG5YoEG4kMXLpw1?=
- =?us-ascii?Q?6hSZtjFQ/Evo8QGLrOtlSMsXyxCxxxCwFulOzQ/dBNO8AnXilqxAAf3AFt9O?=
- =?us-ascii?Q?QkP7MO8dMd2iZZR4cq4C4qTiQ43p4ImHL0MUhA+IFl1MkDpZZgBTn0bef2fS?=
- =?us-ascii?Q?KpTAYeXdVc16G2z+Z72ePQMgNcl++2OjQdRrHef4W1cy1Lg1slxAzsAtJc7n?=
- =?us-ascii?Q?Dfs67jdaki/Pwd/3O03cKbW6fRz5jmSqUsyCQwrds+mGRnjwFNStz48zRGbW?=
- =?us-ascii?Q?loGl860W4gYVig5Y67DRrR7oJ1YHSb+FUuGoozfFgcPIk1+Z32GCX19fFmP+?=
- =?us-ascii?Q?hYovbeH87G8cKknnyezgm90jzhLssCoOrE/nZohpmYT9qoAxMEYOpAt4qOcT?=
- =?us-ascii?Q?8bjxsifKcA8Ycls/fE3UxaBZRe2rD0set5ezYCKIaaY6ablZkMOSCrxrq5K8?=
- =?us-ascii?Q?uXwxvoXQ7vrr4JLvwrwJEgQvHrU7S3dJuLWhbGcHP3WH5/4Fm48SRl91+zm4?=
- =?us-ascii?Q?LzLLZKTmYcw2115iL6Lz96nlBVb9MaZRiRMAPaT2Zv4VV8qvfLPJihqBolI5?=
- =?us-ascii?Q?JJfUgq3b3v1SwoyOuC3w6wVspJdz5JgPiZ7m2rGIZQJepbEl3MmbysC+LS5n?=
- =?us-ascii?Q?Yh+iP8YII6q1mIqOWvk6FNPnDVtcHYPtlVxejhiYvKQiK25KE3sf7Ouv3b0B?=
- =?us-ascii?Q?0xgwXXK23ARIWHyyEtirHhyp00MScwE4ajHm0jzV5/5rGUmMMCMLTJ9GEyr9?=
- =?us-ascii?Q?wX6h74pKBA7x6E0YZYjnLLsgU9xjAfo8W+TkrSTpABEPoWEAhYALQTw+I9cX?=
- =?us-ascii?Q?Sy43wFt1YoAQOH7hB6FH80BSZfndbq2lmJPvAT+d+Rvp3SIyRwakRbjc+/K3?=
- =?us-ascii?Q?E3VlpwtKWwMsbwmtpIPwrsjgjeGe76Y8KDhBBIX0bHesX0YbP3Gz9ZXt1j9/?=
- =?us-ascii?Q?/kxOjliJ4Y2pHA020FwZlrOcu3zPK809sSKXPAZ8y+TIUgGKY5yHtwOfjOMj?=
- =?us-ascii?Q?dCGhdxBfkbHq0oNkEuZq8dULvGEEmIRKVsb1+Zov6sn9axuvWCTfkIoRiG6I?=
- =?us-ascii?Q?IBKjdDvzgdxnVdOQ2lxpuR1Zpl8hfRcI2KwWi+GzPDXCxNrVlroYj6tZhqLO?=
- =?us-ascii?Q?ICY/DMo6fVs/FIi3YKL6gRQb+s1y+7ivWvv9w8b0RTo9fhzqAT50q+3lwjEE?=
- =?us-ascii?Q?V+n4fzTyRB5mRE/BAZ3rJfc1IlTricGGa0kpfJUramkUI+Jtk29ZjpCQqBeX?=
- =?us-ascii?Q?cY60w1T4ucrSXZ8LMDvaH9Dg5fSz4xtTKJ/A4E2xTsLfUpskKtlrWAOH4TCy?=
- =?us-ascii?Q?TWTNJEk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F4D3A5435
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787937681; cv=none; b=TtUrsoYZO88fQwnZqBingiSni7ZbzU+2Sz0R3rXcQRd38M1L/NbafawgT79W3v+ySapTxMoU9rbHvKwWSECCZKxKhU6tcppWWB5V/gI68wmvZJTzkM1Rf57v8+5Aea/MyHZvSJagHg+Micq5SgQJg6trftjQZBEG+Qq55fVa9T8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787937681; c=relaxed/simple;
+	bh=Xpsj3sNHf7YCaX2X/Mev6u16m0BiuWjf6tcRKQeCJ9o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QFEkBrzgy+xvsZhxwocse5JYm/CYGs+f0yKmfRUW82HCuwuoRPijwLyVWmkA3AipSyyjNjpDqNyFNQRvVtXhIpzneDJBiJ3uXEk4Gjc+FBx5I+IslIoA5ogyvMNbtXWjPyPAJfrH4AKwfV2VHezBIpiUMw5E7dBt71C6REKncBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97caa212bf3so682930241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:21:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787937679; x=1788542479;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=evpTKVZReIwvDgHYHGAoajVc7f3qpbEUisvP+F0+k+M=;
+        b=b6A4MRhO+TQeRsmIIClKdvrN0hGgP988RoC41FTTd7LynaLMKkPN/+DtvYafgNw37p
+         xyriYVF8vSvtJyjNoPSPvH2hhuWm/FmKollkn/QSuL0s4im+iNm7pX0Pzz+jN+5eOHL2
+         87JSbErdPnjuZGFnBGTRgSJuaKeCf5ctj0bWhzg1318bGT4FGP6+OWzRofpHIEgEEKX+
+         I/zyjbyASnw/aOCiS1/F1Ib+dobfIHgKAYn2zcItIzoFuwSgph+g84p6cqS5ZhS3znWi
+         3UzwQRhTTAWn4Qi1OvZVsa7MdRPZpgh6/18gtASyAQU+nVZDnfixxI0JYX8orzOh8fqq
+         ff3g==
+X-Forwarded-Encrypted: i=1; AHgh+RoHYtgS8O6y2uNrZK8UATxaGg0YTPkFCy4KRUMPdH7JM9xQi8rQYIreXd5EABzwpDyQOvjVlRFhrflP3Ys=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDRDdMs6W60BsC6wdG3PuSXugb/OxNa9hI4cVBcK0FRagp6iJe
+	UKfTgtH11RNxjOD5Rmi/AY2/eJswUKxxhJz7d4a8JFoY9E95eeMUhV5r6OzEaWzO
+X-Gm-Gg: AR+sD10XH8V7RxOsBl7X6IQbWYUX00cmdDiL7O6MPTJ1h4eMlL4rn3uMgd2LWGh5aEv
+	bIRC1UkU4hoB/hVCDT9VILf9FW8jfR36g8Rd76YIE7SGgCu3dymZ83PoPi96frNpKZNxTwcFXSc
+	ACOYC4c+gyc7ZaXYV6i0BzHk3hN7N91zy/J1ymUGYTxZEd66Jqf0cFg5KUhLG48w5QMdi4gVJPa
+	vRnLM7eEetbAgFnC7Kli4/m+lcuvUcwc+T5Xxs+02rE4Jp4MipohID2VXfyOILPubBWpfDp/p2t
+	V9U7a+xTrJPk4PTnXaJzCFulM1RTmbaZ02q6cchNGZWjMOpvso4lTs/hovJkeEOW+G5/FALuvj8
+	TQRpRerngs8IkVP1tTDDjZEDBL4jGIQw5Enh+rUgMeinIgCtlWtPUDXCOCFzDUueStyxe3kHCWv
+	LL+NKLq0NFQ1EwGg8BCuXoWiVREVT91XhhWuG5DLux/0TWU1lWVhu1fE35mDKuYc+sAqZlPyte4
+	XOTZJrf0u2zj0HM0+gFfmByKQ==
+X-Received: by 2002:a05:6102:8094:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-7860dfac7c1mr2132813137.5.1787937679081;
+        Fri, 28 Aug 2026 10:21:19 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f532aa2fsm1620959137.2.2026.08.28.10.21.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Aug 2026 10:21:18 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7866d924eaaso376813137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:21:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqqmOipe5RRNw8drNu3VlzAdnFhWaoBBuhVQ5hBImmywX1t0kH+AwnpFWCBaP84Etc4ROTRZA4EMXj5yMk=@vger.kernel.org
+X-Received: by 2002:a05:6102:54ab:b0:778:5bbb:b2d2 with SMTP id
+ ada2fe7eead31-78599269b6amr3135505137.11.1787937678652; Fri, 28 Aug 2026
+ 10:21:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR02MB4148.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce7ff51e-4034-4035-206d-08df0528c229
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 17:21:12.3691
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6973
+References: <c480ed6b8bf38822263e2c5b7cf32b28600f212d.1787219898.git.geert+renesas@glider.be>
+ <CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com> <apGqg5a5I9g1CoF_@levanger>
+In-Reply-To: <apGqg5a5I9g1CoF_@levanger>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 28 Aug 2026 19:21:07 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXwmCrzLZiPnQejJ+dTvVNf2zTzgKwTWEFEkfKRkZQpPQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XXn2qAoRTtHkxt_2I4cw2b47n5hgFTcYzlKhY5Mo5gPaW3qE-98baSbzY
+Message-ID: <CAMuHMdXwmCrzLZiPnQejJ+dTvVNf2zTzgKwTWEFEkfKRkZQpPQ@mail.gmail.com>
+Subject: Re: [PATCH] erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default logic
+To: Nicolas Schier <nsc@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>, 
+	Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
+	Chunhai Guo <guochunhai@vivo.com>, Michael Bommarito <michael.bommarito@gmail.com>, 
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	linux-kbuild <linux-kbuild@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Yu Zhang <zhangyu1@linux.microsoft.com> Sent: Friday, August 21, 2026=
- 6:27 AM
->=20
-> Hyper-V guest IOMMU is a para-virtualized IOMMU based on hypercalls.
-> Introduce the hypercalls used by the child partition to interact with
-> this facility.
->=20
-> These hypercalls fall into below categories:
-> - Detection and capability: HVCALL_GET_IOMMU_CAPABILITIES is used to
->   detect the existence and capabilities of the guest IOMMU.
->=20
-> - Device management: HVCALL_GET_LOGICAL_DEVICE_PROPERTY is used to
->   check whether an endpoint device is managed by the guest IOMMU.
->=20
-> - Domain management: A set of hypercalls is provided to handle the
->   creation, configuration, and deletion of guest domains, as well as
->   the attachment/detachment of endpoint devices to/from those domains.
->=20
-> - IOTLB flushing: HVCALL_FLUSH_DEVICE_DOMAIN is used to ask Hyper-V
->   for a domain-selective IOTLB flush (which in its handler may flush
->   the device TLB as well).
->=20
-> Signed-off-by: Wei Liu <wei.liu@kernel.org>
-> Co-developed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-> Signed-off-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-> Co-developed-by: Yu Zhang <zhangyu1@linux.microsoft.com>
-> Signed-off-by: Yu Zhang <zhangyu1@linux.microsoft.com>
-> Reviewed-by: Jacob Pan <jacob.pan@linux.microsoft.com>
+Hi Nicolas,
 
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+On Fri, 28 Aug 2026 at 17:47, Nicolas Schier <nsc@kernel.org> wrote:
+> On Thu, Aug 20, 2026 at 12:15:33PM +0200, Geert Uytterhoeven wrote:
+> > On Thu, 20 Aug 2026 at 12:01, Geert Uytterhoeven
+> > <geert+renesas@glider.be> wrote:
+> > > When NR_CPUS is less than 16, or when SMP is disabled, the default value
+> > > of 16 is invalid.
+> > >
+> > > While actual configuration picks up a sensible and valid default
+> > > (NR_CPUS or 1), "make savedefconfig" will still write a line like
+> > >
+> > >     CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=1
+> > >
+> > > to the defconfig file, even if that matches the sensible default.
+> >
+> > Is this a bug in kconfig?
+>
+> I am not able to reproduce that; this is what I see with ARCH=arm64
+> (arm64 always has SMP=y):
 
-> ---
->  drivers/hv/hv_common.c      |   1 +
->  include/hyperv/hvgdk_mini.h |   9 +++
->  include/hyperv/hvhdk_mini.h | 137 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 147 insertions(+)
+[...]
+
+> Thus, to me it looks as expected.  Do you still see the behaviour you
+> described above?
+
+Perhaps you cannot reproduce this because this fix is already
+upstream as commit ab74edaeb1ae7c71 ("erofs: Fix
+EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default logic")?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
