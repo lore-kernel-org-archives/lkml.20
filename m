@@ -1,158 +1,188 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA61348C54;
-	Fri, 28 Aug 2026 18:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2E0353A74;
+	Fri, 28 Aug 2026 18:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941406; cv=none; b=NtehCCuYA3eDUvu6y7qgDb58vV31syC2JDN++l1+FQkFZmaZ8OfzFq+rDWGzxstZEr0fDPTbdjk6XIC4Pu3Sl8IbmBs3DZLwWdNqYY0mzRBfff5SLMq6JzOOJ/JL/k/ng4e5YLuLAjx+MAyvllQ5aWapCmrHFaqn8dl9KHAXkds=
+	t=1787941469; cv=none; b=gXxCeIhxp1CDmbdiJi27b11RLxWsxscZX2Bm9c+/ms29moEbnn2zbMEP67kHgFxf5l+Q/CR1Pi+CJKDK3jSGq4Bo2t5gm1OzoMl5JWWx1jgQPWn8ziHxy2IigosYxaqs5zbi0XngFsPvPdOwVIghMpQ8Lr+EUtAInyYNdopLqW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941406; c=relaxed/simple;
-	bh=2RFYSoKqJGT22zGyrVvSjO5r0HE8KLA3Lsz81RRvCco=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AlMeHYv6wLaIhv21kWtKe9PxeTSNG1aC2cF+Q28p5dIi6iwtIzyIgKRaSduJxiwFjNOYh4EomHxEN96T3hQg7t89Md0Yj4IBeijmla7RW6jFWMPEh0e+4ktapZPLf6cpuWTMTv9IxBjORz4ItZr7QpZYjnYrFIcXGiuSixZXsaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=IGZ5KSFr; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	s=arc-20240116; t=1787941469; c=relaxed/simple;
+	bh=rRAjI+E54HifwY+wCFY2p/lBznJUa27ntiEiBqTO+R0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qliyW7/+fuH4JBhIPPePAAHrjHPh2vUP7rHF76nhdyIPZdc6uNE09Q6EIrL5zif8x1xU8galRxX81Bu+Y0HtssSt8bzj8mXfvMcYrFL/ivmalp/BXNuyUQwIO2NlV1iA1ib7BaNN2GIG/pIjoO1HbIXDDja+Z6lCINmUnTzGX3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=WN/n1R2f; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=lCoRsHUW; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="IGZ5KSFr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1787940991; bh=2RFYSoKqJGT22zGyrVvSjO5r0HE8KLA3Lsz81RRvCco=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=IGZ5KSFriaQOtZwgxgbqYc1rTdQgmyhzRNaXU9M8etcO4Hw/un9ymroy6m+cTkI+A
-	 Y+UPoWhS8O9But4Yb22yMjXb0SWwVWss8j3FK9P9QgS5AsSLm43+UMoCdw5JvM61To
-	 BuZApJSz83W1JkrPx/Rtte79CKITGdF4VHm4Xkoo=
-Date: Fri, 28 Aug 2026 20:16:30 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: muzafferkadir@mainlining.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: imx258: Add reset-gpio support
-Message-ID: <ccydtgy5lwhesdlg5mtbxllwfcnzhm3k7g6m5xyyhprwizooof@s7qrku6yvqlk>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	muzafferkadir@mainlining.org, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="WN/n1R2f";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="lCoRsHUW"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hWmxh1hrZzKmLq;
+	Fri, 28 Aug 2026 20:24:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787941464;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UiPol/RgkHdv2e1z3rus8Wikod0VrFjR9pZAE8QgYxU=;
+	b=WN/n1R2fAQVmDIRrSIH3a5bLnovTfd+KRbHnRP+dyTfdSg4saq6sRcNQDYIrmslYtbXp9B
+	9KXAPKWSgWf/UUymc1qkHwvzkTz0Jjb048y1IRhB7ZWa7BwuTX3UXQwHk8o8E+t6Ji5Nax
+	sMnlTu6H8oE+hfP8lbfN/JbEXl11F+XXPfkCu99Xi0hwk+spsFShcjzADePBBX0WlRD0OF
+	2I3E9E1mwk2J7Drw6uZQrUDvi4ylOJCCVq7hr2UQ5/cglr7AB97pKgfCboVQENUnK4cELj
+	YXOrruqJPftniRdZaSyLOPi8qXK7DzSGaZnDI592lBnyhrtemxbjOaPPsuqiYg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=lCoRsHUW;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787941462;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UiPol/RgkHdv2e1z3rus8Wikod0VrFjR9pZAE8QgYxU=;
+	b=lCoRsHUWksbNfwM6fjODcqZ/+Vi4s98x1nLBr1Ci3rqlVP1IU6qPIfE2/aLtXVmUNADTQV
+	u9AlsUPnkQkJjjvYAbORzsxtBaTtFU8hvBas7nFXfc467hm1RAOruqandzVKgte/smPf7q
+	yBqi0nGAbUFtG8ccxm65gIQ1uixXRxM40oK/Tjmu0+9C6nfsL5yMI9GxmZaGrLtD2RafuN
+	2IfWIeiYxVk9L76Er4Kxpksj9ODdjAm2aIkKLJDNMxbPQ4HMbk59NdP3697nE+maZebUOL
+	gwm9oZfdiSnI3GwerGc+fjNcwbQr+bls9lWfRVK43IVLhRMyWxFaoY1Fl5zbnA==
+To: linux-usb@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v5 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car Gen5 DWC3 xHCI USB controller
+Date: Fri, 28 Aug 2026 20:23:24 +0200
+Message-ID: <20260828182415.388367-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: f7ghc5jbexoh8g6s5g8bz3pk659zocgc
+X-MBO-RS-ID: 19b0700d4c8741c4a2b
+X-Rspamd-Queue-Id: 4hWmxh1hrZzKmLq
 
-Hello Muzaffer,
+The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+controller with glue logic wrapper around them. Document the glue
+logic and DWC3 controller.
 
-On Fri, Aug 28, 2026 at 01:51:47PM +0300, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> 
-> reset-gpio is already documented in dt-bindings but never implemented
-> in the driver.
-> Reset deassert delay comes from Luis Garcia's and Ondrej Jirman's patch.
-> 
-> Link: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
-> I have a device that is not upstreamed yet (General Mobile Shamrock)
-> whose camera needs reset gpio to probe, it is documented for
-> dts check but not implemented for some reason.
-> With adding it rear camera on the device probes correctly.
-> 
-> I created this patch without knowing the older one that submitted
-> before: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com/
-> 
-> I don't fully know the correct reset timing so I was using a random wait before,
-> after I discovered existing patch I reused previous work for delay time after reset.
-> ---
->  drivers/media/i2c/imx258.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
-> index bc9ee449a87c..af3f12c7452a 100644
-> --- a/drivers/media/i2c/imx258.c
-> +++ b/drivers/media/i2c/imx258.c
-> @@ -9,6 +9,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/unaligned.h>
-> +#include <linux/gpio/consumer.h>
->  
->  #include <media/v4l2-cci.h>
->  #include <media/v4l2-ctrls.h>
-> @@ -681,6 +682,7 @@ struct imx258 {
->  
->  	struct clk *clk;
->  	struct regulator_bulk_data supplies[IMX258_NUM_SUPPLIES];
-> +	struct gpio_desc *reset_gpio;
->  };
->  
->  static inline struct imx258 *to_imx258(struct v4l2_subdev *_sd)
-> @@ -1128,6 +1130,18 @@ static int imx258_power_on(struct device *dev)
->  	if (ret) {
->  		dev_err(dev, "failed to enable clock\n");
->  		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-> +		return ret;
-> +	}
-> +
-> +	if (imx258->reset_gpio) {
-> +		ret = gpiod_set_value_cansleep(imx258->reset_gpio, 0);
-> +		if (ret) {
-> +			dev_err(dev, "failed to deassert reset\n");
-> +			clk_disable_unprepare(imx258->clk);
-> +			regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-> +			return ret;
-> +		}
-> +		usleep_range(400, 500);
->  	}
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+---
+V2: Rework to use flat bindings for generic plat driver
+V3: - Support one or two PHYs to correctly describe the hardware
+    - Make maximum-speed optional
+V4: - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-speed/phys/phy-names
+    - Switch to unevaluatedProperties: false
+V5: - Limit maximum PHY count to 2
+---
+ .../bindings/usb/renesas,rcar-gen5-dwc3.yaml  | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
 
-There are two times given in the datasheet. min 400 us between reset deassert
-and ID register read over CCI. And minimum time between deassert and stream
-start, which is 12ms.
+diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+new file mode 100644
+index 0000000000000..c8a770d7e0241
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas R-Car Gen5 DWC3 xHCI USB controller
++
++maintainers:
++  - Marek Vasut <marek.vasut+renesas@mailbox.org>
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: renesas,r8a78000-dwc3
++      - const: renesas,rcar-gen5-dwc3
++
++  reg:
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: dwc3
++      - const: glue
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  phys:
++    minItems: 1
++    maxItems: 2
++
++  phy-names:
++    minItems: 1
++    maxItems: 2
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - interrupts
++  - phys
++  - phy-names
++  - power-domains
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    usb@c8800000 {
++        compatible = "renesas,r8a78000-dwc3", "renesas,rcar-gen5-dwc3";
++        reg = <0xc8800000 0x100000>, <0xc9c54000 0x2000>;
++        reg-names = "dwc3", "glue";
++        clocks = <&scmi_clk 336>;
++        interrupts = <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>;
++        phys = <&usb30_phy>, <&mp_phy 2>;
++        phy-names = "usb2-phy", "usb3-phy";
++        power-domains = <&scmi_devpd 16>;
++        resets = <&scmi_reset 336>;
++    };
+-- 
+2.53.0
 
-  https://xff.cz/dl/tmp/b8efc244280a2b35.png
-
-  https://xff.cz/dl/tmp/ed9b967a140bd347.png
-
-I wonder if this driver satisfied the second constraint. That may perhaps depend
-on how userspace uses it.
-
-Best regards,
-	o.
-
->  	return ret;
-> @@ -1138,6 +1152,7 @@ static int imx258_power_off(struct device *dev)
->  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
->  	struct imx258 *imx258 = to_imx258(sd);
->  
-> +	gpiod_set_value_cansleep(imx258->reset_gpio, 1);
->  	clk_disable_unprepare(imx258->clk);
->  	regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
->  
-> @@ -1382,6 +1397,11 @@ static int imx258_probe(struct i2c_client *client)
->  		return ret;
->  	}
->  
-> +	imx258->reset_gpio = devm_gpiod_get_optional(imx258->dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(imx258->reset_gpio))
-> +		return dev_err_probe(imx258->dev, PTR_ERR(imx258->reset_gpio),
-> +				     "Failed to get reset-gpios\n");
-> +
->  	ret = imx258_get_regulators(imx258);
->  	if (ret)
->  		return dev_err_probe(imx258->dev, ret,
-> 
-> ---
-> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-> change-id: 20260825-imx258-add-reset-gpio-patch-c438dd35f9cc
-> 
-> Best regards,
-> -- 
-> Muzaffer Kadir <muzafferkadir@mainlining.org>
-> 
-> 
