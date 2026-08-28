@@ -1,214 +1,165 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8093C3F44
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787903537; cv=none; b=DkElL5opEnFdSj2Uo4a52j9son6kMBYVAXepE5MNwXxSg5ZG8gW/dthe3PLHift7KphiZnW53vRykgC90V81NY+HHaGgbjs8JgSkwJ2a/+XDk2OgtshEnxBeQdQ65eXO+8JIe65bWEGDyFcgDoXqB3K1tCcK84Pamj1kK+saBjk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787903537; c=relaxed/simple;
-	bh=u/tGPPqBBEVd8O2Hj/FgEbwAVUSqAv9cUQZB1DooYEY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hvCpetPlUJWVBERFM3fOW0YgGA7+E2/mPKz94MGF+zbwtnbFTKu7aIbo7zlvywxio4e2tOMW6Ped7cvK9wb6EBdtIQQUQLYG1evb2KnKkXgb9C0+ihvSblbSWeJiCRtAC5bwcKxTZ0xLIA3Q07o6bESzsfh6dIi4lHgiDiZWqR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3ET67Qs; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E443AA1A6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787903584; cv=pass; b=YNOjMc+37Eem4FQXe0HeJZjP96vl2wf+ja80KXDps+viNz1TmV307UCyPhF3P0g1f/dTY0nhvTaiE+li9Od0arUqIZTLNMDfmFg6rdKMYXjiYm9yifUbiwuY2tghG7zxjCUW2rylTA+cSmBOEfzFbnBPj0ZZLCJEXn5Zuc+4H+U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787903584; c=relaxed/simple;
+	bh=TNafH1k/IbhOZ+c1ihZUoSaIWJuTHLQx1WBK/0hi05w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LxyHxTviTBvddlxZvcIvA142JlJ1XwmghhjNOzT1Utz2qJpy2l11dVwJ0WyTr7XRzIeZs0bPoc53bWNjeTkF86PL0IKy7u59njv//ilt8gl9aJNycFF93b7Imd2whKehobC3VE5L2c84LRiUapx5FSOeQEB1HkTfUkE/DUe8Znw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=tWnSTDcu; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3ET67Qs"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b9320423cso4597595e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:52:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="tWnSTDcu"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a2e9851ed7so5302131fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:53:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787903580; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MGoY5cPRpAmWqf+CXI3ZfKy2iUmK7x5jfvSnYJDMUMJrGLC2KqeqpSQJ08qa88WZg0
+         iEjVmckJzKMkrqIp1BlCPJTAe+iZHFp0GF0raaEp6nUYNT36hUmk/bWpfro52VcMtH7I
+         eBVik9svHK8yoMe6PTvSgTeImgcoWMI3tXFsSu8C9QsN0u7st4NzjWVy7jgEA8la9cSt
+         zZfa+eIRbdZ34ElZcpbfxc9PbmrEtlHJ22+ZjDUPaUkeWSY/6TvOC6eM71axo/4k3emt
+         /rzPIzhEBy7ZnlyEAOdGcj4dvyQNMwb60ooPfg3kPbR6A+Tqh9qg4h6qekXyonKCggfq
+         KA5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kmYleCXYZYXRkt4vuaUJjHHMfAWiaxlT7cmkptdUeOY=;
+        fh=Y4ss/mTe0Z7S8weLMnPhHs3JlSSRPY2tIklkgz5B6Vo=;
+        b=qRGfOtYQ3j2K8YlJI/GWkl6WYUN9pO882HqlvSKPxut/BeYQ95KFDeku8R9Z7CbmO4
+         tOTbyWafsPLPC0G+h31iXYc4ayrNnZmdGH3oCqCzqjanHsuAYQu5NRmpYLViXFXudpGg
+         Sdy61hFCe4Uw0iMLhhtjMANXbZFh4j9kMtGnumZabGTB+HL1X+nGdg7y74WEMB/AO5W5
+         LCLrDLiZhvbTLqtf2/AGSb2bd4WG7EeWVvQ0IC8EWuRAnLY5GQv9/OFHwKxvuNrt8bqC
+         SJ9nzHy+BprTRsDjo4oXoSAbbWYvDT9UgaX6xOJSl9Yv/xm4te4w2g9Fmq+13xBrcB+S
+         T8IA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787903534; x=1788508334; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=nebusec.ai; s=google; t=1787903580; x=1788508380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dg/MQ8inXuFFEbvgK+mHsA3iNLAg+xiUDh4PfNOolRQ=;
-        b=R3ET67QsKid4vT9n2O7ME6lEU8POFOsUYhTBii/jaWWOR1rZ0fhEm1eIr8Rrtk76GJ
-         2BlbQi+qxpVDdqWKhdsbLEMm8sXCpcmUjm2OSKxsgxoIKK1TrqxOO2YHUBfKnOiAKzVX
-         suJRjRJXFMPl7qsOoTkzLQiseFoqc9CR6k75QBPui/Pa+LP8zhVUYiUKneAM/poRpxGM
-         NLMhLKjdFJIxr+JIYpSbSQ0u1VYx6gkDUME3PyjmAGGr3W5xM8joFxl6Ai3db2ElMlH+
-         dEJj+1ruIueBcFh3lE2aeP7skP2IWXJjjJDrnxFcXMr1mERP4tTaPKm34yYou1w+jB4S
-         WTeQ==
+        bh=kmYleCXYZYXRkt4vuaUJjHHMfAWiaxlT7cmkptdUeOY=;
+        b=tWnSTDcu0GYyc/e7/d0A8y7abDGzZs9N+RbdkkoOaQLFmpdmEjOxitrgNF8A/WNezC
+         oLxucOmUo5SleW6WaOlYhtmtXO0Sj8isLirx55mp9tR+XD6ruQL0HYimhLtvXRSzMBqf
+         OXVbxir/48YTXMgen6r3nMuMOGvI3U8VZ96ZxAUn4ViaVBCUucJG4OZFHZmIVrltGDTP
+         jaQRukr4qeNJsPNg8u1Hs5dQtQDKSZncHvmK+BvMNqp5jhjw7giMhIdf+sSLA5a3KFcR
+         3xeiIwe0cZB0dRlXfuibspYPMC7StEP/T8vdmY9RbDLSqYFyCvr985FcVGzlXmMdgleq
+         SsQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787903534; x=1788508334;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787903580; x=1788508380;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dg/MQ8inXuFFEbvgK+mHsA3iNLAg+xiUDh4PfNOolRQ=;
-        b=a0f0cVFkzxLDcvzooX0LmbiP8Z9CEkJAQj1lKIEdfVN9ZkqVTAbq8Q5eyFaFWZcjdn
-         5tUvR5bzsQKgVzU7PxYWbvKf0/149Q6ZG1jEinh12ayWs5qCDkWTUz9HBcFDhP2PFJtL
-         XkhfIH09+o70M9wcBxQ/ixmMXOjJPqP7myy3/0ZkkJ6dpjqJmkdCWhG5BBltlFwm5K2l
-         NP4Eh/y0NWPUhd0+GSTxoJ+EMuBTY3siMtzC10or5F/BLHYZpqTyv1S3ShRRQlT2RGuk
-         EzQY13UA8rCiUii8hRriQTtnrU9qX8OacykDnWgERWBdgaVCkG44u6Ab7da0SNaiUxmb
-         pDaA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0FN0ndAsDTUYanpyrTSyO8m4pUrKi3b+R01hBunTNwJmxY5ILIfsAiQca28Bg34ieGglR2vqMsrdDuv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++knZuQyD0R0PEuZ5MaB5OyaY6Qq0bBGpMnYZ5KIPf72L9Oox5jQ
-	+X2ISSr6Hf+d43aoN6Rm5HDX3HiDT0vTzKIjQ12zeKcIJRi62mOsQcvH
-X-Gm-Gg: AR+sD12Dbfp9Oib5+PGjJawcqKPuOcg56C79mlOOWSCiWfmOxqnhrsPbaLUexUopWyF
-	B2PdxasMi5kospe3xyavgDn0Cj82GtNsv21m4jKZs8oxIkqq8ynyTPLVyOIKFB7yowiBziKCxow
-	2p3g5pemtYEdZrrblyEr3J0vFAkaBEXAHJpJWJ2qXZyit28pipIqh+V4KfUqQtAUbXpVb/v5OMy
-	K4eYPGPA5O3mfT8ANWSVMsy4OZlSijzDXQ+DycZujsdGyjZHAZM7Cef2beUoIap0xLtamMdCaMt
-	nu5XSeFX8XmHX9i9LbJHvDYnZGpawc2FzwM/66KbADf5b5gs9AeGSrdY0kELD8jYlmTwTJLREQF
-	/zTttVi3xGi0Xgi1y94CqNYkESY9qUZ3OqMnO621mcGnQ2qzk2lXWwSF0N0oiO2JymL2ObhC9FO
-	0Jfpq8iCU1Qo4WpmZ1/butEHDlZvWrjl+0rY3JwCXVNsxfeoWF8pxPIu+Rs4SuoAANmnxaj8mts
-	ZDWiTOWB9Yqpmp6j3T3CqsuAw==
-X-Received: by 2002:a05:600c:1394:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49b91c47b6bmr60078885e9.9.1787903533497;
-        Fri, 28 Aug 2026 00:52:13 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm41438895e9.12.2026.08.28.00.52.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 00:52:13 -0700 (PDT)
-Date: Fri, 28 Aug 2026 08:52:11 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Zong Li <zong.li@sifive.com>
-Cc: Guo Ren <guoren@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
- zhangzhanpeng.jasper@bytedance.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
- cuiyunhui@bytedance.com, iommu@lists.linux.dev, joro@8bytes.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- luxu.kernel@bytedance.com, palmer@dabbelt.com, pjw@kernel.org,
- robin.murphy@arm.com, tjeznach@rivosinc.com, will@kernel.org,
- yuanzhu@bytedance.com
-Subject: Re: [PATCH v1] iommu/riscv: Support 32-bit register accesses
-Message-ID: <20260828085211.2c8e6b74@pumpkin>
-In-Reply-To: <CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
-References: <20260615064855.90316-1-zhangzhanpeng.jasper@bytedance.com>
-	<20260615123821.373248-1-guoren@kernel.org>
-	<7c490aeb-a3d9-4fe9-81de-f9662577851d@iscas.ac.cn>
-	<CAJF2gTQ+-gpvUDtOh99aKP2-iDJy3MYOWti9k2Ntd0-J0MXqxQ@mail.gmail.com>
-	<e051d822-d0be-4a88-ba86-ec9b5905fd1e@iscas.ac.cn>
-	<CAJF2gTRH6x78A3J5HJ5kUM47aDv8R0yFr8LRP+7jiLX4GL3ssg@mail.gmail.com>
-	<20260618143634.7f3dd6c5@pumpkin>
-	<CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=kmYleCXYZYXRkt4vuaUJjHHMfAWiaxlT7cmkptdUeOY=;
+        b=qMWVCO1jVAF6iZinhI6C4pDj9k9508nz7McXEn3Pwq2R+iqimCI9nDzSAgDfcC7E1c
+         qBeK1WogVpf+srmyOVYxZEAh20TVj1kuRbQfznztnp181rpd5gzL2i4TKVHnSKa86n9m
+         de8lsS4Fjie3hBbfAuwMMDf69JPJZ4QWyei6Y/hSVqI3lX+VLrr9/jdgEAG6EZOs8CWM
+         OD/6/um9GHvqNNpDz9aHZY8GqKXFPInslvhLpxAmoF38jpcrlHy05mghfm+6Orap7Ihx
+         ojiXJgzIjo/u4Yrt094rHSVAqv6yxMSfPxgD4bMivgPdVCh52bOLTLVaaXIWQprTLNA0
+         5/KA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrnh6H+ms9uBF+A6Wn1n4UEvridA/b7f6JUCKQPBFRDHoVuakdm0S6oCy8lCdY40oHIFS6A8TZh0QoDa2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mElh83Ze1gzRqGAUAZILc+Doufp7Ey92QbrZtU7t51rXhNMuOE
+	7MUwpHxeS9R072i1rzKozopC53in0QZ629DOKzm9/K40EKVyEptosivgfj3sc7Dk/MJE7XD1k7L
+	YbKqj6DJ4vMKvp95PpLvRhPlF1iHv93u1kekMUCqwCpA=
+X-Gm-Gg: AR+sD10sF5B5nD9HxM+8WCb2fIpN+Y/OeWmIUKwFDoNcpBD3iciJZvgfX42GAXZCjKe
+	QwFaSPsUFnHYyxYCmaHO2OQqcQsnGh6H4dXT1fZQCJajlwntZyUJCtzQ3tcuqwU90CqIZ2qTgI+
+	oAXzwN0TDnbXrEYh2xLagZkt1mDbuxG4zu4CwVzHpYv/lmGK53q/MwWWyvZ+vXEVtDhdBS4/wPZ
+	6JWAtNNMzs4o+RIGZKTiLhCYFV86M/VlNqrO6Hpa7PnGZ6u/N1gyLddBZXAtWpyMofNev//1Kjm
+	YhjegkwYg1vaEXB9OlSrLnn2M84Iyj/Tg23sbbhXKzhjVqsS4kCIqWaCf9xN2S7kyF2cKYncetm
+	7b31I2659A+FeuVLRkuGx
+X-Received: by 2002:a05:651c:3056:b0:3a3:a3:3560 with SMTP id
+ 38308e7fff4ca-3a301b1b926mr7137971fa.6.1787903579652; Fri, 28 Aug 2026
+ 00:52:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <cover.1787854085.git.zihanx@nebusec.ai> <a31c6fb1ab9846c85e245fcf34948ac2bc27e521.1787854085.git.zihanx@nebusec.ai>
+ <CANn89i+1xLiL=nZOwoSH+OwX1+8io_Cd2_5b4s-_NcN+kBh+8A@mail.gmail.com>
+In-Reply-To: <CANn89i+1xLiL=nZOwoSH+OwX1+8io_Cd2_5b4s-_NcN+kBh+8A@mail.gmail.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Fri, 28 Aug 2026 15:52:45 +0800
+X-Gm-Features: AcwNN1Wlw2xmG9VSQqhlLFZOqVW920HInRT6-kbppYVXYZCPm1-sEjFLBIVBm2Q
+Message-ID: <CAANe3eSydRy9qiDQhQMPO1nEni_Ekz4aUjnhYh-o2gwEn=9Y8w@mail.gmail.com>
+Subject: Re: [PATCH net 1/1] ipmr: restore a limit for unresolved cache entries
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 28 Aug 2026 10:52:08 +0800
-Zong Li <zong.li@sifive.com> wrote:
+On Fri, Aug 28, 2026 at 3:33=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
+wrote:
+>
+> On Fri, Aug 28, 2026 at 8:52=E2=80=AFAM Zihan Xi <zihanx@nebusec.ai> wrot=
+e:
+> >
+> > Unresolved multicast cache entries retain up to four received skbs whil=
+e
+> > waiting for userspace to install an MFC route.  The cache entry count w=
+as
+> > tracked but no longer bounded, so a stream of distinct source and group
+> > pairs could retain packet memory until the system ran out of memory.
+> >
+> > Restore the unresolved-entry limit for both IPv4 and IPv6 multicast
+> > routing.  Reject new cache entries once the limit is reached while keep=
+ing
+> > existing entries available for normal route resolution.
+> >
+> > Fixes: 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len li=
+mit")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: Codex:gpt-5.4
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> > ---
+> >  include/linux/mroute_base.h | 3 +++
+> >  net/ipv4/ipmr.c             | 6 ++++++
+> >  net/ipv6/ip6mr.c            | 5 +++++
+> >  3 files changed, 14 insertions(+)
+> >
+> > diff --git a/include/linux/mroute_base.h b/include/linux/mroute_base.h
+> > index 4d55827e9705..af9247bb3f4d 100644
+> > --- a/include/linux/mroute_base.h
+> > +++ b/include/linux/mroute_base.h
+> > @@ -224,6 +224,9 @@ struct mr_table_ops {
+> >         void *cmparg_any;
+> >  };
+> >
+> > +/* Bound unresolved MFC entries and their queued skbs. */
+> > +#define MFC_UNRES_QUEUE_LEN_MAX        10
+>
+> Wasn't this very very very small limit a reported problem in the past?
+>
+> Nothing will prevent an OOM to happen, even if you set the limit to 1
+>
+> If panic_on_oom is set, it seems to me that this is working as intended.
+>
+> If we want to silence the OOM, just change ipmr_cache_alloc_unres()
+> to add a __GFP_NOWARN?
 
-> On Fri, Jun 19, 2026 at 12:02=E2=80=AFAM David Laight
-> <david.laight.linux@gmail.com> wrote:
-> >
-> > On Thu, 18 Jun 2026 17:51:34 +0800
-> > Guo Ren <guoren@kernel.org> wrote:
-> > =20
-> > > Hi Vivian,
-> > >
-> > > As noted in the RISC-V IOMMU Specification, Chapter 6: =20
-> > > > Whether an 8-byte access to an IOMMU register is single-copy atomic=
- is UNSPECIFIED, and such an access may appear, internally to the IOMMU, as=
- if two separate 4-byte accesses =E2=80=94 first to the high half and secon=
-d to the low half =E2=80=94 were performed. =20
-> > >
-> > > Therefore, the atomicity of 64-bit MMIO accesses is UNSPECIFIED and
-> > > not clearly defined in the current ratified RISC-V IOMMU
-> > > specification. To handle this correctly, the Linux RISC-V IOMMU driver
-> > > should fall back to 32-bit MMIO accesses when reading 64-bit registers
-> > > (e.g., performance counters). The behavior of 32-bit MMIO accesses is
-> > > more precisely defined in the RISC-V IOMMU specification.
-> > >
-> > > Thus, many hardware vendors implement 32-bit MMIO (rather than 64-bit
-> > > MMIO) based on the current ratified RISC-V IOMMU specification, and
-> > > this driver does not appear to benefit from 64-bit MMIO access either.
-> > > Performance is fundamentally constrained by bus latency; assuming that
-> > > simply reducing the number of accesses will improve performance is an
-> > > oversimplification that ignores the underlying hardware
-> > > characteristics. =20
-> >
-> > If the bus latency is significant it is almost certainly worth using
-> > memory accesses to avoid re-reading the hi register.
-> >
-> > Something like this might work:
-> >
-> > static volatile u32 hi_prev, lo_prev;
-> >
-> >         u32 hi =3D read_reg_hi();
-> >         u32 lo =3D read_reg_lo();
-> >
-> >         if (lo <=3D lo_prev || hi !=3D hi_prev) {
-> >                 u32 hi_tmp =3D read_reg_hi;
-> >                 if (hi_tmp !=3D hi) {
-> >                         hi =3D hi_tmp;
-> >                         lo =3D 0;
-> >                 }
-> >                 lo_prev =3D ~0u;
-> >                 hi_prev =3D hi;
-> >         }
-> >         lo_prev =3D lo;
-> >         return (u64)hi << 32 | lo;
-> > =20
->=20
-> Hi Daivd,
->=20
-> I included this in my v5 of the IOMMU PMU series, but we noticed that
-> sashiko-bot AI reported two issues:
+Hi Eric,
 
-I did say 'something like this' might work....
+You are right. I missed the rationale for 0079ad8e8dc3 and the
+earlier report that the fixed limit caused problems on busy networks.
 
-David
+The reproducer was run with vm.panic_on_oom=3D2. It therefore only shows
+the expected result of forcing a panic on generic memory exhaustion; it
+does not justify reintroducing a per-table limit.
 
->=20
-> 1: The lo_prev is immediately overwritten:
-> The trailing 'pmu->lo_prev[idx] =3D lo;' is outside the if block and
-> runs unconditionally, so the 'lo_prev =3D ~0u' is clobbered before the
-> function even returns. It never survives to the next call. lo_prev
-> ends up holding the guessed value (typically 0) instead, which is a
-> perfectly ordinary small number, and the intended "always re-verify
-> next time" behaviour never happens. The sentinel write was effectively
-> dead code.
->=20
-> 2: The wrap check itself can miss a wrap
-> Here is a concrete sequence. Assume a previous call left hi_prev =3D 1
-> and lo_prev =3D 5, i.e. the counter was 0x1_00000005. Some time later
-> the counter has advanced close to 0x1_FFFFFFFF:
->=20
->   1. hi =3D readl(addr + 4)  -> counter is 0x1_FFFFFFF0, so hi =3D 1
->   2. the counter crosses the boundary and becomes 0x2_00000008
->   3. lo =3D readl(addr)      -> lo =3D 8
->=20
-> The check then evaluates:
->=20
->   lo (8) <=3D lo_prev (5)   -> false
->   hi (1) !=3D hi_prev (1)   -> false
->=20
-> Both are false, so the fast path is taken and 0x1_00000008 is
-> returned. The true value is 0x2_00000008, so the result is short by
-> 2^32 and the third read of the high half never even executes.
->=20
-> Both situations share the same root cause: It puts the reliable check
-> (the third read) inside an if guarded by the unreliable cross-call
-> heuristic 'lo <=3D lo_prev || hi !=3D hi_prev)'
-> Case 1 is an issue in the bookkeeping that heuristic depends on, and
-> case 2 shows that even with correct bookkeeping the heuristic is not
-> sound.
->=20
-> To make everything simpler, I would use your first version for the
-> latest IOMMU PMU series:
->=20
->         hi =3D read_hi();
->         lo =3D read_lo();
->         if (hi !=3D read_hi()) {
->                 // Pick a value that happened while doing the reads.
->                 hi++;
->                 lo =3D 0;
->         }
->=20
-> > It shouldn't need any locking but the accesses do need to be ordered.
-> >
-> >         David
-> >
-> >
-> >
-> > _______________________________________________
-> > linux-riscv mailing list
-> > linux-riscv@lists.infradead.org
-> > http://lists.infradead.org/mailman/listinfo/linux-riscv =20
+Please disregard this series. I will not post a v2.
 
+Thanks,
+Zihan
