@@ -1,294 +1,122 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51173DC4D3
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:07:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F123DB626
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900875; cv=none; b=oW9CQfMWdIHJqeXa647BQE9QKB4Kh9qWlgRLUTdLB6BHzj0UFxid/ww8bMNrSM/b0qxL+2pWEGoe7n4gQP9oBHsL60aQOPwFHmaIybMrnTMv+I/PFQp3rjqSCB1auVGUQUOxAecH+R2BHsiedKxT235GFJBR4q1MeZ225yg7CS4=
+	t=1787901054; cv=none; b=hxYnMBs1JsZPcLUQ72Wu+rL3xcSCMdKOPxHhoQfV6OHYPez1GMkNpAsqoZidvwz27TPDAj779keJ7zJZH5m3QPW0WtN1WQoWguASI1QmWT1U/FAhJqJESTsmYsq7jMP0QPmvd2LiLs/DOEbEjgbcNNUdgomsNQHsc4LLPVj3cZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900875; c=relaxed/simple;
-	bh=lsBZYsAG+nr8THk4a+Io/3qdHObvPBkAo1nshLqp2i4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RU2bu0ShG8llh4diVcEyg8WDEIZxTcrklMk2pOOVc+VT0WgvHbxWbLaJ6zAYsVVJBRrEsFvuj7ywQ94VzYTZGtZphoBOplLSDiyGls54d5rPFED5s8Xm2yyfUlVLZFilwij0Kll9n3fV058R8huRJeYa4vqqjuSbQaKCTddCrQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=JyBeBZu3; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1787901054; c=relaxed/simple;
+	bh=hYDzKjnNqxYmY1OnMOzHzkHQhcAoDevwky7lPWZ82tM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Bnxm1JHQon5T6uWjibSJrhCfHVern+pSlm+H4hXYvtXsDIKzLhhsWP2DBuMZ87+rS7HW6hKsPm5xiywXYIKOMaHTbRIHIBmMgp8oS7c4W8z1sp3/TbmAoMTho2zt58E/mTnqReEoYKpJYsJnqyoQLZ+BEAwVO3OjDkKyC1e0+yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jMsrKb0d; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="JyBeBZu3"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so560279a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:07:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jMsrKb0d"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81ecf499af9so6764807b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:10:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1787900873; x=1788505673; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TRFIKfxO5tXI3eQnrJwwXHHecr77RgRWRC9iwHx3Doo=;
-        b=JyBeBZu3Q/Gyj3j11QVt2JAKWAVYS3nDVOUymsiMPp1gGJOR19Ojwl4kBBWV2/yrfF
-         tTHJv+RUGSSR2TI/MPWgLA4Y2anqJWjuPHOQdilb+c9zlnkAuo0dg0rEfYqIuvu7aWCw
-         DDwsD1s1FdpI4oR6U1qMg56ScGp6tuCl/k5hMwm+gQGevoFDLPVVVg/zST6sxKRJflAQ
-         L3RG3+u4kQhRSBegoimud2S5A72ELCNuZoet8e/B9XdmXapUTiIhaX5xZetQEsyEfRKy
-         bzJOruIGT91ccgYYSyjsvx2Ph/zxWo8JuyBl831yZJrrqBWDgPPnTTcJM8aRZ3/b3fkg
-         9Hnw==
+        d=gmail.com; s=20251104; t=1787901050; x=1788505850; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8mfhcIqIfHWd8sNFxoHf1vs2muwYwCiSdxw0D5clLVA=;
+        b=jMsrKb0d6hPuD2NtTKmwZIGLGWM+A2GPNM8bwtlNRRsq+P2j9EeTHePMla7SiM8nrn
+         KCc7+/ZSk72RzNe/8xkqMLkp0M12MuunGMgenKWDC3hiMIh8cDX89+Ilqf+680um/0yl
+         p+NnKNOVFUn/c4jKNJzL/Ct/AJsodN9HkeC69HA3uS4f24JGmQ47A+h6+Run2DWIfd6m
+         CwBVHd0G70Bj1+63YblW+7w3xjHKOgI+ZZO02DxVVyzb2KD+qLbqicZMoqY1Hg5qJozt
+         BbVqPEph8FBwKL3V5zRKtUKfp48wPI0k1JlWVasWRet7UzAQa9dNFMzpSxBqJOVmYIX6
+         YDKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787900873; x=1788505673;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TRFIKfxO5tXI3eQnrJwwXHHecr77RgRWRC9iwHx3Doo=;
-        b=MXWcRNDvnCn2O4O/QqACrDuXvUbUijcv3AsxrZtopTibleC4r1OqtOx3erWHmSspYq
-         EI7OYUWx4z0/MGp34dD+sHuwELOc6IohuKkji+d5KL3oQd8GmoL9DsMTSWb8TW4Lw+EI
-         VrJPCYD3tT8RcdPAFJkFt5ZTAml6l49cpcLEnyunKxTN4xyKAeRGABb9L+uKaK+9k11k
-         iUXgs7EFwJZg4rZ5lDvqZ/wmM/Fufb3lIO9YtAB434mWQbwdrJJL9dcgs3pCLZdj2Vkt
-         Lq6GTnhGlpWq+c3mqM2ELPkSX0HJWmGBi+Fgg9lUQ57W9PuJ4WDTr4UifrfNQj2fwD35
-         1jig==
-X-Forwarded-Encrypted: i=1; AHgh+Rrr8lmg2D9dycrPY4BaXr+59D2BNCuuLSVa1nTbZlFIve+L64ibgi+w4P0WKqUfb3a3sUO9SyZm7WpRltk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr8fsIA3GwZxaJbDAalJnJqlpUSK1ongtDxn7u7xKMdWWwApX5
-	fKhthtvnRTa55sAOFP7OlB0XDJz0zJyzdq2r5gXumL1k5Qt8KS+m6YcJK+VNbR4a518=
-X-Gm-Gg: AR+sD11raVyXGZDILf27oc8vx/e9WL6f9A1AdgM0WLkYDRDLOhbJ73KzWecMfrpU0ZV
-	0WI4MFxBEukeD4sM8BMJguWMCkbuCCgEMFG2rZG4vgGCZqK9lyb+M6fVLNzIcbssqd/ZkV/cvgr
-	5zm0BkfmVn0iucJ8IicQCMd3P8TJAeUAl1MMZgOhiWR3P6GL70RoOnhf4QaXIqiykU7N3EuCbgS
-	zmkyTPQ9fqMXBAL9mrzCpjRQgUxdGPlZHKhenwmRVV4iVoTPK/nSAQd/kRkY0zmmersF4Ng8gXC
-	+TRZeUdLcdCojNjsCSKgrxpQz4/ZYL9mb7X2cq8lu61qBvqsTjYJgWctipC5IMWyp+CGndMWgKb
-	ozCr6EcBoMCem92w0NIcdZ5Kee5TAD9JVbJNWs0I5zkwU9SOkc7SwfGSgzYsDmMWluMxeNFwiL2
-	NEAiM9j0tHhy7FOyIWc234nCTv6ldKWpLPWP+oHjFHB1a0F2tPBWoW9f9K8BICOzVVVk135bc5
-X-Received: by 2002:a17:90b:17c3:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-396d0ea9ce7mr7181024a91.2.1787900873239;
-        Fri, 28 Aug 2026 00:07:53 -0700 (PDT)
-Received: from sw04.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1b38esm3156610c88.3.2026.08.28.00.07.51
+        d=1e100.net; s=20251104; t=1787901050; x=1788505850;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8mfhcIqIfHWd8sNFxoHf1vs2muwYwCiSdxw0D5clLVA=;
+        b=X234os1lrbNWlrGrmnVLI3lysJGlUhtGbhy/4GH2Ge7SahAhOnkTpckkzuK/ETSJdE
+         tRZnMWTCkBCx0LkZVNpnarTkGkMZyu27E02NqIqdtya5ea9SNEmToTNHAYHGpLlRNzD2
+         Iry7w2BGOFllFTrxWXd7LZKx9mTeWZINwjqZzjLoCt1PMZrJr1Qo5GQqb1eaQAM3O69S
+         txSwlj6A+ed3tD1Tu9mXt0NaHaUm7UfMgDVDQV13ePgl0f0sxUhnWx6F4PdQ29HBV/C3
+         3MuVa3NZanFxdxSY9UBFiB+NRMM6Nc6lj4WUB39tNlIdBqx85PbiMmBmCd+ZIpfoCZ5M
+         KTEA==
+X-Forwarded-Encrypted: i=1; AHgh+RrkpkUWdIXHF+Ag1fwpf7m1PueMVTqHRnL1jdSMZMGbf/cwYAVAfJg1lrsiJfsYytqDmnabJPNlI8SY7TE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+4puFnC9CYDsZJ+JodiZOPUsHyU9M/YOWXCEatpxbDbdLs+uM
+	DWumuFIv4ZsWvtNc3NSSGwQl43zGD/zJhXCUgAC7ArjzslnorByQ78Hs
+X-Gm-Gg: AR+sD13WBo23J/2gBVOm06p1gaO0/KadW5q2r1TmivYn+WJZHKUwt27nbuzKHdkeMDy
+	t5aZ/hHg9GHdRyVGyUTUT18YL+TMBmV57v5lmA8JXKDwkElwx3QG+Y4qCfJYYtK8rJZsSoW/jDM
+	USf7XIyR902CxEa/jsBd20wVGR1ayNdPMKZuedTL+T43nbGuYqHNlvmHH2tF7NE4LkPtooGxIuM
+	IQYKKGV/A7pissiIx1F4lCsI9Pq77c7tHfCVx5Gg9oMel2hey2Xk34xVCVlTY4NFhgdzLHoQ4lH
+	mZ/QAh+brCcXTdhyxi//fLq2a32rwFfyusQwgleHcy5m8egO8EZ+OSbJV040y6Q3ZDv1JVPwEZa
+	ijXVOOkZkFqjY8g93jU5wMqnB8Rl//Sfm8nSDiAjT8J+TmwrdZW846Nv/dCIanZhxeVj/hMuEEv
+	7D8yl2WCK844BoACYBHPQFT8IgJhEZWmU6mdoz/tSBR4/o
+X-Received: by 2002:a05:690c:e3c2:b0:816:b469:cd12 with SMTP id 00721157ae682-85d6743f652mr23133277b3.8.1787901050397;
+        Fri, 28 Aug 2026 00:10:50 -0700 (PDT)
+Received: from gmail.com ([2600:1700:5431:250::3e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e677606aesm2859147b3.45.2026.08.28.00.10.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 00:07:52 -0700 (PDT)
-From: Zong Li <zong.li@sifive.com>
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	mark.rutland@arm.com,
-	andrew.jones@oss.qualcomm.com,
-	guoren@kernel.org,
-	david.laight.linux@gmail.com,
-	zhangzhanpeng.jasper@bytedance.com,
-	yang.yicong@picoheart.com,
-	iommu@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Cc: Zong Li <zong.li@sifive.com>
-Subject: [PATCH v7 2/2] drivers/perf: riscv-iommu: protect shared state with a raw spinlock
-Date: Fri, 28 Aug 2026 00:07:47 -0700
-Message-ID: <20260828070747.4009519-3-zong.li@sifive.com>
-X-Mailer: git-send-email @GIT_VERSION@
-In-Reply-To: <20260828070747.4009519-1-zong.li@sifive.com>
-References: <20260828070747.4009519-1-zong.li@sifive.com>
+        Fri, 28 Aug 2026 00:10:49 -0700 (PDT)
+Date: Fri, 28 Aug 2026 00:10:47 -0700
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>
+Cc: Anshul Dalal <anshulusr@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] iio: light: ltr390: Remove stale TODOs
+Message-ID: <apE0dwvpW6Yl8yzz@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Events are bound to one CPU and the interrupt is affine to it, so the
-perf callbacks running with interrupts disabled would be enough to
-exclude the handler.
+Remove stale TODOs from ltr390.c. All features have already been
+implemented by Abhash Jha<abhashkumarjha123@gmail.com>'s patches:
 
-PCI MSI/MSI-X on IMSIC breaks that: the irqchip sets
-IRQCHIP_MOVE_DEFERRED, so irq_set_affinity() reports success while only
-recording the request, and the move is applied in interrupt context upon
-the next device interrupt. Until then the interrupt is still routed to
-the CPU IMSIC picked initially, so the first overflow interrupt can run
-concurrently with the perf callbacks on the CPU the events are bound to.
+Configurable gain and resoluion: commit 13fad2607dad ("iio: light:
+ltr390: Add configurable gain and resolution") 
 
-Take a raw spinlock, with interrupts disabled so that the handler can
-never interrupt a holder on the same CPU, rather than depending on that
-irqchip behaviour. It covers the state which is reachable from both
-sides:
+Suspend/resume support: commit 288ce72fb5fc ("iio: light: ltr390:
+Suspend and Resume support")
 
- - IOCOUNTINH is read-modify-written by ->start()/->stop() and is saved
-   and restored around the whole handler.
- - pmu->events[] is written by ->del() and read by the handler.
- - hw_perf_event::prev_count is updated by both.
+Support for reading the ALS: commit 14e0d914a855 ("iio: light: ltr390:
+Add ALS channel and support for gain and resolution")
 
-->add() and ->del() call the unlocked __riscv_iommu_pmu_start() and
-__riscv_iommu_pmu_stop() so the lock is taken once per callback.
+Interrupt support: commit 7ca4b8957066 ("iio: light: ltr390: Interrupts
+and threshold event support")
 
-Signed-off-by: Zong Li <zong.li@sifive.com>
+Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
 ---
- drivers/perf/riscv_iommu_pmu.c | 66 ++++++++++++++++++++++++++++++----
- 1 file changed, 60 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/perf/riscv_iommu_pmu.c b/drivers/perf/riscv_iommu_pmu.c
-index f6acd56f2f61..ee2f6d1fbece 100644
---- a/drivers/perf/riscv_iommu_pmu.c
-+++ b/drivers/perf/riscv_iommu_pmu.c
-@@ -101,6 +101,7 @@ struct riscv_iommu_pmu {
- 	u64 event_cntr_mask;
- 	struct perf_event *events[RISCV_IOMMU_HPM_COUNTER_NUM];
- 	DECLARE_BITMAP(used_counters, RISCV_IOMMU_HPM_COUNTER_NUM);
-+	raw_spinlock_t lock;
- };
+Changes since v2:
+  * Added commit hashes for each implemented feature.
+
+ drivers/iio/light/ltr390.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/drivers/iio/light/ltr390.c b/drivers/iio/light/ltr390.c
+index bc031f2c3141..f1bb066248e6 100644
+--- a/drivers/iio/light/ltr390.c
++++ b/drivers/iio/light/ltr390.c
+@@ -10,12 +10,6 @@
+  *
+  * Datasheet:
+  *   https://optoelectronics.liteon.com/upload/download/DS86-2015-0004/LTR-390UV_Final_%20DS_V1%201.pdf
+- *
+- * TODO:
+- *   - Support for configurable gain and resolution
+- *   - Sensor suspend/resume support
+- *   - Add support for reading the ALS
+- *   - Interrupt support
+  */
  
- #define to_riscv_iommu_pmu(p) (container_of(p, struct riscv_iommu_pmu, pmu))
-@@ -485,7 +486,8 @@ static void riscv_iommu_pmu_update(struct perf_event *event)
- 	local64_add(delta, &event->count);
- }
- 
--static void riscv_iommu_pmu_start(struct perf_event *event, int flags)
-+/* Called with pmu->lock held */
-+static void __riscv_iommu_pmu_start(struct perf_event *event, int flags)
- {
- 	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
-@@ -500,11 +502,22 @@ static void riscv_iommu_pmu_start(struct perf_event *event, int flags)
- 	riscv_iommu_pmu_set_period(event);
- 	riscv_iommu_pmu_set_event(pmu, hwc->idx, hwc->config);
- 	riscv_iommu_pmu_enable_counter(pmu, hwc->idx);
-+}
-+
-+static void riscv_iommu_pmu_start(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	unsigned long irqflags;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	__riscv_iommu_pmu_start(event, flags);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
- 
- 	perf_event_update_userpage(event);
- }
- 
--static void riscv_iommu_pmu_stop(struct perf_event *event, int flags)
-+/* Called with pmu->lock held */
-+static void __riscv_iommu_pmu_stop(struct perf_event *event, int flags)
- {
- 	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
-@@ -521,13 +534,26 @@ static void riscv_iommu_pmu_stop(struct perf_event *event, int flags)
- 	hwc->state |= PERF_HES_STOPPED | PERF_HES_UPTODATE;
- }
- 
-+static void riscv_iommu_pmu_stop(struct perf_event *event, int flags)
-+{
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	unsigned long irqflags;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	__riscv_iommu_pmu_stop(event, flags);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+}
-+
- static int riscv_iommu_pmu_add(struct perf_event *event, int flags)
- {
- 	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
- 	unsigned int num_counters = pmu->num_counters;
-+	unsigned long irqflags;
- 	unsigned int idx;
- 
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+
- 	/* Reserve index zero for iohpmcycles */
- 	if (is_cycle_event(event->attr.config))
- 		idx = RISCV_IOMMU_HPM_CYCLE_IDX;
-@@ -535,8 +561,10 @@ static int riscv_iommu_pmu_add(struct perf_event *event, int flags)
- 		idx = find_next_zero_bit(pmu->used_counters, num_counters, 1);
- 
- 	/* All event counters or cycle counter are in use */
--	if (idx == num_counters || pmu->events[idx])
-+	if (idx == num_counters || pmu->events[idx]) {
-+		raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
- 		return -EAGAIN;
-+	}
- 
- 	set_bit(idx, pmu->used_counters);
- 
-@@ -546,7 +574,9 @@ static int riscv_iommu_pmu_add(struct perf_event *event, int flags)
- 	local64_set(&hwc->prev_count, 0);
- 
- 	if (flags & PERF_EF_START)
--		riscv_iommu_pmu_start(event, flags);
-+		__riscv_iommu_pmu_start(event, flags);
-+
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
- 
- 	/* Propagate changes to the userspace mapping. */
- 	perf_event_update_userpage(event);
-@@ -556,18 +586,26 @@ static int riscv_iommu_pmu_add(struct perf_event *event, int flags)
- 
- static void riscv_iommu_pmu_read(struct perf_event *event)
- {
-+	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
-+	unsigned long irqflags;
-+
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
- 	riscv_iommu_pmu_update(event);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
- }
- 
- static void riscv_iommu_pmu_del(struct perf_event *event, int flags)
- {
- 	struct riscv_iommu_pmu *pmu = to_riscv_iommu_pmu(event->pmu);
- 	struct hw_perf_event *hwc = &event->hw;
-+	unsigned long irqflags;
- 	int idx = hwc->idx;
- 
--	riscv_iommu_pmu_stop(event, PERF_EF_UPDATE);
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+	__riscv_iommu_pmu_stop(event, PERF_EF_UPDATE);
- 	pmu->events[idx] = NULL;
- 	clear_bit(idx, pmu->used_counters);
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
- 
- 	perf_event_update_userpage(event);
- }
-@@ -635,12 +673,24 @@ static irqreturn_t riscv_iommu_pmu_irq_handler(int irq, void *dev_id)
- {
- 	struct riscv_iommu_pmu *pmu = (struct riscv_iommu_pmu *)dev_id;
- 	DECLARE_BITMAP(ovf_bitmap, BITS_PER_TYPE(u64));
-+	unsigned long irqflags;
- 	u32 ovf, idx, inhibit;
- 
--	/* Check whether this interrupt is for PMU */
-+	/*
-+	 * Check whether this interrupt is for PMU. Done outside the lock so
-+	 * that a shared interrupt line is left alone as cheaply as possible.
-+	 */
- 	if (!(readl_relaxed(pmu->reg + RISCV_IOMMU_REG_IPSR) & RISCV_IOMMU_IPSR_PMIP))
- 		return IRQ_NONE;
- 
-+	/*
-+	 * Hold the lock across the whole sequence below. Stopping the
-+	 * counters, processing them and restoring the previous inhibit state
-+	 * has to be atomic against ->start()/->stop(), otherwise a counter
-+	 * enabled in between would be inhibited again by the restore.
-+	 */
-+	raw_spin_lock_irqsave(&pmu->lock, irqflags);
-+
- 	/* Process PMU IRQ */
- 	inhibit = riscv_iommu_pmu_stop_all(pmu);
- 
-@@ -672,6 +722,8 @@ static irqreturn_t riscv_iommu_pmu_irq_handler(int irq, void *dev_id)
- 
- 	riscv_iommu_pmu_start_all(pmu, inhibit);
- 
-+	raw_spin_unlock_irqrestore(&pmu->lock, irqflags);
-+
- 	return IRQ_HANDLED;
- }
- 
-@@ -735,6 +787,8 @@ static int riscv_iommu_pmu_probe(struct auxiliary_device *auxdev,
- 
- 	iommu_pmu->reg = iommu_dev->reg;
- 
-+	raw_spin_lock_init(&iommu_pmu->lock);
-+
- 	/*
- 	 * Counter number and width are hardware-implemented, detect them by
- 	 * writing 1s and reading back which bits stuck.
+ #include <linux/bitfield.h>
 -- 
-2.43.7
+2.55.0
 
