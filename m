@@ -1,254 +1,207 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F31746D569
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C154946A5F4
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928612; cv=none; b=Nog9GYvOSZSyYYLjjJspYZXy1ThoPahmc0BVFPwUHYxt6Au06u/4HctQj3yoJtXQNsqqQkiZTv26OGVD5UpHI9X0D5eAb1Q8Xh1tOL5KG98uNOjPGRhqucqcHEFo9HGmj2CbB+oj2nufPCF4a3R1F3izDr52tmhYIFYvSdzeNsI=
+	t=1787928760; cv=none; b=KdebV/3f/jmZemnYDByHjW64GxL4A+s5d/7ydcscBv+mcEqsNpA8FMDXKmnxa9ww+vHPpMR9UEGoJrpIv96cCXnYyXkQQzVWA+qgjE6MXMdRb2umIOc8e9h2mMhjZ+I8LI45u0f4R4HVy368XWtVxrGFArmW+ufhinpSUCFxXdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928612; c=relaxed/simple;
-	bh=YnWdCCD1qxKEg7762yorNJg/ecsxeveY3xQED7Gsy64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AbVs48xZNtzvqtGcHrQwDoRUB43y8eArxYhybbmkVlcrLcpicQQQYbH0BFoelaBMuPn9LCG6c6F9tyw0fvqw94WfVubYdnDiBhGvX86YH1Wq9Of7o4l0IGtx6pSLT54TsqAsWpJVpVZia4sO6gBKFscIFBoUcb1qY0jeW2yUxmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dnExEQ/t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GLjr3GcG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787928760; c=relaxed/simple;
+	bh=0W3l5gzOf175HxrmQHRJO2uQtrDxox5gxDEtDwEOFE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Tx9+nKUcKmnf0RlYruOu0XL7Bp4/H8xWXvZT4SZh6Icvvd38iYSAhUoB3kWCmGLHrIBbopBJgiujowJJrDKfS3uQurhZK0lhAlY6r8FfcczkeUDC1dvKPt++ENEg2BdhHvez371RGD2Fx0lJX4RlYApLhfQscb+n0eW53JtabfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJVzAIob; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dnExEQ/t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GLjr3GcG"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDke0N3545313
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:50:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hMfz7Vhc8U0TsC57RZ2pmSfybZVbiyDGTC2Y9/EyfeQ=; b=dnExEQ/tkR3FHbuq
-	C2YHv9pwKXa5wkI0RGBfLdmjTG7PffoW9MPOAlMpDvx/OkD0LqTDT6tIMnRcPd3y
-	XmsN0OV1ML92ZCGkNvH9VB2ZunDL9+rnQWtx8jJNztfHN0wINeOm7iCBUPOkcz7z
-	+PSO6d/pwvYp7vSRni5VRqAVJmF1lL25bu7oK2G5wC1eDhwpa/dzegkWvgc4a2e/
-	ddYmqKrI6WZCazeJDUq6ssxzv3nqSTGFJSaQU6NmNLAcaYrJrseun4PmVCD112vd
-	Tksj/4RUsVn67ZuQ6vK89u8rqQEHOioUdN0KOLGCKOqGfrf9P/mYMbNCtcz+BY2A
-	3t7rKw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb47n26u5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:50:09 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so1199900a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:50:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787928608; x=1788533408; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hMfz7Vhc8U0TsC57RZ2pmSfybZVbiyDGTC2Y9/EyfeQ=;
-        b=GLjr3GcGlZNaytQS6tBMhE/2AJ5ehSM7z0HWH57tzG8YrnxP6iL7GF6gj11u1PSgu8
-         84zUbwoAn8kvpX36Q4ZjXzR+uRQ3ErJ9ELzyOuDWluBDvguvvFvmL2118ZERWgPu54kA
-         X04N5EO5KisbjJkBaSJT96iCljVL22RLZ+C+MPRxwooksx5zaeOv2SXVPD8mwSRDxQVt
-         V6TKwQoo4Myo3L7lIIeqz7rXLsk6AzJfFXmR6HSOwgg5VDPREyOhvEqJ/r+5bbfoL0+a
-         gGluQU7u9jhMIKTnzLLOGTtyxTnQ+071ijkk4cJoCJDj6y2VDxoSNFYp96iV2r5W74kQ
-         z7ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787928608; x=1788533408;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hMfz7Vhc8U0TsC57RZ2pmSfybZVbiyDGTC2Y9/EyfeQ=;
-        b=qz35YvgvENuD7uM6KFFuZTUkUBE+YusHn1FoDXv8RPukMVdeq86t/Xun2PlKJYAvrZ
-         06eq01y+HBhupiilWV/z2uA8D6znIYpOIRIKATzqx3oVxZbzV5KRUB6ZaTdREYXZWhk7
-         5Jv2OKe1hrP7yqI13A+Ilf5Vxd056vBrqavIoXTs/brKd9eZe43sQA+5L8Zg4qTGXosx
-         ny5fL0yRQEvWmyj6e10e/UdrHLqV/48cWqff1dutNQf1hPqmujarOeVfZrd1ViS2HDSz
-         cjLIsqhagppfMK+gmvfMFWlDSSl7/duiL6nUv9+VyTm0wuvVRhxWpPc8rid5D+ZZ0lKX
-         l1HA==
-X-Forwarded-Encrypted: i=1; AHgh+RpEcBLLauC6/ElYf0JcBjnljYWIl8u/FVzUPqsMyQ6EISfxg8CjWhM5q5ijXBn0D3xFH8hYTLH+FaEljpA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGVylJb7jzsgRdpuopt1t8sx+oTq8CzZhARfJdHP+KyZXJ/u2U
-	Tu0TzTqGkPkdB9WDsWhOSN2gd/9zkpucllXxrwybYSo5BlbhbNmImgwg/2Flmukm5n0Odo3xhNO
-	/dFtq0Mcgn+WZInpoTHTqwpDQ+uwsrceE9xVxGLoR0w80q7h4SOdhwRaPIUHq94j3U7U=
-X-Gm-Gg: AR+sD11EhLfiavTN/qIEMzgvpatw96nSHoQPNGdJjEa+o/4FAl+z9M5UE3/q+72DNv5
-	VuwHuNNat9f+SZGyRnSvw4b5qeco5pooZdszz/Pp0XyKETpVguXhl6WZKL0cbZXSFCcHW6F7agi
-	i+PA0XrH/kovsXgvAO4vnH583HmjgTvzm+jWjS3MqfsInyVDG0/d+5Z5EZaKhOhBVtuCmH+dVdo
-	T1nD0OGaSHHcPuUfx4MlLokJPToc9KlVoIC/SZA+Suj9XkOZ2l40X90I21fCiy7d2e1sUt95FH9
-	kaLDHPicIoh5vPdPzLHIJzO2BQHkICzLhCy00jQ/7NnJwiqvythJVv9hw/AKzq7fTtFvNGLcygC
-	oxam8iWcHKtOH0gyhep02npL/mY7EKC+0VQ==
-X-Received: by 2002:a17:90b:4d88:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-3989bd3d8c8mr344660a91.14.1787928607883;
-        Fri, 28 Aug 2026 07:50:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d88:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-3989bd3d8c8mr344578a91.14.1787928607246;
-        Fri, 28 Aug 2026 07:50:07 -0700 (PDT)
-Received: from [192.168.29.63] ([49.43.230.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d6925e92sm1131305a91.2.2026.08.28.07.50.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 07:50:06 -0700 (PDT)
-Message-ID: <aabc3dbd-3e5b-4272-807f-f0743606e25a@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 20:20:00 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJVzAIob"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6665B1F000E9;
+	Fri, 28 Aug 2026 14:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787928758;
+	bh=ELhljBAu15ROpmEaT8Yh7qydfeZbcelWQRMHhRVBiPc=;
+	h=Date:From:To:Cc:Subject;
+	b=ZJVzAIobQ8VTMLVwthiWeqOdq2KaEtJDkcBkAna8yjxaYGDfSL4JQql3gnxclxwvJ
+	 AthXPcQsxO7fIBIO5pfTN67WGR9hRfOicMpTB2k0+Js4V602FxQCkyS9l/ae3j/yk4
+	 +uh79hDG/SXDI9oissI84j1vYP+Bl00tYl6TxRaYhvnQB7FQZ8BZRmpxWT9wLUSH+q
+	 EU8sDxC3dEhNqKrEfpYAB3U4F1evzR5nyvrItWIa/VL6QRUcw0mPhROO/99zLs8hpW
+	 kGXs3O/u63mkaKuFHzOVUHpNPTGJ/6iZC8xlI7gKaUuvONBjlhF+WfUNJ5rMWzborH
+	 PfzbEP/3mLeIQ==
+Date: Fri, 28 Aug 2026 14:52:36 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] f2fs for 7.3-rc1
+Message-ID: <apGgtMJ4mB-XRBlO@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: imx6: Enable ASPM L1 only iff CLKREQ# is
- supported
-To: Michal Gorlas <michal.gorlas@9elements.com>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        imx@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260828-l1-conditional-imx-v3-1-6fbba62164d9@9elements.com>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <20260828-l1-conditional-imx-v3-1-6fbba62164d9@9elements.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=a8YAM0SF c=1 sm=1 tr=0 ts=6a91a021 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=LZewZZGB/thYnPi3wayTIg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=YG64nluAAAAA:20 a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=PzGKxP3WAAAA:8
- a=8AirrxEcAAAA:8 a=kMM-w56GI0ZO-asq7NAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22 a=zCCnohV0i-_k6euCn0hJ:22
- a=ST-jHhOKWsTCqRlWije3:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: 2er_Yl2xks25pNkghX5ImuqFr9OR_hrt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEyOCBTYWx0ZWRfX2/00jOAg5LnX
- wTdJAlAICO9fHkY1ze50EvrExvieSkf/yeDIFJuk0oxRB6IStzc2u9ZAntUbmNYJDdhuRencO/n
- N1qwgrwRj6OdrrWfy2LOneR1Nh1DFis=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEyOCBTYWx0ZWRfX/5Jj3Fdd+EOP
- GVDutgVJJK/acoJa7/xe1oYG1qYoCPSkpAN1ojCZaTIjtEJtP/isLrY84H3787p3v5Goie3y1KC
- 09Retgmdj0eiuo12EDiEukAaRca3mR1x84Ds47HNb8ke9ZmkcfX7zeUyJryCDRY2wZPcwhCVboh
- S2aC/A/u9CoXF7tDzLJzwKyhfMUHthiFkWQINegNFg6Gt7kmKyPi17zm5wg4ct1sV6FyA3bEwU7
- E/9CUXjCTG8vHmOqy5pYGxIezpC5cOYasQ11FgZmtHZdROTxJVxcCLm6XcEDHxoz+yhVJsB2VIX
- JIQOKc6NNuNACZ75+Keig/UmLNa3NEDylRftPrqKm1xp/AjDaFmEOWNdrglHrjQX1U0JLjFhtdA
- DMs+nwCrAUFNyIms/NLhEvSRlsghFWHeqhIVip0eDvWe5f/ly2WV0YlkfRLbNMHyBxIvpEoTMA6
- jXsyg+9WjPOu4HBlzZQ==
-X-Proofpoint-GUID: 2er_Yl2xks25pNkghX5ImuqFr9OR_hrt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- spamscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280128
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Linus,
+
+Could you please consider this pull request?
+
+Thanks,
 
 
+The following changes since commit 62cc90241548d5570ee68e01aaba6506964e9811:
 
-On 8/28/2026 6:40 PM, Michal Gorlas wrote:
-> Since commit f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM
-> states for devicetree platforms"), ASPM states are force enabled
-> on all devicetree platforms. This causes PCI devices on some i.MX SoCs
-> (for e.g. i.MX 8M Plus Kontron SMARC eval carrier) to enter L1 even
-> though CLKREQ# is not supported (and consequently supports-clkreq is
-> not set in pcie controller node of their DT), which causes the device to
-> never wake up from L1.
-CLKREQ pin will not play any role  in entry and exit L1, it will be used only for
-L1 sub states entry and exit.
+  Merge tag 'mm-hotfixes-stable-2026-07-27-14-18' of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm (2026-07-27 14:36:26 -0700)
 
-If you want to disable L1, try to add aspm-no-l1 property in root port[1].
-Recently aspm driver change was merged which will disable L1 if that property
-is present[2]
+are available in the Git repository at:
 
-[1]: dt-schema/dtschema/schemas/pci/pci-bus-common.yaml at main ·
-devicetree-org/dt-schema
-<https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L167>
-[2]: Re: [PATCH v6 0/3] PCI/ASPM: Mask ASPM states based on Devicetree
-properties - Bjorn Helgaas
-<https://lore.kernel.org/all/20260812023735.GA846004@bhelgaas/>
+  git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git tags/f2fs-for-7.3-rc1
 
-- Krishna Chaitanya.
->
-> Hence, disable L1 capability in the LNKCAP register if supports-clkreq
-> is not set in the DT explicitly. For devices that set
-> IMX_PCIE_FLAG_BROKEN_SUSPEND, disable L1 on resume as well, as these
-> skip imx_pcie_host_init().
->
-> Note, the logic here is very similar to 613f3255a35a, only difference
-> is that leaving L0s enabled does not cause issues (at least
-> I never encountered them myself when testing on the device) as its
-> not dependent on CLKREQ# being physically there.
-> Since there is already a way of specifying its presence in the DT,
-> the driver should be aware and disable L1.
->
-> Fixes: f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM states for devicetree platforms")
-> Signed-off-by: Michal Gorlas <michal.gorlas@9elements.com>
-> Tested-by: Richard Zhu <hongxing.zhu@nxp.com>
-> Reviewed-by: Richard Zhu <hongxing.zhu@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> Changes in v3:
-> - pick up the reviewed-by tag
-> - Link to v2: https://patch.msgid.link/20260827-l1-conditional-imx-v2-1-40b324aa2a94@9elements.com
->
-> Changes in v2:
-> - disable L1 unconditionally on resume for platforms advertising
-> IMX_PCIE_FLAG_BROKEN_SUSPEND (Sashiko)
-> - typos in the commit message
-> - Link to v1: https://patch.msgid.link/20260719-l1-conditional-imx-v1-1-a55a57915c68@9elements.com
-> ---
->  drivers/pci/controller/dwc/pci-imx6.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> index 98e1db751132..1fdcbcd2422e 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1318,6 +1318,22 @@ static void imx_pcie_assert_perst(struct imx_pcie *imx_pcie, bool assert)
->  	}
->  }
->  
-> +static void imx_pcie_disable_l1(struct dw_pcie *pci)
-> +{
-> +	u32 val;
-> +	u8 offset;
-> +
-> +	offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-> +
-> +	dw_pcie_dbi_ro_wr_en(pci);
-> +
-> +	val = dw_pcie_readl_dbi(pci, offset + PCI_EXP_LNKCAP);
-> +	val &= ~PCI_EXP_LNKCAP_ASPM_L1;
-> +	dw_pcie_writel_dbi(pci, offset + PCI_EXP_LNKCAP, val);
-> +
-> +	dw_pcie_dbi_ro_wr_dis(pci);
-> +}
-> +
->  static int imx_pcie_host_init(struct dw_pcie_rp *pp)
->  {
->  	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> @@ -1442,6 +1458,9 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
->  
->  	imx_setup_phy_mpll(imx_pcie);
->  
-> +	if (!imx_pcie->supports_clkreq)
-> +		imx_pcie_disable_l1(pci);
-> +
->  	return 0;
->  
->  err_phy_off:
-> @@ -1748,6 +1767,7 @@ static int imx_pcie_resume_noirq(struct device *dev)
->  			return ret;
->  		imx_pcie_deassert_core_reset(imx_pcie);
->  		imx_pcie_assert_perst(imx_pcie, false);
-> +		imx_pcie_disable_l1(imx_pcie->pci);
->  
->  		/*
->  		 * Using PCIE_TEST_PD seems to disable MSI and powers down the
->
-> ---
-> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> change-id: 20260713-l1-conditional-imx-c2bfd20ae085
->
-> Best regards,
-> --  
-> Michal Gorlas <michal.gorlas@9elements.com>
->
->
+for you to fetch changes up to c966d29e01bbf829f8bb4a39a49811c56cdb49c3:
 
+  f2fs: support resizable tail section and unify pinned allocation (2026-08-27 04:47:36 +0000)
+
+----------------------------------------------------------------
+f2fs-for-7.3-rc1
+
+In this round, key enhancements focus on reducing inode management memory
+overhead, introducing resizable tail sections with unified pinned allocation,
+and boosting I/O throughput via parallel multi-device flushes and asynchronous
+f2fs_write_end_io() execution. We also add dynamic device alias reservations to
+allow on-the-fly space donation from user partitions.
+
+Alongside these features, critical bug fixes resolve folio race conditions,
+lingering dirty flags, dentry and block counter leaks, and potential deadloops
+in f2fs_fsync_node_pages(). Additional stability patches address error-path
+handling across symlink, sync, and rename/unlink operations, prevent pinned file
+fragmentation, and correct segment migration and free section accounting in
+free_segment_range.
+
+Enhancement:
+ - reduce memory footprint of ino management
+ - support dynamic reserve/release for device aliasing
+ - issue multi-device flushes in parallel
+ - add a way to run f2fs_write_end_io() asynchronously
+ - support resizable tail section and unify pinned allocation
+
+Bug fix:
+ - fix to pass folio->index to f2fs_sanity_check_node_footer()
+ - fix folio_nr_pages() race after put in large folio invalidate
+ - fix to clear dirty flag on folio in error path
+ - accurately adjust free_sections during free_segment_range
+ - fix to avoid potential deadloop in f2fs_fsync_node_pages()
+ - fix the error path in symlink, device alias in rename/unlink,
+   f2fs_sync_fs,
+ - fix to migrate all curseg types during free_segment_range
+ - fix to avoid pinfile fragment on fragment:{block, segment} mode
+ - fix valid block count leak on data block allocation failure
+ - fix dentry folio leak in find_in_level
+ - reject overlapping move range after len expansion
+ - fix some bugs related to file pinning, GC functions, i_size.
+
+And, the series includes a number of minor bug fixes.
+
+----------------------------------------------------------------
+Bart Van Assche (1):
+      f2fs: Run f2fs_write_end_io() asynchronously
+
+Chao Yu (22):
+      f2fs: drop FGP_NOFS in f2fs_write_begin()
+      f2fs: quota: do not use GFP_NOFS in f2fs_quota_read()
+      f2fs: embed f2fs_gc_kthread in f2fs_sb_info
+      f2fs: fix to avoid potential section-unaligned pinfile
+      f2fs: fix to avoid move_range and defragment on device_alias file
+      f2fs: fix to return -EFSCORRUPTED in f2fs_get_node_info() correctly
+      f2fs: avoid unnecessary shrink in f2fs_shrink_scan()
+      f2fs: fix to clear dirty flag on folio in error path
+      f2fs: print error information in f2fs_put_super()
+      f2fs: fix to pass folio->index to f2fs_sanity_check_node_footer()
+      f2fs: fix to off-by-one issue in f2fs_zero_post_eof_page()
+      f2fs: fix to zero post-EOF data when extending file size
+      f2fs: unify add/remove ino entry API for all ino types
+      f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
+      f2fs: fix to shrink gc_lock coverage in f2fs_gc_range()
+      f2fs: cleanup w/ f2fs_need_rand_{blk, seg, seg_blk}
+      f2fs: fix to avoid pinfile fragment on fragment:{block, segment} mode
+      f2fs: reduce memory footprint of ino management
+      f2fs: use f2fs_{down, up}_(read, write}_trace() for nat_tree_lock
+      f2fs: fix to reset all pinned status during fggc
+      f2fs: fix to propagate error from f2fs_sync_fs()
+      f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
+
+Chen Changcheng (1):
+      f2fs: fix valid block count leak on data block allocation failure
+
+Daeho Jeong (6):
+      f2fs: support dynamic reserve/release for device aliasing
+      f2fs: avoid setting SBI_NEED_FSCK on transient resize failure
+      f2fs: fix to migrate all curseg types during free_segment_range
+      f2fs: fix error handling on device alias check in rename and unlink
+      f2fs: accurately adjust free_sections during free_segment_range
+      f2fs: support resizable tail section and unify pinned allocation
+
+Guanghui Yang (1):
+      f2fs: fix dentry folio leak in find_in_level
+
+Hao-Qun Huang (1):
+      f2fs: reject overlapping move range after len expansion
+
+Jaegeuk Kim (3):
+      f2fs: refactor f2fs_evict_inode having three major parts
+      f2fs: call __add_ino_entry out of the eviction path
+      f2fs: don't leave the hashed inode while it's unlinked
+
+Joanne Chang (1):
+      f2fs: dirty directory inodes on mtime/ctime update
+
+Seongjae Jeong (1):
+      f2fs: use adjusted write range after f2fs_write_checks()
+
+Wenjie Qi (8):
+      f2fs: validate MOVE_RANGE destination size
+      f2fs: limit recovery filename logging to stored length
+      f2fs: only redirty pinned folios in redirty_blocks
+      f2fs: return writeback error from collapse range
+      f2fs: reject invalid recovered filename lengths
+      f2fs: avoid NULL checkpoint thread access in sysfs
+      f2fs: protect critical_task_priority updates with s_umount
+      f2fs: return symlink writeback errors
+
+Yonggil Song (1):
+      f2fs: issue multi-device flushes in parallel
+
+Zhan Xusheng (4):
+      f2fs: use the mount idmap for the owner check in f2fs_xattr_advise_set()
+      f2fs: don't drop the top folio order in the f2fs_iostat tracepoint
+      f2fs: Remove unused curseg_segno() and curseg_alloc_type()
+      f2fs: fix i_size when pinned fallocate partially fails
+
+Zhaoyang Huang (1):
+      f2fs: fix folio_nr_pages() race after put in large folio invalidate
+
+ Documentation/ABI/testing/sysfs-fs-f2fs |  18 ++
+ Documentation/filesystems/f2fs.rst      |  43 ++-
+ fs/f2fs/checkpoint.c                    | 123 ++++++++-
+ fs/f2fs/data.c                          |  48 +++-
+ fs/f2fs/debug.c                         |   4 -
+ fs/f2fs/dir.c                           |   7 +-
+ fs/f2fs/extent_cache.c                  |   9 +
+ fs/f2fs/f2fs.h                          |  90 ++++++-
+ fs/f2fs/file.c                          | 460 ++++++++++++++++++++++++++++----
+ fs/f2fs/gc.c                            | 129 +++++----
+ fs/f2fs/gc.h                            |  27 +-
+ fs/f2fs/inline.c                        |   2 +-
+ fs/f2fs/inode.c                         | 234 +++++++++++-----
+ fs/f2fs/iostat.c                        |   6 +
+ fs/f2fs/namei.c                         | 168 +++++++-----
+ fs/f2fs/node.c                          |  81 +++---
+ fs/f2fs/recovery.c                      |  55 ++--
+ fs/f2fs/segment.c                       | 279 +++++++++++++------
+ fs/f2fs/segment.h                       |  37 ++-
+ fs/f2fs/shrinker.c                      |   3 +-
+ fs/f2fs/super.c                         |  99 ++++++-
+ fs/f2fs/sysfs.c                         |  34 ++-
+ fs/f2fs/xattr.c                         |   2 +-
+ include/trace/events/f2fs.h             |  23 +-
+ include/uapi/linux/f2fs.h               |   7 +
+ 25 files changed, 1532 insertions(+), 456 deletions(-)
