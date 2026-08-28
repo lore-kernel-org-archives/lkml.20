@@ -1,206 +1,145 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CA04503E5
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F2B813959D;
+	Fri, 28 Aug 2026 14:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926376; cv=none; b=Q3Ck/hOADjzFxC7Vbzky4u2n3mFV79orl4ZVh5/ooS+3TIT2Fc4OjvbKjBzA/YTFSXJzpmzQrvAoCjTpNJ44uXPTEG+5P3996ohquROoIryQLbHrGrvqh0zFio7zx9MfUJiTEhSQZrdstirBQq9HwXAZH2jsySKFzTWnXR0NRII=
+	t=1787926551; cv=none; b=D8JzF/NAgAWtGgB7ow0jlNAgQ1jkeM0kelgFDBQkQ7H7bWpIj6NAEbuaaF4c24B+bId9gtlKEWd0q3Qx661pBkNOvLuo8bXQ6KJByWuw6DxdusG2Jv8mx+RR4glAtUoYmxP/pHlK91M2/Wk4oX6VUmugmX6V3BDu1P/fSEyCutM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926376; c=relaxed/simple;
-	bh=rwVNcBLVIw3rNcDwVpBLQgkgzsDPYAPElpClNR9fqfc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ifhj57JSy8suHVKLgd8FlT8VPjaldkgtiCt5A1/zGRqd9fcKkciXVioYW4nHVw4iveaCHQO4THWahjpWJ9+YuTv+uTIRhWPm6SeZRO/y0pbKYc7lWech285WGtKVVXeIHZ/rgM4ar0SzJzpfzfzqy6vNzV6AnPtZq5YtDdLhL8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l2w5RxaN; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l2w5RxaN"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1163530a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:12:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787926372; x=1788531172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jwGAw/3u92Bautox8ZBye7j/eciIao9tSSPeFwdR8xA=;
-        b=l2w5RxaNAFioG3VVPKypIg2MXWANUTqXiNfI9sbw0nu8/f+peS3i2hq9uPYr8DaVWS
-         QWsDWLRMgi3DCRiLF6qzABSpmYGd/Xg7itH+H4gnq/2t0PSu8EJYdig7gpvkhigQcl5M
-         qWfwkXUMbBvxSQqzCl+VjBscIsDpHxHPp+wmvr/TFLXx7qiA4SQr23MmkXOIr9xTM0dk
-         d2ZEMOAsctsIlB07ZAbvVRaS+gUhQHyC84q5o6l4zLM3AItE+S9O3GIsfx9+pvZNM7Wi
-         9C16FNbRZ7Un3S/7S2E5ANjaIiash+WN1U+M13hQDy7WCi2gnybD4wihrxkEsqxmP5OG
-         8Wmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787926372; x=1788531172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jwGAw/3u92Bautox8ZBye7j/eciIao9tSSPeFwdR8xA=;
-        b=HICyGWVHtuDGGgd6YlGywGbT3GmLU4NmgEQAdzu5V0F9f3SgkEeq5w45xW9aYvmWCJ
-         e6Md4p+diLOUtlNb9d/gsq/K4jDCJdaHGK09JPZLAX/CzVbbk9ByDfiw6w/Q3uGUnGyD
-         S22QcXOtAg7s+xjGo+ZQ4GTxnh+dtkIRM0QE+TRRTjYdOEYBVGxg2hzDTxanC77atz0X
-         dTt6be1zjNcCbL40ZfHFNXmpHEps0UOdIaeWkYLQzu90PjIbxLatd0XShPoHk+xw9vAK
-         UyztcqdlZAaEHMbmQJJvvOG4qigAatuKzsdpyuXnpZ0m5aQEAzp3jH0zid8M2O+OJDi8
-         jLEw==
-X-Forwarded-Encrypted: i=1; AHgh+RrgGEzX7hxuS1D5wLjlVvYI1hlsO8mVvWps7aLRlhutIQY/KvMXKjhWOzbjQstrP5H2idB+VzgCwGSVgjg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mE2mfCQCL2cdzn9xmU4FCnrBDEcHtgVQMjUydp5R4pbHJ3XyhA
-	kIvd5Um6d7pSFmsUkJhlldxoAEnHXdOS5W00E0fQQ4u4P8kAADAx/WbLy7+EMlHt
-X-Gm-Gg: AR+sD11OuBJkyckrS/rQcnRfx74HxBQUBr1SgSljaF4YvFixf3zyBWgjWL8+jQVWQXK
-	XnithtxnNWzLPfAM8lBWcbdS+gmuizNesCMnoGeT6CBEE3Dl35zzEedD1V+72ruVYe7Rs5TFDNS
-	SQRLsX1rWViOiDIv8nrgJURZC9sJllY4HqgMeozHhd1FsjCdj456qmPzsSrA91cvFC1AgJWinV6
-	ZousxS9to/67moa9vBJKSmZsMODATbm6VqkxyvP0p1oeO6zNEKvT5TublpC8a2dTzTzwB1FLBC5
-	VLo7Fhsm0j/kMNSMZ8ubKVj3THJEti/Ago0F5ZqeaWQANOSNgb/hc/zgmYxPIaB3es3cixQJVug
-	0Z/Yq5iG5pIFQr+Y65jJb0SraNUWj5ikfd0d0FByyOtX9+Xudk6En9LoudNHnRDzoBTd8YJRtdT
-	jAUbBrFq3oVEx1oxXlUDq2xx3vfHRVj2TmzK5MwhGS1jG7PFJ5UN+RG+o2PpV66A/CjW9k69pW/
-	LlqX43dWsYJAqaHfh65yMw6h4PUWV0sfdMF
-X-Received: by 2002:a17:90b:5890:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-396d0f1a83fmr15048057a91.13.1787926371638;
-        Fri, 28 Aug 2026 07:12:51 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc0c703sm2737951a91.9.2026.08.28.07.12.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:12:51 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: sunqiuyang@huawei.com,
-	daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH 2/2] f2fs: refresh pinned allocation boundary after resize
-Date: Fri, 28 Aug 2026 22:12:40 +0800
-Message-ID: <20260828141240.2391915-2-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
-References: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
+	s=arc-20240116; t=1787926551; c=relaxed/simple;
+	bh=1togXF87+OBuNEJP3KkPLd3eqlmq8mszazMQvvo8Vc0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=ABORP0LxaogSsNSa2Y8BDAas+Qm+1oCW3ArXdo6jhtvdbsjISGv+Fh9vtYCUpKAHKHa1bRJkuuUtkanM7eZHNYrLaQCHcEpmzd0HDJ0Hi8nE2HsLWeMgM/OservE3D0+v6QYTjZe8QfIoJYZi/rOJm+C5tVYxkEMKI3M/OYY19g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from dzm91$hust.edu.cn ( [58.19.0.248] ) by ajax-webmail-app1
+ (Coremail) ; Fri, 28 Aug 2026 22:15:27 +0800 (GMT+08:00)
+Date: Fri, 28 Aug 2026 22:15:27 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5oWV5Yas5Lqu?= <dzm91@hust.edu.cn>
+To: "Yukai Wu" <xiaoyewuz.ruster@gmail.com>
+Cc: "Alex Shi" <alexs@kernel.org>, "Yanteng Si" <si.yanteng@linux.dev>,
+	"Jonathan Corbet" <corbet@lwn.net>, "Paul Walmsley" <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>,
+	"Albert Ou" <aou@eecs.berkeley.edu>,
+	"Shuah Khan" <skhan@linuxfoundation.org>,
+	"Alexandre Ghiti" <alex@ghiti.fr>, linux-doc@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/patch-acceptance.rst
+ translation
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+In-Reply-To: <20260828061834.3645176-1-xiaoyewuz.Ruster@gmail.com>
+References: <20260828061834.3645176-1-xiaoyewuz.Ruster@gmail.com>
+X-CM-CTRLMSGS: =?B?S1oygjiH6nJ5xwDR7hwMki1N8jM=
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <14a7a290.91f.1a048b9be40.Coremail.dzm91@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IAEQrMD2HAf_l5Fq5acpAA--.6725W
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/1tbiAgQND2qQY2eCzgABs3
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VW5Jw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-pinned_area_max_secno is derived from MAIN_SECS(), the zoned device
-boundary, and resizable_tail_secno. It is currently recalculated only
-at mount and remount, so online resize leaves the pre-resize value
-active after MAIN_SECS() changes.
-
-A stale value can allow pinned allocations in sections outside the
-new main-area boundary.
-
-Move the calculation to segment.h and call it whenever
-update_fs_metadata() changes MAIN_SECS(). This also restores the
-previous boundary when a final checkpoint error rolls the resize
-metadata back.
-
-Mount option validation compares the tail count with the pre-resize
-section count. Recalculating after a shrink below that tail would make
-the unsigned subtraction wrap. Reject such a shrink with -EINVAL
-before taking resize locks or changing filesystem geometry.
-
-Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinned allocation")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
- fs/f2fs/gc.c      |  7 +++++++
- fs/f2fs/segment.h | 16 ++++++++++++++++
- fs/f2fs/super.c   | 15 ++-------------
- 3 files changed, 25 insertions(+), 13 deletions(-)
-
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 0a00180c21dc..978e85578c79 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2326,6 +2326,7 @@ static void update_fs_metadata(struct f2fs_sb_info *sbi, int secs)
- 	SM_I(sbi)->segment_count = (int)SM_I(sbi)->segment_count + segs;
- 	MAIN_SEGS(sbi) = (int)MAIN_SEGS(sbi) + segs;
- 	MAIN_SECS(sbi) += secs;
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 	if (sbi->allocate_section_hint > MAIN_SECS(sbi))
- 		sbi->allocate_section_hint = MAIN_SECS(sbi);
- 	FREE_I(sbi)->free_sections = (int)FREE_I(sbi)->free_sections + secs;
-@@ -2398,6 +2399,12 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 
- 	shrunk_blocks = old_block_count - block_count;
- 	secs = div_u64(shrunk_blocks, BLKS_PER_SEC(sbi));
-+	if (secs >= MAIN_SECS(sbi) ||
-+	    F2FS_OPTION(sbi).resizable_tail_secno >=
-+	    MAIN_SECS(sbi) - secs) {
-+		err = -EINVAL;
-+		goto out_drop_write;
-+	}
- 
- 	/* stop other GC */
- 	if (!f2fs_down_write_trylock_trace(&sbi->gc_lock, &glc)) {
-diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-index 5949aa5200ac..7c7ca0730d77 100644
---- a/fs/f2fs/segment.h
-+++ b/fs/f2fs/segment.h
-@@ -91,6 +91,22 @@ static inline void sanity_check_seg_type(struct f2fs_sb_info *sbi,
- #define GET_ZONE_FROM_SEG(sbi, segno)				\
- 	GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
- 
-+static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
-+{
-+	sbi->pinned_area_max_secno = MAIN_SECS(sbi);
-+	if (f2fs_sb_has_blkzoned(sbi) &&
-+	    sbi->first_seq_zone_segno != NULL_SEGNO)
-+		sbi->pinned_area_max_secno =
-+			min(sbi->pinned_area_max_secno,
-+			    GET_SEC_FROM_SEG(sbi,
-+					     sbi->first_seq_zone_segno));
-+	if (F2FS_OPTION(sbi).resizable_tail_secno)
-+		sbi->pinned_area_max_secno =
-+			min(sbi->pinned_area_max_secno,
-+			    MAIN_SECS(sbi) -
-+			    F2FS_OPTION(sbi).resizable_tail_secno);
-+}
-+
- #define GET_SUM_BLOCK(sbi, segno)	\
- 	(SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
- #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 253a579e9d5b..c8f8ecf49635 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
- 			F2FS_OPTION(sbi).unusable_cap_perc);
- }
- 
--static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
--{
--	sbi->pinned_area_max_secno = MAIN_SECS(sbi);
--	if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno != NULL_SEGNO)
--		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
--				GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone_segno));
--	if (F2FS_OPTION(sbi).resizable_tail_secno)
--		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
--				MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizable_tail_secno);
--}
--
- static void init_once(void *foo)
- {
- 	struct f2fs_inode_info *fi = (struct f2fs_inode_info *) foo;
-@@ -3078,7 +3067,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
- 	sb->s_flags = (sb->s_flags & ~SB_POSIXACL) |
- 		(test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
- 
--	adjust_pinned_area_boundary(sbi);
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 	limit_reserve_root(sbi);
- 	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
- 
-@@ -5321,7 +5310,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	/* get segno of first zoned block device */
- 	sbi->first_seq_zone_segno = get_first_seq_zone_segno(sbi);
- 
--	adjust_pinned_area_boundary(sbi);
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 
- 	sbi->reserved_pin_section = f2fs_sb_has_blkzoned(sbi) ?
- 			ZONED_PIN_SEC_REQUIRED_COUNT :
--- 
-2.43.0
-
+PiDlj5Hku7bkuro6ICJZdWthaSBXdSIgPHhpYW95ZXd1ei5ydXN0ZXJAZ21haWwuY29tPgo+IOWP
+kemAgeaXtumXtDoyMDI2LTA4LTI4IDE0OjE4OjE2ICjmmJ/mnJ/kupQpCj4g5pS25Lu25Lq6OiAi
+QWxleCBTaGkiIDxhbGV4c0BrZXJuZWwub3JnPiwgIllhbnRlbmcgU2kiIDxzaS55YW50ZW5nQGxp
+bnV4LmRldj4sICJKb25hdGhhbiBDb3JiZXQiIDxjb3JiZXRAbHduLm5ldD4sICJQYXVsIFdhbG1z
+bGV5IiA8cGp3QGtlcm5lbC5vcmc+LCAiUGFsbWVyIERhYmJlbHQiIDxwYWxtZXJAZGFiYmVsdC5j
+b20+LCAiQWxiZXJ0IE91IiA8YW91QGVlY3MuYmVya2VsZXkuZWR1Pgo+IOaKhOmAgTogIkRvbmds
+aWFuZyBNdSIgPGR6bTkxQGh1c3QuZWR1LmNuPiwgIlNodWFoIEtoYW4iIDxza2hhbkBsaW51eGZv
+dW5kYXRpb24ub3JnPiwgIkFsZXhhbmRyZSBHaGl0aSIgPGFsZXhAZ2hpdGkuZnI+LCBsaW51eC1k
+b2NAdmdlci5rZXJuZWwub3JnLCBsaW51eC1yaXNjdkBsaXN0cy5pbmZyYWRlYWQub3JnLCBsaW51
+eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCAiWXVrYWkgV3UiIDx4aWFveWV3dXouUnVzdGVyQGdt
+YWlsLmNvbT4KPiDkuLvpopg6IFtQQVRDSF0gZG9jcy96aF9DTjogVXBkYXRlIGFyY2gvcmlzY3Yv
+cGF0Y2gtYWNjZXB0YW5jZS5yc3QgdHJhbnNsYXRpb24KPiAKPiBVcGRhdGUgRG9jdW1lbnRhdGlv
+bi9hcmNoL3Jpc2N2L3BhdGNoLWFjY2VwdGFuY2UucnN0IHRyYW5zbGF0aW9uLgo+IAo+IFVwZGF0
+ZSB0aGUgdHJhbnNsYXRpb24gdGhyb3VnaCBjb21taXQgZWQ4NDNhZTk0N2Y4Cj4gKCJkb2NzOiBt
+b3ZlIHJpc2N2IHVuZGVyIGFyY2giKQo+IAo+IFNpZ25lZC1vZmYtYnk6IFl1a2FpIFd1IDx4aWFv
+eWV3dXouUnVzdGVyQGdtYWlsLmNvbT4KPiAtLS0KPiAgLi4uL3poX0NOL2FyY2gvcmlzY3YvcGF0
+Y2gtYWNjZXB0YW5jZS5yc3QgICAgIHwgNDYgKysrKysrKysrKysrKystLS0tLQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
+dCBhL0RvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NOL2FyY2gvcmlzY3YvcGF0Y2gtYWNj
+ZXB0YW5jZS5yc3QgYi9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi9hcmNoL3Jpc2N2
+L3BhdGNoLWFjY2VwdGFuY2UucnN0Cj4gaW5kZXggYzhlYjIzMGNhOGVlLi5hNDhlNmU1NzVhNjcg
+MTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi90cmFuc2xhdGlvbnMvemhfQ04vYXJjaC9yaXNj
+di9wYXRjaC1hY2NlcHRhbmNlLnJzdAo+ICsrKyBiL0RvY3VtZW50YXRpb24vdHJhbnNsYXRpb25z
+L3poX0NOL2FyY2gvcmlzY3YvcGF0Y2gtYWNjZXB0YW5jZS5yc3QKPiBAQCAtMTUsMTkgKzE1LDQx
+IEBAIGFyY2gvcmlzY3Yg5byA5Y+R6ICF57u05oqk5oyH5Y2XCj4gIAo+ICDmpoLov7AKPiAgLS0t
+LQo+IC1SSVNDLVbmjIfku6Tpm4bkvZPns7vnu5PmnoTmmK/lhazlvIDlvIDlj5HnmoTvvJoKPiAr
+UklTQy1WIOaMh+S7pOmbhuS9k+ezu+e7k+aehOaYr+WFrOW8gOW8gOWPkeeahO+8mgo+ICDmraPl
+nKjov5vooYznmoTojYnmoYjlj6/kvpvmiYDmnInkurrmn6XnnIvlkozmtYvor5Xlrp7njrDjgILm
+lrDmqKHlnZfmiJbogIXmianlsZXojYnmoYjlj6/og73kvJrlnKjlvIDlj5Hov4fnqIvkuK3lj5EK
+PiAt55Sf5pu05pS5LS0t5pyJ5pe25Lul5LiN5YW85a6555qE5pa55byP5a+55Lul5YmN55qE6I2J
+5qGI6L+b6KGM5pu05pS544CC6L+Z56eN54G15rS75oCn5Y+v6IO95Lya57uZUklTQy1WIExpbnV4
+Cj4gLee7tOaKpOiAheW4puadpeaMkeaImOOAgkxpbnV45byA5Y+R6L+H56iL5pu05Zac5qyi57uP
+6L+H6Imv5aW95qOA5p+l5ZKM5rWL6K+V55qE5Luj56CB77yM6ICM5LiN5piv6K+V6aqM5Luj56CB
+44CC5oiRCj4gLeS7rOW4jOacm+aOqOW5v+WQjOagt+eahOinhOWImeWIsOWNs+Wwhuiiq+WGheag
+uOWQiOW5tueahFJJU0MtVuebuOWFs+S7o+eggeOAggo+ICvnlJ/mm7TmlLkgLS0tIOacieaXtuS7
+peS4jeWFvOWuueeahOaWueW8j+WvueS7peWJjeeahOiNieahiOi/m+ihjOabtOaUueOAgui/meen
+jeeBtea0u+aAp+WPr+iDveS8mue7mSBSSVNDLVYKPiArTGludXgg57u05oqk6ICF5bim5p2l5oyR
+5oiY44CCTGludXgg57u05oqk6ICF5LiN6LWe5oiQ6aKR57mB55qE5Y+Y5pu077yM5LiUIExpbnV4
+IOW8gOWPkei/h+eoi+abtOWWnOasoue7j+i/hwo+ICvoia/lpb3mo4Dmn6XlkozmtYvor5XnmoTk
+u6PnoIHvvIzogIzkuI3mmK/or5Xpqozku6PnoIHjgILmiJHku6zluIzmnJvmjqjlub/lkIzmoLfn
+moTop4TliJnliLDljbPlsIbooqvlhoXmoLjlkIjlubbnmoQKPiArUklTQy1WIOebuOWFs+S7o+eg
+geOAggo+ICsKPiAr6KGl5LiB6Lef6Liq57O757ufCj4gKy0tLS0tLS0tLS0tLQo+ICsKPiArUklT
+Qy1WIOacieS4gOS4quihpeS4gei3n+i4quezu+e7n+WunuS+i++8jOWPr+S7peWcqOmCo+mHjOaf
+peeci+ihpeS4geeahOeKtuaAge+8mgo+ICsKPiArICBodHRwczovL3BhdGNod29yay5rZXJuZWwu
+b3JnL3Byb2plY3QvbGludXgtcmlzY3YvbGlzdC8KPiArCj4gK+WmguaenOS9oOeahOihpeS4geS4
+jeWcqOm7mOiupOinhuWbvuS4reWHuueOsO+8jOmCo+S5iCBSSVNDLVYg57u05oqk6ICF5b6I5pyJ
+5Y+v6IO95bey6KaB5rGC5L+u5pS577yM5oiW6ICF5biM5pybCj4gK+WwhuWFtuW6lOeUqOWIsOWP
+puS4gOS4quS7o+eggeagkeS4iuOAggo+ICsKPiAr6Ieq5Yqo5YyW5rWB56iL5Lya5Zyo6K+l6KGl
+5LiB6Lef6Liq57O757uf5a6e5L6L5LiK6L+Q6KGM77yM5Zyo5q+P5Liq6KGl5LiB5Yiw6L6+5pe2
+56uL5Yi75a+55YW26L+b6KGM5p6E5bu6L+a1i+ivleOAggo+ICvoh6rliqjljJbmtYHnqIvmoLnm
+ja7ooaXkuIHmmK/lkKbooqvor4bliKvkuLrkv67lpI3vvIzlsIblhbblupTnlKjliLAgUklTQy1W
+IGBmb3ItbmV4dGAg5ZKMIGBmaXhlc2Ag5YiG5pSvCj4gK+W9k+WJjeeahCBIRUFEIOS4iuOAguWm
+guaenOWdh+S4jemAgueUqO+8jOWImeS8muS9v+eUqCBSSVNDLVYgYG1hc3RlcmAg5YiG5pSv44CC
+6KGl5LiB57O75YiX6KKr5bqU55So5Yiw55qE5YW3Cgrov5nlj6Xor53nv7vor5HmnInmraPnoa7m
+gKfpl67popjvvIzor7flj4LogIPlpoLkuIvnv7vor5HvvJoKCuiHquWKqOWMlua1geeoi+S8muag
+ueaNruihpeS4geaYr+WQpuiiq+ivhuWIq+S4uuS/ruWkje+8jOmAieeUqCBSSVNDLVYgYGZvci1u
+ZXh0YCDmiJYgYGZpeGVzYCDliIbmlK8K5b2T5YmN55qEIEhFQUTvvJvoi6XlupTnlKjlpLHotKXv
+vIzliJnkvb/nlKggUklTQy1WIG1hc3RlciDliIbmlK/jgIIKCj4gK+S9k+aPkOS6pOWwhuagh+az
+qOWcqOihpeS4gei3n+i4quezu+e7n+S4iuOAguS7u+S9leajgOafpeacqumAmui/h+eahOihpeS4
+gemAmuW4uOS4jeS8muiiq+W6lOeUqO+8jOW5tuS4lOWcqOWkp+WkmuaVsOaDhQo+ICvlhrXkuIvl
+sIbpnIDopoHph43mlrDmj5DkuqTjgIIKPiAgCj4gIOmZhOWKoOeahOaPkOS6pOajgOafpeWNlQo+
+ICAtLS0tLS0tLS0tLS0tLS0tCj4gLeaIkeS7rOS7heaOpeWPl+ebuOWFs+agh+WHhuW3sue7j+ii
+q1JJU0MtVuWfuumHkeS8muagh+WHhuS4uuKAnOW3suaJueWHhuKAneaIluKAnOW3suWGu+e7k+KA
+neeahOaJqeWxleaIluaooeWdl+eahOihpeS4geOAggo+IC3vvIjlvIDlj5HogIXlvZPnhLblj6/k
+u6Xnu7TmiqToh6rlt7HnmoRMaW51eOWGheaguOagke+8jOWFtuS4reWMheWQq+aJgOmcgOS7o+eg
+geaJqeWxleiNieahiOeahOS7o+eggeOAgu+8iQo+IC0KPiAt5q2k5aSW77yMUklTQy1W6KeE6IyD
+5YWB6K6454ix5aW96ICF5Yib5bu66Ieq5bex55qE6Ieq5a6a5LmJ5omp5bGV44CC6L+Z5Lqb6Ieq
+5a6a5LmJ5ouT5bGV5LiN6ZyA6KaB6YCa6L+HUklTQy1WCj4gLeWfuumHkeS8mueahOS7u+S9leWu
+oeaguOaIluaJueWHhuOAguS4uuS6humBv+WFjeWwhueIseWlveiAheS4gOS6m+eJueWIq+eahFJJ
+U0MtVuaLk+Wxlea3u+WKoOi/m+WGheaguOS7o+eggeW4puadpQo+IC3nmoTnu7TmiqTlpI3mnYLm
+gKflkozlr7nmgKfog73nmoTmvZzlnKjlvbHlk43vvIzmiJHku6zlsIblj6rmjqXlj5dSSVNDLVbl
+n7rph5HkvJrmraPlvI/lhrvnu5PmiJbmibnlh4bnmoTnmoTmianlsZUKPiAt6KGl5LiB44CC77yI
+5byA5Y+R6ICF5b2T54S25Y+v5Lul57u05oqk6Ieq5bex55qETGludXjlhoXmoLjmoJHvvIzlhbbk
+uK3ljIXlkKvku5bku6zmg7PopoHnmoTku7vkvZXoh6rlrprkuYnmianlsZUKPiAt55qE5Luj56CB
+44CC77yJCj4gK+aIkeS7rOS7heaOpeWPl+mSiOWvueaWsOaooeWdl+aIluaJqeWxleeahOihpeS4
+ge+8jOWJjeaPkOaYr+i/meS6m+aooeWdl+aIluaJqeWxleeahOinhOiMg+iiq+WIl+S4uuacquad
+peS4jeWkquWPr+iDveWPkQoK5o6l5Y+XIGlzIG5vdCBhIGdvb2QgdHJhbnNsYXRpb24gZm9yICJj
+b25zaWRlciIKCkRvbmdsaWFuZyBNdQoKPiAr55Sf5LiN5YW85a6555qE5Y+Y5pu044CC5a+55LqO
+5p2l6IeqIFJJU0MtViDln7rph5HkvJrnmoTop4TojIPvvIzov5nmhI/lkbPnnYDigJzlt7Lmibnl
+h4bigJ3miJbigJzlt7Llhrvnu5PigJ3vvIzlr7nkuo4KPiArVUVGSSDorrrlnZvnmoTop4TojIPv
+vIzov5nmhI/lkbPnnYDlt7Llj5HluIPnmoQgRUNS44CC77yI5byA5Y+R6ICF5b2T54S25Y+v5Lul
+57u05oqk6Ieq5bex55qEIExpbnV4IOWGheaguOagke+8jAo+ICvlhbbkuK3ljIXlkKvku5bku6zm
+iYDpnIDnmoTku7vkvZXmianlsZXojYnmoYjnmoTku6PnoIHjgILvvIkKPiArCj4gK+atpOWklu+8
+jFJJU0MtViDop4TojIPlhYHorrjlrp7njrDogIXliJvlu7roh6rlt7HnmoToh6rlrprkuYnmianl
+sZXjgILov5nkupvoh6rlrprkuYnmianlsZXkuI3pnIDopoHpgJrov4cgUklTQy1WCj4gK+WfuumH
+keS8mueahOS7u+S9leWuoeaguOaIluaJueWHhua1geeoi+OAguS4uuS6humBv+WFjeWboOa3u+WK
+oOWunueOsOiAheeJueWumueahCBSSVNDLVYg5omp5bGV5bim5p2l55qE57u05oqk5aSN5p2CCj4g
+K+aAp+WSjOWvueaAp+iDveeahOa9nOWcqOW9seWTje+8jOaIkeS7rOWwhuWPquaOpeWPl+espuWQ
+iOS7peS4i+S7u+S4gOadoeS7tueahOaJqeWxleihpeS4ge+8mgo+ICsKPiArLSDlt7LnlLEgUklT
+Qy1WIOWfuumHkeS8muato+W8j+WGu+e7k+aIluaJueWHhgo+ICstIOW3suaMieeFp+agh+WHhiBM
+aW51eCDmg6/kvovvvIzlnKjlub/ms5vlj6/nlKjnmoTnoazku7bkuK3lrp7njrAKPiArCj4gK++8
+iOWunueOsOiAheW9k+eEtuWPr+S7pee7tOaKpOiHquW3seeahCBMaW51eCDlhoXmoLjmoJHvvIzl
+hbbkuK3ljIXlkKvku5bku6zmiYDpnIDnmoTku7vkvZXoh6rlrprkuYnmianlsZXnmoTku6PnoIHj
+gILvvIkKPiAtLSAKPiAyLjU1LjAKCg==
