@@ -1,58 +1,56 @@
-Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3C32DC783
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02D03ABD83;
+	Fri, 28 Aug 2026 09:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909541; cv=none; b=PE6wNmOSi7MI1KES5Xuls/ng08C2icgIOPclB6GblZJxmJtHHslqDke3l75GomfEcCm2+pD6ROSbfwSB1FXFb0crEf67mn40iI+qfMpqBTxJv9deOwi3hnPVPjzpbm4Npkey22ayo5d+spM966EqUg0ufMhcvmviAhm9mLOAcus=
+	t=1787909550; cv=none; b=D+fPZtGs0hY+JsWoRjQ5YwYvHZvGHLRukytH15UWBgb/0XYO6J57hT3Gi3NFNLXgmm00xpsS415UdOdDZ2L8yq/dM4Jf9pxk1V1tcNfuu/UprCk4J99kxFz7nq50z4Jy3sMsnDAxA6Hva/M+MPgtTW03YK+htuCv8M4iqR2GfWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909541; c=relaxed/simple;
-	bh=T0lJa3Sd/SF0htQv5esbW6YGafFn07r4l5BN6FchVHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dJiiJCqurQlGQYCkqyUIfet5D79u8eZ0d9u4rC6E5haQXygyse7UveREs0+dSu0Oei66ox2XozTEVYKTKnD6+nw5o5t7Q/AEvSd40Z5nb5pBv1UNNHdPHvQ1iySWKw8yJuYV78LrRSZmkMMmt0LwKjmcwc5omO1NfVOiRuV6goY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hy/ScQep; arc=none smtp.client-ip=91.218.175.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hy/ScQep"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T0lJa3Sd/SF0htQv5esbW6YGafFn07r4l5BN6FchVHA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787909536; v=1; x=1788514336;
- b=hy/ScQepxDCN4/kYIXiYGFkcdOXtuoTtjIKT9AjhT7pqtUbZZwU3+DMhXRcQZs9C7qZA6/3w
- 40pfilUc2tZfFalR7kW4NHqLv1Iz1nAysLCRV/Y0u8etQF5KFYHaVjxeTqRMEO0nsZdNps9wnHW
- azlty3qw1n+TO8mAM6pP9K84=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83fe4d1dd621201e;
-	Fri, 28 Aug 2026 09:32:16 +0000
-X-Mizu-Trace-ID: 83fe4d1dd621201e
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
+	s=arc-20240116; t=1787909550; c=relaxed/simple;
+	bh=SOOKcccjHdokT3Gm6jWS5PsSmgC2ZmP5eBSowkZz40E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BZHQGcyVMcfjINPCvgHWs3U62dsvWsq8a5y/fPRjUQksLVJhs+V4HSMCg8DFaW0bG9H5CcMeQv774RnbhnuYN/cLR28oVlJveFOrHOpdNnw0bdMyLZHKzR8q6YFff6beJD2U9qmg+3KbTyxdZjaowkviHp9Ip5h2V69ao3sH2Jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5aa6cab2a2c311f19a56ed5b684f684d-20260828
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:dcb9b930-7f0b-47d0-8b1a-9599af8b65e9,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:de7f7b520905538144b6a9cbf562d347,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5aa6cab2a2c311f19a56ed5b684f684d-20260828
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1162320256; Fri, 28 Aug 2026 17:32:14 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Leonard Crestez <cdleonard@gmail.com>,
+	Radu Solea <radu.solea@nxp.com>,
+	Franck LENORMAND <franck.lenormand@nxp.com>,
+	linux-crypto@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf 2/2] selftests/bpf: Add test for key-less BTF hash map
-Date: Fri, 28 Aug 2026 17:31:17 +0800
-Message-ID: <20260828093142.179856-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828093142.179856-1-jiayuan.chen@linux.dev>
-References: <20260828093142.179856-1-jiayuan.chen@linux.dev>
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH] crypto: mxs-dcp: handle zero-length skcipher requests
+Date: Fri, 28 Aug 2026 17:32:09 +0800
+Message-Id: <20260828093209.3179074-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,93 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Create a hash and an rhash map with btf_key_type_id == 0 and expect
-bpf_map_create() to fail with -EINVAL. On an unfixed kernel the map is
-created; the test then pins and reads it back to walk the bpffs dump path,
-which reproduces the btf_type_show() NULL-deref - so running this test on
-an unfixed kernel panics it.
+Zero-length skcipher requests are valid no-ops, but MXS-DCP queues them.
+When such a request reaches the worker, last_out_len remains zero. The
+CBC completion path then subtracts AES_BLOCK_SIZE from this unsigned
+value when updating the IV, causing the offset to underflow. On
+decryption, the resulting source address precedes aes_in_buf.
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Return success before enqueueing zero-length requests. This avoids the
+invalid source access and leaves the IV unchanged for a no-op.
+
+Fixes: fadd7a6e616b ("crypto: mxs-dcp - Fix AES issues")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 ---
- .../bpf/prog_tests/btf_map_keyless.c          | 69 +++++++++++++++++++
- 1 file changed, 69 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+ drivers/crypto/mxs-dcp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
-new file mode 100644
-index 000000000000..6e1496cbd8bf
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+#include <test_progs.h>
-+#include <bpf/btf.h>
+diff --git a/drivers/crypto/mxs-dcp.c b/drivers/crypto/mxs-dcp.c
+index 133ebc998236..60794b4d49fa 100644
+--- a/drivers/crypto/mxs-dcp.c
++++ b/drivers/crypto/mxs-dcp.c
+@@ -473,6 +473,9 @@ static int mxs_dcp_aes_enqueue(struct skcipher_request *req, int enc, int ecb)
+ 	struct dcp_aes_req_ctx *rctx = skcipher_request_ctx(req);
+ 	int ret;
+ 
++	if (!req->cryptlen)
++		return 0;
 +
-+/*
-+ * A key-less BTF (btf_key_type_id == 0) is only meant for array maps. A hash
-+ * map with one used to NULL-deref in btf_type_show() when dumped via bpffs.
-+ * A fixed kernel rejects such a map at creation; on an unfixed kernel the
-+ * pin-and-read below deliberately walks that bpffs dump path, so running this
-+ * test on an unfixed kernel panics it.
-+ */
-+static void check_keyless(int map_type, __u32 map_flags, int btf_fd, int val_id)
-+{
-+	const char *path = "/sys/fs/bpf/keyless_map";
-+	LIBBPF_OPTS(bpf_map_create_opts, opts);
-+	__u32 key = 1, val = 0x41424344;
-+	char buf[256];
-+	int map_fd;
-+	FILE *f;
-+
-+	opts.map_flags = map_flags;
-+	opts.btf_fd = btf_fd;
-+	opts.btf_key_type_id = 0;
-+	opts.btf_value_type_id = val_id;
-+	map_fd = bpf_map_create(map_type, "keyless_map", 4, 4, 8, &opts);
-+
-+	if (map_fd >= 0) {
-+		/* Unfixed kernel: reproduce the oops via the bpffs dump path. */
-+		(void)bpf_map_update_elem(map_fd, &key, &val, 0);
-+		if (bpf_obj_pin(map_fd, path) == 0) {
-+			f = fopen(path, "r");
-+			if (f) {
-+				while (fgets(buf, sizeof(buf), f))
-+					;
-+				fclose(f);
-+			}
-+			unlink(path);
-+		}
-+		close(map_fd);
-+	}
-+
-+	ASSERT_EQ(map_fd, -EINVAL, "key-less create is rejected");
-+}
-+
-+void test_btf_map_keyless(void)
-+{
-+	int btf_fd, val_id;
-+	struct btf *btf;
-+
-+	btf = btf__new_empty();
-+	if (!ASSERT_OK_PTR(btf, "btf__new_empty"))
-+		return;
-+
-+	val_id = btf__add_int(btf, "int", 4, BTF_INT_SIGNED);
-+	if (!ASSERT_GT(val_id, 0, "btf__add_int"))
-+		goto out;
-+
-+	if (!ASSERT_OK(btf__load_into_kernel(btf), "btf__load_into_kernel"))
-+		goto out;
-+	btf_fd = btf__fd(btf);
-+
-+	if (test__start_subtest("hash"))
-+		check_keyless(BPF_MAP_TYPE_HASH, 0, btf_fd, val_id);
-+	if (test__start_subtest("rhash"))
-+		check_keyless(BPF_MAP_TYPE_RHASH, BPF_F_NO_PREALLOC, btf_fd, val_id);
-+out:
-+	btf__free(btf);
-+}
+ 	if (unlikely(actx->key_len != AES_KEYSIZE_128 && !actx->key_referenced))
+ 		return mxs_dcp_block_fallback(req, enc);
+ 
+
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 -- 
-2.43.0
+2.25.1
 
