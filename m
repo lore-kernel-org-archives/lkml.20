@@ -1,72 +1,51 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DA444E66B;
-	Fri, 28 Aug 2026 12:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450EB4418E6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787921313; cv=none; b=O/VPAMtqy/0Adyr5GyXnL+WDzc+O40CXJotLeCfsJht0w0iVIYG6Ha9wzmVTqcAtvSKGvvsC47GMyoe/Jb0brIq5eJeA+A6cMP/+5+TJ/WWp9w3/vQBRgOsRpMPt/lG2OSTalodWgZr3EHWTEZp81QTNydsVC3TJR+zbwR+HyE4=
+	t=1787921328; cv=none; b=Ldv5eSWQz/mycg0X3WOmKpcxXzSlnag/Y4WQXorkF4xlpa6JMNQRadrPCrhpAT4Kt7+E6rkf/A5J8LynmhI6VqTIOPY/gXmzw0f/haOOVwK6e2u0klVVz1X0sLVZA2oAZw2D0AJIyal2/6qVQiltTKFflwlT+4o1ZT0VC1Kvt24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787921313; c=relaxed/simple;
-	bh=59pQEm4J632UzlRc38VlYiLZzPG9Ldg1oVqBQQFCU10=;
+	s=arc-20240116; t=1787921328; c=relaxed/simple;
+	bh=EVGzS04FnYNDpEdfPtxzk+aqLuXej0sZ/rUGua+x9yU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A0czSPEoGxNntMBtjvovOD6IF9ZW8bFP6PEk+V5wXxQuwyyLo3FR29GPfEg4lginT70Yu9AD8MAKeiyMsA38Z319BG07L6RVlgbwnHfqIvtOfc80bllzmo8Hj2mIPQEQ8uvt17ygrD7OwLnGPd+aM2SZMAmyjZ7JupeO8LsAHi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=apd9kBBL; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=o8vbqVo5HFDdtp17F4AjrANSJnArmPVZD/wU3hPqiylTuqZI8HR6fbi2a6FxiPh5qT6Gqvk2nP2NQsliDM8vft62k/MGB7OOmDq3GMIfq8+zh2RJwpXTKLThgkZtRuGhiXAODR9X+fRBqRCQxkEoNensEJZWIZZpEohWKoGup7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rbc4c+vX; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="apd9kBBL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AY84rfjFkNDjAWFNf8AP9fCrg78WzFe8p1rGWp/UIAo=; b=apd9kBBLyOu58CYgPPP5CX3ADi
-	bQwvk9xWrikcjNqyLtRx2ifMpANi76pueMtJCNpfBW3hS6hNFriUiwNXeOieYmaxYoWVEhH4yeyGQ
-	B4ChwuMdqS6J+KGWO6Pa3/maqlBEgbclayatiFx/Nevfd831UN+Hiq0OeBqw4epE32rqEZruKNo5h
-	Q94YyBfUjvAiC772y/3ECHbKipiJm4gmgQlmEjGqyB2krabU5/5qZDMZWTDH1+KD+eIB+yuwmHYHm
-	GaTodGV5H2Mm+kMp6XQEbWwM8QktRq9qECMqOyA+DpA1ltXatP778QCi/VudQMVEmDm5i25tjrCUk
-	2pUDBrnA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wzw00-00000008FkC-1X7M;
-	Fri, 28 Aug 2026 12:48:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C791030030F; Fri, 28 Aug 2026 14:47:58 +0200 (CEST)
-Date: Fri, 28 Aug 2026 14:47:58 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Stevens <stevensd@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev,
-	jstultz@google.com
-Subject: Re: [RFC 00/10] Reclaimable kernel stacks
-Message-ID: <20260828124758.GP687043@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rbc4c+vX"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 004D11A189C;
+	Fri, 28 Aug 2026 12:48:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C7DB660537;
+	Fri, 28 Aug 2026 12:48:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7978D11C7810C;
+	Fri, 28 Aug 2026 14:48:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787921314; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=scK/I2cjqVO0vAjV26ZyyTKaHsFuHcj/vb04vGRyhvc=;
+	b=rbc4c+vXpW+zJUQPRtSaghanGQ5BU2T++ZCNiSeeQcySif1qD9bGOODSq5UoTt5fTD7q6U
+	cwIA1Kq+KfDkkL3XyyVfc3W15S6oZsNDK1Ijcqi4hL9HMUE9Qkbd8GpE5tF4YhpY9jvz4S
+	wncNvg/MPB8AqEcGixoBDCZ8O2WJ6mqcrTciwA8gLcBqoObWekGu62ZfnsYDl5ciV4SmA/
+	TpMer7v36/pduI/rPGUo9SgSLnBJB/QsEVjdEBOrEm+00ZdZAKYljaPG69WjRnvgX/cvwd
+	ujcFlT/n6pqDeMMytwzpuEXj0t3edRhMPLhcERb2+wYR8u+97SKbbg5hXZwHsw==
+Date: Fri, 28 Aug 2026 14:48:32 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: "Johnny.Fan" <johnny.fan@cixtech.com>, linux-rtc@vger.kernel.org,
+	Feng Tang <feng.tang@linux.alibaba.com>, linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+	bob.zhang@cixtech.com, jie.fu@cixtech.com
+Subject: Re: [PATCH] rtc: efi: restore alarm support with runtime capability
+ probe
+Message-ID: <202608281248326784a354@mail.local>
+References: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+ <549999fa-4b1a-4f53-872a-9036a377f8cf@app.fastmail.com>
+ <apFHoVVdhJsmBXDR@JohnnyFan>
+ <6adfa384-d232-4e80-a6f1-fa51780107d3@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,28 +54,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827232948.2520558-1-stevensd@google.com>
+In-Reply-To: <6adfa384-d232-4e80-a6f1-fa51780107d3@app.fastmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Aug 27, 2026 at 04:29:38PM -0700, David Stevens wrote:
+Hello Ard,
 
-> On Android, system processes typically have 2000-3000 threads. App
-> processes add 1000s more threads on top of this.
-
-WTF ?!? Why does that all spawn *that* many threads? Perhaps work on
-reducing that some?
-
-> Tracking blocked state and when it is safe to reclaim a stack is done
-> via a series of hooks in the scheduler. The actual reclaim of stacks is
-> done asynchronously in a shrinker.
+On 28/08/2026 12:13:10+0200, Ard Biesheuvel wrote:
 > 
-> Once a task's stack has been reclaimed, it cannot be rescheduled until
-> its stack is repopulated. Although there can be a repopulation fast path
-> within the scheduler, reliably allocating memory to repopulate the stack
-> requires a fallback path that defers the repopulation and wakeup to a
-> workqueue context that can use GFP_KERNEL.
+> On Fri, 28 Aug 2026, at 10:32, Johnny Fan wrote:
+> > On Fri, Aug 28, 2026 at 09:26:42AM +0200, Ard Biesheuvel wrote:
+> > Hi Ard,
+> >
+> > One additional data point: this is not a hypothetical requirement
+> > -- multiple CIX customers have explicitly requested RTC wakeup
+> > support (both suspend-to-RAM and power-off wakeup) on these
+> > platforms, which is part of why we are motivated to restore the
+> > alarm functionality rather than work around it.
+> >
+> 
+> Fair enough - I'll queue this as a fix.
 
-I am really confused. On the one hand you have John working on proxy
-execution, with the aim on reducing latencies, and then here you are,
-posting something that will introduce basically unbound latencies.
+I can take care of this if you are happy with the patch.
 
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
