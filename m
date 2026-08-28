@@ -1,95 +1,258 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE2F3D669A;
-	Fri, 28 Aug 2026 07:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3993A78F26
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902136; cv=none; b=K8CVGusi3QUhcdexZK+W1sbvemQ8T14Bl0LVFh+lPIlUqa4ndYZJM0rcHe2Is0ZzCSNt1OwPcxItOkfq+b3FR5PDcL7UbnzPtBjdQCmKLcHWM2ZP9LI/hrYtbeo0qofBSCxJOzB0JXkOAXerIc/joidYe2dxmH66FWpHCligQoU=
+	t=1787902386; cv=none; b=OceoIPWp1jmSNY1K6415oD3ItWSr1dUo6+GeTAGYmRDw/o243dY0JpJqXgjFaaCNr81Jda1EKxaPyK4+30D7+sJMWAGasSEZtBwsU1ffwR5n9ekyn5h3R5Wd8ZESDpjxU5c0jIs+9UOl1VN8LODsdKHbkBaxFfRsC9barQLdnLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902136; c=relaxed/simple;
-	bh=XwJl0gxDY7xCu0UxsNKq6Cviiw1BtSgyXNf8lyTcOeE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROHtyf+0+vhBeKiy1XkM5lAIKM3pROLTLUoBrsTROHtYEYda7z3w+pFnme66RZ17pBMYv65YdLD2mw0dyAHiQV5/4ELkJkm19mfz075f4uwsHoTM3Yo5uZBTuhrlxww6SjNvY6XROW7mTclpGid7x//hBfGhScZPkSHSEP6CY/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hyqSqMnx; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787902386; c=relaxed/simple;
+	bh=gWwqFx7eGoDYJW4LAidi2bOnpDrK4JL69AvBg6fvSjg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rgSGKlLrvnEC48zuIfXZVu5GGDcK/OQUYla0WhS9QbQLdt0Na853vc6j6S1x0bPGriKw0W69jiO2enylWZq/mfpqC983rngcbxOzPaOreorscbf6W9/PP9UUlgU4ZBij4c6HucW5ZCE3H1fWaeHn8gfz2jUwVeKTq4HqiJteOys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZtHvMpFB; arc=none smtp.client-ip=91.218.175.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hyqSqMnx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787902134; x=1819438134;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XwJl0gxDY7xCu0UxsNKq6Cviiw1BtSgyXNf8lyTcOeE=;
-  b=hyqSqMnx/+0NRj7eWk80WQpagS5Mn5fHpfhndV08VFMNIFi9gpjRpJT9
-   2PpWH9+Ad6GokEIhL8XTMhTAFHz/kTftD4KsfIY3plzeOukTvuXuke2gq
-   W3XflyspVHZ443EqNsdTjtv7SEXfz1BB6a+WCv/fEqjAdkNMqklY9KV0Z
-   V4XB7tM8uxXpGjL6U7KDxX3489OjKirn369YVL0bWrFjSENppd3NNPoxc
-   ys1iMaprs4C1V1FtuNCJuX7M43RcjQ9ZOq/NxJ/iE4O3g7cXGF6bGYXQH
-   GxFbsQ44QmAUuOt3kAgw0R3J5rdniwsfTdGBkm+SdViMqLxNIlC9fKD4X
-   Q==;
-X-CSE-ConnectionGUID: 5uERxZbgRX2iamYxkRKmdg==
-X-CSE-MsgGUID: qfk5HRmLRCaw6P9xPWOs3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88613151"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="88613151"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:28:47 -0700
-X-CSE-ConnectionGUID: /N1cfWzdTfO8oVIrhWMFNQ==
-X-CSE-MsgGUID: QN9CT17nTh+TV6FRQP7uzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="263799695"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:28:44 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A5C86121505;
-	Fri, 28 Aug 2026 10:28:39 +0300 (EEST)
-Date: Fri, 28 Aug 2026 10:28:39 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 02/11] media: ov8858: support 19.2 MHz clock and CHT
- gain setup
-Message-ID: <apE4pzPqsjmQW-6J@kekkonen.localdomain>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
- <20260827181756.2430054-3-mauriziocasciano7@gmail.com>
- <apCUKIgOZMoeSAP1@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZtHvMpFB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gWwqFx7eGoDYJW4LAidi2bOnpDrK4JL69AvBg6fvSjg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787902382; v=1; x=1788507182;
+ b=ZtHvMpFBxAKPkS46dCZzZrYqxZZz4v73uJ4JBAPM9wnOtCZCKZWHB/aBcP42JMPGnIwGSslk
+ FExgtQBXzt4G50Eub3tH4W6BV0lJ177d30BJohGtSnrKaAjIuGrxJAbKPjnrIGSJzGAnoZvcaN3
+ w3DOIdgM3ndsXiGxYfEYGeDg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2197b6c7e29ec2dc;
+	Fri, 28 Aug 2026 07:33:02 +0000
+X-Mizu-Trace-ID: 2197b6c7e29ec2dc
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Kees Cook <kees@kernel.org>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: syzbot+b503105c2410c3433459@syzkaller.appspotmail.com
+Subject: [PATCH net 2/2] ppp: ppp_synctty: simplify tty disc_data access
+Date: Fri, 28 Aug 2026 15:32:37 +0800
+Message-ID: <20260828073245.126804-2-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828073245.126804-1-qingfang.deng@linux.dev>
+References: <20260828073245.126804-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCUKIgOZMoeSAP1@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-Hi Andy, Maurizio,
+Apply the same simplification as the preceding ppp_async change.
 
-On Thu, Aug 27, 2026 at 10:46:48PM +0300, Andy Shevchenko wrote:
-> > +#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+b503105c2410c3433459@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=b503105c2410c3433459
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+---
+ drivers/net/ppp/ppp_synctty.c | 83 +++--------------------------------
+ 1 file changed, 7 insertions(+), 76 deletions(-)
 
-You can do:
-
-#define OV8858_XVCLK_FREQ_19_2MHZ	(19.2 * HZ_PER_MHZ)
-
-i.e. no need for a division, the compiler can handle it.
-
+diff --git a/drivers/net/ppp/ppp_synctty.c b/drivers/net/ppp/ppp_synctty.c
+index 0b1bd1635c39..f87d43faeeab 100644
+--- a/drivers/net/ppp/ppp_synctty.c
++++ b/drivers/net/ppp/ppp_synctty.c
+@@ -38,11 +38,9 @@
+ #include <linux/ppp-ioctl.h>
+ #include <linux/ppp_channel.h>
+ #include <linux/spinlock.h>
+-#include <linux/completion.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+ #include <linux/slab.h>
+-#include <linux/refcount.h>
+ #include <linux/unaligned.h>
+ #include <linux/uaccess.h>
+ 
+@@ -67,8 +65,6 @@ struct syncppp {
+ 
+ 	struct tasklet_struct tsk;
+ 
+-	refcount_t	refcnt;
+-	struct completion dead_cmp;
+ 	struct ppp_channel chan;	/* interface to generic ppp layer */
+ };
+ 
+@@ -116,37 +112,6 @@ ppp_print_buffer (const char *name, const __u8 *buf, int count)
+  * Routines implementing the synchronous PPP line discipline.
+  */
+ 
+-/*
+- * We have a potential race on dereferencing tty->disc_data,
+- * because the tty layer provides no locking at all - thus one
+- * cpu could be running ppp_synctty_receive while another
+- * calls ppp_synctty_close, which zeroes tty->disc_data and
+- * frees the memory that ppp_synctty_receive is using.  The best
+- * way to fix this is to use a rwlock in the tty struct, but for now
+- * we use a single global rwlock for all ttys in ppp line discipline.
+- *
+- * FIXME: Fixed in tty_io nowadays.
+- */
+-static DEFINE_RWLOCK(disc_data_lock);
+-
+-static struct syncppp *sp_get(struct tty_struct *tty)
+-{
+-	struct syncppp *ap;
+-
+-	read_lock(&disc_data_lock);
+-	ap = tty->disc_data;
+-	if (ap != NULL)
+-		refcount_inc(&ap->refcnt);
+-	read_unlock(&disc_data_lock);
+-	return ap;
+-}
+-
+-static void sp_put(struct syncppp *ap)
+-{
+-	if (refcount_dec_and_test(&ap->refcnt))
+-		complete(&ap->dead_cmp);
+-}
+-
+ /*
+  * Called when a tty is put into sync-PPP line discipline.
+  */
+@@ -177,9 +142,6 @@ ppp_sync_open(struct tty_struct *tty)
+ 	skb_queue_head_init(&ap->rqueue);
+ 	tasklet_setup(&ap->tsk, ppp_sync_process);
+ 
+-	refcount_set(&ap->refcnt, 1);
+-	init_completion(&ap->dead_cmp);
+-
+ 	ap->chan.private = ap;
+ 	ap->chan.ops = &sync_ops;
+ 	ap->chan.mtu = PPP_MRU;
+@@ -201,34 +163,18 @@ ppp_sync_open(struct tty_struct *tty)
+ }
+ 
+ /*
+- * Called when the tty is put into another line discipline
+- * or it hangs up.  We have to wait for any cpu currently
+- * executing in any of the other ppp_synctty_* routines to
+- * finish before we can call ppp_unregister_channel and free
+- * the syncppp struct.  This routine must be called from
+- * process context, not interrupt or softirq context.
++ * Called when the tty is put into another line discipline or it hangs up.
++ * This call is serialized against other ldisc functions.
+  */
+ static void
+ ppp_sync_close(struct tty_struct *tty)
+ {
+-	struct syncppp *ap;
++	struct syncppp *ap = tty->disc_data;
+ 
+-	write_lock_irq(&disc_data_lock);
+-	ap = tty->disc_data;
+-	tty->disc_data = NULL;
+-	write_unlock_irq(&disc_data_lock);
+ 	if (!ap)
+ 		return;
+ 
+-	/*
+-	 * We have now ensured that nobody can start using ap from now
+-	 * on, but we have to wait for all existing users to finish.
+-	 * Note that ppp_unregister_channel ensures that no calls to
+-	 * our channel ops (i.e. ppp_sync_send/ioctl) are in progress
+-	 * by the time it returns.
+-	 */
+-	if (!refcount_dec_and_test(&ap->refcnt))
+-		wait_for_completion(&ap->dead_cmp);
++	tty->disc_data = NULL;
+ 	tasklet_kill(&ap->tsk);
+ 
+ 	ppp_unregister_channel(&ap->chan);
+@@ -237,17 +183,6 @@ ppp_sync_close(struct tty_struct *tty)
+ 	kfree(ap);
+ }
+ 
+-/*
+- * Called on tty hangup in process context.
+- *
+- * Wait for I/O to driver to complete and unregister PPP channel.
+- * This is already done by the close routine, so just call that.
+- */
+-static void ppp_sync_hangup(struct tty_struct *tty)
+-{
+-	ppp_sync_close(tty);
+-}
+-
+ /*
+  * Read does nothing - no data is ever available this way.
+  * Pppd reads and writes packets via /dev/ppp instead.
+@@ -273,7 +208,7 @@ ppp_sync_write(struct tty_struct *tty, struct file *file, const u8 *buf,
+ static int
+ ppp_synctty_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ {
+-	struct syncppp *ap = sp_get(tty);
++	struct syncppp *ap = tty->disc_data;
+ 	int __user *p = (int __user *)arg;
+ 	int err, val;
+ 
+@@ -314,7 +249,6 @@ ppp_synctty_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ 		break;
+ 	}
+ 
+-	sp_put(ap);
+ 	return err;
+ }
+ 
+@@ -323,7 +257,7 @@ static void
+ ppp_sync_receive(struct tty_struct *tty, const u8 *buf, const u8 *cflags,
+ 		 size_t count)
+ {
+-	struct syncppp *ap = sp_get(tty);
++	struct syncppp *ap = tty->disc_data;
+ 	unsigned long flags;
+ 
+ 	if (!ap)
+@@ -333,21 +267,19 @@ ppp_sync_receive(struct tty_struct *tty, const u8 *buf, const u8 *cflags,
+ 	spin_unlock_irqrestore(&ap->recv_lock, flags);
+ 	if (!skb_queue_empty(&ap->rqueue))
+ 		tasklet_schedule(&ap->tsk);
+-	sp_put(ap);
+ 	tty_unthrottle(tty);
+ }
+ 
+ static void
+ ppp_sync_wakeup(struct tty_struct *tty)
+ {
+-	struct syncppp *ap = sp_get(tty);
++	struct syncppp *ap = tty->disc_data;
+ 
+ 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
+ 	if (!ap)
+ 		return;
+ 	set_bit(XMIT_WAKEUP, &ap->xmit_flags);
+ 	tasklet_schedule(&ap->tsk);
+-	sp_put(ap);
+ }
+ 
+ 
+@@ -357,7 +289,6 @@ static struct tty_ldisc_ops ppp_sync_ldisc = {
+ 	.name	= "pppsync",
+ 	.open	= ppp_sync_open,
+ 	.close	= ppp_sync_close,
+-	.hangup	= ppp_sync_hangup,
+ 	.read	= ppp_sync_read,
+ 	.write	= ppp_sync_write,
+ 	.ioctl	= ppp_synctty_ioctl,
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
