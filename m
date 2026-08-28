@@ -1,106 +1,100 @@
-Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5572527A47F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B313B813D;
+	Fri, 28 Aug 2026 20:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787947151; cv=none; b=Lpoocz5vXh0AJegQ4/G2u2HH1qVEpKXczqoyQR8FbbxV2HvceMQSriB5rlI3tSjgsfJMKOJR1+7gdkWtkKclZzu2nkUm3DrVMxDY3U8hLrKjWjvaUhD8W/4YrTtGgHduJ51AOfGQBpgK0qqEBsOfmKP2GJj/xs2CQQ2C/eLKGRQ=
+	t=1787947309; cv=none; b=uhtTFQEJZLVKxG1VSSz/3lgCD//C/cmjMJKLhbDUuslvU3j6K+q6ZpqBzrAW+4rQCBwmkfllHHXd5NQDdNEsMLFQiAcrtZu0TwycNZmc3iR9ng26HgZNkepiiFFCnvQ1m17iCbxs/AM7T0zoYgb/sTM0d2Z+C6d1XisuYHzChz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787947151; c=relaxed/simple;
-	bh=S9qjmQkt+uL+to3pOu1Ot8jtLipfs7IsQ/YB0nY0eZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cudfCEMpdnwmVWqFmxyq6X8MD2DhhRPHLpWolL2d3HtO7YbxgDxGjdKm3QDYYhZ3BBJyDL3yvp2f36ZkOBDFcgsxsCa8SmGW/dBFmowbXIg7I9iMcJwPgawIHqg9HMz0KEtkHNWYFPEMIZZOBkb+V2OQ5VJqYulkcV7OpnPV234=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=UnQtN+j9; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=UnQtN+j9; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1787947309; c=relaxed/simple;
+	bh=razbEjG7v/vD2MHf2Nl4LqxEc42lTPrbwDbu0D1xjpk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=icDxy0y8/NsPvB4m0Tt07zIScOmAkFqmqSeMKU5AQ46Zur8rKIAZ+z7R84Uo2laUtgR2g3d/4CoO13+tdefRl00zR/KAZ1YDLZXzGbhuQfXm+cNhk4BG/2E0tSIZW+Cj25NRRgkv5zXk5KiZxzMHNv1tJrsF7iNV2+QJfuxbnck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=catOVLyk; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="UnQtN+j9";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="UnQtN+j9"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id A5424A04F2;
-	Fri, 28 Aug 2026 21:50:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1787946611; bh=S9qjmQkt+uL+to3pOu1Ot8jtLipfs7IsQ/YB0nY0eZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UnQtN+j9/9rT+6aGuNQHJFNPukdtv5oo4UKDefJuQhCa15YtuFu+6bsilqeuNyA9x
-	 urdzAGOo1bQLyRBwhbmXKX1YkUsrkPQyuMBM9xof+ezk3DkSiAjs9EGTcUENzYLiIY
-	 JeTGiOxXZvd0FPkddpJ0FlbnPjhjY1sqI9mbmhmED/b5mtND+3IH6nyqvhxMQh1dvp
-	 EgqsjtvfdDL3qnY8XC4VZa21wMIG31Gb3pU+NvPk8mYNbvOjW8tHDiBlzcKHKqD6G8
-	 Dbp13Jh691SUof5O2wFOJm4mSVTHkrW0tfWULSMDD3SxgA0ZYhakugQ1X0agAviCXn
-	 mgcRn+t/CVMuQ==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id BcwQtZwzCOTa; Fri, 28 Aug 2026 21:50:11 +0200 (CEST)
-Received: from end (aamiens-653-1-40-48.w83-192.abo.wanadoo.fr [83.192.199.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 04204A03FA;
-	Fri, 28 Aug 2026 21:50:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1787946611; bh=S9qjmQkt+uL+to3pOu1Ot8jtLipfs7IsQ/YB0nY0eZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UnQtN+j9/9rT+6aGuNQHJFNPukdtv5oo4UKDefJuQhCa15YtuFu+6bsilqeuNyA9x
-	 urdzAGOo1bQLyRBwhbmXKX1YkUsrkPQyuMBM9xof+ezk3DkSiAjs9EGTcUENzYLiIY
-	 JeTGiOxXZvd0FPkddpJ0FlbnPjhjY1sqI9mbmhmED/b5mtND+3IH6nyqvhxMQh1dvp
-	 EgqsjtvfdDL3qnY8XC4VZa21wMIG31Gb3pU+NvPk8mYNbvOjW8tHDiBlzcKHKqD6G8
-	 Dbp13Jh691SUof5O2wFOJm4mSVTHkrW0tfWULSMDD3SxgA0ZYhakugQ1X0agAviCXn
-	 mgcRn+t/CVMuQ==
-Received: from samy by end with local (Exim 4.100-RC3)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1x02aY-00000007cM9-1WQM;
-	Fri, 28 Aug 2026 21:50:10 +0200
-Date: Fri, 28 Aug 2026 21:50:10 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Mahantesh <mahantesh9789@gmail.com>
-Cc: w.d.hubbs@gmail.com, chris@the-brannons.com, kirk@reisers.ca,
-	speakup@linux-speakup.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] speakup: Fix duplicate word in comment
-Message-ID: <apHmcokWeuk3yyIV@end>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Mahantesh <mahantesh9789@gmail.com>, w.d.hubbs@gmail.com,
-	chris@the-brannons.com, kirk@reisers.ca, speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org
-References: <20260828072513.6589-1-mahantesh9789@gmail.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="catOVLyk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=razbEjG7v/vD2MHf2Nl4LqxEc42lTPrbwDbu0D1xjpk=; b=catOVL
+	ykWz8eTaecnMjoIwEXNOk8AP4KT3M27FLQ5wFnaret64xgZKxQzMo7F6s0QVhW+OBy9Lv9Zk0UYxa
+	F8MFlVgaBXL9p4fpC+ihSTBCCDYoxDjeNG1tYhUKpPe1eXntG72pbpUaltBuL+d2gkWkg8hXR4ODR
+	XgShWAy6W4TRJ/YXwRWK/ahuiy3x6Zo5giUIJ8n5l6Nine6RXNOOa4G7b69n0pMOHhyjCwW3cQFlg
+	x5g1nG3+InZdwndZvImTdUJdAC8Zjjp1JxH8QF7Hq53+OBIT2U+qrnQhYxe+D2/CI+/TO3Trj5D55
+	NtMMtkvMpGyM62Pl90qMoN/l4nQw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x02lg-00000009622-1Ell;
+	Fri, 28 Aug 2026 20:01:40 +0000
+Message-ID: <58177d60a0d6842aa40104d16021829468205d3b.camel@surriel.com>
+Subject: Re: [PATCH v2] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit
+ on isolated cpus
+From: Rik van Riel <riel@surriel.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Shakeel Butt
+	 <shakeel.butt@linux.dev>
+Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Muchun Song	 <muchun.song@linux.dev>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, 	kernel-team@meta.com
+Date: Fri, 28 Aug 2026 16:01:40 -0400
+In-Reply-To: <20260828125509.83d2e242534c2209ca253504@linux-foundation.org>
+References: <20260828135036.7d44361f@fangorn>
+		<20260828122018.1a3b3be204212837fcda8e50@linux-foundation.org>
+		<apHgs2ZAxAdy8WIH@linux.dev>
+	 <20260828125509.83d2e242534c2209ca253504@linux-foundation.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260828072513.6589-1-mahantesh9789@gmail.com>
-Organization: I am not organized
 
-Mahantesh, le ven. 28 août 2026 12:55:13 +0530, a ecrit:
-> Remove the duplicate word "the" in a comment in speakup_soft.c.
-> 
-> Signed-off-by: Mahantesh <mahantesh9789@gmail.com>
+On Fri, 2026-08-28 at 12:55 -0700, Andrew Morton wrote:
+>=20
+> Cool.
+>=20
+> And... guess what?
+> =09
+> https://sashiko.dev/#/patchset/20260828192419.3057939-1-shakeel.butt@
+> linux.dev
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+That one should be fixed by this patch you merged earlier:
 
-Thanks!
+mm-memcontrol-fix-stuck-flushing_cached_charge-bit-on-isolated-
+cpus.patch
 
-> ---
->  drivers/accessibility/speakup/speakup_soft.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accessibility/speakup/speakup_soft.c b/drivers/accessibility/speakup/speakup_soft.c
-> index 6d446824677b..6549bfb96e7f 100644
-> --- a/drivers/accessibility/speakup/speakup_soft.c
-> +++ b/drivers/accessibility/speakup/speakup_soft.c
-> @@ -446,7 +446,7 @@ static int softsynth_adjust(struct spk_synth *synth, struct st_var_header *var)
->  	if (var->var_id != PUNC_LEVEL)
->  		return 0;
->  
-> -	/* We want to set the the speech synthesis punctuation level
-> +	/* We want to set the speech synthesis punctuation level
->  	 * accordingly, so it properly tunes speaking A_PUNC characters */
->  	var_data = var->data;
->  	if (!var_data)
-> -- 
-> 2.43.0
-> 
+--=20
+All Rights Reversed.
