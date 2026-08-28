@@ -1,88 +1,46 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A41383993
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79343BB9F8;
+	Fri, 28 Aug 2026 18:36:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942227; cv=none; b=iJY/OqyYqma4SMzY3qAmN1BP/AL/4t8sKVXQHp7TzG/X3SRKNqtkKLi/TV9ElOTbI/1NtrspFvcAsqaffKA9zChEXWKMtJ2Qz6OXwuvsi5fIfm4llxszlgtwTEmo3+Y5SnHwWJwm2RFbOVQvPX1N4jBRFl34PmjgoNbitXIxpl0=
+	t=1787942230; cv=none; b=Sp4Q/J07JyxQ0KIm7w1J++Evdiku6dtcWqyhC0Q0aYuO528BeQ2O4XejCUtJsvxCpsrQf1ay+bsvW0CkZLNhyp2B3Ik03W24Zwf0hZPRwisgOQRZti5lRZdKgOWNozYnEsGnHdPvwdZqlG2rOZAYx8xsyAShD3hu6WwuFYiSXEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942227; c=relaxed/simple;
-	bh=I25lWYt6cViseaUZtP8CeKwfUIj5/ciNKEk4etFYL1w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fH92yCBLt5yM5nFGkcQVyohlKEfRSkj3sen3px4/wwBVlbIQaaBEJOqFn2iiRDcOq6Z5jsFaUB1z7aL2tpEqMlTVt2zQMJM6KBd5wKHzc/rvsPmbMQi08jOWi73v+lGLsaio7Iv7DKeUMg62Wzw4nMMtyd/zsHe4h/29FCqKHw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZ00InjO; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787942230; c=relaxed/simple;
+	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u/t+T+HMIQGhIqrEiPasPHsGOVlfn/Pvw5AfEhJaaHJnYlAiqtxf4waDrofkuKA1LEBae0KIttNzlEmoOkkCzjqLYlDB8+BRemnnbkvTm18XpA6Lz3zNOnW3IO8gB3peMIQNklyKGvWbRRWHMqnxXsji0U9b/QzmCxOSzA/p5gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j9FMR5Jn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZ00InjO"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso1072064b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:37:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787942223; x=1788547023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7mVEURHMP319Byv9p6qmQOcjq3woNvQVkr+r4ShGABI=;
-        b=CZ00InjOHXHX/H8HcWuRUtfMdLDaC6jCwr9GCNYajPWW77vuhiTUse7xrlq4zJqtLB
-         QFxZIEeW/DbD+olttDXAw276gLg4snaZYwZlYc1owsTp93eoN6QRnn4sjK4e9QSCzcsa
-         SGsI2S0358nrAiDAGw+j2EQhKdzZOORh86tK08y57cmX65DMBh1IJ/7OIT5USaT2wTUs
-         uYf1OOYlOMF9Uej0Di7MQfyQFsZwQvbsx2zUluBkhEHnAOjnHI/KRro1boSz7CW5gnNv
-         7hH6OppQmfWglAyuHVlcruCELwFfTIUw8myLyJsnG9cf6DXdOsnmGMw7ptg3aYNVmpRH
-         XdvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787942223; x=1788547023;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7mVEURHMP319Byv9p6qmQOcjq3woNvQVkr+r4ShGABI=;
-        b=l7rkA2V0uQKrB5Y+3nO08y/hGjEX7Xd1XLiv//HVNIhGcimZQoPBIlkmcauc3+Gg5U
-         TgjEoUw3+skSiLOmERBQ5lWqxDsjR9oed8KWwq6Ql40+yjUyyeSYSUr7Pst/EwIEzAlV
-         RA4YVCpOws+YG8iYDSBjuRzoXW1eaFlr0UQnOpl56bvDfTHpMLEKHaiOBBvyNEeEiwY/
-         IHytPg7E3IWjFMYmQSG5aqgGhUwFj/27hOddhkt86i6ULV3TRokTY5lA7k7YnKrJ/0Ze
-         sKgjENVcnrJjDKfqxdY0njbhbA7G93JC14nvmeZoPlU1PI9wy+Asf8GaTr1XyLITARQ1
-         3UOA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0lScUembjdohgk8l4nSYvTgm+f+iqNdQxsjgvIS804rTpo4vx5ejPCACedNeNcqESk5q6PzftBvfMY4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++m68kICtTCjv+slj7LsA60qkB0LstdgRR2obE6DMkqKDZ92MWGf
-	v5h1tVLDsndhIawHc2O3YNrIvHJvQN9xSMGPRMDbXrPs0c7nzAmOSXMc
-X-Gm-Gg: AR+sD11LVv2ZsuKUVWz8xohn82Cu+bua2GHDf71y8YhlLrUWus/X9K7V7NJ6+4Tp7yB
-	IdI4urZ++4XQpLm7VntqjjWI0rmt/OwYj76OuA++sNtRzw0Xt+XkpA9TxHf2HRwyLDeF6ZitNpk
-	RQaGzHdnb65nGLF/CpnmaFJHOYhonigj4SLQPTI/Z0ONcT5wK+ytBzFUbnqVxzC+gWFIwGewpkB
-	KLfBDt6Et1CfjCzEwxKia2GNqqDDtvqO2dKZ2dQ97ozXz1p3XcTpfkB3YtIX3Vv1PJb5vJOmJ9E
-	4y+xeZd9ZQ1kiPyh7RArjfm8iBSJoA3rHiPvz32LMfEvFsrEE9Xcrz7k0K6hY24NduFLpakX3Nx
-	AFP1W/qSgxk4iExgFuJ/V/eLf0vR0h6RRxME5sRoXfmfh+vnU7fxn9ycxeekQlSidIjfJhiCJim
-	k8iaPl/Os/liEuEk7YE8CUIyCjAKAgZ3RUwJLzTlSDygv9tDENXoZ0PXIxxtYuWjX2hyzWFnGIj
-	4Hw5r/AY1D6DjClL2HRGJEoZ7KR
-X-Received: by 2002:a05:6a00:2309:b0:857:7384:b5fc with SMTP id d2e1a72fcca58-8577384c2c3mr2082303b3a.24.1787942223100;
-        Fri, 28 Aug 2026 11:37:03 -0700 (PDT)
-Received: from aig-kmd-01.. ([120.133.49.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a2ea6fa3sm844230b3a.37.2026.08.28.11.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 11:37:02 -0700 (PDT)
-From: Yin Tirui <yintirui@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	wangkefeng.wang@huawei.com,
-	chenjun102@huawei.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j9FMR5Jn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949BC1F00AC4;
+	Fri, 28 Aug 2026 18:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787942219;
+	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j9FMR5JnmSH7efPrQrLnpZLbc7Yz1AcigZ2oXDJSOH7R3q+6I7rgrm+O0sLvmBJK8
+	 xZf8nG4qvXcOnt+j9VyThzjR9Sfe3zfany2jSS/bQRGk1Rr/6KjiU0F8H06/dTsaff
+	 D2XKwF71uHMP5vP2RsodJkj97KtLehKD5EUkQDx5qRFZcxQJlgmYpmSv4Z1t7DDOLd
+	 uM4q1bVIScrAheTmJpDfRBCKmyWltOYiXf2K77JvOG+WoAsNObZLOQifqSFck50JXP
+	 MrkarOd6d6n+JAFTYqptHsuEHsamarp6wWpKvoYtcBSbiamIrOvZH8V2T/3pmMuVBI
+	 8/uwDVYOpXdVg==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Yin Tirui <yintirui@gmail.com>
-Subject: [PATCH RFC 1/9] mm/huge_memory: read the huge PMD entry once when splitting it
-Date: Sat, 29 Aug 2026 02:33:11 +0800
-Message-Id: <1b11fdaa4f5819959505ad72e3d70bad5fc1d343.1787941780.git.yintirui@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1787941780.git.yintirui@gmail.com>
-References: <cover.1787941780.git.yintirui@gmail.com>
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.3 4/4] mm/damon/sysfs: set next refresh jiffies per sysfs context
+Date: Fri, 28 Aug 2026 11:36:48 -0700
+Message-ID: <20260828183649.71192-5-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260828183649.71192-1-sj@kernel.org>
+References: <20260828183649.71192-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,86 +49,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__split_huge_pmd_locked() re-reads *pmd several times to classify the same
-entry. The PMD page table lock is held throughout, so read it once into
-old_pmd and classify from that.
+When 'refresh_ms' is set, DAMON sysfs interface periodically updates
+auto-tuned parameters and DAMOS stats.  The timestamp for the next
+refresh is initialized when a DAMON context starts, and updated in its
+damon_call() callback function.  That is, each DAMON context updates it.
+However, the timestamp is a global variable that is shared with all the
+contexts.  When there are multiple DAMON contexts having different
+refresh_ms, the update frequency will be changed, depending on the order
+of the contexts.  When there are multiple kdamonds, it will be even more
+chaotic.  Fix the problem by having the timestamp per each context.
 
-No functional change intended.
+The user impact is not very critical.  It does not leak, corrupt or
+crash.  The update will not be faster or slower than the lowest and
+largest refresh_ms values of the contexts, respectively.  The user can
+also manually ask the updates on demand using kdamond state commands.
+That said, clearly this is a bug and can easily be reproduced.
 
-Signed-off-by: Yin Tirui <yintirui@gmail.com>
+Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
+Cc: <stable@vger.kernel.org> # 6.18.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/huge_memory.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ mm/damon/sysfs.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index afbb5974bd22..8feabdcf6307 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3143,10 +3143,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 		unsigned long haddr, bool freeze)
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index e3858ffab4b22..f05b256c90ee7 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
+ 	struct damon_sysfs_contexts *contexts;
+ 	struct damon_ctx *damon_ctx;
+ 	unsigned int refresh_ms;
++	unsigned long next_refresh_jiffies;
+ };
+ 
+ static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
+@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+ 	return ctx;
+ }
+ 
+-static unsigned long damon_sysfs_next_update_jiffies;
+-
+ static int damon_sysfs_repeat_call_fn(void *data)
  {
- 	struct mm_struct *mm = vma->vm_mm;
-+	pmd_t old_pmd = *pmd;
- 	struct folio *folio;
- 	struct page *page;
- 	pgtable_t pgtable;
--	pmd_t old_pmd, _pmd;
-+	pmd_t _pmd;
- 	bool soft_dirty, uffd_wp = false, young = false, write = false;
- 	bool anon_exclusive = false, dirty = false;
- 	unsigned long addr;
-@@ -3157,7 +3158,8 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 	VM_BUG_ON_VMA(vma->vm_start > haddr, vma);
- 	VM_BUG_ON_VMA(vma->vm_end < haddr + HPAGE_PMD_SIZE, vma);
+ 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
  
--	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(*pmd) && !pmd_trans_huge(*pmd));
-+	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(old_pmd) &&
-+			!pmd_trans_huge(old_pmd));
+ 	if (!sysfs_kdamond->refresh_ms)
+ 		return 0;
+-	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
++	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
+ 		return 0;
+-	damon_sysfs_next_update_jiffies = jiffies +
++	sysfs_kdamond->next_refresh_jiffies = jiffies +
+ 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
  
- 	count_vm_event(THP_SPLIT_PMD);
- 
-@@ -3193,7 +3195,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 		return;
+ 	if (!mutex_trylock(&damon_sysfs_lock))
+@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
  	}
+ 	kdamond->damon_ctx = ctx;
  
--	if (is_huge_zero_pmd(*pmd)) {
-+	if (is_huge_zero_pmd(old_pmd)) {
- 		/*
- 		 * FIXME: Do we want to invalidate secondary mmu by calling
- 		 * mmu_notifier_arch_invalidate_secondary_tlbs() see comments below
-@@ -3206,10 +3208,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 		return __split_huge_zero_page_pmd(vma, haddr, pmd);
- 	}
+-	damon_sysfs_next_update_jiffies =
+-		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
++	kdamond->next_refresh_jiffies = jiffies +
++		msecs_to_jiffies(kdamond->refresh_ms);
  
--	if (pmd_is_migration_entry(*pmd)) {
-+	if (pmd_is_migration_entry(old_pmd)) {
- 		softleaf_t entry;
- 
--		old_pmd = *pmd;
- 		entry = softleaf_from_pmd(old_pmd);
- 		page = softleaf_to_page(entry);
- 		folio = page_folio(page);
-@@ -3222,10 +3223,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			anon_exclusive = softleaf_is_migration_read_exclusive(entry);
- 		young = softleaf_is_migration_young(entry);
- 		dirty = softleaf_is_migration_dirty(entry);
--	} else if (pmd_is_device_private_entry(*pmd)) {
-+	} else if (pmd_is_device_private_entry(old_pmd)) {
- 		softleaf_t entry;
- 
--		old_pmd = *pmd;
- 		entry = softleaf_from_pmd(old_pmd);
- 		page = softleaf_to_page(entry);
- 		folio = page_folio(page);
-@@ -3417,7 +3417,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 	}
- 	pte_unmap(pte);
- 
--	if (!pmd_is_migration_entry(*pmd))
-+	if (!pmd_is_migration_entry(old_pmd))
- 		folio_remove_rmap_pmd(folio, page, vma);
- 	if (freeze)
- 		put_page(page);
+ 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
+ 	repeat_call_control->data = kdamond;
 -- 
-2.34.1
-
+2.47.3
