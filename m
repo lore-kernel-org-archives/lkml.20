@@ -1,126 +1,151 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B4D38DC78
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173813CF1E5;
+	Fri, 28 Aug 2026 08:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787903958; cv=none; b=lbOzzy6q97KaeeGb0p2oDrXDUw3rIX1sz1nOc/Fk/II4F2CBosnKeMJO5M1elIFu/13IvcBYaveT5BzXHgxr6OWMVlqvKcHp2WqXxDxZ4UzIta1reP2mMPsGBKLo2c5Mefh9HNToBF3dhtcGzPusya8nU6m7FwfV3eA5CiRGXIE=
+	t=1787904192; cv=none; b=itUKo/mJ2GfDAA1qlxDE1qN7W3liqOXzvB6/aUJ3WsQ4e+bMA9WIYMdAO2+C5XTanw+CkLpop2OZ/WHcmOAJlAbRTa4/yjXRGcvKBw+uhTYYVw73AFKbaUnDRyMfsTwLpbsdPdJ3J+x2osKArMzrSAZbDY+h5JCFd3WiMR+tXKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787903958; c=relaxed/simple;
-	bh=1GPU0BWMOwmqInTTjh9l6XuuMTaDwPJpNzEpLt9Wx50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nKTbONMzX/PR/cbDjpFAXmNmigwCGusYckiuLF94nqPNiYND97NlVPuiUAnp78s8a1Fulg1d1IT7BlIbBgsTth30/nGW7iGvSf1hGQNvcYOEEP2gxdKCtC2SCgYVtMV2ZV0jIZh8qvAjehLaG5UWRb68Wcdhhgx8LVmfNPJcqYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WNB43xKR; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787904192; c=relaxed/simple;
+	bh=gRh2D6m+qW2xYeXS/yuKwRgetzMFzQUb8xjKd7dFYws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hhlwIjIpqVqYjaYqGz4GpJQggvMX3UuKW0/1IOvp29Luewrrj64J1B1SKpq0TMDNZURjIPAirf7CekQTFbr45s0OysKas/JvpUWX2qoaCts+G4t0wwf7TwRy9HPC97TIfpgbKlK3gCnvXK43vGB7OhA8/G7okmRdxF07omDiYc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F7KH+OVC; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WNB43xKR"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d7195706f1so8255685ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787903957; x=1788508757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xc2kLyqHA8feBVoBxWUFDrEB1k3VVg85UTOGkhcrHS0=;
-        b=WNB43xKRewMCYrEDJMHB11hiRdWpw67a5Wt03xAaxWy6POdsAt3OZt98hkhcabtdFb
-         MlV2lp6nDQ+9oMkukd2pbut4OBq91B576XUhcc2PH9yF+360n/MalvCAOQjb8Ixda4yq
-         8YgHgZw1Z+I0Z6FuleZ3IBwI04C7lLBk6m1JfD6YsniGwmBLEMj7ugqituBBOX/8nY6A
-         lzBKwujjlbs3416THKC1yOXD4ilFjSJlDzTX7bEswviIOY77RzKWHLshS1Z/uwNUNssU
-         KktQOGvxjCOzv+r0LuL1j1RlvMxc/kPxGtdK22LPVZXBJ+2bvSzZeBd5CmY2FD3tsfCm
-         MKGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787903957; x=1788508757;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xc2kLyqHA8feBVoBxWUFDrEB1k3VVg85UTOGkhcrHS0=;
-        b=ZXKKCmxTHqlEFRZAS7ZRz699ttqzbRvdsgJYXofVwnEprfMXqnPWV+CIHajiiW8bjo
-         exYVBtaCGsDK57tQtDNDheHZ4Vv5oforCqK5Xae6ksq1YNPTojYcParmXa6KOgNhW8D9
-         Q2N9SK1RAs02RMExB9XxDlgafPcIDxPh+QPDkZ8EQWwEgUSBqXSDETdciIIFcxi3QZ3f
-         6yAAEqI+mrnP8tF2jXJeVeVRS/F1YaTulZxZDJkal9fa4JCQroBfDOZI5vMQx/xUWkh5
-         Bdz+gZM8Kps9ZEhcPOniPYMZKJUBSnVAt9trnW8M8tFxzfVX0J26N6i8LA/x3iZHhtiJ
-         d9Rg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7fK7puLbOj6ejQO4nFNZEypQF84tlDD7Fnj2bAxHSDrEPStExzhcsj7HHkqF/bGNidc0m2IQ3zwhE2zA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRrY5ynhtjyimS78R93fNoc8gWmHzz6Kj5W1tkSvDSLb6nHejp
-	AYc3t+ShICEC56venEF2aM3tiR+fxpwKJwkTY0RJ28+LSm9Qj2Osnw/q
-X-Gm-Gg: AR+sD112BgDEbPl95HDRlKnxfZ4xsPj7/89Fwkky/RWuxECWYHJSDw7sfDyjNBc71ol
-	J0sNQqqN+XMQ29t9kMxWy5M9FhBhK/3RGnB/JQUWETnc50f9UzYrbaX5jvfi1liglGqBhjom1i1
-	JAavrEyiU885x225bwlCJhfEO0Wruof2FRZ8KT0hl4KrED4OjTJdYD6cO4mvgVQ8kSdfqjajXNu
-	nfZ/YhBG7OfWs0irK35c7v2lR3qRTp6FM2GJFUylZlAAb3v+eAqRFukuYV0ys5pWTFXZz8yS3kS
-	qt3bJiysyY4kSxkwOg4d9TJpa4alr4/q1ur/D3TEbGWbjtyNSTtOWlhaQi4bWmLObt9MRQUjMmA
-	heecotuWaRmDrqj5josznJeIM4IxE6AquzXE10Zyewf/PFhYOnxY44OO+aeYmrvAdcgr4zMYY6L
-	IcGA64qV6mW3N4BE+KCxZEQxEx/EoZDAT2jsivGIvgieLmdRQc2Gk8qOF2nWVXBLMDPbvf1gTbQ
-	j9580Eq95xGDgE83HUxCxWs+AxLZqRPv4V/J1J+wWW4G0WWfU+GTKWXtdf0n0guSsUl3Kw=
-X-Received: by 2002:a17:90b:582e:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-396d0fabb3amr10246158a91.13.1787903956616;
-        Fri, 28 Aug 2026 00:59:16 -0700 (PDT)
-Received: from ian-lin-DREAMBOOK-PRO-14V.. (59-124-157-10.hinet-ip.hinet.net. [59.124.157.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b19927a1sm6539128a91.14.2026.08.28.00.59.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 00:59:15 -0700 (PDT)
-From: Ian Lin <jisayme@gmail.com>
-To: bjorn@mork.no,
-	johan@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Lin <jisayme@gmail.com>
-Subject: [PATCH] USB: add Compal EXM-G1x modem support
-Date: Fri, 28 Aug 2026 15:56:44 +0800
-Message-ID: <20260828075644.6228-1-jisayme@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F7KH+OVC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787904191; x=1819440191;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gRh2D6m+qW2xYeXS/yuKwRgetzMFzQUb8xjKd7dFYws=;
+  b=F7KH+OVCLXsi4BbDvy58mICOh+TE0gRbXSqhahk88WM/peNPAyEO5yHv
+   QmN3CTQDQlpUft1n0BgxnpQ7YpfPHvUVQEn8ncjuNym+z/hXbUEYizMk7
+   XuOAaIU+AZCGQbROd6Hb/mr8cgy1A8qEI/oHbNrxZg1q9RrbvrszgATFY
+   W/bS32o0Igf6hDzsH3F3BTLR2wgMo1P7aV3b/q0TmrxxCn16dWC57tLCg
+   t/TtBIB2sxn5nqU3kSoGu7w4+BO4Ig1GGyfEGG25kAK70aQTib2YEdj64
+   uJViTiZ0CLuKZJuebqE45apGl2PaSXw3JdIKsLuZc4GTHJig1L4v0u+if
+   A==;
+X-CSE-ConnectionGUID: qANO8mlaSiqOQutmtUpo4Q==
+X-CSE-MsgGUID: duzaiDa8S4eh2j/VBJjvLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99570593"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="99570593"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 01:03:10 -0700
+X-CSE-ConnectionGUID: taBku3MWSIi17UqF0LuQBA==
+X-CSE-MsgGUID: Djso2zsUSnqEUJc3PpAAng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="264323442"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 01:03:06 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B28EF121505;
+	Fri, 28 Aug 2026 11:03:01 +0300 (EEST)
+Date: Fri, 28 Aug 2026 11:03:01 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, linux-media@vger.kernel.org,
+	mchehab@kernel.org, jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net, andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com
+Subject: Re: [PATCH v9 4/6] platform/x86: int3472: tps68470: add board data
+ for Dell Latitude 5285
+Message-ID: <apFAtVQd_3HLL2cD@kekkonen.localdomain>
+References: <20260827201611.99825-1-tchatard@gmail.com>
+ <20260827201611.99825-5-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827201611.99825-5-tchatard@gmail.com>
 
-Add the USB device ID for the Compal EXM-G1x modem.
+Hi Thierry,
 
-Bind its QMI WWAN interface 8 and expose its vendor-specific serial
-interfaces with protocols 0x30, 0x40, and 0x60 through the option driver.
+Thanks for the update.
 
-Tested on a Compal EXM-G1x modem.
+On Thu, Aug 27, 2026 at 10:16:09PM +0200, Thierry Chatard wrote:
+> The Dell Latitude 5285 2-in-1 has two cameras connected through a TPS68470
+> PMIC/clock/GPIO hub:
+> 
+>   Front: OV5670 (ACPI INT3479) on I2C4
+>   Back:  OV8858 (ACPI INT3477) on I2C2, daisy-chained behind TPS68470
+>          S_I2C port (controlled by reg 0x43 S_I2C_CTL)
+> 
+> GPIO mapping (TPS68470):
+>   INT3479 (OV5670): GPIO3 = reset, GPIO4 = powerdown (both active-low)
+>   INT3477 (OV8858): GPIO9 = s_resetn, GPIO7 = s_enable (both active-low)
+>     GPIO9 and GPIO7 are the TPS68470 secondary-port GPIOs (SGPO reg 0x22
+>     bits 2 and 0), not regular GPDO outputs.
+> 
+> Regulator mapping:
+>   CORE  -> dvdd  / INT3477
+>   ANA   -> avdd  / INT3477
+>   VIO   -> generic (kept always_on; no direct consumers)
+>   VSIO  -> dovdd / INT3477: enabling VSIO sets S_I2C_CTL (reg 0x43),
+>            opening the I2C passthrough to OV8858; the ov8858 driver
+>            enables dovdd at probe time, which naturally activates the
+>            passthrough before any I2C transaction to the sensor.
+>   AUX1  -> dvdd  / INT3479
+>   AUX2  -> dovdd / INT3479
+> 
+> A static clock consumer list is provided for both sensors (INT3477 and
+> INT3479) to work around the broken ACPI _DEP on INT3479 described in the
+> previous patch.
+> 
+> Signed-off-by: Thierry Chatard <tchatard@gmail.com>
 
-Signed-off-by: Ian Lin <jisayme@gmail.com>
----
- drivers/net/usb/qmi_wwan.c  | 1 +
- drivers/usb/serial/option.c | 3 +++
- 2 files changed, 4 insertions(+)
+Is Documentation/process/coding-assistants.rst relevant for the set?
 
-diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
-index 8178a8758..e17afb22c 100644
---- a/drivers/net/usb/qmi_wwan.c
-+++ b/drivers/net/usb/qmi_wwan.c
-@@ -1451,6 +1451,7 @@ static const struct usb_device_id products[] = {
- 	{QMI_FIXED_INTF(0x2692, 0x9025, 4)},    /* Cellient MPL200 (rebranded Qualcomm 05c6:9025) */
- 	{QMI_QUIRK_SET_DTR(0x1546, 0x1312, 4)},	/* u-blox LARA-R6 01B */
- 	{QMI_QUIRK_SET_DTR(0x1546, 0x1342, 4)},	/* u-blox LARA-L6 */
-+	{QMI_QUIRK_SET_DTR(0x04b7, 0x8217, 8)},
- 	{QMI_QUIRK_SET_DTR(0x33f8, 0x0104, 4)}, /* Rolling RW101 RMNET */
- 	{QMI_FIXED_INTF(0x2dee, 0x4d22, 5)},    /* MeiG Smart SRM825L */
- 	{QMI_QUIRK_SET_DTR(0x2dee, 0x4d63, 0)}, /* MeiG SRM813Q w/ Modem(PPP) */
-diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
-index e4ad14375..56b43bf1f 100644
---- a/drivers/usb/serial/option.c
-+++ b/drivers/usb/serial/option.c
-@@ -2547,6 +2547,9 @@ static const struct usb_device_id option_ids[] = {
- 	{ USB_DEVICE_INTERFACE_CLASS(0x1bbb, 0x0640, 0xff),			/* TCL IK512 ECM */
- 	  .driver_info = NCTRL(3) },
- 	{ USB_DEVICE_INTERFACE_CLASS(0x2949, 0x8700, 0xff) },			/* Neoway N723-EA */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x30) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x40) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x60) },
- 	{ } /* Terminating entry */
- };
- MODULE_DEVICE_TABLE(usb, option_ids);
+> ---
+>  .../x86/intel/int3472/tps68470_board_data.c   | 170 +++++++++++++++++-
+>  1 file changed, 167 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> index 71357a036..6961e2926 100644
+> --- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> +++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> @@ -74,8 +74,12 @@ static const struct regulator_init_data surface_go_tps68470_vcm_reg_init_data =
+>  	.consumer_supplies = int347a_vcm_consumer_supplies,
+>  };
+>  
+> -/* Ensure the always-on VIO regulator has the same voltage as VSIO */
+> -static const struct regulator_init_data surface_go_tps68470_vio_reg_init_data = {
+> +/*
+> + * Keep VIO always_on.  Its voltage must exactly match VSIO on any board
+> + * using the TPS68470 I2C pass-through, and must never have direct consumers
+> + * (all I2C-path outputs are gated through VSIO).
+> + */
+> +static const struct regulator_init_data generic_tps68470_vio_reg_init_data = {
+>  	.constraints = {
+>  		.min_uV = 1800600,
+>  		.max_uV = 1800600,
+> @@ -122,7 +126,7 @@ static const struct tps68470_regulator_platform_data surface_go_tps68470_pdata =
+>  		[TPS68470_CORE] = &surface_go_tps68470_core_reg_init_data,
+>  		[TPS68470_ANA]  = &surface_go_tps68470_ana_reg_init_data,
+>  		[TPS68470_VCM]  = &surface_go_tps68470_vcm_reg_init_data,
+> -		[TPS68470_VIO] = &surface_go_tps68470_vio_reg_init_data,
+> +		[TPS68470_VIO] = &generic_tps68470_vio_reg_init_data,
+
+I think this would be better put into a separate patch before this one.
+Also intel_nvl_tps68470_vio_reg_init_data is exactly the same.
+
+>  		[TPS68470_VSIO] = &surface_go_tps68470_vsio_reg_init_data,
+>  		[TPS68470_AUX1] = &surface_go_tps68470_aux1_reg_init_data,
+>  		[TPS68470_AUX2] = &surface_go_tps68470_aux2_reg_init_data,
+
 -- 
-2.43.0
+Regards,
 
+Sakari Ailus
