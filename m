@@ -1,127 +1,86 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A755A2AE7A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12AA200110;
+	Fri, 28 Aug 2026 00:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787876612; cv=none; b=emtk1O5JxtVkQ7A7IeTCsXOJuP8DaPLBf+TGns/MTNlq6XuKqdQYq98M30wunR18lxa0IEfFXTlHEzHGD3OwxnLxlEUVOSIQaE/ln8hP7fS3om+hJHl9BUBuzcfVf1p9Cl9tS9T1Q0TFRBWH2ObRTsa8zEkNPonBQgbAhxMBy+Q=
+	t=1787876742; cv=none; b=tjtEYHEYBvB7P5GJpTUUacW5fw4ZLAAYqwNQ808WnnA3jwiFMzSOVFvBvmRZAsVXyrRO6QF1gSKdByN80Ka6Ua0WPrlNxtMYulMu7GI6b4yGv8I9apWZyhMOapkQvn/J3GMHa24IjymUunQlj+cbZHIKY7/4kvqOBXdcaEjOZfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787876612; c=relaxed/simple;
-	bh=caimQNcN2rW3DEi03DRHEGcEBfK6kOJ0DZblAcU+G0Q=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sGSZSot2vq2I6EDWyVP/r1u3fngxvm0+U2cprBblPHXBTAZBBjZyykMls9NO/Cbb6hhd5xWwPdEZeeG6j0W482KLE52U9710AoVv2xrrVzY97N/mum4w5XHqFVChXH4BujUw6PPzSeB8u0oaivIgvs4jEu6H6WCl4ptOYybqmsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b38bf64bfcso183716b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:23:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787876609; x=1788481409;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=riI6xZ5vVUH4NJYPmz62/YJnB7GrfXBnz2sLACtuAeA=;
-        b=eLRv8RAqFpXDqQcEZBpXNnvPRm68oUMgLWL55rKWMGyc4Sd02zvHqDH4JckveZJI1g
-         4UIDO16bDWpe5M7yX3O+EYV+mxh12+zu75cLp8DM3BdZfcZbl7SOaEyr/6kyZqShHho3
-         H74AczEaVSj1pZWnKRslpO37LuWPt+PtxomAz9Nu4eyPBzpBtNsDjIkp70rvYjRwqOqQ
-         TZoM552w43eIVNivizAub3fBghfw/1ASaSoa4541iII0xrNduf9yTDUajPB0cgbnK1ID
-         CO4QBb2gdXq10n1W9TiKdvEmAG+VSaN2XMKEKvQnqE+wwMq5yjCU6DBDcRTQE0X45FDm
-         w8YA==
-X-Forwarded-Encrypted: i=1; AHgh+RpNjcrrEIzzmxj7cR62g6WJgJYAt/sCNArezrZfYHBa08jDq85+e3PXRG2CIqefQc8P2AKS2liP9VQBqwA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp6aRwjtakXPjjj14HcvRIif2cIbtpjnWuWT3/z2J8oPbJOmuI
-	Ld5BfW25dLtzq9jxmlFNtn58y7t8FpLwptau+DIJQCKumkvvYCUdW3DrZI8Uf4/2p94eZ81mgPy
-	NemUAccOBBWvSDDJSuI+W1eT9XcKP/u7FGyvTOmFIht8DH67QDGbU8mHCmkY=
+	s=arc-20240116; t=1787876742; c=relaxed/simple;
+	bh=RelWNnclIFKIOiG6osYDZJrGr0EcRT2E3cVUKol4Ldk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=ALJ6NKpVIwjI+gS9ioT+yoPBy+xl3GwoWf1KW52sboQYy9C2xqoRn3LHVJwlme1jDV8pFqPrbHp4cmYBH2Jcm3kXwlo811dyUtIIBBIRC9sgPHGYg0Z2YC7QGvCA3D4FEGYpHS0BzbHjkc3J7NgjqX1FAPWiga2mXi+CSnbpId0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518E01F000E9;
+	Fri, 28 Aug 2026 00:25:39 +0000 (UTC)
+Message-ID: <951cbeb4-a058-41b9-a061-b0abaad3cb82@linux-m68k.org>
+Date: Fri, 28 Aug 2026 10:25:35 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c165:b0:4ab:3210:b31a with SMTP id
- 5614622812f47-4b398253454mr3588570b6e.14.1787876609677; Thu, 27 Aug 2026
- 17:23:29 -0700 (PDT)
-Date: Thu, 27 Aug 2026 17:23:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a90d501.1d9ded08.62e62.00df.GAE@google.com>
-Subject: [syzbot] [rdma?] WARNING in ib_cq_pool_cleanup
-From: syzbot <syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com>
-To: jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Greg Ungerer <gerg@linux-m68k.org>
+Subject: [git pull] m68knommu more fixes for v7.3
+To: torvalds@linux-foundation.org
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Linux/m68k <linux-m68k@vger.kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, gerg@kernel.org
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi Linus,
 
-syzbot found the following issue on:
+Please pull the m68knommu git tree changes for v7.3.
 
-HEAD commit:    73e3f0710014 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12977415580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c2d3e2a7997c1d5c
-dashboard link: https://syzkaller.appspot.com/bug?extid=d396918a29afb8543e1c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+This one includes a couple more new defconfigs to improve test build
+coverage, changes to use the more correct linux/gpio/legacy.h and
+platform setup for the reset device of the ColdFire 5441x SoC hardware.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/725c76492ae5/disk-73e3f071.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b4b32ef07d3c/vmlinux-73e3f071.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/afd59682ac03/bzImage-73e3f071.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com
-
-smbdirect: ib_dev[syz2] removed
-------------[ cut here ]------------
-cq->cqe_used
-WARNING: drivers/infiniband/core/cq.c:370 at ib_cq_pool_cleanup+0x248/0x370 drivers/infiniband/core/cq.c:370, CPU#1: kworker/u8:22/17817
-Modules linked in:
-CPU: 1 UID: 0 PID: 17817 Comm: kworker/u8:22 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Workqueue: ib-unreg-wq ib_unregister_work
-RIP: 0010:ib_cq_pool_cleanup+0x248/0x370 drivers/infiniband/core/cq.c:370
-Code: 41 f9 41 83 fe 03 0f 85 01 fe ff ff e8 21 92 41 f9 48 83 c4 20 5b 5d 41 5c 41 5d 41 5e 41 5f e9 fe b1 06 03 e8 09 92 41 f9 90 <0f> 0b 90 eb 84 e8 3e 76 b4 f9 e9 67 ff ff ff 48 8b 34 24 48 c7 c7
-RSP: 0018:ffffc90004bcfac8 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffff88802e53a580 RSI: ffffffff88ca43e7 RDI: ffff88802e53a580
-RBP: ffff888028e1c000 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000804 R11: 0000000000000000 R12: ffff888058b09840
-R13: ffff88807d614ed0 R14: 0000000000000804 R15: ffff888058b09800
-FS:  0000000000000000(0000) GS:ffff888123c6b000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007efff0e27dac CR3: 000000005a096000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- disable_device+0x161/0x280 drivers/infiniband/core/device.c:1328
- __ib_unregister_device+0x2b4/0x480 drivers/infiniband/core/device.c:1571
- ib_unregister_work+0x19/0x30 drivers/infiniband/core/device.c:1683
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+Regards
+Greg
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+The following changes since commit db2ddb87143519e20a95aa36c60b36107b736a58:
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+  Linux 7.2-rc7 (2026-08-09 14:54:50 -0700)
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+are available in the Git repository at:
 
-If you want to undo deduplication, reply with:
-#syz undup
+  git://git.kernel.org/pub/scm/linux/kernel/git/gerg/m68knommu.git tags/m68knommu-for-v7.3
+
+for you to fetch changes up to de0dab22cbf6943d0f12f3b1e2eb1bbdd807f039:
+
+  m68k: coldfire/5441x: register mcf-rcm-reset platform device (2026-08-11 16:17:10 +1000)
+
+----------------------------------------------------------------
+m68knommu: updates and fixes for v7.3
+
+, new defconfigs for 2 more ColdFire boards
+. change to use linux/gpio/legacy.h
+. add platform setup for reset device of the 5441x SoC boards
+
+----------------------------------------------------------------
+Arnd Bergmann (1):
+      m68k/coldfire: replace linux/gpio.h inclusions
+
+Greg Ungerer (2):
+      m68k: defconfig: add config for M52358EVB board
+      m68k: defconfig: add config for M5282EVB board
+
+Jean-Michel Hautbois (1):
+      m68k: coldfire/5441x: register mcf-rcm-reset platform device
+
+ arch/m68k/coldfire/device.c          |  2 +-
+ arch/m68k/coldfire/m5441x.c          | 25 +++++++++++++++++
+ arch/m68k/configs/m5235evb_defconfig | 52 ++++++++++++++++++++++++++++++++++++
+ arch/m68k/configs/m5282evb_defconfig | 51 +++++++++++++++++++++++++++++++++++
+ arch/m68k/include/asm/mcfgpio.h      |  2 +-
+ 5 files changed, 130 insertions(+), 2 deletions(-)
+ create mode 100644 arch/m68k/configs/m5235evb_defconfig
+ create mode 100644 arch/m68k/configs/m5282evb_defconfig
