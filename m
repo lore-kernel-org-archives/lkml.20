@@ -1,120 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBF630F94B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 043E81922FD
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787882935; cv=none; b=IfkbP1ztKTdyiygzw0PF+00MUM9YZ053EnM1Ti9lE+82hjC0c1YrVXJhWPqgUAfh4QYMQM23VqR2tALp+tCVGxAgadZV5/cNz+hx+qxpdvsnCufQ3Sl3pkqoLZKfMJyJsZi0GWi0OY2JuDq7HNUrgFY8oKAe23O57XlulUoAC2s=
+	t=1787882965; cv=none; b=CCPbi8aD6nitFQ//f9/gktf0dsp/xHsFoSl4SvYt1nelN+tbcDYN6PjrHhl3Rm0hpsR0297DMwCGE9DM+GJzr48Mav7h+XYW4Db5Vvjy3kdG3YJ8BT8QGZXkQKnfZAoG9XsgNDdGy0+U2VToeA6WWU7poIHAlVbq1e9Lpvs64G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787882935; c=relaxed/simple;
-	bh=N/OmfWRr5BE9ZeYSOHIER3Ln1V2uJkn8sX1qLpmL44c=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=XvJ1s3I5BFR8HCEed0pqmDB4H4FuiIDWXBTuDsYuAW27BY7OThXFuzd3Zp55xR5b26gbmq0+SIDPuyf9oMZk4UY/7AfCEZ8LSGo0V73jN4UI7B0/4BYnqaDTILTNqMATU1VZNbxl3k6hFKqiQxSfUaxyfLCw6VjpI7RYwItOiN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZJjLaIpz; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZJjLaIpz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787882934; x=1819418934;
-  h=date:from:to:cc:subject:message-id;
-  bh=N/OmfWRr5BE9ZeYSOHIER3Ln1V2uJkn8sX1qLpmL44c=;
-  b=ZJjLaIpzhgSB40GeE5JC4s9nAAJVfxPFnHjwAu5c/VnxUoS7YgNg3SPq
-   jY00V7bmX5gypToBVw7duI+SY7AD8YfdB87XBegNCh7rX3jT31tsG7KRY
-   t4bWg8zyvwmXHVGMGYSwmVVx+ya9xuyffgXhFUoJwdsm3qjhIXNK+7dT5
-   SHrYCzcQbPJ7cgAgHSdVO/nLCIh9/g0WjTmD4zFovkuIvCsf5SgHzXWNr
-   GXuYAMuS5j7Ra1Fpae5LDp4f6loLabTQQluEweIj5LrAOi6qW9YXgdRX5
-   bDizMxC9OO9JsBdxIYHx6zxbD9DIKYhtaXlxaJcsjpU7yZo4lShYHOJRk
-   A==;
-X-CSE-ConnectionGUID: rnBB8BeiSJ2e2n87YHDRFw==
-X-CSE-MsgGUID: Lmq4LJFjRGGhUZmN8yLsBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92250595"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="92250595"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 19:08:53 -0700
-X-CSE-ConnectionGUID: qcfXairKQWKZgRwa0CMb0g==
-X-CSE-MsgGUID: /ND5x58xQiW7+seelD6E5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="271557334"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 27 Aug 2026 19:08:51 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzm1Q-00000000AGD-2tEG;
-	Fri, 28 Aug 2026 02:08:48 +0000
-Date: Fri, 28 Aug 2026 10:08:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- "Pierre-Louis Bossart" <pierre-louis.bossart@linux.dev>
-Subject: sound/soc/sdca/sdca_hid.c:133:undefined reference to
- `hid_destroy_device'
-Message-ID: <202608281034.4X4V9tcq-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	s=arc-20240116; t=1787882965; c=relaxed/simple;
+	bh=smdGzjqxJH8m/G8A9Nn50c+2Dlz8mHJ+N2Ld1KKlVuI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LrA+4ENAnDDSTLVyqDNmpTcAKk/0HjJ6IahgxeEqX4jRhJkhn9vtWfIIRv1naQ7QaBTzdNYsYiEz3RsX3SIlD5dc99hNivnC/zykDeiu0LY8oy0y73E5EqLJStC5oXxRZcckTAeR1y/teaBvnRflsvrGgnUzaJnZgxMLM7FZ69k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMJK0WNqz34Dg;
+	Fri, 28 Aug 2026 10:09:05 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMJG3bKfz34Dg;
+	Fri, 28 Aug 2026 10:09:02 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 4A2983104800;
+	Fri, 28 Aug 2026 10:05:19 +0800 (CST)
+Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 28 Aug
+ 2026 10:09:01 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
+	<tim.c.chen@linux.intel.com>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
+	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
+ Hildenbrand <david@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
+	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
+	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
+Subject: [RFC PATCH v2 16/23] sched/cache: Allow un-throttled active balance to spread out of a full LLC
+Date: Fri, 28 Aug 2026 10:04:57 +0800
+Message-ID: <20260828020457.785383-1-wujianyong@hygon.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   73e3f0710014fe6d4ed98cfc02292f6121db7558
-commit: df1fd5d8ab403c264b364abe187ce94b2fa7b96f ASoC: SDCA: Add missing destroy for HID device
-date:   3 weeks ago
-config: x86_64-buildonly-randconfig-004-20260825 (https://download.01.org/0day-ci/archive/20260828/202608281034.4X4V9tcq-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260828/202608281034.4X4V9tcq-lkp@intel.com/reproduce)
+Cache-aware aggregation reaches active balance through two asymmetric
+paths. Pulling a task back to its preferred LLC uses migrate_llc_task,
+which need_active_balance() lets through unconditionally. Pushing a task
+the other way. Out of an LLC that is already over the aggregation cap
+and into one that still has room. It only happens via migrate_task, which
+first has to wait for nr_balance_failed to exceed cache_nice_tries + 2.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: df1fd5d8ab40 ("ASoC: SDCA: Add missing destroy for HID device")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608281034.4X4V9tcq-lkp@intel.com/
+Let the spread direction reach active balance without the
+nr_balance_failed wait as well. The source LLC must already be over the
+aggregation cap and the destination must still fit under it with a full
+CPU of load added, so this can only undo an overshoot and never fights
+the aggregation itself.
 
-All errors (new ones prefixed by >>):
+Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+---
+ kernel/sched/fair.c | 58 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-   ld: vmlinux.o: in function `rt766_sdca_destroy_hid_device':
-   sound/soc/codecs/rt766-sdca.c:198:(.text+0x1b37dbf): undefined reference to `hid_destroy_device'
-   ld: vmlinux.o: in function `rt766_sdca_btn_detect':
-   sound/soc/codecs/rt766-sdca.c:89:(.text+0x1b39eaa): undefined reference to `hid_input_report'
-   ld: vmlinux.o: in function `sdca_destroy_hid_device':
->> sound/soc/sdca/sdca_hid.c:133:(.text+0x1ccf77c): undefined reference to `hid_destroy_device'
-   ld: vmlinux.o: in function `sdwhid_parse':
-   sound/soc/sdca/sdca_hid.c:38:(.text+0x1ccf7fd): undefined reference to `hid_parse_report'
-   ld: vmlinux.o: in function `sdca_add_hid_device':
-   sound/soc/sdca/sdca_hid.c:96:(.text+0x1ccf864): undefined reference to `hid_allocate_device'
-   ld: sound/soc/sdca/sdca_hid.c:112:(.text+0x1ccf974): undefined reference to `hid_add_device'
-   ld: sound/soc/sdca/sdca_hid.c:115:(.text+0x1ccf9a2): undefined reference to `hid_destroy_device'
-   ld: vmlinux.o: in function `sdca_hid_process_report':
-   sound/soc/sdca/sdca_hid.c:170:(.text+0x1ccfba2): undefined reference to `hid_input_report'
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0defdd4316b8..42ab6347e667 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -13506,6 +13506,61 @@ imbalanced_active_balance(struct lb_env *env)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_SCHED_CACHE
++/*
++ * Cache-aware aggregation pulls tasks back to the preferred LLC via
++ * migrate_llc_task, which reaches active balance without any
++ * nr_balance_failed gating. Spreading tasks the other way. It only
++ * happens through migrate_task, which must first wait for
++ * nr_balance_failed to exceed cache_nice_tries + 2. That asymmetry
++ * lets a few LLCs stay oversubscribed while other LLCs of the same
++ * preferred region stay idle.
++ *
++ * Allow the spread direction to active balance un-throttled as well. The
++ * source LLC must be over the aggregation cap and the destination must
++ * still fit under it, so this can only undo an overshoot and never fights
++ * the aggregation itself. Region containment is still enforced by
++ * alb_break_llc()/can_migrate_node(), which run before this.
++ */
++static inline bool llc_spread_active_balance(struct lb_env *env)
++{
++	unsigned long src_util, src_cap, dst_util, dst_cap;
++
++	if (!sched_cache_enabled())
++		return false;
++
++	if (env->migration_type != migrate_task)
++		return false;
++
++	if (cpus_share_cache(env->src_cpu, env->dst_cpu))
++		return false;
++
++	if (!get_llc_stats(env->src_cpu, &src_util, &src_cap) ||
++	    !get_llc_stats(env->dst_cpu, &dst_util, &dst_cap))
++		return false;
++
++	if (fits_llc_capacity(src_util, src_cap))
++		return false;
++
++	/*
++	 * Only move when the destination still fits with a full CPU of the load
++	 * added, and when the source leads by at least two CPUs worth, so that
++	 * moving one task cannot invert the imbalance and bounce it straight
++	 * back.
++	 */
++	if (!fits_llc_capacity(dst_util + SCHED_CAPACITY_SCALE, dst_cap))
++		return false;
++
++	/* Avoid threads ping-pong migration */
++	return util_greater(src_util, dst_util);
++}
++#else
++static inline bool llc_spread_active_balance(struct lb_env *env)
++{
++	return false;
++}
++#endif
++
+ static int need_active_balance(struct lb_env *env)
+ {
+ 	struct sched_domain *sd = env->sd;
+@@ -13519,6 +13574,9 @@ static int need_active_balance(struct lb_env *env)
+ 	if (imbalanced_active_balance(env))
+ 		return 1;
+ 
++	if (llc_spread_active_balance(env))
++		return 1;
++
+ 	/*
+ 	 * The dst_cpu is idle and the src_cpu CPU has only 1 CFS task.
+ 	 * It's worth migrating the task if the src_cpu's capacity is reduced
+-- 
+2.34.1
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for SND_SOC_SDCA_HID
-   Depends on [n]: SOUND [=y] && SND [=y] && SND_SOC [=y] && SND_SOC_SDCA [=y] && (HID [=n]=y [=y] || HID [=n]=SND_SOC_SDCA [=y])
-   Selected by [y]:
-   - SND_SOC_RT766_SDCA_SDW [=y] && SOUND [=y] && SND [=y] && SND_SOC [=y] && SOUNDWIRE [=y] && SND_SOC_SDCA [=y]
 
-
-vim +133 sound/soc/sdca/sdca_hid.c
-
-   124	
-   125	/**
-   126	 * sdca_destroy_hid_device - destroy the HID device
-   127	 * @interrupt: Pointer to the SDCA interrupt information structure.
-   128	 */
-   129	void sdca_destroy_hid_device(struct sdca_interrupt *interrupt)
-   130	{
-   131		struct hid_device *hid = interrupt->priv;
-   132	
- > 133		hid_destroy_device(hid);
-   134	}
-   135	EXPORT_SYMBOL_NS(sdca_destroy_hid_device, "SND_SOC_SDCA");
-   136	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
