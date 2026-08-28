@@ -1,197 +1,138 @@
-Received: from mta1.migadu.com (out-205.mta1.migadu.com [95.215.58.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194E62628D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3596D4315F;
+	Fri, 28 Aug 2026 04:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787892980; cv=none; b=ehQsan9olilNjaUiM11gI9FdUM3cSU4/oVZbs5zQldnhv8E5ZsqUQOKY7IlA04fv9qqwdbl1XMsQ5rlRY9eARkf9wp9YCFNv4YPeJZz3084krjrQxU86ViUmQ+a7h3XUlRN4lcDEA442NstRc+jksmiaKgxJjGVe2Sq95QSXThE=
+	t=1787893030; cv=none; b=QMbL+iLStYcU3iX8BRwXZhaONE3l9uqUQOaTJDQd9vXgqrWSUPm2qgBiIOmxXkfrzeN+oSDVtn4jADjggI9crMD9+ojJHao+8lLUx3pFOnDLfaoFWySgq0AzgtJGUKvm9iygjF0d12ZEiJWjyJTl7Hib67c3PFxGgemA/2duRqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787892980; c=relaxed/simple;
-	bh=fZhglLoWTNrH1aaF5Azu3NNgyHJwxU8ggLwqo+Wjufo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eWZgcX0+y2rNF7hcpOzqylgeg/J9jMREhFAav2VZluHewH3j+ZGaUmTvXDwj1SU2bAc9JxbbV0FQDf/ZoQD/xcRckFnefQHThKsCLMuo3MJ9/XzuTFCrp6qp+s3Eo0ZkjWL8aSCb8UhJdCaw2nEqU9hDPA1wRd1D5rNfQtaDMzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=WHJEB2Yq; arc=none smtp.client-ip=95.215.58.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	s=arc-20240116; t=1787893030; c=relaxed/simple;
+	bh=ybu/9C5Y5K9vGbbTdsX6Qa2JT8JIZut+yHcbtL7m85w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=HRrtpIXO+lxbfPQlhjzS2cY+TX2ncT8T76OGD//Tdkz3MOqO6Gn35NGFXwPo1c6mvXNyYr47PD7D2/qFNXa+QoK+Ou++gjltyfCODIZbJTeSM6wAlFY0VtvtUv/relxOi7W/MZYssiQdK3tjD/END48KRJTJJ7j1AbprwQ4XaEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsuqmT8B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="WHJEB2Yq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fZhglLoWTNrH1aaF5Azu3NNgyHJwxU8ggLwqo+Wjufo=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787892976; v=1; x=1788497776;
- b=WHJEB2YqzV6teklhLC5KJGY9yqMNDvbp8H/4fw9/VZyRjHNoLQPEEuc5MZwbDZzZ/7CSr1IQ
- 5sbtHDcavG3xh8Nvs7y7XLOnbG0cEsju/M1eKtxnP/q8WlpCUZYDXjUFZEpIF40SpY405SXUlFg
- Q9az4hnCLiH8PWeLS90bOXXWSToCTlng72mVegf6Jvau/cNHfNcNMG+wf4knMZrYGJjnXr0Bb94
- 1GkdwVUjuSat/3Gbx2U/ipGeLWMQrBhc3oOGelBzpohGCW8dpf7aVSLRlht86nmrByeM7Yw0bt2
- 2nuu/wPgrrdm6O5Zh2GVtxWSeYBEz3A3E8e2rgrtGxhdw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef95467f80a113ed;
-	Fri, 28 Aug 2026 04:56:15 +0000
-X-Mizu-Trace-ID: ef95467f80a113ed
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Date: Fri, 28 Aug 2026 04:55:52 +0000
-Subject: [PATCH net] Revert "net/mlx5: Add sensor name to temperature event
- message"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsuqmT8B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30771F000E9;
+	Fri, 28 Aug 2026 04:57:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787893028;
+	bh=30+vWOFLvDRyu2p90gkDmZljBAVI066FlFRhEIPobq4=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=XsuqmT8BLHhd/wNOCMPFIZg9T6f06PThC89n6aM9DjV5GVvDnYCDHhFk1X+G3kM3B
+	 Ab652uxuQdZLjvkYlTlXWLti66Fxk3QBkhhBw190DBJuc3kZ34iWbe874zwRGMQjHd
+	 mb3ccGw8hHztO7M4hBITyRtxjkBcvjdoiHwrUsOkI6bd66kt4SD0b1g9AaZ2Cn9aG9
+	 n7Qtrvo1WelU7roXNl1591trpY/TZhstLi3ei4umlZU1N8Wfa/kxSy20pq60rmehjh
+	 mRt/HUWSWUWF0HTSFkZMYsnu0FkLQ1QL0vRcEQDreyRyxzmNrYlTBC4V3+M/kaN3Dx
+	 ofmL1OgnQFWmQ==
+Message-ID: <d1437839-5a08-46d9-b40d-83faae7b19c9@kernel.org>
+Date: Fri, 28 Aug 2026 06:57:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch 1/9]: Make consolemap.c handle Unicode planes outside BMP
+To: Alan Mackenzie <acm@muc.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Simona Vetter <simona@ffwll.ch>, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <apCEDM2sWv_M354-@MAC.fritz.box> <apCFLI0ga-DG-HRN@MAC.fritz.box>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <apCFLI0ga-DG-HRN@MAC.fritz.box>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-b4-mlx5-temp-warn-revert-v1-1-4e2ae5a0351f@cressey.dev>
-X-B4-Tracking: v=1; b=H4sIANcUkWoC/02NTQ6CMBCFr0Jm7QRshKBXMS6mZZAKlGZahYRwd
- wtuXL7v/a0QWCwHuGUrCH9ssJNL4nzKwHTknoy2SRpUoaqiVjXqC47DUmLk0eNM4jDVWCJeG1U
- 3RMS6aiHVvXBrl2P6Do4jPH4wvPWLTdxH95imwKiFnOl2NPjcTPMkPUt+WH3wA0VUZfn3G9iFS
- WDbvsN3x6TAAAAA
-X-Change-ID: 20260828-b4-mlx5-temp-warn-revert-9d28daaaeb6f
-To: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
- Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Shahar Shitrit <shshitrit@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Will Mortensen <will@extrahop.com>, 
- "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, 
- Ben Cressey <ben@cressey.dev>
-X-Mailer: b4 0.15.2
 
-This reverts commit 46fd50cfcc12368bed9ae5257cc3beaea5b3c193.
+On 27. 08. 26, 20:42, Alan Mackenzie wrote:
+> vt: 32b glyph: 1. Make consolemap.c handle Unicode planes outside BMP
+> 
+> For this, add a fourth layer "planes" onto the sparse map in
+> this file.  Also handle glyph numbers up to 2^21 rather than
+> 256/512.  Move the conversion between __user and kernel data
+> from consolemap.c to vt_ioctl.c.
+> 
+> Signed-off-by: Alan Mackenzie <acm@muc.de>
+> 
+> diff --git a/drivers/tty/vt/consolemap.c b/drivers/tty/vt/consolemap.c
+> index 3fa89a2dbeba..2f695d97f0eb 100644
+> --- a/drivers/tty/vt/consolemap.c
+> +++ b/drivers/tty/vt/consolemap.c
+> @@ -34,11 +34,11 @@
+>   #include <linux/tty.h>
+>   #include <linux/uaccess.h>
+>   #include <linux/console.h>
+> -#include <linux/consolemap.h>
+>   #include <linux/vt_kern.h>
+> +#include <linux/consolemap.h>
 
-print_sensor_names_in_bit_set() passes the sensor index from the
-temperature warning event to hwmon_get_sensor_name(), which uses it
-as an index into temp_channel_desc[]. That array is indexed by hwmon
-channel, not by sensor index: it has one entry per ASIC or platform
-sensor the device reports, plus at most one module sensor
-(module_scount is 0 or 1). Module sensors have index 64 and up, so a
-module temperature warning reads far past the end of the allocation
-and prints whatever memory follows it, up to the next NUL byte, into
-the log.
+Why do you do this?
 
-The mapping from sensor index to hwmon channel cannot be made
-reliable here: the driver registers at most one module channel, while
-the event can carry bits for other ports' modules, and the bitmap in
-the existing warning already distinguishes the ASIC sensor (bit 0)
-from module sensors (bit 64 and up). Drop the name lookup rather than
-fix the mapping, as suggested in review of an earlier fix [1].
+>   #include <linux/string.h>
+>   
+> -static unsigned short translations[][E_TABSZ] = {
+> +static u1632 translations[][E_TABSZ] = {
 
-Fixes: 46fd50cfcc12 ("net/mlx5: Add sensor name to temperature event message")
-Cc: stable@vger.kernel.org
-Suggested-by: Leon Romanovsky <leon@kernel.org>
-Link: https://lore.kernel.org/netdev/20260518112555.GM33515@unreal/
-Reported-by: Will Mortensen <will@extrahop.com>
-Closes: https://lore.kernel.org/netdev/20260512-b4-mlx5-sensor-fix-v2-1-531fee4fd7fd@extrahop.com/
-Link: https://lore.kernel.org/netdev/20260515-b4-mlx5-sensor-fix-v3-1-f537ce191d6c@extrahop.com/ [1]
-Assisted-by: LLM
-Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-Signed-off-by: Ben Cressey <ben@cressey.dev>
----
-The restored warning string intentionally lacks the trailing period
-and newline: this is a pure revert of 46fd50cfcc12, the commit that
-added them.
+This breaks the build at this point, right?
 
-Will - happy for you to carry this as v4 if you'd prefer.
----
- drivers/net/ethernet/mellanox/mlx5/core/events.c | 31 +++---------------------
- drivers/net/ethernet/mellanox/mlx5/core/hwmon.c  |  5 ----
- drivers/net/ethernet/mellanox/mlx5/core/hwmon.h  |  1 -
- 3 files changed, 3 insertions(+), 34 deletions(-)
+u1632 is a bad name though.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/events.c b/drivers/net/ethernet/mellanox/mlx5/core/events.c
-index 4d7f35b968761..a5d4586edf435 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/events.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/events.c
-@@ -6,7 +6,6 @@
- #include "mlx5_core.h"
- #include "lib/eq.h"
- #include "lib/events.h"
--#include "hwmon.h"
- 
- struct mlx5_event_nb {
- 	struct mlx5_nb  nb;
-@@ -154,28 +153,11 @@ static int any_notifier(struct notifier_block *nb,
- 	return NOTIFY_OK;
- }
- 
--#if IS_ENABLED(CONFIG_HWMON)
--static void print_sensor_names_in_bit_set(struct mlx5_core_dev *dev, struct mlx5_hwmon *hwmon,
--					  u64 bit_set, int bit_set_offset)
--{
--	unsigned long *bit_set_ptr = (unsigned long *)&bit_set;
--	int num_bits = sizeof(bit_set) * BITS_PER_BYTE;
--	int i;
--
--	for_each_set_bit(i, bit_set_ptr, num_bits) {
--		const char *sensor_name = hwmon_get_sensor_name(hwmon, i + bit_set_offset);
--
--		mlx5_core_warn(dev, "Sensor name[%d]: %s\n", i + bit_set_offset, sensor_name);
--	}
--}
--#endif /* CONFIG_HWMON */
--
- /* type == MLX5_EVENT_TYPE_TEMP_WARN_EVENT */
- static int temp_warn(struct notifier_block *nb, unsigned long type, void *data)
- {
- 	struct mlx5_event_nb *event_nb = mlx5_nb_cof(nb, struct mlx5_event_nb, nb);
- 	struct mlx5_events   *events   = event_nb->ctx;
--	struct mlx5_core_dev *dev      = events->dev;
- 	struct mlx5_eqe      *eqe      = data;
- 	u64 value_lsb;
- 	u64 value_msb;
-@@ -187,17 +169,10 @@ static int temp_warn(struct notifier_block *nb, unsigned long type, void *data)
- 	value_lsb &= 0x1;
- 	value_msb = be64_to_cpu(eqe->data.temp_warning.sensor_warning_msb);
- 
--	if (net_ratelimit()) {
--		mlx5_core_warn(dev, "High temperature on sensors with bit set %#llx %#llx.\n",
-+	if (net_ratelimit())
-+		mlx5_core_warn(events->dev,
-+			       "High temperature on sensors with bit set %#llx %#llx",
- 			       value_msb, value_lsb);
--#if IS_ENABLED(CONFIG_HWMON)
--		if (dev->hwmon) {
--			print_sensor_names_in_bit_set(dev, dev->hwmon, value_lsb, 0);
--			print_sensor_names_in_bit_set(dev, dev->hwmon, value_msb,
--						      sizeof(value_lsb) * BITS_PER_BYTE);
--		}
--#endif
--	}
- 
- 	return NOTIFY_OK;
- }
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/hwmon.c b/drivers/net/ethernet/mellanox/mlx5/core/hwmon.c
-index afcdebac9c4fd..bf36c1c9bf781 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/hwmon.c
-@@ -416,8 +416,3 @@ void mlx5_hwmon_dev_unregister(struct mlx5_core_dev *mdev)
- 	mlx5_hwmon_free(hwmon);
- 	mdev->hwmon = NULL;
- }
--
--const char *hwmon_get_sensor_name(struct mlx5_hwmon *hwmon, int channel)
--{
--	return hwmon->temp_channel_desc[channel].sensor_name;
--}
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/hwmon.h b/drivers/net/ethernet/mellanox/mlx5/core/hwmon.h
-index f38271c22c105..999654a9b9da5 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/hwmon.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/hwmon.h
-@@ -10,7 +10,6 @@
- 
- int mlx5_hwmon_dev_register(struct mlx5_core_dev *mdev);
- void mlx5_hwmon_dev_unregister(struct mlx5_core_dev *mdev);
--const char *hwmon_get_sensor_name(struct mlx5_hwmon *hwmon, int channel);
- 
- #else
- static inline int mlx5_hwmon_dev_register(struct mlx5_core_dev *mdev)
+ > For the avoidance of doubt, no LLM has been used in the preparation 
+of this change.
 
----
-base-commit: 4e15e89faac9f308baeb01f46c13a051814d2449
-change-id: 20260828-b4-mlx5-temp-warn-revert-9d28daaaeb6f
+Given the above, perhaps you should have?
 
+See also what Sashiko thinks:
+https://sashiko.dev/#/patchset/apCEDM2sWv_M354-%40MAC.fritz.box
+
+thanks,
+-- 
+js
+suse labs
