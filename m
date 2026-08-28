@@ -1,47 +1,78 @@
-Received: from mail-m32116.qiye.163.com (mail-m32116.qiye.163.com [220.197.32.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27014331EB2;
-	Fri, 28 Aug 2026 03:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EA30FC0F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887763; cv=none; b=eLuF7khinllXQB+9fU9SD+pJnY5EuyYIx3gpluR+9QC+bbzysp8iJ+pZSi7qbtj9xQElOKehvK/q0MHDtU+Wuc/IdaBwKOTsxa1DnnAaq/rn8bozuXQwYk4u8sdy2TVD2NxqtvtnrAuzudh9M42R1nl49hwiXlJ/Jru5SB+jbMM=
+	t=1787887779; cv=none; b=kioJ2HqlHb0i/HpgKPTaCD5AXyuq0N46z5ppbvhihPUF1Lo2UdphCowc+RDPPcITsRmdlp57L7eEJKmfTiDr+ab1jD7u/46EPgVa0MmK5nSkA1BMYTyYdNAeSPcM48Yy4MHRd4N3s2xsQdjTF5xl/p9OV9MWxrXhlTlECtQqI3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887763; c=relaxed/simple;
-	bh=itGv/jJIDnFVFSAhWDNAY/d524buIqJyjfKJN9E5kRQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=s/2cvkGx4OXNwfbxD4RFwhu9wrsR1fXLneDHJmAfwme/FjaLzQS4R8Restm/ZtCdlIgx2Fl2bXj5mJAw7F6zsLr5m1DTv+J8LhQruqqoT8oiuHGfwPc7AMw2tenMhJglcirvbPvIY2ofoi/7kB+wA9c3XEQfw56JkpT5IsZ+nsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20dae;
-	Fri, 28 Aug 2026 11:13:58 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
+	s=arc-20240116; t=1787887779; c=relaxed/simple;
+	bh=jPjlin0tmMCDRTUW+snF3PCNw9aRjkrQLg8rejx6Ly4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bJjfZJfspEeWhFzC0JjJG9yYwQNGRtBRzfN0azPwBgtas52mUWpewPHSzp1wuCbzaqoNA0ltnN9EthlC6HV6131hMMrnXz/TUl30moxzgnX/YhAPQuywQDv+Ogudtd9nm6WZvp+U0nXfeYVimshke/OQLRPezhimQOIleC+JEgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQZGM383; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQZGM383"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-848643382fcso729573b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:29:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787887777; x=1788492577; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
+        b=ZQZGM383K2s1zkYeHdJcoSVFaHA33CHT89DmYEYIU/ylCJmPbAibUdK2EHIWXFeiZx
+         /Vxd+Fwop1tgVMKhpcu8b4SYswRqcH+CcaMsS75+BF1ft6hist5CHui2eF/HrSjmeRFY
+         9fDvRwiht1K1b6VRVBskyFS1IYBwzKMdHsKnctvQN78nIY6yBMB9rxUmQO8uyy99e0kL
+         8NnmthT4C/vDWRNPc4w4jPy245ICoqprQHkj3dq7Quev+rf2g62ZsySiK4O+1ilwKr1A
+         /59neHNjS3Gn8uqdahUPhODiFG9kg0Ryv/n97JsvQaNIhkNJ2G3UGOnfUwPPNgeOmTPl
+         cIUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787887777; x=1788492577;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
+        b=f3RK8cL84TjH5gqgp22c4H3srs51VYmCJntvEObcQuZwhWo80ymPgRvn4WJsWBef2X
+         xmYLQgq2eiRa7kEGzfkQdyMzDcNU48JDUNQA5Fj177GCerfuORXSBlxDBLzhDFP3oVM8
+         zG16uz4piPsZW2STK1Dy+iyTA7xOHI17PiAlvEgAIyHA+ucdj/R0OJAUkeAagoPBPu9t
+         1OTwRfxeVU+opR7OgdoBG765dXd76zCa2ECAf8kAoyeeva9CqMEtzXK1CUb6SWNS6c76
+         XkX6IC+GQqVunU9gf+1/GOnAnoZsowFyLfBR/cW2kwL6wgrDXXtlpRyay9QKmvEY3GNI
+         LWMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqGWrCQ7ljVILb3qD+ckGQlMHKhgCSWbk/3iS0Z0YuM4IkunZcd0qLWCxghpbKo5OtJcSCG9ZRuwec+4HM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1G61ol43medAPec+RGVFoqNsL+fC5d8f5jJi07XKhfbk6qGDp
+	YXpLWkx69r9Fcj4DUqJVZwH780iQr3BaVFdRyknc0Vzcx3dYmhQfHOs3
+X-Gm-Gg: AR+sD133BnUldW5+UpzYvC1jLABOatqPzaFvPeCNfYMhquJpj2ov4fq7SVALsljXRXU
+	8gndewPUXAmt66K8r2JP06vpps/UBexsh5b+0iA0bD4hFZKDXSb3rzolV9mMRfQ6XFyCQSHr+pe
+	gKhQAXrZOq/Pd0biVGTSh7T21HihvVnlLYNOmssR4EjY+sLKv9HIyAZnKtPfEaYuRPUecJcvcY0
+	wPgM5aWkMqUD+TKbHI8O41semSLyFM3VsjyG95QoUOvLWAoRZZKnsW0pLGxm6e7PQ1waMV8g6H+
+	OwIaKVpB7YWZ22NUQ9Ech9MPQ8lUVAR3lImS2EYaw1RxyFThNWPcFOqOmY63O+MKV8pAlbxq8/+
+	PLrSbOBwT9vn+R26MTdHEUpsgtC0D5+cryf60bu27NWuaDj9JSJ8BeTc+oeWW9Pq8wZhHncVQZb
+	z9iDQX/ZSEfDc6FaCkSZJ1GpFkMv8Sp6MGpAsaoFQP5fReFu17XQGzYuhdmkUooCBF
+X-Received: by 2002:a05:6a00:13a0:b0:855:a211:6679 with SMTP id d2e1a72fcca58-85628b7d138mr6941183b3a.5.1787887776957;
+        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
+Received: from DESKTOPHOME.lan ([240e:3a3:9304:9820:f4a6:931b:cf31:308])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d6c845sm135770b3a.59.2026.08.27.20.29.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
+From: Ziyou Xu <xuziyougm@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	bjorn@mork.no,
+	ericwouds@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 5/8] mm/page_owner: Add memcg filter support
-Date: Fri, 28 Aug 2026 11:13:36 +0800
-Message-Id: <20260828031339.1270699-6-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
-References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: phy: air_en8811h: restore AN8811HB LED GPIO after MCU restart
+Date: Fri, 28 Aug 2026 11:29:22 +0800
+Message-ID: <20260828032922.469449-1-xuziyougm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,241 +80,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0465c21b00229kunma81ef96712a34c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhofVhgeH01JSEgfSkNMGFYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
 
-Add memory cgroup filtering to page_owner to allow filtering pages by
-their memcg path. This helps debug memory usage patterns for specific
-cgroups. Users can now filter page_owner output to show only pages
-belonging to a particular memory cgroup.
+Commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
+configuration to config_init") moved the EN8811H LED GPIO setup from
+probe to config_init because an MD32 restart clears the output-enable
+bits.
 
-Collect cgroup path in memcg_info using cgroup_path() and store the
-filter state in page_owner_filter_state. When the user sets memcg filter
-via "memcg=<path>" command, compare each page's cgroup path against
-the specified path and skip non-matching pages using strcmp.
+AN8811HB follows the same initialization sequence: an8811hb_probe()
+enables GPIO3/4/5, and later config_init() calls restart MD32.
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+Move the AN8811HB GPIO setup to the end of an8811hb_config_init(),
+matching the current EN8811H path.
+
+Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ziyou Xu <xuziyougm@gmail.com>
 ---
- mm/page_owner.c | 79 +++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 74 insertions(+), 5 deletions(-)
+Changes in v2:
+- Drop the EN8811H change, merged independently as commit 03b4702fc5e3
+  ("net: phy: air_en8811h: move LED GPIO configuration to config_init").
+- Apply the same fix to AN8811HB per Jakub's review.
+- Rebase onto netdev/main.
 
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 09cfad10a7df..21b82e927eaf 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -71,6 +71,7 @@ static const char * const page_owner_print_mode_strings[] = {
+Not tested on AN8811HB hardware.
+
+v1: https://lore.kernel.org/netdev/20260820141034.1400439-1-xuziyougm@gmail.com/
+
+---
+ drivers/net/phy/air_en8811h.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+index 0eeb7b9a4..6ee5df63c 100644
+--- a/drivers/net/phy/air_en8811h.c
++++ b/drivers/net/phy/air_en8811h.c
+@@ -1125,13 +1125,6 @@ static int an8811hb_probe(struct phy_device *phydev)
+ 	if (ret)
+ 		goto err_dev_create;
  
- struct memcg_info {
- 	char name[80];
-+	char *path;
- 	bool is_slab;
- 	bool is_objcg;
- 	bool is_online;
-@@ -86,6 +87,7 @@ struct page_owner_filter_state {
- 	enum page_owner_print_mode print_mode;
- 	bool nid_filter_enabled;
- 	bool proc_filter_enabled;
-+	bool memcg_filter_enabled;
- 	nodemask_t nid_filter;
- 	int pid_count;
- 	int tgid_count;
-@@ -93,6 +95,7 @@ struct page_owner_filter_state {
- 	pid_t pid_list[MAX_FILTER_PIDS];
- 	pid_t tgid_list[MAX_FILTER_TGIDS];
- 	char comm_list[MAX_FILTER_COMMS][TASK_COMM_LEN];
-+	char *memcg_path;
- };
- 
- static int cmp_pid_t(const void *a, const void *b)
-@@ -582,12 +585,21 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
- /*
-  * Get memcg information from page
-  */
--static void get_page_memcg_info(struct page *page, struct memcg_info *info)
-+static void get_page_memcg_info(struct page *page, struct memcg_info *info,
-+				 bool need_path)
- {
- 	unsigned long memcg_data;
- 	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
- 
-+	if (need_path) {
-+		info->path = kzalloc(PATH_MAX, GFP_KERNEL);
-+		if (!info->path)
-+			return;
-+	} else {
-+		info->path = NULL;
-+	}
-+
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
- 	if (!memcg_data || PageTail(page))
-@@ -606,8 +618,14 @@ static void get_page_memcg_info(struct page *page, struct memcg_info *info)
- 	info->is_objcg = (memcg_data & MEMCG_DATA_KMEM) != 0;
- 	info->is_online = css_is_online(&memcg->css);
- 	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
-+	if (need_path)
-+		cgroup_path(memcg->css.cgroup, info->path, PATH_MAX);
- out_unlock:
- 	rcu_read_unlock();
-+	if (info->path && !info->path[0]) {
-+		kfree(info->path);
-+		info->path = NULL;
-+	}
- }
- 
- /*
-@@ -776,6 +794,7 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	struct page_owner *page_owner;
- 	depot_stack_handle_t handle;
- 	struct page_owner_filter_state *state = file->private_data;
-+	ssize_t ret;
- 
- 	if (!static_branch_unlikely(&page_owner_inited))
- 		return -EINVAL;
-@@ -899,7 +918,12 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		}
- 
- #ifdef CONFIG_MEMCG
--		get_page_memcg_info(page, &memcg_info);
-+		get_page_memcg_info(page, &memcg_info,
-+				    state->memcg_filter_enabled);
-+		if (state->memcg_filter_enabled)
-+			if (!memcg_info.path ||
-+			    strcmp(memcg_info.path, state->memcg_path) != 0)
-+				goto ext_put_continue;
- #endif
- 
- 		/* Record the next PFN to read in the file offset */
-@@ -907,9 +931,12 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 
- 		page_owner_tmp = *page_owner;
- 		page_ext_put(page_ext);
--		return print_page_owner(buf, count, pfn, page,
-+		ret = print_page_owner(buf, count, pfn, page,
- 				&page_owner_tmp, handle, state, &memcg_info);
-+		kfree(memcg_info.path);
-+		return ret;
- ext_put_continue:
-+		kfree(memcg_info.path);
- 		page_ext_put(page_ext);
- 		cond_resched();
- 	}
-@@ -1016,7 +1043,10 @@ static int page_owner_open(struct inode *inode, struct file *file)
- 
- static int page_owner_release(struct inode *inode, struct file *file)
- {
--	kfree(file->private_data);
-+	struct page_owner_filter_state *state = file->private_data;
-+
-+	kfree(state->memcg_path);
-+	kfree(state);
+-	/* Configure led gpio pins as output */
+-	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
+-					  AN8811HB_GPIO_OUTPUT_345,
+-					  AN8811HB_GPIO_OUTPUT_345);
+-	if (ret < 0)
+-		goto err_dev_create;
+-
  	return 0;
+ 
+ err_dev_create:
+@@ -1265,10 +1258,19 @@ static int an8811hb_config_init(struct phy_device *phydev)
+ 
+ 	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
+ 			    AIR_LED_MODE_USER_DEFINE);
+-	if (ret < 0)
++	if (ret < 0) {
+ 		phydev_err(phydev, "Failed to initialize leds: %d\n", ret);
++		return ret;
++	}
+ 
+-	return ret;
++	/* Restore LED GPIO output enables after MCU initialization. */
++	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
++					  AN8811HB_GPIO_OUTPUT_345,
++					  AN8811HB_GPIO_OUTPUT_345);
++	if (ret < 0)
++		return ret;
++
++	return 0;
  }
  
-@@ -1096,9 +1126,11 @@ static ssize_t page_owner_write(struct file *file,
- 	nodemask_t new_nid_filter;
- 	bool new_nid_filter_enabled;
- 	bool new_proc_filter_enabled;
-+	bool new_memcg_filter_enabled;
- 	pid_t new_pid_list[MAX_FILTER_PIDS];
- 	pid_t new_tgid_list[MAX_FILTER_TGIDS];
- 	char (*new_comm_list)[TASK_COMM_LEN] = NULL;
-+	char *new_memcg_path;
- 	int new_pid_count = 0;
- 	int new_tgid_count = 0;
- 	int new_comm_count = 0;
-@@ -1114,16 +1146,24 @@ static ssize_t page_owner_write(struct file *file,
- 	if (count > 32 + 6 * MAX_NUMNODES +
- 			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4 +
- 			(PID_MAX_DIGITS + 1) * MAX_FILTER_TGIDS + 5 +
--			TASK_COMM_LEN * MAX_FILTER_COMMS + 5)
-+			TASK_COMM_LEN * MAX_FILTER_COMMS + 5 +
-+			PATH_MAX + 6)
- 		return -EINVAL;
- 
- 	new_comm_list = kmalloc_array(MAX_FILTER_COMMS, TASK_COMM_LEN, GFP_KERNEL);
- 	if (!new_comm_list)
- 		return -ENOMEM;
- 
-+	new_memcg_path = kmalloc(PATH_MAX, GFP_KERNEL);
-+	if (!new_memcg_path) {
-+		kfree(new_comm_list);
-+		return -ENOMEM;
-+	}
-+
- 	kbuf = memdup_user_nul(buf, count);
- 	if (IS_ERR(kbuf)) {
- 		kfree(new_comm_list);
-+		kfree(new_memcg_path);
- 		return PTR_ERR(kbuf);
- 	}
- 
-@@ -1146,6 +1186,9 @@ static ssize_t page_owner_write(struct file *file,
- 				state->comm_count * TASK_COMM_LEN);
- 		new_comm_count = state->comm_count;
- 	}
-+	new_memcg_filter_enabled = state->memcg_filter_enabled;
-+	if (state->memcg_filter_enabled && state->memcg_path)
-+		strscpy(new_memcg_path, state->memcg_path, PATH_MAX);
- 
- 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
- 		if (*token == '\0')
-@@ -1189,12 +1232,33 @@ static ssize_t page_owner_write(struct file *file,
- 			ret = parse_comm_list(token + 5, new_comm_list, &new_comm_count);
- 			if (ret < 0)
- 				goto out_free;
-+		} else if (!strncmp(token, "memcg=", 6)) {
-+			if (token[6] == '\0') {
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
-+			ret = strscpy(new_memcg_path, token + 6, PATH_MAX);
-+			if (ret < 0)
-+				goto out_free;
-+			new_memcg_filter_enabled = true;
- 		} else {
- 			ret = -EINVAL;
- 			goto out_free;
- 		}
- 	}
- 
-+	if (new_memcg_filter_enabled) {
-+		if (!state->memcg_path) {
-+			state->memcg_path = kzalloc(PATH_MAX, GFP_KERNEL);
-+			if (!state->memcg_path) {
-+				ret = -ENOMEM;
-+				goto out_free;
-+			}
-+		} else {
-+			memset(state->memcg_path, 0, PATH_MAX);
-+		}
-+	}
-+
- 	/* Commit all filter changes */
- 	state->print_mode = new_print_mode;
- 	state->nid_filter = new_nid_filter;
-@@ -1221,11 +1285,16 @@ static ssize_t page_owner_write(struct file *file,
- 				new_comm_count * TASK_COMM_LEN);
- 		state->comm_count = new_comm_count;
- 	}
-+	if (new_memcg_filter_enabled) {
-+		strscpy(state->memcg_path, new_memcg_path, PATH_MAX);
-+		state->memcg_filter_enabled = true;
-+	}
- 
- 	ret = count;
- 
- out_free:
- 	kfree(new_comm_list);
-+	kfree(new_memcg_path);
- 	kfree(orig);
- 	return ret;
- }
--- 
-2.20.1
+ static int en8811h_config_init(struct phy_device *phydev)
 
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+-- 
+2.43.0
