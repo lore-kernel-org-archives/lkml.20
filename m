@@ -1,115 +1,122 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6825C3DDDB1
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787950780; cv=pass; b=qTJGkeKNiBWml9f+aeWxRp1V26N9oOEDUxi7J+vb3221o5ZA2i3DIFkKDMFFDm7XK1IE0G3YC7u7gO2RgFO/kjRCCH6PYAcx0ZlB5oAF7ELSMk3U2kMu75SaiZ+pOyJpSjtOE6F/B+GXUtSTeeT3ukx+iaOIb+wE5lv8Se4/1b4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787950780; c=relaxed/simple;
-	bh=AypLoSBm1KPHQD9f+Zcdy3AMlNPgjcCvidkbs8KFBCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f9X0vv8cbqgasjCqnHsKcmpe8n8Ne8UokAez1uw5YypE4B0cZ9KMKL9BNW+3JwhcJUvEvicOiYQSLS8QDLjvLKgrpLodKkuWtZqHR4aP+Z4hgmAlfBF7X3nh1C/VIotuY8TUtSttudo+nAqyY4mrC2heJorVu/CbVNw3xdNGNYs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=W7yu8tNZ; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B45F1E515
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787951093; cv=none; b=cZnPXI5o8Zi+Smf16JuSRS2Vufx59jQWPa87poWOQcwThOF5yFFAvmcPiduYz28jj78+z4WML7qdmKByyhCful4Ygx6C3bYD1mn4KkgGhTMmrNxy8t+s5ZoJMePreJJMOoox+fFcMqxsg3uL8Dpc3dfMoN9CjFIYTH6Fjm7re/k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787951093; c=relaxed/simple;
+	bh=sVI8RXn0K5RvKNWQbZO5kfJxnh28wKD18Xti5QpITb4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I4Vhk5TXhrAUavGHf+3CwOMYRdWE8yJMk+Or1743AvdmtGf3F7S3R9DssVAhbK/JrzE+LG289ooI7y4tsHGElUzGpfFHtb9mNaXL3WryX+Kh9fF+Oiunqf2wNKxxn4EAOGSyjIxVBXqj5Bdq9/+cJ2wZpdMo5RsP51Nfxp1fFJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=b7Qohvxg; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="W7yu8tNZ"
-ARC-Seal: i=1; a=rsa-sha256; t=1787950744; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=X9spkr2Ocmtom2DanSSZZhGGQjGWSDPy3nB/g2/k4C7W7XlaZ+19pW6KPIoR+5f99E5ipYdtj4Y283m5Ua6Chs528MNQYQ/jpwNPRMDE5vHZSFWDdeP2h8fVeyl0Nv/Dx0L5xtZrxQ705ZovA7tmY02REF+jak+RUmCV3NmTQeg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787950744; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=; 
-	b=VwYFYMjFpc2Y3CYjsVM2laGi2VELJEwfOhNJ1VM1/EHvT8WMrIk7BHtThu9WSCECaI4UP/ynWoi8ZvuyfjJPKVVQT/FmjCGBTU+7EVVH7u8UMQ5Y2gQkmFuXRiBAlrNzDLgLxvmvTOgbPc3b038TArjEcYT/p7DKgsguyJsY1jU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950744;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=;
-	b=W7yu8tNZ0+Eoj+gfHAaJ1RQoXCQZjzIX5HYt1NMdUVFtaOgjHHwWKYcO8SqBQFZp
-	G/zCf7IDJG+/kz7M+UxAvrjgKHSZzAETmpd2tuy1eoZmk9E+mSj31HBsoJPZWmW6J5D
-	vLzWT5wvfvMYLCKNxkcjafzaHNjvme0qVRpnectE=
-Received: by mx.zohomail.com with SMTPS id 1787950742651206.60696803607289;
-	Fri, 28 Aug 2026 13:59:02 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 28 Aug 2026 21:56:57 +0100
-Subject: [PATCH v7 17/17] drm/panfrost: Bump driver minor to reflect new
- DUMP IOCTL req field
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="b7Qohvxg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=tpDd6twHAa/PaS2+jEE2ZYYOFCLJ2dCvpmqY4aoLwr4=; t=1787951092; x=1789160692; 
+	b=b7QohvxgxCJC2UjUN9xPsDUx0fJI4NccBEQbTX8CCooDQtTPQIGdnu633G+Z5dEttvPx7/icjD9
+	4BsdT/9mTM16x/8nl1zw8iZr115nNFkBAlLUw+WaRIRHETZIy3IOBw7z3E08giqvnjdsh9q5v8nML
+	6idzGvmg6xNwBYZN0cYT/0y5uTon8o/KJ1QvLA96EK8Y6bLI544STHfdsMbsiFWTM0H1frYODBw9F
+	RamJgM2Nz/ASbAzuvEr8Z5/TY4VpkIJBszmVPYGQk6J1MElxgrvxtWA5tmfzvIj0mqi6dPLi7D4u3
+	hw5b1g2GorPEeEkMaLNxjkob+aWbpo1BrPkw==;
+Date: Fri, 28 Aug 2026 23:04:45 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, "H. Nikolaus Schaller" <hns@goldelico.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clocksource/drivers/timer-ti-dm: Register
+ clocksource/event only for am654
+Message-ID: <20260828230445.3c2510b9@kemnade.info>
+In-Reply-To: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
+References: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-claude-fixes-v7-17-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1178;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=AypLoSBm1KPHQD9f+Zcdy3AMlNPgjcCvidkbs8KFBCQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYu/gflAZtsy7HEi7wI9v6QOZYtEPO7MtvfZ
- VutA2fFM4GJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LgAKCRAOJn5M7lND
- PRZqDACHXdBfI5pKk0hnkDTJK2w+CfC7JD7ODcaPuxHFr7RMLyIR/z77PoTQvQ7vpeBzAVKPJYM
- w2wY/CKutk+juwjKzqqX6Tn+XMSdlGqecwMJdpJ3KBSMR2HT37ylgofDc5uLXugvFrxLqhq/KOc
- qqKPU5++Hflg+VIqtZ0IfKMWAXpNSXXeI2rPz6HnPrug17Iqe+iAV8JzXWHUqVQ89w5MUOZG7gi
- WHcdR+go5+rCJ3paUX03Ky+Ov6Nsc0SA81si9+B4LlrydLjT9yB2fKBe9xCui9qrsU/JRbVIhFt
- Bw/EHUG7OSVUXi2WMHW2BR9ljHgWQfElgDh3Hip90m2vBm9iU9/gbS8eA6yy7PNkrcbhyRmeloQ
- wDgKJubu0R7Z/ioURNG8ALASJY28SZFCkVxBBF7GFXCHfllfu4Qqk73TTthgFcTegWXhCQTNYx8
- IQ1K+3bEvJMrUCJXlCtEADx00dxnG3PQHzNH9IRz4iGjyvOl495Rej3H0Mg5vcvw2ngMw=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
+On Fri, 28 Aug 2026 20:47:45 +0200
+"Markus Schneider-Pargmann (TI)" <msp@baylibre.com> wrote:
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> Registering clocksource/clockevent for the older platforms breaks
+> booting them. The older platforms have their own implementation in early
+> boot that is used to register clocksource/clockevent in
+> timer-ti-dm-systimer.c.
+> 
+> With am654, the timer is much more complex with more dependencies so
+> doing this in early boot with the other driver is very difficult and
+> gets ugly. Instead it is implemented in the platform driver for am654.
+> However the old platforms may not register clocksource/clockevent in
+> this driver as that would break the boot.
+> 
+> Add a system_timer_capable flag that is only set for am654-timer that
+> gates the clocksource/clockevent registration.
+> 
+> Reported-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Closes: https://lore.kernel.org/r/2013A99A-0502-4128-ACFA-B04886224393@goldelico.com
+> Fixes: b8eeeca55456 ("clocksource/drivers/timer-ti-dm: Add clocksource support")
+> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 571a26b84126..7869a0cfc4c3 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
-  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-  *	   PANFROST_IOCTL_QUERY_BO_INFO and
-  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-+ * - 1.7 - adds PERFCNT_DUMP req hw_reset field
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 6,
-+	.minor			= 7,
- 
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import	= panfrost_gem_prime_import,
-
--- 
-2.55.0
+Tested-by: Andreas Kemnade <andreas@kemnade.info> # OMAP3 GTA04
+> ---
+>  drivers/clocksource/timer-ti-dm.c          | 4 +++-
+>  include/linux/platform_data/dmtimer-omap.h | 2 ++
+>  2 files changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clocksource/timer-ti-dm.c b/drivers/clocksource/timer-ti-dm.c
+> index 6787acac9a43..ae8777d03215 100644
+> --- a/drivers/clocksource/timer-ti-dm.c
+> +++ b/drivers/clocksource/timer-ti-dm.c
+> @@ -1475,7 +1475,8 @@ static int omap_dm_timer_probe(struct platform_device *pdev)
+>  
+>  	timer->pdev = pdev;
+>  
+> -	if (timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
+> +	if (pdata->system_timer_capable &&
+> +	    timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
+>  		if (!omap_dm_timer_sched_clock_counter) {
+>  			ret = omap_dm_timer_setup_clocksource(timer);
+>  			if (ret)
+> @@ -1585,6 +1586,7 @@ static const struct dmtimer_platform_data omap3plus_pdata = {
+>  
+>  static const struct dmtimer_platform_data am6_pdata = {
+>  	.timer_ops = &dmtimer_ops,
+> +	.system_timer_capable = true,
+>  };
+>  
+>  static const struct of_device_id omap_timer_match[] = {
+> diff --git a/include/linux/platform_data/dmtimer-omap.h b/include/linux/platform_data/dmtimer-omap.h
+> index 726d89143842..b78ee4676b98 100644
+> --- a/include/linux/platform_data/dmtimer-omap.h
+> +++ b/include/linux/platform_data/dmtimer-omap.h
+> @@ -57,6 +57,8 @@ struct dmtimer_platform_data {
+>  	u32 timer_errata;
+>  	int (*get_context_loss_count)(struct device *);
+>  	const struct omap_dm_timer_ops *timer_ops;
+> +	/* always-on timers can be used for clocksource/clockevent */
+> +	bool system_timer_capable;
+>  };
+>  
+>  #endif /* __PLATFORM_DATA_DMTIMER_OMAP_H__ */
+> 
+> ---
+> base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+> change-id: 20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-418786f115bc
+> 
+> Best regards,
+> --  
+> Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> 
+> 
 
