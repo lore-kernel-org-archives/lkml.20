@@ -1,207 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240DA3803DE;
-	Fri, 28 Aug 2026 19:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8926C3BD638
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:08:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944068; cv=none; b=CACtYywLOG/INpJpyPD5iwhDUKFd8DqRWGuj0NKc+HNTt7h/fbSsQ/k8hyskH/S2p8mNKZIkdLfd4UYCLZag7MH76ADkD7g0CFkLpZxAVQj7JdlP3vQzaAoGzAQX11lwtQOXBOmDPjHCcZyGCJeJxUOS5JugulHADrnHXJ3a/pk=
+	t=1787944082; cv=none; b=PeFFH0RSkWBt6SB/4J+Xy3um94G4J4P3Q0pVzrMo0eq3utN1C+oUMD66W04VcZOIvmmlxdJ0WJG1/g7njGfZNyMlnJTvlmQdpgobggRG0IYv1qqrxt+wtJTbqFbKtyU5lvZCiV+TpxT1+UJGPGfr9ce3Rgwz+bZVvsbIYBbMwIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944068; c=relaxed/simple;
-	bh=130fymFn5n0gDWK4ghftEsPh7nIpwOnvldp/YqHiN1U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LgtlqKad9kXUg8mdT2+FfzOdpiLHeBa5RKvc/ADBFqa3B24oZ2C+o0JLd1CuvkrJ2XYMJTTfMFxg6oS95YvvqK/OHgn7UC9DeUP5KmesZPvUrbSlm1LjfdKE97zPU65OgnQNXBJ3RdhkmNojqMJrkgN8MKOHHeFFM4CXfs+eRtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3bqA7+8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787944082; c=relaxed/simple;
+	bh=o5WMiRtczlMj8aCzx0HZGimrMc8BtlDx3pCmgkhCjVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u2qwHjr5Yg5yS8b86tWdXqshsMzKWw6/yU4/wcIqSIyZ81lhluksEPB9wZtYNBkp3fzrrwyb9Qfeg72b1nsT29f7Cp/zuMm5bktRXNgeXNot/Au7Ws/j5uFNk+/J0ni+NXn9kU2Ow3zjLFrG4xsQJcOCZz1XBzSKuoKZXiD8+PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=PAuX2eum; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3bqA7+8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AF85EC2BCB8;
-	Fri, 28 Aug 2026 19:07:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787944067;
-	bh=130fymFn5n0gDWK4ghftEsPh7nIpwOnvldp/YqHiN1U=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=W3bqA7+8zpBNqntbD9n7fe7EJhk9ca/ihQR7pK24OGRPQdwbWqmNKVFfked00HAb3
-	 KR+luXTGGWHpdo19oq8bV14CtzOZP8+xOop09TVMjy2V50bzM/3wRqa4ayp8fMtQKR
-	 HH5rVjYvQ7/7VeaxCE0oDX/bISXOO6q185pLODOt2pOMHGlpKBIHk56sLopTCnv9Xx
-	 fQa3PqsslgkVrUZ5G9nCSGjvfgA+r0pDPGfupwwztQoREIc2un/6lfUXajZ6wPcXLO
-	 qoNvqn6w/KgFu2eXVsxEgeu+F1IqrAwEE++JC8VzuDavLzPFbCwrXP5aH5Zkq3nalh
-	 a0+vE+pP2w+2w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 884B7C61DB9;
-	Fri, 28 Aug 2026 19:07:47 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Fri, 28 Aug 2026 14:07:47 -0500
-Subject: [PATCH net v3] net/iucv: fix the recvmsg window update
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="PAuX2eum"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 3BE7D80576;
+	Fri, 28 Aug 2026 19:07:55 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 63A9220030;
+	Fri, 28 Aug 2026 19:07:46 +0000 (UTC)
+Date: Fri, 28 Aug 2026 15:08:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Stevens
+ <stevensd@google.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin"
+ <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
+ <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+ <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Uladzislau
+ Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook
+ <kees@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+ suleiman@google.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260828150836.2d5b378c@gandalf.local.home>
+In-Reply-To: <20260828151018.HnR9xV1N@linutronix.de>
+References: <20260827232948.2520558-1-stevensd@google.com>
+	<20260827232948.2520558-7-stevensd@google.com>
+	<20260828133620._x2XfJR_@linutronix.de>
+	<20260828135947.GU776954@noisy.programming.kicks-ass.net>
+	<20260828151018.HnR9xV1N@linutronix.de>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-b4-disp-33fac0ed-v3-1-e6d061880ee0@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swtpYjX6K8VDmmx0PcSSrSKU/
- rtRjzMws0K5CivO3YrKL1F5lAZu1yHeQrkySWoMa+zBeOtp2lMSncm5HKLhRNkd49Cf/JBCj5b
- NlbO8f8sRhRdc/lKf053j8p1h2z6KVXkVeQAAAA==
-X-Change-ID: 20260828-b4-disp-33fac0ed-f37c51985da1
-To: Alexandra Winter <wintera@linux.ibm.com>, 
- Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- Thorsten Winkler <twinkler@linux.ibm.com>, 
- Eric Dumazet <edumazet@google.com>
-Cc: Aswin Karuvally <aswin@linux.ibm.com>, netdev@vger.kernel.org, 
- Simon Horman <horms@kernel.org>, linux-s390@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hidayath Khan <hidayath@linux.ibm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787944066; l=5446;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=ck8H8yZfyBarvnWPyo7vTYMZxtw0v0L/GSa+8TIy3Rg=;
- b=g3wex2M0rFIWtV9Q/CsSIBlRtDgsxLWetJE+fWFHvyTSzR0EeLERD5bhOJCpIlJTevdGKsVcp
- K8S4uWqorLKCKp5n6XUi0nfuRFj+VevgtvzxJRJ5NQKX4gLk3LT9DTy
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 63A9220030
+X-Stat-Signature: qfnccbb99bbdi8st4d7w1x16uzo3fqsi
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+hstgiEjxGj1qjeta+VJO9YmsPembJtic=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=iz9Z9bs2yaO0uX8X+NUUGGiRu5Z62aRatCnxgmGQF+g=; b=PAuX2eumiKoGnLpY5f2+nm1ZATl/EOmUjI/FpV343XmFEFbowkFJmql3TZ1jDF1zuxI7uBH2uMShSP5U+TAscRfUBR9oh1x+t0dQtAljRuUvKaoZDY8JWuPoBS97OtDAg2ak8UoAQy18o2uUlaGBaHG6dRHa85Cm1TzLH79+Sx8=
+X-HE-Tag: 1787944066-559064
+X-HE-Meta: U2FsdGVkX18U+OOzmbS2v7qR7lqORVcgk0uJsd4pkhcItvYG+24rlhF4ua5cRunBcYiDvk8rYgLbmXs/0MxeE0s/dEd+FjrLEJn/AycQVURIxyo4rzRtjDYatkcwbpTyQECqMN/Wus6AbwXpziKNmrDRuLR04URK1/zW97dGFmeH7TWUpmWhcqBpwYZ8VgsB4W5dK++Zbf3JGighkdJdtKpSkazEYldOZbb5m9xR/iLZO8WEUXb4LaN8UmW7msMMHKqS7eR1vXglMkO6vofVREg91wkxVK9Hwf4/gjRglGRSo4pZTEeZNnJ/wPnaBfJI
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+On Fri, 28 Aug 2026 17:10:18 +0200
+Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
 
-iucv_sock_recvmsg() sends the HiperSockets-only AF_IUCV_FLAG_WIN without
-testing the transport, so on a classic z/VM socket iucv_send_ctrl() sizes
-the skb through a NULL iucv->hs_dev. SO_MSGLIMIT accepts 1, so msglimit / 2
-is zero and one recvmsg() on its own socket is enough for an unprivileged
-process to take a spurious disconnect.
+> > THREAD_SIZE_ORDER	2
+> > THREAD_SIZE		(PAGE_SIZE << THREAD_SIZE_ORDER)
+> >=20
+> > that makes for 4 pages. =20
+>=20
+> Oh. I wasn't aware that we have 16kib stacks these days. But looking
+> at it we have it now for over 10 years=E2=80=A6 Judging from 6538b8ea886e4
+> ("x86_64: expand kernel stack to 16K") it might be temporary and things
+> are better now? Arm64 has a different story according to 845ad05ec31e0
+> ("arm64: Change kernel stack size to 16K"). Risc-V also mentions "for
+> now" in 0cac21b02ba5f ("riscv: use 16KB kernel stack on 64-bit").
+>=20
+> I just booted my XFS kvm box and did things and 8KiB works so far.
 
-It also calls iucv_send_ctrl() under spin_lock_bh(&message_q.lock), which
-allocates GFP_KERNEL inside a section the code treats as atomic. Sending
-outside that lock lets two recvmsg() reach afiucv_hs_send() at once, where
-msg_recv is sampled for the advertised window and subtracted after
-dev_queue_xmit() -- and sendmsg reaches that counter under lock_sock()
-while recvmsg holds no socket lock, so both can subtract the same value,
-the counter goes negative and the credit reaches the peer twice.
+If you want to see how big your stack is and where its used, you can run
+the stack tracer:
 
-Test the transport, claim the credit with atomic_xchg() after the last
-error exit and hand it back if the transmit fails, and send once the lock
-is dropped.
+ # trace-cmd stack --start
 
-Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
-Fixes: 238965b71b96 ("net/af_iucv: build proper skbs for HiperTransport")
-Cc: stable@vger.kernel.org
-Tested-by: Aswin Karuvally <aswin@linux.ibm.com>
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
-v3: squashed the three v2 patches into one, as Alexandra Winter asked -- they
-    are one subject (iucv->msg_recv handling), they had a stated dependency,
-    and one patch is easier to backport. No code change from v2 1-3 combined.
+[wait]
 
-    The v2 1/3 changelog said the NULL read faults under relocate_lowcore.
-    That is out: Alexandra booted with it and did not hit a page fault. I have
-    no explanation to offer in its place: vmem.c:521-524 skips the first
-    sizeof(struct lowcore) bytes from the identity mapping whether or not the
-    lowcore was relocated. So the changelog now claims only the disconnect,
-    which she reproduced.
+ # trace-cmd stack
+(stack tracer running)
+        Depth    Size   Location    (41 entries)
+        -----    ----   --------
+  0)     5032      48   choose_idle_cpu+0x5/0x100
+  1)     4984     296   select_task_rq_fair+0xa84/0x2b40
+  2)     4688     104   try_to_wake_up+0x168/0x7e0
+  3)     4584      16   task_work_add+0xd7/0xf0
+  4)     4568      16   io_req_normal_work_add+0x75/0xb0
+  5)     4552      40   io_poll_wake+0x10f/0x160
+  6)     4512      64   __wake_up_common+0x72/0xa0
+  7)     4448      40   __wake_up_sync_key+0x43/0x60
+  8)     4408      24   sock_def_readable+0x46/0xe0
+  9)     4384      80   tun_net_xmit+0x240/0x550 [tun]
+ 10)     4304      80   dev_hard_start_xmit+0x63/0x1e0
+ 11)     4224     256   __dev_queue_xmit+0x880/0x10b0
+ 12)     3968      24   br_dev_queue_push_xmit+0x62/0xf0 [bridge]
+ 13)     3944      80   br_dev_xmit+0x15e/0x4a0 [bridge]
+ 14)     3864      80   dev_hard_start_xmit+0x63/0x1e0
+ 15)     3784     256   __dev_queue_xmit+0x880/0x10b0
+ 16)     3528      72   ip_finish_output2+0x2ce/0x650
+ 17)     3456     104   ip_output+0x63/0x110
+ 18)     3352      72   __ip_queue_xmit+0x16f/0x470
+ 19)     3280     232   __tcp_transmit_skb+0xcb5/0x1140
+ 20)     3048     120   tcp_write_xmit+0x5aa/0x1760
+ 21)     2928      24   __tcp_push_pending_frames+0x39/0x110
+ 22)     2904     104   tcp_rcv_established+0x37f/0xeb0
+ 23)     2800      32   tcp_v4_do_rcv+0x13f/0x300
+ 24)     2768     168   tcp_v4_rcv+0xc01/0x1300
+ 25)     2600      48   ip_protocol_deliver_rcu+0x35/0x1b0
+ 26)     2552      24   ip_local_deliver_finish+0x85/0x100
+ 27)     2528      40   __netif_receive_skb_one_core+0x85/0xa0
+ 28)     2488      56   netif_receive_skb+0x127/0x180
+ 29)     2432     104   br_handle_frame_finish+0x428/0x680 [bridge]
+ 30)     2328      40   br_handle_frame+0x132/0x2a0 [bridge]
+ 31)     2288     280   __netif_receive_skb_core.constprop.0+0x16e/0xdf0
+ 32)     2008      40   __netif_receive_skb_one_core+0x39/0xa0
+ 33)     1968      56   netif_receive_skb+0x127/0x180
+ 34)     1912     256   tun_get_user+0xbd0/0x1260 [tun]
+ 35)     1656      56   tun_chr_write_iter+0x77/0xba [tun]
+ 36)     1600      88   do_iter_readv_writev+0x161/0x260
+ 37)     1512     256   vfs_writev+0x168/0x3c0
+ 38)     1256      80   do_writev+0x7f/0x110
+ 39)     1176     984   do_syscall_64+0xaa/0x670
+ 40)      192     192   entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-    Tested-by carried from v2: the code is identical to v2 1-3 applied in
-    order.
+Note, it only monitors task context (not interrupt).
 
-v2: https://lore.kernel.org/all/20260821-b4-disp-3a6e8695-v2-0-37597ff723a8@proton.me/
-v1: https://lore.kernel.org/all/20260815-b4-disp-8a791503-v1-0-fbae9a511144@proton.me/
-
-Not reproduced here: CONFIG_AFIUCV depends on S390 and I have no Z. The
-counter race was checked under LKMM -- the counter reaches -2 before the
-atomic_xchg() and cannot after -- and the tree builds clean for s390.
----
- net/iucv/af_iucv.c | 42 +++++++++++++++++++++++++-----------------
- 1 file changed, 25 insertions(+), 17 deletions(-)
-
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index 4e5cc9da6e06..db261ecd19af 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -210,12 +210,6 @@ static int afiucv_hs_send(struct iucv_message *imsg, struct sock *sock,
- 	phs_hdr->flags = flags;
- 	if (flags == AF_IUCV_FLAG_SYN)
- 		phs_hdr->window = iucv->msglimit;
--	else if ((flags == AF_IUCV_FLAG_WIN) || !flags) {
--		confirm_recv = atomic_read(&iucv->msg_recv);
--		phs_hdr->window = confirm_recv;
--		if (confirm_recv)
--			phs_hdr->flags = phs_hdr->flags | AF_IUCV_FLAG_WIN;
--	}
- 	memcpy(phs_hdr->destUserID, iucv->dst_user_id, 8);
- 	memcpy(phs_hdr->destAppName, iucv->dst_name, 8);
- 	memcpy(phs_hdr->srcUserID, iucv->src_user_id, 8);
-@@ -250,13 +244,22 @@ static int afiucv_hs_send(struct iucv_message *imsg, struct sock *sock,
- 	}
- 	skb->protocol = cpu_to_be16(ETH_P_AF_IUCV);
- 
-+	/* Claim the receive credit here, not while building the header: every
-+	 * way this frame can be dropped has now been ruled out, so the window
-+	 * is zeroed only for as long as the transmit itself takes.
-+	 */
-+	if (flags == AF_IUCV_FLAG_WIN || !flags) {
-+		confirm_recv = atomic_xchg(&iucv->msg_recv, 0);
-+		phs_hdr->window = confirm_recv;
-+		if (confirm_recv)
-+			phs_hdr->flags = phs_hdr->flags | AF_IUCV_FLAG_WIN;
-+	}
-+
- 	atomic_inc(&iucv->skbs_in_xmit);
- 	err = dev_queue_xmit(skb);
- 	if (net_xmit_eval(err)) {
- 		atomic_dec(&iucv->skbs_in_xmit);
--	} else {
--		atomic_sub(confirm_recv, &iucv->msg_recv);
--		WARN_ON(atomic_read(&iucv->msg_recv) < 0);
-+		atomic_add(confirm_recv, &iucv->msg_recv);
- 	}
- 	return net_xmit_eval(err);
- 
-@@ -1241,6 +1244,7 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
- 	struct iucv_sock *iucv = iucv_sk(sk);
- 	unsigned int copied, rlen;
- 	struct sk_buff *skb, *rskb, *cskb;
-+	bool send_win = false;
- 	int err = 0;
- 	u32 offset;
- 
-@@ -1331,16 +1335,20 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
- 		if (skb_queue_empty(&iucv->backlog_skb_q)) {
- 			if (!list_empty(&iucv->message_q.list))
- 				iucv_process_message_q(sk);
--			if (atomic_read(&iucv->msg_recv) >=
--							iucv->msglimit / 2) {
--				err = iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
--				if (err) {
--					sk->sk_state = IUCV_DISCONN;
--					sk->sk_state_change(sk);
--				}
--			}
-+			if (iucv->transport == AF_IUCV_TRANS_HIPER &&
-+			    atomic_read(&iucv->msg_recv) >=
-+							iucv->msglimit / 2)
-+				send_win = true;
- 		}
- 		spin_unlock_bh(&iucv->message_q.lock);
-+
-+		if (send_win) {
-+			err = iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
-+			if (err) {
-+				sk->sk_state = IUCV_DISCONN;
-+				sk->sk_state_change(sk);
-+			}
-+		}
- 	}
- 
- done:
-
----
-base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
-change-id: 20260828-b4-disp-33fac0ed-f37c51985da1
-
-Best regards,
---  
-Bryam Vargas <hexlabsecurity@proton.me>
-
-
+-- Steve
