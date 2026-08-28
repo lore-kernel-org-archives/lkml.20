@@ -1,80 +1,112 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30441359A6F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532DF3793BD
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922780; cv=none; b=R5UpLahWU/OFTA+KR/ul7hldwX/fwbUEWfrw2vXRuldI7wr0gwxkajMhz+zENrfYhmIpbZTIvFKLXK3TIgGPds6dMArjGGS+QSdsiCGu9BuIZZ94A2Pw7idh/c7crZBkJYxZ+lMhDWVbN4TXW0DUGd/1NQH0Y2klG6HF1/fbHRo=
+	t=1787922847; cv=none; b=ibPbQh8P/ycbPtRHxuo6juM8AHb3YE/lbrh+KQV8r4d1va0enObo6H2S0ECmVeG+l9mhUYnh5cw3lj2ugkEjdB6L31q0RRcTr5jm8YUHDdMvyoHmkxGyH5IfeLH0GZMkkXBz7SJjtWsNoqCmaFE7KWFZmyTmVtMWd33AXd0UEQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922780; c=relaxed/simple;
-	bh=YZG/JSrF/VgDZ41PuQy1wlBeOCLxrcnR7jrPKEkUbq4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LfiztyiU6MguMS/ekMkWNOhoD+SonuV56HQPBo+BfRNCT6jlrBQvGLLYUIC+anM/w2nv7D2GSgLLTe1VRxEx6d1hcjtAsij1qgcuVl4jnBFvLNb7meVURd8KX0qJ/fcWkjndujhBvhDbXlTWtAzAgwg6wdyiPFD9F+mGHHVKnD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=X/FmnSM0; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787922847; c=relaxed/simple;
+	bh=/uU6ExnLVG8tAtofPabSQjz3nnh9Al8RD1/uyGGyRwE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cnqPk04oXQt5sRa73R2k4XZQ9uaCmE5hbmlpAUMYQVfxng8O55k5O7e2bfuVYyMyk09y/Ox6XAmrfV2ZnUZQu6Drm6Ww/zZR5W7dyPufJN5UB2dABOPrRDV96hiMcgp4up7Zn8vIB0h8LLA8bmsx8dDmaJZZGAf6yj9w6CC2Ci4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ab0mLKLS; arc=none smtp.client-ip=91.218.175.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="X/FmnSM0"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=YZG/JSrF/VgDZ41PuQy1wlBeOCLxrcnR7jrPKEkUbq4=;
-	b=X/FmnSM0cS8HU6OnEAMI/DZZTXh74QoTo1Le4oCvCSwYeTWZAk46qtXTgna18+E49nQq/3iSf
-	qheht6algnU0qoCJW6XzQRxdC+oG0Qbj8Vq0w1cfmLdGs2jC8aYEKUx+ov57SbCcT6l05sqTHc3
-	9rNWE4N6n5crfeJk95LZueE=
-Received: from mail.maildlp.com (unknown [172.18.224.83])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hWf1W1hsjzHnH49;
-	Fri, 28 Aug 2026 21:12:15 +0800 (CST)
-Received: from mscpeml500004.china.huawei.com (unknown [7.188.26.250])
-	by mail.maildlp.com (Postfix) with ESMTPS id F07E740569;
-	Fri, 28 Aug 2026 21:12:52 +0800 (CST)
-Received: from mscphis00949.huawei.com (10.123.66.11) by
- mscpeml500004.china.huawei.com (7.188.26.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 28 Aug 2026 16:12:52 +0300
-From: Nikita Panov <panov.nikita@huawei.com>
-To: <ljs@kernel.org>
-CC: <akpm@linux-foundation.org>, <artem.kuzin@huawei.com>,
-	<catalin.marinas@arm.com>, <cl@gentwo.org>, <david@kernel.org>,
-	<liam@infradead.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux@armlinux.org.uk>, <mark.rutland@arm.com>, <mhocko@suse.com>,
-	<panov.nikita@huawei.com>, <rppt@kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <wangkefeng.wang@huawei.com>, <will@kernel.org>
-Subject: Re: [RFC PATCH 02/18] arm64: align kernel text and rodata
-Date: Fri, 28 Aug 2026 21:00:17 +0800
-Message-ID: <20260828130017.134474-1-panov.nikita@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <apB1JCaNkGQMJQqq@gremlin>
-References: <apB1JCaNkGQMJQqq@gremlin>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ab0mLKLS"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/uU6ExnLVG8tAtofPabSQjz3nnh9Al8RD1/uyGGyRwE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787922842; v=1; x=1788527642;
+ b=ab0mLKLSYKni1Yn1cpe1G22RYFOfCOAqM4B9Gc5qj3+XmMMNXEZRbuVfdTrFsy5o2jPM9/HJ
+ /CMhFaWfH1jxX8uXrwrlmCJqvxrRU8exSqw7AlY/VpdFvNawsF2UevDvtc+sX1EqI0dF1s1OE7W
+ mKOYsJ99ut+ZiAv6p5Cg0eQY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ffb82de6059f5183;
+	Fri, 28 Aug 2026 13:13:52 +0000
+X-Mizu-Trace-ID: ffb82de6059f5183
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f0b9caba-7851-444c-a242-44e4a35dd0e4@linux.dev>
+Date: Fri, 28 Aug 2026 21:13:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: pch_gbe: Propagate device restart errors from
+ resume
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260828105722.29952-1-pengpeng@iscas.ac.cn>
+From: luoxuanqiang <xuanqiang.luo@linux.dev>
+In-Reply-To: <20260828105722.29952-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mscpeml100003.china.huawei.com (10.199.174.67) To
- mscpeml500004.china.huawei.com (7.188.26.250)
 
-Hello,
 
-On 8/27/2026 8:35 PM, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Aug 28, 2026 at 12:11:42AM +0800, Nikita Panov wrote:
->> Acked-by: Artem Kuzin <artem.kuzin@huawei.com>
->> Acked-by: Alexander Grubnikov <alexander.grubnikov@huawei.com>
->> Acked-by: Ilya Hanov <ilya.hanov@huawei-partners.com>
->> Acked-by: Denis Darvish <darvish.denis@huawei.com>
+在 2026/8/28 18:57, Pengpeng Hou 写道:
+> pch_gbe_up() can fail while allocating the IRQ or receive and transmit
+> buffers.  The resume path ignores that result and attaches the netdevice
+> even though restart did not complete.
 >
-> One small note on procedure: it's not really the done thing to pre-Ack
-> patches in series sent upstream like this :)
+> Return the restart error, leave the netdevice detached, and restore the
+> PHY and PCI device to the suspended resource state.  pch_gbe_up()
+> already frees allocations made before its failure.
 >
-> --
-> Cheers, Lorenzo
+> The issue was identified via static analysis and manually reviewed.
+>
+> Fixes: 77555ee72282 ("net: Add Gigabit Ethernet driver of Topcliff PCH")
+>
+> Assisted-by: LLM
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+>   drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c | 12 +++++++++---
+>   1 file changed, 9 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> index 88c5c52e0e38..737bdc9d569e 100644
+> --- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> +++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> @@ -2449,7 +2449,7 @@ static int pch_gbe_resume(struct device *device)
+>   	struct net_device *netdev = pci_get_drvdata(pdev);
+>   	struct pch_gbe_adapter *adapter = netdev_priv(netdev);
+>   	struct pch_gbe_hw *hw = &adapter->hw;
+> -	u32 err;
+> +	int err;
+>   
+>   	err = pci_enable_device(pdev);
+>   	if (err) {
+> @@ -2462,8 +2462,14 @@ static int pch_gbe_resume(struct device *device)
+>   	/* Clear wake on lan control and status */
+>   	pch_gbe_mac_set_wol_event(hw, 0);
+>   
+> -	if (netif_running(netdev))
+> -		pch_gbe_up(adapter);
+> +	if (netif_running(netdev)) {
+> +		err = pch_gbe_up(adapter);
+> +		if (err) {
+> +			pch_gbe_phy_power_down(hw);
 
-Thanks for clarification, will remove it from future submissions.
+The comment in pch_gbe_phy_power_down() explicitly says that the PHY
+cannot be powered down when WoL is enabled or AMT is active.
 
-BR
-Nikita Panov
+Please do not call it unconditionally here.
+
+Thanks,
+Xuanqiang
+
+> +			pci_disable_device(pdev);
+> +			return err;
+> +		}
+> +	}
+>   	netif_device_attach(netdev);
+>   
+>   	return 0;
