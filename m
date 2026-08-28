@@ -1,127 +1,151 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012037.outbound.protection.outlook.com [40.107.209.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A003C0A0E
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05BB3C0A0E;
+	Fri, 28 Aug 2026 05:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.37
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895690; cv=pass; b=a6efrDG9jDOkJntBCCkahHeVl94bISQa7kPr7xRlF9rYtUYceLyzB5c60GFE7GHGCn9zd/Ym8S+JnfVchzuaO8bF6aYCVB44IuQ9+pjugxXn0EoVIxgUXOl5s9iGOH6cvwzB9LCsd0u29FMR6T7V43g4VSw8g1hLUFDBHcZhyCY=
+	t=1787895743; cv=fail; b=oMMS8RC/zRnyObuhhnaIMh2bTeOiaxwIY0eqzRSy4wxrd7cXP7cqP3JDZLkFsJUSvt+GV7dFOpFTo4fJnHyuSaCrt/ojKW5z5K5SRlMLcy7J/DmTX61o8qzSmiNKA6SieqyAIU+spnsob5sTEbm51YSLIveQHp4cmW1awSLwDoY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895690; c=relaxed/simple;
-	bh=FpRfL5lfPjmS4t3BzabtcAEE79ezROlAJhTYTRP4nGE=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=W2qfEMITn0ztKHoH19xvvrG6d4z9BCtjMWq/Y/+IEVpYIRuUuniU3gG11ApTw2UpvQmOb9dUZ4wDYMmKQQXGc5V6F98RI4NUY/518mNfp5aT5DK69gQRtnxeK6S3Am9bjvc8hscCdQdsdEXnS3J+J+9SEAPpkSRfBhGsYZCfU5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=DDgiRwzz; arc=pass smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	s=arc-20240116; t=1787895743; c=relaxed/simple;
+	bh=zs7w2aPXKkB/7X4/BinvA5TERQPjGxUixIKmGwO/Ygk=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=BHepm/6mmAnqdRX8vC1yB7MvCkWzYFvErbk/4bOzF1WC0Y0JlRvmdeY0upBHJm0Y9Z6HhExYBq6KcIgQk8uL5GAFiYkV8SqR8g3TlqzUJxF7M7BVQA6c0DQ7JcNMbdzLSvmXD/moWQ2S0zxdGD8OTHMtR2LUJs38zV3DqyhV8Bs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BMXpEn8r; arc=fail smtp.client-ip=40.107.209.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="DDgiRwzz"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6e954afbdso4633615ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:41:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787895689; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gX/HTiqPrsNnUt1zhPKiE1R5WE+AOhE3+iRMVFAsMfFfHSY/t/Bs3zNkxOQzoa+svj
-         VFaQ/aW7iuOIdX2H5hvGrAsvX3zo+Bcwn8mWPwe35fRtIY38htkq3oqStaQ/QpyAURUu
-         qOCMk6qCcDyeqV4Lr2SoQSBDgI3PEboe+OEbqZk4494EKfzqT/GY0bowMHv+KcBJu+wT
-         Lex+JKHgb/0hTCqcS/GRmkgwnih7ofE9AJbIhkl5GXD2wV7Id6WqWStAL63biKrY8Ij3
-         TEqIVhYnMq8XUalvF6YKoaBZAaDp5EwVpXf+CW/tdVmOF0hv7iXZbvyDZr78rkVtjiH3
-         UJog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=/MJbseT+p7zFpGuCMqD+oQVz9Xm3q5SOETrehnTvJUg=;
-        fh=db2c3F8w4ueX8zlI9SZWSLKVoTXwIt6yXGng0QnxMDk=;
-        b=c+T0m7Z/b/WEDxMA3ZGSzSu0jCz4l+vkNRplp7IbGj5m86xc455RMZ2k0yVOcTl19t
-         liV/5gQYH3+8hgUZIduy3YgifIOpwd/f4defjnV2I56PMkD8TinH6dnyXMoLTOoqLmbX
-         /qIb6nCUfqFPfJ2eTC1Th9Qvdkgp9r7ubvR949qIx3oDNfek9bPb5b48JNe1akreqqKS
-         Pp/k5D/P3wxR7T8Bze+Ngh/Anlr1iU2tMl/91i5kxGAnnsV9/zDVtrTPxDLFAF78QKNH
-         4UMJfQcpqWOX/Z0O+RXvxvzxezzzcCCgM7pZH29WzIqXsIPyJASMQu5uiqvPmACN4TJu
-         n4cA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787895689; x=1788500489; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/MJbseT+p7zFpGuCMqD+oQVz9Xm3q5SOETrehnTvJUg=;
-        b=DDgiRwzzniA2prhiu9lNTzqXEdGwx9MvKGlXd1RDEy1ipdw9XJYUojwcKUYWyHQdAy
-         SFBztF03rkqnK2hweahDll2STWpHzeHOBHRTFoN19Po2qNWF0+gKFnfY3KA0ivI1vWPA
-         0MoZ0Ppt7Yh/z8ZoCR51Tv48yX8LV+VjgXOIpDWq8NOk7mnqWxX59Lqe6lF3DpSqFFT5
-         66+NZ3aHGCBJ4xgCI6XhE8vf9GkmGMmED4E6/UWoIw6HRxCrZIAKzcA2DqY32f80qsQo
-         5+LQQorqz3zG8GjfjOKB/8A5zTZcLUrS02lOqmSoju57MjZf2cBvducLsi/VSLTDNch7
-         8nZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895689; x=1788500489;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/MJbseT+p7zFpGuCMqD+oQVz9Xm3q5SOETrehnTvJUg=;
-        b=jektSKQuLYDjeiL78CVMQNvnLBs1zqiCwVbZXOuUJNtU0NWnC17rmoMbRzZBAuVilW
-         uCPBexTlRmjTi4sJ5Z0kJRZMqVKORAoNmYK6EO4Gs5gGAc8X8O3IhCeZbskr9nW1Q20k
-         5tbKWosEwDD1220bLAFwG3EniQi5pNjwD5LP1ng2LG8OlKpfjiKN694OpsBzpdgyhw1p
-         iECBUNyO1vo2PIkHvdcUskY7tju8zUCtSKDGPr8Y8zdNdLs03tpd3b1NPrOe2nT4oX3A
-         xc1h5n0PZvHOq6j5+YyY175Nw7IvhpnerJEyebmHAKx0qb+Z5r5jLV1VS5kQUxfsW9A7
-         xd3A==
-X-Forwarded-Encrypted: i=1; AHgh+RokPxEh2NML1cUcBj0mH+reX5Dguv5U9WyazUGslNh1G9Eakp+IZ0S2o3oKBR5bolThVbrM+svmsNZWgPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwYrGSPlCFihrzqEWN2Tejwf/xh9mvnj1FFWS9GZGuf6fPWgrE
-	uFQKo1mi+vqnLXzC8HjG7EiUs5HG8GbWNmE/SK7GhHKDDSj5diSrTfqiGfppiCNqsZyWJYssNfC
-	B/hYwYMq7Inf9WygFjOHqHiD4e0WhKmlRmxDmO3bgux8gbt3AEPefOA==
-X-Gm-Gg: AR+sD11uo5Sa9PIuUc/hnzEKwc3nrw36Z4HCMtKHZKXZblhqVugt7twLsXdVB2FaGJ/
-	3m97lhFExtaFzFIKcZFs8foL6HIcMdg0ymtd/4uzLcOo5fKajscDvx90+Yb5Zbt7QlQEER2IDex
-	bVTjcqkbg7i22+TlTImVRyhQ6ePencBRpxNB3hWUvKt1PTCs59bxldEzDrvUQZvUCq0NocYOJEU
-	n3K03O+SDxLFCCF22MVjVF5MaQX6tc35jHtTpbW094nJZY/mGfukJQSA199i85zSViVB7ODkkAR
-	xrFZzLXUaoM9NID2BG+aY65gt8oQrXwEfohrfPdxl8pCXP7C+2A6VSc3JGuA1p9t5ypf8c1Inqv
-	IwGLQWQt9YtawJ4h+1+1P0c75+v7JsQFShr9myseVoKM=
-X-Received: by 2002:a17:903:388e:b0:2d7:44c5:1a13 with SMTP id
- d9443c01a7336-2d74df17b06mr87476375ad.8.1787895687710; Thu, 27 Aug 2026
- 22:41:27 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:41:27 -0700
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:41:27 -0700
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BMXpEn8r"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j2yzi7nPP9UDYCnqQegO3SRMGV+HsPHvD1iEq5hnYGibKLbp8lt4uiZC56tgNkMoV5OfWMl4rX3uy3pq3TI5WuqbFcrQMwzhyfEMTKeJZ3RO1fCXmDaar+7JhxHdH1yWR4D8Xyb1k2QlS1qhyTg/XboVd5vBf87cAIBIKy6CRa7pRj7ALowPYSSF4SfChphXAbVN/PIQJTJr+CqcPjsMd8mynJjcXKmnbN5K6MlawYriLn0GDPlp5sQvXB2AUcGUOrzIJ8/XaKvTUyhuCL6N9IPYricv54OAgsGmMNgnXsIn3YGAdcLOIoFY+IBxNvazeGJzUkyo0oQoOfZlCq8B9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zs7w2aPXKkB/7X4/BinvA5TERQPjGxUixIKmGwO/Ygk=;
+ b=iZuppoBi1KQ8zfJJUKwr/xKkRHNk+lBYSX3nOpSFtBcd32oCVlGAlaJ8LsemJthVmTv42RvxBbdAEmajTJ/WeIXm/LUjBeh4plUE+FCZq3NAxJqNu0fVM83PqzsJHfb0HgrgHlhVrlZmxaxRc5wiGSODH/m+DbSgxFKt0xKaHszYnTNgMLqV1Yw0uRS+2k5Z8jOrLBH7hqF878d24to0G6U/Ric9H6YW3DOqK7cPQ/vC70J1rvDqScYTCKi9lukOx9mcEGn9fSaHGgQfbBFOWa8iLrleAP/iJzWv+P4PegXL6zxF4YaFKvUONA/YQ5KS6M8XpOkO8gSM81K1V64tkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zs7w2aPXKkB/7X4/BinvA5TERQPjGxUixIKmGwO/Ygk=;
+ b=BMXpEn8rX6ILlFPFAszpUQe1Ek2a/oFG9KAr0LNOmf318q1LKtnNHlu6vHgTAju0iV++1o3C/+ljo/HyvCKG3YSm7+5MtBJnVPhUZ7DGf77vJ/t+wJx76YPpC5YSBB0zP08+l33PHuvjeizWO6ZIdtwcmzfnjnIiBG4k+VBkSfFOxT8ps1g+IkB/V03eamMlANwSyqjE9xM6ynHJx3TgRsEEkHYa0ygNrY69Z4Pu6zE1PzBg6OCxDpBqRFj80MBA2gtx99rNIkT51s4A07Da0/QBgjfVMa18VsxzgLV8xiTwECPPi6kAYkoHzrngkz+ywUv+5hZ+z1Qm+Ynv3HkAiw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CY8PR12MB7708.namprd12.prod.outlook.com (2603:10b6:930:87::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.10; Fri, 28 Aug 2026 05:42:18 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 05:42:18 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Aug 2026 14:42:12 +0900
+Message-Id: <DL0C54Q4WSWP.2ZAYB42N8VWGT@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: use FromSafeCast wherever possible
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
+ <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
+In-Reply-To: <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
+X-ClientProxiedBy: DU2PR04CA0277.eurprd04.prod.outlook.com
+ (2603:10a6:10:28c::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 22:41:27 -0700
-X-Gm-Features: AcwNN1UEe3I79OyOh0sr31OMDciwR0shZKMq4zBq51ZdhkslxCU-eJN030psQAU
-Message-ID: <CA+0ovCh1hKPQ3DSXBdaf3MHGZKv3-mbSNiWrAETr62mDd1weKg@mail.gmail.com>
-Subject: [BUG] KASAN: slab-use-after-free Read in irq_migrate_all_off_this_cpu
-To: Thomas Gleixner <tglx@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: falemi@asu.edu, Radu Rendec <radu@rendec.net>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB7708:EE_
+X-MS-Office365-Filtering-Correlation-Id: be4f3b53-155b-4715-9779-08df04c71f54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|23010399003|1800799024|376014|10067099003|6133799003|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ejR2f4LECbzd7LCfOuchraeKW2uMhPjoVzrZ1qgUTwXmwy/y+b/R3LkTTsyC706b/CSYGqKPntYIYnzYxgSKDkA1lQ/kMgf6Pcyysi94ABIKurrB1HKv3v0M1SLJ0yp49ZM7cfOugI41cJUWdu6hiExlj3G/eU/HX0uUX99dlegXxN3J6BApfNaJYsrvPr06PBbqvanSfefrxLxhZzTo4M3kAZu/O4LND1lRQN8kj5ki9IopGazvd2pZ+rHBO6FVGlDe6LDX6/hLqTWpz0/BAxAMJTxVUxQa71VSy9GhyWY67gYWQn5syqCdirpAR4Tlbss+5qm/0Q4nN77ggHOQnwfLqn9641dKkbMhnHg74o0uwp7qA/jlbUQjGmSCmB2opvWJ6s/bRjvnzAA6ytQSBVWOU0dhlz2KZ4xs3gjAGmnVuvH2xjgmG3b3u90q7jTclQo57xYVqZ3uIJ0fkal4O2Z3Rfo5wZmxOO+3tVCTvhRunMKt8kWgDWPzEfhAGctlB0hrAxOLJwt33umrHBheQjC+1b0ohIytcgXRhar9AEdTaLQZf7XgE9IwgA0bdOUmL7nOIbxqJ7AHSOn00BljFq655PC012RSSA0O/HirsfwPmmIp6dS/Vi67/MPAykYsuVhZZTQVytCdmHmBOCrSacARVOPzFI+HEw+9UZoSu8s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(1800799024)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QVBGMnlvcERETXhpOXRuMFMrTVRqbkNPaTR0ZGZCVVJTc1RKNnFXb0lpTHQ2?=
+ =?utf-8?B?cHQwbDRMVzBjeXlGbWNndC9PUkVQbVNqVnJwOWZ6VkxMWis5NXpYakl2cWM3?=
+ =?utf-8?B?TlN6YVc0elpKa1l1Vmx1TWJyM2luK0ZlbnF5VHFSL2tRV0NxN0RrS1NPcWlt?=
+ =?utf-8?B?WmwzdGlYNVJJVlNvZVJZRjlQTm5TUzNsUm1PTVJtUTVtVE9rc2tQMjBWWkI4?=
+ =?utf-8?B?MVBZKzdBdTBaRTVaRkdEcFpxOExCcUFkOFJGcHhqTERlRUNoZlA5UmlqQXdn?=
+ =?utf-8?B?NVo3RFZsZHVzQXF4WTdJaFAzNjY3R0tTcGxqbXVwM2xzdWErV09PMUNPbGxD?=
+ =?utf-8?B?Ky9nLzNKQ292d3NTVUxEK3AxSFZlZzRjcTlzNWpDKzNEODd5cWxhc05IbXJo?=
+ =?utf-8?B?MmNtYkdrMGN5VldFZ0hyRnFoQmg2N1FwMnVCK2FyUDVOK0lnREhiMmFvbmtP?=
+ =?utf-8?B?aFlWS0VXcUhCOWNMckhUOFNFWkVtaWt3WFdpQVdjditaRzRJeExnRnN4Rmpx?=
+ =?utf-8?B?MDB4OUkybWNhTER2YnUvZGNrYUVyZkZpVEQ2ZGlObk5jenhWNjVPRlpVb2s1?=
+ =?utf-8?B?aDRHQ0NtekZqK1NJLzJUbmZvOGEvRThuUXFtUDU0aXphc1g4c2hkb3V0Z2dv?=
+ =?utf-8?B?K2c1cjFKRlQvUDFlNVQ1ZUFhQnZxeUpGZGZVbXcvOVM0NFRoYzIzMjcrbVI0?=
+ =?utf-8?B?TE1NUDl4ZnlObzZZb25VY2RkSWpseVFPWjUzMXlCcC8vZ3BxTjBad0RTYUF5?=
+ =?utf-8?B?Z1RwdUJUQ0ZZWm9zMENhQ1cwZUNDSGt4bVVzT2VmcmkvNDBMWWRQT2xGMlNj?=
+ =?utf-8?B?QWUyanc5ODNoOEIrWnpOQy9JUnBBeHB3S0U1MGxvWndSazNyeWRyVkhxb3pZ?=
+ =?utf-8?B?bHhPTm9VWnR5U3FlcnArdENSS0lmQ3F4N1dFZ1pYUnNTV2hod0gyajR1REJK?=
+ =?utf-8?B?UUVBM1htMVZBM0dUajZwNW1RcWFlcVNpaFlieEVlWmR6enl3c3NzK0JoTTNM?=
+ =?utf-8?B?WXh6ZGVDa3M1YTM1SG1XdXl1TWt1Qm1nN1dtRGI1eUV5UFZINXM0VkoxLzhD?=
+ =?utf-8?B?MXliQ0RaajFSK1Z5Z2FNN0hoY0xWbENvOVVXYzJUUnFITGYyRnQvM1piYXdE?=
+ =?utf-8?B?Y05odHVrbTFCK3Zwb0lVMGZVQnB6NFArbUhxYnNEMnltQnBmQW5kcUNTUzFE?=
+ =?utf-8?B?QjYyRktCQ08zZlk3ck8wQ1B4WHU1VDM0YzRXaFRzbWpEMHZpTi9TVHFVYitR?=
+ =?utf-8?B?R3pHWHNmd2dtaFZvMk1UeVpXT1RQeTl3WEpoaWtmaFE4alBab0JQOWFoOS95?=
+ =?utf-8?B?eUREOGhaTzlodTMzNXh4bGJiSmhBekJSOHVIc3NEMTJNWS9FL1JHNmZ2Qy9v?=
+ =?utf-8?B?WXljN1JycTA2RThKUERuZWMyWThzUm8vaU1pc0VnUTI4dEk3L2poeWp3bVFP?=
+ =?utf-8?B?S0QxTVc3aGFldkV4MmZRV2tTOUhMZHN5eThmYXVTQyttSGpTM09WVlhMQWsr?=
+ =?utf-8?B?TWRlNDkzNkpjU1VPZ3JzZGYyMWxrUkJBaEN4SkhHWU1saTVYRjcxY2FtKzdC?=
+ =?utf-8?B?eTcxWDFTbzZ5akFDOVdFczhQaFIrTldMVUVRQlVjcmlUQzFFamNKVFNGZVNu?=
+ =?utf-8?B?eHJvK1NrcVhnZ01pMzJlYk9lSEt0TW13REEzczB0N3VFU1BrRURrQTBSVWFy?=
+ =?utf-8?B?N3Jha2RtenhXQnlWeXpyUXltL2p3QnZWc0tOYngxTW1XV0dMSzdDaEN6cnlV?=
+ =?utf-8?B?VnFVQ05jUVVlY0dVYlZIZmJmL1JwZlVqZ3dIb1JkZjhsT1Q0amowNit3WmJi?=
+ =?utf-8?B?QUxLc2NPUnBQWXdSak5XN3lhV2lPWnQ2cy9Rem1NeDl1dXJjMlVNRnZFMUc5?=
+ =?utf-8?B?NXVBQzR5Yk1MdUw2eVhiOVZkTjVMeDc2cTNRdlJKUjBzTXhLalRVdUhiTGEv?=
+ =?utf-8?B?bzFLTldkbStVY0tFRUFZSkR5dXRDOVR1QUZjVEMwTGVLSGtYcldQVHhxbEFR?=
+ =?utf-8?B?SGpzYVd3QmJHTFo4OFl4RVB4aUc1YWxtTTI2SVlTQlY3VUdNMnBhVlZtMTht?=
+ =?utf-8?B?c0MraDA3cjdMWkVyQzMzQTdLVi9rNzdkdFpSb2RncU1VdUN0eWxDWTA5RHZX?=
+ =?utf-8?B?dlptN2phd0ZXc3pnSVZzTmZ3L2VBcE05Y1BaRDMweU9QWTBjV3dIenczRWtJ?=
+ =?utf-8?B?elRLdDNENXpiYkZkNkRzUjRqdnRERmFrVElVdE9Oa2VKNXZINWJhSkJ1VVdY?=
+ =?utf-8?B?VU05Zm40M1dxMXR3THhEY1RpNUVwOTMzR3U3N1dKUEtXQVliT2lrR1dDZkhH?=
+ =?utf-8?B?cjJSU3k2Q1lVeGduOWRNZnJ4Y1VURVNCYlFHWlBwa0JCRit5M3cyd1NHRVNh?=
+ =?utf-8?Q?1auoa3omNWgy6bJAiro6ri8NxemdCZI2ekQ6njBM1Hs7z?=
+X-MS-Exchange-AntiSpam-MessageData-1: pV2TU9h6eAIM2A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be4f3b53-155b-4715-9779-08df04c71f54
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 05:42:18.2469
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aFpmu0xucYbotPeok0opDwp+W8QEVMimadQNvimxsduht7iJpxyAqVYByqxcT3arR6t/THUV8T955gxqNhmTmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7708
 
-Hello,
+On Fri Aug 28, 2026 at 2:33 PM JST, Alexandre Courbot wrote:
+> `FromSafeCast` should be preferred to the `*_as_*` family of functions
+> when it can be used (i.e. in non-const contexts), as it requires a
+> single import to perform all valid conversions.
+>
+> After this patch, the only remaining references to the `casts` module
+> are those done in const context, which means the `casts` import can be
+> removed once these are converted to use the `cv!` macro.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-As part of the kernel research at ASU's SEFCOM
-lab, we hit the crash below. Crash reports can be found here:
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/164-kasan-slab-use-after-free-read-in-irq-migrate-all-off-this-cpu/
-
-  BUG: KASAN: slab-use-after-free in irq_can_move_pcntxt
-kernel/irq/internals.h:305 [inline]
-  BUG: KASAN: slab-use-after-free in migrate_one_irq
-kernel/irq/cpuhotplug.c:57 [inline]
-  BUG: KASAN: slab-use-after-free in
-irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplug.c:181
-  Call Trace:
-   irq_can_move_pcntxt kernel/irq/internals.h:305 [inline]
-   migrate_one_irq kernel/irq/cpuhotplug.c:57 [inline]
-   irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplug.c:181
-   fixup_irqs+0x18/0x1e0 arch/x86/kernel/irq.c:527
-   cpu_disable_common+0xb27/0xd90 arch/x86/kernel/smpboot.c:1354
-   native_cpu_disable+0x2f/0x40 arch/x86/kernel/smpboot.c:1366
-   take_cpu_down+0xca/0x330 kernel/cpu.c:1282
-   multi_cpu_stop+0x227/0x420 kernel/stop_machine.c:238
-   cpu_stopper_thread+0x259/0x3e0 kernel/stop_machine.c:512
-
-  BUG: KASAN: slab-out-of-bounds in
-irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplug.c:181
-
-Our reproducer.c is available upon request.
-
-Happy to test a patch if that would help.
-
-Regards,
