@@ -1,188 +1,216 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26083F1042;
-	Fri, 28 Aug 2026 09:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907921; cv=none; b=kguarD2oU66nFwTc1RICLporXfziWEL0gw2718OI+Deij6QBHJklNTKIJ/0DDDXYQoF+XhYnJylkmV4e3g34EXlOXxPAqpKbXqp7wQS6RtQhnjmGYHkjSvOIrl4jotM8IsZY4IXn3E1G/jh1cfBldwU2S6zJoZr3y6TQrwkiH4o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907921; c=relaxed/simple;
-	bh=2a2sdIzPJbx+Ry0BurugAGUPhNNXbx56efia+D8m1IM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tSv/S6WAMJibgkRBdewNdHrD9/O15XwP1ZvvKUYZ4XFAzHIJAhA4ipLP6UeTEnU8K/WX9l/m3J/nLESGJrFL0rvZJssNWv+tYkjdT1qqfVFWsFRMNgULC+cAyYLttEw0I7GMdLFuuuHlXnLEQ49UEwy9UyBqKfzrgEr+CBFREpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=RiCKupJ4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=e2YmM9NZ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gZQjOS1y; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=zULHN6LT; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2841E36E478
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787907936; cv=pass; b=h2hGqidOUBZmXmrPqphSQhRPODSrorj43+Bi/OpdNqmh+7BvkVCdqNyWwf1uO0XGY/MFiXF5NpSWFk8z75wrvttBkL67XuW1QnPrqiLM91l+bByDNJ73tqAmYnZOQXSgxyloaqoSP2nLhJoDGk2iocd7fm1Rhs3ZhEloBR9bYXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787907936; c=relaxed/simple;
+	bh=kcyY+NxYtD7T3O4Y9Nn6CHPlve9WbW1aHvF8C8OLgX8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UolBqtOHVtupv9Se2KR2URGRlby7SQ8QNJfEaR2OGamkBqP4X4kEYJyOFtcNT7qAoZnT5Mcr2onMgUBCz71b6wkS1aHIxgGspauf3DWaF2bYYT4iMuw2X21P/m7s+9PIZitPA3Nfe9rmVMMdcBo1X6CUUYW5l1nkPmaIVaObIMo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWqB/sky; arc=pass smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="RiCKupJ4";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="e2YmM9NZ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gZQjOS1y";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="zULHN6LT"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A9CBC21E7D;
-	Fri, 28 Aug 2026 09:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787907913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8KBa50P/OlE629LKQjDL4uvNc/yEe7VUaxk1pMOAkLQ=;
-	b=RiCKupJ4HEUVzKqsrnhbm/SnOaLMrLbOKY/+385Jz/L1QLyNHC9wuWCqYpwLqxv0j2QJdz
-	aTaCwxk3ie6Q5vVx0zXpnaEfuhZt9yrZIE19Q9maUc8hSuhXhifb033xVuLc20LMoarrxd
-	9VHv0Gs9BX6RymJKwgOKeAPGpBFTiwQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787907913;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8KBa50P/OlE629LKQjDL4uvNc/yEe7VUaxk1pMOAkLQ=;
-	b=e2YmM9NZOTeTx4DJUuQ0+ck2FUEuGMZh1KLsH2EbtT+i6Ksoy15FXCTsGC+vXl7sz7vizz
-	Y01OAqoLkyEtEBAQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=gZQjOS1y;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=zULHN6LT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787907909; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8KBa50P/OlE629LKQjDL4uvNc/yEe7VUaxk1pMOAkLQ=;
-	b=gZQjOS1yaYTjA1rS1C1qV7ehsBve2mYTGQhUPN0wMAWoaEO06r/gY1583GHhquGPmrcpqQ
-	LaLq+yBtExrmkqlNEOVivcxX3sm6x25goIpuMjIuPVyYIXv303WZDHH6hkxcq2/VIBzZTp
-	0twhL4G1mbZ7/lqMzG8aurgzfbJ+8FM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787907909;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8KBa50P/OlE629LKQjDL4uvNc/yEe7VUaxk1pMOAkLQ=;
-	b=zULHN6LTQ3NTkHF/USahm39otpfUaGDbriGQG7757ECqhjh/1+uMNoItOYGiznpORrdq+Y
-	xuPoDl8yxyt72+Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6359E13687;
-	Fri, 28 Aug 2026 09:05:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5c4+GEVPkWrfYAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 28 Aug 2026 09:05:09 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D7E22A1324; Fri, 28 Aug 2026 11:05:08 +0200 (CEST)
-Date: Fri, 28 Aug 2026 11:05:08 +0200
-From: Jan Kara <jack@suse.cz>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
-	Miklos Szeredi <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached
- connector
-Message-ID: <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
-References: <20260827045007.3831259-1-4ncienth@gmail.com>
- <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
- <20260828042421.964822-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWqB/sky"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso956891a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:05:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787907931; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SgHpjRlX99gZBLeQotQnjqm5q9a85YaPdFdgH0126Gh+e6UsaGwYIADKNUd+fp3Ek1
+         RzpHQg213nZwk4gRy/ap2likG8uHBtddOwgJzABhCY0rJ1GNZSZI2WukHtpi7Qdh1rrf
+         Blyktrt8GRuTydRXucW85vTHrDDosePCzvX97BVkRtx1T+pMU8E/hK3Luh9WnEjAQtQ9
+         UNTVgMCssyTJG0cfx9BNVFmxVjwJToRWmivHup7ugj/zvJCYhiQSykegEt60v/BD/moc
+         ISup2IjrLIUFWn8CxKcYkym2GigUBNDTI/cnMO+yZHvn6Cjk/R3xcRbtMxyHr1etfmfB
+         Zycw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iGb5RBnXDA+kbDx6QBFrMut47J0QFMd/GZl3kg+9bis=;
+        fh=0IYDgzzRSgiofUKoy5p6NMPIY8Ubual0TytNCmsvWR8=;
+        b=gxFzLrsffVzRfrPJRkL3YDfyM20HL/O2b5sZQBlQQ6ZcfeSLMCfMDae8dC1StH+dLN
+         FyoZmZwo07fMKryaLS3EnqNSH8cJAWLH+S11aXnEgJ0djuVWvGizfFQRrQr33S/MMvqY
+         +2BLWDZP9GIS/JjEEii8/ThkqFQo8yGivM9t+wJgVje7imJdGEAe/Yjwstm7t4lvUe/F
+         CNqulWPRSViyxPiCAv1/veyd34U88Nz9mLUGeEUT/92GCaOsXe0Fq8JiSmhGzwKy4BfP
+         9toyJfNcghPhgLplntT/ZkiGf0JK9givWrQXBNOaT8ezmVYuF83ntXegOyh89/YZcSNx
+         dTfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787907931; x=1788512731; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iGb5RBnXDA+kbDx6QBFrMut47J0QFMd/GZl3kg+9bis=;
+        b=JWqB/skyHmfBvHnhrjw40ZDPyRfuh0PTuNhPCxIjWpIJ3pr/gcPIweFjwB7asklzhv
+         6DRM1tZEco41nUTMJd58pG0Tsin5CJx/YOJn8RX1FqFaF4iQtacc+rp9NejZE/t9oams
+         IURITUoHgHJ1Qqg0XD6LcOP4S7krazwj/6JB1Ju6xQDgaH92DFORSjZGXRe/nqqIe1ta
+         2i/kpfHnJzOJAlCMX31DVgvYIE32p9oODuLi3U4ehSn5vBFvrEhhCpQuFYIxyhr1tDGG
+         8S3teR7gAdys1LdmVXmY1xHN2mAK1g4GRU/XIcWtGC6AtHTJcm0rua+GqwjkC7C7luLu
+         AomQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787907931; x=1788512731;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iGb5RBnXDA+kbDx6QBFrMut47J0QFMd/GZl3kg+9bis=;
+        b=QJZZhtNKq1vrjaTAWIQ7EMJD0FcTVjeOU3e5Qaf8DPyTScG8fLH/V2qq1wuWSGuS5b
+         3JZc9l3AO490VKaqjYCv59WNCz+BLZNMZhdnRYvoLAZo1yy3s23QWhW5lxE+HcVLDzVt
+         wuR8fkvogOt9M1WSpPuBoCNOPWyEYRGH9Uoio3WsSyzCHa8bYAM8BRvZHDVtGYGq9S1z
+         Ne6e5CsxROL/5jYTSSN55Z/gisATIE+MBmKgr+GyC6n0y3DM9lriUKRAHhGfs0idLCxH
+         r0Gjm6j5ngWfS+TMjXw1x6jcxDf2FHfYf+bH+Cf7ea7viXOGSki4t4+4ZVLEK4eWamRJ
+         FsNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqTVKJ/Eqoxe3qaqBBbYjNLR7jnBmn+a83C7UhFukoO3TiTO3pGYA91ifaGbqQQyc9HpiCwSQ48yReLZ2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kENvnPxgp820KBzYJdi7G3sW2dDvaUXW03butu70pizdO5oqHr
+	fAIM6/2+iiEtMZQzXyS7JJycnLMKQhrPNDV0dsz3BlDu1fu/r9VFtPNXCjDXRG+F5hc74eov9s2
+	46rXX18bOrQmZQMtfrRE8hKTNggsvG/KXBkegLxQ=
+X-Gm-Gg: AR+sD12H+TrEBCZSVmStZIcYDE2m8lzaRV+basFVTntdEQ28SoOc4RW1fEERCjqEi8d
+	S0UXoOBKbCIuZ7NzoDq1/8FP63WAkcY97iciyeXicNBuYH/I+do7+V6WiLjPJeeQTqeFeCpQkzf
+	zcQdcTxrW4Mvh7ksgFce2liN9A7SlP/TygIeiyDLbGdPf3TKEY2OaF0mh3uu+u/MmE6W+8Pyz9H
+	+AbxYQsEsya+vOA6ALHkCgpuwQc1YyFthMAvZcGljTL8pq5z7NYpXr8MSQNUud964LJ0Ryq7Dfq
+	+2rsjdCDx0oUvRr4X+Nu7Cpwo6MkZym2OBSendLv0cRDBQ==
+X-Received: by 2002:a05:6402:3812:b0:6a3:6d83:ba44 with SMTP id
+ 4fb4d7f45d1cf-6a60d2f3663mr3556066a12.2.1787907930829; Fri, 28 Aug 2026
+ 02:05:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828042421.964822-1-4ncienth@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A9CBC21E7D
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,redhat.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+References: <20260820175832.44512-1-kmehltretter@gmail.com> <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com>
+In-Reply-To: <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 28 Aug 2026 11:05:19 +0200
+X-Gm-Features: AcwNN1W4dZ0jbuPGgh02j4F1QLJuW5SvC4XfY9m2qygWs-rWNLFgcF97xFGTv1w
+Message-ID: <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
+To: Paul Moore <paul@paul-moore.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Thu, Aug 27, 2026 at 9:39=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
+ote:
+>
+> On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> >
+> > SELinux saves the user file SID in a backing-file security blob so it
+> > remains available after mmap() replaces vma->vm_file with a backing fil=
+e.
+> >
+> > For nested backing files (overlayfs over overlayfs, or FUSE passthrough
+> > backed by overlayfs), user_file may itself be a backing file.  Its
+> > fsec->sid is the SID of the mounter that opened it, rather than the use=
+r
+> > that opened the top-level file.  mprotect() then checks fd { use } agai=
+nst
+> > the mounter SID.  This can incorrectly deny access without a domain
+> > transition, or check the wrong target SID after one.
+> >
+> > Copy the saved user SID when user_file is a backing file.  Keep using t=
+he
+> > regular file SID for the first backing layer.
+> >
+> > With two nested overlayfs mounts and SELinux enforcing,
+> > mprotect(PROT_READ) returns EACCES with an fd { use } denial against th=
+e
+> > mounter SID.  With this change, mprotect() succeeds.
+> >
+> > Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() acce=
+ss checks")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Codex:gpt-5.6-sol
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Add selinux_file_user_sid() helper instead of open-coding the lookup
+> >   (Amir).
+> >
+> > Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
+> > nested overlayfs mounts. The policy omitted only
+> > base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
+> >
+> >   baseline: mprotect(PROT_READ) returned EACCES with that denial
+> >   patched:  mprotect(PROT_READ) succeeded; test exited 0
+>
+> If you could share the distro and some more details on the testing
+> methodology that would be helpful.
+>
+> > This patch fixes SID propagation only. backing_file_user_path() still
+> > resolves to the middle layer for a nested mapping, so the audit path an=
+d
+> > inode do not correspond to uf_sid, and that layer's mounter is not
+> > re-checked. Preserving the full user path likely needs a VFS-side chang=
+e,
+> > such as having backing_file_open() store file_user_path(user_file).
+>
+> Additional comments below, and while this patch is useful in fixing some
+> of the problems (thank you!), we obviously need to fix the others as
+> well.  Is this something you think you will be able to work on?
+>
+> > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> > index 1ead2eee1944..171b90412ff1 100644
+> > --- a/security/selinux/hooks.c
+> > +++ b/security/selinux/hooks.c
+> > @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct f=
+ile *file)
+> >       return 0;
+> >  }
+> >
+> > +static inline u32 selinux_file_user_sid(const struct file *file)
+> > +{
+> > +     if (unlikely(file->f_mode & FMODE_BACKING))
+> > +             return selinux_backing_file(file)->uf_sid;
+> > +     return selinux_file(file)->sid;
+> > +}
+>
+> I'm a little concerned that this only works for one additional level of
+> filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
+> FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
+> unreasonable concern that at some point in the future that number will
+> increase without proper notification or testing and we will once again
+> have a problem.
+>
+> At the absolute minimum we should have a BUILD_BUG_ON() for the stacking
+> depth.  It would be good if we could watch both the overlayfs and vfs
+> constants, but the overlayfs constant isn't available outside
+> fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit).
+>
+>   BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
+>
+> Ideally, the code would be written to keep diving down the stack until
+> it hit the true backing file.  No one likes to see recursion, but at the
+> point where this function is called there should already be a reasonable
+> bound on the stacking depth and the work involved.
 
-On Fri 28-08-26 13:24:19, Daehyeon Ko wrote:
-> You are right that an fd-held dentry cannot satisfy the count == 1 check. I
-> was imprecise in the report: the fd and the final unlink refer to two
-> different hard-link dentries for the same inode.
-> 
-> The setup is:
-> 
->   1. create A/x and link it as B/y;
->   2. open B/y, add the old-group inode mark through that fd, then unlink
->      B/y, leaving i_nlink == 1 while the fd retains the B/y dentry;
->   3. race these two calls:
-> 
->        unlink("A/x")
-> 
->        fanotify_mark(racer_group, FAN_MARK_ADD, FAN_MODIFY,
->                      victim_fd, NULL)
-> 
->      where victim_fd still refers to the already unlinked B/y dentry.
-> 
-> So the A/x dentry checked by d_delete() is not held by the fd and can have
-> d_lockref.count == 1. Its unlink drops the inode's last link and reaches
-> dentry_unlink_inode() -> fsnotify_inoderemove(). At the same time,
-> fanotify_find_path() gets the same inode through the fd-held B/y dentry and
-> adds the racer mark.
+Unless I am missing something, stack depth should not matter.
+file_user_path() should hold the user visible path, for all the backing fil=
+es
+in all the depths of the backing files stack.
 
-Thanks for explanation of the reproducer. Now it makes sense. The
-conclusion from this is that fsnotify_inoderemove() can indeed be called
-for still fully alive open inodes which should be (think of permission /
-pre-content events) still generating events. That could be actually
-breaking some assumptions of userspace although I don't think it's a
-serious issue in practice because users of permission / pre-content watches
-tend to use filesystem / mount watches.
+This is the issue that was fixed with commit
+f2381b546e7e6 fs: fix user path of nested backing files
 
-Also I think we could generate FS_DELETE_SELF twice for the inode - once it
-will we generated as a result of d_delete("A/x"), and finish_dput() ->
-dentry_kill() -> dentry_unlink_inode() will generate it for the second time
-on the last close of the open through "B/y". That should be mostly harmless
-but still it's an oddity to keep in mind and preferably avoid if we can.
+This patch makes uf_sid behave the same way and also documents this:
 
-Now there's the question about the best fix for the problem. I've realized
-we cannot just remove the call to fsnotify_inode_delete() from the place
-where fsnotify_inoderemove() is called (and rely on the call from
-__destroy_inode()) because the connector holds inode reference and so
-__destroy_inode() would never get called. Hrm, this is a hairy issue and so
-far I don't see a good place to reliably trigger detaching of connector
-from the inode. One reliable place would be iput() but that's really ugly
-and would slow down every iput() user. The cleanest solution I can
-currently see is to stop holding inode reference from a connector as I've
-proposed in the past. Then we can reliably perform the cleanup in
-__destroy_inode(). But that will be a rather non-trivial undertaking. Amir,
-do you see some other option?
+struct backing_file_security_struct {
+-       u32 uf_sid; /* associated user file fsec->sid */
++       u32 uf_sid; /* top-level user file fsec->sid */
+ };
 
-								Honza 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+[*] For me the "user" visible file is always the "top-level" but if
+this comnment
+    change helps others understand better it's fine by me.
+
+Thanks,
+Amir.
