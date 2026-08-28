@@ -1,52 +1,52 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E011FC0
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7C51FC0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787897313; cv=none; b=kxVDNRBe2r6C2jpswUm9lLVKL5rbPCvFAdkmAmunle2zY9Wzgr/dKBNbY8RtvXeceUiNwQw0g80qOtlVTX0jVo7rHwVpCRU6z3bjoAis0jDdXz35mwUJgqzD5Vt9OYeUEZi7p9LGMgCprrhRP0eYjLMzM/yVoi1S1htbb5v/jwg=
+	t=1787897320; cv=none; b=Lyk880uFzpF4AptGvAqj6t1KSOO2Lzky6Y8AVl2+8BDtzLyZ31EkIMiKmS35tfYZo7O0bTMhP9SDphxjeCXz43pmjvSAJ816F2PRRygCzYiGthep/REX8QiVQGRal53OIPlXPZdb/P5PEYJTp0/S62rUqbTiETzyt1FdYLZIk70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787897313; c=relaxed/simple;
-	bh=kRF8W4tt6ouPHr9iMld1ctj5gU77eZmAGbniQOc/n3s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=abRgU6f6TfIL9mU19wrDeG7Kc7518EHW7JGa3dWsOPHr1AB88PHCF4CTpRJymeyfmNA+Qzl1vyDKsZcZYbqni77yQF9usCLxH959HkTgms7/klaB2vNm8vBqeZ3CJJ2nSks8JmftvzBO2S4cDyezc0+HytnBMXrLym2xxmy7UpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: dd237908a2a611f19a56ed5b684f684d-20260828
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0dc33ee2-f55d-4ff0-bcd9-4249761a6d53,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:cf1f5691a1d2daf4f2f77cd3eff4e906,BulkI
-	D:nil,BulkQuantity:0,SF:102|123|136|850|865|898,TC:nil,Content:0|15|50,EDM
-	:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: dd237908a2a611f19a56ed5b684f684d-20260828
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yaolu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1210124518; Fri, 28 Aug 2026 14:08:18 +0800
-From: yaolu@kylinos.cn
-To: matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: umesh.nerlige.ramappa@intel.com,
-	jose.souza@intel.com,
-	ashutosh.dixit@intel.com,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	s=arc-20240116; t=1787897320; c=relaxed/simple;
+	bh=Pt8iG8FRmUsyMAl7DKYsLkgXlyGJTxab3ZqlzdP7+Vw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nuJ38wNqPWbCh/hZiQJWC/m5TEHx5/9xP+NEWsVvdtXfGLhj3U7LCKl6Foqo0AcSEmRYQLDR8K6W17eKxz0sA1BSQAoAMahVF4adpX9GF5xL8lF3GUAlSYGvYJ/nsiYrI2Dv7X5z3IerCYN/7FirgaUqCiwvH25SI7G9Z3kCWCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=schauer.to; spf=pass smtp.mailfrom=schauer.to; dkim=pass (2048-bit key) header.d=schauer.to header.i=@schauer.to header.b=nCb7NtYU; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=schauer.to
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schauer.to
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=schauer.to header.i=@schauer.to header.b="nCb7NtYU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=schauer.to;
+	s=protonmail3; t=1787897306; x=1788156506;
+	bh=RdmktDHYrNA4Xpiuvts8V3ojy0sMIivuhS/SjIYmfcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=nCb7NtYULsaqgsDNMVEbG6SioQ8t+tan/JPUIx8SQmp0QsaxDeOvh8XT8//goK12r
+	 yPiENg/rsWaQT9Rk3FugYV4cop6PhBCxSW9y+UaJQnX5vdSXOdN1tte/etTQriFHo3
+	 D50rKdQL4fNP2UQjx1J/SDIPGD8TTtvjoGuMr8XAh/ITOGwJ6jSmfe/Vv5zKtnIMO0
+	 HB5g9D+GKQfTptxJzwzNBT7Bbc96Ftc5cVA9WGRO9NeZhJPndHgmKMo3T5W7o1DQLF
+	 qzXHQDU83UQdXwOqXoIDDE3pEcQfzPewelaSe0emBgd2+pNHVZEAy/gMuUjfdTFgs3
+	 Hx6Jj+ze19YRw==
+X-Pm-Submission-Id: 4hWScS1FP2z2Schl
+From: Florian Schauer <florian@schauer.to>
+To: hawk@kernel.org,
+	ilias.apalodimas@linaro.org
+Cc: netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/xe/oa: Remove sysfs entry on idr_alloc failure in xe_oa_add_config_ioctl()
-Date: Fri, 28 Aug 2026 14:08:12 +0800
-Message-Id: <20260828060812.163548-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	linyunsheng@huawei.com
+Subject: [PATCH net v2] page_pool: keep frag_offset aligned for odd-sized requests
+Date: Fri, 28 Aug 2026 08:08:22 +0200
+Message-ID: <20260828060822.2628276-1-florian@schauer.to>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,36 +55,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lu Yao <yaolu@kylinos.cn>
+page_pool_alloc_frag_netmem() rounds the requested fragment size with
 
-If idr_alloc() fails after create_dynamic_oa_sysfs_entry() has
-succeeded, the error path frees the OA config without removing the
-metrics sysfs group.
+	size = ALIGN(size, dma_get_cache_alignment());
 
-Remove the sysfs group before releasing the config, and fix up the
-misleading error message copied from the sysfs creation failure path.
+dma_get_cache_alignment() returns 1 unless the architecture defines
+ARCH_DMA_MINALIGN, which DMA-coherent architectures such as x86 do not.
+There the ALIGN() is a no-op and pool->frag_offset advances by the raw,
+unrounded size.
 
-Fixes: cdf02fe1a94a ("drm/xe/oa/uapi: Add/remove OA config perf ops")
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+A single caller asking for an odd size then leaves frag_offset misaligned
+for every fragment carved out of that page afterwards.  The pool is shared,
+so the damage is not confined to the caller that caused it.
+
+The per-cpu system_page_pool used by generic XDP hits this.
+skb_pp_cow_data() allocates its fragments with the raw packet length:
+
+	size = min_t(u32, len, PAGE_SIZE);
+	truesize = size;
+	page = page_pool_dev_alloc(pool, &page_off, &truesize);
+
+leaving frag_offset odd for whatever is carved out of that page next.  Its
+own head allocation is already aligned -- SKB_HEAD_ALIGN(size) plus the
+XDP_PACKET_HEADROOM its callers pass -- so it is a later user of the shared
+pool that pays: page_pool_dev_alloc_va() returns a misaligned buffer,
+napi_build_skb() installs it as skb->head, and skb_shinfo(skb) ==
+skb->head + skb->end is misaligned with it.
+
+skb_shinfo()->dataref is a 4-byte atomic_t at offset 0x20, so the
+atomic_inc() in __skb_clone() straddles a cache line.  On x86 with split
+lock detection -- fatal for kernel split locks by default -- this panics
+the machine:
+
+  Oops: Split lock detected
+  RIP: 0010:skb_clone+0x154/0x1e0
+  Call Trace:
+   <IRQ>
+   raw_local_deliver+0x1ed/0x2c0
+   ip_protocol_deliver_rcu+0x54/0x1c0
+   ip_local_deliver_finish+0x85/0x100
+   ip_local_deliver+0x67/0x100
+   __netif_receive_skb_one_core+0x85/0xa0
+   process_backlog+0x87/0x130
+
+Reproduced by attaching any generic-mode XDP program to loopback and
+opening a RAW IPPROTO_UDP socket, which makes raw_local_deliver() clone
+every locally delivered UDP packet; ordinary DNS traffic then triggers it,
+roughly once per 2500 clones.  Observed on 6.12.101 and 7.1.8.
+
+Tracing page_pool_alloc_frag_netmem() over one such run shows the
+amplification -- two odd-sized requests, nine misaligned offsets:
+
+  requested size & 7:   0: 17035    5: 1    7: 1
+  frag_offset & 7:      0: 17028    3: 1    4: 1    5: 1    6: 1    7: 5
+
+and skb_pp_cow_data() returning heads that were aligned on entry:
+
+  head 0xffff8f4c86aeac00 -> 0xffff8f4c53a9a9c4 (&7=4)
+  head 0xffff8f4d6a8a42c0 -> 0xffff8f4c4f7b7a45 (&7=5)
+
+Round the fragment size up to at least the alignment struct skb_shared_info
+requires, so fragments are always suitably aligned for the objects callers
+build on them.  Architectures needing a larger DMA alignment keep it.
+
+This also makes the remainder computed in page_pool_alloc_netmem(),
+
+	*size = max_size - *offset;
+
+aligned, since max_size is a power of two -- which fixes the matching
+misalignment of skb->end.
+
+Verified with a controlled A/B under QEMU/KVM: same tree, same config,
+same compiler, same rootfs and identical traffic, differing only by this
+patch.  A SEC("xdp.frags") XDP_PASS program on lo plus UDP datagrams
+larger than max_head_size drives skb_pp_cow_data()'s fragment loop, which
+passes raw packet lengths to the pool.  Measured at the return of
+skb_pp_cow_data():
+
+                          unpatched   patched
+  skb_pp_cow_data calls       40800     40800
+  misaligned skb->head         1120         0
+  dataref at line offset >60     80         0
+
+The last row counts the accesses that actually fault:
+skb_shinfo()->dataref sits at head+end+0x20 and is a 4-byte atomic, so
+`lock incl` splits a 64-byte cache line only when that address lands at
+offset 61..63.  All 80 occurrences were at offset 61; the panic reported
+above was at offset 62.  Eliminating the misalignment removes every one
+of them.
+
+Same class of bug as commit 3bed3cc4156e ("net: Do not allocate page
+fragments that are not skb aligned"), which fixed the older
+netdev_alloc_frag()/napi_alloc_frag() allocators.
+
+Fixes: 53e0961da1c7 ("page_pool: add frag page recycling support in page pool")
+Cc: stable@vger.kernel.org
+Signed-off-by: Florian Schauer <florian@schauer.to>
 ---
- drivers/gpu/drm/xe/xe_oa.c | 3 ++-
+v2:
+  - express the minimum alignment as __alignof__(struct skb_shared_info)
+    instead of sizeof(long), and drop the explanatory comment the previous
+    version carried, since the expression now states the requirement
+    directly (Eric Dumazet)
+  - no functional change vs v1 on 64-bit: the emitted code is identical
+  - Cc the maintainers and the blamed author that v1 missed
+  - correct two statements in the commit message: dataref is at offset 0x20
+    in struct skb_shared_info, not its first member, and skb_pp_cow_data()
+    allocates its head before the fragment loop, so the misaligned head
+    comes from an earlier user of the shared pool
+v1: https://lore.kernel.org/netdev/20260826135252.3091193-1-florian@schauer.to/
+
+ net/core/page_pool.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index 9c5384b95c63..73e51db13f56 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -2435,8 +2435,9 @@ int xe_oa_add_config_ioctl(struct drm_device *dev, u64 data, struct drm_file *fi
+diff --git a/net/core/page_pool.c b/net/core/page_pool.c
+index 8f8956fb0..08d7f35cf 100644
+--- a/net/core/page_pool.c
++++ b/net/core/page_pool.c
+@@ -1073,7 +1073,8 @@ netmem_ref page_pool_alloc_frag_netmem(struct page_pool *pool,
+ 	if (WARN_ON(size > max_size))
+ 		return 0;
  
- 	oa_config->id = idr_alloc(&oa->metrics_idr, oa_config, 1, 0, GFP_KERNEL);
- 	if (oa_config->id < 0) {
--		drm_dbg(&oa->xe->drm, "Failed to create sysfs entry for OA config\n");
-+		drm_dbg(&oa->xe->drm, "Failed to allocate id for OA config\n");
- 		err = oa_config->id;
-+		sysfs_remove_group(oa->metrics_kobj, &oa_config->sysfs_metric);
- 		goto sysfs_err;
- 	}
+-	size = ALIGN(size, dma_get_cache_alignment());
++	size = ALIGN(size, max_t(unsigned int, dma_get_cache_alignment(),
++				 __alignof__(struct skb_shared_info)));
+ 	*offset = pool->frag_offset;
  
+ 	if (netmem && *offset + size > max_size) {
 -- 
-2.25.1
+2.47.3
 
