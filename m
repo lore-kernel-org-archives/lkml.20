@@ -1,32 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391372F8E8E;
-	Fri, 28 Aug 2026 15:57:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE735E1B1;
+	Fri, 28 Aug 2026 15:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932629; cv=none; b=PFD8paMsvqD7PjD8o69EIkQibkYlfDLtbfdcgD1++RM7SMa6LzM6BAYOq3mlAvpDeSNYxqrk/sMFCnJfwM0HOnACcmEMcc7lFK9V/QzFoEHCsFkW9CuNMpD9wJFS61QGu3mLbsgUU23EMWh3Rx+yzz1h+gopNGsegTJQtqqbiFc=
+	t=1787932634; cv=none; b=JgaUSRnMhqpb0gbod9CwaxmBg0mvIkWA0Z6phpFLSRVrp1Fe/JeyOocgiFXxegAqBS/tDU2Ja4yfE3TfGpwotAMcMHH6yPJ4S4kOhgr2xzX0AtGxURxAK6EDFfXmnwY5mVuKK3OAit11AxIElz8YS7UExBnrZ2HhUhMj1KfB7Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932629; c=relaxed/simple;
-	bh=E3XuLBAenGQbjVfmjvGWeq3KfYSr+unWVEaNLenotEI=;
+	s=arc-20240116; t=1787932634; c=relaxed/simple;
+	bh=XtXQ8cbDYs9afRHqeLuHRHp7EjqRg00ZpbiAcvgbArE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YpOJM0DXOt/cfQ9CFqYYBescuJ/nYupIbY2K/ihcna5c74PJ7i8Nr/W6ac+s6PQRT9Ct+A1cvTXJ5tgdeoEKTK4lOHw8289FiFsewNPv9pTsexIQz5wxeGOat1W4doR+bl13ajVKVdVFZwN8JhNS6Dfyy0SSoIo0DWUKkpfs1lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=hWVvfJA5; arc=none smtp.client-ip=178.251.229.89
+	 MIME-Version; b=kkudjxu1UP50dDk2AI4bnGi1sEOcixlgiYeioARIlF5B5oIXiZ22L3xC6RxCHmlgSqpzMPl4bRElrR3Ubuavpj3Ps5TN/lJAFA8xiqOwV0IpJA5yL62xhQkJginwQYPZPY1wcbWt8rDHO3HQFDbxjvicEcvWOWXs36kwHzWyj6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=DCg7lc9l; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="hWVvfJA5"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9FBBD11D0E8;
-	Fri, 28 Aug 2026 17:57:01 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="DCg7lc9l"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9415F11D132;
+	Fri, 28 Aug 2026 17:57:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787932622; h=from:subject:date:message-id:to:cc:mime-version:
+	s=dkim; t=1787932627; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=vBG7jRv/I+mblA7u8PFmX/FP7QUNIzlEbJnE5pTv4Qg=;
-	b=hWVvfJA5ae8H3Lf6Rtf52kWK9+0Vwtsyp3HL6Jjp+MLVdVN7WKzEUpP7WcK78WVKk+Gold
-	CWQoX6Z9z1NdIc9jVTwSUuHkmSBE1Gz/cWU03DexUfB2yuBByeXkChD/xF92PvyW0FdqZ7
-	cBcSNLhavVVhrqIFaaSn83ejiQ+kTPNN8MmDUeIQfYPc+b7bDg8cPCYXkV0Ngzk62sYI/M
-	13V0nfIaC3/O02ax/tiChf1wnuO0lzJrMwQgZlCgGopyGR0rlpk8KRCki2dgCxly9iFUgB
-	MzAnsk4H/QoJ3XMtMCVlDGJDpzXLTUu5tAyDJq2JEnVzajydC4cfFQvJydgaUA==
+	bh=vJSjjDjQ0wdkS0l0mGl82POQsgBcPy5v+GQQmLa8oqg=;
+	b=DCg7lc9lKXInxZqr5+32Ia5ZMs7JQFpxqe7l1OX7Rl/V6CwK6iSXbE1FvmiL5ig9k22IPa
+	lEa9Tb3yiOP/tldPbhJhTpahxzS9GRPaTh5YNV7+wgTzQGXGyROiB6VtfIFaey0i9kHwn5
+	xe7R+fvB7C3CKrxFnUo3HFRWDcMAfCfFd0YLpMBgafICsA4GC1Oy7FT2aPa9IEGCMZiwkU
+	2XeDGIKpR99GOF9FmZpvMqxMBB3cJ3sYHkY5IxJIaTdLw3/e9s8YVGekzb+RZsJ3TmkF7u
+	+/TMdXY2vTF8K8314uot2bWkUXKZR/iKOMzljFqthDnihfKKNMIzE2cljvBrZQ==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-usb@vger.kernel.org
 Cc: fabrice.gasnier@foss.st.com,
@@ -41,9 +41,9 @@ Cc: fabrice.gasnier@foss.st.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v4 1/4] dt-bindings: usb: generic-ohci: Document ST STM32MP2 SoC compatibles
-Date: Fri, 28 Aug 2026 17:55:45 +0200
-Message-ID: <20260828155647.353877-2-marex@nabladev.com>
+Subject: [PATCH v4 2/4] dt-bindings: usb: generic-ehci: Document ST STM32MP2 SoC compatibles
+Date: Fri, 28 Aug 2026 17:55:46 +0200
+Message-ID: <20260828155647.353877-3-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260828155647.353877-1-marex@nabladev.com>
 References: <20260828155647.353877-1-marex@nabladev.com>
@@ -77,25 +77,25 @@ Cc: linux-usb@vger.kernel.org
 ---
 V4: New patch
 ---
- .../devicetree/bindings/usb/generic-ohci.yaml | 21 +++++++++++++++++++
+ .../devicetree/bindings/usb/generic-ehci.yaml | 21 +++++++++++++++++++
  1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-index 474a84aa32d0f..71537d268b075 100644
---- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-@@ -51,6 +51,8 @@ properties:
-               - snps,hsdk-v1.0-ohci
-               - st,stm32mp13-ohci
-               - st,stm32mp15-ohci
-+              - st,stm32mp23-ohci
-+              - st,stm32mp25-ohci
-           - const: generic-ohci
-       - enum:
-           - generic-ohci
-@@ -67,6 +69,9 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+index 5d9dfea8e2160..49149b9d067af 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+@@ -57,6 +57,8 @@ properties:
+               - socionext,uniphier-ehci
+               - st,stm32mp13-ehci
+               - st,stm32mp15-ehci
++              - st,stm32mp23-ehci
++              - st,stm32mp25-ehci
+           - const: generic-ehci
+       - items:
+           - enum:
+@@ -82,6 +84,9 @@ properties:
+     minItems: 1
+     maxItems: 2
  
 +  access-controllers:
 +    maxItems: 1
@@ -103,17 +103,17 @@ index 474a84aa32d0f..71537d268b075 100644
    dma-coherent: true
  
    interrupts:
-@@ -215,6 +220,22 @@ allOf:
-         clocks:
-           minItems: 1
-           maxItems: 3
+@@ -195,6 +200,22 @@ allOf:
+     else:
+       properties:
+         clock-names: false
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
 +            enum:
-+              - st,stm32mp23-ohci
-+              - st,stm32mp25-ohci
++              - st,stm32mp23-ehci
++              - st,stm32mp25-ehci
 +    then:
 +      properties:
 +        clocs:
