@@ -1,132 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C442A3769E7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1750D37FF41
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787940237; cv=none; b=u0jeOWEqBUMSB9+nDjQkA8YONv7tx17aWt1ZDShSCwHvDbnSM0x5rNluRB02LV9s0Ery4KAnsKZv2yaAa+Tc7jysYfN/BQ1GUk7BmkYg5AwnouoSVB4sRWqfCea1kLP0O+p1Vmw8q+bKHlNpZ4ReRt8s2gv8snlOMBzOxhswC6I=
+	t=1787940306; cv=none; b=SC5ys67d76FysmQ7eq/RQuuIwSEFZOVjxr0jHemNC+zlpx1QouNoeJT3N30d/hXVko21179uWy202qWVz6FACJEr+kzLoOlXtEUDR/Xtdg7DA0Ho/6E3MRyOsBIoYhBWJIJ5Pn1fgm73TqtIeYsvijqQVDjau43ZLsoDxX5APgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787940237; c=relaxed/simple;
-	bh=wlp+QZrCllIFBjVEu2o493c8HKY2QOlo86a4xnkaCdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=red/vBqrxFxtDzACCgD5UArQuyDoLUE2gt8QngR0nB7z4zqklWbF1udJF/hI2Xtxg9bD4eml5NCzQsbQYZyQNTOSRaMokIrh4S9MVJyKEdZmBrn1HvnMHkV4Mt+tb347E+/AFFtymInUJaVL+S/a322LaaFX235HlATJysx/5Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fbZYpI2d; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787940306; c=relaxed/simple;
+	bh=pulrhA1z/24BBj5Cl8E/GQwLRRtPhUygsHkKurvQViw=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=gIYnCINyLFzQ1KMQusp00IdAF+6G7Wj1/A/4hMCExGcsQevHeZKdRIKtzq/WJ8mn+vvXcNLEb/2j7gLB4IpSexGGO9QaG2wYTiuxxzXWL8U9Rnd/fA4OJ2Gma1Akpio/F/JrxsdTDkGTwUpqHexHiULuoZBBhEo2P18W72CQRns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ODlLoY+x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fbZYpI2d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787940234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=R6u5D0eKBr0PHMMC8e24ZiiUyM5N/sfQfhD2fU9Nzh8=;
-	b=fbZYpI2d6/94rBgKMG10rJCnvNmlaHW8X7xR+Yc6NfCAhkiwINZJeBVavY3Z9Auae5uRet
-	dIgU41W4Hp73a+0jdddrmggn61ZlPiJTGj2llCpOaHZ66sjxTthBrbawY3u9suGy+LHfM0
-	8VE1jdpivmThKc+HSM1r46W0t38Ahic=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-593-HQqSgqhpOzKVH6VEZ9hqMw-1; Fri,
- 28 Aug 2026 14:03:49 -0400
-X-MC-Unique: HQqSgqhpOzKVH6VEZ9hqMw-1
-X-Mimecast-MFC-AGG-ID: HQqSgqhpOzKVH6VEZ9hqMw_1787940228
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B420E195606B;
-	Fri, 28 Aug 2026 18:03:47 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0E50F1803A40;
-	Fri, 28 Aug 2026 18:03:45 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
-Date: Fri, 28 Aug 2026 14:03:22 -0400
-Message-ID: <20260828180322.730419-1-longman@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ODlLoY+x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593B91F000E9;
+	Fri, 28 Aug 2026 18:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787940304;
+	bh=BtbaLM+XrnDfc1+8xbhyudXGdgL+W0cYRo+RKPtdj3U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ODlLoY+x3oN86nAY7aDfhVrNWgl35SC9NPJouDYUBjPpWN5ymfXrZiul9QOj9WvpY
+	 LjxasdXV1/CCPen8FXWYQWKVdl4lvoe4j9owW1RedQLSjTst7x88eh2D3UAK4p1xMl
+	 R5SSBJ4PNRFGzhBP5auTzqXCDP3k4diZCsc/Rsbg=
+Date: Fri, 28 Aug 2026 11:05:03 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Ye Liu <liuye@kylinos.cn>, Dev Jain
+ <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under
+ memory pressure
+Message-Id: <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+In-Reply-To: <20260828091753.299295-1-ye.liu@linux.dev>
+References: <20260828091753.299295-1-ye.liu@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
-processing synchronous"), the cpuset hotplug operation becomes
-synchronous. That commit also removes the code that handles the race
-between cpuset_hotplug_work and cpu hotplug notifier with the assumption
-that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
-Always use cpu_active_mask") updates the cpuset code to always use
-cpu_active_mask instead of cpu_ohline_mask in various places including
-guarantee_online_cpus() which is also renamed to guarantee_active_cpus()
-in that commit.
+On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
 
-In the case of CPU offline operation, cpuset_active_mask is updated
-first in sched_cpu_deactivate() to remove the offline CPU before
-cpuset_handle_hotplug() is called to update the effective_cpus of the
-affected cpusets. The cpu_online_mask is updated after that near the end
-of the offline operation to remove the offline CPU. As a result, the race
-comes back and the top cpuset may not have any active CPU leading to NULL
-pointer dereference during the race window when guarantee_active_cpus()
-is called after cpu_active_mask is updated to remove the CPU to be torn
-down but before cpuset_handle_hotplug() is able to properly update the
-effective_cpus of the top cpuset.
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> The vmap_purge_lock mutex can be held for an extended period by
+> __purge_vmap_area_lazy() which calls flush_work() to wait for
+> purge_vmap_node workers while holding the lock.  Under memory
+> pressure, those workers may themselves be blocked in direct
+> reclaim trying to acquire the same lock via the
+> vmap_node_shrink_scan() shrinker callback, creating a circular
+> dependency that deadlocks the entire system.
+> 
+> Two places acquire vmap_purge_lock from paths that can be reached
+> during direct reclaim:
+> 
+> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
+>    mutex_trylock().  This is a shrinker that only decays the vmap
+>    pool and returns SHRINK_STOP without freeing memory; skipping a
+>    decay cycle when the lock is contended is harmless and prevents
+>    tasks from piling up on the mutex in the direct reclaim path.
+> 
+> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
+>    mutex_trylock().  This is called from the vmalloc allocation
+>    overflow path; if trylock fails, another thread is already
+>    purging and the allocator's retry will find freed space.  The
+>    notifier chain provides a fallback if the retry still fails.
+> 
+> Both trylock failures break the circular dependency: the lock
+> holder's flush_work() can complete because workers are no longer
+> blocked on vmap_purge_lock in the direct reclaim path.
 
-Fix this by adding back the NULL cs check to avoid this problem. However,
-the output of guarantee_active_cpus() will be unreliable during that
-race window.
-
-Fixes: 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Link: https://lore.kernel.org/lkml/CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 0bad5bbec6bf..309478ab21ad 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -513,10 +513,26 @@ static void guarantee_active_cpus(struct task_struct *tsk,
- 	rcu_read_lock();
- 	cs = task_cs(tsk);
- 
--	while (!cpumask_intersects(cs->effective_cpus, pmask))
-+	while (!cpumask_intersects(cs->effective_cpus, pmask)) {
- 		cs = parent_cs(cs);
--
-+		if (unlikely(!cs)) {
-+			/*
-+			 * The top cpuset doesn't have any active cpu as a
-+			 * consequence of a race between its caller and the cpu
-+			 * hotplug operation where cpu_active_mask is updated
-+			 * asynchronously before cpuset_handle_hotplug() is
-+			 * being called to adjust the effective_cpus of the
-+			 * affected cpusets. But we know the top cpuset's
-+			 * effective_cpus is on its way to be identical to
-+			 * cpu_active_mask minus the exclusive CPUs dedicated
-+			 * to other valid cpuset partitions. Just pass back
-+			 * the filtered cpu_active_mask in this case.
-+			 */
-+			goto out_unlock;
-+		}
-+	}
- 	cpumask_and(pmask, pmask, cs->effective_cpus);
-+out_unlock:
- 	rcu_read_unlock();
- }
- 
--- 
-2.55.0
+Thanks.  AI review expressed a couple of concerns:
+	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
 
