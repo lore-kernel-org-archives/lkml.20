@@ -1,257 +1,284 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA3E40F734
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B223F1048;
+	Fri, 28 Aug 2026 10:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912996; cv=none; b=KJXywVqc5WRofC8XhnGndQG2VbsTRu4qi+vAgO6VYyFF7SxCopoU/JkfmZxjh0vjZIW9U4gUgpj4R1RYifz8y0FQRSJHCMd2PjoM8tScdjS8VBPqLMrK5vvgweBoqoelZ9rMvnSjQQFdGgkWiW4ewAGC5pvMZ6XmunyXK4QP8d0=
+	t=1787913035; cv=none; b=nqw6fVyixa6CCUUpFIjeGIH2GEZ9T7DeCVK6PS6uNJndxkqDYd77Xx0gU4NW7FML56QngMmQ93f+9CjS5eqzrqrRwCJXNa1C2Y+Bm2yU3nzGfDgZFTlEjcysT+OdciNHuEwdqi1pt+LfroW3rxNk80FAGmvxcmQ+3HerDcsQuuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787912996; c=relaxed/simple;
-	bh=I7wMMzUOTxXy59XXrAAdXEH/cY4Bv2uQCN82eMYlt3I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sVxq6yyyPL/ZumSWvegA1TElXSVNhe4LsBZGtG+fHkrqekiZrSIYFBWemoKWvhLr9ONtnkAca6Z27wX6Qdo/0sH8NSIAP6vI2zVuA1DOMKhmoJykqtQRAg3C2p49mflWugr4NNphPy18ehxu+yrx8rw7THZ0od7xPHyrZntLSTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Whj49Yq3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mcisa7MK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787913035; c=relaxed/simple;
+	bh=Wlt+2CO99ZmXhyR+lCIewkmzP6HA+pE7Y3qrqbEPgXk=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=ag5KyU3+GSpmCHti9P0G4boEuOYePxQjXHozSYC3QRssihS1ubNoCBDBTxYNAihTpDURCv7JTZcUFkLGclTyGSMTbzb422oCRXIpR0k4ggJZngNPKd/+L8oULQYwsCwsTYsL2nJi+lgrbA06z/1fh0g9u0fdBWv98tHcE7HDBes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjtdcSO0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Whj49Yq3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mcisa7MK"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SA8Wpf2492208
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=6AZ4KHj4RIWnDS4nK6Js8M
-	IOlqKDXq/pyeIEXZbRqBE=; b=Whj49Yq3jIAE0BX6cHJ4erISo00PeGlSUujgwT
-	TX9KRNnOqmCB0qau0p/T9Kom2C4KeBiBy+A3ROCQel4jIq6lgUe4dL2oV2v7m2fz
-	VARlgjHdRdwhCA4qfD2xckCUvQPEUCEqIof1XeNcgac+nsFrDzfYcXkRWx+hgzpu
-	qpwAA4mMISg4MoFxHQFIDGfr2gcIR12DvGO29TgmtRZ4MLhwkjo4CTBLZBhz+DWp
-	SE5gXfDdtl9T3lDmGHNIpOV38OYZQAMGvwJRuxN6V6PPEbgVt8ntRXevcPIVVSK7
-	0QalaDhYRFRRCCFhn/QvWNlgug7J6hYEVKZBjKIn2bcCdOsg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb3hs1be7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:49 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso1478294a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787912988; x=1788517788; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6AZ4KHj4RIWnDS4nK6Js8MIOlqKDXq/pyeIEXZbRqBE=;
-        b=Mcisa7MKcPRcDDah75mEcs7CeVEvx1EepdF6B15PAPYYvEqCVcEToHVEUwj83Cbex8
-         HZoyLP7GaO61HEHFFNcYDe60i5E0VdrMOv1TeYMmqv+jCs0MTKJxKlBKM3eE80cw+m8p
-         1iCFWCelL3Kl1TXBUATEfSaJco/4/kGJucThccUibmghFjc+s1RYXelKWzv3dXVj3H6/
-         YVoHCaNtL1vgqzqZMMF1tBVA66NL9ctcZiY1kGwTDkxG3YVKdRO6f6bsh7UYLZpC1l6g
-         eD45TZsT8DLAna7Xg+dPCze6IhPkZ97Ts28WMC5qoZwSnFs/s535au+NuexfkWTmf7gG
-         71Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787912988; x=1788517788;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6AZ4KHj4RIWnDS4nK6Js8MIOlqKDXq/pyeIEXZbRqBE=;
-        b=mK0YGvhwIajyuV+YJOOksNsBmyv9vZZ8mipLiYMV/uW0SP/9s+k0dCNbJ1iKMNgaKS
-         HTb2itY9Rjk/osuSVqlTW3aS9cGAzOdKU50ACv02NsGugVPS9wEdwrpS6bXLBXhBSO9v
-         p/dGdTvfdFR/h5b7O0HJbzFZkfTIffEAMT3AN2Wj0aHdz7phHC+Vi6g5HNN9x877ed9w
-         rOab1Z+a3hPv9MFmTQKq+HIagV/Gej4wKgobRo9mAL9zlXrzMbJBpwvjIJJ/dqdnp9wp
-         QUq6/jl06s9iC/yZRCoOAi+tN/COW1lMhwkbeDsePV0ERtK4PIevl6sozzryx9SpVmY4
-         tOuA==
-X-Forwarded-Encrypted: i=1; AHgh+RpcnR5lx9MbMN7Tu41BOUXNWctleTPBmPhAV0uKHhOgj8+VBxQGfJkonnccXVEJWul2UcwIITAFt7PBW1k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lj3MKbtM/A8S44UXV9LlQ0Fd6b3G5E+6dJh9zInvWuDsC3vnQo
-	mSMdWQRcvkiP3GBJEbLCjGn1N9xjSFJ3dClcgE1IVWHAkeKMhBy/HecBTq+UzXNt+w83I2iTEal
-	ipTCwsEz7J1sa8GjZH08JKo7iNnQcnM1FdZOW5uh6ov2yQ8cjkQItWhJQvWc8OvTLD2Xi5CNm1C
-	g=
-X-Gm-Gg: AR+sD13xYcgHnD5SNo/RM8mWvLkAGvrT8VjTGBpbEbug8uqOEk2tyxg9qRs67t54Cvy
-	Cqb8tuEtgoGBYYFwPzFRuCBIvc78i82Y5ssILHNppMiqIh/+FQDespXmSqN6mHw5coKAYGvV+eB
-	a+YB0zC+bhia3AqpHoBw7DLoQQPaObc03xapqSr3dRSdvYxdEKhiHtdsZHMIljApqxMQDI++m64
-	x88sGQG1dXXjt0IZurgMtyRZbaCBA42h2K20kjd3r3ddRjS2znFXRd0N+VIpsBMZCe0wNeUMSLO
-	akcQsi0128gt4XbtUm0BQMZP2vADYgjKBFfD7HkK14SpFW6ZS+wYT4uCLlD6E+8eqvoZG6Musk6
-	leXLs7zuiL8KwcJ39Dot1R4uLLiAoTnG3gqMI
-X-Received: by 2002:a17:90b:440d:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-396d0e5e891mr11062391a91.2.1787912988098;
-        Fri, 28 Aug 2026 03:29:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:440d:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-396d0e5e891mr11062322a91.2.1787912987665;
-        Fri, 28 Aug 2026 03:29:47 -0700 (PDT)
-Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c57sm5267301eec.4.2026.08.28.03.29.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 03:29:47 -0700 (PDT)
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 15:59:32 +0530
-Subject: [PATCH] i2c: qcom-geni: Fix hardcoded clock index in
- SE_GENI_CLK_SEL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjtdcSO0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52D31F000E9;
+	Fri, 28 Aug 2026 10:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787913033;
+	bh=RmJoucMctLRMuSUCsTwyUyIfYdguA9J4mgZCdQkjssE=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=kjtdcSO0eP3Ok+JpjhQBBk2wSSquCcZM1MorQKfp71kYqmIu4yy90QSGbCweHX6np
+	 wIJ9vL2irQndar13q7VvRzJ6S/tgl3O1iPQ6OL2vCb0mu15URfUAb2cJOu/oeM1OpY
+	 mPapHns22xSDbyd6flFln6YxBGla+QWEChfXjVUj7w5jMLCi5SOgK2a/aGMt6d/cec
+	 v8XhM2N8gOSPS24h+YjBpkqSCOtla9KL5RV2tuV+XOMDLlPenN8zk3cHwu5INk4dDP
+	 3TD9qN8mDBpf83SnTa98tOQWY4Zs6y9GqMP5ZOtk2FSXduT3STRjoZ5LwncC6JHqxT
+	 BenLbKFH3L+gg==
+Content-Type: multipart/mixed; boundary="===============4366746843011688961=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Message-Id: <25c4fc03d83c879c13ac1df190046881f7f969ffa532b904597ca9947c750d53@mail.kernel.org>
+In-Reply-To: <20260828-kasan-v8-4-7c1c0fdb9d7f@bootlin.com>
+References: <20260828-kasan-v8-4-7c1c0fdb9d7f@bootlin.com>
+Subject: Re: [PATCH bpf-next v8 4/8] bpf, x86: emit KASAN checks in x86 JITed programs
+From: bot+bpf-ci@kernel.org
+To: alexis.lothore@bootlin.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,tglx@kernel.org,bp@alien8.de,dave.hansen@linux.intel.com,x86@kernel.org,hpa@zytor.com,shuah@kernel.org,mingo@redhat.com,andreyknvl@gmail.com,emil@etsalapatis.com,ihor.solodrai@linux.dev,laoar.shao@gmail.com
+Cc: ebpf@linuxfoundation.org,bastien.curutchet@bootlin.com,thomas.petazzoni@bootlin.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,alexis.lothore@bootlin.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Fri, 28 Aug 2026 10:30:32 +0000 (UTC)
+
+--===============4366746843011688961==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-i2c-fix-se-clk-conf-v1-1-9adc72308f2d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAxjkWoC/yXMywqDQAyF4VeRrA2MI3h7leJCY0ajMpZJKwXx3
- Tvq8oNz/gOUg7BCkxwQeBeVzUdkaQI0dX5klCEarLGFqUyJYgmd/FAZaV2QNu+wql3hajvkZd5
- BfL4Dx8ldfbWP9dvPTJ8rBef5BxS9ICJ3AAAA
-X-Change-ID: 20260807-i2c-fix-se-clk-conf-89f6f92d373a
-To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Sagar Dharia <sdharia@codeaurora.org>,
-        Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
-        Stephen Boyd <swboyd@chromium.org>, Wolfram Sang <wsa@kernel.org>,
-        Douglas Anderson <dianders@chromium.org>
-Cc: Girish Mahadevan <girishm@codeaurora.org>, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787912983; l=4220;
- i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=I7wMMzUOTxXy59XXrAAdXEH/cY4Bv2uQCN82eMYlt3I=;
- b=ullmR2ZMP/fubY++Q5rSlO4oCU7BktzJl0erJgJQFGdI8C6Gphm50UBLmKgrNi0FY2YsQQ9po
- vMCMO3C/RafAfGPNSHu22kvWLZ3ZPYBHww8X+LjJiALWLviBoQhz6Hn
-X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
- pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
-X-Authority-Analysis: v=2.4 cv=XKYAjwhE c=1 sm=1 tr=0 ts=6a91631d cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JoU330fbb_3TrnOeRF4A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4OSBTYWx0ZWRfXzJt0WLhTodPG
- TaaUKhjB75xXmq/Yj+qMjAeLFihknIDdariJ6WflGrOn+T9eqJPoswGP6+YV6HqqYuAj7c67fMC
- 0SP9PaJ+d+O/4g0JV4iUrWclMitZIQLtuefOT7ZAZH6irzalqlpieb0h+Bd5eeI16gpEY6j46sf
- Q9EP2sxcroV2rKQbjczBf0l4MIVbDcjw05oxaVSXUQIaKZhxHekprnKm1cnpjIvPPpbGjeNBJ97
- 091m4UGE248qmVopy1dIth/XSFUF6q4P8GCMaCV4gsmWta5Mg1ZyYoLn6+vxBq5SjMu3St4mJU/
- +NXanLy5i3kkzZJ1RewzGm9jZZOftPmJWx/QY/YObHOOfG/Lk8K6zSxYt4XomGfkF98UqIw7r7p
- w1/zGr/XJqDL8UTIwt4wp68bzcGqG+J//eJ1iotjIOU7ZSTsEt12Xm37YHdLBGOjLuaBupvt2K6
- VA/ko0fbEHn8S8cd0fQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA4OSBTYWx0ZWRfXwz4D32QA5Wtf
- N07XFvzgayRDrlzQ+5ipWUmcqC0Ig0OV8+mWWuXrVRtVbzrUjjm9FTyfvrp8pV5jRuLtnJnGGqy
- 9ALWka8TTnLIFvF6jReU+Rl3HZYXpzI=
-X-Proofpoint-GUID: hzo6hbUVLmFnkZtx3cNS1zyc0n8ni66d
-X-Proofpoint-ORIG-GUID: hzo6hbUVLmFnkZtx3cNS1zyc0n8ni66d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608280089
 
-qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
-selects an index from the hardware clock performance table. This always
-picks the first table entry regardless of the actual source clock
-configuration. On platforms where the matching entry is not at index 0,
-the wrong source clock divider is active and the I2C bus runs at an
-incorrect frequency.
+> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> index 13ba3232993ac..adb62216dd204 100644
+> --- a/arch/x86/net/bpf_jit_comp.c
+> +++ b/arch/x86/net/bpf_jit_comp.c
 
-Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
-performance table index for the source clock (32 MHz or 19.2 MHz). Store
-the resolved index in a new clk_idx field in geni_i2c_dev and write it
-to SE_GENI_CLK_SEL instead of the hardcoded 0.
+[ ... ]
 
-Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+> @@ -1110,6 +1121,92 @@ static void maybe_emit_1mod(u8 **pprog, u32 reg, bool is64)
+>  	*pprog = prog;
+>  }
+>
+> +static int emit_kasan_check(struct bpf_verifier_env *env, u8 **pprog,
+> +			    u32 addr_reg, struct bpf_insn *insn, u8 *ip,
+> +			    bool is_write)
+> +{
+> +#ifdef CONFIG_BPF_JIT_KASAN
+> +	u32 bpf_size = BPF_SIZE(insn->code);
+> +	s32 off = insn->off;
+
+Does emit_kasan_check need to re-read insn->off here rather than taking
+the effective displacement as a parameter? At the BPF_STX | BPF_MEM site
+(line 2458), do_jit() remaps the offset for stack arguments:
+
+    insn_off = insn->off;
+    if (dst_reg == BPF_REG_PARAMS) {
+        insn_off = outgoing_arg_base - outgoing_rsp - insn_off - 16;
+        dst_reg = BPF_REG_FP;
+    }
+    ...
+    emit_kasan_check(env, &prog, dst_reg, insn, ip, true);
+    emit_stx(&prog, BPF_SIZE(insn->code), dst_reg, src_reg, insn_off);
+
+The check receives the remapped dst_reg (BPF_REG_FP) but re-derives the
+offset from insn->off, so the check validates 'rbp + insn->off' while
+emit_stx() writes to 'rbp + insn_off'.
+
+The BPF_ST | BPF_MEM case (line 2432) has a second issue: the check
+runs before any register remapping, so it is given the raw dst_reg:
+
+    if (!accesses_stack_only) {
+        err = emit_kasan_check(env, &prog, dst_reg, insn, ip, true);
+        ...
+    }
+    emit_st(&prog, insn, dst_reg, outgoing_arg_base, outgoing_rsp);
+
+When dst_reg == BPF_REG_PARAMS (MAX_BPF_REG == 11), emit_st() remaps
+both the register and offset internally, but emit_kasan_check() receives
+the raw value. reg2hex[] has no entry for index 11, so reg2hex[11] == 0
+and EMIT_mov(BPF_REG_1, BPF_REG_PARAMS) encodes 'mov rdi, rax'. The
+check then validates 'rax + insn->off' - RAX being BPF R0, an arbitrary
+program value - while the store goes to the outgoing-argument slot.
+
+In the BPF_DW / insn->off == -8 sub-case of BPF_ST, emit_st() performs
+no memory access at all (the value is materialized into R9), yet a full
+__asan_store8 check is still emitted.
+
+The BPF_LDX path (line 2645) handles this correctly: it remaps to
+BPF_REG_FP before calling emit_kasan_check(), and the incoming-arg case
+skips the check entirely.
+
+Would passing the effective displacement to emit_kasan_check() as an
+explicit parameter fix both the BPF_STX offset mismatch and let the
+BPF_ST path perform the remap before the check?
+
+> +	u8 *prog = *pprog;
+> +	void *kasan_func;
+> +
+> +	if (!env)
+> +		return 0;
+
+[ ... ]
+
+> @@ -1911,10 +2026,12 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  		const s32 imm32 = insn->imm;
+>  		u32 dst_reg = insn->dst_reg;
+>  		u32 src_reg = insn->src_reg;
+> +		bool accesses_stack_only;
+>  		u8 b2 = 0, b3 = 0;
+>  		u8 *start_of_ldx;
+>  		s64 jmp_offset;
+>  		s32 insn_off;
+> +		int insn_idx;
+>  		u8 jmp_cond;
+>  		u8 *func;
+>  		int nops;
+> @@ -1931,6 +2048,10 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  			EMIT_ENDBR();
+>
+>  		ip = image + addrs[i - 1] + (prog - temp);
+> +		insn_idx = i - 1 + bpf_prog->aux->subprog_start;
+> +		accesses_stack_only =
+> +			env ? !env->insn_aux_data[insn_idx].non_stack_access :
+> +			      false;
+
+This isn't a bug, but when env == NULL, accesses_stack_only is set to
+false ('not stack-only, do instrument'), yet every call site then
+enters emit_kasan_check() which only no-ops because of its own 'if
+(!env) return 0;' guard. Would 'env ? ... : true' make the fail-safe
+default self-evident and avoid depending on emit_kasan_check()'s
+internal guard for correctness?
+
+Also, the '!env' test plus 'insn_idx += aux->subprog_start' is already
+encapsulated by bpf_insn_is_indirect_target() (kernel/bpf/core.c:1646-
+1652). Would a small helper like bpf_insn_accesses_non_stack(env, prog,
+i - 1) keep the arch-independent invariant in one place and let other
+JITs reuse it when they gain KASAN support?
+
+> +
+>  		switch (insn->code) {
+>  			/* ALU */
+
+[ ... ]
+
+> @@ -2311,6 +2432,13 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  		case BPF_ST | BPF_MEM | BPF_H:
+>  		case BPF_ST | BPF_MEM | BPF_W:
+>  		case BPF_ST | BPF_MEM | BPF_DW:
+> +			if (!accesses_stack_only) {
+> +				err = emit_kasan_check(env, &prog, dst_reg,
+> +						       insn, ip, true);
+> +				if (err)
+> +					return err;
+> +			}
+> +
+>  			emit_st(&prog, insn, dst_reg, outgoing_arg_base,
+>  				outgoing_rsp);
+>  			break;
+> @@ -2330,6 +2458,12 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  				insn_off = outgoing_arg_base - outgoing_rsp - insn_off - 16;
+>  				dst_reg = BPF_REG_FP;
+>  			}
+> +			if (!accesses_stack_only) {
+> +				err = emit_kasan_check(env, &prog, dst_reg,
+> +						       insn, ip, true);
+> +				if (err)
+> +					return err;
+> +			}
+>  			emit_stx(&prog, BPF_SIZE(insn->code), dst_reg, src_reg, insn_off);
+>  			break;
+>
+
+[ ... ]
+
+> @@ -2572,28 +2711,42 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  			}
+>  			fallthrough;
+>  		case BPF_STX | BPF_ATOMIC | BPF_W:
+> -		case BPF_STX | BPF_ATOMIC | BPF_DW:
+> -			if (insn->imm == (BPF_AND | BPF_FETCH) ||
+> -			    insn->imm == (BPF_OR | BPF_FETCH) ||
+> -			    insn->imm == (BPF_XOR | BPF_FETCH)) {
+> -				bool is64 = BPF_SIZE(insn->code) == BPF_DW;
+> -				u32 real_src_reg = src_reg;
+> -				u32 real_dst_reg = dst_reg;
+> -				u8 *branch_target;
+> -
+> +		case BPF_STX | BPF_ATOMIC | BPF_DW: {
+> +			bool is64 = BPF_SIZE(insn->code) == BPF_DW;
+> +			u32 real_src_reg = src_reg;
+> +			u32 real_dst_reg = dst_reg;
+> +			u8 *branch_target;
+> +			u8 *pprog;
+> +			bool is_atomic_fetch =
+> +				(insn->imm == (BPF_AND | BPF_FETCH) ||
+> +				 insn->imm == (BPF_OR | BPF_FETCH) ||
+> +				 insn->imm == (BPF_XOR | BPF_FETCH));
+> +			if (is_atomic_fetch) {
+>  				/*
+>  				 * Can't be implemented with a single x86 insn.
+>  				 * Need to do a CMPXCHG loop.
+>  				 */
+>
+>  				/* Will need RAX as a CMPXCHG operand so save R0 */
+> +				pprog = prog;
+>  				emit_mov_reg(&prog, true, BPF_REG_AX, BPF_REG_0);
+>  				if (src_reg == BPF_REG_0)
+>  					real_src_reg = BPF_REG_AX;
+>  				if (dst_reg == BPF_REG_0)
+>  					real_dst_reg = BPF_REG_AX;
+> -
+> +				ip += (prog - pprog);
+> +			}
+> +			if (!bpf_atomic_is_load_store(insn)) {
+> +				if (!accesses_stack_only) {
+> +					err = emit_kasan_check(env, &prog,
+> +							       real_dst_reg,
+> +							       insn, ip, true);
+> +					if (err)
+> +						return err;
+> +				}
+>  				branch_target = prog;
+> +			}
+> +			if (is_atomic_fetch) {
+>  				/* Load old value */
+>  				emit_ldx(&prog, BPF_SIZE(insn->code),
+>  					 BPF_REG_0, real_dst_reg, insn->off);
+
+This isn't a bug, but does the restructured atomic case now make
+branch_target a dead store on the non-fetch paths? branch_target is
+written for every non-load/store atomic (plain BPF_ADD, BPF_XCHG,
+BPF_CMPXCHG without BPF_FETCH) but only read under 'if
+(is_atomic_fetch)'. Would moving 'branch_target = prog;' into the
+following 'if (is_atomic_fetch)' block keep the KASAN check outside the
+retry loop while restoring the definition-next-to-use property?
+
+Also, the new local 'u8 *pprog;' shadows the file-wide convention where
+pprog is the u8 ** out-parameter of every emit_* helper.
+
+> @@ -2625,15 +2778,16 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  			}
+>
+>  			if (bpf_atomic_is_load_store(insn))
+> -				err = emit_atomic_ld_st(&prog, insn->imm, dst_reg, src_reg,
+> -							insn->off, BPF_SIZE(insn->code));
+> +				err = emit_atomic_ld_st(env, &prog, insn, ip,
+> +							dst_reg, src_reg,
+> +							accesses_stack_only);
+>  			else
+>  				err = emit_atomic_rmw(&prog, insn->imm, dst_reg, src_reg,
+>  						      insn->off, BPF_SIZE(insn->code));
+>  			if (err)
+>  				return err;
+>  			break;
+> -
+> +		}
+
+[ ... ]
+
+
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 36 +++++++++++++++++++++++++++++++-----
- 1 file changed, 31 insertions(+), 5 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..a83297b5fb0a 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -82,6 +82,9 @@ enum geni_i2c_err_code {
- #define XFER_TIMEOUT		HZ
- #define RST_TIMEOUT		HZ
- 
-+#define GENI_SE_CLK_32MHZ	(32 * HZ_PER_MHZ)
-+#define GENI_SE_CLK_19P2MHZ	19200000UL
-+
- struct geni_i2c_desc {
- 	bool no_dma_support;
- 	unsigned int tx_fifo_depth;
-@@ -127,6 +130,7 @@ struct geni_i2c_dev {
- 	spinlock_t lock;
- 	u32 clk_freq_out;
- 	const struct geni_i2c_clk_fld *clk_fld;
-+	u32 clk_idx;
- 	void *dma_buf;
- 	size_t xfer_len;
- 	dma_addr_t dma_addr;
-@@ -197,19 +201,42 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
- static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- {
- 	const struct geni_i2c_clk_fld *itr;
-+	unsigned long res_freq;
- 
--	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
-+	/*
-+	 * Counter tables are calibrated for a specific source clock frequency
-+	 * and are not valid for any multiple of it (e.g. 64 MHz, 128 MHz).
-+	 * Use exact=true and verify res_freq matches req_freq literally to
-+	 * reject harmonics: a 64 MHz clock that divides evenly to 32 MHz
-+	 * would pass exact matching but produce double the intended I2C
-+	 * frequency with these counter values.
-+	 */
-+	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
-+				    &gi2c->clk_idx, &res_freq, true) &&
-+	    res_freq == GENI_SE_CLK_32MHZ) {
- 		itr = geni_i2c_clk_map_32mhz;
--	else
-+	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
-+					   &gi2c->clk_idx, &res_freq, true) &&
-+		   res_freq == GENI_SE_CLK_19P2MHZ) {
- 		itr = geni_i2c_clk_map_19p2mhz;
-+	} else {
-+		dev_err(gi2c->se.dev,
-+			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
-+		return -EINVAL;
-+	}
- 
- 	while (itr->clk_freq_out != 0) {
- 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
- 			gi2c->clk_fld = itr;
-+			dev_dbg(gi2c->se.dev,
-+				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
-+				gi2c->clk_freq_out, gi2c->clk_idx);
- 			return 0;
- 		}
- 		itr++;
- 	}
-+
-+	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
- 	return -EINVAL;
- }
- 
-@@ -219,7 +246,7 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
- 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
- 	u32 val;
- 
--	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
-+	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
- 
- 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
- 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
-@@ -1111,8 +1138,7 @@ static int geni_i2c_resources_init(struct geni_se *se)
- 
- 	ret = geni_i2c_clk_map_idx(gi2c);
- 	if (ret)
--		return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz\n",
--				     gi2c->clk_freq_out);
-+		return ret;
- 
- 	return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
- 				  Bps_to_icc(gi2c->clk_freq_out));
-
----
-base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
-change-id: 20260807-i2c-fix-se-clk-conf-89f6f92d373a
-
-Best regards,
---  
-Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33160000533
+--===============4366746843011688961==--
