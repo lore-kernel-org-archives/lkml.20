@@ -1,81 +1,111 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A044279F8
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B846446852
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917130; cv=none; b=RPsNs5lTaM7+X+GpOONaveGuJ83kpTui5um+QQ2jK8LcbtpJ+ulOuD3yCcx3xVEMnhd8A6hmeUxUX6cwu5XM/jQ6d1y++D+8PKp3UEDNVUMyC8s0aYr1gFA7RS+dCiRYGEJ4Ek/NUCRzJ8Akcm79D1mfxl4luxP1EW9ynhDSRjs=
+	t=1787917148; cv=none; b=qEX70oLnYX9R+Rws5Dc3gEQ4rxYswUTSluD3GC59ykN/YoNqFpGdliOVa9SQTro6Cbx356+K8U9fARIiJSXwx1QVcnVklPjv2iDMQ0lwp0DTGkyds9Is2l/AgIGp4/x+XyjXFJn3Dvae1IpoTzwhwPdERFa1WrGf49vcDQ3+hsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917130; c=relaxed/simple;
-	bh=Yolc/DBb3H0lcmB9LTt9clnWPPbQNHzwg7stvh1CO/g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=E+IQpCNY7w0s2OhEbptFlQl3C1l1DrzLMCvGNBaDh0EtF5OnZ4uVHlL0XDrvy4Gea2fkShD31co1qasaOEmde7N7S4xY80J4GDuMRcz7qK2BX8MDoHgbDXtxEy7vbjbkEiexo7M4+GPkuX9E6D4zLTFw+c+sSazvwKZwSu0PX6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ctHiZf2i; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com
+	s=arc-20240116; t=1787917148; c=relaxed/simple;
+	bh=NdjwIHjLMtwULySAl01jbxlCbe76DSmtR6VHa3IT7SQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=invJg6ZvbfcXA0Ncd1ZgzZGND9XgGx5BO5ygvgKowdT+/vaS4bliXaCjOBsPGNXsm2n7cDTH7FOk9tpmc4WeM7K61EPLdlTSYX7KLBotcBSKgrXoOij6lr+NUh2ap5KQB0WUlGYD8NPMvCcfXS29p+iiBBuMmVcSEjBPxwpLQx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c50g6GpT; arc=none smtp.client-ip=91.218.175.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ctHiZf2i"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d63bad3d09so14830465ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:38:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787917116; x=1788521916; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yolc/DBb3H0lcmB9LTt9clnWPPbQNHzwg7stvh1CO/g=;
-        b=ctHiZf2ioYGt3Jm1wRubl+N493WD802o2/6q4EsXAFGV7NvtfWLpKdwcM++uWxiAnY
-         oybNAiwJrxGkg2ltpRBMMxJ51h+aMkffcv4m3CS+WoFgN3rTTiGYJaRHZ0S/Je6OtYjf
-         KXO77M2AkaZRQY5t5/mxYE5XhRIEjPpmDofE3xEXyNxxhoKKbIWNtj2dbHoWo+J66e0H
-         c034Gtp+YI9dGe4OHkmL7fBKXx4kP5+e+DtqpdaY2MeLV2ghUMZnwrLEwkFdOJlnSB7Q
-         WJWyHIQfSIIaWN0kuVzR1FnHa5n/v4IgzlT5S+e7nddtlBXcezVNC8h9SqSA6S7Jv1aT
-         MPkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787917116; x=1788521916;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yolc/DBb3H0lcmB9LTt9clnWPPbQNHzwg7stvh1CO/g=;
-        b=D9o22u/oNh4Re2JUOqJyQhaioc9Vs4qZU0YQaXrJrmRE3OCck3BCCjl2XsDED3g1pB
-         KIWXmLEGBD8d/P6K3lWCYA3u4ozuov3Vvptnflk0qWsjcjVJIYFAxGhPTub/ELj1U3Ky
-         SJgIgVn/Q+OhKw+xpgCFnnWfOat0VQzGA5w8WYPib+UieZZwuBDl409z/TKoqPSaTe1R
-         6Qv04TJ9FJ2+q6uPTw6oXIKLawc7oBXJEeYhzjLTHlIWqy6eAAHKGCsS1uXRT26RmDTN
-         5Jkz32l4Wi5KD3ay/SOAZ3g9w2wyTUTvq8+94L+LU9YVUhWiWD+7A8QDmn+Ez6sxNPs3
-         g0Cg==
-X-Forwarded-Encrypted: i=1; AHgh+RpBfUhchCBxxqFCAhNWcLP32z/Hp5f3yT6jKebs1W5/w0t5yIw1asDsqOWVX8SbmMojj54j3ssM6YWT18M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmdUIwk2z+ahYFIfVPA6Bmxr+G4b9DocFJ4XnQgY42Os7iYoXz
-	w35yONMIqAK3rEajTTNJxsXGLihDoskZiETDsXPvS54oCgAurH9BldWiXbL1AO2L4BER0ale74R
-	mcw==
-X-Received: from pleo10.prod.google.com ([2002:a17:903:210a:b0:2ce:d12d:d6f5])
- (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:4b08:b0:2ca:e62c:9e96
- with SMTP id d9443c01a7336-2d74dc51c7cmr135512585ad.5.1787917116239; Fri, 28
- Aug 2026 04:38:36 -0700 (PDT)
-Date: Fri, 28 Aug 2026 11:38:34 +0000
-In-Reply-To: <20260813063503.4023719-1-wakel@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c50g6GpT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NdjwIHjLMtwULySAl01jbxlCbe76DSmtR6VHa3IT7SQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787917139; v=1; x=1788521939;
+ b=c50g6GpTINKgaAAbDKTwuL+c2Jn3CMl5UwUVA3SylvE64I3UuHumDS9hBVrS7eA8qwAyD9SQ
+ Eu5tlTDh3oU9VJznxgVEVhSaktmC2uot8AF0/6STwB3HJGXuMvCaNbHIwTJemDRNvpOmO1sXz4+
+ Uy5hMvbxNuO4bGUqgLGbysRc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 83ddab0aff98e2c5;
+	Fri, 28 Aug 2026 11:38:59 +0000
+X-Mizu-Trace-ID: 83ddab0aff98e2c5
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 28 Aug 2026 13:38:53 +0200
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Geoff Levand <geoff@infradead.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/ps3: Fix repository.c build failure
+Message-ID: <apFzTdakRxQMLJ2n@linux.dev>
+References: <20260703165834.137242-2-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260813063503.4023719-1-wakel@google.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260828113834.2354953-1-wakel@google.com>
-Subject: Re: [PATCH] selftests: rtc: fix flaky date_read_loop test
-From: Wake Liu <wakel@google.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Shuah Khan <shuah@kernel.org>, linux-rtc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Wake Liu <wakel@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260703165834.137242-2-thorsten.blum@linux.dev>
 
-Hi Alexandre,
+On Fri, Jul 03, 2026 at 06:58:35PM +0200, Thorsten Blum wrote:
+> GCC fails to build ps3_defconfig with the following errors:
+> 
+>   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+>   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 3 [-Werror=stringop-overread]
+>      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+>   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 4 [-Werror=stringop-overread]
+>      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> The current use of strnlen(text, sizeof(n)) triggers -Wstringop-overread
+> when text is a short string literal that is smaller than sizeof(n), such
+> as "bi" or "bus". Use strlen(text) instead and clamp the copy length to
+> sizeof(n) before memcpy().
+> 
+> Drop the redundant char * cast while at it.
+> 
+> Fixes: f94a84a09148 ("powerpc/ps3: refactor strncpy usage")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> ---
+>  arch/powerpc/platforms/ps3/repository.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/platforms/ps3/repository.c b/arch/powerpc/platforms/ps3/repository.c
+> index b8c030eab138..0cc755ac3e7f 100644
+> --- a/arch/powerpc/platforms/ps3/repository.c
+> +++ b/arch/powerpc/platforms/ps3/repository.c
+> @@ -6,6 +6,8 @@
+>   *  Copyright 2006 Sony Corp.
+>   */
+>  
+> +#include <linux/minmax.h>
+> +
+>  #include <asm/lv1call.h>
+>  
+>  #include "platform.h"
+> @@ -74,8 +76,9 @@ static void _dump_node(unsigned int lpar_id, u64 n1, u64 n2, u64 n3, u64 n4,
+>  static u64 make_first_field(const char *text, u64 index)
+>  {
+>  	u64 n = 0;
+> +	size_t len = min(strlen(text), sizeof(n));
+>  
+> -	memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> +	memcpy(&n, text, len);
+>  	return PS3_VENDOR_ID_NONE + (n >> 32) + index;
+>  }
+>  
 
-Since Shuah might be busy and hasn't had a chance to pick up this patch,
-would it be possible for you to take it directly through the rtc-next tree?
-
-Original patch & your Acked-by:
-https://lore.kernel.org/all/20260430120313.4078185-1-wakel@google.com/
+Gentle ping - it's been a few weeks and the build failure is still
+present. Is the approach here ok or would you prefer something else?
 
 Thanks,
-Wake
+Thorsten
