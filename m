@@ -1,145 +1,173 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8926C3BD638
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944082; cv=none; b=PeFFH0RSkWBt6SB/4J+Xy3um94G4J4P3Q0pVzrMo0eq3utN1C+oUMD66W04VcZOIvmmlxdJ0WJG1/g7njGfZNyMlnJTvlmQdpgobggRG0IYv1qqrxt+wtJTbqFbKtyU5lvZCiV+TpxT1+UJGPGfr9ce3Rgwz+bZVvsbIYBbMwIE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944082; c=relaxed/simple;
-	bh=o5WMiRtczlMj8aCzx0HZGimrMc8BtlDx3pCmgkhCjVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u2qwHjr5Yg5yS8b86tWdXqshsMzKWw6/yU4/wcIqSIyZ81lhluksEPB9wZtYNBkp3fzrrwyb9Qfeg72b1nsT29f7Cp/zuMm5bktRXNgeXNot/Au7Ws/j5uFNk+/J0ni+NXn9kU2Ow3zjLFrG4xsQJcOCZz1XBzSKuoKZXiD8+PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=PAuX2eum; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618EA3BBA1A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787944093; cv=pass; b=pK4u4GaZ6XdzAGnxiNkAmSv1K5BbGIbuU8PlnorgJK38MBpS5Xy4QEnuhixrw95Z1UD5xqdI5jqJEdKSl0hj2Uk0XC5+jaqPvxEv3RXX1JAl0yQ9Hxdmbbin2j3uFY+qkZe3eutLC/v6XYymgzcu9au9YM1Y3bOFzD6/7cTysC4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787944093; c=relaxed/simple;
+	bh=UTY7n5mWKlgU6mG7lT+g+x29Ur3pE7Cfj4pLQ1uLVVA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KwKrhHBUwsjFRyQmcd70jvkx+FS4upBNs17juAG0s+/EV2A5j9tTiRjjwsoEZJdnmUniRATNGvqOzXxF6GrufyPK+fXpuDczGYad5itIXQzm4SS6xCwlfnRFyeMBwMyQRqh/7KpbbH4AM5zD3pomfTDXJdOF/+3p40v1IGVUQRg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X854PUOV; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="PAuX2eum"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 3BE7D80576;
-	Fri, 28 Aug 2026 19:07:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 63A9220030;
-	Fri, 28 Aug 2026 19:07:46 +0000 (UTC)
-Date: Fri, 28 Aug 2026 15:08:36 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, David Stevens
- <stevensd@google.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin"
- <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
- <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin
- <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
- <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
- <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Uladzislau
- Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook
- <kees@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
- suleiman@google.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260828150836.2d5b378c@gandalf.local.home>
-In-Reply-To: <20260828151018.HnR9xV1N@linutronix.de>
-References: <20260827232948.2520558-1-stevensd@google.com>
-	<20260827232948.2520558-7-stevensd@google.com>
-	<20260828133620._x2XfJR_@linutronix.de>
-	<20260828135947.GU776954@noisy.programming.kicks-ass.net>
-	<20260828151018.HnR9xV1N@linutronix.de>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X854PUOV"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so4010284a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:08:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787944089; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CuNp5M3t2Qy34NFoEjiCfZZFWLPqJnt7oduaxM4CcQIdH9du/o/oN+G0bpWYxoZadR
+         To5JCerPyzTkdF+aL0BZGU6V/Nut5T23stE+pMoLq5taH4R3hHKWBDijYSByUhuN/UYp
+         +xjOiVWI43Ty4OFSk2t42C5poDkOWxK6OHXHKiXyOKDi4jHEkuRs4G4Dq9VS+H6CE/fR
+         u8RVxmDUAiscwXK+b0IdGHUCHnK8foC+Epdxq14m7PmZUKxtGTDvIYzJMzdlOdoAv0qK
+         DVJB0Yjx2/+2NFCvt0+95D0wY5HElWPFSXDNZ5R8WYha8BMaUVu46oM0xmkz35lZxYOX
+         HfiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TaAS1sNmEmRB6xGut3oqqD3PYBl5B8b35AmgUg5X4uw=;
+        fh=O/SO0H34mFdlrfv4J5TU4IX6xVEmt418hSju5rREbZE=;
+        b=hCVO2K0Wmdn+spONrvGlK1/kiPlVKZKJ0RlSzguw8Z5zDUFVCL2gL0S+o1GUgyUviW
+         wuGgFQaAzVishik3l0Re3L2zNTK8DPLakbFeQjy3tGJrO2ikowYk7gD+6M9IMK3gbSeW
+         eyzSx43vPuYvO/vPuGwSCdDtihKiVczyEXkLetR6y/cvPilFogVs9pXdD9rdK4nOKUFl
+         xener/5R7aq1EmiHb9fLN8XTfYDsZRZ5e3e4Ex9+/WetoUc0yxkbywttydGSibfMd+9M
+         tVKsqWbnYCwsX/h87FnQoPj7QKGq25cIcsKK5PRJKIFds/g8/grOHHI0rMUNHrznnKXr
+         7wEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787944089; x=1788548889; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TaAS1sNmEmRB6xGut3oqqD3PYBl5B8b35AmgUg5X4uw=;
+        b=X854PUOV/zQ8nqoMO9N4Ia1q8+8tSYRmoU6kU8C7AYazOmQLD+/lkrn78fF8ltJm5C
+         gLjenKDKfby5HF+9JUT7j/pJvJ774/ck1vKxhYaBkW9P0w9D/KL029FwLjL266tY6DHL
+         YNfzvR+QMlEnTO5wHsmMtcgeRZsCHZCuUmxBniGWINOn4JWyZEUL6EhwkD1fVAvVvLuz
+         sOZwfjjO36QMwPzVg6GbaqEgZXguTNm9etT6M9zt6QsbxJpCSn0nYszyK12VNSGVY8Xh
+         af3jziV3JeE1fC/XLGKcdOgt2TtIilAG201xWNdN1kIviWkzYR20TTLxVG+hFI1Dn+D0
+         h/ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787944089; x=1788548889;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TaAS1sNmEmRB6xGut3oqqD3PYBl5B8b35AmgUg5X4uw=;
+        b=U2JwitDbO/nFsZDm+gOVTFEB2KZ+wocyz+0FGjOwURgdRZDeeGUAifDvYLhO0mP3Nq
+         Cd1WhF7VV6Q2jjnuBVIbrdbqw5gSpPoE37FTqfKoBPDfPnCWcxBdsxxCUJNgxUeoiP/z
+         TkF0i+QdjcqukDFJ43CkRaZq1MyM7MRvspiOFh2hbNJnBzWPmHpKhRxBOsFdAj7a1hVg
+         a2TzMGnHPsp+Pq/1wd89WNx86iKDDdnzS5lB62g57MUupKufKZLAGXuvmCUYJjlx4umQ
+         Iw5ggLyWw4rxzlnrr6QakMjuUXVyVt4ju9QXVAG8HRIpp3ldaHA5fPJCQiFCnP7DBlep
+         1YoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RppYoQLCiFX/IyyOIzRahomqGGqreuz23IZmefKfg8FdCNwD+SUboRDGupo8ijisEr+/CAcySWJvD7cdlY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkR9wolj4OqWYOHkOU+FFYZsxadekCI9UcohNhybcM1iF6porE
+	XK7X4XbudED3s4JQm300AfLyUBkUjyK+8kbtMbUx4LkfoCSnerQxH/i4nETg/Ldvxt1eIu+5tNM
+	SSy+gRQ7WmIR3r8FsN5kUydBl3gIwqxpCclY2jBQs
+X-Gm-Gg: AR+sD109tX3NAXWxsdAxg6lPDTT7aKb/Bw84ri/rdrFSUeBBvEMYYK+9+Mu4/3YMfot
+	kv1gJq7XzHgA3yUWcO4BSL2SVG3+zYXGpcWvI5wVUxepi05eI7vwo535T8y+DQGCx+f7+OT6lBT
+	ErYXbddXGvN9laQ2/2hAIlnqtIeM7W23e1OkXIleZwLvVxRwLWeDpE1u6LuESEWb4re+yiF0gEm
+	J2YknlXQ0+zRa/zqvDvxGbulVDe8h0g5Z71ky1FLj6obysvBoJIAZh0RCQAqdr9qC7uMbvni8T4
+	yY4aRwaXKVVFODgL9gXE0LVsNeDnoUSON9igoLW7nb7WVzgLRH4gTF3p3jyOzo6f+CQrzvb5EbB
+	pVzhDzWYHDdxMmyye0Bl0fMbsQ+TCsNVuXb2h58lRno0AtM4k96P7zF9OKWJb35vu2SHuPdI/SG
+	dsmjXswyEViyIT
+X-Received: by 2002:a17:907:c8c5:b0:c25:3c3f:22dc with SMTP id
+ a640c23a62f3a-c253c3f238fmr1089282266b.13.1787944088979; Fri, 28 Aug 2026
+ 12:08:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260828005004.2870750-1-jthoughton@google.com> <20260828094703.11081-1-lance.yang@linux.dev>
+In-Reply-To: <20260828094703.11081-1-lance.yang@linux.dev>
+From: James Houghton <jthoughton@google.com>
+Date: Fri, 28 Aug 2026 12:07:32 -0700
+X-Gm-Features: AcwNN1UeBlJNZQTScnpGSIA84ceVmmw-Znp9Pros_d_DNJEw7LyIhxNwfMF_Hy8
+Message-ID: <CADrL8HX+FT4ymeNOKLPQ+vE7HLMRwjdDJX=KjdqgY0f_YhmSiw@mail.gmail.com>
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, usama.arif@linux.dev, shy828301@gmail.com, 
+	zokeefe@google.com, hughd@google.com, kas@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 63A9220030
-X-Stat-Signature: qfnccbb99bbdi8st4d7w1x16uzo3fqsi
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+hstgiEjxGj1qjeta+VJO9YmsPembJtic=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=iz9Z9bs2yaO0uX8X+NUUGGiRu5Z62aRatCnxgmGQF+g=; b=PAuX2eumiKoGnLpY5f2+nm1ZATl/EOmUjI/FpV343XmFEFbowkFJmql3TZ1jDF1zuxI7uBH2uMShSP5U+TAscRfUBR9oh1x+t0dQtAljRuUvKaoZDY8JWuPoBS97OtDAg2ak8UoAQy18o2uUlaGBaHG6dRHa85Cm1TzLH79+Sx8=
-X-HE-Tag: 1787944066-559064
-X-HE-Meta: U2FsdGVkX18U+OOzmbS2v7qR7lqORVcgk0uJsd4pkhcItvYG+24rlhF4ua5cRunBcYiDvk8rYgLbmXs/0MxeE0s/dEd+FjrLEJn/AycQVURIxyo4rzRtjDYatkcwbpTyQECqMN/Wus6AbwXpziKNmrDRuLR04URK1/zW97dGFmeH7TWUpmWhcqBpwYZ8VgsB4W5dK++Zbf3JGighkdJdtKpSkazEYldOZbb5m9xR/iLZO8WEUXb4LaN8UmW7msMMHKqS7eR1vXglMkO6vofVREg91wkxVK9Hwf4/gjRglGRSo4pZTEeZNnJ/wPnaBfJI
 
-On Fri, 28 Aug 2026 17:10:18 +0200
-Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
+On Fri, Aug 28, 2026 at 2:47=E2=80=AFAM Lance Yang <lance.yang@linux.dev> w=
+rote:
+>
+> On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+> >Userfaultfd minor faults provides userspace with the ability to manually
+> >install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+> >map holes in the VMA when a naturally-aligned THP is present without
+> >explicit action from userspace.
+> >
+> >This is a problem, as it bypasses userfaultfd minor faults that
+> >userspace is expecting to handle.
+>
+> One basic question first. Should MADV_COLLAPSE refuse to collapse a
+> UFFD-minor-registered VMA, regardless of whether all PTEs are present?
+>
+> I'd leave that to the maintainers :D
+>
+> Anyway, assuming the answer is yes, I wonder whether the new check is
+> sufficient. See below.
 
-> > THREAD_SIZE_ORDER	2
-> > THREAD_SIZE		(PAGE_SIZE << THREAD_SIZE_ORDER)
-> >=20
-> > that makes for 4 pages. =20
->=20
-> Oh. I wasn't aware that we have 16kib stacks these days. But looking
-> at it we have it now for over 10 years=E2=80=A6 Judging from 6538b8ea886e4
-> ("x86_64: expand kernel stack to 16K") it might be temporary and things
-> are better now? Arm64 has a different story according to 845ad05ec31e0
-> ("arm64: Change kernel stack size to 16K"). Risc-V also mentions "for
-> now" in 0cac21b02ba5f ("riscv: use 16KB kernel stack on 64-bit").
->=20
-> I just booted my XFS kvm box and did things and 8KiB works so far.
+I also think the answer is yes.
 
-If you want to see how big your stack is and where its used, you can run
-the stack tracer:
+Theoretically you could optimize this and allow userspace to avoid
+calling a bunch of UFFDIO_CONTINUEs and instead call MADV_COLLAPSE,
+but let's wait for someone (probably won't be me, at least not for a
+couple years) to ask for it. But khugepaged's own collapse routines
+(and potentially other processes via process_madvise()) should remain
+unchanged; that would reintroduce the bug being fixed here.
 
- # trace-cmd stack --start
+> static inline bool userfaultfd_minor(struct vm_area_struct *vma)
+> {
+>         return vma_test_any_mask(vma, VMA_UFFD_MINOR);
+> }
+>
+> static inline bool userfaultfd_protected(struct vm_area_struct *vma)
+> {
+>         return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
+> }
+>
+> Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
+> passes install_pmd=3Dtrue, so the SCAN_NO_PTE_TABLE case can still reach
+> set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
+>
+> Maybe:
+>
+> ---8<---
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 33c41bc32af8..0eada7265d59 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp=
+(struct mm_struct *mm, unsign
+>          */
+>         if (userfaultfd_protected(vma))
+>                 return SCAN_PTE_UFFD;
+> +       if (userfaultfd_minor(vma))
+> +               return SCAN_PTE_UFFD;
+>
+>         folio =3D filemap_lock_folio(vma->vm_file->f_mapping,
+>                                linear_page_index(vma, haddr));
+> --
+>
+> With that, LGTM.
+>
+> Tested-by: Lance Yang <lance.yang@linux.dev>
 
-[wait]
+Thanks, Lance. This is how I should have written the patch to begin
+with. :) It addresses both comments that Sashiko left as well.
 
- # trace-cmd stack
-(stack tracer running)
-        Depth    Size   Location    (41 entries)
-        -----    ----   --------
-  0)     5032      48   choose_idle_cpu+0x5/0x100
-  1)     4984     296   select_task_rq_fair+0xa84/0x2b40
-  2)     4688     104   try_to_wake_up+0x168/0x7e0
-  3)     4584      16   task_work_add+0xd7/0xf0
-  4)     4568      16   io_req_normal_work_add+0x75/0xb0
-  5)     4552      40   io_poll_wake+0x10f/0x160
-  6)     4512      64   __wake_up_common+0x72/0xa0
-  7)     4448      40   __wake_up_sync_key+0x43/0x60
-  8)     4408      24   sock_def_readable+0x46/0xe0
-  9)     4384      80   tun_net_xmit+0x240/0x550 [tun]
- 10)     4304      80   dev_hard_start_xmit+0x63/0x1e0
- 11)     4224     256   __dev_queue_xmit+0x880/0x10b0
- 12)     3968      24   br_dev_queue_push_xmit+0x62/0xf0 [bridge]
- 13)     3944      80   br_dev_xmit+0x15e/0x4a0 [bridge]
- 14)     3864      80   dev_hard_start_xmit+0x63/0x1e0
- 15)     3784     256   __dev_queue_xmit+0x880/0x10b0
- 16)     3528      72   ip_finish_output2+0x2ce/0x650
- 17)     3456     104   ip_output+0x63/0x110
- 18)     3352      72   __ip_queue_xmit+0x16f/0x470
- 19)     3280     232   __tcp_transmit_skb+0xcb5/0x1140
- 20)     3048     120   tcp_write_xmit+0x5aa/0x1760
- 21)     2928      24   __tcp_push_pending_frames+0x39/0x110
- 22)     2904     104   tcp_rcv_established+0x37f/0xeb0
- 23)     2800      32   tcp_v4_do_rcv+0x13f/0x300
- 24)     2768     168   tcp_v4_rcv+0xc01/0x1300
- 25)     2600      48   ip_protocol_deliver_rcu+0x35/0x1b0
- 26)     2552      24   ip_local_deliver_finish+0x85/0x100
- 27)     2528      40   __netif_receive_skb_one_core+0x85/0xa0
- 28)     2488      56   netif_receive_skb+0x127/0x180
- 29)     2432     104   br_handle_frame_finish+0x428/0x680 [bridge]
- 30)     2328      40   br_handle_frame+0x132/0x2a0 [bridge]
- 31)     2288     280   __netif_receive_skb_core.constprop.0+0x16e/0xdf0
- 32)     2008      40   __netif_receive_skb_one_core+0x39/0xa0
- 33)     1968      56   netif_receive_skb+0x127/0x180
- 34)     1912     256   tun_get_user+0xbd0/0x1260 [tun]
- 35)     1656      56   tun_chr_write_iter+0x77/0xba [tun]
- 36)     1600      88   do_iter_readv_writev+0x161/0x260
- 37)     1512     256   vfs_writev+0x168/0x3c0
- 38)     1256      80   do_writev+0x7f/0x110
- 39)     1176     984   do_syscall_64+0xaa/0x670
- 40)      192     192   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Note, it only monitors task context (not interrupt).
-
--- Steve
+I'll send a v2 soon. Thank you!
