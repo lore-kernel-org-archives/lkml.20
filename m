@@ -1,160 +1,115 @@
-Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2770B370ADA
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605A63DFC7F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946805; cv=none; b=ICUGM1lyALmpZqjQgSuMkLM4P6jFuvIecRomWGA0zvWmvfSPmt0XtbpPVAdlwGmSce7mKZR5VIVAJW6doQmnC/uFtJJx3jaXGnkByAIjYiy30RdccXK2JD+i6hLgIBAT/WVFCy44Sv34l/HiQiaV1sWXR2m9dL46NBVOaVNquwc=
+	t=1787946808; cv=none; b=sp1C3utYcuzh2QdZFLEr4GBb319EEgD0cyA726Sq7gQSDdVOFK0I2M+fuIts4+X5wbQN3JIhS14+mXV8RUZGsz9NS55FSuG8/RKTWUGZ5XYY2o/sPHAMaJVdLj+u6YBQvS45DAbQgAQ20W8+y3RGaY3bXLn1SYH/Wfgq2gHQBcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946805; c=relaxed/simple;
-	bh=2DsvoO8trPann3gGlgHfEvV8zzD6F/Yb3aERd3YdNwY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FXUiI5Nhyjp42F8yE3eAING0hvi43Ns6XZFHlS6V/AF9/dNz9tGq+Usp5hn6UqbEk49ekSGI+VnOYEL6z/yjrZBK+RnIqOe0iCrb8aLgmDdg4jIb8Wyk8WhgqEtntMNlm8aPB61E70rnSU1DTbBrxT5DHzgBcYiCa83APwVAijI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eVza7e58; arc=none smtp.client-ip=95.215.58.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787946808; c=relaxed/simple;
+	bh=IxzjcPz5+SNhCmE1JOyZebKxthNf1zJTzmh1W0Xwp6Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jQ4mjFR2OnSKhOFGpu3b8FqdOC9BlegQ3AAawb4CuN2rcUNYK0PGw7W1GsuyqFI1uNTwl53qT08qXsqgyTkdQv9XqwhIwVexy6KYYI8xDTWNZVh1uNmEy3Dxbdrcthw5Fa4jYHMPSWH0p4kKjY5205wVB5mSWad8KN7JurG7FW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=b+OSskcW; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eVza7e58"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2DsvoO8trPann3gGlgHfEvV8zzD6F/Yb3aERd3YdNwY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787946801; v=1; x=1788551601;
- b=eVza7e58vsCYz6nTeSUGSC0tDD2EiRtk3eLY2ekL7Hmt60HFR7XCaVkd7DBKy64F3qBKqrhF
- dgwRDueTFjDD/CPdw3Vxnbrb4ImP202YwGftcCsRsTjUvIlprG4ccoxR6ft8WapGQatdUPeNZEK
- ImClpGQJEKqZgkyjMvRUrqbY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da07200143d5a7cf;
-	Fri, 28 Aug 2026 19:53:20 +0000
-X-Mizu-Trace-ID: da07200143d5a7cf
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 12:53:19 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
-	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-Message-ID: <apHk86Y8araBlXcq@linux.dev>
-References: <cover.1787826402.git.zhuhui@kylinos.cn>
- <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="b+OSskcW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=IxzjcPz5+SNhCmE1JOyZebKxthNf1zJTzmh1W0Xwp6Y=; b=b+OSsk
+	cW1Wu2OXiYmbZV0SF03y5tVK+iNBQUtluCoD6iGuWcYt9V+9rPCGi6/yAs53XcTy53sHgCeg/HL5m
+	9uHO5D+QGW+l9RgAqw/jdPCSs77WsWWcJVzdbJUDU2+vgUifO3QGwlXpFd/bOEskHt05AfnDtXaGy
+	aqd6ZbBRAKWBuqmH+hCVzyUlKYLu6VaTXK8YHSzMK8BWNtYu1o3x1Ia6ZZn0fco9WWCb+l6SM29zm
+	e2b/eb6fG4UCiC9N1zA6TAeniXZpUFxT47jeqwi0+5HxBfgCZPHV4EbSOTrWKPLOyC2F9faYYciHl
+	B2Ss8rhcfhHFr5XR6PMlRFumJeyw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x02dP-000000095oa-2jkc;
+	Fri, 28 Aug 2026 19:53:07 +0000
+Message-ID: <17f79998b5f328c6e79820b613b2194dd3e104e6.camel@surriel.com>
+Subject: Re: [PATCH] memcg: clear FLUSHING_CACHED_CHARGE on cpu offline
+From: Rik van Riel <riel@surriel.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton
+	 <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>, 
+ Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Roman
+ Gushchin	 <roman.gushchin@linux.dev>, Meta kernel team
+ <kernel-team@meta.com>, 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+Date: Fri, 28 Aug 2026 15:53:07 -0400
+In-Reply-To: <20260828192419.3057939-1-shakeel.butt@linux.dev>
+References: <20260828192419.3057939-1-shakeel.butt@linux.dev>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
 
-On Thu, Aug 27, 2026 at 06:36:29PM +0800, Hui Zhu wrote:
-> From: Hui Zhu <zhuhui@kylinos.cn>
-> 
-> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
-> proactive reclaim pass on a given memory cgroup, similar to a write
-> to memory.reclaim but without retrying until the target is reached.
-> 
-> The kfunc refuses to reclaim if the calling task is already in a
-> reclaim context, as a nested reclaim would corrupt the outer reclaim
-> state.
-> 
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+On Fri, 2026-08-28 at 12:24 -0700, Shakeel Butt wrote:
+> Sashiko [1] reported that memcg_hotplug_cpu_dead() drains the stocks
+> of the CPU which went away but leaves FLUSHING_CACHED_CHARGE alone.
+>=20
+> The flag can be set at that point: drain_all_stock() may have claimed
+> the stock and queued the drain work shortly before the CPU went down.
+> workqueue_offline_cpu() unbinds the per-cpu workers, so such a
+> pending
+> work item is executed by an unbound worker on some other CPU, where
+> drain_local_memcg_stock() operates on this_cpu_ptr() and thus drains
+> and clears the flag of that other CPU instead.=C2=A0 Nothing clears the
+> flag
+> of the dead CPU, so drain_all_stock() would skip its stock forever
+> once
+> the CPU comes back online.
+>=20
+> Clear the flag of both stocks after draining them.
+>=20
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link:
+> https://sashiko.dev/#/patchset/20260828135036.7d44361f%40fangorn=C2=A0[1]
 > ---
->  mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
-> 
-> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
-> index 716df49d7647..297ff7f05042 100644
-> --- a/mm/bpf_memcontrol.c
-> +++ b/mm/bpf_memcontrol.c
-> @@ -6,6 +6,7 @@
->   */
->  
->  #include <linux/memcontrol.h>
-> +#include <linux/swap.h>
->  #include <linux/bpf.h>
->  
->  __bpf_kfunc_start_defs();
-> @@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->  	mem_cgroup_flush_stats(memcg);
->  }
->  
-> +/*
-> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
-> + * current->reclaim_state, so a nested call would corrupt the outer
-> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
-> + * reclaim_state is also checked because it is installed slightly
-> + * before PF_MEMALLOC.
-> + */
-> +static bool bpf_in_reclaim_context(void)
-> +{
-> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
-> +}
-> +
-> +/**
-> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
-> + *                         cgroup
-> + * @memcg: the target memory cgroup to reclaim from
-> + * @size:  the amount of memory to reclaim, in bytes
-> + *
-> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
-> + * memory.reclaim, but without retrying until @size is reached.
-> + * Must not be called with a filesystem lock held: the reclaim path
-> + * may deadlock on it via filesystem shrinkers.
-> + *
-> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
-> + * smaller than a page or the task is already in a reclaim context.
-> + */
-> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
-> +						unsigned long size)
-> +{
-> +	unsigned long nr_reclaimed;
-> +
-> +	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
-> +		return 0;
+>=20
+Funny, my AI came up with the same solution, and
+I just asked it to do a safety analysis on it.
 
-I have been thinking about this more and more and after looking at the reasoning
-behind your check current->reclaim_state and also Sashiko's comment on NOIO/NOFS
-contexts, I am more convinced that this kfunc can not be a simple sleepable
-function. We need more than that. We need clean process context as well similar
-to the userspace poking memory.reclaim. Something like kthread or workqueue.
+It was quite thorough.
 
-Kumar & Andrii, is there a way to restrict a kfunc to only be called from
-special BPF threads/workqueues? Is there some similar concept in BPF world?
+Reviewed-by: Rik van Riel <riel@surriel.com>
 
 
-
-> +
-> +	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, size / PAGE_SIZE,
-> +						    GFP_KERNEL,
-> +						    MEMCG_RECLAIM_MAY_SWAP |
-> +						    MEMCG_RECLAIM_PROACTIVE,
-> +						    NULL);
-> +
-> +	return nr_reclaimed * PAGE_SIZE;
-> +}
-> +
->  __bpf_kfunc_end_defs();
->  
->  BTF_KFUNCS_START(bpf_memcontrol_kfuncs)
-> @@ -172,6 +216,8 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
->  BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
->  BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
->  
-> +BTF_ID_FLAGS(func, bpf_proactive_reclaim, KF_SLEEPABLE)
-> +
->  BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
->  
->  static const struct btf_kfunc_id_set bpf_memcontrol_kfunc_set = {
-> -- 
-> 2.53.0
-> 
+--=20
+All Rights Reversed.
