@@ -1,148 +1,125 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875D13C4572
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895641; cv=none; b=YcykDaaLCjz0KaRQc9jhmEjtmxsire/4H1veVscxKvu0J0upL4+pwhMeURuF3/fUQ/M4hNBdhNF0/JFcDx9u15FQFci1jJN4oi8fTxGS/ZohQKfSezZ3JJp087THv9u/v532CkK3ywCaB5rdVBPYL/EP+PRKDfAMt0e4MBYNMqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895641; c=relaxed/simple;
-	bh=CrsK0MwXr7Oe9+IYQCl8a58FC1Uiv/HYB/SAmXC3HSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n8vyRUITgLF9RORnvA//7rsBd1QKuZnboTz2k1dxmLarO/KNcaxIcJxVvFpAaG8Nquz7waEEHRssEcfaTWACjY6yYgmcZc0Z5v1TA1OAxN7OOz9LRTbz1KQAHUI7pWvkLtXqLjdRxihYwWY1LpjTxXc1Eo9+809O6Y8eJPxYHWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6svmCd4; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F067E3C3F41
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787895640; cv=pass; b=iV4Umx5m2fFBXzpRl+6sI1mhKqwA00M55mLFZzVCr/kFYKsI/BYr02Z5wC9+GbnXr8vtoZPlkudc4+mUnVYlxbRuHsMSRRBEtzY9ypbMHd3T2xsvRSFCbg801C2clNzuroSPjVJiRjMKBOWXpUvrVOag6bvWYmIqGhTp//VyFhM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787895640; c=relaxed/simple;
+	bh=7MFD6a5UcICIN91+63n2xHiJ/bosqwow989wzJAVM3g=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Gsc+KmAzlYu8EYVor0YPMY2/CFauLM6t0k0Zv9Igl8mNWrYgjxS27E87aPZh9s5aaLJGrj5LlxyLGtKbdbTJrWa7av2h3TFpQyk+oXYHlhAIzSem59/KGjsC3l7IWWwZIsAhZbe/Aoj0nyCuAF5Jq+s1QE14ItytPNwLn0Bovz0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=tWK4hjyS; arc=pass smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6svmCd4"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4ab4b4179so727258e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:40:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="tWK4hjyS"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39652a6e963so1683325a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:40:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787895638; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mlvZ60F96bfHsdLbJFwC2KtX0BPRssytXzW1MTJgaeH1zypTTvrh68aExA1bMK7RRD
+         qxmH2luheXUvKlDF6g7rslAifWwazEu75uGFhLuKZYI0D0AUjlGTNoQEskrSb709jYP9
+         bCBxRAX8X6Hk7Citf0E4Dh7NOU0FonSTH4g/6PKLSGB60khT/wrqUqnf8ZiGuwY2Eyrd
+         cjauGkZGzS3DnO8DHzx1Kezvl8CiCOAyqeSVPPcmMOJvg9lwP18rp5NgWyiuYzKamQ3d
+         gtu/u9vxnklXBmjql6FAC/OLDaN0cP/vhp/mENqrqFM2rlWFw1OO1OdK7naheCtfV6wA
+         FA+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=jsenq/svfSpf875K1kOfPTKZMXOCv4+dehz8pL28IZ8=;
+        fh=FG9VVP8WS+E/250qk5kCCOo/d0A4KGU/YR6XifI1mGE=;
+        b=k3PC/vnXDzAGievo89UFZsqg2W3I5cl5pbfBuvZfjfDPrNXkNzrmogtVgJsVSJkAEJ
+         ItPmlZwty/PmJFlOIu/1Ndi12sHCaQeJtDWmYm/251cYMGyUjbDBMGAh0w/gq0RCMFGJ
+         os8/lRywvY693d/VqLtSpI1N6rT5kWhgrUgFvJ+XeUUC8lroz4PWeDC1sNgqik9OIOYb
+         VqkLfPRUJ0ZlN4pSMGtiXuy/cVnt5pRI5nlO09tva3OguSpvGJBD8ZJYuvC7yQcrvLuh
+         hgFR94dObPlJYnLC/OpTx3jbYZygB2ahwg9crS7bjjVhyjtadr9+ayGJAgZOfefULs2Y
+         uOig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787895633; x=1788500433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tQKVsIuuwigFUQGx9DU71mFvKHQtdN6YB39hyzuIzIM=;
-        b=g6svmCd4WirSEJ4WLK0kMUUn8yXLs6DwPia/9ewY6Edre3WC8yfUhbosLFmTq6ZBX+
-         CxGN6sqbkS6W0J/+omTltH9lyzsyHFzZvedRkHJncEugL3ztbU+e82STLJVMe9W/AFWz
-         dNGPiQrKOwJLeDJxZXp9ThmIbYBtJR7W+jcN6dwcr7NDGgK4np9fj88dxzLIb5P5sdo2
-         HmCKioqaHhPqgYrEKc58XDFUR+NZRInSnPFcA0A8EmKl1bdU2xKSTSh9gFkKC7mZa86P
-         cqFJSC6ZxiGxm2QcqlR5j90Tss9KwwJxNZOBilro9704D4GcpnO2CxpRGXM71O1reP/e
-         mvtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895633; x=1788500433;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=berkeley.edu; s=google; t=1787895638; x=1788500438; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tQKVsIuuwigFUQGx9DU71mFvKHQtdN6YB39hyzuIzIM=;
-        b=ltf3VL7Lf0XLcbv0wX1c/bKg3oaDkBn4Wvm+/TZ5HA7hVGgVjUUsAViq6u/Sog5bh9
-         MII3jZwM856OEJ/Ze+TCuQsz6x3HPxFxDpLDXYKDf1YP0TmOB1ssLO8ukqcIR5455LhT
-         d/x92RuM1ci0q8oNBc0Wdn486blD/XUd8QgBNMMPED4f/iNP8bQznWcQ+peddTDutTSJ
-         35tPFn9RVJ9wsLLFavxYYL2xqGd0WlgeH5SE+MBjoMNpUPE1oMfTcdEu/K1Zi7+P837D
-         dXpKXj4O8O/W+9O/00SDgiPW9vojTsVvkPMD0sK+/RZukM0eWk/B84/aT83gLAdpJULa
-         TJ1w==
-X-Forwarded-Encrypted: i=1; AHgh+RopFOBTYdq0dKCfSGZaNQZ8Q2aT4QygG8gbWro5LRFHfSD8HjeCwy58kQPyytnpe7VLO+GWlW76art8LRw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2rDQxzog+d2HzBDY6O5hTH8IOYXJci8z9PugYstNK2zeCGlpG
-	ELfPAw5m9L5MQFqqqI/qjEcr5d3hpOJ//23D15u1SaSJ3ENEK17tAp2c
-X-Gm-Gg: AR+sD110kiynNvs6pC1WL4aGMqOssxllTSj5UG7HOS3iDz5V8E7EQJqLHW8radLey8q
-	RxvY3khUARDjqBb7tsJn7iWgFAgFd/aiRBq+TSgqJzeUP+xcxxTCdZ6qyYK+VmXbSBHSla4vkBx
-	DLqaO2cC3buZuqFOPaHBKH8mHhH5COGNwvM2/RMUqPxDrRr4Yb++ahDiifPNYJX8EUsT8b1FYCn
-	ldvo8sZ4zq4i//tk4eSn/kexxPElK+NF6wlEWEeKPqxBtCbiEa7z38DCekN/J9xEMoyjW1l9avK
-	PZfgb4kpZXDY89fXm2xYLe2+HRsZ+hn9xCPYltXaqkN9yT3impIvEAdJgEqgGM5NqRGOdiB3aQN
-	wQLBOhQHp+QSKXoGzhwkowbT3oVe/6NwEQVf/CtOgSrUW74udAN8IVIZaEBd3jOB02/WrsoyS8u
-	nnv5FdRzNYSr80xrVGbcmy/6irr4BBcq7jcY0YyAP+Y04Q+mvQvUzvhRhuwx4bRCYPw3j7dnkNQ
-	eQ0YyAoqOX5CbACCaAMt6hC1mqJMCD6AYFTkcq17OY8w0rWHgF0IvT+yk5d+w==
-X-Received: by 2002:a05:6512:6190:b0:5b4:5880:b50b with SMTP id 2adb3069b0e04-5b5e68af4camr1038303e87.4.1787895633169;
-        Thu, 27 Aug 2026 22:40:33 -0700 (PDT)
-Received: from archlinux ([94.180.48.0])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a1a8edsm166172e87.79.2026.08.27.22.40.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 22:40:32 -0700 (PDT)
-From: Arsenii Pashchenko <ulijg308@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arsenii Pashchenko <ulijg308@gmail.com>
-Subject: [PATCH rtw-next v7 3/3] wifi: rtw88: rtw8822c: Replace custom DAC IQ sorting with kernel sort
-Date: Fri, 28 Aug 2026 12:40:23 +0700
-Message-ID: <7d0ab2352317b81df10dca7ddb3e855a303b8be7.1787895379.git.ulijg308@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787895379.git.ulijg308@gmail.com>
-References: <cover.1787895379.git.ulijg308@gmail.com>
+        bh=jsenq/svfSpf875K1kOfPTKZMXOCv4+dehz8pL28IZ8=;
+        b=tWK4hjySFK2hDaBzdEsX0ZWRdfVO7gnfAHC30ZLrZAYQrsrk2qn+x/pmNGDE7tYTwW
+         crTJ+W1JpuQMUOKp5By2kenEgQ4pAzOwHzWycV6LcK393lSAfBih8gb13W1kw+2fAYOY
+         00EPAul8dBIb3AUSBN8fezzFnZK3FcmymiA3FzenkcSQl/+ELn0QZaivsuAFIgdykyOW
+         Y8zPl+68vvwH/v2cT4hVf4X7TncSU8N0Twi8mBiKhkajjVphxq1U43dUvV7o2B/jdTOP
+         /d7Ui7qVWWHwr/sjYG3/+ZUN84KOpie36rNz64RtbCBxEqbwzFyr4SJ++JwFP48SPnSP
+         97UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787895638; x=1788500438;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jsenq/svfSpf875K1kOfPTKZMXOCv4+dehz8pL28IZ8=;
+        b=ZSNEF3rUUtmLT5j5wR+a4kOFedZNSuhAY2pjpDBaa+b4RT8YJoFrpy3z627JUcGEkl
+         0G/e9bO68mnDhZccjss6FlHZlti+OzWjmDVmYW+WaN8X2jJ/qhoyIpPkdkAofurfo6p0
+         PnX1yRj1iPH0SjyLNKBUoG1eiOPl8d2j8K0G9sPUhIAe6vC9mnfjejmtpEjgjWyA+zHM
+         TdJgEr/gtZa0zIBEXervH+PVvz/R9/018A50KMD/GyfOLma1HtBXiSLpF6E5liK/Vsi5
+         GZqhk41C+MrYhM8qgxbLQ9vZkibtwPyXCa9COWCVurMyCOXHz8Rad+NBYtm9Z0vudUK9
+         7Vew==
+X-Forwarded-Encrypted: i=1; AHgh+RrgRenr5TXThq70GOH6NqX+P8GG64cITj2E2Xx8REqpWaDCPfhH5nMjCp5cSuj77LdU8Ab5it52yX1+PGY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmFvi2eBK6lQzL/H0bFgc4M7NRJ2YPOqvq6IjaorUSWZ31VU53
+	KiyRh+3OIvQQa3dGj4aMap2C27E3LQ7wq6Hz/X/u8D42g4VmGsq4VTmhWo5qykTHKeT9ZcUtLlJ
+	X4X0z+IE3+5lKm5TP73K95aFE1QoRBld6yyX7no4M
+X-Gm-Gg: AR+sD12Wo3D1pTxccK+Uv57xAhHeghDh9LeWw4p6Tes6TuQGDK+dPyZnGQYmDWk+YIo
+	jiOJ5K/+TEwN68x8SZU0HEU7MmNNR1fUP6tXPEZyk0Vbn1D/WtEdopZEhopLD0iWPL27Kv/TBi8
+	IwH3S2XENL8vDsu2xsrhWUeKuOwhcaynrZCnDy09FNt0QCqFjYDX9eMJkV8j29QeoHVnT2CM2LE
+	QQ1xkZwakMQSg0aZNzfj4hxAiNZAJDUKcxhyxyJu0wImUL0CVaw9DR4uz151qiRx54fN57MkNYs
+	bIGRNI3+adIPn9ScfLV4ygArmdv7OEQAB9zpiix6o7iOp4hUVA0+HHAWJBA6vqxBm7B0jzWc382
+	OJkRzpJw7N2AsOf/bQS1vRYUcFIZmmOvWpIdJ/6fWYLs=
+X-Received: by 2002:a17:90b:5866:b0:395:8124:ac53 with SMTP id
+ 98e67ed59e1d1-396d0ebcf2bmr4947908a91.6.1787895637222; Thu, 27 Aug 2026
+ 22:40:37 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:40:36 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:40:36 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 28 Aug 2026 05:40:36 +0000
+X-Gm-Features: AcwNN1XkTEj13XqKoskb6cDvrq-g1IZfLKRJ4nrZx7V9XG2vZIZqA0FIppbPi3w
+Message-ID: <CA+0ovCj_MtGXFvyQwFiaLN0uqO9WprxXkAwhiqKA=JzBp40K=Q@mail.gmail.com>
+Subject: [BUG] vdpa: use-after-free and WARN in _vdpa_unregister_device()
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>
+Cc: falemi@asu.edu, virtualization@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Replace the custom, nested bubble-sort logic in the calibration loop
-with direct calls to the kernel's optimized heapsort implementation
-inside rtw8822c_dac_cal_iq_search().
+Hello,
 
-Implement a safe, overflow-proof s32 comparator using the subtraction
-of relationals pattern. Since the input values are already properly
-sign-extended into signed arrays, the custom circular index sorting
-rules and helper functions completely disappear, reducing lines of code.
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-Signed-off-by: Arsenii Pashchenko <ulijg308@gmail.com>
----
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 22 ++++++-------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/163-warning-in-vdpa-unregister-device/
 
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index b010e17c9..bec1bb376 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -3,6 +3,7 @@
-  */
- 
- #include <linux/module.h>
-+#include <linux/sort.h>
- #include "main.h"
- #include "coex.h"
- #include "fw.h"
-@@ -153,24 +154,14 @@ static void rtw8822c_dac_restore_reg(struct rtw_dev *rtwdev,
- 	}
- }
- 
--static void __rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, s32 *v1, s32 *v2)
-+static int rtw8822c_dac_iq_cmp_s32(const void *a, const void *b)
- {
--	if (*v1 > *v2)
--		swap(*v1, *v2);
-+	s32 val_a = *(const s32 *)a;
-+	s32 val_b = *(const s32 *)b;
- 
-+	return (val_a > val_b) - (val_a < val_b);
- }
- 
--static void rtw8822c_dac_iq_sort(struct rtw_dev *rtwdev, s32 *iv, s32 *qv)
--{
--	u32 i, j;
--
--	for (i = 0; i < DACK_SN_8822C - 1; i++) {
--		for (j = 0; j < (DACK_SN_8822C - 1 - i) ; j++) {
--			__rtw8822c_dac_iq_sort(rtwdev, &iv[j], &iv[j + 1]);
--			__rtw8822c_dac_iq_sort(rtwdev, &qv[j], &qv[j + 1]);
--		}
--	}
--}
- 
- static u32 rtw8822c_dac_iq_offset(struct rtw_dev *rtwdev, s32 *vec)
- {
-@@ -291,7 +282,8 @@ static void rtw8822c_dac_cal_iq_search(struct rtw_dev *rtwdev,
- 			"[DACK] q: min=%d, max=%d, delta=%d",
- 			q_min, q_max, q_delta);
- 
--		rtw8822c_dac_iq_sort(rtwdev, iv, qv);
-+		sort(iv, DACK_SN_8822C, sizeof(s32), rtw8822c_dac_iq_cmp_s32, NULL);
-+		sort(qv, DACK_SN_8822C, sizeof(s32), rtw8822c_dac_iq_cmp_s32, NULL);
- 
- 		if (i_delta > 5 || q_delta > 5) {
- 			temp = rtw_read32(rtwdev, 0x2dbc);
--- 
-2.55.0
+  BUG: KASAN: slab-use-after-free in _vdpa_unregister_device+0x35/0x60
+drivers/vdpa/vdpa.c:250
+  Read of size 8 at addr ffff88810eeef350 by task syz.1.2/11300
+  Call Trace:
+   _vdpa_unregister_device+0x35/0x60 drivers/vdpa/vdpa.c:250
+   vp_vdpa_dev_del+0x3d/0x60 drivers/vdpa/virtio_pci/vp_vdpa.c:593
+   vdpa_match_remove+0x97/0xb0 drivers/vdpa/vdpa.c:321
+   bus_for_each_dev+0x23a/0x2c0 drivers/base/bus.c:383
+   vdpa_mgmtdev_unregister+0x110/0x130 drivers/vdpa/vdpa.c:332
+   vp_vdpa_remove+0x5e/0xa0 drivers/vdpa/virtio_pci/vp_vdpa.c:683
+   pci_device_remove+0xa3/0x250 drivers/pci/pci-driver.c:512
+   device_release_driver_internal+0x464/0x860 drivers/base/dd.c:1375
 
+  WARNING: drivers/vdpa/vdpa.c:250 at
+_vdpa_unregister_device+0x51/0x60 drivers/vdpa/vdpa.c:250, CPU#0:
+syz.8.826/22808
+
+Our reproducer.c is available upon request.
+
+Happy to test a patch if that would help.
+
+Regards,
