@@ -1,175 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7851A43F4A9;
-	Fri, 28 Aug 2026 12:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B1B3D5666;
+	Fri, 28 Aug 2026 12:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918770; cv=none; b=emkYHn2uytJ0dAu8wKml9xQvVafKy9FBCUcZXFiuU7FEPkUpeJQTIrstWpdAqHsGpqADSvMMVp40ma3PFyRBrZUGi3mz3vMKQ2nIzbSwje6+XaAK2CaiHwxtBHEX1I3Qh+Lj59zp7BzCJIJHclZOlm/RsdEu+D6UVyLa6eYWlf4=
+	t=1787918886; cv=none; b=P3kNghz7Xu8TAy3YnhmHB65cMQ2TLDuR52f3fYUGhxveGjLaoVveXNmMEYZbTAMqEvOlzK0DR8bCq6ZSq6Y7EnwdCPp/9Mw6bcIRRO6MijMzJ/h2DDd4LD15m0EWSssIb26GGSUMbYryW2B18468o+gHJZM75nOANwzMpQS1sLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918770; c=relaxed/simple;
-	bh=b9dEQwv8yULWAvnOy7yz0oXSQomKF0iiQpwFZo9W8BU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EoUuM8owoKUTmE2qCfZWSHc/pAdnx7q6u27zyR8hbNJcIWLn8H0/owobSa0Z8KgdxJRxYlahv3BfGHsk353YUeX3RMHS8zdJX6mLX7BpyM//eH5mgkAtli9MqvYGZO5uSs8AHpWhxFw6o9umzmPzyehkrMQDXWREDbmpLOl5ZSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xs/A8GG7; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787918886; c=relaxed/simple;
+	bh=LKTkxqKoon7duy6pNbYXhkMUtZoZS0ltoY5rlOlTRgA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Tft3n/aFclMAV/Emgm3YcwP7Vu3GYMMdULigaVCV+SuDgP6602OJqJr89Vw+/4sLTIzuRzQbhOhyK9kPucAUnkQSgEFhbXd8JIxfDVfbqrC/fZV3DXDNs1eU2br5OFGRbJ3LhvpjPG7F70sXKCs9l4d3Hfhm7qkWgvO1d2QNV+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Z9qgkhSP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z2QK+7fw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=D2DkS627; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bz00pIu/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xs/A8GG7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787918766; x=1819454766;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b9dEQwv8yULWAvnOy7yz0oXSQomKF0iiQpwFZo9W8BU=;
-  b=Xs/A8GG7R0jV3hKFyccjPU1Enn2xnAHECK5djQwGQL62XQoW4c0cc6t0
-   0TcjE7OwKbP9rMRXeDyMeU5mnAKNjqSSowY98+h/RGgvIi0NUJZlSjkX5
-   zRRHDk4Vw1dgF7oBKL8pn0cnHrA6nboeIGNvCI8sOQr9i5yKQpUYQ3CYM
-   ED5ry9g+B4o64kJeyACGjnD+b6lUEhHZioyiVTJK0TtJPKwseftKP1qBj
-   8kys+WKka0z0pv8Xt0P6PKtC2IBakI4IZX8HJOpwSqUKr73PwXbPS7sj9
-   YHlDHOWcwcVlLoEtKXzFjs+LSfydUEXXb8H9zze9zyvGt1OSOAS3DZfo2
-   g==;
-X-CSE-ConnectionGUID: QloeilKmSZeq1U7H78ybvg==
-X-CSE-MsgGUID: LpKj3YELRIyKpL1b/Gg9NQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88631858"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="88631858"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 05:06:03 -0700
-X-CSE-ConnectionGUID: leNdu+mfSMuBHkKjWzcrKQ==
-X-CSE-MsgGUID: GhmbyLvbTqCh+smbzTGK2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="261992159"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 05:06:00 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 9264511F817;
-	Fri, 28 Aug 2026 15:05:55 +0300 (EEST)
-Date: Fri, 28 Aug 2026 15:05:55 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: muzafferkadir@mainlining.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, git@luigi311.com,
-	pavel@ucw.cz, tomm.merciai@gmail.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
-	=?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-Subject: Re: [PATCH] media: i2c: imx258: Add reset-gpio support
-Message-ID: <apF5oxsCf7MJt1lk@kekkonen.localdomain>
-References: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z9qgkhSP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2QK+7fw";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="D2DkS627";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bz00pIu/"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2F260221AD;
+	Fri, 28 Aug 2026 12:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787918868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
+	b=Z9qgkhSP/HuhbkEe4nf6TjiexQ7lKokBV/m6gi/RSIB/W+mHtVxuQhEHyzkns525SnLUM9
+	HqruPPbccYMMQBPB2BtRHSpUQwA0oVOlVkkoNIwUIKZzXcllhuJBnBXfLgynC+uWwsw2wR
+	32x/K61QS2qZ7iBGZtfSfspjeFvf4L8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787918868;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
+	b=z2QK+7fwdr82oIt2tV1gPlpAOUOjRiXunenLrN7OjdXL2xwM6GmPx5hK1cEHdMiWW3v2pc
+	mos2LjjQrlVd0vCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787918864; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
+	b=D2DkS627pb8L3rTQmO92ZOVY4qHJ9RFx/hMDiLLKwTCuKbmZmlE3tQPVbic7o9/D47MIMc
+	YZ4mZTEBuh9/JsF0u6Seda6xUu+5P8puE40H1N74CGZe9IQXQsyI1rkDfdM8wzJcaiwCRv
+	vuf7Z6Dh/8ndteaFkXSRGagQSSDSZ3U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787918864;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
+	b=bz00pIu/SlG3F22lYiOY1ifuJqDEmzXflLD3Xur5JnfeVrbm1EGV2Zz5zHk6QWLqyonwXW
+	tcTScKYB8aVDOsDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3B9D13515;
+	Fri, 28 Aug 2026 12:07:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id z3tyMg96kWo9HAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 28 Aug 2026 12:07:43 +0000
+Date: Fri, 28 Aug 2026 14:07:43 +0200
+Message-ID: <87cxv2v46o.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: syzbot+c35f34092a4bc9855be6@syzkaller.appspotmail.com,
+	gregkh@linuxfoundation.org,
+	kees@kernel.org,
+	tiwai@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] usb: gadget: midi2: prevent in/out jack from oob
+In-Reply-To: <20260826134606.127250-1-eadavis@sina.com>
+References: <6a8ed2cd.1d9ded08.62e62.00a8.GAE@google.com>
+	<20260826134606.127250-1-eadavis@sina.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[sina.com];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[c35f34092a4bc9855be6];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FREEMAIL_ENVRCPT(0.00)[sina.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
 
-Hi Muzaffer,
-
-Thanks for the set.
-
-On Fri, Aug 28, 2026 at 01:51:47PM +0300, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Wed, 26 Aug 2026 15:46:06 +0200,
+Edward Adam Davis wrote:
 > 
-> reset-gpio is already documented in dt-bindings but never implemented
-> in the driver.
-> Reset deassert delay comes from Luis Garcia's and Ondrej Jirman's patch.
+> The increment of config->jack_out in append_midi1_out_jack() lacked
+> bounds checking, triggering issue [1] when the value approached the
+> limit MAX_CABLES.
 > 
-> Link: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
-> I have a device that is not upstreamed yet (General Mobile Shamrock)
-> whose camera needs reset gpio to probe, it is documented for
-> dts check but not implemented for some reason.
-> With adding it rear camera on the device probes correctly.
+> A similar out-of-bounds issue exists in append_midi1_in_jack(), so it
+> is being fixed as well.
 > 
-> I created this patch without knowing the older one that submitted
-> before: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com/
+> Before incrementing jack_out/in, the code now checks if the value has
+> reached the upper limit MAX_CABLES; if so, it exits and returns -EINVAL.
 > 
-> I don't fully know the correct reset timing so I was using a random wait before,
-> after I discovered existing patch I reused previous work for delay time after reset.
-> ---
->  drivers/media/i2c/imx258.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
-> index bc9ee449a87c..af3f12c7452a 100644
-> --- a/drivers/media/i2c/imx258.c
-> +++ b/drivers/media/i2c/imx258.c
-> @@ -9,6 +9,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/unaligned.h>
-> +#include <linux/gpio/consumer.h>
->  
->  #include <media/v4l2-cci.h>
->  #include <media/v4l2-ctrls.h>
-> @@ -681,6 +682,7 @@ struct imx258 {
->  
->  	struct clk *clk;
->  	struct regulator_bulk_data supplies[IMX258_NUM_SUPPLIES];
-> +	struct gpio_desc *reset_gpio;
->  };
->  
->  static inline struct imx258 *to_imx258(struct v4l2_subdev *_sd)
-> @@ -1128,6 +1130,18 @@ static int imx258_power_on(struct device *dev)
->  	if (ret) {
->  		dev_err(dev, "failed to enable clock\n");
->  		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-> +		return ret;
-> +	}
-> +
-> +	if (imx258->reset_gpio) {
-> +		ret = gpiod_set_value_cansleep(imx258->reset_gpio, 0);
-> +		if (ret) {
-> +			dev_err(dev, "failed to deassert reset\n");
-> +			clk_disable_unprepare(imx258->clk);
-> +			regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-> +			return ret;
+> Additionally, the jack_id assignment is moved to occur after the jack_out
+> bounds check to prevent wasting IDs on invalid increments.
 
-This warrants reworking error handling; please use gotos and move it to the
-end of the function. Same for clock error handling.
+I think the bug is rather the arrays are too small; they should have
+been twice as the jacks can be added from both input and output.
 
-> +		}
-> +		usleep_range(400, 500);
+Both append_midi1_out_jack() and append_midi1_in_jack() are called
+from the loops of midi2->num_midi1_out and midi2->num_midi1_in
+counts, and they are properly upper-bound to MAX_CABLES.
 
-The delay seems right. Can you use fsleep()?
+Could you check whether the fix below works instead?
 
-In fact the delay should always have been there so this is a bugfix. It
-should go to a separate patch.
 
->  	}
->  
->  	return ret;
-> @@ -1138,6 +1152,7 @@ static int imx258_power_off(struct device *dev)
->  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
->  	struct imx258 *imx258 = to_imx258(sd);
->  
-> +	gpiod_set_value_cansleep(imx258->reset_gpio, 1);
->  	clk_disable_unprepare(imx258->clk);
->  	regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
->  
-> @@ -1382,6 +1397,11 @@ static int imx258_probe(struct i2c_client *client)
->  		return ret;
->  	}
->  
-> +	imx258->reset_gpio = devm_gpiod_get_optional(imx258->dev, "reset", GPIOD_OUT_HIGH);
+thanks,
 
-Over 80, please wrap (there's another earlier, too).
+Takashi
 
-> +	if (IS_ERR(imx258->reset_gpio))
-> +		return dev_err_probe(imx258->dev, PTR_ERR(imx258->reset_gpio),
-> +				     "Failed to get reset-gpios\n");
-> +
->  	ret = imx258_get_regulators(imx258);
->  	if (ret)
->  		return dev_err_probe(imx258->dev, ret,
-> 
-
--- 
-Kind regards,
-
-Sakari Ailus
+--- a/drivers/usb/gadget/function/f_midi2.c
++++ b/drivers/usb/gadget/function/f_midi2.c
+@@ -1634,8 +1634,8 @@ struct f_midi2_usb_config {
+ 
+ 	/* MIDI 1.0 jacks */
+ 	unsigned char jack_in, jack_out, jack_id;
+-	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES];
+-	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES];
++	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES * 2];
++	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES * 2];
+ };
+ 
+ static int append_config(struct f_midi2_usb_config *config, void *d)
