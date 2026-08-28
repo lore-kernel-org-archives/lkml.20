@@ -1,128 +1,101 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233624503EF
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DA345199C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922413; cv=none; b=T1IjnQpyB7qyhBQzPmKveK4ACcXkMJKXXlXdzI6AS0uSsymEArWJhUTUeg9VtsQIeMPNvTridmj1MlPUERNEYQwTQTocwOol0ERHVg+11Pa5q5hYHqdZdpZ66KuUKPdcU1Fzj+x6p+rAkQpZKPFhaED349mivzDkpuqpybAKess=
+	t=1787922438; cv=none; b=hCl5tDjnTjN7OR3/+PCTxuf4SqQWQffohD5xrmqUVHwaow+Lx+wiE7h5b/aPD5lr9FgydYhJUkW9V/RMunStkUKGZoZQXslu7jjARV7NRgM5Lpt1XIuGExr2sxIbYHe/jzuriE91CYJ4t5ca2XdBqb/uxBS+vlQt8mcWsB3TdXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922413; c=relaxed/simple;
-	bh=9HEjywerj9dI1DMv8TmODXVCvgIjH29ELxBcAtzoHqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tjJZHwgKUSe2XkOvyFGziDVGs8YBdj+gYpgdLrprexCGHZ4DfNvgqRrLBMtl1KmcQx9CDi5IwpwdsQeGNpUhDjP8ESRHHautjP9s4d1fsKgq+sSnv1Cbkk3gMKK3sQxKl0pXnBsEZsbUe+6lJmRXeToDNPgOK1AX4VMtoduucHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nv+FsJm2; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787922438; c=relaxed/simple;
+	bh=FGXU9hCiXREruV/PI5jXJyYiXmjNo/cxlv1BBKCwWyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ooJtxxJc8RnCfKIu5j/hjQaI3JOcqWobjoV7fy+rXZO70h34Xuy9lr/f0N/JHeJg0STJ7UvpOgxvMuAhtBVya5BP+cRTxn5FSJJL+kr+zCKAxehM+UjRDYhhHLPNIfaP8QvYLRiTPJeeH7aSHh0QdL/GVI5jK0SqwBvwpxXs8UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRm7LaJJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nv+FsJm2"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so6889035e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:06:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787922409; x=1788527209; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OSe5hUo+anN+B3supDKWk8oyF7C/bYQ978Bx8sQdufY=;
-        b=nv+FsJm2Xny0Kz2h5URMPSe+TQtqERGUG3F/y2he0ggZJClP1DOkIb20WnsmG9lxl6
-         UZ0kCMBQmk88yz/ijX/7GYgZIEOCXisRbpWGCDF/TT8c+ksWVzz0iqbjRGbkjdg5PQ3l
-         AfjSSO88PRIr7dPa9flydD5M0JF+5c+lTpx63DC3eW411nscK3BcpFp9fa0t6AWpfOqQ
-         AkcXACFHLTCiEcWq0Tc6eUtaA+8DgpENaiQKUBsKSPY9EVEnVqAtjtlUpWgxAnKxq6ER
-         9VzwcoJqkVlXOfSMwW+5ZnOwLd5DoHKzIowr5U6sTC/xVzWZmes9EfJBUv3xG1pEDMuQ
-         pIiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787922409; x=1788527209;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OSe5hUo+anN+B3supDKWk8oyF7C/bYQ978Bx8sQdufY=;
-        b=MCYFirjkEDdKUMmruOGpLjds2/HSDHOVQobQhqFv+XM0Ln8K1h7oK5crtcoDH6rNRy
-         Cm01UXuo+nUBsawloDquUUwfO/itIoKn++PPIfTHhmUWL+ZC0bovOr8EQpMAOtBiNbpo
-         nnVZ86Z5HVO1Jp8Oarqtdv18+6PDIyB+tkjFk0h+ZcNR7ZXF76fDt6ndxdDClPrpxcWK
-         lO/Co4dYO9nGsvKQEguq+1HXm0jiRU93nsJ7qdul5S5+wy2vBu8afgjR/5UXtHTW/jS0
-         Up1f2gf1mALUgyKuwulkKu9e6Dlb0FMBvYLKQyiLOTHiU4mM8GkcauNaqesRphMU1WLu
-         KavQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqdjjbtSwYO/Y0imr28nftwK8vOvzo4g+RzGZGQ3sgZ1T0xm1g2LJbveavnbnH/4zw8zzWbEau5tWvdWS0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSjUwiZEs7uD/Pzxeyhb9DgY2YG1wwcN0tNBerbd0WC/JLeH7b
-	hM/v65ulAsklIzERQSxY32wwDHsVreHx601h/7xUjHIfQ6hAPjmGNpmL
-X-Gm-Gg: AR+sD11osuwqtSZVUhjTopkD6+aApz1+Owc5D77IEZlOqo6ntkoeSxX96fEU4/I7WSR
-	zsRWAecx5X+9rxMLs1Z/EBxfAAHJRUe3QRCW1K+def9WrfDiHHWGxepCD9fhEDbGZlCRxjUbjKo
-	rurPibj85rzP2J1qyKKvmFJctxI3xBcOlGPYuW0UcLzVtVgmkgwF9yrhclZxaHL7pUUinzgkOd5
-	XBfGER7kuYTUIZKbL3XJY6f4UbyINhbcmMcU5Onjxl9E6ScBuA6wZYiAbkJ9/uwF2ArwBVRIZUp
-	e4Whz8WNFSuCGL1TjWwkZIYUfCa0Fs8yNOQEKALh5/UGzP713Ma1C1Bb/HNh4e1qaaxFjeqjZzf
-	XNSf+I6IV4KVW24YRcihQ3QvyGoEaF5HqL005qHD+MJakE+MxhhULIxrOtExxfE2OdOALptpUJP
-	8cMtwfRhbLibE0BreJmCOTNKAEen5knCAE/BltNdYdop3Mu5ruC/bwWNGtdMw4T9qQ0XSQqRpy5
-	ijcgtelqHeRxZW3crknctQh1/temiLToKCWXcssFy4h72WgfCijW6wnwq9A/IzyeEcvWVGGwMdg
-	z90o3P/vRHz1TV6kIl4rNROUCaQOYNSJZAix8yjiaQeNQ3NcQbEc46VNeADhdV5Ix+xA6beyv/6
-	cEmNWtJexQXBbg7cOD/+gpuzJ6ptwCzvQ0b6McSczRp+CpNIS8/zF6Tot0iFcg43Plebai+s=
-X-Received: by 2002:a05:600c:4715:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49b91c26a01mr97741555e9.5.1787922408578;
-        Fri, 28 Aug 2026 06:06:48 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c7cfsm53999285e9.11.2026.08.28.06.06.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 06:06:47 -0700 (PDT)
-Date: Fri, 28 Aug 2026 15:06:44 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty
- <pbolisetty@axiado.com>, Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Harshit
- Shah <hshah@axiado.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, Conor Dooley
- <conor.dooley@microchip.com>
-Subject: Re: [PATCH v6 0/2] iio: adc: Add Axiado SARADC driver
-Message-ID: <20260828150644.00005d5c@gmail.com>
-In-Reply-To: <20260828-axiado-ax3000-ax3005-saradc-v6-0-4cea467e4167@axiado.com>
-References: <20260828-axiado-ax3000-ax3005-saradc-v6-0-4cea467e4167@axiado.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRm7LaJJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D408E1F00A3D;
+	Fri, 28 Aug 2026 13:07:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787922435;
+	bh=1YZkfUvCoyZHLzyn7ea4/HyPggA3fnupl8cIKNYULpk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HRm7LaJJEXTiDiGTKCZo5l2w5kN1TcYSeJ9E48rQNiz6LBaQNFB2bKP4AHBipiq8h
+	 YVxk60l2Cn6/hAurga4ATD+2RfrWaG4ySotIPL7Qda9iFoOVBwRrySKhWI8pVMwDPW
+	 lCDMccPUxYtiMTthIsnC6uiu4nk97j9lDetGFeNSCozb1O9uQ4k+wY1cGB85jY0D/9
+	 HG/1aEtypMZePyyCdCDCBGjvrTFQevBEIc9mmBs0A7lESv4ehPD3de7jcMP8UmyqWS
+	 CpNiIA0gRbnxwzBMFGltYkgXGmzpSvL10YP+gw9pKHpmgRulYhQx1YLoWpnGkiSuur
+	 62G+Oi3GG3uow==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8728C1980050;
+	Fri, 28 Aug 2026 09:07:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Fri, 28 Aug 2026 09:07:12 -0400
+X-ME-Sender: <xms:_IeRajK6RgmVJ46FUccIDzQvRWEdjch6S8dmzrIwx7mNvrjRLqG7zg>
+    <xme:_IeRaj5d4x5Ci1XWPIS3TCKpiy900dh4rtEnSxl0BmtA2Hvig2tLEFQgvutnIBzvt
+    q-3uKArInhGg4BUL7xC7LGPevdSWe3B556Hsl5I7aVUYZBSs3HQWTNv>
+X-ME-Received: <xmr:_IeRarQx3u1kQ-ANzyD1p3Zn1y5BMkxZDV4rCBfD6g3cXh-AC77MPiRcsKQ>
+X-ME-Proxy-Cause: dmFkZTG28vjlh/jrZIe0v56Xspzegu6WkfWJNqumN3G8EyZWPE+j12ot5ZQ3BXZTGKKstt
+    ZACDkBdMBDCfrwUht/IM7FreRRPd/qVf2YDZto2H7EgwYkYS27XFH+pXmy/RPr+F+MDrsf
+    L+M6NlBc7fDRfJh75IZbb7iLqdI3hKiB5ge75aGaLPYMy9mJJzFOP7p05J2IydJrP/bG4c
+    REgPSHsV2nJfQa6/FnBSFrR3eMVRFHifx+Yr8b64twmyBRJDjYQw6NhC3aieIKvXOMWsy+
+    TO3LcTQWOtP630Du3jcNhUsiowPO+C1L8ObqZY8hPhIDBpkKC3Uz1fq/qkSZgG4wHmyNiX
+    /YsWahIsRswdahPS/RnCCuJqsB6QI9chbdBNs2y8P7C3T99TFvj81/pjghD3wPX4HK46da
+    kIlJ4yxv2DsBYdzz88j+nU4qQ5fSYMcudHkWfwlJI6RaXwB8iYWuMY/GVCXuAA3ew9Hutn
+    tRBjvnnwqr0KtyFuc1yF7Hmm+J4qAf+YYGCnYgSB9DQDByGDAiWz7yfrLAatv4oB3zv/vH
+    FA+guGwkq2fcEAqa1rqntNvVw3v2Q4sz8ggF0bvtDruPLp2A8/9IEnu+HNxu4Q9dyll+ke
+    hRhuzhqFAVi9qeaU79QXUHkzTljt91CieuIiTqkTwGV5JSGXglvecUZ+eKuw
+X-ME-Proxy: <xmx:_YeRalA8l6VZYNUAL523U4zKBUeKGTVSBMqVhBRXp4dByHijVRZrQA>
+    <xmx:_YeRaurwvuIXQV4TICc9DpTz0uopuoDCICelKcfyiSBlqbYvg0p68g>
+    <xmx:_YeRav8TUHC98idjHudjlc7xIlQ1JOP7Od1yroJF3wU565HPgpM_5g>
+    <xmx:_YeRavCLtUu7799PTwqr0lEzWreAQyfzE7VLVjdXIhhJFZxK-zf-Ng>
+    <xmx:_YeRahHffYdExHOR8YLyQK-sgTeSh9Ne3OqfShBzHiGSV2BlMVVT6m_e>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 09:07:08 -0400 (EDT)
+Date: Fri, 28 Aug 2026 14:07:07 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: jthoughton@google.com, akpm@linux-foundation.org, david@kernel.org, 
+	ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, usama.arif@linux.dev, shy828301@gmail.com, zokeefe@google.com, 
+	hughd@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+Message-ID: <apGHG9LJtDpe2kdG@thinkstation>
+References: <20260828005004.2870750-1-jthoughton@google.com>
+ <20260828094703.11081-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828094703.11081-1-lance.yang@linux.dev>
 
-On Fri, 28 Aug 2026 05:28:27 -0700
-Petar Stepanovic <pstepanovic@axiado.com> wrote:
+On Fri, Aug 28, 2026 at 05:47:03PM +0800, Lance Yang wrote:
+> 
+> On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+> >Userfaultfd minor faults provides userspace with the ability to manually
+> >install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+> >map holes in the VMA when a naturally-aligned THP is present without
+> >explicit action from userspace.
+> >
+> >This is a problem, as it bypasses userfaultfd minor faults that
+> >userspace is expecting to handle.
+> 
+> One basic question first. Should MADV_COLLAPSE refuse to collapse a
+> UFFD-minor-registered VMA, regardless of whether all PTEs are present?
 
-> This series adds support for the SAR ADC controller found on Axiado
-> AX3000 and AX3005 SoCs.
-> 
-> A new driver is needed because this SAR ADC controller is a SoC-specific
-> hardware block used on Axiado SoCs. It has its own register layout,
-> channel enable handling, conversion control, and data readout sequence,
-> and it does not match any existing upstream IIO ADC driver.
-> 
-> AX3000 provides sixteen input channels, while AX3005 provides eight
-> input channels. The driver uses SoC match data to select the number of
-> available channels for each compatible.
-> 
-> The driver supports single-shot voltage reads through the IIO subsystem
-> and uses the reference voltage regulator for scale calculation.
-> 
-> The datasheet is not publicly available. Public high-level product
-> information is available at:
-> 
->   https://axiado.com/products/#AX3080
-> 
-> The register definitions and programming sequence used by this driver
-> are based on Axiado internal SoC documentation.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
+I think the line is not between MADV_COLLAPSE vs khugepaged, it is if
+vma->vm_mm is current->mm or not.
 
-You didn't have to send a new version, Jonathan tweaked the commit and
-applied it:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git/commit/?h=testing&id=839dc31a0c6508354b18d09a9e5aa5d8f4c05860
-https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git/commit/?h=testing&id=205f4aeaae3148848c153a0d98a6f604b39aba7c
+In other words, we might want to allow collapse if workload itself asks
+for it, but not for khugepaged or *external* process_madvise(MADV_COLLAPSE).
+is_khugepaged is not the right proxy.
 
 -- 
-Kind regards,
-Joshua Crofts
+  Kiryl Shutsemau / Kirill A. Shutemov
