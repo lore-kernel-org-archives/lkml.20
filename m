@@ -1,93 +1,156 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE3A134CFC7;
-	Fri, 28 Aug 2026 07:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BB1D3AA1A6;
+	Fri, 28 Aug 2026 07:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787903468; cv=none; b=M2/lEsu4bvKk7KshUYUl6BSkHxLN2EmOapPt5uB6wXgOR6YEH2r/2ECXX20UVdbdo3JfppwzSiI9dmmMv0p2bKtWUwVgYsoUzUoggtkOo2lyLQcTYVtO0xNTgX+K1TmrEPdyrO/LKmyJM5AReqtHjLiB0RYh/cugDWMEHuSTj68=
+	t=1787903517; cv=none; b=b8SA9Y31TI6lR+C+YSydUThLLCmNnkt5OC8wqpZnK4icfX6yYbcf6mMnXE17gVfgaiX1oCd/m4eOK7tkgGy0D3q1+CZTKpp5fSvwqr6471UlIIzFBfp9lMQYbxZVsXrE3/u+tGoAQHmUAjsfjzkkH67KDlpFELAPXi/5NvUWt8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787903468; c=relaxed/simple;
-	bh=1OjkvvAZOnGlCuXH2KuSAvAMmthp6CXtjH/L+oEPLe4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qjFxVFgL/aQB0+UyoTQZ3DA4/O1eVpp67SqQ8+2M5P63xAv4neuv6uAZfmC1Z1LdQAEtK+gkr9ESFVCsS5klNRmDkHvAfs0mEdaELk9IZ4/WG1b25CBe6niN2hABBTN7j16Gac7Lnxr45ngmqHI7KV0TORa4GEBflF6fd7zzTEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8BxLtPnPZFqlQcGAA--.16997S3;
-	Fri, 28 Aug 2026 15:51:04 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAxmM3lPZFq5D0VAA--.41531S2;
-	Fri, 28 Aug 2026 15:51:02 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: loongarch@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] LoongArch: BPF: Fix off-by-one error for insn_is_cast_user
-Date: Fri, 28 Aug 2026 15:51:00 +0800
-Message-ID: <20260828075100.24776-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+	s=arc-20240116; t=1787903517; c=relaxed/simple;
+	bh=/r42OzRKbehNytUbS0AlwvQqha8Fg7tNiKCBIbEVdb4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fpraah1J14fY6MJk1gI7zIYcguY/gVc1jOF+L6lxF6e9+gdQK8vU7fEwj078Hl20cPI5heksHEnR4UMqCUDX9Kj67fAUGz5Ptwx9IhrZWWyYsHCGePyq7y3rMpjYon0qN1lNTS3cCK67ZGpHFHqwasF4F9Oh7+wq4X3aS7BJQ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qyRs1slP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qyRs1slP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF1BD1516;
+	Fri, 28 Aug 2026 00:51:49 -0700 (PDT)
+Received: from [192.168.178.100] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE5183F7D8;
+	Fri, 28 Aug 2026 00:51:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787903513; bh=/r42OzRKbehNytUbS0AlwvQqha8Fg7tNiKCBIbEVdb4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qyRs1slPyzy4qtN6fU37FQs+l+H3jAYpbcC2h3UtcVrvo5z3SjmO2VTAOAEJZq2pq
+	 sHFeMdQE0ndRCz4WEiemVcxCS+ga6h2GvUQYZ96jeNg/pJWgoneG18bdCG72uzzOxG
+	 guo214JrPJiRPBGaqWZv8B5+sDYd7e9nwQUPLyqo=
+Message-ID: <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com>
+Date: Fri, 28 Aug 2026 09:51:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxmM3lPZFq5D0VAA--.41531S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Zr1kur4DtFyrJF1xtFyDCFX_yoW8WF1rpr
-	ZxCws8KFWUWry3ua4DJayIvF1ftFs3Wr43WF12y3yFy3sIqryFqFyrK3sIkFnYkw48Zr1F
-	qr9Ykw1Yva4DZacCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Yb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
-	6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
-	vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_
-	Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
-	IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
-	Ja73UjIFyTuYvjxU2L05UUUUU
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
+ is_cpu_allowed
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, yury.norov@gmail.com, kprateek.nayak@amd.com,
+ iii@linux.ibm.com, corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
+Cc: tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+ seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+ rostedt@goodmis.org, maddy@linux.ibm.com, srikar@linux.ibm.com,
+ hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+ frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+ christian.loehle@arm.com, tj@kernel.org, tommaso.cucinotta@gmail.com,
+ maz@kernel.org, rafael@kernel.org, rdunlap@infradead.org,
+ kernellwp@gmail.com, linux-doc@vger.kernel.org, jgross@suse.com,
+ virtualization@lists.linux.dev, sunlightlinux@gmail.com
+References: <20260825103855.721013-1-sshegde@linux.ibm.com>
+ <20260825103855.721013-6-sshegde@linux.ibm.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260825103855.721013-6-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Fix a severe off-by-one error in the branch offset calculation for the
-user pointer cast helper insn_is_cast_user() inside build_insn().
+On 25.08.26 12:38, Shrikanth Hegde wrote:
+> When possible, try to choose a preferred CPU.
+> 
+> This is essential to maintain user affinities when preferred
+> CPUs change. A task pinned on a non-preferred CPU should continue
+> to run there, since this is a non-user triggered event.
+> 
+> If a CPU is non-preferred and the task can run on other CPUs which are
+> currently preferred, then choose a preferred CPU instead.
+> This is decided by checking if cpus_ptr and cpu_preferred_mask
+> intersect or not. If yes, then the task has other preferred CPUs.
+> 
+> The push task mechanism uses a stopper thread which calls
+> select_fallback_rq() and uses this mechanism to pick a preferred CPU.
+> 
+> This takes care of the wakeup path for FAIR tasks too.
+> is_cpu_allowed() is called to ensure wakeups happen on preferred CPUs.
+> With that, additional checks in available_idle_cpu() are not necessary.
+> 
+> Ignore the preferred CPU state if a task's affinity is changing and
+> its new mask no longer includes the CPU it is currently running on.
+> This ensures migration_cpu_stop() does not abort, preventing the task
+> from being stranded outside its allowed affinity.
+> 
+> Account for tasks with architecture-specific CPU masks
+> (e.g., 32-bit tasks on arm64). For such tasks, explicitly check against
+> the arch-allowed CPUs to determine if any of the preferred CPUs are
+> actually valid.
+> 
+> For the majority of cases, this would still keep select_fallback_rq()
+> as O(N). cpumask_intersects(), which is O(N), is called only if
+> !cpu_preferred. The task running there is expected to move out.
+> Subsequently, it should run on a preferred CPU. This becomes O(N**2)
+> only for tasks pinned solely to non-preferred CPUs. That is a rare case.
+> 
+> Overhead is minimal when the CPU is preferred.
+> 
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>  kernel/sched/core.c | 41 +++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 39 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index a45f7c308329..f71317fe281d 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -2494,6 +2494,35 @@ static inline bool rq_has_pinned_tasks(struct rq *rq)
+>  	return rq->nr_pinned;
+>  }
+>  
+> +static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
+> +{
+> +	const struct cpumask *valid_mask;
+> +	int i;
+> +
+> +	if (cpu_preferred(cpu))
+> +		return false;
+> +
+> +	/* Only FAIR tasks honor preferred CPU state */
+> +	if (unlikely(p->sched_class != &fair_sched_class))
+> +		return false;
+> +
+> +	/* Ignore preferred state if task affinity is changing */
+> +	if (unlikely(!cpumask_test_cpu(task_cpu(p), p->cpus_ptr)))
+> +		return false;
+> +
+> +	valid_mask = task_cpu_possible_mask(p);
+> +	if (likely(valid_mask == cpu_possible_mask))
+> +		return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
+> +
+> +	/* Tasks with arch-specific CPU masks. e.g. 32-bit tasks on arm64. */
+> +	for_each_cpu_and(i, p->cpus_ptr, cpu_preferred_mask) {
+> +		if (cpumask_test_cpu(i, valid_mask))
+> +			return true;
+> +	}
 
-In the current code, an offset of 1 causes the "beq" to target the next
-"or" instruction, which means the "or" instruction is always executed,
-even if the pointer is NULL. Thus, a native NULL pointer is incorrectly
-combined with the arena base address and turns into a non-zero address,
-breaking nullable safety guards and causing silent memory corruption.
+Looking more into this, there might be a window in 64-32-bit execve()
+for 32bit EL0 tasks on Arm64 (w/ allow_mismatched_32bit_el0 command line
+option).
 
-Fix this by changing the branch offset from 1 to 2, which properly skips
-the "or" instruction and jumps directly to the "move_reg" instruction if
-the pointer is NULL, ensuring the destination register is safely cleared
-to 0.
+The time before arch_setup_new_exec() calls
+force_compatible_cpus_allowed_ptr() to restrict CPU affinity for those
+tasks.
 
-Fixes: 4fdb5dd8aeba ("LoongArch: BPF: Implement bpf_addr_space_cast instruction")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- arch/loongarch/net/bpf_jit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Let me run more test on this ...
 
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index 1eb588e443c9..4da278900938 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -717,7 +717,7 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 			move_reg(ctx, t1, src);
- 			emit_zext_32(ctx, t1, true);
- 			move_imm(ctx, dst, (ctx->user_vm_start >> 32) << 32, false);
--			emit_insn(ctx, beq, t1, LOONGARCH_GPR_ZERO, 1);
-+			emit_insn(ctx, beq, t1, LOONGARCH_GPR_ZERO, 2);
- 			emit_insn(ctx, or, t1, dst, t1);
- 			move_reg(ctx, dst, t1);
- 			break;
--- 
-2.42.0
+Why not simply:
 
+- return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
++ return cpumask_first_and_and(p->cpus_ptr, cpu_preferred_mask,
++                              task_cpu_possible_mask(p)) < nr_cpu_ids;
+
+IMHO, you want to know whether there is at least one CPU that belongs to
+all three CPU masks?
+
+[...]
