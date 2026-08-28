@@ -1,151 +1,136 @@
-Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6C92836A6
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B739936B92B;
+	Fri, 28 Aug 2026 07:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787901500; cv=none; b=IOOOv5k3jvdehrZZSHhpwnpzJYYA7GqfBiICIASjWjw3NnyIN11KZRL4bZiRJutBbTNBaDafOi9vMTA+2Tgcxe9J30u0wx4lhgQWruyY21IxcG121pDXiecEk5AftSofVg376GxlfT8nMLjgBIwGzShA5VFgMJXqgw+uBUCqeZs=
+	t=1787901552; cv=none; b=Qs+l/g0+jaogD/UlIpSnNY47Th/3/ZnKiwnga9IeW00HvC8LbAN4geOtqOmMicwFS46PPny7P0RiTgZJNXo1jzKPjDCMoGnJ8VW0mcyFasN0lDCC7ZU1XCH4TCMummzkhSFgONFyBEBd9dkah8C+fLwMhYQP5ktdWSdBjka3K6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787901500; c=relaxed/simple;
-	bh=EyM07Uw8LqZupBVNP8WyHv4g2L5HNpw85p6dXlSM9xk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ngOzIXH7sMHeeKVtpq8fOEYBTq2K3U8xNembPFYwwbl+zTi7FMyrZzcZgWpwgaZyqLLG8vdfWM5MfdNkjDNYul/72Q1aQNf6Xbc1InDZlPFR08WHWKU9PfBvAfv7pq6wON3fiGE5RnJNyVuQV4ho2B2uVNbINXLE/oZpo824Lvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oQlfsA5p; arc=none smtp.client-ip=95.215.58.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787901552; c=relaxed/simple;
+	bh=8pndCdjaKt6BV5pfJqLH5SkPOKsIAkONdpuGZn/WUyI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=occT8BbEXv6iOAbycBv9vCTTzsIhoHOBJPcrk4U/8jIrRsQpXSYYn5tE0YlafL0CRF4oI3dIMQQOd8OX9jDlW26z+33cg0nWyoj/y03EcRq3+2+6ZvrT6v0sEhpiu1WHlBcHDWG0rxCvjIUdd+tGIfO00azxS9SQoCrgTypI++U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=lefVpXlM; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VVBRUhOk; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=klvcUcv7; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=OZ3S28S9; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oQlfsA5p"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EyM07Uw8LqZupBVNP8WyHv4g2L5HNpw85p6dXlSM9xk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787901496; v=1; x=1788506296;
- b=oQlfsA5pxQGE3mPi4IotNWFQ5I6u0fdbMQp2I1gmK/M49YUqXkjHqoF90gHEwTKgNAXB13hR
- y6PzJZEwyeuKoNuywOsWJ4LayKA96IqwInLoKWvOKOxlHvDfx5U3ky31uIPecqQct0nW16IW8v1
- VsTITPA+a2lYJLDczH2xNPqo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e9c5d0fed02762d4;
-	Fri, 28 Aug 2026 07:18:06 +0000
-X-Mizu-Trace-ID: e9c5d0fed02762d4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7a6ba0f3-efc0-45f1-a372-ced250733b62@linux.dev>
-Date: Fri, 28 Aug 2026 15:17:57 +0800
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="lefVpXlM";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VVBRUhOk";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="klvcUcv7";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="OZ3S28S9"
+Received: from pobox.suse.cz (unknown [10.128.32.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6C19721D94;
+	Fri, 28 Aug 2026 07:19:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787901544; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VubAx1HgGVT9m4YDkA8KqR6kOjmkNBnfJYa3rtf5zHM=;
+	b=lefVpXlMFdK2oqy9JnsFgJRnhOOBcXOILmvzZXknmiSrnAcrvtE5+pZqoh5ESyAW8I+K6W
+	Qoh8PQTkS8d1BqvW8708kHWy0W+j0wBzrRhCVlRO92XI7MK6qEXuDNENOcyYN02VHSvwYu
+	xFESmqMOnxAmYxVkNL2DEifnmXR18xo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787901544;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VubAx1HgGVT9m4YDkA8KqR6kOjmkNBnfJYa3rtf5zHM=;
+	b=VVBRUhOkTvUvgIouIjYIV32U9rwlB1gcnyRN9/7bCqgOsFKlUsuhQErB3Dqv8SAavx4jvv
+	eAfnHJTJ3dr+TrAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787901540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VubAx1HgGVT9m4YDkA8KqR6kOjmkNBnfJYa3rtf5zHM=;
+	b=klvcUcv7OW5AHhPc2xUyxtJZUbswpVkBwHhv6fvwuS6moFgMNFvrpx/nX3ML9pSRbWEeXT
+	vBFsmdSJhSjNDvEau5RlqbkqsP/FH1IixzLIoIZo2jk2SMUUWefC+HaF5613Mb2L/j6RYT
+	IGiymsO/g2cEWCbdC5O0YODAY7LAJ/I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787901540;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VubAx1HgGVT9m4YDkA8KqR6kOjmkNBnfJYa3rtf5zHM=;
+	b=OZ3S28S94A2TLm17/KvMSPUgIj8d/OAH4U2An/unPzj78cD+RZGiybB14iE3dvJWvhogME
+	ywL2dKZpDTAWMlAQ==
+Date: Fri, 28 Aug 2026 09:19:00 +0200 (CEST)
+From: Miroslav Benes <mbenes@suse.cz>
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+cc: Shihao Ren <rsh15355756202@163.com>, pmladek@suse.com, jikos@kernel.org, 
+    joe.lawrence@redhat.com, live-patching@vger.kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] livepatch/klp-build: Fix wrong index in error cleanup
+ loop
+In-Reply-To: <apC-XG-jCLJHvcil@jpoimboe>
+Message-ID: <alpine.LSU.2.21.2608280918230.9476@pobox.suse.cz>
+References: <20260701060655.2343093-1-rsh15355756202@163.com> <akYnGv_tDPouw8nM@pathway.suse.cz> <alpine.LSU.2.21.2608241541220.17149@pobox.suse.cz> <apC-XG-jCLJHvcil@jpoimboe>
+User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Subject: Re: [PATCH net v3] mac802154: fix data race and NULL deref on
- local->assoc_dev
-To: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>, alex.aring@gmail.com,
- stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
- linux-wpan@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260827221339.885245-1-skwkevin@mail.ustc.edu.cn>
-In-Reply-To: <20260827221339.885245-1-skwkevin@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ZERO(0.00)[0];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_CC(0.00)[163.com,suse.com,kernel.org,redhat.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
 
+On Thu, 27 Aug 2026, Josh Poimboeuf wrote:
 
-在 2026/8/28 06:13, Kaiwen Shi 写道:
-> @@ -599,25 +603,38 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
->   		goto clear_assoc;
->   	}
->   
-> -	if (local->assoc_status != IEEE802154_ASSOCIATION_SUCCESSFUL) {
-> -		if (local->assoc_status == IEEE802154_PAN_AT_CAPACITY)
-> +	/* The association is complete: clear the associating bit and snapshot
-> +	 * the result under the same lock, so a second (e.g. malicious) ASSOC
-> +	 * RESP can no longer pass the recheck below and overwrite
-> +	 * assoc_status/assoc_addr before they are consumed.
-> +	 */
-> +	spin_lock(&local->assoc_lock);
-> +	clear_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
+> On Mon, Aug 24, 2026 at 03:42:46PM +0200, Miroslav Benes wrote:
+> > On Thu, 2 Jul 2026, Petr Mladek wrote:
+> > 
+> > > On Wed 2026-07-01 14:06:55, Shihao Ren wrote:
+> > > > In the funcs allocation failure path, the cleanup loop iterates with
+> > > > 'j' but frees objs[i].funcs, which uses the outer loop index 'i'
+> > > > instead of the loop variable 'j'. As a result the just-failed (NULL)
+> > > > entry is freed repeatedly, while the funcs buffers already allocated
+> > > > for objs[0..i-1] are leaked.
+> > > > 
+> > > > Use objs[j].funcs so the previously allocated entries are correctly
+> > > > released.
+> > > > 
+> > > > Fixes: 59adee07b568 ("livepatch/klp-build: Add stub init code for livepatch modules")
+> > > > Signed-off-by: Shihao Ren <rsh15355756202@163.com>
+> > > 
+> > > Great catch!
+> > > 
+> > > Reviewed-by: Petr Mladek <pmladek@suse.com>
+> > > 
+> > > I assume that Josh would take this together with other klp-build
+> > > related changes.
+> > 
+> > I do not see it merged yet. Josh, could you take it, please?
+> 
+> Sorry, I missed seeing this one, but I do have an identical patch
+> already queued:
+> 
+>   https://lore.kernel.org/aocdq0hr_iQTimG0@jpoimboe
 
-I think this clear_bit() should be moved to
-mac802154_process_association_resp(), after saving the first valid
-response and before calling complete().
+Ok, thanks. I did not get that far in my INBOX after holiday yet :/
 
-Clearing it only after wait_for_completion() returns may still leave a
-window, since the woken waiter may not acquire assoc_lock before the
-next work item runs. Clearing it earlier in the response handler ensures
-that subsequent responses fail the in-lock
-IEEE802154_IS_ASSOCIATING check and cannot overwrite the saved result.
-
-> +	resp_status = local->assoc_status;
-> +	resp_short_addr = local->assoc_addr;
-> +	spin_unlock(&local->assoc_lock);
-> +
-> +	if (resp_status != IEEE802154_ASSOCIATION_SUCCESSFUL) {
-> +		if (resp_status == IEEE802154_PAN_AT_CAPACITY)
->   			ret = -ERANGE;
->   		else
->   			ret = -EPERM;
->   
->   		dev_warn(&sdata->dev->dev,
->   			 "Negative ASSOC RESP received from %8phC: %s\n", &ceaddr,
-> -			 local->assoc_status == IEEE802154_PAN_AT_CAPACITY ?
-> +			 resp_status == IEEE802154_PAN_AT_CAPACITY ?
->   			 "PAN at capacity" : "access denied");
-> -		goto clear_assoc;
-> +		return ret;
->   	}
->   
-> -	ret = 0;
-> -	*short_addr = local->assoc_addr;
-> +	*short_addr = resp_short_addr;
-> +
-> +	return 0;
->   
->   clear_assoc:
-> +	spin_lock(&local->assoc_lock);
->   	clear_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
-> -	local->assoc_dev = NULL;
-> +	spin_unlock(&local->assoc_lock);
->   
->   	return ret;
->   }
-> @@ -639,19 +656,23 @@ int mac802154_process_association_resp(struct ieee802154_sub_if_data *sdata,
->   		     dest->mode != IEEE802154_EXTENDED_ADDRESSING))
->   		return -EINVAL;
->   
-> -	if (unlikely(dest->extended_addr != wpan_dev->extended_addr ||
-> -		     src->extended_addr != local->assoc_dev->extended_addr))
-> +	spin_lock(&local->assoc_lock);
-> +	if (unlikely(!test_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing) ||
-> +		     dest->extended_addr != wpan_dev->extended_addr ||
-> +		     src->extended_addr != local->assoc_dev_extended_addr)) {
-> +		spin_unlock(&local->assoc_lock);
->   		return -ENODEV;
-> +	}
->   
->   	memcpy(&resp_pl, skb->data, sizeof(resp_pl));
->   	local->assoc_addr = resp_pl.short_addr;
->   	local->assoc_status = resp_pl.status;
-
-here
-
-> +	complete(&local->assoc_done);
-> +	spin_unlock(&local->assoc_lock);
->   
->   	dev_dbg(&skb->dev->dev,
->   		"ASSOC RESP 0x%x received from %8phC, getting short address %04x\n",
-> -		local->assoc_status, &deaddr, local->assoc_addr);
-> -
-> -	complete(&local->assoc_done);
-> +		resp_pl.status, &deaddr, resp_pl.short_addr);
->   
->   	return 0;
->   }
->
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-
-Thanks,
-Xuanqiang
-
+Miroslav
