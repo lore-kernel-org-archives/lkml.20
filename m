@@ -1,107 +1,225 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B91359A68
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F9B3431F5;
+	Fri, 28 Aug 2026 17:36:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787938592; cv=none; b=mAqxhFFq8Lw+LkhT5f7g3asTZ9FqAeWhb6eOVMOvi+MzZxs1FgVQyy8A5ywLM/HY+uvdISpH6Tp1Hwu2nKdouXBXgu9M+Ny3sMInQLLJLOieEAWBnekCwVyrT3jCC63Xxt3DsjH0J0IsrgR8JEPer/8RgKNcM1Ii6Dz4wc2Khgc=
+	t=1787938621; cv=none; b=YKvK17V4CLdXhbblNNAkgNZXlULwo6tOxV1NE9q3O6qgDCw39c1te9X9Mu4vb/P8umq9u+aZsl+4O1EsYY7B4Q4cKTYpIcdgVC3oUf2t/gGx8yazQ9BB2E13nAT0FYBAnB/oN7nIpqtgltZuQyKSkCv/T9IM5ol6AK5Qs/isq0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787938592; c=relaxed/simple;
-	bh=jv0AjUOxCF171zZJfjT0vnjOCmVzRRYbyifCCKJuQUo=;
+	s=arc-20240116; t=1787938621; c=relaxed/simple;
+	bh=9sU0BoNVUBuLNIn4TemWP2dUeXrY7o+f+xbrMaDVlaE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A8GU2vwD2sJCclChQs2K4l1q+aB2ycW+aVBUYvcBvYZ59EKYYXv/BdMYF5QgcMTHgKHdtJC2hoLJI+wuDISDUDCzafDRByYpeaQfka+ikAyXlLbCg5Q8zwVpiu52/ziqucG7hfq+UHIs0SgKXB1EsAUYYHmILoXCbRWVPT1NQOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cKbHmzyl; arc=none smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nBPYDO/mMPuKvQxFcdLaYgpsZR4L6v8/DYY27pTkGaERZANvWXPurIWgUmXy8laknH5bMgWffoQO4lGwizEoE/a+XQxkbLAYivS8PuGOzPp3UgmTPCcE7i8h+TC0jdj+Et9YIivnKVkCBU56+NRZIoX6VNVkxWqpPYhgoBFqgBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Dm+RcaSd; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=wZR8TvWn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wWoLZIXC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=TWq1zfuC; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cKbHmzyl"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a1585728b5so10576881fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787938589; x=1788543389; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0RHnXtY7z+uKbpCqEZp/RNcyCgc1KO2CwFepDKXPyys=;
-        b=cKbHmzylMcsknunK4oaXPfxkivH453YxLmPPrzRcpXmB3JFxXKgQftlE+eVjrUf0d1
-         C3x/VPcnxTmUMO3PewqDY2XmGyPeT2nfHFH1RS1+cUoaZdLT0VTwlZ0NnXeL9BlH2p5b
-         fFg0q9x71oQOMrWzEoKkTgm7mszBaK5U9n4I5PvxFTIGEYEgvvCt7ht6iyjY0THXDZZg
-         fwjbx2I0Gz+ZMmDoz6Ck51+aZ4/qqkH3n9hi7tRnKyDKDRkXfzO6iPRs57GjRStKb0y7
-         hoSC6oNYJ4BO/+C6j9IG0Y3mi7k6unf91/hckjsjrBmM4Edj+slMQdjUUJTLWyLJAV0a
-         wfpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787938589; x=1788543389;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0RHnXtY7z+uKbpCqEZp/RNcyCgc1KO2CwFepDKXPyys=;
-        b=R2JwDuXD71VSc1cLBRHAiwFjV8LA2uVQwINk7xOreXzQMd+9wEI/ftnVgGt2a+K6jP
-         f9mZc+NN6K/mKSjr0hFtheUhh3rHu0fyN7uuvENVozlPh47S7kwfHNmcwdWUuSKmomhj
-         ZOQ60vmLHu57RclVl/PRWXuHU/38Z3d0ZTvhefhgFWBEB2BP7U5xBqjJrGgCRPFfBYJx
-         anCniN056UMjiYaoDpxcoy5i6ABMByifdnfhfZW8dw7hVPzThQPGwK7ZH0NWhNmh8vjr
-         MTVe0bXn1MJlANUZkWBkP64esQ47bRa+M+BzHX/PDvQi32+0oQM77PryftSIbCU+B9PH
-         eqVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBFEjdBZOnjOD3NKZge5gQhGJl3pBNvy4RZAnA5GjIdv+vt5SrtyF3q6N3nSR1Hu5DXa0N9OcAbP0YmMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3owvXvgtqH/6Rt8qbx4dKdGH+wfe/ZMaC0rdnwpfFgZeQwkWT
-	sqsgwqC7H0g0tcWoLJHC9O0RujhqpPk3919FFgzvPbTT3XhzOSVD3wEP
-X-Gm-Gg: AR+sD12tz/jDtSGBZz4sBdQofq2ndoKcE+Y1Xk50b2rDloFTcWSZltfnlWWJaooqKi3
-	rFStEpskQUJ3wCmH+4OujFjuy/teo0BCINoAjwvhq0i/qQqrh4DxeGrogf0SraOP8MFp9O9J4Zh
-	gpDqezy/OBFiwg/gxWRTa883l20CHq4NkaICiaaLIk8GDNNKvbsw+/BA4XMsNTQTcZCn9n3pWOJ
-	WoIIBW2N48xTEKeg85h+2n7/mWYU0f+ZavZDbxbko1rnkD2/j+vXu5c8CBtfL8E5MhNUfWbGYIK
-	PQizo86o34gnoyAK2Bo566znjxFVj2NAN7DAylIf6uiRmXk3i8lfrm0r2GIGJDV3ID4j6s2zb8P
-	yTWOFz4u/+acMK1YnbWax8wQL2CYWKnNW5EHXw1SvN5lvyMKsOSloZCrTWuNXAANPxyevF+vJfs
-	gjB1MWdyQKY2iEFDKsZmzYvfT5ENArzRGMM8i7AI0vwSltKUWvhc1LRl08gnc9
-X-Received: by 2002:a05:651c:f1c:b0:3a3:364:f796 with SMTP id 38308e7fff4ca-3a30364fde5mr15364841fa.1.1787938588647;
-        Fri, 28 Aug 2026 10:36:28 -0700 (PDT)
-Received: from archlinux ([94.229.16.221])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a30783a8a5sm3064181fa.33.2026.08.28.10.36.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 10:36:28 -0700 (PDT)
-Date: Fri, 28 Aug 2026 20:36:24 +0300
-From: Nikolay Kulikov <nikolayof23@gmail.com>
-To: Zongmin Zhou <min_halo@163.com>
-Cc: gregkh@linuxfoundation.org, kees@kernel.org, david-b@pacbell.net,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Zongmin Zhou <zhouzongmin@kylinos.cn>
-Subject: Re: [PATCH] usb: host: sl811_cs: fix memory leak on probe failure
-Message-ID: <apHG0Pq3HagSo5BT@archlinux>
-References: <20260827074120.49006-1-min_halo@163.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Dm+RcaSd";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="wZR8TvWn";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wWoLZIXC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="TWq1zfuC"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8738221DBA;
+	Fri, 28 Aug 2026 17:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787938612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mBQ9/dryn3WFrb3tzJjFqS/35QeTG6Witquds+L+naI=;
+	b=Dm+RcaSdBcLN+sgMVCmOBC8+WekSPoW9Rf22pth+ZOiQ1TG8DoNGs7TujhgZ8IqmINagJq
+	Krfres9UPRsutdhgCHge+eG55C/rnrNo1j0Gsb18J1CIgWqQwB1WAIqMHszeCj/y3rOmyP
+	N5Shl89m1/QFroIaskn8OfrU7p3tgAo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787938612;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mBQ9/dryn3WFrb3tzJjFqS/35QeTG6Witquds+L+naI=;
+	b=wZR8TvWnmiSZAhxU2AoJ8sfm4eYjBdhLuRvDL2xOG85eylYExMeq2Q8j44GIpGphhYIsoO
+	7ElWSR7RMucca+Cg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wWoLZIXC;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=TWq1zfuC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787938608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mBQ9/dryn3WFrb3tzJjFqS/35QeTG6Witquds+L+naI=;
+	b=wWoLZIXClODxfrLKPMUSOx98tvjVi5hCzXWQXPU6ZYJ3rMqLl+UgXc9Qvq/CZpxoW44JoZ
+	Xjv6fkRiR2tYVAfjc1G+CanUhA0alBWTL+yyAd2P64GzeKOYnpbMWwkFgdMCRNbGTuKPg5
+	HgNoux9MRvfP58Yp5zEpdWAaoVgybrY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787938608;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mBQ9/dryn3WFrb3tzJjFqS/35QeTG6Witquds+L+naI=;
+	b=TWq1zfuCqa1RRT2kF9N2lZPQvph2srQDbdll0HlMMcxujtouvw4/OD8AHfFHP95dztB4iw
+	Q8Er1EtknrcXV6Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 65B2313515;
+	Fri, 28 Aug 2026 17:36:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id tpLPGDDHkWoHYgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 28 Aug 2026 17:36:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id EA7FAA1324; Fri, 28 Aug 2026 19:36:47 +0200 (CEST)
+Date: Fri, 28 Aug 2026 19:36:47 +0200
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Daehyeon Ko <4ncienth@gmail.com>, 
+	Miklos Szeredi <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached
+ connector
+Message-ID: <63aj7jbfaoamdmcurlge2c2kqpliaifgq4vbythrrxpfyr5vtm@z64myom426zd>
+References: <20260827045007.3831259-1-4ncienth@gmail.com>
+ <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
+ <20260828042421.964822-1-4ncienth@gmail.com>
+ <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
+ <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260827074120.49006-1-min_halo@163.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 8738221DBA
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,redhat.com,vger.kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-On Thu, Aug 27, 2026 at 03:41:20PM +0800, Zongmin Zhou wrote:
-> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+On Fri 28-08-26 12:18:52, Amir Goldstein wrote:
+> On Fri, Aug 28, 2026 at 11:05 AM Jan Kara <jack@suse.cz> wrote:
+> > On Fri 28-08-26 13:24:19, Daehyeon Ko wrote:
+> > > You are right that an fd-held dentry cannot satisfy the count == 1 check. I
+> > > was imprecise in the report: the fd and the final unlink refer to two
+> > > different hard-link dentries for the same inode.
+> > >
+> > > The setup is:
+> > >
+> > >   1. create A/x and link it as B/y;
+> > >   2. open B/y, add the old-group inode mark through that fd, then unlink
+> > >      B/y, leaving i_nlink == 1 while the fd retains the B/y dentry;
+> > >   3. race these two calls:
+> > >
+> > >        unlink("A/x")
+> > >
+> > >        fanotify_mark(racer_group, FAN_MARK_ADD, FAN_MODIFY,
+> > >                      victim_fd, NULL)
+> > >
+> > >      where victim_fd still refers to the already unlinked B/y dentry.
+> > >
+> > > So the A/x dentry checked by d_delete() is not held by the fd and can have
+> > > d_lockref.count == 1. Its unlink drops the inode's last link and reaches
+> > > dentry_unlink_inode() -> fsnotify_inoderemove(). At the same time,
+> > > fanotify_find_path() gets the same inode through the fd-held B/y dentry and
+> > > adds the racer mark.
+> >
+> > Thanks for explanation of the reproducer. Now it makes sense. The
+> > conclusion from this is that fsnotify_inoderemove() can indeed be called
+> > for still fully alive open inodes which should be (think of permission /
+> > pre-content events) still generating events. That could be actually
+> > breaking some assumptions of userspace although I don't think it's a
+> > serious issue in practice because users of permission / pre-content watches
+> > tend to use filesystem / mount watches.
+> >
+> > Also I think we could generate FS_DELETE_SELF twice for the inode - once it
+> > will we generated as a result of d_delete("A/x"), and finish_dput() ->
+> > dentry_kill() -> dentry_unlink_inode() will generate it for the second time
+> > on the last close of the open through "B/y". That should be mostly harmless
+> > but still it's an oddity to keep in mind and preferably avoid if we can.
 > 
-> sl811_cs_probe() leaks the local_info_t allocated into link->priv when
-> sl811_cs_config() fails: the only kfree() lives in the remove callback
-> sl811_cs_detach(), which the PCMCIA core never calls for a device whose
-> probe failed.
+> I don't know. This sounds like a fundamental behavior change.
+> In current upstream FAN_DELETE_SELF is a dying breath of an
+> inode and no more events on this inode are expected IIUC.
 > 
-> Free the private data when sl811_cs_config() fails.
+> Applications could be relying on this.
+> In fact I have an application that almost relies on this, but IIRC
+> it does one last open_by_handle_at() to make sure before calling
+> the inode dead. Other applications could be less strict.
 > 
-> Fixes: c6de2b64eb57 ("[PATCH] USB: add sl811_cs support")
+> Changing behavior so events could happen after FAN_DELETE_SELF
+> sounds risky.
 
-The code looks good to me, but I have a question regarding the Fixes
-tag.
+I was probably imprecise with my wording. What I meant is that *currently*
+when you have a hardlinked inode, you open and unlink through B/y and then
+the unlink though A/x races with close of the B/y file, then you could get
+two FAN_DELETE_SELF events if the race works out right. The only change of
+behavior I was planning was avoiding this race if possible :).
+ 
+> > Now there's the question about the best fix for the problem. I've realized
+> > we cannot just remove the call to fsnotify_inode_delete() from the place
+> > where fsnotify_inoderemove() is called (and rely on the call from
+> > __destroy_inode()) because the connector holds inode reference and so
+> > __destroy_inode() would never get called. Hrm, this is a hairy issue and so
+> > far I don't see a good place to reliably trigger detaching of connector
+> > from the inode. One reliable place would be iput() but that's really ugly
+> > and would slow down every iput() user. The cleanest solution I can
+> > currently see is to stop holding inode reference from a connector as I've
+> > proposed in the past. Then we can reliably perform the cleanup in
+> > __destroy_inode(). But that will be a rather non-trivial undertaking. Amir,
+> > do you see some other option?
+> 
+> What about the option I proposed to live with the orphan marks
+> Is it so bad? I mean it's confusing and removing the assertion could
+> hide real bugs/races, but maybe it's worth not complicating the code
+> until we move forward to re-attachable marks.
 
-In the commit you cited, a failure triggered a call to
-sl811_cs_detach(), which freed that memory. However, that behavior was
-changed in commit
+I'm not so much worried about the case when placing of the mark races with
+unlink. There I agree we can somehow paper over the problem for now. What
+I'm more worried about is the case where someone places a precontent /
+permission mark on the inode and a malicious user does hardlink + open +
+unlink trick and after unlinking the original link to the inode, he has an
+open fd to the inode stripped of any notification marks which I'd say
+violates the promise of precontent / permission marks.
 
-f8cfa618dccb ("[PATCH] pcmcia: unify attach, EVENT_CARD_INSERTION handlers into one probe callback")
-
-where the call was removed, leaving the memory unfreed. Shouldn't that
-be the commit referenced in the Fixes?
-
-
-Thanks,
-Nikolay
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
