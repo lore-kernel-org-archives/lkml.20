@@ -1,68 +1,67 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CB63CF022
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E1E17B425
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899132; cv=none; b=sRkXDXQNH/KkKFES5US8ngXKezSoq0q0HKVAXQWS+F2r6RfHjY9mvqjI7tz6rcdl5fTitw0RzWhRuaNIDahRxF9J7eDSM/TKAsOkAqUprHcktYLippIRSLMMASdMJPbaq/M3qMYx6uBpDGwue9PgLEn/cchnkIjmSBkFFo3p354=
+	t=1787899134; cv=none; b=O/ofiO52hOJI/MG0LB07E7me5HA6Ids7loOgML4QdKovdUiF7GF+Trs4GXPXbLfXQLNhlXUsSvkLBrTbrQAIsvtK4nUpwtJ2v4mjZSUSFCKsb9VfW1bsFo61SFqDUsJTLS93BYdnXoT9rt1WgwUx0Taz5aTg3kOVjFKoZr0VDCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899132; c=relaxed/simple;
-	bh=6aZMjagHvcH24IcCEzk87Oit7nVKdoCQ6sPY4en+24w=;
+	s=arc-20240116; t=1787899134; c=relaxed/simple;
+	bh=jBnuNfFaNy+lYevkOT79mOgADpfoXMW0c9FuXIA5WWY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TSrb58qa6JGeGaAMgcuQg90fR8QyLur1SFJ5+Lvz76ac/LAWW2KjRN7XpioGxkboQcdVGyM1orCoIrLhb19eE3CGCZ824oWD3jEg8XHmmP2cUri2IGM51CbLzBP09qXx3xlUkv+mz6+Nm3M0s/flgzuOZYNObjdXHYbhRlIq2Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mnVp+Nmj; arc=none smtp.client-ip=209.85.217.47
+	 In-Reply-To:To:Cc; b=Fio9YsdLzzV+Kj+k24ZLikDvDZ6Cq184uIwZAkrAJAzPVoPEya0J1hMxLS+oEt1vmDtW/W5dkvDahP8IYyMnzpcnW473swkNQZy6qILdSY375DTwoUjOKWxSw1LZij6sEuqxIIZg6GdDU9CdFuhOvVYTZhgsmqXbS+Ki7jAlCIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G5miVteJ; arc=none smtp.client-ip=209.85.217.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mnVp+Nmj"
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-782e0fc1e55so160374137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:38:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G5miVteJ"
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-77bf3334d14so368813137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:38:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787899127; x=1788503927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787899131; x=1788503931; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QHv5wdzqoT+8+ip3D8MQsdcFxzRbRYsfhtpZnwwMeCw=;
-        b=mnVp+NmjzqXJ1adMbmQBmRqob7ECNbcU9ZgVWz8tp8aHCW/8I/9Mzf/tqZ6oqxg5Z0
-         BOA0PpQvSqQqhcVWAbE2YG2i9yxXJnyivjg796g7RVAtfk/r5uTw2rLxUKIFWsqoIi0z
-         X0KfRO2o0F+VwF4pCUYlNSHOdYrjkjfkBBpE89RGhpURjbcHwHeCGV76Ah+nAYL3a7c2
-         0eslY+2FqI0Vq3sSCdrwGiTF7T4A11SXnlBYbeXiO1innTSDHYKU2CInf4oTYloIj0Zi
-         jEEFPr0MLfZKsvABf41vdcskVGPJEBJjvIS8IxRoFuUGu5WUcpnqqHTMrKK6V3sY5sbR
-         m8Yg==
+        bh=hcOlTatZtiMtegG+sIDHWIx8wVSL0Q7Xb7hEFQvq7zQ=;
+        b=G5miVteJq064cTyZyjT0ACmOINFtxxWOrOPD8enRbI/Oly1Id0MZSKc9YHys0OR1Dg
+         QQe95gpoTfCtfdOdSRsFY/xzO3Msk9S5ATNbs08ZN24lTVz9xPcjHFoZLhWfRSZsSVC7
+         xX+QR1TlrQIPXAbS/9nXaVpkqX2y0OuOrSCovOLGTri6SLpT3zPpqs52+SPuQn80YMF0
+         OX4OAEcaH8xKAolyll+jIoK/iNcglL5MFhWezkrneoJlYQe4JLQV3+XyNnHGjHeJ1gYt
+         dEzQ32i9In3GTU91f6tHRTA7HdAHQHHJTwrMYUMcheWACshlF+2QLQOLBxbu5yUyg3zu
+         FX5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787899127; x=1788503927;
+        d=1e100.net; s=20251104; t=1787899131; x=1788503931;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QHv5wdzqoT+8+ip3D8MQsdcFxzRbRYsfhtpZnwwMeCw=;
-        b=bP111q3j9hE2dzd7bN4nGZGXf0ZOPzCN5dZKF9u+nx/XQEkXmY3tsfn5lgryhW8SFG
-         vqzUPLjcklRphaBpCPVtgNB0cg9t78xRJau9+XsjxZKksJheV4VHA5ehgBDCTZ12XgLE
-         BFUnK7VBhD+/SLnzU1+etQCZzE38pRLmRZWxMjYdj2VWubqDooSBZx6wrk/9khg2cyUk
-         ftaJF4kiSqZbpY+tni+rowHXnIcg8oUmoYpZhrwc/4mFAHPe/zwB8JTU92QKwMBp34Fo
-         cY1UV9LJYRm1wC4jEObIL2qJxg/7IFGp8c1fFONgn8Q5svyY4ftliqXk4erwC6AADKs3
-         ZTlQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rre+I4ObQuVp2K1xlvhU78EBP4ZpOtOiknItrnPwBGycgPFz0+7zFy0tZeMC6ctsrHJ69mIuNm6o13ZHg8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTaWvz6YcAyfc3gOkEgal3mn7ZbFVUSF1qZfhSsJqShHYNJHdH
-	jUSBiWaK5REfP99dXpsmaFsYLqmrH0asHZ6+XyAOk2JpPwlJcE6eY+IS
-X-Gm-Gg: AR+sD13gdPq/JoMxiAcFK4OQYWkS5Y9jtQorbf3KutCbCT3Yy0O+DZfgdLOSbO9CSk0
-	bRoYwe7TKA7A0AfbjkIxD/xINIZLasb5zzSTRA8nuUeHd+LIXlMsZGwbdc5L3XH1Qn6tDv0k6Vu
-	H3lXpLCpdrPSurXV4OJG5tAGi9utf+yLN/LNNRGfsRn+ZqhRSDfHmmTsl0awNtApQtiRxKuJ1Vq
-	0bFXSNPX8N0VAyMl6T6FpaAHWAPlUK8kTRo5RLEX396tKo6x72TyJpt9W8+yhdRVcROIAlnUpYZ
-	qp8sHsl/3n/6hp9jRUdeGCUvu/k34opShZ0ioXYDU7KVM9QTivBPFEIFmj4NCu3xUegoMs6kk+Z
-	jLB4+Msaiab2LwH19+TumQ4kfAE5J1CsrXUjwAoclQCJT5X6j9Tu4Q9+Yvuu47f+0Gkp983xuBR
-	uJQN/bqnLD8/eMNe8tEMTwCJxQUBvc3DZp7tGyhRyLOacvewQqmM25z77kr7Y1yURJ1g==
-X-Received: by 2002:a05:6102:2907:b0:782:de7b:eead with SMTP id ada2fe7eead31-785962b3b4fmr1260614137.1.1787899126966;
-        Thu, 27 Aug 2026 23:38:46 -0700 (PDT)
+        bh=hcOlTatZtiMtegG+sIDHWIx8wVSL0Q7Xb7hEFQvq7zQ=;
+        b=K1q7DUD1mib25zg3ivAzSqO9atSxorlOcyZ9Ijyrp1my3yVKE3wNUqktdBymer7I+N
+         nfIGzsaH7V7iNFwY0Ehhr4PcR7tiCFeYJywq7X9UN1oA5jJlJPt/1If+DqPF2BHH/nEz
+         EI17UD2HYCnHqnNZXUrAua+XCifzE6PYphUa1+rPCo/W6X+9m2CTK0uZbDmn0reVbBm9
+         UCZg01IWatMnd+LrMFTRG2nEUo0piIbf/773VmxCiLMS2TMJgwMw2Fvw/IEjtaZdxYLL
+         urC1LwHIcfZVWacB2Y3TsMEBlLldq/beEr99SnfBRwUgooB4rxtXoZnZzuvaSntKUwyp
+         9zSg==
+X-Forwarded-Encrypted: i=1; AHgh+RoJxGyx7zWtn9ENQrJEdvFKP8Oo0SaHSrrYcya/d1gfTtJym/e5+LQ8Qn8zKZo5iTbVZM8O13+apl6YQWE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXs8/Hfh2SOBqz4mr2ZwQRvuVpZgpnjai3XnC1Nc10XruIXdCt
+	G7B8imNf0q6pioK68hW8j2qSmmx0gDsH+KnAT/IY10fIMBX7Wmk5eyV3
+X-Gm-Gg: AR+sD12+suN/NuK2ah70zKe43GCZjUX0H/GI9bXSNjHRtiPGUSC4dh9Chj7QcBLe0vU
+	knreDYnCqQ8QzODHMm0XjvXH/AFz69LvsKlH4sXEuyXdY7c6PTndtRvaKCnM8yjIxJVLA0/BFtN
+	FbH4tvTxb8ADJGPg8ch9jIYm+6u4laVlqBbeDSYbHBuIQpatSDKSwwIj/Aah+7WsYb8OSLoSHRP
+	KGihbHbueoIWYjxa4nI3hqkyi1fJT9i/Y9/72Ei4owpcE1rPPgjMwye4tl6oNYA+/s2iNmDGmch
+	+B1lb95t2CoIiOwm05hdARhmkrE+gL81j3Taa+8InL5tY8CRWZ7crkg979rl+oos1j+VF8DLscM
+	uuJQLKlb1vEzsoWsMMSjJmzGigbP2g5roa4bPZLsrc6JwFIj41dLmqPgStCONlor3PWxHk0Dvt6
+	gZDSxDlge6J9u8tpncd7/MLePgm8cfaRQlEVHCSabC85ZkHvyjWcMOotjYm8ffuALM
+X-Received: by 2002:a05:6102:3e83:b0:779:c38e:de53 with SMTP id ada2fe7eead31-7859956a1cdmr1778891137.10.1787899131018;
+        Thu, 27 Aug 2026 23:38:51 -0700 (PDT)
 Received: from [192.168.100.153] ([2800:bf0:61:1127:ab87:5602:531c:8dfb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.45
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 23:38:46 -0700 (PDT)
+        Thu, 27 Aug 2026 23:38:50 -0700 (PDT)
 From: Kurt Borja <kuurtb@gmail.com>
-Date: Fri, 28 Aug 2026 01:38:19 -0500
-Subject: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
- sampling frequency
+Date: Fri, 28 Aug 2026 01:38:21 -0500
+Subject: [PATCH v4 06/10] iio: adc: ti-ads1262: support input chopping
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
+Message-Id: <20260828-ads126x-v4-6-1dc27e9c0260@gmail.com>
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
 In-Reply-To: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -81,406 +80,111 @@ Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12017; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=6aZMjagHvcH24IcCEzk87Oit7nVKdoCQ6sPY4en+24w=;
- b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdd7c3/dxzckUQcMH02dZsKxo98m/ps/wmIH1crC5f
- CJLqe3JjlIWBjEuBlkxRZb2hEXfHkXlvfU7EHofZg4rE8gQBi5OAZjImWxGhiMhAneeKc9aVMMS
- yq35XfGm7X2X1h8x1k3blKSFuWc83MbIsHX5TDb5w1eZnd4nbAx+9WpBQO3HrM8tF19sm6UR733
- iJTcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3240; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=jBnuNfFaNy+lYevkOT79mOgADpfoXMW0c9FuXIA5WWY=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdd6031zRuqLFyVz66v4vesfMzvmHhlYFRc2PkQ7Ly
+ pryj/l4RykLgxgXg6yYIkt7wqJvj6Ly3vodCL0PM4eVCWQIAxenAExk5SuGf7YGAqskZljs+Kzg
+ ZNu/78XZ7yuez/ivru6knPoiZ8Nv7xRGhi4NvWU2zmWppzu/WkibqggtfcjgG7Ca90oxe9FJQ6N
+ 8LgA=
 X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
  fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Add per-channel sampling frequency support. The "available" attribute is
-assigned per-channel too, in order to eventually support per-filter
-availability.
+Enable per-channel input chopping via the "input-chopping" property.
+As the device withholds the first conversion in chop mode, single reads
+are taken in CONTINUOUS run mode with a brief start/stop pulse, as
+recommended by the datasheet (Section 9.4.1.2).
 
+Reviewed-by: David Lechner <dlechner@baylibre.com>
 Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 ---
- drivers/iio/adc/ti-ads1262.c | 233 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 228 insertions(+), 5 deletions(-)
+ drivers/iio/adc/ti-ads1262.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-index d919144c23cb..86ea9b6232d8 100644
+index c87c0a66119a..4d38da092001 100644
 --- a/drivers/iio/adc/ti-ads1262.c
 +++ b/drivers/iio/adc/ti-ads1262.c
-@@ -25,6 +25,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/spi/spi.h>
- #include <linux/types.h>
-+#include <linux/units.h>
- 
- #include <asm/byteorder.h>
- 
-@@ -99,6 +100,7 @@
- #define     ADS1262_DR_14400_SPS		  13
- #define     ADS1262_DR_19200_SPS		  14
- #define     ADS1262_DR_38400_SPS		  15
-+#define     ADS1262_DR_COUNT			  (ADS1262_DR_38400_SPS + 1)
- 
- #define ADS1262_INPMUX_REG			0x06
- #define   ADS1262_INPMUX_MUXP_MASK		GENMASK(7, 4)
-@@ -166,6 +168,7 @@
- #define ADS1262_POWER_TRANS_USECS		65536
- 
- #define ADS1262_NOMINAL_CLK_RATE		7372800
-+#define ADS1262_MODULATOR_DIV			8
- 
- #define ADS1262_FW_CHANNEL_COUNT		16
- #define ADS1262_MON_CHANNEL_COUNT		4
-@@ -174,10 +177,17 @@
- 
- #define ADS1262_ADC1_RESOLUTION			32
- 
-+struct ads1262_channel {
-+	u8 data_rate;
-+	u8 filter;
-+};
-+
- struct ads1262 {
- 	struct spi_device *spi;
- 	struct regmap *regmap;
- 	struct gpio_desc *start_gpiod;
-+	size_t num_channels;
-+	struct ads1262_channel *channels;
- 	/* protects concurrent SPI transfers */
- 	struct mutex xfer_lock;
- 	/* protects channel state */
-@@ -185,6 +195,8 @@ struct ads1262 {
- 	struct completion drdy;
- 	unsigned long clk_rate;
- 	u8 dev_id;
-+	int sampling_freq_table[ADS1262_DR_COUNT][2];
-+	int sampling_freq_fir[ADS1262_DR_16_6_SPS + 1][2];
+@@ -203,6 +203,7 @@ struct ads1262_channel {
+ 	u8 ref_n;
+ 	bool ref_reversal;
+ 	bool is_resistance;
++	bool input_chop;
+ 	size_t num_scales;
+ 	int scales[ADS1262_GAIN_COUNT][2];
  };
+@@ -464,7 +465,7 @@ static int ads1262_dev_stop(struct ads1262 *st)
+ 	return ret;
+ }
  
- static const char * const ads1262_device_id_to_name[] = {
-@@ -204,7 +216,9 @@ static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
- 			.storagebits = 32,
- 			.endianness = IIO_BE,
- 		},
--		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -218,7 +232,9 @@ static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
- 			.storagebits = 32,
- 			.endianness = IIO_BE,
- 		},
--		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -232,7 +248,9 @@ static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
- 			.storagebits = 32,
- 			.endianness = IIO_BE,
- 		},
--		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -247,10 +265,66 @@ static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
- 			.storagebits = 32,
- 			.endianness = IIO_BE,
- 		},
--		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 	},
- };
- 
-+static const struct ads1262_channel ads1262_default_channel = {
-+	.data_rate = ADS1262_DR_20_SPS,
-+	.filter = ADS1262_FILTER_FIR,
-+};
-+
-+static const u32 ads1262_mod_decimator_a[] = {
-+	[ADS1262_DR_2_5_SPS]	= 64,
-+	[ADS1262_DR_5_SPS]	= 64,
-+	[ADS1262_DR_10_SPS]	= 64,
-+	[ADS1262_DR_16_6_SPS]	= 64,
-+	[ADS1262_DR_20_SPS]	= 64,
-+	[ADS1262_DR_50_SPS]	= 64,
-+	[ADS1262_DR_60_SPS]	= 64,
-+	[ADS1262_DR_100_SPS]	= 64,
-+	[ADS1262_DR_400_SPS]	= 64,
-+	[ADS1262_DR_1200_SPS]	= 64,
-+	[ADS1262_DR_2400_SPS]	= 64,
-+	[ADS1262_DR_4800_SPS]	= 64,
-+	[ADS1262_DR_7200_SPS]	= 64,
-+	[ADS1262_DR_14400_SPS]	= 64,
-+	[ADS1262_DR_19200_SPS]	= 48,
-+	[ADS1262_DR_38400_SPS]	= 24,
-+};
-+
-+static const u32 ads1262_mod_decimator_b[] = {
-+	[ADS1262_DR_2_5_SPS]	= 5760,
-+	[ADS1262_DR_5_SPS]	= 2880,
-+	[ADS1262_DR_10_SPS]	= 1440,
-+	[ADS1262_DR_16_6_SPS]	= 864,
-+	[ADS1262_DR_20_SPS]	= 720,
-+	[ADS1262_DR_50_SPS]	= 288,
-+	[ADS1262_DR_60_SPS]	= 240,
-+	[ADS1262_DR_100_SPS]	= 144,
-+	[ADS1262_DR_400_SPS]	= 36,
-+	[ADS1262_DR_1200_SPS]	= 12,
-+	[ADS1262_DR_2400_SPS]	= 6,
-+	[ADS1262_DR_4800_SPS]	= 3,
-+	[ADS1262_DR_7200_SPS]	= 2,
-+	[ADS1262_DR_14400_SPS]	= 1,
-+	[ADS1262_DR_19200_SPS]	= 1,
-+	[ADS1262_DR_38400_SPS]	= 1,
-+};
-+
-+static int ads1262_find_two(const int (*array)[2], size_t num_elements, int val,
-+			    int val2)
-+{
-+	for (unsigned int i = 0; i < num_elements; i++) {
-+		if (val == array[i][0] && val2 == array[i][1])
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static int ads1262_dev_send_cmd(struct ads1262 *st, u8 opcode)
+-static int ads1262_dev_start_one(struct ads1262 *st)
++static int ads1262_dev_start_one(struct ads1262 *st, u8 runmode)
  {
- 	guard(mutex)(&st->xfer_lock);
-@@ -375,9 +449,18 @@ static int ads1262_wait_for_conversion(struct ads1262 *st)
- static int ads1262_channel_enable(struct ads1262 *st,
- 				  const struct iio_chan_spec *spec)
- {
-+	struct ads1262_channel *chan = &st->channels[spec->scan_index];
-+	int ret;
-+
- 	guard(mutex)(&st->xfer_lock);
- 	guard(mutex)(&st->chan_lock);
- 
-+	ret = regmap_update_bits(st->regmap, ADS1262_MODE2_REG,
-+				 ADS1262_MODE2_DR_MASK,
-+				 FIELD_PREP(ADS1262_MODE2_DR_MASK, chan->data_rate));
-+	if (ret)
-+		return ret;
-+
- 	return regmap_update_bits(st->regmap, ADS1262_INPMUX_REG,
- 				  ADS1262_INPMUX_MUXN_MASK |
- 				  ADS1262_INPMUX_MUXP_MASK,
-@@ -429,6 +512,8 @@ static int ads1262_read_raw(struct iio_dev *indio_dev,
- 			    struct iio_chan_spec const *chan, int *val,
- 			    int *val2, long mask)
- {
-+	struct ads1262 *st = iio_priv(indio_dev);
-+	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
- 	__be32 raw;
  	int ret;
  
-@@ -441,6 +526,83 @@ static int ads1262_read_raw(struct iio_dev *indio_dev,
+@@ -472,7 +473,7 @@ static int ads1262_dev_start_one(struct ads1262 *st)
+ 	if (ret)
+ 		return ret;
  
- 		return IIO_VAL_INT;
+-	if (st->start_gpiod) {
++	if (runmode == ADS1262_RUNMODE_CONTINUOUS || st->start_gpiod) {
+ 		/*
+ 		 * The START pulse timing requirement is 4 clock cycles, at the
+ 		 * minimum clock rate this is 4 microseconds.
+@@ -520,7 +521,9 @@ static int ads1262_channel_enable(struct ads1262 *st,
+ 	guard(mutex)(&st->chan_lock);
  
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		guard(mutex)(&st->chan_lock);
+ 	ret = regmap_update_bits(st->regmap, ADS1262_MODE0_REG,
++				 ADS1262_MODE0_INPUT_CHOP_MASK |
+ 				 ADS1262_MODE0_REFREV_MASK,
++				 FIELD_PREP(ADS1262_MODE0_INPUT_CHOP_MASK, chan->input_chop) |
+ 				 FIELD_PREP(ADS1262_MODE0_REFREV_MASK, chan->ref_reversal));
+ 	if (ret)
+ 		return ret;
+@@ -561,13 +564,26 @@ static int ads1262_channel_read(struct iio_dev *indio_dev,
+ 				const struct iio_chan_spec *spec, __be32 *val)
+ {
+ 	struct ads1262 *st = iio_priv(indio_dev);
++	struct ads1262_channel *chan = &st->channels[spec->scan_index];
++	u8 runmode;
+ 	int ret;
+ 
+ 	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+ 	if (IIO_DEV_ACQUIRE_FAILED(claim))
+ 		return -EBUSY;
+ 
+-	ret = ads1262_set_runmode(st, ADS1262_RUNMODE_PULSE);
++	/*
++	 * When a channel has chop mode or IDAC rotation mode, the first
++	 * conversion is always withheld so the datasheet suggests using the
++	 * CONTINUOUS mode and briefly starting and stopping conversions to
++	 * achieve the same effect (Section 9.4.1.2).
++	 */
++	if (chan->input_chop)
++		runmode = ADS1262_RUNMODE_CONTINUOUS;
++	else
++		runmode = ADS1262_RUNMODE_PULSE;
 +
-+		*val = st->sampling_freq_table[chan_data->data_rate][0];
-+		*val2 = st->sampling_freq_table[chan_data->data_rate][1];
-+
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	}
-+
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int ads1262_read_avail(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan, const int **vals,
-+			      int *type, int *length, long mask)
-+{
-+	struct ads1262 *st = iio_priv(indio_dev);
-+	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		*type = IIO_VAL_INT_PLUS_MICRO;
-+
-+		switch (chan_data->filter) {
-+		case ADS1262_FILTER_FIR:
-+			*vals = (const int *)st->sampling_freq_fir;
-+			*length = ARRAY_SIZE(st->sampling_freq_fir) * 2;
-+			return IIO_AVAIL_LIST;
-+		default:
-+			return -EOPNOTSUPP;
-+		}
-+
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int ads1262_write_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, int val,
-+			     int val2, long mask)
-+{
-+	struct ads1262 *st = iio_priv(indio_dev);
-+	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
-+	int ret;
-+
-+	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+	if (IIO_DEV_ACQUIRE_FAILED(claim))
-+		return -EBUSY;
-+
-+	guard(mutex)(&st->chan_lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		switch (chan_data->filter) {
-+		case ADS1262_FILTER_FIR:
-+			ret = ads1262_find_two(st->sampling_freq_fir,
-+					       ARRAY_SIZE(st->sampling_freq_fir),
-+					       val, val2);
-+			if (ret < 0)
-+				return ret;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		ret = ads1262_find_two(st->sampling_freq_table,
-+				       ARRAY_SIZE(st->sampling_freq_table),
-+				       val, val2);
-+		if (ret < 0)
-+			return ret;
-+
-+		chan_data->data_rate = ret;
-+
-+		return 0;
-+
- 	default:
- 		return -EOPNOTSUPP;
++	ret = ads1262_set_runmode(st, runmode);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -577,7 +593,7 @@ static int ads1262_channel_read(struct iio_dev *indio_dev,
+ 
+ 	reinit_completion(&st->drdy);
+ 
+-	ret = ads1262_dev_start_one(st);
++	ret = ads1262_dev_start_one(st, runmode);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1340,6 +1356,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 		}
  	}
-@@ -479,6 +641,8 @@ static int ads1262_fwnode_xlate(struct iio_dev *indio_dev,
  
- static const struct iio_info ads1262_iio_info = {
- 	.read_raw = ads1262_read_raw,
-+	.read_avail = ads1262_read_avail,
-+	.write_raw = ads1262_write_raw,
- 	.debugfs_reg_access = ads1262_debugfs_reg_access,
- 	.fwnode_xlate = ads1262_fwnode_xlate,
- };
-@@ -697,6 +861,49 @@ static const struct regmap_bus ads1262_regmap_bus = {
- 	.max_raw_write = ADS1262_REGMAP_WRITE_SZ,
- };
++	chan->input_chop = fwnode_property_read_bool(node, "input-chopping");
+ 	chan->ref_reversal = fwnode_property_read_bool(node, "ti,reference-reversal");
  
-+static void ads1262_populate_samp_freqs(struct ads1262 *st)
-+{
-+	u64 freq_Hz, freq_uHz;
-+	u32 freq_rem;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(st->sampling_freq_table); i++) {
-+		freq_uHz = div_u64(mul_u32_u32(st->clk_rate, MICRO),
-+				   ADS1262_MODULATOR_DIV *
-+				   ads1262_mod_decimator_a[i] *
-+				   ads1262_mod_decimator_b[i]);
-+		freq_Hz = div_u64_rem(freq_uHz, MICRO, &freq_rem);
-+
-+		st->sampling_freq_table[i][0] = (int)freq_Hz;
-+		st->sampling_freq_table[i][1] = (int)freq_rem;
-+	}
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(st->sampling_freq_fir); i++) {
-+		/*
-+		 * The FIR filter does not support the 16.6 SPS data rate so it
-+		 * gets mapped to 20 SPS instead.
-+		 */
-+		switch (i) {
-+		case ADS1262_DR_2_5_SPS ... ADS1262_DR_10_SPS:
-+			st->sampling_freq_fir[i][0] = st->sampling_freq_table[i][0];
-+			st->sampling_freq_fir[i][1] = st->sampling_freq_table[i][1];
-+			break;
-+		case ADS1262_DR_16_6_SPS:
-+			st->sampling_freq_fir[i][0] = st->sampling_freq_table[ADS1262_DR_20_SPS][0];
-+			st->sampling_freq_fir[i][1] = st->sampling_freq_table[ADS1262_DR_20_SPS][1];
-+			break;
-+		}
-+	}
-+}
-+
-+static int ads1262_populate_tables(struct iio_dev *indio_dev)
-+{
-+	struct ads1262 *st = iio_priv(indio_dev);
-+
-+	ads1262_populate_samp_freqs(st);
-+
-+	return 0;
-+}
-+
- static int ads1262_parse_channel_node(struct ads1262 *st,
- 				      struct iio_chan_spec *spec,
- 				      struct fwnode_handle *node)
-@@ -763,8 +970,15 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
- 	if (!chan_specs)
- 		return -ENOMEM;
- 
-+	st->num_channels = num_fw_channels + ADS1262_MON_CHANNEL_COUNT;
-+	st->channels = devm_kcalloc(dev, st->num_channels, sizeof(*st->channels),
-+				    GFP_KERNEL);
-+	if (!st->channels)
-+		return -ENOMEM;
-+
- 	device_for_each_named_child_node_scoped(dev, node, "channel") {
- 		struct iio_chan_spec *spec = &chan_specs[i];
-+		struct ads1262_channel *chan = &st->channels[i];
- 
- 		ret = fwnode_property_read_u32(node, "reg", &reg);
- 		if (ret)
-@@ -772,6 +986,8 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
- 		if (reg >= ADS1262_MONITOR_ADDR_OFFSET)
- 			return dev_err_probe(dev, -EINVAL, "%pfwP: reg out of range\n", node);
- 
-+		*chan = (struct ads1262_channel)ads1262_default_channel;
-+
- 		ret = ads1262_parse_channel_node(st, spec, node);
- 		if (ret)
- 			return ret;
-@@ -786,7 +1002,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
- 			.storagebits = 32,
- 			.endianness = IIO_BE,
- 		};
--		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-+		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+					   BIT(IIO_CHAN_INFO_SAMP_FREQ);
-+		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ);
- 
- 		i++;
- 	}
-@@ -795,6 +1013,7 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
- 	       sizeof(ads1262_monitor_chan_specs));
- 
- 	for (unsigned int mon = 0; mon < ADS1262_MON_CHANNEL_COUNT; mon++) {
-+		st->channels[i] = (struct ads1262_channel)ads1262_default_channel;
- 		chan_specs[i].scan_index = i;
- 		i++;
- 	}
-@@ -890,6 +1109,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
- 
- 	indio_dev->name = ads1262_device_id_to_name[st->dev_id];
- 
-+	ret = ads1262_populate_tables(indio_dev);
-+	if (ret)
-+		return ret;
-+
- 	/*
- 	 * REVISIT: This chip has software polling capabilities, which could be
- 	 * used to stop depending on the DRDY signal.
+ 	return 0;
 
 -- 
 2.55.0
