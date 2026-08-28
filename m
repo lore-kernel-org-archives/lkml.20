@@ -1,21 +1,21 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F493CD8CC;
-	Fri, 28 Aug 2026 06:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FAC3CF022
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899332; cv=none; b=VJNxAe9bBMwexjbxGICqTLzfXiBThdEzDt3MlKLefUJnNRxy/FSK/uFtsOynG4rJQTyqBNiJKsto4vGUPcke9op2oyKP40UEpUndH2EM7CMAUcyt46HbAKZ0JjNYidTalA2RHSmIRivrGNTj4hAEXLS3bpoc1A91pBVZSu3kBPc=
+	t=1787899333; cv=none; b=eiCxsWxIUwiK7sOvxmKi8b7TKUeDlMUNV4s5goEaPCN2ZxRqXP6O5ZsXKPLrZGlwnVujIrq9jO9Vz+ycG+sNw1BgaHDhmL7ZBanx8tRzzwv9ip6JtJzjE+xdh44W6Wzz04jbP0Z0ws/lM9V452tBkwXtd5ErTOrjNLBBSYk6xNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899332; c=relaxed/simple;
-	bh=bcpa63J0o25IM6NFvk4XKQTyi0xgLbuzf4zdAkKoglQ=;
+	s=arc-20240116; t=1787899333; c=relaxed/simple;
+	bh=vGIRh1kqf7llqeCq0N9hLd8WSu9nf8rErsZuKeopqQI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W8gpZo5K075/nccRzR47nzxUONMVEENoqR/lP33GQgS3iYaJnQnHOJIoK0KY+amxdy6AhKRlkmVCqROuBfndGRnDbbXMSffd3TOUTdE7XeQXyqJxUYvy97JTu6QgFYRvg39jGPmbEJtWkp/DOYqshPvHlToowzrDhvE80b1yOCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=101.71.155.101
+	 MIME-Version; b=iPphBJiF2XOG4jz0P+aFSy+Wz0m+G4GpLqRaka7/GDUK1i3PlRgdTjypdobD29nWYRRu2NSk6+teJZgoSeIruMgqBKQIRGiSBhvyZqoifuE/KyJqsadKuwSTj/tUWzRISD+dKc9dVI/pSO1poBNvLxGhVzL7B4K5zEjlxcWs54U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=45.254.49.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
 Received: from Mogu.localdomain (unknown [223.73.65.69])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4baa740d9;
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4baa740db;
 	Fri, 28 Aug 2026 14:42:06 +0800 (GMT+08:00)
 From: Haoming Gao <Naixumogu@whut.edu.cn>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
@@ -24,11 +24,10 @@ Cc: Oded Gabbay <ogabbay@kernel.org>,
 	Sidong Yang <sidong.yang@furiosa.ai>,
 	Greg KH <greg@kroah.com>,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/3] accel/rocket: Collect job dependencies before arming
-Date: Fri, 28 Aug 2026 14:41:51 +0800
-Message-ID: <20260828064152.37822-3-Naixumogu@whut.edu.cn>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 3/3] accel/rocket: Propagate job submission errors
+Date: Fri, 28 Aug 2026 14:41:52 +0800
+Message-ID: <20260828064152.37822-4-Naixumogu@whut.edu.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
 References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
@@ -39,62 +38,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0471aaec303a1kunmd9ea7a958c2ae
+X-HM-Tid: 0aa0471ab19303a1kunmd9ea7a958c2b3
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU9JVklMHUJOGkpIGUsaSlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGEkeVh1KTkwYHUNJTktMQ1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 
-rocket_job_push() arms the scheduler job before collecting its implicit
-dependencies. Dependency collection can fail with -ENOMEM, but an armed
-job must be pushed and must not be aborted with drm_sched_job_cleanup().
+rocket_ioctl_submit() discards each job's return value and reports success
+even when every job fails.
 
-Collect dependencies before taking the scheduler lock and arming the job.
-Only operations that cannot fail remain after drm_sched_job_arm().
+Return the first error and stop submitting the remaining jobs. Jobs queued
+before an error remain queued, giving the ioctl ordered partial-submit
+semantics.
 
 Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Cc: stable@vger.kernel.org
 Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
 Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
 Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
 ---
- drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index e6052d1973afa..b55e12aecfe64 100644
+index b55e12aecfe64..8f1bdf4a57f20 100644
 --- a/drivers/accel/rocket/rocket_job.c
 +++ b/drivers/accel/rocket/rocket_job.c
-@@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
- 	if (ret)
- 		goto err;
+@@ -646,8 +646,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	}
  
-+	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-+					   &job->base, false);
-+	if (ret)
-+		goto err_unlock;
-+
-+	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
-+					   &job->base, true);
-+	if (ret)
-+		goto err_unlock;
-+
- 	scoped_guard(mutex, &rdev->sched_lock) {
- 		drm_sched_job_arm(&job->base);
  
- 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+-	for (i = 0; i < args->job_count; i++)
+-		rocket_ioctl_submit_job(dev, file, &jobs[i]);
++	for (i = 0; i < args->job_count; i++) {
++		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
++		if (ret)
++			goto exit;
++	}
  
--		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
--		if (ret)
--			goto err_unlock;
--
--		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
--		if (ret)
--			goto err_unlock;
--
- 		kref_get(&job->refcount); /* put by scheduler job completion */
- 
- 		drm_sched_entity_push_job(&job->base);
+ exit:
+ 	kvfree(jobs);
 -- 
 2.43.0
 
