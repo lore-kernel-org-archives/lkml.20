@@ -1,184 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655A5446C17;
-	Fri, 28 Aug 2026 11:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917941; cv=none; b=ENl2PTOepKJb7BwKMDylmrE8ituqVZ+3YuV5vSXOiKjdfA5S5VtHzLi4efKeGjxx7EydBUJoEPAcbmFFdBYniL1KmYKa0yxFxJEQBRYiBswrxzibaEWgNT6Hft9qHXEAGMAT7ltyEM89Ng6syxou3RgWeySKUCHay+dDYDIX7ac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917941; c=relaxed/simple;
-	bh=O1rzJtMcm6mFTSRKAvHPql4xwRZfD99a2m32PaIgH9c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l9C3pHpHjspUw+QZfB/AgKU5FFZHAHtwKFph+eKiHanIXAKEAD0y2re2o3l3Se//NnuYILBRwAYq1TnoxUuVNwrGSgn4zbJpJ7zD1brzNi3hlbZBXQneuQQuq4D+jtdfG4FqxPAG9HghruEFarEXRV4TgFlQNhvIlXkKTFC7KQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMvRSGzG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D941944685D;
+	Fri, 28 Aug 2026 11:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787918025; cv=fail; b=Tzuf8MLTzzRMOYgPHctY1le9Nw0ApaE4YkPoUXjc0B1hUhISbvzw2dxX7I7AVcNE+I/j99TPFsHvZfr5ixdCvXpX/nnpg0OvIJoURx3DfU0mT/kiHzOIPL6AfrP0vCH6pjkkOMwPUdxIwNfbEg5zlJuWNwTA3+56Tr/qJMsbOO4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787918025; c=relaxed/simple;
+	bh=b5i91ObM3s17zyDJeQrte/ot0a2e8dg6fkuOupzvHxU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ERBneRk3mVemQkQeKcLg50HZi9D8kr6aY5b4EYJKu9tEO5pPH17+cDZUc77XZGsovJA1Rq4WeRCgGhPpHJ9u3UmxFJqtBKpgw20mdt586Jy3V3fg9772n7y7oLzwLIh388/fX/ULoevJscQ6qotyKcKuWX5jb2CCjc1HDTKfsf4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F4A6dqMF; arc=fail smtp.client-ip=52.101.43.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMvRSGzG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372881F00A3E;
-	Fri, 28 Aug 2026 11:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787917924;
-	bh=a+5yaFkrJOw9/iYBFvWXyxER2EtDDURsdnRYrxTdIcw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PMvRSGzG4PhWf4yoZtgKYnnKGmny1GBSM0fH81xluucpzRYUDD5zu8fB0WowZIGqF
-	 QReN8ASuhTTqJr0VNJZPv763dDcnBS6S27Eutqv26hp/DB9ZGvdzF9MvALayfxydMD
-	 YJgTMbQXU3sMIPvfA+GBhMfR76DC50a7FvZ0v7n7zQRuBxDoxf0vBIUtcO7TNOgown
-	 SsxKk+81rUQRXpaJT/UVsBc8WrtmnvfeTn3uc57hyQ5Q27hjYm1KUegg3dnmYzCUn5
-	 EJaU9+fFF4i5qp6OmOzEWTw8Yny9hUXoRK56D4soc4ABKQ+qUwhaIyzQ09Iyvu756y
-	 c+Rruo2dL0jPQ==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Fri, 28 Aug 2026 13:51:39 +0200
-Subject: [PATCH v2 3/3] arm64: tegra: Add cooling device on Jetson AGX Thor
- DevKit
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F4A6dqMF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P1DurnBdXsv4lKMNt62jRL4ddjxk/fyW6ZPk9MctJ8GKc+r6g2FIvbPCOh5EpZlDQs+MRLSYblEPW+d2OH7DYai9Xu/97vrrqFqVNtG/o64opau+t8y/GeMVjqO2NWZ9kKMjosYjPomCQ1eJ5TejQyF4+POn0XAuHABku3Xb414/cFURpx+0tXguQrUASHlQhJOsDETTMThn7jZF7y0Qk4WLUB3uRXmnxB9Aw8ljhxbxBUN180t2POA2No3F2j+9XCt/dCx1jPXbwJ27SM9w5iDsoDdenggOUSxDdHJyb5sYmXTqizX3MnJ/pfGiSEOgaXQ+N2K3uVcYREqzkxw9Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CZaPisrZJjKFJJwx9ZY8dCeoPgw1xD3pS3/Y+oO2bJw=;
+ b=XkmIB8J6F6cZzPvpf6yPsgmeMacGYfxoA3EECbeJA9vsIPdrSHdNU0aAuQARq7h3p1FdiH8+sRxChmyyjlhZaqLR1Hhg5xiQT9kwaWhVGWGoNFWTCQSJl91SipyOTEt3YqGF0J8UWiiyzW6zPcboDjHqzZfMNwc3BkHLxIKB+823pVA5fNdwc3HpUMtkBvSm+x2zgJdy0riM2AJ8xr209nMzCYbuzwRL/HVV4wT24+qQZ4D0VrIM9Kh7Y/1k3uCc/BaoiFa3LnS+nKwMabn+56SI2nyHlspVY/pvGwi+3HPqEgk7/PMgs1Ks3Y/cO63gc8OdbPcfLopQAbrFiGYyVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CZaPisrZJjKFJJwx9ZY8dCeoPgw1xD3pS3/Y+oO2bJw=;
+ b=F4A6dqMF8sTOsLmQPEkM6WpSDg/PBtckSZpxYPDF+7ctiaxbAH/OF8Bk0cifFGPBhIA+Sgubw8sEqLx/9XUCND3VFZuZ14lTNDLr2Im+u4zAFrPVGHyrXsBPgJH+2dse//QJcNAIvaMzpPyITsWl/87qUsV5+jrhtAQLtDcLSzNApM1ICqZ57vEAE15QLHn70H4C09GLdn7m+jKRN8LcGNEev+tSkeh8m9SD+R+cNirwd66N//v8ieIcvxIP1YHVC0ssidYQheqkrhKXMAnA9sDemmq1dZF38go+48RidMlMIKObKMeyWUoyfXbQZXeqfckiSXMwFHrhBg2DAdZaeQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by DM6PR12MB4387.namprd12.prod.outlook.com (2603:10b6:5:2ac::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 11:53:33 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 11:53:33 +0000
+Date: Fri, 28 Aug 2026 08:53:31 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Vasant Hegde <vasant.hegde@amd.com>
+Cc: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Ankit Soni <ankit.soni@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] iommu/amd: Fix DTE clearing and rename
+ iommu_ignore_device()
+Message-ID: <20260828115331.GC3922654@nvidia.com>
+References: <20260824122347.1588592-3-praan@google.com>
+ <178759520117.3131778.15279605903087565179.b4-review@b4>
+ <ao1vJxkZsJpr1qXG@google.com>
+ <20260825114916.GT244917@nvidia.com>
+ <ao3RF0w_AXo5EXxv@google.com>
+ <20260825175315.GD3325090@nvidia.com>
+ <ao3oHn8HiXIx5Wrl@google.com>
+ <50ffc453-f918-47f8-9556-9813308690a9@amd.com>
+ <20260826122147.GA3666382@nvidia.com>
+ <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
+X-ClientProxiedBy: BN9PR03CA0251.namprd03.prod.outlook.com
+ (2603:10b6:408:ff::16) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-tegra264-fan-v2-3-a460389d8ef5@nvidia.com>
-References: <20260828-tegra264-fan-v2-0-a460389d8ef5@nvidia.com>
-In-Reply-To: <20260828-tegra264-fan-v2-0-a460389d8ef5@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Thierry Reding <treding@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2745; i=treding@nvidia.com;
- h=from:subject:message-id; bh=ffBQB+0ihS+VzjDCPSRBlHFSrJqDD1qnX5rd3sZ0miQ=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqkXZZ4QnqtN3MtgsOz+koisIFUDxJSir9NNrVk
- +ZD+3RoX2eJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapF2WQAKCRDdI6zXfz6z
- odYaD/9MUVW9RqJVAomHU71wXNF3em9Mq6Wc0qO7AXnluaGqX9sPXmk/sD7lf1Jz/X5RfEf1cby
- iNDjCn9vSoGVzRDJDkYynSbz7f9gepuU3XmG/pyux35kYB6tqoYGyuyVTxJNRdKqnIb7l334TCa
- aSNS3LEHYF1l8kTJ8cCaMketb2zbHdiDTp+ksd6fLDlgu+DMTi97k8wwzmFku41gg6f2tQwgIeb
- 0ny4NxKCRrVfIlBeg+ka+4yCWBNy9UleJfSrIaZrCgEWHaqUeOB9xOsxFKJlV072JDhmxk51QLx
- g0RqZLP5fiQ263D2qFqLMfPHTvgl4w9SEDPOmIj0JID+uZrvcTVkGnka3uaxWtQ9C3n7fjv0+Sb
- u3A3RJNyYV5k2+uBT5SqrI5K1yTo+fJ1/+u7R6RFI0H/iB2rvel0ivPkas2AkPNZwiaMrm0vSfU
- 5ybFToIhWd1GRbkt0FLSkGltJ6UcFBTabDQ6QQcDJcKNfb+xik0NOGbHULSBCLLzpAjyyjql0CN
- CO+SU4kL8MOEhQ4pwWujsONULBfum18GLtkqYzvLhxbu5SAlrmv1/koa5CaPxGNaSXvjJxGJdj+
- Qua8BfRbV/SPZ/weUdkS809dGl7B5Y9AgyBdo9E2YpD2rPkHV2lPWIwfShS9XR3l9RVEuAziZ1I
- rK1vNyVlAc0z10g==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DM6PR12MB4387:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8145b51-596e-43dd-5baf-08df04fafbff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+1W8DCpc18KBtzSa/DXeS04jmhuBDuODzezLDp235L9Tmk+hpUFCKiGh9UgRGe0ci5Kocnqu3F4Ur49Vy1VUAbz8ImN7VycYONyc9JHOC5JfWJEYWv5QYEIIpjQZjKdjon+GSrNE3daa2tD4IKzL0CQRmimzfqUUGXJqPrvM2MCMXM2a6SunVOX900OHexTXMjBYVqVMjcI+veSiJzxHj3+Jqno4uI6v0l7PSy/pSiiO5sjXY5mRbksxq06weWGVKCtfXuSm3uOwOq1e+rtJreSXBzM2HqZeXJ2/kgRZszsoiurKoJhWw6mKWUprxx6ltbVqHBFqgPgnTs1YRJHCTHtd5/3/TaY0U7hA6rPwWOfqgJ6VBBcJHms0aDh/KdshMhPVqa1qgYYP3eyrYJuHjkIv9vbW6l6tPKVazWyqBywU1m33DyZ8WTazg+LLWnx4wX9TmuFiMPa2hGHXw0lmUY6YndkHRCyu1PkTlRgiWVWpATq9/O1uEmxn3U9ohAA+ypDtQuelWVkKQFyWiw0TddrAl2lToqNGacZpP9rcwiWPUqRLDDFzZg8RErcp/HSD9qzbVdGV+uRS6LFbt1Us6hPPCbcrmmeQgYM8Bwyb1DlFRKS68JWxjLXu7LAjVakYp8Jl0NfnSsdNqobpjjm7Xjbn+QyHtfecvrp6IdhFJXU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XSAHJq0qq0aX/vFh1rewVAnbWT9EtMEz4YU1YAF+f/RH7OHMOuKvVq9Pgmd5?=
+ =?us-ascii?Q?6xyWTZYfUkVkDL+42t2ltdEJlhsrDaQ8dSt0tKsliYaE2tNaXKHY+IF3Aox+?=
+ =?us-ascii?Q?vCV3C+QthFV9RtF7SaUL8+kR9W/lap/yZWz1RoxsHrgycI2HWw+b1pEjUFU7?=
+ =?us-ascii?Q?yODjljhXaDkblwIyf3CRzgypa/e/m4jBSCcPXwIJVZvkoLk0EF8bk/77kj6c?=
+ =?us-ascii?Q?Q/7Q0RJKDg/FOYEeGdJgAlZH4y6MIyau/NaIx50eHZ2+RKhdv6TijiKQ1eWh?=
+ =?us-ascii?Q?UtdbX4DB7Nob2RNw3scosx3lH0NHFBbn7JWpTEqJtZgZ/CDaBfyXWs3HrM3P?=
+ =?us-ascii?Q?Kwhwz7zQi6j1BsWco11lpBh8naUSiDr8n6aeTgMKtgGEz3ka7pyUApgZo0fz?=
+ =?us-ascii?Q?1txYhJFC8B2wqVuGCycYwgUTw3GM37DG9f+jrLFgKQGFKNtO7VUtgY1uxOjG?=
+ =?us-ascii?Q?E39IBYowAGyjxxVGuz3te7Ob1INHNS2TF+AosGZd7jgu3TwvjNTv5M0xnJrK?=
+ =?us-ascii?Q?yhAmEOKCatGUTXVs8TqMoZkUW2J2zOFQaKEbStyNFDgTJTHrZmTBOxiQdmmF?=
+ =?us-ascii?Q?N5BQtTYf2YKxmN+5RPeY4e0mjtgt0i7TcSnR4Zd+bOlRObCAo+EXeYbTMpnm?=
+ =?us-ascii?Q?QKc0a6EwTmkWkkumQiUeisZAtsv5LXdXfuTtdlrANMRX/iVFiWFA1AbZkAIG?=
+ =?us-ascii?Q?LKPNZi71Hoz2a1qQf7ze+QOGen4lQeB1SGxeL/wjuScx8GMUPlv9033OGHPq?=
+ =?us-ascii?Q?2sRO2Z3ryvRFxyvwj9kN0PqG/UDFTZQRbpLeCctBPm26hCp7uu4E3EYtatL1?=
+ =?us-ascii?Q?Mf5FxzdAO1YsIAIYCnhnrMWYdsWCKQaq9WXp+kyVxSqfVOWt2PcxhE+WYqwB?=
+ =?us-ascii?Q?eRNIr3FweKYRGQvb/6qe/Rl7mH+HU7js8+WZk69QvUcA/L6hjZCHJew8JkVU?=
+ =?us-ascii?Q?SM/ayhBXLRhT+6ubQdh3Mcn5H83ire2DlwBhFXHaNErOeweWpT4XxNZrhIPq?=
+ =?us-ascii?Q?Rzh4o1Hydtw2MxpejJFJ0HZ8D+YSDIBwPD+KE1gClf68PCXiJBZxOFnpnLoJ?=
+ =?us-ascii?Q?uE862fq9/O+8pM0OslrI5GKLCV/4/GGmA7sAO8PQ+atM1p+p5601+uIyWS+h?=
+ =?us-ascii?Q?YFdkMJOz84jZjFxTw01IA2paND+YMjSrp+O0mY/aQmHtOXwaDo0O3bdhB12m?=
+ =?us-ascii?Q?mk9miZ7sQYvdSFq8OoI6ffLOGiL2s0W17lZTsSaArXKkpi9Xm2/wGLxvjk5A?=
+ =?us-ascii?Q?GIckmSSNXTCnGGKqnK+xngSeDBtDbRrmip+KnNHVLcoz9I+1o+LUUf7jVOWK?=
+ =?us-ascii?Q?x1hUa1lW5CrtJ/7fs8LNm7smd/vhNaOjPOUBkXs2nAcqQe5wCWUGfDWkV99L?=
+ =?us-ascii?Q?VfEsGC3XwpaNiAwxom1gtGh0scsF03KIu025aUyhtHaNByPfdyPggxYJ7QM7?=
+ =?us-ascii?Q?RTUtiY2B/eqQb8jzp+mryilYXRyfQExgWIm/l73HpSFOBp9jgHXD0zqsk/EI?=
+ =?us-ascii?Q?rQoZR2uLQ7nN6qPV/ybcvBBtCYZTT5b6D309pKZ079wKJwJX+bh12c1Z+VHs?=
+ =?us-ascii?Q?+Gs3KlbvaK36QajByBtvUCYUTH0EvYs4WLN8UmDLmu2Hz1d5gtgYWHrsIEAm?=
+ =?us-ascii?Q?DAGpgdwPoP79szntSP778rlWBjLwGl+LbTtrg3865aLrA76un0B9R2p4bBUS?=
+ =?us-ascii?Q?Hsr7NBoZZmD6FBRqOrHsI0McTNoJp7CZMRNVigI6rnU1vMl8?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8145b51-596e-43dd-5baf-08df04fafbff
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 11:53:32.9817
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cikLGdJIEC/BGIWAhurNlWb/U6nxzBIZ+dWcCwYeQxBzvVcAlnvUajnKVPu7eXFr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4387
 
-From: Thierry Reding <treding@nvidia.com>
+On Fri, Aug 28, 2026 at 10:46:48AM +0530, Vasant Hegde wrote:
+> > Having the driver boot up with all DTEs programmed to identity (eg
+> > 0'd) and then try to fix them to blocking after the iommu probes
+> > devices is security backwards.
+> 
+> During boot, it only sets dte.v bit.
 
-Monitor the TJ thermal zone and use the main PWM fan of the Jetson AGX
-Thor Developer Kit to actively cool the device if needed.
+First it clears it to fully 0, what does 0 do in HW?
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi     | 32 +++++++++++++
- .../boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi | 52 ++++++++++++++++++++++
- 2 files changed, 84 insertions(+)
+It doesn't make sense that you'd pass over the DTEs after
+probing if the original 0'd DTE was actually blocking?
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi b/arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi
-index 58cd81bc33d7..d4c9f45e03c1 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi
-@@ -39,4 +39,36 @@ cmdqv@6200000 {
- 			status = "okay";
- 		};
- 	};
-+
-+	thermal-zones {
-+		cpu-thermal {
-+			polling-delay-passive = <40>;
-+			polling-delay = <1000>;
-+			status = "okay";
-+		};
-+
-+		gpu-thermal {
-+			polling-delay-passive = <40>;
-+			polling-delay = <1000>;
-+			status = "okay";
-+		};
-+
-+		soc012-thermal {
-+			polling-delay-passive = <40>;
-+			polling-delay = <1000>;
-+			status = "okay";
-+		};
-+
-+		soc345-thermal {
-+			polling-delay-passive = <40>;
-+			polling-delay = <1000>;
-+			status = "okay";
-+		};
-+
-+		tj-thermal {
-+			polling-delay-passive = <40>;
-+			polling-delay = <1000>;
-+			status = "okay";
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-index 4550e843f513..dd042e57839a 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-@@ -22,4 +22,56 @@ fan: pwm-fan {
- 		pwms = <&pwm4 0 40000>;
- 		#cooling-cells = <2>;
- 	};
-+
-+	thermal-zones {
-+		tj-thermal {
-+			trips {
-+				tj_trip_active0: active-0 {
-+					temperature = <80000>;
-+					hysteresis = <0>;
-+					type = "active";
-+				};
-+
-+				tj_trip_active1: active-1 {
-+					temperature = <86000>;
-+					hysteresis = <0>;
-+					type = "active";
-+				};
-+
-+				tj_trip_active2: active-2 {
-+					temperature = <91000>;
-+					hysteresis = <0>;
-+					type = "active";
-+				};
-+
-+				tj_trip_active3: active-3 {
-+					temperature = <100000>;
-+					hysteresis = <0>;
-+					type = "active";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map-active-0 {
-+					cooling-device = <&fan 0 1>;
-+					trip = <&tj_trip_active0>;
-+				};
-+
-+				map-active-1 {
-+					cooling-device = <&fan 1 2>;
-+					trip = <&tj_trip_active1>;
-+				};
-+
-+				map-active-2 {
-+					cooling-device = <&fan 2 3>;
-+					trip = <&tj_trip_active2>;
-+				};
-+
-+				map-active-3 {
-+					cooling-device = <&fan 3 4>;
-+					trip = <&tj_trip_active3>;
-+				};
-+			};
-+		};
-+	};
- };
-
--- 
-2.55.0
-
+Jason
