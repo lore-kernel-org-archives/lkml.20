@@ -1,135 +1,166 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ED33AE6F7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939900; cv=none; b=Uho/sKOunpCEkfYb3OmNgUTEgaLTjg4EhiQxxWd+g+uV77jp8uZ2U7lggBcA2i4C6u1VBWExtmASHvnqaG4k7fLC2R+EihuWASMqZ+AXF5zf4dxyHkDmE71vtN6xg9RZMbkwkoxd1kkYvDmVJMRWGxPirap33Cp9D5IZ9hpGVTY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939900; c=relaxed/simple;
-	bh=/aoZ3pzX2YkJW/byRykTVvjh8aaWWZMSSd/pLvnGslM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=hvXHuzVHaTFIrc6/SmnFqjUhkDMxLE8pY0sDHZXgSfeToawuArOb+VvBjWDJDLXuzUMeqkiYasXr4sG1qlWxUp5ZEu8KCdPDFh8a356IHQ7E1NXCYwviiNHJK5B9KS7oahjA843DpXOFvro6Dyb6CLR5MdYR4z+gM8n9VZ0TMOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=cUopStk0; arc=none smtp.client-ip=209.85.216.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48583AEF53
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787939921; cv=pass; b=Tixidre215Rf4SnETdvY7E8mFEYXxrCzH4WN9DGZ1PdJSljrADndSkMKMPhBKXQgk0U/INrFApnQYYEt6HSkKeoozbn9q8zDKYSPJmzL9KHE294M5d8Awv1DLWDiRDxkZfFDEuxS/ewce2Tb6mQNJ+z3EYTrp54eHrOmpjkJn74=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787939921; c=relaxed/simple;
+	bh=R2koS2vCzM8w7VNNntAyqh354TzQoKL9/yGNgBa5fxE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KPV5utSVY1AKCNIAFm7MW12lSlojuhcFgL0h2Eh+2fvB5QhEdo4w0scscNk3sk84PKYTgxK8BS06zGmR9XLnscdyZGUIQsjt+Zs8G2rSZLkmoeZf3jtdEBt71DnfVWIoWiDppPlA/OgNpyU5qSETXdxUxI1uIZgmnZY+hcY7wGQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DScrqejU; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="cUopStk0"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-39266382df6so1336958a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:58:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DScrqejU"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-498012a61f6so3345e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:58:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787939918; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W4cEWCv75va25rOqubgI0rV9vxsPZ1ONKS2WqvnV+P3Qx6XxmXmzNI3/DDqckCp5p5
+         UcwBiw3JAe0mCCUU4HWZC/AkEHshNb7k0Ld0ChB04N5INwSJANMg0V/kpga8w0bAdw6m
+         yrGwezMO64+UiN9zHArz7mLuR2nRmlDN0TERO2ZAkLkxdKWVbgFYUU64eCleO/DDpbLc
+         b0MkEDzvLlFcYweXtshlXuQ9B/md7w17azBq9UrCEXyCpPbS4pOsZxPF9GhFG8wPZHaL
+         hUKUjedu8Z0JrStHzfFvpMBSjyhXzyXp4UQyzH/ST7PauLSjKnjf8x5dGCw9ETdfLnjS
+         Q2PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=R2koS2vCzM8w7VNNntAyqh354TzQoKL9/yGNgBa5fxE=;
+        fh=2pXXycn0OZLDIzwpGVq1GI97zWc2aC1IsRgQCw8VC4k=;
+        b=e3acVAU1D+VvDGYmWwwA3gr6QhEWNg5U4gWexAd/SSmhZaQZz453IcjIUvhAwbDW3n
+         G5nCa3zuFqil2rUAbCEHht0t7QPqnjKx00Ekw4RdSeLDONViQuB4QaK8WpWNC9JGeziu
+         L5x9eDQvbXunp1XQjEkekYruR71cVvTU/jdW5QqZwetKEnejYbHLufmoqJ2pg6PE1MbC
+         fETeqDwYlZhwDZhIcJtIO5gwi6iXiQUjQzZGaGqYNIgdMirevjVj9+gSsltf1ZrBVFrB
+         wZKNjTDcJhymIOcCiYW++9LMuxH9ECVjorKbYRfKX14EUp1fbAQZKAPOEoMiNZB6R5Rz
+         ax6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787939918; x=1788544718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R2koS2vCzM8w7VNNntAyqh354TzQoKL9/yGNgBa5fxE=;
+        b=DScrqejU4er4C0PONd/HEcv+VylE4MXwCzwzskDYrIS/GTuBTGahte4X6VHK/k0IUP
+         Xtyx/P+j2LKczKQim13W1UN4aqIiX7nyzKwAbvQ8rxaMHHMhoCPGtDpPDa4s0LZwsgME
+         212zo1qFwCSWsWLgue2fQe652GtgI3CSen1yTU7n3elcLVTE9JLVrH/V3JrKCx6+y14M
+         NpYAwhwZB0HYbxh2wNd8P4k16oOE0QTT4Fn7kFPNGc7ERkzRFEGVJSHhs1rndyI7fEHX
+         xDXLgbkSjZ1odFFT5CqyqQXVQPzzNmMTKRYep5+fh1w6gZ5byAnuYNk3gVWHnx3Wik8G
+         oheQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787939897; x=1788544697;
-        h=content-transfer-encoding:references:in-reply-to:message-id:date
-         :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g+S170kBki6nof9YgiTY8IcFN3wYGUx1ViOy9GFjSO8=;
-        b=VXFlaoWIIucroqtF6fygIbuL+6knXUR96WDJUOoV3iTGOKk2uCeCLe+6ReDgD4W45X
-         YzNlC5QnzP67G+MPU5Zue+aglxY5zd9grbW78i6804dczHsqfdu+a4RKX3FD0IHexiNG
-         b2NY8nzsR9ife9s/GeC64ypL27faiPuqWXSWzJaiGJv/vRRQBXJfB5fZEnjP7YKp1eTO
-         qUoBPBKexJSz3USOvXGmZRb2CsdeshsMVkqoqZ+tKiQVrjSQbmN+ALNFaKfTNXFg9KI8
-         ui5jvj8zN+aYA0Aessb4VWAEySGZX4YGeVxjSHQ1vw8hRLfhclWhCEpUecv1tyOtJrZB
-         AbLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUvDGmbm38YdPP0TBd4oy4ot2yqib7sMuHmWEyh12qRwcFFZk2V6+koRtQ2GgAzYmJVkK8vppGfCg0f2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLh3EOutVflQj79qvP0P5hcBo6D3+ifgoV3KujyZdOUpvQDpED
-	lr9bXciYa9X1BCHvm47meZaRgHXeVUYxz09dzEcKIoDaNxKTsL9yWW5WFAbhTtd0DduDZIxZasr
-	uRiTzH4k9STOmoFLOx5c+Bs3lLoJx83ZvBg==
-X-Gm-Gg: AYBFou0UKzvgQ3FB68Lq1jNoMWJQRPJrXgev5bLzd9rx0qwhSMSJDa5aeZD1SMup+UA
-	cBWurm8RQXxpNAF93145V6E1bXn00EPxTAFB9Lp9llvzrFkhquX6WWVvA8+hYQsepDQkGuRm0VL
-	AKtk74/VteoOZzt6YxgfLzHrWp7qV0gPp1dJ+oJvdCE6uJmMBLTf4+ZPR65oaoG1Q7K9FENyqfL
-	ngrsHuNgvvRcis4bVl7Bjydnvx7fiGzKaVo97PzLC2Dy5xq9S2npUCMsduxAh8I8bFzBqHSgLVa
-	0PaD9ia7JF4AixxFgmL0An2QoFBCcgT/m2BZ6YdE56aE93cqRfFnlaH9yYJ8DayQVeR/Gx21gG5
-	FoMmUuGjFotdpxYOPbIsTYl5g/jTcm8tXkpwrWKHVu4yHz/0MZX90lyhs0jVP
-X-Received: by 2002:a17:90b:28c3:b0:398:9be6:f996 with SMTP id 98e67ed59e1d1-3989be6faa2mr2182996a91.21.1787939896866;
-        Fri, 28 Aug 2026 10:58:16 -0700 (PDT)
-Received: from smtp.aristanetworks.com (ec2-54-84-120-176.compute-1.amazonaws.com. [54.84.120.176])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-396ddc75f55sm1045887a91.8.2026.08.28.10.58.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 10:58:16 -0700 (PDT)
-X-Relaying-Domain: arista.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
-	s=Arista-A; t=1787939895;
-	bh=g+S170kBki6nof9YgiTY8IcFN3wYGUx1ViOy9GFjSO8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cUopStk0BSjLV/nFM526oJz7y4siHrHbP6VmPz47ng644mMM6cW/keapMPp7BVGpj
-	 FNcJWT7F7ptwzzq+UrVbpXEGo6mjCtpdGhfO1dMB1wI6e84VZ62xuiRUTcN3jpgJTl
-	 Po4Z8wKrA5xfcWae+80vSYk0Izf9A2FfGntJ+0w1eEOPocai8hn8eZGF4ecbPYtxx2
-	 VjatMsK9JKp2reUkEIyl0xIwBO5HEVpDvxDNgsBpXuWsMKFD8JjCcUNX2W1gxlvE9P
-	 /4Xwfx2NOfW9K6bofKl69D6Yx8ZXtcdOhW/0W0oXKZrxkTruknbTW8DAKVukZR1wvS
-	 ynwrHLAFMZXQA==
-Received: from vm-whiteberg-ubuntu.aristanetworks.com (dhcp-244-90-77.sjc.aristanetworks.com [10.244.90.77])
-	by smtp.aristanetworks.com (Postfix) with ESMTPS id 16C8FC0CE0;
-	Fri, 28 Aug 2026 17:58:15 +0000 (UTC)
-X-SMTP-Authentication: Allow-List-permitted
-X-SMTP-Authentication: Allow-List-permitted
-From: Tate Whiteberg <whiteberg@arista.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Tate Whiteberg <whiteberg@arista.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH v2 2/2] serial: 8250_mid: wait for LSR tx empty before setting termios
-Date: Fri, 28 Aug 2026 17:57:28 +0000
-Message-ID: <20260828175733.1650267-3-whiteberg@arista.com>
-In-Reply-To: <20260828175733.1650267-1-whiteberg@arista.com>
-References: <20260828175733.1650267-1-whiteberg@arista.com>
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20251104; t=1787939918; x=1788544718;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R2koS2vCzM8w7VNNntAyqh354TzQoKL9/yGNgBa5fxE=;
+        b=Ui9MMPu+6cE3lsMQcdyhq7jtY5bVvko0VDUSeCfZu6nyrdLPINzpxe7BK7EnJp4ap3
+         vUemFQimIRPwlxXnJ7yCK4U5kMxD+C0C+NQSTPFxwBI1ojNAN953tBzErImPpGL+0bNS
+         0zXALPBe8A+AF59AUXCVrXtUJI16CWQIYzOOvMDp8NpD3Q4uaYjcMNhdJnvQBE5rwKZ4
+         wK4ZZuu70AIaiT01SztaNnwzLhr4Zkml/n6Fuw/3tQGLrcJrYNYkywMEolb2LLb6vj7l
+         eCGtdKfHGL2duOFvhzDnomOT+j31cBW5u7j/7fu89wetTFUH6jsVcrdOplWAurbSNI2y
+         op9Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpafY3UafvBiGpuelAmRjOEzyJMcd64zBiGUjAuUJf+G+V6NTb3UDIVzyGY5eKBWvpFg7InTnMqw3MaB64=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7ml1phlc9JHVGMMI9RIMO0WnT7f8Qx4BRerYFlJ0208fvhgiF
+	S36cuMlzs4d0VgQjlvmJvV7ymYG1D6cFrpgG/r0NH/2OYBskXXUyrBLMSSSgD8sglObSlQ5UYG/
+	UtfYFX+I8A+1u5egaDmyAzTkC9ZoptBUqZsfRbzvi
+X-Gm-Gg: AR+sD10bj6rEZbnFlW9dKqhn0gzN6J9N+D/pYjW4V3hy5Ax2kMLcXLKhTYilhlHU+SZ
+	ivbPpNTwSPHxdw7cjZWpVMbLtpgUJKTf3x1EKg5RwV0kNLk1RMSax5snR8xow4zV9PBMgjvZygu
+	zmDHH/SBddabVZMFXnRXxZo/+CtD+2mrsEQoiAdzYYwhYQfeoJmen0BWiNlCEEX3HvuP6t/8vfz
+	kb4ZCPFFv2g3KxouL7qUkE+bxktlFbiyXxU/YTbHx3lNmRi2hO+DnkFCYod3LDIdtweFvO9fKAT
+	STqDZd7XjiEs/R7KfizzdOCa/ms3sVJkBBUpnXS9pTMF92sQ/cKQB2lX8MLbXHUhi8PCt313/CU
+	=
+X-Received: by 2002:a05:600c:6051:b0:499:c46c:addc with SMTP id
+ 5b1f17b1804b1-49ccbb107damr76865e9.2.1787939917426; Fri, 28 Aug 2026 10:58:37
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260827232948.2520558-1-stevensd@google.com> <20260828124758.GP687043@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260828124758.GP687043@noisy.programming.kicks-ass.net>
+From: David Stevens <stevensd@google.com>
+Date: Fri, 28 Aug 2026 10:58:25 -0700
+X-Gm-Features: AcwNN1WqLTUUK7Ta5eHOzidgwYbjtzO211AQh82X2UkIHuKv6OJYSJ2tvHu1D2I
+Message-ID: <CAOiLmNGr385FOvdd9utJ6VYmngvRPbg8v6KfVVhFwmQ4oxhLSg@mail.gmail.com>
+Subject: Re: [RFC 00/10] Reclaimable kernel stacks
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, suleiman@google.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, jstultz@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If mid8250_set_termios() is called while data is still in transmission,
-the corresponding register updates will corrupt the transmission.
+On Fri, Aug 28, 2026 at 5:48=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Thu, Aug 27, 2026 at 04:29:38PM -0700, David Stevens wrote:
+>
+> > On Android, system processes typically have 2000-3000 threads. App
+> > processes add 1000s more threads on top of this.
+>
+> WTF ?!? Why does that all spawn *that* many threads? Perhaps work on
+> reducing that some?
 
-Fix this by locking the port and and waiting for the transmitter to
-empty before performing updates. It is necessary to wait for both
-UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
+I agree that the number of threads is rather excessive, and reducing
+it in userspace is an ongoing effort. However, given Android's use of
+Java and its heavily multi-process architecture, especially once apps
+are involved, there are limits to how much the thread count can
+realistically be reduced. And even if a 50% reduction in thread count
+were somehow achieved, kernel stacks would still consume upwards of 1%
+of system RAM on lower spec devices with 4GB of memory.
 
-Fixes: d9eda9bab237 ("serial: 8250_pci: Intel MID UART support to its own driver")
-Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
----
-Changes in v2:
-  - Separate changes to 8250.h and 8250_port.c into prerequisite patch,
-    as recommended by andriy.shevchenko@intel.com
-  - Apply feedback from andriy.shevchenko@intel.com to 8250_mid.c
+> > Tracking blocked state and when it is safe to reclaim a stack is done
+> > via a series of hooks in the scheduler. The actual reclaim of stacks is
+> > done asynchronously in a shrinker.
+> >
+> > Once a task's stack has been reclaimed, it cannot be rescheduled until
+> > its stack is repopulated. Although there can be a repopulation fast pat=
+h
+> > within the scheduler, reliably allocating memory to repopulate the stac=
+k
+> > requires a fallback path that defers the repopulation and wakeup to a
+> > workqueue context that can use GFP_KERNEL.
+>
+> I am really confused. On the one hand you have John working on proxy
+> execution, with the aim on reducing latencies, and then here you are,
+> posting something that will introduce basically unbound latencies.
 
- drivers/tty/serial/8250/8250_mid.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+The two projects aren't contradictory because they deal with different
+types of latency.
 
-diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
-index 82656645b8a6..ce792888acfe 100644
---- a/drivers/tty/serial/8250/8250_mid.c
-+++ b/drivers/tty/serial/8250/8250_mid.c
-@@ -209,6 +209,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
- 				const struct ktermios *old)
- {
- 	unsigned int baud = tty_termios_baud_rate(termios);
-+	struct uart_8250_port *up = up_to_u8250p(p);
- 	struct mid8250 *mid = p->private_data;
- 	unsigned short ps = 16;
- 	unsigned long fuart = baud * ps;
-@@ -231,12 +232,18 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
- 	}
- 
- 	rational_best_approximation(fuart, mid->board->freq, w, w, &mul, &div);
-+
-+	uart_port_lock_irq(p);
-+
- 	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
-+	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
- 
- 	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
- 	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
- 	writel(div, p->membase + INTEL_MID_UART_DIV);
- 
-+	uart_port_unlock_irq(p);
-+
- 	serial8250_do_set_termios(p, termios, old);
- }
- 
--- 
-2.43.0
+Proxy execution aims to solve latency introduced by priority inversion
+between background tasks and foreground tasks. This can happen at
+basically any point if you get unlucky, resulting in unpredictable
+latency spikes in high priority tasks.
 
+The latency introduced by reclaimable stacks isn't substantially
+different from the latency from refaulting evicted anon or file pages.
+It's a tradeoff between the reduced cost of cold memory and the
+increased latency when re-accessing that cold memory - clearly a
+tradeoff that Linux already makes. In situations where reclaimed
+stacks introduce latency, there will almost certainly already be extra
+latency incurred from refaulting userspace pages. I don't yet have
+production data, but the testing I've done so far doesn't show any
+measurable negative impact on user visible latency metrics.
+
+-David
