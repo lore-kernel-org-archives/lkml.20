@@ -1,123 +1,158 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CBD2D8DD0;
-	Fri, 28 Aug 2026 18:47:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538DE29E10B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942866; cv=none; b=JAMLC8+yozK26cwf7r6PnrfnQZljVaFNrGQkQjUKjFZujGczUVv7Bn3sKzOnpdUajbHkDbHlXObubjC60FbE7QEB8gEKTyXF9HQzxJQFJpKQ7aNnp5nds4r4S+7ym0lzA9pLinTl1XnRiddaG8dKyPHuxr9RGZ1ib1RwbTAMpA8=
+	t=1787942882; cv=none; b=N1yEBR/0tjsN8XeXn4KcxGuYmqt0IM6yu9fWKtSV6+5WQEfbY7eSCmGWbVq60+WHhIR4zAa/1mR1nD/q1lq2qN2ODL0xaTVNKYhlocilBodfme0irkgqLLuxAyVvCgjKHrML41c04uppq6YiTeO/Dd8CisqDALyzn8nCy7xzhdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942866; c=relaxed/simple;
-	bh=oP4ScKiNLf57xHxpWiyLbcHuHYS0fOpfCUYauok6Y9k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aMWYLSN53E4/a/1AMSJReOr/iTFaAiBtWrUMOJcztl2dqMjYujrl7+pFc06mnTEPZq0fsFcBe3hNOcpa5U2ih2+g6qS3i21EcHDL1O4PVuAAMLiYG1UOGbmGt8agMhn4VmFw6g1+3zZpyhvfHL5vbxR9LaEKsbLjd7U2968IhEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Nm16mUVm; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787942882; c=relaxed/simple;
+	bh=FJssaBPUUtHSGxV/Li0h1qDDnJZUduHFE7IP3Ary8bs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NP/YM7PakBN12Thl0H38ciQKAajUBb+MmS+6J1gWCvoHN3vBViW9eoymdUalN5lCayantSFJZRZPYJ4hmQV4W7viZtYm1aGX1G/9Kjf9HPuwcOlmGfx6jdpwEHbmzlZRl+js0rZdLJN0Kw+BcVyWMIKHGntuMq7533FcuxrWRp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=bwpbw8TY; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Nm16mUVm"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF8B910A240;
-	Fri, 28 Aug 2026 20:47:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787942858;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=w5uLOuQaPiHt9dSpbY0OeGfbDrrRTGfvqoBro2SNT4c=;
-	b=Nm16mUVmjNmz0GCwKa4mmE/uA73TtkYVHgOyLgdzS80wm1YrRt/tqBeGVjq5slt50ZwLxz
-	MW3Tw2H1O3JsVah0SckroXyQtLw7JACjWCAchyxgwUMYcTbWdrLvVTvI9OzB8hGNEF41C0
-	srAOyoU3D69C4gYGx7nLx8EDLdio5rvKW7XXk1b6CPoElplaXQnaGlb0gCkQ6VI8RFkuqR
-	IHQT8aVqqG8bK/YryQ8ECf3LG8UrQWje5AnEVtPQOqAz79vAnK8lS8CdIZdlMLfxcjKDuv
-	eQV6+PH6gLTGxEf5hi6RqN3yCp6eFYATs03bmq3Jfhd8xUelztos3wlELeXMvQ==
-Message-ID: <7f6f7df9-55c7-4393-a4bb-42c6cc170df1@nabladev.com>
-Date: Fri, 28 Aug 2026 18:33:53 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="bwpbw8TY"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482ea739de2so914117f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:48:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1787942878; x=1788547678; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IyfAwGBWmAJQs9JWXcgS2bJMcS0nHE+nBg/gtGA7eV4=;
+        b=bwpbw8TYrTXWJ862NqCdLcAPr9FcnhybGPkCP6OyzL9LpAKF9B6bUCjigCtS9OH8Dd
+         V3Z/CnbagdfZhoGDXtlswW/OnccBt9H9OE8+IDx0+su0+fHbTYrMxqfts3c0V2gzaQRP
+         bb3lPjELIkJLPL3PHuco1oyzIUkhbxb6uHJ+AAltLk7yjDDzu3eY3Z69CcXrITkQlxuk
+         M4xGfx3fFo6kJhMRQm+xFV2rTOmkeJebyBXEb5DPfqK73HSTtPOYdFYj7EcOEmLGif64
+         qAFLTKkRUE0f27j3YpiKX2zHmlAQPiqae++0eqbll3h8JTejr5CfmSMdsEsscHbtde4W
+         ASTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787942878; x=1788547678;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=IyfAwGBWmAJQs9JWXcgS2bJMcS0nHE+nBg/gtGA7eV4=;
+        b=YrvbljhkGe2a5utTYvUDqDvKU4jsb1aSbFa5cpjugZeRyAhlw9ul/3/B065znEvHdt
+         DulLqVkbRpSRSby1Bf/KbGmZR2e1p/9nhbbMRgczJ+4neNGTcZHm2GSIvHXkD4GwgKYK
+         iB+ZRBPLTXaryKZHFHIJK09eknn51s6QKlflfgFOHretwErWcsydPVIkrnmMhlifA/3d
+         4EToPnHSXgIVNRw8jZcFS/gk3nLKiN6NFBP8jf5dk57Ksxd0rQJ481/FkkzteWke8F1e
+         2hnQ6cfpmoil5xNpzXviiWlIewZkG2OeKYnAVbuZNfiInHtIUsua0jZQui531Q9ssgia
+         5EFg==
+X-Forwarded-Encrypted: i=1; AHgh+RoPgE6gtf+s/ThMA0wgHMHVBnIUqsX7dVQi/xw+sgwEYcJ4mADPzO1xqymhXicC1er7HoZd7IWfaoZVZeU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mS1hagGlxX3APevTo3gLMoUbjd65JddddszZTWRDnoWHml52kB
+	8ZQV6UVhsNSkyWzH+xgSKFdh7qT4fIKXXZkN9erWMBstF/btHcQoCs+HQYTWNy0wnjA=
+X-Gm-Gg: AR+sD10mu0GVrFf1mVHysjgIaNSmaVFTo+xtz/F3Mezwa/ZosoDJFRr91AAcOl2oKQq
+	bZRjg7v73K6wiaa/H+ZdOdqawBfw02MAA4PPZtmpSr9oOIQoxTE5LOEJKpvOPcBImtxtXWT69CS
+	NJtT4lCdBtUJq4SoYxgz0ekIKjlniit91BRsvlQ1ZMJEsb6smbH0XebmUoNSn3aoI7enziKkjvg
+	i8CiidlRUA39NIhkIB8s/IjdgmfIea5kp+/1U2MP7aso8k+/xjn14gihQkL1IPljeZLUTXlohXe
+	gTpksVX2es4JKNXLWNHUzXrn1VEcXKCSjvs89zD/fruPiHDd210DtiJTT1eVUWQM1V0568mJG1l
+	UBWQjtfHMqs+jd80Q8LfCa/Cef3Qe6ZVgZD5XLLF6TMWOx3m5/2LhBSlwvOX8884EL2tXq/WYU9
+	IlI8ztoX9vBOtCrgGn4jN8PKiI+Bkn5hKlpsqjQU0TqBHkDemJAvYUQBZ5Yw==
+X-Received: by 2002:a05:6000:40dc:b0:482:fbb0:a258 with SMTP id ffacd0b85a97d-482fbb0a3e0mr10035676f8f.14.1787942878673;
+        Fri, 28 Aug 2026 11:47:58 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:80d4:4373:6c2f:4372:b8ac])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm9005731f8f.7.2026.08.28.11.47.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 11:47:58 -0700 (PDT)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Date: Fri, 28 Aug 2026 20:47:45 +0200
+Subject: [PATCH] clocksource/drivers/timer-ti-dm: Register
+ clocksource/event only for am654
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: usb: Document ST UCPD
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-usb@vger.kernel.org
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260819163410.119755-1-marex@nabladev.com>
- <db62c29a-7260-4e19-9279-e38323353c30@foss.st.com>
- <225f1704-399d-47d0-8bca-73a27a59bbd4@nabladev.com>
- <42bb4c3c-1dbd-4902-9765-01687b74cb39@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <42bb4c3c-1dbd-4902-9765-01687b74cb39@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-v1-1-85f0e4dc6f9f@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIANDXkWoC/yWNyw6CMBBFf4XM2kloFWj8FeMChkFH7SNtISSEf
+ 7docjfnLs7ZIHEUTnCtNoi8SBLvCqhTBfTs3YNRxsKga93WRhtcOjyj4zVj9kEIs5RZjjhapI+
+ nd/JzJEZv+4CTrHhRpjPtpFQzEBRtiFzuX/J2/3OahxdTPjqw71+9NhN9lAAAAA==
+X-Change-ID: 20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-418786f115bc
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>
+Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, 
+ Andreas Kemnade <andreas@kemnade.info>, linux-kernel@vger.kernel.org, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2808; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=FJssaBPUUtHSGxV/Li0h1qDDnJZUduHFE7IP3Ary8bs=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhqyJ1284JDlq+qkoqWwo6Jw+42PqvT1P/lyojjBfojm/w
+ iPIeMOMjlIWBjEuBlkxRZbOxNC0//I7jyUvWrYZZg4rE8gQBi5OAZjIs6+MDGe81xhnZ22w5dOY
+ 9jtg2cInnyTLW2r0LkYl751myz094zrD/8CdjOzFHdd3T1Jd0VsU6J3gn7f58P0qZuXU/HvrmH+
+ 9YAUA
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-On 8/26/26 3:24 PM, Fabrice Gasnier wrote:
+Registering clocksource/clockevent for the older platforms breaks
+booting them. The older platforms have their own implementation in early
+boot that is used to register clocksource/clockevent in
+timer-ti-dm-systimer.c.
 
-Hello Fabrice,
+With am654, the timer is much more complex with more dependencies so
+doing this in early boot with the other driver is very difficult and
+gets ugly. Instead it is implemented in the platform driver for am654.
+However the old platforms may not register clocksource/clockevent in
+this driver as that would break the boot.
 
->>> I've sent a series for the complete case. Please check and review here:
->>> https://lore.kernel.org/linux-usb/20260821-ucpd-host-fusb340-v7-2-rfc-
->>> v1-0-c5e27cbc0795@foss.st.com/
->>
->> What is the difference between this driver and the ^ driver ?
->>
-> 
-> Hello Marek,
-> 
-> That includes the TCCP I2C driver (and an example on ST boards).
-> 
->> Why is this driver not covering "the complete case" , what is missing
->> here and not missing there ?
-> 
-> I intended to show a complete case, e.g. UCPD controller driver and
-> external TCPP I2C protection chip driver. The TCPP is a companion,
-> complementary, e.g. provider/consumer relationship.
-> 
-> You've pointed some "horribleness" there. I guess you talk about the
-> straight forward approach e.g. EXPORT_SYMBOL() macros. That's an
-> on-going work, a prototype. I could have sent as an RFC.
+Add a system_timer_capable flag that is only set for am654-timer that
+gates the clocksource/clockevent registration.
 
-Yes please.
+Reported-by: H. Nikolaus Schaller <hns@goldelico.com>
+Closes: https://lore.kernel.org/r/2013A99A-0502-4128-ACFA-B04886224393@goldelico.com
+Fixes: b8eeeca55456 ("clocksource/drivers/timer-ti-dm: Add clocksource support")
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+---
+ drivers/clocksource/timer-ti-dm.c          | 4 +++-
+ include/linux/platform_data/dmtimer-omap.h | 2 ++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-> I wanted to be transparent, so the correct level of APIs gets used.
-> 
-> You propose to turn the TCPP into a GPIO chip ?
+diff --git a/drivers/clocksource/timer-ti-dm.c b/drivers/clocksource/timer-ti-dm.c
+index 6787acac9a43..ae8777d03215 100644
+--- a/drivers/clocksource/timer-ti-dm.c
++++ b/drivers/clocksource/timer-ti-dm.c
+@@ -1475,7 +1475,8 @@ static int omap_dm_timer_probe(struct platform_device *pdev)
+ 
+ 	timer->pdev = pdev;
+ 
+-	if (timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
++	if (pdata->system_timer_capable &&
++	    timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
+ 		if (!omap_dm_timer_sched_clock_counter) {
+ 			ret = omap_dm_timer_setup_clocksource(timer);
+ 			if (ret)
+@@ -1585,6 +1586,7 @@ static const struct dmtimer_platform_data omap3plus_pdata = {
+ 
+ static const struct dmtimer_platform_data am6_pdata = {
+ 	.timer_ops = &dmtimer_ops,
++	.system_timer_capable = true,
+ };
+ 
+ static const struct of_device_id omap_timer_match[] = {
+diff --git a/include/linux/platform_data/dmtimer-omap.h b/include/linux/platform_data/dmtimer-omap.h
+index 726d89143842..b78ee4676b98 100644
+--- a/include/linux/platform_data/dmtimer-omap.h
++++ b/include/linux/platform_data/dmtimer-omap.h
+@@ -57,6 +57,8 @@ struct dmtimer_platform_data {
+ 	u32 timer_errata;
+ 	int (*get_context_loss_count)(struct device *);
+ 	const struct omap_dm_timer_ops *timer_ops;
++	/* always-on timers can be used for clocksource/clockevent */
++	bool system_timer_capable;
+ };
+ 
+ #endif /* __PLATFORM_DATA_DMTIMER_OMAP_H__ */
 
-I think yes, it is after all four flip switches on I2C.
+---
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+change-id: 20260828-v7-3-next-topic-ti-timer-dm-clocksource-omap-fix-418786f115bc
 
-> That seems smart, at least for the CC lines switches.
-> What about Vbus and Vconn, it could also fit regulator API ?
+Best regards,
+--  
+Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 
-It would, but, aren't those also flip switches ?
-
-It seems to me, that TCPP02/03 can enable/disable Vconn on CC1/CC2 (that 
-sound like two GPIOs), enable/disable gate driver (GPIO?) and 
-enable/disable gate source (GPIO?) .
-
-> There are various functions, the bindings should be extensible enough
-> for later use of additional functions. I'm thinking of:
-> - Over-current events for Vbus & Vconn
->    Could be represented as interrupt controller ?
->    Or could benefit from a regulator notifier (if used) ?
-> - Vbus sensing
-
-Could extcon cover those ?
-
-> My point is that, that can impact the dt-bindings or functionality.
-> Sending UCPD driver only, without the TCCP binding & driver, I find it
-> is a bit hard to review or test at my end without having a more complete
-> view.
-> 
-> I'm not sure which way you'd like to proceed ?
-I am wondering whether maybe we should slow down a bit, get USB sorted 
-out and upstream first, and focus on UCPD/TCPP as the second step (not 
-in parallel to USB) ?
