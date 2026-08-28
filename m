@@ -1,90 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0000C3CA481
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB7A3CF213
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900790; cv=none; b=rfHj87o1ZfB1vQRndAirhiF6cf8Jw3D1n90tVF44u6Q7aZ2RV/g3Cwe4f2gAwC7WM0gxgPPW4n2rQ3V4xoVYCCRW/XXYgvRJkvxMbHYdqFxT4aPEfdrmOPSmYKuC9oinmnrpMpOxmwQNSZW4pfXYgp0BaeW6qIJ3S0v4tDh4nRk=
+	t=1787900820; cv=none; b=dZSBRE38QC6ZKXugtLaakOtOqkr5LU2qd49nDrh2UcfGtyYHNiZtBNTqVULfpecOiaXx5jnxKyNUoCSHreHeLpLb/7H5KbnVbIicn2yCnyrVripMP2x0Y2QHk2H/RbVUtps+ahcE6IP+PiP12rkxM8nimMvZ5mUxDynGyLwSPTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900790; c=relaxed/simple;
-	bh=qsB0p1lkXELR8q84L1NKERWXPQ4e5T0YG6u7/IxQ/fo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K2KTcPaCztBCZEQwB5pyKaZOYrpthH9YEkdP9aJld6jtWpyiOkqVas0R/7rU86LtlCVj8B9jW0LQqpZqANOGMaBPhYpnGiW2atoI1plz87ckSXj4lsdRm9fORcSxaGkMcVZa4jSuzldniF3i1lQYJuCMHqcksgwsvCeRF34IYhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8KDsOFl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787900820; c=relaxed/simple;
+	bh=q+uUWKbteVHBNsrmiZDt9jvkxpBQwUM/isMMROqJv4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZyMofzRk3VDf8kF4ch3qhPDxuiauO+8vC6IIh5Jd8IVRI1+GTlfGfhTscbLhoGvfIABIkMI55Q+q/8i0Yngik1t1F9W/oUKJMNK725pgyGAm5FmaqxaS9MNGBknm/wmu+PHbHDjioY+CA/f5asJkwIxiwpYMYSCH8lbmUZJG/LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JY/QC6IR; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8KDsOFl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADF41F000E9;
-	Fri, 28 Aug 2026 07:06:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787900788;
-	bh=My7joSDz2Ka+qwaJkxbQwVtYYsCHnHrEPDsE1x4YmfU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T8KDsOFlA+dTcPNq7bkKzLFIYt/lQkONpAHMQJNLpFoByDRuPH1wgWULvCijkonM9
-	 4JyhIqOI+YtF0gdXLsv+ez/CxeF/U16VVbZ/eDp74ZxLwHfFVeSZqoMRHLnl/ckFJv
-	 M2DyItv9e3C2GdhzSTPGl4crHVtUR7t6A0LOkL6dmA/sqPHJT55DPP7wyWTlot8cPZ
-	 a5CuPFR5HjNeF5kktKiEn7gM2ugr6P2JgWW/OqETnDpb8QloTcEMFzGWDwNlxcNJvh
-	 GR7xc1nMA9r0u9y3eIum9upZjkCrHyoQcCUkTKT0BbwYzkUaPpv98w6RHqxLyIbObT
-	 ck0mGEaFIO9mQ==
-Date: Fri, 28 Aug 2026 08:06:22 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
-Message-ID: <apEzYdLWx0508hBH@gremlin>
-References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
- <ao7Nr_FALfP7cTY5@gremlin>
- <4836208f-a84a-42ca-aa74-bede23d7de41@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JY/QC6IR"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787900815; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=dq/lDqOIiqJ2S0HN9ku9JoDDbkgW2wlaSm8NvGTXkD0=;
+	b=JY/QC6IRKzr0gTIh20CYcpH1pKelWcqeUc8gv5ey8zJkmzZY+MBkYL5lv3SSumyV0aJg5Wdh91t/owFivso2Czne9aX+PkmVtl51LQBY9nvL3sZ0Qzm7yFKffnD7hY37i5j80Gg/EIlsZ/Ji1J71p+W5d/tCQJltuUZv8yg31vI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R341e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9llYsI_1787900814;
+Received: from 30.221.129.54(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9llYsI_1787900814 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 28 Aug 2026 15:06:54 +0800
+Message-ID: <b0c3117c-5fb4-4cce-b29f-cfd72a3f93bd@linux.alibaba.com>
+Date: Fri, 28 Aug 2026 15:06:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4836208f-a84a-42ca-aa74-bede23d7de41@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: defer suballocator block group reclaim to
+ workqueue
+To: Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260827124313.2692416-1-joseph.qi@linux.alibaba.com>
+ <apEeXAAo1wd5E5Or@p15>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <apEeXAAo1wd5E5Or@p15>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 28, 2026 at 02:34:31PM +0800, Vernon Yang wrote:
-> On Wed, Aug 26, 2026 at 12:31:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
-> >
-> > 	~107,000 words of review across 948 emails (in 279 distinct
-> > 	threads), counting only prose you actually wrote — quoted text,
-> > 	signatures and attribution lines stripped. That's a full novel's
-> > 	worth of review commentary.
-> >
-> > 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
-> > 	and your longest single review was 2,404 words (mTHP collapse
-> > 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
-> > 	of your top-10 longest reviews).
-> >
-> > 	Estimated review time: roughly 300–500 hours, centred around ~400
-> > 	(i.e. ~7 hours/week for 14 months).
-> >
-> > 	1,615 THP-related emails in the window: 948 reviews of others'
-> > 	work, 278 replies on your own THP-touching series threads (~31k
-> > 	more words responding to review), 382 patch emails, and a handful
-> > 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
-> > 	emails), June 2026 (113), August 2026 (111); quietest was December
-> > 	2025 (5).
-> >
-> > Think I can be happy with that!
->
-> Thank you very much for your hard work. Over the past two years, THP has
-> been extremely busy, especially with the addition of mTHP-related
-> features, which required a great deal of time and effort from the
-> maintainer. In my main role at my company, I am also responsible for THP
-> and memory reclaim functionality, so I fully understand how demanding
-> your work has been. Once again, thank you for all your hard work.
 
-Thanks very much :)
 
---
-Cheers, Lorenzo
+On 8/28/26 1:47 PM, Heming Zhao wrote:
+> On Thu, Aug 27, 2026 at 08:43:13PM +0800, Joseph Qi wrote:
+>> When the last bit in a suballocator block group is freed,
+>> _ocfs2_free_suballoc_bits() reclaims the group back to the global
+>> bitmap.  The reclaim takes inode_lock() on the global bitmap inode
+>> while running inside the freeing transaction, adding a lock
+>> dependency of
+>>
+>>   j_trans_barrier -> global bitmap inode i_rwsem
+>>
+>> This forms a circular dependency with paths such as
+>> ocfs2_shutdown_local_alloc(), which take the global bitmap inode
+>> lock before starting a transaction:
+>>
+>>   Task1 (dealloc):
+>>     ocfs2_run_deallocs
+>>       ocfs2_free_cached_blocks
+>>         ocfs2_start_trans
+>>           down_read(j_trans_barrier)
+>>         _ocfs2_free_suballoc_bits
+>>           _ocfs2_reclaim_suballoc_to_main
+>>             inode_lock(main_bm_inode)  <- wait on Task2
+>>
+>>   Task2 (dismount):
+>>     ocfs2_shutdown_local_alloc
+>>       inode_lock(main_bm_inode)
+>>       ocfs2_start_trans
+>>         down_read(j_trans_barrier)  <- wait on Task3
+>>
+>>   Task3 (ocfs2cmt):
+>>     ocfs2_commit_cache
+>>       down_write(j_trans_barrier)  <- wait on Task1's handle
+>>       jbd2_journal_flush
+>>
+>> Task1 waits for Task2's inode_lock(), Task2 waits for the
+>> j_trans_barrier down_write() held by ocfs2cmt, and ocfs2cmt waits
+>> for Task1's running transaction to commit - a real deadlock,
+>> observed with aio-stress direct IO writes racing dismount.
+>>
+>> Fix it by deferring the reclaim to the per-superblock ocfs2_wq
+>> workqueue, so the freeing transaction no longer takes the global
+>> bitmap inode lock.  The worker re-checks under the suballocator
+>> locks that the block group is still fully freed (it may have been
+>> allocated from again in the meantime), takes the global bitmap
+>> inode locks before starting its own transaction, and performs the
+>> same suballocator cleanup and space return.  The inode lock order
+>> (suballocator inode -> global bitmap inode) is consistent with the
+>> existing "inode lock before transaction" order, breaking the cycle.
+>>
+>> Reclaim work can still be queued late in dismount, e.g. when orphan
+>> dir recovery frees inode bits, so both ocfs2_dismount_volume() and
+>> the mount error path flush ocfs2_wq right before the journal is
+>> shut down to make sure no reclaim work is left running.  The worker
+>> also bails out if the journal is already gone.
+>>
+>> Tested with the ocfs2 testsuite (including aio-stress direct IO)
+>> and umount/mount cycles on a CONFIG_PROVE_LOCKING kernel: the
+>> circular locking dependency is gone and freed block groups are
+>> still returned to the global bitmap.
+>>
+>> Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
+>> Assisted-by: Qoder:Qwen3.8-Max
+>> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+>> ---
+>>  fs/ocfs2/ocfs2.h    |   5 ++
+>>  fs/ocfs2/suballoc.c | 202 +++++++++++++++++++++++++++++++++++++-------
+>>  fs/ocfs2/suballoc.h |   2 +-
+>>  fs/ocfs2/super.c    |  12 +++
+>>  4 files changed, 191 insertions(+), 30 deletions(-)
+>>
+
+......
+
+>> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+>> index c62e389d4dd6..c1aafbb9500a 100644
+>> --- a/fs/ocfs2/super.c
+>> +++ b/fs/ocfs2/super.c
+>> @@ -1779,6 +1779,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
+>>  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
+>>  		ocfs2_shutdown_local_alloc(osb);
+>>  	ocfs2_release_system_inodes(osb);
+>> +	/* Drain pending suballoc reclaim work before the journal goes away */
+>> +	if (osb->ocfs2_wq)
+>> +		flush_workqueue(osb->ocfs2_wq);
+> 
+> The flush_workqueue() calls ocfs2_get_system_file_inode() to grab main_bm_inode.
+> However, after ocfs2_release_system_inodes(), all the cached system inodes are gone,
+> And the _ocfs2_get_system_file_inode() uses osb->sys_root_inode, which is already
+> freed by ocfs2_release_system_inodes(). So we should move the
+> flush_workqueue() calls to before ocfs2_release_system_inodes().
+> 
+
+Thanks, sashiko also has ponited out this issue.
+I've fixed in v2 and now it is under testing. Will send out later.
+
+Thanks,
+Joseph
+
