@@ -1,96 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84516EEA8;
-	Fri, 28 Aug 2026 01:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252762E8DEA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881737; cv=none; b=NJdZymMolOFaqYqr/s7AWZGzFmmUHC07nnUkqHNFGtmGNoOZeT5OGgrSu4MhM9I6RbFzPIvUO2KPYzij7E9CxztD54MiHkj50PCmXeb265G7anA0ijgAZLDrxrBd9RiYm5bRFa6ZSZ+J3ghuBcbllwiwXFA5IKxrHVvS5A4T1Ts=
+	t=1787881928; cv=none; b=IsgtAXovrd0+XHgYsEueCAWJhpcLTDfdffd/2s1IZji360wPwZAjmcwyx/uGskFfHk8Sf4QttQCwB31cJynp1aUYSiuSgLSFWDwPxPUy4ASCaCRpoiiBp1SEmnCmyhQSbBuhahqeBr40LBLNzWK68r7FGNEFn1ANwc8jByjDbBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881737; c=relaxed/simple;
-	bh=9GQj1dAq1dLBVhD71kzsVD9cDCjAwoYyeauMj0pGsTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lrF+L+TWNiyY4QzgqDR2GUIAGE3nXOkL1dvk1olLeZd5Q17eti7V8GoqRDIhX2g62jyInNsrgRRyu3xb3/dipeuu+7FF1sWifX9yIk+PzgQ1fLJbnOE3ulqn5cicJ0tCcziKyxh2sq4GnulveWFj+IqdHE4QFFPlbhJKYNdcc2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llxIWQFT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787881928; c=relaxed/simple;
+	bh=y7yB0bB4nuU8iui0WepOTzhFkm2WtSs4RSCP5Ouvwks=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pR7ClYPJeCuOfo2THTY63oebrQPKtj2Smmh+VRMginyfm83puOp55qFeHv3c6iaGiJ0mKOLNo0k7uVanMoA8Qh//UiYZyYkaA3f/FNMrfVgw70Akr9H9JhB0LUS4ADdkYqIeABlOxxCmHb/0Sd1q6+YowuSFkIvimr5epI4tCKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ff5/NPe8; arc=none smtp.client-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llxIWQFT"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D171B1F000E9;
-	Fri, 28 Aug 2026 01:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787881736;
-	bh=wo4FCAjDOKndHUSorb8iLPYOJuJ6AlqY7FPfHRH2IWA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=llxIWQFTKn0Z/beqIxCtTU75POIvFSVVU0323Nwdc2hBHycnHNfDAA55boR2+EiXU
-	 qV+NBCVkZCc30eGKzTcOOuix//cnphHoNi9NfbfIKXzk88usSNNsd493AVEzd+pz0i
-	 9DXN7kMKc0rpha+3UhWHV4KZ/wx6VKZul3xI3H+CJsMpVPbzK8F6duB+DMfg9+0rLR
-	 5I5/MF04bXXjGo6YZ4FD5EDuwtzzs5I2VSCEnrdb9qEgUgKGveVmdE3/H+44VXYgb+
-	 t+5jmzzfAu42wZdmYQBlaBFXBC6KQ3UcZlkS9HTgDxbMD8BjfedXrVZ3p02oKFAsnZ
-	 pvNyxlvlbdbgg==
-Date: Fri, 28 Aug 2026 04:48:52 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sanket Sharma <sanketsharmacsec@gmail.com>
-Cc: sudhakar@linux.ibm.com, gregkh@linuxfoundation.org,
-	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-	dhowells@redhat.com, linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
-	security@kernel.org, w@1wt.eu
-Subject: Re: [PATCH v3 2/2] keys: trusted: tpm1: reject unauthenticated
- response tag in TSS_checkhmac1/2
-Message-ID: <apDpBEAmDmtuJShz@kernel.org>
-References: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
- <20260826170700.616-1-sanketsharmacsec@gmail.com>
- <20260826170700.616-2-sanketsharmacsec@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ff5/NPe8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y7yB0bB4nuU8iui0WepOTzhFkm2WtSs4RSCP5Ouvwks=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787881924; v=1; x=1788486724;
+ b=Ff5/NPe8hoo92rcRwqW0841g7IcPUpQDb+WPq4vz+gZjaDI5v3c4Qs8Aoi3H+ir3FbAynx+v
+ B+J1oVRNdhfJtFK+yC/iXY5Ym0iy77CGWRGvUSMTATd75e+lPMzPhI/X9MSlj9Xlb4JKj1b7rlM
+ /HTMB8teWPQXSQnnjspd/AcY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5cd93c861d874df;
+	Fri, 28 Aug 2026 01:52:03 +0000
+X-Mizu-Trace-ID: e5cd93c861d874df
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <02305fa3-775a-42fd-a53f-9e611d5cf3a1@linux.dev>
+Date: Fri, 28 Aug 2026 09:51:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826170700.616-2-sanketsharmacsec@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260826133054.88529-1-ridong.chen@linux.dev>
+ <20260827172141.GF3004@cmpxchg.org>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260827172141.GF3004@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 05:07:00PM +0000, Sanket Sharma wrote:
-> TSS_checkhmac1() and TSS_checkhmac2() silently return success when the
-> response tag is TPM_TAG_RSP_COMMAND (0x00c4), bypassing HMAC
-> verification entirely. A forged TPM response with this unauthenticated
-> tag allows an attacker to skip integrity checks on TPM responses.
 
-I don't think we need threat scenario role play here.
 
+On 8/28/2026 1:21 AM, Johannes Weiner wrote:
+> On Wed, Aug 26, 2026 at 09:30:54PM +0800, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> memory.min/low is silently bypassed for MGLRU during global proactive
+>> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+>> It can be reproduced as follows:
+>>
+>>    # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>>    # cd /sys/fs/cgroup
+>>    # mkdir -p a/b
+>>    # echo 100M > a/memory.min
+>>    # echo +memory > a/cgroup.subtree_control
+>>    # echo 100M > a/b/memory.min
+>>    # echo $$ > a/b/cgroup.procs
+>>    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>>    # cat a/b/memory.current
+>>    222650368
+>>    # echo 500M > memory.reclaim
+>>    -bash: echo: write error: Resource temporarily unavailable
+>>    # cat a/b/memory.current
+>>    6070272
+>>
+>> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+>> protection.  The traditional LRU path is not affected because
+>> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+>> visits during a top-down tree walk.
+>>
+>> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+>> moved the protection computation into lru_gen_age_node(), which only
+>> runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+>> lru_gen_shrink_node() -> shrink_many() without any protection
+>> computation, so emin/elow remain stale or zero.
+>>
+>> Introduce mem_cgroup_protection_path() which computes emin/elow along
+>> the root-to-target path only by iterating through the cgroup ancestors
+>> array top-down.  This avoids the full tree traversal that would be
+>> needed with mem_cgroup_calculate_protection(), limiting the cost to
+>> O(depth) per memcg - typically 3-5 levels.
 > 
-> Reject TPM_TAG_RSP_COMMAND with -EINVAL in both functions, requiring
-> all responses to carry a proper authenticated tag.
-> 
-> Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
-> ---
->  security/keys/trusted-keys/trusted_tpm1.c | 4 ----
->  1 file changed, 4 deletions(-)
-> 
-> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-> index d47cb7108..6dbbf4546 100644
-> --- a/security/keys/trusted-keys/trusted_tpm1.c
-> +++ b/security/keys/trusted-keys/trusted_tpm1.c
-> @@ -201,8 +201,6 @@ static int TSS_checkhmac1(unsigned char *buffer,
->  	tag = LOAD16(buffer, 0);
->  	ordinal = command;
->  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
-> -	if (tag == TPM_TAG_RSP_COMMAND)
-> -		return 0;
->  	if (tag != TPM_TAG_RSP_AUTH1_COMMAND)
->  		return -EINVAL;
->  	authdata = buffer + bufsize - SHA1_DIGEST_SIZE;
-> @@ -269,8 +267,6 @@ static int TSS_checkhmac2(unsigned char *buffer,
->  	ordinal = command;
->  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
->  
-> -	if (tag == TPM_TAG_RSP_COMMAND)
-> -		return 0;
->  	if (tag != TPM_TAG_RSP_AUTH2_COMMAND)
->  		return -EINVAL;
->  	authdata1 = buffer + bufsize - (SHA1_DIGEST_SIZE + 1
-> -- 
-> 2.53.0
+> Right, because of the memcg-lru...
 > 
 
-BR, Jarkko
+Yep, that's it.
+
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>>   	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+>>   }
+>>   
+>> +/**
+>> + * mem_cgroup_protection_path - compute protection along root->memcg path
+>> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
+>> + * @memcg: the target memory cgroup
+>> + *
+>> + * Walk the ancestor path from @root down to @memcg and compute the effective
+>> + * protection at each level.  This is safe for isolated queries because it
+>> + * ensures parents are computed before children.
+>> + */
+>> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+>> +				struct mem_cgroup *memcg)
+>> +{
+>> +	bool recursive_protection =
+>> +		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
+>> +	struct cgroup *cg;
+>> +	int root_level, i;
+>> +
+>> +	if (mem_cgroup_disabled())
+>> +		return;
+>> +
+>> +	if (!root)
+>> +		root = root_mem_cgroup;
+>> +
+>> +	if (memcg == root)
+>> +		return;
+>> +
+>> +	root_level = root->css.cgroup->level;
+>> +	cg = memcg->css.cgroup;
+>> +
+>> +	rcu_read_lock();
+>> +	for (i = root_level + 1; i <= cg->level; i++) {
+>> +		struct mem_cgroup *cur;
+>> +
+>> +		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
+>> +						    &memory_cgrp_subsys));
+>> +		if (cur)
+>> +			page_counter_calculate_protection(&root->memory,
+>> +					&cur->memory, recursive_protection);
+>> +	}
+>> +	rcu_read_unlock();
+>> +}
+> 
+> Please wrap this in a #ifdef CONFIG_LRU_GEN block.
+
+Will add.
+
+-- 
+Best regards
+Ridong
+
