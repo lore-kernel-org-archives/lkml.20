@@ -1,156 +1,253 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDCB3C09FB
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D183D35675E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910390; cv=none; b=rvoBecSUwjPNYa6bF0WD3B6Ds9Y3KNsMODPEAPB6XCVYqrkwKo3sgTYcyDecmKqocU3VYpgkYLmq2dZWodYhXegogp+y/NttxV27UANk+HagdchWsUFwGwzlX0B80/2vSYg19/YI12GatsraCT4Ag7ophRQdk0PzQMIn7Plv08s=
+	t=1787910432; cv=none; b=uWVnvNSMIRUFEeADz+jIbojvz0ZQoRPLMGS/eFJ0pBGGuZNAVI6MG3Z1o7lRvfvmHoKc5ydz19eH9SSLurFMdo1zrm2guLsH6iAxIFrddwat3IHB0mwAnNyGRsa2sXf10Vvbrfg0efIEsWqZQhqtg6kgqkYMkeS0ktTtZC+/qsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910390; c=relaxed/simple;
-	bh=Uf6ldwilcJEaPDe7MOC/blE6zw7sKZkBqZq+x81xo3k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QU2z3QqhsFfyHoKiyGHpX8VvZo+CQhkZBOH89IqNPgqMFmvbLs1NnYzyeSL0qy9MP6iu3OP0Jbcis5wlIayBzaAgaArIdNzLMfWx53plPCNs2qeCpwItttutgi8e1w6FQ37E+Vok4QMepYIzjGs0vFmFFS0dcLXmGVCtPvFniF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mj1Hdoi9; arc=none smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787910432; c=relaxed/simple;
+	bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QlYvjHEy6n1aZDSEC5Psfqt7XIAe5LfP4gcVqwOftli/QjdYDjDvgxPRhOEIkJxNUZlrJKDBTW1iubt8FmP7cIn3sOm1mWocbtRtK5rmwclz1l4R8uoS2knDKvt0wbc4u+mb9prR6t8Xfb2EyUDTqXIJwIc563uE+lFOV3yMdVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BUAGsXYB; arc=none smtp.client-ip=91.218.175.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mj1Hdoi9"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b159850b16so796833e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:46:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787910386; x=1788515186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XEaU4Vf2pUTQUtqKK4E9Z2UzMvc6WXT0v5g5IP0is00=;
-        b=mj1Hdoi9X8IjqXSGKApdm2NHvJCopqj05VIAhzv1PxZf+3f7AQJdDrPruM6QuJAPaE
-         JGWOFjE1kOXrp4Yv4Q3fnlV1YBSYdgmtYsg/EXOdzCxTfegbguiCrVjL1OMXGVKM21vf
-         B0ruzYUT6MitKdGq2Xev8+2a5cBgFRWC0khLx/s6RBvoK3alt1n2GCMVI9XhISFAWLin
-         xKLqKggXuwgkPVODgsw7gw47mkSWYmjN8sVJv9jcTfUmihaR8Fq6ywLaPl0f+guixsCm
-         Y9CVNTO0PBpNuuKTpLd8mUoL6gMqc/HSRVaPVckGakPPV9oG18Xfr3mIyUP9QpL6aXP+
-         XqWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787910386; x=1788515186;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XEaU4Vf2pUTQUtqKK4E9Z2UzMvc6WXT0v5g5IP0is00=;
-        b=qBrQmYdp6LNmjSYiNorFJVNz8JIlYX2entzpR9ve0PXYN+8BdmQlK5BUzCbxQLUC9G
-         jQAvPvHt46dZFNZ+QO2plsGyJCSMxnGKnax1OWZ1rVuRCkOQQtGKBufDmnA9fs6qaKnm
-         FP+o/NunkdeY1KEHRf+l9Nz/cDW5mrBm/s7fag7mthyM/IF+ndplkdE+Ha3UailTi6nA
-         l+xdmWWapoDDJOAYNH7E2+uFeeMo2WYukJxppiCYRdM3+7RBDHlsPqtv1OB8GGzKG7zA
-         LBXobnYmFnzNYLtnyVircSg9+L2wDZpNYwm0bUD2Nj18P/hHJWSjvhO9wEf7sl1wEmop
-         OG6g==
-X-Forwarded-Encrypted: i=1; AHgh+RrV0KQbpD80royXCeoFDKnj/DESjpRHUDc3erocRZxshnSbidPxGSNs4VGEY38TbVKqYYxfIC5HcI0sgrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldlbCszKolsIDC32IvM1Gds7p9Y+8BXeUSI8T3nsZwof/BpAU7
-	fVAdlLZnb/Ff45VEwrP6+qhp4X0BgtMnjN2JDkLxo/rZibXsPuFaiiXd
-X-Gm-Gg: AR+sD11X9b3QrVjG4QKIQ3BxQ3aOlUfXE2LnaJhdm48eG0YBCQkfdlI1KU27buIvQgx
-	jlg8/tifXNbe2TopTyuRSllo6uuDlsfIphXgALUsB23+VMAMrbts1Zlp2ejy/+gTJ36r3JxVTXv
-	tmX76klK3uABh0IVF8gFQhm11fw8NxsFQSkFUx1OSoiq/8OBsyUWFcsofCTNAKACgUCjnxAV72q
-	1pOnvn7GTfRwedhDmw7Cgu4GTQchsn12+HPH9cTIsI2SKatWkkHcpz0t6NNZNQILcZG5fa1k43X
-	MG8Sp/9BxhX0sAA3baUmXzeNF+6padS5vJjgujlCwNlImVU3kM48n1Zrqgmcaa6gZe82u7RwCJH
-	qtcEAElLkgZa2DHPYrcIQi6qomdQNIuHUAmeIz+28azk7wFb65v2uWnpJkMaGZx2EwaEDadJI//
-	6Hnth0rtKyJudQtBfw35BhbebQ82aPxEtOeIg6ZJ5I6dN7BzvsrGRADwFIayrOlqyiEyO5zQf/x
-	e7C+bTM4ybjuJwazOXCxOTmgES0bbfgYVnCsKb56BYn
-X-Received: by 2002:a05:6512:400c:b0:5b0:165f:17fd with SMTP id 2adb3069b0e04-5b5e68ec97dmr1491553e87.14.1787910386137;
-        Fri, 28 Aug 2026 02:46:26 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a305386b60sm1797241fa.7.2026.08.28.02.46.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 02:46:25 -0700 (PDT)
-Message-ID: <5d274bfb-2570-4336-af16-60640550e6c9@gmail.com>
-Date: Fri, 28 Aug 2026 12:46:24 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BUAGsXYB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787910428; v=1; x=1788515228;
+ b=BUAGsXYBx+Rokivd7rlvfoNWfnV64jtTMEi7zJIHkW4AXYkB9XeqMwdSoaKgc4io9Y2KlrZW
+ BXjvNHue82Lh5hcvVAXnNrdb4PtSpvURr95RH31RAVcdzIXQgcMPcAVT6k9c96dU0xecJY+quK6
+ fSmRTc2YsbwmbErcVIouTIDE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e425fa70d8e74725;
+	Fri, 28 Aug 2026 09:47:08 +0000
+X-Mizu-Trace-ID: e425fa70d8e74725
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: jthoughton@google.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	shy828301@gmail.com,
+	zokeefe@google.com,
+	hughd@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+Date: Fri, 28 Aug 2026 17:47:03 +0800
+Message-Id: <20260828094703.11081-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260828005004.2870750-1-jthoughton@google.com>
+References: <20260828005004.2870750-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] iio: light: rohm-bu27034: Fix infinite delay on
- error
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Mehdi Djait <mehdi.djait.k@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1787901813.git.mazziesaccount@gmail.com>
- <7f0d8efb3578cd4f23a7c70fa4a8f7a967c9df8e.1787901813.git.mazziesaccount@gmail.com>
- <apE-gauHWlJO8-5X@ashevche-desk.local>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <apE-gauHWlJO8-5X@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 28/08/2026 10:53, Andy Shevchenko wrote:
-> On Fri, Aug 28, 2026 at 10:40:36AM +0300, Matti Vaittinen wrote:
+
+On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+>Userfaultfd minor faults provides userspace with the ability to manually
+>install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+>map holes in the VMA when a naturally-aligned THP is present without
+>explicit action from userspace.
+>
+>This is a problem, as it bypasses userfaultfd minor faults that
+>userspace is expecting to handle.
+
+One basic question first. Should MADV_COLLAPSE refuse to collapse a
+UFFD-minor-registered VMA, regardless of whether all PTEs are present?
+
+I'd leave that to the maintainers :D
+
+Anyway, assuming the answer is yes, I wonder whether the new check is
+sufficient. See below.
+
+>
+>If userspace implements post-copy live migration using userfaultfd minor
+>faults, this situation is currently possible:
+>1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+>   is mapped in the page tables.
+>2. A stale copy of a page is present in a naturally-aligned THP (from
+>   pre-copy live migration).
+>3. khugepaged collapses the mapping of the THP, installs a PMD.
+>4. The VM now has access to the stale contents => VM is broken.
+>5. After installing the correct contents, userspace attempts to map the
+>   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+>   unexpectedly mapped the page.
+>
+>The naturally-aligned THP case is the only case where this is a problem.
+>khugepaged otherwise requires all PTEs to be present for
+>userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+>correct. This check is essentially bypassed for naturally-aligned THPs.
+>
+>To deal with this issue, completely disallow collapsing in
+>userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
+>would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
+>present, but that seems more complex than it is worth.
+>
+>Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+>Cc: <stable@vger.kernel.org> # 6.1
+>Signed-off-by: James Houghton <jthoughton@google.com>
+>---
+>This was caught with manual review while diagnosing a related issue
+>that came up with in Google's live migration testing.
+>
+>I've uploaded a mostly-AI-generated reproducer here[1]. As long as
+>/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
+>the repro should work.
+>
+>[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
+>---
+> mm/khugepaged.c | 9 +++++++++
+> 1 file changed, 9 insertions(+)
+>
+>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>index b237f6e7662a..66f956d3dd67 100644
+>--- a/mm/khugepaged.c
+>+++ b/mm/khugepaged.c
+>@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
+> 		goto end;
+> 	}
 > 
->> When reading an integration-time fails, the code will use error code to
->> compute the sleep time.
->>
->> Fix this by using the smallest integration time as a default if
->> reading fails.
-> 
-> ...
-> 
->>   	wait_ms = bu27034_get_int_time(data);
->> +
->> +	/*
->> +	 * If reading the integration time fails, default to the minimum so we
->> +	 * don't lose samples. This may waste CPU cycles, but as a hardening
->> +	 * against theoretical, once-in-a-blue-moon error, this should be Ok.
->> +	 */
->> +	if (wait_ms < 0)
->> +		wait_ms = BU27034_INT_TIME_US_MIN;
->> +
->>   	wait_ms /= 1000;
-> 
-> With the above being open coded the _ms feels not right.
-> I would expect the TIME_MIN to be in MS from the start
-> (and for the consistency's sake with the below) and having
-> all this to be written like
-> 
-> 	ret = bu27034_get_int_time(data);
-> 	if (ret < 0)
-> 		wait_ms = _MS_MIN;
-> 	else
-> 		wait_ms = ret / USEC_PER_MSEC;
-> 
->>   	wait_ms -= BU27034_MEAS_WAIT_PREMATURE_MS;
+>+	/*
+>+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
+>+	 * userspace is expecting to explicitly install PTEs.
+>+	 */
+>+	if (userfaultfd_minor(vma)) {
+>+		result = SCAN_PTE_UFFD;
+>+		goto end;
+>+	}
 
-I don't like using 'ret' there.
+Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
+drops the mmap read lock and before it reacquires it.
 
-At first glance, the
-ret = bu27034_get_int_time(data);
+Doesn't this still leave a registration race, no?
 
-looks like ret is containing just the success status. Furthermore,
- > 		wait_ms = ret / USEC_PER_MSEC;
 
-forces one to go back and see WTF the 'ret' is (even if just couple of 
-lines - but this is not an improvement, using ret is obfuscation).
+int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+		     unsigned long end, bool *lock_dropped)
+{
+...
+	cc->is_khugepaged = false;
+...
+		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
+...
+}
 
-I could change this to:
+static enum scan_result collapse_single_pmd(unsigned long addr,
+		struct vm_area_struct *vma, bool *lock_dropped,
+		struct collapse_control *cc)
+{
+...
+	if (userfaultfd_minor(vma)) {
+		result = SCAN_PTE_UFFD;
+		goto end;
+	}
+...
+	mmap_read_unlock(mm);
+	*lock_dropped = true;
+...
+	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
+		mmap_read_lock(mm);
+		if (collapse_test_exit_or_disable(mm))
+			result = SCAN_ANY_PROCESS;
+		else
+			result = try_collapse_pte_mapped_thp(mm, addr,
+							     !cc->is_khugepaged);
+...
+		mmap_read_unlock(mm);
+	}
+...
+}
 
-wait_ms = bu27034_get_int_time(data) / USEC_PER_MSEC;
-if (wait_ms < BU27034_INT_TIME_MIN_MS)
-                 wait_ms = BU27034_INT_TIME_MIN_MS;
+static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+		bool install_pmd)
+{
+...
+	struct vm_area_struct *vma = vma_lookup(mm, haddr);
+...
+	if (!vma || !vma->vm_file ||
+	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
+		return SCAN_VMA_CHECK;
+...
+	if (userfaultfd_protected(vma))
+		return SCAN_PTE_UFFD;
+...
+	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
+	switch (result) {
+	case SCAN_SUCCEED:
+		break;
+	case SCAN_NO_PTE_TABLE:
+...
+		goto maybe_install_pmd;
+	default:
+		goto drop_folio;
+	}
+...
+maybe_install_pmd:
+	/* step 5: install pmd entry */
+	result = install_pmd
+			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
+			: SCAN_SUCCEED;
+...
+}
 
-(but for me this feels like unnecessary bikeshedding than anything else.)
 
-Well, I'll change this if I respin.
+static inline bool userfaultfd_minor(struct vm_area_struct *vma)
+{
+	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
+}
 
-Yours,
-	-- Matti
+static inline bool userfaultfd_protected(struct vm_area_struct *vma)
+{
+	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
+}
 
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
+passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
+set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+Maybe:
+
+---8<---
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 33c41bc32af8..0eada7265d59 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 	 */
+ 	if (userfaultfd_protected(vma))
+ 		return SCAN_PTE_UFFD;
++	if (userfaultfd_minor(vma))
++		return SCAN_PTE_UFFD;
+
+ 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
+ 			       linear_page_index(vma, haddr));
+--
+
+With that, LGTM.
+
+Tested-by: Lance Yang <lance.yang@linux.dev>
+
+Cheers, Lance
