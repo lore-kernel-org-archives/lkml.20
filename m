@@ -1,156 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2BF30FF1D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895258; cv=none; b=KL23AWyO9DITaXFtwJiXsQSuX0UMuhiVzI3/DmszW/PuWZ2sk6SSJ6JosLk0BEKfZd8fxnQoFY2nJNY2mtETcH+S1OsQVWHN01caZAVUW5zQsno9kGTJNgEPTqjaGSRfIColvLVMjGkhoYYc43ctKnxMzXjbzUOIzkrkfL2Ye7I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895258; c=relaxed/simple;
-	bh=L12kByngmxm0+XcLwhdT9GBJpdEOxar0JOOmR9A9qck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0EZ3ZgXQAwcnvHJmJffSbG9y/vAwouEx1hRcw27zh9+cpVisEYbCNU8se9Z9NTKKoAyDyGZ9ElNv3/anIMLhoNRXAontEGaGDswu77rkpcRjUdgbKxIIShicb/mgd4+4u0cvQBb0lhAou1i51Xae5kGnkoXNXdm+BflNgQ6Nxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ndEh+g7B; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD9B2D0C63
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787895299; cv=pass; b=Ll457ZO+bt8NdluHcHHrP5tbc38nKsZfIWk1fzMoy0jTPhK9KKKBfPXChjiPoPq0/umjjCpCKInkf5DuLusxJGHDt0ZJK/M5Cqzafih6oeeQ4MFIGD149lN/BWyMcD3RFIAdkmDZvT6j40cYTK25wZyb8QmEUfAgcB1tACysDMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787895299; c=relaxed/simple;
+	bh=sO5dSXBaHvsFXkX2Tziwa0K3ga1aeB/vw+imQuoh05A=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Vs3P4Hjb4ZWDh1NyAgVirELf49QdnXF6XGeNzmHjWd3dQTwYjRPfTxe/LzCLTcS5miG2/i7Zleoe2r/Kplq97hife68STsBn/HOhVBNVrNn4ot4Yg1aOp7rjFiPRodc3Sw4bxYBsgyWYqw9si5vxt6dXndh8YarVbMqGILo/r9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=oPztFiqe; arc=pass smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ndEh+g7B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787895256; x=1819431256;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=L12kByngmxm0+XcLwhdT9GBJpdEOxar0JOOmR9A9qck=;
-  b=ndEh+g7BVnxojUxkDSNYguU68wszQlITOMOQrT3h/SksQNjLPfbX1P3N
-   gpuYjNGbnx6/ZhuxSnKzhaTIo0RerTOf1Pmn7OKamR0AqLJU7/48gW/r+
-   U5W9vJYoXBPoXPQ8gfUjIfka6ofpKh2gj3YZa1WI0TD6fWfbG4TQV+muW
-   bYE6U2FCTkDra5Gj/v/HGj0Usp3VkqQqyAujTf1EtImbg+eYNazh/FEBe
-   NPpzl6N9Z7/0frQNppY+9f11xzyOOwYm+j0tTQtduN4PcDG3CKHLf2kpA
-   L2ZHfpo+i4RdhP8KwrQ7I/drA0yMvraGmOh9Qj2ypCOpy9W6ZBL61ExPE
-   Q==;
-X-CSE-ConnectionGUID: 6x2QZSxnRX2CS6R7ECEXEw==
-X-CSE-MsgGUID: tp4jRdzkTsOD6eusUJWdRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88525463"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="88525463"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 22:34:16 -0700
-X-CSE-ConnectionGUID: 2JOw/X5sR7qW4b71mX5Ntg==
-X-CSE-MsgGUID: mIi6lFz/Rs6jYJK3+8P47g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="270025508"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 27 Aug 2026 22:34:14 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzpEB-00000000AST-1pk6;
-	Fri, 28 Aug 2026 05:34:11 +0000
-Date: Fri, 28 Aug 2026 13:33:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Zenghui Yu <zenghui.yu@linux.dev>, damon@lists.linux.dev,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, sj@kernel.org, akpm@linux-foundation.org,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-Subject: Re: [PATCH] mm/damon/core: remove declaration of kdamond_fn()
-Message-ID: <202608281351.Hv386MvO-lkp@intel.com>
-References: <20260827163953.83520-1-zenghui.yu@linux.dev>
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="oPztFiqe"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so526900a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:34:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787895298; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZCjrvL6NBq7rYZEMAsf8AJ7eXorKX8TkDyKPwWmINnpt/VF/UGnaN5FDf5I8UU9UPt
+         LtwemFfdJey7nyKqtrzH6hnsJuF+kefVPg2vtIY2G/19R9Rw2wqCtzqKOooo37lkd5Vd
+         Dn7AilQnzB6oSJbeGlpyNRJYVVIAUDmyg/ZEihV54MV9ue/7Wy1gIhv+r40vEnU3MW8T
+         snXLySf4f3uC5WlmV7KWod0otb2Y3gkrioFGhyLV8/0L21LGKuJdGDH2ZkBFDfDx4leS
+         QgDGNa3Tku8+GCkv7yq4zbNweMta/PNYgOMa65z1o+ep8tM/AlRhwUmWIsfO7F+PMRli
+         nHzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
+        fh=caDhrU/00dhhZ+HD+agg78qfj9n4KKFSwNGAtIdX8PA=;
+        b=PgVkNotsRJd1O4eajeCr/ooZeturnFg5bFWvlOPuMUjwOhHjm41+LLWFor2b8aY+4r
+         VIPsWS3jRjS/6ZhUxy/ElswJppvV3hG69TCee1uQkV1PUmgbf5JjvglCXL9Peqslq5H5
+         y4g/YgxSZ5S5g89uSREfpvGOGr5pa5Wl0Fl05ZdAzSagwqjO8ZWckOP8kA+MBjP0uclE
+         ZVxMY1SPWQYxB5kJs10z4fUpTdI6Elzjr2jLNAWT3AKZs3gMhNmhDLvVt+KY5VmxnRDn
+         2tewMBiwRqw8pa+IHrTDYGqG5xwihmOQ1rJMlXmcutkrWi9Lr2ErKhcVGq+EVPtECcvb
+         42sQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1787895298; x=1788500098; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
+        b=oPztFiqeU2/8NvmWKsButQVdy+hAjB+dV6W2E+EeysZVNDYSc1FjLcLGyaKui3MzUk
+         RYP3Cjcv1Jx6E0Ige019QdOz1T3JtvVDk004w4tbB4MWg1S2GCFeBKOeXurIDWIhoojz
+         7OzHN5si/8+0+BeMzEzMNNbBzktHkX9Qd2Ww3nq03WkJDLodw7ZeS+f8zxFo2gAh0U3z
+         R032LAjXPopmI6YvC4XkOraQj4Hvqhh3zwM5tiAtAW0qi0Z5oTuywClH572L0RA/+SrL
+         QyVImnK1IFwb7zO9PNNf7xbJfh9uhgJDKyrunlwvx4WYSXyujC/qij9jBjyhbnDZwktO
+         flbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787895298; x=1788500098;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
+        b=nRDijzzFFUqEyq+xhqGq6OEXQHGeRvj2+xs0zi3uMDF8vvhBm6bxwB9lJxEn7I/syR
+         Y2m1D6b1O/yK5wF1YZ8/pcCVoIx8TqbGlHKzL/JYbIWfxOXVR7Z1wVdVMM3/IzE4drqj
+         UZqtETWtCje7WwhZT7FaACL2uqM9WIb2UwymFLu5OUXss1RJ9CPuGl9m59l7qP6FL0+H
+         kWI+/iUCNMVCv7bVqHxbrH5j4hxkZ80aC11nB+MB93g3dutoCKG0Dmy3U/xsyWEEVS6s
+         aaAltvc+oIVbOVLrPXg4Va6m3gp3eQjTL79kcALHZgdyCsABqLtg8eTbzqyJMljcrDWu
+         571w==
+X-Forwarded-Encrypted: i=1; AHgh+RrEx9T6a89Bm4B7weXC8r+mR+RJHGtHvxHiCDW5YehD6SAYasSjmBlQ4PuazkF5oZFgJE3eAj1X32Jy9K4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3pkw6zlGVNhzJeMNamxKDeQ2sUwElE06w+axqolw05cuVrbaG
+	GKkDl8qFFh1ac6YcxpNhSH/T47cERz+oZ6j3BLrRoekzg/8Kd3f2WjvG47LXVDtjFWtsSvJbLsp
+	dC8Tol9JquZqUYnA0rSWnMP0xaG4uNXXErdqUfmI/
+X-Gm-Gg: AR+sD12TqFMZ9gghDueaBkSFdQEotO4c7B5oX1lwMbBehsUteM9z1bgLenZjOgs5fb9
+	NXZGgVjZL8auWOFey274mBUMo4GVGj20nj62kWtqO+NxvRYQclNMcqKRyhjFw5dNaLdLoq/q4zI
+	CBIlWu188ZJLr8mNzRlj1aeqAe//NdCPfwElD4xGHaZQHCMbQgM1cp9fH4WynqdybAFipLKHu7p
+	rGyCEOoZ2dP1bVLnP6aErfOdYg3ftS6sgzH5PC0XNGrTbBqA+cAPQV7oQ4ICtA29gWDdHrOY3zK
+	2FKtqMzTi0R5w5R1qIG41qSxDxIhdsOAp9P5718DYVvlkJjr9QVVgJJfeNtuEDc89zaaxIbPBT+
+	/8OLPLVl5DZNS9TeFMQ4/OuISu+Wq82n6LQ==
+X-Received: by 2002:a17:90b:4a8c:b0:392:6638:2e6a with SMTP id
+ 98e67ed59e1d1-396d0f69d10mr7205264a91.13.1787895297054; Thu, 27 Aug 2026
+ 22:34:57 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:34:56 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:34:56 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827163953.83520-1-zenghui.yu@linux.dev>
+Date: Thu, 27 Aug 2026 22:34:56 -0700
+X-Gm-Features: AcwNN1Wfzp6gNlZZMQnQaX8vcqcoxNhl1n6Biw_pymg2M1kxA9FjqGACk_v-958
+Message-ID: <CA+0ovCi63OBqOySpNgU5xND840CDhi3B1dp1QsxhmcOOo-7w1w@mail.gmail.com>
+Subject: [BUG] ci_hdrc_add_device -- KASAN slab-out-of-bounds reading a
+ FOREIGN device's platform_data
+To: Peter Chen <peter.chen@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: falemi@asu.edu, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Zenghui,
+Hello,
 
-kernel test robot noticed the following build errors:
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-[auto build test ERROR on akpm-mm/mm-everything]
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/150-usb-chipidea-foreign-platform_data-oob/
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Zenghui-Yu/mm-damon-core-remove-declaration-of-kdamond_fn/20260828-003953
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20260827163953.83520-1-zenghui.yu%40linux.dev
-patch subject: [PATCH] mm/damon/core: remove declaration of kdamond_fn()
-config: xtensa-randconfig-r073-20260828 (https://download.01.org/0day-ci/archive/20260828/202608281351.Hv386MvO-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 16.1.0
-smatch: v0.5.0-9187-g5189e3fb
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260828/202608281351.Hv386MvO-lkp@intel.com/reproduce)
+  BUG: KASAN: slab-out-of-bounds in ci_hdrc_add_device+0xb76/0xd10
+  Read of size 4 at addr ffff88810e9061c8 by task repro/9505
+  Call Trace:
+   ci_hdrc_add_device+0xb76/0xd10
+   ci_hdrc_usb2_probe+0x22d/0x370
+   platform_probe+0xf9/0x190
+   really_probe+0x267/0xaf0
+   __driver_probe_device+0x1e2/0x350
+   device_driver_attach+0xe0/0x1d0
+   bind_store+0x1d0/0x220
+   kernfs_fop_write_iter+0x3af/0x540
+   vfs_write+0x61d/0xb90
+   ksys_write+0x150/0x270
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608281351.Hv386MvO-lkp@intel.com/
+Our reproducer.c is available upon request.
 
-All error/warnings (new ones prefixed by >>):
+Happy to test a patch if that would help.
 
-   In file included from include/linux/psi_types.h:5,
-                    from include/linux/cgroup-defs.h:24,
-                    from include/linux/cgroup.h:29,
-                    from include/linux/memcontrol.h:13,
-                    from include/linux/damon.h:10,
-                    from mm/damon/core.c:8:
-   mm/damon/core.c: In function '__damon_start':
->> mm/damon/core.c:1941:44: error: 'kdamond_fn' undeclared (first use in this function)
-    1941 |                 ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-         |                                            ^~~~~~~~~~
-   include/linux/kthread.h:46:32: note: in definition of macro 'kthread_create'
-      46 |         kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)
-         |                                ^~~~~~~~
-   mm/damon/core.c:1941:32: note: in expansion of macro 'kthread_run'
-    1941 |                 ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-         |                                ^~~~~~~~~~~
-   mm/damon/core.c:1941:44: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/kthread.h:46:32: note: in definition of macro 'kthread_create'
-      46 |         kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)
-         |                                ^~~~~~~~
-   mm/damon/core.c:1941:32: note: in expansion of macro 'kthread_run'
-    1941 |                 ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-         |                                ^~~~~~~~~~~
-   mm/damon/core.c: At top level:
->> mm/damon/core.c:3750:12: warning: 'kdamond_fn' defined but not used [-Wunused-function]
-    3750 | static int kdamond_fn(void *data)
-         |            ^~~~~~~~~~
-
-
-vim +/kdamond_fn +1941 mm/damon/core.c
-
-b1029f29eb1d5fb SJ Park        2026-02-28  1924  
-2224d8485492e49 SeongJae Park  2021-09-07  1925  /*
-2224d8485492e49 SeongJae Park  2021-09-07  1926   * __damon_start() - Starts monitoring with given context.
-2224d8485492e49 SeongJae Park  2021-09-07  1927   * @ctx:	monitoring context
-2224d8485492e49 SeongJae Park  2021-09-07  1928   *
-2224d8485492e49 SeongJae Park  2021-09-07  1929   * This function should be called while damon_lock is hold.
-2224d8485492e49 SeongJae Park  2021-09-07  1930   *
-2224d8485492e49 SeongJae Park  2021-09-07  1931   * Return: 0 on success, negative error code otherwise.
-2224d8485492e49 SeongJae Park  2021-09-07  1932   */
-2224d8485492e49 SeongJae Park  2021-09-07  1933  static int __damon_start(struct damon_ctx *ctx)
-2224d8485492e49 SeongJae Park  2021-09-07  1934  {
-2224d8485492e49 SeongJae Park  2021-09-07  1935  	int err = -EBUSY;
-2224d8485492e49 SeongJae Park  2021-09-07  1936  
-2224d8485492e49 SeongJae Park  2021-09-07  1937  	mutex_lock(&ctx->kdamond_lock);
-2224d8485492e49 SeongJae Park  2021-09-07  1938  	if (!ctx->kdamond) {
-2224d8485492e49 SeongJae Park  2021-09-07  1939  		err = 0;
-6376a824595607e SJ Park        2023-12-08  1940  		reinit_completion(&ctx->kdamond_started);
-2224d8485492e49 SeongJae Park  2021-09-07 @1941  		ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-2224d8485492e49 SeongJae Park  2021-09-07  1942  				nr_running_ctxs);
-2224d8485492e49 SeongJae Park  2021-09-07  1943  		if (IS_ERR(ctx->kdamond)) {
-2224d8485492e49 SeongJae Park  2021-09-07  1944  			err = PTR_ERR(ctx->kdamond);
-7ec1992b891e59d Colin Ian King 2021-11-05  1945  			ctx->kdamond = NULL;
-6376a824595607e SJ Park        2023-12-08  1946  		} else {
-6376a824595607e SJ Park        2023-12-08  1947  			wait_for_completion(&ctx->kdamond_started);
-2224d8485492e49 SeongJae Park  2021-09-07  1948  		}
-2224d8485492e49 SeongJae Park  2021-09-07  1949  	}
-2224d8485492e49 SeongJae Park  2021-09-07  1950  	mutex_unlock(&ctx->kdamond_lock);
-2224d8485492e49 SeongJae Park  2021-09-07  1951  
-2224d8485492e49 SeongJae Park  2021-09-07  1952  	return err;
-2224d8485492e49 SeongJae Park  2021-09-07  1953  }
-2224d8485492e49 SeongJae Park  2021-09-07  1954  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Regards,
