@@ -1,64 +1,75 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ED6446BF6;
-	Fri, 28 Aug 2026 11:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1EC449ED6;
+	Fri, 28 Aug 2026 11:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918107; cv=none; b=mlJW8G3i6EDXCMEsOhuJ+kFr43Mdnx6jwQ/HU/4TVvmRZQhw7kiKKdv3WsQ/qCKj6P3lex3Gs4+NBXwbNgQykfh9CxquW8/uqDYpsy/dbGZp4rEPj73ZRRXFj9RGpi1J2LBbQYMktN08iQdorGaT0BZYSk70rq3kBbLa/VThKVg=
+	t=1787918179; cv=none; b=V8oq6nQsmYGGwmmVjsy3Wor06j1/243AY/sSIwcdnnnuFfVLIg32lxEyvBXz7JdfBwcMBZ0+TT8GBBQ4MoAgq+plGkOgX6lIlgNF9IAU7HeXe7p7WDKRVkRaYex2LQ5dx380sIilvMZPMqvd1aGy0GueoyERY5PnrYu1CUMAZLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918107; c=relaxed/simple;
-	bh=mSBt+ft5i3VY2sYn2+QD1Cmy6rcNR4+0gWd8SZ6u8us=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iJM+DRn0rY84fiDVHqLSYXupwV870GotKB+y3SJJ1jXewGDVNGLeDYi+bqH9dfB3qvv4C1KAelulNia1YVLL/7kJAOc6BfD+X9LadIj+vGWGXBUKOEoYVjLVCSIjC5VxgDdPGgTrlj0zXx+Sh40e/Ziy13Og0u5mwo9ehpvv7G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZoGCQtp4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787918179; c=relaxed/simple;
+	bh=Fqvx6yZ7d3AO1AuNBTIYtJTRvPSlJoonCN0/SaX9yq4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hjzNAP82ss+JPfbdUNsvwRLT8MyclR8/1S4m6vylBOVGJTZ39yxh5JH+eYV0AETeGL98ktqt0EL1EqfSc0Ys8BduSLcZBg476LRt29Dk3l8YDZUDbZFKPfetac40FAamomeOI0SQmFbc+I3k35Nnb8F0EdOAH9dUB5iPoTFJWHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NMUDCS3W; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Mjk8+Irb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Dkq9js3K; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=GkFaHPG4; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZoGCQtp4"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SAVXKr4048474;
-	Fri, 28 Aug 2026 11:54:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=Cw+bWhlQiSGF7aUmYu6PcvczgYONhdHQ2IKNfr2cA
-	GM=; b=ZoGCQtp4jjof5CM0fonbgEA2cR86yDSD2wac0AVd86AtW7wptKxo+3YVP
-	rgyr/ROP4usIkHGMiGXvCRexnkXPcI1BulAFdUXx5sAeBPU0h5WtSuwZ9Tw9dz+J
-	Z0mjvfID5EJWoPTT6ThxPi8Og7uuWcLusvQte/VUzx0EnIxZOQ3L4Ic5GPD6npcp
-	kjk/aFp0ScG63Lc/PCyOm2KTkNVnSXGiCEb43IQBrmdNcuwc5cs3tzBwBTdQ2o2u
-	CV3Yf/oOD3FeI2gYNwKO0imiknY4CMmS6BSYxHEThlkexQviQVJq409626/DYRKe
-	ZdQmXeyePW3LpE9ZQ+mpmjqUKVADA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73erbtyv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 11:54:47 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SBfKNe000650;
-	Fri, 28 Aug 2026 11:54:46 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7pfwp0qe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 11:54:45 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SBsdTD40894862
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 28 Aug 2026 11:54:39 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A65FA2004B;
-	Fri, 28 Aug 2026 11:54:39 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 80E8E20043;
-	Fri, 28 Aug 2026 11:54:39 +0000 (GMT)
-Received: from p-imbrenda.ehn-de.ibm.com (unknown [9.224.75.30])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 28 Aug 2026 11:54:39 +0000 (GMT)
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org, borntraeger@de.ibm.com,
-        frankja@linux.ibm.com, david@kernel.org, seiden@linux.ibm.com,
-        nrb@linux.ibm.com, schlameuss@linux.ibm.com, gra@linux.ibm.com
-Subject: [PATCH v3 0/8] KVM: s390: Even more misc fixes
-Date: Fri, 28 Aug 2026 13:54:31 +0200
-Message-ID: <20260828115439.145885-1-imbrenda@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NMUDCS3W";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Mjk8+Irb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Dkq9js3K";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GkFaHPG4"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A9D2221CD4;
+	Fri, 28 Aug 2026 11:55:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787918155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AWu3EE/D7d16eyHtTU/QING0cNGIWXkKi3yhQPYQBpI=;
+	b=NMUDCS3W10X7XUWL21V6C++6/YzC1UFxw5sX+6r6ByaBRWzON7QaSUWmFjEkMSyABJF4lE
+	6EcsrWtrZZCsG06KfhkluLq6ULuCCV3vb8iVwUFb/nNGmpq1SpDFo+kX/nNJXI3isKuRwd
+	HRgqOdkM4Z9dlc1eKpvGM7nw52OHhOQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787918155;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AWu3EE/D7d16eyHtTU/QING0cNGIWXkKi3yhQPYQBpI=;
+	b=Mjk8+IrbYbxGSEZKvShkK4wzbiMQIkK5QOTdDdAn5Ypzi6khplz2qnPWO2xziQWH+6p4dl
+	yQMYITFy5jfS7JCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787918151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AWu3EE/D7d16eyHtTU/QING0cNGIWXkKi3yhQPYQBpI=;
+	b=Dkq9js3Kz2S06FTLWlJnjPtgyCyLBWhV7KaIXaMPmgvixQrsb9C1sjtF5+N6OPJicBmEsy
+	FF0M1tOsuA0wpfe3pqW9EUmZazcEZpxeATiIx4D+Nh82mlByCoik6KKTiE45/mpYGTG5ww
+	YKsZyl8GDNu+RV7Gyy7Y4FDeAjLWopU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787918151;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AWu3EE/D7d16eyHtTU/QING0cNGIWXkKi3yhQPYQBpI=;
+	b=GkFaHPG4haoX1y8gRCAyd0xgS9TIzRbeOz8QzQf0S9D9mKPMZBhTthEwQ2uhBq/nM3LyS+
+	J5n7rmu7lf09TPDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66D2C13515;
+	Fri, 28 Aug 2026 11:55:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ccdkF0d3kWomEAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 28 Aug 2026 11:55:51 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: pcm: Fix race between non-atomic ops and trigger-start
+Date: Fri, 28 Aug 2026 13:55:39 +0200
+Message-ID: <20260828115542.3999-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,74 +78,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: kBLenNX9nfg0jeiNmVb0r7Ufe2dSRBYR
-X-Proofpoint-ORIG-GUID: kBLenNX9nfg0jeiNmVb0r7Ufe2dSRBYR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfXzpzImylqnhwf
- ehlsmgrJTsmhewz2smCaFtojvk0eLDsJTYFubz4e5pQ7XiGbTie3PuCjp78awBqCdPSDTMtpUSH
- siAvfouZp8Cy8saZVoBwmA+7NkBqGd4UgEOtjl29754togbwsYxq5aR78zfAa+pA9VSzAQj0lMC
- PlKbXTNSGX3PsB/sDDAQMBCeIctbwoIn8wu6L5b/EJ2eIdmmGuyITQdt9Q7dijkYNINGJ6jzPDh
- mw3UUvmJCY0nxUfd+4Y0dPGy376W4u8ZV9KIdngASgiuoPqL7jCdagkVuqFUksM6nU8HlyemyUJ
- brZuHJLcd4nnCYix57o2O12d7FCHFQ/hvUx0BlkSdLh51wan8hvjE4fPnPMt9CP+67BB3DWnv/x
- JU+9BbrTaxdA0nuSZEPyoSg3bPEakEAYx7M7pSA9qpMXep5BKs02BwdksNOrWRDi0hLFvZWb3lR
- a2fQT4ivUzglDBB5vrA==
-X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a917707 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=JBFffvtJgn9pzkdXSAIA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfXyWGmb/3AsxwI
- KvvQK3AWgoQNfOm1QwN+o+zq6yYjGt//mbBG5LQqxEg7Iezgq8Iy+BbtQUzlV09r1LMayEFA7UA
- RMeqahykELfS3RG92KO22POo3ysivJY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280099
+X-Spam-Level: 
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,appspotmail.com:email];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-A few fixes that had been dropped from previous series due to still
-having issues, plus a few new fixes.
+We protect the races of the concurrent state transitions between
+atomic PCM ops, but the checks between the non-atomic ops (hw_params,
+hw_free and prepare) and the atomic ops aren't perfect; there is a
+check of the conflicting PCM state at the beginning of hw_params & co,
+but the atomic PCM ops can be still issued during the non-atomic PCM
+operations.  An example such scenario is that a thread A re-issues the
+PREPARE or HW_PARAMS for the already prepared stream, while another
+thread B triggers the PCM start in the middle of the prepare
+operation.  Although this usually doesn't lead to much serious issues,
+it can give some inconsistency as reported by syzkaller (such as
+ODEBUG warning).
 
-v2->v3:
-* Rebase on master
-* Reworked first patch to use scoped_guard() more, and restrict the
-  scope of the srcu so that it excludes the page pinning
-* Add missing const to parameter "old" of kvm_s390_update_cmma_dirty()
-* Fix potential infinite loop in dat_get_storage_key() and
-  dat_reset_reference_bit()
-* Fix potential race in _destroy_pages_crste()
+There are various atomic PCM ops, and basically the only problem is
+the PCM start as it operates from the PREPARED state.  Other trigger
+commands (stop, etc) are for the running or the other special state,
+hence they are filtered as pre-condition.
 
-v1->v2:
-* Fix racy usage of sg->parent in patch 2
-* Fix wrong number of arguments for dat_delete_slot() in patch 3
-* Restrict srcu usage to the bare minimum necessary to avoid potentially
-  triggering page faults in the guest while holding the srcu
-* Fix races also in other skey functions
+This patch is for preventing the PCM trigger-start during the non-
+atomic operations in order to address the problems above.
+Fortunately, the hw_params, hw_free and prepare operations call
+snd_pcm_buffer_access_lock(), and this can be used for checking the
+concurrent operations at the PCM trigger -- which sets the
+runtime->buffer_accessing to a negative (if possible), so the PCM
+trigger just needs to check the runtime->buffer_accessing value; if
+it's negative, it means the concurrent non-atomic PCM ops is running.
 
+Reported-by: syzbot+225231fce6755d40d078@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/6a8f0de8.1d9ded08.62e62.00b5.GAE@google.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/pcm_native.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Claudio Imbrenda (8):
-  KVM: s390: Fix dirty marking in adapter_indicators_set*()
-  KVM: s390: Fix compile warning for kvm_s390_update_cmma_dirty()
-  KVM: s390: Fix _gaccess_shadow_fault()
-  KVM: s390: Refactor dat_set_slot()
-  KVM: s390: Move all code into s390_kvm_mmu_prepare_memory_region()
-  KVM: s390: Add missing srcu in kvm_s390_set_irq_state()
-  KVM: s390: Fix potential races in dat skey functions
-  KVM: s390: Fix race in _destroy_pages_crste()
-
- arch/s390/kvm/gmap/dat.c       | 65 +++++++++++++-----------
- arch/s390/kvm/gmap/dat.h       | 10 ++--
- arch/s390/kvm/gmap/gmap.c      |  6 ++-
- arch/s390/kvm/gmap/kvm_mmu.c   | 91 ++++++++++++++--------------------
- arch/s390/kvm/gmap/kvm_mmu.h   |  4 --
- arch/s390/kvm/s390/gaccess.c   | 13 +++++
- arch/s390/kvm/s390/interrupt.c | 79 ++++++++++++++---------------
- arch/s390/kvm/s390/s390.c      |  3 +-
- arch/s390/kvm/s390/s390.h      |  2 +-
- 9 files changed, 137 insertions(+), 136 deletions(-)
-
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 4a5057e7629d..20ae67949e05 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -1468,6 +1468,8 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	if (runtime->state != SNDRV_PCM_STATE_PREPARED)
+ 		return -EBADFD;
++	if (atomic_read(&runtime->buffer_accessing) < 0)
++		return -EBADFD; /* during hw_params, hw_free or prepare */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+ 	    !snd_pcm_playback_data(substream))
+ 		return -EPIPE;
 -- 
 2.55.0
 
