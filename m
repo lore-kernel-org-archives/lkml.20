@@ -1,168 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0D43515F7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D793E2746
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906980; cv=none; b=LJJqJB3vJUyW4mvp27NmAt4icGHLvTac8BcyuBCWTb8CvfVd092Xks/paw1xT3BuYIEvmW4pDnHCWs3jlA60eS/cxvqw/eDI6KyQNU7ek+XV71I6L+b6BGQZK4YtdMXleR78cGWEWSoJSWMZnIrBhGqhjp97IkGN0/1IZUn0TrE=
+	t=1787906985; cv=none; b=liZ3J4P2Ug7UigbdPqVsRh5ICvQHObIch89R33nFkekPVtHDa9Om1JMaK6skbyfikaXj0NTMn+2mXgSDD5LYHglLBqMjrHi2L05qYvlEQWjRAFC+LJN+3uyDYEWpP1LrxKyzq3+dUBdfvQ/hBtGf7ZodeXUhaivoPBsC9ZQnd4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906980; c=relaxed/simple;
-	bh=JT1Ftk35FAfhVGpWG1mrRpS3WjZHYy5b6S3/sobw3fY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CnbhzdZJj2Y2Hv/KNJbf1en2mB3qGZwtnoH2da3IMW/yiUmQcu/BeDWg4bFGv94uRBYs0mBoKSev3iCJ6Se+h0NnCJ5oLpnwmax80s6TXV2rUrZgT1MJwil+cIs1P2BWfEKPeJElwV2IbOOSMKkCEbamcrzHmOqKmbaBXEa/+nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzrntH/F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787906985; c=relaxed/simple;
+	bh=hWltHfXGF6tM0pJn0+dwTACm7KNrwHA6EQNSK8fnngg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b6c3YR4z9SB1PjOKyrg6qn0FN3P8M+JCU0BzVSOCPNNL0xBiFhk9BEwiOIkBkdzjNa16WnDF0e3T6ECFGD6mqpUoGSD+MXd8HGkYJbl35zo9ZdWdz8dVB22IM4CBMKb03crmpSkh19qJvZnolggL4Hl03gepYwuSeHCyTBOfioc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQ2x9Onp; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzrntH/F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4828C1F00AC4
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787906972;
-	bh=iTWaHzCUhsUqSvPXQIT56fUgv/7xsB7jv15+ZqkCd+Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YzrntH/FKApkQCnp2DkZ/OqeTiGAQeaXPbc1DsrTDPhD67cQ6oCY5KBVfr1EktH01
-	 y7pz8TmoeBXQqwnEmSeK/MWG/bdhBneVuI1ongPR5dM31PqIgbuqyu/S8fV/qeK2uq
-	 Zxmm+OMGOv8Z4BM38wd5HK4A2w7+4C+uxEJItUmI9PX6pt6XIXDIj4hkTR8Fagqwv3
-	 5HHXmdGLvDbl1jpbxypBHgfzUQi7ZeTchhd1oalz4MKS2piROQBJ1CNn0KnfT1js8H
-	 ochtkwVugVELi6gGVgzyMmitAErmbOzDA62jiUOgOXyZ0PweKcleGOXidT/l5ECdWP
-	 ht7VYfgOz+XVg==
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so6744745e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:49:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr7uJlq0H4zlWXgIUBlrFpEeS1Cd1hB43ky54/r5zgVY3OYxXHohLEQ4HnbSTaCnl4sfyE6qGsAlik2fzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncwgOmOYLg8nvazW1fYcoG1+3cPANmsbtVzW5/ZoGM8HlrNqbg
-	QXUShdxn0SNGfl9/jNvT2aDYajMTS3plqRPqsOewtssgyMNMT4dXfTPPgfDfJ6Zgn9fjj7RuZaw
-	aY7WxVmzZXYsUd+8HwQoqD5FY15M+Gkw=
-X-Received: by 2002:a05:600c:c3cf:10b0:49b:8f18:714a with SMTP id
- 5b1f17b1804b1-49b91c47b76mr56390145e9.12.1787906970884; Fri, 28 Aug 2026
- 01:49:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQ2x9Onp"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso660084a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:49:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787906979; x=1788511779; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lm7BcEa8+Jgt9xkhmMJfF26Iq1SFFXivMsEEThtEiJo=;
+        b=lQ2x9OnpqRZqbI8RdP+g0NJWARSK2K0kIaSW62gdaQDTkHhnMbO07juJJphSIUUyn8
+         vUXTMdm3qJ6yVHbiSbVt8OGC8tXZUG3dqHQPO50uamZq6TOw830dBMs0GUvBx3B/rViW
+         Ap8GZa35iDWlAMafzjF1XEoYfiSiFs3yAdldakUL7wOR9D49s3dOlJpD0jWfQQXgCLxC
+         L/ds4ZeU27w3DkTCUhCCgW1hOHS1BMVlvbBBZmqxwRZwQfPnfj4T1O95RRtZVRnUF3/w
+         w4mwTC7EvBnrs6vIeXy02xJJgVZbGW4CPZP2tO3YqSuK12hF9PtiYtqAiq1yixgD9xsa
+         Iymw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787906979; x=1788511779;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lm7BcEa8+Jgt9xkhmMJfF26Iq1SFFXivMsEEThtEiJo=;
+        b=LAojWOUUjwf4Q09/sNAmpRWyMX7QUJDvQqP8EtFMDa+Hh1xNnsI6UGNMecXVovJpem
+         ElzIx228FLVtwI/Aci/u/cg6MUk0Kh78hG74U5tOpB7/MZ3JvsKes6qM8WLhahWh6sdL
+         IpzmCbOJLaeuQmxbDWyhaiQvWsPYhn92uGCGD99wu0f6h9G3l7qY00RGlVUKFSAS/Lju
+         RchUfjYIO2oMIoIG4oljt8AQG11M+P9jWoo5T2icbmP4UndIhnJ48gedrpi27aCleAsU
+         SNgAAnfSkkpSkVfEznPCcM/wZTxi0VaZh5OIO/Zc8qI83aiUCuucMakc8KbZDetiQIyp
+         /WXw==
+X-Forwarded-Encrypted: i=1; AHgh+RrUuZYIYPeoogzngpTr8/A4m+4cfXQzjMJWfCqGgS5xM3HUVrboTwbZaloKOMohPPaRrbmGXgQCzWzEUnc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lba3PoPBEXvajMFX9C4FnVz/NEaJTeXMWZlFWESNEbLoH5tRkm
+	5QEarO0cjd4HtDFzYBiM2OjchXjIJGJKVMEaySauTlW3ftXn4Pf6z9Jl
+X-Gm-Gg: AR+sD12kHqQMIJy7+f//n8uFKCmId+m+H9XqBydOnFSTzPsqBsep41wS4sxg07Dh7zb
+	Dg0HZKZN9YVGuTVGu4GEPHvj1QKVjzf9/nHRE8OjRD9G0ErLUPG3RddbPjM9mqum+535YP5dzoh
+	loT8txZseDdAxzZK73QzKjB4rAotRZuGvBLkQEdPmi2rtvo9MygrV0ZU5bd5REPQ2qCTmSDpGIZ
+	EkeLtLdK+dKsVhq0d9dCBqj8qLrPapWQAVzD1r79ICMz+HKmPuRitezSwViAMvG5DG6r4dV7CO3
+	IEL55nkBj4Yw2vwbqjKvb0O3bxvz1QMSTFpq6oqsOqkf0PgclvwfKCXFOR+u4GZEbC0C7Tvf7MR
+	g2zJ3/5n3zuPIWgNxMY/UeChyo6Nefsen9b+ohfvRyHifOiTlBoDlHD02VLrzTPzYjnxYEU/+cw
+	S878ZXgWyCO9bkzBnrLoz6epBqTWmJa/b0UMTgEcVsvSHj5zU4iuvL3RcXdL+Q48r6giAgtQ==
+X-Received: by 2002:a05:6a20:db0a:b0:3cd:9f0b:f788 with SMTP id adf61e73a8af0-3d267b656d6mr11291974637.12.1787906979500;
+        Fri, 28 Aug 2026 01:49:39 -0700 (PDT)
+Received: from localhost ([2400:ac40:62f:a97:707e:a14f:cfbf:3e23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b0451sm3801546eec.16.2026.08.28.01.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:49:38 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+To: kexec@lists.infradead.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Dave Young <ruirui.yang@linux.dev>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4 9/9] Documentation: kdump: Add arm64 and ppc64le to encrypted dump target support list
+Date: Fri, 28 Aug 2026 16:48:55 +0800
+Message-ID: <20260828084900.1496839-10-coiby.xu@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828084900.1496839-1-coiby.xu@gmail.com>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828070747.4009519-1-zong.li@sifive.com>
-In-Reply-To: <20260828070747.4009519-1-zong.li@sifive.com>
-From: Guo Ren <guoren@kernel.org>
-Date: Fri, 28 Aug 2026 16:49:17 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTQ-1pKoBvnRSLkDGqwKDzon_yfyT74haifeGD=VRBanYg@mail.gmail.com>
-X-Gm-Features: AcwNN1VMCHhJ9U1VulIu65DXTUxtzDFoDLDzisWOEQmJfMR_Ji-KYifhbSJdPrk
-Message-ID: <CAJF2gTQ-1pKoBvnRSLkDGqwKDzon_yfyT74haifeGD=VRBanYg@mail.gmail.com>
-Subject: Re: [PATCH v7 0/2] RISC-V IOMMU HPM support
-To: Zong Li <zong.li@sifive.com>
-Cc: tomasz.jeznach@linux.dev, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, mark.rutland@arm.com, 
-	andrew.jones@oss.qualcomm.com, david.laight.linux@gmail.com, 
-	zhangzhanpeng.jasper@bytedance.com, yang.yicong@picoheart.com, 
-	iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Li Zong,
+The encrypted dump target support is now extended to arm64 and ppc64le.
 
-Just two patches? Where did the riscv-iommu PMU driver patch go?
+Fixes: e3a84be1ec2f ("arm64,ppc64le/kdump: pass dm-crypt keys to kdump kernel")
+Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+---
+ Documentation/admin-guide/kdump/kdump.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---
-Best Regards
- GUO Ren
+diff --git a/Documentation/admin-guide/kdump/kdump.rst b/Documentation/admin-guide/kdump/kdump.rst
+index 0bf2eb100a05..36ad6125c670 100644
+--- a/Documentation/admin-guide/kdump/kdump.rst
++++ b/Documentation/admin-guide/kdump/kdump.rst
+@@ -572,8 +572,8 @@ Write the dump file to encrypted disk volume
+ ============================================
+ 
+ CONFIG_CRASH_DM_CRYPT can be enabled to support saving the dump file to an
+-encrypted disk volume (only x86_64 supported for now). User space can interact
+-with /sys/kernel/config/crash_dm_crypt_keys for setup,
++encrypted disk volume (only x86_64, arm64, ppc64le supported for now). User
++space can interact with /sys/kernel/config/crash_dm_crypt_keys for setup,
+ 
+ 1. Tell the first kernel what logon keys are needed to unlock the disk volumes,
+     # Add key #1
+-- 
+2.55.0
 
-On Fri, Aug 28, 2026 at 3:07=E2=80=AFPM Zong Li <zong.li@sifive.com> wrote:
->
-> This series implements support for the RISC-V IOMMU hardware performance
-> monitor.
->
-> The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
-> created by the parent RISC-V IOMMU driver. Therefore, the child driver
-> can obtain resources and information from the parent device, such as
-> the MMIO base address and IRQ number.
->
-> The thrid commit adds raw spinlock for race condition when PCI MSI/MSI-X
-> on IMSIC. As the commit message mentioned:
-> Events are bound to one CPU and the interrupt is affine to it, so the
-> perf callbacks running with interrupts disabled would be enough to
-> exclude the handler. But PCI MSI/MSI-X on IMSIC breaks that:
-> The irqchip sets IRQCHIP_MOVE_DEFERRED, so irq_set_affinity() reports
-> success while only recording the request, and the move is applied in
-> interrupt context upon the next device interrupt. Until then the
-> interrupt is still routed to the CPU IMSIC picked initially, so the
-> first overflow interrupt can run concurrently with the perf callbacks
-> on the CPU the events are bound to.
->
-> I noticed that xgene_pmu and arm-cci have similar implementation, so add
-> it in riscv_iommu_pmu should be accepted.
->
-> Changed in v6:
-> - Rebased onto the latest v7.3-rc
-> - Use sysfs_emit instead of cpumap_print_to_pagebuf
-> - Set up on_cpu and irq affinity by cpuhp callbacks
-> - Change type of on_cpu from unsigned int to int
-> - Reject filter operands of cycle event in event_init
-> - Check return value of counter number and  masks in probe
-> - Add raw spinlock for race condition (third commit)
->
-> Changed in v5:
-> - Pick up suggestions from sashiko-bot as follows
-> - Fix event group validation for sw event
-> - Bind IRQ to aux PMU dev instead of parent IOMMU dev
-> - Clear OF bit when event is NULL
-> - Improve hi-lo-hi patten
-> - Add back IRQF_SHARED flag due to mismatch
-> - Manage cpuhp and pmu register by devre
->
-> Changed in v4:
-> - Rebased onto v7.3-rc
-> - Use is_sampling_event() instead of accessing vairable directly
-> - Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
-> - Change the naming of PMU device for avoid ":" in PCIe case
-> - Add suppress_bind_attrs attribute
-> - Remove IRQF_SHARED flag
-> - Set irq affinity to local CPU of IOMMU
-> - Allocate ID by IDA for auxiliary device
-> - Pick up suggestions from sashiko-bot
->
-> Changed in v3:
-> - Rebased onto v7.2-rc3
-> - Use hi_lo_writeq/readq to access register
-> - Pick comments from sashiko-bot as follows
-> - Set IRQ CPU affinity
-> - Remove IRQF_ONESHOT flag when request irq
-> - Adjust cycle event check by checking event_id field only
-> - Fix bug for group events verificaiton
-> - Fix KASAN issue about casting 32-bit variable to unsigned long pointer
-> - Clear IPSR pending bit before starting counter
-> - Clear OF bit in event selector register in irq handler
-> - Release irq by devm instead of explicit free_irq
->
-> Changed in v2:
-> - Rebased onto v7.2-rc1
-> - Use hi-lo-hi mechanism to read counter.
->   Suggested by Guo Ren and David Laight
->
-> Changed in v1:
-> - Rebased onto v6.19-rc8
-> - Pick all suggestions and feedbacks from v1 series
-> - Add cpu hotplug implementation to avoid race enablement
-> - Move PMU-related definition from header to c file
-> - Change PMU driver to auxiliary device driver
->
-> Changed in RFC:
-> - Rebase onto v6.13-rc7
-> - Clear interrupt pending before handling interrupt
-> - Fix the counter value issue caused by OF bit in the cycle counter.
-> - Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
->   in riscv_iommu_remove()
->
-> Zong Li (2):
->   iommu/riscv: create a auxiliary device for HPM
->   drivers/perf: riscv-iommu: protect shared state with a raw spinlock
->
->  drivers/iommu/riscv/Kconfig    |  1 +
->  drivers/iommu/riscv/iommu.c    | 37 +++++++++++++++++++
->  drivers/perf/riscv_iommu_pmu.c | 66 ++++++++++++++++++++++++++++++----
->  3 files changed, 98 insertions(+), 6 deletions(-)
->
-> --
-> 2.43.7
->
