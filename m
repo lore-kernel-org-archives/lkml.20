@@ -1,166 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8741B2AE7A;
-	Fri, 28 Aug 2026 00:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A755A2AE7A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787876540; cv=none; b=A0pzIuA3MtGDG7YBJ1EYIOiEZt6FGJXd6VKwb4rxN1itL6EqfT7RSCKDqHzKKARL8aWt638tuUhupASk2hEJEfYi/ZtkFpi/Pt7kOkHI+IpkeNSd8WnWJOOvGHuNiViluLbH6cOPZN/HXpo+kW4NQIvhUrvDIkEBWwNeBKRCYfE=
+	t=1787876612; cv=none; b=emtk1O5JxtVkQ7A7IeTCsXOJuP8DaPLBf+TGns/MTNlq6XuKqdQYq98M30wunR18lxa0IEfFXTlHEzHGD3OwxnLxlEUVOSIQaE/ln8hP7fS3om+hJHl9BUBuzcfVf1p9Cl9tS9T1Q0TFRBWH2ObRTsa8zEkNPonBQgbAhxMBy+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787876540; c=relaxed/simple;
-	bh=GsCY0/mgkP6ZiqiIqH+Jk2bSk3UtTuADAya67mpycIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TQFxDALB3Fb5hTmdf74LGap0GDTZOC4SMCgiINukr4S8yhLdXcA0LOe8APINDmdTcwDJ1UwWejvG/YQMB1u26p365ZXxefQn9OFNp0uvEQoyJFozkrgkcENR5/mCKrCEvorcctnGJ6iIVvnO2gxkFPZdRmS5x6PfnhKKqtMcdmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Esu5YeSZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Esu5YeSZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B511F000E9;
-	Fri, 28 Aug 2026 00:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787876539;
-	bh=uuq5TYRcr4zdL+6SIrH3ElNXfBDv1DRk+u7g+8PVaIk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Esu5YeSZSNMWD9tBCB8DahS8k8M9uqUSF5bWl3RuhQKyrW/PTxWvALeZxk/QiIJA7
-	 dZcm28dZW0IuSJKS3UniMrmUvEkrZtD06Fz+uw6dnV0Wb9OOssMzvRLwi3ehtI4PL+
-	 KSEe+MxE40XZnFyBcb3dlPQvBv35/2kTqJUUy4imkkpf/UGnkkPlNvZ3DrK4AjtWjl
-	 Nmg7vjm4DOG5somXIcNo2QbAYYbQX3a1ZdYHOPBiBBpH6H6CjJcTbKmGH95CKe0CwC
-	 ZMHnKr/ONgrLy1woPLtV/lCmbnF2jTy11iDBMHDOHrO5ioIGtdNXiGrh7vResI7Rag
-	 LdmKd3XSZI6HA==
-From: SJ Park <sj@kernel.org>
-To: Nathan Gao <zcgao@amazon.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	baolin.wang@linux.alibaba.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
-Date: Thu, 27 Aug 2026 17:22:11 -0700
-Message-ID: <20260828002211.61987-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260827193821.46115-1-zcgao@amazon.com>
-References: 
+	s=arc-20240116; t=1787876612; c=relaxed/simple;
+	bh=caimQNcN2rW3DEi03DRHEGcEBfK6kOJ0DZblAcU+G0Q=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sGSZSot2vq2I6EDWyVP/r1u3fngxvm0+U2cprBblPHXBTAZBBjZyykMls9NO/Cbb6hhd5xWwPdEZeeG6j0W482KLE52U9710AoVv2xrrVzY97N/mum4w5XHqFVChXH4BujUw6PPzSeB8u0oaivIgvs4jEu6H6WCl4ptOYybqmsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b38bf64bfcso183716b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:23:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787876609; x=1788481409;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=riI6xZ5vVUH4NJYPmz62/YJnB7GrfXBnz2sLACtuAeA=;
+        b=eLRv8RAqFpXDqQcEZBpXNnvPRm68oUMgLWL55rKWMGyc4Sd02zvHqDH4JckveZJI1g
+         4UIDO16bDWpe5M7yX3O+EYV+mxh12+zu75cLp8DM3BdZfcZbl7SOaEyr/6kyZqShHho3
+         H74AczEaVSj1pZWnKRslpO37LuWPt+PtxomAz9Nu4eyPBzpBtNsDjIkp70rvYjRwqOqQ
+         TZoM552w43eIVNivizAub3fBghfw/1ASaSoa4541iII0xrNduf9yTDUajPB0cgbnK1ID
+         CO4QBb2gdXq10n1W9TiKdvEmAG+VSaN2XMKEKvQnqE+wwMq5yjCU6DBDcRTQE0X45FDm
+         w8YA==
+X-Forwarded-Encrypted: i=1; AHgh+RpNjcrrEIzzmxj7cR62g6WJgJYAt/sCNArezrZfYHBa08jDq85+e3PXRG2CIqefQc8P2AKS2liP9VQBqwA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lp6aRwjtakXPjjj14HcvRIif2cIbtpjnWuWT3/z2J8oPbJOmuI
+	Ld5BfW25dLtzq9jxmlFNtn58y7t8FpLwptau+DIJQCKumkvvYCUdW3DrZI8Uf4/2p94eZ81mgPy
+	NemUAccOBBWvSDDJSuI+W1eT9XcKP/u7FGyvTOmFIht8DH67QDGbU8mHCmkY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:c165:b0:4ab:3210:b31a with SMTP id
+ 5614622812f47-4b398253454mr3588570b6e.14.1787876609677; Thu, 27 Aug 2026
+ 17:23:29 -0700 (PDT)
+Date: Thu, 27 Aug 2026 17:23:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a90d501.1d9ded08.62e62.00df.GAE@google.com>
+Subject: [syzbot] [rdma?] WARNING in ib_cq_pool_cleanup
+From: syzbot <syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com>
+To: jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Nathan,
+Hello,
 
-On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+syzbot found the following issue on:
 
-> __damon_va_prepare_access_check() picks a random byte address within the
-> region and stores it in r->sampling_addr. There are two users of
-> r->sampling_addr in vaddr.c that pass it into a page table walk, and
-> both use it as the address of a page.
-> 
->   damon_va_mkold(mm, r->sampling_addr)
->     damon_va_walk_page_range(mm, addr, addr + 1)
->       damon_mkold_pmd_entry()
->         damon_ptep_mkold(pte, vma, addr)
->           ptep_test_and_clear_young(vma, addr, pte)
->           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
-> 
->   damon_va_young(mm, r->sampling_addr, &folio_sz)
->     damon_va_walk_page_range(mm, addr, addr + 1)
->       damon_young_pmd_entry()
->         ptep_get(pte)
->         mmu_notifier_test_young(walk->mm, addr)
-> 
-> test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
-> arm64, documents @addr as "Address the first page is mapped at".
-> 
-> For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-> clearing of the young flag for large folios"),
+HEAD commit:    73e3f0710014 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12977415580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c2d3e2a7997c1d5c
+dashboard link: https://syzkaller.appspot.com/bug?extid=d396918a29afb8543e1c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-The @addr documentation is also introduced by this commit.  This commit is
-authored at 2026-02-09.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-> the contpte helper walked
-> exactly CONT_PTES entries from the aligned-down page table pointer and
-> used @addr only to pass down to each entry, so an unaligned value was
-> harmless:
-> 
->         ptep = contpte_align_down(ptep);
->         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
->         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/725c76492ae5/disk-73e3f071.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/b4b32ef07d3c/vmlinux-73e3f071.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/afd59682ac03/bzImage-73e3f071.xz
 
-So, there was no issue before the commit.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com
 
-> 
-> Now the range to walk is derived from @addr instead: end = addr +
-> nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-> page of a contpte block, the sub-page offset puts end just past the
-> block boundary, so the round-up lands a whole block further and the
-> walk clears PTE_AF in CONT_PTES entries beyond the sampled block. Seen
-> on an arm64 guest running the DAMON selftests as random slab and page
-> table corruption.
-
-Thank you for sharing the finding with us!
-
-> 
-> Align the sampled address down to a page boundary. It is the address of
-> the page to sample, so this matches its intended meaning and fixes both
-> users in vaddr.c.
-
-This indeed sounds like can fix the issue to me.  However, was it a clear rule
-that we should pass only contepte-aligned addrss to
-ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
-caller that is mistakenly passing the unaligned address?
-
-If not, it might make sense to make contpte_test_and_clear_young_ptes() support
-unaligned adress again in my opinion.  May I ask your opinion, Baolin?
-
-> 
-> Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
-
-I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
-large folios") would be mroe correct 'Fixes:', if there was no issue before the
-commit.
-
-> Cc: s6f0e1142173a ("arm64: mm: support batch
-> clearing of the young flag for large folios"),table@vger.kernel.org
-> Signed-off-by: Nathan Gao <zcgao@amazon.com>
-> ---
->  mm/damon/vaddr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-> index 2c1c1952c008d..e26e426a56af2 100644
-> --- a/mm/damon/vaddr.c
-> +++ b/mm/damon/vaddr.c
-> @@ -360,7 +360,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
->  					struct damon_region *r,
->  					struct damon_ctx *ctx)
->  {
-> -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
-> +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
-> +						      r->ar.end));
-
-If we need to have the fix in DAMON, this kind of change would be needed.
-
-However, what happens if the address is backed by large folios?
-
-Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
-we do same?
-
-Also, I think we should pass aligned address to only the functions that
-require alignement.  Making the alignment to the sampling address in general
-sounds too much to me.  Particularly, we are working on supporting new page
-access check primitives other than PTE Accessed bit, like AMd IBS.  In the
-case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
-address in general will make it more complicated.
-
->  
->  	damon_va_mkold(mm, r->sampling_addr);
->  }
-> -- 
-> 2.50.1
+smbdirect: ib_dev[syz2] removed
+------------[ cut here ]------------
+cq->cqe_used
+WARNING: drivers/infiniband/core/cq.c:370 at ib_cq_pool_cleanup+0x248/0x370 drivers/infiniband/core/cq.c:370, CPU#1: kworker/u8:22/17817
+Modules linked in:
+CPU: 1 UID: 0 PID: 17817 Comm: kworker/u8:22 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Workqueue: ib-unreg-wq ib_unregister_work
+RIP: 0010:ib_cq_pool_cleanup+0x248/0x370 drivers/infiniband/core/cq.c:370
+Code: 41 f9 41 83 fe 03 0f 85 01 fe ff ff e8 21 92 41 f9 48 83 c4 20 5b 5d 41 5c 41 5d 41 5e 41 5f e9 fe b1 06 03 e8 09 92 41 f9 90 <0f> 0b 90 eb 84 e8 3e 76 b4 f9 e9 67 ff ff ff 48 8b 34 24 48 c7 c7
+RSP: 0018:ffffc90004bcfac8 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffff88802e53a580 RSI: ffffffff88ca43e7 RDI: ffff88802e53a580
+RBP: ffff888028e1c000 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000804 R11: 0000000000000000 R12: ffff888058b09840
+R13: ffff88807d614ed0 R14: 0000000000000804 R15: ffff888058b09800
+FS:  0000000000000000(0000) GS:ffff888123c6b000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007efff0e27dac CR3: 000000005a096000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ disable_device+0x161/0x280 drivers/infiniband/core/device.c:1328
+ __ib_unregister_device+0x2b4/0x480 drivers/infiniband/core/device.c:1571
+ ib_unregister_work+0x19/0x30 drivers/infiniband/core/device.c:1683
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
 
-Thanks,
-SJ
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
