@@ -1,133 +1,205 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A853D3D1A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433E135202A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787948051; cv=none; b=P8EqVxleCHtEYEWr4GaygTw8Z5un6Urk+UUzW0u7d3vhdIXG/yiXpBQMb3g38JhkP8yHjaqjdh9OLRGK5CdmoVrTDQV20sQAm9YGk2ZDwDPkqauC1jCg7G8nJI6aLW9+CSjkMWL6RQajjeGrE+UTz7pVUQVyDtTYj37Fd26cwJY=
+	t=1787948146; cv=none; b=tc6DBKaSUsDsCYFxNWbpXNGzGU8q0Yq1T+uAZVQi8P+XwdoRpeakhxI7MTnst74ULUZkOgvEodBbVoCGf/XAUfqk2OLmEnIQU2aDx5jUG9IIzbkEHgTXtfFxRhcSDlwp/45KHVgNqx4nk2Pcz6c7olCon1zGRa/k2+ED5PDIC6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787948051; c=relaxed/simple;
-	bh=RrlgIjKQtS2iaNVqkTRdRTy02FrfZJ1ASwUAxdnue2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WigLn+my+7YuegiFpPPfSLGbQisRQ9ceUp7F1I4zqDTzHxWaPYvHqeNPrnXy/GeVc5NtmRPyG3wHAIlHe4r4BHRIhRLYQenQ4YGQ3y5xVstBeeNoTkTZA2uIKpqySHD6CSDw8Yywz9JYaBVb+vk8lMYTUCk9jmK59iAy0nonbPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xy7jaMC3; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787948146; c=relaxed/simple;
+	bh=lMQmMsI6NESUnC9Kx4umf7FdQATWdGD+CG9btCbCLUo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gO3SEKQ0fqt6Eyx5katHR4aEDR0J2XRybUujlS2q7n9c4wnEySmAnqlidsIoyTHqpuHWdmtjIxYuVg2UXLIJBGpdtSitYnissw4nWporiTAh4DIbOhlNlDA2ciwx8EO/b4WO5ql21NJMoPeUoL/fNHKljUAd6BM5qb4RiLwV7rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ClBVXgOK; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xy7jaMC3"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d3b440b97aso5445ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ClBVXgOK"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-836ce6cbe1eso19982337b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787948049; x=1788552849; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1W99GsbYdan7e4eL7ZVdhDx98mSTGYMmyZJimSzUaX0=;
-        b=Xy7jaMC3s/Mz4S8vdPPGXaHr2smRZE+dx1unqDZbo/sGMkQm59ENDpCVo2uXJRBKel
-         5v+IVKyMB+7pzlLkyOqXNO9j/s5YvHmTG1UwrVvzTrpIvQbEdoGQktExhdBDOad96jkq
-         gTAVSzYJ+qlOv5dD4Jc+4sPqRMjRmk/OOASlCykzhWf1gI1XwCQwMnjD3L1sJqVAPBp+
-         LsPyJzR9IhABjN3x3zdsc0Z8+sRPHdnH4y7KD6OhMODs1nfxr9rl0FX3bfHF9uMNQY/G
-         KRAGnenn49k94sOQFqwnrlCA9Mat5xpnRNU+1D35pI2Hugmic/mCk5HH+Xqae1KmoFwH
-         nM6w==
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1787948143; x=1788552943; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
+        b=ClBVXgOKDm6ny0nqEUbSSc9cr/WjmAhS4BQWGEe55LEdjISJLH8PWPl9RCwZxPtzJS
+         qD0AKy7wBNMI16+I2eftiTo7YM10ECg4Rxb8iaoG/xLAFLDC2n12hf+UCNbqk9zILk1m
+         yJ8BNWgZaQ6o//pycmG4xYCFj/XaM2nN6dy53nW4LqD9tdfgzhHyZR9YecoInBkdVCVy
+         di806HBdMnKkLunCfOBaEILI1cMkdIBUwIncpi5lC9lW58HlDdwOLFeidqTpgatsWFEr
+         GFSdUeKJQCaUqW+h/WsTZ/7otVMb/sacHd9Zmfsda24nOQTDn20Q0tU4nF2ACx9Ntzll
+         xOLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787948049; x=1788552849;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1W99GsbYdan7e4eL7ZVdhDx98mSTGYMmyZJimSzUaX0=;
-        b=YptMbrZCNCvfk5ZnQKAPahrvyIr88u72RG8EPST+TL4MT/53msWvhaAFdePbnKVAxE
-         FqGcPT0sUXpjaT18+86PLwRx6CKLi0jicnDizQTZIqAkHdyr0aQYlXw619iUQdpJJA8Z
-         En874lIPBnjx36bCgbg07uPaBLwdHhGhGEKs//U1gWXRw//z/CIw1AkCmepR9hTDEpOm
-         NaWr5zC3yIjOGd6HhCTK77JUGdiI9FuwnMTu5wkBqZCaWlFNqZ9hehP5g8a1cVSHQXmr
-         wdmWWqq4byYraZZsVKy5oHHxbZYIBuRjwGjT8zMa4xgfUIRHjWO1myIWccduvSZW8UfB
-         PE0w==
-X-Forwarded-Encrypted: i=1; AKwUvBw1phOqW1PHNoNYLwZmD4wO0RInYq8z/Tlg5P+nq/o/dm7DhfH3T7/83Qipu27+GyVprrpuyMvYqjCEIvI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUTyBNUewEPJDqYJPT+5AAF4YB6cFM5PH2AtUjjZogJgUWE0LI
-	CrdnHZ45kEuM0JtngjJyd/qooOBcc76mHyCKkjc6MGni+OuYow6Ag/2LqCwmzKCH1A==
-X-Gm-Gg: AYBFou0+8o/V5itqauIzWJKElx59LZLIDKNXkpH8ryL8pchjD4mJmruUB9pxh7ej9Hc
-	uAZrFLk5Yh18RMmz5Ky3qVURUmldUAbhB5RLh3N0IWmMd7InphO3isX+Ecp+jrZC5m6NpS8gCF6
-	eUPg+gZ2IOqEQ40MgXMNu208baojsQDB5+zCXff3m4bYr42N0NFgNvhHMinNjlJdRBrlDAl92OB
-	IprgvTJNzNcqB5PnX0m3T1G8wqyAs2G8bWuoA9lCYIRVsbwdaeAVj6KXv4IijD4b+XlhCqoKdqD
-	rF+/zT6TRsBWuBGiCRQ2gX4Qvl8thauM7okqokVJHGqti3p2UU/1G7lMFTFDULZTlFS954dQqQ2
-	o8zCsHRtB25q/PxRbIeUTVaGK0PftsrBBtK2hO8LCx6TpiOD5sCpfwIZ5VKx48x7Q4iPn2DSP+A
-	YmQXoAbqjB4KrvUSBYIIpPyRAQxqtveVI00gNJmwswioX6sizKdsI/zHzWLybf9lRmpEDlw/Bsa
-	0GHm9E3+BoNubOEFJgKLMkA
-X-Received: by 2002:a17:902:f642:b0:2d5:db38:800f with SMTP id d9443c01a7336-2d8df554483mr1432235ad.14.1787948049010;
-        Fri, 28 Aug 2026 13:14:09 -0700 (PDT)
-Received: from google.com (139.58.247.35.bc.googleusercontent.com. [35.247.58.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869cfdsm8784715ad.51.2026.08.28.13.14.07
+        d=1e100.net; s=20251104; t=1787948143; x=1788552943;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
+        b=ItuTS65IWz2sBT87EaFf3/KKqGcwghwg0Mv+G/54VEdbIY/m6rh0bc1jnoBIeqL9Yk
+         uu0Jr0hfx37yDIdjo3fZndYkN4eGGA6OIrGJOkdsPW1AblK+taIhywR7iLaKws2XHqF1
+         H1XrD4l/eqWX0OH0rvLIA9oGZ9GOPp6mBCWaRnwufOALL7XvKjupAWHCTKFq7TzFx4yH
+         TTJkzlPT331jPtxGVG+HiGsssGzrcNP86IwygwONCe3yobuZXlNWcFvRywZbyqGkVhh1
+         PJVzWgDmoWziQ0ept+vImeUwpJYgodHIfN/djeiUHBR3OSnXw3YYsb8326t9+GKz4Zm9
+         /ctA==
+X-Forwarded-Encrypted: i=1; AKwUvBygniAwiiFixKKBhZcrgEkmoyEGOhDM5PHFoOeGEtk0rt9IxljKXMvapJ87AfAV2oVlkw27haz+GFCUYBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiI/oZ2yUueUEPkWe04A/htU9Yb5+tPD/bYPNCHOXpAYFFU9Y0
+	mb3ROvSlIuX9G/q/zqtiUFROalN29SEn4yNw/uL+JwsXLRydqOVXGBKD/TQDOCKnxRc=
+X-Gm-Gg: AYBFou1+INhIFU2EV42IN5zM9UVN6seFs+uo1oPcBt+qD7wN+YsI6J4aRG6c5S3jv/w
+	wFgdRtqkXUAgzunU1/vyQsqaM+VNuQ5ReV4LinDu4yMnY+hPv65O79GnsxcKpSi/s5ZnJ88ocMx
+	Aiik6owNwFgOIysOtsQ6e5ZpAzt3gTyZEb35mGM6EHXU1XLbaV3zu2bU5SyRBxa3zEU1Irb4kJo
+	edCueSw5NnVh5mJF2a0ifn/Eg0BAAKV79qxd1PZbZfbmI0ii4D5+tGDxM6QLiZ9ZRreRk5zU0MO
+	C2mTvJDajt7gmUpt8mvHgOkN3eKQm0oxAA4TjE0oSDUK5tnO5Mf9jedY7ReqHAL9hC5ca0K90DX
+	VHEtSVGOdRsB8uCw3P9Hy/aVaEplgjIDWRJTetQqKMNOJ1Tl2oXmdy3eQpANTWeMHaKGIz82cuY
+	IWHxmU6B+okJOzkcSyJCv5b8DPqwBa4BP9C/aHQTGmNPCU1i29hGuffDovjDPtz60e6q3X+XqUV
+	V3RAHh6bDyMaUSmS8wngfIbtKmuObFCBS2tuE5hQRGg9DZFEZUyxL5ey3yh1aXqxS21Rr864yFk
+	EH/qqr/UiA79ExGz8Q==
+X-Received: by 2002:a05:690c:a1cd:b0:85a:634:169f with SMTP id 00721157ae682-85d6d4a8561mr34088607b3.28.1787948143021;
+        Fri, 28 Aug 2026 13:15:43 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:ea83:524e:5ab7:94d1])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5e180b20sm11971547b3.3.2026.08.28.13.15.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 13:14:08 -0700 (PDT)
-Date: Fri, 28 Aug 2026 20:14:04 +0000
-From: Lisa Wang <wyihan@google.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Peter Fang <peter.fang@intel.com>,
-	Andrew Jones <ajones@ventanamicro.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Chenyi Qiang <chenyi.qiang@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Erdem Aktas <erdemaktas@google.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Roger Wang <runanwang@google.com>,
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
-	Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v14 10/22] KVM: selftests: Set up TDX boot code region
-Message-ID: <apHsDCRHG-QIYZuL@google.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-10-15ad654a50db@google.com>
- <20260824192702.GA3694338@pedri>
- <aoyi4nhWkhFrlIfs@google.com>
+        Fri, 28 Aug 2026 13:15:42 -0700 (PDT)
+Message-ID: <14ac44cb09ba3a7f22f14fb4d5c6818d235c0297.camel@dubeyko.com>
+Subject: Re: [PATCH] hfsplus: fix truncated xattr names in listxattr()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: maurycy@maurycy.com, John Paul Adrian Glaubitz
+	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, Kees Cook
+	 <kees@kernel.org>, Justin Stitt <justinstitt@google.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Fri, 28 Aug 2026 13:15:36 -0700
+In-Reply-To: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
+References: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoyi4nhWkhFrlIfs@google.com>
 
-On Mon, Aug 24, 2026 at 01:00:34PM -0700, Sean Christopherson wrote:
-> > 
-> > There shouldn't be a need to "pad reset_vector to its full size of 16
-> > bytes" as stated in v8 [1]. The exported "reset_vector" symbol in v8,
-> > plus the boot code start & end markers, should be enough to help
-> > tdx_vm_setup_boot_code_region() put this boot blob in the right place.
-> 
-> Ya, looking at this with fresh eyes, AFAICT there's no reason to handcode anything,
-> it's just basic arithmetic.
-> 
-> Side topic, this series doesn't compile for me, so the below isn't even properly
-> compile-tested (I hacked in arbitrary literals to get past the undefined references).
-> 
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:26:(.text+0xf): undefined reference to `TD_BOOT_PARAMETERS_PER_VCPU'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:30:(.text+0x17): undefined reference to `TD_PER_VCPU_PARAMETERS_ESP_GVA'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:33:(.text+0x1d): undefined reference to `TD_BOOT_PARAMETERS_GDT'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:37:(.text+0x26): undefined reference to `TD_BOOT_PARAMETERS_IDT'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:44:(.text+0x2f): undefined reference to `TD_BOOT_PARAMETERS_CR4'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:46:(.text+0x38): undefined reference to `TD_BOOT_PARAMETERS_CR3'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:48:(.text+0x41): undefined reference to `TD_BOOT_PARAMETERS_CR0'
-> /usr/bin/x86_64-linux-gnu-ld.bfd: tools/testing/selftests/kvm/lib/x86/tdx/td_boot.S:54:(.text+0x51): undefined reference to `TD_PER_VCPU_PARAMETERS_GUEST_CODE'
-The patch series posted here on the mailing list is correct,
-but I made a one-line mistake when pushing the code to the
-GitHub branch. I have just force-pushed the fix to the branch.
-It should compile correctly now. Please let me know if you
-run into any further compilation issues.
+On Fri, 2026-08-28 at 15:38 +0200, Maurycy Pawlowski-Wieronski via B4
+Relay wrote:
+> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+>=20
+> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
+> strncpy")
+> changed copy_name() to build names in the osx. namespace with
+> scnprintf().
+>=20
+> The supplied buffer size includes room for the prefix and the name,
+> but
+> not for the terminating NUL:
+>=20
+> =C2=A0 $ python3 -c "import os; print(os.listxattr('/mnt/tm/.DS_Store'))"
+> =C2=A0 ['osx.com.apple.FinderInf']
+>=20
+> The truncated names cannot be passed back to getxattr(), so getfattr
+> -d,
+> rsync -X, cp --preserve=3Dxattr and tar --xattrs etc. seem to lose all
+> Apple attributes on hfsplus volumes.
+>=20
+> Names in other namespaces go through the strscpy() branch, which
+> already
+> sizes the buffer correctly. That's `why xfstests generic/377 does not
+> catch it.
 
-I will test this change on my side. Thanks!
+Do you mean that you can reproduce some issue for generic/377? I don't
+see any issues with this test-case.
 
-Lisa
+>=20
+> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
+> strncpy")
+> Cc: stable@vger.kernel.org=C2=A0# v6.10+
+> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+> ---
+> =C2=A0fs/hfsplus/xattr.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+> index 21a1c196c71f..4a3c97373682 100644
+> --- a/fs/hfsplus/xattr.c
+> +++ b/fs/hfsplus/xattr.c
+> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char
+> *xattr_name, size_t name_len)
+> =C2=A0	memset(buffer, 0, name_len);
+> =C2=A0
+> =C2=A0	if (!is_known_namespace(xattr_name)) {
+> -		len =3D scnprintf(buffer, name_len +
+> XATTR_MAC_OSX_PREFIX_LEN,
+> -				 "%s%s", XATTR_MAC_OSX_PREFIX,
+> xattr_name);
+> +		len =3D scnprintf(buffer, name_len +
+> XATTR_MAC_OSX_PREFIX_LEN + 1,
+> +				"%s%s", XATTR_MAC_OSX_PREFIX,
+> xattr_name);
+
+I don't quite follow how this could solve anything. If we have enough
+buffer size that was defined by caller, then this buffer should be
+zeroed and NUL is already there. If we have not enough buffer size,
+then we write out of available memory. Could you please explain your
+fix? Have you tested the fix by running all xfstests?
+
+Thanks,
+Slava.
+
+> =C2=A0	} else {
+> =C2=A0		len =3D strscpy(buffer, xattr_name, name_len + 1);
+> =C2=A0		if (len < 0) {
+>=20
+> ---
+> base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+> change-id: 20260828-hfsplus-copy_name-fix-a6e2a0a4485e
+>=20
+> Best regards,
+> --=C2=A0=20
+> Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+>=20
