@@ -1,35 +1,35 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562EC3ED3B4
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9429E3E9C3A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906919; cv=none; b=nfzqT/4mOBl0pUzCsrG6hV1VJyIo11oEYewGRHPgf1aLXgtJ+DVOZr8A/XXlcTt76RyNhs7pQGiUFN4hGc+F0vy/n9nJ3PKkkF9y4/rpbTMlrSlPAKcA//X0M500rXF+dDCZV6kp9GXPqrcc3Dpz7kqqD2QTB2Js+ecb9Duvn9c=
+	t=1787906922; cv=none; b=kS4oBOyg3yRtqJ+D91Wut8SYJtnp9i7W9Y8L2nuGr+Du836hyp5kj0MQrM7fc45/CfhgA8JPQlvmyt/f6Zuup8Y32WRxQxwYjzIbudAnC8NgMCkwvUvoNQp8dShQBOneVCq/GGB6TcpbtXG0q3n2lpB0q5NOmLqJfNof/YSNeCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906919; c=relaxed/simple;
-	bh=VbpJ93LXbGdQ+BXobxbnLmskw86kv29aRVWL0VYGk9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=kqjQmy//J14l8lsz5zrAkvwi4c6K+T9eHRq7p3UpJNB+tNL6a2Oa836ZliFWhp6dbeDxdqUb1my2zxtyFEe8ig+KsdB/7k/1/M0am6UOb7EeZwI5lLNxx8lYd/oGP3M/fIuuTLlxmB8bqxjkojSMjK/scHhMUPA7La7loeURV08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=b8ePwLWc; arc=none smtp.client-ip=54.254.200.92
+	s=arc-20240116; t=1787906922; c=relaxed/simple;
+	bh=HmqU/yF1WHT7McoNWyBANu3omr6KnsrjF+SmFCJUV50=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=jS8Gm1+SQh3vjlp2tJb/MSbMzOtdt59SGyiPU5MbXezlHOc7WgmWC6EwEale8DURGo2TYux4Dbf8boa3sHE94MR5LP83EDVbny6jQ3xPPPbCqOnY7fbhutn3gyL5afuG4Mg7ClzONF+ZwuNCGKRcegykZeqxSg+RWdy5Cn1s5xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=Ax1LbDvB; arc=none smtp.client-ip=54.204.34.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="b8ePwLWc"
+	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="Ax1LbDvB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
-	s=altu2504; t=1787906892;
-	bh=uyMGZMKc5y1SgmgDY/tsuzKbkVlmYjdT8Q636L6W9/0=;
+	s=altu2504; t=1787906903;
+	bh=bunO2t7dsNCTFo7jX/DDz1zCMJsJEq2YOzLyo3nYWTM=;
 	h=From:To:Subject:Date:Message-Id;
-	b=b8ePwLWcWOI+xkIw62G815/sIHuDwlzG+vJi5gr+zMYBTdgS7p1q+N6ebgu8dBQYl
-	 m3ZF0Cx/kFC3PoNRVWupDibx1mkbEe5bnmTlwfEisqgUeIcSV8MNFh5JQip+cGZFu7
-	 vA+JPQyxfO6bMh19id16ZkYHl1c3kKUWcu6uHMuU=
-X-QQ-mid: zesmtpgz6t1787906891t1bc82087
-X-QQ-Originating-IP: OxvB8j0RZYuReQ0OYIUUtJayIysb859IsfVqPvUZV9Q=
+	b=Ax1LbDvBPJY7WtMnZHNJx9FYPIPDf+w5USgPhZ34xWWYW3rTXohhnrk4lgoIwNxy0
+	 wpsH5x1ydsLLCCSA/0vL4C5inrVxQCrvy1IYUXDN5HrmQAxaZUvlr1HVtX0wP/u8xR
+	 E85y2RYPrbE/CoDgyaZe5TQUU5pRUGnznfLa4nos=
+X-QQ-mid: zesmtpgz6t1787906902t94a8ccf7
+X-QQ-Originating-IP: ePzt+A5uepZSdMsOn0wfVfxlDaG2UaMeos7mmM/yUWg=
 Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 16:48:05 +0800 (CST)
+	id ; Fri, 28 Aug 2026 16:48:17 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7758792601423077606
+X-BIZMAIL-ID: 339802763641425583
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -56,31 +56,31 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-phy@lists.infradead.org
-Subject: [PATCH v7 4/7] drm/bridge: aux: Add drm_aux_bridge_register_from_node()
-Date: Fri, 28 Aug 2026 16:47:34 +0800
-Message-Id: <20260828084737.565-5-kernel@airkyi.com>
+Subject: [PATCH v7 6/7] drm/rockchip: cdn-dp: Support handle lane info without extcon
+Date: Fri, 28 Aug 2026 16:47:36 +0800
+Message-Id: <20260828084737.565-7-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260828084737.565-1-kernel@airkyi.com>
 References: <20260828084737.565-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MyIXMys/8kCtyIOyauqTnT2FdFECnE5zDhFWh9iDGXkAWPdVFLmXnVFx
-	FlFc0GuaA4bKKi1Lb/hh9063WcoYAGw3nPu5F0dPQqqH2rsqCGjF5nzlSZUNMdjhcooI1+L
-	aLoKVVGkKvzuWnF8Ka3xxEr9Su9cUhODz6XzNhh49mVqALFGQ91X/8H09Syc+1JKxOCTdGS
-	iL4mOEZ+yu4JsWxAVSs4CaffwPVKTaftoPc1CMshUgVIE0Q1XjlE1njKVkkM99/NI5bVCgo
-	+e9ySs0B+2u5owjD7OQK442KLO83RqzrgCuzd2BMQoxrMGmrywU+6rzTtiJZ+nJicMAE5We
-	/LNj8KtYATEccKQhBrFTTGD/ioW05l9c4Is/SAVPHIXV/RMtaYve4W+T5lqaIRt37n3ZkC4
-	PxMGffQE1/IYP2pC6nw30T1q/oOJ44rUUc2jLRtCUynFx7QWx4kuFJgjFO7ctCDh0gqgSKW
-	k0ku5Mm6KzZQilnqW8RA1J7tcrkrVtdfDl90z67QBRYm/KJ9tZJl/yIblya7AB5CM3CMBDu
-	KQJ0BbtAvzWMEoljK3IB/UMj50GUXpn/P6LKFmBkFTb6SFgt48dklR5JQYRURYtUeX49zBC
-	BzKXi+bzHh+pBEvdYPhcNubw+4K2lT7XtRXIM//INMKYRabmXAohkoGJnYn5YzRMHcPP30u
-	3ailkAVCK65M+8yvO0k5HfrLw8NQ5KTW0IX6nO8QekDmXF8656ZMCOKvHxaeesqs36Obx6D
-	P2nJFV/IGtFzfrkIBFGs07L7tH5qnBnA0tJtP406uVnfI4fgeU4d9GxXKdvi8b14TxkavAY
-	T7nrwAQN3QrtGqfwpLPk7yngudfp13AI4nOK2DamFdf0JrJQgEOji9zFN/AQubNr4+nlxQL
-	k/Qt+3bDkgRBDzTMpbqY9dxu9MmA3dlbDe1M9c6LCJECygA+yeJsaug7wfU3m8SYWKwV07k
-	VHFF3imxJ2wCBLxfSqA8uJfTZNissN9AZrcv7a46ahotfDR5BnEvwAOUxTVYBCR8hWMoP5b
-	jRvnuBAw==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-XMAILINFO: N9ponxXGLTJp2xiZqtP41BfCtkPmqVBS3llieXmFyUmERgM1hquRaGxk
+	hSoqC3HRtW33bR7QClce9eA1uihutngkUmKpAPjSoPXTOkDNDSM9rovrFaGs6uznpz5zEF6
+	LeTkjTSt3fypy2clZAgHM+mzV4qpd5+t0mPtwNKHxVILkFnWLtAABB63iIZaZ0fkpmsdqdF
+	isB9IHa34SQdgBDN5UBQaUi5ynNUXAmsWMQGRUEbYadLXy82c84468yT04kP8Hs4yUiI4Wv
+	BGgmnhPBOrkZI2FKYH5J1ywGSWk+wMBK6fGoGpU0wJBmJbomz6Vy7CzR7m0fsXZGrXV6On6
+	JRNVkguCgBC75IAAZhgFWcLI2nK9JiTuUNxFtrChpXKoR3FbPxsgXiW6OIG410wtB/FzRyI
+	0WqXY3BLHWSQ6+fV86b63HiItFo+s7HzosQKVwgcGmi8nx5fJDY2i/JLPh5z+4zEic/xUJo
+	Yyc7y+xjcq1sBdCWTyft7U6dERmVkYy9fYapQuCDX1I67EdeYjgFz7tunbl+DU8ON/dT71W
+	FBp4Tw2mCTTtBKXMqM/74svnffzrQmdxGC6W9FnlmuscUZKR+xce5Hks2bkAKqBuUyhlj4h
+	qXQKC0STEuBPd0G4AFU+oM5/LsNrqTpiJ7m2IpZkhVK/NK+DqyXZwCQsokryjVFzOKxmgd3
+	lKuYJ/ioaCMVI6SpeD84z+MTkL/ahT959muw0gKv4YWErg4ttpnEZ+GKS5OZ7BmmcajGYiV
+	taoczSiqStwxTawB6TtNc9lOziqnMXw0xgauO5v1RqHdBp9oybsghz7RazFDQm6U4YRnWiu
+	UndaNh1epuEAan5RaeWcFn/ZYcLdBizavv76I8cwgFPam+CjiMHKfy2KtpvQT75dvOdvQSL
+	p6VvrL1R56+vqdOupUX1efp5lf4QQ2KrjImqN3Qv9AzhPgGK+9mPF4ytQKqGrZbOxWx4MNq
+	bUsJ/9Pfde9/0dTO+2tiVNf/iQZw7I4/uHLTL6YwxDWhKonHvWcxeYdVGa69lvosegurUmE
+	h87DRAGm5VQRQlXknIh5zPV+X9DrM=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,107 +90,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The drm_aux_bridge_register() uses the device->of_node as the
-bridge->of_node.
+This patch add support for get PHY lane info without help of extcon.
 
-This patch adds drm_aux_bridge_register_from_node() to allow
-specifying the of_node corresponding to the bridge.
+There is no extcon needed if the Type-C controller is present. In this
+case, the lane info can be get from PHY instead of extcon.
+
+The extcon device should still be supported if Type-C controller is
+not present.
 
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 ---
-(no changes since v3)
-
-Changes in v2:
-- Fix incorrect function names in the documentation comments.
+(no changes since v1)
 ---
- drivers/gpu/drm/bridge/aux-bridge.c | 26 +++++++++++++++++++++++---
- include/drm/bridge/aux-bridge.h     |  6 ++++++
- 2 files changed, 29 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/cdn-dp-core.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 1ed21a8713bf..06a1466f49bd 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
-@@ -33,8 +33,9 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
- }
+diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+index 190cce9530c8..74e1f5422a6e 100644
+--- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
++++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+@@ -157,6 +157,9 @@ static int cdn_dp_get_port_lanes(struct cdn_dp_port *port)
+ 	int dptx;
+ 	u8 lanes;
  
- /**
-- * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * drm_aux_bridge_register_from_node - Create a simple bridge device to link the chain
-  * @parent: device instance providing this bridge
-+ * @np: device node pointer corresponding to this bridge instance
-  *
-  * Creates a simple DRM bridge that doesn't implement any drm_bridge
-  * operations. Such bridges merely fill a place in the bridge chain linking
-@@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
-  *
-  * Return: zero on success, negative error code on failure
-  */
--int drm_aux_bridge_register(struct device *parent)
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
- {
- 	struct auxiliary_device *adev;
- 	int ret;
-@@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
- 	adev->dev.parent = parent;
- 	adev->dev.release = drm_aux_bridge_release;
- 
--	device_set_of_node_from_dev(&adev->dev, parent);
-+	if (np)
-+		device_set_node(&adev->dev, of_fwnode_handle(np));
-+	else
-+		device_set_of_node_from_dev(&adev->dev, parent);
- 
- 	ret = auxiliary_device_init(adev);
- 	if (ret) {
-@@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
- 
- 	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
- }
-+EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
++	if (!edev)
++		return phy_get_bus_width(port->phy);
 +
-+/**
-+ * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * @parent: device instance providing this bridge
-+ *
-+ * Creates a simple DRM bridge that doesn't implement any drm_bridge
-+ * operations. Such bridges merely fill a place in the bridge chain linking
-+ * surrounding DRM bridges.
-+ *
-+ * Return: zero on success, negative error code on failure
-+ */
-+int drm_aux_bridge_register(struct device *parent)
-+{
-+	return drm_aux_bridge_register_from_node(parent, NULL);
-+}
- EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
+ 	dptx = extcon_get_state(edev, EXTCON_DISP_DP);
+ 	if (dptx > 0) {
+ 		extcon_get_property(edev, EXTCON_DISP_DP,
+@@ -220,7 +223,7 @@ static bool cdn_dp_check_sink_connection(struct cdn_dp_device *dp)
+ 	 * some docks need more time to power up.
+ 	 */
+ 	while (time_before(jiffies, timeout)) {
+-		if (!extcon_get_state(port->extcon, EXTCON_DISP_DP))
++		if (port->extcon && !extcon_get_state(port->extcon, EXTCON_DISP_DP))
+ 			return false;
  
- struct drm_aux_bridge_data {
-diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-index cca07a8e2d45..67f74ed287d9 100644
---- a/include/drm/bridge/aux-bridge.h
-+++ b/include/drm/bridge/aux-bridge.h
-@@ -13,11 +13,17 @@ struct auxiliary_device;
+ 		if (!cdn_dp_get_sink_count(dp, &sink_count))
+@@ -386,11 +389,14 @@ static int cdn_dp_enable_phy(struct cdn_dp_device *dp, struct cdn_dp_port *port)
+ 		goto err_power_on;
+ 	}
  
- #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
- int drm_aux_bridge_register(struct device *parent);
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
- #else
- static inline int drm_aux_bridge_register(struct device *parent)
- {
- 	return 0;
- }
+-	ret = extcon_get_property(port->extcon, EXTCON_DISP_DP,
+-				  EXTCON_PROP_USB_TYPEC_POLARITY, &property);
+-	if (ret) {
+-		DRM_DEV_ERROR(dp->dev, "get property failed\n");
+-		goto err_power_on;
++	property.intval = 0;
++	if (port->extcon) {
++		ret = extcon_get_property(port->extcon, EXTCON_DISP_DP,
++					  EXTCON_PROP_USB_TYPEC_POLARITY, &property);
++		if (ret) {
++			DRM_DEV_ERROR(dp->dev, "get property failed\n");
++			goto err_power_on;
++		}
+ 	}
+ 
+ 	port->lanes = cdn_dp_get_port_lanes(port);
+@@ -1027,6 +1033,9 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
+ 	for (i = 0; i < dp->ports; i++) {
+ 		port = dp->port[i];
+ 
++		if (!port->extcon)
++			continue;
 +
-+static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
-+{
-+	return 0;
-+}
- #endif
+ 		port->event_nb.notifier_call = cdn_dp_pd_event;
+ 		ret = devm_extcon_register_notifier(dp->dev, port->extcon,
+ 						    EXTCON_DISP_DP,
+@@ -1119,14 +1128,14 @@ static int cdn_dp_probe(struct platform_device *pdev)
+ 		    PTR_ERR(phy) == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
  
- #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
+-		if (IS_ERR(extcon) || IS_ERR(phy))
++		if (IS_ERR(phy) || PTR_ERR(extcon) != -ENODEV)
+ 			continue;
+ 
+ 		port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+ 		if (!port)
+ 			return -ENOMEM;
+ 
+-		port->extcon = extcon;
++		port->extcon = IS_ERR(extcon) ? NULL : extcon;
+ 		port->phy = phy;
+ 		port->dp = dp;
+ 		port->id = i;
 -- 
 2.53.0
 
