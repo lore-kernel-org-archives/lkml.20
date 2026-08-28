@@ -1,248 +1,151 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C67914A8B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D9414A8B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787883115; cv=none; b=rEonyGeJ1Ckqtao07U+T20kbBY2qQZ0/9XBOIskvFc1J+Mfnr3Fn0rtyMNNuNMCu08AaUywR+rm+OVDpvHtvfDvtiVEEu+x8AK9sx9P/aj4lxlucD0sDifu+DEA7HXVY54YBGWj+JVvwBDpA0CXF0UYZ6IGAYmoLFbGPYwvKDVw=
+	t=1787883153; cv=none; b=jNH8gBpiD2cBLz1SZzIer1LbgEv1lwHu1yriIKIi6DDoR+qX2ciBGb/Jb9dAB2Jio1IkLqvQPuheQtkDBRidEhr7AVxjW2n+UUCP7bBHRJj8D928eBq/H6wl578bt1FFmJt3ag9obVBBb3c8efxcK4dU28mwGjzrsBVsxC/wxSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787883115; c=relaxed/simple;
-	bh=p2Ps4vqKHuAyN2lDsXtRKLmkI1q/c+ujvfBM9Iyq/L0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iNAwiWzogzgYHTM8JyykcQe35VgpqwSO5XIxLuIybwEt6+uNVcRgJK/XfDO3SyBhFMAuvcjC8QPJqoBmQx5seXVYqYSsj3ONrpajtvj9xQPuifVGfaOhBFAbBX4y0chNlzjNXoWA++8kAzqFXEXbs4nltZArdU2ByayvIcfyxyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMMC0bBFz34Dg;
-	Fri, 28 Aug 2026 10:11:35 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMM90gBVz34Dg;
-	Fri, 28 Aug 2026 10:11:33 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id D257178AD;
-	Fri, 28 Aug 2026 10:11:24 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 28 Aug
- 2026 10:11:31 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
-Subject: [RFC PATCH v2 17/23] sched/fair: Fine-granularity NUMA balancing
-Date: Fri, 28 Aug 2026 10:07:31 +0800
-Message-ID: <20260828020731.785556-1-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
+	s=arc-20240116; t=1787883153; c=relaxed/simple;
+	bh=1hj/OJUPVgN/qtjAcfKjFM4OTZS4RU71LNIa3Vsl+FE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=eWBdrvx6ELeMDeYJJRLON2MTyQ9q5ou9TPfRDtKxQRqToJs3GKvDwYfHI79Rv5evjaaG5SQioR4Xi05CQgMVSwab0WGDJEVPvcBTcRpoczCXYCug5YfU2oehtgyle+Xb3x0lpkwgJYJf8Pr8a7bGzazmCXDsGDO7hiyANLlFcuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-45e2c1e33e1so245391fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:12:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787883150; x=1788487950;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j631KfuXT7Q6Z7MHV3kuKtSJxOKHdXGjbHFa8rcKGNM=;
+        b=dIdZ7TXzky6E82o28NvNy3pgpm61rKdA2DvKSpf4t86WoPddOc5xusEIZpj6B1dY1z
+         ytEzWcKvJD2BEqrYhRUobUH85Q+fXmV0uguFTWOLeg00lrr4fnT5rER6M9J9OjkaK6JU
+         d+NPY5mHlcLZCghJP+9am+ODF1UXjHorvMaA7boxPkh2pG+XgrFz2dbOAtmcvm+cxTRQ
+         Xq9kifAXtIdHrdOAuSv7hYuW+dPF5VIn+pH8CdCQdFh94i1rTchIzCH4yg1tHLzbp9Yz
+         +BT+GyUIVM8NgOIuSqFk334bTovds5a/PacmKcglEUhtLTEiqU2FejsK/xkebiSg5Tpc
+         4Gyw==
+X-Forwarded-Encrypted: i=1; AHgh+RpS1kTGPP5tbMoqyig3CVlVGucymHKVv+AG4QQpZ7kQu+2s39LwYhdbe2k8ij6leZ1Dmo4A7Bunc0+VX6w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kd1uoyTViOQmoO9yZInIusR9YYtggTVRmATRIdm3PxlJzXGAnr
+	gAWHbwh79vC3wcBts2cMlgQAaatnS/8fOHeOYREQ9TW6jlpv7mCk5qdDQczHJspxbPz24AveZ+w
+	Auhoyh6rArDCDDw/GMoFCqlf62BgTJeel0BUgVaA7/OTTQwqoZzTjTUkbcGU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+X-Received: by 2002:a05:6820:26a:b0:6ae:c68b:3a7 with SMTP id
+ 006d021491bc7-6b1c6753623mr2478306eaf.16.1787883150511; Thu, 27 Aug 2026
+ 19:12:30 -0700 (PDT)
+Date: Thu, 27 Aug 2026 19:12:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a90ee8e.1d9ded08.62e62.00e1.GAE@google.com>
+Subject: [syzbot] [ocfs2?] kernel BUG in ocfs2_write_begin_nolock (3)
+From: syzbot <syzbot+fd44623201beb5f3b462@syzkaller.appspotmail.com>
+To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-NUMA balancing currently consists of two coupled components:
-task migration and page migration. These two mechanisms work in tandem.
-However, task migration may conflict with other subsystems such as CAS,
-which aggregates tasks solely via task migration. Conflicts arise when
-both CAS and NUMA balancing are enabled simultaneously.
+Hello,
 
-This patch addresses the problem by introducing a fine-grained NUMA
-balancing mechanism, allowing task migration and page migration to
-be enabled or disabled independently.
+syzbot found the following issue on:
 
-Suggested-by: Chen Yu <yu.c.chen@intel.com>
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+HEAD commit:    4352b8aee980 Merge tag 'i3c/for-7.3' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14fc3549580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=335632b21d0ce540
+dashboard link: https://syzkaller.appspot.com/bug?extid=fd44623201beb5f3b462
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8491c9d0d35e/disk-4352b8ae.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/51cc3aee80d1/vmlinux-4352b8ae.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e0bcbebdbede/bzImage-4352b8ae.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fd44623201beb5f3b462@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+kernel BUG at fs/ocfs2/aops.c:1391!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 7883 Comm: syz.6.469 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:ocfs2_populate_write_desc fs/ocfs2/aops.c:1391 [inline]
+RIP: 0010:ocfs2_write_begin_nolock+0x41b2/0x41f0 fs/ocfs2/aops.c:1689
+Code: 84 3a e3 fd 49 bf 00 00 00 00 00 fc ff df 4c 8b 24 24 e9 62 fe ff ff e8 7c 50 fc 07 e8 67 3a e3 fd 90 0f 0b e8 5f 3a e3 fd 90 <0f> 0b e8 57 3a e3 fd 90 0f 0b e8 4f 3a e3 fd 90 0f 0b e8 47 3a e3
+RSP: 0018:ffffc900060df2e0 EFLAGS: 00010293
+RAX: ffffffff83e3f321 RBX: ffff88802a26c010 RCX: ffff88802ec5be80
+RDX: 0000000000000000 RSI: 0000000000000002 RDI: 0000000000000000
+RBP: ffffc900060df880 R08: ffff88802ec5be80 R09: 0000000000000006
+R10: 00000000fffffffc R11: 0000000000000000 R12: ffff88802a26c000
+R13: 1ffff110041ec81f R14: 0000000000000003 R15: 0000000000000000
+FS:  0000555591908500(0000) GS:ffff888124cf3000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc5117ed158 CR3: 000000005a889000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ __ocfs2_page_mkwrite fs/ocfs2/mmap.c:92 [inline]
+ ocfs2_page_mkwrite+0x640/0xb60 fs/ocfs2/mmap.c:143
+ do_page_mkwrite+0x147/0x310 mm/memory.c:3754
+ wp_page_shared mm/memory.c:4155 [inline]
+ do_wp_page+0x1a9c/0x4b80 mm/memory.c:4378
+ handle_pte_fault mm/memory.c:6520 [inline]
+ __handle_mm_fault mm/memory.c:6645 [inline]
+ handle_mm_fault+0x1576/0x3720 mm/memory.c:6814
+ do_user_addr_fault+0x746/0x1340 arch/x86/mm/fault.c:1394
+ handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+ exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+ asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+RIP: 0033:0x7f5f73c67682
+Code: 30 48 8b 14 24 48 85 d2 74 17 8b 44 24 10 0f c8 89 c0 48 89 44 24 10 48 83 fa 01 0f 85 aa 02 00 00 48 8b 44 24 18 8b 74 24 10 <89> 30 e9 1e fe ff ff 48 8b 44 24 18 8b 10 48 8b 04 24 48 85 c0 0f
+RSP: 002b:00007ffd7d7d31a0 EFLAGS: 00010246
+RAX: 0000200000000180 RBX: 0000000000000004 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00005555919083d8
+RBP: 00007ffd7d7d32c0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 00007ffd7d7d3300
+R13: 00007f5f7402609c R14: 000000000002ae89 R15: 00007ffd7d7d32e0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:ocfs2_populate_write_desc fs/ocfs2/aops.c:1391 [inline]
+RIP: 0010:ocfs2_write_begin_nolock+0x41b2/0x41f0 fs/ocfs2/aops.c:1689
+Code: 84 3a e3 fd 49 bf 00 00 00 00 00 fc ff df 4c 8b 24 24 e9 62 fe ff ff e8 7c 50 fc 07 e8 67 3a e3 fd 90 0f 0b e8 5f 3a e3 fd 90 <0f> 0b e8 57 3a e3 fd 90 0f 0b e8 4f 3a e3 fd 90 0f 0b e8 47 3a e3
+RSP: 0018:ffffc900060df2e0 EFLAGS: 00010293
+RAX: ffffffff83e3f321 RBX: ffff88802a26c010 RCX: ffff88802ec5be80
+RDX: 0000000000000000 RSI: 0000000000000002 RDI: 0000000000000000
+RBP: ffffc900060df880 R08: ffff88802ec5be80 R09: 0000000000000006
+R10: 00000000fffffffc R11: 0000000000000000 R12: ffff88802a26c000
+R13: 1ffff110041ec81f R14: 0000000000000003 R15: 0000000000000000
+FS:  0000555591908500(0000) GS:ffff888124cf3000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffc50359f6c CR3: 000000005a889000 CR4: 0000000000350ef0
+
+
 ---
- include/linux/sched/sysctl.h | 12 +++++
- kernel/sched/core.c          | 87 ++++++++++++++++++++++++++++++++++++
- kernel/sched/fair.c          |  3 ++
- mm/memory.c                  |  3 ++
- 4 files changed, 105 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/include/linux/sched/sysctl.h b/include/linux/sched/sysctl.h
-index 5a64582b086b..3434f044087e 100644
---- a/include/linux/sched/sysctl.h
-+++ b/include/linux/sched/sysctl.h
-@@ -23,10 +23,22 @@ enum sched_tunable_scaling {
- #define NUMA_BALANCING_NORMAL		0x1
- #define NUMA_BALANCING_MEMORY_TIERING	0x2
- 
-+/*
-+ * Fine-grained control of the NUMA balancing sub-features. These are
-+ * independent of the master NUMA_BALANCING_NORMAL switch and let the page
-+ * migration and task migration paths be disabled separately.
-+ */
-+#define NUMA_BALANCING_PAGE_MIGRATION	0x1
-+#define NUMA_BALANCING_TASK_MIGRATION	0x2
-+#define NUMA_BALANCING_MIGRATE_DEFAULT	(NUMA_BALANCING_PAGE_MIGRATION | \
-+					 NUMA_BALANCING_TASK_MIGRATION)
-+
- #ifdef CONFIG_NUMA_BALANCING
- extern int sysctl_numa_balancing_mode;
-+extern unsigned int numa_balancing_migrate_mode;
- #else
- #define sysctl_numa_balancing_mode	0
-+#define numa_balancing_migrate_mode	NUMA_BALANCING_MIGRATE_DEFAULT
- #endif
- 
- #endif /* _LINUX_SCHED_SYSCTL_H */
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 96226707c2f6..8b6f2c4373ea 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4621,6 +4621,9 @@ DEFINE_STATIC_KEY_FALSE(sched_numa_balancing);
- 
- int sysctl_numa_balancing_mode;
- 
-+unsigned int numa_balancing_migrate_mode __read_mostly =
-+	NUMA_BALANCING_MIGRATE_DEFAULT;
-+
- static void __set_numabalancing_state(bool enabled)
- {
- 	if (enabled)
-@@ -4674,6 +4677,83 @@ static int sysctl_numa_balancing(const struct ctl_table *table, int write,
- 	}
- 	return err;
- }
-+
-+static void numa_balancing_mode_show(char *buf, size_t size)
-+{
-+	unsigned int mode = numa_balancing_migrate_mode;
-+
-+	switch (mode & NUMA_BALANCING_MIGRATE_DEFAULT) {
-+	case NUMA_BALANCING_MIGRATE_DEFAULT:
-+		strscpy(buf, "page_mig task_mig", size);
-+		break;
-+	case NUMA_BALANCING_PAGE_MIGRATION:
-+		strscpy(buf, "page_mig", size);
-+		break;
-+	case NUMA_BALANCING_TASK_MIGRATION:
-+		strscpy(buf, "task_mig", size);
-+		break;
-+	default:
-+		strscpy(buf, "none", size);
-+	}
-+}
-+
-+static int numa_balancing_mode_parse(char *buf)
-+{
-+	unsigned int mode = numa_balancing_migrate_mode;
-+	char *tok;
-+
-+	while ((tok = strsep(&buf, " \t\n,")) != NULL) {
-+		if (!*tok)
-+			continue;
-+
-+		if (!strcmp(tok, "default") || !strcmp(tok, "enable") ||
-+		    !strcmp(tok, "all")) {
-+			mode = NUMA_BALANCING_MIGRATE_DEFAULT;
-+		} else if (!strcmp(tok, "disable") || !strcmp(tok, "none") ||
-+			   !strcmp(tok, "off")) {
-+			mode = 0;
-+		} else if (!strcmp(tok, "no_page_mig")) {
-+			mode &= ~NUMA_BALANCING_PAGE_MIGRATION;
-+		} else if (!strcmp(tok, "no_task_mig")) {
-+			mode &= ~NUMA_BALANCING_TASK_MIGRATION;
-+		} else if (!strcmp(tok, "page_mig")) {
-+			mode |= NUMA_BALANCING_PAGE_MIGRATION;
-+		} else if (!strcmp(tok, "task_mig")) {
-+			mode |= NUMA_BALANCING_TASK_MIGRATION;
-+		} else {
-+			return -EINVAL;
-+		}
-+	}
-+
-+	numa_balancing_migrate_mode = mode;
-+	return 0;
-+}
-+
-+static int proc_numa_balancing_mode(const struct ctl_table *table, int write,
-+				      void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table t;
-+	char buf[32];
-+	int err;
-+
-+	if (write && !capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	t = *table;
-+	t.data = buf;
-+	t.maxlen = sizeof(buf);
-+
-+	if (write) {
-+		buf[0] = '\0';
-+		err = proc_dostring(&t, write, buffer, lenp, ppos);
-+		if (err)
-+			return err;
-+		return numa_balancing_mode_parse(buf);
-+	}
-+
-+	numa_balancing_mode_show(buf, sizeof(buf));
-+	return proc_dostring(&t, write, buffer, lenp, ppos);
-+}
- #endif /* CONFIG_PROC_SYSCTL */
- #endif /* CONFIG_NUMA_BALANCING */
- 
-@@ -4787,6 +4867,13 @@ static const struct ctl_table sched_core_sysctls[] = {
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2		= SYSCTL_FOUR,
- 	},
-+	{
-+		.procname	= "numa_balancing_mode",
-+		.data		= NULL, /* filled in by handler */
-+		.maxlen		= 32,
-+		.mode		= 0644,
-+		.proc_handler	= proc_numa_balancing_mode,
-+	},
- #endif /* CONFIG_NUMA_BALANCING */
- };
- static int __init sched_core_sysctl_init(void)
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 42ab6347e667..00f49e767583 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -3312,6 +3312,9 @@ static int task_numa_migrate(struct task_struct *p)
- 	struct rq *best_rq;
- 	int nid, ret, dist;
- 
-+	if (!(numa_balancing_migrate_mode & NUMA_BALANCING_TASK_MIGRATION))
-+		return -EAGAIN;
-+
- 	/*
- 	 * Pick the lowest SD_NUMA domain, as that would have the smallest
- 	 * imbalance and would be the first to start moving tasks about.
-diff --git a/mm/memory.c b/mm/memory.c
-index 6b8280cfc1db..47c9614dd54c 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -6049,6 +6049,9 @@ int numa_migrate_check(struct folio *folio, struct vm_fault *vmf,
- 		*flags |= TNF_FAULT_LOCAL;
- 	}
- 
-+	if (!(numa_balancing_migrate_mode & NUMA_BALANCING_PAGE_MIGRATION))
-+		return NUMA_NO_NODE;
-+
- 	return mpol_misplaced(folio, vmf, addr);
- }
- 
--- 
-2.34.1
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
