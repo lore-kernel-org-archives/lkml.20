@@ -1,130 +1,171 @@
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780872F7F14
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959834; cv=none; b=DTeNosPmc9zwLVGSoOaGITUnOUcSZ59xQnKCVHk2P3Jtuj3R5BCGP7SXRrBp4I9IbdqBO/WtIAClLSOdKxJ1B59k3XU6qi0f6RFXrSsVUNokiISt1QFdLhfn9cP/FAJaidVhhlST6vl5Qa9fBqodym+WHc/vLHbe5d8E6itjkv4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959834; c=relaxed/simple;
-	bh=KR6FZkYBvfAL+FulKcxXEubeR+TITYL8ToFLRS2Cwlw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MhW+tdgChf0AxwekYnLIrMNmoI/JcJ3uS+0T+NcsNuP0XMlJHD9994qMuMkHcuonGmD64rq4wJ47sc3+aoGLhYv3P48Lp09XFkWKuW3xj6WqqVyo/LJwXn3heFqRPKvhPmckG+3H1EVIGXO9LQ9gSJkY5N2G/P2dsm3oOfqctKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com; spf=pass smtp.mailfrom=nanonej.com; dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b=ZOemhih4; arc=none smtp.client-ip=185.70.43.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nanonej.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE773AB283
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787959857; cv=pass; b=ttvZqKbqu3mQ7/LhKOTLL/DMPMwOtFmSGVkmpPvgmRfgdF4iDCwcn7SMGUWeVkCZvG/w+kwnLGfe1wKDze4elJBIrXPCk6Ch4sYDFeoBLVnUGj7kn2ccIxT1Ghr9ppgvFBXDPt+MRHMeBrbHzTzvdASMdELg9pl/nXcADOiqlGs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787959857; c=relaxed/simple;
+	bh=99PrwuayluEad84HqZL8EdOtGNBw5ztrxCmvokUnreQ=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=LBdZA3o8wMPJqPcBVus71NKXsA0d8jDN+357VsvzlMkONMFsk2YKRo/icMh7WagL4DEo/2oxreEg2wHp/ZMhi66wtWz8sRalOqmGRrHYj3wlcHtFl9SXHtcz+ej8ykhQkpjigf8wv7iFgTxbQbhl3HTkM5+GBZMvS+aX+y3KVGQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWaBGq12; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b="ZOemhih4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
-	s=protonmail2; t=1787959825; x=1788219025;
-	bh=oE9jj8ORkL3TaBiWH/0hAgJbMPyHDLr/XwfoSplHfPk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ZOemhih4SYZBh4UZ2HPPCu03I+SDAuIl+mR10e+6WEtpcoHIRn1qKe+eyGspenP2L
-	 ElmTNUJ77vuhGmXRd8udszch35ZLElH4q5mS5hSsUgPX7XUe2ng85M7JSyNicKSkCE
-	 c07tognmQl3Hgj6HJ8I+dI2hACcmKrG2aNgb+zT2aYGcS67VEmGhUTcWZhE3Dvdl7k
-	 z/VzrQvC58Yy0IbE6z9I0cksdV617KK5ZN64m4WYpAoMmCKXxKtFpL1H475Hl/ahdy
-	 roKKTI6Mf+8tuEN+geP8LyuZIKAACgohObp0PqVWhWWYYnjScA2apmdbgN1UvJWPeJ
-	 MtSJMfrgesVkg==
-Date: Fri, 28 Aug 2026 23:30:18 +0000
-To: Alexandre Courbot <acourbot@nvidia.com>
-From: Nanonej Dev <dev@nanonej.com>
-Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 4/4] gpu: nova-core: Extract PFALCON register
-Message-ID: <kIdb8vQDIzXcbzWMhRY98VQbxMOEgAco-4AUdcK8u3YM1WP8XCjdrqTEGfj3PKMcahDDiizBwLFH6JwMlcUxuIkjsacGqNd7W8YJKeRqmFA=@nanonej.com>
-In-Reply-To: <DL06EAP0GF04.2X3P68IPD0Y7X@nvidia.com>
-References: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com> <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-4-38351df09084@nanonej.com> <DL06EAP0GF04.2X3P68IPD0Y7X@nvidia.com>
-Feedback-ID: 32181229:user:proton
-X-Pm-Message-ID: b3d92543a22933b99e1d613efdf247cfeccd4fed
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWaBGq12"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so541713466b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:30:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787959853; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K/O87QgkuQNleexcd453Uht5zXIckdHVjnPffxiGoczInN/KE17w0ilY0p+qD/ntQY
+         mQroOR/dzqBnnizWECOIIcGWds9mM9oXiV+0N+C7K9B0aH3RhRE/qvYqXqAluRjub+AV
+         z+MC8+N6aIHLFFLe9y06/ygnOS9pISeapmvlVyILvP7Lw6r8jg57/jreGT8tGSijkRt1
+         UdeilvdrFkg1d7232l+4uXdtJ/vHY4ei5gdCJoxOZfmGGg2Nokcxg763b3FZISGL/5FY
+         5qt25nrkpfLgcWNddK+Lghwlu/ZOw0UpnPPPo9bpEAzYDyCBvE9Lst02k7nFFkHA8ySU
+         psXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=I9Ebo6TmzmtOyDgGEqisNUg2TVnW4FRbNiX7886iDNk=;
+        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
+        b=TKLsAWHFgVPcVMy8CzYE5dD9RdSgRRNNJtdS2fvdwirC+1NxmdDaFIoSj+1clHJqT2
+         tFXLolKI0qjYSNZT9U73AFdDFXn+8q65XSVzTmS8CGyQKS75k3sg10pr4kDp4K31c7Nc
+         N/ZRyeq3fh0wVUIHSZL6/RCqRijmR5UleF2uos0q1jpsIB8dW+cIPAQxC1AvsVeJN/oE
+         4ck4CR+sGFOkhRp2nB+EjD6AY8KKCcDbwOaz1Du2i+OYl+aWNbX+ShbazDY0/h877Deb
+         Mw7p4seVt9QAoi0yOPeTjjFVzSc4bwoq2Exnw9Z2HQcOmd1Q3kemkN3masZIC8Ve1nGj
+         9vHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787959853; x=1788564653; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:reply-to:mime-version
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I9Ebo6TmzmtOyDgGEqisNUg2TVnW4FRbNiX7886iDNk=;
+        b=JWaBGq12RBo7GhAlyO+SAeTJHLM5PsTbdGte74pe2OU7Pz/rsCgzwMHPr3JbgnFVjY
+         eCMXwRiFxDl/WS2vyIock6w6huBv8AU8Lh2t3jKynqGo1e/F1dUdylN4uxY1XX0gvfIj
+         I/XKB91js45wCBCPJnjLJYdt78DSQhWgBN1n5HPIq/bTSQUzEHDikUONHUwwlogKKsp2
+         /UgTGbolpwuZ1HRzbhQ0bwgGT1PWCUDv3SbCom74RBkk5yJJoPZjLSJTsXtK8Ey2qXTK
+         Rx6vYW4DKNHM6ZQq5wEI2LBOvLuumc6KIYaC4N873uNYFWREUaMf8vecYOBf9omCPs21
+         AZuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787959853; x=1788564653;
+        h=content-type:to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I9Ebo6TmzmtOyDgGEqisNUg2TVnW4FRbNiX7886iDNk=;
+        b=BZWMXXplWnaQyT36gmiqk/ZsKojTMl9dtuL5b/XWaT+MJEZZ6zfQCkl629RZ6QIjll
+         s8uIqSAxKadBl51qroWKiOcypKQHoeRbsS7F1pkqm2YGn+SIti7oWOhuL8nDnwhCcWbM
+         Ap14+B84Q3fTtQ4sf7nen2eRu1VgMB1wtsU5yXsE/EaCO3BbtZMQcWejrqVt0aFndP5K
+         oqPzBtheRIsuOF0fZ2+w7HYhufaJ23BgW1MW6EReah26X+chHRIq9antNXX55tc29UJs
+         BSUC2TxOKe6wz5sGLxZIFTmqLEecpvYD62XuewJRYcHpd3HBJ6PUE4laLnN9GvAK43zk
+         5oCw==
+X-Gm-Message-State: AFuF++mg9jBHrPBRVWvCS6fuVRVzNISU1Kh0+y/OCRYa2+imQTxe0+Zm
+	00LzXPd453d8bLS5YVqm7M4lPefSOvpGFwC/WR7Cvh+btDU9KOqtprWSvcG6cNDpcRzr40iqrGc
+	Zoh/im6D/Y5C5br0HGcBEKelPk/WR8ZyNgry0
+X-Gm-Gg: AR+sD12WSOjomuhOtnT2yHHAA8NI56cY8HkfFCbfMQJuGTKedy0zxS/VQkjZsI7BABs
+	Ix5ZOFjOEFpNkn44VQXcPUXYcRqCKuwjyC9Tcg1YemL1CkimkGBVAwZlNNxKXAGviVKovM4ujs9
+	AibS4snTR4pl5IyfcSGkcSLUJwviIf63KpfSiJlI5cM4PXZI0tw25GpNqxQUohWHMZyjH7OwX+V
+	4pga7Iu6RhahPhW+dzLKkEBb8lVPkvt9CbrWoxLDcdEgFrhH+qfNxoM4ZadgWmlQG8hlt3HI9VM
+	LAZX4hBFctpb9CYtw3tu7V9rJAln6RZJ4NMerM8VrStv6oYoaN2KRn+kIEO6vyWajiPB5beZeM+
+	94A==
+X-Received: by 2002:a17:907:1908:b0:c25:4ca3:dfda with SMTP id
+ a640c23a62f3a-c254ca3f708mr1083958066b.9.1787959853473; Fri, 28 Aug 2026
+ 16:30:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------f6c264b48290fb238571f9b6d8a8d3cf3fe281cedf61683b610eb539231980ab"; charset=utf-8
+Reply-To: ludloff@gmail.com
+From: Christian Ludloff <ludloff@gmail.com>
+Date: Fri, 28 Aug 2026 16:30:41 -0700
+X-Gm-Features: AcwNN1ULCKP4LeBVhaYcMV-xt_Ur65r3D44C4-yqNF_kY1qqUoyHiThWB7ROG7Q
+Message-ID: <CAKSQd8VBR87Y_VWDZtB+KmHJJg8SYTWu8qY=ZQUFYmNt6TTJMQ@mail.gmail.com>
+Subject: x86 WBINVD prefix allocations
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------f6c264b48290fb238571f9b6d8a8d3cf3fe281cedf61683b610eb539231980ab
-Content-Type: multipart/mixed;boundary=---------------------c60b3c144f71b4d5b4f311311dabe064
+If the use of x86 prefixes on WBINVD is not
+of your concern, you can stop reading.
 
------------------------c60b3c144f71b4d5b4f311311dabe064
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+-------------------- 8< -------------------
 
-On Friday, August 28th, 2026 at 03:12, Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
+I was asked to relay this to binutils/LKML.
 
-> On Wed Aug 26, 2026 at 8:44 AM JST, Antonin Malzieu Ridolfi via B4 Relay=
- wrote:
-> <...>
-> > +    // Configure DMA index for the bootloader to fetch the FWSEC firm=
-ware from system memory.
-> > +    pub(crate) fn set_fbif_transcfg_regs_at(&self, ctx_dma: u32) -> R=
-esult {
-> > +        self.bar.update(
-> > +            regs::NV_PFALCON_FBIF_TRANSCFG::of::<E>()
-> > +                .try_at(usize::from_safe_cast(ctx_dma))
-> > +                .ok_or(EINVAL)?,
-> > +            |v| {
-> > +                v.with_target(FalconFbifTarget::CoherentSysmem)
-> > +                    .with_mem_type(FalconFbifMemType::Physical)
-> > +            },
-> > +        );
-> > +        Ok(())
-> > +    }
->
-> Having this will be nice in that it will also enable us to keep
-> `pfalcon` private in [1].
->
-> [1] https://lore.kernel.org/all/DL068LFDXPM1.7A1482C1UJF@nvidia.com/
+Existing Behavior
+-----------------
 
-Happy to read that!
+WBINVD has been using opcode 0x0F,0x09 ever
+since the 486 days, to perform a write back
+and invalidation of the on-chip cache.
 
-> But I'd like the method to look at bit less
-> ad-hoc and more confined. So would you:
->
-> - Move it to `falcon/gsp.rs` and implement it only to `Falcon<Gsp>`, as
->   that's the only case where we need it so far,
-> - Make `ctx_dma` a `usize` (it's the caller's problem to provide the
->   correct type),
-> - Add the `FalconFbifTarget` and `FalconFbifMemType` as arguments of the
->   method,
-> - Maybe rename it to `set_fbif_transcfg`, because the fact we touch
->   registers is an abstraction detail.
->
-> As a side-note, the series is going to clash heavily with Gary's, and
-> will need to be rebased on top of it after Gary's series is merged
-> (which as far as I'm concerned should be the next version).
+WBNOINVD -- that is, using WBINVD with 0xF3
+as a prefix to hint that the INVD operation
+should be skipped -- was added a while ago,
+with a CPUID flag, by AMD, then Intel. When
+not supported, a normal WBINVD ensues.
 
-Thanks for the review I'll refacto on a v2 like that then and wait for
-Gary's series to rebase and send it.
+New Skip Hints
+--------------
 
-> Apologies
-> for the inconvenience, but thankfully this should be mostly mechanical.
+As of 2025, the following are in active use
+by a corporate entity other than Intel/AMD;
+therefore they shouldn't be redefined.
 
-No problem that's part of SDLC, so
-it's expected to happen from time to time :D
------------------------c60b3c144f71b4d5b4f311311dabe064--
+  0x67 = no CODE hint => skip L0i/L1i cache
+  0x66 = no DATA hint => skip L0d/L1d cache
+  0xF3 = no INVD hint => skip invalidations
+  0xF2 = no LLC  hint => skip LLC cache
 
---------f6c264b48290fb238571f9b6d8a8d3cf3fe281cedf61683b610eb539231980ab
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+While CODE and DATA hint that the operation
+should skip code and data caches, LLC hints
+that the operation should skip a last-level
+cache, and INVD does remain unchanged.
 
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
+More New Hints
+--------------
 
-wrsEARYKAG0FgmqSGfIJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmfGCWgi60DGAWo3WxSJhe2VsaHjx6b3hGS8hnCQ
-8LsyjxYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADucQD+KyehPT+fWPqy7hNP
-3x2w9UcCcU9l1AnQWXAB88YWwdQBANQoz6LKjUPfOUY4CX8fZjLlCvhpArOb
-9DwP9hscS/AP
-=uzpr
------END PGP SIGNATURE-----
+In addition the six implementation-specific
+hints select up to six or 2^6=64 behaviors,
+depending on the particular processor.
 
+  0x26 = ES implementation-specific hint
+  0x2E = CS implementation-specific hint
+  0x36 = SS implementation-specific hint
+  0x3E = DS implementation-specific hint
+  0x64 = FS implementation-specific hint
+  0x65 = GS implementation-specific hint
 
---------f6c264b48290fb238571f9b6d8a8d3cf3fe281cedf61683b610eb539231980ab--
+One particular implemention might use these
+to target CODE vs DATA vs STREAMING STORES,
+as well as cache level L1 vs L2 vs L3.
 
+Another particular implementation might use
+these to target programmable behavior.
+
+Miscellaneous
+-------------
+
+All ten prefixes can be combined, resulting
+in an instruction up to 12 bytes long.
+
+The LOCK prefix remains unchanged; that is,
+with WBINVD it causes a #UD exception.
+
+No new CPUID flag is introduced. If the new
+hints are not supported, classic WBINVD and
+WBNOINVD behavior ensues, as expected.
+
+I have updated
+
+  https://sandpile.org/x86/opc_2.htm
+
+to reflect all these new WBINVD hints.
+
+-------------------- 8< -------------------
+
+--
+C.
