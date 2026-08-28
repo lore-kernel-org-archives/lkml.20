@@ -1,119 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0612F8EAC;
-	Fri, 28 Aug 2026 01:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84516EEA8;
+	Fri, 28 Aug 2026 01:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881631; cv=none; b=QXNAGqAeGOMARK/MTT0kDg5KSQn42pQApS7+Xw0tLO7Azut8rL2hy/6aAVp/Y3ng63HtaS4DpvJannagCFb19tvWsZ9yFBKoCHPWYMJMekaWB0TzVwoPmA90Otmogap/21KqGKUn0wjD47jWLOagOSt4Pq3Md8sa8QUZ+KgCZu8=
+	t=1787881737; cv=none; b=NJdZymMolOFaqYqr/s7AWZGzFmmUHC07nnUkqHNFGtmGNoOZeT5OGgrSu4MhM9I6RbFzPIvUO2KPYzij7E9CxztD54MiHkj50PCmXeb265G7anA0ijgAZLDrxrBd9RiYm5bRFa6ZSZ+J3ghuBcbllwiwXFA5IKxrHVvS5A4T1Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881631; c=relaxed/simple;
-	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oc0jQA8Md6YV6PK0wjLAutbdRB2E6qx01gw61nmoowzOVG8An6lzBhj4eFdBR8MBVdunb0pX/ha9HPSa3yXf5fkYkInqiVbOtQli2UYpShIrUr9JvnqzV9Z++O+3bOoEYRDuS1Niz+yWzMmwL+rSlqxpHytEoZsK1y05odT6Ld8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtbX8mVL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787881737; c=relaxed/simple;
+	bh=9GQj1dAq1dLBVhD71kzsVD9cDCjAwoYyeauMj0pGsTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lrF+L+TWNiyY4QzgqDR2GUIAGE3nXOkL1dvk1olLeZd5Q17eti7V8GoqRDIhX2g62jyInNsrgRRyu3xb3/dipeuu+7FF1sWifX9yIk+PzgQ1fLJbnOE3ulqn5cicJ0tCcziKyxh2sq4GnulveWFj+IqdHE4QFFPlbhJKYNdcc2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llxIWQFT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtbX8mVL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1101F00AC4;
-	Fri, 28 Aug 2026 01:47:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llxIWQFT"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D171B1F000E9;
+	Fri, 28 Aug 2026 01:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787881629;
-	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dtbX8mVLoREWGaHmBM5m9kXliDsh2AQfn0hrzWT7rWHB/eaufkaZ43YdaBE5485NG
-	 qMUCaHb0VIsQUV5/EfZdhs25mD+BsRV0UyBoYHNBAyzu0KrQkWdogw8wF/puukDrDd
-	 BT3HFeCdQ97JhybLUtgPXRR55Jrav7TuPg7gGKmxukLTLgA321GvoZQRVNPmoXJfqc
-	 g89xd3XGWdfQvhoOp7ENaxFZDliNMY2sqMSNtgZMozkfskvuRXe83gB2jeQyFPLLyR
-	 5LrwkykKG96zwmt1q3iBUqlPekmRTXzAhNkjdKNnDlUJa5iUPIf0I0c1SS2qvnv6/O
-	 79c9OP49m95zA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 4/4] mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Thu, 27 Aug 2026 18:46:58 -0700
-Message-ID: <20260828014659.121058-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260828014659.121058-1-sj@kernel.org>
-References: <20260828014659.121058-1-sj@kernel.org>
+	s=k20260515; t=1787881736;
+	bh=wo4FCAjDOKndHUSorb8iLPYOJuJ6AlqY7FPfHRH2IWA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=llxIWQFTKn0Z/beqIxCtTU75POIvFSVVU0323Nwdc2hBHycnHNfDAA55boR2+EiXU
+	 qV+NBCVkZCc30eGKzTcOOuix//cnphHoNi9NfbfIKXzk88usSNNsd493AVEzd+pz0i
+	 9DXN7kMKc0rpha+3UhWHV4KZ/wx6VKZul3xI3H+CJsMpVPbzK8F6duB+DMfg9+0rLR
+	 5I5/MF04bXXjGo6YZ4FD5EDuwtzzs5I2VSCEnrdb9qEgUgKGveVmdE3/H+44VXYgb+
+	 t+5jmzzfAu42wZdmYQBlaBFXBC6KQ3UcZlkS9HTgDxbMD8BjfedXrVZ3p02oKFAsnZ
+	 pvNyxlvlbdbgg==
+Date: Fri, 28 Aug 2026 04:48:52 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Sanket Sharma <sanketsharmacsec@gmail.com>
+Cc: sudhakar@linux.ibm.com, gregkh@linuxfoundation.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	dhowells@redhat.com, linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+	security@kernel.org, w@1wt.eu
+Subject: Re: [PATCH v3 2/2] keys: trusted: tpm1: reject unauthenticated
+ response tag in TSS_checkhmac1/2
+Message-ID: <apDpBEAmDmtuJShz@kernel.org>
+References: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
+ <20260826170700.616-1-sanketsharmacsec@gmail.com>
+ <20260826170700.616-2-sanketsharmacsec@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826170700.616-2-sanketsharmacsec@gmail.com>
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next
-refresh is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it.
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
+On Wed, Aug 26, 2026 at 05:07:00PM +0000, Sanket Sharma wrote:
+> TSS_checkhmac1() and TSS_checkhmac2() silently return success when the
+> response tag is TPM_TAG_RSP_COMMAND (0x00c4), bypassing HMAC
+> verification entirely. A forged TPM response with this unauthenticated
+> tag allows an attacker to skip integrity checks on TPM responses.
 
-The user impact is not very critical.  It does not leak, corrupt or
-crash.  The update will not be faster or slower than the lowest and
-largest refresh_ms values of the contexts, respectively.  The user can
-also manually ask the updates on demand using kdamond state commands.
-That said, clearly this is a bug and can easily be reproduced.
+I don't think we need threat scenario role play here.
 
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> Reject TPM_TAG_RSP_COMMAND with -EINVAL in both functions, requiring
+> all responses to carry a proper authenticated tag.
+> 
+> Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
+> ---
+>  security/keys/trusted-keys/trusted_tpm1.c | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index d47cb7108..6dbbf4546 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -201,8 +201,6 @@ static int TSS_checkhmac1(unsigned char *buffer,
+>  	tag = LOAD16(buffer, 0);
+>  	ordinal = command;
+>  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+> -	if (tag == TPM_TAG_RSP_COMMAND)
+> -		return 0;
+>  	if (tag != TPM_TAG_RSP_AUTH1_COMMAND)
+>  		return -EINVAL;
+>  	authdata = buffer + bufsize - SHA1_DIGEST_SIZE;
+> @@ -269,8 +267,6 @@ static int TSS_checkhmac2(unsigned char *buffer,
+>  	ordinal = command;
+>  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+>  
+> -	if (tag == TPM_TAG_RSP_COMMAND)
+> -		return 0;
+>  	if (tag != TPM_TAG_RSP_AUTH2_COMMAND)
+>  		return -EINVAL;
+>  	authdata1 = buffer + bufsize - (SHA1_DIGEST_SIZE + 1
+> -- 
+> 2.53.0
+> 
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index e3858ffab4b22..f05b256c90ee7 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
- 
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
--- 
-2.47.3
+BR, Jarkko
