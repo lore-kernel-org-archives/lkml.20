@@ -1,148 +1,150 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E2F37F30A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4658837F30A;
+	Fri, 28 Aug 2026 20:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787948417; cv=none; b=I2g4Wi1+DT0t8syJkGd2YEQf5iLv3/zj0AzlFmigLZldnE/zSArJFry30NdDUu0jKq++TCdh46yYbl3lhIwVcJxT13HdCpdH4E+swpxyHspM4a/vGXittmVQdQy+2DNpfH+6cNzUhWx82/HLwHgItSOzDQdFHqykllreNxjjo4c=
+	t=1787948454; cv=none; b=E0Lcrz44erO8ctnHaR/T7HP0Vz6KOf11DkRa0i1cVHPHsjaJqnPSwPaWKjvRDdoShxk6r4oK8mDssy10GCH0BPTboy8qF65G3GxgS6WkvG7r7AZtTjUVw3yNMeGeXp6YQqOoJnR4XtDwDmEW1b5TaBoBVasXdepyf+UJbjogfq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787948417; c=relaxed/simple;
-	bh=IU15COOIedvrqR3tTewNzNa90X8qER45TX94YE7xJlw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=JanPenEeiTIs+Z9R9HAOpfHH7c1eD1tL5+L6WOVM5ySfcb08hBe9Di43j1GDwHUSHZP/dbQjFZsjIgQQW7PZ7XrUVfYxkNReZLFarYUVLYtDqdfwnrQGgH0Ns0ndmfIKhICkl4scwIEVUcAilhf+5kCSzT/Yb2E1iqakWPjjMgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Ba30DmBn; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1787948454; c=relaxed/simple;
+	bh=bazPnGr9CUSpzPBCvbgmJq1C7SIkAJqiKUpqDfueZ0w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uvxwC5Myq4sRXpXSvIM63nzSJRZ8R2PWsWYwzUbARYP1IGFkHL+paFRAYiRtY0OAnlOR6PqEDuKJD0Wm0tRiWcmXF1wGK7jbUBozLTjlRTfuC4OK3Ri3HDZePYMRSi7SOSe6UzOkuDT2KSA98JUJA2iuvnBNWTDknxd+sM9Gh0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JKZqQgtn; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Ba30DmBn"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so1823335a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:20:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1787948412; x=1788553212; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lIHXIPftemB3srbWmY6HZdyrjAWi5GoKfLbjecbVLqI=;
-        b=Ba30DmBn2OY5S9K9XxOn0CYQO0UAwA2HYuiUzXwBtjLF9lm+5JT2hjn+TUspzzr9oJ
-         dmNzSDY6F2SSSfb77ndS3T3XcN27ZUDBe54xyZCAgNCjjYwkR8GuPBASh2UNEXCaMagn
-         oqk6s7J31Kn2tIAwJlZEIsOKbGioyIlW34/XE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787948412; x=1788553212;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lIHXIPftemB3srbWmY6HZdyrjAWi5GoKfLbjecbVLqI=;
-        b=kdY9cwD+HC0H6VRhPzvLg4YAI35II9VfRpdQsdpU1R8GomY6FhwwmRSRJTft/Jg0hc
-         pt4svgCOMSAV/BYuY/PJ+osiGexj8Bf/ixXQ3/Y8yfmLEjs/fTxGh/4Xa9j7oXVmTxpB
-         P2WZw9cd4mRNGnB+jopgA8wLsyOi6Zao9FbIyHyeorjcdAkDBueLk2phIlhLzftg8yhX
-         rm+E/w7q29GNlM+43H/GFndZ5gBj9tIZ5eDwBwobfa8tOmt74o1U8IcPkvzMFgZ7dbpx
-         G+Vowxk8zSRn10FDQASt1f6MtjuXWm7n+O/kjuW3Xvwy0rRKg2I5Fms5rKGV4RuOcLuQ
-         g4kQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpez+nVXm0tZemKQVT7HWsCiyMzW2n2yoxW0Mu8JsOckZxN+hZgpT8xKIrPhlg2Yqo2lYbGS3+Cs+/sY24=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr1ZbuLGysFhtm8FaYW0878ejf0zmKZ5HVE2U6SRtILMOFDXCn
-	TU4usdbiohUyoEiaTBU61FGeUdtjFNrFSRT198Tm8lfp/8F/TQGqL1Ae+59jeQCbj97NFnjZT8g
-	SPpgYrrU=
-X-Gm-Gg: AR+sD127QkeKljbJEn7S1dcYvqjDO3MCGfuQ3gQtGwSgcMEglbGxo2HAyJaVXFE/qK4
-	0DfCQJu0/aW6mZFn8x5V5yL5OeodigDZFmKMtsWefHBg1Pc+l3KeIKr2h1tk487ucetcb3hfAdw
-	rcoyZXGBlXzJK+DMeASrd0D+QAZKEWOybu8VjBWlOIuAn84xkJYB1hLm2zb7cU5CVA0ag/We0fo
-	VN+JJfVIsdPQ7C375nof2n0HzHOgC44ay31Tdoy5ZjdKliucUcDiBWrmNpuqVbBRNOfEWTPkCJK
-	y4kcKzGVgFTl4Dz7ClM8JiwqcgItI6dpiFarLTt0jfNPdmQH2weLpiZ9GaZtobPtlH4TqwawYB/
-	Dp/5g/MjT4EwHm5cdaEdve9cn3oXTSACZwJMq9nqLcDlWzL6GDAam8fYfQmi5n99YnlAWjUbnP+
-	t0S5SPmrp42y6MjJpnRQVXFjV5ZWwQkl+J+f19udc2h032REijrHJ+yRlf9L0s18XKbRGQVdYXv
-	7onjSxOyZc1dAyWqkDuqutp6xQZhmvTwzqAmg==
-X-Received: by 2002:a05:6402:27cf:b0:6a5:f4eb:1085 with SMTP id 4fb4d7f45d1cf-6a60d3cdec6mr5909772a12.15.1787948411522;
-        Fri, 28 Aug 2026 13:20:11 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611c39052sm860942a12.17.2026.08.28.13.19.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 13:20:02 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25099bb1fbso195658566b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:19:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoqQw965+jDCv4XG1jSIbBw3poXtYrStnWFrYttMuTqXiXRFrd1TiNYtsv2DBfyPX0s9zRzqE4Q3gggE08=@vger.kernel.org
-X-Received: by 2002:a17:906:9fc8:b0:c25:1a5:62a4 with SMTP id
- a640c23a62f3a-c2557164d51mr735875966b.17.1787948395977; Fri, 28 Aug 2026
- 13:19:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JKZqQgtn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787948452; x=1819484452;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=bazPnGr9CUSpzPBCvbgmJq1C7SIkAJqiKUpqDfueZ0w=;
+  b=JKZqQgtnzJ3n14n/v1PFKMkMVHZhHXnDX1IBFrbmLuEsJAbBxHTAVJlO
+   zrePbtX2L5YJnQcxO827KmLZQoJZUAIyWkVd+Au2aMu1w7iaTxcs5QIIU
+   866BAY2tRhmC94Qq5x7o4Rdcs4PU20TFOkYgpSZeLDcJP4KPjKWh9XwBn
+   5XAr0up7OkFJxMcpb0+S5iOgNHcsD+EIJNirFH6LTLcme/kmHNW2rrQaN
+   +XDWugVGtg8o4DllCBGxrWov0sewrh2l1qAhCDz4tpcnQFvMXXGSkOO6K
+   B0ClLnpC6F7T7PPOE+UqH3e1OZszH7fJm9IWDZsOcb4lu+vQbVo6rkXlu
+   Q==;
+X-CSE-ConnectionGUID: bHZ27yKFTQu0eXNnZvhEIw==
+X-CSE-MsgGUID: DYgB61vZT0SgZWk8wjCdWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="87594740"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="87594740"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 13:20:51 -0700
+X-CSE-ConnectionGUID: JpPxQgV4QEm1fsqPZwQCRA==
+X-CSE-MsgGUID: HhwEg6pKQ3uSTLSSXUWd9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="272463957"
+Received: from spandruv-desk1.amr.corp.intel.com ([10.124.223.143])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 13:20:51 -0700
+Message-ID: <fb91525abdaa6b6955d9af96f3b16f0dbbae8e85.camel@linux.intel.com>
+Subject: Re: [PATCH] thermal: intel: int340x: Fix temperature selection
+ around 0 C
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Thorsten Blum <blum@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>,  Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui
+ <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,  Stanislaw
+ Gruszka <stanislaw.gruszka@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 28 Aug 2026 13:20:50 -0700
+In-Reply-To: <20260826153144.299746-3-blum@kernel.org>
+References: <20260826153144.299746-3-blum@kernel.org>
+Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
+ keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
+ YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
+ y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
+ NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
+ GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
+ TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
+ oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
+ AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
+ b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
+ AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
+ oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
+ UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
+ ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
+ wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
+ NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
+ J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
+ oOfCQxricddC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 28 Aug 2026 13:19:39 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whZf9=X+qKkO9_pQzbLdOnbMw5yO8gu0TkahegVW3cC-g@mail.gmail.com>
-X-Gm-Features: AcwNN1W9j0cj8sg0G3qrQ14m_E9ZWKm8kk74zjqNYRC9rRyEB-3MQ_ctKWT-9mM
-Message-ID: <CAHk-=whZf9=X+qKkO9_pQzbLdOnbMw5yO8gu0TkahegVW3cC-g@mail.gmail.com>
-Subject: Re: [PATCH 0/3] zstd: probe the CPU for BMI2 support once, not per context
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Eric Biggers <ebiggers@kernel.org>, David Sterba <dsterba@suse.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Nick Terrell <terrelln@fb.com>, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, yosry@kernel.org, 
-	Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kernel Team <kernel-team@meta.com>
-Content-Type: text/plain; charset="UTF-8"
 
-[ Sorry for breaking threading - I have turned off IMAP access to my
-mailbox, and so I have issues replying to lore messages sanely ]
+On Wed, 2026-08-26 at 17:31 +0200, Thorsten Blum wrote:
+> Since commit 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp()
+> to
+> support negative CPU temperature"), intel_tcc_get_temp() can report
+> negative temperatures.
+>=20
+> proc_thermal_get_zone_temp() still uses *temp as the current maximum
+> and
+> as an implicit "no reading yet" marker. However, this breaks when a
+> CPU
+> reports 0 C, because a subsequent negative reading can overwrite it.
+>=20
+> Use bool temp_valid to track whether a valid temperature has been
+> read.
+> Initialize *temp with the first valid reading and only update it with
+> warmer readings.
+>=20
+> Fixes: 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp() to
+> support negative CPU temperature")
+> Cc: stable@vger.kernel.org=C2=A0# 6.3+
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-On Thu, 27 Aug 2026, Usama Arif wrote:
->
-> On 27/08/2026 03:39, Eric Biggers wrote:
-> >
-> > Why not just use cpu_feature_enabled(X86_FEATURE_BMI2), which compiles
-> > down to a static branch?  All these issues are caused by lib/zstd/ using
-> > its own custom CPU feature detection code, instead of the normal CPU
-> > feature detection code that the rest of the kernel uses.
+    Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-Yes, please. The zlib code is just broken in how it makes up its own
-random inine asm that is actively worse than what the kernel already
-exposes.
-
-> The only issue I saw with that was that zstd is a standalone library that
-> is imported
-
-Let's ignore that part, and just make it work right. The Zstd people
-should think about this problem on their side.
-
-> Keep the existing raw CPUID fallback for preboot and other builds which
-> cannot use the normal x86 feature infrastructure. Also retain the early
-> return when dynamic dispatch is disabled.
-
-No, this is not great, that whole
-
-        cctx->bmi2 = ZSTD_cpuSupportsBmi2();
-        ...
-        if (bmi2) ...
-
-model in zstd needs to just die.
-
-For the kernel, the whole dynamic "test a variable" model is simply wrong.
-It should expand to
-
-        if (cpu_feature_enabled(X86_FEATURE_BMI2))
-
-because for the kernel, that becomes a simple static branch.
-
-When zstd goes through that variable, it loses that entirely and
-instead turns it in a static assignment and then a dynamic test (well,
-not "entirely" - with inlining it could still recover the right code).
-
-So zstd really should be fixed to get rid of that bad
-
-        #if DYNAMIC_BMI2
-            if (bmi2) {
-         ....
-
-pattern entirely, and be taught to have a *helper* macro that just turns
-into 0 for when DYNAMIC_BMI2 is not set, and turns into using that stupid
-flag in user mode, and for the kernel it should just turn into that
-"cpu_feature_enabled(X86_FEATURE_BMI2)"
-
-Why does it check for both BMI1 and BMI2 anyway? And Arif added an
-extra check for ABM. That all looks bogus. You can't have BMI2 without
-having BMI1, so all this code looks completely bogus to begin with.
-
-Nick? David?
-
-                 Linus
+> ---
+> =C2=A0.../intel/int340x_thermal/processor_thermal_device.c=C2=A0=C2=A0 | =
+10 +++++++-
+> --
+> =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
+>=20
+> diff --git
+> a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> index f80dbe2ca7e4..b0284c2e2e74 100644
+> ---
+> a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> +++
+> b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> @@ -179,17 +179,21 @@ static int proc_thermal_get_zone_temp(struct
+> thermal_zone_device *zone,
+> =C2=A0{
+> =C2=A0	int cpu;
+> =C2=A0	int curr_temp, ret;
+> -
+> -	*temp =3D 0;
+> +	bool temp_valid =3D false;
+> =C2=A0
+> =C2=A0	for_each_online_cpu(cpu) {
+> =C2=A0		ret =3D intel_tcc_get_temp(cpu, &curr_temp, false);
+> =C2=A0		if (ret < 0)
+> =C2=A0			return ret;
+> -		if (!*temp || curr_temp > *temp)
+> +		if (!temp_valid || curr_temp > *temp) {
+> =C2=A0			*temp =3D curr_temp;
+> +			temp_valid =3D true;
+> +		}
+> =C2=A0	}
+> =C2=A0
+> +	if (!temp_valid)
+> +		return -ENODATA;
+> +
+> =C2=A0	*temp *=3D 1000;
+> =C2=A0
+> =C2=A0	return 0;
