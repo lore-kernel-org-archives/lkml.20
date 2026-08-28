@@ -1,181 +1,199 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B211397
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959996; cv=pass; b=KmmbOlg11Rd6JOy80yonrtIhPVskvCLH2AoKbzvUoS5+jhAleQZo15UJwDHmpMA6+Nc6tjQmssDUx9F6j3v9SLVag5KwFJ1IVX5vsc7upbMmFcztYn2hXukevH3Dk1nncnZeb82ZmKrZVdSp5p3N1HV4w9OQtWqeRwtRawsf2F8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959996; c=relaxed/simple;
-	bh=y2LNCyBpMU/lcaKVn6KCGli+f8PCYoXHDNxznrsxfH4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=grI2MAZlCJlKkGUJkOfax/MdkvhpMyoHM39iIsVPw9+RotqveW/Ho9NOWsxel9PXO8htmEGUQU4mwcPvX4JCf4hcWS2+/IRzk4QpBYliVKS7mqOpJw+QaooFcN08/jlP4Ic4JIpOvBihOz4wCQmf7RF0gB6CsfeJtTVMJ7bbFQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fS5i0x/z; arc=pass smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779C51397
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:36:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787960200; cv=none; b=Fz5JzTrEWFLqxrU5HBnWmqV8uYpkOV4dZz9t7xJypvG3trB+rwUM76El2j76JzzkuVmjiIadJh42qhJ6mct1iK0cWA4r0exDPpTK36NheU+QMfDPGqyiep19SxJPrXw9iChna0p7EbU1cd12O19VPZZKSM4gkt7Ty6/PYWp0HU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787960200; c=relaxed/simple;
+	bh=mTfBtZ9MsntVYRTDb+jaAA9qv60GfNyRD4WO3tFu/fo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=m/+xeMoR4f0eELBdbG/dTra4rW4rUEpvj4cqJbJpja3rItDOgG0/TD8pCvw0HKeDAdcqZJ8Il5iUueFJBJmM06H1Z6QolilNzeiwTNBFgVnb+XU24WA04B/Wr9FvtfirQMyNiG1whW9V+hlhPH/SoLYnS99mlDqouJ/QEkyBn3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DIP3dfIG; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fS5i0x/z"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499add6348fso8125e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:33:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787959993; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hRIP5dQB53Cryj0rIlR0nhOsmRlqElmz/KiGK7pp8zYz8Y59ebu8jKpBMeB4hKtAj6
-         riQidr+Bzx+p+gJpZ9ynBtszQwVYAR1UHgk1Y7wT9iWZhXMZ76PfAKTHgewVofRTi8+l
-         /WnZ25XJRibzToec9lWgW1igkG1n0PVFRbHjrTQThtv9/Q8yGKhEuU88YMXh3ZxB4f41
-         8WlbDT04jZxCtIoHz+EIFd8k20eNZTymzykNvRy0FkS0qERSp24thYrHRYc8LO6OJayY
-         nziHgJ/WdAJnLVL1AL1FG+7alTD0fQ0jvPSEXFYXOTMGhv8SDTPn42cMAXuwmEyfkqWz
-         Gg4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vPbHw3SXRt8c1h9FzmacGhPD5cdWkOAwAK9dhsy7doU=;
-        fh=W8YDti6KznwB8wbwhl3B82jrzjvlU72qLeB1vJuA+Lg=;
-        b=NJrYHcQcM762BJNhyOtUyR2KWx0lhcknf2UP34J75WNATwIwetoaWNk69omfTUZSyw
-         v/WsgnW2UBFVn/3R/0FcDSTzTQLclr1DnyJh6fPha7blyEdm0QLmZbNocvyK3HxfPCgp
-         qVFXMbIxyxlM9w0ukkwdyAxJOr6BKSwH63+ueBjBSqHNOluPXFZsBMyNkNKNPNIBA/99
-         jg9nCM5EC3u+FXvd64JpqEb+CddmuLNcPCQFfU/0RzeXU5E5zZ1/lnbEkO8IJFwy1+74
-         cxRYlnua/lboYgTrZ7qTKdRr3eQ34TrQTA5OHAYdbSXgjYf4YY2/fRvj3t8neQIznp0u
-         L9yg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DIP3dfIG"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cede6375caso42855ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:36:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787959993; x=1788564793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vPbHw3SXRt8c1h9FzmacGhPD5cdWkOAwAK9dhsy7doU=;
-        b=fS5i0x/zt4ZmdW+TVEnVBl61EbI56vWF14xCpztg/dc8/GOZCMzaJ19D6PWrSghBDd
-         VeMSKP2q081LSjm61MNjJwltYq1S8uABk/lFWYYKbEjBLnQzWkkQFdxN/ePnhJqL6UYn
-         Uta1D0An8OhQRwsZUpP11G6FfXdZwMx5LH+a34nBoKJCjNoQnhlnvfCSDczqZuPFiiTp
-         /qOINEquAVrhybGWg/nS5EjLomBFFoAEm8sg2hW7eJ6BP9oFml2XXGTEpJWRJv38T4PJ
-         7KkSm/qtol6GBx22PBJyCcLgY2+HkhPjHgXE0W1YBEZl3kxiNqLbebp4wF9qcmU2IgFl
-         7LxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787959993; x=1788564793;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787960199; x=1788564999; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vPbHw3SXRt8c1h9FzmacGhPD5cdWkOAwAK9dhsy7doU=;
-        b=MujkKeWUIquCk1rJb4D+rj/pLkc06oIKbKXdMS+4R2Y9wkotFt0s3YygklhGnBH8OA
-         I8nlOOwA6t1kt2OAL1ksvtF08NoUYIyQGuLxVRbtN5N6Wn8LChtlnXQV6+6/EDdCXVbj
-         IZr2MSjMGpl3uTuM4JlfM7ON3OQlaCATv7pBUpwr2h/0plkLUFm/h+MiINX18g+2EnL1
-         /6jotOvlsMUrxIXRUktV96TqyR13TRetxKt6SYOWZaCuhue9th0TPA7awRUoOv7S1S/+
-         OH4aQlVSU8VEpF8A0ox54dHvyP1xIZzCe+grtYYwxdeYtWzu+0Pjpr+CLa0CWzsUjTF7
-         GxEw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0p2ctuwzVj97S4vDlbP6gs10sgzJZv06biz6qae6CUCQ8vlFZCcd+p5mG5t/0LbrKEVM4v7JmB5gCSos=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8edtLIQ16N/1c5yeiidnjT0Q6THzOStopTGPEPQitg1YeXviQ
-	EarUE/TDhzM5DYU/vhGNZ1HshbfH1OSTT0EUCcAI8uoUIHz6YC3HE1yy98/V8U3Hbf8UZyLTx8Z
-	0XtTrmGgUoJCQV67KQqtTnFn6pLMINsAIxyqqdb+K
-X-Gm-Gg: AR+sD11UYiTswnP4YF3C5RCbikQTOw0nPFR0hloMEcdJdRMOo6AAjUZU373rLC113i/
-	+3VVJKLVMv/mB4cRBEdygR7c5jr2PiSovc5wBjPqQ/Ct7pBdS0rZrc0Y5IBVFzHgXn7KRV4F8Oe
-	cytqF+aUfFPGMo0Lvogs1OOWOKKOG+cixxG/9zyvfQI8YinS6v3CriwHAgAwLDmsY/rbtwUxsxt
-	p8KQZyIrxpQcLDXNAUBzMW3Bs2uiaYvVDB8e34JG8686OPzt3Lhxov53d7jw0XXOh1LkZMBwADM
-	QR4lasvYtaw9qyxoGyX5cy6uQm7IdT8P/5fyuKXto4etHLyeqemfOkr5VdwrzvcOmrRX9KjQNk8
-	=
-X-Received: by 2002:a05:600c:3794:b0:499:cb15:4511 with SMTP id
- 5b1f17b1804b1-49ccbb61af8mr349255e9.8.1787959992396; Fri, 28 Aug 2026
- 16:33:12 -0700 (PDT)
+        bh=vFxRXbHadEiDMSxjFvFaLGe1M/LzTu9WqCxKEuyRP8s=;
+        b=DIP3dfIGRL7kx+qXPZv/NwiGngZmbmQmYl1S6c9F3mJRlvYWLNbtOqGmBiIQB5nGKq
+         mlBIEJy2pxEzSOzsNkbd9p0Ky/ml9VlYmtBFv5/7tiEhvGw1SShP1760LL8mLofyNSpw
+         J0nBR3aep/bkK5gdOMUgA2LPVUHlslrBVWqtB36uiXJkhpMqN6PM5WESYfTZrt4b9TMf
+         t5rsWuHAspEEEGOqbbISstKsn367JVt49/V1nRdtyGfPs/SZ6duZldE9OxEGSK1UwE6c
+         4hG7xp1fBpcDrl8whoOEnu0YuO5nNZ2BGfkqMnQ4Lial6+tSW5LMfx/mMWTMpUSrN2J2
+         yn6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787960199; x=1788564999;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vFxRXbHadEiDMSxjFvFaLGe1M/LzTu9WqCxKEuyRP8s=;
+        b=QhwPBn2Taai62IKxu7r3pDtX9jOUfrwmrn/+Ho4HToLNogcM+DXgi5Z1WLfAlboODm
+         u3LKGPbL++78bjW1wTuCwJGmxLOkMYejV1zpCe+TPK+p635bKCgyzKgg27yblR8oDXbf
+         3KodRA6jpNJSzKyF5WYtpZPnIaV7IjqImCYmuW1rHtP+BIwCMVVrFB+DfMs7zSPMj+w7
+         D2zpMhNDjYLVeREsF3ptXFgq1R3rslbpR6ELYzg6aTWozXJW4ZWoJ+52xiB3GefDwovA
+         JNDy19LRChcVl9gzvPbZF9tl4LJhu6djLvwhuc9OfGre/JoPuMJkfWOVjsyJE5D86NrP
+         ZgGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgcF5vB7HAjljPn8X818nUo/dmhGd1K0He3jwahp7OqRJop+QVhwKXHSUQxqOEAWB98ue24dfByFOM6n4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyn0YTQOnH2mCccgAhmy5qbLliH9CvgSvt/n9Je4YfGPipITCr
+	YxuSHc6bCehu0F9+zmZxL4vUwpgQtcAmgg0XeTaDpzkN0/Gsp6vDUT9u8LzYWOVOOg==
+X-Gm-Gg: AYBFou3rkk8NpreJFm3IgxqPbEGyJdAr1pZyq9QDdX+s/axV1bExtP3EeSJ61pYF1Bn
+	tVOWiBp8pFr4G6ofHi9rkHj1+4Ss/DeViSn07AtfijTEPRefO8SXvK0w6n4EY2QdXxxcLHFLsc/
+	k5pR44uGWm57D0tV+sjPfyVuu5b/pA5c/vqWxE2LGiAVtqtitPv/qsT25WWKab6N89riUiekG2D
+	RAHfCXowE0mIBw3H7TYt4VrYmBDi9Sk0ixSTV9XVrck6n5NVNm15tGzqSiYo2dsgzopxXazDNOp
+	uFcqX2QfWWyyiNFb7/ItE5PE/V1S8uQJf79HxLzur89A1tULBNkLpDKuPHzf1Q6WOUsW9RxqLer
+	T9s+Ten7VUejrkvcGint/v8hTVJyjPEz++xv/j2xpHq0gXQzhGtL0NMHj7QWyxGnZ5WChiTHsAH
+	k60rodFDmXi+yLKGanM/hkUMdtEMc8wia0cY64jl59Jibivuop9lTe0NKMRFQWOrE6+1hu9Ckpb
+	858RltD06xWRrtlaCDLkM6onEb9/6IsUGNqjCvk9B+/YS9dBAHr0cjyPnRYMS68jcIYidGA/ZTq
+	ceE5QD/QmP06KFw=
+X-Received: by 2002:a17:903:2c0f:b0:2d6:3c22:994e with SMTP id d9443c01a7336-2d8dfc511c6mr2515655ad.11.1787960197959;
+        Fri, 28 Aug 2026 16:36:37 -0700 (PDT)
+Received: from [2a00:79e0:2eb4:9:201d:c4fa:f5f8:451f] ([2a00:79e0:2eb4:9:201d:c4fa:f5f8:451f])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312676sm1072389a12.12.2026.08.28.16.36.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 16:36:37 -0700 (PDT)
+Date: Fri, 28 Aug 2026 16:36:36 -0700 (PDT)
+From: David Rientjes <rientjes@google.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+    William Roche <william.roche@oracle.com>, Jiaqi Yan <jiaqiyan@google.com>, 
+    linmiaohe@huawei.com, ljs@kernel.org, ziy@nvidia.com, osalvador@kernel.org, 
+    harry.yoo@oracle.com, willy@infradead.org, osalvador@suse.de, 
+    jackmanb@google.com, hannes@cmpxchg.org, nao.horiguchi@gmail.com, 
+    tony.luck@intel.com, wangkefeng.wang@huawei.com, jane.chu@oracle.com, 
+    akpm@linux-foundation.org, muchun.song@linux.dev, liam@infradead.org, 
+    duenwen@google.com, jthoughton@google.com, linux-mm@kvack.org, 
+    linux-kernel@vger.kernel.org, rppt@kernel.org, shuah@kernel.org, 
+    surenb@google.com, mhocko@suse.com, boudewijn@delta-utec.com
+Subject: Linux MM Alignment Session on hwpoison (was: Re: [PATCH v6 0/5] Only
+ free healthy pages in high-order has_hwpoisoned folio)
+In-Reply-To: <8f787434-5326-4a8f-92d0-467e817a23b4@kernel.org>
+Message-ID: <8f023b9f-53d0-0eb8-6f75-65957761cf40@google.com>
+References: <20260705180714.3708947-1-jiaqiyan@google.com> <85cb7ea8-8116-4092-8310-69b61eb8602c@kernel.org> <ee6bcc74-0846-43f2-bcca-b1bedff74351@oracle.com> <1dea7b3c-7740-474d-b9d4-cd2baf47f181@kernel.org> <168ad406-f6b5-4623-adac-9f894e410e48@kernel.org>
+ <8f787434-5326-4a8f-92d0-467e817a23b4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827232948.2520558-1-stevensd@google.com> <20260827232948.2520558-7-stevensd@google.com>
- <20260828125706.GQ687043@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260828125706.GQ687043@noisy.programming.kicks-ass.net>
-From: David Stevens <stevensd@google.com>
-Date: Fri, 28 Aug 2026 16:33:00 -0700
-X-Gm-Features: AcwNN1X4mjRfDUQTmdB2Q8G8afN4YKn_2mHhFiMGwyOfarmpU5bToKMeymOANtE
-Message-ID: <CAOiLmNG8XUKzy7uyodfDyuSBKJa4LujqSRKhgmOiRUSFEAEjFQ@mail.gmail.com>
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, suleiman@google.com, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Aug 28, 2026 at 5:57=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
->
-> On Thu, Aug 27, 2026 at 04:29:44PM -0700, David Stevens wrote:
-> > +DEFINE_CLASS(allow_stack_reclaim, bool,
-> > +          ({
-> > +             if (!_T)
-> > +                     current->flags &=3D ~PF_RECLAIMABLE_STACK;
-> > +           }),
-> > +          ({
-> > +             bool was_set =3D current->flags & PF_RECLAIMABLE_STACK;
-> > +
-> > +             current->flags |=3D PF_RECLAIMABLE_STACK;
-> > +             was_set;
-> > +           }),
-> > +          void)
->
-> > +     allow_stack_reclaim(prev);
->
-> > +void __allow_stack_reclaim(struct task_struct *tsk)
-> > +{
-> > +     union stack_reclaim_state prev_state, target_state;
-> > +
-> > +     if (WARN_ON_ONCE(tsk->__state =3D=3D TASK_DEAD))
-> > +             return;
-> > +
-> > +     prev_state.val =3D READ_ONCE(tsk->stack_reclaim_state.val);
-> > +     do {
-> > +             target_state.val =3D prev_state.val;
-> > +
-> > +             if (prev_state.stack_state !=3D STACK_PREPARE_RECLAIM) {
-> > +                     WARN(prev_state.stack_state !=3D STACK_IN_USE,
-> > +                          "Reclaimable state %x for previously running=
- task", prev_state.val);
-> > +                     return;
-> > +             }
-> > +             target_state.stack_state =3D STACK_RECLAIMABLE;
-> > +     } while (!try_cmpxchg(&tsk->stack_reclaim_state.val, &prev_state.=
-val, target_state.val));
-> > +
-> > +     if (irq_work_queue(&tsk->stack_reclaim_work->irq_work)) {
-> > +             /*
-> > +              * Take a ref that gets released by do_reclaim_stack() so=
- we don't
-> > +              * have to worry about races with remove_from_stack_shrin=
-ker().
-> > +              */
-> > +             get_task_struct(tsk);
-> > +     }
-> > +}
->
-> > +static inline void allow_stack_reclaim(struct task_struct *tsk)
-> > +{
-> > +     if (unlikely(tsk->flags & PF_RECLAIMABLE_STACK))
-> > +             __allow_stack_reclaim(tsk);
-> > +}
->
-> So you have a guard with the same name as a function, but the function
-> only functions when inside the guard of the same name. WTF ?!
->
-> Anyway, it looks like you're sprinkling this guard around a few specific
-> block sites. Which seems to suggest your PF_ flag *should* have been a
-> TASK_ flag, no?
+Following up on this thread and the suggestion from Matthew (thank you!), 
+I think it would be useful to have a hwpoison requirements and roadmap 
+discussion on how its support is currently integrated into the core MM, 
+get an understanding of what the areas to improve are, and get a sense of 
+future work in this area that people are planning.
 
-A TASK_ flag is definitely better. I was thinking in terms of defining
-safe scopes, but that just complicates things for no real benefit.
+This particular patch series is addressing an area of interest to Google, 
+but it's also quite clear from the thread that there are multiple areas to 
+improve for hwpoison in the core MM and it wouldn't hurt to get more 
+insight into what dependencies users have on it.
 
--David
+I'd propose this for discussion in one of our upcoming Linux MM Alignment 
+Sessions: Wednesday, September 16 9-10am PDT (UTC-7).
+
+No specific agenda other than to gather core MM developers with hwpoison 
+developers and discuss:
+ - where validation should live, esp with regard to the page allocator, or
+   strict invariants in the page allocator
+   + implications for the fastpath
+ - handling for folios of arbitary orders
+ - handling partial folio poisoning and split failures
+ - race conditions between memory_failure() and concurrent
+   alloc/free/compaction
+ - soft offline for pages in the pcp lists
+
+We might even want to be bold and discuss a holistic design overhaul if 
+it's warranted.
+
+I'll invite those on this email thread and anybody else is welcome to 
+attend as well, the announcement email goes out two days ahead of time to 
+linux-mm@kvack.org.
+
+If the time just doesn't work for somebody who needs to attend, please 
+reach out to me separately and we can discuss other times.
+
+
+On Tue, 28 Jul 2026, Vlastimil Babka (SUSE) wrote:
+
+> On 7/27/26 16:20, David Hildenbrand (Arm) wrote:
+> > On 7/22/26 10:27, Vlastimil Babka (SUSE) wrote:
+> >> On 7/17/26 15:06, William Roche wrote:
+> >>> On 7/17/26 12:18, David Hildenbrand (Arm) wrote:
+> >>>>
+> >>>> I still don't like the complexity of this, in particular, as we have different
+> >>>> mechanisms in the page allocator already to try handling this,
+> >>>>
+> >>>> We also do have cases where we set the hwpoison bit, while a page is just about
+> >>>> to get allocated from the buddy. So before we take it off the buddy, we might
+> >>>> just hand out the page.
+> >>>>
+> >>>> check_new_pages() seems to check for PageHWPoison() and make us not hand out
+> >>>> such pages. It's guarded by "check_pages" but it seems to do exactly what we are
+> >>>> looking for, now?
+> >>>
+> >>>
+> >>> Just adding a comment about this aspect:
+> >>> The check_new_pages() mechanism used by the __rmqueue functions should
+> >>> filter these pages out, but this has been disabled by default in 2023
+> >>> with:
+> >>> [PATCH] mm, page_alloc: reduce page alloc/free sanity checks
+> >>> https://lore.kernel.org/all/20230216095131.17336-1-vbabka@suse.cz
+> >>>
+> >>> So it would need to be enabled back, taking some of the performance hit.
+> >>> (and I personally think that it has to be done)
+> >> 
+> >> Would it truly fix the issue, or rather there would still be a race window
+> >> left where we check that there's no hwpoison flag in the re-enabled check,
+> >> and only then someone sets it?
+> > 
+> > Why are we checking PageHWPoison at all then in check_new_page()?
+> 
+> We check all kinds of unexpected state, when that's enable. PageHWPoison
+> could have been considered unexpected too, when the checks were made more
+> and more optional (first by Mel and then me).
+> 
+> But indeed it seems the PageHWPoison check is supposed to be load-bearing
+> (hi, Lorenzo!). It's intentionally handled before bad_page() (with a taint)
+> in check_new_page_bad(). Commits 2a7684a23e9c and f4c18e6f7b5b are also a hint.
+> 
+> > I think we created a mess.
+> 
+> Yes, the PageHWPoison handling was made part of debugging sanity check and
+> then not recognized properly as load-bearing later.
+> 
+> > The PageHWPoison check is not just a "nice to have" sanity check for kernel bugs.
+> > 
+> > So it should never have been optimized out that way before reworking the bigger
+> > picture.
+> 
+> Sorry!
+> 
+> >> 
+> >> Also, can the hardware actually detect a problem with a page that nobody
+> >> accesses? I guess if yes, it's only in some corner cases.
+> > 
+> > Yes, quite frequently I think.
+> > 
+> >> 
+> >> So I'm wary about penalizing the allocator paths again.
+> > 
+> > I get the feeling that we don't have a proper plan on how to handle HWPoisoned
+> > pages. We should take a step back and discuss how we actually want to handle
+> > them instead of optimizing here and there and creating more of a mess.
+> 
+> Fully agree on having a proper plan, because I got the feeling it's been a
+> whack-a-mole approach for years. If we then decide to put the check back
+> (and live with the residual race window), it should be handled completely
+> separately from check_new_page().
+> 
+> 
