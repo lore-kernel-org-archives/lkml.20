@@ -1,34 +1,35 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0600C43F08D;
-	Fri, 28 Aug 2026 11:40:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0D444606D;
+	Fri, 28 Aug 2026 11:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917217; cv=none; b=LdDlb4DgEIt7yEI3YDmgat2D8iUrJYaq0vyRYcEdDk5DEEXhrEezXUrECq0cVfmnNUwtvLHVxFdf2k+wOe/Rg3nkFiVnwpxVCF6XHEbLOqmc1FwlO8XbM+Yw4j0hP3/q3dnOJoVDVpQIGkT+/IlLLfDKmwebUpdoWcM9Z178TC8=
+	t=1787917217; cv=none; b=OKy5FHjbyLgHjfnh0TqPdtUicdBlVtet4mQ0jeROKIXlxyi+h3yn1s0sR9lLTOgGXKgnshVctq0KUsT5HrERPpPxUQrqfHhZkqh+wytufNI5hVqe1+/bp4tYQPtuGY4Aeou4ejUO1zkEGLEK2nOPlZsiJgPd2q28iGwfGWFbmig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787917217; c=relaxed/simple;
-	bh=V3JosSjIlcx2rclEYF1Mg9DEYWeN0sKlLa9leJswnQA=;
+	bh=71g3aqqIcF1avrw3tcUEMFL/FKmR3Ecm0PZTd53NSWI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ujt4oBE3frx7sq/K/yCe4QdJ+VBQ9R5Fo3+PhEQ+iWmEG5zupzZUp3rJicGFji8nHrqFWDHnhV5zSJV8lyXZBeeeo1TIJltSFyb09PY+TUL+q+nTlM+ikDbP5t2xWHjnQ7561c1tR4gQAuOr3DylYCScni3RIrloDpSmHmRnt9A=
+	 MIME-Version; b=hLgJTrRcP8yAiOl99VE7h63Vu7JtNqTw5phc9HAi9LTGsxH7H4L0nDq94adMghSaA7PVJpoj8KYTOtiZ/yIThejpjiXkP9EhOfcB73LKUyC9YPvse/Db1jqyG4zNvTal2AbCuvDz0K9FC4/HHHmlHNwMCezNX94xPbapr1sZkwg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S14;
-	Fri, 28 Aug 2026 19:34:21 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S8;
+	Fri, 28 Aug 2026 19:34:19 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Liam Girdwood <lgirdwood@gmail.com>
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	patches@opensource.cirrus.com,
+	linux-mips@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 12/20] ASoC: wm8770: Unwind supplies on cache replay failure
-Date: Fri, 28 Aug 2026 19:34:07 +0800
-Message-ID: <20260828113416.47061-13-pengpeng@iscas.ac.cn>
+Subject: [PATCH 06/20] ASoC: jz4740: Propagate codec wake-up errors
+Date: Fri, 28 Aug 2026 19:34:01 +0800
+Message-ID: <20260828113416.47061-7-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
 References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
@@ -39,61 +40,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S14
-X-Coremail-Antispam: 1UD129KBjvdXoWruw1xAF47CryrCrWDtF43KFg_yoWkZrc_Wa
-	y0g3s8XrZ09rWIv39rJrW2vFWkZFWrCFyj9r1vg3Z3Jr97tan5J3yDXFn3u34Uu348Ca43
-	uFnagr1xAry0kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbDkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
-	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
-	F7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr
+X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr4DKF1fZFyUur4rKF1rJFb_yoW5GrWDpF
+	s7uFWFgr1rXF1rur4rtr4kZ3WYgryfKF4fZayIy3y8uw1ayry7ur45tF98ZFZ7CFy7tFsr
+	WF17Zr4UCa1rK3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr
 	1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
 	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
 	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
-	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r
-	1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r
+	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
 	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjBTYUUU
-	UUU==
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWx
+	JVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUeLvNUUUU
+	U
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-wm8770_set_bias_level() enables supplies and then ignores
-regcache_sync() during the OFF-to-STANDBY transition.  It continues with
-global power-up after an incomplete restore.
+The JZ4740 codec can only leave its suspend state through
+jz4740_codec_wakeup().  The helper ignores failures while asserting
+reset, clearing suspend/reset and replaying the dirty register cache,
+then the bias callback continues with later register writes.
 
-Return the cache error and disable the supplies acquired for the failed
-transition.
+Return the first error from all three operations and stop the
+OFF-to-STANDBY transition when wake-up restoration fails.
 
 The issue was identified via static analysis and manually reviewed.
 
-Fixes: c046fd4dd613 ("ASoC: WM8770: Initial driver")
+Fixes: 3b097d64eafa ("ASoC: Add JZ4740 codec driver")
 
 Assisted-by: LLM
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- sound/soc/codecs/wm8770.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/codecs/jz4740.c | 25 ++++++++++++++++++-------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8770.c b/sound/soc/codecs/wm8770.c
-index b8b4d1e823e6..5bcad0729ece 100644
---- a/sound/soc/codecs/wm8770.c
-+++ b/sound/soc/codecs/wm8770.c
-@@ -517,7 +517,12 @@ static int wm8770_set_bias_level(struct snd_soc_component *component,
- 				return ret;
- 			}
+diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
+index d3d801d850a1..efb3f8295e98 100644
+--- a/sound/soc/codecs/jz4740.c
++++ b/sound/soc/codecs/jz4740.c
+@@ -217,15 +217,22 @@ static struct snd_soc_dai_driver jz4740_codec_dai = {
+ 	.symmetric_rate = 1,
+ };
  
--			regcache_sync(wm8770->regmap);
-+			ret = regcache_sync(wm8770->regmap);
-+			if (ret) {
-+				regulator_bulk_disable(ARRAY_SIZE(wm8770->supplies),
-+						       wm8770->supplies);
+-static void jz4740_codec_wakeup(struct regmap *regmap)
++static int jz4740_codec_wakeup(struct regmap *regmap)
+ {
+-	regmap_set_bits(regmap, JZ4740_REG_CODEC_1, JZ4740_CODEC_1_RESET);
++	int ret;
++
++	ret = regmap_set_bits(regmap, JZ4740_REG_CODEC_1, JZ4740_CODEC_1_RESET);
++	if (ret)
++		return ret;
++
+ 	udelay(2);
+ 
+-	regmap_clear_bits(regmap, JZ4740_REG_CODEC_1,
+-			  JZ4740_CODEC_1_SUSPEND | JZ4740_CODEC_1_RESET);
++	ret = regmap_clear_bits(regmap, JZ4740_REG_CODEC_1,
++				JZ4740_CODEC_1_SUSPEND | JZ4740_CODEC_1_RESET);
++	if (ret)
++		return ret;
+ 
+-	regcache_sync(regmap);
++	return regcache_sync(regmap);
+ }
+ 
+ static int jz4740_codec_set_bias_level(struct snd_soc_component *component,
+@@ -235,6 +242,7 @@ static int jz4740_codec_set_bias_level(struct snd_soc_component *component,
+ 	struct jz4740_codec *jz4740_codec = snd_soc_component_get_drvdata(component);
+ 	struct regmap *regmap = jz4740_codec->regmap;
+ 	unsigned int mask;
++	int ret;
+ 
+ 	switch (level) {
+ 	case SND_SOC_BIAS_ON:
+@@ -248,8 +256,11 @@ static int jz4740_codec_set_bias_level(struct snd_soc_component *component,
+ 		break;
+ 	case SND_SOC_BIAS_STANDBY:
+ 		/* The only way to clear the suspend flag is to reset the codec */
+-		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_OFF)
+-			jz4740_codec_wakeup(regmap);
++		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_OFF) {
++			ret = jz4740_codec_wakeup(regmap);
++			if (ret)
 +				return ret;
-+			}
++		}
  
- 			/* global powerup */
- 			snd_soc_component_write(component, WM8770_PWDNCTRL, 0);
+ 		mask = JZ4740_CODEC_1_VREF_DISABLE |
+ 			JZ4740_CODEC_1_VREF_AMP_DISABLE |
 -- 
 2.43.0
 
