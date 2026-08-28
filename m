@@ -1,741 +1,282 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59573F1078
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228CA3E6DEB
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906928; cv=none; b=TtRivw3SuR4xb7RXGC1PXMgmoRex7O9T9xwpnmVaAvwWKzT2XBaRRlhp6/dcSLzmmygNw7bosHlmwSWNNToxZ6i94zOekNGLyz5CxyX20DBdU2aLUUe4PehKI0rZ7VlVZ+JoRhwhdGHtmF/yAysCezXitoioSgcsQz2aYZ5+TFQ=
+	t=1787906953; cv=none; b=U+IGSoeyayrT4vBrE0FS1z8QWcKf+rIFq3ZXll1Vj6ouUa+RnjaQuDDg4mZD+h4yx7T49NeZtkyFjc+1xyykWXXdUJUwSxFTQN/+nW7XcVtlswHv6fvP46b7wQTwWXY1LVXQc08C2r/HvGF5Gfyn61sPlm0zMccALxLEdkIMLes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906928; c=relaxed/simple;
-	bh=K8K22bFSN8SSnODLIMTe5Fkz40avFn2wgN7+AWhQnn8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=su5FIGLGbvx6/rUP3Sbma6cuqg/0lKv+2dLP7UcKJzi/vpC+JFxS61e2W9qquXi5qxq24IEKgnM6LOlrSSOMNXYn57/uFGqJ6EqXDbQgb4A4wR6ajT7IEjtmh33tsnrZuQZxaryBjMENy9AMSdHi1yGkIwIonY5VyXsqee+aiGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=RNH5YWy7; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
+	s=arc-20240116; t=1787906953; c=relaxed/simple;
+	bh=H7xQmrf/9cBe19OKnaj/DDaZmeqkxVn3iLgxCuh5hOc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dvh3VZSk/7MFMbT0hnmZ368aUQH+kHoLebzxFFuv/BbKmMnFZj2LgZ3piVU0p1qB3PfQPO7jApgnQ0o77fck9891xxhWvLAwQKav8bfz0FItIf070HUOP/rphB+RUsEe5vNjy8hbnNqz9NQ1G+mvwF73jgFkEkA1rWXL8asiOeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VlAe/Qwd; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="RNH5YWy7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
-	s=altu2504; t=1787906908;
-	bh=VlgwfZVxp3Rrj6DsTCkP1CvHhwBRFoEk0Gfl6d4fvf4=;
-	h=From:To:Subject:Date:Message-Id;
-	b=RNH5YWy7a2rVHVecwpROzeKS9XHgjsxFpHvx3vXvO4L6oxo4mqPWEq9D6slLET5Ir
-	 0c9s3+PtXSGPBYJdx9Wi/G/xOV7tFgJo0ihVBhHyARmT/SnBIe2G027aA96SN6c1Ld
-	 IKqfcYTb2VY4qIi5vkkvWqS2GlM/MzqCRErSlQT0=
-X-QQ-mid: zesmtpgz6t1787906907t17eb7354
-X-QQ-Originating-IP: MT8UV7n524xeuXInhi7SRPtQrpBR/1osNcew/ReDEIY=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 16:48:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12270526303140244202
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-phy@lists.infradead.org
-Subject: [PATCH v7 7/7] drm/rockchip: cdn-dp: Add multiple bridges to support PHY port selection
-Date: Fri, 28 Aug 2026 16:47:37 +0800
-Message-Id: <20260828084737.565-8-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260828084737.565-1-kernel@airkyi.com>
-References: <20260828084737.565-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NSJNLtVRnDe+Ifmhl+P+ELN+ABLtP9bFeU4hotyWpxdkjlIkB2/YFy0e
-	kN7hsyYrPh1xpoPM6lZ7gTBmBFX7EthgqLxcmUSpmM7LLVpNzsdxmYm35t/j9DnuC8yOte7
-	jkrBKLBM3wUE9l8voz5l/DASD31rOGx50Fb1UokwAX4Rg9zpxEXr+heDUcthsBgx1szMcZv
-	cPXZPuTyXl0e7RvTydaC678ETFTy+NKkW2hsVUXzCq3kb6HplB/R+3N/qZ+YwiOPC5z6HI8
-	qrGDWj5G4QUNc9cQCBpOjmsPqtFY90hvbzytCCOeoE1NuHp0trBrQbZqFdQY2BhmN+WGsF1
-	9O4z7cGctayJXvI+zzhWwer3MND0gdOQXMX2HK6i+GAaGUuOUMZNVaVuY1AtYBk29MUPuEd
-	u0zox0o2fCELVvmOjaE45j9n3gh6ZixyqfxC8eiIFPOIsXiRW5P6XrGmmNsdxmhYF0hTZeJ
-	99R8O5QfCtzWUZ0kseAdlxuOYHvltsjv6i0RCi6YW/eu7pSp2N6Rh5H7betXHZm4EfRQmYT
-	2NmWtWZQR4LdQBRziTbw8UQcimgY8tEdWVvUQdSVopZ5Eei8g/0OR1hH3ElbymBsdq/INFC
-	lBYkDYRTkwyelPSokLldjpTMCBFyb1WbH+FppzX8JhQr+lyIEMS/M/xeFZM5SnNjrq0pOTw
-	bCfrfrbkdtet2lsn5k4bvQAG5OhkAMbbzAJthddOfkZAYX2zkb8sxVz01hIfWfWcJH9/CO5
-	MxQZLVatW2XOT14WvDx/RDgjqZxHlB4oJnWB7hh7/wTdy8WgUx93raQ7JWaB22CWBli/TgH
-	m1dv4b8YJ29BaVZXkAIY/mHBY90FMpuXMH+r/Y1PncKoK7lF9/ZaPXh8XDjzT/U7QmK0et1
-	6jSP8Lrtp8dXY+0zx8zXC9Jp7+KvYxhwJdPcjV+wevjDfJwY8uBLl4CwypE5uC+q2g8ILF0
-	SA8E5EoxDY6RmTLZaPrz0qo0cstWbQgBpIx15O1tCHGgwrliFuCYryHuH6Y5Av/zfKfTgk8
-	Clkg2fpKl9asfgdlIicJxrUsLC0EC9BhybzuZJVA==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VlAe/Qwd"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cedda2ce6fso5357845ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787906949; x=1788511749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pocGFIirgSi1A7XDDdcVKS31AoGl5aEaP8HYQb/Z4kY=;
+        b=VlAe/QwdkkIcYWC0raihOropRZdYkVkoEux3LbIdpfEMSrrtTDoFJqi4pyvr3R0geb
+         7Dp5SOuktmuRxZkMbz02EZLDZXDaqtmt+PVLq3WUAElpdJZ7edIM8YboVgzpax3J5PbD
+         b7drenkpfFwegjaiaC4zmnY6z+OKLylMlk4DNu3HPkFMzWkIPmEYtgxwFuLB1iZ6+DtU
+         Zl2tWtZ7gl2hIJ3sa8gvOD033/oNxuJDwfb/mZQzff27wz4ULJOZjlC2qdz01k5u+x3D
+         ReH7s5v1eiEhWFay2uhWnWIz6t8vAlQfrcVY7Bb/Y0D45nB8BMl877jr4qnVTrErwVcX
+         0Upg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787906949; x=1788511749;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pocGFIirgSi1A7XDDdcVKS31AoGl5aEaP8HYQb/Z4kY=;
+        b=qg0ssot6gjmTcX/7uUV9InfkTnOzPbMtsRZB7RcCu8dASnhYjc2iU6u58I2VLzdlMx
+         bJj0uZDVuy4igFksmVdRxJJ4mpPLC77YwAxLv/j18v50NSFyUEXbUmPtSpICrqLmN8XZ
+         nXXwocfohh97L2UuOfSWkAc7HVA6BY7lhImt8JaPqpYp8GRAsrmnt30gZ28/IEJpx2lb
+         mqjdnED7aYlRSLiN45h8EAcbT3ipQhHeSXYUTC+jxDwYesNyp/NeyyQHS/Mh3NUW+4vn
+         lWNunDK1WrASnsnEJ5SRPIWP3d1tITyqZNtEY1CjfGHySMN63iF2zPvRdajtEJOMZ2jx
+         on5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqBzNuj1oG76xufCtOxZnnyjtrSQLlLlLIRJ2kSSKX8xiDbODxqInF8hW5cvM3iuQUq+hB9dHF9jCadkqA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDyRnq7atJmezJP53+0OSqXIwa+6O2vhY85M8ZzRidUwShvfIl
+	ZX8HuMB7h+jATMXRCKxVXRq9aNElzeyl5QbPLO8SGsG4sGfpPHVp7MtE
+X-Gm-Gg: AR+sD13sC0CnooDqpAzjcINtl2HyuozWT4KQuPlA2lw6YBeDqt6o7XU3nd02sf8j8fu
+	cngv12RnirqP31Z4MlaJufUxfhYNkvwEhiV8ltp+1sLxg+bpwzuPqVwsUbloJEtKbHuWombtM5G
+	zVzDrenbic7Jtgns/6/M28PraIHZi3Do4kepMxaTRRkBwIuenzxdSbcwrrjmDB0pn0UmZosTc6G
+	2dknmh2xISyatRNNEChso+d5pt3jTdrgf+tpKn91+OmCINu8uWm4A93OFjcwFfl8hufVgqtpYSd
+	mwIMAko6gcbN1p0LF+kNr0ONPyLulnpg6DLhwp0vGgzQ8dFxXaA6lNJsm3QzzRDoso2kjbX9htP
+	loPo6DRbtNgda+ssnvrQtFj6v8/jr6pWrVn30vhTmjWxTcJWnPBNrnsU7wPw2JSwNEXcsIq1BA3
+	yQoXZG4WHlDqryZtVlDn/9KLgPkrySjiNllDRT93Dy90DRZVV8NdCZmVs4wmIsVLdf9BzMhA==
+X-Received: by 2002:a17:903:46cb:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2d74deed252mr104246205ad.9.1787906948801;
+        Fri, 28 Aug 2026 01:49:08 -0700 (PDT)
+Received: from localhost ([2400:ac40:62f:a97:707e:a14f:cfbf:3e23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm3918689eec.14.2026.08.28.01.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:49:08 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+To: kexec@lists.infradead.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Dave Young <ruirui.yang@linux.dev>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4 1/9] crash_dump: Fix potential double free and UAF of keys_header
+Date: Fri, 28 Aug 2026 16:48:47 +0800
+Message-ID: <20260828084900.1496839-2-coiby.xu@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828084900.1496839-1-coiby.xu@gmail.com>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+If kexec_add_buffer somehow fails, keys_header will be freed. Depending
+on /sys/kernel/config/crash_dm_crypt_key/reuse, it will lead to the
+following two problems if the kexec_file_load syscall is called again,
+  1. Double free of keys_header if reuse=false
+  2. UAF of keys_header if reuse=true
 
-The RK3399 has two USB/DP combo PHY and one CDN-DP controller. And
-the CDN-DP can be switched to output to one of the PHYs. If both ports
-are plugged into DP, DP will select the first port for output.
+To address these problems and also make it easier to reason about the
+code, keep two invariants,
+  1. keys_header will always be freed at the end of kexec_file_load
+     syscall except during kdump image unloading for CPU/memory
+     hot-plugging support
+  2. There will always be valid keys_header if reuse=true
 
-This patch adds support for multiple bridges, enabling users to flexibly
-select the output port. For each PHY port, a separate encoder and bridge
-are registered.
-
-The change is based on the DRM AUX HPD bridge, rather than the
-extcon approach. This requires the DT to correctly describe the
-connections between the first bridge in bridge chain and DP
-controller. For example, the bridge chain may be like this:
-
-PHY aux birdge -> fsa4480 analog audio switch bridge ->
-onnn,nb7vpq904m USB reminder bridge -> USB-C controller AUX HPD bridge
-
-In this case, the connection relationships among the PHY aux bridge
-and the DP contorller need to be described in DT.
-
-In addition, the cdn_dp_parse_next_bridge_dt() will parses it and
-determines whether to register one or two bridges.
-
-Since there is only one DP controller, only one of the PHY ports can
-output at a time. The key is how to switch between different PHYs,
-which is handled by cdn_dp_switch_port() and cdn_dp_enable().
-
-There are two cases:
-
-1. Neither bridge is enabled. In this case, both bridges can
-independently read the EDID, and the PHY port may switch before
-reading the EDID.
-
-2. One bridge is already enabled. In this case, other bridges are not
-allowed to read the EDID. So we will try to return the cached EDID.
-
-Since the scenario of two ports plug in at the same time is rare,
-I don't have a board which support two TypeC connector to test this.
-Therefore, I tested forced switching on a single PHY port, as well as
-output using a fake PHY port alongside a real PHY port.
-
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump reserved memory")
+Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
+Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
 ---
-Changes in v7:
-- Fix extcon HPD detection by checking lanes in cdn_dp_connected_port() (sashiko).
-- Bound endpoint count by PHY ports to avoid overflow and uninitialized reads (sashiko).
-- Use drm_bridge_clear_and_put() to clear next_bridge_list pointers (sashiko).
-- Clear EDID cache pointers after free in unbind() (sashiko).
+ include/linux/kexec.h        |  6 ++++
+ kernel/crash_dump_dm_crypt.c | 66 ++++++++++++++++++++++++++----------
+ kernel/kexec_file.c          |  2 ++
+ 3 files changed, 56 insertions(+), 18 deletions(-)
 
-(no changes since v4)
-
-Changes in v3:
-- Remove now-redundant call to drm_connector_attach_encoder().
-
-Changes in v2:
-- Fix the check logic for dp->active_port (0 is valid).
-- Fix the uninitialized prev_port.
-- Remove duplicate logic from cdn_dp_switch_port().
-- Fix the prototype of cdn_dp_bridge_hpd_notify().
-- Properly release connector->fwnode.
-- Properly release next_bridge.
----
- drivers/gpu/drm/rockchip/Kconfig       |   1 +
- drivers/gpu/drm/rockchip/cdn-dp-core.c | 340 +++++++++++++++++++++----
- drivers/gpu/drm/rockchip/cdn-dp-core.h |  18 +-
- 3 files changed, 301 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
-index e7f49fe845ea..ce70f91c13e6 100644
---- a/drivers/gpu/drm/rockchip/Kconfig
-+++ b/drivers/gpu/drm/rockchip/Kconfig
-@@ -60,6 +60,7 @@ config ROCKCHIP_CDN_DP
- 	select DRM_DISPLAY_HELPER
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_DISPLAY_DP_HELPER
-+	select DRM_AUX_HPD_BRIDGE
- 	help
- 	  This selects support for Rockchip SoC specific extensions
- 	  for the cdn DP driver. If you want to enable Dp on
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-index 74e1f5422a6e..999309b39b34 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-@@ -28,16 +28,17 @@
- #include "cdn-dp-core.h"
- #include "cdn-dp-reg.h"
+diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+index 0af8ae4fdd08..0fa8bac04576 100644
+--- a/include/linux/kexec.h
++++ b/include/linux/kexec.h
+@@ -552,6 +552,12 @@ void set_kexec_sig_enforced(void);
+ static inline void set_kexec_sig_enforced(void) {}
+ #endif
  
--static inline struct cdn_dp_device *bridge_to_dp(struct drm_bridge *bridge)
-+static int cdn_dp_switch_port(struct cdn_dp_device *dp, struct cdn_dp_port *prev_port,
-+			      struct cdn_dp_port *port);
++#ifdef CONFIG_CRASH_DM_CRYPT
++void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image);
++#else
++static inline void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image) {}
++#endif
 +
-+static inline struct cdn_dp_bridge *bridge_to_dp_bridge(struct drm_bridge *bridge)
- {
--	return container_of(bridge, struct cdn_dp_device, bridge);
-+	return container_of(bridge, struct cdn_dp_bridge, bridge);
+ #endif /* !defined(__ASSEBMLY__) */
+ 
+ #endif /* LINUX_KEXEC_H */
+diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
+index c685497cd470..4335b6cb1fc4 100644
+--- a/kernel/crash_dump_dm_crypt.c
++++ b/kernel/crash_dump_dm_crypt.c
+@@ -84,18 +84,25 @@ static int add_key_to_keyring(struct dm_crypt_key *dm_key,
+ 	return r;
  }
  
--static inline struct cdn_dp_device *encoder_to_dp(struct drm_encoder *encoder)
-+static inline struct cdn_dp_device *bridge_to_dp(struct drm_bridge *bridge)
+-static void get_keys_from_kdump_reserved_memory(void)
++static int get_keys_from_kdump_reserved_memory(void)
  {
--	struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
--
--	return container_of(rkencoder, struct cdn_dp_device, encoder);
-+	return bridge_to_dp_bridge(bridge)->parent;
- }
+ 	struct keys_header *keys_header_loaded;
++	size_t keys_header_size;
  
- #define GRF_SOC_CON9		0x6224
-@@ -192,14 +193,27 @@ static int cdn_dp_get_sink_count(struct cdn_dp_device *dp, u8 *sink_count)
- static struct cdn_dp_port *cdn_dp_connected_port(struct cdn_dp_device *dp)
- {
- 	struct cdn_dp_port *port;
--	int i, lanes;
-+	int i, lanes[MAX_PHY];
+-	arch_kexec_unprotect_crashkres();
++	keys_header_size = get_keys_header_size(key_count);
++	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
++	if (!keys_header)
++		return -ENOMEM;
  
- 	for (i = 0; i < dp->ports; i++) {
- 		port = dp->port[i];
--		lanes = cdn_dp_get_port_lanes(port);
--		if (lanes)
-+		lanes[i] = cdn_dp_get_port_lanes(port);
-+		if (!dp->next_bridge_valid && lanes[i])
- 			return port;
- 	}
-+
-+	if (dp->next_bridge_valid) {
-+		/* If more than one port is available, pick the last active port */
-+		if (dp->active_port >= 0 && lanes[dp->active_port])
-+			return dp->port[dp->active_port];
-+
-+		/* If the last active port is not available, pick an available port in order */
-+		for (i = 0; i < dp->bridge_count; i++) {
-+			if (lanes[i])
-+				return dp->port[i];
-+		}
-+	}
-+
- 	return NULL;
- }
++	arch_kexec_unprotect_crashkres();
+ 	keys_header_loaded = kmap_local_page(pfn_to_page(
+ 		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
  
-@@ -254,12 +268,45 @@ static const struct drm_edid *
- cdn_dp_bridge_edid_read(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
--	const struct drm_edid *drm_edid;
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
-+	struct cdn_dp_port *port = dp->port[dp_bridge->id];
-+	struct cdn_dp_port *prev_port = NULL;
-+	const struct drm_edid *drm_edid = NULL;
-+	int i, ret;
- 
- 	mutex_lock(&dp->lock);
-+
-+	/* More than one port is available */
-+	if (dp->bridge_count > 1 && !port->phy_enabled) {
-+		for (i = 0; i < dp->bridge_count; i++) {
-+			/* Another port already enable */
-+			if (dp->bridge_list[i] != dp_bridge && dp->bridge_list[i]->enabled)
-+				goto get_cache;
-+			/* Find already enabled port */
-+			if (dp->port[i]->phy_enabled)
-+				prev_port = dp->port[i];
-+		}
-+
-+		/* Switch to current port */
-+		if (prev_port) {
-+			ret = cdn_dp_switch_port(dp, prev_port, port);
-+			if (ret)
-+				goto get_cache;
-+		}
-+	}
-+
- 	drm_edid = drm_edid_read_custom(connector, cdn_dp_get_edid_block, dp);
-+	/* replace edid cache */
-+	if (dp->edid_cache[dp_bridge->id])
-+		drm_edid_free(dp->edid_cache[dp_bridge->id]);
-+	dp->edid_cache[dp_bridge->id] = drm_edid_dup(drm_edid);
-+
- 	mutex_unlock(&dp->lock);
-+	return drm_edid;
- 
-+get_cache:
-+	drm_edid = drm_edid_dup(dp->edid_cache[dp_bridge->id]);
-+	mutex_unlock(&dp->lock);
- 	return drm_edid;
- }
- 
-@@ -268,12 +315,13 @@ cdn_dp_bridge_mode_valid(struct drm_bridge *bridge,
- 			 const struct drm_display_info *display_info,
- 			 const struct drm_display_mode *mode)
- {
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
- 	u32 requested, actual, rate, sink_max, source_max = 0;
- 	u8 lanes, bpc;
- 
- 	/* If DP is disconnected, every mode is invalid */
--	if (!dp->connected)
-+	if (!dp_bridge->connected || !dp->connected)
- 		return MODE_BAD;
- 
- 	switch (display_info->bpc) {
-@@ -551,6 +599,50 @@ static bool cdn_dp_check_link_status(struct cdn_dp_device *dp)
- 	return drm_dp_channel_eq_ok(link_status, min(port->lanes, sink_lanes));
- }
- 
-+static int cdn_dp_switch_port(struct cdn_dp_device *dp, struct cdn_dp_port *prev_port,
-+			      struct cdn_dp_port *port)
-+{
-+	int ret;
-+
-+	ret = cdn_dp_disable_phy(dp, prev_port);
-+	if (ret)
-+		goto out;
-+	ret = cdn_dp_enable_phy(dp, port);
-+	if (ret)
-+		goto out;
-+
-+	ret = cdn_dp_get_sink_capability(dp);
-+	if (ret) {
-+		cdn_dp_disable_phy(dp, port);
-+		goto out;
-+	}
-+
-+	dp->lanes = port->lanes;
-+
-+	if (!cdn_dp_check_link_status(dp)) {
-+		dev_info(dp->dev, "Connected with sink; re-train link\n");
-+
-+		ret = cdn_dp_train_link(dp);
-+		if (ret) {
-+			dev_err(dp->dev, "Training link failed: %d\n", ret);
-+			goto out;
-+		}
-+
-+		ret = cdn_dp_set_video_status(dp, CONTROL_VIDEO_IDLE);
-+		if (ret) {
-+			dev_err(dp->dev, "Failed to idle video %d\n", ret);
-+			goto out;
-+		}
-+
-+		ret = cdn_dp_config_video(dp);
-+		if (ret)
-+			dev_err(dp->dev, "Failed to configure video: %d\n", ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+
- static void cdn_dp_display_info_update(struct cdn_dp_device *dp,
- 				       struct drm_display_info *display_info)
- {
-@@ -572,6 +664,7 @@ static void cdn_dp_display_info_update(struct cdn_dp_device *dp,
- static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_atomic_commit *state)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	struct drm_connector *connector;
- 	int ret, val;
- 
-@@ -581,7 +674,7 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 
- 	cdn_dp_display_info_update(dp, &connector->display_info);
- 
--	ret = drm_of_encoder_active_endpoint_id(dp->dev->of_node, &dp->encoder.encoder);
-+	ret = drm_of_encoder_active_endpoint_id(dp->dev->of_node, &dp_bridge->encoder.encoder);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(dp->dev, "Could not get vop id, %d", ret);
- 		return;
-@@ -600,6 +693,9 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 
- 	mutex_lock(&dp->lock);
- 
-+	if (dp->next_bridge_valid)
-+		dp->active_port = dp_bridge->id;
-+
- 	ret = cdn_dp_enable(dp);
- 	if (ret) {
- 		DRM_DEV_ERROR(dp->dev, "Failed to enable bridge %d\n",
-@@ -632,6 +728,7 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 		goto out;
- 	}
- 
-+	dp_bridge->enabled = true;
- out:
- 	mutex_unlock(&dp->lock);
- }
-@@ -639,9 +736,11 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- static void cdn_dp_bridge_atomic_disable(struct drm_bridge *bridge, struct drm_atomic_commit *state)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	int ret;
- 
- 	mutex_lock(&dp->lock);
-+	dp_bridge->enabled = false;
- 
- 	if (dp->active) {
- 		ret = cdn_dp_disable(dp);
-@@ -828,6 +927,17 @@ static int cdn_dp_audio_mute_stream(struct drm_bridge *bridge,
- 	return ret;
- }
- 
-+static void cdn_dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+				     struct drm_connector *connector,
-+				     enum drm_connector_status status)
-+{
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
-+	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+
-+	dp->bridge_list[dp_bridge->id]->connected = status == connector_status_connected;
-+	schedule_work(&dp->event_work);
-+}
-+
- static const struct drm_bridge_funcs cdn_dp_bridge_funcs = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -838,6 +948,7 @@ static const struct drm_bridge_funcs cdn_dp_bridge_funcs = {
- 	.atomic_disable = cdn_dp_bridge_atomic_disable,
- 	.mode_valid = cdn_dp_bridge_mode_valid,
- 	.mode_set = cdn_dp_bridge_mode_set,
-+	.hpd_notify = cdn_dp_bridge_hpd_notify,
- 
- 	.dp_audio_prepare = cdn_dp_audio_prepare,
- 	.dp_audio_mute_stream = cdn_dp_audio_mute_stream,
-@@ -886,7 +997,8 @@ static void cdn_dp_pd_event_work(struct work_struct *work)
- {
- 	struct cdn_dp_device *dp = container_of(work, struct cdn_dp_device,
- 						event_work);
--	int ret;
-+	bool connected;
-+	int i, ret;
- 
- 	mutex_lock(&dp->lock);
- 
-@@ -945,9 +1057,12 @@ static void cdn_dp_pd_event_work(struct work_struct *work)
- 
- out:
- 	mutex_unlock(&dp->lock);
--	drm_bridge_hpd_notify(&dp->bridge,
--			      dp->connected ? connector_status_connected
--					    : connector_status_disconnected);
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		connected = dp->connected && dp->bridge_list[i]->connected;
-+		drm_bridge_hpd_notify(&dp->bridge_list[i]->bridge,
-+				      connected ? connector_status_connected
-+						: connector_status_disconnected);
-+	}
- }
- 
- static int cdn_dp_pd_event(struct notifier_block *nb,
-@@ -967,28 +1082,16 @@ static int cdn_dp_pd_event(struct notifier_block *nb,
- 	return NOTIFY_DONE;
- }
- 
--static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
-+static int cdn_bridge_add(struct device *dev,
-+			  struct drm_bridge *bridge,
-+			  struct drm_bridge *next_bridge,
-+			  struct drm_encoder *encoder)
- {
- 	struct cdn_dp_device *dp = dev_get_drvdata(dev);
--	struct drm_encoder *encoder;
-+	struct drm_device *drm_dev = dp->drm_dev;
-+	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
- 	struct drm_connector *connector;
--	struct cdn_dp_port *port;
--	struct drm_device *drm_dev = data;
--	int ret, i;
--
--	ret = cdn_dp_parse_dt(dp);
--	if (ret < 0)
--		return ret;
--
--	dp->drm_dev = drm_dev;
--	dp->connected = false;
--	dp->active = false;
--	dp->active_port = -1;
--	dp->fw_loaded = false;
--
--	INIT_WORK(&dp->event_work, cdn_dp_pd_event_work);
--
--	encoder = &dp->encoder.encoder;
-+	int ret;
- 
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
- 							     dev->of_node);
-@@ -1003,26 +1106,35 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 
- 	drm_encoder_helper_add(encoder, &cdn_dp_encoder_helper_funcs);
- 
--	dp->bridge.ops =
--			DRM_BRIDGE_OP_DETECT |
--			DRM_BRIDGE_OP_EDID |
--			DRM_BRIDGE_OP_HPD |
--			DRM_BRIDGE_OP_DP_AUDIO;
--	dp->bridge.of_node = dp->dev->of_node;
--	dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
--	dp->bridge.hdmi_audio_dev = dp->dev;
--	dp->bridge.hdmi_audio_max_i2s_playback_channels = 8;
--	dp->bridge.hdmi_audio_spdif_playback = 1;
--	dp->bridge.hdmi_audio_dai_port = -1;
--
--	ret = devm_drm_bridge_add(dev, &dp->bridge);
-+	bridge->ops =
-+		DRM_BRIDGE_OP_DETECT |
-+		DRM_BRIDGE_OP_EDID |
-+		DRM_BRIDGE_OP_HPD |
-+		DRM_BRIDGE_OP_DP_AUDIO;
-+	bridge->of_node = dp->dev->of_node;
-+	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
-+	bridge->hdmi_audio_dev = dp->dev;
-+	bridge->hdmi_audio_max_i2s_playback_channels = 8;
-+	bridge->hdmi_audio_spdif_playback = 1;
-+	bridge->hdmi_audio_dai_port = -1;
-+
-+	ret = devm_drm_bridge_add(dev, bridge);
- 	if (ret)
- 		return ret;
- 
--	ret = drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		return ret;
- 
-+	if (next_bridge) {
-+		ret = drm_bridge_attach(encoder, next_bridge, bridge,
-+					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+		if (ret)
-+			return ret;
-+
-+		last_bridge = drm_bridge_chain_get_last_bridge(bridge->encoder);
-+	}
-+
- 	connector = drm_bridge_connector_init(drm_dev, encoder);
- 	if (IS_ERR(connector)) {
- 		ret = PTR_ERR(connector);
-@@ -1030,6 +1142,106 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 	}
- 
-+	if (last_bridge) {
-+		fwnode_handle_put(connector->fwnode);
-+		connector->fwnode = fwnode_handle_get(of_fwnode_handle(last_bridge->of_node));
-+	}
+-	memcpy(keys_header, keys_header_loaded, get_keys_header_size(key_count));
++	memcpy(keys_header, keys_header_loaded, keys_header_size);
+ 	kunmap_local(keys_header_loaded);
+ 	arch_kexec_protect_crashkres();
 +
 +	return 0;
-+}
-+
-+static int cdn_dp_parse_next_bridge_dt(struct cdn_dp_device *dp)
-+{
-+	struct device_node *np = dp->dev->of_node;
-+	struct device_node *port __free(device_node) = of_graph_get_port_by_id(np, 1);
-+	struct drm_bridge *bridge;
-+	int count = 0;
-+	int ret = 0;
-+	int i;
-+
-+	/* If device use extcon, do not use hpd bridge */
-+	for (i = 0; i < dp->ports; i++) {
-+		if (dp->port[i]->extcon) {
-+			dp->bridge_count = 1;
-+			return 0;
-+		}
-+	}
-+
-+	/* One endpoint may correspond to one next bridge. */
-+	for_each_of_graph_port_endpoint(port, dp_ep) {
-+		struct device_node *next_bridge_node __free(device_node) =
-+			of_graph_get_remote_port_parent(dp_ep);
-+
-+		if (count >= dp->ports) {
-+			dev_warn(dp->dev, "more dp_out endpoints than PHY ports\n");
-+			break;
-+		}
-+
-+		bridge = of_drm_find_bridge(next_bridge_node);
-+		if (!bridge) {
-+			ret = -EPROBE_DEFER;
-+			goto out;
-+		}
-+
-+		dp->next_bridge_valid = true;
-+		dp->next_bridge_list[count] = drm_bridge_get(bridge);
-+		count++;
-+	}
-+
-+out:
-+	dp->bridge_count = count ? count : 1;
-+	return ret;
-+}
-+
-+static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
-+{
-+	struct cdn_dp_device *dp = dev_get_drvdata(dev);
-+	struct drm_bridge *bridge, *next_bridge;
-+	struct drm_encoder *encoder;
-+	struct cdn_dp_port *port;
-+	struct drm_device *drm_dev = data;
-+	struct cdn_dp_bridge *dp_bridge;
-+	int ret, i;
-+
-+	ret = cdn_dp_parse_dt(dp);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = cdn_dp_parse_next_bridge_dt(dp);
-+	if (ret)
-+		goto out;
-+
-+	dp->drm_dev = drm_dev;
-+	dp->connected = false;
-+	dp->active = false;
-+	dp->active_port = -1;
-+	dp->fw_loaded = false;
-+
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		dp_bridge = devm_drm_bridge_alloc(dev, struct cdn_dp_bridge, bridge,
-+						    &cdn_dp_bridge_funcs);
-+		if (IS_ERR(dp_bridge)) {
-+			ret = PTR_ERR(dp_bridge);
-+			goto out;
-+		}
-+		dp_bridge->id = i;
-+		dp_bridge->parent = dp;
-+		if (!dp->next_bridge_valid)
-+			dp_bridge->connected = true;
-+		dp->bridge_list[i] = dp_bridge;
-+	}
-+
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		encoder = &dp->bridge_list[i]->encoder.encoder;
-+		bridge = &dp->bridge_list[i]->bridge;
-+		next_bridge = dp->next_bridge_list[i];
-+		ret = cdn_bridge_add(dev, bridge, next_bridge, encoder);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	INIT_WORK(&dp->event_work, cdn_dp_pd_event_work);
-+
- 	for (i = 0; i < dp->ports; i++) {
- 		port = dp->port[i];
- 
-@@ -1043,7 +1255,7 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 		if (ret) {
- 			DRM_DEV_ERROR(dev,
- 				      "register EXTCON_DISP_DP notifier err\n");
--			return ret;
-+			goto out;
- 		}
- 	}
- 
-@@ -1052,15 +1264,31 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 	schedule_work(&dp->event_work);
- 
- 	return 0;
-+
-+out:
-+	for (i = 0; i < MAX_PHY; i++)
-+		drm_bridge_clear_and_put(&dp->next_bridge_list[i]);
-+
-+	return ret;
  }
  
- static void cdn_dp_unbind(struct device *dev, struct device *master, void *data)
+ static int restore_dm_crypt_keys_to_thread_keyring(void)
+@@ -286,17 +293,28 @@ static ssize_t config_keys_reuse_show(struct config_item *item, char *page)
+ static ssize_t config_keys_reuse_store(struct config_item *item,
+ 					   const char *page, size_t count)
  {
- 	struct cdn_dp_device *dp = dev_get_drvdata(dev);
--	struct drm_encoder *encoder = &dp->encoder.encoder;
-+	struct drm_encoder *encoder;
-+	int i;
- 
- 	cancel_work_sync(&dp->event_work);
--	encoder->funcs->destroy(encoder);
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		encoder = &dp->bridge_list[i]->encoder.encoder;
-+		encoder->funcs->destroy(encoder);
-+		drm_bridge_clear_and_put(&dp->next_bridge_list[i]);
-+	}
++	bool val;
++	int r;
 +
-+	for (i = 0; i < MAX_PHY; i++) {
-+		drm_edid_free(dp->edid_cache[i]);
-+		dp->edid_cache[i] = NULL;
+ 	if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
+ 		kexec_dprintk(
+ 			"dm-crypt keys haven't be saved to crash-reserved memory\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	if (kstrtobool(page, &is_dm_key_reused))
++	if (kstrtobool(page, &val) || !val)
+ 		return -EINVAL;
+ 
+-	if (is_dm_key_reused)
+-		get_keys_from_kdump_reserved_memory();
++	if (is_dm_key_reused) {
++		pr_info("Already got dm-crypt keys, please continue with kexec_file_load syscall\n");
++	} else {
++		r = get_keys_from_kdump_reserved_memory();
++		if (r) {
++			pr_warn("Failed to get dm-crypt keys from reserved memory\n");
++			return r;
++		}
++		is_dm_key_reused = true;
 +	}
  
- 	pm_runtime_disable(dev);
- 	if (dp->fw_loaded)
-@@ -1111,10 +1339,10 @@ static int cdn_dp_probe(struct platform_device *pdev)
+ 	return count;
+ }
+@@ -369,9 +387,6 @@ static int build_keys_header(void)
+ 	struct config_key *key;
+ 	int i, r;
+ 
+-	if (keys_header != NULL)
+-		kvfree(keys_header);
+-
+ 	keys_header = kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
+ 	if (!keys_header)
+ 		return -ENOMEM;
+@@ -415,8 +430,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+ 		.top_down = false,
+ 		.random = true,
+ 	};
+-	int r;
+-
++	int r = 0;
+ 
+ 	if (key_count <= 0) {
+ 		kexec_dprintk("No dm-crypt keys\n");
+@@ -424,14 +438,15 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+ 	}
+ 
+ 	if (!is_dm_key_reused) {
+-		image->dm_crypt_keys_addr = 0;
+ 		r = build_keys_header();
+-		if (r) {
+-			pr_err("Failed to build dm-crypt keys header, ret=%d\n", r);
+-			return r;
+-		}
++		if (r)
++			goto out;
+ 	}
+ 
++	/*
++	 * keys_header will be copied to reserver memory later and then be
++	 * cleaned up at the end of kexec_file_load syscall
++	 */
+ 	kbuf.buffer = keys_header;
+ 	kbuf.bufsz = get_keys_header_size(key_count);
+ 
+@@ -441,18 +456,33 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+ 	r = kexec_add_buffer(&kbuf);
+ 	if (r) {
+ 		pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
+-		kvfree((void *)kbuf.buffer);
+-		return r;
++		goto out;
+ 	}
++
+ 	image->dm_crypt_keys_addr = kbuf.mem;
+ 	image->dm_crypt_keys_sz = kbuf.bufsz;
+ 	kexec_dprintk(
+ 		"Loaded dm crypt keys to kexec_buffer bufsz=0x%lx memsz=0x%lx\n",
+ 		kbuf.bufsz, kbuf.memsz);
+ 
++out:
++	is_dm_key_reused = false;
+ 	return r;
+ }
+ 
++void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image)
++{
++	/*
++	 * For CPU/memory hot-plugging, the kdump image will be reloaded. Prevent
++	 * keys_header from being cleaned up during unloading when
++	 * is_dm_key_reused=true
++	 */
++	if (!is_dm_key_reused) {
++		kfree_sensitive(keys_header);
++		keys_header = NULL;
++	}
++}
++
+ static int __init configfs_dmcrypt_keys_init(void)
+ {
  	int ret;
- 	int i;
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 59fb9d71e9d8..062f7e79016d 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -140,6 +140,8 @@ void kimage_file_post_load_cleanup(struct kimage *image)
+ 	kfree(image->image_loader_data);
+ 	image->image_loader_data = NULL;
  
--	dp = devm_drm_bridge_alloc(dev, struct cdn_dp_device, bridge,
--				   &cdn_dp_bridge_funcs);
--	if (IS_ERR(dp))
--		return PTR_ERR(dp);
-+	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
-+	if (!dp)
-+		return -ENOMEM;
++	kexec_file_post_load_cleanup_dm_crypt(image);
 +
- 	dp->dev = dev;
+ 	kexec_file_dbg_print = false;
+ }
  
- 	match = of_match_node(cdn_dp_dt_ids, pdev->dev.of_node);
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.h b/drivers/gpu/drm/rockchip/cdn-dp-core.h
-index e9c30b9fd543..c10e423bbf06 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.h
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.h
-@@ -38,6 +38,8 @@ enum vic_pxl_encoding_format {
- 	Y_ONLY = 0x10,
- };
- 
-+struct cdn_dp_device;
-+
- struct video_info {
- 	bool h_sync_polarity;
- 	bool v_sync_polarity;
-@@ -63,16 +65,28 @@ struct cdn_dp_port {
- 	u8 id;
- };
- 
-+struct cdn_dp_bridge {
-+	struct cdn_dp_device *parent;
-+	struct drm_bridge bridge;
-+	struct rockchip_encoder encoder;
-+	bool connected;
-+	bool enabled;
-+	int id;
-+};
-+
- struct cdn_dp_device {
- 	struct device *dev;
- 	struct drm_device *drm_dev;
--	struct drm_bridge bridge;
--	struct rockchip_encoder encoder;
-+	int bridge_count;
-+	struct cdn_dp_bridge *bridge_list[MAX_PHY];
-+	struct drm_bridge *next_bridge_list[MAX_PHY];
-+	const struct drm_edid *edid_cache[MAX_PHY];
- 	struct drm_display_mode mode;
- 	struct platform_device *audio_pdev;
- 	struct work_struct event_work;
- 
- 	struct mutex lock;
-+	bool next_bridge_valid;
- 	bool connected;
- 	bool active;
- 	bool suspended;
 -- 
-2.53.0
+2.55.0
 
