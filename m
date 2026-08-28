@@ -1,936 +1,269 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11020114.outbound.protection.outlook.com [52.101.61.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DBC3515D4;
-	Fri, 28 Aug 2026 19:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944969; cv=none; b=M8HzBu13udj9AryMglRmAHKg6NY5MCJ0HMFG6toz02r9MoS3JrkNYaQH1jAkkA/vafBBnaFyfAH3OWm7/WHVXhX6vak0Cte2AiT0vpxuS0L9aoLGjp32cE5W4z1VDCRUqg4FgeeOH5TYRsk/QUAPuqizIh07mB32VGEPIDp4NHM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944969; c=relaxed/simple;
-	bh=8Dz7G3tkhXJ1FsgO0+uAVnY0zJR+O5Wyykn1RSNwEiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mma45X8BkS7p+s15ZIIL3xPo9YdhsiaothCwmTRTQnQqGgbDeWK4+zb7AXFSHtnzz4v+YYQQIvxJUTl3So8k9wTb1AOYgPFbIoYTls7tE4aDjP8iOQTHahZyPBuFVE0DzCEp+yYNQUZ2yenzcWtrjhqioAd7DPcmo/Znq3M0QsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=W1WafMe9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=aZ+Vh5ty; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969D32DC765;
+	Fri, 28 Aug 2026 19:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.114
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787945079; cv=fail; b=Z4kVEqJ3wHPGZ1f9qy89yen6BytsYoIZ6TN28Z5eGyvl8lp3ALce6fQikvg8avRclZ8tzB+trqTgsXiT3EYh/SQtrrukq/oMhqTUIqzoJOwsa7He1BfFYpD6X4htWM+TQi9mbLI4lK9mj2Z0nIPCX4fkKczJPWBNfjeWk+KApe4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787945079; c=relaxed/simple;
+	bh=GuvH3oSecXg0N3zh6nMbaa9CeHsrQBsVTpNwzer+ANQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=I3P+OzDJmGbBkYlWEpoYzNzAhHajwC5n2n265dz0h8ydrEc9MUW0cBRG6fSE6vq5qRjVqpEL8uSpmCPHq4MSOGj4DOCaFLHtdDoGLEho1EjiLBwRdS866FnblawUYDxPOH8WN9QaVYLd03bm8C2kGdGKDHs8VHL+fIViQThKQ+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=R7+TeWNi; arc=fail smtp.client-ip=52.101.61.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="W1WafMe9";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="aZ+Vh5ty"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hWpF028wYzMlCs;
-	Fri, 28 Aug 2026 21:22:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787944964;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Fdqheogzf/bzDni3m4TM80mVJoZH+KsTRMYrL5NWco=;
-	b=W1WafMe9QBeihdIVkhVNoFxmBUPueZliWtv2Lgxw+sKve+PseB6rCU/jyWMtvsf/yR8iIQ
-	jovVYFcFKqZF/eEFoCBgoDqp8FZoGGic8NTYmaz+2UpFslRipy9HZVJQJ412NFgVxnGva9
-	74zergF/sEwHLgfoa78pXSMNoO2hM/xKPzO+ZjUNZJ17SWdKnoPyJx0Tf81oHJXv/++KL1
-	9O9tJtsl0TokOzcxsMPdFcneTy0PutoL/vrQUxLA9wPKRblwRZwO/gHGAzYjpQecmebkp+
-	tYXwYMJjbbHfUetnPo08LuFn5pBH51GbvFdgOyDNJyR846OoDtj2VajiVWWhLg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=aZ+Vh5ty;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787944962;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Fdqheogzf/bzDni3m4TM80mVJoZH+KsTRMYrL5NWco=;
-	b=aZ+Vh5tyT+Nm4gY0PRxpQNz3RrLXpszc+j7YA818OAULCmBYCUaoyhLioq8EOEC66t7fKf
-	+QsNIdJI93FuYUM0onpClHCrjx+gNIe2Gx0XAw0laL5i/gXUR+pifZS6NY9TxjXdIDYDAs
-	Sk/dsBKq61740769AvyYWJJjQRMT4eOqDAc+R/tOvVYB693g107xICpcbx+pqtHs+UBuV3
-	OxsVOA7M7/+oVHKPZZY4aWHp0+eAchYEzzGHpkF7RSZuB/xoIQD1XUGlZdSSvUfoOHH6xj
-	lolvgw/AH32LZAnJfZLuu6efCmqEXe9UTeb2wx7jwS+t1wz6FchnmYE4qnn6lg==
-To: linux-phy@lists.infradead.org
-Cc: Thanh Quan <thanh.quan.xn@renesas.com>,
-	Phong Hoang <phong.hoang.wz@renesas.com>,
-	Hai Pham <hai.pham.ud@renesas.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Tam Nguyen <tam.nguyen.xa@renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Vinh Nguyen <vinh.nguyen.xz@renesas.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver for R-Car X5H
-Date: Fri, 28 Aug 2026 21:21:40 +0200
-Message-ID: <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
-References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="R7+TeWNi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZE4vj85fqSmWwvFl7iRPg3nd34I3MA3v4CSV6NBm46f7J6UNRvPCSYyGsQ438RNzmD3gZWrl43pyXxBm5bAp1EXbldTtKP0zUd7mqhOXlmxx82lzOZnosf2CvNNkh+WTnh3eQBXjdIm/ypYB1VbYtv4QCHd9l7obQF1WBJv4FLHKnIoZyJZRAbUQomWytBTKM+D1u4fXgaVyXfjXNgnW5l6qp2ZzIou+PvkPsYOOOJ8v95NpC2313iTjz7lLyjLjs4l6T1cTtD1TGizae58wJH8mwE8xUI1JLD7rUx6UrPa4ZP/VFHePFoA81Fj8NTg2Vk5S64jtXn9rKbII9GvtLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Oiw5vUC32Pb1vVSqKg4wck0NHwfKV9QAzLZSkIet5ic=;
+ b=UPPbYi9ttSUvdWMMcEh4HS/4ifezvtxW6B4l1z0w1vazz0v+GXMv38TD/c55d/ro0+/N5nwOYmhI7OKACZbRDLGk5Q0goT2BABQz3HCpUQ5ScgF1cg2VKsj0nZ35akqBMf+NvjkaxEif4Rk3yGdEiOaXyf+6z2184Fn9bFHzKFuo67BR16ZuJG21S2lJ4FbBd94wNLXVFidykav7EjJmv1CVhVya2MtV+2lWB9CgMG7blO57kyQ3qSO6xyCTs75EFSpUjI1bNpI4PtrIrplkKLAfOVh5TZuKayMXiVY/26n/uDJ+1gPL5SpJQdo083QMhWxhBi+kmnOYEghc49/8DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oiw5vUC32Pb1vVSqKg4wck0NHwfKV9QAzLZSkIet5ic=;
+ b=R7+TeWNikW/NL5+/2RC0I6H5J1hVHBdkI7Rjvi7kzN1Y2gUpMZxaMMPlGAv/gfarFSIONfF1kHeaT755DJWeMJc+FI28sUtJq50TpJdIIDoyl+U+0WPW9NrkSv4xGqi++mU2EYexwR7J3+BacbmKmYKobW7wYLoYjQLOWESILY0=
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com (2603:10b6:806:4a4::6)
+ by SA1PR21MB6704.namprd21.prod.outlook.com (2603:10b6:806:4a3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.4; Fri, 28 Aug
+ 2026 19:24:33 +0000
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18]) by SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18%6]) with mapi id 15.21.0315.008; Fri, 28 Aug 2026
+ 19:24:33 +0000
+From: Long Li <longli@microsoft.com>
+To: Konstantin Taranov <kotaranov@linux.microsoft.com>, Konstantin Taranov
+	<kotaranov@microsoft.com>, Snehal Sanghvi <snsanghvi@microsoft.com>,
+	"jgg@ziepe.ca" <jgg@ziepe.ca>, "leon@kernel.org" <leon@kernel.org>
+CC: "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rdma-next v2 1/3] RDMA/mana_ib: Extend RC QP udata request
+ and response
+Thread-Topic: [PATCH rdma-next v2 1/3] RDMA/mana_ib: Extend RC QP udata
+ request and response
+Thread-Index: AQHdNjGzBa7SZR8FZEav1994D4M/77az2ThQ
+Date: Fri, 28 Aug 2026 19:24:33 +0000
+Message-ID:
+ <SA1PR21MB668351490EA2EDAC649E79AFCEAC2@SA1PR21MB6683.namprd21.prod.outlook.com>
+References: <20260827143736.2013093-1-kotaranov@linux.microsoft.com>
+ <20260827143736.2013093-2-kotaranov@linux.microsoft.com>
+In-Reply-To: <20260827143736.2013093-2-kotaranov@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=151333f9-4654-42cd-b900-4460324aecd3;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-08-28T19:24:11Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6683:EE_|SA1PR21MB6704:EE_
+x-ms-office365-filtering-correlation-id: 5e4f1c7b-d632-45ce-43cc-08df0539fd9e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|7146999003|56012099006|4143699003|6133799003|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ B92DZDtGIV+fbmzTzbdowuVrbTsslSp7IVivlWjQkKQz2Y8u0h+cmbr9Qx1lse7ouZUspGGbh7IH6eStCuhP/PRmRXsd3Y8Lzji1fgxaFdbYbbopAFuV9+SAm1atKxtB4QBqq3YEXz761/ZevClJgiwX9PrCT9+YCP8khgq1Re+wSCQwAXYiFVn6jW0mMbvrqVwyQ4H+tA/P7mCZjnZYujOaKrNb1fXuAt1KxPoSULqW6LlR3fkLkjmYumL0cWkepVX9/ykoGYg8Do3NKm/a3cAJI92j0mEyoCeodzu3WuITkidfHq373xGlt8Wt6IG6Y/ydQVjSC+5rRM4RDXr2nBsjW+elADzFM85+PRiP+n/LoZqIPkpK33C/Ph4Bp6cAwNS8PxyZeYA1CqgzXwc/me0HOK8EjqSZTd6eHaII3ZsgirI4e6ec1nEovoMmEYPI5umQ7ovMRc4LVtcWdk3BLnqvtwVJPCId/+uKfT1DNrdybaoTnVx0IWVgwB8fs5LIaViCxpB0RbRjeXtmlpY2Fcv14F6Zyc9ltl8ZqZEvfSp4vSqW0zeqzByesZTdLbl+k7XPcebrdK0oGqXuh6ry++Gwbkj7NmL+pwlfOTn7crJWroi2mG9ElRFMS7qeWs73PePBAsql6pHpxNMF8u62Dy2hSq9w/c+iase04ukTLozuPfQc/Cm3Xees8lri4Bh/O5Oi3ItBhhQYbeU9tf3Jiy1wf1U7dZgb12DaMloQjlE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR21MB6683.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(7146999003)(56012099006)(4143699003)(6133799003)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Tige+9YAApzx0Wo+hEoNLxJH22+gOlriTLWhmwAGenZH5MdiFyCGXhf5NS/4?=
+ =?us-ascii?Q?oSdwkmP1mhm5KrYGYriknnmkr31HH4V2r0vfsEbxQBTLZ+or8cQmHRkpvgBm?=
+ =?us-ascii?Q?pE1jdAjzg5sW2MBsKl0Si3m1rIxI06G9EDY8endw57/Vd3YgJJ7aETXBYtfn?=
+ =?us-ascii?Q?iJVGBRPhj5u2htyOslK1zLThzsBbjftYMzl34hcRTBkg96ypPCICngJtjIE4?=
+ =?us-ascii?Q?lGVlemBp2t3X1i3y9FzyxGhxqteXIb5GGm0ir9l6Q87WdYE0jfcB6kYw2jrR?=
+ =?us-ascii?Q?rTNzHzwVSYU+8DZCkBqVaIz8xWpPPANT1D+RknAQlujDafoEr4XsEbeBVhap?=
+ =?us-ascii?Q?v9JApF6N24nH63mBFUmTz+Z21aT+H8vE4F6LMu5aJoynn3t7jlmfubFX6LpE?=
+ =?us-ascii?Q?ezLSxAhgjs8XVgnNCePTV02ocEYtcm7DPyimQj9plzHLSXxlgrccAHBJTnO5?=
+ =?us-ascii?Q?yM9wfCucwn3ixybPclMwUapnrEyWLJ19UE8XeTGi44EGnZkmkLU9GF+w/4xK?=
+ =?us-ascii?Q?gyF+IUyYrLLubg/XZPLEkrj7qaiskv+4S2k5dPIHY0MaeaiiNgjDtKRQqR33?=
+ =?us-ascii?Q?9VcO8mBjd7HT21WiPCmSRkUymJKEmbqHv4qmJRdsRurt5T5ygQe+kiZdSBSH?=
+ =?us-ascii?Q?8vwP3p+kXuhBsmwy2Ul8GFMvYKfgeHrSQIGcC8mUS3MvMSLz2jwVR/nows8S?=
+ =?us-ascii?Q?TzfkhcEnaVKsBGVnhRX4CL2vH6tOJEDJ2YIzH3Jw2BZ1Qm7ThJB3zUg8032J?=
+ =?us-ascii?Q?yVdU/s9ZKokrF7mRXJ6jwCC/s/xAnugQuQ4ka1qzrMNPWwxKPewwh85c3mcm?=
+ =?us-ascii?Q?8Jidcjvkt5CKECVgcndBCBveZro1RMTmoyFABFJQ2IUkgAA69ECTEnBUbOSm?=
+ =?us-ascii?Q?/qPsdjvW2y9glpJ2mNdmhOTgxhoQ5757U9s5uj7PlvJbQfRCOtRPMjxysjJ2?=
+ =?us-ascii?Q?XOybpGXCF1zmNIvf7+6kq1MeY7W+PwgHRuL5zKfMurz3uZn7x5dgEw5bTGGM?=
+ =?us-ascii?Q?0tqneysYCPveRvKW+cT3QQ7e603D0REEFRBgTxIEcUrFQSI7rpGgt7rZCnfq?=
+ =?us-ascii?Q?jMWucvCm6hdGy+5SciwEM0oWgwhYpZpZjRps4WuoXm0yVXZgDcGPkP/s+qxE?=
+ =?us-ascii?Q?ZZqqWXYd/fy/Jq8/egY38hiJGZap+rLEGfy+B7nBcd+OzVQiaIuw4+QHEDng?=
+ =?us-ascii?Q?SruBWzf3f0kFT7rcGqOGvKYfK0h7l29iUjh3+nNw6+MH1Xxz4HrlgVS6kuVt?=
+ =?us-ascii?Q?RjqTp+l9GzzZq5EEjcaygIyAcZaCeybVlv1DEFra7wttOdkihxN6g2sClqRQ?=
+ =?us-ascii?Q?kKTiuGDPBC4/mkdieFewAw2y4F0dqkbD+l2oet6+kkapUj4iZ4WSUgJ2EmkV?=
+ =?us-ascii?Q?7XgPz+RmLeQO5v0gXz5FOS4EmJejzU4EI5Jraz50UaQU7rNu4GGdTZpV0Es4?=
+ =?us-ascii?Q?MEBK/xIsf8tJ11O5CgXRmhQo3J9ba2RF0mzcOsPROYgLZA7DS+YghjojaOJT?=
+ =?us-ascii?Q?2IwrDRPgxz48H9IxIXiTjL8TrARqk34O7J2R+oYL436UJwwwctqn9ck1u4UJ?=
+ =?us-ascii?Q?qz4wAzHap/zk0QxHMXeDrX2q6XA5B9giWw19Jwcn63XjWWXybN9e7SMDcMTG?=
+ =?us-ascii?Q?8plASjkBOGQ3oqV8K4PuKxzjpL7P8lgwfy0HC93kV/nOyH6sTrSN8UrRv5m1?=
+ =?us-ascii?Q?VQAEgQIQ4284L6M41x2xQQM9n71BXCxPUsttTv7XHMSTgY8Y?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 1n66jw4fffuucwqu7y84t7fxrb194iof
-X-MBO-RS-ID: 821f49f46ffba3ce4bb
-X-Rspamd-Queue-Id: 4hWpF028wYzMlCs
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6683.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e4f1c7b-d632-45ce-43cc-08df0539fd9e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 19:24:33.5596
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: h8qBrmxPDgqC5NRVwz8TJEeKlbxZJBHbT2Ej7DcR36QMNiuawzOyakcdCVIjvm1jZsY4ASY+l+QPVkSFq91quw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR21MB6704
 
-From: Thanh Quan <thanh.quan.xn@renesas.com>
+> From: Konstantin Taranov <kotaranov@microsoft.com>
+>=20
+> Extend the RC QP creation UAPI to support optional fixed-size WQEs and an
+> MMQ. Add a compatibility mask to the request, return the MMQ ID in the
+> response, and advertise the extended ABI through ucontext capabilities.
+>=20
+> Use compatibility-aware udata validation so existing userspace remains
+> supported. Rename the legacy FMR queue definitions to MMQ and add the
+> corresponding hardware creation flags.
+>=20
+> Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 
-Add Renesas Multi-Protocol PHY driver for R-Car X5H (R8A78000) SoC.
+Reviewed-by: Long Li <longli@microsoft.com>
 
-This is a multiplexing PHY block with inputs from five IPs, and outputs
-to four separate IO blocks. The five inputs are two PCIe4, two USB 3.2,
-and ethernet PCS, each connected into the PHY with up to 4 times 2 lanes.
-The inputs can be multiplexed to the four IO blocks as needed.
 
-The datasheet describes initialization procedure without many information
-about registers' name/bits. So, this driver does contain a bit of magic
-to initialize the hardware.
 
-Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
-Co-developed-by: Phong Hoang <phong.hoang.wz@renesas.com>
-Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
-Co-developed-by: Hai Pham <hai.pham.ud@renesas.com>
-Signed-off-by: Hai Pham <hai.pham.ud@renesas.com>
-Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Hai Pham <hai.pham.ud@renesas.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Phong Hoang <phong.hoang.wz@renesas.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Tam Nguyen <tam.nguyen.xa@renesas.com>
-Cc: Thanh Quan <thanh.quan.xn@renesas.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: Vinh Nguyen <vinh.nguyen.xz@renesas.com>
-Cc: Vinod Koul <vkoul@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-phy@lists.infradead.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- drivers/phy/renesas/Kconfig               |   7 +
- drivers/phy/renesas/Makefile              |   1 +
- drivers/phy/renesas/phy-rcar-gen5-mpphy.c | 757 ++++++++++++++++++++++
- 3 files changed, 765 insertions(+)
- create mode 100644 drivers/phy/renesas/phy-rcar-gen5-mpphy.c
 
-diff --git a/drivers/phy/renesas/Kconfig b/drivers/phy/renesas/Kconfig
-index 90a9ca2db7fc7..ac903b29cacbc 100644
---- a/drivers/phy/renesas/Kconfig
-+++ b/drivers/phy/renesas/Kconfig
-@@ -43,6 +43,13 @@ config PHY_RCAR_GEN3_USB3
- 	help
- 	  Support for USB 3.0 PHY found on Renesas R-Car generation 3 SoCs.
- 
-+config PHY_RCAR_GEN5_MPPHY
-+	tristate "Renesas R-Car generation 5 Multi-Protocol PHY driver"
-+	depends on ARCH_RENESAS || COMPILE_TEST
-+	select GENERIC_PHY
-+	help
-+	  Support for Multi-Protocol PHY found on Renesas R-Car generation 5 SoCs.
-+
- config PHY_RZ_G3E_USB3
- 	tristate "Renesas RZ/G3E USB 3.0 PHY driver"
- 	depends on ARCH_RENESAS || COMPILE_TEST
-diff --git a/drivers/phy/renesas/Makefile b/drivers/phy/renesas/Makefile
-index 0e98083f2f0c8..23d413cfa8ce0 100644
---- a/drivers/phy/renesas/Makefile
-+++ b/drivers/phy/renesas/Makefile
-@@ -4,4 +4,5 @@ obj-$(CONFIG_PHY_RCAR_GEN2)		+= phy-rcar-gen2.o
- obj-$(CONFIG_PHY_RCAR_GEN3_PCIE)	+= phy-rcar-gen3-pcie.o
- obj-$(CONFIG_PHY_RCAR_GEN3_USB2)	+= phy-rcar-gen3-usb2.o
- obj-$(CONFIG_PHY_RCAR_GEN3_USB3)	+= phy-rcar-gen3-usb3.o
-+obj-$(CONFIG_PHY_RCAR_GEN5_MPPHY)	+= phy-rcar-gen5-mpphy.o
- obj-$(CONFIG_PHY_RZ_G3E_USB3)		+= phy-rzg3e-usb3.o
-diff --git a/drivers/phy/renesas/phy-rcar-gen5-mpphy.c b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
-new file mode 100644
-index 0000000000000..31f17a4955e8e
---- /dev/null
-+++ b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
-@@ -0,0 +1,757 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Renesas Multi-Protocol PHY device driver
-+ *
-+ * Copyright (C) 2025-2026 Renesas Electronics Corporation
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_domain.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/types.h>
-+
-+#include <dt-bindings/phy/phy.h>
-+
-+#define MPPHY_NUM_CHANNELS		4
-+
-+/* Common registers */
-+#define MPPHY_CMNCNT1			0x80000
-+#define MPPHY_CMNCNT2			0x80004
-+
-+/* Channel register base and offsets */
-+#define MPPHY_CHAN_BASE(ch)		(0x81000 + (ch) * 0x1000)
-+#define MPPHY_PXCNTXT1(ch)		(MPPHY_CHAN_BASE(ch) + 0x4)
-+#define MPPHY_PXCNTXT2(ch)		(MPPHY_CHAN_BASE(ch) + 0x8)
-+#define MPPHY_PXTEST(ch)		(MPPHY_CHAN_BASE(ch) + 0xc)
-+#define MPPHY_PXREFCLK(ch)		(MPPHY_CHAN_BASE(ch) + 0x14)
-+#define MPPHY_PXRXREQ1(ch)		(MPPHY_CHAN_BASE(ch) + 0x24)
-+#define MPPHY_PXRXCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x38)
-+#define MPPHY_PXSRAMCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x40)
-+#define MPPHY_PXTXREQ(ch)		(MPPHY_CHAN_BASE(ch) + 0x44)
-+
-+#define MPPHY_PCS0REG1			0x85000
-+#define MPPHY_PCS0REG5			0x85010
-+
-+/* TCA (Type-C Adapter) Register Offsets within MP-PHY base */
-+#define TCA_OFFSET(ch)			(0x90000 + (((ch) & 1) ? 0x10000 : 0))
-+#define TCA_VBUS_CTRL			0x40
-+
-+/* PCS0REG1 register bits */
-+#define MPPHY_PCS0REG1_VAL		BIT(16)
-+
-+/* PXTEST register bit */
-+#define MPPHY_PXTEST_BIT		BIT(0)
-+
-+/* PXRXCNT register reset value */
-+#define MPPHY_PXRXCNT_RESET_VAL		0x202
-+
-+/* PXSRAMCNT register bits */
-+#define SRAM_EXT_LD_DONE		0x10
-+
-+/* PXREFCLK register value */
-+#define MPPHY_PXREFCLK_VAL_ETH		0x55
-+
-+/* Firmware update */
-+#define MPPHY_FW_BASE			0x10000
-+#define MPPHY_FW_CH_OFFSET		0x20000
-+#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
-+
-+struct mp_phy_chan_priv {
-+	struct phy *phy;
-+	enum phy_mode protocol_id;
-+	bool initialized;
-+};
-+
-+struct mp_phy_priv {
-+	void __iomem *base;
-+	struct device *dev;
-+	struct dev_pm_domain_list *pd_list;
-+	struct reset_control_bulk_data resets[MPPHY_NUM_CHANNELS + 1];
-+	struct clk_bulk_data *clks;
-+	int num_clks;
-+	const struct firmware *fw;
-+	struct regmap *map;
-+	struct mp_phy_chan_priv chan[MPPHY_NUM_CHANNELS];
-+	u32 num_lanes[MPPHY_NUM_CHANNELS];
-+	u32 write_cntxt1;
-+	u32 cmncnt[2];
-+	u8 sramcnt[MPPHY_NUM_CHANNELS];
-+};
-+
-+#define MPPHY_PX_RD_RANGE(n)						\
-+	regmap_reg_range(MPPHY_PXCNTXT1(n), MPPHY_CHAN_BASE(n)),	\
-+	regmap_reg_range(MPPHY_PXREFCLK(n), MPPHY_PXREFCLK(n)),		\
-+	regmap_reg_range(MPPHY_PXRXREQ1(n), MPPHY_PXRXREQ1(n)),		\
-+	regmap_reg_range(MPPHY_PXRXCNT(n), MPPHY_PXRXCNT(n)),		\
-+	regmap_reg_range(MPPHY_PXSRAMCNT(n), MPPHY_PXTXREQ(n))
-+
-+static const struct regmap_range mp_phy_readable_range[] = {
-+	regmap_reg_range(MPPHY_CMNCNT1, MPPHY_CMNCNT2),
-+	MPPHY_PX_RD_RANGE(0), MPPHY_PX_RD_RANGE(1),
-+	MPPHY_PX_RD_RANGE(2), MPPHY_PX_RD_RANGE(3),
-+	regmap_reg_range(MPPHY_PCS0REG1, MPPHY_PCS0REG1),
-+	regmap_reg_range(MPPHY_PCS0REG5, MPPHY_PCS0REG5),
-+	regmap_reg_range(TCA_OFFSET(0) + TCA_VBUS_CTRL, TCA_OFFSET(0) + TCA_VBUS_CTRL),
-+	regmap_reg_range(TCA_OFFSET(1) + TCA_VBUS_CTRL, TCA_OFFSET(1) + TCA_VBUS_CTRL),
-+};
-+
-+static const struct regmap_access_table mp_phy_readable_table = {
-+	.yes_ranges = mp_phy_readable_range,
-+	.n_yes_ranges = ARRAY_SIZE(mp_phy_readable_range),
-+};
-+
-+#define MPPHY_PX_WR_RANGE(n)						\
-+	regmap_reg_range(MPPHY_PXCNTXT1(n), MPPHY_CHAN_BASE(n)),	\
-+	regmap_reg_range(MPPHY_PXREFCLK(n), MPPHY_PXREFCLK(n)),		\
-+	regmap_reg_range(MPPHY_PXRXCNT(n), MPPHY_PXRXCNT(n)),		\
-+	regmap_reg_range(MPPHY_PXSRAMCNT(n), MPPHY_PXTXREQ(n))
-+
-+static const struct regmap_range mp_phy_writeable_range[] = {
-+	regmap_reg_range(MPPHY_FW_BASE, MPPHY_FW_BASE + 4 * MPPHY_FW_CH_OFFSET),
-+	regmap_reg_range(MPPHY_CMNCNT1, MPPHY_CMNCNT2),
-+	MPPHY_PX_WR_RANGE(0), MPPHY_PX_WR_RANGE(1),
-+	MPPHY_PX_WR_RANGE(2), MPPHY_PX_WR_RANGE(3),
-+	regmap_reg_range(MPPHY_PCS0REG1, MPPHY_PCS0REG1),
-+	regmap_reg_range(MPPHY_PCS0REG5, MPPHY_PCS0REG5),
-+	regmap_reg_range(TCA_OFFSET(0) + TCA_VBUS_CTRL, TCA_OFFSET(0) + TCA_VBUS_CTRL),
-+	regmap_reg_range(TCA_OFFSET(1) + TCA_VBUS_CTRL, TCA_OFFSET(1) + TCA_VBUS_CTRL),
-+};
-+
-+static const struct regmap_access_table mp_phy_writeable_table = {
-+	.yes_ranges = mp_phy_writeable_range,
-+	.n_yes_ranges = ARRAY_SIZE(mp_phy_writeable_range),
-+};
-+
-+#define MPPHY_PX_VL_RANGE(n)						\
-+	regmap_reg_range(MPPHY_PXRXREQ1(n), MPPHY_PXRXREQ1(n)),		\
-+	regmap_reg_range(MPPHY_PXSRAMCNT(n), MPPHY_PXTXREQ(n))
-+
-+static const struct regmap_range mp_phy_volatile_range[] = {
-+	MPPHY_PX_VL_RANGE(0), MPPHY_PX_VL_RANGE(1),
-+	MPPHY_PX_VL_RANGE(2), MPPHY_PX_VL_RANGE(3),
-+	regmap_reg_range(MPPHY_PCS0REG1, MPPHY_PCS0REG1),
-+	regmap_reg_range(MPPHY_PCS0REG5, MPPHY_PCS0REG5),
-+};
-+
-+static const struct regmap_access_table mp_phy_volatile_table = {
-+	.yes_ranges = mp_phy_volatile_range,
-+	.n_yes_ranges = ARRAY_SIZE(mp_phy_volatile_range),
-+};
-+
-+static const struct regmap_config mp_phy_regmap_config = {
-+	.fast_io	= true,
-+	.reg_bits	= 32,
-+	.val_bits	= 32,
-+	.reg_stride	= 4,
-+	.max_register	= TCA_OFFSET(1) + TCA_VBUS_CTRL,
-+	.name		= "mpphy",
-+	.rd_table	= &mp_phy_readable_table,
-+	.wr_table	= &mp_phy_writeable_table,
-+	.volatile_table	= &mp_phy_volatile_table,
-+	.cache_type	= REGCACHE_MAPLE,
-+};
-+
-+static int mp_phy_reg_wait(struct mp_phy_priv *priv, u32 offs, u32 mask, u32 expected)
-+{
-+	u32 val;
-+	int ret;
-+
-+	ret = regmap_read_poll_timeout(priv->map, offs, val,
-+				       (val & mask) == expected,
-+				       0, 1000000);
-+	if (ret) {
-+		dev_err(priv->dev,
-+			"Timeout waiting for offset: 0x%x, mask: 0x%x, expected: 0x%x\n",
-+			offs, mask, expected);
-+	}
-+
-+	return ret;
-+}
-+
-+static void mp_phy_update_firmware(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+	int i;
-+
-+	for (i = 0; i < priv->fw->size; i += 2) {
-+		writew(priv->fw->data[i] | (priv->fw->data[i + 1] << 8),
-+		       priv->base + MPPHY_FW_BASE + (MPPHY_FW_CH_OFFSET * phy->id) + i);
-+	}
-+}
-+
-+static int mp_phy_exit(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
-+
-+	if (!chan->initialized)
-+		return 0;
-+
-+	chan->initialized = false;
-+
-+	pm_runtime_put_sync(priv->pd_list->pd_devs[phy->id]);
-+
-+	return 0;
-+}
-+
-+static int mp_phy_init_ethernet(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+
-+	mp_phy_update_firmware(phy);
-+
-+	regmap_write(priv->map, MPPHY_PXRXCNT(phy->id), MPPHY_PXRXCNT_RESET_VAL);
-+	regmap_set_bits(priv->map, MPPHY_PXREFCLK(phy->id), MPPHY_PXREFCLK_VAL_ETH);
-+	regmap_clear_bits(priv->map, MPPHY_PXRXCNT(phy->id), BIT(9) | BIT(1));
-+	regmap_set_bits(priv->map, MPPHY_PXTXREQ(phy->id), BIT(19) | BIT(3));
-+
-+	return 0;
-+}
-+
-+static int mp_phy_init_pcie4(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+
-+	if (priv->num_lanes[phy->id] == 1 || priv->num_lanes[phy->id] == 2) {
-+		if (phy->id == 0) {
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(0), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(0), 0x2020201);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(0), 0x80004);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x1);
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+		} else if (phy->id == 1) {
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(2), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(2), 0x2020202);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(2), 0x8);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x1);
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+		}
-+	} else if (priv->num_lanes[phy->id] == 4) {
-+		if (phy->id == 0) {
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(0), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(0), 0x2020201);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(0), 0x8);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(1), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(1), 0x2020201);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(1), 0x8);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(0), 0x1);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(1), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(1), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(1), 0x1);
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(1), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(1), 0x202);
-+		} else if (phy->id == 1) {
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(2), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(2), 0x2020202);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(2), 0x8);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT1(3), 0x2010002);
-+			regmap_set_bits(priv->map, MPPHY_PXCNTXT2(3), 0x2020202);
-+			regmap_set_bits(priv->map, MPPHY_PXTXREQ(3), 0x8);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(2), 0x1);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(3), 0x30);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(3), 0x4);
-+			regmap_set_bits(priv->map, MPPHY_PXREFCLK(3), 0x1);
-+
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+			regmap_set_bits(priv->map, MPPHY_PXRXCNT(3), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+			regmap_clear_bits(priv->map, MPPHY_PXRXCNT(3), 0x202);
-+		}
-+	} else if (priv->num_lanes[phy->id] == 8) {
-+		regmap_write(priv->map, MPPHY_PXCNTXT1(0), 0x2010002);
-+		regmap_write(priv->map, MPPHY_PXCNTXT2(0), 0x2020201);
-+		regmap_write(priv->map, MPPHY_PXTXREQ(0), 0x8);
-+		regmap_write(priv->map, MPPHY_PXCNTXT1(1), 0x2010002);
-+		regmap_write(priv->map, MPPHY_PXCNTXT2(1), 0x2020202);
-+		regmap_write(priv->map, MPPHY_PXTXREQ(1), 0x8);
-+		regmap_write(priv->map, MPPHY_PXCNTXT1(2), 0x2010002);
-+		regmap_write(priv->map, MPPHY_PXCNTXT2(2), 0x2020202);
-+		regmap_write(priv->map, MPPHY_PXTXREQ(2), 0x8);
-+		regmap_write(priv->map, MPPHY_PXCNTXT1(3), 0x2010002);
-+		regmap_write(priv->map, MPPHY_PXCNTXT2(3), 0x2020202);
-+		regmap_write(priv->map, MPPHY_PXTXREQ(3), 0x8);
-+
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(1), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(3), 0x202);
-+
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(1), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+		regmap_set_bits(priv->map, MPPHY_PXRXCNT(3), 0x202);
-+
-+		regmap_clear_bits(priv->map, MPPHY_PXRXCNT(0), 0x202);
-+		regmap_clear_bits(priv->map, MPPHY_PXRXCNT(1), 0x202);
-+		regmap_clear_bits(priv->map, MPPHY_PXRXCNT(2), 0x202);
-+		regmap_clear_bits(priv->map, MPPHY_PXRXCNT(3), 0x202);
-+	}
-+
-+	return 0;
-+}
-+
-+static int mp_phy_init_usb(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(phy->id), 0x20, 0x20);
-+	if (ret)
-+		return ret;
-+
-+	mp_phy_update_firmware(phy);
-+	regmap_set_bits(priv->map, MPPHY_PXSRAMCNT(phy->id), SRAM_EXT_LD_DONE);
-+	ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(phy->id), 0x2, 0);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int mp_phy_init(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
-+	int ret;
-+
-+	/*
-+	 * Note: Current source code support for Ethernet, PCIe
-+	 * initialization is based on the bare metal code shared
-+	 * by the board team.
-+	 */
-+	ret = pm_runtime_get_sync(priv->pd_list->pd_devs[phy->id]);
-+	if (ret < 0) {
-+		dev_err(priv->dev,
-+			"Failed to power on domain for channel %d: %d\n",
-+			phy->id, ret);
-+		return ret;
-+	}
-+
-+	/* Check if initialized with same protocol then skip */
-+	if (chan->initialized)
-+		return 0;
-+
-+	if (chan->protocol_id == PHY_MODE_PCIE)
-+		ret = mp_phy_init_pcie4(phy);
-+	else if (chan->protocol_id == PHY_MODE_ETHERNET)
-+		ret = mp_phy_init_ethernet(phy);
-+	else
-+		ret = mp_phy_init_usb(phy);
-+	if (ret)
-+		return ret;
-+
-+	chan->initialized = true;
-+	dev_dbg(priv->dev,
-+		"Channel %d successfully initialized for protocol %d\n",
-+		phy->id, chan->protocol_id);
-+
-+	return 0;
-+}
-+
-+static int mp_phy_power_on(struct phy *phy)
-+{
-+	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-+	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
-+	int ret;
-+
-+	if (!chan->initialized) {
-+		dev_err(priv->dev, "Channel %d not initialized\n", phy->id);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * The datasheet describes initialization procedure without full
-+	 * information about the registers. Therefore, the source code is
-+	 * based on the bare metal code shared by the board team.
-+	 */
-+	if (chan->protocol_id == PHY_MODE_PCIE) {
-+		if (priv->num_lanes[phy->id] == 1 || priv->num_lanes[phy->id] == 2) {
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(phy->id), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(phy->id), 0x2, 0);
-+			if (ret)
-+				return ret;
-+		} else if (priv->num_lanes[phy->id] == 4) {
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(2 * phy->id), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT((2 * phy->id) + 1), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(2 * phy->id), 0x2, 0);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1((2 * phy->id) + 1), 0x2, 0);
-+			if (ret)
-+				return ret;
-+		} else if (priv->num_lanes[phy->id] == 8) {
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(0), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(1), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(2), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXSRAMCNT(3), 0x20, 0x20);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(0), 0x2, 0);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(1), 0x2, 0);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(2), 0x2, 0);
-+			if (ret)
-+				return ret;
-+			ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(3), 0x2, 0);
-+			if (ret)
-+				return ret;
-+		}
-+	} else if (chan->protocol_id == PHY_MODE_ETHERNET) {
-+		regmap_set_bits(priv->map, MPPHY_PXSRAMCNT(phy->id), SRAM_EXT_LD_DONE);
-+		ret = mp_phy_reg_wait(priv, MPPHY_PXRXREQ1(phy->id), 0x2, 0);
-+		if (ret)
-+			return ret;
-+	} else {	/* USB */
-+		regmap_write(priv->map, TCA_OFFSET(phy->id) + TCA_VBUS_CTRL, 0x3e);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops mp_phy_ops = {
-+	.init		= mp_phy_init,
-+	.exit		= mp_phy_exit,
-+	.power_on	= mp_phy_power_on,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static struct phy *mp_phy_xlate(struct device *dev,
-+				const struct of_phandle_args *args)
-+{
-+	struct mp_phy_priv *priv = dev_get_drvdata(dev);
-+	int id;
-+
-+	if (args->args_count > 1) {
-+		dev_err(dev, "Invalid args_count: %d\n", args->args_count);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (args->args_count >= 1)
-+		id = args->args[0];
-+	else
-+		id = 0;
-+
-+	return priv->chan[id].phy;
-+}
-+
-+static int mp_phy_parse_dt(struct platform_device *pdev, struct mp_phy_priv *priv)
-+{
-+	struct device *dev = &pdev->dev;
-+	bool need_fw = false;
-+	u32 ext_ref_clk[4];
-+	u32 out_ref_clk[4];
-+	u32 phy_type[8];
-+	int i, ret;
-+
-+	ret = device_property_read_u32_array(dev, "renesas,phy-type", phy_type, 8);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EINVAL, "Failed to read PHY configuration\n");
-+
-+	ret = device_property_read_u32_array(dev, "renesas,external-ref-clock",
-+					     ext_ref_clk, 4);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EINVAL, "Failed to read PHY clock configuration\n");
-+
-+	ret = device_property_read_u32_array(dev, "renesas,output-repeat-ref-clock",
-+					     out_ref_clk, 4);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EINVAL, "Failed to read PHY clock out configuration\n");
-+
-+	ret = device_property_read_u32_array(dev, "renesas,num-lanes", priv->num_lanes, 4);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EINVAL, "Failed to read PHY lane configuration\n");
-+
-+	/* Port 0 can be either PCIe4 channel 0 lanes 0,1 or Ethernet 0-1 */
-+	if (!((phy_type[0] == PHY_TYPE_PCIE && phy_type[1] == 0) ||
-+	      (phy_type[0] == PHY_TYPE_XPCS && phy_type[1] == 0))) {
-+		return dev_err_probe(dev, -EINVAL, "Incorrect PHY port 0 configuration\n");
-+	}
-+
-+	/* Port 1 can be either PCIe4 channel 0 lanes 2,3 or Ethernet 2-3 */
-+	if (!((phy_type[2] == PHY_TYPE_PCIE && phy_type[3] == 0) ||
-+	      (phy_type[2] == PHY_TYPE_XPCS && phy_type[3] == 1))) {
-+		return dev_err_probe(dev, -EINVAL, "Incorrect PHY port 1 configuration\n");
-+	}
-+
-+	/*
-+	 * Port 2 can be either PCIe4 channel 0 lanes 4,5 or Ethernet 4-5 or
-+	 * PCIe4 channel 1 lanes 0,1 or USB3.2 channel 0
-+	 */
-+	if (!((phy_type[4] == PHY_TYPE_PCIE && phy_type[5] == 0) ||
-+	      (phy_type[4] == PHY_TYPE_PCIE && phy_type[5] == 1) ||
-+	      (phy_type[4] == PHY_TYPE_XPCS && phy_type[5] == 2) ||
-+	      (phy_type[4] == PHY_TYPE_USB3 && phy_type[5] == 0))) {
-+		return dev_err_probe(dev, -EINVAL, "Incorrect PHY port 2 configuration\n");
-+	}
-+
-+	/*
-+	 * Port 3 can be either PCIe4 channel 0 lanes 6,7 or Ethernet 6-7 or
-+	 * PCIe4 channel 1 lanes 2,3 or USB3.2 channel 1
-+	 */
-+	if (!((phy_type[6] == PHY_TYPE_PCIE && phy_type[7] == 0) ||
-+	      (phy_type[6] == PHY_TYPE_PCIE && phy_type[7] == 1) ||
-+	      (phy_type[6] == PHY_TYPE_XPCS && phy_type[7] == 3) ||
-+	      (phy_type[6] == PHY_TYPE_USB3 && phy_type[7] == 1))) {
-+		return dev_err_probe(dev, -EINVAL, "Incorrect PHY port 3 configuration\n");
-+	}
-+
-+	priv->cmncnt[0] = 0;
-+	priv->cmncnt[1] = 0x33330000;	/* All res_{ack,req}_in_sel are 1 */
-+
-+	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
-+		priv->chan[i].initialized = false;
-+		priv->chan[i].protocol_id = PHY_MODE_INVALID;
-+
-+		if (phy_type[2 * i] == PHY_TYPE_PCIE) {
-+			priv->chan[i].protocol_id = PHY_MODE_PCIE;
-+			priv->sramcnt[i] = 0xf;
-+			if (phy_type[(2 * i) + 1] == 0)	/* Channel 0 */
-+				priv->cmncnt[0] |= 0x0 << (i * 8);
-+			else				/* Channel 1 */
-+				priv->cmncnt[0] |= 0x2 << (i * 8);
-+		} else if (phy_type[2 * i] == PHY_TYPE_XPCS) {
-+			priv->chan[i].protocol_id = PHY_MODE_ETHERNET;
-+			priv->sramcnt[i] = 0x0;
-+			priv->write_cntxt1 |= BIT(i);
-+			priv->cmncnt[0] |= 0x1 << (i * 8);
-+			need_fw = true;
-+		} else if (phy_type[2 * i] == PHY_TYPE_USB3) {
-+			priv->chan[i].protocol_id = PHY_MODE_USB_OTG;
-+			priv->sramcnt[i] = 0x9;
-+			priv->cmncnt[0] |= 0x3 << (i * 8);
-+			need_fw = true;
-+		} else {
-+			/* Cannot be reached. */
-+			return -EINVAL;
-+		}
-+
-+		if (ext_ref_clk[i])
-+			priv->cmncnt[1] |= BIT(i * 4);
-+
-+		if (out_ref_clk[i])
-+			priv->cmncnt[1] |= BIT((i * 4) + 1);
-+	}
-+
-+	if (!need_fw)
-+		return 0;
-+
-+	return request_firmware(&priv->fw, MPPHY_FW_NAME, dev);
-+}
-+
-+static int mp_phy_probe(struct platform_device *pdev)
-+{
-+	static const char *const pd_names[] = { "mpp0", "mpp1", "mpp2", "mpp3" };
-+	const struct dev_pm_domain_attach_data pd_attach_data = {
-+		.pd_names = pd_names,
-+		.num_pd_names = ARRAY_SIZE(pd_names),
-+		.pd_flags = 0,
-+	};
-+	struct device *dev = &pdev->dev;
-+	struct phy_provider *provider;
-+	struct mp_phy_priv *priv;
-+	int i, ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+
-+	ret = mp_phy_parse_dt(pdev, priv);
-+	if (ret)
-+		return ret;
-+
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->base))
-+		return dev_err_probe(dev, PTR_ERR(priv->base), "Failed to map PHY registers\n");
-+
-+	priv->map = devm_regmap_init_mmio(dev, priv->base, &mp_phy_regmap_config);
-+	if (IS_ERR(priv->map))
-+		return PTR_ERR(priv->map);
-+
-+	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
-+	if (priv->num_clks < 0)
-+		return dev_err_probe(dev, priv->num_clks, "Failed to get PHY clocks\n");
-+	if (priv->num_clks != 5)
-+		return dev_err_probe(dev, -ENODEV, "Failed to get all PHY clocks\n");
-+
-+	/*
-+	 * The reset ID order here does matters, reset_control_bulk_assert()
-+	 * asserts these resets in this order, with mpphy02 reset being
-+	 * asserted first, reset_control_bulk_deassert() deasserts these
-+	 * resets in reverse order, with mpphy02 being reset being
-+	 * deasserted last. This is the behavior the hardware expects.
-+	 */
-+	priv->resets[0].id = "mpphy02";
-+	priv->resets[1].id = "mpphy01";
-+	priv->resets[2].id = "mpphy11";
-+	priv->resets[3].id = "mpphy21";
-+	priv->resets[4].id = "mpphy31";
-+	ret = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(priv->resets),
-+						    priv->resets);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get PHY resets\n");
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	ret = dev_pm_domain_attach_list(dev, &pd_attach_data, &priv->pd_list);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to attach power domains\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable PHY runtime PM\n");
-+
-+	provider = devm_of_phy_provider_register(dev, mp_phy_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(dev, PTR_ERR(provider), "Failed to register PHY provider\n");
-+
-+	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
-+		priv->chan[i].phy = devm_phy_create(dev, NULL, &mp_phy_ops);
-+		if (IS_ERR(priv->chan[i].phy)) {
-+			return dev_err_probe(dev, PTR_ERR(priv->chan[i].phy),
-+					     "Failed to create PHY %d\n", i);
-+		}
-+
-+		priv->chan[i].phy->id = i;
-+		phy_set_drvdata(priv->chan[i].phy, priv);
-+	}
-+
-+	return pm_runtime_resume_and_get(dev);
-+}
-+
-+static void mp_phy_remove(struct platform_device *pdev)
-+{
-+	struct mp_phy_priv *priv = dev_get_drvdata(&pdev->dev);
-+	struct device *dev = &pdev->dev;
-+
-+	pm_runtime_put(dev);
-+
-+	dev_pm_domain_detach_list(priv->pd_list);
-+
-+	pm_runtime_disable(&pdev->dev);
-+
-+	if (priv->fw)
-+		release_firmware(priv->fw);
-+
-+	platform_set_drvdata(pdev, NULL);
-+}
-+
-+static int mp_phy_suspend(struct device *dev)
-+{
-+	struct mp_phy_priv *priv = dev_get_drvdata(dev);
-+	int i;
-+
-+	for (i = 0; i < MPPHY_NUM_CHANNELS; i++)
-+		priv->chan[i].initialized = false;
-+
-+	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
-+
-+	dev_info(dev, "Multi-Protocol PHY suspended\n");
-+
-+	return 0;
-+}
-+
-+static int mp_phy_resume(struct device *dev)
-+{
-+	struct mp_phy_priv *priv = dev_get_drvdata(dev);
-+	int i, ret;
-+
-+	ret = reset_control_bulk_assert(ARRAY_SIZE(priv->resets), priv->resets);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to assert PHY resets\n");
-+
-+	ret = reset_control_bulk_deassert(ARRAY_SIZE(priv->resets), priv->resets);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to deassert PHY resets\n");
-+
-+	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable PHY clocks\n");
-+
-+	/* Reload configuration */
-+	regmap_set_bits(priv->map, MPPHY_CMNCNT1, priv->cmncnt[0]);
-+	regmap_write(priv->map, MPPHY_CMNCNT2, priv->cmncnt[1]);
-+
-+	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
-+		regmap_set_bits(priv->map, MPPHY_PXTEST(i), MPPHY_PXTEST_BIT);
-+		regmap_write(priv->map, MPPHY_PXSRAMCNT(i), priv->sramcnt[i]);
-+
-+		if (priv->write_cntxt1 & BIT(i)) {
-+			regmap_write(priv->map, MPPHY_CHAN_BASE(i) + 0x10c, 0xff0ff);
-+			regmap_write(priv->map, MPPHY_PXCNTXT1(i), 0x180023);
-+		}
-+
-+		regmap_clear_bits(priv->map, MPPHY_PXTEST(i), MPPHY_PXTEST_BIT);
-+	}
-+
-+	regmap_clear_bits(priv->map, MPPHY_PCS0REG1, MPPHY_PCS0REG1_VAL);
-+	regmap_clear_bits(priv->map, MPPHY_PCS0REG5, 0xff000000);
-+
-+	return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(mp_phy_pm_ops, mp_phy_suspend, mp_phy_resume, NULL);
-+
-+static const struct of_device_id mp_phy_of_match[] = {
-+	{ .compatible = "renesas,rcar-gen5-mpphy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mp_phy_of_match);
-+
-+static struct platform_driver mp_phy_driver = {
-+	.probe	= mp_phy_probe,
-+	.remove	= mp_phy_remove,
-+	.driver	= {
-+		.name		= "renesas-mpphy",
-+		.of_match_table	= mp_phy_of_match,
-+		.pm		= pm_ptr(&mp_phy_pm_ops),
-+		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+};
-+
-+module_platform_driver(mp_phy_driver);
-+
-+MODULE_AUTHOR("Thanh Quan");
-+MODULE_DESCRIPTION("Renesas Multi-Protocol PHY driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(MPPHY_FW_NAME);
--- 
-2.53.0
+> ---
+> v1->v2: use << instead of BIT() in the mana-abi.h
+>  drivers/infiniband/hw/mana/main.c    |  1 +
+>  drivers/infiniband/hw/mana/mana_ib.h |  6 ++++--
+>  drivers/infiniband/hw/mana/qp.c      | 10 +++++-----
+>  include/uapi/rdma/mana-abi.h         | 11 +++++++++++
+>  4 files changed, 21 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/infiniband/hw/mana/main.c
+> b/drivers/infiniband/hw/mana/main.c
+> index e4414d208..9d043f48e 100644
+> --- a/drivers/infiniband/hw/mana/main.c
+> +++ b/drivers/infiniband/hw/mana/main.c
+> @@ -247,6 +247,7 @@ int mana_ib_alloc_ucontext(struct ib_ucontext
+> *ibcontext,
+>=20
+>  	ucontext->doorbell =3D doorbell_page;
+>  	ucmd_resp.comp_mask =3D MANA_IB_UCNTX_ALLOC_PDN_SUPPORT;
+> +	ucmd_resp.comp_mask |=3D MANA_IB_UCNTX_RC_EXT_SUPPORT;
+>  	ret =3D ib_respond_udata(udata, ucmd_resp);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/infiniband/hw/mana/mana_ib.h
+> b/drivers/infiniband/hw/mana/mana_ib.h
+> index f69866696..547ddf9dd 100644
+> --- a/drivers/infiniband/hw/mana/mana_ib.h
+> +++ b/drivers/infiniband/hw/mana/mana_ib.h
+> @@ -172,7 +172,7 @@ struct mana_ib_cq {
+>  enum mana_rc_queue_type {
+>  	MANA_RC_SEND_QUEUE_REQUESTER =3D 0,
+>  	MANA_RC_SEND_QUEUE_RESPONDER,
+> -	MANA_RC_SEND_QUEUE_FMR,
+> +	MANA_RC_SEND_QUEUE_MMQ,
+>  	MANA_RC_RECV_QUEUE_REQUESTER,
+>  	MANA_RC_RECV_QUEUE_RESPONDER,
+>  	MANA_RC_QUEUE_TYPE_MAX,
+> @@ -372,7 +372,9 @@ struct mana_rnic_destroy_cq_resp {  }; /* HW Data */
+>=20
+>  enum mana_rnic_create_rc_flags {
+> -	MANA_RC_FLAG_NO_FMR =3D 2,
+> +	MANA_RC_FLAG_NO_MMQ =3D BIT(1),
+> +	MANA_RC_FLAG_FIXED_SIZE_WQE =3D BIT(3),
+> +	MANA_RC_FLAG_MSN_IN_WQE =3D BIT(4),
+>  };
+>=20
+>  struct mana_rnic_create_qp_req {
+> diff --git a/drivers/infiniband/hw/mana/qp.c
+> b/drivers/infiniband/hw/mana/qp.c index 8b7be1255..aa5f8c607 100644
+> --- a/drivers/infiniband/hw/mana/qp.c
+> +++ b/drivers/infiniband/hw/mana/qp.c
+> @@ -549,14 +549,14 @@ static int mana_ib_create_rc_qp(struct ib_qp *ibqp,
+> struct ib_pd *ibpd,
+>=20
+>  	mana_ucontext =3D rdma_udata_to_drv_context(udata, struct
+> mana_ib_ucontext, ibucontext);
+>  	doorbell =3D mana_ucontext->doorbell;
+> -	flags =3D MANA_RC_FLAG_NO_FMR;
+> -	err =3D ib_copy_validate_udata_in(udata, ucmd, queue_size);
+> +	flags =3D MANA_RC_FLAG_NO_MMQ;
+> +	err =3D ib_copy_validate_udata_in_cm(udata, ucmd, queue_size,
+> +					   MANA_IB_RC_QP_FIXED_WQE |
+> MANA_IB_RC_MMQ_CREATE);
+>  	if (err)
+>  		return err;
+>=20
+>  	for (i =3D 0, j =3D 0; i < MANA_RC_QUEUE_TYPE_MAX; ++i) {
+> -		/* skip FMR for user-level RC QPs */
+> -		if (i =3D=3D MANA_RC_SEND_QUEUE_FMR) {
+> +		if (i =3D=3D MANA_RC_SEND_QUEUE_MMQ) {
+>  			qp->rc_qp.queues[i].id =3D INVALID_QUEUE_ID;
+>  			qp->rc_qp.queues[i].gdma_region =3D
+> GDMA_INVALID_DMA_REGION;
+>  			continue;
+> @@ -580,7 +580,7 @@ static int mana_ib_create_rc_qp(struct ib_qp *ibqp,
+> struct ib_pd *ibpd,
+>=20
+>  	if (udata) {
+>  		for (i =3D 0, j =3D 0; i < MANA_RC_QUEUE_TYPE_MAX; ++i) {
+> -			if (i =3D=3D MANA_RC_SEND_QUEUE_FMR)
+> +			if (i =3D=3D MANA_RC_SEND_QUEUE_MMQ)
+>  				continue;
+>  			resp.queue_id[j] =3D qp->rc_qp.queues[i].id;
+>  			j++;
+> diff --git a/include/uapi/rdma/mana-abi.h b/include/uapi/rdma/mana-abi.h
+> index 32cbbfc80..c9a241766 100644
+> --- a/include/uapi/rdma/mana-abi.h
+> +++ b/include/uapi/rdma/mana-abi.h
+> @@ -48,13 +48,23 @@ struct mana_ib_create_qp_resp {
+>  	__u32 reserved;
+>  };
+>=20
+> +enum mana_ib_create_rc_qp_flags {
+> +	MANA_IB_RC_QP_FIXED_WQE =3D 1 << 0,
+> +	MANA_IB_RC_MMQ_CREATE =3D 1 << 1,
+> +};
+> +
+>  struct mana_ib_create_rc_qp {
+>  	__aligned_u64 queue_buf[4];
+>  	__u32 queue_size[4];
+> +	__aligned_u64 mmq_buf;
+> +	__u32 mmq_size;
+> +	__u32 comp_mask;
+>  };
+>=20
+>  struct mana_ib_create_rc_qp_resp {
+>  	__u32 queue_id[4];
+> +	__u32 mmq_id;
+> +	__u32 reserved;
+>  };
+>=20
+>  struct mana_ib_create_uc_qp {
+> @@ -100,6 +110,7 @@ struct mana_ib_create_qp_rss_resp {
+>=20
+>  enum mana_ib_ucontext_support {
+>  	MANA_IB_UCNTX_ALLOC_PDN_SUPPORT =3D 1 << 0,
+> +	MANA_IB_UCNTX_RC_EXT_SUPPORT =3D 1 << 1,
+>  };
+>=20
+>  struct mana_ib_alloc_ucontext_resp {
+> --
+> 2.43.0
 
