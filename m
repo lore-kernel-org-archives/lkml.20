@@ -1,221 +1,218 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011014.outbound.protection.outlook.com [52.101.52.14])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11858463B85;
-	Fri, 28 Aug 2026 14:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928070; cv=fail; b=jywadX++ayHum61jIjPaq74KiMQ65ow0PeTQLoFtzWyx3oh5x5c0BmEYZ6n0febV+5Wsrb590aIFq2NXHeIdBgYcaDYWj+MXwIqzFkdEizmQL0tRnhlzOaZ9NAM7lRKbPgxqoi7u3kpwU3J3lTZj3ChJQkzX2Hhtwj1XMr1s30s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928070; c=relaxed/simple;
-	bh=NS/CVjC7V2wb7rQzdvcpp8CP4l4x/+ntR6/YVvjS3zY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=IJVBgGwA3co5X8MgplPbQ9hkMrgPEr6nIjP2f7bMvsDc5M284oRRazaBVRZsiUTHhDZDxDLfsnvTKZ58daY9RkVKBa5ZdjujOpUcASnLoMBpDHVHvuVdDbD+WRQSyn+IplYyl+lnRhoLz310l5DLxryNF5CDOu7k4vhgwRuC+sg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=I1gjpLbj; arc=fail smtp.client-ip=52.101.52.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568AA463B85;
+	Fri, 28 Aug 2026 14:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787928078; cv=none; b=lZGqhOnjGX0WP1v/eYzdmbHPRaNXTIhEvQ0tpQnWZT/PbVKrNvaRvROwhT+J/WfPFLY+vEj6XSHJ3AJY7dmUWYT8uvLL6VAPOlRKhm1nUZqJnyKIB4CjP2m6AX7ToWjTDiwyxrR29yG/NG6f3jTwt7gMA9bl+qlTpvRTXSiUoU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787928078; c=relaxed/simple;
+	bh=Zk2lLawAVtiA5kIDVK7dR8UmSrPGPvhMa8loRHiylXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jxnXHIGCWj4rQQg8mcqVVa6EGmKGJaY0wrQuXEHtQChuluWlpxt5B4XtlbfO8SC5tSnEaHedIwMdkqpgqGJhINJAVe+m3sWlyDlAlPWerPZ58kpIoC9wBXAJySrqB0ZoEx1f9yUL8CEG6BPLiNRh5SuHzekSyWgMGw8MFYLdAuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=panAWlyH; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="I1gjpLbj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ybKFl5aOLK8Vm1mgi+mzF0N7URkVqBIVVVSA/ynESpkwllOlRvgFhZU6PUs7+Df1vSEcpC94BAJvxbKKPTnHRmpM96k8iULmEUskrolYRJr7kvR8jlzDML+ExW4z/kNfVl8/gvCJK6zWuHdn+Rh+7SnfgXm9sGKSXskEqqzu5fO5/B3fWQvu7WX2s4aURdQqgXIzoEBN1slAgYe0/14T+jeEbtubWCrKev3b3oqC4orMeDFrDV8iYGA6FA0gxzRGRXkVXJ8wHKgwLTSVAueLWleHd4LN3+u7ukiCwjDsRqIXroqzwJseJV7u333D0CcMuVChNnL3urTQhsyK3WUmUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gya2RaAIHKCFpBzYSue8bpdttu1s6YqpVVZGWDY9lrI=;
- b=g17ESab6d6EyCURDmsxOcOzbsCS7IUiaJXYw64j8qWdhqfhsaKPKoNEAHQM+Ng5VBVEyFpVNjPETYQRL9XhQ9464C7zTw78DblGCu+FMI+BdFFtrfoVoye0AvUdT6Nskwo1Uc0+RqszSNr6sfJGCTvhPH1IYjDqlCoI1pSrngQvQbg2OdGwTL07vjsge5Nfm3o+LjtvopaMMgFmHQyTC8RmIB7jEpSdCrZE/IW+yuHy9H0vgerpcKjyD+v1/oPv9M8ZGdX9l0dKaFb5e+CZ/1ghoObFsbFZc5hsjCzH/ipcD+W8X/vGZyVlRco9tUsfUF8+zq6M8OFO2rpnMsMtJ2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gya2RaAIHKCFpBzYSue8bpdttu1s6YqpVVZGWDY9lrI=;
- b=I1gjpLbjx5AWXYEp7z6nIzLpBV28fPhVzRvWNF2i0FhhisVaQE4ivjJyxc1eaqGypaChkSSHvp5xbFVb4aidfQqVppdaxA5Tg1Mqzm56kgrT2/Gvu9l6x45dt4iELx7oK3UrrlYHjFxmCvFi0tE33ai2f5h/aIuA2yve88nWyiCB3WY88xnFNsxAayFmlH7aI1GSFqd0p2obXTeuremodC6EmcjNh3/BnfX4rbDs60jh7lCY5WJ2sKP96+WNXeI35SYPStujhnc1k80qJDhGyEIMpdK9TTSdTH2g+aMntPIvJhJjo67jQZ5gXPM0SnTVAQqzVdXyYB9jVk6yALZ86A==
-Received: from DM6PR07CA0077.namprd07.prod.outlook.com (2603:10b6:5:337::10)
- by SN7PR12MB7912.namprd12.prod.outlook.com (2603:10b6:806:341::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Fri, 28 Aug
- 2026 14:40:57 +0000
-Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:5:337:cafe::30) by DM6PR07CA0077.outlook.office365.com
- (2603:10b6:5:337::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 14:40:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 14:40:57 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
- 2026 07:40:26 -0700
-Received: from [127.0.1.1] (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
- 2026 07:40:23 -0700
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Fri, 28 Aug 2026 15:39:52 +0100
-Subject: [PATCH 2/2] gpio: tegra186: Add support for Tegra268
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="panAWlyH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=dMVNde2wkTvg21HA6gMMmOc6O33QVmC43CxfG7wt05E=; b=panAWlyHZ294r8CVUs1Mm0l75I
+	Fqt6DYaJvW4Q2ZEsuTzJV+rrIZ/kMojDsSLozPad5UdoK1OegnDlPFX6SavtvreoybTU4bYeYvAzH
+	DYJJ5pzY3rY3zoX9Q6zxpJI8tj6rB+OlMdAKOTts4anffWRGrqrjTCaUF+R6Kg52sZBl9qSKoALPR
+	8t6sTZhlF8WOnLwzCXUmtqKz3ZtvfwgtYOQJx9aKgPMZ/50LvwONfzYIvWzmxC2ohjzZSCDfPkw8w
+	ipxGVHtu3VTsMJV0czrZ188J1wwRIMXKLGIDYQQIxhkZ927L1IaULYL+JNI1M2QOnK6aU7/E3I2zL
+	NwjsEWmw==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzxl4-0000000Eq6F-0ksv;
+	Fri, 28 Aug 2026 14:40:42 +0000
+Date: Fri, 28 Aug 2026 15:40:41 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Hugh Dickins <hughd@google.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Christoph Hellwig <hch@lst.de>, Christoph Lameter <cl@gentwo.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
+	Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+	Kairui Song <ryncsn@gmail.com>, Lance Yang <lance.yang@linux.dev>,
+	Leonardo Bras <leobras.c@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
+	Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>,
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 04/25] mm/fbatch: lru bit set, no extra ref, while folio
+ on per-cpu fbatch
+Message-ID: <apGd6T84Zs1RgTVg@casper.infradead.org>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+ <e0887417-85a7-453e-e733-561dc11db08f@google.com>
+ <apAaWsWPV9QEeVwn@thinkstation>
+ <3b8d9cc4-d6f9-6bd6-f774-34cfca9c48c9@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260828-tegra-tegra268-gpio-v1-2-317bd91295e2@nvidia.com>
-References: <20260828-tegra-tegra268-gpio-v1-0-317bd91295e2@nvidia.com>
-In-Reply-To: <20260828-tegra-tegra268-gpio-v1-0-317bd91295e2@nvidia.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>
-CC: Thierry Reding <treding@nvidia.com>, <linux-gpio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Thierry Reding
-	<thierry.reding@gmail.com>, <linux-kernel@vger.kernel.org>, Jon Hunter
-	<jonathanh@nvidia.com>
-X-Mailer: b4 0.16.1-dev
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|SN7PR12MB7912:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfa1e987-4629-4e15-301e-08df05125f42
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|56012099006|10067099003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	SLMq/e2zWsT2w/fAWak7mSNylrcgDQJvtT2836+iyQ78X+EzhuYcND1GI0Lln+UEjG2oALF8jN+b9LHPtdbEKP/GpLFatFaweFWpqjy+F8AaieABeTIFy8T05xEQjw6LGpxZ5aM6ZsHg/e12dJjDELDdUQsym1Qr5VtMI2EBB9YU9dw/zcuq/1cmg66q4Eo/NEg8IzmIPT+4H96e1RPietePzDfJ9OJsaOPOMy68ZyVzb3pHlx8jVAMTogFrbhbs7RzcWurQBlkaFJSFbcND/mbSxUMsGth9gFw4LWN21IaOa55Ad5N742IPVkPkKOiv9NHvpHL95gm2Ym5QSG+6trbb5nEWjhNacZ5jtRiSpAN4kUnYi2sW05UDFw3B87ey/z/BG/oow1iXfT5V3JQg49y/ir70ChUBkqeMKufwMbPm7PwRwfsNCeHhOaqOhNST6HeyfLBsvGpEUlmqehl/5Opzt38Jm480yNbfYevMGcKin55H8FTc7ZZETamD5J8AWdeFYoRUtYCx/fS+jv0BZJTxxm3C819G1eyME4Tc1AVF5r8iDZRSe/98M6RQq3MTaQmSZcCloWTiHEckN6fcPU5XOGBcVLyYi+ld2jmvnKMLZi76FKgdaSSsjnYs+WihSC85z2dwYH4asd5rHuGqjn5Jl4gthlTlodhzEYzsr5RvRL07vrl8fD3mtXOP/reSgeHMFE9MH5AC2pQqeiI6KA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Nw8ChqCmt/E8R51LAIvBLRy7Od3LncyShHtIrOcHNvBI5J56BT152IIV1EAHdV7NmpAvTpjGNXbZda7YeZuQllOB+/TRuPNKOEFoMcuwH09JoYdHYsfhsvWz7PV9d5CQ7a2QBDur73KiaFGWvAiH8NTEMjhIQGCuZ9SgP6BoPse7n7GwTer/W/8DgI+5R92pF6KH1JYIWzEaIoZjO6A/eBjmK2rL9xA0PEaU6wIUF6vp4AiHirVWBlEpxXfrQ6HFty622i/18bctemqSq0xeZje0ZHDwDFsKKLkBaMiyJCMkzK7lY3QtdJoc2lfSnbOQYS8qpaB/mlONPYlJsuy89JMXqkNXDR/kgsMZDVpyFCKZQiWPKVif+g5W8rSWNjPesH1/oXLPnaPB2UHfJ2YGC1OP4+kNqnSaIWzDACrx4+DmKAQPoYjLWe7GfJf19vNr
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 14:40:57.3022
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfa1e987-4629-4e15-301e-08df05125f42
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7912
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b8d9cc4-d6f9-6bd6-f774-34cfca9c48c9@google.com>
 
-Add support for the 3 GPIO controllers, main, AON and UPHY, that are
-present on the Tegra268 device. Tegra268 has the same 3 GPIO controllers
-as Tegra264, but a subset of the GPIOs. Therefore, we can re-use the
-Tegra264 device-tree port definitions for Tegra268 and avoid duplicating
-these.
+On Fri, Aug 28, 2026 at 01:04:34AM -0700, Hugh Dickins wrote:
+> On Thu, 27 Aug 2026, Kiryl Shutsemau wrote:
+> > On Mon, Aug 24, 2026 at 07:01:20AM -0700, Hugh Dickins wrote:
+> > > Treat folios on a per-cpu fbatch as if they were already on the lruvec:
+> > > with PG_lru set, without holding an extra reference. This will enable
+> > > the removal of most lru_add_drain() and lru_add_drain_all() calls soon.
+> > > 
+> > > Recognize such a folio by 0x02 set in the folio->lru.next pointer by
+> > > folio_add_lru().
+> > 
+> > Hm. pfmemalloc (__GFP_MEMALLOC) thingy already claims the bit. Is it
+> > safe because such memory is never on LRU?
+> > 
+> > Are pfmemalloc and PG_lru mutually exclusive?
+> > 
+> > Do we want to be explicit about this? Like, folio/page_is_pfmemalloc()
+> > shouldn't return true for PG_lru folios/pages or something.
+> 
+> Gosh, thanks so much for pointing that out: I was completely ignorant
+> of the the pfmemalloc use, and a bit (bit 1!) shocked to learn of it
+> (why wouldn't they just reuse a pageflag, I wonder? but doesn't matter).
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
- drivers/gpio/gpio-tegra186.c | 74 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+The idea is that it is used temporarily to communicate from the
+page allocator to the caller "This only succeeded because of
+PF_MEMALLOC".  Making it a page flag would require all callers be
+aware of it -- most simply do not care.  PF_MEMALLOC was set on
+their behalf and there is nothing they can usefully do with this
+information.
 
-diff --git a/drivers/gpio/gpio-tegra186.c b/drivers/gpio/gpio-tegra186.c
-index d9a2dedf50ea..34e084c95d7a 100644
---- a/drivers/gpio/gpio-tegra186.c
-+++ b/drivers/gpio/gpio-tegra186.c
-@@ -1419,6 +1419,71 @@ static const struct tegra_gpio_soc tegra264_uphy_soc = {
- 	.has_vm_support = true,
- };
+So we want to communicate it in a way that allows the unaware caller to
+discard the information, and I chose bit 1 of page->lru.next.  We
+used to use page->index == -1UL (which was also naturally overwritten by
+the unaware caller), but we needed to have it be part of PP_SIGNATURE
+and that needed to be not part of page->index ...
+
+Commit dc8cf7550a70 if you want to read more about it.
+
+We do use a page flag in slab; we check the pfmalloc bit and move it
+into a page flag (SL_pfmemalloc).  But we don't use it for folios.
+
+While there is a folio_is_pfmemalloc(), I think that was a mistake
+and it should now be deleted.  It hasn't been used since slab was
+converted away from folios last November.
+
+> Anyway, as you've rightly guessed, it's not a problem at all: these
+> mm/folio.c and mm/mlock.c per-cpu fbatches are entirely for folios;
+> and if any pfmemalloced page ever get used for a folio (dunno) and
+> put on an fbatch for LRU, then of course its use of lru.next is
+> immediately overwritten (first by what this patch writes in lru_next,
+> then later by the lru.next pointer for whatever LRU it goes on to -
+> just as before this patch).
+> 
+> If you were to tell me that some subsystem uses PG_lru for some
+> other purpose, then I would have to get more worried; but we can
+> be fairly sure that's not so, since mm/compaction.c for one relies
+> on konwing it's free to  play with PG_lru folios.
+> 
+> Whether a folio is ever allocated with __GFP_MEMALLOC, I'm not
+> certain (haven't looked), but there is no need to exclude that:
+> it simply would not retain that page_is_pfmemalloc() info across
+> folio_add_lru().
+
+That's the correct thinking.
+
+How about this patch?
+
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index dd09c438fa23..fcefffb52d3e 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3122,36 +3122,25 @@ static inline void *folio_address(const struct folio *folio)
+ 	return page_address(&folio->page);
+ }
  
-+static const struct tegra_gpio_port tegra268_main_ports[] = {
-+	TEGRA264_MAIN_GPIO_PORT(F, 3, 0, 8),
-+	TEGRA264_MAIN_GPIO_PORT(G, 3, 1, 5),
-+	TEGRA264_MAIN_GPIO_PORT(H, 1, 0, 8),
-+	TEGRA264_MAIN_GPIO_PORT(J, 1, 1, 8),
-+	TEGRA264_MAIN_GPIO_PORT(K, 1, 2, 8),
-+	TEGRA264_MAIN_GPIO_PORT(L, 1, 3, 8),
-+	TEGRA264_MAIN_GPIO_PORT(M, 1, 4, 2),
-+	TEGRA264_MAIN_GPIO_PORT(P, 2, 0, 8),
-+	TEGRA264_MAIN_GPIO_PORT(Q, 2, 1, 8),
-+	TEGRA264_MAIN_GPIO_PORT(R, 2, 2, 8),
-+	TEGRA264_MAIN_GPIO_PORT(S, 2, 3, 2),
-+	TEGRA264_MAIN_GPIO_PORT(T, 0, 0, 7),
-+	TEGRA264_MAIN_GPIO_PORT(U, 0, 1, 8),
-+	TEGRA264_MAIN_GPIO_PORT(V, 0, 2, 8),
-+	TEGRA264_MAIN_GPIO_PORT(W, 0, 3, 8),
-+	TEGRA264_MAIN_GPIO_PORT(Y, 0, 5, 8),
-+	TEGRA264_MAIN_GPIO_PORT(Z, 0, 6, 8),
-+	TEGRA264_MAIN_GPIO_PORT(AL, 0, 4, 3),
-+};
-+
-+static const struct tegra_gpio_soc tegra268_main_soc = {
-+	.num_ports = ARRAY_SIZE(tegra268_main_ports),
-+	.ports = tegra268_main_ports,
-+	.name = "tegra268-gpio",
-+	.instance = 0,
-+	.num_irqs_per_bank = 8,
-+	.has_vm_support = true,
-+};
-+
-+static const struct tegra_gpio_port tegra268_aon_ports[] = {
-+	TEGRA264_AON_GPIO_PORT(AA, 0, 0, 8),
-+	TEGRA264_AON_GPIO_PORT(BB, 0, 1, 2),
-+	TEGRA264_AON_GPIO_PORT(CC, 0, 2, 8),
-+	TEGRA264_AON_GPIO_PORT(DD, 0, 3, 8),
-+	TEGRA264_AON_GPIO_PORT(EE, 0, 4, 2)
-+};
-+
-+static const struct tegra_gpio_soc tegra268_aon_soc = {
-+	.num_ports = ARRAY_SIZE(tegra268_aon_ports),
-+	.ports = tegra268_aon_ports,
-+	.name = "tegra268-gpio-aon",
-+	.instance = 1,
-+	.num_irqs_per_bank = 8,
-+	.has_gte = true,
-+	.has_vm_support = true,
-+};
-+
-+static const struct tegra_gpio_port tegra268_uphy_ports[] = {
-+	TEGRA264_UPHY_GPIO_PORT(A, 0, 0, 6),
-+	TEGRA264_UPHY_GPIO_PORT(B, 0, 1, 8),
-+	TEGRA264_UPHY_GPIO_PORT(C, 0, 2, 3),
-+	TEGRA264_UPHY_GPIO_PORT(D, 1, 0, 6),
-+	TEGRA264_UPHY_GPIO_PORT(E, 1, 1, 4),
-+};
-+
-+static const struct tegra_gpio_soc tegra268_uphy_soc = {
-+	.num_ports = ARRAY_SIZE(tegra268_uphy_ports),
-+	.ports = tegra268_uphy_ports,
-+	.name = "tegra268-gpio-uphy",
-+	.instance = 2,
-+	.num_irqs_per_bank = 8,
-+	.has_vm_support = true,
-+};
-+
- #define TEGRA256_MAIN_GPIO_PORT(_name, _bank, _port, _pins) \
- 	TEGRA_GPIO_PORT(TEGRA256_MAIN, _name, _bank, _port, _pins)
+-/*
+- * Return true only if the page has been allocated with
+- * ALLOC_NO_WATERMARKS and the low watermark was not
+- * met implying that the system is under some pressure.
++/**
++ * page_is_pfmemalloc - Page allocation should have failed
++ * @page: The just-allocated page
++ *
++ * Usually the page allocator keeps some memory in reserve.  If
++ * __GFP_MEMALLOC is used, the page allocator can dip into those
++ * reserves.  The caller can find out if the allocation came from
++ * the reservers by calling this function.
++ *
++ * If the caller does not care, it can simply use the page as
++ * normal.  The field that the information is stored in is usually
++ * overwritten by most uses of a page.  Nobody should call this for
++ * a page they did not allocate as it can easily have false positives.
+  */
+ static inline bool page_is_pfmemalloc(const struct page *page)
+ {
+-	/*
+-	 * lru.next has bit 1 set if the page is allocated from the
+-	 * pfmemalloc reserves.  Callers may simply overwrite it if
+-	 * they do not need to preserve that information.
+-	 */
+ 	return (uintptr_t)page->lru.next & BIT(1);
+ }
  
-@@ -1528,6 +1593,15 @@ static const struct of_device_id tegra186_gpio_of_match[] = {
- 	}, {
- 		.compatible = "nvidia,tegra264-gpio-uphy",
- 		.data = &tegra264_uphy_soc
-+	}, {
-+		.compatible = "nvidia,tegra268-gpio",
-+		.data = &tegra268_main_soc
-+	}, {
-+		.compatible = "nvidia,tegra268-gpio-aon",
-+		.data = &tegra268_aon_soc
-+	}, {
-+		.compatible = "nvidia,tegra268-gpio-uphy",
-+		.data = &tegra268_uphy_soc
- 	}, {
- 		/* sentinel */
- 	}
+-/*
+- * Return true only if the folio has been allocated with
+- * ALLOC_NO_WATERMARKS and the low watermark was not
+- * met implying that the system is under some pressure.
+- */
+-static inline bool folio_is_pfmemalloc(const struct folio *folio)
+-{
+-	/*
+-	 * lru.next has bit 1 set if the page is allocated from the
+-	 * pfmemalloc reserves.  Callers may simply overwrite it if
+-	 * they do not need to preserve that information.
+-	 */
+-	return (uintptr_t)folio->lru.next & BIT(1);
+-}
+-
+ /*
+  * Only to be called by the page allocator on a freshly allocated
+  * page.
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 09cb1e18bc16..9bcfc4213b91 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -85,6 +85,7 @@ struct page {
+ 	 * WARNING: bit 0 of the first word is used for PageTail(). That
+ 	 * means the other users of this union MUST NOT use the bit to
+ 	 * avoid collision and false-positive PageTail().
++	 * Bit 1 of the first word is used by page_is_pfmemalloc()
+ 	 */
+ 	union {
+ 		struct {	/* Page cache and anonymous pages */
 
--- 
-2.43.0
 
