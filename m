@@ -1,253 +1,113 @@
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
+Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D183D35675E
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F533260D
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910432; cv=none; b=uWVnvNSMIRUFEeADz+jIbojvz0ZQoRPLMGS/eFJ0pBGGuZNAVI6MG3Z1o7lRvfvmHoKc5ydz19eH9SSLurFMdo1zrm2guLsH6iAxIFrddwat3IHB0mwAnNyGRsa2sXf10Vvbrfg0efIEsWqZQhqtg6kgqkYMkeS0ktTtZC+/qsY=
+	t=1787910447; cv=none; b=DTU8DdO7RTyD9bKuOmtoTsxbVpc7HWn+voO7KDihhadWa/wJNPvoNopC1DHF8DnicYZf9huT4kbC+MIzD8QuGyU35ndoviWct1XdvUfbnfZnc8stJj3SNxsSvE+avRCSVctZeOXxMMO6GjvXNaYYIyyHPaF/krW1m3tNvO3Oo1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910432; c=relaxed/simple;
-	bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QlYvjHEy6n1aZDSEC5Psfqt7XIAe5LfP4gcVqwOftli/QjdYDjDvgxPRhOEIkJxNUZlrJKDBTW1iubt8FmP7cIn3sOm1mWocbtRtK5rmwclz1l4R8uoS2knDKvt0wbc4u+mb9prR6t8Xfb2EyUDTqXIJwIc563uE+lFOV3yMdVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BUAGsXYB; arc=none smtp.client-ip=91.218.175.224
+	s=arc-20240116; t=1787910447; c=relaxed/simple;
+	bh=e2tq/2mp/rNEDN4L24NTPonrqDPRQjbDqRitpaYNyjU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=X5zO0CHT23N/csWIK5lVId7hYGzSSFgoENV7I1Z9l6ZcqKnL/Zy/wvu3rVBOArnl6QN6KsG1BbrqjuWCs79S/lkC3t25iN5GhY7pZwxTKnkZGvkIpP/zoRhmGM1YI5JJIbGDqnjmieEM4cyCKum67d9vjDfVBbKK7Xo1CKYWfWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kCIopN4M; arc=none smtp.client-ip=95.215.58.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BUAGsXYB"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kCIopN4M"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
+DKIM-Signature: a=rsa-sha256; bh=e2tq/2mp/rNEDN4L24NTPonrqDPRQjbDqRitpaYNyjU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787910428; v=1; x=1788515228;
- b=BUAGsXYBx+Rokivd7rlvfoNWfnV64jtTMEi7zJIHkW4AXYkB9XeqMwdSoaKgc4io9Y2KlrZW
- BXjvNHue82Lh5hcvVAXnNrdb4PtSpvURr95RH31RAVcdzIXQgcMPcAVT6k9c96dU0xecJY+quK6
- fSmRTc2YsbwmbErcVIouTIDE=
+ t=1787910443; v=1; x=1788515243;
+ b=kCIopN4MwssuJf6/js/6iQSBuimUle+n//ZaHJZkqePCjhvwt7LYHzXiVMxE2N8kjt6IidnV
+ nwdwU9UPYF/6rRu91LPZQ99q7yn91jXNK5IGSlIMj8fMbWjAY+Mz0YfsuB91+M3/ec523eB/ah/
+ Ydw143ZI96+3XxqkIoap9UxA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e425fa70d8e74725;
-	Fri, 28 Aug 2026 09:47:08 +0000
-X-Mizu-Trace-ID: e425fa70d8e74725
+Received: by smtp.migadu.com with ESMTPS id 656fa8ba58c7583a;
+	Fri, 28 Aug 2026 09:47:23 +0000
+X-Mizu-Trace-ID: 656fa8ba58c7583a
 X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: jthoughton@google.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	shy828301@gmail.com,
-	zokeefe@google.com,
-	hughd@google.com,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
-Date: Fri, 28 Aug 2026 17:47:03 +0800
-Message-Id: <20260828094703.11081-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260828005004.2870750-1-jthoughton@google.com>
-References: <20260828005004.2870750-1-jthoughton@google.com>
+Date: Fri, 28 Aug 2026 11:47:21 +0200
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Michael Straube <straube.linux@gmail.com>,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, luka.gejak@linux.dev
+Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v8_6/6=5D_wifi=3A_rtw88=3A_sdio=3A_add_T?=
+ =?US-ASCII?Q?X_back-pressure_and_retry_on_page_starvation?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <abbadda4537640eab1bce5620ade5f47@realtek.com>
+References: <20260825163314.1590-1-luka.gejak@linux.dev> <20260825163314.1590-7-luka.gejak@linux.dev> <abbadda4537640eab1bce5620ade5f47@realtek.com>
+Message-ID: <FCC54106-9CBC-4987-899B-4C7E0C997063@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi Ping-Ke,
 
-On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
->Userfaultfd minor faults provides userspace with the ability to manually
->install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
->map holes in the VMA when a naturally-aligned THP is present without
->explicit action from userspace.
->
->This is a problem, as it bypasses userfaultfd minor faults that
->userspace is expecting to handle.
+On August 28, 2026 11:29:29 AM GMT+02:00, Ping-Ke Shih <pkshih@realtek=2Ec=
+om> wrote:
 
-One basic question first. Should MADV_COLLAPSE refuse to collapse a
-UFFD-minor-registered VMA, regardless of whether all PTEs are present?
+> At the last review (I think v9), I will focus on the changes of this
+> patchset doesn't affect existing chips=2E
 
-I'd leave that to the maintainers :D
+That is the right thing to focus on and it is the part I cannot test, so
+let me set out what the other parts actually run, and correct something
+in the v8 cover letter while I am at it=2E
 
-Anyway, assuming the answer is yes, I wonder whether the new check is
-sufficient. See below.
+New code that is not behind rtw_is_8723bs(), all of it structural:
 
->
->If userspace implements post-copy live migration using userfaultfd minor
->faults, this situation is currently possible:
->1. The VMA for guest memory is userfaultfd-minor-registered and nothing
->   is mapped in the page tables.
->2. A stale copy of a page is present in a naturally-aligned THP (from
->   pre-copy live migration).
->3. khugepaged collapses the mapping of the THP, installs a PMD.
->4. The VM now has access to the stale contents => VM is broken.
->5. After installing the correct contents, userspace attempts to map the
->   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
->   unexpectedly mapped the page.
->
->The naturally-aligned THP case is the only case where this is a problem.
->khugepaged otherwise requires all PTEs to be present for
->userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
->correct. This check is essentially bypassed for naturally-aligned THPs.
->
->To deal with this issue, completely disallow collapsing in
->userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
->would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
->present, but that seems more complex than it is worth.
->
->Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
->Cc: <stable@vger.kernel.org> # 6.1
->Signed-off-by: James Houghton <jthoughton@google.com>
->---
->This was caught with manual review while diagnosing a related issue
->that came up with in Google's live migration testing.
->
->I've uploaded a mostly-AI-generated reproducer here[1]. As long as
->/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
->the repro should work.
->
->[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
->---
-> mm/khugepaged.c | 9 +++++++++
-> 1 file changed, 9 insertions(+)
->
->diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->index b237f6e7662a..66f956d3dd67 100644
->--- a/mm/khugepaged.c
->+++ b/mm/khugepaged.c
->@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
-> 		goto end;
-> 	}
-> 
->+	/*
->+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
->+	 * userspace is expecting to explicitly install PTEs.
->+	 */
->+	if (userfaultfd_minor(vma)) {
->+		result = SCAN_PTE_UFFD;
->+		goto end;
->+	}
+  sdio=2Eh                   struct delayed_work work
+  rtw_sdio_init_tx()       INIT_DELAYED_WORK(), mutex_init(), and
+                           mutex_destroy() on its error path
+  rtw_sdio_tx_kick_off()   mod_delayed_work(=2E=2E=2E, 0) in place of
+                           queue_work()
+  rtw_sdio_deinit_tx()     cancel_delayed_work_sync(), mutex_destroy()
 
-Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
-drops the mmap read lock and before it reacquires it.
+Only this chip ever arms a delay, so on the other parts the work is
+still queued immediately, and only this chip ever takes the mutex=2E
 
-Doesn't this still leave a registration race, no?
+Two existing functions were also restructured and every chip runs
+through them, so I should not describe the above as the whole story=2E
+rtw_sdio_process_tx_queue() now returns a value instead of void, and
+rtw_sdio_tx_handler() uses it=2E The behaviour is meant to be identical
+for the other parts: on an empty queue the new "if (ret > 0) break"
+takes the place of the old skb_queue_empty() break, and on a failed
+write the frame is still requeued and the loop still retries, since
+rtw_sdio_8723bs_reschedule_tx() returns false for anything that is not
+this chip=2E That is the piece I would most like you to check=2E
 
+Two things I verified against the base commit that I will spell out in
+the v9 cover letter rather than leave implied:
+rtw_sdio_check_free_txpg() differs by exactly one inserted branch ahead
+of the existing 8051 test, which becomes an else if, everything else
+unchanged; and the generic path through rtw_sdio_write_port() is step
+for step what it was, same address from skb->len, same
+sdio_align_size(), same check, same transfer, same failure message=2E
 
-int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
-		     unsigned long end, bool *lock_dropped)
-{
-...
-	cc->is_khugepaged = false;
-...
-		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
-...
-}
+The correction: the v8 cover letter says patch 2 is "gated on the SDIO
+interface rather than the chip id"=2E That was true of an earlier version
+and I did not update it=2E The code you have uses rtw_is_8723bs(), so it
+is gated on the chip id as well, and the sentence understates how narrow
+the check is=2E I will fix that section in v9=2E
 
-static enum scan_result collapse_single_pmd(unsigned long addr,
-		struct vm_area_struct *vma, bool *lock_dropped,
-		struct collapse_control *cc)
-{
-...
-	if (userfaultfd_minor(vma)) {
-		result = SCAN_PTE_UFFD;
-		goto end;
-	}
-...
-	mmap_read_unlock(mm);
-	*lock_dropped = true;
-...
-	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
-		mmap_read_lock(mm);
-		if (collapse_test_exit_or_disable(mm))
-			result = SCAN_ANY_PROCESS;
-		else
-			result = try_collapse_pte_mapped_thp(mm, addr,
-							     !cc->is_khugepaged);
-...
-		mmap_read_unlock(mm);
-	}
-...
-}
+One thing that would settle this better than any argument from me=2E rtw88
+already supports five other SDIO parts that share sdio=2Ec: RTL8723CS,
+RTL8723DS, RTL8821CS, RTL8822BS and RTL8822CS=2E If anyone on the list has
+any of them, a boot and some traffic with this series applied would
+answer the question directly=2E I do not have that hardware=2E If nobody
+does, I will say so in the cover letter rather than let it look tested=2E
 
-static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
-		bool install_pmd)
-{
-...
-	struct vm_area_struct *vma = vma_lookup(mm, haddr);
-...
-	if (!vma || !vma->vm_file ||
-	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
-		return SCAN_VMA_CHECK;
-...
-	if (userfaultfd_protected(vma))
-		return SCAN_PTE_UFFD;
-...
-	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
-	switch (result) {
-	case SCAN_SUCCEED:
-		break;
-	case SCAN_NO_PTE_TABLE:
-...
-		goto maybe_install_pmd;
-	default:
-		goto drop_folio;
-	}
-...
-maybe_install_pmd:
-	/* step 5: install pmd entry */
-	result = install_pmd
-			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
-			: SCAN_SUCCEED;
-...
-}
-
-
-static inline bool userfaultfd_minor(struct vm_area_struct *vma)
-{
-	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
-}
-
-static inline bool userfaultfd_protected(struct vm_area_struct *vma)
-{
-	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
-}
-
-Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
-passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
-set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
-
-Maybe:
-
----8<---
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 33c41bc32af8..0eada7265d59 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
- 	 */
- 	if (userfaultfd_protected(vma))
- 		return SCAN_PTE_UFFD;
-+	if (userfaultfd_minor(vma))
-+		return SCAN_PTE_UFFD;
-
- 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
- 			       linear_page_index(vma, haddr));
---
-
-With that, LGTM.
-
-Tested-by: Lance Yang <lance.yang@linux.dev>
-
-Cheers, Lance
+Best regards,
+Luka Gejak
