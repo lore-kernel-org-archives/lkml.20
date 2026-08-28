@@ -1,100 +1,163 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004801A38F9
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8914F330317
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787885094; cv=none; b=tg/kmgXsohT6g5tGcIuP305f8TEDnfWSFkE0zHV/DuxXq+qlPylylpqKbwaz2Be1k5+hbYf942rzS21+s7/g7MOpoqd75X1Xd2kjtViQ7XO1MrUoDMHYow7WHXvZzMdjIkZQULgC4iSGkqurrXSQVUGH6y4rSqtysP6P6KClrKI=
+	t=1787885131; cv=none; b=iyrFzYiIu1Jktc8Z5opFVMTYq4U72a98G777Y1HHHiMqxTSG43uJNqynquJQ5pM12m24Lo1ROLYOmmu5PR4phPcxlogOSiCsjKIqUT6QOtBjpRC20O+Q590p4CIyRwwxIc8eH9fvAwMXVE1uZ7vEq2PWsd2t/wtHHal0iuer+Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787885094; c=relaxed/simple;
-	bh=Wa6+2lHvpXA5kOwx/K/W5g8loVWc1BnA7I82cueJWPo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=al+qD27nivvDBRAhu4gzT7Tvwh+Vxwuwb4UC5iQrr/fEQ98CQ93/dlJBppjNn6AIzPlk+TYzSSJz4B2giiiWr53XX+SCvME2Af3FyauJFwOvxm7MYDPFo47QAYWQPVFDfv2i8IoEebFd74mndzrj0JG8i2lxOUlBqpOIZQzb9Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Xo/Br8p4; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Xo/Br8p4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1787885078; x=1788144278;
-	bh=d2vbG8I8C2vZ3aknTtpETgBaDvg9qhoe2w1vweQf45k=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Xo/Br8p4XrN1wazdEsBYcFzLyj3wX+AKcHTyrKeIy65LBAlvmEqUoowoA47FzJxPE
-	 OM1pdHC1D9fmJjpS93T1P4sWk+pbH+wD4TOda5ezCBHnQFflVbAHayBafHU/495Ge/
-	 MT2L+c2YXpYuzQJlTZig4yqYxiBm2AaDTJaEioI+qBOceBpvlmQVFspfkKtUHE1kT8
-	 kSqb1fHVSP0u3YGRpfBtWo//cwSgWa26lfBgCkAD7A2zxFv1ZgPcdbnx7Ldb1NvTiK
-	 ZONc+uKuYGedKcqWZkdfNXlegvCVUS3+sqp5luRW9xUszrAdFhqgxuxDWuQ4OEfo8O
-	 4qYu+glpKRS+g==
-Date: Fri, 28 Aug 2026 02:44:30 +0000
-To: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, Miguel Ojeda <ojeda@kernel.org>
-From: Nils Lehnen <nils.lehnen@proton.me>
-Cc: Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur Ozkan <work@onurozkan.dev>, Atharv Dubey <atharvd440@gmail.com>, Ke Sun <sunke@kylinos.cn>, linux-security-module@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Nils Lehnen <nils.lehnen@proton.me>
-Subject: [PATCH] rust: security: replace `core::mem::zeroed` with `pin_init::zeroed`
-Message-ID: <20260828024335.946-1-nils.lehnen@proton.me>
-Feedback-ID: 188354734:user:proton
-X-Pm-Message-ID: 03d30c8e9b9b95cd199dd517e73934594f333461
+	s=arc-20240116; t=1787885131; c=relaxed/simple;
+	bh=4pxKODezywX3sQBm6coDrkpjCGyFvbajTXCFUAlYGmo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Y5xsHDZno0k6K5lE0zeDyL/UO8fP5DMy7WKufiZQQJhcgAgBBAyomL5/jJqV9A9BiWe6RwJPFu6ODFkfOkLlB7OnTErMSyGBJRx1NmI9T+xQN4ibDpMyqi0K5BNH+vjxtQv8gxsK3QOOS/SZTxteEF4ndZ8T/WAZT6qR49LG3kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e8472960so548806fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:45:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787885128; x=1788489928;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6xfBoN4ZemMCJI5JUsEpTJtQBBECTZ1Z2MZ0e09zNqU=;
+        b=irX7YDUorxqWiVD50obSumjrrjDCFMH8s00u63YjFcoLD46dTB200Y+YQY9zS3htYU
+         Lgfw8RqTLdJhaVlhR5SRdYWexULRQ/cMm3kTQg1BCBxQfl7FiOB89QiZCkrMZdZO7g/t
+         ZETfU50VsufO7HwCiqGeiSDmTKDboF/q921/Sp+tU8GHk/4Wv3BIDTgAIlQhrBwyNYFt
+         wNda/LEKB/+DpiFApHa82Ja9AbHuelNQOecLXh3rIAMSMe/5sHoFksXPEi+4OOekOYgy
+         Z52Y1NYGxsJWu4EhVZcg1VzGzTTsUWqkb8FqUEY6ja3JC+4XqSC3BXqKUJ6m75jj0f9M
+         rxRg==
+X-Forwarded-Encrypted: i=1; AHgh+RpdPn3/XI1jVGLezWV/pLmwfxHOcM0qNf5Ld1r3Xsvoo71PN1WKcBBIkVJIYjvrzjzHAJc3KFz8MVt/9BA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHtIbuXKonl0XlP9b9S3CnAL91WJSbS23qW5bvqwyhUoi23U1m
+	HIRXJkLoExmGV8WwYS9wkEHlrvZ/spy46vGQyqIa3U68uqVEooFxcMqO1OUxSr6PTnJQIP7eQRR
+	2KGA/j8dwx4BfbcMjTPqp45tQlYlqFEypJTuaBuZQLLXJKrRPtgE5MTq0r/k=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:c3ee:b0:4a3:3108:866a with SMTP id
+ 5614622812f47-4b3982eaaefmr4182602b6e.17.1787885128564; Thu, 27 Aug 2026
+ 19:45:28 -0700 (PDT)
+Date: Thu, 27 Aug 2026 19:45:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a90f648.1d9ded08.62e62.00e2.GAE@google.com>
+Subject: [syzbot] [media?] WARNING in vidtv_stop_feed
+From: syzbot <syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Benno Lossin <lossin@kernel.org>
+Hello,
 
-All types in `bindings` implement `Zeroable` if they can, so use
-`pin_init::zeroed` instead of relying on `unsafe` code.
+syzbot found the following issue on:
 
-If this ends up not compiling in the future, something in bindgen or on
-the C side changed and is most likely incorrect.
+HEAD commit:    388b607d107c Merge tag 'efi-next-for-v7.3' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10a42625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b57978e7637d0f4a
+dashboard link: https://syzkaller.appspot.com/bug?extid=3157015c6bd85395cddc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-Link: https://lore.kernel.org/r/20250814093046.2071971-8-lossin@kernel.org
-Link: https://github.com/Rust-for-Linux/linux/issues/1189
-Signed-off-by: Benno Lossin <lossin@kernel.org>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Nils Lehnen <nils.lehnen@proton.me>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-388b607d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a21f6d431a2a/vmlinux-388b607d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/5f0615983131/bzImage-388b607d.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#3: syz.3.334/7114
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bc0 kernel/locking/mutex.c:821, CPU#3: syz.3.334/7114
+Modules linked in:
+CPU: 3 UID: 0 PID: 7114 Comm: syz.3.334 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94b/0x1bc0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 b4 10 00 00 44 8b 05 b8 11 7a 05 45 85 c0 75 13 48 8d 3d 9c 16 7d 05 48 c7 c6 80 d3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+RSP: 0000:ffffc90025f2fae0 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff888029f2d128 RCX: 1ffffffff22898cc
+RDX: 0000000000000000 RSI: ffffffff8befd380 RDI: ffffffff9147cb50
+RBP: ffffc90025f2fc50 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096c84000(0063) knlGS:0000000057892480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f544aff4 CR3: 00000000577a8000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ vidtv_stop_feed+0x75/0x2a0 drivers/media/test-drivers/vidtv/vidtv_bridge.c:256
+ dmx_ts_feed_stop_filtering+0xe9/0x1d0 drivers/media/dvb-core/dvb_demux.c:780
+ dvb_dmxdev_feed_stop.isra.0+0x162/0x270 drivers/media/dvb-core/dmxdev.c:494
+ dvb_dmxdev_filter_stop+0x1d0/0x390 drivers/media/dvb-core/dmxdev.c:572
+ dvb_dmxdev_filter_free drivers/media/dvb-core/dmxdev.c:856 [inline]
+ dvb_demux_release+0x92/0x560 drivers/media/dvb-core/dmxdev.c:1256
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf6ffefec
+Code: Unable to access opcode bytes at 0xf6ffefc2.
+RSP: 002b:00000000ffb45dfc EFLAGS: 00000202 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 0000000000000003 RCX: 000000000000001e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 b4 10 00 00    	jne    0x10c4
+  10:	44 8b 05 b8 11 7a 05 	mov    0x57a11b8(%rip),%r8d        # 0x57a11cf
+  17:	45 85 c0             	test   %r8d,%r8d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d 9c 16 7d 05 	lea    0x57d169c(%rip),%rdi        # 0x57d16bf
+  23:	48 c7 c6 80 d3 ef 8b 	mov    $0xffffffff8befd380,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
+
+
 ---
-Resend of Benno's patch from the Zeroable series [1]: only patches 1, 2
-and 11 of that series were applied, and the issue [2] asks for the rest
-to be re-sent. Rebased onto rust-next; it applied cleanly, and a
-defconfig build with CONFIG_RUST=3Dy and CONFIG_SECURITY=3Dy passes.
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Two equivalent one-off patches were posted earlier [3][4]; Miguel asked
-in [5] for a resend that keeps Benno's authorship, which this is.
-Cc'ing the LSM list per Paul's request on the original thread.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-[1] https://lore.kernel.org/r/20250814093046.2071971-1-lossin@kernel.org
-[2] https://github.com/Rust-for-Linux/linux/issues/1189
-[3] https://lore.kernel.org/r/20251129135657.36144-1-atharvd440@gmail.com
-[4] https://lore.kernel.org/r/20260120083824.477339-8-sunke@kylinos.cn
-[5] https://lore.kernel.org/r/CANiq72nJqFOR9vhPBfZUNrxU+M1HMV6wN9bN6i8e9rf_=
-oOD2qw@mail.gmail.com
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
- rust/kernel/security.rs | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-diff --git a/rust/kernel/security.rs b/rust/kernel/security.rs
-index 9d271695265f..4dc3eba6ce84 100644
---- a/rust/kernel/security.rs
-+++ b/rust/kernel/security.rs
-@@ -62,8 +62,7 @@ impl SecurityCtx {
-     /// Get the security context given its id.
-     #[inline]
-     pub fn from_secid(secid: u32) -> Result<Self> {
--        // SAFETY: `struct lsm_context` can be initialized to all zeros.
--        let mut ctx: bindings::lsm_context =3D unsafe { core::mem::zeroed(=
-) };
-+        let mut ctx: bindings::lsm_context =3D pin_init::zeroed();
-=20
-         // SAFETY: Just a C FFI call. The pointer is valid for writes.
-         to_result(unsafe { bindings::security_secid_to_secctx(secid, &mut =
-ctx) })?;
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
---=20
-2.43.0
-
-
+If you want to undo deduplication, reply with:
+#syz undup
