@@ -1,141 +1,124 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368BF36C581
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932263; cv=none; b=rO+qvTP9bUffhb0Yl0JeD4dycy/Xa61n3CiOe83kIhH/iNG5OVjWqiXvLKQnrNv36hZepCV5e4HkYc01KEqk++0S7TIEhKs9ttGBFIYBhWu3auUZysE59rJSuId0MUtke859F6HhKja0ZSpbzDCGxVHXMLKp7rzaqblqoZsxTyo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932263; c=relaxed/simple;
-	bh=ReIfV+XfN9CJ7gWGHVy+pvxz4t/Bfm9Oz0pHx1zUvmQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JQXzH+5IPdaycmo3pmNMx/JqqGNjiosQYKpKcrVPvu2oMh+oLA4yD9ibmlfnozU1BoiInKebGbtsNIDD+4iQGV7cxQXTm1CRpma7bfotb2xF9Kq/x+mIaR0cIMw+VJcdLaAwJWF+QVtnSrBuk/C08wb5IqT9E0VqGj5qmLP74S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Po3ok6Co; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61245331A65
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787932283; cv=pass; b=M1r3zHMPPit+q11pIU8YViA6DcxlYZHVvkBpW8HCsigVDo1UA9YaJc06dxwP0JddH3kC0M1G6zvTkU0HC8LFWjy4kAdQpRn21Qu7s3m+/DWB7TacU9oiX2Vv8jq5MW5Gl/mn6TToEbQVFaNaBHuhGCoWnBmCdHJYOprFF+J4uNo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787932283; c=relaxed/simple;
+	bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AJivO0iY/eigXRka81tBLb1jUG76R3+ojjrGM6eE0Xxa6seb/CWHs9+ruDPafddUfS1WFfZRELq72xnvQX4WO8E/4gfL9aM71I0T3S+tIh2Rst3rGqTZZoRJCnB82d/GkoGaxgdzBszZuHhkURnDANk7TiparGftGdH9nAtHYSM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EL1ZUpLR; arc=pass smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Po3ok6Co"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a60a4f1ae2so1476640a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:50:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EL1ZUpLR"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e50a650a0so91834385a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:51:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787932276; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BZV0BAaY6IQj87WmFUctGZZl6SjnpMVDVUJQLGsId4hImQlQ1XA61fvKZZSL2XnGhx
+         1vi1S4BiEkO95uLVuSikdoKUXp1tZbsTpNqbfa+lldkTA/YG7ufDbqWPUNGksDKA+qUk
+         9z7U4H+FHWDhBDtt7NxIprWFA8mtRdi8Usw/h09bOjMxQm15Asdf7LJ0KbIQLnk8yXky
+         h/4pKNUXsOeBba5pht6ModfIGnWdo9SBmne+I2Xjo94RcCmA+I6EPlT9BFlovQZ7dsEW
+         /9jCUDUlmSFMslo4JfO94hQ79QhS2eK6BmydRAZdRmPbPmJbMR056PYKMa4YJY8TkFER
+         jx2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
+        fh=3M+ypAtbMfK9pz0+vZUN7GiFse30J39FqitSqzm0PL4=;
+        b=hoauPf26DBroP6dYdk+D2yze9PuCKUxo52rSlekxX/W35K7+BS3OXKcs3qLwta7eyQ
+         o5fLzc/Te6okXu1XS893kUesXVVTO16qu2oLsnN13YzISK78KNpcw65HVMBYmZIFtgyu
+         GWMDZjSaEPKhoNBMcpaCrQJaH9mCKcrVsot3CWMzUoseg5Ev4oPNSByMRCDo5wv2pYLx
+         s9mE0brqPDRyoWuj/B/2vOENwobv5H/p9NONqveon1Xz0fXiKk10Q95n+kIJy7teEDuj
+         SOJM+RogXG6XXK8FumS2toowpkuXtneg76Ub75f5Ns7EKW2OD4YHmd4mLHkknVbqUCcM
+         s89w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787932256; x=1788537056; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uNXgP9aiWGCY8sBDBkxQ5jGmQfHLh/8XePeePdlfGZw=;
-        b=Po3ok6CoqSt0K7p74Ie5YqBocIN+aT+ywCfyYaEW0nyMCqj9P2obgLfhD1uZp3moPR
-         ZOwWxmFXCI4XDkVBaGeCOC79P3b4afBm7F8wF/CDagFghN/DdWkDh3WWpmvzWgeMl8Ve
-         eca34GBPI/3jBYUahiMGbh+fyAxAcAry29jpcoG/RZlzJRU8VaCUWm3Cdjp6/uGeN7DS
-         HGzO3pufLwguWh5e7bjNyWFERjBLppaSQ1XxS2i6ZDmHfUq5tOZDA9ubLCvSxJww2WDu
-         AbbuNAnwdQEZs0jiXOqJpPZa8qiJrE+Dw6WZmGLRPg5P12aM9fA796C0jcpqAOlJ90Ry
-         rTBA==
+        d=google.com; s=20251104; t=1787932276; x=1788537076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
+        b=EL1ZUpLRjHqSmF/WEANNAsmQynxJHhboORF5W5zsoM2Kwgv71FSjcZVCJUVhkZW6Bf
+         T4d0BjiYnRmEc4soprJ+mImb0fKZUX5EQUDoxIvxFcctiY5hKNRd31vXN2sgj8e9OKOz
+         afdabFbaAKJtsNVlfx+BgUlmD1AzhQfd7biGoA+KAZZixbPVM4lR6x6c3R7vvFctijGn
+         XDgrIjOsqRWr+EMI0OSYd/8BPok6+aCghm+Cts3OOaiL5OJaNK4fttx617LyJwfSTLOI
+         /kQiBg5mnADJgmcCUyGsb6r99yDf9YlVe+bRNMWYMZcfq1H9plrCsSd0Q6UqCAcdbYK4
+         BGTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787932256; x=1788537056;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uNXgP9aiWGCY8sBDBkxQ5jGmQfHLh/8XePeePdlfGZw=;
-        b=UueGePkNMRKGMAQh9Yez9/Z7BP59P//n1A0mRKrWq8f8VK6o3gLfNuyyB3v9+1IwXM
-         Pc/ruy4QZK0l70BuA65+Izgygnt8ww9aG7dBUFHGJ4H2WD5EXq70QbpYXuGAnG/1TPDm
-         R1zXD0tttV41Uscko96Zz8KBhA1x+R+4Ch2/VaYixqIo04rcHALASh9Rg0lIXYZncJz3
-         hESaAlygDQq0l5slpnDv4Bw4Z6HZOLus+1eFjH0I5kDkb76ubdxez04fKrbAtOQZ0k+N
-         JZmVv7zHp4mhw894slWLRJsv72z+nSVAore6L2Fj1svKFXxImEODd0H7BTJiry2EjnOg
-         qRGw==
-X-Gm-Message-State: AFuF++n4x4L1n2LkhzyqqDYCdwU9T0FePNpQS2afjpSqljJWKCi9xhGJ
-	w4JKlZusXdr1sppmaUjcfB5QiMmEGV7f6N/pXfQ3CyCZ+XKTpy9s/9vZ5IaOFK3HOE63Prsm2e7
-	M/NTgYQC3C5z1BVTIew==
-X-Received: from edrb21.prod.google.com ([2002:aa7:d495:0:b0:6a6:a82:8b98])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:5286:b0:6a6:1c30:bc4c with SMTP id 4fb4d7f45d1cf-6a61c30c3cfmr2134011a12.5.1787932256221;
- Fri, 28 Aug 2026 08:50:56 -0700 (PDT)
-Date: Fri, 28 Aug 2026 15:50:55 +0000
-In-Reply-To: <20260821142414.150892-4-djeffery@redhat.com>
+        d=1e100.net; s=20251104; t=1787932276; x=1788537076;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
+        b=WVCoXJEe5+UiEXVn6R7snJqpwTF/NipVMbAEWoUkzOamNTuT0g/a8nXgnaAkvcKl5K
+         K9G9Sl1XwcvVIUhRS0TobndAP065J0AoZsouQ/q6S5S1egg9QI/nu+fmV2P4hXW0xebW
+         EuM/yoJIc6Yhp5ikJ9x/HC+T2QbRzg4gakpy6tjrdgwqSOleHUzMQnnPTvMHAhPHkV+k
+         oAl83i9MvqdNwZxTSXa1h+gm7J7hyLHcMrESDkr7pM1qcTYlXtucL3hiywBdx5GD+gw8
+         4EXtg6UaBUELs2wAJ/TNpM5l9Wzur8vUNNVal3gBGX0erS6Wxqvk3bZ7Zmeggzf/sJXi
+         2AjA==
+X-Forwarded-Encrypted: i=1; AHgh+RoTnZLZf4FykrWTeJ5fu3ID5e0CERU/vkH5uNSllZp1j+gLZh4Ot9dVSCJBNwsdcbNnt3Fe397Rv5mkcxE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKqaXLI7NoZ29PPoGPOCSfiOB2vlYiKSFrwGVlr91npPN8Lzjm
+	951Qe7jeecT+TNn7wdF1L7tOx/6Ltbw7878Z2SwA0KWZmVJ9UTazIzK7CbProN+kDUb0Kknth3y
+	c0iR8cWgd6K5nX0HopvyKKduDSrI6y2kyNUKqYktw
+X-Gm-Gg: AR+sD12JL4ln7W0eOSiKpzZIceXr01T2KiIbqSE1nLxGTPIVCJmV1xLMYDzGpwwOAW9
+	ZRahaC3n4tZ2+44pK9OwBRnk5VNueZm0E1BphgxKPuYhQHNihasJiJuE2B9Z+ZJLkgkF7eZ5oDM
+	q06W3LdNSUhxc/CGUPsUuoVZpc5WqybeoSm5o7TAZ95aq+5oh/SsUhQUQmRkoFKoqO6sa2MKFpT
+	TPOe6Yj5ToqXrcO9F5z7nUtNczNkHtNNVAl40gcxgzLco1A51jLTHa9thTbxBaVJQDWos39MmCX
+	rKGYSCppMeGNl4JiMu5N5cIz7GSM5LJuMUOwLngKbp1llyHoXbRUBar5tLS6zp57024RkCNR45Y
+	94Mjjyf6WMJPkJdj6ChW79aebNZRv2XQqUW/xe91k3njv9uUjf8MSN8RfH1E=
+X-Received: by 2002:a05:620a:4548:b0:936:e71a:db90 with SMTP id
+ af79cd13be357-939138aaf3dmr785852285a.29.1787932274998; Fri, 28 Aug 2026
+ 08:51:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260821142414.150892-1-djeffery@redhat.com> <20260821142414.150892-4-djeffery@redhat.com>
-Message-ID: <9huzjypaz1k0.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH 3/9] driver core: warn should device_move try to move a
- need_parent_lock device
-From: tarunsahu@google.com
-To: David Jeffery <djeffery@redhat.com>, driver-core@lists.linux.dev, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, Stuart Hayes <stuart.w.hayes@gmail.com>, 
-	Laurence Oberman <loberman@redhat.com>, Bjorn Helgaas <helgaas@kernel.org>, kexec@lists.infradead.org, 
-	David Jeffery <djeffery@redhat.com>
+MIME-Version: 1.0
+References: <20260828154122.2643578-1-den@valinux.co.jp>
+In-Reply-To: <20260828154122.2643578-1-den@valinux.co.jp>
+From: Eric Dumazet <edumazet@google.com>
+Date: Fri, 28 Aug 2026 17:51:03 +0200
+X-Gm-Features: AcwNN1UrJtJ6iduqn0ujw97pAkDqT2wuWCSxNAQwH8z3egHVmruiIVqnB7mRr-o
+Message-ID: <CANn89iK1U8wzTTQAvGCP8Fff9r4StUB_JFiTdFJZctQUQHE9cg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: ntb_netdev: Fix statistics races
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, ntb@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-David Jeffery <djeffery@redhat.com> writes:
-
-> Currently, no device has need_parent_lock set and is moved by
-> device_move. need_parent_lock is only set by the usb bus and very
-> few device types ever use device_move.
+On Fri, Aug 28, 2026 at 5:41=E2=80=AFPM Koichiro Den <den@valinux.co.jp> wr=
+ote:
 >
-> Add a warning to device_move to catch should it ever be used on a
-> device with need_parent_lock set. The combination would break
-> the immutable relationship needed between parent and child for
-> need_parent_lock when locking and unlocking both.
+> ntb_netdev updates shared net_device stats from per-QP RX and TX
+> callbacks. Once multiple queues are enabled, concurrent updates can be
+> lost.
 >
-> Signed-off-by: David Jeffery <djeffery@redhat.com>
-> Tested-by: Laurence Oberman <loberman@redhat.com>
-> ---
->  drivers/base/core.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> Use per-CPU tstats for packet and byte counters and DEV_STATS_INC() for
+> less frequent drop and error counters. Callbacks can run synchronously
+> in the xmit path or asynchronously from a tasklet or the memcpy kthread.
+> Pin TX updates against migration in the kthread path. Use the IRQ-safe
+> u64_stats helpers because netpoll can invoke the synchronous path with
+> IRQs disabled.
 >
-> diff --git a/drivers/base/core.c b/drivers/base/core.c
-> index bd9c2921e326..75f5931165a8 100644
-> --- a/drivers/base/core.c
-> +++ b/drivers/base/core.c
-> @@ -4712,6 +4712,14 @@ int device_move(struct device *dev, struct device *new_parent,
->  	if (!dev)
->  		return -EINVAL;
->  
-> +	/*
-> +	 * device_move() should not be used on devices with need_parent_lock
-> +	 * set. Concurrent reparenting will violate the immutable
-> +	 * relationship needed while locking and unlocking both parent and
-> +	 * child.
-> +	 */
-> +	WARN_ON(dev->bus && dev->bus->need_parent_lock);
-> +
->  	device_pm_lock();
->  	new_parent = get_device(new_parent);
->  	new_parent_kobj = get_device_parent(dev, new_parent);
-> -- 
+> Note that transport callbacks may still complete after
+> unregister_netdev(), so tie the tstats lifetime to the client device.
+>
+> Fixes: 24d9e73c7e00 ("net: ntb_netdev: Support ethtool channels for multi=
+-queue")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Thankyou for adding this, Please feel free to add
-Suggested-by: Tarun Sahu <tarunsahu@google.com>
-
-Also, I have seen sashiko complaining about another problem with
-device_move which is impractical/impossible. So I mentioning it below
-for discussion/information.
-
-Sashiko Claim: There is potential deadlock if a device is being
-registered with DL_FLAG_STATELESS which skips the reordering of
-the list so device_kset->list will have device dependent devices out of
-order. Also same problem can be create by device_move.
-
-=> This is impractical because a device being registered with
-DL_FLAG_STATELESS must have its supplier already registered first
-(Documentation/driver-api/device_link.rst) which inherently puts
-them in the order.
-
-Similarily for device_move() affecting topological order is very
-impractical. Unless someone mis-use the API
-device_move(..., DPM_ORDER_NONE). Which, as well, not favourable
-on upstream.
-
-Once topological order is messed up, neither async shutdown nor serial
-(sync) shutdown can work. As it is precondition for it. except
-DL_FLAG_SYNC_STATE_ONLY, which is handled in both implementation.
-
-
-~Tarun
-
-> 2.55.0
+Reviewed-by: Eric Dumazet <edumazet@google.com>
