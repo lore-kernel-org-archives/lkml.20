@@ -1,170 +1,193 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F9A39DBFD
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787957024; cv=pass; b=TZGJnJ9R+KhRbiNGQoR834YTR1WPxyMNxzIOWet9lkrw8EMQBckY/FyB/5vu9x3NMOy4Rn/0pRxtCn8ehvlnaM4iUU6WmgYMebDo9jMRdbyknetWA8LgEyUufaT/L4J116auOpiG60DvoM9zE6COq9rbJgEL+WQyut0UFk6LcEU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787957024; c=relaxed/simple;
-	bh=DGHs5SQQXiotArDuQZ0B9Dgbv8T3sLVqVQ1dRhCjkp8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LUJRrifMCucSbqnBi9zBYB3iUnM8yrnLHDOlYT/umanMNh2mhNtBu7bYCoeLBIPpnf+Gj4S/0+l/ixrbLvQjynam0SoJj7ZmXObKNyfgZ06muMh3GfMhTVCNiscnDtxxvq/aa5Txl+FLhxxf0bpYoBaKaQtEV3IUmv+zRR3gSj0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lqN/alX9; arc=pass smtp.client-ip=209.85.128.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB1A35F5E3;
+	Fri, 28 Aug 2026 22:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787957196; cv=none; b=OK1+5XbnDvvtfd8MF6DWje5kjTIArBG7DJu8cucmeSnm9OnBRjluQDhtkEA9aBHTyg3iG+gRDuUzTGghGbPT8BcQdWbi22rG4S2sQkph3BmgIRjKqsNgEUnETM/VWuZCbD1d4MVt4pziAnau2SY5I88cgpYNFSJA/FnS+DaYqy8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787957196; c=relaxed/simple;
+	bh=odn1maz74Tf3364rF+bSGSiPNNbBwqyUZxob5O/EdhA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:Content-Type:
+	 MIME-Version; b=k0oM0KXjfgJCy2+vHs8kNRKWC1rTwyW5eDBXLoh3YyKoWl0NmnHEEVZqWdkpD+bgBAApxrmgOXznqgMKTZp22Ts/dUVsIodot0OK9glM3baTlKgv+Aw9cd7MYqalRI2HS5ap4ICQya2OOFN6S4zR++j8ikTgX1D4JGqTefVTeb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=u3qGujmu; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqN/alX9"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-836c5b01e82so23858327b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:43:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787957021; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Desbc5QBiX+LkbQjv3H3rfYVhpgyzR2glWRPz7ZE5EXnge2BELI3GJHrG14k9FHil/
-         EpldrJstr8D4ItFh90N4HUN7K+vRAzhSBRUc9kDaR4ouvtLHDFiN5TZPhbIoMBfFkf5+
-         5BXcqS+inkYpU6yw20hppYMoN28duHcgg9XI60a1jKAOE+aiJxxe+TUyL4OEZML+PFmN
-         6p+cQol4L+GTYw03qcViomCzDx1jBaKue0Po0AMVMyHXu5cLteg8pfX1OoMb0PDoU+pY
-         LihaJXV3RE5CUA4V22nneXcn9iAphrkTklFxjXiiPbJVmFSwijE+58/oVZugHRE4N2mx
-         hJuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=E2b2r/YcBr12q+KrOQE2EJ7xuTvSb8Ce2sgX6K3dty0=;
-        fh=mTEdggkkC8aJ5dRcauNM4EdGFce7+FiRFBcmNkfaj3I=;
-        b=bVvm7itsw9axvkbZ2VtEMWpf4aXfUVTXqV3NGUo5nYbWlCWOHWu1NxN8Se5BKwmk+J
-         ztcDZp1Bo0hHYy/7+ZCGqYlJcnHsQbVJoPp2kzv9nF4XhnPsjmNrGEoHm09d6l09MX5Y
-         Ze4SMarlhahRjjD0FtPBnVDnhCe1ztCIEucBfKbqFdj5VEh4gbZmDxD92TgwTKEnHV2l
-         H66/8YUvldS2YqjDIFp57FUYKjvqUabaBhFhpnyoGrFp9gaBlAWpt19wMT+vxHA8/y9w
-         E7fYnC02tKpnsRzO4e0Kf0mio0OOfa3oBv0B9DjgItBD91y+r2EgZX0PkUYZWfATWanP
-         /XfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787957021; x=1788561821; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E2b2r/YcBr12q+KrOQE2EJ7xuTvSb8Ce2sgX6K3dty0=;
-        b=lqN/alX9OpBf+DPeZHsWQLM5kFGFKYUMX5/eq/j42Y0DqCV9giWgPwNmFyQD4CLx79
-         77k1zvC3Q97ld53Ni7hvA9hB+RWAFdoRdS6dz9AQS5kLeULXasYtBl5Ol5NeJ8cGBRKg
-         8MAbYMMN4ESqnoev2Mje6DuTE8AI2J5XfaenSx/c+nSobw+8GwqyOMJRBi7vslWIAkiR
-         v5d4H1KpGa03MFv9bpTfV9e5/frM1n5c8oJPrwlpl2FalSVG0qKkJIpqbxMGrIMhCesn
-         BB3p7QFfocYlcDWWN8AJd+W0Gqpf+5Eg0Aee3GrOc9R5im9GMYWatY+RUjOCer7noiaI
-         oORA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787957021; x=1788561821;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E2b2r/YcBr12q+KrOQE2EJ7xuTvSb8Ce2sgX6K3dty0=;
-        b=pLq8YFpmoTRs2jbHP/QdM4S2oFZ0d1OkorbOPVuVvzvO6dZ3guZxEzhCaj6jORmv2k
-         TDUiypibjWL/TLVb5UBNetH5CjPUndfQrHFm6zzxOVfWDuhhz58YO+ZmZTtMacs3rubu
-         O0yvM37R0Ixq0FVrNxlwsWAJI8I8S++tKbNhQzZDgCRYpmzz5nGS/J9XWTsgOjQwyaiD
-         zCiNbIHCcMMgL6YTEdzGsB/TUEeWLjQNFBPCwWoK+Ut0FzgDO/BTrSZNy3A6vHQ786l0
-         jLTFUu3IemrpWRA/0tzILv6N422Q6PJtrjb6n1zzXcArwbfP9AdKP+WI7zpV7hByYxz5
-         RMdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxojElpMDcJOdjvGxEj+dEp7bVlafFkCYBbiGqdmS6zxeiSepphZaxHt+qgkOAmF1761RmCJ1IaICazcBM=@vger.kernel.org
-X-Gm-Message-State: AFuF++koEzjmGNINEL4UW9gzMOUcMpnH4amPaSuf3sh7resKQN35i4Cs
-	Z2GSkto/DfZ0bhmkCAGwEHmgDnR9fdvtFv41FxEJEpxwOh25zOCucp8VPPJZA+EmJ3s/KjWelmu
-	v3U8B3t8aXkQd1pUmCmEX8iG6QSXXj41RI6kP
-X-Gm-Gg: AYBFou2sQB5JpUEYivDqXSkR8UHFYcIJXacPU/JnJmV/00lxsUTs3mXQWV1ofMDldYw
-	oaxdrl1Hzj9C4PTGhAI5qYsvP7cPlTUvMv84qcydsTKTjeFd6/7DnTflKgmCPh/fWnTUISbeNun
-	yJxdIqfG5G5NLPZILshPAOthie/bqu1XG0zzM/O+xiFoPAMC4Czkpap0NcejJ4gD8AUM6Sz0eTn
-	6P7eLahi0sNu/b2LiNxXC+JZ5edzOznmElcbhH6AjLEgNChCdyxwQVNsYdPrbjR1oFnywGhTxlG
-	LIICpWDU7CHn+DPIl6e7fon1A5bIDf6JjKkLdzQuZPaJNCGq6sszeUCvgr+K969Ilcn+TxE/pxa
-	7
-X-Received: by 2002:a53:a690:0:b0:668:1c55:4283 with SMTP id
- 956f58d0204a3-66e4c76d946mr2712395d50.49.1787957021314; Fri, 28 Aug 2026
- 15:43:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="u3qGujmu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:In-Reply-To:
+	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:References;
+	bh=odn1maz74Tf3364rF+bSGSiPNNbBwqyUZxob5O/EdhA=; b=u3qGujmusEKg+kyBQzubKpXQia
+	m9gheGlQvBXGOVDA1gWWO4Cxc9P+I686U10slEyqrZu51uaJGQT4uo3F1PY0PAG3SqSuqrFooGnLb
+	0bXZ/V4WL9h85HPVclREHZh07mUAw3U9pJwjWA/y7tgU2zXyrD19hMk7o70f+tGoPMQlHyI3kTeRF
+	0wHhhaLdiWE+JcOUqPtVRIqoVOG4HuEuRAS6bB8nsAYir3GEOeqBWHe6c9rnrhKSieJR6LvMm5rzr
+	SuKsGgFd6S76xsZewxdfiTAtvHyl+9DFBc/Mxy1z98qp7kcX8UHUjJ54oc5rtK/bBd5a79nCLkRAO
+	kpwEkpBg==;
+Received: from [2001:8b0:10b:5:d89b:13dc:754b:b035] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x05L1-0000000FYCE-3Ozv;
+	Fri, 28 Aug 2026 22:46:20 +0000
+Message-ID: <7eedeed241687f3b5f5953bf6717afd2bf5a58d2.camel@infradead.org>
+Subject: Re: [PATCH v10 21/21] KVM: x86: Use kernel timekeeping snapshot to
+ get walltime+TSC
+From: David Woodhouse <dwmw2@infradead.org>
+To: seanjc@google.com, pbonzini@redhat.com, Thomas Gleixner
+ <tglx@linutronix.de>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, paul@xen.org, 
+	dongli.zhang@oracle.com, sashiko-reviews@lists.linux.dev
+Date: Fri, 28 Aug 2026 23:46:06 +0100
+In-Reply-To: <20260826214952.129BB1F000E9@smtp.kernel.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-pYmk+KPZFKVZeByj8FKB"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <12955564.O9o76ZdvQC@rafael.j.wysocki>
-In-Reply-To: <12955564.O9o76ZdvQC@rafael.j.wysocki>
-From: Julien <julien82453@gmail.com>
-Date: Sat, 29 Aug 2026 00:43:30 +0200
-X-Gm-Features: AcwNN1XYBX11rSIqXNiWyf1cOFtlIqqPNasGuWLMN_MrER9LH0cNWCpmTMsLH7s
-Message-ID: <CAJOGg3x4nMtSJeiLa2nsBFFuG4GRyvj7MbErcdOgxyuXCkr_og@mail.gmail.com>
-Subject: Re: [PATCH v2] ACPI: scan: Do not combine resources that overlap completely
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Mika Westerberg <mika.westerberg@linux.intel.com>, jarkko@kernel.org, 
-	linux-integrity@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-pYmk+KPZFKVZeByj8FKB
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 20, 2026 at 9:11=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.or=
-g> wrote:
->
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
->
-> Commit f234fdaae1ca ("ACPI: scan: Avoid registering platform devices
-> with resource overlaps") attempted to avoid platform device registration
-> errors due to overlaps of resources of the same type returned by the
-> same _CRS object in the ACPI tables.  It did that by combining two or
-> more overlapping resources into one, but it went too far and also
-> caused resources that overlap completely to be combined which broke
-> the arm-cmn driver that expects two MMIO resources to be present for
-> each device it binds to and it expects those two resources to overlap
-> completely.
->
-> Address this issue by adding checks for completely overlapping
-> resources to acpi_platform_adjust_resources() and add a comment
-> explaining what is done there.
->
-> Fixes: f234fdaae1ca ("ACPI: scan: Avoid registering platform devices with=
- resource overlaps")
-> Reported-by: Nathan Chancellor <nathan@kernel.org>
-> Tested-by: Nathan Chancellor <nathan@kernel.org>
-> Closes: https://lore.kernel.org/linux-acpi/20260819003752.GA3063251@ax162=
-/
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> ---
->
-> v1 -> v2:
->    * It is better to check for complete overlaps both ways as suggested
->      by Sashiko.
->
-> @Julien: I would appreciate testing this on the machine that needed
-> commit f234fdaae1ca.
->
-> ---
->  drivers/acpi/acpi_platform.c |    8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> --- a/drivers/acpi/acpi_platform.c
-> +++ b/drivers/acpi/acpi_platform.c
-> @@ -85,7 +85,13 @@ static unsigned int acpi_platform_adjust
->         for (i =3D 0; i < count; ) {
->                 struct resource *res =3D &resources[i];
->
-> -               if (resource_type(new_res) !=3D resource_type(res) ||
-> +               /*
-> +                * Look for overlaps of resources of the same type that w=
-ould
-> +                * cause resource insertion to fail down the road.
-> +                */
-> +               if (__resource_contains_unbound(res, new_res) ||
-> +                   __resource_contains_unbound(new_res, res) ||
-> +                   resource_type(new_res) !=3D resource_type(res) ||
->                     !resource_union(new_res, res, new_res)) {
->                         i++;
->                         continue;
->
->
->
+On Wed, 2026-08-26 at 21:49 +0000, sashiko-bot@kernel.org wrote:
+> [Severity: High]
+> Does removing KVM's local TSC clamping expose guests to mismatched time p=
+airs?
+>=20
+> When establishing the guest's PV clock, KVM provides a master clock
+> snapshot pairing a host TSC with a system time. The previous read_tsc()
+> logic explicitly clamped the TSC to cycle_last to maintain mathematical
+> consistency.
 
-I have tested this on commit 1b78070aaef6. It seems the patch is
-already included in it.
+I think this is basically the same class of issue I brought up in
+https://lore.kernel.org/all/87v7beb7s3.ffs@fw13/ and Thomas said the
+right thing is just to ignore it?
 
-TPM device still works. Here are the logs.
-acpi MSFT0101:00: [mem 0xfed40000-0xfed4103f] expanded due to overlap
-tpm_crb_acpi MSFT0101:00: [Firmware Bug]: Bad ACPI memory layout
+If the discrepancy was more than a few cycles, we shouldn't be in
+masterclock mode anyway, should we?
 
-If in the future if I need to make tests again, should I do them on
-the Linus Torvalds' branch?
+
+--=-pYmk+KPZFKVZeByj8FKB
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+2bRg0JRtS/8ft6Cihzx7uVcAAAAAAAA=
+
+
+--=-pYmk+KPZFKVZeByj8FKB--
