@@ -1,222 +1,175 @@
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012047.outbound.protection.outlook.com [40.93.195.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098253CC7CC;
-	Fri, 28 Aug 2026 06:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898827; cv=none; b=OxpP5NDnLj8oXUC9qJp2i2io02uUd07Dkzg2Qj57a6A8vmFx1dU/luqtx2RDpClygWU+bdw5TlTTUa+6wo9ULDnusWB3VI1gYTfq7dCFztPI2vQEzRJ/dmxslCYDyz0VmuKSE0OeIPBIckfCp9EZGbSXpgsYr9XrHoica+rIVn0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898827; c=relaxed/simple;
-	bh=hSFjsCSEQi/8oMkydh2mc4J0VU+KFrCLQ4jlgFSS5OE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ayf3lSU2FzFMvo1E7AjRBNB3dqWwWp6bMIGTC7vjoslAWLnd1msC9pcUix/Fdt4o2mluf8qdAeym4vAj82aoOuKRQTRPLVfcTRgQQlKY9pJbymqkBWRjs1m/m2pO+Mx5UGCf4Z0j1DpGBE+r5qsdO1/s0zxVvPU1YY9nkMtje6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=ehaCmnJr; arc=none smtp.client-ip=217.70.183.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB6D3CB563
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787898856; cv=fail; b=QJroCmmLOMxBoTe16XmX89J3UmBrfrfCCtdGEKx1T3q/KCzgBQdJwOIcK6HLrX/l3E65JYpcjOVtSPDNcKpWgwD8TwokB7y7mGKKWgH20GvXDtjjyQhYr0peEPXV+hNdPLZtCKkB/uHk2FZG8mOvN+aGr7p0Hk3T/S3JykdBWZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787898856; c=relaxed/simple;
+	bh=EYrGCNNat5aBmjJh/5ppzEjKVpdQsgiopm1tu32Fie0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=DsWvXaksDB/nnxHgR5f/ZfiOVbiH/NaYGOOVQmsgoQgVbcF03cxNKMLAGBuqRLSH/PzrI5ZMwj5JQ+seSiK1jjmFdK7taXbI/m9E1AJ3YakFzvsFQg1b81GPx8Tke607bCtciebnlmeMOX9P86WPkGn4aXIW+6738vSgJTHtlx4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fn+pOvb6; arc=fail smtp.client-ip=40.93.195.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="ehaCmnJr"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 581691F481;
-	Fri, 28 Aug 2026 06:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1787898815;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F8iNV+4Kt9TrVoxH58QexWof63WfyQqIWIXd6Z5LsHI=;
-	b=ehaCmnJrjFMncM12VuYeI4SiFWrHW0VPwg8Dt+GNLNfoZqkkt8TKejlRMf1UMLM6MJ1oJo
-	S0Jnrc78HPhl1L2gwOSRvlq1uCqWKspG2X4Edq7lJjJj2uv3OG3ixk2bRNNY1Zo8ZTaEOn
-	7qteJQUYbjJG+dQfkCZMlYgOmi/Ye+Rgp/zPSTZFZk9wvEdm82XH92GLopLP8LV9JEExNp
-	cWQO+mKyEuG/0QI5XzCqD5s3lExImAalFJBBQl+rBKL3CbyDrkY/cKGBNA9d3zVWIH0Amu
-	mJyVw0eZ8Gb5w9LF+vf2DovuggJZIu4RyIY/6cwvi+lGCQoPtbzhR2xa1NmwxQ==
-From: Guillaume Tucker <gtucker@gtucker.io>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Guillaume Tucker <gtucker@gtucker.io>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	automated-testing@lists.yoctoproject.org
-Subject: [PATCH v2 2/2] Documentation: dev-tools: update container.rst with config file
-Date: Fri, 28 Aug 2026 08:33:19 +0200
-Message-ID: <ab4d7d231432453d8db89514f32a0718175f13cd.1787896890.git.gtucker@gtucker.io>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <15e16f175f59ae666036764eb03c40cdf19809c7.1787896890.git.gtucker@gtucker.io>
-References: <15e16f175f59ae666036764eb03c40cdf19809c7.1787896890.git.gtucker@gtucker.io>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fn+pOvb6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f4iaJJiERI5/FvETJlwmB936EVtldwA/gJEbpxLTlXl5XPPrZgBrONsZ0TQH/K0JD6+FuTTpzFjgfcWUAH/uZLjvhjvNQAtu+tUcNszs6njBbzjUVbIaDqfCiNHGonexIvAoDgtfEzUBj2pAik6GIo7NfHGc3YuPaz3rLMImFqj80/mLe6U6q74nLwsokZfuu0/7QS3PLG5Wtrvdn+aVVGAEmsVJBUrlfoqfRm7kl6tCLtDd8v5e6jeuLrTjEKixC0mPHaAE6V0EIR3mVmj1U1GPq6S0C7lsjBGn2NlR4JuRjVJ85bMQ6zoZnkewXC8CWA5DB0UMnZix/AzvG4ik4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D7vAngprU3L4H01wFqx0Qe/le8MQbYlT4Gmn4HY2jeE=;
+ b=zJ7Cb9/+O1MVJbruXaoej2guTcGjt3iYl97+FiwjHYTbjk7HNnWUSKFnxz3tJ0AjIUMNpNLG+JmDjI4oz8jfeiO0QluQHG+jSJusuzJMr+aOTriHVZ1UMZjKsFtgDO7cTlxkQKhwLm7FU6Qar0HWOsYKpnkCHIL9cpgFck1FFk6mkMjFMZdJwX4LlBd5up+jpzfw2RehAMYSexSss9Dejy+TfmN+wk1p8Xl+By2MnLRc9GCg1hzN+QXtXMtyc8ZtW6SnY0tNC6t3vCXYz4NKR8wR1BNJTH/TJichWTaQDlnF34RSeGZ/J02EF4RZCJfvyoN1IdAsNLKBRSHO5vHzew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D7vAngprU3L4H01wFqx0Qe/le8MQbYlT4Gmn4HY2jeE=;
+ b=fn+pOvb6IAvT5BMqIFZ35+HJqE/47ntrtIE7HYJ4rNuDMAhh5xS3w1VYwlP19fJBbMsSxd1e3jnRhDjyRFk0cAnuXLclcD73NuQQCbA1IYxJeUnB7biZmPTIb3QdMsH+G6F5mXWMzFXnKdmvJ9y2lFW/0WBb6X0XMvViONioWL0=
+Received: from MW4PR04CA0047.namprd04.prod.outlook.com (2603:10b6:303:6a::22)
+ by DM4PR12MB6446.namprd12.prod.outlook.com (2603:10b6:8:be::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.10; Fri, 28 Aug 2026 06:34:10 +0000
+Received: from CO1PEPF00012E7E.namprd03.prod.outlook.com
+ (2603:10b6:303:6a:cafe::6b) by MW4PR04CA0047.outlook.office365.com
+ (2603:10b6:303:6a::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Fri,
+ 28 Aug 2026 06:34:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E7E.mail.protection.outlook.com (10.167.249.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 06:34:10 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
+ 2026 01:34:05 -0500
+Received: from [10.136.43.157] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Fri, 28 Aug 2026 01:33:56 -0500
+Message-ID: <5e2b4e46-8142-4f51-8d52-66910946ff0a@amd.com>
+Date: Fri, 28 Aug 2026 12:03:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEv+vwblePT8eo6cQKNJ8M3nf8kNgsqTBZpvu+uV+Xv+Z3DU+rlVI8ZmOCEWzwJtOqi7cw6EM5WwZgx1bNjkOsZU+VXOEHMTgJ48pay1aprWGPQkX67BwMIjpMXl5yH07ZOrR+L8cCWUgg5+oXN0bM43TgfsUwFpOIoZaW4hv8YVFx0jGHtruoyes9/6JeXmSbmAm8NgV464HQeuOM1KJWLvN466UH0aXX1eUZuiNxWN/pgqB7OSUPQdDQgnOtlij00J904yslfLcCZcIkGS5IVvsEMkIBZ7mx1nlKSI/30B+sPE/oFrXqL3Mj4kfqff2trwU2CWVTtuSkMaA6y609yqgj4oR4PGhdHYenOy6sA3O4WDSbIEOwycfiEf6Q+CG8GxRFBBGpVyInAhzcEdfEZCnRNlWj7mokSjc5D+gKKQShGhmmVq2OYKaJoSNY8fYgIbHQCF+tJGQunLBdPOPcljcHazeDO19u4HFxI4+d/ENdipK43NshjiO2Q8wKnTfNnuNIrl5cXrG6VOv9CYhvXWiu1AUHxttFGhsir14o6avAHTpTXiJcqBascXWeQKpkV8AwxWVV31GtO86kaik5Rkotic294al/XHyyz+DzCnjcmrLNFOm+CbBY6CjHvN0uDS5JgnK1YIyqNMBa5ryuItq/wqIRDmnYVLUUuRA7ziQ
-X-GND-State: clean
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 08/10] Set PF_RECLAIMABLE_STACK in various places
+To: David Stevens <stevensd@google.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman
+ Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
+	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+	<vschneid@redhat.com>, Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Kees Cook <kees@kernel.org>, Sebastian Andrzej Siewior
+	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
+	<suleiman@google.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mm@kvack.org>, <linux-rt-devel@lists.linux.dev>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-9-stevensd@google.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260827232948.2520558-9-stevensd@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E7E:EE_|DM4PR12MB6446:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff09e39e-49d5-4443-5c3b-08df04ce5e55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|23010399003|921020|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5pvdfohkjpkcsCKBcU3fuDs2+IF+KZxhiYohosNSogwRaqEkjoS0CymhpSuF5C+RfJWxiaWRH3LAXn/rkiz57dodSn60lhYcvyp868n5/iJfslci8zBoF73OSoltQge4JYBH+TzvYBpYs6ywNGA3uI2JwTbF1hLPzuxXUVDEMVH7fLWXIZLl3uai27zzxMqzSx8S7mxn4UOLxgxJLK+14S9wpee4lTK9n9IQiX10yt4Ne3A4igshxXpgwCus+SGKxNwqOCJ/ao1aFVQDhI/2c9ngtQBigFmKUP+uJHKpmVs5DpTXRbdC800trCJ4VOfHE+n7WR4/zpF+cuSYNYENTPFTyg6ctH0ZhcESJEzG42N5gt+O8E1ElTf4XSPUADkESaSPeyGSo9v5hcrzFuVl4mpNvQT/LjBA0f5gOgz1snbCSI24Xk0fpsss+Sn/AG4dubquB2PWgiHf8yc3M47hoTKvEsV1ds4i3BXkYHVpjqnJS11N/Px7vnktI2wrM59OC2I1JW+lX+TD6X2Fok+i6ZuAtxbLFr5UtIzLziIpEUZhUG/6URavk2b/eNzqHv3qPSzNVP9YRKj/hK7Hi0Zm3ONKr4BTWH9F7w2FAd6++GwznM3lmDhLH4kQDZN2I0vL34jbWFvXvZC8FvqaCfi/VlDe3YTevKlKuUhAe4ESwNy+D++N08StCbEWRMFyGLC/gbSyoG/r4lilmRN+t1DX34Dl+D9Fvou7Pll7928zoxtCSYUj4G445OjjA38hcPNO
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(921020)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/bzQXGIkGDqcDuPC1G2P1h9VV7iiEZiesIogpH3lLIWj9QabAa1h8O1pxrHTg1WjUAx32pWkcCUXkcbYvY5nQ4N7Wmo3yYuPKdO6YL/6p0/RfexFDv1TEifdhW2xrwMXxGtnE4ZBTmlVDSfKwagwpPVFwesJ5IP+2gQ17jUp1pLDrgseTbtDnvQGXb2jBySPbIllIDZf9ov/FaqpMaT1ra8Wx/Qs97ZGQbkPr4yDlmopi14KrlpCgaxrskYaC3GAyBKG6Zrd3wXuthzIZYSi5DEhEohP95ebdTj/PrcRYz+4Ttlfr/ZQpAVQ+IGUE1djtsLHeMzyAnUPN8M9L4bJ784yTebEFKqxNuP1MbYZc2LPse7/3I1Xk+36cfZ6p4W1r5sNoSx/6dSNjU7BJySNN5pKv2JnuQRkS/mUEIJfKquRneDzWSg3M9i0wvyuaplg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 06:34:10.0970
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff09e39e-49d5-4443-5c3b-08df04ce5e55
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E7E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6446
 
-Update the container.rst documentation page with a new section for the
-TOML configuration file, its associated command line options and an
-intro paragraph.
+Hello David,
 
-Provide a sample config using the TuxMake images with an example to
-show how to simplify the command line syntax.
+On 8/28/2026 4:59 AM, David Stevens wrote:
+> @@ -469,16 +470,23 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+>                         break;
+>                 }
+>                 mutex_unlock(&pipe->mutex);
+> -               /*
+> -                * We only get here if we didn't actually read anything.
+> -                *
+> -                * But because we didn't read anything, at this point we can
+> -                * just return directly with -ERESTARTSYS if we're interrupted,
+> -                * since we've done any required wakeups and there's no need
+> -                * to mark anything accessed. And we've dropped the lock.
+> -                */
+> -               if (wait_event_interruptible_exclusive(pipe->rd_wait, pipe_readable(pipe)) < 0)
+> -                       return -ERESTARTSYS;
+> +
+> +               {
+> +                       guard(allow_stack_reclaim)();
 
-Bump the requirement from Python 3.10 to 3.11 which is when tomllib
-was introduced.  Also, Python 3.10 is about to reach its end of life.
+nit. You can just use a
 
-Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
----
+    scoped_guard(allow_stack_reclaim) {
+        if (wait_event_interruptible_exclusive(...))
+            return -ERESTARTSYS;
+    }
 
-Notes:
-    Changes in v2:
-    - fix typo in configuration file section
+here.
 
- Documentation/dev-tools/container.rst | 98 ++++++++++++++++++++++++++-
- 1 file changed, 95 insertions(+), 3 deletions(-)
+Same comment for rest of the thread where a scoped_guard() can be used
+instead of this pattern.
 
-diff --git a/Documentation/dev-tools/container.rst b/Documentation/dev-tools/container.rst
-index 452415b64662..5f55278b9948 100644
---- a/Documentation/dev-tools/container.rst
-+++ b/Documentation/dev-tools/container.rst
-@@ -26,6 +26,11 @@ Command line syntax::
- 
- Available options:
- 
-+``-c, --config-file CONFIG_FILE``
-+
-+    Path to the config file.  If not specified, the default is to look for
-+    ``.container.toml`` in the current working directory.
-+
- ``-e, --env-file ENV_FILE``
- 
-     Path to an environment file to load in the container.
-@@ -38,6 +43,11 @@ Available options:
- 
-     Container image name (required).
- 
-+``-p, --config-profile CONFIG_PROFILE``
-+
-+    Profile section to use in the config file.  This will override any values
-+    defined in the ``DEFAULT`` section.
-+
- ``-r, --runtime RUNTIME``
- 
-     Container runtime name.  Supported runtimes: ``docker``, ``podman``.
-@@ -53,8 +63,8 @@ Available options:
- 
-     User id to use inside the container.
- 
--    If the ``-g`` option is not specified, the user id will also be used for
--    the group id.
-+    If the ``-g`` option is not specified, the user id will also be set as the
-+    group id.
- 
- ``-v, --verbose``
- 
-@@ -86,9 +96,13 @@ container with SIGINT (Ctrl-C).  To run commands interactively with a TTY, the
- shell directly rather than the parent ``container`` process.  To exit an
- interactive shell, use Ctrl-D or ``exit``.
- 
-+A :ref:`configuration file<config_file>` may be used to facilitate running
-+containers for various use cases.  It also removes the burden of repeatedly
-+providing the same options on the command line.
-+
- .. note::
- 
--   The only host requirement aside from a container runtime is Python 3.10 or
-+   The only host requirement aside from a container runtime is Python 3.11 or
-    later.
- 
- .. note::
-@@ -225,3 +239,81 @@ To build the HTML documentation, which requires the ``kdocs`` image built with
- ``make PREFIX=kernel.org/ extra`` as it's not a compiler toolchain::
- 
-   scripts/container -i kernel.org/kdocs make htmldocs
-+
-+.. _config_file:
-+
-+Configuration File
-+==================
-+
-+By default, the tool will look for a configuration file named
-+``.container.toml`` in the current working directory.  If not found, it will be
-+silently ignored as it's not required.  Alternatively, any other path can be
-+specified with the ``-c`` option in which case the file needs to be present or
-+an error will be raised.
-+
-+Its data follows the standard TOML format and is made up of different sections
-+with ``DEFAULT`` as the default one.  Other sections may be used to define
-+alternative profiles under arbitrary names which can be selected by the ``-p``
-+option.  Command line options take precedence over configuration values, and
-+profile sections take precedence over the default one.
-+
-+Supported options in each section are:
-+
-+``env_file``
-+
-+    Path to an environment file to load in the container, equivalent to the
-+    ``-e`` command line option.
-+
-+``image``
-+
-+    Name of the container image to use, equivalent to the ``-i`` command line
-+    option.
-+
-+``registry``
-+
-+    Name of the container image registry to use.  This will be used as a prefix
-+    before the image name with a ``/`` separator.
-+
-+    For example, a ``docker.io`` registry and a ``myuser/myimage`` image will
-+    result in ``docker.io/myuser/myimage`` as the full image path.
-+
-+``runtime``
-+
-+    Name of the container runtime, equivalent to the ``-r`` command line option.
-+
-+``uid`` / ``gid`` (integers)
-+
-+    User and group id numbers to use inside the container, equivalents to the
-+    ``-u`` and ``-g`` command line options respectively.
-+
-+
-+Here's a sample configuration with an extra ``clang`` profile::
-+
-+  [DEFAULT]
-+  runtime = "podman"
-+  registry = "docker.io"
-+  image = "tuxmake/korg-gcc"
-+
-+  [clang]
-+  image = "tuxmake/korg-clang"
-+  env_file = ".clang.env"
-+
-+It mentions a ``.clang.env`` file which simply contains this flag::
-+
-+  LLVM=1
-+
-+Let's take a look again at this example mentioned earlier::
-+
-+  scripts/container -i docker.io/tuxmake/korg-clang -- make LLVM=1 defconfig
-+
-+Using the configuration file, it can now be simplified into this::
-+
-+  scripts/container -p clang -- make defconfig
-+
-+Then to override the default runtime, the ``-r`` option can still be used::
-+
-+  scripts/container -p clang -r docker -- make defconfig
-+
-+This also illustrates how values take precedence over each other: the registry
-+is loaded from the ``DEFAULT`` section, the image from the ``clang`` section
-+and the runtime from the command line ``-r`` option.
+> +                       /*
+> +                        * We only get here if we didn't actually read
+> +                        * anything.
+> +                        *
+> +                        * But because we didn't read anything, at this point
+> +                        * we can just return directly with -ERESTARTSYS if
+> +                        * we're interrupted, since we've done any required
+> +                        * wakeups and there's no need to mark anything
+> +                        * accessed. And we've dropped the lock.
+> +                        */
+> +                       if (wait_event_interruptible_exclusive(pipe->rd_wait,
+> +                                                              pipe_readable(pipe)) < 0)
+> +                               return -ERESTARTSYS;
+> +               }
+
 -- 
-2.47.3
+Thanks and Regards,
+Prateek
 
