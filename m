@@ -1,138 +1,149 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE8B3DA7D0
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787915962; cv=pass; b=HFYPsgAmCZL6U61OJ5XaLTepZdBPmvlzKJoKmJGA5XSqzvj6apE0hhc3jeHrweo6Os10RUet5WtGjLNk02PwxSrA1CL9xQB3cuJTQufuRczRGkLj/cz4UDEZk/j78oQqi7vVvspkS5baBPd/o6qTX625jabvzGVlxa+egU/e+w8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787915962; c=relaxed/simple;
-	bh=QYvSa0bITS46trNZt8jRRzM5UlKEPCTWXzhCtYA37gk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YxcQ3XXSayk7eHxZrT0Hkn5H2wBFc4hDm1gLMZPc2LDhvzyu5Dl83Bf4htzBfG1w7RzoKP+gn1jMqMdHqAUK0cDucD1QdwAQBCe52tk2tHKe8T4/8TgbsLfzFISpF8zeEK8XooC4jgW6YJR1+sqz4dRQvyO1vdBcZq+sWLUnZgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=iHtCSZqu; arc=pass smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0873DA5A0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787916001; cv=none; b=mStM0FjLH84CfWfCcpACwgkKLL/+YeqFnODUtLgVPLSq+JxQYNrNk3fJ5u3eIcYZtqbzajrt7X/kpeGug4LUUncjFpawChsJW+w3A+o5K8kg5wq2zjSfgYWQDe36TlUitbqql8HAGitqkJSp4qbYWlf9ekrFcNPYuMzR8LSr414=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787916001; c=relaxed/simple;
+	bh=cF3HWeih9mizQlhC0lAduMfJmoJV7rRyfj5WKrFSU5E=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=HtJMij/YC8tc5pHvpcJK9GemRPaM5BPcJNt47KgpVm/F/HR/+7W7afCIKdZH0Ys5Y09TUnLXB2hC41kyILoHacNgetpvbFG7r3Mia8oJTkM7JLKKetWbrlh6uMvUnCI3KuzUbsi+MLP7J7+YEVxnLQoGr4QnOKdcORBwCPj+C/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xhVEicbA; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="iHtCSZqu"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1ceadbd16so772619a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:19:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787915960; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pijz0R24ZZR7gmiXr07N8bc7LUe/ancJ/J2WPKr9vcx3Iit1MrhVqBrwJ1TkfMvGrg
-         l3r9OipEyDNKaVmwPN2C01+505ncAXqCv+O5tGkgz72fES/CgRAhPLY2hoJ2Mw9s6XCn
-         p8iXBStc0PAbDTn+2neGX4qZAYRM4XcRMooc1242lYztLm3df/7tGZsHSq2/pM5Xt+v1
-         1Hnvx0+cRUweHhOdRlyyrcJqB051Im5a/bhSkwlfrhyo3bLBAg1AksRhnec+8Mw4DKbv
-         ABrbiAG0FKC2k8hwW0F9IXC2jEjsGcQMRcWBHuoPR/kAiqNCMyauXH8biqOXDQhMhuew
-         OvxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XHV/c33+UZ0gfJQBaixU2xMfyx2z6ZYTrHSRI/+UPHM=;
-        fh=TJBcWgLLfuGMLTGuZ7BvAX4NonwoWwgRlHZ6xbbNpJQ=;
-        b=iOea9nbzcv6shH+uv7Wqcg+CPH8BEYVsS6w5p/WyFcQaqrvvS5xxKWBHkz1/XLH1Bo
-         zBUb1Q40tqUb+BYDmJKvfGOxur/4fjkj+gyCtwXTB36f5aaVWZjoj9/YKaouCl7lZyJJ
-         2qFJi0R8PTD+Ip9FF6DG/jEdWEUkC/SEHztsXomziHh6yrnIaA8kDFy3g8BK2LaiQrZf
-         3wfMEuH5aG7NqNwCYLf8UQUaCkr/1cV7B+MAWt2yU+/5+wly5nOyaqAQJ2cN6fwv+HTX
-         Ihv6oaG3XbLPvSz3ddcMmSWbODhG+Ggpok/Vml67JX41q8yRK01vLpM5sAXuLhPZkmb8
-         V47Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787915960; x=1788520760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XHV/c33+UZ0gfJQBaixU2xMfyx2z6ZYTrHSRI/+UPHM=;
-        b=iHtCSZqul6qJ4lb1BWwAQQLUbvDidXlS3PaNogbQTV/GBOFSPFqdu6dhfEHPviN3oh
-         KonET4OLNSqV24sOl3Lq2BCW+CbfvJB+5F7r0Mh29wPHpFO9aKhBCYCNx849DwleSqU9
-         Nyitm4x4HzczanZQxBb2+94/RtTTjkm5YbV/lGN6vVLTBt101W8DuIKbLX1DFEwMjP4i
-         /2qQZWmp9UeAytbkmqIuOJtvPzuz2M9D77Jinh3VFS3ezqhM5ntPYQW8bPahufInqCuC
-         Jc3w+mLQeIxgAp0deA8uQiTVE7RiXQ1dgD4iBi7MrRM6B1jspfeuDW1R0kex4hqp3109
-         s/DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787915960; x=1788520760;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XHV/c33+UZ0gfJQBaixU2xMfyx2z6ZYTrHSRI/+UPHM=;
-        b=agUfSXFC5kFLh7uaPt5ZQZOlZ87RjolG2iVMhQx0MtKxIILxrCF07pslWsECKTA3lb
-         64OxvTz8UfJQJ7zwjornKJ2Q87CWqRLDL87z2dJvGsnxOrtXamlsY6/Qw9ExiwDLRjD0
-         fE6kz7D3ncVyWpcqQIr0dUAlY5xOwMSOIDEm2PojaiTOSmvmkY78BGxjcdEQ8cH3+6b5
-         M7ntiHgZqE4nCZUmvEIDr4z3palFj/ibjWFaRu3VTS609mPTh5okYKa3iEUc67UABBOq
-         R6JYMfrz8eDNXUZGXQNlRWvsWhqSZNVlqIKk7kk9NnnGvb87mPStupMcPwzbliYHMbY1
-         koAA==
-X-Forwarded-Encrypted: i=1; AHgh+RpeSkPFTdxDDG5I8JsGIUBwPgJSg/OopqD3o9Xz31++2QWqDsIqem3GsMhpu+kXzYg53sZXRahqU2uQIis=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+m54UUMsb24DTHuCZ8yfyKWvmBMLNvukTIR3X1JAcnn90f5i5
-	jHdzJWihXmccXKMWVDQgxHnVS8586tQXtJGXFSu993FP/+rDoLiH3G2hciE9YGkALQ1ehl00FYw
-	TFIwCqEC52WZqGXi4+yPRWv0boTOdGFe58P447b0FpGBSSTmkIw12Ze/S
-X-Gm-Gg: AR+sD11qaEQqvyfQwyaxRXMdz3715yjTMhRf9Is68ATlIo/FJxOa7na1HCWqH+LWmmx
-	6urnQ1Fm6zTvJW4MYyf87xqYkLesHyQeSv/QEWrWNYdyLAhG6gC0uKKz/jZ5833UB9I8rbMOLEW
-	2XOqQbLpnKc5uk4iRm4UFXSSfJhaV+Ll+uVA20qc0qaMbR57E4eYGNxq3fowRlBU5CM5FUeSpAn
-	Tiw3bQHqqcUbVn9RSJ+JkVzP70B+YG3LiaM9NSu7//4dFmId9AGW/Qn5ZT1eVCvZ0QPx+XS955J
-	gkjXnIWQXPYc7lN6EkUJF9Qya3HkMW6Oae7hlerddNllMvH8RnGZ3EBCn8QFUqOgkmgx8U//10T
-	2hZY5jiNWPlOYsgW7vctw8yEfd68y
-X-Received: by 2002:a17:90b:3f50:b0:381:a766:efc9 with SMTP id
- 98e67ed59e1d1-396d0df72e2mr12544716a91.7.1787915925380; Fri, 28 Aug 2026
- 04:18:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xhVEicbA"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787915991; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type;
+	bh=IAQkJiwpeJjLw8BqNQqw/tgT0NrjBIcarZuenlfD0CE=;
+	b=xhVEicbAzkGF8RAfGvs54NVAG+Ky8zIzbuGW7RrVkAU8+WhsFAJYJKNZ/CWwiDX+BD2ww34GIL2idF13n8MvcJC+wRfZED6uevuv4t89U0Xn7JSwB0nPcDu6YQ3JoYxClvah/2deIbMZomp3r0J0Mt0us9fJ0hI6QJoDWpNUReA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9mEGS6_1787915990;
+Received: from 30.221.129.54(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9mEGS6_1787915990 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 28 Aug 2026 19:19:50 +0800
+Message-ID: <5994ae88-8e0e-4bf4-a543-2b5201848138@linux.alibaba.com>
+Date: Fri, 28 Aug 2026 19:19:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+0ovCi63OBqOySpNgU5xND840CDhi3B1dp1QsxhmcOOo-7w1w@mail.gmail.com>
- <2026082817-trough-wasting-29bd@gregkh>
-In-Reply-To: <2026082817-trough-wasting-29bd@gregkh>
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Fri, 28 Aug 2026 04:18:32 -0700
-X-Gm-Features: AcwNN1W2M9DEag7qNF2zcfc89TEMPyYwDUox742H1H1jepKnzMWTt2CUyAQ4W0Q
-Message-ID: <CA+0ovChRcs0scwASAKRdeZuTJS6KyA4g3JpoTA_iCEPXZK3c8w@mail.gmail.com>
-Subject: Re: [BUG] ci_hdrc_add_device -- KASAN slab-out-of-bounds reading a
- FOREIGN device's platform_data
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Peter Chen <peter.chen@kernel.org>, falemi@asu.edu, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: free replay slots in ocfs2_recovery_exit()
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Heming Zhao <heming.zhao@suse.com>, Li Zetao <lizetao1@huawei.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260828100114.530941-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260828100114.530941-1-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Greg,
 
-We are not sending more emails after receiving your earlier set of
-messages. These are all some classifier backlogs.
 
-On Fri, Aug 28, 2026 at 4:01=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Aug 27, 2026 at 10:34:56PM -0700, Farhad Alemi wrote:
-> > Hello,
-> >
-> > As part of the kernel research at ASU's SEFCOM
-> > lab, we hit the crash below. Crash reports can be found here:
-> >
-> >   https://github.com/farhad-alemi/public_bug_reports/tree/main/150-usb-=
-chipidea-foreign-platform_data-oob/
-> >
-> >   BUG: KASAN: slab-out-of-bounds in ci_hdrc_add_device+0xb76/0xd10
-> >   Read of size 4 at addr ffff88810e9061c8 by task repro/9505
-> >   Call Trace:
-> >    ci_hdrc_add_device+0xb76/0xd10
-> >    ci_hdrc_usb2_probe+0x22d/0x370
-> >    platform_probe+0xf9/0x190
-> >    really_probe+0x267/0xaf0
-> >    __driver_probe_device+0x1e2/0x350
-> >    device_driver_attach+0xe0/0x1d0
-> >    bind_store+0x1d0/0x220
-> >    kernfs_fop_write_iter+0x3af/0x540
-> >    vfs_write+0x61d/0xb90
-> >    ksys_write+0x150/0x270
-> >
-> > Our reproducer.c is available upon request.
->
-> Why are these still being sent?
->
-> confused,
->
-> greg k-h
+On 8/28/26 6:01 PM, Joseph Qi wrote:
+> Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+> added ocfs2_free_replay_slots() calls to the mount error paths
+> out_dismount and out_check_volume to fix a leak of osb->replay_map.
+> However these calls are unlocked while the bail path of the recovery
+> thread, which is woken up by out_dismount right before the call, also
+> frees the replay slots under osb->recovery_lock.  Both sides can thus
+> observe a non-NULL osb->replay_map and trigger a double free.
+> 
+> Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
+> after ocfs2_recovery_disable(), which waits for a running recovery
+> thread to exit under osb->recovery_lock, and drop the unlocked call
+> sites.  Both ocfs2_dismount_volume() and the out_super path of
+> ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
+> freed on every path.  Since super.c no longer references it, make
+> ocfs2_free_replay_slots() static again.
+> 
+
+Sashiko has review comments:
+https://sashiko.dev/#/patchset/20260828100114.530941-1-joseph.qi@linux.alibaba.com?part=1
+
+This is because it is base on patch:
+  "ocfs2: exit recovery thread on mount error path"
+
+I'll resend them as a series.
+
+Thanks,
+Joseph
+
+> Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/ocfs2/journal.c | 3 ++-
+>  fs/ocfs2/journal.h | 1 -
+>  fs/ocfs2/super.c   | 5 +----
+>  3 files changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+> index d8afbc1a76bb..a3938a03e93b 100644
+> --- a/fs/ocfs2/journal.c
+> +++ b/fs/ocfs2/journal.c
+> @@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
+>  	replay_map->rm_state = REPLAY_DONE;
+>  }
+>  
+> -void ocfs2_free_replay_slots(struct ocfs2_super *osb)
+> +static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
+>  {
+>  	struct ocfs2_replay_map *replay_map = osb->replay_map;
+>  
+> @@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
+>  	/* XXX: Should we bug if there are dirty entries? */
+>  
+>  	kfree(rm);
+> +	ocfs2_free_replay_slots(osb);
+>  }
+>  
+>  static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
+> diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
+> index f8b3b2a3d630..19fc920d26b1 100644
+> --- a/fs/ocfs2/journal.h
+> +++ b/fs/ocfs2/journal.h
+> @@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
+>  void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
+>  
+>  int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
+> -void ocfs2_free_replay_slots(struct ocfs2_super *osb);
+>  /*
+>   *  Journal Control:
+>   *  Initialize, Load, Shutdown, Wipe a journal.
+> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+> index f785c39d1fb8..6a8092b65bb5 100644
+> --- a/fs/ocfs2/super.c
+> +++ b/fs/ocfs2/super.c
+> @@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>  out_dismount:
+>  	atomic_set(&osb->vol_state, VOLUME_DISABLED);
+>  	wake_up(&osb->osb_mount_event);
+> -	ocfs2_free_replay_slots(osb);
+>  	ocfs2_dismount_volume(sb, 1);
+>  	goto out;
+>  
+> @@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
+>  	status = ocfs2_truncate_log_init(osb);
+>  	if (status < 0) {
+>  		mlog_errno(status);
+> -		goto out_check_volume;
+> +		goto out_system_inodes;
+>  	}
+>  
+>  	ocfs2_super_unlock(osb, 1);
+>  	return 0;
+>  
+> -out_check_volume:
+> -	ocfs2_free_replay_slots(osb);
+>  out_system_inodes:
+>  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
+>  		ocfs2_shutdown_local_alloc(osb);
+
