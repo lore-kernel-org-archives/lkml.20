@@ -1,116 +1,316 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9FC33F5A9
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF89344031
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926987; cv=none; b=lSmlqmVlpARSSajPxDMsNzWSlkDsUNv1ioSMTfHaX5z+8xyNLg2G2FJYu+sEXeHSpvoZcdmxMtwbImeU+eKe/MBPV1fNWYbj1G8gqoq0JzL/Qq6vnSJ7C9Fzsv0V4sKzLijk1ktkuRkedgUGmhQF111htugVhbU8+I5qlqLREh0=
+	t=1787927016; cv=none; b=vE1qhcqRThJG4m5DjYDS4ds8SwEl9tEx9gSMJZSElGx1CMGXie4e5438wUPh+s5L3i9o88RGu7X1GnuA0swx5EurB3g+9xEc/X7Qwjd5IWiMr0cR4QNo4epiuu+to8jiKu6MfvREus2RhKnN2HhdhWGWcYsNpYEfsUc3T/9xEKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926987; c=relaxed/simple;
-	bh=KN68LRoIM5aVi7AQOx7nnvGNWU1Z0eIPdG2ZcjuBWZ0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=AKfyYMRlOacfniaUEGQP86GUTNPaCAvLns9FMhoLyJZ2LQcNsRHRKCSJRY0lVIZkRsweYzlER3iAIZpOS2ClylUJxI0o3vKPs8vu0iLa1IZd6NuSvtytn6l+YmlYMx7hP5lWSwrUl+IS50v5RKEV7VlRTy/qCMVCqjU++/7z3aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AtBGxg8+; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787927016; c=relaxed/simple;
+	bh=9Yw6VjPITEuzUrcjxbchMA6ceT3AAjGsCBIeRJAsVHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lOKp1oT+nt1vZwyYwZMTW2iJgnsoxubWxkVnzyfJxzzBWo7OInL1XxXkow0khi9Uo+0LZCzEzcFHN9syXQ7Jm5l1tJqDAB7zrDy5K4SoIuNsQ6E1Cu+anvhy9zhTm1n9lLD6jQNWkgU8OPyzMrFPWU5WSa8CaNrZVVaLWDyDyEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J1D7oStQ; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AtBGxg8+"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ce8a76df2dso18627895ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:23:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J1D7oStQ"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso534910a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:23:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787926985; x=1788531785; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uMXimE85N6j1kkWKNP1joCUzxKs1AFORqZCP5bF0HOI=;
-        b=AtBGxg8+z7PPqyjmmc+Ee5rZdI/3S10JrWN9jhx26tPUm0Gc75OeVKGXkyPPj4LT4U
-         0fmCZrdEezc8BX5nVCDj8TD1Fbksl5y0vGyVsYIEI8WVeE79nikqz88yyhaE0y+gzeLp
-         ib+gUmLUonUmrLc3Eo+EQ33YwPTGliJwxz0G7RHNrc+kLXmuJMXW5JCUhy5io3gy64cT
-         yukhD6UOcbivKBMumpC4wkpm36Sz9zFY9dcJLI9Q30l83moMLqr6AvOIfbeQgpqi8EuF
-         +7mk6ymBQfJP5a2tMrnFx0YPlEaDeNlr4cuw+Q6eRQJ20/hE3qdBALKM/PvlAP8tfkJw
-         lmSQ==
+        d=gmail.com; s=20251104; t=1787927012; x=1788531812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2uVjedXiby+yAIFlJ5omJ3cMiFZpK01YVGgulAaPBNM=;
+        b=J1D7oStQ9HmXLv5WpAaJksPtg2z7nFzePXmMJIBUhFPg1zAYnWvBh2Mo8iERUrMwzP
+         +UseIra80W06YAA/aFU71k6IFDLULwEketfN8kCLduGw0ckulXkgSiDuxPZQClX3dzI/
+         xnUJa+lgJPwStHcDRvwWFt7Jq/RhkBuYXyeOZ3UaazFWm9caiygPkUs8ib5Q33np6yKo
+         2SuSFoQJgjxyD/pMAs0H1Oi8fLmxDDjYgCNRzszBaffX5J9/n+BYkPZftqX/TR3patum
+         59Gsf6LvXhforU+9Gk0V27yu/ayO6IaLHv3lC9b0qDPX5jce2oiXnK0WTtZ2nbiKrVRh
+         /yIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787926985; x=1788531785;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20251104; t=1787927012; x=1788531812;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uMXimE85N6j1kkWKNP1joCUzxKs1AFORqZCP5bF0HOI=;
-        b=WomwgJ4RtxYPbuZaMUeQLnnyrKWTOuRplYC+VRoLfO744NgTtUIrrNspzJMx8oPxms
-         w8eoLqH7nH5KXwVX0gV7fSd6uOVnhhHEbbwASKGBc+jN23HWiLhHmlfUajWYjPWT5pYv
-         v0p3+YOg8oMWRPN5bj70+w82Ji5vFYcS5/EoLeFmcMHtsuUddzkNDJWrQlFXj3U3kSuS
-         RURv6ZuioYPlhTF4M64qok1Lbr5RmC9P9XZWWfjiZIAVurd9/SglPPS+mR+w3elkd7Uo
-         QDcfHAWi1eNBfifM3WsnsjbawoSxxj+qO/M6kLx2EgmhKbbvqmB8tBAxToLINr8RVMLO
-         wWFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqoXE4OUgzv/27XBYlUNlA02r4qyA6oJFcixI7tgEjSV6WYi92AgBxHhbgfey/ULQKV8QMTISMsPgr8ct0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHxBr4np4d6QCrX3JBTUAyhiH5VBrAo68MzRu0oZ+aw2kbKVku
-	LwVHFzT5zqDpcvFtgmyTV78P4Rk3d51QQ50TKDc49C+Lp3sN7gC3UHHQJynfSv9mDcOQVE4qtTH
-	VPJErhw==
-X-Received: from pgea25.prod.google.com ([2002:a05:6a02:5399:b0:c88:b675:3609])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:9204:b0:3d3:aec2:4dc8
- with SMTP id adf61e73a8af0-3d3aec25083mr394376637.20.1787926984486; Fri, 28
- Aug 2026 07:23:04 -0700 (PDT)
-Date: Fri, 28 Aug 2026 07:23:03 -0700
-In-Reply-To: <33dfede6cca76de14ecffaaa92fd89da4114c94d.camel@infradead.org>
+        bh=2uVjedXiby+yAIFlJ5omJ3cMiFZpK01YVGgulAaPBNM=;
+        b=AS/L00rZAg5PrIHZKyUQgoIHuL2k6oF/QLkgzR7qKiDWbeeeVJ1pFnb9yWRWRSHgUZ
+         0lKJNdHL/tkUaQKlNBiSlDmWhyomFSwn8Q6i35TBNfp/aA71Pbb1sa8JzWlx7+4a/N30
+         Ps79hrUNhb1veC/Lw1VqHlV2IBxf74+PRNjL/3uJHFlCN8d1QRyrUff+piWSZ46hGNGW
+         ocrcavjIuTj2YpBM1xuhSl3St6cNu9sxypT8Z2foI4DNa8d4I/hb1fhyCd3VtU9fbkIM
+         PFcQNtylToYcQAeSGXhD1QnlF3n8byqN5vCqrLHcplIUMczLKfUa0940gmAqgQhHaeGA
+         hAEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqf8j2yUeHS/k0CZFIXFkixbmBHBnOnFPiSsuyl8QMyNHhSEHGss7Z2f03TBRzIcnUk62xT2k+P1+Mh3Zw=@vger.kernel.org
+X-Gm-Message-State: AFuF++leh4f6fEvS+33mRT9+vOsl3Ebyzmha1oLTKu7EFNuCbEj1qsEr
+	RUq2fPHtkWXWeFqjhje11DXM1dqG8yU23q62Jnh4W/yvLBSZYAg5djL7
+X-Gm-Gg: AR+sD13rmzqdCvcJWA24NYI/qjrpoxb6WJ5zWjPxWe748lTsZKzdL8HlVJrwbKJqAoi
+	o1dXR9Bu3pco00ajPSYBkqAqmCfNUMMVl59a4Fbv6T05SagOZOkv0gUbvXbMykMIFeVGsVW5aQJ
+	Ahqb+M1t55jbK+HPpMfJhtDOZUCiTps6qABE9MzPW7WLoOODp+2JxsOPjL8TSiJh39k05l+hU2e
+	v896CvfV5WqZdNiaHCuZqhDu+mZdnPm9lR8ovhOaQOyTm5UUKgjWxSSX8yjEYJNF5OySCR5cyA2
+	xmG9zcz9ikfx9u9mdoSUGFHxEODqPsHM1+omxhww3FVDYkJ9j3EOe176m7qz8yu1rG0XJh+SOd+
+	evVch2gGo/+U4GQOqCEhCDavVAw6t4gkMLGOB3EWnuHJbE9HI3R5KWSgK3xJ5XJGjYfmMpHW5My
+	KEpGZyJ5X4vKXr/l9PgYHXUPdJ86OAKMdQ3Mbodp8XeDSEkh74QKCSytpT1hLm
+X-Received: by 2002:a05:6830:2715:b0:7e6:f31c:47bd with SMTP id 46e09a7af769-7f4f231a4aemr9069327a34.3.1787927012099;
+        Fri, 28 Aug 2026 07:23:32 -0700 (PDT)
+Received: from sh170r6 ([47.221.33.210])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4fa99f86fsm1336591a34.22.2026.08.28.07.23.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:23:30 -0700 (PDT)
+From: Matt DeVillier <matt.devillier@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Matt DeVillier <matt.devillier@gmail.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] power: supply: cros_charge-control: adopt EC charge state on probe
+Date: Fri, 28 Aug 2026 09:23:15 -0500
+Message-ID: <20260828142318.1881516-1-matt.devillier@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260825120929.13168-1-matt.devillier@gmail.com>
+References: <20260825120929.13168-1-matt.devillier@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <8d47b43e1829ac92703723e6a1a4afc7a2eaacb5.camel@infradead.org>
- <apCwV7xenDh2qmr7@google.com> <apC3lYri5r4KUM3T@google.com>
- <20260828104537.pXtV2G8D@linutronix.de> <33dfede6cca76de14ecffaaa92fd89da4114c94d.camel@infradead.org>
-Message-ID: <apGZx3fhmzRl4Td2@google.com>
-Subject: Re: KVM: x86/mmu: __kvm_rmap_lock() preemption assert trips on PREEMPT_RT
-From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, James Houghton <jthoughton@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026, David Woodhouse wrote:
-> On Fri, 2026-08-28 at 12:45 +0200, Sebastian Andrzej Siewior wrote:
-> > On 2026-08-27 15:17:57 [-0700], Sean Christopherson wrote:
-> > > > @@ -1745,11 +1754,15 @@ static bool kvm_rmap_age_gfn_range(struct k=
-vm *kvm,
-> > > > =C2=A0	gfn_t gfn;
-> > > > =C2=A0	int level;
-> > > > =C2=A0
-> > > > +#ifdef CONFIG_PREEMPT_RT
-> > > > +	guard(read_lock)(&kvm->mmu_lock);
-> > > > +#endif
-> > >=20
-> > > And now I remember why I swept this under the rug.=C2=A0 This really =
-should take
-> > > mmu_lock for write, otherwise concurrent aging threads could theoreti=
-cally get
-> > > stuck competing for KVM_RMAP_LOCKED.=C2=A0 Which is silly, because th=
-ey don't actually
-> > > need to take a lock of any kind.=C2=A0 I.e. it's not super trivial?
-> > >=20
-> > > Wait, duh.=C2=A0 It is trivial if mmu_lock is held, because then KVM =
-can operate on
-> > > rmaps without any KVM_RMAP_LOCKED shenanigans.=C2=A0 I wouldn't test =
-this because it
-> > > might break horribly, but I think this?
-> >=20
-> > So you drop the bit spinlock and rely on kvm->mmu_lock instead?
+The driver previously always forced AUTO with no charge limits at
+probe, which discarded sustainer thresholds and modes set by firmware
+or firmware setup before the kernel loaded.
 
-Ya, it's basically a revert of the per-rmap locking, but just for PREEMPT_R=
-T.
+For command versions that support GET (v2+), read the EC state into
+the driver cache instead. Valid sustainer limits are adopted as AUTO
+with those thresholds: while the sustainer is active the EC may report
+IDLE or DISCHARGE as a transient hold/discharge step, which must not
+be exposed as inhibit-charge or force-discharge. Sustainer off
+(-1/-1) still maps to Linux "no limit" (0/100); other invalid limit
+pairs are remapped the same way with a warning and pushed back to
+the EC so the cache stays in sync.
 
-> > No sure why it should break horribly but it looks reasonable.
+If GET fails, fall back to the previous defaults and SET them on the
+EC. Command version 1 still cannot report state and keeps forcing a
+well-known configuration.
 
-I wasn't worried about the locking, I was worried I was forgetting an rmap =
-detail,
-e.g. I almost forgot to update rmap_head->val in the "unlock" path.
+Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
+Acked-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+v3:
+- adopt_ec_mode returns bool
+- single-line send returns
+- v1 init path uses goto defaults (Tzung-Bi)
+- add Acked-by from Thomas
 
-> FWIW it survived the night in my GPC invalidation torture tests.
+ drivers/power/supply/cros_charge-control.c | 151 ++++++++++++++++++---
+ 1 file changed, 133 insertions(+), 18 deletions(-)
 
-Awesome!  I'll throw a PREEMPT_RT kernel through the normal testing and hop=
-efully
-get a patch posted today.
+diff --git a/drivers/power/supply/cros_charge-control.c b/drivers/power/supply/cros_charge-control.c
+index e0f168624807..56420e1be7bd 100644
+--- a/drivers/power/supply/cros_charge-control.c
++++ b/drivers/power/supply/cros_charge-control.c
+@@ -21,12 +21,22 @@
+ 
+ /*
+  * Semantics of data *returned* from the EC API and Linux sysfs differ
+- * slightly, also the v1 API can not return any data.
+- * To match the expected sysfs API, data is never read back from the EC but
+- * cached in the driver.
++ * slightly:
++ *  - EC sustainer off is lower=upper=-1
++ *  - Linux "no limit" is start=0, end=100
++ * Also the v1 API can not return any data.
+  *
+- * Changes to the EC bypassing the driver will not be reflected in sysfs.
+- * Any change to "charge_behaviour" will synchronize the EC with the driver state.
++ * While the sustainer is active the EC may report IDLE or DISCHARGE as the
++ * current charge-control mode; that is an internal hold/discharge step, not a
++ * Linux inhibit-charge / force-discharge request. Valid sustainer limits are
++ * therefore adopted as AUTO with the reported thresholds.
++ *
++ * Sysfs reads come from a driver-side cache. On probe, command versions that
++ * support GET (v2+) are initialized from the EC so firmware or firmware-setup
++ * programmed limits and modes are preserved (unlike earlier behaviour that
++ * always forced AUTO with no limits). v1 still forces a well-known EC state.
++ * Subsequent sysfs writes keep the cache and EC in sync; changes that bypass
++ * the driver are not reflected until the next probe.
+  */
+ 
+ struct cros_chctl_priv {
+@@ -44,18 +54,23 @@ struct cros_chctl_priv {
+ };
+ 
+ static int cros_chctl_send_charge_control_cmd(struct cros_ec_device *cros_ec,
+-					      u8 cmd_version, struct ec_params_charge_control *req)
++					      u8 cmd_version,
++					      struct ec_params_charge_control *req,
++					      struct ec_response_charge_control *resp)
+ {
+-	int ret;
+ 	static const u8 outsizes[] = {
+ 		[1] = offsetof(struct ec_params_charge_control, cmd),
+ 		[2] = sizeof(struct ec_params_charge_control),
+ 		[3] = sizeof(struct ec_params_charge_control),
+ 	};
++	size_t insize = resp ? sizeof(*resp) : 0;
++	int ret;
+ 
+-	ret = cros_ec_cmd(cros_ec, cmd_version, EC_CMD_CHARGE_CONTROL, req,
+-			  outsizes[cmd_version], NULL, 0);
++	if (resp)
++		*resp = (struct ec_response_charge_control){};
+ 
++	ret = cros_ec_cmd(cros_ec, cmd_version, EC_CMD_CHARGE_CONTROL, req,
++			  outsizes[cmd_version], resp, insize);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -94,7 +109,114 @@ static int cros_chctl_configure_ec(struct cros_chctl_priv *priv)
+ 		req.sustain_soc.upper = -1;
+ 	}
+ 
+-	return cros_chctl_send_charge_control_cmd(priv->cros_ec, priv->cmd_version, &req);
++	return cros_chctl_send_charge_control_cmd(priv->cros_ec, priv->cmd_version, &req, NULL);
++}
++
++static int cros_chctl_get_ec_status(struct cros_chctl_priv *priv,
++				    struct ec_response_charge_control *resp)
++{
++	struct ec_params_charge_control req = {
++		.cmd = EC_CHARGE_CONTROL_CMD_GET,
++	};
++
++	return cros_chctl_send_charge_control_cmd(priv->cros_ec, priv->cmd_version, &req, resp);
++}
++
++static void cros_chctl_set_default_state(struct cros_chctl_priv *priv)
++{
++	lockdep_assert_held(&priv->lock);
++
++	priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
++	priv->current_start_threshold = 0;
++	priv->current_end_threshold = 100;
++}
++
++static bool cros_chctl_sustainer_limits_valid(s8 lower, s8 upper)
++{
++	return lower >= 0 && upper >= 0 && lower <= 100 && upper <= 100 && lower <= upper;
++}
++
++static bool cros_chctl_adopt_ec_mode(struct cros_chctl_priv *priv, u32 mode)
++{
++	lockdep_assert_held(&priv->lock);
++
++	switch (mode) {
++	case CHARGE_CONTROL_NORMAL:
++		priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
++		return true;
++	case CHARGE_CONTROL_IDLE:
++		priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE;
++		return true;
++	case CHARGE_CONTROL_DISCHARGE:
++		priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_FORCE_DISCHARGE;
++		return true;
++	default:
++		dev_warn(priv->dev, "unknown charge control mode %u\n", mode);
++		return false;
++	}
++}
++
++static int cros_chctl_init_state(struct cros_chctl_priv *priv)
++{
++	struct ec_response_charge_control resp;
++	s8 lower, upper;
++	int ret;
++
++	guard(mutex)(&priv->lock);
++
++	/* v1 cannot report current state; force a well-known EC configuration. */
++	if (priv->cmd_version < 2)
++		goto defaults;
++
++	ret = cros_chctl_get_ec_status(priv, &resp);
++	if (ret < 0) {
++		dev_warn(priv->dev,
++			 "failed to read EC charge state (%pe), applying defaults\n", ERR_PTR(ret));
++		goto defaults;
++	}
++
++	lower = resp.sustain_soc.lower;
++	upper = resp.sustain_soc.upper;
++
++	/*
++	 * Valid sustainer limits mean "auto with thresholds". The EC mode may
++	 * be IDLE/DISCHARGE while the sustainer holds or bleeds SoC; do not
++	 * expose that as inhibit-charge / force-discharge.
++	 */
++	if (cros_chctl_sustainer_limits_valid(lower, upper)) {
++		priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
++		priv->current_start_threshold = lower;
++		priv->current_end_threshold = upper;
++	} else {
++		if (!cros_chctl_adopt_ec_mode(priv, resp.mode))
++			goto defaults;
++
++		/*
++		 * Sustainer off is lower=upper=-1 → Linux "no limit" (0/100).
++		 * Any other non-valid pair is unexpected; remap, warn, and
++		 * push the cleaned state back to the EC.
++		 */
++		priv->current_start_threshold = 0;
++		priv->current_end_threshold = 100;
++
++		if (!(lower == -1 && upper == -1)) {
++			dev_warn(priv->dev,
++				 "invalid EC sustainer limits (%d/%d), treating as no limit\n",
++				 lower, upper);
++			return cros_chctl_configure_ec(priv);
++		}
++	}
++
++	dev_dbg(priv->dev,
++		"adopted EC charge state: behaviour=%d start=%u end=%u (ec mode=%u)\n",
++		priv->current_behaviour, priv->current_start_threshold,
++		priv->current_end_threshold, resp.mode);
++
++	return 0;
++
++defaults:
++	cros_chctl_set_default_state(priv);
++	return cros_chctl_configure_ec(priv);
+ }
+ 
+ static int cros_chctl_psy_ext_get_prop(struct power_supply *psy,
+@@ -152,7 +274,6 @@ static int cros_chctl_psy_ext_set_threshold(struct cros_chctl_priv *priv,
+ 	return 0;
+ }
+ 
+-
+ static int cros_chctl_psy_ext_set_prop(struct power_supply *psy,
+ 				       const struct power_supply_ext *ext,
+ 				       void *data,
+@@ -305,13 +426,7 @@ static int cros_chctl_probe(struct platform_device *pdev)
+ 	priv->battery_hook.add_battery = cros_chctl_add_battery;
+ 	priv->battery_hook.remove_battery = cros_chctl_remove_battery;
+ 
+-	priv->current_behaviour = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
+-	priv->current_start_threshold = 0;
+-	priv->current_end_threshold = 100;
+-
+-	/* Bring EC into well-known state */
+-	scoped_guard(mutex, &priv->lock)
+-		ret = cros_chctl_configure_ec(priv);
++	ret = cros_chctl_init_state(priv);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-- 
+2.53.0
+
