@@ -1,65 +1,100 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B113A48CE;
-	Fri, 28 Aug 2026 04:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260C8233945;
+	Fri, 28 Aug 2026 04:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787892202; cv=fail; b=ptfQCdUHH7b5uHoASuvjjDgAOVL47vAuLM07GN6lB7ULGQn0COWNXCLHdceitnexRCxV2ojkTHDN5wFzB5mSW78GTJ1Dg/UzG3HazxtU/CCG3f7J42XkusHKLNiHWFFDIy2hypDbv3b/QgL+TA2eCID1587KRYBdf5dSO/jTW2M=
+	t=1787892288; cv=fail; b=WhRNY7xeBueh2pJnTnnvGiQ/FR637bo1f5IO//kZ9Y5k1S78ZfrI02BYMtqVpucz/gd6VisafkDbN942JGDX1TeOKC0Zu09TV/YJRuUWx9b6EFRwV0xU3iNyG7HCMvk9EpRjwrdYv8uN9OanW3P1kbHkDgxtK2OLIJhiFKuHWR4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787892202; c=relaxed/simple;
-	bh=k6omCTgYjTnt8izcyKQ4j28UYoZUM69yuEPdB9D9TNs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=j3I1dZvoXyR1o1ZRtKVOtyadJ2Am+0ezYgCjC0sWzCbdPO5AxlvIkFSTJnWtuwxPm6E5JmQxbB2sLTB4Ck4DG7Zk6XmR3jPBzbbUtxiYu+u0DNR4NOE1WT6wcRdDBwMj+86a5QdDoRkifbEaGKe5eRPM3MT4gTlCy0K9q4GOWUM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IFy0Kf1w; arc=fail smtp.client-ip=52.101.53.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1787892288; c=relaxed/simple;
+	bh=LxFzjPAWZOWZ6oTzOAJqkAI5PWq3UG1EvvJtFcmB5s4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=nwgtphrpGTbkxvIzIY7sxOwG+CqA2bB1DrCMqn3UUX4Nx7Jk6Eq3VEmd34pOTZbtbKkmbxe9i6E+7iGl6+zuoMfQs3xG+GeYFEyylgvz8wcV6+JHP19qtiH7g1W9+Cx/XsxNYY3nVJdEPR3jn52r4+tJv529mZGTP7DWvHLeXxM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JG7VuYOH; arc=fail smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IFy0Kf1w"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JG7VuYOH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787892286; x=1819428286;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=LxFzjPAWZOWZ6oTzOAJqkAI5PWq3UG1EvvJtFcmB5s4=;
+  b=JG7VuYOH+o8opYtl6/2ig+9Js48P8MmfOzKRpsXVYJ2QwwxxEqHLOtHS
+   ODeu2tqfM6hwLXqBBznEsFRMyznB47r4G084m7NGmZKN6QnIKoccmeuly
+   X2AFqm/O50AZUDHCMOyqE6WDLNLSoFtRvoG8QDdcxjgR98JndoZj5k2jm
+   mnRkJBPSDLRBFLgjZk8QLcnAWOYPOOqU3TCfUVc2JjlBBQPE2cddL9SI8
+   3xelQpcA2EePc9rCK4t4wMEeVynK3cKWse++4PZ2LGtjIoOCEaFWlYQDR
+   hS7d/BAgZDOVyMzUahJdNK7mjgkQITObz6WjS6M3So+R8K3t4Hm8g9AMq
+   A==;
+X-CSE-ConnectionGUID: byi3o93VQzKvvn4EAF1Q7Q==
+X-CSE-MsgGUID: PUqmjYZnTB+87TEk10FluQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88422389"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88422389"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:44:46 -0700
+X-CSE-ConnectionGUID: jLqRRIEUS0urh1cU7VINRQ==
+X-CSE-MsgGUID: 7FUL7C6tT6SGJMrRzKma9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="270019534"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:44:45 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:44:45 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 27 Aug 2026 21:44:45 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.63) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:44:44 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IY7b6VyGEFcKRL/6SY7YPO9I9jT5xFSlIgz9U75dCBvTc/y2WF+Pzgakrgfy8HcqomQ4bVbZfRxsFhDgVPr9dA6VtiKAvpjzi2ickf2qBtD9lt2qUxQtWtMJHNSRIo6LDUJvp1nIWKnkybKYVR/V1ZULMfNzTgBjWDpiOdFM74qOYjMbjIlE0IvBKt4h6jdCpD3eqVRNGEyB3bOM/2WX8WXvZ64NoF8jgAmBkz6mUydjn0HkgAN1An+4nBbpPWKwPXfXjKaDPOajywUP40TUvCbavoG6hoKyMakL1/hK4DFVGUlHKFnHwoKfde045nz/mYlUq2NRlQd55Qa/wa2xyw==
+ b=RMgKO6ondq7XF7rMW4IrYyXdRaWopLzdUkg5/yqFnSq5knOBATiwNNdky4xu6ZTjVn85+qKaCohL+dH9032BHeqP8Nkm9RYqm17tGJKnwBDjevpQJLcw66lkcOYNoGRuZHiCqd+Hq4oCuSJsISvDXaAGkr4U0pJ+tpvTFzp7uWcIVk6pyHgWx9B0pgCMuqMXzAtEkjmsIbq7Gx7YCR1OuWFMJ3NCipfhrhf7g+nN9TJ8pEO9gwQymkfp+k4oB90dqAmDqCr2hmA/xNasU7N/fRs8fSMFX/R3B8NrL7qJhvWpt15QzU6bTQtP01nJNIEzpPRHLKkPBtlrBS8dKO9cjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+YGqhjO5Ich7ZbvuwuzHNqmhPnkfk5j5B+J/sxgKQH0=;
- b=iVMkTLPukGyuQaLdGIl/qB2/pmMSJOu3qpG6pSltPdJ+xWs+eC4mlX8x199qTO3cpwZR0VDHDpK7fv5Bm0WPBgpRGUGegAH57HRsJbC5ExyjbJBNVK//5Wf/JqCc6p+y/vbH8WaioJHKz5lCV3VoKo/yZRZDm60EZz/QBVZOfDpoEyPbstIJPnSt4KZFtFc+xmwCut6g4gk093g7IJEvOYeCkXowqrN35YqGy3QCeSQmafQB2dXX/IdGsJDrRwXpJMaSVqqJIfXsLmOYywjZMeTngpMiNoUlmt+hGfCX736x0wAm9T7UFyYLlyTCXPPUUDhUEe3dWYBmgT6h10jYtA==
+ bh=kOeBQGZ2GY/BcJazP3JpVZ6EnBFLLM/p6uQi2qrgo3U=;
+ b=qnT30cfxRtCOz4Y8EUmGqXFCs1YQp08iIfMCHgsqRbazMSGlnJzVrRDpChyaI+544kxzmFBctYyS0/HDQB8A388QTuqG/H2tT3ttDgOucC0IIVfE+DjqMk9dp1WJs7x8EnnpcDGQH2LwRsd4xaMbWg76xaxw/NmTmdJ6pNDBeqhukaq3zh7399k7J1znnT/i9coCo+6MSOZUl3HboL9buPrbkybvJM4Z7ZmyfaiL2bBgm9SotgGbzAb2QcHROsk4mx4c7Gr7iVAA8qJ6gzdhHkNITJgjBSXYQuAnQ2uzn+asQMEqhqGt1lf+7sGduMoNZ+VGasp9UuGff1xIUxof1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+YGqhjO5Ich7ZbvuwuzHNqmhPnkfk5j5B+J/sxgKQH0=;
- b=IFy0Kf1w3h/RHLCsg8rrmyJgzNrl+RWA/6WzKD/4mOjRwW3gIhZbM6l5zqs8S0gfT5kE065REoTUPdyODQBEVH/FEXvPjR955fLMHUaQIF793B1nV3eMrOeGK7obwId5G+8yUcnyL02h+Ri5cAyi3j/9UvsM9+rvjCEzbJutDyM=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH1PPF9C964DBFE.namprd12.prod.outlook.com (2603:10b6:61f:fc00::61e) with
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by IA3PPF1805EFE45.namprd11.prod.outlook.com (2603:10b6:20f:fc04::ce) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 04:43:16 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0315.012; Fri, 28 Aug 2026
- 04:43:16 +0000
-Message-ID: <3c98d952-53ca-43f8-88c9-f5ebdbfbdbb9@amd.com>
-Date: Thu, 27 Aug 2026 23:43:13 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] thunderbolt: Fix tb->lock deadlock during hot-unplug
- on AMD USB4 routers
-Content-Language: en-US
-To: Juan Martinez <juan.martinez@amd.com>, westeri@kernel.org
-Cc: andreas.noever@gmail.com, YehezkelShB@gmail.com,
- Basavaraj.Natikar@amd.com, Sanath.S@amd.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260825214237.4179813-1-juan.martinez@amd.com>
- <20260827215740.415496-1-juan.martinez@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260827215740.415496-1-juan.martinez@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR12CA0010.namprd12.prod.outlook.com
- (2603:10b6:806:6f::15) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 2026 04:44:43 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 04:44:43 +0000
+Date: Thu, 27 Aug 2026 21:44:40 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+CC: Hui Su <sh_def@163.com>, <akpm@linux-foundation.org>,
+	<balbirs@nvidia.com>, <ziy@nvidia.com>, <joshua.hahnjy@gmail.com>,
+	<rakie.kim@sk.com>, <byungchul@sk.com>, <gourry@gourry.net>,
+	<ying.huang@linux.alibaba.com>, <apopple@nvidia.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for
+ compound folios
+Message-ID: <apESOAPVzggWmbcJ@gsse-cloud1.jf.intel.com>
+References: <20260817120758.669807-3-sh_def@163.com>
+ <4ead5df7-f000-4087-83e4-13aae036e0b7@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <4ead5df7-f000-4087-83e4-13aae036e0b7@kernel.org>
+X-ClientProxiedBy: SJ0PR05CA0020.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::25) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,194 +102,196 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH1PPF9C964DBFE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a0810f9-0267-4567-2f40-08df04bedfea
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA3PPF1805EFE45:EE_
+X-MS-Office365-Filtering-Correlation-Id: 645b62b1-14c0-4243-f4fd-08df04bf13f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YTBK8mxah59Scb/MWQqsJwJMin705U1ufJkvUo9ICRt4eFphCQVmbswHnNp5YlVonZQtzHXJrQTVuIiJQTnutQhNq+SNzqFBJwneBEimTzmUwY4k+fwAoicmEMan5EnjUYOghPEh2QbByZIWhI2AzTkSZGLQHUw+tCB23uBmw/pCC54o/njr9ZoHQaFTa8tmWT19NStrfR7Kj5MSHOlcsoqa449tK6ej3EzEPBcpm6Pyh8VnVu8mSKGOxcm6l1Hv/5+PtYpAskLX+PZZhNhCoyICkx5176Usi0Fthxs/HescHX76427lCWh7PQ5lHplV9VMjz1M7Cd34pN6yn/fI9npB3YJYlXQb8PmIoRQ9IO+MGxywnDMoqKk/SX92cZaCLY2EG+T/utQpE5H0ZsiQYVVqLGyDrPAq89rWipOD+8nmC9HIbY0PMLnAeqeH6y1vr+pHVE0nHi2E974qpHawv13LFXmF6tl3KyCcyZQfuWUYB3f2eFZW/oEpKgeJ4XsMGDgNrglrmCBhB6/X8nhP6I2qhk+MK1U/A0XpGQd3lTn7t+dr3qbgfyJC/h4K6L9FqUDTh84aCuLsBV+9swVqlA3oM1N3lqH5sQWqTBDif1vs9zl+xyk5IRrGOXcAvnNDerWshYNBQpHPV4zzJvOIMN1wApMqouR08DLKiJzYEOQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|7416014|10067099003|6133799003|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: tvKIfNBETvlSVAFAxO/zLXePLXgtFeG3MfQJdw7h0R7YVHhupQ15APQw/Zshy0ai2bl/f/uIsTLVYWSQXw7O4/LpQPSsn5JfAFfo7wA8j3DWbmqx77/FUJEoboZEAhMKOCaSIXREnNuArO64/1oEPpQLGGEBGBMyZDnUVGbAPsapB05rKHGKjh9JRE+/hpGs5gG9xiHHsVoIvRPHu9wfCdlzlEHjt6H+205zHiwwX9gIbbsfe15EKi05In+c+LxGaTixEn5fyBAIFFLOhXCkGEtlVkBSBpoj4IV0p3Yqb5SjTbZOEGJHJEIi8/pib4m9pSnMWtmPs5gDQgCr2/PDHe9E+EB8LkUYzlM6aTg7X96NaMr2ksgOJZe1s8znfihyGRfaH6Me93EYWpOU+cU1L19znc2g7dluG5cq3N49+f5I+jUjw29JKpGom7ag6h3uBxiUUS0XohBoMY2hzJZSTzJF4J7lwSRrjgx/b7rFzANeEGcZKB+W16ceLNAShiS5ZqoWrmY7j830e6aThKdXWkw6ZHFiY3fNWWzOrEdMzCCC8Gb4y7kGUZjK2t8FPbZ+IU4OG9Jmjb9I4YnBMtjd0Na8FgDOrZiP8bY4jtpOa9KyWxmjM74gompuXKuHT8X+7Dgv0nHS4Mg76Oe2PvCk1VmX1MJqbKJFbanHN9el3VI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(7416014)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S0lURHduczlwVXloVUZHVHhaMnFvU1N5VzNlQ01PSDVXdUE2SnVVaGtWZ3dE?=
- =?utf-8?B?bmVCWnhTRUYvcnRONWxSRGVPNHlOdHhWSngyZUQvSUtJVDNuNDc4Y1k5NDRC?=
- =?utf-8?B?amxBQWNxMDYwTWVSNzNKTlVhMEEwekJLRTZkMmYydS90R1lJcjZPQXUvd1o3?=
- =?utf-8?B?N0U0cWlKU2Y4MEtabzI3WWo2SmcrdnBjQzR5SHljQU1uZklQVVJ4Qzl6TVV5?=
- =?utf-8?B?UHZQamEzQlhSMS9MUXBDVnZnQVRxbVEvS3diVHV0WGoxUDBKV1R6YTBMZUwv?=
- =?utf-8?B?eUpkNU84RG1wY2k2ZHhRcVFyNjA4UzJRWjk2V3JLa2R5M2RuQlg1OEsvRitN?=
- =?utf-8?B?RWlLdVk5Y2ZSZnAwekwvZGc4U09Cc3crWUg1TWxFazdYRjcvQkNjTkExaU9B?=
- =?utf-8?B?NVZhbXptUWpVdkdMbDhUaDN2VXlXMXo4RjVIN2h4a2hXVGcyb0RiTGlYejhm?=
- =?utf-8?B?UlhZSk1ML002MThiM2ZMQVFUVVJEU1plVHB1VkpXVW1ObUFNOVZKV01JQ1NT?=
- =?utf-8?B?dlQ2a01ZQkhCOHY0SGtiOFM2dUpWenk2MXo1eUlCQi9MdmhoVm5VQ0FwRjEy?=
- =?utf-8?B?TCsxeWFRWUd6RFM1cER4ZitnOGNLTVNHQVd5V1hQdlBkbTJiOEFXYmM0b29L?=
- =?utf-8?B?UE5FWGEweGMxbmQzQndRSlZjTkJEemsrZ3dmK3p4VUtvZmluMFJ4NmJoeWNs?=
- =?utf-8?B?aFNLMHJLeGxtYk9PTldqZTNpVURqaVRjWC9LT3hDUWZtbytWVDR1SzdNaUpq?=
- =?utf-8?B?bDFDajN0NmJrQW1Yb0dValowT2MvSHBGODh1ZU1XTXdDZHlHSGtaRGlPcHhu?=
- =?utf-8?B?ZmpDQndlSnNyaXZiNllYV2xxclE3UTRDT3VJMXVxNUQrNklTRTZlek10OXpU?=
- =?utf-8?B?N1g1QlkxdzhyV3ZTNVBVQ2c3UWI3N1pCdS9aU2NVVGFPdXBwTzFaOGRxT05q?=
- =?utf-8?B?VW1BdVp4OEJuR1U4eWNPTFFJNkttMHNIZk8yTjVvSzRPbzVyM1dtd1hEb3B5?=
- =?utf-8?B?ZDlLUHhFQXk5dXN6VDd3RVcvcnZOKzRXM0FSYUpvZmZKWkdDTXRLWS9Qcy9D?=
- =?utf-8?B?MmpQOTJtT3l3azRmUFFiT2JGWXVWanVZVG9aQXhRSVFTRGZJZUJwMXM2bzhl?=
- =?utf-8?B?OFFuTnBBNFpkZzU3YUliWEZRQTQ3TW1oOVYvajZmYW91eFRiL2VadEVSVmU1?=
- =?utf-8?B?RzVrcklrN0YrcCt5RUkzYjRmb09MeTZqU3ZTNFNGMHJ1aG5BdVdhL3FHS0lW?=
- =?utf-8?B?RUNjOURsdDVPbkFDZTJRZEFJQnpsdUV2UjRWR29xQ1hwVDRKOG5vQmVmTFFY?=
- =?utf-8?B?aFJZTDBEQmhKdjdTdUcrY2xNVUUxdDlEWGNvUWQ5eko0NGdyNjV4UUJtWWZJ?=
- =?utf-8?B?eTdIV3BNM2F6K2pjeS9vdjIrb2s4d2ppTXhuVkdKOUpIT1dKelZWYVZ3VXZu?=
- =?utf-8?B?QnBYd2EzT3plRTdEc0F0Q0Y0THJhekVEMVhwVC9DVjU0VnNVM3RFRGc3cEhq?=
- =?utf-8?B?YjRXZCtGbEN1Qm1TbG1OSlFvUU1WVlZRV0hCcXRpeHYyNFlIRXYwa3JGOWRq?=
- =?utf-8?B?OVJ2RXB4clRzM3JzSDRIR0s1ZWxCYWVNc1ZFbjlpcStLdDdLUE5xc21BZVND?=
- =?utf-8?B?cEtEb0twY1BkWXJMRG9kUEthK2hvRStkWWE5ZkVQWjJVM2RGbmw2OVBmU1l3?=
- =?utf-8?B?bVBBSEhOdTZYbFBYMHFNZXNNZjdNQnk5TEZBT0hVREdVQTZYdGwyeVBIbTVw?=
- =?utf-8?B?ZEVRL0NWSWhnM3o4MVdsek9GY1BHMExlbGlEazYvb0lwa0hJUE5VU0FmY1g4?=
- =?utf-8?B?UnJhbUdsdVlDU3A0K1p1b2R5RnRXMTQwbXRJbksrZk5LL01LNWdKSFlQZ1Zu?=
- =?utf-8?B?WFhwanRSZ2sweVY5YmNSaldEc2kxRWhYYk1Zc1ZTZWhjYkRhOFpMM1diS2lT?=
- =?utf-8?B?a3h5RFFsTlNpM0drdlNkMlFHYUJKQXE2S3lhTUp3aDVPM1dxWWRPUGk1Z3Uv?=
- =?utf-8?B?anlhVXZSU3ZTaDRFMHV0T3J1eFN2UG53TE50VFg0SEdUSkFVVUowUXNuWEJy?=
- =?utf-8?B?ZW5XWEtrRWhtWnYxeHVwdEF1NkNlMlRoSEN4RUIxTHdrN0dKNFNRekg5c3ov?=
- =?utf-8?B?Q2Rsdk5IUlYrSGg5S2M0VkV6T2xtTGtpWmtyUmtpUFJoQ1hrSGh4UXZwQ3dY?=
- =?utf-8?B?M2V0Z0JGOFU5cVpDRG0vRHFiMzJreW82ckJ4S0NYWHRLN0NlVlFQZlVXVURF?=
- =?utf-8?B?TTZyNFVkbkFLUXNrczdlVVRzMEZhZEtUWVJ0cWJ5bU9TY0hVbm52ZHZLa0lS?=
- =?utf-8?Q?yFxpdN29RvwOvjWBUZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a0810f9-0267-4567-2f40-08df04bedfea
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?M7jIhjkHiiwJ1xMnnQ5CGGwXuxpe4dIINhSHOZVIZWAtEsNt1wFIM3Kx5hXU?=
+ =?us-ascii?Q?kijo1zSyFY50PVxmBiJW0Y5mxau3QbC2PSVX6KMbmxiruUtRP4MvmE8m3o91?=
+ =?us-ascii?Q?1n8BLxGmuevvRv2BPyJuNg8+mvGBy4Xb/pPztPz9JU23xXRoTrWTIsNBXYWX?=
+ =?us-ascii?Q?ICfRsfDQ1C6xW9N0TFID5qjwyRbvTQxks8xhem16Py3EovQM1uUA4QSp/N8I?=
+ =?us-ascii?Q?Y1n4zG69TpUlN2FxxO3+4MDr7FdVAijlo0C70daEtfFxZnR7r1+56NnfCe2+?=
+ =?us-ascii?Q?+UiRS42H13vWZFjwGV9euns4iLXcoeDWagjtli0B0muTiNxnslA4ud9QonX1?=
+ =?us-ascii?Q?C4yP1ba2/UOUwCT7R8ON8k0nh7bFbkojWQkE6NwXbeprkyZkzW8k/HcAl0GR?=
+ =?us-ascii?Q?pEGJbEuvaahZbMv1KNX4EnL8BuomVcNNXJyb/Cpcn7GjKUkyXaSclhD+vh2j?=
+ =?us-ascii?Q?s9j0Wa+V5Q3PYz8D+LMRtN5SbYVz2sSS4VXKkbzyNiLDPuJTcgtmJjRcnz3c?=
+ =?us-ascii?Q?9XaROcmqf4pIx3ais0B5ZaEYK3hSSMvcOdjT9EcbIGEP5dI+50G/yOU+zM0k?=
+ =?us-ascii?Q?m64H7YCm4cGrNAfwA82Y0raOlYrnx1lOyoITfto0u3AINGkXOxaGMlYa9AtX?=
+ =?us-ascii?Q?qCmncii5edo3PX5znGG3pGH2sRWWjccT7xmkEbpKlhGCOTqwMavZSJ0zFYyK?=
+ =?us-ascii?Q?yEF5yKhb76alPbLWpSH7wSFT+9EeA1aXHPdMsB+3BsRxFOdXGTetWz5rQMjZ?=
+ =?us-ascii?Q?6cg4bbjzQlkpFKVVQ4vNg3etR80c7gP4xBHmiekwAYgxbICrn6eCRlifnA5I?=
+ =?us-ascii?Q?DSbJYPO69Py7U0M9Wj7wcBPMrzxSIRo4HsbjmjjFLCBTciPk30zzWdzGd4+q?=
+ =?us-ascii?Q?HD8j6X71+Endic/g7TsB6akbtj/wqZkY8JNlncZ+KJEVMf2DZ9kJev0Bw+y+?=
+ =?us-ascii?Q?6B5/lpcvhZslTdUADZpvypd1LjG3i9jUAbpU/DAM96OGbQkI4L4kcBGkdugc?=
+ =?us-ascii?Q?sBFVx9aNJ9uxzdYfw9J0qO/PPwSQzbIDhpgA57y3ZePSzcVkjk2bVp49JdwK?=
+ =?us-ascii?Q?aTiUq1GGVUqMHz565SS52nhTLkVOacPUxBZvaUQvg6qODmIprFfqw/IRY+UE?=
+ =?us-ascii?Q?RZ2+HPe/6fjtajbLoxr1JpwQC7IgMBHflR8X0aK2/PwwwBE0IxMPfw1vXoWn?=
+ =?us-ascii?Q?bfG8cnW0oopSq1ri0A+C2rEQKDA8jxwdyLZO30O+aKxJTT3/kusPHSijBR8p?=
+ =?us-ascii?Q?oUMhMwnB8nG0tHm7sOueInajEKyF4DSn24xmMKTbHud6Bb1/VIU0uYGyd8B7?=
+ =?us-ascii?Q?G+7BEfOdusu4AXXAQJ7rJokC/q7CGcDwtDSBUIB+T33IkdhpvauMxKkDNv31?=
+ =?us-ascii?Q?znVpmGbKSZIVibNMMqPItIsxWCy6e56fGIRBGud9B/f+e79R0pvFn+V2jol8?=
+ =?us-ascii?Q?Fy5N2VoVBUzK0JYxHTCf4S4I/eq30veq6dw2lDw/TdXD6Y5s5ci1YdjPzzze?=
+ =?us-ascii?Q?Wfo2E4OKRdGhFKeoQjoIRAnfwaf0c1Av5DtgXLDz+ujARY5/DseHya9Smale?=
+ =?us-ascii?Q?mEqjT1K0Fqm02djA6N4GNnPQvRYQ51kuoa37c8p/l9j7UcckAcVI5ZSV3O8w?=
+ =?us-ascii?Q?bH58P2A0E3rTQANgYYhxUcBT81JJFVJQlYcepjoV/gACgYX1uK97iuwEebov?=
+ =?us-ascii?Q?aZPWCRX0EIT+LhZ80bFtapf/NyMOV5wJn169ZpV/MXSEH72ScUQUuEigqCAT?=
+ =?us-ascii?Q?sEI/IEubvw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: NqE2IzeuYAbuxThHEwi0mRkew5YuQBNZ2zH1vZa6qr0cA06tYvgiinh20zwsezzkLqKrH9eWQwWVpUtpTHSit3y71QLXaHciuJAevOnGOFzZLI/LfcQxqsWjDzbT834X34a4BZF6KsuJR5Ato/EzV7z2tvlSAlNP56+1yrOYy1K6tPya3HnWFfsaSme4PcTw7ljQqQNxTFAJispgyXBi0/GqPaObW0iR2fI4xyUKbo+iR81jCkG0q8UEQec9HiGELIm3saR83DZlFmI/YO1XAZiNVQDcq+ohsLu3R4TbkxXZK39rY3Q3AFpFc53IZ7B36NYg58oWbImiE0B84CcqbQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 645b62b1-14c0-4243-f4fd-08df04bf13f8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:43:15.8856
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:44:43.2805
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cmvOOq+tvAthFQuEnmHfbwNp1eKF4a8W7DkP9Cz0ZhVqLCN07dCcpDc8qmjrjrAXTEqVIUAdrF3i+OnFa+OVBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF9C964DBFE
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8u8nmbD/lea+26iHzUyMqFZs2E8gYjjcgdLUeKM2tPTyuIoPH4T6yzOsGFNxSv1ePkg6qB/NkuET8IdVtllf+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PPF1805EFE45
+X-OriginatorOrg: intel.com
 
+On Thu, Aug 27, 2026 at 05:14:40PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/17/26 14:08, Hui Su wrote:
+> > migrate_device_range() and migrate_device_pfns() clear the entries
+> > following a compound folio so that the PFN arrays retain their
+> > page-granular representation.
+> > 
+> > If a compound folio extends beyond the end of the caller-provided range,
+> > the loops clear all following folio entries without limiting them to the
+> > number of slots remaining in the npages-sized array, causing an
+> > out-of-bounds write.
+> > 
+> > Do not proceed with a compound folio if its page-granular representation
+> > does not fit entirely in the remaining PFN array. If this happens, drop
+> > any reference and lock acquired for the folio, clear the remaining
+> > entries, and stop collecting.
+> > 
+> > Observed with a KASAN x86 QEMU kernel using the HMM
+> > migrate_anon_huge_zero selftest. Closing /dev/hmm_dmirror0 after
+> > migrating an anonymous huge page to device memory exercises:
+> > 
+> >   dmirror_fops_release()
+> >     -> dmirror_device_evict_chunk()
+> >       -> migrate_device_range()
+> > 
+> > Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hui Su <sh_def@163.com>
+> > ---
+> > Changes in v2:
+> > - Do not partially represent a compound folio when it does not fit in
+> >   the remaining PFN array.
+> > - Drop any reference and lock acquired for that folio, clear the
+> >   remaining entries, and stop collecting, as suggested by Balbir Singh.
+> > 
+> > v1: https://lore.kernel.org/lkml/20260817074350.442493-2-sh_def@163.com/
+> > 
+> >  mm/migrate_device.c | 18 ++++++++++++++++++
+> >  1 file changed, 18 insertions(+)
+> > 
+> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> > index 908d2d4ec43a..69b8d0660bab 100644
+> > --- a/mm/migrate_device.c
+> > +++ b/mm/migrate_device.c
+> > @@ -1400,6 +1400,15 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+> >  
+> >  		src_pfns[i] = migrate_device_pfn_lock(pfn);
+> >  		nr = folio_nr_pages(folio);
+> > +		if (nr > npages - i) {
+> > +			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+> > +				folio_unlock(folio);
+> > +				folio_put(folio);
+> > +			}
+> > +			memset(&src_pfns[i], 0,
+> > +			       (npages - i) * sizeof(*src_pfns));
+> > +			break;
+> > +		}
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> >  			for (j = 1; j < nr; j++)
+> > @@ -1434,6 +1443,15 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+> >  
+> >  		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
+> >  		nr = folio_nr_pages(folio);
+> > +		if (nr > npages - i) {
+> > +			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+> > +				folio_unlock(folio);
+> > +				folio_put(folio);
+> > +			}
+> > +			memset(&src_pfns[i], 0,
+> > +			       (npages - i) * sizeof(*src_pfns));
+> > +			break;
+> > +		}
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> >  			for (j = 1; j < nr; j++)
+> 
+> The code duplication here makes me angry. :) And using a memset on one branch but
+> not on the other is weird.
+> 
+> But is this the right fix or rather what
+> 
+> 	https://lore.kernel.org/r/20260805231041.3791771-3-matthew.brost@intel.com 
+> 
 
+I'm not sure my patch is right now that I think about, or if this patch
+is right, or your suggestion either :).
 
-On 8/27/26 16:57, Juan Martinez wrote:
-> Commit f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on
-> DMA path teardown for AMD USB4 routers") introduced a deadlock when
-> physically unplugging a Thunderbolt cable on AMD systems.
+> tried? That fix would also need a cleanup but seems code-wise simpler. A cleanup could look like:
 > 
-> The problem occurs because tb_handle_hotplug() holds tb->lock while
-> processing the unplug event. When it removes the XDomain services,
-> tbnet_remove() calls tb_xdomain_disable_paths() which eventually calls
-> tb_domain_reset_interface(). That function tries to acquire tb->lock
-> via guard(mutex), but the hotplug worker already holds it, causing a
-> self-deadlock.
-> 
-> The deadlock manifests as a complete network hang because
-> tb_handle_hotplug() holds RTNL while waiting on its own mutex, blocking
-> all network operations system-wide.
-> 
-> The existing code already handles this scenario partially: when
-> xd->is_unplugged is true, tb_disconnect_xdomain_paths() intentionally
-> skips the DMA teardown because the hotplug handler will do it later
-> via __tb_disconnect_xdomain_paths(). However, the reset was still
-> being called unconditionally.
-> 
-> Fix this by:
-> 1. Splitting tb_domain_reset_interface() into a locked inner function
->     __tb_domain_reset_interface_locked() and a locking wrapper
-> 2. Skipping the reset in tb_domain_disconnect_xdomain_paths() when
->     xd->is_unplugged is true (matching the existing teardown skip logic)
-> 3. Calling __tb_domain_reset_interface_locked() from tb_handle_hotplug()
->     after __tb_disconnect_xdomain_paths() where the actual DMA teardown
->     happens and tb->lock is already held
-> 
-> This preserves the reset behavior for normal shutdown paths while
-> avoiding the deadlock during physical cable unplug.
-> 
-> Fixes: f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on DMA path teardown for AMD USB4 routers")
-> Signed-off-by: Juan Martinez <juan.martinez@amd.com>
-> ---
->   drivers/thunderbolt/domain.c | 26 +++++++++++++++++++++-----
->   drivers/thunderbolt/tb.c     |  1 +
->   drivers/thunderbolt/tb.h     |  1 +
->   3 files changed, 23 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-> index 12c88509a54f..8f33baafe9ae 100644
-> --- a/drivers/thunderbolt/domain.c
-> +++ b/drivers/thunderbolt/domain.c
-> @@ -788,14 +788,19 @@ int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->   			transmit_ring, receive_path, receive_ring);
->   }
->   
-> -static void tb_domain_reset_interface(struct tb *tb)
-> +/*
-> + * __tb_domain_reset_interface_locked - Reset host interface (lock held)
-> + *
-> + * Caller must hold tb->lock. Used by hotplug path where lock is already held.
-> + */
-> +void __tb_domain_reset_interface_locked(struct tb *tb)
->   {
->   	struct tb_nhi *nhi = tb->nhi;
->   
-> -	if (!nhi->ops->reset_interface)
-> -		return;
-> +	lockdep_assert_held(&tb->lock);
->   
-> -	guard(mutex)(&tb->lock);
-> +	if (!nhi->ops->reset_interface || !(nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN))
-> +		return;
->   
->   	/* The reset clears the ring state so stop the control channel */
->   	tb_ctl_stop(tb->ctl);
-> @@ -803,6 +808,17 @@ static void tb_domain_reset_interface(struct tb *tb)
->   	tb_ctl_start(tb->ctl);
->   }
->   
-> +static void tb_domain_reset_interface(struct tb *tb)
-> +{
-> +	struct tb_nhi *nhi = tb->nhi;
-> +
-> +	if (!nhi->ops->reset_interface)
-> +		return;
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 762c5cee8fecc..480bf59bc2425 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -1419,10 +1419,9 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+>         for (pfn = start, i = 0; i < npages; pfn++, i++) {
+>                 struct page *page = pfn_to_page(pfn);
+>                 struct folio *folio = page_folio(page);
+> -               unsigned int nr = 1;
+> +               unsigned int nr = min(folio_nr_pages(folio), npages - i);
+>  
+>                 src_pfns[i] = migrate_device_pfn_lock(pfn);
+> -               nr = folio_nr_pages(folio);
+>                 if (nr > 1) {
+>                         src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+>                         for (j = 1; j < nr; j++)
+> @@ -1453,10 +1452,9 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+>         for (i = 0; i < npages; i++) {
+>                 struct page *page = pfn_to_page(src_pfns[i]);
+>                 struct folio *folio = page_folio(page);
+> -               unsigned int nr = 1;
+> +               unsigned int nr = min(folio_nr_pages(folio), npages - i);
 
-Why is this check here?  You already have the same check in 
-__tb_domain_reset_interface_locked().
+I think the semantics of both these function should be that if a user
+passes in a PFN array and one of the PFNs exceeds the `npages` limit,
+that is a misuse of this function and we should unwind and return an
+error. The caller is providing the PFNs and should therefore know the
+backing page alignment, so `npages` should always end exactly on a page
+boundary. The sole caller of migrate_device_pfns function is
+`drm_gpusvm/pagemap`, which certainly adheres to this requirement.
 
-> +
-> +	guard(mutex)(&tb->lock);
-> +	__tb_domain_reset_interface_locked(tb);
-> +}
-> +
->   /**
->    * tb_domain_disconnect_xdomain_paths() - Disable DMA paths for XDomain
->    * @tb: Domain disabling the DMA paths
-> @@ -835,7 +851,7 @@ int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->   	if (ret)
->   		return ret;
->   
-> -	if (tb->nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN)
-> +	if (!xd->is_unplugged)
->   		tb_domain_reset_interface(tb);
->   
->   	return 0;
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index b7cc6894a598..89dfb3381345 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -2489,6 +2489,7 @@ static void tb_handle_hotplug(struct work_struct *work)
->   			tb_xdomain_remove(xd);
->   			port->xdomain = NULL;
->   			__tb_disconnect_xdomain_paths(tb, xd, -1, -1, -1, -1);
-> +			__tb_domain_reset_interface_locked(tb);
->   			tb_xdomain_put(xd);
->   			tb_port_unconfigure_xdomain(port);
->   		} else if (tb_port_is_dpout(port) || tb_port_is_dpin(port)) {
-> diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-> index 4373336d9425..2e6e0920cb1f 100644
-> --- a/drivers/thunderbolt/tb.h
-> +++ b/drivers/thunderbolt/tb.h
-> @@ -789,6 +789,7 @@ int tb_domain_disconnect_pcie_paths(struct tb *tb);
->   int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->   				    int transmit_path, int transmit_ring,
->   				    int receive_path, int receive_ring);
-> +void __tb_domain_reset_interface_locked(struct tb *tb);
->   int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->   				       int transmit_path, int transmit_ring,
->   				       int receive_path, int receive_ring);
+The two callers of migrate_device_range, also seemly adheres to this
+requirement.
 
+Matt
+
+>  
+>                 src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
+> -               nr = folio_nr_pages(folio);
+>                 if (nr > 1) {
+>                         src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+>                         for (j = 1; j < nr; j++)
+> 
+> 
+> And as a further cleanup, we'd better de-duplicate that code and possibly use a
+> memset for clearing, getting rid of j entirely.
+> 
+> 
+> 
+> -- 
+> Cheers,
+> 
+> David
