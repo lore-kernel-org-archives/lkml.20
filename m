@@ -1,70 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F69C3093C1;
-	Fri, 28 Aug 2026 00:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1258D3093C1;
+	Fri, 28 Aug 2026 00:40:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787877600; cv=none; b=Jx4IS2ST9sWBj1wMxbyfpA5IhLl7zwIdTIrXIxSXf+671tUM71Q5OE8hbgHNn5C2wF4xen9uFmc3x8Dhkb40qyxMKQS87Wn2My4hmWM1P/HiIFspR5yyG8OfvyUrkEpo+nSkzdY9QrZfliEpV5bTfV6WANVKVadZ20DXR2Sj0WM=
+	t=1787877658; cv=none; b=itLbKRfcNCyXwjDZ9MXJQPRlFUvrCVMkUFcM0au3X5WT9AfoSZwCHqkAzhm+Gols6ALfvPuRBGqAX1FEu3b1ymHt6KEd7ZCNJAQ+JVHT+jcnsh+nl9rdsQep1DA7wHOhg1IwT9tvQrZGiyCw3WglTl9RwAqTi7CXi2htetS09QU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787877600; c=relaxed/simple;
-	bh=nWFmdGZ65n2ybUMz8FedGgI3ySa5BY2cAoY56svAR9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mHy0SPuF+lNE7UGHwMeZSTclHun69x6zn1WxntATZnnyl54C7g5LH2gVrz1GPwYBcsky7QcvOE/uPqN4EX17no6TTG5u6rIDHkQyhQW4NEpcNRo2d6oHtpei9pFo48HCCzjnGqG6bCOdo/aRQ/ykcFkUqaZDN2TQxA4l54/dDfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jo1R+p0D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787877658; c=relaxed/simple;
+	bh=/sqbOqBC2VV7YhvVIfvJyn4Cst9mP3+3SLC9Z70RTnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ol+6Au6dEoaqUF9pF6BwNP/vCbMd3b715VCvc1COZ4jk9StwJ/QHdQjW5If8Kngk9W3yPiuaDnc35z+OkJ3h62zir+FOTxhXvHfLhsyiJR8s1kDp45k1D3uRuxFSLkKEQ4fR0HFoQuPfP/EIWG1rPK4AiFS5j+jKxoFXkkQKqPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0v7eLd9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jo1R+p0D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DE21F000E9;
-	Fri, 28 Aug 2026 00:39:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0v7eLd9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6454F1F000E9;
+	Fri, 28 Aug 2026 00:40:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787877598;
-	bh=hHEnBvta1ugRWQeWOsh+UzKSn1Hh9LLxMiC0EM+khwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jo1R+p0D1lMlHbSejFDUSQQ+wZvhQL/m4sdfr+8UUEVZdskcFMngKJkVlHkikoZ+i
-	 hjzWINq5Ssp5DVPxPR3LBZq+Zi1Dpy9UtQnGAi2FmZtFkOpbA7smMo3X9sGlrNEuUt
-	 F8qu79zrcC3Wtw/vnTIYFzUBwsCbOCISzxCyUe/VIH7oHfsM6fylPFhqsxnG3Mzs1X
-	 gp/mgU7PMkw0mdHZOGhty4/C9LJeW+NI0Pbs8JBzQhzvxu008Ilbx4X5GlcakaZIsG
-	 6wJr5ICd6hx1Kw9MnfSDRGyd12WFx4fOgFK1HAx+tu9HNK0qrAZ7ONPaChp6CG0zC6
-	 KhgMeTu9eRAug==
-Date: Fri, 28 Aug 2026 02:39:56 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Hongbo Yao <andy.xu@hj-micro.com>
-Cc: mika.westerberg@linux.intel.com, andriy.shevchenko@linux.intel.com, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, peter.du@hj-micro.com, 
-	gwilym.wu@hj-micro.com, clarke.li@hj-micro.com
-Subject: Re: [PATCH] i2c: designware: Enable interrupt mask workaround for
- HJMC3001
-Message-ID: <apDYuknPDkSe9wqy@zenone.zhora.eu>
-References: <20260826070547.268672-1-andy.xu@hj-micro.com>
+	s=k20260515; t=1787877656;
+	bh=C3dYuQBwRk/xR09vNJREZ7Cj/0z5bTktPZ0KJHmO4nE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O0v7eLd9EuTh23YcZbaWO4XrOIMVKWuFnMqXs9EyOKVDR16db5yb5hnCDj0jjGgaz
+	 91cSy0G2tEhgOhtlwU/D9jwUIK4oEomYN3oLHX2anKUuG6GoP439kfjrCDCsOvb20z
+	 7N4r4MHPD1jwFoESI6l9WYcpYp3Q2Nj9V2sVm1R/EhN1sc5pvRjyJwiA5ImoGtI15y
+	 JytMYBFzprHqP/B/rvaoDLfywpsXO5C76QdkcEgdK+jABlbSkuWD+kthvWJgzyjSfR
+	 apK1rR+JTfs/0SZuN8fO/Q+Esx9xxa0Ewi1vDHXe4C3ki4C3UnPkAyEETcBZbHxdyu
+	 HsBH0IK5oKrrQ==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH] mm/damon: fix damos quota walk-position tracking
+Date: Thu, 27 Aug 2026 17:40:48 -0700
+Message-ID: <20260828004049.62386-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260827180822.4037-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826070547.268672-1-andy.xu@hj-micro.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Hongbo,
+On Fri, 28 Aug 2026 02:08:22 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-On Wed, Aug 26, 2026 at 03:05:47PM +0800, Hongbo Yao wrote:
-> On HJMicro ARM64 servers, the DesignWare I2C controller does not
-> retrigger a pending interrupt if the interrupt status changes after
-> the current status bits have been cleared.
+> On Wed, 26 Aug 2026 17:44:38 -0700 SJ Park <sj@kernel.org> wrote:
 > 
-> The issue is exposed under heavy system load when the corresponding
-> SPI is routed across sockets to a core in the remote socket. The
-> interrupt is then lost and the I2C transfer times out.
+> > On Wed, 26 Aug 2026 07:05:08 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Wed, 26 Aug 2026 18:24:13 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > 
+> > > > On Tue, 25 Aug 2026 06:54:57 -0700 SJ Park <sj@kernel.org> wrote:
+> > > > 
+> > > > > On Tue, 25 Aug 2026 20:46:16 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > > > 
+> > > > > > DAMOS uses charge_target_from/charge_addr_from to remember how far a
+> > > > > > quota-limited walk has progressed.  The current implementation has two
+> > > > > > problems:
+> > > > > > 
+> > > > > > 1. Once set, the cursor unconditionally skips and resets at the last
+> > > > > >    region of the tracked target, so the last region can be skipped even
+> > > > > >    when it has not been processed.
+> > > > > 
+> > > > > I don't fully understand this.  Could you please clarify more?  Maybe adding a
+> > > > > realistic example scenario would be helpful.
+> > > > > 
+> > > > 
+> > > > Problem: Unconditional skip of the last region
+> > > > 
+> > > > In the current damos_skip_charged_region(), there is this logic:
+> > > > 
+> > > >     if (r == damon_last_region(t)) {
+> > > >         quota->charge_target_from = NULL;
+> > > >         quota->charge_addr_from = 0;
+> > > >         return true; /* Skip */
+> > > >     }
+> > > > 
+> > > > Scenario:
+> > > > 1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+> > > > 
+> > > > 2. Quota is configured to process only 50 bytes per window.
+> > > > 
+> > > > 3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved at
+> > > >    (Target, 50).
+> > > > 
+> > > > 4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is full.
+> > > >    Cursor is saved at (Target, 100), which is exactly the start of R2.
+> > > > 
+> > > > 5. Window 3: The loop reaches R2.  Because R2 is damon_last_region(t),
+> > > >    the old code unconditionally returns true, skipping R2 entirely and
+> > > >    resetting the cursor.
+> > > > 
+> > > > Result: R2 is permanently skipped even though it has never been
+> > > > processed.
+> > > 
+> > > Ok, makes sense.  The user impact should be not that big, though.
+> > > 
+> > > > 
+> > > > To fix this, the patch advances the cursor every time a region is
+> > > > walked, regardless of whether it is applied or filtered out.  This
+> > > > allows DAMON to accurately track whether the last region has already
+> > > > been visited, eliminating the need for the unconditional reset.
+> > > 
+> > > Sounds like a big change compared to the problem.  Why we cannot modify the
+> > > last region case?  Have you also considered other possible simpler approaches?
+> > 
+> > For example,
+> > 
+> > '''
+> > --- a/mm/damon/core.c
+> > +++ b/mm/damon/core.c
+> > @@ -2686,14 +2686,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+> >         if (quota->charge_target_from) {
+> >                 if (t != quota->charge_target_from)
+> >                         return true;
+> > -               if (r == damon_last_region(t)) {
+> > -                       quota->charge_target_from = NULL;
+> > -                       quota->charge_addr_from = 0;
+> > -                       return true;
+> > -               }
+> >                 if (quota->charge_addr_from &&
+> > -                               r->ar.end <= quota->charge_addr_from)
+> > +                               r->ar.end <= quota->charge_addr_from) {
+> > +                       if (r->ar.end == quota->charge_addr_from ||
+> > +                                       r == damon_last_region(t)) {
+> > +                               quota->charge_target_from = NULL;
+> > +                               quota->charge_addr_from = 0;
+> > +                       }
+> >                         return true;
+> > +               }
+> > 
+> >                 if (quota->charge_addr_from && r->ar.start <
+> >                                 quota->charge_addr_from) {
+> > '''
+> > 
 > 
-> Enable ACCESS_INTR_MASK for HJMC3001. This toggles DW_IC_INTR_MASK
-> before returning from the interrupt handler and retriggers any
-> pending interrupt.
+> Thank you for the example!
 > 
-> Fixes: 6816ce57c479 ("i2c: designware: Add a new ACPI HID for HJMC01 I2C controller")
-> Signed-off-by: Hongbo Yao <andy.xu@hj-micro.com>
+> While your approach works, I am curious, why should the cursor be reset
+> every time the function returns false (does not skip)?
 
-merged to i2c/i2c-fixes.
+It doesn't.  It resets charge_{target,addr}_from only once after the regions to
+skip are all skipped.  Am I missing something?
+
+> 
+> In my opinion, a cleaner and more deterministic approach is to reset the
+> cursor only after the target has been fully iterated through.
+
+So I will be able to give you some comments only after the above question is
+answered.
+
 
 Thanks,
-Andi
+SJ
+
+[...]
