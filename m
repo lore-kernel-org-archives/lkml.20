@@ -1,206 +1,108 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5CB3B6352
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894926; cv=pass; b=dNV7YaBXK6ZqioFhczAt8XbYlnR+rFTSw30vpao1r+/+K9OlCkntoaHe3oxI3q8GPWKyA0kdvkvTIwQ0fToMXRXNqXcrlyzCHEAAdCWIatZ170YNR3DU7W1HCPUruwqBYiXIi25dYsxyT6aESiZKjZ2z+KKkmPrOX5O0ZlIFg9E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894926; c=relaxed/simple;
-	bh=UofT5mRmM760GSuIfZ6U6mue9iONe0bEnw4zvcDNh4g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nx5sJdND0GvUJEJGvt8wOBW8d7PPzGKJK7ks7ClKGN/PbRcDivnZjWj/2TEoyRGUYuR2Exnyst8hGrRCgLgWyEAslJck2CygOI/+BOFXQ7+4ZVJSoHb0EGzC6XcEAqTl6lBJYVq/SQxTceKPxUt7xiqb4ZHj4m6yEr7F3N/eYak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UWUWzwdX; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE6F3B9D96
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787894939; cv=none; b=QJ5jC+9BaD+09z8v75Z5x/rbGF1mYbK5dKJgJIo3tBimLxUEa+EOsw5OWSro6/HC/fL7LaG6l5LSfVUooBB6ZkRt4WCpXaJPyTtqIdWvbs7MnIsww2U2/QaM/AYDs+cwVXi7xZ8LmcEfIKoj4lx411LXPy6yjRHgaphLHNfadf8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787894939; c=relaxed/simple;
+	bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k6KZLxsGbP7IpRm2eV0s1fXfG/1XEJm+PIDYXAi6A5fwVK1JBPivVv63i2dsaJHEW/caYEPsL5ylC0duKHR2lbYEZTbo6vj5A61f3T2mpKe7KillGPqzKxGF/ez5VpU16ZDr8Y3oYe0d18XsH46BEDGKukCtNTBTHY20pws51Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wv5Y2nSL; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UWUWzwdX"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51c10e86e52so111971cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:28:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787894922; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YyN/6g4Wn8P44/hoaukwuM6Lucc/ApFcUGl+UyB6b1DrFrYO8CG0CLGdUrn5tFz/zW
-         NyUO4VrIAWEp9+BixRg/rYQyeSATbPRsyaC/SVdFWlX4zVt/J0YIQQ/Y6cnyprYDjC7U
-         3I4lGDyedviDdrYLO7w+dXWbtnXXZEzkS3HA97t515wQvoc/3FBYuiQxB17NYXUbJWZ6
-         PqQJRT1VAHwQZzPKzSjOMeBU5ROP903xwTCW3RvkMy5K7NUSrXQDVPH/AHg3jFtigqNp
-         5v/GRzrilWu3m/L6wUAvQGjKqc0M0hu4+Sj0vH13C4miMUzYofgZj3EaIv5hU2HRUHqd
-         D86w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lHN/QltBvD1McrbA5b6sCOVj97NzYlG2hizEslR8/Uk=;
-        fh=WvUQ4Rnft3XTEatvYSRUHYGbmj9PW6rNBwGcC1PgYZ4=;
-        b=U79NhXYjMWAyll5F8yt09I9Ecf270S/wZvVDY3mrqDjSKfd5Bhg3MXpLEF4oeT39zS
-         XsmSzD8GKWMYRUwDxTUctqbyaW5FkGx4mpGjP3VsXhWRITA7hjgwIObYDRd70BidXuOm
-         0Q0FCBh07SF3hxHjPPheZ4mha1yHwFYUpptNVCGsAIT43ZPavbp+U8P6izNlSSDtr5Pm
-         3yj8QElgcYof2Q1btibsTkk7D7++7VvliV8yXwbooHr0FGooZVlNbzXhqTGKznJ/DC3o
-         sC4+E6JEH1dr5jNlTc2Z5v5ZvV1Guo7tYWlLqxCrnx+9ZyDGZdniAwjaTjx/MxoLGbMR
-         Rvww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wv5Y2nSL"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39652a6e963so1677183a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787894922; x=1788499722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lHN/QltBvD1McrbA5b6sCOVj97NzYlG2hizEslR8/Uk=;
-        b=UWUWzwdXtzXK6PSrBLW6+0FXunAvToqSDbJsRS3D+x9+5KhmuS21Pe1JGMNOboJ3+n
-         /FRtPt+g70us7HGmIMVWT/f+Y/JkfGdRrDar5fgGYubXctyarUViXaOlX/NanjuGRo1I
-         NIhoie215qbwBZam6pAh4hVXeHoDM6dcX2QaAkwHrf3dP5GBaVBo9lG678FCyUclrjtj
-         j3gYfcxJ3Z0djl8wneH974jFCYKpFORIkYoYNufL9fLPel/7/gRp9uczd3E40s0x3UJ3
-         l62pDtaqzcbAUrp9kntRxroROUjFaxSuTxtrMfhyiF9OWNdeN5dz0vUtGJ5yLNIkFUvD
-         BeLw==
+        d=gmail.com; s=20251104; t=1787894937; x=1788499737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
+        b=Wv5Y2nSL47pLSZbE8sbvRP9xuy6tfs/SjjsXYrFrqCXzyc7ntN7DmxaxjmdlLQUwhr
+         UavosEWA0ZIAdVB7TL4kCSzspOUbCr8GxnyfcMyDMj+u5Kk8TwkTZrsX2LLjdODx5XCb
+         D/DFoTVJm/EJKvQYalKfVjtBVTeiXiwFPu9nN9o2IZt4hPTiuO0wBF2qoaXmAJCVA36o
+         j3K+k0V9iIG2iGQiSe0akDUQYwGTfd8xqBxeJ8GWwNVXks3rGrdAnpSiERIMDeCyvWMG
+         l84KtQcKDU/VFqSFWd2n1xgHaDtehtz0OW3EXY68LC+6q5hBksKJz03yS5q3ceuNRIlg
+         NiVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787894922; x=1788499722;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lHN/QltBvD1McrbA5b6sCOVj97NzYlG2hizEslR8/Uk=;
-        b=lCbU8MW2Mkif3zKKm53Jcl6SEoS5gH/C4Q1cy0wouNu9RU7VVNQmOBUNXekZxtk96M
-         CaHklbsJJGp7JbAZcalxJk6Slmz0rfLdO3Zl+PwgtIzocfiyE+gGqVg6TWvVhsPEwm4D
-         qKlEzPrIdnl/D1fu0/FpBB/ZPFqrGNb7Dnj0kCcb8dOyUXLj+i+2ZOHWdKXTed0CIkjf
-         Yclj4GLIA2jRAjOPjVLLM+74CB6V13Pj08Qy/MQ8V1jg3uU+wcPyvZjiipM+I/sxl+yu
-         17c+r0IOduhP/AJewzg5aRiNUhDSSqe+iUaxSV2pXMPA1oqcDITJQ2QBufYWmkkml5KN
-         4VKw==
-X-Forwarded-Encrypted: i=1; AHgh+Rph5PzKmHyzbpedZecWz5Rc/0fRenpbc1QuOiZ89tTWZOjUeEOFXA4C6QYdbn1D9qGXAcN/u5Jxe4OexS0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7MLdxg9MDk2bXWbEH9NW6rupptu/hnDlAGXYcqU8oJ8lnQpqW
-	ioRTZfi0qZBFasbhgPZFJqPKv6ENhcKVtafJl3UZVyTt/NRGGnYrE6jH/D3eeOlk814+OE9ZXxo
-	dUQIo/TwsKysfAC3+X6VuPQPc7TX2ZLtuCUjt8VBX
-X-Gm-Gg: AR+sD10sh5qK7Zp9XRE4KrFsQ1YfzBub3U6KwiLIvw61T1JmjZyzI/mhDz5I6kZNerx
-	vI+J47z1aR0+W4MrcIA1ChvXEj88cLL8Rt4DyD51QtIc9wVVx5GO/Fce8AUCvu8rIjKLeMUWFXk
-	U9s4xr84eWSQWQm7q7QmrCCWnZbr31zKMhgN/2UnSnLDCRxzF/bidHVzJ5e4lWLy1+dSdws9upm
-	c9Kkg4X1IOXFSMWSopU8aEpke8jODvUMmqdukWPC8MaURBf5LJ5HJNRurF0OURYTx6OzOSmOup/
-	Dtc3VleAMT/7FclnXRAnwE+XOYheI2CTiKu4nBBgAgHgOQ==
-X-Received: by 2002:a05:622a:4c89:b0:52f:6e06:89ac with SMTP id
- d75a77b69052e-52fbc9cdef7mr8352721cf.13.1787894921905; Thu, 27 Aug 2026
- 22:28:41 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787894937; x=1788499737;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
+        b=O8EYVhGaswE6Tz8+gVkOje0kj4FCs67FYKoC7PHHtNb/BkVfaORp21rLozEMgHo1wx
+         QO7vUTw31t3+jTGK4JCFZA/lfxye3rfkGIT5rJb4c9gGwIh5ItdF6NzYJJYM7gAsLW6b
+         CaQin3hC7a6ixk7tT1qQusVntIARAHVbWAJZCB65wfF/9D/6OiyvS8iPwttNWxSmre/e
+         O0WxlRB1R5MYTYOyRSMW5Ex3prkNk3M42PD5y4w9tOFwphRqzfrP8aUaUljoX72fV0Y7
+         cnG577DziJvhfXqkQOJnrEDnjPAoUEi21Jjw3rp6rj8bN9BxQNL69MfUV2+dQg9ltLmd
+         QPVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqZfMb8FBjNXTrLeJHlewScMqfn4KO5ZAnUMCPnSfkVQib8bKNsQ81yfAwk3FFC+JAsSCjlqmDeigu0oVI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ko10Lls8Lf7hL65FYeFaaKki6PKokBTy1qP6mY4U+XZi+jRJIZ
+	wYzNEXgtKnc8hDPpf3J3XVo3ZUZ1RmQoL0bd17wXAR9Kt3dzHmSls/Tn
+X-Gm-Gg: AR+sD12/jjysf2OOTmAjdPWqArbLrbN3TQghpy686bNNINAqKIbEfTsQWU0hOc/0Kiu
+	Sf5uqRe2DTiyi90B9JlvhRNiUT23uXnfIPWFES8vwA10tYSPfP98rVu7JIkas7oVP3uHUbc1j8o
+	wuOu9hXgN+pjJTJ49hmQz6KDxWRW6kELtUnH5tSZNw+GbIKTXEPI3ZwpeeVzGvRrXHOM7l4NA/g
+	Io3GJ/ZgflFW9ALlA6NVfH31LxYQqnpsSY8/Ib1dmXJWTDArbLtp3G9rIN+kAXlU7LP97hqxwPV
+	0hLZA5iKStj6SjnPdklHFWLwlavoxl6O0uQ4+ClwWAk4+nwMMek4AmVmCTTySMzHbejZlc7GXcI
+	Z8SKKhN4+M8rEWjaMlEl2LS9I6viNsFD4p73qtbfrj4c5Z6AymYXZbcDZXZGHcmu+8FAHbQyocJ
+	lj7lAE0JZfk4PfIN3WFxee13CnkL3+v+snSG2bd3V7zs4EJbI5pqlz5SKRFgGygdaVjchnRQkL7
+	DN94oOBRlSrTm0zsDQZSM/UOGwF
+X-Received: by 2002:a17:90b:1a92:b0:384:927f:3db9 with SMTP id 98e67ed59e1d1-396d0d35e02mr4591519a91.1.1787894937355;
+        Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7eb6bsm1070263a91.8.2026.08.27.22.28.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Cc: linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Yu Zhao <yuzhao@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kairui Song <ryncsn@gmail.com>,
+	Kairui Song <kasong@tencent.com>
+Subject: Re: [PATCH v3 4/6] mm/mglru: move max_seq read into walk_update_folio
+Date: Fri, 28 Aug 2026 13:28:12 +0800
+Message-ID: <20260828052834.52775-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826-mglru-flags-cleanup-v3-4-d9f1c75549c8@tencent.com>
+References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com> <20260826-mglru-flags-cleanup-v3-4-d9f1c75549c8@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260527221934.3830896-1-ctshao@google.com> <20260528001117.3BBF11F00A3A@smtp.kernel.org>
- <CAJpZYjUiNdN3a6y+8rs=YP2Mgtj6EQJnkiB9TN_suWd8fGkoEg@mail.gmail.com> <CAJpZYjUhw8+ouKTS82G6ih457=pHn18AtvwMCAcaTL9csKmdTg@mail.gmail.com>
-In-Reply-To: <CAJpZYjUhw8+ouKTS82G6ih457=pHn18AtvwMCAcaTL9csKmdTg@mail.gmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 27 Aug 2026 22:28:30 -0700
-X-Gm-Features: AcwNN1VmxtjaqiJtU04BwRwhshiUh2oD2ByScKUOA-7C4gmoRH7Q6VHbWd_zlJU
-Message-ID: <CAP-5=fVAckZihxg4djQn7iTGbNNT1vFLXt2En8mm8+COSs3GcQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND v7 1/2] perf pmu intel: Generalize SNC cpumask
- adjustment for multiple platforms
-To: Chun-Tse Shao <ctshao@google.com>, Zide Chen <zide.chen@intel.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	linux-perf-users@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 9, 2026 at 11:44=E2=80=AFAM Chun-Tse Shao <ctshao@google.com> w=
-rote:
->
-> Ping for attention.
+> The max_seq read now happens once per folio update rather than once
+> per walk range, so folios always get promoted to the current youngest
+> generation.
 
-I suspect Arnaldo and Namhyung are waiting for feedback from Intel on
-these patches. If someone could check them it would be appreciated.
-
-Thanks,
-Ian
-
-> Thanks,
-> CT
->
-> On Thu, May 28, 2026 at 2:31=E2=80=AFPM Chun-Tse Shao <ctshao@google.com>=
- wrote:
-> >
-> > On Wed, May 27, 2026 at 5:11=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> > >
-> > > Thank you for your contribution! Sashiko AI review found 1 potential =
-issue(s) to consider:
-> > >
-> > > Pre-existing issues:
-> > > - [Critical] An integer overflow in `uncore_cha_snc()` can result in =
-a negative Sub-NUMA Clustering (SNC) node index. This bypasses the upper-bo=
-und check against `MAX_SNCS` and causes subsequent out-of-bounds array acce=
-sses.
-> > > --
-> > >
-> > > commit be394e8b7ddbe730c3fc40fb608337fe19c7b33b
-> > > Author: Chun-Tse Shao <ctshao@google.com>
-> > >
-> > > perf pmu intel: Generalize SNC cpumask adjustment for multiple platfo=
-rms
-> > >
-> > > This commit generalizes the Sub-NUMA Clustering (SNC) logic previousl=
-y
-> > > specific to Granite Rapids to support multiple Intel platforms. It us=
-es
-> > > CPUID to determine SNC support and caches various PMU configurations
-> > > to improve thread safety.
-> > >
-> > > > diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/u=
-til/pmu.c
-> > > > index 7c9d238922a6c..9b00d5720fb7a 100644
-> > > > --- a/tools/perf/arch/x86/util/pmu.c
-> > > > +++ b/tools/perf/arch/x86/util/pmu.c
-> > >
-> > > [ ... ]
-> > >
-> > > > @@ -121,46 +142,73 @@ static int uncore_cha_snc(struct perf_pmu *pm=
-u)
-> > > >               return 0;
-> > > >       }
-> > > >       chas_per_node =3D num_cha / snc_nodes;
-> > > > +     if (chas_per_node =3D=3D 0) {
-> > > > +             pr_warning("Unexpected: chas_per_node is 0 (num_cha=
-=3D%d, snc_nodes=3D%d)\n",
-> > > > +                        num_cha, snc_nodes);
-> > > > +             return 0;
-> > > > +     }
-> > > >       cha_snc =3D cha_num / chas_per_node;
-> > > >
-> > > >       /* Range check cha_snc. for unexpected out of bounds. */
-> > > >       return cha_snc >=3D MAX_SNCS ? 0 : cha_snc;
-> > >
-> > > [Severity: Critical]
-> > > This is a pre-existing issue, but does this range check safely handle=
- very
-> > > large values for cha_num?
-> > >
-> > > Since cha_num is parsed as an unsigned int via sscanf() from the PMU =
-name,
-> > > and cha_snc is a signed int, a sufficiently large cha_num could cause=
- the
-> > > division result to overflow into a negative value.
-> >
-> > I think it is very unlikely we would see cha_num > INT_MAX.
-> > Since that is a pre-existing issue, I prefer to fix it separately.
-> >
-> > Thanks,
-> > CT
-> >
-> > >
-> > > If cha_snc becomes negative, the cha_snc >=3D MAX_SNCS check evaluate=
-s to
-> > > false, allowing the function to return a negative index.
-> > >
-> > > Could this negative index then cause out-of-bounds array accesses whe=
-n used
-> > > later in uncore_cha_imc_compute_cpu_adjust()?
-> > >
-> > > uncore_cha_imc_compute_cpu_adjust() {
-> > >     static bool checked_cpu_adjust[MAX_SNCS];
-> > >     ...
-> > >     if (checked_cpu_adjust[pmu_snc])
-> > >     ...
-> > > }
-> > >
-> > > --
-> > > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026052722193=
-4.3830896-1-ctshao@google.com?part=3D1
+Reviewed-by: Lian Wang <lianux.mm@gmail.com>
