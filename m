@@ -1,78 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787233769E7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF48388E66
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:44:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939026; cv=none; b=lSXq3za/ocR60aEiHD1sFWXnDTVHF+ROV3xpADAJOsv97Np8wu5Yva9hTFY/n4mzO8u+m2GZ0aKpAj7h/so5KWW8xIKQfwLf4TGHqdo7wW5XfCvjef7+4+OC6TxizIxOSmOQW/BTs3VU/gNFTqPmmOv6KOKVGjlIm4rK2Nl08g8=
+	t=1787939093; cv=none; b=WDf44l8wmQdnr0b7YK9nPW5g/hVkiW7aNH75AioXlhQtwA37KY3EHbNRuuxqJzNbm9g7sre2wIGc++hdFRAvXw02sG0Ni78DzfgDpumOb6Eab2jMJKgj7u23PfyAZGSnQLu1ul71w7lwaXRzwVRI9t/sc3NMQ27mztpij2dEcWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939026; c=relaxed/simple;
-	bh=PhSOdsaAAVkmJ5P1BfxxinDG10PlYR3SU9zRPIU9UpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q+lEMLWPD40QzYhXjdEhwWnGRoXuvQGuttVV4gda5/u/8R26xkjOrwA7Rbec9xxhJ7t66e2H++RC4mQTBnqLZA4i6wC1M7FtkjdaBiRxRbojYoTa8v28SiLK981Lv63ex7JL0aCeh5ZCJwCc0F5Ne4TPNf5g1KBr/rgkkIm04t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFXQbfrt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787939093; c=relaxed/simple;
+	bh=766DyMEpJOwyNL/XlvEzrOOwTcWuBPAUuZV84ZGnPSo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qz+Qx6iybmhrm+vLauP5Vb3/Y90QNPgRBVuj4sWQ0hYCJ1lr/K165PyudVHPw0jEULy51btUSnC9VXPUYDtgqn0qWo1BdJ3F15EY2aVQ0XqaFAjErq58k1A+HRMGaU2aWbXnPJObCFgCAP7YJkwnc3ooHUaCTB+xzlzJcXHm08g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1egFN+2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFXQbfrt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9BF1F000E9;
-	Fri, 28 Aug 2026 17:43:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1egFN+2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51611F00ACA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787939025;
-	bh=VH1Zslua0nmO5TH2U4lJUlBAzyJfRBXVKj+2KA40iVk=;
-	h=From:To:Cc:Subject:Date;
-	b=TFXQbfrtVR0uOuMsTmEhDSboK4wLyKaTgQCDEwH/OiMqWF87Jyk+Rd4bMMIwf4WRZ
-	 5Yl8ouKgxOh0akYzBDWBJINY3ofcDGiwkuPe3k1ERuju1pcPwak1hZBRnoAqLqbTDS
-	 nIwBobG5vAyjzI10mkpKLU1iddRG40i3bXlgwjpFB9QI5IpVFHSBYK4JG9v3dWd7l6
-	 jP+1t3qotnwaUu9B6akMVmTeXr/k/60WyenHUnsj1PxOc6E88q2802Z73sHVFbTSPd
-	 8yHaBP8rn8uY6D+IB3q60Ku+6Ii7SBlyY9/VOJcbHb2WmVvHLnWq/gp9/Lmoaz2bUd
-	 v+iiQxpuF9zVg==
-From: Thorsten Blum <blum@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Thorsten Blum <blum@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] init: Simplify early_hostname()
-Date: Fri, 28 Aug 2026 19:43:37 +0200
-Message-ID: <20260828174337.609333-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1787939091;
+	bh=Uf72SaRNDLZax3EKX9q5bl7BWC2OsoDxL3UyLBezK8U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=i1egFN+20Qq99fsczummgB1j9KfOJSvax4pbylxWIlJc9zft6cRNLI++L9k15ujy9
+	 hbxx47G72i6aqrbU2sh09tM25xanmGzSYd6AxjXk1RpdTgtRXf/4KXMd9nki6puUr6
+	 5ulrOvA2TjdOAPkODmkpgSiGjLbGaUw6a6VjziJOBZSlVAtlLNGPIGczhJHp+01pUp
+	 14sHEcA5Yxt/7ynbwRjCOv7t6Opo0S+okhwL9Q3NEycLpZKWoGLnyhznhNkui3eV54
+	 4ovDSR5aIjbtwZbKrTt+WlY4gPPX4mQKwBrAbYx+ffrpA7TE9aEW9nHLjjokjdtaDF
+	 2NPJutYlvBzUg==
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9391e3b21fbso24993285a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:44:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrXu2Zg0tFby3FvjdfrkD020vGz5RdlHm8KGIltxQz3BX2bdsTWO6LIhkA3GTMWs0Aab/kM6Qp+eVTdyNs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkT0vpZnMEUR7giAw7WkheIJs7z0H0oAp98FC20S/I+BUDq3US
+	/AoYF0NPtVDSlx6hnXuV+e7rnjcWDyyXfTsoRSTyhuT+SN0nDyWm0MbJgppcDEnMgiVTKaVvCYI
+	7pASZs0SZTEcU4xc/ZUB8SqnzoarvKN4=
+X-Received: by 2002:a05:620a:458c:b0:936:d833:6c48 with SMTP id
+ af79cd13be357-9391386acfbmr946959185a.27.1787939090878; Fri, 28 Aug 2026
+ 10:44:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1036; i=blum@kernel.org; h=from:subject; bh=PhSOdsaAAVkmJ5P1BfxxinDG10PlYR3SU9zRPIU9UpQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkTT5zkD8g52n9oaw3Hu+OZUVGr3+5ebrWqdUd1h6l4l vK/bOaFHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjAR+U0M/ywuBDVeeSu7eK0S 71OmCb82OIhy+7S9P/r2M0cTt/tWQzmGfxZX8+qiv7OfU+Jk4D/6rZD55pRLHdP7PjfvY1kUkTL xEB8A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+References: <apBbjoEHJ98DWN_W@pathway.suse.cz> <20260828125244.509977-1-pmladek@suse.com>
+ <20260828125244.509977-3-pmladek@suse.com>
+In-Reply-To: <20260828125244.509977-3-pmladek@suse.com>
+From: Song Liu <song@kernel.org>
+Date: Fri, 28 Aug 2026 10:44:38 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW7Jr16Wyd4oEXKEwJPwX=p7HWLZTA63uNeu=13GYf+=Uw@mail.gmail.com>
+X-Gm-Features: AcwNN1VMejembc2ZMnl8oIYpMoYDa966_qns0XD7le-2iTipjtzUnpVE6PZViBw
+Message-ID: <CAPhsuW7Jr16Wyd4oEXKEwJPwX=p7HWLZTA63uNeu=13GYf+=Uw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] livepatch: Clean up klp_init_object_loaded() when fails
+To: Petr Mladek <pmladek@suse.com>
+Cc: Harry Hsu <x90613@gmail.com>, jpoimboe@kernel.org, mbenes@suse.cz, 
+	joe.lawrence@redhat.com, jikos@kernel.org, live-patching@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Inline the strscpy() check and remove the redundant arglen variable.
-Use %zu to format the unsigned maxlen argument and add a newline after
-the truncation warning.
+On Fri, Aug 28, 2026 at 5:53=E2=80=AFAM Petr Mladek <pmladek@suse.com> wrot=
+e:
+>
+> When a module is loaded, klp_module_coming() iterates over patches and
+> calls klp_init_object_loaded(). If initialization fails, it delegates
+> cleanup to klp_cleanup_module_patches_limited().
+>
+> However, the cleanup loop skips the failing patch. Each function called
+> in klp_init_object_loaded() is supposed to clean its own changes. This
+> works except for the changes done by klp_init_object_loaded().
+>
+> The current code is a bit messy. The changes done by
+> klp_init_object_loaded() should get cleared by klp_free_object_loaded().
+> But this function also clears obj->mod which is set by
+> klp_module_coming(). And relocations are cleared separately.
+>
+> Fix the situations by updating klp_free_object_loaded(). It should
+> revert all and only changes made by klp_init_object_loaded().
+> This requires some shuffling:
+>
+>  + Clear obj->mod explicitly in klp_cleanup_module_patches_limited()
+>    and do not rely on klp_free_object_loaded().
+>
+>  + Clear relocations in klp_free_object_loaded(). Remove the explicit
+>    call from klp_cleanup_module_patches_limited(). This requires
+>    adding the @patch parameter.
+>
+> Finally, call klp_free_object_loaded() in the error path in
+> klp_init_object_loaded().
+>
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel=
+.org
+> Signed-off-by: Petr Mladek <pmladek@suse.com>
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- init/version.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Acked-by: Song Liu <song@kernel.org>
 
-diff --git a/init/version.c b/init/version.c
-index 0bd5c45aabc4..cbae11b6f768 100644
---- a/init/version.c
-+++ b/init/version.c
-@@ -21,16 +21,14 @@ static int __init early_hostname(char *arg)
- {
- 	size_t bufsize = sizeof(init_uts_ns.name.nodename);
- 	size_t maxlen  = bufsize - 1;
--	ssize_t arglen;
- 
- 	if (!arg)
- 		return -EINVAL;
- 
--	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
--	if (arglen < 0) {
--		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
-+	if (strscpy(init_uts_ns.name.nodename, arg, bufsize) < 0)
-+		pr_warn("hostname parameter exceeds %zu characters and will be truncated\n",
- 			maxlen);
--	}
-+
- 	return 0;
- }
- early_param("hostname", early_hostname);
+With one nitpick
+
+> ---
+>  kernel/livepatch/core.c | 30 ++++++++++++++++++++----------
+>  1 file changed, 20 insertions(+), 10 deletions(-)
+>
+> diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
+> index cdb25949f73b..1e59a3cc0895 100644
+> --- a/kernel/livepatch/core.c
+> +++ b/kernel/livepatch/core.c
+> @@ -725,18 +725,20 @@ static void __klp_free_funcs(struct klp_object *obj=
+, bool nops_only)
+>  }
+>
+>  /* Clean up when a patched object is unloaded */
+> -static void klp_free_object_loaded(struct klp_object *obj)
+> +static void klp_free_object_loaded(struct klp_patch *patch,
+> +                                  struct klp_object *obj)
+
+nit: Do we still need to fit every line in 80 characters? checkpatch.pl
+only enforce 100 characters these days.
+
+Thanks
+Song
+
+>  {
+>         struct klp_func *func;
+
+[...]
