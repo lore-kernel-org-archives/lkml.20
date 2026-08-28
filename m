@@ -1,35 +1,35 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061903CCFAE
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562EC3ED3B4
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906913; cv=none; b=Ffcgkm5rdGGBfbIo+8/hn4mg94jhFee4l3uc9SZDL1zgObFYPQhdL7MtA326e92SP3RHFQnmeTtFfHhqVfYcXE25zU7S0llOvJR87K3YOOoUIb+jaAh0WtMKk3WwKdHAINRrsj6NB5ZHitMDXNnWNtOGNKF4FrPF2lAefYUIis0=
+	t=1787906919; cv=none; b=nfzqT/4mOBl0pUzCsrG6hV1VJyIo11oEYewGRHPgf1aLXgtJ+DVOZr8A/XXlcTt76RyNhs7pQGiUFN4hGc+F0vy/n9nJ3PKkkF9y4/rpbTMlrSlPAKcA//X0M500rXF+dDCZV6kp9GXPqrcc3Dpz7kqqD2QTB2Js+ecb9Duvn9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906913; c=relaxed/simple;
-	bh=t+N9jh4kTVpdr9qdEeJFv3zsSpFahaanNZUcWq5sd9c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=LIFjCzQWiZSrXP186NUvwm/WN1gREqYmyCenYKdkbm2qvdicu3m1C6Q4bh8NmjtyyPq0189TYudMwQFLGUddW6jt4sX7q14qQ+5XWGIMzyoBzNE1/2wtSOrM5DouIwTEzAigp4olrAEvL4lN12Ng43/3+L239F9Mw00gqJwI16Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=iYIIdbMP; arc=none smtp.client-ip=52.59.177.22
+	s=arc-20240116; t=1787906919; c=relaxed/simple;
+	bh=VbpJ93LXbGdQ+BXobxbnLmskw86kv29aRVWL0VYGk9Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=kqjQmy//J14l8lsz5zrAkvwi4c6K+T9eHRq7p3UpJNB+tNL6a2Oa836ZliFWhp6dbeDxdqUb1my2zxtyFEe8ig+KsdB/7k/1/M0am6UOb7EeZwI5lLNxx8lYd/oGP3M/fIuuTLlxmB8bqxjkojSMjK/scHhMUPA7La7loeURV08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=b8ePwLWc; arc=none smtp.client-ip=54.254.200.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="iYIIdbMP"
+	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="b8ePwLWc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
-	s=altu2504; t=1787906878;
-	bh=zucQVzSIUw03oJCE6b3rhFHV2mvKBR8XAIBKZOC9G3s=;
+	s=altu2504; t=1787906892;
+	bh=uyMGZMKc5y1SgmgDY/tsuzKbkVlmYjdT8Q636L6W9/0=;
 	h=From:To:Subject:Date:Message-Id;
-	b=iYIIdbMP/lTH5ML8fFhxI8zgCFEKTp1c3VBs5PymivjF95Romzzi9u0Yd7ulQgYsv
-	 ObYtCiIvYEz680VYL/rdrKoKiyIalmduKcuF54udj1aZA8bk2PYJtLyar6j9tUqM24
-	 Y+DcFdY+IaXYiVxeo2Hd0Jt5pWWNs+XDEfJBNZiI=
-X-QQ-mid: zesmtpgz6t1787906876t8fb4d934
-X-QQ-Originating-IP: U5blwMKavqB8OMa4hpq2BPfvzX2h7xovJ913UhaZr1A=
+	b=b8ePwLWcWOI+xkIw62G815/sIHuDwlzG+vJi5gr+zMYBTdgS7p1q+N6ebgu8dBQYl
+	 m3ZF0Cx/kFC3PoNRVWupDibx1mkbEe5bnmTlwfEisqgUeIcSV8MNFh5JQip+cGZFu7
+	 vA+JPQyxfO6bMh19id16ZkYHl1c3kKUWcu6uHMuU=
+X-QQ-mid: zesmtpgz6t1787906891t1bc82087
+X-QQ-Originating-IP: OxvB8j0RZYuReQ0OYIUUtJayIysb859IsfVqPvUZV9Q=
 Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 16:47:52 +0800 (CST)
+	id ; Fri, 28 Aug 2026 16:48:05 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6800872938758856023
+X-BIZMAIL-ID: 7758792601423077606
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -56,31 +56,31 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-phy@lists.infradead.org
-Subject: [PATCH v7 2/7] drm/bridge: Implement generic USB Type-C DP HPD bridge
-Date: Fri, 28 Aug 2026 16:47:32 +0800
-Message-Id: <20260828084737.565-3-kernel@airkyi.com>
+Subject: [PATCH v7 4/7] drm/bridge: aux: Add drm_aux_bridge_register_from_node()
+Date: Fri, 28 Aug 2026 16:47:34 +0800
+Message-Id: <20260828084737.565-5-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260828084737.565-1-kernel@airkyi.com>
 References: <20260828084737.565-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MmV69kxClZ1gUgZ0XGKTzmiiORQ+762svwK8Se9RBITvDrFTZAFUvY/2
-	8c4KAGTLu2bX/GSSKWWnnQ+W8K3KmGyXwBhCsVHplaPZwGY7Wxx1lSXWBYnB8Vgte97he1E
-	oBJRMFrCF8aqiQcFPZDjk/DbGzepDE4itLGJuEt1QoVUGTgT84bpKuILBiR1LbpppXLaRXs
-	EnWvIqck6SZ4QouqQQsa54wa8PIvGjDagorLE7WoR8WytjeMokpPW2+Gqpk0A/jMylKBRsV
-	5lHJngRKQiRBghgQ0wOABsLEG2DHzyyFWEzQTmzxiGjzXlk5fvFFn5AT6GfOTh1YXMU1YNQ
-	CBcgfLB9mqhc/xLrDDKK87wxSvLIk1T2sfMsYrZstcPKGMSiwx+NxWbkr59sbhagF+L7GmT
-	nXlQy4C5LcCqDTlxlX2Kyr8PknIY2uv7ROnG2mdXkbQy+w7AozKYtMlA+SsZyu2i5g0Gk8h
-	49RtB9sofeaH/OjrgjIqEKxM25nJ7DPICqsMa/gNfbmNl+eAyHODh99ruTx2LA/adhVit6V
-	mdrg6VrW88oY73SCqjQinUgmM1xtf9dgtdQBBI8yMMPRryK7Xk4F/Sfp6pw16WeBNrAT/Pl
-	LWlqN8bdoBJdYuLsc+pymxxQjMTfQMLMYF6n4nIExS78kdHm6kNIRdIOZSPzRsnOFi3k7S0
-	4j1WSsfVVjqc4XM5tF/yPViVdIHLdHoCOnvWHAH5VYQx2epVefWArC8/3dyNeiwZMUgZbLq
-	k58IAcTcKCCBuCW6ebYmDz86/I5n40wEYQ/5TchXQ+noyPR2jFdTpriNBgZu6CygayNg+X9
-	3lmcB843qre/Odd1EDWoJq5CxgoJHxXjLdusYnT1Qm0V4DA0HD+aPwmIUZZEMosoMCgzrqp
-	xUF30Fr80ElGUjycXzI2m7SYQoavJc8mXGjor4KrTHtn+4C/WRKomCYWBk3Z+VYzkRWWRhs
-	Gjj3Yo5ON1I3z5mmIarpEqo3AAVK2VCbnrviCGw78U6Fp+EFI+tvOq7MliXBK+iAa0ambXr
-	fszK5ow4/duYqq/EFeNeQZmnJorkvqAPNNzURgCMxjWe9BwP/Y
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: MyIXMys/8kCtyIOyauqTnT2FdFECnE5zDhFWh9iDGXkAWPdVFLmXnVFx
+	FlFc0GuaA4bKKi1Lb/hh9063WcoYAGw3nPu5F0dPQqqH2rsqCGjF5nzlSZUNMdjhcooI1+L
+	aLoKVVGkKvzuWnF8Ka3xxEr9Su9cUhODz6XzNhh49mVqALFGQ91X/8H09Syc+1JKxOCTdGS
+	iL4mOEZ+yu4JsWxAVSs4CaffwPVKTaftoPc1CMshUgVIE0Q1XjlE1njKVkkM99/NI5bVCgo
+	+e9ySs0B+2u5owjD7OQK442KLO83RqzrgCuzd2BMQoxrMGmrywU+6rzTtiJZ+nJicMAE5We
+	/LNj8KtYATEccKQhBrFTTGD/ioW05l9c4Is/SAVPHIXV/RMtaYve4W+T5lqaIRt37n3ZkC4
+	PxMGffQE1/IYP2pC6nw30T1q/oOJ44rUUc2jLRtCUynFx7QWx4kuFJgjFO7ctCDh0gqgSKW
+	k0ku5Mm6KzZQilnqW8RA1J7tcrkrVtdfDl90z67QBRYm/KJ9tZJl/yIblya7AB5CM3CMBDu
+	KQJ0BbtAvzWMEoljK3IB/UMj50GUXpn/P6LKFmBkFTb6SFgt48dklR5JQYRURYtUeX49zBC
+	BzKXi+bzHh+pBEvdYPhcNubw+4K2lT7XtRXIM//INMKYRabmXAohkoGJnYn5YzRMHcPP30u
+	3ailkAVCK65M+8yvO0k5HfrLw8NQ5KTW0IX6nO8QekDmXF8656ZMCOKvHxaeesqs36Obx6D
+	P2nJFV/IGtFzfrkIBFGs07L7tH5qnBnA0tJtP406uVnfI4fgeU4d9GxXKdvi8b14TxkavAY
+	T7nrwAQN3QrtGqfwpLPk7yngudfp13AI4nOK2DamFdf0JrJQgEOji9zFN/AQubNr4+nlxQL
+	k/Qt+3bDkgRBDzTMpbqY9dxu9MmA3dlbDe1M9c6LCJECygA+yeJsaug7wfU3m8SYWKwV07k
+	VHFF3imxJ2wCBLxfSqA8uJfTZNissN9AZrcv7a46ahotfDR5BnEvwAOUxTVYBCR8hWMoP5b
+	jRvnuBAw==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,162 +90,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The HPD function of Type-C DP is implemented through
-drm_connector_oob_hotplug_event(). For embedded DP, it is required
-that the DRM connector fwnode corresponds to the Type-C port fwnode.
+The drm_aux_bridge_register() uses the device->of_node as the
+bridge->of_node.
 
-To describe the relationship between the DP controller and the Type-C
-port device, we usually using drm_bridge to build a bridge chain.
-
-Now several USB-C controller drivers have already implemented the DP
-HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
-HPD bridge on USB-C connector port device.
-
-But this requires the USB-C controller driver to manually register the
-HPD bridge. If the driver does not implement this feature, the bridge
-will not be create.
-
-So this patch implements a generic DP HPD bridge based on
-aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
-Type-C port device containing the DP svid is registered, it will
-create an HPD bridge for it without the need for the USB-C controller
-driver to implement it.
+This patch adds drm_aux_bridge_register_from_node() to allow
+specifying the of_node corresponding to the bridge.
 
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-(no changes since v7)
-
-Changes in v6:
-- Avoid duplicate registration of the same DisplayPort HPD bridge. 
-
-(no changes since v5)
-
-Changes in v4:
-- Scan the entire typec_bus and attempt to register the hpd bridge,
-  so as not to miss devices that were already added during initialization.
-
 (no changes since v3)
 
 Changes in v2:
-- Add copyright text.
-- Remove useless goto.
+- Fix incorrect function names in the documentation comments.
 ---
- drivers/gpu/drm/bridge/Kconfig                | 10 +++
- drivers/gpu/drm/bridge/Makefile               |  1 +
- .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 67 +++++++++++++++++++
- 3 files changed, 78 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+ drivers/gpu/drm/bridge/aux-bridge.c | 26 +++++++++++++++++++++++---
+ include/drm/bridge/aux-bridge.h     |  6 ++++++
+ 2 files changed, 29 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 4a57d49b4c6d..9739b2a19758 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
- 	  Simple bridge that terminates the bridge chain and provides HPD
- 	  support.
+diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
+index 1ed21a8713bf..06a1466f49bd 100644
+--- a/drivers/gpu/drm/bridge/aux-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-bridge.c
+@@ -33,8 +33,9 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
+ }
  
-+if DRM_AUX_HPD_BRIDGE
-+config DRM_AUX_HPD_TYPEC_BRIDGE
-+	tristate
-+	depends on TYPEC || !TYPEC
-+	default TYPEC
-+	help
-+	  Simple bridge that terminates the bridge chain and provides HPD
-+	  support. It build bridge on each USB-C connector device node.
-+endif
+ /**
+- * drm_aux_bridge_register - Create a simple bridge device to link the chain
++ * drm_aux_bridge_register_from_node - Create a simple bridge device to link the chain
+  * @parent: device instance providing this bridge
++ * @np: device node pointer corresponding to this bridge instance
+  *
+  * Creates a simple DRM bridge that doesn't implement any drm_bridge
+  * operations. Such bridges merely fill a place in the bridge chain linking
+@@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
+  *
+  * Return: zero on success, negative error code on failure
+  */
+-int drm_aux_bridge_register(struct device *parent)
++int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
+ {
+ 	struct auxiliary_device *adev;
+ 	int ret;
+@@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
+ 	adev->dev.parent = parent;
+ 	adev->dev.release = drm_aux_bridge_release;
+ 
+-	device_set_of_node_from_dev(&adev->dev, parent);
++	if (np)
++		device_set_node(&adev->dev, of_fwnode_handle(np));
++	else
++		device_set_of_node_from_dev(&adev->dev, parent);
+ 
+ 	ret = auxiliary_device_init(adev);
+ 	if (ret) {
+@@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
+ 
+ 	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
+ }
++EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
 +
- menu "Display Interface Bridges"
- 	depends on DRM && DRM_BRIDGE
- 
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7..d88a9e1ccc9a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
- obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
-+obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
- obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
- obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
- obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
-diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-new file mode 100644
-index 000000000000..682bc192e093
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-@@ -0,0 +1,67 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Rockchip Electronics Co., Ltd.
++/**
++ * drm_aux_bridge_register - Create a simple bridge device to link the chain
++ * @parent: device instance providing this bridge
 + *
-+ * Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
++ * Creates a simple DRM bridge that doesn't implement any drm_bridge
++ * operations. Such bridges merely fill a place in the bridge chain linking
++ * surrounding DRM bridges.
++ *
++ * Return: zero on success, negative error code on failure
 + */
-+#include <linux/of.h>
-+#include <linux/usb/typec_altmode.h>
-+#include <linux/usb/typec_dp.h>
-+
-+#include <drm/bridge/aux-bridge.h>
-+
-+static int drm_typec_bus_event(struct notifier_block *nb, unsigned long action,
-+			       void *data)
++int drm_aux_bridge_register(struct device *parent)
 +{
-+	struct device *dev = (struct device *)data;
-+	struct typec_altmode *alt = to_typec_altmode(dev);
-+	struct device_node *np;
-+
-+	if (action != BUS_NOTIFY_ADD_DEVICE)
-+		return NOTIFY_OK;
-+
-+	/*
-+	 * alt->dev.parent->parent : USB-C controller device
-+	 * alt->dev.parent         : USB-C connector device
-+	 */
-+	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID) {
-+		np = to_of_node(alt->dev.parent->fwnode);
-+		if (!drm_dev_has_dp_hpd_bridge(alt->dev.parent->parent, np))
-+			drm_dp_hpd_bridge_register(alt->dev.parent->parent, np);
-+	}
-+
-+	return NOTIFY_OK;
++	return drm_aux_bridge_register_from_node(parent, NULL);
 +}
+ EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
+ 
+ struct drm_aux_bridge_data {
+diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
+index cca07a8e2d45..67f74ed287d9 100644
+--- a/include/drm/bridge/aux-bridge.h
++++ b/include/drm/bridge/aux-bridge.h
+@@ -13,11 +13,17 @@ struct auxiliary_device;
+ 
+ #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
+ int drm_aux_bridge_register(struct device *parent);
++int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
+ #else
+ static inline int drm_aux_bridge_register(struct device *parent)
+ {
+ 	return 0;
+ }
 +
-+static struct notifier_block drm_typec_event_nb = {
-+	.notifier_call = drm_typec_bus_event,
-+};
-+
-+static int check_device_already_added(struct device *dev, void *data)
++static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
 +{
-+	drm_typec_bus_event(NULL, BUS_NOTIFY_ADD_DEVICE, dev);
 +	return 0;
 +}
-+
-+static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
-+{
-+	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
-+}
-+
-+static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
-+{
-+	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
-+	/*
-+	 * Before module initialization, some devices may have already been added.
-+	 * Register the HPD bridge for these devices.
-+	 */
-+	bus_for_each_dev(&typec_bus, NULL, NULL, check_device_already_added);
-+	return 0;
-+}
-+
-+module_init(drm_aux_hpd_typec_dp_bridge_module_init);
-+module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
-+
-+MODULE_AUTHOR("Chaoyi Chen <chaoyi.chen@rock-chips.com>");
-+MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
-+MODULE_LICENSE("GPL");
+ #endif
+ 
+ #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
 -- 
 2.53.0
 
