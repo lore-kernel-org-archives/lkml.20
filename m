@@ -1,307 +1,279 @@
-Received: from mail-m127102.qiye.163.com (mail-m127102.qiye.163.com [115.236.127.102])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010024.outbound.protection.outlook.com [52.101.85.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF8841C6A;
-	Fri, 28 Aug 2026 06:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.102
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899414; cv=none; b=firQQKUZU9RtKGd9QNZHeuWyjKqUyvMhJkTjknjMD3woHc2x5UoUZlipQLJoVePCkloHIB1V774KVyH3FevP7xmqSPDyq6vrFF/1d6O0rIB8+cjbV77fiRa8Gk3wngpg+OD0y23/in/PNl7QhlZEdXbNqNjlOmLzndFV3T/X9fc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899414; c=relaxed/simple;
-	bh=UPYRdrqZC5mlJ1hnd5tW0tIDT8J030CHtWUSM3IIiTo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jHPxaNQhV7JEUPRB31JfS5USDYmKvzPUZktiKsjd0cgyVahOsDJPk5glarP7sOHWYDDf/qQzugkTvvrD8QJ2bn9SwFUhWDhgGjOdut42UNcfNTAlnTfoAoA8FukIQ1e8+ZiHoDaPJOUO58/Dtd8eaTCNaufZ/YLGIyeOcsjyddw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20db2;
-	Fri, 28 Aug 2026 11:13:59 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 6/8] tools/mm: Add PID/TGID/COMM filtering support to page_owner_filter
-Date: Fri, 28 Aug 2026 11:13:37 +0800
-Message-Id: <20260828031339.1270699-7-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
-References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9BA3C8C5E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787899496; cv=fail; b=SOS18/edjLRCjEqdH9i3H7KHZPv6pNXxfRmAB9s3EzDOd0r0K7rKR7tzCt/pMpITHU5lo+uD+PHN6WyrnftDmBQMRRSyDiDTyVJ/xCPofew3OA5QFgAcV9QWXwmhrTjk3d05NEr+MRQ7WLjTfc1tLL6fQ3f1boiJMFx3CtZxWCc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787899496; c=relaxed/simple;
+	bh=jUcu+zzACulfzI4PCQ7TcczUULDhfHgAJ1v9wv9NGzE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIuWN6FMFoHLT14xnm0RrO4w2g+agQDwbNYp8WAR/DEoKAlEYQrVUIKBo4tVMgB2lSjBxo1SE2vxpWLWHRFFxXE74XbL48b1ooeL+1Ij/XXWKeWj1/uVsKRDXsTMqnjf+SAKv8bkLzARkV6gJhXqGpIS2HcY7757scxm274aXKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TpJ5ZdlQ; arc=fail smtp.client-ip=52.101.85.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TpJ5ZdlQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H5WpMMqtiRqjysVJ2cWmLE+WBRzJFI9fKwK+mmWpV05JY9hlHo5ZSfdKUenXNwdPPbSisggLH/O5k9uhGnhdSvZx2HbYLEXcDIeBxk3OHTMCsqiIFoHmU3yKJatewMiCe7JlPqjv9Z+eVkTNV+iaruGWFNODPNnoMQxqWfNNdan2ckypAZ5dmiWqPNjk7JjwdI4A1kHWTYHr9Fyjtmf/52uNscAN8qbZA2CJFzV7r9RYTeZWYpUrzqmAD5wySMC5t5MdC1Sb9G1VWYD4JQ2ybDnVXQkkTUCIDbHAnWFx2M8B0DIQlQieWON1KUjtfCeEfu6/k1YFbfC167mbnAZimw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IUs8gUr1BNrjuqbizXy37EhM8odVgG3DuCHAq7ZPZmw=;
+ b=NuAK54hLj9+giV9/49uwI8kej0i+W+/YPhV35w9rWe6F4x5ykJCvJHcLd8/pDdZlaPDiX8mgfHwrLY4TqfAnlIOH/cW0It7gNU3uPhmdiYB22qoTRlv0M8R62/UvmzrkayAN4rCjfsC1LDG4gkdfOy7cmKbc+HUvNa0kroM2XT/XMYhLTHsHypezsXt40QmoRrWllErj6zRVzlErnHnLdCMPuMZXeMaErAy6kJeWmwT77eGssaXhPt0eU5J4RMp7r46tshqomR6lHVkAiJQCYMYJdKqZwnEVp5p3yxmaFofePs0GI4J2g0nyg7ZLyMJiM0tTkYGc73XkzikLLvIj8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=rong.moe smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IUs8gUr1BNrjuqbizXy37EhM8odVgG3DuCHAq7ZPZmw=;
+ b=TpJ5ZdlQzNoGgo5jq6BFU4+whJT2V1cCqoGi3bcVkO7Wd+FZsK9ebRsRlyfOGja4VkNgIM943FD/gIz/h6SNb2QnhPE+qEKTk3kekoGapMF3KTPqEXE6p8rL20m5XkaTM6TSp6VisSoLV5hOif5Akxxp5yMx7sYKLczqf743mBM=
+Received: from CH0PR03CA0239.namprd03.prod.outlook.com (2603:10b6:610:e7::34)
+ by PH7PR12MB7870.namprd12.prod.outlook.com (2603:10b6:510:27b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Fri, 28 Aug
+ 2026 06:44:50 +0000
+Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
+ (2603:10b6:610:e7:cafe::9a) by CH0PR03CA0239.outlook.office365.com
+ (2603:10b6:610:e7::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Fri,
+ 28 Aug 2026 06:44:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 06:44:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
+ 2026 01:44:49 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
+ 2026 01:44:49 -0500
+Received: from amd.com (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 28 Aug 2026 01:44:45 -0500
+Date: Fri, 28 Aug 2026 06:44:42 +0000
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: Rong Zhang <i@rong.moe>
+CC: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Huang Rui
+	<ray.huang@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/3] iommu/amd: Do not request ACS when IOMMU is not
+ going to be initialized
+Message-ID: <qpkubjsl6eldhdtd2xdy3eb4beq7zt64nqxltuukowhhbcj3cu@2aovfbjfcajj>
+References: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
+ <20260823-amd-iommu-fix-acs-v3-1-dd768e09d771@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0465c26f60229kunma81ef96712a352
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSxlPVkMaTxhITBkeShkZTVYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260823-amd-iommu-fix-acs-v3-1-dd768e09d771@rong.moe>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|PH7PR12MB7870:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c2db800-06ba-4bf0-35a7-08df04cfdba9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|6133799003|10067099003|56012099006|5023799004|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZmW4zPrWz/CV5huctxz+P6J/CgYQ3s15l/LntnNIU61/s/b9oT0ksLkr7h1ut6T2XMBNVXVtPs0XISMM7i8Ic1SG0Zsc8XzC91tLesWoxirgp4ddiZkqDmLhrs5oYBtCdbpttUjaztDqrXNEYGScrgzrVAbbrSrUwK3AsUN8nOt/9JciCwEmTc8IuKsbcy47q3ixE1WuM120kFg4sjIr/3Qz+3rMprlhj1Z3X7O4CaJcvfdHfEaWN8C6MwnobYnxHaD/SGkIZLjk1HCNo3lZUFfPOe0Y0wILim3gVTL3ExcxC1tpig29uBIsmOPjYNyi0t7XDpZz/eHa4JmLyD92wQquRZH6q/4ZS9BueixkqIucVT5dJE1HIBw3IgMIUHQsjXOzi2l5AWgPmqSXQ3bi4gfVuChxXXydT5SM2PRAzeVUuLegKbkkZLQ+K7dWzLVT+AJUOPVk4EFoH9IWs0sfiSvhIkC4J1EJKf8gbigLdvqdtYqeYUcnYweSwUPj7Af2dJrxCIKWMyIWJufA9fnMrMpaHLvljfSCMmnf1I/zdbjS6ZVDyR2QIfvysHx4tB/R45rrJGEzMaHzWd/rdqI0KRKXNTLt9BVXF4+/cePyd3/HIvN9rNir9haSSAOjV4OxiBt4SrYoFTnbo6NmWVAe18pTg2T4EvyWj37YKoO1idjmHcB5z9hTMfCSjoaGsGcH
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(6133799003)(10067099003)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rdNyOhzpvqCfLQUSOKpRZ4qesJn0DrEmQkLBmBvBah5/AJgdcAYsqpbfFAnrSWncjeM3bhAxc0+YresOg00EZkBjnNUi6rMQjIGFLy/Gnr685zupzEt9GvMcHJT6zcGhhfgIHXHX9LSBXU+t+4AInB71azOlDFesCA+Qgb0yA9sXEYWzVVc7AwPmlpqHsJJas9okG/cqxbxCQOW6pFVJ32RVQGVuJA/gBJkeB3OMP7wuANirkMYEMY4I1w7xNKXhIe4bsA3QrVOXli3uovL4H1tqYfXPv4AMFPDYtAcckYjzkbNtNXnmdMOXbpFXqeVfiRrDnoUWn8ehqWzxTLMtU+a5fJm455F15NetGoS764lDzflsC00YwzBGia1E/cK5mpG8ZO88pXM7RjYjeKSsFbFcGVa0BOn3ui9nYPfZ+ZMYwD7t338J7OGEn6Fndswt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 06:44:49.9497
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2db800-06ba-4bf0-35a7-08df04cfdba9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7870
 
-Add command-line options for filtering by process ID (PID), thread group
-ID (TGID), and process name (COMM) to the page_owner_filter userspace tool.
+On Sun, Aug 23, 2026 at 06:20:15AM +0800, Rong Zhang wrote:
+> The AMD IOMMU Initialization State Machine has the following state
+> transition diagram (only the very first states are showed, and the
+> `IOMMU_' prefix is omitted):
+> 
+>    START_STATE
+>         |
+>         v
+> [0] detect_ivrs() --> NOT_FOUND
+>         | ok
+>         v
+>   IVRS_DETECTED
+>         |
+>         v
+> [1] amd_iommu_disabled? (amd_iommu=off) --> IOMMU_CMDLINE_DISABLED
+>         | no
+>         v
+> [2] early_amd_iommu_init()
+>         |
+>         +-- [3] amd_iommu_detected? (!iommu=off && ...) -+
+>         | yes                                            |
+>         +-- ... --> IOMMU_INIT_ERROR <-------------------+
+>         | ok
+>         v
+> IOMMU_ACPI_FINISHED
+>         |
+>         v
+>        ...
+> 
+> [0] always calls pci_request_acs() as long as there's a valid IVRS table
+> and no Stoney Ridge graphics. This is not optimal as ACS is not required
+> in an [amd_]iommu=off boot.
+> 
+> In a normal boot, ACS is requested due to amd_iommu_detect() requesting
+> IVRS_DETECTED.
+> 
+>     pci_request_acs+0x9/0x18
+>     iommu_go_to_state+0x106/0x1a20
+>     amd_iommu_detect+0x1c/0x50
+>     pci_iommu_alloc+0x26/0x40
+>     mm_core_init+0xa/0x120
+>     start_kernel+0x527/0x7a0
+>     x86_64_start_reservations+0x24/0x30
+>     x86_64_start_kernel+0xd1/0xe0
+>     common_startup_64+0x13e/0x158
+> 
+> This is intended to ensure ACS is requested before the PCI core
+> initialization, or else a !CONFIG_IRQ_REMAP, nointremap or intremap=off
+> boot would be broken.
+> 
+> However, in an amd_iommu=off boot, the state machine still requests ACS
+> at the exact same time, as amd_iommu_detect() has nothing to do with
+> amd_iommu_disabled.
+> 
+> Even worse, in an iommu=off boot, though amd_iommu_detect() bails out
+> early, ACS is still requested due to amd_iommu_prepare() requesting
+> IOMMU_ACPI_FINISHED, which is called by irq_remapping_prepare() thanks
+> to CONFIG_X86_LOCAL_APIC (always set on X86_64) and CONFIG_IRQ_REMAP
+> (enabled by defconfig), unless nointremap or intremap=off is also passed
+> to cmdline.
+> 
+>     pci_request_acs+0x9/0x18
+>     iommu_go_to_state+0x106/0x1a20
+>     amd_iommu_prepare+0x15/0x40
+>     irq_remapping_prepare+0x43/0x60
+>     enable_IR_x2apic+0x22/0x190
+>     x86_64_probe_apic+0xa/0x50
+>     apic_intr_mode_init+0x70/0xd0
+>     x86_late_time_init+0x28/0x40
+>     start_kernel+0x6f9/0x7a0
+>     ...
+> 
+> In both cases, [2] is still gated due to the [1] or [3] check, so that
+> IOMMU can be disabled per cmdline.
+> 
+> Technically, it makes no sense to detect IVRS at all in an
+> [amd_]iommu=off boot or if IOMMU is not supported due to platform
+> settings. This is probably why amd_iommu_detect() bails out before
+> requesting IVRS_DETECTED. Apparently only bailing out there is not
+> sufficient, and the bailing-out paths should really have been parts of
+> the state machine.
+> 
+> Clean up the initialization routines by moving the bailing-out paths and
+> [1] to the right place in the state machine (i.e., before [0]), and
+> always requesting IVRS_DETECTED in amd_iommu_detect() to initialize the
+> state machine early and properly.
+> 
+> Note that the condition (iommu_detected && !gart_iommu_aperture) is
+> dropped as it's dead code since the relevant code being removed. It
+> meant to detect what commit 6631ee9d0099 ("x86, AMD IOMMU: add
+> dma_ops initialization function") had introduced, but commit
+> d7f077697533 ("x86/amd-iommu: Fall back to GART if initialization
+> fails") has removed it. Later, commit 78013eaadf69 ("x86: remove the
+> IOMMU table infrastructure") ensured AMD IOMMU being detected before
+> Intel's and led to iommu_detected == gart_iommu_aperture in any case.
+> 
+> Signed-off-by: Rong Zhang <i@rong.moe>
 
-New options:
-  -p, --pid PID_LIST    : Process IDs (comma-separated, max 16)
-  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)
-  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)
-                         Supports wildcards: * ? [a-z]
+Reviewed-by: Ankit Soni <Ankit.Soni@amd.com>
 
-Usage examples:
-  page_owner_filter -p 1234,5678
-  page_owner_filter -c "python*"
-  page_owner_filter -n 0 -c kworker* -o output.txt
-
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
- tools/mm/page_owner_filter.c | 168 ++++++++++++++++++++++++++++++-----
- 1 file changed, 147 insertions(+), 21 deletions(-)
-
-diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
-index 1d1f0a38678a..9256ffad4939 100644
---- a/tools/mm/page_owner_filter.c
-+++ b/tools/mm/page_owner_filter.c
-@@ -21,22 +21,24 @@
- #include <signal.h>
- 
- #define MAX_CMD_LEN	512
-+#define TASK_COMM_LEN	16
- 
- static void usage(const char *prog)
- {
- 	fprintf(stderr, "Usage: %s [OPTIONS]\n", prog);
- 	fprintf(stderr, "\nOptions:\n");
--	fprintf(stderr, "  -m, --mode MODE      : print_mode (stack, handle, or stack_handle)\n");
--	fprintf(stderr, "  -n, --nid NID_LIST   : NUMA node IDs (comma-separated or ranges)\n");
--	fprintf(stderr, "  -o, --output FILE    : output file (default: stdout)\n");
--	fprintf(stderr, "  -h, --help           : show this help message\n");
-+	fprintf(stderr, "  -m, --mode MODE       : print_mode (stack, handle, stack_handle)\n");
-+	fprintf(stderr, "  -n, --nid NID_LIST    : NUMA nodes (comma-separated or ranges)\n");
-+	fprintf(stderr, "  -p, --pid PID_LIST    : Process IDs (comma-separated, max 16)\n");
-+	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
-+	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
-+	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
-+	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
-+	fprintf(stderr, "  -h, --help            : show this help message\n");
- 	fprintf(stderr, "\nExamples:\n");
--	fprintf(stderr, "  %s -m stack\n", prog);
--	fprintf(stderr, "  %s -m handle\n", prog);
--	fprintf(stderr, "  %s -m stack_handle\n", prog);
--	fprintf(stderr, "  %s -m stack -o output.txt\n", prog);
--	fprintf(stderr, "  %s -n 0,1,2\n", prog);
--	fprintf(stderr, "  %s -m stack -n 0\n", prog);
-+	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
-+	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
-+	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
- }
- 
- static int validate_mode(const char *mode)
-@@ -132,6 +134,93 @@ static int validate_nid_list(const char *nid_list)
- 	return 0;
- }
- 
-+static int validate_pid_list(const char *pid_list)
-+{
-+	const char *p;
-+	int count = 0;
-+
-+	if (!pid_list || strlen(pid_list) == 0)
-+		return -1;
-+
-+	for (p = pid_list; *p; p++) {
-+		if (*p == ',') {
-+			count++;
-+			continue;
-+		}
-+		if (!isdigit((unsigned char)*p)) {
-+			fprintf(stderr,
-+				"Error: Invalid character '%c' in pid_list (only digits allowed)\n",
-+				*p);
-+			return -1;
-+		}
-+	}
-+
-+	if (++count > 16) {
-+		fprintf(stderr, "Error: Too many PIDs (max 16)\n");
-+		return -1;
-+	}
-+
-+	return 0;
-+}
-+
-+static int validate_tgid_list(const char *tgid_list)
-+{
-+	return validate_pid_list(tgid_list);
-+}
-+
-+static int validate_comm_list(const char *comm_list)
-+{
-+	const char *p;
-+	const char *comm_start;
-+	int count = 0;
-+	int comm_len = 0;
-+
-+	if (!comm_list || strlen(comm_list) == 0)
-+		return -1;
-+
-+	comm_start = comm_list;
-+	for (p = comm_list; *p; p++) {
-+		if (*p == ',') {
-+			/* Check COMM length before separator */
-+			if (comm_len == 0) {
-+				fprintf(stderr, "Error: Empty COMM in list\n");
-+				return -1;
-+			}
-+			if (comm_len >= TASK_COMM_LEN) {
-+				fprintf(stderr,
-+					"Error: COMM too long (max %d chars)\n",
-+					TASK_COMM_LEN - 1);
-+				fprintf(stderr, "  Near: %.15s...\n", comm_start);
-+				return -1;
-+			}
-+			count++;
-+			comm_len = 0;
-+			comm_start = p + 1;
-+			continue;
-+		}
-+		comm_len++;
-+	}
-+
-+	/* Check last COMM */
-+	if (comm_len == 0) {
-+		fprintf(stderr, "Error: Empty COMM at end of list\n");
-+		return -1;
-+	}
-+	if (comm_len >= TASK_COMM_LEN) {
-+		fprintf(stderr, "Error: COMM too long (max %d chars)\n",
-+			TASK_COMM_LEN - 1);
-+		fprintf(stderr, "  Near: %.15s...\n", comm_start);
-+		return -1;
-+	}
-+
-+	if (++count > 8) {
-+		fprintf(stderr, "Error: Too many COMMs (max 8)\n");
-+		return -1;
-+	}
-+
-+	return 0;
-+}
-+
- int main(int argc, char *argv[])
- {
- 	const char *output_file = NULL;
-@@ -148,6 +237,9 @@ int main(int argc, char *argv[])
- 	static struct option long_options[] = {
- 		{"mode",	required_argument, 0, 'm'},
- 		{"nid",		required_argument, 0, 'n'},
-+		{"pid",		required_argument, 0, 'p'},
-+		{"tgid",	required_argument, 0, 't'},
-+		{"comm",	required_argument, 0, 'c'},
- 		{"output",	required_argument, 0, 'o'},
- 		{"help",	no_argument,	   0, 'h'},
- 		{0, 0, 0, 0}
-@@ -174,7 +266,7 @@ int main(int argc, char *argv[])
- 		return 1;
- 	}
- 
--	while ((opt = getopt_long(argc, argv, "m:n:o:h", long_options, NULL)) != -1) {
-+	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
- 		int len;
- 
- 		switch (opt) {
-@@ -206,6 +298,48 @@ int main(int argc, char *argv[])
- 			cmd_len += len;
- 			break;
- 		}
-+		case 'p': {
-+			const char *pid_list = optarg;
-+
-+			if (validate_pid_list(pid_list) < 0)
-+				return 1;
-+			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
-+				       "%spid=%s", cmd_len > 0 ? " " : "", pid_list);
-+			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
-+				fprintf(stderr, "Error: Command too long\n");
-+				return 1;
-+			}
-+			cmd_len += len;
-+			break;
-+		}
-+		case 't': {
-+			const char *tgid_list = optarg;
-+
-+			if (validate_tgid_list(tgid_list) < 0)
-+				return 1;
-+			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
-+				       "%stgid=%s", cmd_len > 0 ? " " : "", tgid_list);
-+			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
-+				fprintf(stderr, "Error: Command too long\n");
-+				return 1;
-+			}
-+			cmd_len += len;
-+			break;
-+		}
-+		case 'c': {
-+			const char *comm_list = optarg;
-+
-+			if (validate_comm_list(comm_list) < 0)
-+				return 1;
-+			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
-+				       "%scomm=%s", cmd_len > 0 ? " " : "", comm_list);
-+			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
-+				fprintf(stderr, "Error: Command too long\n");
-+				return 1;
-+			}
-+			cmd_len += len;
-+			break;
-+		}
- 		case 'o':
- 			output_file = optarg;
- 			break;
-@@ -220,7 +354,7 @@ int main(int argc, char *argv[])
- 
- 	/* At least one filter must be specified */
- 	if (cmd_len == 0) {
--		fprintf(stderr, "Error: At least one filter (-m or -n) must be specified\n\n");
-+		fprintf(stderr, "Error: At least one filter must be specified\n\n");
- 		usage(argv[0]);
- 		return 1;
- 	}
-@@ -255,15 +389,7 @@ int main(int argc, char *argv[])
- 	ret = write(fd, filter_cmd, strlen(filter_cmd));
- 
- 	if (ret < 0) {
--		if (errno == EINVAL) {
--			fprintf(stderr, "Error: Kernel rejected the filter command.\n");
--			fprintf(stderr, "Possible causes:\n");
--			fprintf(stderr, "  - Kernel does not support per-fd filtering\n");
--			fprintf(stderr, "  - NUMA node has no memory\n");
--			fprintf(stderr, "  - Unknown reason\n");
--		} else {
--			perror("write filter command");
--		}
-+		perror("write filter command");
- 		goto out;
- 	}
- 
--- 
-2.20.1
-
+> ---
+>  drivers/iommu/amd/init.c | 25 +++++++++++--------------
+>  1 file changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index 40726dfef273..0fd0801a873f 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -3470,6 +3470,8 @@ static void amd_iommu_apply_erratum_snp(void)
+>  #endif
+>  }
+>  
+> +static bool amd_iommu_sme_check(void);
+> +
+>  /****************************************************************************
+>   *
+>   * AMD IOMMU Initialization State Machine
+> @@ -3482,7 +3484,13 @@ static int __init state_next(void)
+>  
+>  	switch (init_state) {
+>  	case IOMMU_START_STATE:
+> -		if (!detect_ivrs()) {
+> +		if (no_iommu || amd_iommu_disabled) {
+> +			init_state	= IOMMU_CMDLINE_DISABLED;
+> +			ret		= -EINVAL;
+> +		} else if (!amd_iommu_sme_check()) {
+> +			init_state	= IOMMU_INIT_ERROR;
+> +			ret		= -EINVAL;
+> +		} else if (!detect_ivrs()) {
+>  			init_state	= IOMMU_NOT_FOUND;
+>  			ret		= -ENODEV;
+>  		} else {
+> @@ -3490,13 +3498,8 @@ static int __init state_next(void)
+>  		}
+>  		break;
+>  	case IOMMU_IVRS_DETECTED:
+> -		if (amd_iommu_disabled) {
+> -			init_state = IOMMU_CMDLINE_DISABLED;
+> -			ret = -EINVAL;
+> -		} else {
+> -			ret = early_amd_iommu_init();
+> -			init_state = ret ? IOMMU_INIT_ERROR : IOMMU_ACPI_FINISHED;
+> -		}
+> +		ret = early_amd_iommu_init();
+> +		init_state = ret ? IOMMU_INIT_ERROR : IOMMU_ACPI_FINISHED;
+>  		break;
+>  	case IOMMU_ACPI_FINISHED:
+>  		early_enable_iommus();
+> @@ -3695,12 +3698,6 @@ void __init amd_iommu_detect(void)
+>  {
+>  	int ret;
+>  
+> -	if (no_iommu || (iommu_detected && !gart_iommu_aperture))
+> -		goto disable_snp;
+> -
+> -	if (!amd_iommu_sme_check())
+> -		goto disable_snp;
+> -
+>  	ret = iommu_go_to_state(IOMMU_IVRS_DETECTED);
+>  	if (ret)
+>  		goto disable_snp;
+> 
+> -- 
+> 2.55.0
+> 
