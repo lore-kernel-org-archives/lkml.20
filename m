@@ -1,101 +1,222 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A377B3B894B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942093; cv=none; b=EcCw29H24m3mAx/pW/A3w7OM8KNw6ECMlpB2M93VVuO2vxtWTbFgbbDcmjcohja7paNCzA5SxLuk/HchO8Y4aOTzQCjIVH7kkAMRf5Bgv1FKMyq0HwJtHgHKuyDnJBYs6nCVeUAsuygPj/oj/m+zwOSfxlSpLxPR6dtCoiI8Q1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942093; c=relaxed/simple;
-	bh=bPZUsoU6njNJJodvUEfBisKbLN9MZEaSCb77w7jau9o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=efhFQyFsvSZtJ9uz5LfHN4G5MM4M1/X8MlEjT5rCrc5jqO/9BdIRj6wbMiDu/70Xqwj8UXlM3nn3ha+mmhB8Tg92Y87BMIDyvr/pAwwjKTdo58qvWnmGM2rbbTh+Cm6YtV/xDJdZ1AaX/UDh3pca7dmLDgV3eIDAq5p1CuKBAgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=T9H9gi1K; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C684358D32
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787942147; cv=pass; b=HaQupElB0jKzu8gAFnkYWBEGbPg6IJslyTl/qLJjuNr+q1/DJaMlQrYQ3WZanmnTWlt4MfEeSsh1oEBupvWUbnVZpSqVNWS/xR0MnhnJx3W3kFhFzoloMGmR6BL4pSVGfQTyt/jnyN9qstaDr9FNszboex2LUg83E+Y2ilq0e1Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787942147; c=relaxed/simple;
+	bh=0qn4UxNb3g604jH6zmZ0Yq2KvJ6mMJRy6DHLQzewxlo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CrTs0UWAzWwUMX84gEFWgYd2rmKNe9IuQaKAKVRcy9YXuMVwFKlm2o99apisNqHfLaohUP8JCpm3GK2hspohLXa5Hxu8FdSZCx10ZSk1S7tfsZ6ypI57k+3r0jyhCk1Frqtpjqrhr66LMkVlSkwBsZ0RZ/bDsjll96h7SyD+woc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r2Wuz51M; arc=pass smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="T9H9gi1K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1787942083; x=1788201283;
-	bh=bPZUsoU6njNJJodvUEfBisKbLN9MZEaSCb77w7jau9o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=T9H9gi1KbVgbugyaeV/2mKNNJpr1croDJ29KTjMj7lCNRiTOXAVCGuiyB21Jz608x
-	 dLFbmZTKS1B9nawRPtdg1OcGQH4soHC0J8liXzKBgMdsN0T30kdJkxs9yJqT1NomyF
-	 eeue7mnywGMyQ2ckn9hYec+I6yOd32N1Wf3T2aTlMjLRLnaj0u6gvp1REME8pMwFS3
-	 7d+pBZdfCUU6H66Pn2FPU08LioG7hRLGeSrqyUaZMBExbCzifqd45WTXDyG1VkkKtu
-	 Wl3zqeZtbTyfjaD9KXO3eGuk4/RjAM2Y0kZkrFFDQGUS9ProsQRq7EOkkq7fP/5yvq
-	 yaskcAPcD9GVg==
-Date: Fri, 28 Aug 2026 18:34:39 +0000
-To: Hidayath Khan <hidayath@linux.ibm.com>, Alexandra Winter <wintera@linux.ibm.com>, Thorsten Winkler <twinkler@linux.ibm.com>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-s390@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC] net/iucv: af_iucv socket locking - accounting, and a staged plan
-Message-ID: <20260828183431.21830-1-hexlabsecurity@proton.me>
-In-Reply-To: <5f88daf4-cd8e-4464-b132-ac45be205121@linux.ibm.com>
-References: <20260724222917.134769-1-hexlabsecurity@proton.me> <f74b9587-c09c-4fce-9415-e2d3b49d0247@linux.ibm.com> <5f88daf4-cd8e-4464-b132-ac45be205121@linux.ibm.com>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: cbb7ea84ea102673dc379a83493996ca29f6f599
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r2Wuz51M"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b568dae0e8so1652298e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:35:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787942143; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j2viQ6H3KdES3pEsSNOG6bGTbix9aoZC1yEbtFdkrSvqpVIQtbA+MgMVRsM3V1qMS6
+         9GWokOPK/09pCfr0R2055RUgwRMHkHIHVIIrk4tZLwLHVB7ZrjBvrCSCFvsAHK0whW6A
+         dP4w7JN1rApS1mZdJfvrUpxVt+mey6iVe24hcvWnr0mWVISy3cqMy+QIvLjem3B5wS/O
+         cxSRm+blfnSSEeu7rjqA0qpwwf6oknN3K/zspifMdX5szNmGK8p/j095vMIc/KFoq031
+         DZgNVtro8x0v9NyI4rTd748Yyxq8ZTk8HvhP4Ct/ISaeVzhOMQ6ABBkS0qPbM7h+JEEf
+         bhRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ynpb+Jwnqqd6rxWLKuDyYF14qvmrfmLGhrgEpg5gM8g=;
+        fh=R+5WnObrt3U2ZY2gvRTvGrEWlkpHIGTZoMvn4D3HMpE=;
+        b=Albng0Ffrk/t3yVoTnx6pX6iz14pL8vPsbbSmfaGQ2LQGEROj4/dJE/iCiMJeN9glx
+         5W67GrsI3jV1vnLtkpQIJwONuuEiOcOMOdYAiVa7LkYn5N51gyTAIKE1joF0Vz3YnYSh
+         GUucyQwYifGAUky8c1skviOHdQ7pQ4bm4u2JQHCaDdZQsT9T9FxD1dUAbkQUqeMckkA+
+         xPIHztBDcCFA7DZTOtW+sQ7/8zkPCVh8WjxUKcVujj2ykxYacGMfUFUkFn1d5SsvjMFK
+         8OBiGhUm/5PaYUwFCpmh9ZJh6gZAkzh4DAQQXZPpbJJwbliD3ywAkAuDDuEZerZcofl/
+         TIWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787942143; x=1788546943; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ynpb+Jwnqqd6rxWLKuDyYF14qvmrfmLGhrgEpg5gM8g=;
+        b=r2Wuz51MLusSAxOV1rlK8zut2WgmDTbNRTg7hbALmYm97vbmtrdzwVu9ZPC6y0CrEm
+         XyGLHtCeCiZGXbVmJG+CfpSmDuXcKe968XIDOFQ79ulhYAUbvmrrTE/ZKRGetk8tbeMw
+         ZkmtpRfSjo0zvDeYLUgJWrxViocc7RZlaa+zrjKPPpRM7n1Zd6gI98lsAaliVxhe+hkD
+         KvhSk/zDaZLm17LeWbJ+tRoJcydXVWFF0TM0npypOk5zaXgZemNEfJNhY9pskrojPzOf
+         gk6N6AkPZ8YwAYu60473AzfL2GxMBajTtrv6mRVHwromlu8xwfI5BmqShfJTbypMyKCQ
+         8wvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787942143; x=1788546943;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ynpb+Jwnqqd6rxWLKuDyYF14qvmrfmLGhrgEpg5gM8g=;
+        b=UyYnUx1k2jFW25D0c8qA25KlKr6Jc/y+VeFfmwK5qffq3FEjQm9308NZWYPnnSckK6
+         EpP13EfzMnCba5a3mrzzIYMJwRx5n2IvlZxpzefhLh/7eY6/SFAwevn31+IRPl1JSnF0
+         Ktdq1RKwK9dgeOfl+fuP8HxTNI/ixAniKEOhj7CI9uEbefjC5K6fH7O0dmyp7cCY8ARa
+         JDGFIFYYO+GR2V067A17kPzkAoyHVv2AKfwJkbW8Gs32ryi04uus+9k2LhDXT+I8slxW
+         KIENLJP3rLcP3lqmiNQjBi7O3N61ENSrH1jgLxdGCMZkoMd3wPy1EFGchcabn+uFYN4l
+         elFQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqfQNAiDywUBfKXBDtTBCz4W4VBxkHWYgTeoxrsjwwNhkgyS0FkeacQ+eL2LNs+1mnZwrrZSnt6D9LzNKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kf1CFlc1l2KWT5/vEh/i+PSqGbsR29mXahP+pwuxYt0yZmdv3m
+	4/piolDz/tGtxRzbIDL+MZiYJ/hP3d5t9m4PRQxD0LwYEndVuA1/RY/3ZuLFDzbUlwTlKqdAZYh
+	iaaKkZ1C8NF5WpIfrX8UF4ZYErJjprYc=
+X-Gm-Gg: AR+sD10i0mWPUp2SqFN2IJqi/+yy/SJXjbjXPiFjArNOZZR4DOuMkc0SnZg1aMDNZkO
+	qxGy5bz5RQov1JM/X1kcG6PfYEJxTPuyyWSvfQfbcyGwWioVQIooWe+NsyhH47ki/umVVL4Xe1R
+	d70LQ2R7ek+cEJYjvblcoyEC2SdQL3LbUii4AZx9wDhO5T7GiPmsTIiBKRDxMJSJMgEa4trNjCm
+	KMfg6Au98P7LWrX5HBOykCyyV/yh/dhF4ohF4TK7WdDoj6Vh6lUDYjU99cnwIPMY4ZDHpTNcN51
+	bvIQF5IfP+MfLBX0ZZlnC8zmr5l8CvkZ7sJTlEdFaskK/CnIN+ZCi02bak/4ZknL89abDgC9Sjn
+	RYvXbBg4VLUag3ybwaCdz24XextGvQMdyYQ==
+X-Received: by 2002:a05:6512:3c8f:b0:5b0:ceb3:1150 with SMTP id
+ 2adb3069b0e04-5b5e68c215emr2691269e87.8.1787942143391; Fri, 28 Aug 2026
+ 11:35:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260828114125.637513-1-qiwenjie@xiaomi.com>
+In-Reply-To: <20260828114125.637513-1-qiwenjie@xiaomi.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Fri, 28 Aug 2026 11:35:31 -0700
+X-Gm-Features: AcwNN1XKyS8swpSmb2FoICesReCmb-oe2WjEFTdnn3lU_zfqIrEESazdS_1qYyo
+Message-ID: <CACOAw_x5wNWf6s7j9FBrC5P28c__UiN9kw6mDvqVGgZZCk-ruA@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH] f2fs: sync pending discards before reserving
+ device alias
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, qiwenjie@xiaomi.com, 
+	stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hidayath,
+On Fri, Aug 28, 2026 at 4:44=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrote=
+:
+>
+> A released device-alias range can accumulate pending discard
+> commands. The reserve path then marks the same range valid again
+> through f2fs_reserve_device_alias() without first synchronizing
+> those discards.
+>
+> If the discard thread later submits one of the stale commands,
+> __check_sit_bitmap() can still see valid blocks in that range and
+> trigger a BUG.
+>
+> Synchronize pending discard commands in the alias range before
+> making it valid again.
+>
+> Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device al=
+iasing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> ---
+>   kernel BUG at fs/f2fs/segment.c:1228!
+>   Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
+>   CPU: 1 UID: 0 PID: 79 Comm: f2fs_discard-25
+>   RIP: 0010:__check_sit_bitmap+0x2e1/0x4e0
+>   Call Trace:
+>    __submit_discard_cmd+0x921/0x1140
+>    __issue_discard_cmd+0x524/0x12f0
+>    issue_discard_thread+0x686/0xe20
+>
+>  fs/f2fs/f2fs.h    | 2 ++
+>  fs/f2fs/file.c    | 1 +
+>  fs/f2fs/segment.c | 9 +++++++++
+>  3 files changed, 12 insertions(+)
+>
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 16720f1f0a9..2b9c6bf310b 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4067,6 +4067,8 @@ int f2fs_start_discard_thread(struct f2fs_sb_info *=
+sbi);
+>  void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
+>  void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
+>  bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_chec=
+k);
+> +void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi,
+> +                           block_t blkaddr, unsigned int len);
+>  void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
+>                                         struct cp_control *cpc);
+>  void f2fs_dirty_to_prefree(struct f2fs_sb_info *sbi);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index d440231b8cb..58cea2aa314 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -3847,6 +3847,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *=
+filp)
+>         write_unlock(&et->lock);
+>         clear_inode_flag(inode, FI_NO_EXTENT);
+>
+> +       f2fs_wait_discard_bios(sbi, ei.blk, ei.len);
+>         f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
+>
+>         i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index 1e7e745be71..7f4fe8c34c2 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -1916,6 +1916,15 @@ static void f2fs_wait_discard_bio(struct f2fs_sb_i=
+nfo *sbi, block_t blkaddr)
+>                 __wait_one_discard_bio(sbi, dc);
+>  }
+>
+> +void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi,
+> +                           block_t blkaddr, unsigned int len)
+> +{
+> +       block_t end =3D blkaddr + len;
+> +
+> +       while (blkaddr < end)
+> +               f2fs_wait_discard_bio(sbi, blkaddr++);
+> +}
+> +
+>  void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi)
+>  {
+>         struct discard_cmd_control *dcc =3D SM_I(sbi)->dcc_info;
+> --
+> 2.43.0
+>
 
-> Let me know how you'd like to sequence it.
+Hi Wenjie,
 
-Don't sequence them behind me. Send the accept_q_lock patch now, and take
-iucv_callback_connreq() back. I asked for it on the 21st assuming the rewor=
-k
-would move, and it won't for a while: I'm in the middle of a larger project=
- and
-have only a few hours a week for this at the moment. Holding two patches an=
-d a
-leak fix for that is a bad trade for you.
+Thanks for catching this discard race and for sending the patch.
 
-One thing worth having before the walk fix goes out. The lock on the walk i=
-s
-necessary and it isn't sufficient. Both producers link the child and set it=
-s
-state afterwards: iucv_accept_enqueue() at af_iucv.c:1916, then
-nsk->sk_state =3D IUCV_CONNECTED at :1917, and the same order at :1693 and =
-:1696.
-So the state store sits outside accept_q_lock, and a walker holding that lo=
-ck
-still reads sk_state at :1372 with nothing ordering the two. iucv_accept_po=
-ll()
-tests exactly that field to decide EPOLLIN, so a poll landing between :1916=
- and
-:1917 sees a child that is on the queue and not yet CONNECTED. Moving the s=
-tate
-store ahead of the enqueue in both producers closes it. The lock alone narr=
-ows
-the window.
+This is a critical issue, but we need to address it differently:
+1. Data corruption risk during the released state:
+Once released, external applications write data directly to the raw
+block device (/dev/block/...). If delayed discard commands remain in
+the background queue, F2FS's discard thread will asynchronously erase
+the data written by the external application.
+Thus, handling this at `reserve` is too late=E2=80=94we must clean up all
+discards at `release` time before returning to userspace.
+2. Performance issue with block iteration:
+Looping block-by-block (`while (blkaddr < end)`) causes millions of
+lock acquisitions and rbtree lookups for an 8GB+ device.
 
-> while iucv_accept_enqueue() appends from the IUCV tasklet and the
-> HiperSockets softirq under bh_lock_sock(parent)
+Fix:
+In `f2fs_ioc_release_dev_alias()`, right after
+`f2fs_write_checkpoint()`, we should either:
+- Drop/cancel pending discard commands for that range from the discard tree=
+, or
+- Synchronously flush and wait for all discard commands in `[ei.blk,
+ei.blk + ei.len)`
 
-Small correction that doesn't change your conclusion: the append's own lock=
- is
-spin_lock_irqsave(&par->accept_q_lock) at :516-518, not bh_lock_sock. The w=
-alk
-takes neither, so the finding stands either way -- it matters only for wher=
-e
-the fix goes.
-
-You're right about iucv_accept_dequeue() too. Its walk at :542 is equally
-unlocked and can't be wrapped the same way, because the loop body sleeps in
-lock_sock() at :544.
-
-All of that is source plus a model, not a run. I have no Z.
+If you'd like, I can write and post the fix for this. Let me know what
+you think.
 
 Thanks,
-Bryam
 
+>
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
