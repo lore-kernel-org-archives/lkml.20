@@ -1,114 +1,243 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E3B3385A7;
-	Fri, 28 Aug 2026 06:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DBB3CB8E5;
+	Fri, 28 Aug 2026 06:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898809; cv=none; b=KY7hVFF16JSxNeWQs+Y3lvu0i/g33+uWTnl1tOSB6bopu/cW3nCeRV6GtH4izHc8C8Q5ZZB5Fh1jYrRikSkwxRWiv5aw3C2T0f+MVff42CxrG0gxwiGNHuLGu6Gcr1Iv0wyldpXZg5XTXz8QH65nICWPtPfcSQj/Sro9Wwpyn+s=
+	t=1787898823; cv=none; b=AWj1vJ32L/1q/DJlWZzEruuHRdWU6I/4IVR22/bI6v3Kv5kna1VsLOjgWYd8HbW+N0Hn04He7kIbN6nbEYftMcGBEZ4/RJFJ8JUNdK/C2ln07csH770Crco85iJYt8nO00YaFc9am3YJKdQmmjR3ZOFWUg+en/BCAt5FX5rMrlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898809; c=relaxed/simple;
-	bh=HZQcu4aZ8tTxFfRNjQw0G/6Q2BP49d5qaYhZXQFGLlg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nyii2bTL1k/kxBSyinyIzZK4kDAg/3wWctwgWbooJ29Zz9GHfXlBVOH1uUnmYDZ90fKuQsP7OWieO88A6udeuJp91BOdYTkpp31z2XDIFvz1bYzzHD9XVT+RFWqzqie17olNV7Y3v3u/EgUnY6hO/nxE+KUhs9cb/xRqxDU82lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=GdFz8X0M; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=g7Iih7PK; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1787898823; c=relaxed/simple;
+	bh=gTg4XQjVmVz4Kh134B0Ijy3ozjc1X5GFNXKD4AwZ27k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eAQ47gZzjuf1kj+ckWWV2PADHcl73t2oZ6LpnJzRdeFxDz1hSaKc2XCjPw94y8x3fDNVvFXLn0//OWcD5Kz1fedFON4imLxXAO34toKLQhLOHiQebtqVVki65shE/Ogt0vLhL6U5GXICOt5ZQ7z1Acrlrq2xoBJNWAoYKXv1NME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=hQncp8aS; arc=none smtp.client-ip=217.70.183.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="GdFz8X0M";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="g7Iih7PK"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 6C4A11D00084;
-	Fri, 28 Aug 2026 02:33:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Fri, 28 Aug 2026 02:33:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1787898806; x=1787985206; bh=1TqSf34J+R
-	Q18DtwXjAHDC4SqrdULRczMIhIFP3i3+w=; b=GdFz8X0MY9cmkbgl6QfrCC4VS9
-	rKjVtsXJZ5epg+LMH5OWXNnzGGDf9p8G3HHL1DICmeJlKKWXyKl5ykoLdcAGjVYV
-	3a/yls5UFkiua6wX3w0ZpP+7d/wYFNBSGtKliTAncauLT38SMnJjURESqQn/ujGg
-	myVXTrumdHNSvbbIWT5Fg9Ul7Yi71Bi1ZLV/c/UoyzaalywZSbOQMsRdv/8xkxEc
-	6CPXqew827WiJLF7GbcFazCq/Pl8t2WCYrtFDjKC7clG+XUpaVzcwmqYWTOBNaFd
-	fxCz3PQlxvtbo+yliZ0uKs4AG8b4itBxZ2zXLFwzzbzVHt8uHvGCFkyMYI/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1787898806; x=1787985206; bh=1TqSf34J+RQ18DtwXjAHDC4SqrdULRczMIh
-	IFP3i3+w=; b=g7Iih7PK8tvCvBEUj6QnvP9IL1R7+DBhfVryzTU78H5OseZohJK
-	bHVaoNP5dwP2w4B4THVhvDfvb3VMc+1px98laaNbtkc2ESng6SgsKRDm4Swp82Eu
-	RZkwcZ0FZWQb4OnnVToJiMDR/qiP7FEtHw26JDNd/4TcuvzbRzqOOnS/WpuEGteh
-	1a/dZGqvI+9Q3oZW9mn1OlU+H+KSGoBs1MMjQV1gAMZ7qBNbkf9T6hvKvXl6eCB/
-	hiFgJN/Jq6j9IqjQWL1vnTobpRd5yTf9Ah+1pTVdgmLvw2cIlAzqB6bdJJkvZ3Y2
-	B62OQhiJr/D0CD0rhvDVsGZSV8MJddOkKbw==
-X-ME-Sender: <xms:tiuRakW_FBxdJVM1A3o5vL9pFn30_smYpYxIjMwpuA2tnQWG9unlXQ>
-    <xme:tiuRahUKcl_OHmJv2RpOolxjtNcRnZUYiJonZCxPeBaNoMFli932Edp0EjivZxC1s
-    YB1eJunMmUZqiIGdCUgCb4NooVyhB2zHpR8Z-puk4vfsWib6zI>
-X-ME-Received: <xmr:tiuRanFImOQiRxMHqXzDUNuqnXNO99xqFKnHHc7LcLTUmHHZRw6GqhHW8D1ZqO6yaQQyEQayKwDWHME3aRj5509MPpSqWGNTHiKK4MTS4Mw>
-X-ME-Proxy-Cause: dmFkZTEZ6B3DcKaFrRdVvEemO7U2LvZ0RsCSSwPpTRLaLJLYhJAIQ0Nn1nUfkVjiVzd3oa
-    UnCZAHz9G9A7+WApVEQKKvIk+nVQ24CYPVQXoxzQLDx4JwV/s8wRHc/jEMVAciVKAoRHhF
-    8OMHM/9MqeL06uV7TVE/j+sdXUag5LQ2Sq2W5VEvRBYTvdOz5XDDl0vQAIfPwCWiopyp6R
-    sujEFnNDD9E+e886nZMvGUJGnavx58HAj0qlQYZb7M67J708f3YfuKHVC4050T8Fob1oqz
-    poaFxfh6k6bSlK+hlrig2pru0zAfU/LqTeKY6xUVpoY85bvu8A3wwGLp/kPG2uMgCDT7n0
-    9QOqorTXt8e0O0djv3Jp6jvyUpTdyUyFtDoauKXeZ4xuIRgfvoHr8dN8rzOumPYlk6TJRG
-    oHafcBjOkeTl41J+ZbLCBdizg1K3KuYT9Fuv9IK1JUgf3wTfrjUabcjX93yRzmKeRidyhc
-    m74fOYK54J2eePZK5ybZg4/yKHloO7jQ4ZlvCBakCrJQKxxeAIrw9Cp7kRFod+0KVqWEXv
-    FLwiduJaHaa02Ftdk/1RJpjWZlfWVw80va9YGxSSI4n2c+SQtgrdtQOFETewaLrmClMe7s
-    nLGaui8b660VrVMIiYLJe8CWykNnOZ21xqDiJ7khzQtZidl4UVMOPX7QbZ2w
-X-ME-Proxy: <xmx:tiuRalv1Mk5zkil4m4mpNPJZ80jlRSeR5B89-1jAYKbBpsB2be89YQ>
-    <xmx:tiuRaib5vMmGGq01R9U0iuQW_FXg4T0ZQJY6yOEkIOF9ymzGFG6Vjw>
-    <xmx:tiuRatXvTFTjvisSHnS73ypHe7tsb8J6tuDL-7hHy6wtl0HhhwDbxA>
-    <xmx:tiuRakKFPehDAo0Mf2Sg7PJGKfejKVr5QzZwPmaPXp5MzJzgHMb70w>
-    <xmx:tiuRav8A06Lpw-jyF9lqVLlzlSjJPFvY-eFk-Kyp5h2GUcin661mxm2O>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Aug 2026 02:33:25 -0400 (EDT)
-Date: Fri, 28 Aug 2026 08:33:24 +0200
-From: Greg KH <greg@kroah.com>
-To: MoGGuU <Naixumogu@whut.edu.cn>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] accel/rocket: Validate BO handle counts on job
- submission
-Message-ID: <2026082816-regular-doze-e442@gregkh>
-References: <20260828061916.20405-1-Naixumogu@whut.edu.cn>
- <20260828061916.20405-2-Naixumogu@whut.edu.cn>
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="hQncp8aS"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7725E1F47F;
+	Fri, 28 Aug 2026 06:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1787898812;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ASnAMRDladV1l8gyKbKFY6Vd/6r7kYJr6tUpS2r2NUc=;
+	b=hQncp8aSqlWBmrDfy/xXtj6xjUlLaVDqFZbGkkNw0VByDEdY3WAiXHBnxodXFoZYYIzBuz
+	A6JfzduhVqMokkxOM77ZqCMWJxRTl7e9C5GZ0uKtIrawfzp5o4/Tr36mO5K2vtKLM68ACb
+	VCC9o+eR/RXnjd+j7uF2PjeNXB7M5AaxM8l4rhFwSHDoD2z67yAR2E+4A0OGS6MgvjhkWO
+	YQ9inI5xYekxZyLzS054PZVII6w7rYOtofk7vQHULwCylY1UAOYCqOxIDg8NJJgium/1Ve
+	H5ng4Ld9HNd0LIwRGp5tNmWRhCWPVuhQeZ4/ZRWknj4VKIvpBiepTW8jb+/Uxw==
+From: Guillaume Tucker <gtucker@gtucker.io>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Guillaume Tucker <gtucker@gtucker.io>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	automated-testing@lists.yoctoproject.org
+Subject: [PATCH v2 1/2] scripts: add TOML config to container tool
+Date: Fri, 28 Aug 2026 08:33:18 +0200
+Message-ID: <15e16f175f59ae666036764eb03c40cdf19809c7.1787896890.git.gtucker@gtucker.io>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828061916.20405-2-Naixumogu@whut.edu.cn>
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEniHm/Ptz4XVhRvXZtZIZExTzjiW4dk2mombHGE2jgJ14uj9LBVapMnLnfjdXlv9eAgXryC7GokgiYa4o4gabUHYRQt3V7HMvbak6jmzR9E+d8KeDq8gr38g1CcsAcCmHWbnKIrwofD/absQ/O2nm4vSr2n5ojbm2JePFUzHt4m3zokTBNylOAV22sbCofbrceqDese9xX2RZrH+NwV77DmE1ah6JRta2tdCgzf90By9zWg4RCGAjOu2FQfcMqqi7EdWtHpELmau3uDjSeEK721jaA5kfwRK10jxJcDvWAHjGWE0HbE4qCYQ+LnQIn74ZNeGLYZR997dS6o9tlAROESj81WOe6fF7dC7o7k/y7DxwktKcZ6NEQHDnSg2k54omTuNHpP+VegH6BJIG+/MNTFHO6fe1kjGzTmyzf8NBkEteQeQ/tXXKeJeNNN/2n8NGboCZaUgGV8SXOb9cpXqGinm56l/E73FROxnxa29CIFa4lMxsMtpZt8LVa6rHTnSCbCriznsz7PJnMQxl5ppNyMOpaVKczb+weqefPgY4LPBnzBBgwjJZyzlO/RfGRDar8z/mUUTvDIzNceJOHPekYJs3y9wlAqSa/ckyJp/o6K6bnFjtynUwF12MHPwJuoE246y188Lads+pD8L7wvChesSxNGPoxXoz+l2++rls9Tw
+X-GND-State: clean
 
-On Fri, Aug 28, 2026 at 02:19:14PM +0800, MoGGuU wrote:
-> The input and output BO handle counts are __u32, while GEM lookup and
-> reservation helpers take int counts. A count above INT_MAX cannot be
-> represented safely by the GEM lookup helper.
-> 
-> Reject each count above INT_MAX before looking up the BOs.
-> 
-> rocket_job_push() already uses check_add_overflow() for the combined count,
-> but stores the result in u32, so it only detects unsigned wraparound. Store
-> the result in int so sums above INT_MAX are rejected before the count is
-> passed to the reservation helpers.
-> 
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Cc: stable@vger.kernel.org
-> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-> Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
-> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+Add support for a TOML configuration file to the scripts/container
+tool.  This improves user experience by not having to keep passing the
+same command line options all the time or overly relying on built-in
+default values.  Include the concept of 'profiles' with different
+named sections in the file to cover various use cases.
 
-Real name please.
+Command line options take precedence over the config file, and values
+defined in profile sections take precedence over the default one.
 
-thanks,
+Add a -c option to override the location of the .container.toml config
+file which should otherwise be located in the current working
+directory.  If not found, the file is silently ignored as it is not
+strictly required unless the -c option is used.
 
-greg k-h
+Add a -p option to choose a particular profile section in the config
+file rather than the default.
+
+Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+---
+
+Notes:
+    Changes in v2:
+    - fix uid / gid handling when set to 0 (root)
+
+ scripts/container | 84 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 73 insertions(+), 11 deletions(-)
+
+diff --git a/scripts/container b/scripts/container
+index b05333d8530b..72f89f9d17c5 100755
+--- a/scripts/container
++++ b/scripts/container
+@@ -1,17 +1,19 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0-only
+-# Copyright (C) 2025 Guillaume Tucker
++# Copyright (C) 2025-2026 Guillaume Tucker
+ 
+ """Containerized builds"""
+ 
+ import abc
+ import argparse
++import dataclasses
+ import logging
+ import os
+ import pathlib
+ import shutil
+ import subprocess
+ import sys
++import tomllib
+ import uuid
+ 
+ 
+@@ -20,10 +22,17 @@ class ContainerRuntime(abc.ABC):
+ 
+     name = None  # Property defined in each implementation class
+ 
+-    def __init__(self, args, logger):
+-        self._uid = args.uid or os.getuid()
+-        self._gid = args.gid or args.uid or os.getgid()
+-        self._env_file = args.env_file
++    def __init__(self, args, config, logger):
++        def _first_not_none(*args):
++            return next((item for item in args if item is not None))
++
++        self._uid = _first_not_none(
++            args.uid, config.uid, os.getuid()
++        )
++        self._gid = _first_not_none(
++            args.gid, config.gid, args.uid, config.uid, os.getgid()
++        )
++        self._env_file = args.env_file or config.env_file
+         self._shell = args.shell
+         self._logger = logger
+ 
+@@ -131,6 +140,41 @@ class Runtimes:
+         raise ValueError("no runtime found")
+ 
+ 
++@dataclasses.dataclass
++class Config:
++    """Container configuration"""
++    image: str = None
++    runtime: str = None
++    registry: str = None
++    env_file: str = None
++    uid: int = None
++    gid: int = None
++
++    @classmethod
++    def from_toml(cls, config_file_path, profile_name):
++        """Create a config object from a TOML file"""
++        if not config_file_path:
++            config_file_path = '.container.toml'
++            if not os.path.exists(config_file_path):
++                return cls()
++        elif not os.path.exists(config_file_path):
++            raise ValueError(f"config file not found: {config_file_path}")
++        with open(config_file_path, 'rb') as config_file:
++            config = tomllib.load(config_file)
++        default = config.get('DEFAULT', {})
++        if not profile_name:
++            profile = {}
++        else:
++            profile = config.get(profile_name)
++            if profile is None:
++                raise ValueError(f"unknown profile: {profile_name}")
++        fields = (field.name for field in dataclasses.fields(cls))
++        kwargs = {
++            opt: profile.get(opt) or default.get(opt) for opt in fields
++        }
++        return cls(**kwargs)
++
++
+ def _get_logger(verbose):
+     """Set up a logger with the appropriate level"""
+     logger = logging.getLogger('container')
+@@ -147,13 +191,21 @@ def main(args):
+     """Main entry point for the container tool"""
+     logger = _get_logger(args.verbose)
+     try:
+-        cls = Runtimes.get(args.runtime) if args.runtime else Runtimes.find()
++        config = Config.from_toml(args.config_file, args.config_profile)
++        runtime = args.runtime or config.runtime
++        cls = Runtimes.get(runtime) if runtime else Runtimes.find()
+     except ValueError as ex:
+         logger.error(ex)
+         return 1
+     logger.debug("runtime: %s", cls.name)
+-    logger.debug("image: %s", args.image)
+-    return cls(args, logger).run(args.image, args.cmd)
++    image = args.image or config.image
++    if not image:
++        logger.error("no image specified")
++        return 1
++    if config.registry:
++        image = '/'.join((config.registry, image))
++    logger.debug("image: %s", image)
++    return cls(args, config, logger).run(image, args.cmd)
+ 
+ 
+ if __name__ == '__main__':
+@@ -162,18 +214,28 @@ if __name__ == '__main__':
+         description="See the documentation for more details: "
+         "https://docs.kernel.org/dev-tools/container.html"
+     )
++    parser.add_argument(
++        '-c', '--config-file',
++        help="Path to the config file.  If not specified, the default is to "
++        "look for .container.toml in the current working directory."
++    )
+     parser.add_argument(
+         '-e', '--env-file',
+         help="Path to an environment file to load in the container."
+     )
+     parser.add_argument(
+-        '-g', '--gid',
++        '-g', '--gid', type=int,
+         help="Group ID to use inside the container."
+     )
+     parser.add_argument(
+-        '-i', '--image', required=True,
++        '-i', '--image',
+         help="Container image name."
+     )
++    parser.add_argument(
++        '-p', '--config-profile',
++        help="Profile section to use in the config file.  This will override"
++        "any values defined in the DEFAULT section."
++    )
+     parser.add_argument(
+         '-r', '--runtime', choices=Runtimes.get_names(),
+         help="Container runtime name.  If not specified, the first one found "
+@@ -184,7 +246,7 @@ if __name__ == '__main__':
+         help="Run the container in an interactive shell."
+     )
+     parser.add_argument(
+-        '-u', '--uid',
++        '-u', '--uid', type=int,
+         help="User ID to use inside the container.  If the -g option is not "
+         "specified, the user ID will also be set as the group ID."
+     )
+-- 
+2.47.3
+
