@@ -1,115 +1,141 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from 20.mo550.mail-out.ovh.net (20.mo550.mail-out.ovh.net [188.165.45.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605A63DFC7F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A815346AC5
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.45.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946808; cv=none; b=sp1C3utYcuzh2QdZFLEr4GBb319EEgD0cyA726Sq7gQSDdVOFK0I2M+fuIts4+X5wbQN3JIhS14+mXV8RUZGsz9NS55FSuG8/RKTWUGZ5XYY2o/sPHAMaJVdLj+u6YBQvS45DAbQgAQ20W8+y3RGaY3bXLn1SYH/Wfgq2gHQBcI=
+	t=1787946849; cv=none; b=rOapKjBb2OB6v29LUfVOd8rZFQpGMYwBiVILxO5IGHbzEA98tlIYgKjIVxXRKO9JoXrwfU6gLEQT7YaoVHDOnUaX/zTDdwccqlQkgT9t4nnbu4ysBc45jl4QWAzHxDkrWuKXZCkin3Lut1NMUMrr4HXCe0P6Wivd9pG1gR1AUNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946808; c=relaxed/simple;
-	bh=IxzjcPz5+SNhCmE1JOyZebKxthNf1zJTzmh1W0Xwp6Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jQ4mjFR2OnSKhOFGpu3b8FqdOC9BlegQ3AAawb4CuN2rcUNYK0PGw7W1GsuyqFI1uNTwl53qT08qXsqgyTkdQv9XqwhIwVexy6KYYI8xDTWNZVh1uNmEy3Dxbdrcthw5Fa4jYHMPSWH0p4kKjY5205wVB5mSWad8KN7JurG7FW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=b+OSskcW; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1787946849; c=relaxed/simple;
+	bh=ckAlqpaspq2k2x8q7tJLW4PNigmQWx+PWjnkQyMu16I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=InqA2KXNYTaKhRbjQqm6XYPXxWEyb9lj6vUUAf0JRc9LH8FH62U3hMEUQrNPR5HHnDxoxIqoQhd1wq+8QQVoUNpD5aamIiNgoM6SLfDWRDGPMbQrFPhHUkMVjxL1FsqrsLSKym5b+sabo/zCuu8Ir9PxtLaoFZZwg4jK87IVPwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=RLCaeniO; arc=none smtp.client-ip=188.165.45.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="b+OSskcW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=IxzjcPz5+SNhCmE1JOyZebKxthNf1zJTzmh1W0Xwp6Y=; b=b+OSsk
-	cW1Wu2OXiYmbZV0SF03y5tVK+iNBQUtluCoD6iGuWcYt9V+9rPCGi6/yAs53XcTy53sHgCeg/HL5m
-	9uHO5D+QGW+l9RgAqw/jdPCSs77WsWWcJVzdbJUDU2+vgUifO3QGwlXpFd/bOEskHt05AfnDtXaGy
-	aqd6ZbBRAKWBuqmH+hCVzyUlKYLu6VaTXK8YHSzMK8BWNtYu1o3x1Ia6ZZn0fco9WWCb+l6SM29zm
-	e2b/eb6fG4UCiC9N1zA6TAeniXZpUFxT47jeqwi0+5HxBfgCZPHV4EbSOTrWKPLOyC2F9faYYciHl
-	B2Ss8rhcfhHFr5XR6PMlRFumJeyw==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x02dP-000000095oa-2jkc;
-	Fri, 28 Aug 2026 19:53:07 +0000
-Message-ID: <17f79998b5f328c6e79820b613b2194dd3e104e6.camel@surriel.com>
-Subject: Re: [PATCH] memcg: clear FLUSHING_CACHED_CHARGE on cpu offline
-From: Rik van Riel <riel@surriel.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton
-	 <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>, 
- Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Roman
- Gushchin	 <roman.gushchin@linux.dev>, Meta kernel team
- <kernel-team@meta.com>, 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-Date: Fri, 28 Aug 2026 15:53:07 -0400
-In-Reply-To: <20260828192419.3057939-1-shakeel.butt@linux.dev>
-References: <20260828192419.3057939-1-shakeel.butt@linux.dev>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="RLCaeniO"
+Received: from director4.ghost.mail-out.ovh.net (unknown [10.110.37.246])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4hWg2l1R5kz6366
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:58:23 +0000 (UTC)
+Received: from ghost-submission-c7b579475-6dj84 (unknown [10.111.174.132])
+	by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id D17FCC2A79;
+	Fri, 28 Aug 2026 13:58:21 +0000 (UTC)
+Received: from quelquesmots.fr ([37.59.142.109])
+	by ghost-submission-c7b579475-6dj84 with ESMTPSA
+	id Q4JXJP2TkWrQ9hYAscvRaw
+	(envelope-from <l.wandrebeck@quelquesmots.fr>); Fri, 28 Aug 2026 13:58:21 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-109S00330f99484-d9bf-4ef1-a8a9-35eefa7e57e9,
+                    860BA029DBC89C9CB79CD437547027D697208083) smtp.auth=l.wandrebeck@quelquesmots.fr
+X-OVh-ClientIp:109.190.254.62
+From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD F15h
+Date: Fri, 28 Aug 2026 15:57:47 +0200
+Message-Id: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 10664242445692042523
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTEPfez9EEUV4Yq/cpyUiEXKtSThl3jZVINMHAloQojLyyapNUPIm1rOlxA8q/SZ8aqSNita4pqsBrXoxk79wLPrZQjxbvIOUgQ62jsJ5JwNVJS9VV+/gAB7hhikzDkar91k02WlAizWgmzjycl4MNtW2GePut5K6gZI3g7F3P6r5Y3QhMvEPmL13VkpZZ3rUdntYidPJB9jeStL9H2HknEty1nkpPX0jgqriD6n8CZZL4w9KjlQ9jHyY0wrUtYWBRJmCwSj/haMshZv7YvCowrHEtORRbIv7lnFEz0YwVCNmRIpcD7YzlJmhegpcXZ+EBrrxqVGWRrdGhIJZB2Iv4Ptr5XwVHvI/QaW+4+Zcpt7601t80Ihb1QSAHNle3L3FdMTOr9SHIIk+Sw7OkXuXN1TjnIFSWqC1TcMwLrITmqlWM/gPRw4JQSZ1mkdan29GxRjJfVFH57OHtUrf/GYAmYwRJKO2dx24zwr1E2FoDCFseALe1lwMJpRi3+eiuVxGnXQ64hDErJer778QFMGQ/2vrprky0xhvrABPOEHZvUColLf9sTmArJRtt2VeH74yv4JUeGH7cAor/iPZZG35oncekWsApyfuqqiuF4JzP2By9vU1vEPb4FyEmPekz5UOJcSpHddGgrpuqio7VKdsKv7fK+veVt+GyYD6Rc4FjG6PQ
+DKIM-Signature: a=rsa-sha256; bh=764ev2N3KwIgGapMuVWioNnBS/1ILv2C77z2qZJCBdE=;
+ c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
+ t=1787925503; v=1;
+ b=RLCaeniOviPMBqhBZH3W5fa3Uo77l7WOsSx4uxRQsc5IzTxoYrbrxZwG1zlOi78OClQ81+yi
+ BQ87VEWsrJTF/2xpDxCKYEcTF2lULWUufMBazeZB7GPq5TiWq6kp5CCwIYKYOCU07QC4K1x3vHV
+ Yk2krafDhigmY+m+bP+qFjDo4UbpFpbAoD2zmJU8EC4gI+xG/dDGVbsEMxC1tOgRgrwkVKk19Ug
+ Mp2vJdIIyHkndFM3oPsd1OLPX8DGZmaogOoeO6hsAdQ8PKxjRh3ms7S1afXoaSpD8C9IHHmoDQn
+ tWWhUvnU5puuCbrCZ/JSo6IVC0FOTg+EV1FPGCHLpTmmw==
 
-On Fri, 2026-08-28 at 12:24 -0700, Shakeel Butt wrote:
-> Sashiko [1] reported that memcg_hotplug_cpu_dead() drains the stocks
-> of the CPU which went away but leaves FLUSHING_CACHED_CHARGE alone.
->=20
-> The flag can be set at that point: drain_all_stock() may have claimed
-> the stock and queued the drain work shortly before the CPU went down.
-> workqueue_offline_cpu() unbinds the per-cpu workers, so such a
-> pending
-> work item is executed by an unbound worker on some other CPU, where
-> drain_local_memcg_stock() operates on this_cpu_ptr() and thus drains
-> and clears the flag of that other CPU instead.=C2=A0 Nothing clears the
-> flag
-> of the dead CPU, so drain_all_stock() would skip its stock forever
-> once
-> the CPU comes back online.
->=20
-> Clear the flag of both stocks after draining them.
->=20
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link:
-> https://sashiko.dev/#/patchset/20260828135036.7d44361f%40fangorn=C2=A0[1]
-> ---
->=20
-Funny, my AI came up with the same solution, and
-I just asked it to do a safety analysis on it.
+Commit 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to
+handle hugetlb mappings") taught get_align_mask() to return
+huge_page_mask_align() for a hugetlbfs file, and skipped the pgoff-derived
+align_offset for one. It missed the other write to align_offset:
 
-It was quite thorough.
+	if (filp) {
+		info.align_mask = get_align_mask(filp);
+		info.align_offset += get_align_bits();
+	}
 
-Reviewed-by: Rik van Riel <riel@surriel.com>
+get_align_bits() calls get_align_mask(NULL), so a hugetlbfs file still gets
+the F15h I$ anti-aliasing randomization that its own align_mask already
+excludes it from. vm_unmapped_area() therefore returns an address
+deliberately offset from the huge page boundary, the hugetlb VMA's vm_start
+is only PAGE_SIZE aligned, and tearing it down trips
+BUG_ON(start & ~huge_page_mask(h)) in __unmap_hugepage_range():
 
+  kernel BUG at mm/hugetlb.c:5161!
+  RIP: 0010:__unmap_hugepage_range+0x64f/0x660
+  RAX: 000000003fffffff  RDX: 00007e9280003000
+  Call Trace:
+   __zap_vma_range+0x523/0x680
+   unmap_vmas+0xa5/0x1a0
+   exit_mmap+0x13b/0x3f0
+   do_exit+0x1e4/0x470
 
---=20
-All Rights Reversed.
+That is a 1 GiB mapping on an A10-8770E (family 0x15, model 0x65) running
+7.2.0, 0x3000 below a 1 GiB boundary, RAX being ~huge_page_mask(h). Both
+hstates crash, and so do both on an FX-8370E (family 0x15, model 0x02)
+running 7.1.8, there 0x5000 low. The offset is va_align.bits, drawn once
+per boot: identical across hstates within a boot, different between boots
+and machines, and a boot that draws zero does not reproduce at any size -
+hence the apparent intermittency. The crash is in the teardown path, so the
+reservation leaks as well, HugePages_Rsvd owned by nobody until reboot.
+
+Reproduced by mmap()ing MAP_HUGETLB and returning. A Ryzen 5 2500U (family
+0x17) on the same 7.2.0 does not reproduce it, as expected since va_align
+is only set up for family 0x15. With the patch both hstates return aligned
+addresses, and PostgreSQL has mapped a 4 GB hugetlbfs segment for 18.8 h on
+2 MiB and 4+ h on 1 GiB pages with no BUG and no leaked reservations.
+
+Fixes: 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to handle hugetlb mappings")
+Cc: stable@vger.kernel.org # 6.13+
+Signed-off-by: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+---
+ arch/x86/kernel/sys_x86_64.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
+index 776ae6fa7f2d..6b2be065304f 100644
+--- a/arch/x86/kernel/sys_x86_64.c
++++ b/arch/x86/kernel/sys_x86_64.c
+@@ -157,7 +157,8 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
+ 	}
+ 	if (filp) {
+ 		info.align_mask = get_align_mask(filp);
+-		info.align_offset += get_align_bits();
++		if (!is_file_hugepages(filp))
++			info.align_offset += get_align_bits();
+ 	}
+ 
+ 	return vm_unmapped_area(&info);
+@@ -222,7 +223,8 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
+ 
+ 	if (filp) {
+ 		info.align_mask = get_align_mask(filp);
+-		info.align_offset += get_align_bits();
++		if (!is_file_hugepages(filp))
++			info.align_offset += get_align_bits();
+ 	}
+ 	addr = vm_unmapped_area(&info);
+ 	if (!(addr & ~PAGE_MASK))
+-- 
+2.34.1
+
