@@ -1,112 +1,181 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7EEBF36A364;
-	Fri, 28 Aug 2026 21:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787952258; cv=none; b=Jetlurq0dLow6d/xD/hBxIzKzI2Z1PpqW6GToJrjxfr2LvyTeGDxw8yYlP0aVpn495+7EO5zYZr3X+V09fbjBkIRmMDR9R9OEcQeFNCSdGUiHuFV4Yc9n73TW1vgy/WTe2fgTd/gnJrSVbRiLy7AS3ckOQxRkKlQAJ9zLCg+iV4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787952258; c=relaxed/simple;
-	bh=khsePphpghxx00y1hn1YuBpJNWFSJZh9he/T1ccyMYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TNoBXW6krCYG1Gq1oq9vDfpT68GFS6MuHAkxXMGSNO/0kBChNWnHR1GntAFuMEGc/3ITIH5gCXgmtMpz2m1wsRAkr2yUB34M/NkFIuvefKlYlvJCk5ojR2rEQqtAciDZPlfAiRAUFZspvZ/7xJCvHfArbkWTpdDBxri1EGLFxrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1009)
-	id 1CC4420B7167; Fri, 28 Aug 2026 14:23:43 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1CC4420B7167
-From: Dexuan Cui <decui@microsoft.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] hv_netvsc: Advertise the SR-IOV capability for CoCo VMs
-Date: Fri, 28 Aug 2026 14:23:25 -0700
-Message-ID: <20260828212325.2309515-1-decui@microsoft.com>
-X-Mailer: git-send-email 2.43.7
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A98C3D6CC9
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787952272; cv=pass; b=Yqp10JlydC6oP6tb7iO2MOy29pbMQtpM218g93Ts+FVDL5rCxJNxx4OGeQWLJ1bFdvPj6MGMIHLshISaa5rZQbWC0wkOKbbvDxnYf9lg48bTKp79VWnn5nsX8ctphDjP16vXINsXy7hK6WSm7vjz7cRHJaBMTTkMTgl94kN5Rpc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787952272; c=relaxed/simple;
+	bh=Ffm7RVhrdDVlNhzoQ5woLWmbwnD9sMc+g/XWethDSkk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d/+1BMW/STu7S/qN/zwofKI5whfeqT2gb8LYYXvEMtZ81RWBF4GE4D+b6b/2Fus+WWIlf36jNxcdNHeHlgYY3ZU1QEkPWhOKccy0gNEg9Jl8x3MV+9sNSiolTCOB01X4JAZAu7rrI6WZ2MmPFP5krmlMJhspEyMZccOB/dEPQrk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aml4Mys8; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aml4Mys8"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52faa58bff5so65311cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:24:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787952269; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fGPjFuAK9hsGSLkhcbxtVl/3oV4PwYFqh2YGDuPBw8twN0ipbPEoZZ/C4O5yGX2h+S
+         QFRGbpCOBARRxBow9tsFwT4YFDYtFLupHw/ymwyt030OKtyUMg5fVYy3ZXuiRMtdpySB
+         RqEFROl1wC9NQ4OwOi+1xqcqXJJWPBw+1T18EgjlebcgoSRClwmRw0JjIcd7vJvOo2m2
+         RFCxKK0rHQOnO7CbNxDWblEfEpj23R0hI5dTlAa+zxrrP2IwIunALKCR8aq/Uf0aNbpZ
+         gCZLL8q01m+QGYKr6iX/SIZjQ3qlX0qpH+S6A5O8Fo7hX1wJfxV+SWUUMT1ysE6wCgjE
+         /q0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q5bRhAW4BZGTRB4QS3OBjmnWX2zYNUF8sCy1+AA5KEE=;
+        fh=jcW4DGMaA7gbyun2HLcWXEnCvPG3CrXlsvEsvCLNXlc=;
+        b=szyGQv12tDazO9QDlmpaKtyz6Vpgvl6JG5rHBso5SVAmPlhJ2dmr0zUmmJidP2Yu+z
+         wyaIHpkzPmbZ0lFzb0UDW4c8qFTUrluuCfW9T/LjXLHW48ix/FFqDxBsbyTxVs5dhTFL
+         uCAvrA43WHqcnOSQ8XppmQV54QPuovW2SaG96BMHnP9dSjgGsrHa60+YMZFM2z3GVjAk
+         AeBSdrrx+7sGfs+xm3c8NuUPXfNm66BDIRLyaXY12kYMH6lBpOZTtaeDHNJMWLUQZlaw
+         /6MHrkBjJOmgMVfNma/tu1EB1jvU0qlWyBs0RUYqHe8wMyC+URnNaVmBxiLdqNRFhVxS
+         W3QQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787952269; x=1788557069; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q5bRhAW4BZGTRB4QS3OBjmnWX2zYNUF8sCy1+AA5KEE=;
+        b=aml4Mys8UCFomYkGul/Swq6fcz/YzQNh2lYmmyaUZNlvpfg6tMaW+ruBcwq3MCiwM9
+         R1B+nDGFw/V4806ppbms5mhWz4I/x7m5IhlOMuYgCFr2Jda9XKarq5DAuQlspQjiI1W1
+         7t18n0c7Fj4yM9WiiELVSLrHqT6U4VWprn20U1xehNLrxbqX3bFBzpDev/IsMjMuUYAP
+         sDZzz72wAL8CWTJdA/0pejFWoEzxaskdbg3fJOV8rboJ4hUeOJvgRM1o9AnSdH9E6hZF
+         SN+VVHAMAa0jEys4sLrMpwPLqnENB7broZ+r3Jc2dpZMbkb4JfrICjjt6yK6MGlt/gqn
+         zljA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787952269; x=1788557069;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q5bRhAW4BZGTRB4QS3OBjmnWX2zYNUF8sCy1+AA5KEE=;
+        b=egnkWeTnIXPscMOq8bHHQqAMia6gp8HewTMQ88YFaNh0mnBDVwDqKE3dIISY9aGPt4
+         pe2LziEHASC70zLV3NFmriMMknfhOqKBERdkto1+jw/SS/Z87sFjUbByLLtXk4eqHyQk
+         OC+dwlnoz8Reimo5DmBqHnkUJvTeqbs2u1p2ENrDdGqHAzy6joGjJwGm6K9FJQ3ZGf+D
+         /1uGiKRx4HTWnApdz5LwNr3eU6Y3qQRuqYFMOhZDQSXG5qDXL0gROL0lCVhpRMgLVPpR
+         qpW3Vky6wL9+oY9SQhbX6/GO/ixm/GxJPSgV7NKczwBApJOadijdlIKQ5DXFXxrI6vZp
+         uUUQ==
+X-Gm-Message-State: AFuF++nw4ZHPVD32lgHLK85QIkhmQTwaxvUU//Jo8pH8VqRnKxphBkwk
+	EapqcoV583Rk8jTLHF+htCvLtUk+RAlvYZTAiwzQ4S12KKmFJhnNO1eDN+NrPodkcBS1vHOXouP
+	Br/fy5DqqNi2uoBYg86LxBUZBXkseQWPLCIiIog5j
+X-Gm-Gg: AR+sD124VUMRIMAGDnAelIFa0NHf5A7zWVc987sT0OXPTapAziaY5obz0FIPWH+NBYm
+	QPyKYAlM0K+oP0SmA6cKwzHYz6Ffhg92KzeriujAPFcVTVDhiNCMHJpK26knINzRsTIn/1Nd6bG
+	iP4wN2Y+73bhGAuViSKg3O5g6gGNkhBC2VwE2eqlMiix5meB4Xyh6M2YNs9nJOyhafLxaFWatge
+	4QkaHiY5Zj7AxsHO254g9PsFF91aHszEJWQATogCOHOsOXlV4FLBDLnDPZxQeF5vVfXvlOmw2fp
+	4xXi9qU8Vt83weuRFv7nwXDYN7K093V5pvSt/+JdAZo=
+X-Received: by 2002:ac8:58c5:0:b0:52d:9d62:6163 with SMTP id
+ d75a77b69052e-52ff715f2cemr3483601cf.9.1787952267794; Fri, 28 Aug 2026
+ 14:24:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260811025157.1632867-1-riel@surriel.com> <20260811025157.1632867-2-riel@surriel.com>
+In-Reply-To: <20260811025157.1632867-2-riel@surriel.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 28 Aug 2026 14:24:15 -0700
+X-Gm-Features: AcwNN1WD4nMWnH_vAAvC-6nH870HRFxLAtQC4csfA8OjXMF11JErzAmHFOM2MwE
+Message-ID: <CAJuCfpHwPj9DtcsiaN43ofWgur0_ATGEhqQBqzezYZRen6TC+A@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 1/8] mm/gup: break out gup_fill_pages() helper
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This basically reverts the Feb 2021 change:
-commit 96854bbda24f ("hv_netvsc: Restrict configurations on isolated guests")
+On Mon, Aug 10, 2026 at 7:53=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
+te:
+>
+> __get_user_pages() fills pages[] and flushes each page's caches in an
+> open-coded loop.
+>
+> Move it into a gup_fill_pages() helper, which the follow_page_mask()
+> call chain can then use to fill its own pages[] slots.
+>
+> No functional changes intended.
+>
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Rik van Riel <riel@surriel.com>
 
-In Feb 2021, PCI device assignment for CoCo VMs on Hyper-V was not
-supported: if the host offered a PCI VF NIC device to the VM, the VM
-couldn't handle it properly, so the 2021 commit was made to tell the host
-"I'm unable to handle SR-IOV NICs, so please don't offer a VF to me".
-If the host offers a VF NIC to the VM anyway, the change to
-netvsc_receive_inband() ignores the VF NIC.
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-Since Mar 2023, the VM is able to support PCI device assignment due to
-commit 2c6ba4216844 ("PCI: hv: Enable PCI pass-thru devices in Confidential VMs")
-and related commits, so hv_netvsc can functionally work with a VF NIC, but
-we haven't advertised the SR-IOV capability because the MANA NIC driver
-(drivers/net/ethernet/microsoft/mana/) hadn't been hardened, so a
-malicious MANA NIC might be able to attack the VM.
 
-Recently, we have finished hardening the MANA driver, so we can safely
-use the MANA NIC in a CoCo VM now. Note: currently the MANA driver in a
-CoCo VM still uses bounce buffering (i.e. shared decrypted memory)
-for DMA. In the future, it will be able to use private encrypted
-memory for DMA with the help of TDISP.
-
-Now, advertises the SR-IOV capability for CoCo VMs.
-
-Note: for MANA to work properly for CoCo VMs, the following earlier
-commits are also required:
-commit 2e2a83b4998a ("net: mana: Validate the packet length reported by the NIC")
-commit c72a0f09c57f ("net: mana: Sync page pool RX frags for CPU")
-
-Note: the host might offer a VF NIC device that's not MANA -- in that
-case, if the corresponding VF NIC driver isn't hardened for CoCo VMs,
-the driver should be blacklisted in CoCo VMs.
-
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
----
- drivers/net/hyperv/netvsc.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index 5cd084e5696c..fc6548b16c91 100644
---- a/drivers/net/hyperv/netvsc.c
-+++ b/drivers/net/hyperv/netvsc.c
-@@ -625,10 +625,7 @@ static int negotiate_nvsp_ver(struct hv_device *device,
- 	init_packet->msg.v2_msg.send_ndis_config.capability.ieee8021q = 1;
- 
- 	if (nvsp_ver >= NVSP_PROTOCOL_VERSION_5) {
--		if (hv_is_isolation_supported())
--			netdev_info(ndev, "SR-IOV not advertised by guests on the host supporting isolation\n");
--		else
--			init_packet->msg.v2_msg.send_ndis_config.capability.sriov = 1;
-+		init_packet->msg.v2_msg.send_ndis_config.capability.sriov = 1;
- 
- 		/* Teaming bit is needed to receive link speed updates */
- 		init_packet->msg.v2_msg.send_ndis_config.capability.teaming = 1;
-@@ -1665,10 +1662,7 @@ static void netvsc_receive_inband(struct net_device *ndev,
- 		break;
- 
- 	case NVSP_MSG4_TYPE_SEND_VF_ASSOCIATION:
--		if (hv_is_isolation_supported())
--			netdev_err(ndev, "Ignore VF_ASSOCIATION msg from the host supporting isolation\n");
--		else
--			netvsc_send_vf(ndev, nvmsg, msglen);
-+		netvsc_send_vf(ndev, nvmsg, msglen);
- 		break;
- 	}
- }
--- 
-2.34.1
-
+> ---
+>  mm/gup.c | 27 ++++++++++++++++++---------
+>  1 file changed, 18 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 0692119b7904..7bb40be89529 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -633,6 +633,23 @@ static struct page *no_page_table(struct vm_area_str=
+uct *vma,
+>         return NULL;
+>  }
+>
+> +static void gup_fill_pages(struct vm_area_struct *vma, unsigned long add=
+ress,
+> +               struct page *page, unsigned long nr, struct page **pages)
+> +{
+> +       unsigned long i;
+> +
+> +       if (!pages)
+> +               return;
+> +
+> +       for (i =3D 0; i < nr; i++) {
+> +               struct page *subpage =3D page + i;
+> +
+> +               pages[i] =3D subpage;
+> +               flush_anon_page(vma, subpage, address + i * PAGE_SIZE);
+> +               flush_dcache_page(subpage);
+> +       }
+> +}
+> +
+>  #ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
+>  /* FOLL_FORCE can write to even unwritable PUDs in COW mappings. */
+>  static inline bool can_follow_write_pud(pud_t pud, struct page *page,
+> @@ -1461,9 +1478,6 @@ static long __get_user_pages(struct mm_struct *mm,
+>                         page_increm =3D nr_pages;
+>
+>                 if (pages) {
+> -                       struct page *subpage;
+> -                       unsigned int j;
+> -
+>                         /*
+>                          * This must be a large folio (and doesn't need t=
+o
+>                          * be the whole folio; it can be part of it), do
+> @@ -1493,12 +1507,7 @@ static long __get_user_pages(struct mm_struct *mm,
+>                                 }
+>                         }
+>
+> -                       for (j =3D 0; j < page_increm; j++) {
+> -                               subpage =3D page + j;
+> -                               pages[i + j] =3D subpage;
+> -                               flush_anon_page(vma, subpage, start + j *=
+ PAGE_SIZE);
+> -                               flush_dcache_page(subpage);
+> -                       }
+> +                       gup_fill_pages(vma, start, page, page_increm, pag=
+es + i);
+>                 }
+>
+>                 i +=3D page_increm;
+> --
+> 2.55.0
+>
+>
