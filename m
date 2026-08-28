@@ -1,391 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D7C379C3F;
-	Fri, 28 Aug 2026 09:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656223B4E88;
+	Fri, 28 Aug 2026 09:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910200; cv=none; b=Nihv3Kn4ocgJ/FXgwDu+JHpilk4ZuZ3AyH4YbRDR5q4wK2ZiiPlX/Hq1gNQ4quYsDUQ2aKOQoiAKFwOGMP3+2B6fqa9QSKI4oAYiUe8tNARyK6tCRswzuuzti06p3Y4ui95djeS4AMNCIOxAqibdjSmzgP313vqaiWKocDSk93c=
+	t=1787910204; cv=none; b=Y71UUNdEFAv5YkF5GUeyMeUWk7/7hfKH9PrhhOi2DMEJtwa+Pt4cksAfSX6KPlxoLHf5EstUmEOAjSJ8+Llttk2OvZw5X+PnlILRg3MSfwgtXjJ7GIs8PCYgJJSVGNnw2AIHwUWpv/KB15weu3ZkWtqWU0BMjVFwrKChj7l60oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910200; c=relaxed/simple;
-	bh=pi1501WPvK5IveD4Gnt0JN1Le/0pU5RkPyO+XUhMH8c=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
-	 References:In-Reply-To; b=IYTOcaqY1ScK9/TtOw7+OAq2qOrEgz9TiKCgEtF7ssExxlcfvh6s/MlnLsuYc0ZQLySmEMDnURpxV64SqNMe2ho4GP2h2LYu+NcFcJpBAV7ZH6u/tKSHA6f5iKqJV6gdRGKS1ZaDDUv2zKKOxpuRu32DsabOotdms0fDXzx8qp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2Gu/qWk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787910204; c=relaxed/simple;
+	bh=hfeoNiAXpofN56qgXyvfF/HSqnz59+ctNIfUn3H9PtQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zz4ATo9aIdNGPl4rEcc9px833ZvGtfbHv7qv5dQEbCzVTdEVQ/rnuFGweiuAoqolCyD447SwpgQ341VRNOqEYoW8SZGlzTgvzn1zkduTOot5i9QPiRBmDiYrI0b3nRBsqdM1g6qdaIrXURPWjsRbsPkkk23Qe1WPktlXcw7E0QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=45o+Yljh; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=J7SSjOvo; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2Gu/qWk"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EBA021F000E9;
-	Fri, 28 Aug 2026 09:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787910198;
-	bh=qogLoGmFv6tocje82oJkKxbcnqoMjaxJY9c0i9BIqcw=;
-	h=Date:Cc:From:To:Subject:References:In-Reply-To;
-	b=I2Gu/qWkkcR2RoJOMgYzU6XubSEm4wIrBa66HVtZRCym/wT146j8xOX+m0m57WK/y
-	 bww1u0lwJLyktD6OZ7vGtcRDIvfxf2YlTRxCuKGV+1TkShICPw9Wz8o0sws7Yqx8fD
-	 Bg16vCYDqtDgiGMIf7QnvHNHbMCqCdxonoKiZokZimHbyAtcNPCRPHea75Vyf3gHOl
-	 KDKAw3LtRd+Lyj/3o0n1yTJhLRkdLRCpxBCD/90QdB2WWUU/SfkSWv684ubmAMLZQV
-	 pU9k0ah43VnBCNUju1aod2vk2Z6BGKDt/8Tfg9+61HobCikXMXlYgFY/7wlAbPjsZ7
-	 uF2fuxxT4j8nQ==
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="45o+Yljh";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="J7SSjOvo"
+Date: Fri, 28 Aug 2026 11:43:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787910200;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pjRHFhHriioVeDp+1zYDfvO+9D3/XP/DtK0lE0wEdBg=;
+	b=45o+Yljhyc3s4BUwME1WMOaYN9eCn7pyf4yobL669RIzcBYx+SfQ1wLLfU6yE2h+hxItjf
+	C4f+B0YZtQVz3cnCqOvHqGm2GwDWjs70GbluAcXc1KOugpwD/QbpItO2TJBEBkOSezf47R
+	cYddf5TFsQUHqF/Bg9N0x9G3dccYdWVrO1myP2YwcurMmcVban6fRs+J8IVSz0cKfhuPJz
+	xR9Ackm9tEATPULMf6imMQdPrgbkx35+uAtW6fCrdmA75A/eFp51ttYJTGYiUX5tnmHp9s
+	t5x3l0TOdYIvTQppNR/qZyI0pn+An6p1cz022T40uDNGtIoUX6PmQXVhHskEtA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787910200;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pjRHFhHriioVeDp+1zYDfvO+9D3/XP/DtK0lE0wEdBg=;
+	b=J7SSjOvoFsBHMldr7g2u9ONRUja7c8TygPTZx8/uOsiCpvh6b+U2t5PEBF1mIR0KhltRim
+	KcBFeJE3RXQBOEAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Petko Manolov <petkan@nucleusys.com>, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
+ work on system_dfl_long_wq
+Message-ID: <20260828094318.bOajNBno@linutronix.de>
+References: <20260720100902.155605-1-marco.crivellari@suse.com>
+ <20260720100902.155605-6-marco.crivellari@suse.com>
+ <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
+ <20260825151812.4aJyFUgE@linutronix.de>
+ <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=62e2f0f3f151d5d11bc87179aee71813d79cf26cb4ac240fd7ceef9cc952;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 28 Aug 2026 11:43:06 +0200
-Message-Id: <DL0H9KX4K3UI.145TKS5XKPFEI@kernel.org>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>,
- "Vignesh Raghavendra" <vigneshr@ti.com>, "Nicolas Ferre"
- <nicolas.ferre@microchip.com>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Steam Lin" <STLin2@winbond.com>,
- "Hsin-Yi Wang" <hsinyi@chromium.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <linux-mtd@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v3 05/23] mtd: spi-nor: Create the concept of fixup
- table with match function
-X-Mailer: aerc 0.20.0
-References: <20260813-winbond-v7-1-spi-nor-rv-addition-v3-0-b637cf120d5c@bootlin.com> <20260813-winbond-v7-1-spi-nor-rv-addition-v3-5-b637cf120d5c@bootlin.com> <DKOKFU8AD2U6.151AX0VOBX67H@kernel.org> <87cxv3cy5j.fsf@bootlin.com>
-In-Reply-To: <87cxv3cy5j.fsf@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
 
---62e2f0f3f151d5d11bc87179aee71813d79cf26cb4ac240fd7ceef9cc952
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On 2026-08-27 12:01:02 [-0400], Alan Stern wrote:
+> > > These drivers have their own work queues because they are part of the block layer.
+> > > USB devices can share a device with a block device (storage & UAS) and
+> > > USB devices have common, per device operations, in particular reset
+> > > and runtime power management and disconnect handling. Because these operations
+> > > can be necessary to complete block IO neither they nor anything
+> > > they depend on can use IO to allocate memory. That is they need to
+> > > perform any memory allocation with GFP_NOIO or GFP_ATOMIC.
+> > 
+> > This is a networking driver. It has nothing to do with storage and UAS.
+> > It uses USB, yes.
+> 
+> Ah, but a composite USB device can have both a networking interface and 
+> a mass-storage interface.
 
-Hi,
+okay.
 
-On Thu Aug 27, 2026 at 6:43 PM CEST, Miquel Raynal wrote:
-> I took me a lot of time to go through all your requests, in the end I
-> will not implement most of your feedback because either I do not
-> understand what is the gain, or because the result is not better at all
-> from my point of view. I try to explain that in my feedback
-> below. Nevertheless, I truly appreciate the deep review you made. I
-> think I mostly agree with the comments in the other messages.
->
-> On 14/08/2026 at 11:40:21 +02, "Michael Walle" <mwalle@kernel.org> wrote:
->
->> On Thu Aug 13, 2026 at 5:19 PM CEST, Miquel Raynal wrote:
->>> Manufacturer ID tables increase and fixup() hooks proliferate. Having
->>> one possible structure per chip was fine until the fixups started being
->>> more and more common and needed, to some extend due to ID reuses. Mixin=
-g
->>> fixups and chips becomes hard and requires extra helpers to sort which
->>> ones are needed for a given chip, which every time this happens require=
-s
->>> a lot of rework.
->>
->> Thanks, this patch looks really promising!
->>
->>> Replace the two-level fixup association (a manufacturer wide hook and a
->>> per flash_info hook) with a per-manufacturer list of fixups that can be
->>> looked up by flash ID and/or match function.
->>>
->>> The match logic works as follows:
->>> - If there is an ID, it must match
->>> - If there is a match function, it must match (cumulative)
->>> - If there is no identifier (no ID nor any match function), it's a
->>>   catch-all entry typically used for flagging manufacturer fixups.
+> Suppose you have such a device, and suppose the disk attached to its 
+> mass-storage interface contains a swap partition.  Now suppose the 
+> device is being reset, and as part of the preparation for that reset the 
+> networking driver needs to flush its workqueue.  This means waiting 
+> until the work routines that are already running have completed.
 
-I think this one is the crux. See more below.
+The individual functions are usually independent. But if the USB core
+would reset the whole device it would reset each function.
 
->> This mimics, how it's currently handled. But since the fixups are
->> now treated as a separate list, i.e. it has it's own SNOR_ID, we
->> shall move away from this manufacturer thingy too.
->
-> Why shall we? See below, I don't get the point. I drafted something it
-> took me two full days to work on that, to eventually realize I did not
-> see *any* benefit.
+> Since it's a general-purpose workqueue, you don't know what those work 
+> routines are going to do.  One of them might try to allocate memory 
+> using GFP_KERNEL.  Suppose that in order to satisfy the memory request, 
+> the kernel decides it needs to write some pages to the swap partition on 
+> the USB mass-storage interface.  But the mass-storage driver is stuck; 
+> it can't do anything until the device reset finishes.  Deadlock.
 
-Then let me ask the other way around, what is the benefit of having
-the manufacturer?=20
+So you are saying, the USB-storage device is in reset and we wait until
+the networking part finishes its workqueue flush. That flush is stuck
+behind behind a memory allocation which waits on the storage device. So
+any URB passed to usb_submit_urb() just waits for the reset to complete?
 
-There is now one central place for the fixups. Good. But now there
-is that catch-all thing, which is the replacement for the former
-manufacturer fixup if I read your code correctly.
+> That's why USB drivers have to use their own workqueues.
 
-BUT. We don't have a concept of a 'manufacturer'. We don't match the
-manufacturer id. The manufacturer is just set as an additional
-information if there is already  matching entry for a specific
-flash, so we already know the exact part. Before the generic driver,
-this might have made sense. The intention was to have a common place
-for the default flags for all *known* flashes of a manufacturer
-(which probably also was the result of the core rewrite). But now,
-we might have flashes we do not know, that is, aren't in the
-database. At least I would assume, that the manufacturer fixups are
-still applied though. There were already a few different times I
-proposed to have fixups for SNOR_ID(vendor_id).
+While this does make sense I don't see how this is related to this
+patch. The pegasus driver uses `system_long_wq'. This is a system wide
+workqueue_struct and is not limited to USB or this driver.
+This workqueue is per-CPU meaning if you enqueue the work item on CPU3
+it will be executed on CPU3. However pegasus uses a delayed work item
+and the timer can fire on any CPU so even if it is enqueued on CPU3 it
+could be executed on CPU1.
 
-I mean, even you fell into the trap that you'll have to have that
-catch-all/fallback entry in the flash db (can't find the mail
-anymore though, so please correct me if I'm wrong).
+Therefore the suggested change system_long_wq -> system_dfl_long_wq
+should not make a difference here: it is a different workqueue and it is
+unbound (instead of per-CPU) but given the usage it is unchanged but
+more obvious. Also its usage recommendations (use this for long running
+items) is the same.
 
-Also, having the fixups separate from the flash db, we can use the
-generic flash driver and still have some fixups for given flashes.
-If - for example - one would be adding locking support later,
-nothing but the new flashdb entry has to be added as the fixups are
-still applied.
+The plan is remove system_long_wq from the tree.
 
->> IMHO that really
->> clutters the code.
->
-> Clearly an opinion I do not share. Maybe I am missing something.
->
->> As a fun fact, spi_nor_match_id() will have the
->> unexpected side effect of setting nor->manufacturer.
->
-> Not sure I get why this is unexpected?
+> Alan Stern
 
-The signature of the function is:
-static const struct flash_info *spi_nor_match_id(struct spi_nor *nor,
-						 const u8 *id)
-
-Clearly it will return a pointer to the flash_info entry for a given
-id. But as a side effect it also sets nor->manufacturer. What if I'd
-call that twice with different ids? Maybe it's just me, but it looks
-like a pure function but isn't. I probably got burnt by the generic
-nor driver which hit that in the first place.
-
->> So here's how I'd do it:=20
->> (1) remove spi_nor_manufacturer.
->> (2) have a list of initcalls in the core to call into the individual
->>     vendor modules (that could later be replaced by something more
->>     sophiticated)
->> (3) that initcall will then call spi_nor_register_parts(const struct
->>     flash_info *parts, int nparts)
->> (4) (optionally) calls spi_nor_register_fixups(const struct
->>     spi_nor_fixup *fixups, int nfixups)
->
-> I've been trying hard to follow your approach, but really, I don't get
-> the point. Initcalls are not possible here, or it would prevent
-> CONIFG_MTD_SPI_NOR=3Dm so I went for an alternative approach with an init
-> registration which I believe matches your expectations. This is not
-> an actual problem.
->
-> But registering parts and fixups independently, maybe, but again, why?
-> What is the intended benefit? We now need to go through 96 (spi-nor
-> wide) fixups. But what do we get in exchange?
-
-I don't get that. You already have a (new) winbond_fixups[] for
-example. What is the difference between having that set in
-spi_nor_manufacturer vs having that in a
-
-winbond_init() {
-	spi_nor_register_flash_devices(&winbond_nor_parts);
-	spi_nor_register_fixups(&winbond_fixups);
-}
-
-And probably setting the manufacturer name in winbond_nor_fixups().
-
-I guess that all falls apart because of the empty match entry. That
-could be replaced with the SNOR_ID(winbond_id), though. Then we have
-*real* per manufacturer fixups.
-
-That is basically what commit afe1ea1344bb ("mtd: spi-nor: add
-support for Macronix Octal flash") made.
-
-> From my point of view:
-> extra churn and boilerplate, nothing particularly better than before. I
-> must admit, I do not understand your aversion for the manufacturer
-> structure. So while I like the idea of a flash-info independent fixup
-> list (which I implemented in v3), I do not understand the need for this
-> extra step.
-
-See above.
-
-> Since I do not get the point of this request, I prefer to not implement
-> it, because I will anyway do it the wrong way. If someone wants to make
-> a proposal, I will have a look, but at this point I need to back
-> off.
-
-I can do that myself, but I'd like to avoid any code churn. So I
-don't know what you've already tried to come up with, but if there
-is something which somewhat goes in the right direction of moving the
-registration to a function inside of the vendor modules. That would
-really be appreciated.
-
-> There are already ~70 patches pending which I hope will be applied
-> ASAP after -rc1 gets tagged and we agree on the remaining points (there
-> are other comments from you and Takahiro which I need to address).
-
-Looks like I need to apply the patches to the tree, too. Honestly,
-I've never done that, so I first need to actually see how it's done
-and if I even have access to the tree.
-
->> Also both could be a macro, then we can get rid of the size
->> argument.
->>
->> The current manufacturer fixups gets registered with a
->> "SNOR_ID(vendor)".=20
->>
->> That leaves us with the manufacturer name, which should be set by
->> that vendor catch all fixup.
->>
->> Btw, I'm fine with deprecating the name as well as the manufacturer
->> sysfs entry, but it shouldn't be as in "it just goes away".
->
-> I have no strong wish to get rid of those, especially the manufacturer
-> name which is not particularly problematic today.
->
-> [...]
->
->>> +	for (i =3D 0; i < nor->manufacturer->nfixups; i++) {
->>> +		if (fixups[i].fixups->post_bfpt &&
->>> +		    spi_nor_fixup_match(nor, &fixups[i])) {
->>> +			ret =3D fixups[i].fixups->post_bfpt(nor, bfpt_header, bfpt);
->>> +			if (ret)
->>> +				return ret;
->>> +		}
->>
->> This is repeated several times, can we have something like
->>
->> spi_nor_apply_fixups(struct spi_nor *nor, int (*fixup_fn), void *fixup_a=
-rgs);
->>
->> int spi_nor_post_bfpt_fixup(struct spi_nor *nor, const struct spi_nor_fi=
-xup *fixup, void *_args)
->> {
->> 	struct post_bfpt_fixup_args *args =3D _args;
->>
->> 	if (!fixup->post_bfpt)
->> 		return 0;
->>
->> 	return fixup->post_bfpt(nor, args->bfpt_header, args->bfpt);
->> }
->>
->> which then will be called with
->> spi_nor_apply_fixups(nor, spi_nor_post_bfpt_fixup, args);
->
-> I drafted it, but arguments are different, argument numbers are
-> different, return values are different, we need stubs for each
-> fixup... Nothing is identical, we just save a couple of simple checks
-> and a for loop. On the other hand, code just grows, complexity is
-> higher, readability is definitely lower. Sorry, but again, I do not see
-> the gain with this attempt, it just darkens what the core does. It would
-> definitely work with another -more advanced- language than C, though.
->
->>> +	for (i =3D 0; i < nor->manufacturer->nfixups; i++) {
->>> +		if (fixups[i].fixups->post_bfpt &&
->>> +		    spi_nor_fixup_match(nor, &fixups[i])) {
->>> +			ret =3D fixups[i].fixups->post_bfpt(nor, bfpt_header, bfpt);
->>> +			if (ret)
->>> +				return ret;
->>>  	}
->>> =20
->
-> [...]
->
->>> --- a/drivers/mtd/spi-nor/gigadevice.c
->>> +++ b/drivers/mtd/spi-nor/gigadevice.c
->>> @@ -64,7 +64,6 @@ static const struct flash_info gigadevice_nor_parts[]=
- =3D {
->>>  		.id =3D SNOR_ID(0xc8, 0x40, 0x19),
->>>  		.name =3D "gd25q256",
->>>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
->>> -		.fixups =3D &gd25q256_fixups,
->>>  		.fixup_flags =3D SPI_NOR_4B_OPCODES,
->>
->> The fixup_flags should also go into the fixups list.
->
-> Yes, we can use a similar logic here. Actually if at some point we want
-> to get rid of those flags, we could transform the flags into proper
-> fixup functions, but I'm not going to do that now.
-
-The flags actually serve the purpose of *not* having a huge amount
-of different fixup functions. So these should be kept for now. As an
-alternative, with the new list it might be possible to have multiple
-fixups for the same flash part. In any case, the fixup_flags have to
-be removed from the flash_info struct.
-
->
-> [...]
->
->>> +/* PM25LV parts have no JEDEC ID and are likely matched by name */
->>> +static bool issi_pm25lv_match(const struct spi_nor *nor)
->>> +{
->>> +	const char *name =3D nor->info ? nor->info->name : NULL;
->>> +
->>> +	return name && !strncmp(name, "pm25lv", 6);
->>
->> Won't just strcmp("pm25lv", name) do it? Both arguments are
->> guaranteed to be NUL terminated. The above would also match
->> "pm25lvextrabytes", no, and we get rid of that redundant size
->> argument.
->
-> No it won't, because that would no longer be a match, you would compare
-> pm25lv against pm25lv010 or pm25lv512 -> no match if you don't limit to
-> the first 6 bytes. Since names are part of the sysfs ABI, we cannot just
-> modify the names for that. We also need two different entries (two
-> different sizes) since we do not even match with an ID.
-
-Ah I see, you actually *want* that extra bytes, in that case, please
-use strstarts().
-
-
-> [...]
->
->>> @@ -233,6 +230,17 @@ static int mt25qu512a_post_bfpt_fixup(struct spi_n=
-or *nor,
->>>  	return 0;
->>>  }
->>> =20
->>> +/*
->>> + * n25q00a parts share the first same 3 ID bytes with mt25qu01g.
->>> + * In order to not mix the fixups, further filter out using the part n=
-ame.
->>
->> How would that work? The part name is also set by the duplicated ID,
->> so the first one wins, no?
->
-> - First part (mt25qu01g) is checked
->   -> ID match
-> - There is a match function where we compare the name with n25q00a
->   -> no match, not applying the fixup
->
-> - Second part (n25q00a) is checked
->   -> ID match
-> - There is a match function where we compare the name with n25q00a
->   -> name match
->
-> The fixup is only applied for n25q00a.
-
-Ah, I now get what you want to try to achieve. Only the first three
-bytes (I missed that in the function doc) are shared. So no actual ID
-collision.
-
-> For the other chip we can just give more ID bytes for the match.
-
-Giving there are more IDs for the n25q00a.
-
-> So I believe there is no problem here?
-
-Yes, no problem. But use strncmp() here, because this actually
-matches just one particular flash.
-
-FWIW I don't think this is sustainable, though. It's basically a
-workaround for the different matching in spi_nor_match_id() (first
-entry wins) and the fixups ID matching (any matching entry is
-applied). Though, I can't think of a more generic solution for now.
-
--michael
-
---62e2f0f3f151d5d11bc87179aee71813d79cf26cb4ac240fd7ceef9cc952
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCapFYKxIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/i25QF/c4P4bWZypw8ZyqO3HWcEDjUwnnnWq0Jg
-sb2Fz/Dmz2n+gqkV4LwzRiolzzQXCEGsAX96v2xv0jhKb7+rRP0EcjoZl0odZZ1z
-Bdx5NsrBdpU8oTZcZrVlexWNut37ldohD7Q=
-=Bs1E
------END PGP SIGNATURE-----
-
---62e2f0f3f151d5d11bc87179aee71813d79cf26cb4ac240fd7ceef9cc952--
+Sebastian
