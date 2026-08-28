@@ -1,32 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DC9315D40;
-	Fri, 28 Aug 2026 15:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EB72F8E8E;
+	Fri, 28 Aug 2026 15:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930507; cv=none; b=oqHMkFbI+eyLlqUsMk1M1HC89RnF0qFKuyuAqdWYZpEdKdOjuFXUo5Y4QQims8G8ucLpKloXPKb/i6kksC4caDg/BpudDd8erZqhMZfcfOCpeOUusrwdN6+0EBkW9H1iBl6m6/oKVsDriZq5htLysZ2o8LEPbVoSVk3l8vzAHDE=
+	t=1787930512; cv=none; b=bX2J5JFINzALRqg13QHPAigv5cTH+hMRY2mzamjiylepSQ2kFYe0qgk/EU/UGDwwjwZc7ZILbkQEnfpj682cPeMUFogIbq6Gv3vDqUNts84C2XPS8d3m+F+xgv9Th8zeL3Uus0FzsNJMv1/LX9gENF0pl5y9uJOF5xssDWehPII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930507; c=relaxed/simple;
-	bh=zBr1MfN7PC5+YPOJJXOZ4RajlR5B5be+l4IBroazAzA=;
+	s=arc-20240116; t=1787930512; c=relaxed/simple;
+	bh=bAOrGPwoOtTWtghXkVk1YuY6egbjiFRtjGpTIcERbkY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XWAX/0danUfgSbwqJS2Wme/cCP9bO0NDSlsCabk3pPE08CI/2xjcowrKXCD6Cm5lnJ0Y3Y+6vqBQv2ovlSy84dmhaYkt9ap4cSGFSi580SYXMXMzgtFWo9SwbiIWIOHjZHnO4ztu8WyPpaLywV2Ur7+EAtJLXRuDQFzst7kz91A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=DVUOoBfa; arc=none smtp.client-ip=178.251.229.89
+	 MIME-Version; b=XkftJHhLw5WBOq/7mpv5ZkVLq9xDShJLX8Ot8y2/5hWRrSuBl7/eDmWdp11DsZ7c5tB586ccXUBPkaYj9QSJRUE4QJjnm33+eiYx6NnFLTim6BtziEgCYJiDm8y+huTev+cNpaCdJd43o83277krl1Qla3XJap4QyuRkVCf45Bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=NBu6wa5M; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="DVUOoBfa"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C492911C6A9;
-	Fri, 28 Aug 2026 17:21:39 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="NBu6wa5M"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD13E11C69C;
+	Fri, 28 Aug 2026 17:21:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787930500; h=from:subject:date:message-id:to:cc:mime-version:
+	s=dkim; t=1787930505; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=zDuoZeD/14kWvkIt2iJv+zU8zp9s5Btcy4vourr3PaA=;
-	b=DVUOoBfaNgQCYOI5ZXN1/TznFoAo9doAG0YdaqCowNl43beO7hYHkw6lrnQCVUfzJInWzR
-	IdooIIMGvdhQC6BXBFbjBnMdqB+VjQ6luMR0S7IjraY1nWwWyclcB5kcDvClwhl1iDWKgs
-	VhWmHr4BDNkg4IvLHPbka5AC04uE0M1Ffxj3eTbU8XoPWLYRzrHJu4t2J/npHw6Vk9KhK1
-	5aY0bAXr0KWtOOipEnOuxcDQXOjI73PqAJsK6bwovjBoh59z2Uz+vg3P/9NgqS/bhD1os4
-	ofLXWZIysMn9cF+1YK9Ge0wUS2L5WCC37C/yx1fEU2q8vrlqXTqxj1F3jkHHMw==
+	bh=5wd5RZteDM8cztZDuaavwp4X1CI2+8REQybg3boMoN8=;
+	b=NBu6wa5M4IHoTlYZCYrLOuB+G4taASb4AH+xyfXjVpqBgtLUrEcrNh54Yt1q+yogqVnjsn
+	smjTRiHGDXlP3dV0OzVWAaItUSyRej/QS/H67kV2bAJVtPrgZxP4laOsbLjp4Wh3H1fMlS
+	KM9JdgtLhEmHMT7+ycqCKx3EXUK0EgIy+6mJpP7RhYrWHJNDEktTH8NgOcfDP42ZYBZ5xc
+	7/dtOR+Sn2Hyr93bZ/wD8f4DZzuCZQ+nM7YCMTkKvpTJePn0wM6Es7o/4SqEkzXNJxHPU4
+	ULVGu5W+XFE4tZN4MfBzHzEsLUF6layiS4sFPqoDvpWLLRTylOUmXj/q4DSmEQ==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Marek Vasut <marex@nabladev.com>,
@@ -40,9 +40,9 @@ Cc: Marek Vasut <marex@nabladev.com>,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v2 2/3] ARM: dts: stm32: Use STM32MP13xx compatible string for EHCI USB controller
-Date: Fri, 28 Aug 2026 17:21:16 +0200
-Message-ID: <20260828152130.176171-2-marex@nabladev.com>
+Subject: [PATCH v2 3/3] ARM: dts: stm32: Use STM32MP15xx compatible string for EHCI USB controller
+Date: Fri, 28 Aug 2026 17:21:17 +0200
+Message-ID: <20260828152130.176171-3-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260828152130.176171-1-marex@nabladev.com>
 References: <20260828152130.176171-1-marex@nabladev.com>
@@ -55,7 +55,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Use accurate STM32MP13xx compatible string for EHCI USB controller in
+Use accurate STM32MP15xx compatible string for EHCI USB controller in
 addition to "generic-ehci" fallback compatible string. This is future
 proof, and drivers can match on the accurate compatible string in case
 they need to discern this controller from the generic-ehci one.
@@ -76,19 +76,19 @@ Cc: linux-usb@vger.kernel.org
 ---
 V2: No change
 ---
- arch/arm/boot/dts/st/stm32mp131.dtsi | 2 +-
+ arch/arm/boot/dts/st/stm32mp151.dtsi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index d1c5afb5f89aa..ae45c2023afeb 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -1137,7 +1137,7 @@ usbh_ohci: usb@5800c000 {
+diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+index c37005c00ad65..ae31883732388 100644
+--- a/arch/arm/boot/dts/st/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+@@ -515,7 +515,7 @@ usbh_ohci: usb@5800c000 {
  		};
  
  		usbh_ehci: usb@5800d000 {
 -			compatible = "generic-ehci";
-+			compatible = "st,stm32mp13-ehci", "generic-ehci";
++			compatible = "st,stm32mp15-ehci", "generic-ehci";
  			reg = <0x5800d000 0x1000>;
  			clocks = <&usbphyc>, <&rcc USBH>;
  			resets = <&rcc USBH_R>;
