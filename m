@@ -1,105 +1,195 @@
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252893C0625
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912112; cv=none; b=r9+rW6tVY/UaZNh977pwfFKh8b/oM0fh9gPefmVMsZzp858FnPb1sA7FfID1VrLC/DrJKZa82yVe+YZ5LMLVXrbh1QdOjD6BijH1azce9dTxiU8REcWT+XcYddmQyFuyqL2ZNfSnK0kufeoSyJTwJeWwQNIYjwhqmdpfHDHXtM8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787912112; c=relaxed/simple;
-	bh=1D0z3XDIxhuLPSl3ONCnGkNcEisGAOG8EjoLCXAfyks=;
-	h=Cc:Mime-Version:From:Subject:Date:Message-Id:To:Content-Type; b=h/1OXjIAVysGBbzkuGlMhuCP0XaRyifVJ7veOpsAPTFzAv2y8Q2JVOLg7uR4czA/g/jzYt6xJOcoLz6miawLpFqh1HQKxZEdtX8KgOHBNxMMARFIPSWbZGIVi3SZx/Yq6pa25A09PJ2jfOkJ5TaUUAnWuxqd0HdLg8EfvElBVW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=sbZeiBYK; arc=none smtp.client-ip=71.18.227.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618B73F104C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787912192; cv=pass; b=lnvZPpZXickUow5NSO5lsv8liZ7lVXG3gQQ+yJYn/8x99W58qV/kbVrHi+vaIUFYxPhF8FoK4upFZvWbgcmjBxqO1s0l6nFI1vjJu2buJmU803y1BEJ5v8Z1n3DMHGjzuk17EVCtnUujAcxTb/Rmy35au8LVzOwITZ91asyEc0U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787912192; c=relaxed/simple;
+	bh=9nPb6ofpYX8RiPQ7x2iuJEPkGK91/1J8FKtfNZIcC5A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HV09VSq8hXott3hWYZUiqatRtcBGuIv8U6i7EoQDIi8hhlU/4FH8TYZO91KVvglqbtMzQNP7XFc52tA4FuQq3QBwIwlk3dhJkQPMKtGbITE0qnsn9EiogOKYPp0L2NBoi3vVgvBQv7a4ctBl7fG+ZZSgLPaePOH303rQEO9lAgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com; spf=none smtp.mailfrom=anyfinetworks.com; dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b=eDi1EAHE; arc=pass smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anyfinetworks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="sbZeiBYK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787912104; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=FVK+0yhgCI3q0pPTOyN+Ad8nUAuXDwjVZzyNNRt6CiQ=;
- b=sbZeiBYKpAWrd+bOcGMsn1aKRqHqkfIzvHOXI15/9QeIYufXRHYA7YxWMplk2Hh9wPRypc
- 2fdyv30hLq9liH9Nl+yhZK2qxV+dUT7iVK57q1bI0v0EmrdORv7ja2ZlS56iPz3oY+Otyl
- lKEUj4q1+e6Xd7qmN/2SKVmXw2kfjLqkHlZWIVJXhkOWC3MxNowDLmaLT19UVZpgwpaK30
- 8PtdUP33JsMKSIWe2qOQo1HbjmXDjw5rssMasdyPctSuXmY6ou/3AaBRgTk1OdtF1sDFz6
- 1emCP95jmsS6k2VebxX5o3zo/zcPsG5t+i8tb42A0IYSU+eY1Pw2Xag0z5XPFA==
-Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b="eDi1EAHE"
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bf959b820cso773779e0c.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:16:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787912189; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MIrSCkt1gBjjBqUepVKP09EsfXW+lOShACBcHOgEi6s6Pgnmx1s9pbwPSSV1ubIDl2
+         NwoYNEzFqQ4KjuCwm+WkeufG7shBWmOopAoq443F5MCnpGkPhFDS08leYPyGSNg14pVs
+         KT7n8S7qcHyV8c6wDAjMhn7sxhtzc/Gu7gTZa3OoYOzbz95Q+07945DMtyqKezWQZAZh
+         aCCNadwIF1FoOzyfRdH+z97aSV4PRHg9DjJBQJiXUM3DR8ZHfeDziOsWeiAiEuJ5cMlF
+         Rdedu2PHioLBU92vRUxRmlIes7+bddaL6O2H5TZvPaOwYQi3NGFEcx4C1Ude2BnGooDL
+         Cabw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6GcVt68ylb4fqLmficxbeoWwxWTUsNtsQKfhwJMCoe4=;
+        fh=GLVjVxXcJCAJ+DkARd/4dxp8LBnsTaE2l9+Pze41rEM=;
+        b=AR2TkOKFroU4L1DJC0AXZLcmss2anmd4j1F4H5AgJIvoWtM5mVc5TtAtOMXONlgC7d
+         J91XSsVU1VizKQps34ZkMmVbRdfrJ4QqEGXzxxoRmA90xttVRTGi2UaFHO0/Gnt+GD28
+         J0IM3XPJQDSeya+BwrJNClAIddn3yNGZGJGWqZc37zKXgK/7iEnHkxmC7SX+Bfq0zoSJ
+         vrmV8OLa8qjn7QxRTQvOXDFik2pxmAP17IU1W4G7QX4KD8fANSXgaXzXHvJG/kw3Kf/D
+         bceRmAO62E5/6r4PvpuFYWXobdPLCOQLM7pV2+T6P1B8jML/tpMwdRRwY69nnxa7IvbP
+         OnLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=anyfinetworks-com.20251104.gappssmtp.com; s=20251104; t=1787912189; x=1788516989; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6GcVt68ylb4fqLmficxbeoWwxWTUsNtsQKfhwJMCoe4=;
+        b=eDi1EAHEZnV8UO/NrhF4uzDO53/ZiBqe/Kv6LlPMTl1AifjnJFoy3N7vl8W54G2rrA
+         2xGtcLViQ6E6TajV3LATlqLSrIK4+DtympTvOkkbRVZHCDB6RacvwJ7CPPDE/wW6YeTX
+         uxrK98gVIaDpR9GKb/hPnm7ODAtM3r4KvfBlgB+Aug+U+k7whdR2Uk3otkCkkG2RdjhJ
+         nmF7fSrrOry1e4Pw+qwkM/VDMvXTfwBkp1Vbp8rgAT1II2Ot4WBQQuwaeJJJdvgtIyHA
+         O+WwqciUVopEQTvIDGa450fP5ZMTIxqTR/P7LYQuYSlteI3ge31ORyszsMnD/HsiSfya
+         g/OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787912189; x=1788516989;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6GcVt68ylb4fqLmficxbeoWwxWTUsNtsQKfhwJMCoe4=;
+        b=rUU/iNpw/o90ljoSdCOTR8V3l+M8qRCcT/vmthrmrifouu+W7MDExdjQKNuyNRgxgl
+         cYuGvIL5IkYAWzyY0BbcskVQKmPYXSe7zBcR680xxq8ez0fk9US8aHQ4eQ+rmju8z1Pj
+         Z24PolpHeKmSRwFK1zQL5HJBIPXIhoxShRfkGnOaPUoNeLzF3LOnH4PuzxxH7T2/RpeP
+         jPYjmmh1QP4ZypvrRp64E+NpWDuDMciXwDQyIYcSrHqx/T+fqtCkXSLRtjQcFyBszfML
+         vGGOanr/Z8JbGJKXe/4ApcxTzj+WTn2d+Z1iBKvCu+OCmT5iMXlgmHqExFUkGpaMn34n
+         7hlw==
+X-Forwarded-Encrypted: i=1; AHgh+RpHv5OCkHd8OkQn/TrSwPqMeSruVq/Jtk+BRiQFGyu6MN/ozXYeGiNnwgKupdhxOg2qHmTTvh+DdzS47Dk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkfJRUexCr8M5E2ataQWc3Cal5Ur5vVOwzallKHU2DF9S90dRH
+	cykexzLViFhPsz3L0H3+WBr4GnFkhKuOAUT6BWm6ylrrb4WFVveH/uF1HTClR4HHhSzvIn2m8kM
+	oRceVUACEghfsLqMmyEuLR+ZepZKePhbUuo8CxoT1mQ==
+X-Gm-Gg: AR+sD10WjZuXWILJfbtr3jqxK+dK0bdmMmTVG3roqMyJcCXF3ok8Vf9us7gf4mkGRQ3
+	w7kyXWJQZsuouvA42y76be1Hiyeqxs+n0i20ZgYAkrP/yBLGl1m1f8i5zsY+sx6lyh5NtntizJU
+	gOxqEP80pP9UaF6q6/AtZgsq7XdyjyCpBIYUBq9o0nqsQelmTmUqigAEqAI8fJDUwIYgyPU5shS
+	KlO2i0iN32MRj5RTtdvfIsdC6HEt2e0R6LoNL12vORDFUvhtwjznTnMLnAEE39T77Vux2vjWYjh
+	v96xcv3FgsLcq/Y1F9sceshL7rUcgcZEIpr1F+O1cDhP
+X-Received: by 2002:a05:6122:88a:b0:5bd:8c84:59aa with SMTP id
+ 71dfb90a1353d-5c681777357mr2723173e0c.8.1787912188834; Fri, 28 Aug 2026
+ 03:16:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: b4 0.16.0
-X-B4-Tracking: v=1; b=H4sIAKFfkWoC/3WNQQ6CMBBFr0Jm7Zi2VkBX3sOwKMMgVQJmWlFDu LuAcenyJf+/N0Jg8RzgmIwgPPjg+24Gs0mAGtddGH01MxhlUpWbDF1sNZLriFsUDhzx2csN97b mPLMppWYH8/kuXPvXKj4XXw6P8soUF9uyaHyIvbzX8qCX3S+S/4sMGjUenNFWVa5UmT1RwyJbI iimafoA3bnXws0AAAA=
-X-Change-Id: 20260827-atl1-cancel-reset-work-54fe8746c623
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v2] atlx: atl1: cancel reset and link works on remove
-Date: Fri, 28 Aug 2026 18:14:58 +0800
-Message-Id: <20260828-atl1-cancel-reset-work-v2-1-1ee8a5ac2f47@cherr.cc>
-Content-Transfer-Encoding: 7bit
-To: "Chris Snook" <chris.snook@gmail.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, "Jeff Garzik" <jeff@garzik.org>
-Received: from [192.168.9.107] ([111.42.148.113]) by smtp.feishu.cn with ESMTPS; Fri, 28 Aug 2026 18:15:01 +0800
-X-Lms-Return-Path: <lba+26a915fa6+277ac2+vger.kernel.org+me@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+References: <20260819010523.1057789-1-main.kalliope@gmail.com> <20260819010523.1057789-3-main.kalliope@gmail.com>
+In-Reply-To: <20260819010523.1057789-3-main.kalliope@gmail.com>
+From: Johan Almbladh <johan.almbladh@anyfinetworks.com>
+Date: Fri, 28 Aug 2026 12:16:17 +0200
+X-Gm-Features: AcwNN1UufzODx6ajZ2Cvlnuoud8Jym1z7VvkRIkj38LXxzb7tykFlkvxDcgn1Wc
+Message-ID: <CAM1=_QTDhirxjCmXUqvPqTqXMY=uVVcPXE0H=qHH_B+7XFrnpQ@mail.gmail.com>
+Subject: Re: [RFC bpf-next 2/2] bpf, mips: Add support for BPF_MOVSX in the JITs
+To: Nicholas Dudar <main.kalliope@gmail.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, paulburton@kernel.org, 
+	tsbogend@alpha.franken.de, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-atl1_reset_dev_task is scheduled from the interrupt handler on PCIe
-PHY link down and DMA read/write errors, and link_chg_task can be
-pending from link events. atl1_remove() tears down and frees the
-net_device without cancelling either work, so a work scheduled just
-before unregister_netdev() can run after free_netdev() and touch the
-freed adapter.
+Hi Nicholas,
 
-Cancel both works before unregistering the net_device, as atl2_remove()
-already does for its reset and link works.
+The MOV/MOVSX structure looks good in general. Some remarks on the
+implementation of individual emittor functions.
 
-Fixes: f3cc28c79760 ("Add Attansic L1 ethernet driver.")
-Cc: stable@vger.kernel.org
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-Remove-side work cancellation, matching what atl2_remove() already
-does for its reset and link works: the IRQ handler schedules
-reset_dev_task on PCIe PHY link down and DMA errors, and link events
-schedule link_chg_task, but atl1_remove() frees the net_device without
-cancelling either work.
----
-Changes in v2:
-- Point Fixes at the initial driver commit instead of the 2012 rename
-  commit; both works and the cancel-less remove go back to the
-  original import (Breno Leitao).
-- Link to v1: https://patch.msgid.link/20260828-atl1-cancel-reset-work-v1-1-9a2140dab074@cherr.cc
----
- drivers/net/ethernet/atheros/atlx/atl1.c | 3 +++
- 1 file changed, 3 insertions(+)
+> +/* Register move operation (32-bit), optionally with sign extension */
+>  static void emit_mov_r32(struct jit_context *ctx, const u8 dst[],
+> -                        const u8 src[])
+> +                        const u8 src[], s16 off)
+>  {
+> -       emit_mov_r(ctx, lo(dst), lo(src));
+> +       switch (off) {
+> +       case 8:
+> +               emit(ctx, sll, lo(dst), lo(src), 24);
+> +               emit(ctx, sra, lo(dst), lo(dst), 24);
+> +               clobber_reg(ctx, lo(dst));
+> +               break;
+> +       case 16:
+> +               emit(ctx, sll, lo(dst), lo(src), 16);
+> +               emit(ctx, sra, lo(dst), lo(dst), 16);
+> +               clobber_reg(ctx, lo(dst));
+> +               break;
+> +       default:
+> +               emit_mov_r(ctx, lo(dst), lo(src));
+> +               break;
+> +       }
+>         emit_zext_ver(ctx, dst);
+>  }
 
-diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-index 98a4d089270e..b49353a94f5e 100644
---- a/drivers/net/ethernet/atheros/atlx/atl1.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-@@ -3128,6 +3128,9 @@ static void atl1_remove(struct pci_dev *pdev)
- 
- 	adapter = netdev_priv(netdev);
- 
-+	cancel_work_sync(&adapter->reset_dev_task);
-+	cancel_work_sync(&adapter->link_chg_task);
-+
- 	/*
- 	 * Some atl1 boards lack persistent storage for their MAC, and get it
- 	 * from the BIOS during POST.  If we've been messing with the MAC
+I would move the clobber marker to the end to reduce code duplication.
+That is the pattern used in other places in the jit. Also consider
+collapsing the cases off=8 and off=16 into one, with the shift
+argument computed as 32 - off. That would parameterize the shift logic
+instead of duplicating it.
 
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-atl1-cancel-reset-work-54fe8746c623
+The above applies to all four variants of the mov emittor.
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+> +/* Register move operation (64-bit), optionally with sign extension */
+>  static void emit_mov_r64(struct jit_context *ctx, const u8 dst[],
+> -                        const u8 src[])
+> +                        const u8 src[], s16 off)
+>  {
+> -       emit_mov_r(ctx, lo(dst), lo(src));
+> -       emit_mov_r(ctx, hi(dst), hi(src));
+> +       switch (off) {
+> +       case 8:
+> +               emit(ctx, sll, lo(dst), lo(src), 24);
+> +               emit(ctx, sra, lo(dst), lo(dst), 24);
+> +               break;
+> +       case 16:
+> +               emit(ctx, sll, lo(dst), lo(src), 16);
+> +               emit(ctx, sra, lo(dst), lo(dst), 16);
+> +               break;
+> +       case 32:
+> +               emit(ctx, move, lo(dst), lo(src));
+> +               break;
+> +       default:
+> +               emit_mov_r(ctx, lo(dst), lo(src));
+> +               emit_mov_r(ctx, hi(dst), hi(src));
+> +               return;
+> +       }
+> +       clobber_reg(ctx, lo(dst));
+> +       emit(ctx, sra, hi(dst), lo(dst), 31);
+> +       clobber_reg(ctx, hi(dst));
+>  }
+
+I have tried to avoid returns in the middle like this. If you combine
+cases 8 and 16 as suggested, you can put the sra sign extension into
+cases 8/16 and 32, and get rid of the return in the default case.
+
+> -static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src)
+> +/* Register move operation (64-bit), optionally with sign extension */
+> +static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src, s16 off)
+>  {
+> -       emit_mov_r(ctx, dst, src);
+> +       switch (off) {
+> +       case 8:
+> +               emit(ctx, dsll32, dst, src, 24);
+> +               emit(ctx, dsra32, dst, dst, 24);
+> +               break;
+> +       case 16:
+> +               emit(ctx, dsll32, dst, src, 16);
+> +               emit(ctx, dsra32, dst, dst, 16);
+> +               break;
+> +       case 32:
+> +               emit(ctx, sll, dst, src, 0);
+> +               break;
+> +       default:
+> +               emit_mov_r(ctx, dst, src);
+> +               return;
+
+This return is not needed. Replace with break. Consider using the
+emit_sext helper instead of raw sll to b better convey intent.
+
+Thanks,
+Johan
