@@ -1,140 +1,106 @@
-Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1695A36195A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8762620DE
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787885334; cv=none; b=Y0o4zgM3wWIUsfugHlcuYu2NwceMqCT366gBMHPRMDK5Zh9Tq3gVv1nSzGqPFWsrdPGakTRuNcyFghdRGFAif2V7lB9TAJH1EavCo6gEElNOMZWJ804lMgnQ7Jg1AB95rBNPErb2FRGk80yMKjQ7Zi0wIz3zlkHTLCEy63D/lPw=
+	t=1787885414; cv=none; b=KTyEteHyGpqziNuXwGgw6hDpX6GHdsvvRY8D2HaehbcP4xZjG3jAuXv4vVq90iZ6onRBlkzCOD+7Jr4wpfgroQjiEUb42eI0TH6wxjmQ/XucEkfm6tTibA2GctTvqWg16JL2Ggs6YevsCzlZ4N1iAg4xY9GCVPGJfGrPQ20HRsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787885334; c=relaxed/simple;
-	bh=p2ffFFqlot4uRmrajtMu/cdM/mLnbrmiDMtUqVJBXEw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C6+CkovL4iIh1t6KrGpPWpUCIvPw76jgOT0+s94ked4xtypWm+lw4wFOQvJenxbpMhVbiMH1i5pTPiYub6t0qGRLRD3Y9ccvhquBHFDCHMJy0wwQcSggGUyZdx8+jBMANpRMgh2qQndXaoZsBpZHKkZhGjHnLv31EBKkf9ZM0UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k7scsRan; arc=none smtp.client-ip=95.215.58.74
+	s=arc-20240116; t=1787885414; c=relaxed/simple;
+	bh=PyLxxoQkuzWGfdy8Bdesmy9AppZutLYqvrD0li3nAA4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DHvryBInWiTAP2tfEstQS8YAHc0R4dtDz6lWVeTrBp+cDi0+jSRK32FKu2JurjGxYgRRo+u05yq91w7T6N3n6EJqLCOk0cfRD7zDKHW5NHvSKZsdMEXhK6Ntv/ukbZxwsczL5ozvkKdVuh989R3w2euqKOA7UVbvZcwLHPsLQMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NilnXoa0; arc=none smtp.client-ip=91.218.175.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k7scsRan"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NilnXoa0"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=p2ffFFqlot4uRmrajtMu/cdM/mLnbrmiDMtUqVJBXEw=;
+DKIM-Signature: a=rsa-sha256; bh=PyLxxoQkuzWGfdy8Bdesmy9AppZutLYqvrD0li3nAA4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787885328; v=1; x=1788490128;
- b=k7scsRan4j02tUFUrEaHP1uBpz2lfZQTZlzIe+5xLq+qCadFF44KtZfTbOenAzoDlc1Dc9xz
- GtPJUkxIpbxVpG9nCWDBd3LgY7QU5n8MFPTc1FO4qm4XSlWaYZa3UuTJhj/p+JCCAb1YLAnyzui
- 2Q/0oiFoo2oQ1/EsftLAaadE=
+ t=1787885410; v=1; x=1788490210;
+ b=NilnXoa0lUmRhzvGqEed4zgcKnCeu6DTtyyK3u+CNrdiFDxruvHfWaUz9aaW6dkYo7JBIqZb
+ 5/pzAChl2zreOkkFiyLnDw45G3pnXj0a0Z8wwl5wYRPaOfYwHoNxfflbTqRz1VWAPit+yDD3aeC
+ D95dJQ1okiC46neaj9ibuqDI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 646f3d9741400a38;
-	Fri, 28 Aug 2026 02:48:48 +0000
-X-Mizu-Trace-ID: 646f3d9741400a38
+Received: by smtp.migadu.com with ESMTPS id 6a6b53d03bb3845f;
+	Fri, 28 Aug 2026 02:50:10 +0000
+X-Mizu-Trace-ID: 6a6b53d03bb3845f
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <51f48626-c38b-4cd6-a826-92d107ae35bb@linux.dev>
-Date: Fri, 28 Aug 2026 10:48:38 +0800
+Date: Fri, 28 Aug 2026 10:49:59 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: ramses@well-founded.dev
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jiri Bohac <jbohac@suse.cz>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] bonding: fix initial last_rx vs ARP-monitor slack
+ window
+Message-ID: <apD3VyaIOmMlv6kK@fedora>
+References: <20260827-bonding-last-rx-v2-1-7c3833822c23@well-founded.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] make unused huge shrinker memcg aware
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: hughd@google.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
- brauner@kernel.org, david@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
- <20260827155020.530e28b0afa3b43fede9aa9c@linux-foundation.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260827155020.530e28b0afa3b43fede9aa9c@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-bonding-last-rx-v2-1-7c3833822c23@well-founded.dev>
 
-Hi Andrew,
+On Thu, Aug 27, 2026 at 01:44:42PM +0200, Ramses de Norre via B4 Relay wrote:
+> From: Ramses de Norre <ramses@well-founded.dev>
+> 
+> Commit f31c7937c254 ("bonding: start slaves with link down for ARP
+> monitor") initialises a freshly enslaved port's last_rx to
+> jiffies - (arp_interval + 1) so that it does not "immediately cause
+> fake detection of 'up' state". At the time, the comparison was a plain
+> <= arp_interval and the value was just stale enough.
+> 
+> Commit da210f559019 ("bonding: add some slack to arp monitoring time
+> limits"), four months later, added a +arp_interval/2 slack term to
+> every comparison (now bond_time_in_interval()) but did not widen the
+> init to match. Since then, bond_time_in_interval(bond, last_rx, 1) is
+> true for the first ~arp_interval/2 after enslavement even though no
+> packet has been received: the upper bound is last_rx + 1.5*delta and
+> last_rx was set to jiffies - delta - 1.
+> 
+> If the ARP monitor tick lands in that window, bond_ab_arp_inspect()
+> proposes the slave UP. If the slave is the configured primary,
+> bond_ab_arp_commit() sets do_failover and the still-armed
+> force_primary in bond_choose_primary_or_current() makes it the active
+> slave regardless of primary_reselect. ARP validation as the active
+> slave then fails (the link has not actually received anything; on
+> SFP+ ports the PHY is often still negotiating) and the bond falls back
+> to the backup. With primary_reselect=failure, force_primary has now
+> been spent and the bond stays on the backup until something else
+> triggers a reselect.
 
-On 8/28/26 6:50 AM, Andrew Morton wrote:
-> On Mon, 17 Aug 2026 17:03:24 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
-> 
->> Changes in v4:
->> Changes in v3:
->> Changes in v2:
-> 
-> Thanks for the diligent versioning info.  fyi, it is conventional to
-> maintain this below the --- separator.  It's not really the most
-> important part of the [0/N]!
-
-Got it.
-
-> 
->>
->> The shmem unused huge shrinker maintains a per-superblock list of inodes
->> whose tail huge folio extends beyond i_size.  Because this list is not
->> memcg aware, reclaim triggered by memcg A can scan inodes across the
->> entire superblock and split huge folios charged to unrelated memcg B,
->> causing unexpected impact on it.
->>
->> In the worst case, memcg A has no reclaimable shmem at all, making the
->> reclaim entirely useless and incurring unnecessary latency.  We observed
->> this in production, where page lock contention during split caused
->> multi-hundred-millisecond stalls:
-> 
-> Ugh.  That's the most important part!
-> 
->>    tid 11340 comm scanner locked a page for 182264 us! kstack:
->>            unlock_page+1
->>            split_huge_page_to_list+3135
->>            shmem_unused_huge_shrink+767
->>            super_cache_scan+329
->>            do_shrink_slab+291
->>            shrink_slab+533
->>            shrink_node+400
->>            do_try_to_free_pages+206
->>            try_to_free_mem_cgroup_pages+262
->>            try_charge_memcg+591
->>            mem_cgroup_charge+136
->>            __handle_mm_fault+2431
->>            handle_mm_fault+194
->>            do_user_addr_fault+462
->>            __do_page_fault+176
->>            do_page_fault+48
->>            page_fault+62
->>
->> Usama's recent patch [1] prevents the shmem unused shrinker from being
->> invoked during memcg-level reclaim altogether, but this is overly
->> conservative: we can do better by reclaiming only the shmem charged to
->> the reclaiming memcg.
->>
->> This series converts the shrinker list to a memcg-aware list_lru, so
->> that non-root memcg reclaim walks only candidates charged to the
->> reclaiming memcg.  Global reclaim, root memcg reclaim and shmem quota
->> reclaim retain their existing global semantics.
->>
->> To avoid pinning a dying memcg through a long-lived CSS reference, each
->> inode stores an obj_cgroup reference instead of a mem_cgroup reference.
->> The list_lru add/delete paths resolve the current memcg from the objcg
->> under RCU, staying consistent with list_lru's own memcg migration on
->> offline.
-> 
-> Sashiko said a few things and they look disturbing-if-true:
-> 
-> 	https://sashiko.dev/#/patchset/cover.1786955972.git.zhengqi.arch@bytedance.com
-> 
-> (Apologies if this has already been considered - we don't have ways of
-> tracking all this (yet, I hope) apart from personal memory and personal
-> memorys are quite fried at present)
-
-As both Usama and I have pointed out [1][2], [PATCH v4 1/4] is the part
-that got dropped during the merge. The complete patch [3] was actually
-reviewed a while ago.
-
-[1].https://lore.kernel.org/all/20260810101954.822260-1-usama.arif@linux.dev/
-[2]. 
-https://lore.kernel.org/all/9c7efd5f-f8d3-4926-acb4-34c326ffb1c3@linux.dev/
-[3]. 
-https://lore.kernel.org/all/20260715103516.2410175-1-usama.arif@linux.dev/
-
-Thanks,
-Qi
+Can we set primary_reselect to always or better to avoid this? If you prefer
+to using the primary slave.
 
 > 
+> Reproducer:
+> 
+>   ip link add bond0 type bond mode active-backup arp_interval 1000 \
+>       arp_validate all arp_ip_target 192.0.2.1 \
+>       primary eth0 primary_reselect failure
+>   # eth0: SFP+ (slow link-up), eth1: RJ45 (fast link-up)
+>   ip link set eth0 master bond0
+>   ip link set eth1 master bond0
+>   ip link set bond0 up
+>   # bond0 lands on eth0 via force_primary, ARP-fails it before the
+>   # SFP+ has carrier, falls to eth1, and stays there.
+> 
+> Initialise last_rx (and the per-target array, and last_tx) to two full
+> intervals in the past so it is outside the slack window from the
+> start.
 
+Is this trying to init the backup slave down by default?
+
+Thanks
+Hangbin
