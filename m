@@ -1,87 +1,76 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2D8358D32
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:09:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBA03BFE2A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944174; cv=none; b=KV0O+H/AfzNVXvSdrd9FDKAA7lM0DYYl7xPblFy1dWJtRQtNZKXcBp1xSON9D01KqJwiFp6flLvRsy6C58lYGLp6HGAXqRUtJUUNObF4lGI+ZmRF3qgMOAwOfMD4Mw6YQ4eqz6lpO5viQXBXaEbdUkuKWhxIonx2nbPKjHM/36s=
+	t=1787944258; cv=none; b=oGSh9suKeh0mAxqIFzBtpRIz+n9mkSzfK18bQknfmfojWCeS0wZCLvcfWx77mKwsTmRXbkT3Ccj16C/7YQBowEbO9/STI7d1uakLVx3YBCnvGVqgEXRi5mAkwdGPQBE0WCrjCMYV8ulkm5Jb2f0QCg5HN0tlohMyvKRMm3dp8AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944174; c=relaxed/simple;
-	bh=DHabpYVWMUcN0lqRBbQnflmxJiSHhXw8v4pgMuAsD4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OTI9+KWAbKqxl9CIupEplRl9mjj7CNv/uMFblWzilBbOCmPrNozaguDzLIVhz6VreE5n8dgFCNFBgDoU34RFeBJ47uTaMFujIDerSKAaKgItzfZB4LKMxhxBaOxMEAc7NoaciYVrW/Zg+Af5U2MVHvAP7SJo7LjEV5PDpOUuJkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=KMVWHfNU; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1787944258; c=relaxed/simple;
+	bh=36nLVAjVnyXQ9NM1V1+VNywtVenoPVkoSYIpnXSwhjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S7vno4DND0rN0mHFBn3gjgEbHNvAmOQb2z6NHk3pxL5tThYUyv5ywbNRsazlbRWnw2DDfwyGBN3Dzv0u2pA0WDkjdFZIN9E/STTBQkq8Yuitii3+bDV1ggRIQTkFgbKJQnShiP9hbQRU5fLS4wP+LFmzwFsF4DgSXcft8LymNIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOubuykF; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="KMVWHfNU"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so1722945a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:09:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOubuykF"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-495590dde14so12994695e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:10:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787944171; x=1788548971; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+/lEFlCrK4GzQ7/ozFU2BwCF0kJaOjHy8A8aVuPPG8g=;
-        b=KMVWHfNUHG6dQlfpi4Ts/6YzJwrkFkNPLSEh7Tf5M3Ub9s+RvWx+7my1wHAHp/BX6i
-         6rs6s4LyOjiHjvxO8z7PTncwN5ZJKMho/+Ua2S84ygVJtIS2qDl9eA0dfkQC/xlbIKup
-         3NrHygc1NHTx8xY1DBXIOXQA/5ALBKkKm/VsUHK1ikHU/GXXpUBsvz3F7LwI58NXyHKR
-         lR6xEzG5TtvAHAQoRW1GnO2dIM/CVnx/JPG/cM/RwNPOQabvv7I5j+rgxOmCCWorDKxl
-         B+9W9DJ+9X3ipiYdTWIhXPEulnuvhpBMLH9A1Y/byMb9awEaB+AVm7dAOCamYR/5aTSt
-         dQAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787944171; x=1788548971;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787944254; x=1788549054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+/lEFlCrK4GzQ7/ozFU2BwCF0kJaOjHy8A8aVuPPG8g=;
-        b=IP0zXHwRJdzLnQFiLAHpBaWAVrzhGGBbv6PKZVUJDuk8jCekrMdzbwtZluSaHfKTK+
-         hfjysEpx4Pi5xd7m/dO+dTfHHyJIZBgOpxwuMwtX1lBAowHhIClf06jqGzB2963HR3Az
-         TbbZFWenp9Gr0BIACYYToQkhVjSqhntuEO2gMNMiVzm7bWwijKH8aiPMlBg26X0JVi4G
-         lC7ZTPd4eJnP7wc+FdarXgmDvrvN2xu9lJhpn7AI4aDGXF8i99ZqNUULyf3vE5cv9OBV
-         st48WW2Us/OO5zSdI1H5YPjtZUZFr5xk8ekBEGyjm/KDXopMPKbjMLxf8DT6UTFiQm7K
-         Zi0g==
-X-Forwarded-Encrypted: i=1; AKwUvBytNWHB6ocfL8qlHmP53vmaQzO4vZx25kJ5tqSSNfEslApmQKBPewJfPk3bBN6Ob0jcZxIjwbfiDh2eXNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEBmG+alvAGmaN+8ZKIJ3KCQxelt5kLWHulJ/NeUa9sG70cNby
-	knDHB45W5SMDgzTJ4/Gw44BdM4yrjG1B7XqQ/BYESX8BFqc2HYejVa/Iwz0F/UXd0RA=
-X-Gm-Gg: AYBFou0AhfCtozEwg1gPS1neDB/LuXqxHAkPfsj0mDn8efsho65Y6vPkfgnAU/KIHwI
-	s4A3e9FTjRMj5kPPB7WKLkwIEnWFjgjsjEE6m6EL8wa7TADqzd8Tu5uN2iM8UtUE5cMvpv63LwX
-	5Uc05t4skgWFmFXWDGEfSXMkObNM+uYQGbsRpRj/hRpQRwm6e90q98Ynxoc+Ba4Ke18TTpUiyFn
-	JvmloOgTXnw93VzlCkPh/Z9DnjeQSKE9M14d3HU5OevnETEpiTsfK0J+g71SrHn9K2EHkrzWbX0
-	ZIQoI6ahqqMcX6ubFkp5VD7LoJ2ZZ+C9opYXKhD+v3FYbo0+x5McMOsO0320t/6HPO5gzhc5Hi0
-	1yeykAurH6tX4Ta7b2wWSxtac+ftWJjgDCKEagvQULuZQAXd7lcHWTc12V6Qf3hhehEHSoLcGIw
-	OUuG3NYo+w9J9wnsgMYSnB8O5Pj31ZAnw7P2LdnWkS2lJgRRIneyby
-X-Received: by 2002:a17:90a:c17:b0:398:a2ed:7b5c with SMTP id 98e67ed59e1d1-398a2ed7e86mr764024a91.24.1787944171359;
-        Fri, 28 Aug 2026 12:09:31 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:74::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396db196903sm3649871a91.0.2026.08.28.12.09.30
+        bh=SoUMcMxZ4jSXfVyBbNxTOmQ0cjlOeDjZWBJ+hZQ/vkM=;
+        b=KOubuykFkd/Zm10i9hogf8FcNAJnnLoy2MEc4DWGfjmPO+8lhatipPJOMJIW3+iTcf
+         AvFim3g0WPe+sFbPouMhjh9VvWPx35rtQ5MVkZua442Ci9D3XJ0auOJoGlt5j4eG9Esm
+         aGbKctCOhTe+Iaba8d4koR+J3GB0/sIEDqFo5xU+OwZOh73Z8YoXGY+zTbv/edq0aR96
+         1D7hv2VvTGyoOlN6mJ4R32Fk4xfYHQooHhaqGCIaH5Ch3YoK3HynfLh8FWTeUWIpCqSq
+         IBUFnVjK8jf9e1WwjrhOeOGXAUgKVjz1QzP6JsvdGa87IXbtuwZrM+5S6bm5W2OK8Ly3
+         d1hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787944254; x=1788549054;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SoUMcMxZ4jSXfVyBbNxTOmQ0cjlOeDjZWBJ+hZQ/vkM=;
+        b=YBx8ByXDienHPB2Fx7Krq2GmZSSLAgYw1smgDEpqpBOAvwAU3AEyLa6hU2iwoOUvPq
+         j2SJ8StlrAOp++mSrfyaBkC5/jq090hxG4dm4h8U8DY7KErivkn+XQYftjBHKq228+Oh
+         aFPOhqr4fgXSgNe1ASR4//I59EUZRv9QCF6wffluSdDyTXeEAiOgIJRHPM0tl8csgFSZ
+         CRdP6c1HqRzcn/Glxgi9X+1cSytfH6aB5jIkM5T4l7mu4CyEO0goAzj6ZW+GHhLQJOxx
+         +IVkPHt7Po+HR/V3fP0VngEC5EOZWK3Uv486ivz/IkJ5PvUwCVnVyP8zAyymczVDT/2I
+         084w==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0nCaq7JzM7f/BNnsRpWUG5GOEfZllJIFQvF8TDCYfIU7pJrKsGDyR9+r8L1HqecQ6KI9muVMNDXqNf9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljIXiScmYwlBtaDGzr68QfA34yUxXSHODY0Nc2bpgGVTO5OHsk
+	JxkKP+5qg6JfxgTao7uzJOnQbsTCqSsJCpjDvWprzohlxaEYTTdgq2zQ
+X-Gm-Gg: AR+sD10tXvbLgeX1mwsu5WHrUvD53ENp7cACNz/uJTfHRTM+1S3eyUTdKNkAPMUjBt2
+	KLo+q37nzSePuxEFy1MWYhS+1/pbVA8SJkNp1vU3yCuXfy3H3leDJMqM+KzJ7aeynId6tTXevPc
+	1lDYtWsCLEVoc1rZg6FsXg0Jp5qgQfY9mKQrkcW9Rb7ktCKA2zIMFi+cGr8KYp8xrKZhqrz4Hzp
+	ek2S/xxIia7UVDU/ElHuf48KH8CuH80uMb832WxjkqQGzgqucbh23YZ3wjl0ix+o08BI85e1900
+	ZbX/ioY1BYD/YvARIfAACH9zhWICdPsqd9H/FrmO27AGnh1jjGa5mpU15RRarJyRIMds+ANhnN4
+	5B60/0okqxrAqpMe0eqtnzo712oCD5qDYDdCosjAttDkrrnw9ZsrjDbfVzr9p790mCWYxcLyJxu
+	6HQcJTFsQ9dez7J+P3n0hm4dQSpJNMR8TvpgfynlBQH/BK1zKXqh2KHCcfarH7HMdeiB/iVxaYd
+	Aw1
+X-Received: by 2002:a05:600c:c493:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49b91c20914mr137793525e9.3.1787944253452;
+        Fri, 28 Aug 2026 12:10:53 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49cc61cfsm165049015e9.6.2026.08.28.12.10.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 12:09:30 -0700 (PDT)
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>
-Cc: horms@kernel.org,
-	colin.winegarden@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com,
-	Joe Damato <joe@dama.to>,
-	stable@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-Date: Fri, 28 Aug 2026 12:08:59 -0700
-Message-ID: <20260828190900.1767611-1-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
+        Fri, 28 Aug 2026 12:10:52 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Mehmet Fide <mehmet.fide@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the high queue only for DTIM delivery
+Date: Fri, 28 Aug 2026 21:10:51 +0200
+Message-ID: <20260828191051.178481-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260814053426.2473247-1-mehmet.fide@gmail.com>
+References: <20260814053426.2473247-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,214 +79,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TPA IDs are generated by FW and can be up to 1024. bnxt_alloc_agg_idx is
-intended to wrap the FW ID down to a software ID which is used to index
-rxr->rx_tpa, and to generate a mapping between FW IDs and the wrapped
-software ID.
+Hi Ping-Ke, Bitterblue,
 
-On a 57608 with firmware version 233, the firmware advertises 32
-concurrent TPAs. As of the commit under fixes, bp->max_tpa on this NIC
-is set to 32.
+thanks for the ack on this one. It has not been applied yet, and before
+I post anything on top of it I would like your opinion, because I now
+have a case where the same lockup comes back with this patch in place.
 
-If the software ID from bnxt_alloc_agg_idx is above 31, this results in
-an invalid address being loaded on this line:
+What happens
+============
 
-  tpa_info = &rxr->rx_tpa[agg_id];
+The patch made the after-DTIM routing conditional, but nothing bounds
+that path. mac80211 sets IEEE80211_TX_CTL_SEND_AFTER_DTIM on every bmc
+frame while a single station is dozing, so one client in power save is
+enough to put all broadcast and multicast traffic back on the high
+queue. The chip drains that queue at beacon pace while the frames
+occupy the shared TX page pool, so ordinary chatter such as mDNS
+exhausts the pool and with it every other transmit, including the auth
+and assoc responses other clients need. The AP still beacons and looks
+alive, but nothing can join until the device is rebooted. That is what
+our field report looked like.
 
-because rx_tpa is allocated with only bp->max_tpa (32) entries. Writes
-to tpa_info later in the code are out of bounds.
+Measured on an AM62 based AP with an RTL8822BU, one associated client
+in power save, and 40 broadcast frames per second generated on the AP
+itself. Free page count at 0x240:
 
-This bug results in a crash at boot:
+  t=0     1803
+  t=30s   1148
+  t=60s    716
+  t=90s     16   <- 0.9 % left
+  ...       16   pinned for as long as the traffic runs
 
-Oops: general protection fault, kernel NULL pointer dereference 0x8: 0000 [#1] SMP NOPTI
-RIP: 0010:bnxt_rx_pkt+0xc0/0x1560
-RSP: 0018:ffffc900009b8c78 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 0000000000000048 RCX: 0000000206682516
-RDX: ffffc900009b8db4 RSI: 0000000000000000 RDI: 01ffffff038fe1c0
-RBP: ffffc9006e687480 R08: ffffc9006e687000 R09: 0000000000003048
-R10: 0000000000000480 R11: ffff8881c6083900 R12: 0000000006682516
-R13: ffff8881c6095400 R14: 0000000000000016 R15: ffff8881c6b66680
-FS:  0000000000000000(0000) GS:ffff88fef3c77000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fc8bda40584 CR3: 000000807c812001 CR4: 0000000008772ef0
-PKRU: 55555554
-Call Trace:
- <IRQ>
- ? __netif_receive_skb_list_core+0x1ca/0x250
- __bnxt_poll_work+0x152/0x280
- bnxt_poll_p5+0x1cd/0x480
- __napi_poll+0x30/0x180
- net_rx_action+0x20b/0x3b0
- ? note_gp_changes+0x53/0xe0
- ? tick_setup_sched_timer+0x180/0x180
- ? __napi_schedule+0x9a/0xb0
- ? bnxt_msix+0x24/0x30
- handle_softirqs+0xdd/0x2c0
- __irq_exit_rcu.llvm.3171231171502365008+0x47/0xf0
- common_interrupt+0x85/0x90
- </IRQ>
- <TASK>
- asm_common_interrupt+0x22/0x40
+and at that point dmesg starts printing "error beacon valid" and
+"failed to download drv rsvd page". When the client wakes or the
+traffic stops the pool recovers; in the field both conditions persist,
+so the AP stays dead.
 
-This stack trace is from a crash triggered when an out of bounds rx_tpa
-is dereferenced. The invalid write mentioned above is silent in this
-particular crash.
+How to reproduce
+================
 
-Fix this by allocating rx_tpa with bp->max_tpa rounded up to the next
-power of 2 (bp->max_tpa_roundup_size) entries and masking the FW TPA ID
-with that size, so the wrapped ID can never index past the end of the
-array.
+  - any rtw88 USB device as an AP, one client associated
+  - put the client into power save (a phone with the screen off will
+    do; on Windows set "Wireless Adapter Settings -> Power Saving Mode"
+    to maximum and reconnect)
+  - from the AP itself send roughly 40 multicast or broadcast packets
+    per second, for example in a loop:
+      socat -u - UDP4-DATAGRAM:224.0.0.251:5353,ttl=1
+  - watch the free page count:
+      echo "0x240 4" > /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
+      cat /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
 
-Fixes: 54c28fab2fa5 ("bnxt_en: Set bp->max_tpa according to what the FW supports")
-Reported-by: Raphael Cardoso Fernandes <raphaelcf@meta.com>
-Suggested-by: Michael Chan <michael.chan@broadcom.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Joe Damato <joe@dama.to>
----
-v4:
-  - Moved bp->max_tpa_roundup_size init out of the early return path and
-    documented that TPA is unsupported there, as suggested by Michael.
+Do not ping the client while watching. That wakes it, mac80211 flushes
+the queue and the pool recovers, which is what hid the problem from me
+in the first run.
 
-v3: https://lore.kernel.org/netdev/20260827185700.2157164-1-joe@dama.to/
-  - Addressed an issue Sashiko pointed out, where max_tpa_roundup_size may be
-    left unset if bnxt_alloc_tpa_info returns early, which would lead to out
-    of bounds access.
-  - The other pre-existing issues Sashiko pointed out are unrelated to this
-    patch and would need different Fixes tags, so they are better served with
-    separate patches in the future.
+What I would like to do
+=======================
 
-v2: https://lore.kernel.org/netdev/20260825001842.2501798-1-joe@dama.to/
-  - Followed Michael's suggestion on the v1 to increase the size of the tpa
-    array so that wrapping indexes into the array is a simple mask.
-  - Add Suggested-by because the approach was suggested by Michael.
-  - Add a Reported-by so that Raphael gets credit for reporting this bug.
-  - Boot tested on a machine with a 57608 and the crash did not reproduce.
+Mirror the vendor driver. It never lets chatter into the hardware high
+queue: xmitframe_hiq_filter() in core/rtw_xmit.c admits only ARP, EAPOL
+and DHCP (CONFIG_RTW_HIQ_FILTER, default "allow special"), everything
+else leaves on its access category queue. With the same rule in rtw88
+the pool stays at 1803 in the test above, a DHCP flood still takes the
+after-DTIM path, so the filter is selective rather than a blanket
+disable, and plain join/ping cycling without power save is unchanged
+(10/10 here).
 
-v1: https://lore.kernel.org/netdev/20260821233549.3134699-1-joe@dama.to/
+The trade-off is that a dozing station can miss non-special multicast,
+since we do not buffer it in software the way the vendor does.
 
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 28 +++++++++++++++--------
- drivers/net/ethernet/broadcom/bnxt/bnxt.h |  2 +-
- 2 files changed, 19 insertions(+), 11 deletions(-)
+Before I post a patch:
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d59bcca73a2b..bee54cc86996 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -1514,14 +1514,16 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
- 	return 0;
- }
- 
--static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
-+static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
-+			      u16 agg_id)
- {
- 	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
--	u16 idx = agg_id & MAX_TPA_P5_MASK;
-+	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
- 
- 	if (test_bit(idx, map->agg_idx_bmap)) {
--		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
--		if (idx >= MAX_TPA_P5)
-+		idx = find_first_zero_bit(map->agg_idx_bmap,
-+					  bp->max_tpa_roundup_size);
-+		if (idx >= bp->max_tpa_roundup_size)
- 			return INVALID_HW_RING_ID;
- 	}
- 	__set_bit(idx, map->agg_idx_bmap);
-@@ -1586,7 +1588,7 @@ static void bnxt_tpa_start(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
- 
- 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
- 		agg_id = TPA_START_AGG_ID_P5(tpa_start);
--		agg_id = bnxt_alloc_agg_idx(rxr, agg_id);
-+		agg_id = bnxt_alloc_agg_idx(bp, rxr, agg_id);
- 		if (unlikely(agg_id == INVALID_HW_RING_ID)) {
- 			netdev_warn(bp->dev, "Unable to allocate agg ID for ring %d, agg 0x%x\n",
- 				    rxr->bnapi->index,
-@@ -3584,7 +3586,7 @@ static void bnxt_free_one_tpa_info_data(struct bnxt *bp,
- {
- 	int i;
- 
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		struct bnxt_tpa_info *tpa_info = &rxr->rx_tpa[i];
- 		u8 *data = tpa_info->data;
- 
-@@ -3781,7 +3783,7 @@ static void bnxt_free_one_tpa_info(struct bnxt *bp,
- 	kfree(rxr->rx_tpa_idx_map);
- 	rxr->rx_tpa_idx_map = NULL;
- 	if (rxr->rx_tpa) {
--		for (i = 0; i < bp->max_tpa; i++) {
-+		for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 			kfree(rxr->rx_tpa[i].agg_arr);
- 			rxr->rx_tpa[i].agg_arr = NULL;
- 		}
-@@ -3807,13 +3809,14 @@ static int bnxt_alloc_one_tpa_info(struct bnxt *bp,
- 	struct rx_agg_cmp *agg;
- 	int i;
- 
--	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info, bp->max_tpa);
-+	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info,
-+				   bp->max_tpa_roundup_size);
- 	if (!rxr->rx_tpa)
- 		return -ENOMEM;
- 
- 	if (!(bp->flags & BNXT_FLAG_CHIP_P5_PLUS))
- 		return 0;
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		agg = kzalloc_objs(*agg, MAX_SKB_FRAGS);
- 		if (!agg)
- 			return -ENOMEM;
-@@ -3832,6 +3835,10 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
- 
- 	bp->max_tpa = MAX_TPA;
- 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
-+		/* TPA is not supported at all, so there is nothing to
-+		 * allocate. BNXT_SUPPORTS_TPA() is false in this case and
-+		 * neither LRO nor HW GRO can be enabled.
-+		 */
- 		if (!bp->max_tpa_v2)
- 			return 0;
- 		bp->max_tpa = min_t(u16, bp->max_tpa_v2, MAX_TPA_P5);
-@@ -3839,6 +3846,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
- 		if (bp->max_tpa <= 32 && BNXT_CHIP_P5(bp) && !BNXT_NPAR(bp))
- 			bp->max_tpa = MAX_TPA_P5;
- 	}
-+	bp->max_tpa_roundup_size = roundup_pow_of_two(bp->max_tpa);
- 
- 	for (i = 0; i < bp->rx_nr_rings; i++) {
- 		struct bnxt_rx_ring_info *rxr = &bp->rx_ring[i];
-@@ -4551,7 +4559,7 @@ static int bnxt_alloc_one_tpa_info_data(struct bnxt *bp,
- 	u8 *data;
- 	int i;
- 
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		data = __bnxt_alloc_rx_frag(bp, &mapping, rxr,
- 					    GFP_KERNEL);
- 		if (!data)
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-index ab894f8addef..de46b42d7c98 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-@@ -789,7 +789,6 @@ struct nqe_cn {
- 
- #define MAX_TPA		64
- #define MAX_TPA_P5	256
--#define MAX_TPA_P5_MASK	(MAX_TPA_P5 - 1)
- #define MAX_TPA_SEGS_P5	0x3f
- 
- #if (BNXT_PAGE_SHIFT == 16)
-@@ -2380,6 +2379,7 @@ struct bnxt {
- 
- 	u16			max_tpa_v2;
- 	u16			max_tpa;
-+	u16			max_tpa_roundup_size;
- 	u32			rx_buf_size;
- 	u32			rx_buf_use_size;	/* useable size */
- 	u16			rx_offset;
+  1. Is such a filter acceptable as the fix, or would you rather see a
+     hard bound on how many bmc frames may sit on the high queue, which
+     would also cover an ARP or DHCP broadcast storm?
 
-base-commit: e2a6641e3bfde58f2284f9859c2b0fdcc6d1c0da
--- 
-2.53.0-Meta
+  2. Or both, filter first and bound on top?
 
+  3. Is there a way to learn the DTIM boundary on USB that I have
+     missed? With one the driver could hand the chip a single burst per
+     DTIM and the pool could not run dry at all.
+
+The patch is ready in either shape and I can post it as soon as you
+tell me which one you prefer.
+
+Thanks,
+Mehmet
