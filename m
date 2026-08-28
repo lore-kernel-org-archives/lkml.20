@@ -1,155 +1,138 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8E03472556;
-	Fri, 28 Aug 2026 15:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE6647255B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929203; cv=none; b=eRQcDCb6UhpEFF+Bm2F4BLhhQHHurszgpIRr88iQarAhSbDOw8x9tbu9qfTLq8L3insPeqwcyTzlK2V+gg8+MjiISa4snhBoT0vnHy16YK8XfE2cisG05oltaTdNTG407zzDXfClPzAzVB3pnSoYRuuiHnNMWeshyN4Hzjfp+q4=
+	t=1787929234; cv=none; b=UnRa1sZZR1H4NtpTHPpQSMWsda5hHMt72IDx1q1gaGy6w0Z/kaapDA5FwdJjM6O6JR++WjqVAdcdDoYK+/RdOoxTXqjifte2RTG6YtC1tck/y3Q/vtEXyRyycURjtqFA1GAH2nffGU0zjlys+PzyyHcVXpxm1Kj2kmMEtfeAozI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929203; c=relaxed/simple;
-	bh=38onK1o1gHvw39n2XLdvAtcmso6JmG1BwndGXXbA0Sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JE6eq0sHb+Hqffqhu8ya0adRt4x4gbaeYGz+R3zhcZBVTqArJVLtFhdd3vxIcuJVDCt3QEgrCqq3i6K4EAMpteujudgfjrsCnobEoS6L6lQmdDVGChU9FIrx+oXUTA5ayLwdllBFW5AFSQj3hPMkN0DSH/5tv2h58frW0qELfDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=ozgv3VeT; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1787929234; c=relaxed/simple;
+	bh=XtWPDAhL88P9xmBjYjDa6FuSHwuos1FDu0CiPYmyLXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pvvfv8XApnMnjL3eNfbJOwr8VPi8MFMbCNeHfALUdc42AO3/WYLmcaK2qVffTA4IGYxBxnFclIeQGTubGs3faDpfpeOu94Y22aPxo2Z4p3uxX9dagi+x2lzT0mxvBGaAWiV0wBY887tuHYvAh5fchgDNTCxnTKfLWwDDxAzVRbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=Jp0O2RQu; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ozgv3VeT"
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id B4BDB20B7167; Fri, 28 Aug 2026 07:59:27 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B4BDB20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1787929167;
-	bh=tj8jagAHnEhGGg0kyqoCcJokLn7outmwNO0bz5pGUJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ozgv3VeTorRXNyuFxp+ws1izYXRh1lDPCpW6yEvgkfLbqkVt13XT7x8+a8+u8PTgW
-	 sE0tCKGkhShnMQGObB1ckgldSMBxgTmpfP72WO2g2RJmJzs4a731/h8PbrHptSgkxO
-	 lBHLeHKmK6ZA6gWN/l68pQDWYc1a7H607/XyccjQ=
-Date: Fri, 28 Aug 2026 10:59:27 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Saurabh Singh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Sahil Chandna <sahilchandna@linux.microsoft.com>,
-	KY Srinivasan <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>,
-	Dexuan Cui <DECUI@microsoft.com>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
-	"mani@kernel.org" <mani@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: hv: Warn when wait_for_response() waits indefinitely
-Message-ID: <apGiT0ZKIetmsbn8@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260825051850.2438816-1-sahilchandna@linux.microsoft.com>
- <736091cf-8d00-415e-a890-e2dfa6739325@linux.microsoft.com>
- <SA1PR21MB66836C32FD0FABD94B45D7F6CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
- <SN6PR02MB41578D73327A61FD3D7412C2D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
- <apB1HytkO5xu7jP6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <27277d1e-fd41-4dc9-aea2-eae3773ba322@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="Jp0O2RQu"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47fe2d179e2so621931f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:00:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sigma-star.at; s=google; t=1787929230; x=1788534030; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MfZiElKe4UXrl5NCjFGN4jGVtfkor6YAv1JvkWiSTSM=;
+        b=Jp0O2RQuLHOw9Atg+ws4G4c4RMBSEzIghOgUZ1Bkna0TVu01ZuD5WNObcRB56FpmVo
+         E/OVRq8TZSUtXIXUtUHBdEaTvIAL5T/z8UJZCaS/U8HIoXdPPGsusrGunr0xGGJjI+9+
+         F8otsme2E/k95AODBYeWJyGZGsIXx/WQTHsFpBPI4WWVkuL9bRo1AaiUd2Z4Auw4uGdb
+         kTkBWbuS6B/7TaXykboH+DEJF86s8+nrc+tl6UvZUSAAeh6u+KoNqr7l45J09ElGxpcE
+         LnRslsoFz9JdOWieR6UUqhPrsK7w1gIc+vUMeZ/+qg1bWyy1symljVBnhcxSvTsUsbIw
+         sXqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787929230; x=1788534030;
+        h=content-type:content-transfer-encoding:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MfZiElKe4UXrl5NCjFGN4jGVtfkor6YAv1JvkWiSTSM=;
+        b=BW1tdAiQ1Z0M4PmFcs3z4GQUOzaVYZWr3n9c/0E7Shj5RRf4JKQf6ykP2uX3ogJCcq
+         LdmJQ4routg0Qv4m1z8LHVdOIwtf/44KFrstuAEHDeetxx3WK225Nea+XQJqxYOd9Pkh
+         ZMdhTuMZ7U9UDa0GU79OBBz56whWkzCKaL3Zz01YkCkImUcZ/OwkBobbAN5EiSbIqtwX
+         JSH9YCWBVNzDGTNBIM0LUeaZ7d/lYeHa6p4pNDRHYVyGB4gX1blix0kwn4+MdruqBejL
+         1wTlx7uWyyeDYRoUSTD6PPQuGEGT5OfyCxKE3xhnftj9quNobwz1cxt4+NUfV9Y1VCBD
+         9eZw==
+X-Forwarded-Encrypted: i=1; AHgh+Rowzb36DV+KVFii5QSsCAqdXCdIbQYiO7qput7tRkYghKilupu79z31fSF9Gjp7OxybXccTzHobZ7PrPiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMMe3GKe0wNdET7ieAC2dh7Ui6DKZXt6J9RkwFq9KJN6wvNjwn
+	3D/SE5PqeOJLglspXmtUI1gRXoj5CGEXHj4BPCVENpg1hxiUI1F0+ZqADa8R3yz1zYWKAAEGC6u
+	csNY5t+K94g==
+X-Gm-Gg: AR+sD10NdvhHPEAWk/f639aCxk7yAWOmQTA2AgT+BQQeKBFMtZ6lt/jd4STDnFukDRu
+	S4FLnvHrizMcpn1NPr6XrtCl+Hfk0zr06rl9YEZy8awpEICr6JRxAnMnH4fJLjS3Q4+LFENLckx
+	hcdr9kl7jYZjw8ZghCg2wcsK/n5gmd5hIw8261yqFb/2oC5fNGH1w5XF7P30pehoywKbm5SWbpO
+	Mf8klhsYEQqlRghvTBwVouyZyUj3taxb8NlUmI5SlQohvvkECx9utVDgVsKc8q8Hgav/B3zsBC2
+	0yqDuwcOgyeY0YlaFg4KTX3Cq6UOVOyE6NjU9CQF8+RZ0/Ypkw/jQfZ7faHWB/zkYO5WgNGevfj
+	+qn/8KDxZ4dA0Fs0qISrCFEFN4Q22Fy5OcRachA+4Nq5ksmPg72Onzk6G0U0TWYnGDrXq4nA2SM
+	l2g5OMc42/anuYHU/cTxyhLhaR0aNLcDab7jL/QMOnfclNZCxg8s4u0galfA==
+X-Received: by 2002:a05:6000:4693:b0:482:f5f6:d253 with SMTP id ffacd0b85a97d-482f79b0528mr9587670f8f.12.1787929229177;
+        Fri, 28 Aug 2026 08:00:29 -0700 (PDT)
+Received: from somecomputer ([195.65.134.34])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20737sm3989620f8f.22.2026.08.28.08.00.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 08:00:28 -0700 (PDT)
+From: Richard Weinberger <richard@sigma-star.at>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mtd <linux-mtd@lists.infradead.org>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] UBI and UBIFS updates for 7.3-rc1
+Date: Fri, 28 Aug 2026 17:00:27 +0200
+Message-ID: <7545938.rdbgypaU67@nailgun>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27277d1e-fd41-4dc9-aea2-eae3773ba322@linux.microsoft.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Aug 28, 2026 at 11:10:22AM +0530, Naman Jain wrote:
-> 
-> 
-> On 8/27/2026 11:04 PM, Saurabh Singh Sengar wrote:
-> > On Thu, Aug 27, 2026 at 04:07:06PM +0000, Michael Kelley wrote:
-> > > From: Long Li <longli@microsoft.com> Sent: Tuesday, August 25, 2026 10:01 AM
-> > > 
-> > > [snip]
-> > > 
-> > > > > 
-> > > > > Basically something like this:
-> > > > > 
-> > > > > #define PCI_RESPONSE_WARN_TIMEOUT_SEC 300
-> > > > > 
-> > > > > static int wait_for_response(struct hv_device *hdev,
-> > > > >                    struct completion *comp) {
-> > > > >       unsigned long warn_at =
-> > > > >           jiffies + secs_to_jiffies(PCI_RESPONSE_WARN_TIMEOUT_SEC);
-> > > > >       bool warned = false;
-> > > > > 
-> > > > >       while (true) {
-> > > > >           if (hdev->channel->rescind) {
-> > > > >               dev_warn_once(&hdev->device, "The device is gone.\n");
-> > > > >               return -ENODEV;
-> > > > >           }
-> > > > > 
-> > > > >           if (wait_for_completion_timeout(comp, HZ / 10)) {
-> > > > >               if (warned || time_after_eq(jiffies, warn_at))
-> > > > >                   dev_warn(&hdev->device,
-> > > > >                        "PCI response received after prolonged wait.\n");
-> > > > >               return 0;
-> > > > >           }
-> > > > > 
-> > > > >           if (!warned && time_after_eq(jiffies, warn_at)) {
-> > > > >               dev_warn(&hdev->device,
-> > > > >                    "PCI still waiting for response.\n");
-> > > > >               warned = true;
-> > > > >           }
-> > > > >       }
-> > > > > }
-> > > > > 
-> > > > > Regards,
-> > > > > Naman
-> > > > 
-> > > > This looks better.
-> > > > 
-> > > 
-> > > I like getting the "response received" message if the response
-> > > eventually does come in. It's a judgment call, but I would be OK
-> > > with outputting the "still waiting" message after each wait interval
-> > > rather than doing it only once. And I would make the interval smaller
-> > > than 300 seconds. Five minutes is a long time to wait and wonder
-> > > what's going on when things are hung. 60 or 120 seconds would
-> > > be OK -- a line in dmesg every 1 or 2 minutes doesn't seem like
-> > > spamming to me when something is fundamentally broken.
-> > > And probably don't expect a VM in this broken state to keep running
-> > > for hours -- the sysadmin or automatic monitoring software will
-> > > reboot it to get it working again.
-> 
-> I think this is a main point of this discussion. FWIK, this is not
-> automatically recovered as of now, ever. With these changes, we could get
-> dmesg logs completely filled with this same log, which does not add any
-> value. On the other hand, I was suggesting Sahil if this problem is not
-> recoverable by Azure fabric layer or other monitoring services, and is
-> extremely rare and the VM is unusable, perhaps we should consider adding a
-> bug/timeout in this path instead of just logging about it.
-> 
-> Regards,
-> Naman
+Linus,
 
-Along with what everyone else has suggested I would suggest printing out the
-state of the device's VMBus channel (i.e. the child_relid and inbound and
-outbound status in particular). Since, that information is useful to the hv
-guys and should help disambiguate between "host never picked it up" vs. 
-"host picked it up but never replied."
+The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68:
 
-Hamza
+  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
 
-> 
-> > 
-> > I will also vote for repeated message as long as interval between two
-> > messages is greater than 60 seconds.
-> > 
-> > - Saurabh
-> > 
-> > > 
-> > > Just my $.02. Outputting the "still waiting" message only once is
-> > > also OK. Your call.
-> > > 
-> > > Michael
-> 
-> 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/rw/ubifs.git tags/ubifs-for-linus-7.3-rc1
+
+for you to fetch changes up to a5e0055eac837a1168c781653943d4a0d9920af3:
+
+  UBI: support per-device wear-leveling threshold (2026-08-12 00:08:54 +0200)
+
+----------------------------------------------------------------
+This pull request contains updates for UBI and UBIFS:
+
+UBI:
+- Support for a per-device wear-leveling threshold
+- Various fixes and cleanups of error paths
+- Correctly preserve torture flag up wear-leveling
+
+UBIFS:
+- Various fixes and cleanups of error paths and kernel-doc
+
+----------------------------------------------------------------
+Ibrahim Hashimov (1):
+      ubifs: fix out-of-bounds read in signature length check
+
+Ran Hongyun (2):
+      UBI: fix two issues in the ubi.mtd MODULE_PARM_DESC
+      UBI: support per-device wear-leveling threshold
+
+Randy Dunlap (3):
+      ubifs: debug.h: fix kernel-doc struct prototypes
+      ubifs: key.h: use correct function parameter name
+      ubifs: ubifs.h: clean up kernel-doc comments
+
+Yuho Choi (2):
+      ubi: Fix rollback for explicit UBI device numbers
+      mtd: ubi: Release device reference on busy detach
+
+Zhihao Cheng (2):
+      UBI: Preserve torture flag when rescheduling failed erasures
+      UBI: fastmap: Pass to_be_tortured when reusing old fastmap PEBs
+
+ drivers/mtd/ubi/attach.c     |  4 ++--
+ drivers/mtd/ubi/build.c      | 48 +++++++++++++++++++++++++++++++--------
+ drivers/mtd/ubi/cdev.c       |  2 +-
+ drivers/mtd/ubi/fastmap-wl.c |  8 +++----
+ drivers/mtd/ubi/fastmap.c    |  6 +++--
+ drivers/mtd/ubi/io.c         | 11 +++++----
+ drivers/mtd/ubi/ubi.h        | 25 +++++++++++++++++---
+ drivers/mtd/ubi/wl.c         | 54 +++++++++++++++-----------------------------
+ fs/ubifs/auth.c              |  2 +-
+ fs/ubifs/debug.h             |  4 ++--
+ fs/ubifs/key.h               |  2 +-
+ fs/ubifs/ubifs.h             | 20 +++++++++-------
+ include/uapi/mtd/ubi-user.h  | 10 +++++++-
+ 13 files changed, 122 insertions(+), 74 deletions(-)
+
+
+
