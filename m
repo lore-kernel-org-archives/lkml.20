@@ -1,158 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2DAD44AB9A;
-	Fri, 28 Aug 2026 14:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CF745C6E3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927749; cv=none; b=SAM2FVgLu2qZi0u5/bTD2zkcCnqlQNdT/qoYsbbf89+PGYvfrrtsWen/OLcYQwr9i6yY3xt7KmiepaBc/jEI0Li6Rp4P51IdUbPPiqTESUtwhkiUbCKBF6sXes1XlEwYwmg9l4jBftKxKrF3KC9vBh5NHcr+pCzGieA1BhgREtU=
+	t=1787927751; cv=none; b=lqlzweocbmiJWg1x05U0wz3NiRGpjiybk/CZTz7rCJKS7KLmZlTTCXd9CeLHdFmhHJ2oFetdc2SQ3plcjlkbEdTmOLpegyXk+4w0/jk7Av8UkGvZeJjg6qYrg019krpU34aw1CzXmL59LaUNemsiP5RUQjqYUgLsGOQ5T4hzN/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927749; c=relaxed/simple;
-	bh=GEQqJb7ZJiF14KfX2zAfeBZ+4mYFVAPuL2qPuZG//aI=;
+	s=arc-20240116; t=1787927751; c=relaxed/simple;
+	bh=b7h8dV9oHVBHfBv6mxuKsP2hyM8HHn6hEleZHSArLSw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QXi6I8eAlSr3xAq07wZF/LEfYukfozOi9ysuWHQrvBGP5xUXwCL4i4dGoQlkFdQ7vSCnn5llryUa5cfZVx3wdZ00dUSsYUSKsGqsoN6wjYN8RO0FEYk0DsoCzBc91Q/Dxceu5Xjz4Iyyak0rHl22QWwxPcyHCInb9RHSeoyMBOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AGSQi1TR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XHVGtgjYE+VIvllxM6hHbgCccQSHkhdsY3afsWQWcxYiLNlZ8MR5fLAIgNGglkQO2ybfQphvXsUqhDwKqYZQ5e+PoOZWXyFZ7AhfXCyBRk239wu0m48b8nNQxVcyrdXZ9RyUZxcBnSOca0+lCZ8gRIXD5KrUkw06bdvyrIZ+mN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=KGLW+FtH; arc=none smtp.client-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AGSQi1TR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E222514BF;
-	Fri, 28 Aug 2026 07:35:40 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9E25A3F85F;
-	Fri, 28 Aug 2026 07:35:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787927744; bh=GEQqJb7ZJiF14KfX2zAfeBZ+4mYFVAPuL2qPuZG//aI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AGSQi1TRSmfg1FbkdYNLZ5UNAIsnrubMGwlnDXd24eTlDAbdHp/EqlnBucndUmOEZ
-	 Gpq1XJr3O0EurkEBuWYPt7LZ+ks20tqbTNqw4LhoGb61ZWGMpzqV88Hr0ylm+QmzL1
-	 N8hpkSXNAAeKy6SQzzxdVpf+8f/6FTcNzHTYbCQA=
-Date: Fri, 28 Aug 2026 15:35:39 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="KGLW+FtH"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92ea24a2dbfso91502085a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1787927748; x=1788532548; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1CA/dtHk3Ua/1jrmqIIittu4ca0gllo+cVF1m+itAJ8=;
+        b=KGLW+FtHFCmEL1Q0DHBlm0YrT006KqKUUryK0+7PRGSPJcHg+eTCqJBsaQ58SognjR
+         h3a+hV1krYsO3UxcsnmNhDIh6Plraus4y2eEmQJrHCVnI1BC6HDbqAFJPxbsurV1tm1s
+         Cu0BvRZi0/vnSuG+PvGCSlkSiI36pj221OhquRPc3w71pI0ueAz2Wuodsh1oEqxyDSUI
+         fYJ2M/fQef0SG53Kn0/LcAbK97sd7QkSYYINDYvkZ7mBAZCK3FEs9U/qUn/RdhBnElbF
+         LHKSfEyHpJKc/oy8YTd4Rv4bJ6n0GmWPc1L37AsoGCui3bL1oDnxjgnfEwGFq1FwNxq9
+         DkPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787927748; x=1788532548;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1CA/dtHk3Ua/1jrmqIIittu4ca0gllo+cVF1m+itAJ8=;
+        b=skd+zOrzDuVIAbOR1MLH+ZNkSLr+9vXKPnBFwQ9AOGWTrT0cF22KwUeeo+pOjOBsof
+         4ewxxRczWD1/0TvhPqM19CzMl7A1yqU5iHswv6oYIwjiUZ7fghJzrAuMfnT7is85bN5M
+         W7wyMMt4e8abe1nuK+DEOTFPJZez2VpiDOn+uOFHBjq5t+cHi2dvfWqPJg7X89tZPj4J
+         Y9UswEfSEfJiohAkeQMcc3gSqE4ljtLC2PSM8wgBIVF3ZsUzVIfaucM379TXZln/BtyW
+         riXJQIQ4KdG+4yGgSvvs4yUJs3cB2JGvxENT1jKdJVoVi+durtoHNsTFNZiaTRYDpJYM
+         Imhw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0n1c6pLBCJy2TzmVL2vZdu/yKBadAYDLdVVnrHsxUJ7Gf0Skr+bQhux+CE3tIawwHt3Ju9MWhTTFAyjU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNkkKutplBKa9mZ1leCh//Q4yn/HioRn9z3YlI1Qz/f8TqHc2q
+	OMUcHUoaEMPVyw6tjo+XDIqAP/e6u8bzAMrZ+8mKfFJoyXILuU47sTY3pfA3+rQS2fI=
+X-Gm-Gg: AR+sD13DC3zYAaJSIq6I1G+2AV6FXVodmKS01IbFApKWpSzZ2QKkSXQO6tQz6+GhrLT
+	eymAmiH9P7uDl+hba5xTd8cNF3th3Iu6mXh434JjGt201QrFollQMaCtGvlU5/DGGDDcgJcL2fN
+	dfNR0s4lG2zzW8gPqrR96veekFudEWr3AwX4orm0mufYV9Q7k4tBlcjWrYFXJdxhKJzJhfuob9Z
+	KIkbrAkPlHJxrjmC0Rbk9UXrs/ZE0nzK71j3fJmZNWO6S/DZ2B4qGJBKWiL2kHsa7oU4Q30MDWh
+	0yEck+u1SU68SR7iM5pCEOUibcpfh+sAfLcSY2BvawfKP42EhN6hrclHYgkDDhuZ0vgN49RhlR5
+	vBbrEGrI818BEFxo4MozZYU9if0+6ZOMqtNOy3Eb5ab5tir084H7A8aGZ+a+ftTCJ61Bud31v0Q
+	jOHOQuuC8yjIC5Y1ZvFp2R9oh9ouatDqwXl0zZ/jNmeWOMeNtkr1Aa2IyIXJ68PWwYuQ9RMSxvo
+	7ikghtrTQ6wE//iZy5alfzRcnpOdPBj6mNSMofXdgS/yQ==
+X-Received: by 2002:a05:620a:a0a:b0:92e:6637:da8 with SMTP id af79cd13be357-939138ffc3dmr615678585a.28.1787927748313;
+        Fri, 28 Aug 2026 07:35:48 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917014c56sm157064785a.10.2026.08.28.07.35.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:35:47 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wzxgI-0000000HRQV-3Jl4;
+	Fri, 28 Aug 2026 11:35:46 -0300
+Date: Fri, 28 Aug 2026 11:35:46 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Samiullah Khawaja <skhawaja@google.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	David Matlack <dmatlack@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <apGcu_haNc93cnzU@e129823.arm.com>
-References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
- <20260828-fix_split-v3-2-374022586a4b@arm.com>
- <apFMvo8pCzaGKope@gremlin>
- <apFgVvNMbdhYnu6p@e129823.arm.com>
- <apFhDA4e1sBfDOeh@gremlin>
+	Pranjal Shrivastava <praan@google.com>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v4 12/18] iommu/vt-d: Handle reattach of the restored
+ domain
+Message-ID: <20260828143546.GC3769797@ziepe.ca>
+References: <20260808022723.3893618-1-skhawaja@google.com>
+ <20260808022723.3893618-13-skhawaja@google.com>
+ <5b920299-260b-4025-ac4f-e8f83beebf95@linux.intel.com>
+ <apBso6So7UqwR3AX@google.com>
+ <bb7052d7-51fa-42e0-9eb5-ba4743956688@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apFhDA4e1sBfDOeh@gremlin>
+In-Reply-To: <bb7052d7-51fa-42e0-9eb5-ba4743956688@linux.intel.com>
 
-> On Fri, Aug 28, 2026 at 11:17:58AM +0100, Yeoreum Yun wrote:
-> > > On Fri, Aug 28, 2026 at 09:11:34AM +0100, Yeoreum Yun wrote:
-> > > > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > > > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > > > made by memalign().
-> > > >
-> > > > The underlying VMA may start at a different address from the aligned
-> > > > address returned by memalign(). Furthermore, a subsequent
-> > > > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > > > already set.
-> > > >
-> > > > This causes split_huge_page_test to fail because the check_huge_xxx()
-> > > > helpers incorrectly require the address returned by memalign() to
-> > > > match the VMA start address reported in /proc/self/smaps.
-> > >
-> > > Hmm, is the test correctly putting sentinels either side of the VMA? Any test
-> > > that doesn't risks flaking due to unwanted VMA merges.
-> >
-> > I believe that with this change, we don’t need to worry about unwanted
-> > VMA merges when checking for huge pages, since the test no longer relies
-> > on VMA sentinels but directly checks whether the mapping is huge or not.
-> 
-> We always need to worry about that though, anything that asserts stuff on a
-> VMA level must prevent unwanted merges first.
-> 
-> I guess I'm asking you in a roundabout way to go check and if there isn't
-> isolation like that (i.e. mapping PROT_NONE VMAs around the VMA you want)
-> then to go do that :)
+On Fri, Aug 28, 2026 at 09:55:18AM +0800, Baolu Lu wrote:
+> That looks reasonable to me. I have no concerns about keeping ATS
+> enabled on preserved devices across kexec reboot, as long as the
+> software state is synchronized in the new kernel.
 
-Oh. Sorry not to catch your intend. not for only this series but for
-the future usage, might it sound reasonable to add some mem alloca
-fucntion for the test which could replace memalign() with above concept.
+The new kernel should issue an ATC flush when it changes away from the
+inherented domain.
 
-> I think glibc going off and mapping a bigger VMA is possibly a symptom
-> of this not being done.
+> By the way, is disabling ATS an option? 
 
-TBH, what user would generally care whether VMAs are merged or not?
-Anyway, it would be better to add a helper with some PROT_NONE guards
-to prevent unwanted VMA merges while testing.
+No, many devices require ATS.
 
-> 
-> >
-> > Also, this flaky failure was not caused by a VMA merge, but by a change
-> > in glibc’s behavior that sets HUGEPAGE for sufficiently large areas.
-> 
-> Yep your change is worthwhile reagrdless! :)
+It is not that ATS and PRI are coupled, there are good reasons to do
+ATS to pinned memory too.
 
-Thanks :)
+PRI is a PITA, I continue to think PRI through the iommu was a
+mistake. Devices that have device-specific PRI handling are fine
+because that all lives in the VM. Devices relying on SMMU PRI
+forwarding must also somehow not loose any PRI events across the kexec
+and must ultimately inject all of them into the VM.
 
-> 
-> >
-> > Might for the *NO_HUGEPAGE* setup, there would be a chance to merge
-> > VMA area, But since it seraches the mapping directly, it's fine.
-> 
-> As above, generally we should put this protection in case, even if it's
-> unlikely for a VMA with VMA_NOHUGEPAGE_BIT set!
+> The current design already requires disabling PCI/PRI during kexec,
+> right? 
 
-Agree. let me add one for this and replace memalign() used in
-khugepagd and split_huge_page_test at first.
-> 
-> >
-> > >
-> > > >
-> > > > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-> > > > /proc/self/smaps to detect huge pages.
-> > >
-> > > You should probably call out the fact you're doing some refactoring here
-> > > also!
-> >
-> > Okay. I'll spell out with some detail. Thanks!
-> 
-> Thnks!
-> 
-> >
-> > >
-> > > >
-> > > > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> > >
-> > > Should always have a Closes: tag if Reported-by: ideally.
-> >
-> > Yes. but talked with personally nothing to close. So Reported-by tag
-> > only. Would it be better to remove?
-> 
-> Yeah or Suggested-by maybe? If he said it to you on-list then a Closes:
-> <lore link> works also!
+That is also not OK, but there certainly is a useful universe of VMs
+that might pretend to use PRI but actually only use device specific
+fault delivery.
 
-Okay. I'll drop the Reported-by: and change to Suggseted-by.
+So ignoring PRI for the moment is possibly OK. Someone using this
+should understand what VM shapes thay are making and if that
+limitation is OK.
 
-Thanks!
-
--- 
-Sincerely,
-Yeoreum Yun
+Jason
