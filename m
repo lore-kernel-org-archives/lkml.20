@@ -1,82 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E627D305699;
-	Fri, 28 Aug 2026 23:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E7D38AC88;
+	Fri, 28 Aug 2026 23:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959183; cv=none; b=HnUzGygS8p3mRJPnwcv5JPJUYkQ/9qbmy/nqMwD+146DpuHeRAwS3WGc64Zt+kP3BEtPmivPi7jNFLr8FTEY+cxdaSzB4mIx0/xTDduPdttm50TZooNNR8An2+zCUh9SxRIQwZXjpgbTptnrsiW/u1mrgeCBvguWMWEnFywkR1s=
+	t=1787959195; cv=none; b=S7nFRsBGApKq5STnLSrkXSclCew+F59mYplVlAYtn6V5QazPjsUxxW7qzN5e06a2F00jphJIzrqDxvi4yvgEcwPKmjVYUaBijIeiBtC0Pz+BJciM0OmDBgD92o+zbvUZieOMSUBkqcu1imYE2o3Bmvyh/lS87qw0Dvhly/mhYjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959183; c=relaxed/simple;
-	bh=zTrPZ5twPN1sLhY3sbL8sKUc5MsAXTW86f5F2d3lJ6I=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=TF4DPOWvPNiowhRTY+RbtfUgYLQhcK8urK+qSSt6rD3iROPyVu6Ej0TKr0cXcKxLrLGmGgdqo2QxKAGOrQ37XH1vpnMw+c9vrj339IGTMYt9SLT9Ze29BzoGyHEHJ6ofCoi5Ys5aAGDxAqlkg1xodVnsiq73ApxbewPeVRmrX1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=OyaMlNeG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787959195; c=relaxed/simple;
+	bh=voYeUFRGxJF51AdGg0Ie0IWOP6zIt8JXqOyKZWKsO3I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=U1OIxiv69q2Y9lcp1eMnuAWTNWcnor39z6mly4bCq7/aO/sSm2vl2NbW28bEf9BugOfSrE6U2kUxfRxckzG7wB0BWCinL9DxSXpT6ZkkeSt54xNoNY6oMWmzGKI9G65GWm3zuaxdva/4o0OqqC3t8TGbfh+3ji7HIhImg0uGFIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=kApnQbtQ; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="OyaMlNeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBBB51F000E9;
-	Fri, 28 Aug 2026 23:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787959182;
-	bh=wGTIcEOa8Bl/ys+CrMwubJJ+e1El5YPJ5H0B806NNM0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OyaMlNeGv29cOVIgzSDrI3H6wGxTi2yI9Obbhxt+DwrreAxbryAnDVJORfl8SFd3V
-	 /kAvbZsPefzV20UYas1yLsr3mJHRbaImT/12+z7SvKQSH7GdrkVb9G0PyZUJRENAD9
-	 XlkjMAd/hkCHTzcXNNDeZc4WDw1ZedHHBXDsana8=
-Date: Fri, 28 Aug 2026 16:19:41 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: kasong@tencent.com
-Cc: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>,
- linux-mm@kvack.org, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Michal
- Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, Baolin
- Wang <baolin.wang@linux.alibaba.com>, Ridong Chen <ridong.chen@linux.dev>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v3 0/6] mm/mglru: clean up folio counters and flag usage
-Message-Id: <20260828161941.def8f7a319f6b435aad62d69@linux-foundation.org>
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="kApnQbtQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=1Mqf8IivruERMP6fZwT8V4CKtJjvaF7LKzl37WPzoRE=; b=kApnQbtQ+Dg617qrBmTZu5xy5f
+	Lbnimg8N/l8V7rNCeFVbJcEP8p7rAPDFM6+FLM1MLpk3/R2s/wGdqxGk+JMY2Cbq1i732NZEEEeAi
+	fFw07E+np24+TEJZCvkt3IqkU9W6gSieQ7X19bnMSFcmZxaqrNSv6aVoN9q081NBZK+pQDxhyv/KF
+	PWWNev7hAPz9ckok7XW+BdFezFHo5Yzo4s5EuYxVB0UXOUCcG1bhVP69cxpgCtD/BbrSrsj24TjyS
+	C6T1hVi66MJhPhLp79eAkl5A7zvOexdz/lccuiuAKAAz+dOHdfSUm3/OugLnUjolODZdMyQMM31Tq
+	RkhkZoZw==;
+Received: from [187.57.78.212] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x05rM-00B3sF-2z; Sat, 29 Aug 2026 01:19:44 +0200
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Fri, 28 Aug 2026 20:19:28 -0300
+Subject: [PATCH v6 01/13] syscalls: Make --abis parsing more robust
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260828-tonyk-syscall_table-v6-1-fdd358456cf1@igalia.com>
+References: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
+In-Reply-To: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>
+Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.15.2
 
-On Wed, 26 Aug 2026 01:53:33 +0800 Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org> wrote:
+Some archs Makefile have something like this as the rule for making the
+syscall files:
 
-> This is a cleanup series separated out from the MGLRU-FG series [1]. As
-> that series is getting too long in following updates, seperate out the
-> clean up part for easier review and merge.
-> 
-> No feature change is intended, except one bugfix. It mostly replaces
-> the open-coded bit operations scattered throughout the MGLRU code with
-> new helpers, with proper kdocs, sanity debug checks, and hardens a few
-> MGLRU functions.
-> 
-> A subtle generation counter leak is also found during the refactoring
-> and the fix is included.
-> 
-> Also collected review feedbacks on the cleanup part from the posted
-> series.
+  cmd_systbl = $(CONFIG_SHELL) $(systbl) --abis common,$* $< $@
 
-Thanks, I queued this for testing and further review.
+The $* symbol is evaluated to the variable found at $(uapi)/unistd-%.h,
+where % is 32 or 64, resulting in e.g. `--abis common,32`. Sometimes the
+rule for the file won't have a %, resulting in a trailing comma e.g.
+`--abis common,`.
 
+Currently this input is transformed into (common|). This is problematic
+because grep will then match any ABI because of the trailing `|`. Make the
+syscalls scripts more robust by removing any trailing comma.
 
-I included a few notes-to-self:
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+ scripts/syscallhdr.sh | 2 +-
+ scripts/syscalltbl.sh | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-- Unaddressed review comments:
-	https://lore.kernel.org/fbb40ab7-6942-4983-9621-ab8d5d50474f@linux.alibaba.com
-	https://lore.kernel.org/20260828052949.52874-1-lianux.mm@gmail.com
+diff --git a/scripts/syscallhdr.sh b/scripts/syscallhdr.sh
+index 22e34cd46b9b..bad1ab606a0f 100755
+--- a/scripts/syscallhdr.sh
++++ b/scripts/syscallhdr.sh
+@@ -39,7 +39,7 @@ while [ $# -gt 0 ]
+ do
+ 	case $1 in
+ 	--abis)
+-		abis=$(echo "($2)" | tr ',' '|')
++		abis="($(echo "${2%,}" | tr ',' '|'))"
+ 		shift 2;;
+ 	--emit-nr)
+ 		emit_nr=1
+diff --git a/scripts/syscalltbl.sh b/scripts/syscalltbl.sh
+index 6a903b87a7c2..c4b1f85c2dd6 100755
+--- a/scripts/syscalltbl.sh
++++ b/scripts/syscalltbl.sh
+@@ -33,7 +33,7 @@ while [ $# -gt 0 ]
+ do
+ 	case $1 in
+ 	--abis)
+-		abis=$(echo "($2)" | tr ',' '|')
++		abis="($(echo "${2%,}" | tr ',' '|'))"
+ 		shift 2;;
+ 	-*)
+ 		echo "$1: unknown option" >&2
 
-- [6/6] is pending review
+-- 
+2.55.0
+
