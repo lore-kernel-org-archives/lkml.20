@@ -1,200 +1,68 @@
-Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8BB346766
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853581DF748;
+	Fri, 28 Aug 2026 21:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787951233; cv=none; b=gu8WmGfcB7Ue9IGqXzsz+6rYSTLXb5wSc/Z9OpTY708FIlxvvkSpKWuextJD5eC8awvvEkLd8gwhTo2zYe6z5me6CAVzed96w5LkltHaNZdswwq/DLmfF3p6OPK5AnG4dCUo/f6olYNaOmVeldgo8kGXOrFa1Yv02IDBxw7paTY=
+	t=1787951453; cv=none; b=EZ73zrlCjo4PogIJEWR+SV6Oa1WNYJ/Y9rSP59Ll5FJ2Q1U7YjB0xMIrZrnSBL0ERD1NMqt2R7HntbVfhW+TOuHulrv8qhPOFN2JUmQfOFsSH45FTS2CXpV7nJNPTeASM7WP0vosHjNbn4+ze3fK/onxQVsdmU3kRJD1sDb0HAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787951233; c=relaxed/simple;
-	bh=rgJ9BnCuRCuqewsLD4ZvuhjYJb20nsY1c4BG4Eoib2g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=IyqqRfFTX6J5q3I4298geYWDfef0eMErnQ40M2hagDT1Ljjx+kgj8lo1+au+corEVrs896TeE6oiz1GzFj4JtQQqsmHbHvEgKtqlF+QmHmWzRXHf4FW+V7KEi2N7p5KcbhCjZsmC+8QxEnDDrbBTAir9vr8xgDTczlA7sH0Q1nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ViGf1L8X; arc=none smtp.client-ip=74.125.225.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787951453; c=relaxed/simple;
+	bh=jFCYYogPn69RHp3jRKyMwzrEZ4QKviFJIW0f5F87m88=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Jhfuh3hrcj+ABbpDjbQOhl3dIDCJoHhwqX73n0Elq3SoITY5LtYhZ8F/GLQ9ehhdpkAEggxlPgwXeBU8Rc+J6Oi7QIXit2mK1uZkwrdB++v4MMp9vGWeey1VOS/DjjEraNYu0pYutQOHdiOg9sR8GJrWYEHlxxlYNcBgQenESBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQJpAB54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ViGf1L8X"
-Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4956bc73c0eso3866045e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787951230; x=1788556030; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=s+xApWHFlcAD9ScbsbJspW/eUqW4O4eLPOKcYbniiu8=;
-        b=ViGf1L8X65d2w2H0VOFmKW9VqDWkiBGi2R1Q0ZXYNo8Mn3UyUDeqGlXav2RaN/f/sm
-         WUfXdTgbCUNqgjUevzfK4Udp3yYOyiazNftY9iMC8fwWhsqBsEK6suVoQlsPY0d4V32m
-         gZOw+oW/UeyVP7YZ1xBVtdgWUVjIcEovEFj88OSX7GbuvjUDtlppaB3JJM2WKI3sjrQ7
-         6q2TAr3TgLXuvDXXKychQxRfMJVuHmOTJLd6rXlrJqym4wNfY8AtDsCEfoSlvxHAbiza
-         pXUlkb4HazJ+1GLBOOLFkfnAbTR8U1YwUmGlj47llomjOvgs7p/Ap7prpF6bPumBvuIm
-         5yww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787951230; x=1788556030;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s+xApWHFlcAD9ScbsbJspW/eUqW4O4eLPOKcYbniiu8=;
-        b=sZLys3e7xAGS+ORr+y93nkwhirh4NJAIxMQjP7GP2weA5Zd9AC0Ah9/k+T87u3jy6J
-         i9duS6XKkxDWG/A/f9Cmi79OKa+lPOO0RVCknIsu67+wAKgznHPvxIc4HWqtVmQhpjXN
-         OZ7F2snro2FImaX//3XwRNHWRx+9HB3yD5SZe1VHYbKBPXhHFa93awlZMi262P6wgqHi
-         sDQAnF+lrtZRJci3oijgPRpUBBWRTYs/zV+p34fNIvqufIEUIQV0DGksOlAWkCOrYKLd
-         TtI/3Ge3ULp/mXz40v8NzSPePSipDTng9+j3+xGiRTKOvkyHNrh17kuuL28Kp1saGiVY
-         PnRA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpc8ynku/jL8bezfYZrERwxVt3gaf9NVHYTdMt4CCOx09DUwk5do07usZCoIrwgvOJRKkCz7UGk8fIV7HM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh0THYRtxOnWHt78Ax8QbsGaF1K+vQQWk/nz95vuRR9lVVL4pd
-	L90oYo4BA7r/T6+O1a1TIED2hRtheWmfVYIDwlh/X1s7tp+DIsfvzn6s
-X-Gm-Gg: AR+sD11a8WqatuxJpKV2YT41x+kZCfy+eSU5Vr/OCfzUd7if9hBv3sCR1LgFJf/+3pc
-	Nbv2BPAcif7kcvqx31aiGXzzTAvoP41xAchNtn/qbLkMnSiNBcwp/mDqafgx0SSWbe4nsJ0gwP4
-	2UX/WL+KnKejvSsJgulTrTZCZjbROyLBe8SZG0is0J8ZcskFChPissMLi6JiND9zkbVpr5/oDE1
-	zVpWm8R1rxkGDSaA3aJ5vWayqYAjZln8slV+v7VU2tmBxobjuaI70IHgdn6F/U0xcYFesjMf8NE
-	+FdS3ScFRGdVsZTBS2R/macoBFLrkEQf2xa824WyBJIr4ztqMdinEQApfewHI5mtlfIk5O4zkc6
-	1r2FDL8graXnlYX2UmFLaQjXW9pH+L44ew0/uFIABNNzVCx3HUq/4NcCygoseW7si4WA0UkaAaU
-	O3XApfzG/Czn7D7UFMC6UlXzxWL/0Gne9utYg4dgrsFoVXxZqydISSoBXQ5ntBfB0lomRTQhGyz
-	PKNXHbU7hibpYdE/NTOL/N6Y7yyfJJBL4W3kz7gr37p9ZMN82TV8cItJQjW7cljO0rVnhUhF7vm
-	r7uisOlIc+fWZnU4J4dUPJCpSKE3ybQqL68uDQ==
-X-Received: by 2002:a05:600c:4585:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-49b91c265d7mr138746125e9.3.1787951229566;
-        Fri, 28 Aug 2026 14:07:09 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm91854115e9.2.2026.08.28.14.07.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 14:07:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQJpAB54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7171F000E9;
+	Fri, 28 Aug 2026 21:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787951450;
+	bh=4vYxI4Q7eCU/58CIgu/gmc8VB+/PmRUGYhQL3U/MCrA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BQJpAB54RGsFSB/H7VvhH1awi9fMycZgpOmjg9RdpYHARRJ0e5301hzvfvAydvjRD
+	 bs/tR7So8EUkP2ntESADBuXVvlmxJZWGkKPg08HO6Zzufn43o/UXu8sIlB1ZPs63HL
+	 whVOwKAbTvCSpd6wQGJN1Gy8VTAqO+MLRcZetJVUvbEIh4YgGqo3+jmsEyY7l1/ZKV
+	 9M5rJsYjHxkqXq/QiNEmM90zl47w+A9/ARjFQly14Pd1iw9hlSWH82Tf7Qbxp5vzWB
+	 8OkXmYCIrgGyqwvAOHjlE+YW2JIYJfiOB10o2voPuBhxxYT9Ftl47eySsA7638hkug
+	 CzKjSwQkGPb9g==
+Date: Fri, 28 Aug 2026 14:10:48 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Simon Horman <horms@kernel.org>, Jon Mason <jdmason@kudzu.us>, Dave
+ Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: ntb_netdev: Fix statistics races
+Message-ID: <20260828141048.685b9e9a@kernel.org>
+In-Reply-To: <20260828134957.5b95472b@kernel.org>
+References: <20260828154122.2643578-1-den@valinux.co.jp>
+	<20260828134957.5b95472b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 23:07:08 +0200
-Message-Id: <DL0VTAZE10HC.3R4HIC6S0U3P1@gmail.com>
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Shakeel Butt" <shakeel.butt@linux.dev>, "Hui Zhu" <hui.zhu@linux.dev>
-Cc: "Roman Gushchin" <roman.gushchin@linux.dev>, "JP Kobryn"
- <inwardvessel@gmail.com>, "Andrew Morton" <akpm@linux-foundation.org>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Alexei
- Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan" <shuah@kernel.org>,
- "Barry Song" <baohua@kernel.org>, "Geliang Tang" <geliang@kernel.org>,
- <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>, "Hui Zhu"
- <zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-X-Mailer: aerc 0.21.0
-References: <cover.1787826402.git.zhuhui@kylinos.cn>
- <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
- <apHk86Y8araBlXcq@linux.dev>
-In-Reply-To: <apHk86Y8araBlXcq@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri Aug 28, 2026 at 9:53 PM CEST, Shakeel Butt wrote:
-> On Thu, Aug 27, 2026 at 06:36:29PM +0800, Hui Zhu wrote:
->> From: Hui Zhu <zhuhui@kylinos.cn>
->>
->> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
->> proactive reclaim pass on a given memory cgroup, similar to a write
->> to memory.reclaim but without retrying until the target is reached.
->>
->> The kfunc refuses to reclaim if the calling task is already in a
->> reclaim context, as a nested reclaim would corrupt the outer reclaim
->> state.
->>
->> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
->> ---
->>  mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 46 insertions(+)
->>
->> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
->> index 716df49d7647..297ff7f05042 100644
->> --- a/mm/bpf_memcontrol.c
->> +++ b/mm/bpf_memcontrol.c
->> @@ -6,6 +6,7 @@
->>   */
->>
->>  #include <linux/memcontrol.h>
->> +#include <linux/swap.h>
->>  #include <linux/bpf.h>
->>
->>  __bpf_kfunc_start_defs();
->> @@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct =
-mem_cgroup *memcg)
->>  	mem_cgroup_flush_stats(memcg);
->>  }
->>
->> +/*
->> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
->> + * current->reclaim_state, so a nested call would corrupt the outer
->> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
->> + * reclaim_state is also checked because it is installed slightly
->> + * before PF_MEMALLOC.
->> + */
->> +static bool bpf_in_reclaim_context(void)
->> +{
->> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
->> +}
->> +
->> +/**
->> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
->> + *                         cgroup
->> + * @memcg: the target memory cgroup to reclaim from
->> + * @size:  the amount of memory to reclaim, in bytes
->> + *
->> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
->> + * memory.reclaim, but without retrying until @size is reached.
->> + * Must not be called with a filesystem lock held: the reclaim path
->> + * may deadlock on it via filesystem shrinkers.
->> + *
->> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
->> + * smaller than a page or the task is already in a reclaim context.
->> + */
->> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memc=
-g,
->> +						unsigned long size)
->> +{
->> +	unsigned long nr_reclaimed;
->> +
->> +	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
->> +		return 0;
->
-> I have been thinking about this more and more and after looking at the re=
-asoning
-> behind your check current->reclaim_state and also Sashiko's comment on NO=
-IO/NOFS
-> contexts, I am more convinced that this kfunc can not be a simple sleepab=
-le
-> function. We need more than that. We need clean process context as well s=
-imilar
-> to the userspace poking memory.reclaim. Something like kthread or workque=
-ue.
->
-> Kumar & Andrii, is there a way to restrict a kfunc to only be called from
-> special BPF threads/workqueues? Is there some similar concept in BPF worl=
-d?
->
+On Fri, 28 Aug 2026 13:49:57 -0700 Jakub Kicinski wrote:
+> On Sat, 29 Aug 2026 00:41:22 +0900 Koichiro Den wrote:
+> > Note that transport callbacks may still complete after
+> > unregister_netdev(), so tie the tstats lifetime to the client device.  
+> 
+> We shouldn't really call devm_netdev_alloc_pcpu_stats() for types
+> of stats declared by netdev core. We should set the pointer type
+> like you did in v1.
+> 
+> Could you instead fix the fact that the Tx callback runs on 
+> an unregistered device? Maybe just wrap the whole body of
+> ntb_netdev_tx_handler() in RCU and check 
+> 
+> 	READ_ONCE(ndev->reg_state) == NETREG_REGISTERED
+> 
+> ?
 
-Yeah, I think the concern is valid. E.g. inode_rmdir() is sleepable but wil=
-l be
-problematic here, I think. My first instinct was if bpf_in_reclaim_context(=
-) +
-nofs/noio save-restore might provide enough protection to let it be callabl=
-e
-from generic sleepable contexts, but I guess that will disable invocation o=
-f
-filesystem shrinkers unconditionally.
-
-So my suggestion would be to fix the context to BPF_PROG_TYPE_SYSCALL. Ther=
-e, we
-should be able to init and schedule timers which poll specific state and ar=
-ms wq
-execution etc. It then remains invocable from sleepable async contexts (wq,
-task_work) or the syscall program, all of which should be ok. Once BPF kthr=
-ead
-lands we can let it be callable from those threads as well, but that is for
-later.
-
-> [...]
+Maybe it's over-complicating. IDK.
