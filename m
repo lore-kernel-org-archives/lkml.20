@@ -1,129 +1,138 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390C03DAAD6
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8F4420E98
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916449; cv=none; b=iL9Wb/DzYTpZWEKhlIzETRASXv42DQwOnEK2i9Yg3K5PSR8RdOhg5sJNsg62P35l3xITiy+2DTJIzf+dyDwydgfatKJvquS/lYwJ+hCTl/olPYMJpCyR0LSVfHCuq/OPSquJen/0M4SUy+AiQGhOxG52MzocFCkhRFFALhxj/ac=
+	t=1787916520; cv=none; b=YpA0uEILAgHfdHm2vtKlWz4Cr4ChHFCcaaGNR5kmNTUwXTz02TA42yTAAdFjYafiYfsyYTH5bUu0BvMud4iewHR3r6VHoXtXrZFDAo5kcQ4oS/JbNerVoXfoFZYIGLhkPe6DQII8qwGG+49qXib/JGrCJgwLpLLI+Y+KlPb8K6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916449; c=relaxed/simple;
-	bh=5xtlgA5vHCXpabX1E6ApXm9OLw17V/cAeGETIc9pLmU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=WD+IxN7OtQD4Zsd2eFobbZpuOMebqplztv4zf8wEYtsRUNTYgc+F32fXJ9VARAwN3GTDqn+CgCUVQxn5RbpnAQpeL+pxrmYit+7Qd0RZhQsVjLOALqvU87xJ/8VqTS+WKxRPIlYxFb1CEsxrz72IXryHwtrUKa95KDNX/8y0FQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso525929b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:27:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787916447; x=1788521247;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AkRz50F5kxQk8r1w8lTDqf7Ji8sdF1ZuHE2PMMhiBaA=;
-        b=Kw8278DWmYrfzYrfahvjEZNfwrNDCwAtmXUvNvaoPJVNnNPvyOrAItDO+CLo+Q8uiD
-         H3iV2lA3o3/b3Nr9U8s1796kFOYw3/8kJJF3skXwOP6jDMberR8u7DfbTgJDh6soSkJL
-         L1Xck9zspaexcRmcScciiDeDSUNl1zqICl1caPnLwKPJtdvuF1KgvCIFRQoCUhFnxeBa
-         qZxnDZUDmNLPBasqvNAqCDhfQmrNJzvooF2kI0VPGXnwWeLO0b2kBmXx0V1MTPGzwEG0
-         bgv7HXcAWBNLO7HVNA9pB2aAAv/2Z2kcxZjbZmoGk8/UKNXfBjg/lGjfs9pQgqs5QIVD
-         a6ZA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2LnEDobh6oKcymWDNH0jB4CmWNcxgTTMk4Z1xbTTIBPBF45K4WA7jRVNVSbEvegKHji4UaaxY+ohfiM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN/6grP4rR384/yleIgsjKSyF3jMW48e3HGFbUy7cCFG/tIcRN
-	T3DzpV5e8TV2eMyL2rXFaYQ7yMZYAjRZH7FAFrqH7Row0RK6qZzMnIkWHBghdpUqptP0lj5nI+Q
-	HahiUG4wjtUVo5nPmkgUtUS1pFJ0PJFj3BrJn+ksgWpHXnH1sqRBPZ8eAtOk=
+	s=arc-20240116; t=1787916520; c=relaxed/simple;
+	bh=/gbHNmSgNtdIkDrciN2lrqMW46sgKlW++Y8k09AhWXI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=O3HLo5gKQLu9e2kM6HDxnLSj63hSoo956iV+ysM2Ot7MsHllOK3Qo+G1txzaeBcX/rreai8vg9/kpBEthb8pzhej4keUbwJxUno1Vs6wSCeihB8tHFauWwWzhb9ydyhHIwOQOYKlj/lqLgQ9vrQlh/qwHfxXb7AX8El1E8w3A4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w2OoyLWp; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w2OoyLWp"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787916508; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=KJGFtURAmGWFRlSvSJgxs80wZh9Z33BZIa4VmJay+WE=;
+	b=w2OoyLWpAuknzUY55Cvu8b8pIwcqW6PRDoCrCBkiTWQnYR7XzPRu5HvQp6h0mLcgutXvTpVI9/ms+3JA42JCwd+IrRzc0G2UZpELpXmfkz9KpjbLBWU6loma2okubAU33HSZuwCWQIiRMn0EEY5e0Of+mRwF2ljm9qHm/ucqpCA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9mHega_1787916506;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9mHega_1787916506 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 28 Aug 2026 19:28:27 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Li Zetao <lizetao1@huawei.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/3] ocfs2: free replay slots in ocfs2_recovery_exit()
+Date: Fri, 28 Aug 2026 19:28:24 +0800
+Message-Id: <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
+References: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
- 5614622812f47-4b397f71712mr6006346b6e.1.1787916447328; Fri, 28 Aug 2026
- 04:27:27 -0700 (PDT)
-Date: Fri, 28 Aug 2026 04:27:27 -0700
-In-Reply-To: <6a8c13ee.91706f20.16b6e3.02d5.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a91709f.4d659fcc.734b4.001c.GAE@google.com>
-Subject: Re: [syzbot] [fs?] [trace?] WARNING in eventfs_create_events_dir
-From: syzbot <syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, kartikey406@gmail.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, mark.rutland@arm.com, 
-	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
-	rostedt@kernel.org, sh_def@163.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, vdonnefort@google.com, vulab@iscas.ac.cn
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+added ocfs2_free_replay_slots() calls to the mount error paths
+out_dismount and out_check_volume to fix a leak of osb->replay_map.
+However these calls are unlocked while the bail path of the recovery
+thread, which is woken up by out_dismount right before the call, also
+frees the replay slots under osb->recovery_lock.  Both sides can thus
+observe a non-NULL osb->replay_map and trigger a double free.
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16eddd49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17986d79580000
+Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
+after ocfs2_recovery_disable(), which waits for a running recovery
+thread to exit under osb->recovery_lock, and drop the unlocked call
+sites.  Both ocfs2_dismount_volume() and the out_super path of
+ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
+freed on every path.  Since super.c no longer references it, make
+ocfs2_free_replay_slots() static again.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
-
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
-R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
- </TASK>
-------------[ cut here ]------------
-!list_empty(&ei->children)
-WARNING: fs/tracefs/event_inode.c:128 at free_ei fs/tracefs/event_inode.c:128 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:150 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:145 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838, CPU#0: syz-executor340/6037
-Modules linked in:
-CPU: 0 UID: 0 PID: 6037 Comm: syz-executor340 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:free_ei fs/tracefs/event_inode.c:128 [inline]
-RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:150 [inline]
-RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:145 [inline]
-RIP: 0010:eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838
-Code: 00 e8 e7 82 fa 00 e9 ab fb ff ff e8 1d 4e e1 fd 48 8b 7c 24 10 be 03 00 00 00 e8 ce 82 fa 00 e9 c2 fd ff ff e8 04 4e e1 fd 90 <0f> 0b 90 e9 59 fe ff ff e8 e6 21 54 fe e9 4b f7 ff ff 48 89 44 24
-RSP: 0018:ffffc90005867b88 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888045883028 RCX: 0000000000000000
-RDX: ffff88802ecd2580 RSI: ffffffff8429b3cc RDI: ffffffff8e69c920
-RBP: ffff888030052f10 R08: 00000000ffffffff R09: fffffbfff1dff612
-R10: ffffffff8effb093 R11: 0000000000000001 R12: ffff888030052f50
-R13: 0000000000000003 R14: ffff888030052f4c R15: ffff888030052f00
-FS:  000055555739d400(0000) GS:ffff8880d5ba2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055c8902f3204 CR3: 0000000022b49000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- create_event_toplevel_files+0x12d/0x1a0 kernel/trace/trace_events.c:4709
- event_trace_add_tracer+0x72/0x260 kernel/trace/trace_events.c:4740
- trace_array_create_dir+0x8e/0x210 kernel/trace/trace.c:8550
- trace_array_create_systems+0x8b3/0xc30 kernel/trace/trace.c:8641
- trace_array_create kernel/trace/trace.c:8668 [inline]
- instance_mkdir+0xca/0x140 kernel/trace/trace.c:8683
- tracefs_syscall_mkdir+0x10e/0x180 fs/tracefs/inode.c:121
- vfs_mkdir+0x364/0x850 fs/namei.c:5410
- filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir fs/namei.c:5467 [inline]
- __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fae2c9d8ec7
-Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 53 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffcc38a20c8 EFLAGS: 00000202 ORIG_RAX: 0000000000000053
-RAX: ffffffffffffffda RBX: 0000000000000006 RCX: 00007fae2c9d8ec7
-RDX: 0000000000000000 RSI: 00000000000001ed RDI: 00007ffcc38a2160
-RBP: 00007ffcc38a2160 R08: 0000000000000001 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
-R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
- </TASK>
-
-
+Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ fs/ocfs2/journal.c | 3 ++-
+ fs/ocfs2/journal.h | 1 -
+ fs/ocfs2/super.c   | 5 +----
+ 3 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+index d8afbc1a76bb..a3938a03e93b 100644
+--- a/fs/ocfs2/journal.c
++++ b/fs/ocfs2/journal.c
+@@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
+ 	replay_map->rm_state = REPLAY_DONE;
+ }
+ 
+-void ocfs2_free_replay_slots(struct ocfs2_super *osb)
++static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
+ {
+ 	struct ocfs2_replay_map *replay_map = osb->replay_map;
+ 
+@@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
+ 	/* XXX: Should we bug if there are dirty entries? */
+ 
+ 	kfree(rm);
++	ocfs2_free_replay_slots(osb);
+ }
+ 
+ static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
+diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
+index f8b3b2a3d630..19fc920d26b1 100644
+--- a/fs/ocfs2/journal.h
++++ b/fs/ocfs2/journal.h
+@@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
+ void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
+ 
+ int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
+-void ocfs2_free_replay_slots(struct ocfs2_super *osb);
+ /*
+  *  Journal Control:
+  *  Initialize, Load, Shutdown, Wipe a journal.
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index f785c39d1fb8..6a8092b65bb5 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ out_dismount:
+ 	atomic_set(&osb->vol_state, VOLUME_DISABLED);
+ 	wake_up(&osb->osb_mount_event);
+-	ocfs2_free_replay_slots(osb);
+ 	ocfs2_dismount_volume(sb, 1);
+ 	goto out;
+ 
+@@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
+ 	status = ocfs2_truncate_log_init(osb);
+ 	if (status < 0) {
+ 		mlog_errno(status);
+-		goto out_check_volume;
++		goto out_system_inodes;
+ 	}
+ 
+ 	ocfs2_super_unlock(osb, 1);
+ 	return 0;
+ 
+-out_check_volume:
+-	ocfs2_free_replay_slots(osb);
+ out_system_inodes:
+ 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
+ 		ocfs2_shutdown_local_alloc(osb);
+-- 
+2.39.3
+
