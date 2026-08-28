@@ -1,107 +1,107 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D776A370ACE;
-	Fri, 28 Aug 2026 10:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0713921DD;
+	Fri, 28 Aug 2026 11:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914804; cv=none; b=ml+ROBpw2SKrzDn0/eEu5e48TOfqdNGrDPEUFViYhi4zSf8R8c8/tYyaTpSLZhRN4BelQthGuQSb6PnihDM+iIKMTvQxhp4RDVPNCfGiEbHwZ4B1uhX79EHz8DyZKHYpk57Z1IgO8+A6qb6GI9g+PYR6pFt4LgkaPW0vpKK2oHA=
+	t=1787914844; cv=none; b=TbReTJA/VwLS8Ez5IGl31c8ZYzJBdm9cgF2l2FoSY+pAsOM1Zf0s9OCgoKHSw8frUeo6WxYC+M7tynmGkOoVc+ecVzY/Xbalw+WyJbT5/C9H9aUHLb4LKql8gaGO3qZ9z0/kU/lugtAxVA/C1re4vdIgnyPgavB/L+Dam4yFtUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914804; c=relaxed/simple;
-	bh=X2elxpExfk8Svx/T+Mk+MaYqbE5D298Uyb+JMK4EzuQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iDHH5SLKYogsn4QXaPeSqAY7bWpI28IzU5DMXgFR+LTgdfTclZJ9KkWd6uKY13n53H/vfNuTNqWyhLzDPtRKZDwQY9gNDYQvvwWE5vkAJZ2EQAkyEKz4QlMWPAdd2c+BtMP7k548MaedJyMxp8zhjrBK3khzH3/urpOSNpxM1Kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hw1n0d2S; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787914844; c=relaxed/simple;
+	bh=/qhUprrDNLX/tJneZQd+Poo4n0a3K1dWxMXFQZHDfSs=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rjhlZocQVcPhSLp3N4/bJ6ct+bkmipQ/qtlKOvxB7Sek/U80ZKQuk9nPrKtKbNcCY/eTrDgSNvIKniLYUoMtchPy77PSPEyTMpYk1M6jGX4YfOXpQAaJMpI5Q/QU/U5b0EFtib6Xn+fkYQ8e487piAFfW5od6mKphu8CM9NTKpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=erL7lPk3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hw1n0d2S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3K
-	xjz9cWeIixVxNbvWh2Xx5KhJ3vNUWAQ4fan3E71N0=; b=Hw1n0d2SPiDwJNFel9
-	F1pM2MoqYGhYIiES3kZIAP8wzQcavOob5gEh02lkMfnEliD4YUPzI3bGrcxyeAYB
-	spKzXd2B3NkeRGyrYqQ4znYvDcb5F9Nekm4xmeK29X7vDfa4SHtAQOxoNZGjdZ+S
-	tGAyNTpcgxAkguX2q6gAQSKdw=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgA3aAMQapFqFkZXOg--.38184S2;
-	Fri, 28 Aug 2026 18:59:28 +0800 (CST)
-From: oushixiong1025@163.com
-To: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH] usb: xhci: fix maximum event ring segments calculation
-Date: Fri, 28 Aug 2026 18:59:26 +0800
-Message-Id: <20260828105926.930033-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="erL7lPk3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B6A1F000E9;
+	Fri, 28 Aug 2026 11:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787914842;
+	bh=Eb1BvKKwTtbIY42JRUlbCa0/eJ/kSVwzFFKhEii/Y4k=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=erL7lPk30gNdLuGbtgQEDUIJdyTFOoXD4zT8bjrO/8SUl/gU7/+ASWfPfKDMejgzx
+	 ZFRtdHQUmkqRff9WVfJAUet/44zEzCyx1V4naln+tmcYUoOB7RWpoUkotfbHSgqbbU
+	 xg4tnXsLWXZQxn/xlXo1xmoT9qh6gYpePUC+0tSc=
+Date: Fri, 28 Aug 2026 12:59:00 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Gao Xiang <xiang@kernel.org>, cve@kernel.org,
+	linux-kernel@vger.kernel.org, linux-cve-announce@vger.kernel.org
+Subject: Re: CVE-2026-80697: erofs: ensure valid f_path for page cache sharing
+Message-ID: <2026082849-janitor-stonework-71c9@gregkh>
+References: <2026082805-CVE-2026-80697-4e8a@gregkh>
+ <apE9cS-ngksokyqh@192.168.5.19>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgA3aAMQapFqFkZXOg--.38184S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8tr4UArykXF4UWr17Jrb_yoW8Zw1Dp3
-	W3ua18urW5tr1YvF4kXa1Iyas5Ca15JrW8GFyxKrWDZrsrt3Wvgw4DtFyY9a47Wr48J3W5
-	ta4kKrWrGa1akaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYlksUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-RCdrGqRahCVngAA3W
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apE9cS-ngksokyqh@192.168.5.19>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+On Fri, Aug 28, 2026 at 03:49:05PM +0800, Gao Xiang wrote:
+> Hi Greg,
+> 
+> On Fri, Aug 28, 2026 at 08:53:20AM +0200, Greg Kroah-Hartman wrote:
+> > From: Greg Kroah-Hartman <gregkh@kernel.org>
+> > 
+> > Description
+> > ===========
+> > 
+> > In the Linux kernel, the following vulnerability has been resolved:
+> > 
+> > erofs: ensure valid f_path for page cache sharing
+> > 
+> > Previously, backing files for page cache sharing were set up with
+> > f_path left as NULL (only f_inode was valid).  It worked, but a recent
+> > mincore fix relies on f_path.mnt and crashes (found by "erofs/028" on
+> > 7.2-rc4):
+> > 
+> >  BUG: kernel NULL pointer dereference, address: 0000000000000018
+> >  #PF: supervisor read access in kernel mode
+> >  #PF: error_code(0x0000) - not-present page
+> >  PGD 0 P4D 0
+> >  Oops: Oops: 0000 [#1] SMP PTI
+> >  CPU: 3 UID: 0 PID: 675528 Comm: fincore Not tainted 7.2.0-rc4-00002-g[]-dirty #1 PREEMPT(lazy)
+> >  Hardware name: Red Hat KVM, BIOS 1.16.0-4.al8 04/01/2014
+> >  RIP: 0010:__do_sys_mincore+0xc0/0x2c0
+> >  ...
+> > 
+> > Specify valid paths using valid disconnected dentries together with
+> > erofs_ishare_mnt instead of leaving f_path empty, so they are more
+> > like real backing files in a pseudo filesystem and standard
+> > backing_file_open() can be used directly.
+> > 
+> > The Linux kernel CVE team has assigned CVE-2026-80697 to this issue.
+> > 
+> > 
+> > Affected and fixed versions
+> > ===========================
+> > 
+> > 	Issue introduced in 7.1.4 with commit 04ba248d02d9eaa3d9077b00a6134caa75fa3e90 and fixed in 7.1.8 with commit 3879657c4ffd81b9a42cf575fc6cb60201032587
+> > 	Issue introduced in 5.15.217 with commit 7368bec565bac3e536cd43579dbde1e715e6ba61
+> > 	Issue introduced in 6.1.184 with commit b2f3d94ea310bea9d36d53e9d9b3f45e86c1d893
+> > 	Issue introduced in 6.6.145 with commit 744b23aa430d52f5c8e4dbff7d71496d6643bed2
+> > 	Issue introduced in 6.12.96 with commit 8344bdf0629457e532797b42d9d2bbf2a2900bbf
+> > 	Issue introduced in 6.18.39 with commit 5c942ad7df75925ee166e7f0fb36892d8dde376b
+> 
+> I don't think that is correct, although commit e187bc02f8fa
+> ("mm: do file ownership checks with the proper mount idmap") directly
+> causes this issue, the entire page cache sharing feature was introduced
+> in Linux 7.0.
 
-Commit 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
-converted BIT(HCS_ERST_MAX(hcs_params2)) into
-FIELD_GET(HCS_ERST_MAX, hcs_params2) << 2. The ERST Max field is a
-power-of-two exponent, so the maximum number of segments is 2^n, not
-n * 4.
+Yes, but it was backported to all of the above stable kernels as well,
+which is why they are listed that way.
 
-With an ERST Max of 0 (as reported by e.g. QEMU xHCI) max_segs becomes
-0, the event ring is allocated with 0 segments, and the resulting
-zero-sized ERST allocation trips the page allocator:
+> There is not any codebase below Linux 7.0 so it's possible to fix
+> 5.15/6.1/6.6/6.12/6.18 in any case. The affected versions are only
+> Linux 7.0+.
 
-  WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x11d0/0x1548, CPU#0: swapper/0/1
-  Call trace:
-   __alloc_frozen_pages_noprof+0x11d0/0x1548 (P)
-   alloc_pages_node_noprof+0xa0/0x108
-   __dma_direct_alloc_pages.isra.0+0x178/0x260
-   dma_direct_alloc+0x1e4/0x460
-   dma_alloc_attrs+0xb4/0x2e8
-   xhci_alloc_interrupter+0xdc/0x1c8
-   xhci_mem_init+0x250/0xe70
-   xhci_gen_setup+0x35c/0x4f0
-   xhci_pci_setup+0x68/0x138
-   usb_add_hcd+0x31c/0x640
-   usb_hcd_pci_probe+0x1fc/0x3d8
-   ...
-  xhci_hcd 0000:02:00.0: Failed to allocate interrupter erst
-  xhci_hcd 0000:02:00.0: can't setup: -12
+Even though e187bc02f8fa ("mm: do file ownership checks with the proper
+mount idmap") was backported to those older trees?
 
-Restore the BIT() based calculation.
+thanks,
 
-Fixes: 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- drivers/usb/host/xhci-mem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 7a21ac81f9c8..af8d4b74c4ba 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -2301,7 +2301,7 @@ xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs, gfp_t flags)
- 	if (!segs)
- 		segs = ERST_DEFAULT_SEGS;
- 
--	max_segs = FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2) << 2;
-+	max_segs = BIT(FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2));
- 	segs = min(segs, max_segs);
- 
- 	ir = kzalloc_node(sizeof(*ir), flags, dev_to_node(dev));
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+greg k-h
