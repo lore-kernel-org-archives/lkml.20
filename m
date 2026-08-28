@@ -1,62 +1,64 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96181326939
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98364471423
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929086; cv=none; b=VvhWOzvnGfMMn44KcSaLttO2KGLECCOMXQxl+sBZ0ee4NdFzH/EOHxZ455Ck+YpPNvrrSlrjI4xfq5hOqS7F06hR+1IKXhlYje/KcSGPaA1mQqj3THmC8x4daE1O56PJ/pE9YBNcoM7ljmE8tw4DLe2n8cFlmBobJZOwozqEzI0=
+	t=1787929089; cv=none; b=OT0oEa5Lui1387RyVINt0WXJENdcQ0lYnNnojarXTK/lV1tg3qq3iAzrLtITeMcVxALRnSbJmHCb265rfLChH/USU8qkLh10L/2D6DBJE3JqqqhCtgDEhlF8SHo/frI6+b+Vy8aUeLC5+YKOSZL8lEOld8sOzf8wcb+OLwRLEFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929086; c=relaxed/simple;
-	bh=L3z6tKHykrnzghXBGsRJSXQq9p6efLJdpGWpsjLF+VA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lrDjg9y+k/wXwylRK+aVbOlIBHqpfBTWSHkVO/Efr+AXEOQ47Ce5EMDjFGJMKqd8MMB5caNdabMD4LpQXE9nhmnKE7E866Wn8TOFRJKWdF9hnQSsmk2cBcW6c9GYCMeZa6ZspX58uRUF7+ML1/t79Sn9sqTgcQUB7lyWJCxtGvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGBuZjkw; arc=none smtp.client-ip=209.85.214.180
+	s=arc-20240116; t=1787929089; c=relaxed/simple;
+	bh=j/QF+SsgVpc9T/mOKas0bFiVgpszPB5eEvQ5VAl/WMA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cppkihlyOXMrm9AhIhNbi1SaQt3Uzz+Zj3KTHUsDAOLrg8a01I7SxFh9L8sJlknZeZGrkRkZ8x9pRPr1NfBqYlMRmV0Zo6ndygOQiwsAlSRefAWYAdn5+21BxjQY9NNRWmNvvwiYDzLc5yjj+gmc9OL0+z7WdildWJ++J8O3jzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DT2/iMRA; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGBuZjkw"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ccf2360620so9850265ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:58:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DT2/iMRA"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ce7d2adef4so16214095ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787929085; x=1788533885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1VfMpdC9MNUgJGJ712gixEQAXWsGGubkbIBW/Kf06N0=;
-        b=RGBuZjkwGdNV1JaE++VKf2Ou66kd+l/Q2hKAe7+CoYBnBzUdVu6hioxFLy6DguaUlK
-         Do9PCXq6XrRZMHIoAN3SN0dA5swpcXloeleDbNRrywpho1Z+YcvSr56/Dij8jRTzmbjc
-         ikcqlws+vKPCbYPu+AW/A2SyPiTRLQfXKTsHRSD/RUDz0dOo3CS0QWtTzo6Hr3Qp2XRi
-         fZBJbSo5Qj9XHpbb1Z2Ix6D5+pTppSsIiUQu1KP7QOiI5tUCBvlg9Vnlh2ZU5jZa6Dqm
-         s9yJKwPlYfxL9gmT/K+OffYOaz7Y+CZ/8vfMBaW5iF5Du+v4HtoOasKexk654oAT6Ax7
-         ONhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787929085; x=1788533885;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787929087; x=1788533887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1VfMpdC9MNUgJGJ712gixEQAXWsGGubkbIBW/Kf06N0=;
-        b=hGaod9cifxPQ2wjO6ZO9nF8GDq6E0duN/HOeM+f7Sq444GjnwOSCPw852dsXmZXW7Z
-         34sGF2apqOOkse9m5ZCuVAla+IDm5CLe6w3Keq/hiRHIFktuwye6lQOxSv8fhYCozCWJ
-         7w4RJ5Ci6F8D9lxqC7snETmuizAeW1IGCyRnsULjbHrRnw9ou9dBFX57laRkEhEqXVcX
-         /J4AiYr8RVkYILWbA03aHWqWkP3XzO4hVha6Z76DRL9khntWc7wDjTZZuQsDXGv7Hj8B
-         XKoS66RkACiqzjwe5ofsOsUzwLaslnlG4r9vA4a1nBx8Tj9hwuH1cTBkFVbyeDPqGJYC
-         ajLw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrp4ipdJ23xTB8eRJZNMC/nfo3u2egbxWgTbbDZ7KFgL5SJ/dq5z8lotGy6JcuVOJy3IfbUzwLXARHoswU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIWBUkpfyOFUhivdKMNki85CK3IOiDI3ohyWG2UItyzZM/9oX1
-	IHR5u2kwkgkJecifwiIwt/xpCtZiLOtkZIIFt9o8GUyHT245eEXhoW4=
-X-Gm-Gg: AR+sD12SN4sDgYbYe05VtISj+Xoga/r/OkRBfZX7pumF37JiSYgJLWkCM5O+r2G9OTr
-	EncAI2JSdgay/0P5+ZIJarMaDC8vdNcsoe3l65lpvWiQjRJcTOsxXzlN7QDqFGQ/8Ld1iGwFWkm
-	yl7dL+tw5mVjEnhIRNjycaH81c/fQw2q9LmGGjG6gfg7PFER3Uq5tEYXxu/+5wSEfFQ3l1WSQK/
-	UNM1cJC2FXaq96LoJwGwjLea3TyxLIO0wgWPvB24FdyY0qlocLF3NYbhhG3GoTLhYTLDIuOaShB
-	bzabsU+XinrAdBDxAlui1zHuI4Mj/F3FqUvBnlbdTEOiOBDMZPgc+WErJ5gPCfkIzxNx54Y/TqN
-	IW3A+FstMgz9A4uTM3IycUZ6722EG1T3rEol+7clq9VcyXd0dzXRV2KK26x0QEkrExXIy5Pdz84
-	Uh/CJlbVKj4EV4Jr/15MS7Fiy/fwJd1R9z3V7MJ4hOIRYC/5IZe6LUk8AkStWvwAVpmrSrv1NpB
-	yX35RGiqIPuTT6afl9kKartjYFTe4Pu1OB3Dg==
-X-Received: by 2002:a17:903:3d06:b0:2d8:d4ce:9f34 with SMTP id d9443c01a7336-2d8d4cea3e9mr8380325ad.18.1787929084834;
-        Fri, 28 Aug 2026 07:58:04 -0700 (PDT)
+        bh=V+G8BuKyr4mNyS/k4RzS4KN1oeGSViDq6yduxoa5BN8=;
+        b=DT2/iMRAQ+SFZOzFESlYiwhbpGZKISIweua3srNYeAHOcPA8v1rGa/IzAEqURwgW5S
+         4aRdDUEf5+P0xhZnRm4AM6kAhF8sVNG8uOqzc/CP9OS6KtpgWgaqlFlB+zf3SiqIZuMu
+         xDDtZjWVnbiY7m2V9c57BSpuxOH9RRnO+Swl3dZ/f39AL34L0sLDdPREL0UgNvwcwQsX
+         kqD1aweZ5xgZ/EW5lVbXq3bpVCCSbMVb2uUvxUUaeMU1EuyNklFa6JRUfVWxVXFt7w67
+         5mLDBDVUspOFyQDMcArNfBC/568nUWicok+mI4yJjfnrjeuQczzHbx+XKmQN7fU9C80J
+         cueQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787929087; x=1788533887;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V+G8BuKyr4mNyS/k4RzS4KN1oeGSViDq6yduxoa5BN8=;
+        b=Me7eqaiY6yYdn6W4epDZc/IiV/8fX3I/m9LuC6BMGpixj4TvF0qLKWiqFG9l504HKb
+         lfZMqIc0PiR1zau2usSNywDH6zoJiby2AP+LngL8PnDZmMAI8qBi+jPVddUKQriZ1xG0
+         fedma0fvbYVWTFo3eSSlGE1tXsXAErbIZR8OQmIsteL/AspbufQ1lMsTvV2eJpe+mqqq
+         CGi5mpQqRBsD+0cQxot2UhLb3WPYqeWqdbi5KLvegorhOhGGtcU2B8AAbUzxaCo7ha1E
+         /BmaIG7l2AoX7sY0HfF8ZSNxnANfpgsCWtQguJJxoUWOJgrDmndsBXSkZCPZGxfAY5Sa
+         9DYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqw4RCIoqolrgKRnJAf4308XqfUkxaExq8Ka16YqmzWMPzF+TzOqtBYzjkYMl5pfMeiAfOp6LYn/6ytiP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS3N48YvTIV36TLnX1/MpgzdnqY6QuN19jQZNmT3+LH0PvCoMo
+	XTA7Xhwot8jYQH4snHX4D6mC8eRIEc4neI+9NvhPGOEV7FdMVWuCT0A=
+X-Gm-Gg: AR+sD10LI6gWi/GnxEqhjuuYzAIPbX97NH+WTrcNfUs3hwie3jaIEDEFiAyLd+poeyk
+	bCx0jkpCTgO+QoJMNU10iUAqQxT/i5idekNr8Hckp3TJLfPuyy/hmWL6MLj8/xzwaJ4iGIEXNks
+	wP/qnB4xRnByS7egJpV9qJEnuUFccfIqlXIwT6gXMgsYvkbx3ej/pp11IoXM0nC33tU82x2cTIJ
+	mEOv0b2FVY43J3OZaIdBUYN04iwlU0ZhO22JbxuUFVr/H+eqCqQLUp8CQoYeoiK+O5rGgnYtWts
+	OsOeAqQNt+zp1HG1qvCOi8IrRfmGAX83jTTFzxM3UepCNSQJ62ongnBeNlIZZQPwG3A3ZsE6IjN
+	JIlkJFP1h17kW8kL4FG0usKC9wMVtOiRRHTJ30jddj1qFDz/KDQbYiVFqLBgqYq8MPJqyY6o7Cf
+	Wyjc5xrRNAtfhpV++RcjnPkCy8HafHvrDBuWxb7XMLrioUERgsDaQ2NfJN3CxtVGOhmPH2nU72X
+	K2h/MRbNM/EFoW4vwXAcnZ50ny2ew2SF7EP/g==
+X-Received: by 2002:a17:903:3d06:b0:2d8:d4cc:5baf with SMTP id d9443c01a7336-2d8d4cc5dcemr8450155ad.15.1787929087521;
+        Fri, 28 Aug 2026 07:58:07 -0700 (PDT)
 Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:58:04 -0700 (PDT)
+        Fri, 28 Aug 2026 07:58:06 -0700 (PDT)
 From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
 To: Matthew Brost <matthew.brost@intel.com>,
 	Danilo Krummrich <dakr@kernel.org>,
@@ -65,10 +67,12 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	"Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v1 0/2] drm/sched: fix a use-after-free in get_timeline_name()
-Date: Fri, 28 Aug 2026 23:57:55 +0900
-Message-ID: <cover.1787928528.git.malhyuk97@gmail.com>
+Subject: [PATCH v1 1/2] drm/sched: cache the timeline name to fix a use-after-free
+Date: Fri, 28 Aug 2026 23:57:56 +0900
+Message-ID: <b191f55e53492f95d965407f891fd93b0e74958d.1787928528.git.malhyuk97@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1787928528.git.malhyuk97@gmail.com>
+References: <cover.1787928528.git.malhyuk97@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,49 +81,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This fixes an unprivileged use-after-free (read) in the DRM GPU scheduler
-core, present in current mainline (v7.2-rc5) and reachable through at least
-three in-tree drivers: amdxdna, nouveau and msm (VM_BIND).
+drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
+drm_sched_fence ops keep a .release callback, so the fence is not
+ops-detached on signalling (dma_fence_signal_timestamp_locked() only
+clears ->ops for fences without .release/.wait). The callback therefore
+stays reachable on a long-signalled, userspace-held finished fence and
+unconditionally dereferences fence->sched.
 
-drm_sched_fence_get_timeline_name() dereferences fence->sched->name, and
-the fence is not ops-detached on signalling (the ops carry a .release
-callback), so a userspace-held finished fence can outlive a per-context
-drm_gpu_scheduler that a driver frees on context/fd teardown.
-get_timeline_name() is reachable unprivileged via SYNC_IOC_FILE_INFO on an
-exported sync_file, so this is a deterministic UAF read of the freed
-scheduler - a bounded arbitrary kernel read once the slab is reclaimed
-(there is no write primitive on this path).
+A driver that allocates a drm_gpu_scheduler at per-context/per-queue/
+per-VM granularity and frees it on an unprivileged context/fd close, while
+exporting the resulting finished fence to userspace (drm_syncobj /
+sync_file / dma_resv), leaves fence->sched dangling after the free. A
+subsequent SYNC_IOC_FILE_INFO ioctl (which calls get_timeline_name())
+then reads the freed scheduler:
 
-It's the same bug class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
-(drm/panthor), which were fixed per-driver; the drivers above never got
-the equivalent fix. Patch 1 fixes it in the core (cache the persistent
-timeline-name pointer at fence init) so any per-context-scheduler driver is
-covered. Patch 2 adds a KUnit regression test on the existing drm_sched
-mock harness that catches the UAF under KASAN with no hardware.
+  BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name
 
-Since the bug class is already public (the xe/panthor CVEs), I'm sending
-this to the list directly rather than through the security process. It
-looks like a candidate for stable backport.
+This is the same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
+(drm/panthor), which were fixed per-driver. amdxdna, nouveau and msm
+(VM_BIND) are still affected in mainline, so fix it in the core to cover
+any per-context-scheduler driver at once.
 
-The KUnit test was run with:
+Scheduler names are persistent strings (string literals passed to
+drm_sched_init()), so cache the name pointer in the fence at init time,
+while the scheduler is guaranteed alive, and return the cached value from
+get_timeline_name() without dereferencing fence->sched.
 
-    ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-        --kunitconfig=<KUNIT + KASAN + DRM_SCHED_KUNIT_TEST> \
-        'drm_sched_fence_uaf_tests*'
+Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+---
+ drivers/gpu/drm/scheduler/sched_fence.c | 16 +++++++++++++++-
+ include/drm/gpu_scheduler.h             | 11 +++++++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-- without patch 1: KASAN slab-use-after-free in
-  drm_sched_fence_get_timeline_name
-- with patch 1: test passes, no KASAN report
-
-Jonghyuk Kim(MalHyuk) (2):
-  drm/sched: cache the timeline name to fix a use-after-free
-  drm/sched/tests: add a UAF regression test for get_timeline_name()
-
- drivers/gpu/drm/scheduler/sched_fence.c       | 16 ++++-
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 65 ++++++++++++++++++-
- include/drm/gpu_scheduler.h                   | 11 ++++
- 3 files changed, 90 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 85ee3d694dc9..280a2d036ffd 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -92,7 +92,13 @@ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
+ static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+ {
+ 	struct drm_sched_fence *fence = to_drm_sched_fence(f);
+-	return (const char *)fence->sched->name;
++
++	/*
++	 * Do not dereference fence->sched here: a userspace-held finished
++	 * fence can outlive a per-context scheduler. Return the name cached
++	 * in drm_sched_fence_init() instead.
++	 */
++	return fence->sched_name;
+ }
+ 
+ static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
+@@ -228,6 +234,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
+ 	unsigned seq;
+ 
+ 	fence->sched = container_of(entity->rq, typeof(*fence->sched), rq);
++	/*
++	 * Cache the scheduler's timeline name: the finished fence may be
++	 * exported to userspace and outlive @sched (per-context schedulers
++	 * are freed on context teardown), so get_timeline_name() must not
++	 * dereference @sched. Scheduler names are persistent (string
++	 * literals passed to drm_sched_init()).
++	 */
++	fence->sched_name = fence->sched->name;
+ 	seq = atomic_inc_return(&entity->fence_seq);
+ 	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
+ 		       &fence->lock, entity->fence_context, seq);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index d61c19e78182..4f780d70acb6 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -305,6 +305,17 @@ struct drm_sched_fence {
+          * belongs to.
+          */
+ 	struct drm_gpu_scheduler	*sched;
++	/**
++	 * @sched_name: the timeline name of @sched, cached at init time.
++	 *
++	 * &drm_sched_fence.finished may be exported to userspace (via a
++	 * sync_file or drm_syncobj) and can outlive @sched: a driver using a
++	 * per-context scheduler frees it on context teardown while a
++	 * userspace-held finished fence still references it. The
++	 * get_timeline_name() callback must therefore not dereference @sched;
++	 * it returns this cached name instead.
++	 */
++	const char			*sched_name;
+         /**
+          * @lock: the lock used by the scheduled and the finished fences.
+          */
 -- 
 2.43.0
 
