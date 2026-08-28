@@ -1,108 +1,132 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE6F3B9D96
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894939; cv=none; b=QJ5jC+9BaD+09z8v75Z5x/rbGF1mYbK5dKJgJIo3tBimLxUEa+EOsw5OWSro6/HC/fL7LaG6l5LSfVUooBB6ZkRt4WCpXaJPyTtqIdWvbs7MnIsww2U2/QaM/AYDs+cwVXi7xZ8LmcEfIKoj4lx411LXPy6yjRHgaphLHNfadf8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894939; c=relaxed/simple;
-	bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k6KZLxsGbP7IpRm2eV0s1fXfG/1XEJm+PIDYXAi6A5fwVK1JBPivVv63i2dsaJHEW/caYEPsL5ylC0duKHR2lbYEZTbo6vj5A61f3T2mpKe7KillGPqzKxGF/ez5VpU16ZDr8Y3oYe0d18XsH46BEDGKukCtNTBTHY20pws51Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wv5Y2nSL; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAD63C2782
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787894942; cv=pass; b=J16l4kOu+Jdd8GYEtwb0J9qXWt9DeGl3XvnQZ74pxtlE/fX689klelnZi0UkUYXZl25qpYPZoJTuFOVxrT3ma4mSVrqeI36bNSKN/CpBIh5t2fmAuQa8TI1gRURbeOa3hMLu7teOOoMI3KnYNUyyoJNcrxO4J/14j9vcd7nBmbI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787894942; c=relaxed/simple;
+	bh=LRm7TUFzAteKTAYdlVpNqQ8w/29QsDN1CRtyvuAjdxI=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=M74Hm3t/NqPaaaIfIFUc+Jm/HOdHhIKcUNUzatWgtu078bTA6nfBhIpdbcVjm053pCMYMgi6M89LXkErPVlPq5WcXHDQ49GE03y/HsxDCwhap7Jnnug2EU7iUwiQSV5kg0hi1KTWJI8sWPmCLeuiC3YNExSiX+SmpdInPG/ZQdw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=MxTcO3bf; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wv5Y2nSL"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39652a6e963so1677183a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="MxTcO3bf"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d049069377so7350085ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:29:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787894940; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VxHTqA4a1CB08piVrR4jzQDztFoYarzjrL7pmgtGZcVy0TWIKX1AClQqyIBIaS+ST2
+         wf/tGzTJADrzKnGWs13Zx/ZYkTM3BL9yROwHLy/fBWDJ+zuHneQjzhtFMA/be1IUDrcI
+         PT/UUbucC1CQ2FpDyf9odUambkijaAQJvPW2oOim+V2OWca+XyeOLStaOOB1khagGjjB
+         LzJDyDT7zoOjIQWgOovSzcvv+/60baIbnw1y4RWQdKhRf8kMOh2+pD8YdThVr6cACEYI
+         +m0rGRbGlmIfTMaTr3jljGIRCr1b/TvQurgBKMYoU4w5QPgugKxHYMOIrP+6g6a2AHbk
+         XD2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=323/e/RaqA8mIXEHSxzv2u3juG8I1v9sZLdgI4Di9tk=;
+        fh=d6e5jD4raoOT2VZxREEP6mFm0pQlziOWWrMj+UM4k+M=;
+        b=NA3y4VvH6daaGpWIWwaAYwAbu7a3fyF0fhAEi4/cjZxrCZFqD0ZAAHI/FD8n+CpQi6
+         3ZjAwvLjO91Tc+NAT2SReIpaRI8r8iPIK46fbYPS70pWC0kKKUS7s4PvhTfKITlsYhKz
+         mhgHhLgTlBLAElGBFcnQDzp+9QQiLEyj6Hx+uDciYYtn/Z8m9ql1D3/wcF+GzJ2NHudm
+         v8COdzkNIwKm+2srwaFaUqut93uMQ7BNKtGU95paZI1FuVclBEjDNgOuNfNxtaWBDIpy
+         Ar352TQ4DzPXsKy7oQSVgDSKhNF4NmWy4bPOGgB2Rq1A9QpNZ/nTaSzyBPhDSwnOS5BB
+         LO9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787894937; x=1788499737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
-        b=Wv5Y2nSL47pLSZbE8sbvRP9xuy6tfs/SjjsXYrFrqCXzyc7ntN7DmxaxjmdlLQUwhr
-         UavosEWA0ZIAdVB7TL4kCSzspOUbCr8GxnyfcMyDMj+u5Kk8TwkTZrsX2LLjdODx5XCb
-         D/DFoTVJm/EJKvQYalKfVjtBVTeiXiwFPu9nN9o2IZt4hPTiuO0wBF2qoaXmAJCVA36o
-         j3K+k0V9iIG2iGQiSe0akDUQYwGTfd8xqBxeJ8GWwNVXks3rGrdAnpSiERIMDeCyvWMG
-         l84KtQcKDU/VFqSFWd2n1xgHaDtehtz0OW3EXY68LC+6q5hBksKJz03yS5q3ceuNRIlg
-         NiVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787894937; x=1788499737;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=berkeley.edu; s=google; t=1787894940; x=1788499740; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qL8bPsC0Bxb6J/ZsIWsNrLSKD39Bdrje+tlXzQLxk3M=;
-        b=O8EYVhGaswE6Tz8+gVkOje0kj4FCs67FYKoC7PHHtNb/BkVfaORp21rLozEMgHo1wx
-         QO7vUTw31t3+jTGK4JCFZA/lfxye3rfkGIT5rJb4c9gGwIh5ItdF6NzYJJYM7gAsLW6b
-         CaQin3hC7a6ixk7tT1qQusVntIARAHVbWAJZCB65wfF/9D/6OiyvS8iPwttNWxSmre/e
-         O0WxlRB1R5MYTYOyRSMW5Ex3prkNk3M42PD5y4w9tOFwphRqzfrP8aUaUljoX72fV0Y7
-         cnG577DziJvhfXqkQOJnrEDnjPAoUEi21Jjw3rp6rj8bN9BxQNL69MfUV2+dQg9ltLmd
-         QPVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqZfMb8FBjNXTrLeJHlewScMqfn4KO5ZAnUMCPnSfkVQib8bKNsQ81yfAwk3FFC+JAsSCjlqmDeigu0oVI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ko10Lls8Lf7hL65FYeFaaKki6PKokBTy1qP6mY4U+XZi+jRJIZ
-	wYzNEXgtKnc8hDPpf3J3XVo3ZUZ1RmQoL0bd17wXAR9Kt3dzHmSls/Tn
-X-Gm-Gg: AR+sD12/jjysf2OOTmAjdPWqArbLrbN3TQghpy686bNNINAqKIbEfTsQWU0hOc/0Kiu
-	Sf5uqRe2DTiyi90B9JlvhRNiUT23uXnfIPWFES8vwA10tYSPfP98rVu7JIkas7oVP3uHUbc1j8o
-	wuOu9hXgN+pjJTJ49hmQz6KDxWRW6kELtUnH5tSZNw+GbIKTXEPI3ZwpeeVzGvRrXHOM7l4NA/g
-	Io3GJ/ZgflFW9ALlA6NVfH31LxYQqnpsSY8/Ib1dmXJWTDArbLtp3G9rIN+kAXlU7LP97hqxwPV
-	0hLZA5iKStj6SjnPdklHFWLwlavoxl6O0uQ4+ClwWAk4+nwMMek4AmVmCTTySMzHbejZlc7GXcI
-	Z8SKKhN4+M8rEWjaMlEl2LS9I6viNsFD4p73qtbfrj4c5Z6AymYXZbcDZXZGHcmu+8FAHbQyocJ
-	lj7lAE0JZfk4PfIN3WFxee13CnkL3+v+snSG2bd3V7zs4EJbI5pqlz5SKRFgGygdaVjchnRQkL7
-	DN94oOBRlSrTm0zsDQZSM/UOGwF
-X-Received: by 2002:a17:90b:1a92:b0:384:927f:3db9 with SMTP id 98e67ed59e1d1-396d0d35e02mr4591519a91.1.1787894937355;
-        Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7eb6bsm1070263a91.8.2026.08.27.22.28.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 22:28:57 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Cc: linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Chris Li <chrisl@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yu Zhao <yuzhao@google.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kairui Song <ryncsn@gmail.com>,
-	Kairui Song <kasong@tencent.com>
-Subject: Re: [PATCH v3 4/6] mm/mglru: move max_seq read into walk_update_folio
-Date: Fri, 28 Aug 2026 13:28:12 +0800
-Message-ID: <20260828052834.52775-1-lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-4-d9f1c75549c8@tencent.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com> <20260826-mglru-flags-cleanup-v3-4-d9f1c75549c8@tencent.com>
+        bh=323/e/RaqA8mIXEHSxzv2u3juG8I1v9sZLdgI4Di9tk=;
+        b=MxTcO3bf3r4Yq3Tk5c8RkNp50QBpvHAFfSbw6V/dEZDaRtQcOGBLaU1q94cBhSdX9e
+         XJZtYnYY+73akDgQ8+TTUCr8rY5wPZRjXWFADZ8q8OxM2Z2OJtI1vgGHmg+dbhfRn+Pf
+         NnJsMkG0KNB2QQsLHC40FyQBLxNq3rnI/O6FD666BmUluz7Bdz3bQnCYAp4/JHuSrV81
+         wtQc2pMtPj77Dygm/FDlPaAdXBPXNtYrKkUem4+PY5I056+0Cf3fYXhyPJZC44lLtsET
+         6nbbTz2xJQfgzpyfVrZ2weRu0PNDDhbNb4yUCRFix9sEghxrdtVVC18YGxK+5IYKB6kO
+         vyUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787894940; x=1788499740;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=323/e/RaqA8mIXEHSxzv2u3juG8I1v9sZLdgI4Di9tk=;
+        b=lnik2uux1STLgcN5MH2GnKIz0/Fbo+BAG4SMrusNIn8ixSM8hgablI8FZaxaDZ7X6R
+         j/aPy06p/lgO/8LMz15xaLDetWsxUf5x6l1JgNIajotd754Sa6G02kxuaP+iJ/7AkrHs
+         rbbPKKnU6vaowzNdxKg5j3ycP2OUkum+JwTX2pC9AiRFVwfNF751j5Aqv8HAv5CETrJq
+         jbeAO3l6K1cnqcZ2WnY2IK6IegIyRPqW3U+Fmc3VyIamtNkKIK31BnETpKBIC/xLH7Yf
+         puo1RZr/XuRIhSneRPbaulC3u129fkDCKg2yfd4zdYUYrTearAB/r2k0thKgOxnV9Mva
+         nrVg==
+X-Forwarded-Encrypted: i=1; AHgh+Rph5Fniq8mSabN9JiqKtMQpYOXwy4X8zVD7lfll4moLH8QHBdEjYA0DrgOQ18KN+MmSJd8Rcn1sdn+eY5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfZPP+BttlB1RWliahYQQ5qmZaUM53mRX9ntBXPTCgcQLVGYRF
+	x9w0Wknqd4KD/mOYVi6OO4tJX8CIWQvx7ECqxaQFpEp7zrWiloDnG1UgyHk+8CvicwzYRqxd8/5
+	Wd1eU3ieEuBxFlANxP82AsBDJsA4zIo4EY8tTFTDZ
+X-Gm-Gg: AR+sD10Dh12uWhq+N716Kn01fzTcRpeKrNRU3U/stSnPhX6ut2HcGwnUWFOuV095Rwu
+	c3qoeF7powizhnQtBBIWbDX5o3uExrR+plciziJY1Xe8ehreID2J/D3dA/Dt6ESrh5/9mKHsjO+
+	wbXROVomCaenW9bxh58D9IKWVyEswS857xN5pNB1YmaIoTap4cRvhAtKlKTtFG7M1d3RHXluEtg
+	1NPAHLIbq9tI4hLcwNfrNl0aHSLMc+8DU0R6HOtmy2RGhSAT688dtpW4LOVZzdNWUyJpsObqvvU
+	jOgpII1vi4gp88P0ShhbyAzEDam+KjX9ClF4vm14//c/yS6aRws2U7DEfa0rctejZpy1i12Vg18
+	QjFzPxgTh5bTKXcvXUjf0cz/W9hQ5BsNcDIsAu0MhKuY=
+X-Received: by 2002:a17:903:324c:b0:2c2:62ee:5a0d with SMTP id
+ d9443c01a7336-2d74df1c634mr88380135ad.14.1787894939423; Thu, 27 Aug 2026
+ 22:28:59 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:28:57 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:28:57 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 27 Aug 2026 22:28:57 -0700
+X-Gm-Features: AcwNN1UlzyJTQI4xLeKZfZmMD9WMPAJkGc0arO9zP77WjK-dTinfNX0jJqWgP4Q
+Message-ID: <CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com>
+Subject: [BUG] refill_stock -- VM_WARN_ON_ONCE(mem_cgroup_is_root()) from a
+ write to the cgroup-v2 root's memory.reclaim
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: falemi@asu.edu, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-> The max_seq read now happens once per folio update rather than once
-> per walk range, so folios always get promoted to the current youngest
-> generation.
+Hello,
 
-Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
+
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/145-memcg-vm_warn-refill_stock-root-cgroup/
+
+  mem_cgroup_is_root(memcg)
+  WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940, CPU#1: repro/9490
+  Call Trace:
+   refill_stock+0x644/0x940
+   try_charge_memcg+0x12d6/0x1570
+   __obj_cgroup_charge+0x35/0xf0
+   obj_cgroup_charge+0x1de/0x210
+   obj_cgroup_charge_zswap+0x83/0x270
+   zswap_store+0x1620/0x2000
+   swap_writeout+0x94c/0x14c0
+   shrink_folio_list+0x3388/0x52b0
+   evict_folios+0x374d/0x48c0
+   try_to_shrink_lruvec+0xe72/0x1350
+   shrink_node+0x3320/0x3b90
+   do_try_to_free_pages+0x6a2/0x1990
+   try_to_free_mem_cgroup_pages+0x30d/0x830
+   user_proactive_reclaim+0x504/0x840
+   memory_reclaim+0x1f/0x30
+   cgroup_file_write+0x331/0x8f0
+   kernfs_fop_write_iter+0x3af/0x540
+
+Our reproducer.c is available upon request.
+
+Happy to test a patch if that would help.
+
+Regards,
