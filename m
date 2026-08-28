@@ -1,105 +1,125 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from outbound.st.icloud.com (st-2003e-snip4-11.eps.apple.com [57.103.77.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22693471D06;
-	Fri, 28 Aug 2026 14:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEB04570D1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.77.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928316; cv=none; b=Op6sVEdLBa8AAJSwcEj9CUf4Vy6J5vA5FBOVE30w9wOv6ukDx1Jjp21HH2iKlNVwxeXjxEwfNY+PHW2rN0VH83xQgu8ZI2UBk0BwDn2qykd6HIRx9IvjsfKsARIedqIjFpzKR5xFaBc/ylX5VzUhV+RQPUPAxNjdsUaqGwW7jWQ=
+	t=1787928358; cv=none; b=jMaJ9vSOEz6T6nRfvkYxcrtqp0rg9fSVCNFClF93rx9L2kTB+DDxYtI3Rc7Hw/BiyRZfNfuELKRUopZ7b01546soFdgVfEQuzXVvOcH5rjECgG3hWaTz92B+e7AMI1WfcR0cMxLlgQS0qLeRpKJPkHS0pI6pIvwGWDpZsILS538=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928316; c=relaxed/simple;
-	bh=soZ9PL61goEMOkaDJT6p0gnMZMgrTdoK6hpq+e4lLlU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BlpK1GmrSkD4zqZRGZknmuJ+xXVFA12bSuJOOAlqNfHBisbWVBWNDat+iMEh589UI+GDWBkZ1xwmVJArpFcYblIpzOILM7KK2oP5z4plYXe+MydLSlhjrmz/tr6I+gJvvWkhMWsz8Jrnq0BNwbfY9jlrdrNmZlCHd+3+i1HMkkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Au9yP3eB; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1787928358; c=relaxed/simple;
+	bh=HRPmZDbQ0/PWOKNBkjC3hPjC9s0q8XiO4uS6kMgC61k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aLAtCKS7wKm5HNCUPbhRPXp9l/dF6yzCcgsQfuDElhYHzUhvU03ME6Sn+XWenL1ICQPCVaEbtTxWMGA7e+V1LNMCfoJVSXPAU6jeA2ubQ7xvG0kLuiHClxrkVZzroqgUkx5VWNC/v0DykpLPZLpZhRfbU+K6Jq3Z9zbUitq+Tc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=L57var8L; arc=none smtp.client-ip=57.103.77.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Au9yP3eB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=2svEyFOZsFh7Z9gUJnKXJmkUHjn+t2fc++fT9yfnVTw=; b=Au9yP3eB6i4vjvt53lDNHwLHlH
-	7GVgsID/l2OoVPVxPQoAzsrTgC8xDr62Gl7PzX36y4pzO91NYooNY0VRMTX25aDzYsXrWhSrKBfD3
-	eEknGtS+cIS2Jfadq9c5/IK4QycHdXAqPY9FFegcrduJNbHVrhcWLe8n2+/j92MRChzgCnB+QWMLc
-	kS9VFW/sxoqKApZL2rhQ7eCkQjZcGfK+3oIXe6z752aOnqF9Fxgl/p5zCePvciTBNIXYBjU26qejO
-	l16qPsRAMGjpvTTFFhkVoUX+1zgiHnca29azGuoTY/oUB/KYztdt9eCJlLUFx8X7gHVqh1JO7kz5T
-	BFCChTlw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wzxpF-0000000EqNL-1I6b;
-	Fri, 28 Aug 2026 14:45:01 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C4B2930116A; Fri, 28 Aug 2026 16:45:00 +0200 (CEST)
-Date: Fri, 28 Aug 2026 16:45:00 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev,
-	jstultz@google.com
-Subject: Re: [RFC 00/10] Reclaimable kernel stacks
-Message-ID: <20260828144500.GW776954@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260828124758.GP687043@noisy.programming.kicks-ass.net>
- <20260828103328.633bbfbc@gandalf.local.home>
- <20260828143540.GV776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="L57var8L"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-11 (Postfix) with ESMTPS id C343D180011F;
+	Fri, 28 Aug 2026 14:45:47 +0000 (UTC)
+X-ICL-RepId: 01a048d5-8446-7f2d-b264-97543f9077b0
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQBOHVUZWQdDF0kFWRcOVk1aFV4MTRFdMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGWxIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1UFUwNEDU0CXRlaB0gMSwtABkZRHVQZSRdYK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1787928350; x=1790520350; bh=I8Hd62+LwibdPMA7yFOvXK13B+92WTJ+gOALwn0u1mw=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=L57var8LzK0XO40alS/9CvFvJjoLHNxX8dJu3OJo8xaqGxuIw1XZTpVAjPUpSBkoA6RQDyMHv8/czcI4dMPqBfrkYD++OB4k274PeH8ihJYtMBLJx57bmDnQd4Xh5c3v/bIsuJSn4vCOphxReZEjD6seaTvryQz+Wbbp8UEZS1LrhL29fBbVe6q0VNTHLqAh+CSHBFIUSZFoCwOkZNxxgpR/hE1eC2cU1JWMUax0U+r68OUV6z3o9bdmayvE/D9EHtZWJQa/CLYbriznPk5xy7Wo5a0+VkupC5L4bYrXLIcwXC0iPaJlVbWvTunRZBf4mpeYdkaGizSj3Vo0xCqcgw==
+Received: from komputa (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-11 (Postfix) with ESMTPSA id C48AE180019D;
+	Fri, 28 Aug 2026 14:45:46 +0000 (UTC)
+From: Cristian Mazzotta <cmmazzo@icloud.com>
+To: wse@tuxedocomputers.com,
+	aer@tuxedocomputers.com
+Cc: bentiss@kernel.org,
+	cmmazzo@icloud.com,
+	hansg@kernel.org,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	tgu@tuxedocomputers.com
+Subject: Re: [PATCH v4] HID: generic: add LampArray support via hid-lamparray helper
+Date: Fri, 28 Aug 2026 09:45:10 -0500
+Message-ID: <20260828144510.158538-1-cmmazzo@icloud.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
+References: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828143540.GV776954@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: mCmttGvAfdC_0FJIWACmmu8z70afe8fZ
+X-Proofpoint-ORIG-GUID: mCmttGvAfdC_0FJIWACmmu8z70afe8fZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEyOCBTYWx0ZWRfX3zlHd2dbMcoZ
+ oUwmATg2+lcVDxXevmZLJOEUY5Rwl7Fi4/IBfXbezPsAwuXJoFQ+2c/s1AT0uu7vLg8aLVEWhb1
+ /yWi+0sW8xl2OsCSS/eBPcfENAWG+FeSZXf9bTT/zArO9KrEHI5OpKNSCxh1GWdeYF+svVItsR0
+ s8TzscL18g/xJ688xQyL4HIu/nYfi8i/BwZ3oN9VYSaTaYuD4vyxpB5e84j8sURJnDBrL1GVVb0
+ aCnsWxuzt289uIuHzD+PlXGxqO9vGJQ7DWDpScAKUhtDT6w6kGQUv1lBBemODlvC3BjvibYn69Z
+ dhuerBz7rf+NddWb6Pq4vnA9bda/ebTQEwIIDmq57jFzUqDYcvezw07BfB9vvQ=
+X-Authority-Info-Out: v=2.4 cv=Ffc6BZ+6 c=1 sm=1 tr=0 ts=6a919f1c
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10
+ a=zMoZyIPnO1cA:10 a=VkNPw1HP01LnGYTKEx00:22 a=hWxEdHQvl6Tn1xj9Vm8A:9
+ a=Uh4tPsEYL5Xn7yYgV4Nn:22 a=mGzgV76dRlD25_95D0kX:22
+X-JNJ: AAAAAAAB8W/lkqfPeXR8/2C97afaZ62u4MmKzowRULh9C+tvXg/gE3nho0DBRw12H6ZCtHrnhY7wqhsSSQw3DmccdDGOvN6VuNySXrlQZ13h6wgKy2OyclEbTgO9aPqXTv+XQOVhMvDrEEv4iguTtWMgRLhk5SUIL1BfXzu2oeMUB3O1krJTI43IS7heRJSe8fJLPqxztGqszbKzZtFMRZhZbz3zMY+zuieflIcJi/F2uraFPHXxkYiiHJCQQyvA8J4mQf18NKxW4xXqorc8IzM4tFhBRJZr49FU+rlG582svg/85Na93/tIW1LvJb6dHjdShIwGRUhjos0rYKna9g2PqN8G6/50tYYaHQMGmyZvHiiBQ/zJcFUp2DsV8IKHPZeBt2wRnzfWju3rWxozNnuUyEjLsKFkS4iECXrdk7ksubk4cUmdfko3JWqlPuTarAJfplKqox0CL/PUWnT6eCvHxfrI4KtM5v+fwmLpYw49B/6vMOlKjPcNvFOX74TKB6Yt/xUSj9mUwPOftr54+2Poajw1uKIl9FLRARsROozQ9u7KRKlIklnSz+zOl8h2BGdAZtgD+csBsXcziI0glU72iQMRgAspnXMBZ/eGfVT1UT5LUDR1TwnVyboObIp3EqUV0r++cHmwT6dVVKsZvdUWiSA79Jzzzsmtx2c4fk/Rask+R0efySeF5maeyY7gUQOrYCC6TtyFTym62ju4D/qgjuDvtGj/spFCgkdrcS3rI4zmaQOXFwRxeujyfqr3Nhkz2f1kSh5twa7eKUE0aH5kwF71HyqX90emq3mWhbJhc4X7/173Ta6NUuHGTog9cl5jSV8l9huH+c+fnWED9gWB1O4k7IFAb91bdj6oEjIUYyDXIiCtDJglLbP23bT0pU/2GZaqI+bUSJetaS3QC6+UzYHeCFh7drGp2tG2jnv1R9V6A5LoDZQTHPiYsfdb6ZQFetItLSb4h2LQstPeid0unJGUEvd
+ +PFx3PPGGHdSqCQFlpn3vvEqEdX7Pk1Vbd8fqfyJqnx4U554xHYym5B5DiYvDDRbhdWPDYmSgoJsDBcY+Ans/ZAor5cdNHmGFUeTskyqVUeHVsX2NGCux8KFLBGPviGgv695j0CIWPENmaCxRxF1kBRPuuUyNvV/FbFUo1qjTxdq4olXGMuoPQjty+RJsxVa9eJosZYQgsbEso2ckIaKJbd5FBjyf+fCRpugBdmhZYDzypN9TLsl7yWJCdPT3EoHzyBVl9vtlU+vgqVHwAZM89A==
 
-On Fri, Aug 28, 2026 at 04:35:40PM +0200, Peter Zijlstra wrote:
-> On Fri, Aug 28, 2026 at 10:33:28AM -0400, Steven Rostedt wrote:
-> > On Fri, 28 Aug 2026 14:47:58 +0200
-> > Peter Zijlstra <peterz@infradead.org> wrote:
-> > 
-> > > > On Android, system processes typically have 2000-3000 threads. App
-> > > > processes add 1000s more threads on top of this.  
-> > > 
-> > > WTF ?!? Why does that all spawn *that* many threads? Perhaps work on
-> > > reducing that some?
-> > 
-> > I guess you never ran Java ;-)
-> 
-> Of course not; why would you want to do something that silly ;-)
+Am 27.08.26 um 22:13 schrieb Werner Sembach:
+> I think it's best for Aaron sending his version first and then you
+> reacting on that on the LKML and getting in touch.
 
-I realized I actually have a Java thing, the kids have Minecraft, so I
-booted that up and I found all of 108 threads. Which is still kinda
-insane, but nowhere near the 1000s per app as claimed.
+Sounds good, I'll hold off and review Aaron's version when it lands.
 
-Reducing the thread count from O(1e3) to O(1e2) would win far more
-memory than any thread stack shenanigans would.
+> Unregistering is important for userspace to know what happens
 
+That's fair, I'll be sure to change that.
 
+As for multi-zone, my I2C controller has more than one
+LampArrayAttributesReport, and has 2 zones in effect, so the original
+would only grab one of them. I'm not sure if my device is spec compliant,
+but my implementation is agnostic to the zone count; I'll come back to it
+with Aaron's version. Quirks get an entry for each zone too.
+
+To clarify, each zone in my implementation gets its own dev class where
+/sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>
+And use_leds_uapi is accessible from both
+/sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>/device/use_leds_uapi
+and /sys/bus/hid/devices/<hid-id>/use_leds_uapi.
+
+For Aaron when he gets to see this, here are some things I noticed while
+testing on real hardware:
+
+1) lamparray_read_lamp_count() reads
+   lamp_count_field->value[lamp_count_index] immediately after
+   hid_hw_request(HID_REQ_GET_REPORT). As mentioned above, that call is
+   asynchronous, so the read races the transfer and returns stale values.
+   On my devices it consistently returned 0. hid_hw_raw_request() with a
+   heap buffer works.
+2) In lamparray_parse_update_report(), usage 0x0003 is not unique within
+   the Lighting page, and the switch has no guard, so lamp_count_field ends
+   up bound to whichever match the parser saw last rather than the actual
+   LampCount field. I added a simple guard so only the first one binds.
+   Whether the first match will always be correct is an open question
+   however.
+3) Both of my devices need the autonomous-mode disable re-asserted on S4
+   resume; without it they come back in firmware-driven mode and ignore
+   SET_REPORT.
+4) I don't believe this would be consistent with all LampArray devices,
+   but mine in particular would ignore any change to the lighting that
+   was within 4 values of its current state, so consecutive updates that
+   are too similar silently do nothing.
+5) My hardware did not support reading back the current state of the lamps
+   at all, so GET_REPORT and in effect, lamparray_hw_get_state(), can't
+   work here. Plenty of LED drivers return the cached value when getting
+   the state, which might be the safer default.
+
+Also let me know if you want me to send my HID descriptors from
+hid-recorder or similar.
+
+In the meantime, I will definitely go look at OpenRGB's implementation.
+I may also work on a driver that will fix s2idle residency on my laptop;
+it's part of what brought me here and this is just step one.
+
+Thanks a lot,
+Cristian Mazzotta
