@@ -1,219 +1,177 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E25372B5A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC16383993
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942299; cv=none; b=dLtjSiWUch3Ro9PiXPvhAiS0fb+dGEMMDBigcqnYehKv2c74eHfH4uCd4WBpYQdSAFZomKNODuvbLWXgkEqnIrNbLEPmB8dxentnalqVdc0trCsARX3Iz0GYi4g+po7Ym/b5GzPuq/YQhi7qDFecvPycPptICGpSk/J+eMwOWfs=
+	t=1787942425; cv=none; b=iN3CEK8fHOfvAMFUbQ9XWmjSThxMWYS6xg9+qHPabBKHxU+iErEy4KlxPHDF+PmPdQKTw/bl27Coa+QGTIAI6ZfG1MClhzmoDuJEDuGMGSVgK19SxiXExfR33R5IZ2VFRfhrj06OTDh5Ul6qotCJZj9EPFW0oNnz7VDeritAPv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942299; c=relaxed/simple;
-	bh=Rf485JwcWlHF+00e9hXUSMYaTdPU2gja5rXNVnGjo10=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=c80LTaw5ifax42GMc37QpJwqVMT1kDxkDQvcLcYFetDWghBSL/qltJyqJ6/C8c9KplZtvyuOQ5/cNacB2k6wt8MLgNQ6ehDqFroV4zWXa/IauuyKZTtLx25xnPtZRzyjggnGc0YIbeJL+8DUMpWM4ZelYW1JMv77Fw+PG1kr8HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNV0OYvz; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787942425; c=relaxed/simple;
+	bh=jGYPBfzNQdG6bWv0DGvRzQxmazx40NygG70KM3GLXxY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GebNnVgYEyf6xuwRa4sQgyMO3xjnBoams4k+i7t69rum9YxUo7qOWrUxCy5kymRzYJKoIo7L2axiwsxqGRze354cyP8YmqDd4PpLrQlzYzXX6n3SQz2Yxnieq/KAGRH6nSX9LsZZcQr0Ytm//1Y2rBymDhI/qROhIjeIwh/jf7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=s264FRTt; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNV0OYvz"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-853f8c34ba4so1832334b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:38:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="s264FRTt"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52ff513ea9aso4452351cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:40:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787942298; x=1788547098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v3nAcDLCkfTKlmodmQ0boAx10KLIo6Vy0ud2mfcvPW0=;
-        b=hNV0OYvzATsAEJkY7fPSbN1Hi2uqcSrGqR5Xc3YItCPr5DwEeKKng8VFro5qM1Ixet
-         EaEHW5yC7XNa4MqgonZC4qpfiDUmgBDNa3cMHQuL9HidbxOMpP7Xc0eeRflPvA9HQFew
-         47zJDhyJV4KhpvCX4bzO9PO/2f47MATpgyzCZsiemoVUJ2rW1Q4HZACzmoqNbFaL28oU
-         iwvKKhSLW9bH/c5puuaXqom+WoIb/yMAIFwh2O8klSGfzLZu4c4VM2vj6in1hZhMxgww
-         5LR0/tSodgjNpBhxiw6keYGz7u2nmsIOlueSixwUHS7pewkDDchYlFjbanpdguA9Ennq
-         yqJA==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1787942423; x=1788547223; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zijd+tYtiZEShwbJi/g20hB0haPangx29Fi2RCseuzA=;
+        b=s264FRTt75FE6auKf5BfKqVtf7f5eX/Ol3T3nwFOCkRzAPr3lsH8Z8mlnG/se7t1Q7
+         jQgbdgta+EAINNZxMzsUh5mPSbewJQVcWEAr60V47TOdRMugZbA6NkBMv5rh5pHDqF7x
+         Mxu5qfeLdG+/CbLmu+LJ+UKeahF9opbQQnpyYEx7X9WputHSGIdnNvfI/bdNqLKeo9PP
+         ZLfFi7hw4wh+OEXyJbm5pAYz9nHW62uuMVxTbz72ljh+bhdklex5RF7Kxweydtk2C/3u
+         BCmX4D5Q37WjbnSLvuth9+XpIJJuDljvqU03OSXjaDRrugQ96WL9mXpP9SqvtbMRALMM
+         gBrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787942298; x=1788547098;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v3nAcDLCkfTKlmodmQ0boAx10KLIo6Vy0ud2mfcvPW0=;
-        b=BX1L0s7Gam3YnMGiPBUiGVrS4A5jb9wPMLzPPKkHKFQZB+iX8sK7j/xtL55N5JisCj
-         cn8+FWmfpQvDqFF3bi6iieQ6Kkn1buuIPa1RpeWf6nSV/TpWpaUoyHz3kmtvLEXmVETB
-         fGUZTkD8NkJWBZ8pQCoaHT/VuJvpRkeSVse8X+E2n4j4wG0bH/fe8jLgpTs21DuMdk+j
-         YTG153Gsfm2hIttuvRk6pFe1cq0waa0ElO1wTBphpjJPFoDeZCKK20FB0042d9AWe9+/
-         KNsTY5ClUyhFhf7EdVizf0Neja8SXhi+0LUIDm3XhHHEUtyipPyGsQ9BtaOTM9evUgpF
-         esLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrHFLwZTWwUw9xxT9DFQkgYE3lNYf6iTJFdT4vrdfBfw1I6L3Nn5oYz0BCXoIx8z724BjOADk3SoTE/5cg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkjqaV69dPXCds2eKXIGjbGznTXXg0Uh9YVk25rKWSE2MoadH7
-	ZtJ2IbLluBW0n5gvS3WkU5gMF5v7VSD3ISBmo7hY9lXZbw0asEOLNgSq
-X-Gm-Gg: AR+sD13oXPTEcF01eJEV/IaAwboSdHkm2D7KuATWY8kznCgz+yOaxxcTW1LLTH1priX
-	6Qe3FJSqHbzFQ+lEtEBS2UtpYDAqwESIOEA1fP4LN1YMU8L7hdMcB6QrQTIBecXM8vCWxVyIMjS
-	evQPRf5JI4ezyA7sFVCpUr3vl52WKk714TdJWglrlTD9wV4rlzww3ADVJ12PxoGA/X2mOGyAzM2
-	UwKD0vn8Vc4k0XSPwdNZPIduUn0Ncuqdx5Lir/LN7Z09vlTbHLASq7KxL69aTB3hVLLIsIikfHI
-	1yVDPJIMdhQKFoA0+aa7yUM16qc6zlJMqihlvabCJZZMPtrvyM1iwcd/t1Jf8Lu0BLYdcywn2ce
-	2E7M9kDPRX1SZq+XNddo7oxd1++uUuLxsC8aPEA2zLZ1dDeFwtfXQpoR0ycym0Qmthfjkl5aEpv
-	+55D1uxsZWwZu2nEOoJpK9Y6T+Y3UGtclzWT/l1zX29tb2LoRnMyq1kE0nqkbEq445spYGIH6Tt
-	3seKT7zHBFaTjTisA==
-X-Received: by 2002:aa7:88c1:0:b0:857:726d:2708 with SMTP id d2e1a72fcca58-857726d2e5amr2500397b3a.20.1787942297709;
-        Fri, 28 Aug 2026 11:38:17 -0700 (PDT)
-Received: from aig-kmd-01.. ([120.133.49.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a2ea6fa3sm844230b3a.37.2026.08.28.11.38.08
+        d=1e100.net; s=20251104; t=1787942423; x=1788547223;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zijd+tYtiZEShwbJi/g20hB0haPangx29Fi2RCseuzA=;
+        b=sHgc12lY+YhBdkc/24+h6X76H6qdY9oiFgfGPlEeeqtmTlPD6be2WnVLZhUcl/59Yh
+         0duueAfni9kNCbsE1XFQuW9S4VlQcUps4R8nUaVQF+ep6We8uk1U3aQfDCv7a8Xn9CPC
+         zuVgm5L4ejPOwvtar2qeVQK6yVvwzGiE9EdbDlCII6VpUk3i/Vndc07mrHl65QYYwhLf
+         /LOAYkfDjY6AspZSjxQIZvDKgkGLmvzHFzKCXUa8arfHD5KCSgRxRcHpFaCoDF40b8vt
+         mGUcV0uw3/L6r/4M3re9ZS91N2x36QHZWMzyoGklrraPRq3e34opo5uYsJCLQZUttwNF
+         Bovg==
+X-Forwarded-Encrypted: i=1; AHgh+RpgW4XKXqYBGn+FBG2DdqWQ4edf26QR/0O+W/7fxKLv8lGKssESGTz3vtZZl+d6bBN4pApuZFp6yHw24O4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ld62b17TXThdnog5hAb0VLQjgnh1Wf+ScQJuzxqsadA/h5TweF
+	vwCUzHuDOUNUZMFcDO5oaGCyYDLLpBIboqRiYLcXGQud/kkP2A5SCRtf2/VAXJ3s0kKKFWs+Ufu
+	0lIvK
+X-Gm-Gg: AR+sD12TeYZz1apR8MIRN+KTWeCt6exbLVCOxNIi5VQlg+5Se22TcXL4Jl3eeCJ2sLw
+	Xh6zw8xujsfIbS9w0vgPsKlhoBWFcZR2/oWEQz2KbQ6Cs6aebbDbUVlLw7fj0wb59LQPPk1ufJ0
+	wR/7TlfKc9XN4ltVpOEi/GugvCjjDg17Pv5jgT5xpDmzyqBPZLvM6x985Nu9bBJGLowVsOkAzg4
+	796wZ7/PkD/cBYDmiqigkmzOxnOPYn+M3rD1H5PiFqj+kU1mO+q2c2Uz1LeDaWQQcsLj0/6tsY/
+	viE0efah52FLAe3/kcPDAHlvG727HhZHJmgHGxJwUoFg9tEC5PBQLAQgcv4ZB9NMO2atJt1gs7h
+	2FkH10TR5lKSELpwvW9nD0oCfJTX4soSRJSxe+fSCv2t3D29Ll/4Aixy3ChpIORobk2Fyo1UwEX
+	FFwlTrFtj+lJyZhcAOjf0PzHt0ONjkR2vb8NxTkjrTUuGLPafXxS+s/xOWVsdtniZa
+X-Received: by 2002:a05:622a:4c7:b0:52e:3ab4:8cb6 with SMTP id d75a77b69052e-52fb96bb27emr102669911cf.40.1787942422926;
+        Fri, 28 Aug 2026 11:40:22 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe5495easm18663991cf.2.2026.08.28.11.40.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 11:38:17 -0700 (PDT)
-From: Yin Tirui <yintirui@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	wangkefeng.wang@huawei.com,
-	chenjun102@huawei.com,
-	linux-kernel@vger.kernel.org,
-	Yin Tirui <yintirui@gmail.com>
-Subject: [PATCH RFC 9/9] mm/huge_memory: unify the migration and device private PTE loops
-Date: Sat, 29 Aug 2026 02:33:19 +0800
-Message-Id: <23d7c10efec57be848fd158f786473aa3b2f6e5c.1787941780.git.yintirui@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1787941780.git.yintirui@gmail.com>
-References: <cover.1787941780.git.yintirui@gmail.com>
+        Fri, 28 Aug 2026 11:40:22 -0700 (PDT)
+Message-ID: <ba6388e95afa69bd5ea5f3493be1f702bce06323.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: v4l2-h264: Fix memcmp() size in B1 reference
+ list comparison
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Haotian Zhang <vulab@iscas.ac.cn>, mchehab@kernel.org
+Cc: boris.brezillon@collabora.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 28 Aug 2026 14:40:21 -0400
+In-Reply-To: <a0bd7b426ca22ccbf8148648a50918ddcae5c9a1.camel@ndufresne.ca>
+References: <20260828021739.25766-1-vulab@iscas.ac.cn>
+	 <a0bd7b426ca22ccbf8148648a50918ddcae5c9a1.camel@ndufresne.ca>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-unrg0YqCUSdp2BkNKbCj"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When splitting a huge PMD into non-present PTEs, one loop installs
-migration entries while the other installs device private entries. They
-differ only in the leaf entry they build. Build the entry in
-split_pmd_make_softleaf() and use one loop.
 
-Freezing still installs migration entries even for a device private
-mapping, as before.
+--=-unrg0YqCUSdp2BkNKbCj
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-No functional change intended.
+Le vendredi 28 ao=C3=BBt 2026 =C3=A0 14:31 -0400, Nicolas Dufresne a =C3=A9=
+crit=C2=A0:
+> Le vendredi 28 ao=C3=BBt 2026 =C3=A0 10:17 +0800, Haotian Zhang a =C3=A9c=
+rit=C2=A0:
+> > In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+> > check passes the entry count builder->num_valid to memcmp()
+> > instead of a byte size. Since struct v4l2_h264_reference is
+> > two bytes (fields and index), only half of each list is
+> > compared, so distinct lists can be wrongly treated as equal
+> > and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
+> >=20
+> > Change the memcmp() size argument to builder->num_valid *
+> > sizeof(*b1_reflist) so that the full byte length of both
+> > reference lists is compared.
+> >=20
+> > Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P=
+/B0/B1 reflists")
+>=20
+> This is the wrong commit. It was fine until I broke it 4 years ago it see=
+ms.
+> Boris don't do that kind of silly mistake :-S
+>=20
+> commit 2e2c3d6c0ef88ffac0d6b5079ee88cf8408f5f3b
+> Author: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> Date:   Fri May 13 22:29:03 2022 +0200
+>=20
+>     media: h264: Use v4l2_h264_reference for reflist
+>=20
+>=20
+> > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+> > ---
+> >  drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-c=
+ore/v4l2-h264.c
+> > index c00197d095e7..1b1421caf488 100644
+> > --- a/drivers/media/v4l2-core/v4l2-h264.c
+> > +++ b/drivers/media/v4l2-core/v4l2-h264.c
+> > @@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_=
+reflist_builder *builder,
+> >  	}
+> > =20
+> >  	if (builder->num_valid > 1 &&
+> > -	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
+> > +	    !memcmp(b1_reflist, b0_reflist,
+> > +			builder->num_valid * sizeof(*b1_reflist)))
+> >  		swap(b1_reflist[0], b1_reflist[1]);
+>=20
+> And of course this swap need to be replaced.
 
-Signed-off-by: Yin Tirui <yintirui@gmail.com>
----
- mm/huge_memory.c | 89 +++++++++++++++++++++++-------------------------
- 1 file changed, 43 insertions(+), 46 deletions(-)
+Ignore this one, I should have read the implementation of the swap macro ..=
+. its
+working fine for this case:
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index fdb751a1e525..8e0fd11da3d7 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3245,6 +3245,42 @@ static bool split_huge_pmd_anon_rmap(const struct split_pmd_state *state,
- 	return false;
- }
- 
-+/*
-+ * Build the leaf entry for the PTE entry describing @pfn, for a huge PMD entry
-+ * which is not restored as a present mapping.
-+ */
-+static softleaf_t split_pmd_make_softleaf(const struct split_pmd_state *state,
-+					  unsigned long pfn)
-+{
-+	softleaf_t entry;
-+
-+	if (state->is_device_private && !state->freeze) {
-+		/*
-+		 * anon_exclusive was already propagated to the pages backing
-+		 * the PTE entries by split_huge_pmd_anon_rmap(), and accessed
-+		 * and dirty bits are not propagated via device private
-+		 * entries.
-+		 */
-+		if (state->write)
-+			return make_writable_device_private_entry(pfn);
-+		return make_readable_device_private_entry(pfn);
-+	}
-+
-+	if (state->write)
-+		entry = make_writable_migration_entry(pfn);
-+	else if (state->anon_exclusive)
-+		entry = make_readable_exclusive_migration_entry(pfn);
-+	else
-+		entry = make_readable_migration_entry(pfn);
-+
-+	if (state->young)
-+		entry = make_migration_entry_young(entry);
-+	if (state->dirty)
-+		entry = make_migration_entry_dirty(entry);
-+
-+	return entry;
-+}
-+
- /*
-  * Replace an anonymous huge PMD entry with a page table mapping the same
-  * folio at PTE granularity.
-@@ -3281,53 +3317,14 @@ static void split_huge_pmd_to_ptes(struct vm_area_struct *vma,
- 	 * Note that NUMA hinting access restrictions are not transferred to
- 	 * avoid any possibility of altering permissions across VMAs.
- 	 */
--	if (state->freeze ||
--	    (!state->is_present && !state->is_device_private)) {
--		pte_t entry;
--		swp_entry_t swp_entry;
--
--		for (i = 0, addr = haddr; i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE) {
--			if (state->write)
--				swp_entry = make_writable_migration_entry(
--							page_to_pfn(page + i));
--			else if (state->anon_exclusive)
--				swp_entry = make_readable_exclusive_migration_entry(
--							page_to_pfn(page + i));
--			else
--				swp_entry = make_readable_migration_entry(
--							page_to_pfn(page + i));
--			if (state->young)
--				swp_entry = make_migration_entry_young(swp_entry);
--			if (state->dirty)
--				swp_entry = make_migration_entry_dirty(swp_entry);
--			entry = swp_entry_to_pte(swp_entry);
--			if (state->soft_dirty)
--				entry = pte_swp_mksoft_dirty(entry);
--			if (state->uffd)
--				entry = pte_swp_mkuffd(entry);
--			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
--			set_pte_at(mm, addr, pte + i, entry);
--		}
--	} else if (state->is_device_private) {
--		pte_t entry;
--		swp_entry_t swp_entry;
-+	if (state->freeze || !state->is_present) {
-+		for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
-+		     i++, addr += PAGE_SIZE) {
-+			const unsigned long pfn = page_to_pfn(page + i);
-+			const softleaf_t leaf =
-+				split_pmd_make_softleaf(state, pfn);
-+			pte_t entry = softleaf_to_pte(leaf);
- 
--		for (i = 0, addr = haddr; i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE) {
--			/*
--			 * anon_exclusive was already propagated to the relevant
--			 * pages corresponding to the pte entries when freeze
--			 * is false.
--			 */
--			if (state->write)
--				swp_entry = make_writable_device_private_entry(
--							page_to_pfn(page + i));
--			else
--				swp_entry = make_readable_device_private_entry(
--							page_to_pfn(page + i));
--			/*
--			 * Young and dirty bits are not progated via swp_entry
--			 */
--			entry = swp_entry_to_pte(swp_entry);
- 			if (state->soft_dirty)
- 				entry = pte_swp_mksoft_dirty(entry);
- 			if (state->uffd)
--- 
-2.34.1
+   do { typeof(a) __tmp =3D (a); (a) =3D (b); (b) =3D __tmp; } while (0)
 
+>=20
+> Nicolas
+>=20
+> > =20
+> >  	print_ref_list_b(builder, b0_reflist, 0);
+
+--=-unrg0YqCUSdp2BkNKbCj
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCapHWFQAKCRDZQZRRKWBy
+9I5FAP4pAojWSgZldIdug90QOouR8PzyNZHFqoGbppt3z6OHigD/cuCfdNQPMyG+
+blOFlkaafAtbJA3hoOlfvFE9Jy+ftw4=
+=wqfg
+-----END PGP SIGNATURE-----
+
+--=-unrg0YqCUSdp2BkNKbCj--
