@@ -1,112 +1,113 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC2318EC9
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C031F985
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881963; cv=none; b=oHTjMqkZdquWfxSuyvfse9GWsfwjR5q7ra2CuAHldl0Q7S3HxUSzbwhQ2PS6Yn3Dkx4//9TOiX5iiRr7V65uskZ3F4r2xuhBxooVThjXyKIgqhLwbrSC4Kcdn3TU3wx8GgpGc8C3kbCOTcaPspf/kGbkDjV+9KEUEYG2eu7R9P0=
+	t=1787881996; cv=none; b=eJw0kuvipdilDjU7pFb1dkAyo1qoNMazMItJxj8RtkFtC+cl2f0KOk/nVSCZ6DIYyK1MWH722gwREmiAtilXvzaclUdZ4RVL8ewm0sZJDZAJZ7ZKW8qEv4wPR4oIU/wuy/PAkB3FyW/OjW4HX4irqYsudR1ZnYbdy2yWbYhgUZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881963; c=relaxed/simple;
-	bh=q30dBEXeI8fNqG2Fhm0SNCEmhwHt3HVvGwgctzlo228=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fv/QSj6A120p1W2IrKmWYsR37qeTD3THY55pThN5osZOYjKO0T7pLydiwMDYRHXQQMQqCS5Vlqr1jXbst318kELi+uPg8TWd5IytSyiWkPcgJOcH2429xHWVMx88uiUkAqYKj3E7X+b3EGU6MF54y1U1o/LVDHhKqqHE7SZPSiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CtDQKBQw; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787881996; c=relaxed/simple;
+	bh=a879juwz7YnXRSU0aj4H9oqy8QG+UQ6p/1llyGoW7h8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W/15eOc8LNIFdBeEV3RUEa7OtBgyD1c+dUMhWcxkXVuW/D3vvgsoV5OWRq3v/b8/bwANJVVYHhZP97Vhy21D/Ps+CNAaaOQmaEjiWn5Hq6AT3ihfGQEi7YvAagCtcqFHNC/rRVJrA7lJS95F/M59x5OcGqYQkdHQTQRdr+tXLxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OK3bA1gE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtDQKBQw"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39266382df6so668611a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787881952; x=1788486752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zu+RxARiDBgW38W1dKFU7cEtIABJ2qMEIV7Sy1U5J70=;
-        b=CtDQKBQway7O8JDGegWRU+z3RNVcIOCv3ZIqI1tnxPRH5BvzUfVoKE9slMLB5kFhXi
-         oBIybkX4/cMH8z1gHQhoqeSwWta5kR+fraPfq1HTaHiEjQsfuJO4Xq71N6MD/LM1LVob
-         RFeU3x/DoAv3bsM2qMkEagZmblTn+UokZobmqFtX1OB7HI/LK1zXvEtt834q9NQoVsal
-         naPRc/RcBDKNSq8CYyiL6pHNIf15SzFxoRxc8UKz6/w/dLPsrdiP+j4+ckiH3u7P4qYp
-         g/KSvQiOBkHFGc7qveGOQ5VTZQZ/XxosakU/I8x6yTAInFKD8D47cg4IMFuqsKFZPrr1
-         uRYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787881952; x=1788486752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zu+RxARiDBgW38W1dKFU7cEtIABJ2qMEIV7Sy1U5J70=;
-        b=CLCp/x7zduPqJkWca0WItB1EbWhVYL/gKX2Pz1wo5S18NMQYRvTHr32ZgZO8N9hgCQ
-         UarriKbZxhjfvUPmknZ0wz2XsWTjLlaXShnTX5n1UDBEtIZjVMrZn8WBsS7W4jpUIphV
-         TiVCggQcyGPwbPomJkQi7A1YRO/tNbiBSsjZpkYj0+YWZHraav+O2MEtHWijJYmWe344
-         EsxK+p1TGMcxAsUEJyUL9cTYvthwA5zYER7SwzbRSJLMZazyV723y6zS3HTQ7V0tdf4/
-         u8SZeFqtj45RLaBKdD/p2T1giz86gocLdXeTSkw11TsECneAAaePtVlRyoza44s1Z+Oq
-         ixeg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2+WE8KnfnZkcFaMruitR2DxYTabMgtRLKC5vunVntmRMMLFigNjluG9W+l+2nm28rKWHgLl5Aop4drss=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwQ9ySeGu9DYsAXx95pmchiGVkVYBf8pFIsdK1/oNgk0fvNAIA
-	y/d5SrNwRDBmiBkJqV+hJJ2/ui3kiSPSasJKfiJO3thvgUvD2Z4W/weX
-X-Gm-Gg: AR+sD11NNpLBTdQP3kYR+vtrezCscA7GWqtSoZdYZDPToQK08g8v4DCEC3q7b0crsYG
-	PfWuGGiTPXqWUrEXYrjZDCKDhoYeJDR4dR1Akmj739Yqjee/cdXkwzQNwI44blnQTfDqsuyJMTe
-	+Hd8QNaHr8uK6VDuYYvUCTrj6CcQJV8KKjlYbGe20sRq28oA9el7hv1N3jGzbERvMtlU7nnq40E
-	ITbUqfUJbSTYFMV6Fwsh7ZA/TXXbF+Pqic9C4VGpMbfTsGpGmli+GbnLeXDqotb/RjPGdgcHdfL
-	pho/Twy6wNWLdTWb9gsxfBvJfgmaVPuAsRZeoOwtSGCHqUU0C7KW0QAUiGOA6Frp85KTp9CmB4f
-	4DbUsiURzrv3x5hI7sU+WlkYYUfGwTcs0XzkkcE1zxdnZsbw2zjtwbfF0zmJljwo74gxc0l6ndQ
-	6stz/iRuJ+cSplwOFp7hB3UejEhvZCQbs9P1hIlCnLixKIpEDO7yNuT5slWwhGDRucJnXFCHGxP
-	LquEg==
-X-Received: by 2002:a17:90b:1a8c:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-396d0c0ffb5mr6224769a91.0.1787881952077;
-        Thu, 27 Aug 2026 18:52:32 -0700 (PDT)
-Received: from main ([176.237.234.93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d2316e21sm603674a91.2.2026.08.27.18.52.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 18:52:31 -0700 (PDT)
-From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-Subject: [PATCH v1 3/3] rust: io: register: add missing newline in doc example
-Date: Fri, 28 Aug 2026 04:50:22 +0300
-Message-ID: <20260828015148.221737-4-mehmet.mkoseoglu@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828015148.221737-1-mehmet.mkoseoglu@gmail.com>
-References: <20260828015148.221737-1-mehmet.mkoseoglu@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OK3bA1gE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787881992;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cVa9ltN/AYxfIIR3vFfpODM3T6RUi+J6FBmrLKMnXUo=;
+	b=OK3bA1gE1ESCr4nrsx5EgkrK2BBT6xAD17iV55vT4x/GUEE3k+W9qE8C+WYXyDlXhS0v9+
+	fTRElR9iNBt3cMuSYsQ7P5QInVnxviLKQbOebx3D7d+eBu1QhGy04D2l1Xd+Fh/tC2jhg+
+	HPtrN9frrTd97uLSIR1QqgbDCnS+l34=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-256-jo8oXn_8Ne6Y4KKQywx0iw-1; Thu,
+ 27 Aug 2026 21:53:09 -0400
+X-MC-Unique: jo8oXn_8Ne6Y4KKQywx0iw-1
+X-Mimecast-MFC-AGG-ID: jo8oXn_8Ne6Y4KKQywx0iw_1787881988
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6056219539AE;
+	Fri, 28 Aug 2026 01:53:07 +0000 (UTC)
+Received: from madcap2.tricolour.ca (unknown [10.22.76.4])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B4CB5180059E;
+	Fri, 28 Aug 2026 01:53:04 +0000 (UTC)
+Date: Thu, 27 Aug 2026 21:53:02 -0400
+From: Richard Guy Briggs <rgb@redhat.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Linux-Audit Mailing List <linux-audit@lists.linux-audit.osci.io>,
+	LKML <linux-kernel@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
+	Linux Kernel Audit Mailing List <audit@vger.kernel.org>,
+	Eric Paris <eparis@parisplace.org>, Steve Grubb <sgrubb@redhat.com>,
+	Roman Dolgikh <rmd4work@mail.ru>,
+	Ricardo Robaina <rrobaina@redhat.com>
+Subject: Re: [PATCH v3] audit: free proctitle in context so it can be re-set
+ by  fork on exec_binprm
+Message-ID: <apDp/lou9KwOz7M/@madcap2.tricolour.ca>
+References: <ef5bf18a4b3805ec0fe5fb638963ccbdfc01d6fe.1787077711.git.rgb@redhat.com>
+ <65425b98ae226a9d19f89bd66a1defbe@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <65425b98ae226a9d19f89bd66a1defbe@paul-moore.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The `pr_info!` call in the register module documentation code example
-is missing a trailing newline.
+On 2026-08-24 18:07, Paul Moore wrote:
+> On Aug 18, 2026 Richard Guy Briggs <rgb@redhat.com> wrote:
+> > 
+> > Between the actual process startup (fork systemd) and the executable file
+> > replacement (exec), systemd sets a temporary file name (executable file
+> > name in parentheses). If an auditable system call occurs at this point,
+> > the audit context will latch the temporary process name into the cache.
+> > This name will not change again. The patch clears proctitle into the
+> > audit cache when the exec call is made, allowing the new process name to
+> > be latched.
+> > 
+> > Suggested-by: Roman Dolgikh <rmd4work@mail.ru>
+> > Link: https://github.com/user-attachments/files/20751461/fix_audit_proctitle.txt
+> 
+> I did drop the link above from the commit as it is contained within the
+> link below.
+> 
+> > Link: https://github.com/linux-audit/audit-kernel/issues/170
+> > Signed-off-by: Richard Guy Briggs <rgb@redhat.com>
+> > Reviewed-by: Ricardo Robaina <rrobaina@redhat.com>
+> > Reviewed-by: Bradley Morgan <include@grrlz.net>
+> > ---
+> > Changelog:
+> > v3: use previously assigned context
+> > v2: simplified to call single use directly before need in audit_bimprm
+> > ---
+> >  kernel/auditsc.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> 
+> Merged into audit/dev-staging since we're currently in the middle of the
+> merge window, this will got to audit/dev once the window closes.
 
-Add the missing `\n` to the format string.
+Thank you!
 
-Fixes: 20ba6a1dbcb9 ("rust: io: add `register!` macro")
-Link: https://github.com/Rust-for-Linux/linux/issues/1139
-Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
----
- rust/kernel/io/register.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> paul-moore.com
 
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 03dfd2ff48c7..31e084a4aa9f 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -71,7 +71,7 @@
- //!
- //! // Read from the register's defined offset (0x100).
- //! let boot0 = io.read(BOOT_0);
--//! pr_info!("chip revision: {}.{}", boot0.major_revision().get(), boot0.minor_revision().get());
-+//! pr_info!("chip revision: {}.{}\n", boot0.major_revision().get(), boot0.minor_revision().get());
- //!
- //! // Update some fields and write the new value back.
- //! let new_boot0 = boot0
--- 
-2.55.0
+- RGB
+
+--
+Richard Guy Briggs <rgb@redhat.com>
+Sr. S/W Engineer, Kernel Security, Base Operating Systems
+Remote, Ottawa, Red Hat Canada
+Upstream IRC: SunRaycer
+Voice: +1.613.860 2354 SMS: +1.613.518.6570
 
