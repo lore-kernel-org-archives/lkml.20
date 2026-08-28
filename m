@@ -1,33 +1,33 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4478C364058
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4513F369225
 	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931677; cv=none; b=oflC3kOeCxZWaqr2qXyxXJNGEwAe9elMchqgIXlTBrswlFCuyfUqamHDRnc5OWV1YBMTOpb6VGAN98ov+B8eibHsHw+YLW5LAXvBEYUHfFewda6XWdOaTPFYCtJhnHyCSZkg5lDOSj/IVW1KH69Pa2ZsOVfMOcrMlxmXoCmtHP8=
+	t=1787931676; cv=none; b=UBudoo6tqSES0b9SgKKEfRPUsQ9UP6cHOTUwIEG7Aw5hHDUceXO8lhOthbtAxmUiQNuPETEwq68+ywxHuYlXkwkZKjASg5KQQAs2WJy/VWC5w+yB56btKeraUbaXgLVlFaV5LtUdXA7YN/BUGVoIfAN0OFH6p77ucCInVWcWUCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931677; c=relaxed/simple;
-	bh=VkZbjXeNxSt5oZpSD6SfLMeOquHToVqWskiDwdeRjxQ=;
+	s=arc-20240116; t=1787931676; c=relaxed/simple;
+	bh=LxsOcjm6T6TGxVtZFKZeBX3WPoCIdhvpHW4CNWEtAgI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s+vTZOa9OR4XxayH7aTCXCnu/+ldhKB6rEVeZZ2qhYzJNgJ/ZPSgDzbCHbVDdd4KS5H+YkLmcD2T/e2johLcLS6LWfYrc3d3p/j+0pozmGrglHhs0AMS8YIHrnvEwQCPn4W+FMhaRT45uJs+rFirYWEuu1sNrH6s0o3bfWJ1K1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=GuVnUXy8; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=axYQ2d1xNdQ8TulwQMOGzH4Ga/oyJQXscLn7WFHBk3TRCh6fGnt+DWfvjJb4R/mApQNEluXTuNDPG8dLdyGrs7VFitMGaz2+CGLjD51fprOJLOeMD+s2+5uzvFLvfmFaoGXdZAi37YNOYCGyFsbe+HKeWau10ACNlOWdLaLAoQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=ePSdnMsJ; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="GuVnUXy8"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="ePSdnMsJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1787931237;
-	bh=Wi5zWpvsXSQP3flQPE51y11BL6wE16BItDUgzsf8CHQ=;
+	s=smtpout1; t=1787931238;
+	bh=5V6XawWF2fwKJpYjSWTgOA6QLkuanYWwMg4glTCKIGo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GuVnUXy8ppPMwyFVWKz4IYWO0cqWdQxtlBQIWe8ec5a4+Wq/lSrb68rSge132WDiC
-	 UJPue3uMXqesjHCqWmtZ/lYgfzFZ2+wW0cqHnmyAnVudJIx79cCFVjNG0IhMBZh6M8
-	 XjdtD7cT1xbf2ZtQOvT9nzGyjMTioxUeMn9uTewJo4IkTv2WKWS05ALeWo32VV/BS4
-	 yCA6I/1F4kx2BJI07btPi0mu2iOUaACvOMLMsxHvvT1jJWoSkfocFUAkxb5KpBeu9J
-	 gu3rDiUpkxC/PtMHatS45tMyCIxIQakSxaQQe7ofmPChfjcU2Q2W6VMaPMekGm9bCu
-	 VRI8HSrJ4s3VA==
+	b=ePSdnMsJjfJxlsSrF/SP7O0aBdutdmtpTUR55F64yIC8Z6jjeZvXMU1uDL0S6U2UB
+	 QlmQ0Tz8SCp7C4xCS9ZVqZbRs0vxFM33VObmWDH0D1cJ8aB76i+yAi6DFK7LRMJKea
+	 n9k5uoJa1mxo8K1YwRDM5x7rn5EjOvM7VQa6AtN8w9AdOoigJvsnZmMVBZNaA9BtIK
+	 AUw4Sm5c0lEKrP9Okn2KRKV76SLbP0JLQaDLWl40/2bTa2UFYPGb8OfhYk2ecQuaKX
+	 xAzFW1ToU3TZZBq+wTro1k/zSHVWx0Zs3GceANP96XM1gRpB42/PS34mpN6E9gc63u
+	 6+ir0LFjKDnLg==
 Received: from laura.localdomain (199-193-172-8.cpe.axion.ca [199.193.172.8])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hWj910PR3zTCY;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hWj916ySpzTCb;
 	Fri, 28 Aug 2026 11:33:57 -0400 (EDT)
 From: odion@efficios.com
 To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
@@ -50,9 +50,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Carlos O'Donell <codonell@redhat.com>,
 	Olivier Dion <odion@efficios.com>
-Subject: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
-Date: Fri, 28 Aug 2026 11:33:39 -0400
-Message-ID: <20260828153349.8061-2-odion@efficios.com>
+Subject: [RFC PATCH 4/5] rseq: register and unregister operations via prctl
+Date: Fri, 28 Aug 2026 11:33:42 -0400
+Message-ID: <20260828153349.8061-5-odion@efficios.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260828153349.8061-1-odion@efficios.com>
 References: <20260828153349.8061-1-odion@efficios.com>
@@ -66,213 +66,331 @@ Content-Transfer-Encoding: 8bit
 
 From: Olivier Dion <odion@efficios.com>
 
-Introduce userspace ABI for rseq operations: a per-thread list of
-operations the kernel applies on return to user space.
+Implement the PR_RSEQ_OP prctl. Registration splices a user-provided
+pristine node into the head of the circular operation list, and
+unregistration unsplices it after validating it is properly linked
+between its neighbours; the kernel owns the node's next/prev links for
+the lifetime of the registration. The 0<->1 nr_ops transition reflects
+the enabled state into rseq_event::rseq_op and the user visible flag via
+rseq_op_update_enabled().
 
-The main motivation for this work is to encourage TCMalloc to migrate to
-RSEQ v2 [0] and use the glibc RSEQ region.
+Initialize the operation list sentinel as an empty self-pointing circular
+list on rseq registration, and reset nr_ops / rseq_op state there.
 
-Indeed, TCMalloc relies on the behavior of RSEQ v1, that reset the
-cpu_id bits in the RSEQ shared region, to invalidate a per-cpu pointer
-cached in a TLS. This hack requires TCMalloc users to use a glibc
-tunable to disable RSEQ registration for threads so that TCMalloc can
-register its own region, overlapping the TLS cache.
+Apply pending operations on the slow path and on signal delivery, and
+factor the common "clear error and force SIGSEGV" fixup into
+force_fault().
 
-Overall, this puts the users in a situation of choosing between a fast
-sched_getcpu() and TCMalloc, plus some downsides such as requiring a
-initial-exec model for the cache TLS in a shared-library and not being
-compatible with the glibc
-
-RSEQ operations aim at solving this by offering operations that are
-executed by the kernel, on behalf of a task after it is scheduled,
-before returning to userspace. Operations are per-task and registered
-throught prctl. They are opt-in and only introduce overhead on tasks
-that register them.
-
-Add enum rseq_op_type and the rseq_op_node / rseq_op_reset /
-rseq_op_reset_with_stride structures, the RSEQ_CS_FLAG_RSEQ_OP_*
-availability/enabled flags, the RSEQ_OP_LIST_LIMIT walk bound, and the
-PR_RSEQ_OP prctl with its REGISTER/UNREGISTER sub-commands.
-
-The operation list is a circular doubly-linked list anchored by a
-kernel-owned sentinel embedded in struct rseq.
-
-[0] Documentation/userspace-api/rseq.rst (Optimized RSEQ v2)
-
-Link: https://lore.kernel.org/lkml/20260428221058.149538293@kernel.org
 Signed-off-by: Olivier Dion <odion@efficios.com>
 ---
- include/uapi/linux/prctl.h |  12 +++++
- include/uapi/linux/rseq.h  | 104 ++++++++++++++++++++++++++++++++++---
- 2 files changed, 108 insertions(+), 8 deletions(-)
+ kernel/rseq.c | 220 +++++++++++++++++++++++++++++++++++++++++++++++---
+ kernel/sys.c  |   5 ++
+ 2 files changed, 212 insertions(+), 13 deletions(-)
 
-diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-index b6ec6f693719..4cb6356a271a 100644
---- a/include/uapi/linux/prctl.h
-+++ b/include/uapi/linux/prctl.h
-@@ -396,6 +396,18 @@ struct prctl_mm_map {
-  */
- # define PR_RSEQ_SLICE_EXT_ENABLE		0x01
- 
-+/*
-+ * RSEQ operation registration.
-+ *
-+ * arg3 is the user address of a struct rseq_op_node embedded in one of the
-+ * rseq operation structures (see uapi/linux/rseq.h). Registering the first
-+ * operation enables rseq operation processing for the thread; unregistering
-+ * the last one disables it.
-+ */
-+#define PR_RSEQ_OP				82
-+# define PR_RSEQ_OP_REGISTER			1
-+# define PR_RSEQ_OP_UNREGISTER			2
-+
- /*
-  * Get or set the control flow integrity (CFI) configuration for the
-  * current thread.
-diff --git a/include/uapi/linux/rseq.h b/include/uapi/linux/rseq.h
-index ca6fe1f9d05e..b664d1991c48 100644
---- a/include/uapi/linux/rseq.h
-+++ b/include/uapi/linux/rseq.h
-@@ -13,6 +13,11 @@
- #include <linux/types.h>
- #include <asm/byteorder.h>
- 
-+/*
-+ * Maximum number of nodes walked in the rseq operation list.
-+ */
-+#define RSEQ_OP_LIST_LIMIT	2048
-+
- enum rseq_cpu_id_state {
- 	RSEQ_CPU_ID_UNINITIALIZED		= -1,
- 	RSEQ_CPU_ID_REGISTRATION_FAILED		= -2,
-@@ -33,6 +38,8 @@ enum rseq_cs_flags_bit {
- 	/* User read only feature flags */
- 	RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE_BIT	= 4,
- 	RSEQ_CS_FLAG_SLICE_EXT_ENABLED_BIT	= 5,
-+	RSEQ_CS_FLAG_RSEQ_OP_AVAILABLE_BIT	= 6,
-+	RSEQ_CS_FLAG_RSEQ_OP_ENABLED_BIT	= 7,
- };
- 
- enum rseq_cs_flags {
-@@ -47,6 +54,10 @@ enum rseq_cs_flags {
- 		(1U << RSEQ_CS_FLAG_SLICE_EXT_AVAILABLE_BIT),
- 	RSEQ_CS_FLAG_SLICE_EXT_ENABLED		=
- 		(1U << RSEQ_CS_FLAG_SLICE_EXT_ENABLED_BIT),
-+	RSEQ_CS_FLAG_RSEQ_OP_AVAILABLE		=
-+		(1U << RSEQ_CS_FLAG_RSEQ_OP_AVAILABLE_BIT),
-+	RSEQ_CS_FLAG_RSEQ_OP_ENABLED		=
-+		(1U << RSEQ_CS_FLAG_RSEQ_OP_ENABLED_BIT),
- };
- 
- /*
-@@ -86,6 +97,77 @@ struct rseq_slice_ctrl {
- 	};
- };
- 
-+/*
-+ * enum rseq_op_type - Type of an rseq operation
-+ * @RSEQ_OP_RESET:			Plain reset. Uses struct rseq_op_reset.
-+ * @RSEQ_OP_RESET_WITH_STRIDE_CPUID:	Reset indexed by the current CPU ID.
-+ *					Uses struct rseq_op_reset_with_stride.
-+ * @RSEQ_OP_RESET_WITH_STRIDE_MMCID:	Reset indexed by the current MM CID.
-+ *					Uses struct rseq_op_reset_with_stride.
-+ */
-+enum rseq_op_type {
-+	RSEQ_OP_RESET,
-+	RSEQ_OP_RESET_WITH_STRIDE_CPUID,
-+	RSEQ_OP_RESET_WITH_STRIDE_MMCID,
-+	RSEQ_OP_NR,
-+};
-+
-+/*
-+ * struct rseq_op_node - Common header linking an rseq operation into the list
-+ * @next:	Address of the next node. Owned by the kernel.
-+ * @prev:	Address of the previous node. Owned by the kernel.
-+ * @type:	Operation type. See enum rseq_op_type.
-+ * @reserved:	Must be zero on registration.
-+ *
-+ * User space allocates the node, sets @type and zeroes @next, @prev and
-+ * @reserved before passing it to prctl(PR_RSEQ_OP, PR_RSEQ_OP_REGISTER, node).
-+ * The kernel owns @next and @prev for the lifetime of the registration and
-+ * links the node into a circular doubly-linked list anchored by an internal
-+ * sentinel in struct rseq. User space must not touch @next or @prev while the
-+ * node is registered.
-+ */
-+struct rseq_op_node {
-+	__u64 next;
-+	__u64 prev;
-+	struct {
-+		__u8  type; /* enum rseq_op_type */
-+		__u8  reserved[7];
-+	};
-+};
-+
-+/*
-+ * struct rseq_op_reset - Reset one word to a value on return to user space
-+ * @node:	Operation list node.
-+ * @src:	Address of the source word, or 0 to reset @dst to zero.
-+ * @dst:	Address of the destination word.
-+ * @len:	Word length in bytes. Must be 4 or 8 (8 is 64-bit only).
-+ */
-+struct rseq_op_reset {
-+	struct rseq_op_node	node;
-+	__u64			src;
-+	__u64			dst;
-+	__u32			len;
-+};
-+
-+/*
-+ * struct rseq_op_reset_with_stride - Reset one word in a strided array
-+ * @node:	Operation list node.
-+ * @src:	Address of the source word, or 0 to reset the slot to zero.
-+ * @dst:	Base address of the strided destination array.
-+ * @dst_stride:	Stride in bytes between consecutive array slots.
-+ * @len:	Word length in bytes. Must be 4 or 8 (8 is 64-bit only).
-+ *
-+ * The destination slot is @dst + @dst_stride * index, where index is the
-+ * current CPU ID or MM CID depending on the operation type.
-+ */
-+struct rseq_op_reset_with_stride {
-+	struct rseq_op_node	node;
-+	__u64			src;
-+	__u64			dst;
-+	__u64			dst_stride;
-+	__u32			len;
-+};
-+
- /*
-  * The original size and alignment of the allocation for struct rseq is
-  * 32 bytes.
-@@ -191,15 +273,21 @@ struct rseq {
- 	struct rseq_slice_ctrl slice_ctrl;
- 
+diff --git a/kernel/rseq.c b/kernel/rseq.c
+index e75e3a5e312c..a277c11dae99 100644
+--- a/kernel/rseq.c
++++ b/kernel/rseq.c
+@@ -253,17 +253,18 @@ static bool rseq_handle_cs(struct task_struct *t, struct pt_regs *regs)
+ static void rseq_slowpath_update_usr(struct pt_regs *regs)
+ {
  	/*
--	 * Before rseq became extensible, its original size was 32 bytes even
--	 * though the active rseq area was only 20 bytes.
--	 * Exposing a 32 bytes feature size would make life needlessly painful
--	 * for userspace. Therefore, add a reserved byte after byte 32
--	 * to bump the rseq feature size from 32 to 33.
--	 * The next field to be added to the rseq area will be larger
--	 * than one byte, and will replace this reserved byte.
-+	 * Sentinel of the circular doubly-linked list of rseq operations
-+	 * registered via prctl(PR_RSEQ_OP, ...). Fully owned and maintained by
-+	 * the kernel: it is initialized to point to itself on registration and
-+	 * user space must never read or write it directly.
-+	 *
-+	 * The kernel only use next and prev from rseq_op_list.  The rest of the
-+	 * bytes are reserved for later usage and should be zeroed.
+-	 * Preserve has_rseq and user_irq state. The generic entry code clears
+-	 * user_irq on the way out, the non-generic entry architectures are not
+-	 * setting user_irq.
++	 * Preserve has_rseq, rseq_op and user_irq state. The generic entry
++	 * code clears user_irq on the way out, the non-generic entry
++	 * architectures are not setting user_irq.
  	 */
--	__u8 __reserved;
-+	union {
-+		struct rseq_op_node rseq_op_list;
-+		struct {
-+			__u64	op_used[2];
-+			__u64	reserved;
-+		};
-+	};
+ 	const struct rseq_event evt_mask = {
+ 		.has_rseq	= RSEQ_HAS_RSEQ_VERSION_MASK,
++		.rseq_op	= true,
+ 		.user_irq	= true,
+ 	};
+ 	struct task_struct *t = current;
+ 	struct rseq_ids ids;
+-	bool event;
++	bool event, should_fault = false;
+ 
+ 	if (unlikely(t->flags & PF_EXITING))
+ 		return;
+@@ -300,7 +301,12 @@ static void rseq_slowpath_update_usr(struct pt_regs *regs)
+ 
+ 	ids.node_id = cpu_to_node(ids.cpu_id);
+ 
+-	if (unlikely(!rseq_update_usr(t, regs, &ids))) {
++	if (unlikely(!rseq_update_usr(t, regs, &ids)))
++		should_fault = true;
++	else if (t->rseq.event.rseq_op && unlikely(!rseq_apply_ops(t)))
++		should_fault = true;
++
++	if (should_fault) {
+ 		/*
+ 		 * Clear the errors just in case this might survive magically, but
+ 		 * leave the rest intact.
+@@ -329,8 +335,20 @@ void __rseq_handle_slowpath(struct pt_regs *regs)
+ 	rseq_slowpath_update_usr(regs);
+ }
+ 
++static inline void force_fault(int sig)
++{
++	/*
++	 * Clear the errors just in case this might survive magically, but leave
++	 * the rest intact.
++	 */
++	current->rseq.event.error = 0;
++	force_sigsegv(sig);
++}
++
+ void __rseq_signal_deliver(int sig, struct pt_regs *regs)
+ {
++	bool should_fault = false;
++
+ 	rseq_stat_inc(rseq_stats.signal);
  
  	/*
- 	 * Flexible array member at end of structure, after last feature field.
+@@ -339,14 +357,13 @@ void __rseq_signal_deliver(int sig, struct pt_regs *regs)
+ 	 * the interrupted context as after this point the instruction
+ 	 * pointer in @regs points to the signal handler.
+ 	 */
+-	if (unlikely(!rseq_handle_cs(current, regs))) {
+-		/*
+-		 * Clear the errors just in case this might survive
+-		 * magically, but leave the rest intact.
+-		 */
+-		current->rseq.event.error = 0;
+-		force_sigsegv(sig);
+-	}
++	if (unlikely(!rseq_handle_cs(current, regs)))
++		should_fault = true;
++	else if (current->rseq.event.rseq_op && unlikely(!rseq_apply_ops(current)))
++		should_fault = true;
++
++	if (should_fault)
++		force_fault(sig);
+ 
+ 	/*
+ 	 * In legacy mode, force the update of IDs before returning to user
+@@ -436,6 +453,8 @@ static long rseq_register(struct rseq __user * rseq, u32 rseq_len, int flags, u3
+ 				rseqfl |= RSEQ_CS_FLAG_SLICE_EXT_ENABLED;
+ 		}
+ 	}
++	if (version > 1)
++		rseqfl |= RSEQ_CS_FLAG_RSEQ_OP_AVAILABLE;
+ 
+ 	scoped_user_write_access(rseq, efault) {
+ 		/*
+@@ -458,8 +477,16 @@ static long rseq_register(struct rseq __user * rseq, u32 rseq_len, int flags, u3
+ 		 * registrations.
+ 		 */
+ 		if (version > 1) {
++			u64 sentinel = (u64)&rseq->rseq_op_list;
++
+ 			if (IS_ENABLED(CONFIG_RSEQ_SLICE_EXTENSION))
+ 				unsafe_put_user(0U, &rseq->slice_ctrl.all, efault);
++			/*
++			 * Initialize the rseq operation list sentinel as an
++			 * empty circular doubly-linked list pointing to itself.
++			 */
++			unsafe_put_user(sentinel, &rseq->rseq_op_list.next, efault);
++			unsafe_put_user(sentinel, &rseq->rseq_op_list.prev, efault);
+ 		}
+ 	}
+ 
+@@ -474,6 +501,12 @@ static long rseq_register(struct rseq __user * rseq, u32 rseq_len, int flags, u3
+ #ifdef CONFIG_RSEQ_SLICE_EXTENSION
+ 	current->rseq.slice.state.enabled = !!(rseqfl & RSEQ_CS_FLAG_SLICE_EXT_ENABLED);
+ #endif
++	/*
++	 * A fresh registration starts with no operations, so operation
++	 * processing is disabled until the first one is registered.
++	 */
++	current->rseq.event.rseq_op = false;
++	current->rseq.nr_ops = 0;
+ 
+ 	/*
+ 	 * Ensure the cpu_id_start and cpu_id fields are updated before
+@@ -887,3 +920,164 @@ device_initcall(rseq_slice_init);
+ #else
+ static void rseq_slice_ext_init(struct dentry *root_dir) { }
+ #endif /* CONFIG_RSEQ_SLICE_EXTENSION */
++
++/*
++ * Reflect the operation enabled state into the user visible flags field.
++ * Called on the 0<->1 transition of nr_ops. The kill path is taken on fault
++ * because losing this update leaves user space and kernel state inconsistent.
++ */
++static int rseq_op_update_enabled(struct task_struct *t, bool enable)
++{
++	struct rseq __user *rseq = t->rseq.usrptr;
++	u32 rflags;
++
++	if (get_user(rflags, &rseq->flags))
++		return -EFAULT;
++
++	rflags &= ~RSEQ_CS_FLAG_RSEQ_OP_ENABLED;
++	rflags |= RSEQ_CS_FLAG_RSEQ_OP_AVAILABLE;
++	if (enable)
++		rflags |= RSEQ_CS_FLAG_RSEQ_OP_ENABLED;
++
++	if (put_user(rflags, &rseq->flags))
++		return -EFAULT;
++
++	t->rseq.event.rseq_op = enable;
++	return 0;
++}
++
++/*
++ * Register @node at the head of the circular doubly-linked operation list
++ * anchored by the kernel owned sentinel in struct rseq.
++ */
++static int rseq_op_register(struct task_struct *t, struct rseq_op_node __user *node)
++{
++	struct rseq_op_node __user *sentinel = &t->rseq.usrptr->rseq_op_list;
++	struct rseq_op_node __user *first;
++	u64 next, prev, first_addr;
++	u8 type, i;
++
++	if (t->rseq.nr_ops >= RSEQ_OP_LIST_LIMIT)
++		return -ENOSPC;
++
++	if (!IS_ALIGNED((unsigned long)node, __alignof__(struct rseq_op_node)))
++		return -EINVAL;
++	if (!access_ok(node, sizeof(*node)))
++		return -EFAULT;
++
++	/*
++	 * The node links are owned by the kernel. User space must present a
++	 * pristine node: next, prev and the reserved bytes all zeroed, and a
++	 * known operation type.
++	 */
++	if (get_user(next, &node->next) || get_user(prev, &node->prev) ||
++	    get_user(type, &node->type))
++		return -EFAULT;
++	if (next || prev)
++		return -EINVAL;
++	if (type >= RSEQ_OP_NR)
++		return -EINVAL;
++	for (i = 1; i < sizeof(node->reserved); i++) {
++		u8 r;
++
++		if (get_user(r, &node->reserved[i]))
++			return -EFAULT;
++		if (r)
++			return -EINVAL;
++	}
++
++	/* Splice the node in right after the sentinel. */
++	if (get_user(first_addr, &sentinel->next))
++		goto die;
++	first = (struct rseq_op_node __user *)first_addr;
++
++	if (put_user((u64)(unsigned long)first, &node->next) ||
++	    put_user((u64)(unsigned long)sentinel, &node->prev) ||
++	    put_user((u64)(unsigned long)node, &first->prev) ||
++	    put_user((u64)(unsigned long)node, &sentinel->next))
++		goto die;
++
++	t->rseq.nr_ops += 1;
++
++	if (t->rseq.nr_ops == 1)
++		return rseq_op_update_enabled(t, true) ? -EFAULT : 0;
++	return 0;
++die:
++	force_sig(SIGSEGV);
++	return -EFAULT;
++}
++
++/*
++ * Unregister @node from the operation list. The node links are validated
++ * against its neighbours to reject bogus or double unregistration.
++ */
++static int rseq_op_unregister(struct task_struct *t, struct rseq_op_node __user *node)
++{
++	struct rseq_op_node __user *prev, *next;
++	u64 prev_addr, next_addr, tmp;
++
++	if (!t->rseq.nr_ops)
++		return -ENOENT;
++
++	if (!IS_ALIGNED((unsigned long)node, __alignof__(struct rseq_op_node)))
++		return -EINVAL;
++	if (!access_ok(node, sizeof(*node)))
++		return -EFAULT;
++
++	if (get_user(next_addr, &node->next) || get_user(prev_addr, &node->prev))
++		return -EFAULT;
++	prev = (struct rseq_op_node __user *)prev_addr;
++	next = (struct rseq_op_node __user *)next_addr;
++
++	/* A registered node always has both links set. */
++	if (!prev || !next)
++		return -EINVAL;
++
++	/* Verify the node is properly linked between its neighbours. */
++	if (get_user(tmp, &prev->next))
++		goto die;
++	if (tmp != (u64)(unsigned long)node)
++		return -EINVAL;
++	if (get_user(tmp, &next->prev))
++		goto die;
++	if (tmp != (u64)(unsigned long)node)
++		return -EINVAL;
++
++	/* Unsplice and clear the node links so it can be reused. */
++	if (put_user(next_addr, &prev->next) ||
++	    put_user(prev_addr, &next->prev) ||
++	    put_user(0ULL, &node->next) ||
++	    put_user(0ULL, &node->prev))
++		goto die;
++
++	t->rseq.nr_ops -= 1;
++
++	if (t->rseq.nr_ops == 0)
++		return rseq_op_update_enabled(t, false) ? -EFAULT : 0;
++	return 0;
++die:
++	force_sig(SIGSEGV);
++	return -EFAULT;
++}
++
++int rseq_op_prctl(unsigned long arg2, unsigned long arg3)
++{
++	struct rseq_op_node __user *node = (struct rseq_op_node __user *)arg3;
++	struct task_struct *t = current;
++
++	if (!t->rseq.usrptr)
++		return -ENXIO;
++	if (!rseq_v2(t))
++		return -ENOTSUPP;
++	if (!node)
++		return -EINVAL;
++
++	switch (arg2) {
++	case PR_RSEQ_OP_REGISTER:
++		return rseq_op_register(t, node);
++	case PR_RSEQ_OP_UNREGISTER:
++		return rseq_op_unregister(t, node);
++	default:
++		return -EINVAL;
++	}
++}
+diff --git a/kernel/sys.c b/kernel/sys.c
+index df69bd71de03..494c91b03c3f 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -2889,6 +2889,11 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+ 			return -EINVAL;
+ 		error = rseq_slice_extension_prctl(arg2, arg3);
+ 		break;
++	case PR_RSEQ_OP:
++		if (arg4 || arg5)
++			return -EINVAL;
++		error = rseq_op_prctl(arg2, arg3);
++		break;
+ 	case PR_GET_CFI:
+ 		if (arg2 != PR_CFI_BRANCH_LANDING_PADS)
+ 			return -EINVAL;
 -- 
 2.54.0
 
