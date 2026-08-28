@@ -1,160 +1,222 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF743D5C2C
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904296; cv=none; b=RfbuonY+ra3uUurEBd/jP7mzRh/iQG2xhT+SXih7Id3J53moyqLrSueyTFN89vjd+p5c2cdpTWOm/uY5XMhmrP8dbXFr/xQfgNJsmujYPLIc4EzlVY/i5/Xq0ENtSqxNsLvlKFepJg1ke2FlZBcTG3i632UwKdUgGwxHBKJ7swM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904296; c=relaxed/simple;
-	bh=+Z1sz08sC1OLnnsRQrZbBoZJEG+XRT6Xi6xh/5v8fzU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=j+2khnTvCFY6J90PdIiPRSlk9hDJv4t5pV46D+SO01Qev7rN5bJvObR6kGRKMp/1uUQxmz4v9WG1VSlB0Kcib/uvhhsbPBXWtHeLlgV6dIhR8YMjsn6Fzy91rEI1ysYDw1cRrXlC2hkFo53o4OTMsfnJ8l/wZ0My9GO4upF+DHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BWSwcvhS; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E003B3BF1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787904319; cv=pass; b=cYLrFBprKJHCX7J3r9nVFM+BhvXht/zyBCVEBSwAvwj/AgpSZ6sdn4FTw/CqOPE+aKan6Uzv/pAOSbOkoWWbGssDSLj9mYyr9NzYNpwC/iSuUiGMUuppb4wnK4rYLyFPcDMkd63PiZ23LeFr++OBPsgNOQ1R9Y3J1r40tC3urOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787904319; c=relaxed/simple;
+	bh=wNKjtN+MdzP2+0PxnbbIkfIy4RRpZSunCNBJJz47CWI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ipd1gGpvaO/1y7U1r7mHr3lbGVYDCqF1OjJC3tfTDOURzZkQfbVZcdlINGAgrl+OFETZbX5v7plnoRkqv/r0m2fDMxStZ/tVHNqhMEJxBxLn+DYfs1xqKYiJ5ySfdgFlByxzBR8aR1aMskJoGE1F6ufGyJgORPmTfBl6mSsvIic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=rH5Z6PGf; arc=pass smtp.client-ip=209.85.208.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BWSwcvhS"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c4474028so9446017b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:04:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="rH5Z6PGf"
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39c86ce9e29so4119261fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:05:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787904316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YK+neMdrPcOy0qnJbG71JhJp6pCixacQ0X5W5P3yIxkWJ9BlEp+oPASO/IYZnhEbmW
+         F/shSQgAu8Pnh44GuUUL/dSWfE1LSpZCmop+eKe1AFIGy3kf+Kxlk8rMOrZHITUqN1El
+         U9+6o9YXIFufn6CYtuIQY8/pZTgFXlFhhmlOo1qBO86UX/terNkCANObH11L6eno6eQF
+         /TbDpVNeIMNWEu6DzTqcfQQJaK77vHDJHu0OfOhEOF5rdEhFRjzpvF/tRTW4O1pfTNKS
+         3J+pvmen75+WStojSq46KoVSp4U7oU2ODSKEIuv9LA1rVGHGvrOVVtZMyL0gc2vCnb9A
+         PkeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7+GGXhNyLGMH/bPEz2IJgnBSX0Z9WNgkMR811qYVvJ4=;
+        fh=G/RYXG4v5hSQqXr32/PHyYqMLfbMDz1Y5FFlBS3Ya6Q=;
+        b=dvgs665+yov2SsgzCGHwGhYJ6ekms9Tg/bgs9dzBiovW0KDqzYqu+oD0rZrcvsIZO0
+         N1b0ymYznBhDU2YUT40mpEI+2h2IVUvrxt+fLkCp0BgvVUXjBrNOh3kNOmwVY8cdAf+3
+         XKjpvys7tYc8qyc9moTNZmUtDAvdKAj6QlGRLseKpzISJgpAKJ13IVqdx8Ug0JsWp9DG
+         gQzYKdtuXZmM+5a6XqJQFzNke+se1S3Sdxu+WRhag017LNRaxElTsgFo2PXWIInGgLXe
+         jmbvCPC9Xyzs9lofaE2TuudNGxisAYq9yfF4nYLxyOBZmrGOFKvprjDUy3qw/Aqg8fBU
+         E/tg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787904293; x=1788509093; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cziOTKmVhxUE52ibRD2kF7eNQJ4Wv/wGrdlgF7Hd+bw=;
-        b=BWSwcvhSk/PxXFlZEaeHj6C0tD7bH6ccPc/I3cx/on9JjEUwBsE9kvDMXOdeOLoIqg
-         ZBwDUMKwS9rZ9tc5Xgk0FOje0LaDrcwinuggTdfXian9r980LEE/rXiTg9N5h0819ck0
-         cKqkxB9d/qlxDAdlE5Y+EPARRkTaiemPgVM9YBJORyyPuQRFDDdTd9PjCTMpzIjaUyvE
-         D6wFpghurIa1+DP++x61d7O3UWvCaHiEQE3F2sMA7Yjc4FUlyJkOXl69UFUvFyErX2GA
-         9Kw+AoSUdn1OozsV/68wU7BmkqljlvKq2uKWblED7BaMingK+gCa+tnzKmm9JQRTs/kI
-         d27A==
+        d=nebusec.ai; s=google; t=1787904315; x=1788509115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7+GGXhNyLGMH/bPEz2IJgnBSX0Z9WNgkMR811qYVvJ4=;
+        b=rH5Z6PGfZobIrvYjuJ+XbKuJPxRdB4tXweOjDGzShjfC7YH9FYmpaR1V+ZEPck9dRl
+         /T/5KxM89SzH38qZSkc/0AABOVSiGfM9TQnnibVutbTO8npLmx2Njyi2SJ/UreEP5vjQ
+         1GOrmPj5JUybbrr+XJ3TkYjWX+m5MB0QJEyU8LzMq1sFf++S0DDuOwaGB09dN4ykZin1
+         oAbKTgfX8YNo3vHLZzWIF2HJVQYocmBNrnS4e2R8Ng8B7vu4YKVCKBCRnekHtKd8VOVI
+         Y5GTAEeE7GM/GQzhMu/95mPSTcn6NsujWpmE5tafi3kNFxKuxMMgYlQpD0zYBfwNN7fC
+         0Tfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787904293; x=1788509093;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cziOTKmVhxUE52ibRD2kF7eNQJ4Wv/wGrdlgF7Hd+bw=;
-        b=YSG1YXAA2E1neSba04o0bIeo/rSiBSulPbJiAhoqsvuvc5W8AlAZQH7CTPxuU28Agq
-         +/8TDoC+klsI4e5WD3V8Dc2tnKQBmrzA/6GefJ9ZHN4rAGmbKRqkHkiRMJerc9ZN06Nb
-         q+J4MCVoSB5J9d4n0c8OXGPqajyr9qKyfyMZFUb6WgZI8GHv/tjKnqfa5ARChPV2mLxT
-         ZtFnOM8E9KSLqAzoaB6lmK5oJNKBneYSSSsAJ19imoxL6HUre/qKvfG4Efjer8xfYvur
-         GTXsmmKl7+wdIo58t0eW0NPjLxHrHI5m9JREIbiWmGRIBQvzJlo/s9i/G73EiAaoRwiC
-         PEwg==
-X-Forwarded-Encrypted: i=1; AHgh+RpR6hiNpjMpgwUv8snGT6UzC2Rnv20f+8O0nxCaFDxK9xh2nKGXjJQEDloDFUG9AgoIY2FE7oVR41/VMVA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxMlBmvoELmezQ4rrk6I8TkWvz1xeKbMlzLSOb0rYE8ZNSgrHl
-	CgvlfkGV3mEmbgPmc3F4xr4uJ0Xy+LuHc6y5SJt3tOcJoMqNNAPH0BCMdyEzghHC5g==
-X-Gm-Gg: AR+sD10xaYIbwHhoQEdLHGGHXJqIdJJ9VB07ivf4M6GHiEtNhu4PZfTpfySbKGwOv2g
-	B3P8aQKOjfObmH/WJ9mUU8oVVqMeoOdmxgfmiFp+VIoVBUJHVMIt9o3tJfJiwGjcoJbF2k2gxCl
-	eL7U22M7+xtFSatu1pDDHI2QvQjLhVvLFdd2R9RVDIPPtG5KN0PoWQBNYNrgEnwTICrRbhzAFw9
-	exzjSqBzwUAaaFErHARsiXIwluPm7xrbnv0wVvhfW53IEDqFLugj0Eoib5ePQ1oh0g+t/0FRcao
-	uGYX3jSQiIUfxp9P/LTeICPgwGPJeFmwhmrDdeVASWSh1rOW6MqSyXD47LryOhyPdYWRCQ/zHtm
-	lgkietSG0tdgVKObJM5s3ZlCXAbm/r9ksS8SUojuomzhralOXHqjyKAFddaiMSOMI5pPgVBF3XH
-	foL217s7n8nKvaqPrbeI/Kev5a/qAlFTMhC0SVDs7Jy/VOwMC1AIuwh30wlDk2UzLrNyVD8OXvE
-	KJcoCllUJixJfBaAdh2zyUc7mZjNnAvmUAcXGR3EtI3BYWL
-X-Received: by 2002:a05:690c:4f89:b0:80d:15a3:7b1c with SMTP id 00721157ae682-85d68a8ebdamr19896027b3.4.1787904292453;
-        Fri, 28 Aug 2026 01:04:52 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5e181d7asm3395277b3.4.2026.08.28.01.04.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:04:51 -0700 (PDT)
-Date: Fri, 28 Aug 2026 01:04:34 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 04/25] mm/fbatch: lru bit set, no extra ref, while folio
- on per-cpu fbatch
-In-Reply-To: <apAaWsWPV9QEeVwn@thinkstation>
-Message-ID: <3b8d9cc4-d6f9-6bd6-f774-34cfca9c48c9@google.com>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com> <e0887417-85a7-453e-e733-561dc11db08f@google.com> <apAaWsWPV9QEeVwn@thinkstation>
+        d=1e100.net; s=20251104; t=1787904316; x=1788509116;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7+GGXhNyLGMH/bPEz2IJgnBSX0Z9WNgkMR811qYVvJ4=;
+        b=atXYexejJnl4MB5xlxOCrQAFGLaCzQc2PP6+VPGGMnpip+ZISgy3QD9+7oxx6yig1d
+         bQy/ZkQSlZD19XQC3ENC3jl61hNmCPAuXyW1QC8V40wm+cqrfQ/gReeEKLVRgVXCLHq0
+         zwCGlMj+p7BYz4QTH7d/4wKNQpXdw905JKbjCid92lwnLv6eKNAiMZ7GsVkhCnS2IIFx
+         lt6im/yNaIZ0pGn00xmH3JI2ayTG6IFpXuy8aETGVhWlzfnjPw/RbkKinDUWo/nvr7e3
+         T2gzTXxmdJ9tB7b3jDrZ+6JPnbc2OCtyudfGcdb5AvBq7fzC9Kewrdqo7nvKOuLxjAkA
+         +jWA==
+X-Forwarded-Encrypted: i=1; AHgh+RrxdLqZaiklZ5eNfr7jpSebNoAIe1+6YpvAAG5QOWHsogY9eD055y+ami7wfJWa8B00begaAh19VsarGVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9WfaB7TXWzj8GoPingT9ZZEXHHej9vOUqEqquYV2rt+Ik0AhN
+	RxR2NAiZfTTNpIpChDzsPvlZte/B1G7yrlrlvjMegNevbK+oL8GCcHUAPKUbB94kmYt0Ebaw62y
+	X1m9N97QKGsBnsZNe/UsOhXlOiFe/KtVV+9fCiPbXoqI=
+X-Gm-Gg: AR+sD12yd90SAR0FjvPlvwC7IY28OuLo50EL5tsvJk+GdTBymZufMwYRTc+ih860JJw
+	0s9Fu6O7PxC8zM3WpjmZAxUjXceZFNRr7MkpU0EAjjpsc8evY+PUyue4XF7+s92XMiYF/hW+pNc
+	9hWG1PwNjDyZP3cgwJjff9FMMGexETT7dn64TTQyG0NuzC3cuAwwAzZVe8ex7qiJ2bNUvupoRHY
+	M4nj5v6hFUnhThHeQ4+7e/MNdyfvTtwnDcDOu7GuqdT4bu7kwMYGNf/hUDiujAS9XusLa95Q1s8
+	d220fYMaMsFjbVvb3llFXo+Ze+GRPme4qqr65lsoRM67rQoPuGzBXKNfMyDR2B9hNCVhVMl6s6u
+	zNw==
+X-Received: by 2002:a05:651c:2224:b0:3a1:980f:5907 with SMTP id
+ 38308e7fff4ca-3a301b3c0f6mr7257361fa.8.1787904315593; Fri, 28 Aug 2026
+ 01:05:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <cover.1786962220.git.zihanx@nebusec.ai> <ao1QMuGwSzhtlmo5@katalix.com>
+ <CAANe3eR857ZyGa_2PdBOVaehCoHr+6qH1J0jid66-z_0nCEgMw@mail.gmail.com> <apE_bzlcmIK1FOs1@katalix.com>
+In-Reply-To: <apE_bzlcmIK1FOs1@katalix.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Fri, 28 Aug 2026 16:05:01 +0800
+X-Gm-Features: AcwNN1XTmmPxj7tQJkNiRC_RdZzTSoOlxQ_xDSWXXRwyJ4KxPdUxne8uge797HA
+Message-ID: <CAANe3eQZB4v3ymhcuPNdC29r+b3TurO-K34KQ9u4kc2BniGYug@mail.gmail.com>
+Subject: Re: [PATCH net 0/1] net: l2tp: ignore multicast notification errors
+ in netlink commands
+To: Tom Parkin <tparkin@katalix.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bhong@brocade.com, 
+	stephen@networkplumber.org, sven@brocade.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 27 Aug 2026, Kiryl Shutsemau wrote:
-> On Mon, Aug 24, 2026 at 07:01:20AM -0700, Hugh Dickins wrote:
-> > Treat folios on a per-cpu fbatch as if they were already on the lruvec:
-> > with PG_lru set, without holding an extra reference. This will enable
-> > the removal of most lru_add_drain() and lru_add_drain_all() calls soon.
-> > 
-> > Recognize such a folio by 0x02 set in the folio->lru.next pointer by
-> > folio_add_lru().
-> 
-> Hm. pfmemalloc (__GFP_MEMALLOC) thingy already claims the bit. Is it
-> safe because such memory is never on LRU?
-> 
-> Are pfmemalloc and PG_lru mutually exclusive?
-> 
-> Do we want to be explicit about this? Like, folio/page_is_pfmemalloc()
-> shouldn't return true for PG_lru folios/pages or something.
+On Fri, Aug 28, 2026 at 3:57=E2=80=AFPM Tom Parkin <tparkin@katalix.com> wr=
+ote:
+>
+> On  Tue, Aug 25, 2026 at 18:35:21 +0800, zihan xi wrote:
+> > On Tue, Aug 25, 2026 at 4:20=E2=80=AFPM Tom Parkin <tparkin@katalix.com=
+> wrote:
+> > >
+> > > On  Mon, Aug 17, 2026 at 16:53:17 +0000, Zihan Xi wrote:
+> > > > Hi Linux kernel maintainers,
+> > > >
+> > > > We found and validated a issue in net/l2tp/l2tp_netlink.c. The bug =
+is reachable by a
+> > > > non-root user via user and net namespace.
+> > > > Here, that reachability statement refers to the finite state-commit=
+ trigger;
+> > > > the OOM transcript below is a separate root initramfs leak-mode run=
+ (UID 0,
+> > > > PID 1) used to make the leak and panic deterministic.
+> > > > We've tested it, and it should not affect any other functionality.
+> > > > Regression coverage includes the root namespace and an unprivileged=
+ user/net
+> > > > namespace, with notification-queue pressure and successful ACK path=
+s for all
+> > > > three commands; no broader regression suite was run.
+> > > > The finite fixed-kernel runs returned ACK success for all three com=
+mands in
+> > > > both namespaces. The leak run returned ENOBUFS and reached OOM afte=
+r 41984
+> > > > hidden Ethernet sessions.
+> > >
+> > > I think the underlying point about allowing l2tp_tunnel_notify and
+> > > l2tp_session_notify to impact the return from l2tp_nl_cmd_tunnel_crea=
+te
+> > > and l2tp_nl_cmd_tunnel_create is not unreasonable.
+> > >
+> > > IMO it seems relatively silly to allow the notification to cause an e=
+rror
+> > > response to be indicated to userspace for the create command when in
+> > > fact the instance creation was otherwise successful.
+> > >
+> > > That said, I think it would be worth clarifying the behaviour around
+> > > the "hidden" tunnel and session.  From my reading of the code, at the
+> > > point that the nl notification function is called in both tunnel and
+> > > session instantiation, the kernel has already performed checks on
+> > > input arguments, allocated the instance, and registered it.  Even if
+> > > the l2tp code then returns an error to userspace, the instance is
+> > > present in the kernel's tracking structures.  I would expect that if
+> > > one then listed tunnel and session instances the new instance would
+> > > show up.
+> > >
+> > Hi Tom,
+> >
+> > Thanks for taking the time to review this.
+> >
+> > > That being the case, it's not accurate IMO to say that the tunnel or
+> > > session instance is leaked, and the fact that you can cause OOM by
+> > > continuing to allocate new tunnel and session instances with new IDs
+> > > isn't surprising.
+> >
+> > Agreed. =E2=80=9CLeaked=E2=80=9D was too broad a term here. The tunnel =
+and session are
+> > already committed and remain present in the kernel after the notificati=
+on
+> > returns -ENOBUFS.
+> >
+> > The PoC does not use `ip l2tp show`; it sends generic-netlink GET reque=
+sts
+> > for the newly created objects. On the unpatched kernel, the relevant ou=
+tput
+> > was:
+> >
+> >     tunnel_create returned ENOBUFS at tunnel_id=3D1040
+> >     hidden tunnel is live: tunnel_id=3D1040 ...
+> >     session_create returned ENOBUFS at session_id=3D1000032 ...
+> >     hidden session is live: tunnel=3D1040 session=3D1000032 ...
+> >     session_modify returned ENOBUFS as expected
+> >     post-modify session state: recv_seq=3D1 send_seq=3D1 lns_mode=3D1
+> >
+> > So the OOM result comes from continuing to create new live Ethernet ses=
+sions
+> > after userspace has received failure responses, rather than from an obj=
+ect
+> > being lost in the kernel's tracking structures.
+> >
+> > The more precise description is therefore that a best-effort notificati=
+on
+> > error overwrites the result of an already committed operation. This can
+> > cause userspace to retry and accumulate live L2TP objects.
+> >
+> > The v2 wording was updated accordingly, and v2 has since been applied t=
+o
+> > netdev/net.git.
+> >
+> > - v2 Link: https://lore.kernel.org/all/cover.1787247008.git.zihanx@nebu=
+sec.ai/
+>
+> Hi Zihan,
+>
+> Sorry my review was late (I saw the v2 was applied right after I'd
+> responded to the v1!) -- but thank you for taking the time to expand
+> on the above.
+>
+> Your explanation makes sense and aligns with what I was expecting, and
+> I'm glad the underlying issue is fixed which I agree is an improvement
+> on the previous state :-)
+>
+> All the best,
+> Tom
+> --
+> Tom Parkin
+> Katalix Systems Ltd
+> https://katalix.com
+> Catalysts for your Embedded Linux software development
 
-Gosh, thanks so much for pointing that out: I was completely ignorant
-of the the pfmemalloc use, and a bit (bit 1!) shocked to learn of it
-(why wouldn't they just reuse a pageflag, I wonder? but doesn't matter).
+Hi Tom,
 
-Anyway, as you've rightly guessed, it's not a problem at all: these
-mm/folio.c and mm/mlock.c per-cpu fbatches are entirely for folios;
-and if any pfmemalloced page ever get used for a folio (dunno) and
-put on an fbatch for LRU, then of course its use of lru.next is
-immediately overwritten (first by what this patch writes in lru_next,
-then later by the lru.next pointer for whatever LRU it goes on to -
-just as before this patch).
+No problem, and thank you for taking the time to follow up and review the
+clarification.
 
-If you were to tell me that some subsystem uses PG_lru for some
-other purpose, then I would have to get more worried; but we can
-be fairly sure that's not so, since mm/compaction.c for one relies
-on konwing it's free to  play with PG_lru folios.
-
-Whether a folio is ever allocated with __GFP_MEMALLOC, I'm not
-certain (haven't looked), but there is no need to exclude that:
-it simply would not retain that page_is_pfmemalloc() info across
-folio_add_lru().
-
-Does stable_page_flags() present page_is_pfmemalloc() as a KPF
-flag?  No, it does not, so no problem there either.
-
-This certainly deserves a comment somewhere, but not a problem.
-
-Thanks!
-Hugh
-
-p.s. Only in replying do I come to realize that I don't actually
-need that bit myself now (we could just put one magic value there).
-It comes from all along when I believed it important to be able to
-distinguish expected from unexpected entries, then suddenly realized
-that actually they want identical treatment, so no need to distinguish.
-The lru_add entry pointer is still kept in lru_next, but only to help
-in debug. But I would like to go on this way, using the bit, for now:
-partly because I'm wary of well-intentioned last-minute changes,
-partly because I'm not certain a reason to distinguish won't emerge.
+All the best,
+Zihan
