@@ -1,137 +1,105 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE37391E76;
-	Fri, 28 Aug 2026 13:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0EF44E656;
+	Fri, 28 Aug 2026 13:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787924793; cv=none; b=Uu78/4LHJQYYHVWNERCBKbimDut+THj5voqx72y/zECwOAZQEl9OsTOA8swCDzdAJUvFIltcaVUaMq39rn+Zquu2Z2QGjDGQtUuOZ82A6lChNxobiv7vcoOioiHHzx2QOtZdRHx5dq192AmLt3z4BBi2LkSylqBr7L/SdS+2ves=
+	t=1787924869; cv=none; b=qTtfeyTWAtAKLvkwAM87TfmzBWpw/PE1vZLeii98HRBSxwRbwn6t9Eo5gJDb/cJP4L8w3tIKLsZJXhdZlbtTYUNWyrIOQQVQL76CNHfFIJkfcltMCplQaHlir7yjTCvJljoVsFCUqf9U3P0Up6yAW4EUojVFI5155RdSrjO7cVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787924793; c=relaxed/simple;
-	bh=/AUbOXLbCVCQjm0+YW4SW5lQPjQLIXY9ybWXRRosM6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jQb/hK2gvnF3KlGcTHVOdqmY1qZGGwvuBGHcu7CwIPEx6/xl17k80lw264cMTc5Twvl417ykwwDVVUhXeKJJf+45IEv2ZlWzn/DXQHYLacaobik/yugv+E+c3YZ3kYzd7a+sLo+oumEw0dP7OBjzbShX/SlQNMd3mIhav989nf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=NnZNH0/K; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1787924869; c=relaxed/simple;
+	bh=FZYJ0tPscJpqy0ej6dIgc6vwpc6PMpAaDv2fyLX/PAQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MOw6DlJgTaIJ+m3QBmUmq+gJLDB7H4ezAQCMpLeM9J+SkV+nYV/AaOrb+m0P3H0q8FFKpCzRU+s3ilYRCt316mMKuHR2PDK2WdSEjfQzKf91pIEF2VWa6/Ipy6vswyxEGVoc/Gp1bzP91zuNyPu/ahFd0JBMvfIL2tWoTMCvjSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8OVBi4t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="NnZNH0/K"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=9TfgXIoukN/RPVFm1I+e7bggSQFoinJyk03xgumztOQ=; b=NnZNH0
-	/Kz1ZEAaFeSw5eQJXsW2aeU6YbzoXE+iOLimV0vZZtb1oVYNMYEUZCo8JMBjKpMZ5yH3S+fV7vcOO
-	qKk461zeTFImkVEIeTIpUS67b/cbPvv3oafPXwDHdNEvexeCxV7yIC+3LB96cKgC5sPzpJRSvRdbh
-	010F/tSvQC0fN4cxlXGclzSXZr30Ef+qTdbZ8anTTk9OJG99VpeaZlkMMnKqTjBwdyzPVONjx6mDP
-	Em0DOkkIWD5/vDbr5QmPWTt8vECuVzUT9VG1tCybO8bgQ4lmCMr3+GuPwOzV4reJwTTlSiEurXxNN
-	xGPVYZIIcqD5gp6WYwvyp/Ai+onA==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn.surriel.com)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1wzwuY-00000008zmT-0utG;
-	Fri, 28 Aug 2026 13:46:26 +0000
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: Rik van Riel <riel@surriel.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on isolated cpus
-Date: Fri, 28 Aug 2026 09:46:21 -0400
-Message-ID: <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787890328.git.riel@surriel.com>
-References: <cover.1787890328.git.riel@surriel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8OVBi4t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9A71F000E9;
+	Fri, 28 Aug 2026 13:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787924867;
+	bh=q0eNhqvMX0/iJyiBrToLKqr6Y2gSqCXGI85V9zCEwnI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B8OVBi4twqUHT/S7twyHkWKJvi0Xty50bWZLsgLdUjH3nHQVyiaBK1AsPVPty6GY3
+	 CpLNAUUkFEyJ4+w/M1poxHibGE1QkZfvatu0qnlUkyLZ6sB5cRTVmGrT8v0XQDQITu
+	 o7t7HCrfJFnRBBj0/q5rE0t6eS5wSCG83cu/ZDFcV2U7x4JtmHAL9mKoaktAxwvPaI
+	 NYDwT5qjwRAZkfmmJP8yyRlSIRCkU31HEHBsdlYCRbUSD2/lsmL6OFuAYMqddqUtCz
+	 9e4DAviAQYM8qfJvDF2KYmTB4Efky7gFx9GpzI6j0wCr4ltT6ZBU9rIarIEnjsNY8r
+	 4KeEra8xa2S/Q==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 407C8198005A;
+	Fri, 28 Aug 2026 09:47:42 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Fri, 28 Aug 2026 09:47:45 -0400
+X-ME-Sender: <xms:fZGRajO8tbszWQe3PiKqVvkxLMsSZjlif2S9uYt-vjmJEpeOFvfHCw>
+    <xme:fZGRahH2nr9VObEBXt262phMqxEp4YMB8N3cIZaF2OTvfKvZa1goN1Mt3jlO2MLhR
+    XRBGh-yo1OqJZU_2scto5I2lWzjToiY8e-T_Jdwf5V-V1qBqKdNia54>
+X-ME-Received: <xmr:fZGRavucriFI5JGLOyzGMK7DHAHpqFqJWaIRUP3Pm9cs-8ugBLWe2PJg7Ws>
+X-ME-Proxy-Cause: dmFkZTGhuVEzINoxJX9iq+sBnTJn/YGfvUD4BbjHGtjEf0PAh/o/tXr2vuzbX9U8fMq0zF
+    J5YoWoO47NsZs3vKY4l9KIcKbSS0+BRZwuTUJ9JEu04yQDq/7Q2T0DrqDQ14+GS1y4+Kii
+    qbLumtOCdeF31VVkfQ15zMW49EJKPf9ai0w8NgPevT7/2tBdBdQF+5JevWefJ8gD9CFyC6
+    vy8t6c7nt9Z81+VYeNx6xVt0oCjgXOQEQ8R1XTjNdsxXQezprFGSM7EVxQoC61FUFtMtjl
+    j14I5/V5nIn5meZ617TWS99yg4QSmnCPaVaojmBd58z3obTWdBXUPQx6YOwdozC1RPkake
+    b7CQo7h8uFUrdwxo+a+KEEZRo+rgnaAsXWTX3FZp40gpI88PBF5pdoEJQoYaVNDsOYdDLv
+    nnOn00p8Mp1YDklKa5PNmImiyNBrjQq3pWispVkCYL/vHtE6rX0yKfGG/mSXj2CxL8wv4i
+    r0y0+WYSXNM3YyKgzh/zanZGTQ8dGkGWLsvQDqq9bBRVJpv+ELs7/2/XXATJ4u91Jmv4mc
+    tIbaJNv5r4NMz9B8LAhg6+b4cg8ASkvBonDuNoJuQ96vXhlmquzGIh0JUSLqN/uz6B0edi
+    gEefM8IBWm9PYMz+eSfeOcqLTGPPyW08nMQUgJOuQmELSCPiO+sNgH26i5Kg
+X-ME-Proxy: <xmx:fZGRasTX6KiaE4c_cg9PXtcf5lFwklOXMwCMJ8S4HpMKKGNHaatHcQ>
+    <xmx:fZGRaqEkizgCxDrFfZWtyhjb-WQ1yjdKVnYNxlNWXltvS36zBr81og>
+    <xmx:fZGRahciHnap5NePGxNCROZtKGgBB-XszR-01EHbjJXxOf2TXxTKDA>
+    <xmx:fZGRaqrf2oas2ahHPRsmyNxb7N__Av5_rVQJm6K2AU3sMslJ7AlTcQ>
+    <xmx:fZGRauGMdH0cmV4-9-yzqayTn6Pm4Cv2Uey5kNm71uwNCdeE6SiHXVPU>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 09:47:40 -0400 (EDT)
+Date: Fri, 28 Aug 2026 14:47:39 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3 1/5] mm/memory-failure: efi: add the
+ LINUX_EFI_POISONED_MEMORY configuration table
+Message-ID: <apGOr0BAFc1DMQe6@thinkstation>
+References: <20260826-hwpoison-kho-v3-0-6f79c4b605bc@debian.org>
+ <20260826-hwpoison-kho-v3-1-6f79c4b605bc@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826-hwpoison-kho-v3-1-6f79c4b605bc@debian.org>
 
-drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
-work is dropped.  It sets the bit before checking isolation and
-schedule_drain_work() checks isolation and queues in a separate RCU
-critical section, so housekeeping_update()'s synchronize_rcu() can
-race the second check.
+On Wed, Aug 26, 2026 at 05:03:52AM -0700, Breno Leitao wrote:
+> @@ -1271,6 +1274,16 @@ struct linux_efi_memreserve {
+>  #define EFI_MEMRESERVE_COUNT(size) (((size) - sizeof(struct linux_efi_memreserve)) \
+>  	/ sizeof_field(struct linux_efi_memreserve, entry[0]))
+>  
+> +/* Bit N covers unit N of physical address space, counting from address 0. */
+> +struct linux_efi_poisoned_memory {
+> +	u32		version;
+> +	u32		unit_size;	/* bytes of phys space per bitmap bit */
+> +	u64		size;		/* bitmap size in bytes */
+> +	unsigned long	bitmap[];
+> +};
 
-drain_local_stock() only clears the bit for work that ran, so the bit
-remains set and the stock is never drained again.
+struct efi_unaccepted_memory has 'phys_base'. Do we want it here too?
 
-Reorganize the drain_all_stock() loop, reducing nesting, splitting
-out local vs remote cpu handling, and skipping everything on isolated
-cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
+It can be helpful if physical memory starts very high for some reason.
+I believe it is common for risc-v.
 
-Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
-Cc: stable@vger.kernel.org
-Assisted-by: Hermes:muse-spark-1.2
-Signed-off-by: Rik van Riel <riel@surriel.com>
+Tenstorrent Blackhole card has 4G of RAM based at 0x400030000000.
+Counting from address 0 that is a 4M bitmap for 4G of RAM. :-/
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index a660ea0f820b..b0d8ec042d48 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2330,19 +2330,6 @@ static bool obj_stock_should_drain(struct obj_stock_pcp *stock,
- 	return true;
- }
- 
--static void schedule_drain_work(int cpu, struct work_struct *work)
--{
--	/*
--	 * Protect housekeeping cpumask read and work enqueue together
--	 * in the same RCU critical section so that later cpuset isolated
--	 * partition update only need to wait for an RCU GP and flush the
--	 * pending work on newly isolated CPUs.
--	 */
--	guard(rcu)();
--	if (!cpu_is_isolated(cpu))
--		queue_work_on(cpu, memcg_wq, work);
--}
--
- /*
-  * Drains all per-CPU charge caches for given root_memcg resp. subtree
-  * of the hierarchy under it.
-@@ -2366,19 +2353,23 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 		struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
- 		struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
--		if (memcg_stock_should_drain(memcg_st, root_memcg)) {
--			if (cpu == curcpu)
-+		if (cpu == curcpu) {
-+			if (memcg_stock_should_drain(memcg_st, root_memcg))
- 				drain_local_memcg_stock(&memcg_st->work);
--			else
--				schedule_drain_work(cpu, &memcg_st->work);
--		}
--
--		if (obj_stock_should_drain(obj_st, root_memcg)) {
--			if (cpu == curcpu)
-+			if (obj_stock_should_drain(obj_st, root_memcg))
- 				drain_local_obj_stock(&obj_st->work);
--			else
--				schedule_drain_work(cpu, &obj_st->work);
-+			continue;
- 		}
-+
-+		/* Pairs with RCU barrier in housekeeping_update(). */
-+		guard(rcu)();
-+		if (cpu_is_isolated(cpu))
-+			continue;
-+
-+		if (memcg_stock_should_drain(memcg_st, root_memcg))
-+			queue_work_on(cpu, memcg_wq, &memcg_st->work);
-+		if (obj_stock_should_drain(obj_st, root_memcg))
-+			queue_work_on(cpu, memcg_wq, &obj_st->work);
- 	}
- 	migrate_enable();
- 	mutex_unlock(&percpu_charge_mutex);
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
