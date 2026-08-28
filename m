@@ -1,112 +1,71 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F0F3998AE
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF8839DBF8
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909038; cv=none; b=qDyGGakKiF8eNuhorv6BATaoIfl7/kjcee9U8gYLMJpgOtAGImKp4CfYZiz83hoNCI9F1EOCK3j+jtULeSToNnS0eNSzSv2oN1YnnoCaYnXaDrwiLoIuwP8Js2eDgukT1ej+EIRoRP06rQJ4Nq/LIRjK4ajEUh5JqKl/Rc0tVBA=
+	t=1787909058; cv=none; b=ZzPtCorGiv7qhw+6pJOCLZQqSDj5yCS9DXj8jytnq9+PDpi29WyCa+xUiiMKyXHbPOVJI5u2v+pM/IjQ+vzFEIvoNRko1aZ9RSYiT/nc9bQhnv4aT/D5qmTJF7AlMYSAnqIqzJQMg1bEe8VtMG4eM10FkvMOEbEX4vN67NONBBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909038; c=relaxed/simple;
-	bh=322UMhFdvDDZgOWnNQ6q8zs2pAKAe/iDdvISYD7yvcg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VFIYLI0t0NQ4c0uQCNekUWcZpv6U64CFhz3HOppASERxV7yUy8JWvGNIAFPgRrNlRxD1scF8DU8pvZfJd8CUJfcAnAD61ivwJszTHLWjsZ4nVtE5tu2+XfBMiI4BpNrHgvp3d+31Sjs5Wjn0bCb0iE5yqNWf8pRjs9wMpBjiPV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LFK8SnRY; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Wku3h3oW; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787909058; c=relaxed/simple;
+	bh=Hvdo5v1MfFdr47iAeJk70f6z6nybiKkgDuXe2gZCqVA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uLn6Xz4Pxa40uCi9BJKmJsbuko7klvtXqzFSsTMV1iamLZ6ahE8LjhjWUxdtjGoRjmQNQnUfIaHNVjt449sXQ9fDWHAnr70H9/SX7ENXcsMNms6lhYYzxGqn1wB0V3ac7Kz9KXdgNbpyuKGsfNssDlRIOJnDnCUUvPkxanekoxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E6y5rY+W; arc=none smtp.client-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LFK8SnRY";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Wku3h3oW"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787909034;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=igHMLV5RXhRfwi591wsjzeqJizFkQcxicZYsAwNx/e0=;
-	b=LFK8SnRYrmkLe9IluJYTBb8cG4l1MK9KdyQUcbHKEhzclJH+kgJmNno9Q5hRI/AkT0jU7c
-	MFC9c690RUcNUmIacSfoOY8ozrFy3yYNygY5+CWTuom12qgMx1uIxhygwZvf4EPqabTdFz
-	xAmxQUps/U+1TPzhnwV2VxKL+I8OprumpyEqbrojYiV+1GqO19iLr0HRms+ahLVxdDtz2y
-	Go9nkeHNrrA1Vr+RQhQ0Obr0XGmKusLaELhzxFtskdoxc+M7fwYz8BtvnbdXmtaVi4QT9K
-	hz2ZOHgu+412tdNb4VcZGeLuVCUPC9mCplHynkjXPlf8KXFzNzZuXx07ekjvWw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787909034;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=igHMLV5RXhRfwi591wsjzeqJizFkQcxicZYsAwNx/e0=;
-	b=Wku3h3oWziC/gT22u+ywnjm1PiSNMuHOriTK2cK8dP2Ut9DWNuBINZz+NxAI0PHOWT6BBk
-	TAN1/DAibmNfuHDw==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, Jon
- Hunter <jonathanh@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>
-Subject: Re: [PATCH printk] printk/nbcon: Change nbcon_irq_work to
- IRQ_WORK_LAZY
-In-Reply-To: <20260827184750.203521-1-john.ogness@linutronix.de>
-References: <20260827184750.203521-1-john.ogness@linutronix.de>
-Date: Fri, 28 Aug 2026 11:29:54 +0206
-Message-ID: <87ld9qy4wl.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E6y5rY+W"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Hvdo5v1MfFdr47iAeJk70f6z6nybiKkgDuXe2gZCqVA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787909049; v=1; x=1788513849;
+ b=E6y5rY+WWnFt4kUNsykrypUpwn9/sqZ0F/A6d4d/LFh01biqtje0SGDU35ljZ5X8E4YJDbaF
+ psvYfFztTxCRCEe64ivCU6cUJGRnPJ5JaEMqD8wzPh80ZAzb8hvbWMNzuuuTqL1Q5lveAhe0sx7
+ +4q7Zq7u0yNSO6QLXpIvNF+E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8d8a9a2e6a4f7bb5;
+	Fri, 28 Aug 2026 09:24:09 +0000
+X-Mizu-Trace-ID: 8d8a9a2e6a4f7bb5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a82f8070-cc85-47f2-baaf-70c499834a8e@linux.dev>
+Date: Fri, 28 Aug 2026 17:23:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/vmalloc: fix vmap_purge_lock livelock under memory
+ pressure
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Ye Liu <liuye@kylinos.cn>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260824095020.1225189-1-ye.liu@linux.dev>
+ <aoxE7rw6gru13DB5@milan> <0c34aab2-9b73-45c0-8fbe-e33895bc8eef@linux.dev>
+ <ao3Tf193sQpS22c-@milan> <3b7abe37-4f6b-4af8-a78c-49ff5edff298@arm.com>
+ <ao6heKKQLSYMj4tX@milan> <db2d4453-2bd7-4548-a920-fdc12730dce0@linux.dev>
+ <ao8j2kOMbCUv5g9i@milan>
+Content-Language: en-US
+From: Ye Liu <ye.liu@linux.dev>
+In-Reply-To: <ao8j2kOMbCUv5g9i@milan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-27, Sashiko wrote:
->> diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
->> index a5921a84a80ed..ad79e30afd647 100644
->> --- a/kernel/printk/nbcon.c
->> +++ b/kernel/printk/nbcon.c
->> @@ -1782,7 +1782,7 @@ bool nbcon_alloc(struct console *con)
->>  	}
->>  
->>  	rcuwait_init(&con->rcuwait);
->> -	init_irq_work(&con->irq_work, nbcon_irq_work);
->> +	con->irq_work = IRQ_WORK_INIT_LAZY(nbcon_irq_work);
->
-> This is a pre-existing issue, but does missing irq_work_sync() during
-> console unregistration lead to a use-after-free and lockless list corruption,
-> which is heavily exacerbated by the shift to IRQ_WORK_LAZY here?
->
-> In a rapid unregister/re-register cycle, overwriting con->irq_work without a
-> prior sync corrupts the lockless llist if the old irq_work was still queued.
->
-> When a console is unregistered (e.g., via module unload or hotplug unplug),
-> nbcon_free() stops the printing kthread:
->
-> kernel/printk/nbcon.c:nbcon_free() {
->     ...
->     if (printk_kthreads_running) {
->         nbcon_kthread_stop(con);
->     ...
-> }
->
-> However, it does not call irq_work_sync(&con->irq_work) before the driver
-> frees the console structure. 
->
-> Since this patch changes the initialization to IRQ_WORK_LAZY, the irq_work
-> execution is deferred until the next timer tick.
->
-> This massively widens the race window, guaranteeing the irq_work remains
-> queued on the CPU's lazy_list while the console is being freed.
->
-> The asynchronous callback then dereferences the freed console object:
->
-> kernel/printk/nbcon.c:nbcon_irq_work() {
->     struct console *con = container_of(irq_work, struct console, irq_work);
->    
->     nbcon_kthread_wake(con);
-> }
->
-> Should nbcon_free() be updated to include irq_work_sync(&con->irq_work) to
-> flush pending work before the driver is allowed to free the console memory?
 
-Yes, this is needed. I will post a v2 series with a preceeding patch to
-add the irq_work_sync().
 
-John
+在 2026/8/27 01:35, Uladzislau Rezki 写道:                          
+>>
+> Yes, i think so. It would be good if you could test it with your
+> workload which triggers reported kernel splat.
+> 
+
+The problem no longer occurred in the test environment after applying the patch. 
+I have send v2, please review it.
+
+-- 
+Thanks,
+Ye Liu
+
