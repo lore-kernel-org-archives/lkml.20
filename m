@@ -1,69 +1,36 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A9C2D8385
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0233218A6DB
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787886511; cv=none; b=SpDcERAgmus9W0TJqIxPvzXauAXo6bZeNd9r2Vz1H6eUt4lyRyLMWKSnvjKtCMNJxmcuCOIWVhAfRGXub3ZS3ohCpA4m6psq23f3Hh5MvQ/k8jqmFMhSclvAIv+N5uyH6UuEG4Txv5VlVuhwafgLwRmJZHHmpufGKwfhQ8NfeAw=
+	t=1787886641; cv=none; b=fjab9QXQHYkvSlAYRfM2x21Y2ps8y6zBv/vrOzIX6oh1qYe3QogfHQRiwpvbA3OT5MY1xJtHa3nWFy5DySjjpi7p/vf+ztCLwa2Q3G0AH0lwmRw9Vsnw/+niloOLhSU/4zJEUxfjptWkxzH3Q3XCBPBgq0/NQadAa7LJEWYtk9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787886511; c=relaxed/simple;
-	bh=58MZnXqNvAUpTvQbAaqqCYU3pU8leK244U0vcP5a9HE=;
+	s=arc-20240116; t=1787886641; c=relaxed/simple;
+	bh=hfXKRYN40nrVu7Eoi6miivu7UIIRPwt+ewg3z4W9IEc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tMCpbGqudm2KcSHMX/97X07dPYIbUJCKIWLTELTA9lDHb4s21rM9Z2pmw/ZK6/7Z/KxJdjmYm3L5QNAoa0s8fe1JHBLmAsu+vQIztmdz9fnl14c0za72Gx2+vfP39KaHJwDFzrFGSQyc60BxE1xHhzYznpewBa+QgEWdwTF0QOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zo0D48i9; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=I7OteDA/CTHp3lx5rnvhWcm/DwnnebOcW7UnoAzWlqb1545t0FOlK3JhaDAm8Z2GY9GwcGgTyfs2+BlPADtQqb9nrD9Df8BEjlZoIIww4SABc/F5XdiKNhPbE6qLruP/sty8962yxFLb3Nmdw2KOOgx70jC1TcOaYPrCYTMwI2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XGQfXx2w; arc=none smtp.client-ip=95.215.58.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zo0D48i9"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e7109321dso500855a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:08:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787886509; x=1788491309; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KcCMs6Dmp6e/c61eU4qREyq4ydHiJTI5GYvkaDUBoPU=;
-        b=Zo0D48i9JQaJTZAH5MvXl3DT4mNS4IMvSOhv2BKwaagGbpIINaHpXFfDQtjSRnK0kn
-         16/yH6VvWm9EJ9bYNCCGxQeQRvYaS5snzI7Mhi7EQpOlYwXLLlXOV7d8CrFShvkoQQ50
-         W3fbqh0w5DL8xDfWymZ6JUBLNzXQ0G99r9FtBcGq/hGpwHVyieQgPJyiLNiAHM/QZCuI
-         ioyWugrYf2vK+dFh6uAcDigRNd5ChuzMuaAUOk2vRKUFpRj2F/J44z06/LuYPfGM7AEd
-         3+u1bVDdnvx3+sc9Jq6p2Qfiezl5O3CoIL8wzoxUDfeqvtPkq6aJwRv7BNoFItwyzps5
-         f8lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787886509; x=1788491309;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KcCMs6Dmp6e/c61eU4qREyq4ydHiJTI5GYvkaDUBoPU=;
-        b=JtqYIXHsHeri3eayJ2JyXNQM5kTxgKiS/JTP7DtlBMorPJFDc4RZWCXZ7xNzY4LXgL
-         IqarvbftG6nScQgx/Q17EkxbssvKwh4NfvHQrSMYOnoQlX19WBj/mF3qQTNUSr035V8P
-         eoICzFIi7iP9PVuC07d1uPlLOxqcJMHIxGn+GYna4TOKG0Ewu39sr7k5Bx+If3UL/PGk
-         q6uhrj9bWm6PCkL46YFvEjaBkeUztkkSdq99xdZ8OTqrjnzhwi2SRYbnKdrSeJy2d1m/
-         rK3F2+qzQ5tz5WRAo4DlsXxoljXy04V4Fp6ijpGFNO28O57ivCti1Rjr7fPz6ZmMgaqa
-         vu9g==
-X-Forwarded-Encrypted: i=1; AHgh+RrFOVrOoMrBjP69zoo8cZUckPCXPFDKMtPc8WNu3hHsfQM3C6HkeOUgRqYJubeT2aPpz+T2Z5IshuIHEqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nExUj8HfozWeIgIM/fhcY8/qeK8SOBsFdywSrCq2Ccee0JhNd/
-	K74gTp5Z7UuHZ6PBxxOtg/e0HZAd7GllbpJdPNUr4BATy+fXqdsqP1tK
-X-Gm-Gg: AR+sD13SrZjUUa1HYy2R2PQSqZGht7ziUwTk+t17K4ex3ECzukhLv/c5SB1m7RnuK8Z
-	eAupAWAjNUW84tT/+Shy5roxMtkOTY+J6212TsobpNEbAuRVnAembOis+v8IAlYtL6Y0LUiunkG
-	o00r9pMi7ym57v/YvypJyvWioxrpjqduhnxEcPt9+7EwGrdJ/PpB9Dyqu+yOoXFfBbWBR/WhXSe
-	A4eUcu3PsQBzxq4hO/O+8NvsQGo0/6kuJgbunU43pY9SLHH2/nIk5RLX2vbYOWI5sYT/rZ5TIfW
-	HjDIVZjU67OuBAPhKh52jhautYX1dXPOS2OPg1pOVXF/VeKL6pHQ+NhiiFAxmntdHmy+0t3Nqbl
-	yZxaQkrzO0IVpkFCguKWP42vowOJzdVlA1upvXkaeG+KRu8uzje7FURPyac/ggTC8U/m7tJ7zXt
-	QdfE6Hjk2idn/VvQxQHK+Lo5lmAFz1kLkjO5lP1bmFywzPCxUWcPnm4w6OrPKKxdPLPPMV32vFz
-	QzCfGnZPfJM609apgArLQ0dK6YamBrolYIfAQ==
-X-Received: by 2002:a17:90b:17c7:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-396d0fc1b2fmr7004791a91.16.1787886509555;
-        Thu, 27 Aug 2026 20:08:29 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm926366eec.14.2026.08.27.20.08.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 20:08:28 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <1bc0aeda-aa67-4541-85cb-752017f376eb@roeck-us.net>
-Date: Thu, 27 Aug 2026 20:08:27 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XGQfXx2w"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hfXKRYN40nrVu7Eoi6miivu7UIIRPwt+ewg3z4W9IEc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787886636; v=1; x=1788491436;
+ b=XGQfXx2w6iMYceE7NILGEYf9XUYW0HLS8aFsJ2qwMwXNplrTlNtDIId+yLQPWJbirT+e94nY
+ tuVtUwgCKBO8WCYJzmX4tHPXVDflYGVsEAJahyCj8l+M4MFQ9A0LZMTl7RsNcyMn3VUTFh5maDQ
+ Snwp4QS3BiJ3VNJ2Xr2ykzJk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4ac20235960621f5;
+	Fri, 28 Aug 2026 03:10:36 +0000
+X-Mizu-Trace-ID: 4ac20235960621f5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev>
+Date: Fri, 28 Aug 2026 11:11:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,96 +38,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] watchdog: mediatek: acknowledge pretimeout interrupt
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wanming Gao <wanming.gao@mediatek.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- wallace.yu@mediatek.com, Jarried.Lin@mediatek.com, vince-wl.liu@mediatek.com
-References: <20260827092616.2724197-1-wanming.gao@mediatek.com>
- <5e1793d5-6c78-4372-872a-069fcd99a07a@roeck-us.net>
- <apDtp62h_4uZQ84H@google.com>
+Subject: Re: [PATCH v2 0/2] alloc_tag: fix a leak and a deadlock around
+ shutdown_mem_profiling()
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260817062726.106511-1-hao.ge@linux.dev>
+ <20260826203914.347c42aa00081ee9e0eb858a@linux-foundation.org>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <apDtp62h_4uZQ84H@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <20260826203914.347c42aa00081ee9e0eb858a@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/27/26 19:08, Tzung-Bi Shih wrote:
-> On Thu, Aug 27, 2026 at 06:54:03AM -0700, Guenter Roeck wrote:
->> On Thu, Aug 27, 2026 at 05:26:12PM +0800, Wanming Gao wrote:
->>> The MediaTek watchdog pretimeout interrupt is level-triggered and does
->>> not have a separate acknowledge register. The interrupt is cleared by
->>> changing WDT_MODE_IRQ_LEVEL_EN and then restoring it to its original
->>> state. Without this transition, the interrupt may remain asserted and
->>> cause an interrupt storm.
->>>
->>> After changing WDT_MODE_IRQ_LEVEL_EN, wait 70 us before restoring it.
->>> This is longer than two 32 kHz watchdog clock cycles, allowing the
->>> level change to propagate across the clock domain.
->>>
->>> WDT_MODE is also updated by the watchdog start, stop, and pretimeout
->>> operations. Protect its read-modify-write sequences and the complete
->>> IRQ acknowledge sequence with the watchdog spinlock so that concurrent
->>> updates cannot overwrite the temporary IRQ level state.
->>>
->>> Signed-off-by: Wanming Gao <wanming.gao@mediatek.com>
->>
->> Applied.
+Hi Andrew
+
+On 2026/8/27 11:39, Andrew Morton wrote:
+> On Mon, 17 Aug 2026 14:27:24 +0800 Hao Ge <hao.ge@linux.dev> wrote:
 > 
-> Might be a bit late, but tested on a MT8196 board:
-> Tested-by: Tzung-Bi Shih <tzungbi@kernel.org>
-> Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+>> Two fixes for issues reported by sashiko:
+>>
+>>   1. percpu counter leak on modules loaded after profiling is disabled.
+>>   2. AB-BA deadlock between module load and /proc/allocinfo readers.
+>>
+> 
+> Thanks.  AI review asked two questions.  One pertinent to your
+> alterations and one pertinent to Suren ;)
+> 
+> 	https://sashiko.dev/#/patchset/20260817062726.106511-1-hao.ge@linux.dev
+> 
+> I'll queue the patchset for 7.3-rc1, with a note-to-self.
 
-Never too late, really, unless I already sent a pull request.
-Also, I have not pushed anything out, waiting for v7.3-rc1.
+Thanks for the heads up on the sashiko review questions.
 
-Thanks,
-Guenter
+The question on patch 1 (codetag_load_module() error handling)
+has two parts.
+
+The lost error code issue is already fixed; I sent the patch and
+you queued it. (Thanks).
+
+For the rollback part:
+
+I've also seen Sashiko flag this same issue on another of my patches.
+At the moment this case can't actually happen, alloc_tag is our only
+registered codetag type, and codetag_module_init() cleans up its cmod
+from the idr on every failure path, so nothing gets left behind.
+
+That said, if we ever add a second codetag type down the line, the problem
+Sashiko spotted will become real. I will follow up later to refine this
+logic and make it more robust.
+
+The question on patch 2 (async /proc/allocinfo removal racing with
+alloc_tag_init() failure):
+
+When I first read it, I think the window is unreachable. It requires
+alloc_tag_init() to fail after proc_create() succeeded, and a process
+to open and read /proc/allocinfo in the gap between schedule_work()
+and the work running on system_wq.
+
+But CONFIG_MEM_ALLOC_PROFILING is a bool, so when enabled alloc_tag is
+always built in and it cannot be a loadable module. Its module_init(alloc_tag_init)
+runs inside do_initcalls(), before /init is exec'd. Failures inside
+alloc_tag_init() are already very unlikely to happen. When the failure
+happens, no normal userspace exists yet.
+
+That said, I realised the fix would actually be quite simple, we could just
+move proc_create() to the end of alloc_tag_init().
+I am not entirely sure whether we should do this though.
+
+Suren, what is your opinion?
+
+Thanks
+Best Regards
+Hao
 
