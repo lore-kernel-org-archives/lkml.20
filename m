@@ -1,147 +1,242 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D733AA1BF
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906473; cv=none; b=N1gsGbUJwu6n7FFNTfXQ/8a8E+tsNgtOfyB7MaUB3M8HjU88OwvShqQKP6Wd5Ayid0Si6s+CguoQdGZauBEh7l6jL6t4nB9VLXt7NEEwxO9dNbWFIfqrS7rPrLfNhDw2NgrjZzCI02wBLz8d9OvcBrA9faingx6i5Lp5dKTaLZM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906473; c=relaxed/simple;
-	bh=hrY4llJi2AlzZ5c1W4tRySENqKRU+7rNGfd4hHgfsfA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=HXIAHpsxf7az75JL4a2bJnwaHvUkuhErSBrp0rkvPcWczBO+eXo+3kYE+tX2NrMbwSWxXnOalyxeuuo2mVFh06nESjY1tyzA7gK3LKKImEiStfEhdoLrlutqA4blfEwGW+iHu/tKJxkCcGr2mf0F/+M3TcbiGEIUfvbQcDBY3io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wcudiWAl; arc=none smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1E03E9C26
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787906536; cv=pass; b=VFBrTb2O/s1qynS9AoXh3uTbLb46PHk3caL173Dx6xMj0KzsfXO9pEXGcHIENg4iuIDMcW3Z223mBvV+CHOMpgYIYVeGkIhrH2kIH7T9e4FQmjQR1ZBbJD48xORTcUYyJn6XJ6bA5TFM4NJIXQRU4yCmSCfEMHsjE9+V+id5x1w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787906536; c=relaxed/simple;
+	bh=fEE+65zMqX/ESlt+j6tEmMpTDakYWgxrcLiEmC0Yq0A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aRMnWZ9hiIYZmkjCoVsP/y0E4Ee8fPHUzNjtd6JIMfAj4skViI5gYWUHLEZqYYPzd5nZIZI5T+sOj5UERb1Jd8ebL6xt8HkfTT1PxH67UmHyLLNBh6SZyzQTzVAsS86VZbPgG0ZwGcY87g99kQuaPuzQ2Lx0PGDlzwDS0Qg3Efw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=JHHaZLXd; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wcudiWAl"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66d1447e2b1so716684d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:41:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="JHHaZLXd"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c207cb16cf5so121479766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:42:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787906532; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PUM7vhdLD69G7Vk8Q5vl5KtFwfokfVgRbEHOO2zlXEaEfBd8XBI4zrkseKHPio2apV
+         6YUe+czCRv7MOhTqrrveqVGQxhXmp7Ox4Y2vs4nlbh+mYuAtp+DaL9Om8OZI321r9R7M
+         ma2i9PT+UGpSCc9tEU4vL5xoL9+Iawkefz9nooOlKhf7EB7lADtq4h073hbjxOFn3PE3
+         by9NctL+fhn378h+2H8g2kO2IAidFZH+JqoueTEH91CcH96orrf+Agx/hmXeNJKzd7c0
+         rsOQGaAQ/OAJeDEUR2yYl9h1x9ayBVWoF32ibgxIBQGkXb+Dr/G+fGHfoBXUdpwwhIoP
+         7X3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
+        fh=cZhhWNexwcI8tgT+fJdED0KHnx8S853PD5oPCUQMfQ4=;
+        b=esR19MfqZ4TXVaQvXwNODxNRokD7cZyb4v11RzTV8aG8fQaoUivGx06J+shj5U8kaA
+         ojtK8KPgolfquSFEpBCiqyESIcrdVKTq8o5djk6Cpomq1Asy4ux/M2hh3LcrPtFVHOVg
+         mARnTni/S6Zd2V7Hj5ULf0HgKw5KMlV9msbv0/oWv4PDQVXaSKKlYAr/f10KncWrjdZ9
+         pQoxYA84vFSXJkzb/n1nvK2VFgSNmHtFoRcz9vmn7/M6qzwpcu9BZUTLICyNReVOfqSg
+         AqbYbBxD9Ckol3/xMwKwB+CEkeGIV/TJwnjnoVKp9NDhA+Yqyds2UDmFEOCJeV5M+z7E
+         Nu/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787906470; x=1788511270; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hF7W6IgkqW3BA6qKiN2sGuxt00zyQz6GHtb2s+mggXw=;
-        b=wcudiWAl66Jp1oIAZOxdKfsUPYY8QvwHfXuetwh3NWJlpXF3ftS3WhWQQuzeA5gpYA
-         Nyvm3x4l+KWwBEJCv+qNJX25JAKtrhXqGNQYvJqGkvYfP76Ip3xPETXLwfDTx8eEuej2
-         ntKI+g9EB9TO5SL9SxFjcIaq2YXVO+HTzs4IH8/GeaVsvEr04xdSJ6MqMvlYmvYLTbDy
-         /d2j7evP0q6Bf0C0BC3PbCi2aa1fDAuTvj9MCZpI5TuJ+IUn9wEe47qbhCspI7+6u4Q/
-         sHDnwJ1mmtOQKPFH/mi6iW0ei0u0r61fqo8cOhEvz8G7di0tnOXhOnrNyIxU02k5ayiI
-         gfcg==
+        d=sifive.com; s=google; t=1787906532; x=1788511332; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
+        b=JHHaZLXdkYEXbeJ3HsbnpPmnqgw9kPKvGI6jsykuKzX+9Rc3dSFwx5qgk9q5hYp6u1
+         BhquNc5u6GauamBVczBgNA1GnKBxFr34hwbKZk9IEbd9ZXO50q4KRS7CfS/rbbLnV9KI
+         INaCgf7UQMYd3clcEqIQVyLdkIk/LnuT831rz0+PEC/brfpFWQOEOdq89Hl13AmqjNUX
+         SBxYi0qb0zJ2Pil8rCwGwyhe9+Qa4TB4Aia6O+FJYe7wIyMQdcMJgumtrVNsaKBGhcBo
+         rg6WYJMw0kn7OPLx5cm30rCT9rhwLFsQ4SOhYIikXjLk3NI5FD7gF0kxv2Onz/YdKoPK
+         8Qlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787906470; x=1788511270;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hF7W6IgkqW3BA6qKiN2sGuxt00zyQz6GHtb2s+mggXw=;
-        b=nOpsVjlbITd8y8n4cnX6sFUDqdvoBH2CIBC0tNV2gmXMrXZuc4+RWl7Z21IxU/ROpz
-         fQc1uqNGJThrqxVniX7mCoDooYKIZOo6V3cAs1kDof9UU2FSpxdMtlVdJ0dGdFxWSIN/
-         VjTOEiQWieKze+SVttEfloBKrWKSTADk9REsWybzX9IlXQLZccivgbrWazSMalzB3852
-         Bs4qMZzotATdWFq9fZVdGmT5DbGdylgAKct2uWvH8F5glzXSzF6NWUB6j1PW90REB9c/
-         17ILthKTNESvrODr7lskpssLKmQ5LoYqYeGutgeyUxJE6ODg4/0k7R2XkNGEo8iIWgNR
-         u/+w==
-X-Forwarded-Encrypted: i=1; AHgh+RpSY3cJ8mRCi+rw+4fP24N3CMRDHp5RbfgL01dRlncChcm/XIrGtFCCmfcTZ8f/F6sInYH9YFFYSnwAFpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltvhbF7aGyN9h524vzTDAzrynt6FNk2f76/QLDtfTBKP0BMJXF
-	QpMBAwGReoy+yp28ZpjOgSmuFA9rcRL20nCyaSrEgIWl/RrMjAjEego+7BQGRDMQ+g==
-X-Gm-Gg: AR+sD10TIx/qRV6EdWLTDPtOJ3Mk7YqJe4bTejNwREYSTi124YmQbe78r2ZxNg5Zrc8
-	GYEu7qHRE7FAiV29jQrEGIcOeGpv/3HkYBDwELbfNbV1iepfyH7PsqYk9VKwtZ4P0pQbNQD+SVY
-	lfaQxkyuxmO6FwGXFZcwqofZWu5sOTZr1vRYyiu4+zDfOj91jUx/tDOhqla/irAnWd6f6Y7ZQUL
-	6fh7s6JVp4sHQstnHLpg4Alje7pHyd6BwNzFGibDREee8wlV6/5vsRMeaLe+mYznlqPzW7na+4N
-	NVQXSm3ltEh8aOOC+bqxKq5pk5c7i0Ue+c1j96SN4IVxqZwDmI0TOYdv/uoVutMTQr29A1bOJWG
-	F0vmFaJTnJaCgZGRH23ESx8COwWP5CIzxG2c7y6K/IpPVcrH8brJUw1I2LeD3ZRM4JVrlSl5ZyS
-	EQYx4pxCidW2BFzf05fHJYYZcKoCakc8P0Lh4EKfYg1NHoHGjJ/H0e/HQIqSOo2+4VZMxKGI0o8
-	B66U3inRjrAT0XJ11xwCBCwKLVlRbQsD8N0+SE8SW+vx6B7
-X-Received: by 2002:a05:690e:4181:b0:667:8644:fb5c with SMTP id 956f58d0204a3-66e1185c3a5mr4866839d50.16.1787906469125;
-        Fri, 28 Aug 2026 01:41:09 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed15430sm508418d50.15.2026.08.28.01.41.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:41:08 -0700 (PDT)
-Date: Fri, 28 Aug 2026 01:40:51 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 07/25] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
- folio_activate()
-In-Reply-To: <apAllneItXmyjRPo@thinkstation>
-Message-ID: <7b30ca86-dca6-83b7-a632-180e35ed2a0c@google.com>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com> <16b39f43-d91e-7b23-900e-90cec13837ff@google.com> <apAllneItXmyjRPo@thinkstation>
+        d=1e100.net; s=20251104; t=1787906532; x=1788511332;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
+        b=n2RbX0Q8V+mvKscuIFBOF6ZPpaBA+/N+RnUTxdmFNVLfcJoqQrvqMunMI9FEIP1Dng
+         diTj3QJmHOr24027/qnPLlymJs1J4TAZOkAJl2sxokMAsjDdzGndCf5SYGDkGun6Vfh6
+         pZjPkzyCttaiWxp3CBQTentDFkPafrCzlx06mYHO86p6lBfGiZmJAc7owMOAsHgT7H7O
+         KsIOf4jptXgcs726dUFMSYCldiRArQynSHGZ5a/S1qxrlka7RQmHO8nwMEbyhKblndGu
+         iwN312WC/7YDebC+Tq8m3eHYgkIXi88pahiiX6s0vDDxtTo7dX9+63AkKY8wtlfMQuRX
+         l84w==
+X-Forwarded-Encrypted: i=1; AHgh+RpQrzXqokIIqhP1E9mCv+yTkAwUqaTMAvWizYAUNvAMJrrt176aPfYONplXJfdt1jR8NSIWhb/2WK0QRYs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsie/0DfwYOniaWS5irT7HN8VjTrQwrkvwcg68GJK59cD83p/d
+	8CkGkB9DJXVH9KReeRUPviV7Pr6KdtTTzPwe+UoEfw85qc9s7sByjQGLLACP+AEz+bAaPf+5tLq
+	lt8/EEfOh6lePOUYbswU3IJv1PRZBhyg2IWV+p//E5g==
+X-Gm-Gg: AR+sD11zMZC0rBVu0rNTdwkRuTNvMu4ux1aK0z4pouAi48x4Dk6KY0C9ChA+q/CWt//
+	QudRUxsLs9hG81ytBODcBJZNCvXwAm6clReZAQ4aYeZ3ATOqaFyan28mfRyW2IypA/fvqtOfHJs
+	T7SBPn3hfQhEgBFHinP7eHS4WssrAWXH4kxQvycZtZWzTCyoNf3ipW3QAo5+0i8POjZUzrC1Ktp
+	SOlD+prHhdNFUxe3kGFZlmHMeeELrxiqJD7/10kMiBzJOqrrLxgqKqhZ1//ZASRT6JaDvYtaBNR
+	jzc1ml9Z5yuHVAH438t8VtWMb3q3LxU6RX1QI58hIlH8Cn0=
+X-Received: by 2002:a17:906:f596:b0:c24:c22c:6372 with SMTP id
+ a640c23a62f3a-c2556bc89ddmr380599066b.5.1787906532051; Fri, 28 Aug 2026
+ 01:42:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260615064855.90316-1-zhangzhanpeng.jasper@bytedance.com>
+ <20260615123821.373248-1-guoren@kernel.org> <7c490aeb-a3d9-4fe9-81de-f9662577851d@iscas.ac.cn>
+ <CAJF2gTQ+-gpvUDtOh99aKP2-iDJy3MYOWti9k2Ntd0-J0MXqxQ@mail.gmail.com>
+ <e051d822-d0be-4a88-ba86-ec9b5905fd1e@iscas.ac.cn> <CAJF2gTRH6x78A3J5HJ5kUM47aDv8R0yFr8LRP+7jiLX4GL3ssg@mail.gmail.com>
+ <20260618143634.7f3dd6c5@pumpkin> <CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
+ <20260828085211.2c8e6b74@pumpkin>
+In-Reply-To: <20260828085211.2c8e6b74@pumpkin>
+From: Zong Li <zong.li@sifive.com>
+Date: Fri, 28 Aug 2026 16:41:57 +0800
+X-Gm-Features: AcwNN1Vs0PjxxPtn0TUC_KuzAnVZJvtJ55ltk6ptl2Y2t9swn9PGcyLQJdEC5LA
+Message-ID: <CANXhq0q0pRXbL3sA9hFoFh6YGJh+M8SDUcXNhsHDA433mFb8+w@mail.gmail.com>
+Subject: Re: [PATCH v1] iommu/riscv: Support 32-bit register accesses
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Guo Ren <guoren@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>, 
+	zhangzhanpeng.jasper@bytedance.com, alex@ghiti.fr, aou@eecs.berkeley.edu, 
+	cuiyunhui@bytedance.com, iommu@lists.linux.dev, joro@8bytes.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	luxu.kernel@bytedance.com, palmer@dabbelt.com, pjw@kernel.org, 
+	robin.murphy@arm.com, tjeznach@rivosinc.com, will@kernel.org, 
+	yuanzhu@bytedance.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 27 Aug 2026, Kiryl Shutsemau wrote:
-> On Mon, Aug 24, 2026 at 07:09:34AM -0700, Hugh Dickins wrote:
-> > @@ -355,6 +356,8 @@ bool lru_add_del_folio(struct folio *folio)
-> >  	/* BUG_ON(folio_test_lru(folio)); */
-> >  	if (!(folio->lru_next & BIT(LRU_NEXT_BATCHED)))
-> >  		return false;
-> > +	if (folio->lru_next & BIT(LRU_NEXT_ACTIVATE))
-> > +		folio_set_active(folio);
-> >  	folio->lru.next = LIST_POISON1;
-> >  	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
-> >  	return true;
-> 
-> folio_activate()'s try_cmpxchg() can land in between two lru_next reads.
-> Logically, it is safe but I suspect KCSAN would not be happy about it.
-> 
-> Maybe READ_ONCE() here?
+On Fri, Aug 28, 2026 at 3:52=E2=80=AFPM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Fri, 28 Aug 2026 10:52:08 +0800
+> Zong Li <zong.li@sifive.com> wrote:
+>
+> > On Fri, Jun 19, 2026 at 12:02=E2=80=AFAM David Laight
+> > <david.laight.linux@gmail.com> wrote:
+> > >
+> > > On Thu, 18 Jun 2026 17:51:34 +0800
+> > > Guo Ren <guoren@kernel.org> wrote:
+> > >
+> > > > Hi Vivian,
+> > > >
+> > > > As noted in the RISC-V IOMMU Specification, Chapter 6:
+> > > > > Whether an 8-byte access to an IOMMU register is single-copy atom=
+ic is UNSPECIFIED, and such an access may appear, internally to the IOMMU, =
+as if two separate 4-byte accesses =E2=80=94 first to the high half and sec=
+ond to the low half =E2=80=94 were performed.
+> > > >
+> > > > Therefore, the atomicity of 64-bit MMIO accesses is UNSPECIFIED and
+> > > > not clearly defined in the current ratified RISC-V IOMMU
+> > > > specification. To handle this correctly, the Linux RISC-V IOMMU dri=
+ver
+> > > > should fall back to 32-bit MMIO accesses when reading 64-bit regist=
+ers
+> > > > (e.g., performance counters). The behavior of 32-bit MMIO accesses =
+is
+> > > > more precisely defined in the RISC-V IOMMU specification.
+> > > >
+> > > > Thus, many hardware vendors implement 32-bit MMIO (rather than 64-b=
+it
+> > > > MMIO) based on the current ratified RISC-V IOMMU specification, and
+> > > > this driver does not appear to benefit from 64-bit MMIO access eith=
+er.
+> > > > Performance is fundamentally constrained by bus latency; assuming t=
+hat
+> > > > simply reducing the number of accesses will improve performance is =
+an
+> > > > oversimplification that ignores the underlying hardware
+> > > > characteristics.
+> > >
+> > > If the bus latency is significant it is almost certainly worth using
+> > > memory accesses to avoid re-reading the hi register.
+> > >
+> > > Something like this might work:
+> > >
+> > > static volatile u32 hi_prev, lo_prev;
+> > >
+> > >         u32 hi =3D read_reg_hi();
+> > >         u32 lo =3D read_reg_lo();
+> > >
+> > >         if (lo <=3D lo_prev || hi !=3D hi_prev) {
+> > >                 u32 hi_tmp =3D read_reg_hi;
+> > >                 if (hi_tmp !=3D hi) {
+> > >                         hi =3D hi_tmp;
+> > >                         lo =3D 0;
+> > >                 }
+> > >                 lo_prev =3D ~0u;
+> > >                 hi_prev =3D hi;
+> > >         }
+> > >         lo_prev =3D lo;
+> > >         return (u64)hi << 32 | lo;
+> > >
+> >
+> > Hi Daivd,
+> >
+> > I included this in my v5 of the IOMMU PMU series, but we noticed that
+> > sashiko-bot AI reported two issues:
+>
+> I did say 'something like this' might work....
+>
 
-I expect you're right, and I or someone should add that in due course.
+Got it! Thanks for clarifying. Just to share with you and everyone
+here, I will go with the previous version. Thanks again!
 
-But I'm not in a hurry to do so: I did run KCSAN while testing before
-posting, and amongst 770 KCSAN reports did see a few which looked
-likely to come from these changes - yes, something in lru_activate(),
-which would be the WRITE_ONCE() end of the READ_ONCE() you suggest.
-
-I decided it was more urgent to get on with posting the series,
-than take another pass working out where perhaps to add those:
-needs a different mindset.
-
-I'll grouchily get around to agreeing to add them: but I think
-they hurt readability, and I'm surprised that KCSAN doe not object
-to almost every line I've ever written - that's what we do throughout
-the kernel, make racy unlocked choices to minimize overhead.
-
-Do you have a head for smp_mb__ barriers? I'm more anxious that
-I might be missing one or two of those.
-
-> 
-> Other note, page_pool (pp_magic) seems to be using bit 2, but I don't
-> think there's a real conflict.
-
-Yes, again not a problem, as with bit 1.
-
-Hugh
+> David
+>
+> >
+> > 1: The lo_prev is immediately overwritten:
+> > The trailing 'pmu->lo_prev[idx] =3D lo;' is outside the if block and
+> > runs unconditionally, so the 'lo_prev =3D ~0u' is clobbered before the
+> > function even returns. It never survives to the next call. lo_prev
+> > ends up holding the guessed value (typically 0) instead, which is a
+> > perfectly ordinary small number, and the intended "always re-verify
+> > next time" behaviour never happens. The sentinel write was effectively
+> > dead code.
+> >
+> > 2: The wrap check itself can miss a wrap
+> > Here is a concrete sequence. Assume a previous call left hi_prev =3D 1
+> > and lo_prev =3D 5, i.e. the counter was 0x1_00000005. Some time later
+> > the counter has advanced close to 0x1_FFFFFFFF:
+> >
+> >   1. hi =3D readl(addr + 4)  -> counter is 0x1_FFFFFFF0, so hi =3D 1
+> >   2. the counter crosses the boundary and becomes 0x2_00000008
+> >   3. lo =3D readl(addr)      -> lo =3D 8
+> >
+> > The check then evaluates:
+> >
+> >   lo (8) <=3D lo_prev (5)   -> false
+> >   hi (1) !=3D hi_prev (1)   -> false
+> >
+> > Both are false, so the fast path is taken and 0x1_00000008 is
+> > returned. The true value is 0x2_00000008, so the result is short by
+> > 2^32 and the third read of the high half never even executes.
+> >
+> > Both situations share the same root cause: It puts the reliable check
+> > (the third read) inside an if guarded by the unreliable cross-call
+> > heuristic 'lo <=3D lo_prev || hi !=3D hi_prev)'
+> > Case 1 is an issue in the bookkeeping that heuristic depends on, and
+> > case 2 shows that even with correct bookkeeping the heuristic is not
+> > sound.
+> >
+> > To make everything simpler, I would use your first version for the
+> > latest IOMMU PMU series:
+> >
+> >         hi =3D read_hi();
+> >         lo =3D read_lo();
+> >         if (hi !=3D read_hi()) {
+> >                 // Pick a value that happened while doing the reads.
+> >                 hi++;
+> >                 lo =3D 0;
+> >         }
+> >
+> > > It shouldn't need any locking but the accesses do need to be ordered.
+> > >
+> > >         David
+> > >
+> > >
+> > >
+> > > _______________________________________________
+> > > linux-riscv mailing list
+> > > linux-riscv@lists.infradead.org
+> > > http://lists.infradead.org/mailman/listinfo/linux-riscv
+>
