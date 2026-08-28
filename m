@@ -1,247 +1,371 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022124.outbound.protection.outlook.com [52.101.96.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A53E30C156;
-	Fri, 28 Aug 2026 14:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926730; cv=fail; b=HDQVU9Ttr1gkD/D2MyU9leDUIe3LgxSkxOSDh2G0kSXKLf0qEjBNxNUuDD90STyTqXUVkHMw1e+cRGx3TH/4LvJu4qdpH+ka5dy7sCXjUPUI6PWQZE1kZYqhCpMc+pYGwiLhP2UJJNrGi/pdL0y8u5FWB7Z3VzaQDtZreKK9jek=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926730; c=relaxed/simple;
-	bh=oNPXjgbrBFsm2RNP9OSvLFGG9Z2VByABY7PImK2EzG4=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=eOu/8ThhYT3y5i9fN0t3x1OQotPxQoZ1E9QioB7dEsulUksRqDn//tiha7IrLRq8UXKgLd/Woo7eMFdDRGzUaFR1wGrfkS4OGF26u0m0OY6n2Un0taZDB5K0Vryz8TndaiRy3tbnQ3Q4oUA8kcvQ5+KDIlynPDWd+I/pupkTYjw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=AVh75MV1; arc=fail smtp.client-ip=52.101.96.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4580B3290A6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787926733; cv=none; b=FL4e9YqAtBKCLPIyoP3IZDwETeaWR/I/E5UHUeqHSfAW4gC5ZBSjr7GOMLEvyVoEqeQVwA6grCjRrAU+2HanK838LoPVPVID2BXe1lCPhdNWd9iZkHz4hu2oCG9Fe4HAJsAiqtgdseMKRIOY8460w30BIW6Ri81Wuxcc0WUOt84=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787926733; c=relaxed/simple;
+	bh=tOIayJ92xrw6pvO0WbOfaDSneoKGHjWYUfTGAkwGxd0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pWIFaqKLf9Du2A9mx1b3nONOIz/IfMP41qK6qoVVfvaqvPbrPILlljAAkr6hUCDjlwUkI5ZwILfOec85wpKGXt+ctZVmt9dqBoD9cYwQhLHLonboDDwDK5W36ipDkRO/2Q0UWQ4rlUD5KfQqXOB3Fa4uBxnKFuHAD6RbtL1R5/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vhjLpdP8; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="AVh75MV1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jtKlKEwWQ+s4BiG1wXxGqlzoBA2hMF4E+cIrhJXepb20n2RIzRiMjM0tBdRVu3DwckBhzV3bl/dE5PSGtRO22dBoVLIwIOYwjDZCiFk3/zNudbjsh8SDdvTOMFqAMtO6HtGfL9W0VPKr/Sf7CuI8LuVRg9zSAQqrNUULCWljjLlTBZ+toFrIIxrFHzxVTNfcT6BAAPDASbgkLOIlD8JxILDgeJ3GdE689dXSPfFa8BK03YlHfAUF4tGUMtQD/XitidtsduvAokyJ5ZW5mtf2ZqunKU9jzGwSux7pZDO3Gt883KRgwa4PHbnKSVqCtOcvrrwnQnWWfhraFiBSLCkNcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XZt1vtouPuDUpEB9LJBT7HWlFj1H32H8bAQB37Xpv80=;
- b=G9588NMi4nj0NxqMXhUQWmcWtEoQdu0NOOqYI6M0fAXmRyEGFXXqu1FcwF//xWuGJiyJXXRP/vr79L0w0hnByPCV+ciIC4IHch82kq4AJ7Z+Rj3F/ix+94ApcrDT7DbrSjSW4rfRjjFy2imfDBzvm+hFPFPIi3Sim/gyLRe18Frw4kYipKQk8t6NepP3/C/Xm8DIFX2/h9Vk6mi2Z2XXTt/mWz5mIgtyoiRQX8yv9cWWrHhm9CLiq3yBRVoDtKHWqTWO2YMsFSMinZEgK2658biUCbsc5Cex7E3yc33ex1NsRcWKco88cDtP4TRUJB31y4pVpStWW6rZdTL1yzmkPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZt1vtouPuDUpEB9LJBT7HWlFj1H32H8bAQB37Xpv80=;
- b=AVh75MV1cvHu7sRv4oSVQupQPI+O+mnKT+WP2dHHIpUN3SR7AWCWrIa8Z1MftoourkP/HBTAt9lPr/bIdWE2a0gk9rBRHwQFGTj0RBELoAwRg/amvfkwo2IWN6K7mZSzO37KzNFt+PB3L5gdLprhoLZ50MucYwCpP34KVllip8E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by LO7P265MB8761.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ec::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 14:18:40 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 14:18:40 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 15:18:39 +0100
-Message-Id: <DL0N4JZSMKJ4.3SCNEZ9NL32T0@garyguo.net>
-To: "Gary Guo" <gary@garyguo.net>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Yury
- Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: num: add `cv!` macro to create values from
- constant expressions
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260828-cv-v1-0-694a695ff17f@garyguo.net>
- <20260828-cv-v1-2-694a695ff17f@garyguo.net>
-In-Reply-To: <20260828-cv-v1-2-694a695ff17f@garyguo.net>
-X-ClientProxiedBy: LO4P265CA0295.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:38f::8) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vhjLpdP8"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso22510035ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:18:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787926729; x=1788531529; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lk1PtauESgfcOmIWGAdMCfx87NYe0QEmwPgHNpnVCRk=;
+        b=vhjLpdP8DQlQy/sH4sHNDuCNj5M06VQvRF6J2Ee3he8ZbdPsda9fUpgkxT+XyQYnzi
+         5FBWNvs3Sf+17NsdEGAT2LVHVg/zBo95fliWhNMjxrLjzrUO1ovK0lMkSucZcLtMHPr3
+         N1RnEaxMbKmRtdroMSZgmJOWoSCej0Shtm5v86qeLzPliPxePQcgQ39PDjc1FGsa4bLJ
+         pr/GFy909Y5DathoVdvQaxht0iBHjepPUwfxRStyZFP773OhPx/zUQBHyWx64HdPdgeZ
+         lqS0mL0PO/KMhiJvAH5CXqf67t0VVwTNUgpm+NBUzmBgIOkHVqnrl8HEsGRLQazV0mQj
+         9gNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787926729; x=1788531529;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lk1PtauESgfcOmIWGAdMCfx87NYe0QEmwPgHNpnVCRk=;
+        b=e1A9dzQylX26PJG4sbpFrdmOmUFHWxH1enNnH/oW0rdMspUjsJ3OQnDeYv/74/1lId
+         jRtK0yWwz8zEwtnJZQ6iy4dze7GUUXagXTvocdnouhPWUCJPYGGGY2xpb5UAXA2puQOx
+         mbejAJxHO788Den5XbZjrJ5IJhsh1PBHjllIiinJtfuLKFbHf1w5eYP55b6G2hksHUUq
+         2pEI5tLy1c8pCnsJdjf5UsIYx+5dCN1CUh/OO3WC/l4IbMJgUWgyKKVDcREDNMru634H
+         7IJdExhhCFz2SVLaDhs8+95fW7HN8ZC9F7wHnKuruRW2SWl3CWCUCxjvwwRqu4+/bm4u
+         ltOQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoP+jh36JUl5nilYuns5i2cuhOhKCpE1CJ/RcT1n+wPCMMwiv/FHSuQYJO1iRY20xlNdgxH3PTtKhSgpTA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhgvpCUA/7PQ+EzYhhxOfpdmqzGW7SepqY+TCH7iG+ybemhDJr
+	FH5Z5oSTXjJNAlqU6iJ4QL9TRfb7xroGLbxue9DOx1f8vANdJ6Z2KzyVsNyVGWfDxt/XUFBZw9b
+	nHOrIgQ==
+X-Received: from plbmq14.prod.google.com ([2002:a17:902:fd4e:b0:2d7:3fb9:fada])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ec91:b0:2d7:4f55:f40c
+ with SMTP id d9443c01a7336-2d74f55f6edmr103578625ad.6.1787926728323; Fri, 28
+ Aug 2026 07:18:48 -0700 (PDT)
+Date: Fri, 28 Aug 2026 07:18:47 -0700
+In-Reply-To: <20260828042044.GG33657@pedri>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO7P265MB8761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4eb98540-c2d9-4bfe-faa1-08df050f4230
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|10070799003|376014|7416014|1800799024|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003|921020;
-X-Microsoft-Antispam-Message-Info:
-	0l6wonPxS/AyPZ9BGMaAn+QlZiUFkCkhWDnAKb7SQaszzxdTXSFhU1et8cd79A1YNcVVrRYXAO5Ti8x7MBg13nOAJEtZvsARWQukm0vj6D88+g85q7KmuTtvPFiFLDqsQI1Dxu9ebsHsjEjfR3PAOsKeeA0pwUFgLbqmxiGZX+ufK6dSj1iFr15vSllMy7zCoXoGmVwq5rSEyjvfcIuGzykWV96ZtuuIYeCzVmrrtL8bb7GvnPdwiXkhuThmkt3WisvBRxAfp2bBT1hKHy3i5+OnXZMxcUPkP36KPu8t08R3bbzHIFNI1B72L/xwvJ/CDYx7rqa7QIBfIyELMjKEAhlypJ4zMoU/tMaZRotXPAGQqXIOnpQFHTuZsa0EP5K8d6AEC0wFz7l8H/l99G6FlHoy2wWo7gbBAvg7Swnz+y56/cb6fA4HaVFIG3njsNgsABFVie6Xs6dJBN9SJ/STuQOds3uNPdGwlroghEPWQNdf4k1z+N6FhiJpSZz33c9GgEbrZukd+k0MxFM3Vq9GYDfKZDgxqInQZ0WXsT/BlkfuY8HYwRdu3gvwjwvfjBo/J6YPZjmMddxZy5rCFGTaeQAitc0rIsGR/kie9DOPrbll4NGDv8RZ8Z2a3gWhBTE9kLEg7lHtXzsOlf+XFtSKed9ls7qp4xxZOGZ6heQm7nJavfQ7P9RAXGblwVd/S4O4yKd9xXms8Q9EM3vCBKu2Lg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(376014)(7416014)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eEZZbS96dFZVQWNoSVd1cnVrZURJWkRGRU8zUmREblRJYm9UMjczTWRQZUI0?=
- =?utf-8?B?dGU2NGdXUWZ4NzJOQzdzckd2YStWeHFuaHhBVUVqR2t6aDBOT25INHRRQkhJ?=
- =?utf-8?B?cmhlY2hzaXdhY3RiRURnekVOYWJXRDJWbFpvdUdVV0p2eE5aY2c0Sy9PUGNE?=
- =?utf-8?B?MGdUejdscXFmQ0grbzNPc0s2dUZLblFYblFFRU9EOEtSQjVPRnlYeFAwYk5t?=
- =?utf-8?B?NkUraEdEOTNweFFPTGVheDdEM25pR1B2K0p0Y1d2RThSaFkxL1BYOWRIM0Y3?=
- =?utf-8?B?bmhQZGF5SGJrUDdRbXB5d3ZKMU0vdTZ1QkRxNjZxL2pXMStTdXpkRTJrSTJJ?=
- =?utf-8?B?aFUzTnBmaDZHNzF6cnlpS003TWUzVENJYlNMVjlqemM5UVcyeEVFMkd3YjMy?=
- =?utf-8?B?RzJtcGRTWjJsZkxCdUdKaUUyOGE0ZmlCbTdUZDZoTDc0T25mbjhmWkFoYS9Z?=
- =?utf-8?B?TEFNWGR4cjU5WW43VmgyaXNmRGJDMllOR0E2RE90YTJLamJvdUJaaHNMK2ZN?=
- =?utf-8?B?NXVwbWVEYjB2S0hvR2VBYk5VRnRXd0FmTm9GM1J6M0hEbXVyZnZmTDQyQUpi?=
- =?utf-8?B?OXM0emtsR0U0Mk1OdVZSSlhORVZLNzViY0FwZVNJRkV4M2ZlSm11Z2pDT1BY?=
- =?utf-8?B?ZWZDcHJWTm9yMlZEQ0FKSzErVEJoSEJCMVVKaXpDZ2RsUkVxUWViMkxrd2tk?=
- =?utf-8?B?UDJRQmFlMFZnZGcyN0NPaCs3RUhOcHNvU2YzVXVRTkMrdWcwZjNFcFVNZ1pY?=
- =?utf-8?B?WVUxYzllZyt2aUFKblorK2F4TXUwRDQrTk4wZTdMc1NadURxY3I5bm04N1kr?=
- =?utf-8?B?VElUTGVTTGtCVXVkVXBtWUlZVEpuSGhhWFhROE1saG9Yc2FVUEUySXZqdGlR?=
- =?utf-8?B?aHBEV3ZNL1E3SXJ6OVVvN1hhUVVoemFzNFFONnBJMW9KNjk4SmR3cndTUjl3?=
- =?utf-8?B?VExKaVJKdnh5WGZCTFBYZ1R3dEc1SVFVeWlhOGUxOFJpUjNUQkpSVjZ3Y1hY?=
- =?utf-8?B?RE9hcm1senJwQ05nVjVjYUFhUHozdSsxN1NURitrRnZYWVhDVWNVSEI0a25v?=
- =?utf-8?B?blJwazJtMzJJc3hkWjdSa2FXUkZDRGc1d1VudVdyUzhrSTZ3YUtyeFVoL1lC?=
- =?utf-8?B?STNXRnBLWEhnK09XL3dKRlNzcG4xbVJFaWRmSDgzbzkySGszUWZqRzl1VTVM?=
- =?utf-8?B?S0pGT2g0SWtJd1NXTTF0UGRzdVkwNGpWTGZWNzlhenhFcjN3SmhFSURzeTNF?=
- =?utf-8?B?Sk1UdmJ6Q1lxNkZYaEt4L0NDK0VwL1NkSHZ5S2x5akhFSyt0cUdJeUR6N1ls?=
- =?utf-8?B?QVcvNFpRd1hhenRzaVNhcjlIY3ZrQzEvUVNqcjFxNCtHOU1lNUJWMk05anBG?=
- =?utf-8?B?TFZNdlZqaXBqZDlGZUxhRGtKRzBWNllkaFBaMkxkM3BNanB2NmhqSVRzYUZH?=
- =?utf-8?B?ZDNleXJyMUZPbmRKeHRaSGpkSGNyUVUxWU82WmVZZkxoU0xvZ1VoOHZLUG1t?=
- =?utf-8?B?RzMwMXBVY3JCM3RTQmhlN2h6K0NVb3pablpSV3cvSUkvZnJaNHg4Ui83TUhE?=
- =?utf-8?B?NUV6Z0dsbzBmZVh1UU9mNXZWVE5lVzd4SDJTM1M1TE0xK0xtQmI4eC93VE5v?=
- =?utf-8?B?dmMyZ0FTMnJISW1FSVUvU1F1eXlxT0k4MmU5RUtINzB3RUFVY2Rtby9CbjE0?=
- =?utf-8?B?aGdwdW94YUU1TVdvQnY0ajh4Z2QyVS8xMlJRQWVoNFh6aGx5QXAyQ2hrREsr?=
- =?utf-8?B?N3VHWmEvT25YODhtTk84Z2NpeFVRS2RzT1RobHVPVmdoZkt0em5JTkdQclQr?=
- =?utf-8?B?bGhtT1Q5U0h3R3d0ZWtZc2gvbmtUcGRhdzZzblBGMEdSZytXdTRIenU1cnpR?=
- =?utf-8?B?WjNWdDR6SG1nVFA3QjVQcDVBYzFpTjdtVmVtSC9BOFJkVTR3YnRvMm4vVGo0?=
- =?utf-8?B?Q3ZyQkdEMjV5RFl6cnBzd0hqdnNnOStDd3V5bSt0aGhsQUN3MThuY1laR1oz?=
- =?utf-8?B?Q2hkU0JuS1dzVkVqRkpvbTNMZkZja2dSSjZiYkRndVJNY2dRQ3hUMDUyU3Zs?=
- =?utf-8?B?dklVSTFEbHhGZngwZUc2THRYVlNWcVhpbG1TNkt0cnE5dXhkcFRDVXVLRjYr?=
- =?utf-8?B?b0NsNUZTUEJRWnZhRnBqVVdNOHhsRW9DTHR4Mkx1UHBpNnlPSlNXak9MNFE2?=
- =?utf-8?B?elZ5L05LazNLNnB4Y3IxUkovcXRaV3kyMXFuSWU1SWJxRUdPOUZzQjM2QUxT?=
- =?utf-8?B?eEdLYTl4Ti9QSmJLTTRKa3c5eWxpWWdxc0tJdGd5cjZoRnc2cTk4OG9SUUNv?=
- =?utf-8?B?WkhncW4yTzczeDk2YVpjb2hyL0w5TlduQVdvTERORFIrNDFGeENwUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4eb98540-c2d9-4bfe-faa1-08df050f4230
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 14:18:40.4279
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cROGMtw1cwQmrg7Ohw7bz520ZIAZ8r7f1VYN1avha4t+JHy+zweRBxOEl3OP/GSZOFaH5BjmywATsvY51adCBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB8761
+Mime-Version: 1.0
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-21-15ad654a50db@google.com> <6f89fc78-0344-4a7e-bbd8-ac201b8f845a@intel.com>
+ <20260828020612.GF33657@pedri> <b4cffa34-864d-4fd0-9fc7-a7d4514075b2@intel.com>
+ <20260828042044.GG33657@pedri>
+Message-ID: <apGYxwdCSuC-X732@google.com>
+Subject: Re: [PATCH v14 21/22] KVM: selftests: Add ucall support for TDX
+From: Sean Christopherson <seanjc@google.com>
+To: Peter Fang <peter.fang@intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>, 
+	Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <ira.weiny@intel.com>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, Shuah Khan <shuah@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, x86@kernel.org
+Content-Type: multipart/mixed; charset="UTF-8"; boundary="D8ScZ73OZF7fi6Cd"
 
-On Fri Aug 28, 2026 at 1:03 PM BST, Gary Guo wrote:
-> Currently, constructing a `NonZero` or `Bounded` from a constant is
-> verbose. The former would require `const { NonZero::new(...).unwrap() }`
-> and the latter require turbofish. Similarly, the `num::casts` exposes
-> methods that cast numbers using turbofish syntax, which is unergonomic an=
-d
-> unnecessarily causes the value to flow into the type system, which is ver=
-y
-> restrictive without `generic_const_exprs`.
+
+--D8ScZ73OZF7fi6Cd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Aug 27, 2026, Peter Fang wrote:
+> On Fri, Aug 28, 2026 at 10:31:14AM +0800, Xiaoyao Li wrote:
+> > > 
+> > > Hmm... This makes me wonder if vm->arch.s_bit below could be replaced
+> > > with the same architectural approach. GPAW is available through
+> > > TDG.VP.INFO or the initial RBX value. This does require a bit more
+> > > plumbing though.
+> > 
+> > I'm afraid not. Because below is host code, and vm->arch.s_bit is not used
+> > in guest code.
+> > 
+> > Or are suggesting something like dropping the
+> > 
+> > 	if (is_tdx_vm(vm)) {
+> > 		ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+> > 		sync_global_to_guest(vm, ucall_mmio_gpa);
+> > 	}
+> > 
+> > entirely and use below hardcoded value instead in guest code?
+> > 
+> > 	UCALL_MMIO_GPA | 1 << (GPAW - 1)
+> 
+> Yeah this is what I meant. Just drop sync_global_to_guest() entirely and
+> do things like a normal TDX guest would.
+
+Blech.  Every time I come back to this series we're still discussing ucall crud,
+and "doing thing like a normal TDX guest".  Selftests aren't normal guests.
+
+I know I suggested using the HPET base, but I only did so very begrudgingly as I
+couldn't come up with a better alternative to emulated MMIO, and the end result
+is quite gross.  Not only does the code ignore @mmio_gpa but still obviously use
+emulated MMIO, it requires synchronizing data to the guest because KVM disallows
+"private" MMIO.
+
+  void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+  {
+         vm_type = vm->type;
+         sync_global_to_guest(vm, vm_type);
+
+         if (is_tdx_vm(vm)) {
+                 ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+                 sync_global_to_guest(vm, ucall_mmio_gpa);
+         }
+   }
+
+Retrieving GPA via TDG.VP.INFO isn't any better, it's still an absurd amount of
+"work" for something that should be trivial.
+
+Can't we just abuse TDVMCALL_REPORT_FATAL_ERROR?  AFAICT, there's no restriction
+on the data payload, and there's enough space to all but guarantee we'll never get
+a false positive.
+
+Pulling in Xiaoyao's idea about using CPUID...
+
+> > +void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+> > +{
+> > +     vm_type = vm->type;
+> > +     sync_global_to_guest(vm, vm_type);
 >
-> Implement a macro `cv!` (short for constant value) which converts a const
-> integer to types that implements `FromConst` trait and validate them duri=
-ng
-> const evaluation.
+> It works and it looks simple. But we have the architectural approach to
+> test if a guest is TD guest, by checking the CPUID 0x21.
 >
-> The usage is of form
->
->     cv!(<expression>)
->
-> for inferred type and
->
->     cv!(<expression> =3D> <type>)
->
-> for explicit type specification.
->
-> As we do not have const trait implementation yet, dark magic is used. The
-> dark magic is documented in the code, but in essence it defines inherent
-> `__from_const` impls on types, which can be marked const, and rely on
-> Rust's method resolution algorithm to pick the correct function. Multiple
-> helpers are defined to aid type inference to work properly.
+> Since checking CPUID 0x21 is not complex, and as a bonus it can help
+> test if TDX module behaves correctly for CPUID leaf 0x21, I think we
+> should switch to use CPUID 0x21 to check if it is TDX VM in guest code?
 
-Here's a generalized version that work for any trait methods (same limitati=
-on,
-that you cannot use this trick if you have only `T: Trait` instead of a spe=
-cific
-`T`):
+Absolutely not.  It will require at least one an extra VM-Exit for TDX and non-TDX
+guests alike, and thanks to Intel's wonderful CPUID behavior of having unsupported
+leaves return the last supported leaf, the guest would have to check CPUID.0x0 and
+then CPUID.0x21 on modern hardware, i.e. would incur two extra VM-Exits.  I don't
+care about the performance, but from a debug perspective that's going to be awful,
+as what should be a super simple operation will be polluted with unwanted data.
 
-// Inference helper.
-const fn would_call<T, U, F: FnOnce(T) -> U>(_: T, _: F) -> U {
-    todo!()
-}
+Stop trying to reinvent the wheel and just use a virtual function table.
 
-// We can have a single helper type for *all* fake const traits, as long as
-// method names don't duplicate.
-struct Const<T>(T);
+I've verified the attached patches don't break non-TDX selftests, someone just
+needs to test the TDX changes.
 
-impl<T> core::ops::Deref for Const<T> {
-    type Target =3D T;
-   =20
-    #[inline]
-    fn deref(&self) -> &T {
-        &self.0
-    }
-}
+--D8ScZ73OZF7fi6Cd
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0001-KVM-selftests-Add-support-for-per-VM-ucall-ops-on-x8.patch
 
-// Const call!
-macro_rules! cc {
-    (($e:expr).$ident:ident($($args:tt)*)) =3D> {
-        if false {
-            // The normal "runtime" call path for type inference.
-            would_call($e, |x| x.$ident($($args)*));
-        } else {
-            // Dispatch via inherent methods. Type already known with the a=
-bove
-            // helper!
-            // A drawback here is that `$e` -> `&$e` autoref won't work her=
-e, as
-            // `Deref` impl is not const.
-            Const($e).$ident($($args)*)
-        }
-    }
-}
+From 659487e0a9862900b052836229e3ac366c602f59 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 28 Aug 2026 06:46:51 -0700
+Subject: [PATCH 1/3] KVM: selftests: Add support for per-VM ucall ops on x86
 
-// Imagine this being an attribute macro.
-macro_rules! const_trait {
-    (impl const $tr:ident for $ty:ty {
-        fn $method:ident(self: $self_ty:ty) $body:block
-    }) =3D> {
-        impl $tr for $ty {
-            fn $method(self: $self_ty) {
-                Const(self).$method()
-            }
-        }
-       =20
-        impl $ty {
-            pub const fn $method(self: Const<$self_ty>) $body
-        }
-    }
-}
+Add a layer of indirection to x86's ucall infrastructure to allow wiring up
+a different set of {do,get}_ucall() operations for TDX VMs.  TDX can't use
+port I/O (at least, not robustly), as the TDX ABI doesn't allow the guest
+to share arbitrary register state with the host on a PIO exit, and the PIO
+data payload is limited to 4 bytes, i.e. would potentially truncate the
+address of the per-ucall structure.
 
-struct MyStruct;
+No functional change intended, as the ops are still hardwirte to the common
+x86 ucall functions.
 
-trait MyTrait {
-    fn foo(self: Self);
-}
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ .../testing/selftests/kvm/include/x86/ucall.h |  6 +----
+ tools/testing/selftests/kvm/lib/x86/ucall.c   | 27 +++++++++++++++++--
+ 2 files changed, 26 insertions(+), 7 deletions(-)
 
-const_trait!{
-    impl const MyTrait for MyStruct {
-        fn foo(self: Self) {}
-    }
-}
+diff --git a/tools/testing/selftests/kvm/include/x86/ucall.h b/tools/testing/selftests/kvm/include/x86/ucall.h
+index 0e4950041e3e..3639f03a4da9 100644
+--- a/tools/testing/selftests/kvm/include/x86/ucall.h
++++ b/tools/testing/selftests/kvm/include/x86/ucall.h
+@@ -2,12 +2,8 @@
+ #ifndef SELFTEST_KVM_UCALL_H
+ #define SELFTEST_KVM_UCALL_H
+ 
+-#include "kvm_util.h"
++#include "linux/kvm.h"
+ 
+ #define UCALL_EXIT_REASON       KVM_EXIT_IO
+ 
+-static inline void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+-{
+-}
+-
+ #endif
+diff --git a/tools/testing/selftests/kvm/lib/x86/ucall.c b/tools/testing/selftests/kvm/lib/x86/ucall.c
+index e7dd5791959b..444d0f0ba138 100644
+--- a/tools/testing/selftests/kvm/lib/x86/ucall.c
++++ b/tools/testing/selftests/kvm/lib/x86/ucall.c
+@@ -8,7 +8,7 @@
+ 
+ #define UCALL_PIO_PORT ((u16)0x1000)
+ 
+-void ucall_arch_do_ucall(gva_t uc)
++static void ucall_x86_do_ucall(gva_t uc)
+ {
+ 	/*
+ 	 * FIXME: Revert this hack (the entire commit that added it) once nVMX
+@@ -42,7 +42,7 @@ void ucall_arch_do_ucall(gva_t uc)
+ 		     HORRIFIC_L2_UCALL_CLOBBER_HACK);
+ }
+ 
+-void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
++static void *ucall_x86_get_ucall(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_run *run = vcpu->run;
+ 
+@@ -54,3 +54,26 @@ void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
+ 	}
+ 	return NULL;
+ }
++
++static struct {
++	void (*do_ucall)(gva_t uc);
++	void *(*get_ucall)(struct kvm_vcpu *vcpu);
++} ucall_x86_ops = {
++	.do_ucall = ucall_x86_do_ucall,
++	.get_ucall = ucall_x86_get_ucall,
++};
++
++void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
++{
++	sync_global_to_guest(vm, ucall_x86_ops);
++}
++
++void ucall_arch_do_ucall(gva_t uc)
++{
++	return ucall_x86_ops.do_ucall(uc);
++}
++
++void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
++{
++	return ucall_x86_ops.get_ucall(vcpu);
++}
 
-fn test() {
-    const {
-        let x =3D MyStruct;
-        // MAGIC!
-        cc!((x).foo());
-    }
-}
+base-commit: 8ab7454faa8be2d6c1fc29c857b9f9611ddb174b
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
+
+--D8ScZ73OZF7fi6Cd
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0002-KVM-selftests-Add-support-for-TDX-ucalls-via-TDVMCAL.patch
+
+From 60f3e988c65048c63217ec157e9ec228a4c484b7 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 28 Aug 2026 06:52:56 -0700
+Subject: [PATCH 2/3] KVM: selftests: Add support for TDX ucalls, via
+ TDVMCALL_REPORT_FATAL_ERROR
+
+Add support for doing ucalls on TDX by abusing TDVMCALL_REPORT_FATAL_ERROR
+to pass the address of the payload to the host.  The "fatal error" TDVMCALL
+is perfectly suited for passing information to host userspace, is both the
+TDX Module and KVM allow the guest to pass (almost) all registers to the
+host, i.e. provide enough of a data payload to make a collision with a real
+fatal error practically impossible.
+
+TDX can't use port I/O, as the TDX ABI doesn't allow the guest to share
+arbitrary register state with the host on a port I/O exit, and the port I/O
+data payload is limited to 4 bytes, i.e. would potentially truncate the
+ucall address.
+
+Alternatively, TDX could use MMIO, but using a magic emulated MMIO address
+is fragile (see the TODO in __vm_create()), especially for TDX since TDX
+doesn't support read-only memslots, i.e. doesn't have line of sight towards
+addressing the TODO.  E.g. TDX could hardcode the address to something that
+is all but guaranteed to be unused on x86, e.g. the I/O APIC base address
+or the HPET address, but that doesn't truly address the fragility concerns,
+and it's ugly because ucall_arch_init() would completely ignore the passed
+in @mmio_gpa despite obviously utilizing emulated MMIO.
+
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ .../selftests/kvm/include/x86/tdx/tdx.h       |  7 +++++
+ tools/testing/selftests/kvm/lib/x86/ucall.c   | 27 ++++++++++++++++++-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+index 6355a30bb47f..6582e6c99697 100644
+--- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
++++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+@@ -4,6 +4,13 @@
+ 
+ #include <linux/types.h>
+ 
++/* TDX hypercall Leaf IDs */
++#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
++#define TDVMCALL_MAP_GPA			0x10001
++#define TDVMCALL_GET_QUOTE			0x10002
++#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
++#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
++
+ #define TDG_VP_VMCALL_VE_REQUEST_MMIO    48
+ #define TDVMCALL_MMIO_WRITE		  1
+ 
+diff --git a/tools/testing/selftests/kvm/lib/x86/ucall.c b/tools/testing/selftests/kvm/lib/x86/ucall.c
+index 444d0f0ba138..93686e1dd3f3 100644
+--- a/tools/testing/selftests/kvm/lib/x86/ucall.c
++++ b/tools/testing/selftests/kvm/lib/x86/ucall.c
+@@ -5,8 +5,28 @@
+  * Copyright (C) 2018, Red Hat, Inc.
+  */
+ #include "kvm_util.h"
++#include "tdx/tdx.h"
++#include "tdx/tdx_util.h"
+ 
+-#define UCALL_PIO_PORT ((u16)0x1000)
++#define UCALL_PIO_PORT		((u16)0x1000)
++#define UCALL_TDX_MAGIC		0xabacadabaULL
++
++static void ucall_tdx_do_ucall(gva_t uc)
++{
++	__tdcall(TDVMCALL_REPORT_FATAL_ERROR, UCALL_TDX_MAGIC, uc, 0, 0);
++}
++
++static void *ucall_tdx_get_ucall(struct kvm_vcpu *vcpu)
++{
++	struct kvm_run *run = vcpu->run;
++
++	if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT &&
++	    run->system_event.type == KVM_SYSTEM_EVENT_TDX_FATAL &&
++	    run->system_event.data[12] == UCALL_TDX_MAGIC)
++		return (void *)(run->system_event.data[13]);
++
++	return NULL;
++}
+ 
+ static void ucall_x86_do_ucall(gva_t uc)
+ {
+@@ -65,6 +85,11 @@ static struct {
+ 
+ void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+ {
++	if (is_tdx_vm(vm)) {
++		ucall_x86_ops.do_ucall = ucall_tdx_do_ucall;
++		ucall_x86_ops.get_ucall = ucall_tdx_get_ucall;
++	}
++
+ 	sync_global_to_guest(vm, ucall_x86_ops);
+ }
+ 
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
+
+--D8ScZ73OZF7fi6Cd--
