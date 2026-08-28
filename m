@@ -1,269 +1,178 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022142.outbound.protection.outlook.com [52.101.96.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529C4446BE0
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918649; cv=none; b=KhfuaTxS5MzFHGOTSI7amdnDGykgHYUCo2Jb1hG9xH+4uIIvt6fzULdSszu1He8R/VrN86UgrOxYld6LhFwNSA9URj5nIH9J6m0mQ1nHtNq2NS7vTvdZMs4cvTDd02aSJoMZJaK/kbax5l5AKmHiv5Ad/ExEb7oZbqgF0Wo7zJs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918649; c=relaxed/simple;
-	bh=ioyjpTYahVnOWBhr/MamxD5RG95sppP+CU9ydVJYjSI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rffdS7bBOt5rfJZi0LnD4vZO58glOrBBREBVMCyO3/9UdHmaYhNd4ZYKTFRRM6RXUM7BHntXePXxYY4DeU3d0C3HT5stsh9jmpRdV6OtUxoUXXSLL6udKqDHyJriyBwCApU97CNNlpvlGBnUGGo6Sg9jfqfqe+vJ6O1YsCcZrHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AATRDwSr; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0594D3CF209;
+	Fri, 28 Aug 2026 12:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787918665; cv=fail; b=urx23vuK8PZUjDsNddB9MsdILrU2Q/UmUx7C6CWN1P9RX9sfrgxMqdYlaZN+ogKNTDfcYj4zYG0mmBZ1b/97VHFclue/cc2qn0jUmrwF4f+22wECbz1GgmxQuGaiMLA3EojW2uXE/OF6rrwgO43pqcowIUBBM72fP+tW9GMd95Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787918665; c=relaxed/simple;
+	bh=0Mxs3b1LSOm7SkcojPuJ4JDu0c0Q/yb2SqaQW4YUmB0=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=WDg4uCveKefN1AwlI2fgZHxgbqLd3dYN3oDFRwzm5i0EpudT1j7qroIMd1Bm6YqmnoSOfki+NQDyOsV3CQqHvHluOd0bYMivBxa4qpY+oedVyTwI6CwOwiXzlcq4j9a7tf0Udf0+GL3wokPoLbX5YldWhAgy1u7CdK8LTzcAViQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=McHVl2P1; arc=fail smtp.client-ip=52.101.96.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AATRDwSr"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4798bea72f9so621131f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787918635; x=1788523435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7FUqt9t1EencF9nSDcvizzvehr/v/zWd6fGeSLy9Tio=;
-        b=AATRDwSragpnbSvMRV3V2aGNoX6eztyoaD6Wg5X+ItIaz1ggOPcjM3pbPnjwWjMydY
-         KV9sg8hfxy9k+fj2rVlfUsybgJEgypBeGSvi5/h289h/yftoa/y6ShygyAiZTpMyMA9y
-         FmUb3nqXHBtrgXHtP6gI8D0RPt9j4EL+UXKy5WhDDAVr4yolTPV+gSs5xfTHU6zR3reL
-         dd/qIuecjLffo6SbtZhTUAQG8VrO5bYwzwVR+VTLoTIxlt47DYvdvljJrRVyeq9aDWFx
-         IaCstpZjUK5ByaWZRpv9u+WZuHDlnMDPi4g6sV2asQlnWE5yRLIFK0HNtO7oQFmmtdCl
-         rYFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787918635; x=1788523435;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7FUqt9t1EencF9nSDcvizzvehr/v/zWd6fGeSLy9Tio=;
-        b=KTc4J7sES3rEo1eIrE2D+jcNmHeUzpqEjljW15twGLF/cPa90JjEZRe/tqsdlOP849
-         GmdpCDPafuf7SqOaSZyqQqUD/Xk0XNJZysxWzCjPn2LqO7KC8PPrBe9LpEO+v+XTecnE
-         CZfSQ8KFde/0RwPIFEMNp07xpt3Z2DEPk/KwRQWQ9eS7yMZ4WdDfLo8J63ZwvMZ56meC
-         0zDjthL6vWHEKtZNtGd/jxR6kGjuVOeLzt+XY+a9wEQQOL3MrpT1uSzYTK5wPPnowigD
-         5S10QFtyyU9n5zbz3d2YWM1RaKqGbYrAPTz6tVyQX/EoAZZNYysuFU3ASK3kbVlVU5Gs
-         rdhQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpkx/oWcJmD9YKFc1hy3+e57FE8qmzWkiwg+6A9Qxev0wLC1tz1Pq9/zXpcTnj0B0yVmmVuAgdfM8zHd6M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mymLIl3bwBIqqAQVQfgg4dWxrrxef9bi/dt+H9NaYy5Ps75i7G
-	XQ85NsvsAtdsp8DjBBChAm0qXySn1WgX3xypZifL/ZUzM9SleLwiCq+zQP6rqmC80HI=
-X-Gm-Gg: AR+sD13hAlQn7Fff9aPudNXywlkhvJGAbeEeGae4qzxNTm05uNOl8iO6w8XqYB9/9WW
-	sQveSCmTtq9gH2oXO1hW/Ms52CXmJEq+3bTD1ABbCGfCE6OSoxZAdB8hyNPwouW7at6NKKbzQSx
-	yCnWlRATiSD0m+qc5GFhojuzRbkOtwSPSFmyN6TE+VWJGts8EJoTic7yiU/IqBLSXME58/XYytt
-	nK1Dc9s/7H9u2XWuXviBpwDPNY4Cm3sUxYR5exrj0u5KwFjelrMvGvUm2vO4hKn6JSKduoV0XXR
-	jtpxceXZibfzvvCTQ2ef8VjekhoVo+fntdth9FenjZLTqEmMdvuslsP/faNw2sDYB+E8cVoVfi1
-	ProTMeQWsPCfi1ic5sf1i9+DgUt6yWGw7jmXPT9UClIzx7PV24TJuHWSIfWnHsRoxyX1jiI7LsC
-	D66UqXqxPdF7WgcH3Z4trSeQ/z4EzNI02JyNXq3yL/dr2JboY4r1sUTiyiLTywfU+pmWmsghthE
-	hyXrCfm230rWwsdy6WVO5gK
-X-Received: by 2002:a05:600c:a418:b0:49b:9433:ea44 with SMTP id 5b1f17b1804b1-49b9433eb4dmr73573625e9.4.1787918635141;
-        Fri, 28 Aug 2026 05:03:55 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9266be71sm117554035e9.2.2026.08.28.05.03.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 05:03:54 -0700 (PDT)
-Message-ID: <8b6506a1-5bfc-4f9b-92fa-234c89afe9ad@suse.com>
-Date: Fri, 28 Aug 2026 14:03:53 +0200
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="McHVl2P1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K98HpAG6JnjVEb4xte+BnfwBqS72b/u0pZgcLTp70qn6g0cSl7tG3HCjsvubdDK0cbli7E37IM/uu3vKe6/bAC7d+vwsPPdKmyuNADqPQkVmJ+op+Pkc/+N0TotBO6q4w5tMvKT4N4k3eib6Jg/ch1Md63LMzMPjAxJxWkq8/Nps03q6bWsmvpe1Vy1jrY1rFvjUsBhJiMSm8gs4K1sesdVJmGUmo367YfjlT2IYqzHwNRXW7DGRE/hyhAzMD2mRrONUozKxCu8Hzke8l+rc/VhDuSXh5tcMzb+ZlDvWLCi7HR4Gy4rojw5M/YD4wkaGGY6D4ax3CptymqX+8trG2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jdQ+iYfaEYM9yiu2OzO9sZlu7Q4gvrbasoHgAC8Z3JI=;
+ b=pGbGvwtXFFGHwp/1JvNvFdxf4WFELqPuDDyLJg00+MwheCFNOu/SzGRzdokHkxBg5g83kzGIJpLZ/V+5a/Csnx5qXZW0jN/X9lSBlFTEMRxUftIVPma+jXgFhGXmOJT3KMt4RNEGacxLNSFfaZ5ZVW0nB63CyCfm95EhxJj50BTYGRuahL2Dl2jEHOkk0cM067C9tfRas14xIzrVFpdGMS0rhwgZxrSPfrusWA0KWRanKU91gey9Kz6+P+CcCu0JX+QZ2L+b3roJG1SjGrVpH9LfouDn31S2i6j7iRvdkO5u66VkqqjPrWK+/9xueLj3sko3MhMHc0f6O3Uuo1Y8vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jdQ+iYfaEYM9yiu2OzO9sZlu7Q4gvrbasoHgAC8Z3JI=;
+ b=McHVl2P1M3cPV1emsPz2jjb4gvdFJUf+nTnJtyXdqH+TeQqpe3yfq2Xh4y47xZalhHnqVlImL5Hx4u9j/fbaYAMSIDaSKW1IZMLxx1m5qYas7ge6XOcWZjBoI2QIyS5m93rzxbOURfuW0FW8+UR/d3UEcKSb6aWENEgk93tKlW8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
+ by CWLP265MB1762.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:5d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 12:04:08 +0000
+Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 12:04:08 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH 0/2] rust: num: add cv! macro to create values from
+ constant expressions (alt)
+Date: Fri, 28 Aug 2026 13:03:54 +0100
+Message-Id: <20260828-cv-v1-0-694a695ff17f@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACp5kWoC/yWMQQ6CMBBFr0JmbWOphBCvYlxMh0HGaDWdQpoQ7
+ m4ry/fz3t9AOQorXJsNIq+i8gkF2lMDNGN4sJGxMDjreju4wdBqkHC6dNaObU9QxG/kSfL/5HY
+ /WBf/ZEq1rIZHZeMjBprr9JKwZBM4p/MbNXGEff8BAW36J4oAAAA=
+X-Change-ID: 20260828-cv-acaf3400d16c
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787918647; l=1068;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=0Mxs3b1LSOm7SkcojPuJ4JDu0c0Q/yb2SqaQW4YUmB0=;
+ b=YMYTXgZUCXIJKN2f+rWdLVOLWQcmgvJ4HYjsy/B8dir1Y+chviH94KGnYYwjmm3DwTepha15N
+ sGLe5xRZIurD9bhJO6mqbUVOToSVjJQzKjyDOGBQQcqqyZpZ4ky5GZQ
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO3P265CA0002.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::7) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4b4::24)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] module: init-failure path can free a module with live
- try_module_get() users
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-s390@vger.kernel.org,
- "D. Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>,
- Sidraya Jayagond <sidraya@linux.ibm.com>, Tony Lu
- <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
- Alexandra Winter <wintera@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
- Hidayath Khan <hidayath@linux.ibm.com>
-References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWLP265MB1762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86c65d3f-9abc-4271-e2f1-08df04fc76a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|10067099003|56012099006|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	DGaY47oUjWxvBlaVaTVkW5Mc5g3WvFa8yhfQGdBpxo3ywuRyY0fA5HeIsI9g9ICfrRxb9336swCaIGFu3E8PxhWWBHPm1H32VePaCVNi00VfkROZVfScSbW8CvBSZsgyMNmjbIWz2W7Ze0h3RC1VLQIBrZphWFAOy5YfxakT5OrRIdVvT6NMtRVDPAxbNKMgHC9J00uCkGOfHmHQPMimfPZzJdoQdQWsUuMB8jfJ81hzzCj4bsE5D5yEFIHDAPM5sYovv8UarCWXZmQX0D/JxX3gDwTh/SiaglfgKpZEhv8O/Yo8BuyPiE/eWexjw++lDZN9Y0yiN3B6WMmwgOZqC3qcKfGknrDceRn3EnERAYNFurEL5ZpLGUOkj9W43SapzkNTayV6PZiu4B7V13FZRKfK9sfJI/CB+twKpjyO+xv6Tb2mqA69Xr7HkXkrc3F7pM67hMiqywm68A+c2BebfvGRtVvfomPfNYhv2/LQ//geC4BNAbDVa9keAhRCtQra1ayQR0QdPjFiejWMzKm4IhshJ7NaATA8Q0fN/arkoAeDUU/fpTL+gecONK3NYx3iLxBA7cBAkYUc/X+8bXU8Se6h9FAzcSTKf/nQkQYNBSABuk6LcgVz4rfdqvN1WICEGnBBEg5KcHF6dtI+cmLxOsgYZ7TuL6V4X4V7LDxvzn4f6Go8nywhXhmb0F+qAtRoHCtaj5h0EVWpKlYcHmoHeg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(10067099003)(56012099006)(18002099003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RVhIOWxJSHZJSTZCdk9yeHhUWWlxeTRKcU9yd1VsUjFyQnFSNTVzUjdhcXBq?=
+ =?utf-8?B?dkZuZHZPMVRwNEtwanRqVGtQdk9vMkpnT29zY1NBQWpzN3VnbjhFRDBzR2xQ?=
+ =?utf-8?B?Ylp3cDdtaU5WYnFvRXhnNFdhcU9Oczl1U3BVbVVsQnp6L1V5WFV6WFZPVXd2?=
+ =?utf-8?B?VDgzZG1ZZm1rbTFuTzl3LzB6RDA2bm8wMUdpeklnR1dKamJRWk8yZDhNTUt2?=
+ =?utf-8?B?VHB0U0pvbEgwT0lHcjg5NUx1QjlkaVpQKzBVMEY4blY0dG90RGJzZjdTWmxr?=
+ =?utf-8?B?RTV6UTJQY1JUSEVicExZeUFTOW8wajg1NFZRVzZxWjdVOU5YWDhTM2MyZHpJ?=
+ =?utf-8?B?ZzFoc3Z6MCtPU1ZtbHFKMC9RaWExM3I5RWpOV3pPRVlSMWFqclluU3NURk5o?=
+ =?utf-8?B?OHZ6aUUxd0dxbWhyZlZER25CVVJOMWxzRlhBb2l6Q1h1M1BlMWNrNmNsb25N?=
+ =?utf-8?B?T2ZRU1RMZm5JaGVZQVpUbURBbFpqUzRxWlpuMWNsVmtVclM2eHBoOURYK2xy?=
+ =?utf-8?B?dDdaV3l6L2hVZEJjRnUzWTZzUDBDejhqYmwrR2E0SnQvZUNZQWRtZ0M1MVFF?=
+ =?utf-8?B?SXFUWlpEVmZzQUdqeWhiWFJ6d3hyamE2UkZWaDJkOG9iWmZHOUdPRXZIWnk3?=
+ =?utf-8?B?MDlTMk8wUUdIRkpFQmdTd2tjaC9DSUlPWnNXMUJmMURHRjJEYVJFdnlBSFJa?=
+ =?utf-8?B?elhndFpaWWN1QUt1OTNvMm1xSXNMa1o5aEFHeFo1RlJ6U2FIeHdnTFpPaUVJ?=
+ =?utf-8?B?UFRKWG42VzlsSzZiUUo0RklFdG5rejhnbmpnN0VPQnVBZVkyR3l6MEV3c1RY?=
+ =?utf-8?B?NDFMMXhFYmllN25COEVUa3BJNEIwTkMzTE1qMVdzY3ozYU9YaDd6RTRHVEFI?=
+ =?utf-8?B?eWxFS3NGVWVWajRBVnFMcXpCVWplbzdMODJ2QTc1WmJEVTZTeTBiZnBSZE9G?=
+ =?utf-8?B?N01acnc1UDJQTUQ2OUYyRlVxSThXc2RIQmpub1ovS3N2ZlR6emh4Si9qN2kv?=
+ =?utf-8?B?WWZXdTVuMDE2bUNWMlZXQXBYQm9WMFd5Y2djcURIVzdoTTNkUEk3a2h0Ulpt?=
+ =?utf-8?B?MElJQWtOd0F2MFJHZkRNSGQrNFlsY2dyRkZOalRnbDErV0xGeEtvSGYxZWZL?=
+ =?utf-8?B?YTNwZkQxT2pXSDdqSzhtYkVaUTluMEkyeHFMcTJDYzQxcEozcHR4NG9kR2VJ?=
+ =?utf-8?B?eWJPeFdsZVd1SGw5ZjNiTGZSNmRJOWVvUjdNSitMOVFka0h0V0xDL0VwQkYx?=
+ =?utf-8?B?SnBHNjdmcGhtNTE3U1VmRlg5eFN3ZlgzL290dzJpVWtQY0JqWXEydW1GMDlH?=
+ =?utf-8?B?WE9udU5BU2ZkdHowY3BpdWhHTWxvT3ZPWFdUMmJGa0htanA2dVppd3RWczNv?=
+ =?utf-8?B?dEtHUFY4NW5WMlNXaVFORkl1T05vcFV6RHB6RVlSSHdiRnRBeWJwTHhEN3pU?=
+ =?utf-8?B?SUdjdGc1TmhPMS92WENxTnB2TzBwS2VsbVFCVy9nM0M4YThwT3BuSFpENGFn?=
+ =?utf-8?B?ejRTSmZ4R1NkUW5lVDhpREJYd0pPaXRIeG5kNnE1SjlGdlVYdDlKcElZN3pw?=
+ =?utf-8?B?Q0dFZ2NkK2R2emFuOHJMcGJzZDlSS29DOHIrczdXUEE2WHFRNkxZUjFHYjQ2?=
+ =?utf-8?B?Z096SXNIeXQyOWpUd2hMMWJJSTJSeVRielhiSUhsZGx5UDlNRVdtRzdKdjkz?=
+ =?utf-8?B?QUorMEZaQTRWcGV0ZXozblVnbWZUN2lXUVRBeElXczFKa2g4Wmc1M0pSeXZq?=
+ =?utf-8?B?ckx5b1FiczVlanpxRGxsd2V0ZmRPWCtvTll3cUQvZ1JmVlphZVA3RG5VcjVv?=
+ =?utf-8?B?VmEvRHhUa0RqR2RRbzdHQ3V2Z0VKeUJoUVQvSUF3cUFsY0FBNWlGcUxqeWh2?=
+ =?utf-8?B?YkJqYTZwbUdRYm9pTk9YWFc4WEYxei9YOXp2MHpuZGl6TnpMWnovb1NQaVBJ?=
+ =?utf-8?B?WW5UcW1PWXNudGgzcEZsVS9UTjB6MG93dlVoaStIaEZPMWNIT0lyNUNnWG54?=
+ =?utf-8?B?amlJR1pJRUNTNEozUXJ5MGxTcXFCUW9OTFVNMTJOazZPZElYVFVjcGgvOTRT?=
+ =?utf-8?B?M3dncHoxYjRWMnFKa25RYXRLSnVtOVpwOEt1WmhNNU1VSllJTjBzeXdrL2hs?=
+ =?utf-8?B?MGFFMWpMbnhKcWQybCtnT0drYUFDYzJSb0gwWk5NYUNwSm9hQ0RIaEpvSm9s?=
+ =?utf-8?B?cFJCL0RUOU5xdEhXUUdPZTNOOEpBRVNwN1V2SUNYN2dtZW81RmdhSVpwak9T?=
+ =?utf-8?B?VU1ZejdOemRkTEhPR2Jkd2pXQVdNdTNEMkpUcmJlRVp6eGpKRGVCRS9zdGZp?=
+ =?utf-8?B?SXdtN09UOXY2bnhTcmh0VUJQUllpN0RrVHMzOFdVM21LZnozSU9LQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86c65d3f-9abc-4271-e2f1-08df04fc76a0
+X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 12:04:07.9834
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UjjbIlqpl3awUjbRXdrBa8oz8EXqtB7fjy3j8zf3eg9uo3Ke5ewZBFHSdHk8S4BOLz5uaRdQSdAyqbyRR9c9nA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB1762
 
-On 8/24/26 8:13 AM, Mahanta Jambigi wrote:
-> Hi Luis, Petr, Daniel, Sami, Aaron,
-> 
-> I'm writing to ask about what looks like a generic module-init failure
-> lifetime problem in the module loader. I ran into it while working on
-> the SMC networking module (net/smc/), but after several patch
-> iterations, it seems the root issue may belong in kernel/module/main.c
-> rather than in SMC itself. I'd appreciate your guidance on whether this
-> reading is correct, and if so, what fix direction would be preferred.
-> 
-> THE ISSUE IN do_init_module()
-> =============================
-> 
-> include/linux/module.h has a long-standing FIXME in module_is_live():
-> 
->     /* FIXME: It'd be nice to isolate modules during init, too, so they
->        aren't used before they (may) fail. But presently too much code
->        (IDE & SCSI) require entry into the module during init. */
->     static inline bool module_is_live(struct module *mod)
->     {
->         return mod->state != MODULE_STATE_GOING;
->     }
-> 
-> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
-> can succeed once a module's __init is executing. If __init makes the
-> module externally reachable partway through and then later fails, the
-> failure path in do_init_module() appears to do:
-> 
->     fail:
->         mod->state = MODULE_STATE_GOING;
->         synchronize_rcu();
->         module_put(mod);
->         ...
->         free_module(mod);
-> 
-> synchronize_rcu() waits for RCU readers, but not for threads that
-> already obtained a module reference via try_module_get() and are still
-> executing module text.
-> 
-> By contrast, the normal unload path in try_stop_module() refuses to
-> proceed while the refcount is non-zero.
-> 
-> So the asymmetry seems to be that the normal unload path waits for
-> references to drain, while the init-failure path does not.
-> 
-> A concrete race would look like:
-> 
->   1. Module __init registers an externally reachable interface.
->   2. User space enters through that interface and try_module_get()
->      succeeds while the module is still COMING.
->   3. A later __init step fails.
->   4. do_init_module() frees the module.
->   5. The in-flight caller is still executing module text.
-> 
-> SMC AS A CONCRETE EXAMPLE
-> =========================
-> 
-> In SMC, simply moving registration later does not appear to eliminate
-> the window, because there are two separate registration points that can
-> make the module reachable via socket():
-> 
->   1. sock_register(&smc_sock_family_ops)
->      After this, socket(AF_SMC, ...) can succeed and reach
->      try_module_get() via __sock_create().
-> 
->   2. smc_inet_init() -> inet_register_protosw()
->      After this, socket(AF_INET, SOCK_STREAM, IPPROTO_SMC) can succeed
->      and again reach try_module_get().
-> 
-> Either registration point can succeed before a later init step fails.
-> 
-> This may not be specific to SMC; other protocol modules that become
-> reachable during init, such as Bluetooth, may have similar exposure and
-> appear worth auditing as well.
-> 
-> ON THE FIXME'S IDE/SCSI CONCERN
-> ===============================
-> 
-> The FIXME mentions IDE and SCSI as reasons not to isolate modules
-> during init.
-> 
->   1. IDE was removed in Linux 5.14, so that half of the concern no
->      longer applies.
-> 
->   2. SCSI still appears to self-reference during init
->      (scsi_device_get() -> try_module_get(hostt->module) during
->      scsi_scan_host()), so a blanket wait-for-refcount-to-drain
->      approach in the failure path may deadlock there.
-> 
-> Also, strong_try_module_get() already rejects MODULE_STATE_COMING with
-> -EBUSY, so the infrastructure for refusing callers during init already
-> exists in some form.
-> 
-> QUESTIONS
-> =========
-> 
-> First, is my reading of this init-failure refcount/lifetime asymmetry
-> correct?
+This is an alternative to
+https://lore.kernel.org/rust-for-linux/20260828-cv-v1-0-48a180dfc4c8@nvidia.com/
+and
+https://lore.kernel.org/rust-for-linux/20260827-chid-v8-3-bc74c77d0214@nvidia.com
+without const generic expressions limitation.
 
-Your analysis looks correct to me.
+Please see the detailed description in patch 2.
 
-> 
-> If so, would one of the following directions be acceptable?
-> 
->   1. An opt-in mechanism (for example, a module flag) for modules that
->      are safe to isolate during init and whose init-failure path should
->      wait for external references to drain.
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Gary Guo (2):
+      rust: build_assert: add utility to require const eval
+      rust: num: add `cv!` macro to create values from constant expressions
 
-In general, it is preferred if the module loader handles all modules in
-the same way.
+ rust/build_error.rs         |   7 ++
+ rust/kernel/build_assert.rs |   9 +-
+ rust/kernel/device_id.rs    |   4 +
+ rust/kernel/num.rs          | 209 +++++++++++++++++++++++++++++++++++++++++++-
+ rust/kernel/num/bounded.rs  |  21 +++++
+ rust/kernel/ptr.rs          |  21 ++++-
+ rust/macros/const_eval.rs   |  24 +++++
+ rust/macros/lib.rs          |  21 +++++
+ 8 files changed, 313 insertions(+), 3 deletions(-)
+---
+base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
+change-id: 20260828-cv-acaf3400d16c
 
-I would say that the module loader should wait for external references
-to drain after an init failure for all modules and that it should be the
-responsibility of individual modules to ensure that this wait eventually
-completes. Excluding some modules would mean that the module loader
-could still free them while they are in use by the kernel.
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
 
-Before such a wait, the module loader should cancel all idempotent
-module loads. This is especially important during boot when several
-udevd workers may be trying to insert the same module. In that case,
-a failed module init function should block only a single udevd task, so
-that the system can still boot properly.
-
-> 
->   2. Treating MODULE_STATE_COMING as non-live for normal
->      try_module_get() users, with some explicit escape hatch for the
->      remaining subsystems that genuinely need self-entry during init.
-
-This might make sense, but the kernel currently has over 500 users of
-try_module_get() so changing its semantics in this way would need to be
-done very carefully.
-
-I'm also not sure there is anything inherently wrong with calling
-try_module_get() on a module while it is still executing its init
-function. It must mean the module has reached a state in which it
-properly initialized functionality to be registered with a specific
-subsystem.
-
-For instance, the __sock_create() function mentioned in your email
-contains (simplified):
-
-[...]
-	if (rcu_access_pointer(net_families[family]) == NULL)
-		request_module("net-pf-%d", family);
-
-	rcu_read_lock();
-	pf = rcu_dereference(net_families[family]);
-	err = -EAFNOSUPPORT;
-	if (!pf)
-		goto out_release;
-
-	if (!try_module_get(pf->owner))
-		goto out_release;
-[...]
-
-Consider two tasks that both call socket(XYZ). The first one sees
-net_families[family]==NULL and calls request_module(XYZ). The module
-then starts loading and its init function calls sock_register(XYZ). At
-this point, the second task can see that net_families[family]!=NULL, so
-it skips request_module(XYZ) and calls try_module_get(pf->owner). If
-that call newly fails because the module is still in
-MODULE_STATE_COMING, it breaks the autoload functionality of
-__sock_create().
-
-The scheme would need to be changed to call request_module(XYZ) if
-either net_families[family]==NULL or !try_module_get(pf->owner).
-
-> 
-> Any guidance on the preferred direction would be much appreciated.
-
-Waiting for external references to drain after an init failure makes
-sense to me. I'm less sure about changing the semantics of
-try_module_get(), or whether strong_try_module_get() should instead be
-exposed.
-
--- 
-Thanks,
-Petr
