@@ -1,335 +1,299 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012014.outbound.protection.outlook.com [52.101.48.14])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B599305688
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787924101; cv=fail; b=lxJ0xuAKTSoRQfozPudr8aM5yeIbvBeDe3Gfdqa7Z/KYgywDARTgjnnC8DkH4MVpUUFxDS0oezKdpzfWQ0KAJDixm5bmnQKOCcH05P9Imjry8zjSkSMjXuT9LhlbN6i2/sceBS5LAAcr0QobCch8rGzQ0PfFXmCl2G1UW9qYJ/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787924101; c=relaxed/simple;
-	bh=ktlxMGqB9W4p1KhjNawAM8ENLLcrYFnFlX/y58waYpk=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QucL5/cfSSMcyILdoIE+BjKEieTjOPFx3hEXl0Y11ZrM4LrRVVcB+uu1oENEYIlRF4tqYMmD679DSm+W3vmrOIZTAm1CYz2/8Od/3qIZvcZ7G10fLshCkEc5re6isei8Iv7583oQdHRT/PAwjW7/aiKwwbeMwo1IRCpK6bljO5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bBUk78KX; arc=fail smtp.client-ip=52.101.48.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076553D47D4;
+	Fri, 28 Aug 2026 13:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787924123; cv=none; b=EKsiuIkpIHAhUdoh3xbrbcYRR3yRYJ3h+fKUaIEKQZcjbu+O6rtQWm1cR6cRAoqo94xtlqC66A7YoqVbYM/3iWIp7y/YshCx3p1eQzXWv+ArYcNu0/QnBONW8tdBO7ydUfnzC8QcfpUYsT7guz2qJFDZ3vdW0jLjsLDYGsq2eWo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787924123; c=relaxed/simple;
+	bh=Pz7f69K+RH5Fchqq/rsM1ft61yITqQXyHyngJemZUks=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kCMiKIXuK064ACZScUYHBr6HrSgyyN9kcDvCuI7u8Pm5LNm+kKJLhy7pfGkZxghHHp2jvl9uCCN6NnXLLxHopXxAfqZcoh5xMzBmLiAzvThzV++MMjo/bFisuGzSUgFwakFRkzmbUvhTQKxPaWAXriMi00362qVr3oaaD18hGT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UTGrcIRG; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bBUk78KX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=INF80770oWkhNCRacCsc2CSCB3L3JOE3m2x3nJPpKFs9WWiEfkkGP1Nf6mpX6v6sQjqMBLSPJ2MlvoT3YSRit244yeWOO3aJvw2i97LUgWmspmvkbDaJCUgs0TOK3ehCocPNzPCV9IkNcii+qfhXiMrSAxZsSbO2vjA2eFe+nL2leAuJQysSIga071cIHPejqgN6kRFgQ78+oCfiNPb0JZZPrjcEVN71bt7dBrpqW/MhLt8C8Mi5WnfpFXiTjUPnO2bra/g0927gOgUqofLX4oWz4Hy4xrD8NsSMTK/+XFyeGN2mcYHmCLyqdSL3QEs2w7hTZY0CnKtYNlZbWAfuWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ag4Y3CPV5MezQeFlqI1vIExGQDV14LsA22y5xhFORUc=;
- b=H54Od1AcjPxuxEwG5Ni+Kcoy8nRuX7sGpBK7TjpLI+zXPpW+6/9QCsNtHMxtVjXjjyKQ2vZhH2jJeTKGFR7ZLhy/mRCc/IW33PqZ+VH/OmXWhMeFhFe0qHmWT0ub2bKh9Re2m0t1lW2GG9Nw/2PZQ6JP4UtqP7R2GP3Vhbp9jItg9ojUgi47FQv1RiRFhaLFM4O36vaeSjVPNd+td9nNx2akqaCpckZyaDu0612CvcidX+2uWSnreMIadndmT1Af+A+qL5wT8wwAZA9np+kCWM790gPrYfBc3sItY0Ks7kZcZR+vCJ1gqnn57BgyQ5tDEwfczirgYqlGdv4BiWC+xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ag4Y3CPV5MezQeFlqI1vIExGQDV14LsA22y5xhFORUc=;
- b=bBUk78KXB3laTAalrVtvHNZGutS7Y5QYi/ThgZkiQg23Luv60PQVpXmdKKbHVe81XR8W+HsGZTK37sickdBtcJnheJSLMyoUScXBd8zbRK4miYr5kdHBv+vB0GiZjRVcDt4XDE38Sad8ikfNpLbk+NOd4Wz+KvUrml+MLWJ92T0=
-Received: from PH7PR02CA0011.namprd02.prod.outlook.com (2603:10b6:510:33d::8)
- by CY8PR12MB8067.namprd12.prod.outlook.com (2603:10b6:930:74::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 13:34:43 +0000
-Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
- (2603:10b6:510:33d:cafe::23) by PH7PR02CA0011.outlook.office365.com
- (2603:10b6:510:33d::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 13:34:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 13:34:42 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
- 2026 08:34:42 -0500
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 28 Aug 2026 08:34:41 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/3] drm: Add drm_user_fence helper
-Date: Fri, 28 Aug 2026 19:04:26 +0530
-Message-ID: <20260828133427.6235-2-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828133427.6235-1-srinivasan.shanmugam@amd.com>
-References: <20260828133427.6235-1-srinivasan.shanmugam@amd.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UTGrcIRG"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDVp2P2133870;
+	Fri, 28 Aug 2026 13:34:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=JcxPxF
+	DwkA46qm0gx0PAMqkSvlmsVAaDSMlARO4fT20=; b=UTGrcIRGxrhMQo2mp6phfc
+	NTRxFHmjgqztc62JgJaoXkN2EOfhpYEsDLKtajTNHLge9+wcNTB34Hb95t3LrlQA
+	qcSfOt5338dsfpm9J/Qwg0OSXPV3SL7pAJfOLBxq7Uu2RyzyUelbT4zak/EWs34l
+	ZsgS4ywJLRqJWOnW7alcQ55Q1lfbuONr8YCLuoUTUaU/5ov2mgeXimgUfYja4DdN
+	HcUgA/tBBSDmxdp7CD0og8w1sm4ZkMTb0mVXLr1I0IWHFWzxCYnyPM0/7t+YJ7Au
+	DuJ2NMeBpgTaNbcJihAzkzK3eCaxSORVtzAmOIkw16sSEoHGHiDsU/HmunsWJ9Rw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g5cgcc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 13:34:41 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SDT59S009238;
+	Fri, 28 Aug 2026 13:34:40 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7pfwped1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 13:34:39 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SDYZpQ46072082
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 28 Aug 2026 13:34:35 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B011F2004B;
+	Fri, 28 Aug 2026 13:34:35 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F130420040;
+	Fri, 28 Aug 2026 13:34:34 +0000 (GMT)
+Received: from [9.87.143.119] (unknown [9.87.143.119])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 28 Aug 2026 13:34:34 +0000 (GMT)
+Message-ID: <8b141a3d-1ea7-44ad-9311-2157ef37d59f@linux.ibm.com>
+Date: Fri, 28 Aug 2026 15:34:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|CY8PR12MB8067:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c1495f2-33f6-4467-4b6c-08df05091e29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HUydpblms3KKRdOURBf/u4vyJYnmCWh3nR7NGjo1+SRjBY4yHXu2eWMMDKPh51an5vddPhZunDnoStuqoJuaarum4Lg02prfnb3ho17Ig/3uvOUklxj6R3yO6AiUt5kZG/KdbvCfLna6By5DZ30QeY+YZUt5ZRPPddAr2WcanPm4A48awUHs1uI5dRCk6912WytHfPmx0a6UsIWBhmGdHb5uOzeasdIVAJXkst3Xamatgff4ha7Hm8h1RLZ9y3T+T9ayGv7D6vLXnwpvZsNcqPM+oVc18iP6EqytKh2BO31mCnrs6U6FIx/jc0Oqu9M84hsIU0Z2X//1F+T8Qu4S+fegi0//o96ys/DsWRW3tmkTThQapTPcfa88atdUuA1pmomi8x8ZtDeaVtCrNmdHzH5enQ5tH54wj+LWm8bFDNpJSVHqj690B3IdkKQ+ziIhQylkef1P2y9SQoYlRC8RD/o5IQkrStb7ac9prVjhFJLIS+yQqYBOB99VmmKDnSDhPdLTEOQKlREpPycLxJNQTD9hvM/JuqIPVe+GH9AC5/YPqb64av5cEIEQP9WVishkJJV9K1GA16O/GCnIUaeFCK2LIngYdBYJw4z12fdtO9ucUZaiPqyp7onWpLT4OB+kOkwEWSwGdu1yv8QUq97OW0fYFduhgaehdtp1BerIvxNenwX4gWhoI1cxZ1RtZDz/YQXP+qfy4G3+pfNypQ6shA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VDrGeSnFTtxuzKo9DavruKIkZ4ZDVlZMoL0OwBUXtb1tVlG2OyW7nQQK24epk+69ZdZVScF6yBQAQ7wMJrl0MKPtYSbcBTXcP3QByOpkSZEBiaaksbHJ6V1g0uC3EUMUfwy2BL5VEyfQQNB7zuhl/1bjkzdg2AfpJ6aP0Z1Zpt9KJj4qq7UKvjDlkoYx2Ei8qIiCCPCVHofo2hxdAfGKTVRrOA1dmH2MhQDNw/sB1fNNVceMFfNtH50Z99mXUaBN6GOYwAsZL7XzwG0GxrwttjLdiV2KkloumBYhd2PDMIuWzUWAVFUmQddN12cukq19DV/bWN6xlyRlDovfWNFCoYGOjM3NQmRAv7gDTREBbMClRj99OksIO7y29/OXU+aVHUW/9qn73wdcS6f37GJW3WYB8Azt1T/V+1yx8ma1YjT0P3nCgEYx0ViDmpP8pFA3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 13:34:42.7895
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c1495f2-33f6-4467-4b6c-08df05091e29
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9CE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8067
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 31/33] KVM: s390: arm64: Implement vCPU IOCTLs
+To: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
+        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter
+ <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik
+ <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+References: <20260812153631.3376090-1-seiden@linux.ibm.com>
+ <20260812153631.3376090-32-seiden@linux.ibm.com>
+Content-Language: en-US
+From: Janosch Frank <frankja@linux.ibm.com>
+Autocrypt: addr=frankja@linux.ibm.com; keydata=
+ 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
+In-Reply-To: <20260812153631.3376090-32-seiden@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 1iN58-ZtGQVhsX3epG6R3oFCSty4l4wa
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDExNyBTYWx0ZWRfX1AmfNCOtASel
+ c8mqmuLOcWKwXmzh4FceT1fM4mNH8GhwNUJ3jbJ2LGLZYSp4epIckfveI3S85+LlYVEX726ijzG
+ vLUMe4KXRzyhC+Te5h5BXrXU4GF4do4=
+X-Proofpoint-GUID: BxhV8CeXPrNDES7uaKZTwgvSF3hFE8xk
+X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a918e71 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=YrsC2wo8uTxk9zgACYUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDExNyBTYWx0ZWRfX6L8fAg0ygd3R
+ RezB3TLIYUYtZOvfHzlMV1lg9Sq1vm7+kh5EX7yRjloUKyXbwh7tiPy3NawVOIkcJApFpAJNjw7
+ QSylPgM2QZMU5qiWmNRU8uBS/yNdFJ/mLnfeI0ApRP2T2h03fLMsFVKutv23UoPn6mkEgn+mIVY
+ +VrDhN4OqJDijzWFYbc9aWthwno+8QlA8VzRwkyxNa1CvnhZ9mPJi5yFnRrmQpnKJ41qATCnsTd
+ R0sUzIkWqk/gvBZZzdlRA1F3qWU+c+BieY5ICZr3AlwY0Y6ms6vqlJjhfq9WA0uWsWVzVJOkcdp
+ 0iU50mIyo3AZ5HADR6ux6o24/X+kPFUs4Rq6I7YsgPm8pmzstJ1hKZzxjiCt4M2ywQpD8DYd23n
+ lLQWriE1pzl0lMJZ4NOKib5iNeMbsmSPf6wFRNrytxcFdWZ7wIADKHS0dTUwBonquAQmuZk8mhi
+ VM3hhtEBpORmWY2O47g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280117
 
-Introduce a common DRM user fence helper providing the kref-managed,
-MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
-that must access userspace memory from a kthread context when a GPU
-fence signals.
+On 8/12/26 5:36 PM, Steffen Eiden wrote:
+> Implement all required vCPU IOCTLs.
+> 
+> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+> Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+> Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+>   arch/s390/kvm/arm64/arm.c         | 392 ++++++++++++++++++++++++++++++
+>   arch/s390/kvm/arm64/guest.c       |  47 +++-
+>   arch/s390/kvm/arm64/handle_exit.c |  31 +++
+>   arch/s390/kvm/arm64/handle_exit.h |   9 +
+>   arch/s390/kvm/arm64/reset.c       |  73 ++++++
+>   arch/s390/kvm/arm64/reset.h       |  11 +
+>   arch/s390/kvm/arm64/trace.h       |   2 +-
+>   7 files changed, 562 insertions(+), 3 deletions(-)
+>   create mode 100644 arch/s390/kvm/arm64/handle_exit.h
+>   create mode 100644 arch/s390/kvm/arm64/reset.c
+>   create mode 100644 arch/s390/kvm/arm64/reset.h
+> 
 
-XE uses this pattern (xe_sync.c) to write a fence completion value
-to a userspace VA. AMDGPU will use the same pattern to signal a
-per-queue eventfd from a user-queue EOP fence callback.
+[...]
 
-The helper provides:
- - struct drm_user_fence: embeddable base structure
- - struct drm_user_fence_ops: worker/destroy callbacks
- - drm_user_fence_init(): initialize and grab the process MM
- - drm_user_fence_get/put(): reference counting
- - drm_user_fence_add_callback(): attach to a dma-fence
+> +static int kvm_vcpu_initialize(struct kvm_vcpu *vcpu,
+> +			       const struct kvm_vcpu_init *init)
+> +{
+> +	unsigned long features = init->features[0];
+> +	struct kvm *kvm = vcpu->kvm;
+> +
+> +	scoped_guard(mutex, &kvm->arch.config_lock) {
+> +		if (test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED,
+> +			     &kvm->arch.flags) &&
 
-The worker callback receives a bool indicating whether the process
-MM was successfully obtained, allowing drivers to handle the
-unavailable-MM case (log, skip the userspace write, etc.) without
-duplicating the mmget/kthread_use_mm/mmput boilerplate.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: Ieb91eb2e8d18f7634b02c9df67eba37a99fd0442
----
- drivers/gpu/drm/Makefile         |  1 +
- drivers/gpu/drm/drm_user_fence.c | 69 +++++++++++++++++++++++++
- include/drm/drm_user_fence.h     | 86 ++++++++++++++++++++++++++++++++
- 3 files changed, 156 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_user_fence.c
- create mode 100644 include/drm/drm_user_fence.h
+In this case I'd rather have a long line than having to look at this 
+mess. One of the cases where a normal mutex acquisition would have made 
+the code more readable.
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index c5be8e80d0c8..ddb770738992 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -69,6 +69,7 @@ drm-y := \
- 	drm_syncobj.o \
- 	drm_sysfs.o \
- 	drm_trace_points.o \
-+	drm_user_fence.o \
- 	drm_vblank.o \
- 	drm_vblank_work.o \
- 	drm_vma_manager.o \
-diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
-new file mode 100644
-index 000000000000..9f6327406d3e
---- /dev/null
-+++ b/drivers/gpu/drm/drm_user_fence.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ *
-+ * DRM user fence — extends drm_work_fence with kthread_use_mm() support.
-+ *
-+ * Use this when a GPU fence signals and work needs to access userspace
-+ * memory (copy_to_user, fault-able operations) from a kthread context.
-+ * For work that does not require userspace memory access, use
-+ * drm_work_fence directly.
-+ */
-+
-+#include <linux/kthread.h>
-+#include <linux/sched/mm.h>
-+
-+#include <drm/drm_user_fence.h>
-+
-+static void drm_user_fence_do_work(struct drm_work_fence *wfence)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(wfence, struct drm_user_fence, base);
-+	bool mm_ok = false;
-+
-+	if (mmget_not_zero(ufence->mm)) {
-+		kthread_use_mm(ufence->mm);
-+		mm_ok = true;
-+	}
-+
-+	ufence->ops->worker(ufence, mm_ok);
-+
-+	if (mm_ok) {
-+		kthread_unuse_mm(ufence->mm);
-+		mmput(ufence->mm);
-+	}
-+}
-+
-+static void drm_user_fence_do_destroy(struct drm_work_fence *wfence)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(wfence, struct drm_user_fence, base);
-+
-+	mmdrop(ufence->mm);
-+	ufence->ops->destroy(ufence);
-+}
-+
-+static const struct drm_work_fence_ops drm_user_fence_wf_ops = {
-+	.work    = drm_user_fence_do_work,
-+	.destroy = drm_user_fence_do_destroy,
-+};
-+
-+/**
-+ * drm_user_fence_init - Initialize a user fence
-+ * @ufence: user fence to initialize
-+ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
-+ * @ops: driver operations
-+ *
-+ * Must be called from process context with a valid current->mm.
-+ * Grabs a reference to current->mm via mmgrab().
-+ */
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops)
-+{
-+	drm_work_fence_init(&ufence->base, wq, &drm_user_fence_wf_ops);
-+	ufence->mm = current->mm;
-+	mmgrab(ufence->mm);
-+	ufence->ops = ops;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_init);
-diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
-new file mode 100644
-index 000000000000..2b2b640f510f
---- /dev/null
-+++ b/include/drm/drm_user_fence.h
-@@ -0,0 +1,86 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ */
-+
-+#ifndef __DRM_USER_FENCE_H__
-+#define __DRM_USER_FENCE_H__
-+
-+#include <drm/drm_work_fence.h>
-+
-+struct drm_user_fence;
-+
-+/**
-+ * struct drm_user_fence_ops - driver callbacks for a DRM user fence
-+ */
-+struct drm_user_fence_ops {
-+	/**
-+	 * @worker: Called from workqueue context with the process MM active.
-+	 *
-+	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
-+	 * (copy_to_user, etc.) may be accessed safely.
-+	 * If @mm_ok is false, the process MM was already gone; the driver
-+	 * should log a warning and skip the userspace write.
-+	 *
-+	 * wake_up() or other post-signal housekeeping should also happen here.
-+	 */
-+	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
-+
-+	/**
-+	 * @destroy: Called when the last reference is dropped.
-+	 * Free the containing structure here.
-+	 */
-+	void (*destroy)(struct drm_user_fence *ufence);
-+};
-+
-+/**
-+ * struct drm_user_fence - DRM user fence with MM borrowing
-+ *
-+ * Extends drm_work_fence with kthread_use_mm() support for drivers
-+ * that need to access userspace memory when a GPU fence signals.
-+ * For work that does not need userspace memory access, use
-+ * drm_work_fence directly.
-+ *
-+ * Call drm_user_fence_init() at creation and drm_user_fence_add_callback()
-+ * to arm on a dma-fence. Call drm_user_fence_cancel_sync() before teardown.
-+ */
-+struct drm_user_fence {
-+	/** @base: Base work fence. Must be first. */
-+	struct drm_work_fence base;
-+	/** @mm: Process MM grabbed at init time. */
-+	struct mm_struct *mm;
-+	/** @ops: Driver operations. */
-+	const struct drm_user_fence_ops *ops;
-+};
-+
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops);
-+
-+static inline void drm_user_fence_get(struct drm_user_fence *ufence)
-+{
-+	drm_work_fence_get(&ufence->base);
-+}
-+
-+static inline void drm_user_fence_put(struct drm_user_fence *ufence)
-+{
-+	drm_work_fence_put(&ufence->base);
-+}
-+
-+static inline int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-+					      struct dma_fence *fence)
-+{
-+	return drm_work_fence_add_callback(&ufence->base, fence);
-+}
-+
-+static inline bool drm_user_fence_cancel(struct drm_user_fence *ufence)
-+{
-+	return drm_work_fence_cancel(&ufence->base);
-+}
-+
-+static inline void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
-+{
-+	drm_work_fence_cancel_sync(&ufence->base);
-+}
-+
-+#endif /* __DRM_USER_FENCE_H__ */
--- 
-2.34.1
 
+> +		    kvm_vcpu_init_changed(vcpu, init))
+> +			return -EINVAL;
+> +
+> +		bitmap_copy(kvm->arch.vcpu_features, &features,
+> +			    KVM_VCPU_MAX_FEATURES);
+> +
+> +		kvm_reset_vcpu(vcpu);
+> +
+> +		set_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED,
+> +			&kvm->arch.flags);
+> +		vcpu_set_flag(vcpu, VCPU_INITIALIZED);
+> +	}
+
+[...]
+
+> +/** kvm_arch_vcpu_ioctl_run() - run arm64 vCPU
+> + *
+> + * Execute arm64 guest instructions using SAE.
+> + *
+> + * Returns:
+> + * 1 enter the guest (should not be observed by userspace)
+> + * 0 exit to userspace
+> + * < 0 exit to userspace, where the return value indicates n error
+> + *
+> + *
+> + */
+> +int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+> +{
+> +	DECLARE_KERNEL_FPU_ONSTACK32(fpu_save);
+> +	struct kvm_run *kvm_run = vcpu->run;
+> +	int ret;
+> +
+> +	if (kvm_run->exit_reason == KVM_EXIT_MMIO) {
+> +		ret = kvm_handle_mmio_return(vcpu);
+> +		if (ret <= 0)
+> +			return ret;
+> +	}
+> +
+> +	vcpu_load(vcpu);
+> +
+> +	kernel_fpu_begin(&fpu_save, KERNEL_FPC | KERNEL_VXR);
+> +	load_vx_regs((vcpu->arch.ctxt.vregs));
+> +
+> +	if (!vcpu->wants_to_run) {
+> +		ret = -EINTR;
+> +		goto out;
+> +	}
+> +
+> +	kvm_sigset_activate(vcpu);
+> +
+> +	might_fault();
+> +
+> +	ret = 1;
+> +	do {
+> +		if (signal_pending(current)) {
+> +			kvm_run->exit_reason = KVM_EXIT_INTR;
+> +			ret = -EINTR;
+> +			continue;
+
+Why not break?
+With continue we'll jump to the condition which is immediately false 
+since we just set ret to a negative value.
+
+> +		}
+> +
+> +		if (need_resched())
+> +			schedule();
+> +
+> +		if (ret > 0)
+> +			ret = check_vcpu_requests(vcpu);
+> +
+> +		vcpu->arch.sae_block.icptr = 0;
+> +
+> +		arm_vcpu_run(vcpu);
+> +
+> +		ret = handle_exit(vcpu);
+> +
+> +	} while (ret > 0);
+> +
+> +	kvm_sigset_deactivate(vcpu);
+> +out:
+> +	if (unlikely(vcpu_get_flag(vcpu, INCREMENT_PC)))
+> +		adjust_pc(vcpu);
+> +
+> +	save_vx_regs(vcpu->arch.ctxt.vregs);
+> +	kernel_fpu_end(&fpu_save, KERNEL_FPC | KERNEL_VXR);
+> +	vcpu_put(vcpu);
+> +
+> +	return ret;
+> +}
