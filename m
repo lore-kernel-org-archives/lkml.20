@@ -1,88 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D213346AC5;
-	Fri, 28 Aug 2026 19:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2CE3AF660
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946911; cv=none; b=L3lCZQJFTqKTK+wVYZfMO3PTQC0ig3oVyozTCr1rbODg8lXZWfXAEkeMTIbtNUENwddoGqELRJKm1UQu8hYlvIflPPgazV0HQhnKxkCTOVsSSMVVOBE5qa9Ac/6IsWiq80Lz9ZMK/Dbn8NODFC9nvtc7yqzG4zPm7wJGlW3Gl88=
+	t=1787946950; cv=none; b=suyenplJlsyJmMNiD5OmDqmrpgNQ9qvRUfyFSv6gmEpBk9G44ozRerZwfUbPcA7GP0OyEW9P+O/mh7UEA2XRt8rl8tt2UOjfiRY+N7UlOG3AMnAy7Il5b+9xjaPSKGw0yV+0SAUr1vZchp/mwlr83xiS0AZdc0Ibe/hQOVTVba8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946911; c=relaxed/simple;
-	bh=/AovzA25bDI/y80mKNvB9fWMZSq96m267AZyVQkd1I4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=KbQZVstHUcOg9RhsE6lJ4DtiZL3pETk/ThFhyUAF/D7jVQDf1iG5J8qiAaCwy9x0F9nBhgl1y8b0OCfeUAJS/SNgzTRqtcdfz7Gk1CR8JSGP8VN4dlO4PGzQHM4JWkSDyUwTMYdUGC36jo5lTgnkXCfV9zcSmD1SO6v2uIfTVNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0mAyBXDC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787946950; c=relaxed/simple;
+	bh=jRpghryDrodxMmh/XcCri4nhZAOYGtdVkCars6Z2guU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DwS1db2XD+83znpIBL+tJkQ1NDVFWDL0IWqQWv+nMx6KwXEZs4cvsVWAlU0jdOg6GEqwb+BE0jGSrSO4QouorTJ2qhgKoX1PThw4Gp7V5q5XZxKyDSNgMXAKlknx3k7quKn3fCO1CFBd/4CK1BiqfLm9j0DPUhBqaOV68zQEvIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=iUWnW1P4; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=iUWnW1P4; arc=none smtp.client-ip=140.77.166.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0mAyBXDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A951F000E9;
-	Fri, 28 Aug 2026 19:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787946910;
-	bh=RxINNOOACjMYXoYatrs0c86mnfYNcZa83lnprus68gY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=0mAyBXDCnNaw5HLncu9rKGdX9UpyZ+k1g/LvILACWZs2IKSyNRxxNjw6X5jUh9cDn
-	 ZoJYwVqp74Dx8dniGuBKTe3SXugx9wK7K2Ilkq/uvFfwM/JGiiTrLdu1kU8xef+l0C
-	 ASoR6UIQen/UL8X/ITMZ12tA3xD2zYqbddoZresU=
-Date: Fri, 28 Aug 2026 12:55:09 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org, Johannes
- Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Roman
- Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit
- on isolated cpus
-Message-Id: <20260828125509.83d2e242534c2209ca253504@linux-foundation.org>
-In-Reply-To: <apHgs2ZAxAdy8WIH@linux.dev>
-References: <20260828135036.7d44361f@fangorn>
-	<20260828122018.1a3b3be204212837fcda8e50@linux-foundation.org>
-	<apHgs2ZAxAdy8WIH@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="iUWnW1P4";
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="iUWnW1P4"
+Received: from localhost (localhost [127.0.0.1])
+	by sonata.ens-lyon.org (Postfix) with ESMTP id 9878FA1BD9;
+	Fri, 28 Aug 2026 21:55:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1787946946; bh=jRpghryDrodxMmh/XcCri4nhZAOYGtdVkCars6Z2guU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iUWnW1P4R73IFQSqDtOUayCIVMcQ4ow6vmtcaUSs2dhIEPVj40WUYKGv/ish2nUVy
+	 /HvDWs4Pic0WpJzMXkwWvZyIo/XOZrgOU2L2wKPvADAdM6Ngv2MNkZ5eVYFTsyBepi
+	 HmCTwVucjDIjcG8HytYY0BIlQm+vq14+9BEP9mYZpLLvIR3QCU15S8+aqp9ZWmAKSi
+	 s/ngCtpVt3nf8IzgMRiHaFdwaAZr0atu3Qp2Snq7BBE8ANAokHGDHgBSQ90vBW9N/o
+	 OGXXHGL3mHfE8UaMZiH6H21JRfYNltFLAOu/QYzvIqwEA0yQog4cPfE47ei7PlKOWS
+	 SMJRO/8B3CRZw==
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id TcZ8Qw80vcVv; Fri, 28 Aug 2026 21:55:46 +0200 (CEST)
+Received: from end (aamiens-653-1-40-48.w83-192.abo.wanadoo.fr [83.192.199.48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 1C649A0657;
+	Fri, 28 Aug 2026 21:55:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1787946946; bh=jRpghryDrodxMmh/XcCri4nhZAOYGtdVkCars6Z2guU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iUWnW1P4R73IFQSqDtOUayCIVMcQ4ow6vmtcaUSs2dhIEPVj40WUYKGv/ish2nUVy
+	 /HvDWs4Pic0WpJzMXkwWvZyIo/XOZrgOU2L2wKPvADAdM6Ngv2MNkZ5eVYFTsyBepi
+	 HmCTwVucjDIjcG8HytYY0BIlQm+vq14+9BEP9mYZpLLvIR3QCU15S8+aqp9ZWmAKSi
+	 s/ngCtpVt3nf8IzgMRiHaFdwaAZr0atu3Qp2Snq7BBE8ANAokHGDHgBSQ90vBW9N/o
+	 OGXXHGL3mHfE8UaMZiH6H21JRfYNltFLAOu/QYzvIqwEA0yQog4cPfE47ei7PlKOWS
+	 SMJRO/8B3CRZw==
+Received: from samy by end with local (Exim 4.100-RC3)
+	(envelope-from <samuel.thibault@ens-lyon.org>)
+	id 1x02fx-00000007dXJ-0mFh;
+	Fri, 28 Aug 2026 21:55:45 +0200
+Date: Fri, 28 Aug 2026 21:55:45 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: co <co+e5693071d903b832@bugs.sh>
+Cc: speakup@linux-speakup.org, William Hubbs <w.d.hubbs@gmail.com>,
+	Chris Brannon <chris@the-brannons.com>,
+	Kirk Reiser <kirk@reisers.ca>, Petr Mladek <pmladek@suse.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Song Liu <song@kernel.org>, Greg Kroah-Hartman <gregkh@suse.de>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] drivers/tty: NULL pointer dereference in paste_selection()
+Message-ID: <apHnwT7aG3Uy4oyC@end>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	co <co+e5693071d903b832@bugs.sh>, speakup@linux-speakup.org,
+	William Hubbs <w.d.hubbs@gmail.com>,
+	Chris Brannon <chris@the-brannons.com>,
+	Kirk Reiser <kirk@reisers.ca>, Petr Mladek <pmladek@suse.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Song Liu <song@kernel.org>, Greg Kroah-Hartman <gregkh@suse.de>,
+	linux-kernel@vger.kernel.org
+References: <sQDn678D0YppKseC8dIUC0I6uKmzsrOVtoN1@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sQDn678D0YppKseC8dIUC0I6uKmzsrOVtoN1@bugs.sh>
+Organization: I am not organized
 
-On Fri, 28 Aug 2026 12:26:15 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
+Hello,
 
-> On Fri, Aug 28, 2026 at 12:20:18PM -0700, Andrew Morton wrote:
-> > On Fri, 28 Aug 2026 13:50:36 -0400 Rik van Riel <riel@surriel.com> wrote:
-> > 
-> > > When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
-> > > isolation, schedule_drain_work() can drop the work in a separate RCU
-> > > critical section, and housekeeping_update()'s synchronize_rcu() can race
-> > > that second check, leaving the flag set.
-> > > 
-> > > drain_local_stock() only clears the bit for work that ran, so the flag
-> > > remains set and the stock is never drained again.
-> > > 
-> > > Have schedule_drain_work() return whether the work was queued, and clear
-> > > FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
-> > > isolated, so future drains can retry.
-> > 
-> > Is there some Reported-by: or reproducer for this?
-> > 
-> > Given the complexity of the reproducers which Gemini developed for me, I'm
-> > suspecting "nope".
-> > 
-> > > Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
-> > > Cc: stable@vger.kernel.org
-> > 
-> > Why is a backport being proposed?  How does that benefit those we
-> > serve?
-> > 
-> > Sashiko suggests that we ain't done yet:
-> > 	https://sashiko.dev/#/patchset/20260828135036.7d44361f@fangorn
+Thanks for the notice, this is indeed a small timing window between
+switching VT and pasting text. In practice only root can trigger this,
+so this is not a security issue, but I will add a NULL check to avoid
+it.
+
+With regards,
+Samuel
+
+co, le jeu. 27 août 2026 12:42:57 +0000, a ecrit:
+> We found a bug reachable in:
 > 
-> Haha we are never done. Just sent the fix for this new report:
+>     path    drivers/tty/vt/selection.c` (fault site), `drivers/accessibility/speakup/main.c` + `drivers/accessibility/speakup
+>     crash   NULL pointer dereference in paste_selection()
+>     commit  f5098b6bae76 ("Linux 7.2-rc5")
 > 
-> http://lore.kernel.org/20260828192419.3057939-1-shakeel.butt@linux.dev
+> Config, environment, the sanitizer report and a C reproducer follow.
+> 
+> == Notes ===============================================================
+>     If you patch the bug based on our artifacts, a tag would be
+>     appreciated:
+> 
+> Reported-by: co+e5693071d903b832@bugs.sh
+> 
+>     Everything in this mail is validated by the reproducer below.
+> 
+>     We also hold an LLM-generated root-cause analysis and a candidate
+>     patch. The patch passes an A/B test: the same reproducer panics the
+>     unpatched kernel and runs clean on the patched one. Neither has had
+>     human review, so both still require validation before you send or
+>     apply them. Available on:
+> 
+>         patch.diff  https://bugs.sh/b/e5693071d903b832/patch.diff
+>         report.md   https://bugs.sh/b/e5693071d903b832/report.md
+> 
+>     This is an open science project. The code and the full set of PoCs
+>     are not public at this moment, as we intend to disclose our findings
+>     in an ethical way.
+> 
+>     Happy to test patches. Complaints and suggestions about our work
+>     are welcome at:
+> 
+>         cedalion@bugs.sh
+> 
+> == Environment =========================================================
+>     Reproduced on  f5098b6bae76 ("Linux 7.2-rc5")
+>     VM setup       https://bugs.sh/b/e5693071d903b832/run.sh
+>     config         https://bugs.sh/b/e5693071d903b832/config.gz
+>     poc            https://bugs.sh/b/e5693071d903b832/repro.c
+> 
+> == Sanitizer Report ====================================================
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000044: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
+> CPU: 1 UID: 0 PID: 49 Comm: kworker/1:1 Not tainted 7.2.0-rc5 #10 PREEMPTLAZY
+> Workqueue: events __speakup_paste_selection
+> RIP: 0010:paste_selection (drivers/tty/vt/selection.c:393)
+> Call Trace:
+> __speakup_paste_selection (drivers/accessibility/speakup/selection.c:112)
+> process_one_work (kernel/workqueue.c:3322)
+> worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+> kthread (kernel/kthread.c:436)
+> ret_from_fork (arch/x86/kernel/process.c:158)
+> ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+> Kernel panic - not syncing: Fatal exception
+> 
+> 
+> ---
+> The report format is based on syzbot bug report.
+> 
+> This report is generated by a bot. It may contain errors.
+> See https://github.com/n132/cedalion for more information.
+> 
+> For any issue with this report, reach out to cedalion@bugs.sh
+> 
+> If the report is already addressed, let us know by replying with:
+> #co fix: <commit hash>
+> 
+> If the report is a duplicate of another one, reply with:
+> #co dup: <lore link>
+> 
+> If you want to undo deduplication, reply with:
+> #co undup
+> 
+> 
 
-Cool.
-
-And... guess what?
-	https://sashiko.dev/#/patchset/20260828192419.3057939-1-shakeel.butt@linux.dev
+-- 
+Samuel
+<c> hiri, le cri ici, c des marrants
+<c> j'ai un rep ".uglyhackdirectorywithoutacls" ds mon home
+ -+- #ens-mim en stage -+-
