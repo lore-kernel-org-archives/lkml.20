@@ -1,74 +1,35 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7A6455192;
-	Fri, 28 Aug 2026 14:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27A44570EC
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927757; cv=none; b=cOSA8KeI0QYi3fdckNYvQCb9sRbnLPy7enSvcgoGtwCEK+keE6xLEMTt9JEHRoO/eZzXw3dnzfQk/Yl81+ElcRVe5TatLIHmhdsQtd5uA8/yWxXWt0K4aITTX4knBbj7a+w8gKNCfiiQ6k5w+iFMA4GsuGi9x0puu9jbkEEE8Ko=
+	t=1787927786; cv=none; b=U0KOZETFgDfS3Ks97hdBkQ/cSwwv3UdPublJBq/D0e7BcXt09EkMFzAxj1BsPh9/ATSKXuGCs15l/GX2zB+jbRO84y6Y448amqw2rllYnN4fV0LOXqlhUT+kqATfhBgme+L+jBKF+/zP9+DfT8LvSVy9h+ewJVXqpq2GIUyud1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927757; c=relaxed/simple;
-	bh=qt1fLQhXwiuhTakqhObvInwVmK3ImTBo4G1+BsTtet0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XXy0Hz2O8yfRZPtL/SNcaBYDJj8ujuTopWd9q0yw8q9/RjDCbRF+98fPCD9xnsEU4gMsewJrDasd9RkWXCUtrSvkL1wduSlzg0YYQqa1/Gze12g4uT9E4ust/eGpK4MGMOLJEgP7THpk9Xu4Vv0kE71PlS6kyd7GaK3tlp2Ypv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=j/13ETx4; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="j/13ETx4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ckaGVw74rY49wuwKahOscpW27wYJycDGKErZJGjW1ng=; b=j/13ETx4G/dFNQw+O8eobyyQgc
-	vb65HchRPDcYLjcyC/fkNRFPF7qas14vbb7S1GpoV2I2Af6KgW93+TAewKnJQ9jPgtqk2OZ4eDYpF
-	0eGT9oIxEXXxMOGJnz+Zvxpz77VhnwgFGBfGc5FM67FuzGeN+I5Mafj28D5LTj5F8G/dZkV4yJK4+
-	g/PyiaahSQ3iyujx49bRLJZiZUJ+yXgaIlR0W2Rw3AYelbw6TU3UACtgxtALW4lUBvYYMD2rKLFE7
-	q1zfp3Kbtkb7ki2dRGweNoxO9hxDIgG19FTnmrcPYemQ1XaAxnkT1xTxBpc0pWM6eJJY7vgg4Z1ww
-	by1BAlOw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wzxgE-00000008KRq-2kIR;
-	Fri, 28 Aug 2026 14:35:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id AC76130030F; Fri, 28 Aug 2026 16:35:40 +0200 (CEST)
-Date: Fri, 28 Aug 2026 16:35:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev,
-	jstultz@google.com
-Subject: Re: [RFC 00/10] Reclaimable kernel stacks
-Message-ID: <20260828143540.GV776954@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260828124758.GP687043@noisy.programming.kicks-ass.net>
- <20260828103328.633bbfbc@gandalf.local.home>
+	s=arc-20240116; t=1787927786; c=relaxed/simple;
+	bh=N2V8KQTGlX096rvdd/LfY/jDN1y2I+ovk0caLWjyuD4=;
+	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:From; b=kM3himjuYVD0ey8sHiIob5UjexkSMZ73bDQ4T0i7+JBltWi1O5wFAtueRQ0VKAwzq+/cn1fK+71nikthx4IXryQTHnnpA9hV6e45G7GoTg3g4Nk50VwM+xsr+JzxyjU5VrHyJF0qMa36yeNSHJSlQ0pD2bOg8wt6XRCIizouhXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
+Received: (qmail 81494 invoked by uid 3782); 28 Aug 2026 16:36:21 +0200
+Received: from muc.de (p4fe15a47.dip0.t-ipconnect.de [79.225.90.71]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Fri, 28 Aug 2026 16:36:20 +0200
+Received: (qmail 56479 invoked by uid 1000); 28 Aug 2026 14:36:19 -0000
+Date: Fri, 28 Aug 2026 14:36:19 +0000
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+  Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+  dri-devel@lists.freedesktop.org
+Subject: Re: vt: Enlarge the framebuffer glyph size from 16 to 32 bits
+Message-ID: <apGc4y8ApYWh4Yr4@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box>
+ <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,18 +38,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828103328.633bbfbc@gandalf.local.home>
+In-Reply-To: <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 
-On Fri, Aug 28, 2026 at 10:33:28AM -0400, Steven Rostedt wrote:
-> On Fri, 28 Aug 2026 14:47:58 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-> 
-> > > On Android, system processes typically have 2000-3000 threads. App
-> > > processes add 1000s more threads on top of this.  
-> > 
-> > WTF ?!? Why does that all spawn *that* many threads? Perhaps work on
-> > reducing that some?
-> 
-> I guess you never ran Java ;-)
+On Fri, Aug 28, 2026 at 08:12:16 +0200, Thomas Zimmermann wrote:
+> Hi
 
-Of course not; why would you want to do something that silly ;-)
+> Am 27.08.26 um 20:38 schrieb Alan Mackenzie:
+> > vt: Enlarge the framebuffer glyph size from 16 to 32 bits.
+
+> > This allows:
+> >    o - More than 256/512 distinct half-width glyphs (in fact, up to 2^21).
+> >    o - Unicode code points >0xffff (outside the Basic Multilingual Plane).
+> >    o - Coloured glyphs (as before).
+
+> But what is the use case here? We have excellent support for text and 
+> font rendering in graphical userspace for I18N and L10N.
+
+GUIs are sub-optimal for pure text work.  A full screen terminal is
+wanted.  The current preeminent user space terminal, kmscon, appears to
+lack the refinements of many decades development of the kernel's
+console.
+
+Support for blind users exists in the kernel's console.  I don't know
+how good it is, as I don't (yet) need to use it.
+
+> In contrast, the kernel's text-mode support is limited and a hotbed for 
+> bugs. IMHO we shouldn't add features, but try to simplify that code base.
+
+From a user's point of view, the kernel's console is rock solid and
+dependable; it doesn't crash, and its interfaces don't suddenly change
+with the latest release of KDE or Gnome or whatever.
+
+As is clear, I think the console's limitations should be eliminated.
+
+> Best regards
+> Thomas
+
+-- 
+Alan Mackenzie (Nuremberg, Germany).
