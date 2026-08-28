@@ -1,54 +1,54 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A898F46A603;
-	Fri, 28 Aug 2026 15:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9D8472771
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929795; cv=none; b=TlNLzxzeEMkk17Gg+GE0KfnYg5DFsFnOjBr48OYnmy8bYxpUYCEn6kgw2imqzb6/7z/HNt9RBtiEbl03QZLEOAxTlULTWFQYT3pbSgVXd8DaaciLI8V/JTf1pQa776uQHYskwka5XraEUmbiCkYlyJlBLJEko9qW9WQy2PG1KmY=
+	t=1787929818; cv=none; b=oGqPYozQRPzRrUUUoAWQSrzQlZhwL9CkIFVo4yXwd8NhzXD8HoB5GFuYHim2l8aD8xxUshsJz2Mw7SNNJJmgbf2jB4W5YJgyTa5uVWUyYpcrXGGdJ1r6bR/3kAQ4nxyNSSPkokxnO4TjjOk1uhewlGEGcclEH8Ol7Jf9ayOZxYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929795; c=relaxed/simple;
-	bh=2ht7LSF54lpV7TrPbfz5U6zYSpkXQBDP5kxwisLOc6Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P6+M7O3xVs61sN82MR3cbRTqWKEP9aTvCQfzstIY82JrCWk9Am8R+PPmbTgGV60M3DEmkMNYYO5VgGkwDvzt+ZsXwml15gqe9J5+5VfmJAv31mMYxnVCq1AG1k0wBfV9YvdD6IB7jt8sRJLkC49pF5kS3urB9C0DOIQWwjyPUmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Jya9Q8Xk; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787929818; c=relaxed/simple;
+	bh=6L2NbXsR0lqaz4BRcEB7uuVvOOdxIBGhUOmI6+xRtG4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cGjq0Rbo8F6NxHApLIg9rQ9hRXlJ8THfxCzEvcyhbe/p/Ww8/aCQdJpvxqo/SczFjleZAiltJp+QAegVSqdsR6PYjALgI3/Ojd8mNt5sXCzrEXJN8hA2RQlnFG/qvMdWquW7PwDGHe2AURYlSshlZVng+o39KIR496CByN+5OMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=R1hTVSbR; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Jya9Q8Xk"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C08E11D128;
-	Fri, 28 Aug 2026 17:09:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787929787; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=w4V2xYYZPxGiTt4YXxNmtjNTOnhx0km+lR8iVd4Fx10=;
-	b=Jya9Q8XknBXVZsKtuL1AFEBOuKGqRuCmY2cdxrvpzdJ6zt6Y6+4lhqK0D0zc0wjMuVXOar
-	GOZaRAy+3HQQzUShMt5YZ/ZOeCgb/pWg5v85uReUAFLNsaGiZ9vSQq4a/jTWJ0PR4jcYP0
-	oVpP7leKUAOnYOG4Y2uudcypVi110HZXHfjl9A9VgdUJuYRQbqOOx7R5vNpjGpbDBEOx+Z
-	WzbHqtkTP6h/1B/o6NawYeg07XgcK3HsIAXv2mea7GPmfamUF2SSa79EEM8Zqf/E/m2U4s
-	1i7lWPAw2endyjWicvDMlerFGnHV2zowpgynmzmVbqlzYmIj/wE96z0sDdHbqA==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v4 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
-Date: Fri, 28 Aug 2026 17:09:15 +0200
-Message-ID: <20260828150937.174735-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828150937.174735-1-marex@nabladev.com>
-References: <20260828150937.174735-1-marex@nabladev.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="R1hTVSbR"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=/4HXdOnEjO2UWQf+m+lpPrXMXF/LAxWYvhtSnXIOjTE=;
+	b=R1hTVSbROxgMjucOhjQ77G4yaqYa014J8x5xfqFvl2dIoIb+mAvQcLkYukrhRy25n57jqSc/w
+	uzhDI07JTYJWgTsrxh+FxBZYK03D6HkkR4bKKKj3UcHXLSpPkOSDePNFcmRkmOSnhLYk7Qd7CYk
+	yv4xR7jpwTYeCorKcyJGeUY=
+Received: from mail.maildlp.com (unknown [172.18.224.150])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hWhd20y5rzJ46Zq;
+	Fri, 28 Aug 2026 23:09:42 +0800 (CST)
+Received: from mscpeml500003.china.huawei.com (unknown [7.188.49.51])
+	by mail.maildlp.com (Postfix) with ESMTPS id 410F440570;
+	Fri, 28 Aug 2026 23:10:05 +0800 (CST)
+Received: from mscphis00060.huawei.com (10.123.65.147) by
+ mscpeml500003.china.huawei.com (7.188.49.51) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 28 Aug 2026 18:10:04 +0300
+From: Artem Kuzin <artem.kuzin@huawei.com>
+To: <david@kernel.org>
+CC: <akpm@linux-foundation.org>, <artem.kuzin@huawei.com>,
+	<catalin.marinas@arm.com>, <cl@gentwo.org>, <liam@infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux@armlinux.org.uk>, <ljs@kernel.org>,
+	<mark.rutland@arm.com>, <mhocko@suse.com>, <panov.nikita@huawei.com>,
+	<rppt@kernel.org>, <surenb@google.com>, <vbabka@kernel.org>,
+	<wangkefeng.wang@huawei.com>, <will@kernel.org>,
+	<xiongyining1480@phytium.com.cn>, <wangyuquan1236@phytium.com.cn>
+Subject: Re: [RFC PATCH 00/18] mm: arm64: Add kernel replication feature
+Date: Fri, 28 Aug 2026 23:05:06 +0800
+Message-ID: <20260828150506.1016096-1-artem.kuzin@huawei.com>
+X-Mailer: git-send-email 2.34.1-openssl
+In-Reply-To: <bbd45126-8d43-40eb-8a69-a7fb6d2378f1@kernel.org>
+References: <bbd45126-8d43-40eb-8a69-a7fb6d2378f1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,122 +56,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
+X-ClientProxiedBy: mscpeml100003.china.huawei.com (10.199.174.67) To
+ mscpeml500003.china.huawei.com (7.188.49.51)
 
-The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
-glue logic wrapper around it controlled by syscon. Extend the generic
-DWC3 platform driver with ST STM32MP2 glue logic specifics.
+Hi!
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org
----
-V2: No change
-V3: - Use generic over-current-active-low
-V4: - Include bitfield.h
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 45 ++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+On 8/27/2026 10:04 PM, David Hildenbrand (Arm) wrote:
+> [...]
+> 
+> About to go on PTO, some random points :)
+> 
+>>
+>>> [12] - Optimize this_cpu_*() ops for non-x86 (ARM64 for this series)
+>>>
+>>> As of today, none of it was merged into mainline.
+>>
+>> I mean :) maybe take that as a hint? If a number of series trying to do X get
+>> rejected by upstream, that is maybe suggestive of barking up the wrong tree?
+> 
+> I'd have expected an explanation at that point why previous approaches were not
+> merged and how this patch set is sufficiently different that it is worth
+> maintainer's time.
+> 
+>>
+>>> However, after thorough re-evaluation, we were not able to observe
+>>> performance improvement for the x86 platform, so we have decided to stop this
+>>> direction and switch on arm64.
+>>
+>> I mean, why? You should provide details here, this is quite hand-wavey. You are
+>> also proposing core mm changes for something that seems specific to unique
+>> hardware as far as I can tell, which is a big ask.
+> 
+> What I consider interesting is "after thorough re-evaluation, we were not able
+> to observe performance improvement for the x86 platform".
+> 
+> How confident are we that a thorough re-evaluation on arm64 will not similarly
+> have the same outcome? IOW, what was the problematic part when doing the x86
+> evaluation, and how was that avoided when evaluating the arm64 implementation?
+>
+In the x86 kernel replication patchset, performance evaluation was done on a
+relatively old platform. Garg Shivank <shivankg-AT-amd.com> evaluated it on
+AMD EPYC 7713 64-Core processor (dual socket, 2 NUMA nodes, 64 CPUs on each node),
+and the results were completely different - no performance benefits. At that time,
+I was unable to reproduce and clarify the issue because I didn't have such machine.
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07ce..bb2be75a82875 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -7,6 +7,7 @@
-  * Inspired by dwc3-qcom.c and dwc3-of-simple.c
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-@@ -22,6 +23,12 @@
- #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
- #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
- 
-+#define STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT	BIT(0)
-+#define STM32MP2_USB3DRCR_OVRCUR_POLARITY			BIT(1)
-+#define STM32MP2_USB3DRCR_VBUSEN_POLARITY			BIT(2)
-+#define STM32MP2_USB3DRCR_USB2ONLYH				BIT(3)
-+#define STM32MP2_USB3DRCR_USB2ONLYD				BIT(4)
-+
- struct dwc3_generic {
- 	struct device		*dev;
- 	struct dwc3		dwc;
-@@ -85,6 +92,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
- 	return 0;
- }
- 
-+static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
-+{
-+	struct device *dev = dwc3g->dev;
-+	bool ovrcur_polarity_low = device_property_read_bool(dev, "over-current-active-low");
-+	bool prt_pwr_ctrl = device_property_read_bool(dev, "st,enable-port-power-control");
-+	bool usb2only_conf = device_property_match_string(dev, "phy-names", "usb3-phy") < 0;
-+	bool vbusen_polarity_low = device_property_read_bool(dev, "st,vbusen-active-low");
-+	struct regmap *regmap;
-+	u32 drcr;
-+
-+	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg", 1, &drcr);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle specified\n");
-+
-+	return regmap_update_bits(regmap, drcr,
-+				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
-+				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
-+				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
-+				  STM32MP2_USB3DRCR_USB2ONLYD |
-+				  STM32MP2_USB3DRCR_USB2ONLYH,
-+				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
-+					     prt_pwr_ctrl) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
-+					     ovrcur_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
-+					     vbusen_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD,
-+					     !!usb2only_conf) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH,
-+					     !!usb2only_conf));
-+}
-+
- static int dwc3_generic_probe(struct platform_device *pdev)
- {
- 	const struct dwc3_generic_config *plat_config;
-@@ -231,12 +270,18 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
- 
-+static const struct dwc3_generic_config stm32mp25_dwc3 =  {
-+	.init = dwc3_stm32mp25_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
-+
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
- 	{ .compatible = "starfive,jhb100-dwc3", },
-+	{ .compatible = "st,stm32mp25-dwc3", &stm32mp25_dwc3 },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
--- 
-2.53.0
+Also, as Nikita mentioned, kernel replication on x86 machines introduces additional
+overhead related to PGD management and user space updates propagation.
+
+As for ARM, I remember that the guys from Phytium published relatively good
+performance evaluation results. [1]
+
+Yes, both patchsets (x86 and ARM) are far from ready for upstream state,
+and there has been very little feedback on them. It was not completely clear if it
+is worth continuing with the kernel replication idea.
+
+[1] https://lwn.net/ml/linux-doc/ZbjOZ1YOQUBxftrR@shell.armlinux.org.uk/
+
+Cheers, Artem
 
