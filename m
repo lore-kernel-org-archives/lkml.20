@@ -1,55 +1,48 @@
-Received: from mail3-162.sinamail.sina.com.cn (mail3-162.sinamail.sina.com.cn [202.108.3.162])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456A330C165
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DAC184540
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:02:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907687; cv=none; b=Xfl4EFro1iqznWeK3pFg5yFl7/jfxdLUN/Lo5poEiqJvMVh/OFM1aEGFYvNF2xc1pZ5VpLQ6qe1EIA9um0a9cEwTKgvqzgYVc342j+d2VwPRoEx6IuESquQLtUlMkc2YEvmKgJirfi4EizJdoU3V7iURy1HS0meSRPdMsFGlRDY=
+	t=1787907775; cv=none; b=czp3v8SaAPvb1eIzkUtbQZt7/l35729w0QWPYbeBcgl11xjs1Ga8yWRYxbAtbkB0iAajXowwzRz1gzKj7/HBKRZ9tLs7sHtU77T44proAzUlVN8omfI/NH8kTkAVlzCv95GFl+ZgfonR8yliKDscDvuiVp4X3uF8D0/RLLuexNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907687; c=relaxed/simple;
-	bh=r9+AOLRFjFQYDmlGo6RU1nUidA/os8pW1y9nXU1lfAM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lVWeUAo4IW4NsXCCirbS8i/tPQGbkFuztXUUtxnzeQYyBa8kep2F15hpipY7LoNu3vThLXA7LjTOtR/ePGYOkMaYANIpgPqpOU46j15CPa5hh4BYefn1+5nbcjDVVoNrMNCYR2VUTlHOaSXIgL1bQ2nUmfdmAKdMA+GMIBqA61s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=wkDBLFPY; arc=none smtp.client-ip=202.108.3.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787907775; c=relaxed/simple;
+	bh=5L+8iMVNX6IQUUlsU3thAK9rhZX6D34E4mPEYocAmeg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S4l4OPRNlm01FQgHFoSds+hK47tGNC2HsMjgcN4WIOf51cghHl1T1z9rQkrvaERwLU6cI2KdB4p0uoF48pNIx4mBo2FjmHY5mrP0OcuWmKUzgA/uSnWHoHdzMx2OkrmEqdCJHbFdEr2ab4YkzP/7/Ixn/yzE4ct5prV6mh1Vn98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DffHrHIo; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="wkDBLFPY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787907682;
-	bh=srAaliEDGMeII5077n047iXQZy11pZEpc56pqzlQ+dw=;
-	h=From:Subject:Date:Message-ID;
-	b=wkDBLFPYZ7qxfnE/91+xP5eeOSzDQjyu0eCE8DtJCqOXHcEnsd90ZQk4QDO8F1P9Y
-	 FZ213bsU6ncnjCwRP1JqH5plpIGNFZTtvqJDUHFujU6qX02Nh5WZtMWe7qNMvyatfe
-	 2/W40hvH4T4nyDBHlKZKyCjvNKpWWSjs6LpGDjyM=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6A914E5500001447; Fri, 28 Aug 2026 17:01:11 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5278146292015
-X-SMAIL-UIID: E7CCE3D0A05A4AC1B1F9E9A3F3B2E189-20260828-170111-1
-From: Hillf Danton <hdanton@sina.com>
-To: Eric Dumazet <edumazet@google.com>
-Cc: "Shin'ichiro Kawasaki" <shinichiro.kawasaki@wdc.com>,
-	syzbot <syzbot+2d770620059281e225a4@syzkaller.appspotmail.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Keith Busch <kbusch@kernel.org>,
-	boqun@kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DffHrHIo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ug
+	CMS/t4pT54t04r48wccbBM2NCtY6+PmK6XmdHCxWk=; b=DffHrHIouN45sCIF7v
+	h2MUlrcebTPVJwgwcZSh+29Os7TXCk2qZ4K3Dr2COLLe8eAd8qT0mqCOxYYsm2FE
+	LxK3NDcDiRs1r9Lc7sRrTkoW8XPhIhx8IO6k8f38jJM5ixoDzhsp/7SMLffNhsBB
+	LyZrpLRpzePklLrUjlmcWpD7U=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAnB+NlTpFqmR5iSg--.32532S2;
+	Fri, 28 Aug 2026 17:01:27 +0800 (CST)
+From: oushixiong1025@163.com
+To: David Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	peterz@infradead.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [net?] WARNING: locking bug in tcp_tsq_handler
-Date: Fri, 28 Aug 2026 17:00:56 +0800
-Message-ID: <20260828090059.1895-1-hdanton@sina.com>
-In-Reply-To: <CANn89iKEVEs5=K1Uhj_CHagbt+eV0QGernwz9EBFkLEZOB1FAw@mail.gmail.com>
-References: 
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	Ye Liu <liuye@kylinos.cn>
+Subject: [PATCH] drm/virtio: Add pixel blend mode property to cursor plane
+Date: Fri, 28 Aug 2026 17:01:23 +0800
+Message-Id: <20260828090123.784944-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,18 +50,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAnB+NlTpFqmR5iSg--.32532S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1UWry7WFyrurW3KFW5trb_yoW5GFWxpF
+	43CFZIyrWrArsrJayxtayj939Ivan3KF4xKry5Zwsagwn0kry7Ar15A34xurW7JrWUGw4f
+	Jr1kuF1q9FZ8uw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4QerumqRTmfkigAA3L
 
-On Wed, 26 Aug 2026 06:05:15 +0200 Eric Dumazet wrote:
-> 
-> I decided to ignore your rants a long time ago, as many others did.
-> 
-Aha another rant chance for showing you the steps to quiese syzbot that
-reported deadlock.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-[11] Subject: Re: [syzbot] [input?] possible deadlock in tasklet_action_common (2)
-https://lore.kernel.org/lkml/6a913c08.4d659fcc.734b4.001b.GAE@google.com/
+The cursor plane exposes a format with an alpha channel
+(DRM_FORMAT_ARGB8888) without a pixel blend mode property. Since
+commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed") this triggers a warning during
+drm_mode_config_validate():
 
-[12] Subject: Re: [syzbot] [input?] possible deadlock in tasklet_action_common (2)
-https://lore.kernel.org/lkml/6a90ef26.27659fcc.2ceef7.0018.GAE@google.com/
+[    0.649020] ------------[ cut here ]------------
+[    0.649040] [PLANE:36:plane-1] pixel format with alpha exposed but blend mode not setup
+[    0.649081] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+......
+[    0.649761] Call trace:
+[    0.649764]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+[    0.649912]  drm_dev_register+0x1cc/0x2a0 [drm]
+[    0.650058]  virtio_gpu_probe+0xd4/0x1c0 [virtio_gpu]
+[    0.650088]  virtio_dev_probe+0x1c8/0x310
+......
+[    0.650261] ---[ end trace 0000000000000000 ]---
 
-This is one of my good works in 2026 in addition to catch your HBCs.
+
+Create the property with the only supported blend mode,
+DRM_MODE_BLEND_PREMULTI, which is also the property's default and
+matches what userspace had to assume before the property existed.
+
+Reported-by: Ye Liu <liuye@kylinos.cn>
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index 1d1b27ece62a..11771c943ea6 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -24,6 +24,7 @@
+  */
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -588,6 +589,7 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+ 	struct drm_plane *plane;
+ 	const uint32_t *formats;
+ 	int nformats;
++	int ret;
+ 
+ 	if (type == DRM_PLANE_TYPE_CURSOR) {
+ 		formats = virtio_gpu_cursor_formats;
+@@ -610,5 +612,17 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+ 	if (type == DRM_PLANE_TYPE_PRIMARY)
+ 		drm_plane_enable_fb_damage_clips(plane);
+ 
++	if (type == DRM_PLANE_TYPE_CURSOR) {
++		/*
++		 * The cursor plane exposes a format with an alpha channel,
++		 * which requires a blend mode property. The host blends
++		 * premultiplied alpha, matching the property's default.
++		 */
++		ret = drm_plane_create_blend_mode_property(plane,
++							   BIT(DRM_MODE_BLEND_PREMULTI));
++		if (ret)
++			return ERR_PTR(ret);
++	}
++
+ 	return plane;
+ }
+-- 
+2.25.1
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
