@@ -1,134 +1,104 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail.quicksign.fr (136-ovh.quicksign.fr [91.134.115.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62DE3DAAC3
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EDF3DAADA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.134.115.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916174; cv=none; b=Hh0oz4fOPSDOOJNdiCMuaJM1ekWTJLZRJJPd9VPROmUotITl7bKtGiM/UWmb9Z0Pit/Fs+ftV0f42yBF6wmc+DmBExqcbZswkQMpLpsRrmII5X684Gyy+V8jCiwHZ+FA0bT5EBUW2djHjMAlw40NboPNLKy5yT11zhKhULqw3h8=
+	t=1787916333; cv=none; b=lmHA705kJYdIR76gc26WlXhlrOJZh40CohezXyiaHW9786bqgzpW712KkAP4YFBA5TJTWVDSxU9apojqDcWdznLO835cn7KNmxicSFmzzQlbSiDvqz8ZV3BPSdoL7qYKWauoOdzH4Thdb5fSVyY5vCsX+U0M+EuqV9x9+nrP7/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916174; c=relaxed/simple;
-	bh=OxFQh/aLZ1OUP2E1LefOggZ7DwLj/Zk0YBH/aEcICnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ARwENd3d4LAP8LynvJF8SEbKAXJIbU0oFBIZza96tAl9L6fyX2nffpNsz2xgYLhGgp8m9s8xO2GFPWplMY1u924dfhsrg1SlYPCxb7/u1KmOUl987OgYLKGhzf2Y7/M0MEKhSCwANHjCLHq+zqrNi9Z3fwuo4N2eyJL3ZIK0MoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brZEtbdB; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787916333; c=relaxed/simple;
+	bh=kNM4RxK3UEoEw+OXR1VX9ya/0Y3WQZIM9I7ud45/0tg=;
+	h=Message-ID:From:To:Subject:Date:MIME-Version:Content-Type; b=G5JDt2caTC5ufUG0W7MSqaEjhK5n1LQaY1O0lyrr0AEabfCGHZwB5jZlELZrgtPsQKlPLXQ6Il8F03eLvqrIPlWvE2onqhAkZcKlpR8GPyI0h7Tg7LQU4cXzt1s3ID0RMQK3pDJN4rOj7czLA35R2GQFvBkBU+QMGou+1uTfFBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicksign.fr; spf=pass smtp.mailfrom=quicksign.fr; dkim=fail (0-bit key) header.d=quicksign.fr header.i=@quicksign.fr header.b=eCImT1Ph reason="key not found in DNS"; arc=none smtp.client-ip=91.134.115.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicksign.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicksign.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brZEtbdB"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8037785e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:22:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787916171; x=1788520971; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
-        b=brZEtbdBgVvv/bmqZ59/aDSktlynXGJk3SDskdXYPh3MVXvdwpODkxpIFjhZLrkcin
-         4FggJ2PxPLaeuNN1DQS8lbzo2id/0+wzPZy6p8vxdvyQbbWX6qLBzXjMQqLkq70TwfRn
-         kldTdjCyb6ASglyuqoYkFJCsZKDhA/OMl2WEI+ZhMGrDQxe1JAPCBY7j+ggBudvkVNeb
-         NxKJIFz/ck41YI/qPWcHPnbEYVljkm4FAvnswqzUb1f9qfrL3diK1TA8lD8LCy79kg60
-         ocIAQ/cd/hB2jQngdPf5FWIoTSdEjkXwVaSGuQLnallpSO9xXQQRdvpLPxuYTAPXuI4n
-         t0Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787916171; x=1788520971;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
-        b=mA4J3b5l1fIBoj1JItSUHjUQv1Pztkn38HKSmipVb14SDX/m6DyWvmRIB0itySGFGv
-         Sw/mimH9r9jjezGUQwpY5lx0+G5dXi13hfoU0RVEk1244L30joYWgtuKd7K86ixIPxh5
-         GC/uhe/6+xkP60uwUATFIZY+HMssPCkeYuztWA8agI4mlITvaqsyxPdAUTUhSsEdsjYg
-         qu5+CQBs6mR3BczwGGHRKrviCDqmjMW2cLNPLjtMMvJ1CJeYFYjcpl8svGfUSWQHrm0k
-         93fAnZ537m0J6ybzXGTKmzFF0RvpqFn/FZuQmibXK9CzU4ESReFHnbs9O5m/1WWSi0+r
-         4d5w==
-X-Forwarded-Encrypted: i=1; AHgh+RpgnwV9JXIHifSMEXSAUTXbvBk4j1NWHGX8YlI5X7R5oU2xJ49qwSunkGzzytvKMXY54+doQLh8pwcFwac=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpA6H3HhdzKSHgD0h1EK+Z3EgiU1MPn5kO0cRiAmf7uIZHkNz8
-	xHbyc+X9DF1+Gw/iXZ9YPEk9BV/lO4/EAmy1dDnYsZinjWEDyTAwNNSa
-X-Gm-Gg: AR+sD10YqpB0Y5rGSIcE/b+Hnetp00r9l1rFOWZ6B4e0e6Hpo2PINvL0b2U84938vwp
-	spJlbIuYLd51SBVItF54/RTZCHHb5FYe6pDSYfmG5g9WPB4aoffsecPmxYVk21AFCc4pyUpPZt3
-	2uARrmeKkDINSSt99eDag23rxfjZsYOuXXxftC+3ySfkHNawnS7yzMfKQrWNIaMHewPFlzCwL8V
-	IsfEKnDHIVU7f1N/wURxK2K1Z6TgupxpLn3hGbUwOoQFGrF7RVQNT4eoevvcCTlRQDLFtKnjhWd
-	t5Z77+5NVEhnouZNbhRjPa8APcbl5/xd1AYPZAr6dqz00B5Sbtqing4TekJBodus2HvmHueUlOt
-	TNTtYXjBZMFRqrlLKfancfcrZYpfTAEx8HfbrqPXBiq6IkQ7wffOgTFqB8gJXgBEUv+yZ9Rl58M
-	1QuBeiMZT5eRkbS+RUjurRZ/M75zG8Ne+knu+IoqeI/c++vzIBhvFQ0F56/ASi/aE=
-X-Received: by 2002:a05:600c:4f95:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49b91a2b7eamr64094345e9.1.1787916170837;
-        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
-Received: from cachyos-x8664 ([212.227.119.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d1dsm40237315e9.13.2026.08.28.04.22.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
-From: Alexei Turtanov <9alexei9@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alexei Turtanov <9alexei9@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro 16 2026
-Date: Fri, 28 Aug 2026 14:22:39 +0300
-Message-ID: <20260828112239.18081-1-9alexei9@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=quicksign.fr header.i=@quicksign.fr header.b="eCImT1Ph"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=quicksign.fr; s=mail;
+	t=1787915700; bh=kNM4RxK3UEoEw+OXR1VX9ya/0Y3WQZIM9I7ud45/0tg=;
+	h=Reply-To:From:To:Subject:Date:From;
+	b=eCImT1PhZ/G/o4P1L4AZOAld0IbLiI7Q4A27lAkYHdlKDbN+cMEFBvuq1wlLjkOYL
+	 P4SngGiObW89OBWlay9FzuN9xZ9kr2cVr0+cLmDE9SYivmmzShexMBazILAFvsi57E
+	 yj6yxhvWB+ovoyXgY3sLYhnBxXeX0ABfrCHTasLjfoBo/yb8dkmepejOo3vq2n8T6z
+	 SbICHwoat3usHb6oMlQvBa4leZrxuk8js3VMudlLTQ0d2NmuYqqRAcSNCPlXwrTa78
+	 TIFIjfNFR5dUNJM+zaTyXi8cgWHhOrJ3ATfYGSzSmkVOasySlhcWVOR4cZA5LSp22L
+	 bO2CUI7MZMwhQ==
+Received: from authenticated-user (mail.quicksign.fr [91.134.115.136])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.quicksign.fr (Postfix) with ESMTPSA id 1784CAD8DE
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:15:00 +0200 (CEST)
+Message-ID: <afe06cc733dee7eccbf1b813e2b69d815df9cd@quicksign.fr>
+Reply-To: =?utf-8?B?0J/RgNC+0LTQsNC9INCe0YDQuNC80LjRgCDQhtCz0L7RgNC+0LLQuNGH?= <ssu@gov.ua>
+From: =?utf-8?B?0J/RgNC+0LTQsNC9INCe0YDQuNC80LjRgCDQhtCz0L7RgNC+0LLQuNGH?= <test@quicksign.fr>
+To: linux-kernel@vger.kernel.org
+Subject: =?utf-8?B?0IbQvdGE0L7RgNC80LDRhtGW0Y8gKNCy0LjQvNCw0LPQsNGUINGA0LU=?=
+	=?utf-8?B?0LDQs9GD0LLQsNC90L3RjykgLdCQ0L3QtNGA0ZbQudGH0LXQvdC60L4g?=
+	=?utf-8?B?0JTRltC5INCc0LjQu9C+0YHQu9Cw0LLQvtCy0LjRhw==?=
+Date: Fri, 28 Aug 2026 14:18:26 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-The internal keyboard of the Xiaomi Redmi Book Pro 16 2026 (board TM2425)
-does not work: atkbd_probe() succeeds and every command is ACKed, but no
-scancodes ever arrive afterwards.
+=D0=AF =D0=A0=D0=B5=D1=88=D0=BA=D0=BE =D0=96=D0=B0=D0=B4=D0=B0=D0=BD =D0=94=
+=D0=BE=D0=B1=D1=80=D0=BE=D0=BC=D0=B8=D1=80=D0=BE=D0=B2=D0=B8=D1=87,=D0=9F=
+=D0=BE=D0=BF=D0=B5=D1=80=D0=B5=D0=B4=D0=B6=D0=B0=D1=8E =D0=92=D0=B0=D1=81=
+, =D1=89=D0=BE =D1=8F =D0=B7=D0=B0=D0=BC=D1=96=D0=BD=D1=83=D0=B2=D0=B0=D0=
+=B2 =D0=BE=D1=84=D1=96=D1=81=D0=BD=D1=83 =D0=B1=D1=83=D0=B4=D1=96=D0=B2=D0=
+=BB=D1=8E =D0=B7=D0=B0 =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=BE=D1=8E =D0=BC.=
+ =D0=9C=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D1=97=D0=B2, =D0=B2=D1=83=D0=BB. =D0=
+=9C=D0=B0=D0=BB=D0=B0 =D0=9C=D0=BE=D1=80=D1=81=D1=8C=D0=BA=D0=B0, =D0=B1=D1=
+=83=D0=B4. 108/5 =D0=BD=D0=B0 3=E2=80=935 =D0=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=
+=85=D0=B0=D1=85 =D1=83 =D1=81=D1=82=D0=B5=D0=BB=D1=8C=D0=BE=D0=B2=D1=96=D0=
+=B9 =D1=87=D0=B0=D1=81=D1=82=D0=B8=D0=BD=D1=96 =D1=8F =D0=B2=D1=81=D1=82=D0=
+=B0=D0=BD=D0=BE=D0=B2=D0=B8=D0=B2 =D1=83 =D0=B2=D0=B0=D0=BA=D1=83=D1=83=D0=
+=BC=D0=BD=D0=B8=D1=85 =D0=BF=D0=B0=D0=BA=D0=B5=D1=82=D0=B0=D1=85 7 =D0=B2=
+=D0=B8=D0=B1=D1=83=D1=85=D0=BE=D0=B2=D0=B8=D1=85 =D0=BF=D1=80=D0=B8=D1=81=
+=D1=82=D1=80=D0=BE=D1=97=D0=B2,
+ =D1=8F=D0=BA=D1=96 =D1=81=D0=BF=D1=80=D0=B0=D1=86=D1=8E=D1=8E=D1=82=D1=8C=
+ =D0=B7 14:30 =D0=B4=D0=BE 17:00 =D0=B7=D0=B0 =D1=86=D1=96=D1=94=D1=8E =D0=
+=B0=D0=B4=D1=80=D0=B5=D1=81=D0=BE=D1=8E; 3 =D0=B2=D0=B8=D0=B1=D1=83=D1=85=
+=D0=BE=D0=B2=D1=96 =D0=BF=D1=80=D0=B8=D1=81=D1=82=D1=80=D0=BE=D1=97 =D1=8F=
+ =D1=80=D0=BE=D0=B7=D0=BC=D1=96=D1=81=D1=82=D0=B8=D0=B2 =D0=BD=D0=B0 5 =D0=
+=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=81=D1=96 =D0=BE=D1=84=D1=96=D1=81=D0=BD=D0=
+=BE=D1=97 =D0=B1=D1=83=D0=B4=D1=96=D0=B2=D0=BB=D1=96 =D0=BC=D1=96=D0=B6 =D0=
+=BE=D1=84=D1=96=D1=81=D0=B0=D0=BC=D0=B8 521=E2=80=93527, =D1=80=D0=B5=D1=88=
+=D1=82=D1=83 =D0=B2=D0=B8=D0=B1=D1=83=D1=85=D0=BE=D0=B2=D0=B8=D1=85 =D0=BF=
+=D1=80=D0=B8=D1=81=D1=82=D1=80=D0=BE=D1=97=D0=B2 =D1=8F =D1=81=D1=85=D0=BE=
+=D0=B2=D0=B0=D0=B2 =D1=83 =D1=80=D1=96=D0=B7=D0=BD=D0=B8=D1=85 =D0=BC=D1=96=
+=D1=81=D1=86=D1=8F=D1=85 =D1=86=D1=96=D1=94=D1=97 =D0=B1=D1=83=D0=B4=D1=96=
+=D0=B2=D0=BB=D1=96! =D0=AF =D0=B2=D1=81=D1=96=D1=85 =D0=BF=D1=96=D0=B4=D1=
+=96=D1=80=D0=B2=D1=83,
+ =D1=96 =D0=BB=D1=8E=D0=B4=D0=B8 =D0=B7=D0=B0=D0=B3=D0=B8=D0=BD=D1=83=D1=82=
+=D1=8C; =D0=BF=D1=80=D0=BE=D1=88=D1=83 =D0=B2=D1=81=D1=96=D1=85 =D0=BC=D0=
+=B8=D1=80=D0=BD=D0=B8=D1=85 =D0=BC=D0=B5=D1=88=D0=BA=D0=B0=D0=BD=D1=86=D1=
+=96=D0=B2 =D0=BF=D0=BE=D0=BA=D0=B8=D0=BD=D1=83=D1=82=D0=B8 =D0=B1=D1=83=D0=
+=B4=D1=96=D0=B2=D0=BB=D1=96. =D0=AF =D1=96=D0=BD=D0=B2=D0=B0=D0=BB=D1=96=D0=
+=B4, =D0=BC=D0=B5=D0=BD=D1=96 =D0=B2=D1=82=D1=80=D0=B0=D1=87=D0=B0=D1=82=D0=
+=B8 =D0=BD=D1=96=D1=87=D0=BE=D0=B3=D0=BE, =D0=B2=D0=B8 =D0=B2=D1=81=D1=96=
+ =D0=B7=D0=B0=D0=B3=D0=B8=D0=BD=D0=B5=D1=82=D0=B5! =D0=9F=D0=B5=D1=80=D1=88=
+=D0=B8=D0=B9 =D0=B2=D0=B8=D0=B1=D1=83=D1=85 =D0=B2=D1=96=D0=B4=D0=B1=D1=83=
+=D0=B4=D0=B5=D1=82=D1=8C=D1=81=D1=8F 28 =D1=81=D0=B5=D1=80=D0=BF=D0=BD=D1=
+=8F 2026 =D1=80=D0=BE=D0=BA=D1=83 =D0=BE 14:30,
+  =D0=B0 =D0=BE 16:30 =D1=8F =D0=B7=D0=B0=D0=B2=D0=B4=D0=B0=D0=BC =D1=83=D0=
+=B4=D0=B0=D1=80=D1=83 =D0=B1=D0=BE=D0=B9=D0=BE=D0=B2=D0=B8=D0=BC =D0=B4=D1=
+=80=D0=BE=D0=BD=D0=BE=D0=BC =D0=BF=D1=80=D1=8F=D0=BC=D0=BE =D0=BF=D0=BE 5=
+-=D0=BC=D1=83 =D0=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=85=D1=83 =D0=B1=D1=83=D0=B4=
+=D1=96=D0=B2=D0=BB=D1=96! =D0=AF =D0=BA=D0=BE=D0=BD=D1=82=D1=83=D0=B6=D0=B5=
+=D0=BD=D0=B8=D0=B9, =D0=BC=D0=B5=D0=BD=D1=96 =D0=B2=D1=82=D1=80=D0=B0=D1=87=
+=D0=B0=D1=82=D0=B8 =D0=BD=D1=96=D1=87=D0=BE=D0=B3=D0=BE. =D0=90=D0=B4=D0=BC=
+=D1=96=D0=BD=D1=96=D1=81=D1=82=D1=80=D0=B0=D1=86=D1=96=D1=8F =D0=9C=D0=B8=
+=D0=BA=D0=BE=D0=BB=D0=B0=D1=97=D0=B2=D1=81=D1=8C=D0=BA=D0=BE=D1=97 =D0=BE=
+=D0=B1=D0=BB=D0=B0=D1=81=D1=82=D1=96 =D0=BF=D0=BE=D0=B7=D0=B1=D0=B0=D0=B2=
+=D0=B8=D0=BB=D0=B0 =D0=BC=D0=B5=D0=BD=D0=B5 =D0=B2=D1=81=D1=96=D1=85 =D0=B2=
+=D0=B8=D0=BF=D0=BB=D0=B0=D1=82, =D1=96 =D1=8F =D0=B1=D1=83=D0=B4=D1=83 =D0=
+=BC=D1=81=D1=82=D0=B8=D1=82=D0=B8=D1=81=D1=8F
 
-Testing on the hardware through serio_raw shows that ATKBD_CMD_RESET_DIS
-(0xF5) is the culprit. After 0xF5 the embedded controller keeps ACKing
-commands but stops delivering scancodes, and neither ATKBD_CMD_ENABLE
-(0xF4) nor ATKBD_CMD_RESET_BAT (0xFF) bring them back. Only re-enabling
-the keyboard interface at the controller level (i8042 command 0xAE, or
-rewriting the command byte as i8042_port_close() does) revives it.
-Running the init sequence without 0xF5 (0xED 0x00, 0xF3 0x00, 0xF4)
-keeps the keyboard working.
-
-'i8042.dumbkbd=1' also works around this, but then the driver never
-writes to the keyboard and the LEDs cannot be controlled. Use the
-existing atkbd_deactivate_fixup quirk instead, as done for the sibling
-TM2424 by commit 3a046db33bb9 ("Input: atkbd - skip deactivate for
-Xiaomi Book Pro 14's internal keyboard"). Tested on v7.2: keyboard,
-Caps Lock LED and s2idle suspend/resume all work.
-
-DMI: XIAOMI REDMI Book Pro 16 2026/TM2425, BIOS RMAPT6B0P0909 05/22/2026
-
-Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexei Turtanov <9alexei9@gmail.com>
----
-
-Notes:
-    The DMI match is deliberately limited to the model I could test. The 14"
-    Redmi Book Pro 2026 most likely has the same EC and needs the same
-    quirk, but I have no unit to confirm it on.
-
- drivers/input/keyboard/atkbd.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 4c82e98..5041443 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -1954,6 +1954,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
-+	{
-+		/* Xiaomi Redmi Book Pro 16 2026 (TM2425) */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "REDMI Book Pro 16 2026"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
- 	{ }
- };
- 
--- 
-2.55.0
 
