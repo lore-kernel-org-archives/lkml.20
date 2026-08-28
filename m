@@ -1,162 +1,103 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6E1287247;
-	Fri, 28 Aug 2026 13:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67C73242D9;
+	Fri, 28 Aug 2026 13:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787923860; cv=none; b=jX/QD4duw2lSg1nF4OGXnmzrIYyeCzbO+FQTtWdhxu/2xxo4/vFtTybFmHJGdAToyvRxP/rniVCcE5YymMaKIoiQGZneuAURh/rFbKcyy62GRsJCWEFrEqSW3Exrfii41hLFMmbXxrhohZYUx9FYG3o/0eESGjH8YmzbZ22mrnU=
+	t=1787923923; cv=none; b=sh5VgQWRi6TYEn0TQYFDk0WdHBSBRuC/17ZlKqe5dtOImxqutSpiCJo9NiODwrO1Tg2f7Fb2SqkSDj3x2ysMqOS7dIIhw0bqIMctFqN0gz5Ya8yjOA/KHD9t91uEMWQePArbL0xedciojxQNBsiAxt9Ly44rNN35E9+N38gYZQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787923860; c=relaxed/simple;
-	bh=nPbBLDVeV+A69NA0G6ETeX5d52904YSCbDT3lyPgAIw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=brk8WvvGDbtmwcNoN8Oeg4YynyFcRYlJUFBCJeclHeSfMUuxbk3NwyPvqz2xr/pa1b0UyBEGmJcDOueQaOOux9g2xkV/lWIKojvGQCzOPXHNajZshFyGmhbTJVmV9ghZmYoUGDbMU+bwbH/pilCQdG9yXHBWTPEeFRvPNX2iEwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ab0e2cf4a2e411f19a56ed5b684f684d-20260828
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:68587b0d-f28d-43a4-a6ba-6da6dc04a679,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7816847fd6413e5ff3abab754726e512,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|817|865|898,TC:nil,Content:-10|-8|
-	-5|15|50,EDM:-3,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ab0e2cf4a2e411f19a56ed5b684f684d-20260828
-X-User: zhangheng@kylinos.cn
-Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1300583132; Fri, 28 Aug 2026 21:30:43 +0800
-Message-ID: <2b516460-858a-43d2-a42b-a1b1194c8cb3@kylinos.cn>
-Date: Fri, 28 Aug 2026 21:30:34 +0800
+	s=arc-20240116; t=1787923923; c=relaxed/simple;
+	bh=vP5V+pCuyFgveglxjmlFRA86XFPdwRTLBpPd1GdcEhQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pVVYk/z1fcp12aw2n53Muf/8uuA4kELGUauAHaN6jkr0SyLEu2uePkHNkpFk8Cpu01vAXoZ4YzTg+TQo5b1pPUMKNuJwJqsIbzZ8tKa7nQcgiKp/YhCRZT4Wdcn0zekLTIlwmuct/1PHAytEBmbQl9hY1TepDnYXH78Z42SnFNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mZrdan3r; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mZrdan3r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787923920; x=1819459920;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=vP5V+pCuyFgveglxjmlFRA86XFPdwRTLBpPd1GdcEhQ=;
+  b=mZrdan3rYIMqbUJF6eeaQ5MLinOsmna8/+nvKuL3JU8y2YZRddfFKV3t
+   BMuvkm0kn0iV6tJEulUGI15aArkf+InyZ+eqr/TCfrWTKsC7TeUZhaDs6
+   QfCVhbIzsFLyIbyCa8u+GTMmvEzZ2l6bzp0NLsWWqv+V+4q0cCe7QN7l8
+   TQm//TWOG8E73Ub6NGEoZqNsR4y0CEiAKg7fGJZXHH4zHg5Rz0ElTbSYA
+   KIXpSIJmH6m+XKpKN6GfiL5zGlX0lVWt/xOS3QEcL5jMfubFfJn/w+fBb
+   wjjW7Ag+gXPLL83rDOz683o2HKprgMRWmg16m7rNk1E07dapD93bGe5YD
+   g==;
+X-CSE-ConnectionGUID: LYqAakGSQeGhdLGBUI9r3g==
+X-CSE-MsgGUID: jfTOgEbuSG2s38Dmbc0Taw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="75976717"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="75976717"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 06:31:58 -0700
+X-CSE-ConnectionGUID: SxQnCkggQ8G+eE8124Y2RA==
+X-CSE-MsgGUID: +1ynk+76QHi0F6gE7/DNoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="272382258"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.167])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 06:31:55 -0700
+Date: Fri, 28 Aug 2026 16:31:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] media: ov8858: Add INT3477 ACPI ID
+Message-ID: <apGNyISEGM3vx3d2@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-6-mauriziocasciano7@gmail.com>
+ <apFvSlkU9V1f1mrZ@kekkonen.localdomain>
+ <CAHp75VfOba8pSw-4NhTOyzJxjEB97qfE+w+RjXEtdMrNEZMOOw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ALSA: usb-audio: Fix boot-time audio stuttering for
- USB Audio device
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: perex@perex.cz, tiwai@suse.com, kees@kernel.org, chengordon326@gmail.com,
- jussi@sonarnerd.net, hulianqin@vivo.com, i@rong.moe, g@b4.vu,
- cryolitia@uniontech.com, pav@iki.fi, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260728111309.1271834-1-zhangheng@kylinos.cn>
- <20260816180147.2e5f01d1.michal.pecio@gmail.com>
-Content-Language: en-US
-From: Zhang Heng <zhangheng@kylinos.cn>
-In-Reply-To: <20260816180147.2e5f01d1.michal.pecio@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75VfOba8pSw-4NhTOyzJxjEB97qfE+w+RjXEtdMrNEZMOOw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Fri, Aug 28, 2026 at 04:24:38PM +0300, Andy Shevchenko wrote:
+> On Fri, Aug 28, 2026 at 2:21 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> > On Thu, Aug 27, 2026 at 08:17:50PM +0200, Maurizio Casciano wrote:
+
+...
+
+> > > +             .acpi_match_table = ov8858_acpi_match,
+> >
+> > Please use ACPI_PTR() for this one. (Also see
+> > <URL:https://lore.kernel.org/linux-media/20260828084328.257703-1-sakari.ailus@linux.intel.com/T/#t>;
+> > this won't produce a compiler warning then.)
+> 
+> Why?! What's the point in having this?
+
+For the record, while the first patches are okay there, I definitely NAKed
+the last one. It's quite controversial.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-> Hi,
-> 
-> Adding linux-usb.
-> 
-> On Tue, 28 Jul 2026 19:13:09 +0800, Zhang Heng wrote:
->> This USB Audio device (0x1e0b:0xd01e) exhibits audio stuttering
->> during boot when playing audio. Once the system is fully booted,
->> playback is normal.
-> 
-> Weird, your thread runs horribly slowly (preempted by something despite
-> spin_lock_irqsave held by xhci-hcd?) during those URB submissions. It's
-> first time I actually see this warning:
-> 
-> [    9.654586] xhci_hcd 0000:03:00.3: Frame ID 644 (reg 5154, index 13) beyond range (645, 1539)
-> [    9.654589] xhci_hcd 0000:03:00.3: Ignore frame ID field, use SIA bit instead
-> [    9.655053] xhci_hcd 0000:03:00.3: Frame ID 644 (reg 5158, index 14) beyond range (645, 1539)
-> [    9.655055] xhci_hcd 0000:03:00.3: Ignore frame ID field, use SIA bit instead
-> 
-> If packet 14 was scheduled for frame 644, packet 0 must have been
-> frame 643 i.e. uframe 5144 (should be frame aligned). So packet 14 was
-> uframe 5158 - it was only being written to HW while it was already
-> due for execution, some 2ms after usb_submit_urb() began. ???
-> 
-> URB execution won't even start until all packets are written - we do
-> take care to queue URBs atomically. Initial part of this URB (before
-> the warnings) will complete with -EXDEV status due to blatant isoc
-> scheduling threshold violation, but the rest (with SIA bits) will be
-> delayed by HW and completed normally after submission finishes.
-> 
-> The same may happen to the next URB if the condition which caused this
-> persists, and moreover, the next URB may be scheduled with a gap after
-> the previous one.
-> 
-> IDK how snd-usb-audio would react to such a mess. It is believed, at
-> least by the USB subsystem, that drivers expect contiguously submitted
-> URBs to execute in contiguous service intervals, without gaps.
-> 
-> FYI, a lot of this xhci-hcd logic is considered broken and goes out
-> the window in v7.3. I'm curious if you could test how things work on
-> usb-next without (and maybe also with) your workaround code.
-> 
-I tested this on the original version without this change,
-and the performance was quite poor.
-However, I am not familiar with this area,
-so I cannot provide a professional explanation.
-
-In fact, I originally debugged this issue on the 5.4 stable branch,
-and it worked basically fine even without this change.
-The most important part is the fix below.
-> https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git/log/?h=usb-next
-> 
-> This removes the automatic conversion to SIA/ASAP and insertion of gaps
-> between URBs, so that the initial URB will likely wholly complete with
-> -EXDEV and the next one will be scheduled immediately after it.
-> 
-> Again, what snd-usb-audio will think about it IDK, but usb-next mostly
-> works for me in my test (one remaining exception I'm trying to fix).
-> 
->> The device reports its isochronous endpoints with the Asynchronous
->> sync type (bmAttributes = 0x03), which causes the driver to
->> calculate nurbs = min(max_urbs, ...) = 3, providing only ~16ms
->> of buffering. During boot, the higher system scheduling jitter
->> (e.g., from init scripts, device enumeration, and driver probing)
->> can exceed this buffer depth, causing audible stuttering.
-> 
-> Not sure what causes it, xhci-hcd holds a spin_lock_irqsave() during
-> the whole submission, so I think it shouldn't get preempted.
-> 
->> This patch adds a device-specific quirk (QUIRK_FLAG_PLAYBACK_URB_FIXUP)
->> that applies two changes for this device:
->> 1. Forces nurbs to MAX_URBS (12), providing sufficient buffering
-> 
-> I actually wonder why snd-usb-audio seems to allocate only one URB per
-> period and then submit URBs shorter than a period. Doesn't this mean
-> that all URBs may be busy without covering the whole playback buffer,
-> and then newly written samples have nowhere to go until one completes?
-> 
-> This seems to increase risk of URB queue underrun, though TBH I tried
-> increasing 'nurbs' and I haven't seen much practical difference running
-> with very low latency like 2x250us or 2x500us.
-> 
-> Note: on USB 3.1 and newer such settings may only work on usb-next.
-> 
->> 2. Sets URB_ISO_ASAP flag for more consistent xHCI scheduling
-> 
-> URB_ISO_ASAP or xHCI SIA do the opposite of consistency - they cause
-> execution to be delayed until the URB is written to the HW and the HW
-> reaches it.
-> 
-> Non-ASAP submissions are scheduled contiguously and possibly complete
-> with -EXDEV if submitted too late. Only after the last completion of
-> the last remaining URB returns, will the next URB be scheduled
-> separately and discontiguously, to execute in some (near) future.
-> Again, this is documented usb_submit_urb() rule and it's believed that
-> drivers expect it. It's how OHCI/UHCI/EHCI drivers work.
-> 
-> Using ASAP is a known workaround for the old xhci-hcd bugs, similar
-> patches have been sent to linux-usb, that's why it's being fixed. But
-> IDK if usb-next will solve your bizarre edge case out of the box.
-> 
-> Regards,
-> Michal
