@@ -1,124 +1,305 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61245331A65
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932283; cv=pass; b=M1r3zHMPPit+q11pIU8YViA6DcxlYZHVvkBpW8HCsigVDo1UA9YaJc06dxwP0JddH3kC0M1G6zvTkU0HC8LFWjy4kAdQpRn21Qu7s3m+/DWB7TacU9oiX2Vv8jq5MW5Gl/mn6TToEbQVFaNaBHuhGCoWnBmCdHJYOprFF+J4uNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932283; c=relaxed/simple;
-	bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AJivO0iY/eigXRka81tBLb1jUG76R3+ojjrGM6eE0Xxa6seb/CWHs9+ruDPafddUfS1WFfZRELq72xnvQX4WO8E/4gfL9aM71I0T3S+tIh2Rst3rGqTZZoRJCnB82d/GkoGaxgdzBszZuHhkURnDANk7TiparGftGdH9nAtHYSM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EL1ZUpLR; arc=pass smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7BE357CEB;
+	Fri, 28 Aug 2026 15:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787932298; cv=none; b=lQrEMbkTExM2A5k7q+S/kG2S3GcdSIr5xU5Z8q4NqiM/QTzTp7Nq7YvlemlY8CHxcx1/jPJyDnVNbbnJhf+YsKbYY/PA+gOywQ95g4DQPGdEr9XBU64YCdrcYLJnvvLz8lSdx3EiULXUHHBpa9b9RrEISJdPwqMnQIcfxX4zjSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787932298; c=relaxed/simple;
+	bh=yQ/FFwpSapPcZkUMgJlHSmb/Tpy7hDWRSliWpemDAnk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pW5yz8euyxmUM2+3ALY4FfuCWRFknUjS8U10UEvCpmkTzlpnnbbSw5DujJ1pjVuuscaL1p9htxkh/QJwdopSjv9BZgirp0ktq1V7UtO96XC3r2Bsg1lZzwoRNadBunLQvCLYpDzUNGn+pex6DlS8mut0umu1YcGldHrsLEAHpkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9W/spZu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EL1ZUpLR"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e50a650a0so91834385a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:51:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787932276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BZV0BAaY6IQj87WmFUctGZZl6SjnpMVDVUJQLGsId4hImQlQ1XA61fvKZZSL2XnGhx
-         1vi1S4BiEkO95uLVuSikdoKUXp1tZbsTpNqbfa+lldkTA/YG7ufDbqWPUNGksDKA+qUk
-         9z7U4H+FHWDhBDtt7NxIprWFA8mtRdi8Usw/h09bOjMxQm15Asdf7LJ0KbIQLnk8yXky
-         h/4pKNUXsOeBba5pht6ModfIGnWdo9SBmne+I2Xjo94RcCmA+I6EPlT9BFlovQZ7dsEW
-         /9jCUDUlmSFMslo4JfO94hQ79QhS2eK6BmydRAZdRmPbPmJbMR056PYKMa4YJY8TkFER
-         jx2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
-        fh=3M+ypAtbMfK9pz0+vZUN7GiFse30J39FqitSqzm0PL4=;
-        b=hoauPf26DBroP6dYdk+D2yze9PuCKUxo52rSlekxX/W35K7+BS3OXKcs3qLwta7eyQ
-         o5fLzc/Te6okXu1XS893kUesXVVTO16qu2oLsnN13YzISK78KNpcw65HVMBYmZIFtgyu
-         GWMDZjSaEPKhoNBMcpaCrQJaH9mCKcrVsot3CWMzUoseg5Ev4oPNSByMRCDo5wv2pYLx
-         s9mE0brqPDRyoWuj/B/2vOENwobv5H/p9NONqveon1Xz0fXiKk10Q95n+kIJy7teEDuj
-         SOJM+RogXG6XXK8FumS2toowpkuXtneg76Ub75f5Ns7EKW2OD4YHmd4mLHkknVbqUCcM
-         s89w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787932276; x=1788537076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
-        b=EL1ZUpLRjHqSmF/WEANNAsmQynxJHhboORF5W5zsoM2Kwgv71FSjcZVCJUVhkZW6Bf
-         T4d0BjiYnRmEc4soprJ+mImb0fKZUX5EQUDoxIvxFcctiY5hKNRd31vXN2sgj8e9OKOz
-         afdabFbaAKJtsNVlfx+BgUlmD1AzhQfd7biGoA+KAZZixbPVM4lR6x6c3R7vvFctijGn
-         XDgrIjOsqRWr+EMI0OSYd/8BPok6+aCghm+Cts3OOaiL5OJaNK4fttx617LyJwfSTLOI
-         /kQiBg5mnADJgmcCUyGsb6r99yDf9YlVe+bRNMWYMZcfq1H9plrCsSd0Q6UqCAcdbYK4
-         BGTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787932276; x=1788537076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jW5q6ZLsxds0VUrvn8NMSUMzUGvnhoS2GgnvUjYsdVI=;
-        b=WVCoXJEe5+UiEXVn6R7snJqpwTF/NipVMbAEWoUkzOamNTuT0g/a8nXgnaAkvcKl5K
-         K9G9Sl1XwcvVIUhRS0TobndAP065J0AoZsouQ/q6S5S1egg9QI/nu+fmV2P4hXW0xebW
-         EuM/yoJIc6Yhp5ikJ9x/HC+T2QbRzg4gakpy6tjrdgwqSOleHUzMQnnPTvMHAhPHkV+k
-         oAl83i9MvqdNwZxTSXa1h+gm7J7hyLHcMrESDkr7pM1qcTYlXtucL3hiywBdx5GD+gw8
-         4EXtg6UaBUELs2wAJ/TNpM5l9Wzur8vUNNVal3gBGX0erS6Wxqvk3bZ7Zmeggzf/sJXi
-         2AjA==
-X-Forwarded-Encrypted: i=1; AHgh+RoTnZLZf4FykrWTeJ5fu3ID5e0CERU/vkH5uNSllZp1j+gLZh4Ot9dVSCJBNwsdcbNnt3Fe397Rv5mkcxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKqaXLI7NoZ29PPoGPOCSfiOB2vlYiKSFrwGVlr91npPN8Lzjm
-	951Qe7jeecT+TNn7wdF1L7tOx/6Ltbw7878Z2SwA0KWZmVJ9UTazIzK7CbProN+kDUb0Kknth3y
-	c0iR8cWgd6K5nX0HopvyKKduDSrI6y2kyNUKqYktw
-X-Gm-Gg: AR+sD12JL4ln7W0eOSiKpzZIceXr01T2KiIbqSE1nLxGTPIVCJmV1xLMYDzGpwwOAW9
-	ZRahaC3n4tZ2+44pK9OwBRnk5VNueZm0E1BphgxKPuYhQHNihasJiJuE2B9Z+ZJLkgkF7eZ5oDM
-	q06W3LdNSUhxc/CGUPsUuoVZpc5WqybeoSm5o7TAZ95aq+5oh/SsUhQUQmRkoFKoqO6sa2MKFpT
-	TPOe6Yj5ToqXrcO9F5z7nUtNczNkHtNNVAl40gcxgzLco1A51jLTHa9thTbxBaVJQDWos39MmCX
-	rKGYSCppMeGNl4JiMu5N5cIz7GSM5LJuMUOwLngKbp1llyHoXbRUBar5tLS6zp57024RkCNR45Y
-	94Mjjyf6WMJPkJdj6ChW79aebNZRv2XQqUW/xe91k3njv9uUjf8MSN8RfH1E=
-X-Received: by 2002:a05:620a:4548:b0:936:e71a:db90 with SMTP id
- af79cd13be357-939138aaf3dmr785852285a.29.1787932274998; Fri, 28 Aug 2026
- 08:51:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9W/spZu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71C91F000E9;
+	Fri, 28 Aug 2026 15:51:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787932292;
+	bh=MrxOZII0U1V57oNJKFQCS1oLJUTJEVDy3QDWlAiwRao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T9W/spZuHxH4EXPMfNsmZdNUHolT3KUS5V9w2jKDqVNNaWF1LiutG5AYIHlOFN1dr
+	 zWTFBncruZpv+5D55RTF9YG4WAiZ0vMKY3OO+EhxRYrkmpXyqL+wc5b+CsJTEXEcF7
+	 F9z+AI17KJPVP35n//38Tw95QG7k7SMkUi5pA4VI2KfG/RNy0Z3o6ajCzwIb7Ub762
+	 KTrDnNtpB/XobCmZWK1/opg6Sbd53Ni4Pddgr72eEa4s2bPvSThwAaWX2BTmLCV7j4
+	 T4eiow3/vwSPetYbUE5IHhzt8S+zKhLlP/Pa68Ff+vdCXWhM9A85X8kKMoChLFU8Ku
+	 WCcCZf1QrZD6g==
+Date: Fri, 28 Aug 2026 16:51:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Ahmed Naseef <naseefkm@gmail.com>
+Cc: linux-gpio@vger.kernel.org,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
+ controller
+Message-ID: <20260828-chaos-recovery-c99d547ee1b6@spud>
+References: <cover.1787931313.git.naseefkm@gmail.com>
+ <c20005a81b4069f3ff68311629ff7d4678fa92dd.1787931313.git.naseefkm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828154122.2643578-1-den@valinux.co.jp>
-In-Reply-To: <20260828154122.2643578-1-den@valinux.co.jp>
-From: Eric Dumazet <edumazet@google.com>
-Date: Fri, 28 Aug 2026 17:51:03 +0200
-X-Gm-Features: AcwNN1UrJtJ6iduqn0ujw97pAkDqT2wuWCSxNAQwH8z3egHVmruiIVqnB7mRr-o
-Message-ID: <CANn89iK1U8wzTTQAvGCP8Fff9r4StUB_JFiTdFJZctQUQHE9cg@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: ntb_netdev: Fix statistics races
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, ntb@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+NZ9peSVGfDYs8bS"
+Content-Disposition: inline
+In-Reply-To: <c20005a81b4069f3ff68311629ff7d4678fa92dd.1787931313.git.naseefkm@gmail.com>
+
+--+NZ9peSVGfDYs8bS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 5:41=E2=80=AFPM Koichiro Den <den@valinux.co.jp> wr=
-ote:
->
-> ntb_netdev updates shared net_device stats from per-QP RX and TX
-> callbacks. Once multiple queues are enabled, concurrent updates can be
-> lost.
->
-> Use per-CPU tstats for packet and byte counters and DEV_STATS_INC() for
-> less frequent drop and error counters. Callbacks can run synchronously
-> in the xmit path or asynchronously from a tasklet or the memcpy kthread.
-> Pin TX updates against migration in the kthread path. Use the IRQ-safe
-> u64_stats helpers because netpoll can invoke the synchronous path with
-> IRQs disabled.
->
-> Note that transport callbacks may still complete after
-> unregister_netdev(), so tie the tstats lifetime to the client device.
->
-> Fixes: 24d9e73c7e00 ("net: ntb_netdev: Support ethtool channels for multi=
--queue")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+On Fri, Aug 28, 2026 at 07:35:14PM +0400, Ahmed Naseef wrote:
+> Add the binding for the pin controller found on the EcoNet EN7528 MIPS
+> SoC. It shares the IP with the Airoha pin controllers, but its IOMUX and
+> pin configuration registers have a different layout, so it gets its own
+> compatible.
+>=20
+> The CHIP SCU holding those registers is referenced by the airoha,chip-scu
+> phandle.
+>=20
+> Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+> ---
+>  .../pinctrl/econet,en7528-pinctrl.yaml        | 190 ++++++++++++++++++
+>  1 file changed, 190 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/econet,en75=
+28-pinctrl.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.=
+yaml
+> new file mode 100644
+> index 000000000000..3ce1a5309d09
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
+> @@ -0,0 +1,190 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/econet,en7528-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: EcoNet EN7528 Pin Controller
+> +
+> +maintainers:
+> +  - Lorenzo Bianconi <lorenzo@kernel.org>
+> +
+> +description:
+> +  The EcoNet EN7528 pin controller is used to control SoC pins. It share=
+s the
+> +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
+> +  registers have a different layout.
+> +
+> +properties:
+> +  compatible:
+> +    const: econet,en7528-pinctrl
+> +
+> +  airoha,chip-scu:
+> +    description: phandle to the chip SCU syscon
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  gpio-controller: true
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+> +  gpio-ranges:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 2
+> +
+> +patternProperties:
+> +  '-pins$':
+> +    type: object
+> +
+> +    patternProperties:
+> +      '^mux(-|$)':
+> +        type: object
+> +
+> +        description:
+> +          pinmux configuration nodes.
+> +
+> +        $ref: /schemas/pinctrl/pinmux-node.yaml
+> +
+> +        properties:
+> +          function:
+> +            description:
+> +              A string containing the name of the function to mux to the=
+ group.
+> +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
+> +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
+> +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uar=
+t]
+> +
+> +          groups:
+> +            description:
+> +              An array of strings. Each string contains the name of a gr=
+oup.
+> +            items:
+> +              enum: [pon, sipo, sipo_rclk, uart2, uart2_cts_rts, uart3,
+> +                     ejtag, pcm1, pcm2, spi_quad, spi_cs1, pcm_spi,
+> +                     pcm_spi_int, pcm_spi_rst, pcm_spi_cs1, pcm_spi_cs2,
+> +                     pcm_spi_cs3, pcm_spi_cs4, pcm_spi_cs5, pcm_spi_cs6,
+> +                     pcm_spi_cs7, pnand, gpio0, gpio1, gpio2, gpio3, gpi=
+o4,
+> +                     gpio5, gpio6, gpio7, gpio8, gpio9, gpio10, gpio11,
+> +                     gpio12, gpio13, gpio14, gpio15, gpio16, gpio17,
+> +                     gpio18, gpio19, gpio20, gpio21, gpio22, gpio23,
+> +                     gpio24, gpio25, gpio26, gpio27, gpio28, gpio29,
+> +                     gpio30, gpio31, gpio32, gpio33, gpio34, gpio35,
+> +                     gpio36, gpio37, gpio38, gpio39, gpio40, gpio41,
+> +                     pcie_reset0, pcie_reset1]
+> +
+> +        required:
+> +          - function
+> +          - groups
+> +
+> +        additionalProperties: false
+> +
+> +      '^conf(-|$)':
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+Why is this needed? Why can you not tell from the group which pins the
+config applies to?
+
+Thanks,
+Conor.
+
+> +        type: object
+> +
+> +        description:
+> +          pinconf configuration nodes.
+> +
+> +        $ref: /schemas/pinctrl/pincfg-node.yaml
+> +
+> +        properties:
+> +          pins:
+> +            description:
+> +              An array of strings. Each string contains the name of a pi=
+n.
+> +            items:
+> +              enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
+> +                     gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gpio13,
+> +                     gpio14, gpio15, gpio16, gpio17, gpio18, gpio19,
+> +                     gpio20, gpio21, gpio22, gpio23, gpio24, gpio25,
+> +                     gpio26, gpio27, gpio28, gpio29, gpio30, gpio31,
+> +                     gpio32, gpio33, gpio34, gpio35, gpio36, gpio37,
+> +                     gpio38, gpio39, pcie_reset0, pcie_reset1, i2c_sda,
+> +                     i2c_scl, uart_txd, uart_rxd, spi_cs0, spi_clk,
+> +                     spi_mosi, spi_miso]
+> +            minItems: 1
+> +            maxItems: 50
+> +
+> +          bias-disable: true
+> +
+> +          bias-pull-up: true
+> +
+> +          bias-pull-down: true
+> +
+> +          input-enable: true
+> +
+> +          output-enable: true
+> +
+> +          output-low: true
+> +
+> +          output-high: true
+> +
+> +          drive-strength:
+> +            description:
+> +              Selects the drive strength for the pin, in mA.
+> +            enum: [2, 4]
+> +
+> +        required:
+> +          - pins
+> +
+> +        additionalProperties: false
+> +
+> +    additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - airoha,chip-scu
+> +  - interrupts
+> +  - gpio-controller
+> +  - gpio-ranges
+> +  - "#gpio-cells"
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    pinctrl {
+> +      compatible =3D "econet,en7528-pinctrl";
+> +
+> +      airoha,chip-scu =3D <&chip_scu>;
+> +
+> +      interrupt-parent =3D <&gic>;
+> +      interrupts =3D <GIC_SHARED 10 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +      gpio-controller;
+> +      #gpio-cells =3D <2>;
+> +
+> +      interrupt-controller;
+> +      #interrupt-cells =3D <2>;
+> +
+> +      gpio-ranges =3D <&pinctrl 0 0 42>;
+> +
+> +      uart2-pins {
+> +        mux {
+> +          function =3D "uart";
+> +          groups =3D "uart2";
+> +        };
+> +
+> +        conf {
+> +          pins =3D "gpio28", "gpio29";
+> +          bias-pull-up;
+> +        };
+> +      };
+> +
+> +      pwm-pins {
+> +        mux {
+> +          function =3D "pwm";
+> +          groups =3D "gpio30";
+> +        };
+> +      };
+> +    };
+> --=20
+> 2.34.1
+>=20
+
+--+NZ9peSVGfDYs8bS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapGufwAKCRB4tDGHoIJi
+0j4NAP9eETqlBXqwRzyrhwyDVzt50yWQOHH1koC7H2EXeyBIBgEAoRooVdgTczfs
+cTzJYMPlZYMAxvSfHDJwvcWsyD0LYAM=
+=mN/M
+-----END PGP SIGNATURE-----
+
+--+NZ9peSVGfDYs8bS--
