@@ -1,168 +1,117 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0775F392811
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787936067; cv=none; b=n/bL5qGcAKvMyZXchHrhJwM6n+s8FaQfdrM1mZXZcve+nDMirNjEQSC/MrGtvzXzKIz4lTS8gwkSO1JupAcQDEGr08V0nzKpL2Xu/p4O0NBQrfsHMQR0ocPXej88YTjJylYrFOtWitfWNosXmJL6MfhfZG39TQ3qRtGxjykwpRM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787936067; c=relaxed/simple;
-	bh=zBbKiEWIrRKEf95JSPWVy4Bg5lDnRm8l96pA3IWR/lE=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AblXGs2Z/M1Bxv7F1aDUaZPJWwMSGeycoI48OZ+UdDMt2gc3Js4tLB6kB5wG0PfAkOadZ+e5AjZvF+Q+WuBVnnfQWzEUk01HkyUymcOaq6f2ZWCdn1ndHnBzRPlWonv0d6Sm6B39UFwWHE25WHUNvOYlzn10fTESnfJOMTNHxLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oKPkWilp; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DBD341AB8
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787936212; cv=pass; b=dFsFxpE542OT76kGhGIZ4dtMNecxR4viEPNIoKmXowp4ipz0mh+iObAbw2fiBRC75E84Esyalzn1W2YFu8hIAUmliB9wO7/zJ9OkSM6KjcYt9AnwqUkUTsOuBM+k/3zBrSDKSCBpL8Mq+npBcwCWikB90TPplzRzdQDXTk9BWsY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787936212; c=relaxed/simple;
+	bh=3PbW0kWK2hYFdRCBC4zTiUa+ft4Mx+nh19d++Np/XqU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D+IVA6/AgL7s9FxYPQkeVTT7tMmSAitcFfKj5dpvSnpSHvmdiWE4M2jIxsxgbQlnmFe3wl07X3gsMIjwMcOwRDiRCTdcxI7KkAKONcijRehdJKtaanH3tQBXNFYb59iy4Y3Zl14oEzb6nnqABQbpIluqFEOE2EAw6XOgzF6xJ/Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ou2FIwyV; arc=pass smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oKPkWilp"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2530cabcf4so201711766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:54:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ou2FIwyV"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d30c22b1eeso1057335ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:56:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787936211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jVqMIWZel8IXIKCNFYkDb9S9F+FpEXVCSUEaWjKvEOZCoTwaZDsqT9wViypyd2u8OH
+         Cr2Ase0y9ChQUMV4yQYuVLgBJ62XcQuCDZ7vmamCd6LrrIDQ0YxzhnkAlcbTUibaB4pY
+         TyYqEi3ho9836osGYqATM1rKy+TNwzrAq58EZJ4c7tdBx/IXdhyQ7mmJ7E8JNI0N60b7
+         AvYC/ORqOmDUNL7xAC2Fwzuy/Ox6AwihZ/XHafh7ZXe2wE5OFnEXkRR4y3rQ85CKsyIc
+         EuDDr/Kj6xrxGfvnBnuuONGW1jyIdnByrfmLcLnrYXSDwyuO0ahSqfAFcDrcvoosXy/0
+         S0cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3PbW0kWK2hYFdRCBC4zTiUa+ft4Mx+nh19d++Np/XqU=;
+        fh=+YE2AqYTl1kVtGs4qwrTrSgz9hs3wZs5bz6ovV9/kaI=;
+        b=KRVNukONdVSWNq34RJVCfQXfFot12Au7K8x0RmQ4LNETtWinV4Nm5pLKzb3bvbGxKD
+         Nm8dSp3S+t4FBj/cQomdZclkgdLa74mi74B1TuqeH5z7CfxlGTpmWFOal+/0oVUSk/J2
+         8s0qkSeBz4b4ATbeHULDpDNXwYA0qeU5vkEDRAmV+sTb3bhlA/5y0I9vGbNgcaKf7p7W
+         3JwbhL5UUIYkW4NBoVoGF03lY++d5Mp2epoCk0zLMMvCfjTEZ498MKZ05hGo8ayALCRb
+         DLkr/f/nx0sOwLFZRY2rgb5PnMskMzWu/XCIaO7CChVt7umJ5AAGU8geGMCGT/ksm+fP
+         fBOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787936061; x=1788540861; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1787936211; x=1788541011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=PZc1WWxRZ8hTjRwH7hstNkGifi5usT3ZTkYTcQBOSfg=;
-        b=oKPkWilpbgpH4FjpXCJ3OrCdNLzgf2ly1U6hWMB+x4O4E3tl33t/5rKs1vcWP7N0PZ
-         Rdk0Y34WaM251R/2GluCmzn9Sl/B2NuvpEkFcA9TknEfk+XKsWLQme5YcWk9/qAshgzt
-         Eh275QpYTTjuNGL1rZAHcbkdDrwhharaR+jLAvzpta9MxH38R8pEX92gSG0rh/W8tgAM
-         U/3zpIp0rausVnTXke58OQeGsuyKCS5SXv35kU9oLje/B3eH9KTQPtd0fMMx+3FUuhNF
-         UhSYRpf4ildoERFy4yK5X1HLvP177IGP1lQxfsMwEmWK7y3KaTHnJXGPkTc4lhkZ/JDr
-         CbFg==
+        bh=3PbW0kWK2hYFdRCBC4zTiUa+ft4Mx+nh19d++Np/XqU=;
+        b=Ou2FIwyVCAORHWLpA4pYi8LJEyru3q3rmtJS1uHfu8HfqN/RIRkxH/76WG6tCrV70o
+         /hjlt7ddPZfLVuyw0JkJd5fMemRmc6Kr062++gMO5tqNJdXvV3kES1qDrzKkHo0FCA+M
+         XKCmqB7GV/53vfcIrpYElmBTLsNopqh6Gh7XWeOgDfz411eqIJno0V32krOCo+KmdE5F
+         jkM35XmZAPUQI+K5BfUlQBJ/vu5EWG3OOXLM0X85U0rie5JlLfSfZVZDq1ld9dzLdmmx
+         XMbStLBMyueCq+6UyGxcwNAw99Q7TteeA/gTJg/x2KX8zxw1mBnwxsdHLA+S+ht4tpn8
+         j45g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787936061; x=1788540861;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1787936211; x=1788541011;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PZc1WWxRZ8hTjRwH7hstNkGifi5usT3ZTkYTcQBOSfg=;
-        b=PjF42bftzE4EWZMpgk8PzqKQfFxGgZ3GXXc0kHIxuxZmn/Le08Yt6gsSOyJeufIbGr
-         mMA6zrJr8iBLJx7zpp63hWm5N+miZuwn6XJIRRUDgbZZt6vF50UyflPLmYmY+h7Xbz6Z
-         TIc9iy+KGfjpXdj21pK57TZ9z81zaOaCgvdBoQLh/Wzob2A8pIqV12m66joKROpJVWbu
-         HibkT6UNDYi8c3L6x68mp0ZTXOPWy+lAwfgV3dkN7ALdmcaNPFoRdha/0UCq02KehAiK
-         nu1yI4QCZQie+7Hb7YvzYiFk7985s8GkkgU6aJW0JncEyPgveD7D+4uqOb5jbsGahfz9
-         3cCw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2auUwtupD294FRSK+Qj81WbEw0YME3WtJMXDO6iskpvYvuA0wN2W8sc4tPAl9o8nzddG6cNVkrvdEVco=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldQiPHqFk5BkJXGOW0cZoa//fSdshgiXoMrXFtymPIotcqSJIn
-	okRyW19oT4i6h135zPj3JlaIIMH2gGK2rURrlTacmjrIvPiJq4YD2Nfg
-X-Gm-Gg: AR+sD12izpmoUWLsRdUn1f7gH6NPn8j+B9h+uhwITO85VhFlmMs5tksacNBrpdWScFn
-	rJLbftR1Zq9PpgueKwuSXvq/EYTVVD0LJixl8D2yKBuXcZv5lLBGmd/oTujMKdhsGA0D7e5BvKh
-	/BdNiXGRTckKyiC5FQU83n/pxc2aOrt/s+p/pIo0gic6p5cI93E5VwXCHmQDJtAi4RrJKF3fm+J
-	6HRuov4k4mZsORbMDcyK10IbdjetOv6ygBWRaGQOJ6O9AZWZDSItKp+tSUG9s7AHJdHDZRGGWIi
-	+8MgaTu1Fugh+UNw7DCzBv1Lrxjgxc9k9OzU0+mABTln0tWGEMZ78kDnB26lhi1Bt0TVD0BxKtR
-	9q5qeRS4P4pI1GL7ZX1p74YRLfuQ5ksD4jfkC7Apcdn8Hu7z3ObvKmnkFU4nO9IT5liPW7lqk1a
-	IYGEwMQ9S5Q0u7JTwAvwC/QO6b2w==
-X-Received: by 2002:a17:907:1c90:b0:c24:d6f0:1223 with SMTP id a640c23a62f3a-c2557012418mr630435366b.12.1787936061168;
-        Fri, 28 Aug 2026 09:54:21 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee0b23esm102793266b.2.2026.08.28.09.54.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 09:54:20 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Fri, 28 Aug 2026 18:54:18 +0200
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Uladzislau Rezki <urezki@gmail.com>, Ye Liu <liuye@kylinos.cn>,
-	Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under
- memory pressure
-Message-ID: <apG9OjDrFygvb4Yo@milan>
-References: <20260828091753.299295-1-ye.liu@linux.dev>
+        bh=3PbW0kWK2hYFdRCBC4zTiUa+ft4Mx+nh19d++Np/XqU=;
+        b=Xc6ejioFdaYiDuKZkuT1lKOVety0Q5PoN4VvwWd4l3Iaxdol+hul22baY2/ePqSyZ/
+         d9+yOOGA5SagQfDy3clqFPTCIUVJZTR7CkxcQiD8PGZSMkUB7YdzX50gtCZhkNQJ9dPZ
+         BxhR4Imi6zkqbbp7O9tlBCs9fehtcKnDTW2zQiL9LZbEC0y7XzoUxxM+wNb8p/m2T7si
+         biXu/hGu0bJlVL7XZYoGcXV387V6fFS9vNOLMfWF+h1md4LQiwMUCMEF1RgEZX42Wgzj
+         HAGmktMLwhCMWiHMzUQxjsv4disBH4Wr76vEgdrOSxBU7GecMQLaXoKcPCVvvmOX98Hm
+         RQlw==
+X-Forwarded-Encrypted: i=1; AHgh+RowNVHyYVdaDyAF8D5M5uBpsTDUNDS9/9nkOV6toNr8NdB7yEiNhga4mQ4AEW+VHLOM0b6UlYy2j05Uzd8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD+yH4cVDrhUyUqqvKurnDdnYffiNtXhfvqz87ZlQUD1T1mhEE
+	wkmfCS1wcSfYZFPZ2oz9WMTmub+g/Gg/Cs6Dvdhjahoo8rS0kF45ht02HCmYyX2yWe0HHH4DBRJ
+	QE1mT8S5TTIhxbCFI8E7jOw+05bRKxF1egnJl
+X-Gm-Gg: AR+sD11OUsgeWFhftU4PxUpMmBq4kIf++dGOOiOqGvojqo/Yfj6udYS7iUnz3y8/Ucp
+	Jfn2R5nmeWkvJbYGfjzTc5ALX4POp6bCtKhrMVTLM/OLc0J8gx+g1A8DcuKXhXQowvWRIYliPKk
+	xejAazKW7ndteMGjuYR9/rQsKMbZlwu2CaCV6EPByVZCDZvtucSB1LRsaqK3uanDAWQSZKQKWCh
+	M3a7qvtnN7ksbB/u4YPKW+PHWmgrSpOVNYHl/NN7wxmbEJmpZBoqS6YkU7p/FEaHbxcIw/g4vIS
+	hTiwpRyGSldvA6LmjirYh6/CsMKNkHimHL27YiuOIcswT4pYyaZXUt1AHTkGLIyTf67TL7je1QW
+	Oce33BkcNT/V6ffHinyGQ5H6jyHZ+61GTBvfOEpyWxf4+rN1jOlds4J38pCiI
+X-Received: by 2002:a17:902:d4c3:b0:2ca:ecf6:9115 with SMTP id
+ d9443c01a7336-2d74df1c3e6mr79183765ad.2.1787936210679; Fri, 28 Aug 2026
+ 09:56:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828091753.299295-1-ye.liu@linux.dev>
+References: <20260827190431.GA1817346@ax162>
+In-Reply-To: <20260827190431.GA1817346@ax162>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 28 Aug 2026 18:56:37 +0200
+X-Gm-Features: AcwNN1XdgVJz2sbVL9UNhw7YCn59Z59000uRXgELN71Dt05Vgb7qG2OEHAOh4-8
+Message-ID: <CANiq72nM+yxePYAD1wM+_Wjhm3E6+TpwXkP6BAK9ZwkuJqkNbQ@mail.gmail.com>
+Subject: Re: Prebuilt LLVM 23.1.0 uploaded
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org, ojeda@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 05:17:53PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> The vmap_purge_lock mutex can be held for an extended period by
-> __purge_vmap_area_lazy() which calls flush_work() to wait for
-> purge_vmap_node workers while holding the lock.  Under memory
-> pressure, those workers may themselves be blocked in direct
-> reclaim trying to acquire the same lock via the
-> vmap_node_shrink_scan() shrinker callback, creating a circular
-> dependency that deadlocks the entire system.
-> 
-> Two places acquire vmap_purge_lock from paths that can be reached
-> during direct reclaim:
-> 
-> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
->    mutex_trylock().  This is a shrinker that only decays the vmap
->    pool and returns SHRINK_STOP without freeing memory; skipping a
->    decay cycle when the lock is contended is harmless and prevents
->    tasks from piling up on the mutex in the direct reclaim path.
-> 
-> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
->    mutex_trylock().  This is called from the vmalloc allocation
->    overflow path; if trylock fails, another thread is already
->    purging and the allocator's retry will find freed space.  The
->    notifier chain provides a fallback if the retry still fails.
-> 
-> Both trylock failures break the circular dependency: the lock
-> holder's flush_work() can complete because workers are no longer
-> blocked on vmap_purge_lock in the direct reclaim path.
-> 
-> Fixes: 7679ba6b36db ("mm: vmalloc: add a shrinker to drain vmap pools")
-> Suggested-by: Uladzislau Rezki <urezki@gmail.com>
-> Suggested-by: Dev Jain <dev.jain@arm.com>
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> ---
-> v2:
->  - Use mutex_trylock instead of mutex_lock to acquire vmap_purge_lock,
->    as suggested by Uladzislau Rezki and Dev Jain.
->  - Link: https://lore.kernel.org/all/20260824095020.1225189-1-ye.liu@linux.dev/
->  mm/vmalloc.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index bea9f76ed7e7..e5c68b795a3e 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -2440,7 +2440,8 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
->  static void reclaim_and_purge_vmap_areas(void)
->  
->  {
-> -	mutex_lock(&vmap_purge_lock);
-> +	if (!mutex_trylock(&vmap_purge_lock))
-> +		return;
->  	purge_fragmented_blocks_allcpus();
->  	__purge_vmap_area_lazy(ULONG_MAX, 0, true);
->  	mutex_unlock(&vmap_purge_lock);
-> @@ -5519,10 +5520,20 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->  {
->  	struct vmap_node *vn;
->  
-> -	guard(mutex)(&vmap_purge_lock);
-> +	/*
-> +	 * This shrinker is invoked from direct reclaim where memory
-> +	 * pressure is already high.  Blocking on vmap_purge_lock here
-> +	 * can deadlock the system: the lock holder may be blocked in
-> +	 * flush_work() waiting for a worker that is stuck in this same
-> +	 * reclaim path trying to acquire the same lock.  Use trylock
-> +	 * to avoid this; skipping a pool decay cycle is harmless.
-> +	 */
-> +	if (!mutex_trylock(&vmap_purge_lock))
-> +		return SHRINK_STOP;
->  	for_each_vmap_node(vn)
->  		decay_va_pool_node(vn, true);
->  
-> +	mutex_unlock(&vmap_purge_lock);
->  	return SHRINK_STOP;
->  }
->  
-> -- 
-> 2.25.1
-> 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+On Thu, Aug 27, 2026 at 9:04=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> I have built and uploaded LLVM 23.1.0 to
+> https://mirrors.edge.kernel.org/pub/tools/llvm/.
+>
+> If there are any issues found, please let us know via email or
+> https://github.com/ClangBuiltLinux/linux/issues/new, so that we have an
+> opportunity to get them fixed in main and backported before the 23.x
+> series is no longer supported.
 
---
-Uladzislau Rezki
+As usual, tested for a Rust build -- thanks Nathan for these builds!
+
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
+
+By the way, in the table in the LLVM page, it is still has the the -rc3 row=
+.
+
+Cheers,
+Miguel
