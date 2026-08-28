@@ -1,125 +1,87 @@
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8BC36F433
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0A43783A1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933290; cv=none; b=LE7uM9XiP9WienoRzlLm7cS42OFgTX4iVFeEBsjIgwrq7WegtNO6sRyQpptGPHK0L5PF54FMKxzZBN1NUl9CUzv9an3XpVMFsNhCB2Key9tWPkiFPVEXNTojw7TBri7aO5DLYiZQKHDlu5t6fPTRkiwd8hwxJZvl+1z949Ln9h0=
+	t=1787933383; cv=none; b=NG7StRvSsqm1VG23kFs+lm5zao9i1agUGsEYWeLr8DCow/Opi/zt7aqGlHuqRzmDUlUfjKv0LUkeMuBISeutpT41xVQ/yH3gtlc4tHEl7EjumRzZsPpj02k1dIcKEf05E2IV9QP2jKnKEdnbjEyHb26iuNMlekQzcPM7TF0ixiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933290; c=relaxed/simple;
-	bh=El6eduJDviCKkDnqtlBare5p9hMhasbCq56T7DPYEGY=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=TLo50w8qgwioG77SPKhx/63OxCOSlQGOW0edvdGSiKKhlyqBhV2FDye8yueTBm4hZocXrTxOqU4i/vj2mrVPu4Bls6MPWRZucptddg3sArGWKj4LWzZ5uS3zSeCinrLdhUoZ5oShkNZPM2PdMpJvwIGkO/VuFGLHZDIaFa9iCuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev; spf=pass smtp.mailfrom=ghoul.dev; dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b=JhAwYVps; arc=none smtp.client-ip=109.224.244.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghoul.dev
+	s=arc-20240116; t=1787933383; c=relaxed/simple;
+	bh=EloB0katp8AvIPCuQbU503lG6mYrXa7AvQm9QMftF/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sSXVjZMEVbDjFlI6UEHcGAqBE1LU8fQUpYSg+ng+FTPcv1++Zt7eZYc6z1PAS+c7CWcRDWqSZ8vtk/HTyY2yoteY4w8b9UUYGN6nDS/RsYGdbmgTdZ6U5/Ni0KWGjn1UMLnpv8O8gVGEXxpu5/FSq77eLuWn2gBnvYpSBH9Wyf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=SUQWHdUr; arc=none smtp.client-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b="JhAwYVps"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ghoul.dev;
-	s=protonmail2; t=1787933277; x=1788192477;
-	bh=rmiVJNZ1uNGkCaiKCXdHNv3jP0Dr/SN01JscirGjtrk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=JhAwYVpsR2xSgcCS2PI7QP7bcqUtAlX8usExYEdYmROCEN51J2yU4stvU4K0Z0dWt
-	 ljW7kKPmUjXDfIy57JdXBUbOTfpiFlWiHaS5Vj4L/4zSgmWfjwii1ejvk+onOdYbAl
-	 wT+lPMdiP+eF5TvCVDwjBcrr0AQSsbF6aSLxwJ8C6lW0xZ/o2xZRZ+9bW9Ga9zAjQ6
-	 mbt9Pkemi3+Mgeju1/qNjHEh0bGH3BtnU6H/DOXoysCNgKAHR9cMg+wLz8gPVBa1iN
-	 9GcuvNMwmXDRPTZZ/8jqK92bGQo6miCYN3tYtKvNY9bCxgjAeWu0oGjydX5Z16fSHi
-	 5TidpFsL02+5Q==
-Date: Fri, 28 Aug 2026 16:07:51 +0000
-To: =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, Corentin Chary <corentin.chary@gmail.com>, "Luke D . Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>
-From: Ahmed Yaseen <yaseen@ghoul.dev>
-Cc: Nir Yehoshua <nir@ciphersecuritylabs.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Ahmed Yaseen <yaseen@ghoul.dev>
-Subject: [PATCH] platform/x86: asus-wmi: validate custom fan curves on enable
-Message-ID: <20260828160743.31957-1-yaseen@ghoul.dev>
-Feedback-ID: 177610485:user:proton
-X-Pm-Message-ID: 9028eccc52cb5ff53aa712b03ef09c96021593eb
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="SUQWHdUr"
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id D97DFC03F8;
+	Fri, 28 Aug 2026 16:09:29 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 988AA2002E;
+	Fri, 28 Aug 2026 16:09:20 +0000 (UTC)
+Date: Fri, 28 Aug 2026 12:10:10 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: David Stevens <stevensd@google.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Muchun
+ Song <muchun.song@linux.dev>, Juri Lelli <juri.lelli@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, Uladzislau Rezki <urezki@gmail.com>, David
+ Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R .
+ Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Sebastian Andrzej
+ Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
+ suleiman@google.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-rt-devel@lists.linux.dev, jstultz@google.com
+Subject: Re: [RFC 00/10] Reclaimable kernel stacks
+Message-ID: <20260828121010.47fa7713@gandalf.local.home>
+In-Reply-To: <20260828144500.GW776954@noisy.programming.kicks-ass.net>
+References: <20260827232948.2520558-1-stevensd@google.com>
+	<20260828124758.GP687043@noisy.programming.kicks-ass.net>
+	<20260828103328.633bbfbc@gandalf.local.home>
+	<20260828143540.GV776954@noisy.programming.kicks-ass.net>
+	<20260828144500.GW776954@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 48z84x6eyt4hnsuag3zedkjkfm3baagp
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 988AA2002E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX198HxFyXYgEZJwnf72i30sWt/lWTSWMtx0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EloB0katp8AvIPCuQbU503lG6mYrXa7AvQm9QMftF/Q=; b=SUQWHdUrQzbFKVWGZ5xuskpOuRiSRULlG6ryJnBZGwRdZ5u67PBT5epIe0H7xg5SXNEX5TvwjgYAiKgBFn8ZVFZTo/UhBe7uCVkXSTXgl3qel4FHrisSpTHR0cXMEvTruijIo6t+0UY6KTNW3HgB/IH3lcx96mDtLDIYxSkl2wU=
+X-HE-Tag: 1787933360-956987
+X-HE-Meta: U2FsdGVkX1/U5Q0ostoyRiukFyNqFJhukFmTfCLv7rXt7diB6hyl/rZhUovQsUbfRuY/ruuw+CzkC8ZVCbdE5m17xKy+P2Hv3jyfNk0S4gBULlux/YQTMMl9V3ucR2xXxNGvpPJmpCP7P0aDUB8ibU6MmqlECvOPKid5V1OOzQt6NM3cjLlOo9ZuIQpgB8dSi6tyspx69xpNnpLwgNIG3TDSRJvGO7iERa9ou6pry9qFlRoyhFt1aUgs2Vz/JVAzyifFmbQZTDKS6nRAwD3NlsUyrhMO5du3Oou8k5oL+5IF7ADACZKUrPjYxLA7y874Dbta0aVQfHT5D1YLKlytYenuQaXYN9bClOSio+1VJY0xX4vNPnTY50qYg771Vo4/
 
-Custom fan curves reach firmware unchecked, so a curve whose temperature
-or PWM decreases from one point to the next is accepted. The firmware
-does not respect such a curve: a first point of 100% followed by 50%
-leaves every point running at 100%. The kernel keeps reporting the
-points that were written, so sysfs stops describing what the fans are
-actually doing.
+On Fri, 28 Aug 2026 16:45:00 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-Reject the curve when it is enabled. Validate on enable rather than on
-write because fan curves are written one point at a time and are
-inconsistent mid-write.
+> I realized I actually have a Java thing, the kids have Minecraft, so I
+> booted that up and I found all of 108 threads. Which is still kinda
+> insane, but nowhere near the 1000s per app as claimed.
 
-Fixes: 0f0ac158d28f ("platform/x86: asus-wmi: Add support for custom fan cu=
-rves")
-Reported-by: Nir Yehoshua <nir@ciphersecuritylabs.com>
-Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
----
- drivers/platform/x86/asus-wmi.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Have you looked at how many threads Chome uses?
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wm=
-i.c
-index a65090429ca7..3b743fec5c64 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3714,6 +3714,33 @@ static int fan_curve_write(struct asus_wmi *asus,
- =09=09=09=09=09 arg1, arg2, arg3, arg4, &ret);
- }
-=20
-+/*
-+ * A fan curve is a set of points the firmware interpolates between, so it
-+ * only makes sense if neither temperature nor PWM ever decreases along it=
-.
-+ */
-+static int fan_curve_validate(struct device *dev, struct fan_curve_data *d=
-ata)
-+{
-+=09u8 *percents =3D data->percents;
-+=09u8 *temps =3D data->temps;
-+=09int i;
-+
-+=09for (i =3D 1; i < FAN_CURVE_POINTS; i++) {
-+=09=09if (temps[i] < temps[i - 1]) {
-+=09=09=09dev_warn(dev, "fan curve: temperature decreases at point %d (%u <=
- %u)\n",
-+=09=09=09=09 i, temps[i], temps[i - 1]);
-+=09=09=09return -EINVAL;
-+=09=09}
-+
-+=09=09if (percents[i] < percents[i - 1]) {
-+=09=09=09dev_warn(dev, "fan curve: pwm decreases at point %d (%u < %u)\n",
-+=09=09=09=09 i, percents[i], percents[i - 1]);
-+=09=09=09return -EINVAL;
-+=09=09}
-+=09}
-+
-+=09return 0;
-+}
-+
- static ssize_t fan_curve_store(struct device *dev,
- =09=09=09       struct device_attribute *attr, const char *buf,
- =09=09=09       size_t count)
-@@ -3798,6 +3825,11 @@ static ssize_t fan_curve_enable_store(struct device =
-*dev,
- =09}
-=20
- =09if (data->enabled) {
-+=09=09err =3D fan_curve_validate(dev, data);
-+=09=09if (err) {
-+=09=09=09data->enabled =3D false;
-+=09=09=09return err;
-+=09=09}
- =09=09err =3D fan_curve_write(asus, data);
- =09=09if (err)
- =09=09=09return err;
+ $ ps -eLf|grep chrome | wc -l
+ 930
 
-base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
---=20
-2.55.0
+Of course I probably have 900 tabs open :-p
 
-
+-- Steve
