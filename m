@@ -1,96 +1,113 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECDA373BE7;
-	Fri, 28 Aug 2026 16:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEA2360EED;
+	Fri, 28 Aug 2026 16:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935291; cv=none; b=C2UA1R+YEp5p1LFaCxlLFrf5016uCpXGVfISk0mZirTlh++L4IkQ/rJt9LI84IMytHq+arMsTH1FP/+BuUF8lu/QhTRs64mAVrYphGd2JfNnSKOrI1wkb6lRC4ktj6H/irdZJ2tzuuq48hgZtYiaQdGlthkvoEFPnJQrRY62PO4=
+	t=1787935393; cv=none; b=fhN+AOsp7YLevfS9k+/DCvoXstJkfISRKUywiHDZJczE/lmpefUqAPt7SWXs09focFY8Cuvqh6TxH/4Kcedum7EerVRKeyZEt4qac2Jl78wIfTnsTMfXEAWbY6u0MZEZLh2xuzuC/MFVi8+lxrmoBXfVQcH44rlbt65Jp154JK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935291; c=relaxed/simple;
-	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gbnMp3e0R6d/FGmw2G4KeSk9RiJlaMuIQaEmnzFS0BanQpmRCxTrYDjSCrbho8AfRbImoEZ4FR1lVGRgp8W+pFiFI+Qd6kQ7TvSu05FcSI89bJrBMtbL27V6yK0ZPuvLbfr32oZ4hD70P8qCtqf8QJJDWoYNCz3sDucxXJkWijs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NkCaA14f; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T/8mEenm; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787935393; c=relaxed/simple;
+	bh=DbFHuBt91lj3USprpB9lZyuz3ekarI2nJ42r1c8Chfk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PmrNizM4GDsJ5N1dor+xfX6x+Tsx4/FauUgNPNb0U4ZH//fbpfV74eWO4XtcA5uE6bO1YgrUOsC45H8KBKaMNGc/QK2kCO+XBtXgTB4G+ksgVNEy0ZBkUBJebt8Kb+aqAJmCa3EAdRh1iiFAWiammGt0jLRQNP+YHsL0fadDQKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlMEhQmZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NkCaA14f";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T/8mEenm"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787935288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
-	b=NkCaA14fYboXfr1kc6lHQzoJwbjkNkO/o8lFyoov6KVcKROfG1uAW1MhG/yXAow8h/1sIK
-	7w1jyiX0LU6GOtg+impGPczAfBmwTmizDkU3ehsbnQ7Y4BCrwBAcMirm+y2UNuWWyRNWXw
-	dDQ9UNFnC0uUm5O29B6WcMZxXMFXItqp77Vjk93JAS2LqWno3NhWtbZhd5U2w3qL7VBLEs
-	2uPPxzVyYgG8UhnVToKqK5PGTGx++E9d2kpGjPJToRq9OaeLFh7v3w5yC9Ho+aocD7tqKp
-	N8gwYABYgNKWA2GxDoxSgAa6/l9kVV4OKnHJ2/tkUdkdRvnrfaICRbu2JqqbPw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787935288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
-	b=T/8mEenm+hbkgI7TE/d0nysMtekLKzAzcAD4pPjZn4XXUXtilAQAX1+UzCpRNMnxCimwTW
-	auia8e3Fds3WZkDA==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Andy Shevchenko <andy.shevchenko@gmail.com>, Petr
- Mladek <pmladek@suse.com>, Jon Hunter <jonathanh@nvidia.com>, Thierry
- Reding <thierry.reding@kernel.org>, linux-kernel@vger.kernel.org, Ilpo
- =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Crescent Hsieh
- <crescentcy.hsieh@moxa.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- linux-serial@vger.kernel.org
-Subject: Re: [PATCH tty 1/1] serial: 8250: Change console_msr_work to
- IRQ_WORK_LAZY
-In-Reply-To: <20260828160652.TQBsi8oO@linutronix.de>
-References: <20260828155811.270462-1-john.ogness@linutronix.de>
- <20260828155811.270462-2-john.ogness@linutronix.de>
- <20260828160652.TQBsi8oO@linutronix.de>
-Date: Fri, 28 Aug 2026 18:47:27 +0206
-Message-ID: <87ik4uxknc.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlMEhQmZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019661F000E9;
+	Fri, 28 Aug 2026 16:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787935391;
+	bh=sZhi+PUsJgvLChAVERL3VabJ3ZhgAoRELKqEbZMxnag=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YlMEhQmZgmm8ZzYGm9XHtqqhGRckC4bAQ+2tUg5K9WWnx3i8IFHQErCPNXbQ/m8LA
+	 rDmNM+DRmpFH5oxKu9wxdRgNTMCysYsHE8CZlvITZVAVvbu1/FxU4lN3p5hXZNabiH
+	 WzVIXVrPJ5nDda2avE3yQSR+GTcyzdNQdWvus/iPvtteE2HxIvfQ+oto3Dg81f4RwV
+	 kVDOlthv20IolO1phhNMzZKAI5xu5nu4QTcG7WmTVMm07VOMe9fEU+lbFDCNEcqSzB
+	 B3TpR4V6b0Q3LaSucLQmMQe+YDRBVjzRrx/JchTfrRWuTFNC7Y5tuV2vn1dHe39oXJ
+	 KMMTS2owO02nQ==
+Date: Fri, 28 Aug 2026 17:43:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dominique Belhachemi <db@domibel.de>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	Icenowy Zheng <uwu@icenowy.me>, Andy Yan <andyshrk@163.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Graham Markall <hello@big-grey.co.uk>
+Subject: Re: [PATCH v2 01/15] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+Message-ID: <20260828-unnoticed-reputable-37156d7953a6@spud>
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+ <CGME20260828134815eucas1p2b2aabc17e9cc6346e5a93bde5c650958@eucas1p2.samsung.com>
+ <20260828-jh7110-clean-send-v2-1-331680c8b9d1@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IjnpyshY8lzNsBCD"
+Content-Disposition: inline
+In-Reply-To: <20260828-jh7110-clean-send-v2-1-331680c8b9d1@samsung.com>
 
-On 2026-08-28, Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
-> On 2026-08-28 18:04:08 [+0206], John Ogness wrote:
->> For some platforms it is a problem to queue irq_work when entering
->> cpuidle states. Since irq_work is used for deferred MSR handling,
->> any atomic console printing when entering cpuidle states can lead
->> to the affected hardware hanging. Tegra20 and Tegra30 are examples
->> of such platforms. Avoiding raising the irq_work IRQ has shown to
->> circumvent the problem.
->
-> I would argue that this is done for the benefit of less interrupts since
-> there no need to handle console_msr_work immediately.
+--IjnpyshY8lzNsBCD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Indeed that is a better argument, but strictly speaking, it isn't the
-motivation. I think it is important to clarify that _currently_ there is
-a problem that the explicit lazy is working around.
+On Fri, Aug 28, 2026 at 03:47:25PM +0200, Michal Wilczynski wrote:
 
-I expect most irq_work users could be changed to lazy with the argument
-of reducing interrupts.
+> +  clock-names:
+> +    const: refoclk
 
-> side-note: Wasn't there another tegra workaround in v5/take1?
+> +  clock-output-names:
+> +    const: hdmi_pclk
 
-Yes, related to suspend/resume, implemented at the printk level [0]. Now
-that we better understand the problem, that could be reverted. However,
-it also provided a side-effect benefit: switching to atomic mode on
-suspend when no_console_suspend is specified. I suppose at some point
-(once the nbcon churn settles down) we will clean those changes so that
-the naming and semantics really focus on "switching to atomic" rather
-than "block irqwork".
+Can you drop the obvious "clk" suffixes from these please? Although,
+with one input and one output clock, what's the point of the -names
+proeprties anyway?
 
-John
+Cheers,
+Conor.
 
-[0] https://lore.kernel.org/lkml/20251113160351.113031-3-john.ogness@linutronix.de
+
+--IjnpyshY8lzNsBCD
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG6lQAKCRB4tDGHoIJi
+0sm8AP4oliWIKMzgp8Ut3A394llDZYxdfr4HRcVVe7khXDrtiQEAnHjEzjNSnHhx
+0TyqrToY++PvSu1CTCWyTFL6ZUf3FAU=
+=a1Yl
+-----END PGP SIGNATURE-----
+
+--IjnpyshY8lzNsBCD--
