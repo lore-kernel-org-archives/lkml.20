@@ -1,46 +1,46 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010050.outbound.protection.outlook.com [52.101.61.50])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010000.outbound.protection.outlook.com [52.101.201.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFEC25B082;
-	Fri, 28 Aug 2026 06:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5433C3428;
+	Fri, 28 Aug 2026 06:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898651; cv=fail; b=AlcgrsHFqMrWn+i/x1/Vc1040tQkjVS9GGljFk7YX53IPfWnY9XJUfrgdwzxFCamlsWv/oZkG4581ybX25mJgjHZHVeWb7IP60UBm6ZE862t9iOMB3IA7K4CS4TZFBTQhaXJumk1QzwP1vKFVn3X/U3E8U5fS8rfAcsD9reVto0=
+	t=1787898735; cv=fail; b=TRmU6ZSdNVTwpfny+RVerS6AiEnzOkFZ1gXsEIEUiAHtQVQTtIiFh233vqsAAGo4QhpJWs6Hxj40IsdZQFpF3KVOcd2NdEApl2gRG0cgeFQTZGlonoI3Oqffw515yIwGa/YAGshALsLSj05VW7K3xJDP5sO7T43f0letBCaYID0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898651; c=relaxed/simple;
-	bh=wRMEREgvsK12+38ZzecQ9vdiLQB8BUC6ODM2YRfEr4E=;
+	s=arc-20240116; t=1787898735; c=relaxed/simple;
+	bh=VFeGLYck9MBWWA/BXiJoX762QgN+eJKmpOQmEKogwVc=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GsYrVwQ2mhQIH/A6sWAxY5KlTDuZSX6eGWTUvnboDqpQU2nhb1iuLS8SZA5DKGSxsF9DiIPbfegVBJ+buhLHOI0uFiuDAl3nNXbarsDUz4jKifunS93+dZiwQG0irSkwn4bngz4+/6xokb/iGGQo4zmYLYU6LR29V9p0EEpyjpo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lRKjqh2m; arc=fail smtp.client-ip=52.101.61.50
+	 MIME-Version:Content-Type; b=BL7RPEYoCEBVRE0rQvq1P4aFYZp1VKUzIyCrrFgyZlGdAQ93XpPxOjajVuzuE6uaqYEiTDcBMpiL+YZ/o6dSRqCDHLZ5dEt3N314PcqDxDdT5QOetA/HHmwiMoCAvhhM5NBXXVMPb8nNSbKQC4iwazvMW1WkrkJCXMkrPxBZREQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pdKXoi1e; arc=fail smtp.client-ip=52.101.201.0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lRKjqh2m"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pdKXoi1e"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rQi7tBJTN6JbxCmh0rzGKDMnM8Nb8kd3DAknkxRj/7MMJV6YofSJUgGCORdlHmBr6Yo4R9MxWViqr3S3Zc+6mdQQJTv6Ub5LP7ndH/ncIDVm+yedjjpqUwUpAoUj2ZyIA8LdINapeCW57ZBHBYukoOf+GYsmawZDafJ/CBd/5SBtE0aW+9Cei9SGhZ/qk6ss/u2NaGjrF6LFSJpWY3fAC7uoqUujqeohTJug0kDAOwVxGHRXq48xnq24/7uU4fsViZq3V0hWnU0e7uraAKHgvRXlZU6ejaNz6Jfl4tzJcRhARiSpG+NPoxFkufK7INvuwaGEAm2aDKueVFK78hwDig==
+ b=vrpPavSGDpm4lhCsjOR719z59ZfedS/KpoiauiZbHi6Hi5HCwZ3fqL1qhWhAWCI3QP5A6wIcz/85HI8r3A8sonPO+lKwTMuiy9HwHgMBvE8aEAcIZyP83sEVj3Fie6N9TXKeQw4Y+AkA0b1pupoymxFn0Oke8XqBgbZ7CPcfVv9yoNtWPpoCr+wB1O89Z75GXCbrxTdNR97GdxaTU0iSK5akNW/nNip+ovLk3kuY9k2cATMhbEvJ1at3qr8734QqMGVYXvHMDHTV+6hI7whTQktqt7dT81wLS326/CLgha5juZ+W4VAjvL5q+oO7n5OWNLKBoQA475DGLr/Wuo+Ltg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s/uPbK4da1enkqwd4GctbRKUQZpgNAEPmbzk/YoaWJ8=;
- b=Yzdg/a/raP2jEm7963zyrkAZZhYly2kH/11aHTybDmCSg4GyS5sxvbbLZksgA2j9yvahEROPiQjTj0uU4D0wNF2WmtGyYY2Lky6gNb2untt0sTZNIj1EwThl+boeLbpbXGOYBqDm0nWS9BZpxAEx1lLSte80veeRPuSlSEa4kA3GCRYBvRr3NH7XPghLU2uUxenkFmcRmFiBJwUJk5DaAv4ajaaMmSrS5lANATmtZt+tvEvuCmZiDSILdku+ss7wiMyqK4OJRy2OfVWMi8QRTBXhb4485eS6FYULya9YHJ1fN3Faof40G0RpW0P7//aMUzmeEjnYGckQ7RSAHTSC7Q==
+ bh=TPzQo6M5qqvxBMs49Y52eh0Lqs/jjdKQpCL7m6dvqzk=;
+ b=mTLDcODK7YpRp7Dw0T7zWX2I+Ab7uSqNT4EhysWcmI7Jf4OrdCJYYCgJ/EvSvaFxxt+0NsH0Gv1VWQl7en+mFMwTqUBMTd8BX2YJft7cdKlj/QYpPYTmFC/XreQgsG2dpajkmc5SERSHqaRVYwAZ3IyGaPSrc3cn9iMBpiAqKQK2JD4cCxkGx6BOGZLGaiCggqba8Fki+2PwCE0mBm7oa+Kh6vvsJNDpsjNISvo5h5HkMFsqVXgTiz7yitTjlXyqzQlDJ3Iwzh8SlqOj+0smwtMA2VwKI/teDdt8eQ31V9gFnDrlCUdMYkmVY5qn7JQfcY63bJ/DEgMarhtJrxpWFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s/uPbK4da1enkqwd4GctbRKUQZpgNAEPmbzk/YoaWJ8=;
- b=lRKjqh2mR+qU5YGSaymjZyFg6jUn0IZYCGJ+XIG9Mzw8zZZwN21Pna0DRu5HjQGfqwjeptbk6ahQs7HAnyuLPs9WzRGnjs2fMxm4OhTFDbuGV1bxmljwQeLjrzz7KPTbei+77Ubn58JPogu76AzqfoGp0GJFaHZTSACoUAHCgoA=
-Received: from SJ0PR03CA0024.namprd03.prod.outlook.com (2603:10b6:a03:33a::29)
- by PH7PR12MB7453.namprd12.prod.outlook.com (2603:10b6:510:20a::10) with
+ bh=TPzQo6M5qqvxBMs49Y52eh0Lqs/jjdKQpCL7m6dvqzk=;
+ b=pdKXoi1etuU5s9fJRHElhvTUWndl234r6Vn/eFsCR2Pl0OxYkUHcAX+zQYHPzwG8bZLTugzXMw6cV3tehh6alVBYCJ6JBstbM0amlH/xbjyDVdEWynAn2n/ZykMjY87wS2XfJ+y/THKRJhhif4WntJON2LTN1l+K2+K9+03u96A=
+Received: from SJ0PR03CA0343.namprd03.prod.outlook.com (2603:10b6:a03:39c::18)
+ by SJ5PPF28EF61683.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98e) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Fri, 28 Aug
- 2026 06:30:43 +0000
-Received: from BY1PEPF0001AE1A.namprd04.prod.outlook.com
- (2603:10b6:a03:33a:cafe::88) by SJ0PR03CA0024.outlook.office365.com
- (2603:10b6:a03:33a::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 06:32:07 +0000
+Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::e) by SJ0PR03CA0343.outlook.office365.com
+ (2603:10b6:a03:39c::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Fri,
- 28 Aug 2026 06:30:43 +0000
+ 28 Aug 2026 06:32:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,31 +48,30 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1A.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 06:30:43 +0000
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 06:32:07 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 28 Aug 2026 01:30:37 -0500
+ 15.2.2562.45; Fri, 28 Aug 2026 01:32:01 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: <matthew.brost@intel.com>
 CC: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
-	<alexander.deucher@amd.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
-	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-Date: Fri, 28 Aug 2026 11:59:16 +0530
-Message-ID: <20260828062917.4106569-2-srinivasan.shanmugam@amd.com>
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Mika Kuoppala
+	<mika.kuoppala@linux.intel.com>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+	<alexander.deucher@amd.com>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 2/2] drm/xe: Convert xe_user_fence to drm_user_fence
+Date: Fri, 28 Aug 2026 12:01:03 +0530
+Message-ID: <20260828063103.4106629-3-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828062917.4106569-1-srinivasan.shanmugam@amd.com>
-References: <20260828062917.4106569-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
+References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,406 +84,322 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1A:EE_|PH7PR12MB7453:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58895ea1-831d-442d-78db-08df04cde2f8
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|SJ5PPF28EF61683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4106b2ce-b4e0-425a-0000-08df04ce153b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|36860700016|1800799024|18002099003|22082099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|23010399003|82310400026|7416014|36860700016|376014|1800799024|56012099006|11063799006|10067099003|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	t/K8/6z9M21a3sLo47vwfixgwpRvcNgEZwUomFa1Rui/Cb/q/5L6I5u+AwGLOGrN9gECoZBxpo+fOiQKif4vsAG7+MPyqdkenvRIoKpcNFCzps1znmzeI2zdh/Y7pBDzipJR+1pU93fcSaZHVyr+4oJWSx5xKX3MX2FhVxdDrQhhNqkUhvxumB0hNo5EuyZWBEDZeA28xrjFmz+RT4khUI2wG2ij1zsY1KvpX1KWh8U9ZXE9+QDQNagvdmiWEvOHUuIESiQgdOFUSmOctcGoB4oqF2Z/Z/qziou8tWzixvBboxlBpPnxLT3Ikq3Gzz6aGiEQ3nPTg+2NcefrtgID5c3UF7wtFU1omfEx9zw+1PzaM+NsHMIelh8yD9dKl8hv9XeCwvBIOuj8gHxw3Mw22mioyH7qtMnLfeyUg2Xm0cXFKclKknQouJavElKoJ9SaEylAFsUdc4+7Q9otiS2C0Y16TEzMV4ctJrPWzKsoFuhOF64n3yJ7+ZRlIMpUYWz5solr1XE6KZmkopZv5onqFBaJ2zDXTju3/R3+FwJ5DT95E0DHICSy42/SEqhGEdK0LEllsZhmy8uEfEZWu1Yjl1aCD21MslVr/XgeY38LfkhrFllzipvKAQPAu1nQfbs/KYaysbFgH+DCrCwdH3MNISX2zdUvFc4jQr8zTA7/E/s1yd1Z8vTCL0lupboVhC7xln7SgRaTsTNNEbXhhNBhAg==
+	A/zftTAFK7zjZgHVFYhePWoKVwtkMwnf7hNpXmZvSa0g/S0ujKMEvct+vPZ0+yeveBmvOb7UKFAprLYJ0nWjtCTkoD4LtAYtrkf/JaqoVFFaXQBUXGwd6PFM49CgJclkLW90fMSBRXBhoEEgXRggnDJ5tXYb4EffkccRQD3wcxwR2fSFldyWYrJQwKV5E6kkJzJeg5LY3UZbjjD5IXG2VOhMRJF/gdaRs+hW7OB2mrNNZCvsE/7rHfkMF7gYSJA5ty/iK+edgEEyxW5ydbr5dC/SMArZ4TF11WPURWX/IWFV+4+yC2nwY2RkCF0y3GSG6YOwgHHLy15FGFPiCJi5cLBXUcoCTiq1cQ3qi3z9PB7PPtLdAXe/JbEy17K4j5w3/jzSVIBy/3MER2ja9Owr/CYukqd6AtzytrQR9umZLLfeV9U6m71MpmY0a04hqG2ySdDrfHn8qctBcH7eq+6Z76SgxVQDcfewzyzz5MSzW/w3e5WOPCg7XqS9QuBzh0qr9N29xIciwbTnNlLpd10TebUvd2Z1Py7nTItI+wGaiWaAlbbubbwgkv909PkKxzEHSZPsglxb2dNrg8eEiqkhOe3Z1uOgfSPIzRf+f5B3xBcKXIV0dxUVAw8/owJx/aSzoz2sudesqykDrd25D+tD9QPV6zc++ir8KnR+0Fj6++bUmXcUEHGQbGwh+dXSOV3LZ0ce2NAcy42u58nBHsMWrg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(36860700016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(36860700016)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	yaWqcBPIwHdyBQ8haamjv5wm2STW+4YhMNFxAfQl3RLU/4ffkovDZE2KL2DjmKdQH123fM4IGGZMPhbqW+WOcT9xqUL7Sc/6WBMq0YSuBEKnU/AJQYan6prwh5vdtO6S01CUeWp8rbx5QrRRJW9JCStpaLheHxamDZ/qNVgakvCMu7NNDwGqQ+Tgh6xTiU82R95kD91nnQr7r4EZ0UxfxR4oS3kxEGUD++24tUYMIzYjgyNgeG4kVrA3dBS3X245wCcFcsTDRd7SA0XzpLY5llsCRZch2PcVU3QEzCa1TW2goItbhHlefdxSmCc9oIEw2cDq33tcvwd/TUi/qPzh630SHWr2eDzg1yIpPQIM6YvjXaf19TWO3PbSpymWW7bRv1GN4zSLRQwojpJILZamK1YZABGEjK1+hQPq0G0FFLnqMIDhHtFTswADsfn+ZYjy
+	FxP6pMfaKrrA2OQ5IrvkGc0y2S8RUNUdScbcAy3hSU4gD1K+D4kzFvCpL1yxeW4h7EO1ZuPstSrDwE6PCTKulK3jf1iv50NZe3wtyWzwfDOKyGK/cwg6FGZK8KaU82aO7ItTYSbf9JA3zzwYNjIxyOh1irFCzlRLKrp8U0Plr0wpmZOLH53YE235NTtrvEC5WMUmOMoJGhc/YIG1s3hySiZ+GRjC7W5gmtbSyWuEY/hzDANGFipjq3IJcUMzVWHal5LLjovTTtI0nNe6PbSAwd0KeO91DNDLfis7m3LIakVfA2dhlAspIgxixa9BczdLQ1ZZCwORwEgwluMeYvCXnYwFr6lo4BpEMDy6McR2WAKp/Q54+axNhUT5t0F5z/6kG63z/GGMMpwSkonXFNWZ1z+4TSpe61V5rNkvAUJWG614dROys9Ft3TknU60efyMa
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 06:30:43.1387
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 06:32:07.4844
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58895ea1-831d-442d-78db-08df04cde2f8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4106b2ce-b4e0-425a-0000-08df04ce153b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1A.namprd04.prod.outlook.com
+	BY1PEPF0001AE17.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7453
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF28EF61683
 
-Introduce a common DRM user fence helper providing the kref-managed,
-MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
-that must access userspace memory from a kthread context when a GPU
-fence signals.
+Replace the open-coded user fence implementation in xe_sync.c with the
+new common drm_user_fence helper.
 
-XE uses this pattern (xe_sync.c) to write a fence completion value
-to a userspace VA. AMDGPU will use the same pattern to signal a
-per-queue eventfd from a user-queue EOP fence callback.
+struct xe_user_fence now embeds struct drm_user_fence as its base.
+XE-specific fields (xe_device pointer for the ufence_wq wake-up,
+userspace VA, expected value, signalled flag) remain in the wrapper.
 
-The helper provides:
- - struct drm_user_fence: embeddable base structure
- - struct drm_user_fence_ops: worker/destroy callbacks
- - drm_user_fence_init(): initialize and grab the process MM
- - drm_user_fence_get/put(): reference counting
- - drm_user_fence_add_callback(): attach to a dma-fence
+The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
+functions are removed. Their logic moves to xe_ufence_ops.worker and
+xe_ufence_ops.destroy, which are called by drm_user_fence_work().
 
-The worker callback receives a bool indicating whether the process
-MM was successfully obtained, allowing drivers to handle the
-unavailable-MM case (log, skip the userspace write, etc.) without
-duplicating the mmget/kthread_use_mm/mmput boilerplate.
-
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Simona Vetter <simona@ffwll.ch>
 Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Cc: linux-media@vger.kernel.org
 Cc: linaro-mm-sig@lists.linaro.org
 Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
 v4:
- - Check cancel_work_sync() return value in drm_user_fence_cancel_sync()
-   and call drm_user_fence_put() if work was dequeued, fixing a memory
-   leak of the drm_user_fence, mm_struct and stored dma_fence when a
-   pending work item is cancelled. (Sashiko review)
+ - Remove drm_user_fence_cancel_sync() from xe_sync_entry_cleanup().
+   Cancelling the callback there breaks VM_BIND user fences by
+   disarming the completion signal before the GPU finishes.
+   (Sashiko review)
 
- drivers/gpu/drm/Makefile         |   1 +
- drivers/gpu/drm/drm_user_fence.c | 223 +++++++++++++++++++++++++++++++
- include/drm/drm_user_fence.h     |  76 +++++++++++
- 3 files changed, 300 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_user_fence.c
- create mode 100644 include/drm/drm_user_fence.h
+ drivers/gpu/drm/xe/xe_sync.c       | 136 ++++++++++++++---------------
+ drivers/gpu/drm/xe/xe_sync.h       |   1 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   3 +-
+ drivers/gpu/drm/xe/xe_vm.c         |   1 +
+ 4 files changed, 70 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e97faabcd783..52de1f474535 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -69,6 +69,7 @@ drm-y := \
- 	drm_syncobj.o \
- 	drm_sysfs.o \
- 	drm_trace_points.o \
-+	drm_user_fence.o \
- 	drm_vblank.o \
- 	drm_vblank_work.o \
- 	drm_vma_manager.o \
-diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
-new file mode 100644
-index 000000000000..cdc47d092cbb
---- /dev/null
-+++ b/drivers/gpu/drm/drm_user_fence.c
-@@ -0,0 +1,223 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ *
-+ * Common DRM user fence helper.
-+ *
-+ * When a GPU dma-fence signals, drivers often need to write a value to a
-+ * userspace VA or notify userspace via an eventfd. Both operations require
-+ * a valid process MM, which is not available in IRQ context.
-+ *
-+ * This helper queues a work item on fence signal. The work item borrows the
-+ * process MM via kthread_use_mm() and calls ops->worker(), which the driver
-+ * implements to perform the actual userspace access.
-+ */
-+
-+#include <linux/kthread.h>
-+#include <linux/sched/mm.h>
-+#include <linux/workqueue.h>
-+
+diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+index 37866768d64c..56f8e290424e 100644
+--- a/drivers/gpu/drm/xe/xe_sync.c
++++ b/drivers/gpu/drm/xe/xe_sync.c
+@@ -6,12 +6,11 @@
+ #include "xe_sync.h"
+ 
+ #include <linux/dma-fence-array.h>
+-#include <linux/kthread.h>
+-#include <linux/sched/mm.h>
+ #include <linux/uaccess.h>
+ 
+ #include <drm/drm_print.h>
+ #include <drm/drm_syncobj.h>
 +#include <drm/drm_user_fence.h>
-+
-+static void drm_user_fence_destroy(struct kref *kref)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(kref, struct drm_user_fence, refcount);
-+
-+	/* Release the extra reference stored for cancel() */
-+	if (ufence->fence)
-+		dma_fence_put(ufence->fence);
-+
-+	mmdrop(ufence->mm);
-+	ufence->ops->destroy(ufence);
-+}
-+
-+/**
-+ * drm_user_fence_get - Acquire a reference to a user fence
-+ * @ufence: user fence
+ #include <uapi/drm/xe_drm.h>
+ 
+ #include "xe_device.h"
+@@ -19,36 +18,60 @@
+ #include "xe_macros.h"
+ #include "xe_sched_job_types.h"
+ 
++/*
++ * xe_user_fence wraps drm_user_fence with XE-specific fields.
++ * The drm_user_fence base handles MM borrowing and work-item lifetime.
 + */
-+void drm_user_fence_get(struct drm_user_fence *ufence)
-+{
-+	kref_get(&ufence->refcount);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_get);
-+
-+/**
-+ * drm_user_fence_put - Release a reference to a user fence
-+ * @ufence: user fence
-+ */
-+void drm_user_fence_put(struct drm_user_fence *ufence)
-+{
-+	kref_put(&ufence->refcount, drm_user_fence_destroy);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_put);
-+
-+static void drm_user_fence_work(struct work_struct *w)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(w, struct drm_user_fence, work);
-+	bool mm_ok = false;
-+
-+	if (mmget_not_zero(ufence->mm)) {
-+		kthread_use_mm(ufence->mm);
-+		mm_ok = true;
-+	}
-+
-+	ufence->ops->worker(ufence, mm_ok);
+ struct xe_user_fence {
+-	struct xe_device *xe;
+-	struct kref refcount;
+-	struct dma_fence_cb cb;
+-	struct work_struct worker;
+-	struct mm_struct *mm;
+-	u64 __user *addr;
+-	u64 value;
+-	int signalled;
++	struct drm_user_fence base;
++	struct xe_device     *xe;
++	u64 __user           *addr;
++	u64                   value;
++	int                   signalled;
+ };
+ 
+-static void user_fence_destroy(struct kref *kref)
++static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
+ {
+-	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
+-						 refcount);
++	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
+ 
+-	mmdrop(ufence->mm);
+-	kfree(ufence);
+-}
++	/*
++	 * Mark signalled before waking waiters so UMD can safely reuse
++	 * the same ufence without hitting -EBUSY.
++	 */
++	WRITE_ONCE(ufence->signalled, 1);
+ 
+-static void user_fence_get(struct xe_user_fence *ufence)
+-{
+-	kref_get(&ufence->refcount);
++	/*
++	 * Ensure the signalled store is visible before the user memory write
++	 * on weakly ordered architectures (e.g. ARM64). Without this barrier
++	 * the CPU may reorder stores, causing userspace to observe the user
++	 * memory update before signalled == 1.
++	 */
++	smp_wmb();
 +
 +	if (mm_ok) {
-+		kthread_unuse_mm(ufence->mm);
-+		mmput(ufence->mm);
++		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
++			drm_dbg(&ufence->xe->drm,
++				"copy_to_user failed, user fence wasn't signaled\n");
++	} else {
++		drm_dbg(&ufence->xe->drm,
++			"mmget_not_zero() failed, ufence wasn't signaled\n");
 +	}
 +
-+	drm_user_fence_put(ufence);
-+}
++	wake_up_all(&ufence->xe->ufence_wq);
+ }
+ 
+-static void user_fence_put(struct xe_user_fence *ufence)
++static void xe_ufence_destroy(struct drm_user_fence *base)
+ {
+-	kref_put(&ufence->refcount, user_fence_destroy);
++	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
 +
-+static void drm_user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(cb, struct drm_user_fence, cb);
-+
-+	queue_work(ufence->wq, &ufence->work);
-+	/*
-+	 * Put the transferred reference from add_callback. The stored
-+	 * reference in ufence->fence is released in drm_user_fence_destroy().
-+	 */
-+	dma_fence_put(fence);
-+}
-+
-+/**
-+ * drm_user_fence_init - Initialize a user fence
-+ * @ufence: user fence to initialize
-+ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
-+ * @ops: driver operations
-+ *
-+ * Must be called from process context with a valid current->mm.
-+ * Grabs a reference to current->mm via mmgrab().
-+ */
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops)
-+{
-+	kref_init(&ufence->refcount);
-+	ufence->mm = current->mm;
-+	mmgrab(ufence->mm);
-+	ufence->wq = wq;
-+	ufence->ops = ops;
-+	ufence->fence = NULL;
-+	INIT_WORK(&ufence->work, drm_user_fence_work);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_init);
-+
-+/**
-+ * drm_user_fence_add_callback - Attach a user fence to a dma-fence
-+ * @ufence: user fence
-+ * @fence: dma-fence to watch; ownership of this reference is transferred
-+ *         to the callback — caller must NOT put it afterward.
-+ *
-+ * When @fence signals, a work item is queued that calls ops->worker() with
-+ * the process MM active. If @fence has already signaled the work item is
-+ * queued immediately.
-+ *
-+ * An additional reference to @fence is stored internally in @ufence to
-+ * allow drm_user_fence_cancel() to be called safely without the caller
-+ * needing to hold a separate fence reference.
-+ *
-+ * On any return value the caller's fence reference is consumed.
-+ *
-+ * Return: 0 on success, negative errno on error.
-+ */
-+int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-+				struct dma_fence *fence)
-+{
-+	int err;
-+
-+	drm_user_fence_get(ufence);
-+
-+	/* Extra ref stored for cancel() — lives until drm_user_fence_destroy() */
-+	ufence->fence = dma_fence_get(fence);
-+
-+	err = dma_fence_add_callback(fence, &ufence->cb, drm_user_fence_cb);
-+	if (err == -ENOENT) {
-+		/* fence already signaled — queue work and release transferred ref */
-+		queue_work(ufence->wq, &ufence->work);
-+		dma_fence_put(fence);
-+		err = 0;
-+	} else if (err) {
-+		dma_fence_put(ufence->fence);
-+		ufence->fence = NULL;
-+		drm_user_fence_put(ufence);
-+		dma_fence_put(fence);
-+	}
-+	/* on success: transferred ref goes to drm_user_fence_cb */
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_add_callback);
-+
-+/**
-+ * drm_user_fence_cancel - Cancel a pending user fence callback
-+ * @ufence: user fence
-+ *
-+ * Attempts to remove the pending callback before driver context teardown.
-+ * Must be called before the driver tears down its workqueue or ops.
-+ * The caller must hold a reference to @ufence across this call.
-+ *
-+ * If the callback has already fired this returns false and no additional
-+ * action is needed — the callback handles its own reference.
-+ *
-+ * If removal succeeds the callback reference is released internally.
-+ * The caller must still release its own separate reference via
-+ * drm_user_fence_put() when done with the object.
-+ *
-+ * This function is safe to call from atomic context as it only acquires
-+ * the dma-fence spinlock internally. If the caller also needs to wait
-+ * for the worker to finish, use drm_user_fence_cancel_sync() instead,
-+ * which may sleep.
-+ *
-+ * Return: true if callback was removed, false if it had already fired.
-+ */
-+bool drm_user_fence_cancel(struct drm_user_fence *ufence)
-+{
-+	struct dma_fence *fence = ufence->fence;
-+
-+	if (!fence)
-+		return false;
-+
-+	if (dma_fence_remove_callback(fence, &ufence->cb)) {
-+		/*
-+		 * Callback will not fire — release the transferred reference
-+		 * that would have been put by drm_user_fence_cb(). The stored
-+		 * reference in ufence->fence is released in destroy().
-+		 */
-+		dma_fence_put(fence);
-+		drm_user_fence_put(ufence);
-+		return true;
-+	}
-+
-+	/* Callback already fired — it handled its own cleanup */
-+	return false;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_cancel);
-+
-+/**
-+ * drm_user_fence_cancel_sync - Cancel callback and wait for worker to finish
-+ * @ufence: user fence
-+ *
-+ * Calls drm_user_fence_cancel() then cancel_work_sync() to guarantee
-+ * the worker has fully completed before returning.
-+ *
-+ * This function may sleep. Must not be called from atomic or interrupt
-+ * context. Use drm_user_fence_cancel() instead when sleeping is not
-+ * allowed.
-+ *
-+ * Drivers must call this during teardown before freeing any resources
-+ * accessed by ops->worker().
-+ */
-+void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
-+{
-+	drm_user_fence_cancel(ufence);
-+	if (cancel_work_sync(&ufence->work))
-+		drm_user_fence_put(ufence);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_cancel_sync);
-diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
-new file mode 100644
-index 000000000000..02a02266ab93
---- /dev/null
-+++ b/include/drm/drm_user_fence.h
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ */
-+
-+#ifndef __DRM_USER_FENCE_H__
-+#define __DRM_USER_FENCE_H__
-+
-+#include <linux/dma-fence.h>
-+#include <linux/kref.h>
-+#include <linux/workqueue.h>
-+
-+struct drm_user_fence;
-+
-+/**
-+ * struct drm_user_fence_ops - driver callbacks for a DRM user fence
-+ */
-+struct drm_user_fence_ops {
-+	/**
-+	 * @worker: Called from workqueue context.
-+	 *
-+	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
-+	 * (copy_to_user, eventfd_signal, etc.) may be accessed safely.
-+	 * If @mm_ok is false, the process MM was already gone; the driver
-+	 * should log a warning and skip the userspace write.
-+	 *
-+	 * wake_up() or other post-signal housekeeping should also happen here.
-+	 */
-+	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
-+
-+	/**
-+	 * @destroy: Called when the last reference is dropped.
-+	 * Free the containing structure here.
-+	 */
-+	void (*destroy)(struct drm_user_fence *ufence);
++	kfree(ufence);
+ }
+ 
++static const struct drm_user_fence_ops xe_ufence_ops = {
++	.worker  = xe_ufence_worker,
++	.destroy = xe_ufence_destroy,
 +};
 +
+ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
+ 					       u64 value)
+ {
+@@ -63,51 +86,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
+ 	if (!ufence)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ufence->xe = xe;
+-	kref_init(&ufence->refcount);
+-	ufence->addr = ptr;
++	ufence->xe    = xe;
++	ufence->addr  = ptr;
+ 	ufence->value = value;
+-	ufence->mm = current->mm;
+-	mmgrab(ufence->mm);
++	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
+ 
+ 	return ufence;
+ }
+ 
+-static void user_fence_worker(struct work_struct *w)
+-{
+-	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
+-
+-	WRITE_ONCE(ufence->signalled, 1);
+-	if (mmget_not_zero(ufence->mm)) {
+-		kthread_use_mm(ufence->mm);
+-		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
+-			XE_WARN_ON("Copy to user failed");
+-		kthread_unuse_mm(ufence->mm);
+-		mmput(ufence->mm);
+-	} else {
+-		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
+-	}
+-
+-	/*
+-	 * Wake up waiters only after updating the ufence state, allowing the UMD
+-	 * to safely reuse the same ufence without encountering -EBUSY errors.
+-	 */
+-	wake_up_all(&ufence->xe->ufence_wq);
+-	user_fence_put(ufence);
+-}
+-
+-static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
++static void user_fence_get(struct xe_user_fence *ufence)
+ {
+-	INIT_WORK(&ufence->worker, user_fence_worker);
+-	queue_work(ufence->xe->ordered_wq, &ufence->worker);
+-	dma_fence_put(fence);
++	drm_user_fence_get(&ufence->base);
+ }
+ 
+-static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++static void user_fence_put(struct xe_user_fence *ufence)
+ {
+-	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
+-
+-	kick_ufence(ufence, fence);
++	drm_user_fence_put(&ufence->base);
+ }
+ 
+ int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
+@@ -282,24 +276,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
+ 	} else if (sync->syncobj) {
+ 		drm_syncobj_replace_fence(sync->syncobj, fence);
+ 	} else if (sync->ufence) {
+-		int err;
+-
+ 		drm_syncobj_add_point(sync->ufence_syncobj,
+ 				      sync->ufence_chain_fence,
+ 				      fence, sync->ufence_timeline_value);
+ 		sync->ufence_chain_fence = NULL;
+ 
+ 		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
+-		user_fence_get(sync->ufence);
+-		err = dma_fence_add_callback(fence, &sync->ufence->cb,
+-					     user_fence_cb);
+-		if (err == -ENOENT) {
+-			kick_ufence(sync->ufence, fence);
+-		} else if (err) {
++		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
+ 			XE_WARN_ON("failed to add user fence");
+-			user_fence_put(sync->ufence);
+-			dma_fence_put(fence);
+-		}
++		/* fence ref consumed by drm_user_fence_add_callback */
+ 	}
+ }
+ 
+@@ -434,6 +419,19 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
+ 	user_fence_put(ufence);
+ }
+ 
 +/**
-+ * struct drm_user_fence - embeddable DRM user fence
++ * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
++ * @ufence: user fence reference
 + *
-+ * Drivers embed this in their own structure and implement
-+ * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
-+ * drm_user_fence_add_callback() to arm on a dma-fence.
-+ * Call drm_user_fence_cancel_sync() before driver teardown.
++ * Cancels any pending dma-fence callback and waits for the worker to fully
++ * complete before returning. Must be called during teardown before freeing
++ * any resources accessed by the worker.
 + */
-+struct drm_user_fence {
-+	/** @refcount: Reference count. */
-+	struct kref refcount;
-+	/** @mm: Process MM grabbed at init time. */
-+	struct mm_struct *mm;
-+	/** @work: Work item queued when the dma-fence signals. */
-+	struct work_struct work;
-+	/** @cb: dma-fence callback. */
-+	struct dma_fence_cb cb;
-+	/**
-+	 * @fence: Extra reference held for safe cancel(). Set during
-+	 * add_callback, released in destroy().
-+	 */
-+	struct dma_fence *fence;
-+	/** @wq: Workqueue to run @work on. */
-+	struct workqueue_struct *wq;
-+	/** @ops: Driver operations. */
-+	const struct drm_user_fence_ops *ops;
-+};
++void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
++{
++	drm_user_fence_cancel_sync(&ufence->base);
++}
 +
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops);
-+void drm_user_fence_get(struct drm_user_fence *ufence);
-+void drm_user_fence_put(struct drm_user_fence *ufence);
-+int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-+				struct dma_fence *fence);
-+bool drm_user_fence_cancel(struct drm_user_fence *ufence);
-+void drm_user_fence_cancel_sync(struct drm_user_fence *ufence);
-+
-+#endif /* __DRM_USER_FENCE_H__ */
+ /**
+  * xe_sync_ufence_get_status() - Get user fence status
+  * @ufence: user fence
+@@ -443,4 +441,3 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
+ int xe_sync_ufence_get_status(struct xe_user_fence *ufence)
+ {
+ 	return READ_ONCE(ufence->signalled);
+-}
++}
+diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
+index 6b949194acff..ff47882b3f6f 100644
+--- a/drivers/gpu/drm/xe/xe_sync.h
++++ b/drivers/gpu/drm/xe/xe_sync.h
+@@ -44,6 +44,7 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
+ struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
+ struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
+ void xe_sync_ufence_put(struct xe_user_fence *ufence);
++void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
+ int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
+index b88f1833e28c..49df2bfa817c 100644
+--- a/drivers/gpu/drm/xe/xe_sync_types.h
++++ b/drivers/gpu/drm/xe/xe_sync_types.h
+@@ -12,7 +12,6 @@ struct drm_syncobj;
+ struct dma_fence;
+ struct dma_fence_chain;
+ struct drm_xe_sync;
+-struct user_fence;
+ 
+ struct xe_sync_entry {
+ 	struct drm_syncobj *syncobj;
+@@ -28,4 +27,3 @@ struct xe_sync_entry {
+ 	u32 flags;
+ };
+ 
+-#endif
++#endif
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index b01f31ed4417..0a1f7615aed9 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
+ 	struct xe_bo *bo = xe_vma_bo(vma);
+ 
+ 	if (vma->ufence) {
++		xe_sync_ufence_cancel_sync(vma->ufence);
+ 		xe_sync_ufence_put(vma->ufence);
+ 		vma->ufence = NULL;
+ 	}
 -- 
 2.34.1
 
