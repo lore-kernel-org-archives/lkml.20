@@ -1,167 +1,265 @@
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023093.outbound.protection.outlook.com [40.107.44.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20D1388E46
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787886937; cv=none; b=BzKp+TVNR5CZSFcDUi6SW8L0yvSFs90SU5xp9bXsTiw+l/N3+Rh/8rmxOxD3GkKDeiK7lA1pXfMTjH3/Gelxh5nS1W5YAjlsZbMYA6bnltlrRZ6Ope3zFM6JlYCehfzKVjcNhbk468kVhL8GpuAzb0lQknJhmoHwJx62G51sFvU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787886937; c=relaxed/simple;
-	bh=XOjaiGKjhheJ/kjCevTLOAsBuo3lmObElKlXBzQBRYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BS33OmtvU1DY7FA4woUt86IkYlaUR3EoG2VnpbraSGX4lIXUW4xoapc/uw5DrVHhENzfItSPKQDahon/2GhlIpUmalKFejk0qmk6YI2rPDsGXc3fAtdeAvppVAI57XrJFqeI24TolsgTsy7buAnqOhdPqbAtPe5cMhTudQQfY3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CNnl1uXM; arc=none smtp.client-ip=91.218.175.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CNnl1uXM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XOjaiGKjhheJ/kjCevTLOAsBuo3lmObElKlXBzQBRYA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787886920; v=1; x=1788491720;
- b=CNnl1uXM2Lfcc1PxX5SJy+Cg8Op4CQlCaBSwewc6DSKh1HHZkQmoWUeD43QInC2VFxR34F72
- F3FQxJ8//YRO9XoWrhei/9BS2jjJmzM0WdSgwPPyah/edgLe5BLWlnc/5GvFk5PQwxJlGSjuRpV
- Kma75/8SimqFFy1OizuRJFEc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 01ad734866bc36eb;
-	Fri, 28 Aug 2026 03:15:20 +0000
-X-Mizu-Trace-ID: 01ad734866bc36eb
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 11:15:14 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com
-Subject: Re: [PATCH 1/3] mm/mglru: improve readability of isolate_folios()
-Message-ID: <apD9QqyFGRoGxyZA@fedora>
-References: <20260820045603.68809-1-baohua@kernel.org>
- <20260820045603.68809-2-baohua@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233C63947A4;
+	Fri, 28 Aug 2026 03:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787886947; cv=fail; b=Xz6aenrbyvVy03316DaiOJU/FHXvuhOF3fpHxDdMwCmGFq2fjHuz9o9oMRrwpeksT7blI5vkx57hBlXPo7oV9dQ3s25dhRE0nd8PRbUrZZ6ZQL733Ofl3o7egNzh2SC/TMM9mgxoagrba86u6LPVvm+MZ4we29tsWAlYqQ6MitA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787886947; c=relaxed/simple;
+	bh=+LCitfdTKA6t2OgsFVbUWLYZonZ7SDvqmjOTN/4qBg0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g1Eh5ZEh2Op0OdkVXR00eByRop6QcWdrOzEmAefcIww7FCpsbaAPFzyyx/uBFjUQTM+ES86V6K57VpSlpInDgHgN2+Qkx5+PmTx8n130sraul3sqGLhwaIMU5WrcZA5zIblR4re69fKuLhJIiGbFeC3X3aeGWYAed/mmb41SVYA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SGt0rXhEj92/RVP3qPxapGqt1Eu6l8wuMsLDOevS7In4jTAKRRzJE2a8xhISexsSLSrHpW1V4S1qr8xyiB7bJ1rawuWv6JWZLusjUNbSsW88j684x9BePnoGYOxkahFbflz8Cbtz5W6wJeF28B/x8La6L0D0M77P6SfwL2BGy86BdCvxDl5tn9O5LD5yeJ2Z3s1+8Io+zdI4VsF62vrekGXujAOF+encLL3o1INHr82UPLUTz514tVXTdEpiMa0EYjuZ/Xwj8a7YmDQyrhf97m9mujcDEdgwBuk4H7XhHXxZ9jO1ah3ugcrKYSxkdlF1ivlFGcYiBvIF2NVx9nAyAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mg2VjxJX1NJfHcsytSxHYpuHtLS7fShDc83oMsK6aJU=;
+ b=HCzvA6jDLHAx9xWYfG9dvTQeVydMuOUgTk5+IJnwBEkqMSKHjN2mNT5wVkLVgsXcYmrWyrPOW5XlLigPFWoO/dDCs3crGzM5WFNaiGrnZJUoz6Ny8Vtb3qqi7I6XX/QSRZmrXqSsht62soAO4+ezh7rwWnvg46MWDLpqoNQF9fes6cWkZ/79FzfeqUkkSMZfJMZuR4dd0JjDE4vovC7ezLlgo4Z40U83B5yfbpYoN8iNo/zPJeVbmEI0aGIlkErtYXHBTzrFkOHZkcCaE7iAOJUpSeimI75ei24aoNQ+RcUH+ZbHZYL4bRF02DAX41Yd62y6o37JcstdVtn20dNW2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=bootlin.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from KU0P306CA0078.MYSP306.PROD.OUTLOOK.COM (2603:1096:d10:2b::10)
+ by KL1PR0601MB5840.apcprd06.prod.outlook.com (2603:1096:820:9a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 03:15:22 +0000
+Received: from SG2PEPF000B66CD.apcprd03.prod.outlook.com
+ (2603:1096:d10:2b:cafe::44) by KU0P306CA0078.outlook.office365.com
+ (2603:1096:d10:2b::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Fri,
+ 28 Aug 2026 03:15:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CD.mail.protection.outlook.com (10.167.240.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Fri, 28 Aug 2026 03:15:20 +0000
+Received: from JohnnyFan (unknown [172.21.64.24])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 883B3427CEE0;
+	Fri, 28 Aug 2026 11:15:19 +0800 (CST)
+From: "Johnny.Fan" <johnny.fan@cixtech.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	bob.zhang@cixtech.com,
+	jie.fu@cixtech.com
+Subject: [PATCH] rtc: efi: restore alarm support with runtime capability probe
+Date: Fri, 28 Aug 2026 11:15:19 +0800
+Message-ID: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820045603.68809-2-baohua@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CD:EE_|KL1PR0601MB5840:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: b529b02a-e9ce-41d7-ca80-08df04b297a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|10067099003|3023799007|6133799003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	XGmXNn8rjr2S9JSS5z4/s6uA4NMzqcK/T3PaMTzYZNzPkDkMr44DHBHMofHugcFFWD4qPyyBdkYS/X7pyde+cbUY2xFMH+6YlJwISW9/MDX9m/GbK6QPW/9Dfx/eY1hVWGe6Sjv+6Gv+Ike3aMCcTuYjfJ5ngG45T1Aqpia5HikQrUXAC6wzlZyNKpB4w7sDE55qZcuB0IxwVDHQi2hCUr3aGyMg6W5RpRbRYB6yf/IcJcX1zXLvYAur+5OlotVYPB9X0hJ1oXVjfaObsCCorWhTFOYpPo6WQvl4ZIQnO09+lyl9SlcgQCC28HCBkx534Ehqj6/ASBQv31892BjA+ozu9JnXK1y4F/f5BWfto0Afoc3rSE1LaNMmhGcGD8v9wWDTHAl3/bybKR5f9216QL1SvAWvrmMR5Xo8szOk0IzwhA+enG00AZTph5ddigkY4k2vPSz5OS5yZVAUUDmXbxLBVziz3nwEHhsakKr0tGGGY3HTjHwnu0Cme+pu2yn6lJ4DfY6LYGUkTW7y7jKcsalU1rstuE+hUcNJQZdm2zUpZ7ZtRltYWw+B0rzZSBJTO7CcNWFTRXWUv6/1ldXrdLqzFH8BfYkstKFt2/4ibfAdQdBbAyfYotDIWWZpKlo5ZGJv0SY2Rz+hNsqPSacbJvT8FTXProJsDnNoyaPj+v6LdEU5gylkZhzISLJE1VAwwHEN44h3jPyG7+fQhINvAQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(10067099003)(3023799007)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cWnMELRHE+tX5co1KpzCEgvhmfslgpgk9JaJv7XzMA9hz4Pn3m9KkYpnOyMB1MbnzcXDBN7K/b/wWarj1cdz3iwEGJ5+uaetgp9ZSWtt5AzZaFYZzIhgt4H/IHdf4ouOtEipW8Rt71pQFD8wx8AYdhrWD37sa/bF6T3b1G8nEnNK41QCKlGpqf20iGymJRG59gbTPU3S3PdHd++RhoEmqQmBIh3mGw0Cxi01P5HiY4MJxmTqMVkMoaUUQ56mAbjDVbo/adQseWUp8SiUx1eDo55rwkKgiLzWymQfkKhjU/PVvhhZeHmFLIFK1vQBNxWYYYghiBTbMdsbzs77sySgbRME0BbuLaoR/F8yb32+OI3hyEFu7ucTPn+7PND9ip/3LUybB4ZvEoE+lbVVzCWI8tgErlXMMxvKtQmGceH8Vi0Y9v7nLkfIQ26b28t9cqDP
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 03:15:20.2929
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b529b02a-e9ce-41d7-ca80-08df04b297a5
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CD.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5840
 
-On 08/20/26 at 12:56pm, Barry Song (Xiaomi) wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> The for_each_evictable_type() loop in isolate_folios()
-> is misleading: it does not actually iterate over each
-> evictable type. Instead, get_type_to_scan() selects the
-> type to scan, while the iterator `i` merely bounds the
-> number of attempts.
-> 
-> Make the fallback behavior explicit in the code and remove the
-> opaque for_each_evictable_type(i, swappiness).
-> 
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> ---
->  mm/vmscan.c | 46 ++++++++++++++++++++++++++--------------------
->  1 file changed, 26 insertions(+), 20 deletions(-)
+From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
 
-The subject doens't reflect the truth. This patch changes the behaviour,
-but not improve readability of isolate_folios() only.
+Restore the EFI RTC alarm functionality (read_alarm/set_alarm and
+procfs output) that was removed by commit 18a3510bc87d ("rtc: efi:
+Remove wakeup functionality").
 
-I also noticed the confusion of isolate_folios() implementation, and made
-a patch to only change the local variable and added code comment to
-explain it in my local branch. Surely refactorying is also good.
+The removal was motivated by the observation that many EFI platforms
+lack RTC wakeup support while also omitting the RT_PROP table, causing
+the wakeup capability to be incorrectly advertised.  While that is
+true, removing the feature entirely also breaks platforms where the
+wakeup runtime service actually works.
 
-+        * Scan at most one type per evictable type (anon/file), starting with
-+        * the type get_type_to_scan() picked as statistically colder.
-+        *
-+        * After a scan:
-+        *  - isolated > 0:  got folios, record the type and return.
-+        *  - scanned == 0:  the type is empty; fall back to the other type.
-+        *  - otherwise:     the type has folios but all were hot (or lost an
-+        *                   isolate race); retry the same type rather than
-+        *                   switch, so positive_ctrl_err()'s refault
-+        *                   statistics stay unbiased.
-+        */
+On CIX SoCs with an I2C-connected RTC, the firmware owns the RTC and
+exposes it via EFI runtime services.  Using the native I2C RTC driver
+under Linux breaks Windows, which relies on EFI runtime services to
+access the RTC.  rtc-efi is therefore the only viable option for
+shared RTC access across operating systems, and it needs working
+alarm/wakeup support.
 
-While in Ridong's patch, the 3rd case disappeared. It doesn't rescan with
-the original type as the old code is doing, but return directly. 
+To avoid exposing a broken alarm on firmware that does not implement
+the wakeup runtime services, probe the capability at ->probe() time by
+actually calling GetWakeupTime() -- if it fails, clear RTC_FEATURE_ALARM
+and the device behaves as before the removal.
 
+Also set RTC_FEATURE_ALARM_WAKEUP_ONLY since EFI wakeup time is a
+wakeup-only alarm, not a periodic/update interrupt source.
 
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index c1404a59523d..d5cc30b667ad 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4833,35 +4833,41 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
->  	return positive_ctrl_err(&sp, &pv);
->  }
->  
-> +static inline bool is_single_type_reclaim(int swappiness)
-> +{
-> +	return swappiness == MIN_SWAPPINESS ||
-> +	       swappiness == SWAPPINESS_ANON_ONLY;
-> +}
-> +
->  static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->  			  struct scan_control *sc, int swappiness,
->  			  struct list_head *list, int *isolated,
->  			  int *isolate_type, int *isolate_scanned)
->  {
-> -	int i;
-> -	int total_scanned = 0;
-> +	bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
->  	int type = get_type_to_scan(lruvec, swappiness);
-> +	int total_scanned = 0, scanned, tier;
->  
-> -	for_each_evictable_type(i, swappiness) {
-> -		int scanned;
-> -		int tier = get_tier_idx(lruvec, type);
-> +retry:
-> +	tier = get_tier_idx(lruvec, type);
-> +	scanned = scan_folios(nr_to_scan, lruvec, sc,
-> +			      type, tier, list, isolated);
->  
-> -		scanned = scan_folios(nr_to_scan, lruvec, sc,
-> -				      type, tier, list, isolated);
-> +	total_scanned += scanned;
-> +	if (*isolated) {
-> +		*isolate_type = type;
-> +		*isolate_scanned = scanned;
-> +		return total_scanned;
-> +	}
->  
-> -		total_scanned += scanned;
-> -		if (*isolated) {
-> -			*isolate_type = type;
-> -			*isolate_scanned = scanned;
-> -			break;
-> -		}
-> -		/*
-> -		 * If scanned > 0 and isolated == 0, avoid falling back to the
-> -		 * other type, as this type remains sufficient. Falling back
-> -		 * too readily can disrupt the positive_ctrl_err() bias.
-> -		 */
-> -		if (!scanned)
-> -			type = !type;
-> +	/*
-> +	 * We are running out of the current reclaim type. Fall back to
-> +	 * the other type if allowed.
-> +	 */
-> +	if (!scanned && type_fallback_allowed) {
-> +		type = !type;
-> +		type_fallback_allowed = false;
-> +		goto retry;
->  	}
->  
->  	return total_scanned;
-> -- 
-> 2.34.1
-> 
+Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
+Tested-by: Johnny.Fan <Johnny.Fan@cixtech.com>
+Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
+---
+ drivers/rtc/rtc-efi.c | 78 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 76 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
+index b4f44999ef0f..708cba43435e 100644
+--- a/drivers/rtc/rtc-efi.c
++++ b/drivers/rtc/rtc-efi.c
+@@ -112,6 +112,34 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
+ 	return true;
+ }
+ 
++static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
++{
++	efi_time_t eft;
++	efi_status_t status;
++
++	status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
++				     (efi_bool_t *)&wkalrm->pending, &eft);
++	if (status != EFI_SUCCESS)
++		return -EINVAL;
++
++	if (!convert_from_efi_time(&eft, &wkalrm->time))
++		return -EIO;
++
++	return rtc_valid_tm(&wkalrm->time);
++}
++
++static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
++{
++	efi_time_t eft;
++	efi_status_t status;
++
++	convert_to_efi_time(&wkalrm->time, &eft);
++
++	status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
++
++	return status == EFI_SUCCESS ? 0 : -EINVAL;
++}
++
+ static int efi_read_time(struct device *dev, struct rtc_time *tm)
+ {
+ 	efi_status_t status;
+@@ -146,13 +174,21 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
+ 
+ static int efi_procfs(struct device *dev, struct seq_file *seq)
+ {
+-	efi_time_t        eft;
++	efi_time_t        eft, alm;
+ 	efi_time_cap_t    cap;
++	efi_bool_t        enabled, pending;
++	struct rtc_device *rtc = dev_get_drvdata(dev);
+ 
+ 	memset(&eft, 0, sizeof(eft));
++	memset(&alm, 0, sizeof(alm));
+ 	memset(&cap, 0, sizeof(cap));
+ 
+ 	efi.get_time(&eft, &cap);
++	if (test_bit(RTC_FEATURE_ALARM, rtc->features) &&
++	    efi.get_wakeup_time(&enabled, &pending, &alm) != EFI_SUCCESS) {
++		enabled = false;
++		pending = false;
++	}
+ 
+ 	seq_printf(seq,
+ 		   "Time\t\t: %u:%u:%u.%09u\n"
+@@ -168,6 +204,25 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+ 		/* XXX fixme: convert to string? */
+ 		seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
+ 
++	if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
++		seq_printf(seq,
++			   "Alarm Time\t: %u:%u:%u.%09u\n"
++			   "Alarm Date\t: %u-%u-%u\n"
++			   "Alarm Daylight\t: %u\n"
++			   "Enabled\t\t: %s\n"
++			   "Pending\t\t: %s\n",
++			   alm.hour, alm.minute, alm.second, alm.nanosecond,
++			   alm.year, alm.month, alm.day,
++			   alm.daylight,
++			   enabled == 1 ? "yes" : "no",
++			   pending == 1 ? "yes" : "no");
++
++		if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
++			seq_puts(seq, "Alarm Timezone\t: unspecified\n");
++		else
++			seq_printf(seq, "Alarm Timezone\t: %u\n", alm.timezone);
++	}
++
+ 	/*
+ 	 * now prints the capabilities
+ 	 */
+@@ -183,6 +238,8 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+ static const struct rtc_class_ops efi_rtc_ops = {
+ 	.read_time	= efi_read_time,
+ 	.set_time	= efi_set_time,
++	.read_alarm	= efi_read_alarm,
++	.set_alarm	= efi_set_alarm,
+ 	.proc		= efi_procfs,
+ };
+ 
+@@ -191,6 +248,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+ 	struct rtc_device *rtc;
+ 	efi_time_t eft;
+ 	efi_time_cap_t cap;
++	efi_bool_t enabled, pending;
+ 
+ 	/* First check if the RTC is usable */
+ 	if (efi.get_time(&eft, &cap) != EFI_SUCCESS)
+@@ -203,7 +261,23 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+ 	platform_set_drvdata(dev, rtc);
+ 
+ 	rtc->ops = &efi_rtc_ops;
+-	clear_bit(RTC_FEATURE_ALARM, rtc->features);
++	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
++
++	/*
++	 * The EFI_RT_SUPPORTED_WAKEUP_SERVICES bit defaults to enabled
++	 * and only gets cleared when the RT_PROP table explicitly says
++	 * wakeup is unsupported. Many platforms lack an RT_PROP table
++	 * even though they don't implement the wakeup runtime service,
++	 * so probe by actually calling GetWakeupTime() to avoid exposing
++	 * a broken alarm to userspace.
++	 */
++	if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES) &&
++	    efi.get_wakeup_time(&enabled, &pending, &eft) == EFI_SUCCESS) {
++		set_bit(RTC_FEATURE_ALARM, rtc->features);
++		set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
++	} else {
++		clear_bit(RTC_FEATURE_ALARM, rtc->features);
++	}
+ 
+ 	device_init_wakeup(&dev->dev, true);
+ 
+-- 
+2.55.0
+
