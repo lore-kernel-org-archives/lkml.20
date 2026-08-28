@@ -1,39 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12A941C72;
-	Fri, 28 Aug 2026 01:46:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72323F40D;
+	Fri, 28 Aug 2026 01:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881567; cv=none; b=sZ02HMezAa5FXrHN7HO8eAtMRkLIp0HwAQ8byMZdxqbbXdTiUx54F9JZH4U2LbCwGxfPOEJDelf8drKilplwOIBS2Hf6TY6QSKxNJM7IItLKsdgLaNv+FHbgpzJhVf6jwKFNoWVSrngo260bwMOT2I7DBY4qWvPH6t2xkw//Reo=
+	t=1787881594; cv=none; b=ZSAP6n9Iq91qJOUq2GaZQtHaikbDEgH55MACd+70xWuhlCpAEnS7lYSInL9KFkaPwkiog/jNKQKo3CRNE5TRFtWDdx88LQyoRakUh2L3TMrhv5PuvW4xecYXi28qjvgbONP8QX5sm/G/KKuuCSh/Rw1BMuDcqt9iIZsojY4pT2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881567; c=relaxed/simple;
-	bh=A0roxpP2cm6y6R1pSCamGKk//vly6B70odWKmaqsUWA=;
+	s=arc-20240116; t=1787881594; c=relaxed/simple;
+	bh=rWbPuiLM6kveF1zhG1HZoHtKHgeTBdcQs16WCUOXArU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=njLhy5OmJGTQZgovvPsqoNdnZWFMoJxrk2PqNyyd9YGYak6BYW5Fcu3wJrWZ85n8kqtBB3QS2byyT2yJq95AIr/2OeWjqa4Nnxd/rmGZ8j9xYLt7UAUGixsRewvQSzj/ZbWdJHsLOhdFzmTBM26FgIYaE5/1ABnUTxQobsOS7Zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGE/25hf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=k470bxOegC+h/LeMnuxJMxJwezTZj6ZFotHqGezPD4ltXN0HAwSDPLQ/mGZIL0iYNmMgnhav+eO7gm0BfYsyw/9QQlgtr9uqm3xJzs9nVpj8I8hu8RD0GuKMx1yYqv4ybXyK8L3ASCvI65G55Ldtu1VhRvz41wEQvYdnseaEltw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdOfCn34; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGE/25hf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87AC1F000E9;
-	Fri, 28 Aug 2026 01:46:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdOfCn34"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E80361F000E9;
+	Fri, 28 Aug 2026 01:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787881566;
-	bh=A0roxpP2cm6y6R1pSCamGKk//vly6B70odWKmaqsUWA=;
+	s=k20260515; t=1787881589;
+	bh=BZWLsWtVITIf4iYFfpNvgFMDadOeUE6CNl8Ep+F4Jlo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kGE/25hfTE6jJn9Q6SdoFZoWWvqa038Ra+u3vEhAPUC01x5zbhv3j9or85uou+dWB
-	 zXGfCUYCtHIqQUXjpPlEs0qYOjYNf+HritsFPYWBxuLQaYv7MSjnSu6ct/S+Gr4EDs
-	 NOu7H8Nc1nO/ss0yXtdo2ktwX3tl3po4ao6LjQxb2J15dbUkBagTYWy8gN66SItrkv
-	 xF2rJLLij1/NG1L4oMV8oDMW314bX1ZjQMYZK5UUZKLoBbWIjrZsl9YfOz11oG6Bwo
-	 VIq6+AFCME4D0p5Q3cVDgvdK2AeZJDJi4QR5Q4KSaJcwykbH4LmIMN15IS95KA/oh/
-	 Pk6pDZ64Xa9dw==
-Date: Fri, 28 Aug 2026 03:46:03 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-i2c@vger.kernel.org, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] i2c: ibm_iic: use devm for main allocation
-Message-ID: <apDoKSrDuJ4D_Vhh@zenone.zhora.eu>
-References: <20260821230217.319418-1-rosenp@gmail.com>
- <20260821230217.319418-4-rosenp@gmail.com>
+	b=IdOfCn34EPGb4if09usnYBwqZNdiR4MND8x1vBJQwL15mgxOWLHADw+C+CF3mDrSS
+	 rqSvfcwgmzvWA/lojO3niCTjRHOnd0kG9XSWjEc4+Iw7jCqmOjl6wXw8GR8ccoM3oH
+	 DhRmqK3ZWBQXg6Qm0RqI04JpAzZzQ41ot12wnTMp7XVXILczjq+xsl2aUX74a6KTO+
+	 8T+KHvg6imz3EwKUXCX9bfJcAOaiJC/wIpVnJ2qw3OoPF2K4uMGeQMpmpy0EbV+Ykg
+	 zDGspfgYM+ld3TNXKo5chYc5rvRRWYyUv0RlZ3oxBHFriIkdOE3J1aI2nk4aIPHuN4
+	 Xjo8TI6mEGw/g==
+Date: Fri, 28 Aug 2026 04:46:25 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: sn0x-sharma <sanketsharmacsec@gmail.com>,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	dhowells@redhat.com, linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+	security@kernel.org, w@1wt.eu
+Subject: Re: [PATCH 1/2] keys: trusted: tpm1: add bounds check in tpm_seal()
+ before memcpy
+Message-ID: <apDocVfEfwX3hFa_@kernel.org>
+References: <20260825182919.15943-1-sanketsharmacsec@gmail.com>
+ <2026082651-portal-valid-da58@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,15 +47,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821230217.319418-4-rosenp@gmail.com>
+In-Reply-To: <2026082651-portal-valid-da58@gregkh>
 
-Hi Rosen,
+On Wed, Aug 26, 2026 at 08:18:32AM +0200, Greg KH wrote:
+> On Tue, Aug 25, 2026 at 06:29:18PM +0000, sn0x-sharma wrote:
+> > tpm_seal() computes storedsize from TPM response fields and passes
+> > it directly to memcpy() into a MAX_BLOB_SIZE buffer without bounds
+> > validation. A forged TPM response can set storedsize to 4086,
+> > overflowing the 512-byte blob by 3574 bytes into adjacent slab
+> > objects.
+> > 
+> > Add a check that storedsize does not exceed MAX_BLOB_SIZE before
+> > the memcpy, returning -EINVAL on oversized responses.
+> > 
+> > Reported-by: sn0x-sharma <sanketsharmacsec@gmail.com>
+> > Link: https://lore.kernel.org/linux-integrity/
+> 
+> That's not a valid link :(
 
-On Fri, Aug 21, 2026 at 04:02:16PM -0700, Rosen Penev wrote:
-> Allows getting rid of kfree in failure and remove paths.
+Oops, missed this one ;-)
 
-the patch is good, but as you are going to resend, the comment
-for the commit log is still valid.
+Should be just deleted, b4 shazam will set the link tag.
 
-Thanks,
-Andi
+> 
+> > Signed-off-by: sn0x-sharma <sanketsharmacsec@gmail.com>
+> 
+> No need for a reported-by: if you author and sign off on the patch.
+> 
+> And we need a real name please, not an alias.
+> 
+> thanks,
+> 
+> greg k-h
+
+BR, Jarkko
