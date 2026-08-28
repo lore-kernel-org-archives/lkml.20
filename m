@@ -1,461 +1,179 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B7C3D47BF;
-	Fri, 28 Aug 2026 14:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926113; cv=pass; b=l2jS9IA0xZvv291D/EiH7zdRfFExT8mYs6gNzZ1BHWKRmEozRv3pnF5LUyTFBclrqDLrNou6Bh4MJG3AHL7PSO3yC2PirPQFyY2dVJ+eRMyFHeCTezdwJmrveX1aVNW/K+l5aVJnInO4Fp1EWIMhPP1NJv0bEIog2//F1hytn8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926113; c=relaxed/simple;
-	bh=YGTtkvB0Du9kYxftHg9YsJ7JE4DG5GMdiVGSD6dSHRA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o02ZhmAcke3rwLSFdgtPwioIjQmIPLahz04AxvvqKl4TuD3+rNdQJwb0ci7ngBJK4gGewNZ+oLZPL6PhRtUYgQOhdXeo3t+Z1BuMx8lkjoEvNzRuWKaNcGTrcpz7sFmDd0nHgrcTIdu+BdFkO62/THs5rRUiuOi7tdiOHIVBpfA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=bl2PC9N3; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7C146EF87
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787926221; cv=none; b=p8XqHFFWCbRr+FyWsdwt20YeANxVyCOwo4rvTmoOWm3rnVhw0ncWKxsMq7NtHOT8KqegDvgb6d0JEooARL6ps69DEpP7jcCdBQpa+q/ed2qJkhgIwbvKr29EKaVrWOUFRl0McdTOYA1GFvfQuAfvZRVcQMI+SY19WVHhXE0zTos=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787926221; c=relaxed/simple;
+	bh=ZNKccxZiCzly9I5k80F35B1pc+eR7vQ/qDH/pYuN0m8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ddBrHjFIq0CGK/laJen6gmAqeZt12EGECbPgPGnO8mWSF1nKQqcmyQY8SaORE9I/xlcslUXVlIGJGZdNVDWX2g8TrgcX/XLeTd1DveywSru9JMtq5hye6h09aDArEn0LqvajQpad8qWrW754zyidS9JWXGnNHe24/d2X6fwoGP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=TvOCVadC; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="bl2PC9N3"
-ARC-Seal: i=1; a=rsa-sha256; t=1787926016; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BlbPkjJ9m6AYBqhREK5lCy4aiTb9ged5wJxLjkhaPVol5mLOZw6rhAmamqO1ZhWrivEK9lErXTYkb6PyO6fykOAyAO/f/sUmHoY2pU8kBymGEoCfmfiTcaxS9a9e9Sb3pzaL7+TLzka70wnZyZJyx4thhLi94+0eKa7ewAqx3B0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787926016; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=FE7n+qckKFOEEQ74l64QMsqQistEWo8wsohkjnRXH7A=; 
-	b=DD1C7sAsZGAzMfKprpWejU1fhOTU3+pIA/+hXhqIYdC7Gh5GF5A84ieIzAbRBmuAViOhwwuPvNZO0hzmuj3NuLXMrMSYQeKuqM3IK1nQQoZPl7aEhNsMI6qa8BBE4gZj4UwsFz0kCzdY4t3iGXd2hkfmLJNny963Rm4gXRfS3Co=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787926016;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=FE7n+qckKFOEEQ74l64QMsqQistEWo8wsohkjnRXH7A=;
-	b=bl2PC9N3856C5YebB8QpWlFL/9XDBPmsVsLUK8Ren0pL+UtoiDwLxknChIIJiVOg
-	j1BsgouR0J2OYbQMT0UhyaS36twuWiGW/iYB74Sg0ut2aWqyGdAqeiPHwNZhs1g3SAL
-	HF/IZ5/+yBVaC8vVHxPJvNPAg0nZ3eo5FzanPFqdZ2VsJO9v/FFmk3q/iixFArJSZCr
-	mvR+wVgrsPRvLKAmvpIUIXIWkSy17PwjbBDnSOEqpPw1274BSogxdbrApIXO4IbYrht
-	V7RgnrSv0pNpGfaRMTO4pG1wV+Q0+qS71TqrM+qGEjRqnRrRlYs1YKmGJITiaIjCeCP
-	rtC1KgOVPg==
-Received: by mx.zohomail.com with SMTPS id 1787926012797893.2630690373096;
-	Fri, 28 Aug 2026 07:06:52 -0700 (PDT)
-Message-ID: <e0e0c41c4c6b0b674c4cfc3b6927d60c40fbf733.camel@icenowy.me>
-Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
- Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
- <maudspierings@gocontroll.com>,  Graham Markall <hello@big-grey.co.uk>
-Date: Fri, 28 Aug 2026 22:06:38 +0800
-In-Reply-To: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
-References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
-		<CGME20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa@eucas1p2.samsung.com>
-	 <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="TvOCVadC"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-936dfd009d1so182714585a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:10:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1787926208; x=1788531008; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DMTxMAG/rJvYI6GDoxI7NDM2NcdqW0dm+aSGvfT6mdk=;
+        b=TvOCVadC1WTItmA22XmsKcrfeIiy/ML5wGK/co9em10igxF8Yku06eJvoOSCxyfrLM
+         fIZPDzlOkzXWr6E4yojYGEar2yz//3QL4Mp4AKxHagEAGXH1pxkXXaNVgyB8uS3MC96+
+         i1keVpSBwc8qJIrsDzJlmVsdqxnrWCvYHrp5qXZRWDlE1Epweu4GrJvH0h5k3zVW/Wxf
+         lU8YKakaJHNa393oM/EPH9qpc5nHpoy+2igaJ4Exjf65vyi2GYneEQZBuOPj3zolNdBb
+         FwOUHD6H+esaqClg4YssScg5kZassGR2pTAWGWuvWF9pgjZj8JOs9RVqqFRo8tYnIlTg
+         CEzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787926208; x=1788531008;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DMTxMAG/rJvYI6GDoxI7NDM2NcdqW0dm+aSGvfT6mdk=;
+        b=qo0bqLTy7wj3IDz2jdUX4fmvd67Zo9rudHJRYlgD/QFnghCvOAc0EVJya6DfchiiNY
+         O2eluTh1VpEx36FqZlXx9PrStkalyuETSIbcOrI/TI2ahx1BDJPXWGR/37wcjcXAZYxd
+         gJ1HPfOvDsAplR8MCqqPwYQAmgGgGyWq4Fip8DqsN6Fl9XeDnD6m1hU6vDkghawsflcj
+         39Qad8fhJSJY5BX0ANjwRQ5qAMIWx9Btg4TyBvU9uFZ2svjFT+gwcZiaBCe4j/rEkq+b
+         MGlpcvdXgK7PzVqCo+lwJAx8hIQTDvK4j+2iTBY4hYwHKyAAhyf/J6Xq/4Q1bY9owKWj
+         SKdw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+OEwJlboxe+TVlktw4mLnC3evq3SD52UpOcT1ygXKvBCXSiPdu5Ancu/GFD91v5u2DMN/dXGfb8JfL8k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIVoofspM5qCi2Grr0KplPRe6dztIKPIWhuay4V0z3THoBoQzS
+	DEOvP9Jb2y2u2zcPbdo5t9jYQNblHSCDZpQW9mzFnTX5DzfX9xi9/LqGNkehc/ShPA==
+X-Gm-Gg: AR+sD11bLjZHWe6wjtubGWq7UHzFZTHXCQ1QD7V1cC/0a8TPV6k3jscRrbFO1YOSFKN
+	wBONSAJt8wN4RnFyjbqxOpggwZnNtTpjjYMIwz484YOQxQ24xoadJvV1jYH3ZXxGv3nm1c3eGop
+	EPcA3qES3Jqv8R/4LJWkvghf4YslG3sQlr6fi2N6VWSf2BJ98uSkdhVqEwFfxbrH8vuBWFVc6vK
+	KZPXsvLk6krEufxgKSSxdCEcUT6uJKILSRDhf7i5JOGI4oZAAAcUTT36BfGx9AU5RhumfnQ9NFW
+	RAp5dZWcB+nvPlrDWw+PP8lRGBaj+gN2bWY30FNzkimC4DutMvmI3aD9HFQSPEHX1eGk2GypXsY
+	B5936Rh5j6ms/P7gOlsfxEh6ixya8820dT037tBwllI/RwjUZ19g3Bv3PFvcXqEquCvEwfgHPrk
+	44enJNTM7ha+tDAqqvUiQbcHznt94O9QjhyWrDTzSc89GihqAqqkmqsLU2e4wqeLPjkJzGyWVUh
+	RQ6FiE=
+X-Received: by 2002:a05:620a:1588:b0:930:9cbc:7121 with SMTP id af79cd13be357-93900131031mr1301468585a.3.1787926205824;
+        Fri, 28 Aug 2026 07:10:05 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4460e0dsm15997766d6.11.2026.08.28.07.10.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:10:04 -0700 (PDT)
+Date: Fri, 28 Aug 2026 10:10:01 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Petko Manolov <petkan@nucleusys.com>, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
+ work on system_dfl_long_wq
+Message-ID: <b6cf44a1-d2b1-443d-8efe-c596ef89cc2a@rowland.harvard.edu>
+References: <20260720100902.155605-1-marco.crivellari@suse.com>
+ <20260720100902.155605-6-marco.crivellari@suse.com>
+ <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
+ <20260825151812.4aJyFUgE@linutronix.de>
+ <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
+ <20260828094318.bOajNBno@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828094318.bOajNBno@linutronix.de>
 
-=E5=9C=A8 2026-08-28=E4=BA=94=E7=9A=84 15:47 +0200=EF=BC=8CMichal Wilczynsk=
-i=E5=86=99=E9=81=93=EF=BC=9A
-> Activate the display subsystem by adding the dc8200, hdmi and voutcrg
-> nodes as direct soc children. Each references the PD_VOUT power
-> domain
-> through power-domains, so genpd powers the domain on demand, and the
-> HDMI-PHY -> voutcrg -> HDMI-controller probe order is resolved by
-> deferred probe.
->=20
-> The monolithic hdmi node is modelled as a container with hdmi_phy
-> and hdmi_controller children. This lets the PHY (clock provider,
-> depending only on xin24m) and the controller (clock consumer) probe
-> independently, breaking the circular clock dependency with voutcrg.
->=20
-> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
-> the
-> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
-> MUXes
-> and is marked dma-noncoherent for framebuffer DMA. The old, incorrect
-> hdmitx0-pixel-clock fixed-clock node is removed.
->=20
-> Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
-> =C2=A0arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 119
-> +++++++++++++++++++++++-
-> =C2=A0arch/riscv/boot/dts/starfive/jh7110.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 87
-> +++++++++++++++--
-> =C2=A02 files changed, 196 insertions(+), 10 deletions(-)
->=20
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> index
-> a7a1c09a2c9075711f3a214a49618911fdc7b421..7aadc35f4a6aa724c86a868ef65
-> c5c829e666ee2 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> @@ -33,6 +33,25 @@ memory@40000000 {
-> =C2=A0		bootph-pre-ram;
-> =C2=A0	};
-> =C2=A0
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		/* vout applies for space from this CMA
-> +		 * Without this CMA reservation,
-> +		 * vout may not work properly.
-> +		 */
-> +		linux,cma {
-> +			compatible =3D "shared-dma-pool";
-> +			reusable;
-> +			size =3D <0x0 0x20000000>;
-> +			alignment =3D <0x0 0x1000>;
-> +			alloc-ranges =3D <0x0 0x70000000 0x0
-> 0x20000000>;
-> +			linux,cma-default;
-> +		};
-> +	};
-> +
-> =C2=A0	gpio-restart {
-> =C2=A0		compatible =3D "gpio-restart";
-> =C2=A0		gpios =3D <&sysgpio 35 GPIO_ACTIVE_HIGH>;
-> @@ -73,12 +92,47 @@ codec {
-> =C2=A0			};
-> =C2=A0		};
-> =C2=A0	};
-> +
-> +	hdmi-connector {
-> +		compatible =3D "hdmi-connector";
-> +		type =3D "a";
-> +
-> +		port {
-> +			hdmi_con_in: endpoint {
-> +				remote-endpoint =3D <&hdmi_out_con>;
-> +			};
-> +		};
-> +	};
-> =C2=A0};
-> =C2=A0
-> =C2=A0&cpus {
-> =C2=A0	timebase-frequency =3D <4000000>;
-> =C2=A0};
-> =C2=A0
-> +&dc8200 {
-> +	status =3D "okay";
-> +
-> +	ports {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		dpu_port0: port@0 {
-> +			reg =3D <0>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			dpu_out_dpi0: endpoint@0 {
-> +				reg =3D <0>;
-> +				remote-endpoint =3D <&hdmi_in>;
-> +			};
-> +		};
-> +
-> +		dpu_port1: port@1 {
-> +			reg =3D <1>;
-> +		};
-> +	};
-> +};
-> +
-> =C2=A0&dvp_clk {
-> =C2=A0	clock-frequency =3D <74250000>;
-> =C2=A0};
-> @@ -99,8 +153,31 @@ &gmac1_rmii_refin {
-> =C2=A0	clock-frequency =3D <50000000>;
-> =C2=A0};
-> =C2=A0
-> -&hdmitx0_pixelclk {
-> -	clock-frequency =3D <297000000>;
-> +&hdmi_controller {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&hdmi_pins>;
-> +
-> +	ports {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		port@0 {
-> +			reg =3D <0>;
-> +
-> +			hdmi_in: endpoint {
-> +				remote-endpoint =3D <&dpu_out_dpi0>;
-> +			};
-> +		};
-> +
-> +		hdmi_out_port: port@1 {
-> +			reg =3D <1>;
-> +			hdmi_out_con: endpoint {
-> +				remote-endpoint =3D <&hdmi_con_in>;
-> +			};
-> +
-> +		};
-> +	};
-> =C2=A0};
-> =C2=A0
-> =C2=A0&i2srx_bclk_ext {
-> @@ -351,6 +428,40 @@ &syscrg {
-> =C2=A0};
-> =C2=A0
-> =C2=A0&sysgpio {
-> +	hdmi_pins: hdmi-0 {
-> +		hdmi-cec-pins {
-> +			pinmux =3D <GPIOMUX(14,
-> GPOUT_SYS_HDMI_CEC_SDA,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> GPOEN_SYS_HDMI_CEC_SDA,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> GPI_SYS_HDMI_CEC_SDA)>;
-> +			input-enable;
-> +			bias-pull-up;
-> +		};
-> +
-> +		hdmi-hpd-pins {
-> +			pinmux =3D <GPIOMUX(15, GPOUT_HIGH,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_ENABLE,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_HPD)>;
-> +			input-enable;
-> +			bias-disable; /* external pull-up */
-> +		};
-> +
-> +		hdmi-scl-pins {
-> +			pinmux =3D <GPIOMUX(0, GPOUT_SYS_HDMI_DDC_SCL,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_SYS_HDMI_DDC_SCL,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_DDC_SCL)>;
-> +			input-enable;
-> +			bias-pull-up;
-> +		};
-> +
-> +		hdmi-sda-pins {
-> +			pinmux =3D <GPIOMUX(1, GPOUT_SYS_HDMI_DDC_SDA,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPOEN_SYS_HDMI_DDC_SDA,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 GPI_SYS_HDMI_DDC_SDA)>;
-> +			input-enable;
-> +			bias-pull-up;
-> +		};
-> +	};
-> +
-> =C2=A0	i2c0_pins: i2c0-0 {
-> =C2=A0		i2c-pins {
-> =C2=A0			pinmux =3D <GPIOMUX(57, GPOUT_LOW,
-> @@ -629,3 +740,7 @@ &U74_3 {
-> =C2=A0&U74_4 {
-> =C2=A0	cpu-supply =3D <&vdd_cpu>;
-> =C2=A0};
-> +
-> +&voutcrg {
-> +	status =3D "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> index
-> 9c3e4598747eb5541effe697044484715569a285..024e33b0e97cb13928d69d1d809
-> 0ed14d22bb022 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
-> =C2=A0		#clock-cells =3D <0>;
-> =C2=A0	};
-> =C2=A0
-> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
-> -		compatible =3D "fixed-clock";
-> -		clock-output-names =3D "hdmitx0_pixelclk";
-> -		#clock-cells =3D <0>;
-> -	};
-> -
-> =C2=A0	i2srx_bclk_ext: i2srx-bclk-ext-clock {
-> =C2=A0		compatible =3D "fixed-clock";
-> =C2=A0		clock-output-names =3D "i2srx_bclk_ext";
-> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
-> =C2=A0		#clock-cells =3D <0>;
-> =C2=A0	};
-> =C2=A0
-> +	xin24m: xin24m {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <24000000>;
-> +		clock-output-names =3D "xin24m";
-> +	};
-> +
-> =C2=A0	soc {
-> =C2=A0		compatible =3D "simple-bus";
-> =C2=A0		interrupt-parent =3D <&plic>;
-> @@ -1199,22 +1200,92 @@ csi_phy: phy@19820000 {
-> =C2=A0			#phy-cells =3D <0>;
-> =C2=A0		};
-> =C2=A0
-> +		dc8200: display@29400000 {
-> +			compatible =3D "verisilicon,dc";
-> +			reg =3D <0x0 0x29400000 0x0 0x2800>;
-> +			interrupts =3D <95>;
-> +			dma-noncoherent;
-> +
-> +			power-domains =3D <&pwrc JH7110_PD_VOUT>;
-> +
-> +			clocks =3D <&voutcrg
-> JH7110_VOUTCLK_DC8200_CORE>,
-> +				<&voutcrg
-> JH7110_VOUTCLK_DC8200_AXI>,
-> +				<&voutcrg
-> JH7110_VOUTCLK_DC8200_AHB>,
-> +				<&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX0>,
-> +				<&voutcrg
-> JH7110_VOUTCLK_DC8200_PIX1>;
-> +			clock-names =3D "core", "axi", "ahb", "pix0",
-> "pix1";
-> +
-> +			resets =3D <&voutcrg
-> JH7110_VOUTRST_DC8200_CORE>,
-> +				 <&voutcrg
-> JH7110_VOUTRST_DC8200_AXI>,
-> +				 <&voutcrg
-> JH7110_VOUTRST_DC8200_AHB>;
-> +			reset-names =3D "core", "axi", "ahb";
-> +		};
-> +
-> +		hdmi_subsystem: hdmi@29590000 {
-> +			compatible =3D "starfive,jh7110-hdmi-
-> subsystem";
-> +			reg =3D <0x0 0x29590000 0x0 0x4000>;
-> +
-> +			/*
-> +			 * This MFD's PHY child is the first device
-> in the vout
-> +			 * region to touch registers, so it owns the
-> NoC display
-> +			 * bus clock + reset that gate access to the
-> region.
-> +			 * PD_VOUT is powered on by genpd via power-
-> domains.
-> +			 */
-> +			power-domains =3D <&pwrc JH7110_PD_VOUT>;
-> +			clocks =3D <&syscrg
-> JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
-> +			resets =3D <&syscrg
-> JH7110_SYSRST_NOC_BUS_DISP_AXI>;
+On Fri, Aug 28, 2026 at 11:43:18AM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-08-27 12:01:02 [-0400], Alan Stern wrote:
+> > > > These drivers have their own work queues because they are part of the block layer.
+> > > > USB devices can share a device with a block device (storage & UAS) and
+> > > > USB devices have common, per device operations, in particular reset
+> > > > and runtime power management and disconnect handling. Because these operations
+> > > > can be necessary to complete block IO neither they nor anything
+> > > > they depend on can use IO to allocate memory. That is they need to
+> > > > perform any memory allocation with GFP_NOIO or GFP_ATOMIC.
+> > > 
+> > > This is a networking driver. It has nothing to do with storage and UAS.
+> > > It uses USB, yes.
+> > 
+> > Ah, but a composite USB device can have both a networking interface and 
+> > a mass-storage interface.
+> 
+> okay.
+> 
+> > Suppose you have such a device, and suppose the disk attached to its 
+> > mass-storage interface contains a swap partition.  Now suppose the 
+> > device is being reset, and as part of the preparation for that reset the 
+> > networking driver needs to flush its workqueue.  This means waiting 
+> > until the work routines that are already running have completed.
+> 
+> The individual functions are usually independent. But if the USB core
+> would reset the whole device it would reset each function.
+> 
+> > Since it's a general-purpose workqueue, you don't know what those work 
+> > routines are going to do.  One of them might try to allocate memory 
+> > using GFP_KERNEL.  Suppose that in order to satisfy the memory request, 
+> > the kernel decides it needs to write some pages to the swap partition on 
+> > the USB mass-storage interface.  But the mass-storage driver is stuck; 
+> > it can't do anything until the device reset finishes.  Deadlock.
+> 
+> So you are saying, the USB-storage device is in reset and we wait until
+> the networking part finishes its workqueue flush. That flush is stuck
+> behind behind a memory allocation which waits on the storage device. So
+> any URB passed to usb_submit_urb() just waits for the reset to complete?
+> 
+> > That's why USB drivers have to use their own workqueues.
+> 
+> While this does make sense I don't see how this is related to this
+> patch. The pegasus driver uses `system_long_wq'. This is a system wide
+> workqueue_struct and is not limited to USB or this driver.
+> This workqueue is per-CPU meaning if you enqueue the work item on CPU3
+> it will be executed on CPU3. However pegasus uses a delayed work item
+> and the timer can fire on any CPU so even if it is enqueued on CPU3 it
+> could be executed on CPU1.
 
-I think the NOC clocks/resets should be also needed by the DC8200
-either?
+It doesn't matter what CPU the work item runs on.  Here's the deadlock 
+sequence, in brief:
 
-Although patching the DC8200 driver to add support for these
-clocks/resets looks a little dirty...
+	USB device reset cannot proceed until network interface's
+	->pre_reset() method returns.
 
-Maybe it's still good to have a vout subsys instead of a hdmi subsys...
+	The ->pre_reset() method cannot return until its call to
+	flush_workqueue() returns.
 
-Thanks,
-Icenowy
+	flush_workqueue() cannot return until the already executing
+	work item finishes.
 
-> +
-> +			hdmi_phy: phy {
-> +				compatible =3D "starfive,jh7110-inno-
-> hdmi-phy";
-> +
-> +				clocks =3D <&xin24m>;
-> +				clock-names =3D "refoclk";
-> +
-> +				/* Output clock: The variable pixel
-> clock */
-> +				#clock-cells =3D <0>;
-> +				clock-output-names =3D "hdmi_pclk";
-> +
-> +				/* PHY provider for the controller
-> */
-> +				#phy-cells =3D <0>;
-> +			};
-> +
-> +			hdmi_controller: controller {
-> +				compatible =3D "starfive,jh7110-inno-
-> hdmi-controller";
-> +				interrupts =3D <99>;
-> +
-> +				clocks =3D <&voutcrg
-> JH7110_VOUTCLK_HDMI_TX_SYS>,
-> +					 <&voutcrg
-> JH7110_VOUTCLK_HDMI_TX_MCLK>,
-> +					 <&voutcrg
-> JH7110_VOUTCLK_HDMI_TX_BCLK>,
-> +					 <&hdmi_phy>;
-> +				clock-names =3D "sys", "mclk", "bclk",
-> "pclk";
-> +
-> +				resets =3D <&voutcrg
-> JH7110_VOUTRST_HDMI_TX_HDMI>;
-> +				reset-names =3D "hdmi_tx";
-> +
-> +				phys =3D <&hdmi_phy>;
-> +				phy-names =3D "hdmi-phy";
-> +			};
-> +		};
-> +
-> =C2=A0		voutcrg: clock-controller@295c0000 {
-> =C2=A0			compatible =3D "starfive,jh7110-voutcrg";
-> =C2=A0			reg =3D <0x0 0x295c0000 0x0 0x10000>;
-> +
-> +			power-domains =3D <&pwrc JH7110_PD_VOUT>;
-> +
-> =C2=A0			clocks =3D <&syscrg JH7110_SYSCLK_VOUT_SRC>,
-> =C2=A0				 <&syscrg
-> JH7110_SYSCLK_VOUT_TOP_AHB>,
-> =C2=A0				 <&syscrg
-> JH7110_SYSCLK_VOUT_TOP_AXI>,
-> =C2=A0				 <&syscrg
-> JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
-> =C2=A0				 <&syscrg
-> JH7110_SYSCLK_I2STX0_BCLK>,
-> -				 <&hdmitx0_pixelclk>;
-> +				 <&hdmi_phy>;
-> =C2=A0			clock-names =3D "vout_src", "vout_top_ahb",
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "vout_top_axi",
-> "vout_top_hdmitx0_mclk",
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "i2stx0_bclk",
-> "hdmitx0_pixelclk";
-> +
-> =C2=A0			resets =3D <&syscrg
-> JH7110_SYSRST_VOUT_TOP_SRC>;
-> =C2=A0			#clock-cells =3D <1>;
-> =C2=A0			#reset-cells =3D <1>;
-> -			power-domains =3D <&pwrc JH7110_PD_VOUT>;
-> =C2=A0		};
-> =C2=A0
-> =C2=A0		pcie0: pcie@940000000 {
+	The work item cannot finish until its kmalloc() call returns.
+
+	kmalloc() won't return until the kernel can free up memory by 
+	writing some pages to the swap partition.
+
+	The write to the swap partition cannot take place until the
+	usb_storage/uas driver carries it out.
+
+	usb_storage/uas cannot do anything until the USB device reset
+	is finished.
+
+> Therefore the suggested change system_long_wq -> system_dfl_long_wq
+> should not make a difference here: it is a different workqueue and it is
+> unbound (instead of per-CPU) but given the usage it is unchanged but
+> more obvious. Also its usage recommendations (use this for long running
+> items) is the same.
+> 
+> The plan is remove system_long_wq from the tree.
+
+The point Oliver was making is that the driver shouldn't be using a 
+general-purpose workqueue at all.  Switching from one general-purpose 
+workqueue to another ignores this point; it's not the right thing to do.
+
+Alan Stern
