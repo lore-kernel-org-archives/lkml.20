@@ -1,540 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567C6394E8A;
-	Fri, 28 Aug 2026 16:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECDA373BE7;
+	Fri, 28 Aug 2026 16:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935205; cv=none; b=sWm/jRxNN6sUW+TAJ5b7+/PPVih49xMOs1JnyVNktspjlNY48v19qbbNmiUwcIj2kx43FQifdLuQJUQxT7Mn42fqKhtOKTrqcTxm/7mC79/5YUgtulMtQchyEq+MG/vWsLjXWA7ES5VSBXDuOLDCIs7V080wOdg3Xg9LJbVA+oI=
+	t=1787935291; cv=none; b=C2UA1R+YEp5p1LFaCxlLFrf5016uCpXGVfISk0mZirTlh++L4IkQ/rJt9LI84IMytHq+arMsTH1FP/+BuUF8lu/QhTRs64mAVrYphGd2JfNnSKOrI1wkb6lRC4ktj6H/irdZJ2tzuuq48hgZtYiaQdGlthkvoEFPnJQrRY62PO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935205; c=relaxed/simple;
-	bh=nOKkl0afDOzI0WR6fbqvcoBKgiBpWIX01JX90Bqv9bg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t7kl0DkRgqIOtMCtnWL8cIMugTSqRcHc2YqjXeG2NcJpmqOaHNQJFOMMVxO+fb0vwb6765UIw/ic6fi3CrFk3C9JxRflb/wc1/QA/oKAr/tEDHJIGNEUxAQ1lnBa5dekesj/9d9w2xXaRmuErGijeo19SOuQxD0GWc/iCvTSZrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vt/IYjmc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787935291; c=relaxed/simple;
+	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gbnMp3e0R6d/FGmw2G4KeSk9RiJlaMuIQaEmnzFS0BanQpmRCxTrYDjSCrbho8AfRbImoEZ4FR1lVGRgp8W+pFiFI+Qd6kQ7TvSu05FcSI89bJrBMtbL27V6yK0ZPuvLbfr32oZ4hD70P8qCtqf8QJJDWoYNCz3sDucxXJkWijs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NkCaA14f; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T/8mEenm; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vt/IYjmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38621F000E9;
-	Fri, 28 Aug 2026 16:40:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787935203;
-	bh=25xcJit1FnmDRhjDl7LzWxjrzDkJEm7Zo4Ek8gWgOnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vt/IYjmcYZ+q7h1ir73ndhsb1D6LlI6kDfR8qfp1n0TzmmgfaMxYHq7522uuFXM1C
-	 mISLVqj+j09YLyn5UKUJlTHuYbouin1YNQlDJNkD20f22StW3mx6Rwg7Rze3/GOH7U
-	 3Yp8fmTBMEaIZOVVZ5OHyy/s9lhLm7/u6Lw/FKMOsHIi36AOrtIyi4CmdfaRR6CnY8
-	 5zAV8ZaXPgbcYD33DBx6dPnGN39+daLEqyyBDPcPmIgm7k6UoqY+Fg6Budc3DI/no2
-	 XNlZDa0evYn4nNN/H6EtVD0zj9dXtzksWRiKSkFHgXfRlO5XGeAZncn+yW1UOPWjqU
-	 qcfPQ18K3Anlg==
-Date: Fri, 28 Aug 2026 17:39:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Kurt Borja <kuurtb@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
-Message-ID: <20260828-cartel-willow-9592e4e8b912@spud>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NkCaA14f";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T/8mEenm"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787935288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
+	b=NkCaA14fYboXfr1kc6lHQzoJwbjkNkO/o8lFyoov6KVcKROfG1uAW1MhG/yXAow8h/1sIK
+	7w1jyiX0LU6GOtg+impGPczAfBmwTmizDkU3ehsbnQ7Y4BCrwBAcMirm+y2UNuWWyRNWXw
+	dDQ9UNFnC0uUm5O29B6WcMZxXMFXItqp77Vjk93JAS2LqWno3NhWtbZhd5U2w3qL7VBLEs
+	2uPPxzVyYgG8UhnVToKqK5PGTGx++E9d2kpGjPJToRq9OaeLFh7v3w5yC9Ho+aocD7tqKp
+	N8gwYABYgNKWA2GxDoxSgAa6/l9kVV4OKnHJ2/tkUdkdRvnrfaICRbu2JqqbPw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787935288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWKGi/ksL7f+lF3W/0vP5VhdGa7zQtCz+nDzrSBNoCU=;
+	b=T/8mEenm+hbkgI7TE/d0nysMtekLKzAzcAD4pPjZn4XXUXtilAQAX1+UzCpRNMnxCimwTW
+	auia8e3Fds3WZkDA==
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Andy Shevchenko <andy.shevchenko@gmail.com>, Petr
+ Mladek <pmladek@suse.com>, Jon Hunter <jonathanh@nvidia.com>, Thierry
+ Reding <thierry.reding@kernel.org>, linux-kernel@vger.kernel.org, Ilpo
+ =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Crescent Hsieh
+ <crescentcy.hsieh@moxa.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ linux-serial@vger.kernel.org
+Subject: Re: [PATCH tty 1/1] serial: 8250: Change console_msr_work to
+ IRQ_WORK_LAZY
+In-Reply-To: <20260828160652.TQBsi8oO@linutronix.de>
+References: <20260828155811.270462-1-john.ogness@linutronix.de>
+ <20260828155811.270462-2-john.ogness@linutronix.de>
+ <20260828160652.TQBsi8oO@linutronix.de>
+Date: Fri, 28 Aug 2026 18:47:27 +0206
+Message-ID: <87ik4uxknc.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GniDptwhGn3Jax2r"
-Content-Disposition: inline
-In-Reply-To: <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
+Content-Type: text/plain
 
---GniDptwhGn3Jax2r
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2026-08-28, Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
+> On 2026-08-28 18:04:08 [+0206], John Ogness wrote:
+>> For some platforms it is a problem to queue irq_work when entering
+>> cpuidle states. Since irq_work is used for deferred MSR handling,
+>> any atomic console printing when entering cpuidle states can lead
+>> to the affected hardware hanging. Tegra20 and Tegra30 are examples
+>> of such platforms. Avoiding raising the irq_work IRQ has shown to
+>> circumvent the problem.
+>
+> I would argue that this is done for the benefit of less interrupts since
+> there no need to handle console_msr_work immediately.
 
-On Fri, Aug 28, 2026 at 01:38:17AM -0500, Kurt Borja wrote:
-> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
-> integrated PGA, internal reference, excitation and burn-out current
-> sources for sensor biasing and diagnostics. The ADS1263 is compatible
-> with ADS1262, but includes a second auxiliary ADC (ADC2) to perform main
-> channel (ADC1) cross-checking measurements, system background
-> measurements, or temperature compensation of the primary sensor.
->=20
-> Both parts can configure per-channel voltage reference source,
-> excitation current sources (IDAC), plus input and IDAC chopping for
-> offset and IDAC mismatch cancellation. This lets the device drive and
-> ratiometrically measure RTDs and other resistive sensors.
->=20
-> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-> ---
->  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    | 376 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 382 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml b/=
-Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> new file mode 100644
-> index 000000000000..7e26572388e4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> @@ -0,0 +1,376 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1262.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI ADS1262/ADS1263 analog to digital converter
-> +
-> +maintainers:
-> +  - Kurt Borja <kuurtb@gmail.com>
-> +
-> +description: |
-> +  The ADS1262 and ADS1263 are 38.4-kSPS, delta-sigma (=CE=94=CE=A3) ADCs=
- with an
-> +  integrated PGA, reference, and internal fault monitors. The ADS1263 in=
-tegrates
-> +  an auxiliary, 24-bit, =CE=94=CE=A3 ADC intended for background measure=
-ments.
-> +
-> +  Datasheets:
-> +    - ADS126x: https://www.ti.com/lit/ds/symlink/ads1262.pdf
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,ads1262
-> +      - items:
-> +          - const: ti,ads1263
-> +          - const: ti,ads1262
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  spi-max-frequency:
-> +    maximum: 8000000
-> +
-> +  spi-cpha: true
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description: Data ready (DRDY) interrupt lines.
-> +
-> +  interrupt-names:
-> +    description:
-> +      The data ready (DRDY) signal has two independent interrupt lines. A
-> +      dedicated DRDY pin and a pin shared with the serial interface MISO=
- pin,
-> +      which is called DOUT/DRDY.
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum: [drdy, doutdrdy]
-> +
-> +  start-gpios:
-> +    description: Start conversion control.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply.
-> +
-> +  avdd-supply:
-> +    description:
-> +      Analog power supply. In bipolar supply configurations, the reported
-> +      voltage should be in reference to DGND.
-> +
-> +  avss-supply:
-> +    description:
-> +      Negative analog power supply for bipolar configurations. AVSS can =
-only be
-> +      at or below the ground reference (DGND). If not described, AVSS is=
- assumed
-> +      to be connected to ground (0V).
-> +
-> +  clocks:
-> +    maxItems: 1
+Indeed that is a better argument, but strictly speaking, it isn't the
+motivation. I think it is important to clarify that _currently_ there is
+a problem that the explicit lazy is working around.
 
-clock doesn't appear mandatory, what does it do?
+I expect most irq_work users could be changed to lazy with the argument
+of reducing interrupts.
 
-> +
-> +  '#io-channel-cells':
-> +    minimum: 1
-> +    maximum: 2
+> side-note: Wasn't there another tegra workaround in v5/take1?
 
-What's the use case for actually setting this as a single cell? Kinda
-confused by it.
+Yes, related to suspend/resume, implemented at the printk level [0]. Now
+that we better understand the problem, that could be reverted. However,
+it also provided a side-effect benefit: switching to atomic mode on
+suspend when no_console_suspend is specified. I suppose at some point
+(once the nbcon churn settles down) we will clean those changes so that
+the naming and semantics really focus on "switching to atomic" rather
+than "block irqwork".
 
-Otherwise, quite frankly, the binding is too complicated for me! I'll
-have to leave it up to the IIO folks to cover whether what's being done
-is sane.
+John
 
-Cheers,
-Conor.
-
-> +    description: |
-> +      The first cell selects the channel by its reg. The second cell sel=
-ects
-> +      between the main ADC (ADC1) and the auxiliary ADC (ADC2) as follow=
-s:
-> +        0: ADC1
-> +        1: ADC2
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  gpio-controller: true
-> +
-> +  regulators:
-> +    type: object
-> +    description:
-> +      List of regulators provided by this chip.
-> +
-> +    properties:
-> +      vbias:
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        type: object
-> +        description:
-> +          Level-shift voltage output on the AINCOM pin. Its output is the
-> +          mid-voltage of the analog supply, (AVDD + AVSS) / 2, and is us=
-ed to
-> +          shift floating sensors to within the ADC input range.
-> +        unevaluatedProperties: false
-> +
-> +      refout:
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        type: object
-> +        description:
-> +          Buffered internal voltage reference output on the REFOUT pin.
-> +        unevaluatedProperties: false
-> +
-> +    additionalProperties: false
-> +
-> +patternProperties:
-> +  "^ain([0-9]|com)-supply$":
-> +    description:
-> +      Common-mode voltage supply connected to AIN<N> or AINCOM.
-> +
-> +  "^refp[1-3]-supply$":
-> +    description:
-> +      Positive voltage reference connected to REFP1 (AIN0), REFP2 (AIN2)=
- or
-> +      REFP3 (AIN4). If this regulator is not described and a channel sel=
-ects
-> +      it as a reference source, then it's assumed to be connected to gro=
-und
-> +      (0V).
-> +
-> +  "^refn[1-3]-supply$":
-> +    description:
-> +      Negative voltage reference connected to REFN1 (AIN1), REFN2 (AIN3)=
- or
-> +      REFN3 (AIN5). If this regulator is not described and a channel sel=
-ects
-> +      it as a reference source, then it's assumed to be connected to gro=
-und
-> +      (0V).
-> +
-> +  "^ti,refp[1-3]-refn[1-3]-resistor-ohms$":
-> +    description:
-> +      Magnitude of the external reference resistor connected between REF=
-P<N>
-> +      and REFN<M>. In ratiometric configurations, such as RTD measuremen=
-ts, the
-> +      IDAC excitation current returns through this resistor, generating =
-the
-> +      reference voltage for the conversion.
-> +
-> +  "^channel@[0-9a-f]+$":
-> +    $ref: /schemas/iio/adc/adc.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +
-> +      single-channel:
-> +        minimum: 0
-> +        maximum: 10
-> +
-> +      common-mode-channel:
-> +        minimum: 0
-> +        maximum: 10
-> +        default: 10
-> +
-> +      diff-channels:
-> +        items:
-> +          minimum: 0
-> +          maximum: 10
-> +
-> +      input-chopping: true
-> +
-> +      reference-sources:
-> +        minItems: 2
-> +        description:
-> +          Indicates the reference sources for this channel. The first an=
-d second
-> +          items are the positive (REFP) and negative (REFN) sources of t=
-he main
-> +          ADC (ADC1). The third item is the reference source of the seco=
-ndary
-> +          ADC (ADC2) and must always have a positive differential voltag=
-e.
-> +        items:
-> +          - enum: [internal-p, refp1, refp2, refp3, avdd]
-> +          - enum: [internal-n, refn1, refn2, refn3, avss]
-> +          - enum: [internal, refp1-refn1, refp2-refn2, refp3-refn3, avdd=
--avss]
-> +
-> +      ti,reference-reversal:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description:
-> +          Indicates that the ADC1 (this has no effect on ADC2) reference=
- voltage
-> +          for this channel has negative polarity and thus should be inte=
-rnally
-> +          reversed.
-> +
-> +      excitation-channels:
-> +        minItems: 1
-> +        maxItems: 2
-> +        description:
-> +          Selects the pins for the IDAC sources from 0 (AIN0) to 10 (AIN=
-COM).
-> +          The first value corresponds to IDAC1 and the second to IDAC2.
-> +        items:
-> +          minimum: 0
-> +          maximum: 10
-> +
-> +      excitation-current-nanoamp:
-> +        minItems: 1
-> +        maxItems: 2
-> +        description:
-> +          The first value corresponds to IDAC1 and the second to IDAC2.
-> +        items:
-> +          enum: [50000, 100000, 250000, 500000, 750000, 1000000, 1500000,
-> +                 2000000, 2500000, 3000000]
-> +
-> +      excitation-current-chopping: true
-> +
-> +      burn-out-current-nanoamp:
-> +        description:
-> +          Selects current magnitude for the sensor bias current source.
-> +        enum: [500, 2000, 10000, 50000, 200000]
-> +
-> +      ti,burn-out-resistor:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description:
-> +          Instead of a fixed current, the sensor bias (burn-out) current=
- source
-> +          can be pulled using an internal 10 M=CE=A9 resistor.
-> +
-> +      ti,burn-out-polarity:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        description:
-> +          The sensor bias can be configured to either pull-up or pull-do=
-wn mode.
-> +          In pull-up mode, the current flows into the positive input and=
- flows
-> +          out of the negative input. In pull-down mode, the polarities a=
-re
-> +          reversed.
-> +        enum: [pull-up, pull-down]
-> +        default: pull-up
-> +
-> +    dependencies:
-> +      excitation-channels: [excitation-current-nanoamp]
-> +      excitation-current-nanoamp: [excitation-channels]
-> +      burn-out-current-nanoamp:
-> +        not:
-> +          required:
-> +            - ti,burn-out-resistor
-> +
-> +    required:
-> +      - reg
-> +
-> +    allOf:
-> +      - if:
-> +          properties:
-> +            excitation-channels:
-> +              maxItems: 1
-> +          required:
-> +            - excitation-channels
-> +        then:
-> +          properties:
-> +            excitation-current-nanoamp:
-> +              maxItems: 1
-> +        else:
-> +          properties:
-> +            excitation-current-nanoamp:
-> +              minItems: 2
-> +
-> +    oneOf:
-> +      - required: [single-channel]
-> +      - required: [diff-channels]
-> +
-> +dependencies:
-> +  interrupts: [interrupt-names]
-> +  interrupts-extended: [interrupt-names]
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - spi-cpha
-> +  - avdd-supply
-> +  - dvdd-supply
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,ads1263
-> +    then:
-> +      properties:
-> +        '#io-channel-cells':
-> +          minimum: 1
-> +          maximum: 2
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-> +          properties:
-> +            reference-sources:
-> +              minItems: 3
-> +              maxItems: 3
-> +              default: [internal-p, internal-n, internal]
-> +    else:
-> +      properties:
-> +        '#io-channel-cells':
-> +          const: 1
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-> +          properties:
-> +            reference-sources:
-> +              minItems: 2
-> +              maxItems: 2
-> +              default: [internal-p, internal-n]
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        adc@0 {
-> +            compatible =3D "ti,ads1262";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <8000000>;
-> +            spi-cpha;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            interrupts-extended =3D <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
-> +            interrupt-names =3D "drdy";
-> +
-> +            /* Typical common mode voltage configuration */
-> +            aincom-supply =3D <&ads1262_vbias>;
-> +
-> +            regulators {
-> +                ads1262_vbias: vbias { };
-> +            };
-> +
-> +            channel@0 {
-> +                reg =3D <0>;
-> +                single-channel =3D <0>;
-> +                /* The VBIAS is enabled on pin 10 (AINCOM) */
-> +                common-mode-channel =3D <10>;
-> +            };
-> +        };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        adc@0 {
-> +            compatible =3D "ti,ads1263", "ti,ads1262";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <8000000>;
-> +            spi-cpha;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            interrupts-extended =3D <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
-> +            interrupt-names =3D "drdy";
-> +
-> +            ti,refp2-refn2-resistor-ohms =3D <3520>;
-> +
-> +            channel@0 {
-> +                reg =3D <0>;
-> +                diff-channels =3D <4 5>;
-> +                reference-sources =3D "refp2", "refn2", "refp2-refn2";
-> +                excitation-channels =3D <1 6>;
-> +                excitation-current-nanoamp =3D <500000 500000>;
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f3be900e5b9d..7593e33c5346 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27019,6 +27019,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/adc/ti,ads1018.yaml
->  F:	drivers/iio/adc/ti-ads1018.c
-> =20
-> +TI ADS1262 ADC DRIVER
-> +M:	Kurt Borja <kuurtb@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> +
->  TI ADS7924 ADC DRIVER
->  M:	Hugo Villeneuve <hvilleneuve@dimonoff.com>
->  L:	linux-iio@vger.kernel.org
->=20
-> --=20
-> 2.55.0
->=20
-
---GniDptwhGn3Jax2r
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG53gAKCRB4tDGHoIJi
-0i2sAQCBsOwQGW3Bfjomml7Gi0Ir258xhlXmvBSvn/oKDGHrygEAnbPBh4lgNDjM
-ga5oqS/Vl5NMkG4f0SZwiOYdXkLG6gQ=
-=Y5gE
------END PGP SIGNATURE-----
-
---GniDptwhGn3Jax2r--
+[0] https://lore.kernel.org/lkml/20251113160351.113031-3-john.ogness@linutronix.de
