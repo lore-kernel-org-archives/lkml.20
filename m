@@ -1,72 +1,51 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64715346AC5
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2770B370ADA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946794; cv=none; b=XGmQ6keZ/A0MefgrQBc+tP/1u8HZie8HQDo0pXY55MTQw4jLsMbNofp0feOwXVxzJ4GFMusVy0rnK4F9G9m9cxDjjboUDsVlz2hLr2UfdsaoNle2M8CaakOpOQTQYBptHQCERONVNctGUhLXUhVLaIRamdIpUk99MbVhf2XZDA4=
+	t=1787946805; cv=none; b=ICUGM1lyALmpZqjQgSuMkLM4P6jFuvIecRomWGA0zvWmvfSPmt0XtbpPVAdlwGmSce7mKZR5VIVAJW6doQmnC/uFtJJx3jaXGnkByAIjYiy30RdccXK2JD+i6hLgIBAT/WVFCy44Sv34l/HiQiaV1sWXR2m9dL46NBVOaVNquwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946794; c=relaxed/simple;
-	bh=hNjOBPZoCVJ2OUnZZXpfjdQn5Y2nnmtm2v0BD/Bb49g=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=UAG4lRZGe36xFduZlE1X8WE2Y3QceVBGhpvxKUT7KDpYCEVpLL5yNJsAFC6iNsYVgimIbMSpzE720zj/8mLulvKE+cHvckdorODQxy7HsWdg9dJNVxSdC5PPAVeAUOiipm4fMgQ7ADt2cacSbJRhL4c5VQtVRQ4OVApDX7AWbQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net; spf=pass smtp.mailfrom=minyard.net; dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b=fbD44l+L; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=minyard.net
+	s=arc-20240116; t=1787946805; c=relaxed/simple;
+	bh=2DsvoO8trPann3gGlgHfEvV8zzD6F/Yb3aERd3YdNwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FXUiI5Nhyjp42F8yE3eAING0hvi43Ns6XZFHlS6V/AF9/dNz9tGq+Usp5hn6UqbEk49ekSGI+VnOYEL6z/yjrZBK+RnIqOe0iCrb8aLgmDdg4jIb8Wyk8WhgqEtntMNlm8aPB61E70rnSU1DTbBrxT5DHzgBcYiCa83APwVAijI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eVza7e58; arc=none smtp.client-ip=95.215.58.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.b="fbD44l+L"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2227861a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minyard.net; s=google; t=1787946791; x=1788551591; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:reply-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hQau5ozp4SJ2fm62wmHYMvhDYt9grc54B+joX4EpITk=;
-        b=fbD44l+LC3l+gtoa5sYmtdmLAhFLrd6IppXJOlYYTJRldKZHIarBZeyxPotHTkSdqF
-         slssAfQNcHNyqg9CA3Uzu/jNWsu2wQE7qA+d1tBX/THi7FAROUePav8b/PO+/F63uyVd
-         5JUlTdIE/4CdaDXT5MbhN/SYW14bPwJtnkUgzqHorBx2IxiIG9mOuEkpCtNUiM0lkMZo
-         VlOtJ+DqAcI2r0q2B7snJTZf6hUifq677uKYNAemnNm7Px2AdHVt0CEgrOD1eVofGfYv
-         7pKIdN15TpleojyJq0X4GcOEGL1+/t6TTsVx4Clv27a/GNw2CbWBkvsihJaz01G0dr7+
-         IgpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787946791; x=1788551591;
-        h=content-disposition:content-type:mime-version:reply-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hQau5ozp4SJ2fm62wmHYMvhDYt9grc54B+joX4EpITk=;
-        b=k+iFwM0RPi3RiIf+Fj9+1kHzIx6k+SfC++QeCp5gMB360QBL7p6z/XYb6CbEK3jXUU
-         HlFuNVYMe2QVa7pe6UA8PmFOjDN/JJfBEQI+fWrYI2LC1pUVoOcE9wvSalQuCXyY9Dfs
-         pAGw8/m82O1d7KyeCroBMy9OeqrpHfVeFaEnTvwuOKFndAQWmg44mSXgKYYu2uyNDG4A
-         m3kAH8l5Ey/xU6pCpHJTCdW7zP9ZUdcCOhkv8BJj+0qZj9u/ZFs7LgrxtJc0BczAGXyR
-         f2USCtgrLQC198tY32+0UWEZHDNdF1afjy0sDmsARfq/CeqlaCXYUWmurjR0FaV5ES+K
-         5RNw==
-X-Gm-Message-State: AFuF++nSjDcIlvBvJaDyPVBtzM+vU5a0VLCMe3AOkoPr9Ev8XGLfaXso
-	2I0kN/QlDDIbmGj1L6jwjNrL+joitWUf/hF1ydQTyYRqgmzW8OpuhwlGYaED/f5lPeQ=
-X-Gm-Gg: AYBFou2viBlz33OluwOijyaNYXeGtz68DmJdOBxfUPsCqEwtk9hyRh78O3/eqnZoqE7
-	7P5ZBtR9DhzZTF6I7efs7zvQX5TT02Rl63xhEOScVoeQGUI2MSZRlaeqFEBllSy9k3zxX/pkzHv
-	xEQtW3ybDODKqAeG6WQolGBNooLkUXxI3TbNNTuPHPj2nSER4YomOQcFfjgblKONtHxpdTICxWD
-	4NAcnTnXwKwH/PK3VGWgGptBTbxEuSWt40st7VghajcxFfe30lPtj0kt1qlxQdKBAk6T0RSh8L8
-	x6B2noetrCpLGIsrSy+OSLmB3K5TL+ay44PxVewQSP94dloVUTxc/cIjhKZH6Mvzpnk7J+PwOTO
-	B+Fn38Op2vUe5RvDzvsaeHw3eLGVSQ9DBzqTEZAEIk6tsaxftwKGFECnI24/jQFyshLYmo8aJqO
-	CW3XCX4JQnb6H6UkESE7JsLY8lPhsTgSPLyY8oBp/HrArxn2LGRlLocWiRtLxhWEh6u6AaxwnRb
-	i6RaUoJcXBz6uJB5h929F2OqT4YZqAJviCb58aSZ3QxEQSuTKrPkG6XvDt85ii7kg0u6/HIx+Sh
-	Yfhtr9zWKLY=
-X-Received: by 2002:a17:90b:518e:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-396d0d2f6d6mr19540352a91.1.1787946791415;
-        Fri, 28 Aug 2026 12:53:11 -0700 (PDT)
-Received: from mail.minyard.net ([2001:470:b8f6:1b:7fe0:aa86:24c5:c587])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm13657932c88.4.2026.08.28.12.53.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 12:53:10 -0700 (PDT)
-Date: Fri, 28 Aug 2026 14:53:06 -0500
-From: Corey Minyard <corey@minyard.net>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
-	openipmi-developer@lists.sourceforge.net
-Subject: [GIT PULL] IPMI bug fixes for 7.3
-Message-ID: <apHnIj7efxcTH8i6@mail.minyard.net>
-Reply-To: corey@minyard.net
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eVza7e58"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2DsvoO8trPann3gGlgHfEvV8zzD6F/Yb3aERd3YdNwY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787946801; v=1; x=1788551601;
+ b=eVza7e58vsCYz6nTeSUGSC0tDD2EiRtk3eLY2ekL7Hmt60HFR7XCaVkd7DBKy64F3qBKqrhF
+ dgwRDueTFjDD/CPdw3Vxnbrb4ImP202YwGftcCsRsTjUvIlprG4ccoxR6ft8WapGQatdUPeNZEK
+ ImClpGQJEKqZgkyjMvRUrqbY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id da07200143d5a7cf;
+	Fri, 28 Aug 2026 19:53:20 +0000
+X-Mizu-Trace-ID: da07200143d5a7cf
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 28 Aug 2026 12:53:19 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Message-ID: <apHk86Y8araBlXcq@linux.dev>
+References: <cover.1787826402.git.zhuhui@kylinos.cn>
+ <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,58 +54,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
 
-The following changes since commit 4edcdefd4083ae04b1a5656f4be6cd83ae919ef4:
+On Thu, Aug 27, 2026 at 06:36:29PM +0800, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
+> proactive reclaim pass on a given memory cgroup, similar to a write
+> to memory.reclaim but without retrying until the target is reached.
+> 
+> The kfunc refuses to reclaim if the calling task is already in a
+> reclaim context, as a nested reclaim would corrupt the outer reclaim
+> state.
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> ---
+>  mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+> 
+> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> index 716df49d7647..297ff7f05042 100644
+> --- a/mm/bpf_memcontrol.c
+> +++ b/mm/bpf_memcontrol.c
+> @@ -6,6 +6,7 @@
+>   */
+>  
+>  #include <linux/memcontrol.h>
+> +#include <linux/swap.h>
+>  #include <linux/bpf.h>
+>  
+>  __bpf_kfunc_start_defs();
+> @@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>  	mem_cgroup_flush_stats(memcg);
+>  }
+>  
+> +/*
+> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
+> + * current->reclaim_state, so a nested call would corrupt the outer
+> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
+> + * reclaim_state is also checked because it is installed slightly
+> + * before PF_MEMALLOC.
+> + */
+> +static bool bpf_in_reclaim_context(void)
+> +{
+> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
+> +}
+> +
+> +/**
+> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+> + *                         cgroup
+> + * @memcg: the target memory cgroup to reclaim from
+> + * @size:  the amount of memory to reclaim, in bytes
+> + *
+> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+> + * memory.reclaim, but without retrying until @size is reached.
+> + * Must not be called with a filesystem lock held: the reclaim path
+> + * may deadlock on it via filesystem shrinkers.
+> + *
+> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+> + * smaller than a page or the task is already in a reclaim context.
+> + */
+> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> +						unsigned long size)
+> +{
+> +	unsigned long nr_reclaimed;
+> +
+> +	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
+> +		return 0;
 
-  Merge tag 'bpf-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf (2026-06-25 14:09:26 -0700)
+I have been thinking about this more and more and after looking at the reasoning
+behind your check current->reclaim_state and also Sashiko's comment on NOIO/NOFS
+contexts, I am more convinced that this kfunc can not be a simple sleepable
+function. We need more than that. We need clean process context as well similar
+to the userspace poking memory.reclaim. Something like kthread or workqueue.
 
-are available in the Git repository at:
+Kumar & Andrii, is there a way to restrict a kfunc to only be called from
+special BPF threads/workqueues? Is there some similar concept in BPF world?
 
-  https://github.com/cminyard/linux-ipmi.git tags/for-linus-7.3-1
 
-for you to fetch changes up to 05ec76cfbce653e07cec19b9b8b20e33449d5d87:
 
-  ipmi: Fix use-after-free of cmd_rcvr in _ipmi_destroy_user() (2026-08-25 18:55:02 -0500)
-
-----------------------------------------------------------------
-ipmi: Fix some minor issues, add async init
-
-Several cleanup on error fixes and a missing RCU wait and proper
-validation on a received message in one place.
-
-The biggest change is the initialization of the driver can be done
-asynchronously on a work queue.  That saves significant boot time.
-
-----------------------------------------------------------------
-Corey Minyard (1):
-      ipmi:msghandler: Cancel work cleanly on an error
-
-Michail Tatas (1):
-      ipmi: Fix leak in __ipmi_bmc_register
-
-Michal Clapinski (1):
-      ipmi:si: Add async init to ipmi_si
-
-Pawel Zalewski (The Capable Hub) (1):
-      char: ipmi: use named initializers for acpi_device_id
-
-Seiji Nishikawa (1):
-      ipmi: si: Fix NULL pointer dereference after failed registration
-
-Yifei Gao (1):
-      ipmi: Fix use-after-free of cmd_rcvr in _ipmi_destroy_user()
-
-Yousef Alhouseen (1):
-      ipmi: ipmb: validate write message length
-
-Yuho Choi (1):
-      ipmi: Remove all sysfs files on registration failure
-
- drivers/char/ipmi/Kconfig            |  9 ++++
- drivers/char/ipmi/ipmb_dev_int.c     |  9 ++--
- drivers/char/ipmi/ipmi_msghandler.c  |  5 +++
- drivers/char/ipmi/ipmi_si_intf.c     | 79 ++++++++++++++++++++++++++++--------
- drivers/char/ipmi/ipmi_si_platform.c |  4 +-
- drivers/char/ipmi/ipmi_ssif.c        |  4 +-
- 6 files changed, 86 insertions(+), 24 deletions(-)
-
+> +
+> +	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, size / PAGE_SIZE,
+> +						    GFP_KERNEL,
+> +						    MEMCG_RECLAIM_MAY_SWAP |
+> +						    MEMCG_RECLAIM_PROACTIVE,
+> +						    NULL);
+> +
+> +	return nr_reclaimed * PAGE_SIZE;
+> +}
+> +
+>  __bpf_kfunc_end_defs();
+>  
+>  BTF_KFUNCS_START(bpf_memcontrol_kfuncs)
+> @@ -172,6 +216,8 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
+>  BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
+>  BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
+>  
+> +BTF_ID_FLAGS(func, bpf_proactive_reclaim, KF_SLEEPABLE)
+> +
+>  BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
+>  
+>  static const struct btf_kfunc_id_set bpf_memcontrol_kfunc_set = {
+> -- 
+> 2.53.0
+> 
