@@ -1,99 +1,127 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50B635F161;
-	Fri, 28 Aug 2026 17:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787938427; cv=none; b=plIkGlCOpVTCbZLUSbrJvMEgSaxg4Jkqk1mUiGaCZjbrIxMAoReue+y01RUVhNSv1hwoIvOv6raad8hu72ZBOq5t1CxDSVKtxDbC+DaRtBuLmm0dGzsx6cJIJcJDGhyQkgTRO5tHu7/tbvN1TB5NVoWorhULgmLc5/Yk1FbOmig=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787938427; c=relaxed/simple;
-	bh=mCP5z2EYKH6RZrswaAf5Kzi/if3nVqtD02Wm/RwH704=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KIw12S1ow0b+IkmwWNHlNBcOlRqShvqQj3c92Nelhe9klAVEGZXMn7wXrKTyMxbXVtbKxqygFVMrbv7ow5pGGGkfemszXG27nkHxHHX6XZuXuHUs23Eix+3TsfpeOZvEm63rtTvkWZBG/nr7anlisRwW1Aasyn3QeZdNT8bY44Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EV/TMhbs; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084DF286A4
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787938549; cv=pass; b=QnLsRr5YPdNw1JqVZR5WHWDfkfO9Ykhb8Hj2azBNjPuLi40asrzlHD5cxqlhnyBEVqK5kGTGWBslT950f6KtSl2KeZT/BNUZltSwqrhMuw8uExH8Tvyv9KmuqcLg0TsR/cx2RWeKyVWvK/KaPVMkFJCFKUjua8pUJUF9N2euXIw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787938549; c=relaxed/simple;
+	bh=QIwfG51FYqLbuC6hjumlOSKKDDgtiZ/qEfd/e4ujq2M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d7rTu2KDJIMicX78CeOC/HxOeStZXxdumx3tGSl6rU8HYk1IrSc9RlpZEQhhs3CV46t6Hg40Y2Fd341cLlLAhE6kOknIA4b7u/Hwgt7kAUFjQOLGmu3nnKcr3Ufo6ElMwqpOlcqIVrgE1ZXvzsj1VoKuqtLtR4k+IZL9EwE2z+A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJbBMiqf; arc=pass smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EV/TMhbs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=l1QGqAfCbQ6LXbtkAiDHF6nGrW0REnethuzg6QBfuNs=; b=EV/TMhbs1o2y5TC2BaZC6+Rojv
-	lwjHzk6kXPn04dyfldojwi07VUxvAeEmO4vU/X6KLiEclTHEUP54gCNrYUhdzCJMfD36BNqj2g0ls
-	nl7JZrVDdjUeAlO6TWgnFDTogj+zM83aQ+3nd2vEGeAQ2Pzv3RCnpnntFZMM2EUIFfatnkjmqLQPr
-	Mp2s/cVEtPNibIwiHyq5Zd04XjJ4C0J9dXq8dkEAFZoTgMF2H2hTMhcLIlbx2m2WqtINIGzxruHqi
-	inYQMmufap2g8dB7o2jUsDhjD46skAVT6RHfP2I/BGJLzZKr5oNn9P7s7ooA0bf/byloyaSEpLMHH
-	YqJzyovA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x00SP-00000006GhR-2vgD;
-	Fri, 28 Aug 2026 17:33:37 +0000
-Message-ID: <a5dc8c42-232c-45f8-8ec4-2d7c5b68f01b@infradead.org>
-Date: Fri, 28 Aug 2026 10:33:37 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJbBMiqf"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca5b707b78aso175018a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:35:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787938547; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qi12BoKnAYv8vSL3Fs+dMzGiLyC7Kd4bJKjc1x6B8uo4wig+cpphxWbXbnoA+NaX00
+         g975NNlo6NRL+vVEVr1u+BqFObqkJtOmbxZfWvsY2/xMq19KfRwDgGUazBCm5ZogNDwo
+         dSmZEwvpBCPVFS8xuv7BaC4BamfY2Cl6szSlJmhsOrDRVDk3+Xm9LNagIEy3F5Zlm93o
+         t4QmilmMzLw/wt8mKBOF/v6TbeKrf9UNH1p7bMtzxGGWvr89QrJaJQUfa09Zegvnrwp0
+         JLUhpoSPtxOC0t0XcM/OZlL9l2nQRCx7hL0f3kDP/J0wmQvjZlqRxyR/Fr5k6LlHeOTM
+         H9aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SwfxxVP2KSOMEoHgtysV+D41nPRKx7dyBiRUJMucGgE=;
+        fh=sF8CJsz3vX7ygvwVJVLTI5+DgLrFsl9vuybm4coR+fw=;
+        b=Iys7ya7cBXGOSjYdO0rBHJQkzFOW1xS6i5IMFmVR44nhBRfCVF6ExJHsqA5gV8RRKj
+         HWIlzKBD8zqIgYGkGx8alXwM2q+fF08PBb0tAIpTBMwCzfvU/7PgYLFOEjO8fu+WSO+z
+         WoO+7gewIapQfkesZbcAUJ4eybP+ueomlsjegnYX+xyXoNau9tCc3hVurgkCNPlhtC/S
+         wOxqz9xOpFrXhPaMPT1lK5D3xG32d8GfZyy84ouf8e+jHJAdzYTCIeyehfDbNdmhJL8I
+         V1unRCeSeHv5d1hcA+bywS0RXzs05BwZTuf51HekBcfSr/fGBhqdj2OwFJfHwWC5hdeg
+         gsjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787938547; x=1788543347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SwfxxVP2KSOMEoHgtysV+D41nPRKx7dyBiRUJMucGgE=;
+        b=cJbBMiqfnfAzijPJg52XSJhSdf6VBAoIXgQABBtFTXeL9RWB1Otgdfb53SbhWsdc/y
+         8zL9XSz8jn+XcKsCDxmpUzB2J0s1aubLdWKgF79Ise6dKeevXJKQaWls37MweKlfuGmd
+         gIlU7fZcHXoM+CQbeY/sRY5ah8e79mCRpUjoFtfe3kjiIhG6s0b30vPleJUSLoty/jrM
+         YyDikunxgsG23Iuwt7jTR/k4cjWh11mCnPkcZ2Mkv1R0CdEyfXCaGdmzoQwAXK7UU5a6
+         XLVxkQbLoc4IOfFq+rM0yupntWHQubwwPKJ9jFiNbQAPw6/AiwZpTzewPMaAxvFrg6GE
+         HIRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787938547; x=1788543347;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SwfxxVP2KSOMEoHgtysV+D41nPRKx7dyBiRUJMucGgE=;
+        b=Q6nkdx+batP/JIK96boBt+iddbVoyDoFUohjdZvsXseb4RPgHhIb9A1AoOMmB2S/Kq
+         /Nj266uS+sfg9KM4Mog8fPb7j9MW/weW7B9oXI5UWPlr/9tItxW9gcpsG+Qz4MZeQmm/
+         sYUg1xxRJEGYl9lf7AQIwFshc7W/7czi5Up4ZNSJMSGjAyRrucKoc6WIRd08lS0NkVtb
+         LgDYpqlBuPYRExn7AMvcm9TuiddYuGSQEBBkBYP4noDGkjS53zVg5We4qiwbk0YXDnis
+         KnUcqJo9bVlLzr/mNFawG0cXCjOR3Ob7IGRdy/N2D9VAEWkoRzfb29k6tWM2+O5xxJ2j
+         P4Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBxBi2SAIFnGuHudvfB8RbFsTPl3A+8eSCud9fpveAwYF+NKInYP5BeewVzhDquwKgZPfX4zEs9w6rx9YRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNzdgn6I6ZwC+Uzue4jHXSc02f1xoUmGOrhmTbeLbF854RSanx
+	HW0xnaOZTNILvVCcLstj1/Xg/PKDfuKnoK5Bh1D4rBZvTTfz7eumPdlcvXAoJVzu5/yN8P2Tu4q
+	B4RdTt81f5C3eECvrp5fq0sJt0MyL3CQ=
+X-Gm-Gg: AYBFou0F8gvO9ZKNb5JURKd+2m0FNq/+or/EphQE+BQHKbLl67T3IwwyKSxT77gA3su
+	FVWYWr6/c/YWjFw91nj4TOM8K+YxFDRkAT2Sozc0b1CJtldq571cdiN4raDumq4RvcY6suIuD2w
+	39gL0jVJe8c4R7HFV2/XYGQn5wDJO9yQ905emdFATRgKNQhBwUXstJ2joONXSyFcucgWI/b8xjH
+	LxDiXF4RzO/RAW2YVF1sJ/J2GtiRZ0vXr9oPfHCj2HMCro+iRYzIqsHMIVpkI11F5/JGJLmrZRI
+	lk719b3X+tt6VyO+QqPoJoonA2YEoPE30duQekhH/PyZZfrEgpeDgDWGaAQD2qPgFaGm6eXrM7Y
+	Hvs7YdmVCGohxx3pUWKThjtNnEw4QBMKcPysR695wkypnbDoFIFOT5/jhrU8qOboKIuvDuMw=
+X-Received: by 2002:a17:90b:3c0e:b0:395:4df3:8800 with SMTP id
+ 98e67ed59e1d1-396d0c0ab29mr8371730a91.0.1787938547204; Fri, 28 Aug 2026
+ 10:35:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MIPS: config: Add EcoNet EN751221 defconfig
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
-Cc: tsbogend@alpha.franken.de, linux-kernel@vger.kernel.org,
- jonas.gorski@gmail.com, julianbraha@gmail.com
-References: <20260817220344.2931634-1-cjd@cjdns.fr>
- <6bd84489-88e4-4b72-b1f8-af5e1866a37e@infradead.org>
- <3b55f50b-ec0a-4f93-9ccb-ba0e828ba32b@cjdns.fr>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <3b55f50b-ec0a-4f93-9ccb-ba0e828ba32b@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
+ <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+In-Reply-To: <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 28 Aug 2026 19:35:33 +0200
+X-Gm-Features: AcwNN1WSwsVhEEVM3LRdqRtFMmDIpvaVESiQMW1HL_Bvm7itPlqfdlYEKO7mGmE
+Message-ID: <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
+To: Guillaume Tucker <gtucker@gtucker.io>
+Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>, linux-doc@vger.kernel.org, 
+	workflows@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, automated-testing@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Aug 28, 2026 at 7:25=E2=80=AFPM Guillaume Tucker <gtucker@gtucker.i=
+o> wrote:
+>
+> It states Python 3.9 which was already older than the 3.10 minimum
+> set when the container tool was merged.  Also my understanding is
+> that it's not a hard requirement for all the kernel tools, only for
+> building and producing a functioning kernel.  If I misunderstood this
 
+I didn't check at the moment, but at least back when the "(optional)"
+tag was removed, it was only required for certain configurations from
+what I understand (I am not sure why the tag was removed).
 
-On 8/28/26 3:40 AM, Caleb James DeLisle wrote:
-> 
-> On 28/08/2026 01:48, Randy Dunlap wrote:
->>
->> On 8/17/26 3:03 PM, Caleb James DeLisle wrote:
->>> Add config based on OpenWrt for EN751221 boards.
->>> Of note: EcoNet bootloader has a 7.2MB kernel size limit so
->>> ZBOOT is assumed to be needed in all cases.
->>>
->>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->>> ---
->>> Updated to work after SERIAL_8250 and SERIAL_OF_PLATFORM removed
->>> from Kconfig.
->>> Link: https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/
->>> ---
->>>   MAINTAINERS                                 |   1 +
->>>   arch/mips/configs/econet_en751221_defconfig | 264 ++++++++++++++++++++
->>>   2 files changed, 265 insertions(+)
->>>   create mode 100644 arch/mips/configs/econet_en751221_defconfig
->>>
->> ...
->>> base-commit: 3b7711be02612845e44b5e9ef7c0b9f203cf29b6
->>> prerequisite-patch-id: 0f044e47a76450ebb4fe52dc60a6b2f79625bbff
->>> prerequisite-patch-id: 6380783b9da35b966b64c237b0ef50c31c7425d6
->> Hi,
->> Can you identify these 2 prerequisite patches?
->> They are not in linux-next so I can't test this patch.
-> 
-> 
-> Ahh, I'm sorry for not being clearer about this in the message.
-> 
-> The first (0f044e47a76450ebb4fe52dc60a6b2f79625bbff) is 2077ccb9baa2cbbbccf5f0d8c2196dd9d5e43399, i.e. https://patch.msgid.link/20260702150704.265282-1-cjd@cjdns.fr which is in (at least) next-20260827 but not in mips-next. I included it so I could verify PCIe works on the device.
-> 
-> 6380783b9da35b966b64c237b0ef50c31c7425d6 is the patch I mentioned: https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/ which I applied to verify it works without needing the symbols that the goal was to remove.
-> 
-> That said, this should definitely build without either of these patches which is why I neglected to explain them in any more detail.
+In any case, it is nice if we could just say that it is required -- it
+is quite useful to have around, especially due to its standard
+library.
 
-Ah, right you are. Thanks.
+And regarding the minimum version, it would be nice to eventually have
+a single minimum for all Python scripts, no? Debian oldstable is
+already at 3.11, so I think we could perhaps bump the minimum already.
+And Debian stable is 3.13, which from your list would be enough for
+everything on your list, right? So we could perhaps set that as the
+actual minimum for everything in the future.
 
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
--- 
-~Randy
+Cheers,
+Miguel
