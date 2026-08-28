@@ -1,131 +1,95 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA6644AB7A;
-	Fri, 28 Aug 2026 14:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E39221DB6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926290; cv=none; b=XL+/Hc1iCqpK9KIbm9CHyht8upoRNMKAuNjb1T72CImUiKpitwS8PxiQdITVVPuSMw7idHl7ucR+36VzFzHmOJ4ZeVbD4nG7lzfwfkhqJ/kyVk2hULQ6INNc1spb1uxIaFSIQ+4xFK2xG63qG5BdFRoCP/BRqKE70oo3y/IGFgQ=
+	t=1787926303; cv=none; b=Mm3nJ9cW1MDufHvHgrJ11XDm12Gc0bxK6wCIdG267rm4FSH+LKN6kqUhffuguZq3VVpWV8uFYd75HoPxYS3LRhc0zhoVcg/QJyEQB35nZIO3MnkBHPsgJSspJtWXppuvMUPl6zMkRo+PGeEVLgBgdRO2SZ8HRBj9qg/wZCYrD0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926290; c=relaxed/simple;
-	bh=zrWYftSCGtfnzZIw9FBRwaFuP0lkn+KXDXTp3VXyk30=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=NB4XJtaDUDEGD+zDYTQGxHqoAImse5rgkQaiiZNL1dl9JLeHeXEgDy0epN0ubG5RxoIVUMPwDPcUuVWJ6fEN70okiB+7AVOjirWYAPX7dl7FeGBe+OQhjxnGICWAOkDQmZ+8vCjccAVA9YeWZIodmQxwnHoT9i5kbBM24YGWrUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Ycnv+HBq; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pAwUirXl; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787926303; c=relaxed/simple;
+	bh=rfZQMJk0QojGeerF7VpON5SFK7fQIGAzTQKg6xW3DVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bycYqFRP6WcfmnzL+LY6d/LBu/iwWANU9yqjFr1z6wi/koSap64t/3tADgX0V1CI5dWNydV8S+z5C7kBpB9sy25nKqV5UrKafY0KhhVWUVGIwy43XS+qIJJLvzQMZtaI8Uazmduo1wKU45kw94Y2aBzvfnOJa/UvG9XLJIJ6plw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Gbh+Ih4x; arc=none smtp.client-ip=84.16.66.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Ycnv+HBq";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pAwUirXl"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787926269; bh=iZASGKq02X3MlmO8ig05lys
-	xUTvXqLjttI83Y8LZB04=; b=Ycnv+HBqjWQS5U5unDzB96IugCG4zABbml+qs+cqmqoPXqgymN
-	G+vRqqgTKjoq8x60DPVW7sOXe0Hsqb5XVKob6OFULWPoJT11vMeGF3D6JUgoiFXpy8emipbSAo6
-	IwZ457tXuzzZ7gSK37RTznHw3k8u1/25x4QLcudfso8yHnZrbd3bb+ih/OBHLubdyDLScT66loD
-	ikQi4ZPR4efqWGzX5p2Yrzeq4egeTH6Z+oT6Jf1CHeGEwpw0pPrnrAFypM0ywwauY1QphgUu0c7
-	SIURc0XASezSaZ5NV9SeEzXFGejC8yS+NYgdAuQWayIoBCn0E1BA9kJwQOGqmRnLmsw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787926269; bh=iZASGKq02X3MlmO8ig05lys
-	xUTvXqLjttI83Y8LZB04=; b=pAwUirXl2vj2hacynI1LWN6FYowJY8LNRSofKFRBFio/OCLbR+
-	G44FlI0f44HKl1e99r6flMyTrSMraop1b0DA==;
-Date: Fri, 28 Aug 2026 15:11:08 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: ardb+git@google.com
-CC: abarnas@google.com, akpm@linux-foundation.org, ardb@kernel.org,
- atomlin@atomlin.com, catalin.marinas@arm.com, da.gomez@kernel.org,
- kevin.brodsky@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- mark.rutland@arm.com, mcgrof@kernel.org, mhiramat@kernel.org,
- petr.pavlu@suse.com, rostedt@goodmis.org, rppt@kernel.org,
- ryan.roberts@arm.com, samitolvanen@google.com, will@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BRFC_PATCH_4/9=5D_module=3A_Allocate_MOD=5F?=
- =?US-ASCII?Q?INIT=5FTEXT_from_the_MOD=5FTEXT_ROX_allocation?=
-In-Reply-To: <20260822135323.795946-15-ardb+git@google.com>
-Message-ID: <5D55C497-95FF-4603-98E4-8C47CDAB504C@mainlining.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Gbh+Ih4x"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hWgKx4LLPzpKs;
+	Fri, 28 Aug 2026 16:11:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1787926293;
+	bh=Yj5d/n0eufWls/mWi+Enje3aRRyT1QVDgQ/a+c+prIY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Gbh+Ih4xZbzVGBWwXmmWWKAmQyfPnihRUYXqYzt+4sicqqiMli5IrIlt9k5LweGmI
+	 RLRvLaa1LJJiy9RO5KpxvxKAy/XkM3fG4AJyhF/RrJGG0E2wV29Bg9l6mFy3DaNb7N
+	 cRvvFGm4eGUwYXaFlk5HnrtqgCNMoxqJlweikMaQ=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hWgKw5GhwzK0m;
+	Fri, 28 Aug 2026 16:11:32 +0200 (CEST)
+Date: Fri, 28 Aug 2026 16:11:30 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, linux-kernel@vger.kernel.org, 
+	Nathan Chancellor <nathan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Bart Van Assche <bvanassche@acm.org>, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH v1] clang-format: Fix formatting of guard()
+Message-ID: <20260828.ye1xoPeeweel@digikod.net>
+References: <20260708105713.2073335-1-mic@digikod.net>
+ <CANiq72nB6=EAeKmoWcsVR1YeUCMkFZTEdndLcSOEi1kQNPAc=w@mail.gmail.com>
+ <20260708.yi2Ve3eeGa8a@digikod.net>
+ <CANiq72kgYwB0CXizay_5ejvqzcxxV235sm=xEwBNTGpqGcdUnA@mail.gmail.com>
+ <20260708.kae9Abuath6i@digikod.net>
+ <CANiq72mmZF7QXdk+9s8jcWU5mfACy48gn6wZ1RZQwxaK9-03YQ@mail.gmail.com>
+ <20260708.Ka2tahree8ad@digikod.net>
+ <CANiq72nPB9-GpYFpyOxedtFRDGb+6EoGjMCYQ00S6wh6dth4Qg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72nPB9-GpYFpyOxedtFRDGb+6EoGjMCYQ00S6wh6dth4Qg@mail.gmail.com>
+X-Infomaniak-Routing: alpha
 
-On 22 August 2026 14:53:26 BST, Ard Biesheuvel <ardb+git@google.com> wrote:
->From: Ard Biesheuvel <ardb@kernel.org>
->
->When execmem ROX caches are used for module text and inittext, place
->them adjacently in memory, by allocating space for both initially, and
->splitting off the space for MOD_INIT_TEXT as needed.
->
->This avoids the corner case on arm64, where .init.text being placed far
->from .text results in a lot of complexity wrt indirect branches and PLTs
->that we'd prefer to avoid.
->
+Hi Miguel,
 
-I can't see anything wrong, thanks for the patch
+Could you please sent the PR to Linus and Cc stable@?
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org> # kernel/
+Thanks,
+ Mickaël
 
->Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
->---
-> kernel/module/main.c | 22 ++++++++++++++++----
-> 1 file changed, 18 insertions(+), 4 deletions(-)
->
->diff --git a/kernel/module/main.c b/kernel/module/main.c
->index 46dd8d25a605..2d6213496359 100644
->--- a/kernel/module/main.c
->+++ b/kernel/module/main.c
->@@ -1342,7 +1342,7 @@ static int module_memory_alloc(struct module *mod, enum mod_mem_type type)
-> {
-> 	unsigned int size = PAGE_ALIGN(mod->mem[type].size);
-> 	enum execmem_type execmem_type;
->-	void *ptr;
->+	void *ptr = NULL;
+On Wed, Jul 08, 2026 at 02:49:35PM +0200, Miguel Ojeda wrote:
+> On Wed, Jul 8, 2026 at 2:34 PM Mickaël Salaün <mic@digikod.net> wrote:
+> >
+> > I guess parts 2 and 3 should probably be send for v7.13 (it's a big
+> > patch) whereas part 1 in 7.12-rcX, so I'll let you handle that properly.
 > 
-> 	mod->mem[type].size = size;
+> Sometimes I sent these PRs to Linus in -rcs, to catch new code, so it
+> should be fine, I can do it either way.
 > 
->@@ -1351,11 +1351,25 @@ static int module_memory_alloc(struct module *mod, enum mod_mem_type type)
-> 	else
-> 		execmem_type = EXECMEM_MODULE_TEXT;
+> > Yes, thanks.  I'll keep the Landlock-specific patch I sent.
 > 
->-	ptr = execmem_alloc_rw(execmem_type, size);
->+	bool is_rox = execmem_is_rox(execmem_type);
->+	if (is_rox) {
->+		/*
->+		 * Special case for MOD_TEXT / MOD_INIT_TEXT: allocate the
->+		 * latter by splitting off required space from the former
->+		 * so that they are always placed close together.
->+		 */
->+		if (type == MOD_TEXT)
->+			size += PAGE_ALIGN(mod->mem[MOD_INIT_TEXT].size);
->+		else if (type == MOD_INIT_TEXT)
->+			ptr = execmem_split(mod->mem[MOD_TEXT].base, size);
->+	}
->+
->+	if (!ptr)
->+		ptr = execmem_alloc_rw(execmem_type, size);
-> 	if (!ptr)
-> 		return -ENOMEM;
+> Sounds good.
 > 
->-	mod->mem[type].is_rox = execmem_is_rox(execmem_type);
->+	mod->mem[type].is_rox = is_rox;
+> > Yes, but I enforce it for Landlock, which helps a lot:
 > 
-> 	/*
-> 	 * The pointer to these blocks of memory are stored on the module
->@@ -1368,7 +1382,7 @@ static int module_memory_alloc(struct module *mod, enum mod_mem_type type)
-> 	 * *do* eventually get freed, but let's just keep things simple
-> 	 * and avoid *any* false positives.
-> 	 */
->-	if (!mod->mem[type].is_rox)
->+	if (!is_rox)
-> 		kmemleak_not_leak(ptr);
+> Yeah, that is very good, and I am very glad to see it is useful for
+> you and that you could get to enforcement.
 > 
-> 	memset(ptr, 0, size);
->
-
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> What I meant is that it cannot really be "truly enforced" across
+> trees, especially if the config keeps changing and so on; unlike
+> `rustfmt`, where one is not supposed to push anything to linux-next
+> that doesn't pass.
+> 
+> I mean, I would love if we could, but it is a very long-term thing.
+> Over time, my hope is that more subsystems start enforcing it on their
+> own and so on.
+> 
+> Cheers,
+> Miguel
