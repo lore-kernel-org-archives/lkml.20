@@ -1,43 +1,51 @@
-Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9233240B118
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF63D171F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913760; cv=none; b=Q85iCW6jmReT4z6n61yVLeFdounV4U7VvIcgne9r62R0NK+pBFb8Cc64tagKRsOm6pXaQ2pJRj1zVdvccYpZysInVq6x59nVMkFtCrKtJ1yN/rqh7Buruk0Y2C+0E3CaT+a/5BJuU4oJQ8tG/dhsrBBJGOny370wzCWNc836UUU=
+	t=1787913876; cv=none; b=DDXs62pmT4yXWPrSyizenPfCjP/qdZMcOwS3jGDej3M4q0wGsEJNG6rSZ9c92qTyBOkqlFw8r1p3+tjXAu3VRQBpRCE7VSqGG1EquOZ+GjmwiIcT19LZyQQQyfOlVEQMRDaEpKte0WDnc7YWCUjcT4Uu2S7xamMW6U/p9zt0CC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913760; c=relaxed/simple;
-	bh=TMHhiKGJhiixMSSefGOX3mKwji8XqB0Qoz5YBH/RdOk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qRSNHgjOpx0KWh73H4JFnI4G1Fez03S/CjZVYiuFMlmchXmhSKldTN4IvAaYc42gyQx3p6CuK67IiUC3K+WDTJsCVQnOCSW7opufSmg4l1yXDtV7oQvRgy+X7a+REqRypFgO11N/uHzH7RSa4hrnpMr8nZ1umhwrPu3U7oQndTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev; spf=pass smtp.mailfrom=ghoul.dev; dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b=C0nv9J6+; arc=none smtp.client-ip=185.70.43.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghoul.dev
+	s=arc-20240116; t=1787913876; c=relaxed/simple;
+	bh=jqvb6efzVIxhyMNFM6ALflx4Ux3+Kq+gYesK8hycogQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=h1pUGbnAlAcMWcZO6ZUUccY3c2lZIP5oDY6gWjnNsQmoQd9PI8HPDldJ16wUUYWt7ubTfmknn56IOwATAHJMXIEBRJCOR9FVMpxurBQuTtLD5kV29u2IWqzZV/UjUW4DkTbuQritc7DR8HHaRi8bjRnBY5ipcgXlyUuAp3NVmYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qJjIVK4X; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b="C0nv9J6+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ghoul.dev;
-	s=protonmail2; t=1787913748; x=1788172948;
-	bh=4hx4DF9Ze1/WdDlpBQe0Jt7BHNmSlbucflyx8vSRHPA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=C0nv9J6+xnL88keL6RFHxMcwwxw1Rm++AAcHLvRxTaRujUGgRDse+g2iNvzu7epjh
-	 93rRptz4dK+kVaTC3+nKp8PMmj0tzOLEpBobGju2HUd5fA2NMWLqObHBeyQMCtx2bi
-	 iqVoV80VEfmBJ5esHd1CaQDtZ5z85sRRtulHuSsNolTpwKONkd87NJWRoz7cLXNw8V
-	 mpK4IWAsbTpq+eiRBTZyTHQkzpDmG9daxCiNsdtEE/7Yg3h93UJvTxTRGzT5dt924s
-	 eWRU/LjF5kXjHD9ROTGd968se3iJGFwkzEq5Agp5YaL+0JTl64yHp01VFUEU2qtZqU
-	 1jjYaiIzu1JYw==
-Date: Fri, 28 Aug 2026 10:42:21 +0000
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-From: Ahmed Yaseen <yaseen@ghoul.dev>
-Cc: Denis Benato <denis.benato@linux.dev>, Antheas Kapenekakis <lkml@antheas.dev>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Alan Stern <stern@rowland.harvard.edu>, Kerim Kabirov <the.privat33r+linux@pm.me>, GameBurrow <gameburrow@pm.me>, regressions@lists.linux.dev, linux-usb@vger.kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, Ahmed Yaseen <yaseen@ghoul.dev>, stable@vger.kernel.org
-Subject: [PATCH v2] HID: usbhid: skip interrupt IN polling for devices with no input reports
-Message-ID: <20260828104159.62399-2-yaseen@ghoul.dev>
-In-Reply-To: <20260828104159.62399-1-yaseen@ghoul.dev>
-References: <20260828104159.62399-1-yaseen@ghoul.dev>
-Feedback-ID: 177610485:user:proton
-X-Pm-Message-ID: 601481af4ca6df679a1c95ab7ef3110b170d05fa
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qJjIVK4X"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BE6DC4E413FF;
+	Fri, 28 Aug 2026 10:44:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7982C60537;
+	Fri, 28 Aug 2026 10:44:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D31B811C7810F;
+	Fri, 28 Aug 2026 12:44:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787913867; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=UlkoQK9Jj3Zkbr/7ax+qMgzZXpZ194fDPTfYXd3ays0=;
+	b=qJjIVK4XQJzgkzfVrXD2wDdcdKmT63+DbuJIfLwMOqzVj+AoQthsKgAkQRQWtW9ccdvmID
+	Q/lD7tlchMkbpbGj11vwUPv54JbVzvmBkSbjFLWkKcwuxTdXx6y8Q/nvSlHCvht9bJf1hF
+	xIRX21+AOOm33J/oDWEfeJSgbVaMWl/BnCzT5YcxBoSiTrOOxuSHObyDHFNz8kc48c7FSr
+	6l8hzlikvW2EChYH9QElgWhbJmRkSPZwtItfPlvLrTa6qMB4JZ2biPdPbMXc/vD6/uUjRN
+	NmKQflQueTtTBSstqTW03/XYTmf1NgnBCRoQnY7qoRrcAQEPw5jVYxinmuQNdQ==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
+ 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names
+In-Reply-To: <20260823234721.72903-1-rosenp@gmail.com>
+References: <20260823234721.72903-1-rosenp@gmail.com>
+Date: Fri, 28 Aug 2026 12:44:26 +0200
+Message-ID: <87y0dqplrp.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,65 +54,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-usbhid starts polling a device's interrupt IN endpoint on open
-(usbhid_open() -> hid_start_in()). If the report descriptor declares no
-input reports there is nothing to read there, so the poll is useless,
-and on some composite devices it is also harmful.
+Rosen Penev <rosenp@gmail.com> writes:
 
-The ASUS ROG N-Key keyboards expose a second, input-less interface used
-only for RGB control via feature reports. Opening its hidraw node (any
-hidraw reader does, including SDL/Steam Input or a plain cat) starts the
-pointless IN poll and keypress reports on the keyboard interface get
-dropped for as long as the node stays open: a lost key-down drops a
-letter, a lost key-up leaves the key stuck. usbmon shows the dropped
-reports never reach the URB layer.
+> The marvell,armada-380-sdhci binding requires "clock-names", and
+> the sdhci-pxav3 driver requests its io clock by name before falling
+> back to an unnamed lookup. Both Armada 38x and 39x nodes only carry
+> an unnamed clocks reference, so dtbs_check reports "'clock-names'
+> is a required property" on every board.
+>
+> Add clock-names =3D "io" to both nodes. No functional change: the
+> driver already obtains the clock through its fallback.
+>
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-The useless poll itself is long-standing; commit 4ac74ea68f64 ("HID:
-asus: early return for ROG devices") is what exposes it on these
-devices by keeping the input-less interface alive instead of ejecting
-it, so its hidraw node can be opened and the poll started.
+Applied on mvebu/dt
 
-Skip the poll in usbhid_open() when the device has no input reports.
-Feature reports and hidraw output keep working over the control and OUT
-endpoints, so the interface is otherwise unaffected.
+Thanks,
 
-Fixes: 4ac74ea68f64 ("HID: asus: early return for ROG devices")
-Link: https://discuss.cachyos.org/t/keyboard-input-issues-on-asus-rog-strix=
--16-2025-with-cachyos-during-gaming/30823
-Link: https://github.com/ublue-os/bazzite/issues/4590
-Cc: stable@vger.kernel.org
-Tested-by: Kerim Kabirov <the.privat33r+linux@pm.me>
-Tested-by: GameBurrow <gameburrow@pm.me>
-Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
----
- drivers/hid/usbhid/hid-core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Gregory
+> ---
+>  arch/arm/boot/dts/marvell/armada-38x.dtsi | 1 +
+>  arch/arm/boot/dts/marvell/armada-39x.dtsi | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dt=
+s/marvell/armada-38x.dtsi
+> index 1155bee20523..598022645dd2 100644
+> --- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
+> +++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
+> @@ -627,6 +627,7 @@ sdhci: mmc@d8000 {
+>  					<0x18454 0x4>;
+>  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+>  				clocks =3D <&gateclk 17>;
+> +				clock-names =3D "io";
+>  				mrvl,clk-delay-cycles =3D <0x1F>;
+>  				status =3D "disabled";
+>  			};
+> diff --git a/arch/arm/boot/dts/marvell/armada-39x.dtsi b/arch/arm/boot/dt=
+s/marvell/armada-39x.dtsi
+> index 218fcf99ae07..81dd4ca5fbc9 100644
+> --- a/arch/arm/boot/dts/marvell/armada-39x.dtsi
+> +++ b/arch/arm/boot/dts/marvell/armada-39x.dtsi
+> @@ -381,6 +381,7 @@ mmc@d8000 {
+>  					<0x18454 0x4>;
+>  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+>  				clocks =3D <&gateclk 17>;
+> +				clock-names =3D "io";
+>  				mrvl,clk-delay-cycles =3D <0x1F>;
+>  				status =3D "disabled";
+>  			};
+> --=20
+> 2.55.0
+>
 
-diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core.c
-index 96b0181cf819..d7cf2b56e117 100644
---- a/drivers/hid/usbhid/hid-core.c
-+++ b/drivers/hid/usbhid/hid-core.c
-@@ -688,7 +688,14 @@ static int usbhid_open(struct hid_device *hid)
-=20
- =09set_bit(HID_OPENED, &usbhid->iofl);
-=20
--=09if (hid->quirks & HID_QUIRK_ALWAYS_POLL) {
-+=09/*
-+=09 * ALWAYS_POLL devices are already polled from usbhid_start(), and a
-+=09 * device with no input reports has nothing to send on the interrupt
-+=09 * IN endpoint. In some cases polling is harmful: on the ASUS ROG
-+=09 * N-Key keyboards it makes the sibling interface drop keypresses.
-+=09 */
-+=09if ((hid->quirks & HID_QUIRK_ALWAYS_POLL) ||
-+=09    list_empty(&hid->report_enum[HID_INPUT_REPORT].report_list)) {
- =09=09res =3D 0;
- =09=09goto Done;
- =09}
-
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 --=20
-2.55.0
-
-
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
