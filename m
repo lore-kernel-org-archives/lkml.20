@@ -1,105 +1,125 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0723AB29B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25A8402B9E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911284; cv=none; b=WDpPV+WUWTj82MOvn6/qDJewWH6swHaJC1Ikg62kY3vCqZZV1FRT4SG3mvIgHbL1kSlPJ+Q9BEAj00VZJNDSuFnRZPqZbeSraaVyRXpI87xbU1lWTunAt2RK2DuTgFv1vQbejnwBTWd8PDh6CQb77m4yDyeX58mbRIQRJ4ZUM38=
+	t=1787911295; cv=none; b=bfaubd/TYjxuHJf+sEZ50krsiUWRuTAvgLYvEaXL/k0zs8a0CARTggr08Euhu92ZQHmKFdVBPqfZnOxwcBCF1eZ3W4wVC6NEoEWiiIwTuDGCsZqZR0cldXlvIcY2K+solh0GFWE2jjYWfoW5HG4dvsL46IcZF6GeL2fld2z9X4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911284; c=relaxed/simple;
-	bh=orsjozxBZeT+wGghT0EHb8YkNsbbJw9UBRcSf69LwFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ELuXyKnZXw6xXL0vVnulXN5HMdF3NogMhj1mHosDbbO49+wF10Dt5iuWRznvy/m49io5FH+nMftUS4mmRNGY322mTJwH95BnCqjs/KSJRxDbtExnEYYcItTBgIiURQiXLrqTLb1DLJoOdj5xC5WpvoSH6GXoNh4GdKGZoMu6CcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndQWzNbl; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787911295; c=relaxed/simple;
+	bh=V2NCxpXmvAGC3tPTzqlZs/jDxrN1fRwdEMJ/zkJq6SE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uvlYcPkjNbf3hS4+Clq5f4q2aO6OTBsURHXcdko+mYOze+tjtbGP+7saAaox80RtY+7TmQb2I3INwOylh5+beIxgGh97MYNzYiwI+Xtlsgjga0XYDpUHiNaDc70q3en2oSnU5TSCwHpCFbblQxjoRWHq69o76wd6/gkMqvdJCLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VGZxBA/f; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndQWzNbl"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso8749415e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:01:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VGZxBA/f"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49800c6a846so8101485e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:01:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787911281; x=1788516081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=THvdq2ntZwEYx4ps0NMR1RlHkdeyM/nQsNOsv9R8Y7Y=;
-        b=ndQWzNbl8xDpxyqBUvFITfsnfre58IqnPrVQNDQf+VSqxkgPLwdltiwsHEeTu6w6By
-         OAMulH/crQ0uOttcMz3kA96fYHJTECvj+nGZo4Enc/lpQzuwEP34GFFDlGsIQuyaJG0A
-         kTsDMhBUUm8mhSY4l5sC4IWdi5PPU+kx2qgIFP65AMF4BgqsckjxqsLpGXeoFk8eN1pE
-         Tz6FZFSyF1aFUCOcWG2eFUIKWksspWXIdO71W/S5ype73BS6u9Xj5Izju3EL7kbICjc4
-         JtO2OJYNfF3cXE9MlZdy+HUCVTjYJfsHjAHE2xdO+kTVgfZfgwuLIzw320jac2oC1qIN
-         vUKQ==
+        d=suse.com; s=google; t=1787911292; x=1788516092; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fyUgVdBXQPU4wNTO4VmSvvIoSyggZNmCxjmel6sHfN4=;
+        b=VGZxBA/fVy4fwgUZL8CqMS+7zqHVsYiF1X97yKuNyEZZBmZWGVOImf9gmEgNI6YB0k
+         gD4IKZL2ulkZRfi+lqLqKD4XVDHwPOuib41p2A9aB1GWGv5+EfMy1hOWn2+UBJqkIXBE
+         z6BjtYVh6HdAnF1MiRa44ahI1W5C/FM0lTY6eNxE7q4Xk+pOBlZAIqJvPQIs6UtRWfKS
+         WpHctSmAlTCnow9rbve1xUdKf3a1rmrIp/2DYhGFkNIDaxvjXkJoGG4asPWZsgDevtyn
+         y0b4+Fp0axbM2Hpi+8RBjOIK0ZqeP2mCcXR7Zy7X9M3v94w4vjr2UXRbFkVymRa/x/gZ
+         ai8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787911281; x=1788516081;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=THvdq2ntZwEYx4ps0NMR1RlHkdeyM/nQsNOsv9R8Y7Y=;
-        b=S+7OzIfyd016mfLBZQVKGBrpBT1mc+lfg2kfvUs5SUuVPTjDB2zSKi11x9JMyMhBlW
-         7TpUP9DA3LkeETTVQzf84GThQacS4Q/YEX5zAbOk/R6DokzXLQF2pNaTfOVPBvbFuuCD
-         UJByOL3yWvAVfF98J8lflb1650IcaiAfHHgCGWMb/6fOYw+HoRb86HJtxjIh5IWyT7Ih
-         uYKSqXiX7jf1o2yc/d0KoRy3dhJrJQS1hrilgSUJU33NR/h2QLOFkQ9XIh+LNlaLRqai
-         /tjn0i02hMBXrRKVQRl+uQz9lKrGn31Q/qyzxwzLNQbqSbi0/JamI9VEaMOCfVYnt3Y5
-         4+2w==
-X-Forwarded-Encrypted: i=1; AHgh+RqNXl0XGmx95M1EDW7yzj6xOoGa2BAFsy895PDl1kG9NTVI3O9MDbyqZFX/5wCut+1yDLUGN0iy1B35cI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJPgZIR5+Ji8SR0BUPuIwBkvT9V/CDW5bjpNkkjl20aFPC36dW
-	4M9t6WtuQQMQ72LkSPCGJF8EjTBTQR3Du95nePIknYBtTywOSmJVwiZ0
-X-Gm-Gg: AR+sD11IZcsFQyXwgY/mW8xZr24Tw9ni3o8k9OIz9PS/MLLksrI3OWn0V67uJUdgnb7
-	129BbHM5Xj54fvIxcZNen42hdNUwJ6ioSMc0QDGOX+WeoUqTEK629kfgQmBata1eMoT6YCvS8Vn
-	acLpOosEBsO1v5AjXf+aqhYTWMUSkLim+bTb3zwSrj61dPgkNjWHAYAPva/w9okNhQ6wqSojpLN
-	dcu2z4G4xVT8coIMnXfa/nSjbGEinj/0TYotTJxpWCxmBqfv700S/kPTSvshhpdGAFxwkNhhlwN
-	o7vNjOCeTLgbLqtLVrgPg47N8OE9QUYHXNnjpVWiX0QMeGY4Sps3QkHR4Mp9P4J/89j6atrBSSq
-	KVz+d2b9rx0uBSqUQuhqQ2zPU7Z9wo9pEjVKhn7vsy7j3hCMd83cQOlgnWK2XKFnYx0jT2Ld4ni
-	KWFxWaPidTOXD/VHeDCxA/3SeYVT0iVFjdFQlxWG3nQTEVsnRtfwKN3uX6g52mJxlQQw2c4oe7k
-	/FA1oseRDYoJRhSogfX0Kl1D4+aO1ZfH5OlfaCtlSAAd8SGmDsZ6NEDrDTf1TSMM19u/vUQAGv5
-	xbZ6e4FBHW6irUh3/9suKcep6/l9AwL00b/yv6YvvL6HqCw/9Fazabts57W+WijnZ1MUzPNa8JR
-	A3WkpLSDvRxaCleyv/i48adHdbwupaVn8OBB7fT3SRcMjdPV6Ra+/ha7yWkkm7ia7zQQlQg==
-X-Received: by 2002:a05:600c:a106:b0:49b:92df:87be with SMTP id 5b1f17b1804b1-49b92df8833mr53912515e9.4.1787911280853;
-        Fri, 28 Aug 2026 03:01:20 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc103dsm36740705e9.1.2026.08.28.03.01.20
+        d=1e100.net; s=20251104; t=1787911292; x=1788516092;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fyUgVdBXQPU4wNTO4VmSvvIoSyggZNmCxjmel6sHfN4=;
+        b=S/6/adBFLlWPAOqFYvOPiVCBlhvcwia6Oc51YNWTpWzAn4V8s8H71ZxgmbQhciHS1h
+         UhNB1DecZiCkF3CfpIMPd3cr9Tq71wwnTB1uJR1WGKuxNg0FlB1v7JRkyYETQIqa1s4f
+         wVd0YZhRDfPhlYZLrLTAT0gWj809IbqxKbnHV7nAOMweNu85sbiVLBMzwuqLv63XcTkv
+         jbcr9m7Cg/XgSDUPtF87RW2Vhnek/g5z66sLlSpCH1Pvc37pcMKT7tkkiGrWKzVO8QcM
+         6hV3NebBZRXrO2tHP1J8HJ77epcQoYdEli3ypr9hqN+DYnw6o7HlWSQY4t2Rb8hUeNAF
+         Yzqw==
+X-Forwarded-Encrypted: i=1; AHgh+RoLAqwS0rT4DpqU7ydd7eI6+X+Ly7sFFmpz16uHTUQJMxVNp01sN+/eiOCDUYSTbOXdgvdG8mGSFBHkBEA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5o4XxpKedKwN9yNCRWvaKIANn4gHeDBSe4JyLLsn1K7ppV4ot
+	C6r1gWzsaoMyyHsvVo4XDPDpV3x89nEGHVzxFiWYumCQXttWfTqlwFybuhpJZh4RdKw=
+X-Gm-Gg: AR+sD12jhuCYsZp/FDvOQ5OIoauOcKd1pJlVjaeC70fViKMouxaurm/nfcL6eNXVQZI
+	mteHp1lo94W+ChHbaEs57jLkd+JSvn0cELQzhcYw9i0G4mbIQKRzYFAbvs7teHvzfB/+zkWmQQu
+	w+ai07IM2ANwWfXQSy8Km4YYtZrXCzXbVxZ1TgJbUDGvndJwpxKXYJzec1c9gnE3aBzXyE9dPnM
+	Cs13Fi1UlYKtafE0ETfT9RDhtpDRux5wwtNKMBW6JKaT2tIMk7TqZiA+z6PwtjhX6PUew11Pw34
+	lIsy/YmZmGbKQozzWnAymETmxS3WqrT31e8925eb1w3Z9m0/NCzkJSjQsloaf+M8d8VqLDRuKS6
+	x8GI07x6PaZsS4dIt8MIyvyjIUp9zeAE2aaJnH0kaDQu412SOiGZayjOhGetGguboKYqnYMgZHk
+	bp743pLgjLmLjG+5E9pjsYEpZrzabVr9X62XVOZmeuoei2EnyG+FmAAvUwoi2rCQYWfcUHp+lq
+X-Received: by 2002:a05:600c:1f8f:b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49b91c44ec6mr72112475e9.11.1787911291967;
+        Fri, 28 Aug 2026 03:01:31 -0700 (PDT)
+Received: from linux ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc103dsm36744475e9.1.2026.08.28.03.01.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 03:01:20 -0700 (PDT)
-Date: Fri, 28 Aug 2026 12:01:11 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: "Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com>
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
- gregkh@linuxfoundation.org, andy@kernel.org, dlechner@baylibre.com,
- linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v6] staging: iio: adc: ad7816: Use modern IIO attribute
- macros
-Message-ID: <20260828120111.00000aab@gmail.com>
-In-Reply-To: <20260827214721.19395-1-mdmahmudulhasan1511@gmail.com>
-References: <20260827214721.19395-1-mdmahmudulhasan1511@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Fri, 28 Aug 2026 03:01:31 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: jthies@google.com
+Cc: abhishekpandit@chromium.org,
+	akuchynski@chromium.org,
+	bleung@chromium.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	gregkh@linuxfoundation.org,
+	heikki.krogerus@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Marco Crivellari <marco.crivellari@suse.com>
+Subject: Re: [PATCH v1] usb: typec: ucsi: allow retries of ucsi_resume_work
+Date: Fri, 28 Aug 2026 12:01:20 +0200
+Message-ID: <20260828100120.139648-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260818205717.1492247-1-jthies@google.com>
+References: <20260818205717.1492247-1-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 03:47:21 +0600
-"Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com> wrote:
+Hi,
 
-> Replace the legacy IIO_DEVICE_ATTR() macros with the modern
-> IIO_DEVICE_ATTR_RW() and IIO_DEVICE_ATTR_RO() macros.
-> 
-> This includes renaming driver-specific callback functions to
-> standard <name>_show() and <name>_store() formats.
-> 
-> Signed-off-by: Md. Mahmudul Hasan Mabud <mdmahmudulhasan1511@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> ---
+>+		if (++ucsi->resume_retries < 5) {
+>+			queue_delayed_work(system_long_wq, &ucsi->resume_work,
+>+					   msecs_to_jiffies(500));
+>+			return;
+>+		}
 
-Also, as trivial as the requested change was, please wait at least
-24 hours before resubmitting, let others review the code as well.
+Just one thing about this (same applies to the other queue_delayed_work() calls).
 
--- 
-Kind regards,
-Joshua Crofts
+queue_delayed_work() calls:
+
+queue_delayed_work_on(WORK_CPU_UNBOUND,...)
+    __queue_delayed_work(cpu, wq, dwork, delay)
+        __queue_delayed_work(cpu,...)
+
+That perform this check:
+
+	if (likely(cpu == WORK_CPU_UNBOUND))
+		add_timer_global(timer);
+	else
+		...
+
+It means the timer used is global / unbound: when it fires it will enqueue
+the work on the CPU where the timer is executed. The workqueue you're
+using is per-CPU.
+
+I guess locality is not needed for correctness here, because of that, so
+you can replace that workqueue with system_dfl_long_wq. This is the
+unbound version.
+
+system_long_wq is scheduled for removal.
+
+Thanks,
+
+--
+
+Marco Crivellari
+
+SUSE Labs
