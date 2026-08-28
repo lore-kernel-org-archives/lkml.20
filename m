@@ -1,132 +1,83 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888423C1F57;
-	Fri, 28 Aug 2026 06:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543AC3CB55C;
+	Fri, 28 Aug 2026 06:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899203; cv=none; b=fzWrSDYsuxiAtgFh80GCGQf1b2eTBZ4MkRMzwRHjMhdxCGVqWvHSp6korymiZNA1Q3v1oHNt98dZYQlV7zSuKvCco33i0IA32hGxL3mmpmBitMq46gW6Osf/i/Mp3HpuU/LJa+XLkuo3CP63ZWSWOIIINLPFk8s/sgfw/tP4XQQ=
+	t=1787899226; cv=none; b=jRWCeN3Q3FDNUTxxFD9gnLyoHLm/vzIVPrUUXbbFebwC6kRuh6M1n3jNFMsM3DZ1bk31i0WfqiDH4dMQIU/38YlSjV2d4SZE03LSRxbWYJ5tHbDw8WT56hj1UevVApL382zB+MMzQ9WMbxswxmVH3kLkKhjaYOLYqK4lIX8xlEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899203; c=relaxed/simple;
-	bh=mYM0QuKOcduK6Gp9GXzDfG45WKu2zz5egHZM03P8ZFs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ULh92XcxlHAlfxmYHom35AQpRSE4otxDPWhzHOg3N5zTGuP7dEpl/OxUpEC3YqmXzym8cSSotv7jIYt0yckmECMRTC0HD3i8OAU7gMykoaW1eNICI3YSq5t4MlkX/Fxa/gW/l/2xezgR/tSycfN4DUnDkyY/uQxBakNZY4Xt2h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=LOK4CB3L; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1787899226; c=relaxed/simple;
+	bh=9QvlRBJUdn2N3iAU+FRmGum1UMlhk2pHgIhQjwENwGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGfQzWce5CiseUHDx0U9w9OYGBCe5W0cq9h7ygflLTlugNhXtsaWcpMue1a9xXs21N7Nm73Ozc/7/LUAxlrr31dBhLjYuzvQ2to8MtWTc60XT63Fci7gckMKNsbrwlbRtjf03Ha9+LdKZfLxgqlGEMvWaoOP1WPTBgGQImGOaR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=afa7oUL/; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="LOK4CB3L"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67S6d58y92240244, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1787899145; bh=mYM0QuKOcduK6Gp9GXzDfG45WKu2zz5egHZM03P8ZFs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=LOK4CB3Loll4qGfbnHB/SDi40UIabunI8l49uHSTf4Kzba86ewZtTUGuqMCbaHwwZ
-	 D2D4/fEgdzUX6eeNTovkhOHsIbMU5I60BwqOZjghLgks61fKweB5MOU7kfOEx0AwUW
-	 Ivg+wJvoyAEhaKemqpCsTymuwZUbU17ZVy3uW347ZQER4xdlz6RueWhjDVHXmGGe1f
-	 6EqFDn03LL20iCh8a7IEt/y78rPiyUoGR86LPqagXGj4Vv5j/pPt6h5oFs6Jg2MC+E
-	 BLGmCqWu04fJCnsWnxfIiqKG1mdmRS6rvn112HegicRYJ38IBfvI7xyASqxV0zO8Ri
-	 T5cmdcBu+aPZw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67S6d58y92240244
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 28 Aug 2026 14:39:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 28 Aug 2026 14:39:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Fri, 28 Aug 2026 14:39:05 +0800
-From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
-To: Brian Masney <bmasney@redhat.com>
-CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?big5?B?RWRnYXIgTGVlIFun9anTv9ld?= <cylee12@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>, =?big5?B?SnlhbiBDaG91IFupUKrppndd?=
-	<jyanchou@realtek.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
-	<james.tai@realtek.com>, =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
-	<cy.huang@realtek.com>, =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
-	<stanley_chang@realtek.com>
-Subject: RE: [PATCH v13 04/11] clk: realtek: Introduce common probe() and
- remove()
-Thread-Topic: [PATCH v13 04/11] clk: realtek: Introduce common probe() and
- remove()
-Thread-Index: AQHdKf98tGU4ULZZCkawWMV9VkFKTbas76AAgAYrYeA=
-Date: Fri, 28 Aug 2026 06:39:05 +0000
-Message-ID: <9642b853a9c24ba6b11c81e95341bfbd@realtek.com>
-References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
- <20260812020009.3480538-5-eleanor.lin@realtek.com>
- <aoxv9PJd6r_8DaNA@redhat.com>
-In-Reply-To: <aoxv9PJd6r_8DaNA@redhat.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="afa7oUL/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787899225; x=1819435225;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9QvlRBJUdn2N3iAU+FRmGum1UMlhk2pHgIhQjwENwGw=;
+  b=afa7oUL/xa6JkM/JFEikSymi7Nxc4hzUqXHXz2k9LYc1LTOteJIOJI3J
+   hecZOZkOMBI5gMtxWvaOcYdsXnjTuUkldOFoBQBN8XuJ4S+I6DFrsVCM7
+   DtarO4inBDCd2Hh6deLZu7eCiF1/oCdA9eocHp7c04hEx+tWUFaEdyMFN
+   1Drbn5tWf6tW3wnH+ihoY0kMPlN4cx6joNCiaZtMqq2XbrFCY1Mc4MJYd
+   myjlcGgxl4tPef7hU9U3Wb6ZIANWD2qOcUXYEvticZpUjgrvgHwIBRdKu
+   a3EzQpwzqByA7nL0MOC1VjkIVJIdvuYuIwjolDlkG2F3i/obnNKMc3uKn
+   Q==;
+X-CSE-ConnectionGUID: Op+8oKEgSPKN7P3jSgUJTA==
+X-CSE-MsgGUID: LoM3SbQMRoye/sfK9GLwrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88261038"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88261038"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 23:40:25 -0700
+X-CSE-ConnectionGUID: mK2sQyTwSWSIqCCAx4StHQ==
+X-CSE-MsgGUID: 3ozsoMwcT5yZnVHFkjtDZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="268655173"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 23:40:22 -0700
+Date: Fri, 28 Aug 2026 09:40:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: andy@kernel.org, bleung@chromium.org, chrome-platform@lists.linux.dev,
+	dlechner@baylibre.com, groeck@chromium.org, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com, tzungbi@kernel.org
+Subject: Re: [PATCH v4] iio: cros_ec: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+Message-ID: <apEtVIAPv07KFPQB@ashevche-desk.local>
+References: <20260828021350.1666063-1-triet.hoang.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828021350.1666063-1-triet.hoang.dev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-SGkgQnJpYW4sDQoNCj4gSGkgWXUtQ2h1biwNCj4gDQouLi4NCg0KPiA+ICtpbnQgcnRrX2Nsa19w
-cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LCBjb25zdCBzdHJ1Y3QNCj4gPiArcnRr
-X2Nsa19kZXNjICpkZXNjKSB7DQo+ID4gKyAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYt
-PmRldjsNCj4gPiArICAgICBzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7DQo+ID4gKyAgICAgc3RydWN0
-IGNsa19odyAqaHc7DQo+ID4gKyAgICAgaW50IGksIHJldDsNCj4gPiArDQo+ID4gKyAgICAgcmVn
-bWFwID0gZGV2aWNlX25vZGVfdG9fcmVnbWFwKGRldi0+b2Zfbm9kZSk7DQo+IA0KPiBMb29raW5n
-IGF0IHRoZSBTYXNoaWtvIGNvbW1lbnRzIGZvciB0aGlzIHNlcmllcy4gZGV2aWNlX25vZGVfdG9f
-cmVnbWFwKCkgaGFzDQo+IHRoaXMgbm90ZSBpbiBkcml2ZXJzL21mZC9zeXNjb24uYzoNCj4gDQo+
-IC8qKg0KPiAgKiBkZXZpY2Vfbm9kZV90b19yZWdtYXAoKSAtIEdldCBvciBjcmVhdGUgYSByZWdt
-YXAgZm9yIHNwZWNpZmllZCBkZXZpY2UNCj4gbm9kZQ0KPiAgKiBAbnA6IERldmljZSB0cmVlIG5v
-ZGUNCj4gICoNCj4gICogR2V0IGEgcmVnbWFwIGZvciB0aGUgc3BlY2lmaWVkIGRldmljZSBub2Rl
-LiBJZiB0aGVyZSdzIG5vdCBhbiBleGlzdGluZw0KPiAgKiByZWdtYXAsIHRoZW4gb25lIGlzIGlu
-c3RhbnRpYXRlZC4gVGhpcyBmdW5jdGlvbiBzaG91bGQgbm90IGJlIHVzZWQgaWYgdGhlDQo+ICAq
-IGRldmljZSBub2RlIGhhcyBhIGN1c3RvbSByZWdtYXAgZHJpdmVyIG9yIGhhcyByZXNvdXJjZXMg
-KGNsb2NrcywgcmVzZXRzKSB0bw0KPiAgKiBiZSBtYW5hZ2VkLiBVc2Ugc3lzY29uX25vZGVfdG9f
-cmVnbWFwKCkgaW5zdGVhZCBmb3IgdGhvc2UgY2FzZXMuDQo+ICAqDQo+ICAqIFJldHVybjogcmVn
-bWFwIHB0ciBvbiBzdWNjZXNzLCBuZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuDQo+ICAq
-Lw0KPiANCj4gU2hvdWxkIHRoaXMgYmUgbW92ZWQgdG8gc3lzY29uX25vZGVfdG9fcmVnbWFwKCk/
-DQo+IA0KDQpZb3UgYXJlIHJpZ2h0IHRoYXQgdXNpbmcgZGV2aWNlX25vZGVfdG9fcmVnbWFwKCkg
-aXMgaW5hcHByb3ByaWF0ZSBoZXJlLg0KSG93ZXZlciwgdGhlc2UgY2xvY2sgZG9tYWlucyBoYXZl
-IHRoZWlyIG93biBkZWRpY2F0ZWQgcmVnaXN0ZXJzIGFuZCBhcmUgbm90DQpzaGFyZWQgd2l0aCBh
-bnkgb3RoZXIgZHJpdmVycy4NCg0KSSB3aWxsIGRyb3AgZGV2aWNlX25vZGVfdG9fcmVnbWFwKCkg
-YW5kIGluaXRpYWxpemUgdGhlIHJlZ21hcCB2aWENCmRldm1fcmVnbWFwX2luaXRfbW1pbygpIGlu
-c3RlYWQuIFNpbmNlIHRoZXkgYWxsIHNoYXJlIHRoZSBleGFjdCBzYW1lIHJlZ2lzdGVyDQpmb3Jt
-YXQsIEkgd2lsbCBkZWZpbmUgYSBzaGFyZWQgcmVnbWFwX2NvbmZpZyBpbiBjbGstcnRrLWNvbW1v
-bi5jLg0KDQo+ID4gKyAgICAgaWYgKElTX0VSUihyZWdtYXApKQ0KPiA+ICsgICAgICAgICAgICAg
-cmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKHJlZ21hcCksICJmYWlsZWQgdG8NCj4g
-PiArIGdldCByZWdtYXBcbiIpOw0KPiA+ICsNCj4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwgZGVz
-Yy0+bnVtX2Nsa3M7IGkrKykNCj4gPiArICAgICAgICAgICAgIGRlc2MtPmNsa3NbaV0tPnJlZ21h
-cCA9IHJlZ21hcDsNCj4gPiArDQo+ID4gKyAgICAgZm9yIChpID0gMDsgaSA8IGRlc2MtPmNsa19k
-YXRhLT5udW07IGkrKykgew0KPiA+ICsgICAgICAgICAgICAgaHcgPSBkZXNjLT5jbGtfZGF0YS0+
-aHdzW2ldOw0KPiA+ICsgICAgICAgICAgICAgaWYgKCFodykNCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgY29udGludWU7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgcmV0ID0gZGV2bV9jbGtf
-aHdfcmVnaXN0ZXIoZGV2LCBodyk7DQo+ID4gKyAgICAgICAgICAgICBpZiAocmV0KQ0KPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICByZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIHJldCwgImZhaWxl
-ZCB0byByZWdpc3Rlcg0KPiBodyBvZiBjbGslZFxuIiwgaSk7DQo+ID4gKyAgICAgfQ0KPiA+ICsN
-Cj4gPiArICAgICByZXQgPSBkZXZtX29mX2Nsa19hZGRfaHdfcHJvdmlkZXIoZGV2LCBvZl9jbGtf
-aHdfb25lY2VsbF9nZXQsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGRlc2MtPmNsa19kYXRhKTsNCj4gPiArICAgICBpZiAocmV0KQ0KPiA+ICsgICAgICAgICAg
-ICAgcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCByZXQsICJmYWlsZWQgdG8gYWRkIGNsb2NrDQo+
-ID4gKyBwcm92aWRlclxuIik7DQo+ID4gKw0KPiA+ICsgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRh
-KHBkZXYsICh2b2lkICopZGVzYyk7DQo+ID4gKw0KPiA+ICsgICAgIHJldHVybiBydGtfcmVzZXRf
-Y29udHJvbGxlcl9yZWdpc3RlcihkZXYsIGRlc2MtPmF1eF9uYW1lLA0KPiA+ICtyZWdtYXApOyB9
-IEVYUE9SVF9TWU1CT0xfTlNfR1BMKHJ0a19jbGtfcHJvYmUsICJDTEtfUkVBTFRFSyIpOw0KPiA+
-ICsNCj4gPiArdm9pZCBydGtfY2xrX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
-KSB7DQo+ID4gKyAgICAgY29uc3Qgc3RydWN0IHJ0a19jbGtfZGVzYyAqZGVzYyA9IHBsYXRmb3Jt
-X2dldF9kcnZkYXRhKHBkZXYpOw0KPiA+ICsNCj4gPiArICAgICBpZiAoIWRlc2MpDQo+ID4gKyAg
-ICAgICAgICAgICByZXR1cm47DQo+ID4gKw0KPiA+ICsgICAgIGZvciAoaW50IGkgPSAwOyBpIDwg
-ZGVzYy0+bnVtX2Nsa3M7IGkrKykNCj4gPiArICAgICAgICAgICAgIGRlc2MtPmNsa3NbaV0tPnJl
-Z21hcCA9IE5VTEw7DQo+IA0KPiBMb29raW5nIGF0IHRoZSBTYXNoaWtvIGNvbW1lbnRzLCBpcyB0
-aGlzIHJlbW92ZSBjYWxsYmFjayByZWFsbHkgbmVlZGVkPw0KPiANCg0KV2lsbCBkcm9wLg0KDQpC
-ZXN0IFJlZ2FyZHMsDQpZdS1DaHVuDQoNCj4gQnJpYW4NCg==
+On Fri, Aug 28, 2026 at 09:13:49AM +0700, Triet Hoang wrote:
+> Convert deprecated SIMPLE_DEV_PM_OPS() to DEFINE_SIMPLE_DEV_PM_OPS()
+> and pm_sleep_ptr(). Also replace SIMPLE_DEV_PM_OPS() + EXPORT_SYMBOL_GPL()
+> with EXPORT_GPL_SIMPLE_DEV_PM_OPS().
+> 
+> This allows us to drop the __maybe_unused annotations from the resume callback.
+> This is a straightforward cleanup with no functional change intended.
+
+LGTM now,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
