@@ -1,45 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614193B42C4;
-	Fri, 28 Aug 2026 18:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A41383993
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942220; cv=none; b=ou2wkWJRiZCX3PS76RdgaI3xJO3psiBtgR0mpE0j4m8XHoyGHKF7Bic59CwvHdZZ4ZOTP3rk+rRNC++Vlpmxdaz9V9Adf5qU4HYe6lTt7i2eJbFAgHe2XR7zUv2GnmTImJS/GaTyXj6+1bvtPq0hu8D63HSk4uaGAuB+mFUAZ6A=
+	t=1787942227; cv=none; b=iJY/OqyYqma4SMzY3qAmN1BP/AL/4t8sKVXQHp7TzG/X3SRKNqtkKLi/TV9ElOTbI/1NtrspFvcAsqaffKA9zChEXWKMtJ2Qz6OXwuvsi5fIfm4llxszlgtwTEmo3+Y5SnHwWJwm2RFbOVQvPX1N4jBRFl34PmjgoNbitXIxpl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942220; c=relaxed/simple;
-	bh=tVNapXlYkQ32nnMP3sPEC54ww38RNCe9730GIg4dbSM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wl0pi6ElZy8nF0XiF3AUzEzKPNfXFVpqX4A2UBrMJ6CVXMBT9bB9SQ/cN+8DKTg93y8TKwxvDgDCfWreIVqhipZUKLsIUkX19xyAk73/ikwHEFVWikTahqb3FIwjqkNswGeQfhdahakL66MbbJUk+RNy4/9//5+mjw+OGNIhxfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMSACD1G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787942227; c=relaxed/simple;
+	bh=I25lWYt6cViseaUZtP8CeKwfUIj5/ciNKEk4etFYL1w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fH92yCBLt5yM5nFGkcQVyohlKEfRSkj3sen3px4/wwBVlbIQaaBEJOqFn2iiRDcOq6Z5jsFaUB1z7aL2tpEqMlTVt2zQMJM6KBd5wKHzc/rvsPmbMQi08jOWi73v+lGLsaio7Iv7DKeUMg62Wzw4nMMtyd/zsHe4h/29FCqKHw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZ00InjO; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMSACD1G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8DB71F00A3E;
-	Fri, 28 Aug 2026 18:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787942219;
-	bh=ILg2MhhSKzgWHRltlNiHRKhJSlsLIqjHOT6/IdLHUBo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IMSACD1Gr+V+IdheVn8p1p0px7uNJyYwB8E3M8zhJRcnRIDJhGr6bCsbHlnSott92
-	 mfy/kQF5Y5TYRvNPGXrMkzMa4YRbIfTD6siueBaTJ/5gFDdhSG2vlddpxHRsMxnz/Z
-	 TBXuTGEdx7yBV/dhx/eoJ9F6aG5HNdo8oJJzS84847cqo410rVZ/zriXvpdtJ3NIZn
-	 16iM9DsuN50Wxw82IgD8/NcOUVixXiRV/IZrkM4GcsxUOcq5+UIYdUU770MZj/aFWa
-	 PbnBalsqnUqpYMz8KkKGPgVmHI8GbnWG+mrLGVApmIltzMOUrS+8mnk7/N0NmFfjlC
-	 q3lJnlwsL91tg==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZ00InjO"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso1072064b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:37:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787942223; x=1788547023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7mVEURHMP319Byv9p6qmQOcjq3woNvQVkr+r4ShGABI=;
+        b=CZ00InjOHXHX/H8HcWuRUtfMdLDaC6jCwr9GCNYajPWW77vuhiTUse7xrlq4zJqtLB
+         QFxZIEeW/DbD+olttDXAw276gLg4snaZYwZlYc1owsTp93eoN6QRnn4sjK4e9QSCzcsa
+         SGsI2S0358nrAiDAGw+j2EQhKdzZOORh86tK08y57cmX65DMBh1IJ/7OIT5USaT2wTUs
+         uYf1OOYlOMF9Uej0Di7MQfyQFsZwQvbsx2zUluBkhEHnAOjnHI/KRro1boSz7CW5gnNv
+         7hH6OppQmfWglAyuHVlcruCELwFfTIUw8myLyJsnG9cf6DXdOsnmGMw7ptg3aYNVmpRH
+         XdvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787942223; x=1788547023;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7mVEURHMP319Byv9p6qmQOcjq3woNvQVkr+r4ShGABI=;
+        b=l7rkA2V0uQKrB5Y+3nO08y/hGjEX7Xd1XLiv//HVNIhGcimZQoPBIlkmcauc3+Gg5U
+         TgjEoUw3+skSiLOmERBQ5lWqxDsjR9oed8KWwq6Ql40+yjUyyeSYSUr7Pst/EwIEzAlV
+         RA4YVCpOws+YG8iYDSBjuRzoXW1eaFlr0UQnOpl56bvDfTHpMLEKHaiOBBvyNEeEiwY/
+         IHytPg7E3IWjFMYmQSG5aqgGhUwFj/27hOddhkt86i6ULV3TRokTY5lA7k7YnKrJ/0Ze
+         sKgjENVcnrJjDKfqxdY0njbhbA7G93JC14nvmeZoPlU1PI9wy+Asf8GaTr1XyLITARQ1
+         3UOA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0lScUembjdohgk8l4nSYvTgm+f+iqNdQxsjgvIS804rTpo4vx5ejPCACedNeNcqESk5q6PzftBvfMY4w=@vger.kernel.org
+X-Gm-Message-State: AFuF++m68kICtTCjv+slj7LsA60qkB0LstdgRR2obE6DMkqKDZ92MWGf
+	v5h1tVLDsndhIawHc2O3YNrIvHJvQN9xSMGPRMDbXrPs0c7nzAmOSXMc
+X-Gm-Gg: AR+sD11LVv2ZsuKUVWz8xohn82Cu+bua2GHDf71y8YhlLrUWus/X9K7V7NJ6+4Tp7yB
+	IdI4urZ++4XQpLm7VntqjjWI0rmt/OwYj76OuA++sNtRzw0Xt+XkpA9TxHf2HRwyLDeF6ZitNpk
+	RQaGzHdnb65nGLF/CpnmaFJHOYhonigj4SLQPTI/Z0ONcT5wK+ytBzFUbnqVxzC+gWFIwGewpkB
+	KLfBDt6Et1CfjCzEwxKia2GNqqDDtvqO2dKZ2dQ97ozXz1p3XcTpfkB3YtIX3Vv1PJb5vJOmJ9E
+	4y+xeZd9ZQ1kiPyh7RArjfm8iBSJoA3rHiPvz32LMfEvFsrEE9Xcrz7k0K6hY24NduFLpakX3Nx
+	AFP1W/qSgxk4iExgFuJ/V/eLf0vR0h6RRxME5sRoXfmfh+vnU7fxn9ycxeekQlSidIjfJhiCJim
+	k8iaPl/Os/liEuEk7YE8CUIyCjAKAgZ3RUwJLzTlSDygv9tDENXoZ0PXIxxtYuWjX2hyzWFnGIj
+	4Hw5r/AY1D6DjClL2HRGJEoZ7KR
+X-Received: by 2002:a05:6a00:2309:b0:857:7384:b5fc with SMTP id d2e1a72fcca58-8577384c2c3mr2082303b3a.24.1787942223100;
+        Fri, 28 Aug 2026 11:37:03 -0700 (PDT)
+Received: from aig-kmd-01.. ([120.133.49.20])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a2ea6fa3sm844230b3a.37.2026.08.28.11.36.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 11:37:02 -0700 (PDT)
+From: Yin Tirui <yintirui@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.3 2/4] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
-Date: Fri, 28 Aug 2026 11:36:46 -0700
-Message-ID: <20260828183649.71192-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260828183649.71192-1-sj@kernel.org>
-References: <20260828183649.71192-1-sj@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	wangkefeng.wang@huawei.com,
+	chenjun102@huawei.com,
+	linux-kernel@vger.kernel.org,
+	Yin Tirui <yintirui@gmail.com>
+Subject: [PATCH RFC 1/9] mm/huge_memory: read the huge PMD entry once when splitting it
+Date: Sat, 29 Aug 2026 02:33:11 +0800
+Message-Id: <1b11fdaa4f5819959505ad72e3d70bad5fc1d343.1787941780.git.yintirui@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1787941780.git.yintirui@gmail.com>
+References: <cover.1787941780.git.yintirui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,123 +91,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
-delta for the feedback loop is calculated using
-damos_quota_goal->last_psi_total.  However, it is initialized only after
-the first feedback loop.  The first iteration of the loop uses the
-uninitialized value.  As a result, the feedback loop can change the
-effective quota in an unexpected way at the first iteration.
+__split_huge_pmd_locked() re-reads *pmd several times to classify the same
+entry. The PMD page table lock is held throughout, so read it once into
+old_pmd and classify from that.
 
-The user impact of the issue is not big, because the issue impacts only
-the first iteration of the feedback loop.  The feedback loop also has an
-internal cap of the quota adjustment.  The wrong adjustment will soon be
-corrected over a few iterations.  For this reason, doing no
-initialization at commit time was intentional.  It is also explicitly
-commented.  That said, nobody likes behaviors that are unexpected or
-difficult to be expected.
+No functional change intended.
 
-Check last_psi_total initialization and skip the tuning round when it is
-not initialized.  For this, initialize last_psi_total with U64_MAX in
-the goal creation and the goal commit time.  U64_MAX means the field is
-not initialized.  The tuning round shows the value and adjusts it to
-guarantee the current quota is maintained for the round, and
-last_psi_total is correctly initialized on the next round.
-
-Before this change, committing a new PSI goal on an existing PSI goal
-with goal-only DAMON sysfs command (commit_schemes_quota_goals) just
-worked.  After this change, the tuning round right after the commit will
-be unnecessarily skipped, because last_psi_total is unconditionally
-marked as not initialized in the damos_commit_quota_goal_union().  This
-is an intended tradeoff for simplicity.  Skipping just one round of
-tuning is no problem.  Meanwhile it makes both the code and the behavior
-simple to understand.
-
-Also update the quota goal commit unit test for changed last_psi_total
-setup behavior.
-
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org
-
-Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
-Cc: <stable@vger.kernel.org> # 6.9.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Yin Tirui <yintirui@gmail.com>
 ---
- mm/damon/core.c             | 13 +++++++++++--
- mm/damon/tests/core-kunit.h |  9 +++------
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ mm/huge_memory.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index f8dddbff74a77..39605e64dabf2 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -635,6 +635,8 @@ struct damos_quota_goal *damos_new_quota_goal(
- 		return NULL;
- 	goal->metric = metric;
- 	goal->target_value = target_value;
-+	if (metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
-+		goal->last_psi_total = U64_MAX;
- 	INIT_LIST_HEAD(&goal->list);
- 	return goal;
- }
-@@ -1122,6 +1124,9 @@ static void damos_commit_quota_goal_union(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index afbb5974bd22..8feabdcf6307 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3143,10 +3143,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		unsigned long haddr, bool freeze)
  {
- 	switch (dst->metric) {
-+	case DAMOS_QUOTA_SOME_MEM_PSI_US:
-+		dst->last_psi_total = U64_MAX;
-+		break;
- 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
- 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
- 		dst->nid = src->nid;
-@@ -1143,7 +1148,6 @@ static void damos_commit_quota_goal(
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
--	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
- }
+ 	struct mm_struct *mm = vma->vm_mm;
++	pmd_t old_pmd = *pmd;
+ 	struct folio *folio;
+ 	struct page *page;
+ 	pgtable_t pgtable;
+-	pmd_t old_pmd, _pmd;
++	pmd_t _pmd;
+ 	bool soft_dirty, uffd_wp = false, young = false, write = false;
+ 	bool anon_exclusive = false, dirty = false;
+ 	unsigned long addr;
+@@ -3157,7 +3158,8 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	VM_BUG_ON_VMA(vma->vm_start > haddr, vma);
+ 	VM_BUG_ON_VMA(vma->vm_end < haddr + HPAGE_PMD_SIZE, vma);
  
-@@ -3032,7 +3036,12 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
- 		break;
- 	case DAMOS_QUOTA_SOME_MEM_PSI_US:
- 		now_psi_total = damos_get_some_mem_psi_total();
--		goal->current_value = now_psi_total - goal->last_psi_total;
-+		/* uninitialized last_psi_total; make no effect this round */
-+		if (goal->last_psi_total == U64_MAX)
-+			goal->current_value = goal->target_value;
-+		else
-+			goal->current_value = now_psi_total -
-+				goal->last_psi_total;
- 		goal->last_psi_total = now_psi_total;
- 		break;
- 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index b643f9a83f14a..65443aba03300 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -751,19 +751,16 @@ static void damos_test_commit_quota_goal_for(struct kunit *test,
- 		struct damos_quota_goal *dst,
- 		struct damos_quota_goal *src)
- {
--	u64 dst_last_psi_total = 0;
--
--	if (dst->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
--		dst_last_psi_total = dst->last_psi_total;
- 	damos_commit_quota_goal(dst, src);
+-	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(*pmd) && !pmd_trans_huge(*pmd));
++	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(old_pmd) &&
++			!pmd_trans_huge(old_pmd));
  
- 	KUNIT_EXPECT_EQ(test, dst->metric, src->metric);
- 	KUNIT_EXPECT_EQ(test, dst->target_value, src->target_value);
- 	if (src->metric == DAMOS_QUOTA_USER_INPUT)
- 		KUNIT_EXPECT_EQ(test, dst->current_value, src->current_value);
--	if (dst_last_psi_total && src->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
--		KUNIT_EXPECT_EQ(test, dst->last_psi_total, dst_last_psi_total);
- 	switch (dst->metric) {
-+	case DAMOS_QUOTA_SOME_MEM_PSI_US:
-+		KUNIT_EXPECT_EQ(test, dst->last_psi_total, U64_MAX);
-+		break;
- 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
- 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
- 		KUNIT_EXPECT_EQ(test, dst->nid, src->nid);
+ 	count_vm_event(THP_SPLIT_PMD);
+ 
+@@ -3193,7 +3195,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		return;
+ 	}
+ 
+-	if (is_huge_zero_pmd(*pmd)) {
++	if (is_huge_zero_pmd(old_pmd)) {
+ 		/*
+ 		 * FIXME: Do we want to invalidate secondary mmu by calling
+ 		 * mmu_notifier_arch_invalidate_secondary_tlbs() see comments below
+@@ -3206,10 +3208,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		return __split_huge_zero_page_pmd(vma, haddr, pmd);
+ 	}
+ 
+-	if (pmd_is_migration_entry(*pmd)) {
++	if (pmd_is_migration_entry(old_pmd)) {
+ 		softleaf_t entry;
+ 
+-		old_pmd = *pmd;
+ 		entry = softleaf_from_pmd(old_pmd);
+ 		page = softleaf_to_page(entry);
+ 		folio = page_folio(page);
+@@ -3222,10 +3223,9 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 			anon_exclusive = softleaf_is_migration_read_exclusive(entry);
+ 		young = softleaf_is_migration_young(entry);
+ 		dirty = softleaf_is_migration_dirty(entry);
+-	} else if (pmd_is_device_private_entry(*pmd)) {
++	} else if (pmd_is_device_private_entry(old_pmd)) {
+ 		softleaf_t entry;
+ 
+-		old_pmd = *pmd;
+ 		entry = softleaf_from_pmd(old_pmd);
+ 		page = softleaf_to_page(entry);
+ 		folio = page_folio(page);
+@@ -3417,7 +3417,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	}
+ 	pte_unmap(pte);
+ 
+-	if (!pmd_is_migration_entry(*pmd))
++	if (!pmd_is_migration_entry(old_pmd))
+ 		folio_remove_rmap_pmd(folio, page, vma);
+ 	if (freeze)
+ 		put_page(page);
 -- 
-2.47.3
+2.34.1
+
