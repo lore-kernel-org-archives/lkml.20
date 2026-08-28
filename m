@@ -1,208 +1,172 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010051.outbound.protection.outlook.com [40.93.198.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421B03D9025;
-	Fri, 28 Aug 2026 08:31:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905892; cv=fail; b=DMLlWAEvi5fV44f4XeMdTkSXM5riIcl/OiA9qr4z7faebr5+mVpUmjtTEq9zP+15hgtBsCoKQ5R3XS+eb0GcyYrO2tZybMeUAPsyrkw2EeIC2lNG9CpXWLEyDH5rqKmBP5L22O+PkQvgdOU9frg3dASF8+O+RGBJWxFs6x/qrjM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905892; c=relaxed/simple;
-	bh=gcWZYTYkkL3t+WB0PsIeGXS9wqnpF6OovyJ2Yd34fUM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Yk/s0Wx0LE8wgA9PQ9MbedVlRhP3szGD+7b8iXjJ64b0GdaUiIQuY/fwjmriqBf33zgE/1Z1cQmZSUMTbm4e2mQ5cwhPe/6kcLLDiWenc7lLeEExME+6fj2TjXJrll4orWRHhOiMf1GBvMwi15xQwDh0Ew28PDfjvofKDZ+gQz8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o/DL9MJ2; arc=fail smtp.client-ip=40.93.198.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E1B31B823
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787905925; cv=none; b=ezMgfrfu2J3uOP8sLDSOB99Hi2Z+urw67dMzsloRea8Cv53r5lVunK3LDAQ4lVDv282iAMmHsho4IgB9HCYSHua7hqzOke/Mg9kHrDULeUSQ/8KBxHaY4FBzPBHDUzAJC/D9TeOj0fDP05745BE8Qn+j/bdHHfl6+Vi4RVO/vg4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787905925; c=relaxed/simple;
+	bh=lY9wqR5/ikqnh+/RV8zDWcYa0uqcVqHsypPo+22s70Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OgP/FuXWQNgknVzPqwR0GOVIOifEE1P1xPPamwveuOZQ2mU64dJk1Gkx1OXHoyotHlKoYHzyAcUBUymlGU7a5Irh1HYkrUNAu096Z/xNwToZT13bh5TXiCiBDcxQZFNZQzMYqflxLHOo6NBx/RUS7kJIaU87+5S+M9dctvAy1Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LtKboi9Z; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o/DL9MJ2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qqoMxerTUTpjPMJa1vB6Vhtg+YgmZNjCxSgtDMGjIY7L5dK0bcYYEwK+Mz9BJxzu0QCsFWdvBsSWQI7OMtdGbqsGj2JTJJqXrAuUI4oXdLSV4+3F4bjryuMVVUlzObbojGJpvP4VO66+KgfFoPKu51eJ8nJ8Usn2cyKTxMn+G+q2UR70vyuVgY1us9AHNDcy8tyUAsOa2eBF3Cw4wsZPZwy6CtabrBkqpC1IJaIG3h1gJRG7C3uVXnP8S1awJ1Hy/jVWzxIf8m8AW4k9GZaE6tRA2aEyFdjH5l/Dfvdwt3jX+p3L/yl8wfVxyvaRLKSLwpSB/m3Mhe/4XFZ/iOIuJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gcWZYTYkkL3t+WB0PsIeGXS9wqnpF6OovyJ2Yd34fUM=;
- b=d2dC1dFkDdAVe9I61cKH0Orb7GmqYFCI9zE6URZTj3o2/mEDAK0vUcpUZWrn1a7jZOwgLxOmzWLRTdl5NltrQXqdnHnT+UPLdkZ2kOJdUhlQrbNUBkw/06Nj8OqhWNJF8CCaR76VJUXGEocDJzrfiZgEth76RHmAr6xum+1j0aLtqonuB9oIrnfkTqVjfjpjap80gHEd9vUy3oRNCQqVER8DzFXBgmOpAJAebenGGhZmNIeGvYy1+77c2TgCHpqkn/OvBxebJFogy38QUc8CNFt6RSjbmPfE5e+mGjQGfBVwGL9pepwBN6UINp6O/n3aMhLsaVtvs8gOwIcpEdHPlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gcWZYTYkkL3t+WB0PsIeGXS9wqnpF6OovyJ2Yd34fUM=;
- b=o/DL9MJ2qvSuyeMUj/Ax0wyn5SZHuFbqgMKdCdOzPwj0RC+034EV3Q9m3U3g+CF6t3W0k4WFXHtEMMIuEDVvFj9b2DboK/7dZb+ElDFtjPkHgn/opcnVPKFg4MOX2TuBuD1NXTPv68gMKVPumeSBo/CheIZ6eCNMbytetzBPlfg=
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by SJ5PPFDF5E260D0.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 08:31:27 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 08:31:27 +0000
-From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, Matthew Brost
-	<matthew.brost@intel.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-Thread-Topic: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-Thread-Index: AQHdNrb7lReEpXy+F0Kp6tSXBWP37LazDQSAgAANE9CAAAQQgIAAAovg
-Date: Fri, 28 Aug 2026 08:31:27 +0000
-Message-ID:
- <IA0PR12MB820813A9D08CAF799558FB5A90AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
- <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
- <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
- <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
- <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
-In-Reply-To: <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-28T08:27:29.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|SJ5PPFDF5E260D0:EE_
-x-ms-office365-filtering-correlation-id: 4d0d7c66-d231-4995-8e7c-08df04dec0c2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- juySxho3AL3auIPoBpfsNRd78290NN3xpTAoiO/9ayl63NR55W9iHoL09X+QhBZTE4Rbg6qWgW21LeHAWwojT5ULqUNGtZMcckTnDn1xZsbMp+1ojNn4ajtqCQd6mP2CqCQyUdb5esS+cR/vofWU5Rqg1Sj/bUCzaNG0Vl8/Z8qBP94Aa31mfl8rhj/MqQ3RsZ9MZmRwDBZv6Eu5e9BfuIslZDAWkTlKFlVXhlMJgoPihwpRxoHXXJLaqmYf7K23ygfp9CzFUKoj8MtWOMWWZJaPv5OoUhfblqHsA8vTSaZMA8rU58fUSfPDKY+hnzeOmDIPlV2SsNj7xXspCMgeyAjyb5cbK6+Ur8CU/cWqNBhS6hfmfEXq5blqvLvvdA/8B1iYw2N0+xk+BoUGwD+TSt03dsJXHoa2VPggG8MVlHiDgY9adqN8OHu3fMIRY07/+GjgTNwM8ZH7H5IkEBKvjYmcXU2A3ww0SxECFn/YpYNxSlvJa69oXhIInpkzt/6NbIMLfCElIf+Dn8u7P2cNzmsIIbUZD5mgIK7GXQoBnuNUTqTPoHFfpZAicDx3cw7WPWu0b1a8JeinxU04DqZv0fWs0ssNkm83SBbAuI0jibDURi1zjzOsKGHKDf1/niQoQ68CXhr8Vv5lwk053cGQoTUFp5nDuLjAPBcygs+EE5QfruCaZE1Ej1sxYIGOX5XqjNIdKVkEKM+nJVmvG+joTS2GcfcCgRQt4TNqpbchSX8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8208.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Q1FSS2pnRHVUNWhWZit0MXpiSnFyR3lvOWQ2em1lN3FSOXNmYXVLVDVBNjdF?=
- =?utf-8?B?ZSttTUJVN1BtSmJ6eHRsYVhuaGpaa2ZlU2Rza0crOVdpalR5dkErK3QrdHZP?=
- =?utf-8?B?VUIyakZNRUJ4NXBxSkpZT2hPMDFCN0daL3lKZWF0WjBocFZuMTFGWS9SaHZJ?=
- =?utf-8?B?WjFsOU9Fc3AwQ0xxd3k2Skc4eTNFSE1NTnR4TzkrQzR4cHcrWkJhdEpoZlYy?=
- =?utf-8?B?ZkE3VFpjc0ZDSFVwdklHeUFmM1JqSFl1SmRqdTZyT0Y3b1hERTZIWmdYZ2Vn?=
- =?utf-8?B?cjB6WHptTWFMTlZzRWtNYXlDS2IydkgvWlRWTlh5YWQyczZyZERGSmNsa25Q?=
- =?utf-8?B?alREejZlbVhBMTk5emJIR3VUVmE2U21tSjduREtoQlBpejQ2cjlaTXlzV0ox?=
- =?utf-8?B?Vkd3ZndQR0JLbDA4Y2NGWFE5M2hiZXpSWXplQ2lIbXlwYW9UenpiQ3ppY0R3?=
- =?utf-8?B?QmJpZGFQQVVKTXlVenQzOVZXMjVORERGWVdpZ3Uybm1lR01Qd29PVGRVbnVw?=
- =?utf-8?B?VjR5OTQ1UnFwbzM3K1BGVU8vUzJtV3pndUs1ZGM2S3RId0luWk9lN1VGMEc1?=
- =?utf-8?B?RVZKem5YbGpGcDJPemZ1Tlh3djlVbHo0MUpnODRTaHdTbzhwU3NINm40Z0Y1?=
- =?utf-8?B?NnZiMXc0L1EzWWFNcVFFQTN0ajNvNkNaaVdBNnpPWDJjSFpndXYrOGlZWERZ?=
- =?utf-8?B?K2llQ3RXUzV4bitnZWlVZm9NK2hjaEdLcTBwYUJ5NVd0M2JVb25BSmxqVGJF?=
- =?utf-8?B?TFgyT2FEMEx0cGx0Ynl1UUE2aTBkL3JIZy96T2FWdjEyVVU1eitud2x0RHhY?=
- =?utf-8?B?S0NLRHp5bkJpV2pHRlJGQ2NmcEtYaG9Ub2VnVjVqU2pVaDBHQVI0dUlJMlhR?=
- =?utf-8?B?YXFVZTJnT3A1b2FBOEs1and3KzNETEo5ck0wenZvWkNsUkVzUHJWUVZZK1ZZ?=
- =?utf-8?B?L0c5Smh5VFB3U21JOXJrVGlyY2xCOEdtSnJ4SEpnUUM4amx3ZjIzbTJIQUJD?=
- =?utf-8?B?b0daTytZYTZKcVNVRTZhZzZiMjU2eC9ZejU4d1RnWTdQSm9IV3Bmei9JeWpw?=
- =?utf-8?B?clc2K05Hc0pOaGN5SDFwaG9DNHVZbFB1OGczMWx2UEFRTjNRUFVZbjBhVkJ5?=
- =?utf-8?B?d3hIeCtPUEthcEJHaDNPTnl4cERNRDIvTjRrUzErYVptQkpCakgwYlhLZUtn?=
- =?utf-8?B?UzZPdlU1ZmdiajBLZGh5WmJFWEhmK0w0VE50VlRvN0lTUGRPRjZnM3hjb0xE?=
- =?utf-8?B?b0VSMVJvbkZyTmZsVVpqdENoQ1M0d1Z1Yi84cEdJMlJzaVZReDgvQVVoSDcv?=
- =?utf-8?B?aDBRcXQ4bjJwQXBrdXRFQ0tHc1hiQkhMZy9vSzhMMDNBWDFnMXZVcXlHTkdS?=
- =?utf-8?B?aFZHWmx2MDRnZS9IZU4vbldINDViOVhJNWNEc01qSkp5alBXRFNQcGVWdkNE?=
- =?utf-8?B?OWtuc01ZTmVNcGRJdHRKb1NQcVVhMFNPa0hDQWNDQVFhNjR6RjNPZVpleEp1?=
- =?utf-8?B?Q3VlU1lwd1B5QWQ2MkhibWFVSURoR0ZXUkp5K1M4UEN3eDR1Sjh5ZTRUam1p?=
- =?utf-8?B?VjUrV21abE80N2k4NzdDR3RBOFhDV2ZYeG1MZktXNFVCdTFDVGoxUTVHQTlC?=
- =?utf-8?B?TVZLN3c2T3I4VlRTSFhkYjdibDdsVUpjWDFZYS9BMHlqTUk4YjB6TnV4Q0pF?=
- =?utf-8?B?RjFHY1V1VERobXlkUzRZZ21wV3h5M0VCUE5IdzgvRnQrb0tCQ29OaDFDRVJt?=
- =?utf-8?B?M25FSi9WWWxwUjdNOW5BeXgrMkQ4TGtLVXVqZ3VOUmxlajQrdDFIRGRlTXNB?=
- =?utf-8?B?SHFVcnQ1b2dXWlhRUUlzanFCNFNTanZyQXo3ME0xZ2srR3NyL2gyVHZJbjF4?=
- =?utf-8?B?M2J6VlpneExycVFleXNlRXNabmZjTFR3WTNmQ1F2L3RLYlI2cmVHUngxTm5y?=
- =?utf-8?B?U0o1MVVDOUtVV1dLK1kwYSt3U3NhZmNXRDkvR0JNV3N5MW1tcEg3dU1Pdm5T?=
- =?utf-8?B?SHM1VDV0bVNnWU9qcWZPUzhoclFKcWpKbDlJYmVZS2F1ZGp1bk1mVHZSaytq?=
- =?utf-8?B?ZHBORHE4Z3YyL0t6NzIrZzVWWEFNd3JIZHU2eGVwUU9DYmxQNG9McGV6RjMx?=
- =?utf-8?B?YU0zMFBCcXpqaFhERk4yWWtYeW1SNURkcGtsS2o0Ni82R05SUnUrRzRmcHdt?=
- =?utf-8?B?OVhaZVBLS01Md3pMbVhmenpMQktSZWZ1UUo4STVhdTVCVmt4SnlqL2QrUmFs?=
- =?utf-8?B?bFFVcStmSFNuc2hrQ3pSaU9sdGVXVW9mL1AzNnd3YUtZN1pWZHBkNm1jZHRm?=
- =?utf-8?Q?MvJ0ICRbITaHD1f3wy?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LtKboi9Z"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cc891373e0so5678825ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787905922; x=1788510722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
+        b=LtKboi9Zu+B4e7ak5omHnrRHIx/jN4FdGqoV2mye7trB4bWRrHL8xqVAiiReDQHb75
+         P1dXbSOTfEi9lyY9MbB/lBoFCycUKwxOEndPt73JTESIBIDwYviKRGvuoz4HcTqtzX+J
+         Knxjgsp8VMcA3tuKy3uruwC3VEevz1JE9jRHDjJvIZM88u7zzFHkLVFLPObD0wjt6xRb
+         mJiBXFwHQPqA3qVYiLj8x3t33cUCqkMwYCKlYIOj1m9LY1FRyfkr8BjwPq46bPao0cPH
+         srQ7wIx2QThR43GYj+IeIqRDzlX3fFWHqyEb7OUYzTfvCtQRLYsGv5ITYuQL94SFe7sf
+         Posg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787905922; x=1788510722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
+        b=Cth9NJ7EPCw7VCs2BdB30QHOPimWYC0g60Pk8vSMpUPSps8xuFKZtJd0QSC7+8ZGM5
+         iwYpHAZEKN8RUSsQuE8A/4RX9zi3p8wGQiVke7WSzdb+QOEy4iPl8Y8GL4CREXaGwz34
+         IS1qMqov3iAj/8ZJ2RPVCRQhXG/CQZfHvOeSjpzzoBwjZxfxH0DGlRL+ZmL/JhWBp480
+         4uiSGbYah4maF/8piB5nZX7dVdZRqu3mkeMXv3VBklnJMpMiSl5OI8IT/XzpJx0ncJk5
+         5elDEZ+tUhwvEsNkKj/NZYb37Xh5Wxw6plWlg1RdM0+lkcGhLyLIT3+kboxNF9Qc3qH/
+         p7Dg==
+X-Gm-Message-State: AFuF++lqYoNokWSEsJkhyCHLPkrmHK5EWOopdJdE2rV6zzVleUI4lRz1
+	7z4vkDMsX5cO0DP4hhHxgNcIGDQJ/TKlGe3crKRr7XsIUDasoMq7TWV1
+X-Gm-Gg: AR+sD11TdAh67JP4iaLe+tEyjuoNF/xUdbqxLqqWpQOCNNUJxGDsoCEqmQ0RTWMDfg+
+	8nNYjGoSQYcJuEc3CXwxnQQ1lEVSPRTvGBvTJpkYtT0dqvE8hO3wOUQ3SAfs23YRQCWoRkeW8vR
+	hIZMXnyR6vhm9HApl6NRjs3Ol59m4YGkJxXxoYLR/Pw6PogFyqTNgiO7zmVoqvjs7vxxUFEnnHD
+	fI3IgqB4FGQE1rucTA5a7WbgXYEbLTQPvkUTDrf2/YMWg55Nyt6SnBZUXUgzHKLTZWUQDaaRtzm
+	PDwfoxyxD9+HZ3Gj92WYNwNfqivFHHaM4fe2TKa3ZiwFOerbPRx2u+QYa56Oi+D/empaxilkSZu
+	82IA3zJlnoS3G/fqnG3Ws+maHxZwlXPRKHoG8r8dleEYmMBFnZVSYjmL5YzqD9SWut4bLc9q+gd
+	q9IFU+QwUUaHUa0Vtaw4Ebz3iO/zHyYAL9x7AsBhbs9mOph4y2Mm7qCfFyoXEIZ6kP1K5g1nL2J
+	F29jz13lAWgXZv/JIuBW1PMMA==
+X-Received: by 2002:a17:903:22d0:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d74dc2ff23mr87286795ad.4.1787905922221;
+        Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
+Received: from localhost.localdomain ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75986d3b7sm3306095ad.41.2026.08.28.01.31.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 28 Aug 2026 01:32:01 -0700 (PDT)
+From: Hao Jia <jiahao.kernel@gmail.com>
+To: minchan@kernel.org,
+	senozhatsky@chromium.org,
+	axboe@kernel.dk,
+	akpm@linux-foundation.org,
+	bgeffon@google.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+Date: Fri, 28 Aug 2026 16:31:49 +0800
+Message-Id: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d0d7c66-d231-4995-8e7c-08df04dec0c2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 08:31:27.2855
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gSCWZwGDxx6ykx3Tg0hLXPi8srmo7P1GIYrpWs8YRi2VjnTcHaAjnq7A+5LoKK+vOBMA6VSnGEC96oXTyBzsOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFDF5E260D0
+Content-Transfer-Encoding: 8bit
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2Vu
-aWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBGcmlkYXks
-IEF1Z3VzdCAyOCwgMjAyNiAxOjQ4IFBNDQo+IFRvOiBTSEFOTVVHQU0sIFNSSU5JVkFTQU4gPFNS
-SU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+Ow0KPiBNYXR0aGV3IEJyb3N0IDxtYXR0aGV3LmJy
-b3N0QGludGVsLmNvbT4NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
-ZXJAYW1kLmNvbT47IE1hYXJ0ZW4gTGFua2hvcnN0DQo+IDxtYWFydGVuLmxhbmtob3JzdEBsaW51
-eC5pbnRlbC5jb20+OyBNYXhpbWUgUmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+Ow0KPiBUaG9t
-YXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT47IERhdmlkIEFpcmxpZQ0KPiA8YWly
-bGllZEBnbWFpbC5jb20+OyBTaW1vbmEgVmV0dGVyIDxzaW1vbmFAZmZ3bGwuY2g+OyBTdW1pdCBT
-ZW13YWwNCj4gPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPjsgVGhvbWFzIEhlbGxzdHLDtm0NCj4g
-PHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPjsgZHJpLWRldmVsQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZzsgaW50ZWwtDQo+IHhlQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtbWVk
-aWFAdmdlci5rZXJuZWwub3JnOyBsaW5hcm8tbW0tDQo+IHNpZ0BsaXN0cy5saW5hcm8ub3JnOyBs
-aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDEvMl0gZHJtOiBBZGQgY29tbW9uIGRybV91c2Vy
-X2ZlbmNlIGhlbHBlcg0KPg0KPiBPbiA4LzI4LzI2IDEwOjA2LCBTSEFOTVVHQU0sIFNSSU5JVkFT
-QU4gd3JvdGU6DQo+IC4uLg0KPiA+Pj4gKy8qKg0KPiA+Pj4gKyAqIHN0cnVjdCBkcm1fdXNlcl9m
-ZW5jZSAtIGVtYmVkZGFibGUgRFJNIHVzZXIgZmVuY2UNCj4gPj4+ICsgKg0KPiA+Pj4gKyAqIERy
-aXZlcnMgZW1iZWQgdGhpcyBpbiB0aGVpciBvd24gc3RydWN0dXJlIGFuZCBpbXBsZW1lbnQNCj4g
-Pj4+ICsgKiAmZHJtX3VzZXJfZmVuY2Vfb3BzLiBDYWxsIGRybV91c2VyX2ZlbmNlX2luaXQoKSBh
-dCBjcmVhdGlvbiBhbmQNCj4gPj4+ICsgKiBkcm1fdXNlcl9mZW5jZV9hZGRfY2FsbGJhY2soKSB0
-byBhcm0gb24gYSBkbWEtZmVuY2UuDQo+ID4+PiArICogQ2FsbCBkcm1fdXNlcl9mZW5jZV9jYW5j
-ZWxfc3luYygpIGJlZm9yZSBkcml2ZXIgdGVhcmRvd24uDQo+ID4+PiArICovDQo+ID4+PiArc3Ry
-dWN0IGRybV91c2VyX2ZlbmNlIHsNCj4gPj4NCj4gPj4gU2hvdWxkIHRoaXMgY29tbW9uIGxheWVy
-IGJlIHNwbGl0IGludG8gdHdvIGRpc3RpbmN0IGNvbmNlcHRzPw0KPiA+Pg0KPiA+PiAtIGRybV93
-b3JrX2ZlbmNlOiA5MCUgb2Ygd2hhdCBpcyBoZXJlLCBtaW51cyB0aGUga3RocmVhZF91c2VfbW0o
-KSBhbmQNCj4gPj4gICBtbS1yZWxhdGVkIGNvZGUuDQo+ID4+IC0gZHJtX3VzZXJfZmVuY2U6IGEg
-c3ViY2xhc3Mgb2YgZHJtX3dvcmtfZmVuY2UgdGhhdCBhZGRzIHRoZQ0KPiA+PiAgIGt0aHJlYWRf
-dXNlX21tKCkgYW5kIG1tLXJlbGF0ZWQgY29kZS4NCj4gPj4NCj4gPj4gSSBzdWdnZXN0IHRoaXMg
-YmVjYXVzZSBJIHdhcyB0aGlua2luZyBhYm91dCBpdCB0aGUgb3RoZXIgZGF5IChJDQo+ID4+IGZv
-cmdldCB0aGUgZXhhY3QNCj4gPj4gY29udGV4dCkgYW5kIHJlY29uc2lkZXJlZCBhIHBhdHRlcm4g
-d2hlcmUgYSBmZW5jZSBzaWduYWxzIGFuZCB0aGVuIEkNCj4gPj4gbmVlZCBhIHdvcmtlciBiZWNh
-dXNlIHNvbWUgd29yayBtdXN0IGJlIGRvbmUgb3V0c2lkZSBvZiBJUlEgY29udGV4dC4NCj4gPj4g
-QSB1c2VyIGZlbmNlIGlzIG9uZSBleGFtcGxlLCBzaW5jZSBjb3B5X3RvX3VzZXIoKSBjYW4gZmF1
-bHQsIHdoaWNoIGlzDQo+ID4+IG5vdCBhbGxvd2VkIGluIElSUSBjb250ZXh0LiBBdCB2YXJpb3Vz
-IHRpbWVzIGluIFhlIHdlJ3ZlIGhhZCBtdWx0aXBsZQ0KPiA+PiBwYXR0ZXJucyBsaWtlIHRoaXMs
-IGFsdGhvdWdoIGF0IHRoZSBtb21lbnQgdXNlciBmZW5jZXMgYXJlIHByb2JhYmx5DQo+ID4+IHRo
-ZSBvbmx5IGNhc2UgdGhhdCByZXF1aXJlcyBpdC4gSWYgd2UgbG9va2VkIGFjcm9zcyBEUk0gYXMg
-YSB3aG9sZSwgSSBzdXNwZWN0DQo+IHdlJ2QgZmluZCB0aGlzIHBhdHRlcm4gb3Blbi1jb2RlZCBp
-biBhIG51bWJlciBvZiBwbGFjZXMuDQo+ID4+DQo+ID4+IFllcywgZHJtX3VzZXJfZmVuY2Ugd291
-bGQgYmUgYSB2ZXJ5IHRoaW4gbGF5ZXIgb24gdG9wIG9mDQo+ID4+IGRybV93b3JrX2ZlbmNlLCBi
-dXQgSSBzdGlsbCBzZWUgdmFsdWUgaW4gdGhlIHNwbGl0Lg0KPiA+DQo+ID4gSGkgTWF0dCwNCj4g
-Pg0KPiA+IFRoYW5rcyBmb3IgdGhlIHJldmlldyBhbmQgZm9yIGJlaW5nIHN1cHBvcnRpdmUgb2Yg
-dGhlIGlkZWEuDQo+ID4NCj4gPiBUaGUgc3BsaXQgaW50byBkcm1fd29ya19mZW5jZSAoZ2VuZXJh
-bCBmZW5jZS10by13b3JrcXVldWUgcGF0dGVybikgYW5kDQo+ID4gZHJtX3VzZXJfZmVuY2UgKHN1
-YmNsYXNzIGFkZGluZyBrdGhyZWFkX3VzZV9tbSkgbWFrZXMgc2Vuc2UuIEknbGwNCj4gPiByZXN0
-cnVjdHVyZSB2NSBhcyBmb2xsb3dzOg0KPiA+DQo+ID4gICBkcm1fd29ya19mZW5jZToga3JlZiwg
-d29ya19zdHJ1Y3QsIGRtYV9mZW5jZV9jYiwgc3RvcmVkIGZlbmNlIHJlZiwNCj4gPiAgICAgICAg
-ICAgICAgICAgICB3cSwgb3BzIOKAlCBhZGRfY2FsbGJhY2ssIGNhbmNlbCwgY2FuY2VsX3N5bmMN
-Cj4NCj4gWWVhaCwgdGhpcyBwYXR0ZXJuIGNhbWUgdXAgc28gb2Z0ZW4gdGhhdCBJIGFscmVhZHkg
-Y29uc2lkZXJlZCBhZGRpbmcgaXQgdG8gdGhlIGNvcmUNCj4gZG1hX2ZlbmNlIGZyYW1ld29yay4N
-Cg0KSGkgQ2hyaXN0aWFuLA0KDQpUaGFua3MgZm9yIHRoZSBmZWVkYmFjay4NCg0KT24gZG1hX2Zl
-bmNlX3dvcms6IHdvdWxkIHlvdSBwcmVmZXIgSSBwbGFjZSB0aGUgZ2VuZXJpYyBmZW5jZS10by13
-b3JrDQpoZWxwZXIgZGlyZWN0bHkgaW4gdGhlIGNvcmUgZG1hX2ZlbmNlIGZyYW1ld29yayAoZHJp
-dmVycy9kbWEtYnVmLyksDQpvciBpcyBzdGFydGluZyB3aXRoIGRybV93b3JrX2ZlbmNlIGluIERS
-TSBhbmQgcHJvbW90aW5nIGl0IGxhdGVyIGFsc28NCmFjY2VwdGFibGU/DQoNCkknbGwgYWRkIHRo
-ZSB2YWx1ZSBjb21wYXJpc29uIGxvZ2ljIGFuZCB3aWxsIGFkZCBhIGNsZWFyIG5vdGUgdGhhdCB0
-aGlzIGNhbm5vdCBiZQ0KdXNlZCB0byBpbXBsZW1lbnQgZG1hX2ZlbmNlX29wcy4NCg0KVGhhbmtz
-LA0KU3JpbmkNCg==
+From: Hao Jia <jiahao1@lixiang.com>
+
+After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
+idle_store() computes the idle cutoff as:
+
+	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
+
+Because the left operand is cast to u32, when age_sec exceeds the current
+uptime the subtraction wraps modulo 2^32 and the huge result is
+zero-extended into the s64 cutoff. mark_idle() then marks every entry as
+idle instead of matching nothing. For instance, running
+
+	echo 86400 > /sys/block/zramX/idle
+
+on a machine up for only two minutes marks all newly written pages idle
+and hands them to idle writeback and recompression.
+
+No slot can have been accessed before the system booted, so an age_sec
+that reaches back past uptime cannot match any slot. Return early in that
+case, without walking the table or taking any slot locks.
+
+Track the cutoff as time64_t rather than ktime_t. Both cutoff and
+ac_time are boot-time values in seconds, so a plain arithmetic
+comparison against ac_time in mark_idle() is correct and no ktime
+helpers are needed.
+
+Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
+Cc: stable@vger.kernel.org
+Suggested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+---
+ drivers/block/zram/zram_drv.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index a9b3bb1d3bef..4ba0f77b2abd 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -415,7 +415,7 @@ static ssize_t mem_used_max_store(struct device *dev,
+  * Mark all pages which are older than or equal to cutoff as IDLE.
+  * Callers should hold the zram init lock in read mode
+  */
+-static void mark_idle(struct zram *zram, ktime_t cutoff)
++static void mark_idle(struct zram *zram, time64_t cutoff)
+ {
+ 	int is_idle = 1;
+ 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+@@ -439,7 +439,7 @@ static void mark_idle(struct zram *zram, ktime_t cutoff)
+ 
+ #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
+ 		is_idle = !cutoff ||
+-			ktime_after(cutoff, zram->table[index].attr.ac_time);
++			cutoff > zram->table[index].attr.ac_time;
+ #endif
+ 		if (is_idle)
+ 			set_slot_flag(zram, index, ZRAM_IDLE);
+@@ -453,21 +453,26 @@ static ssize_t idle_store(struct device *dev, struct device_attribute *attr,
+ 			  const char *buf, size_t len)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+-	ktime_t cutoff = 0;
++	time64_t cutoff = 0;
+ 
+ 	if (!sysfs_streq(buf, "all")) {
+ 		/*
+ 		 * If it did not parse as 'all' try to treat it as an integer
+ 		 * when we have memory tracking enabled.
+ 		 */
++		time64_t uptime;
+ 		u32 age_sec;
+ 
+-		if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
+-		    !kstrtouint(buf, 0, &age_sec))
+-			cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
+-					   age_sec);
+-		else
++		if (!IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) ||
++		    kstrtouint(buf, 0, &age_sec))
+ 			return -EINVAL;
++
++		/* No slot can be older than the system uptime */
++		uptime = ktime_get_boottime_seconds();
++		if (age_sec >= uptime)
++			return len;
++
++		cutoff = uptime - age_sec;
+ 	}
+ 
+ 	guard(rwsem_read)(&zram->dev_lock);
+-- 
+2.34.1
+
