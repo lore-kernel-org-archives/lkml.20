@@ -1,625 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF861390230;
-	Fri, 28 Aug 2026 09:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55ED397692
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908683; cv=none; b=nAmNxZScrhjdYRBPBV8LS7cazUqi2EnVVMEeM9Wqkb/IZPeEME7KSnwuNrG7UY+6/UuhJJUyMQMVBq6RiFmvmC+uPEVHEJpaLZiktetVnol+VIhfDmOdS+ZAHOXgHIaStJf+VlfiSoAK5GALsoy+ysD1Mc1R4HR7EJEjAry7VQA=
+	t=1787908690; cv=none; b=Ks8Bpo4fSvS1obwmUo0n6SLji78TAsq1ACDkF/SwRL9iQMYiddXzk7sRZvrZNL+38id8rSHTAUPG65X/zIV933KvtmpBhx+H44gKyg1wYpYWTIn40hvcENiRdARqxxP9Ba+lI4IjO+qdeNEREaRQgeTXpgFo6G0IL1M/p58fQNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908683; c=relaxed/simple;
-	bh=DJOXEt0mghiu7MB6gTHdmMWsgaen41ZJGcI3+dRZvoM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=svZDP/fkt8FrN0tzm4glnMOcmky6BwF8qqcpYh4zxImDt4enZGxmSFEOchYqLmZnihXurnJrKOHpnVvlFjkuLqWtz/lfGoOE0k7j9n4IDEsrnvtmmILeg7Jh2p0XkJx+3qIG0EuOOuvcC8C5JGifH7nhvlgP9hYNjJVaDdMi9o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsMnJ9Sn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787908690; c=relaxed/simple;
+	bh=LzNLsUOw5eYBsVgYAUV0RPvY/OPvLva9xUTPUw3M3rA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mBITi1ZeSkEguE6rocfPflT9A2PN052dMOmD48tz99NoHl7bxmBKW4T1kOrrM8y/FoW8Lhw9GIaj3mp2Lhf2ZqwxZWfJAveAvM3Xw6wbjj38wu1DRjnPWylci4zTDPQaHwWlc2d8dK+/zx653JQkByCKbqHV5kWPAfCdwo0o6jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V2oxIeTd; arc=none smtp.client-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsMnJ9Sn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C4AB5C2BCFA;
-	Fri, 28 Aug 2026 09:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787908682;
-	bh=DJOXEt0mghiu7MB6gTHdmMWsgaen41ZJGcI3+dRZvoM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lsMnJ9Sn2n5D9JpDxAuVECk5SOsU3ZO3JrcPgcYX4Qw9tCdua+pl+HElN4CuCRo2n
-	 XX1wxy9VAwrhUtGI7VN1y3Rc2ehSthLfUEOERMvykockfeAVj1Zx5FbJscKMf03Z34
-	 TtdZtSa7hTo+0g8f7Ys/SprQold5Kyp0DNNoW6SEcVHJrqtqmAttvM/Rv5xZyvJIvh
-	 dspV6oOWMnMbXWyfWg6Bt5L+wv0HJT3/sQcG8zhsscAyyM6GpWUT7GzYPamSx6lQZg
-	 1UQq+utoWnUkwo+T/TgR2pOf7xr/JuzKBpqcR3Eok+m5a+EjV+26RoeFRExX4kbyeW
-	 3zBDpXS1L7SUg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B266FC61DB9;
-	Fri, 28 Aug 2026 09:18:02 +0000 (UTC)
-From: Jack Wu via B4 Relay <devnull+jackbb_wu.compal.com@kernel.org>
-Date: Fri, 28 Aug 2026 17:17:23 +0800
-Subject: [PATCH v7 6/6] net: wwan: t9xx: Add AT & MBIM WWAN ports
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V2oxIeTd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LzNLsUOw5eYBsVgYAUV0RPvY/OPvLva9xUTPUw3M3rA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787908682; v=1; x=1788513482;
+ b=V2oxIeTdgWG7J7VsdjgRJGwVb27Rzgt5fagHIxpbhTTK3NIMGHWKrS/NeVBMNn8NvKkDfZy4
+ OblkCobz6C+VGg+T/0YcIR3F41nWs/2tjnV5jbHc7okAMD9F4bdPzYMlq6EHNvDFSKIS1LDEUaz
+ +aTiihN+3cyL7U73ddZTiFAU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3ee0ae8b69a5b7fd;
+	Fri, 28 Aug 2026 09:18:02 +0000
+X-Mizu-Trace-ID: 3ee0ae8b69a5b7fd
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>
+Cc: Ye Liu <liuye@kylinos.cn>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory pressure
+Date: Fri, 28 Aug 2026 17:17:53 +0800
+Message-Id: <20260828091753.299295-1-ye.liu@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-t9xx_driver_v1-v7-6-bf8f6074d88a@compal.com>
-References: <20260828-t9xx_driver_v1-v7-0-bf8f6074d88a@compal.com>
-In-Reply-To: <20260828-t9xx_driver_v1-v7-0-bf8f6074d88a@compal.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Sergey Ryazanov <ryazanov.s.a@gmail.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Jack Wu <jackbb_wu@compal.com>, Wen-Zhi Huang <wen-zhi.huang@mediatek.com>, 
- Shi-Wei Yeh <shi-wei.yeh@mediatek.com>, 
- Minano Tseng <Minano.tseng@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Robert Yu <robert_yu@compal.com>, 
- Jeff Chang <Jeff_Chang@compal.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787908678; l=15388;
- i=jackbb_wu@compal.com; s=20260526; h=from:subject:message-id;
- bh=x+zt6j7yh9BDOgWonhOoUTU8TiEbAkCWyeEOT4WWMIc=;
- b=A3F6YS3BXDba9FoqEf1+My9Y1auxbRQFnL2HQw40MCBh+bRmMyVvymAbjBitQZpaodK4tHPGu
- gRknB47e8cYD+3cH4S57kZsHG7kSDrAVpfpaoVa/IyhxvfAMJjuhgJe
-X-Developer-Key: i=jackbb_wu@compal.com; a=ed25519;
- pk=VH1prTWixNl8OEUPPSfII3p46MzJpQN8J3+ecE1tZXg=
-X-Endpoint-Received: by B4 Relay for jackbb_wu@compal.com/20260526 with
- auth_id=793
-X-Original-From: Jack Wu <jackbb_wu@compal.com>
-Reply-To: jackbb_wu@compal.com
+Content-Transfer-Encoding: 8bit
 
-From: Jack Wu <jackbb_wu@compal.com>
+From: Ye Liu <liuye@kylinos.cn>
 
-Add AT & MBIM ports to the port infrastructure.
-The WWAN initialization method is responsible for creating the
-corresponding ports using the WWAN framework infrastructure. The
-implemented WWAN port operations are start, stop, tx, tx_blocking
-and tx_poll.
+The vmap_purge_lock mutex can be held for an extended period by
+__purge_vmap_area_lazy() which calls flush_work() to wait for
+purge_vmap_node workers while holding the lock.  Under memory
+pressure, those workers may themselves be blocked in direct
+reclaim trying to acquire the same lock via the
+vmap_node_shrink_scan() shrinker callback, creating a circular
+dependency that deadlocks the entire system.
 
-Signed-off-by: Jack Wu <jackbb_wu@compal.com>
+Two places acquire vmap_purge_lock from paths that can be reached
+during direct reclaim:
+
+1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
+   mutex_trylock().  This is a shrinker that only decays the vmap
+   pool and returns SHRINK_STOP without freeing memory; skipping a
+   decay cycle when the lock is contended is harmless and prevents
+   tasks from piling up on the mutex in the direct reclaim path.
+
+2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
+   mutex_trylock().  This is called from the vmalloc allocation
+   overflow path; if trylock fails, another thread is already
+   purging and the allocator's retry will find freed space.  The
+   notifier chain provides a fallback if the retry still fails.
+
+Both trylock failures break the circular dependency: the lock
+holder's flush_work() can complete because workers are no longer
+blocked on vmap_purge_lock in the direct reclaim path.
+
+Fixes: 7679ba6b36db ("mm: vmalloc: add a shrinker to drain vmap pools")
+Suggested-by: Uladzislau Rezki <urezki@gmail.com>
+Suggested-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
- drivers/net/wwan/t9xx/mtk_port.c               |  30 ++
- drivers/net/wwan/t9xx/mtk_port.h               |  13 +
- drivers/net/wwan/t9xx/mtk_port_io.c            | 361 +++++++++++++++++++++++++
- drivers/net/wwan/t9xx/mtk_port_io.h            |   5 +
- drivers/net/wwan/t9xx/pcie/mtk_ctrl_cfg_m9xx.c |   8 +
- 5 files changed, 417 insertions(+)
+v2:
+ - Use mutex_trylock instead of mutex_lock to acquire vmap_purge_lock,
+   as suggested by Uladzislau Rezki and Dev Jain.
+ - Link: https://lore.kernel.org/all/20260824095020.1225189-1-ye.liu@linux.dev/
+ mm/vmalloc.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wwan/t9xx/mtk_port.c b/drivers/net/wwan/t9xx/mtk_port.c
-index 82eb0feb84fe..1a7f097ca7df 100644
---- a/drivers/net/wwan/t9xx/mtk_port.c
-+++ b/drivers/net/wwan/t9xx/mtk_port.c
-@@ -822,6 +822,29 @@ int mtk_port_ch_disable(struct mtk_port *port)
- 	return ret;
- }
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index bea9f76ed7e7..e5c68b795a3e 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -2440,7 +2440,8 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
+ static void reclaim_and_purge_vmap_areas(void)
  
-+static int mtk_port_enable_by_type(struct mtk_port_mngr *port_mngr, int tbl_type)
-+{
-+	struct mtk_port **ports;
-+	int ret, idx;
-+
-+	if (tbl_type < 0 || tbl_type >= PORT_TBL_MAX)
-+		return -EINVAL;
-+
-+	ports = kcalloc(port_mngr->port_cnt, sizeof(struct mtk_port *), GFP_KERNEL);
-+	if (!ports)
-+		return -ENOMEM;
-+
-+	ret = radix_tree_gang_lookup(&port_mngr->port_tbl[tbl_type],
-+				     (void **)ports, 0, port_mngr->port_cnt);
-+	for (idx = 0; idx < ret; idx++) {
-+		if (ports[idx]->enable)
-+			ports_ops[ports[idx]->info.type]->enable(ports[idx]);
-+	}
-+
-+	kfree(ports);
-+	return 0;
-+}
-+
- static void mtk_port_disable(struct mtk_port_mngr *port_mngr)
  {
- 	struct radix_tree_iter iter;
-@@ -843,6 +866,7 @@ static void mtk_port_disable(struct mtk_port_mngr *port_mngr)
- void mtk_port_mngr_fsm_state_handler(struct mtk_fsm_param *fsm_param, void *arg)
- {
- 	struct mtk_port_mngr *port_mngr;
-+	int ret;
- 
- 	if (!fsm_param || !arg)
- 		return;
-@@ -853,6 +877,12 @@ void mtk_port_mngr_fsm_state_handler(struct mtk_fsm_param *fsm_param, void *arg)
- 	case FSM_STATE_OFF:
- 		mtk_port_disable(port_mngr);
- 		break;
-+	case FSM_STATE_READY:
-+		ret = mtk_port_enable_by_type(port_mngr, PORT_TBL_MD);
-+		if (ret)
-+			dev_err(port_mngr->ctrl_blk->mdev->dev,
-+				"Failed to enable MD ports: %d\n", ret);
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/net/wwan/t9xx/mtk_port.h b/drivers/net/wwan/t9xx/mtk_port.h
-index ba69eb37c7f9..f009715bf22c 100644
---- a/drivers/net/wwan/t9xx/mtk_port.h
-+++ b/drivers/net/wwan/t9xx/mtk_port.h
-@@ -56,6 +56,10 @@ enum mtk_ccci_ch {
- 	/* to MD */
- 	CCCI_CONTROL_RX				= 0x2000,
- 	CCCI_CONTROL_TX				= 0x2001,
-+	CCCI_UART2_RX				= 0x200A,
-+	CCCI_UART2_TX				= 0x200C,
-+	CCCI_MBIM_RX				= 0x20D0,
-+	CCCI_MBIM_TX				= 0x20D1,
- };
- 
- enum mtk_port_flag {
-@@ -73,6 +77,7 @@ enum mtk_port_tbl {
- 
- enum mtk_port_type {
- 	PORT_TYPE_INTERNAL,
-+	PORT_TYPE_WWAN,
- 	PORT_TYPE_MAX
- };
- 
-@@ -81,6 +86,13 @@ struct mtk_internal_port {
- 	int (*recv_cb)(void *arg, struct sk_buff *skb);
- };
- 
-+struct mtk_wwan_port {
-+	/* w_lock protects wwan_port when recv data and disable port at the same time */
-+	struct mutex w_lock;
-+	int w_type;
-+	void *w_port;
-+};
-+
- struct mtk_port_cfg {
- 	enum mtk_ccci_ch tx_ch;
- 	enum mtk_ccci_ch rx_ch;
-@@ -110,6 +122,7 @@ struct mtk_port {
- 	char dev_str[MTK_DEV_STR_LEN];
- 	struct mtk_port_mngr *port_mngr;
- 	struct mtk_internal_port i_priv;
-+	struct mtk_wwan_port w_priv;
- };
- 
- struct mtk_port_mngr {
-diff --git a/drivers/net/wwan/t9xx/mtk_port_io.c b/drivers/net/wwan/t9xx/mtk_port_io.c
-index a4e264cd5f63..e6ff013532b6 100644
---- a/drivers/net/wwan/t9xx/mtk_port_io.c
-+++ b/drivers/net/wwan/t9xx/mtk_port_io.c
-@@ -3,6 +3,10 @@
-  * Copyright (c) 2022, MediaTek Inc.
-  */
- #include <linux/netdevice.h>
-+#include <linux/poll.h>
-+#include <linux/slab.h>
-+#include <linux/wait.h>
-+#include <linux/wwan.h>
- 
- #include "mtk_port_io.h"
- 
-@@ -41,6 +45,145 @@ static void mtk_port_struct_init(struct mtk_port *port)
- 	init_waitqueue_head(&port->rx_wq);
- }
- 
-+static int mtk_port_copy_data_from(void *to, union user_buf from, unsigned int len,
-+				   unsigned int offset, bool from_user_space)
-+{
-+	if (from_user_space) {
-+		if (copy_from_user(to, from.ubuf + offset, len))
-+			return -EINVAL;
-+	} else {
-+		memcpy(to, from.kbuf + offset, len);
-+	}
-+
-+	return 0;
-+}
-+
-+static int mtk_port_common_write_frag_skb(struct mtk_port *port, struct sk_buff *skb,
-+					  union user_buf buf, u32 packet_size,
-+					  u32 cur_pos, bool from_user_space)
-+{
-+	struct sk_buff *frag_skb, *tmp = NULL;
-+	u32 frag_size;
-+	int ret;
-+
-+	frag_size = min(packet_size, port->tx_frag_size);
-+	ret = mtk_port_copy_data_from(skb_put(skb, frag_size),
-+				      buf, frag_size,
-+				      cur_pos, from_user_space);
-+	if (ret) {
-+		dev_err(port->port_mngr->ctrl_blk->mdev->dev,
-+			"Failed to copy skb for port(%s)\n", port->info.name);
-+		goto err_reset_skb;
-+	}
-+	cur_pos += frag_size;
-+	packet_size -= frag_size;
-+	if (!packet_size)
-+		return cur_pos;
-+
-+	while (packet_size > 0) {
-+		frag_skb = __dev_alloc_skb(port->tx_mtu, GFP_KERNEL);
-+		if (!frag_skb) {
-+			ret = -ENOMEM;
-+			goto err_free_frag_list;
-+		}
-+
-+		frag_size = min(packet_size, port->tx_frag_size);
-+		ret = mtk_port_copy_data_from(skb_put(frag_skb, frag_size),
-+					      buf, frag_size,
-+					      cur_pos, from_user_space);
-+		if (ret) {
-+			dev_err(port->port_mngr->ctrl_blk->mdev->dev,
-+				"Failed to copy frag_skb for port(%s)\n", port->info.name);
-+			dev_kfree_skb_any(frag_skb);
-+			goto err_free_frag_list;
-+		}
-+		skb->data_len += frag_size;
-+		skb->len += frag_size;
-+		cur_pos += frag_size;
-+		packet_size -= frag_size;
-+		if (!tmp)
-+			skb_shinfo(skb)->frag_list = frag_skb;
-+		else
-+			tmp->next = frag_skb;
-+		tmp = frag_skb;
-+	}
-+	return cur_pos;
-+
-+err_free_frag_list:
-+	frag_skb = skb_shinfo(skb)->frag_list;
-+	while (frag_skb) {
-+		tmp = frag_skb->next;
-+		frag_skb->next = NULL;
-+		dev_kfree_skb_any(frag_skb);
-+		frag_skb = tmp;
-+	}
-+	skb_shinfo(skb)->frag_list = NULL;
-+err_reset_skb:
-+	skb->data_len = 0;
-+	return ret;
-+}
-+
-+static int mtk_port_common_write(struct mtk_port *port, union user_buf buf, unsigned int len,
-+				 bool from_user_space)
-+{
-+	u32 packet_size, left_cnt = len, cur_pos;
-+	struct sk_buff *skb;
-+	int ret;
-+
-+	if (len == 0)
-+		return -EINVAL;
-+
-+start_write:
-+	ret = mtk_port_status_check(port);
-+	if (ret)
-+		goto end_write;
-+
-+	skb = __dev_alloc_skb(port->tx_mtu, GFP_KERNEL);
-+	if (!skb) {
-+		ret = -ENOMEM;
-+		goto end_write;
-+	}
-+
-+	skb_reserve(skb, sizeof(struct mtk_ccci_header));
-+
-+	packet_size = min_t(u32, left_cnt, port->tx_mtu - sizeof(struct mtk_ccci_header));
-+	cur_pos = len - left_cnt;
-+	/* Support scatter gather transmission */
-+	if (port->tx_mtu > port->tx_frag_size) {
-+		ret = mtk_port_common_write_frag_skb(port, skb, buf, packet_size,
-+						     cur_pos, from_user_space);
-+		if (ret < 0)
-+			goto err_free_skb;
-+	} else {
-+		ret = mtk_port_copy_data_from(skb_put(skb, packet_size),
-+					      buf, packet_size,
-+					      cur_pos, from_user_space);
-+		if (ret) {
-+			dev_err(port->port_mngr->ctrl_blk->mdev->dev,
-+				"Failed to copy data for port(%s)\n", port->info.name);
-+			goto err_free_skb;
-+		}
-+	}
-+
-+	ret = mtk_port_send_data(port, skb);
-+	if (ret < 0) {
-+		if (ret == -EINTR)
-+			left_cnt -= packet_size;
-+		goto end_write;
-+	}
-+
-+	left_cnt -= ret;
-+	if (left_cnt)
-+		goto start_write;
-+	else
-+		goto end_write;
-+
-+err_free_skb:
-+	dev_kfree_skb_any(skb);
-+end_write:
-+	return (len > left_cnt) ? (len - left_cnt) : ret;
-+}
-+
- static int mtk_port_internal_init(struct mtk_port *port)
- {
- 	mtk_port_struct_init(port);
-@@ -233,6 +376,224 @@ static const struct port_ops port_internal_ops = {
- 	.recv = mtk_port_internal_recv,
- };
- 
-+static int mtk_port_wwan_open(struct wwan_port *w_port)
-+{
-+	struct mtk_port *port;
-+	int ret;
-+
-+	port = wwan_port_get_drvdata(w_port);
-+	ret = mtk_port_get_locked(port);
-+	if (ret)
-+		return ret;
-+
-+	ret = mtk_port_common_open(port);
-+	if (ret)
-+		mtk_port_put_locked(port);
-+
-+	return ret;
-+}
-+
-+static void mtk_port_wwan_close(struct wwan_port *w_port)
-+{
-+	struct mtk_port *port = wwan_port_get_drvdata(w_port);
-+
-+	mtk_port_common_close(port);
-+	mtk_port_put_locked(port);
-+}
-+
-+static int mtk_port_wwan_write(struct wwan_port *w_port, struct sk_buff *skb)
-+{
-+	struct mtk_port *port = wwan_port_get_drvdata(w_port);
-+	union user_buf user_buf;
-+	int ret;
-+
-+	if (unlikely(!skb->len)) {
-+		consume_skb(skb);
-+		return 0;
-+	}
-+
-+	port->info.flags &= ~PORT_F_BLOCKING;
-+	user_buf.kbuf = (void *)skb->data;
-+	ret = mtk_port_common_write(port, user_buf, skb->len, false);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != skb->len)
-+		return -EIO;
-+
-+	consume_skb(skb);
-+	return 0;
-+}
-+
-+static int mtk_port_wwan_write_blocking(struct wwan_port *w_port, struct sk_buff *skb)
-+{
-+	struct mtk_port *port = wwan_port_get_drvdata(w_port);
-+	union user_buf user_buf;
-+	int ret;
-+
-+	if (unlikely(!skb->len)) {
-+		consume_skb(skb);
-+		return 0;
-+	}
-+
-+	port->info.flags |= PORT_F_BLOCKING;
-+	user_buf.kbuf = (void *)skb->data;
-+	ret = mtk_port_common_write(port, user_buf, skb->len, false);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != skb->len)
-+		return -EIO;
-+
-+	consume_skb(skb);
-+	return 0;
-+}
-+
-+static __poll_t mtk_port_wwan_poll(struct wwan_port *w_port, struct file *file,
-+				   struct poll_table_struct *poll)
-+{
-+	struct mtk_port *port = wwan_port_get_drvdata(w_port);
-+	union ctrl_hif_cmd_data hif_cmd;
-+	struct mtk_ctrl_blk *ctrl_blk;
-+	__poll_t mask = 0;
-+
-+	poll_wait(file, &port->trb_wq, poll);
-+	if (mtk_port_status_check(port))
-+		return EPOLLERR | EPOLLHUP;
-+
-+	ctrl_blk = port->port_mngr->ctrl_blk;
-+	hif_cmd.rx_ch = port->info.rx_ch;
-+	if (!ctrl_blk->ops->send_cmd(ctrl_blk->mdev, HIF_CTRL_CMD_CHECK_TX_FULL, &hif_cmd))
-+		mask |= EPOLLOUT | EPOLLWRNORM;
-+
-+	return mask;
-+}
-+
-+static const struct wwan_port_ops wwan_ops = {
-+	.start = mtk_port_wwan_open,
-+	.stop = mtk_port_wwan_close,
-+	.tx = mtk_port_wwan_write,
-+	.tx_blocking = mtk_port_wwan_write_blocking,
-+	.tx_poll = mtk_port_wwan_poll,
-+};
-+
-+static int mtk_port_wwan_init(struct mtk_port *port)
-+{
-+	mtk_port_struct_init(port);
-+	port->enable = false;
-+
-+	mutex_init(&port->w_priv.w_lock);
-+
-+	switch (port->info.rx_ch) {
-+	case CCCI_MBIM_RX:
-+		port->w_priv.w_type = WWAN_PORT_MBIM;
-+		break;
-+	case CCCI_UART2_RX:
-+		port->w_priv.w_type = WWAN_PORT_AT;
-+		break;
-+	default:
-+		port->w_priv.w_type = WWAN_PORT_UNKNOWN;
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static void mtk_port_wwan_exit(struct mtk_port *port)
-+{
-+	if (test_bit(PORT_S_ENABLE, &port->status))
-+		ports_ops[port->info.type]->disable(port);
-+}
-+
-+static void mtk_port_wwan_enable(struct mtk_port *port)
-+{
-+	struct mtk_port_mngr *port_mngr;
-+	struct wwan_port_caps caps;
-+	struct wwan_port *wp;
-+	int ret;
-+
-+	port_mngr = port->port_mngr;
-+
-+	if (test_bit(PORT_S_ENABLE, &port->status))
+-	mutex_lock(&vmap_purge_lock);
++	if (!mutex_trylock(&vmap_purge_lock))
 +		return;
-+
-+	ret = mtk_port_ch_enable(port);
-+	if (ret && ret != -EBUSY) {
-+		mtk_port_ch_disable(port);
-+		return;
-+	}
-+
-+	/* tx_mtu is only valid once the channel open trb has completed. A zero
-+	 * frag_len would make wwan_port_fops_write() loop forever.
+ 	purge_fragmented_blocks_allcpus();
+ 	__purge_vmap_area_lazy(ULONG_MAX, 0, true);
+ 	mutex_unlock(&vmap_purge_lock);
+@@ -5519,10 +5520,20 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+ {
+ 	struct vmap_node *vn;
+ 
+-	guard(mutex)(&vmap_purge_lock);
++	/*
++	 * This shrinker is invoked from direct reclaim where memory
++	 * pressure is already high.  Blocking on vmap_purge_lock here
++	 * can deadlock the system: the lock holder may be blocked in
++	 * flush_work() waiting for a worker that is stuck in this same
++	 * reclaim path trying to acquire the same lock.  Use trylock
++	 * to avoid this; skipping a pool decay cycle is harmless.
 +	 */
-+	if (!port->tx_mtu) {
-+		dev_err(port_mngr->ctrl_blk->mdev->dev,
-+			"Invalid tx_mtu for port(%s)\n", port->info.name);
-+		mtk_port_ch_disable(port);
-+		return;
-+	}
-+
-+	caps.frag_len = port->tx_mtu;
-+	caps.headroom_len = sizeof(struct mtk_ccci_header);
-+
-+	set_bit(PORT_S_WR, &port->status);
-+	set_bit(PORT_S_ENABLE, &port->status);
-+
-+	wp = wwan_create_port(port_mngr->ctrl_blk->mdev->dev,
-+			      port->w_priv.w_type,
-+			      &wwan_ops, &caps, port);
-+	if (IS_ERR(wp)) {
-+		dev_warn(port_mngr->ctrl_blk->mdev->dev,
-+			 "Failed to create wwan port for (%s)\n", port->info.name);
-+		clear_bit(PORT_S_ENABLE, &port->status);
-+		clear_bit(PORT_S_WR, &port->status);
-+		mtk_port_ch_disable(port);
-+		return;
-+	}
-+
-+	mutex_lock(&port->w_priv.w_lock);
-+	port->w_priv.w_port = wp;
-+	mutex_unlock(&port->w_priv.w_lock);
-+}
-+
-+static void mtk_port_wwan_disable(struct mtk_port *port)
-+{
-+	struct wwan_port *w_port;
-+
-+	if (!test_and_clear_bit(PORT_S_ENABLE, &port->status))
-+		return;
-+
-+	clear_bit(PORT_S_WR, &port->status);
-+	w_port = port->w_priv.w_port;
-+	mutex_lock(&port->w_priv.w_lock);
-+	port->w_priv.w_port = NULL;
-+	mutex_unlock(&port->w_priv.w_lock);
-+
-+	mtk_port_ch_disable(port);
-+	wwan_remove_port(w_port);
-+}
-+
-+static int mtk_port_wwan_recv(struct mtk_port *port, struct sk_buff *skb)
-+{
-+	mutex_lock(&port->w_priv.w_lock);
-+	if (!port->w_priv.w_port) {
-+		mutex_unlock(&port->w_priv.w_lock);
-+		return -ENXIO;
-+	}
-+
-+	wwan_port_rx(port->w_priv.w_port, skb);
-+	mutex_unlock(&port->w_priv.w_lock);
-+	return 0;
-+}
-+
-+static const struct port_ops port_wwan_ops = {
-+	.init = mtk_port_wwan_init,
-+	.exit = mtk_port_wwan_exit,
-+	.reset = mtk_port_reset,
-+	.enable = mtk_port_wwan_enable,
-+	.disable = mtk_port_wwan_disable,
-+	.recv = mtk_port_wwan_recv,
-+};
-+
- const struct port_ops *ports_ops[PORT_TYPE_MAX] = {
- 	&port_internal_ops,
-+	&port_wwan_ops,
- };
-diff --git a/drivers/net/wwan/t9xx/mtk_port_io.h b/drivers/net/wwan/t9xx/mtk_port_io.h
-index 0c10e893b7e0..ea92cd22dba0 100644
---- a/drivers/net/wwan/t9xx/mtk_port_io.h
-+++ b/drivers/net/wwan/t9xx/mtk_port_io.h
-@@ -23,6 +23,11 @@ struct port_ops {
- 	int (*recv)(struct mtk_port *port, struct sk_buff *skb);
- };
++	if (!mutex_trylock(&vmap_purge_lock))
++		return SHRINK_STOP;
+ 	for_each_vmap_node(vn)
+ 		decay_va_pool_node(vn, true);
  
-+union user_buf {
-+	void __user *ubuf;
-+	void *kbuf;
-+};
-+
- void *mtk_port_internal_open(struct mtk_md_dev *mdev, char *name, int flag);
- int mtk_port_internal_close(void *i_port);
- int mtk_port_internal_write(void *i_port, struct sk_buff *skb);
-diff --git a/drivers/net/wwan/t9xx/pcie/mtk_ctrl_cfg_m9xx.c b/drivers/net/wwan/t9xx/pcie/mtk_ctrl_cfg_m9xx.c
-index 8611561dd67c..aab09cab360c 100644
---- a/drivers/net/wwan/t9xx/pcie/mtk_ctrl_cfg_m9xx.c
-+++ b/drivers/net/wwan/t9xx/pcie/mtk_ctrl_cfg_m9xx.c
-@@ -16,6 +16,10 @@ static const int mtk_srv_cfg_m9xx[NR_CLDMA][HW_QUE_NUM] = {
++	mutex_unlock(&vmap_purge_lock);
+ 	return SHRINK_STOP;
+ }
  
- /* the number of RX GPDs should be at last two */
- static const struct queue_info mtk_queue_info_m9xx[] = {
-+	{CCCI_UART2_TX, CCCI_UART2_RX, CLDMA1, TXQ(5), RXQ(5),
-+	 Q_MTU_3_5K, Q_MTU_3_5K, TX_GPD_NUM, RX_GPD_NUM, Q_FRAG_3_5K, Q_FRAG_3_5K, 0},
-+	{CCCI_MBIM_TX, CCCI_MBIM_RX, CLDMA1, TXQ(2), RXQ(2),
-+	 Q_MTU_3_5K, Q_MTU_3_5K, TX_GPD_NUM, RX_GPD_NUM, Q_FRAG_3_5K, Q_FRAG_3_5K, 0},
- 	{CCCI_CONTROL_TX, CCCI_CONTROL_RX, CLDMA1, TXQ(0), RXQ(0),
- 	 Q_MTU_3_5K, Q_MTU_3_5K, TX_GPD_NUM, RX_GPD_NUM, Q_FRAG_3_5K, Q_FRAG_3_5K, 0},
- 	{CCCI_SAP_CONTROL_TX, CCCI_SAP_CONTROL_RX, CLDMA0, TXQ(0), RXQ(0),
-@@ -23,6 +27,10 @@ static const struct queue_info mtk_queue_info_m9xx[] = {
- };
- 
- static const struct mtk_port_cfg port_cfg_m9xx[] = {
-+	{CCCI_UART2_TX, CCCI_UART2_RX, PORT_TYPE_WWAN, "AT",
-+		PORT_F_ALLOW_DROP},
-+	{CCCI_MBIM_TX, CCCI_MBIM_RX, PORT_TYPE_WWAN, "MBIM",
-+		PORT_F_ALLOW_DROP},
- 	{CCCI_CONTROL_TX, CCCI_CONTROL_RX, PORT_TYPE_INTERNAL, "MDCTRL",
- 		PORT_F_ALLOW_DROP},
- 	{CCCI_SAP_CONTROL_TX, CCCI_SAP_CONTROL_RX, PORT_TYPE_INTERNAL, "SAPCTRL",
-
 -- 
-2.34.1
-
+2.25.1
 
