@@ -1,95 +1,141 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F70330662
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925830; cv=none; b=gCLDoj+Y0VXrnYaaVSKOAgJmyKGKc8t4BhgB2mY8xjxstEviuYgGYQmENURzfd5wFoF1iuUKG4YcgJ4Jz1StR8zEMxcCL0cGSC23+l1dEERoh3LAI1lPoDuj6AamRKjVhqIh+mtvomO1Kln/NJjoWA3wUD61uB0Kw4wwFIPQ2is=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925830; c=relaxed/simple;
-	bh=sWCjOchFpM6d/asknsANdAqdWuKgQsqJQeGpORMMkcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QcOyHWKXjcLG1RS0hoxX6bRxcQFukXv/vhWqZ51oxyhCYkCYv8MihvqUbmDRGZ8KBwL9jkpQqjJQHNZC7HcpW23DQRj55PlXDdWrf61zyWDrX5HXQaIvw0BHkbgW/F7kZmRAqdBsO0g8kJOX0QB95HnPrt2TPiAqkuHDuADsbKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWHBtlfJ; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE9305057;
+	Fri, 28 Aug 2026 14:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787925852; cv=pass; b=NEjUsSCHlnAJtH4PRLk7is3xMOZJ8eusw9E05VpuqyVPgQ1TL+4Y81sRSJyHBU8SLs9LSSRW+qJPKgPm2RSI0+EQ2t6i70jTcPXA6Xw/HY2PqciWoaylImyffKeneBCWHgUPwBEmlJHvLagcI4K96+AIyWnRFoWHDJYvTTn5N8E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787925852; c=relaxed/simple;
+	bh=Ad535Wtpy/NAKOQw/Sum6Su0zUz21ac7cKNpzwAo1oo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=s6DAekkITnLmC0d7LObmHuHkwOYFx+OWGHz2G3nMUpsaKo8B8KiTVCs5zYUwQS3KposbGD/Ustte67YCAyiUVMi5AITqIVxaaGGo6tlddVN8Sh+YTZbJLAVPmX1f/wKpMmqoQMNv/UX09sLBMghPgEX+tBOOogRO6/KJI6GXbVM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=dkbPNzY0; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWHBtlfJ"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so1667501a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:03:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787925828; x=1788530628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jpc4UopHI5TTc/u5p11DlrHMFjXp00rJXPcYkmn7WPI=;
-        b=KWHBtlfJueaURhXQHbFAW5zaLdXOQzdkzuwNi4NNByYK9RIlTmO2YY1b7n0Ir9nFWo
-         GGa25ngBNDT+gSZ6x6rqm0NcLU3O2mTw2CYhb+I/4T/ZrH99Wgz8CF/I2gVTQsZTp83+
-         Im3RlK/tqCK0rzFSZrvgEciapv5nuDAdtjLjl8Sv4yRTWO7VbTRNreg87ZAJ2uVE70st
-         ijOpJRaSZZVOUJe+Lwzv+xtXXijYc8wYN8cGNfa+81V/ExAwKBgQbY+li3PpmlNa2rYq
-         8aU59R3y4TWAb9jbdoE08H0xMeakMhO8ldLMCB3roLMa6kkoPFeFnd20slaNZ8OaCn3K
-         ZXMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787925828; x=1788530628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jpc4UopHI5TTc/u5p11DlrHMFjXp00rJXPcYkmn7WPI=;
-        b=dQZqaxXgPtYP6ANU/uh3tLLOIXBDGcFsfGroeAEPRM6XkW1/oq/BOJbh0tULitzukQ
-         lsGUa8D41kKeeR8UX7oBY2wb6TralfXPOvDmI4aq2hUNy3pUveV34H1eem+HD5d5FGvR
-         WuvlUDDas0dqzgj3YeC+Ke8oz9W754dSBRGKOo+bJDMVUxO6/rOATbTzcD/UvT6NGeLI
-         v7JVUIIqR9GCHT/xp9LIzs9pvZaOwlOsyxxRTOWDBhKAjMTFmY3XhbrVk6xue10so5fI
-         bbOlhYMk7XO2VQMy8/8RLUKulSpxsuSVJfMkrP7F7wvviV6NTz4bDaW+73KfpJV44eZe
-         ZfSg==
-X-Forwarded-Encrypted: i=1; AHgh+RqeQHUA13ElmxLjn7r3GmRKg05eCgq24kwiI4iNZWrSEDC4SNOKWWoEWcv0hy9jlm+6DzwS/4i74XHePPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp+c9QoD1JgZbg4pvtAR3U9FmJGA9teqPwtTwVMUFLTpfhtKB9
-	w61whNzGbUyujlO2yDWEg4o2TUbvUirTrHeefwYgEAaABuF5kNpy8px5
-X-Gm-Gg: AR+sD13WgU9yICn1zdhzeUfsG50o1T1m8hPXZT2GGiIIUOmMjx44425VdD3M3RPdLqU
-	NKYMT9vM7e5icxqfv2jq0/rrNcjSGwqmqbqI0klho57hhiSns9DSAg5XbymEkW+d1FJ3a93mQtk
-	WgeD2I5VEoyielTFGZqfWompZbha7+IcQwxhRcdYTxuIXKM4ty2ThUi8Zu2wQw+hMFQkasjEFYD
-	aecKtZGuC5kf3dFrH6ofLoYOWImECzxCdvDQkzrau6oIeQSp6gbt9hIrPGha8QsmJITWFAeIy/3
-	ysXZTueN4r2G+/u8qCqy8odD4bK4yJvcPwu7gr1f+HPThnb7GiiErLNIvDD6fwQoUvNDscjQtzt
-	a+s4TvzHQUqV6xKnjqfQzUjtb9TMpFF6rkX130RsHNSksIJB6LyCwJKnlpPcCaWua5dDd7BThnA
-	BJc1ysf9tSB237XJ17cVh08fUNb6B4lz87ERkUiVTUE/VtSfQpwM/rPeMioJphKhkW
-X-Received: by 2002:a17:90b:6cd:b0:398:9bd4:d14 with SMTP id 98e67ed59e1d1-3989bd40db9mr149856a91.19.1787925828032;
-        Fri, 28 Aug 2026 07:03:48 -0700 (PDT)
-Received: from Default ([2409:40f4:101e:9d7e:7e26:7b81:64f6:f32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm7107186eec.9.2026.08.28.07.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:03:47 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: [syzbot] [input?] KASAN: slab-use-after-free Read in atkbd_set_repeat_rate
-Date: Fri, 28 Aug 2026 19:33:30 +0530
-Message-ID: <20260828140330.134760-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <6a90d9ef.4d659fcc.734b4.0019.GAE@google.com>
-References: <6a90d9ef.4d659fcc.734b4.0019.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="dkbPNzY0"
+ARC-Seal: i=1; a=rsa-sha256; t=1787925747; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CkdrSK+t6z6SdsXa/+YswjsfkKz6vkB7f4zOJZiGd/L0A5xCXZtK8CSfDkxjidRWoQAJU0Tcipu6SkLnpkIE8/5zPL1C7qQe9PDTrCyPI5UZtlQ5sxKV4cm+f0zWEYN8lILhsJbgj2N6OdH2ET/HDnC35HZJO/yOV95UPbn8wzg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787925747; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=AcXzEC2kuqIzhwnq20y2zRMGD6N0f33XkiLL/jNqsGw=; 
+	b=FJ+T2YzD+KAu4aq1ICrOUu7v8JNEfoEmTq3OoYQ7mx3N3Y1jMWnmrEbjIeAf2RX3wvKetzJfHkgHcICyfCH3lwJmTJqtZODehgO830XRLNNUxLvVGD38K370k2Ed6py7WDCSoQRKl/PnpjJMXHQJtYG1Dg0kgTmA9o8ri0Bf8Ks=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787925747;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=AcXzEC2kuqIzhwnq20y2zRMGD6N0f33XkiLL/jNqsGw=;
+	b=dkbPNzY0Ew4xwpeqis9CoFDU6p+GAyjuPvJyBTFv3WIcYF/zhG7b/QntFccUgGti
+	Ik7KORNmkF7/EWl9I+Vaf5BJqKyPWmgXdlVc4xqLQ/MZAWyJMAR7kynyWndqlg/N6F5
+	4+JVm9l6Pd9mZlqPj0Z9jfj0DDpnTawRWbQH8BwZAGL7kbTyU+DYhc4lDTjeA6KTHn2
+	QY9nMcrAYUw3FPBGld8Q21fXAeB8gnIYSZMvcK0vMeyQ19Aov1Uzh/kfSKK+wpe0nOB
+	TWinRhJEuMh6/nVMromEWrT5RSRoXfpZ4/ZbqWVEoR0g08S6rZwgptEUL3d+GRkEkTk
+	IFMcGy8jeQ==
+Received: by mx.zohomail.com with SMTPS id 1787925743638449.66154944275536;
+	Fri, 28 Aug 2026 07:02:23 -0700 (PDT)
+Message-ID: <d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
+Subject: Re: [PATCH v2 15/15] MAINTAINERS: Add StarFive JH7110 display
+ subsystem entry
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
+ Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+ Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
+ <maudspierings@gocontroll.com>,  Graham Markall <hello@big-grey.co.uk>
+Date: Fri, 28 Aug 2026 22:01:58 +0800
+In-Reply-To: <20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+		<CGME20260828134841eucas1p100590973cc6808103c41d0b0fc82573a@eucas1p1.samsung.com>
+	 <20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 818bebeb63dd
+=E5=9C=A8 2026-08-28=E4=BA=94=E7=9A=84 15:47 +0200=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> The JH7110 display subsystem spans a PHY driver, a DRM bridge driver,
+> a parent device and their bindings, and has no existing maintainer
+> entry.
+>=20
+> Add an entry covering them so patches reach someone who can review
+> them.
+>=20
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+> =C2=A0MAINTAINERS | 10 ++++++++++
+> =C2=A01 file changed, 10 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index
+> 8014b9f8253edf15231df215d1b14063a54a55ec..84ac5cfe61cdf775167cf903386
+> 2724c37946a5f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25778,6 +25778,16 @@ S:	Maintained
+> =C2=A0F:	Documentation/devicetree/bindings/net/starfive,jh7110-
+> dwmac.yaml
+> =C2=A0F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> =C2=A0
+> +STARFIVE JH7110 DISPLAY SUBSYSTEM
+> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 5736f4bc5a50..bfad2e2ac937 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -961,7 +961,9 @@ static void atkbd_disconnect(struct serio *serio)
- {
- 	struct atkbd *atkbd = atkbd_from_serio(serio);
- 
-+	scoped_guard(mutex_intr, &atkbd->mutex) {
- 	atkbd_disable(atkbd);
-+	}
- 
- 	input_unregister_device(atkbd->dev);
- 
+Feel free to add
+
+```
+R: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
+
+if you want. I am interested in this.
+
+Thanks,
+Icenowy
+
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/bridge/starfive,jh
+> 7110-inno-hdmi-controller.yaml
+> +F:	Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-
+> subsystem.yaml
+> +F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-
+> hdmi-phy.yaml
+> +F:	drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
+> +F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
+> +F:	drivers/soc/starfive/jh7110-hdmi-subsystem.c
+> +
+> =C2=A0STARFIVE JH7110 DPHY RX DRIVER
+> =C2=A0M:	Jack Zhu <jack.zhu@starfivetech.com>
+> =C2=A0M:	Changhuang Liang <changhuang.liang@starfivetech.com>
