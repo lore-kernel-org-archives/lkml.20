@@ -1,480 +1,713 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2108.outbound.protection.partner.outlook.cn [139.219.146.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6870641D111
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916520; cv=none; b=p0VFumFDTILdpoF4O853fY22tX2WF4t5llSfBpprAqKRNG2xGvlbVMBd9ABe8lbGaoNX1PeBAWPAXGWZwzCpqpr7/1MEHEwPNkc9pRnKDJrCDidILACIc+RevZT3QUW2M7wTLkp7QtLpuE8SqZl2s3r6jh8QCZ2GM9iIF0VWJx0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916520; c=relaxed/simple;
-	bh=ttH52q5XixbbYlZq/rXpMHN0bB0ZtVZuIFVo7Smnsp0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5642E415B8A;
+	Fri, 28 Aug 2026 11:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787916525; cv=fail; b=JnSECeh6ZwU7AmwCGnaAtCtHxa/OTlzjeo8sFCoylMQ/JpMlgYUTWhE/NPhtLa6YyIw22tG4/GucA1bdzD/EphZQm43myuXmaKCm7lJwaaErw04jRqSAejioxOP9H32z+3YbhszD0tgvYe0Na/ECcsIE1TLie8NVq2rs5ez+bG4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787916525; c=relaxed/simple;
+	bh=pZ4yevZvpf9CShd2KM9HWuMRdTYnl6QlQQVQrkLZV+g=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LJJ5JfaEnFOXaGQckpygGyuRbrEyee4bp8fOaTEI0izWo9p6Lz19c7npFz2D7zQATT3J2ogTLXg3aGhG8MFFO/p5NNX/SyNtivBAyRw2JfyF2h+RxbNmTMs/ggLJTOlEZZRrOnMATmLt/KlWjNXJ6h/iEB+0OaKVY0cLz4eNIBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=DsD30pJO; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="DsD30pJO"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787916508; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=PrPma/K14ysdKF9lPzez+0D2lO9jgc5voLRyayDeN/4=;
-	b=DsD30pJObdemWP2WqNttbk3Gy55WuNk1j2ye7l0HweQ8JiyHJAhSdP9mKwPlUWV3PYqblqlQGAIWULDC79LM2NaTjzHQD39u1y8pDmnT75yf9jZlo3dOL6oLa1p4ExOylGRT8YEBGkXmgnE6ZzOoaOWFNIoJg+DNEpWtbDEhNnI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9mHegk_1787916507;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9mHegk_1787916507 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 19:28:28 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Li Zetao <lizetao1@huawei.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] ocfs2: defer suballocator block group reclaim to workqueue
-Date: Fri, 28 Aug 2026 19:28:25 +0800
-Message-Id: <20260828112825.666097-3-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
-References: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
+	 Content-Type:MIME-Version; b=A5xnogUNeNRtRO/VUW49T6/5fOdLrs6bY1SaHNXEaiEyo93lq05H5KgBTlIXYTLxLFbR5zSzUdJpASgcBGaiop03VZ6ImUjxcnc/8FU8oCrlqrqSeQ028shuOPkXVLYyy2q4G+UmGwOUhCEdFexwZcw4xKjMUCrKE3hAqxEiOz4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fl7tPnsPVY4EEcF5+RTwW2ID6cyHzx4ecFhOa0EkeQMEQ1/APUS9+YANzcpXlHH5ls+vsGQdQ61/D1DDjv/wTjEheJj/hSzNh5FF2YV7GShuU73PNSmzyQKPjg+6FTEgwwsUuYW9SsqUUX6u4szb4T+v8vxCUtsUpa4HwE31c9IdsfYX5aHHaQodyijAS/xdQB2hU231KmkARXETQj8/PdKmHPDs5kuxbjuZG1JANHEkEaDa6vXCNm/eZwKd7h0BlDmDnqvDq1a0OHm3QJ4ksa0KKM0x15EfqC3bzaYN1FHh2ukM5R04LwnS4jz2qoWLy8RFa/APFWE+ws+cpn8s+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MIXCri253AVHCMKyx1g5uGJnuQmFzHBzaHqwJslpA4c=;
+ b=RIeD+H1P2XBLlqa/8uzwfnAf1p0+0J3yS4DycPE4PPz069sQGc6iHaXw1oN42lgucm7hn4fjKvMFRFd679zqcoIxIIYSeke5glCIQ9+h/7LGvw6PShh6Bi9vG/bEDNR7WAb9kcSckOFHz796N1EP+JjL64kkF2C+DmBA9/5YbGN7iQ1iTkyQ8YlRs/y8uElfKKu/85H2ugilIuosKTCtoK3ZaVh0cyHyNCEfw0cRuexjkkyfr8ExjlIxJAnI49ekE89BBdophRWM4zyso7o5bpFOTdBO10LTRe7O93M/oyp3qsxkmunwKZn3+jUs3EOKtXxCx3WScMUOlC42yhA0pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1203.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:15::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 28 Aug
+ 2026 09:56:22 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Fri, 28 Aug 2026 09:56:22 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock driver
+Date: Fri, 28 Aug 2026 02:56:02 -0700
+Message-Id: <20260828095608.19955-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0028.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::15) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1203:EE_
+X-MS-Office365-Filtering-Correlation-Id: e504d388-28af-441b-ac56-08df04ea9dcb
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|52116014|1800799024|376014|23010399003|366016|56012099006|10067099003|18002099003|22082099003|38350700014|921020;
+X-Microsoft-Antispam-Message-Info:
+	5LMbvNL7zvhhMjErQRNLmeOFKjiupviQ/eiu0rTdk6NugVLTG51pBCRBMpP6PCHVmHmqg2C2SlEWUkxFuI/aNshuSNBKmUUV6wYlBJpR1cZ1jEZ18UZJqiah/qKs0e5GuQaIaqD+Bj9z0Nv7/29YEH3Ut72Ee83qvjyayRTBR1nZE20v0Hk5Wnrt4kP+LJJHHKRBs1xcCJ2qLK9PoCMy27iVcwIjEdV5EYrRm5oXnUnOWfHRR2RE/ki7B7Q3kprtgM31jECSJYgYW1g15FpxjFqSf4R5cRJKp/qHSAKGzxfUFgYbW1Iy8k6b1DTBAQu2acwW95MACQDUBpF4gJJPngAZ+j/wbD+On6GSxqsbLHZtXHC41jKFRR9Xy86S2XFV8YkpV3Mx7TMKJuSkqxEzS12Cb54i9dLrenbpOSNE6JqkfcW+Ami04cjl/JVCYKjQeANeQCrI39YYLu4XbAvEncRvfdBeE39TltbXgCNg++pWUNeO0SDc6sBHdOMCLyBu3ZRlkiYkeAGWpNT8TnCSV2PXkRcpNLFsAipEX1W1EPdVXbtQ2C/L18G1hVAe0nnKJcHYdwXq5aaSBmDPBG56QQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(1800799024)(376014)(23010399003)(366016)(56012099006)(10067099003)(18002099003)(22082099003)(38350700014)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hVm650dNQQV367cb4KtNj5wyleDMv2pavNg8CvMmCI9YguvrCoJiNL8x07GB?=
+ =?us-ascii?Q?+4vOoXRe88TPLwXPll5Hf136tDoA/8BhFZ8Uii6p8u7W2IrUTES830pGPs39?=
+ =?us-ascii?Q?aqg0x1wvx8WvudmdvGFVrRn002ikUkvvZgbOQVnEOP8fWUbYXyun7v475aHe?=
+ =?us-ascii?Q?ThfIXiPnxKlJ3JgifSBKwrObO75GdssBCjehYQn60QJp+H8P9S7pDTDNn/KB?=
+ =?us-ascii?Q?+WkKYFvA/p6SQENVJwlQHHViVwyVTHM/qb+VISPKvBdCjEJRB5+iebday7XX?=
+ =?us-ascii?Q?E2aQyrH723essXKf/2udTV0TwRxXYXm6MoWf4e+Sq/7+lHpqoI9HNKvpBX+I?=
+ =?us-ascii?Q?kylmjAJ6q6Q37xMvjvlohggDhVNEK0zLrARqQtLfyidIEypyL33NkaBrHAdj?=
+ =?us-ascii?Q?OhVEH0pESauPWYZUOpLAGp0ZxFAe3iHtuuhISx/ibTi6vbVkiAf3LVYcKDNv?=
+ =?us-ascii?Q?M/dGHpnccM0Kb3DSu4PP7bA10WZRrvmT2nmXLGTyda6/VHhtSPsYlqsVWi/n?=
+ =?us-ascii?Q?4u5hnwY3R2m87TbZfRDExzsSOqEWY6QuKwYWTVKnZnRZAtHuy2pil0HsOJpr?=
+ =?us-ascii?Q?K8SOqtXRsz6lRxCXUa68IiivNo5kazWV+8QlIw4KusDzPpaq6VFoVldqgRm+?=
+ =?us-ascii?Q?kuhY9ad+RgM7gke4bJV8fN3CWh4sFVXQVQynR1VORwDrq7hHmhlHKJxZwhLy?=
+ =?us-ascii?Q?9qwuBSj7O2Ee7TRvtYvtPwjhbUUAw3ECLfrRqsgmYhWdXmPpxbRYG6BidSWB?=
+ =?us-ascii?Q?Alj6FE0HETW9BXbpq5IBsDWPQPZsZFR05y/6WGXOX/9fsIF0lw5MQgsKgbxr?=
+ =?us-ascii?Q?jbRdSsaO8maBiak/D9HEvlRO6lqxjxDMNJejmNUC3AQ0yoPBemCohTTVYK3A?=
+ =?us-ascii?Q?T/HfWUmqjmfNdMd9EgDgyE0wx9BLhJokAFKL1ZoFLIeYvOk+QXTz60V+AGdW?=
+ =?us-ascii?Q?q3gtdijedGCHtX6hE5CPi2Qe7hKbtpAt8JVaFkjxQ9B4O0+jVbyg9o1gQNoK?=
+ =?us-ascii?Q?u+G3jCsTrOCnF0059Dz0G4vAIxNr4VjZ2pqjMdYgqqXuTjoxCSPjIYEFQ8tw?=
+ =?us-ascii?Q?brZfuo8f8ftakahtkdLCF+V9OSiwioek3qo5EM2Zk9sEcpoTyGDXJjPj4bmD?=
+ =?us-ascii?Q?HSa2z32b+wME+bfvhzqCCRPghorSmvH7NIY6NvcJDW7lPjIrollgE1e8eQkz?=
+ =?us-ascii?Q?TIzAFgJMSTQ+fMzrVE0UrSDC2J35ZTuWcwwRlaHf6NflrU659R1jZfN94Ygw?=
+ =?us-ascii?Q?o9U4eSa0wv5E9vVuUYiL4yDvKiH6IQXTmVl1g2BwB/en+YSx+ufQJX8cNXdf?=
+ =?us-ascii?Q?gm5z3QEHhd6AScM4byKwZtKPZFW88JqhSC5KBEeRmwlOgQvIb/qDwes1dS3M?=
+ =?us-ascii?Q?BpG3ZhpTT7bCzBfPOQEJD4wzu5GdN0fx2wCitJ2VYYs2O/xmxXBT3Fyeeg6w?=
+ =?us-ascii?Q?8HGhVvpeY0Ebl0NxF4fSOFovanBlswtE33ZIZf4HJsSOs290StYpeyR+pHkS?=
+ =?us-ascii?Q?2ASfISsHEhmJaTg/drATD+d2PzncgTLche19OISjobaXeYT0ez4Q4sa+TGHw?=
+ =?us-ascii?Q?x4OXNynnTmjBNyQSrrQa3YQi3TyHeoz1jkuBcjtC3ygfPn1y5yeid+pUAoFV?=
+ =?us-ascii?Q?IYVOhI+WJ6aKM+njqdCDjS1+nj1sBeev3TYNHstl9TftgN3r5ndNaT0e6loQ?=
+ =?us-ascii?Q?utAYf/YG61hgu2ImpUDicBy0Bx1HQBWlsEACysfVT131Nq3bdeNmNBuY+nNJ?=
+ =?us-ascii?Q?0IZl0P5eYnEBtCZRTPxThFK7vNeHRoNlsqPgVMK79dyOmBWDMmzk?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e504d388-28af-441b-ac56-08df04ea9dcb
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:56:22.7945
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GCi5zMbqknDRNVoNrXj/P0nt7OthZuSFXsH1RT4h4q9+1vyO9A9WnQkdky10TlZRQlK8MBTHUmD4PEy/Fw9yY3rCPhMspCI+2CHAKxTULxg5bw/eIgvHDc2Jvpkv4+YZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1203
 
-When the last bit in a suballocator block group is freed,
-_ocfs2_free_suballoc_bits() reclaims the group back to the global
-bitmap.  The reclaim takes inode_lock() on the global bitmap inode
-while running inside the freeing transaction, adding a lock
-dependency of
+Add system-0 domain PLL clock driver for StarFive JHB100 SoC.
 
-  j_trans_barrier -> global bitmap inode i_rwsem
+This driver is instantiated either as an MFD cell of the sys0 system
+controller (added in a later patch) or by matching the per0/per1 syscon
+nodes directly.
 
-This forms a circular dependency with paths such as
-ocfs2_shutdown_local_alloc(), which take the global bitmap inode
-lock before starting a transaction:
-
-  Task1 (dealloc):
-    ocfs2_run_deallocs
-      ocfs2_free_cached_blocks
-        ocfs2_start_trans
-          down_read(j_trans_barrier)
-        _ocfs2_free_suballoc_bits
-          _ocfs2_reclaim_suballoc_to_main
-            inode_lock(main_bm_inode)  <- wait on Task2
-
-  Task2 (dismount):
-    ocfs2_shutdown_local_alloc
-      inode_lock(main_bm_inode)
-      ocfs2_start_trans
-        down_read(j_trans_barrier)  <- wait on Task3
-
-  Task3 (ocfs2cmt):
-    ocfs2_commit_cache
-      down_write(j_trans_barrier)  <- wait on Task1's handle
-      jbd2_journal_flush
-
-Task1 waits for Task2's inode_lock(), Task2 waits for the
-j_trans_barrier down_write() held by ocfs2cmt, and ocfs2cmt waits
-for Task1's running transaction to commit - a real deadlock,
-observed with aio-stress direct IO writes racing dismount.
-
-Fix it by deferring the reclaim to the per-superblock ocfs2_wq
-workqueue, so the freeing transaction no longer takes the global
-bitmap inode lock.  The worker re-checks under the suballocator
-locks that the block group is still fully freed (it may have been
-allocated from again in the meantime), takes the global bitmap
-inode locks before starting its own transaction, and performs the
-same suballocator cleanup and space return.  The inode lock order
-(suballocator inode -> global bitmap inode) is consistent with the
-existing "inode lock before transaction" order, breaking the cycle.
-
-Reclaim work can still be queued late in dismount, e.g. when the
-truncate log is flushed or orphan dir recovery frees inode bits, so
-both ocfs2_dismount_volume() and the mount error path flush
-ocfs2_wq right before the system inodes are released, while the
-journal is still alive, to make sure no reclaim work is left
-running.  The worker also bails out if the journal is already gone.
-
-Tested with the ocfs2 testsuite (including aio-stress direct IO)
-and umount/mount cycles on a CONFIG_PROVE_LOCKING kernel: the
-circular locking dependency is gone and freed block groups are
-still returned to the global bitmap.
-
-Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Reviewed-by: Xingyu Wu <xingyu.wu@starfivetech.com>
 ---
- fs/ocfs2/ocfs2.h    |   5 ++
- fs/ocfs2/suballoc.c | 202 +++++++++++++++++++++++++++++++++++++-------
- fs/ocfs2/suballoc.h |   2 +-
- fs/ocfs2/super.c    |  16 ++++
- 4 files changed, 195 insertions(+), 30 deletions(-)
+ drivers/clk/starfive/Kconfig                  |  10 +
+ drivers/clk/starfive/Makefile                 |   1 +
+ .../clk/starfive/clk-starfive-jhb100-pll.c    | 524 ++++++++++++++++++
+ 3 files changed, 535 insertions(+)
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-pll.c
 
-diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
-index 62cad6522c7a..b747cdec1787 100644
---- a/fs/ocfs2/ocfs2.h
-+++ b/fs/ocfs2/ocfs2.h
-@@ -502,6 +502,11 @@ struct ocfs2_super
- 	 */
- 	struct workqueue_struct *ocfs2_wq;
+diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
+index 852464949334..2603d054173f 100644
+--- a/drivers/clk/starfive/Kconfig
++++ b/drivers/clk/starfive/Kconfig
+@@ -117,6 +117,16 @@ config CLK_STARFIVE_JHB100_PER3
+ 	  Say yes here to support the peripheral-3 clock controller
+ 	  on the StarFive JHB100 SoC.
  
-+	/* deferred reclaim of fully freed suballocator block groups */
-+	spinlock_t os_suballoc_reclaim_lock;
-+	struct list_head os_suballoc_reclaim_list;
-+	struct work_struct os_suballoc_reclaim_work;
++config CLK_STARFIVE_JHB100_PLL
++	bool "StarFive JHB100 PLL clock support"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select STARFIVE_JHB100_SOCINFO
++	select MFD_SYSCON
++	default ARCH_STARFIVE
++	help
++	  Say yes here to support the PLL clock controller on the
++	  StarFive JHB100 SoC.
 +
- 	/* sysfs directory per partition */
- 	struct kset *osb_dev_kset;
- 
-diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-index 20c3aec6b987..453b56be9624 100644
---- a/fs/ocfs2/suballoc.c
-+++ b/fs/ocfs2/suballoc.c
-@@ -2687,16 +2687,24 @@ static int ocfs2_block_group_clear_bits(handle_t *handle,
-  * cleanup rec/alloc_inode job, then switches to the main bitmap
-  * to reclaim released space.
-  *
-+ * Callers must hold inode_lock() and ocfs2_inode_lock() on
-+ * main_bm_inode, i.e. the global bitmap inode locks must be taken
-+ * before starting the transaction.
-+ *
-  * handle: The transaction handle
-  * alloc_inode: The suballoc inode
-  * alloc_bh: The buffer_head of suballoc inode
-  * group_bh: The group descriptor buffer_head of suballocator managed.
-- *           Caller should release the input group_bh.
-+ *           This function takes ownership of it and will release it.
-+ * main_bm_inode: The global bitmap inode
-+ * main_bm_bh: The buffer_head of the global bitmap inode
-  */
- static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 			struct inode *alloc_inode,
- 			struct buffer_head *alloc_bh,
--			struct buffer_head *group_bh)
-+			struct buffer_head *group_bh,
-+			struct inode *main_bm_inode,
-+			struct buffer_head *main_bm_bh)
- {
- 	int idx, status = 0;
- 	int i, next_free_rec, len = 0;
-@@ -2706,8 +2714,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	u64 bg_blkno, start_blk;
- 	unsigned int count;
- 	struct ocfs2_chain_rec *rec;
--	struct buffer_head *main_bm_bh = NULL;
--	struct inode *main_bm_inode = NULL;
- 	struct ocfs2_super *osb = OCFS2_SB(alloc_inode->i_sb);
- 	struct ocfs2_dinode *fe = (struct ocfs2_dinode *) alloc_bh->b_data;
- 	struct ocfs2_chain_list *cl = &fe->id2.i_chain;
-@@ -2794,24 +2800,12 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	ocfs2_remove_from_cache(INODE_CACHE(alloc_inode), group_bh);
- 	memset(group, 0, sizeof(struct ocfs2_group_desc));
- 
--	/* prepare job for reclaim clusters */
--	main_bm_inode = ocfs2_get_system_file_inode(osb,
--						    GLOBAL_BITMAP_SYSTEM_INODE,
--						    OCFS2_INVALID_SLOT);
--	if (!main_bm_inode)
--		goto bail; /* ignore the error in reclaim path */
--
--	inode_lock(main_bm_inode);
--
--	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
--	if (status < 0)
--		goto free_bm_inode; /* ignore the error in reclaim path */
--
- 	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
- 				     &start_bit);
- 	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
- 	cl = &fe->id2.i_chain;
--	/* reuse group_bh, caller will release the input group_bh */
-+	/* release the suballocator group descriptor before reuse */
-+	brelse(group_bh);
- 	group_bh = NULL;
- 
- 	/* reclaim clusters to global_bitmap */
-@@ -2819,7 +2813,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 					     &group_bh);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto free_bm_bh;
-+		goto bail;
- 	}
- 	group = (struct ocfs2_group_desc *) group_bh->b_data;
- 
-@@ -2827,7 +2821,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 		ocfs2_error(alloc_inode->i_sb,
- 			"reclaim length (%d) beyands block group length (%d)",
- 			count + start_bit, le16_to_cpu(group->bg_bits));
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	old_bg_contig_free_bits = group->bg_contig_free_bits;
-@@ -2837,7 +2831,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 					      _ocfs2_clear_bit);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	status = ocfs2_journal_access_di(handle, INODE_CACHE(main_bm_inode),
-@@ -2847,7 +2841,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 		ocfs2_block_group_set_bits(handle, main_bm_inode, group, group_bh,
- 				start_bit, count,
- 				le16_to_cpu(old_bg_contig_free_bits), 1);
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	idx = le16_to_cpu(group->bg_chain);
-@@ -2858,19 +2852,168 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	fe->id1.bitmap1.i_used = cpu_to_le32(tmp_used - count);
- 	ocfs2_journal_dirty(handle, main_bm_bh);
- 
--free_group_bh:
-+bail:
- 	brelse(group_bh);
-+	return status;
-+}
-+
+ config CLK_STARFIVE_JHB100_SYS0
+ 	bool "StarFive JHB100 system-0 clock support"
+ 	depends on ARCH_STARFIVE || COMPILE_TEST
+diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefile
+index f00690f0cdad..547a8c170728 100644
+--- a/drivers/clk/starfive/Makefile
++++ b/drivers/clk/starfive/Makefile
+@@ -15,6 +15,7 @@ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER0)		+= clk-starfive-jhb100-per0.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER1)		+= clk-starfive-jhb100-per1.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER2)		+= clk-starfive-jhb100-per2.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER3)		+= clk-starfive-jhb100-per3.o
++obj-$(CONFIG_CLK_STARFIVE_JHB100_PLL)		+= clk-starfive-jhb100-pll.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+= clk-starfive-jhb100-sys0.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS1)		+= clk-starfive-jhb100-sys1.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS2)		+= clk-starfive-jhb100-sys2.o
+diff --git a/drivers/clk/starfive/clk-starfive-jhb100-pll.c b/drivers/clk/starfive/clk-starfive-jhb100-pll.c
+new file mode 100644
+index 000000000000..e23365164497
+--- /dev/null
++++ b/drivers/clk/starfive/clk-starfive-jhb100-pll.c
+@@ -0,0 +1,524 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * When a suballocator block group becomes fully freed, its space is
-+ * reclaimed back to the global bitmap. Taking the global bitmap inode
-+ * lock inside the freeing transaction would create a lock dependency
-+ * of "j_trans_barrier -> global bitmap inode i_rwsem", which forms a
-+ * circular dependency with paths like ocfs2_shutdown_local_alloc() that
-+ * take the inode lock before starting a transaction, and can lead to a
-+ * real deadlock with the ocfs2cmt journal commit thread. So queue the
-+ * reclaim to the workqueue and let it run outside the freeing
-+ * transaction.
++ * StarFive JHB100 PLL Clock Generator Driver
++ *
++ * Copyright (C) 2024 StarFive Technology Co., Ltd.
++ *
++ * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
 + */
-+struct ocfs2_suballoc_reclaim_work {
-+	struct list_head list;
-+	struct inode *alloc_inode;
-+	u64 bg_blkno;
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk-provider.h>
++#include <linux/debugfs.h>
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/math64.h>
++#include <linux/mfd/syscon.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/units.h>
++
++#include <dt-bindings/clock/starfive,jhb100-crg.h>
++
++/* this driver expects a 25MHz input frequency from the oscillator */
++#define JHB100_PLL_OSC_RATE		(25 * HZ_PER_MHZ)
++
++/* System-0 domain PLL */
++#define JHB100_PLL2_OFFSET		0x00
++#define JHB100_PLL3_OFFSET		0x0c
++#define JHB100_PLL4_OFFSET		0x18
++#define JHB100_PLL5_OFFSET		0x24
++
++#define JHB100_PLL_CFG0_OFFSET		0x0
++#define JHB100_PLL_CFG1_OFFSET		0x4
++#define JHB100_PLL_CFG2_OFFSET		0x8
++
++#define JHB100_PLLX_CFG0(offset)	((offset) + JHB100_PLL_CFG0_OFFSET)
++/* fbdiv value should be 16 to 4095 */
++#define   JHB100_PLL_FBDIV			GENMASK(13, 2)
++#define   JHB100_PLL_FOUTPOSTDIV_EN		BIT(14)
++#define   JHB100_PLL_FOUTVCOP_EN		BIT(16)
++
++#define JHB100_PLLX_CFG1(offset)	((offset) + JHB100_PLL_CFG1_OFFSET)
++/* frac value should be decimals multiplied by 2^24 */
++#define   JHB100_PLL_FRAC			GENMASK(23, 0)
++#define   JHB100_PLL_LOCK			BIT(24)
++
++#define JHB100_PLLX_CFG2(offset)	((offset) + JHB100_PLL_CFG2_OFFSET)
++#define   JHB100_PLL_PD				BIT(13)
++#define   JHB100_PLL_POSTDIV			GENMASK(15, 14)
++#define   JHB100_PLL_REFDIV			GENMASK(23, 18)
++
++#define JHB100_PLL_TIMEOUT_US		1000
++#define JHB100_PLL_INTERVAL_US		100
++
++struct jhb100_pll_preset {
++	unsigned long freq;
++	u32 frac;			/* frac value should be decimals multiplied by 2^24 */
++	unsigned fbdiv		: 12;	/* fbdiv value should be 16 to 4095 */
++	unsigned refdiv		: 6;
++	unsigned postdiv	: 2;
++	unsigned foutpostdiv_en	: 1;
++	unsigned foutvcop_en	: 1;
 +};
 +
-+static void ocfs2_queue_suballoc_reclaim(struct ocfs2_super *osb,
-+					 struct inode *alloc_inode,
-+					 u64 bg_blkno)
-+{
-+	struct ocfs2_suballoc_reclaim_work *reclaim_work;
++struct jhb100_pll_info {
++	const char *name;
++	const struct jhb100_pll_preset *presets;
++	unsigned int npresets;
++	unsigned long flags;
++	u8 offset;
++	bool continuous;
++};
 +
-+	reclaim_work = kmalloc_obj(*reclaim_work, GFP_NOFS);
-+	if (!reclaim_work) {
-+		/*
-+		 * Reclaim is only a space return optimization. If we can't
-+		 * queue it, the freed block group just stays owned by the
-+		 * suballocator.
-+		 */
-+		return;
++#define _JHB100_PLL(_idx, _name, _presets, _npresets, _offset, _flags, _cont)	\
++	[_idx] = {							\
++		.name = _name,						\
++		.offset = _offset,					\
++		.presets = _presets,					\
++		.npresets = _npresets,					\
++		.flags = _flags,					\
++		.continuous = _cont,					\
 +	}
 +
-+	igrab(alloc_inode);
-+	reclaim_work->alloc_inode = alloc_inode;
-+	reclaim_work->bg_blkno = bg_blkno;
++#define JHB100_PLL(idx, name, presets, npresets, offset, cont)			\
++	_JHB100_PLL(idx, name, presets, npresets, offset, 0, cont)
 +
-+	spin_lock(&osb->os_suballoc_reclaim_lock);
-+	list_add_tail(&reclaim_work->list, &osb->os_suballoc_reclaim_list);
-+	spin_unlock(&osb->os_suballoc_reclaim_lock);
- 
--free_bm_bh:
-+	queue_work(osb->ocfs2_wq, &osb->os_suballoc_reclaim_work);
++struct jhb100_pll_match_data {
++	const struct jhb100_pll_info *pll_info;
++	int num_pll;
++};
++
++struct jhb100_pll_data {
++	struct clk_hw hw;
++	unsigned int idx;
++};
++
++struct jhb100_pll_priv {
++	struct regmap *regmap;
++	const struct jhb100_pll_match_data *match_data;
++	struct jhb100_pll_data pll[];
++};
++
++struct jhb100_pll_regvals {
++	u32 fbdiv;
++	u32 frac;
++	u32 postdiv;
++	u32 refdiv;
++	bool foutpostdiv_en;
++	bool foutvcop_en;
++};
++
++static struct jhb100_pll_data *jhb100_pll_data_from(struct clk_hw *hw)
++{
++	return container_of(hw, struct jhb100_pll_data, hw);
 +}
 +
-+static void ocfs2_do_suballoc_reclaim(struct ocfs2_super *osb,
-+				struct ocfs2_suballoc_reclaim_work *reclaim_work)
++static struct jhb100_pll_priv *jhb100_pll_priv_from(struct jhb100_pll_data *pll)
 +{
-+	int status, i;
-+	handle_t *handle;
-+	struct inode *alloc_inode = reclaim_work->alloc_inode;
-+	struct inode *main_bm_inode;
-+	struct buffer_head *alloc_bh = NULL, *group_bh = NULL;
-+	struct buffer_head *main_bm_bh = NULL;
-+	struct ocfs2_dinode *fe;
-+	struct ocfs2_chain_list *cl;
-+	struct ocfs2_chain_rec *rec;
-+
-+	/* journal already gone, e.g. during dismount cleanup */
-+	if (!osb->journal)
-+		return;
-+
-+	inode_lock(alloc_inode);
-+	status = ocfs2_inode_lock(alloc_inode, &alloc_bh, 1);
-+	if (status < 0)
-+		goto out_alloc;
-+
-+	fe = (struct ocfs2_dinode *) alloc_bh->b_data;
-+	cl = &fe->id2.i_chain;
-+
-+	/*
-+	 * The block group may have been allocated from again since the
-+	 * reclaim work was queued, re-check that it is still fully freed.
-+	 * A stale work item can also reference a group that is no longer
-+	 * chained, whose descriptor would fail validation and trigger a
-+	 * spurious ocfs2_error(), so verify chain membership first.
-+	 */
-+	for (i = 0; i < le16_to_cpu(cl->cl_next_free_rec); i++) {
-+		rec = &cl->cl_recs[i];
-+		if (le64_to_cpu(rec->c_blkno) == reclaim_work->bg_blkno)
-+			break;
-+	}
-+	if (i == le16_to_cpu(cl->cl_next_free_rec) ||
-+	    ocfs2_is_cluster_bitmap(alloc_inode) ||
-+	    (le32_to_cpu(rec->c_free) != (le32_to_cpu(rec->c_total) - 1)) ||
-+	    (le16_to_cpu(cl->cl_next_free_rec) == 1))
-+		goto out_alloc_unlock;
-+
-+	status = ocfs2_read_group_descriptor(alloc_inode, fe,
-+					     reclaim_work->bg_blkno, &group_bh);
-+	if (status < 0)
-+		goto out_alloc_unlock;
-+
-+	main_bm_inode = ocfs2_get_system_file_inode(osb,
-+						    GLOBAL_BITMAP_SYSTEM_INODE,
-+						    OCFS2_INVALID_SLOT);
-+	if (!main_bm_inode)
-+		goto out_group;
-+
-+	inode_lock(main_bm_inode);
-+	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
-+	if (status < 0)
-+		goto out_main;
-+
-+	handle = ocfs2_start_trans(osb, OCFS2_SUBALLOC_FREE);
-+	if (IS_ERR(handle)) {
-+		status = PTR_ERR(handle);
-+		mlog_errno(status);
-+		goto out_main_unlock;
-+	}
-+
-+	status = _ocfs2_reclaim_suballoc_to_main(handle, alloc_inode,
-+						 alloc_bh, group_bh,
-+						 main_bm_inode, main_bm_bh);
-+	/* group_bh ownership passed to _ocfs2_reclaim_suballoc_to_main() */
-+	group_bh = NULL;
-+	if (status < 0)
-+		mlog_errno(status);
-+
-+	ocfs2_commit_trans(osb, handle);
-+
-+out_main_unlock:
- 	ocfs2_inode_unlock(main_bm_inode, 1);
- 	brelse(main_bm_bh);
--
--free_bm_inode:
-+out_main:
- 	inode_unlock(main_bm_inode);
- 	iput(main_bm_inode);
-+out_group:
-+	brelse(group_bh);
-+out_alloc_unlock:
-+	ocfs2_inode_unlock(alloc_inode, 1);
-+	brelse(alloc_bh);
-+out_alloc:
-+	inode_unlock(alloc_inode);
++	return container_of(pll, struct jhb100_pll_priv, pll[pll->idx]);
 +}
- 
--bail:
--	return status;
-+void ocfs2_suballoc_reclaim_worker(struct work_struct *work)
++
++static int jhb100_pll_prepare(struct clk_hw *hw)
 +{
-+	struct ocfs2_super *osb = container_of(work, struct ocfs2_super,
-+					       os_suballoc_reclaim_work);
-+	struct ocfs2_suballoc_reclaim_work *reclaim_work;
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
 +
-+	while (1) {
-+		spin_lock(&osb->os_suballoc_reclaim_lock);
-+		if (list_empty(&osb->os_suballoc_reclaim_list)) {
-+			spin_unlock(&osb->os_suballoc_reclaim_lock);
-+			break;
-+		}
-+		reclaim_work = list_first_entry(&osb->os_suballoc_reclaim_list,
-+					struct ocfs2_suballoc_reclaim_work,
-+					list);
-+		list_del(&reclaim_work->list);
-+		spin_unlock(&osb->os_suballoc_reclaim_lock);
++	return regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
++				  JHB100_PLL_PD, 0);
++}
 +
-+		ocfs2_do_suballoc_reclaim(osb, reclaim_work);
-+		iput(reclaim_work->alloc_inode);
-+		kfree(reclaim_work);
-+	}
- }
- 
- /*
-@@ -2955,7 +3098,8 @@ static int _ocfs2_free_suballoc_bits(handle_t *handle,
- 		goto bail;
- 	}
- 
--	_ocfs2_reclaim_suballoc_to_main(handle, alloc_inode, alloc_bh, group_bh);
-+	ocfs2_queue_suballoc_reclaim(OCFS2_SB(alloc_inode->i_sb), alloc_inode,
-+				     bg_blkno);
- 
- bail:
- 	brelse(group_bh);
-diff --git a/fs/ocfs2/suballoc.h b/fs/ocfs2/suballoc.h
-index bcf2ed4a8631..6042abc032f9 100644
---- a/fs/ocfs2/suballoc.h
-+++ b/fs/ocfs2/suballoc.h
-@@ -206,7 +206,7 @@ int ocfs2_lock_allocators(struct inode *inode, struct ocfs2_extent_tree *et,
- 
- int ocfs2_test_inode_bit(struct ocfs2_super *osb, u64 blkno, int *res);
- 
--
-+void ocfs2_suballoc_reclaim_worker(struct work_struct *work);
- 
- /*
-  * The following two interfaces are for ocfs2_create_inode_in_orphan().
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 6a8092b65bb5..1e76b1d9fe0a 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1784,6 +1784,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
- out_system_inodes:
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
-+	/* Drain pending suballoc reclaim work before the journal goes away */
-+	if (osb->ocfs2_wq)
-+		flush_workqueue(osb->ocfs2_wq);
- 	ocfs2_release_system_inodes(osb);
- 	/* before journal shutdown, we should release slot_info */
- 	ocfs2_free_slot_info(osb);
-@@ -1854,6 +1857,14 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 	if (osb->cconn)
- 		ocfs2_super_unlock(osb, 1);
- 
++static void jhb100_pll_unprepare(struct clk_hw *hw)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
++
++	regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
++			   JHB100_PLL_PD, JHB100_PLL_PD);
++}
++
++static int jhb100_pll_is_prepared(struct clk_hw *hw)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
++	u32 val;
++	int ret;
++
++	ret = regmap_read(priv->regmap, JHB100_PLLX_CFG2(info->offset), &val);
++	if (ret)
++		return ret;
++
++	return !(val & JHB100_PLL_PD);
++}
++
++static int jhb100_pll_regvals_get(struct regmap *regmap,
++				  const struct jhb100_pll_info *info,
++				  struct jhb100_pll_regvals *val)
++{
++	u32 value;
++	int ret;
++
++	ret = regmap_read(regmap, JHB100_PLLX_CFG0(info->offset), &value);
++	if (ret)
++		return ret;
++
++	val->fbdiv = FIELD_GET(JHB100_PLL_FBDIV, value);
++	val->foutpostdiv_en = !!FIELD_GET(JHB100_PLL_FOUTPOSTDIV_EN, value);
++	val->foutvcop_en = !!FIELD_GET(JHB100_PLL_FOUTVCOP_EN, value);
++
++	ret = regmap_read(regmap, JHB100_PLLX_CFG1(info->offset), &value);
++	if (ret)
++		return ret;
++
++	val->frac = FIELD_GET(JHB100_PLL_FRAC, value);
++
++	ret = regmap_read(regmap, JHB100_PLLX_CFG2(info->offset), &value);
++	if (ret)
++		return ret;
++
++	val->postdiv = FIELD_GET(JHB100_PLL_POSTDIV, value);
++	val->refdiv = FIELD_GET(JHB100_PLL_REFDIV, value);
++
++	return 0;
++}
++
++static unsigned long jhb100_pll_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	struct jhb100_pll_regvals val;
++	u32 power = 0;
++	u64 rate;
++	int ret;
++
++	ret = jhb100_pll_regvals_get(priv->regmap, &priv->match_data->pll_info[pll->idx], &val);
++	if (ret)
++		return 0;
++
 +	/*
-+	 * Drain pending suballoc reclaim work while the system inodes and
-+	 * the journal are still alive, since the worker needs to look up
-+	 * the global bitmap inode and start a transaction.
++	 *
++	 * if (foutvcop_en)
++	 *      rate = parent * (fbdiv + frac / 2^24) / refdiv
++	 *
++	 * if (foutpostdiv_en)
++	 *      rate = parent * (fbdiv + frac / 2^24) / refdiv / 2^(postdiv + 1)
++	 *
++	 * parent * (fbdiv + frac / 2^24) = parent * fbdiv + parent * frac / 2^24
 +	 */
-+	if (osb->ocfs2_wq)
-+		flush_workqueue(osb->ocfs2_wq);
 +
- 	ocfs2_release_system_inodes(osb);
- 
- 	ocfs2_journal_shutdown(osb);
-@@ -2140,6 +2151,11 @@ static int ocfs2_initialize_super(struct super_block *sb,
- 	INIT_WORK(&osb->dquot_drop_work, ocfs2_drop_dquot_refs);
- 	init_llist_head(&osb->dquot_drop_list);
- 
-+	spin_lock_init(&osb->os_suballoc_reclaim_lock);
-+	INIT_LIST_HEAD(&osb->os_suballoc_reclaim_list);
-+	INIT_WORK(&osb->os_suballoc_reclaim_work,
-+		  ocfs2_suballoc_reclaim_worker);
++	if (!!val.foutvcop_en == !!val.foutpostdiv_en || !val.refdiv)
++		return 0;
 +
- 	/* get some pseudo constants for clustersize bits */
- 	osb->s_clustersize_bits =
- 		le32_to_cpu(di->id2.i_super.s_clustersize_bits);
++	rate = mul_u32_u32(parent_rate, val.frac) >> 24;
++
++	if (val.foutpostdiv_en)
++		power = val.postdiv + 1;
++
++	rate += mul_u32_u32(parent_rate, val.fbdiv);
++	rate = div_u64(rate, (u64)val.refdiv << power);
++
++	return rate;
++}
++
++static int jhb100_pll_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
++	const struct jhb100_pll_preset *selected = &info->presets[0];
++	unsigned int idx;
++
++	/* if the parent rate doesn't match our expectations the presets won't work */
++	if (req->best_parent_rate != JHB100_PLL_OSC_RATE) {
++		req->rate = jhb100_pll_recalc_rate(hw, req->best_parent_rate);
++		return 0;
++	}
++
++	/* continuous means support any rate */
++	if (info->continuous)
++		return 0;
++
++	/* find highest rate lower or equal to the requested rate */
++	for (idx = 1; idx < info->npresets; idx++) {
++		const struct jhb100_pll_preset *val = &info->presets[idx];
++
++		if (req->rate < val->freq)
++			break;
++
++		selected = val;
++	}
++
++	req->rate = selected->freq;
++
++	return 0;
++}
++
++static int jhb100_pll_set_preset(struct clk_hw *hw, const struct jhb100_pll_preset *val)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
++	unsigned int value, cfg;
++	int ret;
++
++	cfg = FIELD_PREP(JHB100_PLL_FBDIV, (u32)val->fbdiv) |
++	      FIELD_PREP(JHB100_PLL_FOUTPOSTDIV_EN, (u32)val->foutpostdiv_en) |
++	      FIELD_PREP(JHB100_PLL_FOUTVCOP_EN, (u32)val->foutvcop_en);
++
++	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG0(info->offset),
++				 JHB100_PLL_FBDIV | JHB100_PLL_FOUTPOSTDIV_EN |
++				 JHB100_PLL_FOUTVCOP_EN, cfg);
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG1(info->offset), JHB100_PLL_FRAC,
++				 FIELD_PREP(JHB100_PLL_FRAC, val->frac));
++	if (ret)
++		return ret;
++
++	cfg = FIELD_PREP(JHB100_PLL_REFDIV, (u32)val->refdiv) |
++	      FIELD_PREP(JHB100_PLL_POSTDIV, (u32)val->postdiv);
++
++	ret = regmap_update_bits(priv->regmap, JHB100_PLLX_CFG2(info->offset),
++				 JHB100_PLL_REFDIV | JHB100_PLL_POSTDIV, cfg);
++	if (ret)
++		return ret;
++
++	/* waiting for PLL to lock */
++	return regmap_read_poll_timeout(priv->regmap, JHB100_PLLX_CFG1(info->offset),
++					value, value & JHB100_PLL_LOCK,
++					JHB100_PLL_INTERVAL_US,
++					JHB100_PLL_TIMEOUT_US);
++}
++
++static int jhb100_pll_rate_to_preset(struct clk_hw *hw, unsigned long rate,
++				     unsigned long parent_rate)
++{
++	struct jhb100_pll_preset val = {
++		.refdiv = 1,
++		.postdiv = 3,
++		.foutpostdiv_en = 1,
++		.foutvcop_en = 0,
++	};
++	unsigned int power = 0;
++	u64 fbdiv_24, t;
++	u32 fbdiv;
++
++	if (val.foutpostdiv_en)
++		power = val.postdiv + 1;
++
++	t = (u64)val.refdiv << power;
++	t *= rate;
++
++	fbdiv = div64_ul(t, parent_rate);
++	if (fbdiv < 16 || fbdiv > 4095)
++		return -EINVAL;
++	val.fbdiv = fbdiv;
++
++	fbdiv_24 = div64_ul(t << 24, parent_rate);
++	val.frac = fbdiv_24 - ((u64)fbdiv << 24);
++
++	return jhb100_pll_set_preset(hw, &val);
++}
++
++static int jhb100_pll_set_rate(struct clk_hw *hw, unsigned long rate,
++			       unsigned long parent_rate)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	const struct jhb100_pll_info *info = &priv->match_data->pll_info[pll->idx];
++	const struct jhb100_pll_preset *val;
++	unsigned int idx;
++
++	/* if the parent rate doesn't match our expectations the presets won't work */
++	if (parent_rate != JHB100_PLL_OSC_RATE)
++		return -EINVAL;
++
++	if (info->continuous)
++		return jhb100_pll_rate_to_preset(hw, rate, parent_rate);
++
++	for (idx = 0, val = &info->presets[0]; idx < info->npresets; idx++, val++) {
++		if (val->freq == rate)
++			return jhb100_pll_set_preset(hw, val);
++	}
++
++	return -EINVAL;
++}
++
++#ifdef CONFIG_DEBUG_FS
++static int jhb100_pll_registers_show(struct seq_file *s, void *unused)
++{
++	struct jhb100_pll_data *pll = s->private;
++	struct jhb100_pll_priv *priv = jhb100_pll_priv_from(pll);
++	struct jhb100_pll_regvals val;
++	int ret;
++
++	ret = jhb100_pll_regvals_get(priv->regmap, &priv->match_data->pll_info[pll->idx], &val);
++	if (ret)
++		return ret;
++
++	seq_printf(s, "fbdiv=%u\n"
++		      "frac=%u\n"
++		      "refdiv=%u\n"
++		      "postdiv=%u\n"
++		      "foutpostdiv_en=%u\n"
++		      "foutvcop_en=%u\n",
++		      val.fbdiv, val.frac, val.refdiv, val.postdiv,
++		      val.foutpostdiv_en, val.foutvcop_en);
++
++	return 0;
++}
++
++DEFINE_SHOW_ATTRIBUTE(jhb100_pll_registers);
++
++static void jhb100_pll_debug_init(struct clk_hw *hw, struct dentry *dentry)
++{
++	struct jhb100_pll_data *pll = jhb100_pll_data_from(hw);
++
++	debugfs_create_file("registers", 0400, dentry, pll,
++			    &jhb100_pll_registers_fops);
++}
++#else
++#define jhb100_pll_debug_init NULL
++#endif
++
++static const struct clk_ops jhb100_pll_ops = {
++	.prepare = jhb100_pll_prepare,
++	.unprepare = jhb100_pll_unprepare,
++	.is_prepared = jhb100_pll_is_prepared,
++	.recalc_rate = jhb100_pll_recalc_rate,
++	.determine_rate = jhb100_pll_determine_rate,
++	.set_rate = jhb100_pll_set_rate,
++	.debug_init = jhb100_pll_debug_init,
++};
++
++static struct clk_hw *jhb100_pll_get(struct of_phandle_args *clkspec, void *data)
++{
++	struct jhb100_pll_priv *priv = data;
++	unsigned int idx = clkspec->args[0];
++
++	if (idx < priv->match_data->num_pll)
++		return &priv->pll[idx].hw;
++
++	return ERR_PTR(-EINVAL);
++}
++
++static int jhb100_pll_probe(struct platform_device *pdev)
++{
++	const struct jhb100_pll_match_data *match_data;
++	const struct platform_device_id *id;
++	struct device *dev = &pdev->dev;
++	struct jhb100_pll_priv *priv;
++	struct device_node *np;
++	unsigned int idx;
++	int ret;
++
++	id = platform_get_device_id(pdev);
++	if (!id)
++		return dev_err_probe(dev, -EINVAL, "no match data\n");
++
++	/*
++	 * Instantiated as an MFD cell of the sys0 system controller,
++	 * which owns the DT node describing the PLL registers.
++	 */
++	match_data = (const struct jhb100_pll_match_data *)id->driver_data;
++	np = dev_of_node(dev->parent);
++
++	priv = devm_kzalloc(&pdev->dev, struct_size(priv, pll, match_data->num_pll),
++			    GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->match_data = match_data;
++	priv->regmap = syscon_node_to_regmap(np);
++	if (IS_ERR(priv->regmap))
++		return dev_err_probe(dev, PTR_ERR(priv->regmap),
++				     "failed to get syscon regmap\n");
++
++	for (idx = 0; idx < match_data->num_pll; idx++) {
++		struct clk_parent_data parents = {
++			.index = 0,
++		};
++		struct clk_init_data init = {
++			.name = match_data->pll_info[idx].name,
++			.ops = &jhb100_pll_ops,
++			.parent_data = &parents,
++			.num_parents = 1,
++			.flags = match_data->pll_info[idx].flags,
++		};
++		struct jhb100_pll_data *pll = &priv->pll[idx];
++
++		pll->hw.init = &init;
++		pll->idx = idx;
++
++		ret = devm_clk_hw_register(dev, &pll->hw);
++		if (ret)
++			return ret;
++	}
++
++	return devm_of_clk_add_hw_provider(dev, jhb100_pll_get, priv);
++}
++
++static const struct jhb100_pll_preset jhb100_pll2_presets[] = {
++	{
++		.freq = 903168000,
++		.fbdiv = 72,
++		.frac = 4252017,
++		.refdiv = 1,
++		.postdiv = 0,
++		.foutpostdiv_en = 1,
++		.foutvcop_en = 0,
++	},
++};
++
++static const struct jhb100_pll_preset jhb100_pll3_presets[] = {
++	{
++		.freq = 800000000,
++		.fbdiv = 64,
++		.frac = 0,
++		.refdiv = 1,
++		.postdiv = 0,
++		.foutpostdiv_en = 1,
++		.foutvcop_en = 0,
++	},
++};
++
++static const struct jhb100_pll_info jhb100_sys0_pll_info[] = {
++	JHB100_PLL(JHB100_SYS0PLL_PLL2_OUT, "pll2_out", jhb100_pll2_presets,
++		   ARRAY_SIZE(jhb100_pll2_presets), JHB100_PLL2_OFFSET, false),
++	_JHB100_PLL(JHB100_SYS0PLL_PLL3_OUT, "pll3_out", jhb100_pll3_presets,
++		    ARRAY_SIZE(jhb100_pll3_presets), JHB100_PLL3_OFFSET,
++		    CLK_IS_CRITICAL, false),
++	_JHB100_PLL(JHB100_SYS0PLL_PLL4_OUT, "pll4_out", NULL, 0,
++		    JHB100_PLL4_OFFSET, CLK_IGNORE_UNUSED, true),
++	_JHB100_PLL(JHB100_SYS0PLL_PLL5_OUT, "pll5_out", NULL, 0,
++		    JHB100_PLL5_OFFSET, CLK_IGNORE_UNUSED, true),
++};
++
++static const struct jhb100_pll_match_data jhb100_sys0_pll = {
++	.pll_info = jhb100_sys0_pll_info,
++	.num_pll = ARRAY_SIZE(jhb100_sys0_pll_info),
++};
++
++static const struct platform_device_id jhb100_pll_ids[] = {
++	{
++		.name = "jhb100-sys0-pll",
++		.driver_data = (unsigned long)&jhb100_sys0_pll,
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(platform, jhb100_pll_ids);
++
++static struct platform_driver jhb100_pll_driver = {
++	.probe = jhb100_pll_probe,
++	.id_table = jhb100_pll_ids,
++	.driver = {
++		.name = "clk-starfive-jhb100-pll",
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_platform_driver(jhb100_pll_driver);
 -- 
-2.39.3
+2.25.1
 
