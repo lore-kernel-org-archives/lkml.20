@@ -1,45 +1,45 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F1A24DCF6
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD9E24DCF6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787950722; cv=pass; b=pboQER0sq8ZtgHoDj7yzdHjvkvdZEKs0Qiu9LrBgCCg9++Pp//KZ0iFg52I86CZbU4GXx9DsEsdAa4ZUREYvHIvXC1eZqOMSruXOtvCaxNgwac0UglKTOUCdNaG9Q6DyYgAJgPdsfFQteEyEDYRmaLA2P7N+ywfN6xx4xpIY4Go=
+	t=1787950727; cv=pass; b=pGEwRiZIkR2PD2OtrMwBw8+o71Es1/Ha5qHe7TdbRNaTffe8NDKplS9LlzqhzZK06z9uBydGGfCXG09BombKfiQafFuKE1ckvRvdTIDuxx2Zg+zIaYvUiNxXI8DF+a3N13LsFjjaDqXOQYprFQslY7/1pI15/0Wc5jK9DDsQ1KU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787950722; c=relaxed/simple;
-	bh=OBbDOeQ+abKzN85Sr4YSgFexzzXD/M4vh+LXEOXQxtM=;
+	s=arc-20240116; t=1787950727; c=relaxed/simple;
+	bh=Rmo/XO9XHoEmEO/7OVid6jBs5qtFuXwEb0EvBhaQe34=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bbkMKUWeZ+JFXtZCeyvwVFalxW8U7dKZeQx5fofjoi0laZnc8F1ZxAmPbuvQjaDDz6ctx9JbC8A/IT6GqdPdk7kLANbRcuJMnAwiFUVpOccdnUAo9l82xudzRHsqhJelnll6lGgY2zGNGN5GlwLAIWxTgVSijko7zNIg7a2g+PE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=VvWP+zSi; arc=pass smtp.client-ip=165.173.182.11
+	 In-Reply-To:To:Cc; b=Gv9tq3NSM3z7kLEWnlF8S+pRHwJbIZD4jpKuIFab7dwFsInPWnxJR+aepZcHUVr9ZEdm6rl27ymtThMUl1RDhApsyKCyUrysiVS2KmG7IMBkcBhheOY+YKdPkA3JEkp7LZePbmKErRvjPbhMMk4IESk8GrXuzAGzb02kVSPRQTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=O1tfyQ6R; arc=pass smtp.client-ip=136.143.188.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="VvWP+zSi"
-ARC-Seal: i=1; a=rsa-sha256; t=1787950684; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="O1tfyQ6R"
+ARC-Seal: i=1; a=rsa-sha256; t=1787950690; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=B4sgNEU3pL3AzHx6TXNR5LPi2g4kbdAKF67WavKENCyDlO77I0jLqaYbfmc1nMo61fCOexw00xEweYY6D4y21sO90mAUxikB+bIM5Tf3zKqKoCVsAI8jMb8Nou+FC2/lMrXnk0ud0Iafe8eJf6d+8SO6+0ERUnygKjpfOzTFDjo=
+	b=Ku1JYnDRP8cS98fZNX8rb2khJBFDm9ZyUQStVErbnYA/gDySNLfs/hyJa0UL+I5qqoyunXh5jTfw1cwMJLiDM13ee9k8tHzEq4WaZxj3MX6KqMnqQcaM/NxkDBdQvoSR9DEmsTgdH50RrVdjSJCDXwZwLZLJwKW8nrJntV+tyvw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787950684; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Bkr1BFA8JaqPgz+ZJjaJL66hXD/0MblU6CSIj4eBGyo=; 
-	b=j7NdIFU+Pvijg9vqJfzkN8OLUhY0jKu4JkRPIoIYdU+RL4Kk/UkGytT8SyzlPuua2AevQ4rUN7CbxZNbY98kZGRsa2MAh0+N3BugQKuR9L9ugKy+9vX9WdynJ884dqfF6KcgG6EwOoBNE6H04taQX8BkCOmtiwAZVWZf73XLq2M=
+	t=1787950690; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=F5z/8ycwPUffCKjaBmrIZdQo0tveJFXXY3IIO7N7iR8=; 
+	b=nlE/17WjS8wueioxiVwkgqjwmblEQ4ekk/G71VuHwMESXucej5fRXcnliuMSs69PB9GZlEbuE+vyuPB2Kl6kU8W0mvvcpKL3Er8zs3dAbBkeTeVceWtFEfDT8WVrUBo4Ksgw4uJjk56XzSfi35qFCcTC+QzQDY0AAwua2PIfBC0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950684;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950690;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Bkr1BFA8JaqPgz+ZJjaJL66hXD/0MblU6CSIj4eBGyo=;
-	b=VvWP+zSiWdF2No9eX8dlTXn2YgvytsytOel2i9SKpt4KnAeIxBZeArf5zFV7WAl3
-	mHeJ0tarLMyLGrGuLUudl5Z0D6TAxpjgPSYsnz/BB8oIk2xyEFO9OwFLpDEkh+HRbF7
-	BV4Rmx2c2tUweTeAK1qAwbEkwb1wqe0Q0OVOJgrs=
-Received: by mx.zohomail.com with SMTPS id 1787950682002200.20126287790504;
-	Fri, 28 Aug 2026 13:58:02 -0700 (PDT)
+	bh=F5z/8ycwPUffCKjaBmrIZdQo0tveJFXXY3IIO7N7iR8=;
+	b=O1tfyQ6Rxhgo/YJ117J81xctFAik11ZpbeyAHZ9FEPjJygXDWxfMfxUjbZK4dXEP
+	ED2qpj7gdsdWACF5wtvwC49SN7S/BzmF0PFhNd2d+h3CRRO1T138a6V0zc8Lh+HsPEJ
+	LHQ/HE+MZl+RKdguoyf5/RfvuESVjiyd8il3IYtE=
+Received: by mx.zohomail.com with SMTPS id 1787950687808981.8407835768854;
+	Fri, 28 Aug 2026 13:58:07 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 28 Aug 2026 21:56:47 +0100
-Subject: [PATCH v7 07/17] drm/panfrost: Stop all jobs before commencing
- device teardown
+Date: Fri, 28 Aug 2026 21:56:48 +0100
+Subject: [PATCH v7 08/17] drm/panfrost: Split subsystem init/reset from
+ interrupt enablement
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-claude-fixes-v7-7-72a13b2c125d@collabora.com>
+Message-Id: <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -66,154 +66,305 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4381;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11059;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=OBbDOeQ+abKzN85Sr4YSgFexzzXD/M4vh+LXEOXQxtM=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYtRPk8CtvzxnSHnHS5fzPViAl1laKmOlkKE
- Ngjcs2M9EmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LQAKCRAOJn5M7lND
- Pd68DACrP0g/jy9KLDK0ibr7mtK7xmNO6AvntzwnxTg+qSez+qDAzOmna1N/UbsJLGWXMg04lYl
- 8Y6U/jDPy0WsejHAf51TQ+DhfkB7l2VPbaYMsZy5ffeK+6wRl4SqFQVUeqy/TYEBnumBAX53KTM
- dMXTdfNaBEQd4n6OP1hLTcyClRE2+mbbznZYOh5VNV/pRW+ekiI7/zwszO0uIHME3f9lsKVGvPi
- 6weX13R1Tp3A2ZqiHJV4F8M47Ad6KmjDu2e6st2q50xxlxxfemd7rHJBjzgEXMuxHPUkO+1tYHb
- PAmZN4qFR9WT8vuQqOLoMDplQRSd3yXR2kObGicVZxmGNSS6pnvPBomkyZRQo0TFilw2N1ET5pe
- V7KFrp96cuiGLK255xWSvsVBdXBCnZ+Ho6VdLTkQERIwssSIl7rEFRjGaE7XsKTR34FEbB8tUbB
- UnqFwL2IZYZ2I82QiZx7jm+aA9sU7sJtEBY0ESGlw9QePqbxnD1tLgIf/rRgMp2iT54nM=
+ bh=Rmo/XO9XHoEmEO/7OVid6jBs5qtFuXwEb0EvBhaQe34=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYtMhqBVphzK72uG5KAl8Mki5XNCQxmjP0MX
+ iDAeNQBAkWJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LQAKCRAOJn5M7lND
+ PW7bC/43S59BXdLYAlGazPYMJj5rNlorjCymGoIlhGRp26ue81nVRDUZCGatDwXPxUvnlkun/6O
+ AaMEUyTm4fkYfBFnO1uaSlm6y5BBQYluTgDiOUsIBDgQYva4ecmZu66G+VGwdwJLNyzCc1b/mef
+ Lwb+6mH7Rz08uKhsscMwUJ4gTNGjDTNkpdbf1+w/TAaBPPej+Qp+diZF7JN+lV0fJIRW0WXBmFe
+ UnJACu/VjrByM+w/wTnBkoyCBLNH2y9CsMwYJ3dm7LKF/uBMAN4YscWG4vyl1fdyX0KTLxQp1lu
+ qwcfy4ZDRDvyXNS7lRhObLzEBLnCxmATjLmLzXwBOS6vzocIYkhR2BVr8up2COaCQMpsk1/DIju
+ q6EUDoIkbBtcYK9Lw/tFSun5P04OhZTj022SzuaiXbkjFAuxeXQLS8RkO48656dnD9awnfWOAzH
+ j2FDCe3dQtsS0w2rkGzzZiKTqTos9UzJKF5rEX00iNSe81JDs+tfsyX5xv2BZFWeBMqz0=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-We should make sure there are no inflight jobs at the time we finish driver
-structures and synchronise their IRQs, and even more so by the time clocks
-and power domains are disabled.
+Because MMU interrupts are only enabled when the device is reset, it
+happened that after DRM device registration, the very first job targeting
+the tiler heap BO would always time out. The reason is the reset sequence
+is only part of PM runtime resume, which is not called explicitly at driver
+probe time, and an actual reset work item manually triggered after a HW
+error.
 
-To that end, stop submissions from existing scheduler entities and force HW
-to stop all running jobs.
+I have attempted a somewhat drastic solution, which is completely
+decoupling GPU/MMU/JM subsystem initialisation and reset from interrupt
+enablement, so that we can handle IRQ toggling a bit more flexibly.
 
+To this end:
+- Ensure every subsystem with its own IRQ has an 'enable interrupts'
+method, and that it doesn't enable them anywhere else.
+- Force IRQ masking at MMU reset time. Up until, now, panfrost_mmu_reset()
+was clearing the MMU IRQ suspension bit, but at no point that is set during
+the reset sequence.
+
+Then manually enable all interrupts when the device is fully initialised at
+probe time, right before DRM device registration, or after the reset
+sequence is complete. Also disable all interrupts at device remove time,
+so that their IRQs can be sync'ed right before tearing the device down.
+
+Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c |  2 +
- drivers/gpu/drm/panfrost/panfrost_job.c    | 71 ++++++++++++++++++------------
- drivers/gpu/drm/panfrost/panfrost_job.h    |  1 +
- 3 files changed, 46 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 40 ++++++++++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_device.h |  3 ++-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c    | 19 ++++++++------
+ drivers/gpu/drm/panfrost/panfrost_gpu.h    |  2 ++
+ drivers/gpu/drm/panfrost/panfrost_job.c    |  7 +++---
+ drivers/gpu/drm/panfrost/panfrost_mmu.c    |  9 +++++--
+ drivers/gpu/drm/panfrost/panfrost_mmu.h    |  2 ++
+ 7 files changed, 56 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 9549ddb7854a..9e02fb5f73c8 100644
+index 9e02fb5f73c8..99f7da2180f9 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -341,6 +341,8 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
- 	pm_runtime_get_sync(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
- 
-+	panfrost_jm_stop_sched_jobs(pfdev);
-+
- 	panfrost_gem_fini(pfdev);
- 	panfrost_perfcnt_fini(pfdev);
- 	panfrost_jm_fini(pfdev);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 5016d2d53da2..630298b7ea8a 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -655,39 +655,12 @@ static u32 panfrost_active_slots(struct panfrost_device *pfdev,
- 	return js_state & *js_state_mask;
+@@ -226,6 +226,27 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
+ 	return err;
  }
  
--static void
--panfrost_reset(struct panfrost_device *pfdev,
--	       struct drm_sched_job *bad)
-+static void panfrost_stop_jobs(struct panfrost_device *pfdev)
++void panfrost_device_enable_int(struct panfrost_device *pfdev)
++{
++	panfrost_gpu_enable_interrupts(pfdev);
++	panfrost_mmu_enable_interrupts(pfdev);
++	panfrost_jm_enable_interrupts(pfdev);
++}
++
++static void panfrost_device_enable_hw(struct panfrost_device *pfdev)
++{
++	panfrost_device_enable_int(pfdev);
++	panfrost_devfreq_resume(pfdev);
++}
++
++static void panfrost_device_disable_hw(struct panfrost_device *pfdev)
++{
++	panfrost_devfreq_suspend(pfdev);
++	panfrost_jm_suspend_irq(pfdev);
++	panfrost_mmu_suspend_irq(pfdev);
++	panfrost_gpu_suspend_irq(pfdev);
++}
++
+ int panfrost_device_init(struct panfrost_device *pfdev)
  {
- 	u32 js_state, js_state_mask = 0xffffffff;
- 	unsigned int i, j;
--	bool cookie;
- 	int ret;
+ 	int err;
+@@ -297,6 +318,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_perfcnt;
  
--	if (!atomic_read(&pfdev->reset.pending))
--		return;
++	panfrost_device_enable_hw(pfdev);
++
+ 	pm_runtime_set_active(pfdev->base.dev);
+ 	pm_runtime_mark_last_busy(pfdev->base.dev);
+ 	pm_runtime_enable(pfdev->base.dev);
+@@ -315,6 +338,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 
+ out_devreg:
+ 	pm_runtime_disable(pfdev->base.dev);
++	panfrost_device_disable_hw(pfdev);
+ 	panfrost_gem_fini(pfdev);
+ out_perfcnt:
+ 	panfrost_perfcnt_fini(pfdev);
+@@ -342,6 +366,7 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
+ 	pm_runtime_disable(pfdev->base.dev);
+ 
+ 	panfrost_jm_stop_sched_jobs(pfdev);
++	panfrost_device_disable_hw(pfdev);
+ 
+ 	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+@@ -456,16 +481,12 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
+ 	return false;
+ }
+ 
+-void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
++void panfrost_device_reset(struct panfrost_device *pfdev)
+ {
+ 	panfrost_gpu_soft_reset(pfdev);
 -
--	/* Stop the schedulers.
--	 *
--	 * FIXME: We temporarily get out of the dma_fence_signalling section
--	 * because the cleanup path generate lockdep splats when taking locks
--	 * to release job resources. We should rework the code to follow this
--	 * pattern:
--	 *
--	 *	try_lock
--	 *	if (locked)
--	 *		release
--	 *	else
--	 *		schedule_work_to_release_later
--	 */
--	for (i = 0; i < NUM_JOB_SLOTS; i++)
--		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
+ 	panfrost_gpu_power_on(pfdev);
+ 	panfrost_mmu_reset(pfdev);
 -
--	cookie = dma_fence_begin_signalling();
--
--	if (bad)
--		drm_sched_increase_karma(bad);
--
- 	/* Mask job interrupts and synchronize to make sure we won't be
- 	 * interrupted during our reset.
- 	 */
-@@ -730,6 +703,48 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	panfrost_jm_reset_interrupts(pfdev);
+-	if (enable_job_int)
+-		panfrost_jm_enable_interrupts(pfdev);
+ }
+ 
+ static int panfrost_device_runtime_resume(struct device *dev)
+@@ -479,8 +500,8 @@ static int panfrost_device_runtime_resume(struct device *dev)
+ 			return ret;
  	}
- 	memset(pfdev->jobs, 0, sizeof(pfdev->jobs));
- 	spin_unlock(&pfdev->js->job_lock);
+ 
+-	panfrost_device_reset(pfdev, true);
+-	panfrost_devfreq_resume(pfdev);
++	panfrost_device_reset(pfdev);
++	panfrost_device_enable_hw(pfdev);
+ 
+ 	return 0;
+ }
+@@ -492,10 +513,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
+ 	if (!panfrost_jm_is_idle(pfdev))
+ 		return -EBUSY;
+ 
+-	panfrost_devfreq_suspend(pfdev);
+-	panfrost_jm_suspend_irq(pfdev);
+-	panfrost_mmu_suspend_irq(pfdev);
+-	panfrost_gpu_suspend_irq(pfdev);
++	panfrost_device_disable_hw(pfdev);
+ 	panfrost_gpu_power_off(pfdev);
+ 
+ 	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+index a0b9a2145fc9..c94546b49662 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.h
++++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+@@ -250,7 +250,8 @@ int panfrost_unstable_ioctl_check(void);
+ 
+ int panfrost_device_init(struct panfrost_device *pfdev);
+ void panfrost_device_fini(struct panfrost_device *pfdev);
+-void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int);
++void panfrost_device_enable_int(struct panfrost_device *pfdev);
++void panfrost_device_reset(struct panfrost_device *pfdev);
+ 
+ extern const struct dev_pm_ops panfrost_pm_ops;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 8a15ccce08e9..c8e0b1acc669 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -67,8 +67,6 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
+ 	gpu_write(pfdev, GPU_INT_MASK, 0);
+ 	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+ 
+-	clear_bit(PANFROST_COMP_BIT_GPU, pfdev->is_suspended);
+-
+ 	gpu_write(pfdev, GPU_CMD, GPU_CMD_SOFT_RESET);
+ 	ret = readl_relaxed_poll_timeout(pfdev->iomem + GPU_INT_RAWSTAT,
+ 		val, val & GPU_IRQ_RESET_COMPLETED, 10, 10000);
+@@ -87,12 +85,6 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
+ 
+ 	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_MASK_ALL);
+ 
+-	/* Only enable the interrupts we care about */
+-	gpu_write(pfdev, GPU_INT_MASK,
+-		  GPU_IRQ_MASK_ERROR |
+-		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED |
+-		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
+-
+ 	/*
+ 	 * All in-flight jobs should have released their cycle
+ 	 * counter references upon reset, but let us make sure
+@@ -504,6 +496,17 @@ void panfrost_gpu_power_off(struct panfrost_device *pfdev)
+ 		dev_err(pfdev->base.dev, "l2 power transition timeout");
+ }
+ 
++void panfrost_gpu_enable_interrupts(struct panfrost_device *pfdev)
++{
++	clear_bit(PANFROST_COMP_BIT_GPU, pfdev->is_suspended);
++
++	/* Only enable the interrupts we care about */
++	gpu_write(pfdev, GPU_INT_MASK,
++		  GPU_IRQ_MASK_ERROR |
++		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED |
++		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
 +}
 +
-+void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev)
-+{
-+	for (u32 i = 0; i < NUM_JOB_SLOTS; i++)
-+		drm_sched_wqueue_stop(&pfdev->js->queue[i].sched);
+ void panfrost_gpu_suspend_irq(struct panfrost_device *pfdev)
+ {
+ 	set_bit(PANFROST_COMP_BIT_GPU, pfdev->is_suspended);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.h b/drivers/gpu/drm/panfrost/panfrost_gpu.h
+index b4fef11211d5..743d45b00d9f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.h
+@@ -15,6 +15,8 @@ u32 panfrost_gpu_get_latest_flush_id(struct panfrost_device *pfdev);
+ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev);
+ void panfrost_gpu_power_on(struct panfrost_device *pfdev);
+ void panfrost_gpu_power_off(struct panfrost_device *pfdev);
 +
-+	panfrost_stop_jobs(pfdev);
-+}
-+
-+static void
-+panfrost_reset(struct panfrost_device *pfdev,
-+	       struct drm_sched_job *bad)
-+{
-+	unsigned int i;
-+	bool cookie;
-+
-+	if (!atomic_read(&pfdev->reset.pending))
-+		return;
-+
-+	/* Stop the schedulers.
-+	 *
-+	 * FIXME: We temporarily get out of the dma_fence_signalling section
-+	 * because the cleanup path generate lockdep splats when taking locks
-+	 * to release job resources. We should rework the code to follow this
-+	 * pattern:
-+	 *
-+	 *	try_lock
-+	 *	if (locked)
-+	 *		release
-+	 *	else
-+	 *		schedule_work_to_release_later
-+	 */
-+	for (i = 0; i < NUM_JOB_SLOTS; i++)
-+		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
-+
-+	cookie = dma_fence_begin_signalling();
-+
-+	if (bad)
-+		drm_sched_increase_karma(bad);
-+
-+	panfrost_stop_jobs(pfdev);
++void panfrost_gpu_enable_interrupts(struct panfrost_device *pfdev);
+ void panfrost_gpu_suspend_irq(struct panfrost_device *pfdev);
+ 
+ void panfrost_cycle_counter_get(struct panfrost_device *pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 630298b7ea8a..a3ff7d644276 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -747,7 +747,7 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	panfrost_stop_jobs(pfdev);
  
  	/* Proceed with reset now. */
- 	panfrost_device_reset(pfdev, false);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/panfrost/panfrost_job.h
-index 3e3b9717838f..dc9d3c9dc67b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.h
-@@ -73,6 +73,7 @@ int panfrost_jm_is_idle(struct panfrost_device *pfdev);
- int panfrost_job_get_slot(struct panfrost_job *job);
- int panfrost_job_push(struct panfrost_job *job);
- void panfrost_job_put(struct panfrost_job *job);
-+void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev);
+-	panfrost_device_reset(pfdev, false);
++	panfrost_device_reset(pfdev);
  
- #ifdef CONFIG_DEBUG_FS
- void panfrost_sched_debugfs_init(struct drm_minor *minor);
+ 	/* GPU has been reset, we can clear the reset pending bit. */
+ 	atomic_set(&pfdev->reset.pending, 0);
+@@ -768,8 +768,8 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++)
+ 		drm_sched_start(&pfdev->js->queue[i].sched, 0);
+ 
+-	/* Re-enable job interrupts now that everything has been restarted. */
+-	panfrost_jm_enable_interrupts(pfdev);
++	/* Re-enable interrupts now that everything has been restarted. */
++	panfrost_device_enable_int(pfdev);
+ 
+ 	dma_fence_end_signalling(cookie);
+ }
+@@ -923,7 +923,6 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 	}
+ 
+ 	panfrost_jm_reset_interrupts(pfdev);
+-	panfrost_jm_enable_interrupts(pfdev);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 5c393ed6e310..7fd89ee4ef9e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -340,7 +340,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ {
+ 	struct panfrost_mmu *mmu, *mmu_tmp;
+ 
+-	clear_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
++	mmu_write(pfdev, MMU_INT_MASK, 0);
+ 
+ 	spin_lock(&pfdev->as_lock);
+ 
+@@ -356,7 +356,6 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ 	spin_unlock(&pfdev->as_lock);
+ 
+ 	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
+-	mmu_write(pfdev, MMU_INT_MASK, ~0);
+ }
+ 
+ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+@@ -981,6 +980,12 @@ void panfrost_mmu_fini(struct panfrost_device *pfdev)
+ 	mmu_write(pfdev, MMU_INT_MASK, 0);
+ }
+ 
++void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev)
++{
++	clear_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
++	mmu_write(pfdev, MMU_INT_MASK, ~0);
++}
++
+ void panfrost_mmu_suspend_irq(struct panfrost_device *pfdev)
+ {
+ 	set_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.h b/drivers/gpu/drm/panfrost/panfrost_mmu.h
+index 27c3c65ed074..689cf95caa21 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.h
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.h
+@@ -15,6 +15,8 @@ void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping);
+ int panfrost_mmu_init(struct panfrost_device *pfdev);
+ void panfrost_mmu_fini(struct panfrost_device *pfdev);
+ void panfrost_mmu_reset(struct panfrost_device *pfdev);
++
++void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev);
+ void panfrost_mmu_suspend_irq(struct panfrost_device *pfdev);
+ 
+ int panfrost_mmu_as_get(struct panfrost_device *pfdev, struct panfrost_mmu *mmu);
 
 -- 
 2.55.0
