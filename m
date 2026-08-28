@@ -1,360 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0627830FF1D;
-	Fri, 28 Aug 2026 08:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48D13DDDC0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904572; cv=none; b=BFkNKdfzj1ORC8wQHjB3g5QeC33eGVDjfuYuQcJfmbUzsnpHvxcVkbqNFQUr7e5uLVIuAKgZ4AnKwjJwzc5SKrxG5jyuuyXnM71TlW971nqw8l5jfuVXyC3IsNf1EoNsFllBXmjl4q3wHprfI9QiWBLorL26aNzaaYwXLRqj7ko=
+	t=1787904588; cv=none; b=Y/HNus1pkgIvsYrg7HST7IsiTqop4QrYufzxfhG6idPcqVwsPDodjCHY4sU7yIloxVnNHw+Z1XnAb/87X97njfSxOETb66YJTunCP4jAJZn1jBoNzLNtrQp4vLnFRO9G17V0J7Fnyj/N05VqEDhmloh4m/KUkjt9Wtrj4FCGTes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904572; c=relaxed/simple;
-	bh=hnN/T3gvx0s9WO+rWPJBZldaRBt41IE9D/vXA+ppHi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k6sXH5aSGRV4f2L0GTAU9Tr3RDtqZrMfAIS9KMFLnYUVih0NIvYTGYtuNXQys6eP9aShmn7cWNC/idS26WDs/O2mUBML55N0fShTwXzqCSea+Y2mVdZjtnzQQvy7E38kkdE2gR7SweHmKKuxNleZ+awbN3MYb70sVqgg7L6XCbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KLo4Fn2C; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787904588; c=relaxed/simple;
+	bh=sYZOuS5bdKiPDKa8vVkK+d9Ee9FAX3CLv0HydD51KCA=;
+	h=Date:Message-Id:Mime-Version:Content-Type:From:Subject:Cc:To; b=ZoiD3Qg1VbnuHhvKUEqGMJYBfJinXCwje/VK1mzjRKKwkWdVcxw0o5d6xIxkvO+8Xl9ibhdX41ksWBXHod+wK2vHVZYDgIX80izSfNd4RfzY15STUi9DnS/k6Vqk1sMnb43MiryB0vkkAH3JkZNSnp+682baN3BMEL0UF2r3MZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=TIhU1c0t; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KLo4Fn2C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787904571; x=1819440571;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hnN/T3gvx0s9WO+rWPJBZldaRBt41IE9D/vXA+ppHi4=;
-  b=KLo4Fn2C62xW3R+8R6anrrBnck8g0QQJkpJM3H2YVshfQUZt9SO9bPIu
-   wxpIFLGOeBK44YU5q8TwqQvVRRkaVg9UQ1HSzTig7d70WLzx7em2GtGpZ
-   kv8IdAeqvb2vWNu80s0kg+1dN/2JZZgO3Jp9At3yqi3gkKnnOXwuB2efl
-   vNYLdtInLyAX8jKaBH+yfKqkLS2rBcunQk3/O0BLRVWyNeecjOQD84muj
-   5mMh2PoErUyZRadDHq0S/L/mm0/NtnsVaH8mZ+4WfUWCcCO61JXP03joe
-   4RikAvCBIt4jbvrYohdzR3M4tJkscCXPca+B5YI3Yx7AG+KezgJRLhxYa
-   Q==;
-X-CSE-ConnectionGUID: iJDdWwfrRNyyu3reWvzgmA==
-X-CSE-MsgGUID: NgJ+XCPTSiitdc53gwqStA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99571087"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99571087"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 01:09:30 -0700
-X-CSE-ConnectionGUID: ePNJRN1vS1mMz6p8zaYGow==
-X-CSE-MsgGUID: l8kmGZ++QtGoAjv3QmZI/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="264324764"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 01:09:26 -0700
-Date: Fri, 28 Aug 2026 11:09:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kurt Borja <kuurtb@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
-Message-ID: <apFCNNzhPfq0T6rn@ashevche-desk.local>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="TIhU1c0t"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787904573; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=HR83UriVsIUTznJzO8x3qhujDb3DFBhw9+CN77nXxOE=;
+ b=TIhU1c0t7ikw1kXIfAiO7jZ2Kfp60Kc9mmD+8TCocWWJnfi3RiLqouEeYauGvHoM/UQHgP
+ puIPPLYCHR+ieELSa32qF8W4V3NzzN696PTsPlGxVbQfPKVYFz+nhMTab8s+pWtL7i6vyg
+ 49kNqix+fr4GDgcTaJIfK3WYgEygW4ilS+e9WyFLrjmcHmbKg3JrsWnJBBREwm2nOWbGnv
+ CW6QDDyY/hVN6LVkjrjJKSw842TpKyweZ4IG//+Zy1ZOR8div5prr4BwY4nOCQMf6Rzgxi
+ cfcOmxbbFC07EF4ExUM3kfM6IKEc44KWFuNoX7TiR06gg9wNEZLsSktXRK4mrw==
+Date: Fri, 28 Aug 2026 16:09:27 +0800
+Message-Id: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+X-B4-Tracking: v=1; b=H4sIADZCkWoC/yXMQQqDQAxG4atI1g3YAU3pVUoXNv5TU6iViUpBv LujLr/Fews5ksHpXiyUMJvbr8+4XgrSrunfYGuzKZShLm9BWL8j+wBox1MTuY1BpRJRCChHQ0K 0/zF8PE/79PpAx/1C67oBbcvcrnIAAAA=
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HSI: cmt_speech: Fix crash on device removal with open file descriptor
+X-Change-Id: 20260827-cmt-speech-uaf-df2c7577ce7e
+X-Lms-Return-Path: <lba+26a91423b+7a9ed7+vger.kernel.org+me@cherr.cc>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Fri, 28 Aug 2026 16:09:30 +0800
+Content-Transfer-Encoding: 7bit
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+To: "Sebastian Reichel" <sre@kernel.org>, 
+	"Kai Vehmanen" <kai.vehmanen@nokia.com>, 
+	"Aaro Koskinen" <aaro.koskinen@iki.fi>, 
+	"Joni Lapilainen" <joni.lapilainen@gmail.com>, 
+	"Carlos Chinea" <carlos.chinea@nokia.com>
 
-On Fri, Aug 28, 2026 at 01:38:18AM -0500, Kurt Borja wrote:
-> Add the ti-ads1262 driver with initial support for the primary ADC
-> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
-> and interoperability considerations were taken into account.
-> 
-> Various features such as accurate timeout delays, per-channel reference
-> sources, scale, offset, settling latency, excitation currents and
-> diagnostics are intentionally left out for future support.
+misc_deregister() does not drain file descriptors that are already
+open, so after cs_hsi_client_remove() clears and frees
+cs_char_data.hi, the ioctl and write paths still dereference it
+without any lock or NULL check:
 
-...
+  open("/dev/cmt_speech")                          [userspace]
+  rmmod cmt_speech                                 [removal]
+  ioctl(fd, CS_GET_STATE, 0)                       [userspace]
 
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
+Fix it by reading cs_char_data.hi under cs_char_data.lock and
+rejecting calls with -ENODEV once the interface is gone;
+cs_char_release() now steals the pointer under the lock like
+cs_hsi_client_remove() does, so the interface is stopped exactly
+once between them.
 
-> +#include <linux/compiler_attributes.h>
+Fixes: 7f62fe8a5851 ("HSI: cmt_speech: Add cmt-speech driver")
+Cc: stable@vger.kernel.org
 
-This one is covered by types.h.
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Verified on a KASAN kernel with a software HSI controller: opening the
+character device, unbinding the client and issuing the ioctl gives
 
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/lockdep.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/types.h>
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:cs_char_ioctl+0x29e/0x340
 
-...
+and with the patch applied the same sequence returns -ENODEV.
+---
+ drivers/hsi/clients/cmt_speech.c | 47 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 40 insertions(+), 7 deletions(-)
 
-> +/*
-> + * The power transition timing requirement is 65536 clock cycles, at the minimum
-> + * clock frequency this is 65536 microseconds.
-> + */
-> +#define ADS1262_POWER_TRANS_USECS		65536
+diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
+index 7226677ebde7..4325152a5a62 100644
+--- a/drivers/hsi/clients/cmt_speech.c
++++ b/drivers/hsi/clients/cmt_speech.c
+@@ -732,6 +732,17 @@ static int cs_hsi_write_on_data(struct cs_hsi_iface *hi, unsigned int slot)
+ 	return ret;
+ }
+ 
++static struct cs_hsi_iface *cs_char_hsi_get(struct cs_char *csdata)
++{
++	struct cs_hsi_iface *hi;
++
++	spin_lock_bh(&csdata->lock);
++	hi = csdata->hi;
++	spin_unlock_bh(&csdata->lock);
++
++	return hi;
++}
++
+ static unsigned int cs_hsi_get_state(struct cs_hsi_iface *hi)
+ {
+ 	return hi->iface_state;
+@@ -1180,6 +1191,7 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
+ 	u32 data;
+ 	int err;
+ 	ssize_t	retval;
++	struct cs_hsi_iface *hi;
+ 
+ 	if (count < sizeof(data))
+ 		return -EINVAL;
+@@ -1189,7 +1201,10 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
+ 	else
+ 		retval = count;
+ 
+-	err = cs_hsi_command(csdata->hi, data);
++	hi = cs_char_hsi_get(csdata);
++	if (!hi)
++		return -ENODEV;
++	err = cs_hsi_command(hi, data);
+ 	if (err < 0)
+ 		retval = err;
+ 
+@@ -1205,8 +1220,11 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	switch (cmd) {
+ 	case CS_GET_STATE: {
+ 		unsigned int state;
++		struct cs_hsi_iface *hi = cs_char_hsi_get(csdata);
+ 
+-		state = cs_hsi_get_state(csdata->hi);
++		if (!hi)
++			return -ENODEV;
++		state = cs_hsi_get_state(hi);
+ 		if (copy_to_user((void __user *)arg, &state, sizeof(state)))
+ 			r = -EFAULT;
+ 
+@@ -1214,6 +1232,7 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	}
+ 	case CS_SET_WAKELINE: {
+ 		unsigned int state;
++		struct cs_hsi_iface *hi;
+ 
+ 		if (copy_from_user(&state, (void __user *)arg, sizeof(state))) {
+ 			r = -EFAULT;
+@@ -1225,7 +1244,10 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 			break;
+ 		}
+ 
+-		cs_hsi_set_wakeline(csdata->hi, !!state);
++		hi = cs_char_hsi_get(csdata);
++		if (!hi)
++			return -ENODEV;
++		cs_hsi_set_wakeline(hi, !!state);
+ 
+ 		break;
+ 	}
+@@ -1239,12 +1261,17 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	}
+ 	case CS_CONFIG_BUFS: {
+ 		struct cs_buffer_config buf_cfg;
++		struct cs_hsi_iface *hi;
+ 
+ 		if (copy_from_user(&buf_cfg, (void __user *)arg,
+-							sizeof(buf_cfg)))
++							sizeof(buf_cfg))) {
+ 			r = -EFAULT;
+-		else
+-			r = cs_hsi_buf_config(csdata->hi, &buf_cfg);
++			break;
++		}
++		hi = cs_char_hsi_get(csdata);
++		if (!hi)
++			return -ENODEV;
++		r = cs_hsi_buf_config(hi, &buf_cfg);
+ 
+ 		break;
+ 	}
+@@ -1334,10 +1361,16 @@ static void cs_free_char_queue(struct list_head *head)
+ static int cs_char_release(struct inode *unused, struct file *file)
+ {
+ 	struct cs_char *csdata = file->private_data;
++	struct cs_hsi_iface *hi;
+ 
+-	cs_hsi_stop(csdata->hi);
+ 	spin_lock_bh(&csdata->lock);
++	hi = csdata->hi;
+ 	csdata->hi = NULL;
++	spin_unlock_bh(&csdata->lock);
++
++	if (hi)
++		cs_hsi_stop(hi);
++	spin_lock_bh(&csdata->lock);
+ 	free_page(csdata->mmap_base);
+ 	cs_free_char_queue(&csdata->chardev_queue);
+ 	cs_free_char_queue(&csdata->dataind_queue);
 
-_US as a suffix is enough. It's how in plenty of cases we do in the Linux
-kernel.
+---
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+change-id: 20260827-cmt-speech-uaf-df2c7577ce7e
 
-> +#define ADS1262_NOMINAL_CLK_RATE		7372800
-
-And here perhaps _Hz? What is the unit for this value?
-
-...
-
-> +static int ads1262_dev_send_cmd(struct ads1262 *st, u8 opcode)
-> +{
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	return spi_write_then_read(st->spi, &opcode, sizeof(opcode), NULL, 0);
-> +}
-> +
-> +static int ads1262_dev_read_by_cmd(struct ads1262 *st, u8 cmd, __be32 *val)
-> +{
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	return spi_write_then_read(st->spi, &cmd, sizeof(cmd), val, sizeof(*val));
-> +}
-
-How do these do not conflict or race with regmap SPI communication?
-
-...
-
-> +static int ads1262_dev_reset(struct ads1262 *st)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	struct gpio_desc *reset_gpiod;
-> +	int ret;
-> +
-> +	reset_gpiod = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(reset_gpiod))
-> +		return dev_err_probe(dev, PTR_ERR(reset_gpiod),
-> +				     "failed to get reset GPIO\n");
-
-> +
-
-Unneeded blank line. But can you use reset-gpio driver instead?
-
-> +	if (reset_gpiod) {
-> +		/*
-> +		 * Wait a power transition cycle to ensure we are in a
-> +		 * powered-off state after acquiring the RESET GPIO.
-> +		 */
-> +		fsleep(ADS1262_POWER_TRANS_USECS);
-> +
-> +		ret = gpiod_set_value_cansleep(reset_gpiod, 0);
-> +		if (ret)
-> +			return ret;
-> +
-> +		fsleep(ADS1262_POWER_TRANS_USECS);
-> +	} else {
-> +		ret = ads1262_dev_send_cmd(st, ADS1262_OPCODE_RESET);
-> +		if (ret)
-> +			return ret;
-> +		/*
-> +		 * The RESET timing requirement is 8 clock cycles, at the
-> +		 * minimum clock rate this is 8 microseconds.
-> +		 */
-> +		fsleep(8);
-> +	}
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ads1262_wait_for_conversion(struct ads1262 *st)
-> +{
-> +	u64 max_lat_ms;
-> +	long ret;
-> +
-> +	/*
-> +	 * The first conversion latency is affected by the channel's data rate,
-> +	 * filter, the configurable conversion delay and whether chop mode
-> +	 * and/or IDAC rotation mode are enabled.
-> +	 *
-> +	 * The worst possible latency is calculated by taking the lowest data
-> +	 * rate (2.5 SPS) and the sinc4 filter. This gives a latency of 1600 ms
-> +	 * (Table 9-13). Then we scale it by the actual clock rate and multiply
-> +	 * by 4 to account for chop and IDAC rotation modes (Equation 20).
-> +	 */
-> +	max_lat_ms = 4 * div_u64(1600ULL * ADS1262_NOMINAL_CLK_RATE, st->clk_rate);
-> +	ret = wait_for_completion_interruptible_timeout(&st->drdy,
-> +							msecs_to_jiffies(max_lat_ms));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (!ret)
-
-In this case it's better to have number comparison as the semantics of 0 is
-different to usual (success) code.
-
-	if (ret == 0)
-
-> +		return -ETIMEDOUT;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ads1262_regmap_write(void *context, const void *data, size_t count)
-> +{
-> +	return ads1262_regmap_gather_write(context, data, 1, data + 1,
-> +					   count - 1);
-
-I would go for a single line of 82 characters.
-
-> +}
-
-...
-
-> +static int ads1262_parse_channel_node(struct ads1262 *st,
-> +				      struct iio_chan_spec *spec,
-> +				      struct fwnode_handle *node)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	u32 pins[2];
-> +	int ret;
-
-Can this use the property names for 'single-channel' and 'diff-channels'?
-This will deduplicate the same in a few places and reduce potential typos.
-
-> +	if (fwnode_property_present(node, "single-channel")) {
-> +		ret = fwnode_property_read_u32(node, "single-channel", &pins[0]);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "%pfwP: failed to read single-channel\n",
-> +					     node);
-> +
-> +		pins[1] = ADS1262_INPMUX_AINCOM;
-> +
-> +		if (fwnode_property_present(node, "common-mode-channel")) {
-> +			ret = fwnode_property_read_u32(node, "common-mode-channel", &pins[1]);
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "%pfwP: failed to read common-mode-channel\n",
-> +						     node);
-> +		}
-> +	} else if (fwnode_property_present(node, "diff-channels")) {
-> +		ret = fwnode_property_read_u32_array(node, "diff-channels", pins,
-> +						     ARRAY_SIZE(pins));
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "%pfwP: failed to read diff-channels\n",
-> +					     node);
-> +
-> +		spec->differential = true;
-> +	} else {
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "%pfwP: one of single-channel or diff-channels is required\n",
-> +				     node);
-> +	}
-> +
-> +	if (pins[0] > ADS1262_INPMUX_AINCOM || pins[1] > ADS1262_INPMUX_AINCOM)
-> +		return dev_err_probe(dev, -EINVAL, "%pfwP: input channels not in range\n", node);
-> +
-> +	spec->channel = pins[0];
-> +	spec->channel2 = pins[1];
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ads1262_parse_channels(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	struct device *dev = &st->spi->dev;
-> +	struct iio_chan_spec *chan_specs;
-> +	unsigned int num_fw_channels, num_specs;
-> +	unsigned int i = 0;
-
-Split assignment. Move it closer to the first user.
-
-> +	u32 reg;
-> +	int ret;
-> +
-> +	num_fw_channels = device_get_named_child_node_count(dev, "channel");
-> +	if (num_fw_channels > ADS1262_FW_CHANNEL_COUNT)
-> +		return dev_err_probe(dev, -EINVAL, "too many channels\n");
-> +
-> +	/* Account for the monitor channels and timestamp */
-> +	num_specs = num_fw_channels + ADS1262_MON_CHANNEL_COUNT + 1;
-> +	chan_specs = devm_kcalloc(dev, num_specs, sizeof(*chan_specs), GFP_KERNEL);
-> +	if (!chan_specs)
-> +		return -ENOMEM;
-> +
-> +	device_for_each_named_child_node_scoped(dev, node, "channel") {
-> +		struct iio_chan_spec *spec = &chan_specs[i];
-> +
-> +		ret = fwnode_property_read_u32(node, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "%pfwP: failed to read channel reg\n", node);
-> +		if (reg >= ADS1262_MONITOR_ADDR_OFFSET)
-> +			return dev_err_probe(dev, -EINVAL, "%pfwP: reg out of range\n", node);
-> +
-> +		ret = ads1262_parse_channel_node(st, spec, node);
-> +		if (ret)
-> +			return ret;
-> +
-> +		spec->type = IIO_VOLTAGE;
-> +		spec->indexed = true;
-> +		spec->scan_index = i;
-> +		spec->address = reg;
-> +		spec->scan_type = (struct iio_scan_type) {
-> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +			.realbits = ADS1262_ADC1_RESOLUTION,
-> +			.storagebits = 32,
-> +			.endianness = IIO_BE,
-> +		};
-> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-> +
-> +		i++;
-> +	}
-> +
-> +	memcpy(&chan_specs[i], ads1262_monitor_chan_specs,
-> +	       sizeof(ads1262_monitor_chan_specs));
-> +
-> +	for (unsigned int mon = 0; mon < ADS1262_MON_CHANNEL_COUNT; mon++) {
-> +		chan_specs[i].scan_index = i;
-> +		i++;
-> +	}
-> +
-> +	chan_specs[i] = IIO_CHAN_SOFT_TIMESTAMP(i);
-> +	i++;
-> +
-> +	indio_dev->channels = chan_specs;
-> +	indio_dev->num_channels = i;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	st->clk_rate = rate ? rate : ADS1262_NOMINAL_CLK_RATE;
-
-Can use Elvis.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
