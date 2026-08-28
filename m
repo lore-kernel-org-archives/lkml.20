@@ -1,67 +1,72 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F50C3F1048
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62DE3DAAC3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916139; cv=none; b=mywO+SwjLPgqfPTbPjbqNgmUxofu40GgOlSG9de4RJKXx/sWkvLazNA22TqRh40QUJ/YzieFpVhQ7WdPd6QMPtPmcEVguYH9hgWS5x7dgZCrFRZBh7xiUy0ep8HwrgzueC4Fo5CZUNFCG67bSkh+41IOUntIbhGCxnq9kWr7rvk=
+	t=1787916174; cv=none; b=Hh0oz4fOPSDOOJNdiCMuaJM1ekWTJLZRJJPd9VPROmUotITl7bKtGiM/UWmb9Z0Pit/Fs+ftV0f42yBF6wmc+DmBExqcbZswkQMpLpsRrmII5X684Gyy+V8jCiwHZ+FA0bT5EBUW2djHjMAlw40NboPNLKy5yT11zhKhULqw3h8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916139; c=relaxed/simple;
-	bh=UxibEGyh0ngX6WPIStCZE+luKCxsFWjamD4YeF+l55I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kLMmKvMGkufW/JTOqFe9ee0A9zjey9Cmhih0pOHIMHkiMgHb+12bZhtBmetwRZBU7M/buNuv04NkLLVS2jQxf6fNpgG5lc4fKhaTSfNS5/qOcwh03djG65hpe8MfpOasRyi3dWONseCThNFPX/BAlpinhCjtF28++u12Chq+2pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=EzyLhITY; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	s=arc-20240116; t=1787916174; c=relaxed/simple;
+	bh=OxFQh/aLZ1OUP2E1LefOggZ7DwLj/Zk0YBH/aEcICnU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ARwENd3d4LAP8LynvJF8SEbKAXJIbU0oFBIZza96tAl9L6fyX2nffpNsz2xgYLhGgp8m9s8xO2GFPWplMY1u924dfhsrg1SlYPCxb7/u1KmOUl987OgYLKGhzf2Y7/M0MEKhSCwANHjCLHq+zqrNi9Z3fwuo4N2eyJL3ZIK0MoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brZEtbdB; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="EzyLhITY"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so1042747a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:22:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brZEtbdB"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8037785e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1787916137; x=1788520937; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787916171; x=1788520971; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oiV7JIlpXQTeWvhUN2RPawVnRyDQAz0BFchJbeuzjeg=;
-        b=EzyLhITY8PvH2H9eegea/3LG1SPudsrc4d1U61MuMnxZ1v3DwlWjQirxSpG1109wX0
-         DyxE2RwySXshSSohVMSN268Jm+/LEdscAv0SUSzywHAFWa2Ehnqzi8b3uTOhb6UUCZYE
-         pFrkHUwEujJ5rlBDd83hZvu00xqNDirKCeBxQ=
+        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
+        b=brZEtbdBgVvv/bmqZ59/aDSktlynXGJk3SDskdXYPh3MVXvdwpODkxpIFjhZLrkcin
+         4FggJ2PxPLaeuNN1DQS8lbzo2id/0+wzPZy6p8vxdvyQbbWX6qLBzXjMQqLkq70TwfRn
+         kldTdjCyb6ASglyuqoYkFJCsZKDhA/OMl2WEI+ZhMGrDQxe1JAPCBY7j+ggBudvkVNeb
+         NxKJIFz/ck41YI/qPWcHPnbEYVljkm4FAvnswqzUb1f9qfrL3diK1TA8lD8LCy79kg60
+         ocIAQ/cd/hB2jQngdPf5FWIoTSdEjkXwVaSGuQLnallpSO9xXQQRdvpLPxuYTAPXuI4n
+         t0Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787916137; x=1788520937;
+        d=1e100.net; s=20251104; t=1787916171; x=1788520971;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oiV7JIlpXQTeWvhUN2RPawVnRyDQAz0BFchJbeuzjeg=;
-        b=pXGOj0eN2gNIwiUgzmD6Q/o5sYu6b3huBPN0ofiHeDXOaepEcKiAr3MeQlM5PAf8w8
-         tQQZhUzG4YGAihfTy9W7rvYNOE7XGvgNLXSGPA6FVwFhlPUGGXl2tCTn7Iv7RnRbQHiV
-         n6Wc/n1DevDi8fIg72+ogAbC2+xttF1vzMtIMHGAupE/Nj5Dj9g4gQwFAS2eTlpkx2y7
-         1OVkaTMNDfuj4T97uvkhkKdPURzzpGijOITDVdpw2AzPBqyXZ2OEh89hrVhxlwf/Bkav
-         uiLznnxPiH2S8t7Al2qzMsCioAwhM9zxsngV6LvKQaSzixSUp0ZdEXG75i9+PKWDeGDU
-         gueA==
-X-Gm-Message-State: AFuF++lgbWWmIFFGWW3a4jcmGxQ7EmS9ercIM4UsPRrsJrCwnounnUTV
-	OKA+AU7Ajacl75gpqs2dlFd/z6zWsmyS9k6RN3i1Ujk1P3gRfhjVQ6qIMZfneC2Yxvc=
-X-Gm-Gg: AR+sD12ZWfxSzkOYLs+9XQKaXPz33qtT35IEf3J7XaeRc7X6b/FBIVxba5PV2LUqiuR
-	LLusx0Abwb7or037sHq+tHnPwEUT+sZopKQS5aUpf9xMiUQl3ik/NCcvIQ0nuV4TJ5rPJCHf5Ps
-	EcszdLDrt5Y+paH2HrdSSKDtA3eu/gpbZ81xsM1IVCnDRMx89SanSiSNIcOEQ0ck72/Q9npfMp2
-	RgNnxBr3twa+x6NP9MFBGpxoYNdsSWqZVCt6gCdRW3rR5Gode8gOI4u5FfEBjHWEU1p22a9Oyw5
-	U6LeYfE6RHj4tRuu5+KbAt/BRq9GVQfIew7jm1W/q5TveQI4/9EHJ5g/ETHjkqwqJKRzy22E+CH
-	XnFST8A4yFiE/G6PPaJ0qvzEpZHhMnaY2qrH7xP/OZ/ZNrWbLn9NW9WV+8sFWxXvyRgybEyLrpl
-	ruRpU1rV1nB1m1IG1pwvpJK7Kt4zXAstO//UJficvDuA44jjytiV/x1KYcRh/cI6+Llv8Agc235
-	g==
-X-Received: by 2002:a17:90b:2885:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-396d0d2f6cbmr13271308a91.2.1787916136666;
-        Fri, 28 Aug 2026 04:22:16 -0700 (PDT)
-Received: from kinako.work.home.arpa ([2400:4162:2428:2ffe:a973:53e4:1a28:8545])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-396ddc08266sm2162747a91.11.2026.08.28.04.22.14
+        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
+        b=mA4J3b5l1fIBoj1JItSUHjUQv1Pztkn38HKSmipVb14SDX/m6DyWvmRIB0itySGFGv
+         Sw/mimH9r9jjezGUQwpY5lx0+G5dXi13hfoU0RVEk1244L30joYWgtuKd7K86ixIPxh5
+         GC/uhe/6+xkP60uwUATFIZY+HMssPCkeYuztWA8agI4mlITvaqsyxPdAUTUhSsEdsjYg
+         qu5+CQBs6mR3BczwGGHRKrviCDqmjMW2cLNPLjtMMvJ1CJeYFYjcpl8svGfUSWQHrm0k
+         93fAnZ537m0J6ybzXGTKmzFF0RvpqFn/FZuQmibXK9CzU4ESReFHnbs9O5m/1WWSi0+r
+         4d5w==
+X-Forwarded-Encrypted: i=1; AHgh+RpgnwV9JXIHifSMEXSAUTXbvBk4j1NWHGX8YlI5X7R5oU2xJ49qwSunkGzzytvKMXY54+doQLh8pwcFwac=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpA6H3HhdzKSHgD0h1EK+Z3EgiU1MPn5kO0cRiAmf7uIZHkNz8
+	xHbyc+X9DF1+Gw/iXZ9YPEk9BV/lO4/EAmy1dDnYsZinjWEDyTAwNNSa
+X-Gm-Gg: AR+sD10YqpB0Y5rGSIcE/b+Hnetp00r9l1rFOWZ6B4e0e6Hpo2PINvL0b2U84938vwp
+	spJlbIuYLd51SBVItF54/RTZCHHb5FYe6pDSYfmG5g9WPB4aoffsecPmxYVk21AFCc4pyUpPZt3
+	2uARrmeKkDINSSt99eDag23rxfjZsYOuXXxftC+3ySfkHNawnS7yzMfKQrWNIaMHewPFlzCwL8V
+	IsfEKnDHIVU7f1N/wURxK2K1Z6TgupxpLn3hGbUwOoQFGrF7RVQNT4eoevvcCTlRQDLFtKnjhWd
+	t5Z77+5NVEhnouZNbhRjPa8APcbl5/xd1AYPZAr6dqz00B5Sbtqing4TekJBodus2HvmHueUlOt
+	TNTtYXjBZMFRqrlLKfancfcrZYpfTAEx8HfbrqPXBiq6IkQ7wffOgTFqB8gJXgBEUv+yZ9Rl58M
+	1QuBeiMZT5eRkbS+RUjurRZ/M75zG8Ne+knu+IoqeI/c++vzIBhvFQ0F56/ASi/aE=
+X-Received: by 2002:a05:600c:4f95:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49b91a2b7eamr64094345e9.1.1787916170837;
+        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
+Received: from cachyos-x8664 ([212.227.119.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d1dsm40237315e9.13.2026.08.28.04.22.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 04:22:16 -0700 (PDT)
-From: Daniel Palmer <daniel@thingy.jp>
-To: w@1wt.eu,
-	linux@weissschuh.net
-Cc: linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@thingy.jp>
-Subject: [PATCH] tools/nolibc: Add dirfd()
-Date: Fri, 28 Aug 2026 20:22:04 +0900
-Message-ID: <20260828112204.104111-1-daniel@thingy.jp>
-X-Mailer: git-send-email 2.53.0
+        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
+From: Alexei Turtanov <9alexei9@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexei Turtanov <9alexei9@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro 16 2026
+Date: Fri, 28 Aug 2026 14:22:39 +0300
+Message-ID: <20260828112239.18081-1-9alexei9@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,89 +75,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is useful for things like fstatat() on children of directory
-opened with opendir().
+The internal keyboard of the Xiaomi Redmi Book Pro 16 2026 (board TM2425)
+does not work: atkbd_probe() succeeds and every command is ACKed, but no
+scancodes ever arrive afterwards.
 
-At the same time use it to replace the two places that are converting
-the DIR point back into an fd.
+Testing on the hardware through serio_raw shows that ATKBD_CMD_RESET_DIS
+(0xF5) is the culprit. After 0xF5 the embedded controller keeps ACKing
+commands but stops delivering scancodes, and neither ATKBD_CMD_ENABLE
+(0xF4) nor ATKBD_CMD_RESET_BAT (0xFF) bring them back. Only re-enabling
+the keyboard interface at the controller level (i8042 command 0xAE, or
+rewriting the command byte as i8042_port_close() does) revives it.
+Running the init sequence without 0xF5 (0xED 0x00, 0xF3 0x00, 0xF4)
+keeps the keyboard working.
 
-Signed-off-by: Daniel Palmer <daniel@thingy.jp>
+'i8042.dumbkbd=1' also works around this, but then the driver never
+writes to the keyboard and the LEDs cannot be controlled. Use the
+existing atkbd_deactivate_fixup quirk instead, as done for the sibling
+TM2424 by commit 3a046db33bb9 ("Input: atkbd - skip deactivate for
+Xiaomi Book Pro 14's internal keyboard"). Tested on v7.2: keyboard,
+Caps Lock LED and s2idle suspend/resume all work.
+
+DMI: XIAOMI REDMI Book Pro 16 2026/TM2425, BIOS RMAPT6B0P0909 05/22/2026
+
+Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexei Turtanov <9alexei9@gmail.com>
 ---
- tools/include/nolibc/dirent.h | 38 +++++++++++++++++++++++++++--------
- 1 file changed, 30 insertions(+), 8 deletions(-)
 
-diff --git a/tools/include/nolibc/dirent.h b/tools/include/nolibc/dirent.h
-index 4e02ef25e72d..ba229b215a0b 100644
---- a/tools/include/nolibc/dirent.h
-+++ b/tools/include/nolibc/dirent.h
-@@ -27,6 +27,18 @@ typedef struct {
- 	char dummy[1];
- } DIR;
+Notes:
+    The DMI match is deliberately limited to the model I could test. The 14"
+    Redmi Book Pro 2026 most likely has the same EC and needs the same
+    quirk, but I have no unit to confirm it on.
+
+ drivers/input/keyboard/atkbd.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index 4c82e98..5041443 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -1954,6 +1954,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
+ 		},
+ 		.callback = atkbd_deactivate_fixup,
+ 	},
++	{
++		/* Xiaomi Redmi Book Pro 16 2026 (TM2425) */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "REDMI Book Pro 16 2026"),
++		},
++		.callback = atkbd_deactivate_fixup,
++	},
+ 	{ }
+ };
  
-+/* Internal dirfd() that does not set errno */
-+static __attribute__((unused))
-+int nolibc_dirfd(DIR *dirp)
-+{
-+	intptr_t i = (intptr_t)dirp;
-+
-+	if (i >= 0)
-+		return -1;
-+
-+	return ~i;
-+}
-+
- static __attribute__((unused))
- DIR *fdopendir(int fd)
- {
-@@ -49,15 +61,27 @@ DIR *opendir(const char *name)
- }
- 
- static __attribute__((unused))
--int closedir(DIR *dirp)
-+int dirfd(DIR *dirp)
- {
--	intptr_t i = (intptr_t)dirp;
-+	int fd = nolibc_dirfd(dirp);
- 
--	if (i >= 0) {
-+	if (fd < 0) {
- 		SET_ERRNO(EBADF);
- 		return -1;
- 	}
--	return close(~i);
-+
-+	return fd;
-+}
-+
-+static __attribute__((unused))
-+int closedir(DIR *dirp)
-+{
-+	int fd = dirfd(dirp);
-+
-+	if (fd < 0)
-+		return -1;
-+
-+	return close(fd);
- }
- 
- static __attribute__((unused))
-@@ -65,14 +89,12 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)
- {
- 	char buf[sizeof(struct linux_dirent64) + NAME_MAX + 1] __nolibc_aligned_as(struct linux_dirent64);
- 	struct linux_dirent64 *ldir = (void *)buf;
--	intptr_t i = (intptr_t)dirp;
- 	int fd, ret;
- 
--	if (i >= 0)
-+	fd = nolibc_dirfd(dirp);
-+	if (fd < 0)
- 		return EBADF;
- 
--	fd = ~i;
--
- 	ret = _sys_getdents64(fd, ldir, sizeof(buf));
- 	if (ret < 0)
- 		return -ret;
 -- 
-2.53.0
+2.55.0
 
