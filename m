@@ -1,118 +1,142 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D5EB30FF36;
-	Fri, 28 Aug 2026 00:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5105B31D757
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787878118; cv=none; b=PObJ1QiL2twJVqVk1zTYJ+o+wSHD0bI+F1VaKrKBD2MEN0re+8eNglu+4olDcBxa5q845PgKPDxecHqBnzfSamHfT3Wo7UhepA2Hijrq6V0E/bHdfRovCEZesEEP/tCY/xL4AQB5HtaObSTMHQg4okfjm+yCE0OQfU08nouzqPs=
+	t=1787878211; cv=none; b=Gmxd/wWQQlAgNvymcjvfAFWqUR8zgrfIhaUGkFV+lOlXLA3e8E4Brp8hC1Hbuq+ptJfn7X2VoaSIBeGOjjqoc38RAPXv09xzC6k29fPxNiC+loeZgWL01R68OYvtXe6KPp9hTzrFPQCsWr1HNtJWR25Zo2l6YeIGwsVRzbDjazg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787878118; c=relaxed/simple;
-	bh=NFLyLX8R+hoLKXzujgGCXVP5FlVDAWB3PS2BC0v4nNw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XWvwQ9grlt7BNWlLQxpU8GtGC19dhZiwJH4qyAepqBDx7AJ0/bLxHZ3xleCjRwFLPLeROv8Ouwv4cT7nuMOmI2CkcElUvOe1HL5Ai6BY74yeh67ahk8z5nUl8dPER5NPZbhdlHG+lKgja44fF7PC0Gtrf9BDg3L6BRCo6TOX0FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=j1H+YKhB; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1787878211; c=relaxed/simple;
+	bh=gHIYHgTe71pxOpV7+og1ksN4v6H+Xfn5LzAVWPmAgyc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=SsH3+8XpRpJHz6nk0JEM5k65o/xmN5NOe1OvlUOj+8RhxNLtC/GAExFY65zsfxJi6hZbrM9kvlwwksbqAFqQaRVp2Zzp0sNd3q0rs8+j3XUSW2NkzjwgmhrWiDXXaH0J2awa4xH5x4hIFSCgN6noQq28ozbcjUnFdo/apWBHQP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U/f0gnrU; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="j1H+YKhB"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U/f0gnrU"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so424761a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:50:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	References:In-Reply-To:To:Cc; bh=zvPKw/e7U23JjWvrITW/LvPufCKRBKh
-	4C3l1JjoU0P8=; b=j1H+YKhB8RO5ZUCKUiEE8DQgG6Frjs5vSH10bUEWKBoKd1z
-	XCy/HuiXDMLfhNRS6urR8zUchQrZJTWWbQ5phls6o4peBw91hloSRWlLUhfxBe14
-	Vyw4azk6JMlWSGTBEnEbL/L8R7uBokyVCXZIBjyUeoT4zuMZ5ntte+KkvWxE=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwCXxs3p2pBqHmMBAA--.589S3;
-	Fri, 28 Aug 2026 08:48:41 +0800 (CST)
-From: Jia Wang <wangjia@ultrarisc.com>
-Date: Fri, 28 Aug 2026 08:48:26 +0800
-Subject: [PATCH 1/2] dmaengine: dw-axi-dmac: Fix AXI burst length encoding
+        d=google.com; s=20251104; t=1787878209; x=1788483009; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M+L/jEThU+UMCGGhHnA2GUCWkP7cgtpwQVPowQ/g9e4=;
+        b=U/f0gnrUCtU4A2rEEmbap/tVmTsIGep8bO+oUGVUsG1QqSfBLszdIojJkGwiEq/119
+         3xzgDqAwcC1hjbMSJfWAPncdj1r/4ZnXzeHAcWDF5AP0bczIZhWn/Ei7sNo0Kj0VdvZr
+         1zRKQMHs3BKiRHIP1c0zZrm9oBki+ZVKwhKHLhpcWC7pb0f8xEwKQAc5xuSQTN36YUBZ
+         T1iEJZMUmVrsuEeznKWMxYdFVFgWEhc8TZ7P7pN0KSM+hHuTxOg3L7Pdj4f5J57KI7ae
+         m6HDw6Qo/sKQsU8QT7yKSpOqEW71QBMZKQjNHiXg4L8kbqbxocaIEmYByqAv9OC9SbXt
+         Y8Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787878209; x=1788483009;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M+L/jEThU+UMCGGhHnA2GUCWkP7cgtpwQVPowQ/g9e4=;
+        b=lbSV92LjG78gS9nBRUMXv3NryIVGO1t4AD9Mv3sotLlZ1tI6nkRqnleqQfviLvx5oV
+         QcQ3LFY/y97pokd3ed5KYVI+uwl0XjgszWcpEmQb9d12gPDfYV8a2Yp5+2fRTyeL6C4y
+         PohD0TpFnTs8ttSxoRNk2tyhS/XHm1CZI0F2qbl+Lg1bk2+hsVUcnfdqkr7xfmOrQ1qq
+         BNmE8ZwqV+KqiZiieRKUgd1DmO0+S2K0jVv8WLYTiibs1vfjfZlTfUWbMMb+5s6KbNY1
+         pSEvNczIxcz4xc/yVjEtKfjdP6NY0ZyrlOZpWZP+3rBI0KnWu0YjNS0t0B8uzSFMWUNf
+         YqTg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpf9Zo7z+xBWW+IOP1mP+lMZvXQC33ACUsSAbBQ0sXhWPNTM1v+1QwLOhM7aWJykdR+ex2Anea6eUpu5Ug=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+X2f3y+eA0AF4c6e7sz/cVNbppw8/0v9XJcLHv8kDO2VzSVZb
+	M0DIsI8IjtA0u+67NOS0llvLsnnI+QfNiVxbhZvvOgUfgVnXe4+J67NgmIy1/5qpkiV8LPooC3c
+	mUmxGWGe/IwIwTE1EIWbTCQ==
+X-Received: from pfaz21.prod.google.com ([2002:aa7:91d5:0:b0:848:7fd6:7dec])
+ (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:13a2:b0:82f:2b0:2809 with SMTP id d2e1a72fcca58-8562953e9d8mr4642983b3a.1.1787878208961;
+ Thu, 27 Aug 2026 17:50:08 -0700 (PDT)
+Date: Fri, 28 Aug 2026 00:50:04 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-dma-fix-v1-1-a6947f487e07@ultrarisc.com>
-References: <20260828-dma-fix-v1-0-a6947f487e07@ultrarisc.com>
-In-Reply-To: <20260828-dma-fix-v1-0-a6947f487e07@ultrarisc.com>
-To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Pandith N <pandith.n@intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Sia Jee Heng <jee.heng.sia@intel.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jia Wang <wangjia@ultrarisc.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787878108; l=1873;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=NFLyLX8R+hoLKXzujgGCXVP5FlVDAWB3PS2BC0v4nNw=;
- b=Zt2qIgkd3e4H4DIydk17FYZHA0O0uUHtPcoFArqoI59OBP9Qk2bd928XGLmSudDxXrQYm7dBg
- 9Squ8fN6sQbDA2+j2Wi0CCGJh35W9k3VSKmA9QJ7ni9O/giQviRYvWf
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwCXxs3p2pBqHmMBAA--.589S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1rKryfZFy7CFy3tr1fJFb_yoW8Cw4Upa
-	n5Kw4rJryDtw1qka1kJ347ZFyUtFy5KrWIvF48Zw1SkFZ8X34Svr4kKw1F9r1kAF4rJr4f
-	tF4fJFyrZF1kZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPI14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43Mx
-	kIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUq
-	kskUUUUU=
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqPrHsAIwAJsE
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260828005004.2870750-1-jthoughton@google.com>
+Subject: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+From: James Houghton <jthoughton@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com, 
+	hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, jthoughton@google.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The snps,axi-max-burst-len property describes the number of beats in an
-AXI burst, while the ARLEN and AWLEN fields encode that value minus one.
+Userfaultfd minor faults provides userspace with the ability to manually
+install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+map holes in the VMA when a naturally-aligned THP is present without
+explicit action from userspace.
 
-The driver keeps axi_rw_burst_len as the actual burst length so that
-dma_device.max_burst reports the correct value. However, it also programs
-that unencoded value directly into the hardware fields. A value of 256
-therefore overflows the 8-bit fields and can cause AXI decode errors.
+This is a problem, as it bypasses userfaultfd minor faults that
+userspace is expecting to handle.
 
-Subtract one only when constructing hardware descriptors, while keeping
-the actual value for dma_device.max_burst.
+If userspace implements post-copy live migration using userfaultfd minor
+faults, this situation is currently possible:
+1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+   is mapped in the page tables.
+2. A stale copy of a page is present in a naturally-aligned THP (from
+   pre-copy live migration).
+3. khugepaged collapses the mapping of the THP, installs a PMD.
+4. The VM now has access to the stale contents => VM is broken.
+5. After installing the correct contents, userspace attempts to map the
+   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+   unexpectedly mapped the page.
 
-Fixes: c454d16a7d5a ("dmaengine: dw-axi-dmac: Burst length settings")
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+The naturally-aligned THP case is the only case where this is a problem.
+khugepaged otherwise requires all PTEs to be present for
+userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+correct. This check is essentially bypassed for naturally-aligned THPs.
+
+To deal with this issue, completely disallow collapsing in
+userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
+would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
+present, but that seems more complex than it is worth.
+
+Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+Cc: <stable@vger.kernel.org> # 6.1
+Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This was caught with manual review while diagnosing a related issue
+that came up with in Google's live migration testing.
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index eebed2474210..742e08cfab43 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -706,7 +706,7 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
- 	ctlhi = CH_CTL_H_LLI_VALID;
- 
- 	if (chan->chip->dw->hdata->restrict_axi_burst_len) {
--		burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
-+		burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
- 		ctlhi |= CH_CTL_H_ARLEN_EN | CH_CTL_H_AWLEN_EN |
- 			 burst_len << CH_CTL_H_ARLEN_POS |
- 			 burst_len << CH_CTL_H_AWLEN_POS;
-@@ -975,7 +975,7 @@ dma_chan_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst_adr,
- 
- 		reg = CH_CTL_H_LLI_VALID;
- 		if (chan->chip->dw->hdata->restrict_axi_burst_len) {
--			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
-+			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
- 
- 			reg |= (CH_CTL_H_ARLEN_EN |
- 				burst_len << CH_CTL_H_ARLEN_POS |
+I've uploaded a mostly-AI-generated reproducer here[1]. As long as
+/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
+the repro should work.
 
+[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
+---
+ mm/khugepaged.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index b237f6e7662a..66f956d3dd67 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
+ 		goto end;
+ 	}
+ 
++	/*
++	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
++	 * userspace is expecting to explicitly install PTEs.
++	 */
++	if (userfaultfd_minor(vma)) {
++		result = SCAN_PTE_UFFD;
++		goto end;
++	}
++
+ 	file = get_file(vma->vm_file);
+ 	pgoff = linear_page_index(vma, addr);
+ 
+
+base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
 -- 
-2.34.1
+2.55.0.897.gb25b4bd76c-goog
 
