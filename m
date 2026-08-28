@@ -1,89 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B491397;
-	Fri, 28 Aug 2026 23:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957D81397
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787960249; cv=none; b=WvdAI83YS+0PXxmrqKenRlQN/d1RsU8hdxNc1SOpZzir/BbwmAZnooWkxg8rwqqRVNhNZ0z1rKC6DpVk2/m2qpj7PwnawF1+1qvIjx6/QLoqmnMIGnDrAmwNjJSNvilTcoJ1Ku7gLX8gFoaET7oKqje7eramHvJCZl/l8qV2GcY=
+	t=1787960402; cv=none; b=E/8DBZd2nn/POZ2ZLstGdrKBd/ihTd8W3zIK1PyrA6Mu8NGftNzmcErMY3E5GaRjI9sSmO2YSXNU/lLTYQLtdPX9hf5PduV64q/yCRUxLwPLaKw2pwkwxh4uN25IjJE1Mu8Hy5rfGo1flnVrI4f6D72xL/CzdfaUiF+Xr9T5rM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787960249; c=relaxed/simple;
-	bh=ZnmkW+RgD0OU9oJfaYp7vHJ/SZPbNHl0/ZpS5/VXN3s=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=djjNEAj2vl4P3BxCG87hiieHjui+du3v6gv8LSzrNb6Tytfe2L8LT+mzi7il73/SAn2p7104pbtdytMzpklh34w98pMWHiAKkWU0xA380me29+VgO1aoe/K8qUsXMFQfDvf2Cnn2ba9BzskHKAlhakCmKbA6c8Y07QZokyA3QmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WtMGDD7R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787960402; c=relaxed/simple;
+	bh=bXR0bqSMlLFV90xAdFa40uxmYsZjgW309tZbJ//vDo8=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=QUwnAJDe7K5JMkDHhn1lGwe6QihcA9bERTSrx24Fqkq0hpffl7msPDT7R3oFgbnzYd+I10c1LeF1eOTtaHPPPXft9eqDH1qqW8AFpjWXKJE19YrxsyGSifHu8aXyS6EJVpD0k00vTRmuEI4C2U4xZVFopD7I3Ry+5yQVUFjORjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=B7YWZkkX; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qLe7qu59; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WtMGDD7R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B5A1F000E9;
-	Fri, 28 Aug 2026 23:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787960247;
-	bh=O991VjvH7uZlraIXABzGMwBQxEqiEiD6+/CXOmqauVc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WtMGDD7R5+HuwLBWHNuiKVmTEwKuGdqE7xYNCvsdKfkb0D4adYX/RIp1TpxDH4lex
-	 sQD9MvOb3xbp85bYgCFCe6AUh7WMh7SRG6QnfvsyUCEmd4634h49DYiNACt3ilQwvt
-	 mJujqkg+MtRd9K1a7zv4F0cxLnSqtu/4PArxYI7c=
-Date: Fri, 28 Aug 2026 16:37:27 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Phillip Lougher <phillip@squashfs.org.uk>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] squashfs: harden fragment index table sizing
-Message-Id: <20260828163727.748343f2c87610ac6cd89dfb@linux-foundation.org>
-In-Reply-To: <20260822143328.68867-1-kmehltretter@gmail.com>
-References: <20260822143328.68867-1-kmehltretter@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="B7YWZkkX";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qLe7qu59"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787960355; bh=fEj+v7KdN06tzExfX3wcd5h
+	BMq6bWzkFtKx0nc4h4KU=; b=B7YWZkkX0p9IvrLU3ZU/+QQoSE5qI3MZAuknjZdwVchvdB3xaO
+	PmqEkCeOz1dRL3xOhuo1CEqrddR+bCP2inNbs9LaIf1DV7d3SKYkL+V4W1ySm/orhMa+FNeqXnw
+	XEpqhAkmQczd+btXZOQUzeN7Fvsy8Gn6q2j6fgsIjlQIRmS0ae/hZDRR1aqQ/+Oyc0v/FUGs2yJ
+	tIhmRv63Ces/5b9P32a+1QWbv89pv1OillN6f0gn8bwnazFG+J1SfiiFq2PYsmQ+WXHK9bS7zwO
+	9ESAWUcKn2L7nncHwf0bMQ0o3J0iWNOQVXrfIWKsc3lONv1ka+gP+y3cWA9mxSB2JPA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787960355; bh=fEj+v7KdN06tzExfX3wcd5h
+	BMq6bWzkFtKx0nc4h4KU=; b=qLe7qu59+s/0CKOCe/c8ScR4BoQ72e0nS5hVbmN/RcTZq/o+UX
+	5KwvcIp/pcdeZdXSiQ/I/LkWeaEAaXfICCAw==;
+Date: Sat, 29 Aug 2026 00:39:15 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: john.ogness@linutronix.de
+CC: bigeasy@linutronix.de, gregkh@linuxfoundation.org, jonathanh@nvidia.com,
+ linux-kernel@vger.kernel.org, pmladek@suse.com, rostedt@goodmis.org,
+ senozhatsky@chromium.org, tglx@kernel.org, thierry.reding@kernel.org
+Subject: Re: [PATCH printk v2 0/2] nbcon irq_work fixes
+In-Reply-To: <20260828140218.232439-1-john.ogness@linutronix.de>
+Message-ID: <6CCFF45A-3C60-4A38-BF22-7BA556DF28C0@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 22 Aug 2026 16:33:26 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
-
-> Two integer overflows undermine fragment index table handling.  One is
-> in the original fragment sizing macros.  The other is in a bounds check
-> added by commit 1cac63cc9b2f ("Squashfs: add sanity checks to fragment
-> reading at mount time").
-> 
-> Patch 1: the fragment byte count wraps on 32-bit, so the index table
-> is allocated too small and squashfs_frag_lookup() reads out of bounds.
-> A crafted image triggers a KASAN out-of-bounds read on a 32-bit build.
-> With the fix the same image fails cleanly at mount.
-> 
-> Patch 2: the check that the table fits before the next one adds two u64
-> values controlled by the filesystem image and can wrap.
-> 
-> Built W=1 with gcc (x86_64, i386) and clang (x86_64).  Strict
-> checkpatch is clean.
-
-Thanks.
-
-When fixing bugs, please always include a clear and succinct
-description of the userspace-visible runtime effects of the bug. 
-Especially when proposing a -stable backport.  It should be easy to add
-this to Claude's prompts!
-
-I expect that Claude could also generate reproducers for such issues. 
-Although it may not be trivial in this case, as a corrupted fs image
-will need to be created.  If you are able to generate the reproducers
-then please document this in the changelogging in an appropriate
-fashion.
-
-
-Sashiko review of this series claims to have found a whole bunch of
-similar issues which you may choose to address:
-
-	https://sashiko.dev/#/patchset/20260822143328.68867-1-kmehltretter@gmail.com
-
-I don't know how useful this report will be - the first part seems
-wrong in lots of ways, as if Sashiko was using an ancient copy of the
-code.  But the things it claims aren't there have been present since
-2018.
+On 28 August 2026 15:02:07 BST, John Ogness <john.ogness@linutronix.de>
+wrote:
+>Hi,
+>
+>This is v2 of a series to address some irq_work issues with nbcon.
+>Initially motivated as a workaround for hardware-related regressions
+>reported [0], it turns out that the workaround is actually a nice
+>improvement for nbcon deferred printing in general.
+>
+>v1 is here [1].
+>
+>John Ogness
+>
+>The changes since v1:
+>
+>- Add a preceding patch to flush the irq_work on nbcon_free(). This
+>  pre-existing issue was reported [2] by Sashiko while it was
+>  reviewing v1.
+>
+>[0]
+>https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
+>[1]
+>https://lore.kernel.org/lkml/20260827184750.203521-1-john.ogness@linutronix.de
+>[2]
+>https://sashiko.dev/#/patchset/20260827184750.203521-1-john.ogness%40linutronix.de
+>
+>John Ogness (2):
+>  printk/nbcon: Flush nbcon_irq_work in nbcon_free()
+>  printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY
+>
+> kernel/printk/nbcon.c | 4 +++-
+> 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+>
+>base-commit: ffe0486b139e45cd9c9ca2584f04a1910fe4f8a6
+>
+Tested-by: Bradley Morgan <brads@mainlining.org> # PKVM, based on Pixel 7 (ARM64)
 
 
-Anyway, let me get these fixes queued for testing while we await
-additional reviewer input.
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
