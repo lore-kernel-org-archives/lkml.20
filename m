@@ -1,163 +1,155 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021096.outbound.protection.outlook.com [40.107.130.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B1B3D5666;
-	Fri, 28 Aug 2026 12:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918886; cv=none; b=P3kNghz7Xu8TAy3YnhmHB65cMQ2TLDuR52f3fYUGhxveGjLaoVveXNmMEYZbTAMqEvOlzK0DR8bCq6ZSq6Y7EnwdCPp/9Mw6bcIRRO6MijMzJ/h2DDd4LD15m0EWSssIb26GGSUMbYryW2B18468o+gHJZM75nOANwzMpQS1sLE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918886; c=relaxed/simple;
-	bh=LKTkxqKoon7duy6pNbYXhkMUtZoZS0ltoY5rlOlTRgA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Tft3n/aFclMAV/Emgm3YcwP7Vu3GYMMdULigaVCV+SuDgP6602OJqJr89Vw+/4sLTIzuRzQbhOhyK9kPucAUnkQSgEFhbXd8JIxfDVfbqrC/fZV3DXDNs1eU2br5OFGRbJ3LhvpjPG7F70sXKCs9l4d3Hfhm7qkWgvO1d2QNV+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Z9qgkhSP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z2QK+7fw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=D2DkS627; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bz00pIu/; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F5F44BC82;
+	Fri, 28 Aug 2026 12:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787918914; cv=fail; b=TZaDIxf0oi5juak0L8oZd9e42GHyvP6TCelLGhKl1DgVh0n9m83GUme+do2Tyt1iKZ2Aec4cOGNQ0/d5I7nGTRtOKiZiXmo8OFFU12Fp+JRMms8WxkU9za7Tz2nW1c3SJgF0vSwIz6znBtCJoVzCj7qrKH1sHAawDCVT03Q/N/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787918914; c=relaxed/simple;
+	bh=OFFzB+IgZe/EOkyDwNyQHQ3Z+hVy6bCXOga1VbCne2s=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=iLx/raeBqtIHxZvOEFSFn61rhiiCrEnfRr1L7vP8KNF0iUPZ6quZTT8JXUf3uMl5s5vZ2gh8vSRp3UDdAy5ejvB19sml4RJEGnc+5h1VGKejSDtyh9CVnhv1ZqV2ZYFdaMWy8pQlX8of5sAyqY7Jx3PfcFRvVqXGZdz9TevzlsU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sch.bme.hu; spf=pass smtp.mailfrom=sch.bme.hu; dkim=pass (1024-bit key) header.d=sch.bme.hu header.i=@sch.bme.hu header.b=cZRld1W+; arc=fail smtp.client-ip=40.107.130.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sch.bme.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sch.bme.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z9qgkhSP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2QK+7fw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="D2DkS627";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bz00pIu/"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2F260221AD;
-	Fri, 28 Aug 2026 12:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787918868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
-	b=Z9qgkhSP/HuhbkEe4nf6TjiexQ7lKokBV/m6gi/RSIB/W+mHtVxuQhEHyzkns525SnLUM9
-	HqruPPbccYMMQBPB2BtRHSpUQwA0oVOlVkkoNIwUIKZzXcllhuJBnBXfLgynC+uWwsw2wR
-	32x/K61QS2qZ7iBGZtfSfspjeFvf4L8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787918868;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
-	b=z2QK+7fwdr82oIt2tV1gPlpAOUOjRiXunenLrN7OjdXL2xwM6GmPx5hK1cEHdMiWW3v2pc
-	mos2LjjQrlVd0vCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787918864; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
-	b=D2DkS627pb8L3rTQmO92ZOVY4qHJ9RFx/hMDiLLKwTCuKbmZmlE3tQPVbic7o9/D47MIMc
-	YZ4mZTEBuh9/JsF0u6Seda6xUu+5P8puE40H1N74CGZe9IQXQsyI1rkDfdM8wzJcaiwCRv
-	vuf7Z6Dh/8ndteaFkXSRGagQSSDSZ3U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787918864;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PT+v/CY/k+PNsmOPqSO0u5nrIh+MELSj7465HIkYP7k=;
-	b=bz00pIu/SlG3F22lYiOY1ifuJqDEmzXflLD3Xur5JnfeVrbm1EGV2Zz5zHk6QWLqyonwXW
-	tcTScKYB8aVDOsDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3B9D13515;
-	Fri, 28 Aug 2026 12:07:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id z3tyMg96kWo9HAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 28 Aug 2026 12:07:43 +0000
-Date: Fri, 28 Aug 2026 14:07:43 +0200
-Message-ID: <87cxv2v46o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Edward Adam Davis <eadavis@sina.com>
-Cc: syzbot+c35f34092a4bc9855be6@syzkaller.appspotmail.com,
-	gregkh@linuxfoundation.org,
-	kees@kernel.org,
-	tiwai@suse.de,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] usb: gadget: midi2: prevent in/out jack from oob
-In-Reply-To: <20260826134606.127250-1-eadavis@sina.com>
-References: <6a8ed2cd.1d9ded08.62e62.00a8.GAE@google.com>
-	<20260826134606.127250-1-eadavis@sina.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=sch.bme.hu header.i=@sch.bme.hu header.b="cZRld1W+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mbcogkg2yjCTMO3FrEaHLThcZQjjFFcIXwaZBxtLDDH8ml/hPi8qEaKsVWXonoKm7dQ8TK2lnbQXyJOF3aDnlY0lvVBdCRxXWVaglxcafAL+wPl8jum6gy3A6L2UWA0Xurfa+FzginGybpkiBghrOVqhoPcdFQlWMH+MSprdBXltFkuySQBW4IjakH6NAvDFTQhOJ1COMBUYSD5fJJ9zHlvDs3U91Umz8DYE3Ldta9Q1Y/RrdkPpwQbahYBMTSKQ8fdR+h8aTP4nbN225UOuYOPBWZIvfFkBwTmlJyWrfnH8OMh+ldg+1F5Pp3MfC2QMt4a08Ioycdpr3/w2QODW0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4kIMCtJckwP5TEfeF7+7ObLcEwPnOfHh5EE55sYzNWI=;
+ b=YiGBETn9/pCAXVmSNR0nACn3FS4Z8IuFLjBzYtZTXKPnHOILD18LMIpGLn7USeNtt8d+9uQzQehceizEK5sHae7MXj/n97wfskJ0ZmR/QKErcm17wBe48Fac9tiFpqrxTX3X9ssKpbjLP1fJK5RWR+HsafIZvJpwuKdgupnNPbUsiJWoTGuy7j4+EwxO+cX5buSk9SzF/m+V2wOZNmvf/DJn7QpdRPWYMHaZ5VTAE3lW2bthitNgPOTtRZiK2xCL5KAbJ2AEEFLRIXa8GDl4Lp0Q1N4K1CSmEV1/n+KYF/h54Xwfm/rFUtbK52STflUqTcOmyEp6xsrbj31uQ7SJgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sch.bme.hu; dmarc=pass action=none header.from=sch.bme.hu;
+ dkim=pass header.d=sch.bme.hu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sch.bme.hu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4kIMCtJckwP5TEfeF7+7ObLcEwPnOfHh5EE55sYzNWI=;
+ b=cZRld1W+VGSD0mQWgqWtKwLr0drjjb2wz65hzlXY2ULSPCI0uCa/Q6AuObUvL5SabLmpcuvb+tfV+t8IMAzZw1DYOUUHDSFYSOY7tAM4t06VIKWjZNYW/rF2aYBpIVqlQY/gnw6xnU6m01+O4bFwBPTKKpnjCU3PU7uPXvMjoys=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sch.bme.hu;
+Received: from PR3PR04MB7260.eurprd04.prod.outlook.com (2603:10a6:102:8c::15)
+ by AS8PR04MB8514.eurprd04.prod.outlook.com (2603:10a6:20b:341::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 12:08:20 +0000
+Received: from PR3PR04MB7260.eurprd04.prod.outlook.com
+ ([fe80::bc60:c1f6:2fb5:8cf8]) by PR3PR04MB7260.eurprd04.prod.outlook.com
+ ([fe80::bc60:c1f6:2fb5:8cf8%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 12:08:20 +0000
+Message-ID: <05df77ed-855c-4897-857e-0bc2439666d4@sch.bme.hu>
+Date: Fri, 28 Aug 2026 14:08:19 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: cp2615: handle allocation failure
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: andi.shyti@kernel.org, linux-i2c@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Markus Elfring <Markus.Elfring@web.de>,
+ kernel-janitors@vger.kernel.org
+References: <20260816161751.24840-1-triet.hoang.dev@gmail.com>
+ <20260818111703.19604-1-triet.hoang.dev@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?B?QmVuY2UgQ3PDs2vDoXM=?= <bence98@sch.bme.hu>
+In-Reply-To: <20260818111703.19604-1-triet.hoang.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ZR2P278CA0068.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:52::11) To PR3PR04MB7260.eurprd04.prod.outlook.com
+ (2603:10a6:102:8c::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[sina.com];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[c35f34092a4bc9855be6];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FREEMAIL_ENVRCPT(0.00)[sina.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PR3PR04MB7260:EE_|AS8PR04MB8514:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2fb6887-fca2-4a64-7bc5-08df04fd0d07
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|41320700013|10070799003|366016|19092799006|786006|23010399003|1800799024|376014|10067099003|6133799003|22082099003|18002099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	kg7ZbsllMozShCKqX0uITlZduhgVqQleR+pBkIeYbXEbOZdcBrFuwA5EJ95rb4VEjvTROG2lLVyY8d1xaQCACyCgvN4x8n+Fn4hf1DfedpRftvJ0K3RNSwzuFCW37YBGQPyuVYAIwm8sP00qAifJ5ZZvEbcxoviRJS/nt+Dejn2GYwExQlTm6s07Ymkg/CJEbLYlY7d9VF/OjRd6d4kFc76SQDYVJypRpj/2MbSJX/TiGjGrx3WzusiUOWAMdPsFwemBu/qxAgWoQrjvlO29wxT9GX0bWiGpg8cqPFEoZbfG3UL+B0sLl05b7dDSf0kz4Z9yrYj1JdC82VXqDGozntQUqEwg80T4Dv0BFGR8eWIOUcQ/5iWoy6RByZIymRGDV9GS5wNaZ86mw6wdoEqwtoJBq6sx8k542QIJW0fafVC4Nxnaxi5Ngw4wrXM1nY9V/5kLbndNb87GMo6D+ZVVS8quUfVfSpNN6Bw2JZt1guCKt8iXzgiYIonKD16K9ETfmzc9oOm7c56TY/h4ce70Agu+x2VTvddGPM0FI7uGxd/xbtbgG0l2pu1l0PMARnnmr+g6h2Iak0ek7R3LMhSv25n7GKr/rdu4+d/oLIIuPfCpo7AmoV5S4NIBGBUPsPNLF7MV1jnuMrDb+b9kTPkowyr04JYbgXP5XM7RdZWdyYc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR04MB7260.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(41320700013)(10070799003)(366016)(19092799006)(786006)(23010399003)(1800799024)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V0NlRU9kWFNSTTZpZW1vZ3IvOVA1S0x1RGNuVzhtSThkTVhTR29CQUl4NE9h?=
+ =?utf-8?B?ejNQMnpSa2dJTi94cGdwTUhXaUZOdi9yT3NvOS9FUU4rN3NXYjZiNlVBOGpq?=
+ =?utf-8?B?VUx1ZjB3RE1obUxMdDdjZzFpWDN5bGl1SWo3MkNFYXJrdWhyZStBS1FsVWhX?=
+ =?utf-8?B?SkI4cGN4RHAyME02bDBjNGZPYW5oNGxCVjV1OEhMaDEyNUdQSE5Wb255Mito?=
+ =?utf-8?B?bERMcUFEN042N2JHbjlWVWdabDdGdTNUUHE1LytVaFFQbko3WWljMG8wSGZT?=
+ =?utf-8?B?NVNBTTQzZHltQ0IvdjJaakdaL01vSTZ6WkFuM3RPWHBGVjN2NzVlL2NneWQ4?=
+ =?utf-8?B?cWZxSFNsTWVkeWRON2duZUFjZ2duOXlpK0VobUtNYXBpVmNxS0MyYmNxMklu?=
+ =?utf-8?B?aVhSMFVNRlhHSUl2NHN1OHVZeFhKdlJPMVRLcUJWa1JWa2c2Wm9Qa2phUnNZ?=
+ =?utf-8?B?SHpCSkV0NkVXYWVtSFRhWUJQeTFHZGFzK0NsKzk2VzhTQll2MjdydFlEVDR6?=
+ =?utf-8?B?SG5DRXVPRm9Bc2FoVHRFMWgxa1BRNU4ybEFLVTQwWW9uUEF0b244YldUVFZo?=
+ =?utf-8?B?VXdsbWNPdXp1NmU5cHAyVmplUHBZZzdIajBjeU56ZWJUQ3JTWEJ4WGhhcldn?=
+ =?utf-8?B?RkwrV1A0dkZuNVRrT0NOdTFyVGRpNlRWTGtlWXBOTXd3U0doOUlIVndwdHBh?=
+ =?utf-8?B?U1FkekZmMEhLZUNyQy9rYTN2bW5TZ0YxQjBEd0NvQXd1TXR5QVhiVlhqbHZq?=
+ =?utf-8?B?R0w5MlBOWmhYVkJxTUtPcUh3NjYzVXRiTFFBakRLTmJndndwRmZvakRMcnRE?=
+ =?utf-8?B?UDUzOHBuQkVNRVg3Y3JEZzVqUGg3YnhRdlZ2Uk03SFRNSkc2clJZZ1RTT1J5?=
+ =?utf-8?B?SENoNTRxTm4wVVhhckhlM3daUkE4SkU4Y1hHbmQxdEZHc2tYL2hSMU5VZ0lT?=
+ =?utf-8?B?bFcxOW1oZnBwTFNIcjRkL2pmYkczbWx3STRvb3VCZDM5NGxqUkFIOTI5Zy93?=
+ =?utf-8?B?L21KbjgvTUg2N3ZZYkFVejN0bFFKZFVuTmY1dElOZWlNUCtKWXZEdVQ4L0Vr?=
+ =?utf-8?B?ZVVwWWE3N2xPaVYwaFl6K2tQNDFWVFFzU0lwaVJMNU9aTFVoMEU1cHZEUmlI?=
+ =?utf-8?B?MkpPZjJCMFVRMEhNMzl2d2s4Njlvc0s1WXBpT3ZFNll4ZENaaG1qc0E3eHc0?=
+ =?utf-8?B?M2Y4ekNqbUNBdWRDT2dYY1lyeUFYd25KNXdkRldpOVRpamplOWlmaExqWDFC?=
+ =?utf-8?B?bFdxVmp2Z1NDT21MTE10eXpCWis0a2cyNmNEMXgwaFhxZzF2bkhQM2tyRVpM?=
+ =?utf-8?B?amkvTm4wV1hZajR5Vi9KREpaa2FucTBrMTMrZjcwbmJycHhsZVdhajJOK2d0?=
+ =?utf-8?B?WnN0QnUxZlNSS09sTExTU0xqTlJhaGhDK1Y5VVV5MEwzcUh4ZlZYbjlQTGh3?=
+ =?utf-8?B?OFFORTg3MWpFclkzQ0ZyZGl4ek9jRlBmeTJlUHp4dHE0WVFuSzlyRnJjb25m?=
+ =?utf-8?B?OCtkd25hbHROYWZsVStpMDRKVTB0YTBtcXVpTzZVbldiT0xDVWJ0MWIzZjhN?=
+ =?utf-8?B?b0JzSGRSZHVoSmJ1eXJzMmJKMmRiOXM5UUNBODBTOUVYd1dYOG0vbDZ2WnBE?=
+ =?utf-8?B?ZzczNzFBMmYzU1hCWHJ1OUVmOVhlS0pjdDZIMHFuVWdMSGhpQnprekFmbWJv?=
+ =?utf-8?B?bktQYXdaQysrZ2c4Qi9LY1AvdXBlYjZDWkh0bkVRaGg3NDA2cU9DdXdEbWN1?=
+ =?utf-8?B?cDBiOTBFQkF6Z2txRytRZDJsYmRPSmx5U25wdENtSUtMQndkNVJjWGJ5b3FR?=
+ =?utf-8?B?R3JDU0hPdTJWbU43Z0tubC9xZzlQT0ZHbE1NSlVqR3dDMG5BWmxsdW0xTGEy?=
+ =?utf-8?B?aHpEOWwzeTdobmZQZkRabWN4QU1YQ0tqTmNDQzZkT05hV3BJUTY3RUZJRERS?=
+ =?utf-8?B?RGZURzhIR0lNa2oyaXJadlA0eEdvVnU5TUVPck5JUTVndThWeVJvVCs2S0hx?=
+ =?utf-8?B?S0V5amgwTXliNVVOazU5ejJBdWNyeVgzdzJRdHIxb0V6dTZkL0VpUzd5a1I1?=
+ =?utf-8?B?cDRzZjlFdUFyK050VlNkbStDZk5EeEptcWQydGNibHhQZWsyV1poazhCMnkz?=
+ =?utf-8?B?RGtCeXhTRm9LRXJnSlFtbm1jNHZiSXBKUU9sYVMwWElKdW9hUTNMY2VQenJn?=
+ =?utf-8?B?Q1h2YmR1OGltZTk4M1JqQTBsSEJXUHl6N1NQUUJoVGI1KzI5S0NBT3JpNk9y?=
+ =?utf-8?B?cllFRUR1d2pxdnZUekJXaU1LMElrOW5GSjVPazN6MjliNXRnRm5KdlA2bE5q?=
+ =?utf-8?B?NlZEamhIZUdJbVJCWDNxVnNVbkplUGNwUlJoRkxSbHpUMGRkK0R5Z1FGNmFM?=
+ =?utf-8?Q?THbqvGRNAj+EDdAc84voqdvHk1kE+scDQa7wdpiZilHsv?=
+X-MS-Exchange-AntiSpam-MessageData-1: /1WBEr3m2w6hcA==
+X-OriginatorOrg: sch.bme.hu
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2fb6887-fca2-4a64-7bc5-08df04fd0d07
+X-MS-Exchange-CrossTenant-AuthSource: PR3PR04MB7260.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 12:08:20.2718
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 79f0ae63-ef51-49f5-9f51-78a3346e1507
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y0ynUpXt6AOcXG1vfCf2Eahx7C0fWuRlcDWwYQgEQEXtu+1ApPPu08YAhEhMsCEI0GK0tXwtkK9hrw7vY/pglA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8514
 
-On Wed, 26 Aug 2026 15:46:06 +0200,
-Edward Adam Davis wrote:
+Hi,
+
+On 8/18/26 13:17, Triet Hoang wrote:
+> Check the result of kzalloc_obj() and return -ENOMEM
+> when the allocation fails instead of passing a NULL pointer
+> to the message initialization helpers, which would return -EINVAL.
 > 
-> The increment of config->jack_out in append_midi1_out_jack() lacked
-> bounds checking, triggering issue [1] when the value approached the
-> limit MAX_CABLES.
-> 
-> A similar out-of-bounds issue exists in append_midi1_in_jack(), so it
-> is being fixed as well.
-> 
-> Before incrementing jack_out/in, the code now checks if the value has
-> reached the upper limit MAX_CABLES; if so, it exits and returns -EINVAL.
-> 
-> Additionally, the jack_id assignment is moved to occur after the jack_out
-> bounds check to prevent wasting IDs on invalid increments.
+> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+Just change the -EINVAL to -ENOMEM. This is something which has been 
+discussed before [1] as a potential to-do.
 
-I think the bug is rather the arrays are too small; they should have
-been twice as the jacks can be added from both input and output.
+[1] 
+https://lore.kernel.org/lkml/CACCVKEFXOKhXmF3rcmKQ8-aMFZJLZOf+imsuBYKAQsWptrJG6Q@mail.gmail.com/
 
-Both append_midi1_out_jack() and append_midi1_in_jack() are called
-from the loops of midi2->num_midi1_out and midi2->num_midi1_in
-counts, and they are properly upper-bound to MAX_CABLES.
+On 8/19/26 08:28, Markus Elfring wrote:
+ > * How do you think about to increase the application of scope-based 
+resource management?
 
-Could you check whether the fix below works instead?
+I second this, this old code could use some RAII modernization.
 
-
-thanks,
-
-Takashi
-
---- a/drivers/usb/gadget/function/f_midi2.c
-+++ b/drivers/usb/gadget/function/f_midi2.c
-@@ -1634,8 +1634,8 @@ struct f_midi2_usb_config {
- 
- 	/* MIDI 1.0 jacks */
- 	unsigned char jack_in, jack_out, jack_id;
--	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES];
--	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES];
-+	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES * 2];
-+	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES * 2];
- };
- 
- static int append_config(struct f_midi2_usb_config *config, void *d)
+Bence
