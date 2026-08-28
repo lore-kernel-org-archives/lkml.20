@@ -1,166 +1,101 @@
-Received: from smtp153-171.sina.com.cn (smtp153-171.sina.com.cn [61.135.153.171])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D533F44C1
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D813DAADE;
+	Fri, 28 Aug 2026 10:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913620; cv=none; b=pV5dvh9ZdP636A9uayZccrL46EJYdkAwEOk47oVjAmf/2BtzJH8Yjvjf8/wGKNNW1w37WrDvVeI1o9r4ogByyDJGls+M6XBv2XpquNB2DmiwfaDV5QUnKDkXjfIDtNuLmE83+0KJKfoPAby+5Z08GBwCWnc11SkFR399O+0dcbU=
+	t=1787913658; cv=none; b=VmB5xsXhYPO03TFrpxaIY8OdDeSRBI5KDrgw1DrJ8VHPB1uWzNHJqqQWO8l49Jevz08Ed6tNx8x6TGdi4WplMtt17w2EX4ihGUSL1bY4dZF3FVOt6WY7aIa+TJGkmJFxrI8dzkOq3g7ntl2+6R/UdGoxazRC4/6XqafWncOhqqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913620; c=relaxed/simple;
-	bh=YAUw6g07BXmtWFoD9VCDQoHbfUdwW08Jivc6mI48GEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fNngJ298zxwJWAx9GJbif0qa+Pd4NmOYFONWFgGbis2W2MfNIjepGpD6NdIv3OKtGaWhkUUMCswQ99MbQY5/DF0b5LLt/x0ju8O2KQGmMO87H7R0CsqcfKhM2cK7HtSRwy8hrIQDKIzILkeOILkG2DiFtMMrWv5MFg9AZBeHuBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=aXsn1luz; arc=none smtp.client-ip=61.135.153.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787913658; c=relaxed/simple;
+	bh=GlYOctbS27Crbn7mNHENzdteRGpVV/EpprlDm0o4OMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pKtH8FFwHEpBQOmOQ6CnL5KF++o3HQDMIFvFjomK5DTh60Hz4CNlbDYK+CrUEB+K5RGJ8xMaDfp45TwIuhOyeFLVJI0GImgAvA6DFeMw4O6RyRep1zQcZJ8fZzNke+fdvuPegdnXsypgHUcly1Qzn7qZiCyKnh55ZivXawRRgY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=F50EA460; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="aXsn1luz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787913614;
-	bh=hXY+WbbG19Rh8/V32bq6DCv/4+Yy1+y5L54TzXJtYtU=;
-	h=From:Subject:Date:Message-ID;
-	b=aXsn1luzTvjwNJmNldUmqc5/lgiNwZKsmrjHbxoKZUiNQoNl4bcKAre8t0eVhIUDi
-	 IvNSGXGjjk/5G2HHAQ9hE2BffwB0Xm+wXS2BqfKjQwuTn7qen45KFWQanoy5JONrd+
-	 7EwX+J9GvZIR8gU03315pPW4EsbrNnBEAXKBZamI=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6A91657D00006DC1; Fri, 28 Aug 2026 18:40:03 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 3546146291675
-X-SMAIL-UIID: A782ECB0474B43B095A6A99C9A395CF2-20260828-184003-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Cc: song@kernel.org,
-	yukuai@fygo.io,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] md/raid1: prevent a race between write and stop request
-Date: Fri, 28 Aug 2026 18:39:57 +0800
-Message-ID: <20260828103957.245658-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6a908777.1d9ded08.62e62.00da.GAE@google.com>
-References: <6a908777.1d9ded08.62e62.00da.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="F50EA460"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D3D6621A96F;
+	Fri, 28 Aug 2026 12:40:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1787913647; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=7G5so9kD5XBHPaoycuRizcuAGxyMjcTHKKAdkLKRsjw=;
+	b=F50EA460KDaWQ9pYCB/6CtmecBG8sr7DjT6GV8DN9gU29/iCANBlRSDsK/6fGF5FU5/dee
+	GGc8stSgF2peV/S3od74kKzBqjnCw1QCsxkxE43ss1u0tR1LrvlGWyLSJ46156e18KiRim
+	Xz3lznvpMUhTO2bwXHOFaMXxPWdUH6xXbT5ZOuiAqVsRTadtykmfuICi1avMzkkyhWIYCG
+	TQxb4jiN7tIMrkksSZhg9izbnT0O4bdyV1dsdecYeU27+kOMfzKyilk3F5shCwZB7VMG3r
+	RlUPDc6hLuJ+3xPeMDQNmHusH91Vn/n+Fcc+ChHfTW3HhnexnaQ03ekN0IAdbg==
+Message-ID: <3b55f50b-ec0a-4f93-9ccb-ba0e828ba32b@cjdns.fr>
+Date: Fri, 28 Aug 2026 12:40:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2] MIPS: config: Add EcoNet EN751221 defconfig
+To: Randy Dunlap <rdunlap@infradead.org>, linux-mips@vger.kernel.org
+Cc: tsbogend@alpha.franken.de, linux-kernel@vger.kernel.org,
+ jonas.gorski@gmail.com, julianbraha@gmail.com
+References: <20260817220344.2931634-1-cjd@cjdns.fr>
+ <6bd84489-88e4-4b72-b1f8-af5e1866a37e@infradead.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <6bd84489-88e4-4b72-b1f8-af5e1866a37e@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-A race condition exists between write and stop requests, leading to a
-null-ptr-deref in [1].
 
-CPU0				CPU1
-====				====
-md_submit_bio()
-md_handle_request()		do_md_stop()__md_stop()
-raid1_make_request()		 __md_stop()
-raid1_write_request()		   mddev->private = NULL
-wait_barrier()
-conf->nr_pending //trigger [1]
+On 28/08/2026 01:48, Randy Dunlap wrote:
+>
+> On 8/17/26 3:03 PM, Caleb James DeLisle wrote:
+>> Add config based on OpenWrt for EN751221 boards.
+>> Of note: EcoNet bootloader has a 7.2MB kernel size limit so
+>> ZBOOT is assumed to be needed in all cases.
+>>
+>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>> ---
+>> Updated to work after SERIAL_8250 and SERIAL_OF_PLATFORM removed
+>> from Kconfig.
+>> Link: https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/
+>> ---
+>>   MAINTAINERS                                 |   1 +
+>>   arch/mips/configs/econet_en751221_defconfig | 264 ++++++++++++++++++++
+>>   2 files changed, 265 insertions(+)
+>>   create mode 100644 arch/mips/configs/econet_en751221_defconfig
+>>
+> ...
+>> base-commit: 3b7711be02612845e44b5e9ef7c0b9f203cf29b6
+>> prerequisite-patch-id: 0f044e47a76450ebb4fe52dc60a6b2f79625bbff
+>> prerequisite-patch-id: 6380783b9da35b966b64c237b0ef50c31c7425d6
+> Hi,
+> Can you identify these 2 prerequisite patches?
+> They are not in linux-next so I can't test this patch.
 
-The intervention of a stop request causes inconsistencies in the state
-of mddev members (such as private and pers) while a write request is
-executing; the mddev lock is used to synchronize write and stop requests,
-thereby ensuring consistent mddev state throughout the execution of the
-write request.
 
-Additionally, when a write operation reaches the RAID1 layer, if a stop
-request acquires the mddev lock first and releases mddev->private, the
-bio is terminated and the write request exits.
-	
-[1]
-KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
-RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
-Call Trace:
- wait_barrier drivers/md/raid1.c:1154 [inline]
- raid1_write_request drivers/md/raid1.c:1506 [inline]
- raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
- md_handle_request+0x824/0x1230 drivers/md/md.c:417
- md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
- __submit_bio block/blk-core.c:681 [inline]
- __submit_bio+0x20e/0x3d0 block/blk-core.c:670
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
- submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
- bio_await+0x1fa/0x240 block/bio.c:1580
- submit_bio_wait+0x19/0x60 block/bio.c:1598
- __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
- blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
- blkdev_direct_write block/fops.c:699 [inline]
- blkdev_write_iter+0x703/0xd30 block/fops.c:767
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
+Ahh, I'm sorry for not being clearer about this in the message.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
-Tested-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- drivers/md/raid1.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+The first (0f044e47a76450ebb4fe52dc60a6b2f79625bbff) is 
+2077ccb9baa2cbbbccf5f0d8c2196dd9d5e43399, i.e. 
+https://patch.msgid.link/20260702150704.265282-1-cjd@cjdns.fr which is 
+in (at least) next-20260827 but not in mips-next. I included it so I 
+could verify PCIe works on the device.
 
-diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-index f0646fb24371..3b9f1fa65e65 100644
---- a/drivers/md/raid1.c
-+++ b/drivers/md/raid1.c
-@@ -1674,6 +1674,7 @@ static bool raid1_write_request(struct mddev *mddev, struct bio *bio,
- static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
- {
- 	sector_t sectors;
-+	blk_status_t status;
- 
- 	if (unlikely(bio->bi_opf & REQ_PREFLUSH)
- 	    && md_flush_request(mddev, bio))
-@@ -1692,11 +1693,36 @@ static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
- 	if (bio_data_dir(bio) == READ)
- 		raid1_read_request(mddev, bio, sectors, NULL);
- 	else {
-+		int err;
-+
- 		md_write_start(mddev, bio);
--		if (!raid1_write_request(mddev, bio, sectors))
-+		err = mddev_lock(mddev);
-+
-+		if (err < 0) {
-+			md_write_end(mddev);
-+			status = BLK_STS_IOERR;
-+			goto done;
-+		}
-+
-+		if (!mddev->private) {
-+			mddev_unlock(mddev);
-+			md_write_end(mddev);
-+			status = BLK_STS_OFFLINE;
-+			goto done;
-+		}
-+
-+		err = raid1_write_request(mddev, bio, sectors);
-+		mddev_unlock(mddev);
-+
-+		if (!err)
- 			md_write_end(mddev);
- 	}
-+out:
- 	return true;
-+done:
-+	bio->bi_status = status;
-+	bio_endio(bio);
-+	goto out;
- }
- 
- static void raid1_status(struct seq_file *seq, struct mddev *mddev)
--- 
-2.43.0
+6380783b9da35b966b64c237b0ef50c31c7425d6 is the patch I mentioned: 
+https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/ 
+which I applied to verify it works without needing the symbols that the 
+goal was to remove.
 
+That said, this should definitely build without either of these patches 
+which is why I neglected to explain them in any more detail.
+
+Thanks,
+
+Caleb
+
+>
+> thanks.
