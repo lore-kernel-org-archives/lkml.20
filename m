@@ -1,61 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF03330C15B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20899313E1B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881936; cv=none; b=D/T4fDR91x/JLumM+zZQUoJwKHC9ZXd5MpcIuju3crp1FMtcm+44Em+KLmHPxZqwJnaxXiVlQbQftRKTCQ901ApIQUGZFAa2dpiqordKr+BiTsYC1maW3/1+yRDa2Wlmiz74HFEnGO33bLlUPZvecxvKzYUamttiEeXFe9Sstfo=
+	t=1787881943; cv=none; b=RE8cahaFwd0EH4sgRBC4iajhoTWjKeLO0nDIsXschkaXvlrl2NWQahRAAyNyT2VLOOvaZIYuOLZf8mNp0zfXJbsYw0lZL6jIAejUef/u+U8gDTHvKMVWIcwEZHTGohq7XWAPY52317TRZxAieCu8UOe4XMN1JfhP25ZT84VwSnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881936; c=relaxed/simple;
-	bh=+5iO4dSAhEo3AZGC+XWiPNe2+jcuNGNmwtd8kiws88k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ea5EUztolfUo//T4UquIvCWk2ZZf9qONgJHs+g1qN3lm8Z27Bsznyp5lxGYEnIzRDT9GnyEB1CYS3SRoeBdkIPtulqGdEQ5Qf/6r0qF46ra+3bsOvSAU9B2X5pjR8YQ0+lKar3uyGblhgv6th+coE+YELtL0mUZZza0aPVfJ7jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XTjRlxES; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1787881943; c=relaxed/simple;
+	bh=WXS6vakLdU7L83PfcH4phfkIOBuzvYI+wtSQFxoREIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O9q31KezS5FaiHDSZr5Gc1i0Hx9ttVrNrTw73KJqPG0L93FoVckNhgqihIVhdrgOylaYvxh4jiX7kNON9zHNFHuyk6I7aFaekrMcTQS882vXt4cF3rkq1We9ZQSfCOtn3gdhfkvsxS77ih6wJP+DLEEJ0BYj8xccyMOyaOBUrfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKNg1r/e; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XTjRlxES"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so497280a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKNg1r/e"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cacb8416a1so4913975ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787881933; x=1788486733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zNpC7rHp3pQpvORIwlLifm+Jt9USo4idXGhd8GPdBcU=;
-        b=XTjRlxESul+sotZ4yxRUiUEQy1tz/rBqOmvHRlxKfpAE889cqwEM1cOv/5XOG9y3vK
-         I0AYTxiFF3PIremn2BvZ+8SCfkogd4KW8OtuQXv8inuDdC/kVEaf7BVc7B3lwKuU6oC2
-         v27/wd+UZWL9B7/crdVi1/aFFcTDBQRIj1CQEcQx8PtExZZnj7mbn2oXgjmZpizsEHcu
-         8nNeWIYBrcd3xgWwWF0UCqdNfeS+gPvohjb3JbS989UnuNbcSLhrkOldUpOVLzoy6P+i
-         52N+lOjw/ETaRRZ1KDTRLnW4vWOrc/dOD2uDxDLAG6puRUigNBRjz+FSiUtv9MPD6jea
-         eGcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787881933; x=1788486733;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787881940; x=1788486740; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zNpC7rHp3pQpvORIwlLifm+Jt9USo4idXGhd8GPdBcU=;
-        b=VE9SN39htulOBpUuyhdlMv9uD2TgQM+LAbs2J0Ql2pTeE2r4ZQun/w3T+7MN0yEvp9
-         thzxXniTQRTrJOYqMCsqgMz7tMz8zBELb4V1GbRqlbpzzfHLcuvCDl6bTnxdxVXnWnM2
-         2KeST9GFyHHkTb0R+T9daQ7WBTMl1krEnBHmiSat1WoMUt2pM3Nbh+7xciBfXQAYaPhG
-         1ooDj0DFGKxZ+LQ0rnT2EPRYJLPbGcHHjrljH1Rdmq3P48dmfZ9LvxJTR5ApAgjIwwi+
-         qb51HakcrXMyHvk7rRjL3kZ+Qx79HnyaFm6OtPLUz+J1YTNFKE4mXB9IXsOXb/4UzLGV
-         zzcA==
-X-Forwarded-Encrypted: i=1; AHgh+RovjW4/4S3hUGVaGxQxdy8pqMYH+z3FLRuEsNDd91paQU7033h+8fTHwpoTQkF2gri2kG79HZaZfWsm77A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtFESg8gROCo+M3t4DEIurOKjs0P8ilxDnICUbRKK8ZQnpxlWb
-	Ici1Rzba+n1rDW5tgmoI9l0Zyju50DTt6mfdXX3tImjWSdLVuFiZmWEe
-X-Gm-Gg: AR+sD13ypDIAjBw+IETqOVvobflajlKB98zby9UMjAd8BQWqJCg0CwFxke12H6T2Ld5
-	igAXm3GTFpUtwis0KLTx+DjUGfwnKQkLqTHnUbNB6cs7UUaT1LF22HOp9uRnJTYxmO4a7qulEJt
-	zP9Gje2rXHpi8g9iYoK2SGB9BKRS8QD6/oNpWByWs3rFsQpk4MC3GHwPJl8PCgIW2Qk4eyKiJkr
-	XEzdJ0GHiuViSPVzv94f9qKAtL76OaNLQ7YJiBqj1nMVMkHSVu3KS3YHwz8mQRE739ha4qZMBBe
-	Ca7m1qf8mbrI1sgZ4h2U6ip7W3cIVS6ZQuppMpO2xSPiFwfqoT6V22FvbDOCq/B9XI1DEy127ZY
-	Fp07GfDqx4gWg8y2jpYQ1J4UR+gdGstLS6PycIsmQsWS1/GXHX6hM+H/AnUUOKfBXav5OkBAAz9
-	70z3LXxjHR2mL3OIJLAdnE1pzdcRIj+4CXBNlA5Tx484iONbEOPCKyV08RmA4Op1ZLsHE=
-X-Received: by 2002:a17:90b:1d83:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-396d1023217mr5133053a91.14.1787881933040;
-        Thu, 27 Aug 2026 18:52:13 -0700 (PDT)
+        bh=+4C77kmToqjwj4xCnglFajcSc9AFnruzbKFWTqw9sUw=;
+        b=PKNg1r/eippCTUc3wVCGegxU6+X75Vv2kPLek7o0HE4P2GhFQItj0kV3CY70UZXFpr
+         eTZ3/YtLMxdO0Jd4IGLK/PTq/Azd4Zr055bKsB/AOjZNFvR1u43yePGTkCS2DWtJo/Tn
+         E+6z+cvCoSHKkrnn47Mtt1GP2Q82wsqSVP5TvkVRtki1riGfsT9d9Ujx8fzQ6M0DjNyi
+         bMAQpON+YsP1JIgU0cJl0tetsP+xWUORaCTdZmrOfl+6B0ejNlPkY7KRcJn0KWkKDthW
+         sTmV1PdA68zsLSJeIsbFWc2FkBS9udnR+Ah5toP8Y1zJpvy8rbmcFYKiZTzHSXZywIuf
+         iKkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787881940; x=1788486740;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+4C77kmToqjwj4xCnglFajcSc9AFnruzbKFWTqw9sUw=;
+        b=AZsEgCSTs2a96f2VHoCt56Mg79Pe3cCLoiEdfNCjS0BH3sInp/Nu2Yo9d8Yztv4UuW
+         NgPfG88VtxpFBcYGe/jmg3hFv2qIzY44KkkyESSVlRo0fA/23Wdw7SubvCmRTfk23it6
+         WeE/IXvwmICiENj7MUK7Z4zBloBFaY4YoS5phYOzLWkkzRbZVCfgI8k7Qf9iXSqqjTcp
+         dAOht5mBAMcxID/P3jPyK2B1I+oGI03eXoTLLa13wQYw+SCxFwRzv9cXrC+w3RSvDAnJ
+         aDbk7HUuQAsqRK6+kkuOzteYRrode7u0iHXt5sl55cFvyow/c5BkTcO1xdnXO5nA6Byg
+         HFkg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0N5UwpE+NJvHDnQmze9nFPKeVndiXDhcKotdUrjRDRiP3/iiuklA+z1tx0bsBH9FLiWSL7RdBBrr9Kb4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrDNDvc6pNI4fM92yo9bFJi9FHVjiyo8qOR2EGIv0zbM/IkuXh
+	x8A7eQiYLrFmB8ETHTH1wZYS11ZGAo/0rlVfFKDAzwEKLD+H+0PeuHRc
+X-Gm-Gg: AR+sD128W4OGzZyMJ1tCtnPcYBuw2Ct+1xB0DNhpfhdUVUPbN5PdwkHTKNJ+Vj0jemI
+	w3ebIXE6wSEtSJ8LWFvAEJxYMbP9puXl1rdeqWFYNH49WBKeo8jX2zKNKAM+UJZ0zAzkuVPwq0Z
+	TnwpUvTSUylLDGck5TOJseFrVDZ0bM+eCXf0LC9i4ny+oljGOTtTX2r78JWAN7R/PKP/GAf3J5K
+	XrFcK///UDwidIRco9z3Fnn3U8rOe6y4gVIN1AhYrZFipL/5ZXqbSzjbjWhiXFTcLbw30mrbGWf
+	l5nX7VhDoS8Tmrhg/Cs6y5Oo+sjKTN7yIuAfzsQdsrjv2055B2sRnbyDIYO0ZbgVSmOVbaQLZCe
+	OX4o4Yl5koXT6qkxHy8DAZrdvFQZI8778E+Q+fWvsflgZtPDvKzn8sbzGtc5XiM7cusqn7v19BG
+	GWrF4rtDZhDsg58jfQYXvdDJleOwpD3wluV9FR3fgYyyjpCnGecRG3ZclQlBF7yvwLRTx74Wuxx
+	pSmVg==
+X-Received: by 2002:a17:90b:2cc6:b0:381:1f51:1ff0 with SMTP id 98e67ed59e1d1-396d0d92cffmr7286955a91.2.1787881939600;
+        Thu, 27 Aug 2026 18:52:19 -0700 (PDT)
 Received: from main ([176.237.234.93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d2316e21sm603674a91.2.2026.08.27.18.52.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d2316e21sm603674a91.2.2026.08.27.18.52.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 18:52:12 -0700 (PDT)
+        Thu, 27 Aug 2026 18:52:18 -0700 (PDT)
 From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
 To: Miguel Ojeda <ojeda@kernel.org>,
 	Danilo Krummrich <dakr@kernel.org>,
@@ -65,10 +68,12 @@ Cc: rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	driver-core@lists.linux.dev,
 	Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-Subject: [PATCH v1 0/3] rust: add missing newlines in printing calls
-Date: Fri, 28 Aug 2026 04:50:19 +0300
-Message-ID: <20260828015148.221737-1-mehmet.mkoseoglu@gmail.com>
+Subject: [PATCH v1 1/3] rust: samples: add missing newlines in rust_print_main
+Date: Fri, 28 Aug 2026 04:50:20 +0300
+Message-ID: <20260828015148.221737-2-mehmet.mkoseoglu@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828015148.221737-1-mehmet.mkoseoglu@gmail.com>
+References: <20260828015148.221737-1-mehmet.mkoseoglu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,22 +82,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series adds missing trailing newlines (`\n`) in Rust `pr_*!`
-and `dev_*!` calls across sample drivers and documentation examples.
+Calls to `pr_info!` in `arc_print` are missing trailing newlines, which
+causes consecutive messages to not be properly line-terminated.
 
-Missing newlines cause kernel log lines to not be properly terminated,
-leading to unexpected concatenation of consecutive log messages.
+Add the missing `\n` to all four formatting strings.
 
-Mehmet Koseoglu (3):
-  rust: samples: add missing newlines in rust_print_main
-  dma-mapping: rust: samples: add missing newline in rust_dma
-  rust: io: register: add missing newline in doc example
-
- rust/kernel/io/register.rs      | 2 +-
- samples/rust/rust_dma.rs        | 2 +-
+Fixes: f431c5c581fa ("samples: rust: print: Add sample code for Arc printing")
+Fixes: 47cb6bf7860c ("rust: use derive(CoercePointee) on rustc >= 1.84.0")
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1139
+Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+---
  samples/rust/rust_print_main.rs | 8 ++++----
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/samples/rust/rust_print_main.rs b/samples/rust/rust_print_main.rs
+index 682207c81fc2..01729e87d6b5 100644
+--- a/samples/rust/rust_print_main.rs
++++ b/samples/rust/rust_print_main.rs
+@@ -23,10 +23,10 @@ fn arc_print() -> Result {
+     let b = UniqueArc::new("hello, world", GFP_KERNEL)?;
+ 
+     // Prints the value of data in `a`.
+-    pr_info!("{}", a);
++    pr_info!("{}\n", a);
+ 
+     // Uses ":?" to print debug fmt of `b`.
+-    pr_info!("{:?}", b);
++    pr_info!("{:?}\n", b);
+ 
+     let a: Arc<&str> = b.into();
+     let c = a.clone();
+@@ -42,7 +42,7 @@ fn arc_print() -> Result {
+ 
+         use kernel::fmt::Display;
+         fn arc_dyn_print(arc: &Arc<dyn Display>) {
+-            pr_info!("Arc<dyn Display> says {arc}");
++            pr_info!("Arc<dyn Display> says {arc}\n");
+         }
+ 
+         let a_i32_display: Arc<dyn Display> = Arc::new(42i32, GFP_KERNEL)?;
+@@ -53,7 +53,7 @@ fn arc_dyn_print(arc: &Arc<dyn Display>) {
+     }
+ 
+     // Pretty-prints the debug formatting with lower-case hexadecimal integers.
+-    pr_info!("{:#x?}", a);
++    pr_info!("{:#x?}\n", a);
+ 
+     Ok(())
+ }
 -- 
 2.55.0
 
