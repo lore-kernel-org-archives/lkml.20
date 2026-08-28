@@ -1,90 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE143002CF;
-	Fri, 28 Aug 2026 17:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A69E38DC54
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939835; cv=none; b=Q4yH0/XSrr84U8ynYwyx8pZ7ns3qLvQQEj5yjE36xTJYMs5+GXW4XYnpHyleLoksV7XtF+gIxtZMVHvreyxFnzZM5UywPylHka/X6Pw7Z0TCcLqGQSHLhsWDfRrkuLMWT5KwYZIeNEVpE9g03wIyqmKvp/mIVv8Wlcj8yORguuw=
+	t=1787939892; cv=none; b=Se6ObTM9JAmGzohGNYJtVPSBfEBLomqJfLOQsFt5RTie8667PZ+4vb55qo176rq9lxH5eLVvd7sdnQNmy0TcvQ8XLUwcFVzFtfK49Km9+1UvUCLVanGT1GVmhezup8e6C72iGcpiSh0wpMP5vWNHNxujBzo0Ud81BzOblnic0uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939835; c=relaxed/simple;
-	bh=U4BLoNLNrDCuYZeJsR1BMfEKEyBFmo9k8PxA4sQUEh4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qi98kNlUIdLUJ4ADk3dZFWNjHl2ha86jUc0BXqcjzu9TRzyo/55a90yAexFpkz3Ig+9lbvqKjnl7sGD31p40+a6+bRW4sNpI4pnku5y1JEt3yezBUNXaw/L7SlKkSvWi/zOGk8KRIXiP6r/F6IXIE1lDDgzQTagL/wNtpeA77Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvXe2A+1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787939892; c=relaxed/simple;
+	bh=5PkATv96a5OCOrWRq/A2ruYkuOv3h7T9J5eTDGopBgY=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=lX2N0wOQe4xHLBnufzyFdwvU2DQfWzvKzj+YsIMprxvB3LJ5WCriWRRY8W7u9jXWBEed0LyuecImIoYVWbhHNJFA6PtIE8uDXBhd1msjLz1DzWEvHuJVti7/rOpuFyGkvoqFXPeH6k1wtgLv4fy/q6rkkbH8CyBzVbgPVwSlbHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=eG3uKZyG; arc=none smtp.client-ip=209.85.210.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvXe2A+1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C271F000E9;
-	Fri, 28 Aug 2026 17:57:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787939833;
-	bh=H6P6AHS6/x6pMjgCMUJBE0PeoGYUl/jCtlCd437ETFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PvXe2A+1CB3AL77fGDhjAfLEvJsjzOJUciryulKFvfCc0p8XwJqTeHWlpMV0Waodu
-	 fInbzo97bM5kRFSRTNO4h0VubqnekROnbPMXWzyoy9oSJ07DfQFk2Z2MfGISirrJqI
-	 HXRgGQuHDmlGmbwH855WM9B4WC4DuQ7i56IqZGkIKiissmSoo61pMx96rU00Qo3+4A
-	 NnNFHTGgpRF9sKHR2YGjuC6/ewL95NRABUN9+j7/OGXFtlLmFkJUjw5tFPpG2/MoN3
-	 yPuaANw4qyiZeIaDi9eW+oO8QSv7MTnEfAK3lg284E1OGHGS1CrbRTKamcIay5OZz0
-	 50rPuxIA87b9Q==
-Date: Fri, 28 Aug 2026 10:57:08 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>, Gary Guo <gary@garyguo.net>,
-	rust-for-linux@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>
-Subject: Re: [PATCH 12/27] kbuild: Defer running objtool to link time for all
- CFG features
-Message-ID: <20260828175708.GA3403925@ax162>
-References: <cover.1787890035.git.jpoimboe@kernel.org>
- <1447f9f8dc6e7e02e4a8a33ce7ae92ba49d70eb3.1787890035.git.jpoimboe@kernel.org>
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="eG3uKZyG"
+Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-84f216add2eso137569b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:58:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787939889; x=1788544689;
+        h=content-transfer-encoding:message-id:date:subject:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l0MYRmzZFgruXC9r5HawEJJIBHGX1MwpvzJV/6xzk4w=;
+        b=CaihV5pI5rcT35QXldRbD/ed/6LjO5O9Njg5oCXG9GHiqokOjVdKwJ1CO4ZDFzW4tE
+         Txm3HLBwXUWR0jl87xw9g/B0s4Smx5FH3em4HDddhihtBs0jw65CWKAWit5CM39yyqFC
+         rW66lYg63FPgvS+jG6zWS312Gv2Z0jnyVD9LY1j1O/B1UHwuehY/V6l5vTXpwQWfokI6
+         9pYukDW8Q0KV6Ra9KFdpey/uGO7/Nhu41WPRI+RX+5tpqQhZrtoIVLkiqaLhqg/rbFc6
+         Usc2AEpcAUzC/+Fyrc8mttTYIiq8uY1DuNmQv8DKwjF3vJ5SRMmLJ0uW5DjtAnoQxZGF
+         GvhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RraMCtGyo9drHWeU8ZrYH8641L8kExYlCWed+LohQh/26H+aIXvPx+cXr7FZtokOtBkGAJd0iuRB7MyvkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyxNVOIEVBxsyRYi6qLej+8fCiGNWz06pSxkTgzKajyYRgsdJt
+	YDbMu7Y38KGFZH3zpWncduSYgDlK8CyI3Alomy598P3lRhIbe9ivatNbpdRVYJmu4zp5Clz4/fE
+	1lym0NyRdqhjtllODthwmwd/3aVKznlF/NA==
+X-Gm-Gg: AR+sD11g1LwRQrdSL3E9kDfiid05Hy2vsRWFTkpO0eLgDIzQ9Xsbl3O1x9mfSDF1wm1
+	Z3Tfbhre8nkut5McD3jGNGthYma0GR5znfvO+PMxqkEcvuNfxkPvjWds+O4tedlKB9uzAAiMIFY
+	dU2Za0ps+kuyrrgioovwJfEMbn7H4LI4PCqytkXME6BfEF2xIp77M0KumhA4oKFbSN47VvGuMgo
+	vj+7uWjRMMWe8VFKivpMjn23dhC+CCVBZ7bGgCHFAr6EOoCNHndWjbRUPXeTHqLwv1PkrWKN2a2
+	Qvg0bl25yZ82wsz6H7LVgz4BISDMdqpvNHAWKgTurLNy4LNhCdzGQTSoctPqESnDFg6eLakgEs9
+	62KkfbN5SlJa4q7FvzUgM59p4WB4GJ+xRg4jJQEjwv+06472oDlnSYmQAvpch
+X-Received: by 2002:a05:6a00:2e24:b0:851:8baf:5b26 with SMTP id d2e1a72fcca58-8562a7dc401mr13785540b3a.14.1787939887387;
+        Fri, 28 Aug 2026 10:58:07 -0700 (PDT)
+Received: from smtp.aristanetworks.com (ec2-54-84-120-176.compute-1.amazonaws.com. [54.84.120.176])
+        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-8569f3a0fddsm819717b3a.2.2026.08.28.10.58.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 10:58:07 -0700 (PDT)
+X-Relaying-Domain: arista.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
+	s=Arista-A; t=1787939886;
+	bh=l0MYRmzZFgruXC9r5HawEJJIBHGX1MwpvzJV/6xzk4w=;
+	h=From:To:Cc:Subject:Date:From;
+	b=eG3uKZyGSmNj9bVPNEHDYUwq/K0u4ADVlFzeN4WPO1k9I/lLghRacGWe1L/Etr8pz
+	 nBkn2qno+nx4WvXkQCR5mbEV4beP9Af9PXvhm6AnIELIZCMnWnrFbtO/kRkzmaBE06
+	 Afv1SnDjTRR010IvekfwbEOjZTKCOi937V/sVYK4lZ1OVNsmDsy22nWM2Y7uUizLcX
+	 VaTpNxzBwxUqNwySjrnmCKsEHIBDuWUJj1P01AKmHw7QCtB2AcfGEN94y3iM8ct64J
+	 RYOKOvLKvnJejeZL124FpDpwysBXP5D4u0xIn3FSfE/wjv0YF542g/xbRQhC6A/m+v
+	 y6zrgzwzaVc5Q==
+Received: from vm-whiteberg-ubuntu.aristanetworks.com (dhcp-244-90-77.sjc.aristanetworks.com [10.244.90.77])
+	by smtp.aristanetworks.com (Postfix) with ESMTPS id 5A5A9C0CE5;
+	Fri, 28 Aug 2026 17:58:05 +0000 (UTC)
+X-SMTP-Authentication: Allow-List-permitted
+X-SMTP-Authentication: Allow-List-permitted
+From: Tate Whiteberg <whiteberg@arista.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Tate Whiteberg <whiteberg@arista.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH v2 0/2] serial: 8250_mid: fix race condition between output flush and termios update
+Date: Fri, 28 Aug 2026 17:57:26 +0000
+Message-ID: <20260828175733.1650267-1-whiteberg@arista.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1447f9f8dc6e7e02e4a8a33ce7ae92ba49d70eb3.1787890035.git.jpoimboe@kernel.org>
 
-Hi Josh,
+Fix a race condition in which setting termios while still transmitting
+can corrupt transmission.
 
-On Thu, Aug 27, 2026 at 09:51:41PM -0700, Josh Poimboeuf wrote:
-> diff --git a/scripts/Makefile.vmlinux_o b/scripts/Makefile.vmlinux_o
-> index 9bac917e8b819..df1e3584883e6 100644
-> --- a/scripts/Makefile.vmlinux_o
-> +++ b/scripts/Makefile.vmlinux_o
-> @@ -30,20 +30,12 @@ endif
->  # objtool for vmlinux.o
->  # ---------------------------------------------------------------------------
->  #
-> -# For CONFIG_OBJTOOL_DEFERRED (IBT or LTO), objtool doesn't run on individual
-> -# translation units.  Instead it runs on vmlinux.o.
-> -#
-> -# For !CONFIG_OBJTOOL_DEFERRED + CONFIG_NOINSTR_VALIDATION, it runs on both
-> -# translation units and vmlinux.o, with the latter only used for noinstr/unret
-> -# validation.
-> +# For CONFIG_OBJTOOL_DEFERRED, objtool doesn't run on individual translation
-> +# units.  Instead it runs on vmlinux.o.
->  
-> -objtool-enabled := $(or $(CONFIG_OBJTOOL_DEFERRED),$(CONFIG_NOINSTR_VALIDATION))
-> +objtool-enabled := $(CONFIG_OBJTOOL_DEFERRED)
->  
-> -ifeq ($(CONFIG_OBJTOOL_DEFERRED),y)
->  vmlinux-objtool-args-y					+= $(objtool-args-y)
-> -else
-> -vmlinux-objtool-args-$(CONFIG_OBJTOOL_WERROR)		+= --werror
+Changes in v2:
+  Split original patch into two: a prerequisite to to expose
+  wait_for_xmitr() and a successor to fix the bug. 
 
-Did you mean to drop this line or did it accidentally get culled in
-cleaning up the conditional statements?
+Tate Whiteberg (2):
+  serial: 8250: export and rename wait_for_xmitr()
+  serial: 8250_mid: wait for LSR tx empty before setting termios
 
-> -endif
->  
->  vmlinux-objtool-args-$(CONFIG_NOINSTR_VALIDATION)	+= --noinstr \
->  							   $(if $(or $(CONFIG_MITIGATION_UNRET_ENTRY),$(CONFIG_MITIGATION_SRSO)), --unret)
+ drivers/tty/serial/8250/8250.h      |  1 +
+ drivers/tty/serial/8250/8250_mid.c  |  7 +++++++
+ drivers/tty/serial/8250/8250_port.c | 13 +++++++------
+ 3 files changed, 15 insertions(+), 6 deletions(-)
 
 -- 
-Cheers,
-Nathan
+2.43.0
+
