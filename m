@@ -1,118 +1,170 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB23D175A5;
-	Fri, 28 Aug 2026 00:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mta0.migadu.com (out-73.mta0.migadu.com [91.218.175.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5156E2E175F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787875960; cv=none; b=iBTkXJppEnvcA4143KJ4VQ+bS7xQPelUqQOPkJtUkOPNXj0ODuf7d29+NDUKyNpcezhOwFtoloch4gmmD9GmEuKYQM36Av34mzBNHmcI7/gLy6aL66p4XI3xAnkc29wQYn5636O8qFwhVjGnnMqR1Xvoga51bt2mDJnWnsr5I+4=
+	t=1787876042; cv=none; b=GNCe3/HhnQxu+vpaCM2Nw2aRNd7K1NuHO7Fh8WVJPoIfDTvwgBkH6QchAI1zSxHzACqW4h01Y4a/Vg1b6/BTxb64NUHjsRtO9CHsX9l2k+IsBwIczB382HIi05P1K88q5jwQKP8wEFPseQnQ+vtH8XzkxFb54QuMA6O3chXYpws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787875960; c=relaxed/simple;
-	bh=2hHQDq8+RfNXkFmSZpp1GMkJiiuqB2/Xsh3zOp1xYcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ozp4tWypOPaef6N/DdImk6zQj6Jr6qwdV99J5XYfD+9lfXZxH40hsv9tPoNQcoslaKzEvKodJgpzWIRpLgLrPcD8eEeiQzkZ53kIfdHHA28sHVImRQHE3w0ZuSxhcfv0EkceI6ygGM+aXaHgGqQpQyR2TcNY3mzLGBKKGX38Vio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1202)
-	id 5904E20B7167; Thu, 27 Aug 2026 17:12:05 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5904E20B7167
-From: Long Li <longli@microsoft.com>
-To: Long Li <longli@microsoft.com>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	shradhagupta@linux.microsoft.com,
-	Simon Horman <horms@kernel.org>,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org,
-	shirazsaleem@microsoft.com
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] net: mana: Clear RDMA teardown and suspend state in mana_rdma_probe()
-Date: Thu, 27 Aug 2026 17:12:02 -0700
-Message-ID: <20260828001202.2110938-1-longli@microsoft.com>
-X-Mailer: git-send-email 2.43.7
+	s=arc-20240116; t=1787876042; c=relaxed/simple;
+	bh=fsmsExbs5nEKnsojLuf0l39j1UTtxo6K5C9nm891QB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XFtcPyqZ5fHM5VbBR1Uk1Ko75xxD8mjUWfLNSzjdKy5OSiyTkUkaeGB7VpN1lBCGqhLrO+CrzoIeoTArJVbIXdKeoan/rmChjyy9YRY32eXWC+gG77QPmXafqeyLD7zHuNaTjH9+jddk5SIhGPaWz6jUi04wlePhJ42AV9ukl0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HcJr3mDH; arc=none smtp.client-ip=91.218.175.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HcJr3mDH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fsmsExbs5nEKnsojLuf0l39j1UTtxo6K5C9nm891QB8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787876036; v=1; x=1788480836;
+ b=HcJr3mDHQNMfTpxf9qN2PWYt5rVNj8obn2InI3h2sePCM6es2pHJZIo26KaepRyKEbi2brwN
+ LWr8VMFNDAOe3ztNYc3y9ohNc+PK9qhcPm9ckx3uYbvt+8uesqhtc4fymxNNiUMsSPvJh5sLJJY
+ t9fQVIAt6JLUeM3xAgm/UN/g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a46212a26a1c49f4;
+	Fri, 28 Aug 2026 00:13:46 +0000
+X-Mizu-Trace-ID: a46212a26a1c49f4
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 27 Aug 2026 17:13:44 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Joe Damato <joe@dama.to>
+Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, bpf@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: raise MEMCG_MAX for charges that fail
+ without reclaiming
+Message-ID: <apDPJzlJ4gS9YUDX@linux.dev>
+References: <20260827233119.411152-1-joe@dama.to>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827233119.411152-1-joe@dama.to>
 
-mana_rdma_remove() sets gd->rdma_teardown to stop
-mana_rdma_service_handle() from acting on servicing events, but nothing
-ever clears it. A hardware service reset (GDMA_EQE_HWC_RESET_REQUEST)
-goes through mana_gd_suspend() -> mana_rdma_remove() and mana_gd_resume()
--> mana_rdma_probe(), so from the first reset onwards every
-GDMA_EQE_HWC_SOC_SERVICE event returns early and RDMA suspend/resume
-servicing is silently dropped for the life of the device.
+On Thu, Aug 27, 2026 at 04:31:18PM -0700, Joe Damato wrote:
+> Charges that exceed memory.max and return through the nomem label can
+> raise no event and simply return -ENOMEM.
+> 
+> A non-blocking charge can hit the limit, get rejected, but is not
+> visible in memory.events.
+> 
+> This was noticed in a production setting where bpf_mem_alloc() attempted
+> to refill its per-cpu freelists, which triggered a non-blocking charge
+> while at the limit.
+> 
+> Move the event so that it is raised as soon as the charge is known not
+> to fit.
+> 
+> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Signed-off-by: Joe Damato <joe@dama.to>
+> ---
+>  mm/memcontrol.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 1271d390b617..3904fe9a7b2e 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2683,6 +2683,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		goto retry;
+>  	}
+>  
+> +	if (!raised_max_event) {
+> +		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> +		raised_max_event = true;
+> +	}
+> +
+>  	/*
+>  	 * Prevent unbounded recursion when reclaim operations need to
+>  	 * allocate memory. This might exceed the limits temporarily,
+> @@ -2711,9 +2716,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  	    mm_flags_test(MMF_OOM_SKIP, current->signal->oom_mm))
+>  		goto nomem;
+>  
+> -	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+> -	raised_max_event = true;
 
-gd->is_suspended has the same problem: it is set when servicing removes
-the adev and is cleared only by a matching resume. A reset while RDMA is
-suspended re-adds the adev but leaves is_suspended set, so a later resume
-event calls add_adev() on top of a live gd->adev and leaks it. This is
-currently masked by the rdma_teardown bug.
+I just noticed that this will change the current behavior where we keep
+increasing MAX counter while charge request loops through reclaim and retry.
+Though we have not documented that behavior, so not sure if it is worth
+preserving. It does help identify cases where a request keep looping in the
+charge/reclaim/retry path.
 
-Clear both in mana_rdma_probe(). is_suspended is otherwise only touched
-by mana_rdma_service_handle() on the ordered service workqueue, so clear
-it while rdma_teardown still gates that handler and re-open the gate with
-smp_store_release(), paired with smp_load_acquire() in the handler.
+Let's see what others say. Keeping the behavior should not be that hard if we
+decide to keep it. Something like below (untested):
 
-Fixes: 505cc26bcae0 ("net: mana: Add support for auxiliary device servicing events")
-Signed-off-by: Long Li <longli@microsoft.com>
----
-Changes in v2:
-- No functional change; the diff is identical to v1, rebased on net/main.
-- Target the net tree explicitly in the subject prefix; v1 omitted it and
-  the netdev CI guessed net-next, where the Fixes: tag is not evaluated.
 
-v1: https://lore.kernel.org/all/20260826235940.1869565-1-longli@microsoft.com/
----
- drivers/net/ethernet/microsoft/mana/mana_en.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 7a1ac853e3abcd28c4a1e5c6987ec631a18ad840..56f426da728647e39f4c4ffa9c66123436297ac1 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -3983,7 +3983,8 @@ static void mana_rdma_service_handle(struct work_struct *work)
- 	struct device *dev = gd->gdma_context->dev;
- 	int ret;
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..6bfa4ad30b24 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2656,10 +2656,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	bool raised_max_event = false;
+ 	unsigned long pflags;
+ 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
++	int ret = 0;
  
--	if (READ_ONCE(gd->rdma_teardown))
-+	/* Pairs with the smp_store_release() in mana_rdma_probe(). */
-+	if (smp_load_acquire(&gd->rdma_teardown))
- 		goto out;
+ retry:
+ 	if (consume_stock(memcg, nr_pages))
+-		return 0;
++		return ret;
  
- 	switch (serv_work->event) {
-@@ -4279,6 +4280,17 @@ int mana_rdma_probe(struct gdma_dev *gd)
- 	if (err)
- 		return err;
+ 	if (!allow_spinning)
+ 		/* Avoid the refill and flush of the older stock */
+@@ -2770,16 +2771,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	 * put the burden of reclaim on regular allocation requests
+ 	 * and let these go through as privileged allocations.
+ 	 */
+-	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+-		return -ENOMEM;
++	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ force:
+-	/*
+-	 * If the allocation has to be enforced, don't forget to raise
+-	 * a MEMCG_MAX event.
+-	 */
+-	if (!raised_max_event)
+-		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+-
+ 	/*
+ 	 * The allocation either can't fail or will lead to more memory
+ 	 * being freed very soon.  Allow memory usage go over the limit
+@@ -2789,7 +2785,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	if (do_memsw_account())
+ 		page_counter_charge(&memcg->memsw, nr_pages);
  
-+	/* Clear the state left by a previous mana_rdma_remove() so servicing
-+	 * events are handled again after a reset cycle.
+-	return 0;
++out:
++	/*
++	 * Don't forget to raise a MEMCG_MAX event for forced or rejected requests.
 +	 */
-+	gd->is_suspended = false;
++	if (!raised_max_event)
++		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
 +
-+	/* Publish is_suspended before re-opening the gate, so the handler
-+	 * cannot act on a stale value.  Pairs with the smp_load_acquire()
-+	 * in mana_rdma_service_handle().
-+	 */
-+	smp_store_release(&gd->rdma_teardown, false);
-+
- 	err = add_adev(gd, "rdma");
- 	if (err)
- 		mana_gd_deregister_device(gd);
--- 
-2.43.0
++	return ret;
+ 
+ done_restock:
+ 	if (batch > nr_pages)
+@@ -2848,7 +2852,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	    !(current->flags & PF_MEMALLOC) &&
+ 	    gfpflags_allow_blocking(gfp_mask))
+ 		__mem_cgroup_handle_over_high(gfp_mask);
+-	return 0;
++	return ret;
+ }
+ 
+ static inline int try_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 
 
