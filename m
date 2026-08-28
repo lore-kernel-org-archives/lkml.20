@@ -1,164 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637C945FFAC;
-	Fri, 28 Aug 2026 13:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F6E44A408;
+	Fri, 28 Aug 2026 13:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787923663; cv=none; b=rRviAeNuxiaVaMNJDxrSdsafCNMs4CX0jvGDWwTaWZ5fIWGP0J4yci0hTCaN0pNWVpypPwnwK+P0sdeYP9sATb77yy/VfPUnq3m+mc1qQviXqfYUAMeE7ntb1hBpVSxZ7bDN3nfCzksrS6aJ3bTgD3U10An/YQ27Jo7cM24eGLA=
+	t=1787923683; cv=none; b=ZYXTyOl+Jv/0iDpLLl/Sr3QtUlz/MYSCgZDearqPZn5ZP8ItmRaqQ+tvLPPv2PTbgSOaE3ymiVgBAsBGy5dhEABaWAmDUq+cC39840wygtqddl5YEKBvBVpc0LWZHOB/UHrMdAh9gw1pGEdR/feZiMqP+xlLZ1jFBc2ErwGkXo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787923663; c=relaxed/simple;
-	bh=CpSpzPjzDmQTaw98gZP8nSp26OiFMquYXWbQXnMWkl4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=hnsVPV6B/+BSW52DSaTinnL4d3PDgSa5fkF4eiRPbbTv4X60s0fnNCf2IERQuwWx7oawjuSmbJrsYc3LRkt0oeQ9ErvOGP8e0waJKyRIE8+kosjWrsL8sLlcFOE8tbGbh7AMo8WUvpweQxjpN8vrdJVAKChp++P+BB6q4miy3mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=abMQUCU5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787923683; c=relaxed/simple;
+	bh=CbV7244SQRKhcRy76pR6Gze+MCHkK1P+OPO4LeKQZQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LAYjd5WTSeqPpv381RqPgfQkRal/nly7mVnar9bKMlhIigBckW8R7nnWKKXOrETjYCIXPuC1RX3WBC4sO/LJ0Ro2N0B8dt0cxIexFuWHQUO0x6JvHVj9qNGt5W4ur/qHSCrUG6nuLEtFGuPnOb1rPP5knB9PRt9gId9EJfrPGZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=DFvIjV+P; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="abMQUCU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199991F000E9;
-	Fri, 28 Aug 2026 13:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787923656;
-	bh=YTCgUoAZ1ZfbO0L3ubdbAAlcEQUDIr3UnJj3q/JxPiw=;
-	h=Date:From:To:Cc:Subject;
-	b=abMQUCU54E80mxD2Jr9Zgxx7dgkK7wu/QPHf/BNYBPZEDE75qSffMSDUbT7ADiqWR
-	 /0HYTDq7HesfiZEfuHK95ujOPqZ0uw3/+KZWYS61jb/9yEMW3Ota0Gevix/DTWyPVo
-	 mdTzB6dQmHz6C6BCZrRw/RLeRW6wDpI/MethHVLT/MHFmw4Jvq5M3S3/xz+0yaroin
-	 SK+6SqoJbRyz2QU6wIjqqf9BY/aSFCYM+Or9YD1K+nxVADHvrXGemNctTlg+8f3PYa
-	 l2gWXTdfYXPaD/LAkFbjdwLisIavyQyaAbBuo5IsHdI/atEgPY0nB0GEqzMRUn5rfy
-	 sysBvAxcMwIhQ==
-Date: Fri, 28 Aug 2026 14:27:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	DRM XE List <intel-xe@lists.freedesktop.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Matt Roper <matthew.d.roper@intel.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: linux-next: manual merge of the drm-xe tree with the origin tree
-Message-ID: <apGMw8Xl8Si7WupD@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="DFvIjV+P"
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 7D8D640343;
+	Fri, 28 Aug 2026 13:27:49 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id AD5002E;
+	Fri, 28 Aug 2026 13:27:47 +0000 (UTC)
+Date: Fri, 28 Aug 2026 09:28:37 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, falemi@asu.edu,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] tracing: use-after-free in t_start() when a trace
+ instance is removed
+Message-ID: <20260828092837.3b7704ba@gandalf.local.home>
+In-Reply-To: <20260828092357.3316f95b@gandalf.local.home>
+References: <CA+0ovCjerKZJLwXScM9bF2ga2rLi4_XOpUfK41NDbENpeu98jA@mail.gmail.com>
+	<20260827202859.3573c044@fedora>
+	<20260828092357.3316f95b@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UV7McFlZIvnc2/cB"
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: g39y64k6nn366155y49ayjzcozbrnypo
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: AD5002E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/UFox4lxSSL0nMOCch/ctcJck18mNMD2k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mdsLgVhlirn3ZgTN2PD+s7nWQx+QXiRdzv8YWdlWRzE=; b=DFvIjV+PUJIcjFvIvCaxDG6NLfgjrFDtpV3ISekjSPBLXYnys/ewmWRoVm6PMYUMc5NHUo2Ojjo64qZXPqlx+oXcKyS5HlEIxbqf3VSGVLZ8Yxw0Q53sGp09kq2JjGg1w/ixkPDKcjoWlFyWhqNnZBmwJXTKA4456UEQXt+ITfs=
+X-HE-Tag: 1787923667-692529
+X-HE-Meta: U2FsdGVkX1+vPrqqn4SgjvoiVWk/IzkdOHHRSuVu3mABldhWF3muSoW2aG9cQcTZ6AgdXar6oUbY0G+MqShO/cIdzFfP2ga7rxMzj8TnTT/yreOlcHstbHLdX261ltoINNPqxYq0ciKFM2JZ/0oREGADDWsUp3RQKIWdR2R98X/c1pi3ut1ak77eT91RxsjkIsaVbxo0k801yqKhQM9NY+ysI+LaTcRvJgMZlckBTjNiepAEfIKMgYWyoqZ2k0SXycAVDhcNRcTNqioYOtZm4h2jzoDBrSSZNI8H+bgjale4yplTZO1hf8JN+YdWQ4chzWnJIVMdym4huWc13/97v24mZd4RvGzOWHzSmuHK33bNR2oWeiXEyCM666fGPtJK
+
+On Fri, 28 Aug 2026 09:23:57 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
+
+> On Thu, 27 Aug 2026 20:28:59 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+> 
+> > I see what the problem is. I guess you were creating and removing trace
+> > instances while reading available_events. All files that are part of an
+> > instance needs to get a reference counter on the trace instance when
+> > opened. This prevents the instance from being freed when there are
+> > opened files in it. I see that the available_events file doesn't take
+> > that reference which will allow its instance to be freed while another
+> > task has its content opened. When it reads that content, it will
+> > trigger the bug you see.  
+> 
+> It's not available_events, it's the two new files that were added that
+> didn't take a reference:
+> 
+>   show_event_filters and show_event_triggers
+> 
+> This should fix it:
+> 
+
+I updated the selftests with this:
+
+diff --git a/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc b/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
+index 42422e425107..1e3f27d6998b 100644
+--- a/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
++++ b/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
+@@ -43,6 +43,13 @@ instance_set() {
+         done 2> /dev/null
+ }
+ 
++instance_cat() {
++        while :; do
++                cat foo/show_event_filters
++                cat foo/show_event_triggers
++        done 2> /dev/null
++}
++
+ instance_slam &
+ p1=$!
+ echo $p1
+@@ -55,14 +62,19 @@ instance_read &
+ p3=$!
+ echo $p3
+ 
++instance_cat &
++p4=$!
++echo $p4
++
+ sleep 1
+ 
++kill -1 $p4
+ kill -1 $p3
+ kill -1 $p2
+ kill -1 $p1
+ 
+ echo "Wait for processes to finish"
+-wait $p1 $p2 $p3
++wait $p1 $p2 $p3 $p4
+ echo "all processes finished, wait for cleanup"
+ sleep 1
+ 
 
 
---UV7McFlZIvnc2/cB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+And it was also able to reproduce the issue. With the applied fix, it
+doesn't trigger anymore. I'll write up a proper patch.
 
-Hi all,
-
-Today's linux-next merge of the drm-xe tree got a conflict in:
-
-  drivers/gpu/drm/xe/xe_i2c.c
-
-between commits:
-
-  e766abbc5191b ("drm/xe/i2c: use platform_device_set_fwnode()")
-  0f485f88656af ("drm/xe/i2c: use device_create_managed_software_node()")
-  5d8ed6b64220a ("drm/xe/i2c: Allow per domain unique id")
-  f43fa4b8522ba ("drm/xe/i2c: Fix the interrupt handling")
-  244abef7f280a ("drm/xe/i2c: Keep the i2c controller always enabled")
-
-=66rom the origin tree and commits:
-
-  a55b76b8bc2c4 ("drm/xe/i2c: Fix the interrupt handling")
-  76cc14e2faed1 ("drm/xe/i2c: Keep the i2c controller always enabled")
-
-=66rom the drm-xe tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/xe/xe_i2c.c
-index 399099ff0dbc1,d8fa68206f418..0000000000000
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@@ -111,9 -111,14 +111,9 @@@ static int xe_i2c_register_adapter(stru
-  {
-  	struct pci_dev *pci =3D to_pci_dev(i2c->drm_dev);
-  	struct platform_device *pdev;
- -	struct fwnode_handle *fwnode;
-  	int ret;
-  	u32 id;
- =20
- -	fwnode =3D fwnode_create_software_node(xe_i2c_adapter_properties, NULL);
- -	if (IS_ERR(fwnode))
- -		return PTR_ERR(fwnode);
- -
-  	id =3D (pci_domain_nr(pci->bus) << 16) | pci_dev_id(pci);
- =20
-  	/*
-@@@ -123,16 -128,14 +123,16 @@@
-  	 * platform_device_register_full() is done.
-  	 */
-  	pdev =3D platform_device_alloc(adapter_name, id);
- -	if (!pdev) {
- -		ret =3D -ENOMEM;
- -		goto err_fwnode_remove;
- -	}
- +	if (!pdev)
- +		return -ENOMEM;
- +
- +	ret =3D device_create_managed_software_node(&pdev->dev,
- +						  xe_i2c_adapter_properties,
- +						  NULL);
- +	if (ret)
- +		goto err_pdev_put;
- =20
-  	pdev->dev.parent =3D i2c->drm_dev;
- -	pdev->dev.fwnode =3D fwnode;
- -	i2c->adapter_node =3D fwnode;
-  	i2c->pdev =3D pdev;
- =20
-  	ret =3D platform_device_add(pdev);
-@@@ -143,6 -146,8 +143,6 @@@
- =20
-  err_pdev_put:
-  	platform_device_put(pdev);
- -err_fwnode_remove:
- -	fwnode_remove_software_node(fwnode);
- =20
-  	return ret;
-  }
-@@@ -150,6 -155,7 +150,6 @@@
-  static void xe_i2c_unregister_adapter(struct xe_i2c *i2c)
-  {
-  	platform_device_unregister(i2c->pdev);
- -	fwnode_remove_software_node(i2c->adapter_node);
-  }
- =20
-  /**
-
---UV7McFlZIvnc2/cB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqRjMIACgkQJNaLcl1U
-h9DmTwf+LwEdmVPYgyAxtmX65fZhuPt0PgvL2RudnZJQ/AczD9Wx8btZR6eSqJzf
-+kSMVh1lbKZFGkeQOGrQVQF9EdEW0MmHj7AyfIYIfcVfiV8ah83cR2B612pHwDY/
-NkIby/y4Hd6P97DXFGFEA04T40E8S5ICZebAoMrYg3t+1xQQAhtZPKqxE86VDjdX
-KirRuaXjbQnQCS20U43ueZKJ5bZ5/Z2aZzjBRo1xTlQky3y3ZzUo/XV2VSOq5bKT
-PRGligbt2r3fCM5S9wmex+EuVNFx9xx2fnDRUFw5PfJAJvfB3BJTgSsGghr7Fm3n
-mU7pRQ+csiFpNPdixRs7pw4aVze6Pw==
-=uGsR
------END PGP SIGNATURE-----
-
---UV7McFlZIvnc2/cB--
+-- Steve
