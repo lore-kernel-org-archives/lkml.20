@@ -1,142 +1,68 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECE9388E40
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C79233945;
+	Fri, 28 Aug 2026 05:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895511; cv=none; b=ujNosMqcYjh+1zDis7q9Ljg9cdFY9E2IBZJbogdF2v2w6dmPLUOEWh8o4eLneuI0rM4CTzA0bVQ216CzY7mFi/CAB8TWL2h0SnnW45YPV5nQGPlaAJQ6ERMymBHUzU2Hm2fWLratJA90ivdAGJ5nZBDfFVt2ylLjOgruYNml/AY=
+	t=1787895533; cv=none; b=eitvJeUtwfwUJYuH1Ojt+fhU+jXSIFue4kN8OniBSr4EJdvDremhF4LGKroMUPeXaFQJutcpvZzEEVwzJr3g/q/YGDQ0fpKeSNgt4yPNVS4+LVIMyA+cINO3MhkMa3+0UInI+RfYeb7ASKt4/PFb/sKCngZR2ODLXFvau8y4JM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895511; c=relaxed/simple;
-	bh=17x+RM4DdFfEyDXEnSkKNpPUcNIdsUWr2p4t0s1cNbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f8YLqkCwcPqLNljXSWYMvTWQJC3Wo6ELo7FT8BFjTm/vjtd0rjj4nNBt/SdfRdmnZjO1TBDBEnYL+SV8Tou7jkZrCvg6oaFTOTXlacaqnmUQ5jkgwQatWh/gXlgVpA+AXoQ3XF2eUGrvXJStZredcl3h5MZ30rYhqy3k1/kWBzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kdCIIEim; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787895533; c=relaxed/simple;
+	bh=S/KKRjoodI2H0WtySuHUlBxcrG4TT5ASHD+cuCKWOFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=el4J4siMIbO/70biktSKvZyI5wGVDQk8jexW+WeI1Onj5d4Js6CUGi/C5A6a2d2C+/ulDwF6kpYe4dSxPEkEzOg8U9QuPj9fVS0VWpbMpOs0YM4lNS+gSfJTs8DCPZGj82Gm+Qp5t0b6yfuIwbYO8SmBgfFOPid458BNL1CaiRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R+Op+lUS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kdCIIEim"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S22xTJ3688606;
-	Fri, 28 Aug 2026 05:38:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=6sUoVMoFxrfHJCoNmlApumU2Hg28uQs/VGvgkEyEp
-	7E=; b=kdCIIEim0OjaBCLSqG0PPtRZNKZsY0LhDA3T1JoI9qOZWDNRnA0ThJnhU
-	CFteGpNvaph8r6VDoNUYA9MOteSLL4lrKFPBL50RXJhmw7bHY357VdSuZMsZQNec
-	N+Ac08sTToVejorpm8Sq82wuKiJdEf8Tk0e0vCKqnyW5BlUKeE/PEsM+L1vkMYzu
-	5c+yyjgYP5FWK61BLQn64ROdo5YedvjSjEyjW8fA9tHHg+qfvcpnBm/OLTBEeElN
-	3Aeci6yKnt9B3OLZVBTC1AQa9kv8za6pDvgOckgzi06CqQi3VZ+J60S6lfCV0YV4
-	HOBwFc1jQ9UvSrxn18CCR1I+BheAw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g726f240r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 05:38:22 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67S5QKsn013439;
-	Fri, 28 Aug 2026 05:38:22 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7q3kcga9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 05:38:22 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67S5cIO752429140
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 28 Aug 2026 05:38:18 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EB4C420040;
-	Fri, 28 Aug 2026 05:38:17 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9485320043;
-	Fri, 28 Aug 2026 05:38:15 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.23.28])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 28 Aug 2026 05:38:15 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: tglx@kernel.org, maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
-Cc: sshegde@linux.ibm.com, linux-kernel@vger.kernel.org, chleroy@kernel.org,
-        sbhat@linux.ibm.com, mkchauras@gmail.com
-Subject: [PATCH] powerpc/entry: Clear TIF_SYSCALL_RET before syscall error return
-Date: Fri, 28 Aug 2026 11:08:11 +0530
-Message-ID: <20260828053811.1042300-1-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R+Op+lUS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFA11F000E9;
+	Fri, 28 Aug 2026 05:38:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787895532;
+	bh=naUxH0rI44TVcqO09UEntF2VzM+EmqUy6E5MSXa3Vmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R+Op+lUSQy4oCLm+K6hpMMNf9ZUlaItVp5Aqd7tzOVRV/5Hr3ORLk2zrnj4G5SDD6
+	 iYa0/fmu6cRugZCB9lxUkFD+SFU3SRjYgrUWCmn+NyPu8WHGt4qYAJMYNZdmKOHtrQ
+	 5+ZrDfjxlfG04FsjpP3h2SaHYWc8zL9/jO6FvSpc=
+Date: Fri, 28 Aug 2026 07:38:49 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+	Hans de Goede <hansg@kernel.org>, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] gpio: usbio: Remove bouncing maintainer
+Message-ID: <2026082836-albatross-patience-e24a@gregkh>
+References: <20260827155127.2334936-1-dave.hansen@linux.intel.com>
+ <apCYT42UKw9V-u5Z@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TfimcxQh c=1 sm=1 tr=0 ts=6a911ecf cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=9LtnQKmw8N2LNxAaoRgA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA0NSBTYWx0ZWRfXzvVe72u3ORHh
- rwxDJQYY+u09XIWFDB4jzM3jt6Q1xwL/8U6Fi3BWlOc9GrRFqvvjcz1WW8r9CO8rSm6V9tmdn6r
- nrRhRy8v3EdQRkpAGY9vHsrVVqmeKrg=
-X-Proofpoint-GUID: kAeXcJ71knUp0ddX_mtcGjEC5-YqlAG5
-X-Proofpoint-ORIG-GUID: OwMzcmJVHOrxPdN_w33fQJk6HikXmKVu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA0NSBTYWx0ZWRfX+qFbffDRptja
- 2cVkB+ZzwLO8Ut9ONjVY2tT/F/TG8OSG8oaz9LrXxMBtDrEzqRI3ePIbXIBKBUh5BKchqWWhGOF
- jxqToeDn/U7lRr7k4v4PVbyTjNkbXOeb43Y0Zx3bHZ4I6H8FMVWCNKJxm0rj+/uuQE49RuEy3G5
- HDQit8BAcOVfPIHZxS91db346J+kuireB3YG4aVh1PTaGmFhXf9PQuIu02e4XAo85sSbuy7fx84
- e5t7icmXKuOoZep14bjrBNefSTKZFWwN4kNTAGNL518XveHpx8HZsnKvF8pD53h8kA8+vgkC9+G
- WhIkRg2sDLPeCPVOd8LZybfWtI+GCABQvwwfGeebH4h5O42+YSzo1ZdpWtMsIsV1nu76aDnM+b9
- 5NdvzqA0A1vqmCvwF3m0mWi9MPel0ZvHWj50LFD1j7d8Kaq12DitAlZEGYaQqclhinMuHCemIU1
- Kqy5tFUYN8TPIEEmVMg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_01,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280045
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apCYT42UKw9V-u5Z@kekkonen.localdomain>
 
-Shivaprasad reported a boot failure due to userspace processes crash on
-abort() from libc.so.6. It was bisected to merge request
-commit '3424d8c18a7d ("Merge tag  'core-entry-2026-08-17' of 
-git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")'
+On Thu, Aug 27, 2026 at 11:04:31PM +0300, Sakari Ailus wrote:
+> Hi Dave,
+> 
+> On Thu, Aug 27, 2026 at 08:51:27AM -0700, Dave Hansen wrote:
+> > The email for Israel Cepeda is bouncing. Remove the entry.
+> > 
+> > Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+> > Cc: Israel Cepeda <israel.a.cepeda.lopez@intel.com>
+> > Cc: Hans de Goede <hansg@kernel.org>
+> > Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > Cc: linux-usb@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> 
+> I've posted this
+> <URL:https://lore.kernel.org/linux-usb/20260803164533.58833-1-sakari.ailus@linux.intel.com/>
+> earlier but I guess it hasn't been merged yet.
 
-Upon checking the merge, when syscall_enter_from_user_mode_randomize_stack
-fails, which could happen when a tracer like seccomp or ptrace intercepts
-and skips the syscall, the code returns to userspace immediately without
-clearing the intermediate flag which was set.
+It's the merge window, will pick it up after -rc1 is out.
 
-When the next syscall is made, it immediately aborts the valid syscall
-since the flag is still set. Hence clear the flag on occurrence of first
-failure.
+thanks,
 
-Reported-by: Shivaprasad G Bhat <sbhat@linux.ibm.com>
-Closes: https://lore.kernel.org/all/e301014d-568f-4ed5-bc64-b8a85ca0b1e1@linux.ibm.com/
-Fixes: 3424d8c18a7d ("Merge tag 'core-entry-2026-08-17' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
-PS: I have kept the block below since earlier code was checking it
-regardless of result of syscall_enter_from_user_mode. If it turns out
-to be a redundant, it can be removed later.
-
- arch/powerpc/kernel/syscall.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index 4916c205c4bb..fbefe1927b10 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -18,8 +18,10 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	long ret;
- 	syscall_fn f;
- 
--	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
-+	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
-+		clear_thread_flag(TIF_SYSCALL_RET);
- 		return syscall_get_error(current, regs);
-+	}
- 
- 	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
- 		return syscall_get_error(current, regs);
--- 
-2.47.3
-
+greg k-h
