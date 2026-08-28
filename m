@@ -1,124 +1,141 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50F13C7689
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787896204; cv=pass; b=R9fryxIcX3ImlQQ4cVyCR7g8jxm+aAqc6sQrxPXSkLaFOC2GyCSJ6giH8be4EH90GUZa8IpIM8fBTY9DjnjugG7Ud6/L7pUh1ytuuJhZQW75Bah8vhvZkSBBLmCDv3cTVwEFl2KjLkGB1RBA753lrvTKwIlTnnn0sp5ugLMijl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787896204; c=relaxed/simple;
-	bh=Jio7sO4pCEGq3rVPHZZ84dICs7hxJu4+ln/FH4TXjhI=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=ahpvt8K/L5XYVN3JFVacHL3TYJgKMCvx5Ld8kWV2x3w1Yh3WhSrMcTwqeR1OfzlQWTE0YJrX01URPn6yQ9Yx7kJNS18+9adotdE24hikdVcle51LKY0C0VZ9bUXtSzfG5LcDyomSSABi3s2fZL+ZyKFjvEh4bxviYdueUmKjCb8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=ISwtKVCf; arc=pass smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6119450F2
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787896258; cv=none; b=do2e9IveljpH8C5YtMXkJh4bCVqhnWHGTJT9+5jnc8Drm1zZl/XJgrHsSQdGudGhshaYM08WluXZCDmM/ivfh+c21m6wbqWAtybb8xEbZrZa24+DGtu+5gjTdBl0Eb6jhB4DJvMMx7P+66T/2ILHe75jYYkhpSzsgT8MhKZJdIk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787896258; c=relaxed/simple;
+	bh=Nw3oewzCt8XW/7eO8oiogBlbbeVU9OECZ3MdfUUt33Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m0s+0jS5G8EJVDG1aEQReAu9cZbnl87Bk4ToD6k5CwHZHdvpD3Wo7FvT92h0Wleq30hMQYhRfJrMAs9tHsSg3YlcEFNjpmyw4P1L4Hu2y7Ypa5nlY4PO7URCqoFOWBQM6O4Q2oETFwBElQthBNepyXChLLIU0AKZKC99s2oGr/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=AuiazvN6; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="ISwtKVCf"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so888128a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:50:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787896202; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eCifwr57CwvFNY5PTrJklHQgVbY2Ou9I5W2ccmQV1CYKurn/pQTier9B0qu+jNB+43
-         L+fAdEavgKxBYfUap30DX2ycpatXQHI4I6bwETTt/6gDC/MXn2o2wWbJIJqr6A/FEk9e
-         1eCGibYIBHXN/LdqZsvcCzC3YmU8WudV1rklPrWIfaLMtM2MCuOnPDWJ7hy8SqgSBiih
-         XQntHk2EEqFV9YtnrdaVD/jeBSmKHYwxlzNYrwF+TAgJGpy/zbsigsX86o1FiVAPHjWu
-         8ZVEncErXr8I8PPxMUreAF6AX0TuPlxMQZ0z66rpxVJHcB0idQpf5EZBuekmJb9Wykoa
-         hGAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
-        fh=vp9qQdTbfkZp0vOZxr7tCol57fQZjFATLd6c7TLXiAM=;
-        b=Y5/2Sjp6grhj50fHKiLne4OEgOOWVH0zG8P2k/QeREPohIOtrT/cWUIAM9ixzGc1j6
-         h/8bXPPSQugM0SWvwKbvrNiiWp7kusmLwbR0LYzEOLr8IdT4UB2vJvgiw4wGJtJNVmdh
-         hL+kTJXmLM9EXMX5JIL25dDfpyD0FDzJXo4IujxDriYnfHrBvH8+8wZncmVyDpSvtSOk
-         +robiWa2O15AeOwr1j5cs9cxT6lUx6snwAa6nY8VnoHKPw1qiKGkF0Lz2fdju3N/ul+g
-         p9xa6gdka2vCTtMeYxcnvON7ZIdnqdAex6s7YQnDQUAyDrz3wicUWz3yj0bGwHhvVaWX
-         k9gw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="AuiazvN6"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3968e063f84so580742a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:50:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787896202; x=1788501002; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
-        b=ISwtKVCf93Am4tpo4/v6ixMpAT2rHZfdTnV6KL2rH1Tzyqo1mtmd1Ii+VaAqcXsHyK
-         I2DxuN4L+s8UvHS/4q8py7ntvLz9Q6YsEQDKHq/opeKVyfJ4uPBKgsYrme2KLbKYSYfE
-         youstZ79VUV5WXldc7fcmvp5StzHIZunjpjqvDo5aAkmsSmtQMXl1yUCQ6nld2hjnw4v
-         tozGG4w4/eUGP0JVjF+m1+QM6JpY/GYxQ+zag+8iJ56Jaum1vqYwXFUCwICw0OBK3gIT
-         qldXTi92l+O0PvBcs66lSK8KgHKR7foVvrsY1Z1ejmtkHHjjv1pDjDo5TYaRXhje92Py
-         LlMw==
+        d=furiosa.ai; s=google; t=1787896257; x=1788501057; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LpkQSACoNhXcxF8SalSGxWUmZp7l1S5RyOE6epy4FMk=;
+        b=AuiazvN6wUGERoJdOVNbgq8vCpShIlAvLai5dJeOTItWxgwdHWUO9wMe7UGJjCG1WX
+         bZ2B7q2Hf7LeuAXZuViFayl1WJbnmL15ZJfWJK72zzcbvuumJ3y2eRQERtwqab0NuWq4
+         VVZIJjOj39o7wkpt+4dVnNsSGbjDsegafYUBw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787896202; x=1788501002;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
-        b=PjWf2VbFU0h1llAC4sJcSBYWV93m+8pRzwf5sXeCfmEXfjAKrx7IhzaJMtJ0Y4DBum
-         jK1tS0tjwko1GmMW3u/vW5w15ei/wJ8d563dIpC7gVPq9e/TN8SIVTHHK1Og6PJgFCkV
-         t1o62o9T+i+kX26WsWDEPFNG0I6T9JZNo8JWUvKAmJkzePhFHe2cRXJmM4FDe4nU60+f
-         ikrwbLBudPnEODMgpBOiqCcALQ7KJmUlNc+IyupgXfLCJ5xpq0OJuyiqfIJzm1Sa83vm
-         g9WqSmY9V5GlMpwjIwl+CnHBUG0MyeF/76+PRwtrvWINOYZEpxMGJ4d6lUY5N+ZFTxti
-         XN3w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0VmTi1w1XEkkhPn02+/vDr17lwFQl65DQ9qoTQwmkaj0bm9VkaS2emYy7odYK76IR+WZHRbJEMX3LehA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwL/IThKbyJtqGH9YpyX/y5QNkYU1UwZcwYr9OmoirY98N/Vos
-	pV9VHnp4pT3cJzMDJhXc+Sps55Dwx0cuMfr28nMoJ4P+34OAnc0qEyka/HuR6Ov6oMKax/9Yv6s
-	sEBb5kZ7eUbfxlNDI95y2hzlt9epB6sFAye6SwXC6
-X-Gm-Gg: AR+sD11SiUbqzZLFF6r4aqlrA9eKbcJsVCgKZM5vHcazz9wnP2Q6GVqlR/ZxHKhwepM
-	6WVD2/gfmXCsNJH6h/JjqWHb4SKFWHYAAENNOC2OKerLjRA8TH94Mi5Pop+F6+v9bU2gIL96isk
-	g1oeOYx7uroWexqRzlaB3/BVDChrMKsK0XvgD9jivqBWARN1XzXZXhOXAdr61EWSY9kX7xZ6bXa
-	kYnJZPDMGREtuiLu9TQsayukFzHj++TmG7WFJ+ZURRNQSLhQ7Mo+eb9FlS4lezyeuJ6OFKwGyQA
-	2S6IgWSKI/4c3bjVbuTqeA2n9e8C5TIwq+PsJnOyFivjDU3MUurZccNy+BahHW31M+uLUhQpDTg
-	qWlksyPTBAgSh8ixXY4Bo+cHGHiZwcJ1C
-X-Received: by 2002:a17:90b:582e:b0:395:4de4:92be with SMTP id
- 98e67ed59e1d1-396d0fabb3amr8959710a91.13.1787896200987; Thu, 27 Aug 2026
- 22:50:00 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 28 Aug 2026 05:50:00 +0000
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 28 Aug 2026 05:50:00 +0000
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1787896257; x=1788501057;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LpkQSACoNhXcxF8SalSGxWUmZp7l1S5RyOE6epy4FMk=;
+        b=ZnJc11kG3dMo8h30S6fQdPc1L+SeKl2O15W8LWWUOplkb41mpabsIQBf1DeBzWE9j8
+         mEjWfqBUsmzwKY/tiuVLjEDuB2iUa3UXZThCqqXXBsRIFdIKr8DPviVP8kj0F1+Ncqmm
+         GgCcs2KF+pM3ahlt7zxvDe1RGZEtUNPh264ZzQTsFGYMpioI7fvCn+J9X0+eBVLKTFZv
+         JHYDhD57AV65QtJmoB4YxeUe0XCByuJdtURzDQqS83DV4YdTKCTsX8IrVFMbRik4jOxG
+         x7naQ9G55Qek5Fvbv8gpI8LmMtMAYI9nD19nCH4KcBILhzWx/vGI/z34lufkXGgSLHL2
+         Xp0g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9OlDCqQxpfmbEgmFLiWu/PClYB2BRmsuIhwpiRr/OleLFLPJhRPUm47bAzw+giFl7MMQVetzrUlNdgio=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJIWFit19vyIG6kQtXCbO+V0+qlpjAk8RfGQ9ybZhQChmcPswG
+	c6ztGcshTWy914cCFRghPo+b5fPei7qIYZlQAh5YsHOI1VV7U9JQkjBfDfV/gGj9UAvL8o4fKHj
+	xfEIl
+X-Gm-Gg: AR+sD13zqxRSz4G2kH0UkwdY7FAyVEYHikEF/64AI3QZZZDgiNjKO4X7BERYM7cnXCs
+	LXHjFUwN5rWvnroMthIRbBSuycgCUn7b1u9uq8aO8KCBDspXZ67b43W0775OABM4BP7sTML35Qk
+	XiOsNKm6bdP19qXxWHh6IYFVYFFB9tMbl1YWIbexo8U9SR2SbdUuexjqIkTqswBLuXobB4s/VRP
+	JwmPzGITjtzqAoTFUbBUlq+dg/p1k4tZdxQtzBSizXGbfAfyH6jQgf0XraSqb6DvSsaJ7sed1LH
+	WUnYDGrc9QUbLagA7OCZcoZXNmTsCzNgVKfQZ1g35v+nkCzeGa8EzjqKi10HEy4LHqgpVMPYhUl
+	gSZxSiwxyZQXTBx1xEXsiwvA5154iQN/WEGiiO+xh0CM0evU9d7XeGt9kvjwNVNGUWRQKhDDk6z
+	e+xhRBYWRwK85kFviyT4W6Wq7TxeFUqEGbQoFNUzll1LJC9hdSvOT+yndlYgDKNQ==
+X-Received: by 2002:a17:90b:3ec1:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-396d0f2dcd8mr6908508a91.10.1787896256905;
+        Thu, 27 Aug 2026 22:50:56 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc07777sm1228032a91.12.2026.08.27.22.50.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 22:50:56 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:50:42 +0900
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] accel/rocket: Collect job dependencies before
+ arming
+Message-ID: <apEhmia-SLEe-39S@rock-5b-plus>
+References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
+ <20260828050805.38548-3-Naixumogu@whut.edu.cn>
+ <apEggyjyM9yCqg4A@rock-5b-plus>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 28 Aug 2026 05:50:00 +0000
-X-Gm-Features: AcwNN1VB4Lu0vx7OeyLBFvG_yf7maW27jBuMibH6lUCi0Q10SkfZv_mKR60M03I
-Message-ID: <CA+0ovChyLaYfEN19Fomt6qWx6dYtX47Ptyaej3gfMeNGB1xoFg@mail.gmail.com>
-Subject: [BUG] general protection fault in sysfs_do_create_link_sd
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>
-Cc: falemi@asu.edu, driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apEggyjyM9yCqg4A@rock-5b-plus>
 
-Hello,
+On Fri, Aug 28, 2026 at 02:46:16PM +0900, Sidong Yang wrote:
+> On Fri, Aug 28, 2026 at 01:08:04PM +0800, MoGGuU wrote:
+> > rocket_job_push() arms the scheduler job before collecting its implicit
+> > dependencies. Dependency collection can fail with -ENOMEM, but an armed
+> > job must be pushed and must not be aborted with drm_sched_job_cleanup().
+> > 
+> > Collect dependencies before taking the scheduler lock and arming the job.
+> > Only operations that cannot fail remain after drm_sched_job_arm().
+> > 
+> > Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> > Cc: stable@vger.kernel.org
+> > Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> > Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+> > ---
+> >  drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+> >  1 file changed, 10 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> > index e6052d1973afa..b55e12aecfe64 100644
+> > --- a/drivers/accel/rocket/rocket_job.c
+> > +++ b/drivers/accel/rocket/rocket_job.c
+> > @@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+> >  	if (ret)
+> >  		goto err;
+> >  
+> > +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> > +					   &job->base, false);
+> > +	if (ret)
+> > +		goto err_unlock;
+> > +
+> > +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> > +					   &job->base, true);
+> > +	if (ret)
+> > +		goto err_unlock;
+> > +
+> >  	scoped_guard(mutex, &rdev->sched_lock) {
+> >  		drm_sched_job_arm(&job->base);
+> >  
+> >  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+> >  
+> > -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+> > -		if (ret)
+> > -			goto err_unlock;
+> > -
+> > -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+> > -		if (ret)
+> > -			goto err_unlock;
+> > -
+> >  		kref_get(&job->refcount); /* put by scheduler job completion */
+> >  
+> >  		drm_sched_entity_push_job(&job->base);
+> > -- 
+> > 2.43.0
+> > 
+> 
+> Reviewed-by: Sidong Yang <sidong.ynag@furiosa.ai>
 
-As part of the kernel research at ASU's SEFCOM
-lab, we hit the crash below. Crash reports can be found here:
+Sorry, I typo'd my address in the previous mail. It should be:
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/188-general-protection-fault-in-sysfs-do-create-link-sd/
-
-  Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000006: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  RIP: 0010:sysfs_do_create_link_sd+0x4b/0x110 fs/sysfs/symlink.c:35
-  Call Trace:
-   sysfs_do_create_link_sd+0x4b/0x110 fs/sysfs/symlink.c:35
-   nfs_sysfs_link_rpc_client+0x3a3/0x590 fs/nfs/sysfs.c:343
-   nfs_init_server fs/nfs/client.c:770 [inline]
-   nfs_create_server+0x7e8/0x2110 fs/nfs/client.c:1155
-   nfs3_create_server+0x1e/0x180 fs/nfs/nfs3client.c:56
-   nfs_try_get_tree+0x1fa/0x11a0 fs/nfs/super.c:981
-   vfs_get_tree+0x8f/0x290 fs/super.c:1754
-   do_new_mount+0x341/0xd80 fs/namespace.c:3834
-
-Our reproducer.c is available upon request.
-
-Happy to test a patch if that would help.
-
-Regards,
+Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
