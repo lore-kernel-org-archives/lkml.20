@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DEF3C10BD;
-	Fri, 28 Aug 2026 04:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21233C2782;
+	Fri, 28 Aug 2026 04:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787892723; cv=none; b=rpFCsDcXbH3lHbcbK7nm6ayZ9vhntVwleyPDmnEgVZRoaMcZF1a8uNbpND+jntCBp7sc9K1QcL8L/kM1LeFz14t2Qtyr/UIpw0ZW7YFTAtmsAxm3okqIaAPOyJ07WZmHn+IVhCx4J3JD3t9f28emCOyyxfN66wd6GIuKsHMmG58=
+	t=1787892724; cv=none; b=I4EswDviOy046nnzDIEn5tcs7e/TW7Lz0ErhcSyuQbEUhki2a2cReGz9Dc1YRpi9QSzLB1PYzM54ZRxbWJtcN8lXjDG9dfbeHsCfB6SMK1NHqmoXkOBvYj3UO1AlZyKB90VNnnkNhesJL5hnxhAJeH0/ZPhTvwrFqmVRFj4BZBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787892723; c=relaxed/simple;
-	bh=Hb0BZMB8mtLFbivp9I1uUtXixTBgS2gRoT00j1tUVh4=;
+	s=arc-20240116; t=1787892724; c=relaxed/simple;
+	bh=XG8cF63XQa8Xc1aYG1ZtRZX7xY6+LPMKaT6xREKqCh4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t5SU9Hz2mOv8RoEx918eusvMpOO6+1uLO+PDeHJu1ubUbQOlEl4ts5sLWUXCdFVpRUU0BCjWIaWsiHPkL9dh06wobj3WwtqXHIU3bRlng/ok0wk0bOi+KVvl4y9XobSB6Xgxyty3YY3Em0mIniAQESCjaYGd0L7ZD+pn38CQvxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXzwa+ma; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sxMtnnpJhFo2xfjEa05LuE7tG7mAYumUpT2+aAQivJaV7j3VQRccYl2MBdRu7EZy/kTxhNnUDrloSwUTVCUizYjDZtpmhTM0vHzGRcqHh0vHNINL/GUtiTYjx1SphdJuKeZuYYof/MT9XfxqTxxht9hz196huCMRABuD1hIs9mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MC5UxQvL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXzwa+ma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31E61F000E9;
-	Fri, 28 Aug 2026 04:52:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MC5UxQvL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BF561F00A3A;
+	Fri, 28 Aug 2026 04:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787892721;
-	bh=p4f8E/RMYR3yUrIve9wZDIuFSVWmc2kSXdiGNK4DR98=;
+	s=k20260515; t=1787892722;
+	bh=oL0/32zIjEk68kWbn5G+FVF7tD9ZwNBrosw3NxneCPo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gXzwa+maNCyOufEaIDKWTH+TBbheIFZqCfrjy5cs1B90PMRqB2cfGjeYl+mPyV2wg
-	 IYOoar5sBen04Z7xbLLLZbcWf6weFozq+kLNOKYak//DlGW+VGUALUKJoHvqFDzBQ5
-	 KKi/uESBw4Adg17pBquC40Jvqbx0N7cFaYirDdRfdzgQDKW8zGV/S/xIWDbTAIAzlV
-	 Ew6LI5ROc4Sc2IeVMeuzvrEzdQF7zz4Y+XRP+DmKmi91qxIOoeHw1BHHiIMh5CeuPs
-	 zkyuzT5EvwoujhDlw1xW4pZqo2rrfITeg6VbWth/njcps0DdvmF6hLLtHbcZvoUcAm
-	 Pp05rhKLVC6LQ==
+	b=MC5UxQvLUg5803mFZzeEugqrloYBoLSLOeEp+WDphqkSOWLAGXEGE6bJvRBokRd/N
+	 7osqy6qSysnScmt5K45G56JeFYW2Rq5BxROY1LH3UtMA3q4LwXL/fosWD25zJAJ2u1
+	 FYw2o7ObDyjPt2Ogi++DqyA8OjlOexeS6OhhGml2Arz6fHHtSC9yMHIJb4HJj7nCEh
+	 czKZWf6DJBLZou4N/j0w25VzS+vV1k4nUmDU1A/xJLMYw0tOz8IzL6Xs7Rsgh93ILV
+	 BU6B/PcDmZ+S989QfvCN2s86to8MtzpmGsdcRVUt5sK/q26uEyyen0WmusdnUm503X
+	 bdSavd2rrwBbQ==
 From: Josh Poimboeuf <jpoimboe@kernel.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Nicolas Schier <nsc@kernel.org>,
 	linux-kbuild@vger.kernel.org,
 	Huacai Chen <chenhuacai@kernel.org>
-Subject: [PATCH 04/27] objtool: Fix dead end detection for sibling calls
-Date: Thu, 27 Aug 2026 21:51:33 -0700
-Message-ID: <82b063dbeff61b78a4c42643ce5d4ebf8936c291.1787890035.git.jpoimboe@kernel.org>
+Subject: [PATCH 06/27] objtool: Ignore traps after noreturn calls in STT_CODE
+Date: Thu, 27 Aug 2026 21:51:35 -0700
+Message-ID: <44e198b8eb0f377b5e2c61cf6bb753d735201bd7.1787890035.git.jpoimboe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1787890035.git.jpoimboe@kernel.org>
 References: <cover.1787890035.git.jpoimboe@kernel.org>
@@ -52,72 +52,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The dead end detection for sibling calls has apparently always been
-broken.  There are two issues: it checks jump_dest instead of call_dest,
-and it only checks the first sibling call instead of all of them.  Fix
-both issues.
+Objtool doesn't do unreachable warnings for traps after noreturn calls,
+but only in functions.  Loongarch assembly STT_CODE can have the same
+pattern:
 
-No warnings were seen, this was only found by code inspection.
+  bl	start_kernel
+  	ASM_BUG()
+
+Ignore those as well.
 
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/check.c | 37 +++++++++++++++++++------------------
- 1 file changed, 19 insertions(+), 18 deletions(-)
+ tools/objtool/check.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index a98d7589d8a48..01c50aa00b6dc 100644
+index 4528f017277d2..7333b0ed86818 100644
 --- a/tools/objtool/check.c
 +++ b/tools/objtool/check.c
-@@ -272,30 +272,31 @@ static bool __dead_end_function(struct objtool_file *file, struct symbol *func,
- 		return false;
+@@ -4269,12 +4269,6 @@ static bool ignore_unreachable_insn(struct objtool_file *file, struct instructio
+ 	    !strcmp(insn->sec->name, ".altinstr_aux"))
+ 		return true;
  
+-	if (!func)
+-		return false;
+-
+-	if (func->static_call_tramp)
+-		return true;
+-
  	/*
--	 * A function can have a sibling call instead of a return.  In that
--	 * case, the function's dead-end status depends on whether the target
--	 * of the sibling call returns.
-+	 * A function can have sibling calls instead of a return.  It's only a
-+	 * dead end if *all* the sibling call targets are dead ends.
- 	 */
- 	func_for_each_insn(file, func, insn) {
--		if (is_sibling_call(insn)) {
--			struct instruction *dest = insn->jump_dest;
-+		struct symbol *dest;
+ 	 * CONFIG_UBSAN_TRAP inserts a UD2 when it sees
+ 	 * __builtin_unreachable().  The BUG() macro has an unreachable() after
+@@ -4290,6 +4284,12 @@ static bool ignore_unreachable_insn(struct objtool_file *file, struct instructio
+ 	      insn->jump_dest && insn->jump_dest->type == INSN_BUG)))
+ 		return true;
  
--			if (!dest)
--				/* sibling call to another file */
--				return false;
-+		if (!is_sibling_call(insn))
-+			continue;
- 
--			/* local sibling call */
--			if (recursion == 5) {
--				/*
--				 * Infinite recursion: two functions have
--				 * sibling calls to each other.  This is a very
--				 * rare case.  It means they aren't dead ends.
--				 */
--				return false;
--			}
-+		dest = insn_call_dest(insn);
-+		if (!dest)
-+			/* call to another file */
-+			return false;
- 
--			return __dead_end_function(file, insn_func(dest), recursion+1);
-+		if (recursion == 5) {
-+			/*
-+			 * Infinite recursion: two functions have sibling
-+			 * calls to each other.  This is a very rare case.
-+			 * It means they aren't dead ends.
-+			 */
-+			return false;
- 		}
++	if (!func)
++		return false;
 +
-+		if (!__dead_end_function(file, dest, recursion+1))
-+			return false;
- 	}
- 
- 	return true;
++	if (func->static_call_tramp)
++		return true;
++
+ 	/*
+ 	 * Check if this (or a subsequent) instruction is related to
+ 	 * CONFIG_UBSAN or CONFIG_KASAN.
 -- 
 2.55.0
 
