@@ -1,147 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7507372EE4;
-	Fri, 28 Aug 2026 15:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D54369990;
+	Fri, 28 Aug 2026 15:47:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932028; cv=none; b=L/5m8twJQwqKhZw/guLx3lmWKG3IMHP4/TqcqITPcVUyvKgKBQIc4m5Lzhx90RJNnStrD3JJIAC+P5J7dSR5J87xcayqjNSzkKsfNFGdhQSgYhsteU+EwqY8sDuCMP/RjBiZhP2ZXrBbY0wGbml7N7k88wSu4JAr34n7UE3uo+8=
+	t=1787932051; cv=none; b=HWiIfFcmTEK5e+6LQKwT8LgJv1xKMqc328FR08PiHbcfdTw1ggcR58qYwYuGkQ/q/5I7w52laVpF9FGg0fgVVlYXoljtEOsICkJJBbPK0N16m0myrFOCR6ocbfThuJwYNDvld8iwLmsUPqo4cl2CD3PJs54Sv/nYGOO8fS25Y1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932028; c=relaxed/simple;
-	bh=9n3GMVHASBJlOdY01+HlIVjXCtXLY0HHZhso+k8GU98=;
+	s=arc-20240116; t=1787932051; c=relaxed/simple;
+	bh=y/OHRfOGHrwaVholbizH9w8LSy/Zuph4FRIR0kuaRAg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hNxvSUOmehBz1Ii4PHXHpDxIS1b2NunwIjd+kTwuUwJzd5TzsXzI6h6g/UsZIWVswg4cjLt+iZENWVDkksLvNIVU/uS66JAsLRIa7vuUxyMFDFjmcBfxfmkwGMOfyXqT/qXEfGNeEzi2IX02HEbnlXzDGhiUB2zILIp2fBF9U2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOslPNrK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fjmQpRBFxFZSe0AKtzoene5hERPdW4BFRIwwn21AL5AG4T27vrEl8SZZDKw0Wo5XLw/pAjzeIJzVNpxBKFly7qKeP2Xu3hWWl05N8gd1HytXmHraDJreB4Wg36C3GiAsTra2IFgc6fYRFFkRRaOwupmzhn4ySeJrBG8hh/f1RoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOF7MG1V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOslPNrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8AE1F000E9;
-	Fri, 28 Aug 2026 15:46:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOF7MG1V"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3D9511F000E9;
+	Fri, 28 Aug 2026 15:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787932015;
-	bh=oG4XzSrbBIQnwN0trQXME6j9eahVX1tKyL/6Zu2qJ54=;
+	s=k20260515; t=1787932047;
+	bh=UX7PSrLrhs/jlVb65VbeiT5KGinVZr2MwpTHEwgnYKY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KOslPNrKaId5FN7FYjGworIMoFLf4ctYktQ+kWdpNr9oU26SZz/kwuQezO+5LWuVy
-	 L6TpchSU3OGBzAq0AgwDnJFFZU92mlFujF9opAGajvT0obuZ78Qc8ELMp7aoysdGCc
-	 TNuUTdUrqaAxJA3jreWPyvgjVAO7I0KoH1RKfYnCNfvJuVJGR99NyOfJ41ewyed3LX
-	 CxrgC7tqw9SNZXe+3/M7eqO/vx4Y0c+GTNmv7A1kGC59He/qtMee7TgOwpSOZKR6H+
-	 tn8BVEbn2tMa7nd9UUQ00UCEahmAUFaIO5FLMeecdvNvO8m4IxI0aQ3cVij9s8Ggf4
-	 p6qE1gDv+jCEw==
-Date: Fri, 28 Aug 2026 16:46:50 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kendall Willis <k-willis@ti.com>,
-	Markus Schneider-Pargmann <msp@baylibre.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chandrasekar Ramakrishnan <rcsekar@samsung.com>,
-	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
-	vishalm@ti.com, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: m_can: add out-band-wakeup
- property
-Message-ID: <20260828-ladle-hurry-d6f63c45fd19@spud>
-References: <20260821-temp-v3-0-9ac1f8806929@ti.com>
- <20260821-temp-v3-1-9ac1f8806929@ti.com>
- <20260821-regulate-recharger-2e984e9591ef@spud>
- <20260821190511.jwdgox4uocbf4brd@uda0506412>
- <20260824-public-mashing-252473f928c3@spud>
- <20260828-antique-lumpy-donkey-51ff42@quoll>
+	b=KOF7MG1VQIHvi+BqY7noHCPVWdPMOYRvGIZn/tvskmB7DTwQfvfJS33MWlsdVrbfA
+	 nX3ynyesHpksP/X2aXhMJI4L0FK+l0s0jeHDlnO3/jXwEvjZJYp3Sc7I4uysKE/4Cz
+	 6PZUPJoDCXjmyhJp6ulzFBzUKdqjPD744R6vteiWMIWW4I5KwE0o/zD29uaKUN4NdC
+	 rwo9JqwmSCOZrYk/Zwo1fDdvgAvmqdixOsFmRUQOy6VPMQc++oMPzPjCuNE9/TpUs8
+	 1923CcCFeUEawOy7OjOLSCaQ1HgBeob7L0PwxUJFupBeElaP3PUUsxk7kCBdiiMBTJ
+	 eI7b+I0IioIfg==
+Date: Fri, 28 Aug 2026 17:34:27 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-kbuild <linux-kbuild@vger.kernel.org>
+Subject: Re: [PATCH] erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default
+ logic
+Message-ID: <apGqg5a5I9g1CoF_@levanger>
+Mail-Followup-To: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-kbuild <linux-kbuild@vger.kernel.org>
+References: <c480ed6b8bf38822263e2c5b7cf32b28600f212d.1787219898.git.geert+renesas@glider.be>
+ <CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DdnUpmEe7GeazCUr"
-Content-Disposition: inline
-In-Reply-To: <20260828-antique-lumpy-donkey-51ff42@quoll>
-
---DdnUpmEe7GeazCUr
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com>
 
-On Fri, Aug 28, 2026 at 11:07:29AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Aug 24, 2026 at 05:50:20PM +0100, Conor Dooley wrote:
-> > On Fri, Aug 21, 2026 at 02:05:11PM -0500, Kendall Willis wrote:
-> > > On 17:45-20260821, Conor Dooley wrote:
-> > > > On Fri, Aug 21, 2026 at 11:07:00AM -0500, Kendall Willis wrote:
-> > > > > Add the out-band-wakeup property as a possible property. The prop=
-erty
-> > > > > indicates that the device can wakeup the system even when its pow=
-er
-> > > > > domain is off.
-> > > > >=20
-> > > > > Signed-off-by: Kendall Willis <k-willis@ti.com>
-> > > > > ---
-> > > > >  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 2 ++
-> > > > >  1 file changed, 2 insertions(+)
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_ca=
-n.yaml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > > > index 2c9d37975bedd652b3060ab11ba75c37565edaad..0663beaa532bcc4a7=
-1cd6ad01520a4dfea294d0c 100644
-> > > > > --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > > > @@ -150,6 +150,8 @@ properties:
-> > > > >      description:
-> > > > >        List of phandles to system idle states in which mcan can w=
-akeup the system.
-> > > > > =20
-> > > > > +  out-band-wakeup: true
-> > > >=20
-> > > > Where is "-wakeup" defined genericly, or out-band-wakeup defined th=
-at
-> > > > you're getting the property definition from?
-> > >=20
-> > > I sent a PR to define out-band-wakeup in the wakeup-source.yaml bindi=
-ng
-> > > in dt-schema repo. I figured it made more sense to be defined in the
-> > > wakeup-source.yaml binding to allow other drivers the option to use i=
-t.
-> > >=20
-> > > dt-schema PR:
-> > > https://github.com/devicetree-org/dt-schema/pull/205
-> >=20
-> > This sounds like something you should be able to determine from
-> > device specific compatibles for these platforms. Not sure why they are
-> > not used for this particular device, but this is an indication to me
-> > that that is a mistake.
->=20
-> Yeah, it looks a bit too much replicating Linux PM detail. I can imagine
-> that some devices on some board are capable of waking up the system even
-> when power domain is off, but this does not look like a capability of
-> the actual device, but power domain. Device does not have different
-> wakeups. (by device I mean this individual schema - Bosch CAN)
->=20
-> Happy to see some bigger picture through DTS or board layouts. Actually
-> DTS, showing same Bosch CAN devices which are different on a board -
-> some are wakeups and some out of band wakeups - would illustrate it
-> better.
+On Thu, Aug 20, 2026 at 12:15:33PM +0200, Geert Uytterhoeven wrote:
+> CC kbuild
+> 
+> On Thu, 20 Aug 2026 at 12:01, Geert Uytterhoeven
+> <geert+renesas@glider.be> wrote:
+> > When NR_CPUS is less than 16, or when SMP is disabled, the default value
+> > of 16 is invalid.
+> >
+> > While actual configuration picks up a sensible and valid default
+> > (NR_CPUS or 1), "make savedefconfig" will still write a line like
+> >
+> >     CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=1
+> >
+> > to the defconfig file, even if that matches the sensible default.
+> 
+> Is this a bug in kconfig?
 
-As far as I could make out when I looked at the patch, "Bosch CAN" is an
-IP that can be integrated on an SoC rather than a device on the board,
-so I'm doubting that there's any difference in capability to wake up the
-device caused by the board at all. If there is, it's between different
-power domains on the SoC, as you say.
+I am not able to reproduce that; this is what I see with ARCH=arm64
+(arm64 always has SMP=y):
 
->=20
-> Best regards,
-> Krzysztof
->=20
+.config:CONFIG_SMP=y
+.config:CONFIG_NR_CPUS=3
+.config:CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=3
 
---DdnUpmEe7GeazCUr
-Content-Type: application/pgp-signature; name=signature.asc
+-> defconfig:CONFIG_NR_CPUS=3
 
------BEGIN PGP SIGNATURE-----
+similar for ARCH=arm:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapGtZgAKCRB4tDGHoIJi
-0qGmAP92rgbaMRQvJuWSPl4CPO4Jy2snrCn+oZiFpvtzxoXBxwD/Rr1rcXToj+fC
-TkoqqP9x1N4eAT8m9hkWu6odSSduaQw=
-=sVzk
------END PGP SIGNATURE-----
+.config:CONFIG_SMP=y
+.config:CONFIG_NR_CPUS=3
+.config:CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=3
+defconfig:CONFIG_SMP=y
+defconfig:CONFIG_NR_CPUS=3
 
---DdnUpmEe7GeazCUr--
+or with ARCH=arm and SMP=n:
+
+.config:# CONFIG_SMP is not set
+.config:CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=1
+
+(CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS does not appear in ./defconfig)
+
+and with ARCH=m68k, NR_CPUS=8:
+
+.config:CONFIG_NR_CPUS=1
+.config:CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=1
+
+(CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS does not appear in ./defconfig)
+
+
+
+Thus, to me it looks as expected.  Do you still see the behaviour you
+described above?
+
+Kind regards,
+Nicolas
