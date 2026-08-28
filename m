@@ -1,95 +1,103 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE761DD525;
-	Fri, 28 Aug 2026 06:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C4A41C6A;
+	Fri, 28 Aug 2026 06:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898003; cv=none; b=KD5K4ytH4AX7KX0ex+6J1bjGR2QLQ3iwhOUAJMBn/GgHbb9T1SHgVpPGcZeG+7hSKZmXhwH0/Ql2CYjfZg7dAFkJ42oJJLZx2myl71G8D5mRTIzcsJIzsKRrvU5X9dFMeCtb/NNrR9CiGhYH962T4ArmiPOMJoXj7DZ3VCiVsLw=
+	t=1787898042; cv=none; b=mlsUfxvwb3PwuikhuNTrTs6MCD0Q3cdjDK18d7LQoeYFnXNRZrO4vMUnFEfO09jdSm6cRxqUnLtvwfTkgMQ9U8RQ1uenoDov+fxJtKLpQZAPO8FxJ0vXYUxY/CNy9QiZg7FEaL9oN8ZQ/BoXY+icyAbC2U5BrZVFTK6UOXrHpmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898003; c=relaxed/simple;
-	bh=U57/6HxdLKbO73Zgh0fPUForuH9k2X5IT2+0bwdt9Vw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pFlTyacs0PcAo7CZSTfoXTjlNH/za/c8bkT3CVet7J50K4Fq3mkjmIqXIbLloANPdeurDG2vxa0owkBLGl9laV9Y6KeaMyh63y5blAIkWiJIL2Q0QnQ3EpBi6RFeyPBBntXCyijvDVkrDsd4xoKSwC3Jsxvxz8WLrkiHC8/fSjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7b81dc42a2a811f19a56ed5b684f684d-20260828
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:20eac171-d0f7-4460-a2e8-b1b0b40bf22e,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:dfbfa6586f803bbc87e82d7a94c1e2a9,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898|915,TC:nil,Content:0|15|50,EDM:-3,
-	IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7b81dc42a2a811f19a56ed5b684f684d-20260828
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 757687888; Fri, 28 Aug 2026 14:19:53 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Marius Zachmann <mail@mariuszachmann.de>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] hwmon: (corsair-cpro) Remove debugfs entries when probe fails
-Date: Fri, 28 Aug 2026 14:19:49 +0800
-Message-Id: <20260828061949.3151191-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787898042; c=relaxed/simple;
+	bh=FREm71o6dPjk31ExHIEHYZuqEUeAt9RXIVG2nH9eNm8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JJeBYs7gZEmr1GaC2K00UxAX+jNmhpv9EjLbA6P8qwTrCCN0te33WaJlVgPqzmuoVN7Hu0pnflS7Kj6tZK4109jVh5LMrQkWPdZx4UmYKYfUNhBGb1Jga6xKerrFsf9C4wCdtfB0Yb0w/XMGTlub1tLe+nDXo4wpoweF0WhlLpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=7rlzOgsz; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="7rlzOgsz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787898029; x=1788157229;
+	bh=72FNFjvXuvv7RR0zBq6mGBBDujFULPjmI+aWuE4Uis4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=7rlzOgszNoZmv4MAFiSALgtSUmnSUu1DrzEW19ikt7BmCqMZ1ulGPBhX1SShgrKVN
+	 Cc7fraWr5r+wiQXBC1U3b7ss8C/+0LXfiS+YIlLXgNdijNnIy6TlWzZeQHF1Bt0Aws
+	 cupOlKoO6IidiXp3IAhbJ6lsE2dRhAeqMZZbByRMV3kio7SYtym1lN7PBNK8XBnrUB
+	 wS6C7OsS+kme8rwTSSC7/JKPj3ei/w4RLy8A3N0V/seimEE51MPJagCaeSj26fRUr/
+	 UrmxjIVD5Q5Ch6UvzWnev754bj+q8EvxGLoUUFRht5j3B2k/IvXRllW4doTw5As3Yu
+	 vUIwP9INvy9cQ==
+X-Pm-Submission-Id: 4hWStL36Yxz2SchS
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
+ Muellner" <christoph.muellner@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>,  "Joshua Crofts"
+ <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
+ in mma8452_probe()
+In-Reply-To: <ao6Vbm59IX1cl7tj@ashevche-desk.local> (Andy Shevchenko's message
+	of "Wed, 26 Aug 2026 10:27:42 +0300")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+	<1lSq7y7LYcNpJGnkxSN5o1d9skFu9meHSq1iRHldMT9IJT8osgJ8U-ZkfcufpJRVR-2vXYISbJUQhkFo5QIHcg==@protonmail.internalid>
+	<ao6Vbm59IX1cl7tj@ashevche-desk.local>
+Date: Fri, 28 Aug 2026 08:20:25 +0200
+Message-ID: <87bjamzryu.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-ccp_debugfs_init() registers debugfs files whose private data is the devm
-allocated ccp.  If hwmon_device_register_with_info() fails right after it,
-ccp_probe() returns without removing them: the HID core then frees ccp,
-and ccp_remove() is not called for a failed probe, so the files stay
-behind.  Reading one of them dereferences the freed pointer.
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-Remove the debugfs entries on that error path.  debugfs_remove_recursive()
-waits for readers already inside the show callbacks, so ccp is no longer
-reachable through debugfs by the time probe returns.
+> On Tue, Aug 25, 2026 at 10:27:44AM +0200, Esben Haabendal wrote:
+>> In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
+>> struct device * pointer was assigned to local variable dev, so we can just
+>> as well reuse that throughout the function for sligthly more readable code.
+>
+> ...
+>
+>>  static int mma8452_runtime_suspend(struct device *dev)
+>>  {
+>> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+>> +	struct i2c_client *client = to_i2c_client(dev);
+>> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
+>
+> This change is unrelated and should be as simple as
+>
+> 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+>
+> OTOH, this might require the full device.h to be included...
+> Either way, it's not for this patch.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-hwmon/20260708031612.BD7E61F000E9@smtp.kernel.org/
-Fixes: 5997eb60f896 ("hwmon: (corsair-cpro) Add firmware and bootloader information")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/hwmon/corsair-cpro.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+It is dropped for next version.
 
-diff --git a/drivers/hwmon/corsair-cpro.c b/drivers/hwmon/corsair-cpro.c
-index 8354a002f4c5..30fe5d8e724c 100644
---- a/drivers/hwmon/corsair-cpro.c
-+++ b/drivers/hwmon/corsair-cpro.c
-@@ -638,11 +638,13 @@ static int ccp_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 							 ccp, &ccp_chip_info, NULL);
- 	if (IS_ERR(ccp->hwmon_dev)) {
- 		ret = PTR_ERR(ccp->hwmon_dev);
--		goto out_hw_close;
-+		goto out_debugfs_remove;
- 	}
- 
- 	return 0;
- 
-+out_debugfs_remove:
-+	debugfs_remove_recursive(ccp->debugfs);
- out_hw_close:
- 	hid_hw_close(hdev);
- 	hid_device_io_stop(hdev);
+>>  	struct mma8452_data *data = iio_priv(indio_dev);
+>>  	int ret;
+>
+>>  	ret = mma8452_standby(data);
+>>  	mutex_unlock(&data->lock);
+>>  	if (ret < 0) {
+>> -		dev_err(&data->client->dev, "powering off device failed\n");
+>> +		dev_err(&client->dev, "powering off device failed\n");
+>>  		return -EAGAIN;
+>>  	}
+>
+> Why? Just use given 'dev' as is.
 
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
--- 
-2.25.1
+Next version :)
 
+/Esben
