@@ -1,138 +1,110 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF68E443E21;
-	Fri, 28 Aug 2026 14:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928056; cv=fail; b=Fpx03/Hb7ptBvniZF7ti7I+L3qbEVGcTb0un+mkhJwDVgBpiV6Hsz5kEvB1zT2gv0963/IYFlUVmd4NEDEIa2mK8QZgI7DqgaBifzFWzPG6kfMN/R/+tzai/T1APryBoGqSvfunqMWpJUZRt1S3Z9Ac/z3sSnAbbYm3eeLArSNk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928056; c=relaxed/simple;
-	bh=AvqwKu3CBYMwQUCCRt1BDsrerMzgxiiLSLNzpG5gZw4=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=GAaoh7um55usoW1JJ7j1mGihnpmk6DyordHow1CM0cgakiJKg65tBopk2UVLNZ7SJcMwkBscoS9WJdSxi3rwu0qjeer5QReRaCvPx9d38CRGxeVVZiT8QIenFJ+vlvDGf2TSp6QDxGiAs/CeNrAMA7qLn6PoB0lRw/cCoYWa/Is=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ccPfQhjh; arc=fail smtp.client-ip=52.101.46.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED95471407
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787928061; cv=none; b=Oec/hIoM5LTnZKuDRwU/1MlU2zYPaqtFDxwP8KxDy6EqsdTconSWKtg8JbfwK3zNAPY6/ZZes8MpMLSfjFxPu4Etk13mCpVkc7MROQasM2KuJISlH4lOvA8joVuNumQPOc+d2MpxkFQIxxzXM1lzUEvM9KLep1FkOQfD9zj3p2E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787928061; c=relaxed/simple;
+	bh=8bS40oV4jEPLs9Cs2elpr2P5JyOnyCM4culKHiPewYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7w4Oq7Ooe/0I19iXf7lK8cHsR8Na9FV/s9jxv9rt/J3zh+FfvqF4O0eHgPCFIVUoZpaZ2Y6MTG0TpRT9Gn5n7ZTRpZuIGyVvOyNyyLjromuP5LoqTsPq/KS/ssz7iHkN8qiX/Dd0rY8F+6Yj3v+c1GjMq2kLK3DbDk0Q/VQEHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MzPYzCVI; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ccPfQhjh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AmtgSkQ5dgjLWED6ponMPGdve+iTa001bmElMER+4BfI0oT1JJWF+l2P7m1IDtFEaQEAoLdVbR8SVTLq5Uji7nGjvPLsY6OyRg7C4Arqg+Hb0TFkqpdxJWdtzsE+1rdHpZA0D8cefPmh2jY7kFO0WXdmuGOfFv2PcQ/Xmro88esegHK8KcTikGwvWjb5Y6TdauGg3H24CeIBoHk6fYj5GsyvYIZ7mUiK/6XntSTRJkwpSfD+FuteSIF7pCsnUHPZ08Yab7/EnqXvU2JrFZqBOpLXyY0/wBiNG9jyjCAWpvhcA6AHT1fc52eD5WFzRAp8UGyQcnpSSJyI2IUUol5lDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZaF25tKc19JYh4GIs/v5dDQ7jFkkUx5ztX1hWN/aNo0=;
- b=FhUJ1bdjVxHDAzMABMVtUyszfkd5TsLWr9qPcV/hFbif5ZckovvvYPpsAyxmFhxrzTpZ27vge9igcAfAFCmlqstU2UlbcCuwGWe4OFw7CpxsduuEWHmo1PidW2R19qR2bVaxgw/pxO42yg1ZckQfbj+Puco0LfBSnlet3HQcXn7b1p395Cue59B/qiMMhZEIFxIEpQs7p2hoIyiZXL5dN5vmnFoLv1Kg0sddqTlsXUuKUrz7nW6Ap5kLYLtdbFrWKB+6HaSPLSk6xMJbg/Wk7vX/3AtU1qf/seR6+dYL4LrfNw4gJlFe6idKGyRCnwjCI113PqpYH9tWypeX1iCScQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZaF25tKc19JYh4GIs/v5dDQ7jFkkUx5ztX1hWN/aNo0=;
- b=ccPfQhjhhKpShayvx/YubqO7oWFrkvnJ2qgGDemwOjeiOwqFt0fVL4pxcq7xS8Ke1fgCjp9YfZIkoF94rT7gglMbMVJqQwrtBwPx28KpXJIelGxhMucCCnDjL5WssCuH0fjSEVK+nyjkrK/c8qh442VKIw2B6G6my1x1BKdQyOqquz6hVEihteuOxt9OotlD4ueByGvkVyyes8HSNDXQgnLWxNT/leH33bGZyr6qxgwZwtuQIlGlXJFwV/qp8YohDmOTu+yV47NOOgDAVhRjNUZtDpNo/zH8HuwRLVvuEiVVurviNPZ5F0a9H0q9RA46QaKCF/02KeZrClfUPAPbjw==
-Received: from LV3P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::31)
- by EAYPR12MB999158.namprd12.prod.outlook.com (2603:10b6:303:2c1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 14:40:49 +0000
-Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
- (2603:10b6:408:234:cafe::55) by LV3P220CA0008.outlook.office365.com
- (2603:10b6:408:234::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 14:40:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 14:40:48 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
- 2026 07:40:20 -0700
-Received: from [127.0.1.1] (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
- 2026 07:40:16 -0700
-From: Jon Hunter <jonathanh@nvidia.com>
-Subject: [PATCH 0/2] gpio: tegra186: Add support for Tegra268
-Date: Fri, 28 Aug 2026 15:39:50 +0100
-Message-ID: <20260828-tegra-tegra268-gpio-v1-0-317bd91295e2@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MzPYzCVI"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so989396a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787928059; x=1788532859; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bTIogw4TSRkuHDeXsegqU7KIhcr5PJJOjQw48d6uweM=;
+        b=MzPYzCVIVYQyyLIja3YyOiiedr3Prl0zqCx+F2B+e3HeyAW43HXlxqsePkTSncQ9jx
+         D3lCl95YSTX5uqpYILI+eUq8ukE4ImpVFZ+VAokMq3nb/rBy0vrXpo/7/1XGuXzL0jQa
+         qt6Y7XQ7bzBjV8yW8d3XSV0OG37OfRXASv7p2IpI/bW7iVmnZP+m2/EBH+dzeL6m8MrH
+         lWVwptsRLM9vJ2qkjzei6vyzaL46rlSHAOG1mwhB32zNYodNZwa5gbbMNEgUI9qWavT1
+         N8ETDQaYpIhMykRO+V69zJSYZfSuwn68fV9nnJa80rBr0GvI4C+RvFji49KSfReQTwXM
+         TG0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787928059; x=1788532859;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bTIogw4TSRkuHDeXsegqU7KIhcr5PJJOjQw48d6uweM=;
+        b=r/Ip6g22muOsOFHWGh/Q3nqGX5IIeaCyLZPPlKyROj9h2pR5dIWpStDENjj/tlnKIF
+         JkNxOj3ATsk9QHNOvWXmfUIuj2jvy+HSQs4CQAKoK0hBQjN2TNHiReIqvXPyIu+g3SPa
+         T31VBr0gnK1xaSkDY7aXfItZE/jyyuaS9l1GuF5pYRsp3zlOTn7LrnGsLVrcsH2GFWfi
+         FWyffhG0nGfRshZbyN+7At967POtzwN3kivZA92wxA3tE9VRn4ZeX7DhKMIatTqR7D0I
+         tVETPH8S0FcFqToPQ91nAfhiyA6hv5vyDpHO4HAtgt2jpc+XEqI7aTMgKUhWQK3nm5da
+         a+cA==
+X-Forwarded-Encrypted: i=1; AHgh+RqKOeEzHTEwSoQU7dHF59Lb8vqPVY4olt08UOFmrwX88E7n+Svdu1UFozEICoQ0DgekKayeGgI87QhJ/VM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLItCBj3Choj1FBacTIJoWfP0K2Wg1ucWbNCwTryllUOhbhZEo
+	dfWUaX/aIJpEaUlsZIiI5ig3CL3m4CXiOHjNN/hJJiuHS54B61UkzOxC
+X-Gm-Gg: AR+sD114SC+7OsJ8ZTLdCdP97A1/Z436AOYZROxAN6FQPA37r6ww3KicTlI1QuxbBNv
+	+7MaEBy8/dY5840aMk+DIgrkfVjddEr/gY6/m4BIaFTW48qPKRDK00QafWecYvxxO1Ajr0tfBJe
+	wsMao3tvuSb8uY6U3UC6HB4ZO9ZS17Ost/h4O6meddj6SNKCJN5gm2fKkDe7PbdsNg7B2U02GD1
+	G3XkO5PE+Biyr2nzHtbY/AzJUv/bOdQwYxCJ98zuSGaa/fQ+yoiOpq61aiWxUf9k0yycB0sQUDF
+	lWXD4q2cV2XPt+PhyYJql7vXM8VVRitQtDP5nGglN7NgCX3qoZ8D/1r1MOphL0tm9jM9XNLz3uZ
+	dVLQwZbh2/rXDTfPT3+jf6YjJjD7AEcXBcTsFGjTlYDYD00GJdDfoqPJ/JQ+yhtsjIn/j6F5/uV
+	iD2ULyXlua8VxrSETla2KtOxR17MZvoFRlCk+G38ReUJxfMgth2mey664VpapAf7rgc/cYzG29X
+	Q==
+X-Received: by 2002:a17:90b:5284:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-396d0e5f5ffmr15894627a91.1.1787928058655;
+        Fri, 28 Aug 2026 07:40:58 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm6759748eec.24.2026.08.28.07.40.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:40:58 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 28 Aug 2026 07:40:56 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Carlo Caione <carlo.caione@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Wim Van Sebroeck <wim@iguana.be>, linux-watchdog@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] watchdog: sunxi_wdt: preserve boot-enabled watchdog
+Message-ID: <e1332541-1751-4a9f-92b6-60636ffa0a99@roeck-us.net>
+References: <20260827-submit-sunxi-wdt-boot-enabled-v1-v2-1-610d37dccc97@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALadkWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDCyML3ZLU9KJECGlkZqGbXpCZr5tqbp6clGZiamlmaaYE1FlQlJqWWQE
- 2NTq2thYAvfrNEWUAAAA=
-X-Change-ID: 20260828-tegra-tegra268-gpio-e77cbf459696
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>
-CC: Thierry Reding <treding@nvidia.com>, <linux-gpio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Thierry Reding
-	<thierry.reding@gmail.com>, <linux-kernel@vger.kernel.org>, Jon Hunter
-	<jonathanh@nvidia.com>
-X-Mailer: b4 0.16.1-dev
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|EAYPR12MB999158:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65b84200-faf1-457b-ced1-08df051259e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|376014|36860700016|1800799024|23010399003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	1LhT/KnnO83S2lotOPOUBl8pSayQI5RLO+juKpgbCy0iOF26zLozl4Ey8LKBvN/sn6kcDd8sgDGy74/uL9MMpKcseRfaB/ieQAZVIOuPdfEmBDP5lI7aIPC4DDKGpl+0WH37z54p706qb2xE68YdeI5P1fp2FMFDOYKIVoLT+Lh2L6NphUStcH3MBaUUEFprSEQfPpjliJwrpYtDXOizJ1pSXfaHgFH55/oTIPg7JY4eiCqxZ6g5LUbNEzS8QfKB3SBbr6K/PnwIJYzmpCicnhNbv+LOfcRqSs6guZgi2cUx3Rg6uWJ/pSnA0OIePdRmFSZa4tOlsgdkAabRPKeUK4JkVN8BH/NfjEWdYuy4MsVh114pInb/MXFGAmTGI0vW8Frb/hrs47B5AMyIW4L7Q7Adjsdnqz4yoEAj+uel8GVnO/HISx7UiEqVxWjq3uzZI66+7Jfob0bbFpJXBxVC52wrAVF8+II/ENsmyvm4T90JVO3zb0/LztBMJUOsFytR1IWlHtIIHLBePDPc/Wx/Bd1X8Sa2DZzUwY55aSO7XkAdPqpnJeJWU4kXwJdZMLvqupkjA/G7nprPn1XV1pApB5TF2AuWUQMpdrdUE3QgJxJ8XVzcl+dTLDOODa3CBG5aHk6MesjkEB9i3wnFWyZJRg/lAdh6pr9p8Uvf/ej4vzLbeK5zmklhPhKmiWeE020+fX+6IYKsdKZ505njWzJPbA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(36860700016)(1800799024)(23010399003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IU6+1LgZJCjrWx8Pu7l+HBwQuLZIlV5daLCszfBn+yPF+szBFpXXFmxGOzx5/+0Iv+IFxzoufRXZ9ZJtJSTQ0YHGrK0UhVYTDyt6FH4TQ/4len7YUVxoc89hX8VhCl7XCMEbg5AjbHuedAlJnD2NFtxnfrws9TSvMFbpeNim1jt4jwEKKE/6Nw3X4IY0hvCKBtjguPvCSyvbvz6qZTKwq+hMAmUP72Gr9moSWlBy9EHJQIKNavM0e6p2TRcZ9++YYdQrs1G5ZrHSZOzY0ctDVa+yIpPjF7qvRQSpCZqJ1fdr2JD9dM4uEEEOvAjfcB4CoYT6pCemU+CiOq74FhxTQof14oJhWyAC3Meu3CQMW8i2TEKL2Gu5hax0sj81mrW9l2autJ7NA4fTJujDCh4zxaSiOAJkHnJikM8ydkZzaVpYGq8RgcAaEgHzKEG9rGIr
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 14:40:48.3304
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65b84200-faf1-457b-ced1-08df051259e5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999158
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-submit-sunxi-wdt-boot-enabled-v1-v2-1-610d37dccc97@gmail.com>
 
-Add support for the GPIO controllers on the Tegra268 device. At the
-moment there is no device-tree platform/board supported in the mainline
-kernel for Tegra268, but we will be working to add this. For now we are
-starting to upstream some basic driver support to pave the way for
-supporting Tegra268 based platforms.
+On Thu, Aug 27, 2026 at 10:42:31PM -0600, James Hilliard wrote:
+> sunxi_wdt_probe() unconditionally stops the watchdog even when firmware
+> left it running. This opens an unprotected interval during boot and
+> prevents CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED from taking over the active
+> watchdog.
+> 
+> Detect an enabled watchdog and decode its programmed interval. Preserve
+> representable timeouts, and round the 0.5-second interval up to the
+> minimum representable one-second timeout. Use the configured timeout for
+> reserved interval encodings. Set the Linux reset mode and ping the
+> watchdog without clearing its enable bit, then mark it hardware-running
+> before registration so the watchdog core services it until userspace
+> takes control. Leave disabled watchdogs untouched.
+> 
+> Fixes: d00680ed0026 ("watchdog: sunxi: New watchdog driver for Allwinner A10/A13")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
-Jon Hunter (2):
-      dt-bindings: gpio: Add compatible string for Tegra268
-      gpio: tegra186: Add support for Tegra268
+Applied.
 
- .../bindings/gpio/nvidia,tegra186-gpio.yaml        |  9 +++
- drivers/gpio/gpio-tegra186.c                       | 74 ++++++++++++++++++++++
- 2 files changed, 83 insertions(+)
----
-base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
-change-id: 20260828-tegra-tegra268-gpio-e77cbf459696
-
-Best regards,
---  
-Jon Hunter <jonathanh@nvidia.com>
-
+Thanks,
+Guenter
