@@ -1,207 +1,136 @@
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48D13DDDC0
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B042B3DDDC0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904588; cv=none; b=Y/HNus1pkgIvsYrg7HST7IsiTqop4QrYufzxfhG6idPcqVwsPDodjCHY4sU7yIloxVnNHw+Z1XnAb/87X97njfSxOETb66YJTunCP4jAJZn1jBoNzLNtrQp4vLnFRO9G17V0J7Fnyj/N05VqEDhmloh4m/KUkjt9Wtrj4FCGTes=
+	t=1787904604; cv=none; b=kErax3ghvx7hoBXmnGEvdY7WVef6lDOlnbeOnV844og++TchrOl73Fj8Gxz1W+IPHKhNVVMCKaWG3zp+Nu/+mop/p5R93H2sFd+uG/flYWtU7hxEJMPtjCdpstSTBjsQWo1qG2OBVoJ0bpxbgBj3qnZARIuSmL38veJBhVbplMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904588; c=relaxed/simple;
-	bh=sYZOuS5bdKiPDKa8vVkK+d9Ee9FAX3CLv0HydD51KCA=;
-	h=Date:Message-Id:Mime-Version:Content-Type:From:Subject:Cc:To; b=ZoiD3Qg1VbnuHhvKUEqGMJYBfJinXCwje/VK1mzjRKKwkWdVcxw0o5d6xIxkvO+8Xl9ibhdX41ksWBXHod+wK2vHVZYDgIX80izSfNd4RfzY15STUi9DnS/k6Vqk1sMnb43MiryB0vkkAH3JkZNSnp+682baN3BMEL0UF2r3MZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=TIhU1c0t; arc=none smtp.client-ip=71.18.227.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787904604; c=relaxed/simple;
+	bh=DND+91VHQLMiEM6W4UJu0eazGvSo0yONZJ99Z8jWWOk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XiCGAbKAYfJl4sgZqjfK/12RTGglyKhADA2o+k/U2ZiQ5QLgEjecsUYyzQBAsXGUT8g6E2N493wKsNbVC2cRhlPOLBXA7iqHvxo5PdRfgjtqospGt0WrsxMtUCxDHB0BguzQfh0D2QnrX55PCOS0QAFaHwIm57YzoBwzFyFFBxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HWACTWoh; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="TIhU1c0t"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787904573; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=HR83UriVsIUTznJzO8x3qhujDb3DFBhw9+CN77nXxOE=;
- b=TIhU1c0t7ikw1kXIfAiO7jZ2Kfp60Kc9mmD+8TCocWWJnfi3RiLqouEeYauGvHoM/UQHgP
- puIPPLYCHR+ieELSa32qF8W4V3NzzN696PTsPlGxVbQfPKVYFz+nhMTab8s+pWtL7i6vyg
- 49kNqix+fr4GDgcTaJIfK3WYgEygW4ilS+e9WyFLrjmcHmbKg3JrsWnJBBREwm2nOWbGnv
- CW6QDDyY/hVN6LVkjrjJKSw842TpKyweZ4IG//+Zy1ZOR8div5prr4BwY4nOCQMf6Rzgxi
- cfcOmxbbFC07EF4ExUM3kfM6IKEc44KWFuNoX7TiR06gg9wNEZLsSktXRK4mrw==
-Date: Fri, 28 Aug 2026 16:09:27 +0800
-Message-Id: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HWACTWoh"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-396b3d0df94so853641a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787904602; x=1788509402; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GLrPdvAk+KW5PmpXBldOm5fk9R4JndtH1s4AmbnDxdc=;
+        b=HWACTWoh0jBxtzKHPKIfOlfqupNww4r5Wtn+fRigPuTGYr7AYoYGyEVObYJsTIQL20
+         h6w4NFP5MUdMStZA1SdGzJvSvvdzmUETFuaSr7NniIPSwPs4FlTIIV+jV/Ozek67Bk1V
+         e6pkq2XdeHX8x02h35UxcO4rajptbCAFPzfCezGfOMdU28k35y8LeNWkZTzLkNq39o5t
+         m4N2oIAQeJ5ihuzboxdvVoc2ATDhYmFOqJk4C3Lgfj4rnao9gYtKViluP97KZVQF0yeK
+         CTot5DgWxIepc4TwtGHEU1BU9JNT17DGZHM78G4PQmV/TzxJ6vRnxtuuMiCFfvb6cEEq
+         i4iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787904602; x=1788509402;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GLrPdvAk+KW5PmpXBldOm5fk9R4JndtH1s4AmbnDxdc=;
+        b=H9zBoIKc2fucRX9MY25xq7nz+A75KKZ0u2GCqDXj2AdxhXArn3gFfRWfsYIfbohwfG
+         3f6s0T51Bj8a9ISQWZwd5+dPTNrXlaBmiiGqEcEa+cBQjQAjzTkhAnVLDlXoKgEEX6Dw
+         8RO7ym0ahzB0x8WRcJ21ryQu35kSL3eE+N5vClgVpXapo2bddhNZxTVF+xKSRVBCixMt
+         8I1ZPZjvo9wAZneMkMCsX8QtuTqDSrs8jrs2eK0ktJazlFbGWrRvZEGbNi3IfCy89ieY
+         ZWq8hIcVoFUlwfvmDINvZD37q8PsvYAbl2/zz2jZ/+nPgXyXEhBcybabrqPIIc8XWtkw
+         Mu0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrQamvUy3mWu9yoV0j8xEvc2LrV8UGr2U3aG4IpSEUxR6FC0suzrxNqBHhMnl1WSdMkQ2jC4Uk+8vH4B5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUdEyyDGDIfd+ZjRpeFFLxnj1g9vPSgTTfwv0IKcpgroXjKl+e
+	Py2IGGoTw9cA68OWZL/s8YaGTJvngsrVDMAOCO26mfBT4tPmezF+Zifx
+X-Gm-Gg: AR+sD10OH5Pe5NivZMhheeKJQBB0XpedvT4xWRKyQM7iOJgdO2nA+U49su3LD8NkxDv
+	iK9xTdsFbs2BcIvAHNXW045Q5y6hsN3373RuB69TPq4IEMRPH5jRGlC8JzGL5I7KoNzSq4m3BEA
+	XnLdXZkfowDtE/85/yA3b42FhCLDRa4tVT6/0Y1kxOR5Crxn9YUFVROiQwjnqVWwb27n+5XhhZ6
+	jyKfUKCcJtrDE9pQFsDWvasn5cDI4RN11n8hOSt0jwuQClx75lh4OIizfb7SC7Fuch440xZPu5j
+	NtQXQRY0W11kzetPzAQLVoBhjldB2AyQJPw8iMBdqh4/KxvXbPwhXQLM+EwZIwjVwdc5Fcst+v1
+	OoLiu+p38C38I30jmwAdSy3x+6ryzz1+YUTS7Y0roi9YaHn9hDi62PooHdVwrMTa8apjUlSnYLo
+	zesdqcsBFyr899wd7vq0U43AR0JLugA3ADBSyE+Ls9iPZWbfSkEErEENOvHUyTz90Dlttt4Ejzu
+	3kLHMj6bdQecrOYpT/Mog==
+X-Received: by 2002:a17:90b:6c5:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-396d0f9d0famr10886672a91.12.1787904600682;
+        Fri, 28 Aug 2026 01:10:00 -0700 (PDT)
+Received: from localhost (115-70-157-242.ip4.superloop.au. [115.70.157.242])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f95a847sm2885093eec.17.2026.08.28.01.09.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:10:00 -0700 (PDT)
+Date: Fri, 28 Aug 2026 18:09:53 +1000
+From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Tsz Shan Chan <tchan@jacques.com.au>
+Subject: Re: [PATCH v2 2/2] iio: light: vcnl4000: add shared IRQ support
+Message-ID: <apFCG8BOLxnu5kiG@fedora-1>
+References: <20260814-vcnl4000-v2-0-9b771290cc1d@jacques.com.au>
+ <20260814-vcnl4000-v2-2-9b771290cc1d@jacques.com.au>
+ <20260822032550.31a0fa9e@jic23-huawei>
+ <aov_uhPCcno0YJTe@ashevche-desk.local>
+ <ao0FKRhOyiIqhvr-@fedora-1>
+ <ao1W99ygxMvfPdY8@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: b4 0.16.0
-Content-Type: text/plain; charset=UTF-8
-X-B4-Tracking: v=1; b=H4sIADZCkWoC/yXMQQqDQAxG4atI1g3YAU3pVUoXNv5TU6iViUpBv LujLr/Fews5ksHpXiyUMJvbr8+4XgrSrunfYGuzKZShLm9BWL8j+wBox1MTuY1BpRJRCChHQ0K 0/zF8PE/79PpAx/1C67oBbcvcrnIAAAA=
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH] HSI: cmt_speech: Fix crash on device removal with open file descriptor
-X-Change-Id: 20260827-cmt-speech-uaf-df2c7577ce7e
-X-Lms-Return-Path: <lba+26a91423b+7a9ed7+vger.kernel.org+me@cherr.cc>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Fri, 28 Aug 2026 16:09:30 +0800
-Content-Transfer-Encoding: 7bit
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-To: "Sebastian Reichel" <sre@kernel.org>, 
-	"Kai Vehmanen" <kai.vehmanen@nokia.com>, 
-	"Aaro Koskinen" <aaro.koskinen@iki.fi>, 
-	"Joni Lapilainen" <joni.lapilainen@gmail.com>, 
-	"Carlos Chinea" <carlos.chinea@nokia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ao1W99ygxMvfPdY8@ashevche-desk.local>
 
-misc_deregister() does not drain file descriptors that are already
-open, so after cs_hsi_client_remove() clears and frees
-cs_char_data.hi, the ioctl and write paths still dereference it
-without any lock or NULL check:
+On Tue, Aug 25, 2026 at 11:48:55AM +0300, Andy Shevchenko wrote:
+> On Tue, Aug 25, 2026 at 01:22:13PM +1000, Tsz Shan Chan wrote:
+> > On Mon, Aug 24, 2026 at 11:24:26AM +0300, Andy Shevchenko wrote:
+> > > On Sat, Aug 22, 2026 at 03:25:50AM +0100, Jonathan Cameron wrote:
+> > > > On Fri, 14 Aug 2026 14:30:43 +1000
+> > > > Tsz Shan Chan <tsz.chan.dev@gmail.com> wrote:
+> > > 
+> > > > > The INT output of vcnl4010/4020 and vcnl4040/4200 is open drain active
+> > > > > low which can be shared with other devices.
+> > > > > Add IRQF_SHARED and switch the trigger type from IRQF_TRIGGER_FALLING to
+> > > > > IRQF_TRIGGER_LOW. Edge triggering can miss interrupts on a shared line.
+> > > > Fairly low risk change but I guess we'll see.
+> > > > 
+> > > > It used to be annoyingly common for interrupt controllers to support
+> > > > only edge based interrupts, but hopefully that silliness is a thing
+> > > > of the past.
+> > > > 
+> > > > So crossed fingers, I'll apply this and see if we get anyone shouting.
+> > > > I think we'll get away with it
+> > > 
+> > > In another thread somebody mentioned a type of the signal that HW generates.
+> > > Having OD output doesn't prevent HW to behave like it does edge interrupts,
+> > > id est generating a pulse instead of keeping the level until it gets acked.
+> > > With that being said, I would ask the datasheet citation to clarify the case.
+> > > 
+> > 
+> > vcnl4010/4020 datasheet, Page 11 Table 15 Notes:
+> >   "Once an interrupt is generated the corresponding status bit goes to 1
+> >   and stays there unless it is cleared by writing a 1 in the
+> >   corresponding bit. The int pad will be pulled down while at least one
+> >   of the status bit is 1."
+> > 
+> > vcnl4040/4200 datasheet, Page 13 Section Interrupt Flag:
+> >   "INT_Flag represents all of the interrupt trigger statuses for ALS and
+> >   PS. If any of these flags trigger from "0" to "1", the INT pin will be
+> >   pulled low. Once the host reads INT_Flag register, all the flags are
+> >   cleared (reset to "0"), and the INT pin is reset to high."
+> > 
+> > The interrupt is latched. The line stays low until the driver clears it.
+> 
+> Please, add the summary of these to the commit message.
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
 
-  open("/dev/cmt_speech")                          [userspace]
-  rmmod cmt_speech                                 [removal]
-  ioctl(fd, CS_GET_STATE, 0)                       [userspace]
-
-Fix it by reading cs_char_data.hi under cs_char_data.lock and
-rejecting calls with -ENODEV once the interface is gone;
-cs_char_release() now steals the pointer under the lock like
-cs_hsi_client_remove() does, so the interface is stopped exactly
-once between them.
-
-Fixes: 7f62fe8a5851 ("HSI: cmt_speech: Add cmt-speech driver")
-Cc: stable@vger.kernel.org
-
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-Verified on a KASAN kernel with a software HSI controller: opening the
-character device, unbinding the client and issuing the ioctl gives
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:cs_char_ioctl+0x29e/0x340
-
-and with the patch applied the same sequence returns -ENODEV.
----
- drivers/hsi/clients/cmt_speech.c | 47 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 40 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
-index 7226677ebde7..4325152a5a62 100644
---- a/drivers/hsi/clients/cmt_speech.c
-+++ b/drivers/hsi/clients/cmt_speech.c
-@@ -732,6 +732,17 @@ static int cs_hsi_write_on_data(struct cs_hsi_iface *hi, unsigned int slot)
- 	return ret;
- }
- 
-+static struct cs_hsi_iface *cs_char_hsi_get(struct cs_char *csdata)
-+{
-+	struct cs_hsi_iface *hi;
-+
-+	spin_lock_bh(&csdata->lock);
-+	hi = csdata->hi;
-+	spin_unlock_bh(&csdata->lock);
-+
-+	return hi;
-+}
-+
- static unsigned int cs_hsi_get_state(struct cs_hsi_iface *hi)
- {
- 	return hi->iface_state;
-@@ -1180,6 +1191,7 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
- 	u32 data;
- 	int err;
- 	ssize_t	retval;
-+	struct cs_hsi_iface *hi;
- 
- 	if (count < sizeof(data))
- 		return -EINVAL;
-@@ -1189,7 +1201,10 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
- 	else
- 		retval = count;
- 
--	err = cs_hsi_command(csdata->hi, data);
-+	hi = cs_char_hsi_get(csdata);
-+	if (!hi)
-+		return -ENODEV;
-+	err = cs_hsi_command(hi, data);
- 	if (err < 0)
- 		retval = err;
- 
-@@ -1205,8 +1220,11 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	switch (cmd) {
- 	case CS_GET_STATE: {
- 		unsigned int state;
-+		struct cs_hsi_iface *hi = cs_char_hsi_get(csdata);
- 
--		state = cs_hsi_get_state(csdata->hi);
-+		if (!hi)
-+			return -ENODEV;
-+		state = cs_hsi_get_state(hi);
- 		if (copy_to_user((void __user *)arg, &state, sizeof(state)))
- 			r = -EFAULT;
- 
-@@ -1214,6 +1232,7 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	}
- 	case CS_SET_WAKELINE: {
- 		unsigned int state;
-+		struct cs_hsi_iface *hi;
- 
- 		if (copy_from_user(&state, (void __user *)arg, sizeof(state))) {
- 			r = -EFAULT;
-@@ -1225,7 +1244,10 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 			break;
- 		}
- 
--		cs_hsi_set_wakeline(csdata->hi, !!state);
-+		hi = cs_char_hsi_get(csdata);
-+		if (!hi)
-+			return -ENODEV;
-+		cs_hsi_set_wakeline(hi, !!state);
- 
- 		break;
- 	}
-@@ -1239,12 +1261,17 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	}
- 	case CS_CONFIG_BUFS: {
- 		struct cs_buffer_config buf_cfg;
-+		struct cs_hsi_iface *hi;
- 
- 		if (copy_from_user(&buf_cfg, (void __user *)arg,
--							sizeof(buf_cfg)))
-+							sizeof(buf_cfg))) {
- 			r = -EFAULT;
--		else
--			r = cs_hsi_buf_config(csdata->hi, &buf_cfg);
-+			break;
-+		}
-+		hi = cs_char_hsi_get(csdata);
-+		if (!hi)
-+			return -ENODEV;
-+		r = cs_hsi_buf_config(hi, &buf_cfg);
- 
- 		break;
- 	}
-@@ -1334,10 +1361,16 @@ static void cs_free_char_queue(struct list_head *head)
- static int cs_char_release(struct inode *unused, struct file *file)
- {
- 	struct cs_char *csdata = file->private_data;
-+	struct cs_hsi_iface *hi;
- 
--	cs_hsi_stop(csdata->hi);
- 	spin_lock_bh(&csdata->lock);
-+	hi = csdata->hi;
- 	csdata->hi = NULL;
-+	spin_unlock_bh(&csdata->lock);
-+
-+	if (hi)
-+		cs_hsi_stop(hi);
-+	spin_lock_bh(&csdata->lock);
- 	free_page(csdata->mmap_base);
- 	cs_free_char_queue(&csdata->chardev_queue);
- 	cs_free_char_queue(&csdata->dataind_queue);
-
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-cmt-speech-uaf-df2c7577ce7e
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+Will update the commit message in v3.
