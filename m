@@ -1,87 +1,158 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0A43783A1
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8DB2377AA2;
+	Fri, 28 Aug 2026 16:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933383; cv=none; b=NG7StRvSsqm1VG23kFs+lm5zao9i1agUGsEYWeLr8DCow/Opi/zt7aqGlHuqRzmDUlUfjKv0LUkeMuBISeutpT41xVQ/yH3gtlc4tHEl7EjumRzZsPpj02k1dIcKEf05E2IV9QP2jKnKEdnbjEyHb26iuNMlekQzcPM7TF0ixiY=
+	t=1787933445; cv=none; b=umaeOZwRai3RUDlxJ/XXV+mWaAHpWxCH0amy6rW3oVWinjbT0zv8Si0l7kGlL7ZqIqKJk5SuVe/8SnQAFW4C7OB6bW0G3K4XIykb0f7DltCuAM47XAH7n7SbLVpGAZm34YPCEWkQQ4KU+godO8nU8C3Ym9EdY4ZxxaZSnkiNgpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933383; c=relaxed/simple;
-	bh=EloB0katp8AvIPCuQbU503lG6mYrXa7AvQm9QMftF/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sSXVjZMEVbDjFlI6UEHcGAqBE1LU8fQUpYSg+ng+FTPcv1++Zt7eZYc6z1PAS+c7CWcRDWqSZ8vtk/HTyY2yoteY4w8b9UUYGN6nDS/RsYGdbmgTdZ6U5/Ni0KWGjn1UMLnpv8O8gVGEXxpu5/FSq77eLuWn2gBnvYpSBH9Wyf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=SUQWHdUr; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787933445; c=relaxed/simple;
+	bh=hZASkD01ARriCg6zFtXG0Fn1zGv8l7hHUFpbKwIkbgg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mHvIXAquJIb/LHH4QvhrTBNU8xdSLlfsUA/cqNuTct0rYvxT6mloauMZGnGFFgnc2tHvD0sQ1bh7sqoFDdgaX2LODTktz0Gn3fKy65Wk0nvUC4efb52AdfiLILJJW5GsNE2n5QS4bZV60e7KDpwb497ITkbUb2pKvcGgSw0Gryo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fBomY1Zy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="SUQWHdUr"
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id D97DFC03F8;
-	Fri, 28 Aug 2026 16:09:29 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 988AA2002E;
-	Fri, 28 Aug 2026 16:09:20 +0000 (UTC)
-Date: Fri, 28 Aug 2026 12:10:10 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: David Stevens <stevensd@google.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Andrew Morton
- <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>, Qi Zheng
- <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Muchun
- Song <muchun.song@linux.dev>, Juri Lelli <juri.lelli@redhat.com>, Vincent
- Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
- <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Uladzislau Rezki <urezki@gmail.com>, David
- Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R .
- Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
- Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Sebastian Andrzej
- Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
- suleiman@google.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-rt-devel@lists.linux.dev, jstultz@google.com
-Subject: Re: [RFC 00/10] Reclaimable kernel stacks
-Message-ID: <20260828121010.47fa7713@gandalf.local.home>
-In-Reply-To: <20260828144500.GW776954@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
-	<20260828124758.GP687043@noisy.programming.kicks-ass.net>
-	<20260828103328.633bbfbc@gandalf.local.home>
-	<20260828143540.GV776954@noisy.programming.kicks-ass.net>
-	<20260828144500.GW776954@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fBomY1Zy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF1231476;
+	Fri, 28 Aug 2026 09:10:37 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.5.212])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B2BED3F66F;
+	Fri, 28 Aug 2026 09:10:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787933441; bh=hZASkD01ARriCg6zFtXG0Fn1zGv8l7hHUFpbKwIkbgg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fBomY1ZyF6kjBJGXIkhUoIjy1Rf+9QTrWyMi9e2OrPV4EzLEp0/lq8Zv/UPZvzNaJ
+	 CKZRHwo1zcAuBp8VU16X+cAS8o233cVmh+xfOhoYFoPGS/kRGBq4xUjVM4gpPUnek8
+	 NKFE8mPrxFSf8zXmnBUkGWzG9+8ez/b6wxI4huLg=
+From: Christian Loehle <christian.loehle@arm.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>
+Cc: linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH] mailbox: pcc: Synchronize channel IRQ before unmapping shared memory
+Date: Fri, 28 Aug 2026 17:10:33 +0100
+Message-Id: <20260828161033.3783599-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 48z84x6eyt4hnsuag3zedkjkfm3baagp
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 988AA2002E
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX198HxFyXYgEZJwnf72i30sWt/lWTSWMtx0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EloB0katp8AvIPCuQbU503lG6mYrXa7AvQm9QMftF/Q=; b=SUQWHdUrQzbFKVWGZ5xuskpOuRiSRULlG6ryJnBZGwRdZ5u67PBT5epIe0H7xg5SXNEX5TvwjgYAiKgBFn8ZVFZTo/UhBe7uCVkXSTXgl3qel4FHrisSpTHR0cXMEvTruijIo6t+0UY6KTNW3HgB/IH3lcx96mDtLDIYxSkl2wU=
-X-HE-Tag: 1787933360-956987
-X-HE-Meta: U2FsdGVkX1/U5Q0ostoyRiukFyNqFJhukFmTfCLv7rXt7diB6hyl/rZhUovQsUbfRuY/ruuw+CzkC8ZVCbdE5m17xKy+P2Hv3jyfNk0S4gBULlux/YQTMMl9V3ucR2xXxNGvpPJmpCP7P0aDUB8ibU6MmqlECvOPKid5V1OOzQt6NM3cjLlOo9ZuIQpgB8dSi6tyspx69xpNnpLwgNIG3TDSRJvGO7iERa9ou6pry9qFlRoyhFt1aUgs2Vz/JVAzyifFmbQZTDKS6nRAwD3NlsUyrhMO5du3Oou8k5oL+5IF7ADACZKUrPjYxLA7y874Dbta0aVQfHT5D1YLKlytYenuQaXYN9bClOSio+1VJY0xX4vNPnTY50qYg771Vo4/
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 16:45:00 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+pcc_mbox_free_channel() unmaps the PCC shared-memory region before
+mbox_free_channel() invokes the controller shutdown callback. For
+interrupt-capable extended subspaces, an in-flight handler may
+consequently access the mapping after it has been invalidated.
 
-> I realized I actually have a Java thing, the kids have Minecraft, so I
-> booted that up and I found all of 108 threads. Which is still kinda
-> insane, but nowhere near the 1000s per app as claimed.
+Release the mailbox channel first so its IRQ is disabled and synchronized
+before unmapping the shared-memory region. Serialize PCC channel
+acquisition and release across this sequence: once mbox_free_channel()
+makes the channel available, another client must not replace the
+shared-memory mapping until the old one has been unmapped.
 
-Have you looked at how many threads Chome uses?
+Fixes: 7f9e19f207be ("mailbox: pcc: Check before sending MCTP PCC response ACK")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/mailbox/pcc.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
- $ ps -eLf|grep chrome | wc -l
- 930
+diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
+index 9888dab64639..4654b028df9f 100644
+--- a/drivers/mailbox/pcc.c
++++ b/drivers/mailbox/pcc.c
+@@ -47,12 +47,14 @@
+  */
+ 
+ #include <linux/acpi.h>
++#include <linux/cleanup.h>
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+ #include <linux/list.h>
+ #include <linux/log2.h>
++#include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/mailbox_controller.h>
+ #include <linux/mailbox_client.h>
+@@ -113,6 +115,8 @@ struct pcc_chan_info {
+ #define to_pcc_chan_info(c) container_of(c, struct pcc_chan_info, chan)
+ static struct pcc_chan_info *chan_info;
+ static int pcc_chan_count;
++/* Serializes PCC channel ownership changes with shared-memory teardown. */
++static DEFINE_MUTEX(pcc_mbox_lock);
+ 
+ /*
+  * PCC can be used with perf critical drivers such as CPPC
+@@ -392,18 +396,23 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
+ 	if (subspace_id < 0 || subspace_id >= pcc_chan_count)
+ 		return ERR_PTR(-ENOENT);
+ 
++	mutex_lock(&pcc_mbox_lock);
++
+ 	pchan = chan_info + subspace_id;
+ 	chan = pchan->chan.mchan;
+ 	if (IS_ERR(chan) || chan->cl) {
+ 		pr_err("Channel not found for idx: %d\n", subspace_id);
+-		return ERR_PTR(-EBUSY);
++		rc = -EBUSY;
++		goto err_unlock;
+ 	}
+ 
+ 	pcc_mchan = &pchan->chan;
+ 	pcc_mchan->shmem = acpi_os_ioremap(pcc_mchan->shmem_base_addr,
+ 					   pcc_mchan->shmem_size);
+-	if (!pcc_mchan->shmem)
+-		return ERR_PTR(-ENXIO);
++	if (!pcc_mchan->shmem) {
++		rc = -ENXIO;
++		goto err_unlock;
++	}
+ 
+ 	rc = pcc_mbox_validate_signature(pcc_mchan, subspace_id);
+ 	if (rc)
+@@ -413,11 +422,14 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
+ 	if (rc)
+ 		goto err_unmap_shmem;
+ 
++	mutex_unlock(&pcc_mbox_lock);
+ 	return pcc_mchan;
+ 
+ err_unmap_shmem:
+ 	iounmap(pcc_mchan->shmem);
+ 	pcc_mchan->shmem = NULL;
++err_unlock:
++	mutex_unlock(&pcc_mbox_lock);
+ 	return ERR_PTR(rc);
+ }
+ EXPORT_SYMBOL_GPL(pcc_mbox_request_channel);
+@@ -436,14 +448,18 @@ void pcc_mbox_free_channel(struct pcc_mbox_chan *pchan)
+ 
+ 	if (!chan || !chan->cl)
+ 		return;
++	guard(mutex)(&pcc_mbox_lock);
++
+ 	pchan_info = chan->con_priv;
+ 	pcc_mbox_chan = &pchan_info->chan;
++
++	/* Disable and synchronize the channel IRQ before unmapping its data. */
++	mbox_free_channel(chan);
++
+ 	if (pcc_mbox_chan->shmem) {
+ 		iounmap(pcc_mbox_chan->shmem);
+ 		pcc_mbox_chan->shmem = NULL;
+ 	}
+-
+-	mbox_free_channel(chan);
+ }
+ EXPORT_SYMBOL_GPL(pcc_mbox_free_channel);
+ 
+-- 
+2.34.1
 
-Of course I probably have 900 tabs open :-p
-
--- Steve
