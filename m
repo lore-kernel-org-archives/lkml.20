@@ -1,138 +1,279 @@
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020076.outbound.protection.outlook.com [52.101.229.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED2136B92F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.82
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931682; cv=none; b=ichNte8r2WYVDIBvID7ovrL7WkgVZomlK3ADgMCY8bouTwObJbDMZfxA+bN2EUgczeJOApnxRda6W8VIhiFV8cUKhJ+ICYJdIprmWfBP5u7Pd1s+W67Cg9SYusRuNnRSNCg8db0putl+BTqZTKiDd7AgvuYk4V2XmNiqCMwDxQo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931682; c=relaxed/simple;
-	bh=/n/dFd41yw+qx+BtMq6OW0k8OGtbcgNeqCbFA/CFiRE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EodEGQDyMV2a2Z9THvvI3s10m9mhQ+7Iu2EuLE90v85Ogn/Gc9dB8Ftf6YkyzF958WeKtuLPwdCNYddRbmo5Uq2p4u3gD2JEbdTx3VkZOX9jxplltbnLpBUmKtgXRzt0qgSC+I7N9CTtS94DgU6Drj/nJU4+Z6sn+At2RsAEdis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K+EPUFFF; arc=none smtp.client-ip=91.218.175.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065712F39B5;
+	Fri, 28 Aug 2026 15:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787931695; cv=fail; b=ltjzeVLBftIs/4eT9ZFZs/BmEHrC4zDKtTLxGlG9FyrO6bRukbd+7buny2DYlUElYs0IjY7i8WIpM/a1vIdB203JqWgo4DD0zRWjYP14Xe2qcvb9hELJttoD1NbRAREvZ9yNIJwPhRhFUF/Muo7V5h8UhJWEvl23ntSp4D92llk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787931695; c=relaxed/simple;
+	bh=yA509vJlqP87kWVXy/b/L8lmP9SCPYAOf6e8cXddR/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SGM6mO/2nIZ3Lzsw0c3v7ndujMRVjB0aA/hp7Sm1lyXxyOSsBy58eEw0qLxt+J0P5UUvxlKY0Q+fkojhGEI55n3xDtVu0hUPq8E9LMq69fR4/08pxYPE0O9qO9n2WWQv4UVUHPtaDgo6fpest9MbXNThhGZpIuwTYQCdMZy+bd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=F1Woc97t; arc=fail smtp.client-ip=52.101.229.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K+EPUFFF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/n/dFd41yw+qx+BtMq6OW0k8OGtbcgNeqCbFA/CFiRE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787931675; v=1; x=1788536475;
- b=K+EPUFFFrm1CW7eHSHLBbi5lFrKeCgkV8ezkiqSx8k1HsGqXismK1KON68f/dJE/bUPjtfgo
- g/tOalmsf6cI0cgUXycVyCXAIkUdMM1dilLrgeBCSosgSp5FNa6MyIxug4OH72tInOZ/r0wcQs+
- fuD1R3m6UwvpvdZ4PI3+L7tI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 10b1ae10f3c69f4c;
-	Fri, 28 Aug 2026 15:41:05 +0000
-X-Mizu-Trace-ID: 10b1ae10f3c69f4c
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 08:41:03 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Michal Hocko <mhocko@suse.com>
-Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on
- isolated cpus
-Message-ID: <apGro0MJ-brPJfoa@linux.dev>
-References: <cover.1787890328.git.riel@surriel.com>
- <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
- <apGaZdxAPH68kkCc@tiehlicka>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="F1Woc97t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TJTCzp0TBmXAm7nN5mKj6uFks+04ReMHNiG0tGSjSy3Av/r+HDFpUEBhxeSz5Mtb9qsXquQCTcb1NQUZU6PCEOQiqtdxbhQa5WshWC3pn3i9Ki7hw74vlkh0x2SiXbHRZYXoSEnrVUj20K7kgD8Y3rsVpuPlvRuyrXCtydpezwFuHRDo+JjtKL/s21kSIwIClzby39UJuYvelw1FVNticG8M8Xn5PcnPBzyhHGP46vabfdRpPwH93TJbW5DmpH9HrQiYed+SQwmS+LLO8NYe/kliRmvsT1UWD1NytL1o1lZfi+CJ764ir7CIw4eS4A5eb5UNL9uQJCM2kiwBBjmXMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yLX7lFVdD3B7J3F/uwgAKYo/ZPic63OP89vdWa6tsSY=;
+ b=LR/v2yOFkAVEx9aLt8KuKCrxLXI/SWjvRh4izQmVuarQkIv08xGnaHNCUPnVFZ4fKrIfxF81908gYTS9un7MlvMHaIwNhr04K1KjU1JRXqVWJ6wYSrCv0rSh78oVUZ0XCk+ZXVED1+nBr4Tjj4HRCnIAdWQlo4jIHNtbAcrlrdeahSrDO8tmXyFF867+M4QE0gI759amCHaxO5bfXkgiXt78pW1sTolOeYOXU9UwyADAfdNcochiq5x4C1MHb8JLSZvPHhLp9FqsLFdpNgnhK4PLZr1zq7EbCW/NRlJEtgmf6/k+G4dbWxHwkYKEsLaOLUypH/0GguOc1WWe/ua6jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yLX7lFVdD3B7J3F/uwgAKYo/ZPic63OP89vdWa6tsSY=;
+ b=F1Woc97tg9sXGWxCx1UVFYbFgEL84TgQ/yTzSfdp6HbhFSLUXUCLNznl5Fe+tV9w45gjTMt5LnFce5hQs+NdZRhi+EzTX9bGzVLquUKOjWcXaHMMwlWTv+Pst0sx+NPd0KS4neNeZvd+LMvbcjWjtftKGbRTBL/TUt5m2hQHEIk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OSOP286MB4240.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:303::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 15:41:26 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 15:41:26 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] net: ntb_netdev: Fix statistics races
+Date: Sat, 29 Aug 2026 00:41:22 +0900
+Message-ID: <20260828154122.2643578-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0208.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::18) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apGaZdxAPH68kkCc@tiehlicka>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSOP286MB4240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5beca80e-7d2a-4697-44d0-08df051ad225
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|376014|7416014|23010399003|5023799004|56012099006|10067099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	qOZ7+fyC4+YNb56FPZCsoTlCDiS7I6KHFlWsu06XOdhIRc6HZ3ysf6x3Kurq+7qAJDgSjG5aksHZnqLc8MjjfVo397R5GzTf1j9kT/roMfpCjNC5J9kxEMwoxNl9vjX+sRbxryhUXp5/2G0E+0Ogyo+SxPwd4X84nN40nzWZKclOphWAYyquKWm4qbB456AFmg2ueba1WmvDfvi8vMxKBzu+sS8PVhNz7P55Un2ma+csVumovkquQOaMCVt7YOFozFY/bclYyupM4D/LUokRWAFbGXyXLiPvJM/N53O9o1lbHmKdFggHmIDDpYevt7Qk4sXLYXU+FNeJe74vx5xWlQHvcFh8YpEXAFLCQ9AIonFys/dV7R0nIqo+ZL0tgO762z4LKXazQXZ3kQJnqavcoyn0czYCCE+/O9ciPLDoVv/yLQBUMCR5c8d0WBl59aJtUVXGQ5mNL+VkNb986/H/FaoZtOfAORBp0oYBan0Rdak3AoPziqfzVQ2HolDfFXH15CuRslcE5QIFj0NPRgcBL4dGJHCC7IOxZk20Yi+r6yc8r5d6a+FXGTCnA03eRulRMpAzZlRkdgCWyKVyY12qvpIupRSvs5d9d/oqEpqGJDHUBIEPsN90L+HvNjrObHhU
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(23010399003)(5023799004)(56012099006)(10067099003)(6133799003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9bz56dsVGXzyPDTwhA8/Xjyxv2yei/P1QueDffDMDNOE6cN1wlY+hFD8VNAY?=
+ =?us-ascii?Q?7qP/pBLucouLSLbQmZcLkOR3NRH1nzYagLl87tERaxueBPpqj437eI6awFEv?=
+ =?us-ascii?Q?e9J6Cd6qUCZuIqqjTXtReWMuN6nXXn9AT+C3I/JNaFEq1pXDha+jEYIKd218?=
+ =?us-ascii?Q?g2iEVd+Mi1fnjkau1NYGtwDz1gzrUdcNS3V6GuDSIhNbRwc3kH1kJGyOxohr?=
+ =?us-ascii?Q?PvHznyLUJuxRcotm/nBFEObmWTJ2PIYAvewXWuMB9RzfH9dD9Jvg2OCsIWi4?=
+ =?us-ascii?Q?K6I7mjlUkXXYITeslLJExQFgXzxpyp1FSiyiL/V9XFiOGDf+v0jAISBoxE1f?=
+ =?us-ascii?Q?A6LJ+E784PYgztUyw0VXkcV2BLHTcOvqIFIMfE04WpC4qB52W1ddd3XHtWoQ?=
+ =?us-ascii?Q?zNwkCKexle4a+CyOroePOJd1F9TsDQzB6yTCgPO9bgr4wPEIsVPNAxK9WlC6?=
+ =?us-ascii?Q?/qCzxVESVyxFuv5+SvlUqDptRrKu+p1n4RazydGNHQ/Yf0RvHgSRu0GNsJEa?=
+ =?us-ascii?Q?jJ1ggzcM+UvOoWKMmja0CTN4oHYizkMz3xCZ/hZU3Vengkq17FsMNpdMy7DP?=
+ =?us-ascii?Q?vP7sxk3PQAQeOT3RyIlBoyEA06tDKYv820bx/l7bRF0KE8RMcrS/kaQstJY1?=
+ =?us-ascii?Q?VMQaS1k4AhkdxT06Z0TCPrbinLAUK6SBI55cd3gtf44TM4+GQGOdOjvwNl4R?=
+ =?us-ascii?Q?KP5U9m+YpVUtppKds68IGpO16gSuFZDTkbDnWUECkhn1LTSQ8Zg4pJ9jRTpe?=
+ =?us-ascii?Q?9KrDGvAABjZuY3qDBlodciMkQ6yJoYMTvuq2b9F8tZeHqYZ0YxhkNab2AXGf?=
+ =?us-ascii?Q?VqZKKRNzj3jnpCLWAuX5xQkwZJkQNj7MDV+bAH/hoyHEc2vkqKjI6LQWEMPD?=
+ =?us-ascii?Q?LB1o809kAnonh/iITdBoZ/h36ljzAbgIFQMZc2HJAWipH7x4Veg6OE/Su33N?=
+ =?us-ascii?Q?ohXVP8J8n1cjxVNQmVFwymgA0LgKIjMdNXH5SUu2a/UykzquBgftrz6usDZ1?=
+ =?us-ascii?Q?wAgpnvru9eHFqgcD02TeqVW1KBcL+Dn8IO+6zY14RtXEX9xZ+QZXNbLI485i?=
+ =?us-ascii?Q?cvAoboTCiF5TaSOP/CLKQTyNT9VNKBnlOEoreePsmDND/z57ARiW1m4malGu?=
+ =?us-ascii?Q?3pJ1NmTIOOOrR+QJOpCvSq955XcOBJHh4ilDHtiovoAy2jO+WEM8tIQYn3w5?=
+ =?us-ascii?Q?qYSQpmXX1g53Qbghvtbd0+LHqQJgORwBVOp9QZXdzg7BjGxdYRItoPa52yw2?=
+ =?us-ascii?Q?l9rkP8Gi8e9Bl+1y15X4GjEHdHPeRzGbQBCPkpmkXIFtFJ9xBUat3cvlE2PD?=
+ =?us-ascii?Q?o57hdvNf4tCDQIIs3+s0p+w1Z3O5an0kF3JlUbHML2dX525/4RpgOqECEknK?=
+ =?us-ascii?Q?KKVpfzzD1nzo8hsQp4jDzTHPQDfLyg+Bgcq6Q6u1G+Xq73xw37QY8XmoGXIb?=
+ =?us-ascii?Q?wxrc5n2M1vVucPIlhKuBYx5OsiyjwXx84tpixD/C4dBY0VMahsK1h9rReeGz?=
+ =?us-ascii?Q?iTkRVehX1xUtLNWuh1Y29yLEq7faUaqOMynlQf33ZcO7+XxGy3SXMYAKghEQ?=
+ =?us-ascii?Q?9V45y57NTsGtb/bdvABCOadrczpWD+OFB69OQP6NTH1JRKvPPVMR+y05NJHh?=
+ =?us-ascii?Q?v/HG7j2TBEJk/T7KWXmVt8qk08tTgZNc0iKZZSKF9/G8x/Uok8bLGRHZpUQ2?=
+ =?us-ascii?Q?4QreAC3/wE69jZVgHvlvBrtwHA5I0O6WuRIcQblOfPiQnDbHuj8okXi23iiz?=
+ =?us-ascii?Q?gjPvSXcBsiIKb0gb68iT7maCQ2YuFVHWahiLr9NUbEkQ1TedpKGs?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5beca80e-7d2a-4697-44d0-08df051ad225
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:41:26.3399
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uPDUH1VWNZ/WM3D54y4kemXg7llHvD6QnTfVnI628LkA/u4hTAMHfoq1EU2vf8DdhC+Rwlf8u2fBZSI5qeiPkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB4240
 
-On Fri, Aug 28, 2026 at 04:25:41PM +0200, Michal Hocko wrote:
-> On Fri 28-08-26 09:46:21, Rik van Riel wrote:
-> > drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
-> > work is dropped.  It sets the bit before checking isolation and
-> > schedule_drain_work() checks isolation and queues in a separate RCU
-> > critical section, so housekeeping_update()'s synchronize_rcu() can
-> > race the second check.
-> > 
-> > drain_local_stock() only clears the bit for work that ran, so the bit
-> > remains set and the stock is never drained again.
-> > 
-> > Reorganize the drain_all_stock() loop, reducing nesting, splitting
-> > out local vs remote cpu handling, and skipping everything on isolated
-> > cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
-> 
-> Is there any reason why we cannot simply clear the flag if the work is
-> not scheduled?
-> ---
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 69b37f63a307..907ac63e5067 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2261,8 +2261,10 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
->  	return flush;
->  }
->  
-> -static void schedule_drain_work(int cpu, struct work_struct *work)
-> +static bool schedule_drain_work(int cpu, struct work_struct *work)
->  {
-> +	int ret = false;
-> +
->  	/*
->  	 * Protect housekeeping cpumask read and work enqueue together
->  	 * in the same RCU critical section so that later cpuset isolated
-> @@ -2270,8 +2272,12 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
->  	 * pending work on newly isolated CPUs.
->  	 */
->  	guard(rcu)();
-> -	if (!cpu_is_isolated(cpu))
-> -		queue_work_on(cpu, memcg_wq, work);
-> +	if (!cpu_is_isolated(cpu)) {
-> +		queue_work_on(cpu, memcg_wq, &memcg_st->work);
-> +		ret = true;
-> +	}
-> +
-> +	return ret;
+ntb_netdev updates shared net_device stats from per-QP RX and TX
+callbacks. Once multiple queues are enabled, concurrent updates can be
+lost.
 
-Let's go with this patch. We can simplify above by inversing the check:
+Use per-CPU tstats for packet and byte counters and DEV_STATS_INC() for
+less frequent drop and error counters. Callbacks can run synchronously
+in the xmit path or asynchronously from a tasklet or the memcpy kthread.
+Pin TX updates against migration in the kthread path. Use the IRQ-safe
+u64_stats helpers because netpoll can invoke the synchronous path with
+IRQs disabled.
 
-	if (cpu_is_isolated(cpu))
-		return false;
-	
-	queue_work_on(cpu, memcg_wq, &memcg_st->work);
-	return true;
+Note that transport callbacks may still complete after
+unregister_netdev(), so tie the tstats lifetime to the client device.
 
->  }
->  
->  /*
-> @@ -2303,8 +2309,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
->  				      &memcg_st->flags)) {
->  			if (cpu == curcpu)
->  				drain_local_memcg_stock(&memcg_st->work);
-> -			else
-> -				schedule_drain_work(cpu, &memcg_st->work);
-> +			else if (!schedule_drain_work(cpu, &memcg_st->work))
-> +				clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags)
->  		}
->  
->  		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
-> @@ -2313,8 +2319,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
->  				      &obj_st->flags)) {
->  			if (cpu == curcpu)
->  				drain_local_obj_stock(&obj_st->work);
-> -			else
-> -				schedule_drain_work(cpu, &obj_st->work);
-> +			else if (!schedule_drain_work(cpu, &obj_st->work))
-> +				clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
->  		}
->  	}
->  	migrate_enable();
-> -- 
-> Michal Hocko
-> SUSE Labs
+Fixes: 24d9e73c7e00 ("net: ntb_netdev: Support ethtool channels for multi-queue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes in v2:
+  - Make packet and byte updates IRQ-safe in netpoll context (Simon, Sashiko)
+  - Use device-managed tstats and restore the original teardown order
+
+This is the follow-up mentioned here:
+https://lore.kernel.org/r/20260819172539.1450821-1-den@valinux.co.jp/
+The related TX and RX fixes have now landed in net.
+---
+ drivers/net/ntb_netdev.c | 44 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 32 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
+index 9c171697e762..ccbafad8f650 100644
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -125,10 +125,12 @@ static void ntb_netdev_event_handler(void *data, int link_is_up)
+ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 				  void *data, int len)
+ {
++	struct pcpu_sw_netstats *tstats;
+ 	struct ntb_netdev_queue *q = qp_data;
+ 	struct ntb_netdev *dev = q->ntdev;
+ 	struct sk_buff *skb, *new_skb;
+ 	struct net_device *ndev;
++	unsigned long flags;
+ 	int rc;
+ 
+ 	ndev = dev->ndev;
+@@ -139,17 +141,20 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 	netdev_dbg(ndev, "%s: %d byte payload received\n", __func__, len);
+ 
+ 	if (len < 0) {
+-		ndev->stats.rx_errors++;
+-		ndev->stats.rx_length_errors++;
++		DEV_STATS_INC(ndev, rx_errors);
++		DEV_STATS_INC(ndev, rx_length_errors);
+ 		goto enqueue_again;
+ 	}
+ 
+-	ndev->stats.rx_packets++;
+-	ndev->stats.rx_bytes += len;
++	tstats = this_cpu_ptr(ndev->tstats);
++	flags = u64_stats_update_begin_irqsave(&tstats->syncp);
++	u64_stats_inc(&tstats->rx_packets);
++	u64_stats_add(&tstats->rx_bytes, len);
++	u64_stats_update_end_irqrestore(&tstats->syncp, flags);
+ 
+ 	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
+ 	if (!new_skb) {
+-		ndev->stats.rx_dropped++;
++		DEV_STATS_INC(ndev, rx_dropped);
+ 		goto enqueue_again;
+ 	}
+ 
+@@ -166,8 +171,8 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
+ 	if (rc) {
+ 		dev_kfree_skb_any(skb);
+-		ndev->stats.rx_errors++;
+-		ndev->stats.rx_fifo_errors++;
++		DEV_STATS_INC(ndev, rx_errors);
++		DEV_STATS_INC(ndev, rx_fifo_errors);
+ 	}
+ }
+ 
+@@ -208,10 +213,12 @@ static int ntb_netdev_maybe_stop_tx(struct net_device *ndev,
+ static void ntb_netdev_tx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 				  void *data, int len)
+ {
++	struct pcpu_sw_netstats *tstats;
+ 	struct ntb_netdev_queue *q = qp_data;
+ 	struct ntb_netdev *dev = q->ntdev;
+ 	struct net_device *ndev;
+ 	struct sk_buff *skb;
++	unsigned long flags;
+ 
+ 	ndev = dev->ndev;
+ 	skb = data;
+@@ -219,11 +226,16 @@ static void ntb_netdev_tx_handler(struct ntb_transport_qp *qp, void *qp_data,
+ 		return;
+ 
+ 	if (len > 0) {
+-		ndev->stats.tx_packets++;
+-		ndev->stats.tx_bytes += skb->len;
++		/* The memcpy kthread can migrate, so pin the per-CPU update. */
++		tstats = get_cpu_ptr(ndev->tstats);
++		flags = u64_stats_update_begin_irqsave(&tstats->syncp);
++		u64_stats_inc(&tstats->tx_packets);
++		u64_stats_add(&tstats->tx_bytes, skb->len);
++		u64_stats_update_end_irqrestore(&tstats->syncp, flags);
++		put_cpu_ptr(ndev->tstats);
+ 	} else {
+-		ndev->stats.tx_errors++;
+-		ndev->stats.tx_aborted_errors++;
++		DEV_STATS_INC(ndev, tx_errors);
++		DEV_STATS_INC(ndev, tx_aborted_errors);
+ 	}
+ 
+ 	dev_kfree_skb_any(skb);
+@@ -277,7 +289,7 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
+ 
+ drop:
+ 	dev_kfree_skb_any(skb);
+-	ndev->stats.tx_dropped++;
++	DEV_STATS_INC(ndev, tx_dropped);
+ 	return NETDEV_TX_OK;
+ }
+ 
+@@ -433,6 +445,7 @@ static const struct net_device_ops ntb_netdev_ops = {
+ 	.ndo_start_xmit = ntb_netdev_start_xmit,
+ 	.ndo_change_mtu = ntb_netdev_change_mtu,
+ 	.ndo_set_mac_address = eth_mac_addr,
++	.ndo_get_stats64 = dev_get_tstats64,
+ };
+ 
+ static void ntb_get_drvinfo(struct net_device *ndev,
+@@ -646,6 +659,13 @@ static int ntb_netdev_probe(struct device *client_dev)
+ 		goto err_free_netdev;
+ 	}
+ 
++	ndev->tstats = devm_netdev_alloc_pcpu_stats(client_dev,
++						    struct pcpu_sw_netstats);
++	if (!ndev->tstats) {
++		rc = -ENOMEM;
++		goto err_free_queues;
++	}
++
+ 	ndev->features = NETIF_F_HIGHDMA;
+ 
+ 	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
+
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+-- 
+2.51.0
+
