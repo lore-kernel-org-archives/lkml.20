@@ -1,192 +1,271 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CED35B645
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787890653; cv=none; b=QiG9hey4dDrSk9K4bVV/gPDwN+K11/a6mHZMkuBYGiLucATsoAypua5Wxwc1vLYJDofLjDnymuSmErI2mwHSkdCcMMmD19aSPUM/esth8tCV+9p31ir4Xgif/TqNNBOFFevXEJ9Jfu8Qo9ECK+/5B/+Fz9zTfT71Su55Q3CMtIg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787890653; c=relaxed/simple;
-	bh=pTqidcm3PAu7POfuygrHb1YbhgmYvPuj7LrPfVSm1kM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=trbrTTpttsrZuXr9XRN1/4LgfhOyVejmgDSQhTbaOogpztKyYlH2KTQ8SzSWgqSZueHT67e92I1hV/Y1AK4HuynYt75yPHlGYl9vMge/yrGG/p3pf9MEPYAPu3j0XgrlKEpGas6/ozWLOo/1Zi2imySRCawpUsCJZ6GT6W6lFhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xa4MbNqS; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4156232395;
+	Fri, 28 Aug 2026 04:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787890729; cv=fail; b=WMFe42N0nG5XY9iKywEBds/3c+bBmc8ExTuwX5dMVqrawTJ4NTWlvqCmjJ2KLDXPjzBV1qZlaqZP0RVofO945h7E8C0S9e0kNobnWmCr/d1I9HDkAjboXW/vf2QkvJju57ZS0PF9MaAmReOp5KuykzYncwVuIAPhRsj6YNw2h80=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787890729; c=relaxed/simple;
+	bh=Qk0Pi4eIHu1ZNAuf0bzI0ycwWUKoPHAvkM7mBtkYjcQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pv9eBJVG1s4eA4CaKJNKe3hg447YoMD6LCaHmNykp4sZKLxKcGLMyz7dhHT/umIqglWRupP7K1uvf59C31A8kBmrid1K4Q3+VihchKJjmiDPUuZvaHvAZU3ziAZPHZ8SnJG+E+nxCUE+3PZfSFvmSFfFUF4h9JE5V7+ZySfc/Bs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CVM2ga/Y; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xa4MbNqS"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6f9e2f681so3432865ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787890651; x=1788495451; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gO0v4/V9YgV4PqtgQrf2yHSlli7ph+LMnJojXZKVqJY=;
-        b=Xa4MbNqSKvXsKGW4bSdxAvYMg9nGINKU8AszGNhh4DjiKGYa4B6pzt1jb1agr1QebN
-         feSOZsIzZFkt8dftkzdyLZgRnCRKc9YEJcHAaSPQ29BCiW4aMWBwT5Q0/Tm1lsp4HYNH
-         d8dFA/9+tKqKGKvdDYkPw+mcLBqGoVh6TV9op0Lo5CVzXp3ApdHKw/YatDtFWiXVtWJ5
-         1GZ4pBzPwn77WdE/+qmfApJbIDwHCDjGPlmJvYY2tPQOI33bv7bMlaxgGj2gzrdA1M+5
-         XW8gamS5pbjXcVrp8zK3K4SfLy7YtF0aLFd5sEFVnlk6PTDIYMUpwMijx1E+Nm3b5hdN
-         8tDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787890651; x=1788495451;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gO0v4/V9YgV4PqtgQrf2yHSlli7ph+LMnJojXZKVqJY=;
-        b=gVfXx7QVUvuvF1U4AuAbV8vj5YoKbSrbBZq4pYCzy6fdc2wzjVSOlN8mveLO5QRPTO
-         dnKiBeeokY6KdwV9BIIk395+tpGEelfzljevsb3RqBanrtABeeH/EPOwJgwzRi8dxAnL
-         ihx8ZaEPNonxuvcRXBwSwgIMPeBQblIsUHKNxTG+SBAdnn7uSDRq5HKRdZb2UZnd00fA
-         a0NZWG5LJObftYtLO/APWhtllKcu1UtI/jxCPidOAvLrOz/agrDp1HsB27JkSeVahYM0
-         wheo2YOHnb0PTm3KbrnuuFw+ikViBl57eYPfBM7ff4uy81dkw4z8z1Tf7rYRg6MesXzj
-         P2aA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9Ons2y5h60PX+R5F0DFucSZXrOk/l8cSK7Mg5lm1xAWueV4aGCHfoCE2VuNUwXdB+LhswwIyGJqVGAhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnv3HIX/ilod2uO6g4NagK4Bu5JmnPMStfb8HMFtH4axYihWpX
-	/qq+OA//j5QiXnfjXzxggBS6s7249CJ6UND+nckNJJaBxTlKrZDIhtk8
-X-Gm-Gg: AR+sD12+dKDIx0z5tb68sCrURFHF096nkP4ld1eTfQgU+1GjrtWYcGJ2KxslCWLyesD
-	r3Myf+EzZzNqEUwrIboSOP47TAQXFF9/9e62wXXSz8gbAtNpJEwwrKLouv0ljCvmUqgprCPdPSF
-	qUIY4hD+wrup0yYWSXs46DsFpOtHyVf+MHqORUFFARY8a5xnDcSQPK6iwajhogis0Gp/erS8JOG
-	ldfhcYPuyOiCXOQHjf/rejJiqMfYgVdfSxUOeOhMMYZ5FNx0M1NXuCXJU3FDPwP+GoRj1uSIt+R
-	XkdcVIUt9d7KLA/KtnP57vUp2b/qF+OSOwE0B/mhneVXkmTSPECANNeBheS0DMM67LhdLCCInBp
-	YWdufQtCHE/CBCvL41m44zGajRFotlEnQmGC5wtKz+Ig1Gbh5QgxLOMejcPHP5viIvy74j8NrEy
-	lXv+Pc3oFMRlt0zqOWQHxZqkd3+r7vq+gLJbaEuwmJAan5GizP96Jtxs3FaRaqcYw9WUq2Wg==
-X-Received: by 2002:a17:90a:dfd0:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-396d0fccf78mr8786188a91.13.1787890650739;
-        Thu, 27 Aug 2026 21:17:30 -0700 (PDT)
-Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1b38esm1896535c88.3.2026.08.27.21.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 21:17:30 -0700 (PDT)
-Date: Fri, 28 Aug 2026 01:18:18 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-Message-ID: <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CVM2ga/Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787890728; x=1819426728;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Qk0Pi4eIHu1ZNAuf0bzI0ycwWUKoPHAvkM7mBtkYjcQ=;
+  b=CVM2ga/YjIIexeG4va/XbNUvpbTWcvQ71lVzWPtDggy+Le3iL4SC5yFU
+   LbfvgsgIymmtmWcIr52Lv9rrTlTDcu0R9oPcv6o173RpxvJmIa2aOzEaP
+   9hp+Ju5BwNUFUGZ0maXI5p+9AD6lBddZQg2Ek2/PQwYjH7EttRyAbHmD0
+   fHgKm7uv9osNTCYjlGhcwAEPOQBTZMduSRHPbx1osKoUSl551R6OtbiHd
+   7jM4C/N79gJeGoMl4fbsvEavOdMHWxqJDLORNlEUfqHrZH+N6FKxSBQzX
+   NFsNB/YDbKN01JuVtSzAsMHOyxjZn0t0kf2uQdITspyaB7IwmGLkkubjr
+   g==;
+X-CSE-ConnectionGUID: UCFgCx+SRN+ZweMbNLNOLQ==
+X-CSE-MsgGUID: XoFIJtW0Swup/x9LCdRbtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99747744"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="99747744"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:18:47 -0700
+X-CSE-ConnectionGUID: 1U2KDw+ZTVWpJy+dQahZkg==
+X-CSE-MsgGUID: Hp+DVQaISze6auu3pTzJKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="267460495"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:18:47 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:18:46 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 27 Aug 2026 21:18:46 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.60) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:18:45 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pmkRIJqdIdbw7mDhEblhKDvDL0NyKrrIcI6dVw1FuDoKSAeUoWOQoNOTIYC0C5xRXcYQkLKtWpU/Lx+1Pdrh3CZ7+FCw7ojlVFDPNxPp5pTPzuxpM2UloOqBdpuqaD+OYg1pyzOTcL7oCLVtjj/bjuF2Si3dsnx9hJ7CA6AFdHjtPbCJvNdQdG1R5Fkow5Pcb1mkzzrBjph/w1GqyoXCLsRZcpTEON+ECfP9JbYXBMX+76eA03L3zfcGTl7KWKLALNauV7CFiZzzaPqV6OqmZb6nnncPJ0s3etn5W9SEZCPgyR3jc6I8jNdUBzABSR5B6lKQ7ZvAgPN9o5cPATD8Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ob2tGK8UfYbjr841u0559or5imoa4GQcI+O/LsAdC0=;
+ b=gOVjXFjz918ZpGpcXQym08XNjdsmp5CmP1MT9SwSGykpHHZMdIHuNKzMBIWay+ljs9oy3ZnRIG8AxON7WzlNaU4QWBPcdCYS0uhYjAeDnmfQ0B7bhAf73Eypt02LAnuhUtOsbipco0h1uoVHZXSX+tIQbUAsT0cJn6n52tNh88YDY8kwoBlXS7rnIJUlKu5i+jwDRBkSgvim/5QeiNYzX+8zIQk7SjqPZioiYLh7MAo8L+NcFKXLOZlTuQlx80fmeJzURju6IxNzu8nNelksc3mFhoadf7e4q13aryWu7fj6ka1hukqPTVeIQBoeJ0pjEdhtQY7NAFclPVOeEuKxSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DS7PR11MB8781.namprd11.prod.outlook.com (2603:10b6:8:256::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Fri, 28 Aug
+ 2026 04:18:41 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 04:18:41 +0000
+Date: Thu, 27 Aug 2026 21:18:37 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Sashiko
+	<sashiko-bot@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+	<baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, "Dev
+ Jain" <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+	<lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Joshua Hahn
+	<joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
+	<byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+	<ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, "Balbir
+ Singh" <balbirs@nvidia.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+	<thomas.hellstrom@linux.intel.com>, Francois Dugast
+	<francois.dugast@intel.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
+ the src_pfns array
+Message-ID: <apEMHVQwZc5ONwvM@gsse-cloud1.jf.intel.com>
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-3-matthew.brost@intel.com>
+ <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
+X-ClientProxiedBy: SJ0PR03CA0197.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::22) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS7PR11MB8781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b096eb0-11b0-4eb0-1a7b-08df04bb70ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|18002099003|56012099006|22082099003|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: RWVo92UCM6gN5OkQWQl3wF9mMWPVwCW4WugIgxXrXqzzaSo2ovgvdpZBdz3yovR0H1Wj9VBkphU5VaPqIg2ejivyAi1ou3csB5t9OpHfxNqqlVrKKkzmOy5zFIVJKxGd9DS25GcYNyC7+1MgNJhq/oPOrzfy8nnqP8b6OQqdcQ9zJgBUbtiIwUXJbUL5ZN2/7PL4fsCr8r6DuZNrrL+PVxDCIXFDC1wtOYlPK5F3iYJSdOt/HC6HligZg4W1ddUfdRhgzmhZUZMzDIYZzFNMgkN4swdM0N1jb0dN5oWQuewtemA7XXvOwulw5CPPkN+pHLV/sqBuj5MhuJ3L0uQyWVvZky5KWvhiMyEbf/o6K2cSggaPUcUsIRUCkli9Iv6TGvuR1vaN0302dNv5KSVyUT9r9pVetsC432d5YItirUS1/0RGCYNJhmj+DxDI3YmISIYj23njUnQvTCsElcUhNhMFc9/PA9H9r5yGjIZq3MjGx304R34AWChZc77LI5zC1rPeAFjeKpwK6Pumwvb/5xvYXmcCJnYWFsWnG7Rp/+LqFjs0fGvFazy1LHgmfIc4px9SmPImZ4FD1UJB+Azrdn9cDEbcaNYca09BTCxZKN4EZqcETFFjgIK4ImjyP4X5
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(18002099003)(56012099006)(22082099003)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?EIygY2CMAWqaLUQdz6Zid2MWm4i+U9Tqoem8rd12cHxmajcUjBAd9GLkBr?=
+ =?iso-8859-1?Q?QRP0YFYtLqCJFvgJIpmyWZvqe12ixum0HUNTaX0Pl+VFDoTxBGD5dPPzco?=
+ =?iso-8859-1?Q?AlW4QpKrwsR/mEQtB2Y5wKAYX4DPBYKBlvarTPBNrmFeLYsAZmXzoc+iTk?=
+ =?iso-8859-1?Q?x+l4hk5YPFOEaBUIfd5DffSMR/tLqjVMt83LMPknpCTM97BM8s5lKQubC0?=
+ =?iso-8859-1?Q?2AAOzZaRBNPXxQF/236QGDoiGpvpFDuof7e1nPdTEQoegU0zMcwN0pKmJk?=
+ =?iso-8859-1?Q?IF3a8x8uBSIlRe1E96QojH/bte1VWjm0TFCcqehFCNEbyBFZ6n9YFhoyq+?=
+ =?iso-8859-1?Q?SMVIml8+gqFMVRQUnB36fHnvs+9gVlqXc0c7I3G1Pgf9gr91/YZTrSm3j0?=
+ =?iso-8859-1?Q?61KCPOCVdVyGofX41fDztTsk2+IKn1EP5UcEqm8JBJrhEv8gmnBfxfLPhi?=
+ =?iso-8859-1?Q?SBFIatqdL6ozwB4ce2GG+g9aGnKraUQZ6i4tcFxj6TJv3ticY8bG729Zqe?=
+ =?iso-8859-1?Q?0CZce/GOcIH1XPaHDLtEgzFmqgfyUYDC48+8DYpg86YBulxr1ba5mnOM11?=
+ =?iso-8859-1?Q?ICdonGm7EdtRPX54dwb2c8VzhumxvaNYPqEk4VaufhdHrTSVWRAPGFuwkZ?=
+ =?iso-8859-1?Q?xrB+Tbnprc50jmgGTrH8335UBgv9c78gMfpsZc+2l/ZUMEfbCGDM5C2UZA?=
+ =?iso-8859-1?Q?PjmZDnoJaRRW5jVs7rsaCCvNRmkgX68b0us7WEKoh280roM6VUpevHFupy?=
+ =?iso-8859-1?Q?6IwuH/M7kXqA8x+JqLuBxInUPz3jB6oP0003Vaxx2IYeENx1FdoYAgOgXB?=
+ =?iso-8859-1?Q?h/0Xfi04dRWc4r4QdK2+E86AmPIc/SNHuaDlC/YEaxCdkUpizjzxkcuoZg?=
+ =?iso-8859-1?Q?ITuYN5cSI++JHq8PN3WZ/XMHVpFtdan48cHyTyxXzAoF/YzuCLy+WR/6i/?=
+ =?iso-8859-1?Q?fSN0c13Kk/EmC1bh+w4u8DkzjzDUFZTX5+tvtpYwKbgh9CFyusllE5MsUQ?=
+ =?iso-8859-1?Q?YFy0v8iAwGpCzw0AdMYHiwlKDM1YmZG2Y6A6S3ReLuTYcD7W8guU5HirN/?=
+ =?iso-8859-1?Q?wi5xWRPGeIqXeUkYO2v/ynHb+I2caLjB9iAVWq0wTJBRhKRCHkMbnm97/p?=
+ =?iso-8859-1?Q?JnlHnJVvSZR3Pmm9s/WH/wzeMCOjXMU29slbKeulpn3IOXK7Sk5T5BdwlX?=
+ =?iso-8859-1?Q?wJZruWnVtESLNbaCh+LalbcuGK7J4jAl0tagTnhZCUyMNtj2oe5DCfzYc8?=
+ =?iso-8859-1?Q?egdAV8Zdo5Uf6j1RyQ6RG38Z+cAY9IOIjId/OnvEmH8YWcxgWFzmH2cXZo?=
+ =?iso-8859-1?Q?qLizCrjyRMvFFp4IPBB8hahI4Q4dxmS9Rzrpi9HhebUPpFknqEL4wmiZse?=
+ =?iso-8859-1?Q?rtPkZT9xt0AXNFWgOIpcbfFNUMqrB0AX44QwFF+1UkdrRv+CT0oAVlLPON?=
+ =?iso-8859-1?Q?inkmgsDo+qweVrLERyFNQ8FS8sH38iSugdU1V0kLVvET0XTmjX7nzs/n/j?=
+ =?iso-8859-1?Q?oEr7UDwRF24oHGqiUC9l3W4qrW7GLNh8HUqgrqSfw7lYgs8WkQ1+k9kU/f?=
+ =?iso-8859-1?Q?nBTOtlVrZftN9f0Q7HipNgvkVSjyg8W7UD30wpeywdKNtOodzY4eC/pfWj?=
+ =?iso-8859-1?Q?+cU3O31ae05dKA2VYN6l1JvCWb10Q7qQt9mLzHkdVpFF98ChuBp4hqdRse?=
+ =?iso-8859-1?Q?HMaNmstF4apXBFwS+pDYaEQF7qUD8sOJs7OqsAmi1/Cl+8XxVN/ERBMsJi?=
+ =?iso-8859-1?Q?CDazBsFu1gkoK2hweextKcjYilVuOmsafsMr+e992ISvtm2PRfQzuDiaDq?=
+ =?iso-8859-1?Q?PRg5oyFvzK9MVgWscXiwxWB49ozQCXc=3D?=
+X-Exchange-RoutingPolicyChecked: MPfuFKj0EU21NRwvzeo6cJFCHFj3+JGby5WZoR7xPXXa7VMRLwX/mAzcuIxUtxeL724SgwguXPVDy/SNNfwKP6ICf0hSPgV0qCvgH7TKjIbNcrFhqLMAEM08OXI4YOE9V+K5oSY1oZtrcLUAGz/ESzlbcf9hdd7PRe51NH3ru/dtK8ouic1q7yfkTK02Q1KPoBa9ry0T6PT4co5FImRMIFqeYX7mhmYeDn99ND2hXa3n1UFyOSJB2I2C9WnkwJB8ENS9TXMVmEIRDq42+iKzagasrRe6aMudvUA0gGLo2WuTeZmVsEDKrjJFGWNGlde6MA7dB9y+dzxn92yCV8lv/g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b096eb0-11b0-4eb0-1a7b-08df04bb70ec
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:18:41.2119
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSHtYCn/xl2zXrNKqNVhqiX6mLzOeiamBrvQBHKNLcLWGNWemthVdPHxzuL9jckcLe9UJw3nYpa/vNAwzTKnng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8781
+X-OriginatorOrg: intel.com
 
-Hello Jorijn, few questions inline.
-
-On 08/26, Jorijn van der Graaf wrote:
-> The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
-> colour sensor (chip ID 0x95) found in the Fairphone 6. Its register
-> interface is compatible with the feature set this driver uses: the
-> STATE/FLAG bit layout, the data and threshold registers and the gain
-> and integration-time fields, verified on that device (the ALS and
-> proximity readings scale with their gain and integration-time fields,
-> thresholds written through the event interface read back from the
-> chip, and the FLAG near/far bit crosses with them). Add its chip ID to
-> the known-ID list and the device table entries.
+On Thu, Aug 27, 2026 at 05:05:09PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/6/26 01:10, Matthew Brost wrote:
+> > migrate_device_range() and migrate_device_pfns() zero the tail entries
+> > of a large folio without checking them against @npages:
+> > 
+> > 	for (j = 1; j < nr; j++)
+> > 		src_pfns[i+j] = 0;
+> > 
+> > @nr comes from the folio, not from the array, so a folio that extends
+> > past the end of the range being migrated writes beyond src_pfns[].
+> > Callers size that array for @npages entries, so this corrupts whatever
+> > follows it.
+> > 
+> > Bound the loop by @npages. The subsequent "i += j - 1" still terminates
+> > the outer loop correctly: on a bounded exit j is @npages - i, leaving i
+> > at @npages after the increment.
+> > 
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: David Hildenbrand <david@kernel.org>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: Zi Yan <ziy@nvidia.com>
+> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > Cc: Liam R. Howlett <liam@infradead.org>
+> > Cc: Nico Pache <nico.pache@linux.dev>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: Dev Jain <dev.jain@arm.com>
+> > Cc: Barry Song <baohua@kernel.org>
+> > Cc: Lance Yang <lance.yang@linux.dev>
+> > Cc: Usama Arif <usama.arif@linux.dev>
+> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> > Cc: Rakie Kim <rakie.kim@sk.com>
+> > Cc: Byungchul Park <byungchul@sk.com>
+> > Cc: Gregory Price <gourry@gourry.net>
+> > Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> > Cc: Alistair Popple <apopple@nvidia.com>
+> > Cc: Balbir Singh <balbirs@nvidia.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Cc: Francois Dugast <francois.dugast@intel.com>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-mm@kvack.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: GitHub_Copilot:claude-opus-5
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >  mm/migrate_device.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> > index 162d29b2807a..ae9027421b80 100644
+> > --- a/mm/migrate_device.c
+> > +++ b/mm/migrate_device.c
+> > @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+> >  		nr = folio_nr_pages(folio);
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> > -			for (j = 1; j < nr; j++)
+> > +			for (j = 1; j < nr && (i + j) < npages; j++)
+> >  				src_pfns[i+j] = 0;
+> >  			i += j - 1;
+> >  			pfn += j - 1;
+> > @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+> >  		nr = folio_nr_pages(folio);
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> > -			for (j = 1; j < nr; j++)
+> > +			for (j = 1; j < nr && (i + j) < npages; j++)
+> >  				src_pfns[i+j] = 0;
+> >  			i += j - 1;
+> >  		}
 > 
-...
+> What's the status of this? I assume this is fixed by
 > 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> ---
-...
-> @@ -417,10 +459,10 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
->  		mutex_unlock(&data->lock);
->  		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_INT_TIME:
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_read(data->reg_als_it, &index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_read(data->reg_ps_it, &index);
-> +		else
-> +			ret = regmap_field_read(data->reg_als_it, &index);
-The above seems unnecessary. Why changing the comparison from IIO_LIGHT to IIO_PROXIMITY?
-After the proposed update we would have the integration time for both light and
-intensity channels being read from the same register field?
 
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -428,10 +470,12 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
->  		*val2 = stk3310_it_table[index][1];
->  		return IIO_VAL_INT_PLUS_MICRO;
->  	case IIO_CHAN_INFO_SCALE:
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_read(data->reg_als_gain, &index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_read(data->reg_ps_gain, &index);
-> +		else if (chan->channel2 == IIO_MOD_LIGHT_CLEAR)
-> +			ret = regmap_field_read(data->reg_clear_gain, &index);
-> +		else
-> +			ret = regmap_field_read(data->reg_als_gain, &index);
-Similar question here. What do we accomplish by comparing to proximity instead
-of light? Is the gain info the same for light and intensity red/green/blue channels?
+I don't think Andrew has pulled either of core MM patches in this
+series, so we can discuss a bit more. 
 
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -451,7 +495,8 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  	int index;
->  	struct stk3310_data *data = iio_priv(indio_dev);
->  
-> -	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY)
-> +	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY &&
-> +	    chan->type != IIO_INTENSITY)
->  		return -EINVAL;
->  
->  	switch (mask) {
-> @@ -462,10 +507,10 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  		if (index < 0)
->  			return -EINVAL;
->  		mutex_lock(&data->lock);
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_write(data->reg_als_it, index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_write(data->reg_ps_it, index);
-> +		else
-> +			ret = regmap_field_write(data->reg_als_it, index);
-Same pattern, same questions.
+> 	https://lore.kernel.org/20260817120758.669807-3-sh_def@163.com
 
->  		if (ret < 0)
->  			dev_err(&data->client->dev,
->  				"sensor configuration failed\n");
-> @@ -479,10 +524,12 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  		if (index < 0)
->  			return -EINVAL;
->  		mutex_lock(&data->lock);
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_write(data->reg_als_gain, index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_write(data->reg_ps_gain, index);
-> +		else if (chan->channel2 == IIO_MOD_LIGHT_CLEAR)
-> +			ret = regmap_field_write(data->reg_clear_gain, index);
-> +		else
-> +			ret = regmap_field_write(data->reg_als_gain, index);
-And here.
+I think this version plus your suggestion is probably better here - we
+likely shouldn't hand back compound pfns which don't overflow the
+requested number of pages. Let' continue the discussion there I guess.
 
->  		if (ret < 0)
->  			dev_err(&data->client->dev,
->  				"sensor configuration failed\n");
+Matt
 
-With best regards,
-Marcelo
+> 
+> instead?
+> 
+> What is the right direction?
+> 
+> -- 
+> Cheers,
+> 
+> David
