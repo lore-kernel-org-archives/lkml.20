@@ -1,144 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C170C3C0A0E
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F923B52E1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894817; cv=pass; b=kToofa9EJV/2sKSyQtDcwK6DjFDwSaNljUX6v/fSqpv0eyCZIMltJ8pV09kbVEJBgm9hZAGzypzklDfURvgdPdw7KD+fFoUA7Lf++yI+gKCbKT4bJU6Y/bXnQBi2tGYnlyA74JZKW2N2w0ux7JO0y4sjkS7qVrjfEgpzV3GTEh8=
+	t=1787894841; cv=pass; b=oJsn7rKO9WVPPLmKAU+0U+IfNmgPMbtGcBo8UCzK2jjogwZyAcABNilZZDTb+j4yxsT2ZSlQdVQmZMRtXCJeoIblHxc7q3ASheWhF7Kywzf7CIB1/xKMiTnG2A3wkqVo89PxzuAefW/rGs9DeD1BnUlnkMv2DjDkR8lklftEtdM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894817; c=relaxed/simple;
-	bh=/acu4QQwLSk/J23zJpKhduESFdBM59ssC+egexoj+94=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MuSEHO4qbW5nde022aQp6dWddcX/L14JNJ6w1W31KjI28zJwX2WOjIm5kxRAsSZjn+ZHynBZMC5UeYK1theRqYUubeHVzjWtAVQbz6wQvgrtfwKFc8JfRWU2CZJP+vhZo45pCXC85gl+Pm60efBvnsFWIhYYKD31tElHcdHQi/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Rknmj/oH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fKd6lfQN; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787894841; c=relaxed/simple;
+	bh=qknhTVvrNWiUFYoeUVoxKM09N8GNhFH0uwvqgFGoYFA=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Pd8yWZCtToe9rSQa2qYSI+DJocmlZRa/zLR0T2Xhp/cWONTaB/djqfEtDP5RBC4/6iKbr38uTPMTJuQEBgDzEqUnMgcXaiuBezwSHjs6z8YNkwCcs9x38q7mLu10BAYR5E18+gL+7p0kVnmlzwQujD9Y4g+cQEFeNEpwXYhz32Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=qWw5hx4v; arc=pass smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Rknmj/oH";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fKd6lfQN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787894814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZxwtLd9NQj1SCiju7H7ZTUiJe6NYWWpG0fv1lpkTxw=;
-	b=Rknmj/oHQJDZzR/qp1gU3ztK06wHsKkcgNqgWCalFiqWze9EF9wO4cpoh6Rggy8nRA7Swh
-	eLfWstJF3QHqU1s3dnJbfQfaZxPgVjSYSpqKP6gd6aUaXNUFVivnuw8dSyaJa+9ivw1byh
-	JXUylOHWcMt2TxtPZ3n9vvIfPOs+kJ4=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-58-vOrfmIf1PTSPYsOUKr4jsg-1; Fri, 28 Aug 2026 01:26:50 -0400
-X-MC-Unique: vOrfmIf1PTSPYsOUKr4jsg-1
-X-Mimecast-MFC-AGG-ID: vOrfmIf1PTSPYsOUKr4jsg_1787894809
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-482e2541c30so269417f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:26:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787894809; cv=none;
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="qWw5hx4v"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d710632717so4052415ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:27:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787894840; cv=none;
         d=google.com; s=arc-20260327;
-        b=EN1TwZbMYqkfrt/WX+7Ms95EMkyz9naT5x+ERb2VEJFwbu41fokd69Q2hHHIrjw3mV
-         r/Sxcbn275WbZFFEWRC/7JRwesx7j8kS+5I/U9bvP+Sgg4FFCPs/WBcCMUgShY6H/eDX
-         hqs9Z0MjQZUXG8RtwEYn9Of3GSYbjL2R2NbdOgHWLmBEFClWxJdPXCGolqSz7IO6Uw4W
-         13QfsTnbnW9OQmoB6wy/szRyqc3Co8Yv2n2gtOeRrPySeyK8TXuX/dOO+ptSlpGUV69g
-         dDCZvTGHz7GyrjVwl0pMEE1PmVFa0XF2OB+/yqiT0pwnVgxXDJ0JCv984Y1We8s3/ZB3
-         O1TA==
+        b=HfJYENnz+E1qUIPybIl2rtoPg/SWnXViCAskh39/eSQFQdgB5rziAdXzxVOIjCOBU1
+         wclnkzzm+2T/HbTImLUBloPbhk3uDM8D8xtYNEaXul7hQFit5Yy9SjDGdH0J2BoeP25v
+         pGw49tM9WecwMt3ooktXMQYgiJyQAOPHDf0CDhTJpj/coc68bf6I+UX4NvkSYqrANRAE
+         FXiNP+HQUKfpVGkD4VVdO/EIoINNuESvrrtujwYrhweDfzAQFbQjCLM8KE9HdyLjsNdR
+         XouzR/Wpl9b3EB4Tt4w/VI4D277qQDopVZE1GdIPKnF1pfcqs2TAHqqmE9sWr2qMVdVL
+         cHww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xZxwtLd9NQj1SCiju7H7ZTUiJe6NYWWpG0fv1lpkTxw=;
-        fh=DeNc2poLtGY+r2O+a8LDMgTdMrGMZTUx3z/mC2vFxhQ=;
-        b=GKAwbSneKgunRrpbwKtFks0BAbJmJV+nEQguEmNLDv2xqSY/mE+2WbXmj9iW2vxk6I
-         Oqh943W1k9CE1GDn0gvmam8mFWkNY/hinDlX163DGibzVqTf1kwxXqYc1wEM9J+Gipgg
-         hZduXfQqBYpkwgJsgMWA+cQnFbWA0nA/eXixNNEYnntNLWmLQ7ycjewEThuyhyZAe94z
-         s/jyJQKAS6f+qKNsDp2eyLvuyeNlWiDR1YTEWhPHKQZ4/48O3SeyOG5ERTAqEoMaBqeA
-         wK01G9bycgncGQB3TpWd1vhbWbRPMdVKZ/pqK4/LbYbQH0XIgDbqOv7UqiYxWrY/GoB3
-         bNtg==;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=QNqYqbr6RrNLG0vHTLzh5Dr6ZclFSCwh9zU0WwR5q3A=;
+        fh=QRxzSgGBWWV9HeQaZJndaGvxD2NwYAZLpHyBUl/JtxQ=;
+        b=XZU1ssFUOzrm3SttRobccFujiSLfy8AtjuH1iWoYUdic2O/HUp3bRPpnYLU2YLdgW8
+         edpM8F2Ve+VURG6Um0Czyy05TWIX2Y+vfjcAk2CKLftuw+27qLJ76Vhpp4YWApyV910F
+         K+cl7vfAWOxaG3r4E6ov7uXlBaBfMmnPOR7u7/wL2qj9TtLxjAOaf2D+2Ma8ggiBQeO3
+         d9KGy1+Dh9FZVsLRLc0z6R2r1Ir3Vw3zroUJ+Yg49FVzJp+ByeJUXL0N+KdysZJ8Bso4
+         oQMhPMOw1t0MXu677O2U9QF/BnYhKaYqLN+cO8N/cd803uywoohPoQPQOau360m9RvtY
+         VAVw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787894809; x=1788499609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xZxwtLd9NQj1SCiju7H7ZTUiJe6NYWWpG0fv1lpkTxw=;
-        b=fKd6lfQNwLfIsZemsw8yUDy2YmCh98QASn/IU2YztahP/qFbl+iI6lwvG8/L7Lfhkg
-         OWDCfB4Qa7b0y6U4ueizT75GSiQcAJIzofU1M+utnRmRkGUNr9IOBwCWFNZuiA2gaTDV
-         lvvUNvvIdtxGwOnRzNheDUc/2l8SB8Sn/c2mwKlTUZ6vqoKDmn2TfkeLTbm9dVESt3ST
-         42SmrXYlGYFJpNYxtZrnFSjTx49HYcySMnmF4ACcV9ezR4rNNQUgy2SQRkZpolZ9qOMB
-         kF75Qk01WdaSBpzaHGvwpjZBmF9iyWNumT9Ak/CdbOetmJd/bPyq2v0hFd7sFIfOkHDB
-         evuA==
+        d=berkeley.edu; s=google; t=1787894840; x=1788499640; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QNqYqbr6RrNLG0vHTLzh5Dr6ZclFSCwh9zU0WwR5q3A=;
+        b=qWw5hx4vsq8kCCPDp8vbWYAZeg4hkxoACcoIBB4STxmwYmFFVgOtLKIJtHWhlFAY/e
+         V47t9V3rgB9b0H1hmGBHj30RLJSHg0+5P3vGkR4AJdhmLZYjMQE5rVBBMaY6S6mR6DnP
+         jrCxxJTYdaLQPWpTn3Zwg/2unQL0UaU9EGc+njUfXqFItD94NXeJoJ1BBWn39u+Gfpqv
+         33hAzCOyitaDlHbdUYY9MP4y7kWki+HfZ50oJayPPhMAssC9iG+2iuyN+WlR3aUZHN5M
+         fqQsDGiHQ6G1Fbo6fSSEXbCRQ+Kdb5fYLGj/EjS4QI9rKPCpTyZkV3PsAE+8Lpv1xQF6
+         dKqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787894809; x=1788499609;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xZxwtLd9NQj1SCiju7H7ZTUiJe6NYWWpG0fv1lpkTxw=;
-        b=gxqnPXRqn1ppDJd8S0qp4ZXpRmlDBxHh/5QxGzerc2ERfY/TQ9Y75uf05fBaO7DhVS
-         3hw++8wHVsKmqADPaqZt2KecfLqZvaWxa7uhXvc3YUTP3Hac60N0QiAPvXjxAJLO+gme
-         WbgwaqqGdxwgjFV87YRIvZl1geS53QbtIHx1vEozapM1r/nRq9SF9+nQkX7bubUahzHO
-         q4QYoih1RI4/XePGI6F1jfoEPr+93LKyv5mZ/PHumZ4EjcCqNm45HUARVn4jtJfQci08
-         HAlm8l6gXxBOLwNIr+vhEahdD11ZQIL7/JDyCI+JrEe+2Phop+xTzt+mfO+/IcVkugzt
-         2NQQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5gzCmGUSVwajPOLTbrp+yLb057xL6bas0YVOb0TZfic6wNB6nDkIikH5YHJY4oIPUSUBUQK5fiyBMFwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCN68HhpPaAiLdnPWQP4j6iJ9SdwPhfTPwRQZD6xBwV4eAI/DK
-	JB3VcBSl6dpYO9FhL7FRN8JFMa4JQqJYWcRTYB4jlXRq1cM36lYz5f0aekDQAAmRenCMs8N/iLG
-	0k3kZKS31kjz4muSqHC/V87W5TApKgnAm81w1ovgUuv3DIdDom4ZWiVnsrYLyx91wts8crGM63Z
-	fSz6sbjyJt/s3eBCIAqwX9WAg3U/ScJmcUE1pMGFVT
-X-Gm-Gg: AR+sD13qHW9yvATw2x/zE03rqJuBM3AUzjV6559e8AA1mueQNOWhytkD8Yir5wqOb+Q
-	lUQRNpZIuq6vcS+pQA0Q87sZ8jqKvlW+dMKr9XYF9ItoeWavCOKVPHbKOh8DHyQTqVa3G+Ms5zI
-	Q17Z4PIDpGFiPFKVVDFj1dM0rN6LCuBtVTmmSS7JETbm2RyOPNwPb/D9GdGa+ra2OeDd2HwuXHZ
-	RRwkJfqHIaEB4MxbJAsWo6D5RVfsI7GEfrSmgj2KGJVbynSIq5vYroRfsEC
-X-Received: by 2002:a05:6000:4711:b0:481:5a46:dbef with SMTP id ffacd0b85a97d-482eab6f628mr17265088f8f.5.1787894809487;
-        Thu, 27 Aug 2026 22:26:49 -0700 (PDT)
-X-Received: by 2002:a05:6000:4711:b0:481:5a46:dbef with SMTP id
- ffacd0b85a97d-482eab6f628mr17265030f8f.5.1787894809125; Thu, 27 Aug 2026
- 22:26:49 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787894840; x=1788499640;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QNqYqbr6RrNLG0vHTLzh5Dr6ZclFSCwh9zU0WwR5q3A=;
+        b=JsKsO6K4y4ZPE8PWytar2JY7kgz62G8o/zgNRIStAJVdnwQ+96bivo/oIyl8ICI7z8
+         jxor8vDVhuBWMyFky8lZdsfrMnD7Xj00JEvsUmDfTHegbFzXIOD86P5C8w+DPKD/mZ/g
+         z7dCYpK6tHDl8RJB2OGBcNsagLN8dB8PmoaLpom4AnFux8+ptjxjrrp2PNd5StV3T79Z
+         Gu3jQWCO5b30xWMKr8B2NRLDZhKeVpcUeKAEsa9o3oUvBNlOMvVkPz27HqbPn97lbqll
+         p3HRL+JDPp1pMo7tlPvVdjUlfoOmxMSlkZagAc2lX0j3GQ0RUfNnGeli2webWEBf6/Vl
+         MgJQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp46WcEIlv9IYlJVbD5usGw8K2KgZiq5w+F6Sr326phGAvDnTeqBWuVVoul4iuym4n1jR3lDB7mwJjXOuk=@vger.kernel.org
+X-Gm-Message-State: AFuF++msRvzorB9h3uuv1pgxL0xC3nM0329jS3PdaVYFcr/PypS4EGmA
+	rePyALwWZQVDd1PnghsYiut99qvkstPjqpGeYL3hAF/ZfuDgDoKD9umY3effmmXtkdD95d/mu9M
+	temJ+l8kxD86ja+2Dvvov2ElSWdrOSeLg/RpwMel6
+X-Gm-Gg: AR+sD12sv0w/n0GzlYwCMC6EPbch4I0pN/WzzaQOVFjHId2Qqfy0LSb1ckh1SD+CXd8
+	Giyk4QEv9MOoUSnqoW4uKGr7KwkCmyjVyimH1AY2GF+4GflhiN9MmiUXcKfRkGKGAR+nhfrLXfP
+	0SRDtjZdF7axhFRD/QMUn/c7OpGAhpUy3YMAnE0OjsZg2RIGESIy8LknV3YkFnNby/GadWVANl4
+	aL15WQDPyvLK6y7N/4k5emnTXS4PZUZT7XKvc5yx++POH2X94/cA+raKKpyZzpn9GCo3lDiAMIP
+	UbhR8tHjSAlOFaThQmiyYOeRksQM/aeHbEjjNQ54O7lO0sDRza+bdkMGPkQWFKAa4KwyKxxLhA1
+	7wEUUS6owLA4HLwIVDwvh8FlaW0yClEylcA==
+X-Received: by 2002:a17:902:f546:b0:2ca:6c8:abd8 with SMTP id
+ d9443c01a7336-2d74df45042mr70861905ad.12.1787894839110; Thu, 27 Aug 2026
+ 22:27:19 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:27:18 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:27:18 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-2-seanjc@google.com>
- <CAO9r8zMnPwXVf6wx_gDMzv4j47xWa7idLD+vVm9DUiB=huiLaw@mail.gmail.com>
- <apA9eLuaMxCLdCmn@google.com> <CAO9r8zNm1QcVh29rTCzAFnYdUCS4y8ZSQOvrs2DD18XASuktoQ@mail.gmail.com>
- <apB1A5Ln_lGTI4oy@google.com> <018f411b-9c7e-4baf-9d55-a153eab64dc4@redhat.com>
- <CAO9r8zPDvXCdD1oyBmvaXoC+T+ABx-iZ3b9XeNpqUrKqPMcMAw@mail.gmail.com>
-In-Reply-To: <CAO9r8zPDvXCdD1oyBmvaXoC+T+ABx-iZ3b9XeNpqUrKqPMcMAw@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 28 Aug 2026 07:26:33 +0200
-X-Gm-Features: AcwNN1WX2e1gqOkMj0AU1lUBauR_ced3DSgFbY8aqWVtRY-Kk8j9u8fsxBCJ86w
-Message-ID: <CABgObfZxmmRJW168aBXiGjDN9oRYQWyVjcdakQKV=Df5icGgsA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has
- EFER.LMA=1 && EFER.LME=0
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
+Date: Thu, 27 Aug 2026 22:27:18 -0700
+X-Gm-Features: AcwNN1XKQipKkQxak39pU7cE8Se-7vCK8ALFEruuOKEDcVG8_CDFnXw1OSaRaK8
+Message-ID: <CA+0ovChhpCfQEm=3=23AbpKnWBXqaPkhG_Z2sTCJA0=iW0bx8g@mail.gmail.com>
+Subject: [BUG] cx25840_init -- WARN_ON(1) reached in the seed's own task via a
+ sysfs bind
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 12:01=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wro=
-te:
->
-> On Thu, Aug 27, 2026 at 2:42=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.co=
-m> wrote:> >> If the goal here is to keep the checks here consistent with
-> > >> nested_svm_check_permissions(), aside from the new EFER check, then
-> > >> maybe we should also check CPL here?
-> > Perhaps, but nested_svm_check_permissions() is not reached with CPL=3D0
-> > because the #GP overrides the interception (table 15-7, instruction
-> > intercepts).  The same should be true about EFLAGS.VM=3D1.
->
-> It is reachable in the odd cases where KVM intercepts #GP.
+Hello,
 
-Oh right, it does not use the emulator (which would also perform the check)=
-.
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-> But either way, I think having a CPL check in KVM_SET_NESTED_STATE is
-> probably the right thing to do.
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/142-media-cx25840-warn_on-generic-mode/
 
-Yes, that makes sense.
+  WARNING: drivers/media/i2c/cx25840/cx25840-core.c:2313 at
+cx25840_init+0xa3/0x110 drivers/media/i2c/cx25840/cx25840-core.c:2313,
+CPU#1: kworker/1:3/10687
+  Modules linked in:
+  CPU: 1 UID: 0 PID: 10687 Comm: kworker/1:3 Tainted: G             L
+    7.1.0-rc5 #1 PREEMPT(full)
+  Tainted: [L]=SOFTLOCKUP
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:cx25840_init+0xa3/0x110
+drivers/media/i2c/cx25840/cx25840-core.c:2313
+  Call Trace:
+   <TASK>
+   cxusb_medion_register_analog_subdevs
+drivers/media/usb/dvb-usb/cxusb-analog.c:1730 [inline]
+   cxusb_medion_register_analog+0x2fa/0x1110
+drivers/media/usb/dvb-usb/cxusb-analog.c:1793
+   cxusb_probe+0x664/0x710 drivers/media/usb/dvb-usb/cxusb.c:1615
+   usb_probe_interface+0x657/0xc70 drivers/usb/core/driver.c:396
+   really_probe+0x267/0xaf0 drivers/base/dd.c:709
+   __driver_probe_device+0x1ef/0x380 drivers/base/dd.c:871
+   driver_probe_device+0x4f/0x240 drivers/base/dd.c:901
+   __device_attach_driver+0x279/0x430 drivers/base/dd.c:1029
+   bus_for_each_drv+0x257/0x2f0 drivers/base/bus.c:500
+   __device_attach+0x2c3/0x450 drivers/base/dd.c:1101
 
-Paolo
+Our reproducer.c is available upon request.
 
+Happy to test a patch if that would help.
+
+Regards,
