@@ -1,102 +1,72 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011010.outbound.protection.outlook.com [40.107.208.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3306239E177
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C338935B645
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787890444; cv=fail; b=TrvAVKUXVvhEct/QyyaPAnznidkdlXMLo2D7CZ3WpxjtKbaErYCZLjel7Q5JtVihiE2iqSKvRUtmWh040JH5w/AIu8OP6LO176UvC/ZGql3cmrVLWqLcB6OkBGAZGdJXMxxL2T2jXvAF25Sz2nTqVmOq0vBPMF3Qk3l3wGLoLXM=
+	t=1787890609; cv=fail; b=CvXTSqOVSNtFNfcinBKFasAnqMj4nYSz75XFi+qT7AimqvCZU72/nBP9L+fzm8S1KANzXcnsipSim9G4VsRM7Il5dbTi7kFU7ElzLyuG6/2QI5aSIsdGsYt2rHtSk5oOKj7KFoXyK7VOF18m0xgfmSRg1+lEkOe2ZOOJk7gYsos=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787890444; c=relaxed/simple;
-	bh=1FhQtySutwphfwCexlorJPPrLoGxvemWYD9Jdnbe+2Q=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RtqZDa9zEU1Do5I6t3G+6xR/5Q36Aje/HTMLpoE63fkFVqoWh0W32uGZj8dTIIkIbogZxi/9d1r3+RyQ/+JcQ7oYRyE5nMeuUvsgmf5qTmXSU6DKMjn6lo6XbNoWEuX6kUK0jqtNzusepubNPE+tBEhrAv51txD1+0/nR7+A7/I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DxE1yYJg; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787890609; c=relaxed/simple;
+	bh=Mzaf1w3SUpqS88VVgGYy+6LX3xJmC3SxsTRXyGLImFA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=riA4CfwCJ3HJJFFNABAWlEDl4h5BbBRJ00D+jwFHdXis0N9Z630JZ2yr179kswBjIXqz2Y45jS06tTIDo1aXGgMZ/DUUCUdGcqACjh9dG+X75llitBFBFdV+XBI+K08DmgyyGYyZmlBHzN0HwYM8MAaj6LZu3pv0dmAG3ulQlrc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MMG1hjip; arc=fail smtp.client-ip=40.107.208.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DxE1yYJg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787890440; x=1819426440;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=1FhQtySutwphfwCexlorJPPrLoGxvemWYD9Jdnbe+2Q=;
-  b=DxE1yYJgGfFZQLenKrzz3upuXZuv/H1oRryNl5kqI44nMrDi8VfE0Ijq
-   lyKQClIwS3k7yOkVsTHh4zBHmsWKEhVSn4B+xa4WN3aG/yp4Bl1gXrCQl
-   kHSCzmx5VtsttTtLQDYtL65C1/TByTuX6nlY483MUt8anemA5xeshU31L
-   lVypu4D773fN14FOmTW8ESr7r24+1BqzKYS9gors1Ba7Dh1/KZd/ijkaf
-   9nVG28woSjY29wPqgyiUc9q4HFz5v8L9u0lh4EI2Jx+PUBPGz1C2dhwY/
-   5EQ6lVNZwpZ0enL3APvFRoHCoPkP9npRUrJU50SDqXqzxT7878R1fGbKn
-   w==;
-X-CSE-ConnectionGUID: RxDyiGKnSJ+Xe+H1M9HwXw==
-X-CSE-MsgGUID: fWEPKJGhSHuJvtLa9PD4eQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99747332"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="99747332"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:13:59 -0700
-X-CSE-ConnectionGUID: sBj976P4RdCAC2wIzFNxWA==
-X-CSE-MsgGUID: UVLR0VUoQ2uhddE4JLKbmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="267459632"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 21:13:59 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 27 Aug 2026 21:13:58 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 27 Aug 2026 21:13:58 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.25) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 27 Aug 2026 21:13:57 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MMG1hjip"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LXPRkTqDi3GqIoTdKGN0+m07VFjq+91//rpmNQ9bL9RL3TTin9rfgjVGqDuirIN8O4fDK18KZwqYS9Psdpryl060Qj305Ap4Vrl34ilxTO4pQj4ttduHAwgO3BguoqQ/b5yaeiWPuADugK5FIMhheL+cgwYvOb+i/irFrfLfayunKaXMwB9+ISQASZvRquAlXHO8sLnh9Xmyunl2iXTuwuUBld0DyXEisC3uVQ2J1fBLpneLd8N9OLJQECkDbtNeDL8wHjiTFt6LnY9GysMLJvndT2K0HaG6VgfPRrzifEeDmQXbHnR5OOitVoV4M8r9+7BYoxUni9wf19XxMYBRYA==
+ b=oyMrB0Dhhyho/PJyanqfpNE0V+DVMpYAl9ifW09R50gxUcSGMRrkT0WfhNLHUSmbUu/hbJOoD0AKLVL+Zr/xR4epsM8b8pfb2srmCh5cH/0aVHyoAzInrly9jRw7K5DuAOp6YYdzJHXwKq8AdnK2iVmDPUSQfsXM458rC+37fAvMOUs+TetpPMhTo3jXgV/xfpNsL3nE1wPx+ISMme0VcE0PpS60rWNuVqHYnQ+UskXHt2Dc9vcMfiV+ghSQCnxryK/zkOA6dZJVWu7w1QX04d/xlesOh9AHpsTswncyUUxhROagb60wctI7hgSBK5fedDz+JpFW92Hm9Y14yRCRbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x+dHdI54XzcPT2OwvHE/lTVY8CtEdKNX/FoWcyI+yUs=;
- b=rbFAZROTIZxwsoM1nQDLOkEAlFWtmHLEoNwi7sNYF8f40B8Bzdz0cXVH04cEhPovKi18C7IoPc4oYznHNWwCTCQCOcw1hkc1+wDBlPHaxItrEI4jtRmMNa02oFAaZ99eevLGXh6OtWHgsB7cpW9cPl/+S+w7qBZC15nEbbSQz599lFzyZWm0RqBARAJ42ucq03lHHx2fUWtqyEQn3N9ezTYWMk7b+xEHKxa+NcCCJrsDKy3A8LLcK564hW3QiqIMHKOt4pF4prtRtAJdRN34XE+WJrxDEMUSvkvuA71Kzo3OWj7Fg/VhcRGXJezF5aEQqbDFzKB5ThxaudjNldw9Jw==
+ bh=K051lvoOXuKBKIvlTSjJybYPZ4jUeTpY9bWOPLd57LU=;
+ b=ilWb5PBn02oABhIX7UnA5viRin8zx4gTwU7bFs6S0tF+Rb+6Uk33t3U+8gz/r1eeEgzQj9rf3hdmYg2GtHtr/K8qCB9y45taHn6luHlfZAuuR5SAACbDmL8q6JZQM9eIZfVzDRj8m1Z92Xon7R6M+AoS6x0gaJvP6MSiBIdrPKk8hwWEDFKFAWyCvmODktr0XT4ibERxl/nwfb5tnFQFdP+gl82932YALnez9+GH4ORKIlP9zQT91wvjA+8QEVN3eGw2UR1kWvGiPAQgQ20el80tGP7jGWQKRuF5bJUT9L0VXk8FyU2FXunOuQnYq9xoNgAR+wHU4jaQd8E7XI6DnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K051lvoOXuKBKIvlTSjJybYPZ4jUeTpY9bWOPLd57LU=;
+ b=MMG1hjipuyQBtLVjqw8FTR2GyarcXnUho7BALkErMySNsLtUpH7C1lriY3N3Badk8+3lpeMvY+KeVWCMnSOwpEo2HiLubcX8ABvRaGzrTwMluH0YzgWlc2vT1sy/ta2ouzpfcKjzAV0lwCe9omKXf4xrjhzSWXkGwhOqXSKeC2Lu1Zxn0Lr8p+92KqGewxkly7GTe3CCbqy+0EXjiXFGbKHZBnDB8E9IjGmUqdZtHdLXKDFFozBzVB6/sWAk13NUrEbW49e5LUoY3jn4/y/mko62b72PHW7vGiUWONTRZa3Kwm6c+KZr4zPGkFGmqyO9i0ARMFCdE05RaijVVs22EQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by DS7PR11MB8781.namprd11.prod.outlook.com (2603:10b6:8:256::17) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH1PR12MB9670.namprd12.prod.outlook.com (2603:10b6:610:2af::6)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Fri, 28 Aug
- 2026 04:13:53 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 04:13:53 +0000
-Date: Thu, 27 Aug 2026 21:13:50 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Balbir Singh <balbirs@nvidia.com>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Steven Rostedt
-	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, Andrew Morton
-	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan
-	<ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim
-	<rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
-	<gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, "Alistair
- Popple" <apopple@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Fri, 28 Aug
+ 2026 04:16:44 +0000
+Received: from CH1PR12MB9670.namprd12.prod.outlook.com
+ ([fe80::416:ea1f:d17b:2811]) by CH1PR12MB9670.namprd12.prod.outlook.com
+ ([fe80::416:ea1f:d17b:2811%6]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 04:16:43 +0000
+Message-ID: <53fbd974-71ab-40f8-88b1-f34254494fe6@nvidia.com>
+Date: Fri, 28 Aug 2026 14:16:34 +1000
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] mm/migrate_device: add class-based migration trace
  events
-Message-ID: <apEK/oZhWHsJ+kas@gsse-cloud1.jf.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>
 References: <20260828040817.1504092-1-balbirs@nvidia.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260828040817.1504092-1-balbirs@nvidia.com>
-X-ClientProxiedBy: SJ0P220CA0001.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:41b::7) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ <apEK/oZhWHsJ+kas@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <apEK/oZhWHsJ+kas@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MEWP282CA0195.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:220:1d6::6) To CY1PR12MB9651.namprd12.prod.outlook.com
+ (2603:10b6:930:104::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,700 +74,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS7PR11MB8781:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5de45558-653e-4fcd-21a0-08df04bac596
+X-MS-TrafficTypeDiagnostic: CH1PR12MB9670:EE_|CY5PR12MB6057:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2838088-6a62-4b6c-d584-08df04bb2a5a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|18002099003|56012099006|22082099003|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: krgo7qyJYjzPNy+eLBU8QCaMvS83+1m9RlqjPwJckSdV7/EQBPAwiRUtow4rDT5a1+G1DwHmnHNu73qhZytObV59FTm8cjiYR8aGGiZkMgNOvfAcKpgjcRwGkEEK1N3qjs7mdAlz8GWkpKLgk+OJFQiw+asLRnVFXJy2I2KgFQ7qeK0aD0xXFOFjQJwrmGTzi/qLMEfIonC9Yxb6IViOzj7J0nAS5+G/6q9HhYF2r3vZXOTVYB5/FCbLpRab6E/P1OUNzpTL/oOHZ0JYyiWSqkrn8VAnF+esz6dyo+ZvlGO2vsvucOgArv7HXsrNwyH/t+hWHjmaU3RxBWMPg7YCe5IpopAfvtFkzxGkHCsPH90gDX6SDP8kZwoAh6E6HFzjuf+tQe6qnq+twahylu+p6vrb4bwZuIgVlsIV8ywoSoLaxYQN48YBr9iJhZmOu2tH38sLe8sX3/l+6POSpu1FQKWQwE3dGOA3twIpJkJzyNf53/MIH2lyzZQsWWLUQWuaEEx0UWsJJc1r7/A1cQw9xTQOhcUlK5fkj5E01+TXPD5MfnwAkB2zq2n1I0lS5q68hhQYaNvJz7f/3A2ulIVnXqlgjWI8/4RxV5WJCtis9SYpO/qY/XTS+VE57WH4O6qNYL0ecdoMMqeMItwq/PLUPc2966jD2tGqOjEjjfhxYMY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(18002099003)(56012099006)(22082099003)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gkaf83gj6Dmxby2H1NVjtdo/1CPqaKTZBCnJhEm235V79P+Gocw/lKFoVYWe?=
- =?us-ascii?Q?/7ixqhV+28mKwwZJxiz65opnR7eW1l7AzaBCmS46nyc1hibbm0koUSpP/f3r?=
- =?us-ascii?Q?nIU1jGRy73zQuRmZEueODNiNJpcnoWeK1+YjBWtybyrwVEHbrXD0nE81eWyI?=
- =?us-ascii?Q?heaKvXwWt98vLE/fkNoP9XTXUClirRdUG948wrPEswSAQ/BplilyQ8b6jLtt?=
- =?us-ascii?Q?wtUeMTBSKhz6zYUp1gXwWktpwR6JcOZaCuArvXvxy1c/hztn0NKBmhwsFpcF?=
- =?us-ascii?Q?RBtU7H/B0k6X1AD2t7gZyOHDhnDs7/Q+6Rid8fnAmXZiMorl86iETplZ1bAZ?=
- =?us-ascii?Q?e1GSkcvjhqCi+wxz/QD4PCyMlxDxBaLn5n86X8aVgzJOdMLAnbvt0TCrmrnY?=
- =?us-ascii?Q?OMQftO69uE+AbSS6Sl48VYR9cEBWSC1inlCeFHcX2HrviRLTGIuDH5BSSgeJ?=
- =?us-ascii?Q?n3ElC2ukPn6pMLvDmbvNRNjL+K4D2+xAu4WqmATT6xN6GqqG853kiudMEX3w?=
- =?us-ascii?Q?OeUykchoSVehD8pVcLRAxx1IGuud2j3CFM9lixe36psicQhKXyQIXfSeAjsZ?=
- =?us-ascii?Q?IaDnRbokM3/n/d6Reu4aSh85SyGKN311BPrS3xUNcssaX0fKoG3GRlNLs1Lb?=
- =?us-ascii?Q?RTomOg23Q4ySwUA/3p4m9hTYqBiBNLP+6iD2qIyHKUYxS9llrybX+/7TlWa8?=
- =?us-ascii?Q?ZL/3V4/PD2P0+Uapp4bU+dVlBfZK6mddGRcpfKEyX4K0rlRzD0ciHEKXrdRm?=
- =?us-ascii?Q?ol2e0T9HiC6IgInbkQ4/gxBmr/TdMQ2vYb+4FTI3W48VByvHNMooIuyzzNxo?=
- =?us-ascii?Q?J8FnF+yWZx4+1l3ViSan+8M1/O41sb1DYC8XYord7B+WE4ubtise6gMBf1ge?=
- =?us-ascii?Q?egnfMSscUqVkYDjR5caXmoPRaCA3off2fwwLq+uSs3eV+volMrYe6S9biDhC?=
- =?us-ascii?Q?NPDULGthwPPXFz0Fs3HAfNr8/g+4lPU9JoI0wHWCmFBJowOhtuduxlSfBtiS?=
- =?us-ascii?Q?LjBdiVa4tW9XESeK38UCIoO+L8Y5OXam4Hs+XPhI30D0m0oJ9NhE/Mnr+Fc7?=
- =?us-ascii?Q?bUKDG9zwD0sUyj4yMfnNc9rRBv2mknXnBEFYEbkIFqepA8F9HxLK9QrjpfsF?=
- =?us-ascii?Q?/IppRwkw03+zkCP2xqThnDqWWC3S25FgL/43cHsC2O04pCTIxVgL+Cl1WMnL?=
- =?us-ascii?Q?VXHcuRni6SkLw3nh6lEEGSigcj1jPu9YE5rdKYfccZc2dsWEtJLIwkJhXhR6?=
- =?us-ascii?Q?RQz1KfmbvNUPYEP8NbdjXAv26/kUj7prz/SQfh+r7rq+Bk0FlzR0ClkDZNyM?=
- =?us-ascii?Q?6RG1Eqtc9m9jJH2TjVmztUUYCmYJmM7QsrxNM5GPO/8/o2qTpn8v2NRI/b/K?=
- =?us-ascii?Q?a651sWc48K8FirukllNJGcisDuqVaknngK2IrDnjXWqD+D/F0cgW0Ez2IOWL?=
- =?us-ascii?Q?8lJBCbHvbSwDduacAzDQXvKaypaPApcV78yIPxqas6pmRAusTQxPqy6b/AUE?=
- =?us-ascii?Q?IXjPsAZr3Bg8lHEwxXzzi+F/iA022p9NkDtrZRKuhATcDWffv/06W9IN9a/O?=
- =?us-ascii?Q?1G0nuzF0wy53dt92luVEXUAzAs5o7ebbgXfivSruoQuA03EN731kLKX5oURE?=
- =?us-ascii?Q?KXXTelnTFRk3kSnXfV7dOz0MnjllJfqaafUDOBVEt6UQALvi9qGCpePZ6sPy?=
- =?us-ascii?Q?Pi9TV5iu28wmtj8SWI/A2fckR2detlM2wto4riLgRVk66Zq/cWFd33x6wNf5?=
- =?us-ascii?Q?zAcCHwpv6S042xzwkx9Wh4DdRMlc+cw=3D?=
-X-Exchange-RoutingPolicyChecked: egqR5NEyGlZjnwrI1Qo0EQonX+hBhsvPJ/plKfXwpOInYhXJ/svg62s7O/99qzfaKZH5GmaGgCyyKIkR9KH45FOuoIGodW2HtKVgvhigA7mH45mHVFl7VxQ0qUsMHAVUs17p9BnKavL9fED08bSkVUngpeBv9ylKCo43dG1rj+GXqT/o1N0HTvNbVOc8xh/BUc8uRjZiy7FpwsVxliZPv0e3uG55ZJB7BcHX/Woen41RpGXZXSbieo+98R+DfKknvZC9EjMmYcCFSo6MsrqTYlrHldhYiOzMoqt31ipXn/LV4eeFu7P+vYbKPGKQQC6yx5L3zg3BFuqQaofolCRAlg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5de45558-653e-4fcd-21a0-08df04bac596
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|7416014|376014|23010399003|1800799024|366016|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4Sm/Ha4LNzYE/iqf7t4dsV+p5+QhRayTVuvM0DmO4eKrcw/tg30uLlLlsxKUzdPYnvZ2YXrn+ICfPq6AuaI3Cmq5NyMaNIOV9U1p9yNiPxLdmtugeZ4XSHeuaWYw8o/rwflEL1gGjhVp1h3bczSj/JyMIc02IRUlCHDzPAygJnloY20F82PTYPDiYoJPvxV8qNi4zGDmcXgB9onMED1i+6DimSXKc22H03t9EM3p1ApyflA2XcNVh9krBfiT22TWx7MudviHpbP0hBldgtzqftZQ2UEMhMw46emumkYK67fWomKVwtKVDI31ur5dYH7mRnbpMRHxxeEnULu2niiSmM/jpiClv9OAn2bUBrPimpbNCheQi9A4pMoA5/ifDzQdxrMi3AtcV1Qr9RV+HeimOBpa8/0QBxYiuyNH1WIa/0lJQLfLa1gu+whLQw6Yx1la/cWts8ztfZl76VFQzv/aS8tmIHP9vGwCrEw1FlwMqYYD5/Gavjpj8CK3aXYnKoNvQ0ASMareHSghfo0XVcSLmXuMjmO8n5JFac5oMGXwygUFAeAp7JJqbAF0pYMq566wwwGcVMndFVZ21rTZMzT8n1BuMnSDNGjy+2kBZD4CUHDa/3WVxtJesa/FZD4fZ7UlZm7A+/a2cv7gA72YVz/M5wde/5adldW4fMm3J0JDuH4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9670.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U1EyM2h3dDIwVklLaG9SVGZEdjh4ZVprSHRBaWtYRVppOTN2TVZzcjZBYUFr?=
+ =?utf-8?B?SzNrSUtldUVUU2NVSU5neDA1RVMyU2dMUnk4Mk50Y0ZDTXJBQWhlL0JIcTR1?=
+ =?utf-8?B?NEo3L1JtN0gzTTFDSXdkbitPR0ExcEd5eUhEcXo1bU5RUCtYMGpJYlhyKy94?=
+ =?utf-8?B?Unhha3NOT0ZmeEtoL3NtK2VIVnV4SWpCY2hMUUpmdVhiaUNrbXVLR2FXWDY4?=
+ =?utf-8?B?QjQvckR3WUE0MGNWSEUwZzN0NGhxYmNObE1UdXY0VzdTeU93bW80ekNNcUhS?=
+ =?utf-8?B?cjNidjJybktNMlZ2dHp1NkRtaDZRclVJaUJqNGcrNHZjdHAwY2o4SzdHOFNH?=
+ =?utf-8?B?OHdScndIS3UyUG1qb0s4YzVDRGp0a2tRNkRqbnZwK29LQnpIRXB4Z2xGM3lJ?=
+ =?utf-8?B?eEFHb0tGRlhpZVpQdFd0b0xnb25Ib3RhVHJ1U0tBekMzaWdtY3lrdjRKdVJB?=
+ =?utf-8?B?V050cDFwb0pQQlZJNXFwdVFwQklEeUEvU2hYZ1ZQVW05Z0ZYcjhJREdUbHVs?=
+ =?utf-8?B?ZElUdU9WaHJTODdnQk5GSEErWnZDL0s2QzR4RVJSY1NWWlZXUjhtRkJiM0JZ?=
+ =?utf-8?B?K0xPV0p6NmhVYWJsaUpUbFNYMlFib2tNeE93TmhyMm1zdnFhUHRQTFd3MXpU?=
+ =?utf-8?B?YVdxQ05uSk02OWF4SjR3Znh6aGZVMVM1cDNpN2FBUitVSVo5d205WEFCcmM3?=
+ =?utf-8?B?QnN0RzlrL044Q1hkOHZYZ01ya1NCa09kbzRmT1pjQU1kaW5ZMi9FdnpCaDh1?=
+ =?utf-8?B?ZUhQQS9iOUVYVnFaWWtNSWxCNUZzV0FFUGR1eVk4V2ZPNzNiRzQ2dmNFdkFh?=
+ =?utf-8?B?YlRsbks2ZzBKTmVUVUcwUkJhdWEzV0hmMjI5TG9oSkQ2UFBUOVpOd3hxUUEr?=
+ =?utf-8?B?VzdRUXdQNWpzWEtNRDJNUjRZZzMrVkJNMUlWRnNVSXJaUjlxbEJSVkZFMm9n?=
+ =?utf-8?B?SEZ6QUU0cXVMU2pmUHZvZDlCSUwxVEdPOEZOTHJ3cGtQUERJQVBjeU9oTGVh?=
+ =?utf-8?B?RDBra2JiZ2Q4dWdIQjIzbnZmRG1wRnNUUVhzUFlyOEFVYzR6cVFtRE92clNM?=
+ =?utf-8?B?Y2p5WC9OV0FhSHZtUVk2dkhVN1FkYkVDVUlDM2RqMVowcytzenZ4bm1JZVFD?=
+ =?utf-8?B?c2hFVzhZbU1iYU1YOXkvQk54cTBsaElmaUgxZFNKcFoyNTdNSUdQL2t5N3Az?=
+ =?utf-8?B?Tzl4b0I3UjdodC8ya2hieTlsZTdUdTlDMC9VU0hPSDBteHVnVGxwdW12N3Vm?=
+ =?utf-8?B?c1RTZnBORlZiaFQzbDRhVEQ1cjROanluVGx3S1VPNXRPNmF0eERIWFhjNFli?=
+ =?utf-8?B?ZGl6RFI0OXlpUU9KelB1eWZQOG96anNramhleU9senFTNzg5bmNVd0lTQ1cw?=
+ =?utf-8?B?WWxyOTJFaHNaeERhZW9oVFBpQ3BzLzc2MTJ5d0lBVWo2bm5xUUtlRERyMndK?=
+ =?utf-8?B?c205OVZ3NzR3eTkvTXRMWkJxMHluUHpvdUNybXhkUjZPMkM2TUdvTFVabFZP?=
+ =?utf-8?B?Y0xwZ0tLZjhiYmlMVUdPRnMwVVRnYWN3enlxQ21LL1M0K2lpUFJFeXI1K3k3?=
+ =?utf-8?B?ZEZwdU4rT3QyMjA0THUrcVcyYmxiY1BxVnNwY1FxbmRFSFFKVEp6YWdqcjQ5?=
+ =?utf-8?B?bnJ0UUNuWW5SamJkaTZuNzBWYlMrKzd1ZXJPcTZKckVHY1UxMzBLREdqTzYv?=
+ =?utf-8?B?dGhNaWk1NjkvWUVXMFZUVzNxR255aTkwbWtrdDEyZGRNOEQyZDByZnVqNjdN?=
+ =?utf-8?B?NC9xdjFVM3RJQTZmWUtkTDdhVzg2OElJZG84LzRNNGQ5cGRvZktySFVBelJW?=
+ =?utf-8?B?cUhWSHY2Y0hFa0dLSFhyOWIrQktDZ0xRd1VqV0tLamQwalZQOFdxRVFaMlBK?=
+ =?utf-8?B?UEdCTzBTa2owdERycjJZT1doUUd3VDdHbEpUV3dLQzlTRHVpd2pSbzlBYzEz?=
+ =?utf-8?B?V0lYNXozWGJjMURPajA1ZU5VbWd0UGJIdkZZTy9ZUkRNbTZ6aGVaWFp4VmdU?=
+ =?utf-8?B?K256STlNc0llSU1WT3N1STI3Vm9MdVU2QURYZlQ2RlBVdFNSZ3R3SjcrcnBZ?=
+ =?utf-8?B?OVJFbHRFTlh5ekYvWUROQ29ZT3F4U3lMZWJaNzI3cG9IN2lQbzdOM1VtR3lL?=
+ =?utf-8?B?Q1lMVVdBa0ZyTWhuck84NjRwSlZ3MTJhL3FwenB0bDFnWUdONzZDMXBDcnBl?=
+ =?utf-8?B?U1ZOblBTMDlvRlhBR0hxVHdTU1QvbHFLV1JEamNKN1A3YjBIajgwOG1QRzJ6?=
+ =?utf-8?B?TDJ3aHVGazZWTTI1dVlQWm9TK21uRzhhL0N3WGpoc0l5NW1KWGxnTnFJRGR4?=
+ =?utf-8?B?ZXI0QjNhZTRRY1F2NTBUZmZSK3pQU2cyZ01LZG1SbUdkWjBWYU5mUkNJamxJ?=
+ =?utf-8?Q?hNBUh2+KvcouV5ly2N48rXwXcaJGsNeHy1VHiJ4JHx+en?=
+X-MS-Exchange-AntiSpam-MessageData-1: Jm88rHXcTYZXxw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2838088-6a62-4b6c-d584-08df04bb2a5a
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9651.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:13:53.7164
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:16:43.7575
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pdrDig4+U/L9t9+MwcizBeIHx3MU+peeJ9SyN46wQ5jNeOr7ruak841SLEhhepJJiXC+CRDm5y61MXktrIbJbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8781
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5FVzB/Y69v0RDSfXUxTv9FbDlGLVgoCDyca9UZGA79hguQfLiD5cnNejJtOA7j8yPSP0HuAHsRX5bNLc2lI+4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 
-On Fri, Aug 28, 2026 at 02:08:17PM +1000, Balbir Singh wrote:
-> Device-private migrations currently require ad-hoc instrumentation to
-> understand selection, unmap, copy, and finalization behavior.
+On 8/28/26 2:13 PM, Matthew Brost wrote:
+> On Fri, Aug 28, 2026 at 02:08:17PM +1000, Balbir Singh wrote:
+>> Device-private migrations currently require ad-hoc instrumentation to
+>> understand selection, unmap, copy, and finalization behavior.
+>>
+>> Add reusable ftrace event classes for migrate_vma ranges, device
+>> batches, and individual folios. Emit start, done traces with
+>> ranges, flags, page counts, success/failure summaries, PFNs,
+>> and migrate flags.
+>>
+>> Enabling all traces can make the migration traces verbose, when used
+>> they can also help debug issues with device migration.
+>>
+>> Signed-off-by: Balbir Singh <balbirs@nvidia.com>
+>> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 > 
-> Add reusable ftrace event classes for migrate_vma ranges, device
-> batches, and individual folios. Emit start, done traces with
-> ranges, flags, page counts, success/failure summaries, PFNs,
-> and migrate flags.
+> This seems like a pretty good adding tracepoints - anytime I've had to
+> debug issues in migrate_device.c it has basically start adding printks to
+> figure out what is going on. Hopefully witth the right tracepoints, this
+> would now be turn on ftrace.
 > 
-> Enabling all traces can make the migration traces verbose, when used
-> they can also help debug issues with device migration.
+> So +1 on the idea.
 > 
-> Signed-off-by: Balbir Singh <balbirs@nvidia.com>
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> In the middle of a few other things, but will circle back with an in
+> depth look at individual tracepoints added here when a bit more time.
 
-This seems like a pretty good adding tracepoints - anytime I've had to
-debug issues in migrate_device.c it has basically start adding printks to
-figure out what is going on. Hopefully witth the right tracepoints, this
-would now be turn on ftrace.
+Thanks, I am hoping to add more tests and use these for debugging
+corner cases and hopefully get easier debug for issues reported.
 
-So +1 on the idea.
+Balbir
 
-In the middle of a few other things, but will circle back with an in
-depth look at individual tracepoints added here when a bit more time.
-
-Matt  
-
-> Assisted-by: Codex:gpt-5.6-sol
-> Link: https://lore.kernel.org/linux-mm/20251110161954.47d88433@gandalf.local.home/
-> 
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> CC: Masami Hiramatsu <mhiramat@kernel.org>
-> CC: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> CC: Andrew Morton <akpm@linux-foundation.org>
-> CC: David Hildenbrand <david@kernel.org>
-> CC: Zi Yan <ziy@nvidia.com>
-> CC: Matthew Brost <matthew.brost@intel.com>
-> CC: Joshua Hahn <joshua.hahnjy@gmail.com>
-> CC: Rakie Kim <rakie.kim@sk.com>
-> CC: Byungchul Park <byungchul@sk.com>
-> CC: Gregory Price <gourry@gourry.net>
-> CC: Ying Huang <ying.huang@linux.alibaba.com>
-> CC: Alistair Popple <apopple@nvidia.com>
-> ---
->  include/trace/events/migrate_device.h | 324 ++++++++++++++++++++++++++
->  mm/migrate_device.c                   |  79 ++++++-
->  2 files changed, 391 insertions(+), 12 deletions(-)
->  create mode 100644 include/trace/events/migrate_device.h
-> 
-> diff --git a/include/trace/events/migrate_device.h b/include/trace/events/migrate_device.h
-> new file mode 100644
-> index 000000000000..46582c919dc2
-> --- /dev/null
-> +++ b/include/trace/events/migrate_device.h
-> @@ -0,0 +1,324 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-> + */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM migrate_device
-> +
-> +#if !defined(_TRACE_MIGRATE_DEVICE_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_MIGRATE_DEVICE_H
-> +
-> +#include <linux/migrate.h>
-> +#include <linux/tracepoint.h>
-> +
-> +/*
-> + * Define enums for tracing information.
-> + */
-> +#ifndef __MIGRATE_DEVICE_DECLARE_TRACE_ENUMS_ONCE_ONLY
-> +#define __MIGRATE_DEVICE_DECLARE_TRACE_ENUMS_ONCE_ONLY
-> +
-> +/*
-> + * Why a page table walk callback classified the range the way it did.
-> + * Several call sites collect the same kind of range, so the reason is
-> + * what distinguishes them in a trace.
-> + */
-> +enum migrate_vma_walk_reason {
-> +	MIGRATE_VMA_WALK_HOLE,
-> +	MIGRATE_VMA_WALK_HOLE_COMPOUND,
-> +	MIGRATE_VMA_WALK_HUGE_PMD,
-> +	MIGRATE_VMA_WALK_SKIP_NOT_ANON,
-> +	MIGRATE_VMA_WALK_SKIP_NOT_SELECTED,
-> +	MIGRATE_VMA_WALK_SKIP_OWNER_MISMATCH,
-> +	MIGRATE_VMA_WALK_SKIP_LOCK_CONTENDED,
-> +	MIGRATE_VMA_WALK_SKIP_COMPOUND_TAIL,
-> +	MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED,
-> +};
-> +
-> +#endif /* __MIGRATE_DEVICE_DECLARE_TRACE_ENUMS_ONCE_ONLY */
-> +
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_SELECT_SYSTEM);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_SELECT_DEVICE_PRIVATE);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_SELECT_DEVICE_COHERENT);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_SELECT_COMPOUND);
-> +
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_HOLE);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_HOLE_COMPOUND);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_HUGE_PMD);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_NOT_ANON);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_NOT_SELECTED);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_OWNER_MISMATCH);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_LOCK_CONTENDED);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_COMPOUND_TAIL);
-> +TRACE_DEFINE_ENUM(MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED);
-> +
-> +#define show_walk_reason(reason)					\
-> +	__print_symbolic(reason,					\
-> +		{ MIGRATE_VMA_WALK_HOLE,		"HOLE" },	\
-> +		{ MIGRATE_VMA_WALK_HOLE_COMPOUND,	"HOLE_COMPOUND" }, \
-> +		{ MIGRATE_VMA_WALK_HUGE_PMD,		"HUGE_PMD" },	\
-> +		{ MIGRATE_VMA_WALK_SKIP_NOT_ANON,	"NOT_ANON" },	\
-> +		{ MIGRATE_VMA_WALK_SKIP_NOT_SELECTED,	"NOT_SELECTED" }, \
-> +		{ MIGRATE_VMA_WALK_SKIP_OWNER_MISMATCH,	"OWNER_MISMATCH" }, \
-> +		{ MIGRATE_VMA_WALK_SKIP_LOCK_CONTENDED,	"LOCK_CONTENDED" }, \
-> +		{ MIGRATE_VMA_WALK_SKIP_COMPOUND_TAIL,	"COMPOUND_TAIL" }, \
-> +		{ MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED,	"SPLIT_FAILED" })
-> +
-> +#define show_migrate_vma_flags(flags)					\
-> +	__print_flags(flags, "|",					\
-> +		{ MIGRATE_VMA_SELECT_SYSTEM,		"SYSTEM" },	\
-> +		{ MIGRATE_VMA_SELECT_DEVICE_PRIVATE,	"DEVICE_PRIVATE" }, \
-> +		{ MIGRATE_VMA_SELECT_DEVICE_COHERENT,	"DEVICE_COHERENT" }, \
-> +		{ MIGRATE_VMA_SELECT_COMPOUND,		"COMPOUND" })
-> +
-> +DECLARE_EVENT_CLASS(migrate_vma_range_class,
-> +
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +
-> +	TP_ARGS(migrate),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(void *, vma)
-> +		__field(void *, mm)
-> +		__field(void *, src)
-> +		__field(void *, dst)
-> +		__field(void *, pgmap_owner)
-> +		__field(void *, fault_page)
-> +		__field(unsigned long, start)
-> +		__field(unsigned long, end)
-> +		__field(unsigned long, npages)
-> +		__field(unsigned long, cpages)
-> +		__field(unsigned long, flags)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->vma = migrate->vma;
-> +		__entry->mm = migrate->vma ? migrate->vma->vm_mm : NULL;
-> +		__entry->src = migrate->src;
-> +		__entry->dst = migrate->dst;
-> +		__entry->pgmap_owner = migrate->pgmap_owner;
-> +		__entry->fault_page = migrate->fault_page;
-> +		__entry->start = migrate->start;
-> +		__entry->end = migrate->end;
-> +		__entry->npages = migrate->npages;
-> +		__entry->cpages = migrate->cpages;
-> +		__entry->flags = migrate->flags;
-> +	),
-> +
-> +	TP_printk("mm=%p vma=%p range=%#lx-%#lx bytes=%lu npages=%lu cpages=%lu flags=%s src=%p dst=%p owner=%p fault_page=%p",
-> +		__entry->mm, __entry->vma, __entry->start, __entry->end,
-> +		__entry->end - __entry->start, __entry->npages,
-> +		__entry->cpages,
-> +		show_migrate_vma_flags(__entry->flags),
-> +		__entry->src, __entry->dst, __entry->pgmap_owner,
-> +		__entry->fault_page)
-> +);
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_setup_start,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_setup_done,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_collect_start,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_collect_done,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_pages_start,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_pages_done,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_finalize_start,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +DEFINE_EVENT(migrate_vma_range_class, migrate_vma_finalize_done,
-> +	TP_PROTO(const struct migrate_vma *migrate),
-> +	TP_ARGS(migrate));
-> +
-> +/*
-> + * Page table walk callbacks act on a sub-range of the migration and can be
-> + * reached from several call sites, so they report the range they were handed
-> + * and why, in addition to the migrate-wide state.
-> + */
-> +DECLARE_EVENT_CLASS(migrate_vma_walk_class,
-> +
-> +	TP_PROTO(const struct migrate_vma *migrate, unsigned long start,
-> +		 unsigned long end, enum migrate_vma_walk_reason reason),
-> +
-> +	TP_ARGS(migrate, start, end, reason),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(void *, vma)
-> +		__field(void *, mm)
-> +		__field(void *, src)
-> +		__field(void *, dst)
-> +		__field(void *, pgmap_owner)
-> +		__field(void *, fault_page)
-> +		__field(unsigned long, walk_start)
-> +		__field(unsigned long, walk_end)
-> +		__field(unsigned long, start)
-> +		__field(unsigned long, end)
-> +		__field(unsigned long, npages)
-> +		__field(unsigned long, cpages)
-> +		__field(unsigned long, flags)
-> +		__field(unsigned int, reason)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->vma = migrate->vma;
-> +		__entry->mm = migrate->vma ? migrate->vma->vm_mm : NULL;
-> +		__entry->src = migrate->src;
-> +		__entry->dst = migrate->dst;
-> +		__entry->pgmap_owner = migrate->pgmap_owner;
-> +		__entry->fault_page = migrate->fault_page;
-> +		__entry->walk_start = start;
-> +		__entry->walk_end = end;
-> +		__entry->start = migrate->start;
-> +		__entry->end = migrate->end;
-> +		__entry->npages = migrate->npages;
-> +		__entry->cpages = migrate->cpages;
-> +		__entry->flags = migrate->flags;
-> +		__entry->reason = reason;
-> +	),
-> +
-> +	TP_printk("mm=%p vma=%p walk=%#lx-%#lx bytes=%lu reason=%s range=%#lx-%#lx npages=%lu cpages=%lu flags=%s src=%p dst=%p owner=%p fault_page=%p",
-> +		__entry->mm, __entry->vma,
-> +		__entry->walk_start, __entry->walk_end,
-> +		__entry->walk_end - __entry->walk_start,
-> +		show_walk_reason(__entry->reason),
-> +		__entry->start, __entry->end, __entry->npages,
-> +		__entry->cpages,
-> +		show_migrate_vma_flags(__entry->flags),
-> +		__entry->src, __entry->dst, __entry->pgmap_owner,
-> +		__entry->fault_page)
-> +);
-> +
-> +DEFINE_EVENT(migrate_vma_walk_class, migrate_vma_collect_skip,
-> +	TP_PROTO(const struct migrate_vma *migrate, unsigned long start,
-> +		 unsigned long end, enum migrate_vma_walk_reason reason),
-> +	TP_ARGS(migrate, start, end, reason));
-> +
-> +DEFINE_EVENT(migrate_vma_walk_class, migrate_vma_collect_hole,
-> +	TP_PROTO(const struct migrate_vma *migrate, unsigned long start,
-> +		 unsigned long end, enum migrate_vma_walk_reason reason),
-> +	TP_ARGS(migrate, start, end, reason));
-> +
-> +DEFINE_EVENT(migrate_vma_walk_class, migrate_vma_collect_huge_pmd,
-> +	TP_PROTO(const struct migrate_vma *migrate, unsigned long start,
-> +		 unsigned long end, enum migrate_vma_walk_reason reason),
-> +	TP_ARGS(migrate, start, end, reason));
-> +
-> +DECLARE_EVENT_CLASS(migrate_device_batch_class,
-> +
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +
-> +	TP_ARGS(src, dst, npages),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(void *, src)
-> +		__field(void *, dst)
-> +		__field(unsigned long, src_head)
-> +		__field(unsigned long, dst_head)
-> +		__field(unsigned long, npages)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->src = (void *)src;
-> +		__entry->dst = (void *)dst;
-> +		__entry->src_head = npages && src ? src[0] : 0;
-> +		__entry->dst_head = npages && dst ? dst[0] : 0;
-> +		__entry->npages = npages;
-> +	),
-> +
-> +	TP_printk("src=%p dst=%p npages=%lu src_head=%#lx dst_head=%#lx",
-> +		__entry->src, __entry->dst, __entry->npages,
-> +		__entry->src_head, __entry->dst_head)
-> +);
-> +
-> +DEFINE_EVENT(migrate_device_batch_class, migrate_device_unmap_done,
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +	TP_ARGS(src, dst, npages));
-> +
-> +DEFINE_EVENT(migrate_device_batch_class, migrate_device_pages_start,
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +	TP_ARGS(src, dst, npages));
-> +
-> +DEFINE_EVENT(migrate_device_batch_class, migrate_device_pages_done,
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +	TP_ARGS(src, dst, npages));
-> +
-> +DEFINE_EVENT(migrate_device_batch_class, migrate_device_finalize_start,
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +	TP_ARGS(src, dst, npages));
-> +
-> +DEFINE_EVENT(migrate_device_batch_class, migrate_device_finalize_done,
-> +	TP_PROTO(const unsigned long *src, const unsigned long *dst,
-> +		 unsigned long npages),
-> +	TP_ARGS(src, dst, npages));
-> +
-> +DECLARE_EVENT_CLASS(migrate_device_folio_class,
-> +
-> +	TP_PROTO(unsigned long index, unsigned long nr_pages,
-> +		 unsigned long src, unsigned long dst),
-> +
-> +	TP_ARGS(index, nr_pages, src, dst),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(unsigned long, index)
-> +		__field(unsigned long, nr_pages)
-> +		__field(unsigned long, src)
-> +		__field(unsigned long, dst)
-> +		__field(unsigned long, src_pfn)
-> +		__field(unsigned long, dst_pfn)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->index = index;
-> +		__entry->nr_pages = nr_pages;
-> +		__entry->src = src;
-> +		__entry->dst = dst;
-> +		__entry->src_pfn = src >> MIGRATE_PFN_SHIFT;
-> +		__entry->dst_pfn = dst >> MIGRATE_PFN_SHIFT;
-> +	),
-> +
-> +	TP_printk("index=%lu nr_pages=%lu src=%#lx src_pfn=%#lx src_flags=%s dst=%#lx dst_pfn=%#lx dst_flags=%s",
-> +		__entry->index, __entry->nr_pages, __entry->src,
-> +		__entry->src_pfn,
-> +		__print_flags(__entry->src & ((1UL << MIGRATE_PFN_SHIFT) - 1),
-> +			"|",
-> +			{ MIGRATE_PFN_VALID, "VALID" },
-> +			{ MIGRATE_PFN_MIGRATE, "MIGRATE" },
-> +			{ MIGRATE_PFN_WRITE, "WRITE" },
-> +			{ MIGRATE_PFN_COMPOUND, "COMPOUND" }),
-> +		__entry->dst, __entry->dst_pfn,
-> +		__print_flags(__entry->dst & ((1UL << MIGRATE_PFN_SHIFT) - 1),
-> +			"|",
-> +			{ MIGRATE_PFN_VALID, "VALID" },
-> +			{ MIGRATE_PFN_MIGRATE, "MIGRATE" },
-> +			{ MIGRATE_PFN_WRITE, "WRITE" },
-> +			{ MIGRATE_PFN_COMPOUND, "COMPOUND" }))
-> +);
-> +
-> +DEFINE_EVENT(migrate_device_folio_class, migrate_device_folio_finalize,
-> +	TP_PROTO(unsigned long index, unsigned long nr_pages,
-> +		 unsigned long src, unsigned long dst),
-> +	TP_ARGS(index, nr_pages, src, dst));
-> +
-> +#endif /* _TRACE_MIGRATE_DEVICE_H */
-> +
-> +#include <trace/define_trace.h>
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 009bfa8b212d..cf2a78d2e18e 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -16,11 +16,16 @@
->  #include <linux/leafops.h>
->  #include <linux/pgalloc.h>
->  #include <asm/tlbflush.h>
-> +
-> +#define CREATE_TRACE_POINTS
-> +#include <trace/events/migrate_device.h>
-> +
->  #include "internal.h"
->  
->  static int migrate_vma_collect_skip(unsigned long start,
->  				    unsigned long end,
-> -				    struct mm_walk *walk)
-> +				    struct mm_walk *walk,
-> +				    enum migrate_vma_walk_reason reason)
->  {
->  	struct migrate_vma *migrate = walk->private;
->  	unsigned long addr;
-> @@ -30,6 +35,7 @@ static int migrate_vma_collect_skip(unsigned long start,
->  		migrate->src[migrate->npages++] = 0;
->  	}
->  
-> +	trace_migrate_vma_collect_skip(migrate, start, end, reason);
->  	return 0;
->  }
->  
-> @@ -43,7 +49,8 @@ static int migrate_vma_collect_hole(unsigned long start,
->  
->  	/* Only allow populating anonymous memory. */
->  	if (!vma_is_anonymous(walk->vma))
-> -		return migrate_vma_collect_skip(start, end, walk);
-> +		return migrate_vma_collect_skip(start, end, walk,
-> +						MIGRATE_VMA_WALK_SKIP_NOT_ANON);
->  
->  	if (thp_migration_supported() &&
->  		(migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
-> @@ -55,11 +62,15 @@ static int migrate_vma_collect_hole(unsigned long start,
->  		migrate->npages++;
->  		migrate->cpages++;
->  
-> +		trace_migrate_vma_collect_hole(migrate, start, end,
-> +					       MIGRATE_VMA_WALK_HOLE_COMPOUND);
-> +
->  		/*
->  		 * Collect the remaining entries as holes, in case we
->  		 * need to split later
->  		 */
-> -		return migrate_vma_collect_skip(start + PAGE_SIZE, end, walk);
-> +		return migrate_vma_collect_skip(start + PAGE_SIZE, end, walk,
-> +						MIGRATE_VMA_WALK_SKIP_COMPOUND_TAIL);
->  	}
->  
->  	for (addr = start; addr < end; addr += PAGE_SIZE) {
-> @@ -69,6 +80,8 @@ static int migrate_vma_collect_hole(unsigned long start,
->  		migrate->cpages++;
->  	}
->  
-> +	trace_migrate_vma_collect_hole(migrate, start, end,
-> +				       MIGRATE_VMA_WALK_HOLE);
->  	return 0;
->  }
->  
-> @@ -154,7 +167,8 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->  	if (pmd_trans_huge(*pmdp)) {
->  		if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
->  			spin_unlock(ptl);
-> -			return migrate_vma_collect_skip(start, end, walk);
-> +			return migrate_vma_collect_skip(start, end, walk,
-> +					MIGRATE_VMA_WALK_SKIP_NOT_SELECTED);
->  		}
->  
->  		folio = pmd_folio(*pmdp);
-> @@ -170,13 +184,15 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->  		if (!softleaf_is_device_private(entry) ||
->  		    !(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_PRIVATE)) {
->  			spin_unlock(ptl);
-> -			return migrate_vma_collect_skip(start, end, walk);
-> +			return migrate_vma_collect_skip(start, end, walk,
-> +					MIGRATE_VMA_WALK_SKIP_NOT_SELECTED);
->  		}
->  
->  		folio = softleaf_to_folio(entry);
->  		if (folio->pgmap->owner != migrate->pgmap_owner) {
->  			spin_unlock(ptl);
-> -			return migrate_vma_collect_skip(start, end, walk);
-> +			return migrate_vma_collect_skip(start, end, walk,
-> +					MIGRATE_VMA_WALK_SKIP_OWNER_MISMATCH);
->  		}
->  
->  		if (softleaf_is_device_private_write(entry))
-> @@ -190,7 +206,8 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->  	if (folio != fault_folio && unlikely(!folio_trylock(folio))) {
->  		spin_unlock(ptl);
->  		folio_put(folio);
-> -		return migrate_vma_collect_skip(start, end, walk);
-> +		return migrate_vma_collect_skip(start, end, walk,
-> +					MIGRATE_VMA_WALK_SKIP_LOCK_CONTENDED);
->  	}
->  
->  	if (thp_migration_supported() &&
-> @@ -220,8 +237,12 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->  			migrate->dst[migrate->npages] = 0;
->  			goto fallback;
->  		}
-> -		migrate_vma_collect_skip(start + PAGE_SIZE, end, walk);
-> +		migrate_vma_collect_skip(start + PAGE_SIZE, end, walk,
-> +					 MIGRATE_VMA_WALK_SKIP_COMPOUND_TAIL);
->  		spin_unlock(ptl);
-> +
-> +		trace_migrate_vma_collect_huge_pmd(migrate, start, end,
-> +						   MIGRATE_VMA_WALK_HUGE_PMD);
->  		return 0;
->  	}
->  
-> @@ -234,7 +255,8 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->  		folio_unlock(folio);
->  	folio_put(folio);
->  	if (ret)
-> -		return migrate_vma_collect_skip(start, end, walk);
-> +		return migrate_vma_collect_skip(start, end, walk,
-> +					MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED);
->  	if (pmd_none(pmdp_get_lockless(pmdp)))
->  		return migrate_vma_collect_hole(start, end, -1, walk);
->  
-> @@ -323,7 +345,9 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  					if (unmapped)
->  						flush_tlb_range(walk->vma, start, end);
->  
-> -					return migrate_vma_collect_skip(addr, end, walk);
-> +					return migrate_vma_collect_skip(addr,
-> +						end, walk,
-> +						MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED);
->  				}
->  
->  				goto again;
-> @@ -369,7 +393,9 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  					if (unmapped)
->  						flush_tlb_range(walk->vma, start, end);
->  
-> -					return migrate_vma_collect_skip(addr, end, walk);
-> +					return migrate_vma_collect_skip(addr,
-> +						end, walk,
-> +						MIGRATE_VMA_WALK_SKIP_SPLIT_FAILED);
->  				}
->  
->  				goto again;
-> @@ -514,6 +540,8 @@ static void migrate_vma_collect(struct migrate_vma *migrate)
->  {
->  	struct mmu_notifier_range range;
->  
-> +	trace_migrate_vma_collect_start(migrate);
-> +
->  	/*
->  	 * Note that the pgmap_owner is passed to the mmu notifier callback so
->  	 * that the registered device driver can skip invalidating device
-> @@ -529,6 +557,7 @@ static void migrate_vma_collect(struct migrate_vma *migrate)
->  
->  	mmu_notifier_invalidate_range_end(&range);
->  	migrate->end = migrate->start + (migrate->npages << PAGE_SHIFT);
-> +	trace_migrate_vma_collect_done(migrate);
->  }
->  
->  /*
-> @@ -653,6 +682,7 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
->  		restore--;
->  	}
->  
-> +	trace_migrate_device_unmap_done(src_pfns, NULL, npages);
->  	return unmapped;
->  }
->  
-> @@ -763,11 +793,13 @@ int migrate_vma_setup(struct migrate_vma *args)
->  	memset(args->src, 0, sizeof(*args->src) * nr_pages);
->  	args->cpages = 0;
->  	args->npages = 0;
-> +	trace_migrate_vma_setup_start(args);
->  
->  	migrate_vma_collect(args);
->  
->  	if (args->cpages)
->  		migrate_vma_unmap(args);
-> +	trace_migrate_vma_setup_done(args);
->  
->  	/*
->  	 * At this point pages are locked and unmapped, and thus they have
-> @@ -1115,7 +1147,9 @@ static void __migrate_device_pages(unsigned long *src_pfns,
->  	bool notified = false;
->  	unsigned long addr;
->  
-> -	for (i = 0; i < npages; ) {
-> +	trace_migrate_device_pages_start(src_pfns, dst_pfns, npages);
-> +
-> +	for (i = 0; i < npages;) {
->  		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
->  		struct page *page = migrate_pfn_to_page(src_pfns[i]);
->  		struct address_space *mapping;
-> @@ -1257,6 +1291,8 @@ static void __migrate_device_pages(unsigned long *src_pfns,
->  
->  	if (notified)
->  		mmu_notifier_invalidate_range_end(&range);
-> +
-> +	trace_migrate_device_pages_done(src_pfns, dst_pfns, npages);
->  }
->  
->  /**
-> @@ -1285,7 +1321,9 @@ EXPORT_SYMBOL(migrate_device_pages);
->   */
->  void migrate_vma_pages(struct migrate_vma *migrate)
->  {
-> +	trace_migrate_vma_pages_start(migrate);
->  	__migrate_device_pages(migrate->src, migrate->dst, migrate->npages, migrate);
-> +	trace_migrate_vma_pages_done(migrate);
->  }
->  EXPORT_SYMBOL(migrate_vma_pages);
->  
-> @@ -1298,11 +1336,24 @@ static void __migrate_device_finalize(unsigned long *src_pfns,
->  		page_folio(fault_page) : NULL;
->  	unsigned long i;
->  
-> +	trace_migrate_device_finalize_start(src_pfns, dst_pfns, npages);
-> +
->  	for (i = 0; i < npages; i++) {
->  		struct folio *dst = NULL, *src = NULL;
->  		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
->  		struct page *page = migrate_pfn_to_page(src_pfns[i]);
->  
-> +		if (trace_migrate_device_folio_finalize_enabled() &&
-> +		    (page || newpage)) {
-> +			unsigned long nr_pages = page ?
-> +						 folio_nr_pages(page_folio(page)) :
-> +						 folio_nr_pages(page_folio(newpage));
-> +
-> +			trace_migrate_device_folio_finalize(i, nr_pages,
-> +							    src_pfns[i],
-> +							    dst_pfns[i]);
-> +		}
-> +
->  		if (newpage)
->  			dst = page_folio(newpage);
->  
-> @@ -1339,6 +1390,8 @@ static void __migrate_device_finalize(unsigned long *src_pfns,
->  			folio_put(dst);
->  		}
->  	}
-> +
-> +	trace_migrate_device_finalize_done(src_pfns, dst_pfns, npages);
->  }
->  
->  /*
-> @@ -1371,8 +1424,10 @@ EXPORT_SYMBOL(migrate_device_finalize);
->   */
->  void migrate_vma_finalize(struct migrate_vma *migrate)
->  {
-> +	trace_migrate_vma_finalize_start(migrate);
->  	__migrate_device_finalize(migrate->src, migrate->dst, migrate->npages,
->  				  migrate->fault_page);
-> +	trace_migrate_vma_finalize_done(migrate);
->  }
->  EXPORT_SYMBOL(migrate_vma_finalize);
->  
-> -- 
-> 2.55.0
-> 
