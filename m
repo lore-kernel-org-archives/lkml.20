@@ -1,244 +1,299 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE18A3AAF6F;
-	Fri, 28 Aug 2026 09:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25073ACEF3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909592; cv=fail; b=Onww3zRfPHAmqZ+B09rR8OQbnS+H546l4ZudRaqwJ8XqutMYAj8XwXGqtXkkwpb631IctuhXlFUkO2ycAaF6GEleWy5SYFvYouFhWYfHaite96bxZ4MFMyqWE3CxQVK6F7xF90NUpk1kWG+BrA1uLYBSw3mtApfVC6wps/iBrdM=
+	t=1787909604; cv=pass; b=Z1kA/IJuGhgNG5258ZXx2+or/qAI8L4jSvwXZRxdzWhbVs5uHdKT4UbvvaOsLt7fzidsPC75FP+gvuFRqEhvm69O0yg98Ku78+RV/91C4n1Rn7d2+i7DUiuRLXG4aO4qW0cGRat6m/cBiKfBAfLA45m58zAZs3OcKGtOd+52Sm0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909592; c=relaxed/simple;
-	bh=kDDx7/FscsuMij3hmbW/+LUILSpsljmhbkyqauKaMq4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=lFB2og1VSaaObZgxY2jHv2pe6ZBXd/6SgCzn2Ekly/+yjydAbPRsNQvhChoREGXSUtSu/8spiwOf4QRp5TLEOJoKu0RDf3ZJxerSubx+MAyRJNWDT/N+vwGXQ0ftGTrs1BSUSAp0B5dRLO9lj65UEeWDuSTFPFyVxSlbIGnmVFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=SEFb5xg+; arc=fail smtp.client-ip=40.107.208.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1787909604; c=relaxed/simple;
+	bh=U80lg0O+GKLW7T+8XqZuXYkvnHWV1/kc8n8D7UOROWc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NiXhEAs23drLxFzdmkQA/TPqnhXyQN+XLl3X3OiKaBTpzHRYp9ocxPuSESZ1+yoGYfr9sFL37f7Gj6nL6TgtYOH2Bk+zPt7KEOlocSSJL3+k0sr3NArbTNO9YXXi1bDIwR1gE3YLi1pXu0OxaxYZnHQCo7imrk+SkJoe8cOe5YY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNe8JZl4; arc=pass smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="SEFb5xg+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C6ByLo0skfr1Bnbu4HP7ZnMZKRkH9a45L3fQfqesKh2MwkME9lBjY5D5mNNG3Qc0mrvJEBjPLekTKtXSwuF/S6djP9WjKKv9H6og8XPdcNl0rPF+gW0ARS2M3iTEMuCVz8OCC4Jh2X7NmT6LLJ9tF4H+4SfqwXD6BGPaY2H+uQqSVSjsEmb6f7184n+HeaH4oSL8m6++DNQSBggqHhh3+4Tr0LZR9Nc2LPIxj1+OQavi6FLnFjgYHlSIo+X09G9aeTJQxTNL0KA4LVa6kRsmcjMO1XCCpdHC1sPQDmaMlpOJY8paBOaxGCBioOOxLhfR3+1J53IO9CnwwX8IoqBSbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kDDx7/FscsuMij3hmbW/+LUILSpsljmhbkyqauKaMq4=;
- b=PMkuc7l4xDrn9LF/uh7mDh29CdnDgtRDpomfss8vQT50naQuL6QLAjXqKeHr/62p+zFn6U+JzoaJ3Dyf9v1ewC5kpOiLGpoWwwobaclx0NOutRkQigI15k+ti5hWZDOarX+6jW15XQKZg4Rg5MXr4d3AXWqATucmkdhGE25xijwE7Fv6fpRsUZZTl32Q5u+Ov/p1EqPxqMzw+v/IYjlG88+ShOUiw4VVdS8vUmEcqWP+biU4+rrFH1jKzNacw36Q7LJTc3FwDkMr33+zl9Vx581XXeKIylMPN76lO1pDLphW2Tnu+VujTjTj5Gu/JRiBemqhL2Y+KJue8459P5yJkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kDDx7/FscsuMij3hmbW/+LUILSpsljmhbkyqauKaMq4=;
- b=SEFb5xg+K9/uE8hfWrq6tImsfegIpxVbwTYkwnlyQOVzusZ0Jy0+l6926//rH8uquh/8dozxhHdCVQtLs14tJpLRrcWF/AborB3+sam3zvbv5ww8tI/6jnsAob6M1AKg+yGiFoPKmgtd7sdx5MpZpwJTuKrqqgLMPneAixjQr6o=
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by BL1PR12MB5755.namprd12.prod.outlook.com (2603:10b6:208:392::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 28 Aug
- 2026 09:33:00 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 09:33:00 +0000
-From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, Matthew Brost
-	<matthew.brost@intel.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-Thread-Topic: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-Thread-Index:
- AQHdNrb7lReEpXy+F0Kp6tSXBWP37LazDQSAgAANE9CAAAQQgIAAAovggAAMmwCAAAT5sA==
-Date: Fri, 28 Aug 2026 09:32:59 +0000
-Message-ID:
- <IA0PR12MB820827005555ABFE974E007C90AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
- <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
- <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
- <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
- <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
- <IA0PR12MB820813A9D08CAF799558FB5A90AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
- <99a34ffb-b702-45c8-aa0c-129442841c2f@amd.com>
-In-Reply-To: <99a34ffb-b702-45c8-aa0c-129442841c2f@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-28T09:30:23.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|BL1PR12MB5755:EE_
-x-ms-office365-filtering-correlation-id: 9156b152-2c58-44f0-e0e5-08df04e759b8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10067099003|3023799007|22082099003|18002099003|11063799006|4143699003|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- MYA1wqX4G98cVorMtLj2v858aIZ1Qcvpq0QJ8K0FrrdtjMg41OqpWdjCZlxbh1Nw0ujO7pOe/nP95O786Lk+nu+29/k7OTynDzgt7b2eJXGtD6vuIQctBxnKUTWP2erz3b2i8S/MpV/PCDcEeECrihP1XXBVzaWIn0Z5IA8d7nIIox0hPCwsfGHE+FKXFwABPMN+Lp8C1sKqJ0i3U8lg5RMSek0/3WfAqA2bbKab16/5HdwHu//j7FmS4tuMOR4VoPGpkko/dymoAU0Pt9LSF0eBf5/N91gyH6aftGa5mZ0RJGJbNaiIfgIJ5XOigN1qsz/1m5I//+3Q7WqnhD4SKDEWd5lkvN+bjN4dtmHpeEcKAHAwdLfeU+xfe/cuZALZ53Zp2PqMWG+ndfftLUwHG8obWyjMoX9nfRS56im2FYlu6AvS5mNGyHt5xIvUrSVTzgj1fCSP4q9WwLSIhudDNQixLe29IDOzJVpSJr5YoRedee75Ys9X1IE0R3XsoFFCrtwrj5/Q/I26Bmjc5iyjcbV3uAAR+oJZlpaNggU5wQgenpVtKyyQfUC8P8g4qXk//fyk3rS5ASyFfXzL3ES+M26hZdpNKOI5b8rUetpwccN8VTCVc1GbZSuc12wZwUxCW5t11FQByMDC6nonn8tQFb9dg5LovTWQ/xd6P4XzANLfEZpHqVFpZEePYOJeD8WDUHQyShjMvlFo1SabNIm9g1STuc207A7L1n7pQhDSB2k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8208.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10067099003)(3023799007)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?c24yY3lEUG5FM3VrR1E3QWNHZUVUM3pLMVdlK0NhRzI4YVlWWGM5bkhLMkZF?=
- =?utf-8?B?MTMvdlE1NjFSRWVoNGNnaGxiNkVudlJRRTFLdnRvalYyeEpIUkxBZnc4UHpJ?=
- =?utf-8?B?TkxuWVZjUzVPd0pBM05xVTBydzVLaG1IaXROalZnL29jaFphWGxEZ0JyaDEv?=
- =?utf-8?B?N2o1aDk0citOK2pKZHBsVUxmM1NxRW5VRFlBWDBjWVYzUUZrbnc2d2JTSllN?=
- =?utf-8?B?ZWFEc1dFSjV6QXNhS0VGcWVtQTU3dmdsSCsyYlhxd2N5VXhKckladmtYNlZR?=
- =?utf-8?B?Z09xNEVGZmRuOWpHdkhqd0xwTjZhZzBnSVVOeDg2VmJMVkxrWUI0QUtzVnlt?=
- =?utf-8?B?T1hFeHhmelBnZ05IaVZnWG4rMHBUWGVtWkdsN2ExSHZ6SFNYc3ZiZmthaEJW?=
- =?utf-8?B?V1ZLS0pqUGp5VFd3b01DTWFrd0xkZ1IxT2Q0ZXQrSDlFN2lXcjlCSnp5eE5r?=
- =?utf-8?B?SkFQaENYUzJZSy9HT29JVWlkYkdaKzFwNVdmeUM2QWJXb1BGVjBnSmt5YlJs?=
- =?utf-8?B?VzYrTHV5dkNEN214T1B2Z1pDSmVjYTVpdVNsVDlTRkRSb0ZaZDR3SmQvcmMr?=
- =?utf-8?B?emlJbnBRVGZ6cnhibHpaTXlQZTlUcEdjWFoyLzEySnFuKzU3KzRwRWdpNEY3?=
- =?utf-8?B?TlJvaHJWVHNqOUhRbzRzL1JYRitUU0Jnb1pyUzU0S0JwMm1ZZmtjaHB4Szht?=
- =?utf-8?B?cW0raFBUemN0eE9pRStBOGdUK2FxUEllWS8yOFY3cU1XckcwWFYycmMwcjkv?=
- =?utf-8?B?RzZQVUNPZXh1dnpLd2diZmpSWUo5bnJpR2N4eGhWL1Z2YnRUbnVlYlZSODFR?=
- =?utf-8?B?eW16bFZ6NGszd056VjFyVHJzdldwTCtQTmpnS1dvWDlVSVdpWmw4STh0QW0y?=
- =?utf-8?B?Zjd2YWtzam1WVGxMUmd0d2xkZlY1YWtZK3hFeVRMR01BSTNQeWxlNnk1RTJ0?=
- =?utf-8?B?RGxuMXlKQkVvWCtoRlh4cmtsMllvd0g2TzI0dzI5YTZRQWZibTdvelNodUhX?=
- =?utf-8?B?Z21Nd09seVB2OVplQVVSdEJwZDNiNFBETEVrQm1makZsTzFJTVdOaGx4NjRH?=
- =?utf-8?B?YklvY3BWRUVlT1pHL21Ra1NtLzJBQXRuc05QSmkreHNIZ1hFUEZic2NPRDh0?=
- =?utf-8?B?OHJhVGU0U1hkN0x3K3l0M2YvUTlZdHNoaDMvZnVzVzBoSmdpcmpyR2ZwOFZP?=
- =?utf-8?B?QytuOE1sRFVweUZ6cm5XWk5BTTc4RWxOVW1iMS9tajZ4c1JsRnQxbGFJSVo1?=
- =?utf-8?B?NVBGVG9CUWRkejJYdXgxQXYwbTFieUNjM1p4Nk9Kb3Zlbm9uWWVtTDdFeXJp?=
- =?utf-8?B?QXJRZERYZkFBdktrYzlXSGpHd2JtRDczTXRNSnkxNkFCLzhqanIrb3Bnc2o2?=
- =?utf-8?B?YXdCelZNbm1NY1ZLS1BFTGh4UjMxRWwrOGIzUFlBUzQxbGxnZFRCZ1RYaU9k?=
- =?utf-8?B?cU5PbGo0THVEVU90VEhrSldkeVlqeWQ2eTJHWFlKNXdDZ2NmOXdQbVpLcVc1?=
- =?utf-8?B?NmRNTkFyUy81Z0NnNENKTUJnTG5TTmdxTHlSdmpucmtBVzl1Zmx5K1BLbk9q?=
- =?utf-8?B?bnJhZXM5MHZ1RGhXUHRGUWlZYXIwRXRMekI2NWYrZ3pPTVFlTHhUV3NLWHZv?=
- =?utf-8?B?VmlGd2tmeEk3eGVrbDRIT3BRa212amh3YkhYV2F0ZFFFenJMdnZxRHptQ0VL?=
- =?utf-8?B?UmhJWUFKRWtNSTcrTHlvRUJFdkdKL2sxY0xxWVdFemlneGtWOGlzVTI1dCtC?=
- =?utf-8?B?cys0aDJwYVRPeVlBU1FUMDg2WWNVZTV0ZU45R3dpcmRoVVl4dFhWTlBwSTlC?=
- =?utf-8?B?b2xYOWRmbkQ0bXBGWitkUHNPOW53UnZmQ2s1NTJrdHpRU0J3VVJVMVgzK1hO?=
- =?utf-8?B?R25VQzd6V3IyZmZ0Q0dwRUk0bG9IR3RyeWk1STVvZTM0TTVkbUNtcWlsN2RE?=
- =?utf-8?B?OEVxM3ZVTGd6T3Nvam1EWm53NlNtZnRuam1xREh6WjkzN3o1U3pVMFdaYnNI?=
- =?utf-8?B?cWMwVTZmL2xPYzJhVzMxbVhHN0pGbDdYNytSTVpqU3paSkdLaEtIWC9Bd1Rl?=
- =?utf-8?B?WHFyVnRtdWhUUkQwWWhzbnlmR2EweDdYYjRPWlhRTzdOREtvWmpUc254YVN3?=
- =?utf-8?B?R0oyYzc4bXVzQll1amd6WkpPQzQ1TjFCR01kMUxYdUs1WWtuYnRaaFNlcVk2?=
- =?utf-8?B?dU5BcDV0cjQ3cUYxRm5YUnBhU1U0VnRFcmFLaW1va2ZrdEpLTWNyZDVlcUdV?=
- =?utf-8?B?R01XR3dTUmtRQzdWMVQycnpVamtYSHo3aFVVaUgvcHcySGhPTW15NzdNaHI2?=
- =?utf-8?Q?+avYhRT4NQfmIafSik?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNe8JZl4"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-836ce5d6e85so9256947b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:33:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787909596; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NutRldcUbFY+dyuIKVrp1Yk/mzZBYXTrHxGd9xBBNBK2fmCCIwJR5LZRKKJcQkCKu9
+         OAVWfHwikOu7jWdFORDbwU0LRDz1ZdDH3OdosOwTTs7LGuVp9LxkcSjT1KzElklYdiNJ
+         aUQMSLywC25Lau7lFcK09wXJvtCpB5QHILv8VQqJWJpC4F5ZTKFzYbu0a+BBHermTAMy
+         GJDeP8WAst4VqaxwjT5Q3g/kQaXEvUys0QY3tA5dFtD6wH3B3w5PLh0BjD67TL49yltQ
+         RAl+vmEoHDCFE1JzYaS3qOHCOaXdEGPECJ1L7ou6nQ6d2PfIdaB7o40CKwAtAxTGcROA
+         cKhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VyKgfgA2jHgvHBfi6CU+LzxVcYLnQWijvxyS1/jFemY=;
+        fh=KUwLUg04HRgXlHJp/Ygo5ozRf95mRbn5n2mSNYHCm0A=;
+        b=l6PwUQGsaDtcV3xfcLspZgS/rJYy8dsKUc13PneqjJtcdevf+4/4gf0qousmCZrZdN
+         YexPizxvt/k8DWCiIU7TWyVLuv0+dIBYCR5b52WTbbWhu1NrV+SwzDMFfkFVn1OqRlex
+         YEuZK6Wdh32Tt2+m0d1eDYLrhZ9KUKM8hDCOZCYsqdPqWu4AdQvAKqoga4xbJyfiERYL
+         Wq/gxWKiVfk2kr2gwjm+sIddqsiNjM8h2dIxQM5npo/wRZMp1KJyJHxClgU/eUJnTfw7
+         qTp4hcVIab4RLwuAxaMr3PyFR2CgAXdsgVPqrmqmZCo6M7rM7F07CeAhITpW7NqD4OiU
+         hE7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787909596; x=1788514396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VyKgfgA2jHgvHBfi6CU+LzxVcYLnQWijvxyS1/jFemY=;
+        b=QNe8JZl4vgKDTuJWNKn22/Hpirurd+JootYRCU+9j9DI5OC8qC/pYftEKbaluadheI
+         V57PHkNO68QJbarV+vmeriaZfi5PZb2JJmbjcLQA557h7mcMvXVL1grWKSADSI9NTmnm
+         jP+FvwKUfLXq/eHHXa818ot6yGxsjVfcvhlQGCshLZHBZxybmcIGA+3BPLwpcMUA1Rr1
+         WiL6V9QZC0640kWXHbs8Iv/2luIAnZvAhy+vyPsn3dTtdVn7sc8+orEWWyHj88WiRWtk
+         doazttorfMJ2v/fjNZrklOtdupzNd5E2CtUZPmtZ0hUg8A7aGanvzBBGsqur8RWfuWrV
+         i+7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787909596; x=1788514396;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VyKgfgA2jHgvHBfi6CU+LzxVcYLnQWijvxyS1/jFemY=;
+        b=ZJ+0UYN65LX4VRUxNrl6B0qfPkFI2oSgZawr94UlOluXsecBTa4L7ntOeGawPQUWeK
+         BFVaBy8FWISpDVxizjtr6X6NmRhrlI5UIBL9I+UfkawYjnHLvLRqJY54r/o4i9AfSTnk
+         SId3HEzxGMu0QIRyvt6mKKyZjJfJVpPntp5NtF1NmCRGcH3H4w7+AwROgZ8CqXsHy13s
+         pyYx7cuUB0LErn8PUGT3vnueafzRMiWz88kJ+n8jbilZqTwHRpys8+d59VpyULduciRH
+         3vKa31j68lQSPCZav1RwO30CWqLXbzF+L+h9lc5i2/ZJ2LVhbNPOc8MIteFZ6a3POd4v
+         G17w==
+X-Forwarded-Encrypted: i=1; AHgh+Rof5Je/RMpYoXe+vUirAcF+fGsr4vC5q1HkiXouE8G+tfsENWKzk4TEbl9i2lq9UquqZ6BEOSnC4NUdzhs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfTpgE/2drEPBkH7cdHcZ7h1DWjqjB7k1robgtGSiGTagvQw/Z
+	mY3aOXruV3c8qZAnMtcLP8cYmmKBEMbjQta2sRs12UiiQvHZgUJ6NyYhonjF7lZC3T67L2ik2qi
+	I7qr7WcNnzJckhr4h/at2ybXLNFdMGnClmmIWG7RV8Q==
+X-Gm-Gg: AR+sD11ADrFSjS8BOJW4/cFVJB33DG2VLTgZEvXTciRzHkvQTtda+lkerW0QahmICn9
+	U71g6V2etluGzaiA/1zcaV1+8+50c1X623BEbguQJ6d0ThjUV5HUzY/DgrYfs5dBOfDTCMMt5oN
+	wNseiYO4EwLHzAQpp5FebbMAXwtMj0OGMz/AjUdYFB+qN7n3MdXOn52RbQk/SnpWKRCJAM+Ebro
+	VG8LDeh9rH6WqR0P86xmmE+t9A3dquHgforE4QYKJOz2sqkP9v6WCRs0HD12zxqdJxeraCRdo+X
+	QRoH+VPZF0g1/LHVydQIKudzJ8c2XGpuIcTPLenyNvJo
+X-Received: by 2002:a05:690c:e3cd:b0:80b:9f4e:a73 with SMTP id
+ 00721157ae682-85d684bf30amr28089127b3.13.1787909595588; Fri, 28 Aug 2026
+ 02:33:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9156b152-2c58-44f0-e0e5-08df04e759b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 09:32:59.9008
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: igrFnueSsVJgwfia1Xmr6t6mFq0PhhsJKM1KmktQMO0s9ybBGXLfFqRAs+UUROiLrG8BTrdNYkfP9h257MVo2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5755
+References: <20260812-xdp-dut-process-lifecycle-gmail-v2-1-b03ef2aa1b97@gmail.com>
+ <d4be160e-703e-46bb-9509-d3d90f6bc34b@iogearbox.net> <DKX99ZAP7GZ8.23U5EOSFB4VPU@bootlin.com>
+ <CAHKNYVXN0DAUzv2Lwm=oQ_K=zhi2iNyTO2e99s5F4M+Kr7u5tQ@mail.gmail.com> <CAHKNYVV8gn-L_unjsxUZV=E+Rx4ouDBJX613_n4hevXP1rivyg@mail.gmail.com>
+In-Reply-To: <CAHKNYVV8gn-L_unjsxUZV=E+Rx4ouDBJX613_n4hevXP1rivyg@mail.gmail.com>
+From: Bochao Cao <bochaolucky@gmail.com>
+Date: Fri, 28 Aug 2026 17:32:38 +0800
+X-Gm-Features: AcwNN1VW9XpqQ20Ki6rCBhf_uOiVcBbpYWAjy12V6TApwKjNoVUxIva86Xc9n18
+Message-ID: <CAHKNYVX_r_yS+NjkTx=gn7zGfcHF11azQbFWHJ+naqXO3aTpJw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Track test_xdp_features DUT processes
+To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, bpf@vger.kernel.org
+Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2Vu
-aWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBGcmlkYXks
-IEF1Z3VzdCAyOCwgMjAyNiAyOjQzIFBNDQo+IFRvOiBTSEFOTVVHQU0sIFNSSU5JVkFTQU4gPFNS
-SU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+Ow0KPiBNYXR0aGV3IEJyb3N0IDxtYXR0aGV3LmJy
-b3N0QGludGVsLmNvbT4NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
-ZXJAYW1kLmNvbT47IE1hYXJ0ZW4gTGFua2hvcnN0DQo+IDxtYWFydGVuLmxhbmtob3JzdEBsaW51
-eC5pbnRlbC5jb20+OyBNYXhpbWUgUmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+Ow0KPiBUaG9t
-YXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT47IERhdmlkIEFpcmxpZQ0KPiA8YWly
-bGllZEBnbWFpbC5jb20+OyBTaW1vbmEgVmV0dGVyIDxzaW1vbmFAZmZ3bGwuY2g+OyBTdW1pdCBT
-ZW13YWwNCj4gPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPjsgVGhvbWFzIEhlbGxzdHLDtm0NCj4g
-PHRob21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPjsgZHJpLWRldmVsQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZzsgaW50ZWwtDQo+IHhlQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtbWVk
-aWFAdmdlci5rZXJuZWwub3JnOyBsaW5hcm8tbW0tDQo+IHNpZ0BsaXN0cy5saW5hcm8ub3JnOyBs
-aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDEvMl0gZHJtOiBBZGQgY29tbW9uIGRybV91c2Vy
-X2ZlbmNlIGhlbHBlcg0KPg0KPiBPbiA4LzI4LzI2IDEwOjMxLCBTSEFOTVVHQU0sIFNSSU5JVkFT
-QU4gd3JvdGU6DQo+ID4gQU1EIEdlbmVyYWwNCj4gPg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KPiA+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0Bh
-bWQuY29tPg0KPiA+PiBTZW50OiBGcmlkYXksIEF1Z3VzdCAyOCwgMjAyNiAxOjQ4IFBNDQo+ID4+
-IFRvOiBTSEFOTVVHQU0sIFNSSU5JVkFTQU4gPFNSSU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+
-Ow0KPiBNYXR0aGV3DQo+ID4+IEJyb3N0IDxtYXR0aGV3LmJyb3N0QGludGVsLmNvbT4NCj4gPj4g
-Q2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IE1hYXJ0
-ZW4gTGFua2hvcnN0DQo+ID4+IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+OyBN
-YXhpbWUgUmlwYXJkDQo+ID4+IDxtcmlwYXJkQGtlcm5lbC5vcmc+OyBUaG9tYXMgWmltbWVybWFu
-biA8dHppbW1lcm1hbm5Ac3VzZS5kZT47IERhdmlkDQo+ID4+IEFpcmxpZSA8YWlybGllZEBnbWFp
-bC5jb20+OyBTaW1vbmEgVmV0dGVyIDxzaW1vbmFAZmZ3bGwuY2g+OyBTdW1pdA0KPiA+PiBTZW13
-YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPjsgVGhvbWFzIEhlbGxzdHLDtm0NCj4gPj4gPHRo
-b21hcy5oZWxsc3Ryb21AbGludXguaW50ZWwuY29tPjsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZzsNCj4gPj4gaW50ZWwtIHhlQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtbWVk
-aWFAdmdlci5rZXJuZWwub3JnOw0KPiA+PiBsaW5hcm8tbW0tIHNpZ0BsaXN0cy5saW5hcm8ub3Jn
-OyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOw0KPiA+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDEvMl0gZHJtOiBBZGQgY29t
-bW9uIGRybV91c2VyX2ZlbmNlIGhlbHBlcg0KPiA+Pg0KPiA+PiBPbiA4LzI4LzI2IDEwOjA2LCBT
-SEFOTVVHQU0sIFNSSU5JVkFTQU4gd3JvdGU6DQo+ID4+IC4uLg0KPiA+Pj4+PiArLyoqDQo+ID4+
-Pj4+ICsgKiBzdHJ1Y3QgZHJtX3VzZXJfZmVuY2UgLSBlbWJlZGRhYmxlIERSTSB1c2VyIGZlbmNl
-DQo+ID4+Pj4+ICsgKg0KPiA+Pj4+PiArICogRHJpdmVycyBlbWJlZCB0aGlzIGluIHRoZWlyIG93
-biBzdHJ1Y3R1cmUgYW5kIGltcGxlbWVudA0KPiA+Pj4+PiArICogJmRybV91c2VyX2ZlbmNlX29w
-cy4gQ2FsbCBkcm1fdXNlcl9mZW5jZV9pbml0KCkgYXQgY3JlYXRpb24NCj4gPj4+Pj4gK2FuZA0K
-PiA+Pj4+PiArICogZHJtX3VzZXJfZmVuY2VfYWRkX2NhbGxiYWNrKCkgdG8gYXJtIG9uIGEgZG1h
-LWZlbmNlLg0KPiA+Pj4+PiArICogQ2FsbCBkcm1fdXNlcl9mZW5jZV9jYW5jZWxfc3luYygpIGJl
-Zm9yZSBkcml2ZXIgdGVhcmRvd24uDQo+ID4+Pj4+ICsgKi8NCj4gPj4+Pj4gK3N0cnVjdCBkcm1f
-dXNlcl9mZW5jZSB7DQo+ID4+Pj4NCj4gPj4+PiBTaG91bGQgdGhpcyBjb21tb24gbGF5ZXIgYmUg
-c3BsaXQgaW50byB0d28gZGlzdGluY3QgY29uY2VwdHM/DQo+ID4+Pj4NCj4gPj4+PiAtIGRybV93
-b3JrX2ZlbmNlOiA5MCUgb2Ygd2hhdCBpcyBoZXJlLCBtaW51cyB0aGUga3RocmVhZF91c2VfbW0o
-KSBhbmQNCj4gPj4+PiAgIG1tLXJlbGF0ZWQgY29kZS4NCj4gPj4+PiAtIGRybV91c2VyX2ZlbmNl
-OiBhIHN1YmNsYXNzIG9mIGRybV93b3JrX2ZlbmNlIHRoYXQgYWRkcyB0aGUNCj4gPj4+PiAgIGt0
-aHJlYWRfdXNlX21tKCkgYW5kIG1tLXJlbGF0ZWQgY29kZS4NCj4gPj4+Pg0KPiA+Pj4+IEkgc3Vn
-Z2VzdCB0aGlzIGJlY2F1c2UgSSB3YXMgdGhpbmtpbmcgYWJvdXQgaXQgdGhlIG90aGVyIGRheSAo
-SQ0KPiA+Pj4+IGZvcmdldCB0aGUgZXhhY3QNCj4gPj4+PiBjb250ZXh0KSBhbmQgcmVjb25zaWRl
-cmVkIGEgcGF0dGVybiB3aGVyZSBhIGZlbmNlIHNpZ25hbHMgYW5kIHRoZW4NCj4gPj4+PiBJIG5l
-ZWQgYSB3b3JrZXIgYmVjYXVzZSBzb21lIHdvcmsgbXVzdCBiZSBkb25lIG91dHNpZGUgb2YgSVJR
-IGNvbnRleHQuDQo+ID4+Pj4gQSB1c2VyIGZlbmNlIGlzIG9uZSBleGFtcGxlLCBzaW5jZSBjb3B5
-X3RvX3VzZXIoKSBjYW4gZmF1bHQsIHdoaWNoDQo+ID4+Pj4gaXMgbm90IGFsbG93ZWQgaW4gSVJR
-IGNvbnRleHQuIEF0IHZhcmlvdXMgdGltZXMgaW4gWGUgd2UndmUgaGFkDQo+ID4+Pj4gbXVsdGlw
-bGUgcGF0dGVybnMgbGlrZSB0aGlzLCBhbHRob3VnaCBhdCB0aGUgbW9tZW50IHVzZXIgZmVuY2Vz
-IGFyZQ0KPiA+Pj4+IHByb2JhYmx5IHRoZSBvbmx5IGNhc2UgdGhhdCByZXF1aXJlcyBpdC4gSWYg
-d2UgbG9va2VkIGFjcm9zcyBEUk0gYXMNCj4gPj4+PiBhIHdob2xlLCBJIHN1c3BlY3QNCj4gPj4g
-d2UnZCBmaW5kIHRoaXMgcGF0dGVybiBvcGVuLWNvZGVkIGluIGEgbnVtYmVyIG9mIHBsYWNlcy4N
-Cj4gPj4+Pg0KPiA+Pj4+IFllcywgZHJtX3VzZXJfZmVuY2Ugd291bGQgYmUgYSB2ZXJ5IHRoaW4g
-bGF5ZXIgb24gdG9wIG9mDQo+ID4+Pj4gZHJtX3dvcmtfZmVuY2UsIGJ1dCBJIHN0aWxsIHNlZSB2
-YWx1ZSBpbiB0aGUgc3BsaXQuDQo+ID4+Pg0KPiA+Pj4gSGkgTWF0dCwNCj4gPj4+DQo+ID4+PiBU
-aGFua3MgZm9yIHRoZSByZXZpZXcgYW5kIGZvciBiZWluZyBzdXBwb3J0aXZlIG9mIHRoZSBpZGVh
-Lg0KPiA+Pj4NCj4gPj4+IFRoZSBzcGxpdCBpbnRvIGRybV93b3JrX2ZlbmNlIChnZW5lcmFsIGZl
-bmNlLXRvLXdvcmtxdWV1ZSBwYXR0ZXJuKQ0KPiA+Pj4gYW5kIGRybV91c2VyX2ZlbmNlIChzdWJj
-bGFzcyBhZGRpbmcga3RocmVhZF91c2VfbW0pIG1ha2VzIHNlbnNlLg0KPiA+Pj4gSSdsbCByZXN0
-cnVjdHVyZSB2NSBhcyBmb2xsb3dzOg0KPiA+Pj4NCj4gPj4+ICAgZHJtX3dvcmtfZmVuY2U6IGty
-ZWYsIHdvcmtfc3RydWN0LCBkbWFfZmVuY2VfY2IsIHN0b3JlZCBmZW5jZSByZWYsDQo+ID4+PiAg
-ICAgICAgICAgICAgICAgICB3cSwgb3BzIOKAlCBhZGRfY2FsbGJhY2ssIGNhbmNlbCwgY2FuY2Vs
-X3N5bmMNCj4gPj4NCj4gPj4gWWVhaCwgdGhpcyBwYXR0ZXJuIGNhbWUgdXAgc28gb2Z0ZW4gdGhh
-dCBJIGFscmVhZHkgY29uc2lkZXJlZCBhZGRpbmcNCj4gPj4gaXQgdG8gdGhlIGNvcmUgZG1hX2Zl
-bmNlIGZyYW1ld29yay4NCj4gPg0KPiA+IEhpIENocmlzdGlhbiwNCj4gPg0KPiA+IFRoYW5rcyBm
-b3IgdGhlIGZlZWRiYWNrLg0KPiA+DQo+ID4gT24gZG1hX2ZlbmNlX3dvcms6IHdvdWxkIHlvdSBw
-cmVmZXIgSSBwbGFjZSB0aGUgZ2VuZXJpYyBmZW5jZS10by13b3JrDQo+ID4gaGVscGVyIGRpcmVj
-dGx5IGluIHRoZSBjb3JlIGRtYV9mZW5jZSBmcmFtZXdvcmsgKGRyaXZlcnMvZG1hLWJ1Zi8pLCBv
-cg0KPiA+IGlzIHN0YXJ0aW5nIHdpdGggZHJtX3dvcmtfZmVuY2UgaW4gRFJNIGFuZCBwcm9tb3Rp
-bmcgaXQgbGF0ZXIgYWxzbw0KPiA+IGFjY2VwdGFibGU/DQo+DQo+IE1heWJlIGFzayBBSSB0byBz
-ZWFyY2ggZm9yIHVzZSBjYXNlcy4gSWYgeW91IGZpbmQgc29tZXRoaW5nIG91dHNpZGUgb2YNCj4g
-ZHJpdmVycy9ncHUvZHJtIHRoZW4gcGxlYXNlIHBsYWNlIGl0IHVuZGVyIGRyaXZlcnMvZG1hLWJ1
-Zi4NCj4NCj4gSWYgeW91IGRvbid0IGZpbmQgYW55IGV4aXN0aW5nIHVzZSBjYXNlIGRyaXZlcnMv
-Z3B1L2RybSBzaG91bGQgZG8gYXMgd2VsbC4NCg0KSGkgQ2hyaXN0aWFuLA0KDQpTZWFyY2hlZCB0
-aGUgdHJlZSBmb3IgZmlsZXMgY29tYmluaW5nIGRtYV9mZW5jZV9jYiArIHdvcmtfc3RydWN0DQpv
-dXRzaWRlIG9mIGRyaXZlcnMvZ3B1L2RybS86DQoNCiAgJCBncmVwIC1ybCAiZG1hX2ZlbmNlX2Ni
-IiAuIC0taW5jbHVkZT0iKi5jIiB8IFwNCiAgICAgIGdyZXAgLXYgImRyaXZlcnMvZ3B1L2RybSIg
-fCBcDQogICAgICB4YXJncyBncmVwIC1sICJ3b3JrX3N0cnVjdCIgMj4vZGV2L251bGwNCiAgKG5v
-IG91dHB1dCkNCg0KTm8gbWF0Y2hlcyBmb3VuZCBvdXRzaWRlIGRyaXZlcnMvZ3B1L2RybS8uIEZp
-bGVzIHVzaW5nDQpkbWFfZmVuY2VfYWRkX2NhbGxiYWNrIG91dHNpZGUgRFJNIGFyZSB0aGUgY29y
-ZSBmcmFtZXdvcmsgaXRzZWxmDQooZG1hLWZlbmNlLmMsIGRtYS1mZW5jZS1jaGFpbi5jLCBkbWEt
-YnVmLmMpIOKAlCBub3QgY29uc3VtZXJzIG9mIHRoZQ0KZmVuY2UtdG8td29yayBwYXR0ZXJuLg0K
-DQpCYXNlZCBvbiB5b3VyIHN1Z2dlc3Rpb25zLCBJJ2xsIGtlZXAgdGhlIGhlbHBlciBhcyBkcm1f
-d29ya19mZW5jZSBpbg0KZHJpdmVycy9ncHUvZHJtLy4gSSdsbCBhZGQgdGhlIHZhbHVlIGNvbXBh
-cmlzb24gbG9naWMgYW5kIHRoZQ0KZG1hX2ZlbmNlX29wcyB3YXJuaW5nIGluIHRoZSBuZXh0IHZl
-cnNpb24uDQoNClRoYW5rcywNClNyaW5pDQo=
+ Resending as plain text because my previous reply was rejected by the
+vger mailing lists. Sorry for the duplicate.
+ Thanks Daniel and Alexis.
+
+  Dropping the procps dependency is not the primary motivation for
+  this change. I agree that Debian can remove the dependency independently.
+  The issue addressed by this patch is process isolation in the standalone
+  test. The current readiness check may observe an unrelated
+  concurrent xdp_features process, while cleanup may terminate every
+xdp_features
+  process on the host. In addition, a DUT which exits before listening
+can leave the test waiting indefinitely.
+
+  Although this script is not currently run by the BPF CI, it remains
+useful  for testing real hardware,
+  so these process lifecycle issues can still  affect users running
+the test manually.
+
+  Would it be acceptable to fix these issues in the script's current locati=
+on?
+  If the preferred direction is to move it under
+tools/testing/selftests/drivers/net/hw/,
+  should the move be submitted first, with this fix rebased on top?
+
+  I can send a v3 that drops the Debian Closes tag and focuses
+  the commit message solely on the process isolation, timeout,
+  and cleanup fixes once the preferred location is clear.
+
+  Thanks,
+  Bochao
+
+
+Bochao Cao <bochaolucky@gmail.com> =E4=BA=8E2026=E5=B9=B48=E6=9C=8828=E6=97=
+=A5=E5=91=A8=E4=BA=94 14:10=E5=86=99=E9=81=93=EF=BC=9A
+>
+>  Thanks Daniel and Alexis.
+>
+>   Dropping the procps dependency is not the primary motivation for
+>   this change. I agree that Debian can remove the dependency independentl=
+y.
+>   The issue addressed by this patch is process isolation in the standalon=
+e
+>   test. The current readiness check may observe an unrelated
+>   concurrent xdp_features process, while cleanup may terminate every xdp_=
+features
+>   process on the host. In addition, a DUT which exits before listening ca=
+n leave the test waiting indefinitely.
+>
+>   Although this script is not currently run by the BPF CI, it remains use=
+ful  for testing real hardware,
+>   so these process lifecycle issues can still  affect users running the t=
+est manually.
+>
+>   Would it be acceptable to fix these issues in the script's current loca=
+tion?
+>   If the preferred direction is to move it under tools/testing/selftests/=
+drivers/net/hw/,
+>   should the move be submitted first, with this fix rebased on top?
+>
+>   I can send a v3 that drops the Debian Closes tag and focuses
+>   the commit message solely on the process isolation, timeout,
+>   and cleanup fixes once the preferred location is clear.
+>
+>   Thanks,
+>   Bochao
+>
+> Bochao Cao <bochaolucky@gmail.com> =E4=BA=8E2026=E5=B9=B48=E6=9C=8825=E6=
+=97=A5=E5=91=A8=E4=BA=8C 21:01=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> >   Thanks Daniel and Alexis.
+> >
+> >   Dropping the procps dependency is not the primary motivation for
+> >   this change. I agree that Debian can remove the dependency independen=
+tly.
+> >   The issue addressed by this patch is process isolation in the standal=
+one
+> >   test. The current readiness check may observe an unrelated
+> >   concurrent xdp_features process, while cleanup may terminate every xd=
+p_features
+> >   process on the host. In addition, a DUT which exits before listening =
+can leave the test waiting indefinitely.
+> >
+> >   Although this script is not currently run by the BPF CI, it remains u=
+seful  for testing real hardware,
+> >   so these process lifecycle issues can still  affect users running the=
+ test manually.
+> >
+> >   Would it be acceptable to fix these issues in the script's current lo=
+cation?
+> >   If the preferred direction is to move it under tools/testing/selftest=
+s/drivers/net/hw/,
+> >   should the move be submitted first, with this fix rebased on top?
+> >
+> >   I can send a v3 that drops the Debian Closes tag and focuses
+> >   the commit message solely on the process isolation, timeout,
+> >   and cleanup fixes once the preferred location is clear.
+> >
+> >   Thanks,
+> >   Bochao
+> >
+> > Alexis Lothor=C3=A9 <alexis.lothore@bootlin.com> =E4=BA=8E2026=E5=B9=B4=
+8=E6=9C=8824=E6=97=A5=E5=91=A8=E4=B8=80 22:49=E5=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> Hi Daniel, thanks for the notification
+> >>
+> >> On Mon Aug 24, 2026 at 1:31 PM CEST, Daniel Borkmann wrote:
+> >> > [ Trimming the excessive Cc list, and adding Alexis ]
+> >> >
+> >> > On 8/12/26 10:28 AM, Bochao Cao via B4 Relay wrote:
+> >> >> From: Bochao Cao <bochaolucky@gmail.com>
+> >> >>
+> >> >> test_xdp_features.sh waits for any xdp_features listener to appear =
+and
+> >> >> uses pidof during cleanup. A concurrent test can therefore make ano=
+ther
+> >> >> test proceed before its own DUT is ready, and cleanup kills every
+> >> >> xdp_features process on the host. The readiness loop also has no ti=
+meout,
+> >> >> so a DUT that exits before listening leaves the test hung indefinit=
+ely.
+> >> >>
+> >> >> Track one active DUT at a time, wait for ss to report that exact PI=
+D with
+> >> >> a bounded retry loop, and reap it after each test. Consult the shel=
+l job
+> >> >> table before signaling the DUT so a stale PID cannot target an unre=
+lated
+> >> >> process. On failure, terminate the shell job with SIGKILL and reap =
+it so
+> >> >> blocked I/O cannot hang cleanup. Install an EXIT trap and signal ha=
+ndlers
+> >> >> so failure paths also remove network setup.
+> >> >>
+> >> >> Fixes: 4dba3e7852b7 ("selftests/bpf: introduce XDP compliance test =
+tool")
+> >> >> Closes: https://bugs.debian.org/1136522
+> >> >> Signed-off-by: Bochao Cao <bochaolucky@gmail.com>
+> >> >> ---
+> >> >> Tests:
+> >> >> - bash -n tools/testing/selftests/bpf/test_xdp_features.sh
+> >> >> - make -C tools/testing/selftests/bpf xdp_features
+> >> >> - sudo tools/testing/selftests/bpf/test_xdp_features.sh
+> >> >> - verified cleanup terminates a blocked DUT without affecting an un=
+related process
+> >> >> ---
+> >> >> Changes in v2:
+> >> >> - Clarify that avoiding name-wide process matching, rather than dro=
+pping a dependency, is the motivation.
+> >> >> - Track and reap one active DUT at a time instead of retaining hist=
+orical PIDs.
+> >> >> - Address PID reuse by signaling only the current Bash job during c=
+leanup.
+> >> >> - Use SIGKILL on failure cleanup so blocked DUT I/O cannot hang wai=
+t indefinitely.
+> >> >> - Link to v1: https://patch.msgid.link/20260805-xdp-dut-process-lif=
+ecycle-gmail-v1-1-45984df8d295@gmail.com
+> >> >> ---
+> >> >>   tools/testing/selftests/bpf/test_xdp_features.sh | 82 +++++++++++=
++++++++------
+> >> >>   1 file changed, 62 insertions(+), 20 deletions(-)
+> >> >
+> >> > Sorry for the late reply. With regards to https://bugs.debian.org/11=
+36522, src:linux deb
+> >> > does not have to depend on this at all, so the src:linux can just ge=
+t rid of procps in
+> >> > any case if this is indeed the last dependency. I'm not seeing the t=
+est being run in our
+> >> > BPF CI. I've Cc'ed Alexis as he's in the process of migrating and/or=
+ removing tests from
+> >> > tools/testing/selftests/bpf/ depending on how they fit into test_pro=
+gs framework. I'll
+> >> > let him comment if there is already work in progress. It feels like =
+this script could be
+> >> > reworked into tools/testing/selftests/drivers/net/hw/ tests and remo=
+ved altogether from
+> >> > the tools/testing/selftests/bpf/ dir.
+> >>
+> >> There has been an attempt to fully convert and get rid of
+> >> test_xdp_features.sh, but discussions around the corresponding series
+> >> highlighted the need for the script to remain available for testing on
+> >> real hardware.  Features covered by the test_xdp_features.sh that were
+> >> not covered yet by test_progs have been added to test_progs (in
+> >> xdp_cpumap_attach), see [1]. So there's currently no active effort on
+> >> this one on my side.
+> >>
+> >> Alexis
+> >>
+> >> [1] https://lore.kernel.org/bpf/20241009-convert_xdp_tests-v3-0-51cea9=
+13710c@bootlin.com/
+> >>
+> >> --
+> >> Alexis Lothor=C3=A9, Bootlin
+> >> Embedded Linux and Kernel engineering
+> >> https://bootlin.com
+> >>
