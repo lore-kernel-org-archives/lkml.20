@@ -1,251 +1,204 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F630380FE5
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1EA3A4505;
+	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941719; cv=none; b=P7+84lYFEngKGV+AaY6SoLUw+APg/G1e+hInHgUjV1aMwFJ35dFBNrwFJqVOkVubPbnSkG6EgxpsLNlF1FFeAaZLQIXK7LsI0oQapJk08AV5QA8OA1/fQKfk54xchcHTUx/ViQpUCfiayTtGw61MCeX5muBfXDyTa2F9VHehfpw=
+	t=1787941759; cv=none; b=HmJFBWifJsEWnslpD5gVNsUqTBrbHNBR7LzxT0AlfQwnupHBuDXAMPQKFcxziMpV712Ymy2iXL5mXEezj4ZtCOJvPXYNDomgeG/9X42X1rU+oPTjVmRpSRerJQR0bylOETdgq4YmS9vS3vZGpViQ0Udc5g8UW6YplpDymiiegqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941719; c=relaxed/simple;
-	bh=aIJ3XedisAPbkx/BHNvcS+HFrCoktU7SSApXHopa3VY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ctQRSnLdMh/K7ylTcTCdoePjwKQjGTQS7tB+bMjGfkpQqPv4gbIQEgfMOQvbxYcqBwIRFrh3M5s4f9ax3L2zwAO9/AZLDTTjl0Pxlebup3/fLYgu8ltjNzhnrLr+8yU7PkajYHlDC5Kqgby9mlSYse5xV5aSsNFZ7Hq4t93Q60I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G3AF+sDv; arc=none smtp.client-ip=209.85.128.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787941759; c=relaxed/simple;
+	bh=tYCi2x5F+r0yfVDr8C945+5FuD0jcgPWMELcRlga2pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dlWscIAKNfRfnTm2jAcZ7Yr+KQpCXrwWBgzgfxjCorNkDTx+dyQidmiPFdm0480WU2UBoHXTwIHgwYV6pWV3YWLCoU6xiS7d75OpiFUipiStqKFubYSSt0BgE6C5+AjY0hVXS/D27FczRXcO/xk2x3PXKrYn3EmYYqSnKPN7LXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5vOSBrJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3AF+sDv"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-81ecf499af9so15784527b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787941717; x=1788546517; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=00XcgwP2TaQwLmCHa5/Xf0oEUUJDtZf0rSmRiAN3I7M=;
-        b=G3AF+sDvPKLPPpVkB20tD2xb8lHDW26GUhPmxpOW1y3N+zE4qZCBDizoQ3ywuCfbSo
-         Tk1NsFTj/RBtb7fuFNciVvckX17teu7a9rlNKaz/sEqZyWQWCNnexCSkVlxfT1RiQwSU
-         atsfFkR8gldbxlOKsuhEy58wW8coxErI+y9LRl5WkGiZd7EKYuthDVE6MajqIxsjzgAK
-         lfNwAbWWt/QMHU+8LDLneKmGBqZD9KfJdVpO7dXa7hM0/d9otWpO/v6i+LRNhDKJVDSF
-         4Q9julHqumQPxn+DpfHWKD2ZyYIbLb+CQBbdsw7TG/BwM23c1cK+Tfqo4pv6OjKfbjM4
-         hITQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787941717; x=1788546517;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=00XcgwP2TaQwLmCHa5/Xf0oEUUJDtZf0rSmRiAN3I7M=;
-        b=dJ9sNoMVYVGpI+FVNpzfmaT/pb+PNt+zL6bGVvpfVTor4/IlSCB1yCn6Hcj7IYMMW6
-         3cDc1d7kHIF1CTBRnwNYmnz699c0sp+p5FSkJRY602J/pK+n33NYGYME6jva2ShigMLX
-         TnBZt9tXWrmIH1/DxgCTCpYjOzIA2NEm4lVSeLR7NEPNRQb4p7QAV/0uxQRmEBxkvVJq
-         9YCcLoEeRfOjw8BD7Q4KDcUcoFIn65yMJdKrf3H6jBp4O0DPpXGJxCvo4XVNPqc82o6Y
-         M5viBJLgOkAMiBUf9A6+3AdUJMAWbK/bi2QdcKV9OUhQiKBUTOS2mxKCD7P20oseW5oH
-         kj9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzSVVqdQCYWG+EWEzGR+Sya7kLB6w8WPye0/iZquPcUOjsV0oi5Kp7u5+v9lg70pXZY0wiEcVUiRZy4rwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k49Gi2t/wZx6ntblSEmf+ResYHx8udVrHjuqth49Ya305lRySL
-	VcKsYZ0GokUCm2jFS40jDYbH3axEi2siu+q0BBs8THQDIjbgFfNQNsGf
-X-Gm-Gg: AYBFou09RNQYZirPOz9uw1UVPCliHOkIfDthrc+4KzJt9J5K8CwQ4tmny60tgWKSWqN
-	y/VK3oV/wnVzxFGF83k2Tjf81Wme+eA0wIi0lGvPTrkknuYfDoiPVe4k34iEEdahGPwivv5ZidK
-	dMt4vfkrGnX6wF3LFK8xCWi7u7LLnmGmi2NU0PeAADTHNUVeH61FrqBy/QSnlzshZhPbEkP7yCz
-	6ER9yMa7txWqqI+lRcO1pYNxNr+5oX6bdJCzkGGlNeUgUMJYBaaEWpCWcnnHuRXrF9CSqnyahvJ
-	PKC66mF+xoGui5d/aE2FhNqZ+ZdmgoSe/Wo9ksNxvgC+NjGZFD2JKshplxNFDxjZJMhnggxNLBs
-	K1qDFNLCf2KKjTnmn6hiY+1K6rLZHjlpBTmHxamUcHuR3/5OKN+ZUOeDM6npF6cBcO1e9w+GBI4
-	OlM/8WwP9tG7jisCoEG8lbK8ADHz5IgzNVb7K8ePmLw4SETqSKX2RBWBItnjQ/jaXQJTmAH4LvO
-	PpOx6FP231NvxaXKsIkda8=
-X-Received: by 2002:a05:690c:e313:b0:857:f33:6f1d with SMTP id 00721157ae682-85d660d961fmr32735737b3.6.1787941717079;
-        Fri, 28 Aug 2026 11:28:37 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:a21d:f263:629b:a8f0])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e668ce7ecsm10420247b3.34.2026.08.28.11.28.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 11:28:36 -0700 (PDT)
-Date: Fri, 28 Aug 2026 14:28:35 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	kpsingh@kernel.org, mic@digikod.net, viro@zeniv.linux.org.uk, brauner@kernel.org, 
-	kees@kernel.org, gnoack@google.com, jack@suse.cz, song@kernel.org, 
-	yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next 00/13] BPF interface for applying Landlock
- rulesets
-Message-ID: <apHN2WNQWeM9lzHc@zenbox>
-References: <20260731022047.189137-1-utilityemal77@gmail.com>
- <CAHC9VhSSzNBCSvy4cQHh6OOM4-EvHF+bmrB9=V1y=Lj53RvxQQ@mail.gmail.com>
- <anOnaGmBTlBW9xwj@zenbox>
- <CAHC9VhRBYMaNBPfnV=TK8g-M7H_qsBu=CsVVOwnAzTPAkpAZaA@mail.gmail.com>
- <anPAbFzuLOizAhm-@zenbox>
- <CAHC9VhSJ1q59RUtEEMAmiZLLLi92=XO1tkd9z0fr5T7vuhoy8Q@mail.gmail.com>
- <anZIGtlHvTaidOEC@zenbox>
- <CAHC9VhQcysVLosHhuz_FTh+LUH7KSw1hJWmwucmV1G-seSbHHg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5vOSBrJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183801F000E9;
+	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787941757;
+	bh=QeOHqKFwwRXxKDoOadJ6pEtYZjxux1n/oCSHCxWNGR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V5vOSBrJlYoEX0iEEqFMvHyD/qvqqQD6D8XY4ZUpfg4jNKBDyLgJq5Zb+GQQ3GSI/
+	 ZqWPV5YPCatrwZazeLHntHVDTKLi6fSFRzXWNQs45KQ4n+kQG4BYp5jfIT16Q/H/mh
+	 jZezdZv/flg6Ym5n/H7JQPAzZ4VVOf40vu3kb0evCD8LtY2M0tY/YkZ9xDDJy2XYlw
+	 gsz9GiW4nm1b9HNHCGwf0QXiqrYgq4k9zjigo3iWlrcJGULrFs5g8emNh+35bHcc3b
+	 5q0NugBsnP6oRcJ2jZGthMU9G5y+5NPSUpvTyzXgTXsBE7EQZDwiBwATFOvhMZtzhx
+	 gRtHWBUzW9fbw==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
+Date: Fri, 28 Aug 2026 11:29:09 -0700
+Message-ID: <20260828182910.70304-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260828084737.290024-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHC9VhQcysVLosHhuz_FTh+LUH7KSw1hJWmwucmV1G-seSbHHg@mail.gmail.com>
 
-On Sun, Aug 09, 2026 at 03:18:21PM -0400, Paul Moore wrote:
-> On Fri, Aug 7, 2026 at 6:00 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > On Fri, Aug 07, 2026 at 04:36:20PM -0400, Paul Moore wrote:
-> > > On Wed, Aug 5, 2026 at 8:32 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > > > On Wed, Aug 05, 2026 at 06:51:56PM -0400, Paul Moore wrote:
-> > > > > On Wed, Aug 5, 2026 at 5:37 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > > > > > On Fri, Jul 31, 2026 at 04:30:39PM -0400, Paul Moore wrote:
-> > > > > > > On Thu, Jul 30, 2026 at 10:21 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > > > > > > [...]
-> > > > > > > As you may, or may not have seen, there is currently an ongoing debate
-> > > > > > > regarding the location of LSM kfuncs that will impact this patchset.
-> > > > > > > Sadly, we don't appear to be approaching an agreement on this issue
-> > > > > > > which introduces some additional risk to this patchset.  We'll have to
-> > > > > > > see how that ends up, but I just wanted you to be aware of the
-> > > > > > > situation.
-> > > > > >
-> > > > > > Quick aside question: Would security/bpf/ be a better place for these
-> > > > > > type of kfuncs?
-> > > > > >
-> > > > > > security/bpf/bpf_lsm_kfuncs.c could be for LSM framework kfuncs,
-> > > > > > and each LSM could maintain their own security/bpf/<lsm>_kfuncs.c
-> > > > > > for kfuncs dealing with lsm-specific types.
-> > > > >
-> > > > > This gets back to the other issue in the patchset that we've
-> > > > > discussed: general LSM interfaces vs Landlock specific interfaces.
-> > > > > There are plenty of reasons why we don't support the kernel calling
-> > > > > directly into individual LSMs, and from my perspective this is another
-> > > >
-> > > > I'm 100% on board with the no calling directly into individual LSMs part.
-> > > >
-> > > > > instance of that.  Here it just happens to be that the kernel caller
-> > > > > was written in BPF and not C (or Rust for that matter).
-> > > >
-> > > > The intention is the opposite. The point of the separate directory is
-> > > > that the kfuncs can never call into an individual LSM, they only get
-> > > > the LSM framework API in <linux/security.h>.
-> > > >
-> > > > Every kfunc is a thin wrapper over the generic policy kptr hooks:
-> > > >
-> > > >     bpf_landlock_get_ruleset_from_fd()
-> > > >       -> security_policy_kptr_from_fd(LSM_ID_LANDLOCK, ...)
-> > > >         -> Landlock's hook implementation
-> > > >
-> > > > So kfunc -> generic lsm hook -> individual LSM, same as any other
-> > > > caller in the kernel.
-> > >
-> > > Not exactly.  That "bpf_*landlock*_XXX" kfuncs are a move away from an
-> > > LSM agnostic API and not something we currently do in the kernel.
-> > > Some will, and have, argued that this is more akin to the Landlock
-> > > syscalls, but I see (at least) two problems with that comparison: the
-> > > kfuncs being presented aren't syscalls, they are cross-subsystem
-> > > kernel function calls; the Landlock syscalls were created in a
-> > I see the argument for normal in-tree kernel interfaces.
-> >
-> > Unlike normal kernel interfaces, kfuncs:
-> >
-> > 1. Can exist without in-tree callers.
+On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+
+> Once quota set, the charge_{target,addr}_from unconditionally skips and
+> resets at the last region of the tracked target, so the last region can
+> be skipped even when it has not been processed.
 > 
-> Yes, although I'm not sure how relevant that is to our discussion.  I
-> can say that it isn't relevant to my decisions.
+> Example:
 > 
-> > 2. Are explicitly allowed to change or be removed at any time [1].
+>     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+>     2. Quota is configured to process only 50 bytes per window.
+>     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
+>        at (Target, 50).
+
+Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
+keep using the terms (charge_{target,addr}_from).
+
+>     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
+>        full. Cursor is saved at (Target, 100), which is exactly the
+>        start of R2.
+>     5. Window 3: The loop reaches R2.  Because R2 is
+>        damon_last_region(t), the old code unconditionally returns true,
+>        skipping R2 entirely and resetting the cursor.
 > 
-> FWIW, the LSM hooks can be changed or removed at any time as well.
-> For obvious reasons we try to avoid churn where possible, but there
-> are plenty of cases where hooks have been modified, removed,
-> relocated, etc. (some without our explicit permission, but that's
-> another issue for another time).
+>     Result: R2 is permanently skipped even though it has never been
+>     processed.
+
+Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
+quota size 100 bytes per window.
+
+Also, it continues being skipped only in a corner case that the region
+addresses and the access patterns are kept.  So the user impact is mild.  Let's
+clarify that to not make users unnecessarily afraid.
+
 > 
-> > 3. Can't break builds or other in-tree subsystems when they do.
+> Fix this by only skipping the last region after it has been applied.
 > 
-> Of course.  Rule #1 of any kernel subsystem is don't break the build :)
+> Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+> Cc: <stable@vger.kernel.org> # v5.16.x
+> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+> ---
 > 
-> > This isn't hypothetical: the entire KF_KPTR_GET class
-> > (bpf_task_kptr_get(), bpf_cgroup_kptr_get(), the flag itself) was
-> > removed and replaced with a better abstraction within about a year
-> > of introduction.
-> >
-> > If Landlock (or any LSM) dies, there's zero uapi/in-tree cost to
-> > removing the kfuncs, unlike syscalls which are burned into the uapi
-> > forever, or ones with in-tree callers where we can break builds.
-> >
-> > I argue that the transient, low-commitment nature of kfuncs mitigates
-> > maintainability issues that arise from lsm-specific interfaces with
-> > in-tree callers. (which we are both opposed to).
+> Changes from RFC v1:
+> - Minimal fix, only fixes the issue where the last-region is skipped.
+> - Add an example to the commit message to demonstrate that this error
+>   occurs very rarely.
+> - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
 > 
-> Sadly, the current situation between the BPF and LSM devs is not good,
-> which means any discussion around LSM kfuncs has a good chance of
-> turning ugly and something that should be relatively easy to maintain
-> is likely to turn into a significant headache.  To be clear, this
-> doesn't mean I'm opposed to LSM kfuncs, I just don't agree that they
-> are "low-commitment" at this point in time or in the foreseeable
-> future.
+> ---
+>  mm/damon/core.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 > 
-> > To avoid strawman style arguments, I ask what you would see as
-> > an alternative interface?
-> 
-> As I've mentioned a couple of times now, you need to grant me the time
-> to properly review your existing patches before I can comment in
-> detail on the interface.  You've been quick to post with new thoughts,
-> ideas, arguments, etc., which is fine, but replying to them steals my
-> time away from the very patchset you want me to review ;)
-> 
-> It's up to you how you want to handle things, but my suggestion would
-> be to pause some of these thoughts until I've had a chance to review
-> your patchset in detail; then we can have a better discussion.
->
-Hi Paul,
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 644daf5a1656..21dc6b086c42 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+>  	if (quota->charge_target_from) {
+>  		if (t != quota->charge_target_from)
+>  			return true;
+> -		if (r == damon_last_region(t)) {
+> -			quota->charge_target_from = NULL;
+> -			quota->charge_addr_from = 0;
+> -			return true;
+> -		}
+>  		if (quota->charge_addr_from &&
+> -				r->ar.end <= quota->charge_addr_from)
+> +				r->ar.end <= quota->charge_addr_from) {
+> +			if (r->ar.end == quota->charge_addr_from ||
+> +					damon_is_last_region(r, t)) {
+> +				quota->charge_target_from = NULL;
+> +				quota->charge_addr_from = 0;
+> +			}
+>  			return true;
+> +		}
+>  
+>  		if (quota->charge_addr_from && r->ar.start <
+>  				quota->charge_addr_from) {
 
-Gonna admit I was wrong on this one. It is entirely possible to make
-a generic kfunc interface for this, without it turning into an ioctl
-style multiplexer either. Honestly I think it's the better design anyway.
-Just took a month of staring at the code before the realization
-hit me.
+As Sashiko pointed out, this doesn't work if the the last region's start
+address is smaller than charge_addr_from and the end address is larger than
+charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
+smaller than min_region_sz.
 
-Since it's been about a month since the original submission, my plan is
-to send a revised version based on generic kfuncs in
-security/bpf_lsm_kfuncs.c, which expose no LSM-specific interface:
+As you replied to Sashiko, let's do the last region handling in every case.
+While doing that, let's do the charge_{target,addr}_from reset in only one
+place, like below.
 
-  bpf_lsm_policy_from_fd(fd, flags)                                   KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE
-  bpf_lsm_policy_acquire(struct lsm_policy_object *)                  KF_ACQUIRE | KF_RCU | KF_RET_NULL
-  bpf_lsm_policy_release(struct lsm_policy_object *)                  KF_RELEASE
-  bpf_lsm_policy_apply_bprm(struct lsm_policy_object *, bprm, flags)  KF_SLEEPABLE
+'''
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ {
+        struct damos_quota *quota = &s->quota;
+        unsigned long sz_to_skip;
++       bool skip = false;
 
-  struct lsm_policy_object {  /* initialized in LSM object structs */
-          u64 lsmid;
-          u32 type;
-  };
+        /* Skip previously charged regions */
+        if (quota->charge_target_from) {
+                if (t != quota->charge_target_from)
+                        return true;
+-               if (r == damon_last_region(t)) {
+-                       quota->charge_target_from = NULL;
+-                       quota->charge_addr_from = 0;
+-                       return true;
+-               }
+                if (quota->charge_addr_from &&
+-                               r->ar.end <= quota->charge_addr_from)
+-                       return true;
++                               r->ar.end <= quota->charge_addr_from) {
++                       skip = true;
++                       goto out;
++               }
 
-I know I said I'd hold off on revisions until your review, so if
-you're already reviewing the current set (or still plan to), just
-say so and I'll sit on it. Otherwise I'd rather send the new version
-than have you waste time on a stale patchset, or on making a point
-you've already convinced me of.
+                if (quota->charge_addr_from && r->ar.start <
+                                quota->charge_addr_from) {
+                        sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+                                        r->ar.start, min_region_sz);
+                        if (!sz_to_skip) {
+-                               if (damon_sz_region(r) <= min_region_sz)
+-                                       return true;
++                               if (damon_sz_region(r) <= min_region_sz) {
++                                       skip = true;
++                                       goto out;
++                               }
+                                sz_to_skip = min_region_sz;
+                        }
+                        damon_split_region_at(t, r, sz_to_skip);
+-                       return true;
++                       skip = true;
+                }
++       }
++out:
++       if (r == damon_last_region(t)) {
+                quota->charge_target_from = NULL;
+                quota->charge_addr_from = 0;
++               return true;
+        }
+-       return false;
++       return skip;
+ }
 
-This generic design is better, and I've already experimented with
-implementing the same hooks/kfuncs for AppArmor / SELinux exec-time
-transitions (possible future patchsets?). This would allow writing
-LSM-agnostic BPF programs (like liblsm).
+ static void damos_update_stat(struct damos *s,
+'''
 
-Thank you so much for your feedback Paul.
+Btw, I think damos_skip_charged_region() may deserve a kunit test.
 
-Mickäel,
+[1] https://lore.kernel.org/20260828090410.40AEA1F000E9@smtp.kernel.org
+[2] https://lore.kernel.org/20260828115047.332978-1-aethernet65535@gmail.com
 
-I think this should address your concerns about the multiplexer
-design, this avoids it handily by making the rulesets/"policy object"
-self-identifying so there's no need for an opcode/lsmid parameter.
-There's a small lsm_policy_struct that gets embedded in the ruleset
-with the lsmid already initialized, and then the original ruleset
-is retrieved via container_of.
 
-Otherwise, the semantics of the API, the flags, and implementation
-are identical to this set, with the exception that ruleset
-references can be taken under RCU.
+Thanks,
+SJ
 
-Thank you for both your time and feedback,
-Justin
-> -- 
-> paul-moore.com
+[...]
