@@ -1,201 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0A13783B4;
-	Fri, 28 Aug 2026 09:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7334052B4
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911145; cv=none; b=sAgG5faIykFBMZ/W7wTeVYmsImSbkso4KIiY1NNfi03/7YD9qOHC84nVJyYjcZPM9X1oQOfaVVf5oayghOh/Z2nfGlE9ayNoKsF7ioXBNNah1jY5fbRot7+EEKneSFMEAppJuCG/N7EzctpCjV0vAq1Owjoq6OgwrTDJHoo3rcY=
+	t=1787911227; cv=none; b=B76Iwux08HSleVwliltWABh/2WNuV8aCugpyB3w8dvKsCle7T3PZR1R8brQS3XnabSN3dNbsp0KK0lVRdo/blS8r1VrnUE+FzIfsf152QLIcWMLynYLsRgAPAHYgrTw/R3NBUAZyQH/P98aPPuYorjAjxVtOFE/KEm7CuYEskZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911145; c=relaxed/simple;
-	bh=rh7ydI7GKJqG6nY9dYE/lkWRfceAJLLwblnkmdTBs90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+lwJPD4ubHFiOWMjQgXEavrJVmLwSn/dsDLzrPFrwr5AIgnf8IWt75ANSFTF4Fsb4B5P0fuDM8cLIwTp7lqTkE+2fhgLvD0ES04JGCLY0GI0idykXbDDViMG5auUxkaD62YWWrOipvOhq9c8oMtaeW1kkj3OrZStDd0biLMLLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LhfgIKc7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787911227; c=relaxed/simple;
+	bh=TB+N2XUPAV4vKHUuumRNJtPT28PDXGSOLvjz7zicXW8=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Oz68cawVfjYAWFuiRF0H7bk+TLJY1FhZ4JT8x5cl07BEY8ODnICgeeZhTZsbUJi2wt9SHm8LEj8oDFZvwcEQso1ya+EwQULQi6If+pqfkO/dGJBUJ9m91jRaHTf+4v8hot7u25utwRadhOq+FtT9i7sm+ixjJBPqvCmcWjRj1bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VnNnSOmc; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LhfgIKc7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E1E1F000E9;
-	Fri, 28 Aug 2026 09:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787911143;
-	bh=2+/PLbq9eAr3WZpjlc5dc0ni8rDbxUE+V7YrchB1cDk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LhfgIKc7j1RnY8NAmPSkj953ILT5SymGzndUyAhN2IQmM9nruMTa5dI7q/t/DVrXd
-	 4PWk1+8AUg7TJA9LMDVHeQ/vc/XBFvgc8Wg/4F+ygYZGoUPSbGyx9xbibnd70Y7udR
-	 935JD3KHYzGcOgZ+oGle9Q/wGxayTZC+YsoYIh6pM8gZQfi+7Nfp9qBymjxOC840T5
-	 kePJdh6B+W08eYGhJvpF+X7S3/EyOa+pD0ZT4ne3L/FAeo60E+l+tdk52cW83Bqy4j
-	 DEMC+l+AXPbXbqdFJnYcyKs9JiPqxgPksGCyS1NhHK5pzgvBcwy/sFPVdkDj6nHT6Z
-	 lqwMMfIOK5Aqw==
-Message-ID: <b98464cc-5bb4-4dec-a843-0b0931e506e1@kernel.org>
-Date: Fri, 28 Aug 2026 11:58:58 +0200
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VnNnSOmc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787911213; bh=8ZNtzWGXaWxd2RLgEqxC83U4oZxYW6+oY8FYjGRcg1o=;
+	h=From:To:Cc:Subject:Date;
+	b=VnNnSOmcG7o/5jaX/ys3+Ne33JF9dmAGmB4a/ifHauH9dXgoRZOU1BmQyILWLUGGc
+	 To9zcNgexdwpnjG/nh81x036byfGoUxiUdtlGOpmC55hOqcyDu9L5P58PWoDY/IcY+
+	 87R+3gUYk/erbyGpwovEIPnPPRkkIyTg7s9R8xus=
+Received: from p920-station ([240e:604:312:113e:27c4:e74a:cbb9:dcd7])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id B1320C; Fri, 28 Aug 2026 18:00:11 +0800
+X-QQ-mid: xmsmtpt1787911211tjwjqry8c
+Message-ID: <tencent_1CB189506DEFA4B38099D654FE6C2A2F2E07@qq.com>
+X-QQ-XMAILINFO: NYtOCndYWoWXNm4kCiZr3KHKYmje8kAfugWTOYUKhEvSo52XqYOD7gJKdW6ei4
+	 YlHbaEx98LUBW7vJ0Cjt7eWb+D0yejkiMyZ5TMHNlwHIJV0oqy/L8Gh5jmbjueeOv5eanzcn5t59
+	 3SYmhZn+vwSWHq8zaf7+aghKCLiGTfDER9zA5y8dUxhppOJj7g3xTnIFjB14E+oXFtta2XFkxBlZ
+	 hQiKdhMK5D94s2q+ANxeDrmgSJO9vA5k43J1+sLnToHlh0qS6aqHnfSMpDHsik5GHBU0q3owza9b
+	 KLjDiPBXCvQHE/9JRo82XIKZsimNmdW0mkCXlraN/QHmq/YAWNEGvvy4f/JQdgbxkY+301+sgxe8
+	 G8q0GZ1GhgVE0kVywUKfBTflPveD8liGfIf9c1WzvpcyMERbZTCXABsO4h4FSkwb2lQ5IZjtA5bn
+	 Za40iF90X4fkkNzaHpop1HZ417NjkkiATuHmCQWOQ4WunDQg2Sh/Qx5BnYVuWgCV9oG0Tj6/3t/G
+	 HHb4TVtvcZ5oJE+JAzHvQWFk/BJSHWsy2s1NrOBEx18EVtOvqbBTkdTP+AWc851zvdxp5R6IIPN2
+	 yJMQFkBg9mB+c1nW5LZ5Qy9YE324E08E2Q0Vv5SfeD70QsXf6Wk8q6bF+9EcJfpqx68sb0FsYkWV
+	 KAgMcOn6jr21nFdIu+C2P0y7HEcwHgFXOSSr/ZukQEtpp/x908mE6o78ycvY+Lv8jyBkWwzopbuv
+	 PsHk5SfRx3yvadH2v3Aj9bZlpdMJLl8dyEYeBhehKih4upEa+B0fE/d8LLl1rcpooUzs93/XwOiR
+	 U1hL3t/PiSU8Jfua/ZmGAF+0VNPbyJxtu/NON5eEeDj5FO0Db7RJ7GuPmlJLE5zvFEXgzLHNztoh
+	 /qHstlVAmx3+ChztgFcb2uwV5+9yRQkUxTeJGcP2z3gxTTCIkPT+0NNnpGXShn2Z+p44OvnJWzy9
+	 4KCxqDSvdmeK3TBmLSbgZxi0rl7/oZvU09F5Pfc32L94FY2MdCuxtn4S3qpK8B2/nkmwAI5siczS
+	 oY0WszeAgv662ZBu5zLY3ZOV7xnvTAihSj7CGckH7SxMY1wcwSozzPMLn/Us7i3SDPqASrN+yVyq
+	 /PUomuSS8s9K43d5l0LuvKT0G/zv6POM8XI7LvMx9VqQWmGh/BThjBQBfIYigBKbMxtqk1fq2LjS
+	 BmixljsUjbenu7/bJqT8v2MAg1
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Yang Zi <2959243019@qq.com>
+To: johan@kernel.org
+Cc: elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	2959243019@qq.com
+Subject: [PATCH v2] greybus: operation: Fix NULL pointer dereference in gb_operation_message_alloc()
+Date: Fri, 28 Aug 2026 18:00:04 +0800
+X-OQ-MSGID: <20260828100004.879411-1-2959243019@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 02/14] mptcp: subflow: no need to copy thmac during
- ulp_clone
-Content-Language: fr
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-2-a92309d121ca@kernel.org>
- <20260827190725.3998222-1-kuba@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260827190725.3998222-1-kuba@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jakub,
+gb_connection_recv() accepts a received message whose advertised size is
+smaller than struct gb_operation_msg_hdr.  In particular, a header with a
+size of zero passes the incomplete-message check and reaches
+gb_operation_create_incoming().
 
-On 27/08/2026 21:07, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
+This issue was found using a locally modified syzkaller.  The
+analysis and fix were assisted by GPT-5.6.
 
-Thank you for having forwarded this, I didn't manage to look at it before.
+The subtraction used to derive the request payload size then underflows.
+When gb_operation_message_alloc() adds the header size, the result wraps
+to zero, bypassing the maximum-buffer-size check.  kzalloc(0) returns
+ZERO_SIZE_PTR and gb_operation_message_init() subsequently dereferences
+it.
 
-> ---
-> mptcp: subflow: no need to copy thmac during ulp_clone
-> 
-> This drops the copy of subflow_req->thmac into the new subflow context in
-> subflow_ulp_clone(), since the truncated HMAC is no longer needed once the
-> passive-side request is over.  The commit message notes that thmac is left
-> uninitialised on the SYN cookie path, so removing the copy also avoids a
-> KMSAN uninitialised-read report.
-> 
-> (no Link: tags in the commit header)
-> 
->> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
->> index af81ad5e699d1..01db7edce18a6 100644
->> --- a/net/mptcp/subflow.c
->> +++ b/net/mptcp/subflow.c
->> @@ -2084,7 +2084,6 @@ static void subflow_ulp_clone(const struct request_sock *req,
->>  		new_ctx->request_bkup = subflow_req->request_bkup;
->               ^^^^
-> 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but while looking at the
-> neighbouring store: does request_bkup have exactly the same
-> uninitialised-on-SYN-cookies problem that motivated removing the thmac
-> copy here?
-> 
-> subflow_init_req() only clears a subset of the fields:
-> 
-> net/mptcp/subflow.c:subflow_init_req() {
-> 	subflow_req->mp_capable = 0;
-> 	subflow_req->mp_join = 0;
-> 	subflow_req->csum_reqd = mptcp_is_checksum_enabled(sock_net(sk_listener));
-> 	subflow_req->allow_join_id0 = mptcp_allow_join_id0(sock_net(sk_listener));
-> 	subflow_req->msk = NULL;
-> 	mptcp_token_init_request(req);
-> }
-> 
-> and the only assignment of request_bkup for a request sock happens on the
-> SYN, in subflow_token_join_request():
-> 
-> 	subflow_req->local_id = local_id;
-> 	subflow_req->request_bkup = mptcp_pm_is_backup(msk, (struct sock_common *)req);
-> 
-> On the cookie ACK path that function is not called, and the state restore
-> does not cover request_bkup either:
-> 
-> net/mptcp/syncookies.c:mptcp_token_join_cookie_init_state() {
-> 	subflow_req->remote_nonce = e->remote_nonce;
-> 	subflow_req->local_nonce = e->local_nonce;
-> 	subflow_req->backup = e->backup;
-> 	subflow_req->remote_id = e->join_id;
-> 	subflow_req->local_id = e->local_id;
-> 	subflow_req->token = e->token;
-> 	subflow_req->msk = msk;
-> }
-> 
-> struct join_entry has no request_bkup member at this commit, so the bit
-> carries whatever was in the freshly allocated request sock.
-> 
-> Unlike thmac, the copied value is consumed afterwards, for instance in
-> mptcp_subflow_get_send() and mptcp_subflow_get_retrans():
-> 
-> net/mptcp/protocol.c:mptcp_subflow_get_send() {
-> 	bool backup = subflow->backup || subflow->request_bkup;
-> 
-> It is also put on the wire by mptcp_established_options_mp_prio() and
-> exported to userspace by the mptcp diag code.
-> 
-> So when a remote MP_JOIN is accepted while tcp_syncookies is active, can a
-> joined subflow end up randomly flagged as backup and reported that way in
-> diag, along with the same class of KMSAN uninit-value branch report that
-> this patch removes for thmac?
-> 
-> For the record, the next patch in this series, "mptcp: syncookies: remember
-> the request backup flag", adds request_bkup:1 to struct join_entry and
-> stores/restores it, and the store happens after subflow_token_join_request()
-> has set the field (subflow_token_join_request() runs before
-> subflow_init_req_cookie_join_save() in subflow_check_req()), so the field is
-> properly initialised at the end of the series.
+Reject advertised sizes smaller than the message header.  Also check the
+payload size before adding the header size, so that the size calculation
+cannot wrap and bypass the buffer-size limit.
 
-All of this to say that it is fixed in the next patch...
+Fixes: 87d208feb74f ("greybus: embed message buffer into message structure")
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Yang Zi <2959243019@qq.com>
+---
+v2:
+- Add the syzkaller provenance and Assisted-by trailer.
+- Regenerate the patch for git-send-email.
+- Verify the received patch with git am and checkpatch.
 
-> Would it be worth mentioning
-> that dependency here, given this patch carries a Cc: stable tag?
+ drivers/greybus/operation.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-Do we really need to mention that?? This report says "there is a
-pre-existing bug in the code around", then there is no direct
-dependence. Or should we add for each patch: other fixes follow this one?
-
-Note that there is an issue on Sashiko's side to improve that:
-
-https://github.com/sashiko-dev/sashiko/issues/392
-
-Cheers,
-Matt
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..c3d51176c373 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -364,14 +364,21 @@ gb_operation_message_alloc(struct gb_host_device *hd, u8 type,
+ {
+ 	struct gb_message *message;
+ 	struct gb_operation_msg_hdr *header;
+-	size_t message_size = payload_size + sizeof(*header);
++	size_t message_size;
+ 
+-	if (message_size > hd->buffer_size_max) {
++	/*
++	 * Reject a payload size that would make the total message size
++	 * overflow, before it wraps around and bypasses the maximum
++	 * buffer size check.
++	 */
++	if (payload_size > hd->buffer_size_max - sizeof(*header)) {
+ 		dev_warn(&hd->dev, "requested message size too big (%zu > %zu)\n",
+-			 message_size, hd->buffer_size_max);
++			 payload_size, hd->buffer_size_max - sizeof(*header));
+ 		return NULL;
+ 	}
+ 
++	message_size = payload_size + sizeof(*header);
++
+ 	/* Allocate the message structure and buffer. */
+ 	message = kmem_cache_zalloc(gb_message_cache, gfp_flags);
+ 	if (!message)
+@@ -1047,6 +1054,11 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev, "%s: short message received (%zu < %zu)\n",
++				    connection->name, msg_size, sizeof(header));
++		return;
++	}
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
 -- 
-Sponsored by the NGI0 Core fund.
+2.50.1
 
