@@ -1,214 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73913630BF;
-	Fri, 28 Aug 2026 15:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD22326939;
+	Fri, 28 Aug 2026 15:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931024; cv=none; b=C+14EX8ZTuwrqBJ3R/RAQGdBf8OELZ3A4aJFoTcU8zVtsYJQe/eVNOiPJxVruujTVG5IRHUvGwSYm3IAnC3Vmi9R3wNuVozuqFT9j0CyvFcZI68Ic8eAAZq8ICeOqk7F17mXkiLABTqaYxFmUtafK58aAvHYhtlNW9Hi5znJ22Y=
+	t=1787931071; cv=none; b=mrnaDl+1Qb76bbNUMkR879gTYkxrkssgN+8/FxV4FSXiC3d6qF58YhontI+Vq1N7ZE0c2XOBYZqfPI+q0fgd9zAE6fSr5s9mqBPu+bKRuj32pQlk7foaHWroHv7E+reuqSnfS9cj6/TXcsK1cLSImMIqXn7B8fEx3tQcIs91ZZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931024; c=relaxed/simple;
-	bh=gxPoFx6SdnptXG3Hw+pks3NJkGqlI1aInjSfIWG4UM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=raoJlfKGadISD7L0P0sDuHlT/LR7blEa0aGgcMfHZtBKlDHILic/Tnqecuc1MZtjG6pNKzDQaCf7I2gyIN/1r+cch8QDH6WmVgYSRrit+JGVWXMR2qs3CG1XlwS8Dl4AZL9l5tsNQdPSNlZQTjAMKXEaVtq4aMJqsbTMIlKKwSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FX8dQNt7; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787931071; c=relaxed/simple;
+	bh=ve7OXVMFVFw2xFHjlWoene6tb7Ty6JXZOSYOaiwxrLM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=tw0f2zt4SSCHmbYaY5Q/NUYe7SeB3Fbcw1Fs4ZwOACM/ls+kzIfRV65BFXCbassgjBi7K2xkxJ0zzw8FlDK92FZMeUfi1+g3zOWidDP/VxKRrgg2RVErw1m3SX++39i3t5++157L2dw332GxQwaY7IKtKU6NnT95aSoQZ22E0HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=RjO/C7Fy; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FX8dQNt7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787931019; x=1819467019;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=gxPoFx6SdnptXG3Hw+pks3NJkGqlI1aInjSfIWG4UM4=;
-  b=FX8dQNt7XeF2CilNOvx98Zqn4EZakKm+eDd+Mx/YWRlLGjNpMuRzprz2
-   Blh0WLr9gyZvHbWQQjqJWJnQ47fTwALGJwwNz7oMc6uzcm/k+HDYB99fN
-   sUbQSLvFhJV3m6kegKij5q2I7Hkr3T9s7MFEpufzu5ThnDRz0VMZY3Smt
-   8PGx044/ROFJAsraNUl5g8MUgUqIU8OjZOYHCBCprWgCPMIRhc8A3DOS2
-   2zo0gv/arzJzn9Bu63q+PysH/OTRiKJB4Ir1Qvucmggw/faUSXZ0TVUqO
-   ogDJNb8XGdoKzw6uJtz1EAB7JHX/Oq9IpZhua3uKCIWjiQll7qzZ0DCAp
-   g==;
-X-CSE-ConnectionGUID: xFzyr5w1SdudueKGgMvZKQ==
-X-CSE-MsgGUID: G4oKpc6yQvavy1Om3O2bng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99104605"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99104605"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:30:10 -0700
-X-CSE-ConnectionGUID: 6aL0J0V6SnGOTVglG3NbKw==
-X-CSE-MsgGUID: Vh4gdHBASvOJyPNYILowYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="291682292"
-Received: from iherna2-mobl4.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.223.138])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:30:10 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: Tony Luck <tony.luck@intel.com>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev
-Subject: [PATCH v2 7/7] EDAC/intel-bff: Report frequent filter overflows
-Date: Fri, 28 Aug 2026 08:30:02 -0700
-Message-ID: <20260828153002.10290-8-tony.luck@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828153002.10290-1-tony.luck@intel.com>
-References: <20260828153002.10290-1-tony.luck@intel.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="RjO/C7Fy"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDVgvR1142294;
+	Fri, 28 Aug 2026 11:30:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=NDlT5
+	gWP/1+ftO/1MnwMDib5N9jKL2+bqbtj1iGL1Fk=; b=RjO/C7Fyk9GNWiF3VolYF
+	HU+sWvZbE4aqPvcPOziun5prEXduig09bOh/BWFVFCaJ8d/A4ngnOawLp+nOZD4p
+	qP8cuoEDsMS+VXYZFS3jODGFjKGUZZAzzA7msXQZscEt6XMlKKPtghIMVTBHRG85
+	E0pJBcxm/20PnmwDhpaGMRGooLV12lQ1QNzPdbzD6nHsa2708Oqy+hjnErrkcGcp
+	IZdJVVhG5uD45HZDi+Tb5qOzDlGEygFlf4sSs25YaqxQ+qvaC1XOTGIOcOiuI6dY
+	grgXJcqCDTVaEZvLkBe3dc4yhJxHkhBpGcTZOIpMAmsh5M4Xw/yo5JsKgQoG0ZGI
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gaj3cqj4b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 11:30:58 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67SFUv9o012855
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 28 Aug 2026 11:30:57 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 28 Aug 2026 11:30:57 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 28 Aug 2026 11:30:56 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 28 Aug 2026 11:30:56 -0400
+Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.223.174])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67SFUY3g031424;
+	Fri, 28 Aug 2026 11:30:51 -0400
+From: Janani Sunil <janani.sunil@analog.com>
+Date: Fri, 28 Aug 2026 17:30:24 +0200
+Subject: [PATCH v5 01/20] iio: adc: adi-axi-adc: Initialize state mutex
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260828-ad7768-driver-v5-1-e33ca6f841a2@analog.com>
+References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+In-Reply-To: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        "David
+ Lechner" <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>, "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Olivier Moysan <olivier.moysan@foss.st.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Michael Walle <mwalle@kernel.org>
+CC: <linux@analog.com>, <linux-iio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <jananisunil.dev@gmail.com>,
+        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,
+        Janani Sunil <janani.sunil@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787931034; l=1021;
+ i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
+ bh=ve7OXVMFVFw2xFHjlWoene6tb7Ty6JXZOSYOaiwxrLM=;
+ b=7s4G5ZsT3SdTk5ffaMyzvjH6tEmYXyhp0XumQ4VY5T1RoBviowI+KzXS3Nam+3maJ5l10I82g
+ qTNiMK41uYhBeGOwSHtjL1CEo2cNYrZYBWUE4AhRtQ9xmlyHubGcF1F
+X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
+ pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: yP0h9tgD11Qx_XxciJiVLDOiwodT6ih0
+X-Authority-Analysis: v=2.4 cv=erHvCIpX c=1 sm=1 tr=0 ts=6a91a9b2 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
+ a=_ljTvifiVFBlT2kRk7cA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-ORIG-GUID: yP0h9tgD11Qx_XxciJiVLDOiwodT6ih0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEzNSBTYWx0ZWRfX9PmqXWoxJ/Eo
+ Y49/FKnGLKOt+vsa3DqVDy5uOebUuDOr60k69uB1CbsG7JHoeUH1OjC97BAeUizSHNfuyz3vTEJ
+ YC9a0pETB27S4j1X9hcjmRVnyMXp8zz784BkzhsuDKN9JuWmKfPhWfIKTOgjxQurQfu4ofZAdb8
+ 5j0/flSY//ZNowk8apgFAAgGC5XS0+h9xiueFfKOIK7Hqss0qLrw6AT/sjT7eMVyeJkI365SEdP
+ BT8tQple77v3E4wMKNvrCKneVG82HLQrRxXkSiFmRJR+9Maz/87Eo0gJjxIjxmG7TqHtjibjoGu
+ a2iW7n15fYRaS8E2bCesJ78banTX15DhkFPR5aJfk13u9lXwXwBNeiF7d07gm7ybdUjc1eoeRn6
+ nWuAAcfqvRGE470yGGaKMYZD1qsqUJ0jXyPhyOGRIL4k4rUGIQatEExjGZOZ+3V/5WJ3XF/ikjF
+ ck4SmCcBg6j7x+VsCPw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEzNSBTYWx0ZWRfX/vjYhUc5wheX
+ wN7M34h3DfIlX3DGj0XEq3ScS/1E/DOt1wFhP1++9pN15DUoZ5L15GFrKcaQouS54/t821txIZF
+ QdPbWYuUAZTYdd4NQkhzykBwqPFA4Uuq85EeSrxJJGLRlVrfA9ad
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280135
 
-If an instance of a bitfix filter contains some transient errors built
-up over time, then resetting the filter will free up slots in the filter
-to store persistent errors.
+The AXI ADC register access paths serialize transactions with st->lock,
+but probe does not initialize it. Initialize the mutex before registering
+the backend.
 
-Save a timestamp when "yellow" status is seen and clear the filter.
-
-Log at KERN_WARNING level if the overflow occurred quickly after a
-previous overflow on the same bitfix filter instance. Use KERN_NOTICE
-for first, or long delayed, overflow.
-
-Co-developed-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
-Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
-Signed-off-by: Tony Luck <tony.luck@intel.com>
+Fixes: 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
+Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 ---
- drivers/edac/intel-bff.c | 72 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 70 insertions(+), 2 deletions(-)
+This patch is already queued in the IIO fixes-togreg branch as commit
+040c2514b25b ("iio: adc: adi-axi-adc: Initialize state mutex").
+---
+ drivers/iio/adc/adi-axi-adc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/edac/intel-bff.c b/drivers/edac/intel-bff.c
-index 06a79745c2fb..adf2ec343129 100644
---- a/drivers/edac/intel-bff.c
-+++ b/drivers/edac/intel-bff.c
-@@ -25,13 +25,17 @@
- #include <linux/cpuhplock.h>
- #include <linux/device-id/x86_cpu.h>
- #include <linux/errno.h>
-+#include <linux/gfp_types.h>
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/limits.h>
- #include <linux/module.h>
- #include <linux/notifier.h>
- #include <linux/printk.h>
-+#include <linux/slab.h>
- #include <linux/topology.h>
- #include <linux/types.h>
-+#include <linux/xarray.h>
+diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
+index 26b9c75bd4d8..b5e59b1871b6 100644
+--- a/drivers/iio/adc/adi-axi-adc.c
++++ b/drivers/iio/adc/adi-axi-adc.c
+@@ -684,6 +684,10 @@ static int adi_axi_adc_probe(struct platform_device *pdev)
+ 	if (!st)
+ 		return -ENOMEM;
  
- #include <asm/cpu_device_id.h>
- #include <asm/cpufeatures.h>
-@@ -40,6 +44,16 @@
- #include <asm/msr.h>
- #include <asm/msr-index.h>
- 
-+/*
-+ * A 10-minute observation period helps distinguish between:
-+ *
-+ *  - A long-term accumulation of transient corrected errors
-+ *    (filter stays clear after reset).
-+ *
-+ *  - Permanent defects (filter overflows again quickly).
-+ */
-+#define BFF_OVERFLOW_INTERVAL	secs_to_jiffies(10 * 60)
++	ret = devm_mutex_init(dev, &st->lock);
++	if (ret)
++		return ret;
 +
- /* Intel bitfix filter control register defines */
- #define MSR_MC0_BFF_CTL		0x000006c0
- #define MSR_MCx_BFF_CTL(x)	(MSR_MC0_BFF_CTL + (x))
-@@ -77,6 +91,8 @@ MODULE_DEVICE_TABLE(x86cpu, bff_cpu_ids);
- 
- static const enum bff_bank_type *bff_bank_types;
- 
-+static DEFINE_XARRAY(bff_bank_xa);
-+
- /* Diamond Rapids maps APICID[2] to the IMH instance within a socket. */
- #define APICID_IMH_NUM		GENMASK(2, 2)
- #define IMH_NUM(apicid)		FIELD_GET(APICID_IMH_NUM, apicid)
-@@ -149,6 +165,41 @@ static unsigned long bff_get_id(struct mce *mce)
- 	return id;
- }
- 
-+/*
-+ * Save current timestamp for bff_id. Return true if it is within
-+ * BFF_OVERFLOW_INTERVAL of previous timestamp for this bff_id.
-+ */
-+static bool bff_overflow_is_frequent(unsigned long bff_id)
-+{
-+	unsigned long now = jiffies, interval_end;
-+	unsigned long *ts;
-+
-+	if (bff_id == ULONG_MAX)
-+		return false;
-+
-+	ts = xa_load(&bff_bank_xa, bff_id);
-+	if (!ts) {
-+		ts = kzalloc_obj(*ts);
-+		if (!ts) {
-+			pr_warn("Failed to allocate timestamp for bitfix filter 0x%lx\n", bff_id);
-+			return false;
-+		}
-+		if (xa_is_err(xa_store(&bff_bank_xa, bff_id, ts, GFP_KERNEL))) {
-+			kfree(ts);
-+			pr_warn("Failed to record timestamp for bitfix filter 0x%lx\n", bff_id);
-+			return false;
-+		}
-+		*ts = now;
-+
-+		return false;
-+	}
-+
-+	interval_end = *ts + BFF_OVERFLOW_INTERVAL;
-+	*ts = now;
-+
-+	return time_before(now, interval_end);
-+}
-+
- static void bff_reset_and_report(struct mce *mce)
- {
- 	/* Reset bitfix filter using the CPU that logged the yellow status */
-@@ -156,8 +207,18 @@ static void bff_reset_and_report(struct mce *mce)
- 		pr_warn("Failed to reset bitfix filter for CPU %d Bank %d\n",
- 			mce->extcpu, mce->bank);
- 
--	/* Placeholder use of bff_get_id() */
--	pr_debug("unique_id = 0x%lx\n", bff_get_id(mce));
-+	/*
-+	 * Use the unique id for the bitfix filter instance that overflowed and
-+	 * check if this is a repeat within the BFF_OVERFLOW_INTERVAL. If it
-+	 * is, then report at WARN severity as the user may want to take action.
-+	 */
-+	if (bff_overflow_is_frequent(bff_get_id(mce))) {
-+		pr_warn_ratelimited(HW_ERR "Socket %d CPU %d Bank %d bitfix filter overflowed frequently\n",
-+				    mce->socketid, mce->extcpu, mce->bank);
-+	} else {
-+		pr_notice_ratelimited(HW_ERR "Socket %d CPU %d Bank %d bitfix filter overflowed\n",
-+				      mce->socketid, mce->extcpu, mce->bank);
-+	}
- }
- 
- static int bff_mce_notify(struct notifier_block *nb, unsigned long val, void *data)
-@@ -216,7 +277,14 @@ static int __init bff_init(void)
- 
- static void __exit bff_exit(void)
- {
-+	unsigned long bff_id;
-+	unsigned long *ts;
-+
- 	mce_unregister_decode_chain(&bff_notifier);
-+
-+	xa_for_each(&bff_bank_xa, bff_id, ts)
-+		kfree(ts);
-+	xa_destroy(&bff_bank_xa);
- }
- 
- module_init(bff_init);
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+
 -- 
-2.55.0
+2.43.0
 
