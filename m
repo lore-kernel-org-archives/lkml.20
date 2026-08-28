@@ -1,107 +1,105 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2444826F288
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C19249620;
+	Fri, 28 Aug 2026 00:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787878094; cv=none; b=jEG+hN2tFq+SGbQ+9wvi/jBt7MZEiKgfw7eK/PJrp3CVFLNILqsxM8reo4QjcbNsCSxoQdnft6EOdqss8ABrp4ZHN5Pht9n3D4B6IYZCKYvQYmS8k9+FBkUC848uvzl5oggJEJv5aDAuFjguu5ls3UsKxEmHMLqhX52+pWRN2to=
+	t=1787878117; cv=none; b=LW4o/VCRbQxiirfhkf4h2VOH3ySrV/0Uwq63uE7TC5TvqMs7c44GCgymno8Y+ISFXuQG56PIZCdgwFRjhxLr9pYyJVsqnZmbT+iSG75KUfdUij7bzh7G6Kf7kYx22OXjiH2kmGsHCM18s+NucsZesZH64FodB3uYHLTCJQOVRIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787878094; c=relaxed/simple;
-	bh=Kv7SegtkprBpdAtnxRcZRecFg6c76sWZc/YX/HSXqi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CYxP1IvLfFOQc74yxOEHZBmr+JfFoHejjjbetNqDktOidZzZf2XygOmkPH3xHc9kxj2y+ERr/w6+s4/Oyj7ug1hi3pRrbSfXqHDH0ZGaMSrhwkf+/x2vXIbBuRXGXJFiS4+Uvueb2Lo2Mbs0y2JDtWlHyJqz3rTWs73Z/Alup/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NpBuPJnC; arc=none smtp.client-ip=91.218.175.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787878117; c=relaxed/simple;
+	bh=9IWK4d256oXlb+IvxJTy8UGD2nEDY6peJSN/lkGgG1k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HqDMNx+giNbgBtI+/AVCHblyBD3Fa8yZIncTrGMiJ9l3lprR9XUumHe422HYXaB9jSGEibgpXEfJB1+Kd3DsNiSC8yHEq0kBrsxLaPqqWUClu4/CHpWBN7uJevY98maWi1Mra3/ba5RSFdIqe8IRv6nuNzRV7S8I9bMFt7retQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=ZFFdtbw2; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NpBuPJnC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Kv7SegtkprBpdAtnxRcZRecFg6c76sWZc/YX/HSXqi4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787878089; v=1; x=1788482889;
- b=NpBuPJnCKiroB8N/qNlsW9K8B4fEy1GEaSAhNJFXUQtJ4qDWZH9q7NoyChCwc2lhDZHB3ssP
- 0NDcvSxPOtucqEE14JWtuO65iisYR0ggFPCqjtyPie1ZqDmn5EfW/Ng4iPi8f7+vzfU/YdVYpKJ
- 3SyCAzgqCG8cbm9wEU4h5RTc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4f6263115d5ea613;
-	Fri, 28 Aug 2026 00:47:59 +0000
-X-Mizu-Trace-ID: 4f6263115d5ea613
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 08:47:54 +0800
-From: Hao Li <hao.li@linux.dev>
-To: Michal Hocko <mhocko@suse.com>
-Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
-	muchun.song@linux.dev, akpm@linux-foundation.org, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: memcontrol: treat disabled memcg as kmem accounting
- disabled
-Message-ID: <apDZV9nKW69ZbIj1@fedora>
-References: <20260827091813.22327-1-hao.li@linux.dev>
- <apAnveXHmeQlKJnU@tiehlicka>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="ZFFdtbw2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:Subject:Date:Message-Id:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:To:Cc; bh=f2
+	ZgYpri4Ui2s0xfjbS49cVkIp4V+/OGM1+uUm2jHLA=; b=ZFFdtbw2UlmlPF5x7/
+	pgwKvC3aWtdg6SwsY33eq3aokvALQGtwJ2u9hgB3x+QABk3bWZwRHnyOO+SCr6Rn
+	s7tMMQe16FBhrS78zs8UxxXInlWzTygRtMqZDaQ9gW5FqfFODtrsdQ5Gf3HAR00f
+	uCiGAxPqiF97hG2i7+23F8bhk=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwCXxs3p2pBqHmMBAA--.589S2;
+	Fri, 28 Aug 2026 08:48:41 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Subject: [PATCH 0/2] dmaengine: dw-axi-dmac: Fix burst length encoding and
+ LLI dump
+Date: Fri, 28 Aug 2026 08:48:25 +0800
+Message-Id: <20260828-dma-fix-v1-0-a6947f487e07@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apAnveXHmeQlKJnU@tiehlicka>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANnakGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyNz3ZTcRN20zArdZKMkI3NzS9PkVEMjJaDqgqJUoDDYpOhYCL+4NCk
+ rNbkEpF2pthYAMXR/82sAAAA=
+X-Change-ID: 20260827-dma-fix-c2b27795ce12
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Pandith N <pandith.n@intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787878108; l=1098;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=9IWK4d256oXlb+IvxJTy8UGD2nEDY6peJSN/lkGgG1k=;
+ b=OVKjqOxiacC923bVsa2u6YMGQiS50tCjyJ7UUtO//ShCFvkwZhhctF5HmowAcWzMRfiHpiIKf
+ z9EGxMg+fP1DRwl2XsUMZ2NTKNBS3sYl1zEDBhW1JLF3P0oOWzVEBOE
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwCXxs3p2pBqHmMBAA--.589S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFyxCr43KF43ur15Jry8Grg_yoWkGrg_C3
+	929Fyag3yDtrZFy3y0kFn2vr1UuFWkXrWYvrs0yry7CryxAr4YkayktFyrAr9rXayrGr4f
+	Cr1fJFySyF13tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbIxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Jr0_
+	Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+	1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+	6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
+	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
+	Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
+	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
+	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa
+	7VUbGQ6JUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqPrHsAIwAIsF
 
-On Thu, Aug 27, 2026 at 02:04:13PM +0200, Michal Hocko wrote:
-> On Thu 27-08-26 17:17:50, Hao Li wrote:
-> > mem_cgroup_kmem_disabled() currently only checks whether the
-> > "cgroup.memory=nokmem" option is specified. However, kmem accounting is
-> > also unavailable when memcg itself is disabled.
-> > 
-> > Check both conditions to ensure the function accurately reflects the
-> > kmem accounting state.
-> 
-> It would be really great if you could describe how we could end up with
-> the inconsistent memcg enabled but kmem enabled and what kind of effect
-> does this have.
+The first patch converts the configured AXI burst length from a beat count
+to the ARLEN/AWLEN encoding when constructing hardware descriptors. Without
+this conversion, a 256-beat burst overflows the 8-bit hardware fields and
+may cause DMA transfer errors.
 
-Yes, thanks for point out this.
+The second patch bounds the error-path LLI dump by the number of
+descriptors in the current transaction. This prevents an original DMA error
+from being followed by an out-of-bounds access and kernel panic while
+dumping LLIs.
 
-> 
-> AFAICS the inconsistency is possible and it would lead some wastage but
-> no functional problems but the changelog should be more descriptive.
+The series was tested with dmatest on all eight channels using
+snps,axi-max-burst-len = <256>. All channels completed without errors.
 
-Exactly! The most direct benefit is that when memcg is disabled,
-new_kmalloc_cache() will not need to create a separate `KMALLOC_CGROUP` slub
-cache, but can simply alias it to `KMALLOC_NORMAL`. This avoids wastage.
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+---
+Jia Wang (2):
+      dmaengine: dw-axi-dmac: Fix AXI burst length encoding
+      dmaengine: dw-axi-dmac: Fix LLI dump out-of-bounds access
 
-If this sounds reasonable, I would be happy to explain it in more detail
-in v2.
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+---
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+change-id: 20260827-dma-fix-c2b27795ce12
 
-> 
-> > Signed-off-by: Hao Li <hao.li@linux.dev>
-> > ---
-> >  mm/memcontrol.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 1ebceade4021..b28f6165c354 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -132,7 +132,7 @@ static DEFINE_SPINLOCK(objcg_lock);
-> >  
-> >  bool mem_cgroup_kmem_disabled(void)
-> >  {
-> > -	return cgroup_memory_nokmem;
-> > +	return cgroup_memory_nokmem || mem_cgroup_disabled();
-> >  }
-> >  
-> >  static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages);
-> > -- 
-> > 2.54.0
-> 
-> -- 
-> Michal Hocko
-> SUSE Labs
+Best regards,
+--  
+Jia Wang <wangjia@ultrarisc.com>
 
--- 
-Thanks,
-Hao
