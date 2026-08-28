@@ -1,56 +1,56 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D737B453A22
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19854503E3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787921666; cv=none; b=JH6CKhWIwJWsY2ry9CgMo93m3xdWI+DKrzxQQF5+ikJgnI4KKGHXNveLasGRe/yiuon75h9/1XLbiK4QrF8QAeyTCPW5brFBnsU3/ZcUXUk0+e4bqzIfPihrmX24IpEBMvzv6+IVNeR0Bnj0qICH8KtSxOCadUQJncutVxrAvBc=
+	t=1787921675; cv=none; b=dz6agG3C1e+btC8NcWF2lg83bn1fUtReZLGMtflqeaRSag/jNafaSIV/fcgWc3r5Dese8/od4PWjlTZ1e3nnFXdtR1A8wnahCgZn3LlHiMDChlkfWC4CVbXeEU2OBX4hfuu9P9IVvJ/GziYe6/jAn/GE1KjiwMRn98e1g1Gs/rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787921666; c=relaxed/simple;
-	bh=mQ3kcP+CyWgZPZ1iBtlnF8x6qcpBHJaX3wA7zCjENuI=;
+	s=arc-20240116; t=1787921675; c=relaxed/simple;
+	bh=Y19wC9aROH0p2C0YhyoiBj7Iw1xMl80M5dB6Vw2JHjE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=djLeSTw3sQ1LfOdHin5/a6JsMpBDlo56H4/feJ5ogQz1C7STE6tRqAuyLC6dyvowdf7qhGdnUJ0gJrjPspjOmnPsU2Orr66XYhnZhsupRSq2xbBdxxpg4/r+Ke5YfI1etd6Q5fChjUS4kf7JVgJIkt1/+moz5HyKGonquNlFkMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aeM6ha1i; arc=none smtp.client-ip=209.85.221.71
+	 To:Cc:Content-Type; b=HBj3wU08XaVsthHRTKQjqRh4j+hWWz6C0wsEwB9BZgyv7GEq7yYMYP0hTrLqa4ATyZWXWGXNXwjYROquvuuHt92mwS5WHFoQT24uN/oOaW9rtasORu2sofpL9tpXHoHUbFEf8JrNjUTg5iCiD2os6fPVSH2Q9o+n0RiRRkMxASU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KB3FMHrF; arc=none smtp.client-ip=209.85.128.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aeM6ha1i"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f835ac1aeso543773f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:54:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KB3FMHrF"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so6267325e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:54:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787921663; x=1788526463; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787921672; x=1788526472; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hfku0lPz7WJB8aIdUHoXK+mnPfY4Qn0hLLaeSPnv6F8=;
-        b=aeM6ha1ieERoKvzzs5OwR2Urym8ymZzDeN+srtTZNn9P/mnLDeDfSPw0ePwkkfzBO9
-         F91VLN2M44wDw0gu/WOk2sCTWDsgVMAifqHl3rnPRteZSoGWAUarDWUymiOadDEETaBz
-         e/IYRI8xdBLggxC28VNwTDgZNFKG1XYlLKvJHsNv08Q5OXmSn0ZbsZLLI+6VriOoN/6F
-         N3SkRad+e5jAlDF6qF0MSyvqEt75EUiHn5Y5xxrQRlwlWgYzY+eVQm0o4t1qXWzblkRt
-         JEVpRwe/OQ0YWYl8DUzz7+SqYjuDH9OAwXwrQQKkUJDXrbY6Cg82eg0CTVSbX4CMYObb
-         mAxA==
+        bh=Y3t59Cwp3hUZ2CzdmTE2YwsjNcWIkkKVh96IkZiq53c=;
+        b=KB3FMHrFIYjsfaOXN+B/5JVcDtejppnkd8l8yKD67890c2U910C+9/Job2f9E9/uif
+         ks+dOqtK/+MVuDhyYkY/oO4UmClRHERmkqyNkfJufXge64fZBJgSuqsLiwyeB5fpZWzn
+         ppB15FAR2viwr28K56LTkdX2tZWPKCrRyo4kUAZE6f5AshB0Dg+UwI34LBBW7qojD/XD
+         WqPyYvG8dQSt6qA31olUnAo42Cc/C2kWQewiCO2tpsfvm/Kt/y/WLSM8Sxi8KWhvDE9K
+         u60DkZpRl+FDhs6eTMmh1+R8YWe3nTKglOSV8KHpuij2HUj+X2uHo2xXPCf5+yCXEEkD
+         QWJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787921663; x=1788526463;
+        d=1e100.net; s=20251104; t=1787921672; x=1788526472;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hfku0lPz7WJB8aIdUHoXK+mnPfY4Qn0hLLaeSPnv6F8=;
-        b=A4p7ADCVDDv3Gr/oDorpPQeB5ymliPsWkRR5L9EsXpLZmcYV0T0kk2TLTby2PRRzUt
-         2NflrOpKraCO0d0j3GlSSCX8R8DWC0Rxt0dticUYzIcOhbr7NV5xYezt0G86g+8PPar0
-         oV0p3uBGR1gzfP3OvcXWY0nbz5gsGK5IrULzdTnaTmHdj/fikgHIbcyF+dKCdNStEaYV
-         dlnHb/Cf7k2W82G3AIqPKSOPCVQjyO+TvHyZRNm31STF9gIB1onrJbb2UrLlZ3GD44rg
-         CCz/DIWJSiqA6sv+sUrJP3X+otK3/lrbSsnbcCBp3ESdc2q05aOWRgMxAFgDWVN9l69T
-         xNjA==
-X-Gm-Message-State: AFuF++nK3cBqQopk6YZd5Lv87rxRJ/yQvdPkU5VtweUweReVSr7Ec5XR
-	wSElJ/5u9kjxQ8zTXAff9DcG8s2LVoruFvH2ccpoCB4DWnGJO2ghx69+WTNj7ZaFEInCsASchHF
-	TJfZt8GHYcE1RNB8wKwXcDM6e9XBda+0hAMgznYWyNaeJNj+6wBT4oEhwKJl+VgXiGl/LHK67le
-	2Aue61sQELjjoFtZqioznnad/TH35XCW/dqFsxmGWijN61FeOpWdXqRjw=
-X-Received: from wmqt17.prod.google.com ([2002:a05:600c:1991:b0:49b:8f1d:7d3a])
+        bh=Y3t59Cwp3hUZ2CzdmTE2YwsjNcWIkkKVh96IkZiq53c=;
+        b=SOn9EjY3qaVSpwFI9QJJ6VqR5RGbsEz75nPgWW9zSd3BEknsqHo7I+12jM3g2wf4Js
+         V71Kx7mFf/rrMV9MIly1Dpx8R0j2cbclpW6FQKOMdhggySTe5r3l33Ud2oF+yP8VMxgb
+         Ob9w/p/28OlCWcm13u76N5qN7BuEtKY12/ubpvNrAgOLl3L6Dh97uBK0gdHiJXqP0o7v
+         9C5kQB90z2kBhdu0jn1FBUbUzEv2szSzytACfN9dAiZhZrRKqDAR/R3m4Fg7n+94hV+w
+         CBf68dCvUdSoWgf1JSvitRIyjUUJp6DCS4mVLqwG4EeGBh86sY5rQd5OX6oPvqUVb+9R
+         5eMA==
+X-Gm-Message-State: AFuF++mOVnl2SW969VtouHsAx63geZUJ9IxWOp5t6QQeiz6s5QFpmGhv
+	qm0943f2AkoMuEXLFjinYzmOgofOZV+VCGVpkF38CmLhx33upACNMtJ6ObWWHgEqw63YDRSfOug
+	ROxBwL0R6gc/H7q+O9zsNRvGcL9u3H3DDcooTtpOMsK3D+Mo9HV1L3fNsA7Jc/kFw5YAD8/yeOc
+	Iejv1RBtqQ/S3gg6YqS6ouGW6AE05P7zVO3vzu8L+HqJC3r6ZVTFNHBPs=
+X-Received: from wmsm23.prod.google.com ([2002:a05:600c:3b17:b0:495:6261:8954])
  (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e86:b0:499:db6d:bc97 with SMTP id 5b1f17b1804b1-49b91bd43a7mr86485665e9.0.1787921662708;
- Fri, 28 Aug 2026 05:54:22 -0700 (PDT)
-Date: Fri, 28 Aug 2026 12:53:39 +0000
+ 2002:a05:600c:1c02:b0:499:8ff5:8ec4 with SMTP id 5b1f17b1804b1-49b91c2e11dmr109166555e9.3.1787921671689;
+ Fri, 28 Aug 2026 05:54:31 -0700 (PDT)
+Date: Fri, 28 Aug 2026 12:53:40 +0000
 In-Reply-To: <20260828125409.1921538-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260828125409.1921538-1-smostafa@google.com>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260828125409.1921538-5-smostafa@google.com>
-Subject: [PATCH 4/7] iommu/arm-smmu-v3-test: Fix arm_smmu_v3_test_debug_print_used_bits()
+Message-ID: <20260828125409.1921538-6-smostafa@google.com>
+Subject: [PATCH 5/7] iommu/arm-smmu-v3-test: Add missing error checks for inv array
 From: Mostafa Saleh <smostafa@google.com>
 To: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org
@@ -69,32 +69,83 @@ Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@ziepe.ca,
 	nicolinc@nvidia.com, praan@google.com, Mostafa Saleh <smostafa@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-arm_smmu_v3_test_debug_print_used_bits() hardcodes arm_smmu_get_ste_used()
-instead of using the provided writer->ops->get_used() callback.
-This caused Context Descriptors to be incorrectly parsed as STEs.
+arm_smmu_invs_merge() and arm_smmu_invs_alloc() can return NULL or
+errors which are checked by the driver but not the test.
 
-Fixes: 56e1a4cc2588 ("iommu/arm-smmu-v3: Add unit tests for arm_smmu_write_entry")
+Add KUNIT_ASSERT_NOT_ERR_OR_NULL() after calling them to fail the
+test instead of accessing NULL or ERR pointers.
+
+Fixes: 15a2a5645ad7 ("iommu/arm-smmu-v3: Introduce a per-domain arm_smmu_invs array")
 Reported-by: Sashiko <>
 Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-index add671363c82..eae08d4d77ec 100644
+index eae08d4d77ec..366dcb2b5554 100644
 --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
 +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-@@ -125,8 +125,8 @@ arm_smmu_v3_test_debug_print_used_bits(struct arm_smmu_entry_writer *writer,
- {
- 	__le64 used_bits[NUM_ENTRY_QWORDS] = {};
+@@ -704,17 +704,20 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
  
--	arm_smmu_get_ste_used(ste, used_bits);
--	pr_debug("STE used bits: ");
-+	writer->ops->get_used(ste, used_bits);
-+	pr_debug("Entry used bits: ");
- 	print_hex_dump_debug("    ", DUMP_PREFIX_NONE, 16, 8, used_bits,
- 			     sizeof(used_bits), false);
- }
+ 	/* New array */
+ 	test_a = arm_smmu_invs_alloc(0);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	KUNIT_EXPECT_EQ(test, test_a->num_invs, 0);
+ 
+ 	/* Test1: merge invs1 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs1);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results1[0]), 0,
+ 				     results1[0], results1[1], results1[2]);
+ 
+ 	/* Test2: merge invs2 (new array) */
+ 	test_a = arm_smmu_invs_merge(test_b, &invs2);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results2[0]), 0,
+ 				     results2[0], results2[1], results2[2]);
+ 
+@@ -726,6 +729,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test4: merge invs3 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs3);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results4[0]), 0,
+ 				     results4[0], results4[1], results4[2]);
+ 
+@@ -737,6 +741,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test6: purge test_b (new array) */
+ 	test_a = arm_smmu_invs_purge(test_b);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results6[0]), 0,
+ 				     results6[0], results6[1], results6[2]);
+ 
+@@ -748,12 +753,14 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test8: merge invs4 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs4);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results7[0]), 0,
+ 				     results7[0], results7[1], results7[2]);
+ 
+ 	/* Test9: merge invs5 (new array) */
+ 	test_a = arm_smmu_invs_merge(test_b, &invs5);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results8[0]), 0,
+ 				     results8[0], results8[1], results8[2]);
+ 
+@@ -765,6 +772,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test11: purge test_a (new array) */
+ 	test_b = arm_smmu_invs_purge(test_a);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results10[0]), 0,
+ 				     results10[0], results10[1], results10[2]);
+ 
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
