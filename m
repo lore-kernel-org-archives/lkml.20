@@ -1,132 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18ED3AAF7D;
-	Fri, 28 Aug 2026 05:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6313C0A04
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895065; cv=none; b=k1Bh1EJAsniY9YGjyiuqqaY12dAy+o+mgOIJq55x/6XOsh+7d1nmDVgDENVVOEh05q6HjoMMeoCn0Rv3VRoPh+yINyepHNUkQ+ZE4DZ9MlkFlGAuBaoIZkAEGZf8aVV/OCXYts/G5lyrK+VK+nvgu3xUlK9YfG5fRwHLV1O9qdU=
+	t=1787895076; cv=none; b=ulbiYYVH67HnoN7nxBVnfBj+xCPb21EnSJ9TtnmgRihrroDUkW7RL8yL9HdnErE5o+A/6doI39aXW0TyBT8yVuCc5dMZ1AeZVsMMuevH1Z6sKilnWflJeo/GGJtzErrW12fZLQuq7/9agxRoWm8wchwJhKZA86He2sknTODID0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895065; c=relaxed/simple;
-	bh=TtvVY7l8YQ3WqIRAh+HpirSrtKIVAdoh7UqKzmxt77k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3kpuBekN7KPaoQwEz4T7DE+76yCVIHi+y4bey7I5I2Bs0NLgBwLZRC9jbPk78BTikuFQsH0givZ+EqZC2a31+b1FC/w1mPebw3UiPZ2lHaMCeqYE3itS2FhdWtxUiwVoVQ1EZbINdwTIHszAkhT0vrlLen1hi/eeNqtWvQ2/+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XrH8e6hF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787895076; c=relaxed/simple;
+	bh=YTFU0gE23Yv3Z9Pp7jwGWPqFlGbCbnRmk0EujK9qIPY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZZBWR5/93JItOdJGs1tC+QCXMgaHw+QA2iHUTYyee3SfQl5wgVOoZaNguqLjTgWQDDTEC4vFHBXeAjnHFm9uc3cr7MOA75m5x7hgks8cj2Jcu0z2UeyH36RyOLCzkk+RcuT9NGOGNzqjpEz2Uhwb5Eq3n0XqhWIjMOw3p23wg+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxqgF7Cn; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XrH8e6hF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC7B1F00A3A;
-	Fri, 28 Aug 2026 05:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787895063;
-	bh=1ou94Vwt7CaalVQ6T5gB0CgvQCUhnP+aCD0rZ2TqFS8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XrH8e6hFjS1pDqiNNQzAn8Nd+ktrZbkYU6z4BUO6QjnrSNbSCWcKMefC9BjMdxt51
-	 OGHTJMHLUjMq4OMtMyYQjnGeaSlN/A9VQw3AQ6jrQIFJR5SJ/UeMTkFoGC8kYroTpa
-	 1wzNAYnINMG1u0491Q+rtD5FgJ2DJtjWLuhre8XTSVadFCdIPoSB0cWkg3Ef6Fgjkz
-	 ZG7aJnO55ioRKjyOJlWPyc/yB6VV2j6QYUVIIhd+IXOFWd+mA+rLWfmukjLm04Znfl
-	 TggRHkvnWIfmE1u5s3Z035wfI9Pghu/6+dRL7YOK+K+5n/3Cvvs+Ce/OAB5xiEeeZf
-	 I4uase0lRHMAw==
-Date: Fri, 28 Aug 2026 05:31:00 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Rob Barnes <robbarnes@google.com>
-Cc: bleung@chromium.org, tomhughes@chromium.org,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] platform/chrome: cros_ec_proto: Fix deferred response
-Message-ID: <apEdFK5rxLL1cXi2@google.com>
-References: <20260827180511.2825660-1-robbarnes@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxqgF7Cn"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47fecbb7000so133321f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:31:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787895073; x=1788499873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PAtkq/Rf9tx3iqD7FVH2UaRrUXSVTeHKGxvC6wVqwgI=;
+        b=cxqgF7CnZRrMSQd9epSUaCyOAHnFdorOEDbcKOGzIA+OYO/ZytsQ8mhn4XhqNzu7X4
+         DwhcfMj5CyaGEOi0LLuGj3hTm7YLGTs391BuGd69f9fHKIE/q+EO4QmVDdP1hyRLUzh2
+         LjvrXuT8b6PazThtCWLIX5b/Vn3bYV16Y0zPr+RvKe8G+KQlD9MQAPMSGnbvRSUGFEBI
+         A73Dsf3U7vpPrfH3bpJeDRNt0UqM794hb5b7ytjSkyTJ/PU/j8H0ZjFYA0ktPw24bU+O
+         n2FUdJQavQkArFHM2nsh/QIRMi96Xf2HypdnUlWw9Qsyn0tFm4ofsXqYv/ImJmakBxBE
+         iXIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787895073; x=1788499873;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PAtkq/Rf9tx3iqD7FVH2UaRrUXSVTeHKGxvC6wVqwgI=;
+        b=OYfBWofPcNKASB2ehtTO50snSkALOcl0D4mYuq6mBQzlZStnBAyLEV+SkAn5nKGxm4
+         VfTBcoq5JrY76YS3ikvJvFbx3Ls+HAwgp1XjY1ipT4PUTLq4xUSPQd8/uZeIELCctJWM
+         wYmygtuU0YkcoC1tFdxOtKxtm0/ZQ+GdVpTwVAxBRNN5bQyveRcRV4CHGQ+ZpRhvzMZ0
+         eMQIzVDOQss4mlXuwrbY6E66fh6Jv/afWlVQJRfrbY27hI+TnBPGBMR1CPMODybUmOkB
+         bmxZlXIRrOTdfYHiEDQbijFJGo/1Hf2RN6lkaAp5lqkqfegXUY9Cctzlw1O8DP3UKjFW
+         CVsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RriBBOXBl6nwiPn3M9U5Ffr3x4UT9juKcPnKTPFCa39nwrMh+DGuKw0EzbrFZMl81U76Yd2eUaM77Aq3W4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1SUk4I717id5GWrbBBajbnZUtVBpV/SrRicu29v3B4enku/cT
+	QoH6uU9+52qzLU+96ATpowLdBHK0CKCzl609fRkS3O0rxxMdjZmK/gMC
+X-Gm-Gg: AR+sD13D3FurKkILm2tnv2GbHiuwZKzzc64w4K/7hSugPgbfTHlBtE4H0KQX3e2WG5I
+	bqV7FTqY4cSlTzwLf+roLfRXZ3+LT5vGx/7BRnE1csRdV7xO2E4qTGoWx9I8eUtRbfy6rlHBTgI
+	YFTewTIMmF9V7S0L8Ky2DEl8keyYolrdML1Y31WqipkaXz2B65nF1sCr3Kwh8sLMh3nQqJSQyWw
+	XPURNJ5c4kscBQHH7YoJJhRFZFH+kcw4sXzDuPNEhzRVRS3q5kX+qpFAmm8sxd9telQg/OgmEt9
+	VJc4ZK/G/HtydMAcu3jU6u2P0JSScdR8d/bbIf/epiAlRysI/ijsGlC4RY/FIMDDpaQuHfTs4qR
+	428VhkR3u98ZSCLFXgcFLaIxmVn41SZxs4cOStv4ShGftwkhjJHDSVobYTIkkIrXlukVnpfdpYO
+	Brm2CqBaYHTMvdL0b2SY2VBQCptdR9b8LFllnXzARphdvtp6RfBKTWXNSVb80ApAwGOUMy5Z13S
+	mT06Q==
+X-Received: by 2002:a05:600c:c4ac:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49b91c20e36mr56718415e9.6.1787895072612;
+        Thu, 27 Aug 2026 22:31:12 -0700 (PDT)
+Received: from [10.51.121.166] ([193.118.38.99])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4e2c1af7sm102633975e9.15.2026.08.27.22.31.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 22:31:11 -0700 (PDT)
+Message-ID: <cfac0540-4f08-45b6-8d01-71080e0fcb47@gmail.com>
+Date: Fri, 28 Aug 2026 07:31:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827180511.2825660-1-robbarnes@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
+ <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
+ <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+ <20260810164000.GA1846263-robh@kernel.org>
+ <20260810165403.GA2145873-robh@kernel.org>
+ <20260810-smilingly-kung-1fddc5e18df6@spud>
+ <c53ce2d5-4674-4bda-9e92-fb4fbdc32da8@gmail.com>
+ <20260827-parcel-isotope-22b344bace78@spud>
+Content-Language: en-US
+From: Vyacheslav Yurkov <uvv.mail@gmail.com>
+In-Reply-To: <20260827-parcel-isotope-22b344bace78@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 12:05:11PM -0600, Rob Barnes wrote:
-> - Send patch using git-send-email via Google Mail Relay to prevent MTA line-wrapping (Tzung-Bi).
+On 27.08.2026 18:55, Conor Dooley wrote:
 
-The patch can be applied via `git am` after the fixing.  However, KUnit test
-emits errors after applying the patch:
+>> It is n input clocks and 1 output clock. It is kind of a mux, but the CPU
+>> doesn't control the clocks or GPIO signals. The whole idea is that
+>> peripherals check the output clock, when it's locked that means _all_ the
+>> clocks are locked and GPIOs are in expected state. That's why the selection
+>> operation is not really implemented.
+>>
+>> Actually the number of input clocks don't have to correspond to the number
+>> of the GPIOs, because the GPIO signals indicate the locked state of the
+>> clocks that are not accessible to the CPU.
+> 
+> I'm not entirely sure what you mean by this, but it is starting to sound
+> like you're only having one output because that's the minimum you need to do
+> to ensure that this driver has probed before the peripheral(s) using the
+> N input clocks.
 
-$ ./tools/testing/kunit/kunit.py run \
-        --arch=x86_64 \
-        --kconfig_add CONFIG_CHROME_PLATFORMS=y \
-        --kconfig_add CONFIG_CROS_EC=y \
-        cros_ec*
+That's exactly the idea. How else I would ensure in peripheral's probe 
+driver that clocks are locked?
 
-> diff --git a/drivers/platform/chrome/cros_ec_proto_test.c b/drivers/platform/chrome/cros_ec_proto_test.c
-...
-> +static void cros_ec_proto_test_cmd_xfer_in_progress_payload_4bytes(struct kunit *test)
-> +{
-> +	struct cros_ec_proto_test_priv *priv = test->priv;
-> +	struct cros_ec_device *ec_dev = &priv->ec_dev;
-> +	struct ec_xfer_mock *mock;
-> +	u8 resp_data[4] = {0x11, 0x22, 0x33, 0x44};
-> +	struct {
-> +		struct cros_ec_command msg;
-> +		u8 data[4];
-> +	} buf;
-> +	struct cros_ec_command *msg = &buf.msg;
-> +	int ret;
-> +
-> +	memset(&buf, 0, sizeof(buf));
-> +	msg->version = 1;
-> +	msg->command = 0x1234;
-> +	msg->outsize = 2;
+> Requiring other input clocks to be stable before
+> declaring the input that's actually connected to the output stable
+> appears to be a shortcut/hack rather than an accurate description of the
+> hardware. If that's the case, I'd be much happier with this if this was
+> implemented as either a) N inputs with N gpios and N outputs, or b) 1 input,
+> M gpios (if multiple represent the stability of that input) and 1 output,
+> with N instances, one for each clock.
 
-It needs to set `ec_dev->max_request` before it can send the payload.  Given
-the test doesn't verify the output payload, just removing the assignment of
-`msg->outsize` and using default value 0 could be the simplest fix.
-Otherwise:
+How having N outputs would help? It looks like it would just move the 
+job I do here into each peripheral driver instead.
 
-    cros_ec_proto_test: request of size 2 is too big (max: 0)
-       # cros_ec_proto_test_cmd_xfer_in_progress_payload_4bytes:
-       Expected ret == 4, but
-           ret == -90 (0xffffffffffffffa6)
+> On the other hand, if this is genuinely a mux, then the binding should
+> reflect that, rather than only describe a subset of what you can do and
+> the driver should only check the actual parent out the output, rather
+> than the N-1 other inputs.
+> 
+> Thanks,
+> Conor.
 
-> +	msg->insize = sizeof(buf.data);
 
-Similar here, it needs to set `ec_dev->max_response` before it can receive
-payload (cros_ec_cmd_xfer() clamps it).  Otherwise:
-
-   # cros_ec_proto_test_cmd_xfer_in_progress_payload_4bytes:
-   Expected msg->insize == sizeof(buf.data), but
-       msg->insize == 0 (0x0)
-       sizeof(buf.data) == 4 (0x4)
-
-> +	ret = cros_ec_cmd_xfer(ec_dev, msg);
-> +	KUNIT_EXPECT_EQ(test, ret, 4);
-> +	KUNIT_EXPECT_EQ(test, msg->result, EC_RES_SUCCESS);
-> +	KUNIT_EXPECT_EQ(test, msg->command, 0x1234);
-> +	KUNIT_EXPECT_EQ(test, msg->outsize, 2);
-
-Following the above suggestion, this needs to be dropped.
-
-> +static void cros_ec_proto_test_cmd_xfer_in_progress_payload_gt4bytes(struct kunit *test)
-> +{
-> +	struct cros_ec_proto_test_priv *priv = test->priv;
-> +	struct cros_ec_device *ec_dev = &priv->ec_dev;
-> +	struct ec_xfer_mock *mock;
-> +	u8 resp_data[16];
-> +	struct {
-> +		struct cros_ec_command msg;
-> +		u8 data[16];
-> +	} buf;
-> +	struct cros_ec_command *msg = &buf.msg;
-> +	int ret, i;
-> +
-> +	for (i = 0; i < sizeof(resp_data); ++i)
-> +		resp_data[i] = (u8)(i + 1);
-> +
-> +	memset(&buf, 0, sizeof(buf));
-> +	msg->version = 0;
-> +	msg->command = 0x5678;
-> +	msg->insize = sizeof(buf.data);
-> +
-> +	ec_dev->pkt_xfer = cros_kunit_ec_pkt_xfer_mock;
-
-Same here:
-
-    ec_dev->max_response = sizeof(buf.data);
+Slava
