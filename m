@@ -1,94 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4F53B813D;
-	Fri, 28 Aug 2026 19:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D213346AC5;
+	Fri, 28 Aug 2026 19:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946888; cv=none; b=VeM4oiw8xhD4whemQIhvEXHwpCTYMNEe9txKH5fESZTjX4+DSwcQNeI6AIK2aoJaNpDrTL2KFi+hxG1oUwcXMSfZhAQFw41LvAaVzD2m/SxWxEuAeC1de01UxoOn3rPLqsEH0q5CajLxNZwDFRh6PyBSsw/LE/Fprgd/t13gj+Y=
+	t=1787946911; cv=none; b=L3lCZQJFTqKTK+wVYZfMO3PTQC0ig3oVyozTCr1rbODg8lXZWfXAEkeMTIbtNUENwddoGqELRJKm1UQu8hYlvIflPPgazV0HQhnKxkCTOVsSSMVVOBE5qa9Ac/6IsWiq80Lz9ZMK/Dbn8NODFC9nvtc7yqzG4zPm7wJGlW3Gl88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946888; c=relaxed/simple;
-	bh=5iZX0wkpD+MNEcZhPumqgcBkerrHnfx/Lwndq8Q7CYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dx8yoNgKRm45VaKgbShHnqNMZ1pBx2MokSWGPOhVQOE51bUCRJ75U0Bmvp530vJZOvH8V9L+HL8ddA4z9i31mBhd3iLBEA1ZJXnJOL2dBDMYj6pPxDuNr84E/Rw81f4IflqeInzmrhH5qJIdk8R6CnGxAcvomjNVcUZ4XsPqhfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kipKh5fP; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787946911; c=relaxed/simple;
+	bh=/AovzA25bDI/y80mKNvB9fWMZSq96m267AZyVQkd1I4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=KbQZVstHUcOg9RhsE6lJ4DtiZL3pETk/ThFhyUAF/D7jVQDf1iG5J8qiAaCwy9x0F9nBhgl1y8b0OCfeUAJS/SNgzTRqtcdfz7Gk1CR8JSGP8VN4dlO4PGzQHM4JWkSDyUwTMYdUGC36jo5lTgnkXCfV9zcSmD1SO6v2uIfTVNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0mAyBXDC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kipKh5fP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787946887; x=1819482887;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5iZX0wkpD+MNEcZhPumqgcBkerrHnfx/Lwndq8Q7CYw=;
-  b=kipKh5fP7z+mAHfOMRdX9OmOAwL7R1wLdUSIqMTvK8LwLhFT9Gk3E87P
-   2zVzWVhuSeRZNvyGgya1h2nB9sm/uaNaW/AA4xAJiUxx19QDHesAvja8T
-   XAUfCa9U4AYD69k8RLkvmA5Ja8Wo2jtEQWO0Om2ppQH04hgjEyH7PwAxb
-   U3fJpjjcxIKYYYumfE/tCCfhH34pQ7/lD2LiIFswbkQfTNl97w9rNI2w1
-   Ib3rxlj1M5ihcGW4tz/1qVQFuhlsu9Tw2uOnGYC1Xlr5LKbo2EwMTvtR3
-   KfDpgdBXqOSDQn2FnXBDEUbIUBP+SIOb/eflpveIW1b+D4IzDd44JBnTf
-   g==;
-X-CSE-ConnectionGUID: Wcyt4lQfRhqIFArDYoKK2Q==
-X-CSE-MsgGUID: piZ0BWQLQGSGUyrQEGZDHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="111236297"
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="111236297"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 12:54:46 -0700
-X-CSE-ConnectionGUID: PHEhfjWoRICSTULj0uJ4iQ==
-X-CSE-MsgGUID: pxJOEjBwTOihx1J5QKxIRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="266929906"
-Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 12:54:45 -0700
-Date: Fri, 28 Aug 2026 12:54:38 -0700
-From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, dave.hansen@linux.intel.com, 
-	Vishal Badole <Vishal.Badole@amd.com>, mingo@redhat.com, x86@kernel.org, hpa@zytor.com, 
-	rafael@kernel.org, lenb@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, peterz@infradead.org, tony.luck@intel.com, 
-	chang.seok.bae@intel.com, wei.w.wang@hotmail.com
-Subject: Re: [PATCH] x86/topo: Map vendor CPU types to generic Linux such
- types
-Message-ID: <dznktzvdfxqrlvugqvmkfkoarxxaqzpbmhkxou4lipuq2q52ss@crc6jbfrnmpl>
-References: <o6lnfms2uw5xpx54bqmc72zbtdblya6bknkx5g6di5s6g3ovjf@gybebdp6p7dm>
- <87fr1us7sa.ffs@fw13>
- <20260721031858.GEal7lIlYLnsf-aEPZ@fat_crate.local>
- <6ff5asua7jywnn7ge4k37bu22artrkfgqybfdt747cm5ieiybo@bwkdi2bqlsm6>
- <20260722183152.GCamEMmAiE2BnyrNOV@fat_crate.local>
- <un5ex54iuszxdubdkjhhtezk4rqkgrzrx4ewgu74id3n3swkyy@hh4df7yq32ox>
- <20260722195105.GEamEfKQIPgWp4HiBk@fat_crate.local>
- <bpncabyd5x7q2niuopingb4ztimoxz7ldw3mha7yntyq5mbsyb@5qjrfihupvym>
- <20260722212314.GFamE0wsvHL6eLvTjT@fat_crate.local>
- <20260827204425.GDapChqT4IymVmrf7T@fat_crate.local>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0mAyBXDC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A951F000E9;
+	Fri, 28 Aug 2026 19:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787946910;
+	bh=RxINNOOACjMYXoYatrs0c86mnfYNcZa83lnprus68gY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=0mAyBXDCnNaw5HLncu9rKGdX9UpyZ+k1g/LvILACWZs2IKSyNRxxNjw6X5jUh9cDn
+	 ZoJYwVqp74Dx8dniGuBKTe3SXugx9wK7K2Ilkq/uvFfwM/JGiiTrLdu1kU8xef+l0C
+	 ASoR6UIQen/UL8X/ITMZ12tA3xD2zYqbddoZresU=
+Date: Fri, 28 Aug 2026 12:55:09 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org, Johannes
+ Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Roman
+ Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com
+Subject: Re: [PATCH v2] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit
+ on isolated cpus
+Message-Id: <20260828125509.83d2e242534c2209ca253504@linux-foundation.org>
+In-Reply-To: <apHgs2ZAxAdy8WIH@linux.dev>
+References: <20260828135036.7d44361f@fangorn>
+	<20260828122018.1a3b3be204212837fcda8e50@linux-foundation.org>
+	<apHgs2ZAxAdy8WIH@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827204425.GDapChqT4IymVmrf7T@fat_crate.local>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 01:44:25PM -0700, Borislav Petkov wrote:
-> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-> index cc13164d948f..f14775968308 100644
-> --- a/arch/x86/events/intel/core.c
-> +++ b/arch/x86/events/intel/core.c
-> @@ -5682,9 +5682,9 @@ static int adl_hw_config(struct perf_event *event)
->  	return -EOPNOTSUPP;
->  }
->  
-> -static enum intel_cpu_type adl_get_hybrid_cpu_type(void)
-> +static enum x86_topology_cpu_type adl_get_hybrid_cpu_type(void)
->  {
-> -	return INTEL_CPU_TYPE_CORE;
-> +	return TOPO_CPU_TYPE_EFFICIENCY;
+On Fri, 28 Aug 2026 12:26:15 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
 
-Should be:
+> On Fri, Aug 28, 2026 at 12:20:18PM -0700, Andrew Morton wrote:
+> > On Fri, 28 Aug 2026 13:50:36 -0400 Rik van Riel <riel@surriel.com> wrote:
+> > 
+> > > When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
+> > > isolation, schedule_drain_work() can drop the work in a separate RCU
+> > > critical section, and housekeeping_update()'s synchronize_rcu() can race
+> > > that second check, leaving the flag set.
+> > > 
+> > > drain_local_stock() only clears the bit for work that ran, so the flag
+> > > remains set and the stock is never drained again.
+> > > 
+> > > Have schedule_drain_work() return whether the work was queued, and clear
+> > > FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
+> > > isolated, so future drains can retry.
+> > 
+> > Is there some Reported-by: or reproducer for this?
+> > 
+> > Given the complexity of the reproducers which Gemini developed for me, I'm
+> > suspecting "nope".
+> > 
+> > > Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
+> > > Cc: stable@vger.kernel.org
+> > 
+> > Why is a backport being proposed?  How does that benefit those we
+> > serve?
+> > 
+> > Sashiko suggests that we ain't done yet:
+> > 	https://sashiko.dev/#/patchset/20260828135036.7d44361f@fangorn
+> 
+> Haha we are never done. Just sent the fix for this new report:
+> 
+> http://lore.kernel.org/20260828192419.3057939-1-shakeel.butt@linux.dev
 
-	return TOPO_CPU_TYPE_PERFORMANCE;
+Cool.
+
+And... guess what?
+	https://sashiko.dev/#/patchset/20260828192419.3057939-1-shakeel.butt@linux.dev
