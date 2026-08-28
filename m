@@ -1,41 +1,41 @@
 Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83A537E5F7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613A8226D18
 	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935496; cv=none; b=WNh9dRQJsBdQ5M976wsiE7HZRshia2KDe9vBwU2PR8T2+S+WCNnqfkgVUHZZDMEn1c3tAARArcuJlwoMQG1o21kpDNn+ObTcrFJt3rb8GRKboEDS8k+wq7RC1vuRlhdQbtjNV9gFXXAGG6lCE0V7h3ExojynjmCXxLfPZjyRz7k=
+	t=1787935497; cv=none; b=XGxSHlipqDIo75w9kS1pVguKFYlkF3s0c/ddxdhDjouNnijscxW9ps//BtDD+3pODfP/kQ2gGTwa5ESyiNzif/J7c1kssZBU6F0TTv83Qyx0ohNH7X+7CTfWG2yiI3f1oXkKidkq7ueQyq99AZFb7SIep9f48DJCTMphS6y10Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935496; c=relaxed/simple;
-	bh=457CAtUxAcs/Gwar0TINkysy9s5JEuWwKe+C6AqVrq4=;
+	s=arc-20240116; t=1787935497; c=relaxed/simple;
+	bh=a2Z5JjwNxud3x1Fk4ilxgstYmDcVs6aSO2HZ5JIEbIE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mG06XDlkEKcvyVn4R1mxVaDXP6s4ajESBp3VwxL1BexxO7gM76uUt6pBmA7feYAdHXzM53TEGVCb75Xe0uCKrJQXafp1fcXgXEaszQ81JGfteG1YOboy9WnuSRsJeHQq8X6EjyYNclkSlj3cjk+5zm++t739LHoazn9L5ns/9xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=T9+BO9MN; arc=none smtp.client-ip=185.136.64.228
+	 MIME-Version; b=a823tF6GKNBKwpGdBIBSlaEplmxRBZbcuRJjCWwoK9CiDMzX2wPUzLktJ2g9JvIruDQzWhxU1jI6J/BVZYYxqo7F85BwOi6dIpHqIbWcpf7xgvibNgya2SweLq8iDSk6FDLik1IjmMdbl12TaDKXiYc/KYIYFM+eLKPTOqA3LdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=der95ZNv; arc=none smtp.client-ip=185.136.64.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="T9+BO9MN"
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 2026082816444836d382e3bf00020765
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="der95ZNv"
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 202608281644486d78cd0076000207a0
         for <linux-kernel@vger.kernel.org>;
-        Fri, 28 Aug 2026 18:44:49 +0200
+        Fri, 28 Aug 2026 18:44:48 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=F0SPxnW9ihACmhsmRod40BgEcDghFlQJr7zg3/N/fbQ=;
- b=T9+BO9MNZRcou0Lo4vVVYvmasYLAZyVJWpdfWcr9108LBjzv6lQjuV5XFt/76FgQ3FkFiU
- TaW/cIt6FZz0AA2xGNeAeqpcwFJ3pywRkF2t8UP/EOjYy0OZslipCBe2fkV1c182OLVEqVbB
- bHjJn5m9viQOarOgdiJ1mOXV3zh4jHj49oxM2BizjSwxy7DWOvY/3dZHOj2zec2qk4GLx4j/
- 531dNt3/05/0GhGtfxJOOkgkdQVxJly6hMlNp44dwIuVslQKKlwGnHJOEIkJy4VbA3RwDVyZ
- tjOqRzmutklRltZM2jhf7xLYDF5Ye32aCXTHaMY9gwGuxZkrwcQhbWZQ==;
+ bh=BZcCro/FSTR14TT7n6Isl1Irs+JM+nnMtBgNPo3XYiE=;
+ b=der95ZNvtlPWTgIUUun2SOCyEiPO5yNDYTRXwyqOLuVuWHiVOi8WBskQmUkzDCONGlmGIv
+ 6afTbDlxsYq12OM9x5LPPUqJWTVhCCKhQHJlh5K3E8jAOUPBmrwv3NBEsLGkc66cx+y9Jwof
+ kz4hI1I1QIGMtdWf9/YPfjWSLUDq4aQ3z6I4cHgOmsqXC37VWgL60V37oD2yxx+P2Vuw6Ugj
+ fa1sBg6QYKtUxpPEtSVSfY+1queMwSUdO3anWmWVSPvaPAE3CDF5nib/pjHRhzmqXN1TvZtm
+ OAn/oyAdZkFkDuLdG9zwrQBgmKD7a7ZB6jq7UzWdu31i3/0gXrxC+yzQ==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-rtc@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] rtc: pcf85063: preserve the alarm flag in clkout register updates
-Date: Fri, 28 Aug 2026 18:44:41 +0200
-Message-ID: <20260828164445.3907839-4-alexander.sverdlin@siemens.com>
+Subject: [PATCH v3 1/4] rtc: pcf85063: use devm_of_clk_add_hw_provider() for clkout
+Date: Fri, 28 Aug 2026 18:44:39 +0200
+Message-ID: <20260828164445.3907839-2-alexander.sverdlin@siemens.com>
 In-Reply-To: <20260828164445.3907839-1-alexander.sverdlin@siemens.com>
 References: <20260828164445.3907839-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
@@ -50,48 +50,81 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-The clkout rate and enable/disable helpers update CTRL2 with
-regmap_update_bits() but leave the alarm flag (AF) out of the mask. AF is
-write-0-to-clear, so an AF that gets asserted between the read and the
-write of the read-modify-write is written back as 0 and the pending alarm
-interrupt is lost.
+pcf85063_clkout_register_clk() registered the OF clock provider with the
+deprecated of_clk_add_provider() and never removed it, so the provider
+kept pointing at freed data after unbind, leading to a use-after-free the
+next time the device-tree clock was resolved.
 
-Add AF to the mask and write it back as 1 (write-1-to-preserve) so a
-concurrently asserted alarm flag survives a clkout reconfiguration.
+Switch to devm_clk_hw_register() and devm_of_clk_add_hw_provider(): both
+the clock and its OF provider are managed resources now, and the provider
+is torn down before the clock on unbind.
+
+Register the clock on the parent i2c device instead of the rtc device.
+devm_of_clk_add_hw_provider() must use the parent, which owns the
+of_node, and the clkout_hw it points at lives in the driver data
+allocated on the parent. Tying both to the parent releases them together
+on unbind, before the driver data is freed, and keeps their teardown
+ordering guaranteed by a single devres list. Registering the clock on the
+rtc device instead could defer its unregistration past unbind (e.g. while
+a /dev/rtcN fd is open), after clkout_hw has already been freed.
 
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
 Changelog:
 v3:
-- new patch
+- new patch (pre-exising issue found by Sashiko)
 
- drivers/rtc/rtc-pcf85063.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-pcf85063.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/rtc/rtc-pcf85063.c b/drivers/rtc/rtc-pcf85063.c
-index af900fe8ae15e..a3af86456ccfc 100644
+index 8cb9ffc73f6d9..ac9ab1c376c0b 100644
 --- a/drivers/rtc/rtc-pcf85063.c
 +++ b/drivers/rtc/rtc-pcf85063.c
-@@ -431,7 +431,8 @@ static int pcf85063_clkout_set_rate(struct clk_hw *hw, unsigned long rate,
- 		if (clkout_rates[i] == rate)
- 			return regmap_update_bits(pcf85063->regmap,
- 				PCF85063_REG_CTRL2,
--				PCF85063_REG_CLKO_F_MASK, i);
-+				PCF85063_REG_CLKO_F_MASK | PCF85063_CTRL2_AF,
-+				i | PCF85063_CTRL2_AF);
+@@ -495,12 +495,13 @@ static const struct clk_ops pcf85063_clkout_ops = {
+ 	.set_rate = pcf85063_clkout_set_rate,
+ };
  
- 	return -EINVAL;
- }
-@@ -460,7 +461,8 @@ static int pcf85063_clkout_control(struct clk_hw *hw, bool enable)
+-static struct clk *pcf85063_clkout_register_clk(struct pcf85063 *pcf85063)
++static int pcf85063_clkout_register_clk(struct pcf85063 *pcf85063)
+ {
+-	struct clk *clk;
++	struct device *dev = pcf85063->rtc->dev.parent;
+ 	struct clk_init_data init = {};
+-	struct device_node *node = pcf85063->rtc->dev.parent->of_node;
++	struct device_node *node = dev->of_node;
+ 	struct device_node *fixed_clock;
++	int ret;
+ 
+ 	fixed_clock = of_get_child_by_name(node, "clock");
+ 	if (fixed_clock) {
+@@ -510,7 +511,7 @@ static struct clk *pcf85063_clkout_register_clk(struct pcf85063 *pcf85063)
+ 		 * registered automatically when being referenced.
+ 		 */
+ 		of_node_put(fixed_clock);
+-		return NULL;
++		return 0;
  	}
  
- 	return regmap_update_bits(pcf85063->regmap, PCF85063_REG_CTRL2,
--					PCF85063_REG_CLKO_F_MASK, buf);
-+				  PCF85063_REG_CLKO_F_MASK | PCF85063_CTRL2_AF,
-+				  buf | PCF85063_CTRL2_AF);
- }
+ 	init.name = "pcf85063-clkout";
+@@ -524,12 +525,12 @@ static struct clk *pcf85063_clkout_register_clk(struct pcf85063 *pcf85063)
+ 	of_property_read_string(node, "clock-output-names", &init.name);
  
- static int pcf85063_clkout_prepare(struct clk_hw *hw)
+ 	/* register the clock */
+-	clk = devm_clk_register(&pcf85063->rtc->dev, &pcf85063->clkout_hw);
+-
+-	if (!IS_ERR(clk))
+-		of_clk_add_provider(node, of_clk_src_simple_get, clk);
++	ret = devm_clk_hw_register(dev, &pcf85063->clkout_hw);
++	if (ret)
++		return ret;
+ 
+-	return clk;
++	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
++					   &pcf85063->clkout_hw);
+ }
+ #endif
+ 
 -- 
 2.55.0
 
