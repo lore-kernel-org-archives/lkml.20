@@ -1,123 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1904824E4C6;
-	Fri, 28 Aug 2026 09:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A2D64AA4
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908542; cv=none; b=uM4hPp685kdJ5jdI4YlXf7WSz0W2v/pUWfYjs3net2f31141+Rm7O2U788o6uD0XpHQrpdT5munC4m79kZFRLHm7e2WdegzJiYfM5RUaGKoG6KbizCqYp587Jo8vfkN07XetUHuv3cTdqC9rn6lNd+jUF3dzZEt0JluW8gznATU=
+	t=1787908559; cv=none; b=QGRxVpJcEitZ2jmh0hYULfBk4FHXzJ4gKt8iKkq/oouDVmZ6ojmc2THkLuwVMBIAxGvMmvw8PCHlYm90z8FMDiQL9cBhL6oLh46SW7zynVAvCJPlnSbzrEm5gb3refDNqzu8GaXpF0ynNAsqets9gVnK/2rYSWTO/zDG4QPSEZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908542; c=relaxed/simple;
-	bh=joTa+aA87n5FHwG5f29JGzpn0F/DcR2PpkEJKKsA/XI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MXFF0YOLrFZUZREW+sYo8AGajY0M1n4YPJDG3pxBkh4df3ePk7g6t+5szmEvX1l9n9e2KVaOTo2p7MdUTy71eBP7k9H4PR5CcfMOrCSPjNJ1xwL9I9F1ELCriHQfd4xDJg4Zm9mM9q9tfgBbHdNJabU9tzlSN8ov2OVka2ODp8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwBtwHrp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787908559; c=relaxed/simple;
+	bh=wQzBOC/Hf/ei5wMX4dQCdaP/CAlEzxlG0QrNSkvCxEE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L3ubeRldbYwszCq5iA5Zu7CkoS6izz2IylyCKHxFGt8Bf+V3eeA3muMd2GUNEbMFr43iyGRO17IDahX1GcU8kC7ULvWPM0SSurP0+RaD9G6DZrn9rwP97e7a3V3e0/RtzGV+yP0CqFt+JmiZO5tjCNh80mdb5uVDKTKDSiMaZug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtcPk5lJ; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwBtwHrp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D801F000E9;
-	Fri, 28 Aug 2026 09:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787908537;
-	bh=WJNyvam/TtvWT9CJFPp25i1xg+QAJMyXxSbtCFngQEA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bwBtwHrplo0MqMZ/i1Jl3lgV8BAaxpSqNtPGwa9HxzmGCvoEvNCJDYv9/MwkNTZk3
-	 um08+x2LtBx1MrjuXZE5MwNOe3hxYv1ZvqjIVxX+Iejb6uoRbIGVy4NasZ+QUjx8Vp
-	 bK7jC8KjGPn/RmAe0eEdaELgOwyyZsn5qxuJTS0ixU/u/ltD+HKNWBFetDxoWVwm/K
-	 67Udx9oJ9MGQRyJ6UT3BMBIRa/b46qFGhgB+ctJLSn/RUJUvYk457JvLNqHNihD+Ln
-	 vKWplwD72TgaCNTijybmAyONWP0dQm63z5gxMU2nV//Xv3ENIE40bxMqRzcq2B0GuB
-	 fU/t8e/XAQmNg==
-Date: Fri, 28 Aug 2026 11:15:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
-	Pankaj Dev <pankaj.dev@st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christian Bruel <christian.bruel@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
-	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 9/9] arm64: dts: st: Add USB nodes on stm32mp251
-Message-ID: <20260828-blue-caterpillar-from-shambhala-5c5dbb@quoll>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-10-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtcPk5lJ"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-85339ed040aso809164b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787908557; x=1788513357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oK69mOzh/nTQyD5btplCU6IorcHxRfVNJ/HUqVvgcgs=;
+        b=RtcPk5lJuf0lqaFSxYruYpMljc264DGJyk6AQNmzTnri4lW1bdkUS2MP+dfyUsM4hs
+         rwGaTWDmSXXrhn2ydLh/gY8t+aWhmGJEiqZnT41LaGIyX2cJ2n3zPtfNRmKRYTDqSxX+
+         wP6Gz00BSL/7Ib6++6T9LhTgSnHxJtal6bMo7tWU0Oi3Byn5x+2lYeUpGUm1VoC/rfXI
+         cFH14e+xaT4mRgj/ghNyqdgKwpJZT8lF8TxKZkTwhPaSKuhuwLL9Yur0JjL8IZECcihZ
+         17LoOBAggUFum+aUIqIcCqaXJlOKT2x0y1m7fm0iRfsxxuGmcGWDLbeAitsoGO9WUTb9
+         9egg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787908557; x=1788513357;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oK69mOzh/nTQyD5btplCU6IorcHxRfVNJ/HUqVvgcgs=;
+        b=a2TaWt4X1yAQTcDrFokK/Vc5iInFvlIaPw5F+SKvy1LyWYGGgs8SdSLEopByaWD4Xx
+         VITXucDZr48x91IOiggFRWlmfthkv425QfUN3RtwjpdkW3E9UUDFpr1IBhX6FjDssBuD
+         NT0HKf8+1hAE8rex4EwlmaK01/wRshN8QkFPuosqH06uAeL2jxh3nFjc0VVysoK2TOmd
+         gL6jLdm4Kqz07TNbc2558Av5u5U0XM5EH9iYtFC81I22r+TJN4iTYacJYeVo4hnRf14x
+         5RrvEqViyFcKtA15rJOTmnjIKhnRdAHEwHoLh7PLEx/2gFybLJ+FeCtfd9f9c6jZycnb
+         f6iQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoliUELETx/C/dpqT9yLHk1tr0HiG377jIt+2Q+a0KgO78ABNHyiw1GXidLlYoecVhBW/usTbz/eNXJvkg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWhvkIGREDeAeC8WMWEq4iXdVQPh15NC9Dqsqm0nMn2ri8dXLL
+	5UitmG6ojuYxouohOzj5Mht5MKxL53q8yS7GrV6xI767vxtw/Ad7q0Nq
+X-Gm-Gg: AR+sD11fE3YER0Qy4JTz8LndJpnuYT7ow80THsn8zKogpgNSpZ/7pZuLYSttDRRZE4B
+	wx+pkgiOQtUfDTgk0jE7lN0hVFo3m8Xu6Xjrlj3L83k3y5hOZiT01jwuiWLlLlW/TEAogZegJFL
+	WSuoHkGuKXEk59S82UJRBMAHJTj5As1z++qcfEdNCzEJY4VvkwVeKz0/TpDQWLAoJc9c0ET1FnZ
+	/Hj1tbsg/3N5s+18YE2AJffFJBawqm2nWQV35hjIQVHKlX0UPAez766FCMgXPVcoLshfOYEhFr6
+	WPhN+mVp22oMNrmqRHsbaPqo9VVeDZZIZLqaIK7zUgQCGOxYyGTY4RSp7t3MvBeYrIh8eFuP4Lp
+	6Ly3hwjgdJAxiae2PpfetdFLfkijI/GkMG+3R86VNcoerwylorEf7rSPj/aVAXjeRJGZ6WSXdua
+	yjlSw/ImhV9sFNi4RKpbhs8ij8MtDTnTGidVbVR94qXGjgokd2P1dCQTNd6U5gN39M3GlnhOBPq
+	NbPJfONv1Nj6cWbA4S/wXl8a+9tu3ToYya0BflH/trBMlBVRIO4mo6uJfmvegoLw85nZntmd6MI
+	ss+0
+X-Received: by 2002:a05:6a00:1da4:b0:847:973b:3cf6 with SMTP id d2e1a72fcca58-85625541a6emr12204502b3a.0.1787908556977;
+        Fri, 28 Aug 2026 02:15:56 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569fe78fc3sm381248b3a.24.2026.08.28.02.15.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:15:55 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v3 0/8] ASoC: mediatek: mt8186: Fix clock error handling
+Date: Fri, 28 Aug 2026 16:15:24 +0700
+Message-ID: <20260828091532.600047-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260822074816.548662-10-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 22, 2026 at 09:46:42AM +0200, Marek Vasut wrote:
-> From: Pankaj Dev <pankaj.dev@st.com>
-> 
-> Add USB controller and PHY nodes to stm32mp251 DT.
-> This includes two USB 2.0 FEMTO PHYs, USB 2.0 host
-> controller and DWC3 DRD controller nodes.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-This looks early unwrapped.
+Hi all,
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+This series fixes several error handling issues in the mt8186 ASoC driver.
 
-> 
-> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-> Co-developed-by: Marek Vasut <marex@nabladev.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christian Bruel <christian.bruel@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Pankaj Dev <pankaj.dev@st.com>
-> Cc: Rahul Kumar <rahul.kumar05@st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Rosen Penev <rosenp@gmail.com>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: - Fix up Sob/Cdb lines
->     - Move PHY into syscfg subnode
->     - Turn st,stm32mp25-syscfg into simple-mfd
->     - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
-> V3: - Describe OHCI clock as the CMN clock
->     - Fix up Sob/Cdb lines further
-> ---
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 65 +++++++++++++++++++++++++-
->  1 file changed, 64 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index 6e985f115b195..dd2f7ddd9b634 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -1746,6 +1746,47 @@ stmmac_axi_config_1: stmmac-axi-config {
->  				};
->  			};
->  
-> +			usbh_ohci: usb@482e0000 {
-> +				compatible = "generic-ohci";
+The patches mainly address failures during APLL/mux, clock, MCK, GPIO,
+and regcache operations. In particular, they make sure that partial
+failures are handled correctly and that resources are left in a
+consistent state.
 
-So probably this answers my previous email about USB binding - you
-really should have a specific front compatible. That specific compatible
-also would narrow flexible properties, like clocks and reg.
+The series also removes redundant probe error messages where the errors
+are already reported by the called functions.
+
+The changes were found by manual code inspection and compile-tested only.
+
+Link v1 : 
+https://lore.kernel.org/all/20260820111253.97866-1-phucduc.bui@gmail.com/
+
+link v2: 
+https://lore.kernel.org/all/20260821123021.41390-1-phucduc.bui@gmail.com/
+
+Changes in v2:
+ - Update the cover letter.
+ - Drop patch 5 from v1.
+ - Add Fixes tags.
+Changes in v3:
+ - Add a patch to fix clock handling in the mux disable path
+ - Return directly from apllx_mux_setting() instead of using a goto label
+ - Add GPIO rollback handling for partial failures in ADDA DL/UL.
+ - Add Handle failures from regcache_sync().
+ - Add a patch to remove redundant error messages from the probe path.
+ - Update the cover letter.
 
 Best regards,
-Krzysztof
+Phuc
+
+
+bui duc phuc (8):
+  ASoC: mediatek: mt8186: Fix APLL mux setting error handling
+  ASoC: mediatek: mt8186: Fix clock handling in mux disable path
+  ASoC: mediatek: mt8186: Fix AFE clock error handling
+  ASoC: mediatek: mt8186: Fix APLL enable error handling
+  ASoC: mediatek: mt8186: Fix MCK error handling
+  ASoC: mediatek: mt8186: Fix gpio rollback on adda dl/ul partial
+    failure
+  ASoC: mediatek: mt8186: Handle regcache sync failure
+  ASoC: mediatek: mt8186: Drop redundant probe error messages
+
+ sound/soc/mediatek/mt8186/mt8186-afe-clk.c  | 163 ++++++++++++--------
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.c |   6 +-
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c  |  21 ++-
+ 3 files changed, 116 insertions(+), 74 deletions(-)
+
+-- 
+2.43.0
 
