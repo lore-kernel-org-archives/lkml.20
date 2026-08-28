@@ -1,245 +1,231 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D11396B73;
-	Fri, 28 Aug 2026 03:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787888215; cv=fail; b=NZZdtCcCFOxIlH6mU1hUGRB535TKtE42hUPYvrsOUcZSOiTbFD/KigCP7HG5VJ3VG4fJGvDoYvI3SiWuWdT99TfbfkN/fUZLOytzqhfgPEXf+h+qv3UxQE7AdkR900/zfrPOJvpRtCD/rqja7EjLJ/LKMsdFSGhYrro87hWCXRQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787888215; c=relaxed/simple;
-	bh=pzno6ad3tfFC1ug/bfaLbA3y2uin3Z4LyroUfk/B/pQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iKIXr9JWOE5DEy3GEdvXU1nsH1T2JhZfuvtc2ydfvj139itF+sq+xPMyWGCl+fQXQz5IUTpmrfLGEYuQ6SbjEnWk4MXucPr4Ys75hSBlJ4cRIMHJMPsN8wqgdmOGExO/smND4iJmKqHf2LQe6sbPFdVFFEMglzFPIkyaKa27BDY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=d8RW+DxH; arc=fail smtp.client-ip=40.93.201.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0224B311C2D
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787888233; cv=none; b=LfSRu/Hov3MUrs6EwkMPZzS+QTN6U4gVOfyyElmckllChpw9DTCloeGFShK0QiE516FvaD9fsPJ3C2GMplialJSnVKN/tWgrtSwuNCbnW8DrvjBZAlPldnAtEoSy3sYMJ16mMvDuorNXV1Shi1oh2uGqThrKE9U8MVX1zrl66bU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787888233; c=relaxed/simple;
+	bh=f7WV+5JRBH7+b0h8Wle29pWQgflTwoQSptZTR/oRVxc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WGRneyOmCYqz7zVcOeJb+H8eBushXvDS0BqMCMAW+VCd4AIJAf69KvKNJTUmqsRCLp420RRq5r0pgYyfg7vfiQMbo5dqoBYW/OX2CGNRY/u9IZRU1M6SPUHgHTZELT+lpsB7hgbskDB7VCZ6vACpPGKofqX7dX9ru2bX3UfYK5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LuP09Cxz; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="d8RW+DxH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OtguSi8DPF5zmdd3RBmt1/6i2ShYgikU7nKYBX7Uri6rr6fWSmtLCFlRcX6Bayc2xZ9grh7vc4rHN9CqqoWaDKVBHAxyKaD4P1JD7JGRB6/GhKfBq0/ot0o600l5YyDTguUcyD5PQeyzP4G9zP23+pvq9iPadgcVUUWpueF8z0WVTEJcOWq3VpFmhoDTHaJnia6NStD+YoQRFpw9+NkUjJ9O7MGpQsf3I/u8+WDukk2E8U8F5wNWVFnMO7bhLpZ4Uuyqn5ZEYw0xNROE8+ZcajG/pQL3Ih0s5fTCJX6AvsNKSeQuem3DKwysYtZSfBlc7pH0XSfivi5jmTCnMdJEiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Mc88GR/Nm1POTPR8JvDGOW4eAdOgpJwo2oOcdTSfBw=;
- b=fQnVZv/sva9UUdj1++Xqf1u4mvXvC2C95KmC6VJ7hHJecMOrIYosZxw4cgZlBtR3fwsv1p5IqJu6hNFjsM31jAJfPTHlqsnVcCpluI7KYSk1a69VzlH/UA/J5PPVY/JbGnyje4oOQ9MUFjy8YhTwxJ8dKkZqJXYR7Qf7XniUkyHHQt258uvvieXv7OMFbIzOeThvYBZAx1GIx0a5tLHJ/xqAcJCcQefCdtCTRtTqujgfHWvsk/jrTx+fA+uRhmL2+8XZG+1ny+zUy+/yvsj6dh5yI+CCvk3RzvamJVfGfVdIa2VO8SJB04+JDcISXYCeRcogf9adC6aN05mrGKkI2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Mc88GR/Nm1POTPR8JvDGOW4eAdOgpJwo2oOcdTSfBw=;
- b=d8RW+DxH656raEeT1VszrC/8NNJaPB3G7kRo6prmq2PMHa4HwOIs/VTKHvVw7M9ORt+CgDo4pXg+Dt2z2B2CKkeCzaK5mOlweNctRTapASo/sMSVI2KkqKwtrAaC5weDfcHDIe8TWfbxj00llHh8/eQR/+B2aAW3KCeH6Ja/3QQPHj2PZswFklfp3SBPg+iBPSqC1P/hEj12F6z/zGVunyVmG9iuI1QCbHyQHwGXX1aqvGgVQcVSw6UGg9KwmX+mUkFs3Wi6kyjQMVFX71onmXpt2DnZDAig5PGRjNo3xLrUr//XvkBFynIhyO/NL8thaCYgYGKj1w14IqmKK8LZzw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by CY8PR12MB7433.namprd12.prod.outlook.com (2603:10b6:930:53::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Fri, 28 Aug
- 2026 03:36:48 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 03:36:47 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: nova-gpu <nova-gpu@lists.linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	M Henning <mhenning@darkrefraction.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v5 11/11] drm: nova: Report GPU GID in GPU info
-Date: Fri, 28 Aug 2026 13:35:31 +1000
-Message-ID: <20260828033531.1117754-12-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260828033531.1117754-1-apopple@nvidia.com>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5P282CA0117.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:20b::18) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LuP09Cxz"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so367225a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787888231; x=1788493031; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kClGC4Q1h2cpbmXDDO/Cni49gBRV6utUcLJ4NZAQIpg=;
+        b=LuP09CxzqBR29isgye+UoveYCFTy74KRZ1sqIa/08LoLaEZuPjWySDU3+kCgabR6rs
+         IZkppA+P7n04T0+ZyWFnyV7dGuqqxFnOU4/SDS63IZdkGWZ9vqFffDi7STtBciD4lpVe
+         gt/CHzNZxC8d3ErFZDFt0BQBebjRzW+NJycPAX//FYAfC7dRABmP+4gLMAqGE9BYM48v
+         dmJLl96jyqF5TJVCAL/6XlmHECChzxkN7mN1hNSqzWndZmlzGBHdQo2Lj/gzsb8a+zxN
+         lrEoPoDhc0pOncRC0GGH8Z22Y6SJangjt5yN8fccVqhK4SfXYwYsbfQ1TPnsjX5a6z44
+         mU9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787888231; x=1788493031;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kClGC4Q1h2cpbmXDDO/Cni49gBRV6utUcLJ4NZAQIpg=;
+        b=EPIB2HacCL0hb2b1CIBEzT+Ne7ofAXbSit9JgJrLOhdp3SUY66jdUzbhcjAQv0/pTQ
+         z0r4S2NFwr5cqFeJQmU6EB1co8puT62Xq12UM2hjHKEjUQaq5x0/lN9nBkz1XZ2QEQBc
+         IGsRGA3zUOgmH1NLf1bJAB/2pIWWvYzSsGja06VL3Q5TYI9U/hO/pVMAUP1q5zNSzgyy
+         uQxVfAfLBDnQ85UW1O8/HyfcTeMgub9Gi3K/YbNHv10Zd0GdC8/9dPScYog4o8NuoImf
+         0WmKMKQo5HjVUXs+0Ci79HbV6+2xjkNwdpuZHmAcm37R4c08GDdPnuLGUlJPz5OTZZqO
+         MYKw==
+X-Gm-Message-State: AFuF++nNTAfYaTgIC5MqR8I7MAezroIZf8HZnqKbH5QbTyIf4nVxmexP
+	/8MMvyDVFgkoNshp85vFoQpy1utNyeLgSLJVIr7OJLLaRKY7iKPKIclJ
+X-Gm-Gg: AR+sD11/ZUGnNEOXBKhdHWMurho0ck1swOG2SSd+IUjHVyf37mIpy8REkmXom3rBuPh
+	PAg7LT6K6DXmwZ42Ui3Cl02zPk2cOATyEfmB3ueDi8R8vyAAEFlLQqA1QBOA/A/vkGW0ZHa6t6t
+	f3zffDBNFuRlfEfOea8sAmmVhsXSR2z6xSX7BuCoRHNFj76NoJb8ZVHqA8+Bv8KjZu7gHORjhyS
+	uNScpr6nuPoA2KHBVevyK/+Xtytd0zV43zYM3VjC5ppoeQUVaj4qnHvY/M8VGJ+pG0uGiq8hR7j
+	VVTPTxUQA7nTDTafagPgRk6cj6zpw6GPUDRrTpz905dmoVZLasGnPAaWw3Y4WSNfq/S2BRyZoDE
+	1ryO1nk1YJFMAGQgpdChHXgNwWd6hyduiFnypRYa+CDGqbxGqYP7bpmX4MWZgK7ByGIeCMGrcwe
+	GCaq7bMHhouZAZnPxart1vduGK/4NxFVZXle6GqbL3omHcsg9Clop2S0pWaa1i8ZNeRH3czwuaY
+	UI5hssKQoZa+SOF5ePUSjFB7IySvlAR+K3U+hRf/e2bGQ==
+X-Received: by 2002:a17:90b:2886:b0:396:4729:43fa with SMTP id 98e67ed59e1d1-396d0bfc429mr9095264a91.0.1787888231214;
+        Thu, 27 Aug 2026 20:37:11 -0700 (PDT)
+Received: from lima-xfs.. (174-126-236-85.cpe.sparklight.net. [174.126.236.85])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1992435sm5589943a91.13.2026.08.27.20.37.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 20:37:10 -0700 (PDT)
+From: Eric Peterson <linuxinstalled@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Eric Peterson <eric.peterson@hpe.com>
+Subject: [PATCH] xfs: add per-mount read/write I/O completion counters
+Date: Thu, 27 Aug 2026 21:34:29 -0600
+Message-Id: <20260828033429.4070267-1-linuxinstalled@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|CY8PR12MB7433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30783041-42b3-40bc-8e7b-08df04b596bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|18002099003|11063799006|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	mH3NdZE47wKyGjqRwhEXXhPsTC1RPEAj3gxa5rfvLoNUA0xo0E00nXDfy8DlOso37bAJghFQLLYngHqj6UBOTgga7X7V7CJ1EIjS9URkgMQqqvUGpRQL7GMufr6Q0TvfD9HXnicgSjUc1/Hcyc9EshJzk3UxjN2yAaXI4HiS6EBAfczwsSryuq4TVZ78tzXHua9fOUcuLEZt1w2nA8twTBW3esOB+R7GiFwlMHy1sM+88vWusx9bKmHOqP535ko4v8z8bwHUSR8L4yhTenxC9/+n7B0ZLHeTXFaaYGh9G2Oy2tK9+MgsHyDGwN1ia33+yx1OIUYjela4+/4lHz0O9KrWuf6oK3fN2m2JfarTg4ChYocZaSsitetRDR+DuKw4GgI54Q1mmUfcCR1zzaBYeV2RH7nm4TW+qWl881Lfzli26gfxqV1fW/UChCu9ydg0d3krlZLIUaYt3PK+DM30pghJ2CP2TdLRiVlis3YGQ2V9WMWlkSpuhQ4uDRn2GB3+Mye6+OaE0RaN9udewJC4jMRtw7F5Y1/crP5FEEn1sVZ7fGsgoQZm9ZgWMnc0ZptOmGXGStKSzp6GcOoXCAuhpkUJOMMk2EbN8RYO8fREqoRbQGh4Sw7VnNi5+8KXBr3MVMbBBKxyEpNDyKiIrnUPpxpMkENilUSrXPpSiTNhdc8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(11063799006)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KfKlCOPSU0drExcEh538TL77LGm5PchKoy8yF0XBitB0SaPiV5vK2lvmcPRA?=
- =?us-ascii?Q?46A8fhYhy5gZhrw+r5pQraU4H1jsZwlSnxw68FzdR2NY4oXjnHDmpjCGsqdR?=
- =?us-ascii?Q?uXQ4mRhvrY/7qyoEla/8itw7CzIEhn3dJG+0x1hhbJML5xZtBbTBGXRtOQ5J?=
- =?us-ascii?Q?HE8/59PdSNlL6CdSzEPZYPwiwsbG8HkKcbve8CKeXsK1ukkiRtEu16hiiMjn?=
- =?us-ascii?Q?ec66wEs+9MQb5CunYfkb73vUAH4ctaByk2v/srs7iUPEntsZ/Iwe7u4Sfuy0?=
- =?us-ascii?Q?aECkHp6dWAjaX3AqWhUVOrWuiITBe7g+ZvLzBIFPtyog3F4aMPOozXu4Sit/?=
- =?us-ascii?Q?edRFh+H5yDW271Zefj6x1eyiQ1IjSlhP1PNDbZrenvTggBCMcfCkHyEkFs7J?=
- =?us-ascii?Q?EZoRGksSNJIUOvXr0YgmITUwcIi3IgCPDciCFZrQVO91F2ufcxDVfTlwzOi3?=
- =?us-ascii?Q?BFdbhCROb1efeYqQFPY8mvucBUj2mUQwTXGASTiftSbLLqUQ7aiSpVQr4z6r?=
- =?us-ascii?Q?+EXZvPuKzSbrcKh5mRN8I2YCnJVnGCaYpb5djnnw97xwGgLZ73/5B4K49ue6?=
- =?us-ascii?Q?JJmdgWY1r/GWVjsqaA6piXZ/VN+ZxRdSijwRTcZNIwr9R/ep485wVGRSDUMF?=
- =?us-ascii?Q?hYaT3OAqUG/AJ3BAUxAG/Gh0+fSnQAHQtJTrHJOdC+v/qPNkSX91kN+cR8gr?=
- =?us-ascii?Q?RXid2261mGsgXD6KaKb3liX1VH9LPV6f2Nfl8Jg4EnzTQDSl7faDUL3c33bw?=
- =?us-ascii?Q?MXPtgRy5V4d/Y7SLFiSBLEKXDAumi5FPo95Mwq6f4ea3FzpUzPzk0XwMUgB9?=
- =?us-ascii?Q?Kydgx1xvCx/awUgS1v366R0aZWKI0rT0Cpg5ZBS75x3Fa48J2b54sH/20wpm?=
- =?us-ascii?Q?KOQ1WzJWOa2wxWDSZWzfujIJ1Mr6Xfzu+mutENXueoTFxQwTaGBzfEPPaF3f?=
- =?us-ascii?Q?jSOZOEYrVxfcEjCYubn5HT0UZfy0y58bjZYbnZ+xuFIGV+19M1+vhMRUH3xs?=
- =?us-ascii?Q?v6YddM6YfUTSitsce9v/8mQgRBR6ZL9zqywrsWyp6/woXhv6w+wbM05r+5MK?=
- =?us-ascii?Q?+SviZI7peQvY7O45RQ/WIO0wn7nOjWg0RmuK7b4q6T1DuFRRJatfWlvH7rNp?=
- =?us-ascii?Q?RzXXyfsZIkWl+xxxTovrGTtCAFaldLPEfy+oIf5ZcycqmMUbGJMsSKJSWvaU?=
- =?us-ascii?Q?FIj9l9FsE30zTHQGuCnR6ihLEVuHgVKnh6tH2qTDbCPw1JZzCA+9zxVkMUB3?=
- =?us-ascii?Q?ihjcWkOg+St/bI07zn16lQlANsz9tcaMnSYpQkcSQcgiNaWWrFWvbNk7OG5f?=
- =?us-ascii?Q?AkDyGXH2MnHQbLV+qdQOhGWQpP8+Z19de6rQOcVkUZejzrAJpvqcBSIO/6B3?=
- =?us-ascii?Q?mvhCJ+bY78jYCndVTeb8gu+G4pRd0VxEXc6ekHfxvyOSw0PU0K9k1Gz1KQ/2?=
- =?us-ascii?Q?ftNqopY9D/O5aY2WBgTQzE/QdLljLNlqWWn8nYgYQIfLsS9uLBJwH6sPVFxu?=
- =?us-ascii?Q?ltSZeZjk4fGvNt2XbAOKf2KWrWjx8XxBBfuVtai8zv827DdIHpko174vPDIq?=
- =?us-ascii?Q?lMhRK9TGqzsKTnAjuZGf7ewukj4lHUsJ+xhNqPb0Nh8nv2qUUxdtGAbo/RRo?=
- =?us-ascii?Q?tRly6mcE6s0GkDFnf2QpTgYfW8lYwukqG5l5jW0YNqbu2dQwa7PjjHySWMc6?=
- =?us-ascii?Q?EMODLBnZPd5HJsk5ghIfM4QdlrrEk4g5ZWksQeFHPVXDpo0qr1Ws8mPib4kR?=
- =?us-ascii?Q?tlJBeqDVeQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30783041-42b3-40bc-8e7b-08df04b596bd
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 03:36:47.5676
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 55fOiUrOuFFCV2BBq5Qe00GSF71ApKW4GbGYMK9Y1T4kSGa+N9hsK1Sb2lD7u1n2duAXeJmR+i7ZHAhnL9iENg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7433
+Content-Transfer-Encoding: 8bit
 
-Add GPU GID to the reported GPU info.
+From: Eric Peterson <eric.peterson@hpe.com>
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Add two per-mount statistics counters, xs_read_completions and
+xs_write_completions, to complement the existing xs_read_calls and
+xs_write_calls counters. The existing counters count I/O submissions
+(entries); the new counters count I/O completions. The pair (calls,
+completions) lets a consumer compute outstanding I/O as a queue depth
+(calls - completions) and, via Little's law, derive an approximate
+response time in userspace without any hot-path timestamping.
 
+The counters are plain monotonic increments (no clock reads), so they
+add negligible cost to the read/write path. Per-op timestamping was
+deliberately not used: a clock read on the hot path costs ~20-30 ns on
+TSC but hundreds of ns to ~1 us on HPET, which would be a regression for
+general users. Queue depth from completion counters is an approximation
+(instantaneous depth); this is a deliberate design choice, not
+a placeholder.
+
+Completions are accounted at exactly the same sites where XFS already
+accounts the xs_*_bytes counters, so their semantics match the existing
+byte counters per path:
+
+  - Reads are counted at the frame in xfs_file_read_iter and
+    xfs_file_splice_read.
+  - Buffered writes are counted at the frame, i.e. when data reaches
+    the page cache, mirroring how xs_write_bytes is accounted for
+    buffered writes -- not at physical writeback.
+  - DAX writes are counted at the frame after the synchronous
+    dax_iomap_rw copy returns, mirroring xs_write_bytes for DAX.
+  - Direct I/O writes are counted at true completion in
+    xfs_dio_write_end_io, which is async-safe and fires for both sync
+    and async DIO, mirroring xs_write_bytes for DIO.
+
+Caveat: async O_DIRECT reads are counted at submission, not completion,
+because XFS has no read end_io today (iomap_dio_rw is called with NULL
+ops for reads). This matches the existing read-byte semantics.
+
+The counters are uint32_t and wrap like the existing xs_*_calls
+counters; userspace diffs handle wrap.
+
+The per-mount stats file gains a new appended "rwcmpl" line printing
+write and read completions. The existing "rw" line is unchanged, so
+positional parsers of "rw" are unaffected:
+
+  rw     <write_calls>       <read_calls>
+  rwcmpl <write_completions> <read_completions>
+
+Signed-off-by: Eric Peterson <eric.peterson@hpe.com>
 ---
 
-Changes since v4:
+Notes for reviewers (not part of the commit log):
 
- - New for v5
----
- drivers/gpu/drm/nova/file.rs             | 1 +
- drivers/gpu/nova-core/api.rs             | 5 +++++
- drivers/gpu/nova-core/gsp/commands.rs    | 7 +++++++
- drivers/gpu/nova-core/gsp/fw/commands.rs | 7 +++++++
- include/uapi/drm/nova_drm.h              | 5 +++++
- 5 files changed, 25 insertions(+)
+* Placement: the new "rwcmpl" group is inserted between "rw" and
+  "attr" in the xstats[] table. The "rw" line itself is unchanged,
+  and "rwcmpl" is appended after it, but lines below "rw" in
+  /proc/fs/xfs/stat shift by one for strictly positional parsers. I
+  can instead append the group at the END of the table if preferred.
 
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 64d9f68c7cf0..e1223a29f8b1 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -38,6 +38,7 @@ fn new(reg_data: &DrmRegData<'_>) -> Self {
-             vram_size: reg_data.api.vram_size(),
-             gpu_name: reg_data.api.gpu_name(),
-             gpu_short_name: reg_data.api.gpu_short_name(),
-+            gpu_gid: reg_data.api.gpu_gid(),
-         })
-     }
+* checkpatch --strict reports two CHECKs preferring u32 over uint32_t
+  for the new fields. They are kept as uint32_t to match struct
+  __xfsstats, whose every field is uint32_t; changing only these two
+  would break local consistency.
+
+* Testing: fstests -g auto on v6.12.74 shows baseline and patched
+  fail the identical 6/1277 tests -- zero regressions. The rwcmpl
+  interface was verified on hardware (rw >= rwcmpl, counters
+  advance under load). This for-next port applies cleanly with no
+  drift and compiles clean; a runtime -g quick smoke on for-next was
+  omitted as the logic is identical to the tested v6.12.74 patch.
+ fs/xfs/xfs_file.c  | 11 +++++++++--
+ fs/xfs/xfs_stats.c |  3 ++-
+ fs/xfs/xfs_stats.h |  2 ++
+ 3 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index 426a67b813..3ecd4ed534 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -347,8 +347,10 @@ xfs_file_read_iter(
+ 	else
+ 		ret = xfs_file_buffered_read(iocb, to);
+ 
+-	if (ret > 0)
++	if (ret > 0) {
+ 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
++		XFS_STATS_INC(mp, xs_read_completions);
++	}
+ 	return ret;
  }
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index c18fa1766892..ad4b62db1e5f 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -34,6 +34,11 @@ impl NovaCoreApi<'_> {
-         *self.gpu.gsp_static_info.gpu_short_name_bytes()
-     }
  
-+    /// Returns the 16-byte SHA-1 GPU identifier supplied by GSP-RM.
-+    pub fn gpu_gid(&self) -> [u8; 16] {
-+        *self.gpu.gsp_static_info.gpu_gid()
-+    }
-+
-     /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-     /// by nova-core.
-     pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index b9f19be9b29c..c01b978f46d2 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -215,6 +215,7 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-     gpu_short_name: [u8; 64],
-+    gpu_gid: [u8; 16],
-     /// Usable FB (VRAM) regions for driver memory allocation.
-     pub(crate) usable_fb_regions: KVec<Range<u64>>,
+@@ -375,8 +377,10 @@ xfs_file_splice_read(
+ 	xfs_ilock(ip, XFS_IOLOCK_SHARED);
+ 	ret = filemap_splice_read(in, ppos, pipe, len, flags);
+ 	xfs_iunlock(ip, XFS_IOLOCK_SHARED);
+-	if (ret > 0)
++	if (ret > 0) {
+ 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
++		XFS_STATS_INC(mp, xs_read_completions);
++	}
+ 	return ret;
  }
-@@ -236,6 +237,7 @@ fn read(
-         Ok(GetGspStaticInfoReply {
-             gpu_name: msg.gpu_name_str(),
-             gpu_short_name: msg.gpu_short_name_str(),
-+            gpu_gid: msg.gpu_gid(),
-             usable_fb_regions,
-         })
-     }
-@@ -263,6 +265,11 @@ impl GetGspStaticInfoReply {
-         &self.gpu_short_name
-     }
  
-+    /// Returns the 16-byte SHA-1 GPU identifier.
-+    pub(crate) fn gpu_gid(&self) -> &[u8; 16] {
-+        &self.gpu_gid
-+    }
-+
-     /// Returns the name of the GPU as a string.
-     ///
-     /// Returns an error if the string given by the GSP does not contain a null terminator or
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 8dddd0876145..1020de51a83c 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -136,6 +136,13 @@ impl GspStaticConfigInfo {
-         self.0.gpuShortNameString
-     }
- 
-+    /// Returns the 16-byte SHA-1 GPU identifier.
-+    pub(crate) fn gpu_gid(&self) -> [u8; 16] {
-+        let mut gid = [0; 16];
-+        gid.copy_from_slice(&self.0.gidInfo.data[..16]);
-+        gid
-+    }
-+
-     /// Returns an iterator over valid FB regions from GSP firmware data.
-     fn fb_regions(
-         &self,
-diff --git a/include/uapi/drm/nova_drm.h b/include/uapi/drm/nova_drm.h
-index f912c5bf3b4f..3bd9db27c665 100644
---- a/include/uapi/drm/nova_drm.h
-+++ b/include/uapi/drm/nova_drm.h
-@@ -152,6 +152,11 @@ struct drm_nova_gpu_info {
- 	 * @gpu_short_name: NUL-terminated short GPU name.
+@@ -663,6 +667,7 @@ xfs_dio_write_end_io(
+ 	 * for it on submission.
  	 */
- 	__u8 gpu_short_name[64];
-+
-+	/**
-+	 * @gpu_gid: 16-byte SHA-1 GPU identifier supplied by GSP-RM.
-+	 */
-+	__u8 gpu_gid[16];
- };
+ 	XFS_STATS_ADD(ip->i_mount, xs_write_bytes, size);
++	XFS_STATS_INC(ip->i_mount, xs_write_completions);
  
- #define DRM_NOVA_GETPARAM		0x00
+ 	/*
+ 	 * We can allocate memory here while doing writeback on behalf of
+@@ -1032,6 +1037,7 @@ xfs_file_dax_write(
+ 
+ 	if (ret > 0) {
+ 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
++		XFS_STATS_INC(ip->i_mount, xs_write_completions);
+ 
+ 		/* Handle various SYNC-type writes */
+ 		ret = generic_write_sync(iocb, ret);
+@@ -1098,6 +1104,7 @@ xfs_file_buffered_write(
+ 
+ 	if (ret > 0) {
+ 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
++		XFS_STATS_INC(ip->i_mount, xs_write_completions);
+ 		/* Handle various SYNC-type writes */
+ 		ret = generic_write_sync(iocb, ret);
+ 	}
+diff --git a/fs/xfs/xfs_stats.c b/fs/xfs/xfs_stats.c
+index c13d600732..5b276666b6 100644
+--- a/fs/xfs/xfs_stats.c
++++ b/fs/xfs/xfs_stats.c
+@@ -40,7 +40,8 @@ int xfs_stats_format(struct xfsstats __percpu *stats, char *buf)
+ 		{ "log",		xfsstats_offset(xs_try_logspace)},
+ 		{ "push_ail",		xfsstats_offset(xs_xstrat_quick)},
+ 		{ "xstrat",		xfsstats_offset(xs_write_calls)	},
+-		{ "rw",			xfsstats_offset(xs_attr_get)	},
++		{ "rw",			xfsstats_offset(xs_write_completions)	},
++		{ "rwcmpl",		xfsstats_offset(xs_attr_get)	},
+ 		{ "attr",		xfsstats_offset(xs_iflush_count)},
+ 		{ "icluster",		xfsstats_offset(xs_inodes_active) },
+ 		{ "vnodes",		xfsstats_offset(xb_get)		},
+diff --git a/fs/xfs/xfs_stats.h b/fs/xfs/xfs_stats.h
+index 57c32b86c3..608d12d0c6 100644
+--- a/fs/xfs/xfs_stats.h
++++ b/fs/xfs/xfs_stats.h
+@@ -93,6 +93,8 @@ struct __xfsstats {
+ 	uint32_t		xs_xstrat_split;
+ 	uint32_t		xs_write_calls;
+ 	uint32_t		xs_read_calls;
++	uint32_t		xs_write_completions;
++	uint32_t		xs_read_completions;
+ 	uint32_t		xs_attr_get;
+ 	uint32_t		xs_attr_set;
+ 	uint32_t		xs_attr_remove;
 -- 
-2.54.0
+2.39.5
 
