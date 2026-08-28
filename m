@@ -1,75 +1,73 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E1B31B823
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3F431B823;
+	Fri, 28 Aug 2026 08:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905925; cv=none; b=ezMgfrfu2J3uOP8sLDSOB99Hi2Z+urw67dMzsloRea8Cv53r5lVunK3LDAQ4lVDv282iAMmHsho4IgB9HCYSHua7hqzOke/Mg9kHrDULeUSQ/8KBxHaY4FBzPBHDUzAJC/D9TeOj0fDP05745BE8Qn+j/bdHHfl6+Vi4RVO/vg4=
+	t=1787905953; cv=none; b=kdkRh0m7+qDLoZSjatHaRPgLiuxap+IlUtjkEJEEs1Uj4QDfh+2lGWlnGtRynUUHmPNM7KETVXZRtr75Y1Hegi9Zlq0D8/oOYpJfL/eJFunhfLuALhsM2TZIrMy4335vZuxpvDnmwKGEGvTkFASxkPITBJAAjDdSZbRzTk6FYmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905925; c=relaxed/simple;
-	bh=lY9wqR5/ikqnh+/RV8zDWcYa0uqcVqHsypPo+22s70Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OgP/FuXWQNgknVzPqwR0GOVIOifEE1P1xPPamwveuOZQ2mU64dJk1Gkx1OXHoyotHlKoYHzyAcUBUymlGU7a5Irh1HYkrUNAu096Z/xNwToZT13bh5TXiCiBDcxQZFNZQzMYqflxLHOo6NBx/RUS7kJIaU87+5S+M9dctvAy1Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LtKboi9Z; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787905953; c=relaxed/simple;
+	bh=N/67PVBB6uXLiykMDjP+6dwlPABcykvKDgRBkTLMS00=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d9C5b3JjyHBE+3UQu1e5E5DvWhmVg2VeL9j59UMcpK8DMnjEz96o28al9nV7mmrbhGBF4fZ5wvSHNhlU7xZHrIY6CEgGEdS+SQdzx8w+ZChV6xDuZXuy/jikKnOKasWE+J2jugfg+wA9YDrTTX3+FNvKlZOwZWYZPLZfUu2v4lE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=1OBf6eAM; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LtKboi9Z"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cc891373e0so5678825ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787905922; x=1788510722; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
-        b=LtKboi9Zu+B4e7ak5omHnrRHIx/jN4FdGqoV2mye7trB4bWRrHL8xqVAiiReDQHb75
-         P1dXbSOTfEi9lyY9MbB/lBoFCycUKwxOEndPt73JTESIBIDwYviKRGvuoz4HcTqtzX+J
-         Knxjgsp8VMcA3tuKy3uruwC3VEevz1JE9jRHDjJvIZM88u7zzFHkLVFLPObD0wjt6xRb
-         mJiBXFwHQPqA3qVYiLj8x3t33cUCqkMwYCKlYIOj1m9LY1FRyfkr8BjwPq46bPao0cPH
-         srQ7wIx2QThR43GYj+IeIqRDzlX3fFWHqyEb7OUYzTfvCtQRLYsGv5ITYuQL94SFe7sf
-         Posg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787905922; x=1788510722;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
-        b=Cth9NJ7EPCw7VCs2BdB30QHOPimWYC0g60Pk8vSMpUPSps8xuFKZtJd0QSC7+8ZGM5
-         iwYpHAZEKN8RUSsQuE8A/4RX9zi3p8wGQiVke7WSzdb+QOEy4iPl8Y8GL4CREXaGwz34
-         IS1qMqov3iAj/8ZJ2RPVCRQhXG/CQZfHvOeSjpzzoBwjZxfxH0DGlRL+ZmL/JhWBp480
-         4uiSGbYah4maF/8piB5nZX7dVdZRqu3mkeMXv3VBklnJMpMiSl5OI8IT/XzpJx0ncJk5
-         5elDEZ+tUhwvEsNkKj/NZYb37Xh5Wxw6plWlg1RdM0+lkcGhLyLIT3+kboxNF9Qc3qH/
-         p7Dg==
-X-Gm-Message-State: AFuF++lqYoNokWSEsJkhyCHLPkrmHK5EWOopdJdE2rV6zzVleUI4lRz1
-	7z4vkDMsX5cO0DP4hhHxgNcIGDQJ/TKlGe3crKRr7XsIUDasoMq7TWV1
-X-Gm-Gg: AR+sD11TdAh67JP4iaLe+tEyjuoNF/xUdbqxLqqWpQOCNNUJxGDsoCEqmQ0RTWMDfg+
-	8nNYjGoSQYcJuEc3CXwxnQQ1lEVSPRTvGBvTJpkYtT0dqvE8hO3wOUQ3SAfs23YRQCWoRkeW8vR
-	hIZMXnyR6vhm9HApl6NRjs3Ol59m4YGkJxXxoYLR/Pw6PogFyqTNgiO7zmVoqvjs7vxxUFEnnHD
-	fI3IgqB4FGQE1rucTA5a7WbgXYEbLTQPvkUTDrf2/YMWg55Nyt6SnBZUXUgzHKLTZWUQDaaRtzm
-	PDwfoxyxD9+HZ3Gj92WYNwNfqivFHHaM4fe2TKa3ZiwFOerbPRx2u+QYa56Oi+D/empaxilkSZu
-	82IA3zJlnoS3G/fqnG3Ws+maHxZwlXPRKHoG8r8dleEYmMBFnZVSYjmL5YzqD9SWut4bLc9q+gd
-	q9IFU+QwUUaHUa0Vtaw4Ebz3iO/zHyYAL9x7AsBhbs9mOph4y2Mm7qCfFyoXEIZ6kP1K5g1nL2J
-	F29jz13lAWgXZv/JIuBW1PMMA==
-X-Received: by 2002:a17:903:22d0:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d74dc2ff23mr87286795ad.4.1787905922221;
-        Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
-Received: from localhost.localdomain ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75986d3b7sm3306095ad.41.2026.08.28.01.31.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 01:32:01 -0700 (PDT)
-From: Hao Jia <jiahao.kernel@gmail.com>
-To: minchan@kernel.org,
-	senozhatsky@chromium.org,
-	axboe@kernel.dk,
-	akpm@linux-foundation.org,
-	bgeffon@google.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	Hao Jia <jiahao1@lixiang.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
-Date: Fri, 28 Aug 2026 16:31:49 +0800
-Message-Id: <20260828083149.45760-1-jiahao.kernel@gmail.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="1OBf6eAM"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66xJM1074046;
+	Fri, 28 Aug 2026 04:31:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=XGhY6
+	iEt/lOI/pwO2TMHQIq4uZGUxcdu983j/5g7VNE=; b=1OBf6eAM0IF8rr9ldcVDd
+	iDPCL6VKgO/I5RrURVRr6dBbzo4rLQprxiOL6G/ieA5K92yikkq5noGFePMcNLGg
+	zqmf+VWC9QNvYdQlb2F6vJCtPXcP0HFSdwNcX05uLnDDeX/lQJiwVxDP/oZ9wuLL
+	sTzY3/BiRP16Ig4ItEEhIKCcY+CeGnpJ0yEo/B9be3NRYUAMSK40clpTh6h0/Fk/
+	Vxl/v8vsM9/5iPRxdWNSRzjvNIoduUbNB+YQ3n/HjQOt7kcoP61qCIQrpgt+ZMr1
+	k6uYo2RD+4lkdO9uaq8HoKHD8n7DXwOvPr3k3AG0roNPro2yH3ZhKws+vaxbR0dt
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ga1m11ykv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 04:31:48 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67S8Vkfx060961
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 28 Aug 2026 04:31:47 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 28 Aug 2026 04:31:46 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 28 Aug 2026 04:31:46 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 28 Aug 2026 04:31:46 -0400
+Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67S8VQ5c029508;
+	Fri, 28 Aug 2026 04:31:41 -0400
+From: Stefan Popa <stefan.popa@analog.com>
+To: <linux-iio@vger.kernel.org>
+CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
+        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
+        <ciprian.hegbeli@analog.com>, <krzysztof.kozlowski@oss.qualcomm.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Stefan Popa
+	<stefan.popa@analog.com>
+Subject: [PATCH v8 1/2] dt-bindings: iio: adc: add adi,max40080
+Date: Fri, 28 Aug 2026 11:31:17 +0300
+Message-ID: <20260828083119.54495-2-stefan.popa@analog.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260828083119.54495-1-stefan.popa@analog.com>
+References: <20260828083119.54495-1-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,96 +75,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: sfWGfEba-Ius0goyXeYp_wIp3kjJFnWD
+X-Authority-Analysis: v=2.4 cv=NtLhtcdJ c=1 sm=1 tr=0 ts=6a914774 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gEfo2CItAAAA:8 a=gAnH3GRIAAAA:8 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=P-IC7800AAAA:8 a=Svqhk2N__qMwEp2CcvoA:9
+ a=sptkURWiP4Gy88Gu7hUp:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: sfWGfEba-Ius0goyXeYp_wIp3kjJFnWD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA3MiBTYWx0ZWRfX0vCnGvvxt/E5
+ BszGivk+u0C7bZsL28An1cZXgOLd4CuIb/ZX8Kp9Bh8vA1Ryap4sZrYdwfLgDvd4smk5fZ495e6
+ 50rB0HWhIREeKzIfO+pQgKmtnKFhPVGIE8WJhq28Uo+paiwiQJLQXy9/rffroAvkgvbjvLOkJkI
+ jD76pnFy4mn2tq+88KQlS8PwXIYEcTRZNUoi1IuuJWdLnv2mJ9i6Ae6iMCS2fXOPq73xKLFGxIH
+ uJh0LvJDiVvJHIq12L1ZqN7oNNI+IufBmJz6C94diejDx7XfqeWzZAmWem5L2rmMiOy9QOmeXTa
+ I7CIiOWixz+6htXFxE6Ji0GJ2KWhY7jpPOjeB6yCxBHxXmiHI7+Msy05DFs1upgIGGg7RR4FCQV
+ RevRn4ldbZkFohY8yTfXfnI25MYl18GAffIwQTyXg3Fo5lYw2ot2UdLfAuNUfZz8NJ2Ctn9K1No
+ SwGQDhQkbyTmIpcKqeA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA3MiBTYWx0ZWRfX1Jw8bWOQsTFf
+ 10HOAG2CwwS2WoeI9YzFPwW1pUG6Q0DQrhZEzriEeTH/Q11BJDpnDukVdbTeoIgAFn+u3qAl4YK
+ dwx76Iigjto+8R6bhBM5IPksue7i4rCWyOEKMkZqAN1XM2llJpmw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 adultscore=0 suspectscore=0 clxscore=1011 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280072
 
-From: Hao Jia <jiahao1@lixiang.com>
+Add device tree bindings for the Analog Devices MAX40080 bidirectional
+current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
 
-After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
-idle_store() computes the idle cutoff as:
-
-	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
-
-Because the left operand is cast to u32, when age_sec exceeds the current
-uptime the subtraction wraps modulo 2^32 and the huge result is
-zero-extended into the s64 cutoff. mark_idle() then marks every entry as
-idle instead of matching nothing. For instance, running
-
-	echo 86400 > /sys/block/zramX/idle
-
-on a machine up for only two minutes marks all newly written pages idle
-and hands them to idle writeback and recompression.
-
-No slot can have been accessed before the system booted, so an age_sec
-that reaches back past uptime cannot match any slot. Return early in that
-case, without walking the table or taking any slot locks.
-
-Track the cutoff as time64_t rather than ktime_t. Both cutoff and
-ac_time are boot-time values in seconds, so a plain arithmetic
-comparison against ac_time in mark_idle() is correct and no ktime
-helpers are needed.
-
-Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
-Cc: stable@vger.kernel.org
-Suggested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/block/zram/zram_drv.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ .../bindings/iio/adc/adi,max40080.yaml        | 65 +++++++++++++++++++
+ MAINTAINERS                                   |  8 +++
+ 2 files changed, 73 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index a9b3bb1d3bef..4ba0f77b2abd 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -415,7 +415,7 @@ static ssize_t mem_used_max_store(struct device *dev,
-  * Mark all pages which are older than or equal to cutoff as IDLE.
-  * Callers should hold the zram init lock in read mode
-  */
--static void mark_idle(struct zram *zram, ktime_t cutoff)
-+static void mark_idle(struct zram *zram, time64_t cutoff)
- {
- 	int is_idle = 1;
- 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-@@ -439,7 +439,7 @@ static void mark_idle(struct zram *zram, ktime_t cutoff)
- 
- #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
- 		is_idle = !cutoff ||
--			ktime_after(cutoff, zram->table[index].attr.ac_time);
-+			cutoff > zram->table[index].attr.ac_time;
- #endif
- 		if (is_idle)
- 			set_slot_flag(zram, index, ZRAM_IDLE);
-@@ -453,21 +453,26 @@ static ssize_t idle_store(struct device *dev, struct device_attribute *attr,
- 			  const char *buf, size_t len)
- {
- 	struct zram *zram = dev_to_zram(dev);
--	ktime_t cutoff = 0;
-+	time64_t cutoff = 0;
- 
- 	if (!sysfs_streq(buf, "all")) {
- 		/*
- 		 * If it did not parse as 'all' try to treat it as an integer
- 		 * when we have memory tracking enabled.
- 		 */
-+		time64_t uptime;
- 		u32 age_sec;
- 
--		if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
--		    !kstrtouint(buf, 0, &age_sec))
--			cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
--					   age_sec);
--		else
-+		if (!IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) ||
-+		    kstrtouint(buf, 0, &age_sec))
- 			return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml b/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+new file mode 100644
+index 0000000000000..b0ec9159a2939
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/adi,max40080.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		/* No slot can be older than the system uptime */
-+		uptime = ktime_get_boottime_seconds();
-+		if (age_sec >= uptime)
-+			return len;
++title: Analog Devices MAX40080 bidirectional current-sense amplifier
 +
-+		cutoff = uptime - age_sec;
- 	}
++maintainers:
++  - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
++  - Stefan Popa <stefan.popa@analog.com>
++
++description: |
++  The MAX40080 is a high-precision, bidirectional current-sense amplifier with
++  an integrated 12-bit ADC and an I2C/SMBus interface. It measures the voltage
++  across an external shunt resistor and the input bus voltage, and stores the
++  results in an internal FIFO.
++
++  Datasheet:
++    https://www.analog.com/max40080
++
++properties:
++  compatible:
++    const: adi,max40080
++
++  reg:
++    maxItems: 1
++
++  "#io-channel-cells":
++    const: 1
++
++  vdd-supply:
++    description: Power supply for the device.
++
++  interrupts:
++    maxItems: 1
++    description: ALERT_ output for overcurrent/undervoltage threshold events.
++
++  shunt-resistor-micro-ohms:
++    description:
++      Value of the current-sense shunt resistor connected between the RS+ and
++      RS- inputs. Used to scale the reported current.
++
++required:
++  - compatible
++  - reg
++  - shunt-resistor-micro-ohms
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@20 {
++            compatible = "adi,max40080";
++            reg = <0x20>;
++            #io-channel-cells = <1>;
++            vdd-supply = <&vdd>;
++            shunt-resistor-micro-ohms = <100000>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e087673237636..c1e5afa42de2e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15513,6 +15513,14 @@ L:	linux-iio@vger.kernel.org
+ S:	Supported
+ F:	drivers/iio/temperature/max30208.c
  
- 	guard(rwsem_read)(&zram->dev_lock);
++MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
++M:	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
++M:	Stefan Popa <stefan.popa@analog.com>
++L:	linux-iio@vger.kernel.org
++S:	Supported
++W:	https://ez.analog.com/linux-software-drivers
++F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
++
+ MAXIM MAX7360 KEYPAD LED MFD DRIVER
+ M:	Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+ S:	Maintained
 -- 
-2.34.1
+2.53.0
 
