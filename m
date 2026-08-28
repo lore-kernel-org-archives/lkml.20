@@ -1,280 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61A33A5431;
-	Fri, 28 Aug 2026 03:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887166; cv=none; b=lF3xYOQ5fnTGnwDX033t8YQV4UGoxYq3OZiGpVKbnldjeTB5jDkys775U4jWp7YXykGShwbWfvq/rjAEIqCtEos9Xnb0FWPjDpEh02XxT1P81fThPnv9uXPT1HM0+8Nr0v6bHEi/4/pOYrlC/H6euRq0EnXmo38Yzs4gzJtP/vI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887166; c=relaxed/simple;
-	bh=nlfd2yJ+A9oMv4LIvY+m2B3z4qQnrnI5OXm6U3jGoBQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kim2htX8M3Y7UrA2mqggA48C3Ig02XeeSChxazQpXRz+RYuYA75hlBq60X4komfVtVm0Oivv2c5iBX55IIJ3NrxX8NHszbmJ8UqsCppl725u5E7M3QiUvQ2ptFxHz3D2jbzu8jM17QwFqV80HzmaJxykZ4VlC3MyDJtQh4aCha4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LH6+w6vw; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872DD1EB1AA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787887182; cv=pass; b=pbBv9APUtbBCAu8dTS4Qvl5sCC1LOrVT5kvidNmRgDpjth5y6An8/8r01bQAQZbf/r40pVuHpchMvKeBHb+B9srDp6pNEtB76vL1i/bFfVS+lfIFQUEQhwSa7k5+asN7P4ESTCvvDjoY+1hsTC+JYzxSAabI9SXV+KwK9Xdgw/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787887182; c=relaxed/simple;
+	bh=6v1DNkxiBkWhN44uvEDqQ9d6fXfPP/V48jplGSY5fko=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=ZfmGmAaaNxXWaLvCAxJVp3Ua230cJGbdJtavbsCIoph/lL4cEv7Gx7F9Hx8YHhs2qOmytoZFbzWTv4k9hPtYiPixVlrYUgEGca+tt7OPQTvFXl74jVXcI65oDZQ30Tg8WddH5pEO8MOtkY2Kd087GbGnWiF/ElGyafyzuIu35WU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=KFfnmYzz; arc=pass smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LH6+w6vw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787887162; x=1819423162;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nlfd2yJ+A9oMv4LIvY+m2B3z4qQnrnI5OXm6U3jGoBQ=;
-  b=LH6+w6vw7HYJBHF4RtwGzo41ktkG2kw8KpzlNVFdo7o5rJYtGFpLT0xU
-   vDm1t6wwbmkjHGqdSQXUiCS6v4scHbMQuyjRl2mkY5x5QUJiO7e2Yual0
-   6HiLDItMIrPPXKCRTp6vQB6/day9bZ8tCCqyQvlRzS0ITGIShjaanFlzU
-   RlUm6Xz1lzvF8uLwNkQqIrMYUqz/Wsv0BzAiOLtCPgh+MChjlVuhaXbEG
-   YCSv1ETK0v4bqbsz1dqN/U5j4/cx5Bol8BTZjR5mpYXGL6RD/9rPqMnDl
-   oe827SiXYj7mRJh1zjQUXu1ykJyGQattY8ItqUHfzpEOSyegtLUoxtg30
-   w==;
-X-CSE-ConnectionGUID: K6+nx1HQQkOw0Bz61/DyHg==
-X-CSE-MsgGUID: KWjeBXMkTVW5p0Dbc+lg+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88517924"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="88517924"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 20:19:19 -0700
-X-CSE-ConnectionGUID: BXn9MfMaRa2fhsCjj1d22g==
-X-CSE-MsgGUID: I695iusqRR+ly/MF1Rgeaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="268612773"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 20:19:17 -0700
-Message-ID: <d2efe512-e4fe-407f-96a8-b274fef23382@linux.intel.com>
-Date: Fri, 28 Aug 2026 11:19:14 +0800
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="KFfnmYzz"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso772147a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:19:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787887178; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o1ZD0z8rh4+RVEkb8Bi7MAeTZMirICHN3v6eYvg09FsMhE4tkdB2tnWkJwAdE9e58i
+         l8Jvdk9rh7ldIhIRxqQzhwV3yKcL94T3kyBDLN1BZe8LlBsIsDZdZFkQvd7Hc2fSH0ud
+         Zr3aGicbMS2GHO3NB69zy0xrPytVqeH7REG1cmZtd9pqSxNg/cloYTaezRQQRkcCkBZc
+         25XvR0wYvj8lFdelr4rq7TZ9E9QPJFbqNH29AO7WBigILyJKEQAvjhGEmpECmvABi3BR
+         fkbjGlRksuI0GToPwvPVgjdB8akCZAd2t1CF9xjn3xnf1yBDL2nSvk/cI60SzSjo7e4d
+         AypQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=EWxUj5wO5aZ/OtfFRw5HR5XoEpR7VsjOUdZML27dcVk=;
+        fh=TqSFTFsGrR7IbA6hzI6iQtLTzA+fmxaBtBttSI/OzXk=;
+        b=rUfX2DHES+lMO0NfLtnpdd1eOrdrtnEtzmDZ9Fecwn5AO+ZTIXYWfML+zy7upwf/Yu
+         LRuJldfjbsB3N9Cam/kgZM9fI7dWz9+lk0aSyYKxavlUNDohIR5y9PLhR/JokpnA6iKo
+         jrdkvDAvkFWokqDoSWj1/Rlmh/ePUAxUNJDwkfMRxztpbzz61vGcwD97KNVe4w2t7pmx
+         iUx/uOtV52znhy4/AnQ1XdSuZ5H3PN+kFIIu+/3HfXxot4OlUZAMp9rPlFJzTdpMC5TM
+         4DpYCGgbyGazPRsFMxhRfxbWa/PMnnS33m6AWWuavHYtAF3JeGs83Ysw/Cx05IX/cbHC
+         omig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1787887178; x=1788491978; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EWxUj5wO5aZ/OtfFRw5HR5XoEpR7VsjOUdZML27dcVk=;
+        b=KFfnmYzzSMMfGiU9a+k2k0zZhrfIno/l3UJlAFkTPfKm0XQj1FcoviWHtQL2wAy1uT
+         GyMeM+QjpcRpA1mgWhmJweH47Q+50H18cDw2clyM/3Rd3kq66EA57zUY0YB4hw0QALK1
+         utF+gb4B7JZ2YZL79YwH7AryubJjBUVbUza0IL7iycCzJBzMlAWyOU/DNfvLmcP+z66a
+         teaYGsS0b89CSEmddh/uIr6yHkKP5fUfPCQmYZI1EQH5OwpwVnUw0PIkf62MOmtHTHlW
+         Sm+heGB+26Nt077lFv9U8nypAwDSOOziFKj0aarNTlWAiETeml542O/N8unfGphvRJC9
+         Rxbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787887178; x=1788491978;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EWxUj5wO5aZ/OtfFRw5HR5XoEpR7VsjOUdZML27dcVk=;
+        b=cxBN7UrkUWMACzprxjL+DAvDjVQZmXUn26yr8tqPMwABG0R5q8UUJWk2SKIeLzqxDe
+         moMVNV4YE2V+/rfsiPTYY0lNpulfuCUe7h652mtPP2DJBvEr+ft9SGAsXkh0bmesI2A4
+         rArvPjtb+9/x5Z33n8mmqnEE+MaCYJI0rJy/p8c4UYtkKJwnmWDFKuWFmPiEAD8rf9YI
+         VbUCdYeSzKSLgx+kGk4ZTfNFqD3byRh0Zrpi7iMO6rP58pXUlWIbGHdpZ8ngwQwzkdrt
+         E0h04g7gaPpNmlqN6EQRjpPBQD91s2JqYklPNuf3oLVd9aVtlTF2MiF5yaxMPZ7Lns8t
+         xPHQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpOJo0HpWdejY+FdW3H8IYrw7DBNp9vacazKA/O8ClP0Xf7tvVbXxRxPtWPZViLVzoaWXSg6DX84DgIKqE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVxKpQUG0jyN3GDulXl3q9f8l7NGalFQTn9jSOafmxzAX6Bp4H
+	y/D2O50C/Mz6QZq02L1WokL89aDaYaX1AyIMOmVIRCmCTJt4D3t2Dt5m0VtjMJpoR72sQtEq5mM
+	rE9zq6Quouo50r40ohqdDLbx2Q+fmpmAt3k6JOK3v
+X-Gm-Gg: AR+sD13e4BI3gxEIdktgRNmmJpKW09JibhDLUBP5m3e6psyqj59iIDAOp8qK+e446mV
+	nRNelOY3OQX0L5rBIgYfpEOXBpGNiGvsw9S5YbLPnW09T5zL/k4RoxVnC60xCZmVCJ3k6hEtN++
+	GAA20LH7K4ysDcfnlCyPy83xXNr48Ny2dk6OQqUStNfCBn8R6RqsB940JaJj0o2WFCfwOQWjSb5
+	pqtP1Aitazz40/XZoNe3EuODQ1qpm+jVqsLg5v8FcI/XMDzpGCLavGDAdoHNDNcQAJ/UsmuM/CB
+	xHvuYtkXhuL8gt5vjxijDE26yCOk11f7RLnhbzg5uSyb/OjYmAonvg5JzpCHOJmWeUMvbcRujF5
+	SGIwPqpxDhH4w+8QFsq00vTuPj1GXkw/QTsN4lVYuwUs=
+X-Received: by 2002:a17:90b:54c6:b0:36d:b424:4f17 with SMTP id
+ 98e67ed59e1d1-396d0e24bdamr8142429a91.1.1787887177515; Thu, 27 Aug 2026
+ 20:19:37 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 20:19:35 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 20:19:35 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
- bits
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
- <seanjc@google.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 27 Aug 2026 20:19:35 -0700
+X-Gm-Features: AcwNN1UD1KOGm6bAvHsZgWaK3d2CH3iFRF8lKNJLK6Psn94h5DYc8vweZSSZ9cQ
+Message-ID: <CA+0ovCgforg-XzdODxh9axazFP8M+hFj1wk=XE05oSGz9B2Zzw@mail.gmail.com>
+Subject: [BUG] gve_adminq_release -- unbounded reset-wait loop, WARNs then
+ spins forever
+To: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: falemi@asu.edu, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/28/2026 3:33 AM, Edgecombe, Rick P wrote:
-> On Thu, 2026-08-27 at 11:18 +0800, Binbin Wu wrote:
->> Hi,
->>
->> The purpose of this patch series is to prevent userspace from enabling
->> host state clobbering features that KVM does not support for TDX.  A host
->> state clobbering feature exposed on a new TDX module/platform can corrupt
->> host state if KVM does not explicitly save and restore the related MSR(s)
->> across host/guest transitions.  If such a feature is blindly exposed to
->> and used by a TD, the host will behave unexpectedly.
->>
->> Except for a few fixed-1 bits required for basic TDX support, host state
->> clobbering features are either directly configurable or gated by TD
->> ATTRIBUTES/XFAM.  So an allowlist covering only the directly configurable
->> CPUID bits, plus the corresponding filtering and validation, is sufficient
->> to serve the purpose while keeping the code footprint small.
->>
->> Open question for Sean/Paolo
->> ============================
->> This revision comes long after Sean confirmed the overall direction on
->> RFC v2 [1], due to internal discussions about a potential backward
->> compatibility issue: a CPUID field can change virtualization type to
->> directly configurable.  The TDX module can maintain backward
->> compatibility in most cases; the problematic case is a single bit that
->> was effectively "1" and non-configurable becoming directly configurable.
->> The only scenario we can envision for that is an x86 feature deprecation.
->>
->> In that case the TDX module has to decide how to handle deprecation,
->> especially with respect to TD migration compatibility.  That
->> pre-existing VMs with the deprecated feature enabled cannot migrate from
->> an old platform to a new one is a problem shared by TDX and VMX, but the
->> TDX module additionally has to decide:
->> - Whether to allow TDs newly created on old platforms to migrate to new
->>   platforms.
->> - Whether to allow TDs created on new platforms to migrate to old
->>   platforms.
->>
->> There are two options:
->> 1. Do not offer the VMM the ability to configure the bit, i.e. simply
->>    report it as zero on platforms that no longer support the feature.
->>    This disallows both migration cases above.
->> 2. Make the bit directly configurable so the VMM can clear it even on
->>    platforms that still support the feature, allowing both migration
->>    cases above.  However, since the bit is not in KVM's allowlist,
->>    userspace would no longer be able to enable it on old platforms after
->>    a TDX module update.
->>
->> Adding all supported CPUID bits to the allowlist, regardless of their
->> virtualization type in the TDX module, would avoid the compatibility
->> issue for option 2, at the cost of a significantly larger series.
-> 
-> I think we could only do this if no new fixed-1 bits are added. If they were,
-> then a future fixes-1 bit could be added then deprecated. An old kernel would
-> not know about it.
-> 
-> But we will not see new fixed-1 bits?
+Hello,
 
-The expectation is that no new fixed-1 bits will be added after the initial TDX
-basic support. A new fixed-1 bit means the x86 architecture itself leaves the
-TDX module no choice, so the TDX module will not add one unless some very
-unusual future architectural change forces it to (and it's hard to see such a
-design passing the design review in practice). If that ever does happen, it
-would imply a significant architectural change, and we can figure out how to
-handle it then.
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-> 
->>
->> Given that x86 feature deprecation is expected to be very rare, and that
->> Intel will discuss such cases with the community beforehand, does the
->> approach taken by this series look acceptable?
->>
-> 
-> In the event a feature bit is turned configurable to support creating TDs that
-> can be migrated to new platforms without the feature, then the desired value for
-> the bit on the old platform will be 0. Which is what it would end up being set
-> as, if the bit was not in the KVM side allow list. So everything will work as
-> desired for that use?
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/129-gve-adminq-release-unbounded-reset-wait/
 
-Yes, it would work for migration cases.
+  Unrecoverable platform error!
+  WARNING: drivers/net/ethernet/google/gve/gve_adminq.c:378 at
+gve_adminq_release+0xff/0x260
+drivers/net/ethernet/google/gve/gve_adminq.c:378, CPU#1:
+syz.0.63/11869
+  Call Trace:
+   gve_adminq_release+0xff/0x260
+drivers/net/ethernet/google/gve/gve_adminq.c:378
+   gve_adminq_free+0x78/0x140 drivers/net/ethernet/google/gve/gve_adminq.c:392
+   gve_init_priv+0x2a8a/0x3450 drivers/net/ethernet/google/gve/gve_main.c:2509
+   gve_probe+0x61f/0x970 drivers/net/ethernet/google/gve/gve_main.c:2892
+   pci_device_probe+0x461/0xa50 drivers/pci/pci-driver.c:489
+   really_probe+0x267/0xaf0 drivers/base/dd.c:709
+   device_driver_attach+0xdc/0x1d0 drivers/base/dd.c:1206
+   bind_store+0x1d0/0x220 drivers/base/bus.c:267
+   kernfs_fop_write_iter+0x2fa/0x480 fs/kernfs/file.c:352
 
-> 
-> But a user on the old platform that didn't care about migration and was using
-> the feature, would suddenly lose it after TDX module upgrade that turned the bit
-> configurable
+Our reproducer.c is available upon request.
 
-Yes. This is exactly the backward compatibility issue for option 2.
-Though I am not sure how important it is when losing a feature that is being
-deprecated.
+Happy to test a patch if that would help.
 
-> 
-> But it isn't a kernel bug, so I'd think to punt on this and let TDX module
-> figure out a solution if/when the time comes. Probably various opt-in knobs to
-> allow for working around it.
-
-Do you mean on the old platforms, the according TDX module versions add opt-in
-knobs to allow the "effective 1 -> directly configurable" change?
-
-
-> If they are not worried, we don't need to worry and
-> bloat the kernel to prepare for it.
-> 
->>   If so, the goal for this
->> revision is to collect detailed feedback and, where appropriate,
->> Reviewed-by tags.
->>
->> Expected host state clobbering behavior for TDX
->> ===============================================
->> We also want to call for discussions about the expected host state
->> clobbering behavior for TDX here for future features.
->>
->> For a normal VMX guest, VM entry/exit behavior for a given piece of CPU
->> state is architecturally defined: state is either switched by hardware via
->> VMCS host/guest fields, or left as the guest value on VM exit and managed
->> by KVM in software.
->>
->> For TDs, the host/guest transition goes through TDH.VP.ENTER, and what the
->> TDX module does with a given piece of host state is defined by the TDX
->> module ABI rather than by the x86 architecture.
->>
->> What we would like to align on is the expected baseline behavior of
->> TDH.VP.ENTER for future features.  The proposal is to have TDX simply
->> match VMX behavior, i.e. on return from TDH.VP.ENTER, state that VMX would
->> restore from the VMCS host fields is restored, and state that VMX would
->> leave as the guest value is clobbered.  That keeps a single model for VMM,
->> and means enabling a new feature for TDs requires the same work flow as
->> enabling it for VMX.
-> 
-> Ideally the TDX save/restore would share code with normal VMs. On the other hand
-> if we don't share enter/exit paths sufficiently, we may need to duplicate some
-> save/restore in tdx code.
-
-It probably needs some TDX specific handling, since the TDX module clobbers the
-MSRs (setting them to either their INIT values or some default values), whereas
-in the VMX case the guest values are left.
-
- Depending on how much of which category we have, it
-> could be better for the kernel to have either one.
-> 
-> And if TDX always saved/restored all state across VP.ENTER, then we don't need
-> bit filtering? What are the problems then with exposing everything to userspace
-> as we currently do?
-
-One consideration is performance.
-
-- When The TDX module clobbers an MSR, there are 1 RDMSR + 2 WRMSR
-  TDX WRMSR to restore guest value
-  ---
-  TDX RDMSR to save guest value
-  TDX WRMSR to set to default value
-- When The TDX module save/restore an MSR, there are 2 RDMSR + 2 WRMSR
-  TDX RDMSR to save host value
-  TDX WRMSR to restore guest value
-  ---
-  TDX RDMSR to save guest value
-  TDX WRMSR to restore host value
-
-In most cases where the TDX module chooses to clobber an MSR rather than restore
-the host value, that MSR isn't consumed in ring 0, so the Linux kernel/KVM
-simply restores the value before returning to userspace.
-
-That means for most TD entry/exit paths there is one extra MSR read per MSR.
-
-Previously in the PUCK meeting, we proposed that the TDX module preserve host
-state by default for any new feature, and provide an interface for the host VMM
-to opt in to "don't preserve" as an optimization. That proposal wasn't pursued,
-since Sean suggested letting KVM do the CPUID validation for TDX instead.
-
-> 
->>
->> FRED is a useful concrete example.  Under VMX, the FRED host state in
->> IA32_FRED_CONFIG, IA32_FRED_STKLVLS, IA32_FRED_RSP1-3 and
->> IA32_FRED_SSP1-3 is covered by the VMCS host-state area, so the TDX module
->> is expected to restore these MSRs on TDH.VP.ENTER return.  IA32_FRED_RSP0
->> and IA32_PL0_SSP (a.k.a. IA32_FRED_SSP0) are handled by software, so the
->> TDX module is expected to clobber them on TDH.VP.ENTER return.
-> 
-> And so the ability to have a design like this for the feature depends on CPUID
-> bit filtering to be in place, otherwise new modules on old kernels can clobber
-> host state unexpectedly. 
-
-Yes.
-
-> Future features that follow this approach will need
-> some VMM opt-in to say "VMM is filtering CPUID bit config", so TDX can safely
-> expose new clobbering bits. Otherwise, features like FRED will be problems on
-> old kernels.
-
-If FRED support lands in KVM for non-TDX VMs before this filtering/invalidation
-is in place, adding FRED to the hardcoded denylist would work as a temporary
-solution.
-
-But that only holds for a well-behaved userspace VMM. QEMU, for example, only
-enables features supported by both KVM and TDX, so if FRED isn't supported in
-KVM for non-TDX VMs, QEMU won't enable it for TDX either.
-
-A malicious userspace VMM, however, can set a feature regardless of KVM's
-reported CPU capabilities, and could still cause trouble.
-
-> Do we want it? Where would it get plugged in?
-
-So if the approach in this series is taken, I think we still need such an opt-in
-interface to tell the TDX module that the VMM is now filtering the CPUID bits so
-that the TDX module knows that it's safe to report new host state clobbering
-features.
-
-
+Regards,
