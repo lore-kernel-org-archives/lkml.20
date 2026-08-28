@@ -1,79 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-133.mta0.migadu.com [91.218.175.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1453F7AB7;
-	Fri, 28 Aug 2026 09:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B923AAF42
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910998; cv=none; b=cQWZgSSMAqF22RAsUh7DY7MDZ/15CRd3XHlzIe+FSM7NXzmp2Co9Cvy3gBN9bytmQG9yHygYlUNiKJciepBDhWmpUCQtqBesI9+F5lze1SYW22D/D5WjMyDM5oQH/CfHMFP9qK4QGm1RzQAIOLQP7OxbGBbZ9j8o1uFVIsS0f1c=
+	t=1787911019; cv=none; b=bNSauryDtQ49LOpC7AFUJlvBGxJ2bzvxvHfNS+1dnd9LVo7DyZX24nYTOVT80+JoLOWU9KNaS/cRG8czZaSLygA6IZXOHaSu/vbni/lhY9TWbPnsPRRc6zZKEqL9YJZhSngygeFqqDm0bgNbi85inroOqlJ9urYsLKaOMATRJNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910998; c=relaxed/simple;
-	bh=lXETUQg915sztNxwiHH1Fjms2j4DOHmuRNr3d+j19+w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tl/azddtLHENf0tMuREMwA0Byty264QqelOcxFQNvAI95YqmT596AdBBM/Dcorvu33RHU5BZLCBg85XxNRPFpKnPoFWZGWID8+bMjbTdpT2dPCUfu1LUaHGXmJVyXG4DY+/k7A/5arwz9UNAaHFK62kSy65uJvjCvSuLLRw9Uz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyHpHyTW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787911019; c=relaxed/simple;
+	bh=/vXroZTZEjVjhV/E5ewR9YdbGKmUxqENa6uHPDP6v7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HWoLZh9eWvwUm5zsQwiVTizoj46dlLrSVVltxJ8YZQF4JBVzdUSYUUeTsel1a91bFR0TsDM1HFMr48P4zIPlLWLRwSeosXtvls3g1T/HUKWOii/noTlI8gRWi0+3az7X9dfBLpUVrSS7ZvWSj9hIj3Z5i/w5nH5udpiASJkYWlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O/kveUZP; arc=none smtp.client-ip=91.218.175.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyHpHyTW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8A41F00A3A;
-	Fri, 28 Aug 2026 09:56:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787910993;
-	bh=HleWmOudSXdQ5Id/XLyTjYYYma/Xr4bAKsDrP2oCuYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lyHpHyTWKzzuVKi5W+RuZq6xLiX1JXFAmsHlAe33/VhcAj/GuE078k8ZBD+r9oves
-	 CDinIFeKc0Q/PZZ4tadN57nZu2heXw48mwPWQZOEBKFPhCsKw/gTxx/c7eWt8K61et
-	 r0M6mbObNgJeOJuQ/vu3Y4TqjPq299lvoKdLnGZYZGs3EpI2MXkH+6sa+OE6a69afQ
-	 PKeTFL4gfBsK0N4QC1+xKnMvM/NG9MHK0FzSWkZ2XJzDeYvJ4TTsKrpq6vXwE0PnDF
-	 WBnpz2g6GoxzF0rIUKDa36yb/gkMFLfY4z/9rf/229Y7E0HLUKD2S9MECQGt27reOh
-	 74mr7/IvMYYuA==
-Date: Fri, 28 Aug 2026 11:56:30 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sreeshankar K <sreeshankar0910@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org, rafael@kernel.org, 
-	viresh.kumar@linaro.org, konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, 
-	bmasney@redhat.com, radu@rendec.net, abel.vesa@oss.qualcomm.com, 
-	lpieralisi@kernel.org, taniya.das@oss.qualcomm.com, danila@mainlining.org, 
-	davidwronek@gmail.com, mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
-Message-ID: <20260828-liberal-jumping-quokka-cff4da@quoll>
-References: <20260824150156.1310-1-sreeshankar0910@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O/kveUZP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/vXroZTZEjVjhV/E5ewR9YdbGKmUxqENa6uHPDP6v7U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787911015; v=1; x=1788515815;
+ b=O/kveUZP3VksbQQuUXJ4gLYpnIZuK4Yno/ylCTk8JBjZF98cnYdlCrm3loel+cTRluAqOeke
+ MX4NbAJMbYATuCtVbtkuLOyTtcT8YpsLq3Vuu/5GFtx93hzBzOyRr+85D4YI3wGfW+RtTJnP9ik
+ ompkKNfpVqiw74jbckRMVIEc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7c5a43284bb5f1ee;
+	Fri, 28 Aug 2026 09:56:55 +0000
+X-Mizu-Trace-ID: 7c5a43284bb5f1ee
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: cgroups@vger.kernel.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev
+Cc: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v2 0/6] cgroup/cpuset: Fix partition type transitions
+Date: Fri, 28 Aug 2026 17:56:37 +0800
+Message-ID: <20260828095643.13395-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260824150156.1310-1-sreeshankar0910@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 03:01:43PM +0000, Sreeshankar K wrote:
-> This patchset introduces foundational upstream support for the Qualcomm SM7250
-> SoC (internally codenamed Lito).
-> 
-> SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
-> octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
-> and 6x Silver Cortex-A55) and Adreno 620 GPU.
-> 
-> This patchset is organized as follows:
-> > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
-> RPMh clocks/power domains, GCC and cpufreq hardware).
-> > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
-> > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
-> interrupt controllers, clock providers, power domains, and reserved memory.
-> 
-> Dependencies:
-> This patchset depends on the following patch:
-> > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
-> Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
-> 
-> [PATCH v5] Link: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Please keep the previous changelogs and links.
+Several partition type-change and validation paths use effective_xcpus,
+which also includes CPUs assigned to valid child partitions. This can
+change a child's isolation accounting, make a valid parent transition
+fail housekeeping validation or invalidate a parent during a later
+CPU-mask update.
 
-Best regards,
-Krzysztof
+Once type-change checks are limited to CPUs owned by the parent, a root
+child can hold the last housekeeping CPU while its parent is isolated.
+Returning that CPU when the child becomes a member must not consume the
+last housekeeping CPU.
 
+A type change that fails housekeeping validation can also leave CPUs
+allocated to the invalid partition instead of returning them to the
+partition which owns the invalidated subtree.
+
+Use CPUs owned directly by a partition for type-change accounting and
+validation. Recheck the housekeeping constraint when child CPUs return,
+and release partition CPUs after failed type-change validation. Add
+focused selftests for each case.
+
+This is based on cgroup/for-7.3-fixes (87d347a8c854 "selftests/cgroup:
+Add test for preserving boot-isolated CPUs").
+
+Testing:
+- Ran tools/testing/selftests/cgroup/test_cpuset_prs.sh with
+  isolcpus=domain,15; all applicable tests passed.
+- Ran the housekeeping CPU-return tests with
+  nohz_full=1-14 isolcpus=domain,15; both cases passed.
+- Ran targeted A/B tests covering child-owned CPU accounting and
+  validation, housekeeping CPU return, and CPU release after local and
+  remote type-change validation failures.
+
+Changes in v2:
+- split the type-transition fixes from the original series;
+- merge the child-owned accounting and validation changes;
+- validate trial CPU masks against CPUs owned directly by the partition;
+- handle a root child returning the last housekeeping CPU, including
+  nested isolated ancestors;
+- use the common partition-disable path after type-change validation
+  failure;
+- initialize boot-isolated CPU data during selftest setup;
+- split the accounting, child-owned validation and housekeeping-return
+  tests.
+
+Link: https://lore.kernel.org/all/20260820124202.517160-1-guopeng.zhang@linux.dev/
+
+Guopeng Zhang (6):
+  cgroup/cpuset: Respect child CPU ownership in type changes
+  selftests/cgroup: Add tests for type-change isolation accounting
+  selftests/cgroup: Add tests for type changes with child-owned CPUs
+  selftests/cgroup: Add tests for housekeeping CPU return to isolated
+    parents
+  cgroup/cpuset: Release CPUs when type-change validation fails
+  selftests/cgroup: Add CPU release tests for type-change validation
+    failures
+
+ kernel/cgroup/cpuset.c                        | 101 +++++-
+ .../selftests/cgroup/test_cpuset_prs.sh       | 310 +++++++++++++++++-
+ 2 files changed, 398 insertions(+), 13 deletions(-)
+
+
+base-commit: 87d347a8c8545a9234d1dd215023064413284c34
+-- 
+2.43.0
