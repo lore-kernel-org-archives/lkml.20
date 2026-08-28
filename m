@@ -1,154 +1,115 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF8F37E5DB;
-	Fri, 28 Aug 2026 16:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE04337F303
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933693; cv=none; b=iR2R3eQHIHNqRekeRLCAzJJrexPCjv0Mr+xbcBtTb/7dUPxr+KZtQrmfkjbZWH+yPaJRb9gdzImjD3qiwKcz9GS4+oLWOxQU6MLlX6ocE6asgdbjTfZLOg+4I2gK6dEcG9ORgJQeMv7nd+23YKMMyuVeDpxZN+aYICCJiqzHFzw=
+	t=1787933696; cv=none; b=eF1eOmjVmSYw5H0KlOM9EyU0NxUkOWPvIXqc+dpJIzaLUmol/gj5nFHXiEJNG6iM28nC1f/XfD2KoxP8bYFm8Prb3um+QU/YrwrZCne1GxrzHB8xsrCwPfr+s0VvZ5Pb0ptIqt2fBjm7YQkDpZaYzdiPotocE4Mi6eEJlbZxrMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933693; c=relaxed/simple;
-	bh=kE54F3Lbt3A8eautvIO0KDgVXR+u+uk0pH0/T6kgIcw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YuXrRZvwFct2GaCByqXemdphuVHwfLSdHyOsPFwma50jTx2tpD5iqYjx1tzdWgwrggFnRIY78Ahqsx1tG/ZLrDWLZXuMENn0rnyNxMw4PvnFQpeTZ2/aBl1VgzQ784aJWiL57vIRATw0eAZSOPJYeHN1mCJ2DteDe4e8b+SG/bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=wvzAwGxm; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	s=arc-20240116; t=1787933696; c=relaxed/simple;
+	bh=d9mdZdI8mE+Rq+cniY8y+BlJXYiRYQNFyxTIXRZPaHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pz61dw7tcz+SzufnV4mEgfq2AhZYpXIwW1btgi71UR1bHH2XCWacFZGU0rXPsJlxAveTtBb7ewC3rxxE081IuEFi6lhyivbekGiw6SvYJhlfme1qkNz3wVTm5rF8sUZHfNSa9BVu/m2V0UnJT0rb6ZjhVOuBWF8Y6OI5Cx6VhEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FnOQJ0YU; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="wvzAwGxm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1787933682;
-	bh=kE54F3Lbt3A8eautvIO0KDgVXR+u+uk0pH0/T6kgIcw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=wvzAwGxmK3yxYmt/Dva4AWzw5nITFr2+ZGKoQIkkpA7N9TSijSljClAqh6T3c0RAP
-	 ehi6oWonB/5M8RouaOzAe4KmCiRJfTqa8t8wEswzD0D4FMlf5onC/Ey+I3ckFJiB+U
-	 O4XWmEyXEBssaW0V0+hUcyDh3Hyl2r/Yi39EUmG8=
-Message-ID: <a47a41fad88026d9f2eea3f01102948e5f44c926.camel@crapouillou.net>
-Subject: Re: [PATCH 06/20] ASoC: jz4740: Propagate codec wake-up errors
-From: Paul Cercueil <paul@crapouillou.net>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, linux-mips@vger.kernel.org,
- linux-sound@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Fri, 28 Aug 2026 18:14:38 +0200
-In-Reply-To: <20260828113416.47061-7-pengpeng@iscas.ac.cn>
-References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
-	 <20260828113416.47061-7-pengpeng@iscas.ac.cn>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FnOQJ0YU"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a5ebf75d62so1863830a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:14:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787933693; x=1788538493; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ga8LNRiX5i3NUDso3oFwMVOMM4tp2kZF02NR17rC2nY=;
+        b=FnOQJ0YU82Q5xX6Cii+PHJGBnkCyvv9V+tzS4W0miQ7Ty7y5KDVgyCVL/HWUWKFa8H
+         nsVWpRssu0w6TPpaRPKSPFMoky5kbNxm/r9VLbRWFVkNw36FiALqXFWrh+I4bTwC2G45
+         4Vt3dqZH3W5tDuWJ+cE2sdeTd/No8hvurovZn8fMHqXrmkFwtFqiR5F7Nb+gGifx6Dvu
+         A85gYbTfxIzfModvU8hM64UaFoJp/6xxa4jdFI+0ByFu44C34n5bxrdsh+JQliLJxcwO
+         6JIOD3+DoArsEkSB0p/9XunGlXJnjYR+6Z5956amLSlSJtjkg+IJdsYTrvtfBA97I1nq
+         a7uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933693; x=1788538493;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ga8LNRiX5i3NUDso3oFwMVOMM4tp2kZF02NR17rC2nY=;
+        b=iBw3jG8DpGqWKWgg6C/+n+oiZeO++CCdsk+LWgF3oQYT/kBKsVfp43sELgsvzRNt5L
+         8DzbHmH78oCaMQhVx7TSjsynlxX8kwRGZmtwVnS+AbOQt33fZAK/d43VClLXC/1IAlxD
+         TucDYahQrTwL8vgv7UH6eiiXHNu13eICg8WMgLLIxCYdj1oCZciCeARMuF3X/W2+ct0G
+         86cOoll4Dwp4UQlBhdLX3r07dnuhPUuaokhmp4cMjaAxWtDR+1fxt1m3Gy1p3vwmq8yY
+         Kr+EQzTE7Gcy3QbeLCd84adwuXFweVegdw+psKfbwGGWuoeAvgFZAMWLmC76YoFkS+5x
+         Vj6w==
+X-Forwarded-Encrypted: i=1; AHgh+RoN3IaMPEvk5dQiTRint3Hlzm8NDZ34YHmVTqxxuvdCmmDXa5wreIEV5BFtnVVV2KpWAw+Q6+0sIUib9AM=@vger.kernel.org
+X-Gm-Message-State: AFuF++khX06SnnunAnLJYgDNcUOJwZzQQH8TMOuOOpBHToeKus6PT4NJ
+	GMY0yr13VWUTj/gqdkfysd1mjWanZQOb6aOeMQkuLduBH7XJX7bdl714VR2B
+X-Gm-Gg: AR+sD11kmXDAmFSBPXNJ0FdC/s6zqEj4tG3jeu8NfGhPjlSHNSBRwjIDYbADlhwH63L
+	MuPHiY4Eq5E4kLC0JdUrhks/xHrIBQ8Zsgs2AJ29OrWD6qCyFK86rmwLWkHeJfGxIbssYyN/7Vr
+	tS5tu7yruY8VSpTTfMiV49EFjvEY1mvBydDxyq8Wwix9zC5VUN6Ssn0mqR8hgMmNVxY1WwcNGYR
+	fBkMfvZ98kIgmeilnLlQAD9GBcMEj+Cnm606mhrt+shRXhuRV6mZpp/Fasw/gDk7g0U2Gj4ksqD
+	Sta4dXKEhUBFiazm+oOen/1WJNI8lrxtEE2FxF6ZF1NkZAiOjIYfU6kw63SP37NydJ0MpLN/rEa
+	ivkbS32W0HuyjKarSK26+NdvqnxIkSr10eKjgcLsAIqqG5kY3rd1dgYLKpBkmwtstE6+2/Bnw7a
+	rCcFO7fy6ZRbn9FU0pNewbWwTf5kVkIW8MtETwhHfJSD+c9sDC9zzOSqmbLCzISBk2ejw6A15u+
+	7H2lieZxQuTAYAU8mQagg8UIcW/0K52xEVhHxMOZussnj6C5sGrjtRCBNL6eup2ek3YY6jgp0PX
+	EBM/
+X-Received: by 2002:a05:6402:c285:b0:6a5:c47e:8d6d with SMTP id 4fb4d7f45d1cf-6a5f4fef749mr7587362a12.9.1787933692579;
+        Fri, 28 Aug 2026 09:14:52 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b5c572sm667210a12.4.2026.08.28.09.14.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 09:14:51 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-wireless@vger.kernel.org
+Cc: Kalle Valo <kvalo@kernel.org>,
+	Oleksij Rempel <linux@rempel-privat.de>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: ath9k_htc: fix the byte count of a full RMW buffer flush
+Date: Fri, 28 Aug 2026 19:14:07 +0300
+Message-ID: <20260828161407.1030798-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Pengpeng Hou,
+ath9k_reg_rmw_buffer() sizes the WMI command with struct register_write
+when it sends a buffer that has filled up, but the buffer holds struct
+register_rmw entries, which are 12 bytes rather than 8. The firmware is
+handed 120 bytes instead of 180 and applies only the first ten of the
+fifteen queued read-modify-writes, silently dropping the rest.
+ath9k_reg_rmw_flush() right below it already uses the correct type.
 
-Le vendredi 28 ao=C3=BBt 2026 =C3=A0 19:34 +0800, Pengpeng Hou a =C3=A9crit=
-=C2=A0:
-> The JZ4740 codec can only leave its suspend state through
-> jz4740_codec_wakeup().=C2=A0 The helper ignores failures while asserting
-> reset, clearing suspend/reset and replaying the dirty register cache,
-> then the bias callback continues with later register writes.
->=20
-> Return the first error from all three operations and stop the
-> OFF-to-STANDBY transition when wake-up restoration fails.
->=20
-> The issue was identified via static analysis and manually reviewed.
->=20
-> Fixes: 3b097d64eafa ("ASoC: Add JZ4740 codec driver")
->=20
-> Assisted-by: LLM
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+No caller is known to queue the full fifteen entries today, the closest
+being ath9k_hw_4k_set_gain() at fourteen, so this is a latent bug rather
+than an observed failure.
 
-I'll leave it to Mark to decide, but IMHO the code is fine without the
-patch. We're using regmap-mmio here, with settings so basic that these
-calls will never fail, and that's why there was no error-checking.
+Fixes: 8badb50cfab6 ("ath9k_htc: add new WMI_REG_RMW_CMDID command")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/htc_drv_init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
--Paul
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_init.c b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+index 6de78ae85726..0b49d2cc99f0 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_init.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+@@ -405,7 +405,7 @@ static void ath9k_reg_rmw_buffer(void *hw_priv,
+ 	if (priv->wmi->multi_rmw_idx == MAX_RMW_CMD_NUMBER) {
+ 		r = ath9k_wmi_cmd(priv->wmi, WMI_REG_RMW_CMDID,
+ 			  (u8 *) &priv->wmi->multi_rmw,
+-			  sizeof(struct register_write) * priv->wmi->multi_rmw_idx,
++			  sizeof(struct register_rmw) * priv->wmi->multi_rmw_idx,
+ 			  (u8 *) &rsp_status, sizeof(rsp_status),
+ 			  100);
+ 		if (unlikely(r)) {
+-- 
+2.55.0
 
-> ---
-> =C2=A0sound/soc/codecs/jz4740.c | 25 ++++++++++++++++++-------
-> =C2=A01 file changed, 18 insertions(+), 7 deletions(-)
->=20
-> diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
-> index d3d801d850a1..efb3f8295e98 100644
-> --- a/sound/soc/codecs/jz4740.c
-> +++ b/sound/soc/codecs/jz4740.c
-> @@ -217,15 +217,22 @@ static struct snd_soc_dai_driver
-> jz4740_codec_dai =3D {
-> =C2=A0	.symmetric_rate =3D 1,
-> =C2=A0};
-> =C2=A0
-> -static void jz4740_codec_wakeup(struct regmap *regmap)
-> +static int jz4740_codec_wakeup(struct regmap *regmap)
-> =C2=A0{
-> -	regmap_set_bits(regmap, JZ4740_REG_CODEC_1,
-> JZ4740_CODEC_1_RESET);
-> +	int ret;
-> +
-> +	ret =3D regmap_set_bits(regmap, JZ4740_REG_CODEC_1,
-> JZ4740_CODEC_1_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> =C2=A0	udelay(2);
-> =C2=A0
-> -	regmap_clear_bits(regmap, JZ4740_REG_CODEC_1,
-> -			=C2=A0 JZ4740_CODEC_1_SUSPEND |
-> JZ4740_CODEC_1_RESET);
-> +	ret =3D regmap_clear_bits(regmap, JZ4740_REG_CODEC_1,
-> +				JZ4740_CODEC_1_SUSPEND |
-> JZ4740_CODEC_1_RESET);
-> +	if (ret)
-> +		return ret;
-> =C2=A0
-> -	regcache_sync(regmap);
-> +	return regcache_sync(regmap);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int jz4740_codec_set_bias_level(struct snd_soc_component
-> *component,
-> @@ -235,6 +242,7 @@ static int jz4740_codec_set_bias_level(struct
-> snd_soc_component *component,
-> =C2=A0	struct jz4740_codec *jz4740_codec =3D
-> snd_soc_component_get_drvdata(component);
-> =C2=A0	struct regmap *regmap =3D jz4740_codec->regmap;
-> =C2=A0	unsigned int mask;
-> +	int ret;
-> =C2=A0
-> =C2=A0	switch (level) {
-> =C2=A0	case SND_SOC_BIAS_ON:
-> @@ -248,8 +256,11 @@ static int jz4740_codec_set_bias_level(struct
-> snd_soc_component *component,
-> =C2=A0		break;
-> =C2=A0	case SND_SOC_BIAS_STANDBY:
-> =C2=A0		/* The only way to clear the suspend flag is to
-> reset the codec */
-> -		if (snd_soc_dapm_get_bias_level(dapm) =3D=3D
-> SND_SOC_BIAS_OFF)
-> -			jz4740_codec_wakeup(regmap);
-> +		if (snd_soc_dapm_get_bias_level(dapm) =3D=3D
-> SND_SOC_BIAS_OFF) {
-> +			ret =3D jz4740_codec_wakeup(regmap);
-> +			if (ret)
-> +				return ret;
-> +		}
-> =C2=A0
-> =C2=A0		mask =3D JZ4740_CODEC_1_VREF_DISABLE |
-> =C2=A0			JZ4740_CODEC_1_VREF_AMP_DISABLE |
