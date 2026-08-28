@@ -1,115 +1,246 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831491C69D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9103A3E9A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787891074; cv=none; b=VVQSHLs+ZcFu3spT3zt+vKW+xYOIbCaF4URCTGHQ5fT1m2laskJ+IZtjJLjYjmfgSnqXVinEOMRQPGzS9Mak7xtuoEuTkcGjl7xKH+uNIYNP7tXfQ/lmqMvfpe78s/Yv+1OlDA+ftWVACWdgRVXJPbleiHShxsVBVyuOf4myogs=
+	t=1787891142; cv=none; b=m6ayjOYuGwf26oWZTqjk4OTGRw3AtohdIhBNGeVoupCe/QCYTNVB20wXSaSWvglKXhohU9o7DVasTlc2LSA/0IxTMwmGXmxxUyVJjFbS9mTVVNo7KH3Hh4Jry76apA0g+IPs+o616WfJQw6F76OjD/sJ9hwzyLGYpsVlsG4dbYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787891074; c=relaxed/simple;
-	bh=0Mh1jC/QJ/MzZmhoBgK71nmVa9X9R/cosBlVbeWXYl8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RvtTQez6JjeyZF+gXF0Kr7V02frP3nXBgG8+iE7eZJOt+Bms+VBNe9NtixLRxqgrqlYJm+KgKDXOvs5i2hLZDGse3JbKLI/VLVBzSovIWTmiM59XpEkUSuXQt5ySl2ZyQdWN5hQRHiMdf0Ud8cDYfWE5WFjQmF+WPxwdncj22c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=modMriXD; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1787891142; c=relaxed/simple;
+	bh=cRpGeWrUAthIO+j+Pbfd+uhCuhiMAW/Ve2veefEkteI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HxcJy5P3yrO2JR0ETfHvFOXQHfAB3HO9IGiK6JSJNaRB7z0feH6SRJQX3sHzhf/75RjbIAq0uAHODvG53TvKZ+06KZ2B+p+wkjUhAeZhRAV6uN1z6jFdWDx3ibHFU4kPVAbUnSXxhRN11hKDFhT2i5mlFtzHj3KldBmVWZZli/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j71GabcP; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="modMriXD"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8487214ad2bso898412b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:24:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j71GabcP"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso708265a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787891073; x=1788495873; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ADeDExzR1gAOijbYmVBsEH6+zMDPtRZUnlmbbAacMz0=;
-        b=modMriXDUWQDrgFAcz9ZmlyGsEOiS9wO9qVT3mEpuxQv1sLthB4YBuw+Jb6EcXi03L
-         zyoQKLIBeAR7RldWE43C7mpgil+ThplPfGI90BULQtgcNSn+91TkRuaO3xp5doFP3wys
-         uIhr7LXeP/kQ+aaUnJhzwSND9wSVxHwhIxBhMreOejPtDi4+sDiOCJlPULZ14fpTmKZ2
-         wwhzOSMifBjZL0zdaZ7DLH3ojFGJyAUj7jPYzeVKvfn7Ejv2CHwCM47PRaQjg0+b0+tJ
-         wQQeDzVcIw/ORtvz5TaiqpcHvZcwXGi0PR3GOhKZwWq8JGct9eSjWmGxvGDdwEbj0W3v
-         N5TA==
+        d=gmail.com; s=20251104; t=1787891139; x=1788495939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2iLLyWC6nrOMFW7D3x/zOmB5QAqAJCqqQG7pB75N2Jc=;
+        b=j71GabcPJ7dQiThPs+ZizLB4eKtJzLcZYw6jVYBYYMNyo3s6sgpKaf5kKOrKgZ6t1W
+         +h4kfjpB7vipq/u50FUNbNsD4E61xgLTkMZOWIv1ZBB2CQaVbGWRlxNTcbTlBI090jwo
+         CsEXf4ktqo3NJ8V+EPWI1wEM6F7V31E2Bk8hPCqZwlBI0FGXkZCTmGqvppGxLShTRXQ1
+         ey/1jeuD2x+fAXd2p1TFpNk0JdnNbgceEsh6XOETP6av30JH77CD7XTuq/eMB7BDqkXX
+         UzaHHxXH/7mA9G7gNlHdYMP+ykK8+ENsZ2s7EDI6/hWgFWsbXdkSXj0310hcRk/qJEBk
+         9pDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787891073; x=1788495873;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ADeDExzR1gAOijbYmVBsEH6+zMDPtRZUnlmbbAacMz0=;
-        b=Se5i9O82wsGs4rpA/IC49EjaTmBcx+Il0c+8yoo6JYEVXCc1r3Hdk64FCNEtuB5auh
-         +dKj2SkHx+79TTWGAwvbRh0I2yR+IluquA72SMOnCIvL/+xYckQ226mo9OjVsvtUYAm8
-         FErvCn2xCLTBJ3XdujreXxNEElwNGtkk+wDzofVhSdFPGc/psy0j3W1qmpFY+t3EkDL5
-         iNHSKwF9D6VUBsc1LSGLT96fuEnhCU38bcwmStsV9kz//Kg/tQcpih7ufZ5CpeUVuHZf
-         xqOixlvrsXgOPFCWi4h/ZGzpUEvzAaHlGoUWIqrZR7GAQbXLLAdRAqCVjenaCeG99GwB
-         1kKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqSSrnrPtj64Rv3VEv9GyrcFtN2R2vRBpHgXj8yW2SEME4Ny+nUhlq9hCxpA65TD27pDjkJtz6ZgmViGG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX8MSr6ZcJX1bPssVJ1YpC6hvokkOEJSUWu0C5Wd5cPvtIkIMT
-	aftzZXqw8sonartroQcDTUpeehZrfxmTNdm+ERedkawYU4JxZ9qcNN8H
-X-Gm-Gg: AR+sD13Zgs5SjwYbITLe390frc2ntvKo3xYx3SA0y3kyxpD8WcFR2nN3/XmRQ2Xw94a
-	eml+M1Qa1VzELv/QoGLLh3H+gqSG7JQeysuagRpEvLFRrYC5qHy5nYEuWYrjFXdX3/+8Bxpl4/i
-	f7jLQTcKCoydbJQw52QgghY0adZvIZIH1scVS5MX4zKjj4YOQkOJhMZ1SGdxVjFXm3gWqIidX8a
-	xFvYLoYLFQe1bTFDrV5vlIwKVyEhrfdGRH5CXHCkTZ78qsJdf6DJYnL8As4nhdSdjv9etDTjH98
-	6ZNz8aSp/YZW98evfkSdxnCO27pbQgy0mETJtkvn0i32vyQHW621s5Pfgb9TFYGQj4nH/vfP019
-	MA7nEXQXVJxC7td9b94udvywYokQJ20sRSbkEgzDWnR7EewlHQy3I3Nfw3QKFlj6dItgSXt/iYl
-	DDG85FFEgUsRAmwYuSO6Do+B4PdArHnBTxvURA/zKcLi7/WtFeqP5rmYvCZA0RDUaev7QNV83W
-X-Received: by 2002:a05:6a00:909e:b0:848:467d:293b with SMTP id d2e1a72fcca58-85629f0a1f8mr9011536b3a.11.1787891072818;
-        Thu, 27 Aug 2026 21:24:32 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569f49ed7asm190642b3a.8.2026.08.27.21.24.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 21:24:32 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
-Date: Fri, 28 Aug 2026 13:24:19 +0900
-Message-ID: <20260828042421.964822-1-4ncienth@gmail.com>
-In-Reply-To: <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
-References: <20260827045007.3831259-1-4ncienth@gmail.com> <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
+        d=1e100.net; s=20251104; t=1787891139; x=1788495939;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2iLLyWC6nrOMFW7D3x/zOmB5QAqAJCqqQG7pB75N2Jc=;
+        b=OX4sSw/pAhrzRx5R8ribVUV0h/a7sC8II29ObklyIlX2bakAH08mm7I74dJp4RHkBN
+         5ZTAHg4CwxOA9AlcA9XekdTneBOTyfyUtBq3wcfvTamu3FL6ZB7XWX42Qsa1SZVe3Meb
+         ScoM+69+SoFECs4EOnr+cumPXpTPLocuAUeSertSoHoj2baDIr9Mz10HZdIRieLxhV1E
+         KBCkQAteBLGigN6Z3E7ZdxQJc5wjqgvoPl/NF6yHszlqsuS7ZMpUtqSGUPMYJgU0vQ/n
+         LjsAzdxLTRCQfO+ftmG1pX2btuLCOqEhvO+T9VBcIsmwo8CnKT+Y6Fbu/Chf40A5fmZH
+         Pbsg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrn1SW4soFQrQLy8U26Q2Z/jRn+AfBrJypHGVDGwTV5vduDazufJz9/fXxcpcZjSIg+9L5tcC9Y/kSFUrg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWBEZQ3GGx+z98dWqNoIK1jbnmH9sFo2ssoO4VghGCBgN0rK94
+	c9E2zHwR3L7Tc8HHNtlHD643anBVuCFXiP1fY89uR8MqJ3k1snhh/L0n
+X-Gm-Gg: AR+sD11OI9mWdMlILRkkgiuKVfSgOEMh3qnLCrnR4PA8+vSQ7ZIxKf+1ANGtzK/uRwb
+	b6L4PRaZsjwzIxrRmHObYFxvIQhIlxICc3X4HMMtwXmzVAiJrRAlV1Phv29xPzrodDqxPyRiv+W
+	8CcIqgsqnL3sNxQA8/zDMWIaTWYtDgQpZY6vbBSH0ATwZLLePYReEJLhVX73Z0mEpBBsRohxrrs
+	zfe8HA4C/FshBduxenKnD8d1q0CRxdq5CExPj+8CQw5xlz3VWYhZshDoHfKF5HV5RGkL+w8riL3
+	9axnKl5V5k/312Ese3Ck2nVq9HBhD5H0VxAWP/znbnOQ0ZX3t9uVe4EEKkLgnzrfHK05bK2tr92
+	M0wunngO03zuvfEgFpuE6ocLiBhNWjpA0uqD37fZpEdHuKySsBzqqPkHaAxCS5O63RYV4kHt0UO
+	2eJRIRHuaTxbfp/GeGNPUfqIsQ1iU5UWwfMIfk8EvszW6U3NNjaVGf8MnSO6b9Pgt5WHYXKNPPR
+	bJndBwVRmYj4g0a7s3VG3h6UFo82+oZKtLRVw==
+X-Received: by 2002:a17:90a:e7cd:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-396d0e71ad7mr7322515a91.7.1787891139532;
+        Thu, 27 Aug 2026 21:25:39 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm1604156eec.9.2026.08.27.21.25.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 21:25:38 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <1f04a4bc-f43d-4a97-9703-29cd254ff322@roeck-us.net>
+Date: Thu, 27 Aug 2026 21:25:37 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] watchdog: sunxi_wdt: preserve boot-enabled watchdog
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Carlo Caione <carlo.caione@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: Wim Van Sebroeck <wim@iguana.be>, linux-watchdog@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260827-submit-sunxi-wdt-boot-enabled-v1-v1-1-d16f934cc809@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260827-submit-sunxi-wdt-boot-enabled-v1-v1-1-d16f934cc809@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Honza,
+On 8/27/26 16:42, James Hilliard wrote:
+> sunxi_wdt_probe() unconditionally stops the watchdog even when firmware
+> left it running. This opens an unprotected interval during boot and
+> prevents CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED from taking over the active
+> watchdog.
+> 
+> Detect an enabled watchdog and decode its programmed interval. Preserve
+> that timeout while setting the Linux reset mode and pinging the watchdog;
+> use the configured timeout only when the hardware interval cannot be
+> represented. The enable bit remains set throughout. Mark it as
+> hardware-running before registration so the watchdog core services it
+> until userspace takes control. Keep the existing stop operation when the
+> watchdog was disabled.
+> 
+> Fixes: d00680ed0026 ("watchdog: sunxi: New watchdog driver for Allwinner A10/A13")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>   drivers/watchdog/sunxi_wdt.c | 47 +++++++++++++++++++++++++++++++++++++++++++-
+>   1 file changed, 46 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/watchdog/sunxi_wdt.c b/drivers/watchdog/sunxi_wdt.c
+> index b6c761acc3de..1f3da1d47fa5 100644
+> --- a/drivers/watchdog/sunxi_wdt.c
+> +++ b/drivers/watchdog/sunxi_wdt.c
+> @@ -128,6 +128,38 @@ static int sunxi_wdt_ping(struct watchdog_device *wdt_dev)
+>   	return 0;
+>   }
+>   
+> +static bool sunxi_wdt_is_running(struct watchdog_device *wdt_dev)
+> +{
+> +	struct sunxi_wdt_dev *sunxi_wdt = watchdog_get_drvdata(wdt_dev);
+> +	const struct sunxi_wdt_reg *regs = sunxi_wdt->wdt_regs;
+> +
+> +	return readl(sunxi_wdt->wdt_base + regs->wdt_mode) & WDT_MODE_EN;
+> +}
+> +
+> +static unsigned int sunxi_wdt_get_timeout(struct watchdog_device *wdt_dev)
+> +{
+> +	struct sunxi_wdt_dev *sunxi_wdt = watchdog_get_drvdata(wdt_dev);
+> +	const struct sunxi_wdt_reg *regs = sunxi_wdt->wdt_regs;
+> +	unsigned int timeout;
+> +	u32 interval;
+> +
+> +	interval = readl(sunxi_wdt->wdt_base + regs->wdt_mode);
+> +	interval >>= regs->wdt_timeout_shift;
+> +	interval &= WDT_TIMEOUT_MASK;
+> +	/* The 0.5-second interval cannot be represented by wdt_dev->timeout. */
+> +	if (!interval)
+> +		return 0;
+> +
 
-You are right that an fd-held dentry cannot satisfy the count == 1 check. I
-was imprecise in the report: the fd and the final unlink refer to two
-different hard-link dentries for the same inode.
+Why 0 and not 1 ? If I understand correctly, this sets the timeout
+to  WDT_MAX_TIMEOUT or 16 seconds. It is not immediately obvious why
+that would be desirable.
 
-The setup is:
+> +	for (timeout = WDT_MIN_TIMEOUT;
+> +	     timeout < ARRAY_SIZE(wdt_timeout_map); timeout++) {
+> +		if (wdt_timeout_map[timeout] == interval)
+> +			return timeout;
+> +	}
+> +
+> +	/* Reserved interval encoding. */
+> +	return 0;
+> +}
+> +
+>   static int sunxi_wdt_set_timeout(struct watchdog_device *wdt_dev,
+>   		unsigned int timeout)
+>   {
+> @@ -259,6 +291,7 @@ static int sunxi_wdt_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+>   	struct sunxi_wdt_dev *sunxi_wdt;
+> +	unsigned int running_timeout;
+>   	int err;
+>   
+>   	sunxi_wdt = devm_kzalloc(dev, sizeof(*sunxi_wdt), GFP_KERNEL);
+> @@ -286,7 +319,19 @@ static int sunxi_wdt_probe(struct platform_device *pdev)
+>   
+>   	watchdog_set_drvdata(&sunxi_wdt->wdt_dev, sunxi_wdt);
+>   
+> -	sunxi_wdt_stop(&sunxi_wdt->wdt_dev);
+> +	if (sunxi_wdt_is_running(&sunxi_wdt->wdt_dev)) {
+> +		running_timeout = sunxi_wdt_get_timeout(&sunxi_wdt->wdt_dev);
+> +		if (running_timeout)
+> +			sunxi_wdt->wdt_dev.timeout = running_timeout;
+> +
+> +		err = sunxi_wdt_start(&sunxi_wdt->wdt_dev);
+> +		if (err)
+> +			return err;
+> +
+> +		set_bit(WDOG_HW_RUNNING, &sunxi_wdt->wdt_dev.status);
+> +	} else {
+> +		sunxi_wdt_stop(&sunxi_wdt->wdt_dev);
 
-  1. create A/x and link it as B/y;
-  2. open B/y, add the old-group inode mark through that fd, then unlink
-     B/y, leaving i_nlink == 1 while the fd retains the B/y dentry;
-  3. race these two calls:
-
-       unlink("A/x")
-
-       fanotify_mark(racer_group, FAN_MARK_ADD, FAN_MODIFY,
-                     victim_fd, NULL)
-
-     where victim_fd still refers to the already unlinked B/y dentry.
-
-So the A/x dentry checked by d_delete() is not held by the fd and can have
-d_lockref.count == 1. Its unlink drops the inode's last link and reaches
-dentry_unlink_inode() -> fsnotify_inoderemove(). At the same time,
-fanotify_find_path() gets the same inode through the fd-held B/y dentry and
-adds the racer mark.
-
-Your suspicion matches this topology: __fsnotify_inode_delete() from
-fsnotify_inoderemove() is running while the inode is still live and reachable
-through the other, fd-held dentry. Deferring mark cleanup until
-__destroy_inode() would avoid this particular add-versus-cleanup race. I have
-not audited the broader consequences of that change yet.
-
-I can send the exact reproducer privately if that would be useful.
+Why is this necessary ? The watchdog is known to be stopped, why
+stop it again ?
 
 Thanks,
-Daehyeon
+Guenter
+
+> +	}
+>   
+>   	watchdog_stop_on_reboot(&sunxi_wdt->wdt_dev);
+>   	err = devm_watchdog_register_device(dev, &sunxi_wdt->wdt_dev);
+> 
+> ---
+> base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+> change-id: 20260827-submit-sunxi-wdt-boot-enabled-v1-94cd6be885d2
+> 
+> Best regards,
+> --
+> James Hilliard <james.hilliard1@gmail.com>
+
