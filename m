@@ -1,250 +1,149 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011041.outbound.protection.outlook.com [52.101.125.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503E34734CF
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929295; cv=none; b=iyPMnr7w/qhv4zYuTUpvJ3TaTwILcbKgrsoXaxoWrTEu6GBI3KtzsLrUBgg8FlRzQ+eNuzX8jdPPbHeRCptoe4MmRhlrEol5+iOK8PWxpYaYDO1G4hovr5imIBx4NfQKrgBypeG7e4/RQCZQKOzColu7thGtjVs5Fwqfl0Et1QE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929295; c=relaxed/simple;
-	bh=BVQBisVonhXlJxMqlgqNcNJz3zE83VSZIjXWvLJmcQI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=nzcJwrRlxUQhgXtzi/fFl402jcYEvIcWYvkxOFOHS2MiITrwQaZPX5bejpaCo28QuefPXYBBARVPCBgUiiNb7nzyaS4Vkg4ugjTU4jq5pnBToA5adohwdMD5sv+m3nxxf6BJM9vEmw+qurvShVZlc3crCd7/n6P3ghaXPsIk/Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67SF1TmN003147
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:01:29 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67SF1Trv003144
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:01:29 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <5803da44-97c7-440e-a06b-d3cf4afff3c8@I-love.SAKURA.ne.jp>
-Date: Sat, 29 Aug 2026 00:01:25 +0900
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261B8472F60;
+	Fri, 28 Aug 2026 15:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787929294; cv=fail; b=EGgGDc8CMN4xzcLACCtyFbBvkXTbHT8ezsnpsoPmfbA0hrb11dwZb+AJWP0CO47PwjIB0q1O0K9anxC1vlfMKlp+MzbzS8QLofRdNVvOEACj2M6mRub2XyNphGt73JOBs5znwZhvU4oeUxSbhGf68Z+JeZ4hEkwQ94BhBOVP9tI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787929294; c=relaxed/simple;
+	bh=2fU37cj3up0wpUZc1ItOqEouwnw0erYsArmj8iIHkYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gl2VWuNJuT7tXFNq6zv+C41/KIdfDhOElETprxw29wZSb1M8bXI33VnNRzHyKggHqHZo3CITvK56tS1FBE0TNGSLuPbSzS0YwPzj5sNZJe1tCfYWmFgjM2i7/7gIP3rcXofvrEykMBdlohwOZUMKqSNt418jsM/TD670cho6lgs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=eBY3L4qx; arc=fail smtp.client-ip=52.101.125.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="eBY3L4qx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nRu9VnkxtjTChzY1w5s40AQ5dGjMAK4mYBqz5cyt1RYhokNvXMEp/A9LJ+SiE7VWcno4XDA6+sPUpJ/EcivYV3K0rtgBGs/herUadqYbwtls4weexSDjl0JdRN/cH2cs7+8IpEke+pa1mTxuLZV8X6o/2GiLKDj+U4f7RUnjv03LSUdRR1IzPoqovpnXtyi/Ooek7i5kx7wluViR+MTukojtskrmfyeif/GRcd6AWX+4x3j95bQYhtORdkzBxaVQwpc9nuVnkJke1uDFS988Q0IMXOM5+/9aEO3vuCcCv98O6EAsnGMxPYVg7F7maPdKK3J9RFROyhrvbFbzD4ia2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PEHveKNNDaRvvOvWDi+LiKS2Pewg4yAr7Pwv+UeNomA=;
+ b=r8SRAYb2Af7nSmb5aNwh53xq1b1BmpFJHYo7ZDVUFRPjN/DECTNVzPR3ufjTsSL2KUNnxd8nOkKB4ZTVanbTK3Gp9kzho/23juwqw/pvI1VSkhU4LHkCBmFwZTJHeR+4rMNNFBw/Wf8eQCZThJofC+Dy/nce8PQ8BuaPIQ50PBc/oC9ZrfaSApbsZ5sqFTJoY3Vu5uVWueW9FgbyMMq0d/yVkPQjZ/APS+PAZ60i5bpu0E1wVeKsNH1VgnxhZrTjcjryeF+MFuasOT6Yt3hfuTy/j0/lpjZGeeJMTO2YY/5grCAfJ8kbiMAYZ/aBPTmcuss7ULsiIANBA57TWIynCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=analog.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PEHveKNNDaRvvOvWDi+LiKS2Pewg4yAr7Pwv+UeNomA=;
+ b=eBY3L4qxAouiBdIdg7SUtK5BHFESSTqUKC9NR3kMpdFcL+ZJBPTRsLrOEjKgbgQyKHhsEzBJ47nzNhdu8CnvC8wjgW35FsUqNdTLOqjWHNmmLkN9v3t+XFz6a7qpwaK00iD9hfsaehRV8AFPssJ4BV+eBmF/6jzRCu9jpt6DUvM=
+Received: from OS3PR01CA0040.jpnprd01.prod.outlook.com (2603:1096:604:dd::9)
+ by TY4PR01MB13855.jpnprd01.prod.outlook.com (2603:1096:405:1f8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 15:01:29 +0000
+Received: from OS1PEPF0000D214.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:dd:cafe::a8) by OS3PR01CA0040.outlook.office365.com
+ (2603:1096:604:dd::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
+ 28 Aug 2026 15:01:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ OS1PEPF0000D214.mail.protection.outlook.com (10.167.240.21) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Fri, 28 Aug 2026 15:01:28 +0000
+Received: from demon-pc (REE-0055761.adwin.renesas.com [10.226.92.7])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 36B7B300009E;
+	Sat, 29 Aug 2026 00:01:23 +0900 (JST)
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH 7/9] dt-bindings: iio: adc: renesas,r9a09g077-adc: document DMA support
+Date: Fri, 28 Aug 2026 17:59:40 +0300
+Message-ID: <20260828145943.2077589-8-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3.1] loop: Fix NULL pointer dereference in lo_rw_aio()
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: LKML <linux-kernel@vger.kernel.org>
-References: <c0047a38-3d02-4ce5-88b0-2b7d0b9b69fa@acm.org>
- <f720dd8b-4aa3-48e4-a1bb-c0b43eb70f19@I-love.SAKURA.ne.jp>
- <af2205e3-205e-4743-a767-8593c2c4747a@I-love.SAKURA.ne.jp>
- <9b2032d6-3f36-4d2b-8128-985c08a4fa37@I-love.SAKURA.ne.jp>
- <20260518174013.4b72dd50a5bcb89daaed1f62@linux-foundation.org>
- <d43125ff-cc66-49b7-b16d-1b2650c68c23@I-love.SAKURA.ne.jp>
- <ag0lS_CbKO9R5CV8@fedora>
- <94076bc9-2c09-4bb6-8468-b6b8af419cb9@I-love.SAKURA.ne.jp>
- <ag1nfIFcykmQHbkk@fedora>
- <1ab8c579-eb76-4227-8a72-6ec819135219@I-love.SAKURA.ne.jp>
- <ag1223nAa0wZ8ALC@fedora>
- <fda8abc8-6aa2-463b-bf72-865f6b838034@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <fda8abc8-6aa2-463b-bf72-865f6b838034@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav111.rs.sakura.ne.jp
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS1PEPF0000D214:EE_|TY4PR01MB13855:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ef8ad174-65c7-4171-92fc-08df05153d2f
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	VXXz3wypehFZkmsc1cgN/UuqSLXiq/qcIgjwBJ4dUyUNsvYfNC477D3y985R9emK/iwjV9PTthsWXsYb7bUBWWT7mujDuBc+D1D2oAQw6A+FOkl9wSj3QvdNerpu8GkQVrt67XIOw4pgLLWiZxdK/oWP972QaCergUk3BMVvC/gpkCASuUb0gpFmoA8PGtrcU3c1D7za16dqzHf0cW3H6K2bL2eSP4V5Ad6mG/sMCMoBu0t7MSYEeRp6/h1Lr57PZ2dxBi6QihIMNYdc+zihdTV79NLT/IKlcc+8M7Fepik7LVSgTK1o3H5g9hmZL0auHTx5jgxFuUeIUoZreSwg61Dsd3X/aqMxVnC7Fqbwi7O1YlVpZW/BS2qEB2E5exFLgyPWHjnCehIcj4slJ2/3FOSMZFZF0c4U7u2MVURWHuKVjIH+xmQZlouZwduc4g3BvXu+XhfrFN9q4KYX/4trz0YfeuyzYLqxLY6XvGIS/VYt4lb5V47tZqWlSc2WHNz7I4Uys0JGnoYPNHvSA8fcJpojbsjKZ0jIWW9asszKB/C020+26rbW1xirGYsjBUvvhYgujC4oM76Io1MnBO3vdQpStZTHN7Nxj1zVe6sPgVKxb3OgmVqt94HmeOTFqxmwhk+mzAf1KH3XWdCKkX+XNJwzF7gALAe4j7nfErKtoDrX3gX0rjLbwHi0u5Kv+lBoj4uWrRrw2roRk+25XxDQZg==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SVSQ3B8G+iuHsWrV31E/ptBHsT7zsOwr4mBHFJyiPqcSGC0UYJu6BUfaYXvIzLchXAU3JfmpPlky+b1PuTOM1gX0rTOxC17txmJT4S7zDh2irvIT1qmoK+kTFDdMKEXovwlO6xMWbwpdtmd2pQPGOjgEgJA/LlgoD547x/TN9SOSXyBLIIUgL3SVzySmS6pTCtgU+05HmRoZpACg9z49KCmigBVlGZwO9s0fliCQJxHS/5ZwGP8CxEBQ/VLo+BAi55lUUnDAcCw5LJ3LiocLvUopZgBl2ryYJZQvf/kHOClMQRkVyF0rb8hvcJLazXtl0CDUef7C8+ptLEJO1OPZLSAPPgSORW5xjYplCQMCmU/mioYoxkN0NT1Gq9OT2Lz152NbyaaoZvYMPCBU4AsIMU6aZQb31R018genY/1VhIwK0EbHMDcSzFCE+9O0shmQ
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:01:28.8258
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef8ad174-65c7-4171-92fc-08df05153d2f
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D214.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13855
 
-syzbot is reporting NULL pointer dereference in lo_rw_aio() [1][2].
-An analysis by the Gemini AI collaborator [3] considers that this problem
-is caused by a timing shift primarily exposed by commit 65565ca5f99b
-("block: unify the synchronous bi_end_io callbacks"), along with helper
-refactorings like commit 92c3737a2473 ("block: add a bio_submit_or_kill
-helper").
+The ADC can transfer conversion results to memory over DMA.
 
-But due to difficulty of reproducing this race, discussion about what is
-happening and how to fix this problem is stalling. Also, we haven't
-identified how many filesystems are subjected to this problem.
+Allow up to three DMA specifiers, as the ADC conversion DMA request can
+be routed to any of the SoC's three DMA controllers.
 
-Therefore, introduce a grace period for flushing pending I/O requests
-(which should be a good thing from the perspective of defensive
-programming) so that we won't hit NULL pointer dereference problem.
-
-However, calling drain_workqueue() from __loop_clr_fd() with
-disk->open_mutex held causes lockdep warnings. We need to flush pending
-I/O requests without disk->open_mutex held. Therefore, defer
-__loop_clr_fd() to WQ context, like commit 322c4293ecc5 ("loop: make
-autoclear operation asynchronous") did.
-
-The past attempt was reverted by commit bf23747ee053 ("loop: revert "make
-autoclear operation asynchronous"") for two reasons:
-
-  (1) Userspace might be expecting that fput() on the backing file is
-      processed before lo_release() from close() returns to user mode.
-      But a debug patch [4] suggested me that this teardown operation is
-      racy regardless of whether disk->open_mutex is temporarily released
-      or not, and therefore the xfs/259 breakage should be addressed on
-      the xfstests side.
-
-  (2) Lockdep reported circular locking dependency caused by flushing
-      system-wide WQs. But we no longer need to worry that dependency
-      because all in-tree users no longer flush system-wide WQs.
-
-Therefore, let's retry deferring __loop_clr_fd() to WQ context again.
-
-Link: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28 [1]
-Link: https://syzkaller.appspot.com/bug?extid=bc273027d5643e48e5b3 [2]
-Link: https://lkml.kernel.org/r/fbb3edda-f108-4e5b-acf2-266f043f8125@I-love.SAKURA.ne.jp [3]
-Link: https://lkml.kernel.org/r/9f8b5ab0-efbc-4cf3-a1f8-b43377416946@I-love.SAKURA.ne.jp [4]
-Fixes: 65565ca5f99b ("block: unify the synchronous bi_end_io callbacks")
-Assisted-by: Gemini-Pro
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 ---
- drivers/block/loop.c | 74 +++++++++++++++++++++++++++++++++++---------
- 1 file changed, 59 insertions(+), 15 deletions(-)
+ .../bindings/iio/adc/renesas,r9a09g077-adc.yaml      | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 6f12976035b0..e2703f0ee75d 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -75,6 +75,7 @@ struct loop_device {
- 	struct gendisk		*lo_disk;
- 	struct mutex		lo_mutex;
- 	bool			idr_visible;
-+	struct work_struct	lo_clr_work;
- };
+diff --git a/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml b/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
+index dc0206b28231..4b5934ac296b 100644
+--- a/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
+@@ -57,6 +57,18 @@ properties:
+       - const: adclk
+       - const: pclk
  
- struct loop_cmd {
-@@ -1134,13 +1135,35 @@ static int loop_configure(struct loop_device *lo, blk_mode_t mode,
- 	return error;
- }
- 
--static void __loop_clr_fd(struct loop_device *lo)
-+static void __loop_clr_fd(struct work_struct *work)
- {
-+	struct loop_device *lo = container_of(work, struct loop_device, lo_clr_work);
-+	struct gendisk *disk = lo->lo_disk;
- 	struct queue_limits lim;
- 	struct file *filp;
- 	gfp_t gfp = lo->old_gfp_mask;
- 	int err;
- 
-+	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
-+	/*
-+	 * Now that loop_queue_rq() sees lo->lo_state != Lo_bound,
-+	 * wait for already started loop_queue_rq() to complete.
-+	 */
-+	synchronize_rcu();
-+	/*
-+	 * Now that no more works are scheduled by loop_queue_rq(),
-+	 * wait for already scheduled works to complete.
-+	 */
-+	drain_workqueue(lo->workqueue);
-+	/*
-+	 * Now that no more AIO requests are scheduled by lo_rw_aio(),
-+	 * wait for already started AIO to complete.
-+	 */
-+	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
++  dmas:
++    minItems: 1
++    maxItems: 3
++    description:
++      Must contain a list of references to DMA RX specifiers.
 +
-+	/* Step 2: Perform remaining cleanup, with open_mutex held. */
-+	mutex_lock(&disk->open_mutex);
++  dma-names:
++    minItems: 1
++    maxItems: 3
++    items:
++      const: rx
 +
- 	spin_lock_irq(&lo->lo_lock);
- 	filp = lo->lo_backing_file;
- 	lo->lo_backing_file = NULL;
-@@ -1151,12 +1174,7 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	lo->lo_sizelimit = 0;
- 	memset(lo->lo_file_name, 0, LO_NAME_SIZE);
+   power-domains:
+     maxItems: 1
  
--	/*
--	 * Reset the block size to the default.
--	 *
--	 * No queue freezing needed because this is called from the final
--	 * ->release call only, so there can't be any outstanding I/O.
--	 */
-+	/* Reset the block size to the default. */
- 	lim = queue_limits_start_update(lo->lo_queue);
- 	lim.logical_block_size = SECTOR_SIZE;
- 	lim.physical_block_size = SECTOR_SIZE;
-@@ -1168,8 +1186,6 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	/* let user-space know about this change */
- 	kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
- 	mapping_set_gfp_mask(filp->f_mapping, gfp);
--	/* This is safe: open() is still holding a reference. */
--	module_put(THIS_MODULE);
- 
- 	disk_force_media_change(lo->lo_disk);
- 
-@@ -1199,12 +1215,24 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	WRITE_ONCE(lo->lo_state, Lo_unbound);
- 	mutex_unlock(&lo->lo_mutex);
- 
-+	/* Step 3: Drop refcounts, without open_mutex held. */
-+	mutex_unlock(&disk->open_mutex);
-+
-+	fput(filp);
-+
- 	/*
--	 * Need not hold lo_mutex to fput backing file. Calling fput holding
--	 * lo_mutex triggers a circular lock dependency possibility warning as
--	 * fput can take open_mutex which is usually taken before lo_mutex.
-+	 * Drop all references that would have been dropped as soon as
-+	 * returning from lo_release() and releasing disk->open_mutex.
- 	 */
--	fput(filp);
-+	module_put(disk->fops->owner);
-+	put_device(disk_to_dev(disk));
-+
-+	/*
-+	 * This is safe: flush_work() from loop_remove() from loop_exit() waits
-+	 * until this function returns; effectively dropping the final module
-+	 * references synchronously.
-+	 */
-+	module_put(THIS_MODULE);
- }
- 
- static int loop_clr_fd(struct loop_device *lo)
-@@ -1769,8 +1797,20 @@ static void lo_release(struct gendisk *disk)
- 	need_clear = (lo->lo_state == Lo_rundown);
- 	mutex_unlock(&lo->lo_mutex);
- 
--	if (need_clear)
--		__loop_clr_fd(lo);
-+	/*
-+	 * In order to flush pending I/O requests before clearing the backing
-+	 * device, defer __loop_clr_fd() to WQ context. The Lo_rundown state
-+	 * guarantees that lo_open() will fail with -ENXIO.
-+	 */
-+	if (need_clear) {
-+		/*
-+		 * Grab all references that will be dropped as soon as
-+		 * returning from lo_release() and releasing disk->open_mutex.
-+		 */
-+		get_device(disk_to_dev(disk));
-+		__module_get(disk->fops->owner);
-+		queue_work(system_long_wq, &lo->lo_clr_work);
-+	}
- }
- 
- static void lo_free_disk(struct gendisk *disk)
-@@ -2034,6 +2074,7 @@ static int loop_add(int i)
- 	lo = kzalloc_obj(*lo);
- 	if (!lo)
- 		goto out;
-+	INIT_WORK(&lo->lo_clr_work, __loop_clr_fd);
- 	lo->worker_tree = RB_ROOT;
- 	INIT_LIST_HEAD(&lo->idle_worker_list);
- 	timer_setup(&lo->timer, loop_free_idle_workers_timer, TIMER_DEFERRABLE);
-@@ -2138,6 +2179,9 @@ static int loop_add(int i)
- 
- static void loop_remove(struct loop_device *lo)
- {
-+	/* Wait for __loop_clr_fd() to complete. */
-+	flush_work(&lo->lo_clr_work);
-+
- 	/* Make this loop device unreachable from pathname. */
- 	del_gendisk(lo->lo_disk);
- 	blk_mq_free_tag_set(&lo->tag_set);
 -- 
 2.55.0
 
