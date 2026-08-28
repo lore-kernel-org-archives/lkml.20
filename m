@@ -1,166 +1,318 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C9B355F35;
-	Fri, 28 Aug 2026 09:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D1138A71F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908750; cv=none; b=NnVcd2A7nj9qq4L5PnNOa65pl0Lod61R2SJSC3DmRXTma+Sv9cIbj8ZKIWZTe9az4ftdQuw8XFleOhg14qDy0oQFZfKb/5YSqT3g1RSpEPejWAtg31znUm2FuR7ejlXuM/TSbY3n3Ojs7mKnemomxUrnb0VjMK2H6BehKY5xEOA=
+	t=1787908794; cv=none; b=tshYRrqVFcIbmRAB0P2Su4kx+OGeix48n+Mlj+JUhN1CcVVHP37wjsoaKwMDqcfmuzrTatPG2f+50p8rnjnA4kDz3YCCbHOvEYfxDfVQWxEBXXTTiIIsz6jq2ra7WUKfS4R4Fg0qGCS8m4ReEtr7zAsjg7MoZ1jQy+95s0dlkEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908750; c=relaxed/simple;
-	bh=UJYFSOjCyD6OpslueE6ZnfaacQB+ddfxRIuLZ9r6K6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TGic65yOaNfTBkdnZfPpIwWz4X7hRoS39OfPEU+i2MV5TSJhfQp7TNtmfx39mYrPuprGRwZjuJJLEqeg3l5xJI1dtquKOe8VgoMkn89a6RnBpymAv1Hkn02GSH/tvTMEbjh63v5KQTu4c1adhAUb4NBhiIeO2OCYpo1LfvBofmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAAXGzmCUpFqrkh1Bg--.64313S2;
-	Fri, 28 Aug 2026 17:18:58 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Robert Marko <robert.marko@sartura.hr>,
-	Luka Perkov <luka.perkov@sartura.hr>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] phy: qcom: ipq4019-usb: Propagate reset operation failures
-Date: Fri, 28 Aug 2026 17:18:56 +0800
-Message-ID: <20260828091857.8581-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1787908794; c=relaxed/simple;
+	bh=8AMl0DgOuVCoESQEhgGy0vASFdrlJODbc9as/yA7w1U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tbWU/NEOTg+iNIVQZ0FERgyihXhzc0ZadMytGeeLziUt1upFLHEyLfJu6LSsX5oO8XE3hPW5+OF35rNdSSWWkAmxfsORxVjsLQq6z8FW2b65tx9YOTI3FQ1yY7nVqUZj38Pa6jFuCtZfOFJnoGxt/JX1rgPn8VOEu3Ix/tvMgXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=KoeKyOnI; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="KoeKyOnI"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47fde295992so562382f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1787908790; x=1788513590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GgbYgvU6FsFCVrXLrldDtmmXU/Ton6lhdOtQfDXoVc4=;
+        b=KoeKyOnIMkVapAJuJ8n/9Ge3aizouKPsfrklSZB3i7UP/sisYRM7AFzi3KWY07w4jI
+         4LwjkyXslf7AyeQnhwkXj0xKJb7kOTNz9788MfJLLaYHt4wkbqRfNq71OhHIXR4UO6GD
+         uAXatDlltdXXNmRKoAe7HiOOKASycuRUTxFutyIhgFSIQY/kTm5MMv0KJEyktmmrYJLW
+         C5RIXZbzNv/o7vxhCEYH3Ued97R+bqyP5Z0fytEEE5cixHVcmCdS1G1FYuayUJnTkb3O
+         yOG79Nu8WBY4hrX1QcdYsc3y+lv4T3VqtNTV+q6sdpsvgXmGe5fu63vrDplqj65JTrJY
+         vpXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787908790; x=1788513590;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GgbYgvU6FsFCVrXLrldDtmmXU/Ton6lhdOtQfDXoVc4=;
+        b=at8PMOSsZmXn12aTJpDAGeTf/XvTZ+6Jy6rEBl/gmOyD/Rz+pBxqCWcH7Xb9SXjQ5W
+         poebg5hQq9G3Xz90pA0GjrQcI9Il7f4+eerTlIFygKrF8x4oRiXafCMHKW4lxqTCfkFJ
+         m2Nlefhai5H4BSazQOGyIntKq1x32HVlb0JWyeW/CqjTb22MTTmfVVho3BqxrO2Rgn8r
+         +4v1PiyPFA6v7Q/D+8FP6FqKK9r++EuX/5OkHNft+CxjApF0G49zr1fiXMY//8Nnq0ze
+         F/xtOKDQ09gb2qA4UTmfWD690jXiBPgpSN13WCOIhWsjZYTz2Kl9uzhIRgc2coVmT2lx
+         lQ5A==
+X-Forwarded-Encrypted: i=1; AHgh+Rqtr+xGzwToZc8hOqXul7DCPQWdwYN+pwRjTxWX2cnp4Hmxu3LFAri32CHq7fms/9n2KXqEnDTEDQdnZqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ne7/EG/FjllTISctrA6gMYpkhxs2Ydq/Gb4KX4hNmC/toyZyrN
+	xYv8/G16CsP3LOhsid14Gg3Fcmo/7Q19YEv8tPi08071qmar0H0n+GDA2Fr87be6O2s=
+X-Gm-Gg: AR+sD13/20LbOP6JoA+8M5kcF9FXuhCTOfW8JlOSHoUBxRbQDiRILnks+tz5fjvo1RF
+	jGbnEJaBDi/vlJV1GEH+xDhBISRpXBUJ/ChXoUgpXZEItfxvBbmFCYgfCyNJgWX6bLbCtNTlSwi
+	ErydZrVJrKhQrpeulnEO8ZuCyx1tjTjnmugxeI5DguVZNLJryxUyQzzyF+AVl/90q6u3pdov87o
+	zTRBXOx5hi7rcACQepJ08DCQwAU4JEpeLOP9qZoGoMnzeDBYZJvTi+cuQJK3h5tkcJPLLeWtvwy
+	sjUYnSDp3V4KMCnSwytqnq2lyvNeFi2B/f19Rwp9m4H4cARz1XH3WGx4BkDnQ0TvrCkNgafzEUY
+	wcFLUgikhu207BXvjVd58kgZRM2MGyDR18ljjyDUGgcE5El19a4J8n7mm0lyqEl7b4LZRZ7pzNA
+	b+gmNOrN4e9vwjdk+Grs9hIr3Q15PoBGV+9zb+v2wA0ETomkWowBPb+127cuARbWYZnN8cWF8zF
+	hw8ikd6dsMXGkaxw2k=
+X-Received: by 2002:a05:6000:4553:b0:482:fbb6:1b29 with SMTP id ffacd0b85a97d-482fbb61da0mr2773932f8f.10.1787908789752;
+        Fri, 28 Aug 2026 02:19:49 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbac8e61sm2666752f8f.13.2026.08.28.02.19.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Aug 2026 02:19:49 -0700 (PDT)
+Message-ID: <31228099-41a8-4976-acc3-9b320a5012ea@blackwall.org>
+Date: Fri, 28 Aug 2026 12:19:47 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAXGzmCUpFqrkh1Bg--.64313S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF4rCw17XrWkGFykXw45trb_yoW5WFyDpr
-	W8GFWft3ZYyw4fWa17tw45AF1rWFW3tr97t3yS9ayrCFnrXw4jk3WxtF90gF95GrykGFW5
-	GFs5JFWruF13urDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VUbtxhJUUUUU==
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
+Content-Language: en-US, bg
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, Jay Vosburgh <jv@jvosburgh.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
+ <20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
+ <20260827192048.39ea95e6@pumpkin>
+ <9e71daf9-aad4-4c8b-9fc4-7429f62130c7@blackwall.org>
+ <20260827215611.1cb9f252@pumpkin>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20260827215611.1cb9f252@pumpkin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The IPQ4019 USB PHY power operations ignore reset assertion and
-deassertion failures.  Their callers can therefore publish a PHY power
-transition after the reset controller rejected part of it.
+On 27/08/2026 23:56, David Laight wrote:
+> On Thu, 27 Aug 2026 22:09:04 +0300
+> Nikolay Aleksandrov <razor@blackwall.org> wrote:
+> 
+>> On 27/08/2026 21:20, David Laight wrote:
+>>> On Tue, 25 Aug 2026 09:01:30 +0800
+>>> Hangbin Liu <hangbin.liu@linux.dev> wrote:
+>>>    
+>>>> From: Hangbin Liu <liuhangbin@kylinos.cn>
+>>>>
+>>>> The TLB load-tracking fields tx_bytes, load_history, load, and
+>>>> unbalanced_load are all u32. At sustained throughput above ~3.2 Gbit/s
+>>>> over the 10-second rebalance interval the byte counters wrap, causing
+>>>> compute_gap() to produce incorrect gap values and mis-select slaves.
+>>>> Such speeds are common on modern NICs under heavy traffic.
+>>>>
+>>>> Widen these fields to u64. Use u64_stats_sync to protect the per-cpu
+>>>> unbalanced_load_stats against tearing on 32-bit architectures, and
+>>>> div_u64() for the 64-bit divisions. The tx_bytes and load_history
+>>>> are protected in spin_lock. Also protect the slave load writing in
+>>>> bond_alb_monitor() with spin_lock in case of tear on 32-bit.
+>>>
+>>> How about changing the rebalance interval to either 8 or 16 seconds
+>>> to avoid the expensive divide?
+>>> Alternatively multiply the other side of the comparisons by the interval,
+>>> replacing the expensive divide with a cheap multiply.
+>>>
+>>> David
+>>>    
+>>
+>> How is that relevant to these patches?
+>> And how does that help at all if today that is done at about 10 second interval?
+> 
+> The 10 seconds is almost certainly completely arbitrary.
+> It is relevant because the 64bit divide is significantly expensive on 32bit.
+> 
+> David
+> 
 
-Propagate each reset error and restore the reset that was changed
-earlier in the same HS transition where possible.  This is an RFC
-because a failed reset operation can leave hardware state uncertain;
-feedback is requested on whether the proposed best-effort rollback
-matches these PHYs.
+Yeah, that is clear. But currently that recalculation is done once every 10
+seconds, such optimizations will be noise. Regardless of that, these changes
+are unrelated to the problem he is fixing with the set.
 
-The issue was identified via static analysis and manually reviewed.
-
-Assisted-by: LLM
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c | 46 ++++++++++++++++-----
- 1 file changed, 36 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c b/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-index da6f290af722..8c1834cd6a8e 100644
---- a/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-@@ -30,7 +30,12 @@ static int ipq4019_ss_phy_power_off(struct phy *_phy)
- {
- 	struct ipq4019_usb_phy *phy = phy_get_drvdata(_phy);
- 
--	reset_control_assert(phy->por_rst);
-+	int ret;
-+
-+	ret = reset_control_assert(phy->por_rst);
-+	if (ret)
-+		return ret;
-+
- 	msleep(10);
- 
- 	return 0;
-@@ -40,11 +45,13 @@ static int ipq4019_ss_phy_power_on(struct phy *_phy)
- {
- 	struct ipq4019_usb_phy *phy = phy_get_drvdata(_phy);
- 
--	ipq4019_ss_phy_power_off(_phy);
-+	int ret;
- 
--	reset_control_deassert(phy->por_rst);
-+	ret = ipq4019_ss_phy_power_off(_phy);
-+	if (ret)
-+		return ret;
- 
--	return 0;
-+	return reset_control_deassert(phy->por_rst);
- }
- 
- static const struct phy_ops ipq4019_usb_ss_phy_ops = {
-@@ -56,10 +63,20 @@ static int ipq4019_hs_phy_power_off(struct phy *_phy)
- {
- 	struct ipq4019_usb_phy *phy = phy_get_drvdata(_phy);
- 
--	reset_control_assert(phy->por_rst);
-+	int ret;
-+
-+	ret = reset_control_assert(phy->por_rst);
-+	if (ret)
-+		return ret;
-+
- 	msleep(10);
- 
--	reset_control_assert(phy->srif_rst);
-+	ret = reset_control_assert(phy->srif_rst);
-+	if (ret) {
-+		reset_control_deassert(phy->por_rst);
-+		return ret;
-+	}
-+
- 	msleep(10);
- 
- 	return 0;
-@@ -69,14 +86,23 @@ static int ipq4019_hs_phy_power_on(struct phy *_phy)
- {
- 	struct ipq4019_usb_phy *phy = phy_get_drvdata(_phy);
- 
--	ipq4019_hs_phy_power_off(_phy);
-+	int ret;
-+
-+	ret = ipq4019_hs_phy_power_off(_phy);
-+	if (ret)
-+		return ret;
-+
-+	ret = reset_control_deassert(phy->srif_rst);
-+	if (ret)
-+		return ret;
- 
--	reset_control_deassert(phy->srif_rst);
- 	msleep(10);
- 
--	reset_control_deassert(phy->por_rst);
-+	ret = reset_control_deassert(phy->por_rst);
-+	if (ret)
-+		reset_control_assert(phy->srif_rst);
- 
--	return 0;
-+	return ret;
- }
- 
- static const struct phy_ops ipq4019_usb_hs_phy_ops = {
--- 
-2.43.0
+>>
+>>>>
+>>>> Rework compute_gap() to use s64 arithmetic throughout. Return LLONG_MIN
+>>>> when the speed is unknown.
+>>>>
+>>>> Detected by AI code review.
+>>>>
+>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>>> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+>>>> ---
+>>>>    drivers/net/bonding/bond_alb.c | 52 ++++++++++++++++++++++++++++++------------
+>>>>    include/net/bond_alb.h         | 11 +++++----
+>>>>    2 files changed, 44 insertions(+), 19 deletions(-)
+>>>>
+>>>> diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
+>>>> index 0afed2c39231..9a43a1f47893 100644
+>>>> --- a/drivers/net/bonding/bond_alb.c
+>>>> +++ b/drivers/net/bonding/bond_alb.c
+>>>> @@ -6,6 +6,7 @@
+>>>>    #include <linux/skbuff.h>
+>>>>    #include <linux/netdevice.h>
+>>>>    #include <linux/etherdevice.h>
+>>>> +#include <linux/ethtool.h>
+>>>>    #include <linux/pkt_sched.h>
+>>>>    #include <linux/spinlock.h>
+>>>>    #include <linux/slab.h>
+>>>> @@ -74,8 +75,8 @@ static inline u8 _simple_hash(const u8 *hash_start, int hash_size)
+>>>>    static inline void tlb_init_table_entry(struct tlb_client_info *entry, int save_load)
+>>>>    {
+>>>>    	if (save_load) {
+>>>> -		entry->load_history = 1 + entry->tx_bytes /
+>>>> -				      BOND_TLB_REBALANCE_INTERVAL;
+>>>> +		entry->load_history = 1 + div_u64(entry->tx_bytes,
+>>>> +				      BOND_TLB_REBALANCE_INTERVAL);
+>>>>    		entry->tx_bytes = 0;
+>>>>    	}
+>>>>    
+>>>> @@ -133,7 +134,7 @@ static int tlb_initialize(struct bonding *bond)
+>>>>    	if (!new_hashtbl)
+>>>>    		return -ENOMEM;
+>>>>    
+>>>> -	bond_info->unbalanced_load = alloc_percpu(struct unbalanced_load_stats);
+>>>> +	bond_info->unbalanced_load = netdev_alloc_pcpu_stats(struct unbalanced_load_stats);
+>>>>    	if (!bond_info->unbalanced_load)
+>>>>    		goto out;
+>>>>    
+>>>> @@ -170,8 +171,14 @@ static void tlb_deinitialize(struct bonding *bond)
+>>>>    
+>>>>    static long long compute_gap(struct slave *slave)
+>>>>    {
+>>>> -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
+>>>> -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+>>>> +	u32 raw_speed = READ_ONCE(slave->speed);
+>>>> +
+>>>> +	/* It's meaningless to compare gap on unknown speed NIC */
+>>>> +	if (raw_speed == (u32)SPEED_UNKNOWN)
+>>>> +		return LLONG_MIN;
+>>>> +
+>>>> +	return ((s64)raw_speed << 20) - /* Convert to bits per sec */
+>>>> +	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+>>>>    }
+>>>>    
+>>>>    static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+>>>> @@ -188,7 +195,7 @@ static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+>>>>    		if (bond_slave_can_tx(slave)) {
+>>>>    			long long gap = compute_gap(slave);
+>>>>    
+>>>> -			if (max_gap < gap) {
+>>>> +			if (!least_loaded || max_gap < gap) {
+>>>>    				least_loaded = slave;
+>>>>    				max_gap = gap;
+>>>>    			}
+>>>> @@ -1354,8 +1361,14 @@ static netdev_tx_t bond_do_alb_xmit(struct sk_buff *skb, struct bonding *bond,
+>>>>    	if (!tx_slave) {
+>>>>    		/* unbalanced or unassigned, send through primary */
+>>>>    		tx_slave = rcu_dereference(bond->curr_active_slave);
+>>>> -		if (bond->params.tlb_dynamic_lb)
+>>>> -			this_cpu_add(bond_info->unbalanced_load->tx_bytes, skb->len);
+>>>> +		if (bond->params.tlb_dynamic_lb) {
+>>>> +			struct unbalanced_load_stats *pcpu_load;
+>>>> +
+>>>> +			pcpu_load = this_cpu_ptr(bond_info->unbalanced_load);
+>>>> +			u64_stats_update_begin(&pcpu_load->syncp);
+>>>> +			u64_stats_add(&pcpu_load->tx_bytes, skb->len);
+>>>> +			u64_stats_update_end(&pcpu_load->syncp);
+>>>> +		}
+>>>>    	}
+>>>>    
+>>>>    	if (tx_slave && bond_slave_can_tx(tx_slave)) {
+>>>> @@ -1539,21 +1552,27 @@ netdev_tx_t bond_alb_xmit(struct sk_buff *skb, struct net_device *bond_dev)
+>>>>    	return bond_do_alb_xmit(skb, bond, tx_slave);
+>>>>    }
+>>>>    
+>>>> -static u32 reset_unbalanced_load(struct alb_bond_info *bond_info)
+>>>> +static u64 reset_unbalanced_load(struct alb_bond_info *bond_info)
+>>>>    {
+>>>> +	u64 delta, tx_bytes, total_bytes = 0;
+>>>>    	struct unbalanced_load_stats *p;
+>>>> -	u32 delta, total_bytes = 0;
+>>>> +	unsigned int start;
+>>>>    	int i;
+>>>>    
+>>>>    	for_each_possible_cpu(i) {
+>>>>    		p = per_cpu_ptr(bond_info->unbalanced_load, i);
+>>>> -		total_bytes += READ_ONCE(p->tx_bytes);
+>>>> +		do {
+>>>> +			start = u64_stats_fetch_begin(&p->syncp);
+>>>> +			tx_bytes = u64_stats_read(&p->tx_bytes);
+>>>> +		} while (u64_stats_fetch_retry(&p->syncp, start));
+>>>> +
+>>>> +		total_bytes += tx_bytes;
+>>>>    	}
+>>>>    
+>>>>    	delta = total_bytes - bond_info->prev_total_unbalanced;
+>>>>    	bond_info->prev_total_unbalanced = total_bytes;
+>>>>    
+>>>> -	return delta / BOND_TLB_REBALANCE_INTERVAL;
+>>>> +	return div_u64(delta, BOND_TLB_REBALANCE_INTERVAL);
+>>>>    }
+>>>>    
+>>>>    void bond_alb_monitor(struct work_struct *work)
+>>>> @@ -1597,8 +1616,13 @@ void bond_alb_monitor(struct work_struct *work)
+>>>>    	if (atomic_read(&bond_info->tx_rebalance_counter) >= BOND_TLB_REBALANCE_TICKS) {
+>>>>    		bond_for_each_slave_rcu(bond, slave, iter) {
+>>>>    			tlb_clear_slave(bond, slave, 1);
+>>>> -			if (slave == rcu_access_pointer(bond->curr_active_slave))
+>>>> -				SLAVE_TLB_INFO(slave).load = reset_unbalanced_load(bond_info);
+>>>> +			if (slave == rcu_access_pointer(bond->curr_active_slave)) {
+>>>> +				u64 new_load = reset_unbalanced_load(bond_info);
+>>>> +
+>>>> +				spin_lock_bh(&bond->mode_lock);
+>>>> +				SLAVE_TLB_INFO(slave).load = new_load;
+>>>> +				spin_unlock_bh(&bond->mode_lock);
+>>>> +			}
+>>>>    		}
+>>>>    		atomic_set(&bond_info->tx_rebalance_counter, 0);
+>>>>    	}
+>>>> diff --git a/include/net/bond_alb.h b/include/net/bond_alb.h
+>>>> index 6fb09b4fc7e2..32f1981033e4 100644
+>>>> --- a/include/net/bond_alb.h
+>>>> +++ b/include/net/bond_alb.h
+>>>> @@ -57,12 +57,12 @@ struct tlb_client_info {
+>>>>    				 * packets to a Client that the Hash function
+>>>>    				 * gave this entry index.
+>>>>    				 */
+>>>> -	u32 tx_bytes;		/* Each Client accumulates the BytesTx that
+>>>> +	u64 tx_bytes;		/* Each Client accumulates the BytesTx that
+>>>>    				 * were transmitted to it, and after each
+>>>>    				 * CallBack the LoadHistory is divided
+>>>>    				 * by the balance interval
+>>>>    				 */
+>>>> -	u32 load_history;	/* This field contains the amount of Bytes
+>>>> +	u64 load_history;	/* This field contains the amount of Bytes
+>>>>    				 * that were transmitted to this client by
+>>>>    				 * the server on the previous balance
+>>>>    				 * interval in Bps.
+>>>> @@ -118,19 +118,20 @@ struct tlb_slave_info {
+>>>>    			 * are the entries that were assigned to use this
+>>>>    			 * slave for transmit.
+>>>>    			 */
+>>>> -	u32 load;	/* Each slave sums the loadHistory of all clients
+>>>> +	u64 load;	/* Each slave sums the loadHistory of all clients
+>>>>    			 * assigned to it
+>>>>    			 */
+>>>>    };
+>>>>    
+>>>>    struct unbalanced_load_stats {
+>>>> -	u32			tx_bytes;
+>>>> +	u64_stats_t		tx_bytes;
+>>>> +	struct u64_stats_sync	syncp;
+>>>>    };
+>>>>    
+>>>>    struct alb_bond_info {
+>>>>    	struct tlb_client_info	*tx_hashtbl; /* Dynamically allocated */
+>>>>    	struct unbalanced_load_stats __percpu	*unbalanced_load;
+>>>> -	u32			prev_total_unbalanced;
+>>>> +	u64			prev_total_unbalanced;
+>>>>    	atomic_t		tx_rebalance_counter;
+>>>>    	int			lp_counter;
+>>>>    	/* -------- rlb parameters -------- */
+>>>>   
+>>>    
+>>
+> 
 
