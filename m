@@ -1,128 +1,175 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0063EE1D8
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D03043F08C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922880; cv=none; b=bMptEMp4fWJNrQXZ2mttAJ504OUlng+D1AJPuXa4EUSqdSGTIFpjCK9Q3N6RYHuXJ0d7SGbOo7mfCjtHVYXPYqTKza1s83aDU+jmLRff5abgNEyfLImtcjscyHQ67N9AIJi44XVSigQXE+oSHQzF/yokEJ+bf7L0f+dIH6ltgRI=
+	t=1787922898; cv=none; b=fwzwoFS5ivwpysq7LQ4LYgl9HvN/PMwqbLngE07hpFQxrGLaYGCLq5vk9SPcdjF4zNcECpVDjZqNoTvcBU4oJK3VCsGvxvzk1tqxa+hZWRUgOHy5x0tmC/2qCJvCQhZR+mCB7Hapd4zn7DNde4/sXVojc07LSy8oIy+CHiRa4HI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922880; c=relaxed/simple;
-	bh=D4QUybtwdaEGeFdOBILEBAa96aMUCabEn4IKFQTSTqQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 References; b=YYGrkRIGHQibQxxBGIlxxnsL2/qTcsLA7MFKf2qxJ9LieNjPu7iBlpUMTN+DQWIPhit0NTEchFiD+hAWMy3gLJ/MEGMt0ZuE12GXpSfETLKOueOUpeHztjGN3snErqokCci+tfP2tBRap3s5wS0PjaHqoxVa8Q5jwIwRzG30UfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=G9WfxMU+; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1787922898; c=relaxed/simple;
+	bh=yyrFSFdf47pfG7cqAlOGwmGGoUHKRom2gh1K0ykqm2s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FJuFPFw4l3HWjaeIN25kw2/vfClqUqg4SdF2SmcFHX2aqyrXn7pSuOEi4/sfsmJBs04+bI5MWv1fYka4ljOTb5tsc++B5algFObY1xJsfOLenXIE904zug954HRiwlRtUG6//gQl5a18S+t4AxiyoaBLvWgroiTlY/G/GtWIlrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BRBBzBMg; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="G9WfxMU+"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260828131429euoutp02dbde150f548e9b400912791be6f33dda~P_mB0ep_w2586125861euoutp02n
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260828131429euoutp02dbde150f548e9b400912791be6f33dda~P_mB0ep_w2586125861euoutp02n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1787922869;
-	bh=lwl9ZR836nXomiAuieh4El+iSMRVFsDG8HllN7ocCco=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=G9WfxMU+ufl7buuH3N4EZ28j7RN2elpdzcYXFBksv+UhFV54sgY8Ncl1WqPrM+Hhh
-	 ReqnNU0qIB+ewC0S+rJsrLfiNBaGQ4wrqr30UeEvIMPsQ8cfAFp7lvcISp+DqLNl2s
-	 /YSvcsUTMAqvak6ICW53OJtJym/LyfBIlH0X1rrs=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d~P_mBgz0Nf2835228352eucas1p2P;
-	Fri, 28 Aug 2026 13:14:28 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260828131428eusmtip175545c44f75392432a02ffdf32bacde6~P_mA87mUu1290512905eusmtip1T;
-	Fri, 28 Aug 2026 13:14:28 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Stephen Boyd
-	<sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
-	<jbrunet+clk@baylibre.com>, Peter Zijlstra <peterz@infradead.org>, Ingo
-	Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Waiman Long
-	<longman@redhat.com>, =?UTF-8?q?we=20Kleine-K=C3=B6nig?=
-	<ukleinek@kernel.org>
-Subject: [RFC/PATCH] clk: add lockdep_ignore_clk_prepare_lock cmdline option
-Date: Fri, 28 Aug 2026 15:14:07 +0200
-Message-ID: <20260828131409.962825-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BRBBzBMg"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso1163526a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:14:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787922895; x=1788527695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=amFbxCkArEcBe8hSFjUDtB37mBSbIy+Fx0l703+Zfi8=;
+        b=BRBBzBMguts7bRIpLrudwnoBeA0Pbd1DJMsphXAHn/fGrsIAzBFUpbRzp+MYOhbOEa
+         vBkollbj7U1pNHU/DsRGK3rijeQY60mq3Rp8vXz8DfafaEmPngOMIJs5GvOi59ikfXaz
+         KgZpRac35nlcwt0t72xXPUDx/psSNruA7AlTHMzTmYip/YIJXXYd96SyX7opUY7Y37Yb
+         ntnQCL1MIkMhBMqAVXcEGdItNgmSXWWh1LcQeizK6zkYp3KBUsbHhheCkUjfK9Y0G0gJ
+         f2GFz3Yd83K3qhmNHAtv/S9xq5mVWGtvZ7YHneUAYXF5IHz62M8bytHKyKyqXmMz0nQS
+         zO1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787922895; x=1788527695;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=amFbxCkArEcBe8hSFjUDtB37mBSbIy+Fx0l703+Zfi8=;
+        b=mwmL00UCRJ2uOQG3FYaf8LpSyHvN+rIPEUPxvhtIq6biz5ttmM4+7ovyufZr9feDwq
+         LXFPxvYFa3kqeiUk+qF9jaWrYLG+//jSRo20aN/KbOIdFn9Po1B9hmvfqcubz4CTHTol
+         dKzJ81yBBAc/ED9RW0iOC1CKEdWP4LRbD6g/NoSOhThmGkYdpbOcfBt/W2nxI7a4ySiI
+         dol0rGjRp1Oa6vXv2L//bmKFrBZwHM1tsNNzp13maikclOX/esuN0cUfTI4zCIbtD8Fa
+         9vUXXCUGJeFXVi2rM0ewVFZEOcj7+BWvkJkTUGhXTPGY67FljucKU35n6uIxFGmoItae
+         60JQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpnz4g9LucLoBELJz8wKfG9d06AN4BhojaVyfS0uqkzWh2E+2oMPypckzdF9A9rh9kmIcD/TCZeLCT+Ues=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2rr4ftXcIR9/jDGLwIkydw/IE/9wPhNUTEIgSmVOi1yI80wUz
+	upcb3MdtQRuMai6HTQ+IK3HfJkE7hY/oMSzXzRTlv2+PvBsi64EFgsWqeFmu9g==
+X-Gm-Gg: AR+sD107rBMmx1mLqljrHBD9jAdkbaMrdeha9N+a0gmIZ/JX3nH/zBIICQfLoMwmzgD
+	f8/gYdVyxr4Ey7EHkBHDTHOpkqkItkpTb0GFAjVZGq+dXLdywxD/wTdrjwp1hMjrPCVXpWbfw9m
+	sFnOGLuG1uOPMh6kQmXyqFKR0qWWFS4f1rXOwXf1M0TOQiUQaj9QL+cCIqHexZ+ksJ8u/3ySBDB
+	hdehXSlrVi3n2CC1AmqzhXF1rvk4/rjMC95GMxv6EVpSqdjQQQioZ4ZTKwAcy26Lc0yY9etaOdT
+	rD5PoBj0ZtXtDjQ0H73GoNAq5G3eORG1QVeW7qFZxUYX8MticRh4lZS1VL2ICzd14TvrLxK/DTV
+	87iHW/NzP0C6f3KiNmXGQhhf7jlLPDcTwQVCQHDuEcjbxFbG8uPoqg6PZDUYYlVMH+qhZ1wkrcQ
+	rCCddm+KxiOSW81HF3G4WiLCn/+c1YmC5UpM9Xt/lmdDnNSHJZh6pny6HAJb80z/SNR+ya3VAJH
+	6mWImSnczVUcHtfgRBxFv9TbbVEK9btiL+kSA==
+X-Received: by 2002:a17:90b:2e0e:b0:38d:dfd1:7c1 with SMTP id 98e67ed59e1d1-396d0e34e0amr15595531a91.2.1787922895320;
+        Fri, 28 Aug 2026 06:14:55 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc555b0sm2464132a91.13.2026.08.28.06.14.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Aug 2026 06:14:54 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <fcb78e74-df8b-47f0-831b-3a1d62238792@roeck-us.net>
+Date: Fri, 28 Aug 2026 06:14:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
-X-EPHeader: CA
-X-CMS-RootMailID: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
-References: <CGME20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d@eucas1p2.samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (corsair-cpro) Remove debugfs entries when probe
+ fails
+To: Linmao Li <lilinmao@kylinos.cn>, Marius Zachmann <mail@mariuszachmann.de>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260828061949.3151191-1-lilinmao@kylinos.cn>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260828061949.3151191-1-lilinmao@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The clock framework uses a single global re-entrant mutex, prepare_lock,
-to serialize all operations on the whole clock tree. It is taken by
-nearly every clk API call and it is held while calling into the clock
-providers, which in turn often take their own locks or trigger runtime
-PM. As a result prepare_lock sits in the middle of a large number of
-lock chains and lockdep frequently reports possible circular locking
-dependencies involving it.
+On 8/27/26 23:19, Linmao Li wrote:
+> ccp_debugfs_init() registers debugfs files whose private data is the devm
+> allocated ccp.  If hwmon_device_register_with_info() fails right after it,
+> ccp_probe() returns without removing them: the HID core then frees ccp,
+> and ccp_remove() is not called for a failed probe, so the files stay
+> behind.  Reading one of them dereferences the freed pointer.
+> 
+> Remove the debugfs entries on that error path.  debugfs_remove_recursive()
+> waits for readers already inside the show callbacks, so ccp is no longer
+> reachable through debugfs by the time probe returns.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-hwmon/20260708031612.BD7E61F000E9@smtp.kernel.org/
+> Fixes: 5997eb60f896 ("hwmon: (corsair-cpro) Add firmware and bootloader information")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+>   drivers/hwmon/corsair-cpro.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/corsair-cpro.c b/drivers/hwmon/corsair-cpro.c
+> index 8354a002f4c5..30fe5d8e724c 100644
+> --- a/drivers/hwmon/corsair-cpro.c
+> +++ b/drivers/hwmon/corsair-cpro.c
+> @@ -638,11 +638,13 @@ static int ccp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>   							 ccp, &ccp_chip_info, NULL);
+>   	if (IS_ERR(ccp->hwmon_dev)) {
+>   		ret = PTR_ERR(ccp->hwmon_dev);
+> -		goto out_hw_close;
+> +		goto out_debugfs_remove;
+>   	}
+>   
 
-Such reports are often not real deadlocks, but once the first one is hit
-lockdep turns itself off and all subsequent locking problems - including
-the ones actually being investigated - are no longer reported.
+Any reason to not move the call to ccp_debugfs_init() instead ?
 
-Add a "lockdep_ignore_clk_prepare_lock" kernel command line parameter,
-which marks the prepare_lock class as novalidate, so lockdep skips the
-dependency tracking for it and keeps validating the rest of the system.
+Thanks,
+Guenter
 
-The option is only available when CONFIG_LOCKDEP is enabled and is meant
-purely as a debugging aid.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
-The problems with clock framework's prepare_lock are well known and
-there are machines that always report lockdep issues related to it. A
-good example are Khadas VIM3/VIM3l boards, on which prepare_lock
-interferes with locks used in PWM subsytem:
-
-https://lore.kernel.org/all/adqtn6iljcguv3m3ovhltusbbf4mljzlwg73yklaudvjjtazxv@vyf5fvuzic6x/
-
-This new cmdline option allows to hide prepare_lock related issues on
-the test machines possibly enabling lockdep to catch other issues.
-
-Best regards,
-Marek Szyprowski
----
- drivers/clk/clk.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index fef87167a60b..a5c8c4256102 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -168,6 +168,17 @@ struct clk {
- 	struct hlist_node clks_node;
- };
- 
-+#ifdef CONFIG_LOCKDEP
-+static int __init lockdep_ignore_clk_prepare_lock_setup(char *__unused)
-+{
-+	lockdep_set_novalidate_class(&prepare_lock);
-+	pr_warn("lockdep: ignoring prepare_lock class in clock subsystem\n");
-+	return 1;
-+}
-+__setup("lockdep_ignore_clk_prepare_lock",
-+	lockdep_ignore_clk_prepare_lock_setup);
-+#endif
-+
- /***           runtime pm          ***/
- static int clk_pm_runtime_get(struct clk_core *core)
- {
--- 
-2.43.0
+>   	return 0;
+>   
+> +out_debugfs_remove:
+> +	debugfs_remove_recursive(ccp->debugfs);
+>   out_hw_close:
+>   	hid_hw_close(hdev);
+>   	hid_device_io_stop(hdev);
+> 
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 
