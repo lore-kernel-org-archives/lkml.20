@@ -1,618 +1,332 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010006.outbound.protection.outlook.com [52.101.69.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAF6478E56
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787953085; cv=none; b=M3viZ7WWdblA5+zYHa3sYOgqCIOh5OLdWiqTgKbEnAOj8ho9fKZOHFz1c7BhsGTzmnMEnVC+67zFOhoDtjXvUprdrjB6D6HhASP+kiKwO6R3ynmzfx7hSDPgpnY6KAu9vR3j1s6LZr3m0eqQW/r7oPjZTEmK2Gh5i3LKecQkQ4w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787953085; c=relaxed/simple;
-	bh=3oWb2ED0DUimXzrvzTFETa03tehzQ1fBvx/hdYY/Hnw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lIos4/B7s6WEH4QZ5ynbN/Ck03LhHD4wBxEkShJtqdXkBDqRtN6+IWo8ovF9EJ1OQLyP5uQ93xhcbRlNF8UJsuWJYNnp1W1x9PkOh/fRc6OickoYNPODtPIWXkZiuUUHLaoLlTHpEEiG+uWotlYZncFTh9irUaQF6AhF/KvLr8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cYwm80qi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TvcXuUvb; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6198638F930;
+	Fri, 28 Aug 2026 21:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787953217; cv=fail; b=XAw0NRw3D6do3m9Nt8wnMzxUUast/RqJz/Jfvbyp26DpUXmHY6WSxamt9MLZjaNObDaJP1wHZ3bdQRunn5C+lv//pbTPd4ZGMVtW5UVgOPyJcACuShhfrfmrOVvJAnhU5pU6RzokzysBQAHRkeW9RvsmZsOI5RtA1ITLrNglMcc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787953217; c=relaxed/simple;
+	bh=UHvXx713KhO2m4w/QJnXX9SjmmCT/G980ELh8Dm363M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WczxrtdM7J7WB5FN1ttzfo9Vkq6QEMMs1YqVPJONYfxyFcXWH2Veq86/xJ2Ft6L2wFpxh5JK8+C4UG1C2e/fm3PTx0RNmEyleLczooBlKAbz7OGnNh+WWGcxaqP3wa4/Ak29MpW8fY04uWTnb/w2cFb1s/Ed50pV+Xv8AH11ZlU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=KO0UVeWg; arc=fail smtp.client-ip=52.101.69.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cYwm80qi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TvcXuUvb"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SJ71KM3674258
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:38:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	edwmVF0kuFN7eYt2lxNi6cf3g1PHD1yZadeiuBsRrqE=; b=cYwm80qi8KCLUfNf
-	5m2MZqR7gdlY82qnBwno5eBNPIzPc/E24eJATmxQH6OU0zlQBoDGW4L9vdet20Za
-	wgaKDDrwI0L/NTx6NWGafja2AnwL1knszWdQZ8AUb8RDf4B4jMRZpvkuiN2WwxnH
-	iJXzDaL+IZNlg0qbGiHyvoBm590051XsCZsW8cfLgafjLm0MGnChZgr4GgjQD1xh
-	BvL41VOIieZOOKWZS59Wyhv49yzpc8B19VkgnU+IQlB96y18ZIoa6zGh7apBP3QL
-	uDyAet9q1bWgUiCAUNpwGKWtkhZKd0zrWA4QAsVj8qTyXAshDqKm6J0DGhmxPng3
-	Cs+/Ug==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb3hs3q7a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:38:00 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e475f83a2so2707573a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:37:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787953079; x=1788557879; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=edwmVF0kuFN7eYt2lxNi6cf3g1PHD1yZadeiuBsRrqE=;
-        b=TvcXuUvb1wFD48HLxhpdaKKpGWgFuerxAmJ2PtGotP3VAcUpu9ChfEgnZVwWusWMEn
-         coeD0Q8CAZOBrR2kl8fRUwkEhGd2FM49icxpH+XUhMPEUsiiSN6P5ldQQAuliaQ6StEE
-         YKL1nVZoZBG8/K1/OaC+NuYohn8wlqU+FJR7YX2TfqLilfwVKsQLO10APneWFJ1txOTc
-         9xDdEq/4Naxo5sTJS2LoApyqMaGN86ygaOpGIA6Lee3F5gJx95XUQ3fLwtCz4OaBDCle
-         c3DUOs56AVb5GLIUjj/OaOBJVN5+6754Ef0BRoIjYoukhme0RftEq8XexUUFfQZls5sW
-         jbQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787953079; x=1788557879;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=edwmVF0kuFN7eYt2lxNi6cf3g1PHD1yZadeiuBsRrqE=;
-        b=Hh6F6ndl3m6/0ngIeeXEFuzJnmEdLZF+diP8SoeXof35crMGHKX8Pc19KDrWQwA/fC
-         SkQ9bRJ4TtCc5N6B7uAMacoTaih5DqulieXezLu1TulpJqPL71wgvOGs6fPBmHLLFl/3
-         ldbOWwqzoLzkx6B3sLprIb+sCX6ziHSlNiorKxS594D8jVdiXRzILFQkoZ8MwMpBHy9c
-         EcLe7jeFf4+OPmCmshY7jyaL/AVac9GK+KZgBhNNcZ0cB0+2XAhouPZr1ibYPQu3E6q+
-         GozSdmKiHpL0+4SRBpGN7RdC6c1+elGL9rGW7bx29L5mtdGCndhh6fq3mizyZDkjzFTm
-         4pHQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNXSywlYXEXbgj36T2blFBy/Hd1hi5xooqwHg8GN2GmQxvj9aQLhbMc/gDAvZp+iVbY4WvABffscRsfU0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZAKQ7ANveNTFsapHhxXr4vC2BszNzJz1M5kTTlzWCbU0qFfnr
-	Uvp9Yr2bp8Ro103mBWTHYUM6ykEwY2corimkFqwr10t0xAIo+Gd4xEdylCf0rd5uwhqpkjZCXV1
-	gFhvieH1Nt9r43NcOx539rkfzTsa5gngM18FtG8UUuBF7tdzJUEYH5tNDECd5qvyEQwQ=
-X-Gm-Gg: AYBFou0rjJFlJH6yU3/R7J53UMKQVPRhrbg3FuzpTd4i6GXqxg6lN57nS6GInFe4zlL
-	nQ4VscSdxBZeQbMxecvSkdcKL5ScC/zggGtlcmCUHCKzsdJDxDCkqaPHGzAiXGn7IafQlGE2cfk
-	oQ/C0v6uf5kNTQiZP9ks84aTeGwmP7knpV8hDkeyxXb3kTUifZK6cGPUp8abE5Z568JYOCCcrty
-	d4e+KtzbS1RV5hAoIOibvPP85ALtq+wkJiW4TqIfsxUMAdV4H/FBYjZ1Mo3kGJHUudilhsrtszT
-	WZmaiP6XS7CRSlq4Tl6fAHZ0YVNEAer9PDBLwPpeePFrJm9FRBkOhNTswFwMz2ndVzv2TnwokUl
-	PcQZJG7TmSMrmyeFmxzfwf9H64pbefODBRC57C7DwZ7v0dDApyNpO
-X-Received: by 2002:a17:90b:4cd1:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-3989bd40da3mr4340687a91.17.1787953078892;
-        Fri, 28 Aug 2026 14:37:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:4cd1:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-3989bd40da3mr4340617a91.17.1787953078337;
-        Fri, 28 Aug 2026 14:37:58 -0700 (PDT)
-Received: from hu-wcheng-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e41837c6sm5892112c88.11.2026.08.28.14.37.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 14:37:57 -0700 (PDT)
-From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 14:37:54 -0700
-Subject: [PATCH v2 2/4] usb: xhci: sideband: allocate sideband ring
- segments from a dedicated pool
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="KO0UVeWg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YfaEnXWps+Y3F7iE+G93OjcZ7dIO2zUhjEtSb4RdB4e7TY+ISsSR2gRpoPzi2l0dyF31ufNHcm3fxf7uZ3MTq9dJFO5fztagDUDuzs896eWm9LAEJvJhPAql/0zL3Yilf5cI/lAt9iECGPMHzBNSd35sd2u+14pi8eieyhGH1hwjS/PpLEdXt2gxAnAdKpzmf4FmgSi1S4u5TS3MwT4yBKAcZpOjNuQCfgqCApqOF1+eRFxbP0Y4NStvftw9Xh+MAUhigGibeZCCBhNXSKV0jnQUsQPIm1bfedAbeKRD9uHC5GpsqrdxV0vgbrh4rTKc08Pgh81EdUsWhYet0p3rBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3q2GPj2RRTmv6+xGPLCwvcA/b5BbPSJQr/IvfBu2VYA=;
+ b=lqmHeXxxrMpFKUEb2OXtste5IeninI02WfVKUbeJuMcPOL1m2+Ccit8qbkaKzeIOL5cqxECWK+KHJx1pN49F4Z/7W/UIzSP7zGfe8TdvB6psfImI35xd7hYOAoIo/NfkmAnVP7SSObCFlhNn1pXhZ1/hqdMy37jFz5coJldeFFBdl2sbk0QbD/72RzHLyAhFFGst4bRTBrMb8tPgEBSb3blojurxKTQq3YNSwgecl12JbeT64kMzwH+K6ZDBMgv5yyQkBX0Q0Bno0r2smIo6+k//1Njw76/CXQ/V6QIcRef/En/Dlkam2nrqqDpOn01qkr83RKGeNqs7OxZim66K1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3q2GPj2RRTmv6+xGPLCwvcA/b5BbPSJQr/IvfBu2VYA=;
+ b=KO0UVeWgk24+sUC/VJvMPAlXOZ4/4nsHT4S8fyjWYxF/5sZvGNUi5tYEiiOr1Yzujv2KcQ8XswKfQpxcol9arintBvEAieHBkjBGhzmh7kx9y/g8nOsjl8F9MuFkeK5K1TmSXf0edZtuHiawX2w9XH07L4MAJK/By4RtLwrfdA/4Qbf+3Zra7vxTQWAZn6x1HJQmmNMT7uhBr3io/ZbNoMe5c72JXSUw+wPNgEGIt19LBkulgtgB1MKidM0icGHvzNHpSDqHYc43uIY87aUujD+Swke1C7dZkp6+1JXbNJ/732gpr598dZQunwnNO9OoTs2bW3rcZt4qVR6ZogkkwA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB9200.eurprd04.prod.outlook.com (2603:10a6:150:2b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 21:40:10 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 21:40:10 +0000
+Date: Fri, 28 Aug 2026 16:40:00 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Joao Pinto <jpinto@synopsys.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: endpoint: Fix BAR backing DMA address alignment
+Message-ID: <apIAMJ98XJDsfjT6@SMW015318>
+References: <20260827181757.1984374-1-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827181757.1984374-1-den@valinux.co.jp>
+X-ClientProxiedBy: CYZPR05CA0011.namprd05.prod.outlook.com
+ (2603:10b6:930:89::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-16k_offload_v1_b4-v2-2-8a46369ebbb6@oss.qualcomm.com>
-References: <20260828-16k_offload_v1_b4-v2-0-8a46369ebbb6@oss.qualcomm.com>
-In-Reply-To: <20260828-16k_offload_v1_b4-v2-0-8a46369ebbb6@oss.qualcomm.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Michal Pecio <michal.pecio@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-sound@vger.kernel.org,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=XKYAjwhE c=1 sm=1 tr=0 ts=6a91ffb8 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=n6KXtLIYvygRVsXyBwEA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDE4OCBTYWx0ZWRfX2tJQrr9xqZ8m
- VTSD9z11/14JIVRJvP26wfyRavFgbTYABvfumqrM9Es56HUV0e/4tOycrUJVdj9s6TKmRXHgh05
- 2sEBVLhc4ozfWfLU7zKAFajKc0mW5fKysNoYj24g/aeYYqJlecxEi4TEwW8nxOVy/v3MA/gsapN
- AjQ2trhjqnlEnBFrvt1qmG1wksBFAEusvkqEqjLsPQsQ8SdhxUeemre74KcyKUAAOLojJHkH3rH
- JwGPdhFmvxsMsCw85YtjgPYD9E4DNYXA10jh/RN8ewhlxbBItKRd6Pzkqb1xQUY5yPJMFwAg/wy
- bT/EMchndE6+tCw+8vBlxA17fOfWcQ2PLs5/SKroLGxHFykke/IqvZaFsgg8krMNIUVcwfiYr0h
- Zf3hgxk6hx+9elZdeU7AockE5AHIhbHvIe81BXHxT5FgrFBxzB3fxK2mt2Qvt6hzW1QQ+Wn1IIy
- DECLw9ZkOAr8/qjcU9Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDE4OCBTYWx0ZWRfX7R36FlMcR6WA
- pB+fpbO9Q9BdKcoJQI9UBUL5Agp9A9ULPZ+X8gr9AN4TRTvLCE4nIWPO2xgLKG5I8GaMqYgPC+L
- 48xedlGHUJCJikaumi3RvSv2EgvvtlI=
-X-Proofpoint-GUID: OZI09DLQ_ucVJk-JAG-PExhqHw1bPlf8
-X-Proofpoint-ORIG-GUID: OZI09DLQ_ucVJk-JAG-PExhqHw1bPlf8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_06,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608280188
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB9200:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac161300-bbe7-4134-6676-08df054cef1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	f8ZBS78zG8xycKfN9EbL8gvviHFapdWfJiht9DVUk77GXhFFMXTiGkYW7rFLp46ozVnj4hfMuXlpeytvKCDNAJ9HM0WN+JMhuYOGFKq5Qjk8y82uwlZZPnTyMpf33+ev4TzTMcUijJtDCI7QZZfe6n2bxghLJvPGAbk4auAcOoiEKj5vWcGKqKMgf/CEroCZSVL25Qzp/nT7DaTfUs4BDjM4gAwtUsKEKXzgVmTiiBAwzyJUthZXAFBi6zXNyJLX9VADnsbxX0oHGO1CusJzYuJ9s9Le6DlbIPFse+SISwSe3AzTOJeVPxeuNZ+OsrU1xcIMaytHUKDbjkc+gYuEv9x7j49ATpZ6FKtL3A5kwnwjM+RYoxDJMNX6yYUil5Xy7DdQWbbxmNao4WAi5aXs1Jj+97Ku3wNiBTR132QQi2cVSic11YVp+x/cg3Jrgs3KjG2FKEOwZ772engmXuQWgYTdXZM/BFF80PGFrT95CKbGALu2iFRR+HgExsKTSBQ93GbSeQRyRYsksOwukJb43GAds+jifBNhmxiGT+3lmwludJrWSrjy5WtBwzvPPtsiz3xVv/caUr4vIgHlBO5xYVRsTao9M2ij1BTuG+P7eExvNDLDSY/b5AjOoptZd80X+wiSehEJWe5J/DfUtnVR2SQzONyZA70OzfgLteVKtr8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NrzA/g/nB92It1Fry/XbxM0Gg9JZ8MRTConODPr6MxoJT6cbUM7oxyCz+sM6?=
+ =?us-ascii?Q?Gnl+WzRx5N4em66RcgUV5io6kVmUKi22cgeLQX17vRXEbrQ0wULBDIhz14lH?=
+ =?us-ascii?Q?s7LLg7oqko3OYy7yCefPd1sPTxM+rg5xrHBZQU52nKP/aiPAM97Hvq7uKyKE?=
+ =?us-ascii?Q?Ac06F37SWOY1jUZp72UvylzjJy/3GbefIGdl41yuJlYTwa3Fg/KfjIxqOSdB?=
+ =?us-ascii?Q?WADvo+d5gvTJ7rjzVG6Wcq+/QSTid2pmXitUhhpdDlxitGBgc/Rb7XH3P9fk?=
+ =?us-ascii?Q?voRNiERHn24tEiw1nvePwE5Ns2s29pjodR+LlasJ01rJPkzDhE1mYdDwhDKO?=
+ =?us-ascii?Q?P+TpbI5touP191224qQigSpz4Wvq9vnPMuRk8NzPH+F/6lLVOpykfZNgQu83?=
+ =?us-ascii?Q?+59FzoYd4X7IURQ4CduaTETQue1jwjEwh0TMFz3dNtHlzyZfuIHIDXlTCs/u?=
+ =?us-ascii?Q?Vj+bX4UHQKt7W+aXuDj3D67q8/Ja7MH4PnikcO4ZlE9e2ljK0LpNqOB0nXLt?=
+ =?us-ascii?Q?GVUwWRRjuhC/c2mHM5/2fY3jluPlBK/PZjyQcW5ymNiS2JKcXBv2IldQhSwf?=
+ =?us-ascii?Q?1/VF+0z7s3+HWdnmbTQd8V0Q9IlDqiOR7Z028xNu7newc7zNBqUtKIKVmp2w?=
+ =?us-ascii?Q?bP4umlR5ChQniqfIVrbeU97OHMczdMnNQXpEvGAIDahWuZvH89iFp5ORmDnE?=
+ =?us-ascii?Q?96ILDr9oRJrgGU7ZsJFNR30JDIA2EAFZOnbxi5E4yuap+GQblbr2mjF5QVio?=
+ =?us-ascii?Q?NVD/A9TfmOYkO3sgZ4XZO36GjEwjeDkAeThZeltWXkykM+kWFQTUAdy3y4v0?=
+ =?us-ascii?Q?CuM5FPxdQ9dTLhqjqGPrNyXovMtTb+xH+r5iKkQgn94geWmyYwg3huqUG/C9?=
+ =?us-ascii?Q?H4HcjtoWCkQn7B7c2KwR4gp1OG5Iwq0EzwNepkmTHwfRZFzF6jbjkBqPEwDA?=
+ =?us-ascii?Q?Ue9FTD0luCmjzoXkpd2xm1YO23YyjOH0JSdQvk6PilTpMBeLClW3ujjqSskZ?=
+ =?us-ascii?Q?4Lebxd/4776NZZimX3h7bLQJGAGfI3rVHN7hdW3e0Dk77oygz7VXTrmMaOKA?=
+ =?us-ascii?Q?IClpk9IYoXFvHB87q3MQGiS2A5cY258Ohf2RyExWjzT4f/Xj66a+LluHWUlQ?=
+ =?us-ascii?Q?3G8e6c39wkENlBZS0G7QOfERhzjnLYBruPT63E+d4TtPc2pjTINtiP57Wu4C?=
+ =?us-ascii?Q?I1+ssfcTWuvNqnEAHLJLTFUkZHtAwR2kRxgWPM+31DvmU5S4pAVuAukga/yM?=
+ =?us-ascii?Q?HNAGWBFRpcQ25lC357cWA4iPsHskO31ecXXAWjv0DR+Wk7OIM9LtkpIvP6VW?=
+ =?us-ascii?Q?HIs49za7lZBMNN9SZKWVUOPvm6sgvMgdHogWHiHX3rAdxwbvBbRF0/XtVZsk?=
+ =?us-ascii?Q?SYfjOPiOH+kidAXIi/fDb9nUyvYQKaGF5+2Yui8I1rXe6UfgVJaf3a+kkheN?=
+ =?us-ascii?Q?wlLv+Tam4Rdoo3NZ9IfB//kX2CoM+w7s2lfcVhKsHYp+Z145M8by1fmem1Fu?=
+ =?us-ascii?Q?bDf0yPESfFL+serOCyrE2x3J1zhVNeCc6XsHD4xs6U7QhH3PPji6+helv/a4?=
+ =?us-ascii?Q?4A4E+l+zgbvXgOoLXgGfmquJ28DhZnxKxBoTXrOqFNYug9M5le6bpezF7Hit?=
+ =?us-ascii?Q?Hu8VaV9gLFSuYRF0ocYSt77l0856d1mmd87whMXCM+JIA5Ul4gwU2f3pBHCo?=
+ =?us-ascii?Q?OBZD5gRmIbFsgwmX49f5/VvCbLcx70KPH7AlprB8sYiKTEPDRlRZ+G+Z38Cg?=
+ =?us-ascii?Q?OPB4NQQFw30Hqt6ygkr3c0F5LxJydRPmZcTYBr03xgVcTtS4Z13P?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac161300-bbe7-4134-6676-08df054cef1a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 21:40:10.2175
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qm8soG1hW69O/DK/yg7meRFf6nfRH9WdJu5eI+K+RLC6VvBlb3LZ4EkdAOyJCXQZhQro82AJj3KEUXG0237U3P0DrcxWPX7wfkIgeNAaz0x15A/YrjNc2LPd2wHCNwQI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9200
 
-Ring segments are normally allocated from a shared DMA pool sized and
-aligned to TRB_SEGMENT_SIZE (4096 bytes). On kernels built with a
-larger PAGE_SIZE (e.g. 16K or 64K page arches), a segment can end up
-at a non-page-aligned offset within its enclosing CPU page, and
-multiple segments can share the same physical page.
+On Fri, Aug 28, 2026 at 03:17:57AM +0900, Koichiro Den wrote:
+> DWC BAR Match Mode requires the target address to be aligned to the BAR
+> size. pci_epf_alloc_space() relies on dma_alloc_coherent() to provide
+> that alignment. For CMA-backed allocations, the guaranteed physical
+> alignment is capped at PAGE_SIZE << CONFIG_CMA_ALIGNMENT. With a direct
+> DMA mapping, 4 KiB pages, and CONFIG_CMA_ALIGNMENT=8, a 2 MiB BAR may
+> therefore receive a DMA address aligned to only 1 MiB.
+> dw_pcie_prog_ep_inbound_atu() rejects such a mapping with -EINVAL.
+>
+> If the initial allocation is misaligned, free it and retry with
+> mem_size - 1 bytes of padding. Select an aligned subrange and record its
+> offset so pci_epf_free_space() can pass the original CPU address, DMA
+> handle, and size to dma_free_coherent().
 
-A sideband client that maps a ring buffer directly via the IOMMU
-(which operates at page granularity) needs to know exactly which
-page(s) back the ring, and only pages that are actually intended to
-be exposed to that client should ever be mapped this way.
+I understand this situation, but it mays waste memory, if 16MiB, it max
+waste 16M-1 space.
 
-Give each xhci_sideband instance its own segment_pool, allocated
-separately from the core xhci->segment_pool, so every segment backing
-a sideband-tagged endpoint always comes from a page that is meant to
-be ADSP-visible. Normal (non-offloaded) endpoints are unaffected, as
-they keep allocating from xhci->segment_pool.
+As workaround, this is good enough.
 
-Thread the pool to use through xhci_ring_alloc_from_pool(),
-xhci_alloc_interrupter() and xhci_create_secondary_interrupter(), and
-have xhci_endpoint_init() pick virt_dev->eps[ep_index].sideband's pool
-over xhci->segment_pool when the endpoint has already been tagged by
-xhci_sideband_add_endpoint(). Endpoint tagging always precedes ring
-allocation, since UAC streaming endpoints aren't allocated a ring
-until usb_set_interface() activates the streaming altsetting, well
-after the sideband client has already tagged them.
+add dt memory node for pcie-ep
 
-Move EP_CTX_PER_DEV, TRBS_PER_SEGMENT and TRB_SEGMENT_SIZE into
-xhci-sideband.h as the shared canonical definitions, replacing the
-"FIXME defined twice" duplicate in xhci.h.
+my_dma_pool: dma@42000000 {
+    compatible = "shared-dma-pool";
+    reg = <0x42000000 0x02000000>;
+    reusable;          /* <-- CMA: system CAN use these pages when idle */
+};
 
-Have xhci_sideband_register() take the segment pool as an argument
-instead of creating it internally, so the sideband client that
-actually consumes the pool (qc_audio_offload.c) owns its full
-lifetime: create it before xhci_sideband_register(), destroy it after
-xhci_sideband_unregister() or a failed register call. The client picks
-the DMA device the same way it already does elsewhere in that file
-(interface_to_usbdev(intf)->bus->sysdev) without needing an
-xhci-internal accessor for xhci->page_size.
+pcie-ep {
+	...
+	memory-region = <&my_dma_pool>;
+}
 
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
----
- drivers/usb/host/xhci-mem.c       | 64 +++++++++++++++++++++++++--------------
- drivers/usb/host/xhci-sideband.c  | 14 +++++++--
- drivers/usb/host/xhci.h           | 14 ++++-----
- include/linux/usb/xhci-sideband.h | 22 +++++++++++++-
- sound/usb/qcom/qc_audio_offload.c | 21 +++++++++++--
- 5 files changed, 100 insertions(+), 35 deletions(-)
+but if use "reusable", still meet CONFIG_CMA_ALIGNMENT. if use "no-map",
+dma_alloc_from_dev_coherent() will bypass CONFIG_CMA_ALIGNMENT. but it will
+waste memory if not use pcie-ep devices.
 
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 7a21ac81f9c8..bf7eb53abab9 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -15,6 +15,7 @@
- #include <linux/dmapool.h>
- #include <linux/dma-mapping.h>
- #include <linux/bitfield.h>
-+#include <linux/usb/xhci-sideband.h>
- 
- #include "xhci.h"
- #include "xhci-trace.h"
-@@ -28,6 +29,7 @@
-  * "All components of all Command and Transfer TRBs shall be initialized to '0'"
-  */
- static struct xhci_segment *xhci_segment_alloc(struct xhci_hcd *xhci,
-+					       struct dma_pool *pool,
- 					       unsigned int max_packet,
- 					       unsigned int num,
- 					       gfp_t flags)
-@@ -40,7 +42,7 @@ static struct xhci_segment *xhci_segment_alloc(struct xhci_hcd *xhci,
- 	if (!seg)
- 		return NULL;
- 
--	seg->trbs = dma_pool_zalloc(xhci->segment_pool, flags, &dma);
-+	seg->trbs = dma_pool_zalloc(pool, flags, &dma);
- 	if (!seg->trbs) {
- 		kfree(seg);
- 		return NULL;
-@@ -50,7 +52,7 @@ static struct xhci_segment *xhci_segment_alloc(struct xhci_hcd *xhci,
- 		seg->bounce_buf = kzalloc_node(max_packet, flags,
- 					dev_to_node(dev));
- 		if (!seg->bounce_buf) {
--			dma_pool_free(xhci->segment_pool, seg->trbs, dma);
-+			dma_pool_free(pool, seg->trbs, dma);
- 			kfree(seg);
- 			return NULL;
- 		}
-@@ -62,10 +64,11 @@ static struct xhci_segment *xhci_segment_alloc(struct xhci_hcd *xhci,
- 	return seg;
- }
- 
--static void xhci_segment_free(struct xhci_hcd *xhci, struct xhci_segment *seg)
-+static void xhci_segment_free(struct xhci_hcd *xhci, struct dma_pool *pool,
-+			      struct xhci_segment *seg)
+Maybe we try
+
+ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
  {
- 	if (seg->trbs) {
--		dma_pool_free(xhci->segment_pool, seg->trbs, seg->dma);
-+		dma_pool_free(pool, seg->trbs, seg->dma);
- 		seg->trbs = NULL;
- 	}
- 	kfree(seg->bounce_buf);
-@@ -81,7 +84,7 @@ static void xhci_ring_segments_free(struct xhci_hcd *xhci, struct xhci_ring *rin
- 
- 	while (seg) {
- 		next = seg->next;
--		xhci_segment_free(xhci, seg);
-+		xhci_segment_free(xhci, ring->segment_pool, seg);
- 		seg = next;
- 	}
- }
-@@ -334,7 +337,7 @@ static int xhci_alloc_segments_for_ring(struct xhci_hcd *xhci, struct xhci_ring
- 	struct xhci_segment *prev;
- 	unsigned int num = 0;
- 
--	prev = xhci_segment_alloc(xhci, ring->bounce_buf_len, num, flags);
-+	prev = xhci_segment_alloc(xhci, ring->segment_pool, ring->bounce_buf_len, num, flags);
- 	if (!prev)
- 		return -ENOMEM;
- 	num++;
-@@ -343,7 +346,8 @@ static int xhci_alloc_segments_for_ring(struct xhci_hcd *xhci, struct xhci_ring
- 	while (num < ring->num_segs) {
- 		struct xhci_segment	*next;
- 
--		next = xhci_segment_alloc(xhci, ring->bounce_buf_len, num, flags);
-+		next = xhci_segment_alloc(xhci, ring->segment_pool, ring->bounce_buf_len,
-+					  num, flags);
- 		if (!next)
- 			goto free_segments;
- 
-@@ -362,15 +366,10 @@ static int xhci_alloc_segments_for_ring(struct xhci_hcd *xhci, struct xhci_ring
- 	return -ENOMEM;
- }
- 
--/*
-- * Create a new ring with zero or more segments.
-- *
-- * Link each segment together into a ring.
-- * Set the end flag and the cycle toggle bit on the last segment.
-- * See section 4.9.1 and figures 15 and 16.
-- */
--struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
--				  enum xhci_ring_type type, unsigned int max_packet, gfp_t flags)
-+static struct xhci_ring *
-+xhci_ring_alloc_from_pool(struct xhci_hcd *xhci, unsigned int num_segs,
-+			  enum xhci_ring_type type, unsigned int max_packet,
-+			  struct dma_pool *pool, gfp_t flags)
- {
- 	struct xhci_ring	*ring;
- 	int ret;
-@@ -382,6 +381,7 @@ struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
- 
- 	ring->num_segs = num_segs;
- 	ring->bounce_buf_len = max_packet;
-+	ring->segment_pool = pool;
- 	INIT_LIST_HEAD(&ring->td_list);
- 	ring->type = type;
- 	if (num_segs == 0)
-@@ -398,6 +398,20 @@ struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
- 	return NULL;
- }
- 
-+/*
-+ * Create a new ring with zero or more segments.
-+ *
-+ * Link each segment together into a ring.
-+ * Set the end flag and the cycle toggle bit on the last segment.
-+ * See section 4.9.1 and figures 15 and 16.
-+ */
-+struct xhci_ring *xhci_ring_alloc(struct xhci_hcd *xhci, unsigned int num_segs,
-+				  enum xhci_ring_type type, unsigned int max_packet, gfp_t flags)
-+{
-+	return xhci_ring_alloc_from_pool(xhci, num_segs, type, max_packet,
-+					 xhci->segment_pool, flags);
-+}
-+
- void xhci_free_endpoint_ring(struct xhci_hcd *xhci,
- 		struct xhci_virt_device *virt_dev,
- 		unsigned int ep_index)
-@@ -422,6 +436,7 @@ int xhci_ring_expansion(struct xhci_hcd *xhci, struct xhci_ring *ring,
- 	new_ring.num_segs = num_new_segs;
- 	new_ring.bounce_buf_len = ring->bounce_buf_len;
- 	new_ring.type = ring->type;
-+	new_ring.segment_pool = ring->segment_pool;
- 	ret = xhci_alloc_segments_for_ring(xhci, &new_ring, flags);
- 	if (ret)
- 		return -ENOMEM;
-@@ -1424,6 +1439,7 @@ int xhci_endpoint_init(struct xhci_hcd *xhci,
- 	unsigned int mult;
- 	unsigned int avg_trb_len;
- 	unsigned int err_count = 0;
-+	struct dma_pool *pool;
- 
- 	ep_index = xhci_get_endpoint_index(&ep->desc);
- 	ep_ctx = xhci_get_ep_ctx(xhci, virt_dev->in_ctx, ep_index);
-@@ -1487,8 +1503,10 @@ int xhci_endpoint_init(struct xhci_hcd *xhci,
- 		avg_trb_len = 8;
- 
- 	/* Set up the endpoint ring */
-+	pool = virt_dev->eps[ep_index].sideband ?
-+	       virt_dev->eps[ep_index].sideband->segment_pool : xhci->segment_pool;
- 	virt_dev->eps[ep_index].new_ring =
--		xhci_ring_alloc(xhci, 2, ring_type, max_packet, mem_flags);
-+		xhci_ring_alloc_from_pool(xhci, 2, ring_type, max_packet, pool, mem_flags);
- 	if (!virt_dev->eps[ep_index].new_ring)
- 		return -ENOMEM;
- 
-@@ -2291,7 +2309,8 @@ static int xhci_setup_port_arrays(struct xhci_hcd *xhci, gfp_t flags)
- }
- 
- static struct xhci_interrupter *
--xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs, gfp_t flags)
-+xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs,
-+		       struct dma_pool *pool, gfp_t flags)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
- 	struct xhci_interrupter *ir;
-@@ -2308,7 +2327,7 @@ xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs, gfp_t flags)
- 	if (!ir)
- 		return NULL;
- 
--	ir->event_ring = xhci_ring_alloc(xhci, segs, TYPE_EVENT, 0, flags);
-+	ir->event_ring = xhci_ring_alloc_from_pool(xhci, segs, TYPE_EVENT, 0, pool, flags);
- 	if (!ir->event_ring) {
- 		xhci_warn(xhci, "Failed to allocate interrupter event ring\n");
- 		kfree(ir);
-@@ -2356,7 +2375,8 @@ void xhci_add_interrupter(struct xhci_hcd *xhci, unsigned int intr_num)
- 
- struct xhci_interrupter *
- xhci_create_secondary_interrupter(struct usb_hcd *hcd, unsigned int segs,
--				  u32 imod_interval, unsigned int intr_num)
-+				  struct dma_pool *pool, u32 imod_interval,
-+				  unsigned int intr_num)
- {
- 	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
- 	struct xhci_interrupter *ir;
-@@ -2367,7 +2387,7 @@ xhci_create_secondary_interrupter(struct usb_hcd *hcd, unsigned int segs,
- 	    intr_num >= xhci->max_interrupters)
- 		return NULL;
- 
--	ir = xhci_alloc_interrupter(xhci, segs, GFP_KERNEL);
-+	ir = xhci_alloc_interrupter(xhci, segs, pool, GFP_KERNEL);
- 	if (!ir)
- 		return NULL;
- 
-@@ -2498,7 +2518,7 @@ int xhci_mem_init(struct xhci_hcd *xhci, gfp_t flags)
- 	if (!xhci->interrupters)
- 		goto fail;
- 
--	xhci->interrupters[0] = xhci_alloc_interrupter(xhci, 0, flags);
-+	xhci->interrupters[0] = xhci_alloc_interrupter(xhci, 0, xhci->segment_pool, flags);
- 	if (!xhci->interrupters[0])
- 		goto fail;
- 
-diff --git a/drivers/usb/host/xhci-sideband.c b/drivers/usb/host/xhci-sideband.c
-index 1585c47720e0..ec7d3859771c 100644
---- a/drivers/usb/host/xhci-sideband.c
-+++ b/drivers/usb/host/xhci-sideband.c
-@@ -10,6 +10,7 @@
- 
- #include <linux/usb/xhci-sideband.h>
- #include <linux/dma-direct.h>
-+#include <linux/dmapool.h>
- 
- #include "xhci.h"
- 
-@@ -342,8 +343,8 @@ xhci_sideband_create_interrupter(struct xhci_sideband *sb, int num_seg,
- 		return -EBUSY;
- 
- 	sb->ir = xhci_create_secondary_interrupter(xhci_to_hcd(sb->xhci),
--						   num_seg, imod_interval,
--						   intr_num);
-+						   num_seg, sb->segment_pool,
-+						   imod_interval, intr_num);
- 	if (!sb->ir)
- 		return -ENOMEM;
- 
-@@ -397,6 +398,11 @@ EXPORT_SYMBOL_GPL(xhci_sideband_interrupter_id);
- /**
-  * xhci_sideband_register - register a sideband for a usb device
-  * @intf: usb interface associated with the sideband device
-+ * @type: xHCI sideband type
-+ * @segment_pool: dma pool for sideband ring segments, created and owned by
-+ *                the caller. The caller must destroy it after calling
-+ *                xhci_sideband_unregister().
-+ * @notify_client: callback for xHCI sideband sequences
-  *
-  * Allows for clients to utilize XHCI interrupters and fetch transfer and event
-  * ring parameters for executing data transfers.
-@@ -405,6 +411,7 @@ EXPORT_SYMBOL_GPL(xhci_sideband_interrupter_id);
-  */
- struct xhci_sideband *
- xhci_sideband_register(struct usb_interface *intf, enum xhci_sideband_type type,
-+		       struct dma_pool *segment_pool,
- 		       int (*notify_client)(struct usb_interface *intf,
- 				    struct xhci_sideband_event *evt))
- {
-@@ -426,6 +433,8 @@ xhci_sideband_register(struct usb_interface *intf, enum xhci_sideband_type type,
- 	if (!sb)
- 		return NULL;
- 
-+	sb->segment_pool = segment_pool;
-+
- 	mutex_init(&sb->mutex);
- 
- 	/* check this device isn't already controlled via sideband */
-@@ -450,6 +459,7 @@ xhci_sideband_register(struct usb_interface *intf, enum xhci_sideband_type type,
- 
- 	spin_unlock_irq(&xhci->lock);
- 
-+
- 	return sb;
- }
- EXPORT_SYMBOL_GPL(xhci_sideband_register);
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index c7bfa7f028d3..c91cba16abea 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -19,6 +19,7 @@
- #include <linux/usb/hcd.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/io-64-nonatomic-hi-lo.h>
-+#include <linux/usb/xhci-sideband.h>
- 
- /* Code sharing between pci-quirks and xhci hcd */
- #include	"xhci-ext-caps.h"
-@@ -738,8 +739,6 @@ struct xhci_interval_bw_table {
- 	unsigned int		ss_bw_out;
- };
- 
--#define EP_CTX_PER_DEV		31
--
- struct xhci_virt_device {
- 	int				slot_id;
- 	struct usb_device		*udev;
-@@ -1253,14 +1252,11 @@ static inline const char *xhci_trb_type_string(u8 type)
- #define NEC_FW_MAJOR(p)		(((p) >> 8) & 0xff)
- 
- /*
-- * TRBS_PER_SEGMENT must be a multiple of 4,
-- * since the command ring is 64-byte aligned.
-- * It must also be greater than 16.
-+ * TRBS_PER_SEGMENT and TRB_SEGMENT_SIZE are defined in
-+ * <linux/usb/xhci-sideband.h>, shared with sideband client drivers.
-  */
--#define TRBS_PER_SEGMENT	256
- /* Allow two commands + a link TRB, along with any reserved command TRBs */
- #define MAX_RSVD_CMD_TRBS	(TRBS_PER_SEGMENT - 3)
--#define TRB_SEGMENT_SIZE	(TRBS_PER_SEGMENT*16)
- #define TRB_SEGMENT_SHIFT	(ilog2(TRB_SEGMENT_SIZE))
- /* TRB buffer pointers can't cross 64KB boundaries */
- #define TRB_MAX_BUFF_SHIFT		16
-@@ -1380,6 +1376,7 @@ struct xhci_ring {
- 	enum xhci_ring_type	type;
- 	u32			old_trb_comp_code;
- 	struct radix_tree_root	*trb_address_map;
-+	struct dma_pool	*segment_pool;
- };
- 
- struct xhci_erst_entry {
-@@ -1865,7 +1862,8 @@ void xhci_free_port_bw_ctx(struct xhci_hcd *xhci,
- 		struct xhci_container_ctx *ctx);
- struct xhci_interrupter *
- xhci_create_secondary_interrupter(struct usb_hcd *hcd, unsigned int segs,
--				  u32 imod_interval, unsigned int intr_num);
-+				  struct dma_pool *pool, u32 imod_interval,
-+				  unsigned int intr_num);
- void xhci_remove_secondary_interrupter(struct usb_hcd
- 				       *hcd, struct xhci_interrupter *ir);
- void xhci_skip_sec_intr_events(struct xhci_hcd *xhci,
-diff --git a/include/linux/usb/xhci-sideband.h b/include/linux/usb/xhci-sideband.h
-index 005257085dcb..338146674a88 100644
---- a/include/linux/usb/xhci-sideband.h
-+++ b/include/linux/usb/xhci-sideband.h
-@@ -13,7 +13,19 @@
- #include <linux/usb.h>
- #include <linux/usb/hcd.h>
- 
--#define	EP_CTX_PER_DEV		31	/* FIXME defined twice, from xhci.h */
-+/*
-+ * Constants shared with the xHCI host driver (drivers/usb/host/xhci.h),
-+ * which includes this header for its canonical definitions.
-+ */
-+#define EP_CTX_PER_DEV      31
-+
-+/*
-+ * TRBS_PER_SEGMENT must be a multiple of 4,
-+ * since the command ring is 64-byte aligned.
-+ * It must also be greater than 16.
-+ */
-+#define TRBS_PER_SEGMENT    256
-+#define TRB_SEGMENT_SIZE    (TRBS_PER_SEGMENT * 16)
- 
- struct xhci_sideband;
- 
-@@ -59,6 +71,13 @@ struct xhci_sideband {
- 	/* Synchronizing xHCI sideband operations with client drivers operations */
- 	struct mutex			mutex;
- 
-+	/*
-+	 * Separate sideband segment pool for sideband rings, supplied by and
-+	 * owned by the sideband client: created before xhci_sideband_register()
-+	 * and destroyed after xhci_sideband_unregister().
-+	 */
-+	struct dma_pool	*segment_pool;
-+
- 	struct usb_interface		*intf;
- 	int (*notify_client)(struct usb_interface *intf,
- 			     struct xhci_sideband_event *evt);
-@@ -66,6 +85,7 @@ struct xhci_sideband {
- 
- struct xhci_sideband *
- xhci_sideband_register(struct usb_interface *intf, enum xhci_sideband_type type,
-+		       struct dma_pool *segment_pool,
- 		       int (*notify_client)(struct usb_interface *intf,
- 				    struct xhci_sideband_event *evt));
- void
-diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index e4bfd43a2488..1b8877b8ee62 100644
---- a/sound/usb/qcom/qc_audio_offload.c
-+++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -7,6 +7,7 @@
- #include <linux/ctype.h>
- #include <linux/dma-mapping.h>
- #include <linux/dma-map-ops.h>
-+#include <linux/dmapool.h>
- #include <linux/init.h>
- #include <linux/iommu.h>
- #include <linux/module.h>
-@@ -1786,6 +1787,7 @@ static void qc_usb_audio_offload_probe(struct snd_usb_audio *chip)
- 	struct usb_interface_descriptor *altsd;
- 	struct usb_host_interface *alts;
- 	struct snd_soc_usb_device *sdev;
-+	struct dma_pool *segment_pool;
- 	struct xhci_sideband *sb;
- 
- 	/*
-@@ -1804,10 +1806,19 @@ static void qc_usb_audio_offload_probe(struct snd_usb_audio *chip)
- 		if (!sdev)
- 			return;
- 
--		sb = xhci_sideband_register(intf, XHCI_SIDEBAND_VENDOR,
-+		segment_pool = dma_pool_create("xHCI sideband ring segments",
-+						interface_to_usbdev(intf)->bus->sysdev,
-+						TRB_SEGMENT_SIZE, TRB_SEGMENT_SIZE,
-+						TRB_SEGMENT_SIZE);
-+		if (!segment_pool)
-+			goto free_sdev;
-+
-+		sb = xhci_sideband_register(intf, XHCI_SIDEBAND_VENDOR, segment_pool,
- 					    uaudio_sideband_notifier);
--		if (!sb)
-+		if (!sb) {
-+			dma_pool_destroy(segment_pool);
- 			goto free_sdev;
-+		}
- 	} else {
- 		sb = uadev[chip->card->number].sb;
- 		sdev = uadev[chip->card->number].sdev;
-@@ -1844,7 +1855,9 @@ static void qc_usb_audio_offload_probe(struct snd_usb_audio *chip)
- 	return;
- 
- unreg_xhci:
-+	segment_pool = sb->segment_pool;
- 	xhci_sideband_unregister(sb);
-+	dma_pool_destroy(segment_pool);
- 	uadev[chip->card->number].sb = NULL;
- free_sdev:
- 	kfree(sdev);
-@@ -1905,8 +1918,12 @@ static void qc_usb_audio_offload_disconnect(struct snd_usb_audio *chip)
- 	 * This is to accommodate for devices w/ multiple UAC functions.
- 	 */
- 	if (chip->num_interfaces == 1) {
-+		struct dma_pool *segment_pool = dev->sb->segment_pool;
-+
- 		snd_soc_usb_disconnect(uaudio_qdev->auxdev->dev.parent, dev->sdev);
- 		xhci_sideband_unregister(dev->sb);
-+		dma_pool_destroy(segment_pool);
-+		dev->sb = NULL;
- 		dev->chip = NULL;
- 		kfree(dev->sdev->ppcm_idx);
- 		kfree(dev->sdev);
+     ...
+     ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
+     if (ret) { ... }
 
--- 
-2.34.1
++    /* linux,cma-force-align: bypass CONFIG_CMA_ALIGNMENT cap, align = get_order(size) */
++    if (of_get_flat_dt_prop(node, "linux,cma-force-align", NULL))
++        cma->force_align = true;
 
+     if (default_cma)
+         dma_contiguous_default_area = cma;
+     ...
+ }
+
+
+ static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
+ {
+-    unsigned int align = min(get_order(size), CONFIG_CMA_ALIGNMENT);
++    unsigned int align;
++
++    if (cma && cma->force_align)
++        align = get_order(size);    /* no cap: align = natural power-of-2 for size */
++    else
++        align = min(get_order(size), CONFIG_CMA_ALIGNMENT);
+
+     return cma_alloc(cma, size >> PAGE_SHIFT, align, gfp & __GFP_NOWARN);
+ }
+
+I am not sure if DT team accept add "linux,cma-force-align", which desgin
+for specic device CMA region only, not for default cmd. No impact to other
+system.
+
+Frank
+
+>
+> Fixes: 5e8cb4033807 ("PCI: endpoint: Add EP core layer to enable EP controller and EP functions")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+>  drivers/pci/endpoint/pci-epf-core.c | 39 +++++++++++++++++++++++------
+>  include/linux/pci-epf.h             |  7 ++++--
+>  2 files changed, 37 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/pci/endpoint/pci-epf-core.c b/drivers/pci/endpoint/pci-epf-core.c
+> index 6987343c9e61..e8c3709d85c4 100644
+> --- a/drivers/pci/endpoint/pci-epf-core.c
+> +++ b/drivers/pci/endpoint/pci-epf-core.c
+> @@ -8,6 +8,7 @@
+>
+>  #include <linux/device.h>
+>  #include <linux/dma-mapping.h>
+> +#include <linux/overflow.h>
+>  #include <linux/slab.h>
+>  #include <linux/module.h>
+>
+> @@ -278,13 +279,15 @@ void pci_epf_free_space(struct pci_epf *epf, void *addr, enum pci_barno bar,
+>  	}
+>
+>  	dev = epc->dev.parent;
+> -	dma_free_coherent(dev, epf_bar[bar].mem_size, addr,
+> -			  epf_bar[bar].phys_addr);
+> +	dma_free_coherent(dev, epf_bar[bar].mem_size,
+> +			  (u8 *)addr - epf_bar[bar].alloc_offset,
+> +			  epf_bar[bar].phys_addr - epf_bar[bar].alloc_offset);
+>
+>  	epf_bar[bar].phys_addr = 0;
+>  	epf_bar[bar].addr = NULL;
+>  	epf_bar[bar].size = 0;
+>  	epf_bar[bar].mem_size = 0;
+> +	epf_bar[bar].alloc_offset = 0;
+>  	epf_bar[bar].barno = 0;
+>  	epf_bar[bar].flags = 0;
+>  }
+> @@ -308,8 +311,10 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
+>  {
+>  	struct pci_epf_bar *epf_bar;
+>  	dma_addr_t phys_addr;
+> +	size_t alloc_offset = 0;
+>  	struct pci_epc *epc;
+>  	struct device *dev;
+> +	size_t alloc_size;
+>  	size_t mem_size;
+>  	void *space;
+>
+> @@ -326,16 +331,31 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
+>  	}
+>
+>  	dev = epc->dev.parent;
+> -	space = dma_alloc_coherent(dev, mem_size, &phys_addr, GFP_KERNEL);
+> -	if (!space) {
+> -		dev_err(dev, "failed to allocate mem space\n");
+> -		return NULL;
+> +	alloc_size = mem_size;
+> +	space = dma_alloc_coherent(dev, alloc_size, &phys_addr, GFP_KERNEL);
+> +	if (!space)
+> +		goto err_alloc;
+> +	if (!IS_ALIGNED(phys_addr, mem_size)) {
+> +		dma_free_coherent(dev, alloc_size, space, phys_addr);
+> +
+> +		if (check_add_overflow(mem_size, mem_size - 1, &alloc_size))
+> +			return NULL;
+> +
+> +		space = dma_alloc_coherent(dev, alloc_size, &phys_addr,
+> +					   GFP_KERNEL);
+> +		if (!space)
+> +			goto err_alloc;
+> +
+> +		alloc_offset = ALIGN(phys_addr, mem_size) - phys_addr;
+> +		space = (u8 *)space + alloc_offset;
+> +		phys_addr += alloc_offset;
+>  	}
+>
+>  	epf_bar[bar].phys_addr = phys_addr;
+>  	epf_bar[bar].addr = space;
+>  	epf_bar[bar].size = size;
+> -	epf_bar[bar].mem_size = mem_size;
+> +	epf_bar[bar].mem_size = alloc_size;
+> +	epf_bar[bar].alloc_offset = alloc_offset;
+>  	epf_bar[bar].barno = bar;
+>  	if (upper_32_bits(size) || epc_features->bar[bar].only_64bit)
+>  		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_64;
+> @@ -343,6 +363,10 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
+>  		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_32;
+>
+>  	return space;
+> +
+> +err_alloc:
+> +	dev_err(dev, "failed to allocate mem space\n");
+> +	return NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(pci_epf_alloc_space);
+>
+> @@ -413,6 +437,7 @@ int pci_epf_assign_bar_space(struct pci_epf *epf, size_t size,
+>  	epf_bar[bar].addr = NULL;
+>  	epf_bar[bar].size = bar_size;
+>  	epf_bar[bar].mem_size = aligned_mem_size;
+> +	epf_bar[bar].alloc_offset = 0;
+>  	epf_bar[bar].barno = bar;
+>  	if (upper_32_bits(size) || epc_features->bar[bar].only_64bit)
+>  		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_64;
+> diff --git a/include/linux/pci-epf.h b/include/linux/pci-epf.h
+> index 8a6c64a35890..749c6611d7b9 100644
+> --- a/include/linux/pci-epf.h
+> +++ b/include/linux/pci-epf.h
+> @@ -131,8 +131,10 @@ struct pci_epf_bar_submap {
+>   * @phys_addr: physical address that should be mapped to the BAR
+>   * @addr: virtual address corresponding to the @phys_addr
+>   * @size: the size of the address space present in BAR
+> - * @mem_size: the size actually allocated to accommodate the iATU alignment
+> - *            requirement
+> + * @mem_size: size of the coherent allocation, including alignment padding, or
+> + *            the required aligned backing size for assigned BAR space
+> + * @alloc_offset: offset from the coherent allocation's CPU and DMA base
+> + *                addresses to @addr and @phys_addr
+>   * @barno: BAR number
+>   * @flags: flags that are set for the BAR
+>   * @num_submap: number of entries in @submap
+> @@ -144,6 +146,7 @@ struct pci_epf_bar {
+>  	void		*addr;
+>  	size_t		size;
+>  	size_t		mem_size;
+> +	size_t		alloc_offset;
+>  	enum pci_barno	barno;
+>  	int		flags;
+>
+>
+> base-commit: 0a6f72eda328c773324555491e1ad7f0b0153155
+> --
+> 2.51.0
+>
