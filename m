@@ -1,204 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1EA3A4505;
-	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941759; cv=none; b=HmJFBWifJsEWnslpD5gVNsUqTBrbHNBR7LzxT0AlfQwnupHBuDXAMPQKFcxziMpV712Ymy2iXL5mXEezj4ZtCOJvPXYNDomgeG/9X42X1rU+oPTjVmRpSRerJQR0bylOETdgq4YmS9vS3vZGpViQ0Udc5g8UW6YplpDymiiegqY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941759; c=relaxed/simple;
-	bh=tYCi2x5F+r0yfVDr8C945+5FuD0jcgPWMELcRlga2pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dlWscIAKNfRfnTm2jAcZ7Yr+KQpCXrwWBgzgfxjCorNkDTx+dyQidmiPFdm0480WU2UBoHXTwIHgwYV6pWV3YWLCoU6xiS7d75OpiFUipiStqKFubYSSt0BgE6C5+AjY0hVXS/D27FczRXcO/xk2x3PXKrYn3EmYYqSnKPN7LXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5vOSBrJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719223A901C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787941799; cv=pass; b=BgrfHEtXiyd/FPZ/0dNK+PHhTSyL43IJ1BzPBexAwqf8ePOr7Tx+C2IDytI7wMk0ngJGx0Rj786DHjjf8QtyS2WxL/tU5vKihcwMesvuRJvC4mf9Z1dYhPieG3BZ/hS+UqmD9SnffZlY73fDL73pitXdbTJhbBMyg5FP6AMPjHQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787941799; c=relaxed/simple;
+	bh=7s8SHlsqyt2AUfFDcYfnHSUF9xCjR4O62YhHFP5HeT0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b8WYlvA16OLFA5jYOi+o2HzRAbaMPvcE2yblcCsguv4ybVtxTWip1zyPiHVeS/MxnCbLQ3JiZdkam0jEMsYPD1KOsnjLkpOctNhhxZ5rZMHWw7/qbxfbudmSq+xFWiJAmonHlnfxMmtThKIjlBi46ltG9gK/m+9wRgdi+wrd568=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cde6jRyM; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5vOSBrJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183801F000E9;
-	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787941757;
-	bh=QeOHqKFwwRXxKDoOadJ6pEtYZjxux1n/oCSHCxWNGR0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V5vOSBrJlYoEX0iEEqFMvHyD/qvqqQD6D8XY4ZUpfg4jNKBDyLgJq5Zb+GQQ3GSI/
-	 ZqWPV5YPCatrwZazeLHntHVDTKLi6fSFRzXWNQs45KQ4n+kQG4BYp5jfIT16Q/H/mh
-	 jZezdZv/flg6Ym5n/H7JQPAzZ4VVOf40vu3kb0evCD8LtY2M0tY/YkZ9xDDJy2XYlw
-	 gsz9GiW4nm1b9HNHCGwf0QXiqrYgq4k9zjigo3iWlrcJGULrFs5g8emNh+35bHcc3b
-	 5q0NugBsnP6oRcJ2jZGthMU9G5y+5NPSUpvTyzXgTXsBE7EQZDwiBwATFOvhMZtzhx
-	 gRtHWBUzW9fbw==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
-Date: Fri, 28 Aug 2026 11:29:09 -0700
-Message-ID: <20260828182910.70304-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260828084737.290024-1-aethernet65535@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cde6jRyM"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482dbc9a00bso1799103f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:29:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787941795; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IwlFzYQY1Std7wS4HqVTNN8yEWQ0ZwVVLSY+8WWU+1Ujrf+TeKZ66qekSsvIEtxTYv
+         M0r7yCl4rSoWfX42ql9VMSUbbi7jyfzJdeogOtygAYk4xIvBzqaPV2tQCHdmiGficuDt
+         Gb+KO5nRp9YtVlEXjAWDqJCBuPCrn+3ODSzDgx1TNf/FVCRxQ69m758yD0ETGn3qMf/f
+         U/IgvNauovZHn/N76XwPLpWSIDOEsNieucA1NoN67iThPnVgeOXTq1dX9uu8Ds0e6n6Y
+         /xt9MFPqmQOXWP8dPVX/e9PZmMGw+RwBF99Qf5K2DLYyghrIXNKUEfOwsnZUnM1DIqcf
+         eGGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5YJ1kkWNwVyHRN4faZGYbumWsclnmyXO2DH4mLRwZU0=;
+        fh=CZt5ub+reOBjBSh4n4oADj7vA8Oz/R7sAcq40iSQanU=;
+        b=q3cUk+Xvqapu1vMuHiQ0GiSdFF17SPRwQLzVb8HXIdKUlbz98GXvVnSpJMmvAeI/e6
+         XomX9FR0+32vUCHopijzehL0iiPllzHh2SbEk8IoiQ8DHWuNvUBd7ypzwLkDAu3UK+mJ
+         vjW4PD47GSYCP9+bNhVPuWPcscm5ZBD52idhka/IoX1NS3fMWTzWiAAUvpm/T8it/I+g
+         hrsJHqsbSI2apjZwbSLex2TxC7xLvum8KpDS3DvjXiomuorp/EjwTbfZvUN8e+sm/b3/
+         o/apMQRSMs5hTswlgPJoHABk0FfF3MRwVfBDmyw+uCDups7dekmtGnI9YgxBt7ykHGwu
+         VRgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787941795; x=1788546595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5YJ1kkWNwVyHRN4faZGYbumWsclnmyXO2DH4mLRwZU0=;
+        b=cde6jRyMCiYwDuYjtsDxdicI4kdNgBceBr3G6nfAwi2VQRHYhhHetZZPqDxdiFAcyI
+         ASVywQAIRexKkceVCxP796MAeeO4hA2Gqf67eV/fRtEb6NAmOIwaizDQL+vm2hptdp10
+         l6PWRdrZUWcj0Jbx5fdtZ+VRChWSo9yFHUXLfmYcpZ4lr3z/HZcysBGsKQxbbwkTm+Lh
+         7xUy9nBhIdib8TFkCHVYnSdDId1kCnFx/22sGpXhAQ7AOPyyw8CU/RnbMskGdotWb/1x
+         78Z3h1xgAo0hxJKEEU+BNkHjbI0GqThSzfnZMsj3YhAv7oWQuxvsQ2bLUn4fWRNfaSjk
+         84GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787941795; x=1788546595;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5YJ1kkWNwVyHRN4faZGYbumWsclnmyXO2DH4mLRwZU0=;
+        b=KSRixkrrcCZbil6dMhQuToTTnt9jVRHhise/l2Sxjh692y3tQGNR/dAXuO2TZAEUit
+         Pbe45oZsjg7o+ybUD+dUrU386jjKLLZN6wjRk4/cqPePsODiJF/TnbGsprwBlcQmOqdC
+         0FFDIpntodHguZUNxf/uk4sRgUAC7WygTD0mnwUXhT0NDCrg9EHYJAKianOk5sAFCMGP
+         kEEPFlx31t5oOqi7xSWnBsu+q7P9tgg9P4FRkvWMSjLejgSndrBD5RPB2WJDzs4SlLsV
+         KSKZf2/uPmn+Mk1gCRAC7pQMn9nevGZmRbDHiRlVpxFLnK5x0LEOdnfRreKXOwtQ8ZEe
+         rVWw==
+X-Forwarded-Encrypted: i=1; AHgh+RoKsbTEKfvTo+tASftw86363OCZUFfyaXQoQ5awwUkC5zkwvu0aayERuHWKeE2kfnVdH/FQybFHmFixlVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQr1KxxG+5g7lGdeMIGAXtSEeYodCqfLgRE3as/Sco8wQsO4lD
+	1jYIhc6AU83SQd1aBUOx9rVN6c6hl2Oz+rwQzA4LmuWyT8vZd70zwXzdN8yBdC5z7m7UBT3v6eZ
+	pBF6lKCT3umaLRYOXUIkU8oaUA2P+nNg8e9Cd9PeK
+X-Gm-Gg: AR+sD13Q0+Y/kAqVGg9CqI8WE2vZo0g3CCeALgy/VEBh0s8ahhyrW8EPNNRh8U32B6K
+	17dUYzogER0Cu+tvaxRSLdpfIa2My9WQCDcAxpP5Ky1R3uP7EpYt8DTFq2RLWwG5Rp43kDa68XL
+	RsRGwGvCfi9vl7mzeQsDj68lT0LL45RX0BBP0XWl8Ccfqn3v0iwk3J5VufZl8OvAANuU2JCfT+/
+	gvV1zrAvNhqM6rpDVO0MQFbdkqOR8zDl0vbt5gazGLZHlko+2UAdJN1SLRX9llqFKm/cnFPfooJ
+	vOUASMZ6Y1YncoUDX3Zxn7dO+nm5+x9jtHgTmJ9czaXvNX6RkXErodx9sBj7gUMAYdoYBEyh1PC
+	Aw8nL6ycAp0361eXE4P8Sm7i/D7NtrGSraXqDoyKYSX0XDDsvLWLln9+0Jg==
+X-Received: by 2002:a05:6000:25ee:b0:482:ea3e:882a with SMTP id
+ ffacd0b85a97d-482eab75e7dmr25940329f8f.6.1787941794160; Fri, 28 Aug 2026
+ 11:29:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <20260827194508.446733-1-linux@yoavmoshe.com>
+In-Reply-To: <20260827194508.446733-1-linux@yoavmoshe.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 28 Aug 2026 11:29:42 -0700
+X-Gm-Features: AcwNN1Wo8FotnJAZ3x2qyZAW16XADYe-Cm0K9lnOHcg75ObfT4YQxREeCDOy8I4
+Message-ID: <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
+Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>, Sami Tolvanen <samitolvanen@google.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+On Thu, Aug 27, 2026 at 12:46=E2=80=AFPM Yo'av Moshe <linux@yoavmoshe.com> =
+wrote:
+>
+> The suspend code that runs from OCRAM is copied there with fncpy(),
+> which does not copy the kCFI type hash preceding the function. With
+> CONFIG_CFI=3Dy the indirect call through imx6_suspend_in_ocram_fn
+> therefore panics.
+>
+> Keep the call covered by CFI instead of exempting it:
 
-> Once quota set, the charge_{target,addr}_from unconditionally skips and
-> resets at the last region of the tracked target, so the last region can
-> be skipped even when it has not been processed.
-> 
-> Example:
-> 
->     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
->     2. Quota is configured to process only 50 bytes per window.
->     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
->        at (Target, 50).
+Nice!  This is a pretty good progression.
 
-Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
-keep using the terms (charge_{target,addr}_from).
-
->     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
->        full. Cursor is saved at (Target, 100), which is exactly the
->        start of R2.
->     5. Window 3: The loop reaches R2.  Because R2 is
->        damon_last_region(t), the old code unconditionally returns true,
->        skipping R2 entirely and resetting the cursor.
-> 
->     Result: R2 is permanently skipped even though it has never been
->     processed.
-
-Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
-quota size 100 bytes per window.
-
-Also, it continues being skipped only in a corner case that the region
-addresses and the access patterns are kept.  So the user impact is mild.  Let's
-clarify that to not make users unnecessarily afraid.
-
-> 
-> Fix this by only skipping the last region after it has been applied.
-> 
-> Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-> Cc: <stable@vger.kernel.org> # v5.16.x
-> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+>
+> - Declare imx6_suspend() with SYM_TYPED_FUNC_START() so a type hash
+>   is emitted for it. fncpy() requires the entry point to be 8-byte
+>   aligned, and the macro's alignment applies to the hash rather than
+>   the entry that follows it, so pad manually before the macro.
+>
+> - Add a cfi_type member at the end of struct imx6_cpu_pm_info, which
+>   directly precedes the OCRAM copy of the function. It fits in the
+>   struct's tail padding, so no sizes or offsets change. Fill it using
+>   cfi_get_func_hash(), putting the hash where the caller's CFI check
+>   expects it: four bytes before the function entry.
+>
+> Also mark ccm_base, suspend_ocram_base and imx6_suspend_in_ocram_fn
+> as __ro_after_init: they are only written during __init, and the
+> function pointer in particular should not be writable afterwards.
+>
+> Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yo'av Moshe <linux@yoavmoshe.com>
 > ---
-> 
-> Changes from RFC v1:
-> - Minimal fix, only fixes the issue where the last-region is skipped.
-> - Add an example to the commit message to demonstrate that this error
->   occurs very rarely.
-> - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
-> 
-> ---
->  mm/damon/core.c | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 644daf5a1656..21dc6b086c42 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
->  	if (quota->charge_target_from) {
->  		if (t != quota->charge_target_from)
->  			return true;
-> -		if (r == damon_last_region(t)) {
-> -			quota->charge_target_from = NULL;
-> -			quota->charge_addr_from = 0;
-> -			return true;
-> -		}
->  		if (quota->charge_addr_from &&
-> -				r->ar.end <= quota->charge_addr_from)
-> +				r->ar.end <= quota->charge_addr_from) {
-> +			if (r->ar.end == quota->charge_addr_from ||
-> +					damon_is_last_region(r, t)) {
-> +				quota->charge_target_from = NULL;
-> +				quota->charge_addr_from = 0;
-> +			}
->  			return true;
-> +		}
->  
->  		if (quota->charge_addr_from && r->ar.start <
->  				quota->charge_addr_from) {
+> Tested on a Kobo Clara HD (i.MX6SLL) running postmarketOS
+> (clang/LLVM, CONFIG_CFI=3Dy): suspend and resume work.
+>
+> Changes in v4, all following Nick's suggestions:
+> - Drop the v3 __nocfi wrapper; keep the indirect call CFI-checked.
+> - Store the hash in a cfi_type member in the struct's tail padding
+>   instead of open-coded pointer arithmetic.
+> - Use cfi_get_func_hash() instead of reading the hash manually.
+> - Use SYM_TYPED_FUNC_START()/SYM_FUNC_END() instead of ENTRY()/
+>   ENDPROC() with a hand-rolled __CFI_TYPE.
+>
+> Note: linux/uaccess.h is included before linux/cfi.h because
+> cfi_get_func_hash() uses get_kernel_nofault() and cfi.h does not
+> include uaccess.h itself.
 
-As Sashiko pointed out, this doesn't work if the the last region's start
-address is smaller than charge_addr_from and the end address is larger than
-charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
-smaller than min_region_sz.
+Ah, no, we (you) should fix that. include/linux/cfi.h should IWYU.
 
-As you replied to Sashiko, let's do the last region handling in every case.
-While doing that, let's do the charge_{target,addr}_from reset in only one
-place, like below.
+>
+>  arch/arm/mach-imx/pm-imx6.c      | 25 ++++++++++++++++++++++---
+>  arch/arm/mach-imx/suspend-imx6.S | 14 ++++++++++++--
+>  2 files changed, 34 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+> index a671ca4..2d3d3cd 100644
+> --- a/arch/arm/mach-imx/pm-imx6.c
+> +++ b/arch/arm/mach-imx/pm-imx6.c
+> @@ -4,6 +4,8 @@
+>   * Copyright 2011 Linaro Ltd.
+>   */
+>
+> +#include <linux/uaccess.h>
+> +#include <linux/cfi.h>
 
-'''
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
- {
-        struct damos_quota *quota = &s->quota;
-        unsigned long sz_to_skip;
-+       bool skip = false;
+This is a bug in include/linux/cfi.h; don't work around it. Fix it.
 
-        /* Skip previously charged regions */
-        if (quota->charge_target_from) {
-                if (t != quota->charge_target_from)
-                        return true;
--               if (r == damon_last_region(t)) {
--                       quota->charge_target_from = NULL;
--                       quota->charge_addr_from = 0;
--                       return true;
--               }
-                if (quota->charge_addr_from &&
--                               r->ar.end <= quota->charge_addr_from)
--                       return true;
-+                               r->ar.end <= quota->charge_addr_from) {
-+                       skip = true;
-+                       goto out;
-+               }
+>  #include <linux/clk/imx.h>
+>  #include <linux/delay.h>
+>  #include <linux/init.h>
+> @@ -61,9 +63,9 @@
+>  #define MX6Q_SUSPEND_OCRAM_SIZE                0x1000
+>  #define MX6_MAX_MMDC_IO_NUM            33
+>
+> -static void __iomem *ccm_base;
+> -static void __iomem *suspend_ocram_base;
+> -static void (*imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase);
+> +static void __iomem *ccm_base __ro_after_init;
+> +static void __iomem *suspend_ocram_base __ro_after_init;
+> +static void (*imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase) __ro_=
+after_init;
+>
+>  /*
+>   * suspend ocram space layout:
+> @@ -229,8 +231,18 @@ struct imx6_cpu_pm_info {
+>         struct imx6_pm_base l2_base;
+>         u32 mmdc_io_num; /* Number of MMDC IOs which need saved/restored.=
+ */
+>         u32 mmdc_io_val[MX6_MAX_MMDC_IO_NUM][2]; /* To save offset and va=
+lue */
+> +       u32 cfi_type; /* kCFI type hash of imx6_suspend() */
+>  } __aligned(8);
+>
+> +/*
+> + * The ocram copy of imx6_suspend() starts right after struct imx6_cpu_p=
+m_info,
+> + * and the CFI check on the indirect call reads the kCFI type hash from =
+the
+> + * four bytes preceding the function entry, so cfi_type must occupy the =
+last
+> + * four bytes of the struct, i.e. fit into its tail padding.
+> + */
+> +static_assert(offsetofend(struct imx6_cpu_pm_info, cfi_type) =3D=3D
+> +             sizeof(struct imx6_cpu_pm_info));
 
-                if (quota->charge_addr_from && r->ar.start <
-                                quota->charge_addr_from) {
-                        sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
-                                        r->ar.start, min_region_sz);
-                        if (!sz_to_skip) {
--                               if (damon_sz_region(r) <= min_region_sz)
--                                       return true;
-+                               if (damon_sz_region(r) <= min_region_sz) {
-+                                       skip = true;
-+                                       goto out;
-+                               }
-                                sz_to_skip = min_region_sz;
-                        }
-                        damon_split_region_at(t, r, sz_to_skip);
--                       return true;
-+                       skip = true;
-                }
-+       }
-+out:
-+       if (r == damon_last_region(t)) {
-                quota->charge_target_from = NULL;
-                quota->charge_addr_from = 0;
-+               return true;
-        }
--       return false;
-+       return skip;
- }
+on this IWYU thread, shall we also include linux/build_bug.h for
+static_assert or linux/stddef.h for offsetofend?
 
- static void damos_update_stat(struct damos *s,
-'''
+> +
+>  void imx6_set_int_mem_clk_lpm(bool enable)
+>  {
+>         u32 val =3D readl_relaxed(ccm_base + CGPR);
+> @@ -568,6 +580,13 @@ static int __init imx6q_suspend_init(const struct im=
+x6_pm_socdata *socdata)
+>                         mmdc_offset_array[i]);
+>         }
+>
+> +       /*
+> +        * Mask out the Thumb bit, as cfi_get_func_hash() expects the
+> +        * function's actual start address. Returns 0 if CONFIG_CFI=3Dn.
+> +        */
+> +       pm_info->cfi_type =3D
+> +               cfi_get_func_hash((void *)((uintptr_t)&imx6_suspend & ~1U=
+L));
+> +
+>         imx6_suspend_in_ocram_fn =3D fncpy(
+>                 suspend_ocram_base + sizeof(*pm_info),
+>                 &imx6_suspend,
+> diff --git a/arch/arm/mach-imx/suspend-imx6.S b/arch/arm/mach-imx/suspend=
+-imx6.S
+> index 63ccc2d..f60c4e5 100644
+> --- a/arch/arm/mach-imx/suspend-imx6.S
+> +++ b/arch/arm/mach-imx/suspend-imx6.S
+> @@ -3,6 +3,7 @@
+>   * Copyright 2014 Freescale Semiconductor, Inc.
+>   */
+>
+> +#include <linux/cfi_types.h>
+>  #include <linux/linkage.h>
+>  #include <asm/assembler.h>
+>  #include <asm/asm-offsets.h>
+> @@ -148,7 +149,16 @@
+>
+>         .endm
+>
+> -ENTRY(imx6_suspend)
+> +#ifdef CONFIG_CFI
+> +       /*
+> +        * Pad the location counter so that the type hash emitted by
+> +        * SYM_TYPED_FUNC_START() below ends on an 8-byte boundary:
+> +        * fncpy() requires the function entry to be 8-byte aligned.
+> +        */
+> +       .align  3
+> +       .4byte  0
 
-Btw, I think damos_skip_charged_region() may deserve a kunit test.
+I still don't like these assembler directives inline like this; this
+feels like we should have perhaps a new macro in
+include/linux/cfi_types.h. Thoughts, Sami?
 
-[1] https://lore.kernel.org/20260828090410.40AEA1F000E9@smtp.kernel.org
-[2] https://lore.kernel.org/20260828115047.332978-1-aethernet65535@gmail.com
+One that garuntees the 8B alignment of the symbol for w/e that
+function patching routine requires?
+
+> +#endif
+> +SYM_TYPED_FUNC_START(imx6_suspend)
+>         ldr     r1, [r0, #PM_INFO_PBASE_OFFSET]
+>         ldr     r2, [r0, #PM_INFO_RESUME_ADDR_OFFSET]
+>         ldr     r3, [r0, #PM_INFO_DDR_TYPE_OFFSET]
+> @@ -329,4 +339,4 @@ resume:
+>         resume_mmdc
+>
+>         ret     lr
+> -ENDPROC(imx6_suspend)
+> +SYM_FUNC_END(imx6_suspend)
+> --
+> 2.55.0
+>
 
 
+--=20
 Thanks,
-SJ
-
-[...]
+~Nick Desaulniers
