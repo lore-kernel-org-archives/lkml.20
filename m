@@ -1,149 +1,89 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB7A3CF213
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7B935AC0E;
+	Fri, 28 Aug 2026 07:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900820; cv=none; b=dZSBRE38QC6ZKXugtLaakOtOqkr5LU2qd49nDrh2UcfGtyYHNiZtBNTqVULfpecOiaXx5jnxKyNUoCSHreHeLpLb/7H5KbnVbIicn2yCnyrVripMP2x0Y2QHk2H/RbVUtps+ahcE6IP+PiP12rkxM8nimMvZ5mUxDynGyLwSPTs=
+	t=1787900859; cv=none; b=AnTWulPmy4XkgsnNkKsW9qoP5Ho2Rx5vCwzml1U6C6fb+k6amY0LkpJTgGvFPWUXlndfBRI0ijvekvsn1BXqo+la5atx4RDQYNvJeMnL9fAplvXTVqMj4Vgd5w+tP5orgf8zcnAT6j5YbCpxuYFoitEHJuEbsDP84kA6fgCclSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900820; c=relaxed/simple;
-	bh=q+uUWKbteVHBNsrmiZDt9jvkxpBQwUM/isMMROqJv4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZyMofzRk3VDf8kF4ch3qhPDxuiauO+8vC6IIh5Jd8IVRI1+GTlfGfhTscbLhoGvfIABIkMI55Q+q/8i0Yngik1t1F9W/oUKJMNK725pgyGAm5FmaqxaS9MNGBknm/wmu+PHbHDjioY+CA/f5asJkwIxiwpYMYSCH8lbmUZJG/LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JY/QC6IR; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1787900859; c=relaxed/simple;
+	bh=VrIWWpmc5vKlkCin2jq2A7cOl2DZDju3YX6kEF2v+74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aCsiYGt96HUEvpRo9OBEg4G/66Aux4y55cr+KvN8lm65IpexLkV+I5156iQAafZ49Jdl50JlHjRnkCfxCp3G+GW4Du9goQUxS2nofIiqoEklavdED++tQNwOfayuwL3T0uX5gQVf1HphjNTFc3VlUsbugUqh3JSf3pkHhBFH6jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nmG0TcBP; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JY/QC6IR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787900815; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dq/lDqOIiqJ2S0HN9ku9JoDDbkgW2wlaSm8NvGTXkD0=;
-	b=JY/QC6IRKzr0gTIh20CYcpH1pKelWcqeUc8gv5ey8zJkmzZY+MBkYL5lv3SSumyV0aJg5Wdh91t/owFivso2Czne9aX+PkmVtl51LQBY9nvL3sZ0Qzm7yFKffnD7hY37i5j80Gg/EIlsZ/Ji1J71p+W5d/tCQJltuUZv8yg31vI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R341e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9llYsI_1787900814;
-Received: from 30.221.129.54(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9llYsI_1787900814 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 15:06:54 +0800
-Message-ID: <b0c3117c-5fb4-4cce-b29f-cfd72a3f93bd@linux.alibaba.com>
-Date: Fri, 28 Aug 2026 15:06:53 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nmG0TcBP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787900857; x=1819436857;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VrIWWpmc5vKlkCin2jq2A7cOl2DZDju3YX6kEF2v+74=;
+  b=nmG0TcBP9g3/j0f+xqw9RMgScFTGJ4cwAnfviTh9e53Fb+3GcZ/kItUr
+   KBK8/VVdvsUTe4LbLOc6tLeIqNYZ0H0PAnlh3Fd1EnLEo4oc6k2nGiZjR
+   Fh5u4KyobeQBAZn3nAinsN9Dc33UYmg4a8HYAXhXr+kKo550qGl2K2bs3
+   B/f2cwFwQQTuYHl9EiZ7oaOIEG6NQwUKNEibYBEgihoQ1zmwJ1oBLBsLf
+   OkVdVYVfTT+Oy+dkwdR+zXBagDIYDbJDiOb+7mdu3P9J4Djp1UX6PpgU7
+   Ao6ViWivoSNezmeUVPsLkhBGL0rgVpaZJLiWp5CiDuyjHaD0bgp6vNqiE
+   g==;
+X-CSE-ConnectionGUID: B1tHB1LLT9mtnf0wAaYUXw==
+X-CSE-MsgGUID: Vygwy7H3Q4uQbEBuyIhgtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="90918911"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="90918911"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:07:35 -0700
+X-CSE-ConnectionGUID: dOg9J/vSQQSCCbP9PmQWKw==
+X-CSE-MsgGUID: SnfpyDzDSNWxXIeXpUUf3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="291577136"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.42])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:07:29 -0700
+Date: Fri, 28 Aug 2026 10:07:26 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Kendall Willis <k-willis@ti.com>, Tony Lindgren <tony@atomide.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Peter Hurley <peter@hurleysoftware.com>, s-kochidanadu@ti.com,
+	a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] serial: 8250_omap: fix wake irq cleared during suspend
+Message-ID: <apEzrqovJW8iONKK@tlindgre-MOBL1>
+References: <20260825-uart-wakeirq-fix-v2-1-0b9fba03d9b6@ti.com>
+ <20260826145307.4GWTzB5f@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: defer suballocator block group reclaim to
- workqueue
-To: Heming Zhao <heming.zhao@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260827124313.2692416-1-joseph.qi@linux.alibaba.com>
- <apEeXAAo1wd5E5Or@p15>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <apEeXAAo1wd5E5Or@p15>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826145307.4GWTzB5f@linutronix.de>
 
-
-
-On 8/28/26 1:47 PM, Heming Zhao wrote:
-> On Thu, Aug 27, 2026 at 08:43:13PM +0800, Joseph Qi wrote:
->> When the last bit in a suballocator block group is freed,
->> _ocfs2_free_suballoc_bits() reclaims the group back to the global
->> bitmap.  The reclaim takes inode_lock() on the global bitmap inode
->> while running inside the freeing transaction, adding a lock
->> dependency of
->>
->>   j_trans_barrier -> global bitmap inode i_rwsem
->>
->> This forms a circular dependency with paths such as
->> ocfs2_shutdown_local_alloc(), which take the global bitmap inode
->> lock before starting a transaction:
->>
->>   Task1 (dealloc):
->>     ocfs2_run_deallocs
->>       ocfs2_free_cached_blocks
->>         ocfs2_start_trans
->>           down_read(j_trans_barrier)
->>         _ocfs2_free_suballoc_bits
->>           _ocfs2_reclaim_suballoc_to_main
->>             inode_lock(main_bm_inode)  <- wait on Task2
->>
->>   Task2 (dismount):
->>     ocfs2_shutdown_local_alloc
->>       inode_lock(main_bm_inode)
->>       ocfs2_start_trans
->>         down_read(j_trans_barrier)  <- wait on Task3
->>
->>   Task3 (ocfs2cmt):
->>     ocfs2_commit_cache
->>       down_write(j_trans_barrier)  <- wait on Task1's handle
->>       jbd2_journal_flush
->>
->> Task1 waits for Task2's inode_lock(), Task2 waits for the
->> j_trans_barrier down_write() held by ocfs2cmt, and ocfs2cmt waits
->> for Task1's running transaction to commit - a real deadlock,
->> observed with aio-stress direct IO writes racing dismount.
->>
->> Fix it by deferring the reclaim to the per-superblock ocfs2_wq
->> workqueue, so the freeing transaction no longer takes the global
->> bitmap inode lock.  The worker re-checks under the suballocator
->> locks that the block group is still fully freed (it may have been
->> allocated from again in the meantime), takes the global bitmap
->> inode locks before starting its own transaction, and performs the
->> same suballocator cleanup and space return.  The inode lock order
->> (suballocator inode -> global bitmap inode) is consistent with the
->> existing "inode lock before transaction" order, breaking the cycle.
->>
->> Reclaim work can still be queued late in dismount, e.g. when orphan
->> dir recovery frees inode bits, so both ocfs2_dismount_volume() and
->> the mount error path flush ocfs2_wq right before the journal is
->> shut down to make sure no reclaim work is left running.  The worker
->> also bails out if the journal is already gone.
->>
->> Tested with the ocfs2 testsuite (including aio-stress direct IO)
->> and umount/mount cycles on a CONFIG_PROVE_LOCKING kernel: the
->> circular locking dependency is gone and freed block groups are
->> still returned to the global bitmap.
->>
->> Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
->> Assisted-by: Qoder:Qwen3.8-Max
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
->> ---
->>  fs/ocfs2/ocfs2.h    |   5 ++
->>  fs/ocfs2/suballoc.c | 202 +++++++++++++++++++++++++++++++++++++-------
->>  fs/ocfs2/suballoc.h |   2 +-
->>  fs/ocfs2/super.c    |  12 +++
->>  4 files changed, 191 insertions(+), 30 deletions(-)
->>
-
-......
-
->> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
->> index c62e389d4dd6..c1aafbb9500a 100644
->> --- a/fs/ocfs2/super.c
->> +++ b/fs/ocfs2/super.c
->> @@ -1779,6 +1779,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
->>  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
->>  		ocfs2_shutdown_local_alloc(osb);
->>  	ocfs2_release_system_inodes(osb);
->> +	/* Drain pending suballoc reclaim work before the journal goes away */
->> +	if (osb->ocfs2_wq)
->> +		flush_workqueue(osb->ocfs2_wq);
+On Wed, Aug 26, 2026 at 04:53:07PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-08-25 17:06:07 [-0500], Kendall Willis wrote:
+> > The wake irq was cleared in shutdown(), which runs during the suspend
+> > sequence, making it impossible to wake the system via UART.
+> > Move wake irq setup to probe() and teardown to remove() so the irq
+> > remains armed during suspend when the UART is a wakeup source.
 > 
-> The flush_workqueue() calls ocfs2_get_system_file_inode() to grab main_bm_inode.
-> However, after ocfs2_release_system_inodes(), all the cached system inodes are gone,
-> And the _ocfs2_get_system_file_inode() uses osb->sys_root_inode, which is already
-> freed by ocfs2_release_system_inodes(). So we should move the
-> flush_workqueue() calls to before ocfs2_release_system_inodes().
-> 
+> The omap-serial has the same problem, doesn't it?
 
-Thanks, sashiko also has ponited out this issue.
-I've fixed in v2 and now it is under testing. Will send out later.
+Yes likely.
 
-Thanks,
-Joseph
+> I would still like to see an ACK from Tony here.
 
+Maybe there was some deferred probe type issue with getting the wakeirq
+earlier.
+
+In any case if there was an issue getting the wakeirq it should be handled
+nowadays with -EPROBE_DEFER.
+
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
