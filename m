@@ -1,83 +1,133 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6C31B823;
-	Fri, 28 Aug 2026 08:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD8A3D093C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905231; cv=none; b=RMT6qBEiJTOV78tCklcovWAiAJVwv2HcnWJYu+W+2XNema5Eky0SwBc5ANGjxbDLh6Zwm1IAdNqAoz71UXy+Y42JJtpcTxV8EwnXeiIQSjN6byS5hqJbeB/oA5L6+CuewE/mBumx8H/JoIUnIx+7e1DYi8H1cfLMyuD2GSbAKxI=
+	t=1787905332; cv=none; b=S9V7fbXKakPU90wEkIG59wx/63CM5mn54KWX5MY9TBRtXhxEYc9xBNaBE5z4BSrCqbMM6yRDq8BPfWEzAlHr6qmLL9xGCW+nVP3KN3bSTbs9+xjDGi0Cw+GwVEfK+1d/WvpHf6+PA1QKR3yYw8NOmmao1SOrkPexmf371cYaQ54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905231; c=relaxed/simple;
-	bh=j73TnKN5nPpi1Biqrlh5q/TP4tPlT04om4vbQdH+2Ro=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=VBPuZf8u7t/M8WEOn3vuXN9m94/mbRXS36prEVLR73du+uMGjArbf0//QlMi8zhJo8MNsHEVPdpfIiX/6Emqp6OcA1YNw71RpXnyrUPjk3YLLwjfotpLVTLQjAhAYYb6udeCSxRbdyb7rKYxf2dDwsyneTaSQ7u8vl7dCmp5HT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=5gRPDWnv; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1787905332; c=relaxed/simple;
+	bh=Bhd6PWz2Vt1ZYery0GEBcL3g+jHxzjKzB3sSZ+ciYgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AmKwz8vUkB5nXqb3laOcuBxqP6u+PUKAFReewFsQCvd18QH4NWSrT4mILxRkf2HA+2urRifp/Wg6E3bGeUqvBDAYqWxc/xdM68wcf+Hs/rEpq/SOQ5CF2BSe0CmXc+dyZwisldjV+Sb5SZFkdrIvwSl+cfU0/gCU+iHrMXsUZWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sXlVNkVp; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="5gRPDWnv"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B0A5DA3A03;
-	Fri, 28 Aug 2026 10:20:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1787905225; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tjXzZl6nwP50ndxWm0tX5ANNxnYFPedXQtlKP3mbka4=;
-	b=5gRPDWnvG0CRX1RrLl+J1yARxyo5GUBaPcS8JVo8EWvs16M7n06dER7VROvYEJAMv99+Jg
-	+F3X6k/mv+APEbXebDdVSg/hG+f70bGzKF9Z1LbdbTMUfHMPl9tW2NCcOvw8WF4bZEtsSo
-	rmRKDDpvNPWGfX75/OC1/YPAAAX/5QUCg9laI4BCnxwQVpTfoWfLRDnbB97v12BfsjthRS
-	x+ZUEV5GotWsPLFuRQBsBLg2d3kMw4/7b9LtiZoS6wV436N8dZc2C8VIWgiYCTeIIVQh2q
-	V6W/EPOfbMlbmW9UbSNyh4wkHRTW88vLj1t3wJf9HzfPZF2bGe+aY40DMuFzKQ==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sXlVNkVp"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso7781585e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:22:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787905327; x=1788510127; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rvnKZ4BTpkKVi2kXq5GyjUt0MhR6jRMADXkDT6oeQaQ=;
+        b=sXlVNkVpEbhCjH0R3q8L+lfld6uxhHfjfFchjYYG5+7hGTdbQZZhqTZbX+H5tr5JLI
+         fYrOA1Ev2atGP4duEFVFeKeAsGZxsMN9oYew5qrxz3Tg0JVj7lQD+5/EZw52EvyHnX2U
+         Vvj5xZDZVdkVpWYFboubQ0A1mzwONKH1Exn2bC+ryy225kFT0GrZEdBAZB8tn9Djyq/v
+         dD/cIniS7U9/WYEQB62zJ0eyo/gJsTK+x1KWnXOO+kXg99vAfByP8byhl4a0z49vVkUz
+         ggrTJd2Sq3hrO33O8oY1jzmPrvGxIyIknmWJjKL6NyQ4wVueZwptxb36uT1QTp7isnlA
+         7LNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787905327; x=1788510127;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rvnKZ4BTpkKVi2kXq5GyjUt0MhR6jRMADXkDT6oeQaQ=;
+        b=R2jznnn9VLdKg6cm0TEgncG+/5MNEFxwiUDxBkjvBvplY0yGDjIOqUZf56N55bNTbO
+         LLsMadOZ+nkBZ/Axj7G9/nvXTp/hrWviZa4DshRrEs+jtZrQ2VfQs4gio9XjiYzBRnCC
+         WP2RrIan+8MV1PTL6a4cyOiUvLfdk4EyZUPhSehqM3xhYaloMOkyIuk/FTbaZOR9zYRb
+         ga6FATsLNn8xyzNx2M11Y1xL0G1ZDsA2J2tDEsAYvrGyXOIaEp+rasixtoQAD9i/s7eI
+         MDSAUdDQGUuln6wU6HJ1eaw+2zkNmk2Zh49j2wv+rU0ecgR74TQrSykCCB1kCwOafEQC
+         JDrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoweiZSITV8YkP/oNNXMNY1FDilhYmbVL8tp4TRiuF4xbshKviIdkK/VhKHWzC7Ps5Q0LtrcJYPfp9EcVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++msUKL/xT8keh0uwMKx2QtHpG6Jx0mDWUEeTdaCwYpA47buyS4A
+	MetalEz1VZFHjmYHnUQ4r0GECDFhFs4Z0Wqbk3lxeINXYFrutT99ICba
+X-Gm-Gg: AR+sD11aiLcClvy9ZMFYwoHe3ofnfp2UUSPrXk1ISMPEGAf5PL9CPdL6SAzPxP/GBPp
+	nrCBnra4oX8hQ5pW8vOqx2BQaHAGvuJpliilh96kompEUdig8Wc6sVzQh09DLW2Rvrt2KaQDMUz
+	tj68QH+efs4FvO944xaT/zCN22q3OXbUjCoiezJbmWkdkRCTM9KAB2X/y6gkVljlEiTLNQtyW64
+	9gdh4BAUIkJHviNo4ahvJK2pAwsSsXs+XmxDb6J8350h+KOhLJ/dMtesrixYZPyDeCC46ZMtd23
+	CtwPYyZg0gYOs2nqkze6n09IwTXlAj9r3Zi7EUFgQzgkkJtrzkaNAcoVag71V8QeeE/Wnxwq207
+	3X4gWG+Rbl9nmXDjvqFHi3B9seXocXfNvr0a/TFovba3VxUKG+b04r8LCKrZCsJ0NbAvJjtbZzr
+	mHGtzRfqeFJJExy52laD1l3Hq/Vi0aa20unxaOvo7gKwFjGLPiIDEJgseyIsEeA0xnVJFNTl+kI
+	eQS0yUrTJB26Jym/IZaubJvEg==
+X-Received: by 2002:a05:600c:a48:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-49b91c3b7b6mr56408725e9.9.1787905327423;
+        Fri, 28 Aug 2026 01:22:07 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91728319sm46252715e9.12.2026.08.28.01.22.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:22:07 -0700 (PDT)
+Date: Fri, 28 Aug 2026 09:22:05 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+Message-ID: <20260828092205.2e65e299@pumpkin>
+In-Reply-To: <apCtEUnPzdCQVpIs@tardis.local>
+References: <20260804161447.84806-8-boqun@kernel.org>
+	<178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
+	<20260824104704.GA4121339@noisy.programming.kicks-ass.net>
+	<20260824105523.GA4121620@noisy.programming.kicks-ass.net>
+	<aozw_7Txxaq2qE7c@tardis.local>
+	<877bldhkmq.ffs@fw13>
+	<ao4lO7U7L-7Zice1@tardis.local>
+	<87v78wezid.ffs@fw13>
+	<875x0vfgtl.ffs@fw13>
+	<apCtEUnPzdCQVpIs@tardis.local>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 28 Aug 2026 10:20:24 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, Conor Dooley
- <conor.dooley@microchip.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Jonathan Bell <jonathan@raspberrypi.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Richard
- Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] net: macb: exclude software FCS from TX byte
- statistics
-In-Reply-To: <20260827115601.6bf0b18a@kernel.org>
-References: <20260824134703.766708-1-nb@tipi-net.de>
- <20260824134703.766708-2-nb@tipi-net.de>
- <20260827115601.6bf0b18a@kernel.org>
-Message-ID: <36165fe4a906b07dd9f92a73a72a05f1@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Jakub
+On Thu, 27 Aug 2026 14:33:05 -0700
+Boqun Feng <boqun@kernel.org> wrote:
 
-On 27.8.2026 20:56, Jakub Kicinski wrote:
-> On Mon, 24 Aug 2026 15:47:02 +0200 Nicolai Buchwitz wrote:
->> + * @skb_len: skb->len as handed over by the stack, before padding and
->> + *           software FCS, only set for the last buffer of the frame
+....
+> Yes, if we go to the level to unify all irq disabling with counter
+> tracking then I think using arch_local_irq_disable() is possible and
+> makes a lot of senses.
+
+Where are you thinking of keeping the counter?
+On non-x86 accessing it may be expensive.
+The best bet is probably in 'current'.
+
+Doesn't that make this valid?
+	int c = current->irq_disable_count;
+	if (c) {
+		current->irq_disable_count = c + 1;
+		return c;
+	}
+	disable_irq(); // asm("cli")
+	interrupt_disable_barrier(); // ISTR arm needs this
+	current->irq_disable_count = 1;
+	return 0;
+}
+
+The task can be preempted in the middle - but that doesn't matter.
+
+If spin_lock_irqsave() returns current->irq_disable_count then
+any existing code that does lock chaining works unaltered.
+
+David
+
 > 
-> counting pad bytes to ETH_ZLEN as sent is perfectly legit,
-> it's a driver preference. Some don't because HW pads and
-> the driver doesn't want to bother adding a conditional.
-> But it's best if the driver bytes match wire bytes IMO.
-
-Matches what I had in mind for my v2. So the driver bytes would match 
-wire bytes minus FCS.
-
+> Regards,
+> Boqun
 > 
-> Either way, you only need u8 or even a flag for this,
-> not a full u32?
+> > Thanks,
+> > 
+> >         tglx
+> >   
+> 
 
-Agreed. skb->len at completion should already do the trick (minus 
-ETH_FCS_LEN).
-So a flag would be sufficient.
-
-Thanks,
-Nicolai
