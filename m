@@ -1,174 +1,109 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F097385D7B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17933F8ECA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913145; cv=none; b=T89M0qCWTKnwoHTjgh5oeGaR55cCkhX0xZMD9mLCQtex67qKwE9fSt+tI4h+Ab12xafy4tNWAoRcTNdRyVinLgowL/zOYxl2A/Iu0dv4eNDI+YRVI4XOSOZJqa9eVsJMQhGO9MdUGRJ3ZU5OfgS5qV1IoGb06af/SQrHeIM4xgg=
+	t=1787913174; cv=none; b=mFh4v6Faz7tuyWtdfnbWP8CpwCPx7VEo+ZI+t2385/bJQ252rzaXC8khZT/9Z/0H/MDfc4uqFx/5tUmEcKzqPGATCfEfhK4rNJW8kgvI1CksWGG+UMUHAEf6Mqgyz+dft+b9DXRtPlpqYDly6m9ciY2x0DEu6bN/3Z9BauEtP7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913145; c=relaxed/simple;
-	bh=BBwVCXPPaz5/1HOyQGNHAjqHk9PKtLuxwo0UYaDCa6E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BT5MZp3JJXX2ABV2axoPmj8HC1vrnNEz97jzJgYKLAyltP379pFZwlxLbPpQ5kgr56P4lx7UdHyJ47ta+MmuW/uoqV7j/gFDz1ZCXsfj+RcREImpkFecvK81f8+x2pfbCwSu4zDogcNGPsxGM3axJ4zWBbdyz5SMYZ5CQ4xvJDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=HA5H2k0S; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	s=arc-20240116; t=1787913174; c=relaxed/simple;
+	bh=UJnV+cllfeOv0VeeSIei/FJsmHfrLvqxs1SP2W1tkwM=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=cR1bxxB0S/GS8CupMcfnERS7zWPnDcCnMs55+Rdib7YokQCd5v/kSCGfFqYE/k/MNsR3SRUsrTtU9KoP6QA3Ctx5Q4CCo+/Hm8/j9t58wML8ILaSnsLMRw5ZlLGujqRgXm93Jj2aLpBzfXeVwGQvo3cQ5Hmjo58mYyZexJAcw7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNV6cJmD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="HA5H2k0S"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38511175ad3so1027277a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:32:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1787913142; x=1788517942; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3siDF2KtRI4in11Huz4hXEO+q80/xfm3leVxcEdCPtE=;
-        b=HA5H2k0SOeqvaAhiQrGZTPMBP11ZaEDpKCL4DvLLV6lRo/h8064eQMckpBSfAdRD9E
-         Pd1O92Kbkd2FPbPr7TXZKuqi4MQOASQXguhjK1XPyyta4cpWIpmdBEsLd32wf+Ns+lUk
-         SXI0oh/Vqn6BFt1AcwzBTiW6Ym3QLGXQTdgYo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787913142; x=1788517942;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3siDF2KtRI4in11Huz4hXEO+q80/xfm3leVxcEdCPtE=;
-        b=Fj9XAuGyVzlsfB4zLj6reUY6aK4K3VK0VMZoliaMa29x+M3qU/F+6SuJY+NiTieXEQ
-         nlgvosYDlL7rt7X/mX5/ck/Xfp7gQKP6I01McotywjXZxlRlWUifZF7MpSuTPTVcjQGv
-         hIRK0zzNIgY/lJwIo4jwvRD7GFYklR6FjKB9SBz1Vp5becz3a/3SgRswWquu78SHmlPF
-         fpd6av0fp3WK9jTgeVBf1KN8v1UCI8FkdrB1hmInjikoUV3O5i/d3hyLL3PPxP97i9lK
-         eVMjO3kQ4vjyNhat0+GpNuacr1tNs4Fgn1Ty2S/rDYFSoT/GddvBhp3H/AiD0HzPZ8ND
-         PCdA==
-X-Gm-Message-State: AFuF++nPCG7PgVmv4/VCd8odqlZRZRr24u2Htzca/+LuzWrMApzy5kDn
-	TrhBMB9Hu4tEmmI5pP30Ol9J4b93RhVvuDA8QmJLE++MRUJGMgz2a25JMYf0ucer2UY=
-X-Gm-Gg: AR+sD1318W4hotv89037SkT1vyrjYMrra9pknomr7ZNKRPU9P1/gcpECkVmPFJdyJdE
-	19bhDdaKEvIrXTEiLNQVIXq4Vxf5Os//EzuqHEGal4Fy9uKpVZNQnmkAa10/mA5KUmz23Tl8pnU
-	vhwIiE5KepIF9y665sAfi48c4juexfIbCFWd/dTjdxLKU1O1EqQLNbdY1ysSFK9GnSreuiJ+spQ
-	+M/pfq1ADrn4aKO+Uj5Apy0p6LmkKpYzdDEijQ4SliDYr6ju2pXHCmdiPzCeV2HJ/2qUeafvkv3
-	tM6NP9FIZdbLG7F4UC7C9eBxmLP34ddENsRVf5aieGhyNaH9Dr1BqLDeQXL55qvNbiUlU/P2Yap
-	DtWlxQWekLVxk4nfRFY/s+6l/1EZpEOrHwZCc6rkNGhs5wF/k+yoTQ56fJiVRWqU4Yt3XuUh8td
-	jtEUcmL/e+C1E1Z4V9lAaW/ofK0xlNivfjBSMj6iRFP/+8UMDuQyBhn42b3p+GyOI6lV8qjXVOy
-	fT/g6yMP4s=
-X-Received: by 2002:a17:90b:4c4c:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-396d0ebfb0amr10532989a91.11.1787913142419;
-        Fri, 28 Aug 2026 03:32:22 -0700 (PDT)
-Received: from kinako.work.home.arpa ([2400:4162:2428:2ffe:a973:53e4:1a28:8545])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-396dda7835dsm2017492a91.5.2026.08.28.03.32.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 03:32:21 -0700 (PDT)
-From: Daniel Palmer <daniel@thingy.jp>
-To: w@1wt.eu,
-	linux@weissschuh.net
-Cc: linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@thingy.jp>
-Subject: [PATCH 2/2] selftests/nolibc: Add basic test for sendfile()
-Date: Fri, 28 Aug 2026 19:32:05 +0900
-Message-ID: <20260828103205.384589-3-daniel@thingy.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828103205.384589-1-daniel@thingy.jp>
-References: <20260828103205.384589-1-daniel@thingy.jp>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNV6cJmD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BE21F00A3A;
+	Fri, 28 Aug 2026 10:32:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787913172;
+	bh=UJnV+cllfeOv0VeeSIei/FJsmHfrLvqxs1SP2W1tkwM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=SNV6cJmDYmhTes86sL7gtL7NvJNpQ7h1iJs/ndBn7MU61XXbmDVf5lkSMp5w1mTHv
+	 mbcdaS/PQLenxgIV9vh4IwivYCB/wBL7dlVCzWj/o2gl+Lv5KZx4g+cVdnGsd+8qBx
+	 Ec3196EYuYG2p699hLeMSxAiGj5H7oBp/2I1ZL+R8+XCKueUCWCHPBEsogbu4IyoZf
+	 ahpfJ7KzyHPTPSAkpKkvTLmwJyC2GjaLAAsacCDZwJLpDV6slRaTrWiw4lQASMYvah
+	 CLOCz/lWMBtzVEV3br7+YEXVVWqoagtgAqJn4q5o4rGKjcKW9utcFmPaTkz713qzYD
+	 UDY4e8CjtLQJQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 4B445198003A;
+	Fri, 28 Aug 2026 06:32:50 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 28 Aug 2026 06:32:50 -0400
+X-ME-Sender: <xms:0GORap9j1MT_suefMlkjp33LUpCrzOlygw7ZXkoliwh4hEDgKCXYcQ>
+    <xme:0GORaogYEjTsytuYcqTjoMuVVuO-ka7PS88C1PQYYsPRYaaWmVTNBxCOsAAB74A_j
+    rg4r0hEnF60I1m1VUAoUorgZwpp-ZGT63ZRc9GzkZh2kmbhxwOSXeEK>
+X-ME-Proxy-Cause: dmFkZTFZLtHyc0mfoLhyYS2kAfo678+yTRdZrbHWl//oP8sLV8EWFLfFZ3lao6PZpFjixZ
+    WOeEAwEfA7ymvmUzQAGYm+bBEfMXiH8VpjDXsvRjl2uniLh63jJT96oL5pk1E2IA+ARxIW
+    xAuAOX2CCYFzBRMmXQnOQtMSzcwO04OSiFHrv7FsTJCynFXyS2sgihBhrLIFaLRCEuxQ/1
+    22aOWCbwfQ1rqlQwPMx81AL/aH66i4KQEmI6LYniqDFMUwKKIWWRkfQO9EN3wtNTJvrjCt
+    wBFX5nDQgHQinLndZ1fp7rMxlP54kCFtgdhg6e7iiPfrRw15cGYR5JJbE1EI3xDoQHfzfa
+    VmCgzDzuKxYHhmbdAXTxW27+GCagvcK58UPLxLurAAgifxKEKiVtTvg3ErP4iUvRJQPdA3
+    K1pED8g5b3DGfH29/Z25lUg2yFnxq1Ty3qpwn+H2no6FxA+PWJMP8N0GaMocPod1nXSPZF
+    6D5wNQndPO2JylJpu8WZ+cTk52FCGaxZyzo5KC+1vRtBVpOEZ9zua/GBzItlHkLvWvWzXL
+    6cA8vB5QB3eEep/XX4BhZi0rW23O/+g+KeA4ssaZDg9yiBBb7q+KN7ewGnFLBJps3JohZ3
+    1pi3tVl7WwwRgYaIVN6e2lkyG9hfFLp4fMeIByf3KTGX5TzBnCHuSaSn88cg
+X-ME-Proxy: <xmx:0mORareFdZLu45K-4oivNGhH5lPQTcrtP14-RsP9S1ZwEhuRffw-RQ>
+    <xmx:0mORatNWmMmyARe6MiJoV-l6nuZqJwd44ZU7y2hVIVR6tLn6RMwjxA>
+    <xmx:0mORamvaJTvNhfXEX_cH8iw7wLaejBQK0tfBmvzXt9-JxO8mVZrySg>
+    <xmx:0mORauABsogHBrkn5DhDRfufz8Jt0bxzsu6gknAo7b7XTx8EcN0kGw>
+    <xmx:0mORalbhF6NkTBzKNpdSHdEyrj0iGwQIEkRubrZah8RUCbB9PIR2e_r3>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 53211F8007D; Fri, 28 Aug 2026 06:32:48 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 28 Aug 2026 12:32:27 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Bradley Morgan" <brads@mainlining.org>, "Will Deacon" <will@kernel.org>
+Cc: "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Mark Rutland" <mark.rutland@arm.com>, "James Morse" <james.morse@arm.com>,
+ "Marc Zyngier" <maz@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <4cc971de-2fc9-496a-a5f5-002bd6b6bd43@app.fastmail.com>
+In-Reply-To: <20260825205839.14571-1-brads@mainlining.org>
+References: <20260825205839.14571-1-brads@mainlining.org>
+Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Basic smoke test for sendfile().
+Hi Bradley,
 
-Signed-off-by: Daniel Palmer <daniel@thingy.jp>
----
- tools/testing/selftests/nolibc/nolibc-test.c | 70 ++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+On Tue, 25 Aug 2026, at 22:58, Bradley Morgan wrote:
+> Everything object compiles and passes checkpatch and sparse. I could not
+> boot or run a hibernate cycle on real hardware here, so that still wants
+> doing before anyone gets excited.
+>
 
-diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
-index ed860b0a15a1..48e1183a00bb 100644
---- a/tools/testing/selftests/nolibc/nolibc-test.c
-+++ b/tools/testing/selftests/nolibc/nolibc-test.c
-@@ -1563,6 +1563,75 @@ int test_large_file(void)
- 	return ret;
- }
- 
-+int test_sendfile(void)
-+{
-+	char data_in[] = "This is some data";
-+	const size_t data_sz = sizeof(data_in);
-+	char data_out[data_sz];
-+	int in_fd, out_fd;
-+	int ret = 0;
-+
-+	/* Create two tmp files */
-+	in_fd = open("/tmp", O_TMPFILE | O_RDWR, 0644);
-+	if (in_fd == -1)
-+		return __LINE__;
-+
-+	out_fd = open("/tmp", O_TMPFILE | O_RDWR, 0644);
-+	if (out_fd == -1) {
-+		ret = __LINE__;
-+		goto close_in;
-+	}
-+
-+	/* Populate the "in" file */
-+	ret = write(in_fd, data_in, data_sz);
-+	if (ret != data_sz) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Rewind the "in" file */
-+	if (lseek(in_fd, 0, SEEK_SET)) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Use sendfile() to copy "in" to "out" */
-+	ret = sendfile(out_fd, in_fd, NULL, data_sz);
-+	if (ret != data_sz) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Rewind the "out" file */
-+	if (lseek(out_fd, 0, SEEK_SET)) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Read back the transferred data */
-+	ret = read(out_fd, data_out, data_sz);
-+	if (ret != data_sz) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Check we have the same data in both files */
-+	if (memcmp(data_out, data_in, data_sz)) {
-+		ret = __LINE__;
-+		goto close_out;
-+	}
-+
-+	/* Test passed */
-+	ret = 0;
-+
-+close_out:
-+	close(out_fd);
-+close_in:
-+	close(in_fd);
-+
-+	return ret;
-+}
-+
- /* Run syscall tests between IDs <min> and <max>.
-  * Return 0 on success, non-zero on failure.
-  */
-@@ -1684,6 +1753,7 @@ int run_syscall(int min, int max)
- 		CASE_TEST(select_null);       EXPECT_SYSZR(1, ({ struct timeval tv = { 0 }; select(0, NULL, NULL, NULL, &tv); })); break;
- 		CASE_TEST(select_stdout);     EXPECT_SYSNE(1, ({ fd_set fds; FD_ZERO(&fds); FD_SET(1, &fds); select(2, NULL, &fds, NULL, NULL); }), -1); break;
- 		CASE_TEST(select_fault);      EXPECT_SYSER(1, select(1, (void *)1, NULL, NULL, 0), -1, EFAULT); break;
-+		CASE_TEST(sendfile);          EXPECT_SYSZR(1, test_sendfile()); break;
- 		CASE_TEST(stat_blah);         EXPECT_SYSER(1, stat("/proc/self/blah", &stat_buf), -1, ENOENT); break;
- 		CASE_TEST(stat_fault);        EXPECT_SYSER(1, stat(NULL, &stat_buf), -1, EFAULT); break;
- 		CASE_TEST(stat_rdev);         EXPECT_SYSZR(1, ({ int ret = stat("/dev/null", &stat_buf); ret ?: stat_buf.st_rdev != makedev(1, 3); })); break;
--- 
-2.53.0
+You can easily test hibernate under QEMU/mach-virt: just create a file on
+the host, mkswap it and pass it to the VM as a virtio drive (e.g., /dev/vda)
+
+You can then swapon it in the VM and do 'echo disk >/sys/power/state', which
+will perform the hibernate and exit QEMU. If you then restart it with
+'resume=/dev/vda' on the command line, it will perform the resume from
+hibernate at boot.
+
+I've had a go with your series on a NV capable system (Mac Mini M2). Without
+the series applied, I can hibernate and resume 4 vCPUs without issue, so it
+is not entirely clear to me what your series intends to fix.
+
+With the series applied resume from hibernate still works - I did see one
+intermittent failure where the secondaries failed to come up, but I only
+saw it once and so I cannot say for certain whether your series triggered
+it or not.
+
+Tested-by: Ard Biesheuvel <ardb@kernel.org>
+
+
+
+
+
+
+
 
