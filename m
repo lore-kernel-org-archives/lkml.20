@@ -1,139 +1,136 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9019328243;
-	Fri, 28 Aug 2026 12:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787921776; cv=pass; b=XZqj5ilak3V8I7krnImuFhnSpgwwHKuhV+gYove2K6sDv8wgsqVvWl8UtKaL+X40/PIWo8jomW0eTkDWS29riz/nwzdSna1wwkQQ2ScIwIFksa1VHSYkxbAUUd89BMOO+DkhEbXKQgp60RTF+XUfXZ7qnYf5MppWypBBalZSDHQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787921776; c=relaxed/simple;
-	bh=DXf7FJ3ZCdTXtZlXqEPqhmQCEWNzCQIHhBpPSCMlx/Q=;
-	h=From:Content-Type:Mime-Version:Date:Subject:Cc:To:Message-Id; b=fHr7G3tKAWp2appyjoYToqimL8rkAotxLi6trw6mIjkY3+dowJcnACkhfzbpPYwZJlNa92/CNru3cOTWZ4vsRbiAtvP2sS1nhKV44+XVGvR9hB/x297i23WduoTeCceP8oW6hEpjIxyYdaJ/egK3qYqbRUTgjCMuH05fIXyd7Hw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=kNsYvz9w; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=SQeIFx+2; arc=pass smtp.client-ip=85.215.255.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D7D328243;
+	Fri, 28 Aug 2026 12:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787921842; cv=none; b=kbo8zOHA00R9dn81a09zblKlQ1mEQvAnzkNQ7e8RSnpF2zOfP3YWR1s7D1T3673b/jZR4OKvHbibIw59kf22Y/h3dEq+kPcIhjCf2puJHf1ROCq8TMb/qBDrozIDr6TJXJCONbuEqzpPTlvBagIYRxNqW3TAQCD61f2AAhfvwQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787921842; c=relaxed/simple;
+	bh=nES8lH77B+aFpP4B7r3qJxpoAExRq7bhWbrwvKyCwFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dCZyJnN8s/LEC+l3AMyo/U+8SefXOiWQlKNmyBKQVWqp3nNbNKGC9ECjNXxKzY4VFKQrsjOvL8qylfa/kB6IVdWtFBqlivJTFHPnaia+xpd0RV7eFZABWBJmsP/dz9IlcyyKdTmaHpsi23jNgmZX7i0VAB4bXgNjKd7CLuT1/Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZBP0PlIg; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="kNsYvz9w";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="SQeIFx+2"
-ARC-Seal: i=1; a=rsa-sha256; t=1787921406; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=YSt/zhv6UfPubd3hnG3/IhsAAyuB0FC/DVKNycjbf5a8BnRA/Ps6R9g8V7SiOU4SPQ
-    Uho4wvrHxOERLewuh72mDPppR0FuAHs8po/7lJVV8R1qbszun+3Hpgz39Y1mcEQrWaZS
-    VHZhunPefuK3m0suDeYuR+KWdhiRxivjKa13qubUb10QjRg8Dnw9MHmUG+9iuaHOLn5c
-    Y7uLP5NdA1DvU4HRE7lkafmNBWiPhH7pncMOGQ7Q/kIcJgmcrXqiMhegbutgUVU8OZDb
-    1l8T+JsXvFv3SQLMD/kSCuBg8pTDnYVVlBciL4G4bMaj0UeMAo7wD4QCa57HffB/P8N1
-    k3Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787921406;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:To:Cc:Subject:Date:From:Cc:Date:From:Subject:Sender;
-    bh=cgGl+Ap4qnIwdrgSBfPXcEBcMxukzBkYOFIjzApDzYs=;
-    b=DyLVNRTLIdga2kU7qX/l+1i5w+vFfpWpETHr+hGnBPBNa8zzWyRBhpNPRd2+ZuI4NY
-    mydtBXoIDIc5EJaEibzHF9hsh8Svfz/icI9+O1vwZrRopJEO8FNFaRaN4k/GtTSxIdtD
-    nGmmAfSAdA20/zbisjWzqxYgk217WeTiBqDtC3HVRrVnlxr6b8ZQcyfvBOUoIqTjgtPU
-    vpUlNiudiIpgLehv6iU+gtZZvKp7yiVv30EEIQhikN1cixt+GGLY9iWXicG2cjgujujS
-    o3D4IcKsAfj9kulVCxAK2VqywoSSWWNNyc0LIvR2ig4S+dRx1Ohjv3/o+DDAMHLd6fPi
-    tfIg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787921406;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-Id:To:Cc:Subject:Date:From:Cc:Date:From:Subject:Sender;
-    bh=cgGl+Ap4qnIwdrgSBfPXcEBcMxukzBkYOFIjzApDzYs=;
-    b=kNsYvz9whzAeDCMeGREkTd17po/9BU26RKFG9EojJUjPM0IyKw+yztK5mEydvMXyBK
-    z/HddyX5pDTWeQZUzDBAgQwjtut+BB+5dh5GgN98BRBGjAoksOgTg4B7q0C2kqGfPbN5
-    tY00F7nW3MTrjYxPiF/ablthooorWd3AzNLQATLBc4dp5muPAhi8eM7VDJ24TRdwfcAj
-    jURk8prwayXpdkN50S76Gyvd1cD5MfkY8yrjnnSpUSs+qDDzXofEZUXcu+YQhgNTtNIn
-    4w0PylRMTqsQHFYuwcHoEHLfSliTsU1dd+eAyZXOsQtyDuhfyLz4M27FBntWJZKH80cy
-    t4tg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787921406;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-Id:To:Cc:Subject:Date:From:Cc:Date:From:Subject:Sender;
-    bh=cgGl+Ap4qnIwdrgSBfPXcEBcMxukzBkYOFIjzApDzYs=;
-    b=SQeIFx+227w3jW+IUwE3gMgbsTdLvQfDNJp9p4sV0Xh3dFDKcqnwxXp3sUT5BzL8pd
-    Yx8zOis7CNtnKL8x3BCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTi5pcm8iNh03LRKjUUFR0UuLB2QxsamlNRA=="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Qfefb327SCo5sBX
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Fri, 28 Aug 2026 14:50:05 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZBP0PlIg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qHN2OGlf9GRTtKA96vHo/h+pDHfL02/7NECu7KyWS+I=; b=ZBP0PlIgUBT5PXNCWPnT6ZNLza
+	iqi8pjnn5U2zgxLE3/f1oPZ9VivUarl90IrtBOBu31xNSGl542Eh2cQMsbuXL8RhZI7DhRsskA9Ov
+	9C4dP5+Pwos2L2HWhnCqdm9+DLYTiHOEm8b8L+wIALCO+s8eaRWQDHTNysdJS3RfEZmJ/Z2v+ePz6
+	+a5Nb5uJOArtDnR8MEwaQG+AR1VGkPILsrjEtlxSAmpUHVbTu9adhmtvtwM2kOgyivnGev1wctlAd
+	c63CCdNSci5tpTj6b9w2phQOg1GEBotE4nJuU+zmBShMnRddlInXXJyDYh+NPB3FJbKSJCWhodF24
+	EYMbarmQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzw8p-0000000Eih6-0Dlt;
+	Fri, 28 Aug 2026 12:57:07 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 3A54630116A; Fri, 28 Aug 2026 14:57:06 +0200 (CEST)
+Date: Fri, 28 Aug 2026 14:57:06 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Stevens <stevensd@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260828125706.GQ687043@noisy.programming.kicks-ass.net>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Date: Fri, 28 Aug 2026 14:49:54 +0200
-Subject: [REGRESSION] OpenPandora (OMAP3) fails to boot since v7.2-rc1,
- bisected to b8eeeca5545659
-Cc: linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Andreas Kemnade <akemnade@kernel.org>,
- letux-kernel@openphoenux.org
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Tony Lindgren <tony@atomide.com>
-Message-Id: <2013A99A-0502-4128-ACFA-B04886224393@goldelico.com>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827232948.2520558-7-stevensd@google.com>
 
-Hi,
-I am seeing a boot regression on OpenPandora (OMAP3) since v7.2-rc1.
+On Thu, Aug 27, 2026 at 04:29:44PM -0700, David Stevens wrote:
+> +DEFINE_CLASS(allow_stack_reclaim, bool,
+> +	     ({
+> +		if (!_T)
+> +			current->flags &= ~PF_RECLAIMABLE_STACK;
+> +	      }),
+> +	     ({
+> +		bool was_set = current->flags & PF_RECLAIMABLE_STACK;
+> +
+> +		current->flags |= PF_RECLAIMABLE_STACK;
+> +		was_set;
+> +	      }),
+> +	     void)
 
-A git bisect identified:
+> +	allow_stack_reclaim(prev);
 
-b8eeeca5545659 ("clocksource/drivers/timer-ti-dm: Add clocksource =
-support")
+> +void __allow_stack_reclaim(struct task_struct *tsk)
+> +{
+> +	union stack_reclaim_state prev_state, target_state;
+> +
+> +	if (WARN_ON_ONCE(tsk->__state == TASK_DEAD))
+> +		return;
+> +
+> +	prev_state.val = READ_ONCE(tsk->stack_reclaim_state.val);
+> +	do {
+> +		target_state.val = prev_state.val;
+> +
+> +		if (prev_state.stack_state != STACK_PREPARE_RECLAIM) {
+> +			WARN(prev_state.stack_state != STACK_IN_USE,
+> +			     "Reclaimable state %x for previously running task", prev_state.val);
+> +			return;
+> +		}
+> +		target_state.stack_state = STACK_RECLAIMABLE;
+> +	} while (!try_cmpxchg(&tsk->stack_reclaim_state.val, &prev_state.val, target_state.val));
+> +
+> +	if (irq_work_queue(&tsk->stack_reclaim_work->irq_work)) {
+> +		/*
+> +		 * Take a ref that gets released by do_reclaim_stack() so we don't
+> +		 * have to worry about races with remove_from_stack_shrinker().
+> +		 */
+> +		get_task_struct(tsk);
+> +	}
+> +}
 
-as the first bad commit.
+> +static inline void allow_stack_reclaim(struct task_struct *tsk)
+> +{
+> +	if (unlikely(tsk->flags & PF_RECLAIMABLE_STACK))
+> +		__allow_stack_reclaim(tsk);
+> +}
 
-Reverting this commit restores normal boot operation.
+So you have a guard with the same name as a function, but the function
+only functions when inside the guard of the same name. WTF ?!
 
-The regression is fully reproducible:
-* v7.1: boots normally
-* v7.2-rc1 and later: hangs during early boot after about 3 seconds
-  after reporting
-[    3.631072] sched_clock: 32 bits at 33kHz, resolution 30517ns, wraps =
-every 65535999984741ns
-[    3.643341] clocksource: omap_dm_timer: mask: 0xffffffff max_cycles: =
-0xffffffff, max_idle_ns: 58327039986419 ns
-[    3.660430] clocksource: Switched to clocksource omap_dm_timer
-* v7.2-rc1 + revert of b8eeeca5545659: boots normally again
+Anyway, it looks like you're sprinkling this guard around a few specific
+block sites. Which seems to suggest your PF_ flag *should* have been a
+TASK_ flag, no?
 
-What caught my attention is that OMAP already has an existing DMTimer
-clocksource implementation in timer-ti-dm-systimer.c, introduced by:
-
-52762fbd1c4778 ("Add support for using the TI Dual-Mode Timer as a =
-clocksource")
-
-while b8eeeca5545659 adds another clocksource implementation to
-timer-ti-dm.c.
-
-The commit message and patch series state that the driver automatically
-selects the first timer marked with the "ti,timer-alwon" DT property and
-registers it as a clocksource/sched_clock.
-
-I have not determined the failure mechanism, but the bisect result and
-successful revert strongly suggest that the new DMTimer clocksource path
-conflicts with the existing OMAP3 timer setup.
-
-Therefore, I would like to ask:
-* Is the new timer-ti-dm clocksource intended to coexist with the
-  existing timer-ti-dm-systimer clocksource implementation on OMAP3?
-* Is b8eeeca5545659 expected to be active on OMAP3 systems?
-* Has this combination been tested on OMAP3 hardware?
-* What is the solution?
-
-If helpful, I can provide more details or test reports.
-
-Thanks,
-Nikolaus Schaller=
