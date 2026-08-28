@@ -1,82 +1,82 @@
 Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4783A83BF
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642183976A0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:54:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787957546; cv=pass; b=bTNwpObeJxWg15cUfmPRskOcvqfi9hIqp7Yq8/fWuAfHwY9hRq2nT7oG9jyipzHbjYcFdjOyPz2bfZ/rMGlvFLQslt1IFzpJREreysKi8CFa4lsvafo2hsla401nBzGjSJt2IJuaWrhTAusC6JuogOSOVN+KrhzV9ouxz0daLYQ=
+	t=1787957682; cv=pass; b=CrEE7fBD9QU1OunP2N1rMYAh+cxFVjs2dS2WQAJPQeKS16cMa7+GDZu9xG4F+SABcmsS7FLyVtc93TjMAgnSEohtn6U9KYNjXonl6YJpuXiQDKtBh8SynULjNiKFqFmexqjYO9KHAuu1+mHaijWUQ8ePwrf6wDC8utFpONt15bk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787957546; c=relaxed/simple;
-	bh=WrsvomBoIOTykSZbu/ot0FOcIRpwAK7V3umLl1yq6rk=;
+	s=arc-20240116; t=1787957682; c=relaxed/simple;
+	bh=4unzX+NMpOtBviw882dRQzRaeXOD1/xti/3UhI1UIHc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QEGLvxKSitdw/xnMS/zacnd4m4HY7SJ6hj8iKtQF+FWk9QyQ8M7zQjgbEKQEL61341k8FnuevwOtEQE4xb91WZGT9j82HdWi5KTrJ5TW8q7UFf/1jXiI2QxGVb+avst+5x+U6YDeitYuhD7OvjP/+qSwsuxI7K9oT5Znn5CTbbk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dXknUyG9; arc=pass smtp.client-ip=209.85.160.173
+	 To:Cc:Content-Type; b=kNA9HJgsFXTiTK5sWXiuUvnOgePjbh95WXqKQ5tgKKjMSZNQ6zz4JCJrZ4QBKxswLqL5fU4gWx5pEXJMOWkFZEi+EG8n4aTN1m2Y0a+WCOkUyEaYtuiIFCaIR4b8eT39X3QvTADtryiTM6I6nU+AGVUzwCG9Vhu9tl1OUYhkwSo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wl3ePovg; arc=pass smtp.client-ip=209.85.160.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dXknUyG9"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-52fac937235so44741cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:52:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787957544; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wl3ePovg"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-52fac937235so45211cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:54:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787957680; cv=none;
         d=google.com; s=arc-20260327;
-        b=k14vhLlXHJAQP0epPGO1JTIAH+gcfUYIwyRFUd5NIHODqgYCxTa/i8SGYa3rxO1N2b
-         vD1Htja8614OBzsm9gHCPKU2xY/o50xdDAt3IBhMRN4gc9yncI0me0DSkOy/uNrrNC2r
-         93+/Q/SJqu0kf235VGJwezqjLdgpTQ9jJ4ooLZhrBSagYnKKaoZG6AxaRshK18o20s02
-         ah0NKvZTiYfTuxYeRukQMz9A7LTxfvtArOcsTUOjFgOGtEJg/r91U1112Ju1CR7TOJzT
-         eDgDrODOLZV4kIVlZNJbWx7A9KCGqbFi2Apj5w/MthfvyLxuuz1V4ObviMVWhMqFnrkT
-         p26A==
+        b=OtHMFqBhDGRc/hr/BSOsr/jAVcBrA2Cd0BPMgkjA2g5hYr9BCo/Fp5x2lDtV8JGDs3
+         exQK2B384NPCwPqrM3/7bKoxnA6StCqR6UTy3kjGD16ZqsIoBbdg4wr8sQ+drvD3Rxv5
+         JGJotdZwd1KZeFI20/TyaA2Rx7Nsq4lQp0ZiMKRVOk8iqY15W74bnwG7zBmAzzHI6hQR
+         Ine4q9OWGPfqORMDBidGIyQerbD5YwWsIUAcn9BRS7rEx7O8Z0WRrafKa7UAnmg7zIj3
+         O/smbYrQ4BFlYeM+DnB7y4WNVMPgiIbfRKEus1vWkKEyS8u2eju5/ezsAuoBASOKvh2l
+         fAvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Awwf+UFW2ONQrXT/1UuPyCRQCWHRON77Fg6o5pZxO10=;
-        fh=3Mf8nornYAJfvxMCuQLb8b70oTdtzkNoVePG7P9fSnY=;
-        b=mU74kiuXmMZEQH05ne2U6jHGSdtnK7jgskVfP2q3/OnNasZx9BCg7Kra2VQ0SXWTx5
-         nNNiRwdtBMm4+OSM1s8m91uIzsz2J6pveq/MAzYMcmHowyFso3p6+VvNI5pmfUkz7WR4
-         0GgmP0rv97blhM87oHBUqIBw9FU62965S0AX5+GQbwUJRo4c2ar/EEUQUVAyRROb/PBV
-         EqyZKXZJM3q77PyoYmPze+9RFYXV1wUp+EQ9EDDJmo4lX9LYA06ivgObw1ZdfXp/tTIy
-         Yt47dAdLQWhgMmT/LeZG8SkCoymoZIyYPj3SRY95PokhY8JryDlHpssABBhMezQkOF+h
-         pM3A==;
+        bh=4unzX+NMpOtBviw882dRQzRaeXOD1/xti/3UhI1UIHc=;
+        fh=Iv0s/5meNw/cRTKqt1i5Hy7m8IYuV8ZZZtqWcGmz62E=;
+        b=cXeyP7J+I3C0iDGaVI6i2Hob28Apz1ywhv1Qmwv/wRg88MgJJTzD1DKyLIENGOy6ah
+         jl7zr47bGP9iIX3Z8I55QN4eoypdwYptsYGyX92rOv25uMg9+AlE5QLAc49bubyyuRTX
+         mycktSt1kEBqKUZL71VNj/XfhgD+Ftq3EpTnI/NbGQlmwFdJPRNHrTW8ZrzMygaB6Ub9
+         aC1Ax0n5KliM3/SQXt+7ASrQ5h8mldqcP/kwdyJCC/RDumCr1CCAmTMTwu+NnSiGVpjM
+         BZXTitdw3kraNOuOLE1lVSiLikR5U5TRHJM4UnM1qfUtzixTxgBzci7qN0w/GNv0Shda
+         T1yQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787957544; x=1788562344; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787957680; x=1788562480; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Awwf+UFW2ONQrXT/1UuPyCRQCWHRON77Fg6o5pZxO10=;
-        b=dXknUyG91mtcfBGaWwFNQ5riozqqkSfZCg6+5WAdFl1bWRmMCszAN9PzJVDYz0326D
-         dOrC0TKZQ/8C6nLA1pAMY7U6FWhP1WSa6ipJP1MaTtd2crYDLY+GoHUezzRMGyHaloZa
-         5GHvkk5q1pGD7rysF78hRGA08fM7KfExoKVOjhIfqpVnEqzWGQ58iaA7GNYOwwK6CtHN
-         CWwlYoY+QAn2NSOpLZba2Y3Y/zgV6EeGe32cyYzvYWcbeE8dYHQVzj5e1DNsz7lRhvG6
-         F+rLm+EaCohm30vRM9+Q1g43hfVKdZ3kXOOr+j6PQ+VuLAzEX1gDYDZJz6b4sUVIVucb
-         VPDQ==
+        bh=4unzX+NMpOtBviw882dRQzRaeXOD1/xti/3UhI1UIHc=;
+        b=Wl3ePovgS5fvjrS/gq+CySuWQC7t+AbrE92aPHiK7CMboSg08VRJhs+eAGo2JP8rq3
+         IgfQNJHMN/tb7gErer5o8rT4yLNfNRmrs4fIlVdUPorUAI7dWoqpgC4GRT/fdOz2e9Ao
+         XHTHWQEZ6GQBFNB8oxNNR462YPSgCoS0/IfdPdKmbLH55+RP2VqSgn5rD+Z4Q90oyiXk
+         wpe+bLPzKqNrDnKXVnl37Is/xKD4repSWwrL/Y1kMIwlMvnKp7L7R8asD41/BGPyLasF
+         fw5tjfgSWu0e/QHOeMlFs+AIx5Wb0hr+Q6E245WixjqGn+lf6AyTGG7xVsGLMu6mvESe
+         sbIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787957544; x=1788562344;
+        d=1e100.net; s=20251104; t=1787957680; x=1788562480;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Awwf+UFW2ONQrXT/1UuPyCRQCWHRON77Fg6o5pZxO10=;
-        b=CUxfshlUvDhV9MxbqE7l97IDHdSWkfShUaUeIOtLmaFkmYHpnCET6LgpkDITwnTlUk
-         0hLPJXr40oS53dQ2j3wmdI/ybhZF5DBuVlhcKaEY+/SROrwxtzAl8vs0nD7OTXv1n9so
-         6Jud1OJZ+E2QJKTEYZad60kidaL05GzKox/jkj8oWnX0qmEibRkyWI7nEuVwtsCfvI6r
-         eLyOuv3W7wyBnRcqeTBnGfBCySQdKXiXAoHYJmBK4kOq5iJciPn6OO7MsAqKJkXtNEtY
-         kOG0Xw5HEAgKYOlvviGaKoW9TL61tUe08XUb7d38bteoRe5ZBXN/xIClUFMCghfDJ/Wy
-         bWsQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrl+Zit/RlndFji0TzyLzv04h6N57n0Xk0vMexAl+0BMd1ShgzlVntt048wppcfb4+IgDW5U08Hrj3apyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY71FKjw1GAuEzJ1k47+PksGIb1U2G9KSVGGwrWger7pvRVZXS
-	j8EdF2f6lZpzht2oiYLG/z4ufJ2tWD38Xgro8PFJ0NhPcUdJn5HfgRcdztyimZaD9VuCcY97UT3
-	rvkw8oZx9x1Xb7TZftZzsbaRNJT79SSsNwmn2NNdThLTuH+97IzjqtHgN
-X-Gm-Gg: AR+sD11ji4Z+pYQE8O8p92zTa7IVTWdEyZV+tniP+uaXC1anDy8OX4/hzmSsuSHZqff
-	5TrZ9F0fp2swFmZqL+cfHkHyqJhAWkA7bXbdsjSc9h13hbiMEUHsonHQUgC68R7qii9h7SgpNFU
-	6Oqpz0cbfh7TnSEXvoukKjBv4g5ZeCewhztUDYb1KH0oWA4eeOcOcqiFLCilEclHzsS2DgJD9FW
-	lFVP6l8nif8wfQPicRLWpS/hyEXOt0mMjJ0ESouZHa4qEPrY9WQBJRbMu2BLd56oPHwLsH4+K4K
-	YqzpOFKNeQ5rC/upwCuA5yqE4QXaQKDSmdCVCCS3QPbjn7zwA/UleI8/bV8+d5V2i0pljaYy/5N
-	oVREG+c/vDw==
-X-Received: by 2002:ac8:6109:0:b0:52f:9ed4:8d74 with SMTP id
- d75a77b69052e-52ff710cdc4mr4682421cf.14.1787957543079; Fri, 28 Aug 2026
- 15:52:23 -0700 (PDT)
+        bh=4unzX+NMpOtBviw882dRQzRaeXOD1/xti/3UhI1UIHc=;
+        b=kj0/rBy9uXYxManYYdNN+PWU8yZxTDUU+hv2979cB1+zaG09bH+K3IzEkwIcdRlU0R
+         3J8+ICero5qEDiwplxPCCAuyIxabFFIEgYLl0ED+dMoSCqiOn/CWmjnNhHDOllKxQYnC
+         ixuwV5oEivBaUr7egCXBr8t1lIBoiMcbrCPyNk+73q+Vv/+fOheXXYq3GiwjkYfJ8SV0
+         hEy41bPA53uWpDCDkZ7rF+DyYoRwfF8c6YyRe1000Yv0yS0do4BPAz1PgZ6t/v2CFqho
+         Jr8G0ZE8YpRlF96WtHjF9WsdIwBf/IBuBHH0ebNZ0FkVZ38N5CB/q/G4EwtcwtqKWt4E
+         GIKQ==
+X-Forwarded-Encrypted: i=1; AHgh+RogbhL5gpK/NQ4wn0x5iVxWm5CkcVFOpv5vxXRMVL0z/Xbjy6DeQSkqRxRW5njJcI7OXzm7mj6HbqcfxyM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVOm1ptB4fSVfwExDzNQBgZYOD2AWEHy/dSkp70icQIGIqfKOT
+	fCFRjgntLLHZ1G/bQlDzJQnTEgpQDLxmpzGqeDTZFg7rbusc/sC0j7XDyhC3tZvAB7fSr2g3o5/
+	ra+XaeqlVgu36DtmWfcmHf18g+W8WhfdDHt9NL4e5
+X-Gm-Gg: AR+sD10i3svktq0QRXeckE80g8N2tuAFKtOOF2cqtMgtLy57es3cKOeW+nQtFCUQ4Vl
+	IuLOZBarUPP5A+Kzg6hs8JswvDZNk4Yx1lNTZ0TdG/9+tMwBcziNTnMdJg2aO48wATbUfRVX2Pe
+	zpp2+zjv0C7cGIufXwixRpmjPlqXx9f/XWEb/8GVOMo4IVXrBJd+l4jtuB4lzqc/ueVPZ5lIJv7
+	6qiQ4gOi+JvG+MGTV/DyqooI7jezmHiziePlnZEVDlTFLTfnrwTMOG4FlbD538W7N/i/gH8OQVr
+	iqNXynrgVJMHPnE4aJDfPhSfV94TN7cmjEkz6tSUSz09OxWhRVh2YjXV+da8eywodBJkv4eKSHK
+	K
+X-Received: by 2002:a05:622a:5a14:b0:51c:6b7:d3de with SMTP id
+ d75a77b69052e-52ff716a2admr5298061cf.5.1787957679730; Fri, 28 Aug 2026
+ 15:54:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,15 +84,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260806020850.1221381-1-rick.p.edgecombe@intel.com>
- <20260806020850.1221381-8-rick.p.edgecombe@intel.com> <CAGtprH8XJ+SbxQLTowch3DR6N1NSMUKyVnGf0hv5N+iKWT3q7A@mail.gmail.com>
- <74bc9f2695959f335f2f502ded1ae7c944fae13a.camel@intel.com>
-In-Reply-To: <74bc9f2695959f335f2f502ded1ae7c944fae13a.camel@intel.com>
+ <20260806020850.1221381-4-rick.p.edgecombe@intel.com> <CAGtprH9ERb_fFG-4JYR1Bjxyyvnk3Ys4q=9ioQz0Cq6QCXtVBw@mail.gmail.com>
+ <9c0048b72834e7e88cb278476ad8d19f57373aa9.camel@intel.com>
+In-Reply-To: <9c0048b72834e7e88cb278476ad8d19f57373aa9.camel@intel.com>
 From: Vishal Annapurve <vannapurve@google.com>
-Date: Fri, 28 Aug 2026 15:52:12 -0700
-X-Gm-Features: AcwNN1XH7bepxRkIbUoAM3EdldcwR19TvPyf1EHxlXjEwu1TNfCd8rn9aVcKinM
-Message-ID: <CAGtprH-WL9MioyJUwJf7XK8O+UM6d1hUwWMtPj0AWC4FdBxScg@mail.gmail.com>
-Subject: Re: [PATCH v9 07/11] x86/tdx: Add APIs to support Dynamic PAMT ops
- from KVM's fault path
+Date: Fri, 28 Aug 2026 15:54:28 -0700
+X-Gm-Features: AcwNN1UEyg9LUIjstN53o3MhfwwMAKPLjXkthRuE3vRI8Rovt7_F8Pac_E2pZ8A
+Message-ID: <CAGtprH870raS09USeB=Ec_TAY8Vke6-nV_LcX6dYZVn=wEhjNg@mail.gmail.com>
+Subject: Re: [PATCH v9 03/11] x86/virt/tdx: Add tdx_alloc/free_control_page() helpers
 To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
 Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
 	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "Huang, Kai" <kai.huang@intel.com>, 
@@ -110,61 +109,33 @@ Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 3:40=E2=80=AFPM Edgecombe, Rick P
+On Fri, Aug 28, 2026 at 3:23=E2=80=AFPM Edgecombe, Rick P
 <rick.p.edgecombe@intel.com> wrote:
 >
-> On Fri, 2026-08-28 at 15:18 -0700, Vishal Annapurve wrote:
-> > > +
-> > > +static int alloc_pamt_array(struct page **pamt_pages, struct tdx_pam=
-t_cache
-> > > *cache)
-> > >   {
-> > >          int i, j;
-> > >
-> > >          for (i =3D 0; i < TDX_DPAMT_ENTRY_PAGE_CNT; i++) {
-> > > -               pamt_pages[i] =3D alloc_page(GFP_KERNEL_ACCOUNT);
-> > > +               pamt_pages[i] =3D alloc_dpamt_page(cache);
-> > >                  if (!pamt_pages[i])
-> > >                          goto err;
-> > >          }
-> >
-> > If the alloc_dpamt_page() was able to allocate a single page (not
-> > two), should the partial allocation in the "err" handling return the
-> > allocated page back to the cache?
+> On Fri, 2026-08-28 at 12:50 -0700, Vishal Annapurve wrote:
+> > Reviewed-by: Vishal Annapurve <vannapurve@google.com> for the
+> > SEAMCALLs and the get/put helpers, assuming your are still thinking to
+> > shift things a bit between the current and the next patch.
 >
-> I think no? In the case of the cache not having sufficient pages, it is a=
- bug.
-> And if things go wrong, I don't see a risk of big security issue. So opti=
-mizing
-> for more efficiently handling bug doesn't seem worth it.
+> I looked at moving tdx_alloc/free_control_page() to the next patch. But D=
+ave's
+> comment was more along the lines of just commenting the limitations. So r=
+ather
+> than disturb the already reviewed patches at this point, I'm just comment=
+ed the
+> limitations clearly. And then removing the comments when the limitations =
+are
+> fixed.
+>
+> So the only only code change here is temporarily prepending the limited
+> functions with __.
 
 Sounds good.
 
-There is another allocation in tdx_pamt_get() that consumes the pages
-from the dpamt page cache but returns memory back to the buddy
-allocator. I think it's not particularly harmful, as the default
-top-up should cover the maximum spt's in the fault path. But do you
-have any additional thoughts on that?
+>
+> Do you want to keep your RBs?
+
+Yeah.
 
 >
-> >
-> > We observed similar failures internally with a slightly customized
-> > setup which had retries for pamt cache allocations in the fault path
-> > due to SEMCALL failures with older TDX module functionality.
->
-> The best course of action is of course to fix the TDX module bug. I assum=
-e this
-> already happened. This is the default upstream approach for that kind of =
-thing
-> across both subsystems. But it sounds like this case is even more special=
-,
-> because handling the specific bug would involve other code that is missin=
-g.
->
-> That said, this code can definitely grow in the future if we seem some us=
-er
-> value for something. But can we please just call this basic version good =
-enough,
-> and build on it later?
-
-Sounds reasonable.
+> Rick
