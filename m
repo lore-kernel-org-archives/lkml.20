@@ -1,147 +1,201 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012016.outbound.protection.outlook.com [40.107.200.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDD1463B6C
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927271; cv=fail; b=RupZTWYZm8X5QOBuk2NOZwdBK6gNXw0Ow7ekpKhGcpW5ciWg5EiH0OckVKmQTCqx2jIhJYsnb259K/3SNR7iyjt5zQjHMuMnGxPOjK6ATGoa0sUEgoM0PnDS2QwV3F8i8IomkFbhsoaLjCMQrRZm6jWUgiy5U8L7NLYQNGyWC6g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927271; c=relaxed/simple;
-	bh=62ugXoML36eSf2Pp3agIb8zisg2zhpVknwMc/b0N2EE=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=Yt3BUM62crz03oHP63ARCeHyx5oVaKTXDf7dKmUwUME6ghBg1qAd3cYw/XsN9bzpCzazgBhxkuk08vEEOnV4L50x9norbXXxgUhCZXGhBr64aZs9T4ZCcY9N4lQIw++DofprzyfezQPsql5O/GOs72FIjJaqCG2kkS+UoFLuIW0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lCZLQOVk; arc=fail smtp.client-ip=40.107.200.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AE646EF78
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787927285; cv=none; b=W8QyvclTeqXcNyZLTjuJBp/sElEbiDhyM2S0j6xUxUuwDlUYI1Tw7E+wrSBTF6iRgBGUS4zoUWYsjn5EQcxijNRwyjlk51pUB2Ft0QzsSwtjDjbMycEcZUhFe7+amCG1x01QVTuiPD8pz8DNGLSgZIdVDzZ66cRTx8KluXeRSAc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787927285; c=relaxed/simple;
+	bh=+CmXSLbNHQ2k6FnrUgFLVIdY8e6LhxBGtZUeweq9nb8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=N0EU5v7EI6Qce2QHbm1w5qPlTB953UKBuoxdXu0a807nlkOf1sZtcB/iWOIVwnRlJpdmSWrh2GOxaRJh4cIAkQbtISlaclw6Vp6vgy+JwwUKn4LVDYu/mWaAebSqgxWP9nY0kMNJUyAU5wn5AqwWCrVwJmRp1VPE4qZ+Ei3ag9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WPekUtfk; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lCZLQOVk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JtIOECAFa6CnrNTMJookasLnLoqGwFqxmZ7AATnbFYaspHbqaS4ZMtK95Hk430IbjS9xW0PBcazflbr7vqoXuZLeqRu0/Zy7LjQlHTc4E+Pm0R/CTD5afjhoE5xJWU7CicsCMpwsqMECIoSCta5HKS7oZYAVqSjIp9ad2a+DZkan3BUXqYuUS3/Nf25ssKbNyj1lQBs/Mnt+9pg9RALlo0P52uq529LPimnJXMfEhyOA0u5XV/Dla1O+UTqFMUlLI2Rd81FsU5FqlqKyQqMKVjPTN4z2IJ/byGoBZCR2tZa49rImQqZLiBiXfEcGbyyM6YzVnqnmNUlxFPgZ9bPb7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QNsTxVdXXQCNVjx8D5HEtN1tId9wc6VixiYnPmDzUg0=;
- b=HRr1mACzgT0xsatVZWDtG0R7fVQie0FEdmjq+SsOeiKXJGmUMkpy16KqFqaW0vLXIKkynek8eIhrzoiowGyDg0DbQIh85e3+526gR5xhk8hnRZ/l8AwQYwrVNjFjsVwsa+dsq2Dh3ZP1dBKJZgrZwPicRNp8ADwHUXP7abISJpJHomxK/PHIopWf7kFOT9sHURPwIuV2am50R2h21ySJtf0JponLEV//tMhQ47bIpCXRGtdHqPExcLpHNm5gtuBYJoxfo2ducoyubAY4+ND10k39srkGFz7Yo17ZqNes+JXGvGfSn/7jLjylhk8v+sZXgwvSiU+80FSOyuIN8szJ8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QNsTxVdXXQCNVjx8D5HEtN1tId9wc6VixiYnPmDzUg0=;
- b=lCZLQOVkZ0rFz753Ne4XwVcyaWK3Q68MsrZ5VFJ9OsNp0L2M7HfUXv0ALI5Evv+rQcAf8sMSrvbrZOWNdjoW6k9KO7BWK1AAnRwteaGgGnVH51nsArnzzSYCYsfPKBYaX/LNiAAmpiAxo3cEe1G2F4ukQxRXNLm7ejztV/YaCL9qSoJZ4vjU1CYZFkD8NlV82pyd9dtVehd5oj7jMerYvAIMLNIBzkr1jGLduGhjj/EP3kHp/CXo+ws4+UH7XhSC0DoUgzzQm/jLM/K7DV6bStv2EMHC1ouXd6l4tc434yrvIPEq4p3G7gkcKHQDR4I5Cv4XCDOCTGEyLynNBlHgKw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by BY5PR12MB4275.namprd12.prod.outlook.com (2603:10b6:a03:20a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 14:27:30 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 14:27:30 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/7] iommu/arm-smmu-v3-test: Add missing error checks
- for inv array
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, will@kernel.org, robin.murphy@arm.com, 
- joro@8bytes.org, jgg@ziepe.ca, nicolinc@nvidia.com, praan@google.com
-In-Reply-To: <20260828125409.1921538-6-smostafa@google.com>
-References: <20260828125409.1921538-1-smostafa@google.com>
- <20260828125409.1921538-6-smostafa@google.com>
-Date: Fri, 28 Aug 2026 11:27:22 -0300
-Message-Id: <178792724271.3808739.15472225478426952013.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: BN9PR03CA0984.namprd03.prod.outlook.com
- (2603:10b6:408:109::29) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WPekUtfk"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-480001972b8so556490f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:27:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787927276; x=1788532076; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mSBKytCKHqfN5xOe1HlyHmsYxw1ixy635M//OyHPkKY=;
+        b=WPekUtfkT0K9ibVqZbvZY1VKyaX7TnkC048jsqZARKcHCEpOJN0sFM/SrOTUgmd+2W
+         M35+BaCBBnzYl4emGsvEZhcRdPW8ZrvXE5atnI312qZ34QnOhJm4o+ZrXiRKdUAcR6pQ
+         zrbeO3tuNIxDn5AeirpkFxilZu1f1UuEDBsRsKGQd2zXL4kTeL7Ta1VOmVvYrIBgFiXl
+         Au4RmCUQptr7b+mMzxav53wdFzZhzidJEws1HEp/JjQAbAvmJUvRHNJMAEhUvJv7LIu3
+         Y6IhgMeAzh416Ci0iGd0/DZ53GJd+CaUmDCcIJD7EMHjvn5MlRqjcKbVAnVqxe/HU6Cp
+         c91w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787927276; x=1788532076;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mSBKytCKHqfN5xOe1HlyHmsYxw1ixy635M//OyHPkKY=;
+        b=r+QTPXnPyAKbOYdwVahsBY5BwKTLkgflwdVmbAwmBzr5z4qaqiO3mXw/F+y0Ucddax
+         F96+3rHdFjPJaMHZhGIrMQNUwBBK7XkQ8EV/FaAFHRNZ0BfegwlQ9mLoLf3i0H3XJY5H
+         wKvj+Z8EnVTsU1qiO18LAhs7PSwiv5EPWiN6rhAbYVEF6qZHGAXqyJMiQLZ9zOA0vMsC
+         mC2YG4oeT3IqlyoflMAqKvwHLSx69ovcIzyL9NoshFka0/OdV3XbzRLwB7+gvaTMAE5h
+         K/L/Zzn2YKURKnV+4X/FkSTq4Iij+EpV1+MXrFwBrKY0m9y7QA7I2WLr5zplENplei+q
+         nvLQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpbQNfki6fZ4hl5vl1BI3XXGgOS5c3n2nxLK4LRZNLB89rx2S8+BjFE2426lLqMfNc0bJH446mrkO5NLS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZhAkfYPKPP/WGeBitDvUiHWrIiZM8YcuzE7Zma2CUVXuseCxl
+	bC8gQk4SF9ZE/Uua2NE+o1QWK3rcjCoU9JbRCbdF+qm/yUj/OiOZ1Z2k
+X-Gm-Gg: AR+sD11wEqBHooxtmyfiXAwJSlqYs4tnXFjicflmr1uxYDQTbAfwzmtNcGpOpPAip4v
+	iNljPfateBMgRHGkJenpkXEUU0Vs6hQEl6kDgey1/BT/KduD0xTFA+wq2dZ2JAhbdqGd3GubLBO
+	siRpIzYviJoU/d4bM2AcsVF0OlaiEY6MVXKgQdXQTGgHU3OUEfOplwdqeuQVyGFNZFe8oGbaRvY
+	1cKsdJpc1T+kb8v1Bc5e5G/AiAY/yeamsrt4pNv4Qk2pwHx2HlQpNx0HeqfSe0e1ZKtZ6yy2hJl
+	64mi9h7TSfMEx+Yb+6oBEj0mTsQmvcgRrEIw2BbBfnNIP9fTPfFqN2UK0SJucfEb64/tY/uPgKM
+	HTu3kz/MKt8P9kg5a53f8KByfJH5tjTdumueS2f0lD1L/PcWJT8XCFSZq5x3CS3DnJSoYesAM1o
+	+vgUUPCCLHle7aFXLWoUPWqLDzPdwUo5JPUiQuOuzrLLC6lUOYyc/o++3QLf3sjJoLIJFKxpdPJ
+	SeSE7r3e4fn7y7nmoB03M0kA+7+wtU=
+X-Received: by 2002:a05:6000:2401:b0:482:eaa2:7d85 with SMTP id ffacd0b85a97d-482f782b50fmr11013049f8f.0.1787927275570;
+        Fri, 28 Aug 2026 07:27:55 -0700 (PDT)
+Received: from Abds-MacBook-Air.local ([2a02:3037:27f:67cb:9899:2c01:3637:5f2f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb27936sm4198160f8f.28.2026.08.28.07.27.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:27:50 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: Edward Adam Davis <eadavis@sina.com>,
+ syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Cc: song@kernel.org, yukuai@fygo.io, magiclinan@didiglobal.com,
+ xiao@kernel.org, linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] md/raid1: prevent a race between write and stop request
+In-Reply-To: <20260828103957.245658-1-eadavis@sina.com>
+References: <6a908777.1d9ded08.62e62.00da.GAE@google.com>
+ <20260828103957.245658-1-eadavis@sina.com>
+Date: Fri, 28 Aug 2026 16:27:41 +0200
+Message-ID: <m2y0dqmiaq.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BY5PR12MB4275:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8cf0f178-6688-4344-71c6-08df05107c06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	nJ8XwxxZQ9kzHw1r7saAT8vG/45ATvsCTMCFqktqE6xVd7FIm7ZVovyM8S/OQQOeyr/lYhzjXmuqOyYeXhZdOstQLGISxMkHBeBiPHAOmtB00Gvy65iBmTfMC2NNrUTTsBNW3CuyG2UcwPbOSuOu3rtYCwwWy8WakrZ6rXFRBTbC7c7AvVc6KgcHY1JTEBBpTyuOKFR52NYVGwEDzZR9xcpmQVhQgonZ7kzfi+zto+AYpkIIeV/8O0xn8oFlNDtxwaSyE58UDzY8msw/TniYRvxk5FYyyDwK/9ukXkKrSvdR5HGxGus/M+/L/rs2zIOnSatVRsV3r9BIe1njEAJi4aCXO6kTUntKyCnHeEvkAZf2VSA4pOOl6sQXRA+653LiT84S49dzD8RufVciJXk5Ij+mzs9XFY0qgD3V14U3za7yttHYa7lVzYI/I94Rll2VFIGoeFFRBTnzlCjDJvA8OeZ53ssSVEPsWW8ATueUoy/ZBsXInUM3Vmo5zD6aU3gF4mkmGtlKYq9XMpSRLLY6iHTk9enenQOx+zuNvPp5MzRaPbIsUwVQmwrs8SqPfiHminrMfIeH8/YVTwJ9TbTM8o1JJzDHetnCSeV13aIqzCfHISemYnKlfNVH2RhbdNE/Ylf0V+gjRVnGgOXxmStamVsQKIaCurv3YVRvRhR4JBc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWVYdUw4Q0hnS1lKeURMTmRUVUFTUnI3bkp3S1EvRUxxODR4SEpaZHV4V0xT?=
- =?utf-8?B?VVYrTHFjVmg3WXpWbndSQmlzZWR4aHR0TlVWMmNxZHJuYmJCZ2xZbnArSnRP?=
- =?utf-8?B?UllXNFpGYTVHd2N5UFhzdjJDdkJKRE1tckZKWlMvcUgwMDlPNGxlTFBac3ZO?=
- =?utf-8?B?ajJYU1ZhN3VEZ0QvVS96SkJncXFOdVpZcU1peXhQQjJhWU4yZ0xnMWNVTUhT?=
- =?utf-8?B?T3A2UElIb3JzSVVUUFZsWDRoeTJjRTB1M0c3L0NoR3pLSnNuT0cyV1phM3NU?=
- =?utf-8?B?MDVTMnZJT0EyaFEvY0l3eUJEUmRLV29uQ2pLU3ZkcmRYUVg2TlFiY2drQmZp?=
- =?utf-8?B?QXJVcFJQVEc5dXYyK1JLd1FBcndGcU5CU3kzRklRT0dqSEZtTWErUjloeHJv?=
- =?utf-8?B?R05UTGJiZ0d2NHRBd0xUTy9SRU4xQVlYU1ZsQ0U2dDhCMGtEQVdoK2toNk9u?=
- =?utf-8?B?NWM0RU52NkR5TGdWa3ovVTJkNkJYZ2pCSExEZmZFNHlJcXNYMUtRRW1YSUFT?=
- =?utf-8?B?U2oyR3lkUk1WeE5udVNqbFE3Q2tnMzF2MmFMNTEvalVyK3k4cWphSWxETWZh?=
- =?utf-8?B?WmdRb2FlTmlMWFcvMXVzNnNmaVlFRlBkS0VtQ1JwaHlkZ1BndW9ENTBmMTNo?=
- =?utf-8?B?WU5malI5U2EyVjlCRmhpWWhlYW1uUVB3QVJ0MEhqZkNNNlE3S2poNE85QUZS?=
- =?utf-8?B?dW9lZlBpeU0yYXBSUVBIaTVYdTZCNEU5STdvWjJYbDVXZU9BQzJaaGx3TFhu?=
- =?utf-8?B?VTZDeTlCd3JJMkw5V1RxV05ocmh6TmhweWVycTV5K1JBamhFNjM0dmlTaURI?=
- =?utf-8?B?cFBSNndueE9PTFFsS2dWWVFvT09reFVUR3lTUWhTOThqSmF6Ukd4NWtkaW1D?=
- =?utf-8?B?NUFzYjN5dE1YVWxTSUVMcWlsYk9ZTHRMTCtaTjdQbjRnVitQbVhJZUl0UkQx?=
- =?utf-8?B?VDV2ck8zbmZoK3FlK2M4NUV5MnlqYmNDQU1TaU5PNWE5b0tKV3BWaFN3U2hQ?=
- =?utf-8?B?K1hOVjZobFBuVTdOcWVrR3ZwVzZnV3Y0a0VnYWRNNlpKT2E2V05pUysvdTdN?=
- =?utf-8?B?a3o1Mjc3S1lmSndJZ2o4S2RpSXp0OElTd3BNQW5hR1Q5S1BRMURxOEtjVmRw?=
- =?utf-8?B?TU9jbW9MU3BlSENSVkZKaTFMMjNvRW00UVh1WGoyM3FpOWxtbTdycm1MY3Fu?=
- =?utf-8?B?UmZ6WVR3ZkxTb24yV0ZlN0k1U2hRRmJqaGorc2VBTndsd3hnTm5LRUFTVnFK?=
- =?utf-8?B?a3IvOFBMSWxIRHhpTU9aZm9OSHpjNVU4aDlhQzFUa2lhNWxSTmY1NVBTbGh4?=
- =?utf-8?B?RVNLOUdnNGNOK3pIWUlSYTREVXgvRjF6VitsdDh0dk84WVVLTzE4aEdRU2F1?=
- =?utf-8?B?YzdHSDRpemVyRHNabm42OUxvODgyWW1ReTExZHRIWS9IVGFaZ0JuVFRoOFpM?=
- =?utf-8?B?TUt1eExtem1RMlB4UkZsekRpYXgrMHlGZWQrUVFhK0RvT0dvaG42Uit5MUJ2?=
- =?utf-8?B?SlJPRkJaZVF1MnVwSmt3V2Rib3czc2pSMlRVVzVxR1Z3aGxISEdvNnFwWTN0?=
- =?utf-8?B?djBXT1hCTWVwbTk2Uk1JNTRoNjEvemVVUFNzU3h4ejV3MURuSXdJdzF4VnBW?=
- =?utf-8?B?WGlFWlpkelkvRkpuMEpSZ2hkVFUvVDdJNmJNZHRTTmM3QVdFbnBldGxhV3Rs?=
- =?utf-8?B?N3ZNSmI2cGN1RWE5ejFyL3lNZzdabTB6a3h0QzhDdDFwZ2FBZkh2Ynp2SkVT?=
- =?utf-8?B?TUxwUnNRMVQwVzlkM2MwYVNRNVpwejlvdTFOMHphVWxwK1UrTldLd1NIY1ZS?=
- =?utf-8?B?TlV2R0QxNWRBSUFpRDJTb00zVW93QWtFVVQ3eGljN3lyekQ5andleU14bk1l?=
- =?utf-8?B?ZXIraDFVSTgzNkpRRFNybTdTWVlkVkp0a0oxQythcHBnb29HOXBRK3lBL2pF?=
- =?utf-8?B?NFZrQXRMNmdERkxadFkvZm9EZ0FwT2RDOFNZV0lWVG1oYTJQVWpSa3JDcmxG?=
- =?utf-8?B?cjJ0cW5SRjVwNjU3U09ET1Y4TDZuWG5icXpkcFNydDZEZm1FUFdRY0NjbmZI?=
- =?utf-8?B?WmhvbkdnTGx4OGhxYS9nOHdiMTBacldZSWdRZHBUbHQreHY0N0xwRjRlaFAr?=
- =?utf-8?B?MmtGdy92Qy9UanJhQmxEcVRGVzRTTGpWVWdHTTZEck15YzhkY2ozQThWdXFz?=
- =?utf-8?B?eWdBZU1KbDFCd1BsUVc3WEo3RkVxUk9VeG1mbTdzMjE1enhlSXRmY3VMMmY3?=
- =?utf-8?B?VmdQSUxWajlEZVBLeTdnTjJwS2N3N21IQkdqYWF0MUNEb1pvdjQ3aHRsc3A4?=
- =?utf-8?Q?X5eGBn/q4vXnF9vOOq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cf0f178-6688-4344-71c6-08df05107c06
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 14:27:27.4453
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FRScBQxb4zrd9DuDkSdh2P4y/iBY4uvILTOnfWlFeJuHKt1zYd/I0Ai0Z06erEwZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4275
+Content-Type: text/plain
 
-> arm_smmu_invs_merge() and arm_smmu_invs_alloc() can return NULL or
-> errors which are checked by the driver but not the test.
-> 
-> Add KUNIT_ASSERT_NOT_ERR_OR_NULL() after calling them to fail the
-> test instead of accessing NULL or ERR pointers.
 
-I've generally had the opinion that if kunit tests hit bugs I don't
-actually care what happens next so long as the bug is evident.. Many
-tests can't clean up when they get longjump'd out like this too.
+Hi Edward,
 
-So, IDK, it is fine but I also think this is in a category that maybe
-sashiko prompts should address instead somehow.
+On Fri, Aug 28, 2026 at 18:39 +0800, Edward Adam Davis wrote:
+> A race condition exists between write and stop requests, leading to a
+> null-ptr-deref in [1].
+>
+> CPU0				CPU1
+> ====				====
+> md_submit_bio()
+> md_handle_request()		do_md_stop()__md_stop()
+
+do_md_stop() must never execute while the array device file is open.
+take a look if this rule is not meet.
+
+> raid1_make_request()		 __md_stop()
+> raid1_write_request()		   mddev->private = NULL
+> wait_barrier()
+> conf->nr_pending //trigger [1]
+>
+> The intervention of a stop request causes inconsistencies in the state
+> of mddev members (such as private and pers) while a write request is
+> executing; the mddev lock is used to synchronize write and stop requests,
+> thereby ensuring consistent mddev state throughout the execution of the
+> write request.
+>
+> Additionally, when a write operation reaches the RAID1 layer, if a stop
+> request acquires the mddev lock first and releases mddev->private, the
+> bio is terminated and the write request exits.
+> 	
+> [1]
+> KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
+> RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
+> Call Trace:
+>  wait_barrier drivers/md/raid1.c:1154 [inline]
+>  raid1_write_request drivers/md/raid1.c:1506 [inline]
+>  raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
+>  md_handle_request+0x824/0x1230 drivers/md/md.c:417
+>  md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
+>  __submit_bio block/blk-core.c:681 [inline]
+>  __submit_bio+0x20e/0x3d0 block/blk-core.c:670
+>  __submit_bio_noacct block/blk-core.c:724 [inline]
+>  submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
+>  submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
+>  bio_await+0x1fa/0x240 block/bio.c:1580
+>  submit_bio_wait+0x19/0x60 block/bio.c:1598
+>  __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
+>  blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
+>  blkdev_direct_write block/fops.c:699 [inline]
+>  blkdev_write_iter+0x703/0xd30 block/fops.c:767
+>  new_sync_write fs/read_write.c:595 [inline]
+>  vfs_write+0x6af/0x1050 fs/read_write.c:687
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+> Tested-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> ---
+>  drivers/md/raid1.c | 28 +++++++++++++++++++++++++++-
+>  1 file changed, 27 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+> index f0646fb24371..3b9f1fa65e65 100644
+> --- a/drivers/md/raid1.c
+> +++ b/drivers/md/raid1.c
+> @@ -1674,6 +1674,7 @@ static bool raid1_write_request(struct mddev *mddev, struct bio *bio,
+>  static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
+>  {
+>  	sector_t sectors;
+> +	blk_status_t status;
+>  
+>  	if (unlikely(bio->bi_opf & REQ_PREFLUSH)
+>  	    && md_flush_request(mddev, bio))
+> @@ -1692,11 +1693,36 @@ static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
+>  	if (bio_data_dir(bio) == READ)
+>  		raid1_read_request(mddev, bio, sectors, NULL);
+>  	else {
+> +		int err;
+> +
+>  		md_write_start(mddev, bio);
+> -		if (!raid1_write_request(mddev, bio, sectors))
+> +		err = mddev_lock(mddev);
+> +
+> +		if (err < 0) {
+> +			md_write_end(mddev);
+> +			status = BLK_STS_IOERR;
+> +			goto done;
+> +		}
+> +
+> +		if (!mddev->private) {
+> +			mddev_unlock(mddev);
+> +			md_write_end(mddev);
+> +			status = BLK_STS_OFFLINE;
+> +			goto done;
+> +		}
+> +
+> +		err = raid1_write_request(mddev, bio, sectors);
+> +		mddev_unlock(mddev);
+> +
+> +		if (!err)
+>  			md_write_end(mddev);
+>  	}
+> +out:
+>  	return true;
+> +done:
+> +	bio->bi_status = status;
+> +	bio_endio(bio);
+> +	goto out;
+>  }
+>  
+>  static void raid1_status(struct seq_file *seq, struct mddev *mddev)
+> -- 
+> 2.43.0
+>
+>
 
 -- 
-Jason
+Best Regards,
+Abd-Alrhman
