@@ -1,155 +1,128 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA553630AC
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289AA368950;
+	Fri, 28 Aug 2026 15:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931766; cv=none; b=qVOzDakFr3gIyfUnN8/Hr6+8YvwEzrdsPzTzv0R/z7L0/yIhAIciH8eS689o/sjpxRb2mMty4aYa/r+nId79eSH8kxNotT3SE8yU1Mx5y3VAMSOkRpIZpdWzJwJ74QN78+ePfhngqyXeq4/HffZkV93K5ukocjS0sjEjtjnv328=
+	t=1787931915; cv=none; b=pDLLE2PXQLD8VBDKsxGbY8pbh9eZCgUVgZHwnA8MdC7EjCyTzftGZdykHAmfMRy3AsXeCowG2/gmZ4TMLrat+CdiwQmJWeMSZ30ED89JZPCIJt5VnP1+D/MhaxSGVc2PHyFUPDgBd4KpKVIEq3mw6NsmDp5A7zicnUF+hQ4qpRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931766; c=relaxed/simple;
-	bh=CBOYWU5KwtzTq95ftVPMi+1AX/qvyPysCgyFMT0deyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZrLtvgxXD4aS6Ha6alfgTsTZ+saPagdkeWTNWuOyfjNCO72Zg6MR2kXit/WeKoPEOkIAwuQIMikDjjl0cLNnO9Xzgl7abxjVWN5hCGLDUsxDY43+y/nAljlpGn0dTQLhhAsUgipT6rK/5ls6ATWXOC+G7nlmdRlPqb3KdCYuiII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cKVwE47+; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787931915; c=relaxed/simple;
+	bh=oEGD98eP5LuYUS7ScktmqudS+PymyQ1EvYYYUzfHpHM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cbLfQER41Gikg4b0Nmo5HtWPcoby/7/RKFSjWPjnPLV1Xe8tSRbiQvxC8rGDyPndHMuWJcPey0Gs5ZQ4lYlLiMHtv0zHppDHgdwTOzMNPBMl5OB7UI4gHkzKYYqHeamVqT7LaLzByMO0P7K4X5+udD8CBTv40ynkDzhuwcW/8Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xm2W10pb; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cKVwE47+"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47fe2d179e2so659080f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:42:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787931763; x=1788536563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Il1nKTj4PJSO6PrUY+686DiZ64VrBPAafI4EqiNmen4=;
-        b=cKVwE47+UjYZ4DWk/hThBCkFvuINKuFNPNcbNS6W5WcIRMjPPW1UkTDGoO/BD1q2CG
-         hcyybFx3AFdObMCf/m1rqbm0o2QyK9ELsh8nZcLGz4WFw3VMYuFUXV5fLQUjW910bLXE
-         DFX+RjPvhIdG8IbVFrnbtNwf6pqZ332nBFGS9W9lQZ0rNuEcVBAQtYfRAujj1Gar7woE
-         8qjj3itTC0JRVUw+WRmUCxeC1/BqVkkZiYaGc/ICLonvnUs8QF4dRRndbvfeKq+4/ZTi
-         hlv0ySPMBHFSS6fxivxkBy0Vz9FaQAGljbMuctuyiEhualILDTpdISWGG98ho6nAYtdZ
-         Ld1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787931763; x=1788536563;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Il1nKTj4PJSO6PrUY+686DiZ64VrBPAafI4EqiNmen4=;
-        b=In2QyjEnjxbnkrbHvnhvW26C96HUYrywIfDDt7qamgQEljihwXfWjE6m6cQ2Beygd9
-         XrX/gze9JqVLT1YL8x8072F4GhnhT7/7LHb6Y+2NO1iImNsKF3cvI2iHsCz4HVSUcRCJ
-         adt8Aus2uL+q9eqO4wVuoJK5Rx9gmr7HpleSG3gyZYLZdhZGLKZfv5zegouYNlKLQV2+
-         bdTXlrxfHB2nDBXBsnVrH518OOMo6q+SW1b5vTKr+Un0A6xYYPQRwKqrdOMwQ9r0iG7O
-         +lYK6OKZIjGewCPCvk7EK4V+Gc1EFM/PlNaeAr1FvqHP7GZsSV3znJHoJA51rtOLsjN9
-         5YkQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrp42Wh71u8SLYJGYJTorLQKQ/UeTYxqe/0n1mmFwtMpUZB7Fh+C87Y0WVvtNqkfrIPoEjqp/VKQZoV0C0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/3Q2CvSbRW4uR6E5yoD5kIhmtzjV5polQQT1v3qNgk67YdX1B
-	UzwRH1CdoNDHgW5OFPJTP78QrL1t15tIVgFaLIdv5QTLLQ0RFl4sljf2
-X-Gm-Gg: AR+sD12ML4cl/uPbcIo50kEJ4OryKf1eotJ8/lfrwsTwNP9jvfSS4w+GGLe3sUTDWk9
-	koQkRXz6CeH02vmr2O7Zk/JxKmFhorvWPzUlWi5/BMYo+U7Iv2t8PX2fuaEsJEIS88PcknnEwsL
-	8hLJjWZ/6NoHvziIzOhfDpDs0STHcibWhB8qZ/etBr4FCPCGvW4zG2sUcqW9AKjD94X8Z0uQZ8O
-	W4UD/QdGkICHPuxq6tJzMeuF0b5gtH+GUFU67Ma5PyQJCPpoZOpAHK600jwFVNHy7H0rDszUAWN
-	fyZxKt9i5sO1qOqmVjGW/lDtOa8nKxfr57WW1WiPclXeKlQhf58vhIHiCj3CKCwj3n1ZyX3vg0V
-	VN5xXWic79sPNumUBJmfOz9ZKpXhSpmh12MnWd8yoVLs7fjWbvTJLYuKomx8Te/8jZmm/chK8N2
-	0q3vBOr7mPG64k5OclDYJnef6wwqOS1r+NKwrZ6n92KWCp3hdvTGDQPIKBoSiyPQ==
-X-Received: by 2002:a05:6000:25e5:b0:482:fe64:1717 with SMTP id ffacd0b85a97d-482fe641751mr5140630f8f.7.1787931762527;
-        Fri, 28 Aug 2026 08:42:42 -0700 (PDT)
-Received: from main ([176.237.234.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb278f7sm5610793f8f.26.2026.08.28.08.42.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 08:42:41 -0700 (PDT)
-From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH] rust: cpufreq: reject NULL from cpufreq_cpu_get()
-Date: Fri, 28 Aug 2026 18:41:32 +0300
-Message-ID: <20260828154235.17315-1-mehmet.mkoseoglu@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xm2W10pb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787931913; x=1819467913;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=oEGD98eP5LuYUS7ScktmqudS+PymyQ1EvYYYUzfHpHM=;
+  b=Xm2W10pbcxn8MNhYIiKUXolsGF+SAdcct4KNdOYyi1puBuAcuNX6JvqB
+   6EnLNVSzy/7+G2iz0/ZJloVQC4WFYzINMSq6KTW+aRS4esxpFy7b3ztE2
+   87h18ksdJdhM1Rk3MzFM7KHabnmaEQuCG4fOSOm+HO+6c/r/T+mRe3Plt
+   Li7dx8St3Pi9+l7a3RCWzI+hXr1PtJkjQ1V8hOl7rNcAXTLfJcT9bWzT2
+   7yozzinQwdVH1nsCVCl5Fv60Kjq5BlaTxwI70ojh01b31Xt7c4Wdm1crz
+   CzVl2CrGhxxdbagKVp5k3ClHuyUTPYeSJgrtCQi9PvU+drm5OQcnwGsyE
+   g==;
+X-CSE-ConnectionGUID: NLiP/h42T+axTpT8ZZYyKw==
+X-CSE-MsgGUID: ebz6XvMaQq65YJQX7YFcCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88648712"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88648712"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:45:13 -0700
+X-CSE-ConnectionGUID: ktkROrMOT+KLwjalPUsyag==
+X-CSE-MsgGUID: sDIX/640RzOLCN7lCTUGJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="268228672"
+Received: from aschofie-mobl2.amr.corp.intel.com (HELO spandruv-desk1.amr.corp.intel.com) ([10.124.223.143])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:45:12 -0700
+Message-ID: <42d7b3ad68ed7870e141fcfa62a483356e7c5b7f.camel@linux.intel.com>
+Subject: Re: [BUG] ish_hw_start -- page fault on a PIO cookie: intel_ish_ipc
+ maps an I/O BAR and dereferences it
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>, Jiri Kosina
+ <jikos@kernel.org>,  Benjamin Tissoires	 <bentiss@kernel.org>, Zhang Lixu
+ <lixu.zhang@intel.com>
+Cc: falemi@asu.edu, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 28 Aug 2026 08:45:11 -0700
+In-Reply-To: <CA+0ovCgaya8JEc4xmBKPbe5AbrPuaK0tUKxuOxQYMsPTQT1ALw@mail.gmail.com>
+References: 
+	<CA+0ovCgaya8JEc4xmBKPbe5AbrPuaK0tUKxuOxQYMsPTQT1ALw@mail.gmail.com>
+Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
+ keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
+ YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
+ y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
+ NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
+ GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
+ TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
+ oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
+ AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
+ b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
+ AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
+ oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
+ UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
+ ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
+ wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
+ NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
+ J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
+ oOfCQxricddC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-cpufreq_cpu_get() returns either a referenced policy or NULL.
-PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
-rejects ERR_PTR values but accepts NULL.
+Hi Farhad,
 
-If the lookup fails, Policy::from_raw_mut() therefore constructs a mutable
-reference from NULL. Dropping the resulting PolicyCpu then passes the
-invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().
+On Thu, 2026-08-27 at 22:36 -0700, Farhad Alemi wrote:
+> Hello,
+>=20
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
+>=20
+> =C2=A0
+> https://github.com/farhad-alemi/public_bug_reports/tree/main/152-hid-inte=
+l-ish-ioport-bar-deref/
+>=20
+> =C2=A0 BUG: unable to handle page fault for address: 000000000001c078
+> =C2=A0 #PF: supervisor read access in kernel mode
+> =C2=A0 #PF: error_code(0x0000) - not-present page
+> =C2=A0 Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+> =C2=A0 RIP: 0010:ish_hw_start+0x41/0x2d0
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 <TASK>
+> =C2=A0=C2=A0 ish_probe+0x34d/0x460
+> =C2=A0=C2=A0 pci_device_probe+0x436/0xc90
+> =C2=A0=C2=A0 really_probe+0x267/0xaf0
+> =C2=A0=C2=A0 __driver_probe_device+0x1e2/0x350
+> =C2=A0=C2=A0 driver_probe_device+0x4f/0x240
+> =C2=A0=C2=A0 __device_attach_driver+0x270/0x410
+> =C2=A0=C2=A0 bus_for_each_drv+0x258/0x2f0
+> =C2=A0=C2=A0 __device_attach+0x2c5/0x450
+> =C2=A0=C2=A0 drivers_probe_store+0x11c/0x220
+>=20
+> Our reproducer.c is available upon request.
+>=20
+> Happy to test a patch if that would help.
 
-Reject NULL with NonNull before constructing the Policy reference. Return
-ENODEV instead.
+Thanks for reporting.
 
-A KUnit negative-control run reproduced the oops with the original
-conversion. The same test passed with this change. The reproducer is
-available on request. Validated on a VM as well.
+Please submit a patch.
+https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html
 
-Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and driver ops")
-Assisted-by: LLM
-Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
----
- rust/kernel/cpufreq.rs | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Thanks,
+Srinivas
 
-diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
-index affa2b9490ef..1c0b6d6a9773 100644
---- a/rust/kernel/cpufreq.rs
-+++ b/rust/kernel/cpufreq.rs
-@@ -14,7 +14,7 @@
-     cpumask,
-     device::{Bound, Device},
-     devres,
--    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
-+    error::{code::*, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
-     ffi::{c_char, c_ulong},
-     prelude::*,
-     types::ForeignOwnable,
-@@ -29,7 +29,7 @@
-     marker::PhantomData,
-     ops::{Deref, DerefMut},
-     pin::Pin,
--    ptr,
-+    ptr::{self, NonNull},
- };
- 
- use macros::vtable;
-@@ -687,12 +687,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Option<T> {
- impl<'a> PolicyCpu<'a> {
-     fn from_cpu(cpu: CpuId) -> Result<Self> {
-         // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CPU.
--        let ptr = from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) })?;
-+        let ptr =
-+            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) }).ok_or(ENODEV)?;
- 
-         Ok(Self(
-             // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
-             // the returned reference.
--            unsafe { Policy::from_raw_mut(ptr) },
-+            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
-         ))
-     }
- }
-
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
--- 
-2.55.0
-
+>=20
+> Regards,
