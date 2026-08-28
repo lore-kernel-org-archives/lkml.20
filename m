@@ -1,127 +1,133 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E8D2DF138
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCCA3F1048
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907999; cv=none; b=D9VIZJyhjAC5rQfQ2FwzqBozaHvROaYk0mWq42BLZgd8NFkDq/g+cNVUG64yg6/vz9Sj1KpqyuMz6QwW2bsxWBi80TehuKn2xWmuVX0oEWAVB6C6Jb1CSbnqf1TsI5aGivtTFdDmkeZoIjRGKP8CuDIbnRIT8nmC8LOXIVvg8zA=
+	t=1787908046; cv=none; b=OGcAfSoaSd1CUGSqtbInZCJ/4eawviY2c/JcUtOAWIWefxSPyigjBoIUS4mlsts4/fO78tBMcZ4Ja44zAPW/LSYYltetIkbBK8OPXEi5kq2taRbgxpLI4j1yDxFgOxZC2xt/CRCqx3drJo82Pesj1TkE8wxXqD3LTlTrdo7SkmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907999; c=relaxed/simple;
-	bh=kAhCFv5LTaWStwG3ePgK/EOYB3WOTWUetK0ExCPUcGM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=iPEvzO17wBEgisihzxb/Ne3+f2lE30W9IYaD7tiHOhhB1SpKJ2CjXEbTt1uxlAx5riwVqlqHJMw4YchHALE6NiIZ9P2mtoI4X87pALoog74Wn29y4PDlCnl9vmsnCHeyd4l0PWx0fxSZaEKGtxAnujCp0oeDJSyf3zm+/uMCp7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sf70v3ce; arc=none smtp.client-ip=209.85.221.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1787908046; c=relaxed/simple;
+	bh=xVxY45sxyo2kZ1v8r74VlABGlXYg2ltKQ96hThjr30U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PZmETu1m0WVuyjGBZa+WQYPuiAYeZ4w/r9kx24nGc/G5lPQIu9srKaUQZnt47+nmZEK5Kl/X9eTO3CBZ6vFoHHo9bnjgPih1FI52MsPeHjWjIhBDO1Ri3IT0HPUB1ge3a2SR0cBflLcAnKrhI/XQZXXKKwSHdNjdkWWK2n1bCik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ep2Ot8PB; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sf70v3ce"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-482e12bb58aso390406f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:06:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787907995; x=1788512795; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zzb8PlgfViPl/NYp5cLrJkPm0ZJi/EOuK09lOiGeepg=;
-        b=sf70v3ceUxh4CMMaxk81qZYF/fIXWPC/leuf+k4wCo4gjw+rIv2Lcw2e42rjK3Z/5H
-         5wcA6vK+w9BDBAlU+NjiIrb7m21Nj56CX5WlxfseAnD8ZfLi/N8mkVoiX/cvPE0RrcnG
-         paqhMbq9avJunQtFvRCgpG5Rdp9EWnDa1RcuRRnbIKuumbLqQPO6u85ga8khKJW3l/gH
-         oZZvrntQ6Q4VGYLIKi8x+UuT8OcEJwv0nEfooo65X0IS4SQaR9l61qCFxevFgbTGgDTO
-         l6DiFYQpJIVP+z1zxSjGgb+Wn15qt5pLfyIqN2R6pZww9kx77QuC1px09Vnsf41u80l/
-         74Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787907995; x=1788512795;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zzb8PlgfViPl/NYp5cLrJkPm0ZJi/EOuK09lOiGeepg=;
-        b=Bj+rOWwlt/Ex/ToXLxmO7jejlA7l3ekU0zGZ7R2R0iI/SoAV/3D5Tuw+ukJmACwwMj
-         huSUF5Vr0iRiLnVdSxiuEsXadcSLYioC2H5w4qHjhZYgdSLgQKTNPhWYL+tpj4eSOdT3
-         DqW92hQsSTeq26AZJzRawTCZXEL63Q1EVeevb3waSdBBkLwYINSE03CoU5lnRY87qjzr
-         MwuBAmGZmD4lYf51sl/uH6SdomSwNgdkrdk8UG8j5dcCeSeLfSKxca6g6sviuJG+RTl8
-         S8apFnOd2ZI1p3tF9KEHXZIwWPBJPHq3s5Nns9fKge4GVa/7LLFJW9jl5x8p59pthCeh
-         Hzxg==
-X-Forwarded-Encrypted: i=1; AHgh+RrRUIm04gY8bx2Ep4QedDXetLMTr9via9y4Z5s3m1SJzjjpckV6A9rqgA+ldfL424NeRjb4nf0YSNX6QhY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpoFUBmPrPQXUFXpxsjBKEhTokryYIA2I8SOht0bdIHnUbCFYW
-	9DCiwKB/GdtAtDH5oR2C3uEe5p2b/RHAZlPiWHgVPlYDBsGMZgXCWSAWqaphzNQEAKj4E6Z2CwA
-	HyBFZUpe+vkZ6AizLDA==
-X-Received: from wrue10.prod.google.com ([2002:a5d:4e8a:0:b0:47f:cab3:d461])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2c12:b0:47f:80d1:be0a with SMTP id ffacd0b85a97d-482f79c7697mr7235087f8f.14.1787907995309;
- Fri, 28 Aug 2026 02:06:35 -0700 (PDT)
-Date: Fri, 28 Aug 2026 09:06:32 +0000
-In-Reply-To: <20260827150719.109145-1-georgeandrout13@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ep2Ot8PB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1n
+	fvSbyXaygGDA9i7aXU+p5NHnBngMiGbJBtvILo9no=; b=ep2Ot8PBv4cG1dA+XG
+	EW/ww9dNvYTLLGRNbuayPsG/f2D8i964U7XfOQYx7oNErd8Sgu1hxBmSUkPQxqxL
+	WAPpIEJd3aujYYO+8H1Hs2MldsKJjtA+OcYGB9Xc4TfxvVr8E/cmoTv93yUOuElS
+	uSVUzo9IrUhsFIH5jbS6AanHI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDnj3CLT5Fq7b3+SQ--.22427S2;
+	Fri, 28 Aug 2026 17:06:19 +0800 (CST)
+From: oushixiong1025@163.com
+To: David Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	spice-devel@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	Ye Liu <liuye@kylinos.cn>
+Subject: [PATCH] drm/qxl: Add pixel blend mode property
+Date: Fri, 28 Aug 2026 17:06:08 +0800
+Message-Id: <20260828090608.792944-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260827150719.109145-1-georgeandrout13@gmail.com>
-Message-ID: <apFPmLLkH-FBXFdz@google.com>
-Subject: Re: [PATCH] rust: bitmap: document panics in `next_bit` and `next_zero_bit`
-From: Alice Ryhl <aliceryhl@google.com>
-To: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: Burak Emir <burak.emir@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Yury Norov <yury.norov@gmail.com>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnj3CLT5Fq7b3+SQ--.22427S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyUXFWDCF4DJF17tF1UKFg_yoW5Jr1rpa
+	y3CFWYyrW5Ja13Jay7Arya9rsxXan3Ka48Cry3t3s7Zw1jyrykAr10kr1I9rW5AaykGa1f
+	Xas7GFWDCF4UCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8pnQUUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Qv0BGqRT4vpewAA3r
 
-On Thu, Aug 27, 2026 at 11:07:19AM -0400, Georgios Androutsopoulos wrote:
-> `next_bit()` and `next_zero_bit()` use `bitmap_assert!()` to check
-> that `start` is less than `self.len()`, which panics when
-> `CONFIG_RUST_BITMAP_HARDENED` is enabled. However, neither function
-> has a `# Panics` section, and both document that `None` is returned
-> for exactly the input that triggers the panic.
-> 
-> Add the missing `# Panics` sections and condition the `None` case on
-> `CONFIG_RUST_BITMAP_HARDENED` being disabled, matching the style used
-> by `set_bit()`, `clear_bit()` and their atomic versions in the same
-> file. Also add the missing blank doc comment line before `Returns` in
-> `next_zero_bit()`.
-> 
-> Link: https://github.com/Rust-for-Linux/linux/issues/1252
-> 
-> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-There's an unncessary empty newline between Link: and Signed-off-by:
+The qxl primary and cursor planes expose formats with an alpha
+channel but do not create the pixel blend mode property. Since
+commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed") this triggers a warning during
+drm_mode_config_validate():
 
->  rust/kernel/bitmap.rs | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index b27e0ec80..b33f7ce5c 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -459,7 +459,13 @@ pub fn last_bit(&self) -> Option<usize> {
->  
->      /// Finds next set bit, starting from `start`.
->      ///
-> -    /// Returns `None` if `start` is greater or equal to `self.nbits`.
-> +    /// If `CONFIG_RUST_BITMAP_HARDENED` is not enabled and `start` is greater
-> +    /// than or equal to `self.len()`, returns `None`.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
-> +    /// greater than or equal to `self.len()`.
+[    4.252654] ------------[ cut here ]------------
+[    4.252676] [PLANE:38:plane-0] pixel format with alpha exposed but blend mode not setup
+[    4.252719] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+......
+[    4.253089] Call trace:
+[    4.253091]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+[    4.253177]  drm_dev_register+0x1cc/0x2a0 [drm]
+[    4.253262]  qxl_pci_probe+0x120/0x1e0 [qxl]
+[    4.253277]  local_pci_probe+0x48/0xb8
+[    4.253287]  pci_call_probe+0x70/0x190
+......
 
-This wording is a bit repetetive. I think we can simplify to:
+Blending is done by the host with premultiplied alpha, so create
+the property with DRM_MODE_BLEND_PREMULTI as the only supported
+mode.
 
-/// Finds next set bit, starting from `start`.
-///
-/// Returns `None` if no bits are set on or after the given index. The
-/// index `start` must be in bounds.
-///
-/// # Panics
-///
-/// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
-/// out of bounds.
+Reported-by: Ye Liu <liuye@kylinos.cn>
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/qxl/qxl_display.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Alice
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 7f4178800afd..8193d08485f2 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_framebuffer.h>
+@@ -991,13 +992,25 @@ static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
+ 	if (err)
+ 		goto free_plane;
+ 
++	/*
++	 * Both planes expose formats with an alpha channel. Blending is
++	 * done by the host with premultiplied alpha, which is also the
++	 * property's default value.
++	 */
++	err = drm_plane_create_blend_mode_property(plane,
++						   BIT(DRM_MODE_BLEND_PREMULTI));
++	if (err) {
++		drm_plane_cleanup(plane);
++		goto free_plane;
++	}
++
+ 	drm_plane_helper_add(plane, helper_funcs);
+ 
+ 	return plane;
+ 
+ free_plane:
+ 	kfree(plane);
+-	return ERR_PTR(-EINVAL);
++	return ERR_PTR(err);
+ }
+ 
+ static int qdev_crtc_init(struct drm_device *dev, int crtc_id)
+-- 
+2.25.1
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
