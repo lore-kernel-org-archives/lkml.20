@@ -1,86 +1,77 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EFC449992
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6215448BBE
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787920408; cv=none; b=ZkdQEvdP8qK1cgFgWSXmH6lCxfvZzobv/JVZ67+tfnce211mGAJJIZJCDPeOwKJfaS7T7+be5enjs0xAF52EV7PZit+rx7BXZ2FItAh5n8y+EM5T0pgZyxgBz02ebes+SKm/lpQqrG3f9zWOBCBg8kWU2UXPzC3Q2F4aH/oWLmw=
+	t=1787920456; cv=none; b=Qrm9vpjnj4NNEDku3SnanSCDVotz3D4VeEhDHGEt+iNL17bRbjG6hThc14IeWvugB4FCEgA9OgDZASDcK6S7f1KINFRzjWWjhdTRYiwXuNVuLtTzCcs8JzNFja/IzFxDpwd7QCOHSPrvy8PMOS5qGPHkfZEoACsX67zsVP+G5rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787920408; c=relaxed/simple;
-	bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sq3OqiQbESGct5Y5+zlrPOrdpECc6lFc1Aodcn5Bz+v4qypLF2e3T1msSfiW/x/UgKP7mi5616eW7z2V3rFe9/gffSpVW4xbdf1xYdmHzTO7WEHzLfUoYf8ESbkwjSWNfqfz+XMJqCqOi+OIndgjiKDTVw2ItVgzR9xBsia6IH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BfVCfqsl; arc=none smtp.client-ip=209.85.128.172
+	s=arc-20240116; t=1787920456; c=relaxed/simple;
+	bh=81KqIzUsGy1qulpSNvHF5tHp4EdkXa0CFFj1Th1yeB0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=u7TeVpgRoJVmaUzBDubkQquwz2al59p6MlovUSc0YWAUmR85rVld2jLZhK6JtGBWqQFQhqUS/GDsIN31uxi7yRfQLb61AUa2KQeK477hdE1sjwW+b3UNDrgeENdnq9tsIxPM3GmB1Fhpaqk483K+e/7uCjk3mqhphMdZIbJb2UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=InBfzPrF; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BfVCfqsl"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-85aeb506b78so11415407b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:33:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="InBfzPrF"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-396b3d0df94so1022652a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:34:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787920394; x=1788525194; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787920441; x=1788525241; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-        b=BfVCfqslo3GL69I4crMY3JvAWuL1m8zKifTWvhLHX9ZJ0lvcRnd5tgmPS8Iawn1TAC
-         AyJoMvWzkWa9omMRR+MBal0KqwgbkTGs8QVDnqjjQwwlwgQgw0KFdKTrzDTFz7eKDCwm
-         9/mRXG0nRs59A5rIQjS+D4dCD9dXwbo2m5v9UhjHUCaZLZOIWbmr4fqc9Ol5E4/CrktN
-         TPb1hnJ0EoD494j4suTvjbCFRcAEPUAflFQ1YHVSVNUVoVt428h9r2eiLhrEREumUo6c
-         RCvdaGqCOaULFd5+EgTVuP2WqtyY2Xi9Pba3susZ034rQMDHhvlvldqKoBAUtBlkUGEP
-         HZMA==
+        bh=81KqIzUsGy1qulpSNvHF5tHp4EdkXa0CFFj1Th1yeB0=;
+        b=InBfzPrF6XcLPpVlbWPMag5qtY0BcTyp2hdXOghKgCSlGAeGp8/HPnWRasLxJR5fvw
+         bXpNzWyw/LHMUd2L33OKCgHOKS1H5i/dr3Tbt3xx9an6ztswKj19qIpjlRQynoaWqsOj
+         kaJdqD0mt5UDBszcWI2SL30+qbedy3thZOD1qSAyRe2y3NjJh/zIn5Far0ZtGtEHMc89
+         3AaOjdKR5/3akHFrGzec7sc0x3dBEEKWhB4sHFpolr44UNKLPhaEk1sLvzbXi7LznL71
+         mf+4Oe8u1BU+n7Mmb2MiBn6/HEs6M8LPjOlYg0h8Uxl7vCNdTnskR0MURjFE9/7mqjme
+         2mmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787920394; x=1788525194;
+        d=1e100.net; s=20251104; t=1787920441; x=1788525241;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-        b=NGbXx2qcBg5wqQ8042WbdKByKUVBtLas0mR9+N+45pGXrg24IcnzeDZzesdPEOfwpj
-         qekPNsmWv+22L5OCt/zzi2iWsqQvBerJmCia2DAWtF+37d+2OPaM27mTz9uVhc09EjWa
-         d4tegPF2YHVc/PmPrKyT9vPAxQk65CjUw/kZTN2A6UwmNUL9Mk1xcYY21JfRihWlrbiN
-         eDYNIF1oegWl+zbbyvwJLRV266JhMhG7v6KnTGywj7KoWXpmX3oJFB9orY8Ye5dVN2LK
-         1Wi3K1bFICWwhichNtjkmLPlLHHwadezkrTec+svlN/d/0HSoCP5/XS/vf+Wwqhtqa2f
-         kdbw==
-X-Forwarded-Encrypted: i=1; AKwUvByOXPFgolJVedb9tvoWAp8TPeY2mQ7P2fs5kQ7XfzbSRmn0xz6y73jat6WPMrRplZePBOMLfufITwzOZzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcLj/mSGGKM1jX3FXgM2tAVBRJD01IMbPEdgtVi946Xw6WO7I+
-	NVxpe3qYuDorSDLngz9BRns9gU2Xm2K2IaW/1QsYEZZqgrJ6F/Vu5TiL
-X-Gm-Gg: AYBFou1x1yG16KTyYTrt+1v7XnxdRrhnBF7WSYPJWPt0FiNrVyBp1TeqijL7DcTt621
-	LJBURfSeFqwbJtLq8dgU52oDUi5wogwQ93U6ffYdSI1Gi5HYAmkCOLnwPs4IHG/M3w+9JjBPX8w
-	ZWSs8sCIaqAuKW9AkFWorlz012xxcKusEAuc+IqEXp6RS+k+q50Sd7zvfQD8VfaJmjYCjjcJi3Y
-	mbws85kQt1oBQxXmq734yjpLOkV28oAMyR4FKCeI44fQFxFpqTl9JalWt9mpFbcHkiBfOAPgjfJ
-	U5ezCNvwHHtrGQEFfPGb2EvvDf69M5gF19KdMdC9enqKGl89tLsUGB7Jxk+aHvLbUJv94uM4y/j
-	A+nloEC87YTSRwFCpWbN1ZxZgNRQXEro0vjINdTgBtbWwZCpAX1swCArQ60Tm8MjZrwSCGCNXP5
-	DsblQKO0HQgKVNHBUq2s23ElUkHziqh1xCGr0MB/GChIQh45yQ4f8Z9EHA0eqz1BT4Wl4=
-X-Received: by 2002:a05:690c:6ac6:b0:854:4fdc:cab9 with SMTP id 00721157ae682-85d65ee9995mr32089877b3.6.1787920394110;
-        Fri, 28 Aug 2026 05:33:14 -0700 (PDT)
-Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5f4f3b6csm5435987b3.20.2026.08.28.05.33.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 05:33:13 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: AutonomousCodeSecurity@microsoft.com,
-	Dai.Ngo@oracle.com,
-	bfields@fieldses.org,
-	blbllhy@gmail.com,
-	cel@kernel.org,
-	jlayton@kernel.org,
-	kys@microsoft.com,
+        bh=81KqIzUsGy1qulpSNvHF5tHp4EdkXa0CFFj1Th1yeB0=;
+        b=m9aIrr6iMkSGk2zvlW1FJu85Dcu180qXZVVoxT+UelUYM75ZhjbBpdULbahSwUl/sQ
+         HZLJAjqP5BmQGgVSbM+SHDdnTJjDcrMsB8tf9wR/x3Q1e1EocydfN0kqYka54IOpDJ/P
+         Ldm0sG2tjLYjiXJlrfet2jLsF2Rw6rNJITAlTV/vrlRflmzNHg9cttLwYVCV8YN1or20
+         bYFX8QUhmeGdFItB/15cn30SItGR5DJG2ppnOiq9SKVMqdq4V2MfLyoVMUq8pDJO8rFK
+         TM/ckfFU0Okwoi8pVj0Ah5+/f6N2o9ouZ8Lf7UmMZxFDuwE0c3m/hOyncct3CmJI9NSI
+         hkHw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqo4F/Ag21YrsA6Lfs80sT3HIXEpbSzFn4en2RzpIomso+LTIuf7dK5kpU0byH1PcGsKmwPOFTgWI0T9Wc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhpJSCbgx3NmccZY8/1neK/8OdJQbH3QVomRrdshmrLIGRAxRB
+	6EOSZNT6z1CsBZJessOaDWwdpV3F6gUSJRYvs+KYzMxge+iJcWWRNv4i
+X-Gm-Gg: AR+sD12nKqyBi6T6fn7AO4NH14VUN0MAX5Q+xlTF0Wk4EZnr3nsrjpS+BL6EGXuUKEo
+	YgjYh3OAi3Sp8lL991PGt4xQ0ipdqsWrY1F1AaVW16FoGSFu1WNfy+sVdPnopPxupzMi1laG+uQ
+	VttJu04Idm4wbrGxr6DbJkGoPEh/8j5SG7h7Vn4ojUVQeEPTgkUclcop/s2hNlpgXprKOXfkyjz
+	wWYm9np4wxo5Mt8DC98rjnKAFBLRizYLWocxh/vBmQ5QBvdDyc3PsmD4MRelo9yqo2b+3geoGY3
+	Wn94IiVqW5cxH/2396OJQ9/eo5JN4weORciooDlbhsqcukuAuut5cKW4LK8KC732JYzLUvHw/zL
+	5IH1riVjTP8EhiuCanyHv6WHQfP13kN8yMkDlqlmcIQavnoY5MxMQyDaZ7g/9qlUts+9eG3V3/o
+	te/8QUlYZqeQ2+w3zN6CoVglJS0egyYI0UY3cjeK5dH7jMTYR5ldTJgOKbUroUjJupJqvc/0dB8
+	Q==
+X-Received: by 2002:a17:90b:164b:b0:37f:fdc8:71b4 with SMTP id 98e67ed59e1d1-396d0e27d7amr12963110a91.2.1787920440975;
+        Fri, 28 Aug 2026 05:34:00 -0700 (PDT)
+Received: from localhost.localdomain ([47.100.192.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1868086sm7009846a91.9.2026.08.28.05.33.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 05:34:00 -0700 (PDT)
+From: Yang Wen <anmuxixixi@gmail.com>
+To: linkinjeon@kernel.org
+Cc: anmuxixixi@gmail.com,
+	exfat@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com,
-	tom@talpey.com,
-	xmei5@asu.edu
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Date: Fri, 28 Aug 2026 08:33:12 -0400
-Message-ID: <20260828123312.26927-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
-References: <2026082828-palpable-dingo-241b@gregkh>
+	sj1557.seo@samsung.com,
+	yuezhang.mo@sony.com
+Subject: Re: [PATCH] exfat: validate vendor allocation directory entries
+Date: Fri, 28 Aug 2026 20:33:42 +0800
+Message-Id: <20260828123342.1095335-1-anmuxixixi@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAKYAXd9cKQ_Z9ZXRuE8qgA9qHMxO-__pt5J9xxDTyJ-E8PkR-w@mail.gmail.com>
+References: <CAKYAXd9cKQ_Z9ZXRuE8qgA9qHMxO-__pt5J9xxDTyJ-E8PkR-w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,12 +80,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please use your microsoft.com email address, and not a random gmail.com
-> address.
+Hi,
 
-Sorry for making you raise this again. I will hold off on new patch
-submissions until my approved Microsoft email address is available,
-which should be soon.
+Thanks for the review.
 
-Thanks,
-Cen
+EXFAT_CLU_TO_B() was replaced by exfat_cluster_to_bytes() in the
+current tree. I missed this API change when preparing the patch.
+
+I will send a v2 shortly.
+
+Thanks.
