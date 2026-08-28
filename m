@@ -1,74 +1,67 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B33D5C26;
-	Fri, 28 Aug 2026 11:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6F53D5C26;
+	Fri, 28 Aug 2026 11:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787915509; cv=none; b=G6TdNt65ie497MeGi1eFNOSEKUj1BGoTbI0ZGk4pfkmnZxfIlpK1fngCP9OMZ8ytNy2AdCi0URUsCW34WNVS5u/4FEvagz/LLLMcWDixXqpak8tY96fXoaHgpRan2wMlTCQFgiut7vOUmKgncc1JBzOh7C6+BJRsJMHwrFy4Dms=
+	t=1787915574; cv=none; b=oXxqqSr5mv5hVedbhlbcnVkPwyNLxWpaKu8LwFJ9Kt/M2ztqexRM0mS8ZzaGgiMa3XiEIac1mv44mu4J3I8qsipcZML2pBmMXDzy/up6iyWR7zShoGYxWa/2whCkGKVqEMDAVz2WxdieWa545kKwiv8URqWIpUULhmeO9UsG93c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787915509; c=relaxed/simple;
-	bh=PSo9BgFYo5VyoCM7hYc6YzcbekbiINnRaRZN56rwelg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rMWEOu3+lnp2EVS7ijj0UtBWZl5c3rFzzgbZzUPKHRk48J5WW9FK9qBajSL1488s5WuawqL4NZA5jg+A1gV3hF/tWt66+xt3ACvYviHIBgM+VU9u2DE29DCw+jDYr1JGAeA1/p6Naf1uxajI64UA5xJxeWLjiuV1kadbUV1i3rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=npr2XV+y; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787915574; c=relaxed/simple;
+	bh=XRNRnn6ZgGLq0POn1DXj2cJ8HHP1EG+gXtgTYdBgbUk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=h3U5YLqJtwIyIdcvm/WgK4csPs0QQgXjPixbvWM/yqoT/BX4mx3oyrfCo0+MrpkX3IxEZCn5PoRMyJMITIvK3zkFKmEs1odK9shhfhhLDDN1XMcLX/pqp2e9HRvkGQo8gEdBR/cylS6SmjgSFfEzD2N75k8G+skEX8flJlcUwgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev; spf=pass smtp.mailfrom=ghoul.dev; dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b=dBfr4OMp; arc=none smtp.client-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ghoul.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghoul.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="npr2XV+y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=PS
-	o9BgFYo5VyoCM7hYc6YzcbekbiINnRaRZN56rwelg=; b=npr2XV+yMJSpydLfyk
-	H1EV4PH8+x6o6zn0++6i2MGoHspRce7pzouCMsu1pQpmWhXhuS18qsO/W+PB4HOO
-	N65E1Ie43d7zpHRfoZ0oF0VifIAqCpi/8b18fIudQpCv3lMYRc/zqqCKs1ap7xyE
-	P3W0/t+lyFgs1VbFSFnUdMTKE=
-Received: from DESKTOP-CK0O7BF.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCnZtXgbJFq+6M2SA--.41442S2;
-	Fri, 28 Aug 2026 19:11:29 +0800 (CST)
-From: MicroFish <f13208471983@163.com>
-To: jarkko@kernel.org
-Cc: f13208471983@163.com,
-	jgg@ziepe.ca,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	peterhuewe@gmx.de,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
-Date: Fri, 28 Aug 2026 19:11:41 +0800
-Message-ID: <20260828111141.1515-1-f13208471983@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <apDseLwm7saXAdbd@kernel.org>
-References: <apDseLwm7saXAdbd@kernel.org>
+	dkim=pass (2048-bit key) header.d=ghoul.dev header.i=@ghoul.dev header.b="dBfr4OMp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ghoul.dev;
+	s=protonmail2; t=1787915567; x=1788174767;
+	bh=rg8uEe+wufGfVbU5+LcXju5ksUhut0OdZlsoESe3gbg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=dBfr4OMp6du5FUGptXL1W91y7zv6pfo5tGugkq1dY47Vufjs12T4Po8wiNJZAfYgf
+	 EfFnhoH5gNjzkUe+1P0YGReGXRWc6V2tjDkSoy+obeU6u+6mnEmqYBL0weW8LfM6xK
+	 JnbV//8mgVNnqTYGZF9R/RfOZxJ/Vk3G+QWfmUN1CaBYEWiI/M7LfZjtynPuBMCjEh
+	 xDB9Lwlly40ykLnJemeu5x0pLcpPKwU+h1rOzIAX5BYUM+A95jGchJTESiyBgU/5pK
+	 NgSYRFoJfzkaDzSa18nfB6E+KqXZfZiBMDcZ7i/GS5ecJGzF0qpEykmch0WPE6OzCr
+	 0sMXXaa6Pv9Sg==
+Date: Fri, 28 Aug 2026 11:12:40 +0000
+To: =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>
+From: Ahmed Yaseen <yaseen@ghoul.dev>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Ahmed Yaseen <yaseen@ghoul.dev>
+Subject: [PATCH 0/2] platform/x86: asus-armoury: fix notifications for grouped attributes
+Message-ID: <20260828111232.74443-1-yaseen@ghoul.dev>
+Feedback-ID: 177610485:user:proton
+X-Pm-Message-ID: 5bc87fb10b586217d12de0de85fab7d755aac6b3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnZtXgbJFq+6M2SA--.41442S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfUeOzsUUUUU
-X-CM-SenderInfo: birtjiyyuximiyt6il2tof0z/xtbC0QFSqGqRbOECVgAA3I
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 05:04:54AM +0300, Jarkko Sakkinen wrote:
+Both fixes are the same mistake: the code identifies an attribute by
+attr->attr.name, but callers always pass a current_value attribute, and
+that name is always "current_value". sysfs_notify() therefore resolves
+nothing, and asus_bios_requires_reboot() never matches.
 
-> Cannot and will not move forward given undefined and open set of gear.
->
-> There was also a corrupted email address in the CC list (microfish at
-> kernel dot org).
+Patch 1 threads the group name down to the notify calls; patch 2 uses
+it for the reboot check, so it needs patch 1.
 
-Thanks for the review.
+Ahmed Yaseen (2):
+  platform/x86: asus-armoury: fix sysfs_notify() of grouped attributes
+  platform/x86: asus-armoury: fix pending_reboot for grouped attributes
 
-The affected hardware I have confirmed is the Lenovo ThinkPad E475
-with an AMD APU.
+ drivers/platform/x86/asus-armoury.c | 23 ++++++++++++-----------
+ drivers/platform/x86/asus-armoury.h | 16 +++++++++-------
+ 2 files changed, 21 insertions(+), 18 deletions(-)
 
-This is the platform on which I reproduced the ACPI NVS and TPM CRB
-MMIO region overlap described in the patch.
 
-The incorrect CC address was my mistake. The correct address is
-[f13208471983@163.com](mailto:f13208471983@163.com).
+base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
+--=20
+2.55.0
 
-Best regards,
-microfish
 
