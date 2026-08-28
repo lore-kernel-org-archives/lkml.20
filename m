@@ -1,123 +1,163 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206753B0AFB;
-	Fri, 28 Aug 2026 09:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBD03EB111
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910917; cv=none; b=WIJtYYzYPpPCvSMZeLfwc1ySXgazUGbrAxODHa93mgpcGrpEiLZjWpgLjvDoMizMaCY5K90BEEdyPINb+aN3oGKkF2fEvYyXNK8x6NUvlh3dDVu/Ca6iw8Y0JKAIgutiLgl7UQS3EhefRFLRUU6eZuvVo3zt/FWWnuX54YNvqeA=
+	t=1787910919; cv=none; b=PWyBoDbcyWGe0Z/g6poOtIAeCFhq0HNRQqhQYjbMc0CLbA1erBABlpGP0hB3lspctPJ0EEvbGJ7n+hvN1/gEqgtFvtoGngKQK4nkVodxv2JLSu+9P54jRBdQ+d/RkZ1DX/YmZeUiZsnyJD8KYGOts4uoamajuwzNQwQG+kv6MK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910917; c=relaxed/simple;
-	bh=6oeqrrY3k3q1ZVQ2gGGMhJWL9Q7YvpYDFMSe9Q3tE4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b36qM+czL/pN7uGgS1qwUZHlJeP7OFbLfYNPo0uQ/io5lQjWI2CtrsIVWWX846t/TnEBQEsYN7Q9euK/ge53q87nHEP4qDjLiGtDT/8LUSr1KX8ooPXyleEwCb3TtrTRfjnEgRREvQmpN7dU5mXBh0fDaNJmeuzzedqF1fRzgXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fSkxkPMb; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DaWZaMUw; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787910919; c=relaxed/simple;
+	bh=H9cY3HUqGT9SKI+YapI58fZaNOQJ3Bii6JWiY3YZ3sg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rkJWgTrYUGB0nzJXMegkgt1M7R9mj2uxOrqmkSTagEIva0R/TGrSOtTAJpoUubhe0wz3extem9SBzLtjLXbWcrKSGszkjfAo9DAjWbKn0+dGW0bWq7VmF5WcNgzatE04vkfW9m/qFC+uDzmp0+tcpH6oPRv4lzBAbPI0nwZzJFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahmab0ox; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fSkxkPMb";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DaWZaMUw"
-Date: Fri, 28 Aug 2026 11:55:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787910912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HfL4Lo4u9mCbo/tmoWJN+iDCB3yeeS2jnrmcd3fTXps=;
-	b=fSkxkPMbo207cmjv/vbHhPd1wtpBWn1vUFASAs4KQr4I+QSwfsgvKb+O3uKLW2OvaXQReP
-	VkEUCepmHO30eVxgs0lBVZnxv6JrIefLSBXT5KydWyezcRXU1pq46TGbF1HSGtDBPPr99A
-	2nfYWZ7ehNDPEbMEdCkieEPZulV+1CagHXYuIT05RKfrLsLv+ivp3l/5JGe5Nub8wZk+li
-	Xda/r+fYYWOEhF8g1ZS4fjZyWrgT+5rrIyFL0JlCQYhw6RbIP/tWAxMvTlyhZ4qF8h3EtY
-	TQysGAWc7zEUNmJV/zzP/lYVYjtCtsX1CQ8a4AvYx4sMHXDoT0Zza8tvPaI1EA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787910912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HfL4Lo4u9mCbo/tmoWJN+iDCB3yeeS2jnrmcd3fTXps=;
-	b=DaWZaMUwsTr2V0hzD3+LQ0nml7NJQd3XP8j/hrwD++N2PID7st9W1OrcmihxPzH2FXWs3o
-	C1Y2/KI9lJO5xEBw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Rafal Ostrowski <rafal.ostrowski@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
- DC_FPU_{BEGIN,END} with PREEMPT_RT
-Message-ID: <20260828095511.zrVXJUrU@linutronix.de>
-References: <202608061233.eufnR5Qm-lkp@intel.com>
- <20260807124944.154232-1-spasswolf@web.de>
- <20260827124931.ocQEF6MW@linutronix.de>
- <bd31938661f178abaa68d3958bacdc1ebb70ff5c.camel@web.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahmab0ox"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d58efc7356so7536685ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:55:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787910918; x=1788515718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
+        b=ahmab0oxT8Fa6k5GNQSMwTjCqCY9Oc6v7Tk5JV690yv+0YATqCa8Yr/9eEXhJFJ1Cd
+         yUhwWK3EDEoGU2PZRn9pjuYSuscyzz/TPybdKIXvlbeGNhoJJcBBPjxM8r/kHQGC1T1H
+         z9qYUuZhpDSof/UsWlE/SYok0PebPNrC7EWS+vfrQBt8gJTc5iVyhwEbdk24fk/RdmPc
+         EHaAHytu+r6JuaTllP1UHCDn7honIrtv/xbX74OlW+a32+W1xLrZmciTZwjBZ9i6K/gE
+         +hL5lGtQ2c3ReWYscp9HV7XfeOQN46H+x/XAAE0fW7Hkn1CKCWU4b2YaNyA+Dg+UmLjG
+         fkcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787910918; x=1788515718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
+        b=qLvmjGl/8/Xkco0ZVrz+wyLsdiqxDlYUf7e55FsRcSUdB83DaHxnyyVRlYhTcSjqmH
+         P6z5D5AP0aDhcgfsUVg1NcGiprfcJQ1UYq6P66T1WHGxJWxPVO9+UXovOEQupb2+8qxZ
+         WlDysptY1Z4i83ovhnxrS7rLqulIzMUpjAwK2VFYpo28yiTF6EQaMp4ErXJxcir8ZaOE
+         28d470ITgIlcD6KS4xNpVQ4AeeFEtOanqOt+yHR0pQbmvZWossbDTbos/FggXzouKhVy
+         dduZtyoqWTWqW3E8GAKBpi/55/1s8Q0cpI4dSr0FuuBYFUtgo/pwwxjE6IOdL/NMcJZB
+         rqyQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpOjomBzteMFDBa9HV5p8OvbmmQEYf3GNFo2QngJgKq7M5506eyBLu9pN1zgR6m6t7tBhiNXyLmlDtfRyo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlq/fwpNeGCA6cML1R5yIWQyO6sA015bhA+G/aV+Oy3zM2N9jl
+	P2gYVZoP5Ggg2xjf8ccYkZNDa848rKy5t7u65KANwsC75GtcCIvbgKwH
+X-Gm-Gg: AR+sD10sO6RMMy69ibBVC4SQN7b+x3RVtDIBRZFXCOKdTD78mGgbK5uDbqdaQr2NO4g
+	sqeUr+21riqKhVKwP0faDLIHSoi0khawyoSPEgpwUyBuuxcj65NfJk1yUaDLF1TBkxUl/MNy2Fu
+	k/0zYehI3PrMbb05KmJWdB5Rz5EPfAhg1mNKZVEUSphknuW8pDcbcaNVznYYdNzsV4q/BnVIjPe
+	EbKsT6elmTu3pIH/gLvt6DYbEktHfVQK1/TFHmBRoeXvP2Kxtfv6DQW7ImrPm4aObkXF2DnE62c
+	nO1gqC7rzXVLZ9jWJnFvctNjpXbOef9Rj/uSEaX6pvm0oqy8dYgHzv/HEq62QlWP8Cq+uvQxet5
+	IZDkEmrMJvYZVR2gNAnAuZLN6IVxMr5gAPfUzcqPodrpZwHMzWi6RCt/0Y7CmskyxGB11ezJ6+C
+	sfKEQSFqEIBXHpS4kpNP48VA4q7/IxVGMAx/EJX8l9vYpSnRtxtsgvhhInDjMdhfBpj/t5r/bmS
+	n4IBopjN5nl7PGPgjROOsvq9L30bebZOJragNnND8agwgGfpsLP
+X-Received: by 2002:a17:90b:51c7:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-396d0f52b2amr11522464a91.15.1787910917577;
+        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm1872577a91.6.2026.08.28.02.55.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Robert Marko <robert.marko@sartura.hr>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>
+Subject: [PATCH v2] dt-bindings: fix typos in various bindings
+Date: Fri, 28 Aug 2026 17:54:59 +0800
+Message-ID: <20260828095459.834657-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
+References: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <bd31938661f178abaa68d3958bacdc1ebb70ff5c.camel@web.de>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-27 23:07:08 [+0200], Bert Karwatzki wrote:
-> Am Donnerstag, dem 27.08.2026 um 14:49 +0200 schrieb Sebastian Andrzej Siewior:
-> > On 2026-08-07 14:49:42 [+0200], Bert Karwatzki wrote:
-> > > On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> > > converted to rt_mutex. dc_create_plane_state() can be called while
-> > > inside an FPU-guarded region, resuling in "scheduling while atomic"
-> > > errors on PREEMPT_RT kernels.
-> > >  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
-> > > Also fix the error path in dc_create_stream_for_sink().
-> > > 
-> > > Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
-> > > Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
-> > > Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> > 
-> > Thank you Bert. Got this somewhere in the meantime?
-> 
-> No, this is seems to be stuck somewhere ...
+Fix spelling errors found by the kernel's scripts/spelling.txt
+and codespell in several devicetree binding documents:
 
-halp!
+  - "curent" -> "current" in adi,ltc2991.yaml
+  - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
+  - "ouput" -> "output" in delta,tn48m-gpio.yaml
+  - "redudant" -> "redundant" in trivial-devices.yaml
 
-> > 
-> > Could the FPU regions with disabled preemption be limited to where we
-> > have actually have FPU usage in way that you don't have to worry when it
-> > is needed to use DC_RUN_WITH_PREEMPTION_ENABLED() and when not? Also the
-> > dc_fpu_begin()/ end() can nest and if they do the usage of
-> > DC_RUN_WITH_PREEMPTION_ENABLED() is futile, isn't it?
-> > 
-> 
-> I'm not very familiar with the amd display engine, and it's a lot of code,
-> but there I think there's some room for improvement, e.g. dml2_destroy():
-> 
-> dml2_destroy is called from dc_state_free() from within DC_FP_{START,END}()
-> and then basically just calls vfree with DC_RUN_WITH_PREEMPTION_ENABLED().
-> (directly or through dml21_destroy()). Here both the DC_FP_*() tags and
-> DC_RUN_WITH_PREEMPTION_ENABLED() could be dropped I think (not tested, yet)
-> 
-> Regarding nesting DC_FP_*()s: When I was searching for the cause of the
-> kernel panics I monitored every DC_FP_{START,END}() with printk(), and I
-> don't think I encountered nesting (the logs are lost unfortunately)
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+---
+v2:
+- Use consistent identity "Zhijian Han" instead of the login-style name
+  "hanzhijian"
 
-I am not saying it is nesting, just the START/STOP API is able to deal
-this. Otherwise kernel_fpu_being/end() could be used directly. And
-DC_RUN_WITH_PREEMPTION_ENABLED() is not able to deal with nesting.
+ Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
+ Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
+ Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
+ Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-On PREEMPT_RT it could be bad for the max observed latency if this nests
-or has otherwise an unbound runtime. For crypto there an maximum amount
-of input data which can be processed within a single FPU disabled
-section. The "cheaper" second kernel_fpu_begin() makes it possible.
-
-> > The first usage kernel_fpu_begin() saves the FPU state to the user task.
-> > kernel_fpu_end() does not restore it. Therefore the subsequent
-> > invocation of kernel_fpu_begin() is cheaper.
-> > 
-> > Sebastian
-> 
-> Bert Karwatzki
-
-Sebastian
+diff --git a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+index e3e668a12..698cc14b0 100644
+--- a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+@@ -14,7 +14,7 @@ description: |
+   details see ../mfd/delta,tn48m-cpld.yaml.
+ 
+   Delta TN48M has an onboard Lattice CPLD that is used as an GPIO expander.
+-  It provides 12 pins in total, they are input-only or ouput-only type.
++  It provides 12 pins in total, they are input-only or output-only type.
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+index 1ff44cb22..2210764a8 100644
+--- a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
++++ b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+@@ -49,7 +49,7 @@ patternProperties:
+ 
+       shunt-resistor-micro-ohms:
+         description:
+-          The value of curent sense resistor in micro ohms. Pin configuration is
++          The value of current sense resistor in micro ohms. Pin configuration is
+           set for differential input pair.
+ 
+       adi,temperature-enable:
+diff --git a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+index d073c51c2..e0aacecd6 100644
+--- a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+@@ -27,7 +27,7 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/string
+     description:
+       Unique EEPROM identifier describing its function in the
+-      system. Will be used as created NVMEM deivce's name.
++      system. Will be used as created NVMEM device's name.
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 2de8eb09c..719b82490 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -186,7 +186,7 @@ properties:
+           - injoinic,ip5306
+             # Inspur Power System power supply unit version 1
+           - inspur,ipsps1
+-            # Intel common redudant power supply crps185
++            # Intel common redundant power supply crps185
+           - intel,crps185
+             # Intersil ISL29028 Ambient Light and Proximity Sensor
+           - isil,isl29028
