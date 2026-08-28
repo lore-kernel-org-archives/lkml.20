@@ -1,50 +1,31 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 234E341C6A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADE442050;
+	Fri, 28 Aug 2026 02:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787883610; cv=none; b=Cms9yEQcR3dhpiPltGDKTTj5M67bZEe71Zd2E4BHV8qAAosM1027xXvDmMj79bMP4Z9W1R0igFV/H58MEXuLTtm3+veu9ZdfT9FqEYpVsiFNbKadVkrfcQKg6sb8MvMjTdwKZe67s+3U/t5uf2cByEPqpKkv8oMTdXL6iJIm3XU=
+	t=1787883610; cv=none; b=kHLvxsOl9lrCZNEGczP4Gplkc8+lVNazIC5xSkesKcLuxKvfLONXWdm7v92wlOE4y+bcQweS1VjASAZVptVlaOvEeYi/Ed9CCA7djhqthvAri5pXPXgtiluR35FPcZgZtsdQj/AIJdgJH4uRjpb56vF2vCTZ1fqhavyOy8Y0Sdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787883610; c=relaxed/simple;
-	bh=N8YoUcYf55pKilIHZSyoynPtdBHnkZFY/8EhO1vamYM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=snUIjPI/w9v5FiCBhgYXd4kaHRnKRDFcPnf7Y9hpom5YwLjwYc8k4pco7jAfmyqbiv6Z7j8Y3y7IqxuoPyIvzDA+JUN0wdViMDGC7gMG4SXg9xEFezxJwtQViIH4hkCh4OXNcgN3UVZT1eraf+kh36mtWwSD/uplze9c6HFe3AI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMXn0rTwz34Dg;
-	Fri, 28 Aug 2026 10:19:53 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMXl32BHz34Dg;
-	Fri, 28 Aug 2026 10:19:51 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 36E303104800;
-	Fri, 28 Aug 2026 10:16:08 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 28 Aug
- 2026 10:19:50 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>, <justin.he@arm.com>, XIAO WU <xiaowu.417@qq.com>
-Subject: [RFC PATCH v2 23/23] sched/debug: Print task preferred LLC for scheduler debugging
-Date: Fri, 28 Aug 2026 10:15:54 +0800
-Message-ID: <20260828021554.785781-1-wujianyong@hygon.cn>
+	bh=Xbr73mh4+G/LMHmEIOCSQ3lh2lo5ed90wySLdSSpMvs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HZyWE6ETfxZqv1NEbM2nh5coqOFHFRQZWygtewwLWXElqsM8qCy4PW7g5yl80zRlbCKGd1SjBu7GT1o4RQZO5eDCLa9nMVmlemWmMrQf7ohHLfMt+8fN4TN4ET/mpvYf6lppfyF5NTBIdHsI2ZZZgpi2a0Upqfo9q5hXniR0iv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3aEJO8JBqdjLWBg--.59165S2;
+	Fri, 28 Aug 2026 10:19:58 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: mchehab@kernel.org
+Cc: boris.brezillon@collabora.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haotian Zhang <vulab@iscas.ac.cn>
+Subject: [PATCH] media: v4l2-h264: Fix memcmp() size in B1 reference list comparison
+Date: Fri, 28 Aug 2026 10:17:39 +0800
+Message-ID: <20260828021739.25766-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,81 +33,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+X-CM-TRANSID:zQCowAA3aEJO8JBqdjLWBg--.59165S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UKFW8JF47WF13Cry7GFg_yoW8GF45p3
+	yrGrW3KrWUArW8Zr4UKayDKFn0qay8Ja12g393G3s2qw17tFs3tr4vyFyUW3WYkrZ29r4Y
+	9rWDKrZ5tF43Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjIJmU
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qQuVyhoQAAsd
 
-Expose each task's preferred LLC to aid diagnosis of cache-aware
-scheduling decisions.
+In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+check passes the entry count builder->num_valid to memcmp()
+instead of a byte size. Since struct v4l2_h264_reference is
+two bytes (fields and index), only half of each list is
+compared, so distinct lists can be wrongly treated as equal
+and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
 
-Suggested-by: XIAO WU <xiaowu.417@qq.com>
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+Change the memcmp() size argument to builder->num_valid *
+sizeof(*b1_reflist) so that the full byte length of both
+reference lists is compared.
+
+Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B0/B1 reflists")
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- kernel/sched/debug.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+ drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 40584b27ea0c..d18dbc1da67c 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -9,7 +9,9 @@
- #include <linux/debugfs.h>
- #include <linux/nmi.h>
- #include <linux/log2.h>
-+#include <linux/sched/clock.h>
- #include "sched.h"
-+#include <linux/sched/debug.h>
- 
- /*
-  * This allows printing both to /sys/kernel/debug/sched/debug and
-@@ -1304,7 +1306,6 @@ void print_numa_stats(struct seq_file *m, int node, unsigned long tsf,
- }
- #endif
- 
--
- static void sched_show_numa(struct task_struct *p, struct seq_file *m)
- {
- #ifdef CONFIG_NUMA_BALANCING
-@@ -1320,6 +1321,30 @@ static void sched_show_numa(struct task_struct *p, struct seq_file *m)
- #endif /* CONFIG_NUMA_BALANCING */
- }
- 
-+static void sched_show_cache(struct task_struct *p, struct seq_file *m)
-+{
-+#ifdef CONFIG_SCHED_CACHE
-+	struct mm_struct *mm = NULL;
-+	int sc_cpu, sc_llc, sc_node, pref_llc, pref_node;
-+
-+	mm = get_task_mm(p);
-+
-+	if (mm) {
-+		sc_cpu = READ_ONCE(mm->sc_stat.cpu);
-+		sc_llc  = (sc_cpu >= 0) ? per_cpu(sd_llc_id, sc_cpu) : -1;
-+		sc_node = (sc_cpu >= 0) ? cpu_to_node(sc_cpu) : -1;
-+		pref_llc  = READ_ONCE(p->preferred_llc);
-+		pref_node = (pref_llc >= 0) ? llc_to_node(pref_llc) : -1;
-+
-+		SEQ_printf(m, "sc_stat_cpu=%d, sc_llc=%d, sc_node=%d\n",
-+			   sc_cpu, sc_llc, sc_node);
-+		SEQ_printf(m, "preferred_llc=%d, preferred_llc_node=%d\n",
-+			   pref_llc, pref_node);
-+		mmput(mm);
-+	}
-+#endif /* CONFIG_SCHED_CACHE */
-+}
-+
- void proc_sched_show_task(struct task_struct *p, struct pid_namespace *ns,
- 						  struct seq_file *m)
- {
-@@ -1439,6 +1464,7 @@ void proc_sched_show_task(struct task_struct *p, struct pid_namespace *ns,
+diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-core/v4l2-h264.c
+index c00197d095e7..1b1421caf488 100644
+--- a/drivers/media/v4l2-core/v4l2-h264.c
++++ b/drivers/media/v4l2-core/v4l2-h264.c
+@@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_reflist_builder *builder,
  	}
  
- 	sched_show_numa(p, m);
-+	sched_show_cache(p, m);
- }
+ 	if (builder->num_valid > 1 &&
+-	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
++	    !memcmp(b1_reflist, b0_reflist,
++			builder->num_valid * sizeof(*b1_reflist)))
+ 		swap(b1_reflist[0], b1_reflist[1]);
  
- void proc_sched_set_task(struct task_struct *p)
+ 	print_ref_list_b(builder, b0_reflist, 0);
 -- 
-2.34.1
-
+2.43.0
 
