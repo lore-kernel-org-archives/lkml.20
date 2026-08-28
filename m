@@ -1,129 +1,167 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51775324B20
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308273264C7
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941809; cv=none; b=qeV+dSLY0QtCoob80CvcYuSi4iQ4jyZT+uF+I3o4xZ3t1xRghJNpj7133yTxkQVX8+Q61iAg63GJTcjp6+5gRx8KyciZ06Lv34JBnKCrvYVgXel8ZfBF/Qu9+cDVC3UXVuIiYgbgNju3FuyI4Xx53UlcqJMSW14ZW/TQeYygPEY=
+	t=1787941894; cv=none; b=UPIX/byTCzggs/bHsBuLd0noE996PT+aJNc/js4/E185kDrVLrad5IfGzp6APMNVy2rX7onMjKATCtO86FM6TcDkggaSFtiWKoGPsL8X7kwuZC8vB/R4nWFR29rDhh5auVJFpjEH5WvEGks9FjM/B8NoNTR8osDfRoUT5jA8y8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941809; c=relaxed/simple;
-	bh=vKhe6i3FkAFwErgQ+z+E/6b1UcU6MpKf/+QS8ZIRiqs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c2GlvcT/Hjz9bGqVfEa3cv6pZTt0IEkudy0vgrnfrlGHkzpzLd3AwI+kANhed7vmAYaSlnsDIH54lVguGK++bMisPzUOimj1lKTwWu653wdSAMfA6pJ8CsXmhsxrprI02H64GP9ozlF7UZDX62qy4PputSQpPWgfFf+AI5m68VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lD7iZ/KI; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787941894; c=relaxed/simple;
+	bh=O8dZhLvyNfmGzNNrDenmRnIFKmOWE9sgcqgTD1Ht5V8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jKovTXWD+9h1SPmWGrs7sJjKH5NeQflr62bNG/GTjNEjYbdM5tDk8pJAUo4n4UnGAyAyr3bk5CMjn4f6RgUxDXrrm1TWFGvqw0rU7twH/RH6fWeqL/YN+gRRZNFo9Qduet7+oR1zdWAMUadJXzB8kuq2C/O5FLShpZcvec8PfN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Ogh1v9OG; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lD7iZ/KI"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ccdf36f63dso12055ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:30:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Ogh1v9OG"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52ff0b7c98aso4202331cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:31:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787941808; x=1788546608; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1787941892; x=1788546692; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ILzvij1drwo7+iGNKuxy4V2qVsnhp5pYEXxx5p1BgD0=;
-        b=lD7iZ/KIaT+P1b10Fzf3jHgWDWLGTDAZ5sHvy0TyB91lNps0NCV8QIsMHBRXmWx5jj
-         s9iWmpRUFgl79dvb5ZnTniSjMyxabCP02atOIxIeXRaEy9z2VhXWazeQICO4kIhupiWa
-         xnQhf3zSb2mPZQvwAw3LF7Xd70X7Le8TbPUh1LHIG0pB6lXbDX0AfjIyOJd3ueL5Yiwp
-         Bbtq1tc7J/eEXy/8vUX5HzT8BNZwpncTzRYgq2IrwJHVYbwDDKDAs3vGjHUJ72dU4UOd
-         QvYfw88MI2RSBE/3GRnEnJ851d/zeXnFMPLkjLcSehfcdyAaCz4L5LL+pvtHCTOOnNjE
-         BVuw==
+        bh=xsuMlCmeVhYxXuxW5Fyb6ziWUpN69y36Ck3O/ViKhYE=;
+        b=Ogh1v9OG12VKTCMCUA4TBNlaTwRVTaggUqRNM/yfxNynEqunY5CctUs5AiO++ImTzB
+         reCY17HQ/5Xp+U3dhcnI+iJifxr6FjnfkpNXsKYtoTfQ/3MOO4SPvmlMmdKnLIRIF5zM
+         aBIkHnqy3yMEFF8TBqaPV6vfLwRJ7PeKUThsN3jjkpoO9YA6Fwd2zDnEI99Rvkf7CaYb
+         5iGC+ICDEI6R81PninoGPbU5UalbxTIGvq7ykoPiyCQuW2pB8Zjaef0WpdVioJtM+/+C
+         Sa2UBwKQl5NjoPVrQ3ow3azj8ESff85fchNex3DE68SjAq898E/4Q9J1mST4NQdZriZo
+         /Juw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787941808; x=1788546608;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787941892; x=1788546692;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ILzvij1drwo7+iGNKuxy4V2qVsnhp5pYEXxx5p1BgD0=;
-        b=DqGjIFg9HBZKzB71gkD8Y/mwnsav1mWOOKgcEph0qA8Ei1THhV1q/lfvrgmbRRhBGs
-         G48WbCW41XK9hJ04EVFPNJUFQN8M+PmVmsYrpdyoXQEbb8qiJCbYihUB7XgA3qQ+lAnz
-         yqbUZkbd5gFLu0JIhYiXyVPEZv8o6v+zZMRUAQ35WNvWgSRjsFiZWEYwvB2GFjDx2Z+f
-         LLihRQqSkRsisW2NSfFjqbiATD8Zjm7I44xmNRapoSsDXKFL+kO9Fg96AJnTFphtfG1G
-         dw+SxXTkvn3CHt0UKkeZZTQ/XLjzm+MYp7UshEu5a9QaAuiFt5c4TX8IIwBqIM9ww3Rm
-         OuOA==
-X-Forwarded-Encrypted: i=1; AKwUvByyzNzwTEphMHTGZFL+jUQoO3jKUUhRaCpmrU/J2nsocaUD60dy2T8lMdZ3G6FYtZXHqjhc0bA7NMvcltY=@vger.kernel.org
-X-Gm-Message-State: AFuF++klCYtwUeMQ+Py4GBwVvcU8SuGTJkGz5CmBIG/SKeU5mrQWuNll
-	p7SI0h1wvFmAnJ27gHLf8eC00/kuNEeAIybB+29xrclx3Vr/B2UbQcXYmmOuMtKL7g==
-X-Gm-Gg: AYBFou11FjsDNd5XXiEO7Aruit0FX1jeyOW7ixCdODMIHuzn2GizQ/8YuA8fsevLZww
-	es32cKvRLd17Og1PzUiHx540RTtmMb7kJxmrUZzXU9MhTOb1QsVgiEC3zXfstXFg/rv6sLM8Awi
-	x388z2SwV7o7XGAdKELkbE9MuyUOMKpsiKQzNMmIYpCQlkmSTedMyQ8yCgGPpx/E3b6Y33HbFx0
-	QPWMjuWwv5dlKG1gsjA97nQMkDHLav7bPEDJQX2DVxmGF7901WhSkZOq8RIQ0IWJq4Ebrt8w9Cn
-	3lTpI+jC0eCczh/efPWx0264O0NKNj+SzIKm7HGSt1yumt2tAJ+6VhlkQJYD1B9TzIQ/CBWo3ac
-	C6Bfakk0hLc7l2lu5USnSA5gEH9ipeSGrAsp7+mPur2tG/XyzcqimXsCBko8iqg5tf6Q8wV/HUZ
-	WOztsoa0g11NmwyjdNRQlnVK3EMeBetkppJ3Vjkjp3e/GGddQhjHbHMKry6B3Ryg6e1L9opEBUm
-	kBWBYDQtxVv0rhVnWee3ahJ
-X-Received: by 2002:a17:903:988:b0:2c9:d89f:fd98 with SMTP id d9443c01a7336-2d8dfb0b68dmr662305ad.1.1787941807055;
-        Fri, 28 Aug 2026 11:30:07 -0700 (PDT)
-Received: from google.com (139.58.247.35.bc.googleusercontent.com. [35.247.58.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d2309637sm1500859a91.0.2026.08.28.11.30.05
+        bh=xsuMlCmeVhYxXuxW5Fyb6ziWUpN69y36Ck3O/ViKhYE=;
+        b=iorq/B50EZz3CAXmzr1WIZtH5Z880Np6/1LaQuH3vExbG+YtPyQnhfYBGV+R5iDjuB
+         2OUQSzJGQSMk7oE6Prc4q/PJl4B+DhiBgxLCi/eU1dtpv112KzBT1RKOVz6ILV8iBnbe
+         HMlGgRW7uTwlA3wUUFex+VHMn98R7eo2huLsMtuDAMF3D4rZv92Py7BO4IVQSTsh3EiI
+         hRw9DpHGe1gH13KRBSbG7xjOnxULGAao5o+6BSOkDDZ4H+S7CHXaVR/T7MOkInmRHkX1
+         wDu+pTpzuNevqG8jyZucPFsg/1r0qhjlBHzRtBpXbUI7S3XzP7Zo3IhZjzG4yaO5ldTQ
+         jRdA==
+X-Forwarded-Encrypted: i=1; AHgh+Roa5Zl91xDcrRaxIbZBoLyluHvJmtvOubJkTcUUbp2/b1QiG/TvOuN9O/V0Zso4MLudbtK8Xb8eHQ1alDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKEu2ETQsL3HVCPD8l55KjELr6ZasAWvL1L52r7+ckoqET8Zbz
+	EaBgwqFuHFhOq8hAykzoU0e2LOu3oAo7uW+kYfYNkuspxIKEmWi6cFErtiKxGPo8wH3CINjB8jF
+	kn1KB
+X-Gm-Gg: AR+sD11gg8FBIu5XnQ0pk8OlDnd2HczwbjgC8DrIBzaDinCt1ZwBou/j/JnIoEBEsvn
+	cqASuwGFxuhyniziC63QZXMrfzazty21SmU0b3OlzxhlnU5am64wpn1hBPOp9KwhTnljURSXurH
+	UHrnQpwke3+zxc2sRVnivcXhpj8LsEoiGnMaDoDSinN3lY88Yk582AXqA52ImHrd1rjZ9/SuRiF
+	NIT0HpO4uOy+AKSjLAowIIhg7a5lvvS1iFSqEIq6X2IsAI/Si4RLmg8p0uz3auyWWUKAOIJ28NE
+	pj1xWevIHNBAwebpTNoMBavXz8bGLXB01/5oKTr0vZuwPtfV9UW5h6SlW3GSBkY3HjJak8kjIYP
+	q0YOhjl38mlQ5n3HylVOfR8DmKJLb0IsXJvICHtUeajldfU7BwBLJjn1W59feKeRrIn9LuhooxM
+	f2+A3KYstyWEd2PFd4jCnsCJLfBUpOL5vVQQ4ZYbw0fW3Dm8HKUz8Yq+JEufd24YOV
+X-Received: by 2002:ac8:5a84:0:b0:52f:ade1:2d51 with SMTP id d75a77b69052e-52fb93d26fcmr114490381cf.6.1787941891845;
+        Fri, 28 Aug 2026 11:31:31 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe878f4esm18199021cf.31.2026.08.28.11.31.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 11:30:05 -0700 (PDT)
-Date: Fri, 28 Aug 2026 18:30:01 +0000
-From: Lisa Wang <wyihan@google.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "Aktas, Erdem" <erdemaktas@google.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"shuah@kernel.org" <shuah@kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"afranji@google.com" <afranji@google.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
-	"ira.weiny@intel.com" <ira.weiny@intel.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"Chatre, Reinette" <reinette.chatre@intel.com>,
-	"isaku.yamahata@intel.com" <isaku.yamahata@intel.com>,
-	"ackerleytng@google.com" <ackerleytng@google.com>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"pratikrajesh.sampat@amd.com" <pratikrajesh.sampat@amd.com>,
-	"oupton@kernel.org" <oupton@kernel.org>,
-	"sagis@google.com" <sagis@google.com>,
-	"Gao, Chao" <chao.gao@intel.com>,
-	"Wang, Roger" <runanwang@google.com>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"ajones@ventanamicro.com" <ajones@ventanamicro.com>,
-	"Qiang, Chenyi" <chenyi.qiang@intel.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"jmcrey@google.com" <jmcrey@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Hunter, Adrian" <adrian.hunter@intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v14 00/22] TDX KVM selftests
-Message-ID: <apHTqWg1hDXpvhgE@google.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <5a44a6925715e1edbd379ac0ea5526ec990eb819.camel@intel.com>
- <4828f8e29801adb29a4d48b8980d3b3a0a813e06.camel@intel.com>
+        Fri, 28 Aug 2026 11:31:30 -0700 (PDT)
+Message-ID: <a0bd7b426ca22ccbf8148648a50918ddcae5c9a1.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: v4l2-h264: Fix memcmp() size in B1 reference
+ list comparison
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Haotian Zhang <vulab@iscas.ac.cn>, mchehab@kernel.org
+Cc: boris.brezillon@collabora.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 28 Aug 2026 14:31:29 -0400
+In-Reply-To: <20260828021739.25766-1-vulab@iscas.ac.cn>
+References: <20260828021739.25766-1-vulab@iscas.ac.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-96g/5XeQYjmC3B/5DWIG"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4828f8e29801adb29a4d48b8980d3b3a0a813e06.camel@intel.com>
 
-On Thu, Aug 13, 2026 at 11:05:17PM +0000, Edgecombe, Rick P wrote:
-> --- a/tools/testing/selftests/kvm/lib/x86/tdx/td_boot_offsets.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/tdx/td_boot_offsets.c
-> @@ -5,7 +5,7 @@
->  
->  #include "tdx/td_boot.h"
->  
-> -static void __used common(void)
-> +static void __attribute__((used)) common(void)
->  {
->         OFFSET(TD_BOOT_PARAMETERS_CR0, td_boot_parameters, cr0);
->         OFFSET(TD_BOOT_PARAMETERS_CR3, td_boot_parameters, cr3);
->
-Thanks for testing this! The patch series posted here on the mailing
-list is correct, but I made the mistake when pushing the code to the
-branch.
 
-I have just force-pushed the fix to the branch. It should compile
-correctly now. Could you please pull the latest version and give it
-another try?
+--=-96g/5XeQYjmC3B/5DWIG
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Lisa
+Le vendredi 28 ao=C3=BBt 2026 =C3=A0 10:17 +0800, Haotian Zhang a =C3=A9cri=
+t=C2=A0:
+> In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+> check passes the entry count builder->num_valid to memcmp()
+> instead of a byte size. Since struct v4l2_h264_reference is
+> two bytes (fields and index), only half of each list is
+> compared, so distinct lists can be wrongly treated as equal
+> and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
+>=20
+> Change the memcmp() size argument to builder->num_valid *
+> sizeof(*b1_reflist) so that the full byte length of both
+> reference lists is compared.
+>=20
+> Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B=
+0/B1 reflists")
+
+This is the wrong commit. It was fine until I broke it 4 years ago it seems=
+.
+Boris don't do that kind of silly mistake :-S
+
+commit 2e2c3d6c0ef88ffac0d6b5079ee88cf8408f5f3b
+Author: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Date:   Fri May 13 22:29:03 2022 +0200
+
+    media: h264: Use v4l2_h264_reference for reflist
+
+
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+> ---
+>  drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-cor=
+e/v4l2-h264.c
+> index c00197d095e7..1b1421caf488 100644
+> --- a/drivers/media/v4l2-core/v4l2-h264.c
+> +++ b/drivers/media/v4l2-core/v4l2-h264.c
+> @@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_re=
+flist_builder *builder,
+>  	}
+> =20
+>  	if (builder->num_valid > 1 &&
+> -	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
+> +	    !memcmp(b1_reflist, b0_reflist,
+> +			builder->num_valid * sizeof(*b1_reflist)))
+>  		swap(b1_reflist[0], b1_reflist[1]);
+
+And of course this swap need to be replaced.
+
+Nicolas
+
+> =20
+>  	print_ref_list_b(builder, b0_reflist, 0);
+
+--=-96g/5XeQYjmC3B/5DWIG
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCapHUAQAKCRDZQZRRKWBy
+9JUOAQCP4osDHz9kbcBrfJfwUxsFL3lGbDpOqYBj5FXZNeMAlgD7BAvE9RM5kQsA
+Ljc+o+fCTOPt9rRBvh0ggZyQhGSDuQo=
+=sr8j
+-----END PGP SIGNATURE-----
+
+--=-96g/5XeQYjmC3B/5DWIG--
