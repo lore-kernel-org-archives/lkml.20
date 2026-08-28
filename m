@@ -1,169 +1,156 @@
-Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3869171BB
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914203; cv=none; b=AhpxrZmG/TNJ56azvGmD3/XkyG1Hyynm8AeZnHvJoz9Ksh/Cpp7oSRJ6Y4oQEIOOq271u3IUxHKalJfz7AoVlDbK8KZ2ayOD4hKhP5ZWzjlNfq7jHETuOKNu54hAIXHhsksaUE8WbWrfGqBvXmweBzn3nZNe3YvwplAE5wJlw2Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914203; c=relaxed/simple;
-	bh=33MVvyU6flxL5cQA6YdkwXg1ZbH1BHoYh3xQUJJJusY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OO4DOuVwa+bxGGQg2uXomshilOXZgwk/EV6vRO62fLFSPE7icY4M/nAtpZ5dVCzP3guDiRPWY6Ezeuw1YN0A/PcysCQxfNIVq1+TJKp4+7oJwsS3mVCl2KThMn6+iB7EXgxdXZg4X8DpqrcDdqpjDJ3tS6869RmG/a/OMivSUNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=aijAIjdd; arc=none smtp.client-ip=61.135.153.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B1A3559E1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787914206; cv=pass; b=A+Km1Mw6bh3DdJ1Ye/hu/I/a4fl6soBQjcKt+SIch1AhEhJlbXvn2+aAadnibPLJPOCFItyvd281HpooBfZ4boeShtvDdVy9KpZXrVqkVX/+7BXXSplZcH0b1klPgk6rijlqngGx0Qcbj5sZ3GNDzat7dBhStjJxW1Vx91fXF8Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787914206; c=relaxed/simple;
+	bh=/cmKlDq8DFYSfOEtJaUMv5tjE2XNmgf878iFonULAYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KpgVgKoYH7HIOkDcZ+W+SHlKZsYnGGVs0l1XvndUKQURxi0TSMV9V0eyHigXoQRiYtvvf7LvCNp50tqHWhrvwxo1E1K5y25qGmGYRiHtBoerFTH4w6K1ERxQaG9njs0fQIux7w5cRSfvsS7ECSqr0QS8be4iQz8s8G7n5u4HRjo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com; spf=none smtp.mailfrom=anyfinetworks.com; dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b=hk8c+ewE; arc=pass smtp.client-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anyfinetworks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="aijAIjdd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787914197;
-	bh=yuVja7/hyVZ6sVqMdahq1hTCS5fUCdu4lYUx6vfeg8k=;
-	h=From:Subject:Date:Message-ID;
-	b=aijAIjddjbuxT69Aa5C6tGwAgE6pVHH3aRy42yNtEehXzpiDVxhRjfuEcvpLMsAcG
-	 UeJspVc+DED2Jv2P8aQ3T8m4GD8j95WtGwBa8ADwuwZJGEGO1/YUj4R6qCYxXL6Ee2
-	 driqGgy6+bPAS7/LXMryatSzav2Y9FvhX4ax8TLk=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6A9167C800005330; Fri, 28 Aug 2026 18:49:47 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 1480266815948
-X-SMAIL-UIID: 6BA2352CF4E049E69E411598473469E8-20260828-184947-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: eadavis@sina.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	magiclinan@didiglobal.com,
-	song@kernel.org,
-	syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	xiao@kernel.org,
-	yukuai@fygo.io
-Subject: [PATCH v2] md/raid1: prevent a race between write and stop request
-Date: Fri, 28 Aug 2026 18:49:44 +0800
-Message-ID: <20260828104944.246837-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828103957.245658-1-eadavis@sina.com>
-References: <20260828103957.245658-1-eadavis@sina.com>
+	dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b="hk8c+ewE"
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5bfb3347dc4so645699e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:50:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787914202; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AL0K7gWIqR5KlkLjPu9FRtvgIrxyfi5JWs6ur6bi4MpOLyx3A3b0nXc4PofbOjlumH
+         WB5DcCBM0boYT6OnX7/YVi0Y+m2I+CL4qgUUTTbkHuuUhqQ1z7CI2Wf3iBoiU+ZAA27B
+         siRoki7aXmjTC1ymeb79m2nd5vOFWtSE1Qvlr6J96PsGogJDIeC0Gp4Rd32UL1Qh+Ixd
+         7YZr+UXGtUDKS1jmLM37xdhnnhURPFjP823+eilxhyQcaGfgMDcHAru5fqbHQ6zBoJCm
+         QdQZyiq0xOng1UwZIjSVzgH4f/bmZsLIK4JfLdOS6onO65XV2dbfpMZYC8j5Yeg2kTww
+         OTSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=u8lFH0HcIkW98kTciUv5DunOUausL9QXc09fXIwSfCY=;
+        fh=uMSYtSy3Xk6RXrvP23w+JwbfIoT3gtW3wLuIe2JCRPI=;
+        b=AIPL4dYSY5KrGHo4HTfs6cmBuybH/SZXzDYmOFbTQGkHyzaiNFFszW/U1Vsa1a44Ue
+         MDFgmPt1lZ/aWit5ycZPEXhRmg0GQvP/pvYoiK8YFL65H0P1nTwivNOcPqca3JJFwYcW
+         uBeEPIbqvgwpqIYebpIMcz+/zV93zx7jXxbdDLR4Umfwt9HofUJDokSjJ9k6GOihE/Uy
+         ya6e9Zi2tozqEEa3/qt+CtubaKLi0lGs4074O+8OVPZ6Q0Ps3nmsJgJD+7rrrNB11aKw
+         9m736ohQKXNtJZgSz2q+4mtNLsk7p2VBxCSoMxukNTOOmUdbNJR2CyTwPbDMwmeRKXW5
+         hBKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=anyfinetworks-com.20251104.gappssmtp.com; s=20251104; t=1787914202; x=1788519002; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u8lFH0HcIkW98kTciUv5DunOUausL9QXc09fXIwSfCY=;
+        b=hk8c+ewE0E7JdEzNTQ4K9HZ8m44/906X7j2n5FSgllioAW6FiJswuo7vLJ88sz2km3
+         /I/imYCSm28c/IPK9f0Ts7uVjTpWFKS6tQL2X+JWo84oTZsn23RgIB0B6J7NGQVWvNWF
+         DoTzs7SMykRzGF9gE9Gw6b5uwTDWsIv/Xutdrq6QclZ0EA20SvVh45diZ2lGRaSt8Weh
+         zrMQtNvgLpKJm/vzUVXbEbwb7VLdM4H4EofD7szdp9nwXHqzUyffnytTG+qWRV8UM0bQ
+         PyNav6Qnnr2NvkrFiWXLnOtUkw5frqGaSsZc3m5Gha3tSweh+69ePR3YVUn15rSv0h/d
+         XXRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787914202; x=1788519002;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u8lFH0HcIkW98kTciUv5DunOUausL9QXc09fXIwSfCY=;
+        b=LVkIGQobtbOi9Mh/C4Z/N7HmuGpnCoB8Kb2uLX+fmjt3I734oEioWVW8kbbQnyYd79
+         r3cOPrGgpU6k9O61VB53TuBakTeyCfMZzFCATiOLDiIub5UZwKyrx1moXbRdvADlZYBO
+         rkOeTfwSyLXykpJJ/C+6HsZ2ilPvXOz+M4gaIXKrV8XQSQn3JWOH8pRptd2wzE56m6ks
+         93WTVFPqzNoNDs9uBXLVjYicpAOBID4pDAWFHZOfTi/+aeSfOg+FnxQYVDwJnYhUFxVP
+         Hh1WFnQrxtigCGyAKVXBs4N/sbvWLFdI8lA2aYwRLHJRvOXiD9X/7PAhPdFvVQXMeKIu
+         RbgA==
+X-Forwarded-Encrypted: i=1; AHgh+Roq5X77st/PzbP8nxgHgbgoDkFXu0IVi9Bi+/AIYngdcqrP6UBjTYv0Dd5exNzajnWQqD0b0kysoc65S6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kycMpsLPMwjITT+/A+4nf/rNZ97iHlJpQqtLMnf7+KeYL+l79E
+	NWs80E9YhfamnPkQHr36m6kpQeqGPwUgjNGWEOy1LpwNrcY63JUFJUa6FipMAR0M0PPXkRuI8Y1
+	Z1QEoR9ZGgZ/jhrP1+K8o2P49x1WxKzoxkf9ZnaOeIw==
+X-Gm-Gg: AR+sD11xgMSikaFln2u7tnRvauDHABhSrLO2ByLleguXewnkwmdXC+I3NkiP21bkHsa
+	7xF4Wnq6Mx8hb/FuCjDYM64Y6whbvDBJKhHMPyWU6hDJ0fx2U/mPMahy+2hB0GnsF/Nq8p0OEE4
+	wcVh8m11Xcow4tzqvLZx31IHs6SYkaMXLNS8636+1HpSQ8NHvsseDFpIpuFFGRD6fUeAQGT/b0N
+	z2EEIl01Q0TWP5Yq5c7TzhSGEtv3RShl4P4JEEQVCzPulb9hkvufRs2PnSIK1aS5CDZfWNsAY4A
+	Qqr7DJm6WNY8ZQzxQjCC2h5Xeg8PsaGl/QP9xvvI9RGU
+X-Received: by 2002:a05:6122:9001:b0:5c6:7f44:b001 with SMTP id
+ 71dfb90a1353d-5c680967056mr2568641e0c.0.1787914202558; Fri, 28 Aug 2026
+ 03:50:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260821024640.1601299-1-main.kalliope@gmail.com> <20260821024640.1601299-3-main.kalliope@gmail.com>
+In-Reply-To: <20260821024640.1601299-3-main.kalliope@gmail.com>
+From: Johan Almbladh <johan.almbladh@anyfinetworks.com>
+Date: Fri, 28 Aug 2026 12:49:51 +0200
+X-Gm-Features: AcwNN1UMwJxqSjr7UcYRArvxGmZya0K67Rn2WYUklgep4iJra1Tjsl0TpYlszf8
+Message-ID: <CAM1=_QQTv--NiWorjiFSrF+Ua9XaBL1MobNZSOgFqOb9w1FPKg@mail.gmail.com>
+Subject: Re: [RFC bpf-next 2/2] bpf, mips: Add BPF_MEMSX support to the JITs
+To: Nicholas Dudar <main.kalliope@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, paulburton@kernel.org, tsbogend@alpha.franken.de, 
+	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	bpf@vger.kernel.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-A race condition exists between write and stop requests, leading to a
-null-ptr-deref in [1].
+Hi Nicholas,
 
-CPU0				CPU1
-====				====
-md_submit_bio()
-md_handle_request()		do_md_stop()
-raid1_make_request()		 __md_stop()
-raid1_write_request()		   mddev->private = NULL
-wait_barrier()
-conf->nr_pending //trigger [1]
+>  /* Narrow load operation: dst = *(size *)(src + off) */
+>  static void emit_ldx_narrow(struct jit_context *ctx,
+> -                           u8 dst, u8 src, s16 off, u8 size)
+> +                           u8 dst, u8 src, s16 off, u8 size,
+> +                           bool sign_extend)
+>  {
+>         switch (size) {
+>         /* Load a byte */
+>         case BPF_B:
+> -               emit(ctx, lbu, dst, off, src);
+> +               if (sign_extend)
+> +                       emit(ctx, lb, dst, off, src);
+> +               else
+> +                       emit(ctx, lbu, dst, off, src);
+>                 break;
+>         /* Load a half word */
+>         case BPF_H:
+> -               emit(ctx, lhu, dst, off, src);
+> +               if (sign_extend)
+> +                       emit(ctx, lh, dst, off, src);
+> +               else
+> +                       emit(ctx, lhu, dst, off, src);
+>                 break;
+>         /* Load a word */
+>         case BPF_W:
+> -               emit(ctx, lwu, dst, off, src);
+> +               if (sign_extend)
+> +                       emit(ctx, lw, dst, off, src);
+> +               else
+> +                       emit(ctx, lwu, dst, off, src);
+>                 break;
+>         }
+>  }
 
-The intervention of a stop request causes inconsistencies in the state
-of mddev members (such as private and pers) while a write request is
-executing; the mddev lock is used to synchronize write and stop requests,
-thereby ensuring consistent mddev state throughout the execution of the
-write request.
+I would actually prefer to keep the original structure and not combine
+ldx and ldsx into a single function with a boolean lever. The helper
+does two completely different things depending on the boolean
+argument, and the two modes have nothing (MIPS64) or very little
+(MIPS32) code in common.
 
-Additionally, when a write operation reaches the RAID1 layer, if a stop
-request acquires the mddev lock first and releases mddev->private, the
-bio is terminated and the write request exits.
-	
-[1]
-KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
-RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
-Call Trace:
- wait_barrier drivers/md/raid1.c:1154 [inline]
- raid1_write_request drivers/md/raid1.c:1506 [inline]
- raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
- md_handle_request+0x824/0x1230 drivers/md/md.c:417
- md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
- __submit_bio block/blk-core.c:681 [inline]
- __submit_bio+0x20e/0x3d0 block/blk-core.c:670
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
- submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
- bio_await+0x1fa/0x240 block/bio.c:1580
- submit_bio_wait+0x19/0x60 block/bio.c:1598
- __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
- blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
- blkdev_direct_write block/fops.c:699 [inline]
- blkdev_write_iter+0x703/0xd30 block/fops.c:767
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
+Another aspect to consider is this: An implementation principle has
+been that each emittor should take care of its own "dirty laundry".
+This means that the emittor should mark everything it touches as
+clobbered, and emit necessary delay slot(s). You could easily call
+clobber_reg() in the emit_ldx_narrow() helper, but it does not have
+enough context to know if a load delay slot is needed or not. Without
+the load delay slot in the helper, an implicit contract between with
+the calling function is created. That is fragile and is easy to
+overlook if the functionality is further extended in the future. If
+you keep the loads inline in the ldx and ldsx emittors, the delay slot
+lives together with load that needs it. Note that the clobber_reg()
+helper is just idempotent JIT-time book keeping, whereas a delay slot
+has a run time penalty.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
-Tested-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
-v1 -> v2: typo in comments
-
- drivers/md/raid1.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-index f0646fb24371..3b9f1fa65e65 100644
---- a/drivers/md/raid1.c
-+++ b/drivers/md/raid1.c
-@@ -1674,6 +1674,7 @@ static bool raid1_write_request(struct mddev *mddev, struct bio *bio,
- static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
- {
- 	sector_t sectors;
-+	blk_status_t status;
- 
- 	if (unlikely(bio->bi_opf & REQ_PREFLUSH)
- 	    && md_flush_request(mddev, bio))
-@@ -1692,11 +1693,36 @@ static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
- 	if (bio_data_dir(bio) == READ)
- 		raid1_read_request(mddev, bio, sectors, NULL);
- 	else {
-+		int err;
-+
- 		md_write_start(mddev, bio);
--		if (!raid1_write_request(mddev, bio, sectors))
-+		err = mddev_lock(mddev);
-+
-+		if (err < 0) {
-+			md_write_end(mddev);
-+			status = BLK_STS_IOERR;
-+			goto done;
-+		}
-+
-+		if (!mddev->private) {
-+			mddev_unlock(mddev);
-+			md_write_end(mddev);
-+			status = BLK_STS_OFFLINE;
-+			goto done;
-+		}
-+
-+		err = raid1_write_request(mddev, bio, sectors);
-+		mddev_unlock(mddev);
-+
-+		if (!err)
- 			md_write_end(mddev);
- 	}
-+out:
- 	return true;
-+done:
-+	bio->bi_status = status;
-+	bio_endio(bio);
-+	goto out;
- }
- 
- static void raid1_status(struct seq_file *seq, struct mddev *mddev)
--- 
-2.43.0
-
+Thanks,
+Johan
