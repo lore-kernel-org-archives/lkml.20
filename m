@@ -1,49 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EA933260D;
-	Fri, 28 Aug 2026 09:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5770B3B42CB;
+	Fri, 28 Aug 2026 09:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909969; cv=none; b=iYPw+7IToZvVSpMQAQTqJKXMy9l8gSK100THNJeSp9wojh7D8DalLGvQMxs3kWfgnyIX+8BFstX1+u7qaZmwYfqj+IIrohugZ4U6/FUGt9st9TQBlNfhGyjkNK6TahquddtHWhTu1AaPEA1gO+HO1YpNhuo3RW6wJjpCxEK5Cpo=
+	t=1787910112; cv=none; b=d/thbg9aX04GO0U+f1Cn/rFMvk7n7CAKso6u8kDIHkZjSvoGLmtVOW8Uh25UPrKRhGXN3Hwp7TEi0RTRTTON4NG1k8jipV6hqRISfm/dCxqmNzzxh/89Cqi734LioequK9OA1OxJlVwubXctJNXiINR4zs0ZchwK2Hv5acN+jXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909969; c=relaxed/simple;
-	bh=3ixTxxxL7+wBx4fLq257bhKCHi6MZNedmcQUSSVJG54=;
+	s=arc-20240116; t=1787910112; c=relaxed/simple;
+	bh=XVfMnRDLyzarJ8i3B4INKLgSnm5L6biIsyuCw1cxosA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IKTx+SIviGN6aFqlq7zNc/o06pcNh5TwdXtW4LkrRrOUemIvBJ+8VvBorVzC/cZmEpV6Pu960fUwosxfDs4EmpKoq3zNF+PGaFWQR9W7dKYLDi1ykfx/vXR15vD4hYvYcI9+9T2axw+nFjGEdoChGtlFOU1dJO6T2hE6GuGwkBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sto3diAR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JGdV9avvVhWY9JLrrokNZaXiHFqXpiMwQAxfM/jJwVuhaZNhWpHcHi8I9TTqXZu0ov9Gh8ZiUJ2uy0iTXMdGwSL5xFJWiOlV2BwDUQ3An2IBkykT/lMi2ntxHOW8xexy8aTOfVgkGYH5BDs/9CrOBvcPyjxEJBazHcI2WHs68Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RNlU8p+y; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sto3diAR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35EF1F000E9;
-	Fri, 28 Aug 2026 09:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787909965;
-	bh=LcwtPFDsGrgdCaDCg66fqoG97Ouh7ZMZoj1sJOxY13o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sto3diARgnSgihsBVkQyf2L4hleE9pUpjugWfj7HFQbJ7nIWicQiyg9kl6aXmpQ8B
-	 kJhrfTXxUAN2JAtxD2Ng4Bn72SdgEXPHNledJdxXAA8W0TT14DgOOkI8zSdLeLvUV9
-	 czM4iTcmnePZcdrsk1ttZE70YEqa8Qs0oVnjsje2siEQ7nKXk2Bh6gyyr03U4YNTeQ
-	 RZSUIvXrf6bCrhIqHpzBiYxdnBXq+9YFYvdVhKeGs9pxX4ubGbe8f96RdSVKJmx86q
-	 qLvqHIBzlxmljjNRS2z56YiQ4n3YVKsN0uNnmOm6TdT29XosbKvCeQ90sqqPLXOXlK
-	 cIruOBdDZE5Zw==
-Date: Fri, 28 Aug 2026 10:39:18 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RNlU8p+y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787910111; x=1819446111;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XVfMnRDLyzarJ8i3B4INKLgSnm5L6biIsyuCw1cxosA=;
+  b=RNlU8p+y4vP3AWYxJqKVGi4MfggWAopmbDp5N/DBFpI4kaK/Zo4WqLeW
+   /6eq0u/Zgh6f2t+5vdj/WTtd3jDLsjsGiqi7ZXAf8Cq6xlkV0ASo7pqLK
+   Pb9SKV7YzdffoR3F2xO1oL8ZHKR7+kxepCPN8xVeEAiNIMQgGRN9GxyG3
+   mAwZZsZLG2RexKhoVGjrWzHKvMLwv/zdUOAkv9hYGCBifUSXnbU4RYJXx
+   MLsoTRO0COabBiwTITIsJk1l/017L0iT9hbRGCZWmStmqzEqz3K6Q2te3
+   hbRaRiJbFD3M44Zlaun8Lyuh2PNcL+EyvbwX+SguobkjSpWIe8DtuGEPI
+   Q==;
+X-CSE-ConnectionGUID: OZvVMnFfSzG1nbyijpSBnw==
+X-CSE-MsgGUID: VVT4THwvRwK63G11299AuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88180496"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88180496"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 02:41:50 -0700
+X-CSE-ConnectionGUID: zpuMb7soRnK8ZiFBzS9QGQ==
+X-CSE-MsgGUID: 05IuzeUVSr6NFpW7JwKEZA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="263831834"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 02:41:45 -0700
+Date: Fri, 28 Aug 2026 12:41:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, siratul.islam@linux.dev,
+	u.kleine-koenig@baylibre.com, linux@roeck-us.net,
+	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
+	krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] kselftest: mm: prevent random failure of huge
- page split for khugepaged
-Message-ID: <apFWAppcVKt4xhIT@gremlin>
-References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
- <20260828-fix_split-v3-1-374022586a4b@arm.com>
+Subject: Re: [PATCH v8 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <apFX16p9OGwA5cjB@ashevche-desk.local>
+References: <20260828083119.54495-1-stefan.popa@analog.com>
+ <20260828083119.54495-3-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,92 +67,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828-fix_split-v3-1-374022586a4b@arm.com>
+In-Reply-To: <20260828083119.54495-3-stefan.popa@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Aug 28, 2026 at 09:11:33AM +0100, Yeoreum Yun wrote:
-> There're some random failure for split_huge_page_test when khugepaged
-> collapses pages into pmd again which had split by the test.
->
-> Prevent the khugepaged's collapses for split page by setting the
-> mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
->
-> Reported-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  tools/testing/selftests/mm/split_huge_page_test.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
-> index 86a603692826..c718269a291f 100644
-> --- a/tools/testing/selftests/mm/split_huge_page_test.c
-> +++ b/tools/testing/selftests/mm/split_huge_page_test.c
-> @@ -180,6 +180,10 @@ static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hp
->  	if (!rss_anon_before)
->  		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
->
-> +	/* Prevent khugepaged from collapsing the pages. */
-> +	if (madvise(one_page, len, MADV_NOHUGEPAGE))
-> +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
+On Fri, Aug 28, 2026 at 11:31:18AM +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
+> 
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw, scale and hardware-gain attributes, a configurable
+> oversampling (digital averaging) ratio, and PEC-protected register
+> access. The current scale is derived from the shunt resistor value
+> described in the device tree.
+> 
+> The driver operates in single-measurement mode: each raw read triggers
+> an on-demand conversion via SMBus Quick Command and returns a matched
+> current/voltage pair. This avoids the latency and complexity of the
+> continuous FIFO mode while ensuring each read reflects the current
+> state. The two selectable current-sense ranges are exposed through
+> scale/scale_available.
+> 
+> Continuous FIFO buffering, threshold events and the alert interrupt are
+> intentionally left out of this initial submission and may be added
+> later.
 
-This should probably terminate the test no? There's no reason to expect this to
-fail and it's better to fail then to risk a flake :)
+...
 
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/i2c.h>
+> +#include <linux/types.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/property.h>
+
++ types.h // uXX
+
+> +#include <linux/units.h>
+
+...
+
+> +static int max40080_read_iv(struct max40080_state *st, u32 *iv)
+> +{
+> +	u32 tmp = 0;
+> +	int ret, io_ret;
 > +
->  	/* split all THPs */
->  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
->  		      (uint64_t)one_page + len, 0);
-> @@ -227,6 +231,10 @@ static void split_pmd_thp_to_order(int order)
->  	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
->  		ksft_exit_fail_msg("No THP is allocated\n");
->
-> +	/* Prevent khugepaged from collapsing the pages. */
-> +	if (madvise(one_page, len, MADV_NOHUGEPAGE))
-> +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
+> +	guard(mutex)(&st->lock);
 > +
-
-Same comment as above, also since this is a repeated pattern, I think it's worth
-abstracting it like:
-
-	static void madv_nohuge(char *ptr, size_t len)
-	{
-		if (!madvise(ptr, len, MADV_NOHUGEPAGE))
-			return;
-
-		ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
-	}
-
->  	/* split all THPs */
->  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
->  		(uint64_t)one_page + len, order);
-> @@ -313,6 +321,10 @@ static void split_pte_mapped_thp(void)
->  		goto out;
->  	}
->
-> +	/* Prevent khugepaged from collapsing the pages. */
-> +	if (madvise(thp_area, thp_area_size, MADV_NOHUGEPAGE))
-> +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
+> +	ret = max40080_trigger_measurement(st);
+> +	if (ret < 0)
+> +		return ret;
 > +
->  	/* Split all THPs through the remapped pages. */
->  	write_debugfs(PID_FMT, getpid(), (uint64_t)page_area,
->  		      (uint64_t)page_area + page_area_size, 0);
-> @@ -542,6 +554,9 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
->  		ksft_test_result_skip("Pagecache folio split skipped\n");
->  		return -2;
->  	}
-> +	/* Prevent khugepaged from collapsing the pages. */
-> +	if (madvise(*addr, fd_size, MADV_NOHUGEPAGE))
-> +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
+> +	/*
+> +	 * Wait for the conversion to complete by polling the FIFO valid bit
+> +	 * (or bail out on an I2C error). Polling the device's own status makes
+> +	 * this independent of the actual conversion time, which varies with the
+> +	 * oversampling ratio and the bus speed. The timeout is only a safety
+> +	 * ceiling: the worst case is the maximum 128x averaging on both the
+> +	 * current and voltage channels at the slowest 15 ksps base rate plus the
+> +	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
+> +	 * margin.
+> +	 */
+> +	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
+> +				io_ret || (tmp & MAX40080_IV_VALID_MSK),
+> +				500, 50000, false, st, &tmp);
 
-Obviously same comments re: this and above
+50 * USEC_PER_MSEC
+(needs time.h)
 
->  	return 0;
->  err_out_close:
->  	close(*fd);
->
-> --
-> 2.43.0
->
+> +	/*
+> +	 * Propagate the last-read value even on timeout so the caller can
+> +	 * inspect it for debugging.
+> +	 */
+> +	*iv = tmp;
 
---
-Cheers, Lorenzo
+But would it make sense when IO error happened?
+
+> +	if (ret)
+> +		return ret;
+
+> +	return io_ret;
+
+Actually IO error might have a precedence over timeout. I would check for it
+first.
+
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
