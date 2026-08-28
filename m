@@ -1,186 +1,134 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB1C31E82B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927622; cv=none; b=gBBCFVSrif0CwI1FL4EEiRINeYl2U2+LIOqBM15PhQEpGu/mRyYJCQR0bV+CJWl6ZtZNIH5DVba0zgYbQtag1WnCtG15VhXG1MZXqhjQ8pzqClQiLg4XGr7oG4q47STRpUpP5H7Xt48oHkMDMFFEGhrr6oNrJZMl1U8HFP+FIoc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927622; c=relaxed/simple;
-	bh=IbqMzrlz9jgGlgu5Uii9Ty2qq2/6s962gHem3A+myDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CYyEmmj/IROsKlxWXj6RdfVEr/8GjfX1os1r55lR1YL4eIx6Xdzdt2AG2QISGRZoTmfWVtwWcbSs1aOj1nv17K9No1CCx9/Pl4cdZPk8fVkpzmFNPa8VtGIby9AGDWKuLcLqr0NX9M+/VcizUS1oArfDK+T0n8k9xpY4t//i6MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6FFl5zo; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FB5311C2A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787927650; cv=pass; b=q6qlj+TZiuZh6OSjtrZA0ZonQ6AgbptO2zOwjd0RoUftj5HxdN/UBYV5qLDTRTq9DDW0JvBemyVdNQPGuNb9Hc/JxXrbOTj2V861Tmw1K4MePYhcWVaBonwmFHRezF7I/TSBBZIA56hyxDSwLKdKsHrRSKczg9DP5APCKQ/nmjA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787927650; c=relaxed/simple;
+	bh=h6urPZgF8bTfvFzVWce3FkqNPdyyhEqvIBFSzMK7R9s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jny/thJ5KapsX00/AMLyZHejcPn07jzCVuB6UxKSgs1K8nAPgj32ZgOeLNoO//Aza2bj2L3lwTALXiSbKJxF8b6rC+K9Tf0XvE/8RVRujm0W/1qwCsmEBFae7Hy9nT6BDVAlW2Ly8q4Py57i7nsZeJO9vBcfEVkU69PW+FcT5II=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PV+24Fli; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6FFl5zo"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bcdb3c4cso801579a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:33:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PV+24Fli"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52f83889a93so8925631cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:34:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787927647; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cAkdahw+2f2vtjPMXvFOdYwWo5bqQqq1hDyhrZKRKElZMz1bRxW1tZPCEk4X5npqIn
+         SdlAYsmYBPeqA4GHGD/IKXS4ToLpZ/U2XJ6dVAftgKyBLyVKYkEsKnH4B+aWRRBvduvS
+         hxghufW2yvMsPhKOPN2rlBxZCs2RcsSX0Nd0VBFSvIB01j/PmHke5Q1TNuqttpqBgPst
+         UwJThPkcHBv1E9DKBih5fQS+cLkm+sEvIxi4R3dfmwVvXQQpC59//3BUeilVFBwYlLBC
+         BemqVbhUXSascrIMANQTTuYcDnihnwdq5lgs5wxNQ9blbly8v6HsafDbEtGKHzpVCMSN
+         /Nzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YumHW+3Khcd3HlEzxF3Gk3LiB4e45hriCCvI83W4xOA=;
+        fh=MG0rq3lweGhGBCNSNQOe2tqSDwMWKNOz7BBLklXRGFo=;
+        b=Xr87xDYPIPBHSdo3CquPmwwT5KbnkAz/RmeMqaS24xvUZUFN22tv18wupcn7Ks0iBj
+         H5dGXO2vroNGwDV7joB7lMrY7f4orI/M+duMPvFpK0WxZ1nT9n1jrdLp2jxVCrNqSwKn
+         sPFQhsok0oF1IXbCTqIfL7hIkRPxMhzNQcgRuTIsCRtt0spjMVGK8j+YbccsaWmjRugs
+         IKZsWrsNrbO0Q37qHuob72AjLw7muMkfV/A2f1Dx1KR2Vgcv+AUchPgbmZ2XPV+VHvdh
+         jEQEnJ3Va8av3KWzvPsS1qyjSVbBwjZ2RvSlmsabiHToYnwWMXq8RU0k12qDfXk9MXGm
+         UTUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787927618; x=1788532418; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1787927647; x=1788532447; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7BQwW3MX7INivSrsHmDm9zXMIwP0LHR3yDP5aFEwWB4=;
-        b=X6FFl5zoD9u4203ixJrDcm4jGahhapRqbV/ESud33cwo2Kp295JzvlRHWxE37Km3RI
-         2j+WGEie+iR6kUclbnnTSvvE1CgX7RkokfNGHr51k0quK6HiKvSOKwgiJ89Ewt2OjIee
-         2zYBf125URlpWHelwAspmDqWERSLK0y2WGMMsiKI0oe6wNbZOyIa0v+gxvAJVhD3GaUM
-         bbqiW79hIQXxhKv28de+o+a47sqGMg2CxpekrH+8devcybbRrUvPZOMx4vQ+mN2YZqH9
-         m/mFrqJWm76akxQqTHTGRVXe7fkMSalgeDWx7QX9up5oAhSHUEeiwH1Nx+b+MBMI5dHa
-         kEMg==
+        bh=YumHW+3Khcd3HlEzxF3Gk3LiB4e45hriCCvI83W4xOA=;
+        b=PV+24FlinxZYo4O+wz86GSfYocJt9h8gu4/B3ENqClxT1pRNumsocQy1E/bskA9C5d
+         8PTqDpruTr3W95CVLFMU631dbacg/Rf9nSMu2f4MUD57uy0aeFIEfrL3+86QGo5gj1x+
+         4wJbiBaf+YO+uffa9xW8ANloLqp3w/OlIUutdHeS3tQA3EDNS3zE3+SOwMat8NyHwKfz
+         HINtHPMdA1jEQEqVxeHwzXjMp5/KVs2VqFMZxlN+yLmJBvtZwAcuNJEQ/iPTsHMRsXA6
+         Lc9iqRo4E9i8QbmMNfJsd/jW1JXx60wWOMynuCylkNxd96pVF3a5ccXQy1SIVZrkSTXk
+         YmrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787927618; x=1788532418;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787927647; x=1788532447;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7BQwW3MX7INivSrsHmDm9zXMIwP0LHR3yDP5aFEwWB4=;
-        b=PspmABHAICxB8Ksh1LRSK5T44gMJPeT082GAMCqVy+6LeLWJwfUKPoXOJ16XaWrbzT
-         +0ohrsWaSflWeorXPrAl43/xxV9ysF4WVL5oL4PlnOVHozZp3LBPXWAkQymHiflOHgnf
-         k6oejSOA3gyqkF7uStLyjCoNyNLLdeOCOd6Zc4In07mTb1iVq/bx6nu2QkhO9X3hrPsT
-         2D71jaSbqK7nPFKI/LaSwlZd7cQ9yP7vyuJbYU+XXMIS7O+zjRPpdhRTeIY4F2AtC1xx
-         mciaIE8STU0bJdNDf1kM5uN1iukwBUPJWCV5PdrONa3OqiicdE0rsebekHdTG2lXqVd6
-         PeYw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3oeKo5QZel3pbMR4GNP16629bv0scGPfG1vjxTbX2zimiXfCx4hoEsXWKHgRy49RfaVHwAcGs5wPVB9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++luF68f6Q+oCdtHTeUTVUBgD4Ug6ce8z8xpQ05xWMF3+NBveotW
-	Ctu19s5QeFX0406uQu3Rhy6kIAfmIUATmI0beDONm3Rwq/6zzI0of9GH
-X-Gm-Gg: AR+sD131kFzsOa8WfRSjBxibr8U0QD/h//Eeln7gebBOrvegDlNZWTSx7FLSdzJN7aj
-	rzNUarYIZ8OFdRLCC+1V3cgD7t4492EVd9LgEQyN5lsfl4R/MMuWxOCPPr8rBgMA1lDPS0z/pBw
-	dUZsUW6bqYrzIPRScm9qabDfmHEe5APhOvpjFasaoBVFscqgOwxa7Wv4+w5R/NoUxutijrsqiD0
-	Ob2r83dWNS7MX1cCVyp2sz9Ue6mOrGqoWdhU9kGBnHbd4kllbQQYa3Pjj8W9+xX5/ya3IRu6CfH
-	cbWJbtqe/jxZMNham1HWuF7WxmrCvuPhdrVbOlsbf5SmUJAe6q0pYqNl5hMPMUdDncRIYlizoJM
-	d3ig1U6uqleJrotV6tkE5XrTPDl7x3WOpAX8c0psJbrHIRpZGqSIxo1W7Hn9AvwD5N2E9Jb0E5G
-	YSYpxD9R7LTcpl1KfQcioCYHnBuzXg2PGRemyQJyiKJCb/YsIx9Lp/X6TwhEigw97IJrc5qmg4q
-	9u4NKd90Q==
-X-Received: by 2002:a17:90a:d2c6:b0:392:c80b:8eff with SMTP id 98e67ed59e1d1-396d0f6cb36mr15006187a91.11.1787927617279;
-        Fri, 28 Aug 2026 07:33:37 -0700 (PDT)
-Received: from DESKTOP-TIT0J8O.localdomain ([157.51.225.221])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36ed6sm2793476a91.2.2026.08.28.07.33.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:33:36 -0700 (PDT)
-Date: Fri, 28 Aug 2026 18:33:28 +0400
-From: Ahmed Naseef <naseefkm@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ahmed Naseef <naseefkm@gmail.com>, linux-gpio@vger.kernel.org,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
- controller
-Message-ID: <apGcOAUpb6XZ2Iud@DESKTOP-TIT0J8O.localdomain>
-References: <cover.1786262697.git.naseefkm@gmail.com>
- <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
- <20260828-adorable-bug-from-arcadia-fcad00@quoll>
+        bh=YumHW+3Khcd3HlEzxF3Gk3LiB4e45hriCCvI83W4xOA=;
+        b=N1GEVB2Lu+2PUXbW3fV5vDwRTZIGRV7q+ryTCUphr6N8F1u69lx+lViXZWSQ0P+iwU
+         nniRvmPwE5V4+q4GPM+3dip27V+yRk9o7SPc+s9FHM9LzIjD5XvvM9tVZziKv7AWoz3S
+         H7DVZlG4v1j4lXLjHrOdqfsHNcZ6oCxMMRneqGnd1Uci944L7hY7tPECZNSDX6pIqzK8
+         Hw4UspCu0e+KH+zox6PrXx7gDp5j2Qi0tLt597JOZ9BhhyQ9IiFgzUSmxPk8qqNJKvZt
+         l1HzlOzmiyXRiPscrJ/+H7aY3BbyafGTVbbtHreM/7oTZ5nr6LGZvPpeAAEuF2qQjWt/
+         rgWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpoxkkozDcJdrBqNdG4qYrTgNtn+niDsmqDintsiu+T5MLnSP0EpQ5jkBvSHhaJCtN5NV5yzVuUe08sAV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJMiTeVCaw4DcMIFQ7fq7Gsz7xGTb3z5wwH+NLtq58YpBp7SMc
+	gLblDajxLH34XfAejBg7E0K1hiBqFYh3vFojguj+6vT2Hhx6xzlzttk4EF/XlvjgTnoe69pMqQ+
+	XGDzLkuMh8RwXw+4qGPGXqD334+/3rhncLw4ug1cF
+X-Gm-Gg: AR+sD13U0N43nWbZGP/b0Ic6ykPJEHgwEZZgYlx/DT+fb6AV2UOn1u3NTnFooKsm+31
+	KmiIdL9rUDrdmuCXDbiRaSZGk0oJfY60iJHwJnp1hqfTAnWAVkkfc8X/4tGvlHL9uLxBd0Va55M
+	/6VxKNZaffrdP8C5vZkmKw7vxwTiLDi5xUKkE0jzGjrnvhxw4PUS6E5txnIjY1287u1h2ylarsp
+	oH56COCcYIz5nUcU9+yjh1a1pYkT02IUGoi3vBs8TQM3D4nv7gpQL8pLXJqsKYZ88qQFfO6QM0f
+	KLpbhuFLaoYvyIItx3S7gpDuUMpttS/sXupriijywD9UpbSwCd2BTUj7ZfPCfvLya/zenupZ0gH
+	cDPt3elkuLo1tPQ9vScZd6IBPlcMklIE8/uE0vbdf41Naboyt/4u1K0WMQDk=
+X-Received: by 2002:ac8:590d:0:b0:52f:ae2b:da0b with SMTP id
+ d75a77b69052e-52fb942d67bmr84786531cf.16.1787927646262; Fri, 28 Aug 2026
+ 07:34:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828-adorable-bug-from-arcadia-fcad00@quoll>
+References: <20260828073245.126804-1-qingfang.deng@linux.dev>
+In-Reply-To: <20260828073245.126804-1-qingfang.deng@linux.dev>
+From: Eric Dumazet <edumazet@google.com>
+Date: Fri, 28 Aug 2026 16:33:55 +0200
+X-Gm-Features: AcwNN1UhdM8hO1u0XPNdtSnx727Mw5Sdf1F5y6RfcZsOSfmGeXvlUkBvd0DUx0c
+Message-ID: <CANn89iJ1DTd-C65Ps-6C3djV=yihFinGpEqQjEwn7=7X6P3iHg@mail.gmail.com>
+Subject: Re: [PATCH net 1/2] ppp: ppp_async: simplify tty disc_data access
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Kees Cook <kees@kernel.org>, 
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>, linux-ppp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+8e808eb853386f575d86@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 08:59:57AM +0200, Krzysztof Kozlowski wrote:
-> On Sun, Aug 09, 2026 at 12:04:59PM +0400, Ahmed Naseef wrote:
-> > +maintainers:
-> > +  - Lorenzo Bianconi <lorenzo@kernel.org>
-> > +
-> > +description:
-> > +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
-> > +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
-> > +  registers have a different layout.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: econet,en7528-pinctrl
-> > +
-> > +  airoha,chip-scu:
-> > +    description: phandle to the chip SCU syscon
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> 
-> If the entire address space is part of the SCU, then this device should
-> be part of the SCU, e.g. its subnode.
+On Fri, Aug 28, 2026 at 9:33=E2=80=AFAM Qingfang Deng <qingfang.deng@linux.=
+dev> wrote:
+>
+> tty_ldisc_hangup() invokes the hangup callback while holding only a read
+> lock on tty->ldisc_sem, so it can run concurrently with other line
+> discipline callbacks. This currently forces async PPP to maintain
+> separate lifetime protection around tty->disc_data.
+>
+> Line discipline close is called under the write lock during hangup
+> processing. Remove the hangup callback and rely on close for teardown,
+> as done for SLIP by commit 23c53269f2ba ("slip: remove slip_hangup() to
+> fix use-after-free in slip_receive_buf()"). This serializes teardown
+> with all other line discipline operations.
+>
+> disc_data_lock, refcount and completion are redundant with that
+> serialization. Remove them and access tty->disc_data directly.
+>
+> This also eliminates a lockdep warning reported by syzbot. The warning
+> does not indicate a real deadlock because the write side runs only in
+> process context with hardirqs disabled.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+8e808eb853386f575d86@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/0000000000002fbad30611e25849@google.c=
+om/
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+> ---
+>  drivers/net/ppp/ppp_async.c | 82 ++++---------------------------------
+>  1 file changed, 7 insertions(+), 75 deletions(-)
 
-It is not: the registers are split over two blocks. The GPIO, interrupt
-and PWM flash-mode registers are in the block the node sits under, and
-the IOMUX and pin configuration registers are in the SCU. Both are
-needed, so whichever of the two is the parent, the other one has to come
-in by phandle.
+Sweet.
 
-> 
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  gpio-controller: true
-> > +
-> > +  '#gpio-cells':
-> > +    const: 2
-> > +
-> > +  gpio-ranges:
-> > +    maxItems: 1
-> > +
-> > +  interrupt-controller: true
-> > +
-> > +  '#interrupt-cells':
-> > +    const: 2
-> > +
-> > +allOf:
-> 
-> This goes to the end of the file, before the additionalProperties.
-> 
-Will address in v2.
-
-> > +  - $ref: pinctrl.yaml#
-> > +
-> > +required:
-> > +  - compatible
-> > +  - airoha,chip-scu
-> > +  - interrupts
-> > +  - gpio-controller
-> > +  - gpio-ranges
-> > +  - "#gpio-cells"
-> > +  - interrupt-controller
-> > +  - "#interrupt-cells"
-> > +
-> > +patternProperties:
-> > +  '-pins$':
-> > +    type: object
-> 
-> "patternProperties" should follow "properties"
-> 
-
-Will address in v2.
-
-Thanks for the review!
-
-Ahmed
-> > +
-> > +    patternProperties:
-> > +      '^mux(-|$)':
-> > +        type: object
-> > +
-> > +        description:
-> > +          pinmux configuration nodes.
-> > +
-> > +        $ref: /schemas/pinctrl/pinmux-node.yaml
-> > +
-> > +        properties:
-> > +          function:
-> > +            description:
-> > +              A string containing the name of the function to mux to the group.
-> > +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
-> > +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
-> > +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uart]
-> 
-> Best regards,
-> Krzysztof
+Reviewed-by: Eric Dumazet <edumazet@google.com>
