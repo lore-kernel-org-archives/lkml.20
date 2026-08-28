@@ -1,168 +1,253 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012020.outbound.protection.outlook.com [52.101.66.20])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11021141.outbound.protection.outlook.com [52.101.57.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FFD332EA0;
-	Fri, 28 Aug 2026 19:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7363939A2;
+	Fri, 28 Aug 2026 19:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787946109; cv=fail; b=S3rUWhhURWlXNAy0L0G8hYSB6sMNArUYqF4yV/clXN89Cw8tNW9ocIgUsEjYrdL+Aa/JKW5sEygnpqHChkGC00tT80Rvs9tpgWj0nFYI1wt480vcZWTsDqINQU2anNDT6A0x3nT3r0O1kRymI+AcO+AScJA+6iqwWbwOIXtNhoc=
+	t=1787946272; cv=fail; b=W6FqrbYaLlARVHwsV41DBd6Iakaukr1l2qObCyC8WF4sixY1kQDxJwgofzt02xJKQVTpsyzABgAVe5hYH37r9OM/XzM623GZt6DP+N4I43HpvzH/CB8PARrqavr7ZJLMtc21BZ+HVjcGtk51c5EsFrWoFQzyMkHRDJoYvxHMtc8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787946109; c=relaxed/simple;
-	bh=p/BhY/RPPEMiCjUKMml+sTuDc5DeFsCyf/OFMFRPsFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=NFJvYtQVmM9OQ1IQ9C6MEYUkZU9xH0+6FHuV7UtEbXyZYQlRNRJCKY7M4HbCwclhnrIQPCiIeXgs2LZ/BGVEvbtCrFilrhG2D7hTDFF9N3CFCXk4YITWMtaYwiIgDqTVwGPlvTVAjJoZnJ20Dbi2GFAxJpJh6sxvu/+qohjBgbE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=aq7HjwPi; arc=fail smtp.client-ip=52.101.66.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1787946272; c=relaxed/simple;
+	bh=+Ef9B00QgtKWrS5+DK6Ejf0931WC45frgWRf7f0LOHU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=n58/b6OV71uK2Ni3pTM1HoJp6/bdpHeK9Y3Gsw4qGxm4GOdpTVKu2cBep94CxBysIZ7M/d/OaRsYWm28CDJJm+hWy/J41dguDzLolXUJkCiqwy4cKdJqBN45vRqhXHUcgPvGb88FtQEm7nUBydtQtGfcQBojeLzJGa+xv2zfB7A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=gPocWFD+; arc=fail smtp.client-ip=52.101.57.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aq7HjwPi"
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="gPocWFD+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F+1QtlmfdVbRqjL6zaccNZdlvwUVFPfNLAPljdMO0J87nOsB+u8RSjoBPzTJrftcan04PW9qyFvbrdD9xq8slhqBL3tlSpITKavvHW9H4FBiSV1jM/4udq1MPmvujgZqR/xy/pEcGOjiVJM/o/Rm25QixTEu38QwuIdgvvEUP9gHxT8L8yDDiWFJb9j6hOpwsPW4HNjZM8ZngfZO/tPIbn2ADuzKKTz9HyWoaWtGEBi4arDNCosgvMzd3f6gn6EQr0maTxcdfLe3KNDZICs7dasuBd7jCwXUiBVJalFcmrZRqvaX36c9UrBk0J8CerjwFH0IrLDIZojpTuv9GG5qRg==
+ b=KVMQesn5J5RccJeV7mZqtN8jtKDHVVB/nHOpKGIATA85gOVw+lzIdLYW/2RfGO2bogKQtYiOfSdKH7VwwICKZpW/MiEUFx2LLDQy2WFJAnOJlNOvCXz+DJK5K666RWeiLbyI7c1TwsONAI4Ehuluwy8KtFs8dbuej2xeYm6LZlj0OcHW1Rk+pnhL/AF6qCNrEvgu6fqJ9pWetx/K+B/juIkS1lovX/iREZAooEe2dSICPHUDoLHdM2ftbeIDvgdo+/Lp71gedN4oMy1pMGjpfG/+PPKm+J3FSaKIblArCAFTfvknGxl22XR/tV6Ust8AWCMLsiPT0JUqQe+bZd4eVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n/ccGS26cfXwn+ANwR9crQFBSgsGa6Mlg9QWZckx5iY=;
- b=r8nWGqOFeXjuCpk4IISSMhdTZ0i211AeWxdSHXeqYWBHfDOQI+ur8I9K2SUspQ5h8pL91QkYdcgCVIvnU2lNqEV8ROCgvoipQf7fT5r+nMo/Hqo+TBJGJD2WJ9hbKhuDLammY4DzOjJgYpoNeBznEiG3kG5vGQyt7JTBRWc/xvDMO4qBdGz7aeQSql/CZrsaBVx4sGvzLCqGmj6pAAfswaGGYJMYkgDK5zu5mQpOr1wd4VtPApKavl9P4hpUstB0LHGOXn+oqogIWp3LPHPjCJnfODtECY1YS+hYP7bc5i70Sb6IUbZ8x8nvnIrzOK12bEs6qREXt3xK18lRlSGHYQ==
+ bh=jp7gLx0mBhCRxapxJlASgK2m171jFX1Tc/NTliITul0=;
+ b=QkPqXg69nO9nhOmbX/LIV/D+1rUHyI0MWOtiobkcocLhfSKQ0LcRHoB0PpFS11MkhTCaJnWKk6JwXlnFJVjhqU47tQSqxChEFtr+7l68mj6GbZH4ojG4En16z7hw2YPrOR4UHw5NtoVNu1XLe6m/HpvbvtX3Je92cirAapWT5Mkud+1JF13NqsTuDsHk+2u2o4ItDLVaa7D+8Vnpa/u8FiI2tIAbmlF+W/h8RBI/4L4w3alPqtQYgAW38gUHH2VMPOPBuU1CsFwHtIbL9gn2Cr1hbFx7MlwhgyKAOLb1I+fDHftBgU0O/NuiJXjMxVLQ3M4+HxvhITYqP3ljiopbRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n/ccGS26cfXwn+ANwR9crQFBSgsGa6Mlg9QWZckx5iY=;
- b=aq7HjwPi0aOtoY1dOAi7MyE3WyNnzTM2DDHDLve9ZNHefF3nhGmePq3UjqUe/U+yI7/+oQLb2wUczpfmWsMvackzbBgz+w/hnZk3BZk8savSGNlaHkJG/HfLU5dkwMugHm8645dtptmmrq+bfNioHwU9HVIjoMZaGSdloA2EEsejCFk3CY+P71vUAE1buNKdoYBclbLKp231Wl56meUy0iwh/jQB57HYmvhExV9/u9knkP/H4vQowuxVO0c7YRGlFC2NQ/CCpjMXqtg0rGoEKWNBzI+YPOwnkz0i3IdOaCIpfOCoQRnKVfCtMjOJk2qc1W2ROqFOvZjGPC59JlsAwQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI9PR04MB444628.eurprd04.prod.outlook.com (2603:10a6:290:85::18) with
+ bh=jp7gLx0mBhCRxapxJlASgK2m171jFX1Tc/NTliITul0=;
+ b=gPocWFD+ljrxkLAscWSMFgIwotExAcpuzdpwkdmJWw/rzCwMqdG374K37bLRqjKmnL7x9lEzedo7B/kTBWnnazjgpvJTXAMOsGA4niCtIY6I6Swh5KJrtUZDi3S1FYc2MHKyOiB2UpAsBJdAPb8BK8DMiISbRN0AabtgvnL6w9Q=
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com (2603:10b6:806:4a4::6)
+ by SA3PR21MB5720.namprd21.prod.outlook.com (2603:10b6:806:498::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 19:41:44 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 19:41:43 +0000
-Date: Fri, 28 Aug 2026 14:41:34 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Kazuki Hanai <hnkz.64@gmail.com>
-Cc: Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ming Qian <ming.qian@nxp.com>, Hans Verkuil <hverkuil@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: imx-jpeg: Cancel timeout work on release
-Message-ID: <apHkbiufONKjRcHR@SMW015318>
-References: <20260828051452.1940559-1-hnkz.64@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828051452.1940559-1-hnkz.64@gmail.com>
-X-ClientProxiedBy: CY5PR19CA0035.namprd19.prod.outlook.com
- (2603:10b6:930:1a::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.5; Fri, 28 Aug
+ 2026 19:44:27 +0000
+Received: from SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18]) by SA1PR21MB6683.namprd21.prod.outlook.com
+ ([fe80::8bad:6294:8a07:fe18%6]) with mapi id 15.21.0315.008; Fri, 28 Aug 2026
+ 19:44:26 +0000
+From: Long Li <longli@microsoft.com>
+To: Konstantin Taranov <kotaranov@linux.microsoft.com>, Konstantin Taranov
+	<kotaranov@microsoft.com>, Snehal Sanghvi <snsanghvi@microsoft.com>,
+	"jgg@ziepe.ca" <jgg@ziepe.ca>, "leon@kernel.org" <leon@kernel.org>
+CC: "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rdma-next v2 3/3] RDMA/mana_ib: fixed send wqe size
+ support for RC QPs
+Thread-Topic: [PATCH rdma-next v2 3/3] RDMA/mana_ib: fixed send wqe size
+ support for RC QPs
+Thread-Index: AQHdNjGwIom3UJuOs06lRm6Pp2DwMraz3s2w
+Date: Fri, 28 Aug 2026 19:44:26 +0000
+Message-ID:
+ <SA1PR21MB6683F6B321B56C462F376240CEAC2@SA1PR21MB6683.namprd21.prod.outlook.com>
+References: <20260827143736.2013093-1-kotaranov@linux.microsoft.com>
+ <20260827143736.2013093-4-kotaranov@linux.microsoft.com>
+In-Reply-To: <20260827143736.2013093-4-kotaranov@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=9704c345-a029-49c9-9e74-f346ba6da84d;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-08-28T19:44:09Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6683:EE_|SA3PR21MB5720:EE_
+x-ms-office365-filtering-correlation-id: c07fb08b-9770-4495-b7b2-08df053cc4d0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|11063799006|38070700021|7146999003|10067099003|56012099006|4143699003;
+x-microsoft-antispam-message-info:
+ 5TmBQqMxr4ENoLkvoVvKLJTpETFnQVfDMSvyg382VXchjuWCI6bzjhUJn1i69X9ZhWZK2jPmDixlKl9JSAaBlf1OlfXoKLgiGP9rjrGbEVsJK34IugZ0XNLMzznNxIkYQisB2Qv8Z0TbnTkQ8+jiMEfmXvysoBvIiswfStZ0vCrhBY6k+WIaxfKAQZ3ipGQCbDPWrSj80BascLj6f31EoohG8B4pdajV8CjJMP6+WqmMnBPIh0ID3I7L+igWyp2FPsOlPPw4OUP4R/ODAXrTMD9ZNh2LLu7blFhhynQ5X87EyRSnZD55j/6jZYD/eRlrrRqeB7tl5jekQFkt+F4ZGxkVgNhga+g4m7wHcO0ARIwBIAxlHB4AHagDbwHetbmaWTqdQ/r9sTNPrK1KBJI/J17vyF7tuzSZjBn8H3hH2az5U5mZAverUWCrI/H6p/wJmIscA4hlgV7HnK/z1yilo1wPJGiLcajUcNloIiE7puJvy+nAa7KOd6bzv76oquA/XK9Ac6yYKKqa2cUBSsni5PorZ2FqqyQraqXP9ayO3CevKn2mqhbIPVTCV+FJPG0euvqKMuCeXN6+qQmsHDgmkP7Lfm6aJ0t2QjyIL+xgKPqTcO7oIXHCKVt+Mf4vH39PxlcbbDoQ7xTYRSiu+lnyZWFx/WzxtGUqgF/yyJwW8MgU1dKPasE6km+U483cveoKkygNukBnh+0yWTT7T3cTgNL9R4QgjypZuF/YKDEIXBs=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR21MB6683.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(38070700021)(7146999003)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?1Yo2ibhX3c3YhbXAADao190aAM+1RwxwJwHKlKBBqXsdlHhybJar0TqeWHc5?=
+ =?us-ascii?Q?8i7s4/QNn4YE/9+HW8hy9VoGTTwnx6R98bK6QoaCST2ieDato2A7fEn+EF31?=
+ =?us-ascii?Q?LiuO/x8zfNXYZIrQSjy2sa523n5FVT9LVgp25F3MoXtcqZgP7rZJmkIGkyTi?=
+ =?us-ascii?Q?18uP2TSkY977kQi5IjyXccxaxuohwcy3LrhqN7lY0r0n9xWW/F1uavlB5f2v?=
+ =?us-ascii?Q?xiP9YhkAq+I8STkYl+aZ79QyvPyRJosm71q0FPks4C235FrgPV2mq2+zJMxe?=
+ =?us-ascii?Q?DN+mVmqOvA9LnLgaF+6eiV0ZVyNEhwpgUds9PVbZ4bb0/bPnYIR+5BU9kcA1?=
+ =?us-ascii?Q?pQB7YIrM2vVCTnPRAcInl5MaN68T5TYpxhKfu01f7HH/2HmDAMJftC8FXHv4?=
+ =?us-ascii?Q?LbdlXvGSpjgJHObyv+VIO6kZAlXwqNjS9HKWAsm/Fxu0M4IXTIsrMsLYdOM4?=
+ =?us-ascii?Q?ye2HPilivTMdQsGV/+su4iZ+3K1NztaHLsefhv7zJF7ila2Wj0SlJj2d4I90?=
+ =?us-ascii?Q?1wnBks2KTevUjHKKUiImSc/reEcR5cIlrZj+9Vv249iMea2AoeRPw2jjEeRK?=
+ =?us-ascii?Q?EoTD1Rlr1Sybce2mW4wRDnoJDSeLFTvhnT+vcOAz8uq257QXUivQ04co3UoH?=
+ =?us-ascii?Q?j+/IqbtcqLPD0RKCZlb/II/zF0CdDDoXdXm8UTAHSBQ+XtvO5gTJobvFjQTg?=
+ =?us-ascii?Q?q7UAMMhL0BBAGxH1w0O8CTEpR+YukVTajryjwdpxkYpC0XZ8lIR91zpLPa02?=
+ =?us-ascii?Q?CKBktSgof7PD0rNNesC+sinrP5ZFAqkZ9E7le/QYCekG160ltGy70yoYYdOf?=
+ =?us-ascii?Q?UIa2RZxMLMmjiSYerpHZF+gnGXXOOQZGhKQvHezh64UYxRI6RYLkXyt4nGkh?=
+ =?us-ascii?Q?nCG63NgcaBvzUVSJR1r6l+Uv7p6zemsvmK2hylH1AqAYo6LQ2eRdLkkRTYEx?=
+ =?us-ascii?Q?5OVTKGBsNM1vn8fgP1En4C7EvWbOjFDb6+PjOJsxXhM+k1xa417Gg/Wdy9j5?=
+ =?us-ascii?Q?Crit6A8MlAIOvG6JGiLBFoBY0/PSbWscROz7+MqDCwb6zyHY0y5M1N929bj2?=
+ =?us-ascii?Q?cETymMucaJL6PF+Fz/IVd0HO9Buj8Ic6OARPH1c7yaoBOPJybBj5wyknga0F?=
+ =?us-ascii?Q?nP9cIvdxLZOQD2Mgb9b/TuwnrCJVXPVRY0h8b1+zSSQgA37MBF6dt8S5iqkh?=
+ =?us-ascii?Q?y/6lfhdHxBmjKqPXLD+ijmlKD7T6dysdgTbfDVIrF/UF/NPOG4BhAXzYsqxP?=
+ =?us-ascii?Q?bbDhbsAHkQzHL1h8Rx6WJZQ2VIW7bq0KgZhEQBVeon7rKa8H9ZRX1TqashmB?=
+ =?us-ascii?Q?nfnZQbvclROM48I8D+3vfF0lxKiueq+2mLxmZg/UpxhRurZNNhZQ4f5a4lCM?=
+ =?us-ascii?Q?RYrj3gQ5xntUsY7rsBdaru/X9DN2wcPGHfS/5tgB6IDsnJ/XsOyG5cFQNNaW?=
+ =?us-ascii?Q?L6OqBC0BwY/tQVxzyILpB/N/hbKc2sIoyAdd2+K1MW1Dd3XO8I5nhQ/FXnw9?=
+ =?us-ascii?Q?hmZQzFHzhfih2cGtk8Hei5jyaSp5C7N691TZx25VTq1NB20Il4wtVAnxfGDh?=
+ =?us-ascii?Q?8W/BKvj/9Y8ztAgEx4umoPIyxugiWRHserBoPeFDK6xT2kTgtJ60sRrSQPXn?=
+ =?us-ascii?Q?DAGANGWTBhfcxMdW31tzPFcQ88lVk9PGN9rEHi7E7kBkKzAS5Fs8ykec0nSc?=
+ =?us-ascii?Q?lWNKJwxj53WAUxHJEc3D/rqqochik0uFO2dEL4dgh5zIdOzw?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB444628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9faa3692-26c2-484f-0794-08df053c637d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|19092799006|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2SUhCjILY4BnAE8TkqLDFXHXMOt1wwRAzu6QLGI+Ame+y4CXo4YKGT8advYUy1VJwg1iNz8H1MjNHu0xSy2mMPIwANoqjxiDlJWThjdXvu988b/cLEsbZxADUf83j1yUK0Zv1Qt2wU2OYI/+MIA+O0eD8z7YMv+gM6r3t1CDmnUykMMFnYS21d7utddOFCvCha+py/XjGMpLTeEJFkI3E/fGjOQZupAtwMfOckqQTdfqntqjCkdCJ00OnG2n4BXNjsvGWHb7wvMw3UeLMKEcAQphJIbBi2JHtiszWsmvkqM7bwbxEw3ah5Vgf/kPzD1m3wKU58yBgIGVAxcFTM77YnAZeMZKQn4dZMVwGqHBQYL62dfd1hlTEEd/78ANgb33uznctoI/IjFoi7/Q1Zk9M7UhvJziHDUSF/uuuNLRcq1DoGep+vdyQs2GTtEQhfohhfjqxoycGAA2P6X4Gimb1eFmv/KCAtGORdDk40EpvuaCSgIKA2LbUsyoioDsdGaKV9nYr9q6FGOsmoq777p4Rv5Jcp58Z+wobNi/lP2v6HWt/JzoHD57ihlgIGW8XBGbHwy/6oUUs2JI7Ny4UpKlY32pckg17mNdz8wUZgXFs5y1MAUhnvAFE4VtukttJssoyTmhNa1pc1R7QsfYeI7k2X1mrE6jS/AXTPte5txAd3I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(19092799006)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B7pNzZzAPicdfF+gq4fPM4Z3ZULE0Ebl2vRuRdbyMp/hw/U9NQA5CPGp+WMa?=
- =?us-ascii?Q?/TE/TcR43nCVAGADp6qk/F2iJJZaJ0TyB3sSPW6v6FiI39gA72sqIhC82JxV?=
- =?us-ascii?Q?tUXa7tj5sjVvhTZDHwe+Qm/RxhSx5lYRvHsJM7YbU7PxorE6LyuKqP4Fw4Bq?=
- =?us-ascii?Q?kifPTlg2hqkhFIkgdnXIPmA0L5TmXEWpQqvmegEYwjxUiCam7zHT46ljJUet?=
- =?us-ascii?Q?nebc0zqUWD2tCxGoc3u2LhNNooLvx2yBp7N3/OnxEZE12VsGHA3kKlWzXqHs?=
- =?us-ascii?Q?oG1h2sROMMXOQD6KVdVfv16q5oH/6yLCIGrOfEdr+/Xly7IQTnNOKJaJX0Yo?=
- =?us-ascii?Q?SFqrwVUzWFprrzjRtCOusTKBJuFB1L/Ten8lWmmsGrfrydGLIKcE+Lk2FooN?=
- =?us-ascii?Q?mnRoVBUeG/uwLthQ8VifTuzgPkoiH3T/EngBY/MXMV92XsJxoCZGSLW8bSTl?=
- =?us-ascii?Q?BqiVkux9KzK0EnqJcJfruLYBSv/db88NMwFiv/oR9fHvHkdcFwH8Ul9Ft+ex?=
- =?us-ascii?Q?Qx9FF28yizWINXdt2nUAbozB3IG8wvcZhvdg95RukikRI2bra6pAQdf+SWxi?=
- =?us-ascii?Q?Ri8E3KyF5JOdZsDK6T8mE6awxngRuLoWd980ThfNh2s5JEQ4Mya9mTR6f2G1?=
- =?us-ascii?Q?S1W1y8MdT5sJzJ3fLkmsLbm21ZBX5RodYEmvBwlymT+Cvu7f9DU3bcdl3vYT?=
- =?us-ascii?Q?XXMMeDtMo94aOsj5PTKORPLzan6HdNK3okKct8iLSlcoAFuFX8DwRr1DZA/i?=
- =?us-ascii?Q?/oJgzDsSZKBfpkxyO5VyF0ekmwJuhGFob48hVBojl4PRP4bg25i8762YVJrq?=
- =?us-ascii?Q?/NiodRR2voxS3SF8XfJYKyXmyy/Wr5d7K5AkWRSZ4qGMtwdtHx6BE5Nbs1Zl?=
- =?us-ascii?Q?Fn8Xfggp1r0uGWVUGic6jl5f+Idd6Z/rSMqLvjeZDFIxzoKMf04Na6iyYx9M?=
- =?us-ascii?Q?hT925AJEYSsKxAuGvT6wFaSIEQaeDTB5RcQ7jclHbE1aK1Gy6aLStZKnB6+p?=
- =?us-ascii?Q?lZZRPTbGX/BunpW2CqgeEu5RPis+5x91Fm3uHWYcysggDGkJOxmEaLOy+iIt?=
- =?us-ascii?Q?qznXNnYZ8gBky9/Pj3GxiIBamnq5Bfd0tjWD+Yiq9SMNOmTM7eHCsZD72MaJ?=
- =?us-ascii?Q?5+sBn9NJ71OS2g833hT3Hw8Hy7KeBRTz6HUx0I0L4QoheKhpShKV8nYKlNlO?=
- =?us-ascii?Q?xxkuCLkKESHzloPbVL6JlipU9VLKeLDwi+/P0+vFxf87jyh+2Ay1KWtRiS75?=
- =?us-ascii?Q?AkaAfOsrUumn8zftdYKJAJ1sWusMZHCk9pOLGbyhpr/qPwYwhZge0SeFirtc?=
- =?us-ascii?Q?euM1YkNv1+FD9PPSA113/gzIaejcWaxal+Ml3M3Fvr1+PQND7Jh/scVJDCs2?=
- =?us-ascii?Q?btwMybxht5rIvWbSKKoU1rWrm/usYnPhtibiWYB6/4V9BYsSuWVces3yW3eu?=
- =?us-ascii?Q?+1Vq/e3JBJGgJxOJHSnyusesO4HCA+8JL+zk/R3QNsfc3oK1sTQFsgE9FSy7?=
- =?us-ascii?Q?QOJmFxik26G0f6vdrrcFvKMv9PYdNRFOIMjwAXHlSyOXsAodb90xyBr4hLdy?=
- =?us-ascii?Q?ayBxVFc/lDJxEp5eE7C5oFe22UKOL+6M/Ug52Baqzzkv3kmvvmXXE52uKU99?=
- =?us-ascii?Q?Cy0/ejeUgfF42PuBNNnLNnLK82lOJx/MJ/pTeQavJMJyh8NxRQoNSF8uVIY0?=
- =?us-ascii?Q?kpqq1TqRtfDDFf8jMTwBYtZ3Mey4hGRCrDCSnB2YpPa9Z5QvOeh4pNuKZJ1e?=
- =?us-ascii?Q?+VoPRCxH9HzN77mfMoP/oQx+TSiA3uE4KGkIboPuQDmO1KxZ8GGP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9faa3692-26c2-484f-0794-08df053c637d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-OriginatorOrg: microsoft.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 19:41:43.8422
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6683.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c07fb08b-9770-4495-b7b2-08df053cc4d0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 19:44:26.7688
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yJXpPu4p24W5JrTJ7JWyN4GeuVHi3HuOwT42tjFDN6DBrpm8ASMge4+J1xdun7WTHcGSSOzPjYTJyZ8YvXJ0buyJRtjDeDSwXgxpvA9U3bxPxmIqWepqLQobHBp8U8SI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB444628
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6WdDjlmL27F4lkd6s4Sm+6oWtlp5lQGZKsUhJfjX1JC12lxEcgyAfnHG3Suq2QWDedMOLRm9vDoO/jbju5NmHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR21MB5720
 
-On Fri, Aug 28, 2026 at 02:14:52PM +0900, Kazuki Hanai wrote:
-> [You don't often get email from hnkz.64@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> mxc_jpeg_device_run_timeout() signals job completion through
-> v4l2_m2m_job_finish(). This clears TRANS_RUNNING and allows a concurrent
-> v4l2_m2m_ctx_release() to continue. The timeout handler then accesses
-> ctx->mxc_jpeg once more while releasing hw_lock, but the release path may
-> already have freed ctx, resulting in a use-after-free.
->
-> Synchronously cancel the timeout work after v4l2_m2m_ctx_release() and
-> before freeing ctx. The cancellation must remain after the mem2mem release
-> because the timeout is the only completion path for a hung hardware job.
->
-> Fixes: cfed9632ca8e ("media: imx-jpeg: Add a timeout mechanism for each frame")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+> From: Konstantin Taranov <kotaranov@microsoft.com>
+>=20
+> Support fixed-size send WQEs for RC QPs when requested by userspace.
+> Calculate the WQE size from the maximum send SGE count and the 32-byte
+> inline OOB size, round it up to a power of two, and pass the size to hard=
+ware in
+> basic units.
+>=20
+> When supported by the adapter, also enable placing the message sequence
+> number in the WQE. Preserve the existing variable-size WQE behavior when
+> userspace does not request fixed-size WQEs.
+>=20
+> Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+
+Reviewed-by: Long Li <longli@microsoft.com>
+
+
+
+
 > ---
-
-Suppose it already fixed
-
-https://lore.kernel.org/lkml/20260623103031.3051-1-fanwu01@zju.edu.cn/
-
-Frank
-
->  drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> index 725e94152884..dfe3b1ea6bb4 100644
-> --- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> +++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> @@ -2805,6 +2805,7 @@ static int mxc_jpeg_release(struct file *file)
->                         ctx->slot);
->         v4l2_ctrl_handler_free(&ctx->ctrl_handler);
->         v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
-> +       cancel_delayed_work_sync(&ctx->task_timer);
->         v4l2_fh_del(&ctx->fh, file);
->         v4l2_fh_exit(&ctx->fh);
->         kfree(ctx);
+>  drivers/infiniband/hw/mana/main.c    |  3 +++
+>  drivers/infiniband/hw/mana/mana_ib.h |  5 ++++-
+>  drivers/infiniband/hw/mana/qp.c      | 14 ++++++++++++++
+>  include/net/mana/gdma.h              |  1 +
+>  4 files changed, 22 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/infiniband/hw/mana/main.c
+> b/drivers/infiniband/hw/mana/main.c
+> index 9d043f48e..57c6d9faa 100644
+> --- a/drivers/infiniband/hw/mana/main.c
+> +++ b/drivers/infiniband/hw/mana/main.c
+> @@ -1060,6 +1060,9 @@ int mana_ib_gd_create_rc_qp(struct mana_ib_dev
+> *mdev, struct mana_ib_qp *qp,
+>  	req.max_recv_sge =3D attr->cap.max_recv_sge;
+>  	req.flags =3D flags;
+>=20
+> +	if (flags & MANA_RC_FLAG_FIXED_SIZE_WQE)
+> +		req.wqe_size_in_bu =3D qp->rc_qp.wqe_size_in_bu;
+> +
+>  	err =3D mana_gd_send_request(gc, sizeof(req), &req, sizeof(resp),
+> &resp);
+>  	if (err)
+>  		return err;
+> diff --git a/drivers/infiniband/hw/mana/mana_ib.h
+> b/drivers/infiniband/hw/mana/mana_ib.h
+> index 547ddf9dd..828ca75fd 100644
+> --- a/drivers/infiniband/hw/mana/mana_ib.h
+> +++ b/drivers/infiniband/hw/mana/mana_ib.h
+> @@ -180,6 +180,7 @@ enum mana_rc_queue_type {
+>=20
+>  struct mana_ib_rc_qp {
+>  	struct mana_ib_queue queues[MANA_RC_QUEUE_TYPE_MAX];
+> +	u32 wqe_size_in_bu;
+>  };
+>=20
+>  enum mana_uc_queue_type {
+> @@ -262,6 +263,7 @@ enum mana_ib_adapter_features {
+>  	MANA_IB_FEATURE_CLIENT_ERROR_CQE_SUPPORT =3D BIT(4),
+>  	MANA_IB_FEATURE_DEV_COUNTERS_SUPPORT =3D BIT(5),
+>  	MANA_IB_FEATURE_MULTI_PORTS_SUPPORT =3D BIT(6),
+> +	MANA_IB_FEATURE_MSN_IN_WQE_SUPPORT =3D BIT(7),
+>  };
+>=20
+>  struct mana_ib_query_adapter_caps_resp { @@ -391,7 +393,8 @@ struct
+> mana_rnic_create_qp_req {
+>  	u32 max_recv_wr;
+>  	u32 max_send_sge;
+>  	u32 max_recv_sge;
+> -	u32 reserved;
+> +	u8 wqe_size_in_bu;
+> +	u8 reserved[3];
+>  }; /* HW Data */
+>=20
+>  struct mana_rnic_create_qp_resp {
+> diff --git a/drivers/infiniband/hw/mana/qp.c
+> b/drivers/infiniband/hw/mana/qp.c index c6821ae5f..29bfee9ac 100644
+> --- a/drivers/infiniband/hw/mana/qp.c
+> +++ b/drivers/infiniband/hw/mana/qp.c
+> @@ -422,6 +422,11 @@ static u32 mana_ib_wqe_size(u32 sge, u32 oob_size)
+>  	return ALIGN(wqe_size, GDMA_WQE_BU_SIZE);  }
+>=20
+> +static u32 mana_ib_fixed_wqe_size(u32 sge, u32 oob_size) {
+> +	return roundup_pow_of_two(mana_ib_wqe_size(sge, oob_size)); }
+> +
+>  static u32 mana_ib_queue_size(struct ib_qp_init_attr *attr, u32 queue_ty=
+pe)  {
+>  	u32 queue_size;
+> @@ -576,6 +581,15 @@ static int mana_ib_create_rc_qp(struct ib_qp *ibqp,
+> struct ib_pd *ibpd,
+>  		j++;
+>  	}
+>=20
+> +	if (ucmd.comp_mask & MANA_IB_RC_QP_FIXED_WQE) {
+> +		u32 wqe_size =3D mana_ib_fixed_wqe_size(attr-
+> >cap.max_send_sge,
+> +
+> INLINE_OOB_EXTRA_LARGE_SIZE);
+> +		flags |=3D MANA_RC_FLAG_FIXED_SIZE_WQE;
+> +		if (mdev->adapter_caps.feature_flags &
+> MANA_IB_FEATURE_MSN_IN_WQE_SUPPORT)
+> +			flags |=3D MANA_RC_FLAG_MSN_IN_WQE;
+> +		qp->rc_qp.wqe_size_in_bu =3D wqe_size /
+> GDMA_WQE_BU_SIZE;
+> +	}
+> +
+>  	err =3D mana_ib_gd_create_rc_qp(mdev, qp, attr, doorbell, flags);
+>  	if (err) {
+>  		ibdev_err(&mdev->ib_dev, "Failed to create rc qp  %d\n", err);
+> diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h index
+> de17c9bba..f3601ca78 100644
+> --- a/include/net/mana/gdma.h
+> +++ b/include/net/mana/gdma.h
+> @@ -522,6 +522,7 @@ struct gdma_wqe {
+>=20
+>  #define INLINE_OOB_SMALL_SIZE 8
+>  #define INLINE_OOB_LARGE_SIZE 24
+> +#define INLINE_OOB_EXTRA_LARGE_SIZE 32
+>=20
+>  #define MANA_MAX_TX_WQE_SGL_ENTRIES 30
+>=20
 > --
-> 2.53.0
->
->
+> 2.43.0
+
