@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
+Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B5340F749
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2E4413D9C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787915398; cv=none; b=RQfHMGikBH5H0pz6c5Aj0b+6lq9or9zGXdpoxvJzNbmZo5H/Qv3ZmoCHUwx9cGgocj8ZN+5rCMbHTeBuCpM2v+w/tro0OSZcnNgMXeBAtW9ytIvSYrAar+GWXpiAnBjfHhucbUqzJjlKNGFLNAfGdUiOEJuQ5NNG2QXr65Bjpy8=
+	t=1787915408; cv=none; b=q1YC6q7ELdHF83FvZ+TdzXBN9Sm5bbK8MG3iHkSb63LqX3nLKE4SQd7+TCBQ1IfB+rwd+d3qCjBxiiv0tkTn2Jvusq9dTEGDVxCO5ZvXXNMqKmBIWtQCh/AHq2NwXe/vohxJimYz/mY/cRKJSALWV65E/ZBOnquINEdlntlHSbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787915398; c=relaxed/simple;
-	bh=OoHGgjSfWYpB05+fSb88E0ID0/HP1IBQpVIbX01UjGk=;
+	s=arc-20240116; t=1787915408; c=relaxed/simple;
+	bh=eE7AKtJ5rHDjCHFP0sbjzrcKFX6z6p2ntCRRXg0JHB8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B2ZuitdCGQyfFqqNPBiwAF/rXeoM+HuqIc22RhHfDA2px9muNLf6CGjWGmj1CCe5UXPAeG8QTpryp9KC34BKGthBhpNCYgO4Q+3KLZgIRuItlE/GEKrRtijPgZ/CAks9etjRps8tlWBSWjIIVJ/YaRSP78Rjp67c5xzMFJOEpNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RdniU1/D; arc=none smtp.client-ip=91.218.175.100
+	 MIME-Version; b=pJ/QtLICGZofzcGKhLMXA/S/ZAWLC9aO64vZoZr90mH9PPD5PJqn0xEE6myjAX+ulasD7t7T0HyNwZOF2er3HZdkdKo/A0h6eh38O34bk5BUJaxMIc0oAPKt4qPNCQP0pflICyR7acy7cb4e0uQCoiNZWo3buip1gfGOPn8soeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s3AqYBR7; arc=none smtp.client-ip=91.218.175.113
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RdniU1/D"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s3AqYBR7"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OoHGgjSfWYpB05+fSb88E0ID0/HP1IBQpVIbX01UjGk=;
+DKIM-Signature: a=rsa-sha256; bh=eE7AKtJ5rHDjCHFP0sbjzrcKFX6z6p2ntCRRXg0JHB8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787915388; v=1; x=1788520188;
- b=RdniU1/DbmPn0VtQ3oCjn/aSXaa7PAma4T34fwwGoPs1wOs9/MxtRHlPwLGmp3p7HTMZXCTB
- dZULfLBRB0RxyIlVbkElGGqIghNQtBlA0tLz/nSxP73dpOULj/+LTh7zOtWmcdbG1nm08/VATDj
- NeAv7aqxRVWu6e8lf73YbtNY=
+ t=1787915399; v=1; x=1788520199;
+ b=s3AqYBR7xq9lQCJZeMNj5AAuqsD0kfS4MXgdsvZddFFOpu51QVN5ntOKtjk9abTPFIikO1Q1
+ 1wABoFLL6nAwe13oy0Dis2s3dVLZA9RL65FsMa+Dg7M8/WBIk7iao6ZVo6prAeBvwQB8AhgTbOy
+ 1gG5UEZmbR/djDug+B6vMruM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e93b957396df94b6;
-	Fri, 28 Aug 2026 11:09:48 +0000
-X-Mizu-Trace-ID: e93b957396df94b6
+Received: by smtp.migadu.com with ESMTPS id 103cb01acecf7077;
+	Fri, 28 Aug 2026 11:09:59 +0000
+X-Mizu-Trace-ID: 103cb01acecf7077
 X-Migadu-Flow: FLOW_OUT
 From: Ridong Chen <ridong.chen@linux.dev>
 To: Johannes Weiner <hannes@cmpxchg.org>,
@@ -53,9 +53,9 @@ Cc: Muchun Song <muchun.song@linux.dev>,
 	Ridong Chen <ridong.chen@linux.dev>,
 	Ridong Chen <chenridong@xiaomi.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] mm/page_counter: avoid integer overflow in effective_protection()
-Date: Fri, 28 Aug 2026 19:09:18 +0800
-Message-Id: <20260828110919.1324028-2-ridong.chen@linux.dev>
+Subject: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
+Date: Fri, 28 Aug 2026 19:09:19 +0800
+Message-Id: <20260828110919.1324028-3-ridong.chen@linux.dev>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260828110919.1324028-1-ridong.chen@linux.dev>
 References: <20260828110919.1324028-1-ridong.chen@linux.dev>
@@ -69,81 +69,159 @@ Content-Transfer-Encoding: 8bit
 
 From: Ridong Chen <chenridong@xiaomi.com>
 
-effective_protection() scales a parent's protection by a ratio of page
-counts, e.g. for recursive protection:
+memory.min/low is silently bypassed for MGLRU during global proactive
+reclaim (writing to the root memory.reclaim) and global direct reclaim.
+It can be reproduced as follows:
 
-	(parent_effective - siblings_protected) * (usage - protected)
-		/ (parent_usage - siblings_protected)
+  # echo 7 > /sys/kernel/mm/lru_gen/enabled
+  # cd /sys/fs/cgroup
+  # mkdir -p a/b
+  # echo 100M > a/memory.min
+  # echo +memory > a/cgroup.subtree_control
+  # echo 100M > a/b/memory.min
+  # echo $$ > a/b/cgroup.procs
+  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+  # cat a/b/memory.current
+  222650368
+  # echo 500M > memory.reclaim
+  -bash: echo: write error: Resource temporarily unavailable
+  # cat a/b/memory.current
+  6070272
 
-The multiply is done at unsigned long width before dividing. On systems
-with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-protection value and silently breaking memory.min/low enforcement.
+memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+protection. The traditional LRU path is not affected because
+shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+visits during a top-down tree walk.
 
-Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
-usage and parent_usage are not read atomically (a child is charged
-before its parent), usage - protected can briefly exceed the divisor,
-making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
-the ratio stays <= 1.
+Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+moved the protection computation into lru_gen_age_node(), which only
+runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+lru_gen_shrink_node() -> shrink_many() without any protection
+computation, so emin/elow remain stale or zero.
 
-Reported by the sashiko review tool [1].
+Introduce mem_cgroup_protection_path() which computes emin/elow along
+the root-to-target path only by iterating through the cgroup ancestors
+array top-down. This avoids the full tree traversal that would be
+needed with mem_cgroup_calculate_protection(), limiting the cost to
+O(depth) per memcg - typically 3-5 levels.
 
-[1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+Call it from shrink_one() for the non-kswapd path so that each memcg
+about to be shrunk has correct protection values.
 
-Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
- mm/page_counter.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ include/linux/memcontrol.h | 11 ++++++++++
+ mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                |  8 ++++++-
+ 3 files changed, 63 insertions(+), 1 deletion(-)
 
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 661e0f2a5127..e8bd512069c5 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -8,6 +8,7 @@
- #include <linux/page_counter.h>
- #include <linux/atomic.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/string.h>
- #include <linux/sched.h>
- #include <linux/bug.h>
-@@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
- 	 * otherwise get a smaller chunk than what they claimed.
- 	 */
- 	if (siblings_protected > parent_effective)
--		return protected * parent_effective / siblings_protected;
-+		return mul_u64_u64_div_u64(protected, parent_effective,
-+					   siblings_protected);
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 7d1c0ce189a8..8066b798a759 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
  
- 	/*
- 	 * Ok, utilized protection of all children is within what the
-@@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
- 	if (parent_effective > siblings_protected &&
- 	    parent_usage > siblings_protected &&
- 	    usage > protected) {
--		unsigned long unclaimed;
-+		unsigned long unclaimed = parent_effective - siblings_protected;
-+		unsigned long unprotected = usage - protected;
-+		unsigned long parent_unprotected = parent_usage - siblings_protected;
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 				     struct mem_cgroup *memcg);
++#ifdef CONFIG_LRU_GEN
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg);
++#endif
  
--		unclaimed = parent_effective - siblings_protected;
--		unclaimed *= usage - protected;
--		unclaimed /= parent_usage - siblings_protected;
-+		/*
-+		 * The usages aren't read atomically, so a child can transiently
-+		 * appear to use more than its parent, making the ratio exceed 1
-+		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-+		 */
-+		unprotected = min(unprotected, parent_unprotected);
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+@@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ {
+ }
  
--		ep += unclaimed;
-+		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);
- 	}
++#ifdef CONFIG_LRU_GEN
++static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
++					      struct mem_cgroup *memcg)
++{
++}
++#endif
++
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+ {
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..095050d4296a 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+ }
  
- 	return ep;
++#ifdef CONFIG_LRU_GEN
++/**
++ * mem_cgroup_protection_path - compute protection along root->memcg path
++ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
++ * @memcg: the target memory cgroup
++ *
++ * Walk the ancestor path from @root down to @memcg and compute the effective
++ * protection at each level.  This is safe for isolated queries because it
++ * ensures parents are computed before children.
++ */
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg)
++{
++	bool recursive_protection =
++		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
++	struct cgroup *cg;
++	int root_level, i;
++
++	if (mem_cgroup_disabled())
++		return;
++
++	if (!root)
++		root = root_mem_cgroup;
++
++	if (memcg == root)
++		return;
++
++	root_level = root->css.cgroup->level;
++	cg = memcg->css.cgroup;
++
++	rcu_read_lock();
++	for (i = root_level + 1; i <= cg->level; i++) {
++		struct mem_cgroup *cur;
++
++		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
++						     &memory_cgrp_subsys));
++		if (cur)
++			page_counter_calculate_protection(&root->memory,
++							  &cur->memory,
++							  recursive_protection);
++	}
++	rcu_read_unlock();
++}
++#endif /* CONFIG_LRU_GEN */
++
+ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+ 			gfp_t gfp)
+ {
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..e0ba68ede745 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+-	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
++	/*
++	 * For kswapd, lru_gen_age_node() has already called
++	 * mem_cgroup_calculate_protection()
++	 */
++	if (!current_is_kswapd())
++		mem_cgroup_protection_path(NULL, memcg);
++
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return MEMCG_LRU_YOUNG;
+ 
 -- 
 2.34.1
 
