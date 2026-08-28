@@ -1,157 +1,149 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EA30FC0F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3637239B94C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887779; cv=none; b=kioJ2HqlHb0i/HpgKPTaCD5AXyuq0N46z5ppbvhihPUF1Lo2UdphCowc+RDPPcITsRmdlp57L7eEJKmfTiDr+ab1jD7u/46EPgVa0MmK5nSkA1BMYTyYdNAeSPcM48Yy4MHRd4N3s2xsQdjTF5xl/p9OV9MWxrXhlTlECtQqI3E=
+	t=1787887783; cv=none; b=CPUwOir/WiiT3CEm4ssNrwQp10dazmGBdZni19bf6s0pW/oA3J00V2+4qTp7y/ka7IhKPePELb9Obc9ILPDuCep686hzsHwK5+D6R+HqG5IXSmi0V0NPhiAcy8Jse+A2ekmFpV+desRFuY0XCBNEo2fhmgV+uwjlpP3i6skR3C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887779; c=relaxed/simple;
-	bh=jPjlin0tmMCDRTUW+snF3PCNw9aRjkrQLg8rejx6Ly4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bJjfZJfspEeWhFzC0JjJG9yYwQNGRtBRzfN0azPwBgtas52mUWpewPHSzp1wuCbzaqoNA0ltnN9EthlC6HV6131hMMrnXz/TUl30moxzgnX/YhAPQuywQDv+Ogudtd9nm6WZvp+U0nXfeYVimshke/OQLRPezhimQOIleC+JEgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQZGM383; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787887783; c=relaxed/simple;
+	bh=khB7NdtY9eE9c0RZQNdFCuMsTnwmiUsDx/UZLFal7s0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C4mr3tAmISonl5qVFUBiC7oVuRw+s7F6N6+02gONw7JuzpQA0OXeT5yAyqaiBJejV7zhPwG1TCGpi2vATNLnY6qo0YxY63yGj9tsj0RIot+0E4ADAmRBNQbnaGnhNa0z3egP+gweAI9PNeCPoH70VhoWWJkrZ2ZzbfEwjskShqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K33GQRU3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQZGM383"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-848643382fcso729573b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:29:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787887777; x=1788492577; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
-        b=ZQZGM383K2s1zkYeHdJcoSVFaHA33CHT89DmYEYIU/ylCJmPbAibUdK2EHIWXFeiZx
-         /Vxd+Fwop1tgVMKhpcu8b4SYswRqcH+CcaMsS75+BF1ft6hist5CHui2eF/HrSjmeRFY
-         9fDvRwiht1K1b6VRVBskyFS1IYBwzKMdHsKnctvQN78nIY6yBMB9rxUmQO8uyy99e0kL
-         8NnmthT4C/vDWRNPc4w4jPy245ICoqprQHkj3dq7Quev+rf2g62ZsySiK4O+1ilwKr1A
-         /59neHNjS3Gn8uqdahUPhODiFG9kg0Ryv/n97JsvQaNIhkNJ2G3UGOnfUwPPNgeOmTPl
-         cIUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787887777; x=1788492577;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
-        b=f3RK8cL84TjH5gqgp22c4H3srs51VYmCJntvEObcQuZwhWo80ymPgRvn4WJsWBef2X
-         xmYLQgq2eiRa7kEGzfkQdyMzDcNU48JDUNQA5Fj177GCerfuORXSBlxDBLzhDFP3oVM8
-         zG16uz4piPsZW2STK1Dy+iyTA7xOHI17PiAlvEgAIyHA+ucdj/R0OJAUkeAagoPBPu9t
-         1OTwRfxeVU+opR7OgdoBG765dXd76zCa2ECAf8kAoyeeva9CqMEtzXK1CUb6SWNS6c76
-         XkX6IC+GQqVunU9gf+1/GOnAnoZsowFyLfBR/cW2kwL6wgrDXXtlpRyay9QKmvEY3GNI
-         LWMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqGWrCQ7ljVILb3qD+ckGQlMHKhgCSWbk/3iS0Z0YuM4IkunZcd0qLWCxghpbKo5OtJcSCG9ZRuwec+4HM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1G61ol43medAPec+RGVFoqNsL+fC5d8f5jJi07XKhfbk6qGDp
-	YXpLWkx69r9Fcj4DUqJVZwH780iQr3BaVFdRyknc0Vzcx3dYmhQfHOs3
-X-Gm-Gg: AR+sD133BnUldW5+UpzYvC1jLABOatqPzaFvPeCNfYMhquJpj2ov4fq7SVALsljXRXU
-	8gndewPUXAmt66K8r2JP06vpps/UBexsh5b+0iA0bD4hFZKDXSb3rzolV9mMRfQ6XFyCQSHr+pe
-	gKhQAXrZOq/Pd0biVGTSh7T21HihvVnlLYNOmssR4EjY+sLKv9HIyAZnKtPfEaYuRPUecJcvcY0
-	wPgM5aWkMqUD+TKbHI8O41semSLyFM3VsjyG95QoUOvLWAoRZZKnsW0pLGxm6e7PQ1waMV8g6H+
-	OwIaKVpB7YWZ22NUQ9Ech9MPQ8lUVAR3lImS2EYaw1RxyFThNWPcFOqOmY63O+MKV8pAlbxq8/+
-	PLrSbOBwT9vn+R26MTdHEUpsgtC0D5+cryf60bu27NWuaDj9JSJ8BeTc+oeWW9Pq8wZhHncVQZb
-	z9iDQX/ZSEfDc6FaCkSZJ1GpFkMv8Sp6MGpAsaoFQP5fReFu17XQGzYuhdmkUooCBF
-X-Received: by 2002:a05:6a00:13a0:b0:855:a211:6679 with SMTP id d2e1a72fcca58-85628b7d138mr6941183b3a.5.1787887776957;
-        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
-Received: from DESKTOPHOME.lan ([240e:3a3:9304:9820:f4a6:931b:cf31:308])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d6c845sm135770b3a.59.2026.08.27.20.29.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
-From: Ziyou Xu <xuziyougm@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	bjorn@mork.no,
-	ericwouds@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: phy: air_en8811h: restore AN8811HB LED GPIO after MCU restart
-Date: Fri, 28 Aug 2026 11:29:22 +0800
-Message-ID: <20260828032922.469449-1-xuziyougm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K33GQRU3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DC61F00ACA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787887781;
+	bh=7M8X0MBMxt76hH5dRrPPwluwtv1i2byXrFlYLC1LgdM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=K33GQRU34x8HB6Y7HBfsB0/e6FwBfNaf7dFW2ibWlwpE92Iw+vDh/+9cJvFraT5rZ
+	 tzOHnRGrO3/+ze9MDzYBkix6oZTPSTnsAeHYWBMuavKzbrtN8+Ld2K7QgNyXJjdAV0
+	 KpvtEaR5sZa2VlaKZBRf3KwUF4ph2IT3rYuv8MH6goK9+AOxIqTVlVXvdPboDYxH5b
+	 b7MBWzEyi6mxzriujenLKGaDwJiWHTvz5YXm4gsIJ86gzSHoaHpllYtEyWoGF0AXd9
+	 PUYu6Y2JTDOc3cK+K2MYEJOA+KQor2GM0/U4Id7Wtbbm1mx7hZbd29QVSMOZmp30kO
+	 rb2WBeY2K5M1w==
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51bfe810293so3110401cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:29:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RonBByjv8u0ngfkY+xT4HWO5cXvw/AIA0i11AlkX0DyStw4ErEwbW1+o6IJllLS5XBZNO4LYuvr7TxYNWo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyKF5vYa7KijkGjm94N3V0f4WdYt+/XHtauJI2Wf5qiXZEEH8Z
+	rIt0eCQ7pCAy8BXqsUo4QIoWwZIKtpoGjFiG5AzH/Mb70Suzq3CQft+jo46boPv1AEjakfZHHGO
+	lVIfHT7BiMppsqZMpMWLKm0eil6Y+Vyo=
+X-Received: by 2002:ac8:5a4e:0:b0:51c:167d:b345 with SMTP id
+ d75a77b69052e-52fb96887b4mr44668841cf.24.1787887781134; Thu, 27 Aug 2026
+ 20:29:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827234704.63163-1-baohua@kernel.org> <20260827234704.63163-8-baohua@kernel.org>
+In-Reply-To: <20260827234704.63163-8-baohua@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 28 Aug 2026 11:29:30 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zaROZOgxix5biefMJNkTwf_BZMAwVhxOpYKrbztCLvEQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VwfytFpUBjCQMB-lWULkgmjEGuuHvJzdATBpIW4xDfMhLj8PCOW7Wd_E4
+Message-ID: <CAGsJ_4zaROZOgxix5biefMJNkTwf_BZMAwVhxOpYKrbztCLvEQ@mail.gmail.com>
+Subject: Re: [PATCH v2 7/7] mm/mglru: batch move folios to the second-oldest
+ gen's LRU
+To: akpm@linux-foundation.org, lianux.mm@gmail.com
+Cc: axelrasmussen@google.com, baolin.wang@linux.alibaba.com, 
+	baoquan.he@linux.dev, chenridong@xiaomi.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, ljs@kernel.org, lyugaofei@xiaomi.com, mhocko@kernel.org, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, stevensd@chromium.org, 
+	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com, 
+	zhangbo56@xiaomi.com, Xueyuan Chen <xueyuan.chen21@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
-configuration to config_init") moved the EN8811H LED GPIO setup from
-probe to config_init because an MD32 restart clears the output-enable
-bits.
+On Fri, Aug 28, 2026 at 7:47=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.=
+org> wrote:
+>
+> Detect folios that need to move from the oldest generation to
+> the second-oldest generation, and batch-move them together.
+> This can significantly reduce the sys time of inc_min_seq(),
+> especially when the other type is significantly behind the
+> preferred type.
+>
+> Assisted-by: gemini:gemini-3.6-flash
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> ---
+>  mm/vmscan.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 17524e96fe64..2b6f3f05ce60 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3931,6 +3931,19 @@ static void clear_mm_walk(void)
+>                 kfree(walk);
+>  }
+>
+[...]
 
-AN8811HB follows the same initialization sequence: an8811hb_probe()
-enables GPIO3/4/5, and later config_init() calls restart MD32.
+>                 while (pos !=3D head) {
+> @@ -3974,7 +3989,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int =
+type, int swappiness)
+>                         new_gen =3D __folio_inc_gen(folio, old_gen, &gen_=
+increased);
+>                         if (gen_increased) {
+>                                 delta +=3D nr_pages;
+> -                               list_move_tail(&folio->lru, &lrugen->foli=
+os[new_gen][type][zone]);
+> +                               batch_end =3D &folio->lru;
+>
+>                                 /* don't count the workingset being lazil=
+y promoted */
+>                                 if (refs + workingset !=3D BIT(LRU_REFS_W=
+IDTH) + 1) {
+> @@ -3984,11 +3999,14 @@ static bool inc_min_seq(struct lruvec *lruvec, in=
+t type, int swappiness)
+>                                                    lrugen->protected[hist=
+][type][tier] + nr_pages);
+>                                 }
+>                         } else {
+> +                               flush_lru_batch(head, &batch_end, target_=
+list);
+>                                 list_move(&folio->lru, &lrugen->folios[ne=
+w_gen][type][zone]);
 
-Move the AN8811HB GPIO setup to the end of an8811hb_config_init(),
-matching the current EN8811H path.
+Sashiko says
 
-Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziyou Xu <xuziyougm@gmail.com>
----
-Changes in v2:
-- Drop the EN8811H change, merged independently as commit 03b4702fc5e3
-  ("net: phy: air_en8811h: move LED GPIO configuration to config_init").
-- Apply the same fix to AN8811HB per Jakub's review.
-- Rebase onto netdev/main.
+"Does this change from list_move_tail() to list_move() unintentionally
+reverse the relative LRU ordering of lazily promoted folios?
+In the baseline code, list_move_tail() was used for all folios, preserving
+their relative order when moving them to the new generation's list.
+Because the loop in inc_min_seq() processes folios sequentially from head
+to tail, inserting them one by one at the head of the new list using
+list_move() will reverse their relative order (for example, folios A, B,
+and C will end up as C, B, A in the new list).
+Could this subtly distort eviction fairness and page replacement optimality
+during MGLRU reclaim under memory pressure?"
 
-Not tested on AN8811HB hardware.
 
-v1: https://lore.kernel.org/netdev/20260820141034.1400439-1-xuziyougm@gmail.com/
+I feel this comment is not particularly useful. We are focusing on
+resolving two specific issues:
 
----
- drivers/net/phy/air_en8811h.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+1. Make sure promoted folios are always placed ahead of non-promoted
+   folios. Right now, mainline can place promoted folios after
+   non-promoted folios.
 
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index 0eeb7b9a4..6ee5df63c 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -1125,13 +1125,6 @@ static int an8811hb_probe(struct phy_device *phydev)
- 	if (ret)
- 		goto err_dev_create;
- 
--	/* Configure led gpio pins as output */
--	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
--					  AN8811HB_GPIO_OUTPUT_345,
--					  AN8811HB_GPIO_OUTPUT_345);
--	if (ret < 0)
--		goto err_dev_create;
--
- 	return 0;
- 
- err_dev_create:
-@@ -1265,10 +1258,19 @@ static int an8811hb_config_init(struct phy_device *phydev)
- 
- 	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
- 			    AIR_LED_MODE_USER_DEFINE);
--	if (ret < 0)
-+	if (ret < 0) {
- 		phydev_err(phydev, "Failed to initialize leds: %d\n", ret);
-+		return ret;
-+	}
- 
--	return ret;
-+	/* Restore LED GPIO output enables after MCU initialization. */
-+	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-+					  AN8811HB_GPIO_OUTPUT_345,
-+					  AN8811HB_GPIO_OUTPUT_345);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static int en8811h_config_init(struct phy_device *phydev)
+2. Preserve the existing order of non-promoted folios instead of
+   reversing them, as mainline currently does.
 
-base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
--- 
-2.43.0
+Sashiko seems to be concerned about the ordering among promoted folios.
+I don't think that ordering is particularly meaningful, because we don't
+know which folio was actually accessed more recently. Accessed bits are
+accumulated over time and handled together. The only way to establish a
+meaningful order among promoted folios would be to make every access
+trigger a page fault, which is obviously not feasible.
+
+Best Regards
+Barry
