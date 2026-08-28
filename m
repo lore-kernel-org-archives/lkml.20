@@ -1,51 +1,54 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF63D171F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6664C3F1071;
+	Fri, 28 Aug 2026 10:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913876; cv=none; b=DDXs62pmT4yXWPrSyizenPfCjP/qdZMcOwS3jGDej3M4q0wGsEJNG6rSZ9c92qTyBOkqlFw8r1p3+tjXAu3VRQBpRCE7VSqGG1EquOZ+GjmwiIcT19LZyQQQyfOlVEQMRDaEpKte0WDnc7YWCUjcT4Uu2S7xamMW6U/p9zt0CC4=
+	t=1787913941; cv=none; b=B8KC83adfgjIVIqS5pcqpJUbS0QNJ9pOW1bmSiS49FzwccpFmTYgwbKXPcHHGwju49cKNiQlt71PCi6fdwrNM4jUDvpN4IV/NeM1yn/pzHGlyj746e5siicG9w0SMUqfyxANtue3s3kgx+ukJpZR1bfk23wjSrJchWkrh0ay314=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913876; c=relaxed/simple;
-	bh=jqvb6efzVIxhyMNFM6ALflx4Ux3+Kq+gYesK8hycogQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=h1pUGbnAlAcMWcZO6ZUUccY3c2lZIP5oDY6gWjnNsQmoQd9PI8HPDldJ16wUUYWt7ubTfmknn56IOwATAHJMXIEBRJCOR9FVMpxurBQuTtLD5kV29u2IWqzZV/UjUW4DkTbuQritc7DR8HHaRi8bjRnBY5ipcgXlyUuAp3NVmYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qJjIVK4X; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787913941; c=relaxed/simple;
+	bh=VJMjAcjLCCj6iXTcNef1EpFHjqLA58SVNKK4rgZgC9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DwPHRU5J42ZYqDC9QZFQHi2E0N45f73HfJy0G78R4zYhK0NRg77bpYoI4asJGNmKO4kZSQsgwoSFq/DeAFRyxJCf2lJEpXfpniHGT+yvRApbacPkuyVQxkSnTJO2I9iSjp+5tsSVNfzWn20+K5cMiMSFmqLbFt5sFSq1izRAX14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0rNgDJiv; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Y4iIAHIE; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qJjIVK4X"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BE6DC4E413FF;
-	Fri, 28 Aug 2026 10:44:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7982C60537;
-	Fri, 28 Aug 2026 10:44:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D31B811C7810F;
-	Fri, 28 Aug 2026 12:44:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787913867; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=UlkoQK9Jj3Zkbr/7ax+qMgzZXpZ194fDPTfYXd3ays0=;
-	b=qJjIVK4XQJzgkzfVrXD2wDdcdKmT63+DbuJIfLwMOqzVj+AoQthsKgAkQRQWtW9ccdvmID
-	Q/lD7tlchMkbpbGj11vwUPv54JbVzvmBkSbjFLWkKcwuxTdXx6y8Q/nvSlHCvht9bJf1hF
-	xIRX21+AOOm33J/oDWEfeJSgbVaMWl/BnCzT5YcxBoSiTrOOxuSHObyDHFNz8kc48c7FSr
-	6l8hzlikvW2EChYH9QElgWhbJmRkSPZwtItfPlvLrTa6qMB4JZ2biPdPbMXc/vD6/uUjRN
-	NmKQflQueTtTBSstqTW03/XYTmf1NgnBCRoQnY7qoRrcAQEPw5jVYxinmuQNdQ==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
- <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
- 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names
-In-Reply-To: <20260823234721.72903-1-rosenp@gmail.com>
-References: <20260823234721.72903-1-rosenp@gmail.com>
-Date: Fri, 28 Aug 2026 12:44:26 +0200
-Message-ID: <87y0dqplrp.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0rNgDJiv";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Y4iIAHIE"
+Date: Fri, 28 Aug 2026 12:45:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787913938;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ay4EfetQI0fx+wZA43LYfJrQgfjVdh11a9jTpjQS2S8=;
+	b=0rNgDJivfWBpquaHBrqp/RsdNRbApXT43ZHMWqf6ANoNjM1kCYxasRPt49E9HUmDN3ToHQ
+	H0hp/xX301aqgDcW5buxII8Q+G1tVsmVH2fZVBc8kPqe7yQ4oFatz/vfd1Lo3WzkZNe5Wb
+	0qL02+WAinq3Mq0ImrJ27UXgMPWici0F9N9FsPO7NwhvKNpDQZ1Nj7re61rKKT+BltyMvj
+	D9m7nagTZip2nXJGw6SHNXW3IhIvCSxg8IIvp3KJe2vJ5j8nQUw5z1Ycw1+m96NanvJjxJ
+	E8cEfFC+uU0CvUD2JigI1vt3QeESDaq87G/9h0UyQkSdw5/gMI0Oap49aqpT4g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787913938;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ay4EfetQI0fx+wZA43LYfJrQgfjVdh11a9jTpjQS2S8=;
+	b=Y4iIAHIEhdbixCyH5M+LlRWyxcs7T7gr2eyydUP2zHTnjidncxqGRLzXdFDrq8mMFt0XL0
+	2Pc+tl/eoPlUOPAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Sean Christopherson <seanjc@google.com>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	James Houghton <jthoughton@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: KVM: x86/mmu: __kvm_rmap_lock() preemption assert trips on
+ PREEMPT_RT
+Message-ID: <20260828104537.pXtV2G8D@linutronix.de>
+References: <8d47b43e1829ac92703723e6a1a4afc7a2eaacb5.camel@infradead.org>
+ <apCwV7xenDh2qmr7@google.com>
+ <apC3lYri5r4KUM3T@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,64 +56,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <apC3lYri5r4KUM3T@google.com>
 
-Rosen Penev <rosenp@gmail.com> writes:
+On 2026-08-27 15:17:57 [-0700], Sean Christopherson wrote:
+> > @@ -1745,11 +1754,15 @@ static bool kvm_rmap_age_gfn_range(struct kvm *kvm,
+> >  	gfn_t gfn;
+> >  	int level;
+> >  
+> > +#ifdef CONFIG_PREEMPT_RT
+> > +	guard(read_lock)(&kvm->mmu_lock);
+> > +#endif
+> 
+> And now I remember why I swept this under the rug.  This really should take
+> mmu_lock for write, otherwise concurrent aging threads could theoretically get
+> stuck competing for KVM_RMAP_LOCKED.  Which is silly, because they don't actually
+> need to take a lock of any kind.  I.e. it's not super trivial?
+> 
+> Wait, duh.  It is trivial if mmu_lock is held, because then KVM can operate on
+> rmaps without any KVM_RMAP_LOCKED shenanigans.  I wouldn't test this because it
+> might break horribly, but I think this?
 
-> The marvell,armada-380-sdhci binding requires "clock-names", and
-> the sdhci-pxav3 driver requests its io clock by name before falling
-> back to an unnamed lookup. Both Armada 38x and 39x nodes only carry
-> an unnamed clocks reference, so dtbs_check reports "'clock-names'
-> is a required property" on every board.
->
-> Add clock-names =3D "io" to both nodes. No functional change: the
-> driver already obtains the clock through its fallback.
->
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+So you drop the bit spinlock and rely on kvm->mmu_lock instead? No sure
+why it should break horribly but it looks reasonable.
 
-Applied on mvebu/dt
-
-Thanks,
-
-Gregory
-> ---
->  arch/arm/boot/dts/marvell/armada-38x.dtsi | 1 +
->  arch/arm/boot/dts/marvell/armada-39x.dtsi | 1 +
->  2 files changed, 2 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dt=
-s/marvell/armada-38x.dtsi
-> index 1155bee20523..598022645dd2 100644
-> --- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
-> +++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
-> @@ -627,6 +627,7 @@ sdhci: mmc@d8000 {
->  					<0x18454 0x4>;
->  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks =3D <&gateclk 17>;
-> +				clock-names =3D "io";
->  				mrvl,clk-delay-cycles =3D <0x1F>;
->  				status =3D "disabled";
->  			};
-> diff --git a/arch/arm/boot/dts/marvell/armada-39x.dtsi b/arch/arm/boot/dt=
-s/marvell/armada-39x.dtsi
-> index 218fcf99ae07..81dd4ca5fbc9 100644
-> --- a/arch/arm/boot/dts/marvell/armada-39x.dtsi
-> +++ b/arch/arm/boot/dts/marvell/armada-39x.dtsi
-> @@ -381,6 +381,7 @@ mmc@d8000 {
->  					<0x18454 0x4>;
->  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks =3D <&gateclk 17>;
-> +				clock-names =3D "io";
->  				mrvl,clk-delay-cycles =3D <0x1F>;
->  				status =3D "disabled";
->  			};
-> --=20
-> 2.55.0
->
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Sebastian
