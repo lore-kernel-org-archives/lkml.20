@@ -1,85 +1,109 @@
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89086250BF2
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2DF250BF2
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787880505; cv=none; b=kFhjM+gkt8R/EnijKVas3XTurn+ffahC5i2FvPMtGvnU4dQz5Y6m7ukZqj/tq5jXtNL7et/YEdQ3FYAtwEIOKX+kVx5WlU6MPlcrWtWXflyVW1UwRyMuUEiIdqTCOxBoWRbAMf0ZhwNYM3F+rAqA2Jpo7sxv8aw14VMlLvEoNb0=
+	t=1787880532; cv=none; b=Q0bhldNzwea5B58QssZmsc5aE2EfYi5HASBiN7mL7vj0aSrpEAYRWCP9CyOlLzN+16q6y3fqupAGkE8Iv+ZgElD3htm3H5SA7Ug+DJTWNHWVrWkMkG6RJsn4VXFBiCfQbbFUgMvOB2ZXqPtv1ZOM6MqvZElZWcCvFkwXzVWBJl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787880505; c=relaxed/simple;
-	bh=ju+6gtsA7pTTbXuAoUHSFVHHz1C7YG8+BAOEUMHtmyg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C+zbpWkoMTHuVMhEoxXijD8cN518ZT/vPl1VSPnRjb9dP4EfGhb36/f707OjQVeIUnbEVPENdIvR9x7q0T4k33XyfLwHcsbw3VwN26QxhAIhxy6iSoP1Tb2WrlpotOhAMLL2XFcy7LScfTvP8Bd7lOZVWjzYxo9iAZDzXBSkE0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NQW0PQHu; arc=none smtp.client-ip=91.218.175.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NQW0PQHu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ju+6gtsA7pTTbXuAoUHSFVHHz1C7YG8+BAOEUMHtmyg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787880500; v=1; x=1788485300;
- b=NQW0PQHuVwhxO2KEGjSspu1e5nMbhIiHyTCpUVYuNHIstVPQ/CEuqLHYxQXbkX0I5Aq2e1fl
- QyTQFOns1FrHy86tG/WJBV6Otk8m/IFDIqtrry4Pq70+YMcGkmpQSHbPz9WXCvDucPcMLoujzFk
- l/80nU1kqYXPLXwp1hV1c4Vw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4426f3ea3515209d;
-	Fri, 28 Aug 2026 01:28:20 +0000
-X-Mizu-Trace-ID: 4426f3ea3515209d
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 09:28:12 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
-	Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
-Message-ID: <apDkLDjq7atCR97E@fedora>
-References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
- <20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
- <d045bf04-be89-41ad-bd0a-b62fe4de8dfe@redhat.com>
+	s=arc-20240116; t=1787880532; c=relaxed/simple;
+	bh=BYHFmCFPWmb5ot5TgEjuSBCPTrnPvfmVEuBXLl/h42M=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=hdaUXATyQ+eg2jbcYeRru7QIZ3PPLIzo0Jz9lLKaSRTwDrGLufSqkUB9AZ5EzQ3gytqPUlATQrU0NIUGp01p/4t28d8fVzPPHKkg6cDF2n0mX9CIfO3lDqJFGiIkxDRW25QBsuZn4I65PAowMpYvQ62sGL8LnCzpw3xs0NhUPUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab8b4887d4so326923b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:28:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787880530; x=1788485330;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lxsp0z9HP23MQDM7Mt1YLo61kRgSyqCYkKGFcgLyq/E=;
+        b=gyGkSGo5Spj26fhPtWSdgnsgNNmw0rskB9H1dWcDPesPgfCtZpSEysrv3IpamhXw9J
+         19hdxzkIfvly1rM/YPXCSgnrvxqEV4G3os7dPgqFc1GTJaCywLFtR4w28hRd4RG25y8O
+         LgYhIwqXh0rquEjBZksno7WsfI2koUdc5DY3kBisAUNuVMVn56XxHV+crd866DDQBmUP
+         iiv/RrOo7UoUw8m2LfXd4TmI4tmkY9Jpa0wlVTnbxW+nCnI3Rv+8nmvnWgWq/LWt/jHw
+         QgIcF0FGh4EdSdnVmF18QBe275MQ/OYwjWKK3loOOFex8/EqNmsjjldi5saRFdKcRQzJ
+         mHBg==
+X-Gm-Message-State: AFuF++nAh2/phLKo7PooNd0RsTJQ6Pg88uOidLRApDsbVnc8iCgF3Zc+
+	vOGWPCsRuB5Uo4RAiH42Dl3meUOkIC41R9jDaZd2Wga/JlzIRc+YKmyJbrYy6qwmCUpVPmnuxKA
+	05mu550a5Ev3vwvUc71T8Y8eA3LX2FUS2qnIWD8c1coNuvB85Mep4oOuvjsM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d045bf04-be89-41ad-bd0a-b62fe4de8dfe@redhat.com>
+X-Received: by 2002:a05:6809:404:b0:4b3:98f4:f057 with SMTP id
+ 5614622812f47-4b398f4f0b7mr3160030b6e.3.1787880529984; Thu, 27 Aug 2026
+ 18:28:49 -0700 (PDT)
+Date: Thu, 27 Aug 2026 18:28:49 -0700
+In-Reply-To: <6a9087a4.4d659fcc.734b4.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a90e451.1d9ded08.62e62.00e0.GAE@google.com>
+Subject: Forwarded: [PATCH] usb: serial: keyspan: add debug prints to trace
+ NULL p_priv
+From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 27, 2026 at 03:42:23PM +0200, Paolo Abeni wrote:
-> > @@ -170,8 +171,14 @@ static void tlb_deinitialize(struct bonding *bond)
-> >  
-> >  static long long compute_gap(struct slave *slave)
-> >  {
-> > -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
-> > -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
-> > +	u32 raw_speed = READ_ONCE(slave->speed);
-> > +
-> > +	/* It's meaningless to compare gap on unknown speed NIC */
-> > +	if (raw_speed == (u32)SPEED_UNKNOWN)
-> > +		return LLONG_MIN;
-> 
-> Sashiko noted the above could entirely disable:
-> 
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825-bond_overflow-v5-0-7a800de133f1%40kylinos.cn
-> 
-> I think the v2 code for the above should be fine.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Thanks, it looks like I was over‑thinking this.
+***
 
-I was considering a case with two slaves: one at 1 Gbit/s and another at
-10 Gbit/s. Once traffic exceeds 1 Gbit/s, `compute_gap` may still select the
-1 Gbit/s slave, which leads to overload.
+Subject: [PATCH] usb: serial: keyspan: add debug prints to trace NULL p_priv
+Author: kartikey406@gmail.com
 
-In any case, this behavior is still better than no balancing at all. I will fix this.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Thanks
-Hangbin
+
+
+Add pr_info() calls in keyspan_break_ctl() and keyspan_port_remove()
+to trace the lifetime of the per-port private data (p_priv) around
+port removal. This is a debugging aid to confirm a suspected race
+where a port is unbound (freeing p_priv) while a stale tty fd is
+still open, leading to a NULL pointer dereference in
+keyspan_break_ctl() when break_ctl is issued afterward.
+
+Not for upstream inclusion - debug only.
+
+Link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/usb/serial/keyspan.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/serial/keyspan.c b/drivers/usb/serial/keyspan.c
+index 4d3746c7a94e..36626c0cc0a9 100644
+--- a/drivers/usb/serial/keyspan.c
++++ b/drivers/usb/serial/keyspan.c
+@@ -601,9 +601,9 @@ static int keyspan_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
+ 	struct keyspan_port_private 	*p_priv;
+-
+ 	p_priv = usb_get_serial_port_data(port);
+-
++	pr_info("keyspan: break_ctl port=%d p_priv=%px disconnected=%d\n",
++        port->port_number, p_priv, port->serial->disconnected);
+ 	if (break_state == -1)
+ 		p_priv->break_on = 1;
+ 	else
+@@ -2975,7 +2975,8 @@ static void keyspan_port_remove(struct usb_serial_port *port)
+ 	int i;
+ 
+ 	p_priv = usb_get_serial_port_data(port);
+-
++	pr_info("keyspan: port_remove port=%d freeing p_priv=%px\n",
++        port->port_number, p_priv);
+ 	usb_kill_urb(p_priv->inack_urb);
+ 	usb_kill_urb(p_priv->outcont_urb);
+ 	for (i = 0; i < 2; i++) {
+-- 
+2.43.0
+
