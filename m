@@ -1,77 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535D93BB109;
-	Fri, 28 Aug 2026 19:20:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C17531D39A;
+	Fri, 28 Aug 2026 19:21:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944822; cv=none; b=BrIFPJETiQrgf8/BUvPfckBZs6sKW/HIAU+yByFx0dPiZ40D1XS9jhPRR7xaQ0oqltnzyKC/FPlwTtc7O3nuZ6LduM8HMbxe1bcD9mBwVI60vYY9d9NQUYF/SNTp6WPKQ4tkrFgPOpKcbYWNcgitW1tMxEKaBD3pRuvBkIONiSs=
+	t=1787944881; cv=none; b=RAahQUaxHkXQO++jYMPz7NDzi+Tq92c3TihQe2sOAKXkjtBDAabbAaoYtyRYffuJ6m/VyROhAvRxAnl3WuZWIZg7HEP3+rySVolf1Rnpx8WKFBGxtkk+UHyPgpdHE8lFs1i5K9WfXpTwcL9tgV4qnNPj/X11CAvOnbe/BwNMWqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944822; c=relaxed/simple;
-	bh=uNeM2/Fk2yqr4ZHA4xk46RqzVAdqafasj/mKiyfZD20=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=cwfRHYOLD+sDNymgq6cI8kDLcFw5p8d6UdZd2dkOJVT1RvJ2980iuumOM/c8+0ZhjZuzybjWLxsrKLlBGgEqRw4nEzgCZbbaGVPYOQib6Ml7yQbchRuvUhylhI8n6ur/2CZwJpqqtoXmMDVJG8Wmf7XQVIfW0uuXa2+fN/dufts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YccYuhnK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787944881; c=relaxed/simple;
+	bh=MTGSNXk/KeeCWl4z5xOL+w2W+zJDFyHnS/UGvVPON4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DndhSfAIY0GmW+HorWZWNNCnFP5wHDr91xgvM5y3S/9wGqW5aIfSc+ZnaUgmfVPWdSVB5twFr4zt0r3Eis4UaS1vIlzel4HT+VTV3VLVtd4XmDxWvsQEc4J1M6dTQWi8kxavLAAtmZDftb29TXnUgHKHbNQIRuid8uzYob9PEKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuPsSYQB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YccYuhnK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C051F000E9;
-	Fri, 28 Aug 2026 19:20:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787944818;
-	bh=DqswDGqiNUCPl5M5sQ08mk77pL/gqXDNGxwzzYiqye4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YccYuhnKN/IJ9Yinyg5VnK5LmyQFBhGAl0u028g3vTYAYyZYUB4UOenvskRreRIs5
-	 XiXM3dXuSxkyV8+vlP63u25LymCgQPGRymqbdy+/G+qs0bx5B4Mt4rb+5TViOAGAH1
-	 TlnoYCDuZ4PVWFaDr5YyTnO+C3pgxUDjnipDZlLE=
-Date: Fri, 28 Aug 2026 12:20:18 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Muchun
- Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, linux-mm@kvack.org,
- kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit
- on isolated cpus
-Message-Id: <20260828122018.1a3b3be204212837fcda8e50@linux-foundation.org>
-In-Reply-To: <20260828135036.7d44361f@fangorn>
-References: <20260828135036.7d44361f@fangorn>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuPsSYQB"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C6FB11F000E9;
+	Fri, 28 Aug 2026 19:21:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787944880;
+	bh=+pC9pfKkgZde38rA1x41lZq10E6fInu+DStbCtLBNtA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NuPsSYQBvf26u0P/q6K3dtc0+Qpl5LEF18SoNBkqHd35yqFpParmpEW5OJaAFfMZg
+	 nIMRvP3dpIN0sCi3H6z2usuk1FaUkD00V6+Yh73x8vASAtj+OO8GwkbUv0ilrKEmQg
+	 mUJlb/SpY0hrnRc8eI7lDJ/dW6nvqya/YycIFVjV053GtP0eJY7Gp5kVIVyjEI6fSi
+	 +c3A2nJ61wn84ZMeWawcL9Am6UB9g0f8rJC4/2iPD1sILuqig3Xa71smYExm56v8kQ
+	 duzjI1rwF8kXrNf/GjkOfisAjRBOfumgKGVqHfYVNKTKGWlHTJNCQxe72qhNEa8QR1
+	 CWq640sdjuzjg==
+Date: Fri, 28 Aug 2026 21:20:36 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Julian Braha <julianbraha@gmail.com>, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild <linux-kbuild@vger.kernel.org>
+Subject: Re: [PATCH] erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default
+ logic
+Message-ID: <apHfhILRL0-lFOEh@levanger>
+Mail-Followup-To: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Julian Braha <julianbraha@gmail.com>, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild <linux-kbuild@vger.kernel.org>
+References: <c480ed6b8bf38822263e2c5b7cf32b28600f212d.1787219898.git.geert+renesas@glider.be>
+ <CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com>
+ <apGqg5a5I9g1CoF_@levanger>
+ <CAMuHMdXwmCrzLZiPnQejJ+dTvVNf2zTzgKwTWEFEkfKRkZQpPQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdXwmCrzLZiPnQejJ+dTvVNf2zTzgKwTWEFEkfKRkZQpPQ@mail.gmail.com>
 
-On Fri, 28 Aug 2026 13:50:36 -0400 Rik van Riel <riel@surriel.com> wrote:
+Cc: Julian
 
-> When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
-> isolation, schedule_drain_work() can drop the work in a separate RCU
-> critical section, and housekeeping_update()'s synchronize_rcu() can race
-> that second check, leaving the flag set.
+On Fri, Aug 28, 2026 at 07:21:07PM +0200, Geert Uytterhoeven wrote:
+> Hi Nicolas,
 > 
-> drain_local_stock() only clears the bit for work that ran, so the flag
-> remains set and the stock is never drained again.
+> On Fri, 28 Aug 2026 at 17:47, Nicolas Schier <nsc@kernel.org> wrote:
+> > On Thu, Aug 20, 2026 at 12:15:33PM +0200, Geert Uytterhoeven wrote:
+> > > On Thu, 20 Aug 2026 at 12:01, Geert Uytterhoeven
+> > > <geert+renesas@glider.be> wrote:
+> > > > When NR_CPUS is less than 16, or when SMP is disabled, the default value
+> > > > of 16 is invalid.
+> > > >
+> > > > While actual configuration picks up a sensible and valid default
+> > > > (NR_CPUS or 1), "make savedefconfig" will still write a line like
+> > > >
+> > > >     CONFIG_EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS=1
+> > > >
+> > > > to the defconfig file, even if that matches the sensible default.
+> > >
+> > > Is this a bug in kconfig?
+> >
+> > I am not able to reproduce that; this is what I see with ARCH=arm64
+> > (arm64 always has SMP=y):
 > 
-> Have schedule_drain_work() return whether the work was queued, and clear
-> FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
-> isolated, so future drains can retry.
+> [...]
+> 
+> > Thus, to me it looks as expected.  Do you still see the behaviour you
+> > described above?
+> 
+> Perhaps you cannot reproduce this because this fix is already
+> upstream as commit ab74edaeb1ae7c71 ("erofs: Fix
+> EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default logic")?
+> 
 
-Is there some Reported-by: or reproducer for this?
+oh sure, thanks.  Yes, it really looks like a bug to me: if the range is
+defined as 1 to 1, the default 16 should not cause a savedefconfig to
+write the config set to 1.
 
-Given the complexity of the reproducers which Gemini developed for me, I'm
-suspecting "nope".
-
-> Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
-> Cc: stable@vger.kernel.org
-
-Why is a backport being proposed?  How does that benefit those we
-serve?
-
-Sashiko suggests that we ain't done yet:
-	https://sashiko.dev/#/patchset/20260828135036.7d44361f@fangorn
-
-
+-- 
+Nicolas
