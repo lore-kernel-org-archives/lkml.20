@@ -1,165 +1,149 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010031.outbound.protection.outlook.com [52.101.56.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2507143CE6D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933729; cv=none; b=ZO1+rj1NNKa+EnfXIDln1QQBdd3KYbQLVfurIBLHg5ibRClUKhRPcf5aahY81alxmuZtUjxXjpZ0DfQDe4WckJdKZodypfIg5PuprWX7dE0gsSYlEpzU3Kol+rURRyST1LWI1FXGfUNBlauIua0fVoYmKis5GxJzclljwxjmdX8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933729; c=relaxed/simple;
-	bh=usTXO+ZWlW2Te+ZHWe9NdViYSu6Lko1pNutdv/H6/Z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nPtojKReTnNGPHqMFo8w8pa9hlln8uK88BzxrqdT3P5sEuCUXX1JAVriI/89UG6SXOPOTE3J3v0BtqOFHJRinsg0HPPhCA518U0SDQixpuQeERUjgsdVP2M91HzMPXtvzC2NHeat9XfYnGjnEiJV8yfvPHE/tGgpF/aYeB7+d0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PofSWGOP; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C253B8BA1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787933733; cv=fail; b=iifsNyip3OebW8/YGzguNZebhwpcepEUYvo7DXurF9kin7PuCiAKlWwxGqFVy1jQgJw65GrUOZih0plaQgTHJBs845j8cpNUMXxCYv8Cej6Y2R9kDSNebvXZXjI+WAnAwMny8wVCH8rBy0BG31q0h5MbGKk25LYx1GSC0djX7fU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787933733; c=relaxed/simple;
+	bh=OOEjbAS1MUINaMqWDR6sMV4VtoH2U97ujBYwTaPWfJs=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rxh5/0YQ8baa3htfKlbJmsjGlx0tLrUJXxaHZIgFbEWos2CwFXXoafe1NptC0redwqiD7LdeTXTCnlkH2c9U0Uq0F/qpJGHou6MkoUMohucOVsZF3nPjh99gMQvS/ixb+LkXBfqegENrjMLJjEwnCtwC1oy6SE6uBMFAXIqRwXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GLiYHHpT; arc=fail smtp.client-ip=52.101.56.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PofSWGOP"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso552655f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:15:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787933726; x=1788538526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xCuY6gGTBuVO+96rY+P61STsvhiDiQP17uO+QOQgni4=;
-        b=PofSWGOPYIP03OdVYpVlzvWAKHxsXWHUxZGpuJ9vbh9jhhyR6bMHmEkbSHoHWnTfCg
-         c5XMhL2Yv9BxFr/02gydkzlQI+NHL6RNHO8dUZeNqtu31IwscxbP8NeILCIBl3rRzJLO
-         iFo+r2gKLe80vTLmsiaZbDS/LXismpM+kblXjPUHtVx5TjozdhKaA3hOSHYAAhYOGdzO
-         4DLXnSD9P984NoRRrgOZiqoEcNNgfDd0nhB3oYNGI9hNbBriDtusQFGRhFUG+7RzMIgx
-         q8+x2l9PIUNvsvggOmdioHWfmEadrmvXbtERUylT3qWHXGXtj1ctHuJVtTnqLm/eyiFt
-         Rwdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787933726; x=1788538526;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xCuY6gGTBuVO+96rY+P61STsvhiDiQP17uO+QOQgni4=;
-        b=DLehznXXGdXmfxf0ZWG00en89W6VebBvZjDi903Q/P8jagFj+l4C5iSNrqi8T0SzxB
-         XWBe8iPLFgoaX+C2UOT4C1t93lkEvMpbM8pokwfsSNbvw8Twz3HVcgNsCwJKVRjP/VD1
-         kihr91Phrpi79LbNxuc9tT91KnBnXFaXZXgYb3cYsL/iczJaR3iEr9Sa/U4WdbffVWEj
-         2zk7PN3bro6tddsjzisqDJltK5FWv3fp3rOwKFfGnaE5BlF9eX+es6kazzoZdS6BJML6
-         VtwQ5YFjQ/yqO/pwrrHQYAJRlrI+o845OAzz17A3qfkai3uHsgGPITgULoymtHO5CTv4
-         J+pA==
-X-Forwarded-Encrypted: i=1; AHgh+RqixZKjyIBRztj+1MT2V6pwn03AeQXbJAQ3tewu1XX2ZPNIGKmHfAehyDKu59vBXfb9BZ/y8sl6V1IqNOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++myOPHlE3+w+cFrhhNCrE4bxWybjCpDzW755RWsn0wF9ryQlhnI
-	DDNQUOp0KfL9ItkVGZjln3gOZwxHEsqJLpotF5Dv+NpdD6EWGeuoKTwXxnSwF/KG
-X-Gm-Gg: AR+sD13HcDiAQR/Q/0HZMlw22h2Hn9HCIcMgQ4d8v4fJcZu+ShpkPokTk5AMs9Ib7mF
-	jagURCLEp8bDuoTyeeyQ04MOcIwVOgla/w2icYUoa6mak1jxutYGxHt2rHyXzi0SfReLEUIeSLu
-	kYdQxF71LxXOZl4ZLD+q1ngpStSANKm8sar+iB+/LiY/rBIZk41DZcY78svSL5qZkFjfx4jTnjQ
-	9Q2qjJ5+J/fQiWUpQCOLuoDD0ceKoNhIb1UCeAbFH1f7PhTHsrtMiQj2bI6KdyGR5NpWKoHR3LK
-	MZQ+gH38wUasH7Exp1x+6gliL86wF0ku2hd/zyW+xkBTHErlVXVRbOtJocAhlSzUCXVBnJ3xnCU
-	KLWJZj4dBMO8OOu8HQK/NkKkJXXI6UJQBGqaw49jXL9w2dPU7LEC8z8WQBzyKpy9SZ8rQWtLRFP
-	UyY0o2mgo26ZMfawJZP+S1ePGpjRnVhHTo1lbXZIJQjxUAP+Jjwumr29Lq/zCbq+mxdNKEhdlpj
-	3tn7ahYv/NlX05jgScV1BYyEANe1IIC5s9kCaop/Q==
-X-Received: by 2002:a05:6000:2c12:b0:47f:80d1:be0a with SMTP id ffacd0b85a97d-482f79c7697mr12240100f8f.14.1787933726470;
-        Fri, 28 Aug 2026 09:15:26 -0700 (PDT)
-Received: from 1Z10 ([78.213.5.213])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.15.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 09:15:26 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v4 11/15] media: atomisp: provide Yoga Book OV2740 link frequency
-Date: Fri, 28 Aug 2026 18:14:53 +0200
-Message-ID: <286ec3ad5ea72a769b5a30a086a4ca8b35268700.1787933456.git.mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1787933456.git.mauriziocasciano7@gmail.com>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GLiYHHpT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BM21jAW6GfyffkyKGi+Em3rhXt7gEBGnqqV9b1Ru1IgRPEYb5sfIZKoHzO/NW9ytaoAaNNcWq7mLhR29br3FP58AM5RKndilEfd6u0GEol4lehsyUdFO4TIVEol/JiJB6HTzHw8vt7ZpBa+D2x4czHkY3Qn0zodzcoaolhrr6ARYg/dHuFq2iDuGxLtslXkXTnc5WqahGCbvJvde8JyC8SDVSTnpFlSd/vLCe51pWyvU38xldjAbS6u1KH2ZtPwmuipIC3FoK/RxvioBaUeWKfGeSBKT9B5tdB604Gb9DQ9Zpgylf15Fiq8g01glMV3jadc2h2fC0IRdXFgyeA95Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N91F5h46GEsdVvPIGcLJmUY8syOiUXO23DUtpVzNeGA=;
+ b=pu5jPp1s7Y/t6VghJlni1xYEeMzjpYQ1ATbXAl3YZA5mYwSJBSQXvP0aIWNrYi7LOq5EcN6aQ9sFORO/ZJUEUihZ+a/O1ycZB5tTDnJVO6CujV2jzXHiErRJg7y5JB93lfpxcyBbIeeoCwL4TX2B1qd8N7wD522ZhTdqBo4EnfK1AjbVO693bhZ+BTlrF7IxFHRYL+h51UDi9EUXfGU9Jo8hc4nFeg2GhpB5Ut+KZXzaTnZWb0/zBz9lNrIx+cZJ2tY7MmSNsRzibI2VSVYpQbs16bmNOAgBgwq53ni3yqBi42HNCGripi8+Byo71X9J3YQI9uN5ygoIhewSl91QAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N91F5h46GEsdVvPIGcLJmUY8syOiUXO23DUtpVzNeGA=;
+ b=GLiYHHpTDJtCqiDZRj2LoUX9+WNqD1gM871kjpWOISpWJXBTlgRH7baOtM2lGSYfMINg2gRf3eSoZCv1uWN5G2H17ymfEk7z2ewafweMJ/9Yox2gTRSotshuQXWdd+JOQoZxLG4X4Q0nMQnY+DCy59jnUvUy011xvUuIQ4kJntsB7CVGtbX92wkD56IvB+03Q6uPumYswhqaZj39B6HWaDUaw+fSv0zjEGq/GAoEI2Y603Imuf1BhDk16Hgv0GJ3M5rAWKn4krtowVDn+xVuykQW+m364l9osXH8ZtHPY8Lr3KaxK5tLNmdJPDR3bYuQz/hcIoLEossdfxzep+IvgQ==
+Received: from SJ0PR03CA0008.namprd03.prod.outlook.com (2603:10b6:a03:33a::13)
+ by DS5PPF7B9F1F8E0.namprd12.prod.outlook.com (2603:10b6:f:fc00::656) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Fri, 28 Aug
+ 2026 16:15:24 +0000
+Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::2b) by SJ0PR03CA0008.outlook.office365.com
+ (2603:10b6:a03:33a::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
+ 28 Aug 2026 16:15:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 16:15:23 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
+ 2026 09:14:52 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 09:14:52 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.181)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Fri, 28 Aug 2026 09:14:51 -0700
+Date: Fri, 28 Aug 2026 09:14:50 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-kernel@vger.kernel.org>, <iommu@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <will@kernel.org>,
+	<robin.murphy@arm.com>, <joro@8bytes.org>, <jgg@ziepe.ca>, <praan@google.com>
+Subject: Re: [PATCH 7/7] iommu/arm-smmu-v3-test: Fix UBSAN error
+Message-ID: <apGz+o0k+uz+UN5i@nvidia.com>
+References: <20260828125409.1921538-1-smostafa@google.com>
+ <20260828125409.1921538-8-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260828125409.1921538-8-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|DS5PPF7B9F1F8E0:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9564684-d5d9-4928-1fe6-08df051f90ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pZz3zL9CdqaWV7DQZWPYX0MMz8cLMky7HYXPYVYdi+7TNd4fETEXfnBYLKGVBiiXTvFJnHDFr/M9nQ3HazHN8fn99i5+Hwfw7E7lpOkgIFfUAQiv5QN2xoG31NwbRbf/Mwslc+RtpQPcLuKdZ16rPyi6CL/ixONnYY9vaotlFxo/QPg2gDKbiYfHEqmfRVnD5x+lmFPMKuLrt6Kd5fGJp28N7LHIVTqb9pZdXKcZ3SBTvntY0xIj2gHriL4n7Xix+9S0MEuea7+VXQouP1956n7E91J1nBRLYnRuimia1PYQMvaWdvOJT1nVOIdvGC+t+Fbb2C+OyeQ6sgQLjFEmw2B0E63zoc4QB3KapKeLcISGmX+6bLsi/Md58uXby3Ns5mNWiM0XyPmD0KMJmsB/OGrUIsVWtGcXrU1sGgpE0d4xScgNAAYGbn8KEA0/rzf3JxkY9hoVS5mmZCGfrIRRGKJ4U1LGoLSruQoTsfVR6+oAijldwDBIzj1jcR9+Cyfd74WQLe146QYG0O7bXLsVJ4FG07+ulDZ4zGbBaeVhuzbTQgJeu9YSZoi8l71O8xTRIDc+3VVjkGtmYQAsEvYl3Hby6EDDF4Ab+BVecxrKfNnuf0P0SO9qJ+riI6oHaIjr+oVTndMIHgj8tcz8oOz3Hy/PAs+L2mmBJfpR+GdbkMU6O+039gG5deSYX+vTaFnGrZQWoyCEW7AmJ/+CRjn4Hw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kKVfFKHb1UPiH4zJCbKFRSSyOOx4aFtbSz7DYoJgqLL5dskvOFdEk0kR0MMvf2YzIcVMwNGeEIUZ5pfpWDFnCDiqyX3H6m8Wzg/rltf71QTmKriKx3UqRTXZvKuz1BGdfKirsPstV9YDBElL9UR6K2l3UUlwHpqfHaWXx83jxrxkX0OqruOTTLJ/fkjJX/MKdiCanJGopIHV/zFnfqmOilMrKMIR9j1Z3vl4r4yAJlszDcxzX3tRSatydJcnZwyD2LzZ82Eude5sWkABPg8k21UQsrXRCKhqr24MKNkfpL/5R7rLMjydnC1XAyMgq4nT1ClunCaLvgWiFqsU/2rVjG8WAGb2hiPS095JBTMzVgJa0DF86NL3MEGt1N2zltUFDyYD+z3sEx1kHk4Sm2iy40Vg2D2EkPxSqgAoV/O1h2iKqxYPHZhYFAcoUj6ISjgt
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 16:15:23.9090
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9564684-d5d9-4928-1fe6-08df051f90ad
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001EC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7B9F1F8E0
 
-The Lenovo Yoga Book YB1-X91 firmware does not describe the front
-OV2740 link frequency. Extend the AtomISP sensor configuration with an
-optional frequency and assign the 288 MHz Yoga Book value while adding
-its ACPI ID.
-
-Pass the value through the IPU bridge per-sensor endpoint data so the
-OV2740 driver selects its matching mode and the AtomISP CSI-2 receiver
-derives the correct D-PHY timing.
-
-Link: https://lore.kernel.org/linux-media/apFzAc5XfV9gQpXS@kekkonen.localdomain/
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Assisted-by: Codex:gpt-5.6-sol sparse
----
- .../media/atomisp/pci/atomisp_csi2_bridge.c       | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index 56da454f0d9e..226c81409848 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -15,6 +15,7 @@
- #include <linux/dmi.h>
- #include <linux/platform_data/x86/int3472.h>
- #include <linux/property.h>
-+#include <linux/units.h>
+On Fri, Aug 28, 2026 at 12:53:42PM +0000, Mostafa Saleh wrote:
+> struct arm_smmu_invs marks its flexible array member inv[] with the
+> __counted_by(max_invs).
+> 
+> arm_smmu_v3_invs_test() uses invs1 to invs5 which has num_invs = 3
+> but omit max_invs.
+> 
+> This causes the following UBSAN error:
+> [    2.333240] UBSAN: array-index-out-of-bounds in drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c:1116:21
+> [    2.333604]     # arm_smmu_v3_invs_test: lib/ubsan.c:228: array-index-out-of-bounds in drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> [    2.334129] index 1 is out of range for type 'struct arm_smmu_inv[] __counted_by(max_invs)' (aka 'struct arm_smmu_inv[]')
+> [    2.335375] CPU: 6 UID: 0 PID: 155 Comm: kunit_try_catch Tainted: G                 N  7.2.0-g8dcb331fbb72 #2 PREEMPT
+> [    2.335759] Tainted: [N]=TEST
+> [    2.335791] Hardware name: linux,dummy-virt (DT)
+> [    2.336254] Call trace:
+> [    2.336932]  show_stack+0x18/0x24 (C)
+> [    2.338443]  __dump_stack+0x28/0x38
+> [    2.338494]  dump_stack_lvl+0x54/0x6c
+> [    2.338518]  dump_stack+0x18/0x24
+> [    2.338541]  ubsan_epilogue+0x10/0x44
+> [    2.338565]  __ubsan_handle_out_of_bounds+0xb8/0xbc
+> [    2.338834]  arm_smmu_invs_merge+0x688/0x8ac
+> [    2.338862]  arm_smmu_v3_invs_test+0xd4/0x598
+> [    2.338890]  kunit_try_run_case+0x64/0x160
+> [    2.338914]  kunit_generic_run_threadfn_adapter+0x28/0x4c
+> [    2.338955]  kthread+0x10c/0x12c
+> [    2.338984]  ret_from_fork+0x10/0x20
+> [    2.339433] ---[ end trace ]---
+> 
+> Explicitly set max_invs = 3 on the test arrays to match the number of
+> elements.
+> 
+> Fixes: 15a2a5645ad7 ("iommu/arm-smmu-v3: Introduce a per-domain arm_smmu_invs array")
+> Signed-off-by: Mostafa Saleh <smostafa@google.com>
  
- #include <media/ipu-bridge.h>
- #include <media/v4l2-fwnode.h>
-@@ -43,14 +44,16 @@ static const guid_t vcm_dsm_guid =
- 		  0x9f, 0x48, 0xa9, 0xc3, 0xb5, 0xda, 0x78, 0x9f);
- 
- struct atomisp_sensor_config {
-+	u64 link_freq;
- 	int lanes;
- 	bool vcm;
- };
- 
--#define ATOMISP_SENSOR_CONFIG(_HID, _LANES, _VCM)			\
-+#define ATOMISP_SENSOR_CONFIG(_HID, _LANES, _VCM, _LINK_FREQ)	\
- {									\
- 	.id = _HID,							\
- 	.driver_data = (long)&((const struct atomisp_sensor_config) {	\
-+		.link_freq = _LINK_FREQ,				\
- 		.lanes = _LANES,					\
- 		.vcm = _VCM,						\
- 	})								\
-@@ -374,9 +377,11 @@ static const struct acpi_device_id atomisp_sensor_configs[] = {
- 	 * an i2c-client for the VCM, so it is disabled for now.
- 	 */
- 	/* OV5693 */
--	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),
-+	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false, 0),
- 	/* OV8858 */
--	ATOMISP_SENSOR_CONFIG("INT3477", 4, true),
-+	ATOMISP_SENSOR_CONFIG("INT3477", 4, true, 0),
-+	/* OV2740 */
-+	ATOMISP_SENSOR_CONFIG("OVTI2740", 2, false, 288 * HZ_PER_MHZ),
- 	{}
- };
- 
-@@ -395,6 +400,10 @@ static int atomisp_csi2_parse_sensor_fwnode(struct acpi_device *adev,
- 
- 		lanes = cfg->lanes;
- 		vcm = cfg->vcm;
-+		if (cfg->link_freq) {
-+			sensor->link_freqs[0] = cfg->link_freq;
-+			sensor->nr_link_freqs = 1;
-+		}
- 	}
- 
- 	/*
--- 
-2.53.0
-
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
