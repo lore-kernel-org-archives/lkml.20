@@ -1,78 +1,74 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A807E353A6B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7D1391E76;
+	Fri, 28 Aug 2026 14:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927148; cv=none; b=iTEKefFac5QI5pYF4kWY853tXhKcVA1517ksFEQBDCo+LL6EK1lchnDKZLjmfvu5VvCul0APCZfl5drqIU2ulRZvbWtGQJtPpDAiEG3GTgeYupZeZxT1CM6EqhAGW0CvxxbeGAqbKxX81FF2J/Cw7/iBojNlzasbvM9DEnjiuG8=
+	t=1787927172; cv=none; b=U75oEtfzUfemBHAExqrRVNK48ThLrP5V41iS5KrAm1il+zsmwpXqVe38c9t0u/Y9bNhaezBeDDT2cvWZl7loxumfYXlt2OnQsbG5FAZvf/fnu+YyJrocH6snjVfl/4+3qPVTdXcmsomKtWPDkcaxq7lUMn//8oniKPW5QPk+hU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927148; c=relaxed/simple;
-	bh=gF7RjPEJRFWajt/OLcEI/3tzHIgjMyeLim53Upe2oFY=;
+	s=arc-20240116; t=1787927172; c=relaxed/simple;
+	bh=MCnszT+cq6J0R2ln/5GuZbGHKJJQgN4ypa5dtJ3XHNI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nU/HNqTBh522f/A21UJgRozPseSL3ZslqS8KguEUzYR1S0NutDy+vVoExDPxBL6txhqqrszGhuomwdcmoiUwQ1O7zCfxwWCVo4wwNLU8tHJoYdKHQqzyPxL9cvVlQyCbL/sYS241c1otR+yDtec2BRHIJUpMbtyxn6KkQVIfunQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eXnuON0z; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aGu0HRxJSiUX7I7tQbdCVPRoOyM087shDHX+sydI06HdgWQumagiC7TykzgSoaEZFt1cFApMPWQdBU5rgq6S+7oZy2HRf5wexaIzAaFtk5QJTLrd+xiv975OF0eawHel0pFz+8pe+FbE+OOYPTISIWhEDiSvsNI/7RgUNZLTpx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WCbV4WdJ; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eXnuON0z"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482e2904915so755387f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:25:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787927144; x=1788531944; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BoxMq16+fYtVCLi36Xsb9nn9RavJ5HgJioRujA1lSB0=;
-        b=eXnuON0z7SL4oznMBGst9qSBcOo3fOl/LXUzgaBWnOHkjqXCUiOSiSCofWmNzhHuFt
-         C9xsrjVFAkWVcRXUi26Je2nO0TvJRYOAaewoLpq1ve3q6g2jZk8jh2rGROy/4aQSRHYW
-         6ORnDst3cZZHfeFdJYvQqM8KJRef48cFX+G9wSS4GUWORN26q6PcvCDEPdVPjduqDrSO
-         9vGlee0KGMyx+Rz+pfZl09rQERxM146WBE1qkQ4AbtGa1c7YMbrzTbyjtusCuT+t6sx/
-         wXzZ4Jzs2EDS2Xsncu2VaGp0cy3O4sJ5uuq+Wj2Y9vtpma1BhqyAA09utlk4JNEbTIql
-         uxSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787927144; x=1788531944;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BoxMq16+fYtVCLi36Xsb9nn9RavJ5HgJioRujA1lSB0=;
-        b=kC1cqTqgHhmaQpQyWpORgu560LF2b8KRKNAzootDSLefP6gX9UzgWy+9WWpiZ8YZWw
-         Nz6YPujCNvzm6CLjuDiVuU8RDxFBeIJ4a/Y8l8jVjnoEFCppU4BpHQdShV2A9w+cmKWQ
-         OTlqXPIZ1E7j5/MIHYZ0ZJlQTpQmEVgSNrdvtxme6JxwMPRYYAvT/jgChdQjsbg2uFwu
-         gDmD7IJfhS5WIZJe6wFMWvs2Pr1z9Th4/xZ99PPYZCUeuMFORgJC2Ld2z0SCCNDI8DtQ
-         OOEF2euIbS/103Dtx8Rzu4uJtMqmRbW7QjC54117OwwmmOh7U0TiKRJTTOHznmdcMzDG
-         j3WQ==
-X-Gm-Message-State: AFuF++kjkW9jilhKZ3QK61BWq+OSuK/lQB03i0f+12dl6j+L1D3yA5oz
-	IoKVcx1eMQMAbTx6ZO52Sy5ciSQS0eXBjQR40kqfUnBNl3bAl+RIgJoFkcWB52qWCpg=
-X-Gm-Gg: AR+sD13ky6u8p4koPw0pd7khqWGS/SuwMA0eMdZhq5CoD3UGwWZ8dGVJ+nUUbbhZSf0
-	9DT/4i5RLqWRQDVcT7NCRpf9r6O6FmoUtI+tPKX/OOX+z7kwJWSuRhi+jTt+HY8koFktzMwC1pi
-	AQt+urHkALhU7RuVYyAFn6l2qnNP9sLfWnie5CogLXfXws8A6t/1VyrIlNlhEYwmDxT2P1QfJaC
-	wc9h6VCKk58WjuP4dEt2cgzbx/Dp2VJpI0ti6R9IC9sm5Va4EVMSGqOm01UxVh+jDI3d3bnYEf2
-	iXWG/SscriZ3zK+toq3WYLxudaRosQ+JZP/Rl3yPRoSRBuWDI5vYlCy46NCyxZ8+aciHZArmng3
-	geGK+0siu2rJnSvoQcyT6ZPSe70LK/cwrBvLCR8DuDLv/XZJWAoG6e9rjsPC2FwhDFfPXIjguJT
-	abTwjc4A0mbkuOWttzH9/Ov56v4aOvgN3Ef+6VkWKMc7bCR8/YcN1f1ASezc2OJuB6J3ITfgU97
-	A==
-X-Received: by 2002:a05:600c:b85:b0:49c:c96a:d36b with SMTP id 5b1f17b1804b1-49cc96ad411mr23596595e9.12.1787927143838;
-        Fri, 28 Aug 2026 07:25:43 -0700 (PDT)
-Received: from localhost (109-81-85-229.rct.o2.cz. [109.81.85.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a903eebsm17011155e9.4.2026.08.28.07.25.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:25:43 -0700 (PDT)
-Date: Fri, 28 Aug 2026 16:25:41 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WCbV4WdJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=G0OQQM96cRuVu1FTu7WqbsC1AtHFFzwK+Yp7CP8KbN0=; b=WCbV4WdJizqDtTanXClaA1BwAe
+	Jjs+oePpTqjB1oPSb26S2hl/+wnoLIJGLla0PnZ6b0Beam3zsMbSC8WaAq93PDlR1udof1RGiUv+K
+	KQdbq5Tj7gJJI9IvkTDGLZdQhps+NZUtcD6B1FYK31lRBFQQx/oORxCe3SdO3dFR8FgUOZ7/FuepD
+	PHyGlYqPwCULkIL3vDy3h4sVaDulX+MEKgtwi538lReReUUWAz0zj0qtXppeYzqHAfoKSUkpsfdQ3
+	ea0MLXzia3rEQ58B8NVuTDl28douQsFa2aHC8V2hS58kKAT1ITSVOdNRKBt2abcnDLl1OLNK/eJbx
+	3gsPn1kg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzxWj-0000000EpCU-3vkK;
+	Fri, 28 Aug 2026 14:25:54 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id DE3C930116A; Fri, 28 Aug 2026 16:25:52 +0200 (CEST)
+Date: Fri, 28 Aug 2026 16:25:52 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: David Stevens <stevensd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
 	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
 	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on
- isolated cpus
-Message-ID: <apGaZdxAPH68kkCc@tiehlicka>
-References: <cover.1787890328.git.riel@surriel.com>
- <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260828142552.GN788244@noisy.programming.kicks-ass.net>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
+ <20260828135947.GU776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,79 +77,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+In-Reply-To: <20260828135947.GU776954@noisy.programming.kicks-ass.net>
 
-On Fri 28-08-26 09:46:21, Rik van Riel wrote:
-> drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
-> work is dropped.  It sets the bit before checking isolation and
-> schedule_drain_work() checks isolation and queues in a separate RCU
-> critical section, so housekeeping_update()'s synchronize_rcu() can
-> race the second check.
+On Fri, Aug 28, 2026 at 03:59:47PM +0200, Peter Zijlstra wrote:
+
+> > What also should be simpler (and I am not saying just to move you away
+> > from the scheduler) is to have a shrinker which iterates over all tasks
+> > which are marked for reclaim and then similar to swap just unmap both
+> > stack pages and release the second page which is not used.
+> > Upon wake up the task should create a page_fault which would be used to
+> > allocate the second stack page and map the whole stack again.
 > 
-> drain_local_stock() only clears the bit for work that ran, so the bit
-> remains set and the stock is never drained again.
+> Right, so you can FREEZE the task, unmap its stack and then thaw it or
+> something. But there should be a definite opt-out on all this, because
+> taking faults on your stack will be horrible.
 > 
-> Reorganize the drain_all_stock() loop, reducing nesting, splitting
-> out local vs remote cpu handling, and skipping everything on isolated
-> cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
+> Not to mention you'll suffer wakeup latencies while frozen.
+> 
+> This all really sounds like what should be addressed is this insane
+> number of tasks rather than trying to cope with the consequences of
+> that.
 
-Is there any reason why we cannot simply clear the flag if the work is
-not scheduled?
----
+Taking faults on the task-stack is not going to work. That fault will
+happen while you have locks held and IRQs disabled. Ideally, it'll
+happen when you're knee deep in the allocator.
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 69b37f63a307..907ac63e5067 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2261,8 +2261,10 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
- 	return flush;
- }
- 
--static void schedule_drain_work(int cpu, struct work_struct *work)
-+static bool schedule_drain_work(int cpu, struct work_struct *work)
- {
-+	int ret = false;
-+
- 	/*
- 	 * Protect housekeeping cpumask read and work enqueue together
- 	 * in the same RCU critical section so that later cpuset isolated
-@@ -2270,8 +2272,12 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
- 	 * pending work on newly isolated CPUs.
- 	 */
- 	guard(rcu)();
--	if (!cpu_is_isolated(cpu))
--		queue_work_on(cpu, memcg_wq, work);
-+	if (!cpu_is_isolated(cpu)) {
-+		queue_work_on(cpu, memcg_wq, &memcg_st->work);
-+		ret = true;
-+	}
-+
-+	return ret;
- }
- 
- /*
-@@ -2303,8 +2309,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &memcg_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_memcg_stock(&memcg_st->work);
--			else
--				schedule_drain_work(cpu, &memcg_st->work);
-+			else if (!schedule_drain_work(cpu, &memcg_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags)
- 		}
- 
- 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
-@@ -2313,8 +2319,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &obj_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_obj_stock(&obj_st->work);
--			else
--				schedule_drain_work(cpu, &obj_st->work);
-+			else if (!schedule_drain_work(cpu, &obj_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
- 		}
- 	}
- 	migrate_enable();
--- 
-Michal Hocko
-SUSE Labs
+That fault will then again call the allocator to allocator your stack
+page, and...
