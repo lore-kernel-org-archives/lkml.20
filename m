@@ -1,128 +1,154 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD65383C84
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FF53E1738
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787950754; cv=pass; b=NP9dqHCMf1MVjpaNJLEPfjqwanSnUf/AuCSuXUmljJ299re/1nq4uIrPujIXw0C0qEL6MrgN1ttqLkJoSCcFrzRGonwyoL36nqMOqRJPHGK++oGM7IL5VSGIa7lZXQFYBPxugY9KPu8ErnjzglLI2+V+7uS5hULOC7SLIbTrD4w=
+	t=1787950760; cv=pass; b=TLDs9lyQlRAuG3Pn3Z6Hclwy0Jn+Glss/vnlMiSzZC8oUIoKKvQBLJ90SokobnLPZXe8/DzhcaNj8jCIb6FsFwEF36iM0D5xcVzGOH1CTMJeZTzZgm7lO1u+PfXNU5Hly4Ubi8pxVRBWMPlApqnydhuqj3Ji7bdJGvHQaf4j+p0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787950754; c=relaxed/simple;
-	bh=x8OlekE2MZnjNXVk39ugXBQV79er9Wj2YPeLWA8TxG4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fBWFGiSoZGuQ8fO64jJzekSQYPUhzuMRUn0/DU7sur6NKzFWsUFQRpBKAyWjByATjoNlwUFXAwmAS9k+wcDKa0a8Uh1ARtpXea3Ck4b1e19btllVlSOyzK/CsIZ/QC+wEu+EQ2nFdaHIry09JC83kl4Y+J7RjLOfApwSMLzyEdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=b2o9D1tK; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1787950760; c=relaxed/simple;
+	bh=th9sS0fkvusTIUN5eNH4u0h4op6zM/ybXH1l5XRS+yg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wv7wGqKLNwVkevYYqaBAB9cFYTmM1QPgnVHT8bvmiFlnHphxZMylrO049dde0nLT0NUfeVubr4jBaaoDJ/qTQ+CoRWmLBV22UmESts3iX1sMID5f/6modhZy3+SndEnfwkUr9iGtZOL4x1VKV+R3t4Hdrm6KdAtyR0LgXoRC64U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tEnwFclh; arc=pass smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="b2o9D1tK"
-ARC-Seal: i=1; a=rsa-sha256; t=1787950718; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RDJvtmeNxlKAPFz4rgVImrW1gtZA/lvFrwmR2EtmEhxKXAJj4HnUCses+RHI8hkD+Rk3QKHdn6WLqujpe3i37W8gd4lhToU5Pacljh/9XARPCuMD0c1K0Faj1keKWMQ752AlHaWVOAII9eojQb7FEv+h5Z/0LnL1YNvoHIy5Xks=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787950718; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=; 
-	b=A/EpLmUIq2slPylt6wu9lNNqI3HTUkkptL5oED/D+hvKNUnYDmccOAz6phB3B5xD+NFQPOjVioETdBmR0EpRRL9SVAW9qx7uDUpClmzcdX9i+k4CZOJOMWPLabAfdimhogUMRNp4V2LDqGVGbDLaurtmgbH454GpqphmyDHvtdg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950718;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=;
-	b=b2o9D1tKTjsmaGBdkS2YzdZOjVzh8QgnGNgzQRwd9LhTbe+Tu1K4SCVf11W0eNoA
-	i7QyJolz62uutlFJ3Nj/uEqjNSkkEP1p3WdP/ztdXIX4zqpO/tJDwmRqGYgtyUlxOaT
-	1Z9gA+GnwSs+K++9oRplj38Nu92IXIRpmypaLS1o=
-Received: by mx.zohomail.com with SMTPS id 1787950717289548.8674924881506;
-	Fri, 28 Aug 2026 13:58:37 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 28 Aug 2026 21:56:53 +0100
-Subject: [PATCH v7 13/17] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tEnwFclh"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52fac937235so21711cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:59:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787950756; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UEsDXFF3eZOAonwhjQfnNYD45phShxVPYblB+3vlq2n2ikBr0ARnKPT5LJupAjWG0x
+         BLeb12XKdw74EQ2ZzHemLYbbP22U/vNIH3QGBY5WfslDwa/Ji8q+YXSabYpOuUq59Ur8
+         E12jzuK33V9C4jBeVkKNr6/Vo2wXCcZZbyB/Bb1gTfTCYKg5nKybDpGyJXq9jyGjxGEE
+         49t5sqrKRmhgPBkAKIoo3Bs/oI4XESoXUHLGVo1EzHIE+L62nkQVKOdABycm4GjOjopB
+         QpuBnZtuo1iOHJ8f5NzH35Jo8MkW0BGPZm9XXmC4tjQzcYq3KxFh3kezZXfUmXbacqFA
+         oXPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=th9sS0fkvusTIUN5eNH4u0h4op6zM/ybXH1l5XRS+yg=;
+        fh=f2NvUpZeQOg6hQpsSUA1ktzCBoOQBh0GrjHKB9eeVQM=;
+        b=cKf0f3fZKe8nt0bGKIA/Tx2yyg7F6Niw/3a2rdXNHriWEQennoh5cWYqRnJqEkHaPq
+         BV2MTRXzP1oNOSsp4eILwkQ7CpLwR9VU1hEOCLNcyfWDCTvkQP1t2TZKueEeaqkJwCKA
+         9PITNVn3xbmRcQo+2O6xeyH98OzhIGn951cnqB3PyN7pyW9wb2E681LPvE+/u8Uufnkl
+         +KScBHfuHxMZL3mYnhuN8s7+ItBXE3f09wpfT2dhoeUKQGQvhB8R+393JTvfrvEksSlW
+         NbnpPnOhfmG440EF6W8BGGH3zRDXXpgS2ElAvlmguPZqABi6ZxV2W05E22zw7ahhoJzk
+         nnXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787950756; x=1788555556; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=th9sS0fkvusTIUN5eNH4u0h4op6zM/ybXH1l5XRS+yg=;
+        b=tEnwFclhlqyqu+78nKbipQX97BQGXYmCP6EpTkjj4+yLp641Y9evxUlqGAa3is5CrR
+         uxIlvSenoCvGikzj0UoLWyOhyJBJZ5iSBsQizW60U0UwaepJWNtU7Ou1p5T9JbZKfJCZ
+         W0DM2xaoB8S+QtwxTzNI6/9UD0BzW154Y1tgaswfTDTDeK0E8bfwMMYGFq3ZLD7cXQk6
+         GDhgblPW35ho95n7ZpquTDKKTS928ENMELaPpSF4LEqBpVSrGnZ5PagJXQ3yIMNNJJaN
+         ZCm9+mwQtIkzHYc0n8Z2XX1s7+Dy8SqLUzk9Llu3xlIJVO+ucpvgTLTD8KDAjTxYCgyr
+         40nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787950756; x=1788555556;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=th9sS0fkvusTIUN5eNH4u0h4op6zM/ybXH1l5XRS+yg=;
+        b=fAOWfV4z7i0r10G+546qm9KhfIomk9xmyN11wLq+7iue6Y8dYOFyHhKny+5NwjyXqV
+         RlH9RtFgvDNgCsznoTZBu8oEpD7pvHXpa9VEs/9vHXsLQntMcHuYZiKp+V+jarlpptqb
+         Rkm4UNrDtsFy5Y0sCpBicpDsK+XK5CwlZD7jfJVhI089SPfaWyAy63lHLBer8w+99YeA
+         qxFTYD2XbJ8dFScCx/dh/+UJMwmrqwBJbJv3hGlcecKZq9AEVc+OxUijGdx2Ab+aoTHK
+         1lbspOJlWshaya4xXHlsuUK6Ogp/vpHRB2JtFkfIv/vEOMwPpdjAhunZaJegMWQ39T10
+         xRaA==
+X-Forwarded-Encrypted: i=1; AHgh+RoAhyi8d51Uc2A0Iiuf/X0z0abv1aTcRm7C08ohh7wFizW3Mql/Lex2H6IVXMVM8VgIDeN+6R6yUPUOf78=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9h85Pbsx6zG5jumNWUmV9SfldF/d+vySWBG14jBW0b+cmnrsw
+	9kibPQ++VCbP2ocd9W16egyux8tX8fEXmQ3IL/84Z1rT3K3cC+8tipo+fRkx4gvtWwInDmmST9l
+	mokPNWuaVF1w8DwfIY00mh8QGW+eUqc1fVAAwmHTz
+X-Gm-Gg: AR+sD11pPeDEl8uCaPMu+o0JkjgP+w1fzMs/BTtUNdMyunDE2gPFhb8vE0ourEXZHOX
+	+Tq1o2/pU/QME0VneevxIi8pk2xK+avuc0I4IZXLGAbTeaOyWuP84rwhy5tcWV7Yd0M8UqSaU6+
+	04GLv6m+NXcYqYy5mQ8o8iEfkWFUVkAnX73064KiH5DWNMIVQh7aEohhpcinFzPYNG9kweB0D7f
+	TSJdqpv/C8nbosmJz+/r7/LKKM3/3Tr5DE5Wd+RO4wR9ywfBz9f6ObrspYoDB/dzzquI9VmIDq5
+	5v4Z+HZbO8dWcafvw0PqvlOsq06ja1b3DL9MRnDL3UE1VNn2T0hyDKgtWkUweyxI3MaeXAa1CLs
+	=
+X-Received: by 2002:ac8:6109:0:b0:52f:9ed4:8d74 with SMTP id
+ d75a77b69052e-52ff710cdc4mr3278821cf.14.1787950755287; Fri, 28 Aug 2026
+ 13:59:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-claude-fixes-v7-13-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1778;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=x8OlekE2MZnjNXVk39ugXBQV79er9Wj2YPeLWA8TxG4=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYtsFHAf5bx9QnG2RklsUYQV9t1iF439NjgR
- iw8hZQ1RrOJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LQAKCRAOJn5M7lND
- PWrKC/9Zp9VOVZFq1/LWg1dP4mW3Mo1dFCu+V6xVBmcuEPZfqlB4QWREn1FCHnUvbaHGZ0sQBuX
- +Hh96S8vbmHrthSxgAiUHKYfd+qF/6XN2F7h6kTOSpbYkasMeCKxT0dNChhASJlB9rsudPeVM6l
- VFRaHEisuoyjswfdTXYab3KfEJ2jsg+pJ1Ml+qaj1rJJaOHsc1Gv5byUTtHaUfdRW1BKEMWp1VP
- pb+kECVvppfDu/cCaj/CdLIoKO5ODK2m4he80Gkxy5pytIHHT0K9MnFetmLgrHtRO8n9ThZpCq+
- M9+YSNiXpyzf7WNl1cLkCOJE0y8BNvFT8Kdzw99rgWz5N2iXtC+i2r0HL/UNhTESmfGV/MP7wPd
- TR6cxbyLzTuGR/8Y/yW6Ex6xK3ld/xCFEwco+hbCcrgvEWf8RZBpVq4B2WdzgEsluvm12mXyMga
- zSbkfPYpjWVajU4tQzLF7BiwLoi5+K0lj7F/xABGMsoarMnLRg1E3t/qa+QuNVbvUEhkc=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+References: <20260806020850.1221381-1-rick.p.edgecombe@intel.com> <20260806020850.1221381-5-rick.p.edgecombe@intel.com>
+In-Reply-To: <20260806020850.1221381-5-rick.p.edgecombe@intel.com>
+From: Vishal Annapurve <vannapurve@google.com>
+Date: Fri, 28 Aug 2026 13:59:03 -0700
+X-Gm-Features: AcwNN1WI_9DAW_34H7aprFGN9TAhxXzmVTrVu3YrXpEKWiXKUeYdo7vi9R_t0vg
+Message-ID: <CAGtprH-Xi8-UGWTkVhNnd1dkmtcnFJsXOsTjr=ijK53aUuH4ng@mail.gmail.com>
+Subject: Re: [PATCH v9 04/11] x86/virt/tdx: Allocate refcounts for Dynamic
+ PAMT memory
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: bp@alien8.de, dave.hansen@intel.com, hpa@zytor.com, kas@kernel.org, 
+	kvm@vger.kernel.org, linux-coco@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mingo@redhat.com, nik.borisov@suse.com, 
+	pbonzini@redhat.com, seanjc@google.com, tglx@kernel.org, x86@kernel.org, 
+	chao.gao@intel.com, yan.y.zhao@intel.com, kai.huang@intel.com, 
+	tony.lindgren@linux.intel.com, binbin.wu@intel.com, sohil.mehta@intel.com, 
+	Hongyu Ning <hongyu.ning@linux.intel.com>, Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The GPU cache flush/invalidate operation is unnecessary, because at present
-all counters are always enabled for all sessions, and there are no plans to
-expand the uAPI so as to let UM select specific counter groups.
+On Wed, Aug 5, 2026 at 7:09=E2=80=AFPM Rick Edgecombe
+<rick.p.edgecombe@intel.com> wrote:
+>
+> From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+>
+> The PAMT memory holds metadata for all possible TDX protected memory. Eac=
+h
+> physical address range is covered by PAMT entries at three levels (1GB,
+> 2MB, 4KB). With Dynamic PAMT, the 4KB level of PAMT is allocated on
+> demand. The kernel supplies the TDX module with page pairs to store the
+> 4KB level entries, which cover 2MB of host physical memory. The kernel mu=
+st
+> provide this page pair before using pages from the range for TDX. If this
+> is not done, SEAMCALLs that give the pages to be protected by the TDX
+> module will fail.
+>
+> Allocate reference counters for every 2MB range to track TDX memory usage=
+.
+> This can be used to handle concurrent get/put callers, in order to
+> accurately determine when the dynamic 4KB level of Dynamic PAMT needs to
+> be allocated and when it can be freed.
+>
+> This allocation will currently consume 2MB for every 1TB of address
+> space from 0 to max_pfn. The allocation size will depend on how the RAM i=
+s
+> physically laid out. In a worst case scenario where the entire 52 bit
+> address space is covered this would be 8GB. Then the Dynamic PAMT refcoun=
+t
+> allocations could hypothetically cause the savings from Dynamic PAMT to g=
+o
+> negative on exotic platforms with sparse, small amounts of memory.
+>
+> Future changes could reduce this refcount overhead to be only allocating
+> refcounts for physical ranges that contain memory that TDX can use.
+> However, this is left for future work.
+>
+> AI was used under supervision to collect/apply feedback, review code and
+> workshop logs.
+>
+> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> Co-developed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
+> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+> Acked-by: Sohil Mehta <sohil.mehta@intel.com>
 
-If the above was ever implemented, then different counter groups being
-selected between sessions might leave stale data in the GPU caches, so
-the flush/invalidate would have to be reintroduced.
-
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index f71534e741b6..ffc77121070e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
- 
- 	/*
--	 * Invalidate the cache and clear the counters to start from a fresh
--	 * state.
-+	 * Clear the counters to start from a fresh state.
- 	 */
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
- 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
--	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
--					  msecs_to_jiffies(1000));
--	if (!ret) {
--		ret = -ETIMEDOUT;
--		goto err_vunmap;
--	}
- 
- 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
- 	if (ret < 0)
-
--- 
-2.55.0
-
+Reviewed-by: Vishal Annapurve <vannapurve@google.com>
