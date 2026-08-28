@@ -1,284 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3256117B425
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDE937A843
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787885813; cv=none; b=XsZCkfZ0kGGLIGgfxox6hFVaXw9Mk1nfHOzaZ7J9xspRErMDLycJz2jQl7z2R1PQb6w7EJONVM81kQpKUI0bh38bhkmmclfx0I9tBZF+497YoMCP+j0h9UihPtCvJMIJMeMEOn5sHRrC+4eRBsaloG6CU17HkxC3R1GLzavuBeM=
+	t=1787886012; cv=none; b=RpRt5utwhxQp7wVgokQ/f5yxGA9RVUDX/5I5uo06PTfrVZ866UGcEhZ301sGjJwGSJHG2gDLLmaf72wYIyS6Y1OjeUoDhrvUWoBPSoo/ATzA6KnvCjLzoqIXj3QHr9fNnQ6EjZrRT3U2XFh+0FnFTavTCofl9cS1iIQjU+9BlSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787885813; c=relaxed/simple;
-	bh=0YcLhUMWvb6Zj/ZpgdPUfkjq9J5HmNMlQtt2LicZalc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=AoJ0Flj8FYBirySu9+zYNlgHJdfnQCzyXNO8dmUrwFKcjSbnNO0ooR2jkCEY7k3TcH771HBrCvhLAXg+Cu2ctR9XWuh7dZ/l4aE3kGlpk09stYM3bv3zxVN4O2N5pulq4fp2mYcG2wY71zVh1g2WwWWHtD6tF6/9d9u2Asy4V/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMyaIx2j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787886012; c=relaxed/simple;
+	bh=kaIgm9xItqVDHCw3IV7XYryNu0fKs/pvEeq3wEYycFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O/IEOAPIWDQD4PTkABErf01OZ49gEvEO4sfnf5DIyjltw31HHJU5c+fKTYBh5ashAuft/der4xcY9WpUoa59mnGlIE17fw6aPK3f8qSTBRblKheZ4yuc8RL4arfCsC0e/cQtkzgSzmeRyi3vkDrsXG7mQ7wVl7M/WQ8Ddb8PB0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2pvPgDP; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMyaIx2j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093F01F000E9;
-	Fri, 28 Aug 2026 02:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787885811;
-	bh=pIGvC5iJ2dqgORmx7U0lGak3iWCkTcgAUL6rZqz+iNU=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=aMyaIx2j5V/one3W7QqJoK5TnrPnWecesPwOstopRAVV62jX2ek18jwx8QVw7951e
-	 04q9C6IWGMtgeWUpCp2O3eVsDbMD68qjV+RD6aM0fPix1iAtLZhkZrgI3QYKUWt+OI
-	 NKoqImm/GiYawLrfPO8Zbz0GqHYDt2FU1JlXaTELjpbGkwprZO82F+yaKHUXgLzqmn
-	 X5sFsu/0jidWSgIT2XjPo/1phM2t84CKNxyKR5CliJLThKKNjS5IsJCuEe0YsXjifR
-	 WWuS7lNYg/gZuxrGOfBRy61v9+myhlhc7RW9VCpIZ+XwIIx5fFJZUIASGrGZ1cLBnK
-	 iSC786gyRUI3A==
-Message-ID: <a2dacbb1-4bc9-4616-b14f-85ef3a061697@kernel.org>
-Date: Fri, 28 Aug 2026 10:56:49 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2pvPgDP"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38759bcd877so478654a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:00:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787886010; x=1788490810; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kaIgm9xItqVDHCw3IV7XYryNu0fKs/pvEeq3wEYycFs=;
+        b=f2pvPgDPjAQ8KDj2m2/vroYny8rFIZBZBF4zz1dNspSNLL7BhV383OlKkr+Sl3CoyS
+         1THO0CYIq2hkScVOnTUcFG/ULJQLYCkRZMyG+1WGhuTv9vi9+NSYtfpRgqxlPbtQqFTO
+         RsmxDuj54KNUd+uyWnQjGZDcZV5D59JkDK432TDcBE7o07Uy8kebJTMl/PDkgti2xYt4
+         JwGaV1jdvFnPzBLxhHkVdWAiSYkTbosz3sY78I8OsHC/yyLagETetMVw5a4xEVixNkDG
+         LcqIkbVdcWAe/u3oaAEyBtopIc7854FFK6qkKaaqfhzg/bI4C+hvtiosZNKarFd9mGEo
+         p9sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787886010; x=1788490810;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kaIgm9xItqVDHCw3IV7XYryNu0fKs/pvEeq3wEYycFs=;
+        b=U+1X9/JU54tE0QG1bZIGpHG9lR2NFAl87AknIvrexgVv7JRplCw3rrZIZU5xbPZ/Iu
+         kWR74AKpjUuLLSIQKr3ISy+08dBmj48ClC+O1VNCJxNq7lDsOdglKrNQSJ3sf9dyT2T5
+         qQttoTffREMecWgobR5P4MQIxW6khE57uPX/3WHFk4sTRBPus6sXwtro+74Lmk12de2Z
+         FeYs/UQPYuNP5m741OU+vLC4ciqflPOhfGoOfwHLWYH6QlY+Q+yyzEmHT1u+Vjw4zoS+
+         zJGNFlFs8ULkrBvtVD5MqH9QmzaWdDV6hOd3kKN/AvTVK5zeLZftpG7qeYDoeWV8GVSZ
+         VmiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrAvYJW6mW6CYAOMty3Prh73et80OJvzYOB5dXeC8mLwoElhi496pi56op4KPOwvlpE75X5chnTOH3heG4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7Lo38MiZQCmB7wZ7qqsTdUU+rGRzytQy0J97Ji08490kWMiAO
+	eg6zzJv6nfvQudJXxWNFLH1uHU41poZEMVomQKR6m7t8TkZr2/5Aooen
+X-Gm-Gg: AR+sD13H1e0gojZq3NNF4lox05VthzSg5bQ4G4rs7m3YfGqz03e/U4CjwO9pIOVLfka
+	POurwpVpac3LWaUgLCt+KG3lmRRQEDNiH3EguiFT/9vW0jMIqSRBOCBGbFQUD9L511r3MHZ1x1s
+	4d+pygeWq1rauFHyG+o1inNOIVsLNIk+wBiW9xfkucBbeYwkg8En9dkE4/aoKrxwY8/rGRonq7q
+	n4TT1q6ZjEtJTSUYYztPxZphhXZZ9AcKy8uF/Pkl+qJ5Lmg+iAvzC0C9w3ijg+FpRu2a2kxUVXl
+	Izb/7nyKqCdeZeJWA1SVTLzpR/onB+p/KPk6D4fY0LWuFwnaEctpUIjlBquWebrTSG0Ac5gLwJQ
+	WRsk0NxNLnfs9lQndYG/VKsvYWZBMtF0wDYdgSYG5H2qSUL0EVp5bJoBCPNWLcwA7+z0x/c3BgM
+	/syMhVWxuAXLmffZCJLWIAtt3vkP27OTEmT54UBGO49ZJQsPE8rl8C+lP/RqFRyCQexA==
+X-Received: by 2002:a17:90b:4b05:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-396d0fe2140mr7009774a91.10.1787886010175;
+        Thu, 27 Aug 2026 20:00:10 -0700 (PDT)
+Received: from DESKTOPHOME.lan ([240e:3a3:9304:9820:f4a6:931b:cf31:308])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd55a4sm5237878a91.7.2026.08.27.20.00.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 20:00:09 -0700 (PDT)
+From: Ziyou Xu <xuziyougm@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Woudstra <ericwouds@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: phy: air_en8811h: restore LED GPIO output after MCU restart
+Date: Fri, 28 Aug 2026 10:59:55 +0800
+Message-ID: <20260828025955.412696-1-xuziyougm@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827083319.391122ea@kernel.org>
+References: <20260820141034.1400439-1-xuziyougm@gmail.com> <20260824185043.2701718-1-kuba@kernel.org> <CAF2gcSXK6H76A5Z6-k-D04VaCR4QXNiWLmbQmcCBpsW=L+Hwyw@mail.gmail.com> <20260827083319.391122ea@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
-Subject: Re: [f2fs-dev] [PATCH v3 03/12] f2fs: cache: introduce shrinker
-To: Daeho Jeong <daeho43@gmail.com>
-References: <20260825130126.2078627-1-chao@kernel.org>
- <20260825130126.2078627-4-chao@kernel.org>
- <CACOAw_whg1SO2479NL7d=ScRVrqvwHbPWg1pB2T4nWHdGe+w7g@mail.gmail.com>
- <4880a9a6-4036-4fec-8507-552f1bfc9fbb@kernel.org>
- <CACOAw_zTh8FSqcaQNYcPib+vjoMMi4imS5TTzJBOgxtZN90aBA@mail.gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <CACOAw_zTh8FSqcaQNYcPib+vjoMMi4imS5TTzJBOgxtZN90aBA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/28/26 01:00, Daeho Jeong wrote:
-> On Wed, Aug 26, 2026 at 6:19 PM Chao Yu <chao@kernel.org> wrote:
->>
->> On 8/27/26 03:19, Daeho Jeong wrote:
->>> On Tue, Aug 25, 2026 at 6:03 AM Chao Yu via Linux-f2fs-devel
->>> <linux-f2fs-devel@lists.sourceforge.net> wrote:
->>>>
->>>> This patch integrates the metadata cache into the F2FS memory shrinker
->>>> subsystem to reclaim clean, unreferenced cached blocks under memory
->>>> pressure.
->>>>
->>>> It implements f2fs_shrink_cache() using a 3-phase cache reclamin method:
->>>> 1. isolate clean entries from lru list
->>>> 2. truncate from radix tree under lock
->>>> 3. splice un-reclaimed entries back
->>>>
->>>> And hooks the new interface into f2fs_shrink_count() and f2fs_shrink_scan().
->>>>
->>>> Signed-off-by: Chao Yu <chao@kernel.org>
->>>> ---
->>>>  fs/f2fs/cache.c    | 81 ++++++++++++++++++++++++++++++++++++++++++++++
->>>>  fs/f2fs/cache.h    |  3 ++
->>>>  fs/f2fs/shrinker.c | 12 +++++++
->>>>  3 files changed, 96 insertions(+)
->>>>
->>>> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
->>>> index 8f09492c402f..3cee33c69880 100644
->>>> --- a/fs/f2fs/cache.c
->>>> +++ b/fs/f2fs/cache.c
->>>> @@ -534,3 +534,84 @@ void f2fs_destroy_cache(struct f2fs_cached_block_list *cache)
->>>>         f2fs_put_cache(entry, true);
->>>>         goto next;
->>>>  }
->>>> +
->>>> +static unsigned long f2fs_do_shrink_cache(struct f2fs_cached_block_list *cache,
->>>> +                                               unsigned long nr_to_scan)
->>>> +{
->>>> +       struct f2fs_cached_block *entry, *next;
->>>> +       LIST_HEAD(dispose_list);
->>>> +       LIST_HEAD(keep_list);
->>>> +       unsigned long freed = 0;
->>>> +       unsigned long isolated = 0;
->>>> +
->>>> +       /* Phase 1: Isolate candidate entries from LRU list into dispose_list */
->>>> +       spin_lock(&cache->list_lock);
->>>> +       list_for_each_entry_safe(entry, next, &cache->lru_list, list) {
->>>> +               if (isolated++ >= nr_to_scan)
->>>
->>> scanned?
->>
->> Okay, will clean.
->>
->>>
->>>> +                       break;
->>>> +
->>>> +               if (f2fs_cache_test_dirty(entry) ||
->>>> +                   f2fs_cache_test_writeback(entry) ||
->>>> +                   f2fs_cache_test_locked(entry))
->>>> +                       continue;
->>>> +
->>>> +               if (f2fs_cache_refcount(entry) != 1)
->>>> +                       continue;
->>>> +
->>>> +               list_move_tail(&entry->list, &dispose_list);
->>>> +       }
->>>> +       spin_unlock(&cache->list_lock);
->>>> +
->>>> +       /* Phase 2: Process isolated candidates one by one */
->>>> +       while (1) {
->>>> +               spin_lock(&cache->list_lock);
->>>
->>> Why do we need this lock to protect local lists?
->>
->> I think we need to protect the entry from being relocated in f2fs_find_cache()?
-> 
-> Ah, I see your point. In the current implementation, concurrent
-> f2fs_find_cache() can indeed touch entry->list while it is on
-> dispose_list.
-> 
-> However, if we adopt the referenced bit approach we discussed in Patch 01:
-> - f2fs_find_cache() will only set the referenced bit and will NOT call
-> list_move_tail() at all.
-> - As a result, entry->list will never be touched or relocated during
-> lookup, and this list_lock in Phase 2 can be safely eliminated as
-> well.
-> 
-> So moving to the referenced bit design neatly solves both problems at once.
+Will do.
 
-Hmm, however, f2fs_truncate_cache() will race w/ shrinker,
-
-- f2fs_truncate_cache				- f2fs_do_shrink_cache
- - f2fs_do_truncate_cache
-  - list_del_init(&entry->list) w/ lock		 - list_move_tail w/o lock
-
-So we can not simply drop the list_lock in phase 2.
-
-Or we can relocate list_del_init(&entry->list) from f2fs_truncate_cache()
-to f2fs_free_cache(), but it will cause the butterfly effect:
-
-At that time entry->cache will be set to NULL in f2fs_truncate_cache() because
-now we treat entry->cache == NULL as the entry was truncated (something like
-folio->mapping = NULL), so it can not access entry->cache->list_lock before
-deleting item from list, then we need to update the truncation definition from
-entry->cache == NULL to another state e.g. F2FS_CACHE_TRUNCATED.
-
-I suffer a lots of bugs caused by shrinker and truncation, needs to handle it
-carefully here.
-
-I think we can set it as a base and improve it once it get merged, how do you
-think?
-
-Thanks,
-
-> 
-> Thanks,
-> 
->>
->> Thanks,
->>
->>>
->>> Thanks,
->>>
->>>> +               entry = list_first_entry_or_null(&dispose_list,
->>>> +                                               struct f2fs_cached_block, list);
->>>> +               if (!entry) {
->>>> +                       spin_unlock(&cache->list_lock);
->>>> +                       break;
->>>> +               }
->>>> +               f2fs_cache_get(entry);
->>>> +               list_move_tail(&entry->list, &keep_list);
->>>> +               spin_unlock(&cache->list_lock);
->>>> +
->>>> +               if (!f2fs_trylock_cache(entry)) {
->>>> +                       f2fs_put_cache(entry, false);
->>>> +                       continue;
->>>> +               }
->>>> +
->>>> +               /* the entry has been truncated */
->>>> +               if (!entry->cache) {
->>>> +                       f2fs_put_cache(entry, true);
->>>> +                       continue;
->>>> +               }
->>>> +               /*
->>>> +                * at least there are shrinker, radix tree and another user
->>>> +                * has referenced the entry.
->>>> +                */
->>>> +               if (f2fs_cache_refcount(entry) >= 3) {
->>>> +                       f2fs_put_cache(entry, true);
->>>> +                       continue;
->>>> +               }
->>>> +
->>>> +               f2fs_do_truncate_cache(entry, false);
->>>> +
->>>> +               if (f2fs_put_cache(entry, true))
->>>> +                       freed++;
->>>> +       }
->>>> +
->>>> +       /* Phase 3: Splice un-reclaimed entries back onto cache->lru_list */
->>>> +       if (!list_empty(&keep_list)) {
->>>> +               spin_lock(&cache->list_lock);
->>>> +               list_splice_tail(&keep_list, &cache->lru_list);
->>>> +               spin_unlock(&cache->list_lock);
->>>> +       }
->>>> +
->>>> +       return freed;
->>>> +}
->>>> +
->>>> +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
->>>> +                                       unsigned long nr_to_scan)
->>>> +{
->>>> +       return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
->>>> +}
->>>> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
->>>> index 7ee98d276938..618b377590da 100644
->>>> --- a/fs/f2fs/cache.h
->>>> +++ b/fs/f2fs/cache.h
->>>> @@ -184,4 +184,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
->>>>  #define f2fs_truncate_meta_caches(sbi, start, len)     \
->>>>         f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
->>>>
->>>> +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
->>>> +                               unsigned long nr_to_scan);
->>>> +
->>>>  #endif /* _LINUX_F2FS_CACHE_H */
->>>> diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
->>>> index 4f6bf5926de4..1755c85849e4 100644
->>>> --- a/fs/f2fs/shrinker.c
->>>> +++ b/fs/f2fs/shrinker.c
->>>> @@ -37,6 +37,11 @@ static unsigned long __count_extent_cache(struct f2fs_sb_info *sbi,
->>>>                                 atomic_read(&eti->total_ext_node);
->>>>  }
->>>>
->>>> +static unsigned long __count_cache(struct f2fs_sb_info *sbi)
->>>> +{
->>>> +       return sbi->meta_blocks.num_entries;
->>>> +}
->>>> +
->>>>  unsigned long f2fs_shrink_count(struct shrinker *shrink,
->>>>                                 struct shrink_control *sc)
->>>>  {
->>>> @@ -68,6 +73,9 @@ unsigned long f2fs_shrink_count(struct shrinker *shrink,
->>>>                 /* count free nids cache entries */
->>>>                 count += __count_free_nids(sbi);
->>>>
->>>> +               /* count generic cache entries */
->>>> +               count += __count_cache(sbi);
->>>> +
->>>>                 spin_lock(&f2fs_list_lock);
->>>>                 p = p->next;
->>>>                 mutex_unlock(&sbi->umount_mutex);
->>>> @@ -120,6 +128,10 @@ unsigned long f2fs_shrink_scan(struct shrinker *shrink,
->>>>                 if (freed < nr)
->>>>                         freed += f2fs_try_to_free_nids(sbi, nr - freed);
->>>>
->>>> +               /* shrink generic cache entries */
->>>> +               if (freed < nr)
->>>> +                       freed += f2fs_shrink_cache(sbi, nr - freed);
->>>> +
->>>>                 spin_lock(&f2fs_list_lock);
->>>>                 p = p->next;
->>>>                 list_move_tail(&sbi->s_list, &f2fs_list);
->>>> --
->>>> 2.49.0
->>>>
->>>>
->>>>
->>>> _______________________________________________
->>>> Linux-f2fs-devel mailing list
->>>> Linux-f2fs-devel@lists.sourceforge.net
->>>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
->>
-
+Commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
+configuration to config_init") has landed in the meantime, so the
+EN8811H path is already fixed. I'll send a follow-up against the current
+net tree moving the AN8811HB GPIO output setup from an8811hb_probe() to
+an8811hb_config_init(), mirroring the EN8811H path.
