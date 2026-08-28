@@ -1,292 +1,133 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7EB3DB320;
-	Fri, 28 Aug 2026 07:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E4F3D9025
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902900; cv=none; b=bsUIAgNRlKQYmIvN7wWu8BMjiS5bMa6LKAPiZ3WCx/8M2SIX9RpRBa1GjqNi5ieyehnwOUAObZKRrU3FhiZ/TQOArmHn0yfBBLJDg8vrXfodAJshGlnYAjmCTfL/t565luuBCLD8ltTvd3jfLrHeg80eSF2bp23otwYhr/+un1c=
+	t=1787902925; cv=none; b=IosmQw9Yq7d3NMTOs6hAGonctOQmDZRdtyQZn1mBa/Qk+AVe4BhTN2+Gg39D5TQkks7T/Z2MEzsY5oEPNr9Op34XChFtqYzKP1KDgsWuCMhilrQbMh0wqfDE59O74SEmNzjMy95Cr2u4rqXi3qVIsypyLLn+xGJgdCIx0LPHuMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902900; c=relaxed/simple;
-	bh=GWwww3D6a51wjxzolgNq0EOLHOiBFoQ56yzw2+b35xQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UVJlXrGbsBEvogHvk34CWw/cUE+AGlEAxw0sF9nlZfzJrJ+6p3ZAsK9CfQgwIrts8AAoO3/9K4SBfA/nPpMXmCjWRT5nJFUs9lXxVm8PCSoJ61km6FO9wOSE4nw2s3ZoSxxSUupdGj3MNn7ulXVoc/aR4/nd31Y3A34hWzVusEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hWVg45SyBzKHMX2;
-	Fri, 28 Aug 2026 15:40:48 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 4077B40583;
-	Fri, 28 Aug 2026 15:41:32 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgBXwIeqO5FqWfrvDw--.119S2;
-	Fri, 28 Aug 2026 15:41:31 +0800 (CST)
-Message-ID: <fc22d702-9c53-415d-b3f2-8606daa2d656@huaweicloud.com>
-Date: Fri, 28 Aug 2026 15:41:30 +0800
+	s=arc-20240116; t=1787902925; c=relaxed/simple;
+	bh=fsiviA7Tyk6WnmoBGpH6H7lFpVkB9xpLinZ8CKeHRZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mD/SfU+stw5Kv+CpsoOK5lVffiVwwDnjvHeZVLztibeWVbI07IyrTVdO5k4gsVw3XhoOPir5nnPSdL/ZXFsCZYVhTZZAd+AZlJzt5rYSBDI9PZNxtnK1tmOGiad3eHlzA8LnsLCHcCl7A8jxeOIh5FngAxr60bSQBUb+X1nv1Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AyH6xs4N; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AyH6xs4N"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47fe45db360so88144f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:42:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1787902919; x=1788507719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QzzPfcrESMmXj4MeD1wijXaEhujYoS5NdXZGJYE9Z8Y=;
+        b=AyH6xs4NOd2q1JxclvXy9J8Rz7eGevf9TAQoIg1sRDpv2SQ1dpZUtixUvaOSVJ3LLV
+         ZKwDRbAqSWX5J1s+ChVrS+pwmzp0XTFvpS9p/VxKKkg4kt/qxnzv0uVyaU8Ki5Ysa/FP
+         Iss4w7yUP/BoB0SFDPdkGcwpZDbILnn0KrSVUKjzhJTvLBoO8lHBRgUMJSIBdnqELCDE
+         1hkMXaZnYIky0nZabI6tcWriRcmYLJ8CFRVIDZGWyCU7ds/720L67UPTryQwtKL939is
+         Pn6BgVhaM73xO8U1YH3XU8VweSD80VJ91Ft5Va7oX72b60U1QtX14U8KZT+4iBAdVyM9
+         l7uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787902919; x=1788507719;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QzzPfcrESMmXj4MeD1wijXaEhujYoS5NdXZGJYE9Z8Y=;
+        b=S7yeSVOwoeoCKn/GhD7T2a1dRpaneNBDbKhO965wW9jKyl+6yJK065B6y1DxL1LLiz
+         sJ0UC3aESk/zVN4CSbX6ZDRQd6rZSbXTxhZBpIDB6HEli6iJp3SeQbmgBSYOPIZqOXMf
+         lHo6/H8lMAy01Ae4zgcPjy8jYbcDhjy1EyVWX9NGeBe+sciECINA4anvEDq9L4+dLVJL
+         rMcyJYLBHxNkj3MpIKai5rWEFHgLPwBS/Az1O2HEX5FodtHDXzJdAhIMGe2WhaUD/0et
+         RjreBcAW1NmCOy1jAsd9mw0X1l64a2GCoPvbBqE7ud4knIr4y74NXxMK7YT23f3CADcq
+         wYXQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr987gwDdvHuqHI+pU7pK8ilrpcgqwFBw5CddzCNF5xf1k0M2e/xA6ZyprQQ+wJ5dRTCRDYO13gbdoOanc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9/BdygOdNewg2JlNKw5I8OSXQwSYoHcJBqjtg9YtiwB8WgJiV
+	4WHr2uil0vxykPx0ULn11keEjjqQlmC1WnvrqBd+JjX94Sx2K2cFaMb2ZW4hojj6NM8=
+X-Gm-Gg: AR+sD13Em4nOvYWW4lae6+IjZwjUTO6sm84x1YAlVLgzCA383jZ6U5MV+x8cOEDMtGO
+	R7Y+ZDfYR7OHUjehCnLcCPF1da2MFFqjvCnvCP28hYantXvg8ZRgwdAkE6cifn784hr8RM/xi7M
+	pKI9zGspCiKbHA1Y6njn81TnkEeJOmNVw0dh3+AQyKct5co5s9FOlkof57Nhdk88Ccyw1jpLn1j
+	R78S3yyDl9hL3tWzvdLylJc80+8hl5WgFKkTA7HOGh6m+h6oVV2Y3/eZ3A/9TYzrybw8h3k9Y+3
+	EZd1D3psfvjZrLlkg17zDSGL0I9ZPioG1VvnMeVSClswYxTu5mlfaYSYWgHNdzBeGgj5vGazboQ
+	Qi/PpPV3kGFQJHI11pkNzebNU5VJdBEnpdgKRwrfg9Octjh4dOQ08iWfVko3ggtkZsVANjGR36x
+	1O8BfOojmDU8Q1ON9e+FdyQHI2l1o7iSjuCA2QX8K/OcWpkabesClnxP97DyM=
+X-Received: by 2002:a05:600c:1f87:b0:492:4a7a:e415 with SMTP id 5b1f17b1804b1-49b91c41ca2mr36558795e9.2.1787902918749;
+        Fri, 28 Aug 2026 00:41:58 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75963a250sm2998305ad.31.2026.08.28.00.41.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 00:41:56 -0700 (PDT)
+Date: Fri, 28 Aug 2026 15:41:53 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ocfs2: exit recovery thread on mount error path
+Message-ID: <apE7j-pFxA8iCY7_@p15>
+References: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 20/23] perf annotate-arm64: Support 'add' instruction
- tracking
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Shuai Xue <xueshuai@linux.alibaba.com>, james.clark@linaro.org,
- Li Huafei <lihuafei1@huawei.com>, Peter Zijlstra <peterz@infradead.org>,
- leo.yan@linux.dev, Ian Rogers <irogers@google.com>,
- Kim Phillips <kim.phillips@arm.com>, Mark Rutland <mark.rutland@arm.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Zecheng Li <zli94@ncsu.edu>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-References: <20260808122400.2961238-1-wutengda@huaweicloud.com>
- <20260808122400.2961238-21-wutengda@huaweicloud.com>
- <89e66d40-5f9f-4147-beda-00623797cd04@linux.alibaba.com>
- <b5e4ef0d-cb11-45de-987a-226340b576ed@huaweicloud.com>
- <aoy-eAVaW_TsdymE@google.com>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <aoy-eAVaW_TsdymE@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgBXwIeqO5FqWfrvDw--.119S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF4rtrWUKFyUGw18GF4DArb_yoW3Kry5pr
-	4kGFWUGrW3JrnYqr1agw4UJF9akr1xJ3WUur1rX3WayFs2yr12gF1jqryq9F18Jr4rJr1U
-	Jr1jqrnxZr1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
-	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
-	s2-5UUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
 
-
-
-On 2026/8/25 5:58, Namhyung Kim wrote:
-> On Wed, Aug 19, 2026 at 11:04:36AM +0800, Tengda Wu wrote:
->>
->>
->> On 2026/8/11 16:45, Shuai Xue wrote:
->>>
->>>
->>> On 8/8/26 8:23 PM, Tengda Wu wrote:
->>>> Extend update_insn_state() for arm64 to track 'add' instructions for
->>>> structure member address calculation, which commonly appear as:
->>>>
->>>>    add  dreg, base, #offset
->>>>    add  dreg, base, reg2     (reg2 holds a constant)
->>>>
->>>> Unlike x86, the arm64 'add' instruction has an extra base register among
->>>> its source operands. Therefore, in terms of propagating the data type,
->>>> it is essentially performing a 'mov', except that before the 'mov', it
->>>> first needs to be updated by adding the offset or reg2.
->>>>
->>>> A real-world example is shown below:
->>>>
->>>>    ffff80008001c9a8 <flush_ptrace_hw_breakpoint>:
->>>>    ffff80008001c9c4:  add  x19, x0, #0xeb8   // x0 (task_struct*) + 0xeb8 -> x19
->>>> * ffff80008001c9d0:  ldr  x0, [x19]
->>>>
->>>> Before this commit, the type flow broke at the 'add' instruction,
->>>> leaving the subsequent load with no type information:
->>>>
->>>>    chk [28] reg19 offset=0 ok=0 kind=0 cfa : no type information
->>>>    final result: no type information
->>>>
->>>> After this commit, the tracker correctly follows the member address
->>>> calculation:
->>>>
->>>>    var [0] reg0 offset 0 type='struct task_struct*'
->>>>    add [1c] address of 0xeb8(reg0) -> reg19 type='struct task_struct*'
->>>>    chk [28] reg19 offset=0 ok=1 kind=1 (struct task_struct*) : Good!
->>>>    found by insn track: 0(reg19) type-offset=0xeb8
->>>>    final result: type='struct task_struct'
->>>>
->>>> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
->>>> ---
->>>>   .../perf/util/annotate-arch/annotate-arm64.c  | 87 ++++++++++++++++++-
->>>>   1 file changed, 85 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
->>>> index 7b780bad8c07..eaeb4433fc3a 100644
->>>> --- a/tools/perf/util/annotate-arch/annotate-arm64.c
->>>> +++ b/tools/perf/util/annotate-arch/annotate-arm64.c
->>>> @@ -688,6 +688,87 @@ static void update_mov_insn_state(struct type_state *state,
->>>>       pr_debug_type_name(&tsr->type, tsr->kind);
->>>>   }
->>>>   +static void update_add_insn_state(struct type_state *state,
->>>> +                  struct disasm_line *dl,
->>>> +                  struct annotated_op_loc *src,
->>>> +                  struct annotated_op_loc *dst)
->>>> +{
->>>> +    struct type_state_reg *tsr;
->>>> +    struct type_state_reg src_tsr;
->>>> +    u32 insn_offset = dl->al.offset;
->>>> +    int sreg = src->reg1;
->>>> +    int dreg = dst->reg1;
->>>> +    u64 imm_value;
->>>> +
->>>> +    if (!has_reg_type(state, dreg))
->>>> +        return;
->>>> +
->>>> +    tsr = &state->regs[dreg];
->>>> +    tsr->copied_from = -1;
->>>> +
->>>> +retry:
->>>> +    if (!has_reg_type(state, sreg) || !state->regs[sreg].ok) {
->>>> +        invalidate_reg_state(tsr);
->>>> +        return;
->>>> +    }
->>>> +
->>>> +    src_tsr = state->regs[sreg];
->>>> +
->>>> +    /*
->>>> +     * Handle 'add' instructions of the form:
->>>> +     *   add  dreg, base, #offset     (immediate offset)
->>>> +     *   add  dreg, base, reg2        (reg2 holds a constant)
->>>> +     *
->>>> +     * For case 2, retrieve the constant value from reg2
->>>> +     * and use it as the offset.
->>>> +     */
->>>> +    imm_value = src->offset;
->>>> +    if (src->multi_regs) {
->>>> +        int reg2 = (sreg == src->reg1) ? src->reg2 : src->reg1;
->>>> +
->>>> +        if (!has_reg_type(state, reg2) || !state->regs[reg2].ok) {
->>>> +            /* Unable to resolve type for dst, bail out */
->>>> +            invalidate_reg_state(tsr);
->>>> +            return;
->>>> +        }
->>>> +        if (state->regs[reg2].kind == TSR_KIND_CONST)
->>>> +            imm_value = state->regs[reg2].imm_value;
->>>
->>> First, when reg2 is valid but not TSR_KIND_CONST - say a pointer
->>> freshly loaded from memory - the addend is unknown at analysis time,
->>> yet imm_value silently stays 0 and propagation continues, tracking
->>> the destination as base + 0. Note the asymmetry: no state at all
->>> invalidates, but state that doesn't yield a value pretends the
->>> addend is zero. Unknown addend should invalidate as well:
->>>
->>>         if (state->regs[reg2].kind != TSR_KIND_CONST) {
->>>             invalidate_reg_state(tsr);
->>>             return;
->>>         }
->>>
->>
->> It might not be a direct invalidation, but rather swapping reg1/reg2 and
->> then retrying.
->>
->>> Second, the shifted/extended forms still break even with a constant
->>> reg2: extract_op_location_arm64() drops the "lsl #3" (or uxtw/sxtw)
->>> modifier, so add x0, x1, x2, lsl #3 contributes the unshifted value
->>> and maps later accesses to the wrong field. Maybe flag such operands
->>> during extraction (or fail the reg2 extraction) so the handler can
->>> skip them.
->>>
->>
->> Okay, so it seems shifted/extended forms are unavoidable. We may need to
->> introduce more fields into annotated_op_loc to record them, like this:
->>
->> diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
->> index 138d9258281c..b00e0ad96023 100644
->> --- a/tools/perf/util/annotate.h
->> +++ b/tools/perf/util/annotate.h
->> @@ -501,6 +501,8 @@ int arch__dwarf_regnum(const struct arch *arch, const char *str);
->>   * @offset: Memory access offset in the operand
->>   * @segment: Segment selector register
->>   * @addr_mode: Addressing mode, only valid if @mem_ref is true
->> + * @extend_type: ARM64 register extend specifier (enum annotated_ext_type)
->> + * @shift: ARM64 shift amount (e.g., 0 to 4)
->>   * @mem_ref: Whether the operand accesses memory
->>   * @multi_regs: Whether the second register is used
->>   * @imm: Whether the operand is an immediate value (in offset)
->> @@ -511,6 +513,8 @@ struct annotated_op_loc {
->>  	int offset;
->>  	u8 segment;
->>  	u8 addr_mode;
->> +	u8 extend_type;
->> +	u8 shift;
->>  	bool mem_ref;
->>  	bool multi_regs;
->>  	bool imm;
->> @@ -542,6 +546,19 @@ enum annotated_addr_mode {
->>  	PERF_ADDR_MODE_POST_INDEX,
->>  };
->>  
->> +enum annotated_ext_type {
->> +	PERF_EXT_NONE = 0,
->> +
->> +	PERF_EXT_UXTB,
->> +	PERF_EXT_SXTB,
->> +	PERF_EXT_UXTH,
->> +	PERF_EXT_SXTH,
->> +	PERF_EXT_UXTW,
->> +	PERF_EXT_SXTW,
->> +	PERF_EXT_UXTX,  /* LSL is equivalent to UXTX */
-
-This comment is inaccurate and will be removed.
-
->> +	PERF_EXT_SXTX,
->> +};
->> +
+On Fri, Aug 28, 2026 at 03:15:52PM +0800, Joseph Qi wrote:
+> When a mount fails after the cluster connection has been established,
+> e.g. in ocfs2_mount_volume(), ocfs2_fill_super() unwinds via
+> out_debugfs/out_super and frees the osb without disabling recovery.
 > 
-> Looks ok to me.  But more comments are needed for those who are not
-> familiar with the arm64 ISA.
+> A node failure event can concurrently launch the recovery thread, which
+> blocks in __ocfs2_wait_on_mount() waiting for the volume state to
+> become VOLUME_MOUNTED or VOLUME_DISABLED.  As the mount error path
+> neither sets VOLUME_DISABLED nor wakes osb_mount_event, the thread can
+> never make progress: the kthread leaks and stays blocked on the wait
+> queue embedded in the freed osb, which may then be accessed as freed
+> memory.
 > 
-> Thanks,
-> Namhyung
+> Fix it by setting VOLUME_DISABLED and waking osb_mount_event on this
+> path so the thread bails out, and replace the plain
+> kfree(osb->recovery_map) with ocfs2_recovery_exit(), which waits for a
+> running recovery thread to exit before the recovery map is freed.
 > 
+> Fixes: f1e75d128b46 ("ocfs2: rewrite error handling of ocfs2_fill_super")
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Got it. Will add more comments in v5.
-
-Thanks,
-Tengda
-
+LGTM
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> ---
+>  fs/ocfs2/super.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 > 
->>  /**
->>   * struct annotated_insn_loc - Location info of instruction
->>   * @ops: Array of location info for source and target operands
->>
->>
->>>> +    }
->>>> +
->>>> +    if (src_tsr.kind == TSR_KIND_CONST) {
->>>> +        tsr->kind = src_tsr.kind;
->>>> +        tsr->imm_value = src_tsr.imm_value + imm_value;
->>>> +        tsr->offset = 0;
->>>> +        tsr->ok = src_tsr.ok;
->>>> +
->>>> +        pr_debug_dtp("add [%x] imm %#"PRIx64"(reg%d) -> reg%d\n",
->>>> +                 insn_offset, imm_value, sreg, dreg);
->>>
->>> And since add is commutative, this early return drops the pointer
->>> side for add rd, const_reg, ptr_reg: sreg starts as reg1, hits the
->>> CONST case and returns before the goto retry at the bottom ever gets
->>> a chance to evaluate the pointer register. The result should be the
->>> pointer with the constant applied as an offset, not a plain constant.
->>> Maybe check the other register for a pointer type before falling into
->>> the CONST case (or move the CONST handling after the retry).
->>>
->>
->> Yeah, this issue is a side effect of the previous incomplete handling and
->> will be fixed together.
->>
->> Thanks,
->> Tengda
->>
-
+> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+> index c62e389d4dd6..f785c39d1fb8 100644
+> --- a/fs/ocfs2/super.c
+> +++ b/fs/ocfs2/super.c
+> @@ -1169,8 +1169,17 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>  out_debugfs:
+>  	debugfs_remove_recursive(osb->osb_debug_root);
+>  out_super:
+> +	/*
+> +	 * A recovery thread launched by a node failure event may still be
+> +	 * waiting for the volume to be mounted.  Set VOLUME_DISABLED and
+> +	 * wake it up, then wait for it to exit before osb is freed,
+> +	 * otherwise the kthread would leak and stay blocked on the wait
+> +	 * queue embedded in the freed osb.
+> +	 */
+> +	atomic_set(&osb->vol_state, VOLUME_DISABLED);
+> +	wake_up(&osb->osb_mount_event);
+>  	ocfs2_release_system_inodes(osb);
+> -	kfree(osb->recovery_map);
+> +	ocfs2_recovery_exit(osb);
+>  	ocfs2_delete_osb(osb);
+>  	kfree(osb);
+>  out:
+> -- 
+> 2.39.3
+> 
