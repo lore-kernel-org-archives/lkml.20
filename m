@@ -1,130 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A3F3E49DD;
-	Fri, 28 Aug 2026 08:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907398; cv=none; b=dKa+eNUh3PpF5FhVLYawGha2ejG10NgHO1Jd1pY3iOu3e411hpj+Yw/LEzF8tcG7+4iyOhhUbmZLuvayUmlCOehR4QPFKf4Q7PmVeab/JeCaYeiwlrLSqL+/TXK9xCnKNFfTrIkOD33k5pKO6hYao5NONJzlFpd9y59Eh/+jHEo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907398; c=relaxed/simple;
-	bh=PjAh0OOEXz+/Mxg8rl+11VqMeGNufoZrz2NBiBy739A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u31z6L3TKxdPDp2iFEGa6oVrnV4lVEUSP3HssgRL/uz/CetfVm73rMMAIc9qcry2XUcUWAkPCv9tehtueUXv/dRrJF36dLG5BiucA8OrNXpcySqQBo3cT3BTVO6DSThQQp6/t4+4dUm5wZhDblH2nZYbU2Se1LKHFbmTre742ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iw5Wdb+r; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADFD1EB19B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787907418; cv=pass; b=EtZag+BFt7c5anCXjryGxK7KAn2P5TmcH2il2coLl68I8X83sxjuoDn2ovzm414gIAxM+eBRBtMM6yTJScfHtprwXuwGyq2wCp9fkyyZV8v3tDlClSppnUtqG56MSSjq5B64bWl3ifXGu4jBvcpCAwfY03E8etL6bSraFbsSy3g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787907418; c=relaxed/simple;
+	bh=SmO6o6ks0c9uUsIBN0Sbld6q6+dDo0ePNZGGhFN2EAM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FVrPDTd/he/FjgIxsI8JQKkYBYcPMtMhgrm/LN13C6Eo01UavAzd8YjZIBLddbB9u/DjOuilK/fl0+cpXMwNpXV4d6pOqtChzREPyKh5jvwLBSUXh2ozY2ANpOzCMexPAvhbflQIlLeNNR5QzL4ulLYKRpf3xR9IRspaRzbVfek=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=kJ2/R7MX; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iw5Wdb+r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42C81F00A3A;
-	Fri, 28 Aug 2026 08:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787907397;
-	bh=lhPTHk+wjbHJC0T8LOMbqzlZfWpmbS57KG20Licsqdo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Iw5Wdb+rEAxNXix54UZD/wS+inkMrjwfE+yLaduMpOwftLp5hVOcbfbrczjZMJlUn
-	 +WNc48FYUbTU2xMXCQfZJ2NGB+X+dqVDb1mFSsejhYrAlnDhR6E5il2UJg51B+duIX
-	 qWeiUm++QP0AfbCtyvJ9bXRZLZf/ILnlljvkhUMtIui6Op7Kv6PfcSnRTT2uITz1z2
-	 7e6CDwoRe7enhbIpusexQgTeE7wX9MeA+8ugRu0HT68jPkcqEV44cydAOE46QwRj63
-	 bfjduvEmPaxqPBwDbev4sgcZgNsbAzKRct/tLQVOoxcJ8ETyPuJwtW0QxVtCzSMvk4
-	 PU2iZFillpqDg==
-Message-ID: <6882b7d4-e0e6-4c83-8298-bc48abef5e76@kernel.org>
-Date: Fri, 28 Aug 2026 10:56:31 +0200
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="kJ2/R7MX"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c25099bb1fbso94380166b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:56:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787907415; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Kz5Khr6O/JIOHoy1fEpdkmQeiBjgrT61E9yrP41drFMrDNqr1MfvKM2tr3QogIWCF0
+         jNr6gNtOzAiHX1DPBI/FUNLRHKs819USTOurEsGh910laLSEsNX5bYg+1Lfj5Boa1lnO
+         Juo/TNS9ovFU4LowUFX7ty80NkmPnUEw/R5kP3S9uUjJ+pWRYHLwVKeCm5sQeTZKNwRV
+         kU07+hykLRbkF5XDEEGWA3D13mHo2fZA+SlsxkyzYo5taCKbrYqaU1966uEadZ/lOovR
+         85OPA827Cq/CPlcMfApBfaik3lvM7791BDe2PMyZFeR5xklpmJj72+d190TBY8bIbA2M
+         W21w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KH0APOVPoRE7sreVg72LcwRkOSoARs0sBWd4BqC6Eg4=;
+        fh=zVFKp4D01QP2/2jOQBO/tcNZFE+So050oy7iX8qsKEQ=;
+        b=X4KzOQvAQrww9tvIGOiN7KK22npRaSpHNiCKExWxfAZI3BS6EDSvqZ3qpMBWPrqusg
+         mp3PEztz0BAoCeZWQtqjHtNXGR54HSVFa6UPSi10xOSyDZbvedEZIUixg3VkPeSLeSD/
+         XH9WEX53ZDryc8jHjyYfFpc2MmKBL+QY1WxQEV5h+mM8GtAdH+ddQeHlLCai0jzelJDM
+         Ra7dZ6rqMGFEFcgdn0E+5DnWnQdbQEIyRpCE0249ziRblv4eDiUyO5+Zw03W5lNbit9Y
+         qMwxg9Lu7re3LYBfK+CRuVGDQLQrqNAWUheF5Py5e8xYDSsX148xl1AfaEy3K+IgjaBU
+         HDjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1787907415; x=1788512215; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KH0APOVPoRE7sreVg72LcwRkOSoARs0sBWd4BqC6Eg4=;
+        b=kJ2/R7MXfRavmRprHv39+xv0U/cLDgIo7nN3j8P6KwEvoLUgOVxzw+f5u6aNQvRU34
+         VwsWY8ERuiTxIsuEqGzD+JdVkLJinYOq4TsLbVp2V3gqr7pOQfAvtV/8UhsOKr1/gzhS
+         m4m0ql14UXdNbmwYjgdWcnnBYE1AtmRUfPPwMtGvZfAg86hcKtajoN0sx3qQHV+2bN6m
+         K7CZZBL+TQvlTwIgHlnv0abuIv7k585jBxo4g3u4MSwZycsFFk5H45fD+8NhqYWVWFDN
+         WkWCpRbLEWa1LXV+YPyfoQW4mpAnZ+qRV2FPriT1KHTlq9FVhUNE/9NHkYovi0BmkGMy
+         w8zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787907415; x=1788512215;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KH0APOVPoRE7sreVg72LcwRkOSoARs0sBWd4BqC6Eg4=;
+        b=U5x7nDI7Ki8LNQrx6MpFF33+oV/g2Z3a3fkurrT6KzAZE3ql/sFUKkfNSTyl1iCRgH
+         /yImwouDCqdq3yxPee9P3FeRyWkgV/Spa4cAJQ7a2ojivqewxT0Y7vDJgLIgA9mMBWvo
+         f8FaRhdQ1VR2XAqGMuInukY+AqBegDgqyHufcK4ciwvTEX0Onc86xzZuoXZVPQ+mYROV
+         IZQLNyx+ibRYvS6g+O7EnXirTTQ3+Twxvt/qJg1LAS63UUz57AUNJsg8u0EluHoMe2mN
+         i666F1xOPZXexp/Fda6/wrYce3CRehwIymQDGpHmvLyx8Mvkt9TQGBDw937Y/06nRBPO
+         J0rg==
+X-Forwarded-Encrypted: i=1; AHgh+RoPNRVW7YL1/2pR6xu3wiMQSEgElehA3lcgTwYIHX3C+P/7P+kCe2Jtd7GwGL9tRQqGDRrL7nlli5Vpf3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQN8DvSuWy/PHyPBbXfpSjo9k+FFwmBymaPE/P7FbP21Qtbk7m
+	JzqQbrkvgSy1zgyOmfCUgM3lelMH7hzdlTmtFdB/F7ntrr8hKtVHl9RFMMji0fqvv+AuZ1PBCfh
+	yMNqhAmahIfJesmNR4uPZUwcOdytHbaeadJDM3SvePg==
+X-Gm-Gg: AR+sD11FhQ7Pul/M0VTckVMi8KF7EbR7O6p6NnDsZV+B/eajHC1UuB9uW13o0ZmeF1N
+	OwAw8Csck99OLe1tVgk7/AjlGCuFCnD0bUSQ1uAKJZ3ZdAfs9ssjH/cZfpK/phy3t2mZF+g2Ll4
+	Ntb/6IrSFupBs62RtsliyCjmiwmpq6TM6eF4NG/a7rP817QEfPyLhU2bjxSldDkQZErRQwFcyRr
+	Sx3eOVoBC0TXVkElcwjhdNnEERAyKwNAyOeTr4HlKvucsLYimUR3CAQxY0RMFYGUDV63IcA3PzS
+	wItTrAKRLDC/ov0aAwso1etNt9cm3ljU7n6YmowoMox6m8w=
+X-Received: by 2002:a17:906:fe04:b0:c24:c24f:e176 with SMTP id
+ a640c23a62f3a-c25571576e4mr284901266b.15.1787907414399; Fri, 28 Aug 2026
+ 01:56:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] leds: max77705: fix fwnode reference leak in
- max77705_add_led()
-To: Manush Prajwal <manushprajwal555@gmail.com>, cw00.choi@samsung.com,
- lee@kernel.org, pavel@kernel.org
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
- dsankouski@gmail.com, sakari.ailus@linux.intel.com
-References: <6a914ad5.1e1ac41d.2a3f62.4979@mx.google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6a914ad5.1e1ac41d.2a3f62.4979@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260828070747.4009519-1-zong.li@sifive.com> <CAJF2gTQ-1pKoBvnRSLkDGqwKDzon_yfyT74haifeGD=VRBanYg@mail.gmail.com>
+In-Reply-To: <CAJF2gTQ-1pKoBvnRSLkDGqwKDzon_yfyT74haifeGD=VRBanYg@mail.gmail.com>
+From: Zong Li <zong.li@sifive.com>
+Date: Fri, 28 Aug 2026 16:56:41 +0800
+X-Gm-Features: AcwNN1V-ZapGFDA2xiCNdfR0yQ83uvkMjP-C1OSA7d6syIhtKwC-Wxz-1qct13s
+Message-ID: <CANXhq0q6nkZapRCKew50azkrmR2Gyh_X7OA39uu1p-kR67QSMQ@mail.gmail.com>
+Subject: Re: [PATCH v7 0/2] RISC-V IOMMU HPM support
+To: Guo Ren <guoren@kernel.org>
+Cc: tomasz.jeznach@linux.dev, joro@8bytes.org, will@kernel.org, 
+	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, mark.rutland@arm.com, 
+	andrew.jones@oss.qualcomm.com, david.laight.linux@gmail.com, 
+	zhangzhanpeng.jasper@bytedance.com, yang.yicong@picoheart.com, 
+	iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/08/2026 10:46, Manush Prajwal wrote:
-> In the RGB LED path of max77705_add_led(), the
-> fwnode_for_each_child_node() loop over the subled child nodes
-> returns directly on a max77705_parse_subled() failure without
-> releasing the reference held on the current child, since
-> fwnode_for_each_child_node() is not a scoped/cleanup-based
-> iterator and expects the caller to drop the reference itself on
-> any early exit from the loop body.
-> 
-> Call fwnode_handle_put() on the child fwnode before returning to
-> fix the leak.
-> 
-> Fixes: 3b6eaa3db567 ("leds: Use fwnode_for_each_child_node() instead")
-> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
-> ---
->  drivers/leds/leds-max77705.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/leds/leds-max77705.c b/drivers/leds/leds-max77705.c
-> index 1e2054c..a5030c3 100644
-> --- a/drivers/leds/leds-max77705.c
-> +++ b/drivers/leds/leds-max77705.c
-> @@ -193,8 +193,10 @@ static int max77705_add_led(struct device *dev, struct regmap *regmap, struct fw
-> 
->  		fwnode_for_each_child_node(np, child) {
+On Fri, Aug 28, 2026 at 4:49=E2=80=AFPM Guo Ren <guoren@kernel.org> wrote:
+>
+> Hi Li Zong,
+>
+> Just two patches? Where did the riscv-iommu PMU driver patch go?
+>
 
-Would fwnode_for_each_child_node_scoped() work here?
+I apologize for missing the first commit. I will resend it as PATCH
+RESEND v7. Thank you very much for pointing this out!
 
->  			ret = max77705_parse_subled(dev, child, &info[i]);
-> -			if (ret < 0)
-> +			if (ret < 0) {
-> +				fwnode_handle_put(child);
->  				return ret;
-> +			}
-> 
-Best regards,
-Krzysztof
+> --
+> Best Regards
+>  GUO Ren
+>
+> On Fri, Aug 28, 2026 at 3:07=E2=80=AFPM Zong Li <zong.li@sifive.com> wrot=
+e:
+> >
+> > This series implements support for the RISC-V IOMMU hardware performanc=
+e
+> > monitor.
+> >
+> > The RISC-V IOMMU PMU driver is implemented as an auxiliary device drive=
+r
+> > created by the parent RISC-V IOMMU driver. Therefore, the child driver
+> > can obtain resources and information from the parent device, such as
+> > the MMIO base address and IRQ number.
+> >
+> > The thrid commit adds raw spinlock for race condition when PCI MSI/MSI-=
+X
+> > on IMSIC. As the commit message mentioned:
+> > Events are bound to one CPU and the interrupt is affine to it, so the
+> > perf callbacks running with interrupts disabled would be enough to
+> > exclude the handler. But PCI MSI/MSI-X on IMSIC breaks that:
+> > The irqchip sets IRQCHIP_MOVE_DEFERRED, so irq_set_affinity() reports
+> > success while only recording the request, and the move is applied in
+> > interrupt context upon the next device interrupt. Until then the
+> > interrupt is still routed to the CPU IMSIC picked initially, so the
+> > first overflow interrupt can run concurrently with the perf callbacks
+> > on the CPU the events are bound to.
+> >
+> > I noticed that xgene_pmu and arm-cci have similar implementation, so ad=
+d
+> > it in riscv_iommu_pmu should be accepted.
+> >
+> > Changed in v6:
+> > - Rebased onto the latest v7.3-rc
+> > - Use sysfs_emit instead of cpumap_print_to_pagebuf
+> > - Set up on_cpu and irq affinity by cpuhp callbacks
+> > - Change type of on_cpu from unsigned int to int
+> > - Reject filter operands of cycle event in event_init
+> > - Check return value of counter number and  masks in probe
+> > - Add raw spinlock for race condition (third commit)
+> >
+> > Changed in v5:
+> > - Pick up suggestions from sashiko-bot as follows
+> > - Fix event group validation for sw event
+> > - Bind IRQ to aux PMU dev instead of parent IOMMU dev
+> > - Clear OF bit when event is NULL
+> > - Improve hi-lo-hi patten
+> > - Add back IRQF_SHARED flag due to mismatch
+> > - Manage cpuhp and pmu register by devre
+> >
+> > Changed in v4:
+> > - Rebased onto v7.3-rc
+> > - Use is_sampling_event() instead of accessing vairable directly
+> > - Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
+> > - Change the naming of PMU device for avoid ":" in PCIe case
+> > - Add suppress_bind_attrs attribute
+> > - Remove IRQF_SHARED flag
+> > - Set irq affinity to local CPU of IOMMU
+> > - Allocate ID by IDA for auxiliary device
+> > - Pick up suggestions from sashiko-bot
+> >
+> > Changed in v3:
+> > - Rebased onto v7.2-rc3
+> > - Use hi_lo_writeq/readq to access register
+> > - Pick comments from sashiko-bot as follows
+> > - Set IRQ CPU affinity
+> > - Remove IRQF_ONESHOT flag when request irq
+> > - Adjust cycle event check by checking event_id field only
+> > - Fix bug for group events verificaiton
+> > - Fix KASAN issue about casting 32-bit variable to unsigned long pointe=
+r
+> > - Clear IPSR pending bit before starting counter
+> > - Clear OF bit in event selector register in irq handler
+> > - Release irq by devm instead of explicit free_irq
+> >
+> > Changed in v2:
+> > - Rebased onto v7.2-rc1
+> > - Use hi-lo-hi mechanism to read counter.
+> >   Suggested by Guo Ren and David Laight
+> >
+> > Changed in v1:
+> > - Rebased onto v6.19-rc8
+> > - Pick all suggestions and feedbacks from v1 series
+> > - Add cpu hotplug implementation to avoid race enablement
+> > - Move PMU-related definition from header to c file
+> > - Change PMU driver to auxiliary device driver
+> >
+> > Changed in RFC:
+> > - Rebase onto v6.13-rc7
+> > - Clear interrupt pending before handling interrupt
+> > - Fix the counter value issue caused by OF bit in the cycle counter.
+> > - Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
+> >   in riscv_iommu_remove()
+> >
+> > Zong Li (2):
+> >   iommu/riscv: create a auxiliary device for HPM
+> >   drivers/perf: riscv-iommu: protect shared state with a raw spinlock
+> >
+> >  drivers/iommu/riscv/Kconfig    |  1 +
+> >  drivers/iommu/riscv/iommu.c    | 37 +++++++++++++++++++
+> >  drivers/perf/riscv_iommu_pmu.c | 66 ++++++++++++++++++++++++++++++----
+> >  3 files changed, 98 insertions(+), 6 deletions(-)
+> >
+> > --
+> > 2.43.7
+> >
