@@ -1,112 +1,128 @@
-Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532DF3793BD
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0063EE1D8
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922847; cv=none; b=ibPbQh8P/ycbPtRHxuo6juM8AHb3YE/lbrh+KQV8r4d1va0enObo6H2S0ECmVeG+l9mhUYnh5cw3lj2ugkEjdB6L31q0RRcTr5jm8YUHDdMvyoHmkxGyH5IfeLH0GZMkkXBz7SJjtWsNoqCmaFE7KWFZmyTmVtMWd33AXd0UEQE=
+	t=1787922880; cv=none; b=bMptEMp4fWJNrQXZ2mttAJ504OUlng+D1AJPuXa4EUSqdSGTIFpjCK9Q3N6RYHuXJ0d7SGbOo7mfCjtHVYXPYqTKza1s83aDU+jmLRff5abgNEyfLImtcjscyHQ67N9AIJi44XVSigQXE+oSHQzF/yokEJ+bf7L0f+dIH6ltgRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922847; c=relaxed/simple;
-	bh=/uU6ExnLVG8tAtofPabSQjz3nnh9Al8RD1/uyGGyRwE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cnqPk04oXQt5sRa73R2k4XZQ9uaCmE5hbmlpAUMYQVfxng8O55k5O7e2bfuVYyMyk09y/Ox6XAmrfV2ZnUZQu6Drm6Ww/zZR5W7dyPufJN5UB2dABOPrRDV96hiMcgp4up7Zn8vIB0h8LLA8bmsx8dDmaJZZGAf6yj9w6CC2Ci4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ab0mLKLS; arc=none smtp.client-ip=91.218.175.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787922880; c=relaxed/simple;
+	bh=D4QUybtwdaEGeFdOBILEBAa96aMUCabEn4IKFQTSTqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 References; b=YYGrkRIGHQibQxxBGIlxxnsL2/qTcsLA7MFKf2qxJ9LieNjPu7iBlpUMTN+DQWIPhit0NTEchFiD+hAWMy3gLJ/MEGMt0ZuE12GXpSfETLKOueOUpeHztjGN3snErqokCci+tfP2tBRap3s5wS0PjaHqoxVa8Q5jwIwRzG30UfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=G9WfxMU+; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ab0mLKLS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/uU6ExnLVG8tAtofPabSQjz3nnh9Al8RD1/uyGGyRwE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787922842; v=1; x=1788527642;
- b=ab0mLKLSYKni1Yn1cpe1G22RYFOfCOAqM4B9Gc5qj3+XmMMNXEZRbuVfdTrFsy5o2jPM9/HJ
- /CMhFaWfH1jxX8uXrwrlmCJqvxrRU8exSqw7AlY/VpdFvNawsF2UevDvtc+sX1EqI0dF1s1OE7W
- mKOYsJ99ut+ZiAv6p5Cg0eQY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ffb82de6059f5183;
-	Fri, 28 Aug 2026 13:13:52 +0000
-X-Mizu-Trace-ID: ffb82de6059f5183
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f0b9caba-7851-444c-a242-44e4a35dd0e4@linux.dev>
-Date: Fri, 28 Aug 2026 21:13:44 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="G9WfxMU+"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260828131429euoutp02dbde150f548e9b400912791be6f33dda~P_mB0ep_w2586125861euoutp02n
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:14:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260828131429euoutp02dbde150f548e9b400912791be6f33dda~P_mB0ep_w2586125861euoutp02n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1787922869;
+	bh=lwl9ZR836nXomiAuieh4El+iSMRVFsDG8HllN7ocCco=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=G9WfxMU+ufl7buuH3N4EZ28j7RN2elpdzcYXFBksv+UhFV54sgY8Ncl1WqPrM+Hhh
+	 ReqnNU0qIB+ewC0S+rJsrLfiNBaGQ4wrqr30UeEvIMPsQ8cfAFp7lvcISp+DqLNl2s
+	 /YSvcsUTMAqvak6ICW53OJtJym/LyfBIlH0X1rrs=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d~P_mBgz0Nf2835228352eucas1p2P;
+	Fri, 28 Aug 2026 13:14:28 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260828131428eusmtip175545c44f75392432a02ffdf32bacde6~P_mA87mUu1290512905eusmtip1T;
+	Fri, 28 Aug 2026 13:14:28 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Stephen Boyd
+	<sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, Peter Zijlstra <peterz@infradead.org>, Ingo
+	Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Waiman Long
+	<longman@redhat.com>, =?UTF-8?q?we=20Kleine-K=C3=B6nig?=
+	<ukleinek@kernel.org>
+Subject: [RFC/PATCH] clk: add lockdep_ignore_clk_prepare_lock cmdline option
+Date: Fri, 28 Aug 2026 15:14:07 +0200
+Message-ID: <20260828131409.962825-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: pch_gbe: Propagate device restart errors from
- resume
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260828105722.29952-1-pengpeng@iscas.ac.cn>
-From: luoxuanqiang <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260828105722.29952-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
+X-EPHeader: CA
+X-CMS-RootMailID: 20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d
+References: <CGME20260828131428eucas1p2cc2d9767d5ed62b8297c2cff0295226d@eucas1p2.samsung.com>
 
+The clock framework uses a single global re-entrant mutex, prepare_lock,
+to serialize all operations on the whole clock tree. It is taken by
+nearly every clk API call and it is held while calling into the clock
+providers, which in turn often take their own locks or trigger runtime
+PM. As a result prepare_lock sits in the middle of a large number of
+lock chains and lockdep frequently reports possible circular locking
+dependencies involving it.
 
-在 2026/8/28 18:57, Pengpeng Hou 写道:
-> pch_gbe_up() can fail while allocating the IRQ or receive and transmit
-> buffers.  The resume path ignores that result and attaches the netdevice
-> even though restart did not complete.
->
-> Return the restart error, leave the netdevice detached, and restore the
-> PHY and PCI device to the suspended resource state.  pch_gbe_up()
-> already frees allocations made before its failure.
->
-> The issue was identified via static analysis and manually reviewed.
->
-> Fixes: 77555ee72282 ("net: Add Gigabit Ethernet driver of Topcliff PCH")
->
-> Assisted-by: LLM
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->   drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
-> index 88c5c52e0e38..737bdc9d569e 100644
-> --- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
-> +++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
-> @@ -2449,7 +2449,7 @@ static int pch_gbe_resume(struct device *device)
->   	struct net_device *netdev = pci_get_drvdata(pdev);
->   	struct pch_gbe_adapter *adapter = netdev_priv(netdev);
->   	struct pch_gbe_hw *hw = &adapter->hw;
-> -	u32 err;
-> +	int err;
->   
->   	err = pci_enable_device(pdev);
->   	if (err) {
-> @@ -2462,8 +2462,14 @@ static int pch_gbe_resume(struct device *device)
->   	/* Clear wake on lan control and status */
->   	pch_gbe_mac_set_wol_event(hw, 0);
->   
-> -	if (netif_running(netdev))
-> -		pch_gbe_up(adapter);
-> +	if (netif_running(netdev)) {
-> +		err = pch_gbe_up(adapter);
-> +		if (err) {
-> +			pch_gbe_phy_power_down(hw);
+Such reports are often not real deadlocks, but once the first one is hit
+lockdep turns itself off and all subsequent locking problems - including
+the ones actually being investigated - are no longer reported.
 
-The comment in pch_gbe_phy_power_down() explicitly says that the PHY
-cannot be powered down when WoL is enabled or AMT is active.
+Add a "lockdep_ignore_clk_prepare_lock" kernel command line parameter,
+which marks the prepare_lock class as novalidate, so lockdep skips the
+dependency tracking for it and keeps validating the rest of the system.
 
-Please do not call it unconditionally here.
+The option is only available when CONFIG_LOCKDEP is enabled and is meant
+purely as a debugging aid.
 
-Thanks,
-Xuanqiang
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+The problems with clock framework's prepare_lock are well known and
+there are machines that always report lockdep issues related to it. A
+good example are Khadas VIM3/VIM3l boards, on which prepare_lock
+interferes with locks used in PWM subsytem:
 
-> +			pci_disable_device(pdev);
-> +			return err;
-> +		}
-> +	}
->   	netif_device_attach(netdev);
->   
->   	return 0;
+https://lore.kernel.org/all/adqtn6iljcguv3m3ovhltusbbf4mljzlwg73yklaudvjjtazxv@vyf5fvuzic6x/
+
+This new cmdline option allows to hide prepare_lock related issues on
+the test machines possibly enabling lockdep to catch other issues.
+
+Best regards,
+Marek Szyprowski
+---
+ drivers/clk/clk.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index fef87167a60b..a5c8c4256102 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -168,6 +168,17 @@ struct clk {
+ 	struct hlist_node clks_node;
+ };
+ 
++#ifdef CONFIG_LOCKDEP
++static int __init lockdep_ignore_clk_prepare_lock_setup(char *__unused)
++{
++	lockdep_set_novalidate_class(&prepare_lock);
++	pr_warn("lockdep: ignoring prepare_lock class in clock subsystem\n");
++	return 1;
++}
++__setup("lockdep_ignore_clk_prepare_lock",
++	lockdep_ignore_clk_prepare_lock_setup);
++#endif
++
+ /***           runtime pm          ***/
+ static int clk_pm_runtime_get(struct clk_core *core)
+ {
+-- 
+2.43.0
+
