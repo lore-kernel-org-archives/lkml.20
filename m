@@ -1,198 +1,505 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022091.outbound.protection.outlook.com [52.101.126.91])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E40630C171;
-	Fri, 28 Aug 2026 01:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.91
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787882159; cv=fail; b=uW7aRFZCNe0veatl4SoT7HB/Z0ZYqkZGU9EIbKYn9ni+cqkLWHepODiqD2QyC/ogQmiklLl3va6UdKFafC1g8JQOSBm81Stt6xDxIz30qLTXl862wnWatdzpNTkAvyTsOCINAL/knZZWfNfG7vlG/63WcGZBbbiUUQtHWUEXhwY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787882159; c=relaxed/simple;
-	bh=ITAG0RYsFKddkqHkAcuM3UNrBqwRXoZL0j0iHuNCDIM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=N6oUCsBjAjIxonhUY70HINRDo5EJlUWD0HXJa0NzmzJFZ74h8dpBs3bKIocEG7BLVlNyMZ41L2WM2rnb0/W9qitd1lqfEXe+3ea54ktgp3StEcCc2CGozXktx6lS9PKqvJggF2rgeW7KNId8Xz7XFXpGF8Bbo4EcrmMpW6TOee8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=w02ggGlO; arc=fail smtp.client-ip=52.101.126.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7675431F985
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787882217; cv=none; b=QihZyuy2KvcgViWq45odbyTO0Sjc/TTWAZSHYt0atUHobYNtpNk5Wg/DiqohemmVvt3Im2t0bqTTbXaKdhh4RhqcScHF6qPyXYz+W1DOu/7JC1HP5UMgaH59QgeuqMKeyCmHHPIHGckyMRYqkamb6+r5jViXRLu6BGHo/7bC+ig=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787882217; c=relaxed/simple;
+	bh=Pf7ZGRBxMy0O53LNSd/h5m0HHy6kH+ncDX/USXkSEA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ub+y63VDrjTbIV934m2JvfwQWYKPnqIBdWF0Z/8OXTuz5Xzp37rEraLcshaZV5ZyVpNpzfOhCMPqmmvu8YP7M5c3sgJUYXTfKf618QEUGI9pqJ6+49YxZga72BI4VkfSRoSqECeNaw7vtQIRs9VYpxUbB3yEcPhaAKRRbuNobZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htbkKSK8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="w02ggGlO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L3E8TnBkV8s7AuTpcdVViawEDfAWQvlo6j6reDdYmzcVIHpXNfm69SBlkSeS0QVhEr2JDuQJ+f39kWngpsCaQBtNxQYgMMEhDgd4wKPqR4IG1Jq504ejh+ZmtCTFZHPZ4UUfCZ7SsCvqT7YqLM1bjSfux5NsLytNOXNQGJV2iPCUiPM+0FKgO17Mg/blx52AJQ2Bk+8ErB8YcPmvY3PrsYsJ1rIXkY8Jy8dN6IlOY7bdNEw9Kg7TchpG5TZ2Q5oOSsIe9tsZEiA1dK45PPRV4ZBzqxLo4JkU/K2fAhv3mgp37BLV+vA4phd4JdP5cNCI75yO/hv6hN4Df8gD16NHZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WbJaN4GfvxIQhKkGsdEkzy9ong0Rhy9pA7Pf8fHz0NM=;
- b=d3UgG/svoUBmhj9tGwjfgcyCIVLFcDdd0tYfvf381HIOt4nTYxTfJ0LJdGzNztWzGtdtViLWHZkwit7d6+gyGDnY5mQw9E+KREWSqkoC1FdeLTCafJb+cC285Wz6Xv8bN9irdgZeSMJHX/O6KQXDesd3hj8kCwI/9BTAh+IAADwky1XZv9ZgAXFyxOoWfwKbRW9pmXTcOXOjyeVtryPFuySL4+gcQ+oBBJUOl2dgR4bxJSDJ3k+alc15wSuabMnaX9+fwjzhKwpJVHGkFfOxFHRNt6j738boO5Pb1ngUUe6kIYJDij2Ebk53lh+udr3lgh6wAmJoZctxBEGSlZ8dOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WbJaN4GfvxIQhKkGsdEkzy9ong0Rhy9pA7Pf8fHz0NM=;
- b=w02ggGlOyApocO60sFF/xzJO9C0BqxTlw9b+jFUwifL/kedpSed95lDRTckslAjeoq+BChkH5swRo3su0MSRYL5Xut+8j8fu5DDVu5+HKej20v7AP23YJCze8cbl5oQMXT/t/V0GY0dupKty5T/dNu3HE5xu4cDakBxwpF7xl9Kn8bQYMGDx0XpFZbEmxf4SXO7jvIPznaQhxHYWksQIaZ8eGGMZ8Fq5wujCZqho1QfynKDQV+EnStrMkTxI3RvjaZKKPUM0bF381J08sKw0BY90WDl0RXsnUDRBRTJGgIRPw1MBtiEiN+65FZL1krlM9jrWCgglgQH8J5qYyH6L1A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYSPR03MB8627.apcprd03.prod.outlook.com (2603:1096:405:8a::9)
- by KL1PR03MB7528.apcprd03.prod.outlook.com (2603:1096:820:ed::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 01:55:52 +0000
-Received: from TYSPR03MB8627.apcprd03.prod.outlook.com
- ([fe80::bc0e:21e7:ef9e:e77b]) by TYSPR03MB8627.apcprd03.prod.outlook.com
- ([fe80::bc0e:21e7:ef9e:e77b%3]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 01:55:51 +0000
-Message-ID: <ff2d8e54-3169-49c8-9f9c-dd4632bf85d2@amlogic.com>
-Date: Fri, 28 Aug 2026 09:55:48 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: amlogic-c3: Fix out-of-bounds read of metering
- zone coordinates
-To: David Carlier <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260821212848.214982-1-devnexen@gmail.com>
-Content-Language: en-US
-From: Keke Li <keke.li@amlogic.com>
-In-Reply-To: <20260821212848.214982-1-devnexen@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0028.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::17) To TYSPR03MB8627.apcprd03.prod.outlook.com
- (2603:1096:405:8a::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htbkKSK8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCFB21F000E9;
+	Fri, 28 Aug 2026 01:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787882213;
+	bh=RAXYSYMF4Q931UrfHeFaiGTm3FcP4/PBARiKaS/H2uQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=htbkKSK8clVT/7u3LipdWTGYwHuJMtIHU+rHNXZCfzcQwOWqlj+eQ2SQn3ldIUE8S
+	 92CqbgOzTNXmVy4c/6VaVxIiZKtK0an9shuZ3p6HwtombtdCelHXRKRN2QnxB3Eqp6
+	 NlGPueCBj/n+iMKG0GQS5lzWCR4j3VO4U4gPY1hhGd0+uuyQOQ/vujluB4OhoRZ3hB
+	 8oT2pKppWq4jEvz28pOHaZ/8Nxmjik+cYsSBWFASD+P2XJU1l2mKW8fmEsdV5RmxNE
+	 E+eykPtVyu1STxp5gVv+a+2bVEdb/QZ8m8jqJzTTQTKVw8G7pXUc23oQVFi0VDeaKD
+	 r+fbCzbUnoFxA==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.phl.internal (Postfix) with ESMTP id DF990F40066;
+	Thu, 27 Aug 2026 21:56:51 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 27 Aug 2026 21:56:51 -0400
+X-ME-Sender: <xms:4-qQarCGf7PjbIz5oj3ms1XHhN-eoJz8Fd17GHE8khVeNM7QzhHnTg>
+    <xme:4-qQaq3oe66KtswTeGODAelue4eubGhrfz87aVIWUa6V37AguqGi5-JuIw1ADQluP
+    AEA5M2t_v1odOFw-E8odCF6q-8cCWAtBWBnUAXvW7Qc_uYspQqt3nA>
+X-ME-Received: <xmr:4-qQat1Ov4nP1w727U_QtCr6DQ3-b7GXD-gXOLiZ-u8F3YeBklsGqyvqAvd6ov5pu8RNxjPHlk_FCFNARpPWJOL7NprFMsKJ>
+X-ME-Proxy-Cause: dmFkZTE6Wyd0bI4o/Oxfzyc90YxyrDIV1N+7e5IpgB2/MHVPY6KmKGjjNgDAOPHTKdJogk
+    PXzYWRPKx3I3RaARQuuhbTxofajUB5IYH0uwEdijxySZmOmwjIAKbx3NpZGsCPwAPHOuEz
+    BXS6fpXcCrpfap4W7Zh2ugZq08q0v6DxaSk399JuBt7mthmZ1nzLABW/rRCWOSU9eQ0yfO
+    nB3XogMigs1gMigcFmkO/ITMk7LifB6bTcsuQve+YvcaVgHsPWTRsptJWS/VFBp6NBlOsx
+    G2ygX+PX3vyqApt7AED6CgK3867d3pLW+J35QlwlzqtmTG6UBY7UWJefQKdUu9tlit2ueq
+    z/fgNUbmzpP+cVaf0E5cGFawJfhhRwYaMP4UiL8e/tD/v1ELUcuZYEJIwkHgc0B/rqTZJq
+    q1L1tJugTIVFr8mISHt0vHFVvp0MaabOrBWLG8CPuZJWf2uMdA+VaohmWp5OQLtTx6g0C6
+    SvmH6zF9Az+TnXgQL0z+ApVIp7UK1DaKNAfCRGHyOePuHWdQARLAyeYBG+XDUUpGzpA9AY
+    1R6gJ2/rlZYxwSbjXL/DQgBqZqRbpHFtXoCXmqcVjh78e0SXVEz/+jhaN6/AAc54kydQBO
+    gCNNCOrDMrMWeZikTPLC6Z0bYrZ2BKb0f2jt9+xrx30m8Axr/OzlWA7Eja4A
+X-ME-Proxy: <xmx:4-qQavBAO3C_xa-AIWdRMhoK3alC3bM7001ALviQ7iEziVGlZWR-bg>
+    <xmx:4-qQas682hA2_s2RbRc1pdNVryAZYbEP9mfSm-gcMvDzHQx7udreBQ>
+    <xmx:4-qQagJ8eWN9XabU2haGXAYspK92pZnmIKS8xoziG0soPEQroTmTVA>
+    <xmx:4-qQatt0P3kpH-9aItXb0xTSfDe4mKXpEGzssC6apuP05tA62TMVZg>
+    <xmx:4-qQanLxlNVRZMrdmXhxxxob9rTg9eGEDgoTm34IvHvD3qC-145i_caw>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Aug 2026 21:56:51 -0400 (EDT)
+Date: Thu, 27 Aug 2026 18:56:50 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+Message-ID: <apDq4hUbjNtQQn1f@tardis.local>
+References: <aozw_7Txxaq2qE7c@tardis.local>
+ <877bldhkmq.ffs@fw13>
+ <ao4lO7U7L-7Zice1@tardis.local>
+ <87v78wezid.ffs@fw13>
+ <apA4M7Asz0mV9uaw@tardis.local>
+ <87jypbfu1t.ffs@fw13>
+ <apBrZuxU8bmCgG8h@tardis.local>
+ <87bjanfmzz.ffs@fw13>
+ <apCS3T63WUxHd1GH@tardis.local>
+ <87wltbdvmd.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYSPR03MB8627:EE_|KL1PR03MB7528:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f92d14f-f774-4251-109c-08df04a77d30
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|3023799007|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	QP77EGJLZWyyoL61NrXbYDLQSAG81wrtxdr5pZPy2ly0v4s53PjhBAxNp94Nr6Ur2hm6pBWH0t0JYfz1VhkvC6iOS1iyS1ddMDjASut37s/KK1M4isFCuwRy8S4gJgD+czFf87cB90n1+Vhl7U1YBY4i84LCg6uBYkDzGFfA//sF9DZt4s81pvId4d6PVb0CyRjZk/CXoTUvx5VUM5N7DpI3EdnSFiLJZqyMCvJv3splf720iEBrt0fYqLTHKK8zGqrJgEQD6brsGkbH7o/mrMRQBX88mWY3QMwgXAPxBTtfVOsolnh5C7AASQ+RgvrnV5uOqJ1KvkoAYzoHBN+G0jE+ITDIrGtndUH2JKerChabAez3nf4DYW847Awij3tGbOcz3r6OVQ6cYtlKfLg8hEk6vEHoXOcFBkMnJ53iDLS4Dl0Q0+inA87P0CJfZ+iRJ0uukYTxE5U9vEjabZHnAFTPafcIXkHOvoASJ7X3NkHcZwtw7Kkh0JGX8rcBRAGwuZ0itOiL8JpDz8TjlBznrkGCwhR9q92q0ZYPSCLpC23mTPdUc3D6+9Dow+BL10zlHS4YJ26JMG5ljui425lhkM22xLySyPTm1zMegpaAoyOs7iJepZ6ps2204FqUEoz0VPBeXj1pqai6GNl214hHRW97Z0e259+0A7zHPzYMG40=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYSPR03MB8627.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UEFtVW9zZlhpSjZUVXNkRm5sNGlVNkV3eTZCZ1BJR0plNllXanJIQW9SU2lx?=
- =?utf-8?B?Wk9pcm85K2NVWFRxNVNaZG0vbUl3aGFLZVZLbXJWWHExcDRwdmtoOWF5Wnh2?=
- =?utf-8?B?STBsZlNZamFmZzBnS3g4SFdTem1VY29BeXVHak80K0ZDZW95dWZyR0lyZFo1?=
- =?utf-8?B?dEVhbllnMGdETE8xQXBqdFlGYW41ZmJEUXArUFRadHpGYTR2L3VsMzNOampa?=
- =?utf-8?B?Z2JnckNZM1BOV1ZIVitVV3JQYVFOQ2xzcCtRSk1TSEJDS1hvMThzWVdzOFhD?=
- =?utf-8?B?ZlFmS1ZoVTRBOGdxN0dWbU5YSzBocHdUc1FvVEdCc09PS2ozL0JTS1BNcy9m?=
- =?utf-8?B?MmFINjJiOG56OUpCMEt6K2V1VklsZVNySmVWZG9HM2pKVFhXQUxhdVFnUGZW?=
- =?utf-8?B?OWtuSnpWTGgvQjNlcm01Q1JPV2hjMEhvYkRIU0xoZTJsOHJURW9WbVptRG8r?=
- =?utf-8?B?bytvTkFrVGZOc1N2Q0g4amFPT09HQ3FzaU9aY1c0cVAzcHZJRUZOTEp4L3lh?=
- =?utf-8?B?cjh4QmMwNVRyK3Z2cW9abGFnb3pmZWVLa05XcFNVMEJkSWp3MzV0d3lQOXlB?=
- =?utf-8?B?Q0tTTVFWcTg1UVVCalQwejFTZXhXNmFMVjgrL1g2MVM1VU9HUzExZkVVM0dG?=
- =?utf-8?B?Y0xZUE4rUHFHdW9DblRrbTMzc3BxbmQwbm9xcEVqQytxS3crTDFLOHpqaHcy?=
- =?utf-8?B?TW1naTJic3JMS2ZqZjE1TWFxRlRrU0k5UDVuNnZKZlhjVmVEeTlKaXpaTkdK?=
- =?utf-8?B?U2svYVVkZUhmRjZhcWxhR3RoOXhjd2ZOcVlLakd5NGpCSHhJcW1qQSt3cm9a?=
- =?utf-8?B?cytJTmlKQXA0Y2NrMFdvL1BDSUc4T3QwcGF6QmR5N3pYU2pSS09oSTJTaE82?=
- =?utf-8?B?YXlaVzBpRG9ZTGs1OWtxK3NIOUMzVm5KZ0k4aXdUbXU0ejAvbDUwQ3gwY3ph?=
- =?utf-8?B?KzRDK1hiN1F2OE4xYUc3a3pYTTM0TWhZWU9pbFNhUVpHNDhBZ3Q3Vm9OSXVB?=
- =?utf-8?B?Nmh5c2l2dzFLV2s3TFAzMkI3T2kzL1V5bFdod0V1Skg4Y0kzbXJSRThqVWh1?=
- =?utf-8?B?VFZNV3ZhVTk0ZEM0Zk1HVzZpZHByaFhZcXBKWjlQN3NkNWlVT2pKU1Q5Z3l3?=
- =?utf-8?B?bGtuMWN3SUN0bnFNVnZhdEwxdEdDdFFqYzZ1eU4wLzRWV01ieThpdG10djdi?=
- =?utf-8?B?eHBocVVsZE1jVTNnbmlNRVVZYk4zSjFzRG1zMEpSWGIzYk5EUExVNWtBOWZC?=
- =?utf-8?B?dnlCWVU3bXRQd1MyMWVyd2ZOQ3lqUUNhTHp6QlpFQUlNaU5Oa3N2TTVTQUQ4?=
- =?utf-8?B?UVFRN3QreDhhT2NaenFySG5iU3VrdWZnSlJJODVZVXJtaDVQbkM0UXp6TnhC?=
- =?utf-8?B?bHI0SnBrNklwSkI1b1JZa044YU1WQ2U3M3lGdjZFd1NnMFRab2VGd0RuMDNR?=
- =?utf-8?B?UzIySkJaQUJzSEFDcFQrZWhCMzV4dWJ2ak8vT05HTXJINk5LODV6MjNndFF1?=
- =?utf-8?B?L2xvalpVNnpkR01kRSsvUlpOaTZRbmFmVEtEdzA4czZ5Qk1BMmJBbXQ5b2ps?=
- =?utf-8?B?c3FuQVV4YWFqN2VXaGZXd3FVY0dFeUJqVUk2TWxhNjdPbFhWSnMxN1d3SG9n?=
- =?utf-8?B?SCtHTkdlZllVeHVUeXJJZENINGV4d2sxRk0xZTNmcXhkSnVZbVQ0NVhYV2VE?=
- =?utf-8?B?SGhtK1REUmJ6NktMVlZXRGtwL08vaGhDK1hCT3UxaWIzZVQ2UFh5c0piVXJO?=
- =?utf-8?B?WE5OcW1kSml4anVMNXZxWFpoeWt0SVZrcFlYaS9CWUxSRkt2Wkx2TU1mTzVn?=
- =?utf-8?B?UVg1VHRLZzJBTDFQd1ZjdmVHaWlpS2MxWS8wak5qMS9zOWNyNUtLVklnNTJS?=
- =?utf-8?B?eTAyU3plRUdCUUw5RStDNzVvTXZiY0phWkhJY2EyZ2FzTURuNkNDaVRUS016?=
- =?utf-8?B?Tm1BNzIra0l4UXBuZUtQZlM5UFpFQWVRa2x1YnBSTVBNd29zYUNNejd3Y1NT?=
- =?utf-8?B?OXk5Zm5paE5tbjdMTytmMGZydDlBSHRiNEFjQy9nYTlvdFZhb0twZlNBSG01?=
- =?utf-8?B?RFRNbGFqaWk3dEtXTFBnNVJNdmJlVVpxc04wYUxxRVBCMDRUZ3N6MDZnTlE1?=
- =?utf-8?B?MWQ1QVIwU0NySzFkWmxUQUgvSi9RamlWb2NOdzY3cEdLcTV1VXNZSllNRlBX?=
- =?utf-8?B?dEcvT2ZFbk1iMjZWUjZXOTJRUElyNTd3bG5NYTIwSGpmRitvTkdWSThVZURD?=
- =?utf-8?B?eUwyLzl2V3NDVGtQWmxQb3RMMzlnV1ZiQzQxWE9CbWNVYTdxOWVUVTJidkpY?=
- =?utf-8?B?RWFGb1ZPaWt3Z1JsalJiUWVCOEJGOWdBc1VKRVRISUpNRU5RcWFWUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f92d14f-f774-4251-109c-08df04a77d30
-X-MS-Exchange-CrossTenant-AuthSource: TYSPR03MB8627.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 01:55:51.8624
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S4LqJxUNobRp4X304W0GSkwS4VtpNRW1T+1YsXoxBvx19Bnkxpb2XKMtCf8weeUQmOAW/r2aw+8T+BCM0PV6Og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB7528
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87wltbdvmd.ffs@fw13>
 
-Hi David
+On Fri, Aug 28, 2026 at 12:52:26AM +0200, Thomas Gleixner wrote:
+> On Thu, Aug 27 2026 at 12:41, Boqun Feng wrote:
+> > On Thu, Aug 27, 2026 at 08:15:44PM +0200, Thomas Gleixner wrote:
+> >> > For now I will reverse the order and remove the additional checking in
+> >> > softirq to fix the softirq pending issue.
+> >> 
+> >> That "fixes" another nasty bug which was latent for weeks and people
+> >> could not get a handle on it because it was absolutely not
+> >> reproducible. Given all that I'm absolutely not convinced that there
+> >> isn't another pile of latent surprises lurking.
+> >> 
+> >> Aside of that I'm worried about having this new counter exposed in the
+> >> current state of affairs. Nothing prevents arbitrary code from using
+> >> hardirq_disable_count(), which is definitely faster than
+> >> irqs_disabled(), but returns a random value depending on context. That's
+> >
+> > Random how? Are you saying in the current (wrong) order? Because after
+> > reversing the order, hardirq_disable_count() != 0 means the interrupt
+> > has been disabled, no?
+> >
+> > But I checked, actually with the reverse order, we don't need
+> > hardirq_disable_count(), so we can remove it entirely. Will send a
+> > follow up patch on this.
+> 
+> The point is that the counter is only valid when used within the limits
+> of the current coverage. Other than that it is not:
+> 
+>         spin_lock_irq() // or any other non-covered mechanism
+>             // observes 0
+>             cnt = preempt_count() & HARDIRQ_DISABLE_MASK;
+> 
+> That's inconsistent and therefore it is a random number, no?
+> 
+> You have no way to prevent that this happens and if it does it becomes a
+> nightmare to debug for everyone. Guess who got the bug reports about
+> preemption counter issues and local softirq pending messages in his
+> inbox and dealt with them.
+> 
+> There is a world outside of your safe rust zone and that needs to be
+> safe too. This half finished attempt to make Rust work is absolutely
+> not and I have zero interrest to deal with the fallout.
+> 
+> It's not safe and no extra hacks will make it safe. Which means it is
+> not ready. So the only sensible thing is to revert everything which
+> touches that section of preempt_count() and provides interfaces.
+> 
+> As this annoyed me, I rumaged through my poison cabinet and found the
+> old patches again. They obviously don't apply anymore but I found the
+> hints which corners need some care. With the generic entry code that
+> also got way simpler.
+> 
+> So I sat down and reverted
+> 
+>   1b0866874833 ("locking: Switch to _irq_{disable,enable}() variants in cleanup guards")
+>   e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
+> 
+> and then hacked it up just to see how far I get before vanishing to bed.
+> 
+> Three hours later it surprisingly booted right away into a full distro
+> kernel and survived kernel builds and a few test cases. :)
+> 
+> Obviously I did not do any serious testing on it, but I wanted to share
+> it as a starting point and food for thoughts.
+> 
 
-Thanks for your patch.
+My biggest concern is how you are going to handle the oddballs I
+mentioned in another thread, especially when you need to fix the users.
+Because this would lead to a all-or-nothing solution: unless we resolve
+all the oddballs, we cannot enable this.
 
-On 8/22/26 05:28, David Carlier wrote:
-> [You don't often get email from devnexen@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> [ EXTERNAL EMAIL ]
->
-> The AWB, AE and AF coordinate loops bound themselves by
-> max(horiz_zones_num, vert_zones_num) + 1. Both counts are u8 values
-> taken verbatim from userspace, so the bound reaches 256 while the
-> coordinate arrays hold 18 entries (AE, AF) or 33 (AWB). An AF block
-> placed last in a full payload reads 474 bytes past the parameters
-> buffer.
->
-> Clamp the point count to the array size, as the zone weight loops
-> already do.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+> Yes, it needs to be enabled per architecture as the preempt counter
+> initialization is architecture specific and it requires generic entry
+> code. But those are not uncommon prerequisites and an incentive for
+> architecture people to get their act together.
+> 
+> But it is fully consistent and the fully refcounted thing can be
+> built on top of it. If you look carefuly you'll notice that
+> __raw_local_irq_disable/enable() are just optimized versions of
+> __raw_local_irq_save/restore() as they don't have the conditionals, so
+> they can be unified completely at least for debug builds or in general
+> when it turns out that the overhead is neglible.
+> 
+> There is a wide range of optimizations possible with that especially by
+> combining preempt/interrupt modifications into one operation and
+> rescheduling without changing the preemption counter in the first
+> place. Which is what I hinted to in the mail you linked earlier. I'm so
+> tempted to hack that up tomorrow once my brain is less fried than now
+> and after I exposed it to some serious testing.
+> 
 
+If you did, looking forwards to it, I can help enable that for other
+architectures if needed.
 
-Reviewed-by: Keke Li <keke.li@amlogic.com>
+Regards,
+Boqun
 
+> Thanks,
+> 
+>         tglx
 > ---
->   drivers/media/platform/amlogic/c3/isp/c3-isp-params.c | 9 ++++++---
->   1 file changed, 6 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-> index ae0777a20bda..f2396e2c6640 100644
-> --- a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-> +++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-> @@ -139,7 +139,8 @@ static void c3_isp_params_awb_cood(struct c3_isp_device *isp,
->          unsigned int max_point_num;
->
->          /* The number of points is one more than the number of edges */
-> -       max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-> +       max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-> +                           C3_ISP_AWB_MAX_PT_NUM);
->
->          /* Set the index address to 0 position */
->          c3_isp_write(isp, ISP_AWB_IDX_ADDR, 0);
-> @@ -258,7 +259,8 @@ static void c3_isp_params_ae_cood(struct c3_isp_device *isp,
->          unsigned int max_point_num;
->
->          /* The number of points is one more than the number of edges */
-> -       max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-> +       max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-> +                           C3_ISP_AE_MAX_PT_NUM);
->
->          /* Set the index address to 0 position */
->          c3_isp_write(isp, ISP_AE_IDX_ADDR, 0);
-> @@ -316,7 +318,8 @@ static void c3_isp_params_af_cood(struct c3_isp_device *isp,
->          unsigned int max_point_num;
->
->          /* The number of points is one more than the number of edges */
-> -       max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-> +       max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-> +                           C3_ISP_AF_MAX_PT_NUM);
->
->          /* Set the index address to 0 position */
->          c3_isp_write(isp, ISP_AF_IDX_ADDR, 0);
-> --
-> 2.55.0
->
+> --- a/arch/x86/Kconfig
+> +++ b/arch/x86/Kconfig
+> @@ -318,6 +318,7 @@ config X86
+>  	select PCI_DOMAINS			if PCI
+>  	select PCI_LOCKLESS_CONFIG		if PCI
+>  	select PERF_EVENTS
+> +	select PREEMPT_COUNT_IRQFLAGS
+>  	select RTC_LIB
+>  	select RTC_MC146818_LIB
+>  	select SPARSE_IRQ
+> --- a/arch/x86/include/asm/preempt.h
+> +++ b/arch/x86/include/asm/preempt.h
+> @@ -61,8 +61,8 @@ static __always_inline void preempt_coun
+>   */
+>  #define init_task_preempt_count(p) do { } while (0)
+>  
+> -#define init_idle_preempt_count(p, cpu) do { \
+> -	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED; \
+> +#define init_idle_preempt_count(p, cpu) do {						\
+> +	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED | HARDIRQ_DISABLE_OFFSET;	\
+>  } while (0)
+>  
+>  /*
+> --- a/include/linux/irq-entry-common.h
+> +++ b/include/linux/irq-entry-common.h
+> @@ -97,6 +97,7 @@ static __always_inline bool arch_in_rcu_
+>   */
+>  static __always_inline void enter_from_user_mode(struct pt_regs *regs)
+>  {
+> +	__preempt_count_inc_hardirqs_disable();
+>  	arch_enter_from_user_mode(regs);
+>  	lockdep_hardirqs_off(CALLER_ADDR0);
+>  
+> @@ -275,6 +276,7 @@ static __always_inline void exit_to_user
+>  	user_enter_irqoff();
+>  	arch_exit_to_user_mode();
+>  	lockdep_hardirqs_on(CALLER_ADDR0);
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
+>  
+>  /**
+> @@ -385,6 +387,8 @@ static __always_inline irqentry_state_t
+>  		.exit_rcu = false,
+>  	};
+>  
+> +	__preempt_count_inc_hardirqs_disable();
+> +
+>  	/*
+>  	 * If this entry hit the idle task invoke ct_irq_enter() whether
+>  	 * RCU is watching or not.
+> @@ -498,6 +502,7 @@ irqentry_exit_to_kernel_mode_after_preem
+>  			instrumentation_end();
+>  			ct_irq_exit();
+>  			lockdep_hardirqs_on(CALLER_ADDR0);
+> +			__preempt_count_dec_hardirqs_disable();
+>  			return;
+>  		}
+>  
+> @@ -514,6 +519,7 @@ irqentry_exit_to_kernel_mode_after_preem
+>  		if (state.exit_rcu)
+>  			ct_irq_exit();
+>  	}
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
+>  
+>  /**
+> --- a/include/linux/irqflags.h
+> +++ b/include/linux/irqflags.h
+> @@ -13,6 +13,7 @@
+>  #define _LINUX_TRACE_IRQFLAGS_H
+>  
+>  #include <linux/irqflags_types.h>
+> +#include <linux/preempt.h>
+>  #include <linux/typecheck.h>
+>  #include <linux/cleanup.h>
+>  #include <asm/irqflags.h>
+> @@ -165,31 +166,124 @@ extern void warn_bogus_irq_restore(void)
+>  /*
+>   * Wrap the arch provided IRQ routines to provide appropriate checks.
+>   */
+> -#define raw_local_irq_disable()		arch_local_irq_disable()
+> -#define raw_local_irq_enable()		arch_local_irq_enable()
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +static __always_inline void raw_local_irq_disable(void)
+> +{
+> +	arch_local_irq_disable();
+> +	preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +
+> +static __always_inline void raw_local_irq_enable(void)
+> +{
+> +	preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +	arch_local_irq_enable();
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_irq_save(void)
+> +{
+> +	unsigned long cnt = preempt_count();
+> +
+> +	if (!(cnt & HARDIRQ_DISABLE_MASK))
+> +		arch_local_irq_disable();
+> +	preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +
+> +	// Probably not even needed unless something feeds 'flags' into
+> +	// irqs_disabled_flags()
+> +	return cnt;
+> +}
+> +
+> +static __always_inline void __raw_local_irq_restore(unsigned long cnt)
+> +{
+> +	if (!(__preempt_count_sub_return(HARDIRQ_DISABLE_OFFSET) & HARDIRQ_DISABLE_MASK))
+> +		arch_local_irq_enable();
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_save_flags(void)
+> +{
+> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
+> +}
+> +
+> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long cnt)
+> +{
+> +	return !!cnt;
+> +}
+> +
+> +static __always_inline bool raw_irqs_disabled(void)
+> +{
+> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
+> +}
+> +
+> +static __always_inline void raw_safe_halt(void)
+> +{
+> +	preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +	arch_safe_halt();
+> +}
+> +
+> +#else
+> +
+> +static __always_inline void raw_local_irq_disable(void)
+> +{
+> +	arch_local_irq_disable();
+> +}
+> +
+> +static __always_inline void raw_local_irq_enable(void)
+> +{
+> +	arch_local_irq_enable();
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_irq_save(void)
+> +{
+> +	return arch_local_irq_save();
+> +}
+> +
+> +static __always_inline void __raw_local_irq_restore(unsigned long flags)
+> +{
+> +	arch_local_irq_restore(flags);
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_save_flags(void)
+> +{
+> +	return arch_local_save_flags();
+> +}
+> +
+> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long flags)
+> +{
+> +	return arch_irqs_disabled_flags(flags);
+> +}
+> +
+> +static __always_inline bool raw_irqs_disabled(void)
+> +{
+> +	return arch_irqs_disabled();
+> +}
+> +
+> +static __always_inline void raw_safe_halt(void)
+> +{
+> +	arch_safe_halt();
+> +}
+> +
+> +#endif
+> +
+>  #define raw_local_irq_save(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+> -		flags = arch_local_irq_save();		\
+> +		flags = __raw_local_irq_save();		\
+>  	} while (0)
+>  #define raw_local_irq_restore(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+>  		raw_check_bogus_irq_restore();		\
+> -		arch_local_irq_restore(flags);		\
+> +		__raw_local_irq_restore(flags);	\
+>  	} while (0)
+>  #define raw_local_save_flags(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+> -		flags = arch_local_save_flags();	\
+> +		flags = __raw_local_save_flags();	\
+>  	} while (0)
+>  #define raw_irqs_disabled_flags(flags)			\
+>  	({						\
+>  		typecheck(unsigned long, flags);	\
+> -		arch_irqs_disabled_flags(flags);	\
+> +		__raw_irqs_disabled_flags(flags);	\
+>  	})
+> -#define raw_irqs_disabled()		(arch_irqs_disabled())
+> -#define raw_safe_halt()			arch_safe_halt()
+>  
+>  /*
+>   * The local_irq_*() APIs are equal to the raw_local_irq*()
+> --- a/include/linux/preempt.h
+> +++ b/include/linux/preempt.h
+> @@ -54,31 +54,31 @@
+>   *             NMI_MASK:	0xf0000000
+>   * (PREEMPT_NEED_RESCHED is in a different word)
+>   */
+> -#define PREEMPT_BITS	8
+> -#define SOFTIRQ_BITS	8
+> +#define PREEMPT_BITS		8
+> +#define SOFTIRQ_BITS		8
+>  #define HARDIRQ_DISABLE_BITS	8
+> -#define HARDIRQ_BITS	4
+> -#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+> +#define HARDIRQ_BITS		4
+> +#define NMI_BITS		(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+>  
+> -#define PREEMPT_SHIFT	0
+> -#define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
+> +#define PREEMPT_SHIFT		0
+> +#define SOFTIRQ_SHIFT		(PREEMPT_SHIFT + PREEMPT_BITS)
+>  #define HARDIRQ_DISABLE_SHIFT	(SOFTIRQ_SHIFT + SOFTIRQ_BITS)
+> -#define HARDIRQ_SHIFT	(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
+> -#define NMI_SHIFT	(HARDIRQ_SHIFT + HARDIRQ_BITS)
+> +#define HARDIRQ_SHIFT		(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
+> +#define NMI_SHIFT		(HARDIRQ_SHIFT + HARDIRQ_BITS)
+>  
+> -#define __IRQ_MASK(x)	((1UL << (x))-1)
+> +#define __IRQ_MASK(x)		((1UL << (x))-1)
+>  
+> -#define PREEMPT_MASK	(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
+> -#define SOFTIRQ_MASK	(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
+> +#define PREEMPT_MASK		(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
+> +#define SOFTIRQ_MASK		(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
+>  #define HARDIRQ_DISABLE_MASK	(__IRQ_MASK(HARDIRQ_DISABLE_BITS) << HARDIRQ_DISABLE_SHIFT)
+> -#define HARDIRQ_MASK	(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
+> -#define NMI_MASK	(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
+> +#define HARDIRQ_MASK		(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
+> +#define NMI_MASK		(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
+>  
+> -#define PREEMPT_OFFSET	(1UL << PREEMPT_SHIFT)
+> -#define SOFTIRQ_OFFSET	(1UL << SOFTIRQ_SHIFT)
+> +#define PREEMPT_OFFSET		(1UL << PREEMPT_SHIFT)
+> +#define SOFTIRQ_OFFSET		(1UL << SOFTIRQ_SHIFT)
+>  #define HARDIRQ_DISABLE_OFFSET	(1UL << HARDIRQ_DISABLE_SHIFT)
+> -#define HARDIRQ_OFFSET	(1UL << HARDIRQ_SHIFT)
+> -#define NMI_OFFSET	(1UL << NMI_SHIFT)
+> +#define HARDIRQ_OFFSET		(1UL << HARDIRQ_SHIFT)
+> +#define NMI_OFFSET		(1UL << NMI_SHIFT)
+>  
+>  #define SOFTIRQ_DISABLE_OFFSET	(2 * SOFTIRQ_OFFSET)
+>  
+> @@ -90,7 +90,11 @@
+>   *
+>   * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
+>   */
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +#define INIT_PREEMPT_COUNT	(PREEMPT_OFFSET + HARDIRQ_DISABLE_OFFSET)
+> +#else
+>  #define INIT_PREEMPT_COUNT	PREEMPT_OFFSET
+> +#endif
+>  
+>  /*
+>   * Initial preempt_count value; reflects the preempt_count schedule invariant
+> @@ -322,6 +326,21 @@ do { \
+>  
+>  #endif /* CONFIG_PREEMPT_COUNT */
+>  
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +static __always_inline void __preempt_count_inc_hardirqs_disable(void)
+> +{
+> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +
+> +static __always_inline void __preempt_count_dec_hardirqs_disable(void)
+> +{
+> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +#else
+> +static __always_inline void __preempt_count_inc_hardirqs_disable(void) { }
+> +static __always_inline void __preempt_count_dec_hardirqs_disable(void) { }
+> +#endif
+> +
+>  #ifdef MODULE
+>  /*
+>   * Modules have no business playing preemption tricks.
+> --- a/kernel/Kconfig.preempt
+> +++ b/kernel/Kconfig.preempt
+> @@ -152,6 +152,9 @@ config PREEMPT_DYNAMIC
+>  	  Interesting if you want the same pre-built kernel should be used for
+>  	  both Server and Desktop workloads.
+>  
+> +config PREEMPT_COUNT_IRQFLAGS
+> +	bool
+> +
+>  config SCHED_CORE
+>  	bool "Core Scheduling for SMT"
+>  	depends on SCHED_SMT
+> --- a/kernel/entry/common.c
+> +++ b/kernel/entry/common.c
+> @@ -171,6 +171,7 @@ irqentry_state_t noinstr irqentry_nmi_en
+>  {
+>  	irqentry_state_t irq_state;
+>  
+> +	__preempt_count_inc_hardirqs_disable();
+>  	irq_state.lockdep = lockdep_hardirqs_enabled();
+>  
+>  	__nmi_enter();
+> @@ -202,4 +203,5 @@ void noinstr irqentry_nmi_exit(struct pt
+>  	if (irq_state.lockdep)
+>  		lockdep_hardirqs_on(CALLER_ADDR0);
+>  	__nmi_exit();
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
