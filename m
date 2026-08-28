@@ -1,82 +1,135 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EA638DC54
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ED33AE6F7
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939896; cv=none; b=Hs8eG8LSuhqqGr0oQvFJa6wx+OwlMBiZ5XwvED2UWZpBE1ZbCRW3KnvV+Tctz0+8EzOIrnuQFHKIPThiURxy4fov8nxpv2OskqLCbEpfrBbp6g7scg+eWHFwESs8crTnDbW7pQTeftH4+dNkBp8897uLexzOB0P6Hu6t3XE/52I=
+	t=1787939900; cv=none; b=Uho/sKOunpCEkfYb3OmNgUTEgaLTjg4EhiQxxWd+g+uV77jp8uZ2U7lggBcA2i4C6u1VBWExtmASHvnqaG4k7fLC2R+EihuWASMqZ+AXF5zf4dxyHkDmE71vtN6xg9RZMbkwkoxd1kkYvDmVJMRWGxPirap33Cp9D5IZ9hpGVTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939896; c=relaxed/simple;
-	bh=zzizNchr6WnEaWsbe0WIg1KOHaAgm5LlG9gDnfa/fI4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=MeegX//oDthJDYFtJIB66zm5CA96aXR+N/VC+jUSXRLsaKijyIhAAV4C4k3nlrM1G0cDGa3vRo6CjzZPnOymkNv15O5E0fURmAMaw/6Fv4hXCVF9WtPWHkuiIR7/JtzlZj3vkOcWKKDUOTjZ+0rGWTKoaFf/F8rRbSCAEB8ZiSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=Hfv9UXjP; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	s=arc-20240116; t=1787939900; c=relaxed/simple;
+	bh=/aoZ3pzX2YkJW/byRykTVvjh8aaWWZMSSd/pLvnGslM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=hvXHuzVHaTFIrc6/SmnFqjUhkDMxLE8pY0sDHZXgSfeToawuArOb+VvBjWDJDLXuzUMeqkiYasXr4sG1qlWxUp5ZEu8KCdPDFh8a356IHQ7E1NXCYwviiNHJK5B9KS7oahjA843DpXOFvro6Dyb6CLR5MdYR4z+gM8n9VZ0TMOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=cUopStk0; arc=none smtp.client-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="Hfv9UXjP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1787939888;
-	bh=zzizNchr6WnEaWsbe0WIg1KOHaAgm5LlG9gDnfa/fI4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Hfv9UXjPmOUtgcQtvb1YSLWhrJEmRWTUDHoGn35sr22HLK99gkqUmrIQgnXIe74tf
-	 c0ms1s+RL2mYKdzhKgzGn3fjvGc9NHIm3aGHQszNLp1xf8fTY9ZP3JGn6hiPTu9ui/
-	 nNhN5IWcKtnHfyP3r9d88f8jc0Wnr1VqtKqIcHyA=
-Received: by gentwo.org (Postfix, from userid 1003)
-	id 4BCC14046D; Fri, 28 Aug 2026 10:58:08 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id 4927B402A5;
-	Fri, 28 Aug 2026 10:58:08 -0700 (PDT)
-Date: Fri, 28 Aug 2026 10:58:08 -0700 (PDT)
-From: "Christoph Lameter (Ampere)" <cl@gentwo.org>
-To: artem.kuzin@huawei.com
-cc: catalin.marinas@arm.com, akpm@linux-foundation.org, david@kernel.org, 
-    ljs@kernel.org, vbabka@kernel.org, linux@armlinux.org.uk, will@kernel.org, 
-    mark.rutland@arm.com, liam@infradead.org, rppt@kernel.org, 
-    surenb@google.com, mhocko@suse.com, linux-mm@kvack.org, 
-    linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-    wangkefeng.wang@huawei.com, panov.nikita@huawei.com, 
-    yang.shi@os.amperecomputing.com
-Subject: Re: [RFC PATCH 00/18] mm: arm64: Add kernel replication feature
-In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
-Message-ID: <f47c0ab3-6d78-fcdc-b7c0-cd3a7b5c8276@gentwo.org>
-References: <20260827161158.3618409-1-panov.nikita@huawei.com>
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="cUopStk0"
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-39266382df6so1336958a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:58:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787939897; x=1788544697;
+        h=content-transfer-encoding:references:in-reply-to:message-id:date
+         :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g+S170kBki6nof9YgiTY8IcFN3wYGUx1ViOy9GFjSO8=;
+        b=VXFlaoWIIucroqtF6fygIbuL+6knXUR96WDJUOoV3iTGOKk2uCeCLe+6ReDgD4W45X
+         YzNlC5QnzP67G+MPU5Zue+aglxY5zd9grbW78i6804dczHsqfdu+a4RKX3FD0IHexiNG
+         b2NY8nzsR9ife9s/GeC64ypL27faiPuqWXSWzJaiGJv/vRRQBXJfB5fZEnjP7YKp1eTO
+         qUoBPBKexJSz3USOvXGmZRb2CsdeshsMVkqoqZ+tKiQVrjSQbmN+ALNFaKfTNXFg9KI8
+         ui5jvj8zN+aYA0Aessb4VWAEySGZX4YGeVxjSHQ1vw8hRLfhclWhCEpUecv1tyOtJrZB
+         AbLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUvDGmbm38YdPP0TBd4oy4ot2yqib7sMuHmWEyh12qRwcFFZk2V6+koRtQ2GgAzYmJVkK8vppGfCg0f2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLh3EOutVflQj79qvP0P5hcBo6D3+ifgoV3KujyZdOUpvQDpED
+	lr9bXciYa9X1BCHvm47meZaRgHXeVUYxz09dzEcKIoDaNxKTsL9yWW5WFAbhTtd0DduDZIxZasr
+	uRiTzH4k9STOmoFLOx5c+Bs3lLoJx83ZvBg==
+X-Gm-Gg: AYBFou0UKzvgQ3FB68Lq1jNoMWJQRPJrXgev5bLzd9rx0qwhSMSJDa5aeZD1SMup+UA
+	cBWurm8RQXxpNAF93145V6E1bXn00EPxTAFB9Lp9llvzrFkhquX6WWVvA8+hYQsepDQkGuRm0VL
+	AKtk74/VteoOZzt6YxgfLzHrWp7qV0gPp1dJ+oJvdCE6uJmMBLTf4+ZPR65oaoG1Q7K9FENyqfL
+	ngrsHuNgvvRcis4bVl7Bjydnvx7fiGzKaVo97PzLC2Dy5xq9S2npUCMsduxAh8I8bFzBqHSgLVa
+	0PaD9ia7JF4AixxFgmL0An2QoFBCcgT/m2BZ6YdE56aE93cqRfFnlaH9yYJ8DayQVeR/Gx21gG5
+	FoMmUuGjFotdpxYOPbIsTYl5g/jTcm8tXkpwrWKHVu4yHz/0MZX90lyhs0jVP
+X-Received: by 2002:a17:90b:28c3:b0:398:9be6:f996 with SMTP id 98e67ed59e1d1-3989be6faa2mr2182996a91.21.1787939896866;
+        Fri, 28 Aug 2026 10:58:16 -0700 (PDT)
+Received: from smtp.aristanetworks.com (ec2-54-84-120-176.compute-1.amazonaws.com. [54.84.120.176])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-396ddc75f55sm1045887a91.8.2026.08.28.10.58.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 10:58:16 -0700 (PDT)
+X-Relaying-Domain: arista.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
+	s=Arista-A; t=1787939895;
+	bh=g+S170kBki6nof9YgiTY8IcFN3wYGUx1ViOy9GFjSO8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=cUopStk0BSjLV/nFM526oJz7y4siHrHbP6VmPz47ng644mMM6cW/keapMPp7BVGpj
+	 FNcJWT7F7ptwzzq+UrVbpXEGo6mjCtpdGhfO1dMB1wI6e84VZ62xuiRUTcN3jpgJTl
+	 Po4Z8wKrA5xfcWae+80vSYk0Izf9A2FfGntJ+0w1eEOPocai8hn8eZGF4ecbPYtxx2
+	 VjatMsK9JKp2reUkEIyl0xIwBO5HEVpDvxDNgsBpXuWsMKFD8JjCcUNX2W1gxlvE9P
+	 /4Xwfx2NOfW9K6bofKl69D6Yx8ZXtcdOhW/0W0oXKZrxkTruknbTW8DAKVukZR1wvS
+	 ynwrHLAFMZXQA==
+Received: from vm-whiteberg-ubuntu.aristanetworks.com (dhcp-244-90-77.sjc.aristanetworks.com [10.244.90.77])
+	by smtp.aristanetworks.com (Postfix) with ESMTPS id 16C8FC0CE0;
+	Fri, 28 Aug 2026 17:58:15 +0000 (UTC)
+X-SMTP-Authentication: Allow-List-permitted
+X-SMTP-Authentication: Allow-List-permitted
+From: Tate Whiteberg <whiteberg@arista.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Tate Whiteberg <whiteberg@arista.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH v2 2/2] serial: 8250_mid: wait for LSR tx empty before setting termios
+Date: Fri, 28 Aug 2026 17:57:28 +0000
+Message-ID: <20260828175733.1650267-3-whiteberg@arista.com>
+In-Reply-To: <20260828175733.1650267-1-whiteberg@arista.com>
+References: <20260828175733.1650267-1-whiteberg@arista.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 28 Aug 2026, Nikita Panov wrote:
+If mid8250_set_termios() is called while data is still in transmission,
+the corresponding register updates will corrupt the transmission.
 
-> There were several prior submissions with some sort of replication
-> for NUMA systems, including one from our side for the x86_64 platform.
-> In the last couple years, several research articles related to solving
-> locality issues on NUMA machines through replication emerged as well.
+Fix this by locking the port and and waiting for the transmitter to
+empty before performing updates. It is necessary to wait for both
+UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
 
-Thank you for this work. This aligns with our efforts to increase data
-locality and the performance of local data access. Yang Shi has a patchset
-that introduces similar code to be able to map partial virtual ranges
-differently. His code may be more mature and I think these mechanisms can
-be used in a straightforward way in future iterations of your patchset.
+Fixes: d9eda9bab237 ("serial: 8250_pci: Intel MID UART support to its own driver")
+Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
+---
+Changes in v2:
+  - Separate changes to 8250.h and 8250_port.c into prerequisite patch,
+    as recommended by andriy.shevchenko@intel.com
+  - Apply feedback from andriy.shevchenko@intel.com to 8250_mid.c
 
-If we combine our efforts then I think we could be rapidly come to a clean
-implementation that can be merged.
+ drivers/tty/serial/8250/8250_mid.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-This is an obvious signficant performance improvement that can be readily
-seen and that is why we have the variety of patchsets being proposed over
-the years. As ARM64 matures and is run on machines with larger core counts
-the urge to have this increases.
-
-
-Please see Yang Shi's patches. We can provide resources to push this
-functionality forward and have seen significant performance improvements
-with earlier approaches like this. There is significant customer demand as
-well.
-
-https://lore.kernel.org/all/0344c559-1959-4531-9265-d5a5180eb7cd@arm.com/
-
+diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
+index 82656645b8a6..ce792888acfe 100644
+--- a/drivers/tty/serial/8250/8250_mid.c
++++ b/drivers/tty/serial/8250/8250_mid.c
+@@ -209,6 +209,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 				const struct ktermios *old)
+ {
+ 	unsigned int baud = tty_termios_baud_rate(termios);
++	struct uart_8250_port *up = up_to_u8250p(p);
+ 	struct mid8250 *mid = p->private_data;
+ 	unsigned short ps = 16;
+ 	unsigned long fuart = baud * ps;
+@@ -231,12 +232,18 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 	}
+ 
+ 	rational_best_approximation(fuart, mid->board->freq, w, w, &mul, &div);
++
++	uart_port_lock_irq(p);
++
+ 	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
++	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+ 
+ 	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
+ 	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
+ 	writel(div, p->membase + INTEL_MID_UART_DIV);
+ 
++	uart_port_unlock_irq(p);
++
+ 	serial8250_do_set_termios(p, termios, old);
+ }
+ 
+-- 
+2.43.0
 
