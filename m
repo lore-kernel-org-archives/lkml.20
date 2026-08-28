@@ -1,136 +1,118 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD6CA3DE44C;
-	Fri, 28 Aug 2026 10:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3353DE44C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911488; cv=none; b=GEIotMa+07IZGc5o2xojTMM//88x9FEz3UrEwKHHcmMAykmkS2/7Spq+ERdMCNFAmWqGpFmm5IKqnVMSS3pgKNrMSW9AksaPJiuNVnf6+Y5dVaxLgEBJXaA4PlkTuDvZ56Ga4VmsoS5Cv+gqT6VB9K2M1I9TSIqkeFKuv/xCh48=
+	t=1787911511; cv=none; b=g2k/wjDpWWzvVsgCOqtTPkRhbd0gKfHLUt7/Kg486mJj4Oj0AX7IveOSkzgwi1M1G58KAt2E5jDbA946KqeD8lmZikKLJwBiohjthyGvMgvXj1tPAMyHfGHtXXfpUPq94uInRwrcuB7AJF0CCSfRc73YTJBfmqIUP7xuutdy1RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911488; c=relaxed/simple;
-	bh=aumBSDnENz5VHBnc+jg6Re4gRmKjWjReCkyLV/sOPr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K2qXykEFl3kUlpb2mxa8EkTA4my69T4ed57oDcjb/XVKC8PPD4046efnEgvNGyKwCsl2h7tQK2w7ukRZaPoalh+lpwOL3SFCDavfM5sl3B7SnyUkHr/nEBUAvaFSjznEx2HdnchxavAZDCR/oxjnd2vVd9tfpidGPBwL4lUOnFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=P0pj3wCI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787911511; c=relaxed/simple;
+	bh=mILYzbTZ2GaDj3TTz42yyBO/Sxo3TDeaWaMVqnGTeyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U7G1Xd/Bhfhwu2YQB7ixf8zc0pb5ef7i7Mxgiv9i03gy2HsaGMwwg7s5flE9JCSkKErz9MgJprWscKKYfO4vJX+xFpN+dnd1cocojV+Qek5FvgihCzHNjU0Xp+9ABChfx5GbQ/sX3UNW5GlWLSAytvx7Ys9lHaDUZTinqnCfyuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gCJXTIHF; arc=none smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="P0pj3wCI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB8101595;
-	Fri, 28 Aug 2026 03:04:39 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 296B53F85F;
-	Fri, 28 Aug 2026 03:04:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787911483; bh=aumBSDnENz5VHBnc+jg6Re4gRmKjWjReCkyLV/sOPr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P0pj3wCIhsi+UzojrdVHcOu1eEF6Lj5JFlSy0yBfViLLp6P5WyERT4jzhkYA9pKXT
-	 ZcGJhuKYlxe3MX+Zafvy1SCiglBGhK+rnuLve3kU3HVmbki9TqcimksfNEDV3Mzk8Y
-	 L/Cwgjc5sHUtFnJUvtxp624zelSBigJfXmV/yBs4=
-Date: Fri, 28 Aug 2026 11:04:38 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] kselftest: mm: prevent random failure of huge
- page split for khugepaged
-Message-ID: <apFdNhauXl3z7nu4@e129823.arm.com>
-References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
- <20260828-fix_split-v3-1-374022586a4b@arm.com>
- <apFWAppcVKt4xhIT@gremlin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gCJXTIHF"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-45837e52d8aso1035849fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:05:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787911509; x=1788516309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wxDSwI58Hg9WLzpMbIoMXB8tq4Si1PHsyjAYb0WqTqM=;
+        b=gCJXTIHFlYrpqHmuhoIy691VZ4ySFfelUEBK32GuFyZIgEYnFKp43uFSsnoVX8ufxM
+         84lqa8IqbOGRfmDAfoC/IJ9S6TQk8d2k8cE7Or6kBqDspjzGSZzIDBr5lg7PzHw4mY3O
+         pDtTV5rbrqJ1c8XTqWnubZm3ra9OLaijLzY43d3b9V8BM3ACnHlY0EOMGcYDavnfy1mP
+         uK17qCdfi8G8ZfW2uy6K8AAMUGm+LLGl5z9pXCXwwbyADz4YTW2IRSpmBkYc6FrPjLlb
+         66lFNMQS3IWgoNK0/fhok4L5GIanOzEJlFg+L4PbVTB/9/zSDDDN79U/WqnDT1K/kasL
+         486g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787911509; x=1788516309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wxDSwI58Hg9WLzpMbIoMXB8tq4Si1PHsyjAYb0WqTqM=;
+        b=lIsp6GxcgZid3OSDAtmV1yMT787slaCF0ykaKVDEm4juLEfXdUhEW5dUrfVXN5JecC
+         2F4lvDrAXJylG9yEeqyslm3X0HspiAQOTeRSOv9na4cD4XZwMHYv1nu2D+SExNxQyqsO
+         ma8RIUB086s+BL3BWmkAuw4OiQUJ2j59PKyH4vgCWOhx1NV1dR+Gagtfpn18FWFK8S8u
+         m5LGLYUxlGujFe6qaQa2Lw/lTGytLxgjJC3lcrdkJGPv+cFLTjgRwjW3UUiNNEhvxuBu
+         mWZpYxTYeGH+tRtg89kqUiDf6ljpaVyTNqYt7hZQKQGRxRn4lvt/SJlM0tFoM8K7hI4M
+         I9nA==
+X-Gm-Message-State: AFuF++nRFkiBBx4BC9es3IhCpu5SoNHzpeZ9Iqy4i5PXUrVHfoyaKF7e
+	utvjTh5IrTwln96iybYv+RWU51l5Eu7njMIIYBUJ+3zwRR3+80SA7odEdJJJIg==
+X-Gm-Gg: AR+sD12ZYH+r5MndIQjmBWYq6xUq2efzRVf9DJ3K2oxYkwnUBM2HT3bJCm+bBFieq1P
+	CZoRu2SubQm4K0Qkn8ogRrDHYH7O5p73QWKChMGXNj1wXh1c58uapnwplA3OKHLiZpUFtQ6IS1x
+	W3jxqW45iPtaY8fBh4FlOExGuD4Jm2KBGDbI7cBkLxjRrb2qC7ioLxT5qcy5hqSfiuIP6jIuBI3
+	1Jyd6Ar2CgWmhvdIKo8wgKuOmcxGrJborz8Vc0U51o124mr2LCOTRHQKQPdyhwPwZIdpK4btHNr
+	1Aoy5uMcZg7zSmJG0DURdXfDZEHnVsMKCJUbhli08tcwNQez2u6c6PKadTZ8i9M2oDJV0oDBw/8
+	hPHMkl4ryKRbqnrOOj4C0RsbiD+sKFaMVI4qvyK8MJ3JFXcISQddjZtHWQ4HafriqT3fIebJlI7
+	T39vk2RmWIKjz62rItNYjFRo+GpyJG55araqwEsiAze23Cm1j2SH2Tw0ImP6XWbbafZmDqqQYND
+	0Q637mo1HCPmF+U+CitgeSwHtnk9cjx/tFHJDN3N+buk92hd0QwaSeMcseI80GtLAiWU3uvDAKz
+	s1txj+c=
+X-Received: by 2002:a05:6820:f0c:b0:6b1:7798:a80e with SMTP id 006d021491bc7-6b1c63f392emr5311434eaf.6.1787911508963;
+        Fri, 28 Aug 2026 03:05:08 -0700 (PDT)
+Received: from octofox.hsd1.ca.comcast.net ([2601:647:4d7e:c9e0:ca98:dcb5:85a9:f03f])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d3fdf6sm5863108c88.6.2026.08.28.03.05.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 03:05:08 -0700 (PDT)
+From: Max Filippov <jcmvbkbc@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>
+Subject: [PULL 0/3] xtensa updates for v7.3
+Date: Fri, 28 Aug 2026 03:04:55 -0700
+Message-ID: <20260828100455.1303506-1-jcmvbkbc@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apFWAppcVKt4xhIT@gremlin>
+Content-Transfer-Encoding: 8bit
 
-Hi Lorenzo,
-> >  	if (!rss_anon_before)
-> >  		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
-> >
-> > +	/* Prevent khugepaged from collapsing the pages. */
-> > +	if (madvise(one_page, len, MADV_NOHUGEPAGE))
-> > +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
-> 
-> This should probably terminate the test no? There's no reason to expect this to
-> fail and it's better to fail then to risk a flake :)
+Hi Linus,
 
-Okay. I thought it was rare, it seemed enough with just message.
-I'll change with your suggesttion.
+please pull the following updates for the Xtensa architecture.
 
-> 
-> > +
-> >  	/* split all THPs */
-> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
-> >  		      (uint64_t)one_page + len, 0);
-> > @@ -227,6 +231,10 @@ static void split_pmd_thp_to_order(int order)
-> >  	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
-> >  		ksft_exit_fail_msg("No THP is allocated\n");
-> >
-> > +	/* Prevent khugepaged from collapsing the pages. */
-> > +	if (madvise(one_page, len, MADV_NOHUGEPAGE))
-> > +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
-> > +
-> 
-> Same comment as above, also since this is a repeated pattern, I think it's worth
-> abstracting it like:
-> 
-> 	static void madv_nohuge(char *ptr, size_t len)
-> 	{
-> 		if (!madvise(ptr, len, MADV_NOHUGEPAGE))
-> 			return;
-> 
-> 		ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
-> 	}
+The following changes since commit 028ef9c96e96197026887c0f092424679298aae8:
 
-Acked.
+  Linux 7.0 (2026-04-12 13:48:06 -0700)
 
-> 
-> >  	/* split all THPs */
-> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
-> >  		(uint64_t)one_page + len, order);
-> > @@ -313,6 +321,10 @@ static void split_pte_mapped_thp(void)
-> >  		goto out;
-> >  	}
-> >
-> > +	/* Prevent khugepaged from collapsing the pages. */
-> > +	if (madvise(thp_area, thp_area_size, MADV_NOHUGEPAGE))
-> > +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
-> > +
-> >  	/* Split all THPs through the remapped pages. */
-> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)page_area,
-> >  		      (uint64_t)page_area + page_area_size, 0);
-> > @@ -542,6 +554,9 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
-> >  		ksft_test_result_skip("Pagecache folio split skipped\n");
-> >  		return -2;
-> >  	}
-> > +	/* Prevent khugepaged from collapsing the pages. */
-> > +	if (madvise(*addr, fd_size, MADV_NOHUGEPAGE))
-> > +		ksft_print_msg("madvise(MADV_NOHUGEPAGE) failed\n");
-> 
-> Obviously same comments re: this and above
-> 
+are available in the Git repository at:
 
-Thanks!
+  https://github.com/jcmvbkbc/linux-xtensa.git tags/xtensa-20260828
 
-[...]
+for you to fetch changes up to eb049bdbf2b98d103d93daef44a5e1a0164d01eb:
+
+  xtensa: remove unused setup_profiling_timer function (2026-08-24 05:16:01 -0700)
+
+----------------------------------------------------------------
+Xtensa updates for v7.3
+
+- use strnlen() to improve iss_console_write()
+- remove unused function setup_profiling_timer()
+- fix CONFIG_XTENSA_CALIBRATE_CCOUNT macro name in comment
+
+----------------------------------------------------------------
+Anthony Iliopoulos (1):
+      xtensa: remove unused setup_profiling_timer function
+
+Ethan Nelson-Moore (1):
+      xtensa: correct CONFIG_XTENSA_CALIBRATE_CCOUNT macro name in comment
+
+Thorsten Blum (1):
+      tty: xtensa/iss: use strnlen to improve iss_console_write
+
+ arch/xtensa/include/asm/platform.h  | 2 +-
+ arch/xtensa/kernel/smp.c            | 7 -------
+ arch/xtensa/kernel/time.c           | 1 -
+ arch/xtensa/platforms/iss/console.c | 5 +++--
+ 4 files changed, 4 insertions(+), 11 deletions(-)
 
 -- 
-Sincerely,
-Yeoreum Yun
+Thanks.
+-- Max
