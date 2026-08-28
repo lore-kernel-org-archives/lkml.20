@@ -1,134 +1,122 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09FB3C81B5
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895986; cv=none; b=nzRxPzG3xLjL2Uc8sKwVr6OzWh8ZH9negpNNlL0lA52WwaHT3U48KOVGdJFAJ2eZrfoQcflJ0VHtdGrrWI62goh/T3vdZ0d8JaG8GngoNARoKRwP+qFmj905sRTJbWJc2kZPTPMfMAw0T4pIg3AomzC1+43jjBhReU0IQiOMZ7o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895986; c=relaxed/simple;
-	bh=zEj9yrKql4gNFNSV5IhGyFHK9/jxyfJe9mV8S0UekMY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bGPpbXYvAReVs/Gv6eJgttx7rd8ntaNP5TND9Zah+RfNskp3E7hMQ6QHOeOTEi9aYXmxErj7S6BUC1bH/NgfdVhlTnRVBIQWY5v/bDOIUw+FVoS3DgH0P6d8JLZKcJx0Jddm3j3qLmRE3+AS26pkHLteG+CUF7pd1lJoTYCL7Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=j5ASGV8C; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0D03B9D96
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787896003; cv=pass; b=f5E1Z9iRn5g0o+WrZcUicbNrbOgquwe4MY6Iurt+LaI0x/1dLFGWdrQzR2MWz43u1w9y3XASPD7sP4PrBdcfoaFjAoadRs14d1hiDBboU33CkxKy4d5QDovv0pzO2h5XxP95yN6TfYVGUZfJXMtvfYqvauEu7lcAnBYRZ36EalU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787896003; c=relaxed/simple;
+	bh=H3DOZuT5U71ZhBZfKYvn6XDnq1zdutTIKDZSo/ZnoCw=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=nZtb2Aj0oSMZCNb49wl0JnYlcAYcZ4sQ6hnOYJAGOmZ82vb84TK0KC9tab+mvT+prVrh6kToDjkRauwe1mDIzNxcvg0+SSw/1kfeuhUjTTO4roLF6AmhyaBuwhMDj71VyaRpTXIHtrx+zFM0cl0vKV1c3O9Mr9zG9cYvNCxxtd0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=L/r949cD; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="j5ASGV8C"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-855d2bfae95so1011613b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="L/r949cD"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6d28aa26cso4895445ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:46:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787896002; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qv74uFqCxHzPggJgvlvLOpVC3iQq8o2ZhSgZ5Ed52JleZCLkP45Vq0tDPkqnzVb4AI
+         lx8HZ/NdOvxjXt3IV1Dbd12bchPhsotneKMMWatnOS7Ypg3AqcBxAk1iEtNWPSrvYl5n
+         +wabvfrJwz+6nlyB7idqeVFSzZWfJoRhZ+lVkz+bdhyv/glAQdwx6vGCZ6v1WwF3avY0
+         4E7xGXfINNQSMlE1vFoZmvJVOfsw0Nuqm/Be0RAe9iPbaOHDT5TKVvk0HPUaf2gTjfjx
+         uBkDgInuq/Pvz+46dN2iGhLFe9nlHI7zPUrq+yKtICiWhvuexbJtvYwhZXI5XDK0NBDm
+         KSyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=fPiJId3tOuYlDXjHCXBtb11mj/amv2bXs311mP0GvCI=;
+        fh=ExyqVkykjWw4W5LFeid86QPvfFLzbtiWRnTdFGr4axE=;
+        b=HZ96eT1Zdn6Lv02cUEZwjcZfRkl/lJGjqWEB+tjGj+cOdynsINyPxAdTN7zFIxzlJN
+         Nr0jv82Whm7+mu9+D8W/+sPeTwH/8sEhD+1h3EiK9aM3Lo3wRySrfEOglT88l5caX+8z
+         vIMGiQYlUGbzXMW09j7QP2tw677Nw3ZbYfeKZdoO78/EeDU4igASV5Wkm2vkDLK51/Sg
+         H/YSF4hBlwL/uAYUWMcMrD7PLJpbaGWjLpkNAg01eJVG6lEKfWbUC4k4GeGWZLI7t71u
+         +SbnHiJCHNqW8OYQeTncpblQIfXqSBfbw/BLHDfEWPaWOY2gs7LJnDfv3y8md5IgwVI0
+         xtBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1787895984; x=1788500784; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
-        b=j5ASGV8Cg/5TjQ3PT2lDd7YTBx41vQUg+F8AUNZ3JhcLcZtnFz9X1gE+ptCTwqvxHV
-         51ddnjCqN76dp2ouy9U/YGDpp8FWG+A1R5k/ASfOy5wO8dvY5PEkwoq36d9ojNZhCEvR
-         Ee1wmjKjkr3nFZwU9NmOIWU9BMPwv9Ubbysqs=
+        d=berkeley.edu; s=google; t=1787896002; x=1788500802; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fPiJId3tOuYlDXjHCXBtb11mj/amv2bXs311mP0GvCI=;
+        b=L/r949cDpj2Fgb8YrJGP5GhTGZm+FlGc5Sa/BCzAmQ5M1+H4BGqI/DEh6Mym96tIif
+         AHLfvC4mdu/Tsq9D1VyM8RIwtms0zLE0IAoc4yJVNFiGDDxrWHVU7Ayf62yl67fPtwRF
+         x3wtpRo4Y9bBLmAQP/tYIh8LB19ieu/bsBT+y3fNsRy2BVPtHsjRwllFXx8+s6or+kMG
+         TmuU16Gw8Q8EBhACTzFTI5GG/p64EGPmLHPaROw6rUKA2uDvDUpLUSC6iUqqkNybB0Xa
+         P+pyljHPo+jkIAK+5tm9cVzaLYrlPsMhIDrZlhf8RYxJurMlBNfRzlCD0grabaT9azLB
+         BlXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895984; x=1788500784;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
-        b=r+cnOP1EliTmzkpR9tAGS4btBKlvMMvdEhXl+XMxc2DqaDzeNyr1RTG0tp+SBhg0R7
-         jn7cN2qy0J0NdSqHVArxTI3d56MC3nb1Q3zIW7eEGHoSLH4rCwPRAt7f/JGK0FW+BaP6
-         MG6MuD4YlNYmF2YB9K0cKsVGVWug7h7TZessXu4EOaCIhWT5CoPiXRQZUjLIGVmkaGuc
-         zIElnBLDeusAP1YtMUZsGhFAXRl2vSKG2/YksHbciSNEK5t/Q7ZwmkubgbHzn3dc1rcX
-         1rsiA92Mj17UDzIO4PIn0sb8Cwvq3Zx9kJIK/1gMoykQh/ysXxMHWYKSCqOCw6Yx9koX
-         nhZQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/HE/qX889I8AidzQRmThH5ySh5nlaMNON1I5IaRx6DcO0HmMzhsd4GZqgGR9Ov0zZA5pL/jCK+uO0db4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSdg2L7MsIUvfGUjYwMnPv7AwVJXtD7D/7Si7jWGcNzu+3iNvz
-	mEOdCQbJ83XV3CD6DKAwlNhk0sWSoJFdpjDxGO8lrzA94xUqc+nfWn3G3avf7am6CEw=
-X-Gm-Gg: AR+sD13+BiO762FDsm4QDYkbmvZMN/EB62JgWBUasX9MNbM1ou0pg+L68nWvkp+f9WU
-	q7ZyeD4bV6EEBG5/0ndcWvlzbtgUmmU3NTiCID4DOG+8QExSBGtLhYIqj44o5h0ZH9K07gZTU8I
-	3EIOsl9ps8Ii/4NoXoCY/kL1VQb5NidXI3UbCNihri+hXY+jbK4MrCkTHp/h9XRGOvGyokdoZsk
-	fbkXDkb6cbynlS+mpzBZ4Cd2ULPWSSrTYoiK1RmMkOmBFgeeZvK/zBmXqobjQ615n8BcESlgYnA
-	rk/RY6Mh8ppU68VanilizFUNIUyT26e5IOaUI+6q1oRCZPEdwS+dBSq0DSneyaY9zkSq+xuYfM+
-	DddZvet0gi/Rcp5pLbO0WfH8wCP8gK3+2Ks9aEYJskfveBs8sPBDUq6qeUKnxuvmqG/5vYaVYri
-	dZt7LHBLik6WN8Dk5kUVvpvt/5QNe6wnPRfrVOCSmM1lJBpXkVPfg37FX5ExcX8T4=
-X-Received: by 2002:a05:6a20:7fa3:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3d0f43b6581mr14032383637.2.1787895984063;
-        Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f656dsm225735a12.5.2026.08.27.22.46.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 22:46:23 -0700 (PDT)
-Date: Fri, 28 Aug 2026 14:46:16 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: MoGGuU <Naixumogu@whut.edu.cn>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] accel/rocket: Collect job dependencies before
- arming
-Message-ID: <apEggyjyM9yCqg4A@rock-5b-plus>
-References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
- <20260828050805.38548-3-Naixumogu@whut.edu.cn>
+        d=1e100.net; s=20251104; t=1787896002; x=1788500802;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fPiJId3tOuYlDXjHCXBtb11mj/amv2bXs311mP0GvCI=;
+        b=XmM7SXEtHqbiJS9fw0VoWCEPsEWqrl0A0RN5mejDyUswgSWUa/55StaVYur7NLZTNY
+         sSeibNdlKqD7MA9nt1nxK8Qgm8FsbcMbQrDezEKvBYPCl+r7ugb0tJCNbH4qCUupW3gO
+         X3SFtACYa9sekfrNiVh9IX3TXR1dprcAb4vBESvJ8glb0VcVFtuomCGLK3flXyls8Lf3
+         8jaeBl6wSm0Un9p2f/dJ9qYjnxcxLtE3g77vun7bU9YBJLLbnlNTO83Y63L/Icw4Or61
+         9JRqMHfFUKfAuRkuHnrjPYJrq1NIrM+f/5eoccfwtdvW4FHFa5ydRsiDEhyJGezpyK2+
+         7Rfw==
+X-Forwarded-Encrypted: i=1; AHgh+RpvkbaRGOWWTYAUBRKj/Mq8f43yJPEwhGNV+c4bYd2bCCbRgKeHK5fcTkcBTN4POvBechx0o/KhIUq5yU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZFA4mezLbB8s+lEJ0dR4SBwcqWMxB8zLcOryLN1gVHExLNA4a
+	cTPT5d2T4wrTtsYOtHbYuhKkp8YsBbVXX1sV2RS2VVk4YL57qNLSFeLzmZsE5u1Q2FZx7uC8Yu9
+	SUCXwlOf+LpGe5Fn2TSPs3W8mlMxzfBtlovKH+mGI
+X-Gm-Gg: AR+sD10RAuPVyqgC4DSrLg7E1ksnLAdL2CPIC8uQGYEXGid5PKOggFzrihNnJN/clQS
+	U4v1JzO9luT3l939sdiqVdt3mr3kT1tPS61T+BsyB77KPZ+XkU87RXu5GtVMnuDKcfIQa/eKgj/
+	y1UCqvGJTjZNyKRD+9cNOqp7vzNYfM9eZFt8Aw7FnmsgThIq59TEupaidL7iTjTYVqtN2A+X+qt
+	R6585c7NeHJeNQKggaJtGMY+jEPL+YGFSFhZFWUnlGGXP/0uggoL8cUKVyNsorKWvjXlcFL0q7O
+	chhbHpyK+EfYvdwtZ/+givRBvgGXqLBzMF5EiB40RJO1RM//B91Uqdu6vjeAtSZ1s0Q3bhkn9E9
+	R/ieLxxSo4R1gfmg7YdgZm03YzLSi4bqnpZ2r2gqkgBY=
+X-Received: by 2002:a17:902:d551:b0:2c0:b6c7:227e with SMTP id
+ d9443c01a7336-2d74dc2ff16mr88551055ad.5.1787896000885; Thu, 27 Aug 2026
+ 22:46:40 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:46:40 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:46:40 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828050805.38548-3-Naixumogu@whut.edu.cn>
+Date: Fri, 28 Aug 2026 05:46:40 +0000
+X-Gm-Features: AcwNN1WFGptDLW8DFsqByQqJY8BAvYffBJ535kZN3uhDUmZH5Ko6eMgDUF934bQ
+Message-ID: <CA+0ovChn8nTkgAs3sw+_YDhKWszxMj-tssbPdwGjPMMC7zEpyw@mail.gmail.com>
+Subject: [BUG] general protection fault in security_path_post_mknod
+To: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>
+Cc: falemi@asu.edu, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 28, 2026 at 01:08:04PM +0800, MoGGuU wrote:
-> rocket_job_push() arms the scheduler job before collecting its implicit
-> dependencies. Dependency collection can fail with -ENOMEM, but an armed
-> job must be pushed and must not be aborted with drm_sched_job_cleanup().
-> 
-> Collect dependencies before taking the scheduler lock and arming the job.
-> Only operations that cannot fail remain after drm_sched_job_arm().
-> 
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Cc: stable@vger.kernel.org
-> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
-> ---
->  drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
->  1 file changed, 10 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index e6052d1973afa..b55e12aecfe64 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
->  	if (ret)
->  		goto err;
->  
-> +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-> +					   &job->base, false);
-> +	if (ret)
-> +		goto err_unlock;
-> +
-> +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
-> +					   &job->base, true);
-> +	if (ret)
-> +		goto err_unlock;
-> +
->  	scoped_guard(mutex, &rdev->sched_lock) {
->  		drm_sched_job_arm(&job->base);
->  
->  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
->  
-> -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
-> -		if (ret)
-> -			goto err_unlock;
-> -
-> -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
-> -		if (ret)
-> -			goto err_unlock;
-> -
->  		kref_get(&job->refcount); /* put by scheduler job completion */
->  
->  		drm_sched_entity_push_job(&job->base);
-> -- 
-> 2.43.0
-> 
+Hello,
 
-Reviewed-by: Sidong Yang <sidong.ynag@furiosa.ai>
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
+
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/178-general-protection-fault-in-security-path-post-mknod/
+
+  Oops: general protection fault, probably for non-canonical address
+0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  RIP: 0010:security_path_post_mknod+0x49/0x1e0 security/security.c:1430
+  Call Trace:
+   security_path_post_mknod+0x49/0x1e0 security/security.c:1430
+   filename_mknodat+0x40e/0x660 fs/namei.c:5172
+   __do_sys_mknod fs/namei.c:5207 [inline]
+   __se_sys_mknod+0x3a/0x150 fs/namei.c:5204
+   do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+   do_syscall_64+0x146/0x480 arch/x86/entry/syscall_64.c:94
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Our reproducer.c is available upon request.
+
+Happy to test a patch if that would help.
+
+Regards,
