@@ -1,36 +1,36 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4590A3E9C3A;
-	Fri, 28 Aug 2026 08:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740B63F3260;
+	Fri, 28 Aug 2026 08:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907557; cv=none; b=Fax00WjqzWBoW2MXX4oqg6cwE6TyIibpmoYNnkbMtt3eQ8/TmpASL7IDSoqRVIL6rK0huaM7aPAATLBlwtLHTuu8JUOvB7FdbLAywHfGRtUIEgq8WR49gFnTo0OhAOQvP4y4InarDhIO0c+isA02fZJ9guIHlCzxNhmz/76GKjM=
+	t=1787907560; cv=none; b=DfOKMmsTPFMsGdh+jBSPWRKydUfQ5ECwRo89XeyQP6d++ZzA/ihmQHwYmkSCKGihQwDT3MDzzSLRKlhGwQ6O08zwK+QVc/wfWm/F9Nx8yf3OUTQgFvQJ8w0JarqI5FCoVjCdMbiHkzvT4tQl9Gz62s18j+n0E9xBStDQO0OpXeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907557; c=relaxed/simple;
-	bh=2bwsVS73ftdNFM2Okf+JM1I40RefIS4dKh7P1t9yANY=;
+	s=arc-20240116; t=1787907560; c=relaxed/simple;
+	bh=FY6nUFUsg5ykRDaCyNCZU21elpZrnVLRtGzYwII8m2U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f87yGRJE5XeszVysLm09nW98VzJ9PhhFdl4aZCCRlP2MY/EaO44xL2oAbRj+I2yw6mY69CompDePjs7I8lUpcjBO15vQaZtMmgJLlrPPlZiW8BNPmS6LL6q/jUrJntmPUGXwJ9tpVGy9pSJ9/w5rkv5Wrreck7eGNz5hbCOLRX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=BFFwlWT4; arc=none smtp.client-ip=77.81.229.115
+	 In-Reply-To:To:Cc; b=qwpX2BgMbjIToTI1C6VmC1Bj1+WUlm1x2nQKjVkCUG61YBVe8JKlZ+6K/gtwQDTJVsdkWyFxs52l1mBMwplMZVabzgRI1xnPJ8EK04LoWc+ZfwBYmK7FMyl2+JKyse0J8eqP0uKxPM2/0UDe0BPvZwmaUQCCUwBNBjvBPks6ezk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=qXbezgFJ; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="BFFwlWT4"
-Received: by chaosmail.tech (Postfix) id 7E9191CC17D;
-	Fri, 28 Aug 2026 08:59:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="qXbezgFJ"
+Received: by chaosmail.tech (Postfix) id 4394B1CC17E;
+	Fri, 28 Aug 2026 08:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
 	s=mail; t=1787907548;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i1ZT8E0+Pm5VDx4LcOMCqD5baN3Oe5eOsk0bsRrW/zs=;
-	b=BFFwlWT4nzcj/LEaB2vxsZEPQmcBl6L1+Dm4UO1uAwYI6N2JeY/f98WwRjhSyFUMyODUpT
-	jMvpjAV14ukWbO1Q47pDfFBN2ae5bAmKbqIpG2mCDsaw/LzsKXY9evDutfL6OTNsfXh77/
-	FO8A4fv0HybmnG0JXlW24LcYghjXC3Y=
+	bh=wVHbMMgwTRdvhl3Xmvr04M/6W1HqFA3Q/iNZoN90xm8=;
+	b=qXbezgFJ+EVp1HKwvDHhnigrozPU75e8tM48R/huH9iNeOoWxWmvVT3fwKZZ/8sQVkm1Cl
+	LanHby2RTAVDqZiq9yqInmtEqsRrQmrIudNUX46eRvtAR3D+NOTkVPSzlOhEgEdpWrE035
+	hdBB/dK0KWqTjFjrA9J+X/8Sl/z7AAc=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Fri, 28 Aug 2026 10:59:00 +0200
-Subject: [PATCH v8 4/6] spmi: apple: Implement remaining commands
+Date: Fri, 28 Aug 2026 10:59:01 +0200
+Subject: [PATCH v8 5/6] spmi: apple: lock around FIFOs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-t603x-spmi-v8-4-708d4d12e0fd@chaosmail.tech>
+Message-Id: <20260828-t603x-spmi-v8-5-708d4d12e0fd@chaosmail.tech>
 References: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
 In-Reply-To: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -49,211 +49,62 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787907544; l=6582;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787907544; l=1392;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=RH6K223nJdTsq2zsNyub+vrfUTvair8i/u/7LCuGT1E=;
- b=Hmo5fIZ25WM1ZaRbhnK1m1nAli13htyJVBiGntBOdF/bzv0BgEL58xPWjQdY3OezCpriohJVv
- vF/gSCs6+hdBessBKoOOLWidHISbTUV0e56Kcg8XC8cKnl3At3muMMh
+ bh=/okjDmX4WP5ORuj7W0YBcJBa1hZOvGWaK9RmHtLYrOM=;
+ b=9OoJExJftqrBBYs8Fb4Yj7w5aoNFCuhmQ1XPufl8ePj6MgdtVCalKohDMT+1XYkPT3QQtO/Mp
+ DvwiLzad068A/YNqVZc8jPa/o/0kUYY6aZVJW3s4BV8L6t/4L9bMBae
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
 From: Alba Mendez <me@alba.sh>
 
-Add support for zero write and power management commands.
+The driver was missing locking around register interactions.
 
 Signed-off-by: Alba Mendez <me@alba.sh>
+Reviewed-by: Janne Grunau <j@jannau.net>
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- drivers/spmi/spmi-apple-controller.c | 116 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------
- 1 file changed, 69 insertions(+), 47 deletions(-)
+ drivers/spmi/spmi-apple-controller.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index b1c127cf5f44..9843dc871d6c 100644
+index 9843dc871d6c..fabccd25aa0d 100644
 --- a/drivers/spmi/spmi-apple-controller.c
 +++ b/drivers/spmi/spmi-apple-controller.c
-@@ -46,9 +46,9 @@ struct apple_spmi {
- 	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
- 			   REG_POLL_INTERVAL_US, REG_POLL_TIMEOUT_US)
+@@ -16,6 +16,7 @@
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/spmi.h>
  
--static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 saddr, size_t len)
-+static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
- {
--	return opc | sid << 8 | saddr << 16 | (len - 1) | (1 << 15);
-+	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
- }
+@@ -39,6 +40,7 @@
  
- /* Wait for Rx FIFO to have something */
-@@ -69,14 +69,13 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
- 	return 0;
- }
+ struct apple_spmi {
+ 	void __iomem *regs;
++	struct mutex fifo_lock;
+ 	bool prev_fail;
+ };
  
--static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
--			 u16 saddr, u8 *buf, size_t len)
-+static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
-+			const u8 *buf_wr, size_t len_wr, u8 *buf_rd, size_t len_rd)
- {
- 	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
--	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
-+	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, param);
- 	u32 reply, rsp;
--	size_t len_read = 0;
--	u8 i;
-+	size_t i = 0, j;
+@@ -78,6 +80,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
+ 	size_t i = 0, j;
  	int ret;
  
- 	if (spmi->prev_fail) {
-@@ -86,6 +85,14 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 
- 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
- 
-+	while (i < len_wr) {
-+		j = min_t(size_t, sizeof(spmi_cmd), len_wr - i);
-+		spmi_cmd = 0;
-+		memcpy(&spmi_cmd, buf_wr + i, j);
-+		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+		i += j;
-+	}
++	guard(mutex)(&spmi->fifo_lock);
 +
- 	ret = apple_spmi_wait_rx_not_empty(ctrl);
- 	if (ret)
- 		return ret;
-@@ -93,7 +100,8 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	reply = readl(spmi->regs + SPMI_RSP_REG);
+ 	if (spmi->prev_fail) {
+ 		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
+ 		spmi->prev_fail = false;
+@@ -195,6 +199,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
- 	/* Read SPMI data reply */
--	while (len_read < len) {
-+	i = 0;
-+	while (i < len_rd) {
- 		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
- 			spmi->prev_fail = true;
- 			dev_err_ratelimited(&ctrl->dev,
-@@ -101,11 +109,9 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 			return -EIO;
- 		}
- 		rsp = readl(spmi->regs + SPMI_RSP_REG);
--		i = 0;
--		while ((len_read < len) && (i < 4)) {
--			buf[len_read++] = ((0xff << (8 * i)) & rsp) >> (8 * i);
--			i += 1;
--		}
-+		j = min_t(size_t, sizeof(spmi_cmd), len_rd - i);
-+		memcpy(buf_rd + i, &rsp, j);
-+		i += j;
- 	}
+ 	spmi = spmi_controller_get_drvdata(ctrl);
++	mutex_init(&spmi->fifo_lock);
  
- 	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-@@ -113,54 +119,69 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 		spmi->prev_fail = true;
- 	}
- 
--	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
-+	if (!len_rd && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
-+		dev_err(&ctrl->dev, "command not acknowledged\n");
-+		return -EIO;
-+	}
-+	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len_rd) - 1)) {
- 		dev_err(&ctrl->dev, "some frames failed parity check\n");
- 		return -EIO;
- 	}
- 	return 0;
- }
- 
--static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
--			  u16 saddr, const u8 *buf, size_t len)
-+/* Send a raw command with 1..16 input data frames */
-+static int spmi_raw_cmd_input(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			 u16 param, u8 *buf, size_t len)
- {
--	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
--	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
--	u32 reply;
--	size_t i = 0, j;
--	int ret;
--
--	if (spmi->prev_fail) {
--		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
--		spmi->prev_fail = false;
--	}
--
--	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+	return spmi_raw_cmd(ctrl, opc, sid, param, NULL, 0, buf, len);
-+}
- 
--	while (i < len) {
--		j = 0;
--		spmi_cmd = 0;
--		while ((j < 4) & (i < len))
--			spmi_cmd |= buf[i++] << (j++ * 8);
-+/* Send a raw command with (optional) body and an input ACK */
-+static int spmi_raw_cmd_ack(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			  u16 param, const u8 *buf, size_t len)
-+{
-+	return spmi_raw_cmd(ctrl, opc, sid, param, buf, len, NULL, 0);
-+}
- 
--		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			 u16 saddr, u8 *buf, size_t len)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_EXT_READ:
-+	case SPMI_CMD_EXT_READL:
-+		return spmi_raw_cmd_input(ctrl, opc | (len - 1), sid, saddr, buf, len);
-+	case SPMI_CMD_READ:
-+		return spmi_raw_cmd_input(ctrl, opc | saddr, sid, saddr, buf, len);
- 	}
-+	return -EINVAL;
-+}
- 
--	ret = apple_spmi_wait_rx_not_empty(ctrl);
--	if (ret)
--		return ret;
--
--	reply = readl(spmi->regs + SPMI_RSP_REG);
--
--	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
--		dev_warn(&ctrl->dev, "FIFO has extra data\n");
--		spmi->prev_fail = true;
-+static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			  u16 saddr, const u8 *buf, size_t len)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_WRITE:
-+		return spmi_raw_cmd_ack(ctrl, opc | saddr, sid, buf[0] << 8 | saddr, NULL, 0);
-+	case SPMI_CMD_ZERO_WRITE:
-+		return spmi_raw_cmd_ack(ctrl, opc | buf[0], sid, buf[0] << 8 | saddr, NULL, 0);
-+	case SPMI_CMD_EXT_WRITE:
-+	case SPMI_CMD_EXT_WRITEL:
-+		return spmi_raw_cmd_ack(ctrl, opc | (len - 1), sid, saddr, buf, len);
- 	}
-+	return -EINVAL;
-+}
- 
--	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
--		dev_err(&ctrl->dev, "command not acknowledged\n");
--		return -EIO;
-+static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_RESET:
-+	case SPMI_CMD_SLEEP:
-+	case SPMI_CMD_SHUTDOWN:
-+	case SPMI_CMD_WAKEUP:
-+		return spmi_raw_cmd_ack(ctrl, opc, sid, 0, NULL, 0);
- 	}
--	return 0;
-+	return -EINVAL;
- }
- 
- static int apple_spmi_probe(struct platform_device *pdev)
-@@ -183,6 +204,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 
- 	ctrl->read_cmd = spmi_read_cmd;
- 	ctrl->write_cmd = spmi_write_cmd;
-+	ctrl->cmd = spmi_cmd;
- 
- 	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
- 	if (ret)
+ 	spmi->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(spmi->regs))
 
 -- 
 2.55.0
