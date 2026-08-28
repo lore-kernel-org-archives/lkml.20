@@ -1,172 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD4244C504;
-	Fri, 28 Aug 2026 12:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99100438029;
+	Fri, 28 Aug 2026 12:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918981; cv=none; b=pXF5Hx5VUa4b/x3No336AaFUIi1PPCJSrSp53ynX7rG8vkKlqhjuoyLX/pa/NrHTo90ftxTZWrvq3YyrMRalVPph+y1bvYNT/LMBwAZuQli0LbGKA5vtMjRjdVmDtdbo7f8efoYXJUFkkki/1dBgwGEL4P96qZX9bVp3T28XxE4=
+	t=1787919023; cv=none; b=RXFvc+4Qsn8HNwtkvEHscEQb1tFSIIoyUl5T9noZbIeYqeMBlUj2BVt3ka+QjKhHmzhYxjsO7Uj0c9KQ7JQhM5G5GkkVwjcPq1VrlBmJBnibn+8qdSI5mi174MMNhk7DzzLBVoMAA9jqu47VVoTM2RgnWtp3B3EZST6tbXk3Cno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918981; c=relaxed/simple;
-	bh=Hk/SRw+cpuI+Q59X47vyXCBfdMkqICKzdHMaJ8MlWts=;
+	s=arc-20240116; t=1787919023; c=relaxed/simple;
+	bh=FL/MuJQbgtG0aDhZ6aKljyrFLOE7pumpiZchS8mf5M4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IjHjOUt9hzTsUWH/3H3MIAC2REJVUS57oMcedVOl8Cjug8vm9+awhh82pZvAWvBP/BLw7oY4Yc5pyiMLeKL5zASwWV6tIOIwEIje3RDB1RhVZW0ig4uTiiaIJsfuXjYV8dGnYPGqGn9lBnz09KWbikFNP0w8cTksfKg4wbDzSyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F44YXL+S; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZIGFo7Ck7HGccx4a1qoLlF8xQUZLQC9KtzBUB+I4IjDhHL8uy5iDB0iZGFnf8Sj39ELkMcYG1C8c0UhR9PD1D2+oyNbf41FlqyYCpVYqLF+DgUBPYfvdp57Xo2nZGmqLE6jhYq2Xq74Fbc8kThcx63v2WAPc9Huta7rVq4b+YSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/g9g3ci; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F44YXL+S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787918971; x=1819454971;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Hk/SRw+cpuI+Q59X47vyXCBfdMkqICKzdHMaJ8MlWts=;
-  b=F44YXL+S4Gk9RQMlDUJzFPvjHGpvip3OkUznnUwur8TYxWOYbxMdO1Hi
-   2RsZ2ChjiVAkKXbCyg00Bt6EUffUpuQvh+8ktkyHdYv/7faLiv+3+YVQn
-   XwOvccMRKlpikl1W9Ug06bqQoNuGB3Bha/IndEWscDle/6D3Eiq1cyuaN
-   +C1uWnLQTVcyUB9LC23cvAC+zO0FsOQSoE718/9hXCUaVU15S3f/4IWld
-   eA+PuaJ8eBVA/1j/lvkpReoPHYIoieAbFOIvF7baT9wlebNGG5DM4U1No
-   mVc4gS0aK7CsjHm954CuB7HExXyGp/HxDHGzYF9nWIvSNpQ4l/ouqkFUE
-   A==;
-X-CSE-ConnectionGUID: HQAMw+KAT82slhAm1q9seQ==
-X-CSE-MsgGUID: Ion4XhyORGWt7MPrRAotqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="105800285"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="105800285"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 05:09:24 -0700
-X-CSE-ConnectionGUID: p+JDzm4tTDqwHtJFUSvMpw==
-X-CSE-MsgGUID: bhExKVqQQuqS0gNm/nC4tA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="271677615"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 05:09:22 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5670311F817;
-	Fri, 28 Aug 2026 15:09:17 +0300 (EEST)
-Date: Fri, 28 Aug 2026 15:09:17 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/g9g3ci"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FA11F00A3F;
+	Fri, 28 Aug 2026 12:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787919009;
+	bh=1q+hHwlu6v5audo77lrJXSEp0y2Ux+5NX7JjfJEJRbc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P/g9g3cicDjwXv86a/QJWITL6TK1+gn+ufKrk2tFwx3X87oPhO7lWuVDYGJsZDMuQ
+	 39xxCoH0IsFd3BOO0ibr9Kb1/I0LQ2g6ggIlNg0CuZ3KqhOXSstO6VQQTnM6jdiAOO
+	 qmN2PujwTMYvkwsTS9ZMeZQTqLB1YZnOOMBuTXWwQElKuRH/fvCqB35TKi5eJuEPkZ
+	 ya0Kqq/dVAISixxRxF2pXyWImbW/96GM5cieECsysW0oTYNeMd9GFgHGGzUVmpoqHi
+	 Hq7V2wI/ZiO8Z5JNGyU/BlXowdhAq2JDHvnU/tjfK+ncKiSviAETG+D5hdQ3PT9IsW
+	 fosEAtWWH99Ag==
+Date: Fri, 28 Aug 2026 14:10:06 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
 To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org, linux-pci@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ov7670: Propagate clock enable failures
-Message-ID: <apF6beHoCHi8TXMJ@kekkonen.localdomain>
-References: <20260828091506.6732-1-pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH] PCI: tegra: Unwind partial PHY power-on failures
+Message-ID: <apF3QT5VJQU-Bf8c@orome>
+References: <20260828091747.7976-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vsysh2pbjmnneq3y"
 Content-Disposition: inline
-In-Reply-To: <20260828091506.6732-1-pengpeng@iscas.ac.cn>
+In-Reply-To: <20260828091747.7976-1-pengpeng@iscas.ac.cn>
 
-Hi Pengpeng,
 
-Thanks for the patch.
+--vsysh2pbjmnneq3y
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] PCI: tegra: Unwind partial PHY power-on failures
+MIME-Version: 1.0
 
-On Fri, Aug 28, 2026 at 05:15:06PM +0800, Pengpeng Hou wrote:
-> ov7670_power_on() ignores clk_prepare_enable() and proceeds to toggle
-> GPIOs and set info->on.  A failed clock enable can therefore be reported
-> as a powered sensor and later be paired with an unbalanced clock
-> disable.
-> 
-> Return the clock error before changing GPIO or software state, and
-> propagate it from the subdevice power operation and probe.
-> 
+On Fri, Aug 28, 2026 at 05:17:47PM +0800, Pengpeng Hou wrote:
+> The Tegra PCIe PHY setup has two nested acquisition loops.  Failure in a
+> per-port loop leaves earlier PHYs in that port powered, while failure in
+> the outer loop leaves all earlier ports powered.
+>=20
+> Unwind the successfully powered PHYs in reverse order at both levels
+> before returning the original error.
+>=20
 > The issue was identified via static analysis and manually reviewed.
-> 
-> Fixes: 030f9f682e66 ("media: ov7670: control clock along with power")
-> 
-
-Please remove extra newline here.
-
+>=20
+> Fixes: 6fe7c187e026 ("PCI: tegra: Support per-lane PHYs")
+>=20
 > Assisted-by: LLM
-
-Which one?
-
 > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 > ---
->  drivers/media/i2c/ov7670.c | 20 +++++++++++++++-----
->  1 file changed, 15 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov7670.c b/drivers/media/i2c/ov7670.c
-> index 4d040e9feeac..9c5bb391202d 100644
-> --- a/drivers/media/i2c/ov7670.c
-> +++ b/drivers/media/i2c/ov7670.c
-> @@ -1647,14 +1647,17 @@ static int ov7670_s_register(struct v4l2_subdev *sd, const struct v4l2_dbg_regis
->  }
->  #endif
->  
-> -static void ov7670_power_on(struct v4l2_subdev *sd)
-> +static int ov7670_power_on(struct v4l2_subdev *sd)
->  {
->  	struct ov7670_info *info = to_state(sd);
-> +	int ret;
->  
->  	if (info->on)
+>  drivers/pci/controller/pci-tegra.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 
-That's also unnecessary. No need to change this for a bugfix though.
+We technically could do something like this, but honestly I don't see
+the point. If this ever happened, it'd mean that either the system is
+improperly designed, badly configured in device tree or somehow broken.
+In either case the unwind isn't really going to save you.
 
-It'd be also nice to convert the driver to use Runtime PM but that is
-obviously out of scope of this patch.
+Thierry
 
-> -		return;
-> +		return 0;
->  
-> -	clk_prepare_enable(info->clk);
-> +	ret = clk_prepare_enable(info->clk);
-> +	if (ret)
-> +		return ret;
->  
->  	if (info->pwdn_gpio)
->  		gpiod_set_value(info->pwdn_gpio, 0);
-> @@ -1667,6 +1670,8 @@ static void ov7670_power_on(struct v4l2_subdev *sd)
->  		usleep_range(3000, 5000);
->  
->  	info->on = true;
-> +
-> +	return 0;
->  }
->  
->  static void ov7670_power_off(struct v4l2_subdev *sd)
-> @@ -1687,12 +1692,15 @@ static void ov7670_power_off(struct v4l2_subdev *sd)
->  static int ov7670_s_power(struct v4l2_subdev *sd, int on)
->  {
->  	struct ov7670_info *info = to_state(sd);
-> +	int ret;
->  
->  	if (info->on == on)
->  		return 0;
->  
->  	if (on) {
-> -		ov7670_power_on(sd);
+--vsysh2pbjmnneq3y
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You can also declare ret here.
+-----BEGIN PGP SIGNATURE-----
 
-> +		ret = ov7670_power_on(sd);
-> +		if (ret)
-> +			return ret;
->  		ov7670_init(sd, 0);
->  		ov7670_apply_fmt(sd);
->  		ov7675_apply_framerate(sd);
-> @@ -1872,7 +1880,9 @@ static int ov7670_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
->  
-> -	ov7670_power_on(sd);
-> +	ret = ov7670_power_on(sd);
-> +	if (ret)
-> +		return ret;
->  
->  	if (info->clk) {
->  		info->clock_speed = clk_get_rate(info->clk) / 1000000;
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqRepkACgkQ3SOs138+
+s6ER/BAAjajaXP77leTWjrIV68TKvt74Z65CkDwzzIP6wx0TiYqwUXBgGzCyGFs8
+XhYwTNPGygr7YnRI4eGkYZ3Er168LDDeco2jU6WWrMPwBvUg111rHD3X5hRIYvsH
+6xky8ZKLM8R8codbio4/LEI42SIAG541F3UhBIDiZhahY55/e37ZgJik5Yf7orYV
+Y2Uu48nHIy7lkLNibxXNc8seSrGI63l99YxMqMsMcmZBeIIzPM31wk4sDcvlmrFt
+F8NdV5RIRnlrgWEFeb6Fzef8Wkq51MTWyl+CT8caLkH7c+BX2A7ESphTdmm3IrSD
+q6n5LWUCs8rmTb8ePSctBwpnzzBf09T5bx+w6Y7fMYem7l1NIbqPx6sHWLvg7yAm
+Vdp6xh2iEhYSiJ10Y6vMg5I7++x3z77icTOIQDqQicNLwVw6c6WdL24egQx82rqh
+LE3Vknp94vUaHUNvQjHt4mOOAFSF9fn9B/PAYjrWuEaUamjpvH5wt3a8L53JOzwK
+xr+Ho/YAvDYNrmzpULy+h0w/DOBYCSh2vNEynX6DFI2VCZ9MTj5WecIzPmvn0Vue
+nkboKZ9PakxOZp9QJxym7crWz/z/wrMvcSiXVLJ5qoJOyj4vEAW0MXu9JKsYBGra
+Xg51gQWKr6fB5/l2t9L491yJzIlOYIsbJK9e1L3jkHfbmUDEqCI=
+=Mv8m
+-----END PGP SIGNATURE-----
 
--- 
-Regards,
-
-Sakari Ailus
+--vsysh2pbjmnneq3y--
