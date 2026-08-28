@@ -1,114 +1,226 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C413AC0C7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ECA390CAC;
+	Fri, 28 Aug 2026 23:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959209; cv=none; b=dbU3DF8IEM3s425tFpessaC8TIWtGV93ctYHqfd0614g/Awp6B8lHa/M4xnEwuuWud6NT2LnBtvQgw1R+zio97e5dlQ+fAswyjPfT4PLfiCjHXSx4d1KChDrWzBT3Bjq9Gvqb/TCcP+oqQ7Xk9s2BaEX2bnDLA98p8FWXzql4zU=
+	t=1787959220; cv=none; b=WqLpJB/1qcIpYnRf4KVqKpkSnkxJMYLZJUGVt+xy4gwWD/Hj2esQ3mGgyaKHOb3LKHXxTIa6ZaQdLI6HOeXRPWx6F5Igs4Rh2ibTxMc8X1D0oRRD+wwJS1VxgRg3U+nGJfv/JqZ7iITzZtKU4qr7zlW2vhpQ4K2EEMgXnUIMnP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959209; c=relaxed/simple;
-	bh=Dsr8qBZLgil/7Jhc9mZG6IoOdofcq7dtRdjka7YmlGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=P+cxaXmIgA4vb1JVlph8cv6Z15X53qf7AffI2r8EpDUlGF08pJ6kaJqvMNFsct85wmm6+60NKlDJYVTPTjhlve501WWbnNkH/uKfw4gctVWxStd8rhTT/Cj/WGzEj3pTj7G7w11v0zf0Or9Qpn7x1yWBU4gRZrnvKRKAJgGhma4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SB4+0lYf; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787959220; c=relaxed/simple;
+	bh=KCLwh7yy40w07BW+uIcvQ4nSa2ETDNHj2CkSO7kFdJ0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=P1aR2e6OQbOxC1bOPmzKRdKRRD1VSxodyOy11jAsyilCUCdhbLdVNjP15XZhvAX69/qg3J5K25BhdN8rCotqWx+jqmnC8yXn3Va67PkMexw8fFDOCrFvsyHx1jV0Zj91cvDNdfMFpxMJlCTeZqtMh9MRMjXm0RxydIhULnaYeZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=BqyoY1p7; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SB4+0lYf"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so12026805e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:19:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787959196; x=1788563996; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dsr8qBZLgil/7Jhc9mZG6IoOdofcq7dtRdjka7YmlGM=;
-        b=SB4+0lYfaaqVlq59q+XtB+rJWmIK7SxZ90qQvWK8dyJLLpmedBdH4mym0F8cBj1OS7
-         dgNY2V5oFOgm7QPkk6r7iX//mNvGtkkAcgElof0etrKPdK+1eSG0dML78a3jKVhxE0bs
-         i/qwmiq+ADsph8hJ06dyZBIyQ4U5IXnMxTa0b564GbEDhpc3ADX7To4/em93IY/8HBAQ
-         8mFp+7lKSjABm2MEfUDciu0USesNJlmDkoz4/W1S07pYUuf8SzCm+q1EO4qe/iczTT49
-         ChkcA4MRiRNkJlNkiW2UFMlHouR2N2Vzj5Uf1a6r/lJhJbE6DED2uIs2P3eNB5E6aksC
-         f1aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787959196; x=1788563996;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dsr8qBZLgil/7Jhc9mZG6IoOdofcq7dtRdjka7YmlGM=;
-        b=eHZo3DSNzcaj5awWPFqeje4iWvV7REhkvezUiC5VwzWpVDERbOMM34fyDd44prwsCX
-         5UE87Nh7+OkgcTCVJu7474+4FqyAgL3tOnyZTaz00MPZ1bkww69K++t2JInvMtiquLao
-         8GZQBMFHjvcFv2EYajXn02yvwzSvVPcKM8KIGUKoK46Yns2Hxt2qGiZEfED7HMTPIivv
-         ePAAvgbI1LyTxn8OxEn6Tqr1m3lCqF9475zOZ7xoHWPetL7Gp78FLZVn5Nmo+GVY7FnW
-         XvGD9h5GyH99o1qrp6JrQ63SKXroXz7yaYIkeSd2Gzd39Syi26hkD7oVRo1r2mIfyld5
-         OKvA==
-X-Forwarded-Encrypted: i=1; AHgh+RqeHGcuM52m3XoTou0a3u1LLXY7YySR11ekEKvuJuQgaZnHBYeEDct3Cropff/FNgvNR7MNEwPpomsi3/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLLxDYLo3eaQwD2nZ8/3dfzUgmJody+dbcG77P4791qc6SRguB
-	jujzb5mLgD7OMMxMKLZf2Kp6BHSxC8OoztgOteFqC/d5n6iQCq2ET/+Y
-X-Gm-Gg: AR+sD10ylWvGgGdqe38k6ngnRyuCoCKKarC1QmIN6jvBKjVb+VGCvgsbAMQX2GsfFHi
-	sD5FBlm/nyXmosInsY9covOB/M+leVpqI2AyTD4w0tcKSD2ATLkpxUYP8J0QQGU8zDVI/kXIA3u
-	oY9dyc/iR7AaPvqhe1YqGiDspk5TqEopBtTPg4D4iQy+MpwroHAeq7Dy76ZIxlWEwvToThWP02C
-	pi4Sm+OokdQFsQUNW1xSEFwtTrKQ2SDRI4Efg0ej/nuWfyqk8dxMC+gIMNZf0XTom4XcbtrdMsM
-	5gvhMdyzFm0P6yJuPBrdRWjrUJDiZGKmPSY65zSP6ZIJrgNlhuMB2zr4xveEROdIvJ1IAwPPD9D
-	SG2c7C0UIFAjcbWCO/zAp1sEVgjnJeiuqztuJXdnivG6GVxGvfc3s1MBVNzTG7FCVbO6mZSWL+H
-	vod8RzQ+V/J0aN6xigN0zRKz61n4lESpIwmXyyblBbxFEiroOYloXjXlkcSZnCm1ISpSikU1/Pq
-	FXuR47RthD5F73nbdXIFtTpksWvBFDqdedBpYq5IH9gVs0N3X+VwjX+
-X-Received: by 2002:a05:600d:8449:b0:49b:96a0:5c00 with SMTP id 5b1f17b1804b1-49b96a05caemr110929705e9.13.1787959195990;
-        Fri, 28 Aug 2026 16:19:55 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca1ed292sm33018995e9.8.2026.08.28.16.19.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 16:19:55 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <9de2f5e7-079b-472f-9d98-91d878dcefd3@gmail.com>
-Date: Sat, 29 Aug 2026 00:19:54 +0100
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="BqyoY1p7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=Vncym+/9iDRoxIE5WZB5WeZ1MhGwXFjx6dypVyLGBrk=; b=BqyoY1p72wSTux/MZTu6eTU+Q9
+	FP251vuGAZmUENK0nnVRs48UXWwLsJ33Ttq8pIPEt1UpMi68cZBlJKvpHQ/0cd6Fd17xjL89LLHem
+	02rm+MEvtKHA6qsqoGfxek9xrcvpMYvpweF88W8j1IfIq2giULo+H8aiYQsGIkRfPb20l92vu6vZt
+	WAhoOSk5zaIF2dLVdEP29Yog+IdN4FeTPxlqsynG7KKTdjIkRUqAWCQHpRTY13sskABJQG36JfVlp
+	Ej8OgrpdQ+rE77symMV+40XcQQBQ3c1RxuL8ww1e9MXmvONNpwBfJ2GDg4YNcqKSHwYSWs78uDm3K
+	YOjiQ2Dg==;
+Received: from [187.57.78.212] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x05rr-00B3sF-NW; Sat, 29 Aug 2026 01:20:15 +0200
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Fri, 28 Aug 2026 20:19:37 -0300
+Subject: [PATCH v6 10/13] syscalls: Add an option for offsetting the common
+ table
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS default
- logic
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Nathan Chancellor <nathan@kernel.org>, Gao Xiang <xiang@kernel.org>,
- Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
- Jeffle Xu <jefflexu@linux.alibaba.com>, Sandeep Dhavale
- <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>,
- Chunhai Guo <guochunhai@vivo.com>,
- Michael Bommarito <michael.bommarito@gmail.com>,
- linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-kbuild <linux-kbuild@vger.kernel.org>
-References: <c480ed6b8bf38822263e2c5b7cf32b28600f212d.1787219898.git.geert+renesas@glider.be>
- <CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com>
- <apGqg5a5I9g1CoF_@levanger>
- <CAMuHMdXwmCrzLZiPnQejJ+dTvVNf2zTzgKwTWEFEkfKRkZQpPQ@mail.gmail.com>
- <apHfhILRL0-lFOEh@levanger>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <apHfhILRL0-lFOEh@levanger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260828-tonyk-syscall_table-v6-10-fdd358456cf1@igalia.com>
+References: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
+In-Reply-To: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>
+Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.15.2
 
-On 8/28/26 20:20, Nicolas Schier wrote:
-> Cc: Julian
+To better support architectures that doesn't share the same syscall
+numbers, but have them in the same sequence, add an new option to offset
+the common syscall table numbers by a value. This make it possible to reuse
+the common syscall table for alpha.
 
-Thanks for looping me in.
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+Changes from v4:
+ - I was reusing the logic from --offset to apply the --common-offset, but
+ the logic is different: --offset does a string concat, and --common-offset
+ does a addition to the number
+---
+ scripts/syscallhdr.sh | 26 ++++++++++++++++++--------
+ scripts/syscalltbl.sh | 24 +++++++++++++++++++-----
+ 2 files changed, 37 insertions(+), 13 deletions(-)
 
-So it's not great usage of the Kconfig language to have the 'range 1 1'
-and the 'default 16' here contradicting each other. But, it's currently
-legal.
+diff --git a/scripts/syscallhdr.sh b/scripts/syscallhdr.sh
+index a9b880070a3d..6c24428b65b6 100755
+--- a/scripts/syscallhdr.sh
++++ b/scripts/syscallhdr.sh
+@@ -16,17 +16,18 @@
+ set -e
+ 
+ usage() {
+-	echo >&2 "usage: $0 [--abis ABIS] [--emit-nr] [--offset OFFSET] [--prefix PREFIX] [--common-tbl PATH] INFILE OUTFILE" >&2
++	echo >&2 "usage: $0 [--abis ABIS] [--emit-nr] [--offset OFFSET] [--prefix PREFIX] [--common-tbl PATH] [--common-offset NR] INFILE OUTFILE" >&2
+ 	echo >&2
+ 	echo >&2 "  INFILE    input syscall table"
+ 	echo >&2 "  OUTFILE   output header file"
+ 	echo >&2
+ 	echo >&2 "options:"
+-	echo >&2 "  --abis ABIS        ABI(s) to handle (By default, all lines are handled)"
+-	echo >&2 "  --emit-nr          Emit the macro of the number of syscalls (__NR_syscalls)"
+-	echo >&2 "  --offset OFFSET    The offset of syscall numbers"
+-	echo >&2 "  --prefix PREFIX    The prefix to the macro like __NR_<PREFIX><NAME>"
+-	echo >&2 "  --common-tbl PATH  Use the common number table"
++	echo >&2 "  --abis ABIS             ABI(s) to handle (By default, all lines are handled)"
++	echo >&2 "  --emit-nr               Emit the macro of the number of syscalls (__NR_syscalls)"
++	echo >&2 "  --offset OFFSET         The offset of syscall numbers"
++	echo >&2 "  --prefix PREFIX         The prefix to the macro like __NR_<PREFIX><NAME>"
++	echo >&2 "  --common-tbl PATH       Use the common number table"
++	echo >&2 "  --common-offset NR      Add an offset for the numbers of the common table"
+ 	exit 1
+ }
+ 
+@@ -34,6 +35,7 @@ usage() {
+ abis=
+ emit_nr=
+ offset=
++common_offset=
+ prefix=
+ common_tbl=
+ common_tbl_path=
+@@ -57,6 +59,9 @@ do
+ 		common_tbl=1
+ 		common_tbl_path=$2
+ 		shift 2;;
++	--common-offset)
++		common_offset=$2
++		shift 2;;
+ 	-*)
+ 		echo "$1: unknown option" >&2
+ 		usage;;
+@@ -98,14 +103,19 @@ emit_end_guard() {
+ }
+ 
+ max=0
+-# gen_hdr(infile)
++# gen_hdr(infile, offset_nr)
+ gen_hdr() {
+ 	input=$1
+ 	tmpfile=$(mktemp -p .)
++	offset_nr=$2
+ 
+ 	grep -E "^[0-9A-Fa-fXx]+[[:space:]]+$abis" "$input" > $tmpfile
+ 	while read nr abi name native compat; do
+ 
++		if [ -n "$offset_nr" ]; then
++			nr=$((nr + offset_nr))
++		fi
++
+ 		max=$nr
+ 
+ 		if [ -n "$offset" ]; then
+@@ -123,7 +133,7 @@ emit_start_guard > $outfile
+ gen_hdr $infile >> $outfile
+ 
+ if [ -n "$common_tbl" ]; then
+-	gen_hdr $common_tbl_path  >> "$outfile"
++	gen_hdr $common_tbl_path $common_offset >> "$outfile"
+ fi
+ 
+ if [ -n "$emit_nr" ]; then
+diff --git a/scripts/syscalltbl.sh b/scripts/syscalltbl.sh
+index f5b95b19ac92..eaad7be4c393 100755
+--- a/scripts/syscalltbl.sh
++++ b/scripts/syscalltbl.sh
+@@ -16,14 +16,15 @@
+ set -e
+ 
+ usage() {
+-	echo >&2 "usage: $0 [--abis ABIS] [--common-tbl PATH] INFILE OUTFILE" >&2
++	echo >&2 "usage: $0 [--abis ABIS] [--common-tbl PATH] [--common-offset NR] INFILE OUTFILE" >&2
+ 	echo >&2
+ 	echo >&2 "  INFILE    input syscall table"
+ 	echo >&2 "  OUTFILE   output header file"
+ 	echo >&2
+ 	echo >&2 "options:"
+-	echo >&2 "  --abis ABIS        ABI(s) to handle (By default, all lines are handled)"
+-	echo >&2 "  --common-tbl PATH  Use the common syscall number table"
++	echo >&2 "  --abis ABIS             ABI(s) to handle (By default, all lines are handled)"
++	echo >&2 "  --common-tbl PATH       Use the common syscall number table"
++	echo >&2 "  --common-offset OFFSET  Add an offset for the numbers of the common table"
+ 	exit 1
+ }
+ 
+@@ -31,6 +32,7 @@ usage() {
+ abis=
+ common_tbl=
+ common_tbl_path=
++common_offset=
+ 
+ while [ $# -gt 0 ]
+ do
+@@ -42,6 +44,9 @@ do
+ 		common_tbl=1
+ 		common_tbl_path=$2
+ 		shift 2;;
++	--common-offset)
++		common_offset=$2
++		shift 2;;
+ 	-*)
+ 		echo "$1: unknown option" >&2
+ 		usage;;
+@@ -59,14 +64,23 @@ outfile="$2"
+ 
+ nxt=0
+ 
+-# gen_tbl(infile)
++# gen_tbl(infile, offset_nr)
+ gen_tbl() {
+ 	input=$1
+ 	tmpfile=$(mktemp -p .)
++	offset_nr=$2
+ 
+ 	grep -E "^[0-9A-Fa-fXx]+[[:space:]]+$abis" "$input" > $tmpfile
+ 	while read nr abi name native compat noreturn; do
+ 
++                if [ -n "$offset_nr" ]; then
++                        nr=$((nr + offset_nr))
++                fi
++
++		if [ -n "$offset" ]; then
++			nr="($offset + $nr)"
++		fi
++
+ 		if [ $nxt -gt $nr ]; then
+ 			echo "error: $input: syscall table is not sorted or duplicates the same syscall number" >&2
+ 			exit 1
+@@ -108,5 +122,5 @@ gen_tbl() {
+ gen_tbl $infile  > "$outfile"
+ 
+ if [ -n "$common_tbl" ]; then
+-	gen_tbl $common_tbl_path >> "$outfile"
++	gen_tbl $common_tbl_path $common_offset >> "$outfile"
+ fi
 
-I would prefer to disallow this, but a proper check would actually
-require SAT solving (or similar) in the general case, so it's unlikely
-to become an error in the near future.
+-- 
+2.55.0
 
-Anyway, as long as we're continuing to allow it, savedefconfig should be
-considered bugged for not handling it accordingly.
-
-Let me see if I can send something out this weekend.
-
-- Julian Braha
