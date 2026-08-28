@@ -1,161 +1,128 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF39F3B42D6
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85DC3B38B0;
+	Fri, 28 Aug 2026 09:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910118; cv=none; b=e/qyFHQmfIO1L/eO1vJZ7EI1Y10r5Q6uxsMLx39b1g9Ey2Kat2zJ7+vq9V1uxzKFRAwMODGg9nFwicYXCAPs4hnPo6hXxnaN3S8uqbSrftHIza0JBmEFlztqv+iTpfB2tOoFoPcvGdxBvGC9W3xyEYqrp3OSyuspYruX0YM4iYs=
+	t=1787910118; cv=none; b=CqIj9VO0tnExY3IizoRxwhDumJRz6UskKN1P6jNEXm7UQ9a1RXPyccm27T7mHZ87sePe0JuL4BYuK4d0/4hmCCEilnw8I49lurULfrspVjh6VqmRt/Qoe3Fnq9EBJazH32/2J9aTJkdzRlrm3eSKqabSz6qDF6dZrrQ/9TSYJBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787910118; c=relaxed/simple;
-	bh=I+yycvL7kbCiGhMgumbLZm9D+j4e5nUXPmc8W77Ihng=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mxLbDs7TgwQEWPz3SOfkKFsAP3YncxlPZKaQywx2RaGkwXS5IEjr0Fis6igkRX+O8nOxHAuc2vU3GsCpk34rQ6zW2gP4oXAFJ5x9XsSGP466ERXKZBmYeUyqTDO+CCpoU5sGsJieyjh7xTtUFWzOiEkKhhPT1lV1lluHLDg+FjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OyFE8byP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ctsVzP+P; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aG8T1nM8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=v5gmQsaF; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	bh=3OEuy4BD1dsHy197xzLSBLtBnyzQJ4BNrMV6jDbgf8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MrtASGPu0i2jeWxvt2XpgCjcyOXvJcqN82JQE09ZCvgz+DoYPUth3MOML01pJJz41YFilrvHLwjca4RDqFi48vj8x3RnNoSIYpX7Zj9Q7qkWMasd4FtFeZy7YUD+Osq6nvLiHQUyGBy+gxVSmfX2AUo6iZTp95vqDxowC5VwP1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQipGGLc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OyFE8byP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ctsVzP+P";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aG8T1nM8";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="v5gmQsaF"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8B3E01FAA7;
-	Fri, 28 Aug 2026 09:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787910110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2N7+M+675Qd0BTRqACjcz0X65yrV7wou7VRu7g7oPqw=;
-	b=OyFE8byPwQAX7z5kgK/jAGim6IgAGnQpiNuBPSgCsmQrOTu4atc4x5qNMBGPjnDSY8vr2u
-	GdW3kIyYLciRaxe3GB2rJJufJKsRynfz1YRX4p/uchm+9GcL8xji/DJT3Br0Au5j5eyHOO
-	DlVCJIukMPsoFGZ8bPfPi6iF0n2jYDk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787910110;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2N7+M+675Qd0BTRqACjcz0X65yrV7wou7VRu7g7oPqw=;
-	b=ctsVzP+P14uR9xTfldHyyzbWJ+puf57fpIz+XlA0c7g6YM+a3M8jvs5RgIT7oJt0Nofygp
-	IpwypPzC8j4EjIDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787910106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2N7+M+675Qd0BTRqACjcz0X65yrV7wou7VRu7g7oPqw=;
-	b=aG8T1nM8KTvqEyaK0MKumn4J4wUQO9IDKIhwsuAffvjC65T3Q0FoZClh/uz43sXy4XZRRK
-	32NimP/CQwu0IHABY/VAf+Uo5KYoDc/EuthQW1RG0mmA7A99+GWd4ibCNubzheCUlab1ej
-	m69zLUYE4qzsRh6I0pPX5PizR6yndTk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787910106;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2N7+M+675Qd0BTRqACjcz0X65yrV7wou7VRu7g7oPqw=;
-	b=v5gmQsaFN6I+oZf5sKVBIOdC2UfMEs+FDzV4n6deMAWKDxy42zr9SfGe70rNVuCzvVgAi1
-	24WerJ7NnbvvI1AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CD6D13515;
-	Fri, 28 Aug 2026 09:41:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VciJGtpXkWohBwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 28 Aug 2026 09:41:46 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 0306DA1324; Fri, 28 Aug 2026 11:41:45 +0200 (CEST)
-Date: Fri, 28 Aug 2026 11:41:45 +0200
-From: Jan Kara <jack@suse.cz>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: brauner@kernel.org, jack@suse.cz, kees@kernel.org, cyphar@cyphar.com, 
-	containers@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn, 
-	"Eric W. Biederman" <ebiederm@xmission.com>
-Subject: Re: [PATCH 1/2] userns: remove dead key_put() on the
- create_user_ns() error path
-Message-ID: <co4ipyiux4vlqlwzgkxysinguvsz5j6wp5rslqpjuykw3d6ze5@jbhxzpn7hy4x>
-References: <20260828091659.358700-1-cui.tao@linux.dev>
- <20260828091659.358700-2-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQipGGLc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19981F000E9;
+	Fri, 28 Aug 2026 09:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787910117;
+	bh=LPr7Cgdghm1Kz2vcUzEZZn5UouwztW/+50mQHoKvomA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iQipGGLc7zqwEKjY4rWswUBu1HBNTwly6FGF0zyFghS2j+cgmvVf6hgdZIcboHM//
+	 EPtlXIV6dfyElr0U3yvBij0FoZtl5eluuNA283pXk/WKV9IxQccyKpMhFX3qlTFr3O
+	 uzVsbth6cw+h/Q4e/oF/Hf7NfJH0nNZkPKT1wPvwPhXpI828SzOmIns5LDvxtgLeuc
+	 ZLe4M/lvIGhc018PEbDw4V87Ti/Edzp3i/qJhvJm2UAGSRbkwqCA5rg/witGBk1ja+
+	 cmzTj/ZeFArBwDg1qSkbFQaq+S8oT/XYGCmKerfeZb6Q0n+P2oDlZBLl063F0lhA5F
+	 XvvifETVZg9Yw==
+Message-ID: <d5eac10c-48f1-4c09-b871-b946c6417399@kernel.org>
+Date: Fri, 28 Aug 2026 11:41:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828091659.358700-2-cui.tao@linux.dev>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v3 1/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CONGESTION)
+Content-Language: fr
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, edumazet@google.com,
+ ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
+Cc: kuniyu@google.com, horms@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, yhs@fb.com, kafai@fb.com, andriin@fb.com,
+ ast@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+References: <cover.1787870710.git.blbllhy@gmail.com>
+ <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri 28-08-26 17:16:58, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
+On 28/08/2026 01:55, Cen Zhang (Microsoft) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
 > 
-> create_user_ns() jumps to fail_keyring when setup_userns_sysctls()
-> fails.  At that point ns was freshly allocated with
-> kmem_cache_zalloc() and ns->persistent_keyring_register is only ever
-> assigned later, lazily, from key_get_persistent()
-> (security/keys/persistent.c).  The key_put() therefore always
-> receives NULL.
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+> allocated BPF struct_ops memory that may be freed concurrently via
+> setsockopt(TCP_CONGESTION), leading to a use-after-free.
 > 
-> Remove the dead call.
+>   BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+>   Read of size 16 at addr ffff888013505260 by task exploit/149
+>    _copy_to_user+0x37/0x60
+>    do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>    tcp_getsockopt+0x91/0xf0
+>    __sys_getsockopt+0xf7/0x170
 > 
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> Fix this by holding rcu_read_lock() around the ca_ops->name access,
+> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+> stack buffer before releasing the lock. Also annotate the relevant
+> icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
+> data-race issue.
 
-Adding Eric to CC for verification but yes, that code seems to be dead
-since its introduction by Eric 10 years ago. Feel free to add:
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  kernel/user_namespace.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-> index 0bed462e9b2a..e9e04ce167df 100644
-> --- a/kernel/user_namespace.c
-> +++ b/kernel/user_namespace.c
-> @@ -162,9 +162,6 @@ int create_user_ns(struct cred *new)
->  	ns_tree_add(ns);
->  	return 0;
->  fail_keyring:
-> -#ifdef CONFIG_PERSISTENT_KEYRINGS
-> -	key_put(ns->persistent_keyring_register);
-> -#endif
->  	ns_common_free(ns);
->  fail_free:
->  	kmem_cache_free(user_ns_cachep, ns);
-> -- 
-> 2.43.0
-> 
+Cheers,
+Matt
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sponsored by the NGI0 Core fund.
+
