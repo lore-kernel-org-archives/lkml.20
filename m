@@ -1,386 +1,134 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.pv.icloud.com (pv-2003f-snip4-11.eps.apple.com [57.103.66.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B803F4108
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910554; cv=pass; b=RhndZ4qBW6p3/MZaujg1tJN1/qN3TGIxiH0WuPfzgReZLnOvrAbDFoGuOjyuqcQ+ySVSRQgYCIPmggVbtGQ6obOKxIHc+dDEGqSm5QuTNphOlRvcMbq3Y9mYlUupcUHcEGZ6NuJmYqzlDV/ndqKf11p0Wm26RspvqWwmdVcAj08=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910554; c=relaxed/simple;
-	bh=7Cxy+dQ+EI6qV8/HB1WWPtDGMv2x7/tWAIuc4/K/IoA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FzmX1S7t1itBoxS9UlXG9OJoKoL6TYjDvhrh1yQ0Z0T3ajbPimvreRGeqopo4J3Ik40ZVzdxxUqz0ctow0Wqwb4DG6gTErP9LZSGN4rbFmFRGnvx8Ld2v8TehIXS76xJU8b9wark8+lXLuOxA/j/fzvBbnFu060JUlOvaQZSLkc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8jqrIH+; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A253F412D
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.66.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787910583; cv=none; b=Z+LCYd0WXxTvNkZeCMT1Mo5pGWNRiILTqzgMvsW4aZTg2UgV7IG1Ou2SzB+zTog4H3GBFIdEEF4KwQ/bJmAFHJ6MbvAHGUdCuj8jNLaiy4VxgWbOz0NfLj5v9hHHjeTz2NYXycp5CuDhH2kBn9RZ3do11YoOWnA770BBBKmpWxA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787910583; c=relaxed/simple;
+	bh=0cMg6G4S2gupt0BR5knX05oKcqyriLZm99X+dEgilpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I2PR0pTQPpZcZt0H3W1UBqim9q3EgZ92V2y4hOoje6Vjd6sEl6kYP4ZJgu4CRBKhiccZ9CXocIxK67Rsi1plH7Fa7zuyTVTsCKK5xRaIGEzgCO2ht2WnEtMBSFoboZrkVmt3YHWXmkvIgJ13DgRgzlWrkzdMxdNLNzA5JbKpvf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=rgjSHScX; arc=none smtp.client-ip=57.103.66.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8jqrIH+"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c0cea8883so12690711cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:49:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787910548; cv=none;
-        d=google.com; s=arc-20260327;
-        b=swIsuQTd0edURn5PIL6WN91KRbr7zPhrJ7ap8mNDdf1en81Mu+Uph1/xCgIFto6dvD
-         eRw9b2y3csmhyadWNVeikY2tHcAZATmWptkEspOoUIu6Hfzg0rE6kX/wPbB2eqbf7/f1
-         O9POuYqDzer1LVVMmScd2MZjZ0pnSG6yxX1mPvj9JJKf4GmfyYUVve3NsP5rRauXGK6S
-         bOaQQFOtOs8UiMJqUfzWWIGbY3MJ/aSFq/71pz6XOd4QUxHbX3q3jcybZEslFi3y82ZN
-         OENTNw8CVcuE966SBpWCEM7QAbPWA4ubj798uIRThBCd8Eta2zxiD1IS4a8BNEYTWBYA
-         xn/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z7+GEY3r36gO9sYtigtzYIP+u8ELV4NYrOFl9bdxXfw=;
-        fh=lRpiUkzJwdbRvXgkl+WpH9GiG1Pi4SVgfu0f4NS9dCc=;
-        b=S9YdLTkhlZiOxmHd/s4jKj+cXR+3kgk6XLEmNFxVv5h9lteZ1nXzxBuhMI0u+dnxOO
-         jOcxM8P3jStoXmrQQwC7B+6pY/uk1OphF7fsSjaUT45c/3bUJDngsrCPBm2DmHjX5Gzh
-         IHukN+vuF4G0OL7pyDRCUR2z5su6S7OKsd4XF4GVdXejIoghzvTxSSBZetlWD+VW2ZdX
-         eZ75hToWl6GG3ucyrdzkBr0vJX3GQZ98yuQ4kXbq5T1sJL457J5nu3vAT+De1FcMTM45
-         6AeoAlFnIFow7dmCz8zR8vfFun1MPFIkFMtkYxxQSYhlvrRN+p/ybDH1Qn4nmKYc/sM2
-         3YJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787910548; x=1788515348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z7+GEY3r36gO9sYtigtzYIP+u8ELV4NYrOFl9bdxXfw=;
-        b=X8jqrIH+LfnVI+/cN4uYz+fzkfrYuCECEE3PvqRzv6yujrQm9TR9md/AVXgrBE3/eo
-         /u1RVDuIp+r1J9SAtudZR8F6z3M/wpUhOflGrwKBAc5RGjC871I5CJnXeXgaca4deAz8
-         2DOGABfplh/AZXGbKpWKhjdYXCcR/xjh1L4j7T7Uf5y31k82eoHGzNB5ulKpqj2YnytU
-         5ThkE8ooSeEE6QaeoyrKltUFwJPn40cPx9IJI/P9C6XlOqIZhtrLh8kykiXMe4q55H8N
-         n2xGHa+17PMumI8OWyI82d/Hu30vkDH9dony5IRQPcyk7VuGOjaACdAmd4597+acK/PM
-         jIIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787910548; x=1788515348;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z7+GEY3r36gO9sYtigtzYIP+u8ELV4NYrOFl9bdxXfw=;
-        b=UggPZRsR4UGRcVsahgWXBa7WvVMshEJN3X8qv9vx2o49+7v2ZaaKjQkC/vpJ/tG3QO
-         kddmprVRV9Dki3fc1h7thywbprSNKsBlDfSBYsjBELOhcRT4Sfo8yKRp+k3ZfxzwQQtM
-         RMS0zpeASR4b9302A3y7vCiy2ANYFrvYAQM7PWKuXyTjHjkJhY1I0/gBasdXtU3uMbyL
-         d8tXyceqkg8d/+qXE0mfnufgsxnvtQth4haEnPAEEQGLJkmxOOYAjh5yjxF8W3vCzP4h
-         i4aDXnDNAhHS0pibqifyVzrifnsVFrfcTCUNNWTw0oVhQT3p73TjVR2SvbkZyAleqUmI
-         +sNg==
-X-Forwarded-Encrypted: i=1; AHgh+RrGC6LLXGsg/Lp+2AOg82EDNsZx3aynghSC4hsmLEM59JiuHb++a5OwuT7w1utbXTZnn+kYR/8hxfO3G6k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLOdHCoSrxfxbp1vSpLKkJjZomLPV8FqWIfS2y/GlJF+QN2arr
-	h/5YZcS9Kf434oo/UYfEXLoCP+ExA4VsDj+rOrnBG/U8Em+7ow6WpfwXEYsGXOvaqfrTH+1g6WQ
-	+8mlx46rTY7FJVxS3fdbxsBifBhYfTX4=
-X-Gm-Gg: AR+sD10BypAsXcPDmEKO4iihuXfAPL/9W71CqN8GR0npZN7DkYN7f3tYLRwXsV4PrpV
-	+PtZtys2Ww4XLXriZBMPYJbk+BM+yuwC/aHda8szLoV05rauCjjBY70W0ZgrirIbX+Q1J5f7y8r
-	LSJ2ejMLNBvDos+f+Vma3iPUVJwg50n/91MGDZBV1gV4xacyCQEQDpo6HspP963uah0xQDxrsDw
-	pAFVPOlsgMm976FAsv/lVidXYVmaty0cjDNOQd5ADNGK3Lzcm4oUTz1+6NhBOy2+bt/QKPQqVTF
-	Xu9T2+8m6JxJLlX4iwZmnoolBub2QTaHLqAL6hH4JKbm4k2kyUQ1e/05d1AKKeJ6LSoQqrvE6ya
-	gDzyR597CDQURZ6jmFa9RU6yXJ3TSPJp72NA=
-X-Received: by 2002:a05:622a:3ca:b0:51b:9873:e37b with SMTP id
- d75a77b69052e-52fb8ef9bc4mr55620421cf.9.1787910547272; Fri, 28 Aug 2026
- 02:49:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="rgjSHScX"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-3 (Postfix) with ESMTPS id A25DD18001AD;
+	Fri, 28 Aug 2026 09:49:23 +0000 (UTC)
+X-ICL-RepId: 01a047c6-26f7-7bbb-bac9-3d68c80fe63d
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhABkMAWBxBDkkdXwVaEhVdRVUIRRlTHhccRgxFGVswVB0dDlgGEhZdRV4IGQhdHRkKUFAAS1oVVRcOAkIfUB9MFldDRx0cGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKBldeWhdeTVoCVk0FSgNfAVsKQgFIClkPWQReCE0DXwdbBl0IVVUIRRlTHhccRgxFGVswVB0dDlgGDFBNAUMICgJRHFYNVw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1787910568; x=1790502568; bh=VHwIa+wXj0FuTMPPWe9jiQiTbFnEFdxNxGdvS4ouKnU=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=rgjSHScXewNLHouA6v1rjPZcpvJIQ9m3GPa5yZjrju48PlG3ITtkCLuGIx3DCnKPaSGWTkPE840i0op0pIMTJBmMP5i1FIjMlKVVQxR+eqqU+UGLiCo4kGQcrj/5BYRSPZR8VLA/hSypwPNbtT5MgM1Yma/ypaHecX5/xnGzVhRRF93Hck0aQnl+opHEC66zorpdtbmy7kElFVIlX5ncWQ4Csj+AZeY5LZsLzTrmx0ySXKV5lP2l2rCFmukbbwJvW07swXKd4J0hF184EmBePaM9YNdIbDA8qEuLUl9YY34kLRVPAnp26v8gilZxebGLbCshHNZ5bFtY2sY9wVlWNQ==
+Received: from ncore (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-3 (Postfix) with ESMTPSA id 5BCCF18004E8;
+	Fri, 28 Aug 2026 09:49:21 +0000 (UTC)
+From: Ferran Duarri <ferran.duarri@me.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ferran Duarri <ferran.duarri@me.com>
+Subject: [PATCH] nvme: lower default APST max latency to 25ms
+Date: Fri, 28 Aug 2026 11:48:24 +0200
+Message-ID: <20260828094826.1502004-1-ferran.duarri@me.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727092258.1121-1-liujiazi@amazon.com> <20260812082127.79610-1-liujiazi@amazon.com>
- <apDmBeD8UQIvtfR4@vbox>
-In-Reply-To: <apDmBeD8UQIvtfR4@vbox>
-From: Liu Jiazi <jiazi.liu1984@gmail.com>
-Date: Fri, 28 Aug 2026 17:48:55 +0800
-X-Gm-Features: AcwNN1Wxk02VycXFR6FzqMc0tphW6zYgmo6hQyd1Yvdiu2jarMguczM5cc_XdZg
-Message-ID: <CAAcjFgh-f2=cK09BLGN-kPVu2usjN7pWOxCWb31hSePB2nLVEA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] usb: dwc3: gadget: fix IRQ storm on invalid event
- buffer count
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, 
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, "lkp@intel.com" <lkp@intel.com>, 
-	"oe-kbuild-all@lists.linux.dev" <oe-kbuild-all@lists.linux.dev>, Jiazi Liu <liujiazi@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4NCBTYWx0ZWRfX83RAb/oqm0aQ
+ 4ZPXb5/jbdhg/Fa7ZQOFF0tXh+ICD0KroI799n5hBw915WGCeJqmR+tEbMJI508IxXtDiiGRvOO
+ A19J9fhREjw6eZ53GEk1Cldpj30x1dp5Y7PQUbEtfEZVdZ+ZgOFmJgbhyUHrZwDRAb51iW8cfRL
+ zi2qk5gnywQclOrQwPv2GkDE9Wua0HgtsER9WQ5jLU37MrB+38S1JPfyBPrSX7rzm3iiXYa7VR7
+ nt0FvBk0CqS05PowGETJjhjZnFD84oEB7nRgilWqNDnuh9dyaXC3CVPhoza6eKIljzE1dv6bjml
+ tcKm20npzasntWDAoCQIAnlwxZIawB9d37+lBVzuFE8rCzfIOEfOxf3OIU3v7o=
+X-Proofpoint-GUID: f9By8ORZZQum0LyGQmk2G2Q5PcnzQquA
+X-Proofpoint-ORIG-GUID: f9By8ORZZQum0LyGQmk2G2Q5PcnzQquA
+X-Authority-Info-Out: v=2.4 cv=F45at6hN c=1 sm=1 tr=0 ts=6a9159a4
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10
+ a=B9nqV3Rn1-QA:10 a=VkNPw1HP01LnGYTKEx00:22 a=HHGDD-5mAAAA:8
+ a=8uIbJeaS8xPCM5DfPzYA:9
+X-JNJ: AAAAAAABTjuatjBeFzf9jdS1Z7hd6NEsWInGNLZSahhkMhiqyRKBjB5q6fgJETK5Q1EX4NTqDsvGQKGwZxoPFaMu9Udk9ht+wbHJgeZ+xM6Aute5VGDQAvIaDHYSbI9fjMK8aO3PN+neWd07rSVXzFtUIyK08dj03cC1k59H0bbi4BGi1ZAg6OCBA3okaWf/GX5iurlls4DCQLBht/FWCqaYDPqxGM7B6zdQnh43URforJuSGhdP96pQEd0H/5IfxcsV09qDUNLEKj1tq9eA7hc4TDkyqBw0vTa1/MzxChgd/y76GWWW8XHa7iFN1SxDYxzUaL8VMjUp/VUNio+37A12axX31s9ZtATyqTk1koMs/Y6rjGdG3Y5Ju5qBMDkn06F77SfCmdQrPgWNNqOUTAARukRUoKlZllerp17iMl1iXVO/rYhms3FYBolJmu3gQ+dpXvu1e8n7m4hvCsKNzJMrDsOSnQuCpjetzjjU3QnzvEsDpImjZQdYWDy7YP1pvMjDVWZ20444BYefXOx9eHvo6IpBujLrvqIK3AsdBYYzqxxt1eJsdta0s7ukJNizMZ8XK0fCKR76AWki0/dSHb/IWuTFZCfQzkSYJUr7zOrXZ+rkbZAyr0U8mRsRY8eErvy85w/p/QhmoBjSlAxmpQs+K3ZnJU0Uj9O3tzpw5NIRgjmcvclGXEW01xvhvVDjNa+CKtNJCf2bjkK+emFMY9UyXa3QG/fIKlzhupNaLiutU3oOQ+V5NOuQ4mmlKse0PV6Lz1PATqWqPqAmaWytBSohVbzMaSTi8vFz7uv4dG5NuosGC5RCU6CmIZTEbNToHRnsOdecPz16y0ruUBFkBCmK0xCCqxoQNuJfLM4X62yt0dvdpbAI8WUr84oihemHZNXTay82kqFDU2ZaUSrywndAn3bVR3OwrJeufQuXtN7jMLKdAGQn+iKGt3Wp/FR76L8D+zpAXiUXEV+3+9FyqhwGX9qRcIU
+ Pe73FuKER/g0VS3cXNLfchuE0gVGYw+cmoeQEIKLwn+E3Ug++9xzf9SAW+FJOmDukXVTf+XN8s5lSblzwcMMwnAeX9gep+W5zLkrByuGhKQe0YQTHL7qBnTdjD5mqP14MdfZQuJNaNrHX2oupTxvlJ0RT8kR5qQQxnqhVTXidYiqaPM7oZ9vwysflu+r24matWS+D1j1Y1eITw/UB7+0BLADD8vngA0ZiL3JbNQ==
 
-Hi @Thinh.Nguyen@synopsys.com , Krishna,
+That one bound decides how deep a device may sleep. On a device that
+advertises a non-operational state an order of magnitude slower than the
+next one up, the 100ms default silently selects the slow one, and the
+first read after an idle period pays that wake in full. It shows up as a
+stall rather than as reduced throughput, being a one-shot cost on a cold
+access rather than a steady-state penalty. The workload that prompted
+this is staging large model weights from NVMe, where a cold mmap fault
+on a multi-gigabyte checkpoint is exactly that access.
 
-Thanks for the detailed review.
-For the gadget ops protection, I propose adding the check only in
-dwc3_gadget_ep_queue.
-This covers two scenarios:
-1. The window between error detection and soft_disconnect completing.
-2. After soft_disconnect, existing checks on
-connected/pullups_connected/endpoint.desc naturally block all ops.
-This is also consistent with how other gadget handles it.
+Measured on a Samsung SSD 990 EVO Plus 4TB (fw 2B2QKXG7), which
+advertises two non-operational states:
 
-Brs
-Jiazi
+  ps 3   exit  4.6ms   0.0800W
+  ps 4   exit 43.0ms   0.0070W
 
+At 100000 the APST table targets ps 4; at 25000 it targets ps 3. Cold
+4KiB O_DIRECT reads after an idle period, 60 trials per setting, the two
+settings interleaved trial by trial:
 
-Thinh Nguyen <Thinh.Nguyen@synopsys.com> =E4=BA=8E2026=E5=B9=B48=E6=9C=8828=
-=E6=97=A5=E5=91=A8=E4=BA=94 10:36=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hi,
->
-> Sorry for the delay response.
->
-> On Wed, Aug 12, 2026, Jiazi Liu wrote:
-> > From: Jiazi Liu <jiazi.liu1984@gmail.com>
-> >
-> > When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-> > event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-> > that event count does not exceed event buffer length") returns IRQ_NONE
-> > without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-> > level-triggered, the uncleared IRQ source keeps the line asserted,
-> > causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-> > and triggers spurious.c:184 BUG -> kernel panic.
-> >
-> > The resulting call stack:
-> >   __report_bad_irq+0xac/0xc8
-> >   note_interrupt+0x340/0x468
-> >   handle_irq_event+0xac/0xc0
-> >   handle_fasteoi_irq+0x120/0x228
-> >   gic_handle_irq+0x68/0x108
-> >   ...
-> >   kernel BUG at kernel/irq/spurious.c:184
-> >
-> > To reproduce, write a bogus value exceeding the event buffer length
-> > directly to the GEVNTCOUNT register:
-> >
-> >   devmem <DWC3_BASE + 0xc40c> 4 0x1004
-> >
-> > Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-> > consistent with the stale event clearing pattern in
-> > dwc3_event_buffers_setup(), and schedule error recovery to
-> > reinitialize the controller.
-> >
-> > Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does no=
-t
-> > exceed event buffer length")
->
-> Fixes tag should be single line.
->
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jiazi Liu <liujiazi@amazon.com>
->
-> Your email from Signed-off-by is mismatching your From: line above.
->
-> > ---
-> > Changes in v2:
-> >   - Rename softcon_work to err_recovery_work
-> >   - Use dev_err instead of dev_err_ratelimited
-> >   - Update comment to document driver/controller out-of-sync fatal erro=
-r
-> >     condition rather than describing IRQ storm behavior
-> >   - Remove dev_err from work handler; error message belongs at the call
-> >     site where the specific failure is known
-> >   - Follow dwc3_gadget_suspend/resume logic in recovery work handler
-> >   - Add err_dying state to reject gadget driver requests during recover=
-y
-> >   - Add err_recovery_count counter and stop scheduling recovery after
-> >     DWC3_ERR_RECOVERY_MAX attempts to prevent infinite retry loops
-> >   - Add synchronize_irq() before soft_disconnect to ensure IRQ handler
-> >     has completed before reinitializing the controller
-> >   - Define DWC3_ERR_RECOVERY_MAX in core.h alongside other global const=
-ants
-> >   - Fix sparse warning: use dwc as first argument to dwc3_writel, not d=
-wc->regs
-> > ---
-> >  drivers/usb/dwc3/core.h   |  7 +++++++
-> >  drivers/usb/dwc3/gadget.c | 41 +++++++++++++++++++++++++++++++++++++--
-> >  2 files changed, 46 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-> > index 608daeb7ef10..b1cd888eca77 100644
-> > --- a/drivers/usb/dwc3/core.h
-> > +++ b/drivers/usb/dwc3/core.h
-> > @@ -49,6 +49,7 @@
-> >  #define DWC3_ENDPOINTS_NUM   32
-> >  #define DWC3_XHCI_RESOURCES_NUM      2
-> >  #define DWC3_ISOC_MAX_RETRIES        5
-> > +#define DWC3_ERR_RECOVERY_MAX        3
-> >
-> >  #define DWC3_SCRATCHBUF_SIZE 4096    /* each buffer is assumed to be 4=
-KiB */
-> >  #define DWC3_EVENT_BUFFERS_SIZE      4096
-> > @@ -1004,6 +1005,7 @@ struct dwc3_glue_ops {
-> >  /**
-> >   * struct dwc3 - representation of our controller
-> >   * @drd_work: workqueue used for role swapping
-> > + * @err_recovery_work: workqueue used for controller error recovery
-> >   * @ep0_trb: trb which is used for the ctrl_req
-> >   * @bounce: address of bounce buffer
-> >   * @setup_buf: used while precessing STD USB requests
-> > @@ -1171,6 +1173,7 @@ struct dwc3_glue_ops {
-> >   * @wakeup_configured: set if the device is configured for remote wake=
-up.
-> >   * @suspended: set to track suspend event due to U3/L2.
-> >   * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL=
-_SUSPHY
-> > + * @err_dying: true when controller is in error recovery, reject all r=
-equests
-> >   *             before PM suspend.
-> >   * @imod_interval: set the interrupt moderation interval in 250ns
-> >   *                   increments or 0 to disable.
-> > @@ -1186,9 +1189,11 @@ struct dwc3_glue_ops {
-> >   * @wakeup_pending_funcs: Indicates whether any interface has requeste=
-d for
-> >   *                    function wakeup in bitmap format where bit posit=
-ion
-> >   *                    represents interface_id.
-> > + * @err_recovery_count: number of consecutive error recovery attempts
-> >   */
-> >  struct dwc3 {
-> >       struct work_struct      drd_work;
-> > +     struct work_struct      err_recovery_work;
-> >       struct dwc3_trb         *ep0_trb;
-> >       void                    *bounce;
-> >       u8                      *setup_buf;
-> > @@ -1420,6 +1425,7 @@ struct dwc3 {
-> >       unsigned                wakeup_configured:1;
-> >       unsigned                suspended:1;
-> >       unsigned                susphy_state:1;
-> > +     unsigned                err_dying:1;
->
-> Can we change this to enum dwc3_err_state err_state where
->
-> enum dwc3_err_state {
->         DWC3_ERR_NONE =3D 0,
->         DWC3_ERR_RECOVERY,
->         DWC3_ERR_UNRECOVERABLE,
-> };
->
-> Then we can set err_state to DWC3_ERR_RECOVERY before scheduling the
-> recovery work, and set it to DWC3_ERR_NONE when the recovery work is
-> done. If we hit the max number of retries, we can set it to
-> DWC3_ERR_UNRECOVERABLE. This will make it clearer what state the
-> controller is in.
->
-> >
-> >       u16                     imod_interval;
-> >
-> > @@ -1429,6 +1435,7 @@ struct dwc3 {
-> >       struct dentry           *debug_root;
-> >       u32                     gsbuscfg0_reqinfo;
-> >       u32                     wakeup_pending_funcs;
-> > +     u32                     err_recovery_count;
-> >  };
-> >
-> >  #define INCRX_BURST_MODE 0
-> > diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-> > index fa0f16ffafef..05f3ffab6e47 100644
-> > --- a/drivers/usb/dwc3/gadget.c
-> > +++ b/drivers/usb/dwc3/gadget.c
-> > @@ -2054,6 +2054,9 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep=
-, struct usb_request *request,
-> >
-> >       int                             ret;
-> >
-> > +     if (dwc->err_dying)
-> > +             return -ESHUTDOWN;
-> > +
->
-> As Krishna brought up, may need to double check, but I think all the
-> gadget and ep ops need to be guarded.
->
-> >       spin_lock_irqsave(&dwc->lock, flags);
-> >       ret =3D __dwc3_gadget_ep_queue(dep, req);
-> >       spin_unlock_irqrestore(&dwc->lock, flags);
-> > @@ -4667,9 +4670,22 @@ static irqreturn_t dwc3_check_event_buf(struct d=
-wc3_event_buffer *evt)
-> >               return IRQ_NONE;
-> >
-> >       if (count > evt->length) {
-> > -             dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->l=
-ength(%u)\n",
-> > +             dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n"=
-,
-> >                       count, evt->length);
-> > -             return IRQ_NONE;
-> > +             /*
-> > +              * This is a fatal error - the driver and controller are =
-out of
-> > +              * sync on which event has been consumed. Reinitializing =
-the
-> > +              * controller is required to recover. Write the bogus cou=
-nt back
-> > +              * to GEVNTCOUNT to clear the IRQ source, consistent with=
- the
-> > +              * stale event clearing in dwc3_event_buffers_setup(), th=
-en
-> > +              * schedule error recovery.
-> > +              */
-> > +             dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
-> > +             dwc->err_dying =3D true;
-> > +             dwc->err_recovery_count++;
->
-> This increment should be done in dwc3_err_recovery_work(). Reset the
-> count to 0 after err_state transition to DWC3_ERR_NONE and on reset
-> event interrupt.
->
-> > +             if (dwc->err_recovery_count <=3D DWC3_ERR_RECOVERY_MAX)
->
-> The dwc->err_recovery_count check here should be checked in the
-> dwc3_err_recovery_work, to check whether to perform soft connect or not.
-> Set the err_state to unrecoverable and print a dev_err() if soft_connect
-> or soft_disconnect fails or if recovery count exceeds the max.
->
-> > +                     schedule_work(&dwc->err_recovery_work);
-> > +             return IRQ_HANDLED;
-> >       }
-> >
-> >       evt->count =3D count;
-> > @@ -4729,6 +4745,25 @@ static void dwc_gadget_release(struct device *de=
-v)
-> >       kfree(gadget);
-> >  }
-> >
-> > +static void dwc3_err_recovery_work(struct work_struct *work)
-> > +{
-> > +     struct dwc3 *dwc =3D container_of(work, struct dwc3, err_recovery=
-_work);
-> > +     int ret;
-> > +
-> > +     synchronize_irq(dwc->irq_gadget);
->
-> I think we should use disable_irq_nosync() before soft_disconnect and
-> re-enabling it after soft_connect succeeds. Leave it disabled if
-> DWC3_ERR_RECOVERY_MAX is reached or soft_connect fails or is skipped.
->
-> > +
-> > +     ret =3D dwc3_gadget_soft_disconnect(dwc);
-> > +     if (ret)
-> > +             return;
-> > +
-> > +     dwc3_disconnect_gadget_sleepable(dwc);
-> > +
-> > +     dwc->err_dying =3D false;
-> > +
-> > +     if (dwc->softconnect)
-> > +             dwc3_gadget_soft_connect(dwc);
-> > +}
-> > +
-> >  /**
-> >   * dwc3_gadget_init - initializes gadget related registers
-> >   * @dwc: pointer to our controller context structure
-> > @@ -4772,6 +4807,7 @@ int dwc3_gadget_init(struct dwc3 *dwc)
-> >       }
-> >
-> >       init_completion(&dwc->ep0_in_setup);
-> > +     INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
-> >       dwc->gadget =3D kzalloc_obj(struct usb_gadget);
-> >       if (!dwc->gadget) {
-> >               ret =3D -ENOMEM;
-> > @@ -4868,6 +4904,7 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
-> >       if (!dwc->gadget)
-> >               return;
-> >
-> > +     cancel_work_sync(&dwc->err_recovery_work);
-> >       dwc3_enable_susphy(dwc, true);
-> >       usb_del_gadget(dwc->gadget);
-> >       dwc3_gadget_free_endpoints(dwc);
-> > --
-> > 2.50.1 (Apple Git-155)
-> >
->
-> Thanks,
-> Thinh
+                     p50      p90      p99      max
+  100000 (ps 4)     3.3ms   33.0ms   33.5ms   33.5ms
+  25000  (ps 3)     3.2ms    3.6ms    3.7ms    4.2ms
+  warm, no idle     0.2ms    0.3ms    1.7ms    3.6ms
+
+Observed worst case falls from 33.5ms to 4.2ms. Both states measured 78%
+of their advertised exit latency, which is the cross-check that the two
+figures measure the same thing at two magnitudes.
+
+The p50 at 100000 needs reading carefully: roughly five trials in six did
+not finish descending to ps 4 inside the idle window and were sampled at
+ps 3 depth, which pulls that row's median down to the 25000 row's value.
+The ps 4 column therefore rests on the remaining sixth, where it was
+tightly reproducible, 32.9ms to 33.5ms. That effect can only understate
+the cost of the current default, never overstate it.
+
+25ms is not derived from this device. It is a bound on latency an
+interactive reader notices; any value between 4.6ms and 43ms behaves
+identically here. The device is an existence proof that the 100ms
+default admits a state far slower than the next available one, not the
+source of the constant. On a device whose deepest non-operational state
+exits well under 25ms this changes nothing, which is correct for a bound.
+
+The cost is idle power. Excluding ps 4 leaves ps 3 as the deepest state
+the device reaches autonomously, 0.0800W rather than 0.0070W, so roughly
+73mW more on an idle drive.
+
+This changes only the compiled-in default. default_ps_max_latency_us is
+consumed once per controller in nvme_add_ctrl(), so it applies from the
+kernel command line as nvme_core.default_ps_max_latency_us=. A running
+controller instead follows its per-device PM QOS value
+(pm_qos_latency_tolerance_us), which is how the two settings above were
+compared without a reboot. Any system preferring deeper idle states can
+restore the old behaviour without a rebuild.
+
+Assisted-by: Claude:claude-opus-5 checkpatch patch-audit
+Signed-off-by: Ferran Duarri <ferran.duarri@me.com>
+---
+ drivers/nvme/host/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index c3032d6ad6b1..e3038b880e8b 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -66,7 +66,7 @@ static u8 nvme_max_retries = 5;
+ module_param_named(max_retries, nvme_max_retries, byte, 0644);
+ MODULE_PARM_DESC(max_retries, "max number of retries a command may have");
+ 
+-static unsigned long default_ps_max_latency_us = 100000;
++static unsigned long default_ps_max_latency_us = 25000;
+ module_param(default_ps_max_latency_us, ulong, 0644);
+ MODULE_PARM_DESC(default_ps_max_latency_us,
+ 		 "max power saving latency for new devices; use PM QOS to change per device");
