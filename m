@@ -1,478 +1,585 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF882836A6
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787901367; cv=none; b=nRoAkxWPVtOeuf7459plmooHGZvOf1L5qUOceSg5Bqn35BeYKRO3BawKSisG9ONHJfvoP0M1Oy6AL5eM0/Lm1NeTgZgSF0KMl/y8LsYh4qckkEye2TUUUxuNGKD6OfeqGe66I4kU7M6ofoi/tSg9e0sr3CBZsXq7CN+35nYfeRk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787901367; c=relaxed/simple;
-	bh=KNa7XTkLrIXQDL9/6lg5UXyeiGkudnIw13P2B1J/obg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uYY9xf4c4Ap/XrTtgQ3GNkkQQ5ip/lI2qi9Pkm1vUpJ6mpwCZ2eSNUHzYPLOZNw+vjG611WyBLvV7Zv8cUnJrwWy2HbCx0Tik2nu8s7CSy7uBbKfZZm+XaLjortWMETlfzrOqcV2+mgDJuW5VY2AJwJSQA0nXFKyJDPULGwoWTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=J/CfekBq; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27993C3C17;
+	Fri, 28 Aug 2026 07:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787901440; cv=fail; b=SWxOWlUtLHZepe01zpXe88+AmUNVO+IUAap8sO+eizMt86UHMVFnXnCz8Z46aN93DD+rtDeZVozNNH0N4eIaqIK+XamUAX2RRaT+ua/KKLLECJvozUoTVRVzP4H5XxzPDAYd5UY4XnG8swDGZd0Vk80031m1fGrTkC7MLd8Lhj0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787901440; c=relaxed/simple;
+	bh=vnncwcmWTG3vRagBXAkwrTPKuGM0uTtRa8t8EMJyxZU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KlpG80SU4Gm2MzZ82iCRCYDDTFYCfgyd0VfXcXeIpkuHVI3AcldYpdgf2rlpxlQqtPEqv/kuphVLSJy/ZLM7A0HfhduysMtO+3C3yYZnHX5j+NCpScB6vHVNmnvhMSngkXcnnOFN8cdH7Oc4wjcH5DXPYuoQXitQW5fc1fV8hQE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aP+Q8bCo; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="J/CfekBq"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787901355; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=Ym0OjFpnq71nXHKw8CUZHcHs546ptbnjcgNaDOS2Sek=;
-	b=J/CfekBqCChUeo9zJcYPzjvVKO3ZWnesz5ncj2O0uN6jcEvwWq92awTE89u+jgm2pp7cCbDcU1d7HbWyxOdqtoYEYK1y1ODJbg70I9YbS3CYSZilh3hNnSFW0hGX+CxtldR89JH24ectV7slBwQovoVMPn4730MFXm71AWGDLDE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9ld2Pc_1787901354;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9ld2Pc_1787901354 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 15:15:55 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ocfs2: defer suballocator block group reclaim to workqueue
-Date: Fri, 28 Aug 2026 15:15:53 +0800
-Message-Id: <20260828071553.262254-2-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
-References: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aP+Q8bCo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787901437; x=1819437437;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=vnncwcmWTG3vRagBXAkwrTPKuGM0uTtRa8t8EMJyxZU=;
+  b=aP+Q8bCoQb2fqYUJMC5swMHHtIG6GB3RnNGInGVHRIfFRh/Grw4ZRb9D
+   px5PGrIFHFykHL/86aQG5FpSpgLtJ1EpjRF1RySxWrlHTFiuYr2khMUr6
+   m26wViyeWi4URvYDVhRd6VNiO66lMwi22lbv6Y2Kw/qTx6qGakR+1T7oj
+   BKwqIwPngDXv3B61HVGbqIni2f63n5xCspRVE4tc6Ptd5ZmD7ebM4wOTA
+   plo2+pPoIxxa5FRQYnd029KDXmZFAYn+Bileqbi1u8WwuvUofpGaAwA7i
+   gie0uF8IUKFkvciEcrJdZbdaSkQt+BRgzU/YpWvRGoGIPeZyZZBphyy9M
+   A==;
+X-CSE-ConnectionGUID: Eya6GQavTEGouh0WoY6toQ==
+X-CSE-MsgGUID: sjp5efl9S4mXcDw0LB10ow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92221320"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="92221320"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:17:15 -0700
+X-CSE-ConnectionGUID: 21eW1KzHQZKDQ9IicCYIEQ==
+X-CSE-MsgGUID: aoMB3FA1Q7CF1tbSonJozQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="266777570"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:17:16 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 00:17:14 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 00:17:14 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.15) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 00:17:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XHMmri3B7WUufgw5c6kHqeWC1NZzfkV2K7TjWdcjUJDpcx/PK2ztoUGhQM5KM87GBw4uCD0sGZbVwN8vBtNqJEExxvzB2bpStu1TJC8F4lhboB0tt+2RioCeu/Z02otcE3/IpJfzjrv9xDydVNAha+CBa9qNJKUev0zrUY4gyjG24epSFkUAoOTHqlfvOJb+sXXUs0N7+QHBTfKoh1jkImkKqFdqq/qV8WtGfJjPx6ZWgHH59zwaqayzzvce3oyAkx1rkkzEF71hxDBXnFsPfQiXr0rJpydR8QFJcdrxzB9QFsLKAxyWr/Hh4UXcE9ZoZcBa3UBgxUjMB4vsUvv2RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Lsb0PpWSt44nvYAlCO/GAPRTAUeqwx4Y6eFMB+rdTA=;
+ b=K1J+7hfGI7V5jrVTu2pPbv3sZwpb1uqQG82Xr4xTwuM1JDNGCOxomKemXwhMq+t0MBnQi6OSKCtfCS93swVyUZDBPx2gy8by0D0W1qwVMtdGm9C0I0/+DRbb0x9N87FHTknig4TGXciQ3HnQTQrMRUFBTuaspGcN3m4EWtIKyWOtgTisopDr7fTCnIhg+zaZPXwp42frSd2patHB2ucuyAcaMnsVrKcTOCV9Q/OwpfxvXuo3LNnGCz+eXl//ILHpvb3Ht/Sj4sSbA9+g+J/iXBJR9kK8blihh25hUTv6bqapzg9C0/RbjV5U13W2nUk8bNfeQq3nydhTXq4uVRSfbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by SA2PR11MB4825.namprd11.prod.outlook.com (2603:10b6:806:111::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Fri, 28 Aug
+ 2026 07:17:07 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 07:17:07 +0000
+Date: Fri, 28 Aug 2026 00:17:03 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v4 1/2] drm: Add common drm_user_fence helper
+Message-ID: <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
+References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
+ <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
+X-ClientProxiedBy: SJ0PR13CA0032.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::7) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|SA2PR11MB4825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b99e098-25cc-48f3-ed60-08df04d45e14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|376014|10067099003|56012099006|3023799007|22082099003|18002099003|4143699003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info: OKge/HJVcUHLqYnYexRjJMmIbPS9vpqymBnV2R+nSBTchTwlAPlPz++onp6lWTMj2AVIWvbH9KgZTW2E+wVmqazzVVu1X2Hzpm2dlVwq6lnk6lJQhIOnBMoH0CwB0skWYkGd+4nRC3aGGrD5zihyNT5PsTrsjxQ3NSAJfF1h6ixEJaGIk8k5lirRbHR2z/yENRYuYU6sSmo8jOgh7s4MVPWE2nbyyMo1umdfoTfsc9HwAeuGKeLnXW/J7rkHRrWSl61e+iGiwfdOHY6pmTviTSvOB3kvO2GS1qGTd+Fv9T+Fpy7zie+Si4Df1o/KPIjGiMzW3eOMkamNkk+7yA1mNZFIAqcBlgfJh9tCRBOGWacnDypjv3nGlyQacl+DjZSRCymwtKinZIZKRbrX6cOr3Qg1RRejIMbQ95/38uBgxZRsI5zQnbpgcJlmpIL36tC/v7+JkuLT1jBpqqVYJUZCUGlBGMDk7HMyEL8IqAkU2nYOdfVecRsij2nbSr3jqVwbqbbmdghdVm1EQdWOMrbGOzDlrsBhhDqQ6Lt9hTdB0e2L9pIZVWkRxnFTnZNcsD91/Ygsk0X8xNjJ/lA557DYxNKDWN5WXR/MWjMu2f5E5mddr+V8LeMEa8j4PiwN68O0
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR11MB6508.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(376014)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1RFY1ArWE1mRFZ1U3ZZSStRZDN2NytpaG11TlBPQUlsQ3VRRUh4Slo4aTlZ?=
+ =?utf-8?B?Z3p4SkJNZUVqeFNiU08rSXgxTzhyOHBiODU3ZkFlMGVWRGRrRGtSamtCYmlB?=
+ =?utf-8?B?OEpoMUZ1alFIK0pvU1IrMzNJY2dYRi9jQ1FZYS83ZDVmdlBwRko3TjdOTXdF?=
+ =?utf-8?B?cmgyc09HaTg0SWd4Z2M3amIyR1lybkZLWTZSa3U3cks0Q1o5T0hQSFYycmxN?=
+ =?utf-8?B?UHlwOEhmbmp2NE04R2t1OFhNdnp3NnppYW1UY0NOQmZEYmFhbUZsU2YrNlgy?=
+ =?utf-8?B?dXROVGVmM1lPUVR3VFVLS1JSekpNVUJwZzU2dHh0VUwyYTB3WmEzZml2TEhp?=
+ =?utf-8?B?UmFmSldMT2hMUHlFb2k5NENGK3UwUldod01QQ29rV1E0QUNuQzM0TDF1TEVV?=
+ =?utf-8?B?WXc1WVJWY3dNTzhCOHY5QTlhdVdUV2JES2x5TlhJaERvMEYxVzBCNjZhWFdE?=
+ =?utf-8?B?SmpSajUramVrN0hLUS9VWENPUjNhMktqZ2xISlg3N1hKUGpzT0lNejIxR2xP?=
+ =?utf-8?B?dG95Mm9Cd0NmNHk4N2orQk1aL05oWjJzRW1Rcis3UnZFakIwbHh4eEp4M3NG?=
+ =?utf-8?B?RnMxVWE4OTZCZW10QzcxSlZtcDNVT0hJWGx1azRUSE1mcGd6aFlYeUlGVFFC?=
+ =?utf-8?B?dHRyK0FGYWdFMlhOL0NkWnNXSzB5SGRuSTZpM1NmaWc4TWo1TXNqUXo5SGlH?=
+ =?utf-8?B?Sk5wMENCVmJKUE1YVndSaUpPS3UrRm4wNXo5bnRpWXdKODJaQlRGTWlEQ3VW?=
+ =?utf-8?B?WGVjWWk0Y1dGVk51WC9wZUMrUUsreVU2MGdzS0ZlOWRNL29BaHI2MGpHUyty?=
+ =?utf-8?B?ZC84SjNHeGNXb3RJUVNrYlNJZEh4Y2hoSmdWTklkWXdyQzRob3Buc2E1SkRS?=
+ =?utf-8?B?ekVMc0lQUlZhQUpXODFNTm1Mazk2VXNLcXVhUkc4UGhZbHJnTFRTNGJka0lJ?=
+ =?utf-8?B?Q3NYNG5IRlFlZEFuS3NQbFI4TUgxZUhnNWxzVG5xVk5nbktSbTZrWEJLRkdT?=
+ =?utf-8?B?WGVOblJRWnoxNVVwcHlKa0JwU3VGZ3Y2VEpCYlhyMEJzdGVza2V0WVFXWlBC?=
+ =?utf-8?B?VkdNdGkzM3d2NFMycXA1Q0tQMFV5dnhNK0N5Mzc3OURPNjNPOUZkM1gwN00v?=
+ =?utf-8?B?ejJqYUE2blBxYUFON3pJNURiVWZhWi9yNEFGNEFKa016MERqSkRkekVXZUln?=
+ =?utf-8?B?ZjAvOTFKcUM3TEQwdlpmKzVjd25FSGp4RzRiY0tvcm0rbzRwSktacGlxTEU5?=
+ =?utf-8?B?REU4VEZGQ1V6V3kxb2ZqZVk5ZU5zYVhjOTRuMU5sZ3JQUVRkeEw5azQycFlM?=
+ =?utf-8?B?Z0cyVUJBNWl2cEJ0S25YUUhObW0xeGlsRG9DUkorVk5pVGl0TTQwZWNJaTM3?=
+ =?utf-8?B?RkowZjU0V0ZKN0hkQlhTS3pWSXREa2RaZ1BrWDFmcW81NGdsV1YvdzdqNDU5?=
+ =?utf-8?B?WHQxRWhESTZrdEhuTURSK3pZOFQ3cEExeWgzZXFJVEM1aXFxbkdkR2ZpbFVx?=
+ =?utf-8?B?eE15ZHVraWZrZ2UxOXY2ZUoyTXpJdlAzOENNS3pJdGtYSmdJWDFvdk1ZWUpU?=
+ =?utf-8?B?Zk1OdzFOVXFXSmVOWnVzN0JSVW5vNW13WHpWSTdRdkRQd1A5dmlWNm4zV3Fs?=
+ =?utf-8?B?dldsMEJmZ0JEOXNjQTA4djk4NFN4WnhOaEZSWm5sOEc1WU5kdHpUSXFHN2tj?=
+ =?utf-8?B?WkxMWHRIeFZJUGxvVFdoTkFyQkVLalgzOFE1RDVDWityUTFaYUlONTR0VnhC?=
+ =?utf-8?B?bUpkckZIS2F0SFNpNmc0Tm5iV2FYWWJoQ1hCclp6ZFQ4SmNKM0VnK2cwcVdk?=
+ =?utf-8?B?NWpHenpPazRNMS9UNGRlRi9JTjV6Vit1Q0E3MmNjbFI5NFc2RGg4WVZUN0hw?=
+ =?utf-8?B?MzRqN0xVcVFXQ2ZZei9pTlNWU2RTL3FqOVJXTW5Wcms5amZ4bW80SUYzY0cz?=
+ =?utf-8?B?MWsrZmhwdmRrWUZPcy9lZjBPWldhTUc4d1lvMjVUM0tIM3Y3K2pZdUpSNUlX?=
+ =?utf-8?B?enQ4NVZ2RnMyME9nak12d2RPZ3RFV0F5R2Z5VFhHR1ArcitPSk5MeGhqK0Ra?=
+ =?utf-8?B?MkJnUzRIemxuSm00MFdNVjdSUVFNSms2cUl0NjUrRmJvNzRoWEJJK1VCbGEw?=
+ =?utf-8?B?UUNzbDNXVk1FdjM1bWZvVjRNWlFjbUhFNkY3a3NYalhoSC93RVBRa1ZFR01N?=
+ =?utf-8?B?bTNIUmo0aFJSSEpwM09QOGdweVJiTmlDS3RzaThUdElnRnJ2QjkyYnFiQko3?=
+ =?utf-8?B?QU1seGc5cVM2RFZVdDR3UDd2ai9TL2hra0JmR25kRE5yU2hIK0wvMnNzQ20v?=
+ =?utf-8?B?UnRaQ1JtNXkzUkdkb3Z6U3c2YWVBeXVkN2RSWkVNdUpHNXJDWHpkVHlLL2VO?=
+ =?utf-8?Q?68pmiutkiLg12rsI=3D?=
+X-Exchange-RoutingPolicyChecked: EKHJtyn8fYsOhLeSNb7IDu0fix6ynDvEXqtgZMGfed8nU/iptDCmo+dtX+F0n5c19sp3Jv7bK1LE3py9rJoX/9tROU7OQVLCZm2AEpU4H5B3GahkI2Q2ZZeWsfiTT7ihqqUTrtbmd79XfFoirbq6j8qCTbEYnQpCmLmwn1YwAv+UVY8cvrR+0LMajpXA1r/VqK29mWznl+wyvTvkJn1ev6PaRZ96egb0Tu4rW1adl+n1JkPIU2I7n1f5y0KuaqBJl6sp3rxV6rJ+9mYP//BpEkYcqPS7t1bxQSygjlMCivINVeoCLUX1hCnRYSwQe7I42q99QT/mzPt6vPULLztRDg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b99e098-25cc-48f3-ed60-08df04d45e14
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 07:17:07.1279
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V+zkfGe5X+mcB9+am4CKIL7nFM+MpDRKVvBkzu4s8rcp46lN9sqSE3KQSuKqSePCCPi6Ud8DS6lXoGwxkasGNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4825
+X-OriginatorOrg: intel.com
 
-When the last bit in a suballocator block group is freed,
-_ocfs2_free_suballoc_bits() reclaims the group back to the global
-bitmap.  The reclaim takes inode_lock() on the global bitmap inode
-while running inside the freeing transaction, adding a lock
-dependency of
+On Fri, Aug 28, 2026 at 12:01:02PM +0530, Srinivasan Shanmugam wrote:
+> Introduce a common DRM user fence helper providing the kref-managed,
+> MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
+> that must access userspace memory from a kthread context when a GPU
+> fence signals.
+> 
+> XE uses this pattern (xe_sync.c) to write a fence completion value
+> to a userspace VA. AMDGPU will use the same pattern to signal a
+> per-queue eventfd from a user-queue EOP fence callback.
+> 
+> The helper provides:
+>  - struct drm_user_fence: embeddable base structure
+>  - struct drm_user_fence_ops: worker/destroy callbacks
+>  - drm_user_fence_init(): initialize and grab the process MM
+>  - drm_user_fence_get/put(): reference counting
+>  - drm_user_fence_add_callback(): attach to a dma-fence
+> 
+> The worker callback receives a bool indicating whether the process
+> MM was successfully obtained, allowing drivers to handle the
+> unavailable-MM case (log, skip the userspace write, etc.) without
+> duplicating the mmget/kthread_use_mm/mmput boilerplate.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
 
-  j_trans_barrier -> global bitmap inode i_rwsem
+First off, I'm supportive of the idea of a common DRM layer for user
+fences and updating Xe accordingly.
 
-This forms a circular dependency with paths such as
-ocfs2_shutdown_local_alloc(), which take the global bitmap inode
-lock before starting a transaction:
+This isn't a complete review, but here's a quick initial suggestion.
 
-  Task1 (dealloc):
-    ocfs2_run_deallocs
-      ocfs2_free_cached_blocks
-        ocfs2_start_trans
-          down_read(j_trans_barrier)
-        _ocfs2_free_suballoc_bits
-          _ocfs2_reclaim_suballoc_to_main
-            inode_lock(main_bm_inode)  <- wait on Task2
+Also, by the way, you're still fighting our CI [1]. Feel free to keep
+hammering on it, as that's what it's there for. iirc if kunit fails as
+in this case, nothing else will run. Ask AI and should be able to get
+instructions on how to build our kunit + run it (it doesn't require
+Intel hardware in a lot of cases).
 
-  Task2 (dismount):
-    ocfs2_shutdown_local_alloc
-      inode_lock(main_bm_inode)
-      ocfs2_start_trans
-        down_read(j_trans_barrier)  <- wait on Task3
+[1] https://patchwork.freedesktop.org/series/172930/
 
-  Task3 (ocfs2cmt):
-    ocfs2_commit_cache
-      down_write(j_trans_barrier)  <- wait on Task1's handle
-      jbd2_journal_flush
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: intel-xe@lists.freedesktop.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+> v4:
+>  - Check cancel_work_sync() return value in drm_user_fence_cancel_sync()
+>    and call drm_user_fence_put() if work was dequeued, fixing a memory
+>    leak of the drm_user_fence, mm_struct and stored dma_fence when a
+>    pending work item is cancelled. (Sashiko review)
+> 
+>  drivers/gpu/drm/Makefile         |   1 +
+>  drivers/gpu/drm/drm_user_fence.c | 223 +++++++++++++++++++++++++++++++
+>  include/drm/drm_user_fence.h     |  76 +++++++++++
+>  3 files changed, 300 insertions(+)
+>  create mode 100644 drivers/gpu/drm/drm_user_fence.c
+>  create mode 100644 include/drm/drm_user_fence.h
+> 
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd783..52de1f474535 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -69,6 +69,7 @@ drm-y := \
+>  	drm_syncobj.o \
+>  	drm_sysfs.o \
+>  	drm_trace_points.o \
+> +	drm_user_fence.o \
+>  	drm_vblank.o \
+>  	drm_vblank_work.o \
+>  	drm_vma_manager.o \
+> diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
+> new file mode 100644
+> index 000000000000..cdc47d092cbb
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_user_fence.c
+> @@ -0,0 +1,223 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2024 The Linux Foundation
+> + *
+> + * Common DRM user fence helper.
+> + *
+> + * When a GPU dma-fence signals, drivers often need to write a value to a
+> + * userspace VA or notify userspace via an eventfd. Both operations require
+> + * a valid process MM, which is not available in IRQ context.
+> + *
+> + * This helper queues a work item on fence signal. The work item borrows the
+> + * process MM via kthread_use_mm() and calls ops->worker(), which the driver
+> + * implements to perform the actual userspace access.
+> + */
+> +
+> +#include <linux/kthread.h>
+> +#include <linux/sched/mm.h>
+> +#include <linux/workqueue.h>
+> +
+> +#include <drm/drm_user_fence.h>
+> +
+> +static void drm_user_fence_destroy(struct kref *kref)
+> +{
+> +	struct drm_user_fence *ufence =
+> +		container_of(kref, struct drm_user_fence, refcount);
+> +
+> +	/* Release the extra reference stored for cancel() */
+> +	if (ufence->fence)
+> +		dma_fence_put(ufence->fence);
+> +
+> +	mmdrop(ufence->mm);
+> +	ufence->ops->destroy(ufence);
+> +}
+> +
+> +/**
+> + * drm_user_fence_get - Acquire a reference to a user fence
+> + * @ufence: user fence
+> + */
+> +void drm_user_fence_get(struct drm_user_fence *ufence)
+> +{
+> +	kref_get(&ufence->refcount);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_get);
+> +
+> +/**
+> + * drm_user_fence_put - Release a reference to a user fence
+> + * @ufence: user fence
+> + */
+> +void drm_user_fence_put(struct drm_user_fence *ufence)
+> +{
+> +	kref_put(&ufence->refcount, drm_user_fence_destroy);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_put);
+> +
+> +static void drm_user_fence_work(struct work_struct *w)
+> +{
+> +	struct drm_user_fence *ufence =
+> +		container_of(w, struct drm_user_fence, work);
+> +	bool mm_ok = false;
+> +
+> +	if (mmget_not_zero(ufence->mm)) {
+> +		kthread_use_mm(ufence->mm);
+> +		mm_ok = true;
+> +	}
+> +
+> +	ufence->ops->worker(ufence, mm_ok);
+> +
+> +	if (mm_ok) {
+> +		kthread_unuse_mm(ufence->mm);
+> +		mmput(ufence->mm);
+> +	}
+> +
+> +	drm_user_fence_put(ufence);
+> +}
+> +
+> +static void drm_user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
+> +{
+> +	struct drm_user_fence *ufence =
+> +		container_of(cb, struct drm_user_fence, cb);
+> +
+> +	queue_work(ufence->wq, &ufence->work);
+> +	/*
+> +	 * Put the transferred reference from add_callback. The stored
+> +	 * reference in ufence->fence is released in drm_user_fence_destroy().
+> +	 */
+> +	dma_fence_put(fence);
+> +}
+> +
+> +/**
+> + * drm_user_fence_init - Initialize a user fence
+> + * @ufence: user fence to initialize
+> + * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
+> + * @ops: driver operations
+> + *
+> + * Must be called from process context with a valid current->mm.
+> + * Grabs a reference to current->mm via mmgrab().
+> + */
+> +void drm_user_fence_init(struct drm_user_fence *ufence,
+> +			 struct workqueue_struct *wq,
+> +			 const struct drm_user_fence_ops *ops)
+> +{
+> +	kref_init(&ufence->refcount);
+> +	ufence->mm = current->mm;
+> +	mmgrab(ufence->mm);
+> +	ufence->wq = wq;
+> +	ufence->ops = ops;
+> +	ufence->fence = NULL;
+> +	INIT_WORK(&ufence->work, drm_user_fence_work);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_init);
+> +
+> +/**
+> + * drm_user_fence_add_callback - Attach a user fence to a dma-fence
+> + * @ufence: user fence
+> + * @fence: dma-fence to watch; ownership of this reference is transferred
+> + *         to the callback — caller must NOT put it afterward.
+> + *
+> + * When @fence signals, a work item is queued that calls ops->worker() with
+> + * the process MM active. If @fence has already signaled the work item is
+> + * queued immediately.
+> + *
+> + * An additional reference to @fence is stored internally in @ufence to
+> + * allow drm_user_fence_cancel() to be called safely without the caller
+> + * needing to hold a separate fence reference.
+> + *
+> + * On any return value the caller's fence reference is consumed.
+> + *
+> + * Return: 0 on success, negative errno on error.
+> + */
+> +int drm_user_fence_add_callback(struct drm_user_fence *ufence,
+> +				struct dma_fence *fence)
+> +{
+> +	int err;
+> +
+> +	drm_user_fence_get(ufence);
+> +
+> +	/* Extra ref stored for cancel() — lives until drm_user_fence_destroy() */
+> +	ufence->fence = dma_fence_get(fence);
+> +
+> +	err = dma_fence_add_callback(fence, &ufence->cb, drm_user_fence_cb);
+> +	if (err == -ENOENT) {
+> +		/* fence already signaled — queue work and release transferred ref */
+> +		queue_work(ufence->wq, &ufence->work);
+> +		dma_fence_put(fence);
+> +		err = 0;
+> +	} else if (err) {
+> +		dma_fence_put(ufence->fence);
+> +		ufence->fence = NULL;
+> +		drm_user_fence_put(ufence);
+> +		dma_fence_put(fence);
+> +	}
+> +	/* on success: transferred ref goes to drm_user_fence_cb */
+> +
+> +	return err;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_add_callback);
+> +
+> +/**
+> + * drm_user_fence_cancel - Cancel a pending user fence callback
+> + * @ufence: user fence
+> + *
+> + * Attempts to remove the pending callback before driver context teardown.
+> + * Must be called before the driver tears down its workqueue or ops.
+> + * The caller must hold a reference to @ufence across this call.
+> + *
+> + * If the callback has already fired this returns false and no additional
+> + * action is needed — the callback handles its own reference.
+> + *
+> + * If removal succeeds the callback reference is released internally.
+> + * The caller must still release its own separate reference via
+> + * drm_user_fence_put() when done with the object.
+> + *
+> + * This function is safe to call from atomic context as it only acquires
+> + * the dma-fence spinlock internally. If the caller also needs to wait
+> + * for the worker to finish, use drm_user_fence_cancel_sync() instead,
+> + * which may sleep.
+> + *
+> + * Return: true if callback was removed, false if it had already fired.
+> + */
+> +bool drm_user_fence_cancel(struct drm_user_fence *ufence)
+> +{
+> +	struct dma_fence *fence = ufence->fence;
+> +
+> +	if (!fence)
+> +		return false;
+> +
+> +	if (dma_fence_remove_callback(fence, &ufence->cb)) {
+> +		/*
+> +		 * Callback will not fire — release the transferred reference
+> +		 * that would have been put by drm_user_fence_cb(). The stored
+> +		 * reference in ufence->fence is released in destroy().
+> +		 */
+> +		dma_fence_put(fence);
+> +		drm_user_fence_put(ufence);
+> +		return true;
+> +	}
+> +
+> +	/* Callback already fired — it handled its own cleanup */
+> +	return false;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_cancel);
+> +
+> +/**
+> + * drm_user_fence_cancel_sync - Cancel callback and wait for worker to finish
+> + * @ufence: user fence
+> + *
+> + * Calls drm_user_fence_cancel() then cancel_work_sync() to guarantee
+> + * the worker has fully completed before returning.
+> + *
+> + * This function may sleep. Must not be called from atomic or interrupt
+> + * context. Use drm_user_fence_cancel() instead when sleeping is not
+> + * allowed.
+> + *
+> + * Drivers must call this during teardown before freeing any resources
+> + * accessed by ops->worker().
+> + */
+> +void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
+> +{
+> +	drm_user_fence_cancel(ufence);
+> +	if (cancel_work_sync(&ufence->work))
+> +		drm_user_fence_put(ufence);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_user_fence_cancel_sync);
+> diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
+> new file mode 100644
+> index 000000000000..02a02266ab93
+> --- /dev/null
+> +++ b/include/drm/drm_user_fence.h
+> @@ -0,0 +1,75 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright © 2024 The Linux Foundation
+> + */
+> +
+> +#ifndef __DRM_USER_FENCE_H__
+> +#define __DRM_USER_FENCE_H__
+> +
+> +#include <linux/dma-fence.h>
+> +#include <linux/kref.h>
+> +#include <linux/workqueue.h>
+> +
+> +struct drm_user_fence;
+> +
+> +/**
+> + * struct drm_user_fence_ops - driver callbacks for a DRM user fence
+> + */
+> +struct drm_user_fence_ops {
+> +	/**
+> +	 * @worker: Called from workqueue context.
+> +	 *
+> +	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
+> +	 * (copy_to_user, eventfd_signal, etc.) may be accessed safely.
+> +	 * If @mm_ok is false, the process MM was already gone; the driver
+> +	 * should log a warning and skip the userspace write.
+> +	 *
+> +	 * wake_up() or other post-signal housekeeping should also happen here.
+> +	 */
+> +	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
+> +
+> +	/**
+> +	 * @destroy: Called when the last reference is dropped.
+> +	 * Free the containing structure here.
+> +	 */
+> +	void (*destroy)(struct drm_user_fence *ufence);
+> +};
+> +
+> +/**
+> + * struct drm_user_fence - embeddable DRM user fence
+> + *
+> + * Drivers embed this in their own structure and implement
+> + * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
+> + * drm_user_fence_add_callback() to arm on a dma-fence.
+> + * Call drm_user_fence_cancel_sync() before driver teardown.
+> + */
+> +struct drm_user_fence {
 
-Task1 waits for Task2's inode_lock(), Task2 waits for the
-j_trans_barrier down_write() held by ocfs2cmt, and ocfs2cmt waits
-for Task1's running transaction to commit - a real deadlock,
-observed with aio-stress direct IO writes racing dismount.
+Should this common layer be split into two distinct concepts?
 
-Fix it by deferring the reclaim to the per-superblock ocfs2_wq
-workqueue, so the freeing transaction no longer takes the global
-bitmap inode lock.  The worker re-checks under the suballocator
-locks that the block group is still fully freed (it may have been
-allocated from again in the meantime), takes the global bitmap
-inode locks before starting its own transaction, and performs the
-same suballocator cleanup and space return.  The inode lock order
-(suballocator inode -> global bitmap inode) is consistent with the
-existing "inode lock before transaction" order, breaking the cycle.
+- drm_work_fence: 90% of what is here, minus the kthread_use_mm() and
+  mm-related code.
+- drm_user_fence: a subclass of drm_work_fence that adds the
+  kthread_use_mm() and mm-related code.
 
-Reclaim work can still be queued late in dismount, e.g. when the
-truncate log is flushed or orphan dir recovery frees inode bits, so
-both ocfs2_dismount_volume() and the mount error path flush
-ocfs2_wq right before the system inodes are released, while the
-journal is still alive, to make sure no reclaim work is left
-running.  The worker also bails out if the journal is already gone.
+I suggest this because I was thinking about it the other day (I forget
+the exact context) and reconsidered a pattern where a fence signals and
+then I need a worker because some work must be done outside of IRQ
+context. A user fence is one example, since copy_to_user() can fault,
+which is not allowed in IRQ context. At various times in Xe we've had
+multiple patterns like this, although at the moment user fences are
+probably the only case that requires it. If we looked across DRM as a
+whole, I suspect we'd find this pattern open-coded in a number of
+places.
 
-Tested with the ocfs2 testsuite (including aio-stress direct IO)
-and umount/mount cycles on a CONFIG_PROVE_LOCKING kernel: the
-circular locking dependency is gone and freed block groups are
-still returned to the global bitmap.
+Yes, drm_user_fence would be a very thin layer on top of drm_work_fence,
+but I still see value in the split.
+ 
+Matt
 
-Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/ocfs2.h    |   5 ++
- fs/ocfs2/suballoc.c | 202 +++++++++++++++++++++++++++++++++++++-------
- fs/ocfs2/suballoc.h |   2 +-
- fs/ocfs2/super.c    |  16 ++++
- 4 files changed, 195 insertions(+), 30 deletions(-)
-
-diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
-index 62cad6522c7a..b747cdec1787 100644
---- a/fs/ocfs2/ocfs2.h
-+++ b/fs/ocfs2/ocfs2.h
-@@ -502,6 +502,11 @@ struct ocfs2_super
- 	 */
- 	struct workqueue_struct *ocfs2_wq;
- 
-+	/* deferred reclaim of fully freed suballocator block groups */
-+	spinlock_t os_suballoc_reclaim_lock;
-+	struct list_head os_suballoc_reclaim_list;
-+	struct work_struct os_suballoc_reclaim_work;
-+
- 	/* sysfs directory per partition */
- 	struct kset *osb_dev_kset;
- 
-diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-index 20c3aec6b987..453b56be9624 100644
---- a/fs/ocfs2/suballoc.c
-+++ b/fs/ocfs2/suballoc.c
-@@ -2687,16 +2687,24 @@ static int ocfs2_block_group_clear_bits(handle_t *handle,
-  * cleanup rec/alloc_inode job, then switches to the main bitmap
-  * to reclaim released space.
-  *
-+ * Callers must hold inode_lock() and ocfs2_inode_lock() on
-+ * main_bm_inode, i.e. the global bitmap inode locks must be taken
-+ * before starting the transaction.
-+ *
-  * handle: The transaction handle
-  * alloc_inode: The suballoc inode
-  * alloc_bh: The buffer_head of suballoc inode
-  * group_bh: The group descriptor buffer_head of suballocator managed.
-- *           Caller should release the input group_bh.
-+ *           This function takes ownership of it and will release it.
-+ * main_bm_inode: The global bitmap inode
-+ * main_bm_bh: The buffer_head of the global bitmap inode
-  */
- static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 			struct inode *alloc_inode,
- 			struct buffer_head *alloc_bh,
--			struct buffer_head *group_bh)
-+			struct buffer_head *group_bh,
-+			struct inode *main_bm_inode,
-+			struct buffer_head *main_bm_bh)
- {
- 	int idx, status = 0;
- 	int i, next_free_rec, len = 0;
-@@ -2706,8 +2714,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	u64 bg_blkno, start_blk;
- 	unsigned int count;
- 	struct ocfs2_chain_rec *rec;
--	struct buffer_head *main_bm_bh = NULL;
--	struct inode *main_bm_inode = NULL;
- 	struct ocfs2_super *osb = OCFS2_SB(alloc_inode->i_sb);
- 	struct ocfs2_dinode *fe = (struct ocfs2_dinode *) alloc_bh->b_data;
- 	struct ocfs2_chain_list *cl = &fe->id2.i_chain;
-@@ -2794,24 +2800,12 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	ocfs2_remove_from_cache(INODE_CACHE(alloc_inode), group_bh);
- 	memset(group, 0, sizeof(struct ocfs2_group_desc));
- 
--	/* prepare job for reclaim clusters */
--	main_bm_inode = ocfs2_get_system_file_inode(osb,
--						    GLOBAL_BITMAP_SYSTEM_INODE,
--						    OCFS2_INVALID_SLOT);
--	if (!main_bm_inode)
--		goto bail; /* ignore the error in reclaim path */
--
--	inode_lock(main_bm_inode);
--
--	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
--	if (status < 0)
--		goto free_bm_inode; /* ignore the error in reclaim path */
--
- 	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
- 				     &start_bit);
- 	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
- 	cl = &fe->id2.i_chain;
--	/* reuse group_bh, caller will release the input group_bh */
-+	/* release the suballocator group descriptor before reuse */
-+	brelse(group_bh);
- 	group_bh = NULL;
- 
- 	/* reclaim clusters to global_bitmap */
-@@ -2819,7 +2813,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 					     &group_bh);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto free_bm_bh;
-+		goto bail;
- 	}
- 	group = (struct ocfs2_group_desc *) group_bh->b_data;
- 
-@@ -2827,7 +2821,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 		ocfs2_error(alloc_inode->i_sb,
- 			"reclaim length (%d) beyands block group length (%d)",
- 			count + start_bit, le16_to_cpu(group->bg_bits));
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	old_bg_contig_free_bits = group->bg_contig_free_bits;
-@@ -2837,7 +2831,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 					      _ocfs2_clear_bit);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	status = ocfs2_journal_access_di(handle, INODE_CACHE(main_bm_inode),
-@@ -2847,7 +2841,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 		ocfs2_block_group_set_bits(handle, main_bm_inode, group, group_bh,
- 				start_bit, count,
- 				le16_to_cpu(old_bg_contig_free_bits), 1);
--		goto free_group_bh;
-+		goto bail;
- 	}
- 
- 	idx = le16_to_cpu(group->bg_chain);
-@@ -2858,19 +2852,168 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
- 	fe->id1.bitmap1.i_used = cpu_to_le32(tmp_used - count);
- 	ocfs2_journal_dirty(handle, main_bm_bh);
- 
--free_group_bh:
-+bail:
- 	brelse(group_bh);
-+	return status;
-+}
-+
-+/*
-+ * When a suballocator block group becomes fully freed, its space is
-+ * reclaimed back to the global bitmap. Taking the global bitmap inode
-+ * lock inside the freeing transaction would create a lock dependency
-+ * of "j_trans_barrier -> global bitmap inode i_rwsem", which forms a
-+ * circular dependency with paths like ocfs2_shutdown_local_alloc() that
-+ * take the inode lock before starting a transaction, and can lead to a
-+ * real deadlock with the ocfs2cmt journal commit thread. So queue the
-+ * reclaim to the workqueue and let it run outside the freeing
-+ * transaction.
-+ */
-+struct ocfs2_suballoc_reclaim_work {
-+	struct list_head list;
-+	struct inode *alloc_inode;
-+	u64 bg_blkno;
-+};
-+
-+static void ocfs2_queue_suballoc_reclaim(struct ocfs2_super *osb,
-+					 struct inode *alloc_inode,
-+					 u64 bg_blkno)
-+{
-+	struct ocfs2_suballoc_reclaim_work *reclaim_work;
-+
-+	reclaim_work = kmalloc_obj(*reclaim_work, GFP_NOFS);
-+	if (!reclaim_work) {
-+		/*
-+		 * Reclaim is only a space return optimization. If we can't
-+		 * queue it, the freed block group just stays owned by the
-+		 * suballocator.
-+		 */
-+		return;
-+	}
-+
-+	igrab(alloc_inode);
-+	reclaim_work->alloc_inode = alloc_inode;
-+	reclaim_work->bg_blkno = bg_blkno;
-+
-+	spin_lock(&osb->os_suballoc_reclaim_lock);
-+	list_add_tail(&reclaim_work->list, &osb->os_suballoc_reclaim_list);
-+	spin_unlock(&osb->os_suballoc_reclaim_lock);
- 
--free_bm_bh:
-+	queue_work(osb->ocfs2_wq, &osb->os_suballoc_reclaim_work);
-+}
-+
-+static void ocfs2_do_suballoc_reclaim(struct ocfs2_super *osb,
-+				struct ocfs2_suballoc_reclaim_work *reclaim_work)
-+{
-+	int status, i;
-+	handle_t *handle;
-+	struct inode *alloc_inode = reclaim_work->alloc_inode;
-+	struct inode *main_bm_inode;
-+	struct buffer_head *alloc_bh = NULL, *group_bh = NULL;
-+	struct buffer_head *main_bm_bh = NULL;
-+	struct ocfs2_dinode *fe;
-+	struct ocfs2_chain_list *cl;
-+	struct ocfs2_chain_rec *rec;
-+
-+	/* journal already gone, e.g. during dismount cleanup */
-+	if (!osb->journal)
-+		return;
-+
-+	inode_lock(alloc_inode);
-+	status = ocfs2_inode_lock(alloc_inode, &alloc_bh, 1);
-+	if (status < 0)
-+		goto out_alloc;
-+
-+	fe = (struct ocfs2_dinode *) alloc_bh->b_data;
-+	cl = &fe->id2.i_chain;
-+
-+	/*
-+	 * The block group may have been allocated from again since the
-+	 * reclaim work was queued, re-check that it is still fully freed.
-+	 * A stale work item can also reference a group that is no longer
-+	 * chained, whose descriptor would fail validation and trigger a
-+	 * spurious ocfs2_error(), so verify chain membership first.
-+	 */
-+	for (i = 0; i < le16_to_cpu(cl->cl_next_free_rec); i++) {
-+		rec = &cl->cl_recs[i];
-+		if (le64_to_cpu(rec->c_blkno) == reclaim_work->bg_blkno)
-+			break;
-+	}
-+	if (i == le16_to_cpu(cl->cl_next_free_rec) ||
-+	    ocfs2_is_cluster_bitmap(alloc_inode) ||
-+	    (le32_to_cpu(rec->c_free) != (le32_to_cpu(rec->c_total) - 1)) ||
-+	    (le16_to_cpu(cl->cl_next_free_rec) == 1))
-+		goto out_alloc_unlock;
-+
-+	status = ocfs2_read_group_descriptor(alloc_inode, fe,
-+					     reclaim_work->bg_blkno, &group_bh);
-+	if (status < 0)
-+		goto out_alloc_unlock;
-+
-+	main_bm_inode = ocfs2_get_system_file_inode(osb,
-+						    GLOBAL_BITMAP_SYSTEM_INODE,
-+						    OCFS2_INVALID_SLOT);
-+	if (!main_bm_inode)
-+		goto out_group;
-+
-+	inode_lock(main_bm_inode);
-+	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
-+	if (status < 0)
-+		goto out_main;
-+
-+	handle = ocfs2_start_trans(osb, OCFS2_SUBALLOC_FREE);
-+	if (IS_ERR(handle)) {
-+		status = PTR_ERR(handle);
-+		mlog_errno(status);
-+		goto out_main_unlock;
-+	}
-+
-+	status = _ocfs2_reclaim_suballoc_to_main(handle, alloc_inode,
-+						 alloc_bh, group_bh,
-+						 main_bm_inode, main_bm_bh);
-+	/* group_bh ownership passed to _ocfs2_reclaim_suballoc_to_main() */
-+	group_bh = NULL;
-+	if (status < 0)
-+		mlog_errno(status);
-+
-+	ocfs2_commit_trans(osb, handle);
-+
-+out_main_unlock:
- 	ocfs2_inode_unlock(main_bm_inode, 1);
- 	brelse(main_bm_bh);
--
--free_bm_inode:
-+out_main:
- 	inode_unlock(main_bm_inode);
- 	iput(main_bm_inode);
-+out_group:
-+	brelse(group_bh);
-+out_alloc_unlock:
-+	ocfs2_inode_unlock(alloc_inode, 1);
-+	brelse(alloc_bh);
-+out_alloc:
-+	inode_unlock(alloc_inode);
-+}
- 
--bail:
--	return status;
-+void ocfs2_suballoc_reclaim_worker(struct work_struct *work)
-+{
-+	struct ocfs2_super *osb = container_of(work, struct ocfs2_super,
-+					       os_suballoc_reclaim_work);
-+	struct ocfs2_suballoc_reclaim_work *reclaim_work;
-+
-+	while (1) {
-+		spin_lock(&osb->os_suballoc_reclaim_lock);
-+		if (list_empty(&osb->os_suballoc_reclaim_list)) {
-+			spin_unlock(&osb->os_suballoc_reclaim_lock);
-+			break;
-+		}
-+		reclaim_work = list_first_entry(&osb->os_suballoc_reclaim_list,
-+					struct ocfs2_suballoc_reclaim_work,
-+					list);
-+		list_del(&reclaim_work->list);
-+		spin_unlock(&osb->os_suballoc_reclaim_lock);
-+
-+		ocfs2_do_suballoc_reclaim(osb, reclaim_work);
-+		iput(reclaim_work->alloc_inode);
-+		kfree(reclaim_work);
-+	}
- }
- 
- /*
-@@ -2955,7 +3098,8 @@ static int _ocfs2_free_suballoc_bits(handle_t *handle,
- 		goto bail;
- 	}
- 
--	_ocfs2_reclaim_suballoc_to_main(handle, alloc_inode, alloc_bh, group_bh);
-+	ocfs2_queue_suballoc_reclaim(OCFS2_SB(alloc_inode->i_sb), alloc_inode,
-+				     bg_blkno);
- 
- bail:
- 	brelse(group_bh);
-diff --git a/fs/ocfs2/suballoc.h b/fs/ocfs2/suballoc.h
-index bcf2ed4a8631..6042abc032f9 100644
---- a/fs/ocfs2/suballoc.h
-+++ b/fs/ocfs2/suballoc.h
-@@ -206,7 +206,7 @@ int ocfs2_lock_allocators(struct inode *inode, struct ocfs2_extent_tree *et,
- 
- int ocfs2_test_inode_bit(struct ocfs2_super *osb, u64 blkno, int *res);
- 
--
-+void ocfs2_suballoc_reclaim_worker(struct work_struct *work);
- 
- /*
-  * The following two interfaces are for ocfs2_create_inode_in_orphan().
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index f785c39d1fb8..b7c29d3c0321 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1787,6 +1787,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
- out_system_inodes:
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
-+	/* Drain pending suballoc reclaim work before the journal goes away */
-+	if (osb->ocfs2_wq)
-+		flush_workqueue(osb->ocfs2_wq);
- 	ocfs2_release_system_inodes(osb);
- 	/* before journal shutdown, we should release slot_info */
- 	ocfs2_free_slot_info(osb);
-@@ -1857,6 +1860,14 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 	if (osb->cconn)
- 		ocfs2_super_unlock(osb, 1);
- 
-+	/*
-+	 * Drain pending suballoc reclaim work while the system inodes and
-+	 * the journal are still alive, since the worker needs to look up
-+	 * the global bitmap inode and start a transaction.
-+	 */
-+	if (osb->ocfs2_wq)
-+		flush_workqueue(osb->ocfs2_wq);
-+
- 	ocfs2_release_system_inodes(osb);
- 
- 	ocfs2_journal_shutdown(osb);
-@@ -2143,6 +2154,11 @@ static int ocfs2_initialize_super(struct super_block *sb,
- 	INIT_WORK(&osb->dquot_drop_work, ocfs2_drop_dquot_refs);
- 	init_llist_head(&osb->dquot_drop_list);
- 
-+	spin_lock_init(&osb->os_suballoc_reclaim_lock);
-+	INIT_LIST_HEAD(&osb->os_suballoc_reclaim_list);
-+	INIT_WORK(&osb->os_suballoc_reclaim_work,
-+		  ocfs2_suballoc_reclaim_worker);
-+
- 	/* get some pseudo constants for clustersize bits */
- 	osb->s_clustersize_bits =
- 		le32_to_cpu(di->id2.i_super.s_clustersize_bits);
--- 
-2.39.3
-
+> +	/** @refcount: Reference count. */
+> +	struct kref refcount;
+> +	/** @mm: Process MM grabbed at init time. */
+> +	struct mm_struct *mm;
+> +	/** @work: Work item queued when the dma-fence signals. */
+> +	struct work_struct work;
+> +	/** @cb: dma-fence callback. */
+> +	struct dma_fence_cb cb;
+> +	/**
+> +	 * @fence: Extra reference held for safe cancel(). Set during
+> +	 * add_callback, released in destroy().
+> +	 */
+> +	struct dma_fence *fence;
+> +	/** @wq: Workqueue to run @work on. */
+> +	struct workqueue_struct *wq;
+> +	/** @ops: Driver operations. */
+> +	const struct drm_user_fence_ops *ops;
+> +};
+> +
+> +void drm_user_fence_init(struct drm_user_fence *ufence,
+> +			 struct workqueue_struct *wq,
+> +			 const struct drm_user_fence_ops *ops);
+> +void drm_user_fence_get(struct drm_user_fence *ufence);
+> +void drm_user_fence_put(struct drm_user_fence *ufence);
+> +int drm_user_fence_add_callback(struct drm_user_fence *ufence,
+> +				struct dma_fence *fence);
+> +bool drm_user_fence_cancel(struct drm_user_fence *ufence);
+> +void drm_user_fence_cancel_sync(struct drm_user_fence *ufence);
+> +
+> +#endif /* __DRM_USER_FENCE_H__ */
+> -- 
+> 2.34.1
+> 
