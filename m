@@ -1,176 +1,157 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66AE38C42F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787954721; cv=pass; b=HaP1Gcfj+ff6rOrV+9qYVHxp4SVwd/ofku5gKcObnK5bjZ+LeOsSXCt8BVYRfh/Er9FQ7alDD0s7nV36qpBTUObBIROBRgxbn9+2MgUSGZTrtcBbsArUFiW5yGmsqER1pL3uwMbTdG/kxco0CBx6g+dsegonD+2jZQfH9zsqMIw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787954721; c=relaxed/simple;
-	bh=ywb1KJ1Y2s6u3tEahxyzMtIqPZn9+T2wYc+dlk5oD7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Br2iBVPT/DMoailmdYipf2U5YM4ro3EGEjUXu5QM0bPKyeDAp/7QElOliMBHDRiaeTRhJOsIjhu31wl2m9EPHZ4p4TuId2oVUK7TEDr0qxUGQa2ZWL+0MUmv7R2t4HJwVZeN6dM3o5ynDZeyDtnTdLY8qNFfTf1BYtPV6/3SdFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=PX+Q3V/7; arc=pass smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA12D3A7F51
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787955408; cv=none; b=BfJgsfRWCLxkB8nrcTk6KgWvaHn38oiDMUu3dc3mBoJi3XX5nRJeuhx2v4rZnR0jluKpIHaat+yYaU852ose4u6nI3HMGW1nQXMIX7Sau4AiZpLhEOoOCaTH51uovW3Jeuiclf/aURHKOIDmWlD9JR5A6uLN1XzzY5Hq+dCpNlM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787955408; c=relaxed/simple;
+	bh=I4ONtpSI65nX+ymt+jKYapVQOmaAeCgKvckUVaQ3X3U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CAL3b+8l0k4Cinbo4HX7qizX4JD/k1740h6eM05Vs4DfcNGPp4KmJgytyp/WBQUlAKGQsu6d5GLdRdzW4xpmEGGFsEUx7MKCeUfbJqGEsQNdiC1ERtnn0zzIYEyv1cQ9J65cb6E+UX7/1dKi4ctMdBXMmR0ztkfcrB32vKcTQ6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DGGOHn5S; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="PX+Q3V/7"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1390169b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:05:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787954719; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HjMPHb0zIqB9aDw1Jlv9rOEuavq95miTaXSdtdMrDkDPBD/od7Rj3UNcsLMyzqoe3i
-         aXwDuzfVnryfpFxNhIfmCagLzEfoNjqRG8MhESFq/qSpUJ5lFhT+W49+MGJZHHel168X
-         nICSST52DxifFJdJDSjRCEIRhqh39qtvAxgxqSfBznkhIS/fwkHrhLqOGOV218ygp+bK
-         0tHXKnvLDJZaA+6upEuHu8YlT7ctqUIqadXWIJgzUC+QUvCerMmf2K+eV97J2XiyzHRT
-         Uzfy0x3Qh7A09yBlPxGMgLVgAGqvaaWXOosUr+dppYRjf5WO/wZvr8BpPC5cVSfY23V4
-         JkGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        fh=prau0M6gRCPjNUyRPx4cTPTTopieXlJXtlESFxqFoqo=;
-        b=Eh8fjzHgTugQYrMpVlJQY/ek/nDpAYNpREIgEWCASv6FmAbHh+LBDeCYOUde8HHlxb
-         vsweQkmQQSrY1IYCmUfe3HKedIbGS5WwB/wpeJqcSZdi9zppzQmKNVAZ0Moq5ODmjLsm
-         L6NlSV4hSL7+h2HKs/9/R40as7IRoVjKZlmfkJLDydiGKG7qndhfmlZGVdJmXnUzv7ip
-         hdaRFB7e8Zr7/NNHVfHgsfN5k/SrIzEUzNg09xcu26uqhHZnWPviR6IYvyT2eByYu5Of
-         OSKDahH5Ap93ezgsHz45NnTIUZGgufA4R3f+Tv42f6RDDLiEULpOJw4c0WwHejzGObN/
-         5YcQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DGGOHn5S"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so636863f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:16:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1787954719; x=1788559519; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        b=PX+Q3V/7J+jTHe5kPXf0pCwDFcvh8oFYK8FD46DS9WljLL9w5lQtDNbO+dYEv/MlCn
-         VYHR/+0xTCOePqIiCP0K/ubFqheBkfHe3LFHFgF3MEQkSdooG0OCjmPVtBlPNpXFfiq1
-         J496SkaZt3AOalbUBTgLysrVqZM/W9jftrOHy658bqwx2X0izBS1fBWlU/eSx9enPQnW
-         mtz/eooPLcSgm1GV9qBNoFKcuMRVOiZmLxfbahNmX889zGT6s6LOvWDPceNiFXW716rN
-         UcDyFd2RDL4x3R0QrOqNQQf/G2X6Ftcelx3lY+HQzwY1BEX2v/1y5k70Qru+oLYSh2cs
-         G9Lg==
+        d=gmail.com; s=20251104; t=1787955405; x=1788560205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+        b=DGGOHn5S8xXhh8U5W5C/RpnhlSFLQQQ4mDtCvmvyC/uYVXZaAsLemQOGN6kWc9T9V/
+         h5bqi7bkDpltQ/ZwIZCbFwMS05P27+EyXLgizQR+oqslQ/tIh38ic60tmL9hGRPUZ1Rs
+         UELdCIUlYZ9yrfgLn8cs4VnqkmUwN6u2JdtM/qDCaGK3jA/Wx+98qmkBnI5H/H61CMs+
+         abbiAdQ9xaYVpp3S2dRXFO1JCqpFN+uFBJHW0t0h9IPijmx6h3XBS9PJbOUS36Cy0NBH
+         2Q21WFVn21stg2DzsaA7hHb6LYQpPznAgQEkowH+Ilxpl1HrS+B51bGwTTpPGNsP3UOz
+         9+Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787954719; x=1788559519;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        b=Zwk+tRl9CXqPOaXBbzRZtNskntzlmzS2vH3AsyfQ1TvPVjjIyYRETHcYme7n1L8BD1
-         Hajqtx1VyFe4Hn0nx8oSQOsD6qlbzXwkl9mUjYGA8On7itJc3PKMDNtDYVk3lGpg60ho
-         YN+v3qfDyYa0g8EIS6mH+dfNtfszEe6wwPxcWHlReTTYVmP4Ph7V7EcG70gqsU9UDjiM
-         mw1+a54PWSSI4nznT9qAZiEsF8/6v6ToMUGgqdVbzJz5y4PUmEUFweC2C8S/peRCSHHQ
-         m+8C42IOMQ9wheZwc3VlsYyLwjhX56s1+a+XuwE89WiCUhuPC2Vg7LZIXEZsWmrswYqi
-         NYgw==
-X-Forwarded-Encrypted: i=1; AHgh+RpFMgqjYqb+QW/Uj9Xp1/NJVjZqnoljk9bI/KuiUJn0As3znOAvEYLjWIln6MRRkZoH2XN5o3DMKq2Y8pw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaUNzRzWxmIq/ulntFxcW+jMheGxZVKm9h/+nFv+dvTQQPPmKZ
-	i6I9i/jn+wEmBKT+nUmH3C4YqFfF0+s7c974uXlr1J1ynOaYOGg3wYmOej0Zviaxmz3r3FVewAo
-	LOXDSQICZL819LkcIZObZFlB3qZJn70V0hzspobIE
-X-Gm-Gg: AR+sD125y7z0gU1GefYsPaTn7G2Cmq+6huHbEhxMCu4MgpXCUs7OX58VKk4j51L51aC
-	YeGDOLudVOVIfD4Oi28KIG7yatEL9d4jQ5+ykfarMIRoT6Bwbv+SdVJvSciJT/CMK1x3cC0gQWb
-	02GksMNuSR3fNOy5eJdgxCbizWu6G9MJ5Rn1qexZEFxbuPAMvshIBuU0YDUg0Au36Wu3aPHjFkI
-	oA50THUY1ZKzv46jX2QhCM0EwCT5yChlSjHhVWKnoFLVyIIquYuCgFm5c2jU3CnWdUaRrbQ2eRo
-	jsgAIOUDeGgQf9O4q+/CVDrCeZhKb9YNuzBsIhgDLmWi
-X-Received: by 2002:a05:6a00:8012:b0:84e:242:4bb2 with SMTP id
- d2e1a72fcca58-8576e187183mr2599254b3a.4.1787954718985; Fri, 28 Aug 2026
- 15:05:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787955405; x=1788560205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+        b=RYIpyYFbka5pz5yHfZYveFwL/CDrIy+7rDDSCmL3/zMusFHbeNyddlrSTfi+jVhvI0
+         WjYoPCYXewkfQFrsLjBMEDoTbWp/ZbGdT4vJe8moj2uGPEar1/+WHsYypc9d7Z84+I0N
+         kChK6zUAV1zY8TrLnFYdvLzVOskoq4M6NwzyBUfr4Zk9onw6GjbWIZnjYxCf5LaEPKL9
+         +VbefkVAhEOCgJDjGaHz6PRkARSyEHIxsreyz1Sq/yR7mgKfOTa6oGO250Rbbiox3ccv
+         mIAtKgfz6c9xN6XN5lbdEaIH/rFd/TZVl/91gS95ARnZU+z3NM4q72geMHgbpV42LTZT
+         dZ+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwr3aX2ldZjnLtZwDnVrSzGqhwqxakslA5XheEp5ogXBAQHMo9VyLzLBP4ERisvFfwtyQ3rRsbK8Sen5ak=@vger.kernel.org
+X-Gm-Message-State: AFuF++neki/yj+M2MNXmGd1zKiC8F+ZxOLY8ee4s25kP2ZB5/reO7wiX
+	pGIKgdj4XxEPYQFWDK9Ej3HqGxZM9Jk1FNkpBquygVHnuN9Sdc/V/YDFUIS8SryKB2aUiA==
+X-Gm-Gg: AYBFou1p7hLhGq9rzySZzPbrcvYXQrJwhLSI+gW4+fyBYISn8uGL0HWaVxfdpxk2x9b
+	9j0dFooD2UD7oKP1nMQmqkXg/KSUu2g6wbKd6w6WzsgLTzvGLSBlXz4fpXk+ihiux8DF9vQhqbk
+	FKcjwE2aHdSUBf2DDc3HzEM3S77dohzdxYWSQcDt3F4umE9OWVwv/gHXRgcMYgXcMbUFnFWozXw
+	zyT0F5w7W1vR26phAHuquiUwJRPQ9x/Yvtu/xJOIhq774g33kFl5SE9n7+DNP1zeBfrhoBt3vyd
+	ZxGcBpcoOAwnTWfLsG9ywhy+WwlibdwddSFLWy5oCS2WCTEBcVWr3ACT2yrEvpV2rxkqyQ4WPme
+	pmddDdNDX8XDnRlgmJF9DYE9Xw4DkISdorWSCUsK5fZQhsO0fZGhPHhg3Gt35M2FAJG+UFZIAv/
+	6eGJQ2mSoUxDmyiKvln1tzbsRBSHkXEvAoxjjzGIUXj1+u78YSf0z61yqsYugTAASka9b4y1qS6
+	aLnZrraKEUY+eLXIITfu/EpiH3w/oqw6wp8W8kJ49CV3ecziaNzayMRaz0DXDvox5bYAsSS
+X-Received: by 2002:a05:6000:4a1e:b0:482:e658:bb8e with SMTP id ffacd0b85a97d-482f79bf4f4mr17244716f8f.12.1787955405089;
+        Fri, 28 Aug 2026 15:16:45 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:ebf3:5500:6828:ce36:77ad:ae8c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f16sm6361576f8f.1.2026.08.28.15.16.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 15:16:44 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix race condition in mailbox send path
+Date: Sat, 29 Aug 2026 01:16:41 +0300
+Message-ID: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820175832.44512-1-kmehltretter@gmail.com>
- <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com> <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
-In-Reply-To: <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 28 Aug 2026 18:05:06 -0400
-X-Gm-Features: AcwNN1XzAxZAeZ9YbWbmD6gATJOUq2kxB8OX1cUcN_SgCoVZnhreW3OY7Y6Acvs
-Message-ID: <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
-Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 5:05=E2=80=AFAM Amir Goldstein <amir73il@gmail.com>=
- wrote:
-> On Thu, Aug 27, 2026 at 9:39=E2=80=AFPM Paul Moore <paul@paul-moore.com> =
-wrote:
-> > On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+xdna_mailbox_send_msg() reads and writes x2i_tail without holding any
+lock. This is problematic because the DRM scheduler thread can submit
+jobs via aie2_execbuf() while the ioctl thread concurrently configures
+the same hardware context via aie2_config_cu().
 
-...
+Both paths eventually call xdna_mailbox_send_msg() which does:
 
-> > > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> > > index 1ead2eee1944..171b90412ff1 100644
-> > > --- a/security/selinux/hooks.c
-> > > +++ b/security/selinux/hooks.c
-> > > @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct=
- file *file)
-> > >       return 0;
-> > >  }
-> > >
-> > > +static inline u32 selinux_file_user_sid(const struct file *file)
-> > > +{
-> > > +     if (unlikely(file->f_mode & FMODE_BACKING))
-> > > +             return selinux_backing_file(file)->uf_sid;
-> > > +     return selinux_file(file)->sid;
-> > > +}
-> >
-> > I'm a little concerned that this only works for one additional level of
-> > filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
-> > FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
-> > unreasonable concern that at some point in the future that number will
-> > increase without proper notification or testing and we will once again
-> > have a problem.
-> >
-> > At the absolute minimum we should have a BUILD_BUG_ON() for the stackin=
-g
-> > depth.  It would be good if we could watch both the overlayfs and vfs
-> > constants, but the overlayfs constant isn't available outside
-> > fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit).
-> >
-> >   BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
-> >
-> > Ideally, the code would be written to keep diving down the stack until
-> > it hit the true backing file.  No one likes to see recursion, but at th=
-e
-> > point where this function is called there should already be a reasonabl=
-e
-> > bound on the stacking depth and the work involved.
->
-> Unless I am missing something, stack depth should not matter.
-> file_user_path() should hold the user visible path, for all the backing f=
-iles
-> in all the depths of the backing files stack.
->
-> This is the issue that was fixed with commit
-> f2381b546e7e6 fs: fix user path of nested backing files
->
-> This patch makes uf_sid behave the same way and also documents this:
->
-> struct backing_file_security_struct {
-> -       u32 uf_sid; /* associated user file fsec->sid */
-> +       u32 uf_sid; /* top-level user file fsec->sid */
->  };
+    tail = mb_chann->x2i_tail;
+    ...
+    mailbox_set_tailptr(mb_chann, tail + mb_msg->pkg_size);
 
-Perhaps I'm not understanding your comment correctly (it's the end of
-a long week), but selinux_backing_file_alloc() and the newly created
-selinux_file_user_sid() functions don't operate on the
-file_user_path() path struct.  In fact the path which is resolved in
-backing_file_open() isn't even passed into the
-security_backing_file_alloc() LSM hook.
+Without synchronization, concurrent writers can read the same tail value,
+overwrite each other's messages in the ring buffer, and write conflicting
+tail pointers to hardware.
 
-Are you trying to explain that the way the backing files are allocated
-in a stacked filesystem, regardless of the number of layers, is that
-they will be allocated from the top down in such a way that the uf_sid
-will trickle down to the bottommost backing file?
+Fix this by protecting the tail pointer manipulation with a spinlock
+that is held for the entire duration of mailbox_send_msg(). The lock
+is initialized in xdna_mailbox_alloc_channel() and acquired/released
+around the critical section in mailbox_send_msg().
 
---=20
-paul-moore.com
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 271617347..337f89113 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -60,6 +60,7 @@ struct mailbox_channel {
+ 	struct xarray			chan_xa;
+ 	u32				next_msgid;
+ 	u32				x2i_tail;
++	spinlock_t			lock;
+ 
+ 	/* Received msg related fields */
+ 	struct workqueue_struct		*work_q;
+@@ -203,8 +204,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 	u32 head, tail;
+ 	u32 start_addr;
+ 	u32 tmp_tail;
++	unsigned long flags;
+ 	int ret;
+ 
++	spin_lock_irqsave(&mb_chann->lock, flags);
+ 	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+ 	tail = mb_chann->x2i_tail;
+ 	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
+@@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 		ret = read_poll_timeout(mailbox_get_headptr, head,
+ 					tmp_tail < head || tail >= head,
+ 					1, 100, false, mb_chann, CHAN_RES_X2I);
+-		if (ret)
++		if (ret) {
++			spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 			return ret;
++		}
+ 
+ 		if (tail >= head)
+ 			goto check_again;
+@@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 			    mb_msg->pkg.header.opcode,
+ 			    mb_msg->pkg.header.id);
+ 
++	spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 	return 0;
+ }
+ 
+@@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		goto free_chann;
+ 	}
+ 	mb_chann->mb = mb;
++	spin_lock_init(&mb_chann->lock);
+ 
+ 	return mb_chann;
+ 
+-- 
+2.55.0
+
