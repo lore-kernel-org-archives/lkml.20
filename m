@@ -1,124 +1,236 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m12741.qiye.163.com (mail-m12741.qiye.163.com [115.236.127.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085A0137923
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887103; cv=pass; b=Kx/mkx6VvEnrNirL0m98Ezxfr+Glb4/P5Ao/wma6I/U68zc8CtgUObeUOGqU2HEZaqxBgaCtPj6ta3WkO37LGSvyiLGUzR00CE1eVMUwHeCsuI8x7Vq2L5mSvoDhoeJmQvKU8bJvIb1WQ0ji5sAhrMvdmoF3mWLhE6mm9/cBQL4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887103; c=relaxed/simple;
-	bh=HQ0WnQR17PYv7KRSkhcEskYCEIEvo6me8U9g6cEGAd4=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=e2yNzBT6IdGVVroWeS3G8TK+H5ME3zE/WpNiWEDNTPAUNhE2ONSJIWkEYWcZAs6XFEIEEsoRa8w+VhHnI4pzn6mjOm36PxDww/kcDOmpNDDvyfsaovEJjaN10rkdPFAdG3QYIbGPFJyllm5m7NJkvvoKBAmB2auVbKLqbOZFurY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=VFH70jzd; arc=pass smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="VFH70jzd"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d71e253c90so5253015ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:18:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787887093; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MbLCIVa1FeQd6hfsA5kIpuHZ0j4eQo8prYhTOUiueRaO2wmtyR1DSlgs9PCNqsD2IT
-         AmDL7Rpe0h5PapPFPvFMsfHLgxKNeZJWpZiF+YqhUFWDvb6gvGa/cOZJ1ICdwawMBYqI
-         sSOo/c5Byda7N29MxRDIardcjZwJoxK3afFNwbRDo/PDTEoKpBk6+iN588HiGYOPlKj7
-         r1mmRIF3bfNg4WnBNpo/xb1EKkkpI/ZvLSzrrC6iU0gCPzgwQ3Nx55eZdtSjvQcu5DUJ
-         c6blXTOhBNBDvkwO5XgFeDDbj5OyCX2mTag6IDc8XHlpVBK12OYcyehiUC/x8ur7kT40
-         KlRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=M+pcBwoGootdTMgC9yQZBi4o63OAS0ou1pi32Jt08/8=;
-        fh=SVbe/wT3Iw+D1d3Qb2Cd6VamuAfGb/o2V13K6bBgtMk=;
-        b=CAhBcJAPR6whKPZQyCat5cq80nrc/XIHT+sB6B70P5YslsrSIdPYS6CHdaIpvqjIal
-         q5xY/bjZBaC5fZZ6U0fIvoDvS6Jfrv52do7javjoTKnaTNM9MUQnNMsE46MSf2nPZyls
-         8dJUSfsOFJ8zBLaR3Pd47Pz3HKc2O5J3hR0jOqOvkvOl0ojJ311ZHi5jmnphXw0kih6O
-         rP1srXiUwDOvROR94RADDxgJ6V8ABvPsNK456fqEgMV0tOy3ZrKeP/JLYjlTR411mGwc
-         NCA7Pf4Vmhe81aE0CCKWjxHL6e4CBNgqWrag28Pah/2IAYQCBq9Y0/EgleifBqxj94rm
-         Gigw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787887093; x=1788491893; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M+pcBwoGootdTMgC9yQZBi4o63OAS0ou1pi32Jt08/8=;
-        b=VFH70jzdqS8zgGI3gE+SQbNwQrRlaT6XDnWXTDnjVih2Yes3iYu0591m2QMX7ypFbx
-         fkEynZIAK98WDQXwEP9eAULpnrOYuddPOuzOvUc7HbdbJXoP0mjN56Ct/Po0dVS1kCSu
-         cQLf4GJ2Z1EDplwj6fU/SUN1dGTwRC9PNatRN7iyXwaEEz83o3sS0eqIyqEtB/dJRY5P
-         ss9Q/c+HygNlfNb9hygwuoTCZcwqWzwWz7xEAgAf8f46Q2nHtCXsL43hEeKG49XAVxtn
-         RulZNEg776bCrxlH0O+L5EB59YHxm/QIwPc8w7f5m8lu6eEgz1STCp0v+z3a6Ab62YBb
-         PVKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787887093; x=1788491893;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=M+pcBwoGootdTMgC9yQZBi4o63OAS0ou1pi32Jt08/8=;
-        b=L78fyi3s/0/JVcFRRnERQ1RCu+ef262/k9QPIy6nG51+wxHKh1/Ntp/9djqA6pellA
-         +mptO0ajXVuLX7rDZBlRFCWNDsqmdueADXV3t2yA/tpvNkTBKZv7oO85Mq2mgyxvJoHf
-         7hYOOcp5HEJnxG1897B19cnzRVozIiUHFEekRsQmtXQppCadxN4bnomiU0iPE7zoEPjG
-         +09tjfo1BPCMxHdvf+SojUqQqKFMiGfGk+5B5DxxCALwA4Jkcw31DVp/WYuKx3j7rRrC
-         Y7L9Qi1y2VyhdoSEBOgGBe5x0NwzlXn0wWLJEwH2IP9DoOe5SnpAkvo5+dwkxmwgr+Vt
-         Wrxg==
-X-Forwarded-Encrypted: i=1; AHgh+RrqCznTOAK4o9of6bll75Irzlr0WCwXfDZJVZcno8mgsezaVyrLnwPW7axIgFJSm6L4pZZ+797zDL34R9s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lc/8PsnA5TF4xvJUIxlwBxqSkLZSFI/Metri/asrJG7WoElxa6
-	vLaje5KfFyqgjSRqkAU0ULRyU2Tix5cBAJkJtxiDRuODbjzsheO1omMIM09kmJ2aOyU60rgUmNM
-	WjWD4GfERLTimssB84LVezb6ENiPWhaRV0OK9hT5izmbvhrPYOeqrLQ==
-X-Gm-Gg: AR+sD137MCgHswGXO+PZ8WU6tiHySJQkN5rzy1HUCEQ90dx1gpgHUibxDmB4UbKvnpx
-	HL98VreOTVcTDf9GpdypT17PxIrwTMFNTsLUurL6noUuE2fY/zOitD0lxaDE35DqnqKzVmTGuNQ
-	oV/9mxNSOE4IEmtoWBTPbzaQsjZ6tDWTfLY66/Sk0G5HDHlBWs4UL0cmURVn6nyTu4XWKwKYSME
-	+liuLOC98aUPtj7K/0344Pg2QVbRqKLQlq9n9s9eSoQMT0pipsjGjThAP+mU8GBNprjp7C5m9od
-	TBeVTn1J+TBA81HqkhflpDE138FlzGovR2DDlVyMjJeaXRmlrAKatTfuU0wIhYafVw9KGG3IHUg
-	jJeTar1e2GqmdKbJLJrcoL8tdGuzsYgU/
-X-Received: by 2002:a17:903:1a2b:b0:2d7:11d2:1455 with SMTP id
- d9443c01a7336-2d74ddbe12dmr74674295ad.4.1787887092175; Thu, 27 Aug 2026
- 20:18:12 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 20:18:11 -0700
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 20:18:11 -0700
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8AE39D6D5;
+	Fri, 28 Aug 2026 03:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787887158; cv=none; b=cycJWfpiyLMSsMu2ZmKNmGOEMvESf0oeNi27YRWbd5fcOM+y0E+koesrcfQVU3ixQKgF7MktuodGVtqpNCeO29pdO8Mtn6KKv+eqi2pv6sl/SexJuNzL3T5stAuqVgduGMvTw/fNYgXqeU7lDSTC/s5aY3Y2Zm0OA/Wc3REiOBY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787887158; c=relaxed/simple;
+	bh=4IVelvh4nv33eUyLJApCYIUwSgl3KIZ519p+aJxLldo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=U5W7SP047AV1M5qkEYbeS7YXZP/YRekaJjacnTl33xT6SPjxtzqxLZCKLJjR6+D8OvDyGB62pZE2dV+auTs+JkySRMMKZEI4yRvvnax5ia0VsYknmhbGMQZsC9kiiTSkUBjiCZ/mJKr+d88lDsR2bY0uSB4+y/ih28N50Yr0iCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20d93;
+	Fri, 28 Aug 2026 11:13:53 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH 1/8] mm/page_owner: Add PID filtering support
+Date: Fri, 28 Aug 2026 11:13:32 +0800
+Message-Id: <20260828031339.1270699-2-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 20:18:11 -0700
-X-Gm-Features: AcwNN1VRnFOVAUc9Rv-gIKBNA-JVvlf1956tLSNytGprkbdWOWJLg0Y8x5Gg6po
-Message-ID: <CA+0ovCgYP920GT68hAJK6Trjyv1kGv2dZAuem4LEunycQ=POww@mail.gmail.com>
-Subject: [BUG] ecryptfs leaks an inode on lookup failure -> kernel BUG in generic_shutdown_super()
-To: Tyler Hicks <code@tyhicks.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>
-Cc: falemi@asu.edu, ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0465c0d6c0229kunma81ef96712a329
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTRgaVkMfQk8dTkkZTE8aGlYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-Hello,
+Add PID filtering support. Users can filter page_owner output by process
+IDs using the "pid=<pid_list>" command format. The filter supports up to
+16 PIDs specified as a comma-separated list. PIDs are stored in sorted
+order for efficient binary search matching during page owner iteration.
 
-As part of the kernel research at ASU's SEFCOM
-lab, we hit the crash below. Crash reports can be found here:
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+---
+ mm/page_owner.c | 85 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 83 insertions(+), 2 deletions(-)
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/128-ecryptfs-i_new-inode-leak-lookup-failure/
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index fbbda7ba914b..33b9e12a019b 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -12,6 +12,8 @@
+ #include <linux/seq_file.h>
+ #include <linux/memcontrol.h>
+ #include <linux/sched/clock.h>
++#include <linux/bsearch.h>
++#include <linux/sort.h>
+ 
+ #include "page_alloc.h"
+ 
+@@ -66,12 +68,24 @@ static const char * const page_owner_print_mode_strings[] = {
+ 	[PAGE_OWNER_PRINT_STACK_HANDLE]	= "stack_handle",
+ };
+ 
++/* PID_MAX_LIMIT = 4,194,304 (7 decimal digits) */
++#define PID_MAX_DIGITS  	7
++#define MAX_FILTER_PIDS 	16
++
+ struct page_owner_filter_state {
+ 	enum page_owner_print_mode print_mode;
+-	nodemask_t nid_filter;
+ 	bool nid_filter_enabled;
++	bool proc_filter_enabled;
++	nodemask_t nid_filter;
++	int pid_count;
++	pid_t pid_list[MAX_FILTER_PIDS];
+ };
+ 
++static int cmp_pid_t(const void *a, const void *b)
++{
++	return *(pid_t *)a - *(pid_t *)b;
++}
++
+ static bool page_owner_enabled __initdata;
+ DEFINE_STATIC_KEY_FALSE(page_owner_inited);
+ 
+@@ -820,6 +834,19 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 				goto ext_put_continue;
+ 		}
+ 
++		if (state->proc_filter_enabled) {
++			bool proc_match = false;
++
++			proc_match = bsearch(&page_owner->pid,
++					    state->pid_list,
++					    state->pid_count,
++					    sizeof(pid_t),
++					    cmp_pid_t) != NULL;
++
++			if (!proc_match)
++				goto ext_put_continue;
++		}
++
+ 		/* Record the next PFN to read in the file offset */
+ 		*ppos = pfn + 1;
+ 
+@@ -927,6 +954,7 @@ static int page_owner_open(struct inode *inode, struct file *file)
+ 	state->print_mode = PAGE_OWNER_PRINT_STACK;
+ 	nodes_clear(state->nid_filter);
+ 	state->nid_filter_enabled = false;
++	state->proc_filter_enabled = false;
+ 	file->private_data = state;
+ 	return 0;
+ }
+@@ -937,6 +965,37 @@ static int page_owner_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
++static int parse_pid_t_list(const char *str, pid_t *list, int *count)
++{
++	char *str_copy, *token;
++	int i = 0;
++	unsigned int pid;
++	int ret = 0;
++
++	str_copy = kstrdup(str, GFP_KERNEL);
++	if (!str_copy)
++		return -ENOMEM;
++
++	while ((token = strsep(&str_copy, ",")) != NULL) {
++		if (*token == '\0')
++			continue;
++		if (i >= MAX_FILTER_PIDS) {
++			ret = -E2BIG;
++			goto out_free;
++		}
++		if (kstrtouint(token, 10, &pid) != 0) {
++			ret = -EINVAL;
++			goto out_free;
++		}
++		list[i++] = (pid_t)pid;
++	}
++
++	*count = i;
++out_free:
++	kfree(str_copy);
++	return ret;
++}
++
+ static ssize_t page_owner_write(struct file *file,
+ 				 const char __user *buf,
+ 				 size_t count, loff_t *ppos)
+@@ -949,6 +1008,9 @@ static ssize_t page_owner_write(struct file *file,
+ 	enum page_owner_print_mode new_print_mode;
+ 	nodemask_t new_nid_filter;
+ 	bool new_nid_filter_enabled;
++	bool new_proc_filter_enabled;
++	pid_t new_pid_list[MAX_FILTER_PIDS];
++	int new_pid_count = 0;
+ 
+ 	/*
+ 	 * Maximum input length for filter commands:
+@@ -956,8 +1018,10 @@ static ssize_t page_owner_write(struct file *file,
+ 	 *        with sufficient buffer
+ 	 * - 6 * MAX_NUMNODES: worst case for nid list
+ 	 *   Worst case per node: ",NNNNN" (comma + 5-digit node number) = 6 bytes
++	 * - For list filters: (digit+comma) * count + prefix
+ 	 */
+-	if (count > 32 + 6 * MAX_NUMNODES)
++	if (count > 32 + 6 * MAX_NUMNODES +
++			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4)
+ 		return -EINVAL;
+ 
+ 	kbuf = memdup_user_nul(buf, count);
+@@ -969,6 +1033,11 @@ static ssize_t page_owner_write(struct file *file,
+ 	new_print_mode = state->print_mode;
+ 	new_nid_filter = state->nid_filter;
+ 	new_nid_filter_enabled = state->nid_filter_enabled;
++	new_proc_filter_enabled = state->proc_filter_enabled;
++	if (state->pid_count > 0) {
++		memcpy(new_pid_list, state->pid_list, sizeof(state->pid_list));
++		new_pid_count = state->pid_count;
++	}
+ 
+ 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
+ 		if (*token == '\0')
+@@ -1000,6 +1069,10 @@ static ssize_t page_owner_write(struct file *file,
+ 			}
+ 
+ 			new_nid_filter_enabled = true;
++		} else if (!strncmp(token, "pid=", 4)) {
++			ret = parse_pid_t_list(token + 4, new_pid_list, &new_pid_count);
++			if (ret < 0)
++				goto out_free;
+ 		} else {
+ 			ret = -EINVAL;
+ 			goto out_free;
+@@ -1010,6 +1083,14 @@ static ssize_t page_owner_write(struct file *file,
+ 	state->print_mode = new_print_mode;
+ 	state->nid_filter = new_nid_filter;
+ 	state->nid_filter_enabled = new_nid_filter_enabled;
++	state->proc_filter_enabled = new_pid_count > 0;
++	if (new_pid_count > 0) {
++		memcpy(state->pid_list, new_pid_list, sizeof(state->pid_list));
++		state->pid_count = new_pid_count;
++	}
++	if (state->pid_count > 1)
++		sort(state->pid_list, state->pid_count, sizeof(pid_t),
++		     cmp_pid_t, NULL);
+ 
+ 	ret = count;
+ 
+-- 
+2.20.1
 
-  ecryptfs_i_size_read: Error attempting to initialize the lower file
-for the dentry with name [victim]; rc = [-26]
-  VFS: Busy inodes after unmount of ecryptfs (ecryptfs)
-  kernel BUG at fs/super.c:779!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  Call Trace:
-   kill_anon_super+0x3b/0x70
-   ecryptfs_kill_block_super+0x44/0xa0
-   deactivate_locked_super+0xbc/0x110
-   cleanup_mnt+0x437/0x4d0
-   task_work_run+0x1d9/0x270
-   exit_to_user_mode_loop+0x14e/0x540
-   do_syscall_64+0x317/0x510
-  Kernel panic - not syncing: Fatal exception
-
-Our reproducer.c is available upon request.
-
-Happy to test a patch if that would help.
-
-Regards,
