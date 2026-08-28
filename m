@@ -1,131 +1,110 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9335C3AA1BF;
-	Fri, 28 Aug 2026 08:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E5C3E7BB2
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905808; cv=none; b=nrw4o+RjTlJUS8gvcaKHZPg6Mf5e9dxV3t+hZOuqFTOKlmehJZBoKG/zMe1nxijakCpMT/EHrHViqDNxAT1B+6NQFQSpq3oxlIMzmzuhCkSWLJRIrS3yDWi28xGgdhEdjNYi/N7RBKNRcZwjjuxWNX99LwGLYTLtXbWvW40Medg=
+	t=1787905820; cv=none; b=VhaPtzR1VZ+BssGMB7mZ18NC45HiLpFbYG0iuYto6pWWJMJ/Euc2cZYBotEAKIRzXA842WzmUV9NQOxauOQr7xvhl7Qfe1VTnBAZjqc189rmzWfWfIc8LP2ej0eR2ALiVSmjXWgkqpVKgoLl+FrcCAIkiVHNiVacZfBWFtVLG2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905808; c=relaxed/simple;
-	bh=3/yWqAXxEde08/GoJAuePB1HdSb5B2lQjcA4TeN41oE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=T3/0OwadlOSZDL3eO2xCGJxGAfI9xrIh6IZVvuvMEW+6PhGR/qpFuH69BPHJqRgMarmMtalsF5wEukg5ilGltdVjp1y10VAADVeeC/pTnXnc6VozXxK/+jbz64xJaYosFM04o5hoJGIs5dqIhceKWDkNpv18X3vaP8yGyM5NfUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=h+goBKdd; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1787905820; c=relaxed/simple;
+	bh=GLA5oKT4l4TtK6WJBIZEYUg8utU5djMOzvUMR1WxBoE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PoNete+bAA3ustkxwL3Cvkc7JZmEfEZI0supGWVGwrrJMwuELG5p9ggieeJBmkCmG84Edh5WCsV8Z0jPeBExAAakSqLi93hRu+NfnxM7+d7FNegoUlPxE6oAhpKsD+4hAEI9UzJ7bBxkX+355sZGqoktp+w9Nb375+Yinh5TLNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sws5ycGY; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="h+goBKdd"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67S8U0Wu82281999, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1787905801; bh=hWxYNoilRcMGhgNBlmtDzpp3ri7Rh4ODBP1ghMUje1Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=h+goBKddn1QHdImlhYjBXt93FzU//9lkXAptzOwi/aYcZ54+GiTBjMgNu/klsxCYS
-	 rl0TRy25AlvVwkamX97gvDs8G5PBLwMqBUtln/wbhSfejZKP2b6kh+Us7vn8/G0j1o
-	 n2XF1ljS+sAEW6Id1gk7CGlwT53ExuFZWWnLNEm23h1uhIexO9qZO6FZ4R/oNV0KJe
-	 Jb+u2rVkqAdVhS5atEnGHyGDUQ1ZUF+bFhtte8UWogkLEqbITZhEbqXBggu1VTIdgz
-	 OBCOEhCvBfCVYg9bob6GX7zS5VZwT11p3G4YcMYaEXajTDOIw8rUKw6yzZpp/2zKnw
-	 B0mofs/J4ecYg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67S8U0Wu82281999
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 28 Aug 2026 16:30:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 28 Aug 2026 16:29:59 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Fri, 28 Aug 2026 16:29:59 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Arsenii Pashchenko <ulijg308@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v7 2/3] wifi: rtw88: rtw8822c: Convert DAC IQ
- calibration path to signed math
-Thread-Topic: [PATCH rtw-next v7 2/3] wifi: rtw88: rtw8822c: Convert DAC IQ
- calibration path to signed math
-Thread-Index: AQHdNq/AQRXlT+oz0UyK6Oom3YOr/bazIEsg
-Date: Fri, 28 Aug 2026 08:29:58 +0000
-Message-ID: <d662dcab866042c08f050cfe035c7c70@realtek.com>
-References: <cover.1787895379.git.ulijg308@gmail.com>
- <86bde9882c56a1245a4c903b607e23d551dde1b9.1787895379.git.ulijg308@gmail.com>
-In-Reply-To: <86bde9882c56a1245a4c903b607e23d551dde1b9.1787895379.git.ulijg308@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sws5ycGY"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so4736125e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:30:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787905817; x=1788510617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hdOFtk2wc0usZRCfuezTXZZjP4O5N5A5OTF6t81pXEo=;
+        b=sws5ycGY5UZuXS9+GvUZgGpKGfn6VJ2OXjHQiYaKWfOghCIopyO2eBfuiIyeHO8Xv9
+         P3eJdUAKymHGLwj5PLFMqHQvggHcACdBTWNU8k7vKazKqUos5IDKRzLMrtzLv7Q2TQ8P
+         rpjgQqdPnztte+WwuAu7oiImByEKF8bCx0ytcYo4T2L94jVebieMPeMaRufNwUYjbIfA
+         w1p4EmNsdnt8G/n53LT/OVIvMEtEXwlPM+vzVne+vLU0+Mxe9fyvh6Oitln9FEi7eKpF
+         zRqvusBjzw1xPR9bAlNScYNW7OgcCOM3w0gasCzNzLL/LfGmiZLVv9uuKztU+K6TqKrH
+         XQzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787905817; x=1788510617;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hdOFtk2wc0usZRCfuezTXZZjP4O5N5A5OTF6t81pXEo=;
+        b=Gw2IDV02edr7e34Bch8bwefjPNX2Zw1xNQDBV2MGPzaCyVHEtHuu/VOeXPk8jsJvWI
+         dV80YO1nKRNVxcKCIO7wUdEzKoSITKuS29+CIh+glz6Z4nMAtMUMXCmHVWsuV+bce0Dd
+         sicRMePnjQLxSSYPW6LGkup3fibHr+tphwVityA0F6CeuVYIxffwkudQeXAwlwue0xdW
+         pDUGgdyvEaZthntqFvLebxbO3dG2L3QYJMb89r7JXWRtoZhOJ5i/RXVbYXFF26gR2zMU
+         xHOCRRJBPvmRdn7OyUnb50TLLR7A6AtT10z6Vkx5mmy7QS0nP9JCdL+gzJa130a21XJL
+         BgcA==
+X-Forwarded-Encrypted: i=1; AHgh+RoqiSFItK7MtD8V0ys1FUQ/xBPwEjHnbTb66RaGf6JBxUrh50psB6/QTiR5EtWfqJ0r1NHjqP7quAY/9fo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHzKrxUN8z9eX4FvzvgblZpgw+P5XWw4EITkARKh0Zb5skbBqW
+	2zI/ud016Z1cMa2F1zJ4aL67d3+9yNg9xHTrxfknZXsK+a5NzzrCzADt
+X-Gm-Gg: AR+sD10aJlRzMiENUb8LbNO90Ra8NwQyu0UL3xt1aBcu021kZ5Tgr553Mhzb8HvpvX8
+	g8vv8U8QDCINuKI/KacQ4xPNqZ685aZTgnJHG+6GOQNvCQnnCT3mG3i8NgDsjLD+N3+I/FScgYq
+	uiTwwkk3J/DZ2Knn2tLLMVesshBDVMZhMpuG7uoa5va18ZFj67Avym+AlCQCvC0YanBsAaP1A4E
+	ragzi1TLP/vJsNczKfWLAHD4YlkCQaky4zyLMR2BWKER89QJoF+uMW6/ZRUe+YM1BqNQ00cjvqL
+	ZiAXKPqpEth5cO3i3XlMHuwP4HRats/LlKfaWwlR4fKK38np/lxaNkcXiVqDsUdbr+MsKh/brhR
+	4DQC7cbfZxQADcIL3g1TdsMpXvitTi/GoU3wa14ZgZC7Uy3zaM8INRPoxHzC90d4PJ+L+YVZt0F
+	meQQHdSa/qWibaiYf7cR8DXRiCkcGjYlLF0OXk+rmc4y0qoOXabx9UoEETfiqhhAiczXom0+ktq
+	/D/UVKKU03qnODZKiY+1BYsFDQ8MyGRQAL4TxWrmf3dGhCDfkNrj8TJIvHSxvn6Lk+7aYs+iXAt
+	e56m3XqjAPeuqk67TGp9+eHzvIQFjhBwsufh5EYDlvgPVcrJfufYFPKjhyFEfqoQwFjylRbKeKP
+	XSmtVsR7lDWb9jMVgEFNc19AXnV01XRNZxKl+6UwumXqjrSQPr4vfGZgDP4I35/Us8NazOg==
+X-Received: by 2002:a05:600c:3f0b:b0:49b:9105:cdaf with SMTP id 5b1f17b1804b1-49b91c30753mr76811845e9.8.1787905815458;
+        Fri, 28 Aug 2026 01:30:15 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm41136805e9.8.2026.08.28.01.30.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:30:15 -0700 (PDT)
+Date: Fri, 28 Aug 2026 10:30:13 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Anshul Dalal <anshulusr@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] iio: light: ltr390: Remove stale TODOs
+Message-ID: <20260828103013.0000315a@gmail.com>
+In-Reply-To: <apFDQhk9TUoLnEZt@gmail.com>
+References: <apFDQhk9TUoLnEZt@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Arsenii Pashchenko <ulijg308@gmail.com> wrote:
-> Convert the temporary stack arrays 'iv' and 'qv' from u32 to s32.
-> Update all internal function signatures to accept s32 pointers and
-> handle signed values natively.
->=20
-> Use sign_extend32() combined with FIELD_GET_SIGNED() to properly interpre=
-t
-> the 10-bit hardware values as signed integers. This allows flattening
-> the complex nested unsigned boundary conditions in
-> rtw8822c_dac_iq_check() into a simple amplitude boundary check. Ensure
-> rtw8822c_dac_iq_offset() properly maps the signed average back to a
-> 10-bit unsigned format expected by the hardware registers via GENMASK().
->=20
-> Signed-off-by: Arsenii Pashchenko <ulijg308@gmail.com>
+On Fri, 28 Aug 2026 01:13:54 -0700
+Chang Yu <marcus.yu.56@gmail.com> wrote:
 
-[...]
+> Remove stale TODOs from ltr390.c. All features have already been
+> implemented by Abhash Jha<abhashkumarjha123@gmail.com>'s patches:
+> 
+> [1] Configurable gain and resolution
+> [2] Suspend/resume support
+> [3] Support for reading the ALS
+> [4] Interrupt support
+> 
+> Link: https://git.kernel.org/torvalds/c/13fad2607dad [1]
+> Link: https://git.kernel.org/torvalds/c/288ce72fb5fc [2]
+> Link: https://git.kernel.org/torvalds/c/14e0d914a855 [3]
+> Link: https://git.kernel.org/torvalds/c/7ca4b8957066 [4]
+> 
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> ---
 
-> -static void rtw8822c_dac_iq_offset(struct rtw_dev *rtwdev, u32 *vec, u32=
- *val)
-> +static u32 rtw8822c_dac_iq_offset(struct rtw_dev *rtwdev, s32 *vec)
->  {
-> -       u32 p, m, t, i;
-> +       s32 sum =3D 0;
-> +       s32 avg;
-> +       u32 i;
->=20
-> -       m =3D 0;
-> -       p =3D 0;
-> -       for (i =3D 10; i < DACK_SN_8822C - 10; i++) {
-> -               if (vec[i] > 0x200)
-> -                       m =3D (0x400 - vec[i]) + m;
-> -               else
-> -                       p =3D vec[i] + p;
-> -       }
-> +       for (i =3D 10; i < DACK_SN_8822C - 10; i++)
-> +               sum +=3D vec[i];
->=20
-> -       if (p > m) {
-> -               t =3D p - m;
-> -               t =3D t / (DACK_SN_8822C - 20);
-> -       } else {
-> -               t =3D m - p;
-> -               t =3D t / (DACK_SN_8822C - 20);
-> -               if (t !=3D 0x0)
-> -                       t =3D 0x400 - t;
-> -       }
-> +       avg =3D sum / (DACK_SN_8822C - 20);
->=20
-> -       *val =3D t;
-> +       /* Map the signed average back to a 10-bit hardware format.
-> +        * Example: avg =3D -1, returns 0x3FF (signed 10-bit value)
-> +        */
+Next time, please wait at least 24 hours before sending a new
+version.
 
-The first line of comment block should be empty, like
-
-/*
- * comment start here.
- * second.
- */
-
-> +       return avg & GENMASK(9, 0);
->  }
->=20
->  static u32 rtw8822c_get_path_write_addr(u8 path)
-
-
+-- 
+Kind regards,
+Joshua Crofts
