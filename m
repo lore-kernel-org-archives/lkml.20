@@ -1,84 +1,82 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5583A6B89
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BFF3385A7
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905567; cv=none; b=Gf8yVMGcyMjxYiuLdeOMEWz/MW5+83DIyAJWq3kXRrLgP/Y82WO4K9ngkf76k0Bsq/E7+CLp+pF0j8h3lVLHy2U1bGizE5EilUuOGJ975b03wPtR1JBMd3kOcD+C+WeleO+4Il2pl3Q61T52TWE9Mzdxl+Devo6KnV7R4NS6yyg=
+	t=1787905589; cv=none; b=XnCK8t4MgNQlPK4x9siTYjcaPsJAErNr6r0MOwKWqYbcgG4xV1xyUX35RQC78w42wSKhrnA6eX856NEQmfxTBa970Ga3X79bMNL1H+tOPPxt1C5HvhU4t8UtMAHgS3GbxmBYD6BOQt2eRPToI16pTcpwJR3+ogpGKlM5W4mQbqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905567; c=relaxed/simple;
-	bh=9vvFhf7L87Mua5XxUTwM8H1VweoULNF8Iy1tWAzHRSQ=;
+	s=arc-20240116; t=1787905589; c=relaxed/simple;
+	bh=Dp2FIBzdSdlvjZerTkQhVLrz+YG0BmWaL81MkdAi3eo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BZPmAx35qU2OCKZgFJRraNwjzqaulHkMZs8R4cAfJ/rYIe3b0P9BYao7x5Shcx/peTjwuKIZtR1C00IKnMI+Ii5lxMgxRSXm/okbyKvqN0HdAUfT0MSzr3lildO9ceO5Ho432njxBDA25zP+AcC14VpJTBQ/jp/ExuTeZ6y5emM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QS6hECGr; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=b2JszaxVRDfH6a1kgN4LwSYuxyvS39WdXMI/Xn5kC3cTkzxN0ZK1HqHlXv+/dc5hGZlSqXVfY75nFvBYTB58GpTgaexoxO1BMkvZ9tAaK7D7EfJymseUsHOKSy5XwA7XkBufy2nO0PblXz63y+ClykhrCYeqaekjGn99tOp17n4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXTOkhPp; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QS6hECGr"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84830c774a0so1007082b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:26:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXTOkhPp"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso979113a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:26:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787905566; x=1788510366; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787905587; x=1788510387; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=57gbJ6PuWdyL+kyJ8Dp9UoiQ0ikR2cC7cGndc/5JOIA=;
-        b=QS6hECGrqlocQF7FLE8R3e4lrmhfiKBLV3aOic+tc4iUQ3E7wBYhL5Yce7PetURnOo
-         MumZ3EQDi1B46ECuxaiIy76811E4d5yE/09cVzXt4U7ypIwItDkz4MhWek/Jp2hhGKxP
-         SQ247IbxOJxgXfJyeJm4hDfW3109l3Zfak8vl0nsr3edtXvTlZTojfTtcrNirsRmNtZ7
-         Z2YXG5gq0u1hWcWIce9sDEbJtfKv2dtnnvAK3aIagfPnPHgxbojwz303ad+dB51BydWj
-         DLkqrCtHMyQCbxfzn+x2KSyznlpEV54aGAOKD6n91LZGoD8txQBly60dWzW75p7Qr3zh
-         USyA==
+        bh=ZS5I+zenDbcUpKg3uFcY9xherRojUVbxgDFlqv6/s5E=;
+        b=DXTOkhPpAmwRQfq3YV4HxOi9xnvs68rEY34MC7sbgk/kdqgXjasu1Joyw1OC57h1E8
+         mLSY6JmDCRhFbPP7cev36dH4RVD8nLihkjiflhDxIIc8ARIt4T8HylhTQO9VudcCH8yK
+         ULtUUVVAwoBVwdXzEDELLR4/mkZECwYVf5DI2dxtVm3GCtJ1DEYVh+Q64ssAFc/dgQDx
+         RUv2dXVt1FL+xjCiRnT4jx0mCeZJ/UtoUXGPnyX4IpR+zBSkhi+eKTyg+A/wjEkqtyaT
+         RifxjmR/qwmf800A+RcCoP7rDmSewjhe4Dx8BQ/s0dTEFufSjO8SqJOM77LAq+aTcayE
+         rv+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787905566; x=1788510366;
+        d=1e100.net; s=20251104; t=1787905587; x=1788510387;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=57gbJ6PuWdyL+kyJ8Dp9UoiQ0ikR2cC7cGndc/5JOIA=;
-        b=CQmB/eOl7bN7w524I7vE6BLiiEmLrvKKLs6AN1oydCwjE6Jc27M5m6YQBfifSt9hox
-         1tkLRJH+/aOszCoseIRC8EGnFBSCb56ywGOXZ0bZKZSkUB5dBrXD1BWraZC/V7knAO/L
-         k9OUOex9MC0RWDWzSYwN3BKYQbMGeLYgzLcofbxbN7nSqbwnKn+OIDtRl2DN3bewO6Pf
-         5IJlFr2DiK1MxyBYKOcB0PvZyW19E3MJzC1/xaQc+rP2ibElENdI3xl8OcthkaPty3Ae
-         4h6oKha94dwAlLHmrH+AEZgexXW+KGbC61iCdfXtf4hM45DF7kv+NGTkNsZKVRClmo+v
-         JobQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqdEGC5ThjoJuJo4EFBZCF038hd57nCvFckKlF+Hntx0lFsBjwEtPJ/AcHaSmmsgC8H0fAdXMWDCTmwQzA=@vger.kernel.org
-X-Gm-Message-State: AFuF++noahfhA3s03Alm/YBI+o+IoD23engRoAVkcnZC9q/hcv4DdDf/
-	XpDA5xWcDH5BrlxlC0/5A2gFuLQ6qTtQaF9Ffocy99d2/NKlB/YHT4K3
-X-Gm-Gg: AR+sD13gAgKbFHGImXfpnZomQNexxo8cgSyAH2k6J4vEbQyOL/6Gb7u+GjPU+P1RjaS
-	uRgphUD5pmr0amx2XFYPn3FEERoSh5tktcGg79MLtX+C5K/acxLkEpqTpG/WLVkDrKv/Ybq0DBO
-	hoMTe+4rYIKCkQyAcMzc7ZjtumNDNgliWwSmGeo6tzZzGRIZKqD2LJp233ggulatbBlM+QfQZav
-	0urlrBwt5AHa1gPISFCh1CT7am7gLDp4QCpM2p9rctaw0hl84Heul7rtSm3D1FcvAKB17tcYTpR
-	xyKdS4yT/2vMrMMrUHKQY3ZyaYsWjgP8Wr0Z/kdM1O/TI9DlC06WHUHIGJe8NSSXqEi7RTA4u20
-	Hg5rHZN3qHCLhgehSmGS4myAVhREPx7ds4Kyh3HEO5eHvbc9OrYSk7Z6n660p+AVdUUjIoy15a1
-	jESRMLRBxumJsCX6wT16LBqJ6VUdsdu3Q6hCLFPmEeaHe2OuuUln0zVXPx4iKfhesfg08TGY1pP
-	z563JSLzzPxad8DEw==
-X-Received: by 2002:a05:6a21:496:b0:3d1:c0e2:936b with SMTP id adf61e73a8af0-3d26765e5f3mr12417876637.7.1787905565243;
-        Fri, 28 Aug 2026 01:26:05 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36dc602sm310894a12.24.2026.08.28.01.26.00
+        bh=ZS5I+zenDbcUpKg3uFcY9xherRojUVbxgDFlqv6/s5E=;
+        b=fbPDSso4G+9rX8D0YH1jkPMFlqeAQUGYGMhBB8OKaNhJLPuayPGML0pWvS75HTETPs
+         d0geYOeOr1Og0IKpoZGieYKkazpxCv698oT0BKS70A5yrtO2XTnOiycSLIYS+1T3PBfS
+         rhmdsUA+J69YxaChEd0PYi2G39Vx8ESGVUFfHbL9HMt8xtwx/1bqKr8yYZlApVxCJ4Wr
+         RatCzdEY833DJcV6aCE+Gp5pG5RrcDlR9VJrRMhuMr2tTHBaY1rcQJZ2WpI2R+qUbevJ
+         7CLTLoZqrttFCm0jfigE0Kl2Yf6sZcWPy7Ffp7GLp9DUtDrAuenj09+62M70w7I+QLRZ
+         RNGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpG1qdgo1YejP6HL0xOtGSvURAls7P3LkEFG5wJbyVt4GdBDmNmP7oIu7y1a8+Dxi/Y7PXCN1aS4rwKiAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmTZumEwHxLNkxsONM1mygkptvOGyscKUdoMtVih6p1b5SfQgl
+	YHoooYlpAquwKiLFTLytZCIUt5b/3Gtn46c7Oy7k6CSHgFuMCSCNAKg1
+X-Gm-Gg: AR+sD1021dBbM3dz81CpQm7ezL/8najk3iOLnuf7Ih5x7YOrYRZJSK21NGw2rjqiKf/
+	1NVheTWJKDOyjoFYQeORNDkZ2eHbDdeycsMAWKPFRms226IHBu4+ob0ZQSubTXQSEWYmR2Q30AO
+	Ca1fKBdUWJjl82iKh9wTeRlYHKWRBCNx42U2jqEIu0I8eARAoLHINt7++HADHnZhWKwXx/p1caC
+	ut4EpX4PC3gEfWo6xo3fqaHFDF0yctszD2+OHPhluYXX8QN/szaawV92Uc6ZD72vG+jZXiqIQOr
+	aJNuvc/Q3dqU2PMVYhbH6Eg2tZaEKOgetnCo7+ByTOYFW5JjY1vPzRhK9LD0meJljPo+brcazEY
+	x3QF5eOoTE7Oz+yxHNQ5lI4h9ElL0zLFf5Dz5P0HpiSPrbV2re8jcPJSWtSSmdtO9jvRDI76ttR
+	xlmrrNhlc36LvbuhE3LKUPjE4WvujB03pwRatxqTOOWFF5xRnj+QUl+TXBe6xMwGIZN2hAPXaRv
+	s87SuGzcnAw8dWBfgAvq1KhMqpXwyM1zcqGAcnCsmMOOipdPqPvLWyZhVXj9DhrJadILC8=
+X-Received: by 2002:a17:90b:2f0f:b0:380:fead:448d with SMTP id 98e67ed59e1d1-396d0fd2a75mr10829499a91.13.1787905587371;
+        Fri, 28 Aug 2026 01:26:27 -0700 (PDT)
+Received: from ian-lin-DREAMBOOK-PRO-14V.. (59-124-157-10.hinet-ip.hinet.net. [59.124.157.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc07777sm1772399a91.12.2026.08.28.01.26.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:26:04 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Li Xinhai <lixinhai.lxh@gmail.com>,
-	linux-mm@kvack.org,
+        Fri, 28 Aug 2026 01:26:26 -0700 (PDT)
+From: Ian Lin <jisayme@gmail.com>
+To: bjorn@mork.no
+Cc: johan@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-Date: Fri, 28 Aug 2026 16:25:39 +0800
-Message-ID: <20260828082540.584610-1-kunwu.chan@linux.dev>
+	Ian Lin <jisayme@gmail.com>
+Subject: [PATCH v2] net: usb: qmi_wwan: add Compal EXM-G1x support
+Date: Fri, 28 Aug 2026 16:23:09 +0800
+Message-ID: <20260828082309.12513-1-jisayme@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826192642.980c3aba921bf20cef425591@linux-foundation.org>
-References: 
+In-Reply-To: <20260828075644.6228-1-jisayme@gmail.com>
+References: <20260828075644.6228-1-jisayme@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,170 +85,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026 19:26:42 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+The Compal EXM-G1x is a Qualcomm SDX12-based LTE modem. Add support for
+its QMI WWAN interface 8 using the DTR quirk.
 
-> On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> > a faulted VMA into an unfaulted one.
-> > 
-> > It does so after the page tables have been moved to the copied VMA with
-> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> > as the page tables it had are no longer present.
-> > 
-> > However, in doing so, it violates the invariant that the anonymous page
-> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> > 
-> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> > 
-> > This condition is a violation of a fundamental assumption in mm, but now
-> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> > this condition.
-> > 
-> > Correct it by resetting the VMA's page offset at the point of completing
-> > the MREMAP_DONTUNMAP operation.
-> 
-> Thanks.  I'll park this in mm-new until mm.git is all merged up
-> (simplifying my life..)
-> 
-> 
-> Unrelatedly, Sashiko thinks we're messing up locked_vm accounting with
-> MREMAP_DONTUNMAP on a locked VMA.
-> 	https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-> 
-> 
+Tested on a Compal EXM-G1x modem.
 
-Hi Andrew,
+Signed-off-by: Ian Lin <jisayme@gmail.com>
+---
+Changes in v2:
+- Split the QMI WWAN change into a standalone patch.
+- Document the Qualcomm SDX12 chipset.
+- Improve VID/PID ordering and add a product-name comment.
 
-> I had Sashiko write code to demonstrate this but am too lazy to test it
-> on a current kernel.  If someone could oblige?
-> 
+ drivers/net/usb/qmi_wwan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I tested Sashiko's reproducer on mm-new (7.2.0-rc5) and confirmed the
-locked_vm accounting issue. There is a minor typo in the reproducer:
-VMLck should be VmLck to match /proc/self/status.
-
-On the mm-new baseline, I get:
-[1] Initial VmLck:      0 kB
-[2] Post-mlock VmLck:   40 kB (+40 kB)
-[3] Post-mremap VmLck:  80 kB (+80 kB from initial)
-[4] Post-munmap source: 80 kB
-[5] Final VmLck:        40 kB
-
---- Result ---
-BUG DEMONSTRATED: Leaked 40 kB in mm->locked_vm counter.
-
-With Lorenzo's pgoff fix applied on top, the results are
-unchanged, so the locked_vm issue is independent of that fix.
-
-The issue is that vrm_stat_account() increments mm->locked_vm while
-the source VMA is still VM_LOCKED. With MREMAP_DONTUNMAP, the source
-VMA is left in place and dontunmap_complete() clears
-VMA_LOCKED_MASK, so the later munmap of the source VMA cannot undo
-that increment.
-
-I have prepared a separate fix which undoes this accounting in
-dontunmap_complete() before clearing VMA_LOCKED_MASK.
-
-I will send the fix separately after completing the testing.
-
-Thanks,
-KunWu
-
-> 
-> #define _GNU_SOURCE
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <unistd.h>
-> #include <sys/mman.h>
-> #include <fcntl.h>
-> 
-> /* Read VMLck (in kB) from /proc/self/status */
-> static long get_vmlck_kb(void) {
->     FILE *f = fopen("/proc/self/status", "r");
->     if (!f) {
->         perror("fopen /proc/self/status");
->         return -1;
->     }
-> 
->     char line[256];
->     long vmlck = -1;
->     while (fgets(line, sizeof(line), f)) {
->         if (strncmp(line, "VMLck:", 6) == 0) {
->             sscanf(line + 6, "%ld", &vmlck);
->             break;
->         }
->     }
->     fclose(f);
->     return vmlck;
-> }
-> 
-> int main(void) {
->     size_t size = 4096 * 10; // 40 kB
->     long initial_vmlck, post_mlock, post_mremap, post_munmap;
-> 
->     initial_vmlck = get_vmlck_kb();
->     printf("[1] Initial VMLck:      %ld kB\n", initial_vmlck);
-> 
->     /* 1. Allocate initial VMA */
->     void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
->                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->     if (addr == MAP_FAILED) {
->         perror("mmap initial");
->         return 1;
->     }
-> 
->     /* 2. Lock the VMA (increments mm->locked_vm) */
->     if (mlock(addr, size) != 0) {
->         perror("mlock");
->         return 1;
->     }
->     post_mlock = get_vmlck_kb();
->     printf("[2] Post-mlock VMLck:   %ld kB (+%ld kB)\n", 
->            post_mlock, post_mlock - initial_vmlck);
-> 
->     /* 3. mremap with MREMAP_DONTUNMAP 
->      * move_vma() increments mm->locked_vm for the destination VMA,
->      * while dontunmap_complete() clears VMA_LOCKED_MASK on source VMA
->      * without decrementing mm->locked_vm.
->      */
->     void *new_addr = mremap(addr, size, size, 
->                             MREMAP_MAYMOVE | MREMAP_DONTUNMAP, NULL);
->     if (new_addr == MAP_FAILED) {
->         perror("mremap MREMAP_DONTUNMAP");
->         return 1;
->     }
->     post_mremap = get_vmlck_kb();
->     printf("[3] Post-mremap VMLck:  %ld kB (+%ld kB from initial)\n", 
->            post_mremap, post_mremap - initial_vmlck);
-> 
->     /* 4. Unmap source VMA 
->      * Since VMA_LOCKED_BIT was cleared on source VMA, 
->      * munmap fails to decrement mm->locked_vm for this region.
->      */
->     munmap(addr, size);
->     post_munmap = get_vmlck_kb();
->     printf("[4] Post-munmap source: %ld kB\n", post_munmap);
-> 
->     /* 5. Clean up destination VMA */
->     munmap(new_addr, size);
->     long final_vmlck = get_vmlck_kb();
->     printf("[5] Final VMLck:        %ld kB\n", final_vmlck);
-> 
->     /* Evaluation */
->     printf("\n--- Result ---\n");
->     if (final_vmlck > initial_vmlck) {
->         printf("BUG DEMONSTRATED: Leaked %ld kB in mm->locked_vm counter.\n",
->                final_vmlck - initial_vmlck);
->     } else {
->         printf("NO LEAK: mm->locked_vm returned to initial state.\n");
->     }
-> 
->     return 0;
-> }
-> 
-> 
-
+diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
+index 8178a8758..fdfdcf24d 100644
+--- a/drivers/net/usb/qmi_wwan.c
++++ b/drivers/net/usb/qmi_wwan.c
+@@ -1446,6 +1446,7 @@ static const struct usb_device_id products[] = {
+ 	{QMI_QUIRK_SET_DTR(0x2c7c, 0x0316, 3)},	/* Quectel RG255C */
+ 	{QMI_QUIRK_SET_DTR(0x2cb7, 0x0104, 4)},	/* Fibocom NL678 series */
+ 	{QMI_QUIRK_SET_DTR(0x2cb7, 0x0112, 0)},	/* Fibocom FG132 */
++	{QMI_QUIRK_SET_DTR(0x04b7, 0x8217, 8)},	/* Compal EXM-G1x */
+ 	{QMI_FIXED_INTF(0x0489, 0xe0b4, 0)},	/* Foxconn T77W968 LTE */
+ 	{QMI_FIXED_INTF(0x0489, 0xe0b5, 0)},	/* Foxconn T77W968 LTE with eSIM support*/
+ 	{QMI_FIXED_INTF(0x2692, 0x9025, 4)},    /* Cellient MPL200 (rebranded Qualcomm 05c6:9025) */
+-- 
+2.43.0
