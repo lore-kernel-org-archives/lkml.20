@@ -1,111 +1,98 @@
-Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B846446852
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4096644781B;
+	Fri, 28 Aug 2026 11:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917148; cv=none; b=qEX70oLnYX9R+Rws5Dc3gEQ4rxYswUTSluD3GC59ykN/YoNqFpGdliOVa9SQTro6Cbx356+K8U9fARIiJSXwx1QVcnVklPjv2iDMQ0lwp0DTGkyds9Is2l/AgIGp4/x+XyjXFJn3Dvae1IpoTzwhwPdERFa1WrGf49vcDQ3+hsc=
+	t=1787917214; cv=none; b=Ys5oM8zBDIu2QtYEMAiCKR0KXp+gMwDqtU7Zx9Ng3nQxesMMDGnWPijw2NLN+8+0PQicMSSW0dZHluB1NlIrMmzrxsDKOaHOZi1GUnA0nspvVPluYAWFzlNCAF9xMHDkJ3K1Im3EoIef62FWKhQQbNggiTz5pv/K1tgOXkgZmLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917148; c=relaxed/simple;
-	bh=NdjwIHjLMtwULySAl01jbxlCbe76DSmtR6VHa3IT7SQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=invJg6ZvbfcXA0Ncd1ZgzZGND9XgGx5BO5ygvgKowdT+/vaS4bliXaCjOBsPGNXsm2n7cDTH7FOk9tpmc4WeM7K61EPLdlTSYX7KLBotcBSKgrXoOij6lr+NUh2ap5KQB0WUlGYD8NPMvCcfXS29p+iiBBuMmVcSEjBPxwpLQx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c50g6GpT; arc=none smtp.client-ip=91.218.175.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c50g6GpT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NdjwIHjLMtwULySAl01jbxlCbe76DSmtR6VHa3IT7SQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787917139; v=1; x=1788521939;
- b=c50g6GpTINKgaAAbDKTwuL+c2Jn3CMl5UwUVA3SylvE64I3UuHumDS9hBVrS7eA8qwAyD9SQ
- Eu5tlTDh3oU9VJznxgVEVhSaktmC2uot8AF0/6STwB3HJGXuMvCaNbHIwTJemDRNvpOmO1sXz4+
- Uy5hMvbxNuO4bGUqgLGbysRc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 83ddab0aff98e2c5;
-	Fri, 28 Aug 2026 11:38:59 +0000
-X-Mizu-Trace-ID: 83ddab0aff98e2c5
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 13:38:53 +0200
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Geoff Levand <geoff@infradead.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>
-Cc: stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	s=arc-20240116; t=1787917214; c=relaxed/simple;
+	bh=3vZ7s2UOMmcLaRz+xko0cLJuJ5A+wEuYWrp1KA9LtkY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F/7zTusLNrFaS3ic6L4EU9XqKW7TCxAfr2jT/ZRd6i/W0eJQenXnuI94nMoJp++b5bUq+bLwbx7QcSHeH+vbYU1lv4Sl476EB1UssoDMGvdqLe51kOTShOhZpH2RXshRjct36sxSqAzfshjNQLXnZBz3jqCdLGSGKG0YYGrG5UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S17;
+	Fri, 28 Aug 2026 19:34:21 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc/ps3: Fix repository.c build failure
-Message-ID: <apFzTdakRxQMLJ2n@linux.dev>
-References: <20260703165834.137242-2-thorsten.blum@linux.dev>
+Subject: [PATCH 15/20] ASoC: wm8985: Unwind supplies on cache replay failure
+Date: Fri, 28 Aug 2026 19:34:10 +0800
+Message-ID: <20260828113416.47061-16-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
+References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703165834.137242-2-thorsten.blum@linux.dev>
+X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S17
+X-Coremail-Antispam: 1UD129KBjvdXoWrZrykXr48tryfKw4xGw17ZFb_yoWkAFg_W3
+	y0g3WDJryYgrWIvasru3yjvrW0grn7AayIyrn2q34ftry7t3WrAr45Xrsxuw4UW348Ca43
+	XF12gr17Ary7GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbDkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
+	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
+	F7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr
+	1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
+	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
+	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
+	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r
+	1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
+	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjBTYUUU
+	UUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Fri, Jul 03, 2026 at 06:58:35PM +0200, Thorsten Blum wrote:
-> GCC fails to build ps3_defconfig with the following errors:
-> 
->   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
->   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 3 [-Werror=stringop-overread]
->      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
->         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
->   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 4 [-Werror=stringop-overread]
->      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
->         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> The current use of strnlen(text, sizeof(n)) triggers -Wstringop-overread
-> when text is a short string literal that is smaller than sizeof(n), such
-> as "bi" or "bus". Use strlen(text) instead and clamp the copy length to
-> sizeof(n) before memcpy().
-> 
-> Drop the redundant char * cast while at it.
-> 
-> Fixes: f94a84a09148 ("powerpc/ps3: refactor strncpy usage")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
->  arch/powerpc/platforms/ps3/repository.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/platforms/ps3/repository.c b/arch/powerpc/platforms/ps3/repository.c
-> index b8c030eab138..0cc755ac3e7f 100644
-> --- a/arch/powerpc/platforms/ps3/repository.c
-> +++ b/arch/powerpc/platforms/ps3/repository.c
-> @@ -6,6 +6,8 @@
->   *  Copyright 2006 Sony Corp.
->   */
->  
-> +#include <linux/minmax.h>
-> +
->  #include <asm/lv1call.h>
->  
->  #include "platform.h"
-> @@ -74,8 +76,9 @@ static void _dump_node(unsigned int lpar_id, u64 n1, u64 n2, u64 n3, u64 n4,
->  static u64 make_first_field(const char *text, u64 index)
->  {
->  	u64 n = 0;
-> +	size_t len = min(strlen(text), sizeof(n));
->  
-> -	memcpy((char *)&n, text, strnlen(text, sizeof(n)));
-> +	memcpy(&n, text, len);
->  	return PS3_VENDOR_ID_NONE + (n >> 32) + index;
->  }
->  
+wm8985_set_bias_level() enables supplies and ignores regcache_sync(),
+then performs the anti-pop and bias power-up sequence.
 
-Gentle ping - it's been a few weeks and the build failure is still
-present. Is the approach here ok or would you prefer something else?
+Return the cache error and disable the supplies acquired for the failed
+OFF-to-STANDBY transition.
 
-Thanks,
-Thorsten
+The issue was identified via static analysis and manually reviewed.
+
+Fixes: 6d6f8b832705 ("ASoC: WM8985: Initial driver")
+
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ sound/soc/codecs/wm8985.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/wm8985.c b/sound/soc/codecs/wm8985.c
+index 2a64d5a851da..10658d9a42d0 100644
+--- a/sound/soc/codecs/wm8985.c
++++ b/sound/soc/codecs/wm8985.c
+@@ -971,7 +971,12 @@ static int wm8985_set_bias_level(struct snd_soc_component *component,
+ 				return ret;
+ 			}
+ 
+-			regcache_sync(wm8985->regmap);
++			ret = regcache_sync(wm8985->regmap);
++			if (ret) {
++				regulator_bulk_disable(ARRAY_SIZE(wm8985->supplies),
++						       wm8985->supplies);
++				return ret;
++			}
+ 
+ 			/* enable anti-pop features */
+ 			snd_soc_component_update_bits(component, WM8985_OUT4_TO_ADC,
+-- 
+2.43.0
+
