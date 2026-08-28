@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7BA360EE2;
-	Fri, 28 Aug 2026 15:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73913630BF;
+	Fri, 28 Aug 2026 15:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931024; cv=none; b=tFqQWxvjvXxTa8lf/xSgc1DpQrdVrO5jKvxJKn98kGdHDcWgX5uXBFC6BwZQ5XSZH1JByop95bwT1K4VD6tLkjKC5LXAqV6RW/C3BJHXujU8iLAqJ9xYRzWaanPU/lpe+9g208n7yEFRMlDLjQn5ZnjjQFFUS3qYZmblWMjN6Hs=
+	t=1787931024; cv=none; b=C+14EX8ZTuwrqBJ3R/RAQGdBf8OELZ3A4aJFoTcU8zVtsYJQe/eVNOiPJxVruujTVG5IRHUvGwSYm3IAnC3Vmi9R3wNuVozuqFT9j0CyvFcZI68Ic8eAAZq8ICeOqk7F17mXkiLABTqaYxFmUtafK58aAvHYhtlNW9Hi5znJ22Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787931024; c=relaxed/simple;
-	bh=TZBaltimlxJ09g+m37Hr8LTGXn/rNqzVEM9ivilaUU8=;
+	bh=gxPoFx6SdnptXG3Hw+pks3NJkGqlI1aInjSfIWG4UM4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bQOFGKNTTbM7+DB14qwQZHK5Uz5wKAoXoR+jkTlkAWV8vWmKujiIrwRzG5thb/9WVtG7orY4RPVZq45h8/2Q6imRiEX9MUhxXuw/m8v9xChilvB1FYJMuFuctbTzEY9VNFieDurPAmtS6WlUNF0lYqdczVoWkCA9+lf8MzjGSGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hA+fHZXS; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version; b=raoJlfKGadISD7L0P0sDuHlT/LR7blEa0aGgcMfHZtBKlDHILic/Tnqecuc1MZtjG6pNKzDQaCf7I2gyIN/1r+cch8QDH6WmVgYSRrit+JGVWXMR2qs3CG1XlwS8Dl4AZL9l5tsNQdPSNlZQTjAMKXEaVtq4aMJqsbTMIlKKwSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FX8dQNt7; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hA+fHZXS"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FX8dQNt7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787931022; x=1819467022;
+  t=1787931019; x=1819467019;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=TZBaltimlxJ09g+m37Hr8LTGXn/rNqzVEM9ivilaUU8=;
-  b=hA+fHZXS/swdgADUeqLfTyPkRldQJznUSOrsrOOXYdrJGm/w0ZrhvcCq
-   hJsCCxXa6QiYLUxZFVcyVssmLdcfsKkSur64IqOX1fSDLl0uGM0JY8ud9
-   oGoVwiP5ifecsUM/4ATG0yq1pxw3I3NKqEorgnLsv5Z47zLVXHJCh9chp
-   hFFOHZv7i2YfPBoC+fRatsQfAaS04lkECUwZpqOc9ltf68GkUOnscNp9j
-   NBOMTPMGzeTdf1G2JzsU51+LOmF7lWgBarufahg1GKge36n5zNqhNZGaI
-   sI1i1EWKI2NgmeVhqf7d/nGDiLwpKIcWbuFtyv2vsfFZs4Vv96RPQY1Ve
-   Q==;
-X-CSE-ConnectionGUID: wk3mNG5iR6SuqlSTOvsInA==
-X-CSE-MsgGUID: 8ximVwkPRa6iD/3TCjo+gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99104601"
+  bh=gxPoFx6SdnptXG3Hw+pks3NJkGqlI1aInjSfIWG4UM4=;
+  b=FX8dQNt7XeF2CilNOvx98Zqn4EZakKm+eDd+Mx/YWRlLGjNpMuRzprz2
+   Blh0WLr9gyZvHbWQQjqJWJnQ47fTwALGJwwNz7oMc6uzcm/k+HDYB99fN
+   sUbQSLvFhJV3m6kegKij5q2I7Hkr3T9s7MFEpufzu5ThnDRz0VMZY3Smt
+   8PGx044/ROFJAsraNUl5g8MUgUqIU8OjZOYHCBCprWgCPMIRhc8A3DOS2
+   2zo0gv/arzJzn9Bu63q+PysH/OTRiKJB4Ir1Qvucmggw/faUSXZ0TVUqO
+   ogDJNb8XGdoKzw6uJtz1EAB7JHX/Oq9IpZhua3uKCIWjiQll7qzZ0DCAp
+   g==;
+X-CSE-ConnectionGUID: xFzyr5w1SdudueKGgMvZKQ==
+X-CSE-MsgGUID: G4oKpc6yQvavy1Om3O2bng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99104605"
 X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99104601"
+   d="scan'208";a="99104605"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:30:10 -0700
-X-CSE-ConnectionGUID: kjXiaU0DTkmsq+gk1XJaSg==
-X-CSE-MsgGUID: lAhY5Xt8S0GqKoyYdq6ZgQ==
+X-CSE-ConnectionGUID: 6aL0J0V6SnGOTVglG3NbKw==
+X-CSE-MsgGUID: Vh4gdHBASvOJyPNYILowYQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="291682288"
+   d="scan'208";a="291682292"
 Received: from iherna2-mobl4.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.223.138])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:30:09 -0700
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:30:10 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Tony Luck <tony.luck@intel.com>
 Cc: Borislav Petkov <bp@alien8.de>,
@@ -52,9 +52,9 @@ Cc: Borislav Petkov <bp@alien8.de>,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev
-Subject: [PATCH v2 6/7] EDAC/intel-bff: Compute unique ID for overflowed filter
-Date: Fri, 28 Aug 2026 08:30:01 -0700
-Message-ID: <20260828153002.10290-7-tony.luck@intel.com>
+Subject: [PATCH v2 7/7] EDAC/intel-bff: Report frequent filter overflows
+Date: Fri, 28 Aug 2026 08:30:02 -0700
+Message-ID: <20260828153002.10290-8-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260828153002.10290-1-tony.luck@intel.com>
 References: <20260828153002.10290-1-tony.luck@intel.com>
@@ -66,137 +66,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each L2 cache instance has its own bitfix filter, but always reports
-errors in machine check bank 3 (on Diamond Rapids).
+If an instance of a bitfix filter contains some transient errors built
+up over time, then resetting the filter will free up slots in the filter
+to store persistent errors.
 
-Compute a unique bitfix filter instance number based on the CPU that
-logged the error and the machine check bank number.
+Save a timestamp when "yellow" status is seen and clear the filter.
 
-Special-case the banks associated with the Integrated Memory Hub (IMH).
-Here the "even" numbered CPU modules are associated with IMH0 and the
-"odd" modules with IMH1.
-
-The unique id will be used to store a time stamp of when the bitfix
-filter overflowed so that frequent overflows can be logged.
+Log at KERN_WARNING level if the overflow occurred quickly after a
+previous overflow on the same bitfix filter instance. Use KERN_NOTICE
+for first, or long delayed, overflow.
 
 Co-developed-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
 Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
- drivers/edac/intel-bff.c | 80 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 80 insertions(+)
+ drivers/edac/intel-bff.c | 72 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 70 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/edac/intel-bff.c b/drivers/edac/intel-bff.c
-index c46d5255f34b..06a79745c2fb 100644
+index 06a79745c2fb..adf2ec343129 100644
 --- a/drivers/edac/intel-bff.c
 +++ b/drivers/edac/intel-bff.c
-@@ -19,13 +19,18 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cacheinfo.h>
-+#include <linux/cleanup.h>
- #include <linux/cpufeature.h>
-+#include <linux/cpuhplock.h>
+@@ -25,13 +25,17 @@
+ #include <linux/cpuhplock.h>
  #include <linux/device-id/x86_cpu.h>
  #include <linux/errno.h>
++#include <linux/gfp_types.h>
  #include <linux/init.h>
-+#include <linux/limits.h>
++#include <linux/jiffies.h>
+ #include <linux/limits.h>
  #include <linux/module.h>
  #include <linux/notifier.h>
  #include <linux/printk.h>
-+#include <linux/topology.h>
++#include <linux/slab.h>
+ #include <linux/topology.h>
  #include <linux/types.h>
++#include <linux/xarray.h>
  
  #include <asm/cpu_device_id.h>
-@@ -72,12 +77,87 @@ MODULE_DEVICE_TABLE(x86cpu, bff_cpu_ids);
+ #include <asm/cpufeatures.h>
+@@ -40,6 +44,16 @@
+ #include <asm/msr.h>
+ #include <asm/msr-index.h>
+ 
++/*
++ * A 10-minute observation period helps distinguish between:
++ *
++ *  - A long-term accumulation of transient corrected errors
++ *    (filter stays clear after reset).
++ *
++ *  - Permanent defects (filter overflows again quickly).
++ */
++#define BFF_OVERFLOW_INTERVAL	secs_to_jiffies(10 * 60)
++
+ /* Intel bitfix filter control register defines */
+ #define MSR_MC0_BFF_CTL		0x000006c0
+ #define MSR_MCx_BFF_CTL(x)	(MSR_MC0_BFF_CTL + (x))
+@@ -77,6 +91,8 @@ MODULE_DEVICE_TABLE(x86cpu, bff_cpu_ids);
  
  static const enum bff_bank_type *bff_bank_types;
  
-+/* Diamond Rapids maps APICID[2] to the IMH instance within a socket. */
-+#define APICID_IMH_NUM		GENMASK(2, 2)
-+#define IMH_NUM(apicid)		FIELD_GET(APICID_IMH_NUM, apicid)
-+#define NUM_IMH_PER_SOCKET	2
++static DEFINE_XARRAY(bff_bank_xa);
 +
-+static void bff_set_imh_id(struct mce *mce, unsigned long *id)
+ /* Diamond Rapids maps APICID[2] to the IMH instance within a socket. */
+ #define APICID_IMH_NUM		GENMASK(2, 2)
+ #define IMH_NUM(apicid)		FIELD_GET(APICID_IMH_NUM, apicid)
+@@ -149,6 +165,41 @@ static unsigned long bff_get_id(struct mce *mce)
+ 	return id;
+ }
+ 
++/*
++ * Save current timestamp for bff_id. Return true if it is within
++ * BFF_OVERFLOW_INTERVAL of previous timestamp for this bff_id.
++ */
++static bool bff_overflow_is_frequent(unsigned long bff_id)
 +{
-+	int imh_num;
++	unsigned long now = jiffies, interval_end;
++	unsigned long *ts;
 +
-+	imh_num = NUM_IMH_PER_SOCKET * topology_physical_package_id(mce->extcpu) +
-+			IMH_NUM(mce->apicid);
++	if (bff_id == ULONG_MAX)
++		return false;
 +
-+	*id |= imh_num;
-+}
++	ts = xa_load(&bff_bank_xa, bff_id);
++	if (!ts) {
++		ts = kzalloc_obj(*ts);
++		if (!ts) {
++			pr_warn("Failed to allocate timestamp for bitfix filter 0x%lx\n", bff_id);
++			return false;
++		}
++		if (xa_is_err(xa_store(&bff_bank_xa, bff_id, ts, GFP_KERNEL))) {
++			kfree(ts);
++			pr_warn("Failed to record timestamp for bitfix filter 0x%lx\n", bff_id);
++			return false;
++		}
++		*ts = now;
 +
-+static bool bff_set_cache_id(int cpu, int level, unsigned long *id)
-+{
-+	int cacheid;
-+
-+	guard(cpus_read_lock)();
-+
-+	cacheid = get_cpu_cacheinfo_id(cpu, level);
-+	if (cacheid == -1) {
-+		pr_warn("Could not get L%d cache id for CPU %d\n", level, cpu);
 +		return false;
 +	}
 +
-+	*id |= cacheid;
++	interval_end = *ts + BFF_OVERFLOW_INTERVAL;
++	*ts = now;
 +
-+	return true;
-+}
-+
-+/*
-+ * Cache IDs are only unique within a cache level.
-+ * Include the MCA bank number so each BFF-capable hardware
-+ * resource has a unique tracking ID.
-+ */
-+#define BFF_ID_BANK_FIELD	GENMASK(63, 32)
-+
-+static unsigned long bff_get_id(struct mce *mce)
-+{
-+	unsigned long id = FIELD_PREP(BFF_ID_BANK_FIELD, mce->bank);
-+
-+	switch (bff_bank_types[mce->bank]) {
-+	case BFF_BANK_DCU:
-+	case BFF_BANK_DTLB:
-+		if (!bff_set_cache_id(mce->extcpu, 1, &id))
-+			return ULONG_MAX;
-+		break;
-+
-+	case BFF_BANK_MLC:
-+		if (!bff_set_cache_id(mce->extcpu, 2, &id))
-+			return ULONG_MAX;
-+		break;
-+
-+	case BFF_BANK_CCF:
-+		if (!bff_set_cache_id(mce->extcpu, 3, &id))
-+			return ULONG_MAX;
-+		break;
-+
-+	case BFF_BANK_HSF:
-+	case BFF_BANK_IOCACHE:
-+		bff_set_imh_id(mce, &id);
-+		break;
-+
-+	default:
-+		return ULONG_MAX;
-+	}
-+
-+	return id;
++	return time_before(now, interval_end);
 +}
 +
  static void bff_reset_and_report(struct mce *mce)
  {
  	/* Reset bitfix filter using the CPU that logged the yellow status */
- 	if (wrmsrq_on_cpu(mce->extcpu, MSR_MCx_BFF_CTL(mce->bank), MCI_BFF_RESET))
+@@ -156,8 +207,18 @@ static void bff_reset_and_report(struct mce *mce)
  		pr_warn("Failed to reset bitfix filter for CPU %d Bank %d\n",
  			mce->extcpu, mce->bank);
-+
-+	/* Placeholder use of bff_get_id() */
-+	pr_debug("unique_id = 0x%lx\n", bff_get_id(mce));
+ 
+-	/* Placeholder use of bff_get_id() */
+-	pr_debug("unique_id = 0x%lx\n", bff_get_id(mce));
++	/*
++	 * Use the unique id for the bitfix filter instance that overflowed and
++	 * check if this is a repeat within the BFF_OVERFLOW_INTERVAL. If it
++	 * is, then report at WARN severity as the user may want to take action.
++	 */
++	if (bff_overflow_is_frequent(bff_get_id(mce))) {
++		pr_warn_ratelimited(HW_ERR "Socket %d CPU %d Bank %d bitfix filter overflowed frequently\n",
++				    mce->socketid, mce->extcpu, mce->bank);
++	} else {
++		pr_notice_ratelimited(HW_ERR "Socket %d CPU %d Bank %d bitfix filter overflowed\n",
++				      mce->socketid, mce->extcpu, mce->bank);
++	}
  }
  
  static int bff_mce_notify(struct notifier_block *nb, unsigned long val, void *data)
+@@ -216,7 +277,14 @@ static int __init bff_init(void)
+ 
+ static void __exit bff_exit(void)
+ {
++	unsigned long bff_id;
++	unsigned long *ts;
++
+ 	mce_unregister_decode_chain(&bff_notifier);
++
++	xa_for_each(&bff_bank_xa, bff_id, ts)
++		kfree(ts);
++	xa_destroy(&bff_bank_xa);
+ }
+ 
+ module_init(bff_init);
 -- 
 2.55.0
 
