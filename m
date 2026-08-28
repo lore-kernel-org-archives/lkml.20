@@ -1,114 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849BA171BB;
-	Fri, 28 Aug 2026 10:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3869171BB
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914059; cv=none; b=iqo2kog3/JzAk6dvOpG9iiC5tLSz4RcUXYHZcd8ce3BTfRyHur9/OTQe3awII53RGe7cyFmdeuzzVJSisRJnHhrQrjWy6TtBW1bqB8cp79CyTUujZFFcXUPLInLYHDTL0y+bM76qW9QTMtb1oUGAdKP9ZL784znfRz4HleVZokQ=
+	t=1787914203; cv=none; b=AhpxrZmG/TNJ56azvGmD3/XkyG1Hyynm8AeZnHvJoz9Ksh/Cpp7oSRJ6Y4oQEIOOq271u3IUxHKalJfz7AoVlDbK8KZ2ayOD4hKhP5ZWzjlNfq7jHETuOKNu54hAIXHhsksaUE8WbWrfGqBvXmweBzn3nZNe3YvwplAE5wJlw2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914059; c=relaxed/simple;
-	bh=1XMPfq9s8/peSYJriBfBiTolffjXu4Tw3FpoQQuODwg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qiMI5oNwn0+SwzsR94zssZ6vIEghLub2Rlc4aRR0gmId2XoDm+0eArB0EBzawPJez/99lMdLdl6bGoEfNiT8FyIxvKLyZwJwAcEAbaSYl9jUgMsgiGKI8eHoQfLXsVDx4kfouXxdJxT9/XWUWEyLGaeJYd7KnFQXxRi1dOaJx0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e/jrlwum; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787914203; c=relaxed/simple;
+	bh=33MVvyU6flxL5cQA6YdkwXg1ZbH1BHoYh3xQUJJJusY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OO4DOuVwa+bxGGQg2uXomshilOXZgwk/EV6vRO62fLFSPE7icY4M/nAtpZ5dVCzP3guDiRPWY6Ezeuw1YN0A/PcysCQxfNIVq1+TJKp4+7oJwsS3mVCl2KThMn6+iB7EXgxdXZg4X8DpqrcDdqpjDJ3tS6869RmG/a/OMivSUNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=aijAIjdd; arc=none smtp.client-ip=61.135.153.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e/jrlwum"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCE31F000E9;
-	Fri, 28 Aug 2026 10:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787914058;
-	bh=GK5Qn1KL0/91qocJRehEoISCM/yaKGtSM84iG8SFsO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e/jrlwum8K2QjvE7IYshKYUVKMfoM5gwtwhNy5xulfcpkQiCuhfQBYSbvEUezAzYZ
-	 UKXkIIdTNZNFpCy4RAZnjXeRodjIWVBdp6g9VZfQZ3UWyY9+3xhhVBlbber+Q/TwKj
-	 6yDdPf/0TXCxn3Fgyg0XXyvGo7yka3C+j8KzmHDk=
-Date: Fri, 28 Aug 2026 12:45:55 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: Sebastian Reichel <sre@kernel.org>,
-	Kai Vehmanen <kai.vehmanen@nokia.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Joni Lapilainen <joni.lapilainen@gmail.com>,
-	Carlos Chinea <carlos.chinea@nokia.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] HSI: cmt_speech: Fix crash on device removal with open
- file descriptor
-Message-ID: <2026082802-plod-scroll-3acb@gregkh>
-References: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="aijAIjdd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787914197;
+	bh=yuVja7/hyVZ6sVqMdahq1hTCS5fUCdu4lYUx6vfeg8k=;
+	h=From:Subject:Date:Message-ID;
+	b=aijAIjddjbuxT69Aa5C6tGwAgE6pVHH3aRy42yNtEehXzpiDVxhRjfuEcvpLMsAcG
+	 UeJspVc+DED2Jv2P8aQ3T8m4GD8j95WtGwBa8ADwuwZJGEGO1/YUj4R6qCYxXL6Ee2
+	 driqGgy6+bPAS7/LXMryatSzav2Y9FvhX4ax8TLk=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6A9167C800005330; Fri, 28 Aug 2026 18:49:47 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 1480266815948
+X-SMAIL-UIID: 6BA2352CF4E049E69E411598473469E8-20260828-184947-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: eadavis@sina.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	magiclinan@didiglobal.com,
+	song@kernel.org,
+	syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	xiao@kernel.org,
+	yukuai@fygo.io
+Subject: [PATCH v2] md/raid1: prevent a race between write and stop request
+Date: Fri, 28 Aug 2026 18:49:44 +0800
+Message-ID: <20260828104944.246837-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828103957.245658-1-eadavis@sina.com>
+References: <20260828103957.245658-1-eadavis@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 04:09:27PM +0800, Shengzhuo Wei wrote:
-> misc_deregister() does not drain file descriptors that are already
-> open, so after cs_hsi_client_remove() clears and frees
-> cs_char_data.hi, the ioctl and write paths still dereference it
-> without any lock or NULL check:
-> 
->   open("/dev/cmt_speech")                          [userspace]
->   rmmod cmt_speech                                 [removal]
->   ioctl(fd, CS_GET_STATE, 0)                       [userspace]
-> 
-> Fix it by reading cs_char_data.hi under cs_char_data.lock and
-> rejecting calls with -ENODEV once the interface is gone;
-> cs_char_release() now steals the pointer under the lock like
-> cs_hsi_client_remove() does, so the interface is stopped exactly
-> once between them.
-> 
-> Fixes: 7f62fe8a5851 ("HSI: cmt_speech: Add cmt-speech driver")
-> Cc: stable@vger.kernel.org
-> 
-> Assisted-by: GLM:5.3
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+A race condition exists between write and stop requests, leading to a
+null-ptr-deref in [1].
 
-No blank line above the assisted-by line.
+CPU0				CPU1
+====				====
+md_submit_bio()
+md_handle_request()		do_md_stop()
+raid1_make_request()		 __md_stop()
+raid1_write_request()		   mddev->private = NULL
+wait_barrier()
+conf->nr_pending //trigger [1]
 
+The intervention of a stop request causes inconsistencies in the state
+of mddev members (such as private and pers) while a write request is
+executing; the mddev lock is used to synchronize write and stop requests,
+thereby ensuring consistent mddev state throughout the execution of the
+write request.
 
-> ---
-> Verified on a KASAN kernel with a software HSI controller: opening the
-> character device, unbinding the client and issuing the ioctl gives
+Additionally, when a write operation reaches the RAID1 layer, if a stop
+request acquires the mddev lock first and releases mddev->private, the
+bio is terminated and the write request exits.
+	
+[1]
+KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
+RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
+Call Trace:
+ wait_barrier drivers/md/raid1.c:1154 [inline]
+ raid1_write_request drivers/md/raid1.c:1506 [inline]
+ raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
+ md_handle_request+0x824/0x1230 drivers/md/md.c:417
+ md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
+ __submit_bio block/blk-core.c:681 [inline]
+ __submit_bio+0x20e/0x3d0 block/blk-core.c:670
+ __submit_bio_noacct block/blk-core.c:724 [inline]
+ submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
+ submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
+ bio_await+0x1fa/0x240 block/bio.c:1580
+ submit_bio_wait+0x19/0x60 block/bio.c:1598
+ __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
+ blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
+ blkdev_direct_write block/fops.c:699 [inline]
+ blkdev_write_iter+0x703/0xd30 block/fops.c:767
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
 
-why are you unbinding?  You do know that will taint the kernel in the
-future, and this is not a "normal" operation that a user could do,
-right?
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+Tested-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: typo in comments
 
-> 
->   KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
->   RIP: 0010:cs_char_ioctl+0x29e/0x340
-> 
-> and with the patch applied the same sequence returns -ENODEV.
-> ---
->  drivers/hsi/clients/cmt_speech.c | 47 ++++++++++++++++++++++++++++++++++------
->  1 file changed, 40 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
-> index 7226677ebde7..4325152a5a62 100644
-> --- a/drivers/hsi/clients/cmt_speech.c
-> +++ b/drivers/hsi/clients/cmt_speech.c
-> @@ -732,6 +732,17 @@ static int cs_hsi_write_on_data(struct cs_hsi_iface *hi, unsigned int slot)
->  	return ret;
->  }
->  
-> +static struct cs_hsi_iface *cs_char_hsi_get(struct cs_char *csdata)
-> +{
-> +	struct cs_hsi_iface *hi;
-> +
-> +	spin_lock_bh(&csdata->lock);
-> +	hi = csdata->hi;
-> +	spin_unlock_bh(&csdata->lock);
+ drivers/md/raid1.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-That is not a normal "get" type operation.
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index f0646fb24371..3b9f1fa65e65 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -1674,6 +1674,7 @@ static bool raid1_write_request(struct mddev *mddev, struct bio *bio,
+ static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
+ {
+ 	sector_t sectors;
++	blk_status_t status;
+ 
+ 	if (unlikely(bio->bi_opf & REQ_PREFLUSH)
+ 	    && md_flush_request(mddev, bio))
+@@ -1692,11 +1693,36 @@ static bool raid1_make_request(struct mddev *mddev, struct bio *bio)
+ 	if (bio_data_dir(bio) == READ)
+ 		raid1_read_request(mddev, bio, sectors, NULL);
+ 	else {
++		int err;
++
+ 		md_write_start(mddev, bio);
+-		if (!raid1_write_request(mddev, bio, sectors))
++		err = mddev_lock(mddev);
++
++		if (err < 0) {
++			md_write_end(mddev);
++			status = BLK_STS_IOERR;
++			goto done;
++		}
++
++		if (!mddev->private) {
++			mddev_unlock(mddev);
++			md_write_end(mddev);
++			status = BLK_STS_OFFLINE;
++			goto done;
++		}
++
++		err = raid1_write_request(mddev, bio, sectors);
++		mddev_unlock(mddev);
++
++		if (!err)
+ 			md_write_end(mddev);
+ 	}
++out:
+ 	return true;
++done:
++	bio->bi_status = status;
++	bio_endio(bio);
++	goto out;
+ }
+ 
+ static void raid1_status(struct seq_file *seq, struct mddev *mddev)
+-- 
+2.43.0
 
-Why are you not using the proper reference counting structures that you
-already have here?
-
-thanks,
-
-greg k-h
