@@ -1,163 +1,70 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBD03EB111
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D4B224AF9;
+	Fri, 28 Aug 2026 09:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910919; cv=none; b=PWyBoDbcyWGe0Z/g6poOtIAeCFhq0HNRQqhQYjbMc0CLbA1erBABlpGP0hB3lspctPJ0EEvbGJ7n+hvN1/gEqgtFvtoGngKQK4nkVodxv2JLSu+9P54jRBdQ+d/RkZ1DX/YmZeUiZsnyJD8KYGOts4uoamajuwzNQwQG+kv6MK0=
+	t=1787910939; cv=none; b=g5udTupvi5bsbE7nVhPfU2Uv50/8EDfpbihbomYm5bF7ilOXwoy0Udz7WURegirbenwEGELh4xIrXMe/IjphXz0XSnMUoKC7PnZhepB6iyUJiwmi5PollTgVK2AgpM2jKHUxOB5BV4FYBM0geQva7kEFa2ChLOPYuuy2pOyJX3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910919; c=relaxed/simple;
-	bh=H9cY3HUqGT9SKI+YapI58fZaNOQJ3Bii6JWiY3YZ3sg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rkJWgTrYUGB0nzJXMegkgt1M7R9mj2uxOrqmkSTagEIva0R/TGrSOtTAJpoUubhe0wz3extem9SBzLtjLXbWcrKSGszkjfAo9DAjWbKn0+dGW0bWq7VmF5WcNgzatE04vkfW9m/qFC+uDzmp0+tcpH6oPRv4lzBAbPI0nwZzJFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahmab0ox; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787910939; c=relaxed/simple;
+	bh=Oiv1fjwE0fPV25G5MaQnpthHmH1NJ4nT1lnP2cUqPYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z1iT4WWrcc+6rXqzyHfkYxcPcdZxIGoFP/uG48Wm1+7XINgdKFzJpvAyWah7VdbvOPNZSyOstcign9HPxw3VsZlny0JYKDWYnd6FR01V2qVdLG2dntQiObmk0DUBd7OPkZTf7NDXLe14trvT/2UZ+s3BiXrjqovX5kJ8x+hMcYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdyweBkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahmab0ox"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d58efc7356so7536685ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:55:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787910918; x=1788515718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
-        b=ahmab0oxT8Fa6k5GNQSMwTjCqCY9Oc6v7Tk5JV690yv+0YATqCa8Yr/9eEXhJFJ1Cd
-         yUhwWK3EDEoGU2PZRn9pjuYSuscyzz/TPybdKIXvlbeGNhoJJcBBPjxM8r/kHQGC1T1H
-         z9qYUuZhpDSof/UsWlE/SYok0PebPNrC7EWS+vfrQBt8gJTc5iVyhwEbdk24fk/RdmPc
-         EHaAHytu+r6JuaTllP1UHCDn7honIrtv/xbX74OlW+a32+W1xLrZmciTZwjBZ9i6K/gE
-         +hL5lGtQ2c3ReWYscp9HV7XfeOQN46H+x/XAAE0fW7Hkn1CKCWU4b2YaNyA+Dg+UmLjG
-         fkcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787910918; x=1788515718;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
-        b=qLvmjGl/8/Xkco0ZVrz+wyLsdiqxDlYUf7e55FsRcSUdB83DaHxnyyVRlYhTcSjqmH
-         P6z5D5AP0aDhcgfsUVg1NcGiprfcJQ1UYq6P66T1WHGxJWxPVO9+UXovOEQupb2+8qxZ
-         WlDysptY1Z4i83ovhnxrS7rLqulIzMUpjAwK2VFYpo28yiTF6EQaMp4ErXJxcir8ZaOE
-         28d470ITgIlcD6KS4xNpVQ4AeeFEtOanqOt+yHR0pQbmvZWossbDTbos/FggXzouKhVy
-         dduZtyoqWTWqW3E8GAKBpi/55/1s8Q0cpI4dSr0FuuBYFUtgo/pwwxjE6IOdL/NMcJZB
-         rqyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpOjomBzteMFDBa9HV5p8OvbmmQEYf3GNFo2QngJgKq7M5506eyBLu9pN1zgR6m6t7tBhiNXyLmlDtfRyo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlq/fwpNeGCA6cML1R5yIWQyO6sA015bhA+G/aV+Oy3zM2N9jl
-	P2gYVZoP5Ggg2xjf8ccYkZNDa848rKy5t7u65KANwsC75GtcCIvbgKwH
-X-Gm-Gg: AR+sD10sO6RMMy69ibBVC4SQN7b+x3RVtDIBRZFXCOKdTD78mGgbK5uDbqdaQr2NO4g
-	sqeUr+21riqKhVKwP0faDLIHSoi0khawyoSPEgpwUyBuuxcj65NfJk1yUaDLF1TBkxUl/MNy2Fu
-	k/0zYehI3PrMbb05KmJWdB5Rz5EPfAhg1mNKZVEUSphknuW8pDcbcaNVznYYdNzsV4q/BnVIjPe
-	EbKsT6elmTu3pIH/gLvt6DYbEktHfVQK1/TFHmBRoeXvP2Kxtfv6DQW7ImrPm4aObkXF2DnE62c
-	nO1gqC7rzXVLZ9jWJnFvctNjpXbOef9Rj/uSEaX6pvm0oqy8dYgHzv/HEq62QlWP8Cq+uvQxet5
-	IZDkEmrMJvYZVR2gNAnAuZLN6IVxMr5gAPfUzcqPodrpZwHMzWi6RCt/0Y7CmskyxGB11ezJ6+C
-	sfKEQSFqEIBXHpS4kpNP48VA4q7/IxVGMAx/EJX8l9vYpSnRtxtsgvhhInDjMdhfBpj/t5r/bmS
-	n4IBopjN5nl7PGPgjROOsvq9L30bebZOJragNnND8agwgGfpsLP
-X-Received: by 2002:a17:90b:51c7:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-396d0f52b2amr11522464a91.15.1787910917577;
-        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
-Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm1872577a91.6.2026.08.28.02.55.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
-From: Zhijian Han <hanzhijian1991@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Robert Marko <robert.marko@sartura.hr>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Zhijian Han <hanzhijian1991@gmail.com>
-Subject: [PATCH v2] dt-bindings: fix typos in various bindings
-Date: Fri, 28 Aug 2026 17:54:59 +0800
-Message-ID: <20260828095459.834657-1-hanzhijian1991@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
-References: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdyweBkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1521F000E9;
+	Fri, 28 Aug 2026 09:55:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787910938;
+	bh=SSMioLvP13rH7vJ6xy9EE9Tee9tSJjfjWuEz//5SyOA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PdyweBkMNT/MnU+hZuFpiTG0pN4bWJ3wyNuG8vrKdlbUejUqbMM9+L9M5qg4CDdMu
+	 EEEcdS4FFsO69PB/zO8GWH3bfoSJTiaQNOGWjcCYAlOmnq8dT/uS7Hx/IMZYsAlMZD
+	 pOVhA+hO31UX79npR+7L5EzWn8vxrLwm1gZuViCykbGvFU2GZ4QHdZkBeSv4Pm1nIA
+	 hTDLAtN5fgdIL646uge+j+/WI4sq3aqrTGwaez/rqnLgIQYZZkwz2cg05YyMeYEPVD
+	 8CgChy1w5PqeQOJWr8jsYFL5MNnwBGj596JV9v18KBhOEex1+bzkuSlqmnexqtVXS7
+	 aP11ZdK+CMafQ==
+Date: Fri, 28 Aug 2026 11:55:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, chandana.chiluveru@oss.qualcomm.com, 
+	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] spi: dt-bindings: Document ready-gpios property
+Message-ID: <20260828-tremendous-honored-dragonfly-b54f7e@quoll>
+References: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-0-fde2ebf043db@oss.qualcomm.com>
+ <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-1-fde2ebf043db@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-1-fde2ebf043db@oss.qualcomm.com>
 
-Fix spelling errors found by the kernel's scripts/spelling.txt
-and codespell in several devicetree binding documents:
+On Mon, Aug 24, 2026 at 07:55:59PM +0530, Praveen Talari wrote:
+> When operating in SPI target (slave) mode, the GENI SPI controller can
+> use an external GPIO to notify the SPI master about the target's
+> active state.
+> 
+> Document the optional ready-gpios property for the qcom,spi-geni-qcom
+> and qcom,sa8255p-geni-spi bindings, restricted to spi-slave nodes.
+> 
+> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml | 9 +++++++++
+>  Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml    | 9 +++++++++
+>  2 files changed, 18 insertions(+)
 
-  - "curent" -> "current" in adi,ltc2991.yaml
-  - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
-  - "ouput" -> "output" in delta,tn48m-gpio.yaml
-  - "redudant" -> "redundant" in trivial-devices.yaml
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
----
-v2:
-- Use consistent identity "Zhijian Han" instead of the login-style name
-  "hanzhijian"
+Best regards,
+Krzysztof
 
- Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
- Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
- Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
- Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
-index e3e668a12..698cc14b0 100644
---- a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
-@@ -14,7 +14,7 @@ description: |
-   details see ../mfd/delta,tn48m-cpld.yaml.
- 
-   Delta TN48M has an onboard Lattice CPLD that is used as an GPIO expander.
--  It provides 12 pins in total, they are input-only or ouput-only type.
-+  It provides 12 pins in total, they are input-only or output-only type.
- 
- properties:
-   compatible:
-diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
-index 1ff44cb22..2210764a8 100644
---- a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
-@@ -49,7 +49,7 @@ patternProperties:
- 
-       shunt-resistor-micro-ohms:
-         description:
--          The value of curent sense resistor in micro ohms. Pin configuration is
-+          The value of current sense resistor in micro ohms. Pin configuration is
-           set for differential input pair.
- 
-       adi,temperature-enable:
-diff --git a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
-index d073c51c2..e0aacecd6 100644
---- a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
-@@ -27,7 +27,7 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/string
-     description:
-       Unique EEPROM identifier describing its function in the
--      system. Will be used as created NVMEM deivce's name.
-+      system. Will be used as created NVMEM device's name.
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 2de8eb09c..719b82490 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -186,7 +186,7 @@ properties:
-           - injoinic,ip5306
-             # Inspur Power System power supply unit version 1
-           - inspur,ipsps1
--            # Intel common redudant power supply crps185
-+            # Intel common redundant power supply crps185
-           - intel,crps185
-             # Intersil ISL29028 Ambient Light and Proximity Sensor
-           - isil,isl29028
