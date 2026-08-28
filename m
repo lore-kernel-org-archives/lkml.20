@@ -1,140 +1,206 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151CD43E4BB;
-	Fri, 28 Aug 2026 11:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660DF440633;
+	Fri, 28 Aug 2026 11:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916877; cv=none; b=XskbMifr/o1Uop0iEbc5QgREo/4RwXkVfTytdZSWJ4oj/8zQ8i/ytVa6quOviniRnN6AhAWtEigBiOC/dAYHtlCYk5GDVQd+Z+hkmrx9iE+lYvRmQ4x+/9me4E8fJmnwInGGGWWxv0e8w8s3nBmCGc313JSZfvLnVf8LAQNbsfw=
+	t=1787916875; cv=none; b=gWU2ba9PZfEHTNg10yfa6vIDIsNN6FVb+cqKWYde3XrgS9FrF8vsnEkN5Z30Cn9epvWHEKMRlSRx9XZxmsSdHEichkDxrAdk/fG/51Xb6XDfvdGRyusJ3xvtyA/wYC3lyrFnDgvy5gQ/NgBfLOE766UB5UfSCRfvS6Ek7tv5faE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916877; c=relaxed/simple;
-	bh=M+ZX+vjljMfQWs2iQHoMGnWUoIWT1gGLyWl+og305bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZN2+Stq9n4Vrtf3B8p389eTSPtNvrvZ5h95WEaBFb88s3UcCzdEKCPJZ7ptcj+Yr09ieNmExjhiPB3lBI9ZdUrq2utLS7PH59XTiodJ7uVUGt4ExRx7DccvWpDd6eG8/GRq/fbWO9gCCmNZfOSJRl/zG+AFNGBWocYlQ5dZP8Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S21;
-	Fri, 28 Aug 2026 19:34:22 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 19/20] ASoC: mediatek: mt8186: Unwind runtime resume failures
-Date: Fri, 28 Aug 2026 19:34:14 +0800
-Message-ID: <20260828113416.47061-20-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
-References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
+	s=arc-20240116; t=1787916875; c=relaxed/simple;
+	bh=x+J87+SCki3FDXMCntccLBFhvtK8/AZdCMTINP8GhVc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PwAYZ/AiNwFjAfQHH3J3SAZ4SG1w3/wSZ4CGcvy6b5gbhntzeMH54KPwymhVM83uP+uJROjHK5qtbsjYMyO03Sf/UFGL2IsJpIdwNnxx6knHIxOP1O0VprHjcxfcaKKotIpWvGJXKZEAUdtiCP5BX2+sRlaTFMM6vm3fcy66Yv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=skp2B3ze; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="skp2B3ze"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SAVuFe1734293;
+	Fri, 28 Aug 2026 11:34:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+UpAJT
+	INGhkDsXTSVijwVBJEkIiYqrymTFWpgFPL4Lc=; b=skp2B3ze6v+4U50ftnFltg
+	dcAMQCDZ10wOH1Q5LudNI+IP6HLCEuDH2ucQKahinICIV6lj/akRbACeaJaEy6Pn
+	fkfC/1cqrlpKB3kRBGPVTSUtpwF3+QL/LWJ0Nu+/0wkhoYi+Rdbc0pjHx7cmPKkJ
+	n4pnlRQcPrgbS9jujh/kJGS3JHdC3EIAuMT6CveUTkVcXIFFhts+SFNGkMQgOdL1
+	ZYxkHdPTbg7Kj372gcr5egZe4NRdHp2iVYaOxBL05J58LBDOWHw89VtMBMny073K
+	YOb+Ib4Z5yvuSx5WsQ2n4YxEGB9MwGRGnrzEwlP0pcTu3HWqIXo7+qW6iA88HweQ
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g5bw51-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 11:34:02 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SBQXXS008221;
+	Fri, 28 Aug 2026 11:34:01 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7q3kduqr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 11:34:00 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SBXu5Y45416828
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 28 Aug 2026 11:33:56 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C7B7E20043;
+	Fri, 28 Aug 2026 11:33:56 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1B71C20040;
+	Fri, 28 Aug 2026 11:33:56 +0000 (GMT)
+Received: from [9.87.143.119] (unknown [9.87.143.119])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 28 Aug 2026 11:33:55 +0000 (GMT)
+Message-ID: <c096194a-fbe9-4761-a21e-b6b690480a6b@linux.ibm.com>
+Date: Fri, 28 Aug 2026 13:33:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S21
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF4fZFW3ZF1kAF15Ww43GFg_yoW5Xryrpr
-	n3KFWktrZ7Xa109Fs0yr1UJFyFkryfCF13C345W34kX345JryfuF15Xa4v9FW0qFykG3W3
-	Ca4UKa4UCF1YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmS14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
-	4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
-	daVFxhVjvjDU0xZFpf9x0JUhNVPUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 29/33] KVM: s390: arm64: Implement required functions
+To: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
+        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter
+ <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik
+ <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+References: <20260812153631.3376090-1-seiden@linux.ibm.com>
+ <20260812153631.3376090-30-seiden@linux.ibm.com>
+Content-Language: en-US
+From: Janosch Frank <frankja@linux.ibm.com>
+Autocrypt: addr=frankja@linux.ibm.com; keydata=
+ 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
+In-Reply-To: <20260812153631.3376090-30-seiden@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: Tch2NNvRdKefxB0PzPY6lKbM19dcq_qE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfX0HMp9OpG7mvA
+ slaeUfcdlAQsx0b9GQLBEkOgP1j+VAMMPOo6tXGyvCkWKNVWkuWNM1EyOrPNuTW5YJVJBR0KJ/a
+ nqz9+0ZikVtjpRfEGs0dFH1veTJyFxo=
+X-Proofpoint-GUID: BJu3o21MqSYfikmZ2ldz42KmaIqL8RvW
+X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a91722a cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=gIM_mWzjaQG1OS2HR58A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfX+Svwl7TwVzW6
+ wml0NXrfWUSV4mpg5Aa7r3d1tF/zEB+7OqmFfR2AL7p8ain+aF1DRjc/tu+eaTzb6XX0tXSxA/2
+ lGD2RZtdF9AhbQsmCvzGKqiwQ88lQZI7Pv0uy6hFHH0GCS3MAh1QvWv797wOQsJX5HEzI642pkY
+ dFNq0VWKzcCBcDPWG+lvJz01uy+cQftCkDAl751OS8d3aKR6b3xsqgogsEZvEZGMtGE0LB2/mZM
+ s/hzsZV6T3jOSKp0ekB6q3mvtSLp1QC9w5sg93psTnFtTpJZzoV/07Jdnh52LxgD7yeZTagA0Ev
+ qvhs7lugI3iaz1nlOUCl+liJ4XySWoGhgzT8U2Se0s8wEb4QEou7LkkaZcX0r0nhYRkC0g8AWlp
+ oDo0ewm9oHT5VP6vJWi7y40bLm/P5+bgJArGyOl3ZjjMqFdihgSbNuCHZkXv+a+AAoDEXZEpIno
+ 22AM5tcBLjVZ5jXVfGg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280099
 
-mt8186_afe_runtime_resume() enables the base clocks and then a range of
-clock gates before replaying the register cache.
-mt8186_afe_enable_cgs() returns on the first failed gate without
-disabling gates from the successful prefix, and runtime resume also
-ignores regcache_sync().
+On 8/12/26 5:36 PM, Steffen Eiden wrote:
+> Implement the mostly trivial functions that the shared arm64 (kvm)
+> code & headers oblige s390 to implement.
+> 
+> Implement a very basic smccc handler that (non-compliantly) is just able
+> to stop a vcpu.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+>   arch/s390/include/arm64/kvm_emulate.h | 130 ++++++++++++++++++++++++++
+>   arch/s390/include/arm64/kvm_nested.h  |  11 +++
+>   arch/s390/include/arm64/ptrace.h      |  11 +++
+>   arch/s390/include/arm64/sysreg.h      |  13 +++
+>   arch/s390/kvm/arm64/handle_exit.c     |  98 +++++++++++++++++++
+>   arch/s390/kvm/arm64/inject_fault.c    |  21 +++++
+>   6 files changed, 284 insertions(+)
+>   create mode 100644 arch/s390/include/arm64/kvm_emulate.h
+>   create mode 100644 arch/s390/include/arm64/kvm_nested.h
+>   create mode 100644 arch/s390/include/arm64/ptrace.h
+>   create mode 100644 arch/s390/include/arm64/sysreg.h
+>   create mode 100644 arch/s390/kvm/arm64/handle_exit.c
+>   create mode 100644 arch/s390/kvm/arm64/inject_fault.c
+> 
 
-Make the gate helper unwind its own partial prefix.  Route gate setup
-failure through base-clock cleanup, and on cache replay failure restore
-cache-only and dirty state before disabling all gates and base clocks.
+[...]
 
-The issue was identified via static analysis and manually reviewed.
+> +static __always_inline unsigned long kvm_vcpu_get_hfar(const struct kvm_vcpu *vcpu)
+> +{
+> +	return vcpu->arch.sae_block.hai.far_elz;
+> +}
+> +
+> +static __always_inline phys_addr_t kvm_vcpu_get_fault_ipa(const struct kvm_vcpu *vcpu)
+> +{
+> +	return vcpu->arch.sae_block.hai.teid.addr * PAGE_SIZE;
 
-Fixes: 097e874ad3fc ("ASoC: mediatek: mt8186: add platform driver")
-
-Assisted-by: LLM
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- sound/soc/mediatek/mt8186/mt8186-afe-clk.c |  2 ++
- sound/soc/mediatek/mt8186/mt8186-afe-pcm.c | 15 +++++++++++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-index daaca36a2d08..a7034aea2678 100644
---- a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
-@@ -221,6 +221,8 @@ int mt8186_afe_enable_cgs(struct mtk_base_afe *afe)
- 		if (ret) {
- 			dev_err(afe->dev, "%s clk_prepare_enable %s fail %d\n",
- 				__func__, aud_clks[i], ret);
-+			while (--i >= CLK_I2S1_BCLK)
-+				clk_disable_unprepare(afe_priv->clk[i]);
- 			return ret;
- 		}
- 	}
-diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-index 44a521c3a610..2888a49e9db2 100644
---- a/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
-@@ -2737,13 +2737,18 @@ static int mt8186_afe_runtime_resume(struct device *dev)
- 
- 	ret = mt8186_afe_enable_cgs(afe);
- 	if (ret)
--		return ret;
-+		goto disable_clock;
- 
- 	if (!afe->regmap || afe_priv->pm_runtime_bypass_reg_ctl)
- 		goto skip_regmap;
- 
- 	regcache_cache_only(afe->regmap, false);
--	regcache_sync(afe->regmap);
-+	ret = regcache_sync(afe->regmap);
-+	if (ret) {
-+		regcache_cache_only(afe->regmap, true);
-+		regcache_mark_dirty(afe->regmap);
-+		goto disable_cgs;
-+	}
- 
- 	/* enable audio sys DCM for power saving */
- 	regmap_update_bits(afe_priv->infracfg, PERI_BUS_DCM_CTRL, BIT(29), BIT(29));
-@@ -2761,6 +2766,12 @@ static int mt8186_afe_runtime_resume(struct device *dev)
- 
- skip_regmap:
- 	return 0;
-+
-+disable_cgs:
-+	mt8186_afe_disable_cgs(afe);
-+disable_clock:
-+	mt8186_afe_disable_clock(afe);
-+	return ret;
- }
- 
- static int mt8186_afe_component_probe(struct snd_soc_component *component)
--- 
-2.43.0
+gfn_to_gpa()?
 
