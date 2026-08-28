@@ -1,50 +1,69 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AF5369990;
-	Fri, 28 Aug 2026 15:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F86377A83
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932801; cv=none; b=OQMHSm2AEw0IEeDtQjB9aaCJNJb0Ywy5Ao3Y7DbcdNf+J5ksdlAldUsaUhOc1/DjPikfLwxJHNDEUmD3LtXIaakm7hsKJ61KFv/J+GaxFvF0BuhHR8HDjFGQvgkCSL1Gg75IcCU8IZJZs+raG3yDevsOOMLFeNCFLtZVnXQlS+w=
+	t=1787932953; cv=none; b=uQLAoEi1S2+vGZ/PQ9+N9d6RjcXozzzfxu7rnRyYZYBhwKEdBbi3gfEPwCz7B3IGj/rQL/zoQ0LEw/7in3/sgmzdt8XflJzWPGQbz0V3dUiMSmIt516tXd54kOoC2iEwjM4TvHwJmx8IWQKd9fQUT6gKmgrQ567ohMmXr9FjaAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932801; c=relaxed/simple;
-	bh=+AegtlUreBw0TeBD9YP48QLV31KMxegwuKNHebyj7aU=;
+	s=arc-20240116; t=1787932953; c=relaxed/simple;
+	bh=8qNLw56B9TLSQptSGJHh3rd1tE5g1AfjbOjTAkxyS4Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=shXiOkNr02zNbPjUPB/GgaU1qOzWURbmuCbbN3ZkaZsOP8zQdR3aBaGHUEXJ9gwVCRTSzFAuFBBIfLbtKZMHW8/7rQ9PovTw0ucblpdj3RhoES1Jn9CzXToY7F4I4CJjne5s9sHswy4Eofyf6Xgy8CbFcrBXNO7MSltiCFv0jfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OyQVta7M; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=Ou6KBTX+CQ3vjAmAbQRdsLu79drob01LypJSnePRQyD17v5gWwGgarUtrH6M8Az+S+KEp4O/nH9cdxJ9Snfl0UBjqn7MMqEXvmxHhWJ0xmRjvD5kWfUHgUfVDV1FH8M+ZlARHMmZH6HOsEMyAXOKuIb0I3bqeaSgf7mNgOTHCaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WkmEmDqf; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OyQVta7M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787932800; x=1819468800;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+AegtlUreBw0TeBD9YP48QLV31KMxegwuKNHebyj7aU=;
-  b=OyQVta7MhpZlVYPMRo6qGbJctjw7X8uK9WL6cr8fh0WNWCsWWhIEi8lG
-   Yj5MOM2P1V8Ha07ZDyBUTjaj1ROWuedM2UI+qwqTv8tn9qbyE/ce5fOv9
-   zmQ9CBnxQ2qxQLINzAFpAXmuFqkZyb1cXeiO1euzolHBxM34/FirqYVW7
-   u24vhTk/s0GyZlq60NAGXpF1WlXyUMGewVtNJk9MsmHu91L0pUtt7Nmvo
-   xSeF3oTYGJiWDvoZa/hFQd2BpwAKQd3TKcTfcI+qkFaAhPvmF1pxZBKw+
-   s31V0or1ht2/2o6sBgoKgMwU9kv+BfW4EGpsWXM2/OyzKM4Zv+GCl/AFi
-   A==;
-X-CSE-ConnectionGUID: bzcJr0CwSGKBxknMPW6XgQ==
-X-CSE-MsgGUID: eqQGFVmZRM2E0rFXnk/B2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88299642"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="88299642"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:59:59 -0700
-X-CSE-ConnectionGUID: yOu767KDTN6AfmDdD3kNLw==
-X-CSE-MsgGUID: qX/wSVlXQTum0ztYfomArA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="266388794"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.180]) ([10.125.109.180])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:59:57 -0700
-Message-ID: <dbc6658c-9c3d-4590-b9c3-784dcc7846cc@intel.com>
-Date: Fri, 28 Aug 2026 08:59:55 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WkmEmDqf"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1196340a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:02:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787932952; x=1788537752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2AFRIUFJKCO3T6nN8VW+Ys+Hp+I2sL0vNH/Psf88O/M=;
+        b=WkmEmDqfrrWf3MLYSU7s/hlpIInLnyCW7RRytHfa5WLexsvbRjGuGbUht8Eqvd7PXs
+         TeKfJGxbGdaeRY8WH3KWxwYTqnhyi8ZZ/Fj+EBOtwHdY88M87NmsHt9djLfi/Lwnps1p
+         GG8ImKlwDe4puPh6KodxSj5iJIoST/VFeUu+38Q7jrhgE+ZgBQmfULysq4d5AaHLKWfC
+         tm63EOBWR8AMePKKvyGKqueWjBheOY07pMXCcYITykZpg1qQeN8kvveuTz/iAaMqssEL
+         upHSiqQyP7SbvWb9lAIc737W1anwxK2QQqfBdAqryfL7Wf0zpTIdjtsMs6oi+5jk5hqf
+         pmrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787932952; x=1788537752;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2AFRIUFJKCO3T6nN8VW+Ys+Hp+I2sL0vNH/Psf88O/M=;
+        b=YAqLlN1yfEtjYq+mhcMKEOlGenXn+0yYdF8XEbr66Hijy8J9nHIpPvoFCRMEA78Ggr
+         MI+S5bKMhFJD0BtBPbIBBmtRyNKNLAqSsfrlSk0Zl2xDbsPdtT2CsnL7eBftGMjSnScE
+         VmkOElPrjdB8EbjDzddDq+gKaz9Vy73AjD1tO+i/p77CpbKgpQbtlMKFdfPbKEBfoJe9
+         oJz+sm7a/gsdBtjzE8yZNo5y2T3lbM5f59UBOxOX9vAyCGLPUT9D3SKEyYRTL4x/P6Vv
+         MAxelXIpdOK9aj9JQ/pSk+tb5FCu8ySLmaYp8L+iCVHaRJA/N+1BEfxLK6MjzThs6OQ9
+         jVmw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3eRi1DQSyGo6UpFkZ4Ui46j0NS6STW1D04XiFqqAkBYYcxCPINh9uU3caP3+8ex4q/2Wbiuzpk2VmDVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyCDKyp9B3IYRwsuFkzpBwzkuXrckCNdOf+ni1AArKK0gFu3z7
+	r5z65u7ECacRAggEMKHbire7eMBZYsAW0aPxBX4W0AImm5MR+dqFpHi2
+X-Gm-Gg: AR+sD136WLVTfl/PIUUfY9s8WjQQq1c9HKkt85O9/i+A9qHu1mCnDIb9ALgmqlK27i6
+	ouTiCoR6TEoHeHVTiPnZuJTsHjBLipnbUmBZqO12+fc0WSpVf1CaYUlo0ZN2jwKKExIQo6m5D54
+	CIb773dG58RvHfedgMuWHpeXCXRXhtjdD+FGRj3yfzJjv+og9ASzvx0+2hQQH9EbUMOQIiktGL0
+	7S8RkLqMQYHcjyDG70Yv1e3ze4QvvESONf6MsUtSKEKgAfdCqrw4pThhMlkFLoxlirGkctCKruR
+	wFkvuqQRx7vJgfxX+nbaZaybD1Z0e+j7LSk8qxCPMcEHbOB6yuW2R4UuJkj72/FLhMeFWjZIINy
+	HT5ff60Vp3SSnD/3FYgFLubDTcwNLpIFOYgWOlCRIgzPL4tzahutvfc34Z/LzM+3O3PFtPsx/d2
+	zsO5fN6K9QwhGzbJtJCWTR13jv99eSHgk9wF4GrmYWN25/TnvjrfIcMDL7LLu7mdL+Tn91mlfNq
+	fb0Eneu2wQC6ueX5OyRap++McvzO9qCGwlkPSRd9pVV9MOW
+X-Received: by 2002:a17:90b:37d0:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-3989b565671mr1045102a91.4.1787932951484;
+        Fri, 28 Aug 2026 09:02:31 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36ed6sm3116562a91.2.2026.08.28.09.02.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Aug 2026 09:02:30 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <4da32bd6-5b54-4765-b5ad-82bac2bbaaa2@roeck-us.net>
+Date: Fri, 28 Aug 2026 09:02:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,122 +71,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/27] cxl: Establish media readiness in
- cxl_mem_probe()
-To: mhonap@nvidia.com, alex@shazbot.org, jgg@ziepe.ca, ankita@nvidia.com,
- jic23@kernel.org, alejandro.lucero-palau@amd.com, smadhavan@nvidia.com,
- corbet@lwn.net, skhan@linuxfoundation.org, dave@stgolabs.net,
- alison.schofield@intel.com, vishal.l.verma@intel.com, iweiny@kernel.org,
- ming.li@zohomail.com, yishaih@nvidia.com, skolothumtho@nvidia.com,
- kevin.tian@intel.com, bhelgaas@google.com, dmatlack@google.com,
- kees@kernel.org, gustavoars@kernel.org
-Cc: cjia@nvidia.com, kjaju@nvidia.com, vsethi@nvidia.com, zhiw@nvidia.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20260813093631.2288172-1-mhonap@nvidia.com>
- <20260813093631.2288172-5-mhonap@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
+Subject: Re: [PATCH v3 0/1] hwmon: Add Minisforum UM780 XTX EC monitoring and
+ fan control
+To: =?UTF-8?Q?Sebasti=C3=A1n_Peyrott?= <speyrott@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260825184107.355980-1-speyrott@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260813093631.2288172-5-mhonap@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260825184107.355980-1-speyrott@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-
-
-On 8/13/26 2:36 AM, mhonap@nvidia.com wrote:
-> From: Manish Honap <mhonap@nvidia.com>
+On 8/25/26 11:41, Sebastián Peyrott wrote:
+> Add a DMI-gated hwmon driver for both fans on the Minisforum UM780 XTX. The
+> EC is an ITE IT5571E, but its register layout and OEM commands are defined
+> by machine-specific firmware, so the driver only binds to the exact board
+> revision and BIOS version on which it was tested.
 > 
-> media_ready was only ever set by cxl_pci, in advance of registering a
-> memdev and with CXL Memory Device register assumptions. A consumer that
-> creates a memdev without cxl_pci, such as a mailbox-less Type-2
-> accelerator brought up through devm_cxl_probe_mem(), therefore handed
-> cxl_mem a device with media_ready still false, and cxl_mem_probe()
-> rejected it with -EBUSY. __devm_cxl_add_memdev() turns that into -ENXIO
-> back to the caller and the bind fails.
+> The driver exposes both fan-control temperatures and tachometers, two OEM
+> automatic CPU fan profiles, and two writable system-fan transition
+> temperatures. It preserves settings selected through its interface across
+> s2idle.
 > 
-> Move the readiness wait into cxl_mem_probe() so every memdev consumer
-> gets a ready resource regardless of how the memdev was created. When
-> media_ready is not already set, wait on the device's DVSEC
-> Mem_Info_Valid and Mem_Active bits and mark it ready. cxl_pci keeps
-> setting media_ready before it registers its memdev, so that path skips
-> the wait.
+> Tested on the target system with concurrent RPM reads, OEM profile changes,
+> system-fan threshold changes, unload/reload stress, and s2idle resume. The
+> settings were correct from the first userspace sample after resume and
+> remained stable for 15 seconds.
 > 
-> The CXL Memory Device register group is optional and many Type-2 devices
-> do not implement it, so cxl_await_media_ready() must not read the Memdev
-> Status register unless the group is mapped. Reading regs.memdev on a
-> device that lacks it would fault. Gate that read on regs.memdev; the
-> DVSEC bits already prove readiness for such devices.
+> OpenAI Codex assisted with reverse-engineering review, code editing, test
+> orchestration, and patch and email preparation across a long interactive
+> session. I reviewed every change, ran the live tests on the target
+> hardware, and take responsibility for the submission.
 > 
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> Link: https://lore.kernel.org/r/20260818181345.203295-1-speyrott@gmail.com
+> 
+> Sebastián Peyrott (1):
+>    hwmon: Add Minisforum UM780 XTX EC monitoring and fan control
+> 
 
-Agree with Alex's review. First part needs to be a separate patch. And second part, please see drivers/net/ethernet/sfc/efx_cxl.c:efx_cxl_init() on media ready for CXL type2. That should be handled before devm_cxl_probe_mem() gets called. And with that, maybe the first chunk is not even needed?
+Note: For a single patch, an introduction patch is unnecessary and just adds
+work for the maintainer.
 
-DJ
+Guenter
+
 > ---
->  drivers/cxl/core/pci.c | 15 +++++++++++----
->  drivers/cxl/mem.c      |  9 +++++++--
->  2 files changed, 18 insertions(+), 6 deletions(-)
+> Changes in v3:
+> - return -EIO after bounded RPM coherence retries and -ENODATA for an
+>    unknown CPU profile;
+> - seed saved settings at probe, update them only after successful hwmon
+>    writes, and restore them at resume without reading the EC at suspend;
+> - clarify saved-state naming, live threshold validation, and resume
+>    documentation.
 > 
-> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-> index 08d4c955137d..9b372d5a1aa4 100644
-> --- a/drivers/cxl/core/pci.c
-> +++ b/drivers/cxl/core/pci.c
-> @@ -151,7 +151,6 @@ int cxl_await_media_ready(struct cxl_dev_state *cxlds)
->  	struct pci_dev *pdev = to_pci_dev(cxlds->dev);
->  	int d = cxlds->cxl_dvsec;
->  	int rc, i, hdm_count;
-> -	u64 md_status;
->  	u16 cap;
->  
->  	rc = pci_read_config_word(pdev,
-> @@ -172,9 +171,17 @@ int cxl_await_media_ready(struct cxl_dev_state *cxlds)
->  			return rc;
->  	}
->  
-> -	md_status = readq(cxlds->regs.memdev + CXLMDEV_STATUS_OFFSET);
-> -	if (!CXLMDEV_READY(md_status))
-> -		return -EIO;
-> +	/*
-> +	 * It is possible some Type-2 devices (CXL_DEVTYPE_DEVMEM) do not
-> +	 * implement regs.memdev; only consult the Memdev Status register when
-> +	 * the group is actually present.
-> +	 */
-> +	if (cxlds->regs.memdev) {
-> +		u64 md_status = readq(cxlds->regs.memdev + CXLMDEV_STATUS_OFFSET);
-> +
-> +		if (!CXLMDEV_READY(md_status))
-> +			return -EIO;
-> +	}
-
-You probably get less code churn if you just returned here:
-
-if (!cxlds->regs.memdev)
-	return 0;
-
-DJ
-
->  
->  	return 0;
->  }
-> diff --git a/drivers/cxl/mem.c b/drivers/cxl/mem.c
-> index 798e5c369cfc..9c6e99b9124c 100644
-> --- a/drivers/cxl/mem.c
-> +++ b/drivers/cxl/mem.c
-> @@ -105,8 +105,13 @@ static int cxl_mem_probe(struct device *dev)
->  	struct dentry *dentry;
->  	int rc;
->  
-> -	if (!cxlds->media_ready)
-> -		return -EBUSY;
-> +	if (!cxlds->media_ready) {
-> +		rc = cxl_await_media_ready(cxlds);
-> +		if (rc)
-> +			return rc;
-> +		cxlds->media_ready = true;
-> +		dev_dbg(dev, "CXL media ready\n");
-> +	}
->  
->  	/*
->  	 * Someone is trying to reattach this device after it lost its port
+>   Documentation/hwmon/index.rst               |   1 +
+>   Documentation/hwmon/minisforum-um780xtx.rst |  68 +++
+>   MAINTAINERS                                 |   7 +
+>   drivers/hwmon/Kconfig                       |  16 +
+>   drivers/hwmon/Makefile                      |   1 +
+>   drivers/hwmon/minisforum-um780xtx.c         | 501 ++++++++++++++++++++
+>   6 files changed, 594 insertions(+)
+>   create mode 100644 Documentation/hwmon/minisforum-um780xtx.rst
+>   create mode 100644 drivers/hwmon/minisforum-um780xtx.c
+> 
+> 
+> base-commit: 75f2c0b3690702c90863c2e138cb5520670845ea
 
