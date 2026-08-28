@@ -1,205 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750F6370AEB
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932243; cv=fail; b=CBVAxqhXsy7d6gK1neW5/ViCe0eX3i1lKvfMOzSpBX4DODNUim2ry6bGPn3JXyjxBDgNujFPmWrXXlTPW3ADGJVMHcBHhJ1l8M6u7QLwooGg3WxW7Pqz5w7sqhmK3/+uYlcfGkpwaRxxZIn0iyAIesiQLGF6ugUVnfw9O3o10UM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932243; c=relaxed/simple;
-	bh=fwdNXkW1MQTBdf9vWEFs6tNEhvTzjjgTddYdRR7gdXY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=eKRPbBHWxvNz0tfgDHolh93YjabV3Ct9IWJpbn8zGSgghcILaYHErJwK3rc7CxtxpRNFewd4Ey6f/ZDcih7PRS1mtU6+Febkq5lhamkBKXH10DIQtpagbUlzN982mLhgvMS5azUjAlUXbeq52SGbE4lUCisJJnO0tIk/N/8P/hs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vljru9Zf; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E29371880;
+	Fri, 28 Aug 2026 15:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787932256; cv=none; b=QIzdIJqoTeoBMjmG0y6xdgorc0bOj/E75jgm2PJXDe/FfrAr6mqr3PsTkKff88K88nC+gguilX4vvWq0hvX9U/H//U68GKNGknCOWgEN49I/09P46PlXeplppxUzfuWsEQoBCutCPbpc3+WaDY6ZwGPrYh4f/2h+rVB+dZDh7gg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787932256; c=relaxed/simple;
+	bh=P7ZCLAaXAG3/NyRXbAuz8A+tupicIM33n0HuPH/y48E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KG1MderOcZh+iVcavVy9hNLnwH8PcFzXnsqPzSlkhTpBfGMeulHACONu6uIStMRTbGt8chGmiElsvkV9uWkoVRcJ+VoJafUGrT32qutrTFqzwrItnx9KL2ifPZTllRDRLAO7DWUXThsDikbm+jRd0eTUyVUwNOoTpS3rHrG8EcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxofOtDE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vljru9Zf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787932239; x=1819468239;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=fwdNXkW1MQTBdf9vWEFs6tNEhvTzjjgTddYdRR7gdXY=;
-  b=Vljru9Zf55NEvn2friVIVe7Z/ZA6IJTLpO+3IPaay6zuRT7kc/A5nkwz
-   La9VNYURhG4obxKA/ZPypsFjwSgxOM+PUe+ZA4K8UHYkAG8pa1kGWtSOm
-   Mxv6/lvcrDqlQd1bXK52uBB3QxY/CkGvU6kU1Nnxh7EdXhSnRm4VP2Isz
-   rPNPYdSg8EQ79PsN8GW1Kny26sn4ZNpmovGt4rJCUB+sT38PWbvZDV6oI
-   YB+eMZcBKTALgMDV9ikp8iiBln+ANjE5kntoHi1IRVsiJ/OERrSX6Sfrw
-   yTUhzBEX9WhMaL0ycJmkTPYyBbGsw62to98SdofB1EHu1/BLiBcC1/xGx
-   w==;
-X-CSE-ConnectionGUID: dqTh3z+xSPSLIprFJthf2A==
-X-CSE-MsgGUID: fO85E5WxQ76SE6STU7uz8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="90953959"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="90953959"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:50:36 -0700
-X-CSE-ConnectionGUID: qf1Y8f8uTsuHoAMEHHUxtQ==
-X-CSE-MsgGUID: ZwS8UP4aS7KiTBHjs5x/qA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="264438704"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:50:36 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 08:50:35 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 08:50:35 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.5) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 08:50:34 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EtpBLVZzhwEvR1rnCrJKXp1Zp1NKehX0pk7bXnDSngU5AiKVtRSFizbsaMlwXDaoD4Mzlr4aSyweKrU+tWj9PYm8Rp0AGfzd2Axpvq6I+cBuvPmF49yPLAvrWmGyGA4NVd4lMrcKTVAyzQ8cuWhiIR+S19LJx4RBGXfZYGRr8X/vArTrSMyaDHj0J0Fz0j48rfIKxiwzYg+hQdtsy0lw4z82o2Dy9h2mS/dnsZ09OXWABMfqBUPXXg6vnN58nnwXSjqeJi0GmfMndWORmtIFUGHgejZhQhBqirVT75TDJTp22Wf5/XjMGhVxCxeRdQKec/lwkuFYjXAkCk29+AjXbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lhqpvcScFQSD8x2Y+KQoLOGmc3KbJuH/8bTa9EaSkJw=;
- b=FEew0hCf1CYNBNN+P80DSCnX203uDz/2w5l0b6UfA0Xb3rEXawtT65E0qxHpVEYv1Rs28WtxaryVXmgketaCpl++/+RpGc8ZaJDBRkXEiEKc8Hr2OOCYKehL6rJz4B84RPDmbm0312v/ejviehIOz6Ojf3tkci2StJK2SPQ7RmenVhGPf3GX+aNeqP1ob767LowyxpfAQy40U1Pjyj+JBUXP75n+i4xe9aFXZ5/6hIuAeMSUMw+VkyvH+q/MnG7k4rCltkUdQS727Rlovv/DQOXXRsWm3Wq+9PSKe6SL+g0nWq15fiCiE2Aob0PHJmFeP8KL6SiJfsoz/67kxXGmCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by SJ2PR11MB8450.namprd11.prod.outlook.com (2603:10b6:a03:578::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 15:50:30 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 15:50:30 +0000
-Date: Fri, 28 Aug 2026 11:50:25 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: <yaolu@kylinos.cn>
-CC: <matthew.brost@intel.com>, <thomas.hellstrom@linux.intel.com>,
-	<umesh.nerlige.ramappa@intel.com>, <jose.souza@intel.com>,
-	<ashutosh.dixit@intel.com>, <intel-xe@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/oa: Remove sysfs entry on idr_alloc failure in
- xe_oa_add_config_ioctl()
-Message-ID: <apGuQY7vZRIUZghZ@intel.com>
-References: <20260828060812.163548-1-yaolu@kylinos.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260828060812.163548-1-yaolu@kylinos.cn>
-X-ClientProxiedBy: BY3PR04CA0014.namprd04.prod.outlook.com
- (2603:10b6:a03:217::19) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxofOtDE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E171F000E9;
+	Fri, 28 Aug 2026 15:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787932252;
+	bh=FTvxU32r/rdXNTSlsj0pEx05Mjg1DOVuBW2u62RxZjE=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=NxofOtDE3cEFclURMvg3pZrO5hXJGCvNAFhH2BmfQRBWwib6Ywkkxru8QuLghGtJQ
+	 2h4AMLCvjjm/mbgKdiWzaTz7rRMI0Q4wmGCFAztKb8Wvjjr/IiaJjN9E7Cne6ebej5
+	 g4JB6cfmvZ/1BEuHbcQ2zu8VkjAcylTrzmegTuspW2CjsGrbyqFWkyxIEuqWmuefbo
+	 SbM7D950PVjVvYKOETV9qlRSmYIG9VeisThuSu3216vPaoCEKV2cdiIXNGVKAl6vA3
+	 YrbvihWNzCyg1RKCa+VyH0APy3/yu2ACtHAsRy1tXXaheRMYDJDyNOllOMSleoGsOR
+	 Dt6Xiw0nTsWrw==
+From: Gary Guo <gary@kernel.org>
+To: Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: Mohamad Alsadhan <mo@sdhn.cc>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: pin-init: use irrefutable pattern for `stack_pin_init`
+Date: Fri, 28 Aug 2026 16:50:33 +0100
+Message-ID: <20260828155033.2101924-1-gary@kernel.org>
+X-Mailer: git-send-email 2.54.0
+Reply-To: Gary Guo <gary@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SJ2PR11MB8450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4001daec-029f-453f-a963-08df051c1691
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 8jyLcHukgJcWp2s0ItXASvh687mnVP7LPTs6qFTOW735kMICA9ueiFx4ohGQJe81pNSYhVnWZKVuzJ+2hkOqbQvNw1STtChW+s2xd31YiJEUFC2P3mxMgkcHPpPJpidqFefolwhnu48Ecn6lI9v6aYrBE8OiC6c/XJHfVM4k5Z++0WA06bt6LlZFIS+epUkEwNv5QQicvCj3Z2eoo3VW54GwUDK1XVjz0JYljCDl3veApoyXsYajFBSfAQdyVrzet9INF1EWYCuQPfUcEpyrqfeGQ2WRs6koCe8XHpIMqBfDE7DXvm4DXCApCGTsueqDZROEJWzGmVLeZ+KqkMTYndbAPQXNRl4RuEEUNSYueaikmardEedhNCnRchgkGPzKkWtN4FWE5RxLkaqcPnQyWHJ8NaBCPzo/E8XLZZsO1OArHDDE8mEAkGdkh4HIXEFkKpKFr83MxZsAWYIoE77Wc3P9XpP3CQjL7/UV7rBeBi9aClUfNI+PJDdtBygekHroaxUPrYNWNSJcj+PQ3c9N6ycJo3hL9S7QcKKplU5ejHO8rFKMaue5Wb94BtVLTM+xZJJT2IbGbFLxF/bpmfJZ/RNiNtga5R6JuF3xbU/TWqHXhkl5Efct4hEwjPSErSIH6Ae9bWTlyie9k/6z3s6sclOT/bx2LD/SSbHqfr1aMvc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+XEUhGWj+sSGYz6HGVbvEtA9HUA4BVN1eIlqmX7N8mp8MBhUioamqoT2rQpM?=
- =?us-ascii?Q?HwP8uUXs1Hwcyd5K18vAMfSTvydqsoEEqRCifiv/SvibvnMyNqEm6LPBiK0x?=
- =?us-ascii?Q?3YSfwPEzNzBN3y7hSiI4/efcMHhmTHJQnXAANcAwFme7GuqJq0ZGV7mSB2XF?=
- =?us-ascii?Q?9Ra/+A5ViV/QjJfWTMBZLQNgiVkHT/CGCzu+5lVthvh7GDtdbknUHB0X/tXJ?=
- =?us-ascii?Q?a19E/zG16q8jNIj0E/ZfyemKGhLAX/v3335s6cZpdmqWpEXZcrDXwOKrNygL?=
- =?us-ascii?Q?Wqc9HH/QTLdhkpqLO4xrF9WaA+wPzT1KbI9evVaoSuWByAw34MVqctknfQ9M?=
- =?us-ascii?Q?/uB6Jt2vEvEzvYMbJXbXEbZTiCPYbN4p2AArO7DkH9G5Iy4Oo6409v2/xaW/?=
- =?us-ascii?Q?MZbs6Y6Zj28LLXp3+btqGJWqL7qLkm1EldRlTtfNFSMbn23ZD1escpyMrXdx?=
- =?us-ascii?Q?/0es7Tg4u4ZT+I6Zfr5vGCWhbXSOjAhniT3SgSTJO6WBdmWWpZXYxaMulZaN?=
- =?us-ascii?Q?wylx47fL+gXj+NbRFduBFR1klzU65fKraHGMhIP4KaIuuv2WHlwZDYuwmcaJ?=
- =?us-ascii?Q?Y0a8iPtizuIREzvPgHFxTwFa2SRgC0nxGz12PzjhThlJj6mK6pNpu4bC3BMI?=
- =?us-ascii?Q?UvMpBKFHkIX6DWoBtvr0H6B8Uy9h1KVSLaQvrjuk4sc99ryp5yKtapnHUFZD?=
- =?us-ascii?Q?mnF8tH9bSxHYv6hIzWjKxKLTCH2M0BHElLF4aYqpU1B/ffgv7RoLyXyT33ke?=
- =?us-ascii?Q?tm8jZgD8Y7Uf/UH8pfGTywx0ebsmD7nvUFSXdyOwZZoFb4MRekg5AHaymfYw?=
- =?us-ascii?Q?WikOx8DS5Xz6RT/8k5zW7IgUvUrtyg0qhjmZMqvsEJ6aa8RGu7d+VK00c1q9?=
- =?us-ascii?Q?btDl7EGlTowjb9Jq3cE1i0q/E5OY6gMNsj0IuVpTMNj1SsFZn772xHywgS1J?=
- =?us-ascii?Q?Gb22MMDpw0Kwhb8X31TYJeB0me3ME8zWjW8OYb7qTK2mXy1xqdFCHXMYBpkn?=
- =?us-ascii?Q?5499Tx3JKcWMMxGDKtDC8xyf9jtuXt6XFTJvvkEMIUTzrr44yM4fI+mhAbs0?=
- =?us-ascii?Q?nd4WFYcvgN5yzp16bb0HcBA1VqjV5oeo7gOKsgyTZw6+NPj5+cSNJWKG1Y4a?=
- =?us-ascii?Q?i/d8RYjb6vuTbLpbrAA2U8Gcrpc3uztYFpSfR3oKRmJlrRpEryTTjigZ8qhl?=
- =?us-ascii?Q?Y/igJtGG9Dt9nlpthl0/1d4Zsno8c7lhdd8dahAb21w82w45AqXyesVOQoaA?=
- =?us-ascii?Q?msJ7PNSOQ5Nu5SUqRBpZPVZVXnMC7q6OyuOaYH9QX0fQAkV/QnL+C0BlclsT?=
- =?us-ascii?Q?JdlKG6sKL0vsifeNdmNka8Y/XPBEdYyTkT8NXLJQ1+h2T9dbnAL8Un2qrtdd?=
- =?us-ascii?Q?LsN2Bi5wqb8xlziWbBIU1uPiybJsxn9bWaXZizn0xz2/65cjmrz5K6KI/0Et?=
- =?us-ascii?Q?pmvdMyG/3NfPVcSoL+/nOHHnbZgci23CKsxPnGleSHYnbq6YV1/uqOsguYQb?=
- =?us-ascii?Q?bq9jw2f3uB/HTHXvkpMG0o693F3MXvgApikxcW1tD6R/QOXIReop0+cdwZbu?=
- =?us-ascii?Q?iMS96swVWtjPNrWzFCpOUZrctwUFav50YOWLrVv9ZZZ/64/+9i14wHjZfp95?=
- =?us-ascii?Q?7sGureCIbXNY/4Pkj/NmU8iR/tjEDkEPYWz+ktCs7xHuEJtdQjfczlyatHqB?=
- =?us-ascii?Q?Rgh9yempO1QEFJkMMZq3Yz2WcZ8b8WHtBPn2ZKUP6CEbf8v91fk4ORutZsNN?=
- =?us-ascii?Q?2dFeDR0ijQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: KWsaNgly0j7FrPV9lY/Fs6TsdBiBTlk88sOLc7Amba5EdKLabtrzxo7y+vL+hu60daXs0wsdB9nkicLsK67skOtJuxcZPVTjkX8d/3I+axZAFt5Zl9Fr8YTvaFmNwVv+SgoQm33lXlJeQAEC9q3QAHrh0GOBXmwO4rfcIzIs7+cwaX1DEHUenamf72RsRkH0zGRNZAdnMI24iBesc0vwesK8x5gJ0iDP4Ub4gVHrctE+7tzKIZy6yX/81+MdB9/qZEX9d2Co8OJSYI4sXu005Qty5tElZwtmp2Ok/kDot/UN6ekF+I9/h3OIt8I6Jio/14RxuvcGqt9qYjs+K+K/Kg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4001daec-029f-453f-a963-08df051c1691
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:50:30.7693
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AF+Al4dFElZ+MbrO9YYgUyy+beAGOa1psnWGDJGmgM1tuXD0eV3Ij2pA+ejlwLsqEcZU7OtAfoai698vjasIhg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8450
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 02:08:12PM +0800, yaolu@kylinos.cn wrote:
-> From: Lu Yao <yaolu@kylinos.cn>
-> 
-> If idr_alloc() fails after create_dynamic_oa_sysfs_entry() has
-> succeeded, the error path frees the OA config without removing the
-> metrics sysfs group.
-> 
-> Remove the sysfs group before releasing the config, and fix up the
-> misleading error message copied from the sysfs creation failure path.
-> 
-> Fixes: cdf02fe1a94a ("drm/xe/oa/uapi: Add/remove OA config perf ops")
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> ---
->  drivers/gpu/drm/xe/xe_oa.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-> index 9c5384b95c63..73e51db13f56 100644
-> --- a/drivers/gpu/drm/xe/xe_oa.c
-> +++ b/drivers/gpu/drm/xe/xe_oa.c
-> @@ -2435,8 +2435,9 @@ int xe_oa_add_config_ioctl(struct drm_device *dev, u64 data, struct drm_file *fi
->  
->  	oa_config->id = idr_alloc(&oa->metrics_idr, oa_config, 1, 0, GFP_KERNEL);
->  	if (oa_config->id < 0) {
-> -		drm_dbg(&oa->xe->drm, "Failed to create sysfs entry for OA config\n");
-> +		drm_dbg(&oa->xe->drm, "Failed to allocate id for OA config\n");
->  		err = oa_config->id;
-> +		sysfs_remove_group(oa->metrics_kobj, &oa_config->sysfs_metric);
+From: Gary Guo <gary@garyguo.net>
 
-good catch, but instead of adding this removal here, could you please
-create a new goto so the error handling keeps consistent?
+In Rust 1.100.0, `Infallible` will become an alias of `!`. The let
+binding in `stack_pin_init` will thus become unreachable and produce a
+"unreachable expression" warning for subsequent match, and thus will fail
+`-Dwarnings` build. For this macro, all we need to know is that the error
+type is uninhabited, so replace this with a irrefutable pattern instead.
 
-something like:
+Reported-by: Mohamad Alsadhan <mo@sdhn.cc>
+Closes: https://github.com/Rust-for-Linux/pin-init/pull/171
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Miguel, given that we're very early in the cycle and this effect
+upcoming nightly compiler, I'd prefer to route this via rust-fixes
+instead of pin-init-next. Thanks.
+---
+ rust/pin-init/src/lib.rs | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
--		drm_dbg(&oa->xe->drm, "Failed to create sysfs entry for OA config\n");
-+		drm_dbg(&oa->xe->drm, "Failed to allocate id for OA config\n");
-  		err = oa_config->id;
--		goto sysfs_err;
-+		goto id_alloc_err;
+diff --git a/rust/pin-init/src/lib.rs b/rust/pin-init/src/lib.rs
+index 7600cdbbbf98..f1463be9479d 100644
+--- a/rust/pin-init/src/lib.rs
++++ b/rust/pin-init/src/lib.rs
+@@ -490,13 +490,7 @@ macro_rules! stack_pin_init {
+     (let $var:ident $(: $t:ty)? = $val:expr) => {
+         let val = $val;
+         let mut $var = ::core::pin::pin!($crate::__internal::StackInit$(::<$t>)?::uninit());
+-        let mut $var = match $crate::__internal::StackInit::init($var, val) {
+-            Ok(res) => res,
+-            Err(x) => {
+-                let x: ::core::convert::Infallible = x;
+-                match x {}
+-            }
+-        };
++        let Ok(mut $var) = $crate::__internal::StackInit::init($var, val);
+     };
+ }
+ 
 
-...
+base-commit: d8aa025c1cd5908eb454e48af031370f23d3c559
+-- 
+2.54.0
 
-+id_alloc_err:
-+		sysfs_remove_group(oa->metrics_kobj, &oa_config->sysfs_metric);
-sysfs_err:
-
->  		goto sysfs_err;
->  	}
->  
-> -- 
-> 2.25.1
-> 
