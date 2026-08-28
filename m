@@ -1,187 +1,159 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010019.outbound.protection.outlook.com [52.101.61.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385C73BD63C
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787945676; cv=none; b=cATVG8C6Ix7MIP8WZLes5ozKaxaI1IPhRiLpCfJ/2uWR84fTBm+oBXnVtAtykNm3+GlYqQVqJJH3tJ1lj9owCuLSUHk06yMvFyvplysL5xo8ga8oJh3NQt7jVrpwVH6bJlEAgrhKwL5xFC4TEkX5eV+putPIiCH/r20A3c4/veU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787945676; c=relaxed/simple;
-	bh=rIDic2O9l/GS7rRQDlr/0lWFt8qc/ste6l8CtDOTGr0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=kP40W6Tp+x3b6iGSnlAa31ksBY/ei0CJ7E6KE5zEmsl15mg66j/daeitQIGmDAc8ZH3Im2JB4ssaS/ZJyQmCb4KKt9K7n0AKg/D+1JMcLiE8AQ3KiFYghxjJEtYLm/EgIFleLPL+KqN5kOvRTnrCeChCLMcaiWg+BbO5tHitcS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so507529b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:34:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787945674; x=1788550474;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=98nWEY1hN1kg8FloyxfUIcpI3fw4Dep5t6bB4KJAlno=;
-        b=ceDnmpooV96hJRsjTOQmp3+ONvURAoaErRiZt6ccinf48RHxTx2ceJC7sZOJe9xHf6
-         hTG7Sb5q0S4chW4Xlqs/dQhc7BIuzQHVjAT/GG7zrkvfie3+vybx2fQWHesBDBnhFaJT
-         bvCi+oY6271KaCsHV7k0ztKCzUkYAtGztXSG9l2ySf775qNLONn+8a4/Rm2PElCg3UGa
-         fsI51yz1SJr88vZWj7ylgxUnDYJRAdkXF6CQjfsvIbSh/el3UDRbeU38llNnLDn6bm7s
-         6Fc7M2gZbvGnOjgyC8z9obca1P4XvOrTip6naMlmMdvXbxDNs818ytCKzzG+lDTbm+e2
-         TCwA==
-X-Forwarded-Encrypted: i=1; AHgh+RqdTz/gsiuV7rG9vwiioua7bzYQzYfg6Jjni/jc1hFyyXJ3GLv8h5JnGNq2lzB8LWe2bgMRVTKMk+jDEqE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqkQ0cbRpMsHWDviIjZDcsiqNAxsVEM9BQdgrW2aOtZvv5ARKb
-	plnJUsduvuF9FBFZcxl8vlg6JCGBRl7UqAy6hzsbYYLyIXo3Fq+MvJrw4glo6P7//9woLOGvxUu
-	pCvDNbQ2ucXF9YeBA7mFNK6JPGcCctt4HbXO1kEPyrPCef9gdAxqOz2AFfpA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B8844A3FD
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787945688; cv=fail; b=VR9OP8fb3AImcs+99469OIzwlk2ly0xRRphjDfnqhf3SJ6XdLXz/OSiKvXHLrkIaQaYaw+WRWXBr5dRJCmRYf9DX2RgUJNCzXBLI7UZKzosGG5zhnbAp7PPxUnJIvOdoorNLvAByFh2t4M0q9FZwJLvZGxIsMizWtMoIHFcai+I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787945688; c=relaxed/simple;
+	bh=eeAJ4FS/IEIJbfEzfOWxx87pZPoB43bfAIz7nx8QeC4=;
+	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-Id:MIME-Version; b=STGoo92oY0Y9yO4Px4NIJ76RuLQuv/OWvxucfqlQejFqVovRVocIVYb3PeM736LZ9Z1p1yiFUNf5cMunIX/HBPEVBX2FlApxcc0KSgafBCJCm54MOV4TRkaXIArY6Kt0aReGBRthGV3KU2DKY1J+up/k5fYxdaJ5FbvMmc+IjkY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uq4dPLUw; arc=fail smtp.client-ip=52.101.61.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uq4dPLUw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VoxQy8AzWFwueHqSjyOMn8vISCnkS2+lKl6YWvRBUfJSPRr3VqAMhXFC2/800XF09wG40PvKAsPS2mYX7RBlYKYzzGNnYiw4psYVBkDdH2Lh+PE5pYTupN5mNclLzyE4oVZdUy/FISm/z7bEiL/Mu/aSvfZZbyezl14TfZbbUGiqikGT7xdGGQ3L9Gb3dcC8ALk6rq4O4vkvrO2B3UaAUyb4eO5akQjwzM8JBKokftRxXpbPHFwq9Yh9fsvxTiyRUgwm/tsryj7D8a08gl8HkTprtmBEtQ1PH7ZLInd8rE/VlJrCn/UIN3D9X+7nAdj3buN9+WraovVzkXh2S3adVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Oy/hILovEbCFlJCkUIsfKNif3xxLMuJmeuuf5zSZLCw=;
+ b=udd1Nq6SRpgeCigTpcJ+jRQ2kG+ZU5wvJ60En+uZatqkWLEOl5o7Wzoj7bEO/BjKBkolfQYiLvhfkOpAOaAaeVc0cEMUfggJzW1VNuK7VA4fSg3pHtgcowlF/ZTa2+Z9vsrzfX+RxY2dEI8G91H/RzQ1CD9lPzVDb7bevebpx9XwSjk/jAw0VOuEOItMN0OLM4Le4ZvQN09MXT4/n6EZyqa7innpz1vYMPNlVjWSOe8tnpxJFbho1j8wV0UuGG8eZzFtBNwRB9/ZIUo3w2Lwo6UBVLs7JWz4bzJkn5hpVJlJqr9TQkTaBUWW4l9REBiPQ1zVtZP3nn3BgIn51hqSHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oy/hILovEbCFlJCkUIsfKNif3xxLMuJmeuuf5zSZLCw=;
+ b=uq4dPLUwUN27EPbPpz4vs6bNFA6x3s6QPKqXCDkjuLj3dyJxu4YGx/UVGOs7qF2q18iHGpkxDvYxiRmAtDqE9ReehBjSmOInd8uLZVnLKMzgBy5wEFL2DQlmNv9mct2Dx2uBEpK4eCXuZZm2H2GdwCXHcuj1vUuEBz3Qcnn8X5M+81zqOtdVMbw2s8Gs7U8LYZb/Nb21ZVTV+nYfhVb38LMT5gqBBTy1HkQlMVQg38yOqhpxIc1b5UesFKluiDAM4ic0ks4nhxwQYThnUQ859wXQ6A6thUlq2yGGb+zkCcFGDx3YLdBdGA8OECTmrUW10y1j9KgA4qcA66FrXoGLJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CY3PR12MB9608.namprd12.prod.outlook.com (2603:10b6:930:102::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 19:34:42 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 19:34:41 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v9 5/7] virt: coco: arm-cca-guest: Rename TSM report
+ source file
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
+ Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Suzuki K Poulose <Suzuki.Poulose@arm.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260805063255.1638614-6-aneesh.kumar@kernel.org>
+References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
+ <20260805063255.1638614-6-aneesh.kumar@kernel.org>
+Date: Fri, 28 Aug 2026 16:34:37 -0300
+Message-Id: <178794567779.4159892.13554089762527571548.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: BLAPR03CA0160.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::25) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1992:b0:4b3:2274:247a with SMTP id
- 5614622812f47-4b39819525dmr10306895b6e.11.1787945674295; Fri, 28 Aug 2026
- 12:34:34 -0700 (PDT)
-Date: Fri, 28 Aug 2026 12:34:34 -0700
-In-Reply-To: <6a7a68ea.9c11d2ce.289b96.00f3.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a91e2ca.1d9ded08.62e62.00f3.GAE@google.com>
-Subject: Re: [syzbot] [x25?] inconsistent lock state in valid_state (7)
-From: syzbot <syzbot+15cbd86f569e8b084383@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	kirigirik076@gmail.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-x25@vger.kernel.org, ms@dev.tdt.de, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzbot@kernel.org, syzbot@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com, 
-	syzkaller-upstream-moderation@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CY3PR12MB9608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 190817a1-7cfc-4d40-df46-08df053b673e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|10067099003|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	792OCHQ2C39PBtEYTwTxbNUzR2Kz2LT0zvobt93kuWUMDEcp7L7zP1Wfm3uAyujgc2/EZqVFOwVqqGmV9R54qoEnM7cMpMZI96UwRJPpJQFkpbUlzG+toIGKPlFcKQuEIt/XnJAEMuF39BJnQlkfRLvAKSUBixl/aml132bNahrjUPOKHh/lnp/0FUI09T/FADffS0u1G2/srPXVES7rbyYlaXzBgQ7SOaTlhi58qPlUJpAGJGt+R9P0XbBu7aAteRIA5MfQbEAxT2QCDrHKmIQrb1C8Ba9MgqAkFT6225q3Z6DeFq3ztIOgqdwrfb3V3TU7oOPT7s+kceqM8yIdnFGjr5KYcR2Gb0Clo7Bopx3ayA1Jbja28AdPpr/oTHeJu13OhckED9kBZw1hr5Q0f3H20l/OyVi1aH389McHjr6u5QVdM/eltj64OzBLxaB8N+/f/CjWasI6WCmB0jnkd5wrvO1zSqtcvVGPIsH09shA5RjYZgv1qk5b06QtbhFGKk+Y6CS+IqipnObYIWeGbBghysEp+EOGiyvLA56JnqIr33IffywcWsXxgtiY4nhwGG7LEuffb56IT+M4A6EEXrluHw4lGith5Yml0gN7gpZJOYWUZH+4ws7q+vSHIWWPE4rMhJDyUuf8A9K4s7+9AL8Nf2J782hq9Rzw1tj5E1A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?THNjZjc4aGk0RjhjVVA4V0JtQ2FYWlJxcnBxRldqamgxRHpVNmRmSllWNW11?=
+ =?utf-8?B?S0I4anc1R0Z5OFNRZDQ0c055ZWFNY215SzRQQmwvUXlYVjJ1ZHQxclBzNDk0?=
+ =?utf-8?B?OXpFaStFZFR6bVN2cy9PMDFwRCtDc0FxUWVpMCtPSDRBY3hQYlprZ20rK0Vk?=
+ =?utf-8?B?ZEZiRUxQblJNckdFZCt1c3hHdXlZUWNVQ3p1L0NycmJCSlhnclZqUmhseDh4?=
+ =?utf-8?B?OWFuRmNYOFhRZm9qb2xHUXA3U0ptOHUwaVF0Z0pSVkFFNk4zMW4zQitwdnhP?=
+ =?utf-8?B?djErN0M5MVdQVzdDRDV1WWw4VG93ZVhWSlRWci9ORjN1T1pBSGNCa2cyVmZp?=
+ =?utf-8?B?Q0NsQS9ScWN4Mk53dzZrK0lrcUp4eTJoU1g3ZGsrV0p0VG8xMmtGUHkwMmNh?=
+ =?utf-8?B?RVg1NFBFeEEvZldrclVrSkpVNjdQZGFVZDYzL2ZlZHZNcEU3UXR4SFpuZHZM?=
+ =?utf-8?B?WEZTVFVUT044ejlwdW1sS0JibHRNNXlRdFdkQWI0NUNrMzlWS0VJbjIzb3FR?=
+ =?utf-8?B?Q21xeFpEVEFhNXFGQWF1QnNNcjRLeG9jclJhd094ZzlWdEI5RElaaG9aMU1K?=
+ =?utf-8?B?OXFTWk84eUp5UnZwd0o5L21Qc2wxb2k1azJWWDJzTzFQUGF4em9LMEdqZnk1?=
+ =?utf-8?B?cHFsaEpmVm42aGNxbUdnbzhONWxZMlpoS1MweGRwR3BIQUt3ZExFRDE1N2FK?=
+ =?utf-8?B?SlltUVVlRHQrcW5Memc2YTd5YStlVWp0aUM4VlpJbHQ1SkZvblZMNm9oYlVq?=
+ =?utf-8?B?dGRzaDNGSTFleEJXVWNLVldmZ1FzdTJKbGpIbGVjbUhBMUpuT25wQmljYmRa?=
+ =?utf-8?B?RXdHSC9JM01LdHI0Uy9lcGE4SGl0Q3RXOTRNNVBCQnVVWW1tNFRGdU5mKzhk?=
+ =?utf-8?B?VmhKTk9UNmgzK3prN0g0YUJoeFpkMDhwZEdiRXI0d2pIRjNSTGJKWVRWTk5k?=
+ =?utf-8?B?NjZ0WU9Sc1JpOFRlZVdWWHFIbndKejVsRXVvbnJ3MFVYOGtPeFh4c2E1WDBa?=
+ =?utf-8?B?dUxoOFFFRDF0NnF6OGVpa0FxTEw4V0U1ZDFpZGVrU0MvdkxDcTVKb05SeEZZ?=
+ =?utf-8?B?WmZma0o0bmlPUnlQM1QzUjdycHkwR2JUY1h5cUw5T1p0Y2ROdTJVWElXZHlL?=
+ =?utf-8?B?SDdmRVI1dEEwMllQV3d6WHdYdWlON2dENnBPcjFnSml2SEgvUXVkMEFzRXBs?=
+ =?utf-8?B?d2dBajVBS2J3Z3YxTXFiQlArVmVnSVBpb04vOXBSa29ieDdGL0UvL3ZDRlhy?=
+ =?utf-8?B?YkhNVmFLT3R3UmZzUm9admhQUHBjMkJsK3Y0OXJDNHRrbGR4NWtielNXbGFv?=
+ =?utf-8?B?RG44OEtoZENDV0xnYjhCNWNKRGlKYWdLYVc3b0dZNDdWeVkvdWl0WnB5a2p5?=
+ =?utf-8?B?NjZ1VFhsL2dkRklINERkRjlQK01QYURHZXVHb1daZGJIRlVYY1VWRU80MUJv?=
+ =?utf-8?B?TkR3NkhaZGd0WEU0Mmp1NFpCdUhtS1J3Qk1JaVFpYXBzblgxU3RkT0hPSzd1?=
+ =?utf-8?B?bUNla2dJdXozVTBZbXJDb3pTUEZmMjQ4WHQzQVpSV1JURlBJN25WU0EvNUJO?=
+ =?utf-8?B?TGR3TkZ3UDh6SWsyZXlOaVorbFRDZ0xPeHkrM0lNa0gxdnBwam02NmNLRDBM?=
+ =?utf-8?B?dFFMOCthR2hWNFo5VHVZZHRsMGNkUkdMTG1sVEdQUVhnSmxxM3ZYSmwyaHlh?=
+ =?utf-8?B?Y1JWbzZENjYxL2Vxekc2NlZsZzA2bHc3VXNGemVRd2dMZmVMSlhUVXlxcWxH?=
+ =?utf-8?B?cXcxTURwRnBlMWZnUU85QXd3eUxQOGFnd1NpZHJlYVg5L0x5Sk1MbVJqQWY4?=
+ =?utf-8?B?NXVQcU1FczBMTmRCeFNESEZ5dGtaeEQ1S1Q4aDBJeU1sdk15TjBwK1dDUnhr?=
+ =?utf-8?B?dVdzREtIbEtZQkFUczhzSzl6SDJ0TFBQREY4aC9ZYk1EZ09CWkUwdkdDdEFl?=
+ =?utf-8?B?VEducndxbTc2TUhkcXE0M2traVFzaXhWOGRad2YxUDlISXhFNzBVQXZXbDht?=
+ =?utf-8?B?eko3UlpvTXM4R3pQckhVdTNFSGk3cmpqdVBZOEVtUFkwdUxwcHZZY3B4U2pK?=
+ =?utf-8?B?WllpS0dPNE5mUTc5YmdLVzlvL01FL1M5eitjbGxpcHhGNURFN1dmRXRNTjA3?=
+ =?utf-8?B?akYzNGN0Uk9zZWd0ZWs4L3YvZlFhaEdTRjcrazRMOW1oajBFRHZYYmcwYndh?=
+ =?utf-8?B?dUJtRzZMam81eGxtQ0k2TUc5cFQ1ZTVtaDN0elQ1MGtKVHVHNFJkSHRlT0ZL?=
+ =?utf-8?B?WkFPTTlLeUJsb2NEbU5yNjhqVEpLU3BZL25aOUExRlVHTEdVMnR0eEVDTURs?=
+ =?utf-8?Q?7qFVRh+vSzSjl3E/st?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 190817a1-7cfc-4d40-df46-08df053b673e
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 19:34:41.2076
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IntYaQ9+NErSSBqJoGxA2FFa+OClX9PjebaMnD0wM0HH4A9zFne5zXBdaC4XmbNB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9608
 
-syzbot has found a reproducer for the following issue on:
+> The Arm CCA guest driver currently only implements TSM report support, but
+> follow-up changes will add more TSM-related functionality to the same
+> module.
+> 
+> Rename arm-cca-guest.c to arm-cca.c and build it as an object of the
+> arm-cca-guest module. This leaves room for the module to grow additional
+> source files.
 
-HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
-git tree:       net-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=134d8c15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=15cbd86f569e8b084383
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14336d79580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1781ce25580000
+That's pretty confusing, the module is called arm-cc-guest.ko but it
+has host items too?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/18856a03a9a3/disk-1b78070a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/cc2bc68d7ef4/vmlinux-1b78070a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/05a5e00f8f91/bzImage-1b78070a.xz
+I would have more expected the module to be named arm-cca and this
+file to be guest and a future file to be host or something like that?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+15cbd86f569e8b084383@syzkaller.appspotmail.com
+It is annoying to change module names but we do it, and I think it
+should be no problem in this case since there are no users..
 
-================================
-WARNING: inconsistent lock state
-syzkaller #0 Not tainted
---------------------------------
-inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
-ksoftirqd/0/15 [HC0[0]:SC1[1]:HE1:SE0] takes:
-ffff88807f892260 (sk_lock-AF_X25){+.?.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
-ffff88807f892260 (sk_lock-AF_X25){+.?.}-{0:0}, at: x25_kill_by_neigh+0x10d/0x250 net/x25/af_x25.c:1778
-{SOFTIRQ-ON-W} state was registered at:
-  lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
-  lock_sock_nested+0x41/0x100 net/core/sock.c:3827
-  lock_sock include/net/sock.h:1713 [inline]
-  x25_bind+0x209/0x450 net/x25/af_x25.c:694
-  __sys_bind_socket net/socket.c:1945 [inline]
-  __sys_bind+0x2e3/0x410 net/socket.c:1976
-  __do_sys_bind net/socket.c:1981 [inline]
-  __se_sys_bind net/socket.c:1979 [inline]
-  __x64_sys_bind+0x7a/0x90 net/socket.c:1979
-  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-irq event stamp: 732208
-hardirqs last  enabled at (732208): [<ffffffff8188ed06>] __local_bh_enable_ip+0xd6/0x140 kernel/softirq.c:478
-hardirqs last disabled at (732207): [<ffffffff8188eca2>] __local_bh_enable_ip+0x72/0x140 kernel/softirq.c:455
-softirqs last  enabled at (732126): [<ffffffff818919e6>] run_ksoftirqd+0x36/0x60 kernel/softirq.c:1108
-softirqs last disabled at (732131): [<ffffffff818919e6>] run_ksoftirqd+0x36/0x60 kernel/softirq.c:1108
+But maybe this patch should be in another series..
 
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(sk_lock-AF_X25);
-  <Interrupt>
-    lock(sk_lock-AF_X25);
-
- *** DEADLOCK ***
-
-locks held by ksoftirqd/0/15: 1, last CPU#0:
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: netif_receive_skb_core+0x33/0x2b0 net/core/dev.c:6288
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_usage_bug+0x28c/0x2e0 kernel/locking/lockdep.c:4058
- valid_state+0xbe/0xf0 kernel/locking/lockdep.c:4072
- mark_lock_irq+0x36/0x380 kernel/locking/lockdep.c:4283
- mark_lock+0x117/0x190 kernel/locking/lockdep.c:4769
- mark_usage kernel/locking/lockdep.c:-1 [inline]
- __lock_acquire+0x6b7/0x2e50 kernel/locking/lockdep.c:5208
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
- lock_sock_nested+0x41/0x100 net/core/sock.c:3827
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x10d/0x250 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x1b0/0xfb0 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- netif_receive_skb_core+0x2a6/0x2b0 net/core/dev.c:6289
- lapbeth_napi_poll+0x42/0x90 drivers/net/wan/lapbether.c:100
- __napi_poll+0xaa/0x330 net/core/dev.c:7787
- napi_poll net/core/dev.c:7850 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8007
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- run_ksoftirqd+0x36/0x60 kernel/softirq.c:1108
- smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-BUG: sleeping function called from invalid context at net/core/sock.c:3829
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 15, name: ksoftirqd/0
-preempt_count: 100, expected: 0
-RCU nest depth: 1, expected: 0
-INFO: lockdep is turned off.
-Preemption disabled at:
-[<ffffffff8188ef0b>] softirq_handle_begin kernel/softirq.c:486 [inline]
-[<ffffffff8188ef0b>] handle_softirqs+0xab/0x860 kernel/softirq.c:621
-CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- __might_resched+0x36a/0x4c0 kernel/sched/core.c:9234
- lock_sock_nested+0x56/0x100 net/core/sock.c:3829
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x10d/0x250 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x1b0/0xfb0 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- netif_receive_skb_core+0x2a6/0x2b0 net/core/dev.c:6289
- lapbeth_napi_poll+0x42/0x90 drivers/net/wan/lapbether.c:100
- __napi_poll+0xaa/0x330 net/core/dev.c:7787
- napi_poll net/core/dev.c:7850 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8007
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- run_ksoftirqd+0x36/0x60 kernel/softirq.c:1108
- smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+-- 
+Jason
