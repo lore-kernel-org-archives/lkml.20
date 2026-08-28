@@ -1,44 +1,59 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8F4420E98
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF9420475;
+	Fri, 28 Aug 2026 11:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916520; cv=none; b=YpA0uEILAgHfdHm2vtKlWz4Cr4ChHFCcaaGNR5kmNTUwXTz02TA42yTAAdFjYafiYfsyYTH5bUu0BvMud4iewHR3r6VHoXtXrZFDAo5kcQ4oS/JbNerVoXfoFZYIGLhkPe6DQII8qwGG+49qXib/JGrCJgwLpLLI+Y+KlPb8K6Y=
+	t=1787916520; cv=none; b=qiGXChnE8DWaeRzfzhyFK4LAtfLyC+/Uxlwe/c2xL7hqphl7PCx64OhisrSyng0DGCB46cL0EiztKJCjC2sSBQ04p7cUQJeBnZWVJcztmPWdKT7IPYN1B4Lp3qpyReN31PCpoJLqT0x2dTfWNBfNLo+5k3L8Xi4zg8T/j3iBO/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787916520; c=relaxed/simple;
-	bh=/gbHNmSgNtdIkDrciN2lrqMW46sgKlW++Y8k09AhWXI=;
+	bh=IHeGAa96lm6icbclR8lQggZd1zZDtCfIdDQ9Mci1siw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O3HLo5gKQLu9e2kM6HDxnLSj63hSoo956iV+ysM2Ot7MsHllOK3Qo+G1txzaeBcX/rreai8vg9/kpBEthb8pzhej4keUbwJxUno1Vs6wSCeihB8tHFauWwWzhb9ydyhHIwOQOYKlj/lqLgQ9vrQlh/qwHfxXb7AX8El1E8w3A4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w2OoyLWp; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 MIME-Version; b=kQ39cwS47KCPereX8CIu3QiyhksLahObxb+/1xruFp5F3YBuhs6UMWSItjhZ4H3Owcmw8nPqd5ejONSrnNbb/taR6TGjlATGh0rRqq0igVjRoN3OUgAiILJKf5cbnndNZWLHTblSgIUhgPyNgBBNCzVa6TqPGO5n/AXjGPrk6qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ByNkXqq/; arc=none smtp.client-ip=220.197.31.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w2OoyLWp"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787916508; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=KJGFtURAmGWFRlSvSJgxs80wZh9Z33BZIa4VmJay+WE=;
-	b=w2OoyLWpAuknzUY55Cvu8b8pIwcqW6PRDoCrCBkiTWQnYR7XzPRu5HvQp6h0mLcgutXvTpVI9/ms+3JA42JCwd+IrRzc0G2UZpELpXmfkz9KpjbLBWU6loma2okubAU33HSZuwCWQIiRMn0EEY5e0Of+mRwF2ljm9qHm/ucqpCA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9mHega_1787916506;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9mHega_1787916506 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 19:28:27 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Li Zetao <lizetao1@huawei.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] ocfs2: free replay slots in ocfs2_recovery_exit()
-Date: Fri, 28 Aug 2026 19:28:24 +0800
-Message-Id: <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
-References: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
+	Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+Date: Fri, 28 Aug 2026 14:51:51 +0800
+Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,93 +61,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
+	5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
+	h=date:mime-version:subject:message-id:from;
 
-Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-added ocfs2_free_replay_slots() calls to the mount error paths
-out_dismount and out_check_volume to fix a leak of osb->replay_map.
-However these calls are unlocked while the bail path of the recovery
-thread, which is woken up by out_dismount right before the call, also
-frees the replay slots under osb->recovery_lock.  Both sides can thus
-observe a non-NULL osb->replay_map and trigger a double free.
+Revert the change that made samsung,link-rate and samsung,lane-count
+optional for Exynos DP. Add error checking to fail probe early if the
+required DT properties are missing.
 
-Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
-after ocfs2_recovery_disable(), which waits for a running recovery
-thread to exit under osb->recovery_lock, and drop the unlocked call
-sites.  Both ocfs2_dismount_volume() and the out_super path of
-ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
-freed on every path.  Since super.c no longer references it, make
-ocfs2_free_replay_slots() static again.
+If these properties are missing, video_info->max_link_rate and
+video_info->max_lane_count remain zero, and so do link_train.link_rate
+and link_train.lane_count used in the subsequent link training flow,
+resulting in link training failure.
 
-Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+There is no way at all a device can work without these properties.
+Here is the code flow when either max_link_rate or max_lane_count is 0:
+
+  analogix_dp_commit()
+    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
+
+  analogix_dp_full_link_train(max_lanes, max_rate):
+      // Read sink capabilities via DPCD and sanitize them
+      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
+      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
+
+      // Clamp by the limits from DT
+      if (link_rate > max_rate)    // 0x06 > 0, always true
+          link_rate = max_rate;    // link_rate = 0
+      if (lane_count > max_lanes)  // 1 > 0, always true
+          lane_count = max_lanes;  // lane_count = 0
+
+      // Configure TX with the zeroed values
+      set_link_bandwidth(link_rate = 0)
+          // writel() is only executed for bwtype == 0x06/0x0a,
+          // so LINK_BW_SET is never written and stays at
+          // reset value; phy_configure() gets link_rate = 0.
+
+      set_lane_count(lane_count = 0)
+          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+          // phy_configure() is called with lanes = 0.
+
+      // Program sink for link training
+      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
+          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+          // lane count in {1, 2, 4}. Writing zeros is illegal, so
+          // the sink cannot enter the training state.
+
+      // Training loop
+      for (lane = 0; lane < lane_count /* 0 */; lane++)
+          // loop body never executes; training_lane[] stays
+          // uninitialized and no training register is programmed
+
+Since the sanitized sink values are always non-zero (link_rate >= 0x06,
+lane_count >= 1), the clamping with a zero maximum unconditionally
+forces the training parameters to zero. Clock recovery can never be
+achieved, so link training fails deterministically.
+
+Consequently, making these properties mandatory again cannot break
+any existing device: a DT without them could never have worked in
+the first place. Failing probe early with a clear error message is
+more helpful than a silent link training failure at runtime.
+
+Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
+Cc: stable@vger.kernel.org
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
 ---
- fs/ocfs2/journal.c | 3 ++-
- fs/ocfs2/journal.h | 1 -
- fs/ocfs2/super.c   | 5 +----
- 3 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-index d8afbc1a76bb..a3938a03e93b 100644
---- a/fs/ocfs2/journal.c
-+++ b/fs/ocfs2/journal.c
-@@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
- 	replay_map->rm_state = REPLAY_DONE;
- }
- 
--void ocfs2_free_replay_slots(struct ocfs2_super *osb)
-+static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
+Changes in v8:
+- Expand the commit message with the detailed link training failure
+  analysis,
+- Add Reviewed-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 566f1e5eb8cd..ddb15d6de05f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
  {
- 	struct ocfs2_replay_map *replay_map = osb->replay_map;
+ 	struct device_node *dp_node = dp->dev->of_node;
+ 	struct video_info *video_info = &dp->video_info;
++	u32 val;
  
-@@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
- 	/* XXX: Should we bug if there are dirty entries? */
- 
- 	kfree(rm);
-+	ocfs2_free_replay_slots(osb);
- }
- 
- static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
-diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
-index f8b3b2a3d630..19fc920d26b1 100644
---- a/fs/ocfs2/journal.h
-+++ b/fs/ocfs2/journal.h
-@@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
- void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
- 
- int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
--void ocfs2_free_replay_slots(struct ocfs2_super *osb);
- /*
-  *  Journal Control:
-  *  Initialize, Load, Shutdown, Wipe a journal.
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index f785c39d1fb8..6a8092b65bb5 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- out_dismount:
- 	atomic_set(&osb->vol_state, VOLUME_DISABLED);
- 	wake_up(&osb->osb_mount_event);
--	ocfs2_free_replay_slots(osb);
- 	ocfs2_dismount_volume(sb, 1);
- 	goto out;
- 
-@@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
- 	status = ocfs2_truncate_log_init(osb);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto out_check_volume;
-+		goto out_system_inodes;
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		 * NOTE: those property parseing code is used for
+ 		 * providing backward compatibility for samsung platform.
+ 		 */
+-		of_property_read_u32(dp_node, "samsung,link-rate",
+-				     &video_info->max_link_rate);
+-		of_property_read_u32(dp_node, "samsung,lane-count",
+-				     &video_info->max_lane_count);
++		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,link-rate\n");
++		video_info->max_link_rate = val;
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,lane-count\n");
++		video_info->max_lane_count = val;
+ 		break;
  	}
  
- 	ocfs2_super_unlock(osb, 1);
- 	return 0;
- 
--out_check_volume:
--	ocfs2_free_replay_slots(osb);
- out_system_inodes:
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
 -- 
-2.39.3
+2.34.1
 
