@@ -1,88 +1,94 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2420537CD21;
-	Fri, 28 Aug 2026 16:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA20146A66
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933069; cv=none; b=DEONHohyqvPoeceDXIqnKaqvStYCZGkGURd9NwJMiYrGligCKcv3mRzks3Qdr4SBpBpIbA2WuXU6GXAManQHGxkq3NgJLMNXpnrK1K6X+qS0/BtgxXTqT4O7X1B7VtoZs72Kk2SCSJGBtMecVqlhRFHesE7q+DdAxff51epRAJE=
+	t=1787933093; cv=none; b=MNxqwql/Ek6y/e9ailvel9Olt1SOVCXt4AtvF24Ml9hum7c71eRAkHjzy9SHXxWkaYeHe3oo/SRDjuYlZgCXW3WqCMWI2O0UdSLtuyiy66UNj7Awv58o8iNLjMVhiWP6tt3wsafp2Z6nE9rKYRHwwjbdKjAZqoODgVFQ/SUZeBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933069; c=relaxed/simple;
-	bh=YdHURS/OkStZN+lDVntHsnIayXRryLL9rVY3WqT0oys=;
+	s=arc-20240116; t=1787933093; c=relaxed/simple;
+	bh=TdE3I1D7GAfpzTiSKx8PIfRHrfbRkoBda005vsXhHLw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gVzrUO51OmiK9IK2micI5LGcVdMEfvcQL6Vhw/qwjWOJUAn8wcUJHOPqUJs3rA8g68lizcUwn4YBFVd/jYcVmvxa/89jdFdXWV9EXmD6y80wh5nl6uKONavyQ/2eeHCEIro8Dq8HbQDGqdv/qA7LQeZW1T8rtaxbqfr5r59av4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pnXUkCN3; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=OpTypzGX/OE06sq3NXfYMwugpKPijbTPLjuhnfNomLvh4ov9gdEjtiTQ4HSsbGhDTyyg0gdu4rcUADsZcfchkQyoytzMMF4r7xCZ2xwliUXW4eVcCDXQRmBYtpfA2PxujoLFXRPpOW5jWc7xvh7vkj7bUBf/X2K4yMaBPRwm+bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=HQPPp1ys; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pnXUkCN3"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDVcqL2186123;
-	Fri, 28 Aug 2026 16:04:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=dgH8c3K41onSn3JaUmFd6PfY9U5p0W
-	8ii5soacR13YA=; b=pnXUkCN3smJhN/Xhj5/T4u6z9CmxFA6JvwVrwTGjBe7was
-	MRFrmBoZlfHDK3LEBqiGCRc8KhDZ/bWew5u6BLLdP1uWbtWwlgRiTLGjP6KJ0r4X
-	q0jppp5CVV8p+DN9U6k9mkJN0jZuiAhIIfT4d9RDxZ/VFQDCbg2Qsfo5vQGChg+6
-	OEm+x98MEZhiHQ0u3aCcYeX6lLoAWR65O3cbbntx90rz4r8RqEr9QMZHelbtRUsH
-	QvNeHYBSOnHJNFuCMiPW1rQLyTvnaJHDGGWLZIOV2bPqiXP59W3Z+RfTQu0tWdT8
-	I8trrYyI2z4NV8oYxJ4Efb5fj4KfoVmtT5XTltNw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxw67a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 16:04:02 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SFuHKM028232;
-	Fri, 28 Aug 2026 16:04:01 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsyq33d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 16:04:01 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SG3v2M28508426
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 28 Aug 2026 16:03:57 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1C8262004B;
-	Fri, 28 Aug 2026 16:03:57 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2CE2720040;
-	Fri, 28 Aug 2026 16:03:56 +0000 (GMT)
-Received: from osiris (unknown [9.111.68.102])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 28 Aug 2026 16:03:56 +0000 (GMT)
-Date: Fri, 28 Aug 2026 18:03:54 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Janosch Frank <frankja@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v6 28/33] KVM: s390: Add basic arm64 kvm module
-Message-ID: <20260828160354.164752-A-seiden@linux.ibm.com>
-References: <20260812153631.3376090-1-seiden@linux.ibm.com>
- <20260812153631.3376090-29-seiden@linux.ibm.com>
- <a90009dd-d4eb-427d-b23c-23bcc19af478@linux.ibm.com>
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="HQPPp1ys"
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9D4133FE60
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1787933083;
+	bh=BdiRN85AGVfqT2duX9hv72UQ7MsPQaQ1CfhUNZAX7ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=HQPPp1yspowci4Z2SBCSxeBmRRR9tv2WgQJrfL7XzABVffDJoDutUPduHHsUnJkZH
+	 GWOkQ3eaXEg+jaDHVuhp1T/gqdFgB7vdu3EdO6tjvAXWteRikJYdDxNZcEHYN/H7lr
+	 nCxVGXKlhMdLZXg1mi3tDOWCBlzWP6jMuWpRwiwYs+ZEVHT2FefbVM4CQbkn5r6jwD
+	 yAclWwwMmHCesqPbO48PbSzMqM7WG5AHpTCbHgQOQnhZpWUxZz0YimZdkwohfGq5gj
+	 rXNj2XaiEmqPl4iMgDxwhvmKzvmY6f6eezqHNd25IhPg3slKk15ihcyWU/XLxhCHO9
+	 ZRvf8ul18rVAc/OwZpuv7ohLn4qMTom+jv1SSZ2P1Nnpv0pLB9l4MOnftWM+Rkbn2V
+	 HXqjrdkvgQkg/iQzXqd56ocFZ9eb4H8Qn8f+ejuORqZVicE67Irl+zZYtyFZ9sq8ri
+	 YA9pXP7S5pOMRVcRifOC6OfTHPiGGDJSMRQCGLLwZvBnzg6N9gl4LuyRq2zYiSKZA8
+	 hrETGxvi5RQOBVXlTAEWktmJo3foLtGIjQScp4PaAdN6a9JxfA4KvH5VmxjKOlpE74
+	 fGs09Ula9t1Ie4F2phzVhRGeOEomq0C+I7M9Zh4SfGYEICZZXDQ1nk7VjB0Gl1hUPy
+	 vzFdqk2cP75noUjswXLhufxw=
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-493bfc3b84aso5491505e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:04:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933083; x=1788537883;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BdiRN85AGVfqT2duX9hv72UQ7MsPQaQ1CfhUNZAX7ig=;
+        b=U+Xuu78c2GQMrujEGgC7xSTNby969d1SMYqTZ4rATV1meZz8QdO2ckGYl72yfKfH3m
+         8oUQjACFGrRJgCbIeVSiR3mx6u7fVUfYBmCvXBvGmt8fz4Bd1ZkXG9YpL4kVYWbnKXKD
+         bEfNLGB6ZhTjlGksynL3HGAdWdM/zlFk5vSAaVLSG206Tn8FAzk9LuA3n5ZTg+4HG+SF
+         0RF7i8CAqA4nZkZVOF68SBivf/K0xldBkEKsBFu8DnVa4PbWrorjvhUDwo8ivg0y43/0
+         lw2+8suL2ggyqJD3GntVgP2nS1U8HDb1Qq9TJ8f5ge23Qycf0372Xzs10WZgDZIyNYdL
+         LsrA==
+X-Forwarded-Encrypted: i=1; AHgh+RpBK8q9SoCk0qvhZVm6rj7MxZQkDmrMeaBZEVs4k0F2ONz9qQIUEfcvdm9/YK4ZEMf+e9A5WHShchw8rMI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS3wItxL5G2kQawZXgZVUgVBQOP52zp1AOQmQCKotwpIy5fMGv
+	5411mJPt8VoT4Hl/++qBKfiKuFIZ+eDCA+qt0dYIEQkBrmr0x1MxWECWpc3te6MUbgunkOppnPM
+	7Vu831yr1H+jvhrjGywvCNeuGOAdY+jtpsYhbK5YLga8GnLNEeTv+8yMUSdUkNz+lcLqUQoRFjw
+	CO4fCjgA==
+X-Gm-Gg: AR+sD13B5AcG7sHwg/g15iQObpNGVxdqOC3VOIjJzBATX0BVppn0aGqfnMvtD5/ZNXn
+	QIhmuFCszUFZHxNHHFinjSB4KQ0kPVRFxQsH/6BW9AP8TeUT4CZVeqmy65/7DTO9oNGTUObMR1B
+	dc/2Ft6DyVL0Z+kHN9m6T9Lgac0beDEmqOuXxT+eot7H5wSTG/voKC4xiYpCqLCT9KwDaPIo8y7
+	bObt+C7V2NKBMJW4SwYWm/u7j94pkWNGTfs9l1NNG1i/NkCTv1vdPpq9tfgjjMw5Op4ONvJEtlz
+	6ry1moGzzwZylapmBmVAx34Lc0HfH7xhvD1SsJ88zq8t1m9KjxBzT0TMsajQ8xgLZSCm8ousnKn
+	e1cZ2hwqErW9uKV6tTS+qjAL6JdKr4boY7Y3oQdCaTP3GqZ3AE8zombux36LsktArDy+aRA==
+X-Received: by 2002:a05:600c:620e:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49cc0d4545emr47903885e9.14.1787933083083;
+        Fri, 28 Aug 2026 09:04:43 -0700 (PDT)
+X-Received: by 2002:a05:600c:620e:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49cc0d4545emr47902965e9.14.1787933082708;
+        Fri, 28 Aug 2026 09:04:42 -0700 (PDT)
+Received: from localhost (93-35-113-52.ip54.fastwebnet.it. [93.35.113.52])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dd2517sm62531535e9.7.2026.08.28.09.04.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 09:04:42 -0700 (PDT)
+Date: Fri, 28 Aug 2026 18:04:41 +0200
+From: Alessio Faina <alessio.faina@canonical.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
+	stefano.salsano@uniroma2.it
+Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh if
+ iproute2 too old
+Message-ID: <apGxmfjQs247lHX-@cicciput>
+References: <20260824091537.2305107-1-alessio.faina@canonical.com>
+ <20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
+ <ao7S04LkWVXAQpgq@cicciput>
+ <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
+ <apAJuZzDOvjkVx60@cicciput>
+ <20260828042357.1d6e802448752a8fdff5a485@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,80 +97,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a90009dd-d4eb-427d-b23c-23bcc19af478@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEzOSBTYWx0ZWRfXxZjSXhp3nkOk
- y7KNrDuosG3X05DSyEWfW9Q0EQdVJ/Mmkf87YXU6yB+cI234f2wsHs0FCGXZo8lmx7gT7DIPSIT
- EV+vXHWoy2Qf/BT+85mlM7La/cOm7pg=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a91b172 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=GjRpCgEQHAvZYWd-grkA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: lxX3HICFKqkj1nkyoBdOLCFKkY1MzdX5
-X-Proofpoint-GUID: zBAItN-4a0Pfu2NxxPon1fOrObeMNtcw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEzOSBTYWx0ZWRfX5/Kh0Zsnk+Tw
- 7qfXF31QN8c73e83tylqE6SvfujuHTVzvUlSaqusvmw/QHy7o8JCudslqRQ1CsxIDrU60UTTA0a
- ThoIS4/ftcbdln79cNS6loGg0kQ7j78LZfRr+EmJvUqXsEmfy1+6NVPwl8r9APyIVUyxnK5rXLF
- oCxChN4UZ4DiV7h+cpGhOefVRH+Leg3r8mE4U3wy1AfoOYIbAVH/taWO6kYMcqyH1XwL1b4q7ym
- iq6fWeJtHcb/tNW17xtP/aUVluFaSP9/9CNw/0ZV2CWmdwCbK00RhONeVvBua+hSoTom92l0iiz
- Tjkd5zANSjQ6DnFCM0iBZ52HC+U8wxu6D2+HdBg/N3OlrttSXupKLwAZSlgLei9OSpsLRlNSutB
- L9UwewKVabT85N8UE7/yEOuy0DC6C9V10oNe1C4ZW1wQ8uluQ5zxK44HcTgB+4Q+IE+216Wxgy9
- OcwTXbjpXjHtrM//kAA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608280139
+In-Reply-To: <20260828042357.1d6e802448752a8fdff5a485@uniroma2.it>
 
-On Fri, Aug 28, 2026 at 01:33:00PM +0200, Janosch Frank wrote:
-> On 8/12/26 5:36 PM, Steffen Eiden wrote:
-> > Add basic code for the new arm64 on s390 KVM implementation.
-> > Add kernel module boilerplate code and trivial functions.
-> > Add tracing scaffolding.
-> > 
-> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> > ---
-> >   arch/s390/kvm/arm64/arm.c   | 157 ++++++++++++++++++++++++++++++++++++
-> >   arch/s390/kvm/arm64/arm.h   |   7 ++
-> >   arch/s390/kvm/arm64/guest.c |  92 +++++++++++++++++++++
-> >   arch/s390/kvm/arm64/trace.h |  18 +++++
-> >   4 files changed, 274 insertions(+)
-> >   create mode 100644 arch/s390/kvm/arm64/arm.c
-> >   create mode 100644 arch/s390/kvm/arm64/arm.h
-> >   create mode 100644 arch/s390/kvm/arm64/guest.c
-> >   create mode 100644 arch/s390/kvm/arm64/trace.h
-> > 
-> > diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-> > new file mode 100644
-> > index 000000000000..8e17b7eef813
-> > --- /dev/null
-> > +++ b/arch/s390/kvm/arm64/arm.c
-> > @@ -0,0 +1,157 @@
+On Fri, Aug 28, 2026 at 04:23:57AM +0200, Andrea Mayer wrote:
+> On Thu, 27 Aug 2026 11:56:09 +0200
+> Alessio Faina <alessio.faina@canonical.com> wrote:
 > 
-> [...]
+> > [snip]
+> > 
+> > For the DX tests I was doing a local test but it's not in the original
+> > kernel, sorry, I must have confused 2 tasks with one, so disregard the
+> > DX4 and DX6 tests, they are not relevant to this issue; if we manage to
+> > agree on a solution for the DT4 and DT6 tests, I will discard those
+> > modification in a subsequent patch.
 > 
-> > +
-> > +static u64 kvm_max_guest_address(void)
-> > +{
-> > +	u64 max_addr;
-> > +
-> > +	if (sclp.hamax == U64_MAX)
-> > +		max_addr = TASK_SIZE_MAX;
-> > +	else
-> > +		max_addr = min_t(u64, TASK_SIZE_MAX, sclp.hamax);
-> > +	return ALIGN_DOWN(max_addr + 1, 1 << 30) - 1;
-> > +}
-> We're sure that the MSLA + 1 - MSOA > MGPAS check aka VIR code 4 will never
-> bite us? Or will you touch this up with the qmc support?
+> Ok, so this is about the dt4 and dt6 tests only.
+> 
+> > About the DT4 and DT6 tests, I thought to use the same method as the failure
+> > was practically the same as End.DT46.
+> > This is the version I'm currently using 
+> > ip utility, iproute2-ss200127 (should be 5.5.0 if I'm not mistaken)
+> > and I can confirm 
+> > [SEG6_LOCAL_ACTION_END_DT4]		= "End.DT4"
+> > [SEG6_LOCAL_ACTION_END_DT6]		= "End.DT6",
+> > is available.
+> > 
+> > What do you suggest would be the right way forward to check what is
+> > going on?
+> 
+> These tests need the vrftable attribute. The help does not list it
+> before v5.14.0, while ip parses it from v5.11.0, so a help check skips
+> tests that would run on v5.11.0, v5.12.0 and v5.13.0.
+> One possible way could be to try the route add in a throwaway netns and
+> skip the selftest if that fails. test_encap_lookup_supp_or_ksft_skip() in
+> srv6_encap_lookup_l3vpn_test.sh could provide the general idea, but here
+> the netns also needs the vrf device and the strict mode the test sets up.
+> 
+> That's more code than a help check, but it skips when the route really
+> cannot be installed. There is a trade-off to consider, and comments or
+> other ideas are very welcome.
+> 
+> Ciao,
+> Andrea
 
-Series 2 with qmc support will in addition verify that the maximum guest
-address is smaller or equal to MGPAS, which is calculated from the
-PARange. MSO is always zero, so we should not run into this invalidity.
+Hi andrea,
 
-	Steffen
+I tried multiple methods:
+the first approach is yours, but I can see the following error with any iproute2 
+version I'm using (I tried 5.5 to 5.18): when running 
+"ip -netns ${rtdst_name}" command, it always returns 
+
+RTNETLINK answers: File exists
+2
+
+I tried the following approach as well,
+
+ 	# set the decap route for decapsulating packets which arrive from
+ 	# the rtdst router and destined to the hsdst host.
+-	ip -netns ${rtdst_name} -6 route add ${vpn_sid}/128 table ${LOCALSID_TABLE_ID} \
+-		encap seg6local action End.DT4 vrftable ${tid} dev vrf-${tid}
++	if ! ip -netns ${rtdst_name} -6 route add ${vpn_sid}/128 table ${LOCALSID_TABLE_ID} \
++			encap seg6local action End.DT4 vrftable ${tid} dev vrf-${tid} 2>/dev/null; then
++		echo "SKIP: SRv6 End.DT4 vrftable not supported in iproute2"
++		cleanup
++		exit "${ksft_skip}"
++	fi
+
+where the test is checked at vrftable creation time, and it would
+cleanup and exit as expected from standard tests.
+
+But obviously this gets the same RTNETLINK answer as an error.
+
+Then another approach came to my mind, and it seems to be quite reliable.
+Practically checking if the ip command contains the string "vrftable"
+using the "strings" command, and if not, skip the test.
+
+Something like this:
+
++test_iproute2_vrftable_supp_or_ksft_skip()
++{
++	if ! strings $(command -v ip) | grep -q "vrftable"; then
++		echo "SKIP: SRv6 End.DT4 vrftable not supported in iproute2"
++		exit "${ksft_skip}"
++	fi
++}
++
+
+What do you think about it?
+
+Kind regards,
+
+    -Alessio Faina
