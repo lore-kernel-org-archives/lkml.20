@@ -1,78 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71470387378;
-	Fri, 28 Aug 2026 03:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254B0299929
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.109
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887569; cv=none; b=sOfhLH39hiOliEySBCuC5oxv8m0MBnsO/Wmiql3c0eXVPw7wskoQWiHOS6HDiIFG9Qmec/NJQJx8dfA5WLq5Q/S5Jp1359DUihZatQ9adJ7eawC4RNdkqtJ1+AJFLa8tZy05DRbssXUG1Z2nDvCh+zR3i0LpEJCgpDTdv12nvI4=
+	t=1787887626; cv=none; b=MKNcChJ++/+bBdC/hYab1DjLmAUAD/P/jAKeu4Ha/a8qts4X0dDYFhuLF3OCOhtgWG9eULv0OcyyvLX4CFKHzXIj1YRnb51H1qrTTV3AJdZj1y8RPdogddAb4MVDw6Ap4/TfrSWn9yrObrG4Yt+8128cjZL6a2wITrONd+mtrek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887569; c=relaxed/simple;
-	bh=If6pFuI6QDQHA0hFfA38OqT4ci3nl2lGKZkVIxxUHFc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=h1Y1JSFc972G4nPbGL3yjXFCM4oELSaFNm4Mjc/zryhmQtNZWoJRaTmsRtP2ENxHsk/J3j805ipPRZxYJplxknd0HMMuaXqqpDK3pRIsRhdHtq8E8ziW6WYbv5ozl2VviirxBS9MZ8gXnlfIA9y/fFT6Pm2pGEsbXeeLoNjKy1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=PvU3CQ++; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787887626; c=relaxed/simple;
+	bh=Ts1xVkuWbeJd1rXe3DJ7aP7vZaIUXkgyACVVNVNZJZY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=esF9oOy8yU5ER4X+KFC4GkMN9uj41CrGA7RngWlcqxz8gOzc86i6GbWb4qN2v7ONVFHImYBUcL3+Yc+YQL37W0Fkr0Q8ifLdjADlGtZuAiwHpAW4q6YdPkl1g6EEhiFSgDT3GL6dJ901YCiXUq4Rti3STtf2JKyZ7qFzpS5YDuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p7PYntHp; arc=none smtp.client-ip=95.215.58.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PvU3CQ++"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9A21F000E9;
-	Fri, 28 Aug 2026 03:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787887567;
-	bh=II1URtKtPgW2aBnP2LnNfS7g5Xg8tEyvHqFapSYpJx4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PvU3CQ++Qk4XMymJjAGZeEkfkCXtconpx83jMCKRI1hL0JlGRGyt0io0ASr91sd5V
-	 J5UFAeLSoZbl3UPWm1EHZKcoVkL0PuM5Bgojx5VjcUB15+oWZOF5vkFdUlTZcr+Bnx
-	 FnU599q5+LrB7mA7KOMcv7fou5CUrXN71aRFv75c=
-Date: Thu, 27 Aug 2026 20:26:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hao Jia <jiahao.kernel@gmail.com>
-Cc: minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Hao Jia
- <jiahao1@lixiang.com>
-Subject: Re: [PATCH] zram: fix idle age_sec underflow in idle_store()
-Message-Id: <20260827202607.3845123c74f438f8d2951a4d@linux-foundation.org>
-In-Reply-To: <20260825092316.69658-1-jiahao.kernel@gmail.com>
-References: <20260825092316.69658-1-jiahao.kernel@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p7PYntHp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ts1xVkuWbeJd1rXe3DJ7aP7vZaIUXkgyACVVNVNZJZY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787887623; v=1; x=1788492423;
+ b=p7PYntHpdYNNzfsaw1FiqRejYWnOnBFksl3igtLgw9R9ufmVN1/AWomEvcb7ON3NWulRQSzi
+ RkbKGbTGAC+/ZIutbi/MX0qC6YhJYYzD+pfd9k7aNqASH70eNr9VxlHc5WUakL1k947KlK96SN1
+ sVVu4isU3dEc8fYt4p2p2+XI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c5a619796e3bf126;
+	Fri, 28 Aug 2026 03:27:02 +0000
+X-Mizu-Trace-ID: c5a619796e3bf126
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <749b6e89-edf8-4478-a003-f10324d60d1b@linux.dev>
+Date: Fri, 28 Aug 2026 11:26:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CONGESTION)
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, edumazet@google.com,
+ ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
+Cc: kuniyu@google.com, horms@kernel.org, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, yhs@fb.com, kafai@fb.com,
+ andriin@fb.com, ast@kernel.org, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+References: <cover.1787870710.git.blbllhy@gmail.com>
+ <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 25 Aug 2026 17:23:16 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
 
-> From: Hao Jia <jiahao1@lixiang.com>
-> 
-> After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
-> idle_store() computes the idle cutoff as follows:
-> 
-> 	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
-> 
-> Because the left operand is cast to a 32-bit unsigned integer, when
-> age_sec exceeds the current uptime, the subtraction wraps modulo 2^32
-> and the huge result is zero-extended into the s64 cutoff.  mark_idle()
-> subsequently marks every entry as idle instead of matching nothing,
-> breaking the intended semantics of /sys/block/zramX/idle.  For instance,
-> running echo 86400 > idle on a machine up for only two minutes causes
-> all newly written pages to be marked as idle and handed over to idle
-> writeback and recompression.
-> 
-> Drop the explicit cast to perform the subtraction in signed arithmetic
-> again, restoring the previous behavior: an age_sec greater than uptime
-> yields a negative cutoff, and one equal to uptime yields 0. Since a
-> cutoff of 0 is now a valid computed value, it can no longer double as
-> the "all" sentinel. Switch to KTIME_MIN instead, which no ac_time can
-> be after.
+on 8/28/26 7:55 AM, Cen Zhang (Microsoft) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+>
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+> allocated BPF struct_ops memory that may be freed concurrently via
+> setsockopt(TCP_CONGESTION), leading to a use-after-free.
+>
+>    BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+>    Read of size 16 at addr ffff888013505260 by task exploit/149
+>     _copy_to_user+0x37/0x60
+>     do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>     tcp_getsockopt+0x91/0xf0
+>     __sys_getsockopt+0xf7/0x170
+>
+> Fix this by holding rcu_read_lock() around the ca_ops->name access,
+> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+> stack buffer before releasing the lock. Also annotate the relevant
+> icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
+> data-race issue.
+>
+> Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+> Suggested-by: Eric Dumazet <edumazet@google.com>
+> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+> Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.com/
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub-Copilot:claude-opus-4.6
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
 
-whoops.
 
-> Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
-
-Thanks, I'll add cc:stable@vger.kernel.org to this and shall queue it,
-pending additional review.
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
 
