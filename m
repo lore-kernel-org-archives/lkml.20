@@ -1,70 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A6826B742;
-	Fri, 28 Aug 2026 09:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED5F374198
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908428; cv=none; b=jpsY28P6NK2nAL5s3QqSchuNbfcWWau+of3JFYnWochNcXeh6msI2fJgWpIRcNtI1zv2Z2QJax72goKAo5TDVheOc3cPQ5WVEDPtvtDN0wX+00Db7Dic9RpZ1alvUYllKxQ6D7Tqo76VenB7cNDcBoGcxvBDRxmoMcNwbxAcSAI=
+	t=1787908439; cv=none; b=K2xDkDb1UFiJojW6yrF43gem18AmMhwCPd9p/SBvWkGmJRxtL2K2YKIB6exA4fgl2l7V6GnkQ3upvf8jYyRFC3WCO+xk+FHwCT953XylDI57Ly4ZPjqxn6pCIR+IRYv+obJJ6VukkQPbzLENsGqwWawCHqk5xwb+hho89EUUm+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908428; c=relaxed/simple;
-	bh=7vqB5kVCtlgGODPknu1efKSqxOo5/8MQttYHRS2tvFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t75Ut4c1qh/VBF37OdEtdKFELyxazB9DyHqmg5aUjpynAbzqmDaC4KD4PiHtYvrdyuLY9mzJ6Y4QlvczZ5s1gxArdNcsblD5nXGevlF5JZpr8ryuO9cg9fmF/sxKf2X48NWbtnKqsXyhJF082UxFhkQ4zE+to5Hz41wCYlQndvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BSbNOk/M; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BSbNOk/M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC3A1F00A3D;
-	Fri, 28 Aug 2026 09:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787908427;
-	bh=7vqB5kVCtlgGODPknu1efKSqxOo5/8MQttYHRS2tvFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BSbNOk/MIr0IH/xOkK7Ij3mfjoZ4sX5NoqRZW6BxD9va/h+OWqGlsaHFGxWXaavdx
-	 nUPCl3mZ6/8YJphIM94WEjlrMrI/jysRtQxojDB66jkOl1QNf7l/zmg7RMm5qBTktl
-	 LhJXUcDCm1U3I5m0sprYPg65cCJ2I99JUiA73oEpH/bUvWHrwk+H+YJ6v+nt/b7/nE
-	 MdRo8hcD/WsmnS1Frrj1GzTmpsxJhu1nmZch+F785y2zE8TNIwezHuUNOp3Pxo8pDg
-	 UwnhzkwVazIHURtAa3RDQf9okldqQmCh7DNYEQPMj6IGSE5TaSjt+100EMC97wTbzl
-	 QOiNHEbbFDrRQ==
-Date: Fri, 28 Aug 2026 11:13:44 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, 
-	Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
-	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 3/9] dt-bindings: usb: generic-ehci: Document
- access-controllers property
-Message-ID: <20260828-puzzling-shapeless-gaur-f0d737@quoll>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-4-marex@nabladev.com>
+	s=arc-20240116; t=1787908439; c=relaxed/simple;
+	bh=OjMz4UATYbEVYHRjrtUfMumY2TG5f61Wt8dl93kSarI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sE6SVtMp90tRlj4mBnUMx+2CBbHKhOHK4jkKDvvl7/qZAXM1wiFVWq/pwVmNHauBwN/jn8tL3vUHIIp1c299Fig3PgPNY/1otaBPN1RQiP9XqJaYkzs/sA5SjmSUQgYb/bq0PqlEfiXSEkwBAE8ADXkIN7iy6qpT7oWqJEG82zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowACXoD5AUZFqhTF1Bg--.63586S2;
+	Fri, 28 Aug 2026 17:13:37 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: analogix: Propagate PHY errors from resume
+Date: Fri, 28 Aug 2026 17:13:34 +0800
+Message-ID: <20260828091334.5793-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260822074816.548662-4-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXoD5AUZFqhTF1Bg--.63586S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFWUtw45WF45Wryftr4xZwb_yoW8Aw45pr
+	Z2gr1Yyrn7G3W3tF4vvFWkAFZ8A34qvayrGw4DCwnrZw12gwnrJr1qy34fXas8tr48C3WF
+	vr17JF9ruasxWrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Sat, Aug 22, 2026 at 09:46:36AM +0200, Marek Vasut wrote:
-> Document the access-controllers for EHCI USB controllers in case
-> access checks need to be performed to use them.
+analogix_dp_resume() enables the controller clock and platform power
+before setting up the DisplayPort PHY.  It currently ignores both PHY
+operation results and initializes the controller even when the PHY is
+unavailable.
 
-Please mention in the commit msg which compatible/device from this
-schema actually uses such access controllers. I see your work is for
-STM, but there is no STM compatible in generic-ehci/ohci.
+Check phy_set_mode() and phy_power_on().  On failure, undo platform
+power and the controller clock before returning the error to the
+platform resume callback.
 
-Also, please send USB patches separately from DTS and other subsystems,
-because Greg takes entire set.
+The issue was identified via static analysis and manually reviewed.
 
-Best regards,
-Krzysztof
+Fixes: 73f613908eb1 ("drm/bridge: analogix_dp: move platform and PHY power handling into runtime PM")
+Fixes: 2c0883459ed6 ("drm/bridge: analogix_dp: Add support for phy configuration.")
+
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c    | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 30c0c0b41d5a..00844f68d748 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1461,12 +1461,23 @@ int analogix_dp_resume(struct analogix_dp_device *dp)
+ 	if (dp->plat_data->power_on)
+ 		dp->plat_data->power_on(dp->plat_data);
+ 
+-	phy_set_mode(dp->phy, PHY_MODE_DP);
+-	phy_power_on(dp->phy);
++	ret = phy_set_mode(dp->phy, PHY_MODE_DP);
++	if (ret)
++		goto power_off;
++
++	ret = phy_power_on(dp->phy);
++	if (ret)
++		goto power_off;
+ 
+ 	analogix_dp_init_dp(dp);
+ 
+ 	return 0;
++
++power_off:
++	if (dp->plat_data->power_off)
++		dp->plat_data->power_off(dp->plat_data);
++	clk_disable_unprepare(dp->clock);
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_resume);
+ 
+-- 
+2.43.0
 
