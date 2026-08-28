@@ -1,94 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F5D18A6DB;
-	Fri, 28 Aug 2026 03:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A9C2D8385
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787886439; cv=none; b=GwM5Gj39/R9zbTa+03TPlwsOFL6IXIj0mHEgP8cBLycI0kv6EM7Y4TB8uBiCByx4RUU3zfIEeQ1wbe0bJIe+708P5gs60t8YnIWf2j/omgM+0/FGZYyCGG5Bgfqp/W1Tio2qgTtVclWVmG8355bjqsc8KYSjX81ndfEJytJPJxw=
+	t=1787886511; cv=none; b=SpDcERAgmus9W0TJqIxPvzXauAXo6bZeNd9r2Vz1H6eUt4lyRyLMWKSnvjKtCMNJxmcuCOIWVhAfRGXub3ZS3ohCpA4m6psq23f3Hh5MvQ/k8jqmFMhSclvAIv+N5uyH6UuEG4Txv5VlVuhwafgLwRmJZHHmpufGKwfhQ8NfeAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787886439; c=relaxed/simple;
-	bh=Vk13ylbq2XTaCbis4+HpHrTF1zhROa0YXnhjXOcmLkg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=nAK19Bi6l64xKFIqEdaMwhk3mpkVH08Fs79WKP1L/ew/sfPyMos9HsJdcUA+QsDLIVEdNA+Bkn6tEBZdYFOrQBqsfyZGdiZ5YvjlTssZM1T0GW4rCsRnwcoVUUuqZqNSrVGpDTrzv/9exADu6jx34sbzzJ+euwD5ulHgxnXCytI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ogwjESZ5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787886511; c=relaxed/simple;
+	bh=58MZnXqNvAUpTvQbAaqqCYU3pU8leK244U0vcP5a9HE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tMCpbGqudm2KcSHMX/97X07dPYIbUJCKIWLTELTA9lDHb4s21rM9Z2pmw/ZK6/7Z/KxJdjmYm3L5QNAoa0s8fe1JHBLmAsu+vQIztmdz9fnl14c0za72Gx2+vfP39KaHJwDFzrFGSQyc60BxE1xHhzYznpewBa+QgEWdwTF0QOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zo0D48i9; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ogwjESZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8ADF1F000E9;
-	Fri, 28 Aug 2026 03:07:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zo0D48i9"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e7109321dso500855a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:08:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787886438;
-	bh=Gt76UcTPmzHLWuOwKDbCamUsSovytLsnrvRwSJBIAoo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ogwjESZ5/FbCSjjrCLy5uiofj6a3BXR3/ZKpajdm5ZCo9aB8+asfXzXiazHR/vJcs
-	 ggzMBp1ivVxgK7aGvpICf/s7db/rIy8wvidccRF4T05SSed7qjdRnmJlI+KxOyFki7
-	 2kC+NR2EW8bFE+6fZhpAnLQZXcj8BYnklmn+9FVA=
-Date: Thu, 27 Aug 2026 20:07:16 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: chrisl@kernel.org, kasong@tencent.com, hannes@cmpxchg.org,
- mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
- yosry@kernel.org, david@kernel.org, muchun.song@linux.dev,
- shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org,
- youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, riel@surriel.com, gourry@gourry.net,
- haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com,
- baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com,
- skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, cgroups@vger.kernel.org
-Subject: Re: [PATCH v4 00/11] Virtual Swap Space (Swap Table Edition)
-Message-Id: <20260827200716.97881447f243c4afd275144e@linux-foundation.org>
-In-Reply-To: <20260825153238.2695446-1-nphamcs@gmail.com>
-References: <20260825153238.2695446-1-nphamcs@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1787886509; x=1788491309; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KcCMs6Dmp6e/c61eU4qREyq4ydHiJTI5GYvkaDUBoPU=;
+        b=Zo0D48i9JQaJTZAH5MvXl3DT4mNS4IMvSOhv2BKwaagGbpIINaHpXFfDQtjSRnK0kn
+         16/yH6VvWm9EJ9bYNCCGxQeQRvYaS5snzI7Mhi7EQpOlYwXLLlXOV7d8CrFShvkoQQ50
+         W3fbqh0w5DL8xDfWymZ6JUBLNzXQ0G99r9FtBcGq/hGpwHVyieQgPJyiLNiAHM/QZCuI
+         ioyWugrYf2vK+dFh6uAcDigRNd5ChuzMuaAUOk2vRKUFpRj2F/J44z06/LuYPfGM7AEd
+         3+u1bVDdnvx3+sc9Jq6p2Qfiezl5O3CoIL8wzoxUDfeqvtPkq6aJwRv7BNoFItwyzps5
+         f8lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787886509; x=1788491309;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KcCMs6Dmp6e/c61eU4qREyq4ydHiJTI5GYvkaDUBoPU=;
+        b=JtqYIXHsHeri3eayJ2JyXNQM5kTxgKiS/JTP7DtlBMorPJFDc4RZWCXZ7xNzY4LXgL
+         IqarvbftG6nScQgx/Q17EkxbssvKwh4NfvHQrSMYOnoQlX19WBj/mF3qQTNUSr035V8P
+         eoICzFIi7iP9PVuC07d1uPlLOxqcJMHIxGn+GYna4TOKG0Ewu39sr7k5Bx+If3UL/PGk
+         q6uhrj9bWm6PCkL46YFvEjaBkeUztkkSdq99xdZ8OTqrjnzhwi2SRYbnKdrSeJy2d1m/
+         rK3F2+qzQ5tz5WRAo4DlsXxoljXy04V4Fp6ijpGFNO28O57ivCti1Rjr7fPz6ZmMgaqa
+         vu9g==
+X-Forwarded-Encrypted: i=1; AHgh+RrFOVrOoMrBjP69zoo8cZUckPCXPFDKMtPc8WNu3hHsfQM3C6HkeOUgRqYJubeT2aPpz+T2Z5IshuIHEqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nExUj8HfozWeIgIM/fhcY8/qeK8SOBsFdywSrCq2Ccee0JhNd/
+	K74gTp5Z7UuHZ6PBxxOtg/e0HZAd7GllbpJdPNUr4BATy+fXqdsqP1tK
+X-Gm-Gg: AR+sD13SrZjUUa1HYy2R2PQSqZGht7ziUwTk+t17K4ex3ECzukhLv/c5SB1m7RnuK8Z
+	eAupAWAjNUW84tT/+Shy5roxMtkOTY+J6212TsobpNEbAuRVnAembOis+v8IAlYtL6Y0LUiunkG
+	o00r9pMi7ym57v/YvypJyvWioxrpjqduhnxEcPt9+7EwGrdJ/PpB9Dyqu+yOoXFfBbWBR/WhXSe
+	A4eUcu3PsQBzxq4hO/O+8NvsQGo0/6kuJgbunU43pY9SLHH2/nIk5RLX2vbYOWI5sYT/rZ5TIfW
+	HjDIVZjU67OuBAPhKh52jhautYX1dXPOS2OPg1pOVXF/VeKL6pHQ+NhiiFAxmntdHmy+0t3Nqbl
+	yZxaQkrzO0IVpkFCguKWP42vowOJzdVlA1upvXkaeG+KRu8uzje7FURPyac/ggTC8U/m7tJ7zXt
+	QdfE6Hjk2idn/VvQxQHK+Lo5lmAFz1kLkjO5lP1bmFywzPCxUWcPnm4w6OrPKKxdPLPPMV32vFz
+	QzCfGnZPfJM609apgArLQ0dK6YamBrolYIfAQ==
+X-Received: by 2002:a17:90b:17c7:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-396d0fc1b2fmr7004791a91.16.1787886509555;
+        Thu, 27 Aug 2026 20:08:29 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm926366eec.14.2026.08.27.20.08.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 20:08:28 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <1bc0aeda-aa67-4541-85cb-752017f376eb@roeck-us.net>
+Date: Thu, 27 Aug 2026 20:08:27 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] watchdog: mediatek: acknowledge pretimeout interrupt
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Wanming Gao <wanming.gao@mediatek.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ wallace.yu@mediatek.com, Jarried.Lin@mediatek.com, vince-wl.liu@mediatek.com
+References: <20260827092616.2724197-1-wanming.gao@mediatek.com>
+ <5e1793d5-6c78-4372-872a-069fcd99a07a@roeck-us.net>
+ <apDtp62h_4uZQ84H@google.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <apDtp62h_4uZQ84H@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 25 Aug 2026 08:32:26 -0700 Nhat Pham <nphamcs@gmail.com> wrote:
-
-> Currently, when an anon page is swapped out, a slot in a backing swap
-> device is allocated and stored in the page table entries that refer to
-> the original page. This slot is also used as the "key" to find the
-> swapped out content, as well as the index to swap data structures, such
-> as the swap cache, or the swap cgroup mapping. Tying a swap entry to its
-> backing slot in this way is performant and efficient when swap is purely
-> just disk space, and swapoff is rare.
+On 8/27/26 19:08, Tzung-Bi Shih wrote:
+> On Thu, Aug 27, 2026 at 06:54:03AM -0700, Guenter Roeck wrote:
+>> On Thu, Aug 27, 2026 at 05:26:12PM +0800, Wanming Gao wrote:
+>>> The MediaTek watchdog pretimeout interrupt is level-triggered and does
+>>> not have a separate acknowledge register. The interrupt is cleared by
+>>> changing WDT_MODE_IRQ_LEVEL_EN and then restoring it to its original
+>>> state. Without this transition, the interrupt may remain asserted and
+>>> cause an interrupt storm.
+>>>
+>>> After changing WDT_MODE_IRQ_LEVEL_EN, wait 70 us before restoring it.
+>>> This is longer than two 32 kHz watchdog clock cycles, allowing the
+>>> level change to propagate across the clock domain.
+>>>
+>>> WDT_MODE is also updated by the watchdog start, stop, and pretimeout
+>>> operations. Protect its read-modify-write sequences and the complete
+>>> IRQ acknowledge sequence with the watchdog spinlock so that concurrent
+>>> updates cannot overwrite the temporary IRQ level state.
+>>>
+>>> Signed-off-by: Wanming Gao <wanming.gao@mediatek.com>
+>>
+>> Applied.
 > 
-> However, the advent of many swap optimizations has exposed major
-> drawbacks of this design. The first problem is that we occupy a physical
-> slot in the swap space, even for pages that are NEVER expected to hit
-> the disk: pages compressed and stored in the zswap pool, zero-filled
-> pages, or pages rejected by both of these optimizations when zswap
-> writeback is disabled. This is arguably the central shortcoming of
-> zswap:
+> Might be a bit late, but tested on a MT8196 board:
+> Tested-by: Tzung-Bi Shih <tzungbi@kernel.org>
+> Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-Thanks.
+Never too late, really, unless I already sent a pull request.
+Also, I have not pushed anything out, waiting for v7.3-rc1.
 
-I asked Gemini for a tl;dr and was told
-
-: Introduce Virtual Swap Space (vswap) to decouple swap entry management
-: from physical disk slots by using dynamically allocated virtual
-: clusters that back swap entries on demand via zswap, zero-filled pages,
-: or physical disk.  Eliminate wasted storage space, remove the need for
-: static swapfile provisioning, and enable in-memory swap features on
-: diskless systems without degrading performance.
-
-I'll take no action at this time - let's see what the other swap
-developers make of this.
-
-Sashiko was talkative, as usual:
-	https://sashiko.dev/#/patchset/20260825153238.2695446-1-nphamcs@gmail.com
-
-There are a few pre-existing things in among this, They look legit to
-me, from a quick read.  SWAP_USAGE_OFFLIST_BIT should use
-BITS_PER_TYPE(atomic_long_t)?
+Thanks,
+Guenter
 
