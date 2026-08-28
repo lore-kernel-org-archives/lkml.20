@@ -1,425 +1,257 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2092.outbound.protection.partner.outlook.cn [139.219.146.92])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE0D40DB3E;
-	Fri, 28 Aug 2026 10:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912991; cv=fail; b=SwAsAPfafBG0ap5181eVywnNAFueRFOowwLI9mYCd5er9j7mVsqpv09bhhED79i26KLidxwik8bOK5/JpqukKMr6csRran8om+t4K/IWzaN3BqDY/f/HIfGt1RRdFMQFsmLRfl3IBdUv2uoNKnribxKjNWZ6TFuca/6b0kJzUGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787912991; c=relaxed/simple;
-	bh=+rfaHml/deFbrnFUpZGNdTJy6GLmE73ZCvWAND4zlPQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HRUM+UFAonFhn13e8Ki13fkLHBfnEKiXNCwPttq+dLnE1YliLUHOSZNJXQKriavgtfTNjEXhq5sUl9hE0EdoAf5vo4OPfRPHYk74UUxeAHQxekDL8wGSoJ2SnO63kavp+loC2a7UxaKU+EP4+SQHXzsRFkIuMmuYnqGf06F/Xwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mg7AXDxGYZRg/TzlE2aWQuvxGPjqYVCzmQxPB/+cj9Lk1qyihkrDZgdXFceAv3x2MR2Wytm+OTZQg2uuKIV1HjHEwSwdWNdTXtQTP7O09qOohxsvWS5R+Uu/9P3J97g+1VHHtGgA6VWjxXwyPIqvyUKKVupx4OoPVFluFnB0Jd8hj6BRHGttM85epN1HfBfIErZkmPzseCO0p8jzfqXiBwTJhL+2RCw4F6d7ADmGG0RVp1dxl/GWT8+G4kxhm1zwgG3vpdG6BH5G8yiNhPsZNgYxHNhtiP3pYzkHes5Ic8lAEELjBv4TcNMYZvNT/Vd5Tmb6MVO5+ND9wC7FOKp/gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=58lFl7P/QlCFlTzbKSHFfAsUN1RhvIoAkgGdpj9U5fE=;
- b=VYcj9k9a2qQ9ow4sx19sB1U4Pqvy3fWFy5kH5ukzKJbJ6jDzxcwWqi9MEbfs/HmBG/RqlQVaHCMn8Ot46wdZNQoNiQgDujAkSef0cr6HzGVCIkxRXJWSOGi0XUijwDqK/N6p7Q5TC+He7cXa7XKo/Jng9KjP68GZzVhtlhJkVYILbXwVDeJUIMTMxkaFtGIfNSC1l7qVyF+zgv9MgmFcnotwyhyu/WBbrefzT/OM+uvD2mAj6ZOVTd2SQ/p+8YCsBye2iFaliPbpfZxkVvs81dG5b2jOFKeT37pYnS0CKNZs2/Vw09QSAuZELUGj+lAvaYx1QVEBW17WzKuKKFp0FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1204.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 28 Aug
- 2026 09:56:32 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Fri, 28 Aug 2026 09:56:32 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: [PATCH v5 8/8] riscv: dts: starfive: jhb100: Add syscon nodes
-Date: Fri, 28 Aug 2026 02:56:08 -0700
-Message-Id: <20260828095608.19955-9-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
-References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0028.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::15) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA3E40F734
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787912996; cv=none; b=KJXywVqc5WRofC8XhnGndQG2VbsTRu4qi+vAgO6VYyFF7SxCopoU/JkfmZxjh0vjZIW9U4gUgpj4R1RYifz8y0FQRSJHCMd2PjoM8tScdjS8VBPqLMrK5vvgweBoqoelZ9rMvnSjQQFdGgkWiW4ewAGC5pvMZ6XmunyXK4QP8d0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787912996; c=relaxed/simple;
+	bh=I7wMMzUOTxXy59XXrAAdXEH/cY4Bv2uQCN82eMYlt3I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sVxq6yyyPL/ZumSWvegA1TElXSVNhe4LsBZGtG+fHkrqekiZrSIYFBWemoKWvhLr9ONtnkAca6Z27wX6Qdo/0sH8NSIAP6vI2zVuA1DOMKhmoJykqtQRAg3C2p49mflWugr4NNphPy18ehxu+yrx8rw7THZ0od7xPHyrZntLSTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Whj49Yq3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mcisa7MK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Whj49Yq3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mcisa7MK"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SA8Wpf2492208
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=6AZ4KHj4RIWnDS4nK6Js8M
+	IOlqKDXq/pyeIEXZbRqBE=; b=Whj49Yq3jIAE0BX6cHJ4erISo00PeGlSUujgwT
+	TX9KRNnOqmCB0qau0p/T9Kom2C4KeBiBy+A3ROCQel4jIq6lgUe4dL2oV2v7m2fz
+	VARlgjHdRdwhCA4qfD2xckCUvQPEUCEqIof1XeNcgac+nsFrDzfYcXkRWx+hgzpu
+	qpwAA4mMISg4MoFxHQFIDGfr2gcIR12DvGO29TgmtRZ4MLhwkjo4CTBLZBhz+DWp
+	SE5gXfDdtl9T3lDmGHNIpOV38OYZQAMGvwJRuxN6V6PPEbgVt8ntRXevcPIVVSK7
+	0QalaDhYRFRRCCFhn/QvWNlgug7J6hYEVKZBjKIn2bcCdOsg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb3hs1be7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:29:49 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso1478294a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:29:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787912988; x=1788517788; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6AZ4KHj4RIWnDS4nK6Js8MIOlqKDXq/pyeIEXZbRqBE=;
+        b=Mcisa7MKcPRcDDah75mEcs7CeVEvx1EepdF6B15PAPYYvEqCVcEToHVEUwj83Cbex8
+         HZoyLP7GaO61HEHFFNcYDe60i5E0VdrMOv1TeYMmqv+jCs0MTKJxKlBKM3eE80cw+m8p
+         1iCFWCelL3Kl1TXBUATEfSaJco/4/kGJucThccUibmghFjc+s1RYXelKWzv3dXVj3H6/
+         YVoHCaNtL1vgqzqZMMF1tBVA66NL9ctcZiY1kGwTDkxG3YVKdRO6f6bsh7UYLZpC1l6g
+         eD45TZsT8DLAna7Xg+dPCze6IhPkZ97Ts28WMC5qoZwSnFs/s535au+NuexfkWTmf7gG
+         71Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787912988; x=1788517788;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6AZ4KHj4RIWnDS4nK6Js8MIOlqKDXq/pyeIEXZbRqBE=;
+        b=mK0YGvhwIajyuV+YJOOksNsBmyv9vZZ8mipLiYMV/uW0SP/9s+k0dCNbJ1iKMNgaKS
+         HTb2itY9Rjk/osuSVqlTW3aS9cGAzOdKU50ACv02NsGugVPS9wEdwrpS6bXLBXhBSO9v
+         p/dGdTvfdFR/h5b7O0HJbzFZkfTIffEAMT3AN2Wj0aHdz7phHC+Vi6g5HNN9x877ed9w
+         rOab1Z+a3hPv9MFmTQKq+HIagV/Gej4wKgobRo9mAL9zlXrzMbJBpwvjIJJ/dqdnp9wp
+         QUq6/jl06s9iC/yZRCoOAi+tN/COW1lMhwkbeDsePV0ERtK4PIevl6sozzryx9SpVmY4
+         tOuA==
+X-Forwarded-Encrypted: i=1; AHgh+RpcnR5lx9MbMN7Tu41BOUXNWctleTPBmPhAV0uKHhOgj8+VBxQGfJkonnccXVEJWul2UcwIITAFt7PBW1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj3MKbtM/A8S44UXV9LlQ0Fd6b3G5E+6dJh9zInvWuDsC3vnQo
+	mSMdWQRcvkiP3GBJEbLCjGn1N9xjSFJ3dClcgE1IVWHAkeKMhBy/HecBTq+UzXNt+w83I2iTEal
+	ipTCwsEz7J1sa8GjZH08JKo7iNnQcnM1FdZOW5uh6ov2yQ8cjkQItWhJQvWc8OvTLD2Xi5CNm1C
+	g=
+X-Gm-Gg: AR+sD13xYcgHnD5SNo/RM8mWvLkAGvrT8VjTGBpbEbug8uqOEk2tyxg9qRs67t54Cvy
+	Cqb8tuEtgoGBYYFwPzFRuCBIvc78i82Y5ssILHNppMiqIh/+FQDespXmSqN6mHw5coKAYGvV+eB
+	a+YB0zC+bhia3AqpHoBw7DLoQQPaObc03xapqSr3dRSdvYxdEKhiHtdsZHMIljApqxMQDI++m64
+	x88sGQG1dXXjt0IZurgMtyRZbaCBA42h2K20kjd3r3ddRjS2znFXRd0N+VIpsBMZCe0wNeUMSLO
+	akcQsi0128gt4XbtUm0BQMZP2vADYgjKBFfD7HkK14SpFW6ZS+wYT4uCLlD6E+8eqvoZG6Musk6
+	leXLs7zuiL8KwcJ39Dot1R4uLLiAoTnG3gqMI
+X-Received: by 2002:a17:90b:440d:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-396d0e5e891mr11062391a91.2.1787912988098;
+        Fri, 28 Aug 2026 03:29:48 -0700 (PDT)
+X-Received: by 2002:a17:90b:440d:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-396d0e5e891mr11062322a91.2.1787912987665;
+        Fri, 28 Aug 2026 03:29:47 -0700 (PDT)
+Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c57sm5267301eec.4.2026.08.28.03.29.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 03:29:47 -0700 (PDT)
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Date: Fri, 28 Aug 2026 15:59:32 +0530
+Subject: [PATCH] i2c: qcom-geni: Fix hardcoded clock index in
+ SE_GENI_CLK_SEL
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 897b101d-ab25-4d90-13e0-08df04eaa3c6
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|1800799024|23010399003|366016|38350700014|921020|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Fk05oi17AMB4DhwmeVQ6iwtFQRextt9LodnAMmzosEPV+J75y3a7pjaxBCMv7KDoQDAlxBZlV7ZRzOK9SMfqDCEN8x8TPeLlDRFwvXcV42WqnlFLY29TdzvflAWG2lZvte5+Y1XrZdtw2Fyc+XeKz3ktn9q6K4MPeyP8OMC/rhEP7ZgWt1pZGpsHVfeFpBybV3g/s1vAwJ2QYKC+P7tKk5+PBpfRyhAgdZ9ojNK/37aIBbwHbUYFKmVnfg6ls4EtIaly09OQ5is8dWkcweqeeSr0MCje5lq45grknA/bB+zjuhVaPcwqwPOpN2n7iIZaSjiRvyNWI9E5erEkG3PMYgyyp8vFl2X4tvVFLL1QpFuKhy4IXMLS79eDaWd0EwG9lHrNzSncoZlKe2hnkpEa3Opyu7iIIOWDLwj+T7Ti0KxwZIR/Hbchxokw6ZH7jXL2V6MYSJXUTpPzPDcWuO3yZg7LxfVCaIaBBm+zUFC3COkdvj7djHNvypmAbqdrLALsUTYNsp3EbL18kiUtEfkl7pxFDyqXHbTY3L2BIdo+0c21oEqM8FK6SYH9l8gNVAm29vsnJLfyg6rJqlDcmk7c/w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(23010399003)(366016)(38350700014)(921020)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?orm8g6kJYwtYV94DLGzXhjpfJ9yHqcVegsRM05+pN5fds4i87xrOizfUaAtQ?=
- =?us-ascii?Q?7HwW8J/jt8/QOTdEV95U59iQc+GqgwMx6R8kBH0BgDwfITvTaniwlKd8y3xy?=
- =?us-ascii?Q?Ypp/Y9BDr7ZRzLjmLbc/JQVMILxjaqF25oyj34lqOeuZYDFmQKtzNWSfSBwV?=
- =?us-ascii?Q?O6OQspvWcjP0Emj8wRjgBFCySJO41E+75MZxfDhTP8AwW9fDBDA3gycl//o0?=
- =?us-ascii?Q?u6KlFklzi1r5EQ78nPuN5yU6IGnj3kUXaKdA/LJjcxA1xNWHcvBfjaIzak0y?=
- =?us-ascii?Q?F4/LymHnRDehUFW0ZAvU/cNgi17cPmjWI310+HGsRhtslrAWS7a4m+0unepM?=
- =?us-ascii?Q?HGtW0XW4lh8+lilFw9lFXieaw/UeqArJ+4XLK9TG3rOwYv1pCq0xdIsQkqrH?=
- =?us-ascii?Q?+cchpbEksaUMaqQ1H0ArIlJZNBD1azKOMOxqM03/EfYFAr153io9VAyaanCQ?=
- =?us-ascii?Q?/RQmtOV4vPCcsn/Sen5fN6WNmt4Vv8kGtWTn5HPLyGTVo7OrY0OYcToGUJ9c?=
- =?us-ascii?Q?2YGuf3/E5Qc89oby95zFHDEbCnXQnBzzcXmB1aTZm/mH2NOwgEE3+lahAfxn?=
- =?us-ascii?Q?Eicqa2ewA/1j4LK80/EgxpCrXBs54ePf5c8c9dwoB40141tlDlxXHkbuHq0U?=
- =?us-ascii?Q?aoSAnRR2UNxPktQXMmbkFP6BCR5JigtLqIUXczhrQtp5kPrBjyOStZN0WuPJ?=
- =?us-ascii?Q?Qk9sIJ2kCbHRMZ/1BR80v8wWIcGP4O8Ywitc0AP+AXeP/w87ZdUgUXfPsEnI?=
- =?us-ascii?Q?YfFbPWy1iplvPpdaiuy2N3a1CVRZUbIlHSDmZF0zuLMqLqnzNW6ZDoHPlB4R?=
- =?us-ascii?Q?K23v2fvp28vaQhkl2JlgspiQebob2QgCJ820p2wySX7SCfE0fWXH37tYBDh4?=
- =?us-ascii?Q?8bVWSWM0yhuPP8zOkhunQArN+5ov47v9of3V0Aqv8nme0SRYw1FBrOEoO1QW?=
- =?us-ascii?Q?aoDTTBH/IZhItTvVQttwOmJw6c1+hsBtWzK8KEsexexKebMin7OPWUGuFM7V?=
- =?us-ascii?Q?WlG6V9jhO8BkRR32S9xwdYUqDwzHZuOuxdPdH26ncfZr4R0VllggRDyy31qF?=
- =?us-ascii?Q?JWdQSRY9q6Dsv57nwgVTzcK8GQBHHuBSiInFr/1NiSfJ6XkeB7Pqj7OvZ1LV?=
- =?us-ascii?Q?mUYMRQHhr6QOkVsTFA4NLNmZPIAzjM+vQCa53IrxmjwgaYkhfMuublgKbO8w?=
- =?us-ascii?Q?Nc3BwSE82eytAejUZvHj+yaFZnb/L2QmgFiGVLeURaVmsGKvFiZVJ14E/IDp?=
- =?us-ascii?Q?VjULG258T39j7SDumIJFHKWQ/uE9YrA1TcLBfN3coU850TsxFqOY2HQXNodJ?=
- =?us-ascii?Q?dRJXOwi7ddaTtj7VfSZfSlO+qCuvvhEw2E8hgDMJVpg7EcD99vFp3zngnBrJ?=
- =?us-ascii?Q?s5oNsGkQWYES4px6RvpDkKFxzWq50wIr5oJnrW+Y4Ic7TeMTyq526JqDGyWK?=
- =?us-ascii?Q?AM2VhiX8jo8s3CdVpa26h2eZEbYBDnO6p6uwU+ljh5o0v4BxkLGekPbliEje?=
- =?us-ascii?Q?NGNzIt8Ixvh+DroqMqr9yyB3ImHBk5uUpJ8lt5guj7Lwc96gsUypdS+gdFBA?=
- =?us-ascii?Q?Q2in1VT5/xdGWhh5C90GuW7ha3NbzdnC/DM+UjKTR3/pg4Y4Xop0GHbjR5iJ?=
- =?us-ascii?Q?6kCaHDQj4xc3wVVJRHk+Ud0648YMAfyd6svyRYpD/vE176IvfRIJ4j/0zEF9?=
- =?us-ascii?Q?Ks2gsDuWDPmzvy50/oyG6qDWvOhD7vq8mId6rvoNYAdL69BrnYh1WUbO+i0c?=
- =?us-ascii?Q?nIbe7HMqxkv+ipnaAadhRokgfSqE9b7mEosg1nfy3FB5yYiWfUNW?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 897b101d-ab25-4d90-13e0-08df04eaa3c6
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:56:32.7807
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o9hghvkHD1oGv+KkvwcIW6H5kB6bPb9ZfJSpKNghfexBXs4uwzbxLBPy1lv6iX5bqH8KGc4a+p8IIJ4boQOenSqWQLWbFkF+sSwwkg7yq5I3YREgnA54WO8C9YoIEJFb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1204
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260828-i2c-fix-se-clk-conf-v1-1-9adc72308f2d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAxjkWoC/yXMywqDQAyF4VeRrA2MI3h7leJCY0ajMpZJKwXx3
+ Tvq8oNz/gOUg7BCkxwQeBeVzUdkaQI0dX5klCEarLGFqUyJYgmd/FAZaV2QNu+wql3hajvkZd5
+ BfL4Dx8ldfbWP9dvPTJ8rBef5BxS9ICJ3AAAA
+X-Change-ID: 20260807-i2c-fix-se-clk-conf-89f6f92d373a
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Sagar Dharia <sdharia@codeaurora.org>,
+        Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+        Stephen Boyd <swboyd@chromium.org>, Wolfram Sang <wsa@kernel.org>,
+        Douglas Anderson <dianders@chromium.org>
+Cc: Girish Mahadevan <girishm@codeaurora.org>, linux-i2c@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787912983; l=4220;
+ i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=I7wMMzUOTxXy59XXrAAdXEH/cY4Bv2uQCN82eMYlt3I=;
+ b=ullmR2ZMP/fubY++Q5rSlO4oCU7BktzJl0erJgJQFGdI8C6Gphm50UBLmKgrNi0FY2YsQQ9po
+ vMCMO3C/RafAfGPNSHu22kvWLZ3ZPYBHww8X+LjJiALWLviBoQhz6Hn
+X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
+ pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
+X-Authority-Analysis: v=2.4 cv=XKYAjwhE c=1 sm=1 tr=0 ts=6a91631d cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JoU330fbb_3TrnOeRF4A:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4OSBTYWx0ZWRfXzJt0WLhTodPG
+ TaaUKhjB75xXmq/Yj+qMjAeLFihknIDdariJ6WflGrOn+T9eqJPoswGP6+YV6HqqYuAj7c67fMC
+ 0SP9PaJ+d+O/4g0JV4iUrWclMitZIQLtuefOT7ZAZH6irzalqlpieb0h+Bd5eeI16gpEY6j46sf
+ Q9EP2sxcroV2rKQbjczBf0l4MIVbDcjw05oxaVSXUQIaKZhxHekprnKm1cnpjIvPPpbGjeNBJ97
+ 091m4UGE248qmVopy1dIth/XSFUF6q4P8GCMaCV4gsmWta5Mg1ZyYoLn6+vxBq5SjMu3St4mJU/
+ +NXanLy5i3kkzZJ1RewzGm9jZZOftPmJWx/QY/YObHOOfG/Lk8K6zSxYt4XomGfkF98UqIw7r7p
+ w1/zGr/XJqDL8UTIwt4wp68bzcGqG+J//eJ1iotjIOU7ZSTsEt12Xm37YHdLBGOjLuaBupvt2K6
+ VA/ko0fbEHn8S8cd0fQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA4OSBTYWx0ZWRfXwz4D32QA5Wtf
+ N07XFvzgayRDrlzQ+5ipWUmcqC0Ig0OV8+mWWuXrVRtVbzrUjjm9FTyfvrp8pV5jRuLtnJnGGqy
+ 9ALWka8TTnLIFvF6jReU+Rl3HZYXpzI=
+X-Proofpoint-GUID: hzo6hbUVLmFnkZtx3cNS1zyc0n8ni66d
+X-Proofpoint-ORIG-GUID: hzo6hbUVLmFnkZtx3cNS1zyc0n8ni66d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ bulkscore=0 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608280089
 
-Add syscon nodes for JHB100 RISC-V BMC SoC. They contain
-pcieep0_ecsr_syscon | host0_syscon | husb0_syscon | husbd0_syscon |
-pcieep1_ecsr_syscon | host1_syscon | husb1_syscon | husbd1_syscon |
-gpu0_syscon | gpu1_syscon | husbcmn_syscon | b2h_syscon | h2b_syscon |
-vout_syscon | pcierp_ecsr_syscon | pcierp_syscon | usb_syscon |
-npu_syscon | per0_syscon | per1_syscon | per2_syscon | per3_syscon |
-sys0_syscon | sys1_syscon | sys2_syscon | strap_syscon |
-sfc0_filter_syscon | sfc1_filter_syscon | sfc2_filter_syscon.
+qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+selects an index from the hardware clock performance table. This always
+picks the first table entry regardless of the actual source clock
+configuration. On platforms where the matching entry is not at index 0,
+the wrong source clock divider is active and the I2C bus runs at an
+incorrect frequency.
 
-Also update the references of pll nodes.
+Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+performance table index for the source clock (32 MHz or 19.2 MHz). Store
+the resolved index in a new clk_idx field in geni_i2c_dev and write it
+to SE_GENI_CLK_SEL instead of the hardcoded 0.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 ---
- arch/riscv/boot/dts/starfive/jhb100.dtsi | 193 +++++++++++++++++++----
- 1 file changed, 159 insertions(+), 34 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-index 6b2863fd3fd3..e76cf0f3c380 100644
---- a/arch/riscv/boot/dts/starfive/jhb100.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-@@ -282,36 +282,6 @@ pll1: clock-pll1 {
- 		clock-frequency = <1000000000>;
- 	};
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 658636c1ee0e..a83297b5fb0a 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -82,6 +82,9 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT		HZ
+ #define RST_TIMEOUT		HZ
  
--	pll2: clock-pll2 {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <903168000>;
--	};
--
--	pll4: clock-pll4 {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <100700000>;
--	};
--
--	pll5: clock-pll5 {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <100700000>;
--	};
--
--	pll6: clock-pll6 {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <2400000000>;
--	};
--
--	pll7: clock-pll7 {
--		compatible = "fixed-clock";
--		#clock-cells = <0>;
--		clock-frequency = <1950000000>;
--	};
--
- 	per2_gmac2_rgmii_rx: clock-per2-gmac2-rgmii-rx {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
-@@ -393,6 +363,97 @@ bus_nioc: bus {
- 				     <0x4 0x00000000 0x4 0x00000000 0x2 0x0>;
- 			ranges;
++#define GENI_SE_CLK_32MHZ	(32 * HZ_PER_MHZ)
++#define GENI_SE_CLK_19P2MHZ	19200000UL
++
+ struct geni_i2c_desc {
+ 	bool no_dma_support;
+ 	unsigned int tx_fifo_depth;
+@@ -127,6 +130,7 @@ struct geni_i2c_dev {
+ 	spinlock_t lock;
+ 	u32 clk_freq_out;
+ 	const struct geni_i2c_clk_fld *clk_fld;
++	u32 clk_idx;
+ 	void *dma_buf;
+ 	size_t xfer_len;
+ 	dma_addr_t dma_addr;
+@@ -197,19 +201,42 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	const struct geni_i2c_clk_fld *itr;
++	unsigned long res_freq;
  
-+			pcieep0_ecsr_syscon: syscon@10511000 {
-+				compatible = "starfive,jhb100-pcieep-ecsr-syscon", "syscon";
-+				reg = <0x0 0x10511000 0x0 0x1000>;
-+			};
-+
-+			host0_syscon: syscon@10519000 {
-+				compatible = "starfive,jhb100-host-syscon", "syscon";
-+				reg = <0x0 0x10519000 0x0 0x1000>;
-+			};
-+
-+			husb0_syscon: syscon@10695000 {
-+				compatible = "starfive,jhb100-husb-syscon", "syscon";
-+				reg = <0x0 0x10695000 0x0 0x800>;
-+			};
-+
-+			husbd0_syscon: syscon@10695800 {
-+				compatible = "starfive,jhb100-husbd-syscon", "syscon";
-+				reg = <0x0 0x10695800 0x0 0x800>;
-+			};
-+
-+			gpu0_syscon: syscon@10745000 {
-+				compatible = "starfive,jhb100-gpu-syscon", "syscon";
-+				reg = <0x0 0x10745000 0x0 0x1000>;
-+			};
-+
-+			pcieep1_ecsr_syscon: syscon@10d11000 {
-+				compatible = "starfive,jhb100-pcieep-ecsr-syscon", "syscon";
-+				reg = <0x0 0x10d11000 0x0 0x1000>;
-+			};
-+
-+			host1_syscon: syscon@10d19000 {
-+				compatible = "starfive,jhb100-host-syscon", "syscon";
-+				reg = <0x0 0x10d19000 0x0 0x1000>;
-+			};
-+
-+			husb1_syscon: syscon@10e95000 {
-+				compatible = "starfive,jhb100-husb-syscon", "syscon";
-+				reg = <0x0 0x10e95000 0x0 0x800>;
-+			};
-+
-+			husbd1_syscon: syscon@10e95800 {
-+				compatible = "starfive,jhb100-husbd-syscon", "syscon";
-+				reg = <0x0 0x10e95800 0x0 0x800>;
-+			};
-+
-+			gpu1_syscon: syscon@10f45000 {
-+				compatible = "starfive,jhb100-gpu-syscon", "syscon";
-+				reg = <0x0 0x10f45000 0x0 0x1000>;
-+			};
-+
-+			husbcmn_syscon: syscon@11045000 {
-+				compatible = "starfive,jhb100-husbcmn-syscon", "syscon";
-+				reg = <0x0 0x11045000 0x0 0x1000>;
-+			};
-+
-+			b2h_syscon: syscon@11135000 {
-+				compatible = "starfive,jhb100-b2h-syscon", "syscon";
-+				reg = <0x0 0x11135000 0x0 0x400>;
-+			};
-+
-+			h2b_syscon: syscon@11135400 {
-+				compatible = "starfive,jhb100-h2b-syscon", "syscon";
-+				reg = <0x0 0x11135400 0x0 0x200>;
-+			};
-+
-+			vout_syscon: syscon@11135800 {
-+				compatible = "starfive,jhb100-vout-syscon", "syscon";
-+				reg = <0x0 0x11135800 0x0 0x400>;
-+			};
-+
-+			pcierp_ecsr_syscon: syscon@11711000 {
-+				compatible = "starfive,jhb100-pcierp-ecsr-syscon", "syscon";
-+				reg = <0x0 0x11711000 0x0 0x1000>;
-+			};
-+
-+			pcierp_syscon: syscon@11719000 {
-+				compatible = "starfive,jhb100-pcierp-syscon", "syscon";
-+				reg = <0x0 0x11719000 0x0 0x1000>;
-+				#reset-cells = <1>;
-+			};
-+
-+			usb_syscon: syscon@11820000 {
-+				compatible = "starfive,jhb100-usb-syscon", "syscon";
-+				reg = <0x0 0x11820000 0x0 0x10000>;
-+			};
-+
-+			npu_syscon: syscon@118e5000 {
-+				compatible = "starfive,jhb100-npu-syscon", "syscon";
-+				reg = <0x0 0x118e5000 0x0 0x100>;
-+			};
-+
- 			uart6: serial@11982000 {
- 				compatible = "starfive,jhb100-uart", "snps,dw-apb-uart";
- 				reg = <0x0 0x11982000 0x0 0x400>;
-@@ -410,7 +471,8 @@ uart6: serial@11982000 {
- 			per0crg: clock-controller@11a08000 {
- 				compatible = "starfive,jhb100-per0crg";
- 				reg = <0x0 0x11a08000 0x0 0x1000>;
--				clocks = <&osc>, <&pll6>,
-+				clocks = <&osc>,
-+					 <&per0_syscon JHB100_PER0PLL_PLL6_OUT>,
- 					 <&sys0crg JHB100_SYS0CLK_BMCPER0_CFG_400>,
- 					 <&sys0crg JHB100_SYS0CLK_BMCPER0_CFG_800>,
- 					 <&sys0crg JHB100_SYS0CLK_BMCPER0_NCNOC_INIT>,
-@@ -422,10 +484,17 @@ per0crg: clock-controller@11a08000 {
- 				#reset-cells = <1>;
- 			};
+-	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
++	/*
++	 * Counter tables are calibrated for a specific source clock frequency
++	 * and are not valid for any multiple of it (e.g. 64 MHz, 128 MHz).
++	 * Use exact=true and verify res_freq matches req_freq literally to
++	 * reject harmonics: a 64 MHz clock that divides evenly to 32 MHz
++	 * would pass exact matching but produce double the intended I2C
++	 * frequency with these counter values.
++	 */
++	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
++				    &gi2c->clk_idx, &res_freq, true) &&
++	    res_freq == GENI_SE_CLK_32MHZ) {
+ 		itr = geni_i2c_clk_map_32mhz;
+-	else
++	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
++					   &gi2c->clk_idx, &res_freq, true) &&
++		   res_freq == GENI_SE_CLK_19P2MHZ) {
+ 		itr = geni_i2c_clk_map_19p2mhz;
++	} else {
++		dev_err(gi2c->se.dev,
++			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
++		return -EINVAL;
++	}
  
-+			per0_syscon: syscon@11a09000 {
-+				compatible = "starfive,jhb100-per0-syscon", "syscon";
-+				reg = <0x0 0x11a09000 0x0 0x1000>;
-+				clocks = <&osc>;
-+				#clock-cells = <1>;
-+			};
+ 	while (itr->clk_freq_out != 0) {
+ 		if (itr->clk_freq_out == gi2c->clk_freq_out) {
+ 			gi2c->clk_fld = itr;
++			dev_dbg(gi2c->se.dev,
++				"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
++				gi2c->clk_freq_out, gi2c->clk_idx);
+ 			return 0;
+ 		}
+ 		itr++;
+ 	}
 +
- 			per1crg: clock-controller@11b40000 {
- 				compatible = "starfive,jhb100-per1crg";
- 				reg = <0x0 0x11b40000 0x0 0x1000>;
--				clocks = <&pll7>,
-+				clocks = <&per1_syscon JHB100_PER1PLL_PLL7_OUT>,
- 					 <&sys0crg JHB100_SYS0CLK_BMCPER1_NCNOC_INIT>,
- 					 <&sys0crg JHB100_SYS0CLK_BMCPER1_CFG_800>,
- 					 <&sys2crg JHB100_SYS2CLK_BMCPER1_NCNOC_TARG>,
-@@ -437,6 +506,13 @@ per1crg: clock-controller@11b40000 {
- 				#reset-cells = <1>;
- 			};
++	dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c->clk_freq_out);
+ 	return -EINVAL;
+ }
  
-+			per1_syscon: syscon@11b41000 {
-+				compatible = "starfive,jhb100-per1-syscon", "syscon";
-+				reg = <0x0 0x11b41000 0x0 0x1000>;
-+				clocks = <&osc>;
-+				#clock-cells = <1>;
-+			};
-+
- 			per2crg: clock-controller@11bc0000 {
- 				compatible = "starfive,jhb100-per2crg";
- 				reg = <0x0 0x11bc0000 0x0 0x1000>;
-@@ -458,6 +534,11 @@ per2crg: clock-controller@11bc0000 {
- 				#reset-cells = <1>;
- 			};
+@@ -219,7 +246,7 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
+ 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+ 	u32 val;
  
-+			per2_syscon: syscon@11bc1000 {
-+				compatible = "starfive,jhb100-per2-syscon", "syscon";
-+				reg = <0x0 0x11bc1000 0x0 0x1000>;
-+			};
-+
- 			per3crg: clock-controller@11c40000 {
- 				compatible = "starfive,jhb100-per3crg";
- 				reg = <0x0 0x11c40000 0x0 0x1000>;
-@@ -477,11 +558,16 @@ per3crg: clock-controller@11c40000 {
- 				#reset-cells = <1>;
- 			};
+-	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
++	writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
  
-+			per3_syscon: syscon@11c41000 {
-+				compatible = "starfive,jhb100-per3-syscon", "syscon";
-+				reg = <0x0 0x11c41000 0x0 0x1000>;
-+			};
-+
- 			sys0crg: clock-controller@13000000 {
- 				compatible = "starfive,jhb100-sys0crg";
- 				reg = <0x0 0x13000000 0x0 0x4000>;
- 				clocks = <&osc>, <&pll0>, <&pll1>,
--					 <&pll2>;
-+					 <&sys0_syscon JHB100_SYS0PLL_PLL2_OUT>;
- 				clock-names = "osc", "pll0", "pll1", "pll2";
- 				#clock-cells = <1>;
- 				#reset-cells = <1>;
-@@ -491,7 +577,9 @@ sys1crg: clock-controller@13004000 {
- 				compatible = "starfive,jhb100-sys1crg";
- 				reg = <0x0 0x13004000 0x0 0x4000>;
- 				clocks = <&osc>, <&pll0>, <&pll1>,
--					 <&pll2>, <&pll4>, <&pll5>,
-+					 <&sys0_syscon JHB100_SYS0PLL_PLL2_OUT>,
-+					 <&sys0_syscon JHB100_SYS0PLL_PLL4_OUT>,
-+					 <&sys0_syscon JHB100_SYS0PLL_PLL5_OUT>,
- 					 <&sys0crg JHB100_SYS0CLK_NPU_NCNOC_INIT>;
- 				clock-names = "osc", "pll0", "pll1", "pll2",
- 					      "pll4", "pll5", "npu_ncnoc_init";
-@@ -511,6 +599,28 @@ sys2crg: clock-controller@13008000 {
- 				#reset-cells = <1>;
- 			};
+ 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -1111,8 +1138,7 @@ static int geni_i2c_resources_init(struct geni_se *se)
  
-+			sys0_syscon: syscon@13010000 {
-+				compatible = "starfive,jhb100-sys0-syscon", "syscon";
-+				reg = <0x0 0x13010000 0x0 0x2000>;
-+				clocks = <&osc>;
-+				#clock-cells = <1>;
-+			};
-+
-+			sys1_syscon: syscon@13014000 {
-+				compatible = "starfive,jhb100-sys1-syscon", "syscon";
-+				reg = <0x0 0x13014000 0x0 0x4000>;
-+			};
-+
-+			sys2_syscon: syscon@13018000 {
-+				compatible = "starfive,jhb100-sys2-syscon", "syscon";
-+				reg = <0x0 0x13018000 0x0 0x2000>;
-+			};
-+
-+			strap_syscon: syscon@1301a000 {
-+				compatible = "starfive,jhb100-strap-syscon", "syscon";
-+				reg = <0x0 0x1301a000 0x0 0x2000>;
-+			};
-+
- 			intc: interrupt-controller@13220000 {
- 				compatible = "starfive,jhb100-intc";
- 				reg = <0x0 0x13220000 0x0 0x80>;
-@@ -518,6 +628,21 @@ intc: interrupt-controller@13220000 {
- 				interrupt-controller;
- 				#interrupt-cells = <1>;
- 			};
-+
-+			sfc0_filter_syscon: syscon@14090000 {
-+				compatible = "starfive,jhb100-sfc-filter-syscon", "syscon";
-+				reg = <0x0 0x14090000 0x0 0x1000>;
-+			};
-+
-+			sfc1_filter_syscon: syscon@14091000 {
-+				compatible = "starfive,jhb100-sfc-filter-syscon", "syscon";
-+				reg = <0x0 0x14091000 0x0 0x1000>;
-+			};
-+
-+			sfc2_filter_syscon: syscon@14092000 {
-+				compatible = "starfive,jhb100-sfc-filter-syscon", "syscon";
-+				reg = <0x0 0x14092000 0x0 0x1000>;
-+			};
- 		};
- 	};
- };
--- 
-2.25.1
+ 	ret = geni_i2c_clk_map_idx(gi2c);
+ 	if (ret)
+-		return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz\n",
+-				     gi2c->clk_freq_out);
++		return ret;
+ 
+ 	return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
+ 				  Bps_to_icc(gi2c->clk_freq_out));
+
+---
+base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
+change-id: 20260807-i2c-fix-se-clk-conf-89f6f92d373a
+
+Best regards,
+--  
+Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
