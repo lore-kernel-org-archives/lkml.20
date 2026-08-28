@@ -1,516 +1,245 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864223E0C44
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D513E172E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902962; cv=none; b=HsLcB3nK2T1w9Ug2ZK8QqSChPV/eWf4ciksTMIdIFLq4Gte6cG3aljcoHcr47p4EvivISSi5N1vdtk+7fMU/O2/BKJJCLUDl8+4QvyT5LT3oYmNIJSfZYNx0GOofGp7g5MwkpIhUVO50jqVQ0reK9CGYWgKE+IUhtCL3Z94RhVU=
+	t=1787902993; cv=none; b=AAGU6OwWn1BclRYmA+iVX6odgnC2RE4iWozTPZb2wdn3pZcHhqEITcZAsXES4J6aobqWRiePyFte8U/iXy+3z9Xh102LzFXRwENALKBHAYqoSSPqiSTb5g9QDKcwlMRDwD2M4FGk2tZBf4uIyngm4wat+wMOv91732haXP4MUkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902962; c=relaxed/simple;
-	bh=EwakACTH3XyCTJQiltY4d0x0BcikcJgEefmgMx9NuEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tixDwFziajnvERvlRBCJIjW4KX58KY/tMaTnPK373V2KWN/ZSecelW3PDxudipawCmG11cOApvaUNM5MAVlpGgfvuYFP+rfArjrJwFBK0D8cokZS4ZTZpNw+Q9SAaivtr8R6QEUEWXs0vYUzdAxCrvLZrxCihTgSzHym/N6vb5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cq4Bk1TI; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cq4Bk1TI"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482e518d34bso61960f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:42:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787902954; x=1788507754; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XXD+d8I5arGkNFtQ0BXYyTruYZG0cFWg6qmgxXzAIhQ=;
-        b=cq4Bk1TIdVdpVP/1q428ZKABHUvFrTZAmKtPkCxvuN0s0REA1VqdZI0TGdY2UQSHfq
-         ae1KZ/22uuJqmKbUbvGR/yLYcuAt/LTe+J7UI68jQuZO07R2KrotVlUhjGw5rVYvoMqD
-         HdymqOvYp7K5NrKply12Tj8ohL++FxlCnOBESL8zQT8iAMWlPLbDfSa9C2hdn3K8rpQD
-         Og8wBhYfSq6duj9TVr/aKgXH7+Zx1O4Tso6zu5dQrCiNLj2GGPZj6/rR2dHocfI6jnIz
-         pdgBPE9ypVYMqN0rjFeCgdzOxdvdsgVXse8ttsgTIz+H3P+Zs8cw5N3EXi8wk/opN/6d
-         ITqQ==
+	s=arc-20240116; t=1787902993; c=relaxed/simple;
+	bh=nWOf+il78/LiwKVUFIvF8m5GUdgNDmmBtNDNs1vRPtc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=iXxzQq/iWIKTaxkOQmCThypX3b4j6yOWBCeUMi5TQlH+WiggKfwc/aFplGQRU+qYQCKkJ4SlyYBrvYDgutwnNWXZhgjYPw91d3y1Jq4PGk1Du1rqe7R3vmPrKG5Ybwpp4i0e6VuYi8e1718wVCPKq1lgIts5Ij3EqPbiuWj4ms4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a45b3f0bdfso1481215b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:43:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787902954; x=1788507754;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XXD+d8I5arGkNFtQ0BXYyTruYZG0cFWg6qmgxXzAIhQ=;
-        b=Y6sg4aYzTDziRS2Hb24G6xmzaL3Nue5Jc0tSiXMqQQjNqd982dHZdgBIMFlVFRnFuf
-         TlAg77IY+hrKgdZ/gONk2U/yWc7Te3R2kHaD1bnY/r0om0YP9DoNhHN69v+XHDP74OvQ
-         Crpwp5DEZzkYfve109HkNyB96mirDLjKpuK03aTbxfI3Zvm/17NCMuleTjbDo3E3Do8g
-         +w9rOLDmwvxfMWdY9BjTB0PDSeLR58ewWw0W/PH4EMvWj59u1M8ApfpWduwEj4if/rWp
-         I8tlyDZUjxlUF37pKChnE+r6jZUPozxmG8lUT6kKeRjqiocLRy5/3LR1cyj6ioFKhCGf
-         nCtg==
-X-Forwarded-Encrypted: i=1; AHgh+RpeXXcUSfbXRq/jU4xJXARiObBSZ8K+V9ZmkhDGcDs6c85rvOCqxDWM94+t/9tQyln62LjGVOgvb9YfZlY=@vger.kernel.org
-X-Gm-Message-State: AFuF++khX1dOcH+8dYhFcpWoqjfavv9/bCRf8AV0fZEPL4aQNq5TPlvJ
-	toIRIxY0sxQexIyOxVAPaz/5pWZKMryDxONOocdzOCLMFf/IYmUZspl+hWpHpeeu/uc=
-X-Gm-Gg: AR+sD10/5mNmOwBeudlxBQ1emLujNjK43HPmJ+Sc2oJwp0VojxdTfxJO2sX/KYNOnfi
-	Fb/MBixPsVSzxFIJvcxGqlkvpv0hrDuD/GQhHPLerqCErhDFT/bvTf1VTAFZ8MIPRW6mCHtsC4x
-	F+1OsCn3wIyBtFtWie1JooJZ9rcU5t9oJ25/uVQBZaW4Mp9ua9/sNgU+B81UDnrt6QkyeyIS0AB
-	mCKlR+en+AEsEdTmzVtEA5FwKXvyQLVaHHz05dXy+RJxezryvAh68A13tNY0V0k6HRiC5wIPB+M
-	tpGbW0Gtr0jFMB1+0GSJWlQNlktSx1bPbceD5ywU3th/wKLZTBXPpKysCwqipCJO1cWKTRhwUUA
-	B3hVO85bOsFQJVbThK0pAlP2ckZqi2zS1SlrnmS1QEih0p/poI/j3RiuG4Jk853qGFD5hOB5osB
-	PSNgjbvf9+slDBvpvt49FFqzqdh/3aHo+SSR4HCRRYHECbWd0yzDMLoOYTLnYWo0FTwpsTRQ==
-X-Received: by 2002:a05:600c:4686:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49b91bd68famr37595685e9.0.1787902953887;
-        Fri, 28 Aug 2026 00:42:33 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598b9444sm2918075ad.74.2026.08.28.00.42.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 00:42:32 -0700 (PDT)
-Date: Fri, 28 Aug 2026 15:42:29 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ocfs2: defer suballocator block group reclaim to
- workqueue
-Message-ID: <apE7yQDlxTJKlG0Z@p15>
-References: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
- <20260828071553.262254-2-joseph.qi@linux.alibaba.com>
+        d=1e100.net; s=20251104; t=1787902984; x=1788507784;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u8EgiEEfoy3bonJSYWmePJgO5EAyEU3zEqmbOTD/EwU=;
+        b=NYoCyVSHJrpfzhSlNvgpqsjbj+PshRmdzyuSuuYBBQE/i19trszdDTgMmYd85biXzl
+         3P2bqLgxCu1lRUd3EQsfYiYtB2LZM3M/IKlBGCKuVggkA8Qx6hlGJDPOpuFRL9PsSJqi
+         ku44IJiZ2IebGk56P7naOmAeahrcwpd+ezpiHdjmmAPnrUiIFGL6sbt3+SNGuHa34VUP
+         f/u0TXgHj1MqEE8a+45Dv0vuQr3Iw397K0SL3xsF/bF7lW4sNER268z+D8jCYOTp1Cf6
+         LoKAtsDoAD7TJqX8cp3vUj2dW1fdl1Dwelgv6SsVIefCQq5PmlDUdQLNJLBkYQOgYz00
+         CIpA==
+X-Forwarded-Encrypted: i=1; AHgh+RpDODYm6ggpAHtRuhAe3V6t/F4Mw0zLgq4tTh3H9xfWKShS4g3l4KRPmBfRBkzHfmTDMlz8iIl2Td7BJHU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWSefnNYu/mI4U+mgyoqLUQabupplmYDeLvtLmHf4f+U3WZKtr
+	9UNRfqw5xfTuW37DK2oKXKQS6tDUbDVfA+bLcB7PzIvpue35RwPD03NijfC2qNUo7MSTwR0Cooz
+	vjeWrNO+NqMQl1duYTvEYdgx43V5cX7shtKXxyA5SVrl1Lqx/JS5DZdznLT0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828071553.262254-2-joseph.qi@linux.alibaba.com>
+X-Received: by 2002:a05:6808:1488:b0:4b2:8ea1:b9dc with SMTP id
+ 5614622812f47-4b397f0984fmr6094503b6e.3.1787902984335; Fri, 28 Aug 2026
+ 00:43:04 -0700 (PDT)
+Date: Fri, 28 Aug 2026 00:43:04 -0700
+In-Reply-To: <20260828065349.1876-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a913c08.4d659fcc.734b4.001b.GAE@google.com>
+Subject: Re: [syzbot] [input?] possible deadlock in tasklet_action_common (2)
+From: syzbot <syzbot+b5d7ab56d43de3fd5aac@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 28, 2026 at 03:15:53PM +0800, Joseph Qi wrote:
-> When the last bit in a suballocator block group is freed,
-> _ocfs2_free_suballoc_bits() reclaims the group back to the global
-> bitmap.  The reclaim takes inode_lock() on the global bitmap inode
-> while running inside the freeing transaction, adding a lock
-> dependency of
-> 
->   j_trans_barrier -> global bitmap inode i_rwsem
-> 
-> This forms a circular dependency with paths such as
-> ocfs2_shutdown_local_alloc(), which take the global bitmap inode
-> lock before starting a transaction:
-> 
->   Task1 (dealloc):
->     ocfs2_run_deallocs
->       ocfs2_free_cached_blocks
->         ocfs2_start_trans
->           down_read(j_trans_barrier)
->         _ocfs2_free_suballoc_bits
->           _ocfs2_reclaim_suballoc_to_main
->             inode_lock(main_bm_inode)  <- wait on Task2
-> 
->   Task2 (dismount):
->     ocfs2_shutdown_local_alloc
->       inode_lock(main_bm_inode)
->       ocfs2_start_trans
->         down_read(j_trans_barrier)  <- wait on Task3
-> 
->   Task3 (ocfs2cmt):
->     ocfs2_commit_cache
->       down_write(j_trans_barrier)  <- wait on Task1's handle
->       jbd2_journal_flush
-> 
-> Task1 waits for Task2's inode_lock(), Task2 waits for the
-> j_trans_barrier down_write() held by ocfs2cmt, and ocfs2cmt waits
-> for Task1's running transaction to commit - a real deadlock,
-> observed with aio-stress direct IO writes racing dismount.
-> 
-> Fix it by deferring the reclaim to the per-superblock ocfs2_wq
-> workqueue, so the freeing transaction no longer takes the global
-> bitmap inode lock.  The worker re-checks under the suballocator
-> locks that the block group is still fully freed (it may have been
-> allocated from again in the meantime), takes the global bitmap
-> inode locks before starting its own transaction, and performs the
-> same suballocator cleanup and space return.  The inode lock order
-> (suballocator inode -> global bitmap inode) is consistent with the
-> existing "inode lock before transaction" order, breaking the cycle.
-> 
-> Reclaim work can still be queued late in dismount, e.g. when the
-> truncate log is flushed or orphan dir recovery frees inode bits, so
-> both ocfs2_dismount_volume() and the mount error path flush
-> ocfs2_wq right before the system inodes are released, while the
-> journal is still alive, to make sure no reclaim work is left
-> running.  The worker also bails out if the journal is already gone.
-> 
-> Tested with the ocfs2 testsuite (including aio-stress direct IO)
-> and umount/mount cycles on a CONFIG_PROVE_LOCKING kernel: the
-> circular locking dependency is gone and freed block groups are
-> still returned to the global bitmap.
-> 
-> Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-> Assisted-by: Qoder:Qwen3.8-Max
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Hello,
 
-LGTM
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> ---
->  fs/ocfs2/ocfs2.h    |   5 ++
->  fs/ocfs2/suballoc.c | 202 +++++++++++++++++++++++++++++++++++++-------
->  fs/ocfs2/suballoc.h |   2 +-
->  fs/ocfs2/super.c    |  16 ++++
->  4 files changed, 195 insertions(+), 30 deletions(-)
-> 
-> diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
-> index 62cad6522c7a..b747cdec1787 100644
-> --- a/fs/ocfs2/ocfs2.h
-> +++ b/fs/ocfs2/ocfs2.h
-> @@ -502,6 +502,11 @@ struct ocfs2_super
->  	 */
->  	struct workqueue_struct *ocfs2_wq;
->  
-> +	/* deferred reclaim of fully freed suballocator block groups */
-> +	spinlock_t os_suballoc_reclaim_lock;
-> +	struct list_head os_suballoc_reclaim_list;
-> +	struct work_struct os_suballoc_reclaim_work;
-> +
->  	/* sysfs directory per partition */
->  	struct kset *osb_dev_kset;
->  
-> diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-> index 20c3aec6b987..453b56be9624 100644
-> --- a/fs/ocfs2/suballoc.c
-> +++ b/fs/ocfs2/suballoc.c
-> @@ -2687,16 +2687,24 @@ static int ocfs2_block_group_clear_bits(handle_t *handle,
->   * cleanup rec/alloc_inode job, then switches to the main bitmap
->   * to reclaim released space.
->   *
-> + * Callers must hold inode_lock() and ocfs2_inode_lock() on
-> + * main_bm_inode, i.e. the global bitmap inode locks must be taken
-> + * before starting the transaction.
-> + *
->   * handle: The transaction handle
->   * alloc_inode: The suballoc inode
->   * alloc_bh: The buffer_head of suballoc inode
->   * group_bh: The group descriptor buffer_head of suballocator managed.
-> - *           Caller should release the input group_bh.
-> + *           This function takes ownership of it and will release it.
-> + * main_bm_inode: The global bitmap inode
-> + * main_bm_bh: The buffer_head of the global bitmap inode
->   */
->  static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  			struct inode *alloc_inode,
->  			struct buffer_head *alloc_bh,
-> -			struct buffer_head *group_bh)
-> +			struct buffer_head *group_bh,
-> +			struct inode *main_bm_inode,
-> +			struct buffer_head *main_bm_bh)
->  {
->  	int idx, status = 0;
->  	int i, next_free_rec, len = 0;
-> @@ -2706,8 +2714,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  	u64 bg_blkno, start_blk;
->  	unsigned int count;
->  	struct ocfs2_chain_rec *rec;
-> -	struct buffer_head *main_bm_bh = NULL;
-> -	struct inode *main_bm_inode = NULL;
->  	struct ocfs2_super *osb = OCFS2_SB(alloc_inode->i_sb);
->  	struct ocfs2_dinode *fe = (struct ocfs2_dinode *) alloc_bh->b_data;
->  	struct ocfs2_chain_list *cl = &fe->id2.i_chain;
-> @@ -2794,24 +2800,12 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  	ocfs2_remove_from_cache(INODE_CACHE(alloc_inode), group_bh);
->  	memset(group, 0, sizeof(struct ocfs2_group_desc));
->  
-> -	/* prepare job for reclaim clusters */
-> -	main_bm_inode = ocfs2_get_system_file_inode(osb,
-> -						    GLOBAL_BITMAP_SYSTEM_INODE,
-> -						    OCFS2_INVALID_SLOT);
-> -	if (!main_bm_inode)
-> -		goto bail; /* ignore the error in reclaim path */
-> -
-> -	inode_lock(main_bm_inode);
-> -
-> -	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
-> -	if (status < 0)
-> -		goto free_bm_inode; /* ignore the error in reclaim path */
-> -
->  	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
->  				     &start_bit);
->  	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
->  	cl = &fe->id2.i_chain;
-> -	/* reuse group_bh, caller will release the input group_bh */
-> +	/* release the suballocator group descriptor before reuse */
-> +	brelse(group_bh);
->  	group_bh = NULL;
->  
->  	/* reclaim clusters to global_bitmap */
-> @@ -2819,7 +2813,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  					     &group_bh);
->  	if (status < 0) {
->  		mlog_errno(status);
-> -		goto free_bm_bh;
-> +		goto bail;
->  	}
->  	group = (struct ocfs2_group_desc *) group_bh->b_data;
->  
-> @@ -2827,7 +2821,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  		ocfs2_error(alloc_inode->i_sb,
->  			"reclaim length (%d) beyands block group length (%d)",
->  			count + start_bit, le16_to_cpu(group->bg_bits));
-> -		goto free_group_bh;
-> +		goto bail;
->  	}
->  
->  	old_bg_contig_free_bits = group->bg_contig_free_bits;
-> @@ -2837,7 +2831,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  					      _ocfs2_clear_bit);
->  	if (status < 0) {
->  		mlog_errno(status);
-> -		goto free_group_bh;
-> +		goto bail;
->  	}
->  
->  	status = ocfs2_journal_access_di(handle, INODE_CACHE(main_bm_inode),
-> @@ -2847,7 +2841,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  		ocfs2_block_group_set_bits(handle, main_bm_inode, group, group_bh,
->  				start_bit, count,
->  				le16_to_cpu(old_bg_contig_free_bits), 1);
-> -		goto free_group_bh;
-> +		goto bail;
->  	}
->  
->  	idx = le16_to_cpu(group->bg_chain);
-> @@ -2858,19 +2852,168 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  	fe->id1.bitmap1.i_used = cpu_to_le32(tmp_used - count);
->  	ocfs2_journal_dirty(handle, main_bm_bh);
->  
-> -free_group_bh:
-> +bail:
->  	brelse(group_bh);
-> +	return status;
-> +}
-> +
-> +/*
-> + * When a suballocator block group becomes fully freed, its space is
-> + * reclaimed back to the global bitmap. Taking the global bitmap inode
-> + * lock inside the freeing transaction would create a lock dependency
-> + * of "j_trans_barrier -> global bitmap inode i_rwsem", which forms a
-> + * circular dependency with paths like ocfs2_shutdown_local_alloc() that
-> + * take the inode lock before starting a transaction, and can lead to a
-> + * real deadlock with the ocfs2cmt journal commit thread. So queue the
-> + * reclaim to the workqueue and let it run outside the freeing
-> + * transaction.
-> + */
-> +struct ocfs2_suballoc_reclaim_work {
-> +	struct list_head list;
-> +	struct inode *alloc_inode;
-> +	u64 bg_blkno;
-> +};
-> +
-> +static void ocfs2_queue_suballoc_reclaim(struct ocfs2_super *osb,
-> +					 struct inode *alloc_inode,
-> +					 u64 bg_blkno)
-> +{
-> +	struct ocfs2_suballoc_reclaim_work *reclaim_work;
-> +
-> +	reclaim_work = kmalloc_obj(*reclaim_work, GFP_NOFS);
-> +	if (!reclaim_work) {
-> +		/*
-> +		 * Reclaim is only a space return optimization. If we can't
-> +		 * queue it, the freed block group just stays owned by the
-> +		 * suballocator.
-> +		 */
-> +		return;
-> +	}
-> +
-> +	igrab(alloc_inode);
-> +	reclaim_work->alloc_inode = alloc_inode;
-> +	reclaim_work->bg_blkno = bg_blkno;
-> +
-> +	spin_lock(&osb->os_suballoc_reclaim_lock);
-> +	list_add_tail(&reclaim_work->list, &osb->os_suballoc_reclaim_list);
-> +	spin_unlock(&osb->os_suballoc_reclaim_lock);
->  
-> -free_bm_bh:
-> +	queue_work(osb->ocfs2_wq, &osb->os_suballoc_reclaim_work);
-> +}
-> +
-> +static void ocfs2_do_suballoc_reclaim(struct ocfs2_super *osb,
-> +				struct ocfs2_suballoc_reclaim_work *reclaim_work)
-> +{
-> +	int status, i;
-> +	handle_t *handle;
-> +	struct inode *alloc_inode = reclaim_work->alloc_inode;
-> +	struct inode *main_bm_inode;
-> +	struct buffer_head *alloc_bh = NULL, *group_bh = NULL;
-> +	struct buffer_head *main_bm_bh = NULL;
-> +	struct ocfs2_dinode *fe;
-> +	struct ocfs2_chain_list *cl;
-> +	struct ocfs2_chain_rec *rec;
-> +
-> +	/* journal already gone, e.g. during dismount cleanup */
-> +	if (!osb->journal)
-> +		return;
-> +
-> +	inode_lock(alloc_inode);
-> +	status = ocfs2_inode_lock(alloc_inode, &alloc_bh, 1);
-> +	if (status < 0)
-> +		goto out_alloc;
-> +
-> +	fe = (struct ocfs2_dinode *) alloc_bh->b_data;
-> +	cl = &fe->id2.i_chain;
-> +
-> +	/*
-> +	 * The block group may have been allocated from again since the
-> +	 * reclaim work was queued, re-check that it is still fully freed.
-> +	 * A stale work item can also reference a group that is no longer
-> +	 * chained, whose descriptor would fail validation and trigger a
-> +	 * spurious ocfs2_error(), so verify chain membership first.
-> +	 */
-> +	for (i = 0; i < le16_to_cpu(cl->cl_next_free_rec); i++) {
-> +		rec = &cl->cl_recs[i];
-> +		if (le64_to_cpu(rec->c_blkno) == reclaim_work->bg_blkno)
-> +			break;
-> +	}
-> +	if (i == le16_to_cpu(cl->cl_next_free_rec) ||
-> +	    ocfs2_is_cluster_bitmap(alloc_inode) ||
-> +	    (le32_to_cpu(rec->c_free) != (le32_to_cpu(rec->c_total) - 1)) ||
-> +	    (le16_to_cpu(cl->cl_next_free_rec) == 1))
-> +		goto out_alloc_unlock;
-> +
-> +	status = ocfs2_read_group_descriptor(alloc_inode, fe,
-> +					     reclaim_work->bg_blkno, &group_bh);
-> +	if (status < 0)
-> +		goto out_alloc_unlock;
-> +
-> +	main_bm_inode = ocfs2_get_system_file_inode(osb,
-> +						    GLOBAL_BITMAP_SYSTEM_INODE,
-> +						    OCFS2_INVALID_SLOT);
-> +	if (!main_bm_inode)
-> +		goto out_group;
-> +
-> +	inode_lock(main_bm_inode);
-> +	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
-> +	if (status < 0)
-> +		goto out_main;
-> +
-> +	handle = ocfs2_start_trans(osb, OCFS2_SUBALLOC_FREE);
-> +	if (IS_ERR(handle)) {
-> +		status = PTR_ERR(handle);
-> +		mlog_errno(status);
-> +		goto out_main_unlock;
-> +	}
-> +
-> +	status = _ocfs2_reclaim_suballoc_to_main(handle, alloc_inode,
-> +						 alloc_bh, group_bh,
-> +						 main_bm_inode, main_bm_bh);
-> +	/* group_bh ownership passed to _ocfs2_reclaim_suballoc_to_main() */
-> +	group_bh = NULL;
-> +	if (status < 0)
-> +		mlog_errno(status);
-> +
-> +	ocfs2_commit_trans(osb, handle);
-> +
-> +out_main_unlock:
->  	ocfs2_inode_unlock(main_bm_inode, 1);
->  	brelse(main_bm_bh);
-> -
-> -free_bm_inode:
-> +out_main:
->  	inode_unlock(main_bm_inode);
->  	iput(main_bm_inode);
-> +out_group:
-> +	brelse(group_bh);
-> +out_alloc_unlock:
-> +	ocfs2_inode_unlock(alloc_inode, 1);
-> +	brelse(alloc_bh);
-> +out_alloc:
-> +	inode_unlock(alloc_inode);
-> +}
->  
-> -bail:
-> -	return status;
-> +void ocfs2_suballoc_reclaim_worker(struct work_struct *work)
-> +{
-> +	struct ocfs2_super *osb = container_of(work, struct ocfs2_super,
-> +					       os_suballoc_reclaim_work);
-> +	struct ocfs2_suballoc_reclaim_work *reclaim_work;
-> +
-> +	while (1) {
-> +		spin_lock(&osb->os_suballoc_reclaim_lock);
-> +		if (list_empty(&osb->os_suballoc_reclaim_list)) {
-> +			spin_unlock(&osb->os_suballoc_reclaim_lock);
-> +			break;
-> +		}
-> +		reclaim_work = list_first_entry(&osb->os_suballoc_reclaim_list,
-> +					struct ocfs2_suballoc_reclaim_work,
-> +					list);
-> +		list_del(&reclaim_work->list);
-> +		spin_unlock(&osb->os_suballoc_reclaim_lock);
-> +
-> +		ocfs2_do_suballoc_reclaim(osb, reclaim_work);
-> +		iput(reclaim_work->alloc_inode);
-> +		kfree(reclaim_work);
-> +	}
->  }
->  
->  /*
-> @@ -2955,7 +3098,8 @@ static int _ocfs2_free_suballoc_bits(handle_t *handle,
->  		goto bail;
->  	}
->  
-> -	_ocfs2_reclaim_suballoc_to_main(handle, alloc_inode, alloc_bh, group_bh);
-> +	ocfs2_queue_suballoc_reclaim(OCFS2_SB(alloc_inode->i_sb), alloc_inode,
-> +				     bg_blkno);
->  
->  bail:
->  	brelse(group_bh);
-> diff --git a/fs/ocfs2/suballoc.h b/fs/ocfs2/suballoc.h
-> index bcf2ed4a8631..6042abc032f9 100644
-> --- a/fs/ocfs2/suballoc.h
-> +++ b/fs/ocfs2/suballoc.h
-> @@ -206,7 +206,7 @@ int ocfs2_lock_allocators(struct inode *inode, struct ocfs2_extent_tree *et,
->  
->  int ocfs2_test_inode_bit(struct ocfs2_super *osb, u64 blkno, int *res);
->  
-> -
-> +void ocfs2_suballoc_reclaim_worker(struct work_struct *work);
->  
->  /*
->   * The following two interfaces are for ocfs2_create_inode_in_orphan().
-> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-> index f785c39d1fb8..b7c29d3c0321 100644
-> --- a/fs/ocfs2/super.c
-> +++ b/fs/ocfs2/super.c
-> @@ -1787,6 +1787,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
->  out_system_inodes:
->  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
->  		ocfs2_shutdown_local_alloc(osb);
-> +	/* Drain pending suballoc reclaim work before the journal goes away */
-> +	if (osb->ocfs2_wq)
-> +		flush_workqueue(osb->ocfs2_wq);
->  	ocfs2_release_system_inodes(osb);
->  	/* before journal shutdown, we should release slot_info */
->  	ocfs2_free_slot_info(osb);
-> @@ -1857,6 +1860,14 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
->  	if (osb->cconn)
->  		ocfs2_super_unlock(osb, 1);
->  
-> +	/*
-> +	 * Drain pending suballoc reclaim work while the system inodes and
-> +	 * the journal are still alive, since the worker needs to look up
-> +	 * the global bitmap inode and start a transaction.
-> +	 */
-> +	if (osb->ocfs2_wq)
-> +		flush_workqueue(osb->ocfs2_wq);
-> +
->  	ocfs2_release_system_inodes(osb);
->  
->  	ocfs2_journal_shutdown(osb);
-> @@ -2143,6 +2154,11 @@ static int ocfs2_initialize_super(struct super_block *sb,
->  	INIT_WORK(&osb->dquot_drop_work, ocfs2_drop_dquot_refs);
->  	init_llist_head(&osb->dquot_drop_list);
->  
-> +	spin_lock_init(&osb->os_suballoc_reclaim_lock);
-> +	INIT_LIST_HEAD(&osb->os_suballoc_reclaim_list);
-> +	INIT_WORK(&osb->os_suballoc_reclaim_work,
-> +		  ocfs2_suballoc_reclaim_worker);
-> +
->  	/* get some pseudo constants for clustersize bits */
->  	osb->s_clustersize_bits =
->  		le32_to_cpu(di->id2.i_super.s_clustersize_bits);
-> -- 
-> 2.39.3
-> 
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+possible deadlock in tasklet_action_common
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.2.59/6959 is trying to acquire lock:
+ffff8880b86241a0 (tasklet_sync_callback.cb_lock){+...}-{3:3}, at: spin_lock include/linux/spinlock_rt.h:45 [inline]
+ffff8880b86241a0 (tasklet_sync_callback.cb_lock){+...}-{3:3}, at: tasklet_lock_callback kernel/softirq.c:909 [inline]
+ffff8880b86241a0 (tasklet_sync_callback.cb_lock){+...}-{3:3}, at: tasklet_action_common+0xc5/0x600 kernel/softirq.c:959
+
+but task is already holding lock:
+ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: spin_lock_irq_disable include/linux/spinlock_rt.h:102 [inline]
+ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: class_spinlock_irqsave_constructor include/linux/spinlock.h:642 [inline]
+ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: input_inject_event+0xab/0x310 drivers/input/input.c:419
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (&dev->event_lock){+.+.}-{3:3}:
+       rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+       spin_lock_irq_disable include/linux/spinlock_rt.h:102 [inline]
+       class_spinlock_irqsave_constructor include/linux/spinlock.h:642 [inline]
+       input_inject_event+0xab/0x310 drivers/input/input.c:419
+       led_trigger_event+0x13b/0x220 drivers/leds/led-triggers.c:420
+       kbd_propagate_led_state drivers/tty/vt/keyboard.c:1124 [inline]
+       kbd_bh+0x1b4/0x2c0 drivers/tty/vt/keyboard.c:1303
+       tasklet_action_common+0x31c/0x600 kernel/softirq.c:970
+       handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
+       run_ksoftirqd+0x53/0x190 kernel/softirq.c:1108
+       smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (tasklet_sync_callback.cb_lock){+...}-{3:3}:
+       check_prev_add kernel/locking/lockdep.c:3181 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1520/0x2ce0 kernel/locking/lockdep.c:5253
+       lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5886
+       rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+       spin_lock include/linux/spinlock_rt.h:45 [inline]
+       tasklet_lock_callback kernel/softirq.c:909 [inline]
+       tasklet_action_common+0xc5/0x600 kernel/softirq.c:959
+       handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
+       __do_softirq kernel/softirq.c:679 [inline]
+       __local_bh_enable_ip+0x16f/0x2b0 kernel/softirq.c:325
+       local_bh_enable include/linux/bottom_half.h:33 [inline]
+       __alloc_skb+0x1b1/0x7a0 net/core/skbuff.c:699
+       alloc_skb include/linux/skbuff.h:1384 [inline]
+       hidp_send_message+0xb5/0x230 net/bluetooth/hidp/core.c:108
+       hidp_send_intr_message net/bluetooth/hidp/core.c:140 [inline]
+       hidp_input_event+0x2a4/0x380 net/bluetooth/hidp/core.c:172
+       input_event_dispose+0xad/0x700 drivers/input/input.c:322
+       input_inject_event+0x1fa/0x310 drivers/input/input.c:424
+       kbd_led_trigger_activate+0xbc/0x100 drivers/tty/vt/keyboard.c:1080
+       led_trigger_set+0x52b/0x940 drivers/leds/led-triggers.c:220
+       led_match_default_trigger drivers/leds/led-triggers.c:277 [inline]
+       led_trigger_set_default+0x269/0x2a0 drivers/leds/led-triggers.c:300
+       led_classdev_register_ext+0x761/0x990 drivers/leds/led-class.c:596
+       led_classdev_register include/linux/leds.h:274 [inline]
+       input_leds_connect+0x4de/0x750 drivers/input/input-leds.c:145
+       input_attach_handler drivers/input/input.c:1074 [inline]
+       input_register_device+0xd08/0x1150 drivers/input/input.c:2451
+       hidp_session_dev_add net/bluetooth/hidp/core.c:877 [inline]
+       hidp_session_probe+0x1a5/0x8b0 net/bluetooth/hidp/core.c:1155
+       l2cap_register_user+0xbd/0x1d0 net/bluetooth/l2cap_core.c:1754
+       hidp_connection_add+0x1582/0x1a10 net/bluetooth/hidp/core.c:1427
+       do_hidp_sock_ioctl net/bluetooth/hidp/sock.c:78 [inline]
+       hidp_sock_ioctl+0x403/0x650 net/bluetooth/hidp/sock.c:125
+       sock_do_ioctl+0x101/0x320 net/socket.c:1325
+       sock_ioctl+0x57d/0x7f0 net/socket.c:1446
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dev->event_lock);
+                               lock(tasklet_sync_callback.cb_lock);
+                               lock(&dev->event_lock);
+  lock(tasklet_sync_callback.cb_lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.2.59/6959: 10, last CPU#0:
+ #0: ffff88805ad5d370 (&conn->lock#2){+.+.}-{4:4}, at: l2cap_register_user+0x34/0x1d0 net/bluetooth/l2cap_core.c:1741
+ #1: ffffffff8f97e420 (hidp_session_sem){++++}-{4:4}, at: hidp_session_probe+0x98/0x8b0 net/bluetooth/hidp/core.c:1145
+ #2: ffffffff8f2414d8 (input_mutex){+.+.}-{4:4}, at: class_mutex_intr_constructor include/linux/mutex.h:255 [inline]
+ #2: ffffffff8f2414d8 (input_mutex){+.+.}-{4:4}, at: input_register_device+0xa7f/0x1150 drivers/input/input.c:2447
+ #3: ffff88802a7a8860 (&led_cdev->led_access){+.+.}-{4:4}, at: led_classdev_register_ext+0x45e/0x990 drivers/leds/led-class.c:554
+ #4: ffffffff8ebf8ea0 (triggers_list_lock){++++}-{4:4}, at: led_trigger_set_default+0x7b/0x2a0 drivers/leds/led-triggers.c:297
+ #5: ffff88802a7a8788 (&led_cdev->trigger_lock){+.+.}-{4:4}, at: led_trigger_set_default+0x8b/0x2a0 drivers/leds/led-triggers.c:298
+ #6: ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: spin_lock_irq_disable include/linux/spinlock_rt.h:102 [inline]
+ #6: ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: class_spinlock_irqsave_constructor include/linux/spinlock.h:642 [inline]
+ #6: ffff888040042270 (&dev->event_lock){+.+.}-{3:3}, at: input_inject_event+0xab/0x310 drivers/input/input.c:419
+ #7: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
+ #7: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
+ #7: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: __rt_spin_lock kernel/locking/spinlock_rt.c:50 [inline]
+ #7: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: rt_spin_lock+0x1e2/0x400 kernel/locking/spinlock_rt.c:57
+ #8: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
+ #8: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
+ #8: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: class_rcu_constructor include/linux/rcupdate.h:1183 [inline]
+ #8: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: input_inject_event+0xb7/0x310 drivers/input/input.c:420
+ #9: ffffffff8e3c3740 (rcu_read_lock){....}-{1:3}, at: __local_bh_disable_ip+0x3d/0x420 kernel/softirq.c:186
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 6959 Comm: syz.2.59 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e1/0x300 kernel/locking/lockdep.c:2059
+ check_noncircular+0x12e/0x150 kernel/locking/lockdep.c:2191
+ check_prev_add kernel/locking/lockdep.c:3181 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1520/0x2ce0 kernel/locking/lockdep.c:5253
+ lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5886
+ rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+ spin_lock include/linux/spinlock_rt.h:45 [inline]
+ tasklet_lock_callback kernel/softirq.c:909 [inline]
+ tasklet_action_common+0xc5/0x600 kernel/softirq.c:959
+ handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ __local_bh_enable_ip+0x16f/0x2b0 kernel/softirq.c:325
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ __alloc_skb+0x1b1/0x7a0 net/core/skbuff.c:699
+ alloc_skb include/linux/skbuff.h:1384 [inline]
+ hidp_send_message+0xb5/0x230 net/bluetooth/hidp/core.c:108
+ hidp_send_intr_message net/bluetooth/hidp/core.c:140 [inline]
+ hidp_input_event+0x2a4/0x380 net/bluetooth/hidp/core.c:172
+ input_event_dispose+0xad/0x700 drivers/input/input.c:322
+ input_inject_event+0x1fa/0x310 drivers/input/input.c:424
+ kbd_led_trigger_activate+0xbc/0x100 drivers/tty/vt/keyboard.c:1080
+ led_trigger_set+0x52b/0x940 drivers/leds/led-triggers.c:220
+ led_match_default_trigger drivers/leds/led-triggers.c:277 [inline]
+ led_trigger_set_default+0x269/0x2a0 drivers/leds/led-triggers.c:300
+ led_classdev_register_ext+0x761/0x990 drivers/leds/led-class.c:596
+ led_classdev_register include/linux/leds.h:274 [inline]
+ input_leds_connect+0x4de/0x750 drivers/input/input-leds.c:145
+ input_attach_handler drivers/input/input.c:1074 [inline]
+ input_register_device+0xd08/0x1150 drivers/input/input.c:2451
+ hidp_session_dev_add net/bluetooth/hidp/core.c:877 [inline]
+ hidp_session_probe+0x1a5/0x8b0 net/bluetooth/hidp/core.c:1155
+ l2cap_register_user+0xbd/0x1d0 net/bluetooth/l2cap_core.c:1754
+ hidp_connection_add+0x1582/0x1a10 net/bluetooth/hidp/core.c:1427
+ do_hidp_sock_ioctl net/bluetooth/hidp/sock.c:78 [inline]
+ hidp_sock_ioctl+0x403/0x650 net/bluetooth/hidp/sock.c:125
+ sock_do_ioctl+0x101/0x320 net/socket.c:1325
+ sock_ioctl+0x57d/0x7f0 net/socket.c:1446
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5154aade99
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f515410e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f5154d35fa0 RCX: 00007f5154aade99
+RDX: 0000200000000200 RSI: 00000000400448c8 RDI: 0000000000000004
+RBP: 00007f5154b43eaf R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5154d36038 R14: 00007f5154d35fa0 R15: 00007ffcfefb8c18
+ </TASK>
+
+
+Tested on:
+
+commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=13d95d79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e3ca844744f0010
+dashboard link: https://syzkaller.appspot.com/bug?extid=b5d7ab56d43de3fd5aac
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Note: no patches were applied.
