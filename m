@@ -1,152 +1,97 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD2943785F;
-	Fri, 28 Aug 2026 11:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DF53D9667;
+	Fri, 28 Aug 2026 11:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917346; cv=none; b=NMSja8rehVynZjIOJE7DfkQK5WFVp9eHkAklFn58KqKWtZ8/ytcRMrPW6YSdNT/kyPNI+aGG+8R5iTouNsLfQWvieU/tcfuY188dwrfDDnASkqiP2iEDzIBbPHIZo7cSibtcXT6tzyA61HiXr/ATY52eQVucJrR+oX7cw9WJQQU=
+	t=1787917351; cv=none; b=EjWRE1Bc64MQYwipUoqXwcnok9VTlrg4BvLnVMUMJ6G3qw/ti5qtYFec9zAZd5rRBOwoFuF7ocDNlm0/w855DCxpTpCMlaXpZgNjV4iVqQ2Q1/6up6KkCUFv/YNuRSmybd1/z2++qXwDaykMvQqgY1gQTL5V5/pLsuygIEq9Qv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917346; c=relaxed/simple;
-	bh=UrRRrRGioU2jwFOT4R0dWftSuqJLymr8z94go2/Ju7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mtNBbk0D04mNkZVrpynqBLTncHSzNpOzD/h+rRExK4In4Becq+MEJGVMPE5BVpzgedbh+EFv3im7splmTG/v9XwdNhDDQGbyMsMd/XvF0aarKSbvTGR3FbnCwPKdeahZKgHt0CC8V55vQksfINYXcVJ0QcPijtDr7zCoAZVBk1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowABnO+8SdJFqoBO+Bg--.43429S2;
-	Fri, 28 Aug 2026 19:42:10 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thierry Reding <thierry.reding@kernel.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] usb: gadget: tegra-xudc: Unwind device-mode power failures
-Date: Fri, 28 Aug 2026 19:42:08 +0800
-Message-ID: <20260828114208.49341-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1787917351; c=relaxed/simple;
+	bh=ja7O0mQwoEuHr768rF5TMiyVtEhMME8ChiVPzQjMnfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EjoBtadV5cCAnH7D2S8eVxiR1Y1OuxfExMxqeMzw4jRXbLrD4nFpWdSvMgS0Agx5AYgrYc4LA1HYYcxLCfdEnC4nGK+D+F9UYi7Q4SGwWorPSS6WW8VHAm9bjqjf68kAuW8PbDhRGa3Cz2i0yUvdoEXBxHGyOL5lETnVPFw/UIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D8adJoAw; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D8adJoAw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787917334; x=1819453334;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ja7O0mQwoEuHr768rF5TMiyVtEhMME8ChiVPzQjMnfo=;
+  b=D8adJoAwN/LWjX81Wclt5xXVei+GLEGE4D1PVZEXvzQ7vhIaEhXv2uxn
+   V7lBjNnzE0OyawgPy01Bbh7g/5Dr44UABGmTzeMO43jYPa0YovTTYZ8u9
+   lAsCwkSuUfwUhQelS+T0SIolZUZQAWjE762k49QA5BUU2+Me+aXZUjbeX
+   PD+vTb+kwe1OJGWljWFzkS52bQexCsue1bjPFNrz0Ad5BLpvyGtB+XOQB
+   oytSkr8qMnq682o5rZVmtTskiapRbdNczcOMRlNHU9LfCI+0oPxMmKrfm
+   asX7mIromGUcFwLKP0Ot0JIEoPlxsgF+KryB05xJkdjk/P5YXws1BdjzG
+   g==;
+X-CSE-ConnectionGUID: 63YKy5c5RAygJsngvHGg/Q==
+X-CSE-MsgGUID: LGGo/XhiS4eIDXhMbQPq2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92290156"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="92290156"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 04:42:09 -0700
+X-CSE-ConnectionGUID: JiR8BiJvQNmRDgw+GodlEw==
+X-CSE-MsgGUID: wGOg7rqjQcic5Xqth5uO4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="306341783"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 04:42:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 159F311F817;
+	Fri, 28 Aug 2026 14:42:01 +0300 (EEST)
+Date: Fri, 28 Aug 2026 14:42:01 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 08/11] media: atomisp: support the Yoga Book OV2740
+ link
+Message-ID: <apF0Cds9fnqQ7XRg@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-9-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABnO+8SdJFqoBO+Bg--.43429S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF4ktF4ftFWxtF1kZw1kZrb_yoW5Cr17pa
-	1jgFW5J3ykX3sxKFnaq3yqvr15G3ykG348X34Iyay29rsrK34DJry7trWIqFW8Gr93Jr4j
-	yr4xK342yr9rWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUYf
-	HjUUUUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827181756.2430054-9-mauriziocasciano7@gmail.com>
 
-The Tegra XUDC role worker ignores runtime-PM, PHY power and PHY mode
-failures while entering device mode, and sets current_device_mode even
-after an incomplete transition.
+Hi Maurizio,
 
-Acquire runtime PM with pm_runtime_resume_and_get(), unwind each
-completed PHY and pad operation on failure, and only publish
-current_device_mode after all steps succeed.  The worker logs the error.
-This is an RFC because the asynchronous role request has already
-completed and maintainers may prefer retry or desired-role state
-handling beyond local rollback.
+On Thu, Aug 27, 2026 at 08:17:53PM +0200, Maurizio Casciano wrote:
+> @@ -77,6 +80,9 @@ static struct gmin_cfg_var lenovo_ideapad_miix_310_vars[] = {
+>  static struct gmin_cfg_var lenovo_yogabook_x91_vars[] = {
+>  	/* The vendor driver and sensor modes use two CSI data lanes. */
+>  	{ "OVTI2740:00", "CsiLanes", "2" },
+> +	/* Crop the vendor mode's 1932x1092 transport frame to 1920x1080. */
+> +	{ "OVTI2740:00", "CsiPaddingWidth", "12" },
+> +	{ "OVTI2740:00", "CsiPaddingHeight", "12" },
 
-The issue was identified via static analysis and manually reviewed.
+The cropping should be configured from the user space on the CSI-2 receiver
+using VIDIOC_SUBDEV_S_SELECTION instead.
 
-Assisted-by: LLM
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/usb/gadget/udc/tegra-xudc.c | 38 ++++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
-index e9d33be02866..41015e5dc089 100644
---- a/drivers/usb/gadget/udc/tegra-xudc.c
-+++ b/drivers/usb/gadget/udc/tegra-xudc.c
-@@ -696,28 +696,43 @@ static void tegra_xudc_restore_port_speed(struct tegra_xudc *xudc)
- 	xudc_writel(xudc, val, SSPX_CORE_CNT72);
- }
- 
--static void tegra_xudc_device_mode_on(struct tegra_xudc *xudc)
-+static int tegra_xudc_device_mode_on(struct tegra_xudc *xudc)
- {
- 	int err;
- 
--	pm_runtime_get_sync(xudc->dev);
-+	err = pm_runtime_resume_and_get(xudc->dev);
-+	if (err < 0)
-+		return err;
- 
- 	tegra_phy_xusb_utmi_pad_power_on(xudc->curr_utmi_phy);
- 
- 	err = phy_power_on(xudc->curr_utmi_phy);
- 	if (err < 0)
--		dev_err(xudc->dev, "UTMI power on failed: %d\n", err);
-+		goto power_down_pad;
- 
- 	err = phy_power_on(xudc->curr_usb3_phy);
- 	if (err < 0)
--		dev_err(xudc->dev, "USB3 PHY power on failed: %d\n", err);
-+		goto power_off_utmi;
- 
- 	dev_dbg(xudc->dev, "device mode on\n");
- 
--	phy_set_mode_ext(xudc->curr_utmi_phy, PHY_MODE_USB_OTG,
--			 USB_ROLE_DEVICE);
-+	err = phy_set_mode_ext(xudc->curr_utmi_phy, PHY_MODE_USB_OTG,
-+			       USB_ROLE_DEVICE);
-+	if (err < 0)
-+		goto power_off_usb3;
- 
- 	xudc->current_device_mode = true;
-+
-+	return 0;
-+
-+power_off_usb3:
-+	phy_power_off(xudc->curr_usb3_phy);
-+power_off_utmi:
-+	phy_power_off(xudc->curr_utmi_phy);
-+power_down_pad:
-+	tegra_phy_xusb_utmi_pad_power_down(xudc->curr_utmi_phy);
-+	pm_runtime_put(xudc->dev);
-+	return err;
- }
- 
- static void tegra_xudc_device_mode_off(struct tegra_xudc *xudc)
-@@ -779,11 +794,16 @@ static void tegra_xudc_usb_role_sw_work(struct work_struct *work)
- {
- 	struct tegra_xudc *xudc = container_of(work, struct tegra_xudc,
- 					       usb_role_sw_work);
-+	int err;
- 
--	if (xudc->device_mode)
--		tegra_xudc_device_mode_on(xudc);
--	else
-+	if (xudc->device_mode) {
-+		err = tegra_xudc_device_mode_on(xudc);
-+
-+		if (err)
-+			dev_err(xudc->dev, "failed to enter device mode: %d\n", err);
-+	} else {
- 		tegra_xudc_device_mode_off(xudc);
-+	}
- }
- 
- static int tegra_xudc_get_phy_index(struct tegra_xudc *xudc,
 -- 
-2.43.0
+Regards,
 
+Sakari Ailus
