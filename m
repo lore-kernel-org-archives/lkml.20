@@ -1,116 +1,312 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6273B3914E0;
-	Fri, 28 Aug 2026 09:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC1A227EA7;
+	Fri, 28 Aug 2026 09:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909388; cv=none; b=V8e7UZhaflt4PB+2gf8jcnpZCY0eDDbwGrmzOyLka/aKudIgMIZ3+mNzk/+cRwQziHh9E1Xz2GA6CTYOh1UUOeMPiNEhYD+G2fLBXXmqFGqLEG2eWdTwJwrr0DU8knjE0suJZtEFKsM24qdEfbm52iCCKMGWtPW4qKHw9lbjlHA=
+	t=1787909433; cv=none; b=hqfmov456u0Nw6bpQrPlGxEUv8Y9s1js5+uxuVAj7R/jasCgvw33mUdcgn5fFv2yw8/7UcszNbvkZI0HyhmQERLZyHbV3MaU/Qi5Utu1bW6bMMw3dBBwLsOi3hdv5vojnC1IbeFQErFVnDWgYkJX6kbED3wtb3sbKrW/hHODTbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909388; c=relaxed/simple;
-	bh=T7LTFPQNUrpMCRHUrvV/hIU1yfZl3MIgfMInpcIB3ZQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BDpdvog17a7WJzNyoNbDTDP9hSEkFBbB1kznUaMg4W8o8FYejhh/h3b+I0w8rFXgc41GjFmRXkLK7Yj8DFD7BS7zwf64qN8uglJ2wkU87+xdVF6NG2UFSRVUPyjbErtyN47sznM6qgeZyzJyNxKUgXgDKWXNAv8ul1x4mPCq0x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=N4lhGmkS; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1787909433; c=relaxed/simple;
+	bh=MQJWd+2Dc2uX3WckC53tDA+FaopBd+ECxAlgbZsjE4s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxP6/o9yJpoiqgZd/JKDZUj4vDsxUdR6N/f0Sk1CtmPU/0TvDTeZVX9+/sK7mYeqm5OBecHTJ7+CUOdn7vu8wfhp5FFRzHAwpCQ4ybROCu9g8QWDEM3vH74feqkNR9jek3RXne1DzeyqbKwCu8bBBxGU0sZof7WcxQgSvkv6gMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UE+56Yl6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="N4lhGmkS"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67S9TU4302324824, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1787909371; bh=T7LTFPQNUrpMCRHUrvV/hIU1yfZl3MIgfMInpcIB3ZQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=N4lhGmkSn1DWJPuPgQYlILMPWNF+KEVwDHqzbCFAkxXYWDAMdheWMrNA5SEfX9H/m
-	 cQ1YBnyMsi5TW1Twa8bxmfBKnoQyeolD7nMAAqZA97uXdo9gXwSm6xcLZBQhOZT2lu
-	 hx1bleP64rxGVyFpfz4KmKd+2ZQUFuCFA4wBTRbh180bQJOZwNPzegICspV0ahNe9+
-	 vfMbRXugJFxLimJC0XFCl+IvCIGfRXMeScOEW8YhcR1/tZ558VcEJfFDso9LFKZWYk
-	 XLBa8P9NbVPVyoQ4rFKJchTsArKnw8QRCW2gqPTDRf3CpuU0Hl+ALMzRbRNu/VSkLP
-	 LA234AJWEbTDA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67S9TU4302324824
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 28 Aug 2026 17:29:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 28 Aug 2026 17:29:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 28 Aug 2026 17:29:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Fri, 28 Aug 2026 17:29:30 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "luka.gejak@linux.dev" <luka.gejak@linux.dev>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>, Peter Robinson <pbrobinson@gmail.com>, "Hans de
- Goede" <johannes.goede@oss.qualcomm.com>
-Subject: RE: [PATCH v8 6/6] wifi: rtw88: sdio: add TX back-pressure and retry
- on page starvation
-Thread-Topic: [PATCH v8 6/6] wifi: rtw88: sdio: add TX back-pressure and retry
- on page starvation
-Thread-Index: AQHdNK+IjpEKOkCBYUSn8WCDtzqU1bazNQUQ
-Date: Fri, 28 Aug 2026 09:29:29 +0000
-Message-ID: <abbadda4537640eab1bce5620ade5f47@realtek.com>
-References: <20260825163314.1590-1-luka.gejak@linux.dev>
- <20260825163314.1590-7-luka.gejak@linux.dev>
-In-Reply-To: <20260825163314.1590-7-luka.gejak@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UE+56Yl6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B267E1F000E9;
+	Fri, 28 Aug 2026 09:30:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787909427;
+	bh=r9o8Kq8i/SkkJT21MegjxpzJj6woYmqf+dtso+F8rDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UE+56Yl69Eql8i4QNGQz9CX9k5QgFeXTsmif4zrkUzvDrdnmVS2JPDqgW/5etvnlU
+	 +GCsKRZYYuBZMCbrqER2Ot+y5nkNmQfvX4jCVRK273mxe+ecaPgfPt95C/LmlTD1T0
+	 12nudhHl24g44E1QB2VuoQj/z3T8XRUViCDGiVS+LSkva4Y4d2C9/v96kXXL1Cn1wX
+	 qvXvesAhC/lKJ5FGzMJ/uR+CjiDaSEa9AEC2e9deunz+Rv90939F7vkl3MIbLUip2i
+	 RxSVUMJflcRl4iR4b5fsrY06A1WF88bCH5yU0scGxtn0rers0peTKu1hpEK8MV+/vY
+	 WdgyYInXdmftA==
+Date: Fri, 28 Aug 2026 10:30:20 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+Message-ID: <apFMvo8pCzaGKope@gremlin>
+References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
+ <20260828-fix_split-v3-2-374022586a4b@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260828-fix_split-v3-2-374022586a4b@arm.com>
 
-luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
-> From: Luka Gejak <luka.gejak@linux.dev>
->=20
-> Two problems show up on RTL8723BS uplink. The per-AC software FIFO is
-> unbounded, so mac80211 keeps handing frames down until latency collapses
-> under load. And when a transfer cannot be completed the queue is simply
-> abandoned for that pass, which stalls the AC until something else kicks
-> the worker.
->=20
-> Stop the mac80211 queue once a data AC fills past a high watermark and
-> wake it from the drain path when it falls back to a low one. Both sides
-> take the TX queue lock across the length check and the flag update, the
-> way rtw_pci_tx_write() and rtw_pci_tx_isr() use irq_lock. Without it the
-> producer could stop a queue on a length the drain path had already
-> emptied, having seen the flag still clear and so skipped the wake, and
-> the AC would have stayed stopped with nothing left to wake it.
->=20
-> Convert the TX work item to a delayed work and re-arm it when a transfer
-> fails for a reason that can clear on its own, so it is retried rather
-> than the AC abandoned, and cancel the work on teardown.
->=20
-> Retrying matters once the queue can be stopped. A stopped queue is
-> handed no further frames, so nothing else would kick the worker, and the
-> AC would stay stopped for good with the link still up and receive
-> unaffected. The two retried cases, a transmit page or output queue
-> shortage and a failed skb expansion, are also the two that fail
-> silently; the rest are logged where they happen, so they are visible
-> rather than an unexplained hang, and they keep the existing behaviour
-> rather than being retried indefinitely.
->=20
-> Measured on RTL8723BS hardware, uplink goes from 11.9 Mbit/s with 204
-> TCP retransmits to 20.1 Mbit/s with 2.
->=20
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+On Fri, Aug 28, 2026 at 09:11:34AM +0100, Yeoreum Yun wrote:
+> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> made by memalign().
+>
+> The underlying VMA may start at a different address from the aligned
+> address returned by memalign(). Furthermore, a subsequent
+> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> already set.
+>
+> This causes split_huge_page_test to fail because the check_huge_xxx()
+> helpers incorrectly require the address returned by memalign() to
+> match the VMA start address reported in /proc/self/smaps.
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Hmm, is the test correctly putting sentinels either side of the VMA? Any test
+that doesn't risks flaking due to unwanted VMA merges.
 
-The v8 is almost done. Only one small nit.=20
+>
+> Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
+> /proc/self/smaps to detect huge pages.
 
-Since I don't test the RTL8723BS at all, please test it by yourself
-carefully. At the last review (I think v9), I will focus on the changes
-of this patchset doesn't affect existing chips.=20
+You should probably call out the fact you're doing some refactoring here
+also!
 
+>
+> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
 
+Should always have a Closes: tag if Reported-by: ideally.
+
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+
+Generally looks reasonable to me, some nits above and below though :)
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  tools/testing/selftests/mm/vm_util.c | 145 ++++++++++++++++++++++-------------
+>  tools/testing/selftests/mm/vm_util.h |   1 +
+>  2 files changed, 92 insertions(+), 54 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index 4821a3563036..083b72d92b14 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+>  	return entry;
+>  }
+>
+> -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+> -		  uint64_t hpage_size)
+> -{
+> -	char buffer[MAX_LINE_LENGTH];
+> -	uint64_t thp = -1;
+> -	char *entry;
+> -
+> -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+> -	if (!entry)
+> -		goto err_out;
+> -
+> -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+> -		ksft_exit_fail_msg("Reading smap error\n");
+> -
+> -err_out:
+> -	return thp == (nr_hpages * (hpage_size >> 10));
+> -}
+> -
+> -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> -		uint64_t hpage_size)
+> +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
+> +			       void *addr, size_t len, int nr_hpages,
+> +			       uint64_t hpage_size)
+>  {
+>  	int order = 0, pagesize = getpagesize();
+>  	unsigned int nr_pages = hpage_size / pagesize;
+>  	int orders[MAX_NR_ORDERS], status;
+> -	int pagemap_fd, kpageflags_fd;
+>  	bool ret = false;
+>
+>  	if (!nr_pages)
+> @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+>  		ksft_exit_fail_msg("invalid order\n");
+>
+>  	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
+> -	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> -	if (pagemap_fd == -1)
+> -		ksft_exit_fail_msg("read pagemap fail\n");
+> -
+> -	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> -	if (kpageflags_fd == -1) {
+> -		close(pagemap_fd);
+> -		ksft_exit_fail_msg("read kpageflags fail\n");
+> -	}
+>
+>  	status = gather_folio_orders(addr, len, pagemap_fd,
+>  			kpageflags_fd, orders, MAX_NR_ORDERS);
+> @@ -405,48 +378,112 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+>  		ret = true;
+>
+>  out:
+> -	close(pagemap_fd);
+> -	close(kpageflags_fd);
+>  	return ret;
+>  }
+>
+> -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> -{
+> -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> -
+> -	if (!pmd_pagesize)
+> -		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> +enum check_huge_type {
+> +	CHECK_HUGE_ANON,
+> +	CHECK_HUGE_FILE,
+> +	CHECK_HUGE_SHMEM,
+> +};
+>
+> -	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> +static bool check_huge_type(uint64_t categories, uint64_t kpageflags,
+> +			    enum check_huge_type type)
+> +{
+> +	bool file = categories & PAGE_IS_FILE;
+> +	bool swapbacked = kpageflags & KPF_SWAPBACKED;
+
+NIT: nice to const these :)
+
+> +
+> +	switch (type) {
+> +	case CHECK_HUGE_ANON:
+> +		return !file;
+> +	case CHECK_HUGE_FILE:
+> +		return file && !swapbacked;
+> +	case CHECK_HUGE_SHMEM:
+> +		return file & swapbacked;
+> +	}
+>
+> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> +	return false;
+>  }
+>
+> -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> +			 uint64_t hpage_size, enum check_huge_type type)
+>  {
+> -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> +	bool ret = false;
+> +	int pagemap_fd, kpageflags_fd;
+> +	int nr_pmd_mappings = 0;
+> +	uint64_t pmd_pagesize, scan_mapping_size;
+> +	uint64_t categories, kpf;
+> +	unsigned long pfn;
+> +	bool check_pmd_mapping, allow_nonpresent;
+> +	char *start = addr;
+> +	char *end = start + len;
+>
+> +	pmd_pagesize = read_pmd_pagesize();
+>  	if (!pmd_pagesize)
+>  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>
+> -	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
+> +	check_pmd_mapping = (hpage_size == pmd_pagesize);
+> +	scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> +	/* Some mTHP tests check a partially populated PMD-sized range. */
+> +	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+>
+> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> +	if (pagemap_fd < 0)
+> +		ksft_exit_fail_msg("open pagemap fail\n");
+> +
+> +	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> +	if (kpageflags_fd < 0) {
+> +		close(pagemap_fd);
+> +		ksft_exit_fail_msg("open kpageflags fail\n");
+> +	}
+> +
+> +	if (!check_pmd_mapping &&
+> +	    !check_large_folios(pagemap_fd, kpageflags_fd,
+> +				addr, len, nr_hpages, hpage_size))
+> +		goto out;
+> +
+> +	for (; start < end; start += scan_mapping_size) {
+> +		categories = pagemap_scan_get_categories(pagemap_fd, start);
+> +		pfn = pagemap_get_pfn(pagemap_fd, start);
+> +		if (pfn == -1UL) {
+> +			if (!allow_nonpresent)
+> +				goto out;
+> +			else
+> +				continue;
+> +		}
+> +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
+> +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
+> +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
+> +			nr_pmd_mappings++;
+> +		if (kpf & KPF_COMPOUND_TAIL)
+> +			continue;
+> +		if (!check_huge_type(categories, kpf, type))
+> +			goto out;
+> +	}
+> +
+> +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
+> +		goto out;
+> +	ret = true;
+> +
+> +out:
+> +	close(pagemap_fd);
+> +	close(kpageflags_fd);
+> +	return ret;
+>  }
+>
+> -bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+>  {
+> -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> -
+> -	if (!pmd_pagesize)
+> -		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> +	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_ANON);
+> +}
+>
+> -	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "ShmemPmdMapped:", nr_hpages, hpage_size);
+> +bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +{
+> +	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
+> +}
+>
+> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> +bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +{
+> +	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_SHMEM);
+>  }
+>
+>  int64_t allocate_transhuge(void *ptr, int pagemap_fd)
+> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
+> index 9a49af88702e..f19bd17817e5 100644
+> --- a/tools/testing/selftests/mm/vm_util.h
+> +++ b/tools/testing/selftests/mm/vm_util.h
+> @@ -18,6 +18,7 @@
+>  #define PM_SWAP                       BIT_ULL(62)
+>  #define PM_PRESENT                    BIT_ULL(63)
+>
+> +#define KPF_SWAPBACKED                BIT_ULL(14)
+>  #define KPF_COMPOUND_HEAD             BIT_ULL(15)
+>  #define KPF_COMPOUND_TAIL             BIT_ULL(16)
+>  #define KPF_HWPOISON                  BIT_ULL(19)
+>
+> --
+> 2.43.0
+>
+
+--
+Cheers, Lorenzo
