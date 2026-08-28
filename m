@@ -1,87 +1,60 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BA73DAADD
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C4A41D4EF;
+	Fri, 28 Aug 2026 11:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916800; cv=none; b=nZzVbWbJBowCt4MZqPPY6cgGPAF3HPp8J9Qz2iDMXfeJsLYzh8Nt+gaycBQHNegUNly5NIJJvFJ/79Q+ERpXsJlAVZfq3QBXLiAidD2w0JBp4pSWOaapIYA7e0SBGDJg847M+EB0gBgLBS8CF26ZETlmRCMSqoG5NzQ9jI3N4iE=
+	t=1787916820; cv=none; b=nrcAWQG/tuqLdKMswjQetlI/4KVl38j/kiztJ0eOErYZuJqAV0sUhVufQuhjjL3eUrxOoFWm18ATP4MegwDShZoDO/s2mz8wgSrU4NTSjgYezhO459l7D1skR+BTyyPuq6D4qrElSSDZpYWXl2eD7ddx7G3F83VZBb9vwIVDgy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916800; c=relaxed/simple;
-	bh=lxN9VsKxnMk9Ca2mxV7LEwYa0CIq7CinuVnZKRXFfis=;
+	s=arc-20240116; t=1787916820; c=relaxed/simple;
+	bh=2bDZ3MX6oPJFf5EjMRs5aw3FB0QnLWKTIzuewYeNG98=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KtvjQO+laAbchHP1i0Vp1mlZGxyf3qT1DHDCned2EjnR4l1KZ8Efq8ynbt9YmOMHRizcKCARke7vJJ1zWUKx+lippYvwBDLwwhNGkHr45FT+5TfmfpnUm4g7z37eOV5GjhNl5TaJh/yBlfxhoO+N7GO2ZAd8AxUoatNXpFq2oDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lfq3xTB+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RQPxRswk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=A3+KVI/99k3YC14W6fIFIMTxt6ocf59VM+i3lu+rHTXNZwXtRNJjk5+Lmaw63Wj1gpM48411MRUew0mEifywTzOshlZeTFjPueYs3kYq+9Pqi6sVPhJvgYQwejkKsicZcsccoTwbS6PLWRhIkoesMprkeAtnfhs3YM1TxC9rFZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=l0YoKKAb; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lfq3xTB+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RQPxRswk"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SA7Nkk2167694
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:33:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5AhiuAVIZ1+LG5oeQ6rnK/3zmSX0mgVXYXhfcI3yIwU=; b=lfq3xTB+qsdgCgZ4
-	09AP4rZRC3qQREgcTruuqcIVn/oJry+e8snFr9Tw4ip5V4hPe2GQLDMoLUPrhzH5
-	mpGsra6uyRzcJWgzmprLiNI3g4QurMhEc53Q2natH9gScEzSSsNxgS7UJ6zjC0ja
-	v0E3+pv3PjjoJcNxXuKjb/541OTaqpAMSy/JnvyI23AvXgf3RmidrreCSUvbMubM
-	UWUvSUcaKnzHW1x+4Ifi83e2kJaN+LKrsmkRAYklXXAOrFdtDlae7e7m3OFqPJtX
-	O7V11LrWcQGMf1YjzYcV9uVP52jZQ3r2SfiaVIbCo7NRf2IH0YhPbk/3R+YfM8qW
-	ZtMrDQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb6h00sh1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:33:18 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-385d2703b64so2573166a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:33:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787916798; x=1788521598; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5AhiuAVIZ1+LG5oeQ6rnK/3zmSX0mgVXYXhfcI3yIwU=;
-        b=RQPxRswktkHJih+E6eA+WUvIo1OJgLtdosC5/GmH6jfjZ24WM+I3b1pdAXEocM8x1j
-         LYnYmiwWAda+d/GM41vKQq7jO3AB0MWPBThCFLGtqC0sGk8mMQ4girzAzMEdUiTF1Hjz
-         7PG7GCmS8qwc7N7mbF1mW7hmtUddPJpd6jTf2Y21KTdQg1bFPUVX9tlbFRUOXpE4X9Qj
-         iy+aER2C0JZyDOEpzsbCr8A1zF3C1vldWnmZaFVPGC+afeFkyxt5HlwcHq64n9ePm0sw
-         7FzHZ78RzrJ5r/Dui0neZxfqGN+5r7y+N01RERqRlt4nb/mQOGFwmutKwZ9ag8RfU5NR
-         /UxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787916798; x=1788521598;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5AhiuAVIZ1+LG5oeQ6rnK/3zmSX0mgVXYXhfcI3yIwU=;
-        b=ahFBmUjlcuegNOFTFY2zyqtd5D8sxmRZaAyJqH8dNa0pdoZUumPCNPmX3z3bbZHLMg
-         uLXwGZK6sx/EDAjlqJDy+NmhrQkjtEPcpqvQe8RLUlxcNmFve+HHYJzuiVcM38EwAXvT
-         4UN8byRjghjbWVk86iien7CsOdBDRiDyTfMmM9/jDiG7VDWCIPSjfP4NQVNahNL+xTMD
-         K1hC6dSFZ/SpVF2t+owiOMV9B0YUxjXgCY9tXO1KF3YqnNbkuN5fxj9bIwE8TuKPgDab
-         kWPG/dfU0bZUvfTUzpRuFIB+P91PaetQUriY/M7+VhwXBkbjSRb1zZGF7Fl45Xjxjc4e
-         gt1g==
-X-Forwarded-Encrypted: i=1; AHgh+RoVzmptOyWrCnEesUr+X0uDcgyYkkh7Vw7wQbLcfboNNciXezuqkjU9IKW4+0g4rLLjyn/i4GqgDzCTKdw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly1cJpMDyLAuRWvan9YSqEy+P5dbgV0ZmFWydt9cFdFqjfd66E
-	GdeoWB347D1GApFNsrjWsTuE7V8fE9YV85R1My1QFI7sdlOZ2FHoNH3UaEFgjmxwynRUZw70uMq
-	MDK1eMXzHYM+XOQHCT1SDNwgSTiHISU7vVnat2zttXpP20yM8EWMBoKUbvraY1ovifgk=
-X-Gm-Gg: AR+sD11UlSORB2duZUH+ouBMY3Sc3Dj0O9s8rjmiWIacvKB8vWnXLqm6DpRV9kisAHf
-	/kwM1Gd1Br5Bm0L2uCdsJUeeYNFhEbJCyVuIrIRRi2agJWXKVFIxxdl+0N9O7OC27/4gsnvUsML
-	VhgHcv1gC11esqqx46tCIZtRZrWSIDJbNXHdlCbwuaNAkig5d+5I6ArNOfZ5n3jLibDxAmKmnVE
-	IrI3T+cvo8KHcP/5AdgonlRudjC3KX16HlFjBHqWDk1Jc7RUTSqyS69M/BmmU/7bpXdBsUl8odl
-	xBN9l+jpOwY7eCJ7uiCvPVmIuZ0fmOMCfd9neRMOdrBX13ylvPmdnzEnybqiSwamTbG9PGfrzN6
-	hRf6zF0Xxs8suHEwjjmudaoSRIlMnQCMTOiNq5Th2Nkrca1Amqthd+U3QIMi+nQRQ8sf46zE=
-X-Received: by 2002:a17:90b:4486:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-396d0a46cfemr6594505a91.0.1787916797391;
-        Fri, 28 Aug 2026 04:33:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:4486:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-396d0a46cfemr6594460a91.0.1787916796889;
-        Fri, 28 Aug 2026 04:33:16 -0700 (PDT)
-Received: from [10.133.33.99] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc07777sm2431868a91.12.2026.08.28.04.33.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 04:33:16 -0700 (PDT)
-Message-ID: <014e71c4-dfc6-4085-ac71-3e7ac01f160b@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 19:33:12 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="l0YoKKAb"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SAVmwu1704066;
+	Fri, 28 Aug 2026 11:33:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=HW7sb/
+	7oanRPuVwIlGBkZrh9sLFqrsEdke2Aa0y/YX8=; b=l0YoKKAbr/Ap+cAf6Yhyv9
+	smVPQnWLligcI2Y32B68slEgDzhK9H+sXXLAqTUCVql0RsOs/4HCd7v43KMmHaAE
+	QWbr/igD7MIEBJqIX2UdCO9Oidsrnkzw7mJ1/ZiZJ4/+obJSDhB6zMSbaF/2EgXD
+	VsfLA5KmAdEx9DY6cGLYM3b9+xdKekfkOd40Y8VVgCqRn8jG/EUQLVDgXxbCoBfb
+	8aEU7PDy9nLNFSG3WfCz9iXyGGSZW959fbsrk+Dh5DCnTlCTfN/p5kip0SHWX3xA
+	F23exVZ9N6iU+OfNep2uJueD/wPSrU4fYjWjnSkfHGEOAH56lUAz0fUzqZ6bTYGg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g7394kugg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 11:33:07 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SBQLgt022806;
+	Fri, 28 Aug 2026 11:33:06 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkhnsy5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 11:33:06 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SBX1Bt29557076
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 28 Aug 2026 11:33:02 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D314120043;
+	Fri, 28 Aug 2026 11:33:01 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F33752004B;
+	Fri, 28 Aug 2026 11:33:00 +0000 (GMT)
+Received: from [9.87.143.119] (unknown [9.87.143.119])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 28 Aug 2026 11:33:00 +0000 (GMT)
+Message-ID: <a90009dd-d4eb-427d-b23c-23bcc19af478@linux.ibm.com>
+Date: Fri, 28 Aug 2026 13:33:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,103 +62,147 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: sparc-us2e: fix frequency table index copy-paste
- error
-To: Xueqin Luo <luoxueqin@kylinos.cn>, rafael@kernel.org,
-        viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        zhongqiu.han@oss.qualcomm.com
-References: <20260828075649.2728795-1-luoxueqin@kylinos.cn>
+Subject: Re: [PATCH v6 28/33] KVM: s390: Add basic arm64 kvm module
+To: Steffen Eiden <seiden@linux.ibm.com>, kvm@vger.kernel.org,
+        kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter
+ <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik
+ <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+References: <20260812153631.3376090-1-seiden@linux.ibm.com>
+ <20260812153631.3376090-29-seiden@linux.ibm.com>
 Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260828075649.2728795-1-luoxueqin@kylinos.cn>
+From: Janosch Frank <frankja@linux.ibm.com>
+Autocrypt: addr=frankja@linux.ibm.com; keydata=
+ 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
+In-Reply-To: <20260812153631.3376090-29-seiden@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 97z3Q9Wc_kFWytVf7PQxTAM-PMJGA8uq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfX50xqUPISJuMG
- /MrC+htaXnG9eFR2RWAxEVNSy5uQ85XMNLklwsOPre9txcfQWNcNOEG2LS6njcYD8uD1E3+xvgY
- dNR1OmxClcsPwnnHQjiStxlaATAKoqk=
-X-Authority-Analysis: v=2.4 cv=KPpqylFo c=1 sm=1 tr=0 ts=6a9171fe cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=A9UGcEbXNFXwkxVidG0A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: 97z3Q9Wc_kFWytVf7PQxTAM-PMJGA8uq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfX9nAIcWqt9ABz
- WvPHQbQJxPbbRk+9rD7Q366Ocwz8l3yaJqfzsPjin7w437oqbPcuQkxJ8a/cihcwE9PiGpUnUTs
- YYhKdF9mx+3i5XVUje36SsZ4evKsPGWg5AJjoUei8WsygbrRE9XRv8c8EO48/8qYeQtOL5bniGM
- O/omm+AQFNPrws4eml+vjZVZHcoU9ivbfQkImbKDieCSC0G/uOCI5PPoVKE5S5r8gPEMXK4aXxA
- L+QWgC5hOGb/DF1gn7P0mkSALsRoxvNYkLLP7N0xLfjyQdIJyL8XEH+FhY6M+xjCdUvH0+WBhJd
- iL585EFvYB2d4DuqqlhI/MxlI/T+ATPyqtt/VWpLHS+hC/kqRFDvUKSNPUJpNfILjIKl7gQ3kGq
- 6Qo8nLnkb8Ee2ozN0ppiuupLdjZ3smRBVgVDVwY5PLT65lbewrVgwDH9aq35T+ICxa4n1EFZ6cN
- ALTNoUyFIdZuUUY9txA==
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Fl05lT8lTvl5jjInMeYPBy931060VZS6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfX7ODFUaxZ7KN2
+ e8roJ4MAp6NqgL1RegqaHdf+JIU0iWlsvWW0gFFplpYO1cnKaDb3ofp+XBA74jxMWFKKH/SI40R
+ sRtjbA3VOsSqJQfSb6+sHr7XNWkh4Z2sB+Rw2SLL4g5ot7DYFKAjziBnq2adNPGUjpSJNZyx7so
+ A1b108JCMMdOCXHIvh99xp18x1f85gYetzNPMgWCE/x7GlBIOmTcp0O13Q96nxFiNUKMOlxLfAr
+ V2CGOYLi9FYXCglEE6gAnscM88SgYcc1+Kfz2JdcCqXI8q/pWGtT4d9ehc71tz1qOMwGfSQCUpZ
+ hMFB6jIM+mgIREMZUt11+Gt5h1ci4VOoV7fmj+YR2hedo7qxWmVkefJvo9RAuhdPNQSsAkAviT+
+ j7ePHoivYSmURHV0//YrOBa7c/xl4HVozFvwD/wLiTQ05s8Styl8RUAiwsZQ0WXhceKD5wmsCvt
+ t0q56NZvoZcCLEovEaQ==
+X-Authority-Analysis: v=2.4 cv=Y/nIdBeN c=1 sm=1 tr=0 ts=6a9171f4 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=AQcYv4YVjL3v3HVgylcA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA5OSBTYWx0ZWRfXzQxal/zBR3Yd
+ zl2Qn2cyGSuuf9qjXgpjVsUpOeRIrCc/5+BFZ3f9eF+/74Uc27gEoacOdqVNcjDhvWgAHtl53Vc
+ JJwrzbRUYZDUEjgrnbZcbNlUHja3Dws=
+X-Proofpoint-ORIG-GUID: sWyJWYvi76vIYt1-afjYNcx20P2NljP7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608280099
+ spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 clxscore=1011 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280099
 
-On 8/28/2026 3:56 PM, Xueqin Luo wrote:
-> In us2e_freq_cpu_init(), the last three writes to the frequency table
-> all use index [2] instead of [2], [3], [4] respectively.  This is a
-
-Nit: Should it be that "the last two frequency writes both use index
-[2] instead of [3] and [4] respectively, and the terminator uses [3]
-instead of [5]." ?
-
-
-> copy-paste error where the index was not incremented, causing the
-> divider-6 and divider-8 entries to overwrite the already-written
-> divider-4 entry.
+On 8/12/26 5:36 PM, Steffen Eiden wrote:
+> Add basic code for the new arm64 on s390 KVM implementation.
+> Add kernel module boilerplate code and trivial functions.
+> Add tracing scaffolding.
 > 
-> As a result, only three frequency steps (div 1, 2, and 8) are actually
-> available to the cpufreq core, while the intended dividers 4 and 6 are
-
-If the core passes the array index (2) to ->target_index(), and
-index_to_divisor(2) is 4. so the real available div is 1,2,4?
-
-
-> silently lost.  The struct us2e_freq_percpu_info::table[6] has room for
-> 5 entries plus a terminator, matching the 5 hardware dividers.
-> 
-> Fix the indices so all five frequency steps are correctly populated:
-> table[0]=div1, table[1]=div2, table[2]=div4, table[3]=div6,
-> table[4]=div8, table[5]=TABLE_END.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 > ---
->   drivers/cpufreq/sparc-us2e-cpufreq.c | 11 +++++------
->   1 file changed, 5 insertions(+), 6 deletions(-)
+>   arch/s390/kvm/arm64/arm.c   | 157 ++++++++++++++++++++++++++++++++++++
+>   arch/s390/kvm/arm64/arm.h   |   7 ++
+>   arch/s390/kvm/arm64/guest.c |  92 +++++++++++++++++++++
+>   arch/s390/kvm/arm64/trace.h |  18 +++++
+>   4 files changed, 274 insertions(+)
+>   create mode 100644 arch/s390/kvm/arm64/arm.c
+>   create mode 100644 arch/s390/kvm/arm64/arm.h
+>   create mode 100644 arch/s390/kvm/arm64/guest.c
+>   create mode 100644 arch/s390/kvm/arm64/trace.h
 > 
-> diff --git a/drivers/cpufreq/sparc-us2e-cpufreq.c b/drivers/cpufreq/sparc-us2e-cpufreq.c
-> index a68706406b88..5cda391ad03b 100644
-> --- a/drivers/cpufreq/sparc-us2e-cpufreq.c
-> +++ b/drivers/cpufreq/sparc-us2e-cpufreq.c
-> @@ -282,12 +282,11 @@ static int us2e_freq_cpu_init(struct cpufreq_policy *policy)
->   	table[1].frequency = clock_tick / 2;
->   	table[2].driver_data = 2;
->   	table[2].frequency = clock_tick / 4;
-> -	table[2].driver_data = 3;
-> -	table[2].frequency = clock_tick / 6;
-> -	table[2].driver_data = 4;
-> -	table[2].frequency = clock_tick / 8;
-> -	table[2].driver_data = 5;
-> -	table[3].frequency = CPUFREQ_TABLE_END;
-> +	table[3].driver_data = 3;
-> +	table[3].frequency = clock_tick / 6;
-> +	table[4].driver_data = 4;
-> +	table[4].frequency = clock_tick / 8;
-> +	table[5].frequency = CPUFREQ_TABLE_END;
->   
->   	policy->cpuinfo.transition_latency = 0;
->   	policy->cur = clock_tick;
+> diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
+> new file mode 100644
+> index 000000000000..8e17b7eef813
+> --- /dev/null
+> +++ b/arch/s390/kvm/arm64/arm.c
+> @@ -0,0 +1,157 @@
 
+[...]
 
--- 
-Thx and BRs,
-Zhongqiu Han
+> +
+> +static u64 kvm_max_guest_address(void)
+> +{
+> +	u64 max_addr;
+> +
+> +	if (sclp.hamax == U64_MAX)
+> +		max_addr = TASK_SIZE_MAX;
+> +	else
+> +		max_addr = min_t(u64, TASK_SIZE_MAX, sclp.hamax);
+> +	return ALIGN_DOWN(max_addr + 1, 1 << 30) - 1;
+> +}
+We're sure that the MSLA + 1 - MSOA > MGPAS check aka VIR code 4 will 
+never bite us? Or will you touch this up with the qmc support?
