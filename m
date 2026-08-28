@@ -1,131 +1,133 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C243D3001;
-	Fri, 28 Aug 2026 06:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF633CF694
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899339; cv=none; b=a3gDqKALJISa1lK2K8DgxGTTTLxIpdezFHecYHfRVvimgrKDrYp8+xBRc5mWBHicWLxL/G1gy79bjR/r33h2d0Zm9wOr16OzX4ZX47Vy8hHvCFt5KmmYiRmLuGOD+d3lzDI3UV+ISOkeUFDWonDdqzp4eDVDWN3D/IV693WEmA4=
+	t=1787899348; cv=none; b=TznjxGyiCHWXJyvAAMv13J9LtNDlTKCl4gJurV6MGLu3iDTBwJkPptap2wfsfy3b+b3PSK5edxRys9qJJKPAm35dtdrU3JfAToKzJFkHSKnLPStT80DRd8Cp+Fvwmr99GI+/eE1FPzYn1QtEqTKkh1OR5CywZ3sLZnH6WtzicyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899339; c=relaxed/simple;
-	bh=LI02XVFVLVkXv2S4NYk+DI6JhmW6+be1mrRG1BV72go=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J6SCn4JePrsvb2c2HVUu/6oSA3lyMt4fcUZjA6vAQAf/gi0ZjdqED8fgk83tKG+aQoTaae4kCvb4y2G2YOQq4qg/mkQgF4JNJZzV4J/do3/3z+L+2hMBz60arVoASVgrjsFH8ArA3uMiSFE37s6KSKKx8LN12P2vIW5nOTmLWOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=uHAaL6rS; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1787899348; c=relaxed/simple;
+	bh=pN6HPYj8rgpgCZ536OcBznzjQHlM6JH7IBNXpCmtsPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ETjKVmBL+WbfHNsN8jr6fwNKUI0gow5O3CVR4jaVRf5FaYtJN32dxcM8/MHocPE+QY5u0NPOWLg11keSwJsPU2zAJaQQ7MpkkHZDMQejpjcWCiqn8QjY3mepUJYJ6u4O1m7FWPQiQcF4hS8aP16VQm/wh8HWhKWKaf6es9JP4W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zy2ZoHmE; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="uHAaL6rS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=vqMgWeHyP43n2ArwX8ag/saIUIamTcqMbAfO2NpQvk0=; b=uHAaL6rStjzlP8Qf+eUXwc5a+c
-	/M5aTU1sibQVjIGLV0SMEWthaSA2n6d8A6R0HAYDTU0MeBU9Kr6u9Z2rrMfAXCpOJz88jj8NcQ3d0
-	U10vQZ/ELZ1zXVIWGokhdLVUsPVsKd9HQVKLs8JQiwkWmTsKIfSS48edLj7qz9llCeZv1QXpmAY/C
-	EdVqmqwq9QBqSiPFkUy61sYWte57mkmMHy6BdNoS2yY5zV4b9HcnMOeV6NusghQQBPHSYFncYd66Q
-	2/bmox0jVPyJk6URBHMJ3yBiIFcGTsN00g293lf547ygG1louns9pk7BTQcobh95+v1/wda441wBO
-	XK0H2Gdg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wzqHy-0000000EAxw-2zt4;
-	Fri, 28 Aug 2026 06:42:11 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6CED53006FA; Fri, 28 Aug 2026 08:42:09 +0200 (CEST)
-Date: Fri, 28 Aug 2026 08:42:09 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-Message-ID: <20260828064209.GF4121339@noisy.programming.kicks-ass.net>
-References: <aozw_7Txxaq2qE7c@tardis.local>
- <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local>
- <87v78wezid.ffs@fw13>
- <apA4M7Asz0mV9uaw@tardis.local>
- <87jypbfu1t.ffs@fw13>
- <apBrZuxU8bmCgG8h@tardis.local>
- <87bjanfmzz.ffs@fw13>
- <apCS3T63WUxHd1GH@tardis.local>
- <87wltbdvmd.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zy2ZoHmE"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f502ff678so72076f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:42:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787899343; x=1788504143; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ktRMVezOHSXu+KrKQhXPWvOXAM5roEQ780FkS0ZUNoU=;
+        b=Zy2ZoHmE9bPRGgA/zVEbKE0zeNGvMe7s6MV7AMBmLYGSgaoPj999n5fciHkQDjdL2o
+         bgy7VsgfpZRTxw+uRdH9eSBSSTvY/b9sSgxz5k3b3VEp7rzIx/e+/TjhVg/5Qlu4iUdN
+         eRim4rwmkT+oS1y3a8pObamAU99gMIMKOumkd80awTLiI19ZcBvqyWffqfGoEgPIjqRN
+         IExDlTlcrgThnFWcjrMhHs8HF7DbLevnd5D1tnMmqgoUpNP1O/BjwezBErCW7RfF3EpT
+         6FLBzRl8q996yngtcydnYSfQg+n9FNCQOMesffC4Cq4u6W0yVT3Uls4dpJ+Pax7PIaTS
+         OIQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787899343; x=1788504143;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ktRMVezOHSXu+KrKQhXPWvOXAM5roEQ780FkS0ZUNoU=;
+        b=PSV1p1OJEtnt+ymBuDAMxOcxtUjzHNnV5lFSI1BrxYyCjdifyE6N8ByHpUIoyns210
+         v3uF7maoQZPKj2S1iKvoWVqFaVrTD33quSNAf3idK/9BlAp2hW6Ap/zhikWbew8g6i5h
+         8Zk51hg/IXTFZdwaIcNaIiBotlfk+udXLi90Pdlb90i1ZzwNYLJIrKSFcM33fr8+GyU8
+         UgTUVJj5+t1tTD5s2pgWdlKmkR06zT6be2poxogpTDEGJUtGD3AV7nQZHGP5eukDTak0
+         //9byAVUfdIU9+/Txw2TNJgdXrN+iK9Rd+iP+xE1s/SXcVpcsCNlQKc7257z+7N6jTnG
+         QuQQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqRo1CdcqMEocaOGeHo0bg8Y145DgA7bs6Nj1OuA/T52evuCg5z8lmViN4/MA7SJ+4Xz6YkTn3NKOYfUSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKfQiECCyJXJ7HU9apzXO22vzq7nTCDZcFewULiFVtPm6N240R
+	Hn7LlR8lu7b9Rm2Ax309suupAB/DfmM8WwSIfs51fplFyfCf3VU8ANUT7IV7/M5qTUE=
+X-Gm-Gg: AR+sD12bj4xBXL7l6dV8g3fFKAn8BJ5PO7YuTak2a5rXc4XRGwX+2J/Kqwu6+bYVKkR
+	BivO45Q0RN9/B8H7FngsjVtGGDlOHzk0D8cPHqpAYTO8qZyjBcmXMmE0ryOrDRNYj4gWe77ckjI
+	ODc6gU9mc7uL0WgWOm+ze8wmjg1TZ6ivGwXdTV29VAJ/ty69XNOIXHWcn0AzxnSjkmkRANQERvT
+	fNPKBvVf4fVZy55boN+j9bAMUFLm9H3apUGWENaqJKpHQVdQZtG+acIesUA34pH97RLP1tgFk0s
+	Rws8SLCzvLPRkJDMGZKOwhaEnCchgC7a7qY6/eUqIYf91HV5K8s7vGbGX9nRmzWD3kEC0Ws6gDl
+	yP/naQiWcyS96dlQNqpeQeU6m4hJLQK1vs7o8H6TcVz0v19Xq1Ogg9JESiZ1PjeUGNWXKmGergo
+	N5IsHNAfmkEY7b9BrLP+3/+6ZCz7KYNekn1raDLBZlvA5b75dqj68+EvVwNMM1myaEFG49Xt6bs
+	a5hsbTqGDm/TA==
+X-Received: by 2002:a05:600c:3103:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49b91c39a77mr31949355e9.1.1787899343257;
+        Thu, 27 Aug 2026 23:42:23 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm33472195e9.8.2026.08.27.23.42.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 23:42:22 -0700 (PDT)
+From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	lvc-project@linuxtesting.org,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Andrey Gusakov <andrey.gusakov@cogentembedded.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Archit Taneja <architt@codeaurora.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: tc358767: prevent overflow in PLL calculation
+Date: Fri, 28 Aug 2026 09:42:09 +0300
+Message-ID: <20260828064209.4314-1-dokunevdmitriy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87wltbdvmd.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 12:52:26AM +0200, Thomas Gleixner wrote:
+In the tc_pxl_pll_calc() function, the expression `pixelclock *
+ext_div[i_pre] * ext_div[i_post] * div` is calculated using
+32‑bit arithmetic, since all operands are of type u32 or int.
 
-> --- a/include/linux/irq-entry-common.h
-> +++ b/include/linux/irq-entry-common.h
-> @@ -97,6 +97,7 @@ static __always_inline bool arch_in_rcu_
->   */
->  static __always_inline void enter_from_user_mode(struct pt_regs *regs)
->  {
-> +	__preempt_count_inc_hardirqs_disable();
->  	arch_enter_from_user_mode(regs);
->  	lockdep_hardirqs_off(CALLER_ADDR0);
->  
-> @@ -275,6 +276,7 @@ static __always_inline void exit_to_user
->  	user_enter_irqoff();
->  	arch_exit_to_user_mode();
->  	lockdep_hardirqs_on(CALLER_ADDR0);
-> +	__preempt_count_dec_hardirqs_disable();
->  }
->  
->  /**
-> @@ -385,6 +387,8 @@ static __always_inline irqentry_state_t
->  		.exit_rcu = false,
->  	};
->  
-> +	__preempt_count_inc_hardirqs_disable();
-> +
->  	/*
->  	 * If this entry hit the idle task invoke ct_irq_enter() whether
->  	 * RCU is watching or not.
-> @@ -498,6 +502,7 @@ irqentry_exit_to_kernel_mode_after_preem
->  			instrumentation_end();
->  			ct_irq_exit();
->  			lockdep_hardirqs_on(CALLER_ADDR0);
-> +			__preempt_count_dec_hardirqs_disable();
->  			return;
->  		}
->  
-> @@ -514,6 +519,7 @@ irqentry_exit_to_kernel_mode_after_preem
->  		if (state.exit_rcu)
->  			ct_irq_exit();
->  	}
-> +	__preempt_count_dec_hardirqs_disable();
->  }
->  
->  /**
+pixelclock takes the maximum value of 154 MHz (in accordance
+with tc_edp_mode_valid()), ext_div[...] takes the value 7, and
+div ranges from 1 to 16, inclusive. The maximum product
+(154,000,000 * 7 * 7 * 16) is approximately 1.2e11, which is much
+larger than UINT32_MAX, leading to an overflow and, as a result,
+to an incorrect value of the PLL multiplier.
 
-> --- a/kernel/entry/common.c
-> +++ b/kernel/entry/common.c
-> @@ -171,6 +171,7 @@ irqentry_state_t noinstr irqentry_nmi_en
->  {
->  	irqentry_state_t irq_state;
->  
-> +	__preempt_count_inc_hardirqs_disable();
->  	irq_state.lockdep = lockdep_hardirqs_enabled();
->  
->  	__nmi_enter();
-> @@ -202,4 +203,5 @@ void noinstr irqentry_nmi_exit(struct pt
->  	if (irq_state.lockdep)
->  		lockdep_hardirqs_on(CALLER_ADDR0);
->  	__nmi_exit();
-> +	__preempt_count_dec_hardirqs_disable();
->  }
+Fix this by casting `pixelclock` to `u64` before the multiplication,
+ensuring all arithmetic is performed in 64-bit precision.
 
-So I was thinking about this, and can't we get away with not doing this?
-That is, simply leave DISABLED_OFFSET set while in userspace?
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-We always exit to userspace with IRQs disabled, and every entry will
-disable them anyway, so they match up, might as well make use of that,
-no?
+Fixes: 7caff0fc4296 ("drm/bridge: tc358767: Add DPI to eDP bridge driver")
+Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+---
+ drivers/gpu/drm/bridge/tc358767.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
+index e3a57f8228da..39633f618664 100644
+--- a/drivers/gpu/drm/bridge/tc358767.c
++++ b/drivers/gpu/drm/bridge/tc358767.c
+@@ -640,7 +640,7 @@ static int tc_pxl_pll_calc(struct tc_data *tc, u32 refclk, u32 pixelclock,
+ 				if (iclk < 6000000 || iclk > 40000000)
+ 					continue;
+ 
+-				tmp = pixelclock * ext_div[i_pre] *
++				tmp = (u64)pixelclock * ext_div[i_pre] *
+ 				      ext_div[i_post] * div;
+ 				do_div(tmp, refclk);
+ 				mul = tmp;
+-- 
+2.53.0
+
