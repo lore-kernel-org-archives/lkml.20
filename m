@@ -1,121 +1,302 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECE844781B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72941449B3A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787919058; cv=none; b=BR8fuIBx5CIVVZO2s2ybPov6gM9Z2V3pwQ75RaWijo7/RWUUjNRJMxnphgdpAW5YX4YdWk4tMzu/fIfyrNKJTlZyNIQja4i/fKSV1BAaTEABoXuUJkM9N/5VUxHMJxwN10ViTufxVy+snQz2q36APcJDGbM85UZII1KxB+oVDc4=
+	t=1787919157; cv=none; b=lMjqvi/25G0e5yJkTzR755/9ulmpHxXO4na5YIMZ8iKA9VxSRK/u5V0zO54tL8hB+F8n/tSP5XEwMU8MELgF4gcnFHjNFPhR31xfTW7ykki6JTcYZZVicknelb1aJY7uHerszKXu3oo+n2CvAHdYOvzz7u7NAddPY5yd7+5O4zA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787919058; c=relaxed/simple;
-	bh=SQJ2DNwPG3iJstYPtil57ndkIx6hPCFJNfmHqteuqUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nw9/lCGhtlNg/mCGh0KvNLg7vadvDGNXLhfeOiz5V9+ahZiMvwWyg1/jg2KbELTAAB6h0yxjSxrDCOo4w2LfR9AOerPIf6jkrmY4eeqBZKNh/fRA/zo6JCOnIQ/X4jOeiXqPtI4xaht2BCPCPe4mkEgy4G+qAmk8LhkG6NtIsPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FP1EFk78; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FP1EFk78"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b966dd74so4834775e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:10:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787919047; x=1788523847; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l/wCsFq/Zorgy/BqKS/v6a3TdSdfv1vfVKndsRYo1PM=;
-        b=FP1EFk78/3Z51xmcrIHa6d71zY3OghizMWEa9k7TsNntDV/5NqAd0udNYAbxUhM6aE
-         R4NYRO0W2JrRtYcIJJjD6+QVtd6eF5mdGru7X07/M1OwYBPw2fuD+BHn11lGFbJ2kryh
-         lCt1lk5EJ+eDC2MOtyXIMBcZnYwg1aEfhiCR/ubUE+H7Pc+B924GfP7IwKDEs3lOmpzx
-         W/6MxYvWaOxw+Rx3bv/z40UrgMhM8wJ4XCrCVOyzqetbeqiKp7g1B97N7vbF4MWjL+87
-         lc5zDmSaFS2LtIBSTQTIFgmPHMH7sLdG1pA7mx/j6jLnnqDhEig8D1wZeb9TpvibTRUN
-         MC9w==
+	s=arc-20240116; t=1787919157; c=relaxed/simple;
+	bh=MsNZv5s/RwAZMU96Mx+TI/sfDCxgGCeCIyBQ2e8WTUs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rPEI+K6yaV5B8gITvQa6cMvwo5BJDdbv5+TTI6j+oXDguCf2LqoPWlWeTxM9HZWSZmwWqsS26G8QKJvjwhGcdHiWPABWZfCK7uRatRA4eQZt0DX7SQiMyRpqj+PiYGW0Sy/8y6lF6f0g5e24gyBCOMR9Pq3x9KWqJMaPjz7tLlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so1180881b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:12:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787919047; x=1788523847;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=l/wCsFq/Zorgy/BqKS/v6a3TdSdfv1vfVKndsRYo1PM=;
-        b=mr9CRn0raGwR29906BYY9BgBeV49Ya3SfV44Y4/atfuAHFgwemS+U0IYbTHMXwYuaI
-         guy1M1O3gjAuXMdY/8tlBBr/HjySWSS/InYrX9GurwCG61iOB9hfZSkkLkAUW993nO1L
-         xebCwqjabx5BrES0SY8M4IHmGmwAU6XKIbWtrdhmvFj0Fj/0HelLKGIkXDfGZLIMSlW6
-         e2pSyW75GQt/f705BqTR4v8o3Fo/7kYwvStGVYkziIGN3lg6Snz5eqeajCQIV/30iaqY
-         ZYxV6f2RuB5YhON9VYAsHU0wo6W6V6WZK8Jt9IgjpzO/lgOGX0acO2eUSyXu4+PDOJVY
-         6j/A==
-X-Forwarded-Encrypted: i=1; AHgh+RogvGqseE+ocB+cN8O4OBA2b0tLpv1RdYYF3lqYRBkAaB4eef1D9iy1DkVK3ywpwT3IIungsMXxS3VnP1A=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/7tyskqTm7uoVKQ0okrTCm0a+87tbmdPE0HCxkc6qOmu2i8f4
-	3tCYlA9iMWeh+7t38tzRhfUdXgXdlVPLy85N6tsPBqHk/1cGk4vH1/wL9fBkOmz4T/g=
-X-Gm-Gg: AR+sD114TYYQvfoogpxv5TpbYx2vQbmRC/5y3ffUUnwHxB0oUuSDePWSHA25NUE04vL
-	LcuhRbmA2DeYzh+MrwUneP99nYbXekO3udeON/F1iN33+lX5S7QCWtmyABJ1hPa6HJL7hCadGiV
-	mdv7v4n3/gwShTHpysOYX08cIfOoGLHhI517s0NV3obsaYDSt2Ra2BGQ3AiFIrAKG+IItRh9Nr2
-	Zoaviuyce6Pq8ziGho5C2tEqUc1+taU+kX7pphUn8fRkeZGM4n9csPlhcXftGmwCMyXzsCqwAdn
-	T1FdcOL82Jr3dkzozRz9QVISzCbmgyZqOUol64StQDqXbWsQXpM8ATYz376O6KVBXq9GXNvSzxT
-	McQ8EawtpfQcPt/qedJJczQZ2CkF9iXz2vb4wrJslWYxZsEWSKIOaTCqKPamUau3NOw+A76ue+F
-	/2/67m+Lm3FntVf8WcFFtIuAiQUo0A2Zjnb5rihVt0bpNAnvRRMbUezFAZRFsT2TkFG0gV3qBNg
-	grsATsB/JhhG4yDs7S0XhKvpEGCtWxYO9rRVrTqM6pkFWMCCixoWV3iC4HBJ+rvOKmmD8tUX4w6
-	JcsdL3H1beJQ/1T5sPxhdNfecykZ5K61x0lvtpZcRnoFow==
-X-Received: by 2002:a05:600c:4453:b0:499:8777:ccba with SMTP id 5b1f17b1804b1-49b91c486abmr84183025e9.12.1787919046770;
-        Fri, 28 Aug 2026 05:10:46 -0700 (PDT)
-Received: from [192.168.1.100] (2a02-842a-d52e-6101-6f8f-5617-c4b6-8627.rev.sfr.net. [2a02:842a:d52e:6101:6f8f:5617:c4b6:8627])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b494228bfsm125368175e9.2.2026.08.28.05.10.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 05:10:46 -0700 (PDT)
-From: Julien Stephan <jstephan@baylibre.com>
-Date: Fri, 28 Aug 2026 14:10:47 +0200
-Subject: [PATCH] drm/mediatek: mtk_hdmi_v2: fix VID_DOWNSAMPLE_CONFIG
- register offset
+        d=1e100.net; s=20251104; t=1787919145; x=1788523945;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=alQ8oeVWc2ZBL/pXzz6CDgP2XPI36xfWhQD0N0kqV/M=;
+        b=evufNLyMwPUPIiPw1C63JjKNHfE9gSi1FIK82lMAADJdo49G2tB97Ka8XPOaPLVJpb
+         CHvDas8xTOQwp8JfDITEjZSOZh3Y6gn+pJ5BLONamqX0SB72CgL6MYVeWwSvB/ohBHU9
+         CrNshuL4wtSfNB2BKAWPh6PpkU9HzEiqMdl2zos+hE7tOu2ejJSzLeKy5Wh6HBiFXXpg
+         o3rIYYBSYEE5PZftZr21Jm2JTt77EJ5at/um8cIQvLV+nJDtNtPIvaqQlN61rg+9s62K
+         dCUR1z4TiKSMTOog2OohqQ9X/lA2KHQAROvnklR6ZLYAbnlZFoTbVOjbFByGrbg2NvlU
+         xEYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqKejp4GxDCmKYDY6Em5gmM1lPbTQ/k1rectS3hPnJ1Xq1qQgcPqcjChnCuDVDB7vR9ol8nFHqOh4/e60U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQvjj1t8ys2fsTbxDacGVBj4gi8Bz1oQqt4hlrav5JSxx1Lc6M
+	pe/CdOmEe8fhOMQRXWl6Pi5V84yCp8+3NfaUhzurcGNz5SZuUPuAJKBWAt/2DOkjeAciokbtrcL
+	0uMDSTsEyJhpVnTdl2VKr6X/WiUa0fARIpiCYMFLMYzeZQmzcerJEubPzniQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-mtk-hdmi-v2-fix-register-offset-v1-1-118ad5d7ebe3@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNUQrCMBCE4auUfXahjaDRq4gPMZm0q7SV3ViE0
- rsb9fGD4Z+VDCowOjcrKRYxmaeKbtdQHMLUgyVVk2vdofXO81gePKRReHGc5c2KXqxAec7ZUNg
- fTyHHvY8hdVQrT0Wd/R4u17/tdbsjlm+Wtu0D+/pwJoMAAAA=
-X-Change-ID: 20260828-mtk-hdmi-v2-fix-register-offset-879afc38cad1
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
- CK Hu <ck.hu@mediatek.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tommy Chen <tommyyl.chen@mediatek.com>, 
- Julien Stephan <jstephan@baylibre.com>
-X-Mailer: b4 0.15.2
+X-Received: by 2002:a05:6808:4f51:b0:4b3:1a95:4160 with SMTP id
+ 5614622812f47-4b39830200emr6333465b6e.18.1787919144994; Fri, 28 Aug 2026
+ 05:12:24 -0700 (PDT)
+Date: Fri, 28 Aug 2026 05:12:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a917b28.4d659fcc.734b4.001e.GAE@google.com>
+Subject: [syzbot] [trace?] [block?] KASAN: slab-use-after-free Read in blk_log_remap
+From: syzbot <syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com>
+To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-According to the datasheet, VID_DOWNSAMPLE_CONFIG is at offset 0x8f0;
-0x8d0 is the VID_CSC_COEFF_0 register.
+Hello,
 
-Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
-Signed-off-by: Julien Stephan <jstephan@baylibre.com>
+syzbot found the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1070f625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=4dfd96209d744263a972
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10608c15580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in blk_log_remap+0x128/0x150 kernel/trace/blktrace.c:1635
+Read of size 8 at addr ffff888046c23000 by task syz-executor875/6044
+
+CPU: 1 UID: 0 PID: 6044 Comm: syz-executor875 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ blk_log_remap+0x128/0x150 kernel/trace/blktrace.c:1635
+ print_one_line+0x22f/0x430 kernel/trace/blktrace.c:1757
+ print_trace_fmt kernel/trace/trace.c:3071 [inline]
+ print_trace_line+0x97d/0x1790 kernel/trace/trace.c:3237
+ tracing_read_pipe+0x586/0xd60 kernel/trace/trace.c:5446
+ vfs_read+0x1e4/0xb40 fs/read_write.c:572
+ ksys_read+0x12a/0x250 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb70f890b9e
+Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
+RSP: 002b:00007fb70f8201a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+RAX: ffffffffffffffda RBX: 00007fb70f8216c0 RCX: 00007fb70f890b9e
+RDX: 0000000000001000 RSI: 00007fb70f820210 RDI: 0000000000000006
+RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
+R13: 0000000000000000 R14: 00007ffe57b20df0 R15: 00007ffe57b20ed8
+ </TASK>
+
+Allocated by task 5868:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4586 [inline]
+ slab_alloc_node mm/slub.c:4919 [inline]
+ kmem_cache_alloc_noprof+0x26b/0x6a0 mm/slub.c:4933
+ __kernfs_new_node+0xd2/0xa10 fs/kernfs/dir.c:665
+ kernfs_new_node+0x117/0x150 fs/kernfs/dir.c:751
+ __kernfs_create_file+0x53/0x350 fs/kernfs/file.c:1050
+ sysfs_add_file_mode_ns+0x207/0x3c0 fs/sysfs/file.c:316
+ create_files fs/sysfs/group.c:82 [inline]
+ internal_create_group+0x593/0xfb0 fs/sysfs/group.c:189
+ internal_create_groups+0x9d/0x150 fs/sysfs/group.c:229
+ device_add_groups drivers/base/core.c:2911 [inline]
+ device_add_attrs drivers/base/core.c:2975 [inline]
+ device_add+0x71a/0x1970 drivers/base/core.c:3715
+ netdev_register_kobject+0x1df/0x410 net/core/net-sysfs.c:2340
+ register_netdevice+0x15b6/0x25a0 net/core/dev.c:11503
+ xfrmi_create net/xfrm/xfrm_interface_core.c:252 [inline]
+ xfrmi_newlink+0x22e/0x560 net/xfrm/xfrm_interface_core.c:855
+ rtnl_newlink_create net/core/rtnetlink.c:3969 [inline]
+ __rtnl_newlink net/core/rtnetlink.c:4098 [inline]
+ rtnl_newlink+0x1697/0x2620 net/core/rtnetlink.c:4215
+ rtnetlink_rcv_msg+0x95e/0xe90 net/core/rtnetlink.c:7132
+ netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+ netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+ netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+ netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:815 [inline]
+ __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+ __do_sys_sendto net/socket.c:2288 [inline]
+ __se_sys_sendto net/socket.c:2284 [inline]
+ __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5124:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kmem_cache_free+0x127/0x6b0 mm/slub.c:6499
+ rcu_do_batch kernel/rcu/tree.c:2645 [inline]
+ rcu_core+0x5a2/0x10e0 kernel/rcu/tree.c:2897
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ do_softirq kernel/softirq.c:546 [inline]
+ do_softirq+0xaf/0xf0 kernel/softirq.c:533
+ __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ __alloc_skb+0x5db/0x710 net/core/skbuff.c:699
+ alloc_skb include/linux/skbuff.h:1384 [inline]
+ alloc_skb_with_frags+0xdd/0x760 net/core/skbuff.c:6775
+ sock_alloc_send_pskb+0x801/0x980 net/core/sock.c:3012
+ unix_dgram_sendmsg+0x3c7/0x1810 net/unix/af_unix.c:2144
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:815 [inline]
+ __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+ __do_sys_sendto net/socket.c:2288 [inline]
+ __se_sys_sendto net/socket.c:2284 [inline]
+ __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3159
+ kernfs_put.part.0+0x3a6/0xaa0 fs/kernfs/dir.c:618
+ kernfs_put fs/kernfs/dir.c:1787 [inline]
+ kernfs_remove_by_name_ns+0xf3/0x120 fs/kernfs/dir.c:1798
+ kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
+ remove_files+0x96/0x1c0 fs/sysfs/group.c:28
+ sysfs_remove_group+0x8b/0x1b0 fs/sysfs/group.c:328
+ sysfs_remove_groups fs/sysfs/group.c:352 [inline]
+ sysfs_remove_groups+0x60/0xb0 fs/sysfs/group.c:344
+ device_remove_groups drivers/base/core.c:2918 [inline]
+ device_remove_attrs+0x203/0x290 drivers/base/core.c:3054
+ device_del+0x36e/0x9b0 drivers/base/core.c:3964
+ unregister_netdevice_many_notify+0x1503/0x2150 net/core/dev.c:12551
+ ops_exit_rtnl_list net/core/net_namespace.c:188 [inline]
+ ops_undo_list+0x8ff/0xab0 net/core/net_namespace.c:249
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888046c23000
+ which belongs to the cache kernfs_node_cache of size 176
+The buggy address is located 0 bytes inside of
+ freed 176-byte region [ffff888046c23000, ffff888046c230b0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888046c23690 pfn:0x46c23
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff88801dede500 ffffea00011b07d0 ffffea00011b09d0
+raw: ffff888046c23690 0000000800110009 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5868, tgid 5868 (syz-executor), ts 72534727158
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ kmem_cache_alloc_noprof+0x46e/0x6a0 mm/slub.c:4933
+ __kernfs_new_node+0xd2/0xa10 fs/kernfs/dir.c:665
+ kernfs_new_node+0x117/0x150 fs/kernfs/dir.c:751
+ kernfs_create_link+0xcc/0x240 fs/kernfs/symlink.c:39
+ sysfs_do_create_link_sd+0x90/0x140 fs/sysfs/symlink.c:44
+ sysfs_do_create_link fs/sysfs/symlink.c:80 [inline]
+ sysfs_create_link+0x61/0xc0 fs/sysfs/symlink.c:92
+ netdev_adjacent_sysfs_add net/core/dev.c:8764 [inline]
+ __netdev_adjacent_dev_insert+0x819/0xbf0 net/core/dev.c:8820
+ __netdev_adjacent_dev_link_lists net/core/dev.c:8897 [inline]
+ __netdev_adjacent_dev_link_neighbour net/core/dev.c:8926 [inline]
+ __netdev_upper_dev_link+0x3d8/0x7e0 net/core/dev.c:8986
+ netdev_master_upper_dev_link+0x9f/0xd0 net/core/dev.c:9061
+ batadv_hardif_enable_interface+0x87c/0xf80 net/batman-adv/hard-interface.c:845
+page last free pid 5793 tgid 5793 ts 69952822053 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ free_pages_prepare+0x586/0xe00 mm/page_alloc.c:1463
+ __free_contig_range_common+0x14f/0x250 mm/page_alloc.c:7060
+ __free_contig_range mm/page_alloc.c:7105 [inline]
+ free_pages_bulk+0x12a/0x200 mm/page_alloc.c:5322
+ vm_area_free_pages+0xad/0x2b0 mm/vmalloc.c:3462
+ vfree mm/vmalloc.c:3511 [inline]
+ vfree+0x108/0x730 mm/vmalloc.c:3485
+ kcov_put kernel/kcov.c:447 [inline]
+ kcov_put kernel/kcov.c:443 [inline]
+ kcov_close+0x34/0x60 kernel/kcov.c:554
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ exit_task_work include/linux/task_work.h:40 [inline]
+ do_exit+0x951/0x2ae0 kernel/exit.c:1008
+ do_group_exit+0xd5/0x2a0 kernel/exit.c:1151
+ get_signal+0x1ec7/0x21e0 kernel/signal.c:3046
+ arch_do_signal_or_restart+0x91/0x7e0 arch/x86/kernel/signal.c:337
+ __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+ exit_to_user_mode_loop+0x139/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff888046c22f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff888046c22f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff888046c23000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                   ^
+ ffff888046c23080: fb fb fb fb fb fb fc fc fc fc fc fc fc fc fa fb
+ ffff888046c23100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
 ---
- drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h b/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h
-index 521b35c7e14d..bf3ebf5492d1 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_regs_v2.h
-@@ -173,7 +173,7 @@
- #define  TPI_AUDIO_LOOKUP_EN		BIT(2)
- 
- /* Video downsampling configuration */
--#define VID_DOWNSAMPLE_CONFIG		0x8d0
-+#define VID_DOWNSAMPLE_CONFIG		0x8f0
- #define  C444_C422_CONFIG_ENABLE	BIT(0)
- #define  C422_C420_CONFIG_ENABLE	BIT(4)
- #define  C422_C420_CONFIG_BYPASS	BIT(5)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
----
-base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
-change-id: 20260828-mtk-hdmi-v2-fix-register-offset-879afc38cad1
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Best regards,
---  
-Julien Stephan <jstephan@baylibre.com>
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
