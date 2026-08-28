@@ -1,176 +1,359 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013010.outbound.protection.outlook.com [40.93.196.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f225.google.com (mail-vk1-f225.google.com [209.85.221.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB0249620;
-	Fri, 28 Aug 2026 00:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787875377; cv=fail; b=TBLscNmF7DTEPgx71IoF376A/ci09QKiGSNzkcBpLAGB/477WlXptcmOclq9oop3iDuFXqVB0yMkmu95KA+ZFCapSj8SaGvcXL1VjWE4U4vQ+NLQHsJv45jIHiZkVdh4rLfQC4P714GdCTp3HdPezjcdAxvQIXIoUB+kAbOrV6Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787875377; c=relaxed/simple;
-	bh=SwQYFS+ZsnQhJVf6k8w+i88rzPB709pbNqdxy0UoP0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BnFJ62SV/T6DUznObocgsD2FHceff9dE8nMgX7DpdmHjx/ic+73FfRll5GTmVdUmafOOO0Fpy/16ab8pTIETS/aZrSBwuk6DxQQCtadg/ilZArP0RmunhQe+HyqlqW6OAgMW7SeoYVl1ymGkG4mV1UApfWDCFATMDgkhbXVaxFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qChbIXmN; arc=fail smtp.client-ip=40.93.196.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE7A1799F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.225
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787875490; cv=none; b=gWvNEjS9+QbpapM89HVobpiTSfz2Ci9vr6MhWPvKcRExn4xm0HQ+BVOLsEEZ/RAOAIBArBnYgioZEtmnxYUMVwdOxLLa3518ucYIhIgA8e9o0c1gQ4JOPqiArHGJixgh4QlYjHm2KwjaAghqYZsCSJ5RF3QvjkV1IS69lh1y6lQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787875490; c=relaxed/simple;
+	bh=1pYqiTxXm0+SMfKGAeRCczJxEocDl0Kf8x1xh/dgSpw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mhWi/xt0RjOhsD2xAuNOowqEZJ4Dqw1gL6Uqgqwkwo2xP2fMz9foaNqmMophT5I6EZY3wPvkepy4RZcarYQ0bahJ97jhEjm/uKsXaUmp5cfBxBeQVMof9CCj7i6JNkypD0+O4i+8AB5c4qeQAxvnHN+Bz1q3t1GRq24ZwMlkJZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ScU3Uou8; arc=none smtp.client-ip=209.85.221.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qChbIXmN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qoyd3lMONkWoe7FqrG3bKm3cy8qDNqur0V5ao98F0jjTmhoVdNgtsrrkYM91W2K3oTnLrn1Z+16YTxXai+Ivq2j1of7CEZysqVw8+uA8Feb+px60ULh67h54URukgZQOZouDmTr447pQ9AxQHzb2xEZjOt35EuRfEGvUSJxqqEKZJUt60E5eulLdAlcRFNyaTUCDdwF1vhYM3nVYA2G3w6FwfLlncw4xxe1d9+A8KZx0hh6U9PUU52cZOQammebShTpocB/q+2USsEGUM3gtjlcjMT/nE8hk7Q+mxTmbNPU+6ZalXCPlBMGOTIqWvul4aawuNWYg0Wa46PDXfEQh9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8n2XnZEXJ+Zx3fSe59Mfpk8b2gJC/sov33G6M/+4tfU=;
- b=dUQJYvu4TuqPSOnIjgJRZEbX6f+ydC3WoZMgobnUNm9wNot2gnJy6t0rmaNq+mFqA8SU6fpVBm12agL63NbSdrTATeRlLeg9MOa+iibByIxpt8O3oljDCvGLVGleJDUa2Tn9pp9XtAZ3+qk4KYDEdbRwwkkbuBbJr4fDIWznanx9a3VS5UAoE1QeSqL0rSI0Id3RQLz8U5wUGHeIOAEsNWfcFPYU0Kd25Xk59X2jJQVJuQOKj23MIV6EkXIBPugtLaPqUR+LZc2tGqUFLu6TgrJpNYyQkMTPvTKrAo/sTtkUlynDNMXdf8dE6tC+hKLB222dyV+UI/m+UzzuDX/v4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8n2XnZEXJ+Zx3fSe59Mfpk8b2gJC/sov33G6M/+4tfU=;
- b=qChbIXmN/0KtJ0256KfmPQQzEeZiETcoMsf1LVuzdESFEu6pCz8860rxkBSx0R6aD7nwHkuO3bT8kppURFrKjveBx1TyyK2QMRZMW9oOdBueSedpNn6AAV5c9isKdIfbDXuZxS1h4RLCiMKWL7ER0vCyPxvYwpMFD3JWN9R9kdUI25CUuEBeK41J/Y3Pft/tiEmGnHkYeC/IQrtvWKO7YyOpD5hoXDim94MYrJ+4PmHwb4WlAmLuhhWExuQpsT6Ha1Idp+ekwEz+DSHhuNGaVwzQMNTutxF5dzs5ccxC2tHt+V25A9ugovPwCuL8ut+WUrwmciFE6sUESJ4LhyeorA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by CY5PR12MB6453.namprd12.prod.outlook.com (2603:10b6:930:37::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 00:02:53 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 00:02:53 +0000
-Date: Thu, 27 Aug 2026 21:02:51 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org, vsethi@nvidia.com,
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v5 03/18] PCI: Propagate FLR return values to callers
-Message-ID: <20260828000251.GB3922654@nvidia.com>
-References: <cover.1783044582.git.nicolinc@nvidia.com>
- <b00acbe0755fa5999491368eaac26a78d522e2ed.1783044582.git.nicolinc@nvidia.com>
- <178786269177.3808739.6763094519382046767.b4-review@b4>
- <apCpkJaysSLVY4mr@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCpkJaysSLVY4mr@nvidia.com>
-X-ClientProxiedBy: YT4PR01CA0104.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::9) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ScU3Uou8"
+Received: by mail-vk1-f225.google.com with SMTP id 71dfb90a1353d-5bfc54558d5so311585e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:04:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787875488; x=1788480288;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Haz3HP/i3cNdz3Vr895i/KEiH89T/IdKaTxO0jkbgq8=;
+        b=K9vv6f2f4xl5MyRlUInyi2J0JENJTtkgZ4kokgRWmEhKmJn+ut/sP/uhOw4dD1KeVt
+         PNdfYitIyRqZ7CQXMIpFs7CQlq5qhtBSV6+09klOMXQ93ghw0eE3lT9vGwgr8IM3ge6L
+         3EDZRkMDbDjNf/NG0BfZsCp5CJ86olfx77vWZd7hmvnNQdtM7j9iE1Vfbt8Xe8pc6jVN
+         hVIRAF9kGwKigdpLChFxttOszcclDtz00s/CTY905PKGeSogGdi9DmE92V1MA9WBRKcl
+         32jjG4lbhlE7hSPyEiBxXUtDvBzqTNL5Ski2O7ZXVP8aL08cq2rulYmnzl6tD3jFkwsc
+         r4vQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpTkQOv41Po9sq8HrQ/7UxuB8VaL1WM5iaDOSkaFX0x53uTmVCrcnIm+xsx/XyaxalO2W/WVBJQlditF88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCMJGEgwg9POAgxJ3zSw36CZ+GNUOBSfg5yL92e5CuS93Z/ejG
+	sKd333FPBsxHy4gpHuY870NXE74TUh+iZ2HOadI1Oo3qcREopCuHVK12cvSpl/SJnNloMvfTG4R
+	BEbtO6+WKEo8jjvr0330wesTPeJ2IbvuV2CjwZZ8SqHdRVCgdzZOgum6OgvCyY1aLqKQ49xNRka
+	lEEcrP8eP5RdOlVJCJeZCUF7pegiNRvC+ufutWEYL45G5yG16lZmfsqvbED5MFyuWl8uinmJtbZ
+	BaumyFmcFGeX7jse15qR4ty+g==
+X-Gm-Gg: AR+sD10KDmRHpOTQ1goS0LRtvej5mu0m3GahHoL0LeZrPNJO+FwbcPZJNWibKd2M4nt
+	U4/71QuGUNMaNDOFKqI3I1uQllCY9Ubmf89KuKo3Amy81GB6uCrHRjFckvggItHb7iCfQSRGqp7
+	KPTOUrTBWLTasgvYxPgj+64i+z0t9DdOanq0b0Naa8fEbgGcRH5w7MLV2gEnUEZYfrUWfNK6ywV
+	a8XhQdxFEhChvyE8r/wTy+qY8wzR/J/gW0seM/avHZtcveF6SGcdJTfOZLAX810zu+n3OzkKEMz
+	hU3ziufKhAl5ZiGpWZ0Mt2PHMaqfeCt07Nt+uOMJoNkfLGRZHbPCuVVM1C4oslQpaqer0VN1F4K
+	HSlbejM5S581egnr8ipm+Np+P9nHWhWZoFp1qo/r8pZ0WwZpX0Kq24o+SfUUi7ZZihtjDz4fv5X
+	1oJHm84hKyWyH6ijHe4eHieVAvAtcb2h7bS0f6vi4=
+X-Received: by 2002:a05:6122:288d:b0:5bd:b0a7:47e7 with SMTP id 71dfb90a1353d-5c6807bc6d6mr865922e0c.3.1787875488068;
+        Thu, 27 Aug 2026 17:04:48 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
+        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c6f860eefbsm3551e0c.2.2026.08.27.17.04.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 27 Aug 2026 17:04:48 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a5d7e3ac13so266541a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:04:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1787875486; x=1788480286; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Haz3HP/i3cNdz3Vr895i/KEiH89T/IdKaTxO0jkbgq8=;
+        b=ScU3Uou8qRymlvf8zHOJnN9o8LgNFbKi8BulaWSj/M7X8/138cFr65aClHbUD0VDCq
+         GUFns7i934b1epmqOppC+P10RNQ19c+8msa2qwY8JBKlNFzRbV5B7zuia3TMppMpIFWN
+         dSRmkY0nePGXqkwWSTOGdI9t7m/jUaqmv7eEY=
+X-Forwarded-Encrypted: i=1; AHgh+Rq6TkNzYXNEE3PHZ4MkF0oXrC6HQG+x1VwPis/EP9HJ3WBCFaoGUMRhjFvnFNEkFERIA7UymGJENrRSyWw=@vger.kernel.org
+X-Received: by 2002:a05:6402:3223:b0:6a1:2efd:8687 with SMTP id 4fb4d7f45d1cf-6a60d3fb582mr1361121a12.14.1787875485725;
+        Thu, 27 Aug 2026 17:04:45 -0700 (PDT)
+X-Received: by 2002:a05:6402:3223:b0:6a1:2efd:8687 with SMTP id
+ 4fb4d7f45d1cf-6a60d3fb582mr1361098a12.14.1787875485255; Thu, 27 Aug 2026
+ 17:04:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CY5PR12MB6453:EE_
-X-MS-Office365-Filtering-Correlation-Id: 711d64dd-bfce-4548-b6c8-08df0497b4b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|6133799003|4143699003|22082099003|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	iOsoZq9KFUmS7nveY2nQJvR1mqACYVnK7v5bXINXu+j2uEqevGDhAm4+1x9lP7Cjj7jduvenNivbRXt1BKbFS2MWcpfSDwkv9M6mkYbLInwRk6wergSaeVsJO7C4mxOq6jyilcMHwzxp7yVobL9y2QRLBV/4audblUuYEZLyjbX7ugQc/M9uYDfiB42TgFqwoOq8oG3FvE3LiV99yqpTCwO2dFlIG9xf1m+F/TiGULr6AfVIPAoJHkKoPQscq4fPWSiiEeiC5KB4YlBoWmk2Bd3OVPK4AF3dB6wzNCcEe/DDN6ZWOyJgagP8DsMHWOF/A6UXJ+ZILI/D8gM24cQTBzVIL02Dj8G1yrF06jCFEgdboDS7owHx/8zzUvhRosoqcNLOfW1hl8YZzW4yMRszeTMRwZdKgeaLXJi9ewKkYTzD0/vwWCCacKMUxkIfamSDda5S56OhgJ/55lpVkcB7QhPO4fxvNlW/9VBDiWjP8QDHWwPLjbjpgC52LBB1HRggvMV8Ickj+2nPFhcgDmGmAfbmtmCalZ2j7aqgJBgrfxCBlgrz6OPEwZg8zZoxIJL0G0NZJ3wF6u/WwbBNZLgq2RKLLsao3fhDxGN4fMIuPdk374g/dNaGj9/Cig+BiQ5wXWPfrw4N4VLOcH7l4Q/kYvQF1qIkNODTWgnzWbY+B1s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(6133799003)(4143699003)(22082099003)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?oWSYvEhsR8dxcPPkOSN9lPJfBY4S6bMw4TSUroeMdZVw86RIItJs5wyp5m/j?=
- =?us-ascii?Q?mAOd5lmsiCE+JhQuyhVgS6R477NBAJ70GPkXCuzMuHNVOQx+NGqo2BuvZwrn?=
- =?us-ascii?Q?y6Bw1h8TrH8OSC9P2GrzhbN8fSqjtJ0zUCrwHPvO/H6n49L46fBSfu/a9Qj2?=
- =?us-ascii?Q?b6JRTLbhfVLsTug6PlpTtZC7RtARq3x6FwVo6A/yU8pp881tErgCNr8uexJX?=
- =?us-ascii?Q?z5KLVDm37ThMQ2pmqh/pzdT5DP+/91V8YXhx2k3uOouKlv6tSm8F3W9xRwPB?=
- =?us-ascii?Q?xOM1+jJpXpEaBKVuHyNVgC2tIaOJrTAEnI5T3NxUO1bVis0BhTlWwqZoYs8A?=
- =?us-ascii?Q?j5yAl+mYYOmsEFlN1k23lmxOPoCC6eEa8ecgIrZERKyNe/qXs403XAeIRZ4u?=
- =?us-ascii?Q?TbshAjo3s0x8DqWiX7/eVMSfB7yJcZSH9hZo/I7Nd12dzviks4IlR8N/p03i?=
- =?us-ascii?Q?JZRQFnD9eylnNiq5RwwglFzb2iL5KEgtS4Q9DC+JB07HtXgnSQoOicf+vS78?=
- =?us-ascii?Q?nwGHPDGzCuiyb0rLESudjKayjBO92ksqdAAZpEN46Qp53e2AQr6y+JJJumaT?=
- =?us-ascii?Q?gqLcDP06SMQQnzw2guZ26OU90YrxYXa06KYtROES0v2rDA0OafFv8iUQNq/c?=
- =?us-ascii?Q?+DZ3G6h4XKSvJKMhkyWL2FG46ReseoILYT693VeNIJNDuk063jyttrQw2q5V?=
- =?us-ascii?Q?WeJ4m1X6s0CDfamYGf0cscTMelZGdah59PCMl5yUEFrXnQ+8nuSOr2+6xL+w?=
- =?us-ascii?Q?LB0gqfub04kp+YO2uttt0Udz3B+2XkyOCVaqNVBdxODZUP98I2T4QFtQIxDM?=
- =?us-ascii?Q?yVDOeyQAw9ImQeIphJBcCmM/ZDbWjfqPOENtyGkH1AS+vr7o1/WNFpAMkMEe?=
- =?us-ascii?Q?d1ru+LBEKeXXGJMnNtmecqJ5D5kS5TTEnIOqbnqAOJdJK8hW8i6jk8My3Vs9?=
- =?us-ascii?Q?w95eooNuNFZm1izM8iS6MmIfu5MwP++jn805D9VrGWf2AKax2RxYozkXEPNG?=
- =?us-ascii?Q?1v+NaGDVxIKDShmfdM4VHrZX63zsJB+8/rVoJOcCmZb2gACdgIB5H2NEpqzP?=
- =?us-ascii?Q?eiU329PwF31mDc+LUkswHmCwrvaor4emwEHTRsvhiYNycfL5u02eCCpM3vky?=
- =?us-ascii?Q?YR3c7eS61hMb00vLu1oUqmXGMvNpHXAx36/L0v9bLVYKrZrL+9rYrfMwiw8d?=
- =?us-ascii?Q?vJSy4rZ+yjrwjLoNVeJ4e426ykGTSMLFc2iNy0hyo9ZPAqdZe98aF0iWGUPd?=
- =?us-ascii?Q?0tDL/sLWS3usgHb8gzYcZJkiPVyrIRsxuM3W29BthfTRsHuIaBQgcJRgODwz?=
- =?us-ascii?Q?TwFumiK4xOxNqpLfx6GPY6uwX2tC9r7fOQ41wTErhfUBBpbsOKIQWi/2+Ypy?=
- =?us-ascii?Q?wlLJeroLxeJVhXrlB4VIyfH1mn1Q2EpV28n9FZ2YNPLiIOp5Mh542hWsbsAG?=
- =?us-ascii?Q?6rBtyHae9srSParzVsuty+oEsY+tGr9yxKmOLSemE+Yrt3BbtgBsLubWTXPY?=
- =?us-ascii?Q?M0uO2F8YsVDObIBrupmHOT6Ieeaybam4DnHhNO33zaxgcGIYxOtNtv3IUoKs?=
- =?us-ascii?Q?GxW1RSafHv8t6dZUWrQfxkVya3XNmkSeslgTdrrZV7VNTh0LxxtUZLpwXaIC?=
- =?us-ascii?Q?bjw0I6Nr5SnJxErMt2ImGNWJOY26jsaPGrQI2UyO3VWvQ6I0zUyDv1frZEPf?=
- =?us-ascii?Q?1Hbb8/ko12mv8FrWeO/VV/ypWWnzO9SkSMcSM1ilz7S6kqzX?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 711d64dd-bfce-4548-b6c8-08df0497b4b8
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 00:02:53.0373
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9m205DedBxOyFZy7r+6xYUJHXANT5U4EbWtGfxxUaIfbRXTLw2b8XMnHUAPi7st0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6453
+References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
+ <20260826201500.3000125-2-danesh.petigara@broadcom.com> <067b7e2e-f2b2-4462-96f1-3a1e35bd25e8@kernel.org>
+ <682b68a0-03b7-4ec9-9d17-698fe134b57a@broadcom.com> <e21a7302-44db-4e20-805b-5c1de1f59c56@kernel.org>
+In-Reply-To: <e21a7302-44db-4e20-805b-5c1de1f59c56@kernel.org>
+From: Danesh Petigara <danesh.petigara@broadcom.com>
+Date: Thu, 27 Aug 2026 17:04:33 -0700
+X-Gm-Features: AcwNN1XUceWGwVwlW2dOau8CzdU833EI-wCjdUdMcHAYLRgGIhobFHSxU9_Pxm0
+Message-ID: <CADvvoPmQ2nhfWSHGvAVyFyK4FoA3p1juWETOohSpCeGiKBGKWA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] memory: brcmstb_dpfe: Fix out-of-bounds access due to
+ DCPU offset
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, mmayer@broadcom.com, 
+	bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Justin Chen <justin.chen@broadcom.com>, 
+	stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000040e258065a1033e9"
 
-On Thu, Aug 27, 2026 at 02:18:08PM -0700, Nicolin Chen wrote:
-> On Thu, Aug 27, 2026 at 05:31:31PM -0300, Jason Gunthorpe wrote:
-> > > [ ... 24 lines skipped ... ]
-> > > Since these quirks have always returned success, escalating
-> > > would be a new and harmful behavior: the next method is typically the plain
-> > > "flr" method, which would re-run the same FLR without the extra steps the
-> > > quirk wraps around its pcie_flr() call. Add quirk_flr_err() converting that
-> > > -ENOTTY to -ETIMEDOUT, so the cascade still stops at the quirk as before.
-> > > The early "not applicable" -ENOTTY returns are left intact, and they still
-> > > ask the caller to try the next method.
-> > 
-> > This seems like a very suspect AI conclusion to me.
-> > 
-> > I think I'd drop this patch
-> > 
-> > > Convert it at the quirk level rather than in pcie_flr() or pci_dev_wait(),
-> > > because those also serve the native "flr"/"af_flr"/"pm" methods, where the
-> > > -ENOTTY on timeout is deliberate per commit 91295d79d658 ("PCI: Handle FLR
-> > > failure and allow other reset types"): a timed-out native FLR escalates to
-> > > a stronger reset (e.g. bus reset), which skips no workaround there and may
-> > > recover the device. Converting in the core would also change the value seen
-> > > by every direct pcie_flr() caller.
-> > > 
-> > > This is not a bug fix, since these functions have always returned success
-> > > and the propagated values are only consumed by incoming work.
-> > 
-> > In what way? The quirks flows always succeed and it can keep always
-> > succeeding. If anyone finds this problematic they can properly
-> > propogate the error.
-> > 
-> > Squashing the error just for quirks makes little sense.
-> 
-> PATCH-5 forwards the return values to pci_dev_reset_iommu_done(),
-> so IOMMU can keep a device blocked on a nonzero result. Dropping
-> this patch would leave the three VF quirks here always reporting
-> success, reopening the stale-ATC issue this series is fixing for
-> them.
+--00000000000040e258065a1033e9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sure its fine, I bet this HW doesn't even have ATC and if it does
-someone can properly fix the quirk and test it that way if they ever
-hit a problem.
+On Thu, Aug 27, 2026 at 2:31=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+> On 27/08/2026 19:37, Florian Fainelli wrote:
+> > On 8/26/26 23:48, Krzysztof Kozlowski wrote:
+> >> On 26/08/2026 22:14, Danesh Petigara wrote:
+> >>> From: Justin Chen <justin.chen@broadcom.com>
+> >>>
+> >>> On API v1/v2 boards, the DCPU coprocessor can steer kernel readl_rela=
+xed()
+> >>> and writel_relaxed() to any address within 256 MB of the ioremapped D=
+PFE
+> >>> dmem or regs base. The DCPU firmware provides a 28-bit offset which t=
+he
+> >>> driver adds to the ioremap base without any bounds checking in
+> >>> get_msg_ptr().
+> >>>
+> >>> This allows a compromised DCPU firmware to trick the host kernel into
+> >>> reading or writing arbitrary memory-mapped I/O registers in vmalloc
+> >>> space. When combined with a root-writable sysfs file like dpfe_refres=
+h,
+> >>> it provides an arbitrary MMIO write primitive. Similarly, world-reada=
+ble
+> >>> sysfs files can be used to leak other devices' register contents.
+> >>
+> >> If someone can compromise firmware to provide different addresses, the=
+n
+> >> what stops this person to change DTB with completely different MMIO
+> >> ranges for this device?
+> >
+> > On our platforms the DTB is part of the boot loader which is
+> > signed+encrypted and customers do not build any UART driver or
+> > user-interface so changing the DTB is somewhat difficult. Same goes wit=
+h
+> > the Linux kernel, it's also signed+encrypted. This is defense in depth
+> > at this point.
+>
+> Ack
+>
+> >
+> >>
+> >> Isn't better just to drop root-writeable sysfs interfaces, since they
+> >> are the insecure parts?
+> >
+> > Yes that would probably be an acceptable move forward. Markus do you
+> > remember what was the use case for the dpfe_refresh file to be R/W?
+>
+> That's in this case separate solution, worth anyway investigating.
+>
+> >
+> >>
+> >>>
+> >>> Fix this by recording the resource_size() of the dmem and regs iorema=
+ps
+> >>> at probe time, and rejecting any offset that, along with the largest
+> >>> field accessed (DRAM_VENDOR_ERROR + sizeof(u32)), exceeds the recorde=
+d
+> >>> mapping size.
+> >>>
+> >>> Fixes: fee5f1ef6cf7 ("memory: brcmstb: dpfe: support new way of passi=
+ng data from the DCPU")
+> >>> Cc: stable@vger.kernel.org
+> >>> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
+> >>> Assisted-by: Gemini:gemini-3.1-pro-preview cursor
+> >>> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+> >>> ---
+> >>>   drivers/memory/brcmstb_dpfe.c | 22 ++++++++++++++++++++--
+> >>>   1 file changed, 20 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/drivers/memory/brcmstb_dpfe.c b/drivers/memory/brcmstb_d=
+pfe.c
+> >>> index 08d9e05b1b33..66343205f585 100644
+> >>> --- a/drivers/memory/brcmstb_dpfe.c
+> >>> +++ b/drivers/memory/brcmstb_dpfe.c
+> >>> @@ -182,6 +182,8 @@ struct brcmstb_dpfe_priv {
+> >>>     void __iomem *regs;
+> >>>     void __iomem *dmem;
+> >>>     void __iomem *imem;
+> >>> +   resource_size_t regs_size;
+> >>> +   resource_size_t dmem_size;
+> >>>     struct device *dev;
+> >>>     const struct dpfe_api *dpfe_api;
+> >>>     struct mutex lock;
+> >>> @@ -401,9 +403,14 @@ static void __iomem *get_msg_ptr(struct brcmstb_=
+dpfe_priv *priv, u32 response,
+> >>>      */
+> >>>     switch (msg_type) {
+> >>>     case 1:
+> >>> +           if (DCPU_MSG_RAM_START + offset + DRAM_VENDOR_ERROR +
+> >>> +               sizeof(u32) > priv->regs_size)
+> >>> +                   goto bad_offset;
+> >>>             ptr =3D priv->regs + DCPU_MSG_RAM_START + offset;
+> >>>             break;
+> >>>     case 0:
+> >>> +           if (offset + DRAM_VENDOR_ERROR + sizeof(u32) > priv->dmem=
+_size)
+> >>> +                   goto bad_offset;
+> >>>             ptr =3D priv->dmem + offset;
+> >>>             break;
+> >>>     default:
+> >>> @@ -415,6 +422,12 @@ static void __iomem *get_msg_ptr(struct brcmstb_=
+dpfe_priv *priv, u32 response,
+> >>>     }
+> >>>
+> >>>     return ptr;
+> >>> +
+> >>> +bad_offset:
+> >>> +   dev_err(priv->dev, "DCPU returned out-of-range offset %#x\n", off=
+set);
+> >>> +   if (buf && size)
+> >>> +           *size =3D sprintf(buf, "ERROR: DCPU offset out of range\n=
+");
+> >>> +   return NULL;
+> >>>   }
+> >>>
+> >>>   static void __finalize_command(struct brcmstb_dpfe_priv *priv)
+> >>> @@ -858,6 +871,7 @@ static int brcmstb_dpfe_probe(struct platform_dev=
+ice *pdev)
+> >>>   {
+> >>>     struct device *dev =3D &pdev->dev;
+> >>>     struct brcmstb_dpfe_priv *priv;
+> >>> +   struct resource *res;
+> >>>     int ret;
+> >>>
+> >>>     priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> >>> @@ -869,17 +883,21 @@ static int brcmstb_dpfe_probe(struct platform_d=
+evice *pdev)
+> >>>     mutex_init(&priv->lock);
+> >>>     platform_set_drvdata(pdev, priv);
+> >>>
+> >>> -   priv->regs =3D devm_platform_ioremap_resource_byname(pdev, "dpfe-=
+cpu");
+> >>> +   res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "dpfe-=
+cpu");
+> >>
+> >> You cannot use devm_platform_get_and_ioremap_resource()? Are the 'reg'
+> >> entries flexible/random?
+> >
+> > IIRC the names and indexes are stable so we could do a positional index
+> > resource lookup, but maybe what we want is to introduce a
+> > devm_platform_get_and_ioremap_resource_by_name()?
+>
+> If the bindings enforces strict order, that could be a way, but I do not
+> want to push towards new
+> devm_platform_get_and_ioremap_resource_by_name() because that could lead
+> to long patchset with bikeshedding about how many wrappers we need...
+>
+> Approach is fine then. New wrapper can be brought on top.
 
-It doesn't make sense to touch this code and make it worse, the right
-answer is to propagate the error code directly.
+I would like to confirm that the patches are acceptable in their
+current form, or if
+they require additional changes.
 
-Jason
+Thanks,
+Danesh
+
+--00000000000040e258065a1033e9
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+GLYYHVIFsNlNBk9ehmbzaNAGKDZQL2g6yMMOyfvt2s5Y4jecunfY+Sf5c3Ptg5X23fqYpno7w5us
+Fyf9UX0AfPQxXj3xOYXXOmW3wHsEwXQ/ix4BSk+9TqzVwMiNm1pyqJUxPMdUwUzCVHZBhftOjpfn
+FV7xK09ekAS7/FgXzG/fp2YRiinLawP/OAq2Jso3/NzsEOjKVDyQp9NjKBvnT2KPEG0EQ/YHKXaN
+G0nhKAI9CNoSnLc+L6668zqiuyfY+4GBwm5fx3YFPlYZHr0JcusCAwEAAaOCAeAwggHcMA4GA1Ud
+DwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6
+aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNy
+dDA5BggrBgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2Ey
+MDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIG
+CCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8E
+OjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5j
+cmwwJwYDVR0RBCAwHoEcZGFuZXNoLnBldGlnYXJhQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggr
+BgEFBQcDBDAfBgNVHSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUYZsdWn6M
+L18zay5xy95GDwiowUEwDQYJKoZIhvcNAQELBQADggIBAAO+GZJHoHFGjKzRRmPg8zMhqkUoAurb
+EVL1A6UGmL2cSAOuQcZdI5ESkaDFKYuhsSB3dEr6ZWVhQk5p+AP2MxVJ8SViEV7NP3DVtFwqaE3I
+VongrfkM+43NJTKEUBTJHYFGsANIUubqC3I69Dw8PxFghAU6M6nJxqAvNgxjMR0GRlJUR9eRR3GY
+QszACooBBuGtl8VM9fZKqQUuu4ypKu4coRSbwWqKKuJXfElWpqakEjgK2szPloPPAvrfXN4//ilz
+Rcgf+v6s6tPvaP0Kuf8Kvk3qLxHGVFzFdzLcwKEm/H28pKAXxd7nHiUQcddZjwhYtLahzfF0PCxP
+W+RDL3K2gf3KD5nDX7Fx8bsYFQDrDWJa1cpuLVjzhkuWx/k+6hJ5NJLRB6OnHNnggQADstvnT4Z/
+FdAzNY/Cppgsu4XfgsPmrDAoXyiFvcjHRS7J5hr0ce7W57bdKVlEVdeK10o1/23F8H37kp0V2mYj
+7gmkwjbisZjfklj55cFq9czwyMyedkz0EW1u4CNRfwSZ/a6tZ1dwGPSe4CJcUdbKR7N3tnOwPzO8
+gWuU54A5ADxxRL34dPcj7LevtZo+7co9qIEdODq3zfJRjEmnKnHeWLRzV9HrM6rn3l47QP3YlxjV
+hbZundqE7qI4+OxL2uh7uYgN4JIdKmzkZRYIcWa/uPc1MYICVzCCAlMCAQEwYjBSMQswCQYDVQQG
+EwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0Mg
+UjYgU01JTUUgQ0EgMjAyMwIMXIDSN3UslytorZSOMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3
+DQEJBDEiBCCO3wrjOyUyfp2jEIyvg45N5IAaISVn3/wJDjaYKU9w/TAYBgkqhkiG9w0BCQMxCwYJ
+KoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjA4MjgwMDA0NDZaMFwGCSqGSIb3DQEJDzFPME0w
+CwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZI
+hvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAHYlHT3rH44NTd991W2KaGblzy
+3Sgmp3vm94XSfkwNHnCb7JFUVeRwhzO/jiVvWj6xPM2cIfrLeuCMmQZY36ZWSu8HpIK18XkbaPsE
+ROy7pp6p4ZJ1Hyei2CObJHVG+5TdKRc6vWsfZCCoX8eZ3R/6scKeZ7Mcg+40VNxQ0DErZ+5IeAcS
+7QjorOmxKrzqjgtQ8owJgJYSl7PQgErLSMS96m7AG6KR9nMk7QRu/gRRkgeDvqLgLAcGCsWIWHNX
+xoGfEOHOjV2xFQXLCAGHvf6Y/nkLQl3vZ8Bp15Bup6Y0WzpVao1N7ON0hxr2a/es/kINtQKs3aIH
+styQ+vKjuvSZ
+--00000000000040e258065a1033e9--
