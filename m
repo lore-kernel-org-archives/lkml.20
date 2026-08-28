@@ -1,148 +1,166 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611FD3AD530
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787945339; cv=pass; b=AoUuWCUn1VJgHlm4awJYfuJ4AJwoW482WCBAyF9jOIs7IFnbV/q8h7AmJmyzDtm/6mwhxd8eGmgcXch1Q9Ek0IFfKhU0mj36iTNCrTypKDcmzCtznlTOjXtPzv5keq3G5F4B6p6YMBWPSfol3IvHCt3+FvDMYpXlAb5/Hlfv5NA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787945339; c=relaxed/simple;
-	bh=fHmMOkDnc0DAMDW7+UXClup/98JMmn4tO04WF2LBRAo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J+buFRZCpIt3ZRhGLvNyrrpOL82ArvUZoH6cgLXQyXIX2ScNWjQWeg1n9Pm6V3ZU3lVS72Kq3NIMBY6Yu6DUS6cqdN7vN+aVN3ewbzRugbiD4QXJa+jIHVT5XzMNCaPyh/lKXiKGtDd/hdIT46JZ4WZWqwzrNMHKe1DbLLnkGic=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=In3ZmYPM; arc=pass smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972EF299929
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787945483; cv=none; b=rRamp3h/P8Oe8nspypnBxhKjs/5EbXEdltquQPS3RmKmDEpH/0Y3fvkiq8zx18ZFwGqFU41XpiK6SqDKEyQlRHIOJCHwwH/V5f6v2erwQSjtNnFmtZWDZMc8t3p8asdnjkNuSHom8N+GEJshjvQKqUBf7nyKekskzlV7V0SECD0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787945483; c=relaxed/simple;
+	bh=zvhMgF3sBGyWoxcliuQzMGlGAhHyjr7oIgNIMxF3u74=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=csCBHKD8W0dIR9mPVrlMLPIb+eWovuzDz2o90ReVQdeYiRQYtZerGuhWSd5kBYaokBJw2GPFwxrJEkjXL5gmNuQ1mzhU9wowRhppSMkF5y1Y4jfq87garGRNjmbJ+Auv1nphuBa24dYpeBsCo2y/1pw1g63qe53M/3FX0KMRVnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TMiV08qB; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="In3ZmYPM"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c10e86e52so46161cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:28:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787945337; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l8DBhgcQB4hs+x0r+VcvF79MWm/cpx15+avdAmKJoaBF9j80ERRzIwCbUOS58vDqvd
-         Ud/hm82QaPI1u1YY8luKotNwkeeN0AFoLyi7uovS1iJU6bjudi/wxHpveymr3OrI1V7u
-         16m/KUZfnsffny9o9Aj73nhRLMsR4yUIuVfRTmJmy1lEHt8NwBntks7wi+vmA5u6q2Ba
-         yP8/0MYFnD5xISxtU/xveU219ID+BYTW8/LOV03xMBKpvqhVnUmwWDzZVv82Wsv2O6/1
-         HuzeY9z9LNlCDyXVE3X3pDpE6gkGd1JLdxzAijILRLo7J2FhF/+rO32hl5X8o/ctDrTr
-         mcnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fHmMOkDnc0DAMDW7+UXClup/98JMmn4tO04WF2LBRAo=;
-        fh=s6n7rziZlFqscR3zL14W1Z0SpWct+7Fj78tGF7Baiu4=;
-        b=C6uc7EmJREiAD1Y38HQF4lS0+kaE1HqRMTT8ziV6pVdSmawURySimuD7ztQakgdhTz
-         lupi19YrIjDxdatSIdPbjDUm2wXGMXTl+L8Mis4UcAJQQaNYThPbsUA1vCrF4jSZrJWO
-         0n5t2gC80alcSpX5hLwz4u+PEDZL2sgiV69z6M0a73SoWlRbT32fxK3P4vMF2YJe4eq1
-         xof0/z74NSDignPSlPGZaQUViCZCY91LYRP9yD8KLTdIqEh+xSm9lZHIREx6QsIg3JV5
-         oKvbqEYOy2bonWZ/RoaGrYOnOsDT15mQMxHmOyUnSRAjp3jQGMo5h36Zu4AFKpxP6OcQ
-         UlDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TMiV08qB"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51c0c45c580so9395511cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:31:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787945337; x=1788550137; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fHmMOkDnc0DAMDW7+UXClup/98JMmn4tO04WF2LBRAo=;
-        b=In3ZmYPMsuDb8+i0NXhjvHnhY46y0wRJe5AJVwXyINNYsncPS09KRKMSxov4cVXN30
-         3yEuDO5ebDuAhfkWtlXwx2+9kHUNsxmPK0NtKE3EhEkkzlOOna2eA/RO4O2WlM3rvTtn
-         F71TMh0+ypFTDkk1BeB6lvwNKasMadoYvxXRi/9oK0cW9jIojsTad3ecyqtSXoSQQcTg
-         7TpNRQpjjjE4k3KarUXa/6kcgssWcIbBnh1pp/JPgKWSY5q1e8rYexd+jbcQxXNOlQCD
-         pFvPAghbvt+nTDcrWK+mIbTnQPtkEteurKFUPSWxBm7bclOIu6mLq04orQhh2Ltd0QZq
-         HqDQ==
+        d=gourry.net; s=google; t=1787945479; x=1788550279; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nMnYqxHda9Omu8fyzZqn9y6ZJM5HBD/zXzNZf075neA=;
+        b=TMiV08qBXEgA+TZEA0oLOp1AJv8mYu7aG9y9jdfTjBhRbed2c1CE2TLsOzrryFprQD
+         IXKR5k2ZpfWXtNMhMRS1jXMOiL8RafI2ZX0R6ET6eInVJWbCYCcvXI0sDBY3fsfUh5CD
+         23b+iRMYWZC6piajOPBzEpMiyZ3I1n+DGD0tTCF0i04Wi7pF95Uvj0BkaONegFArgFZV
+         Iqo7AB7GEyYcgMTOAIcPX+DL95IYQhGNjiqZP3aQdmW+jhEjKYcE8ir+BqdL2QDXI6Ek
+         k9hoRMEM+oySQShLQHFgYn17AaLbtPCo2L7vj5msat8VW4EIk4gZUYbdkYZCCAmHmQVc
+         u3gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787945337; x=1788550137;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fHmMOkDnc0DAMDW7+UXClup/98JMmn4tO04WF2LBRAo=;
-        b=Re3svtbO+rgJATmijKIgkvlusvSAy/mMpFwEUxXdrwvLLVqCc7hHGoT+XrTDYPc8Q+
-         5qcdDhAx5v/fnhErAPwPM0TnEWFt5Bc3+xhJETIA4XbgrKbKPdLfAcdFS3piuJws5a0N
-         Ndv5rbVxDyoGe/yWra4jqvtLF0+oTXt0bMIKyauGm2D1W/ZdoXLvbpvbxDgYcX0RUNRi
-         B68FmeBq+j6KWQ8xRo6q1GifHLQzfelU1p7J7lo6d1IR+NCCYFYn4ollcrmwdpnJXZz/
-         1t/7d2WMMfPT7VHutJ6YsSZHildAuB0SLh/nwnDuDjE3bvltHkB6QHFaWsq48YGDuovu
-         4u7g==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3gG42WidxoSXIcb+00Rch+N4vsKJucGMVOGkpOiw+cnzthdXQcCzYc87/JAaEcpRMhqWJfvvwm8dnxBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvDmpwmOFYJSlB21CVoYNCfAqYwLWsYN7t/4jer1ZMEJokO41V
-	ucY9msLSA6B6C9WIBEuHtn2xq9Gd2PS5n9dbPMJkH+bbB7Zyph4byvlge/17/W4gxdFYTIhrXR4
-	IJm55X6PkRI7YCvZMd6RBeJWM4ejKuXxm+ifZsqNi
-X-Gm-Gg: AR+sD10o0FWqXMM4LRs0gv9WxxT5eksmkShkSI1ySMnkwevShjx8/dL5GIf4J16YOSu
-	7h5VJlReyQg6amZtVLFVqzK5g/XVlYkAMpRNMW8g3pF/1Izl3UCYNzOimvpCW9HocLplqLy+cJs
-	BGAgMG20VSU4uQ2nrmxRKjfQb0UJb3Rd40GXOBezpBLV8XMHbxxADNe4FfbW7WYDoB2oMY9e9U9
-	KRbv1UEtjglzBlClFX+OfIs3QMtIM5g9nescd49Kzuaqo0Me2W4tGr+CVSlV8UW1KO16896j4Lj
-	FEHmY2mSEaUqUGG17nu1EqsFkDhilPpDy6rwF7XXVEj2hhQEXxBeIDrtY2HaD1vpWcvoJ5fs6+A
-	=
-X-Received: by 2002:a05:622a:c18:b0:51c:ae6:a57 with SMTP id
- d75a77b69052e-52ff715be0cmr2273411cf.11.1787945336495; Fri, 28 Aug 2026
- 12:28:56 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787945479; x=1788550279;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nMnYqxHda9Omu8fyzZqn9y6ZJM5HBD/zXzNZf075neA=;
+        b=Yd2MS1cK/mfBjmXk2jCvDyLTD58Dw8RbZUvKv8CECvD8BqPyVtkwQ9cnPvkoU9JJkP
+         KUnlqAE7ixdXwbx57QmXqwr12LJagyDH4vgvRW5PZW/PWSnd7db4XgYNgGOZ5Pxdyy6o
+         wrCU0b6J4K3pOWaLAuvHJbl91WRPHYLR6iZtru1VZ14YBE+WQwsXjLmLYybQE+y7dlDz
+         I67pF5PfiVo78KrT2PE3M1O+3WGRNt+r6/BlauVp8a87yk//y8tYt/Afnyebww4fahXq
+         2YavbTgyTPDutZAJgnphh3rquqsE/yyAqSO7M/B7pr8kEe1GlrnTFuAbj8lrOvwU++9+
+         hFNw==
+X-Gm-Message-State: AFuF++nHp490LBjHV7ObrrwBaOjzu9YmUc5epmRtwBKflKisQ9nlvJc0
+	gtiLZb4cUGzq3eQHEDTUJVyVl9ACJwCjaWAAqpJRTLVapoXxD9yT70O5hJorqPmxe3c=
+X-Gm-Gg: AR+sD11rvz+EyLA7dQfzrJOuN2muYgA1D7uwC0KXNTHWuprmkXwRR0GWkoiVgChUVb7
+	9eN24bR7BelbaLKyKpX6VOZPSQs/3OTi1arHFG7VH9lph4GFofLx3n5/wUHo5eg3En2+N113Jd9
+	86UKynL202Mg3mFK2cAWlv7zHdlI/wr7OCG/JUGCExvwM6Y4dKD47W6WEz/z7QELv7FsEHBjTA3
+	GMV6Yd/bJrE6+ASOVmcg/E7Zi6IPgCP2iXymIe2n07bFiko1/CkdVg4EarufeHq44Ucx5NxUzM9
+	4Dheot0Jrd3KTnLr5OT8aGu4KXkKGbngvZ7md/onQeady0kLrD2NKlOTNzGdloabrVJmOMoXrSK
+	Fxy08vc/7n6YGnvmYsfo2pDs5xLOihzGmsSrqewI3SWR493JZe/jmQ3SjbHchYlc++6kEyE2+hs
+	sTMC8Z4e8NOr8Yq+p+d3zO059/sOiXB2MmFQJ/FzkJQyh7q1ODd7zegMukE9JNTyL91px7x/khu
+	UOOPRgUpkL98WULJ1YCqbq7EfzYnk6osCOi4TwNbAzrTlEG6w==
+X-Received: by 2002:a05:622a:394:b0:52d:8854:3e61 with SMTP id d75a77b69052e-52fb94b8f4fmr119108521cf.22.1787945479239;
+        Fri, 28 Aug 2026 12:31:19 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe5824f3sm19048831cf.10.2026.08.28.12.31.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 12:31:18 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	urezki@gmail.com,
+	chenwandun@huawei.com,
+	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mempolicy: take a cpuset cookie for the interleave node count
+Date: Fri, 28 Aug 2026 15:31:11 -0400
+Message-ID: <20260828193111.1023497-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806020850.1221381-1-rick.p.edgecombe@intel.com> <20260806020850.1221381-2-rick.p.edgecombe@intel.com>
-In-Reply-To: <20260806020850.1221381-2-rick.p.edgecombe@intel.com>
-From: Vishal Annapurve <vannapurve@google.com>
-Date: Fri, 28 Aug 2026 12:28:45 -0700
-X-Gm-Features: AcwNN1Vl_L43jPWnHgUrkMtGPi--G2PYnVYEwuFbR2C4J7lwt5ES-sPxDWtK__4
-Message-ID: <CAGtprH8JLx886qA4rVg5vCKg4M3u9sdEfPig_CtL1kbfvj5B9w@mail.gmail.com>
-Subject: Re: [PATCH v9 01/11] x86/virt/tdx: Simplify PAMT layout calculation
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: bp@alien8.de, dave.hansen@intel.com, hpa@zytor.com, kas@kernel.org, 
-	kvm@vger.kernel.org, linux-coco@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, nik.borisov@suse.com, 
-	pbonzini@redhat.com, seanjc@google.com, tglx@kernel.org, x86@kernel.org, 
-	chao.gao@intel.com, yan.y.zhao@intel.com, kai.huang@intel.com, 
-	tony.lindgren@linux.intel.com, binbin.wu@intel.com, sohil.mehta@intel.com, 
-	Hongyu Ning <hongyu.ning@linux.intel.com>, Binbin Wu <binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 5, 2026 at 7:09=E2=80=AFPM Rick Edgecombe
-<rick.p.edgecombe@intel.com> wrote:
->
-> For each memory region that the TDX module might use (called TDMR), three
-> separate traditional PAMT allocations are needed. There is one for each
-> supported page size (1GB, 2MB, 4KB). These store information on each page
-> in the TDMR. In Linux, they are allocated out of one physically contiguou=
-s
-> block, in order to more efficiently use some internal TDX module
-> bookkeeping resources. So some simple math is needed to break the single
-> large allocation into three smaller allocations for each page size.
->
-> There are some commonalities in the math needed to calculate the base and
-> size for each smaller allocation, and so an effort was made to share logi=
-c
-> across the three. Unfortunately doing this turned out unnaturally torture=
-d,
-> with a loop iterating over the three page sizes, only to call into a
-> function with case statements for each page size. In the future Dynamic
-> PAMT will add more logic that is special to the 4KB page size, making the
-> benefit of the math sharing even more questionable.
->
-> Three is not a very high number, so get rid of the loop and just duplicat=
-e
-> the small calculation three times. In doing so, setup for future Dynamic
-> PAMT changes.
->
-> Since the loop that iterates over it is gone, further simplify the code b=
-y
-> dropping the array of intermediate size and base storage. Just store the
-> values to their final locations.
->
-> AI was used under supervision to collect/apply feedback, review code and
-> workshop logs.
->
-> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: Chao Gao <chao.gao@intel.com>
-> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
-> Acked-by: Sohil Mehta <sohil.mehta@intel.com>
+alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
 
-Reviewed-by: Vishal Annapurve <vannapurve@google.com>
+	nodes = nodes_weight(pol->nodes);
+	nr_pages_per_node = nr_pages / nodes;
+
+nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
+a concurrent cpuset rebind can tear that read and yield an empty mask even
+though neither version of it was empty.  The call then allocates nothing
+and returns 0.
+
+Some compilers will hoist the loop entry test above the division,
+because nr_pages_per_node is dead when the loop does not run.
+
+	682e:	call	...		<- nodes_weight()
+	6838:	test	%eax,%eax
+	683a:	jle	692d		<- nodes <= 0 skips the loop
+	684a:	div	%rcx
+
+So in most deployments, this div/0 is unreachable - but nothing in the
+source guarantees that, it's just not easily exercised.
+
+Take the cookie around the count and bail if the mask really is empty.
+Only the count needs it, interleave_nodes() takes the cookie itself so
+so a torn read there is already retried.
+
+A rebind landing mid-loop can still leave the count disagreeing with the
+mask, so the loop may revisit a node or skip one - but a rebind where
+nodes change causes migration, so a handful of misplaced pages isn't
+catastrophic in any sense.
+
+Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
+cpuset.mems between a word 0 and a word 1 node set, and the two word read
+artificially widened: 330 zero counts in 130414 calls without the cookie,
+and 401 retries with it.
+
+Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
+Link: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
+Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ mm/mempolicy.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 79053ece02cd..060a0eb26917 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
+ 		struct mempolicy *pol, unsigned long nr_pages,
+ 		struct page **page_array)
+ {
++	unsigned int cpuset_mems_cookie;
+ 	int nodes;
+ 	unsigned long nr_pages_per_node;
+ 	int delta;
+@@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
+ 	unsigned long nr_allocated;
+ 	unsigned long total_allocated = 0;
+ 
+-	nodes = nodes_weight(pol->nodes);
++	/* count the nodes, retry if a rebind happened during the read */
++	do {
++		cpuset_mems_cookie = read_mems_allowed_begin();
++		nodes = nodes_weight(pol->nodes);
++	} while (read_mems_allowed_retry(cpuset_mems_cookie));
++
++	/* if the nodemask has become invalid, we cannot do anything */
++	if (!nodes)
++		return 0;
++
+ 	nr_pages_per_node = nr_pages / nodes;
+ 	delta = nr_pages - nodes * nr_pages_per_node;
+ 
+-- 
+2.55.0
+
