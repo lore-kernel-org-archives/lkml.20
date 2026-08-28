@@ -1,116 +1,151 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067B3347533
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEBB369219;
+	Fri, 28 Aug 2026 09:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909309; cv=none; b=QKkuzKWNc8YPFTTtWkyqV3yqrqUAO21cgCUQ5I4HQ63Ktqil2a9izhh8V6KPX63USjdAwS0Unn/uM6osDbkkekJmiFjzmhJPFrHwPYi36NWH7VVazCcgUdRnry+qeUUkQ+Xi3uVQOsyJo58LVZrWXWjgqT1iclg6yLJtcpA+QqE=
+	t=1787909367; cv=none; b=chR9LYJSy69TpFc2FwhcRv0Llew9ETl5Pk+8hg+lLyseAJBWa+H9BlLFOeIifXH/GJtkQv0/QgXyl1uU+rxVKgj8D7vNt+Otpe3S+7Phbg9Wf1iaH2IBAty1i6lgSxdBMzrqUjl7HhwRsEc4gIbwhl4AS0Qv7KryK74+3Rt0fqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909309; c=relaxed/simple;
-	bh=1v4rUGAHqeIIUzXoY17LIgUNFnttk6dN9Qs+A+XFNmU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=f/91JJDV9rM4Tj2Rol3XIb/XzspWqHwrxNFBrslvjFW0VbVvsiKHvDiXLCZ9QozOTiWffHZh6EJt0vOpr8Kr5KyIbyiZldiYAXRDp33FUv9rxFE4zFLew1YjblJzlCrh0ZT2FUedq2Ia967POajbPjNBTsGbV+jW+5UPDbgeM1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=H09l91JL; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1787909367; c=relaxed/simple;
+	bh=HHkwkiwmaSwe+F4+FNu97EuRlPh/mU/Pup7ivSO29+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FhuCsBQ6VZn0y4cC34erDCU9/aGX6gANiRgSDkm5q0PXK0tmng7riDaPO8ME5tbFcgZeWTv1xJUagmhDDli1qx5L6bGDeJkMnxaEYEyZqweF48NogiOivJQvFnCFoPzHEk+7E3R2BXJWPIT4h9GCwAUU8WSjORXCykkVXO8P71U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=O4FYA4Rb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O+F89elZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gk+e5jRH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1koz1/ze; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="H09l91JL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=aOO3uoL9dHlF3J1MQewZ674HNYb6SMCTZDP8iIlVM+s=; b=H09l91JL4LjOvblcdAOe8rRR0v
-	rruRwcjm7V+2CmdBIFNmw2PumM02xCQHUcWM2oLxMDhKFuuslsWG/UGvxCyNid3EyJPmsonYd8QBt
-	UkXCF7l45+N7+htuBtMUSbfQQAw2qqnwCyEqUC0gS7NV+eqB6/z7bCIS0nuJoZED6TkYmFCayHBtg
-	kQUqURX1wAOXJdf/z0Ec3tFy3rkSeZwhWq/+ehzHm2gaKAVppNWYZGtOyRm7NSGnU4qb7VK3lF/pn
-	fCFB4wYR4fKpLlnereTQUFho2jFbhGXHjXElocKQHyFvWudWS11OVzvszwA6MrVEVKkjm8ihjEzH7
-	LRRjlTFA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wzssp-00Gfqh-13;
-	Fri, 28 Aug 2026 09:28:23 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 28 Aug 2026 02:28:18 -0700
-Subject: [PATCH] arm64: trans_pgd: clone only the linear map that exists at
- runtime
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="O4FYA4Rb";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O+F89elZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gk+e5jRH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1koz1/ze"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A9EA21FB62;
+	Fri, 28 Aug 2026 09:29:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787909359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R0+yG+1bN20RSdMl6UCMwOfEUTtxXoxF8Axb3Ve+/jI=;
+	b=O4FYA4RbVJixP2zJBddcAkrp/ewWu0qU4f/QLJkPIQfOIBoMfb2Nvhk8gtN8I63OBy/nP5
+	r345r02e7XaPDd8y8a9V7R9FXn/EnTQO83eF7Mqkiu2RLmDVgmcfG+WRRhma6Jl3d6xtRp
+	Hq6m2EIE4lWrIPzxhrgchXpVsYm9y+I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787909359;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R0+yG+1bN20RSdMl6UCMwOfEUTtxXoxF8Axb3Ve+/jI=;
+	b=O+F89elZiROAeuOGjX1wcKvutymEHMqY15NgQsCKisaoAg+QuapHtyAuJljMpCtcKxrE13
+	67RaqiR4o2/qP/Bg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787909355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R0+yG+1bN20RSdMl6UCMwOfEUTtxXoxF8Axb3Ve+/jI=;
+	b=gk+e5jRHYxvSE0b9WE+tGn2kFt5rvxTZt7ByFcTJGa9p/Dk3Ovf3KMyc+xiPYLwJpUndPx
+	9vzqd0QAZLbfitdzUvyrs3lxBtI22goXDS8hyksHyt51PE3JBTWopUXFCw7N6MDDU9Hqlo
+	h3g/hucmLmtkK6F3lC9k+0jUkwwmj0M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787909355;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R0+yG+1bN20RSdMl6UCMwOfEUTtxXoxF8Axb3Ve+/jI=;
+	b=1koz1/zeBsS2C4mZty+80W9OUVX9cI5asaX8nmkWjTc8uQsAjl6YehNx2xyRxlKwWIcj8E
+	jsRB706U2x5nlvAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCF3813515;
+	Fri, 28 Aug 2026 09:29:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Vc+nMupUkWoEeQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 28 Aug 2026 09:29:14 +0000
+Date: Fri, 28 Aug 2026 10:29:13 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Li Xinhai <lixinhai.lxh@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
+ MREMAP_DONTUNMAP
+Message-ID: <apFUzpx6zwAjhvC2@pedro-suse.lan>
+References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-b4-arm64-trans-pgd-va52-v1-1-a66644372673@debian.org>
-X-B4-Tracking: v=1; b=H4sIALFUkWoC/x3MQQqAIBBA0avErBswMamuEi00p5pFFmNIEN09a
- fkW/z+QSJgSDNUDQpkTH7GgqSuYNxdXQg7FoJW2qtMWvUEnuzV4iYsJzzVgdq1G5X3vjQmh6y2
- U+hRa+P7P4/S+H7liOFppAAAA
-X-Change-ID: 20260826-b4-arm64-trans-pgd-va52-0bb9b44dd896
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1655; i=leitao@debian.org;
- h=from:subject:message-id; bh=1v4rUGAHqeIIUzXoY17LIgUNFnttk6dN9Qs+A+XFNmU=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqkVSz8oIPrX6B495JDhRFq+yFUIe/STTeiiW4u
- CXbQubqER6JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCapFUswAKCRA1o5Of/Hh3
- bdoHD/sGwFPrHJ9c7e0LCnK8ea+wnBksKBSIGYE3q6mm0qWym0odFdExThRRRJOW1GG0U+7dESV
- Tff8EKQF1Utkaqt74ovR0FBAGLUs2fCdzG8aXYWIvH56O5sB/L3Ln9d18dNya+floP+QTQ9djuy
- S7D0yDfwwpLfOyYYpeQcWA6BHoNqiK6Ljw2k6ZQnwDn1QJCxHQ5eg/TVujToD8Cfwbj6vycxTri
- D+/fFhBf6toA+ssFGCIe28MsBGE/KEE55lao3ICCbGuuH/4iVfGlXRynfPE2aDIk6tqlb2lGh4P
- gUv9MA89Uvf9B8Y+odDX+9uHdur2BFUb6P8CAIImIoIuYYL4NPqrInvdEF7sV5KCF9iSX/pNccu
- YxrbRqZC3H8Ryf5gkJfsSjbC3ZkquTI9wCWgjZ6yxr9hspHqBxWjZCsPQxvdc0SuiHlaQDbEhbZ
- 02oXUFp6Hz6y41l/5qp6ToburZsH9ebSGPrNw2cDY2H0XTbfpBVotk1ZFn9kaJOyazY+VnYAkig
- QhHWWFM5m1L5uE5Zc0T7eeElQtk38kwB9vt/rlLQikrSKV1acJJUMWnZEAtBnZoCc2LdiZ9rZu4
- XehH/+JzGIc1Ap3Z4w9yZw+hGGNZKYd8dZ0iyqfpBebvDYciEqNHYefHNsKjX7IWvp6aC/UxVwI
- Cp7vNA/7LBZydcw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[f12658786a4153df5113];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,gmail.com,kvack.org,vger.kernel.org,syzkaller.appspotmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,pedro-suse.lan:mid]
+X-Spam-Flag: NO
 
-kexec_file_load() fails on arm64 if we have CONFIG_ARM64_VA_BITS_52 but
-it runs on a !FEAT_LPA2 host (such as my loving Grace machine).
+On Tue, Aug 25, 2026 at 08:55:26AM +0100, Lorenzo Stoakes (ARM) wrote:
+> Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
+> a faulted VMA into an unfaulted one.
+> 
+> It does so after the page tables have been moved to the copied VMA with
+> MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
+> as the page tables it had are no longer present.
+> 
+> However, in doing so, it violates the invariant that the anonymous page
+> offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
+> 
+> This is because a VMA may have been faulted in, mremap()'d (causing a delta
+> between its page offset and vma->vm_start >> PAGE_SHIFT), and then
+> mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
+> 
+> This condition is a violation of a fundamental assumption in mm, but now
+> also triggers an assert in assert_sane_pgoff() which explicitly checks for
+> this condition.
+> 
+> Correct it by resetting the VMA's page offset at the point of completing
+> the MREMAP_DONTUNMAP operation.
+> 
+> Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
+> Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-That is because trans_pgd_create_copy() uses the compile time
-PAGE_OFFSET (VA 52) instead of the actual VA size (48 -- due to the lack
-of LPA2). With the fifth level folded, pgd_none() is always false, so
-the walk cannot skip the 15 extra PGDIR_SIZE slots, and they all alias
-back to the same table: the whole kernel page table gets cloned 16
-times, KASAN shadow included. Without KASAN it does not blow up, it just
-wastes ~RAM/32 in page tables.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-Fix it by copying the linear map that is the actual one, not the
-compiled one.
 
-Fixes: a6bbf5d4d9d1 ("arm64: mm: Add definitions to support 5 levels of paging")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- arch/arm64/kernel/machine_kexec.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
-index c5693a32e49b0..8f9bc2327dc85 100644
---- a/arch/arm64/kernel/machine_kexec.c
-+++ b/arch/arm64/kernel/machine_kexec.c
-@@ -129,7 +129,8 @@ int machine_kexec_post_load(struct kimage *kimage)
- 	}
- 
- 	/* Create a copy of the linear map */
--	rc = trans_pgd_create_copy(&info, &trans_pgd, PAGE_OFFSET, PAGE_END);
-+	rc = trans_pgd_create_copy(&info, &trans_pgd,
-+				   _PAGE_OFFSET(vabits_actual), PAGE_END);
- 	if (rc)
- 		return rc;
- 	kimage->arch.ttbr1 = __pa(trans_pgd);
-
----
-base-commit: b8809969e1d7a591e0f49dd464a5d04b3cf02ab1
-change-id: 20260826-b4-arm64-trans-pgd-va52-0bb9b44dd896
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+-- 
+Pedro
