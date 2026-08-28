@@ -1,168 +1,505 @@
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E7F41C6A;
-	Fri, 28 Aug 2026 06:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.92.40.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787897419; cv=none; b=MS5Y96ECJmJYXHlfddIbQD5y1uUCgCwtW+wFoUyt3mqncrGhh4OkHTSXZyVKip3CON5QLtKL4r8H32Gg9X0RyJZfiHyp9ySKlI1idYMvMpFiyKUWkmXL8yn9OQnEl8fjNPLzqZ5RwXV+NZD0DaRUJ/xPNaREUat8x52dw1QBSjU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787897419; c=relaxed/simple;
-	bh=2ShxXbg/WXPkLKVlOfIcxkSzSfE3n62us5GpSUhv3S4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GmphJfXxda1aswYl2OefYlWcbRZ7dhHRb4jIaS9clqGSGC68Wg8jAC4Y0ihU47BWn+sqyJwhQt8C2Ix6gbtGT1VL+MaHdBFg4erIFY7Tx0lPQ98CychpIx92H/7asd3Gsf5KnZ+SOGSKDOb5oTh7FRqkQ6rMMOMBZNojGGVUmEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com; spf=pass smtp.mailfrom=thorsis.com; dkim=pass (2048-bit key) header.d=thorsis.com header.i=@thorsis.com header.b=cBKT+1MS; arc=none smtp.client-ip=217.92.40.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2C139EF39
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787897436; cv=pass; b=c43Yde6tk+wkP8QZFhd88YfvdiKWUjyfkUjLkf3O/3DU5xI7somQShYhmt+FFmYISp63PE8UJd5AawBX0kqCOiDT4lKWOwPZ8q5b/QV+YCtRkLaRYk7+qTltauz77Ei6QblzFIOQlRPRoB0zIATlBGRvqvkXndpYt2MHfRGHV64=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787897436; c=relaxed/simple;
+	bh=Ue0T1iUVz3epLV1GAr355iUH4SyixiHlgovA41xr+ps=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b5/T+06Qy34k9f9G/SCEzxRhNs17X0habMym4wb5ljFheKndqZebTZG+vDm/wtBkEwobxwzCB6s7ypQ6H9220zaQ86cu0tGKH8EmfCjkPSpKb/Zcq4Rgqz9M3xdB+kSAVnGFp/Z1vDLH6h55fsdhAoMK4gMPdBDecA4tdXlojSw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NKAK2Cq2; arc=pass smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thorsis.com header.i=@thorsis.com header.b="cBKT+1MS"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9A4BA1487E85;
-	Fri, 28 Aug 2026 08:04:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1787897058; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=IeXlbKopy25D1cxmA5FDWjy1hNWPVZ0ZdcBgGyK1nxY=;
-	b=cBKT+1MSOlxZwKvXBXr9zaFsyz8vZ4BDTBZbG6VET1b542cLSfSj+AYJ9nIKNvQE6OcPwG
-	q456RnIUXBg0lfmqjsUHoHm/46wsJTQ7UDaF+/7JtuQDCX+TVk9fL9pe2lB56ZhylsT+zp
-	Prt9ywLdnX+qZsBM13sWUs87eAHSAUzJM5aGhixdKqHPF2WtDw8uCN3ijqGgbkiqQYZjBN
-	wQhSud73d4OpaDKRAgegUCKk0/zdjQ51XFUraUtkwulC9GMQRebn5uNHdr9RH8ao6CD1FZ
-	KoC2Jf4oSb3v8sEtC+R6whtBbdN95htktSO9RW315eYj1BHQ8ERgAPXBxRChSA==
-Date: Fri, 28 Aug 2026 08:04:08 +0200
-From: Alexander Dahl <ada@thorsis.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jonathan Bell <jonathan@raspberrypi.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 0/2] net: macb: fix zero UDPv4 checksum on transmit
-Message-ID: <20260826-untrimmed-take-024590e9f9d8@thorsis.com>
-Mail-Followup-To: Nicolai Buchwitz <nb@tipi-net.de>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jonathan Bell <jonathan@raspberrypi.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-References: <20260824134703.766708-1-nb@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NKAK2Cq2"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso643125e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:10:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787897432; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b+z3AF33tiG6NzAMA0FiJnPCcNAh11Wq5EgF5QuV+xTIYw+EvHZDHXCyR0pgR+C51M
+         HHgbSRBaQHmSbLTwJMhtsDUaoSE6+gnukTTLB7S3fyaI5WN8x3Lerexc2XJgqDRVbD62
+         ssu/RQTvvunA8YRuzXYg8MApWodJUtxgtBlTXcU/wXvx4bkRrUKbQEYixs3bIvG9UpwN
+         zdG/y1fbDz7JlB2Vq1is9ZHMBWC6gXS9+gSqNYTCphENM3oOjnX9al490fp8LnWiEa53
+         yR2R2dbepHrVOc21bokWFJlwX9eEXS2nhogtJ0svubHEA8f7hG0PF9DedC1nChDzWc7k
+         8S3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j/crMht1+yXjpzwQZ3OMn5JiyeMwenvsHnVlTSZgTfE=;
+        fh=0QB9m+h8TNNXQx75yY17fS4+/8zR4E88Sw+h3zfLdVM=;
+        b=TR/osD7De/SjOTz4kkkzgno+qyvzkQWrlUGLsbglzlsa5Y07InxDxni7nXlOjOcuAu
+         9mEGNI++J03hPULMz4Sfrmn3Ywjxs948SacO1LYCjT4uJLBpvxxtGFrltEJN9l06yd+E
+         TktXTC174dr+wYa76gGUaWc5RITXrOD3HNRpeEyqxOFrszW033gmkHmCvb4ckffCUJ83
+         8SXphxkmHR46/s4OzXw8BtxXJ8gsrIACGpsCufgz12F/eq8sMEZD5Fl2BA7oZbFfG8KO
+         lY0ud7UT9+jHlsIfNw8YaQmICT7g/tYAI9IyOgBm6Bb3FbrMBzkBeQ8Y+zJL+LP5WQNf
+         mHSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787897432; x=1788502232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j/crMht1+yXjpzwQZ3OMn5JiyeMwenvsHnVlTSZgTfE=;
+        b=NKAK2Cq2DYFivXO0yww7+3C9Z6P+uoM0KGZ3DKLFhugbnP11ZSAB3qh194Nx5rThpS
+         XQPYwvnOv2g7DyVGy6xAUdFGwinC51IeOX8fuMZifT4T3OeVoyAT3G2/u34aafp2vZBm
+         ygTBrjlX6z+lFIAff7k3etpikcuLRWg5k40n0yc/oYvtDoenJ3GrugBvtYRXHsFsKzER
+         9V9kW+kmSURknCdozZ8jow23SEWH9/u1t+vSkwvWU+ChFXE8iKqjF5k8QUNXaMeBAXVN
+         25JQ7vzO5kgIQTYyvtQRB9jxYiLX269pwCxCavGKaCjMU5v1oizKpTmMygAMVdu5GE/R
+         hF1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787897432; x=1788502232;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j/crMht1+yXjpzwQZ3OMn5JiyeMwenvsHnVlTSZgTfE=;
+        b=J+SIJ2KVtRfe0tohCo+/Iy3aZSxOPf/qbrnck/AR+N/W4D+c/BMJ/9i/WdksmCxZVk
+         RC1ugOOws5y+kHGDL18jxS3P8czYQ7/QWBl6xTFOnH/AVePNP112LAuEsQYUsaCaITcm
+         RjtisVAcNb38BBQcHfUbjA5MsMvDCXVG9bLl8nPNlz1milbQnsG6md4M1O24J8KgJ3vX
+         S4HONfR1OETBKe4InRPhHRnSFdK3clvirM3dHOigPKw84mIxn9+OwiDsLwW1nuTt1CCo
+         Jbflv4bpOtT/3U15LjBcU7EIm4YuE/qiy/1YKRn3ReyvgnU+GF70i3ClTlpDnTBUcO6b
+         vOAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqaF5aTeTEFmdLANEsN8NL73Ik95C1xUTznqXh5WW5FxwJrh4VllD0yZbQtzdyTYjJ4CwVh5JfupvySHio=@vger.kernel.org
+X-Gm-Message-State: AFuF++njcLZekfHFODKtpQkuyKgfYYFUCd6DFdReK+3gXUjoiT1BQcck
+	dU9ct2d8yi0SiOtRWybgevsGPp8tkpeEU1sM01gOb5xD3sgLIDKsGBEPsOeTeHjb6vCF+uIUO2A
+	3ClzLBM0QD0tls3dLDRxefId9uPHwnoA=
+X-Gm-Gg: AR+sD13hGNBS9hP11YmqSqw/M8sHaF0fYCAP4sEaaOaIUbY5Tf4QiwOx2Fdhdte9Xxr
+	ooF7bfWC8hEkFR6gk6cl1RgN2wdE0B1jsxNtK7EGMjnkJULpZfK89J90krVb/tleMSw544yfHw0
+	925T8ay7wHnpt9O8iJKPN+IQf6t7VN4NtD7ytRMFlxhE3mFPOY/dO5dJZrPbD/DEB/Bw2dDuFj0
+	IXLrIyN3ZrEwuO5vr65Fd8RNI99ldT9KIk6ur+GUr3pk3L214qWYSPwu500aybYfvjvqJPr5Juk
+	ruRow7iLYLTrxpXBtZJeB8wxzbXKSuziCH5SBs03ehMaOPUkEz9Y89XgBA==
+X-Received: by 2002:a05:651c:b0e:b0:39c:93ff:3672 with SMTP id
+ 38308e7fff4ca-3a301cba101mr5891681fa.9.1787897431442; Thu, 27 Aug 2026
+ 23:10:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824134703.766708-1-nb@tipi-net.de>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260822062725.60519-1-muchamadcoirulanwar@gmail.com>
+ <20260822062725.60519-2-muchamadcoirulanwar@gmail.com> <20260824004103.54eb2f7b@jic23-huawei>
+In-Reply-To: <20260824004103.54eb2f7b@jic23-huawei>
+From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Date: Fri, 28 Aug 2026 13:10:18 +0700
+X-Gm-Features: AcwNN1VV1s3tyuVu3cfKHp_QLidwwjT9lqnRfpLo9WEnVspfAOn8t2Jxrz9UaO0
+Message-ID: <CAO26r3QwUZ1QeO3PYNPoYQrbKpzfhttYAi0kNNB+QumAN=vZkQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v5 1/3] i2c: rust: implement SMBus access via
+ IoBackend and FallibleIoCapable
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, lars@metafoo.de, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, andi.shyti@kernel.org, 
+	wsa+renesas@sang-engineering.com, ojeda@kernel.org, dakr@kernel.org, 
+	igor.korotin@linux.dev, branstj@gmail.com, brucer42@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Nicolai,
+Hi Jonathan,
 
-Am Mon, Aug 24, 2026 at 03:47:01PM +0200 schrieb Nicolai Buchwitz:
-> When a UDPv4 checksum computes to zero, RFC 768 wants 0xffff on the
-> wire, but the GEM sends the raw 0x0000, which receivers read as "no
-> checksum". Raspberry Pi confirmed in a simulation of the Cadence IP
-> that the engine skips the substitution for UDPv4. UDPv6 and TCP are
-> fine, and the IP changelog suggests all GEM revisions could be affected.
-> Reported and analyzed on the Raspberry Pi 5:
-> https://github.com/raspberrypi/linux/issues/7550
-> 
-> Patch 2 does UDPv4 checksums in software and lets the existing pad
-> and FCS path keep the hardware off the frame, UDPv6 and TCP keep
-> the offload. That path miscounts tx_bytes by the software FCS, so
-> patch 1 fixes the accounting first.
-> 
-> Tested on CM5. To reproduce, send bulk UDP to another host and capture
-> zero checksums on the receiving side:
-> 
->   iperf3 -c <host> -u -b 200M -t 30
->   tcpdump -ni <iface> 'src host <dut> and udp[6:2] == 0'
-> 
-> Without the fix a packet shows up every few seconds:
-> 
->   12:46:20.002739 IP <dut>.36309 > <host>.5201: UDP, length 1448
->   12:46:23.773968 IP <dut>.36309 > <host>.5201: UDP, length 1448
->   12:46:40.227460 IP <dut>.36309 > <host>.5201: UDP, length 1448
-> 
-> With the fix the capture showed none.
-> 
-> Some numbers (udpgso_bench):
-> - 18-byte UDP throughput dropped by ~ 8%
-> - 256-byte UDP throughput dropped by ~ 10%
-> - MTU-sized UDP and UDP GSO were unchanged at the 116 MiB/s link limit
-> 
-> Unfortunately I don't see a cheaper fix, the zero only shows up after
-> computing the checksum, the MAC inserts it in flight, and AFAIU there is
-> no register or descriptor bit for the substitution.
-> 
-> I'd appreciate testing on other silicon.
+Thanks for the detailed review and for CC-ing Mark.
 
-I tested without your patch on at91 sama5d2 (Cadence GEM rev
-0x00020203), sam9x60 (Cadence MACB rev 0x0001010c), and sam9g20
-(Cadence MACB rev 0x0001010c), and tried to reproduce the flaw (not
-the fix).  Rewrote the Python reproducer suggested in that RPi github
-issue in C, but iperf3 gave similar results:  tcpdump started as
-suggested showed not a single wrong package!
+On Mon, 24 Aug 2026 at 06:41, Jonathan Cameron <jic23@kernel.org> wrote:
 
-However according to ethtool it seems at least the older MACB bases
-hardware has no hardware checksumming here.  On sama5d2 (GEM, but no
-Gigabit) I'm not sure if it is supposed to be done for UDP?  See:
+> > I2cClient<Bound>::smbus_io() returns an I2cView handle for use with the
+> > generic try_read8/try_read16 methods. Two standalone methods are also
+> > provided for odd-offset word access that bypasses the alignment check
+> > in the Io trait:
+>
+> Given some devices implement auto address increment and others decrement
+> even in aligned byte pairs it seems you will see things that 'smell' like
+> they are unaligned.
+>
+> I'd forgotten this fun corner of smbus like i2c devices!
 
-    $ ethtool -k eth0 | grep sum
-    rx-checksumming: on
-    tx-checksumming: on
-            tx-checksum-ipv4: off [fixed]
-            tx-checksum-ip-generic: on
-            tx-checksum-ipv6: off [fixed]
-            tx-checksum-fcoe-crc: off [fixed]
-            tx-checksum-sctp: off [fixed]
-    tx-gre-csum-segmentation: off [fixed]
-    tx-udp_tnl-csum-segmentation: off [fixed]
-    tx-tunnel-remcsum-segmentation: off [fixed]
-    esp-tx-csum-hw-offload: off [fixed]
+The standalone smbus_read_word() and smbus_read_word_swapped()
+methods exist for odd-offset access, but I didn't document that
+try_read16 and try_write16 reject odd offsets and that auto-increment
+devices may need to use them. I'll add that to smbus_io()'s doc comment
+in v6.
 
-On sam9x60 (MACB) there seems to be no hardware offloading at all:
 
-    $ ethtool -k eth0 | grep sum
-    rx-checksumming: off [fixed]
-    tx-checksumming: off
-            tx-checksum-ipv4: off [fixed]
-            tx-checksum-ip-generic: off [fixed]
-            tx-checksum-ipv6: off [fixed]
-            tx-checksum-fcoe-crc: off [fixed]
-            tx-checksum-sctp: off [fixed]
-    tx-gre-csum-segmentation: off [fixed]
-    tx-udp_tnl-csum-segmentation: off [fixed]
-    tx-tunnel-remcsum-segmentation: off [fixed]
-    esp-tx-csum-hw-offload: off [fixed]
+> Just to repeat myself (and I appreciate the challenges that exist for
+> rust support in general and that it may be easier to look at the
+> i2c layer) I think that if it we are looking at bindings that are
+> register like then regmap is the way to go.  The space of what you can
+> build that is register based and uses these i2c_smbus commands is a lot
+> richer than you might think.  Either you end up reinventing all the
+> infrastructure regmap has to handle these, or you just use regmap.
 
-How are those chips affected by your patch then?
+Agreed. regmap-rs is the correct long-term path. This series uses the
+IoBackend/SMBus route because regmap-rs does not yet exist, and the
+scope is intentionally minimal: byte and word reads only. I should have
+stated this in the cover letter from the start. I'll fix that in v6.
 
-> Nicolai Buchwitz (2):
->   net: macb: exclude software FCS from TX byte statistics
->   net: macb: fix zero UDPv4 checksum on transmit
+Mark, if you have a view on whether this stepping-stone approach is
+acceptable or the series should wait, I'd appreciate your view.
 
-That fix seems to be very generic and not specific to macb or gem nor
-to any variant.  I'd suggest narrowing it down and testing on more
-hardware.
 
-Greets
-Alex
+> There are mixed devices where register stuff is used alongside other acce=
+sses,
+> however for those I'm not sure it is worth doing anything other than
+> wrapping the raw bus access functions.
+>
+> A few more references to the real variations we have to cope with inline.
 
-> 
->  drivers/net/ethernet/cadence/macb.h      |  3 +++
->  drivers/net/ethernet/cadence/macb_main.c | 28 +++++++++++++++++++++-------
->  2 files changed, 24 insertions(+), 7 deletions(-)
-> 
-> -- 
-> 2.53.0
-> 
+Agreed. smbus_read_word() and smbus_read_word_swapped() on
+I2cClient<Bound> are exactly that: thin wrappers over the raw bus
+functions. For mixed devices that don't fit the register model, those
+standalone methods are the intended path, not the IoBackend machinery.
+
+
+> p.s. One day the rust driver in IIO won't be the bottom of my 'to review'
+> list :(
+>
+
+> > +impl FallibleIoCapable<u16> for I2cBackend {
+> > +    #[inline]
+> > +    fn io_try_read<'a>(view: I2cView<'a, u16>) -> Result<u16> {
+> > +        // `io_view()` ensures `offset + 2 <=3D 256`, so `addr()` is a=
+t most 254;
+> > +        // the `as u8` cast below is therefore lossless.
+> > +        let reg =3D Self::as_ptr(view).addr() as u8;
+> > +        // SAFETY: `view.client.as_raw()` returns a valid `*mut struct=
+ i2c_client`
+> > +        // pointer as guaranteed by the type invariant of `I2cClient`.
+> > +        // `i2c_smbus_read_word_data` is safe to call with any valid c=
+lient pointer
+> > +        // and any u8 command byte.
+> > +        let ret =3D unsafe { bindings::i2c_smbus_read_word_data(view.c=
+lient.as_raw(), reg) };
+> > +        if ret < 0 {
+> > +            Err(Error::from_errno(ret))
+> > +        } else {
+> > +            Ok(ret as u16)
+> > +        }
+> > +    }
+> > +
+> > +    #[inline]
+> > +    fn io_try_write<'a>(view: I2cView<'a, u16>, value: u16) -> Result =
+{
+> > +        // `io_view()` ensures `offset + 2 <=3D 256`, so `addr()` is a=
+t most 254;
+>
+> There are smbus devices that have fully 2 byte registers.  For those you'=
+d
+> need to divide this by 2 and the range would go up to 510
+> E.g. drivers/light/cm32181.c (though that doesn't have that many register=
+s).
+
+Understood. The current maxsize=3D256 works for AS5600 but doesn't cover
+devices where all 256 command bytes address 16-bit registers; for those
+the range would need to go up to 510. I'll note this as a limitation
+in v6.
+
+
+> > +impl I2cClient<device::Bound> {
+> > +    /// Returns an I/O handle for SMBus register access on this I2C cl=
+ient.
+> > +    ///
+> > +    /// The returned handle provides fallible read/write methods for t=
+he
+> > +    /// 256-byte SMBus command address space (0x00=E2=80=930xFF). This=
+ is the SMBus
+> > +    /// command byte range, NOT the 7-bit device address, which is han=
+dled
+> > +    /// by the I2C core at the adapter level.
+>
+> That rather feels like you are correcting my confusion in the earlier ver=
+sion!
+> I'd assume people are more awake than me and skip the NOT part ;)
+
+Sorry for the tone. I didn't mean to correct you. I'll drop that line.
+
+
+> > +    /// Reads a 16-bit word from an SMBus register in CPU-native byte =
+order.
+> > +    ///
+> > +    /// Wraps `i2c_smbus_read_word_data`. The `reg` parameter is the S=
+MBus
+> > +    /// command byte (0x00=E2=80=930xFF) =E2=80=94 an instruction sent=
+ to the device over the
+> > +    /// serial bus, not a memory address. There is no alignment requir=
+ement:
+> > +    /// any command byte value is valid regardless of whether it is od=
+d or even.
+>
+> It might be a memory address, could be almost anything.  Maybe 'not neces=
+sarily'
+> a memory address.
+> The kernel docs have it as:
+> "Command byte, a data byte which often selects a register on the device"
+
+I'll use the kernel-standard phrasing
+
+
+> > +    /// Reads a 16-bit word from an SMBus register with bytes uncondit=
+ionally
+> > +    /// swapped.
+> > +    ///
+> > +    /// Wraps `i2c_smbus_read_word_data` and applies [`u16::swap_bytes=
+`] to the
+> > +    /// result. Use this for devices that store multi-byte registers i=
+n
+> > +    /// big-endian (MSB-first) format, which is common among I2C senso=
+rs whose
+> > +    /// datasheets do not reference the SMBus specification.
+>
+> This last bit feels like cover letter, patch description material.
+> I wouldn't normally expect function documentation to justify how useful
+> a function is!
+
+Fair point. I'll remove it.
+
+> > +    ///
+> > +    /// The swap is **unconditional** =E2=80=94 it is not equivalent t=
+o `be16_to_cpu`.
+> > +    /// On a big-endian CPU, `be16_to_cpu` would be a no-op, but this =
+method
+> > +    /// still swaps. The reason: SMBus always transmits the low byte f=
+irst, so
+> > +    /// the driver always receives data in little-endian wire order re=
+gardless
+> > +    /// of CPU endianness. The swap corrects for the device's wire-lev=
+el byte
+> > +    /// order, not the CPU's native order.
+>
+> This feels like we are justifying why it isn't a different implementation=
+.
+> Can we rewrite to not need that reference to what else it isn't.
+
+Agreed. I was over-explaining in the doc. I'll rewrite to describe
+only what the function does.
+
+> > +    ///
+> > +    /// The `reg` parameter is the SMBus command byte (0x00=E2=80=930x=
+FF). There is no
+> > +    /// alignment requirement; any command byte value is valid.
+>
+> What would an alignment requirement mean here?
+
+Right, it doesn't apply here. I'll drop that sentence.
+
+> > +    ///
+> > +    /// Returns `Err` if the bus transaction fails (e.g. NACK, arbitra=
+tion loss,
+> > +    /// or timeout).
+> > +    ///
+> > +    /// # Example
+> > +    ///
+> > +    /// ```ignore
+> > +    /// // AS5600 stores the 12-bit raw angle big-endian at register 0=
+x0C.
+> > +    /// let raw =3D client.smbus_read_word_swapped(0x0C)?;
+> > +    /// let angle =3D raw & 0x0FFF;
+> > +    /// ```
+> > +    #[inline]
+> > +    pub fn smbus_read_word_swapped(&self, reg: u8) -> Result<u16> {
+> > +        // SAFETY: `self.as_raw()` returns a valid `*mut struct i2c_cl=
+ient`
+> > +        // pointer as guaranteed by the type invariant of `I2cClient`.
+> > +        let ret =3D unsafe { bindings::i2c_smbus_read_word_data(self.a=
+s_raw(), reg) };
+> > +        if ret < 0 {
+> > +            Err(Error::from_errno(ret))
+> > +        } else {
+> > +            Ok((ret as u16).swap_bytes())
+> > +        }
+> > +    }
+> > +}
+> > diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> > index 95f46bb75f9e..516895ca2082 100644
+> > --- a/rust/kernel/io.rs
+> > +++ b/rust/kernel/io.rs
+> > @@ -276,6 +276,36 @@ pub trait IoCapable<T>: IoBackend {
+> >      fn io_write<'a>(view: Self::View<'a, T>, value: T);
+> >  }
+> >
+> > +/// Fallible counterpart of [`IoCapable`] for I/O backends where opera=
+tions can fail at the
+> > +/// transport level (e.g. I2C, SPI).
+> > +///
+>
+> Why is this part in the patch adding the i2c specific use case?
+> I'd expect it to be a precursor patch.
+
+I'll move FallibleIoCapable to a separate prerequisite patch in v6.
+
+> > +/// Infallible backends ([`IoCapable`] implementors) get this for free=
+ via blanket implementation.
+> > +/// Fallible-only backends implement this trait directly without imple=
+menting [`IoCapable`]; the
+> > +/// infallible [`Io::read`], [`Io::write`], and [`Io::update`] methods=
+ will then be unavailable,
+> > +/// enforcing that callers use the `try_*` variants instead.
+> > +pub trait FallibleIoCapable<T>: IoBackend {
+> > +    /// Performs an I/O read of type `T` at `view` and returns the res=
+ult, or an error if the
+> > +    /// transport-level operation fails.
+> > +    fn io_try_read<'a>(view: Self::View<'a, T>) -> Result<T>;
+> > +
+> > +    /// Performs an I/O write of `value` at `view`, or returns an erro=
+r if the transport-level
+> > +    /// operation fails.
+> > +    fn io_try_write<'a>(view: Self::View<'a, T>, value: T) -> Result;
+> > +}
+> > +
+> > +impl<B: IoCapable<T>, T> FallibleIoCapable<T> for B {
+> > +    #[inline(always)]
+> > +    fn io_try_read<'a>(view: Self::View<'a, T>) -> Result<T> {
+> > +        Ok(Self::io_read(view))
+> > +    }
+> > +
+> > +    #[inline(always)]
+> > +    fn io_try_write<'a>(view: Self::View<'a, T>, value: T) -> Result {
+> > +        Self::io_write(view, value);
+> > +        Ok(())
+> > +    }
+> > +}
+> > +
+> >  /// Trait indicating that an I/O backend supports memory copy operatio=
+ns.
+> >  pub trait IoCopyable: IoBackend {
+> >      /// Copy contents of `view` to `buffer`.
+> > @@ -645,7 +675,7 @@ fn copy_to_slice(self, data: &mut [u8])
+> >      fn try_read8(self, offset: usize) -> Result<u8>
+> >      where
+> >          usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+> > -        Self::Backend: IoCapable<u8>,
+> > +        Self::Backend: FallibleIoCapable<u8>,
+> >      {
+> >          self.try_read(offset)
+> >      }
+> > @@ -655,7 +685,7 @@ fn try_read8(self, offset: usize) -> Result<u8>
+> >      fn try_read16(self, offset: usize) -> Result<u16>
+> >      where
+> >          usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+> > -        Self::Backend: IoCapable<u16>,
+> > +        Self::Backend: FallibleIoCapable<u16>,
+> >      {
+> >          self.try_read(offset)
+> >      }
+> > @@ -665,7 +695,7 @@ fn try_read16(self, offset: usize) -> Result<u16>
+> >      fn try_read32(self, offset: usize) -> Result<u32>
+> >      where
+> >          usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+> > -        Self::Backend: IoCapable<u32>,
+> > +        Self::Backend: FallibleIoCapable<u32>,
+> >      {
+> >          self.try_read(offset)
+> >      }
+> > @@ -675,7 +705,7 @@ fn try_read32(self, offset: usize) -> Result<u32>
+> >      fn try_read64(self, offset: usize) -> Result<u64>
+> >      where
+> >          usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+> > -        Self::Backend: IoCapable<u64>,
+> > +        Self::Backend: FallibleIoCapable<u64>,
+> >      {
+> >          self.try_read(offset)
+> >      }
+> > @@ -685,7 +715,7 @@ fn try_read64(self, offset: usize) -> Result<u64>
+> >      fn try_write8(self, value: u8, offset: usize) -> Result
+> >      where
+> >          usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+> > -        Self::Backend: IoCapable<u8>,
+> > +        Self::Backend: FallibleIoCapable<u8>,
+> >      {
+> >          self.try_write(offset, value)
+> >      }
+> > @@ -695,7 +725,7 @@ fn try_write8(self, value: u8, offset: usize) -> Re=
+sult
+> >      fn try_write16(self, value: u16, offset: usize) -> Result
+> >      where
+> >          usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+> > -        Self::Backend: IoCapable<u16>,
+> > +        Self::Backend: FallibleIoCapable<u16>,
+> >      {
+> >          self.try_write(offset, value)
+> >      }
+> > @@ -705,7 +735,7 @@ fn try_write16(self, value: u16, offset: usize) -> =
+Result
+> >      fn try_write32(self, value: u32, offset: usize) -> Result
+> >      where
+> >          usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+> > -        Self::Backend: IoCapable<u32>,
+> > +        Self::Backend: FallibleIoCapable<u32>,
+> >      {
+> >          self.try_write(offset, value)
+> >      }
+> > @@ -715,7 +745,7 @@ fn try_write32(self, value: u32, offset: usize) -> =
+Result
+> >      fn try_write64(self, value: u64, offset: usize) -> Result
+> >      where
+> >          usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+> > -        Self::Backend: IoCapable<u64>,
+> > +        Self::Backend: FallibleIoCapable<u64>,
+> >      {
+> >          self.try_write(offset, value)
+> >      }
+> > @@ -827,10 +857,10 @@ fn write64(self, value: u64, offset: usize)
+> >      fn try_read<T, L>(self, location: L) -> Result<T>
+> >      where
+> >          L: IoLoc<Self::Target, T>,
+> > -        Self::Backend: IoCapable<L::IoType>,
+> > +        Self::Backend: FallibleIoCapable<L::IoType>,
+> >      {
+> >          let view =3D io_view::<Self, L::IoType>(self, location.offset(=
+))?;
+> > -        Ok(Self::Backend::io_read(view).into())
+> > +        Ok(Self::Backend::io_try_read(view)?.into())
+> >      }
+> >
+> >      /// Generic fallible write with runtime bounds check.
+> > @@ -860,12 +890,11 @@ fn try_read<T, L>(self, location: L) -> Result<T>
+> >      fn try_write<T, L>(self, location: L, value: T) -> Result
+> >      where
+> >          L: IoLoc<Self::Target, T>,
+> > -        Self::Backend: IoCapable<L::IoType>,
+> > +        Self::Backend: FallibleIoCapable<L::IoType>,
+> >      {
+> >          let view =3D io_view::<Self, L::IoType>(self, location.offset(=
+))?;
+> >          let io_value =3D value.into();
+> > -        Self::Backend::io_write(view, io_value);
+> > -        Ok(())
+> > +        Self::Backend::io_try_write(view, io_value)
+> >      }
+> >
+> >      /// Generic fallible write of a fully-located register value.
+> > @@ -905,7 +934,7 @@ fn try_write_reg<T, L, V>(self, value: V) -> Result
+> >      where
+> >          L: IoLoc<Self::Target, T>,
+> >          V: LocatedRegister<Self::Target, Location =3D L, Value =3D T>,
+> > -        Self::Backend: IoCapable<L::IoType>,
+> > +        Self::Backend: FallibleIoCapable<L::IoType>,
+> >      {
+> >          let (location, value) =3D value.into_io_op();
+> >
+> > @@ -938,16 +967,13 @@ fn try_write_reg<T, L, V>(self, value: V) -> Resu=
+lt
+> >      fn try_update<T, L, F>(self, location: L, f: F) -> Result
+> >      where
+> >          L: IoLoc<Self::Target, T>,
+> > -        Self::Backend: IoCapable<L::IoType>,
+> > +        Self::Backend: FallibleIoCapable<L::IoType>,
+> >          F: FnOnce(T) -> T,
+> >      {
+> >          let view =3D io_view::<Self, L::IoType>(self, location.offset(=
+))?;
+> > -
+> > -        let value: T =3D Self::Backend::io_read(view).into();
+> > +        let value: T =3D Self::Backend::io_try_read(view)?.into();
+> >          let io_value =3D f(value).into();
+> > -        Self::Backend::io_write(view, io_value);
+> > -
+> > -        Ok(())
+> > +        Self::Backend::io_try_write(view, io_value)
+> >      }
+> >
+> >      /// Generic infallible read with compile-time bounds check.
+>
