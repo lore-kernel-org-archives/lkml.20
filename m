@@ -1,153 +1,79 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368AF37187C;
-	Fri, 28 Aug 2026 10:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DEC38A701;
+	Fri, 28 Aug 2026 10:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914302; cv=none; b=ZJC8ukGCBZDz7JWRg0frOWAlZLy+HKeQx24k7DmDlG0Vmd+WSw8PRGQmicySMw+odDbcrFDQrQuIAxPfBO6JmMEz5j+9ErZA58U9YBRn18iAVmoMtZmZghzIMNmSH84RDYPyBXulYiU4pA0eo8uiiWd4CxH+xOWc4rW8/8uPNCU=
+	t=1787914320; cv=none; b=lL8CQsrggWT6C+OpFKxxkUD7IeBwWIECOEm9S8/+Hvx3FL2AbnQImeVVIAqqZnXJm0/mMCX1mM1MPo3Yi2fc9ODHqJPbndHE/8wQ1+lOD5hQ9CeQMPxY2zr80C1DGG4rtrrmErYAOxxFLPymKjVzUYnbdqBOl2/T6iLLJlQXgSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914302; c=relaxed/simple;
-	bh=f1tXItx/SP3I9fj2NGGQssr7Yz+M7GSEHOJzok3hWyQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cFyFsCkDusgc5m3u4EZQjCs7p4UILmDYQXFASyV8C8kSD1JpaUxqAAVhfKtpG1uO8439ta1Ie0bZsQsFowQ/0/nJOuCpP0yN3O9Pz+BuWUxXcfimcjJGd7H/XUJHTfKiPXqEquPQRXxxZnxmgmIC6VPqpc5QOBmQxtL8nWCVlyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ecwos1c4; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787914320; c=relaxed/simple;
+	bh=KnJ0xS4wtKF41uZcB5P0f1h7kIrwaBmbT9mcXlzZ+0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3ve36mgFqdMQL1JYdtLQJ+ytBAdo2deq62L7gwi415oaFl3VmaBEfL2pqCk7craBbKZX5YYTvZZg1LNsU4vBIw+33I8ie/A9D1n1G+alpA7tEonVOiStaAt7E5fGW5mwRzk3eqXqe17H5kPH7uWvlBHqrqNWckJUieDGU4HY4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MlgSrKfR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ecwos1c4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=Dzg9V2iiWMedJBAhrJMj7UcTGQ4NjKAFQAxoUasMQno=;
-	b=Ecwos1c4XqatUdoKcTHb2rGGteZVbEqjfK+aAZNBKiYP9hWF1d9UQmrOGRqkkK
-	nkq1+EY+LfHGZD/tW3ay/8n5E+FHOO2SrysXMjU/kr5Jhib79VQsha0AYzmjBTFz
-	bBWObrGEDCZjey6wcN9VWPD0pyD11talMFYChEi+MMCzY=
-Received: from [10.42.12.146] (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD311YaaJFq7cdwRg--.11167S2;
-	Fri, 28 Aug 2026 18:51:07 +0800 (CST)
-Message-ID: <7d00f8a3-0d35-49ce-83ab-29b94a3490ed@163.com>
-Date: Fri, 28 Aug 2026 18:51:06 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MlgSrKfR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348671F000E9;
+	Fri, 28 Aug 2026 10:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787914318;
+	bh=8QR+mV84eUADKcRuIlSxXNiDLsii5HShOwXWR6BkAu0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MlgSrKfRAXCvPPkD46t3kXwV2P8imQHSgQRHIWBUvSk3Uc9Kk0yBbHBIO6jUWKH04
+	 XWYFyVeqQC2Xbk7/12BcoJEWTaWrM6Nszjm03OleYjCtw+5Amhu+3yWD4kV7u1T9rT
+	 0k9hipGZIKXRV7XPkvBcb4cjpKo0smjc48lPAP98=
+Date: Fri, 28 Aug 2026 12:50:17 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Jiri Slaby <jirislaby@kernel.org>, falemi@asu.edu,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] WARNING: refcount bug in gsm_mux_net_start_xmit
+Message-ID: <2026082821-leverage-ninth-bf28@gregkh>
+References: <CA+0ovCh9MQE6BZD-8vqWMcrVS8Bj-tYY47HqeASvE7_b9QP-ZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: Release reserved xarray entries if reserving memory
- attributes fails
-To: Sean Christopherson <seanjc@google.com>
-Cc: pbonzini@redhat.com, chao.p.peng@linux.intel.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, zengchi@kylinos.cn
-References: <20260827110558.457891-1-zeng_chi911@163.com>
- <apCD3F3oOyC6E5oN@google.com>
-Content-Language: en-US
-From: Zeng Chi <zeng_chi911@163.com>
-In-Reply-To: <apCD3F3oOyC6E5oN@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD311YaaJFq7cdwRg--.11167S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrykCr45AF45WFWkKr13CFg_yoWrXF48pF
-	ZYgryUJrs5tFn7A3yktw4DZa4rurWSgr4rG3s8tryDZr45Ja4aqr95Kr4j9rW3JrZ5Wa4j
-	qF4jqa47A3y0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U73kNUUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwBsf2mqRaBt+xgAA3u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovCh9MQE6BZD-8vqWMcrVS8Bj-tYY47HqeASvE7_b9QP-ZQ@mail.gmail.com>
 
-On 2026/8/28 02:37, Sean Christopherson wrote:
-> On Thu, Aug 27, 2026, Zeng Chi wrote:
->> From: Zeng Chi <zengchi@kylinos.cn>
->>
->> kvm_vm_set_mem_attributes() reserves an xarray entry for every gfn in
->> the range before modifying any attributes, so that the actual updates
->> can't fail partway through.  But if one of the reservations fails, e.g.
->> due to -ENOMEM, the entries that were already reserved are left behind,
->> as the error path bails without releasing them.
->>
->> A reserved entry is XA_ZERO_ENTRY, not NULL.
+On Fri, Aug 28, 2026 at 05:53:36AM +0000, Farhad Alemi wrote:
+> Hello,
 > 
-> Lovely.
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
 > 
->> xa_load() hides the difference, but kvm_range_has_memory_attributes() uses
->> xas_find() to check whether a range has no attributes at all, and xas_find()
->> returns zero entries as-is.  As a result, a leaked reservation makes KVM
->> think the range has attributes set even though kvm_get_memory_attributes()
->> reports none.  On x86, the next time mixed-attribute tracking is recomputed
->> for the range (memslot creation, or a later attribute change that straddles
->> the 2MiB page), hugepage_has_attrs() treats a fully shared 2MiB range as
-On 2026/8/28 02:37, Sean Christopherson wrote:
-> I'm inclined to fix kvm_range_has_memory_attributes() instead of unwinding the
-> reservation.  Because this isn't a memory leak per se, e.g. if it weren't for
-> the false negative in kvm_range_has_memory_attributes(), I would say this is a
-> complete non-issue (there's no leak, just a maybe-unused reservation).
-> working as intended.
+>   https://github.com/farhad-alemi/public_bug_reports/tree/main/199-warning-refcount-bug-in-gsm-mux-net-start-xmit/
 > 
-Agreed, fixing the reader is better.  Reframed that way in v2.
-
-> I think it would be this?
+>   refcount_t: addition on 0; use-after-free.
+>   WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110
+> lib/refcount.c:25, CPU#0: kworker/u8:1/14
+>   Workqueue: ipv6_addrconf addrconf_dad_work
+>   Call Trace:
+>    refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
+>    __refcount_inc include/linux/refcount.h:366 [inline]
+>    refcount_inc include/linux/refcount.h:383 [inline]
+>    kref_get include/linux/kref.h:45 [inline]
+>    muxnet_get drivers/tty/n_gsm.c:3938 [inline]
+>    gsm_mux_net_start_xmit+0x3af/0x440 drivers/tty/n_gsm.c:3951
+>    __netdev_start_xmit include/linux/netdevice.h:5368 [inline]
+>    dev_hard_start_xmit+0x23b/0x620 net/core/dev.c:3904
+>    __dev_queue_xmit+0x160b/0x3250 net/core/dev.c:4831
+>    ip6_finish_output2+0xfd4/0x19b0 net/ipv6/ip6_output.c:136
+>    mld_sendpack+0x820/0xe00 net/ipv6/mcast.c:1855
+>    ipv6_mc_dad_complete+0x85/0x470 net/ipv6/mcast.c:2279
 > 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 65eb26a0520d..a01b2af1cb17 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -2447,8 +2447,9 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
->  		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
->  
->  	guard(rcu)();
-> -	if (!attrs)
-> -		return !xas_find(&xas, end - 1);
-> +
-> +	if (!attrs && !xas_find(&xas, end - 1))
-> +		return true;
->  
->  	for (index = start; index < end; index++) {
->  		do {
-> 
-I tried that first, but it doesn't fix the false positive.  Falling through to
-the generic loop for the !attrs case still returns false for a range that only
-contains reserved (zero) entries: the loop does
+> Our reproducer.c is available upon request.
 
-	do {
-		entry = xas_next(&xas);
-	} while (xas_retry(&xas, entry));
+Please read the mailing list archives for why you shouldn't be worrying
+about this file unless you have access to the real hardware.
 
-and xas_retry() returns true for zero entries (xa_is_zero()), so it skips the
-reserved entries, then "xas.xa_index != index" trips and the function returns
-false.  So the leaked-reservation range is still reported as having attributes.
+Also, this required root to trigger, right?
 
-I confirmed it with the tools/testing/radix-tree harness (reserve [0, 512),
-then query attrs == 0): the original code, the sketch above, and the sketch
-with the xas cursor reset all return false, where absent is expected.
+thanks,
 
-What does work is to walk the range and ignore the zero entries explicitly:
-
-	guard(rcu)();
-	if (!attrs) {
-		xas_for_each(&xas, entry, end - 1)
-			if (!xa_is_zero(entry))
-				return false;
-		return true;
-	}
-
-That gives the right answer for {empty, only reservations, a real value present,
-reservations + a real value, all set}.
-
-> Side topic, does storing NULL even require an entry?  Based on the above behavior,
-> I assume not.  So can't we also do?  This feels like deja vu though...
-> 
-> @@ -2573,7 +2574,7 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
->  	 * Reserve memory ahead of time to avoid having to deal with failures
->  	 * partway through setting the new attributes.
->  	 */
-> -	for (i = start; i < end; i++) {
-> +	for (i = start; entry && i < end; i++) {
->  		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
->  		if (r)
->  			goto out_unlock;
-Right, storing NULL just erases and never allocates, so no reservation is
-needed when clearing.  I folded that into the same patch (the reservation loop
-becomes "for (i = start; entry && i < end; i++)").
-
-
-Thanks,
-Zeng Chi
-
+greg k-h
