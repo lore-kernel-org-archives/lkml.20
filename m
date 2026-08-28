@@ -1,124 +1,134 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167903C76BE
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895980; cv=pass; b=O3NF2FNMh/ScFlE3UYcGzEM7LBzxxKdV4GQ4i12aFidTjCSZsEenHSQwWTrvFPR2D59meFTINnyVCqVTVDA1IelaqB1TaBV6WYto7WB/gvFLH41soGp1F9fP8xHYQ2UEJ0fhXumVz0oTGiaZvbcxg6eDEV8Ny9x9Y/T3GAJVpQ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895980; c=relaxed/simple;
-	bh=3mzePdxBZU/3WYB/4lvrTeALz11TsrQx6TVNX0NuogU=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=GZURxZdvgyjlOvm5uFAGGmzOW6YVchlj7CafLx8j1+bsEGYYk86XKpop3WZmC2wsRUUeZ+u/4sIaN/p2Byz5AjAuvXXd0OFuVE3huEuIpfMox0yegWGtpd71/aYfooFthf3uiFS1aw4jFK/CtFeQHK6iGFIFOwLgvn8N1iZUg+c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=ZVk3NXk7; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09FB3C81B5
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787895986; cv=none; b=nzRxPzG3xLjL2Uc8sKwVr6OzWh8ZH9negpNNlL0lA52WwaHT3U48KOVGdJFAJ2eZrfoQcflJ0VHtdGrrWI62goh/T3vdZ0d8JaG8GngoNARoKRwP+qFmj905sRTJbWJc2kZPTPMfMAw0T4pIg3AomzC1+43jjBhReU0IQiOMZ7o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787895986; c=relaxed/simple;
+	bh=zEj9yrKql4gNFNSV5IhGyFHK9/jxyfJe9mV8S0UekMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bGPpbXYvAReVs/Gv6eJgttx7rd8ntaNP5TND9Zah+RfNskp3E7hMQ6QHOeOTEi9aYXmxErj7S6BUC1bH/NgfdVhlTnRVBIQWY5v/bDOIUw+FVoS3DgH0P6d8JLZKcJx0Jddm3j3qLmRE3+AS26pkHLteG+CUF7pd1lJoTYCL7Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=j5ASGV8C; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="ZVk3NXk7"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d71e253c90so6012065ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:46:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787895978; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b+3hwr6GqqHqGhFdF7DpxBisY74XRu4MsBx+25gk818XX0b8ls4hOqbHWn7+RXjI5k
-         GdDxAT0z4dxpsbUV9+c98hXFh5yaAeWmDHjia4ke+kGEmkdzkMHW10B2Kc073INLAdpz
-         I8gOWy3nBKDRlqy/jlqCYGFaHd5GFcRIGYsAkrKC6pp7koLHToAJkUrmKcd3uiteiCt5
-         zraa1vvBbtubRa21LOBCone2oyEKtGUBNwdvayP+WDtL/cMHmwcUi5a1X57W0ABnrtk1
-         vHqExeMzNurnfxY23rkb3cMM8SItdGln4tT08vXHRAryf+7JAyIzGqaTpVKalDwoCGA6
-         2W1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=0GUepPC6eQwQ4aTuikrhpmMNCO3bQ+7a/vXwuKLRNKU=;
-        fh=O1uXlw86RWc2enjHMkZMcSG0Ur7Vc9IzLhFNPGbHtTE=;
-        b=VAPrsEyTtpCLn6vSnyLDUlgaJC5oGu+03jv+GygPsRWFeyABY186aHmfVo2SJ/k1aB
-         vToxGC0OgjAOu5HWZ3hctoj25TogM9814CNHe/L3wROKf4oDnDa/CVaRMA8eVhoqFeqO
-         7MXNaDdLEb35vbngCCuXOleMokMcXkRuDQ4tja0wdC4voJ31kweUR3iu75f1UfaiB4Uc
-         Rrd/hp1PSNJA7TiukM6i1hmrb2ZXbXJPTtl7CzWv+wj/FUumfFl7d3E5nRZ7e3z7lKjX
-         /MjLeis9tqTO/h4jyvEfvwpvW63X1Y7rGf2W9D3x+no2KI/JDgVyaD+A8/MpY9zuFfvP
-         wYSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="j5ASGV8C"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-855d2bfae95so1011613b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787895978; x=1788500778; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0GUepPC6eQwQ4aTuikrhpmMNCO3bQ+7a/vXwuKLRNKU=;
-        b=ZVk3NXk7GQ6ecYx9QcxJBPyd4MO00O0pY7OP2vYI1geEUvXF8gSq11xx7quvCOGsuy
-         AvDNuyAjyS4XvVai6iquWFkI45tLTDNbILKXlQPsWVWrC+T9c9AfXWp3yumLO6c0k3AL
-         RTl9TtZYRlkUUSH9ntAEP80gjx3li7wpvsnHoCvM5pqqHy2Ye5UBX/CDbOIMT7yC7N2m
-         uRerS5bgwEfbF3ccZb95tzfWYB7eVadL/hb2gXtRQVH2t7lypbQ1zUCzWI1Qv0qf4WC2
-         Fj1Q3n3fwlbbsR1i6R2mzvQpu1dUf7LfaarsAlJJBmfNFJIKJSt55Ij8SOzTn74QSEzX
-         VW/Q==
+        d=furiosa.ai; s=google; t=1787895984; x=1788500784; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
+        b=j5ASGV8Cg/5TjQ3PT2lDd7YTBx41vQUg+F8AUNZ3JhcLcZtnFz9X1gE+ptCTwqvxHV
+         51ddnjCqN76dp2ouy9U/YGDpp8FWG+A1R5k/ASfOy5wO8dvY5PEkwoq36d9ojNZhCEvR
+         Ee1wmjKjkr3nFZwU9NmOIWU9BMPwv9Ubbysqs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895978; x=1788500778;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0GUepPC6eQwQ4aTuikrhpmMNCO3bQ+7a/vXwuKLRNKU=;
-        b=rIBxvnAf2tFoLHModOhfJxyw4bKqDUF+BfhIHFSKEYMMWTJ+hXp2dCmq+FX1nfB6G9
-         6ZRMUfqaEpvof8paFC6Km2wvNDxdOSiEhKOfGNT7ozgzhlWhfR1VFnUvSIpNI4MVQmvg
-         BRAkBjLVLLIAsU6vZGviMLuuFy8EU3OrnVomU4Q8DwaA/jwNxUAYjQ9LPR6zljHldk8n
-         g8AYTx5g2otN7e4SpISxgh/P/Uk5OGz1UihQSK5y65A3NmLHiK/0Ue/3E0fMRiS6r5kT
-         UuT2/Oe57kvX+aMbjCOh82s1GdJ25MlejJu0HZjriCxKJXmH9fcj1mT/lib3x+SXB4V8
-         JvDA==
-X-Forwarded-Encrypted: i=1; AHgh+RoVO9hUzLxTjx+lcLhsWxi0e9MB4lAvUnY5ZUouMUTxDRjQfcBIY8GeYcpgG8pAekx7IGxNpJzVKRsz1/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH0/Ji5W48pFM0lX9rGu++X8Sa2+Peu6UNZ8ToBCuz4Q7r8sGn
-	oWc3ZYve6J730d7zsh8dNZfEPlrfyfVTR5Q090KhRIekZMbCOS/S2UNd4R3CRAb+xqrA2XMhBMy
-	B31jxAL99/nTp4PRL+1DoiA5cJmNy4W74dEOr1dDf
-X-Gm-Gg: AR+sD10L3osAvPxNbfUrle+XF+419UCCL8FKaaDWnmwJldvYR3RFOiAkKUmbX6dhArq
-	d7BqPosWq4DYmcKojCLzCG2qPE0lYJooPUV1yJCth5SKNZrqclWrH2vBXqPsq7iP7KXeSQ/iNkj
-	iE1H211IDeQK2OM5Ad/43z4inlVBGYZYz+qSjhAxgi0k2z5E4uRC2MQkvB6UqCKYvYLNOLVQ78W
-	Vp9VnOaakuMbJmqUaxD2dIi87qGYv4Ks/F5hQzQRpqhSCSLe65MjvJT+yb9yiKebVBkByW+kbwO
-	U8F+8chUCScc8TKTXg8zKe3anOFaQc+Aq4+tRnMiY+bgHmLtfvwlIu/V717OqaNKwhcKN+Mj2IU
-	aX/7XRBURyYFIDxYG4M4TgeAIcDoRR2rJ
-X-Received: by 2002:a17:903:15cf:b0:2d7:1aeb:739 with SMTP id
- d9443c01a7336-2d74e1295c2mr86465035ad.13.1787895977223; Thu, 27 Aug 2026
- 22:46:17 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:46:16 -0700
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:46:16 -0700
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1787895984; x=1788500784;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
+        b=r+cnOP1EliTmzkpR9tAGS4btBKlvMMvdEhXl+XMxc2DqaDzeNyr1RTG0tp+SBhg0R7
+         jn7cN2qy0J0NdSqHVArxTI3d56MC3nb1Q3zIW7eEGHoSLH4rCwPRAt7f/JGK0FW+BaP6
+         MG6MuD4YlNYmF2YB9K0cKsVGVWug7h7TZessXu4EOaCIhWT5CoPiXRQZUjLIGVmkaGuc
+         zIElnBLDeusAP1YtMUZsGhFAXRl2vSKG2/YksHbciSNEK5t/Q7ZwmkubgbHzn3dc1rcX
+         1rsiA92Mj17UDzIO4PIn0sb8Cwvq3Zx9kJIK/1gMoykQh/ysXxMHWYKSCqOCw6Yx9koX
+         nhZQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/HE/qX889I8AidzQRmThH5ySh5nlaMNON1I5IaRx6DcO0HmMzhsd4GZqgGR9Ov0zZA5pL/jCK+uO0db4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSdg2L7MsIUvfGUjYwMnPv7AwVJXtD7D/7Si7jWGcNzu+3iNvz
+	mEOdCQbJ83XV3CD6DKAwlNhk0sWSoJFdpjDxGO8lrzA94xUqc+nfWn3G3avf7am6CEw=
+X-Gm-Gg: AR+sD13+BiO762FDsm4QDYkbmvZMN/EB62JgWBUasX9MNbM1ou0pg+L68nWvkp+f9WU
+	q7ZyeD4bV6EEBG5/0ndcWvlzbtgUmmU3NTiCID4DOG+8QExSBGtLhYIqj44o5h0ZH9K07gZTU8I
+	3EIOsl9ps8Ii/4NoXoCY/kL1VQb5NidXI3UbCNihri+hXY+jbK4MrCkTHp/h9XRGOvGyokdoZsk
+	fbkXDkb6cbynlS+mpzBZ4Cd2ULPWSSrTYoiK1RmMkOmBFgeeZvK/zBmXqobjQ615n8BcESlgYnA
+	rk/RY6Mh8ppU68VanilizFUNIUyT26e5IOaUI+6q1oRCZPEdwS+dBSq0DSneyaY9zkSq+xuYfM+
+	DddZvet0gi/Rcp5pLbO0WfH8wCP8gK3+2Ks9aEYJskfveBs8sPBDUq6qeUKnxuvmqG/5vYaVYri
+	dZt7LHBLik6WN8Dk5kUVvpvt/5QNe6wnPRfrVOCSmM1lJBpXkVPfg37FX5ExcX8T4=
+X-Received: by 2002:a05:6a20:7fa3:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3d0f43b6581mr14032383637.2.1787895984063;
+        Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f656dsm225735a12.5.2026.08.27.22.46.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 22:46:23 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:46:16 +0900
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] accel/rocket: Collect job dependencies before
+ arming
+Message-ID: <apEggyjyM9yCqg4A@rock-5b-plus>
+References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
+ <20260828050805.38548-3-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 22:46:16 -0700
-X-Gm-Features: AcwNN1X4mXiwbv-zD7khlznKWnAht63BaDjhnKiIcjF9IZjcchKCLalWAp7F7Lo
-Message-ID: <CA+0ovCj14CqeH2qH-fxDdvdK3Tp=rgZM7opqOp0PkYS52RmOmQ@mail.gmail.com>
-Subject: [BUG] KASAN: use-after-free Read in gfs2_rgrp_go_instantiate
-To: Andreas Gruenbacher <agruenba@redhat.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>
-Cc: falemi@asu.edu, gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828050805.38548-3-Naixumogu@whut.edu.cn>
 
-Hello,
+On Fri, Aug 28, 2026 at 01:08:04PM +0800, MoGGuU wrote:
+> rocket_job_push() arms the scheduler job before collecting its implicit
+> dependencies. Dependency collection can fail with -ENOMEM, but an armed
+> job must be pushed and must not be aborted with drm_sched_job_cleanup().
+> 
+> Collect dependencies before taking the scheduler lock and arming the job.
+> Only operations that cannot fail remain after drm_sched_job_arm().
+> 
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index e6052d1973afa..b55e12aecfe64 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+>  	if (ret)
+>  		goto err;
+>  
+> +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> +					   &job->base, false);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+> +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> +					   &job->base, true);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+>  	scoped_guard(mutex, &rdev->sched_lock) {
+>  		drm_sched_job_arm(&job->base);
+>  
+>  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+>  
+> -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+> -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+>  		kref_get(&job->refcount); /* put by scheduler job completion */
+>  
+>  		drm_sched_entity_push_job(&job->base);
+> -- 
+> 2.43.0
+> 
 
-As part of the kernel research at ASU's SEFCOM
-lab, we hit the crash below. Crash reports can be found here:
-
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/177-kasan-use-after-free-read-in-gfs2-rgrp-go-instantiate/
-
-  BUG: KASAN: use-after-free in gfs2_bit_search fs/gfs2/rgrp.c:188 [inline]
-  BUG: KASAN: use-after-free in gfs2_bitfit fs/gfs2/rgrp.c:249 [inline]
-  BUG: KASAN: use-after-free in count_unlinked fs/gfs2/rgrp.c:1159 [inline]
-  BUG: KASAN: use-after-free in gfs2_rgrp_go_instantiate+0xb0d/0x1340
-fs/gfs2/rgrp.c:1238
-  Read of size 8 at addr ffff888011445000 by task syz-executor/17182
-  Call Trace:
-   gfs2_rgrp_go_instantiate+0xb0d/0x1340 fs/gfs2/rgrp.c:1238
-   gfs2_instantiate+0x151/0x210 fs/gfs2/glock.c:442
-   gfs2_glock_holder_ready fs/gfs2/glock.c:1250 [inline]
-   gfs2_glock_wait+0x1b2/0x280 fs/gfs2/glock.c:1270
-   gfs2_glock_nq_init fs/gfs2/glock.h:253 [inline]
-   gfs2_inplace_reserve+0xc43/0x3420 fs/gfs2/rgrp.c:2093
-   do_sync+0x64b/0xca0 fs/gfs2/quota.c:948
-
-Our reproducer.c is available upon request.
-
-Happy to test a patch if that would help.
-
-Regards,
+Reviewed-by: Sidong Yang <sidong.ynag@furiosa.ai>
