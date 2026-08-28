@@ -1,141 +1,248 @@
-Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DBE14A8B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C67914A8B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787883047; cv=none; b=XkMoXBn26cLjlKmXYBf6l0VLFFW/pyrWQXJi0kZV+dW2EmMGHWWDhlpl3LV/tLyhJzr/g7TpTsAbKadknEi578OYnJt1LDnfiZv3U3M56fALuKtmVNnJDJ6B0KIO4toVWKqHU/Yqo4zVEYX3dCcCGcAyTE9sxAqLeBAacnkrgvQ=
+	t=1787883115; cv=none; b=rEonyGeJ1Ckqtao07U+T20kbBY2qQZ0/9XBOIskvFc1J+Mfnr3Fn0rtyMNNuNMCu08AaUywR+rm+OVDpvHtvfDvtiVEEu+x8AK9sx9P/aj4lxlucD0sDifu+DEA7HXVY54YBGWj+JVvwBDpA0CXF0UYZ6IGAYmoLFbGPYwvKDVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787883047; c=relaxed/simple;
-	bh=306qViCsI/fL3kh7CVfETFHgjEHNsKAvkMgPEdvlycI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jhlEh/WZOqIptjTg2lqSqJBnwHVJXM8EoioN4AQj1hr+8XOhbhsAPl9fdZ8p6cfVmLvR1ko5DZLus/mvE30C3SlPqO6Q/m6/MgpZZQBrU+dZdoErOyzHdAv0FjrPNb4VUsxeoYz5/6tpKn3MB3EQqe4t0UIZdJIUNTaT+70gwe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O/BI380/; arc=none smtp.client-ip=91.218.175.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O/BI380/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=306qViCsI/fL3kh7CVfETFHgjEHNsKAvkMgPEdvlycI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787883044; v=1; x=1788487844;
- b=O/BI380/Nz/18+bn+FrTdCV90NZYvfYF3ijOMc92x4P2UWYpM2DtvorSkFWyx1MkRONPs1WS
- apOEvdOGROG4esnaVwm0YCYFALFbwe3wqyOzBqEu9eJ0x5heTjtW6UoJo3QnFtnhmAcmgLwPwwZ
- vCvB2JzxKUo+cnOzWSK6Q+4w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 0947378481690cdb;
-	Fri, 28 Aug 2026 02:10:44 +0000
-X-Mizu-Trace-ID: 0947378481690cdb
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 10:10:35 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, Albert Ou <aou@eecs.berkeley.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	linux-riscv@lists.infradead.org, kexec@lists.infradead.org
-Subject: Re: [PATCH] kexec_file: remove unused arch_kexec_locate_mem_hole hook
-Message-ID: <apDuG6mgDNyJL9rh@MiWiFi-R3L-srv>
-References: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
+	s=arc-20240116; t=1787883115; c=relaxed/simple;
+	bh=p2Ps4vqKHuAyN2lDsXtRKLmkI1q/c+ujvfBM9Iyq/L0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iNAwiWzogzgYHTM8JyykcQe35VgpqwSO5XIxLuIybwEt6+uNVcRgJK/XfDO3SyBhFMAuvcjC8QPJqoBmQx5seXVYqYSsj3ONrpajtvj9xQPuifVGfaOhBFAbBX4y0chNlzjNXoWA++8kAzqFXEXbs4nltZArdU2ByayvIcfyxyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMMC0bBFz34Dg;
+	Fri, 28 Aug 2026 10:11:35 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hWMM90gBVz34Dg;
+	Fri, 28 Aug 2026 10:11:33 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id D257178AD;
+	Fri, 28 Aug 2026 10:11:24 +0800 (CST)
+Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 28 Aug
+ 2026 10:11:31 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
+	<tim.c.chen@linux.intel.com>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
+	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
+ Hildenbrand <david@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
+	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
+	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
+Subject: [RFC PATCH v2 17/23] sched/fair: Fine-granularity NUMA balancing
+Date: Fri, 28 Aug 2026 10:07:31 +0800
+Message-ID: <20260828020731.785556-1-wujianyong@hygon.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On 08/27/26 at 08:14pm, Sourabh Jain wrote:
-> No architecture provides an implementation of
-> arch_kexec_locate_mem_hole(). Use kexec_locate_mem_hole() directly
-> and remove the unused fallback wrapper from the kexec header.
+NUMA balancing currently consists of two coupled components:
+task migration and page migration. These two mechanisms work in tandem.
+However, task migration may conflict with other subsystems such as CAS,
+which aggregates tasks solely via task migration. Conflicts arise when
+both CAS and NUMA balancing are enabled simultaneously.
 
-Since below commit, the last user was gone:
-commit 6e5250eaa665f ("powerpc/crash: use generic APIs to locate memory hole for kdump")
+This patch addresses the problem by introducing a fine-grained NUMA
+balancing mechanism, allowing task migration and page migration to
+be enabled or disabled independently.
 
-Acked-by: Baoquan He <baoquan.he@linux.dev>
+Suggested-by: Chen Yu <yu.c.chen@intel.com>
+Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+---
+ include/linux/sched/sysctl.h | 12 +++++
+ kernel/sched/core.c          | 87 ++++++++++++++++++++++++++++++++++++
+ kernel/sched/fair.c          |  3 ++
+ mm/memory.c                  |  3 ++
+ 4 files changed, 105 insertions(+)
 
-> 
-> This simplifies the kexec memory allocation path without changing
-> its behavior.
-> 
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Paul Walmsley <pjw@kernel.org>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: linux-riscv@lists.infradead.org
-> Cc: kexec@lists.infradead.org
-> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> ---
->  arch/riscv/kernel/kexec_elf.c |  2 +-
->  include/linux/kexec.h         | 15 ---------------
->  kernel/kexec_file.c           |  2 +-
->  3 files changed, 2 insertions(+), 17 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
-> index 3e9a32acb8f2..ca5abbad59e5 100644
-> --- a/arch/riscv/kernel/kexec_elf.c
-> +++ b/arch/riscv/kernel/kexec_elf.c
-> @@ -91,7 +91,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
->  	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
->  	kbuf.cma = NULL;
->  	kbuf.top_down = false;
-> -	ret = arch_kexec_locate_mem_hole(&kbuf);
-> +	ret = kexec_locate_mem_hole(&kbuf);
->  	if (!ret) {
->  		*old_pbase = lowest_paddr;
->  		*new_pbase = kbuf.mem;
-> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-> index 0af8ae4fdd08..e5f1cfc11fef 100644
-> --- a/include/linux/kexec.h
-> +++ b/include/linux/kexec.h
-> @@ -259,21 +259,6 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
->  extern int kexec_add_buffer(struct kexec_buf *kbuf);
->  int kexec_locate_mem_hole(struct kexec_buf *kbuf);
->  
-> -#ifndef arch_kexec_locate_mem_hole
-> -/**
-> - * arch_kexec_locate_mem_hole - Find free memory to place the segments.
-> - * @kbuf:                       Parameters for the memory search.
-> - *
-> - * On success, kbuf->mem will have the start address of the memory region found.
-> - *
-> - * Return: 0 on success, negative errno on error.
-> - */
-> -static inline int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
-> -{
-> -	return kexec_locate_mem_hole(kbuf);
-> -}
-> -#endif
-> -
->  #ifndef arch_kexec_apply_relocations_add
->  /*
->   * arch_kexec_apply_relocations_add - apply relocations of type RELA
-> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-> index 59fb9d71e9d8..9a981359addd 100644
-> --- a/kernel/kexec_file.c
-> +++ b/kernel/kexec_file.c
-> @@ -784,7 +784,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
->  	kbuf->cma = NULL;
->  
->  	/* Walk the RAM ranges and allocate a suitable range for the buffer */
-> -	ret = arch_kexec_locate_mem_hole(kbuf);
-> +	ret = kexec_locate_mem_hole(kbuf);
->  	if (ret)
->  		return ret;
->  
-> -- 
-> 2.55.0
-> 
+diff --git a/include/linux/sched/sysctl.h b/include/linux/sched/sysctl.h
+index 5a64582b086b..3434f044087e 100644
+--- a/include/linux/sched/sysctl.h
++++ b/include/linux/sched/sysctl.h
+@@ -23,10 +23,22 @@ enum sched_tunable_scaling {
+ #define NUMA_BALANCING_NORMAL		0x1
+ #define NUMA_BALANCING_MEMORY_TIERING	0x2
+ 
++/*
++ * Fine-grained control of the NUMA balancing sub-features. These are
++ * independent of the master NUMA_BALANCING_NORMAL switch and let the page
++ * migration and task migration paths be disabled separately.
++ */
++#define NUMA_BALANCING_PAGE_MIGRATION	0x1
++#define NUMA_BALANCING_TASK_MIGRATION	0x2
++#define NUMA_BALANCING_MIGRATE_DEFAULT	(NUMA_BALANCING_PAGE_MIGRATION | \
++					 NUMA_BALANCING_TASK_MIGRATION)
++
+ #ifdef CONFIG_NUMA_BALANCING
+ extern int sysctl_numa_balancing_mode;
++extern unsigned int numa_balancing_migrate_mode;
+ #else
+ #define sysctl_numa_balancing_mode	0
++#define numa_balancing_migrate_mode	NUMA_BALANCING_MIGRATE_DEFAULT
+ #endif
+ 
+ #endif /* _LINUX_SCHED_SYSCTL_H */
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 96226707c2f6..8b6f2c4373ea 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -4621,6 +4621,9 @@ DEFINE_STATIC_KEY_FALSE(sched_numa_balancing);
+ 
+ int sysctl_numa_balancing_mode;
+ 
++unsigned int numa_balancing_migrate_mode __read_mostly =
++	NUMA_BALANCING_MIGRATE_DEFAULT;
++
+ static void __set_numabalancing_state(bool enabled)
+ {
+ 	if (enabled)
+@@ -4674,6 +4677,83 @@ static int sysctl_numa_balancing(const struct ctl_table *table, int write,
+ 	}
+ 	return err;
+ }
++
++static void numa_balancing_mode_show(char *buf, size_t size)
++{
++	unsigned int mode = numa_balancing_migrate_mode;
++
++	switch (mode & NUMA_BALANCING_MIGRATE_DEFAULT) {
++	case NUMA_BALANCING_MIGRATE_DEFAULT:
++		strscpy(buf, "page_mig task_mig", size);
++		break;
++	case NUMA_BALANCING_PAGE_MIGRATION:
++		strscpy(buf, "page_mig", size);
++		break;
++	case NUMA_BALANCING_TASK_MIGRATION:
++		strscpy(buf, "task_mig", size);
++		break;
++	default:
++		strscpy(buf, "none", size);
++	}
++}
++
++static int numa_balancing_mode_parse(char *buf)
++{
++	unsigned int mode = numa_balancing_migrate_mode;
++	char *tok;
++
++	while ((tok = strsep(&buf, " \t\n,")) != NULL) {
++		if (!*tok)
++			continue;
++
++		if (!strcmp(tok, "default") || !strcmp(tok, "enable") ||
++		    !strcmp(tok, "all")) {
++			mode = NUMA_BALANCING_MIGRATE_DEFAULT;
++		} else if (!strcmp(tok, "disable") || !strcmp(tok, "none") ||
++			   !strcmp(tok, "off")) {
++			mode = 0;
++		} else if (!strcmp(tok, "no_page_mig")) {
++			mode &= ~NUMA_BALANCING_PAGE_MIGRATION;
++		} else if (!strcmp(tok, "no_task_mig")) {
++			mode &= ~NUMA_BALANCING_TASK_MIGRATION;
++		} else if (!strcmp(tok, "page_mig")) {
++			mode |= NUMA_BALANCING_PAGE_MIGRATION;
++		} else if (!strcmp(tok, "task_mig")) {
++			mode |= NUMA_BALANCING_TASK_MIGRATION;
++		} else {
++			return -EINVAL;
++		}
++	}
++
++	numa_balancing_migrate_mode = mode;
++	return 0;
++}
++
++static int proc_numa_balancing_mode(const struct ctl_table *table, int write,
++				      void *buffer, size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table t;
++	char buf[32];
++	int err;
++
++	if (write && !capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
++	t = *table;
++	t.data = buf;
++	t.maxlen = sizeof(buf);
++
++	if (write) {
++		buf[0] = '\0';
++		err = proc_dostring(&t, write, buffer, lenp, ppos);
++		if (err)
++			return err;
++		return numa_balancing_mode_parse(buf);
++	}
++
++	numa_balancing_mode_show(buf, sizeof(buf));
++	return proc_dostring(&t, write, buffer, lenp, ppos);
++}
+ #endif /* CONFIG_PROC_SYSCTL */
+ #endif /* CONFIG_NUMA_BALANCING */
+ 
+@@ -4787,6 +4867,13 @@ static const struct ctl_table sched_core_sysctls[] = {
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_FOUR,
+ 	},
++	{
++		.procname	= "numa_balancing_mode",
++		.data		= NULL, /* filled in by handler */
++		.maxlen		= 32,
++		.mode		= 0644,
++		.proc_handler	= proc_numa_balancing_mode,
++	},
+ #endif /* CONFIG_NUMA_BALANCING */
+ };
+ static int __init sched_core_sysctl_init(void)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 42ab6347e667..00f49e767583 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -3312,6 +3312,9 @@ static int task_numa_migrate(struct task_struct *p)
+ 	struct rq *best_rq;
+ 	int nid, ret, dist;
+ 
++	if (!(numa_balancing_migrate_mode & NUMA_BALANCING_TASK_MIGRATION))
++		return -EAGAIN;
++
+ 	/*
+ 	 * Pick the lowest SD_NUMA domain, as that would have the smallest
+ 	 * imbalance and would be the first to start moving tasks about.
+diff --git a/mm/memory.c b/mm/memory.c
+index 6b8280cfc1db..47c9614dd54c 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6049,6 +6049,9 @@ int numa_migrate_check(struct folio *folio, struct vm_fault *vmf,
+ 		*flags |= TNF_FAULT_LOCAL;
+ 	}
+ 
++	if (!(numa_balancing_migrate_mode & NUMA_BALANCING_PAGE_MIGRATION))
++		return NUMA_NO_NODE;
++
+ 	return mpol_misplaced(folio, vmf, addr);
+ }
+ 
+-- 
+2.34.1
+
+
