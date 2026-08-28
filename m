@@ -1,111 +1,96 @@
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411AC334374
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929303A7F78;
+	Fri, 28 Aug 2026 04:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787892462; cv=none; b=s2tHfDPXzeX8P9wnOJTHg4pRX34Yg7u9/ZQLENEzd48GF9Iie2HxoVMZapEEN/VIkcKRIy0bZQ27lLAepEfyW2NqEfJJeFoYrvwVXtwzL5ObTljfrvUfj8XVAr8s8jH0wbB/6PAeErMJ648jnpjFL7g/5IepMdQAs8jyWLUVifY=
+	t=1787892720; cv=none; b=f2BdjvQFtTNCsQUMfzxmeeBHTWSbRe2C8bCg9dh4Ms/6I3o4sEHFiOVbMbFo4iJQuqJBp/jHDs9TQqssB1HWZHmv305JOXq6+Xlfpyx/GOsnxGXF1H9C2o7XalghwymCrz5u7jNvGiixwuhRM5e+WMNSEReabT9aDXZtAAhb3SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787892462; c=relaxed/simple;
-	bh=mOPeMmcWI99dgCmtPzUV5tpD1eXN6gK8SASB4LmC0O0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T/GXHBYtPxnnz1mZYJgbiu4OnpjHcUWVqKMWRcuxTEPgm2HpV8xwbE7epGuCPZihD1GFggZ81nNPvxlwKZFuu1DVIiZf06u4GAdMma4psALMF8w032/32IE65mQEm+j49f8QpaDtzA+pcJck+awIVzVgksl/NzA0KvqpOKIssQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O8l0sqUH; arc=none smtp.client-ip=95.215.58.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787892720; c=relaxed/simple;
+	bh=I490kfot+nYjm1ZsJTCBXUOebN7mdyLtiKCx5v2ySP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GwyaaJ0lHYQlehN1qOe4fVhoqzvrtPi795s4hZNKc5Owqxz0rafgPS3mnsVtde0QZsTZ2gzPmFENvonXLE6SU18FXXbXcT2XPznIY7TPgrrfrzDR+lNL97Yq709vpG8jFcqmt2iyoTBp9tXHzeK+lIf4yo50gUdntpoZtD9ZgN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFYoS5E7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O8l0sqUH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mOPeMmcWI99dgCmtPzUV5tpD1eXN6gK8SASB4LmC0O0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787892457; v=1; x=1788497257;
- b=O8l0sqUHasUayzeZQ0pzSC+4EFkh8Ye9ji62pFuD9I3Ln+EdcoB8xVYXMFmTjUj5mGTng465
- zYp99+ybkZBJVL+no9nZ6qIJnOpqrqX4FpTTkUOLOiSJ1WaiJVwpUQ+5R8lxDFT+V77vzmZ6wnE
- K2xfAxf1CRD23rxUW7SOlUN0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 026258ee24c5dde1;
-	Fri, 28 Aug 2026 04:47:26 +0000
-X-Mizu-Trace-ID: 026258ee24c5dde1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <de3eed17-cb80-4cad-8437-4ad78b5896c7@linux.dev>
-Date: Fri, 28 Aug 2026 12:47:13 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFYoS5E7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125C21F00ADB;
+	Fri, 28 Aug 2026 04:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787892719;
+	bh=ZOSyF4oqdNPgQOrMJKe0tteJI7Nmop2u6Eo0cUbsbpA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OFYoS5E7HMFmet3G27+lKQ9vwwdIIuFZAudWLniRRagjMsW8H0H9dDZNcanl6NgYL
+	 G2S36c5+hbjcPB11TA/O9pbp1RSAjFJV6J4xmB4rLDxmHALgAc4a0wLdRlWIR4WGRs
+	 +AU5QiqzaAepCSlBE1cTASeA/azkFwl82/DD/ggYGIHztrUJX0/Tx6mszHpzvM8764
+	 hnqtlfUjwM245kx//29jyp2o/cljujWpFleLz3vH2J2ZDLm0fYmRRn4TU1ewamxRBH
+	 uhxf8F8lh7VhHOnbC4Hdfi8q7C6rwxIHS4RMeUxZkq82hI7gr1K7tKTrhMbA3GgwWo
+	 LkZ9/pzqzaspg==
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: x86@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Gary Guo <gary@garyguo.net>,
+	rust-for-linux@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>
+Subject: [PATCH 01/27] objtool: Remove obsolete noreturns.h entries
+Date: Thu, 27 Aug 2026 21:51:30 -0700
+Message-ID: <074584dd38a6d610f64b401a2376dde773a6f6bf.1787890035.git.jpoimboe@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1787890035.git.jpoimboe@kernel.org>
+References: <cover.1787890035.git.jpoimboe@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, Nico Pache <nico.pache@linux.dev>,
- David Hildenbrand <david@kernel.org>, Barry Song <baohua@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Peter Xu <peterx@redhat.com>,
- Usama Arif <usama.arif@linux.dev>, Dev Jain <dev.jain@arm.com>,
- Ryan Roberts <ryan.roberts@arm.com>, "Liam R. Howlett" <liam@infradead.org>,
- Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
- stable@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Zi Yan <ziy@nvidia.com>
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Remove some obsolete noreturns.h entries: bcachefs is no longer in-tree,
+kthread_exit() is a macro, and rust_begin_unwind() is only called by its
+mangled name.
 
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+---
+ tools/objtool/noreturns.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-On 2026/8/28 03:55, Lorenzo Stoakes (ARM) wrote:
-> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-> confusingly only control the behaviour of THP in some instances.
-> 
-> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
-> 
-> Long-term, THP is predicated upon compaction being able to obtain large
-> folios to populate THP ranges.
-> 
-> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-> reference count is maintained by the driver, not core mm.
-> 
-> As a consequence, the folios are not subject to reclaim nor compaction, so
-> are not truly part of the THP mechanism at all.
-> 
-> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> introduced the ability to establish huge PFN maps, they have been subject
-> to THP tuneables.
-> 
-> This is incorrect - if a huge PFN map is available (defined by
-> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-> should be mapped huge upon fault-in.
-> 
-> Correct this by explicitly checking for this while ensuring that smaps
-> continues to accurately report THPeligible statistics.
-> 
-> While here, abstract the entire file-backed THP check in
-> vma_can_map_huge_file(), with sensible separation of logic into helper
-> functions.
-> 
-> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-> maps of shmem folios, however they are marked unevictable in
-> drm_gem_get_pages(), and in any case would fail the reference check in
-> __remove_mapping() even if they weren't.
-> 
-> Failing to map huge PFN maps has resulted in significant real-world
-> performance degradation, see links for details.
-> 
-> Reported-by: Cedric Le Goater <clg@redhat.com>
-> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-> Reported-by: Saravanan D <saravanand@crusoe.ai>
-> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+diff --git a/tools/objtool/noreturns.h b/tools/objtool/noreturns.h
+index 14f8ab653449c..08d441b8895cb 100644
+--- a/tools/objtool/noreturns.h
++++ b/tools/objtool/noreturns.h
+@@ -18,9 +18,6 @@ NORETURN(__x64_sys_exit)
+ NORETURN(__x64_sys_exit_group)
+ NORETURN(acpi_processor_ffh_play_dead)
+ NORETURN(arch_cpu_idle_dead)
+-NORETURN(bch2_trans_in_restart_error)
+-NORETURN(bch2_trans_restart_error)
+-NORETURN(bch2_trans_unlocked_or_in_restart_error)
+ NORETURN(cpu_bringup_and_idle)
+ NORETURN(cpu_startup_entry)
+ NORETURN(do_exit)
+@@ -30,7 +27,6 @@ NORETURN(ex_handler_msr_mce)
+ NORETURN(hlt_play_dead)
+ NORETURN(hv_ghcb_terminate)
+ NORETURN(kthread_complete_and_exit)
+-NORETURN(kthread_exit)
+ NORETURN(kunit_try_catch_throw)
+ NORETURN(machine_real_restart)
+ NORETURN(make_task_dead)
+@@ -43,7 +39,6 @@ NORETURN(vpanic)
+ NORETURN(panic_smp_self_stop)
+ NORETURN(rest_init)
+ NORETURN(rewind_stack_and_make_dead)
+-NORETURN(rust_begin_unwind)
+ NORETURN(rust_helper_BUG)
+ NORETURN(sev_es_terminate)
+ NORETURN(start_kernel)
+-- 
+2.55.0
 
-Cool!
-
-Tested-by: Lance Yang <lance.yang@linux.dev>
