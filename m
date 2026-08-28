@@ -1,135 +1,153 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D9646D555
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925600; cv=pass; b=LBAzdDrVqGK3OJWSEiKb4vbu8Qq+ENRqKY9Qpx6hR2j9mkeib5kZEEzHYUzbxJ4noVHc1dHpWT2z8mIO32bG1uaaJcakU6dQJo2UxzqipwwZMdlaTBGVBNNWTvSWtz/aNuU5zYKIUBx8jGlo+jDgrR00xk00fRs5fw3yAXKVito=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925600; c=relaxed/simple;
-	bh=PLDkatDMFuj3LfTf/LIfXkKvgu8bZZ7TEdRf9Z+1JP4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A/RaRc0p7DD6UarU6Riw8R4auXHJW/0LDtjAH7Dtr1XUxDMA0R+LR4sUENWTh8elqu6OLpKk0Z6QSQOo9JV+2a7PCiL22/ugKhv49fNcpReFS6oNcYORXZwCj5Q+KjlwBDjr1AV80H28exl/xnv8FsCeRw/NPiG2CJKuPTlomfw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AtnER0Bx; arc=pass smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A3557C9F;
+	Fri, 28 Aug 2026 14:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787925608; cv=none; b=MQl53OlgO1vfv9s7Iwgul8i6AA0aITt2gWw12YWptmiW47UjXtPMw82pHKrAlbWK/FqHXU6kFKzlnDN1KIJRrPBsG0WwBqk6q+29dXeCgyJfvK5dIlKFMZzeduFLl1UEUbfIyjRUay5U224hw3M+0f8drZjPh6+12V5OMCbDzyk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787925608; c=relaxed/simple;
+	bh=bGgnoFrFidNEZffnwuT1K657Hs/NpOW53aHDHEol8EQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iqOALBVCd7xElHw4sIq0IlqTawgcY22uB7jLBFvJ5aE+x1dTvk+ker4jWQke3/WGdc1kUFZZcS3SrdIESFYMGUmr9M8c98Vjh5SoJ8V/+vQ7G/PKt7/lojMM8+pNzNPyO0jfy48dvlkbFscIH8S99wLzhpU3cCfSlXTFwKEsboU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MGYbK7pg; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AtnER0Bx"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1c7364550so1117642a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:59:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787925597; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LlgBK4ei94UOH/bcJTwLusDfV7uiANoH1nBZ195JUMPmx23gsOa/Fj2vVndmeomHAU
-         U45awDaF5cbtnXpWOZzhH0G0YvpOcrhnQY1w50lf3kWqvpLGZ1u7rTqXBEJhsHAKMKE7
-         vdeI24zx155AYbr6PQ98tz3ag4vTCQEIYh0mP9KoVInf01fOZSqpnOhbz7r93ji+yIJi
-         Lnj5btYGS4BnJqKwvRhcq/EwHLWeYCPs1voU7aUKMNlLMPWmDfEobUgRHArI9UnLrvTi
-         zqEYdZxKdWVD/rPphkFWv/Dt8MfCJSz6EeauY6865a9nb7cU9k83CWO6957FQna1+CPn
-         i2Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2GfMRvhyksSuSYcJwpV/kMHEmDv12BqauazUIu9BuUA=;
-        fh=zxXVHNmRLKwVidfcBjbfTtODsD9+C5oZUb3RavvnDkk=;
-        b=BqMrOgUaJBwvfjZGdD0QWFLOPKRLNwYuZ9XktkgYNcZhbPWJm6nTN9suqAZ/ydO2Nl
-         2RC7ZhFowQc0VtcRilcbtLAIeZeQ4zLgUTMvIvvdBcdmR/XCLz4RaZc4h5j3GaS8uJme
-         z9DngyWSZ5Gpx710M9d1sOejwTAbru/TzXhJEqvVqbS2DfHynJVhNn7kvEF/9qonoTJ9
-         8++B6FVs8uAya4h7/YViiWoexhlKJp/Mx3Cy95vfB4gWlQ9UxM6uQLPgziLngiJI2AYs
-         KmWR6mEpflWNxx2U7qUywBct6wXSMeNYDIYoC7O21N3+2cXoRgG4UAb4XWdtRJ9WvFEt
-         rV0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787925597; x=1788530397; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2GfMRvhyksSuSYcJwpV/kMHEmDv12BqauazUIu9BuUA=;
-        b=AtnER0Bxly1hJYGTtR8GyEKYZH6vPsORM/+OpfltLCq8OBF+4n0jmIPUVGtw15zRwV
-         iILX+zxOOiN7uxMcBuhcqkS36vjc5YGnZABQ6bMjl4zVJxncaUhypXJhlcWx3z15LOPn
-         YUo1x+pAQqtNRmOJoi+4c5yplNvJY1iwAfpO+rffoWgapXS0J+QeWI9vLys5RMqODo/n
-         bC3F4DN2e+EOn7TeZXIEirFh7HV1H4+F4AiBj2Sfto9L82dEbsJpYUSCnQ7pRe9GGi2Z
-         8b73nHVkgfXKpxZCmPJvO17yMwukwHY+u9OtcXasKCp4HyQOZRNCv5Jy2P6mlRzVOTZM
-         sWWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787925597; x=1788530397;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2GfMRvhyksSuSYcJwpV/kMHEmDv12BqauazUIu9BuUA=;
-        b=A51WWyEoP236oiWWUEFII4eDDkGmxuuO/HMbgGd3rkgsYaJ2ubPPs107bB8/HZG9v5
-         JiVzfsve6nzSqG2CCtYTu1KA6aaQdwlqpNos/NfT5CiA8gmBUjplp0kwu82LyUYmhHwd
-         mehUApEkLFH5/T92D930LYOTpkwU9RjP96IjzLKgZenR92pCtYJAL+Skc4xzg0mec6W7
-         iGL5jDn8nUAUQe8hsuFUTAo8jgniHWXYEvVFKNpKSZuvjcmGgvolwtHZdWFIUFgnrlAi
-         kyO2osQD+GtuPzlH1GzXbhaksMpE0JMKnu9gF5yo5jYd7ztkAVLjA7xzLXBhd8KUMiMH
-         bYqw==
-X-Forwarded-Encrypted: i=1; AHgh+RrfstWRvNYDmIISAGc0f/J072Ermy0wzWwWmjLHys1/txoxkWoGcF6CxJAZuZMbBW+kz6JDaRAps5Be9OI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLoi+Qb6Noo209+JTPBAH5l7vWQSeYTRgZlcLWvQ+PvVtKLudg
-	4wJEg1eOJQOGG7Gza/X8Td/DOywcbPiQi6zCHlNtRQb3ZKdPBsfre7gzB8Ve54QnSEzha+c0gFM
-	LlMNykVDYtYj+MQ5TviZw4KAmjxpCjSI=
-X-Gm-Gg: AR+sD132FEQyYDlwSrflEqUC9JEtRVIpL/0AUZfhY6/1C+dk2l+74RNFIrtcyaLTFnu
-	u7rwTJNgOnywK0gRdi7xT4ZYZo1UdseI7T8TtjowSW8NAmO0Gt6JFp50XMqHmaptQCdRsmXoKbI
-	Z5iRGHNnyj8IORnyxk3qo6oFMbHLbivUeHEoJ6c/0oNQJt314suGbxSux2sE+9ywjff3vxgmV7S
-	EViOWwBHd2bGqQjVrf8RJ+MYG2m1hQLjr+/1HndwWZr31/Wl1DQ82ZiKntSm1sAQ+qtdmg4SMhq
-	qbo70b72x6bOKWTP8OltbPfiIHvewix6BxlkXzDhkUSr6tY=
-X-Received: by 2002:a17:90b:2f8d:b0:38e:4114:d8c7 with SMTP id
- 98e67ed59e1d1-396d0a3f016mr16289039a91.0.1787925597040; Fri, 28 Aug 2026
- 06:59:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MGYbK7pg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Z/vQkPRWfO3dMD1qnZW0cONo4+Wv9gcM6DMq0ft41q4=; b=MGYbK7pgkLwreR1NbEJ2ExVAGl
+	KTSjrpILVYOMD0bXalDOVqN/fVKi44fsPfymsoGuNmuRRaofeLVyUrTIHNb0siKB3sHW1QfFH/ElJ
+	XJqv6SDJOSrPIt+kYiBVrZwpvDs7W76upT8P/0xg+JI1Uyn2mz5bsErnOPePpn3Q6EeVga+qZWe8P
+	aFyvCXNgTh8vEzFs4LxWN7e6eFMAk6q9tFW/1D3cAhu4R2IZPpdqSf72p3g1JzFYqCHmn4H5doMo5
+	+U3XKywepWEMgvPNZ8vWLa/1x4zGYEyw/PiASNH/8vyscBy1cgu06aUJ2BsbF/FK0ZwUBrskyEqax
+	Yp9ajIzQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1wzx7U-00000008IYq-40GE;
+	Fri, 28 Aug 2026 13:59:49 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 5325230030F; Fri, 28 Aug 2026 15:59:47 +0200 (CEST)
+Date: Fri, 28 Aug 2026 15:59:47 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: David Stevens <stevensd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828032922.469449-1-xuziyougm@gmail.com> <0db183d7-3881-4f81-9e04-cd2c13d1dcee@lunn.ch>
-In-Reply-To: <0db183d7-3881-4f81-9e04-cd2c13d1dcee@lunn.ch>
-From: Ziyou Xu <xuziyougm@gmail.com>
-Date: Fri, 28 Aug 2026 21:59:45 +0800
-X-Gm-Features: AcwNN1WIz7kiRjyaUFUv6xWV9lPHFkUCwWjJHmG3pD7abaxNcROmy-pxsGrQvww
-Message-ID: <CAF2gcSUVmn57iSo_Vf08+QWHxAoDRbpuone5MOnMd=4c_GhfGA@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: phy: air_en8811h: restore AN8811HB LED GPIO
- after MCU restart
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	bjorn@mork.no, ericwouds@gmail.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828133620._x2XfJR_@linutronix.de>
 
-Right, I'll fold that into v3.
-
-Andrew Lunn <andrew@lunn.ch> =E4=BA=8E2026=E5=B9=B48=E6=9C=8828=E6=97=A5=E5=
-=91=A8=E4=BA=94 21:09=E5=86=99=E9=81=93=EF=BC=9A
->
-> > @@ -1265,10 +1258,19 @@ static int an8811hb_config_init(struct phy_devi=
-ce *phydev)
-> >
-> >       ret =3D air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
-> >                           AIR_LED_MODE_USER_DEFINE);
-> > -     if (ret < 0)
-> > +     if (ret < 0) {
-> >               phydev_err(phydev, "Failed to initialize leds: %d\n", ret=
-);
-> > +             return ret;
-> > +     }
-> >
-> > -     return ret;
-> > +     /* Restore LED GPIO output enables after MCU initialization. */
-> > +     ret =3D air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-> > +                                       AN8811HB_GPIO_OUTPUT_345,
-> > +                                       AN8811HB_GPIO_OUTPUT_345);
-> > +     if (ret < 0)
-> > +             return ret;
+On Fri, Aug 28, 2026 at 03:36:20PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-08-27 16:29:44 [-0700], David Stevens wrote:
+> > diff --git a/arch/Kconfig b/arch/Kconfig
+> > index fa7507ac8e13..adb4a5957996 100644
+> > --- a/arch/Kconfig
+> > +++ b/arch/Kconfig
+> > @@ -1534,6 +1534,24 @@ config VMAP_STACK
+> >  	  backing virtual mappings with real shadow memory, and KASAN_VMALLOC
+> >  	  must be enabled.
+> >  
+> > +config HAVE_ARCH_RECLAIMABLE_STACK
+> > +	def_bool n
 > > +
-> > +     return 0;
->
-> That can be squashed down to:
->
->         return ret;
->
->     Andrew
->
-> ---
-> pw-bot: cr
+> > +config RECLAIMABLE_STACK
+> > +	default !PREEMPT_RT && !PROC_KCORE
+> 
+> This shouldn't default like this for RT. It either is useable or it is
+> not.
+> 
+> > +	bool "Allow stacks of some blocked threads to be reclaimed"
+> > +	depends on VMAP_STACK && !STACK_GROWSUP
+> > +	depends on HAVE_ARCH_RECLAIMABLE_STACK
+> > +	depends on !DEBUG_STACK_USAGE
+> > +	depends on !KASAN_VMALLOC # TODO: add support for this
+> > +	depends on !DEBUG_KMEMLEAK # TODO: add support for this
+> > +	help
+> > +	  Enable this to allow the unused portion of kernel stacks of most
+> > +	  blocked tasks to be reclaimed.
+> > +
+> > +	  The wakeup latency of tasks with reclaimed stacks may increase,
+> > +	  especially while the system is under memory pressure.
+> 
+> It says *may* increase and on RT it _definitely_ will increase since
+> there is a kworker involved not to mention the memory allocation itself.
+> Anyway. This either needs to stay away from PREEMPT_RT or find a way to
+> exclude at the very least mlock()ed tasks.
+> Did lockdep see this?
+
+It should have. They're taking spinlock inside raw_spinlock and lockdep
+should very much warn about that by default.
+
+> If I understood the whole exercise correct then you have a kernel stack
+> of two pages and in best case you can unmap and release the second page
+> while the task is napping.
+
+THREAD_SIZE_ORDER	2
+THREAD_SIZE		(PAGE_SIZE << THREAD_SIZE_ORDER)
+
+that makes for 4 pages.
+
+> What might be a tad simpler is to memset(,0,) the remaining part of the
+> stack. Since the stack is vmap-ed it should be swapped out on its own
+> without additional tricks. That memset() would help zram to compress
+> better so it uses less memory. ta-da.
+
+That would still be a 12k memset with IRQs-disabled and rq->lock held.
+
+> What also should be simpler (and I am not saying just to move you away
+> from the scheduler) is to have a shrinker which iterates over all tasks
+> which are marked for reclaim and then similar to swap just unmap both
+> stack pages and release the second page which is not used.
+> Upon wake up the task should create a page_fault which would be used to
+> allocate the second stack page and map the whole stack again.
+
+Right, so you can FREEZE the task, unmap its stack and then thaw it or
+something. But there should be a definite opt-out on all this, because
+taking faults on your stack will be horrible.
+
+Not to mention you'll suffer wakeup latencies while frozen.
+
+This all really sounds like what should be addressed is this insane
+number of tasks rather than trying to cope with the consequences of
+that.
