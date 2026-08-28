@@ -1,62 +1,65 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF0945BE3
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6F43B2FDB
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939120; cv=none; b=KFuiooMQL+V9IPJIxn9HjG0lCyoJGfZNkgqzR4Cukx4EpCzb39Ba8Ikv+I0B2nQfPJsnpf1Nac49auj+nHIHtbdA6eY5jeKnjeibQqhfv9y/hba0qtRGY7Z+bW8LiGSS7U9rehYypmLdLMd5YkThUn8FueYMlUsguHpVR2rwA84=
+	t=1787939121; cv=none; b=vA0PF8j1XgG5jZV4ux8DTSRPHt4xLZaeJtWFN5NnHw1sanzEjxrnYmfVD0hm2M1LTiURiWRPHSJjK5qffcRUXMoC8QbOKcs4RbodkVlimtYb/ZM0e4daGNxDj48ruT+1YpBsi+PmkPkV2xglolntBX6h5kRReO5Wo2pdfKbHDlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939120; c=relaxed/simple;
-	bh=gB5RTtAy5uyR3po6ncycfOXTkq1Gqhn9QMLyNLNNF1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gW9eiw2RqWktO0tpyAiJhYyHArkKiu8liwmH+ixvvWRFRzs9LQeSXJkDiD3hATp6U6rypZKv0pmzZl3yz8hXqnjezYBnaJYYHFoAoSUJXgpiuuOCoCJQSZkrqv2CLSXKs0MRmYlUfhVTwdMirnvjvSkR3hhU55uBgU5PdnY/A7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=iMERkoKO; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1787939121; c=relaxed/simple;
+	bh=r4WMTTppi1E36eQj/o9V1iKpwfdz5dGoX1URXLna3jo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I1+wQa9QC6Ep33y6zlL+LGAHXdwN5lu7vjxUYuQFLS0RdZ6m0CtPPaPmuzgEWVzPvOvFYTQuZRBfKWrT7lbGiCyi7dlzEw7b59DXVPVVdPQJPEgw63XumWxgfFTCpnTltjqmEn4O5DcaKvQ4rvRNPhCLSDOi1YB8H1KmlnGpVvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=HLHclhpG; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="iMERkoKO"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so11361565e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:45:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="HLHclhpG"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f71156e1aso468513f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:45:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1787939112; x=1788543912; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LiTQ78YI5C0O3US8Qv7gUnvZwNb3AVrk0V6EDSLnVw0=;
-        b=iMERkoKOvBmpyeG/hH4/xDJEibGcRZ5TADPpdSTn8Bdsis/K+1i/uqDPtVji3/Wzba
-         kNxkqpM68n7fZnwtMUlDju/3L+UxplWL2m9XaZ8v4bH5zp57dsJw7pQqhzj3NUV/NtCx
-         1MwjghA7rTxXXBYtypvrBTlPkrerXYdNLysC1meECfdsRRbho1tSJRcTYtk2lEk3RpFv
-         zqsdQOhdEsjgweQzdvTtSKImKzGSwlq5GpUTKrqx3XuMQApvMg1N+/QSAibsE3hjs9QC
-         HVCtW62fjr2F/GtAbKDHTjvhCXsNqsV7fIgtqKko0wRU2Zd5Imk++KvHxu1gMVBrhUsY
-         Ue7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787939112; x=1788543912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ionos.com; s=google; t=1787939114; x=1788543914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LiTQ78YI5C0O3US8Qv7gUnvZwNb3AVrk0V6EDSLnVw0=;
-        b=MMnmHa+o5REuI4Qz/Sq6IbogAQKySLdGMWkhEbtTXbc8r6Cwotw+mkj1+NEZCSqbgx
-         6Tubze6ky8tL5kTyWNDDzDgp6eA1D99EtnsKRAx8WTfCuGXcwOtyzrIPLEhJOZ5/7qkY
-         ffNdF2XHwk3v385DGFWn/tE2puh9qLhIU68A8a+BKhxUjsLEocoStFyVcCTSGz8nInS3
-         hir9g/uDGxodJ1lxbCzQMopIKMXY4106fqpjSC8DWnI7+87/kX/p8sQPz9xS2OtAQ4Hq
-         cEf/Qct5ItwPjdCS+giu/7q09cK2amM2oZV2ifat/BSBfxZ2eqNVWgmjkpVJD9naKTM3
-         v63Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqYh+2ccGdi+gL3py/bIhALp+FER7h+SczzeI//s9l8/r6E4AV6lKRv2iDvVuslCTZpqVFJtUMdIe7gDc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2fFH7TSo55dNrbKFHWhgM+xoefzCGW3+vCp0JWOP/zTIx4+lF
-	GdwaFNokAYUY1QoMqD/82V2a4GnmiPEkLoayxHIDztlgbCX80ZWvBoV6g19IOvUawDs=
-X-Gm-Gg: AR+sD10r566SCCwUv/PvyVZU7RHLMr9PDQoc2kXneg23A8TzRaiQJNxA9AUGalnxsbg
-	82sVfL6jQOvq1GdsY9zP2zutfrh6t+eQbiA3oyLsG8D1Hwq6YFumGFf2EqS8iQRS1QkQPWRc3vp
-	RGkMnENFCUlk3J9jCboQfkN6ueSSV6/s/hYGy5sVSeG4TC2/l+lLFWLI30r+76Hi8sEpGwxw53T
-	hwQ7oI1B9k4fKJZBxvbURTUKNNMtnRWipyo+LF9dIKWwlWDcX+OcE4fGwzP8HG1/4xX1UBc9Qoh
-	YZIn25JOYA5ml6vDWzRrgwa9GClZpHzQ99n0X+0MotgRx7tWuGYG1I7SbK+XxvxXvK5+xw1HpMX
-	Im1HKoJRHytBRGkKj9KeAIGj8YFE35/DxINhjWsxxDkBRewu0sqL2Hbu1lIv7s+TE0LHxdCCmWt
-	FGh5GNMV+g2WCW4XAE8imAgI9XHZGJJgCg16VB5uC3w+lve7udBBsIwKO1xXBpzEj55Gt7Tblq6
-	IGlTrSZOHCuYeY7dA2I2uh60nbRarHoCNOSWGhr9iFHIeRFJ7XjD8aX+/NvqK1W7KLMcc1Aa9c=
-X-Received: by 2002:a05:600c:314f:b0:499:4e47:eaf2 with SMTP id 5b1f17b1804b1-49b91c38bcfmr120834755e9.6.1787939112420;
-        Fri, 28 Aug 2026 10:45:12 -0700 (PDT)
+        bh=wJu5xRqwJGsup27bnOejvK4Mm0h/OhLvcqFDdKFUl8c=;
+        b=HLHclhpGQb6MA8D+ACV/vm4X5zjhVbllZtuUlsEevii8k3ttgV8qqfCEqUf8vwEzkc
+         G4EAYNhmkmU9ft8jPkro1KjLjVjWna7NzRcfIY7mh6cFl9qZK09whdmMdEm+DSOmTqA0
+         ALQP0mAKRs+JjsDjDQvBey48ybJ8TJYEroboItnh0K1WHioQEuSk5zW75ZQ1Bn6FMIE7
+         6Oi0ruekR2zmrXPjqh+Snv6wmbIXcbACKxJ4/5OsxloIZwp3zgaAt0HE36s3AgVEIpC3
+         WekfQML1ozryISl2oMSgvNkBQ1/iOlDWChtxdArYszUPPCG14dtTa4DJUqiXc6uRyZOT
+         RPqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787939114; x=1788543914;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wJu5xRqwJGsup27bnOejvK4Mm0h/OhLvcqFDdKFUl8c=;
+        b=OXJ0Zc3m09H5a3LvGA7DuEaulGEZhxprG3u/Fi6D4BnjP1AraMX7vF6CHE/Y4ER/2t
+         tWUTpa5I7JVRu3f9Ga/lAFV03DJmcrohXEjRITb7UrJI9LXv5r6IAhAq03PZuzAiUULQ
+         C/0BlaS0pf3s0yTPfuGBT6JfPRXcuHhlD7p3MsjUG5ZE9yGajfOOx1ThOOpRc9xaMT7t
+         9B75leto765hi+FXa8XtEL9AFLlSL+4ZAI40Kotng/nvABcGwuHEu95Tk+4nkpsuc8o/
+         OQDdgS2EygqK6Kc/kqA0hk0RimxxX9UYd0EmkEhFnfPCnC7tWSAQJCRA/dRu+qShjlWz
+         B7TQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqF0j9UKvft/YJT/uZrvJuFnu7CIO6BdMg2PBMALjSAeqiIva3Nmjb7vag3SCUMle6g364gG+AnP9vRt3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++luS7GKYrioJA+CyowiQ6cPODLp9hTegITj8hqzoNBNw4HmC0yS
+	wHXNe4uncESD0rXzNvyum5GljJnibz6/IF1++Fgy6cMKhJYRDXdUk6FswKiJdfpFMRS2XWeuE8Z
+	shvhjE4s=
+X-Gm-Gg: AR+sD11Nte7WxHOjcSbEp9P8+Ata5zpuZb8HSkyxjoYJlcaZ43IQsexHJQ4BAhG18V5
+	lEViEX5Hf8XW7vuIrIYJIYyWKytUd9+ljUambPQK3ZY3oxbehrpaFSBdBQqANskMWjWxczNT8OJ
+	Y/2PvTfWiF5Cc348v+ssDakv2Kd2Pa2TCd+0OPM2hzhwh2K3ugJJTR2l7QBGFgZYvVNcM2ngIdm
+	2S8FcNOEkjrtmIeNlPIuoi+DJwsDyNiqmYvQadGkx2odrd+0nujdxPDGYDwdkGEOqSl0AYDScWS
+	jpmZkuBSoGa0PI9abxbma6DlCHm9+j6kLJrFDFfYB6D+Mjm4Q3goDdOVJZamnMGsuWm9AmFe2T3
+	HifaacojlzaECbXsk1vzXEW9sjTMpWs0e7X8kinWYCjGLoZcNBtn8K8pa+UeSt3UiR7533uMLh0
+	6kjKtCIHIdaw6nTg+WZI8xQesQkOuJ76+nzxCjI3MZSVGTYexGiNXGTKg7hkMDJalo3BBNNXUsi
+	fZGnpmQTE3NYMvE2NaUuuz7MlSmFMYF+xUDmRZE53Ow2hV2QB+a1dlKAzckjtAV
+X-Received: by 2002:a05:6000:41d1:b0:482:f4f8:7a00 with SMTP id ffacd0b85a97d-482f79cf9fbmr15323631f8f.16.1787939114063;
+        Fri, 28 Aug 2026 10:45:14 -0700 (PDT)
 Received: from raven.intern.cm-ag (p200300dc6f02b200023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f02:b200:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb2794dsm5480678f8f.25.2026.08.28.10.45.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb2794dsm5480678f8f.25.2026.08.28.10.45.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 10:45:12 -0700 (PDT)
+        Fri, 28 Aug 2026 10:45:13 -0700 (PDT)
 From: Max Kellermann <max.kellermann@ionos.com>
 To: idryomov@gmail.com,
 	amarkuze@redhat.com,
@@ -64,10 +67,12 @@ To: idryomov@gmail.com,
 	ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Max Kellermann <max.kellermann@ionos.com>
-Subject: [PATCH v3 0/3] ceph: don't unregister an MDS session before removing its caps
-Date: Fri, 28 Aug 2026 19:45:01 +0200
-Message-ID: <20260828174504.1247038-1-max.kellermann@ionos.com>
+Subject: [PATCH v3 2/3] ceph/mds_client: stop checking a stale MDS map after dropping mutex
+Date: Fri, 28 Aug 2026 19:45:03 +0200
+Message-ID: <20260828174504.1247038-3-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260828174504.1247038-1-max.kellermann@ionos.com>
+References: <20260828174504.1247038-1-max.kellermann@ionos.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,66 +81,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-handle_session() removed the session from mdsc->sessions[] at the very
-top of `CEPH_SESSION_CLOSE` handling, before taking `s_mutex`.
-Between session unregistration and remove_session_caps(), the MDS rank
-has no registered session while the old session still owns all caps it
-was granted.
+check_new_map() drops `mdsc->mutex` in several slow paths.  Another
+map handler can install a newer map and destroy the map being checked
+before the original invocation re-locks the mutex.
 
-Any concurrent filesystem operation may walk into that and the next
-__do_request() call registers a new session for this rank.  Once it is
-open and the MDS issues caps, ceph_fill_inode() calls
-ceph_add_cap(), which looks caps up by rank, not
-by session identity, finding old caps linked to the old session.
-
-The list_move_tail() call then moves the cap object to the new
-session, which is already a bad thing to do.  Since it doesn't
-decrement `old_session->s_nr_caps`, this will quickly run into a BUG()
-instead of crashing:
-
-  kernel BUG at fs/ceph/mds_client.c:1959!
-  Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-  [...]
-  Workqueue: ceph-msgr ceph_con_workfn
-  pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-  pc : remove_session_caps+0x2bc/0x2d8
-  lr : remove_session_caps+0x74/0x2d8
-  [...]
-  Call trace:
-   remove_session_caps+0x2bc/0x2d8 (P)
-   mds_dispatch+0xf48/0x1b60
-   ceph_con_process_message+0x74/0xa0
-   ceph_con_v1_try_read+0x3a0/0x1510
-   ceph_con_workfn+0x260/0x460
-   process_one_work+0x168/0x3b8
-   worker_thread+0x1bc/0x3a0
-   kthread+0x118/0x1e0
-   ret_from_fork+0x10/0x20
-
-That's BUG_ON(session->s_nr_caps > 0).
-
-I was able to reproduce this reliably by delaying the close and
-starting I/O during the delay.
-
-This patch keeps the session registered with
-`CEPH_MDS_SESSION_CLOSED`.  New requests will be put on the
-`s_waiting` list where they will be resumed on the new session.
+Use the `mdsmap->m_epoch` field to identify stale maps.
 
 Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
-v1->v2: skip CLOSED sessions in check_new_map()
-v2->v3: split session pinning and stale-map guards into two preparatory
-    patches; rework CLOSED-session and export-target teardown handling
+ fs/ceph/mds_client.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-Max Kellermann (3):
-  ceph/mds_client: pin sessions while checking a new MDS map
-  ceph/mds_client: stop checking a stale MDS map after dropping mutex
-  ceph: don't unregister an MDS session before removing its caps
-
- fs/ceph/caps.c       |   3 +
- fs/ceph/mds_client.c | 164 ++++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 150 insertions(+), 17 deletions(-)
-
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 160f23e2edd3..03809328e4aa 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -5782,6 +5782,7 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 			  struct ceph_mdsmap *newmap,
+ 			  struct ceph_mdsmap *oldmap)
+ {
++	u32 map_epoch = newmap->m_epoch;
+ 	int i, j, err;
+ 	int oldstate, newstate;
+ 	struct ceph_mds_session *s;
+@@ -5825,6 +5826,8 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 			ceph_put_mds_session(s);
+ 
+ 			mutex_lock(&mdsc->mutex);
++			if (mdsc->mdsmap->m_epoch != map_epoch)
++				return;
+ 			kick_requests(mdsc, i);
+ 			continue;
+ 		}
+@@ -5836,6 +5839,11 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 			mutex_unlock(&mdsc->mutex);
+ 			mutex_lock(&s->s_mutex);
+ 			mutex_lock(&mdsc->mutex);
++			if (mdsc->mdsmap->m_epoch != map_epoch) {
++				mutex_unlock(&s->s_mutex);
++				ceph_put_mds_session(s);
++				return;
++			}
+ 			ceph_con_close(&s->s_con);
+ 			mutex_unlock(&s->s_mutex);
+ 			s->s_state = CEPH_MDS_SESSION_RESTARTING;
+@@ -5859,6 +5867,10 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 					       "mds%d reconnect failed: %d\n",
+ 					       i, rc);
+ 			mutex_lock(&mdsc->mutex);
++			if (mdsc->mdsmap->m_epoch != map_epoch) {
++				ceph_put_mds_session(s);
++				return;
++			}
+ 		}
+ 
+ 		/*
+@@ -5874,6 +5886,11 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 			mutex_unlock(&mdsc->mutex);
+ 			mutex_lock(&s->s_mutex);
+ 			mutex_lock(&mdsc->mutex);
++			if (mdsc->mdsmap->m_epoch != map_epoch) {
++				mutex_unlock(&s->s_mutex);
++				ceph_put_mds_session(s);
++				return;
++			}
+ 			ceph_kick_flushing_caps(mdsc, s);
+ 			mutex_unlock(&s->s_mutex);
+ 			wake_up_session_caps(s, RECONNECT);
+@@ -5929,6 +5946,8 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+ 				       i, err);
+ 		ceph_put_mds_session(s);
+ 		mutex_lock(&mdsc->mutex);
++		if (mdsc->mdsmap->m_epoch != map_epoch)
++			return;
+ 	}
+ 
+ 	for (i = 0; i < newmap->possible_max_rank && i < mdsc->max_sessions; i++) {
 -- 
 2.47.3
 
