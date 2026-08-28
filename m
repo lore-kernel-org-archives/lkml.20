@@ -1,171 +1,153 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C9938655E;
-	Fri, 28 Aug 2026 16:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D287337BE9E;
+	Fri, 28 Aug 2026 16:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787934614; cv=none; b=ipDIZ432eb1dlzeUQqygMl2dxsVcXg1yq6MwEcoCrGJA85RX1nRTDfTKuIgh/vs0AcRWodnYTnw2AUvl0/gdMln6j/BMlemVoZrruChBXqDFyR71xaYZuNzWuDgPKNHPBSQ+KZ50lRBFinI4S3iysHRK6E2uqcrAM3hyOmxsxws=
+	t=1787934624; cv=none; b=mhDltaZehy9elMkfWKQCMJ3QwptOJCRUkhJX52HoixcCsPYxq3wqWu+12UkfANrtykKPGT+K2XtxzzrTPwHhlcNdI2lM3TmRvTaoIC6S7Ylkt3FVZWh2AHucJ0xbhwjejCiUCEplQEkXV31zuuVtdZ6TPvQi4TW11Ch0Ybvo8TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787934614; c=relaxed/simple;
-	bh=xLS8MlBReWfhJPvmiXzWFDK52YcN7W6n6+Xd3NC5lOA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tknQX/UKIZ48x/ujr/RIly1MMf/D0vVc0lK3/+Nzxl92dkkZEoSUetGQYaOIHZDOajO95gEHNkb4udIcOUGA9gQTkxIf1PCKhtywrnzpJ22kWcqI2BQK74xW6uYjR4K/DD/Y/9Vu1l4aDQH8QqgcSDobGv33jqNT9CXcktF1ZCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=uiF+N/NN; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1787934624; c=relaxed/simple;
+	bh=9AczKV9fr7mHCvrrXvP/w5fRYMZr5vsSP92/Adanj/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XldhLindIOUam70s8gduYpaqYyohCK4Je9geawMwyq6b9ywk8RJqtDVfE4mOaDYGx2fP4jCNS4cZFHU5t/KWhEoMcj3v9Kih9p2exLHjU+eV/pUgcNF1BSHjvE3H7Fm4Z5gN67OKudV87cqlB10TMCJpx0N3whFGPG7n3MxHanw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQKq5xOo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="uiF+N/NN"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hWkPv11D2z1XM30n;
-	Fri, 28 Aug 2026 16:30:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1787934596; x=1790526597; bh=clkga+mglnXML2bMv9Ds4jVJ
-	dAKQ9kHPcaeJNPAIRNE=; b=uiF+N/NNe3hNuRtGlayCbmdTexnjGeir7i0DfY63
-	NcxdPwIdDkn1LnrOdKh97V6Uqn/xlOPkGPMknkWliUucvfUhRnT32j9s1ciScIkF
-	i/auawk9H/4wfjJOhBDxuspEGcznn7GI50tcNy4/X6Op7DEFgITpd4LsC6I9P9UV
-	qEEVMlpIY9kBfxPK6zr2LzSuux3ghDJehT8fP/5SNNXxnNLH/xUsnmu+bLZ446hw
-	iI607i+1X6Ym70sg+5l04Tm+cNGFiPXRWv7EzXWAKq8PEorQXXS4i/3AkntyC2Fc
-	cZG2Pl7EK6MOTmmwJ3CHiEtN2wEDLblP45KdjetWZK8s+w==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id sCa7tTwi1n-N; Fri, 28 Aug 2026 16:29:56 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:af43:61da:b9fc:bc3e] (unknown [104.135.182.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hWkPP6FHrz1XM5kW;
-	Fri, 28 Aug 2026 16:29:45 +0000 (UTC)
-Message-ID: <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
-Date: Fri, 28 Aug 2026 09:29:44 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQKq5xOo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A031F000E9;
+	Fri, 28 Aug 2026 16:30:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787934622;
+	bh=rlOkBHzBvasYYnkUVjzKqrztOu7qV8bIX60v6CRdSPA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cQKq5xOoOY5/B5Z4Vh2n01MowTbjOl8QdmjxZZswLx+1H1N0vFGl5cIjnsMfxJODM
+	 rNYP8TYCDJnjQuprO1UHyigYqD5O3bKnlg5r6v6gYzPRaNg9rzyBHllpmOlcBpERMz
+	 A5fqjaA+HpgyVHLiP7p0wLPvQqTb1n96g9Ah3TYx14DrI5FGxb/Mk0ImGh+OYJsP5w
+	 aqYlYGS1p30URzwWnSabeypeQq163aSYX2YRFkYFTnifNIeQgN55kdT9qvopkWDOVS
+	 3PC/KjZAVnfkMCDvzyENC4hnBI6Oie2wp9o7y6npdrpnrXO+jOaWM14i23RM7qP+5P
+	 lROvk/HXmu+sg==
+Date: Fri, 28 Aug 2026 17:30:17 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v8 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
+Message-ID: <20260828-stiffness-activator-d294624667ae@spud>
+References: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
+ <20260828-t603x-spmi-v8-1-708d4d12e0fd@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
- oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
- Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
- Hillf Danton <hdanton@sina.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
- linux-btrfs@vger.kernel.org
-References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
- <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
- <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
- <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
- <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
- <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
- <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
- <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
- <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
- <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
- <c0df5f39-d103-4e36-9807-df0ae0247772@acm.org>
- <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kr68XvzKP7bsDbmd"
+Content-Disposition: inline
+In-Reply-To: <20260828-t603x-spmi-v8-1-708d4d12e0fd@chaosmail.tech>
 
-On 8/28/26 8:53 AM, Tetsuo Handa wrote:
-> +	 * wait for already started loop_queue_rq() to complete.
-> +	 */
-> +	synchronize_rcu();
+--kr68XvzKP7bsDbmd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Calling synchronize_rcu() to wait for ongoing loop_queue_rq() calls to
-complete won't work if anyone would set BLK_MQ_F_BLOCKING for the
-request queues created by the loop driver. Please use the block-layer
-APIs instead of open-coding these. I'm referring to
-blk_mq_quiesce_queue() and blk_mq_wait_quiesce_done().
+On Fri, Aug 28, 2026 at 10:58:57AM +0200, Sasha Finkelstein wrote:
+> Add t603x and t8122 compatibles, interrupt support, and support for
+> SPMI controllers that are not always-on.
+>=20
+> Reviewed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 31 ++++++++++++=
++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Doc=
+umentation/devicetree/bindings/spmi/apple,spmi.yaml
+> index 3e5b14bc8c31..09d383bb4fec 100644
+> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> @@ -20,8 +20,11 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-spmi
+> +              - apple,t6030-spmi
+> +              - apple,t6031-spmi
+>                - apple,t8012-spmi
+>                - apple,t8015-spmi
+> +              - apple,t8122-spmi
+>            - const: apple,t8103-spmi
+>        - items:
+>            - enum:
+> @@ -34,10 +37,38 @@ properties:
+>    reg:
+>      maxItems: 1
+> =20
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Optional, operates in polled mode if not present
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - reg
+> =20
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        enum:
+> +          - apple,t8122-spmi
+> +          - apple,t6030-spmi
+> +          - apple,t6031-spmi
+> +then:
+> +  required:
+> +    - compatible
+> +    - reg
 
-Freezing the request queue must happen before waiting for ongoing
-loop_queue_rq() calls to finish.
-
-Calling synchronize_rcu() does not prevent new I/O to be submitted. What
-prevents io_uring to submit more I/O asynchronously, e.g. if a file
-descriptor that refers to a loop device instance has been registered in
-the fixed-file table?
-
-> +	/*
-> +	 * Now that no more works are scheduled by loop_queue_rq(),
-> +	 * wait for already scheduled works to complete.
-> +	 */
-> +	drain_workqueue(lo->workqueue);
-> +	/*
-> +	 * Now that no more AIO requests are scheduled by lo_rw_aio(),
-> +	 * wait for already started AIO to complete.
-> +	 */
-> +	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
-
-Freezing the request queue must happen before lo->workqueue is drained.
-
-> +	/* Step 2: Perform remaining cleanup, with open_mutex held. */
-> +	mutex_lock(&disk->open_mutex);
-
-After having obtained disk->open_mutex, lease add something like the
-following: WARN_ON_ONCE(lo->lo_state == Lo_bound). Even if this
-condition can't be triggered today, this may help with detecting bugs in
-future loop driver changes.
-
-> @@ -1168,8 +1186,6 @@ static void __loop_clr_fd(struct loop_device *lo)
->   	/* let user-space know about this change */
->   	kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
->   	mapping_set_gfp_mask(filp->f_mapping, gfp);
-> -	/* This is safe: open() is still holding a reference. */
-> -	module_put(THIS_MODULE);
->   
->   	disk_force_media_change(lo->lo_disk); 
-
-I don't think that it's acceptable to invoke __loop_clr_fd()
-asynchronously in its entirety. I think at least the following code
-should be executed synchronously from lo_release():
-
-	loop_sysfs_exit(lo);
-
-	mutex_lock(&lo->lo_mutex);
-	WRITE_ONCE(lo->lo_state, Lo_unbound);
-	mutex_unlock(&lo->lo_mutex);
-
-> @@ -1769,8 +1797,20 @@ static void lo_release(struct gendisk *disk)
->   	need_clear = (lo->lo_state == Lo_rundown);
->   	mutex_unlock(&lo->lo_mutex);
->   
-> -	if (need_clear)
-> -		__loop_clr_fd(lo);
-> +	/*
-> +	 * In order to flush pending I/O requests before clearing the backing
-> +	 * device, defer __loop_clr_fd() to WQ context. The Lo_rundown state
-> +	 * guarantees that lo_open() will fail with -ENXIO.
-> +	 */
-> +	if (need_clear) {
-> +		/*
-> +		 * Grab all references that will be dropped as soon as
-> +		 * returning from lo_release() and releasing disk->open_mutex.
-> +		 */
-> +		get_device(disk_to_dev(disk));
-> +		__module_get(disk->fops->owner);
-> +		queue_work(system_long_wq, &lo->lo_clr_work);
-> +	}
->   }
-
-Please convert the above code to the "early return" style that is used
-elsewhere in the kernel.
-
-Why system_long_wq instead of lo->workqueue?
+This duplicates the unconditional required bit, I would drop it so that
+you can add an else condition and rule out the interrupt related stuff
+on the devices where it may not apply?
+Even if the itnerrupt stuff is possible elsewhere, please drop the
+duplicated part.
 
 Thanks,
+Conor.
+pw-bot: changes-requested
 
-Bart.
+> +    - interrupt-controller
+> +    - "#interrupt-cells"
+> +    - interrupts
+> +
+>  unevaluatedProperties: false
+> =20
+>  examples:
+>=20
+> --=20
+> 2.55.0
+>=20
+
+--kr68XvzKP7bsDbmd
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG3mQAKCRB4tDGHoIJi
+0hBLAPdO6fCWIe7lCGuZKPTY7tTNQreiZQ7KMfF54OHN9jIPAP9UkSq+u+UDSm9B
+NwDr89Jrz4qy63kCjhxx8iIj5bWTCA==
+=ayCU
+-----END PGP SIGNATURE-----
+
+--kr68XvzKP7bsDbmd--
