@@ -1,113 +1,209 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C4D3ABD8F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787950470; cv=none; b=ez7E4haS+xI6mtBoxZpKaebDaEJdfpppA9DgT5wD4qo0XKdAjp8sNa0HwkscEjcQL4MP18iwjl9MzOjGsC77rZ3xiHMfTOoD73676kPiWo6tzy9epS0wWBD8AZV7L/Pv+CW9ihe0BSBD9XNKzVkdBVEFXJ/wPmWh/5VtQZaHnB8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787950470; c=relaxed/simple;
-	bh=fhO/IrhYIm8dl0ygwuZulHKhJvaq6wBppghEv+lfuH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ndr3Kr9OfQD+ixtbvJnSSF+KFTYeRrA/fWbxSCaUtqaBv4N2VMs7tKmxusy0XV/oQCfbG7ZQPOAbjQ9xByN6o6iRvOvbKo2MHTmx6X+G3OlREnCrg9sma1cj7dAmgYg36EL8zeuo5/pMm4C2HJA8Vi7o3nHWm/9bzEFnKfHq5Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEtYjKMC; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC5C24DCF6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787950695; cv=pass; b=EYxpykE1o5323lzFfFX+EF7/wVQewTlsySA4V4FClbcJPDTuAPPJmje7IazRKS+IkmwvYTBJNxMnxDX+DVQlGCOdbR5W5uiPOeB5hYFEFd42ZorqI4Tcx5n7a6+lsj7FxJSl9NdE/S6fBkq5JnXRmYnGROGNzmnFE6fjmJY33sI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787950695; c=relaxed/simple;
+	bh=yJga2t3AIElWD3nCpLIrVN4YFugp7AYxXlmzcydCMzc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n/3DCJSpvV2hR1a9EArMxKQ15s3Btk5t0V8h3cGS7L4RbaIy5wPMlcXmv3VW2reELUy0seCu46zANGiCMomr7yjHjUlRi6R48LZsnn88/TQwgxygiLKjS5/sRITdDguG4vXCRea/HYlSOQnXVujXe2+0EIkiqLibM/42hOsd7qc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=fKiKUdjw; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEtYjKMC"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4957eefd361so11379415e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:54:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787950467; x=1788555267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fhO/IrhYIm8dl0ygwuZulHKhJvaq6wBppghEv+lfuH4=;
-        b=pEtYjKMCLPRad9lH0p3xVoA0eQrJ9/WPMoNGQ4N0PnQvO7y8IglX7uvhHMyVU0l/qh
-         1Sk4ZBdvXuY45MWa2BfY+KTrZ2Jco2ffZIGPzIOb0AgSxip5WJsqwZ2bL5W0ik5cOe9W
-         Apr5xOZDXyt3RaEP5rstCcba0AVyB+z7i6yWs5heu/GBeb4kHPt3pqgUymMNiXa0WPJo
-         /6r+zrP3zoMQWmQDsFL6SJUwqnu8QaR7HbDuUX580G8aPUDVAUQYH/7kKudbvuKYgYlW
-         BBMKddllBIM90VIvmn/fHQEQehOcNq8gWr57A7LMIz4pRDzZaOVrmtv0cd8VdvA8S+60
-         mUdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787950467; x=1788555267;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fhO/IrhYIm8dl0ygwuZulHKhJvaq6wBppghEv+lfuH4=;
-        b=VTxqIZGYJ4NhJGksGk54dwRSimtyUPg3iWYwmmMcFfamDpGSaOAxh3AkeHD1LRgs5W
-         CqSLfZ4P4W9VLoKyrm9DkNBn07zujEMTmW6l8iZ3re9jgC0LRsavweo+tMhx+euNwXeY
-         6x3+XoD+c4UTN6CiGCwjsWCpfmqVxODqiYqH9sPQ9d7X2J5nFXlOXpfV7Ifc0+OaJgXR
-         gNDTXRgD7F1J+GCRL+aqdPrVJIReJ/xx+/+G4gPkh2gM0AJ0xAsi2qIH4LvfOM5jZKFh
-         u/9jJM9nkSUTYDgqaShzJLoZKHgwUi1rnpWhmSEmM5E9mI/AqUdXK/lY4UyW7lrw3QuA
-         w6qg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq09soBccbAmxOO9uUS95Vyh0C6+o0DS5oCnXTH2jF3Tlpj7zrBPxscQjb3NM83LLfyHP9VRyPlpL3sm8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxHf58uTxXU0Qf2cHseXLKpZfAwoJjZP7Qgo3dXosURj9RhSYn
-	NYi80NClNBWpgepszDnRrJi5WeQ5zB+cxU7YxWOnsgSBcZ+V7ID5GDU=
-X-Gm-Gg: AR+sD11gJppUabgD6PwnA0xeXH+SCbcg93O1ZCI7CNx0atkUzmTFdPgKgwfk9ulbtv5
-	JZ/YYbzOFWGnQS0EO5JZjp/RfT+Wakzoz0MePFYMge/DzesSo2CcnBPFBAlzP08ykkTRiAM2qM2
-	hbrGbVl+kvEh4/ZovH0AfT3sumlGO2ne94lwtnrQR4/AxS1zpmEwTn90AWTW+5zOdtzX75cEinm
-	RBpqkquRdoUkDORR3RLfxkT8OjRxzTdXlt9AQ0EifFpeJoDwpNQ81iKZRm7uImEmjClTF8tJr0N
-	itaXSRdZUqgYRyHWo8nJpXe9iNMMGtOHXoz5tf+3jk/Ofhx7p6tULxOskZo8tnpn+CnM2Tt2DuW
-	MClz6Zt8CyhI0AfQgj4W6oC4zxo5OcEKwvevZvXRqUP15EGMqrnOL91TDxqkXO5jz6N5T59SzoR
-	JJ9OBwk9lWqvoGxpfMXQcBCLjgWmsuvDVJ0UmxcJ6rDiGVSzqFpKbBeZSHBvQ5tzsg4okYCgfA0
-	oNpVukQJQYP
-X-Received: by 2002:a05:600c:8b42:b0:496:c93d:e2f with SMTP id 5b1f17b1804b1-49b91c57d64mr155340405e9.15.1787950466515;
-        Fri, 28 Aug 2026 13:54:26 -0700 (PDT)
-Received: from surface.. ([217.61.227.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm108120835e9.12.2026.08.28.13.54.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 13:54:26 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: "D . Manresa" <dmanresa@gmail.com>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: ipu-bridge: software nodes are never unregistered; PCI remove/rescan of IPU6 fails with -EEXIST and leaves dangling properties
-Date: Fri, 28 Aug 2026 22:54:24 +0200
-Message-ID: <20260828205424.154443-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <apGqPKMIk5kgqfMj@kekkonen.localdomain>
-References: <20260827232636.93145-1-dmanresa@gmail.com> <apGqPKMIk5kgqfMj@kekkonen.localdomain>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="fKiKUdjw"
+ARC-Seal: i=1; a=rsa-sha256; t=1787950646; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ch/alWSppndJUvTjZTDwbasMuYb8zo738xQ5xsW6q6ZjyrBddLu7m81sEnBucWKoR8lXgxgxqJhmBKRq0SfZl1ON4q4kn0c2lZVNeLJZ5uT73VehbXoIiF5OdMraEZ5+U5djGQfdh/xzWHIaSKUNWIQn7STfTipRczDYjbUXrpM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787950646; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VrJsrLIm7maKTEeIIqnV/eQUZRGmYELFGrgHzMNhVU4=; 
+	b=ZL/bkzLhHfSAUsFdJuD0TtOB3WryQtNLdILoUpfNlWwmRwm7Jpim8Ydxle5LR3uALZnLYW7jEMSHYreRRG2s5OxczzFcgU91c1aS45A/W1i/mEOUMOD4X/kLfw3r/8q9DavpCiGPyoaigCN6od5ErY6RMz9Dl2SOjxgGii+Szzs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950646;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=VrJsrLIm7maKTEeIIqnV/eQUZRGmYELFGrgHzMNhVU4=;
+	b=fKiKUdjwGmZqEZMFSbmTsV3Quli+LBeVysE0cQi+u5l36SIIkwtFC8eQpYOjFagr
+	kmkEGw8FroB3fsr9ShicSmi8CPlHojnOgS/1+VCRHWyqowT1f6kDuqdE5F9su4U/nym
+	TRLZwkYyqFj/o9fGLP4NffJCTlUiGB3QM0ggoPKU=
+Received: by mx.zohomail.com with SMTPS id 1787950643707888.8572252814798;
+	Fri, 28 Aug 2026 13:57:23 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v7 00/17] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Fri, 28 Aug 2026 21:56:40 +0100
+Message-Id: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Q3U7DMAwF4FeZck1Q4vw1u+I9pl24rsuCyoqar
+ QJNfXfSIdRRenlkn8+SbyLzkDiL/e4mBh5TTv25hPC0E3TC8yvL1JQsQIFXDoykDq8NyzZ9cpY
+ V1MqgNhYrEqXyMfB9UBqH40/O1/qN6TIb88Yp5Us/fN3vjXre+6X9X3rUUkntOQIj2mjjC/Vdh
+ 3U/4DP172LmR1gAr+wKgAK4QL5uLGnv3BZgFiDAGjAzYAFbr7FuVLsF2EcgrgBbAKWjr1pgCgG
+ 3ALcAldYrwBXAND4CRY4VwRbgH4B/T/QFCMWN2FoVOayBaZq+AQ7THD8DAgAA
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6518;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=yJga2t3AIElWD3nCpLIrVN4YFugp7AYxXlmzcydCMzc=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYsuQWvgoZ4fCg0khT/j3vfk2Wev1O/5oLJM
+ 33DQ8Oy6M2JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LAAKCRAOJn5M7lND
+ PfovDACF2Oc62njNakHCoYEj0Mgr3/ktYtTguePFxxm5BjJizQFFXt8edcGmwHTFplBr98u6lnY
+ 8E78jng5KF7qghjN5QgR1TtVZmZ1U9G6xYfSUFjMNPTGtHs4EQJ8KLq3rIDV5Zsnd4dBPo0qtF3
+ 4cHGAGcN9OdXUvQEkWVojCaSz0fi3eId2rJkLwVInbc0DC04o/fWjPVJtdIx2wlq4E0K37ha3qh
+ qxRTxYcOPyif5nFKnlSA6hZIOul0PIYPjFew/GK18+QBQ0w+QxakMKBqwXBabs/6DQPTU1CwFqj
+ r+XxcMrhYSTxPb/UijwgwsKlp23311BJdLhO3CADMjFzeYXKKp5wwg2HPSdkX/z+AuDbfWPjQB6
+ in7Ly6N8hL/9rnTF7B6BiewKJqq+NEHDK8ediqhiC7FbluPLGQRy4CwW7i7yNOoiQV89KKY0Dvc
+ pGrcCuvVti8aUEzQ7WTir5QFBFI/85DZgSOJPD0VgYCAvfoQyMZD7ybEFmXK0odjH7yf4=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Hi Sakari,
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
-On Fri, Aug 28, 2026 at 06:33:16PM +0300, Sakari Ailus wrote:
-> The regulator string length has been increased to 6 since and I believe
-> with <20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm> (on LMML) the
-> camera might work streaming-wise at least. There might be Bayer order
-> issues though, there was another patchset
-> (<20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>) addressing those.
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-Thanks for the pointers -- good to know about the string length fix, and
-we are aware of Jakob's two series: we have adopted his POWER1 approach
-in our local tree and have offered him Tested-by on this hardware to
-help both series move.
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
 
-This report is orthogonal to the sensor bring-up, though: all three
-sensors here are fully powered and streaming (the cameras work
-end-to-end, hardware ISP included). The issue is that ipu-bridge has no
-teardown -- after any unbind of the IPU PCI device its software nodes
-stay registered, so a rescan can never re-probe (-EEXIST), and once the
-module is gone the node properties dangle into freed module memory. It
-reproduces on any ipu-bridge machine regardless of sensor state.
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
 
-Would a fix be welcome, and if so, which direction do you prefer:
-a real teardown on unbind (unregister the node groups, clear the
-secondary fwnodes, drop the deliberate struct leak), or making
-ipu_bridge_init() idempotent so a rebind reuses the already-registered
-nodes? Happy to write and test either on this hardware.
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
 
-Regards,
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
 
-D. Manresa
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
+
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+
+---
+Adrián Larumbe (17):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Stop all jobs before commencing device teardown
+      drm/panfrost: Split subsystem init/reset from interrupt enablement
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Add warning messages to fatal error conditions
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
+      drm/panfrost: Bump driver minor to reflect new DUMP IOCTL req field
+
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 272 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   8 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +----------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  63 ++++--
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |  21 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.h          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 179 ++++++++++++---
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   5 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  12 +-
+ drivers/gpu/drm/panfrost/panfrost_mmu.h          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 238 +++++++++++++-------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |   3 +-
+ 16 files changed, 589 insertions(+), 443 deletions(-)
+---
+base-commit: 8aee06aa4c72e9bdfda81ce720b51fe0fe0f307e
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
+
