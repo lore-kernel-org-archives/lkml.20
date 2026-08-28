@@ -1,46 +1,46 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6086F246762;
-	Fri, 28 Aug 2026 15:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7942C2EC090;
+	Fri, 28 Aug 2026 15:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930137; cv=none; b=W7f8yBoPerTpbTTweL+flvqTgDuBKCKARbTpFyBDE9spkfa/SipzxEdhn9rJ3N6l68aixuLl1FHtTYxuiu3s0tqmmlwtbJT0LOJ9U7Z0FK8F5a8W5rdkl6wh1nLJeyUsmHP/oTJts6pWpcoT0McFZtku5l4NEvSg3M83gTBxbJg=
+	t=1787930216; cv=none; b=c1/fiM6bqW5S0bwgzPwb2Y/YCBoxArQPjC00fmawa2HtFeqQH8fh79odjAR00ZaYtzEkYjvWCwn63FUETflg9x48eXQyIZ6GZ77xet2wbkF3AuLMWF8m71ItQWikcMoo6jUQuW2uYs2lbpPTCFhTCdUPgG4EXduSctbP8e5v1ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930137; c=relaxed/simple;
-	bh=vHM7IuyBYqU+aanM6T9n5z+27YmsvMatP4sTu9IDIVQ=;
+	s=arc-20240116; t=1787930216; c=relaxed/simple;
+	bh=Q59T3pNM7f250DsuM+zm4cYq+MejOdXE3S0WDywQ3EQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VLBUR8QBGUQLs+tSZOShJU90ckX2xk39Zcz3f1C4HflSrKhFnjoEFdOPW77k7Jkip1MLPsLvddNzQrPmDfP3DxFH7+sYqb7y7juyW0+Y+xvP0PnIdB+lCtaN0pT6HlIH7lwF7zFB/uiwwgnaJIo7cIw4lM5loRA1rtvQFTODoA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eh0ELsyP; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=a/Ia6RzGBuqBoLWzUIQAWOhW/3KVbr48bLOaAWVZw36ZMRwmlEOj2KKSSp8fX19y+FQfSmNldRONbPTnrXWHqU+5S4suK3fJNT/H1c7WcVtNi0hocDLAriEclMUyK7zS7VVWLfuaqCt5Q8M6mD1zljjgVbLQQJNB+YA2AqExJ9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOPNhXbw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eh0ELsyP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6SkOmdvoiBqKfQ+sV84Hc+Uue6acCGOEhTyi6KmwzcE=; b=eh0ELsyPIb23kpIE0hDOnUu2oX
-	FyHQv6MYEIL52keZa60gVvbLPfPJo9Dt9YZOTRgjnEkbgh6Ob6idFvhoL8p1jDVC8LWbExWCpGd/u
-	lIwNOsE8KHELjRcozypECl+SJe3l0MmVNjiM2IBX+IfssjTFn51I6FBtctClAr13laKk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzyId-001pR5-5c; Fri, 28 Aug 2026 17:15:23 +0200
-Date: Fri, 28 Aug 2026 17:15:23 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	falemi@asu.edu, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] _phy_state_machine / phy_stop -- a USB PHY that reports an
- MDIO error to phylib panics a panic_on_warn kernel
-Message-ID: <63bfddae-b456-4645-b992-e730bdd4b1ac@lunn.ch>
-References: <CA+0ovChAkaCGmDrkaAzfrmpccDXVampiV9OmjLKwDgkYXThvGg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOPNhXbw"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 888B01F000E9;
+	Fri, 28 Aug 2026 15:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787930215;
+	bh=tEb0OHpSN5AAL9HgLZnc75ThezeOxsQzDLYZJatUxac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hOPNhXbwcREoOG/U3kqD/OvJjwZd0fVmpDWLfbWnoIsT619T7C8Vh+uvcOjPYnmuE
+	 2wqtRDZz9oVGHY1740sZY5MYJm9MC+nwVBiZVgXYE+MZjhmUZrZuGRPIE4b01JEyrT
+	 EGfWPUdVOEapWnZml/hfiIBUpwPV9x35K6GzhmHk7gIYDY2EwLWrUhrRcQF5+Hmms2
+	 8UT+T1L6gclwvl3kRiokXu0DJs1U5DiPQXBtohVetvK1pmv4WZjbwNICP5ooKIOQnJ
+	 9+hqLZZyRqTs+u2SN+bareBfHvkBAm2aXJ+stLCLL4UL0kM5h95sUtGUZyd0/Ono+0
+	 uXkcqw1yqSArg==
+Date: Fri, 28 Aug 2026 17:13:43 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Jaihind Yadav <jaihindy@qti.qualcomm.com>
+Cc: kees@kernel.org, nathan@kernel.org, linux-hardening@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-modules@vger.kernel.org
+Subject: Re: [PATCH v3] scripts/gcc-plugins: suppress recorded GCC switches
+ for extmod builds
+Message-ID: <apGlpwSPSI9YHjlR@levanger>
+Mail-Followup-To: Jaihind Yadav <jaihindy@qti.qualcomm.com>,
+	kees@kernel.org, nathan@kernel.org, linux-hardening@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-modules@vger.kernel.org
+References: <20260817185146.GC1249844@ax162>
+ <20260820060116.786173-1-jaihindy@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,43 +49,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+0ovChAkaCGmDrkaAzfrmpccDXVampiV9OmjLKwDgkYXThvGg@mail.gmail.com>
+In-Reply-To: <20260820060116.786173-1-jaihindy@qti.qualcomm.com>
 
-On Thu, Aug 27, 2026 at 10:29:36PM -0700, Farhad Alemi wrote:
-> Hello,
+On Thu, Aug 20, 2026 at 11:31:16AM +0530, Jaihind Yadav wrote:
+> With GCC plugins enabled, external module builds can record
+> -fplugin=... paths in DWARF producer metadata via
+> -grecord-gcc-switches, leaking host/build specific paths and
+> triggering QA checks.
 > 
-> As part of the kernel research at ASU's SEFCOM
-> lab, we hit the crash below. Crash reports can be found here:
+> Handle this in scripts/Makefile.gcc-plugins for KBUILD_EXTMOD
+> builds by adding -gno-record-gcc-switches to plugin cflags.
 > 
->   https://github.com/farhad-alemi/public_bug_reports/tree/main/146-phylib-phy_error-warn_on-mdio-error/
-> 
->   smsc95xx 6-1:1.0 eth0: Error reading MII_ACCESS
->   smsc95xx 6-1:1.0 eth0: smsc95xx_mdio_read: MII is busy
->   _phy_start_aneg+0x0/0x480: returned: -32
->   WARNING: drivers/net/phy/phy.c:1352 at phy_error_precise
-> drivers/net/phy/phy.c:1352 [inline], CPU#0: kworker/0:3/5063
->   WARNING: drivers/net/phy/phy.c:1352 at
-> _phy_state_machine+0x667/0xf20 drivers/net/phy/phy.c:1613, CPU#0:
-> kworker/0:3/5063
->   Modules linked in:
->   CPU: 0 UID: 0 PID: 5063 Comm: kworker/0:3 Not tainted 7.1.0-rc5 #1
-> PREEMPT(full)
->   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
-> 1.16.3-debian-1.16.3-2 04/01/2014
->   Workqueue: events_power_efficient phy_state_machine
->   RIP: 0010:phy_error_precise drivers/net/phy/phy.c:1352 [inline]
->   RIP: 0010:_phy_state_machine+0x66d/0xf20 drivers/net/phy/phy.c:1613
->   Call Trace:
->    <TASK>
->    phy_state_machine+0x2b/0x70 drivers/net/phy/phy.c:1652
->    process_one_work kernel/workqueue.c:3314 [inline]
->    process_scheduled_works+0x881/0x1170 kernel/workqueue.c:3397
->    worker_thread+0x988/0xde0 kernel/workqueue.c:3478
->    kthread+0x333/0x420 kernel/kthread.c:436
->    ret_from_fork+0x351/0x940 arch/x86/kernel/process.c:158
->    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->    </TASK>
+> This keeps plugin behavior unchanged while avoiding absolute
+> plugin path leakage in external module debug metadata.
 
-Could you point out the crash here? I don't see a crash.
+Maybe it makes sense to add a note on how to restore the original
+behaviour for those who may want to have the gcc switches recorded in
+debug data for external kmods ('make KCFLAGS=-grecord-gcc-switches').
 
-      Andrew
+
+-- 
+Nicolas
