@@ -1,125 +1,210 @@
-Received: from outbound.st.icloud.com (st-2003e-snip4-11.eps.apple.com [57.103.77.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f228.google.com (mail-vk1-f228.google.com [209.85.221.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEB04570D1
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.77.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1C332EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928358; cv=none; b=jMaJ9vSOEz6T6nRfvkYxcrtqp0rg9fSVCNFClF93rx9L2kTB+DDxYtI3Rc7Hw/BiyRZfNfuELKRUopZ7b01546soFdgVfEQuzXVvOcH5rjECgG3hWaTz92B+e7AMI1WfcR0cMxLlgQS0qLeRpKJPkHS0pI6pIvwGWDpZsILS538=
+	t=1787928420; cv=none; b=Bhi5QaMt/DGFvyncAj1N3y9f7HmaZtzoN4ljHhINdqa9EmHTfGltu//jEfVvcp88VMFZ6qmCj796aaPSG7POo4VSwEeAYcou+t3XSx6biK/959PrHxqEqT2l+5692vseG/Pip7FN8hC+ThgXXnDNLIkVKhBouKVwubws16MtRhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928358; c=relaxed/simple;
-	bh=HRPmZDbQ0/PWOKNBkjC3hPjC9s0q8XiO4uS6kMgC61k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aLAtCKS7wKm5HNCUPbhRPXp9l/dF6yzCcgsQfuDElhYHzUhvU03ME6Sn+XWenL1ICQPCVaEbtTxWMGA7e+V1LNMCfoJVSXPAU6jeA2ubQ7xvG0kLuiHClxrkVZzroqgUkx5VWNC/v0DykpLPZLpZhRfbU+K6Jq3Z9zbUitq+Tc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=L57var8L; arc=none smtp.client-ip=57.103.77.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1787928420; c=relaxed/simple;
+	bh=PyMFn68RRIN3IzGpKysy1B9f4xHkGdvkvFc5FOvKIBI=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=H6O4OIYJmIfArH2ei5QUhVf6MaN9vcrz0ziTf8QE81a4KlXYj/vEg0pU7m3IukmjBe627p4u0b2kXulO70Kd2QHCNhp999xjx8Gd1S39eeCFy4ZhjgMP7+RwH0VKOOA0Pw7grTssnXnIEv0M22UDQzPPg2F3qAB2zJ6FAGIWo6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=EN5ec2xj; arc=none smtp.client-ip=209.85.221.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="L57var8L"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-11 (Postfix) with ESMTPS id C343D180011F;
-	Fri, 28 Aug 2026 14:45:47 +0000 (UTC)
-X-ICL-RepId: 01a048d5-8446-7f2d-b264-97543f9077b0
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQBOHVUZWQdDF0kFWRcOVk1aFV4MTRFdMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGWxIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1UFUwNEDU0CXRlaB0gMSwtABkZRHVQZSRdYK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1787928350; x=1790520350; bh=I8Hd62+LwibdPMA7yFOvXK13B+92WTJ+gOALwn0u1mw=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=L57var8LzK0XO40alS/9CvFvJjoLHNxX8dJu3OJo8xaqGxuIw1XZTpVAjPUpSBkoA6RQDyMHv8/czcI4dMPqBfrkYD++OB4k274PeH8ihJYtMBLJx57bmDnQd4Xh5c3v/bIsuJSn4vCOphxReZEjD6seaTvryQz+Wbbp8UEZS1LrhL29fBbVe6q0VNTHLqAh+CSHBFIUSZFoCwOkZNxxgpR/hE1eC2cU1JWMUax0U+r68OUV6z3o9bdmayvE/D9EHtZWJQa/CLYbriznPk5xy7Wo5a0+VkupC5L4bYrXLIcwXC0iPaJlVbWvTunRZBf4mpeYdkaGizSj3Vo0xCqcgw==
-Received: from komputa (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-11 (Postfix) with ESMTPSA id C48AE180019D;
-	Fri, 28 Aug 2026 14:45:46 +0000 (UTC)
-From: Cristian Mazzotta <cmmazzo@icloud.com>
-To: wse@tuxedocomputers.com,
-	aer@tuxedocomputers.com
-Cc: bentiss@kernel.org,
-	cmmazzo@icloud.com,
-	hansg@kernel.org,
-	jikos@kernel.org,
-	linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="EN5ec2xj"
+Received: by mail-vk1-f228.google.com with SMTP id 71dfb90a1353d-5c7991578c2so73659e0c.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:46:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787928418; x=1788533218;
+        h=content-transfer-encoding:message-id:date:subject:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YA8nPi3ueKnPwe6mZk4m/RrVVcVGq0t5B55x+7fBTtQ=;
+        b=OoIBOP9Lm9JyzTt2F/vglNqFqoOfipRl7gwOAASnIS95uVCjXBYoDztbZiWPFHLNf7
+         lPIdRiAGzauTUU36+p6wkdXAyyQqBLpFfEqpgLrLU8uPyQnleBHiYp7GroJR1U9Khwdm
+         GI3wui0JgS1jrYbRrKSV44jCON+mimczqvBkZ8K2x6IYsxbWMkzBz+vYshRSKWl0GNSb
+         uMFCOR9xStMtBVUzFxzPUk+ErQUSH2HQFWANhbGyKJEDh0+hD/p/7G89GuEKjRuxVOXQ
+         E/H8YbQj0OfLIQeDfbnLPNO+3vC9cZmX4iTe9c+1YZP1GO9Lt97xjR02euW3LXcOINhX
+         XbFA==
+X-Forwarded-Encrypted: i=1; AHgh+RqjwVqZfd6wlDZ3AVhu7LE7hIkb6GuYpIvY7wgUAqusVETY00RryXJXhccQAxXmPeqccR6L7o0vMmiFT6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw5eVI5WYOQjLOz55ayG2VjCcvueyy0hV3V+8593zMK4GosaZX
+	uZ5+ViVUUUu0AcY5MP1mR2tFa/xmU5gjRXlUh5vl7Et9kdBhnRv1C5A1vJ8DxgPsOitfjdAMPHr
+	Kfo0oxup0KKLNBOqqbelhDf7rlTjgiO/Dog==
+X-Gm-Gg: AR+sD13z/zKRPNgLX6P4tUU3rtEAIAHOh0LwJiB2dXnuKLqM9A8xI5/v/kUZ7yAOV33
+	tANWZdHbUbs0fVx9TXBVoOQwm2oShb4pTMbQXSJuoKxPrnAdT13DnKmH1XMI4L/DOQn2zqxd0Fl
+	h3ACdmlLY01O296INKQGqN46paXUJbbFL+1YC3O+jeIk4r5bRb32WgwRKeTRXZpDFonAnIkDwZd
+	NsEmKxEd3yCptYuS/JUkMcv8Kp5XuaeUx80mrFOCODdgGcu2GK0dXNFTiMK/yZp33tazCbjEX62
+	lA/Mwli3fe4Y+C4aTx3NHMfotXh1iuiq1kk5bjt1D329Qi0nJy6InBnP5j3i3JxDefv2NDMMRka
+	oSWHwOjMK5KDVlOHnMhQn4Q3QlrnPM7SA06E=
+X-Received: by 2002:a05:6102:2907:b0:782:de7b:eead with SMTP id ada2fe7eead31-785962b3b4fmr2012595137.1.1787928418039;
+        Fri, 28 Aug 2026 07:46:58 -0700 (PDT)
+Received: from smtp.aristanetworks.com (mx1.aristanetworks.com. [74.123.28.25])
+        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-785f800dbd3sm28652137.17.2026.08.28.07.46.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:46:58 -0700 (PDT)
+X-Relaying-Domain: arista.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arista.com;
+	s=Arista-A; t=1787928417;
+	bh=YA8nPi3ueKnPwe6mZk4m/RrVVcVGq0t5B55x+7fBTtQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EN5ec2xjEDQzo5TUwvsImgohFuK2Ucq51bvpqk5Ichgg9ZdWA+bfElliISOYYeY87
+	 JdMvH5TkgUgl+vCrQSimMFgYY6cW5rVlKUdA0wK6qhwU+/21sIPmEbgmBhDAu2eS3A
+	 iGEWBtiMsn9ARvnwbubsmopAfOV2yGVn2waBVZMGnF4waUOZaxmvqvkK6Z451wB+ET
+	 4gy6/SH2Kpwro4Woi37KpBUkaGuBZoOmqUcUDCpn/38dpIBJ0x9yTGZUmQRd1uLz0j
+	 WC2BUcnVI9wRAwogxR/j/eduSwbDzf0+AQ8JVvDSvQ+fr5sgH/agqeOrHMx3c82D7v
+	 t9VK2pj06Z0ig==
+Received: from vm-whiteberg-ubuntu.aristanetworks.com (dhcp-244-90-77.sjc.aristanetworks.com [10.244.90.77])
+	by smtp.aristanetworks.com (Postfix) with ESMTPS id 260B31003C7;
+	Fri, 28 Aug 2026 14:46:57 +0000 (UTC)
+X-SMTP-Authentication: Allow-List-permitted
+X-SMTP-Authentication: Allow-List-permitted
+From: Tate Whiteberg <whiteberg@arista.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: Tate Whiteberg <whiteberg@arista.com>,
 	linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	tgu@tuxedocomputers.com
-Subject: Re: [PATCH v4] HID: generic: add LampArray support via hid-lamparray helper
-Date: Fri, 28 Aug 2026 09:45:10 -0500
-Message-ID: <20260828144510.158538-1-cmmazzo@icloud.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
-References: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
+	linux-serial@vger.kernel.org
+Subject: [PATCH] serial: 8250_mid: wait for LSR tx empty before setting termios
+Date: Fri, 28 Aug 2026 14:45:17 +0000
+Message-ID: <20260828144617.1210599-2-whiteberg@arista.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: mCmttGvAfdC_0FJIWACmmu8z70afe8fZ
-X-Proofpoint-ORIG-GUID: mCmttGvAfdC_0FJIWACmmu8z70afe8fZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEyOCBTYWx0ZWRfX3zlHd2dbMcoZ
- oUwmATg2+lcVDxXevmZLJOEUY5Rwl7Fi4/IBfXbezPsAwuXJoFQ+2c/s1AT0uu7vLg8aLVEWhb1
- /yWi+0sW8xl2OsCSS/eBPcfENAWG+FeSZXf9bTT/zArO9KrEHI5OpKNSCxh1GWdeYF+svVItsR0
- s8TzscL18g/xJ688xQyL4HIu/nYfi8i/BwZ3oN9VYSaTaYuD4vyxpB5e84j8sURJnDBrL1GVVb0
- aCnsWxuzt289uIuHzD+PlXGxqO9vGJQ7DWDpScAKUhtDT6w6kGQUv1lBBemODlvC3BjvibYn69Z
- dhuerBz7rf+NddWb6Pq4vnA9bda/ebTQEwIIDmq57jFzUqDYcvezw07BfB9vvQ=
-X-Authority-Info-Out: v=2.4 cv=Ffc6BZ+6 c=1 sm=1 tr=0 ts=6a919f1c
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10
- a=zMoZyIPnO1cA:10 a=VkNPw1HP01LnGYTKEx00:22 a=hWxEdHQvl6Tn1xj9Vm8A:9
- a=Uh4tPsEYL5Xn7yYgV4Nn:22 a=mGzgV76dRlD25_95D0kX:22
-X-JNJ: AAAAAAAB8W/lkqfPeXR8/2C97afaZ62u4MmKzowRULh9C+tvXg/gE3nho0DBRw12H6ZCtHrnhY7wqhsSSQw3DmccdDGOvN6VuNySXrlQZ13h6wgKy2OyclEbTgO9aPqXTv+XQOVhMvDrEEv4iguTtWMgRLhk5SUIL1BfXzu2oeMUB3O1krJTI43IS7heRJSe8fJLPqxztGqszbKzZtFMRZhZbz3zMY+zuieflIcJi/F2uraFPHXxkYiiHJCQQyvA8J4mQf18NKxW4xXqorc8IzM4tFhBRJZr49FU+rlG582svg/85Na93/tIW1LvJb6dHjdShIwGRUhjos0rYKna9g2PqN8G6/50tYYaHQMGmyZvHiiBQ/zJcFUp2DsV8IKHPZeBt2wRnzfWju3rWxozNnuUyEjLsKFkS4iECXrdk7ksubk4cUmdfko3JWqlPuTarAJfplKqox0CL/PUWnT6eCvHxfrI4KtM5v+fwmLpYw49B/6vMOlKjPcNvFOX74TKB6Yt/xUSj9mUwPOftr54+2Poajw1uKIl9FLRARsROozQ9u7KRKlIklnSz+zOl8h2BGdAZtgD+csBsXcziI0glU72iQMRgAspnXMBZ/eGfVT1UT5LUDR1TwnVyboObIp3EqUV0r++cHmwT6dVVKsZvdUWiSA79Jzzzsmtx2c4fk/Rask+R0efySeF5maeyY7gUQOrYCC6TtyFTym62ju4D/qgjuDvtGj/spFCgkdrcS3rI4zmaQOXFwRxeujyfqr3Nhkz2f1kSh5twa7eKUE0aH5kwF71HyqX90emq3mWhbJhc4X7/173Ta6NUuHGTog9cl5jSV8l9huH+c+fnWED9gWB1O4k7IFAb91bdj6oEjIUYyDXIiCtDJglLbP23bT0pU/2GZaqI+bUSJetaS3QC6+UzYHeCFh7drGp2tG2jnv1R9V6A5LoDZQTHPiYsfdb6ZQFetItLSb4h2LQstPeid0unJGUEvd
- +PFx3PPGGHdSqCQFlpn3vvEqEdX7Pk1Vbd8fqfyJqnx4U554xHYym5B5DiYvDDRbhdWPDYmSgoJsDBcY+Ans/ZAor5cdNHmGFUeTskyqVUeHVsX2NGCux8KFLBGPviGgv695j0CIWPENmaCxRxF1kBRPuuUyNvV/FbFUo1qjTxdq4olXGMuoPQjty+RJsxVa9eJosZYQgsbEso2ckIaKJbd5FBjyf+fCRpugBdmhZYDzypN9TLsl7yWJCdPT3EoHzyBVl9vtlU+vgqVHwAZM89A==
 
-Am 27.08.26 um 22:13 schrieb Werner Sembach:
-> I think it's best for Aaron sending his version first and then you
-> reacting on that on the LKML and getting in touch.
+If mid8250_set_termios is called while data is still in transmission,
+the corresponding register updates will corrupt the transmission.
 
-Sounds good, I'll hold off and review Aaron's version when it lands.
+Fix this by locking the port and and waiting for the transmitter to
+empty before performing updates. It is necessary to wait for both
+UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
 
-> Unregistering is important for userspace to know what happens
+Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
+---
+ drivers/tty/serial/8250/8250.h      |  1 +
+ drivers/tty/serial/8250/8250_mid.c  |  5 +++++
+ drivers/tty/serial/8250/8250_port.c | 13 +++++++------
+ 3 files changed, 13 insertions(+), 6 deletions(-)
 
-That's fair, I'll be sure to change that.
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 9337fec9394e..f99620b1cab7 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -180,6 +180,7 @@ void serial8250_clear_and_reinit_fifos(struct uart_8250_port *p);
+ void serial8250_fifo_wait_for_lsr_thre(struct uart_8250_port *up,
+ 				       struct nbcon_write_context *wctxt,
+ 				       unsigned int count);
++void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits);
+ 
+ void serial8250_rpm_get(struct uart_8250_port *p);
+ void serial8250_rpm_put(struct uart_8250_port *p);
+diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
+index 82656645b8a6..c77e117b7822 100644
+--- a/drivers/tty/serial/8250/8250_mid.c
++++ b/drivers/tty/serial/8250/8250_mid.c
+@@ -210,6 +210,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ {
+ 	unsigned int baud = tty_termios_baud_rate(termios);
+ 	struct mid8250 *mid = p->private_data;
++	struct uart_8250_port *up = up_to_u8250p(p);
+ 	unsigned short ps = 16;
+ 	unsigned long fuart = baud * ps;
+ 	unsigned long w = BIT(24) - 1;
+@@ -218,6 +219,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 	/* Gracefully handle the B0 case: fall back to B9600 */
+ 	fuart = fuart ? fuart : 9600 * 16;
+ 
++	uart_port_lock_irq(p);
+ 	if (mid->board->freq < fuart) {
+ 		/* Find prescaler value that satisfies Fuart < Fref */
+ 		if (mid->board->freq > baud)
+@@ -231,11 +233,14 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 	}
+ 
+ 	rational_best_approximation(fuart, mid->board->freq, w, w, &mul, &div);
++
++	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+ 	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
+ 
+ 	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
+ 	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
+ 	writel(div, p->membase + INTEL_MID_UART_DIV);
++	uart_port_unlock_irq(p);
+ 
+ 	serial8250_do_set_termios(p, termios, old);
+ }
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 38fa45e74a37..4eaf417f1fd7 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -2024,7 +2024,7 @@ static bool wait_for_lsr(struct uart_8250_port *up, int bits)
+ }
+ 
+ /* Wait for transmitter and holding register to empty with timeout */
+-static void wait_for_xmitr(struct uart_8250_port *up, int bits)
++void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits)
+ {
+ 	unsigned int tmout;
+ 	bool tx_ready;
+@@ -2052,6 +2052,7 @@ static void wait_for_xmitr(struct uart_8250_port *up, int bits)
+ 		}
+ 	}
+ }
++EXPORT_SYMBOL_NS_GPL(serial8250_wait_for_xmitr, "SERIAL_8250");
+ 
+ #ifdef CONFIG_CONSOLE_POLL
+ /*
+@@ -2098,7 +2099,7 @@ static void serial8250_put_poll_char(struct uart_port *port,
+ 	ier = serial_port_in(port, UART_IER);
+ 	__serial8250_clear_IER(up);
+ 
+-	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
++	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+ 	/*
+ 	 *	Send the character out.
+ 	 */
+@@ -2108,7 +2109,7 @@ static void serial8250_put_poll_char(struct uart_port *port,
+ 	 *	Finally, wait for transmitter to become empty
+ 	 *	and restore the IER
+ 	 */
+-	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
++	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+ 	serial_port_out(port, UART_IER, ier);
+ }
+ 
+@@ -2223,7 +2224,7 @@ static void serial8250_THRE_test(struct uart_port *port)
+ 	 * Synchronize UART_IER access against the console.
+ 	 */
+ 	scoped_guard(uart_port_lock_irqsave, port) {
+-		wait_for_xmitr(up, UART_LSR_THRE);
++		serial8250_wait_for_xmitr(up, UART_LSR_THRE);
+ 		serial_port_out_sync(port, UART_IER, UART_IER_THRI);
+ 		udelay(1); /* allow THRE to set */
+ 		iir_noint1 = serial_port_in(port, UART_IIR) & UART_IIR_NO_INT;
+@@ -3293,7 +3294,7 @@ static void serial8250_console_wait_putchar(struct uart_port *port, unsigned cha
+ {
+ 	struct uart_8250_port *up = up_to_u8250p(port);
+ 
+-	wait_for_xmitr(up, UART_LSR_THRE);
++	serial8250_wait_for_xmitr(up, UART_LSR_THRE);
+ 	serial8250_console_putchar(port, ch);
+ }
+ 
+@@ -3504,7 +3505,7 @@ void serial8250_console_write(struct uart_8250_port *up,
+ 	 *	Finally, wait for transmitter to become empty
+ 	 *	and restore the IER
+ 	 */
+-	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
++	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
+ 
+ 	if (em485) {
+ 		mdelay(port->rs485.delay_rts_after_send);
+-- 
+2.43.0
 
-As for multi-zone, my I2C controller has more than one
-LampArrayAttributesReport, and has 2 zones in effect, so the original
-would only grab one of them. I'm not sure if my device is spec compliant,
-but my implementation is agnostic to the zone count; I'll come back to it
-with Aaron's version. Quirks get an entry for each zone too.
-
-To clarify, each zone in my implementation gets its own dev class where
-/sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>
-And use_leds_uapi is accessible from both
-/sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>/device/use_leds_uapi
-and /sys/bus/hid/devices/<hid-id>/use_leds_uapi.
-
-For Aaron when he gets to see this, here are some things I noticed while
-testing on real hardware:
-
-1) lamparray_read_lamp_count() reads
-   lamp_count_field->value[lamp_count_index] immediately after
-   hid_hw_request(HID_REQ_GET_REPORT). As mentioned above, that call is
-   asynchronous, so the read races the transfer and returns stale values.
-   On my devices it consistently returned 0. hid_hw_raw_request() with a
-   heap buffer works.
-2) In lamparray_parse_update_report(), usage 0x0003 is not unique within
-   the Lighting page, and the switch has no guard, so lamp_count_field ends
-   up bound to whichever match the parser saw last rather than the actual
-   LampCount field. I added a simple guard so only the first one binds.
-   Whether the first match will always be correct is an open question
-   however.
-3) Both of my devices need the autonomous-mode disable re-asserted on S4
-   resume; without it they come back in firmware-driven mode and ignore
-   SET_REPORT.
-4) I don't believe this would be consistent with all LampArray devices,
-   but mine in particular would ignore any change to the lighting that
-   was within 4 values of its current state, so consecutive updates that
-   are too similar silently do nothing.
-5) My hardware did not support reading back the current state of the lamps
-   at all, so GET_REPORT and in effect, lamparray_hw_get_state(), can't
-   work here. Plenty of LED drivers return the cached value when getting
-   the state, which might be the safer default.
-
-Also let me know if you want me to send my HID descriptors from
-hid-recorder or similar.
-
-In the meantime, I will definitely go look at OpenRGB's implementation.
-I may also work on a driver that will fix s2idle residency on my laptop;
-it's part of what brought me here and this is just step one.
-
-Thanks a lot,
-Cristian Mazzotta
