@@ -1,161 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from a9-115.smtp-out.amazonses.com (a9-115.smtp-out.amazonses.com [54.240.9.115])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA6729405;
-	Fri, 28 Aug 2026 01:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4582333F8A1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.9.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787882372; cv=none; b=RHmXwl0qpijS7uO7CXP+yfa2iH0sDbkJmabgbBP+k+it1sFK3gca7j4ZB/owxZAf+A3wHkf0k+zAFhz+VqZMH0VLB3IdDJYrKdaBULOOScyP4IjROaDcPbnRNcYyCQEFtcbcrzxaernvOb3TLflVKcRZnY+kolIJKE3qEDGnlI8=
+	t=1787882419; cv=none; b=Msy8pCQG/BPLqLDY0mFX+mcGDAQCfRoa+VIAKsLDq9PigZjUaGVTQOn9Hl+KEUqK+Yv5Xf5lMGIxpZXMllnPfZduYbXEedQ2RUB0S9+tx8lfHtZfnNRFcTPH7jWhc6NPIoizsJtRZUtaoJic50lZUn44mDj8sLJGal9JjIqmgwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787882372; c=relaxed/simple;
-	bh=PLUrSJ7Bgr42fAa7hl3L90oFyHaK/ng3BsHc6DjlYsg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TwH4PczUyFzbig4jJ4R15lEDqRT7s0XuEkzgSiNhR++xtcep4EbhyTT6/6DZ8/lBWJGbpV+eeJ+qvMc8rSalZgS24e/XAMeJqGaVLU4YfIdn78IRQuxn6iUYvKl2m7JQjPj/TqxhKtUbel9vVnIZSCabxidsw0Hr8wo1bVk2rdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alyJu5Ry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787882419; c=relaxed/simple;
+	bh=/JlVWTdwhTBUB8/H/BDtpjE2OsVjhwuSB7CifGEAUJs=;
+	h=In-Reply-To:From:To:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type; b=pnGbPJ5n3lYdhUioX/xW24PHsTT5r22OpcrkS5JxGo6M2o21YKYfNbKz0O6U4f8vRZgNfEfs5X5EbpKnDccb3y0izUywOTTnsHMaSpmCM5OrWdGg0GiHIdv0w3mkKpQFUaoUefojXmka/mBC/E5NLJ00so+/PRF5V73yvygdEQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=send.bugs.sh; dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=CMAcY5EQ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=g6mIBXwt; arc=none smtp.client-ip=54.240.9.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alyJu5Ry"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B51761F000E9;
-	Fri, 28 Aug 2026 01:59:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787882371;
-	bh=BmMeT+sGruSoarJZXTMiWDmYAjjQLaM8q39gUOJQkx8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=alyJu5RyJZxHpySxmSX2EQq01LxMYALxg4y2c7/trNsJ8eg1uAVvo3Ay8zeIfizUT
-	 a1TZZEP8ghnZT7m+o1kxgQbg+UMP57BmgZEpv7WUkf70OpF5fg0ESZnQWa0dSfLH3n
-	 J1wj613i20sY6qEp2Z7S0IdG04bRyXQg7Wug+Q1CJCn99pDT1gX0XFW7cK45t39C3O
-	 d/wNvxDqLspl04zBg3cTdxrdZFxU4NbIMxvXoAFGO0TaKV2GVTzWPYEsJUOAruawKe
-	 Rl0XgcYaJ+IFN00KAUOzqYTfnOcH/yXW6iCR0sFbrmYwqM6NJsZvIRsV84GIP/yKm6
-	 0+0XXkf3ek2UA==
-Date: Fri, 28 Aug 2026 04:59:27 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
-Cc: Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Roberto Sassu <roberto.sassu@polito.it>,
-	David Safford <safford@watson.ibm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kees Cook <kees@kernel.org>, Francis Perron <francis@akrites.dev>,
-	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Akrites SIRT <sirt@akrites.dev>,
-	AutonomousCodeSecurity@microsoft.com,
-	Cen Zhang <cenzhang@microsoft.com>
-Subject: Re: [PATCH v2] KEYS: encrypted: fix integer overflow of datablob_len
-Message-ID: <apDrfyDB883Nl5Sd@kernel.org>
-References: <20260826154456.85974-1-blbllhy@gmail.com>
+	dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="CMAcY5EQ";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="g6mIBXwt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=bugs.sh; t=1787882417;
+	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=/JlVWTdwhTBUB8/H/BDtpjE2OsVjhwuSB7CifGEAUJs=;
+	b=CMAcY5EQGew0r2WoickSkCurzneM+FNapJNQ5P3dGVWJgQ4k0KyO0bAmJe2+Km76
+	9pz9v7sfg/RwelZeZ6hDTXYCiSy8uTiOaXN50zk5qepPnakF7G8hIbCu1zfEnVnWi34
+	v0WMmtAc28S6UOpmCEIWwXRieyVFnHlepgvbIQgU=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1787882417;
+	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=/JlVWTdwhTBUB8/H/BDtpjE2OsVjhwuSB7CifGEAUJs=;
+	b=g6mIBXwtVsTnkFZANAvhEVPxH/bJX7BPQuznb/h0glx84d9U8Pjva7m8koUVEuh3
+	UJs36xpoYp0KZ6WiKRPgBr/nsTs91TjnW9fp8ZWLw0T0LUG3FbI2kknAYXiTsdpOPqP
+	G0VKL7Rc6TJN+qQXKJUsjwgZqEI9+At/sETyYdp0=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrfmlplnUJBFsVOtH9kLJ8lwk0oSN1JvS8Ne92Ay6JdISXYZh8FOsoBy7KCgefhHuXZlOuvlVUo4vOEzKg=@vger.kernel.org
+X-Gm-Message-State:
+ AFuF++m/ByejxA7oj5chCybWStvTVTa0PpXgMA+XF9dSfjYZ/PmYaEm2
+ uFe1X0N98ycDckI0yiKFAc/73nrPghjO/53/p2prhyWGe3MbnOsbY1cl9ldU8tT1Dlz8spiDtSU
+ Cu/J7my00ONQOzW/C+NrmcTFylblIz4M=
+X-Received: by 2002:a05:6402:27cd:b0:6a1:f8ad:6c0c with SMTP id
+ 4fb4d7f45d1cf-6a60d3ab0b8mr1451537a12.16.1787882415445; Thu, 27 Aug 2026
+ 19:00:15 -0700 (PDT)
+In-Reply-To:
+ <CAPpSM+RJKziJf7enrZ5FMy-uxJp1Fy1M_acVXy+v3WskU7jJXw@mail.gmail.com>
+X-Gmail-Original-Message-ID:
+ <CAMb7gs9wbKHRVDeTK7UDmYuaKV0B_+=tNex2FR1Drxutj9smAQ@mail.gmail.com>
+X-Gm-Features:
+ AcwNN1Wy2Dm4bnd4lCENNLDKILHv1rn2oosLd-oeupZdG0SaWlRxm5joLuuCG24
+From: CO <co@bugs.sh>
+To: linux-kernel@vger.kernel.org
+Subject: Re: [BUG] drivers/usb: out-of-bounds in xhci_queue_bulk_tx()
+Message-ID: <010001a04618ab92-cada0ad2-02de-47c4-bec7-6ca282667daa-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 02:00:17 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826154456.85974-1-blbllhy@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.yL0noGNZdXCKlJHw27bHz8/I7/GZTaYDRe4l4bGvzjPa1Q4S+kzxKgpyYIxfCxOFAjHX6QJhZdsZN1SP8V3NfEiLJ34m58z2/mmJDZ5RtdRTZ06dzneIWyoUkJ1DSaTbU2HlPz+Zb2/NZ41D3j4FLWNy2FyGjUOa4qpft7gzKcs=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
+X-SES-Outgoing: 2026.08.28-54.240.9.115
 
-On Wed, Aug 26, 2026 at 11:44:56AM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
-> From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@microsoft.com>
-> 
-> The datablob_len field in struct encrypted_key_payload and the local
-> variable in encrypted_key_alloc() are declared as unsigned short, which
-> has a maximum value of 65535. The datablob_len is computed as:
-> 
->   format_len + 1 + strlen(master_desc) + 1 + strlen(datalen) + 1
->   + ivsize + 1 + encrypted_datalen
-> 
-> An attacker can create an encrypted key with a very long datalen string
-> (e.g., 32756 characters of leading zeros followed by "4096", which
-> kstrtol() happily parses as 4096), and then update it with a very long
-> master_desc string (~32760 characters). The combined lengths exceed
-> 65535, causing the unsigned short to silently wrap around. This results
+On Thu, Aug 27, 2026 at 10:31=E2=80=AFAM Xiang Mei <xmei5@asu.edu> wrote:
+>
+> Th
+>
+> On Thu, Aug 27, 2026 at 5:50=E2=80=AFAM Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Thu, Aug 27, 2026 at =
+12:43:58PM +0000, co wrote:
+> > > We found a bug reachable in:
+> > >
+> > >     path    drivers/usb/host
+> > >     crash   out-of-bounds in =
+xhci_queue_bulk_tx()
+> > >     commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.=
+3' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc")
+> > >
+> > > Config, environment, the sanitizer report and a C reproducer follow.
+> > >
+> > > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > >     If you patch the bug based on our artifacts, a tag would be
+> > >     appreciated:
+> > >
+> > > Reported-by: co+fd80bc5967eb22c3@bugs.sh
+> > >
+> > >     Everything in this mail is validated by the reproducer =
+below.
+> > >
+> > >     We also hold an LLM-generated root-cause analysis =
+and a candidate
+> > >     patch. The patch passes an A/B test: the same =
+reproducer panics the
+> > >     unpatched kernel and runs clean on the =
+patched one. Neither has had
+> > >     human review, so both still require =
+validation before you send or
+> > >     apply them. Available on:
+> > >
+> > >         patch.diff  https://bugs.sh/b/fd80bc5967eb22c3/patch.diff
+> > >         report.md   https://bugs.sh/b/fd80bc5967eb22c3/report.md
+> >
+> > Please validate and ensure that this is correct before sending this to
+> > us.  No need for us to dig through random web links, right?
+Hi Greg,
 
-Please use concrete sizes as possible. E.g., 16-bit word or u16 would be
-much less involved than "unsigned short".
+Thanks for the feedback, and sorry for the noise. Sending these before
+we had settled the format and talked to maintainers was our mistake.
 
-> in a grossly undersized kzalloc() allocation, and the subsequent
-> memcpy() in __ekey_init() writes ~32KB past the end of the buffer,
-> corrupting adjacent slab objects.
+Let me make sure we understood your suggestions.
 
-One more: please describe the issue as ergnomic as possible (but still
-complete). I care neither Alice nor Bob.
+# What we understood
 
-> 
-> Fix this by:
-> 1. Using check_add_overflow() to calculate datablob_len directly into
->    its existing unsigned short destination.
-> 2. Checking the total payload length the same way before passing it to
->    key_payload_reserve(), since key->datalen is also unsigned short.
-> 3. Using kzalloc_flex() to allocate encrypted_key_payload together with
->    its trailing payload_data[] array.
-> 
-> Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub-Copilot:claude-opus-4.6
-> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@microsoft.com>
-> Signed-off-by: Francis Perron (Akrites SIRT) <francis@akrites.dev>
-> ---
-> Changes in v2:
-> - Keep datablob_len unchanged and check both unsigned short bounds with
->   check_add_overflow().
-> - Use kzalloc_flex() for the trailing payload_data[] array.
-> - Correct the attribution and sign-off trailers.
-> 
-> The initial version was discussed off-list and is not publicly archived.
-> 
->  security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
-> 
-> diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
-> index 59cb77b237b3..e07092ea301a 100644
-> --- a/security/keys/encrypted-keys/encrypted.c
-> +++ b/security/keys/encrypted-keys/encrypted.c
-> @@ -19,6 +19,7 @@
->  #include <linux/parser.h>
->  #include <linux/string.h>
->  #include <linux/err.h>
-> +#include <linux/overflow.h>
->  #include <keys/user-type.h>
->  #include <keys/trusted-type.h>
->  #include <keys/encrypted-type.h>
-> @@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
->  {
->  	struct encrypted_key_payload *epayload = NULL;
->  	unsigned short datablob_len;
-> +	unsigned short payload_totallen;
->  	unsigned short decrypted_datalen;
->  	unsigned short payload_datalen;
->  	unsigned int encrypted_datalen;
-> @@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
->  
->  	encrypted_datalen = roundup(decrypted_datalen, blksize);
->  
-> -	datablob_len = format_len + 1 + strlen(master_desc) + 1
-> -	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
-> +	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
-> +			       + strlen(datalen) + 1 + ivsize + 1,
-> +			       encrypted_datalen, &datablob_len))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (check_add_overflow(datablob_len,
-> +			       payload_datalen + HASH_SIZE + 1,
-> +			       &payload_totallen))
-> +		return ERR_PTR(-EINVAL);
->  
-> -	ret = key_payload_reserve(key, payload_datalen + datablob_len
-> -				  + HASH_SIZE + 1);
-> +	ret = key_payload_reserve(key, payload_totallen);
->  	if (ret < 0)
->  		return ERR_PTR(ret);
->  
-> -	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
-> -			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
-> +	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
-> +				GFP_KERNEL);
->  	if (!epayload)
->  		return ERR_PTR(-ENOMEM);
->  
-> -- 
-> 2.55.0
+You want patches that a human has verified, and you do not want to
+have to follow links to find out what a report says. We should not
+have sent what we sent.
 
-BR, Jarkko
+# Where we are
+
+We want to help secure the kernel =
+without wasting anyone's time. For
+the past year we fixed our own bugs by =
+hand, so we know what a patch
+costs you: days of review and discussion =
+before it is clean. We are
+grateful for that, and it is why we do not want =
+to send anything we
+have not checked.
+
+What we can check is the =
+reproduction, and we do: we build the kernel
+at the commit named in the =
+report, with the config in it, boot it, run
+the PoC, and see the crash we =
+quote.
+
+What we cannot check, at the rate our LLM pipeline now finds bugs, =
+is
+the patch. Judging whether a fix is right for a subsystem needs someone
+who knows that code, and we do not have those hours. So we would rather
+report the bug and leave the fix to its maintainers, the way syzbot
+does.
+
+On the links, we would ask your understanding. We link the config and
+the reproducer rather than inline them because both are long: the
+config is around 250KB and the PoC runs to a few hundred lines. The
+links point at bugs.sh, which is served from a public GitHub repo.
+The crash itself is in the mail, and we can inline the reproducer
+too if you would prefer that.
+
+We also cannot host built kernels the way =
+syzbot does, so what we give
+instead is the exact commit and the config. We=
+ are working on a tool
+that reproduces a bug straight from the information =
+in a report, so
+that this costs maintainers less time.
+
+# What we would like to ask
+
+- the format: is a report that links its =
+config and reproducer
+  acceptable to you, or would you rather have =
+everything in the mail
+  body? We can do either.
+
+- would a report with no =
+patch in it be useful to you? That is: the
+  bug, a PoC, the environment to=
+ reproduce it in, and the crash we
+  expect, without a validated patch.
+
+- do you want to see the generated patch in the body of the report
+  instead of behind a link? Either way it would be labelled for what
+  it is: an example of a change that stops the crash, not a fix we are
+  proposing for merge. Our default is to leave it out.
+
+- the report.md link in the mails you received was meant to point at a
+  short root-cause note the model wrote while it was writing the PoC.
+  It was broken; this is the fixed one:
+
+    https://bugs.=
+sh/b/fd80bc5967eb22c3/report.md
+
+Is such a note worth having in a report at=
+ all? It is in the same
+category as the patch, in that it may simply be =
+wrong.
+
+# Until then
+
+We have stopped. No further reports go out until the =
+format is one
+that does not waste your time. 19 reports went out in a =
+single batch
+without a person releasing them, which was our process failure=
+.
+That is fixed, and we would rather settle the format with you before
+we start again.
+
+We respect the time contributors put into the Linux kernel=
+, and we do
+not want to become a new drain on it. We appreciate any =
+suggestions
+from you.
+
+Xiang Mei
+> >
+> Thanks for your feedback, Greg.
+>
+> We are working on making reports public. Sorry for the inconvenience.
+> We'll stop sending bug reports before we fix the issue.
+>
+> Xiang
+>
+> > thanks,
+> >
+> > greg k-h
+> >
+>
