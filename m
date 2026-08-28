@@ -1,177 +1,172 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EB9224AF9
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46B03F8250
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910691; cv=none; b=eRI+q6QTlf5P8tfxW3oa62kdxbS4LXR58TOjBnZsRoJCPSMwqM99F++WX27DNzRhVBBPMAYyKie3tqPGegQm5kOofdGCQV3UE+SaU+XwjDfa0wHVuEB226UKMfyyf+4leVxBi3eIPeInO5xNqNHtZ2Ek2brKnY6kZGdp5yKIdtQ=
+	t=1787910696; cv=none; b=N9dlPxlebkWvtK78Kt/tPqyAlg9i9IplHCiKLBNpEElJVC0mSnOqY7mnuhjHi0QlBsDJj6iP6wZVqyDWRYxrBJ+XBzXdSvbzXXuDJB0D1I2ZEfDyvp5/nENUlj3yiG/3c/MZ+yGM5Q4RDN5LEDjsnYHWfHpZ2v3kbNRCIpYqNUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910691; c=relaxed/simple;
-	bh=YgKf8rPNlAy6eEsUqC5wwHsyqREJn1lfAA/Svf3ion4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G86uB+Z6FvgJKhcUhhDQeuOVE/71q5DnDUX9XNrYY+8oXwG9FkYffoawhAdUwW2RW5uTQWKmQHOZkBDu/ALDAWLnDIy4gZ3jhhWzyQu3vfAXaCuSWO94Vv28a3b39i0qUrtS91AyWucR2CdrBmh0ZVYjRU08ph7fd7WHVQV3uEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i3g6+0hr; arc=none smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787910696; c=relaxed/simple;
+	bh=3PStnsUt6VRufWKyuqUAheBUMCxtmEWpaivRJW6aBrc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMGHezY9X4gHPe01dOfWbzTxwy0Y/hQfNNStWYdZuIpWk+++/rJ5rD0p/g9eZ/Tt0shhTDMbE4rVrIIt3XTaRM9SviOuIb0QWbhN1jrNN4j2D08YvYQdXslMLGvsf+r+OrotCcZm4AAYFXCWfTaNmyZ/UNamXdVrvDtFnvk6DW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=AuAugLz5; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=w9PAlSro; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vwZWjkmp; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=zOFEXp6m; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i3g6+0hr"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso629490e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:51:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787910680; x=1788515480; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jfr71wsqB8wCC6pMhB0diEVUU4Ylze5fQF263Bs69OM=;
-        b=i3g6+0hr1EvHYn5xNRb02X9IuQLnRQbUnycJ+NxR8CsB9xSLQp4Q78Sj+2FspFVgtJ
-         XfrkgI+5WuzPeNKO7k+SEY93yVELXV3kiPyvwsnUXssidCBq4x1Oa1RHCMJ5/21zhK+e
-         Tx3PYg59YbKT/84naDZmDPKPmVdCsNueI6Gr1z/bFvuNelh0M8TZSYLGKEOEmSyI8FGE
-         HoFeFg26oecP632Uc4bvWqBvCUFeCNV5AJ5H/VhH4XASJpmcXnQ6p8wurGar7ectiMoN
-         rQZHcSxfOetnrTxCloD91WQU2sC8lYUKI8ZAZOkD7qM2rn007xsSEHNjacv/rH5OXRbp
-         Ec1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787910680; x=1788515480;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jfr71wsqB8wCC6pMhB0diEVUU4Ylze5fQF263Bs69OM=;
-        b=UZ5N8+jQo2ZBv23kdcHW3kT1/czj2Ioy1/ILoKajIG2q+HY+4M3aiApSxS5mVBVpNx
-         +hYmDZfOcHTjl8uipLz9NYflkROUxT3E6KN6b0/DMWziI+F93rXPcd0UyLZhfHiil7af
-         A4XyV16gq82U6fpmfv85iSvOG0WlRe4mQUHQdKZlgFbqk+AO3nAoAtr9F3DCNgnI4xuH
-         IYy340GPBN7lUMIiHOVbqnCQIU0GCc0ORB/AlRUj7wOVdqz2tiz+hsep4DKzT0wK4aAV
-         T4wJvLp3R3T1SJ4IGGidiXtAISgsDcKodAFruU8t0wUf0yPPLm4zYS+kXKzGd3maecrK
-         +rLw==
-X-Forwarded-Encrypted: i=1; AHgh+RoR4ou5eNaOYI89qgkR9etAmWBn7xAfTCvQXtqKpeWWq0zfo7eCIdOlvpAWCAzcfPvof2pAvJ8RRRRRFmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktbQsCG11oqxd+di2iufC97aSkjhvlSd7L5fHXqpajEeRSBQvY
-	QYPdRVpvErQyEZ7PSlE7cnntdIJlxuue3yNkw6i4naYZvfgNpMtAMuM5
-X-Gm-Gg: AR+sD11ABEgf6BgwUYqvUqRFOsBCrYT500JR3ekp3EUod7fK2NUwdHhh6idf7tqaVHi
-	T+n2cDwZPK8Da1X+jjV+2n+zM3FwkwIRExDPe0jd43gSsd4ROg8XXlY5VCR0ecLl/bYEHwCtt4E
-	EE8yJhOVlZxcKZwsoD7ujb0fVYWxVZlgKQ5u7Kgjg6LzMWKd2skNWx+VOPaoTFGmZGdGmb9ghsQ
-	18wNH0TI3AWrzNHyHs4/N9hEgyK5qChHdIcaGhi1sR56zXsm0ekAKh9z6PBbdMH/otoPFKlFFrd
-	6wkrKOqF9LGcWdaQfXwb5eZdIZZ1XDZyZsLi3XZuByT5RvePi6FA7hACvtW8X9K/Ek+axR62wwE
-	K/V/+mrERiFby9dt4fZyIphSseA/KFMhYTFirHDvHhYcz9RKOlAdn5FeT3zs0PH6gLgGBohYoAK
-	NaMMU/4OPs2KAm4GPbjrO4c0CAuJ57Z1jY9hOG06V7ZJzZo8OGU94QQDDhA6ZH1PDjyMJk4NASi
-	6kU5/Shgyoa33pNzhhh8UjKbGk8AHl07Wf11LCv7pSO
-X-Received: by 2002:a05:6512:224a:b0:5ae:befc:97a7 with SMTP id 2adb3069b0e04-5b5e68ec53amr1749105e87.13.1787910679358;
-        Fri, 28 Aug 2026 02:51:19 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5e2dsm290343e87.1.2026.08.28.02.51.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 02:51:18 -0700 (PDT)
-Message-ID: <1dd22b2e-80d5-40aa-b275-e8089601e093@gmail.com>
-Date: Fri, 28 Aug 2026 12:51:17 +0300
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="AuAugLz5";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="w9PAlSro";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vwZWjkmp";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="zOFEXp6m"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2DEA81FAB9;
+	Fri, 28 Aug 2026 09:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787910683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J/SC0x8DTBKDmHj9hGfT16aGVihuMj8DZti8odJ28I0=;
+	b=AuAugLz5wnJQlIzxuvc6m4hN3wJCR14KMSEC1ea5h9sVG3kqorgTbB8QYDxWn3XP4HktrL
+	JpfQPFGNVT+I4LqP75NsE0MwcAtX8Zy8OF0SgC1p93oBMBPI3WTda9CKZGltWzA8rrV4N0
+	XNSOX6/TbPJpBjq6JdS7Ij7gNRJeSOk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787910683;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J/SC0x8DTBKDmHj9hGfT16aGVihuMj8DZti8odJ28I0=;
+	b=w9PAlSroXD2jDcmTupPg9dYSgQaZp6/DZxUJc75qR888prnAFV6GYFiMa948hFfmVU6BJO
+	PocCsOlbktsEYhCw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vwZWjkmp;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=zOFEXp6m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787910679; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J/SC0x8DTBKDmHj9hGfT16aGVihuMj8DZti8odJ28I0=;
+	b=vwZWjkmplxrhilhIAtAfoPgp5xWzKsR0UUIybX8/TyEHhKI1xF6VODDJ0h7POK9ZSYjWBa
+	J9NCp1OzDaG/eiHHKWe1Z+rL72Y1Any7lCFggz8YFcLHs/VD6LGmneCxaH8WnPTQ/FkF+U
+	2Xvh7H4sXb7TwMpfqY8mKTNuUCFyRPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787910679;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J/SC0x8DTBKDmHj9hGfT16aGVihuMj8DZti8odJ28I0=;
+	b=zOFEXp6mWDWDrIWZbIRTE/CPjeIUVg79k7cPqkk1pTjxkk8UcbEfYKFU6vvYGySRESSdKi
+	fEktTsrl6nqvhsDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EF7F13515;
+	Fri, 28 Aug 2026 09:51:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id StalAxdakWp7EAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 28 Aug 2026 09:51:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 97BF9A1324; Fri, 28 Aug 2026 11:51:10 +0200 (CEST)
+Date: Fri, 28 Aug 2026 11:51:10 +0200
+From: Jan Kara <jack@suse.cz>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: brauner@kernel.org, jack@suse.cz, kees@kernel.org, cyphar@cyphar.com, 
+	containers@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+Subject: Re: [PATCH 2/2] userns: don't clear the install target map on
+ map_write() failure
+Message-ID: <37ur33kehusvq7scjflrr3df6d36xtaminoricp6ituocpapef@3we4ql6o2ozz>
+References: <20260828091659.358700-1-cui.tao@linux.dev>
+ <20260828091659.358700-3-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] iio: accel: kionix-kx022a: Prevent memory leak and
- fix state
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Mehdi Djait <mehdi.djait.k@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1787901813.git.mazziesaccount@gmail.com>
- <9e4453fcc00df6ec988207df8916226d18aecb20.1787901813.git.mazziesaccount@gmail.com>
- <apE_RZJu37iMuWnJ@ashevche-desk.local>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <apE_RZJu37iMuWnJ@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828091659.358700-3-cui.tao@linux.dev>
+X-Spam-Score: -4.01
+X-Rspamd-Queue-Id: 2DEA81FAB9
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
 
-On 28/08/2026 10:56, Andy Shevchenko wrote:
-> On Fri, Aug 28, 2026 at 10:40:51AM +0300, Matti Vaittinen wrote:
+On Fri 28-08-26 17:16:59, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
 > 
->> The driver allocates memory for samples at buffer enable path. If regmap
->> operation fails in the kx022a_fifo_enable() at the buffer enable path, the
->> allocated memory is never freed. Furthermore, the state information and
->> previous hardware configuration(s) aren't undone, potentially leaving
->> WMI interrupts and buffers enabled, or driver state flags wrong.
->>
->> Free the memory and revert the hardware configuration and state flags on
->> error path.
+> At the out: label of map_write() the destination map is also cleared
+> (map->forward = NULL; map->reverse = NULL; map->nr_extents = 0)
+> whenever the write failed and the extent arrays had to be freed.
 > 
-> ...
+> However, the destination map is written by the successful install
+> block above, which has no failure exit; every error path reaches
+> out: without having touched it.  A second write to a mapped
+> namespace is also rejected with -EPERM before any parsing happens,
+> so the clearing can never roll back a previously installed map
+> either.
 > 
->> static int kx022a_fifo_enable(struct kx022a_data *data)
+> The three assignments just zero an already-zero map.  Remove them.
 > 
-> With
-> 
-> 	struct regmap *map = data->regmap;
-> 
->>   	guard(mutex)(&data->mutex);
->>   	ret = __kx022a_turn_on_off(data, false);
->>   	if (ret)
->> -		return ret;
->> +		goto err_free_out;
->>   
->>   	/* Update watermark to HW */
->>   	ret = kx022a_fifo_set_wmi(data);
->>   	if (ret)
->> -		return ret;
->> +		goto err_wmi_out;
->>   
->>   	/* Enable buffer */
->>   	ret = regmap_set_bits(data->regmap, data->chip_info->buf_cntl2,
->>   			      KX022A_MASK_BUF_EN);
->>   	if (ret)
->> -		return ret;
->> +		goto err_wmi_out;
->>   
->>   	data->state |= KX022A_STATE_FIFO;
->>   	ret = regmap_set_bits(data->regmap, data->ien_reg,
->>   			      KX022A_MASK_WMI);
->>   	if (ret)
->> -		return ret;
->> +		goto err_buf_en_out;
->>   
->> -	return __kx022a_turn_on_off(data, true);
->> +	ret = __kx022a_turn_on_off(data, true);
->> +	if (ret)
->> +		goto err_on_out;
->> +
->> +	return ret;
->> +
->> +err_on_out:
->> +	regmap_clear_bits(data->regmap, data->ien_reg,
->> +			  KX022A_MASK_WMI);
-> 
-> in particular this will be
-> 
-> 	regmap_clear_bits(map, data->ien_reg, KX022A_MASK_WMI);
-> 
->> +err_buf_en_out:
->> +	regmap_clear_bits(data->regmap, data->chip_info->buf_cntl2,
->> +			  KX022A_MASK_BUF_EN);
-> 
-> 	regmap_clear_bits(map, data->chip_info->buf_cntl2, KX022A_MASK_BUF_EN);
-> 
-> Which saves a single line, and the followup may shorten the existing code even
-> more.
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-As far as I can see, the driver is consistently using the 'data->regmap' 
-everywhere. Using 'map' just in one function would raise question if it 
-is different regmap from every other place.
+I agree this is a dead code but it kind of makes it easier to argue about
+the correctness of the error handling branch. I guess I'll leave it to for
+Christian to decide whether he wants to take this or not.
 
-I am 100% Ok with anyone changing the data->regmap to 'map' throughout 
-the whole driver in order to cut the amount of lines - but it is not 
-something to be done in a bugfix commit.
+								Honza
 
-Yours,
-	-- Matti
-
+> ---
+>  kernel/user_namespace.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index e9e04ce167df..cef5e71779f6 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -1104,9 +1104,6 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+>  	if (ret < 0 && new_map.nr_extents > UID_GID_MAP_MAX_BASE_EXTENTS) {
+>  		kfree(new_map.forward);
+>  		kfree(new_map.reverse);
+> -		map->forward = NULL;
+> -		map->reverse = NULL;
+> -		map->nr_extents = 0;
+>  	}
+>  
+>  	mutex_unlock(&userns_state_mutex);
+> -- 
+> 2.43.0
+> 
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
-
-~~ When things go utterly wrong vim users can always type :help! ~~
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
