@@ -1,264 +1,211 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96723A7F7E
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EBB3A8FEA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787955622; cv=none; b=LF9xTE/dWWG3B1osCM/wfF35O7uwFaoT3/G1EqgnFMM7p1ur92Y2EIKYGEc7QBwVCNps767mNSJJUxUtfJ8FEKljc3SivWzbXdjRJxvBDJavXlKbPx9nzZwWIerFUPmTgDtWqX4L8BsysmSdY9XUDakySPIriyQJCncM7aChF7Q=
+	t=1787955656; cv=none; b=AI5c9MRLU71JybPFrpyxCr2R+XPifE6/ODm6qqq2Zfr0f8QnhZ2rjKMEKPTWAO+aSu6UJrS6OulmWbX5/BirMLtRGxsf9itnMogQTQqJt4FAYbK9jYNlJTGWr4xiAZgN6FPQAq5qTO1pipa7IfGm9OoHIHP0/hTrY7gRkaCzKv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787955622; c=relaxed/simple;
-	bh=G+MobNW6sFYY1PlV2jcL6Xl7xdSNiLeQQpY4jB5oAx8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=hKpBuI3vz7cUcExn+DKTRQ3h37kFsryvLbdW6ZSbnjlWGmGAd+QeNvtptQIULxH8m7EGYQwF32bIAPgC4jaUobPB+DO7ndqTtZOUNZcSuo2igt4wiT1Or7Ga33kAZ7JaSO4uyj5DdCgI0yxLdQtPKB2gWsSZc016rcckGrF5yNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z0pHZO5u; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787955656; c=relaxed/simple;
+	bh=E/W+ksdADl9ywTHJd2TuA2lVsVD11eIiuEkKnDyCD/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OKL18UyOzli2LlJUrsJpXltz7t9MPERLS3XKxCQ0QqZNkw4735lcxgSqJx10ThB9ujh3a7cy1NWrcMI4+yj4v9LA+l5J3dgc9rGVPk2CwBSKK7M3cb0mqPTBwZvNhJbICtIVFPs8f6bFHSGQMxqCrFPsNFzxfTCSbV9r+xIDOcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HOVFq+AK; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z0pHZO5u"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-7dbcb505578so17880767b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:20:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HOVFq+AK"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc891373e0so12663115ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787955619; x=1788560419; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4S/8Koo0tWCwmsJIfU4dprBEqIORdY9GwO+Ne2fREg=;
-        b=Z0pHZO5uyz3gNWc6CLrTlSYffxHV4O9ZEMublJZJ4K22Bb1LD7C07IzS4Ty7PsyPCU
-         S5hdhb33vBKFVNoXLlZ/dcpeiqR0kfpvp3QodhUc9t9A3ZVG0J0fEoXHS/QsrJMI4NtE
-         oSqZPOixx4pcaxLwoHctjznGifPayML1mWF/Du8Rd4Bd46zmJhelPm1AecWjOihBBdSm
-         RQYk6LbK4s8Ul1L3srfTWgaoT7OXcSriVYvWpyFe5RjN7YGMrUXfMC51lyPoWkJX8O9f
-         Ki/fNXvmUDomrVQiZ2ShflufF4cEsWuCHR1I/yZbwPYEEe3+NitcoV7mZF0fIyqQmvNm
-         oUzw==
+        d=gmail.com; s=20251104; t=1787955654; x=1788560454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fkzPOJyjg522oMEaLV0n0OoyZNgVtknUfEY52R/omSs=;
+        b=HOVFq+AKdaOJrHxLRfkVQa8W2PFT5pa31HhlZNcIhBTITrtkwbvvQj478nkrFwO6jE
+         kE6RcbUqfXt+SaNC1Ib/dNzYctLrp6xg0RUB4z70z3ebprUyo8pxIa8slGBB4OKMj1TO
+         bpVMyalbRleXe5udEDckqn4+as/bf1aidPL5fB1zu/L59uuAPHoos9JyeM/yS/SONkZm
+         9xb9uFjj2iIg7lujZqiXjBRA3ofxzEz0WEZz0ZDeEFbnAJmMGW+R23HxPfntrDhtgD4E
+         A0Kg7+ODSxUoIXo1ySssQErBVvmN9SI0h2J9XHii/oN9xHp+/q7qB1rFkAzzRgYFl0Hb
+         1sdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787955619; x=1788560419;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787955654; x=1788560454;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b4S/8Koo0tWCwmsJIfU4dprBEqIORdY9GwO+Ne2fREg=;
-        b=PNnQIjksWJZfePhM+aMZ1ezKXNfSFgJKvTjYTjLmFqvz+Hh59Uf7VPZpiHRYb4XXo1
-         OupXnuQP/qPbleHnwJZcE7C0rntna/jDiuTUKpq01u6eJHJPmhYnAeiUVwqprQGIZ+A4
-         lbJir0MOB2Er6sEV4EOsqwUOaGLzO3bMxqrVYgpEVRnKtW8fkmcZEg7nGPXHvKa3Vc0w
-         oSikcH4P7DPYiJIiDuOyiRrU9Kyk0OHkd/JdMoXNJ0+QS3bC6dAgsQsXg2k5N0fITPKi
-         qwa5VqZpNboE/APiAZOQEaTg2GuYCSpcF392cnkSl3BNtAxVjnqd/Pmc73ucPqvlN4HC
-         GwDA==
-X-Forwarded-Encrypted: i=1; AKwUvByAiPbrVjEryWXjP5u4V8fQIWNriP9nxyFAElcKLqyGJuBfFOqjCMivTWBy8LfMWjGZvO7hJ4W7OsDHYYg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX1+wA2Fc7NimeuV+hjI6+ZV8EOudBG+KFjZIUZHcuskKHPK84
-	EWjvm68mU8kvhscOHfG+tGiqEg5hGuHSX7su1u35OXBuqAq/qKUcwuifMhv0X3v8KA==
-X-Gm-Gg: AYBFou3fNBWZsRQk9UO2km6GugeE4nUdgFwN9ypuuZPL+hz/qOSJp0TsI8T3GYwMJRi
-	t2udtlYOXzOC5hS500erkS7Hv56wcvhGBDgOYb2eWmTGUp25TeNqtN5mgjLuH2/sRzam5xrDDp+
-	APnbmzeAAwpGZ4yL/4AdUUkYOo6kfzXPQbwm6n8An0aUjTKZ0FB7k5xbLm8ONmC2WVhL0PPBHNX
-	sKpGCRcRbwTdl186UiPGcVZg3lp1p7PXOD2cig8WezWSZB7YGsD5486ddfZlxub4fyZK0pLrgk4
-	El2qldHqL5VaR4axK9DJsLub9RujOdiFjpsxkc7ZDXeYLUWC6RfiXHOJfoIJpMKT5ZxIH8lIpJJ
-	XLG7nSvIuXuGthANPivbAmxDG7reETo1Y+wD7PwYlPj9wRDQJcgBAfp+Y6Bspy1pV9q18ZTGL8i
-	Xfv9SiP9L0lN9NAwyK889r+XvwjYTLPhV0RLAfFOYbPmlfFJH4cZupwPF3jGmuAn2tuzWGTrShp
-	kEnb61zL6/b7D+iKnOnHwXPCR1PW/2DMTE6i6F73h90HH+BxDWBfoGaeCY=
-X-Received: by 2002:a53:e884:0:b0:66d:2e51:5690 with SMTP id 956f58d0204a3-66e4c6242d9mr2552474d50.11.1787955617852;
-        Fri, 28 Aug 2026 15:20:17 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm1613351d50.19.2026.08.28.15.20.12
+        bh=fkzPOJyjg522oMEaLV0n0OoyZNgVtknUfEY52R/omSs=;
+        b=odRbmw+0lc2Mwv0V+lPtgVbRemgUgGya9xaMGAuVShDhCUdtcYvjKFunbteBk4C112
+         4ZF8yjphg3X/tr74DUYcNBmhRYHMqg423iCa93UVJ1Ey+1WNOT3ztZaDtRS7ZdjgcS0B
+         HN8JQHjL8tQOO9sdgKkmsw3lkPfACIR35BatTjAWJ1fVwb8cfhDvimSNmQvWay1U5XYC
+         H4MPdMF7JprGXvN0vLPPY0onf9RvB6eB8xwmQAAMoxjbMk6ukN+MrdVUDWjhvO/D11sr
+         /21jIqn7ufL36Rx6ZMSDpmOmL+aCvXmjA/B5SdBtq8z7Q6PLwzkLdy3IIRe1vmNN1OiN
+         j1UQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzg6VNWHUdUzywwuLMNnkNZ0rODX54OmjBaI6L4PoV3maVD5pHBRH0JC45Ba5ByjzOPwKRD7OqS/9josiw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nS6krgnr5c/pJYYMJEu4yHIu8XswGZ9hvQlMR6QeZLUyx7u5GY
+	QT1yWByyytRTrfkQIRkBMLq7I2gdu2F189H9cQDHODLZAjIXZHHkNbc3
+X-Gm-Gg: AYBFou21mVyaOPYMilcmDl9rO23zx1VVjAHfWyUcdhW74CC9+eKD/Xb1wcwCt6e1hDF
+	uovh2G5XpVYyARqU+SBWhH7dp5zUWYhoFzfp1YaD5e5/l1/SkK9L75PxzKsh/ACp3aM/VXvVUlC
+	m5ntU2HcU3TIVYAjbo3CydnRUMRbxMVCFidsNa7IiG9Qr/t7k1f2/phgTHECoVom52zOgDbmCS/
+	hd+Lr5+Hy2cF8EtgH3pugDBqnOT9XzTh2W/ZHEXfW1enApb0eGXnFAJ81ODVtTYuO21qdiHyxPD
+	PSZa5WsQ46/2IkTDHA2XHlX8IUIKm4BZaNGFKSwOJFN+/UJJKwsp05la4+9zV6rEyZe4gRZJyOd
+	/0GkebSlnfw2bRvYoPLD3P+J5oXThRWbXUcB1bYwg47rcsoR5gSqFOcXs8aVRuFR+5BC4P3l3G8
+	QZWOLypceA6yu5Vvz/JX5+qiVobJbZ8pxJgvbCpd8SiqMy0HHx03314OX4ZtEKNUj8314yo8ihB
+	oIHEoF5GBhJYJRBP7BT7FDw6qVYmTqKJfR72iS5CW2+R21naDq0vg16eCcOD37vOEySvgYKXydo
+	XPely70KGdbIBnObdLV0U4RD9ccDfeS0kmCbDvg1AusVueLZ
+X-Received: by 2002:a17:903:1b07:b0:2c7:ebfb:618f with SMTP id d9443c01a7336-2d74df29e26mr215740625ad.14.1787955653649;
+        Fri, 28 Aug 2026 15:20:53 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869aeesm9563725ad.46.2026.08.28.15.20.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 15:20:16 -0700 (PDT)
-Date: Fri, 28 Aug 2026 15:20:11 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Matthew Wilcox <willy@infradead.org>
-cc: Hugh Dickins <hughd@google.com>, Kiryl Shutsemau <kas@kernel.org>, 
-    Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 04/25] mm/fbatch: lru bit set, no extra ref, while folio
- on per-cpu fbatch
-In-Reply-To: <apGd6T84Zs1RgTVg@casper.infradead.org>
-Message-ID: <d8834642-140a-0bc6-0b3b-abcfbb8ada6f@google.com>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com> <e0887417-85a7-453e-e733-561dc11db08f@google.com> <apAaWsWPV9QEeVwn@thinkstation> <3b8d9cc4-d6f9-6bd6-f774-34cfca9c48c9@google.com> <apGd6T84Zs1RgTVg@casper.infradead.org>
+        Fri, 28 Aug 2026 15:20:53 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: gianfar: handle startup_gfar failure and fix double free
+Date: Fri, 28 Aug 2026 15:20:51 -0700
+Message-ID: <20260828222051.77604-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026, Matthew Wilcox wrote:
-> On Fri, Aug 28, 2026 at 01:04:34AM -0700, Hugh Dickins wrote:
-> > On Thu, 27 Aug 2026, Kiryl Shutsemau wrote:
-> > > On Mon, Aug 24, 2026 at 07:01:20AM -0700, Hugh Dickins wrote:
-> > > > Treat folios on a per-cpu fbatch as if they were already on the lruvec:
-> > > > with PG_lru set, without holding an extra reference. This will enable
-> > > > the removal of most lru_add_drain() and lru_add_drain_all() calls soon.
-> > > > 
-> > > > Recognize such a folio by 0x02 set in the folio->lru.next pointer by
-> > > > folio_add_lru().
-> > > 
-> > > Hm. pfmemalloc (__GFP_MEMALLOC) thingy already claims the bit. Is it
-> > > safe because such memory is never on LRU?
-> > > 
-> > > Are pfmemalloc and PG_lru mutually exclusive?
-> > > 
-> > > Do we want to be explicit about this? Like, folio/page_is_pfmemalloc()
-> > > shouldn't return true for PG_lru folios/pages or something.
-> > 
-> > Gosh, thanks so much for pointing that out: I was completely ignorant
-> > of the the pfmemalloc use, and a bit (bit 1!) shocked to learn of it
-> > (why wouldn't they just reuse a pageflag, I wonder? but doesn't matter).
-> 
-> The idea is that it is used temporarily to communicate from the
-> page allocator to the caller "This only succeeded because of
-> PF_MEMALLOC".  Making it a page flag would require all callers be
-> aware of it -- most simply do not care.  PF_MEMALLOC was set on
-> their behalf and there is nothing they can usefully do with this
-> information.
-> 
-> So we want to communicate it in a way that allows the unaware caller to
-> discard the information, and I chose bit 1 of page->lru.next.  We
-> used to use page->index == -1UL (which was also naturally overwritten by
-> the unaware caller), but we needed to have it be part of PP_SIGNATURE
-> and that needed to be not part of page->index ...
-> 
-> Commit dc8cf7550a70 if you want to read more about it.
+reset_gfar() ignores the return value of startup_gfar(), so a reset
+that fails to reallocate resources (e.g. -ENOMEM) leaves the interface
+logically UP with stale descriptor-ring pointers. If the device is
+closed afterwards, gfar_close() -> stop_gfar() -> free_skb_resources()
+frees the same coherent DMA ring a second time, causing a double free
+of the TX/RX buffer descriptors.
 
-Thanks for explaining, I had looked at some of the other commits
-implicated, but not that one.
+Make reset_gfar() and gfar_change_mtu() propagate the startup_gfar()
+error instead of silently continuing. Make free_skb_resources() idempotent
+by NULLing the descriptor-ring base pointers after freeing them, so a
+second free cannot operate on a stale pointer regardless of which error
+path is taken.
 
-So, it's a special snowflake which can melt away before it interferes
-with anyone not interested (which a page flag would not): yes, that
-makes some sense.
+Fixes: 0851133bb5ad ("gianfar: Fix device reset races (oops) for Tx")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/freescale/gianfar.c | 42 +++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 12 deletions(-)
 
-> 
-> We do use a page flag in slab; we check the pfmalloc bit and move it
-> into a page flag (SL_pfmemalloc).  But we don't use it for folios.
-> 
-> While there is a folio_is_pfmemalloc(), I think that was a mistake
-> and it should now be deleted.  It hasn't been used since slab was
-> converted away from folios last November.
-> 
-> > Anyway, as you've rightly guessed, it's not a problem at all: these
-> > mm/folio.c and mm/mlock.c per-cpu fbatches are entirely for folios;
-> > and if any pfmemalloced page ever get used for a folio (dunno) and
-> > put on an fbatch for LRU, then of course its use of lru.next is
-> > immediately overwritten (first by what this patch writes in lru_next,
-> > then later by the lru.next pointer for whatever LRU it goes on to -
-> > just as before this patch).
-> > 
-> > If you were to tell me that some subsystem uses PG_lru for some
-> > other purpose, then I would have to get more worried; but we can
-> > be fairly sure that's not so, since mm/compaction.c for one relies
-> > on konwing it's free to  play with PG_lru folios.
-> > 
-> > Whether a folio is ever allocated with __GFP_MEMALLOC, I'm not
-> > certain (haven't looked), but there is no need to exclude that:
-> > it simply would not retain that page_is_pfmemalloc() info across
-> > folio_add_lru().
-> 
-> That's the correct thinking.
-> 
-> How about this patch?
+diff --git a/drivers/net/ethernet/freescale/gianfar.c b/drivers/net/ethernet/freescale/gianfar.c
+index cf636fc5aafa..d0ac8a958696 100644
+--- a/drivers/net/ethernet/freescale/gianfar.c
++++ b/drivers/net/ethernet/freescale/gianfar.c
+@@ -1140,11 +1140,24 @@ static void free_skb_resources(struct gfar_private *priv)
+ 			free_skb_rx_queue(rx_queue);
+ 	}
+ 
+-	dma_free_coherent(priv->dev,
+-			  sizeof(struct txbd8) * priv->total_tx_ring_size +
+-			  sizeof(struct rxbd8) * priv->total_rx_ring_size,
+-			  priv->tx_queue[0]->tx_bd_base,
+-			  priv->tx_queue[0]->tx_bd_dma_base);
++	if (priv->tx_queue[0]->tx_bd_base) {
++		dma_free_coherent(priv->dev,
++				  sizeof(struct txbd8) *
++				  priv->total_tx_ring_size +
++				  sizeof(struct rxbd8) *
++				  priv->total_rx_ring_size,
++				  priv->tx_queue[0]->tx_bd_base,
++				  priv->tx_queue[0]->tx_bd_dma_base);
++
++		for (i = 0; i < priv->num_tx_queues; i++) {
++			priv->tx_queue[i]->tx_bd_base = NULL;
++			priv->tx_queue[i]->tx_bd_dma_base = 0;
++		}
++		for (i = 0; i < priv->num_rx_queues; i++) {
++			priv->rx_queue[i]->rx_bd_base = NULL;
++			priv->rx_queue[i]->rx_bd_dma_base = 0;
++		}
++	}
+ }
+ 
+ void stop_gfar(struct net_device *dev)
+@@ -2003,6 +2016,7 @@ static int gfar_set_mac_address(struct net_device *dev)
+ static int gfar_change_mtu(struct net_device *dev, int new_mtu)
+ {
+ 	struct gfar_private *priv = netdev_priv(dev);
++	int err = 0;
+ 
+ 	while (test_and_set_bit_lock(GFAR_RESETTING, &priv->state))
+ 		cpu_relax();
+@@ -2013,24 +2027,27 @@ static int gfar_change_mtu(struct net_device *dev, int new_mtu)
+ 	WRITE_ONCE(dev->mtu, new_mtu);
+ 
+ 	if (dev->flags & IFF_UP)
+-		startup_gfar(dev);
++		err = startup_gfar(dev);
+ 
+ 	clear_bit_unlock(GFAR_RESETTING, &priv->state);
+ 
+-	return 0;
++	return err;
+ }
+ 
+-static void reset_gfar(struct net_device *ndev)
++static int reset_gfar(struct net_device *ndev)
+ {
+ 	struct gfar_private *priv = netdev_priv(ndev);
++	int ret;
+ 
+ 	while (test_and_set_bit_lock(GFAR_RESETTING, &priv->state))
+ 		cpu_relax();
+ 
+ 	stop_gfar(ndev);
+-	startup_gfar(ndev);
++	ret = startup_gfar(ndev);
+ 
+ 	clear_bit_unlock(GFAR_RESETTING, &priv->state);
++
++	return ret;
+ }
+ 
+ /* gfar_reset_task gets scheduled when a packet has not been
+@@ -2058,6 +2075,7 @@ static int gfar_hwtstamp_set(struct net_device *netdev,
+ 			     struct netlink_ext_ack *extack)
+ {
+ 	struct gfar_private *priv = netdev_priv(netdev);
++	int ret = 0;
+ 
+ 	switch (config->tx_type) {
+ 	case HWTSTAMP_TX_OFF:
+@@ -2076,7 +2094,7 @@ static int gfar_hwtstamp_set(struct net_device *netdev,
+ 	case HWTSTAMP_FILTER_NONE:
+ 		if (priv->hwts_rx_en) {
+ 			priv->hwts_rx_en = 0;
+-			reset_gfar(netdev);
++			ret = reset_gfar(netdev);
+ 		}
+ 		break;
+ 	default:
+@@ -2084,13 +2102,13 @@ static int gfar_hwtstamp_set(struct net_device *netdev,
+ 			return -ERANGE;
+ 		if (!priv->hwts_rx_en) {
+ 			priv->hwts_rx_en = 1;
+-			reset_gfar(netdev);
++			ret = reset_gfar(netdev);
+ 		}
+ 		config->rx_filter = HWTSTAMP_FILTER_ALL;
+ 		break;
+ 	}
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int gfar_hwtstamp_get(struct net_device *netdev,
+-- 
+2.55.0
 
-Oh, when I said "This certainly deserves a comment somewhere",
-I meant an acknowledgement somewhere in my series, not a complaint
-that it had not been already commented.
-
-Once Kiryl pointed me, I found the comment in page_is_pfmemalloc()
-good enough: the problem is not the wording of the comment, but
-knowing where and when to look for such a comment. We have many
-header files, and understandably no registry of low bits in pointers.
-Wherever you put a good comment, I'd have missed it.
-
-So, I was okay with the original, but your longer explanation below
-looks fine, and the removal of folio_is_pfmemalloc() good, but best of
-all is the comment line (nit: wants a full stop) you add in mm_types.h.
-
-Thanks,
-Hugh
-
-> 
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dd09c438fa23..fcefffb52d3e 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3122,36 +3122,25 @@ static inline void *folio_address(const struct folio *folio)
->  	return page_address(&folio->page);
->  }
->  
-> -/*
-> - * Return true only if the page has been allocated with
-> - * ALLOC_NO_WATERMARKS and the low watermark was not
-> - * met implying that the system is under some pressure.
-> +/**
-> + * page_is_pfmemalloc - Page allocation should have failed
-> + * @page: The just-allocated page
-> + *
-> + * Usually the page allocator keeps some memory in reserve.  If
-> + * __GFP_MEMALLOC is used, the page allocator can dip into those
-> + * reserves.  The caller can find out if the allocation came from
-> + * the reservers by calling this function.
-> + *
-> + * If the caller does not care, it can simply use the page as
-> + * normal.  The field that the information is stored in is usually
-> + * overwritten by most uses of a page.  Nobody should call this for
-> + * a page they did not allocate as it can easily have false positives.
->   */
->  static inline bool page_is_pfmemalloc(const struct page *page)
->  {
-> -	/*
-> -	 * lru.next has bit 1 set if the page is allocated from the
-> -	 * pfmemalloc reserves.  Callers may simply overwrite it if
-> -	 * they do not need to preserve that information.
-> -	 */
->  	return (uintptr_t)page->lru.next & BIT(1);
->  }
->  
-> -/*
-> - * Return true only if the folio has been allocated with
-> - * ALLOC_NO_WATERMARKS and the low watermark was not
-> - * met implying that the system is under some pressure.
-> - */
-> -static inline bool folio_is_pfmemalloc(const struct folio *folio)
-> -{
-> -	/*
-> -	 * lru.next has bit 1 set if the page is allocated from the
-> -	 * pfmemalloc reserves.  Callers may simply overwrite it if
-> -	 * they do not need to preserve that information.
-> -	 */
-> -	return (uintptr_t)folio->lru.next & BIT(1);
-> -}
-> -
->  /*
->   * Only to be called by the page allocator on a freshly allocated
->   * page.
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 09cb1e18bc16..9bcfc4213b91 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -85,6 +85,7 @@ struct page {
->  	 * WARNING: bit 0 of the first word is used for PageTail(). That
->  	 * means the other users of this union MUST NOT use the bit to
->  	 * avoid collision and false-positive PageTail().
-> +	 * Bit 1 of the first word is used by page_is_pfmemalloc()
->  	 */
->  	union {
->  		struct {	/* Page cache and anonymous pages */
