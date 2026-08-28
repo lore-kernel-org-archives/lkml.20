@@ -1,156 +1,197 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9843D75B5;
-	Fri, 28 Aug 2026 07:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787903183; cv=none; b=gzky0Wmy0MTcIkDa7UMkDbIlq+3ppC3GAcN10l5zhG7cU09G1WfD/vnbkGCI34joB6QWgmif70urTUnZNG0fca1k9Zimgbx38+gydu1s0G8o6qQeeWADgyj21aK11YRZR/dWjdkLqKXjE+IrWBmmSEPtSkbEO/7cQTSgtbEJQhU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787903183; c=relaxed/simple;
-	bh=FGipmyMz958iY6A+TN8aB96juz7DcHiErilOO3Ic4+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YH/MLADvHAihaOflxnbKZBKVIv7kHyJakbH5hEUmxncTXDvIBIEu4D8IPda3S5lWdpaclbWyLbT2ztdmLpOB9n2BiCakAyaw1wZJhMhEoleTWMZOzXpcwrvBZKVc03qRlavCKL74L7r3OCWyBszKfhwwqv/Oyc62hF2RQf5A7fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xh9gNG7b; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21D1347533
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787903222; cv=pass; b=JcaAORjc3JojsiMi2ZFpfs8k9aXRZGr6K+av2PbrYJ6URbqHCWwUVv2jMS7uZLCm/qfO6oIFBRAMNwlF8DFBeoZ/PE06qB9VFOSZQsBs5TxoLjjNEkYQ+oAlVQnXiz+d1whYG+6CUr4B2RXhfhIl0uK0bvR2wf3KoWCJhtld+JE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787903222; c=relaxed/simple;
+	bh=3GG5nCWl7CWNpEuPnh5H8CvcMn1R+QCVr+rkkOznzJo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wm1eAUeD/ZTgH9irXGbhTo4e6P0B45qj/BiRCH5NG45b98r8UzLoLyvm9/+iTRQnX8p5CH1xsLwn1uhP/ysAqZmWBbfnE3gWGI7k/xubI5plw2hxfbxFOO2QzVC3XQb8gpgcNH3MYhFi/nxbEg85tkkjUdO+ad3rEDOtCWuleQ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jVkasdu/; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xh9gNG7b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787903182; x=1819439182;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FGipmyMz958iY6A+TN8aB96juz7DcHiErilOO3Ic4+Y=;
-  b=Xh9gNG7bLHk1ZuMMCoezwnPrJSkgYAD3c1n9kjUyOQgsa24vCxLtR3oa
-   0D75EDa0ygbj6l5FkoXC8ADoi1E8J11f1RAKcdm6+tMhyj8OSLBYkozkW
-   RV7K0bYATb94lBI17LewzvKNc3arAl+WPdOTtc4co8KwML0xJgczxnUq1
-   YgCeGPf9L8p/bGQDsZR0iuHEaz0S2JZEG+0RXkc2yi45p0kA44PC+rK7n
-   wor2QVTmGdIr6KyH8lp0BtSRLFOS7U4cKSNFXU/9Xvs11L5tZxiYw2jwN
-   v+IcBRr8pkc4BVqG8XspSRUKM450kB2BQxR2D8+7Jkg6BbgaTHO71HJBB
-   A==;
-X-CSE-ConnectionGUID: aZkcx93uSVi3Z6znVeOfCA==
-X-CSE-MsgGUID: duPJhEjXSFKCFUkAhQsRUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99569637"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99569637"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:46:21 -0700
-X-CSE-ConnectionGUID: McO27ZScT52UaVA+WBVg0g==
-X-CSE-MsgGUID: O/t3SgKfRBOFjbMLE7p+sA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="267498472"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa008.jf.intel.com with ESMTP; 28 Aug 2026 00:46:17 -0700
-Date: Fri, 28 Aug 2026 15:46:16 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Kiryl Shutsemau <kas@kernel.org>, david@kernel.org, linux-mm@kvack.org
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, rick.p.edgecombe@intel.com,
-	yilun.xu@intel.com, xiaoyao.li@intel.com, sohil.mehta@intel.com,
-	adrian.hunter@intel.com, kishen.maloor@intel.com,
-	tony.lindgren@linux.intel.com, peter.fang@intel.com,
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
-	chao.gao@intel.com, artem.bityutskiy@linux.intel.com,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 4/6] x86/virt/tdx: Add extra memory to TDX module for the
- extensions
-Message-ID: <apE8yHrGx/bfifV9@yilunxu-OptiPlex-7050>
-References: <20260821032920.256225-1-yilun.xu@linux.intel.com>
- <20260821032920.256225-5-yilun.xu@linux.intel.com>
- <aohvlMO7ehqcVW96@thinkstation>
- <aowMYbHKK4b0O5P6@yilunxu-OptiPlex-7050>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jVkasdu/"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52f2577ac01so5169511cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:46:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787903218; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pIsSjC1w5bOQzE+CMS3dccsDnbP+Pf9+8woMUIde+A5V9OEVGFRaLxD56kwgVMwF8G
+         eXYSrBJYhhFzixFH/E6GsQRXsKaAwFbdcr13BAYzpPMiQvWwoZLmAcNWYQVHPVUoH/T2
+         kY//XF2XUh6BaZjk9ZR8meSLWRt07/X/3fMLufyR256VNqTskueMqTiEA8t1YQI2mpvg
+         f5h2elk7hLbtEf4KMHMOix3T06XOgKU4EeRt0GFjfFgnDrC9Lhnxk86iBuOK3JcPfcKM
+         wSJrhV5LwUNE94BoHDnczucqjv1kbkri7/kcqRzXuB7yQa5+/DrmJzz58MWPH159PV1G
+         orSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AbXs5Y0cN9WnX4kVJwxocnUX7LwdYJ30DpFpjvFGAsA=;
+        fh=rah/aF97pAuiNo7P+mJsblNYfQWhNxY18jPKbPsNntE=;
+        b=mXSCsl3v7b55Kf5NJ1DYzuww2Q70/pY1sstkXbggz/6qvqJLX3ieUW1jpweVzSB066
+         ptbqsK0Yx4BZ5eNxlxLMjGosYIAZb7BAygsmcBWQymDHPU5szUX/gHKI82JQ+05dyVSg
+         k7huSF50DF12xEPhUPvwFf/yyVAmIVQDcFaIBrACjyNbI28qIBg0u68Ja5tZxaWVQd/o
+         vLjJwEZcVG8phnMGgH2ff7Eb26b9hdmzR1Khzg2bhuVQXJo+h44B6K7wWM8L6IGM9FD+
+         ZD7MeK7OOeSS8Hn0z+u7zsqLb9QZIk8uQFrSYNAXR2Xn2b4Nh5nogvQsKV3w5q7cgnRa
+         u9MQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787903218; x=1788508018; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AbXs5Y0cN9WnX4kVJwxocnUX7LwdYJ30DpFpjvFGAsA=;
+        b=jVkasdu/PvIGpvmn3EQegG+aKoPXJGRvWh8ViJIKU3z1l8DEMiYbPNntZYWqO5vfRJ
+         WuEZHwWEvvgPeGaKgLH7d/V4VFRbiovuprKJ+jn1Xe3FFP1asF7eTQFRsEM0WsQ+kdSL
+         HcRCbnCEZtdTTLUjS03vbM6PJQgl9ff+K/JXhBAbLbMGplazYITSeZAchUTaxdexDix8
+         a6Hqbi8iVCCgtUuL/Ytq6OtyPJ9gqdK/Ek21iPF5g41rxw4nHj9eohRG9toGg5jECWhi
+         XMYbkBOBEnxQkNq/ZlFfDG51iaPwdUHDS+HRbQsKDw0d0N1470MsC5bkJrioG7gIHz3H
+         THjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787903218; x=1788508018;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AbXs5Y0cN9WnX4kVJwxocnUX7LwdYJ30DpFpjvFGAsA=;
+        b=MeMdeyjZ36tRCWMGvwgq2fcPO+69bYbCXOK75C1cP4JwNkxp1jyePMb+XXIgPHjmf8
+         qGEmWXCkjGxxMLi/BFbSNjLWxbohNoyGwhkiJsdL9BDzm90Kr6M9iWisLc1TqBjpbeuL
+         THXvZu444i5Y4IjY4SG+D6G6vfggbyNYnBkiUq1dpj0yrr2fQZZi9rz6DJJnyEXO9/aY
+         vJvLxXjIBsogVavbqhFXug5/ZGSOqB7PkU0gsDAL6jNh0odY/rjfHDrkWh/Pq5ZFxbL8
+         RpBU/I5/+xrPN0XxPI88ab6FxJquJwVisTTQ1RmrleHFqAzDZQif7b+/FxdoPV5qRyHh
+         uOpQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrdUoa//9e3Ipw9dxrKqaDfmcRpZGkClHlwTP1DRX/V44u/UzPPTtg0NBbC9YGlGGwA4Ij5VopKzLtMoBg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqwS8N9dBMLLGsYxGvRPb1ubzfeQVQf7B2vUwo7c1CuBlhFJvK
+	cIjdlG0O9m0yQUtwdq8SX2fBuQsgC8aqtYby5rMrSdZ9gJrOlj/GSvCQ1EZHcPlaJFdSvGTc5H2
+	cljtBO2WxAGQyQBT8ZeUuWx8lCcYN7EKgGEG5oir+DX2zP0+pIVyEFdeez38=
+X-Gm-Gg: AR+sD10wpceZz49OqxyIYtZlZq6NNEKD69Calg99RibA6/pN25c4pvsbi1lgdpxczg/
+	LIRd2jzEqHASPXD06MRIiJLhFIg25Qc1ABwW9l9tNWPDzWtn42p2VfKsL+Gusk08FaiyGlyt2/p
+	spmEknQxqmAQHCicIfvQ7BjEFwhxCKccn9fyUDg+J4OjgCDsATQPMbPxNEpb6klx8MGKX1Debh5
+	lpx8PqwsFp2uriPGyUZ/stwLRbU4rWwuxC0fY35KX0qJ8ghg6tnTSys63jQxJkkyc/eMYzUkEPA
+	dIspFrikJkm2CM4JX4ByJ/lY2XTZvTYTqK5SfOEkUdIicPYVEj0vK/x2i27hNaClp7GKmGItL8G
+	97XP44eEsC3XbOf5NX9zZTzoSFkNMzkEp2jAruYKBuc55LEh+1iCRuO/kIPA=
+X-Received: by 2002:a05:622a:22a4:b0:52f:b6cf:9143 with SMTP id
+ d75a77b69052e-52fb972a984mr54680621cf.40.1787903217808; Fri, 28 Aug 2026
+ 00:46:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aowMYbHKK4b0O5P6@yilunxu-OptiPlex-7050>
+References: <CA+0ovChS18paCd=ZE-7j_M-JtFF-N6+A75deKUqJ0Yy7ux=h2Q@mail.gmail.com>
+In-Reply-To: <CA+0ovChS18paCd=ZE-7j_M-JtFF-N6+A75deKUqJ0Yy7ux=h2Q@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Fri, 28 Aug 2026 09:46:45 +0200
+X-Gm-Features: AcwNN1UOB9k5TEE0jJdEjzh_hJz5U_4kim7pOPWMRfNF5Q5U3YnZhx0WKEOSVbY
+Message-ID: <CANn89i+rDqRXaOO2FNpX57rbgVERrBsj6=OAoMU00aeejYk27Q@mail.gmail.com>
+Subject: Re: [BUG] WARNING in lowpan_compress_addr_64
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Alexander Aring <alex.aring@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, falemi@asu.edu, 
+	linux-bluetooth@vger.kernel.org, linux-wpan@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > > +	page = alloc_contig_pages(required_pages, GFP_KERNEL, numa_mem_id(),
-> > > +				  &node_online_map);
-> > 
-> > Why contiguous? TDH.EXT.MEM.ADD takes a list of page addresses and the loop
-> > below writes every one of them out separately.
-> > 
-> > alloc_pages_bulk() fits the chunking that is already here, and a short
-> > return can be handled per chunk. alloc_contig_pages() isolates and migrates
-> > to get its range and fails TDX init outright when it cannot find one. PAMT
-> 
-> Yeah, this is not the ABI requirement, but the kernel's consideration. A
-> brief reasoning in the commit log: avoiding permanent memory fragmentation
-> and buddy allocator efficiency loss.
-> 
-> Also there is some discussion:
-> 
-> https://lore.kernel.org/all/167d9540-2d9a-4367-bc68-b96494bc4044@intel.com/
-> 
-> TL;DR
->   - The memory will never return to the kernel.
->   - There is chance that this tens of megabytes will fragment tens of
->     gigabytes of memory forever.
->   - The chance of fragmentation is actually low since at boot up, but
->     let the buddy allocator take care of these never-returned memory
->     is not necessary and lowers its efficiency.
+On Fri, Aug 28, 2026 at 9:22=E2=80=AFAM Farhad Alemi <farhad.alemi@berkeley=
+.edu> wrote:
+>
+> Hello,
+>
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
+>
+>   https://github.com/farhad-alemi/public_bug_reports/tree/main/182-warnin=
+g-in-lowpan-compress-addr-64/
+>
+>   WARNING: net/6lowpan/iphc.c:937 at
+> lowpan_iphc_compress_802154_lladdr net/6lowpan/iphc.c:937 [inline],
+> CPU#0: syz.9.76/13660
+>   WARNING: net/6lowpan/iphc.c:937 at
+> lowpan_compress_addr_64+0x4be/0x9c0 net/6lowpan/iphc.c:952, CPU#0:
+> syz.9.76/13660
+>   RIP: 0010:lowpan_compress_addr_64+0x4be/0x9c0 net/6lowpan/iphc.c:952
+>   Call Trace:
+>    lowpan_compress_addr_64+0x4be/0x9c0 net/6lowpan/iphc.c:952
+>    lowpan_header_compress+0xeef/0x1ef0 net/6lowpan/iphc.c:1242
+>    lowpan_header net/ieee802154/6lowpan/tx.c:234 [inline]
+>    lowpan_xmit+0x4c6/0x1420 net/ieee802154/6lowpan/tx.c:282
+>    dev_hard_start_xmit+0x23b/0x620 net/core/dev.c:3904
+>    __dev_queue_xmit+0x11e7/0x3250 net/core/dev.c:4870
+>    packet_snd net/packet/af_packet.c:3082 [inline]
+>    packet_sendmsg+0x3d9b/0x5150 net/packet/af_packet.c:3114
+>   Kernel panic - not syncing: kernel: panic_on_warn set ...
+>
+> Our reproducer.c is available upon request.
+>
+> Happy to test a patch if that would help.
 
-Hi Kiryl & David:
+Thanks for the report.
 
-I see there is another suggestion that the whole memory adding process
-could be a little simpler if we allocate & add pages 4k by 4k [1],
-rather than one-time pre-allocation. The concern of this alternative is,
-as said above, memory fragmentation.
+All these WARN_ON_ONCE() are bogus in modern days (panic_on_warn being
+used by fuzzers)
+Developers probably used them to catch unexpected packets.
+Guess what, fuzzers do exactly that.
 
-[1] https://lore.kernel.org/lkml/f48b83feb2ee1d3c88b5a1627cf35b4b282d3f90.camel@intel.com/
+Also lowpan_header_create() seems to incorrectly return 0 instead of an err=
+or.
 
-And I've realized the memory fragmentation discussion is not actually
-closed in previous thread [2]. We need more input.
+Can you try:
 
-[2] https://lore.kernel.org/all/167d9540-2d9a-4367-bc68-b96494bc4044@intel.com/
+diff --git a/net/6lowpan/iphc.c b/net/6lowpan/iphc.c
+index 37eaff3f7b6940b73924c38c360adf482d6cceab..dec04f63f1b2599a7291d020e66=
+2f4d129333c14
+100644
+--- a/net/6lowpan/iphc.c
++++ b/net/6lowpan/iphc.c
+@@ -180,8 +180,6 @@ lowpan_iphc_uncompress_802154_lladdr(struct
+in6_addr *ipaddr,
+                                        &addr->short_addr);
+                break;
+        default:
+-               /* should never handled and filtered by 802154 6lowpan */
+-               WARN_ON_ONCE(1);
+                break;
+        }
+ }
+@@ -820,8 +818,6 @@ lowpan_iphc_compress_ctx_802154_lladdr(const
+struct in6_addr *ipaddr,
+                        lladdr_compress =3D true;
+                break;
+        default:
+-               /* should never handled and filtered by 802154 6lowpan */
+-               WARN_ON_ONCE(1);
+                break;
+        }
 
-Let me give a brief overview of the problem:
+@@ -933,8 +929,6 @@ lowpan_iphc_compress_802154_lladdr(const struct
+in6_addr *ipaddr,
+                        lladdr_compress =3D true;
+                break;
+        default:
+-               /* should never handled and filtered by 802154 6lowpan */
+-               WARN_ON_ONCE(1);
+                break;
+        }
 
-Intel TDX (Trust Domain Extensions) is a feature for confidential
-computing. A secure firmware called "TDX module" runs in an isolated
-environment to provide services about security.
+diff --git a/net/ieee802154/6lowpan/tx.c b/net/ieee802154/6lowpan/tx.c
+index 4df76ff50699ede5c187c9cca6f0cc10b19d2123..9bffe01cc448fcb993883748f35=
+9cc71b879a729
+100644
+--- a/net/ieee802154/6lowpan/tx.c
++++ b/net/ieee802154/6lowpan/tx.c
+@@ -47,7 +47,7 @@ int lowpan_header_create(struct sk_buff *skb, struct
+net_device *ldev,
+         * if this package isn't ipv6 one, where should it be routed?
+         */
+        if (type !=3D ETH_P_IPV6)
+-               return 0;
++               return -EINVAL;
 
-In Linux, the host initializes TDX module at boot up time
-(subsys_initcall()). During the initialization, the host must donate
-tens of mega bytes physical memory (35M ~ 110M in the forseeable
-future) to the TDX module. These memory will *never be revoked* cause
-the TDX Module initialization is a one way path.
-
-The TDX Module doesn't require this memory be physically contiguous. But
-the kernel side concern is if we do PAGE_SIZE allocation, it may
-permanently fragment memory regions, stop them from allocating 2M huge
-pages. In worst case, ~50G (110M * 512) memory regions affacted.
-
-So is the physically contiguous allocation really a better choice here?
-We appreciate inputs from mm folks. Thanks!
-
-Yilun
-
-> 
-> > needs it because the TDMR ABI describes each PAMT as base+size. This does
-> > not.
-> > 
-> > > +	if (!page) {
-> > > +		ret = -ENOMEM;
-> > > +		goto out_free_hpa_list;
-> > > +	}
-> > > +
-> > > +	added_pages = 0;
-> > > +	while (added_pages < required_pages) {
-> > > +		unsigned int chunk_pages = min(required_pages - added_pages,
-> > > +					       TDX_HPA_LIST_MAX_NR_PAGES);
-> > > +		struct page *chunk = page + added_pages;
-> > > +		unsigned int i;
-> > > +
-> > > +		for (i = 0; i < chunk_pages; i++)
-> > > +			hpa_list->phys[i] = page_to_phys(chunk + i);
-> > > +
-> > > +		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
-> > > +		if (ret) {
+        /* intra-pan communication */
+        info->saddr.pan_id =3D wpan_dev->pan_id;
