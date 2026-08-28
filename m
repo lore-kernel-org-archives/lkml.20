@@ -1,59 +1,41 @@
-Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF9420475;
-	Fri, 28 Aug 2026 11:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C146941D65E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916520; cv=none; b=qiGXChnE8DWaeRzfzhyFK4LAtfLyC+/Uxlwe/c2xL7hqphl7PCx64OhisrSyng0DGCB46cL0EiztKJCjC2sSBQ04p7cUQJeBnZWVJcztmPWdKT7IPYN1B4Lp3qpyReN31PCpoJLqT0x2dTfWNBfNLo+5k3L8Xi4zg8T/j3iBO/4=
+	t=1787916521; cv=none; b=jN4rjLCnP2RwH4TBsx8k+V+q/vyI5BOKYrOVCI59gy/ZnfAmVRXeqifsoj7X9n4LDtbgFKV0ozEtTe7dyiYexCNPalmWqt2krdY1bxtOplSFZFOLq9GOSJu3MlJ/WS1cCn8P7hIFQVcUGUDVLh4zRw41V+dtb455zL4H0UePaUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916520; c=relaxed/simple;
-	bh=IHeGAa96lm6icbclR8lQggZd1zZDtCfIdDQ9Mci1siw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kQ39cwS47KCPereX8CIu3QiyhksLahObxb+/1xruFp5F3YBuhs6UMWSItjhZ4H3Owcmw8nPqd5ejONSrnNbb/taR6TGjlATGh0rRqq0igVjRoN3OUgAiILJKf5cbnndNZWLHTblSgIUhgPyNgBBNCzVa6TqPGO5n/AXjGPrk6qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ByNkXqq/; arc=none smtp.client-ip=220.197.31.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1787916521; c=relaxed/simple;
+	bh=GJhmhpryd3ovgR9+SNmIzHiF+9qNsGbKcn1Bxct3aEI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UH91VwB6zA7LdzhooJJ2erNOeETZW79ZHByC6ogpsqnZ3c955tNQRpr5FSOx54Ekjpt9clxkZrINWEKPE0D6TOW9xNSjz25knveuMzS6N4oW2RDP7Xqcf0wm2GJN+D1vhqW3yW4ff6JTuTbMbOOu12cLm/dGxO7uZt2/UssdXvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xhMAqNUs; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
-	Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
-Date: Fri, 28 Aug 2026 14:51:51 +0800
-Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
-References: <20260828065153.590802-1-damon.ding@rock-chips.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xhMAqNUs"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787916506; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=3tYc4yYO/f82yRU3a/2G8udVSpfIsAg03Xb74wg1EN4=;
+	b=xhMAqNUs6xOF1NguX3Wu5R/JbCHSizqH1tjOCREmRlNfDBIEu16LCffT9AaTnn/6C5oubp2NChSDQxwWnsJapimm23ky4yIt9YH1XG3u3s1aDko7WEvBdcU4zVqJxDF1ucV7R65UUozfmdz+SuaBiQzcfEvtg6BiU8cvC54Qpvo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9mBi6L_1787916505;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9mBi6L_1787916505 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 28 Aug 2026 19:28:26 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Li Zetao <lizetao1@huawei.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] ocfs2: exit recovery thread on mount error path
+Date: Fri, 28 Aug 2026 19:28:23 +0800
+Message-Id: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,120 +43,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
-	5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
-	h=date:mime-version:subject:message-id:from;
 
-Revert the change that made samsung,link-rate and samsung,lane-count
-optional for Exynos DP. Add error checking to fail probe early if the
-required DT properties are missing.
+When a mount fails after the cluster connection has been established,
+e.g. in ocfs2_mount_volume(), ocfs2_fill_super() unwinds via
+out_debugfs/out_super and frees the osb without disabling recovery.
 
-If these properties are missing, video_info->max_link_rate and
-video_info->max_lane_count remain zero, and so do link_train.link_rate
-and link_train.lane_count used in the subsequent link training flow,
-resulting in link training failure.
+A node failure event can concurrently launch the recovery thread, which
+blocks in __ocfs2_wait_on_mount() waiting for the volume state to
+become VOLUME_MOUNTED or VOLUME_DISABLED.  As the mount error path
+neither sets VOLUME_DISABLED nor wakes osb_mount_event, the thread can
+never make progress: the kthread leaks and stays blocked on the wait
+queue embedded in the freed osb, which may then be accessed as freed
+memory.
 
-There is no way at all a device can work without these properties.
-Here is the code flow when either max_link_rate or max_lane_count is 0:
+Fix it by setting VOLUME_DISABLED and waking osb_mount_event on this
+path so the thread bails out, and replace the plain
+kfree(osb->recovery_map) with ocfs2_recovery_exit(), which waits for a
+running recovery thread to exit before the recovery map is freed.
 
-  analogix_dp_commit()
-    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
-
-  analogix_dp_full_link_train(max_lanes, max_rate):
-      // Read sink capabilities via DPCD and sanitize them
-      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
-      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
-
-      // Clamp by the limits from DT
-      if (link_rate > max_rate)    // 0x06 > 0, always true
-          link_rate = max_rate;    // link_rate = 0
-      if (lane_count > max_lanes)  // 1 > 0, always true
-          lane_count = max_lanes;  // lane_count = 0
-
-      // Configure TX with the zeroed values
-      set_link_bandwidth(link_rate = 0)
-          // writel() is only executed for bwtype == 0x06/0x0a,
-          // so LINK_BW_SET is never written and stays at
-          // reset value; phy_configure() gets link_rate = 0.
-
-      set_lane_count(lane_count = 0)
-          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
-          // phy_configure() is called with lanes = 0.
-
-      // Program sink for link training
-      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
-          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
-          // lane count in {1, 2, 4}. Writing zeros is illegal, so
-          // the sink cannot enter the training state.
-
-      // Training loop
-      for (lane = 0; lane < lane_count /* 0 */; lane++)
-          // loop body never executes; training_lane[] stays
-          // uninitialized and no training register is programmed
-
-Since the sanitized sink values are always non-zero (link_rate >= 0x06,
-lane_count >= 1), the clamping with a zero maximum unconditionally
-forces the training parameters to zero. Clock recovery can never be
-achieved, so link training fails deterministically.
-
-Consequently, making these properties mandatory again cannot break
-any existing device: a DT without them could never have worked in
-the first place. Failing probe early with a clear error message is
-more helpful than a silent link training failure at runtime.
-
-Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
-Cc: stable@vger.kernel.org
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
+Fixes: f1e75d128b46 ("ocfs2: rewrite error handling of ocfs2_fill_super")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 ---
+ fs/ocfs2/super.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-Changes in v8:
-- Expand the commit message with the detailed link training failure
-  analysis,
-- Add Reviewed-by tag.
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 566f1e5eb8cd..ddb15d6de05f 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- {
- 	struct device_node *dp_node = dp->dev->of_node;
- 	struct video_info *video_info = &dp->video_info;
-+	u32 val;
- 
- 	switch (dp->plat_data->dev_type) {
- 	case RK3288_DP:
-@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		 * NOTE: those property parseing code is used for
- 		 * providing backward compatibility for samsung platform.
- 		 */
--		of_property_read_u32(dp_node, "samsung,link-rate",
--				     &video_info->max_link_rate);
--		of_property_read_u32(dp_node, "samsung,lane-count",
--				     &video_info->max_lane_count);
-+		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
-+			return dev_err_probe(dp->dev, -EINVAL,
-+					     "Failed to get samsung,link-rate\n");
-+		video_info->max_link_rate = val;
-+		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
-+			return dev_err_probe(dp->dev, -EINVAL,
-+					     "Failed to get samsung,lane-count\n");
-+		video_info->max_lane_count = val;
- 		break;
- 	}
- 
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index c62e389d4dd6..f785c39d1fb8 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -1169,8 +1169,17 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ out_debugfs:
+ 	debugfs_remove_recursive(osb->osb_debug_root);
+ out_super:
++	/*
++	 * A recovery thread launched by a node failure event may still be
++	 * waiting for the volume to be mounted.  Set VOLUME_DISABLED and
++	 * wake it up, then wait for it to exit before osb is freed,
++	 * otherwise the kthread would leak and stay blocked on the wait
++	 * queue embedded in the freed osb.
++	 */
++	atomic_set(&osb->vol_state, VOLUME_DISABLED);
++	wake_up(&osb->osb_mount_event);
+ 	ocfs2_release_system_inodes(osb);
+-	kfree(osb->recovery_map);
++	ocfs2_recovery_exit(osb);
+ 	ocfs2_delete_osb(osb);
+ 	kfree(osb);
+ out:
 -- 
-2.34.1
+2.39.3
 
