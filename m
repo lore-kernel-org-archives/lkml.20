@@ -1,63 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99A63B42C4;
-	Fri, 28 Aug 2026 17:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22714364058;
+	Fri, 28 Aug 2026 17:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939429; cv=none; b=WZCRr8t/4PehQEAx9z4Sh28UXQF4gDw/S+tApdibV7Jipa177MI7k9kpwun1E/HRWmRPIo2AfrLP3M+GnPdqMyIpRv3cNmIYIk1PWk6uA+n02rMkCU8njQKQ9ydyuUZf/lt5N9jq2qbJbk9pj10CW/ThIlSBU/V9p/UfLd5M9oA=
+	t=1787939448; cv=none; b=t6520VGYq35QTtgBzC7m9Jnwe3NInYcou2sxtHrfbdGsAL6bEYCGen7myZZXScZx90Gqo17fKUudkvqrrvuXSnHADywMlEkt1Q06bM36n6Q+PKon3+UCz3MH6Cn0mhCfVmkPFkzMBP7Ul+z9igSjFq02GzGtDa/aAMpDJx1rlbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939429; c=relaxed/simple;
-	bh=OBSOHEA9enDimSlCYLaa/VvzdQu3fnthFdBAspB46lw=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=BzZqb7jd7yPjCQl4geQ064q7mR8YjVRFZujVYZa/7zJ23KtGNwHP7uz4vy53u/L/Ypr3yHeBc7BCOJbTZqfJxoEJ9FXI5Wp3eX5os7V5UNXaJ8ZEOyag+oWioJUsImRG4VyGpJzFv/HLAHUD2XTr9sNtljctSqhSPT/nSiIPufk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCYqRkfE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787939448; c=relaxed/simple;
+	bh=JvJ+o6146P4oRHKDVyAsH1RN98XuBcxixGMSU5PVFZc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=nlaAVQA6rta1Um+xSleeJOlhoV74/tjG3QiEfc/pn0ky1V0vhOY0xGvqwXha5FFv3fKm2fd3lBXU2e5caAgMvoQfl/DznMt49olqnkJVOVXqWmJBE/7w98m/t03JSLgUhbn9Grfa3TcNrq+vum/OvGTpt88mO3z/gn8VlTxvg9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=hzwq2uTi; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCYqRkfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458BF1F000E9;
-	Fri, 28 Aug 2026 17:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787939428;
-	bh=XntAcv8iQPyS1VXnsHoweRYIAdxgFQhXuceRGWYG8q0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=eCYqRkfEXup5hFNaBshPoW5soNWfEotQm8yBQtBuSu5e99oAZQ3K2w3sNH/cz9gyp
-	 vSSolUECzayVlSSPe6317IPleHzBNDifBxneYJlb/CFbGMqIzN8pjyzesdeQDEuWY1
-	 GoW5oRBn4d5lZDhpD8M9Z8v7HkCquR2D964jY0hVdFcNiFtLFPjkl8HmioGSm7Qrxw
-	 kP6T503TgqWrRWr+wKxl+pl+Rv6/eUCy3odaSOzHr5vjP+yvcyl5BmJenEpnuVRXBa
-	 7Lsk4dUHCEBcGheSYCa2oyqRFt608dS4VW34ll2IL6Q8hbLZJGPQ6uUTfoQZhT9x9/
-	 Zw1NaTetDdopQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56B90380AA67;
-	Fri, 28 Aug 2026 17:49:34 +0000 (UTC)
-Subject: Re: [GIT PULL] ACPI support fix for 7.3-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAJZ5v0i9xVAS9XWOOfB58w9oA5WTUQnx=QfLo=7Nnsup3KS-OA@mail.gmail.com>
-References: <CAJZ5v0i9xVAS9XWOOfB58w9oA5WTUQnx=QfLo=7Nnsup3KS-OA@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-acpi.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAJZ5v0i9xVAS9XWOOfB58w9oA5WTUQnx=QfLo=7Nnsup3KS-OA@mail.gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git acpi-7.3-rc1-3
-X-PR-Tracked-Commit-Id: 3b446d169a93e6abae9a93535369fa18bbcbefd9
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 344be13211d0fceb791a7da70ef810ad13340fe0
-Message-Id: <178793937295.2708560.3128394683288620075.pr-tracker-bot@kernel.org>
-Date: Fri, 28 Aug 2026 17:49:32 +0000
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="hzwq2uTi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References; bh=HRZSERTM0W44dOUuuxbU9VU3oVx0AWLYRmfUpfpxEzc=; b=hz
+	wq2uTiBTs8IkwanKDfjgJVs1pnY2pp2w3uzTcO7HgW8d1Hvy8ZeNbPuQ1SxbBooaq/QUzSrOHiEpb
+	7TQD2iTEBnTiB5qScFe5IN6zrGaNINE4x7Q1uv1k9OOr+Z0zhRQcUnP81v+8Mv/7ukzZYYpLDumoX
+	ENifvuszFTj8zU5VW+5QRvMWO0Qv5oDaSEBrPqru6G8G5DVTbHnIWfox7sOJTlmHwXCx2iXrYkU1E
+	GDP44K8sM89Eueh9TO2HSnS+0JVnmrlSf6N3N9WgA7onuMh2BfLA3nya5z6wXkJ8DlMtFo8KxS5rM
+	vaQlQ8hR5eHXWUSKVMy7/0Wvvbw/aORw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x00ir-000000093Tk-0mpH;
+	Fri, 28 Aug 2026 17:50:37 +0000
+Date: Fri, 28 Aug 2026 13:50:36 -0400
+From: Rik van Riel <riel@surriel.com>
+To: linux-kernel@vger.kernel.org
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, Andrew
+ Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, kernel-team@meta.com
+Subject: [PATCH v2] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit on
+ isolated cpus
+Message-ID: <20260828135036.7d44361f@fangorn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Fri, 28 Aug 2026 17:47:05 +0200:
+When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
+isolation, schedule_drain_work() can drop the work in a separate RCU
+critical section, and housekeeping_update()'s synchronize_rcu() can race
+that second check, leaving the flag set.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git acpi-7.3-rc1-3
+drain_local_stock() only clears the bit for work that ran, so the flag
+remains set and the stock is never drained again.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/344be13211d0fceb791a7da70ef810ad13340fe0
+Have schedule_drain_work() return whether the work was queued, and clear
+FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
+isolated, so future drains can retry.
 
-Thank you!
+Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
+Cc: stable@vger.kernel.org
+Suggested-by: Michal Hocko <mhocko@suse.com>
+Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+Signed-off-by: Rik van Riel <riel@surriel.com>
+---
+v2: use the approach suggested by Michal and Shakeel
 
+Link: https://lore.kernel.org/all/cover.1787890328.git.riel@surriel.com/
+
+ mm/memcontrol.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..309398e943ca 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2306,7 +2306,7 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
+ 	return flush;
+ }
+ 
+-static void schedule_drain_work(int cpu, struct work_struct *work)
++static bool schedule_drain_work(int cpu, struct work_struct *work)
+ {
+ 	/*
+ 	 * Protect housekeeping cpumask read and work enqueue together
+@@ -2315,8 +2315,11 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
+ 	 * pending work on newly isolated CPUs.
+ 	 */
+ 	guard(rcu)();
+-	if (!cpu_is_isolated(cpu))
+-		queue_work_on(cpu, memcg_wq, work);
++	if (cpu_is_isolated(cpu))
++		return false;
++
++	queue_work_on(cpu, memcg_wq, work);
++	return true;
+ }
+ 
+ /*
+@@ -2348,8 +2351,9 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
+ 				      &memcg_st->flags)) {
+ 			if (cpu == curcpu)
+ 				drain_local_memcg_stock(&memcg_st->work);
+-			else
+-				schedule_drain_work(cpu, &memcg_st->work);
++			else if (!schedule_drain_work(cpu, &memcg_st->work))
++				clear_bit(FLUSHING_CACHED_CHARGE,
++					  &memcg_st->flags);
+ 		}
+ 
+ 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
+@@ -2358,8 +2362,9 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
+ 				      &obj_st->flags)) {
+ 			if (cpu == curcpu)
+ 				drain_local_obj_stock(&obj_st->work);
+-			else
+-				schedule_drain_work(cpu, &obj_st->work);
++			else if (!schedule_drain_work(cpu, &obj_st->work))
++				clear_bit(FLUSHING_CACHED_CHARGE,
++					  &obj_st->flags);
+ 		}
+ 	}
+ 	migrate_enable();
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.55.0
+
+
