@@ -1,156 +1,214 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BB1D3AA1A6;
-	Fri, 28 Aug 2026 07:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8093C3F44
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787903517; cv=none; b=b8SA9Y31TI6lR+C+YSydUThLLCmNnkt5OC8wqpZnK4icfX6yYbcf6mMnXE17gVfgaiX1oCd/m4eOK7tkgGy0D3q1+CZTKpp5fSvwqr6471UlIIzFBfp9lMQYbxZVsXrE3/u+tGoAQHmUAjsfjzkkH67KDlpFELAPXi/5NvUWt8w=
+	t=1787903537; cv=none; b=DkElL5opEnFdSj2Uo4a52j9son6kMBYVAXepE5MNwXxSg5ZG8gW/dthe3PLHift7KphiZnW53vRykgC90V81NY+HHaGgbjs8JgSkwJ2a/+XDk2OgtshEnxBeQdQ65eXO+8JIe65bWEGDyFcgDoXqB3K1tCcK84Pamj1kK+saBjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787903517; c=relaxed/simple;
-	bh=/r42OzRKbehNytUbS0AlwvQqha8Fg7tNiKCBIbEVdb4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fpraah1J14fY6MJk1gI7zIYcguY/gVc1jOF+L6lxF6e9+gdQK8vU7fEwj078Hl20cPI5heksHEnR4UMqCUDX9Kj67fAUGz5Ptwx9IhrZWWyYsHCGePyq7y3rMpjYon0qN1lNTS3cCK67ZGpHFHqwasF4F9Oh7+wq4X3aS7BJQ0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qyRs1slP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787903537; c=relaxed/simple;
+	bh=u/tGPPqBBEVd8O2Hj/FgEbwAVUSqAv9cUQZB1DooYEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hvCpetPlUJWVBERFM3fOW0YgGA7+E2/mPKz94MGF+zbwtnbFTKu7aIbo7zlvywxio4e2tOMW6Ped7cvK9wb6EBdtIQQUQLYG1evb2KnKkXgb9C0+ihvSblbSWeJiCRtAC5bwcKxTZ0xLIA3Q07o6bESzsfh6dIi4lHgiDiZWqR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3ET67Qs; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qyRs1slP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF1BD1516;
-	Fri, 28 Aug 2026 00:51:49 -0700 (PDT)
-Received: from [192.168.178.100] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE5183F7D8;
-	Fri, 28 Aug 2026 00:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787903513; bh=/r42OzRKbehNytUbS0AlwvQqha8Fg7tNiKCBIbEVdb4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qyRs1slPyzy4qtN6fU37FQs+l+H3jAYpbcC2h3UtcVrvo5z3SjmO2VTAOAEJZq2pq
-	 sHFeMdQE0ndRCz4WEiemVcxCS+ga6h2GvUQYZ96jeNg/pJWgoneG18bdCG72uzzOxG
-	 guo214JrPJiRPBGaqWZv8B5+sDYd7e9nwQUPLyqo=
-Message-ID: <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com>
-Date: Fri, 28 Aug 2026 09:51:47 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3ET67Qs"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b9320423cso4597595e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:52:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787903534; x=1788508334; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dg/MQ8inXuFFEbvgK+mHsA3iNLAg+xiUDh4PfNOolRQ=;
+        b=R3ET67QsKid4vT9n2O7ME6lEU8POFOsUYhTBii/jaWWOR1rZ0fhEm1eIr8Rrtk76GJ
+         2BlbQi+qxpVDdqWKhdsbLEMm8sXCpcmUjm2OSKxsgxoIKK1TrqxOO2YHUBfKnOiAKzVX
+         suJRjRJXFMPl7qsOoTkzLQiseFoqc9CR6k75QBPui/Pa+LP8zhVUYiUKneAM/poRpxGM
+         NLMhLKjdFJIxr+JIYpSbSQ0u1VYx6gkDUME3PyjmAGGr3W5xM8joFxl6Ai3db2ElMlH+
+         dEJj+1ruIueBcFh3lE2aeP7skP2IWXJjjJDrnxFcXMr1mERP4tTaPKm34yYou1w+jB4S
+         WTeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787903534; x=1788508334;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dg/MQ8inXuFFEbvgK+mHsA3iNLAg+xiUDh4PfNOolRQ=;
+        b=a0f0cVFkzxLDcvzooX0LmbiP8Z9CEkJAQj1lKIEdfVN9ZkqVTAbq8Q5eyFaFWZcjdn
+         5tUvR5bzsQKgVzU7PxYWbvKf0/149Q6ZG1jEinh12ayWs5qCDkWTUz9HBcFDhP2PFJtL
+         XkhfIH09+o70M9wcBxQ/ixmMXOjJPqP7myy3/0ZkkJ6dpjqJmkdCWhG5BBltlFwm5K2l
+         NP4Eh/y0NWPUhd0+GSTxoJ+EMuBTY3siMtzC10or5F/BLHYZpqTyv1S3ShRRQlT2RGuk
+         EzQY13UA8rCiUii8hRriQTtnrU9qX8OacykDnWgERWBdgaVCkG44u6Ab7da0SNaiUxmb
+         pDaA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0FN0ndAsDTUYanpyrTSyO8m4pUrKi3b+R01hBunTNwJmxY5ILIfsAiQca28Bg34ieGglR2vqMsrdDuv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++knZuQyD0R0PEuZ5MaB5OyaY6Qq0bBGpMnYZ5KIPf72L9Oox5jQ
+	+X2ISSr6Hf+d43aoN6Rm5HDX3HiDT0vTzKIjQ12zeKcIJRi62mOsQcvH
+X-Gm-Gg: AR+sD12Dbfp9Oib5+PGjJawcqKPuOcg56C79mlOOWSCiWfmOxqnhrsPbaLUexUopWyF
+	B2PdxasMi5kospe3xyavgDn0Cj82GtNsv21m4jKZs8oxIkqq8ynyTPLVyOIKFB7yowiBziKCxow
+	2p3g5pemtYEdZrrblyEr3J0vFAkaBEXAHJpJWJ2qXZyit28pipIqh+V4KfUqQtAUbXpVb/v5OMy
+	K4eYPGPA5O3mfT8ANWSVMsy4OZlSijzDXQ+DycZujsdGyjZHAZM7Cef2beUoIap0xLtamMdCaMt
+	nu5XSeFX8XmHX9i9LbJHvDYnZGpawc2FzwM/66KbADf5b5gs9AeGSrdY0kELD8jYlmTwTJLREQF
+	/zTttVi3xGi0Xgi1y94CqNYkESY9qUZ3OqMnO621mcGnQ2qzk2lXWwSF0N0oiO2JymL2ObhC9FO
+	0Jfpq8iCU1Qo4WpmZ1/butEHDlZvWrjl+0rY3JwCXVNsxfeoWF8pxPIu+Rs4SuoAANmnxaj8mts
+	ZDWiTOWB9Yqpmp6j3T3CqsuAw==
+X-Received: by 2002:a05:600c:1394:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49b91c47b6bmr60078885e9.9.1787903533497;
+        Fri, 28 Aug 2026 00:52:13 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm41438895e9.12.2026.08.28.00.52.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 00:52:13 -0700 (PDT)
+Date: Fri, 28 Aug 2026 08:52:11 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Zong Li <zong.li@sifive.com>
+Cc: Guo Ren <guoren@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
+ zhangzhanpeng.jasper@bytedance.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ cuiyunhui@bytedance.com, iommu@lists.linux.dev, joro@8bytes.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ luxu.kernel@bytedance.com, palmer@dabbelt.com, pjw@kernel.org,
+ robin.murphy@arm.com, tjeznach@rivosinc.com, will@kernel.org,
+ yuanzhu@bytedance.com
+Subject: Re: [PATCH v1] iommu/riscv: Support 32-bit register accesses
+Message-ID: <20260828085211.2c8e6b74@pumpkin>
+In-Reply-To: <CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
+References: <20260615064855.90316-1-zhangzhanpeng.jasper@bytedance.com>
+	<20260615123821.373248-1-guoren@kernel.org>
+	<7c490aeb-a3d9-4fe9-81de-f9662577851d@iscas.ac.cn>
+	<CAJF2gTQ+-gpvUDtOh99aKP2-iDJy3MYOWti9k2Ntd0-J0MXqxQ@mail.gmail.com>
+	<e051d822-d0be-4a88-ba86-ec9b5905fd1e@iscas.ac.cn>
+	<CAJF2gTRH6x78A3J5HJ5kUM47aDv8R0yFr8LRP+7jiLX4GL3ssg@mail.gmail.com>
+	<20260618143634.7f3dd6c5@pumpkin>
+	<CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
- is_cpu_allowed
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
- mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, yury.norov@gmail.com, kprateek.nayak@amd.com,
- iii@linux.ibm.com, corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
-Cc: tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
- seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
- rostedt@goodmis.org, maddy@linux.ibm.com, srikar@linux.ibm.com,
- hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
- frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
- christian.loehle@arm.com, tj@kernel.org, tommaso.cucinotta@gmail.com,
- maz@kernel.org, rafael@kernel.org, rdunlap@infradead.org,
- kernellwp@gmail.com, linux-doc@vger.kernel.org, jgross@suse.com,
- virtualization@lists.linux.dev, sunlightlinux@gmail.com
-References: <20260825103855.721013-1-sshegde@linux.ibm.com>
- <20260825103855.721013-6-sshegde@linux.ibm.com>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <20260825103855.721013-6-sshegde@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 25.08.26 12:38, Shrikanth Hegde wrote:
-> When possible, try to choose a preferred CPU.
-> 
-> This is essential to maintain user affinities when preferred
-> CPUs change. A task pinned on a non-preferred CPU should continue
-> to run there, since this is a non-user triggered event.
-> 
-> If a CPU is non-preferred and the task can run on other CPUs which are
-> currently preferred, then choose a preferred CPU instead.
-> This is decided by checking if cpus_ptr and cpu_preferred_mask
-> intersect or not. If yes, then the task has other preferred CPUs.
-> 
-> The push task mechanism uses a stopper thread which calls
-> select_fallback_rq() and uses this mechanism to pick a preferred CPU.
-> 
-> This takes care of the wakeup path for FAIR tasks too.
-> is_cpu_allowed() is called to ensure wakeups happen on preferred CPUs.
-> With that, additional checks in available_idle_cpu() are not necessary.
-> 
-> Ignore the preferred CPU state if a task's affinity is changing and
-> its new mask no longer includes the CPU it is currently running on.
-> This ensures migration_cpu_stop() does not abort, preventing the task
-> from being stranded outside its allowed affinity.
-> 
-> Account for tasks with architecture-specific CPU masks
-> (e.g., 32-bit tasks on arm64). For such tasks, explicitly check against
-> the arch-allowed CPUs to determine if any of the preferred CPUs are
-> actually valid.
-> 
-> For the majority of cases, this would still keep select_fallback_rq()
-> as O(N). cpumask_intersects(), which is O(N), is called only if
-> !cpu_preferred. The task running there is expected to move out.
-> Subsequently, it should run on a preferred CPU. This becomes O(N**2)
-> only for tasks pinned solely to non-preferred CPUs. That is a rare case.
-> 
-> Overhead is minimal when the CPU is preferred.
-> 
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
->  kernel/sched/core.c | 41 +++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 39 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index a45f7c308329..f71317fe281d 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -2494,6 +2494,35 @@ static inline bool rq_has_pinned_tasks(struct rq *rq)
->  	return rq->nr_pinned;
->  }
->  
-> +static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
-> +{
-> +	const struct cpumask *valid_mask;
-> +	int i;
-> +
-> +	if (cpu_preferred(cpu))
-> +		return false;
-> +
-> +	/* Only FAIR tasks honor preferred CPU state */
-> +	if (unlikely(p->sched_class != &fair_sched_class))
-> +		return false;
-> +
-> +	/* Ignore preferred state if task affinity is changing */
-> +	if (unlikely(!cpumask_test_cpu(task_cpu(p), p->cpus_ptr)))
-> +		return false;
-> +
-> +	valid_mask = task_cpu_possible_mask(p);
-> +	if (likely(valid_mask == cpu_possible_mask))
-> +		return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
-> +
-> +	/* Tasks with arch-specific CPU masks. e.g. 32-bit tasks on arm64. */
-> +	for_each_cpu_and(i, p->cpus_ptr, cpu_preferred_mask) {
-> +		if (cpumask_test_cpu(i, valid_mask))
-> +			return true;
-> +	}
+On Fri, 28 Aug 2026 10:52:08 +0800
+Zong Li <zong.li@sifive.com> wrote:
 
-Looking more into this, there might be a window in 64-32-bit execve()
-for 32bit EL0 tasks on Arm64 (w/ allow_mismatched_32bit_el0 command line
-option).
+> On Fri, Jun 19, 2026 at 12:02=E2=80=AFAM David Laight
+> <david.laight.linux@gmail.com> wrote:
+> >
+> > On Thu, 18 Jun 2026 17:51:34 +0800
+> > Guo Ren <guoren@kernel.org> wrote:
+> > =20
+> > > Hi Vivian,
+> > >
+> > > As noted in the RISC-V IOMMU Specification, Chapter 6: =20
+> > > > Whether an 8-byte access to an IOMMU register is single-copy atomic=
+ is UNSPECIFIED, and such an access may appear, internally to the IOMMU, as=
+ if two separate 4-byte accesses =E2=80=94 first to the high half and secon=
+d to the low half =E2=80=94 were performed. =20
+> > >
+> > > Therefore, the atomicity of 64-bit MMIO accesses is UNSPECIFIED and
+> > > not clearly defined in the current ratified RISC-V IOMMU
+> > > specification. To handle this correctly, the Linux RISC-V IOMMU driver
+> > > should fall back to 32-bit MMIO accesses when reading 64-bit registers
+> > > (e.g., performance counters). The behavior of 32-bit MMIO accesses is
+> > > more precisely defined in the RISC-V IOMMU specification.
+> > >
+> > > Thus, many hardware vendors implement 32-bit MMIO (rather than 64-bit
+> > > MMIO) based on the current ratified RISC-V IOMMU specification, and
+> > > this driver does not appear to benefit from 64-bit MMIO access either.
+> > > Performance is fundamentally constrained by bus latency; assuming that
+> > > simply reducing the number of accesses will improve performance is an
+> > > oversimplification that ignores the underlying hardware
+> > > characteristics. =20
+> >
+> > If the bus latency is significant it is almost certainly worth using
+> > memory accesses to avoid re-reading the hi register.
+> >
+> > Something like this might work:
+> >
+> > static volatile u32 hi_prev, lo_prev;
+> >
+> >         u32 hi =3D read_reg_hi();
+> >         u32 lo =3D read_reg_lo();
+> >
+> >         if (lo <=3D lo_prev || hi !=3D hi_prev) {
+> >                 u32 hi_tmp =3D read_reg_hi;
+> >                 if (hi_tmp !=3D hi) {
+> >                         hi =3D hi_tmp;
+> >                         lo =3D 0;
+> >                 }
+> >                 lo_prev =3D ~0u;
+> >                 hi_prev =3D hi;
+> >         }
+> >         lo_prev =3D lo;
+> >         return (u64)hi << 32 | lo;
+> > =20
+>=20
+> Hi Daivd,
+>=20
+> I included this in my v5 of the IOMMU PMU series, but we noticed that
+> sashiko-bot AI reported two issues:
 
-The time before arch_setup_new_exec() calls
-force_compatible_cpus_allowed_ptr() to restrict CPU affinity for those
-tasks.
+I did say 'something like this' might work....
 
-Let me run more test on this ...
+David
 
-Why not simply:
+>=20
+> 1: The lo_prev is immediately overwritten:
+> The trailing 'pmu->lo_prev[idx] =3D lo;' is outside the if block and
+> runs unconditionally, so the 'lo_prev =3D ~0u' is clobbered before the
+> function even returns. It never survives to the next call. lo_prev
+> ends up holding the guessed value (typically 0) instead, which is a
+> perfectly ordinary small number, and the intended "always re-verify
+> next time" behaviour never happens. The sentinel write was effectively
+> dead code.
+>=20
+> 2: The wrap check itself can miss a wrap
+> Here is a concrete sequence. Assume a previous call left hi_prev =3D 1
+> and lo_prev =3D 5, i.e. the counter was 0x1_00000005. Some time later
+> the counter has advanced close to 0x1_FFFFFFFF:
+>=20
+>   1. hi =3D readl(addr + 4)  -> counter is 0x1_FFFFFFF0, so hi =3D 1
+>   2. the counter crosses the boundary and becomes 0x2_00000008
+>   3. lo =3D readl(addr)      -> lo =3D 8
+>=20
+> The check then evaluates:
+>=20
+>   lo (8) <=3D lo_prev (5)   -> false
+>   hi (1) !=3D hi_prev (1)   -> false
+>=20
+> Both are false, so the fast path is taken and 0x1_00000008 is
+> returned. The true value is 0x2_00000008, so the result is short by
+> 2^32 and the third read of the high half never even executes.
+>=20
+> Both situations share the same root cause: It puts the reliable check
+> (the third read) inside an if guarded by the unreliable cross-call
+> heuristic 'lo <=3D lo_prev || hi !=3D hi_prev)'
+> Case 1 is an issue in the bookkeeping that heuristic depends on, and
+> case 2 shows that even with correct bookkeeping the heuristic is not
+> sound.
+>=20
+> To make everything simpler, I would use your first version for the
+> latest IOMMU PMU series:
+>=20
+>         hi =3D read_hi();
+>         lo =3D read_lo();
+>         if (hi !=3D read_hi()) {
+>                 // Pick a value that happened while doing the reads.
+>                 hi++;
+>                 lo =3D 0;
+>         }
+>=20
+> > It shouldn't need any locking but the accesses do need to be ordered.
+> >
+> >         David
+> >
+> >
+> >
+> > _______________________________________________
+> > linux-riscv mailing list
+> > linux-riscv@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-riscv =20
 
-- return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
-+ return cpumask_first_and_and(p->cpus_ptr, cpu_preferred_mask,
-+                              task_cpu_possible_mask(p)) < nr_cpu_ids;
-
-IMHO, you want to know whether there is at least one CPU that belongs to
-all three CPU masks?
-
-[...]
