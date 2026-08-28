@@ -1,72 +1,50 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2FE44781B;
-	Fri, 28 Aug 2026 12:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA87434CDD;
+	Fri, 28 Aug 2026 12:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787920891; cv=none; b=FmEuHU7UAx5vl6AIKBlhbEjqrJqs7qTbSMZVlPDjxziBPOdtTsMXHEYqJQpCuT6PCnBTWin1+966AeLHBXXh++5sos0DaGyL2UN3qZRXdHdjrLvAu0DrN14XT+Mhmf76UQNLDJSoozVjAibYBIJlqGnFXr8KncfHrXBXBMCC1iQ=
+	t=1787920938; cv=none; b=Ea2sdkrevjTLTVEZZ0Kix9dsznpSsn5zByV9sURWs58IYqyuI1v4CxeGFmVge+mRGbZrIOxla05TTyh8qQvR18VNAU56j3Y2UP4CrcVr0EEpae6LWnzjDlnI0td6XHXxMRd4/fCndU2lIrvKgEImfcrOnl4vJSLlXR/zFhthO+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787920891; c=relaxed/simple;
-	bh=JsdYFNlmu3mZtC0DhffCWqMCuB12dqERlIoFUoVuPCg=;
+	s=arc-20240116; t=1787920938; c=relaxed/simple;
+	bh=QOZNKbCCTZqHpO0E0ofFeEPDPf76iR29U1dNaIaNI1Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVU7tQCYUma7vbdnr2uOeknInzlGo2ppNs20y/ZOTkupwxbU3e6vUWLa7zzt2Ssz+p+X/Np5b230DgMMtY5KV2qbXcPKijLz228QZxAQQT0Q1eEyXyYl+k/3tl8j2kutk+o60d9rD6bQzqAvLTtGRYk2d8nefgoVmS9dGff7X4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=HzpcEx3Z; arc=none smtp.client-ip=90.155.92.199
+	 Content-Type:Content-Disposition:In-Reply-To; b=rGVZSrIzCsEMSKSG2+fnx2scHMXwvW8z6n4vPFqP8HgSv2Kopc3E2bcHsrr+RxtZMfHxy2PJw+A3tdeyrPWe/Xlwjbs72lAklBORfmR1vbST3D0Bh07R3l0DBnrmAMLfyq3eSXfzZAHukd48JnCjNPNlzb37wikv55o02O+O3Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Pi3v2UDn; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="HzpcEx3Z"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Pi3v2UDn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JsdYFNlmu3mZtC0DhffCWqMCuB12dqERlIoFUoVuPCg=; b=HzpcEx3Zje4gJfUb+ceU/x1FvE
-	Zl3Mh4+eWu1HIJa93GBWDAjBGZo41IkX2S3AHDLV+ABH8Iudi6x4SUr8JFb7Xp+1f8Ta90NUfIQpx
-	xATI1wocphSZX/9LCrdJL9vLsfbJVD4ikAX0dnigoFCt2X36M6tqukfVSkYUTSw7/RpzWURd7G2B7
-	ky42+wb5W0wgO3bhKN8rW0nZqed7CeNX1TYQw6coaPu0LDtCbvXRJ5cNfOXMnNwCO/uM4nFSEQZzM
-	jAGWSRVFbt1xFQbORlb47ptVlPQUcPizFCQgguncsUiMarbI0Ol/17cCxaQrLbrIovxFgxl4kOQLa
-	mZsBqG5g==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wzvtH-00000008FbN-2c6I;
-	Fri, 28 Aug 2026 12:41:04 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 07F9C30030F; Fri, 28 Aug 2026 14:41:01 +0200 (CEST)
-Date: Fri, 28 Aug 2026 14:41:00 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Stevens <stevensd@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
+	bh=fOOErk9kx1LUUsIH+ihqTAkp4s+n4NYBXTagYvHGXok=; b=Pi3v2UDn5tSqmbtKPiAIqYtln1
+	e3ippwoYEwrMHwU8+8U7n6fMm7hPZvXt5XcS8l96v5TPNPp8qAnJEnyFzd4RsAf99V/EL+YVDmfrR
+	lRoL5MfJqEWmyn2MRf5W18/93DaKy1xmUjxD15xTREg/ddJ78a/gUK/JDkDuCeCSLVqpe5iSBrf0f
+	MsNSN3RlBRU7cYYNaq5RM47oT5s317cFo9TZak9nPBi5n4M47+Hj9Kn8w9y6uiyKvbCpqoM/ejXTN
+	ZLFKqB0EpP7NvgCQ1zIxmMbltUfyIHS5uuzkrJCmAT0vjeV7f9FBGxIHZOls9oco2hSrnuvooSyTj
+	hbZACARg==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzvu2-0000000Ehny-3KzH;
+	Fri, 28 Aug 2026 12:41:50 +0000
+Date: Fri, 28 Aug 2026 13:41:50 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Yuan-Hao Hsu <aa9736195201@gmail.com>,
+	Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260828124100.GO687043@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
+	David Hildenbrand <david@kernel.org>, Linux MM <linux-mm@kvack.org>,
+	Christian Brauner <brauner@kernel.org>,
+	"zhangyi (F)" <yi.zhang@huawei.com>, tujinjiang@huawe.com
+Subject: Re: [PATCH] ovl: implement ->get_unmapped_area()
+Message-ID: <apGCDtf-gE1osJqE@casper.infradead.org>
+References: <20260827170718.497-1-aa9736195201@gmail.com>
+ <CAOQ4uxjxDV0U9yrDA_StN968P_6cpjRAN2mBCx1c_RYd7BF4Og@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,14 +53,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827232948.2520558-7-stevensd@google.com>
+In-Reply-To: <CAOQ4uxjxDV0U9yrDA_StN968P_6cpjRAN2mBCx1c_RYd7BF4Og@mail.gmail.com>
 
-On Thu, Aug 27, 2026 at 04:29:44PM -0700, David Stevens wrote:
-> This feature does work on PREEMPT_RT, but is likely undesirable due to
-> the extra uncertainty. The fact that alloc_pages_nolock_noprof() cannot
-> be called from under the scheduler lock also makes repopulating stacks
-> more expensive.
+On Fri, Aug 28, 2026 at 02:23:11PM +0200, Amir Goldstein wrote:
+> Since mmap is going through backing_file_mmap() probably a good idea to
+> pass this method through a backing_file helper as well.
+> 
+> But more importantly, adding MM people to this patch review, mainly the ones
+> that participated in the discussion over patch to fix similar issues
+> in 2024 [1].
+> Most of the concerns in that patch seem to have been addressed (?)
+> 
+> [1] https://lore.kernel.org/linux-unionfs/20241205143038.3260233-1-tujinjiang@huawei.com/
 
-Aaah, so you knew it was hot garbage :-(
+No, not at all.  All this patch needs to be is:
 
-Please don't ever post anything like this again.
++++ b/fs/overlayfs/file.c
+@@ -657,6 +657,7 @@ const struct file_operations ovl_file_operations = {
+        .fallocate      = ovl_fallocate,
+        .fadvise        = ovl_fadvise,
+        .flush          = ovl_flush,
++       .get_unmapped_area = thp_get_unmapped_area,
+        .splice_read    = ovl_splice_read,
+        .splice_write   = ovl_splice_write,
+
+
+All this "oh we have to call the underlying filesystem's
+get_unmapepd_area" betrays a lack of understanding of the problem.
+
+And Lorenzo suggested this in the linked thread:
+
+https://lore.kernel.org/linux-unionfs/69b72e3d-b101-4641-9ce5-51346c93a98d@lucifer.local/
+
