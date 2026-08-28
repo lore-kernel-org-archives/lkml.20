@@ -1,21 +1,21 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E8943F4BD;
-	Fri, 28 Aug 2026 11:34:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D035F43F4C3;
+	Fri, 28 Aug 2026 11:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916874; cv=none; b=Sa17boIqWQw6FaPvg3zzGQDAZZQhTlz1ITSkV/ms08DCfHS1o9KqXh92QPZpP5qf5gDF9RYlvpA45uLNbl9Bsbm8cdntZpMNhH3gzRVXD2o/ekTRLq5mJtdZDWQLFxQjG3iTIg4xGHg8ymF1ICdWox58yMXWzm40tF1Ymj9xgpQ=
+	t=1787916874; cv=none; b=UhjgRGYiKvOk94td0Jk0aGf+gTow//EhjmPXFREZ0hWGOgEvZHsACjP6Tn6erMWcLHsl5dtreyjpNOcqzbSWk/aXcm60k69UJhFTYHPa+rjrIDWM1XmNDHO4eny4lif4mD2RiGpEAxkN/jZnuk8o2UY/pYy822cC3stqMalQ4c0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787916874; c=relaxed/simple;
-	bh=kJmO+904oM1JMka/WNZAwkM6QbavByZxLOuHb/DqlLc=;
+	bh=d4n/yYteAErq9YAEU2qFIQtZQUQdKX/WJV51CBQSRag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=edznappuV5QGvqu77BH4vC72z/fmbEKJ2AanHFSE2rk0UYABbmUJOqt4a46Q9IopYorAsTFF2EiEUhodOdlSIARihTO/wRjrtcj06LoPPqfYtkAtsYVNcsAsnGtHF62xhD2UpADRtX5BFUTKIg+mWlTCPULChpd7uZZltcjgy2A=
+	 MIME-Version; b=CkII4o72vwJPIuq8IXa2ZbVcJ855qdnonyHZ8ffieQXsSan5G8xtm3NmqFG8c3QzQtVO5W6Id8yxU1I8O5cHySi9CfhqnylqjS4LCMFpzBBEWaIFtZ+a91k8BKMtTYblyBPuit5oMNKQosj7SdxdIjxmIW/FWBbdgJ/SPLbVed8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S18;
+	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S16;
 	Fri, 28 Aug 2026 19:34:21 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -26,9 +26,9 @@ Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 16/20] ASoC: wm8991: Propagate cache replay errors from bias restore
-Date: Fri, 28 Aug 2026 19:34:11 +0800
-Message-ID: <20260828113416.47061-17-pengpeng@iscas.ac.cn>
+Subject: [PATCH 14/20] ASoC: wm8904: Unwind resources on cache replay failure
+Date: Fri, 28 Aug 2026 19:34:09 +0800
+Message-ID: <20260828113416.47061-15-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
 References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
@@ -39,10 +39,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S18
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrW7Ary5WF15Jry8Ar17GFg_yoW8XFWkpF
-	Z3W398trsYqr4Fvas0yrWrZry8GryxCF1rAa12y340vr13AF1SgF1xtr42vF95XFZ8GFsx
-	ZrWavay8JF1rGaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S16
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4xGF1xury8KFW3Xr4xJFb_yoW8GrWUpr
+	WfJFZ5trW8Xw4kCFZ0yry8Xa4rKryUtFy3Gwn8Kw1xur98A3WI9r1ftr18ZF9rXrZ8GFsx
+	ZrW7J3yUCF15GaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
 	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -59,47 +59,43 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7CrW7Ary5WF15Jry8Ar17GFg_yoW8XFWkpF
 	UUUU=
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-wm8991_set_bias_level() ignores regcache_sync() and proceeds with a long
-anti-pop sequence during OFF-to-STANDBY.
+wm8904_set_bias_level() enables supplies and MCLK, makes the regmap live
+and then ignores regcache_sync() during OFF-to-STANDBY.
 
-Return the cache error before that sequence and keep the cache dirty for
-a retry.
+Return the error after restoring cache-only and dirty state and
+disabling MCLK and supplies in reverse acquisition order.
 
 The issue was identified via static analysis and manually reviewed.
 
-Fixes: 203db220718c ("ASoC: WM8991: Add initial WM8991 driver")
+Fixes: c133421800d9 ("ASoC: Add support for BIAS_OFF when idle to WM8904")
 
 Assisted-by: LLM
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- sound/soc/codecs/wm8991.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm8904.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8991.c b/sound/soc/codecs/wm8991.c
-index 225c235d3d89..ce66bd3ba7af 100644
---- a/sound/soc/codecs/wm8991.c
-+++ b/sound/soc/codecs/wm8991.c
-@@ -1083,6 +1083,7 @@ static int wm8991_set_bias_level(struct snd_soc_component *component,
- 	struct wm8991_priv *wm8991 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
- 	u16 val;
-+	int ret;
+diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
+index 9e5782e50f47..609f10f00c6b 100644
+--- a/sound/soc/codecs/wm8904.c
++++ b/sound/soc/codecs/wm8904.c
+@@ -1973,7 +1973,15 @@ static int wm8904_set_bias_level(struct snd_soc_component *component,
+ 			}
  
- 	switch (level) {
- 	case SND_SOC_BIAS_ON:
-@@ -1097,7 +1098,11 @@ static int wm8991_set_bias_level(struct snd_soc_component *component,
- 
- 	case SND_SOC_BIAS_STANDBY:
- 		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_OFF) {
--			regcache_sync(wm8991->regmap);
-+			ret = regcache_sync(wm8991->regmap);
+ 			regcache_cache_only(wm8904->regmap, false);
+-			regcache_sync(wm8904->regmap);
++			ret = regcache_sync(wm8904->regmap);
 +			if (ret) {
-+				regcache_mark_dirty(wm8991->regmap);
++				regcache_cache_only(wm8904->regmap, true);
++				regcache_mark_dirty(wm8904->regmap);
++				clk_disable_unprepare(wm8904->mclk);
++				regulator_bulk_disable(ARRAY_SIZE(wm8904->supplies),
++						       wm8904->supplies);
 +				return ret;
 +			}
- 			/* Enable all output discharge bits */
- 			snd_soc_component_write(component, WM8991_ANTIPOP1, WM8991_DIS_LLINE |
- 				      WM8991_DIS_RLINE | WM8991_DIS_OUT3 |
+ 
+ 			/* Enable bias */
+ 			snd_soc_component_update_bits(component, WM8904_BIAS_CONTROL_0,
 -- 
 2.43.0
 
