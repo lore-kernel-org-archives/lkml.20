@@ -1,35 +1,35 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C3829E10B;
-	Fri, 28 Aug 2026 18:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CBD2D8DD0;
+	Fri, 28 Aug 2026 18:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942860; cv=none; b=mdpq2yhLjnWAARmQAPRUZ12vsVFgF2rmB4UHwuqWqjCcTXnktAPRFo3KwoD3kHjZGgCPM7JYK/UyrRz1CRVjiLNZewnzAPRU7M+mp6XWDYBSEgh1j+eLcLwVmQTJNdH1QVrNBL3XY0ITZrVIQKIacjbJ354s/v2Wa+hXZpQolC0=
+	t=1787942866; cv=none; b=JAMLC8+yozK26cwf7r6PnrfnQZljVaFNrGQkQjUKjFZujGczUVv7Bn3sKzOnpdUajbHkDbHlXObubjC60FbE7QEB8gEKTyXF9HQzxJQFJpKQ7aNnp5nds4r4S+7ym0lzA9pLinTl1XnRiddaG8dKyPHuxr9RGZ1ib1RwbTAMpA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942860; c=relaxed/simple;
-	bh=UrmwIWsCutQvfAXfJCfN9CHSP5jQzO9Lh0LAK6E1+go=;
+	s=arc-20240116; t=1787942866; c=relaxed/simple;
+	bh=oP4ScKiNLf57xHxpWiyLbcHuHYS0fOpfCUYauok6Y9k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ufMAJh6g4sQ2JCvrP9eQ+lYLRgcFi+Xz7SwviwCuUUXrf8rJLtmE7oYgLYYTlVSkEN/4Lj6uR7SybW4delvJQXBZDE7SmuchKGXPL4nCjXzanGo9yeaupKDLWAqM3TBdMbcJpJz90tCPmDnVw7jZQ1rf0riXM+LHwbpic+tauw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=awRpxIHZ; arc=none smtp.client-ip=178.251.229.89
+	 In-Reply-To:Content-Type; b=aMWYLSN53E4/a/1AMSJReOr/iTFaAiBtWrUMOJcztl2dqMjYujrl7+pFc06mnTEPZq0fsFcBe3hNOcpa5U2ih2+g6qS3i21EcHDL1O4PVuAAMLiYG1UOGbmGt8agMhn4VmFw6g1+3zZpyhvfHL5vbxR9LaEKsbLjd7U2968IhEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Nm16mUVm; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="awRpxIHZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59E4511CF0B;
-	Fri, 28 Aug 2026 20:47:24 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Nm16mUVm"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF8B910A240;
+	Fri, 28 Aug 2026 20:47:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787942846;
+	s=dkim; t=1787942858;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=m73Q82dkpKlkQ9sqZr4r1cIELFDi6oJxX/fWL+FJurA=;
-	b=awRpxIHZQF0n2uHyM73nRpsvtijyMVdHPtYji2+JnPl3Op2nkT+hr8d/V1B/VmizxXUU4T
-	gurGZhoWLkHXyQUP90Fn4UnU7fb7rWNEQ8yVe2PCUkVHZoJ8MGGQDUBNpC6UiQbFUB7feK
-	VTHa6lziIUjuwgr04kHc3guuYxIS2YCwx9Wli+xhiWTCXH6grxOnijfKoXODBsgflV3Ujb
-	xwsi/MMK71NplsinSlNxkh6ExCsV/cqyAFnbKTo8T32HBvJrmuFOUKugUhmDu6INL8F2gb
-	OA4PUJmon5AgkNi8c1Y2SqwWxM1Hb2CPnCW2ijN9R7DBynRrV8ly470OFyU+IA==
-Message-ID: <0f959651-34d9-4fb2-9e07-238f731c5342@nabladev.com>
-Date: Fri, 28 Aug 2026 18:05:17 +0200
+	bh=w5uLOuQaPiHt9dSpbY0OeGfbDrrRTGfvqoBro2SNT4c=;
+	b=Nm16mUVmjNmz0GCwKa4mmE/uA73TtkYVHgOyLgdzS80wm1YrRt/tqBeGVjq5slt50ZwLxz
+	MW3Tw2H1O3JsVah0SckroXyQtLw7JACjWCAchyxgwUMYcTbWdrLvVTvI9OzB8hGNEF41C0
+	srAOyoU3D69C4gYGx7nLx8EDLdio5rvKW7XXk1b6CPoElplaXQnaGlb0gCkQ6VI8RFkuqR
+	IHQT8aVqqG8bK/YryQ8ECf3LG8UrQWje5AnEVtPQOqAz79vAnK8lS8CdIZdlMLfxcjKDuv
+	eQV6+PH6gLTGxEf5hi6RqN3yCp6eFYATs03bmq3Jfhd8xUelztos3wlELeXMvQ==
+Message-ID: <7f6f7df9-55c7-4393-a4bb-42c6cc170df1@nabladev.com>
+Date: Fri, 28 Aug 2026 18:33:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,88 +37,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: arm: stm32: Document
- st,stm32mp23/25-syscfg subnodes and cells
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rob Herring <robh@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+Subject: Re: [PATCH 1/4] dt-bindings: usb: Document ST UCPD
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-usb@vger.kernel.org
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
  devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260828151216.175020-1-marex@nabladev.com>
- <20260828-target-operable-ebc87e0bf30a@spud>
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260819163410.119755-1-marex@nabladev.com>
+ <db62c29a-7260-4e19-9279-e38323353c30@foss.st.com>
+ <225f1704-399d-47d0-8bca-73a27a59bbd4@nabladev.com>
+ <42bb4c3c-1dbd-4902-9765-01687b74cb39@foss.st.com>
 Content-Language: en-US
 From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260828-target-operable-ebc87e0bf30a@spud>
+In-Reply-To: <42bb4c3c-1dbd-4902-9765-01687b74cb39@foss.st.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/28/26 5:57 PM, Conor Dooley wrote:
+On 8/26/26 3:24 PM, Fabrice Gasnier wrote:
 
-[...]
+Hello Fabrice,
 
->> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
->> @@ -39,6 +39,17 @@ properties:
->>     "#clock-cells":
->>       const: 0
->>   
->> +  "#address-cells":
->> +    const: 1
->> +
->> +  "#size-cells":
->> +    const: 1
->> +
->> +patternProperties:
->> +  "^phy@[0-9a-f]+$":
->> +    type: object
->> +    $ref: /schemas/phy/st,stm32-usb2phy.yaml
->> +
->>   required:
->>     - compatible
->>     - reg
->> @@ -57,10 +68,14 @@ allOf:
->>     - if:
->>         properties:
->>           compatible:
->> -          const: st,stm32mp25-syscfg
->> +          enum:
->> +            - st,stm32mp23-syscfg
->> +            - st,stm32mp25-syscfg
+>>> I've sent a series for the complete case. Please check and review here:
+>>> https://lore.kernel.org/linux-usb/20260821-ucpd-host-fusb340-v7-2-rfc-
+>>> v1-0-c5e27cbc0795@foss.st.com/
+>>
+>> What is the difference between this driver and the ^ driver ?
+>>
 > 
-> Sashiko comment here I believe is valid, the syntax here only works if
-> there's only the listed compatible present. It doesn't work with
-> fallbacks.
-
-This syntax is used all over the place ?
-
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-allOf:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - $ref: 
-ahci-common.yaml#
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - if:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-      properties:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-        compatible:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml:          contains:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-            enum:
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-              - 
-qcom,apq8064-ahci
-Documentation/devicetree/bindings/ata/ahci-platform.yaml-              - 
-qcom,ipq806x-ahci
-
-> pw-bot: changes-requested
+> Hello Marek,
 > 
->>       then:
->>         required:
->>           - "#clock-cells"
->> +        - "#address-cells"
->> +        - "#size-cells"
+> That includes the TCCP I2C driver (and an example on ST boards).
 > 
-> else, false? But I'm also not sure what the benefit is of requiring
-> addr/size cells when the child node is not?
-The subnodes of this syscfg node have reg property , see [PATCH v4 0/4] 
-arm64: dts: st: Add STM32MP2 USB support .
+>> Why is this driver not covering "the complete case" , what is missing
+>> here and not missing there ?
+> 
+> I intended to show a complete case, e.g. UCPD controller driver and
+> external TCPP I2C protection chip driver. The TCPP is a companion,
+> complementary, e.g. provider/consumer relationship.
+> 
+> You've pointed some "horribleness" there. I guess you talk about the
+> straight forward approach e.g. EXPORT_SYMBOL() macros. That's an
+> on-going work, a prototype. I could have sent as an RFC.
+
+Yes please.
+
+> I wanted to be transparent, so the correct level of APIs gets used.
+> 
+> You propose to turn the TCPP into a GPIO chip ?
+
+I think yes, it is after all four flip switches on I2C.
+
+> That seems smart, at least for the CC lines switches.
+> What about Vbus and Vconn, it could also fit regulator API ?
+
+It would, but, aren't those also flip switches ?
+
+It seems to me, that TCPP02/03 can enable/disable Vconn on CC1/CC2 (that 
+sound like two GPIOs), enable/disable gate driver (GPIO?) and 
+enable/disable gate source (GPIO?) .
+
+> There are various functions, the bindings should be extensible enough
+> for later use of additional functions. I'm thinking of:
+> - Over-current events for Vbus & Vconn
+>    Could be represented as interrupt controller ?
+>    Or could benefit from a regulator notifier (if used) ?
+> - Vbus sensing
+
+Could extcon cover those ?
+
+> My point is that, that can impact the dt-bindings or functionality.
+> Sending UCPD driver only, without the TCCP binding & driver, I find it
+> is a bit hard to review or test at my end without having a more complete
+> view.
+> 
+> I'm not sure which way you'd like to proceed ?
+I am wondering whether maybe we should slow down a bit, get USB sorted 
+out and upstream first, and focus on UCPD/TCPP as the second step (not 
+in parallel to USB) ?
