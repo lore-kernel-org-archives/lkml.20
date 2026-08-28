@@ -1,83 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024C9394E8A;
-	Fri, 28 Aug 2026 18:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1332B385D7F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787940444; cv=none; b=IEGd3f1Xf6pFddor3+RCcS01y8OSKPSJ6H+aJXIyLAas9qoly0XkHJF4IEkd2iv7KbLIx4DGDmQRxSy5W9fkQ6S0oljwifT03TxsZe75jLf0+j476811el4G0glJI5PpKd3Qqb3il1T2pahdD4uzba8JBMHCdMOQbKNoD31J2hc=
+	t=1787940451; cv=none; b=PK4fkAUlHHRECSaFUK6cKIkM4LffRHt4X6xMyefQ16KBy7Gjp02NXI/LqHFZYyXl+yvcNUcKBPQRbd7qRTZ/KVPLFbvMJhpi1F349R1opgMbZ4Nw3PHdwQHIuWP6+J7Kho+7v3pnmzkieqQ8dA/ubbQPsOOFfKS/+Jc/aUWEXoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787940444; c=relaxed/simple;
-	bh=Lzx9Xq9BMeq+ZpB7GGU1u3d0U/wril2CkGqKpFEoi2s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=aXxTqcAokXrwXaKH3ypYiJcUCoixTvled+rO0h5r592KHqFiyNNXBjFY2c5g1xEzYaIGITq+jXZdiVssdjnvUpIHiA//0dzqByGph9NFA3YARxC3+LvZaZM/LGghxB4+G9P+E1biYgQAxBVlVgUUoQ9EDCk7OJRgf8l4FzRgjZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQbLatPS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787940451; c=relaxed/simple;
+	bh=9HiXlTee72FyXhDR3nUVcDMyKk0jF2knT9Os/RF0oVs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OLLpURip1DEqgvynLe4YpX0liOLJ0WojZaKKCQAFVC79OlTzeu9K+wt7xWAB7YEhKXY8eQwGhGeCj4hk/bUznc0e45soB0EqGZzVk0N5OZHaQxjA1uwJBYh8NKIft3DJVCEJ/6J+sH4bRCGDo8bZhuuu8yY8SdHsRtxUO+13r8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gh90UZLA; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQbLatPS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BB841F000E9;
-	Fri, 28 Aug 2026 18:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787940442;
-	bh=OpnphWdgzPULckeiFXamEoh0hJR1q1iyiG4unRaCc6w=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=eQbLatPSxVotYtgsTveUpVgBqXcMch9LJ5fBw1SujuJSPoY+xLRAr+fzXZBtxTSZH
-	 a12GyEuoWMoSKE+S+fxM4omt1xTObbb+x6imtl5Lbh3qSHVWPrHU95SfZUZezwy56G
-	 OrS/hN0KQzWoj0fXpAGS1o0wbHUNdJYsHxQDwRfNwAgDDH3hvGj+1Wcp96Vqwd5BGH
-	 pQvKQsJ95QZ+SPutWc23Wj9nNwti9HDWPSSa8nzOwGaNaPskwkGwU6NVSDZv03HOQp
-	 Ty1TXgDa3qxoiptySmzW5L474ZrqcoCT4Cv9AyQkq7z13c6zt2rhpXO3QBKFKoRn8D
-	 C9AGMPxr0Kz7Q==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gh90UZLA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787940449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NBSZO4UmDJ5N7PlSi5cLifO7pUPh7GKBSxlIMFNI3Fw=;
+	b=Gh90UZLABYrOn+ZjqaYu+lTGD5nZBkKUjzJLenHKNxx3ORCf4rNaUF7uvRR64e4Kv6+yNd
+	FhOSJE3/zGKoEDqUb9w3YEFPwunV37Gd2NTgbhVggcwwrh5qFYANXdGZ8jpcPpqM7rPReI
+	QBkd80/VIUepPAYPjNy3RRYUwQhNS+A=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-368-JlCOODbRPDSJEJNHnh1r8Q-1; Fri,
+ 28 Aug 2026 14:07:24 -0400
+X-MC-Unique: JlCOODbRPDSJEJNHnh1r8Q-1
+X-Mimecast-MFC-AGG-ID: JlCOODbRPDSJEJNHnh1r8Q_1787940443
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 43C6A1954128;
+	Fri, 28 Aug 2026 18:07:23 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EF49518005B4;
+	Fri, 28 Aug 2026 18:07:21 +0000 (UTC)
+Message-ID: <e27ad187-7572-4999-b171-f510990d4006@redhat.com>
+Date: Fri, 28 Aug 2026 14:07:21 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 20:07:19 +0200
-Message-Id: <DL0RZMS3MLF3.3AJP3BNVBV03Y@kernel.org>
-Subject: Re: [PATCH v2] drivers/base/node: fix UAF on device_register()
- failure
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J . Wysocki"
- <rafael@kernel.org>, "Jonathan Cameron" <Jonathan.Cameron@huawei.com>,
- "Keith Busch" <kbusch@kernel.org>, <driver-core@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-To: "Linkai Gong" <gonglinkai@kylinos.cn>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260806082804.2845360-1-gonglinkai@kylinos.cn>
- <20260828012516.3591496-1-gonglinkai@kylinos.cn>
-In-Reply-To: <20260828012516.3591496-1-gonglinkai@kylinos.cn>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] general protection fault in cpuset_cpus_allowed
+To: Farhad Alemi <farhad.alemi@berkeley.edu>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: falemi@asu.edu, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Fri Aug 28, 2026 at 3:25 AM CEST, Linkai Gong wrote:
-> diff --git a/drivers/base/node.c b/drivers/base/node.c
-> index 3da91929ad4e..d5eec2ef76dd 100644
-> --- a/drivers/base/node.c
-> +++ b/drivers/base/node.c
-> @@ -171,13 +171,14 @@ static struct node_access_nodes *node_init_node_acc=
-ess(struct node *node,
->  		goto free;
-> =20
->  	if (device_register(dev))
-> -		goto free_name;
-> +		goto put_device;
-> =20
->  	pm_runtime_no_callbacks(dev);
->  	list_add_tail(&access_node->list_node, &node->access_list);
->  	return access_node;
-> -free_name:
-> -	kfree_const(dev->kobj.name);
-> +put_device:
-> +	put_device(dev);
-> +	return NULL;
->  free:
->  	kfree(access_node);
->  	return NULL;
+On 8/28/26 1:43 AM, Farhad Alemi wrote:
+> Hello,
+>
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
+>
+>    https://github.com/farhad-alemi/public_bug_reports/tree/main/166-general-protection-fault-in-cpuset-cpus-allowed/
+>
+>    Oops: general protection fault, probably for non-canonical address
+> 0xdffffc000000001d: 0000 [#1] SMP KASAN NOPTI
+>    KASAN: null-ptr-deref in range [0x00000000000000e8-0x00000000000000ef]
+>    RIP: 0010:bitmap_intersects include/linux/bitmap.h:440 [inline]
+>    RIP: 0010:cpumask_intersects include/linux/cpumask.h:822 [inline]
+>    RIP: 0010:guarantee_active_cpus kernel/cgroup/cpuset.c:481 [inline]
+>    RIP: 0010:__cpuset_cpus_allowed_locked kernel/cgroup/cpuset.c:4022 [inline]
+>    RIP: 0010:cpuset_cpus_allowed+0x14a/0x2f0 kernel/cgroup/cpuset.c:4071
+>    Call Trace:
+>     cpuset_cpus_allowed+0x14a/0x2f0 kernel/cgroup/cpuset.c:4071
+>     __sched_setaffinity+0x98/0x3c0 kernel/sched/syscalls.c:1149
+>     sched_setaffinity+0x341/0x4a0 kernel/sched/syscalls.c:1237
+>     __x64_sys_sched_setaffinity+0x106/0x170 kernel/sched/syscalls.c:1262
+>
+> A second capture reaches the identical fault -- same address, same KASAN range,
+> same RIP -- through cpuset_fork <- cgroup_post_fork <- copy_process <-
+> kernel_clone <- clone3, with the crashing task being systemd at PID 1.
+>
+> Our reproducer.c is available upon request.
+>
+> Happy to test a patch if that would help.
 
-Sorry I didn't notice this in the first version, but why do we keep the got=
-o
-labels at all if they both end with a return statement? Can't we just get r=
-id of
-both?
+This null pointer dereference should only happen if you are racing 
+sched_setaffinity() with cpu hotplug operation. Right?
+
+Anyway, I have sent out a patch to hopefully address this bug. Could you 
+try out the patch to see if it fixes the problem?
 
 Thanks,
-Danilo
+Longman
+
