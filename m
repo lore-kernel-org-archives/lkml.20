@@ -1,86 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B363AA1A9;
-	Fri, 28 Aug 2026 22:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC2F384CDD
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787955852; cv=none; b=Rx0H40DUKpEocdgv/Z6GX+M+vZxsrB++FAawiGD+wpH+OCaXbePMAXTaDT0rQaYorz+Z7sBe7AOGewLgn3gFEQr/X91wxTUheSpDKr4mi51mNQ3kj22ms//ZhtsFBmE396LN4le0f1jkwq0opqMKBnZvufA/AGpvfHQ++MPMdPw=
+	t=1787955868; cv=none; b=dvuRVqvsmG+xwfzSO9yMQf13EgIQFAjH1p/ZFnYheJRC6Ih2uKeLFg+2Gda9pknFWOOZ7dyoGORm/qNBVs3M+4OSGKyxNZrRyo3XnDmmiaB+rS55f8etEWA+60WyawFRQ3qJX8uyjRUYkncM+At2JuXJ/3bwD2eJ8rf/MSeqyvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787955852; c=relaxed/simple;
-	bh=FE9HEPduTEIxPTgkPLJpb410zPHdhLbUT4oqpU/8vxs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=l/ilYpmqC2TWQt1Ec0/KroEPYCmxwjBxYqE4w5w+Il+hZjzKHBfo6BjBPf43Jlay2R850A9bPvKROFqI47U5R6oNWbaha7AyQaEISSwojysVvVzEgeKbNxOcmpZER8Nq/J1titmXbi0DEaEizGYHl7CMx5DKtEpFWJO5EOxDpt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l807Imck; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787955868; c=relaxed/simple;
+	bh=Xk/2itNGGwvzQ5Ct3+3m6nZce7+JaAyYCzQ8fHFJ0sU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L61ZSxz2sziIs4Pfu1sfQP/Ou3wMWE/OpbgTrsRQf40KdD3VzPe+Yn+2MaUhv/6Rma7ekZbw2DmkmLT8BuiugnMDWwiJBNsFszpCr3cPPf8QpUWDANRhTTCN93CNRN8TUoXZWKvLdNZPYFV5nr7RrcjDFpFql8KXzCB2InynylQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b=LOqxK3Xn; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l807Imck"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787955840; x=1819491840;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=FE9HEPduTEIxPTgkPLJpb410zPHdhLbUT4oqpU/8vxs=;
-  b=l807Imck+cGxMHLkH/5j9TSuo/7Sh5EK0B9KMIykDSd3vAGVyeE68ELf
-   ntXafwejLUqlb9dYRUeC2P1fRygqdbet1LpZ+RrdpIFEG/azopEyMqq6i
-   84hdgg0IUdKaiDTo8xlg7ZEPnyZadJN9gSP6/GZUmHE8cNlMt2ikV1JDS
-   1CSINH72MLCKyZCscH7ie4WN/BhIeySSH7w+AVNVusA7uMxMXmD6qcF7p
-   0kkNreAz/TzJOErGvbbQReUpb9SRRxsbtFmfbscopdh/8ONJoz5o9+Hte
-   fzJxYoH9BapNSeGQjiuyc5d7FUebX76dBWq1ykmxgxrYCXt3psQpVtkgD
-   A==;
-X-CSE-ConnectionGUID: c/1a1mt1THCvg9tOvYPVEg==
-X-CSE-MsgGUID: ZT5GjM49QxOoFU9hby+Pmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="87412398"
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="87412398"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 15:23:59 -0700
-X-CSE-ConnectionGUID: t4Vn67LLSsqheMt730Ee7A==
-X-CSE-MsgGUID: lTjHApJRQdOcqrCVWEZs2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="264540295"
-Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by fmviesa010.fm.intel.com with ESMTP; 28 Aug 2026 15:23:59 -0700
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Qais Yousef <qyousef@layalina.io>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Jianyong Wu <jianyong.wu@outlook.com>,
-	Yangyu Chen <cyy@cyyself.name>,
-	Tingyin Duan <tingyin.duan@gmail.com>,
-	Vern Hao <vernhao@tencent.com>,
-	Vern Hao <haoxing990@gmail.com>,
-	Len Brown <len.brown@intel.com>,
-	Aubrey Li <aubrey.li@intel.com>,
-	Zhao Liu <zhao1.liu@intel.com>,
-	Chen Yu <yu.chen.surf@gmail.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Adam Li <adamli@os.amperecomputing.com>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Tim Chen <tim.c.chen@intel.com>,
-	Josh Don <joshdon@google.com>,
-	Luo Gengkun <luogengkun2@huawei.com>,
-	Gavin Guo <gavinguo@igalia.com>,
-	Yi Lai <yi1.lai@intel.com>,
-	Ricardo Neri <ricardo.neri@intel.com>,
+	dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b="LOqxK3Xn"
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97c7afa485bso854998241.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:24:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=idkmanager.com; s=google; t=1787955861; x=1788560661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w5YEgwBz/daywwMQ/sIV3Y54o6ngA3GwC0jiF687Iio=;
+        b=LOqxK3Xn5B3AiP6eYIbhUCr1MjSkE6ss5oHfHHmqEHdhEj5OnBbHUa0iS8OvmTY6eD
+         utoEOe4tlDXmJGJqznGtT7R6B4bGyCyZtgsAiYqh8gZoPq1RjLCYG9LbZDOvQSvh1lIE
+         /43ABVMSMP2MWXxDw4lDMnMnxHNSWI7oZ/CJmHzd+qef5M4R/r+/iOWmd+52q1oyIvIN
+         PFA5DgPVHDgPMS/00huDTwVp5vdsgf3zicSJbJuaM4TyMUsuJ4u1U5GE/aCSqrW+sJk6
+         mJfWuFtkkP2GgFn2UGlaSquLIjVHR1BcCnK4A1OCCjQ4HcMEhd4T8cdmJJ39OAWHLkTK
+         twGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787955861; x=1788560661;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w5YEgwBz/daywwMQ/sIV3Y54o6ngA3GwC0jiF687Iio=;
+        b=lygcXFqTED5k9qwZ8VUgnjYtNVysgwP7eoJm77PVYiTh2Sz2Fpa8FyHU6kWEZj9y2C
+         1eozi+EB/I11iDRP4C1zaZLIL5xjk5lBZd2GN/ELVc+Vc4Mu/HMxH05u/yhr6Xz8mAfW
+         JAS7RtdLzSGaz0ok0mTQcC3PBS7K+bDRV5IDrtcz9pFyvXWVXmSQPjatRYArPjYMmEQc
+         80OtvMrzh3HppmLeTHyKVTnhiT3gbKMTUMvffw2/JEmnRTjOTsrzCuFM+v7uuBVpb6RJ
+         2ow8YIwF3R2c4lUYbCIhKh04rvV4nDvUu739/u0LP/opyw7Z6geqxc6KQykmm0jPePJJ
+         wsWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrKu4HtkzukdqAvrovMowg5fw7liAmum10YBa35Zx+yxF+UwlXHRKR6eiyOtdUNqan54VRypH6F0/nwdV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPpSNY0iLJkSjnIvC0I6BJymyNM37BAEMmotj+SoYIOIU88mJm
+	tZTIZjLAlVB89loAg8VFduzP14FqRXf5KuPRmZ0sX1OEU8ihHDvE3d65ayJnc8Wo63M=
+X-Gm-Gg: AR+sD128bkWji/NGj6fpp964poJnT+WZOB3EtZABRxLSzEEF6y31VGYpRTpNhxiBV1m
+	04XFue6hpcdtjtkIXmk0ZOL0fZrlvSXV0t+nyXwhrSURdwmr3h/5RZh/w74tcTxv2VnsMZ6YWu2
+	LJKdygZfjK7gRmRJ7WUU8eSN1/L+JXuuj+WehW1Lnqi22oxicIR+ud7vghxGs8Nx67AXMFrZJHM
+	d+TiLxE1ZkNvssnCSLtbsbA3LQWnfbw5oozNvW1icGb9yKXq6GQ2z7WdYQXNH3OYAiJNXNxzUoh
+	y72kcceTVXyiwcet9p1T3LPJ1qlgmbkRmCjcR17xomAT5n4hiaAez/8ya53BzWPO7ToVrVFDTK8
+	IdY8dlxH9P/jUysdBb3Bn8mf+/254EiUChSA1GBBeHIXp0Lj0lIb0LfFwchpxYcWUm4ZSB5tdO9
+	geKuSNZEyeSADLbDRfQwdm/tYZ7QETJJlkrZ3Sq3KjTlM5//ExKC/7uUr/+em+E9pmG8IZVWpY/
+	yq0VGK2KDDBEmDwyCR0AeUDvRicm6UhDm+W5u73C7I8tbfjmInjbbueKmuy56VFy9c=
+X-Received: by 2002:a05:6102:580f:b0:786:c86c:4f5e with SMTP id ada2fe7eead31-786c86c569emr1400782137.3.1787955860913;
+        Fri, 28 Aug 2026 15:24:20 -0700 (PDT)
+Received: from localhost.localdomain (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e84bd6b3bsm2305936241.11.2026.08.28.15.24.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 15:24:20 -0700 (PDT)
+From: Alfonso Kuen <gerencia@idkmanager.com>
+To: hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com
+Cc: linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: [RFC PATCH 7/7] sched/cache: Documentation: document the PR_SCHED_CACHE prctl
-Date: Fri, 28 Aug 2026 15:29:14 -0700
-Message-Id: <86909723689d9c496b5a67ee2a0ecfd0d63e8712.1787955777.git.tim.c.chen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1787955777.git.tim.c.chen@linux.intel.com>
-References: <cover.1787955777.git.tim.c.chen@linux.intel.com>
+	Alfonso Kuen <gerencia@idkmanager.com>
+Subject: [PATCH] nvmet-tcp: report a bounded MDTS instead of "no limit"
+Date: Fri, 28 Aug 2026 17:24:07 -0500
+Message-ID: <20260828222407.1280-1-gerencia@idkmanager.com>
+X-Mailer: git-send-email 2.53.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,214 +76,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Documentation/scheduler/sched-cache.rst describing cache aware
-scheduling and the PR_SCHED_CACHE prctl() interface: the
-GET/CREATE/SHARE_FROM/DISABLE/ENABLE sub-operations, their arguments,
-the ptrace_may_access() permission model, the return values and how the
-per-task hint composes with the always/advise/never debugfs policy.
+nvmet-tcp does not implement .get_mdts, so nvmet_ctrl_mdts() falls back
+to 0 and identify-controller advertises "no maximum data transfer size".
+The initiator takes that literally: max_hw_sectors becomes UINT_MAX, and
+the block layer then merges requests up to its generic ceiling -- 32 MiB
+on the hosts we measured.
 
-Hook it into the scheduler documentation toctree.
+The target cannot actually serve those. nvmet_tcp_map_data() allocates
+the command scatterlist with
 
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+	cmd->req.sg = sgl_alloc(len, GFP_KERNEL | __GFP_NOWARN,
+				&cmd->req.sg_cnt);
+	if (!cmd->req.sg)
+		return NVME_SC_INTERNAL;
+
+For a 32 MiB command that is 8192 scatterlist entries, so
+sgl_alloc_order() asks kmalloc for an order-5/6 block. Under memory
+fragmentation that fails, and because of __GFP_NOWARN it fails silently
+-- nothing is logged on the target side. The initiator gets
+NVME_SC_INTERNAL, which is a generic status, so NVMe multipath does not
+fail the command over to another path. A 1 MiB command needs 256
+entries, an order-0 allocation, which does not fail. This is why the
+failure is intermittent and load-dependent rather than deterministic.
+
+nvmet-rdma has advertised a bounded MDTS since the series "nvmet: Add
+mdts setting op for controllers" (Max Gurtovoy, Mar 2020), which
+deliberately left other transports untouched. Do the same for TCP, using
+the same 1 MiB value, so initiators size their requests to something the
+target can allocate.
+
+Measured against a Linux nvmet TCP target with three initiators: of
+~1040 failed I/O commands, 980 were exactly 65536 blocks (32 MiB).
+Capping the initiator side with max_sectors_kb=1024 removed them
+entirely. With the failures reaching a page-cached writer, a 2 TiB image
+copy lost roughly 98 GiB while the copy tool exited 0.
+
+Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
 ---
- Documentation/scheduler/index.rst       |   1 +
- Documentation/scheduler/sched-cache.rst | 175 ++++++++++++++++++++++++
- 2 files changed, 176 insertions(+)
- create mode 100644 Documentation/scheduler/sched-cache.rst
+ drivers/nvme/target/tcp.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
-index 17ce8d76befc..5c575593723a 100644
---- a/Documentation/scheduler/index.rst
-+++ b/Documentation/scheduler/index.rst
-@@ -23,5 +23,6 @@ Scheduler
-     sched-stats
-     sched-ext
-     sched-debug
-+    sched-cache
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index e4f603b2a..414ba896e 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -23,6 +23,9 @@
+ #include "nvmet.h"
  
-     text_files
-diff --git a/Documentation/scheduler/sched-cache.rst b/Documentation/scheduler/sched-cache.rst
-new file mode 100644
-index 000000000000..3144934ffa88
---- /dev/null
-+++ b/Documentation/scheduler/sched-cache.rst
-@@ -0,0 +1,175 @@
-+.. SPDX-License-Identifier: GPL-2.0
+ #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
 +
-+=======================
-+Cache Aware Scheduling
-+=======================
++/* Assume mpsmin == device_page_size == 4KB */
++#define NVMET_TCP_MAX_MDTS		8
+ #define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
+ #define NVMET_TCP_BACKLOG 128
+ 
+@@ -2243,6 +2246,11 @@ static ssize_t nvmet_tcp_host_port_addr(struct nvmet_ctrl *ctrl,
+ 			(struct sockaddr *)&queue->sockaddr_peer);
+ }
+ 
++static u8 nvmet_tcp_get_mdts(const struct nvmet_ctrl *ctrl)
++{
++	return NVMET_TCP_MAX_MDTS;
++}
 +
-+Overview
-+========
-+
-+On a machine with several last level caches (LLCs), it can pay off to keep
-+a set of cooperating tasks on CPUs that share one LLC, so that the data
-+they pass between each other stays cache hot instead of bouncing across
-+the interconnect.
-+
-+The scheduler tracks, per group of tasks, how much runtime the group spends
-+on each LLC and nudges the group's members towards the LLC where it is most
-+active, as long as that LLC is not already overcommitted. This is enabled by
-+CONFIG_SCHED_CACHE.
-+
-+The unit that is aggregated is a *cache group* (struct sched_cache_group).
-+By default every address space (mm) gets its own cache group, so the threads
-+of a process are aggregated together and nothing else is. That default is a
-+good fit for a classic multi-threaded process, but not for every workload:
-+
-+  - A workload split across cooperating *processes* rather than threads - a
-+    database with a process per connection, a browser with a renderer per
-+    site, a server and its worker helpers - shares data through shared memory
-+    or pipes but never shares an mm, so the default never aggregates it.
-+
-+  - A process whose threads do not actually share data is aggregated anyway,
-+    just because the threads live in one address space.
-+
-+To cover those cases a process can manage cache group membership explicitly
-+through prctl(2).
-+
-+The prctl() interface
-+=====================
-+
-+::
-+
-+    int prctl(int option, unsigned long subop, unsigned long pid,
-+              unsigned long arg4, unsigned long pid_type);
-+
-+with ``option`` set to ``PR_SCHED_CACHE``. The remaining arguments are:
-+
-+``subop``
-+    Which operation to perform (see below).
-+
-+``pid``
-+    The task the operation applies to. ``0`` means the calling task.
-+
-+``arg4``
-+    Only used by ``PR_SCHED_CACHE_GET`` (output pointer) and
-+    ``PR_SCHED_CACHE_SHARE_FROM`` (source pid). Must be ``0`` for every
-+    other sub-operation.
-+
-+``pid_type``
-+    One of ``PIDTYPE_PID``, ``PIDTYPE_TGID`` or ``PIDTYPE_PGID`` (0, 1, 2).
-+    It selects whether the operation affects just the named thread, its whole
-+    thread group, or its process group. ``PR_SCHED_CACHE_GET`` requires
-+    ``PIDTYPE_PID``.
-+
-+The cache group itself is a kernel object. User space never invents or
-+passes a group id; it only names tasks by pid and asks the kernel to create
-+a group or to copy one task's group onto another. This follows core
-+scheduling, where the cookie is a kernel object and only an obfuscated
-+identifier is returned by ``PR_SCHED_CACHE_GET``.
-+
-+Sub-operations
-+--------------
-+
-+``PR_SCHED_CACHE_GET``
-+    Read back the cache group id of ``pid``. ``arg4`` is a
-+    ``__u64 __user *`` that must be 8-byte aligned; the kernel writes an
-+    obfuscated hash of the task's cache group there (0 if the task currently
-+    has no group). ``pid_type`` must be ``PIDTYPE_PID``.
-+
-+``PR_SCHED_CACHE_CREATE``
-+    Allocate a fresh cache group and install it on the target task(s). This
-+    operation is *not* idempotent: each call creates a new group. A caller
-+    that wants several tasks in one group should ``CREATE`` once and then
-+    ``SHARE_FROM`` for the rest.
-+
-+``PR_SCHED_CACHE_SHARE_FROM``
-+    Copy the cache group of the task named by ``arg4`` (the source) onto the
-+    task(s) named by ``pid``. This is how a task joins an existing group.
-+
-+``PR_SCHED_CACHE_DISABLE`` / ``PR_SCHED_CACHE_ENABLE``
-+    Opt the target's cache group out of / back into LLC aggregation. Because
-+    the flag lives on the (shared) group, changing it for one member changes
-+    it for every task in the group.
-+
-+Permissions
-+-----------
-+
-+The caller must be able to ``ptrace_may_access(PTRACE_MODE_READ_REALCREDS)``
-+every task it touches. For the ``PIDTYPE_TGID`` and ``PIDTYPE_PGID`` scopes
-+the access of *all* tasks in the group is checked before *any* task is
-+changed, so the operation either applies to the whole group or fails with
-+-EPERM without touching anyone. ``PR_SCHED_CACHE_SHARE_FROM`` additionally
-+requires access to the source task.
-+
-+Kernel threads cannot be targeted.
-+
-+Return value
-+------------
-+
-+Returns 0 on success. On error one of:
-+
-+``-EINVAL``
-+    Unknown sub-operation, out-of-range ``pid``/``pid_type``, ``arg4`` given
-+    for a sub-operation that does not take one, misaligned ``GET`` pointer,
-+    ``GET`` with a ``pid_type`` other than ``PIDTYPE_PID``, or the target is
-+    a kernel thread.
-+
-+``-ESRCH``
-+    The target (or, for ``SHARE_FROM``, the source) task does not exist.
-+
-+``-EPERM``
-+    The caller is not allowed to access the target (or source) task.
-+
-+``-ENOENT``
-+    The source task (``SHARE_FROM``) or target task (``DISABLE``/``ENABLE``)
-+    has no cache group.
-+
-+``-ENOMEM``
-+    ``CREATE`` could not allocate a new group.
-+
-+``-EFAULT``
-+    ``GET`` could not write to the ``arg4`` pointer.
-+
-+Interaction with the system-wide policy
-+=======================================
-+
-+A system-wide policy composes with the per-task hint the same way THP does.
-+It is set through debugfs::
-+
-+    /sys/kernel/debug/sched/llc_balancing/enabled
-+
-+and takes one of three modes:
-+
-+``always``
-+    Always aggregate, ignoring the per-group disable flag (the default).
-+
-+``advise``
-+    Honour the per-group flag set through ``PR_SCHED_CACHE_DISABLE`` /
-+    ``PR_SCHED_CACHE_ENABLE``.
-+
-+``never``
-+    Disable cache aware scheduling entirely.
-+
-+For backward compatibility the knob still accepts the old boolean spelling on
-+write (``1``/``y``/``on`` map to ``always``, ``0``/``n``/``off`` to
-+``never``); reads show ``[always] advise never`` with the active mode in
-+brackets.
-+
-+The same three modes can be selected at boot time, before any process has
-+had a chance to use the prctl, with the kernel command line parameter::
-+
-+    sched_cache={always|advise|never}
-+
-+The debugfs knob can still be written afterwards to change the mode at
-+runtime.
-+
-+Example
-+=======
-+
-+Put a helper process into the same cache group as its parent::
-+
-+    /* In the parent, once per instance. */
-+    prctl(PR_SCHED_CACHE, PR_SCHED_CACHE_CREATE, 0, 0, PIDTYPE_TGID);
-+
-+    /* In (or on behalf of) each helper. */
-+    prctl(PR_SCHED_CACHE, PR_SCHED_CACHE_SHARE_FROM,
-+          helper_pid, parent_tgid, PIDTYPE_PID);
+ static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
+ 	.owner			= THIS_MODULE,
+ 	.type			= NVMF_TRTYPE_TCP,
+@@ -2254,6 +2262,7 @@ static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
+ 	.install_queue		= nvmet_tcp_install_queue,
+ 	.disc_traddr		= nvmet_tcp_disc_port_addr,
+ 	.host_traddr		= nvmet_tcp_host_port_addr,
++	.get_mdts		= nvmet_tcp_get_mdts,
+ };
+ 
+ static int __init nvmet_tcp_init(void)
 -- 
-2.32.0
+2.47.3
 
