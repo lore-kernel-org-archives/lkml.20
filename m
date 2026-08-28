@@ -1,359 +1,384 @@
-Received: from mail-vk1-f225.google.com (mail-vk1-f225.google.com [209.85.221.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE7A1799F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.225
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787875490; cv=none; b=gWvNEjS9+QbpapM89HVobpiTSfz2Ci9vr6MhWPvKcRExn4xm0HQ+BVOLsEEZ/RAOAIBArBnYgioZEtmnxYUMVwdOxLLa3518ucYIhIgA8e9o0c1gQ4JOPqiArHGJixgh4QlYjHm2KwjaAghqYZsCSJ5RF3QvjkV1IS69lh1y6lQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787875490; c=relaxed/simple;
-	bh=1pYqiTxXm0+SMfKGAeRCczJxEocDl0Kf8x1xh/dgSpw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mhWi/xt0RjOhsD2xAuNOowqEZJ4Dqw1gL6Uqgqwkwo2xP2fMz9foaNqmMophT5I6EZY3wPvkepy4RZcarYQ0bahJ97jhEjm/uKsXaUmp5cfBxBeQVMof9CCj7i6JNkypD0+O4i+8AB5c4qeQAxvnHN+Bz1q3t1GRq24ZwMlkJZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ScU3Uou8; arc=none smtp.client-ip=209.85.221.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1582AE76;
+	Fri, 28 Aug 2026 00:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787875705; cv=fail; b=tsHMKp0p/lILFht0e9pj5mL7e5TBXuLyStkixMki1mMKE8TeFEtyenQsHPVlPJNd9usHHL8o1hu+GiUSoFfIGQceDuZ++qepF1EWzzxS0TWdT8X4lN4pF6N9xYxBbHcwxrEzHC0dcDsZMlLmSixv3U0rjz1Wr4vL/QTlt5uo/9M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787875705; c=relaxed/simple;
+	bh=4j/YCI2JX/XflnZdJ5sTqPh1NUyEJNAC/AtyufvAJkU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=UQgB79iqOj+Xku+TgRgbD88ckH13e5hT11u8qepLlOATpIlzvM91WDlQ5ZflprsF/NvdWM1zTwsAZko87XJXJSRKk1/RN/IC76caJXUaNlzrzisKpAsiSm1ZWxGyB4nQz4bnsgu5Ajyz8F6jtl95jkfEXdkmiuq9zq7zsq5R5XQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dMRqpr/Q; arc=fail smtp.client-ip=40.107.209.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ScU3Uou8"
-Received: by mail-vk1-f225.google.com with SMTP id 71dfb90a1353d-5bfc54558d5so311585e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:04:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787875488; x=1788480288;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Haz3HP/i3cNdz3Vr895i/KEiH89T/IdKaTxO0jkbgq8=;
-        b=K9vv6f2f4xl5MyRlUInyi2J0JENJTtkgZ4kokgRWmEhKmJn+ut/sP/uhOw4dD1KeVt
-         PNdfYitIyRqZ7CQXMIpFs7CQlq5qhtBSV6+09klOMXQ93ghw0eE3lT9vGwgr8IM3ge6L
-         3EDZRkMDbDjNf/NG0BfZsCp5CJ86olfx77vWZd7hmvnNQdtM7j9iE1Vfbt8Xe8pc6jVN
-         hVIRAF9kGwKigdpLChFxttOszcclDtz00s/CTY905PKGeSogGdi9DmE92V1MA9WBRKcl
-         32jjG4lbhlE7hSPyEiBxXUtDvBzqTNL5Ski2O7ZXVP8aL08cq2rulYmnzl6tD3jFkwsc
-         r4vQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpTkQOv41Po9sq8HrQ/7UxuB8VaL1WM5iaDOSkaFX0x53uTmVCrcnIm+xsx/XyaxalO2W/WVBJQlditF88=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCMJGEgwg9POAgxJ3zSw36CZ+GNUOBSfg5yL92e5CuS93Z/ejG
-	sKd333FPBsxHy4gpHuY870NXE74TUh+iZ2HOadI1Oo3qcREopCuHVK12cvSpl/SJnNloMvfTG4R
-	BEbtO6+WKEo8jjvr0330wesTPeJ2IbvuV2CjwZZ8SqHdRVCgdzZOgum6OgvCyY1aLqKQ49xNRka
-	lEEcrP8eP5RdOlVJCJeZCUF7pegiNRvC+ufutWEYL45G5yG16lZmfsqvbED5MFyuWl8uinmJtbZ
-	BaumyFmcFGeX7jse15qR4ty+g==
-X-Gm-Gg: AR+sD10KDmRHpOTQ1goS0LRtvej5mu0m3GahHoL0LeZrPNJO+FwbcPZJNWibKd2M4nt
-	U4/71QuGUNMaNDOFKqI3I1uQllCY9Ubmf89KuKo3Amy81GB6uCrHRjFckvggItHb7iCfQSRGqp7
-	KPTOUrTBWLTasgvYxPgj+64i+z0t9DdOanq0b0Naa8fEbgGcRH5w7MLV2gEnUEZYfrUWfNK6ywV
-	a8XhQdxFEhChvyE8r/wTy+qY8wzR/J/gW0seM/avHZtcveF6SGcdJTfOZLAX810zu+n3OzkKEMz
-	hU3ziufKhAl5ZiGpWZ0Mt2PHMaqfeCt07Nt+uOMJoNkfLGRZHbPCuVVM1C4oslQpaqer0VN1F4K
-	HSlbejM5S581egnr8ipm+Np+P9nHWhWZoFp1qo/r8pZ0WwZpX0Kq24o+SfUUi7ZZihtjDz4fv5X
-	1oJHm84hKyWyH6ijHe4eHieVAvAtcb2h7bS0f6vi4=
-X-Received: by 2002:a05:6122:288d:b0:5bd:b0a7:47e7 with SMTP id 71dfb90a1353d-5c6807bc6d6mr865922e0c.3.1787875488068;
-        Thu, 27 Aug 2026 17:04:48 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c6f860eefbsm3551e0c.2.2026.08.27.17.04.46
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 27 Aug 2026 17:04:48 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a5d7e3ac13so266541a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:04:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1787875486; x=1788480286; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Haz3HP/i3cNdz3Vr895i/KEiH89T/IdKaTxO0jkbgq8=;
-        b=ScU3Uou8qRymlvf8zHOJnN9o8LgNFbKi8BulaWSj/M7X8/138cFr65aClHbUD0VDCq
-         GUFns7i934b1epmqOppC+P10RNQ19c+8msa2qwY8JBKlNFzRbV5B7zuia3TMppMpIFWN
-         dSRmkY0nePGXqkwWSTOGdI9t7m/jUaqmv7eEY=
-X-Forwarded-Encrypted: i=1; AHgh+Rq6TkNzYXNEE3PHZ4MkF0oXrC6HQG+x1VwPis/EP9HJ3WBCFaoGUMRhjFvnFNEkFERIA7UymGJENrRSyWw=@vger.kernel.org
-X-Received: by 2002:a05:6402:3223:b0:6a1:2efd:8687 with SMTP id 4fb4d7f45d1cf-6a60d3fb582mr1361121a12.14.1787875485725;
-        Thu, 27 Aug 2026 17:04:45 -0700 (PDT)
-X-Received: by 2002:a05:6402:3223:b0:6a1:2efd:8687 with SMTP id
- 4fb4d7f45d1cf-6a60d3fb582mr1361098a12.14.1787875485255; Thu, 27 Aug 2026
- 17:04:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dMRqpr/Q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=heF+PqkbLDqzSYUImtw87wwDkGHwRLpMic2t73o3YZMMTsm1VRVoiw582YO8++UsI2pRIbtNq9+pzPAsz9f0LSJCFB4Ow1WG4P39Q9tPGaPeKF75I4a+OkJfDL5Ez+E43RLD5AjPSbSjdpTenkuGVxXbtlL+r43qmcfdUGde6YdHExjuvltc37NCTUo8fEjESiJmf/sl/lkxn7X5cpoLuWd+Gzh879YhmU8xzKHs979a9qY6Ckc5kazn2NAVBEiIvZiWM+HuNsuNjVjdyoWOXvPpYFvvyT3MkobFc5OWgpS3s88w0AzD+kqYUpP6lMzskG+nHpbc4bZyiHNfzGCnqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ab3E7GZ3xKj5gOrH749OnqfnaeJm2ovJVqnsKO6n/VQ=;
+ b=pO+XwfIgYnHGoX5RofeBxKMsFOvEtk8ORmv2N207GHjMpor+eKCEaBp8lTX9xk3h4RjHfQmGIMm1YOap4V7kPJDDz8nPMu14+q8DfIzSxkWskvNXGBYVVoX8Jui/kk/9+FiNCECWuXkJe8ZGwx9JQM6tEPT8SuwJWhp73z8fT4/AzRZloIa3WCCaxvPf3apc0ZIbkvaUjBOfY0cz//6PJiQd7tc18DRhF4VjG6XZabTpqf6MuisuKioUEZOC6NLapy7WnFKalP9ckk5P9J8buz9yAyIj6jCROp83/9IujtGpxwKDHbKF57PLz5t6/5150o5QmdnscF9QaRjYMuM47w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ab3E7GZ3xKj5gOrH749OnqfnaeJm2ovJVqnsKO6n/VQ=;
+ b=dMRqpr/QxjeP5rgGFRcszDVfaaKu+QsLPux9qbxbERejYxaDSD+s1ANuCcrPr2ZYbBJUKw25oAjedyPIzfEhEpJM1LOI5/m9vQk2x+2q5NZEBvmuswXY6PSI63x1Yhq16ESy9mlNjRJtFdyrBhEVR7M6gb9YtO8XRuK5QfdzRyNsTe8LA4sPgO8dcb+fhIWMlopqDB3HHPPbnZw4ohiN1b2mIWg2WjeZ/6Pccv1xRRMVznz89feznKgP5+wAjfhEgiMJwz4HfHZZAwpYpcQvRD3J+ysQE7i+CPHkX1fxaoA6h3JUkQzKJoApR9eljFy85OqZyIKHgrPDP/CmvSsnag==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DS7PR12MB6022.namprd12.prod.outlook.com (2603:10b6:8:86::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.10; Fri, 28 Aug 2026 00:08:17 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 00:08:17 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Aug 2026 09:08:14 +0900
+Message-Id: <DL051FB1HOBY.2UC911T3M9AIS@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alice Ryhl" <aliceryhl@google.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
+ <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
+ <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
+ <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+ <DKZSPZS1CQ29.11DHEBVKWF21O@nvidia.com>
+ <DKZSWB7OFDRY.1QKAIFC1QP9RA@garyguo.net>
+ <CAH5fLgiGcOn+HQLj4w9yDc31V54PbqNUQv8cUFRoEuFzQrAAZA@mail.gmail.com>
+In-Reply-To: <CAH5fLgiGcOn+HQLj4w9yDc31V54PbqNUQv8cUFRoEuFzQrAAZA@mail.gmail.com>
+X-ClientProxiedBy: TYCP286CA0078.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
- <20260826201500.3000125-2-danesh.petigara@broadcom.com> <067b7e2e-f2b2-4462-96f1-3a1e35bd25e8@kernel.org>
- <682b68a0-03b7-4ec9-9d17-698fe134b57a@broadcom.com> <e21a7302-44db-4e20-805b-5c1de1f59c56@kernel.org>
-In-Reply-To: <e21a7302-44db-4e20-805b-5c1de1f59c56@kernel.org>
-From: Danesh Petigara <danesh.petigara@broadcom.com>
-Date: Thu, 27 Aug 2026 17:04:33 -0700
-X-Gm-Features: AcwNN1XUceWGwVwlW2dOau8CzdU833EI-wCjdUdMcHAYLRgGIhobFHSxU9_Pxm0
-Message-ID: <CADvvoPmQ2nhfWSHGvAVyFyK4FoA3p1juWETOohSpCeGiKBGKWA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] memory: brcmstb_dpfe: Fix out-of-bounds access due to
- DCPU offset
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, mmayer@broadcom.com, 
-	bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Justin Chen <justin.chen@broadcom.com>, 
-	stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000040e258065a1033e9"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS7PR12MB6022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bb7879c-b7c5-4928-421b-08df04987629
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|10070799003|366016|7416014|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	etndff+zlTYcrMMnDaLYrozQqV0ZC2lmflVpTf54r+UfFpIoXdlWMz80zZUTzChz2IIKBYU8HWmeZzZe0VVx3vbtf0bNYuncmnZ+Ig3cnBb28fhKKNrOiPRzc/tC+Ssmjfcv7DQrrkcGOge9nNKQ9IA4Lci5n0J9a01BGQ6W8NDtOqnx9fsOvXEKKEtmrxVyPkazM7d1OKH3//YNxFvi/s11QGYa6D8m4myLjNTXJ94JfW6JgMg3jgUOi6b1Mm8UQN1t+LZ47zdrqgqPjT5m1pcqSyxw+pyISvSFh5ZV2VARUGRkJaUqgkFai9QL62eJI+VMLow9QujgeRuTkKTlDtn3tJ9qDTxnTVT4rprEk8xO+XXFtWIGR00f1DjE6/02H8huMcT9rfRHvjPXXnqlaeKxaQhqq9feIThSYvjRznlW9GLggRvS8vdAoENroRFu7IUc3u8KC+7zSWrObGggMH/NradsGqMQrnDOI8hLrEOC+SNHlOvlTYfrCaIXXutRSdLri13swAj23l4nZJZu+LbXam01RsRW7v9SvHbUt3notMkIPXjtL6AC0d29DoSGADWEzsZ3tihqI5/buJpxR57eGRKIvmQR74DBpA3mQsFkh8FVjeh5P/RIAacy5WYn9R3BLP+RVPcPLeIncz6js0omSXpUPu16ft1/JXWo9nQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(10070799003)(366016)(7416014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aFpTbzZCRGRwNlF6WitFT01LZkt4L2RjWGh2ZDRtNjVMdVA3bUZ6ODNoYlEx?=
+ =?utf-8?B?TGVyN0ZsUkh3UzRsMUZKaEZQckNYdll3U1RDWWVhM2xmSnhZa1h1c2hGa3Rt?=
+ =?utf-8?B?UWZzb1hUOFlMRzJlT2QvZUt3THJQOFRKK2pJbDJoWk8xOTJKS3kreVhEMHF6?=
+ =?utf-8?B?NGZhNzgyb0xYTHN5ZkVzYU5neXRqb0l4VU9CbUlsL0RscmVFNXFaMnR0NTdH?=
+ =?utf-8?B?U3FrTTVRaVN6NkxKQVcwY25laERDeGxOOTlZTnVBUkxvbmRmN0d4dkhONlNN?=
+ =?utf-8?B?ZFZycWlET1F0L1h5WUsrMFVJcEx0T2gvTlBLT2FCVG9qeWtGL0hEbnZQb3kz?=
+ =?utf-8?B?L0llVXVUWTFETFhtWlM2eFJucnJFcnZsVm9QYm5FMFhFdDJDN2RRa3ZQWGgz?=
+ =?utf-8?B?dndLWTZhRkNCZzYzV3hibENBb0Q4Y3pldkFva1JMaHhRWmJJRVBLdlQ5NXZI?=
+ =?utf-8?B?ODh0NzJ3TmpvUzBGY1pXNjZKRkpLY2ZUNHhTbU1GeGI5cHdKQURmbVlkbWRI?=
+ =?utf-8?B?RlkvV2xwNW16dTlGUGI5V216QkphNnJ1RFhFODB1bDdrYnBCVy93VUlKc1FT?=
+ =?utf-8?B?cjFKeFZVVktkM2RtbFQ5YkxxSXI1bmxnNDZ4ZXVKdVZ2QUsxM3kwUjlacFVR?=
+ =?utf-8?B?MkJLU3dsS0k2bTdYYUo5WVozN0Fkak9UOTlTVE5RYi9vbGVGS01oYzdtNXU3?=
+ =?utf-8?B?VDBDMk54bDZ5LzkrVmZya25TMGd3Q09DeFhMNW0wMk1lRldBYTBONUw3MWVD?=
+ =?utf-8?B?NDc4bFlJb00velJ2d3hXMHNZL3BHQ3ZnTVdqZ3N5VG4vVmJkUGhvaTdmSDg5?=
+ =?utf-8?B?Vk1Vam5WRUNXbDV6aDZMZmdlUVFVamtacFRIVHByZ3gzc0pOTWNacXNyNUtM?=
+ =?utf-8?B?bUVoQ0JCTnAvV2g3bEhwZEpieWxVeTBlTWRpQVg5WlArNFhYKysvR0NUR0U4?=
+ =?utf-8?B?ZnZRMmlqaWhwc0RYY2xNd0ZUZnNNNG5jM2N2Wllpbnc3Vkg5UXRMU0JkZlk3?=
+ =?utf-8?B?Rk5hMEpDZEpQd25haXVhYzR4Vlp2YWdRcUZaVkpQWVJiU1ovd3BvbUpnZjJr?=
+ =?utf-8?B?MmhUdVh6QlYwRTFTa3hxb25Wd2RhWjcycWp4eHpabGRVeUE1T3lwdUpvRUxF?=
+ =?utf-8?B?T0hoVGlqa2hMajNFTFNJbERsQTc2ZnBpK0dIZGtiUURrSXZOb043aWpQQi91?=
+ =?utf-8?B?T2Zia1FqbmtST3g4bFR4c3ZlQWFXRGJpdllpWHhrTjhTZTBPd3ZJeEQ2Q1lH?=
+ =?utf-8?B?YjF0cExrTTVRaWRidjAvTlZIaFIwNTJ6czkzSGMvVVRjdGUrVFdqamRaWnV4?=
+ =?utf-8?B?bFNWK01XZll3TWdrU3h1cWVvM2w2SWhqMm8yZlJ2LzEzamIvUjNKZEN1dGZT?=
+ =?utf-8?B?THJrQzhnZTUxRkNtdUFidDYxS3BDN2xRVkd3TnFxTTFDNHpGL2dZcVRQc1Nn?=
+ =?utf-8?B?QTJXTlVmeDRoNVhySFlsNEw1ZXVCU3IyaWd2S3JZaDF0T2Z1aWsrNXdSQXZj?=
+ =?utf-8?B?aG5WaFpxWW9Ucm0zVGNROWdQcmNNa1ZlUTJrYzJtN2U1bHg3VWo4UTVxRXBR?=
+ =?utf-8?B?b0RjaldmaFBKdHp4a3lOMkF5VGZZWFNBRElZT0Z6VTkyblZvMlR6TndvcVNB?=
+ =?utf-8?B?eWRtTXJINmN5VTlQNkRnMW1xNVdWbDVFS0QyZ0pJbXZUSHgwcUlCZTF2ZDNF?=
+ =?utf-8?B?Y0d1aGhIbm5wdTc5WGV1dnQ5SWFwdklVMDZtRzhHazd6M01GeDhTbnpwRlho?=
+ =?utf-8?B?dmpDR255eDR2Uk9SNEJvaThQREV2QzdxZ1B2cnc2TlRLWTRycFVnN2hGWFgy?=
+ =?utf-8?B?Q0h6RTFYYVZ4Q1NuSTQ3NWQrVm1QbnBEMmVaSHpMRGdDRFBoS3JLZ2JHc3Ar?=
+ =?utf-8?B?QTliaEZObWx0VmJZVXE4ZElialZQSTFGMFhGdkc3T2dVTzVoSGIySW1zWGFP?=
+ =?utf-8?B?dW56L2VFNEY4TG9lN1lLTGhlTEZ3Z0lCdGF1RytkL3RlOE9zRTEzeWNIT0la?=
+ =?utf-8?B?RlFSTlNLVjNtd3RseExPcU1reEF3S0tsRE9nT2pPdmZnaXZBSzJxbmVRajda?=
+ =?utf-8?B?bDc1VEl6UTNMWlgzdHV2ek5obksrZENlWFNBdUliK1JJRVEyZVBVeHo5dVZ2?=
+ =?utf-8?B?Q2RUU3VFVjN1anFacjdyQ25IZkk3OTZxamVZRk55TVE2ZWpVQjI1d3hQS2tZ?=
+ =?utf-8?B?cUtoY2NJOEl3NjNNYnp1UnZHa3lnSGxCZ3RqNnhJQUdQSWFpc0tsSTVHdlQv?=
+ =?utf-8?B?aDlvajNVZzZTeVVDdHJvYVJydW05UzhSb0dtU1duZUgrTytLK0hxNW1iem1J?=
+ =?utf-8?B?TzU5TnRIVEVWNnF4cnFyMU1uQUZiQTYyZEtUbEdibmk2cUdJQld6VmVtVjk4?=
+ =?utf-8?Q?XVyC0xP1WOQ+arcx361lkv3QGcMP7r4mtTkGiOzXQAot7?=
+X-MS-Exchange-AntiSpam-MessageData-1: fnWud3lhAr1lJA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bb7879c-b7c5-4928-421b-08df04987629
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 00:08:17.5597
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3dOj9rS0py2QKxgFmZJmQwA3y13UWdcoi2iDkWTCHENH6pVL/zb8ca1Jz6/xayE5WM8tabQ5MQWRaKMfWyM0kQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6022
 
---00000000000040e258065a1033e9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu Aug 27, 2026 at 11:55 PM JST, Alice Ryhl wrote:
+> On Thu, Aug 27, 2026 at 4:37=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote=
+:
+>>
+>> On Thu Aug 27, 2026 at 3:29 PM BST, Alexandre Courbot wrote:
+>> > On Thu Aug 27, 2026 at 10:48 PM JST, Eliot Courtney wrote:
+>> >> On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
+>> >>> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
+>> >>>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
+>> >>>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
+>> >>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>> >>>>>> unfortunate because it disincentivizes using it in interface boun=
+daries.
+>> >>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for c=
+onstant
+>> >>>>>> value) takes a const integer expression and widens it to i128 (at=
+ build
+>> >>>>>> time only) before passing it as a const generic value to a new tr=
+ait
+>> >>>>>> function `FromConst::from_const`. The trait is implemented by Non=
+Zero,
+>> >>>>>> Bounded, and Alignment and lets values of each be constructed fro=
+m
+>> >>>>>> constants without a verbose turbofish syntax. For example,
+>> >>>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
+>> >>>>>>
+>> >>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>> >>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> >>>>>
+>> >>>>> This doesn't work in const context, so I don't think this is a gre=
+at
+>> >>>>> strategy.
+>> >>>>>
+>> >>>>> I would want to use it for cases like this:
+>> >>>>>
+>> >>>>> drivers/android/binder/netlink.rs
+>> >>>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_R=
+EPORT as u8;
+>> >>>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDE=
+R_A_REPORT_ERROR as c_int;
+>> >>>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BIN=
+DER_A_REPORT_CONTEXT as c_int;
+>> >>>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BI=
+NDER_A_REPORT_FROM_PID as c_int;
+>> >>>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BI=
+NDER_A_REPORT_FROM_TID as c_int;
+>> >>>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BIND=
+ER_A_REPORT_TO_PID as c_int;
+>> >>>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BIND=
+ER_A_REPORT_TO_TID as c_int;
+>> >>>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BI=
+NDER_A_REPORT_IS_REPLY as c_int;
+>> >>>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDE=
+R_A_REPORT_FLAGS as c_int;
+>> >>>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_CODE as c_int;
+>> >>>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::B=
+INDER_A_REPORT_DATA_SIZE as c_int;
+>> >>>>
+>> >>>> `const_as!` [1] should do the trick for this, provided you don't ne=
+ed to
+>> >>>> create a const `NonZero`.
+>> >>>>
+>> >>>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2=
+@nvidia.com/
+>> >>>
+>> >>> ... but I agree it would be nice to be able to use this in const
+>> >>> context. And there is an overlap with `const_as!` that becomes more
+>> >>> obvious the more I look at it.
+>> >>>
+>> >>> In for a penny, in for a pound of macro code as they say. Since we
+>> >>> agreed on using macros, how about unifying both under the same `cv!`
+>> >>> macro, with as many branches as we have types we want to initialize =
+from
+>> >>> a constant value? For instance:
+>> >>>
+>> >>>     // Does what `const_as!` currently does under the hood.
+>> >>>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDE=
+R_CMD_REPORT));
+>> >>>     // Calls `NonZero::new().unwrap()` under the hood.
+>> >>>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uap=
+i::NONZERO_VALUE));
+>> >>>     // Calls `Bounded::new::<{ ...}>()` under the hood.
+>> >>>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel:=
+:uapi::SMALL_VALUE));
+>> >>>
+>> >>> I.e. we would have one extra matching arm in `cv!` per type it handl=
+es
+>> >>> instead of implementing a trait. The syntax of the macro would look =
+more
+>> >>> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have =
+the
+>> >>> limitations of such a semantic dispatch.
+>> >>>
+>> >>> Even the name `const_as!` wasn't really accurate to begin with: what=
+ it
+>> >>> really emulates is a const `try_from`, and we even discussed
+>> >>> implementing it in these terms in the future.
+>> >>>
+>> >>> I'm sure the idea needs more polishing but I think there's something=
+ to
+>> >>> explore here.
+>> >>
+>> >> Yeah I agree that const_as! is similar and if we had const traits we
+>> >> could fully merge them and have it always work in a const context for
+>> >> both duties (which are really a const tryfrom as you said).
+>> >>
+>> >> I am not sure about the suggested syntax (e.g.
+>> >> cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
+>> >> verbose.
+>> >
+>> > A bit, but what I like is that it looks very close to what you would
+>> > naturally write if you had const traits (minus the unwraps), so you
+>> > don't have to learn a new syntax. As long as it's not *more* verbose
+>> > than natural Rust, I think it's fine.
+>> >
+>> > It also has the benefit of relying less on type inference, i.e. `cv!(5=
+)`
+>> > requires the caller to specify the type even with a `let` statement,
+>> > whereas you could do `let v =3D cv!(NonZero::new(5));` and it would wo=
+rk
+>> > as expected.
+>>
+>> Even with const try_from we'd still want `cv!()` to avoid having to writ=
+e
+>>
+>>     const { Type::try_from(...).unwrap() }
+>>
+>> I think having `=3D>` syntax is great because it is a good place to *opt=
+ionally*
+>> require type annotation.
+>>
+>> For enum repr for example, I think it'd be great that
+>>
+>>     const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT)=
+;
+>>
+>> would work directly. It might need some tricks, which I have hard time c=
+oming up
+>> as I'm not feeling very well today, but I'll give it a shot over the wee=
+kend...
+>
+> One could potentially define a trait with a MIN and MAX value
+> constant, and then implement cv! like this:
+>
+> 1. Verify that the value lies between MIN and MAX.
+> 2. Cast the value to uNN of the same size as the target type.
+> 3. Transmute the uNN to the target type.
+>
+> Since the trait has no methods, this works in const eval.
+>
+> Alice
 
-On Thu, Aug 27, 2026 at 2:31=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
-> On 27/08/2026 19:37, Florian Fainelli wrote:
-> > On 8/26/26 23:48, Krzysztof Kozlowski wrote:
-> >> On 26/08/2026 22:14, Danesh Petigara wrote:
-> >>> From: Justin Chen <justin.chen@broadcom.com>
-> >>>
-> >>> On API v1/v2 boards, the DCPU coprocessor can steer kernel readl_rela=
-xed()
-> >>> and writel_relaxed() to any address within 256 MB of the ioremapped D=
-PFE
-> >>> dmem or regs base. The DCPU firmware provides a 28-bit offset which t=
-he
-> >>> driver adds to the ioremap base without any bounds checking in
-> >>> get_msg_ptr().
-> >>>
-> >>> This allows a compromised DCPU firmware to trick the host kernel into
-> >>> reading or writing arbitrary memory-mapped I/O registers in vmalloc
-> >>> space. When combined with a root-writable sysfs file like dpfe_refres=
-h,
-> >>> it provides an arbitrary MMIO write primitive. Similarly, world-reada=
-ble
-> >>> sysfs files can be used to leak other devices' register contents.
-> >>
-> >> If someone can compromise firmware to provide different addresses, the=
-n
-> >> what stops this person to change DTB with completely different MMIO
-> >> ranges for this device?
-> >
-> > On our platforms the DTB is part of the boot loader which is
-> > signed+encrypted and customers do not build any UART driver or
-> > user-interface so changing the DTB is somewhat difficult. Same goes wit=
-h
-> > the Linux kernel, it's also signed+encrypted. This is defense in depth
-> > at this point.
->
-> Ack
->
-> >
-> >>
-> >> Isn't better just to drop root-writeable sysfs interfaces, since they
-> >> are the insecure parts?
-> >
-> > Yes that would probably be an acceptable move forward. Markus do you
-> > remember what was the use case for the dpfe_refresh file to be R/W?
->
-> That's in this case separate solution, worth anyway investigating.
->
-> >
-> >>
-> >>>
-> >>> Fix this by recording the resource_size() of the dmem and regs iorema=
-ps
-> >>> at probe time, and rejecting any offset that, along with the largest
-> >>> field accessed (DRAM_VENDOR_ERROR + sizeof(u32)), exceeds the recorde=
-d
-> >>> mapping size.
-> >>>
-> >>> Fixes: fee5f1ef6cf7 ("memory: brcmstb: dpfe: support new way of passi=
-ng data from the DCPU")
-> >>> Cc: stable@vger.kernel.org
-> >>> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
-> >>> Assisted-by: Gemini:gemini-3.1-pro-preview cursor
-> >>> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
-> >>> ---
-> >>>   drivers/memory/brcmstb_dpfe.c | 22 ++++++++++++++++++++--
-> >>>   1 file changed, 20 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/memory/brcmstb_dpfe.c b/drivers/memory/brcmstb_d=
-pfe.c
-> >>> index 08d9e05b1b33..66343205f585 100644
-> >>> --- a/drivers/memory/brcmstb_dpfe.c
-> >>> +++ b/drivers/memory/brcmstb_dpfe.c
-> >>> @@ -182,6 +182,8 @@ struct brcmstb_dpfe_priv {
-> >>>     void __iomem *regs;
-> >>>     void __iomem *dmem;
-> >>>     void __iomem *imem;
-> >>> +   resource_size_t regs_size;
-> >>> +   resource_size_t dmem_size;
-> >>>     struct device *dev;
-> >>>     const struct dpfe_api *dpfe_api;
-> >>>     struct mutex lock;
-> >>> @@ -401,9 +403,14 @@ static void __iomem *get_msg_ptr(struct brcmstb_=
-dpfe_priv *priv, u32 response,
-> >>>      */
-> >>>     switch (msg_type) {
-> >>>     case 1:
-> >>> +           if (DCPU_MSG_RAM_START + offset + DRAM_VENDOR_ERROR +
-> >>> +               sizeof(u32) > priv->regs_size)
-> >>> +                   goto bad_offset;
-> >>>             ptr =3D priv->regs + DCPU_MSG_RAM_START + offset;
-> >>>             break;
-> >>>     case 0:
-> >>> +           if (offset + DRAM_VENDOR_ERROR + sizeof(u32) > priv->dmem=
-_size)
-> >>> +                   goto bad_offset;
-> >>>             ptr =3D priv->dmem + offset;
-> >>>             break;
-> >>>     default:
-> >>> @@ -415,6 +422,12 @@ static void __iomem *get_msg_ptr(struct brcmstb_=
-dpfe_priv *priv, u32 response,
-> >>>     }
-> >>>
-> >>>     return ptr;
-> >>> +
-> >>> +bad_offset:
-> >>> +   dev_err(priv->dev, "DCPU returned out-of-range offset %#x\n", off=
-set);
-> >>> +   if (buf && size)
-> >>> +           *size =3D sprintf(buf, "ERROR: DCPU offset out of range\n=
-");
-> >>> +   return NULL;
-> >>>   }
-> >>>
-> >>>   static void __finalize_command(struct brcmstb_dpfe_priv *priv)
-> >>> @@ -858,6 +871,7 @@ static int brcmstb_dpfe_probe(struct platform_dev=
-ice *pdev)
-> >>>   {
-> >>>     struct device *dev =3D &pdev->dev;
-> >>>     struct brcmstb_dpfe_priv *priv;
-> >>> +   struct resource *res;
-> >>>     int ret;
-> >>>
-> >>>     priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> >>> @@ -869,17 +883,21 @@ static int brcmstb_dpfe_probe(struct platform_d=
-evice *pdev)
-> >>>     mutex_init(&priv->lock);
-> >>>     platform_set_drvdata(pdev, priv);
-> >>>
-> >>> -   priv->regs =3D devm_platform_ioremap_resource_byname(pdev, "dpfe-=
-cpu");
-> >>> +   res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "dpfe-=
-cpu");
-> >>
-> >> You cannot use devm_platform_get_and_ioremap_resource()? Are the 'reg'
-> >> entries flexible/random?
-> >
-> > IIRC the names and indexes are stable so we could do a positional index
-> > resource lookup, but maybe what we want is to introduce a
-> > devm_platform_get_and_ioremap_resource_by_name()?
->
-> If the bindings enforces strict order, that could be a way, but I do not
-> want to push towards new
-> devm_platform_get_and_ioremap_resource_by_name() because that could lead
-> to long patchset with bikeshedding about how many wrappers we need...
->
-> Approach is fine then. New wrapper can be brought on top.
+Using an associated const by itself appears to work - I tried this which
+is very similar to Alice's suggested approach above:
 
-I would like to confirm that the patches are acceptable in their
-current form, or if
-they require additional changes.
+```
+macro_rules! const_assert {
+    ($condition:expr $(,$arg:literal)?) =3D> {
+        const { ::core::assert!($condition $(,$arg)?) };
+    };
+}
 
-Thanks,
-Danesh
+trait FromConst<const V: i128>: Sized {
+    const VALUE: Self;
+}
 
---00000000000040e258065a1033e9
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+macro_rules! cv {
+    (@widen $v:expr) =3D> {{
+        #[allow(unused_comparisons, unused_assignments)]
+        {
+            let v =3D $v;
+            let r =3D v as i128;
+            let mut back =3D v;
+            back =3D r as _;
 
-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
-GLYYHVIFsNlNBk9ehmbzaNAGKDZQL2g6yMMOyfvt2s5Y4jecunfY+Sf5c3Ptg5X23fqYpno7w5us
-Fyf9UX0AfPQxXj3xOYXXOmW3wHsEwXQ/ix4BSk+9TqzVwMiNm1pyqJUxPMdUwUzCVHZBhftOjpfn
-FV7xK09ekAS7/FgXzG/fp2YRiinLawP/OAq2Jso3/NzsEOjKVDyQp9NjKBvnT2KPEG0EQ/YHKXaN
-G0nhKAI9CNoSnLc+L6668zqiuyfY+4GBwm5fx3YFPlYZHr0JcusCAwEAAaOCAeAwggHcMA4GA1Ud
-DwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6
-aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNy
-dDA5BggrBgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2Ey
-MDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIG
-CCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8E
-OjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5j
-cmwwJwYDVR0RBCAwHoEcZGFuZXNoLnBldGlnYXJhQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggr
-BgEFBQcDBDAfBgNVHSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUYZsdWn6M
-L18zay5xy95GDwiowUEwDQYJKoZIhvcNAQELBQADggIBAAO+GZJHoHFGjKzRRmPg8zMhqkUoAurb
-EVL1A6UGmL2cSAOuQcZdI5ESkaDFKYuhsSB3dEr6ZWVhQk5p+AP2MxVJ8SViEV7NP3DVtFwqaE3I
-VongrfkM+43NJTKEUBTJHYFGsANIUubqC3I69Dw8PxFghAU6M6nJxqAvNgxjMR0GRlJUR9eRR3GY
-QszACooBBuGtl8VM9fZKqQUuu4ypKu4coRSbwWqKKuJXfElWpqakEjgK2szPloPPAvrfXN4//ilz
-Rcgf+v6s6tPvaP0Kuf8Kvk3qLxHGVFzFdzLcwKEm/H28pKAXxd7nHiUQcddZjwhYtLahzfF0PCxP
-W+RDL3K2gf3KD5nDX7Fx8bsYFQDrDWJa1cpuLVjzhkuWx/k+6hJ5NJLRB6OnHNnggQADstvnT4Z/
-FdAzNY/Cppgsu4XfgsPmrDAoXyiFvcjHRS7J5hr0ce7W57bdKVlEVdeK10o1/23F8H37kp0V2mYj
-7gmkwjbisZjfklj55cFq9czwyMyedkz0EW1u4CNRfwSZ/a6tZ1dwGPSe4CJcUdbKR7N3tnOwPzO8
-gWuU54A5ADxxRL34dPcj7LevtZo+7co9qIEdODq3zfJRjEmnKnHeWLRzV9HrM6rn3l47QP3YlxjV
-hbZundqE7qI4+OxL2uh7uYgN4JIdKmzkZRYIcWa/uPc1MYICVzCCAlMCAQEwYjBSMQswCQYDVQQG
-EwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0Mg
-UjYgU01JTUUgQ0EgMjAyMwIMXIDSN3UslytorZSOMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3
-DQEJBDEiBCCO3wrjOyUyfp2jEIyvg45N5IAaISVn3/wJDjaYKU9w/TAYBgkqhkiG9w0BCQMxCwYJ
-KoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjA4MjgwMDA0NDZaMFwGCSqGSIb3DQEJDzFPME0w
-CwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZI
-hvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAHYlHT3rH44NTd991W2KaGblzy
-3Sgmp3vm94XSfkwNHnCb7JFUVeRwhzO/jiVvWj6xPM2cIfrLeuCMmQZY36ZWSu8HpIK18XkbaPsE
-ROy7pp6p4ZJ1Hyei2CObJHVG+5TdKRc6vWsfZCCoX8eZ3R/6scKeZ7Mcg+40VNxQ0DErZ+5IeAcS
-7QjorOmxKrzqjgtQ8owJgJYSl7PQgErLSMS96m7AG6KR9nMk7QRu/gRRkgeDvqLgLAcGCsWIWHNX
-xoGfEOHOjV2xFQXLCAGHvf6Y/nkLQl3vZ8Bp15Bup6Y0WzpVao1N7ON0hxr2a/es/kINtQKs3aIH
-styQ+vKjuvSZ
---00000000000040e258065a1033e9--
+            ::core::assert!(
+                back =3D=3D v && (v < 0) =3D=3D (r < 0),
+                "value cannot be losslessly widened to `i128`"
+            );
+
+            r
+        }
+    }};
+    ($v:expr =3D> $t:ty) =3D> {
+        <$t as FromConst<{ cv!(@widen $v) }>>::VALUE
+    };
+    ($v:expr) =3D> {
+        <_ as FromConst<{ cv!(@widen $v) }>>::VALUE
+    };
+}
+
+macro_rules! impl_from_const_int {
+    ($($t:ty)*) =3D> {$(
+        impl<const V: i128> FromConst<V> for $t {
+            const VALUE: Self =3D {
+                const_assert!(
+                    V >=3D <$t>::MIN as i128 && V <=3D <$t>::MAX as i128,
+                    "Constant cannot be represented by the target type."
+                );
+                V as $t
+            };
+        }
+
+        impl<const V: i128> FromConst<V> for NonZero<$t> {
+            const VALUE: Self =3D {
+                const_assert!(
+                    V >=3D <$t>::MIN as i128 && V <=3D <$t>::MAX as i128,
+                    "Constant cannot be represented by the underlying type.=
+"
+                );
+                NonZero::new(V as $t).unwrap()
+            };
+        }
+    )*};
+}
+impl_from_const_int!(u8 u16 u32 u64 usize i8 i16 i32 i64 isize);
+
+impl<const V: i128> FromConst<V> for Alignment {
+    const VALUE: Self =3D {
+        const_assert!(V > 0 && V <=3D usize::MAX as i128);
+        // The unwrap fails the build if `V` is not a power of two.
+        Alignment::new_checked(V as usize).unwrap()
+    };
+}
+
+const A: u8 =3D cv!(200u32);
+const B: NonZero<u8> =3D cv!(5);
+const C: Alignment =3D cv!(4096);
+const D: u8 =3D cv!(200u32 =3D> u8);
+```
+
