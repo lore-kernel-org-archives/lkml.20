@@ -1,102 +1,122 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FE737E5E7;
-	Fri, 28 Aug 2026 16:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95B237DEA9;
+	Fri, 28 Aug 2026 16:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933638; cv=none; b=kzrMkdrWrue95RC4rM6UKZkUuwP3KXXGdxbOf8OpcbIgmLjkstGe57zQWWvQ0Mzy/en8d3f9e2DzzgNXysxikMhN257flSgWUYx9eofZnH62ck4l3uO30/ayNnkzpDAmzZvEe+jEoY7VSfjlbtOrhTAaARMKRu+tisnkBQPA9V4=
+	t=1787933644; cv=none; b=kockEgtRL1uocSDpa61csNG/nt2Qp5VQAdF6/NUXmpgcIK0V1P+r4lcnYkffkvrZqKwLiYcSa/vEBpbeyntj05J8E4sMjURKBhze5aGzfrfGpLvSnNLtwf6zw6Vfwv7bCBD96hvJRJTaVRcDoA8JidduNKuIGdfYji8m8mAQJgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933638; c=relaxed/simple;
-	bh=IFcfwBysJINcxMfSNDFyM7b2wk60J46XwABn1gllY0o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Lm2I9RC+2igAaL+XHGQCLM0K2iA/U0JXkyIL6WzQk6OSjuZUJhfTNjAByY19uxTcqwgeMe+H6o3E0X5Ckv4R8p3Xsxe+mnV7wuKRbyz3cjnFDT57PyBwNLP/mQn5s6WBNJysEsS9Lk9mdS4NVqsGbd5KKe7WqXlsqeOp+uNMUA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=D7QqSmOb; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1787933644; c=relaxed/simple;
+	bh=VYBsEpF/jbhuMDomV5YSAYWPyJbxFD7HUxyl+pkBYOg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rN0AsWEc/5wrLLA6WmfZhvDIUvSptBTdxAb3ME0YtWcDx6l3AuT4PPzc0dWYWqm2ORQDb/H2bzLcRO61+2Tj5LQizAC8WKi5g7DOO68UMgtiVY777rH7EmMu3Y2i0uYO8maTJnk3m/aSDyFjsfTpb0wnAcUngJnA3QQvCDIoidM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyTLesNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="D7QqSmOb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=2TOHanlDmqs1MCHJU5mQ5YIvRXJl2lupzJtXXmLOVuc=; b=D7QqSm
-	Ob0+hY6lYjhI0Mzw0AH2csJnCE+N3S4MXGbqzhQ59iETcGH/paxg1sekw1Ygx1ZKzTXEhTRgQGH74
-	2+Hjj+2rJ31B4kZ6geCR5VjVJ1ECb5Y4zN2O61xgAyM1pECogqFvNTczfLyeY5zUhLzYI5xjGZDl+
-	rDEyeUw+8BQx91da9opjZX/b5GK0YyyTWRKNs6kmDjvgN0yc5KhvnFDayjmbz9rpytl+SpzPzmOFP
-	KcZMn+JX2emjqoo9RBmWuAxjyi71NAC5WTDZ0daFU2aTGlu+Gifv053Xdb3qgbTPgih7rDEqpnvGi
-	Nog8LJW6h20W4JwnPPoFtvH0VH1Q==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1wzzDA-0000000927k-3eII;
-	Fri, 28 Aug 2026 16:13:48 +0000
-Message-ID: <35008c3b1d00766116bc9b6768d42238099117b8.camel@surriel.com>
-Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit
- on isolated cpus
-From: Rik van Riel <riel@surriel.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>
-Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song
- <muchun.song@linux.dev>, Andrew Morton	 <akpm@linux-foundation.org>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, 	kernel-team@meta.com,
- stable@vger.kernel.org
-Date: Fri, 28 Aug 2026 12:13:48 -0400
-In-Reply-To: <apGro0MJ-brPJfoa@linux.dev>
-References: <cover.1787890328.git.riel@surriel.com>
-	 <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
-	 <apGaZdxAPH68kkCc@tiehlicka> <apGro0MJ-brPJfoa@linux.dev>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyTLesNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA921F000E9;
+	Fri, 28 Aug 2026 16:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787933643;
+	bh=w3ZYLoTVwcaPhoiVuhVp1wPlXMdYO1Q30pN+IlI48as=;
+	h=From:To:Cc:Subject:Date;
+	b=JyTLesNmyEbCwDx3il/b3n+u0GYa0mzqK8Tn9sfhInQcsbfDR8JhfhxD0KFGEHXBv
+	 kpqdDKEkIX3YKkaIycEppA42vooSwdbjddqAGr9Eff6POljHLzkEzB4SjKjDVJ34B1
+	 zSZIq3K8QcpxTWTGQHODHOFzEtpzXglG2rJSyq9gwqyBg2y0Q4eRnwFkNTNdCrqVtu
+	 ghYPsDGjy+E/FfXdI5wjBWRhqRF6CJPYYXszefNaTolnUwgUQa/C3RtVs3hk35CGUu
+	 clkir76t/q4ShHDD6pEepQF+IFs+a1gHn3gR/cEvOCwRWbexjR/3Q+QohpcnpDAIFs
+	 3doIqfztAztAw==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH v2 0/9] watchdog: msc313e: Fix issues Sashiko reported
+Date: Sat, 29 Aug 2026 00:13:39 +0800
+Message-ID: <20260828161348.13212-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-08-28 at 08:41 -0700, Shakeel Butt wrote:
->=20
-> Let's go with this patch. We can simplify above by inversing the
-> check:
->=20
-> 	if (cpu_is_isolated(cpu))
-> 		return false;
->=20
-At that point, we could also clear the bit here, and
-have the function return void again, so there's no
-duplication of that check and clear in drain_all_stock()
-> =09
-> 	queue_work_on(cpu, memcg_wq, &memcg_st->work);
-> 	return true;
+The series mainly fixes issues reported by Sashiko in [1][2][3].
 
-Let me send that.
+Patch 1 fixes a report in [1]:
+- "[High] Missing platform_set_drvdata() or dev_set_drvdata() in the
+  probe function leads to a guaranteed NULL pointer dereference during
+  suspend/resume operations."
 
---=20
-All Rights Reversed.
+Patch 2 fixes reports in both [2][3]:
+- "[High] Potential division by zero during `max_timeout` calculation."
+- "[High] Potential division by zero if clk_get_rate() returns 0."
+
+Patch 3 fixes reports in both [2][3]:
+- "Clock reference count leak and unintended hardware activation in
+  `msc313e_wdt_settimeout`."
+- "[High] Repeatedly setting the watchdog timeout leaks clock prepare
+  and enable references, potentially leading to refcount overflow."
+
+Patch 4 fixes a report in [1]:
+- "[High] The driver accesses hardware registers without ensuring the
+  required clock is enabled, which can lead to a synchronous bus fault."
+It also fixes a further report in [3]:
+- "[Medium] Clock reference count is leaked on the probe error path if
+  watchdog registration fails."
+
+Patch 5 fixes reports in both [2][3]:
+- "[High] Hardware watchdog is not properly stopped during system
+  suspend if it was started by the bootloader but not opened by
+  userspace."
+- "[High] System will unexpectedly reset during suspend if the hardware
+  watchdog is running but was never opened by userspace."
+
+Patch 6 fixes an undefined behavior while I was reviewing the code.
+
+Patch 7 fixes a report from a local AI tool.  If WDT was running at
+boot, the timeout value could be inconsistent with what the driver has.
+Sync the value.
+
+Patch 8 fixes a report in [2]:
+- "[High] The resume callback ignores the return value of
+  msc313e_wdt_start()."
+
+Patch 9 fixes a report in [2]:
+- "[Low] Struct initialization uses commas instead of semicolons."
+
+[1] https://lore.kernel.org/all/20260826062035.7645D1F000E9@smtp.kernel.org/
+[2] https://lore.kernel.org/all/20260827045746.C79091F000E9@smtp.kernel.org/
+[3] https://lore.kernel.org/all/20260827050107.9AD441F000E9@smtp.kernel.org/
+---
+Patch 1 seems to be applied[4].  But the tree isn't available yet.  The
+series still bases on current watchdog-next branch.
+
+[4] https://lore.kernel.org/all/666397f1-ac63-4644-9de1-9f675d2a7f3a@roeck-us.net
+---
+v2:
+- Add some more fixes to the series.
+
+v1: https://lore.kernel.org/r/20260827044700.554333-1-tzungbi@kernel.org
+
+Tzung-Bi Shih (9):
+  watchdog: msc313e: Fix NULL pointer dereference in PM callbacks
+  watchdog: msc313e: Avoid division by zero
+  watchdog: msc313e: Fix clock leak and spurious timer in settimeout()
+  watchdog: msc313e: Enable clock before accessing hardware registers
+  watchdog: msc313e: Fix spurious reset on suspend
+  watchdog: msc313e: Fix undefined behavior
+  watchdog: msc313e: Sync timeout value if WDT was running at boot
+  watchdog: msc313e: Propagate error code in resume()
+  watchdog: msc313e: Replace commas with semicolons in probe()
+
+ drivers/watchdog/msc313e_wdt.c | 90 +++++++++++++++++++++++++++-------
+ 1 file changed, 72 insertions(+), 18 deletions(-)
+
+-- 
+2.53.0
+
