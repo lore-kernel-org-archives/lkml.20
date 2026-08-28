@@ -1,221 +1,264 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BA83C456F;
-	Fri, 28 Aug 2026 08:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905115; cv=fail; b=pBC+LIrMZ8T5xfX0RD5qtb7foaYNfARvVw8irU5uloIBSbg4/Qa1TSTGpIsv7RDUmOlZiedwvHvvafxGhMlxxDS49PcQyVXkCatMT/KkpoMnqFL6L7ys1/DFMsmQ5UwYqis9QN08nxKRoe98Pe/UqO/ClW9cIIAbxmRoM65DdWk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905115; c=relaxed/simple;
-	bh=BwPTXyD7k2xp2Lfm7T6ZFzLeQfcGG3t6puQptCd/Qrc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G+09q6PboR0eciDXjn2sC7iUemGHSTNRJpicDhslXr+55zO+a29CV6K8PCqnP1vW8jCFlSXPisXa/FlbxKUJr2AIJQqrEQL2F7NEFfPmaFeJeMXode7ZbEQ3yND0aPlvQEnKBD1RHtUpgPiZI0Mj0xwQIlLjd9y67/LDvOy8wQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B86AGb4M; arc=fail smtp.client-ip=40.107.209.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988803E5A01;
+	Fri, 28 Aug 2026 08:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787905220; cv=none; b=dN9cGYlnQGj6l8wcNxhW9kh4crUG1NwqVQ9W8IIeM1Zh9/AxHBwNDs7UjN5/7cjtqvqbgf6mPZ0+tLntbkpKwQCKa83LWnnfttxEsQZHC6WyxF6GAEPjA1BX76uJwv17SLHtYlpSdJt0SZCh7kwo78vTZhEALh97dHEiSO+Qy/I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787905220; c=relaxed/simple;
+	bh=xsF40T8zcJSuxk6fMBaVXRSg34z1eVTIFOKGUgNMUYY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BMLDOm1le9OgOOLVRZa/hv19u6KgWAYjwAnHDqI7miR8qUr7pKPC6Lo/8fLjbsKLM6zGWGq+0vGRHTQdanpeea4jhXtLpmzB4TbQrygVb9Yinij6pf+5OBpPnVzQQpIqDMDWSTiGsdozt0+bFrdEBh10tyO7Cw5BcP1EHE62sq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=JV/mIGv/; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=CK7vUa4M; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B86AGb4M"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xMtBW0eWz4SmT8yiVgV88hvCABar9gdpOsqO8Q4ifCqppmWds2b8Gjpb5K1i7MC/TSVg2VfEH8DCWoB3H5UqvL+zv83b+dDgOu1tBzsWQhW1xvq7/Z5dSEheTeq8N8vsQLR5V1uv31vv073GNjfQ4qYm8M84nf5DeXDyd5ftjbIVf9SwIq+9djF+8FdXke1HMG19cwo9YeUb6NtZRVHBNg3dN7Lvwlp0oQB7fW7IJo7KD1D+4vQlJ1wkJH5AJYJP5hvZCQELvVDSAD0xpRS6+bM7UTkxcDzOuhc45iEGBf0n/fnvB3CuyXLQicVdmLhRour++fDzvx+TFKJQ7xLjGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OGp9mhz6iaGudhw1clnmnQtxbYq5tUhToCkH1HLO/CI=;
- b=Mc18RcFlAuEKAdv+PcGoyW7QhHlmkEIg8M0hbJ+o63mZrWgCHkBD0G+sJTioGFC1Yyxws6snzlGLz5YfI9Z4NrEjUUqxao063A0UApdVQMOjjhjpG3z/K0EDIySObfV+C2WSMsT3uUV6+EZV8RPck9hytUFpJHzw7l3nqyZqB+V0Majx3kj/RwJyvfeVPWTFBOBPa/SFmZm8QF8NwZjI7iLQx45qoJRhAW/yzT7HQWcgADXIH/xcPWYPJJ+FoCRhEkuRmtrsYHnSKvrdFD43C22j9YS3q6/L01DZlnImYNd5zdOVxcrNn/hb31SJePxkIsfAInX0QNMjdywPjzrLhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OGp9mhz6iaGudhw1clnmnQtxbYq5tUhToCkH1HLO/CI=;
- b=B86AGb4MJqs7idkR5//v/cYHvJFXRq8pGStDzaZ3kvoTXGRWoYVM3s/eUDVCjovv5yGnDN3c6DRPGc616rhVkyBobHkTvYAuqFFTAyuEOxcpP5c/mhPLKWnNvBaopHVbBlxk7nv+PVkuNnNyLLnrQEpW4X5/1yJedHDqcuPqaVY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8355.namprd12.prod.outlook.com (2603:10b6:610:131::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 08:18:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 28 Aug 2026
- 08:18:30 +0000
-Message-ID: <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
-Date: Fri, 28 Aug 2026 10:18:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- Matthew Brost <matthew.brost@intel.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
- <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
- <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
- <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0235.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="JV/mIGv/";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="CK7vUa4M"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 862161F88E;
+	Fri, 28 Aug 2026 08:20:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1787905204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xsF40T8zcJSuxk6fMBaVXRSg34z1eVTIFOKGUgNMUYY=;
+	b=JV/mIGv/j0VLIShAXemhACLFqTkx7KVuJzJ6nKqauWagBMdCXSX4eBULaFnikxvB4F41HO
+	ymeWNPm6+EGee4h0VBGJdAo20unCWdlApnJW1MfTpVSOurzTxRpojJ8uaHRkyen9tmhyEN
+	aOzOEwtWOuHvN4UjGBreiJDOBVa5fa4=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=CK7vUa4M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1787905200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xsF40T8zcJSuxk6fMBaVXRSg34z1eVTIFOKGUgNMUYY=;
+	b=CK7vUa4MToI/Q+8dnK4XQ5wPgu4xGEEPGvGDvFlihZUU1uQkIVvsalik88Bto68UjHZABl
+	jWOc9GPz4GErMw+Rsydh0B703nSR8BrAHmcojDITeQHwtJVgI7tzSInB9AeWCaieugKxjN
+	PNiQ/PxKXM/zQRvd6L3LsIIzqfpP468=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A3A61352D;
+	Fri, 28 Aug 2026 08:20:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id koTlDLBEkWprNAAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 28 Aug 2026 08:20:00 +0000
+Message-ID: <2ddbd454-6220-4e8e-bcb4-b02fb7132563@suse.com>
+Date: Fri, 28 Aug 2026 10:19:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8355:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b4dac39-0dc1-4947-7b7a-08df04dcf1c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ntb3u91syXfdafFf8U17v/fegVc4h1eNVo6NFUM2SA8Af33ArawrOHajdSflZedRYahqYdPLfwytn+/dCTIn5VrLRaFYuZ4+h7PtmJ6AI7qW51vMdvjGTAUSt8PnY1dGEGYQKHYkEhRdM2BWxYDkEbot70xlBA5EsUqDlTUzQrblQGPp1ukYvSzIy1JajGxTY7EZnYKRtoBDe2wIoxRsWH6bckliewpEuyibwx69dShlgaNM1j3WFzXNza8+oOBSKZGvPeVTqnwrHIfzZYwbqJ/VwDKQ0neFSz81bUvDcVhDulA7Y6IstzGt5eYCQjTgq9lvI4y2+fazT69pwRlnh56JAzFq+dorqrtGXy3lVT28G7JmH5HoDCWLlPqXj81rMWZ//7gtQO09K53v5s0lEnkJuTZynhEn2qsro35il9KB3772bSnJ/BYzwOSQQ4IUspSkBm91fZlwofRAo7YMGwpeGKkV+Du/YeAQnBnBN+lIO5PXpAb1z2XXix+Oglz/CE2pCVPKjG/T3FUjIgXTlfbIghKH99RWb3TEf3ZSiqWW87GrGEL3IHSsvDxnMA6mo5ot4gisMGoDTW2H69muGz1RQnTyyD/qRsbRnLxtooVPF70JbmVhPm/6bst61PidziTmjDi+fOWWunGwT0U40o7m7PKi6bvOdDLNezXLPL0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RmV0RXhsNjJJSUZsa2Q5TUNvK0xtMHpLaThUdXUwMHlnUEpjNnoxM0RKTU9p?=
- =?utf-8?B?My94T0lhcGw2cFlVNmxqNnlRMU1LdGtVNzU0dzEvNTU3NGVod0JjMXdXUHRF?=
- =?utf-8?B?aEVvekloUk43NE10KzlzbjFGVndlamNMNytGb3lpNVFTK1ZqeUJKbTBjZDBn?=
- =?utf-8?B?ajRJVVF4VzA0ZWtsaHZ4ZUZmdDRxb2g3T2lIRk15eEt3K1AwWGVjMHJZakhu?=
- =?utf-8?B?M0VscWF4aTBCUmZnOWdBS3E5d1l3UVdPNFhQK2I4dEhVZHVPR3dEai8xYVly?=
- =?utf-8?B?WktNcnNHdkVwZEJLQTFwaEdteE8yZzJCQmlDWldNSC9zbDVvSnFyNFFIR0pC?=
- =?utf-8?B?QkZMNzgxbS94bHJ5QjZBS3cvRmNHZFlQNjZwZHUxc0dZZmtiTCtSMkg5QnRX?=
- =?utf-8?B?SG1kQndiWlA0TkhPdWxOOWRIS1kxRlB2S0VkUHBWTGZmQXJQOUF5VzdJNGpP?=
- =?utf-8?B?QXJacmhRT0g5SmRYS2Npc1NzQXo5cCtWVy85aW8yaDFBL2lRTllqbzlVYzg4?=
- =?utf-8?B?WUgzTjVDUmVWU1BRNmd1Q0JGc21uMDh6TDZQTkdieWYzL091YlZ6TkplMWM3?=
- =?utf-8?B?ZGRmc29XSXM4OGE4MisvVFVxQWFZN1JMU1ZubG00b0toWEI2RmswckgyS2F4?=
- =?utf-8?B?MXZhOVBhVWFIejZrTmlxbnExY2ZhL0Fmc0NLUTRPKzUxRE1YMEtyTGM2NzVG?=
- =?utf-8?B?NFNVVFFna1FSSFdDbzRmVkQ2QzVlcEdKeUdSMDVhZWdvZnlDak53UjVnS1B5?=
- =?utf-8?B?d1ZPZXM2b2pHY0p0Umx2ZjNYQTBRNzZHbkdiSEx6Z3o0UkxIR0FBampJaHIz?=
- =?utf-8?B?UTFMcGdpU3FmblNEMkh0SUx5UjFNS1lBRUw4V3g1cXQvbFd3aU1MVVVUZEZm?=
- =?utf-8?B?WkR2S0h4NmdWQjN1M0VUbnlyR1crKzV6dkx5ZVFHSUNYem90Uk9BSUhSVGIv?=
- =?utf-8?B?Yk9NWW81TU5rNitncitOdFAwZEkycW1qeSs0eUF2cjQrMUtNR1JITW1WcWU1?=
- =?utf-8?B?U0hYMGlaS2dQdlRtTHRIc2dpSmEvOGNFVURzbzdjc2o0Ym9rdWxkTTE0Vzc0?=
- =?utf-8?B?Ryt1cW5scUVLd3JWaG1nMUd0VTgwU0ptUklGME4zVUgraExFd2F6cGlaam04?=
- =?utf-8?B?M3dVRnFubk5EbjVoUVc2cElmUVJlSDA1ZEFYNUcwWDVVQWZ3ZUgzNWE5WWtk?=
- =?utf-8?B?ZXQyL0VGQmRaM25HNFpOaU14NkZKaUl0bUtHUlBlR2FQY0U0VEhVOEt2TjU0?=
- =?utf-8?B?ckNtNi85eS9GUmk5QnlKczNCbkdsN1VvcGszRGV0VGV2d2dYc1RiSFY2NWw0?=
- =?utf-8?B?bUZYV0VuS3BoZnd2a2IvWUd4SWx4TEE0UjNjbDdWS2NyaUFDbExQTG4zYlNR?=
- =?utf-8?B?M3ltbFZMaUNTUWhaU0MraG5vWWtsY2plMG9TM2p2Q2lNWDNEbnlNOE9KRTR4?=
- =?utf-8?B?SnVUcU5TTjR2aW5IWmRMMmszVlAyd2pzU2hZNm5TdGF0dlMvNnZuaGhWb1NQ?=
- =?utf-8?B?R2tUaUZpbGlEZHVvc0l4NGpVeXU5R24yV0JZdFJSZHRXdG1PVzFJUldiZzB6?=
- =?utf-8?B?TzlDRDFZUmFKaENWTTBtdmN3bXNhdWtHRzNRV05ET0tleHk3YkNyeGcrTzYy?=
- =?utf-8?B?cGNLUzBRZXFKMXVPQnhsbUtScHA3RGN2UUlweWlqYTFkMDJlS0QyaE5ZQyta?=
- =?utf-8?B?T1pzWDZhdnUzSFRmbTRvK0VQcFpMdWp2TEVzc09Sc0VnMUUxTXVWTUJwZ0g0?=
- =?utf-8?B?SllkSHBtVUd5UmV2eDRqQVJWOWsxdDkySy9oUTU4UUx3dzB4d2VYWlR6MWlJ?=
- =?utf-8?B?NUZtTXJ0STJmam8xOVNyY1dmZlAzOFNGU0Z5S0Z3MXg5ZGR5ZmVsTlNXNUpu?=
- =?utf-8?B?SHFaRk0rckxwbVhNVSt1SHhiSHF1NlZtb2JoV2tqdVg5ait6TUw1NE9kYkow?=
- =?utf-8?B?S1NCbnJGTWpTQmFGbU50YVZoRElBYUhvbzJkNjNXcEs4RTYrUGVRZ2tqM044?=
- =?utf-8?B?NCtySzFoR2x1cXpHM1RaTnoxUUR2ZU1vZVhNRnExcjZSc1hqN1lUUFJuTUts?=
- =?utf-8?B?cWJhQys0c09QV21rWHNPUkRQdWVLaWZucVJFZjZGZDd1bThQbWFSUjM0T1Ry?=
- =?utf-8?B?WnF3eTFheklLTlB3TkNlUS9qL1E4NzJRc1RpOVRLemNMUEttSUlucDBUaFRx?=
- =?utf-8?B?Z0w0cmpoZ2V2NUdMN0xqVE8rUnJzMUQycEx4N3hjT2hTSVVjamQxNS9pTEpV?=
- =?utf-8?B?cnNYTDhKNllTTTI3YTRyZnREOUNqZTVTdGpEYWt4MkFSd2NaNDlhQVRDZ1lY?=
- =?utf-8?Q?FszvFVfNfHl37/6/08?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b4dac39-0dc1-4947-7b7a-08df04dcf1c6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 08:18:30.6957
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FRPb+oE+xjFjGDBDvgckFlP/VGyhWt+535jOaRtkZ9Vdu7RrPccHGPnMYbKVpx4X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8355
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/blkback: Prevent missed completion when draining I/O
+To: Gui-Dong Han <hanguidong02@gmail.com>, roger@xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, konrad.wilk@oracle.com,
+ linux-kernel@vger.kernel.org, baijiaju1990@gmail.com
+References: <20260730084000.3305702-1-hanguidong02@gmail.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260730084000.3305702-1-hanguidong02@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Y0iH2961D4ewxizp8ll6S523"
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 862161F88E
+X-Spamd-Result: default: False [-5.41 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com,xenproject.org,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.dk,vger.kernel.org,oracle.com,gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -5.41
 
-On 8/28/26 10:06, SHANMUGAM, SRINIVASAN wrote:
-...
->>> +/**
->>> + * struct drm_user_fence - embeddable DRM user fence
->>> + *
->>> + * Drivers embed this in their own structure and implement
->>> + * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
->>> + * drm_user_fence_add_callback() to arm on a dma-fence.
->>> + * Call drm_user_fence_cancel_sync() before driver teardown.
->>> + */
->>> +struct drm_user_fence {
->>
->> Should this common layer be split into two distinct concepts?
->>
->> - drm_work_fence: 90% of what is here, minus the kthread_use_mm() and
->>   mm-related code.
->> - drm_user_fence: a subclass of drm_work_fence that adds the
->>   kthread_use_mm() and mm-related code.
->>
->> I suggest this because I was thinking about it the other day (I forget the exact
->> context) and reconsidered a pattern where a fence signals and then I need a worker
->> because some work must be done outside of IRQ context. A user fence is one
->> example, since copy_to_user() can fault, which is not allowed in IRQ context. At
->> various times in Xe we've had multiple patterns like this, although at the moment
->> user fences are probably the only case that requires it. If we looked across DRM as
->> a whole, I suspect we'd find this pattern open-coded in a number of places.
->>
->> Yes, drm_user_fence would be a very thin layer on top of drm_work_fence, but I still
->> see value in the split.
-> 
-> Hi Matt,
-> 
-> Thanks for the review and for being supportive of the idea.
-> 
-> The split into drm_work_fence (general fence-to-workqueue pattern) and
-> drm_user_fence (subclass adding kthread_use_mm) makes sense. I'll
-> restructure v5 as follows:
-> 
->   drm_work_fence: kref, work_struct, dma_fence_cb, stored fence ref,
->                   wq, ops — add_callback, cancel, cancel_sync
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Y0iH2961D4ewxizp8ll6S523
+Content-Type: multipart/mixed; boundary="------------ME7gGn3e8QmhdSpqG0F00Dun";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Gui-Dong Han <hanguidong02@gmail.com>, roger@xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, konrad.wilk@oracle.com,
+ linux-kernel@vger.kernel.org, baijiaju1990@gmail.com
+Message-ID: <2ddbd454-6220-4e8e-bcb4-b02fb7132563@suse.com>
+Subject: Re: [PATCH] xen/blkback: Prevent missed completion when draining I/O
+References: <20260730084000.3305702-1-hanguidong02@gmail.com>
+In-Reply-To: <20260730084000.3305702-1-hanguidong02@gmail.com>
 
-Yeah, this pattern came up so often that I already considered adding it to the core dma_fence framework.
+--------------ME7gGn3e8QmhdSpqG0F00Dun
+Content-Type: multipart/mixed; boundary="------------pJPF7iITLpKznzdBk0K82qLl"
 
-So if you feel really brave make that a dma_fence_work helper. If I'm not completely mistaken AI should be able to find quite a number of use cases for that already.
+--------------pJPF7iITLpKznzdBk0K82qLl
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> 
->   drm_user_fence: embeds drm_work_fence, adds mm_struct and the
->                   kthread_use_mm/mmput boilerplate, thin wrappers
-> 
-> XE will continue to use drm_user_fence. For AMDGPU, The long-term
-> per-signal filtering approach (reading the fence value via copy_from_user
-> before signaling) will use drm_user_fence — further validating both
-> layers of the split.
+T24gMzAuMDcuMjYgMTA6NDAsIEd1aS1Eb25nIEhhbiB3cm90ZToNCj4geGVuX2Jsa19kcmFp
+bl9pbygpIHNldHMgZHJhaW4gYmVmb3JlIGNoZWNraW5nIGluZmxpZ2h0Lg0KPiB4ZW5fYmxr
+YmtfdW5tYXBfYW5kX3Jlc3BvbmRfY2FsbGJhY2soKSBkZWNyZW1lbnRzIGluZmxpZ2h0IHdp
+dGgNCj4gYXRvbWljX2RlY19hbmRfdGVzdCgpIGJlZm9yZSBjaGVja2luZyBkcmFpbi4NCj4g
+DQo+IFRoZSBwcmUtd2FpdCBjb25kaXRpb24gY2hlY2sgd2FzIGFkZGVkIHRvIGF2b2lkIG1p
+c3NpbmcgYSBjb21wbGV0aW9uLCBidXQNCj4gYXRvbWljX3NldCgpIGlzIHVub3JkZXJlZC4g
+V2l0aCBvbmUgSS9PIGluIGZsaWdodCwgdGhlIGRyYWluIHBhdGggY2FuIHNldA0KPiBkcmFp
+biB0byAxIGFuZCByZWFkIGluZmxpZ2h0IGFzIDEgYmVmb3JlIHRoZSBjb21wbGV0aW9uIGRl
+Y3JlbWVudC4gVGhlDQo+IGNvbXBsZXRpb24gcGF0aCB0aGVuIGRlY3JlbWVudHMgaW5mbGln
+aHQgdG8gMCBidXQgY2FuIHN0aWxsIHJlYWQgZHJhaW4gYXMNCj4gMC4gSXQgc2tpcHMgY29t
+cGxldGUoKSwgc28gdGhlIGRyYWluIHBhdGggd2FpdHMgdW50aWwgdGhlIHRpbWVvdXQgZGVz
+cGl0ZQ0KPiBubyBJL08gcmVtYWluaW5nLg0KPiANCj4gQWRkIGEgZnVsbCBiYXJyaWVyIGJl
+dHdlZW4gc2V0dGluZyBkcmFpbiBhbmQgcmVhZGluZyBpbmZsaWdodC4NCj4gYXRvbWljX2Rl
+Y19hbmRfdGVzdCgpIGFscmVhZHkgcHJvdmlkZXMgZnVsbCBvcmRlcmluZyBvbiB0aGUgY29t
+cGxldGlvbg0KPiBzaWRlLg0KPiANCj4gRml4ZXM6IDY5MjdkOTIwOTFkZiAoInhlbi9ibGti
+YWNrOiBGaXggdHdvIHJhY2VzIGluIHRoZSBoYW5kbGluZyBvZiBiYXJyaWVyIHJlcXVlc3Rz
+LiIpDQo+IFNpZ25lZC1vZmYtYnk6IEd1aS1Eb25nIEhhbiA8aGFuZ3VpZG9uZzAyQGdtYWls
+LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4N
+Cg0KDQpKdWVyZ2VuDQo=
+--------------pJPF7iITLpKznzdBk0K82qLl
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-It would be really nice if we could move those compare functionality (>, <, !=, == etc...) XE has for the user value into the drm_user_fence handling as well.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-We also need to add a heck of documentation that while this is able to consume dma_fences it *CAN'T* be used to implement dma_fence_ops. I had more than enough headache because of that.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Regards,
-Christian.
-> 
-> Regarding the CI failure — the root cause was a missing trailing newline
-> at the end of xe_sync_types.h which caused the kunit build to fail with
-> "unterminated #ifndef". I've set up kunit locally and confirmed the fix:
-> 
->   Testing complete. Ran 588 tests: passed: 570, skipped: 18
->   Elapsed time: 22.916s total, 3.949s configuring, 18.350s building,
->   0.601s running
-> 
-> The 18 skipped tests require Intel hardware — expected. The CI fix will
-> be included in v5 along with the drm_work_fence restructuring.
-> 
-> Thanks,
-> Srini
-> 
->>
->> Matt
+--------------pJPF7iITLpKznzdBk0K82qLl--
 
+--------------ME7gGn3e8QmhdSpqG0F00Dun--
+
+--------------Y0iH2961D4ewxizp8ll6S523
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmqRRK8FAwAAAAAACgkQsN6d1ii/Ey+m
+Cwf/R7c9EGTk1BTIYLTqe0a35SXab3bjoKxGUsD5N6kIVyvBMKcQyVgUhKMrzop+Cq9/cTw5iGWg
+HcTXkSLszgc6GNSFSy6N9GjIaN+Lame1x/NY7xaWSfVinkneDgc0jJGe+9xg3RCLOcWF1YK+tje8
+wdjAvOjNQamD1rJGCBWp5yDoD7M6oRHUT5sIpgzofn4WZAm04/QI+oAx+2NyHzNe0L7yDa9C9a09
+KOIgqJZYFeVu6OVkd9hkgTeBbyLxLs29dqb3vm4i1mPe2KGKtBsLhjSWwvLfs3J61a3GltLgCBBg
+913IqySpl0Zb+4BDouzQRXRUxB3HbVkareVULk1mqg==
+=8DCy
+-----END PGP SIGNATURE-----
+
+--------------Y0iH2961D4ewxizp8ll6S523--
