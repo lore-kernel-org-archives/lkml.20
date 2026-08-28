@@ -1,175 +1,126 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012047.outbound.protection.outlook.com [40.93.195.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB6D3CB563
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898856; cv=fail; b=QJroCmmLOMxBoTe16XmX89J3UmBrfrfCCtdGEKx1T3q/KCzgBQdJwOIcK6HLrX/l3E65JYpcjOVtSPDNcKpWgwD8TwokB7y7mGKKWgH20GvXDtjjyQhYr0peEPXV+hNdPLZtCKkB/uHk2FZG8mOvN+aGr7p0Hk3T/S3JykdBWZ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898856; c=relaxed/simple;
-	bh=EYrGCNNat5aBmjJh/5ppzEjKVpdQsgiopm1tu32Fie0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=DsWvXaksDB/nnxHgR5f/ZfiOVbiH/NaYGOOVQmsgoQgVbcF03cxNKMLAGBuqRLSH/PzrI5ZMwj5JQ+seSiK1jjmFdK7taXbI/m9E1AJ3YakFzvsFQg1b81GPx8Tke607bCtciebnlmeMOX9P86WPkGn4aXIW+6738vSgJTHtlx4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fn+pOvb6; arc=fail smtp.client-ip=40.93.195.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74C23A63F3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787898883; cv=none; b=B+FklH5Qjc7hu0U83h7cdcRFwaabBdYff5Avqe07LMXuYQK/LzD/J/1u0Zumoa+iD8uUPdqylwg6Edyq6mo431HTgDNca3EsCGVLMTvlnp6DC84VmkBIWWs+ITq/EiIK4tPhQY7Bt9rkBIEAhX65sIKfAht+iwfaeNVzz1oVtAY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787898883; c=relaxed/simple;
+	bh=FMaNbvp1G9GRptR0f2XwUG1KxVE7mzl6TVTU9xfny/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ml4yoiU+UA74sBj0kfKcd2kmubKXsHsfJWdUdtayGJ87t2xnOFWf3/s1gMPrmvCrvWc7xCMZYdFc7UxBXrbjvIRlr1BcnnR7Qj++oXvzCGC6iUZuQ7BdDBgnhQQm1ShMjEbpnomCD7WWdRsaWY+yMFFAx5cFfP0YYKJy3NgdfoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ekib347V; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fn+pOvb6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f4iaJJiERI5/FvETJlwmB936EVtldwA/gJEbpxLTlXl5XPPrZgBrONsZ0TQH/K0JD6+FuTTpzFjgfcWUAH/uZLjvhjvNQAtu+tUcNszs6njBbzjUVbIaDqfCiNHGonexIvAoDgtfEzUBj2pAik6GIo7NfHGc3YuPaz3rLMImFqj80/mLe6U6q74nLwsokZfuu0/7QS3PLG5Wtrvdn+aVVGAEmsVJBUrlfoqfRm7kl6tCLtDd8v5e6jeuLrTjEKixC0mPHaAE6V0EIR3mVmj1U1GPq6S0C7lsjBGn2NlR4JuRjVJ85bMQ6zoZnkewXC8CWA5DB0UMnZix/AzvG4ik4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D7vAngprU3L4H01wFqx0Qe/le8MQbYlT4Gmn4HY2jeE=;
- b=zJ7Cb9/+O1MVJbruXaoej2guTcGjt3iYl97+FiwjHYTbjk7HNnWUSKFnxz3tJ0AjIUMNpNLG+JmDjI4oz8jfeiO0QluQHG+jSJusuzJMr+aOTriHVZ1UMZjKsFtgDO7cTlxkQKhwLm7FU6Qar0HWOsYKpnkCHIL9cpgFck1FFk6mkMjFMZdJwX4LlBd5up+jpzfw2RehAMYSexSss9Dejy+TfmN+wk1p8Xl+By2MnLRc9GCg1hzN+QXtXMtyc8ZtW6SnY0tNC6t3vCXYz4NKR8wR1BNJTH/TJichWTaQDlnF34RSeGZ/J02EF4RZCJfvyoN1IdAsNLKBRSHO5vHzew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D7vAngprU3L4H01wFqx0Qe/le8MQbYlT4Gmn4HY2jeE=;
- b=fn+pOvb6IAvT5BMqIFZ35+HJqE/47ntrtIE7HYJ4rNuDMAhh5xS3w1VYwlP19fJBbMsSxd1e3jnRhDjyRFk0cAnuXLclcD73NuQQCbA1IYxJeUnB7biZmPTIb3QdMsH+G6F5mXWMzFXnKdmvJ9y2lFW/0WBb6X0XMvViONioWL0=
-Received: from MW4PR04CA0047.namprd04.prod.outlook.com (2603:10b6:303:6a::22)
- by DM4PR12MB6446.namprd12.prod.outlook.com (2603:10b6:8:be::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.10; Fri, 28 Aug 2026 06:34:10 +0000
-Received: from CO1PEPF00012E7E.namprd03.prod.outlook.com
- (2603:10b6:303:6a:cafe::6b) by MW4PR04CA0047.outlook.office365.com
- (2603:10b6:303:6a::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Fri,
- 28 Aug 2026 06:34:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E7E.mail.protection.outlook.com (10.167.249.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 06:34:10 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
- 2026 01:34:05 -0500
-Received: from [10.136.43.157] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 28 Aug 2026 01:33:56 -0500
-Message-ID: <5e2b4e46-8142-4f51-8d52-66910946ff0a@amd.com>
-Date: Fri, 28 Aug 2026 12:03:51 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ekib347V"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caced6038eso7135645ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:34:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787898882; x=1788503682; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C1F/vttu+vhSUybmlNoSvxhrUsq1hJOcWYGb6fs+h+w=;
+        b=Ekib347V0z0gsOtLQXuph0CZeWZqzaBp3mxvjKt72zoKdz/MWfapoz/fXIkZVxz7hY
+         5EEHrfytokWdpn3o8RdqMwMdqAW/sKPTNyzUbOgfDfr6bnEm0UTFu3psXxOh68QuuVir
+         4uWOaY3R6MACLWyNT9A1DMbLID+hlbQ6/1w4Mw1LqhGEGcdOjE1zMgABl1o66caZF4sb
+         44k+4UoJUyeIY97V0n+SSND4xn2VS6MGh6CyalaTSmzbQROp1LJmvDmcEAh+r5FAzj05
+         T5SZ4KnATUsr3ahzJS8A8hMS3ZeK8Ho+H1ePXEIu4QAqCeNPC6W3aBre8qCGaq0kiruM
+         wCGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787898882; x=1788503682;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C1F/vttu+vhSUybmlNoSvxhrUsq1hJOcWYGb6fs+h+w=;
+        b=sBlqcalzT1pNh5oJOQybRbyG3rywh83p3py3XKXvXMvw7QzeqrbpOd3HYUrJmQzlA2
+         gOqAcKyae1a84Dhkw56H8ucMm65GCpxSKj+fIPVob1H/mAoiVz2B/qtR+eIWIz8CODm7
+         BK15h+Eoyq+9OG/3uR9CEXFhj9GzWUcd7TCNPMCtd7yeRGMNWalfJ1C3tykFefGGQLFc
+         nMo6mKHOgkRMBwdrcp401FDXmgOu9F1KvZiFVvz/5uBuDuhFiljLqK8Dx+agytLtnioW
+         pNwyuXUDNqFkzB9MnWAfyGJojNYvdT7Ed2/v6IRgLmqU78JIoXNdbiMpUe5etPt7Vc0g
+         6uHA==
+X-Forwarded-Encrypted: i=1; AHgh+RpBcysdfDU0puMOl+6wlM+E8iJLFPkfPFJ5VW/Wm9TKaDCDslCrn6kSGLg2QDoaoTI5r9XmohO5wnL2Kqk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbMpHHwifxmuTYw6zW+r+giw8kHs9S4MnlpbxrTyuuMKec8UWr
+	46a+xg+xY8IlU5VMKppAdjhNRrBXAyZnjVwi3RS8n6nXfHLc5nkIL5nv
+X-Gm-Gg: AR+sD13xTryqae8W5iHqpnFI/MqdpRPWtohhDPHeTJ8Y3KVhuxoNv5a8+hTcSG/fIYy
+	NQNvRQPAsUgGTd4bvcguaNJUsasoiHRVI+ewjsQR7CYOK/rpT/5/csVQ7EkbyrFFLbDANE8RKY7
+	l9XDxXExr+qJIQqFAb38Qn1zDsVeI/xyT5mhYwQqPZ8ovTNtuHqrtQeoP81ZCvTfCV2KJbSiudq
+	MaJOfHdP1ztoCpnxQ00Im28M/SYR29FdO5XQTMFjAF8pYNZoVxS+dqZyb1b/Es9i4HjcmAT+kYN
+	ojOmrXQW1qIhH7Fm1WvVcXoaRJDCBnqo+lRJ0TxMFEszA3WIGD2DibGwsUOoe1AfkZJRp3SmXVJ
+	RbJKnvUprf31NwQzjO9/OrR1cfIahMg3u2wY+9OuOekqaHDIXehCK2qRtRK2VJxND1xci0MJ+9Q
+	WvNLdi3Eoq50Anrabh429iqiUCeDwLf2sJQBAHKB6fGCsoueEZSeALHFsgiuwPk3UZ6a1sNdgUS
+	AI=
+X-Received: by 2002:a17:903:32d2:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2d74cc74a80mr48204205ad.3.1787898881596;
+        Thu, 27 Aug 2026 23:34:41 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598b068esm2546405ad.70.2026.08.27.23.34.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 23:34:40 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:34:31 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+	David Hildenbrand <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Message-ID: <4836208f-a84a-42ca-aa74-bede23d7de41@gmail.com>
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+ <ao7Nr_FALfP7cTY5@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 08/10] Set PF_RECLAIMABLE_STACK in various places
-To: David Stevens <stevensd@google.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman
- Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Kees Cook <kees@kernel.org>, Sebastian Andrzej Siewior
-	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>,
-	<suleiman@google.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mm@kvack.org>, <linux-rt-devel@lists.linux.dev>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-9-stevensd@google.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260827232948.2520558-9-stevensd@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E7E:EE_|DM4PR12MB6446:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff09e39e-49d5-4443-5c3b-08df04ce5e55
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|23010399003|921020|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	5pvdfohkjpkcsCKBcU3fuDs2+IF+KZxhiYohosNSogwRaqEkjoS0CymhpSuF5C+RfJWxiaWRH3LAXn/rkiz57dodSn60lhYcvyp868n5/iJfslci8zBoF73OSoltQge4JYBH+TzvYBpYs6ywNGA3uI2JwTbF1hLPzuxXUVDEMVH7fLWXIZLl3uai27zzxMqzSx8S7mxn4UOLxgxJLK+14S9wpee4lTK9n9IQiX10yt4Ne3A4igshxXpgwCus+SGKxNwqOCJ/ao1aFVQDhI/2c9ngtQBigFmKUP+uJHKpmVs5DpTXRbdC800trCJ4VOfHE+n7WR4/zpF+cuSYNYENTPFTyg6ctH0ZhcESJEzG42N5gt+O8E1ElTf4XSPUADkESaSPeyGSo9v5hcrzFuVl4mpNvQT/LjBA0f5gOgz1snbCSI24Xk0fpsss+Sn/AG4dubquB2PWgiHf8yc3M47hoTKvEsV1ds4i3BXkYHVpjqnJS11N/Px7vnktI2wrM59OC2I1JW+lX+TD6X2Fok+i6ZuAtxbLFr5UtIzLziIpEUZhUG/6URavk2b/eNzqHv3qPSzNVP9YRKj/hK7Hi0Zm3ONKr4BTWH9F7w2FAd6++GwznM3lmDhLH4kQDZN2I0vL34jbWFvXvZC8FvqaCfi/VlDe3YTevKlKuUhAe4ESwNy+D++N08StCbEWRMFyGLC/gbSyoG/r4lilmRN+t1DX34Dl+D9Fvou7Pll7928zoxtCSYUj4G445OjjA38hcPNO
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(921020)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/bzQXGIkGDqcDuPC1G2P1h9VV7iiEZiesIogpH3lLIWj9QabAa1h8O1pxrHTg1WjUAx32pWkcCUXkcbYvY5nQ4N7Wmo3yYuPKdO6YL/6p0/RfexFDv1TEifdhW2xrwMXxGtnE4ZBTmlVDSfKwagwpPVFwesJ5IP+2gQ17jUp1pLDrgseTbtDnvQGXb2jBySPbIllIDZf9ov/FaqpMaT1ra8Wx/Qs97ZGQbkPr4yDlmopi14KrlpCgaxrskYaC3GAyBKG6Zrd3wXuthzIZYSi5DEhEohP95ebdTj/PrcRYz+4Ttlfr/ZQpAVQ+IGUE1djtsLHeMzyAnUPN8M9L4bJ784yTebEFKqxNuP1MbYZc2LPse7/3I1Xk+36cfZ6p4W1r5sNoSx/6dSNjU7BJySNN5pKv2JnuQRkS/mUEIJfKquRneDzWSg3M9i0wvyuaplg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 06:34:10.0970
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff09e39e-49d5-4443-5c3b-08df04ce5e55
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E7E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6446
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ao7Nr_FALfP7cTY5@gremlin>
 
-Hello David,
+On Wed, Aug 26, 2026 at 12:31:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+>
+> 	~107,000 words of review across 948 emails (in 279 distinct
+> 	threads), counting only prose you actually wrote — quoted text,
+> 	signatures and attribution lines stripped. That's a full novel's
+> 	worth of review commentary.
+>
+> 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+> 	and your longest single review was 2,404 words (mTHP collapse
+> 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+> 	of your top-10 longest reviews).
+>
+> 	Estimated review time: roughly 300–500 hours, centred around ~400
+> 	(i.e. ~7 hours/week for 14 months).
+>
+> 	1,615 THP-related emails in the window: 948 reviews of others'
+> 	work, 278 replies on your own THP-touching series threads (~31k
+> 	more words responding to review), 382 patch emails, and a handful
+> 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+> 	emails), June 2026 (113), August 2026 (111); quietest was December
+> 	2025 (5).
+>
+> Think I can be happy with that!
 
-On 8/28/2026 4:59 AM, David Stevens wrote:
-> @@ -469,16 +470,23 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
->                         break;
->                 }
->                 mutex_unlock(&pipe->mutex);
-> -               /*
-> -                * We only get here if we didn't actually read anything.
-> -                *
-> -                * But because we didn't read anything, at this point we can
-> -                * just return directly with -ERESTARTSYS if we're interrupted,
-> -                * since we've done any required wakeups and there's no need
-> -                * to mark anything accessed. And we've dropped the lock.
-> -                */
-> -               if (wait_event_interruptible_exclusive(pipe->rd_wait, pipe_readable(pipe)) < 0)
-> -                       return -ERESTARTSYS;
-> +
-> +               {
-> +                       guard(allow_stack_reclaim)();
+Thank you very much for your hard work. Over the past two years, THP has
+been extremely busy, especially with the addition of mTHP-related
+features, which required a great deal of time and effort from the
+maintainer. In my main role at my company, I am also responsible for THP
+and memory reclaim functionality, so I fully understand how demanding
+your work has been. Once again, thank you for all your hard work.
 
-nit. You can just use a
+I also am relatively familiar with the implementation of THP. If David
+is interested in my R: or need some features implemented, feel free to
+let me know. I'm willing to help out and reduce the pressure on the
+maintainers.
 
-    scoped_guard(allow_stack_reclaim) {
-        if (wait_event_interruptible_exclusive(...))
-            return -ERESTARTSYS;
-    }
-
-here.
-
-Same comment for rest of the thread where a scoped_guard() can be used
-instead of this pattern.
-
-> +                       /*
-> +                        * We only get here if we didn't actually read
-> +                        * anything.
-> +                        *
-> +                        * But because we didn't read anything, at this point
-> +                        * we can just return directly with -ERESTARTSYS if
-> +                        * we're interrupted, since we've done any required
-> +                        * wakeups and there's no need to mark anything
-> +                        * accessed. And we've dropped the lock.
-> +                        */
-> +                       if (wait_event_interruptible_exclusive(pipe->rd_wait,
-> +                                                              pipe_readable(pipe)) < 0)
-> +                               return -ERESTARTSYS;
-> +               }
-
--- 
-Thanks and Regards,
-Prateek
-
+--
+Cheers,
+Vernon
