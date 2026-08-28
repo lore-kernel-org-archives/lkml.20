@@ -1,423 +1,191 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020130.outbound.protection.outlook.com [52.101.193.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F19B3A9D8D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787955660; cv=none; b=mVmffDrP2SmlU6/WA6ChPB2ak9r1a7sey2fPCTQs+nOqiERjUve0oKMQeP2lGFHbclVmZ1wovjA4WipGKa3vP2FMy4HUn6bFUsKfaxRgdoLQWXxNhwHXgj8dMS22XUq2m3mnCMdFm78Z38ErhVp3fqomeXn/bxDzFiVXniVDWH0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787955660; c=relaxed/simple;
-	bh=orcG2Gn6YQZC5bBkqHgpUm5aYGWam9biAuOCitF1jTM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=fPia4M9B2UwgeYwM7VIrAJCcqd5o9SbDGMGWldfvL4OpJYkQ1P9JrRq6OmuJnr833J1X9Nf/fv8SvFK5AUnEBrLAOTZyyumqiPaCnzCRYZu4/ibRHfU1RY8RS61DFqfG2k4mYF8CpjO4f8j12Us0VbC80doluXghQssHS2Aj3DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OpGTmKhY; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAD52D73A1;
+	Fri, 28 Aug 2026 22:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.130
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787955819; cv=fail; b=k33HX/jKKwiDTa3BrOPHEQ10DtmYyDStm5GuMTMssYAsmNCXcuWGxquQ7RHvDNmvxW3mlZbp044W8w7Otf8/tEy/hZXH5NrRMZ0XbOwIwL+OLvVV44hcRCAm6eCg0uDp1xpxw6MCgtrz04HAbnVsXrA+DSO5YShTW+gnrRsA0Nw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787955819; c=relaxed/simple;
+	bh=RR8tCpcRwK8pEMDo2QG1BhlQL8QJHF4rQS6JXps8Dfk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IlL0RLXUF5D12uo9D4FJtY7exmElIp5ZfA867lnnt0A3e19SV57xRw8AUCd6e5HFRuOqhABCiiufxbMf3SdEbV+qpIfN0fipdLVoAIGEwk1jk49ZMKq1Py3nsBN4+5BK/bkS+yYEjbSU0csC5yimNwEedMueQjhuGzhvCfF/EGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=SKU8yXNd; arc=fail smtp.client-ip=52.101.193.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OpGTmKhY"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso2226324a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:20:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787955657; x=1788560457; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LY2F7Qu/OgPW4SvV7J8QvCDtOum52DXu0gkh9YH8DxA=;
-        b=OpGTmKhYmpOBOaqL3cRu7K7yjlHiySKU0Ra2FXIYSEPDOyVB6AibYq1TkLDx7g+d2R
-         m4slxO9FNQLADr9l0wxQFrC4V4NRqgQ19/pLb4rGd/3yW9XhK109reyBR2Po/PZYsAz0
-         3ktgRmnHKQD2TtbXbNOvPwzzwpe4WkYYCSwJwnL9tg7/16BV7jrEXbXr27tDdN6tYo+5
-         FO8QTqpaSrRIy9IDCbD3pcpRwqG6aMnZQJpLJC0N4o41keC5W3feTuIVZT6oB/jLs4P4
-         lGMvJ5S5VbSf+QCWQQ+40y4aHlxP4AVce3UUJTvEWs2Vi4eLQ+uqhptnyO9paKUfCG/2
-         itqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787955657; x=1788560457;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LY2F7Qu/OgPW4SvV7J8QvCDtOum52DXu0gkh9YH8DxA=;
-        b=TdmfQdFpdm2AFWR7PQf8jmfchFOQrarIrbBkxa4EmMFVRySh4C3aRjX3M9Ut3ok5f4
-         A5GU72F1d9AmqV10BiyIAU2+mZs9uG/y0UUq8QwFwzwjaMjJ8E7aT6v9EixidbWe/UWK
-         5D/6TP8saalnfsOUMP9rnJ0dr4v5DlcF39wlEUKIwxhmxZKdcoPg63ABm1VRoxKvFVkP
-         ZAYMDv0KlgpCNyKEI+oUh7GzyUc7u4vRn9XhQEAx4xpmGjcBMWjuU6LCJw6W2SZQO9Q6
-         AqUAqghMkBGXeMtNMWPBlbhUK6bEML/5eZVJTVHIN1OIyPxnu/lK460ur7y3K+hGxrtq
-         MfeQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrcOi4hUJwJrFX1Br4bShPH7qjJ3Hn/K2zEFWSoY+Q8md4RqBUOzEhGSZiZytyrb6bsh63A4MFLCB2HZJE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncZmUnbFJpNW53rlwUvXbzhYqZj5ulgWlFSseMEYnei24jDTiM
-	R+BF6IQ64OxP0K1sA8J33o3mXPg/MpLKWcNo20/ee49KZIc5ToaBjBeswtQxxyQB8WI6b+sSTO9
-	05CNDsW1TkA==
-X-Received: from dldyr20-n2.prod.google.com ([2002:a05:701b:4514:20b0:13f:c741:a50b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:c784:b0:3cd:3e77:1dcd
- with SMTP id adf61e73a8af0-3d265330cdemr20297973637.1.1787955656942; Fri, 28
- Aug 2026 15:20:56 -0700 (PDT)
-Date: Fri, 28 Aug 2026 15:20:45 -0700
-In-Reply-To: <20260828222045.1314766-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="SKU8yXNd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X18YDulLv+Ox8c7WaX+sq0fnQcX2OH0igvMOd/zZwQll545xpvtWjfEI4XV7/J3x+mnECWel+/KP4bfvTAK6BnEi4QRdyEarKSwMOje9Dqq693C3q7I6nukyLnFRwjGVDLMhFCB2WwvjUUce0GWNbBK+8nrIO3EP1RCFdVpRBZOVtlZtD9x4xBvlBzTCRfT/DPty5Gi6XHhK4j1mnYHuW9xpuRFv/IYLzD38M98UiGN9vZbUUOo74QsrvCvmKqp1jQXkcHe72D8Te7A6N0vqMtMXZIMstbHbF3xI03XTeg+WIxPG2j8vvXUw7yDfG3xCqZeTpgOWes54jS3cQ+bFvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RR8tCpcRwK8pEMDo2QG1BhlQL8QJHF4rQS6JXps8Dfk=;
+ b=y4rK+aNmW9/d/QNgOy2SLji3YLwJM6BBzfQCc6NfpABVikeywIE4yhkkdReZT6McAqNpD6h16bP8GOY1jTw+ski9g3lNT6TLzOLqjO9XfOtSJgDC28Hmk9pkVGxGbsEcGIGrlI9I6uBrknVd2wjpoYCv676J+0weWffR73wEc0jfjvkxbuussDumfURGR+8gqq1li+6oOBd8tyovXYT1/8rlrB5yUnHH3usl1tqka89qcFXzYYDnwWjATOXShS2YyP+O0CxYbHTTMFrNsA3dDEws+618Ro1T2sQr8Iga3C9KbJFWEssVdu3QuxbskWg4YqFmBSZt3NeliLCry3msGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RR8tCpcRwK8pEMDo2QG1BhlQL8QJHF4rQS6JXps8Dfk=;
+ b=SKU8yXNd5lNO0SwbtKs9r5GEkQN0syxr1k4BPD/yKuMHERA+UT859pqTZsvUOrXIJsIvHDOMaFvazRPof3vtdOD+1X91oQqOJL3fThkQGq6hc6zRpMnjcJIqa8vqrnX7XynUO46UhYi4jSFwVcCRrssNw5I71dYcYTQKTdfUsnM=
+Received: from CH8PR21MB4716.namprd21.prod.outlook.com (2603:10b6:610:264::15)
+ by CH4PR21MB4652.namprd21.prod.outlook.com (2603:10b6:610:1f6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.4; Fri, 28 Aug
+ 2026 22:23:35 +0000
+Received: from CH8PR21MB4716.namprd21.prod.outlook.com
+ ([fe80::5703:2b5a:48f7:3291]) by CH8PR21MB4716.namprd21.prod.outlook.com
+ ([fe80::5703:2b5a:48f7:3291%6]) with mapi id 15.21.0382.007; Fri, 28 Aug 2026
+ 22:23:35 +0000
+From: Haiyang Zhang <haiyangz@microsoft.com>
+To: Dexuan Cui <DECUI@microsoft.com>, KY Srinivasan <kys@microsoft.com>,
+	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
+	Long Li <longli@microsoft.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH net-next] hv_netvsc: Advertise the SR-IOV capability for
+ CoCo VMs
+Thread-Topic: [PATCH net-next] hv_netvsc: Advertise the SR-IOV capability for
+ CoCo VMs
+Thread-Index: AQHdNzOWypeuAZthoESKbCXZD7Ik8ba0CFFg
+Date: Fri, 28 Aug 2026 22:23:34 +0000
+Message-ID:
+ <CH8PR21MB4716879DA48636623D5270FACAAC2@CH8PR21MB4716.namprd21.prod.outlook.com>
+References: <20260828212325.2309515-1-decui@microsoft.com>
+In-Reply-To: <20260828212325.2309515-1-decui@microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=6927e5b3-60fa-4aa0-816c-1083cb67bf49;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-08-28T22:19:58Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH8PR21MB4716:EE_|CH4PR21MB4652:EE_
+x-ms-office365-filtering-correlation-id: ca993c26-8f23-45dd-7b94-08df0552ffee
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|7146999003|6133799003|7053199004|22082099003|18002099003|11063799006|56012099006|38070700021|921020;
+x-microsoft-antispam-message-info:
+ RqugV6+jWWZd9ElzNPGRdHQXvKykuT+1hldj5nttD3zJ6eWWyDFnRurckZ6GPtmfKMDV1gdHE+zheVPh3nrgAwK3MvdQtcUpLBKLY8ZUiij3w41/X9Ax6czJfsVCd/riGHcipzAjsMzTmR8AfPVQhjF/a9kAuEQ1F2Ox0/RwG9n/hlW3YrxW+W2p+2eGQzVf8y/v9/2bJmoMZH3V6Y5c48EdwNMwodqE7yaT/PKezAArirWQO58lhs3DQ+hJXVPnDdGdQkLTqrHt4TfUzlsFO7PJxvIxJWGGcme6bAK3HaufxSQTjru/o+IIrQ6WIZuBcT9RlXapU9ksJECFkXghvgUdzRYWRuUWwZeMo7gflFcNFJQiGwf4J4HnKrkAYCB+152KYVueIJAnXGFoiSTL/sZTfvJH657l4tOVsCbQf1GR59BHuSaOGm+H+UT8QXHlQBlm0asVaakYEik+zTQuz4R68BkAbvc1NYyHeBXDdXyVmmj8vBM4pOUTzk+gMvqBpId6xzRkOFW4/ETePtB/9KEnbTh5emKZmuaRwSvET040gdppF1D9x1YYfn7xcwWZbYtK7/OivZZnWPGFZ3WUoRrJPZ6qxHEvGbp3263jJk1iAWCW2EB1TqXXHM6Rx0+xQe6X0yv5dZ1XVTXjpDxKfwzOfo5QRs1plTJHAux43NhNqCfNBylWomSdD6CQNzD/5s7BLv2kTcLYVtJ1ak7yl4qZXkZqEkWdEdDC+3shGak=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR21MB4716.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(7146999003)(6133799003)(7053199004)(22082099003)(18002099003)(11063799006)(56012099006)(38070700021)(921020);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?frPT7U40IXwbAc4W9q43+v3SVuqQhZiEkKdVqGSSDI3YsgasTmKPyCyNXNJZ?=
+ =?us-ascii?Q?hqY3gFDyvb3HqTZirQwlafxq8pA0C784CzFDXrp9jq2YuAnCcO6ARH3il5kw?=
+ =?us-ascii?Q?3qLYsGeAzGiTVbxkB19cbMTFOoNUVH+ROuXI/iC7jMm3SQZrxr4t/CqPDLsX?=
+ =?us-ascii?Q?uXr/Q3hDcGB8wZAZ6Qqge+Z9wY/bEBx6uuMWVBNXnVeyDNa7x10Ms9GVlof7?=
+ =?us-ascii?Q?zPAwz099m8DYbdjHAb3qZ1hwsPLZL5W0HWKlo6HuzTT8dkhj3abx+hWj2ZcL?=
+ =?us-ascii?Q?/Mm3He4K8sv+m3lqj4E0nr+lQuOUEUxLCAAmy7SMbaPiTgaTRJWtkWemzFUw?=
+ =?us-ascii?Q?8rfGDPWkOCYzA2YFP5cnPhLurUnDUTc4o/Nbg3F8KyQojI/qNLmG/6XXfcqj?=
+ =?us-ascii?Q?KEUfgcQV32uRAyXYo+gh8mmXgyewqjpEYKjEU4u9BUNV1URtd+BPUjtI41jV?=
+ =?us-ascii?Q?q5THQrsEIOAe33STIegNW5YER5u5/gCvofrIBZpgBKj4Sdfa2NejSAU0XydL?=
+ =?us-ascii?Q?V2Wpg4RzdRMcybcHPuLF/9cQoE922NupyXnpAyZgwVuYU7veUYJ5Id2Q+tso?=
+ =?us-ascii?Q?R3cRvRYcwUgm0WBWM+JaubCH3dMOBN+4nSEam3tJVVSHpxcsILZ50lxAP5dI?=
+ =?us-ascii?Q?UP7BgOtkCi/t8H8OAa7krzHtiGvYHc5Guq0TNpc7ir2BblVMSHNP1Hz/OkY4?=
+ =?us-ascii?Q?y9T/t0AjTkov7h0bxIsvFw9OYnU14zOH9hmczZJ0aGQXrFBi5+c2dJWVxltx?=
+ =?us-ascii?Q?eA9kmB53jkC0xy1jVFXTYuU70pY+gkPwJjmVICLpFscYG6Isc0S1McpX9rZj?=
+ =?us-ascii?Q?ry7/tljYkQbgf6N2Z1dBvPPxYKHG5E3K6Wt5nV2378NRLF0mM85mQ/sbfRLN?=
+ =?us-ascii?Q?Qr9pD9+sFuPrUHLV19IRP+YxsK8AuxRM/zIB45/3whlHfjF1i0lTxxmBc+mU?=
+ =?us-ascii?Q?V4D55/S1w7OYsQJGrmUz4brCTmM+UWOe8ed0w9oTvPlliRwR5xji0lq20BTa?=
+ =?us-ascii?Q?d/dvkmuufRFC7EsLLNJ025h7NoGGzE7FKqUrurn05R1erzirMUWDy8n+j+X0?=
+ =?us-ascii?Q?6TLcFuGEzg3h2plyXQ1FkkcPBSWOpttloAGoJOEhJpt6W9q2GD2E5TGRYP24?=
+ =?us-ascii?Q?YsPjeS6j+CJoksD1qUiBk7pzvuhoNTWCVPGLOHVhmjCBVKHrn6lJQVSuF7rq?=
+ =?us-ascii?Q?K8Zisjb6BsuoKd4PHolaIvLW4xpjq5fheI3mWUl9I5QVtDrg37iShClDERS0?=
+ =?us-ascii?Q?tOETahrPBZ2WWJylB1LE8tm0r+BR+ONP/KRIO4sD2/Xj9BRJrld5OSQm7+/n?=
+ =?us-ascii?Q?SPfMN1sMr7YovU+i/YsB6WP9Uh+XINQsXML+Z1PkxGjLK6qKTPwmRJ+YDHJ8?=
+ =?us-ascii?Q?SKk8T3EB24aUqjyNb3i+EiJgT228NNuYBB75jqk1nYHBoZiRDE/jJEixhgCZ?=
+ =?us-ascii?Q?ieZ+DNIN0e7iwMkeiyLprSvnDwZ+JKjUkfm2REdZ9q9iYg+h+YvpIM1nO5d5?=
+ =?us-ascii?Q?2xrm/6B7ynKQ+ErKRtI1OCoJVe8AiZY5DcIjzSySkIHUSurZEHr1tKbS5uD1?=
+ =?us-ascii?Q?otWTkiv73nGZ3SUFEkojP/DTFL0IYQ55YHb2T6/PoN+5FH5b67EE4XBYDZtJ?=
+ =?us-ascii?Q?YbqOw6OVWpp6tkv6fgI5HrJIfZqPRhsiAx0gzfJIZcl3S+JBkLATusOVimIx?=
+ =?us-ascii?Q?Jp8P0GYlri1un+VuBEaK7lJRsJnwQdx1YiPInbSQ6gMpqH6tAQHzmHykDW3S?=
+ =?us-ascii?Q?JRwcKDxgrw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260828222045.1314766-1-irogers@google.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260828222045.1314766-2-irogers@google.com>
-Subject: [PATCH v1 2/2] perf tool: Sort headers from previous cache.h removal
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Thomas Richter <tmricht@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR21MB4716.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca993c26-8f23-45dd-7b94-08df0552ffee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 22:23:34.3305
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: n3HQyfHQY/Sb7Bh+uYTOJsDbxqba3SzvHcWD0t34hRVcr5+Ilveu3ILKFrX8U7HBS4jiK7XffukTA2XtVeqgvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR21MB4652
 
-Use git clang-format to sort headers.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-annotate.c      | 49 +++++++++++++++---------------
- tools/perf/builtin-config.c        | 14 +++++----
- tools/perf/builtin-help.c          | 31 ++++++++++---------
- tools/perf/perf.c                  | 49 ++++++++++++++++--------------
- tools/perf/util/config.c           | 34 ++++++++++++---------
- tools/perf/util/help-unknown-cmd.c |  9 ++++--
- tools/perf/util/path.c             |  8 +++--
- tools/perf/util/path.h             |  3 +-
- 8 files changed, 107 insertions(+), 90 deletions(-)
 
-diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.c
-index 3efeb845099c..fbdcfae858e2 100644
---- a/tools/perf/builtin-annotate.c
-+++ b/tools/perf/builtin-annotate.c
-@@ -6,44 +6,43 @@
-  * look up and read DSOs and symbol information and display
-  * a histogram of results, along various sorting keys.
-  */
--#include "builtin.h"
--#include "perf.h"
-+#include <errno.h>
-+#include <inttypes.h>
- 
--#include "util/color.h"
-+#include <dlfcn.h>
-+#include <linux/bitmap.h>
-+#include <linux/err.h>
- #include <linux/list.h>
- #include <linux/rbtree.h>
--#include "util/symbol.h"
- 
--#include "util/debug.h"
-+#include <subcmd/parse-options.h>
- 
--#include "util/evlist.h"
--#include "util/evsel.h"
--#include "util/annotate.h"
-+#include "arch/common.h"
-+#include "builtin.h"
-+#include "perf.h"
-+#include "ui/progress.h"
-+#include "ui/ui.h"
- #include "util/annotate-data.h"
-+#include "util/annotate.h"
-+#include "util/block-range.h"
-+#include "util/branch.h"
-+#include "util/color.h"
-+#include "util/data.h"
-+#include "util/debug.h"
-+#include "util/dso.h"
- #include "util/event.h"
--#include <subcmd/parse-options.h>
--#include "util/parse-events.h"
--#include "util/sort.h"
-+#include "util/evlist.h"
-+#include "util/evsel.h"
- #include "util/hist.h"
--#include "util/dso.h"
- #include "util/machine.h"
- #include "util/map.h"
-+#include "util/map_symbol.h"
-+#include "util/parse-events.h"
- #include "util/session.h"
-+#include "util/sort.h"
-+#include "util/symbol.h"
- #include "util/tool.h"
--#include "util/data.h"
--#include "arch/common.h"
--#include "util/block-range.h"
--#include "util/map_symbol.h"
--#include "util/branch.h"
- #include "util/util.h"
--#include "ui/progress.h"
--#include "ui/ui.h"
--
--#include <dlfcn.h>
--#include <errno.h>
--#include <linux/bitmap.h>
--#include <linux/err.h>
--#include <inttypes.h>
- 
- struct perf_annotate {
- 	struct perf_tool tool;
-diff --git a/tools/perf/builtin-config.c b/tools/perf/builtin-config.c
-index f4f916241d1d..1ee5461436b6 100644
---- a/tools/perf/builtin-config.c
-+++ b/tools/perf/builtin-config.c
-@@ -5,16 +5,18 @@
-  * Copyright (C) 2015, Taeung Song <treeze.taeung@gmail.com>
-  *
-  */
--#include "builtin.h"
-+#include <limits.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+
-+#include <linux/string.h>
- 
- #include <subcmd/parse-options.h>
--#include "util/debug.h"
-+
-+#include "builtin.h"
- #include "util/config.h"
-+#include "util/debug.h"
- #include "util/path.h"
--#include <linux/string.h>
--#include <limits.h>
--#include <stdio.h>
--#include <stdlib.h>
- 
- static bool use_system_config, use_user_config;
- 
-diff --git a/tools/perf/builtin-help.c b/tools/perf/builtin-help.c
-index 36f5c5e94289..676a0bb63b24 100644
---- a/tools/perf/builtin-help.c
-+++ b/tools/perf/builtin-help.c
-@@ -4,28 +4,31 @@
-  *
-  * Builtin help command
-  */
--#include "util/config.h"
--#include "util/path.h"
--#include "util/strbuf.h"
--#include "builtin.h"
--#include <subcmd/exec-cmd.h>
--#include <subcmd/parse-options.h>
--#include <subcmd/run-command.h>
--#include <subcmd/help.h>
--#include "util/debug.h"
--#include "util/util.h"
--#include <linux/kernel.h>
--#include <linux/string.h>
--#include <linux/zalloc.h>
- #include <errno.h>
- #include <limits.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
--#include <sys/types.h>
-+
-+#include <linux/kernel.h>
-+#include <linux/string.h>
-+#include <linux/zalloc.h>
- #include <sys/stat.h>
-+#include <sys/types.h>
- #include <unistd.h>
- 
-+#include <subcmd/exec-cmd.h>
-+#include <subcmd/help.h>
-+#include <subcmd/parse-options.h>
-+#include <subcmd/run-command.h>
-+
-+#include "builtin.h"
-+#include "util/config.h"
-+#include "util/debug.h"
-+#include "util/path.h"
-+#include "util/strbuf.h"
-+#include "util/util.h"
-+
- static struct man_viewer_list {
- 	struct man_viewer_list *next;
- 	char name[0];
-diff --git a/tools/perf/perf.c b/tools/perf/perf.c
-index ad8c8067b765..99135d17b85c 100644
---- a/tools/perf/perf.c
-+++ b/tools/perf/perf.c
-@@ -6,38 +6,41 @@
-  * This is the main hub from which the sub-commands (perf stat,
-  * perf top, perf record, perf report, etc.) are started.
-  */
--#include "builtin.h"
- #include "perf.h"
- 
--#include "util/build-id.h"
--#include "util/env.h"
--#include <internal/lib.h> // page_size
--#include <subcmd/exec-cmd.h>
--#include "util/config.h"
--#include <subcmd/run-command.h>
--#include "util/parse-events.h"
--#include <subcmd/pager.h>
--#include <subcmd/parse-options.h>
--#include <subcmd/help.h>
--#include "util/debug.h"
--#include "util/event.h"
--#include "util/util.h" // usage()
--#include "ui/ui.h"
--#include "perf-sys.h"
--#include <api/fs/fs.h>
--#include <api/fs/tracing_path.h>
--#include <perf/core.h>
- #include <errno.h>
--#include <pthread.h>
- #include <signal.h>
- #include <stdlib.h>
- #include <time.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <unistd.h>
-+
- #include <linux/kernel.h>
- #include <linux/string.h>
- #include <linux/zalloc.h>
-+#include <pthread.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
-+#include <unistd.h>
-+
-+#include <api/fs/fs.h>
-+#include <api/fs/tracing_path.h>
-+#include <internal/lib.h> // page_size
-+#include <perf/core.h>
-+#include <subcmd/exec-cmd.h>
-+#include <subcmd/help.h>
-+#include <subcmd/pager.h>
-+#include <subcmd/parse-options.h>
-+#include <subcmd/run-command.h>
-+
-+#include "builtin.h"
-+#include "perf-sys.h"
-+#include "ui/ui.h"
-+#include "util/build-id.h"
-+#include "util/config.h"
-+#include "util/debug.h"
-+#include "util/env.h"
-+#include "util/event.h"
-+#include "util/parse-events.h"
-+#include "util/util.h" // usage()
- 
- #define CMD_EXEC_PATH "--exec-path"
- #define CMD_DEBUGFS_DIR "--debugfs-dir="
-diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
-index 6a310e56a2f1..a748c9fd629e 100644
---- a/tools/perf/util/config.c
-+++ b/tools/perf/util/config.c
-@@ -9,28 +9,32 @@
-  * Copyright (C) Johannes Schindelin, 2005
-  *
-  */
-+#include "config.h"
-+
- #include <errno.h>
-+#include <stdlib.h>
-+
-+#include <linux/ctype.h>
-+#include <linux/string.h>
-+#include <linux/zalloc.h>
- #include <sys/param.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
-+#include <unistd.h>
-+
-+#include <subcmd/exec-cmd.h>
-+
-+#include "build-id.h"
- #include "callchain.h"
-+#include "debug.h"
- #include "header.h"
--#include <subcmd/exec-cmd.h>
--#include "util/event.h"  /* proc_map_timeout */
--#include "util/hist.h"  /* perf_hist_config */
--#include "util/stat.h"  /* perf_stat__set_big_num */
--#include "util/evsel.h"  /* evsel__hw_names, evsel__use_bpf_counters */
- #include "path.h"
- #include "srcline.h"
--#include "build-id.h"
--#include "debug.h"
--#include "config.h"
- #include "unwind.h"
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <linux/string.h>
--#include <linux/zalloc.h>
--#include <linux/ctype.h>
-+#include "util/event.h" /* proc_map_timeout */
-+#include "util/evsel.h" /* evsel__hw_names, evsel__use_bpf_counters */
-+#include "util/hist.h" /* perf_hist_config */
-+#include "util/stat.h" /* perf_stat__set_big_num */
- 
- #define MAXNAME (256)
- 
-diff --git a/tools/perf/util/help-unknown-cmd.c b/tools/perf/util/help-unknown-cmd.c
-index f1cd9d4746f3..64dbe6e514f5 100644
---- a/tools/perf/util/help-unknown-cmd.c
-+++ b/tools/perf/util/help-unknown-cmd.c
-@@ -1,13 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0
--#include "config.h"
--#include <poll.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-+
-+#include <linux/zalloc.h>
-+#include <poll.h>
-+
- #include <subcmd/help.h>
-+
- #include "../builtin.h"
-+#include "config.h"
- #include "levenshtein.h"
--#include <linux/zalloc.h>
- 
- static int autocorrect;
- 
-diff --git a/tools/perf/util/path.c b/tools/perf/util/path.c
-index bf5d081707e4..7e85bbd8f751 100644
---- a/tools/perf/util/path.c
-+++ b/tools/perf/util/path.c
-@@ -1,12 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- #include "path.h"
--#include <linux/kernel.h>
-+
- #include <limits.h>
- #include <stdio.h>
- #include <string.h>
--#include <sys/types.h>
--#include <sys/stat.h>
-+
- #include <dirent.h>
-+#include <linux/kernel.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
- #include <unistd.h>
- 
- static char *cleanup_path(char *path)
-diff --git a/tools/perf/util/path.h b/tools/perf/util/path.h
-index e7cdb0cb1097..62e86d390589 100644
---- a/tools/perf/util/path.h
-+++ b/tools/perf/util/path.h
-@@ -2,8 +2,9 @@
- #ifndef _PERF_PATH_H
- #define _PERF_PATH_H
- 
--#include <stddef.h>
- #include <stdbool.h>
-+#include <stddef.h>
-+
- #include <linux/compiler.h>
- 
- struct dirent;
--- 
-2.55.0.897.gb25b4bd76c-goog
+> -----Original Message-----
+> From: Dexuan Cui <decui@microsoft.com>
+> Sent: Friday, August 28, 2026 5:23 PM
+> To: KY Srinivasan <kys@microsoft.com>; Haiyang Zhang
+> <haiyangz@microsoft.com>; wei.liu@kernel.org; Dexuan Cui
+> <DECUI@microsoft.com>; Long Li <longli@microsoft.com>;
+> andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
+> kuba@kernel.org; pabeni@redhat.com; linux-hyperv@vger.kernel.org;
+> netdev@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Subject: [PATCH net-next] hv_netvsc: Advertise the SR-IOV capability for
+> CoCo VMs
+>=20
+> This basically reverts the Feb 2021 change:
+> commit 96854bbda24f ("hv_netvsc: Restrict configurations on isolated
+> guests")
+>=20
+> In Feb 2021, PCI device assignment for CoCo VMs on Hyper-V was not
+> supported: if the host offered a PCI VF NIC device to the VM, the VM
+> couldn't handle it properly, so the 2021 commit was made to tell the host
+> "I'm unable to handle SR-IOV NICs, so please don't offer a VF to me".
+> If the host offers a VF NIC to the VM anyway, the change to
+> netvsc_receive_inband() ignores the VF NIC.
+>=20
+> Since Mar 2023, the VM is able to support PCI device assignment due to
+> commit 2c6ba4216844 ("PCI: hv: Enable PCI pass-thru devices in
+> Confidential VMs")
+> and related commits, so hv_netvsc can functionally work with a VF NIC, bu=
+t
+> we haven't advertised the SR-IOV capability because the MANA NIC driver
+> (drivers/net/ethernet/microsoft/mana/) hadn't been hardened, so a
+> malicious MANA NIC might be able to attack the VM.
+>=20
+> Recently, we have finished hardening the MANA driver, so we can safely
+> use the MANA NIC in a CoCo VM now. Note: currently the MANA driver in a
+> CoCo VM still uses bounce buffering (i.e. shared decrypted memory)
+> for DMA. In the future, it will be able to use private encrypted
+> memory for DMA with the help of TDISP.
+>=20
+> Now, advertises the SR-IOV capability for CoCo VMs.
+>=20
+> Note: for MANA to work properly for CoCo VMs, the following earlier
+> commits are also required:
+> commit 2e2a83b4998a ("net: mana: Validate the packet length reported by
+> the NIC")
+> commit c72a0f09c57f ("net: mana: Sync page pool RX frags for CPU")
+>=20
+> Note: the host might offer a VF NIC device that's not MANA -- in that
+> case, if the corresponding VF NIC driver isn't hardened for CoCo VMs,
+> the driver should be blacklisted in CoCo VMs.
+>=20
+> Signed-off-by: Dexuan Cui <decui@microsoft.com>
+
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
 
