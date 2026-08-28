@@ -1,23 +1,24 @@
-Received: from mail-m21472.qiye.163.com (mail-m21472.qiye.163.com [117.135.214.72])
+Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E97B3D4119;
-	Fri, 28 Aug 2026 06:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.214.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C653D668F;
+	Fri, 28 Aug 2026 06:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900248; cv=none; b=jmHoadtX+ZxPYL0+jLqSNkRWo4tAW6VNrpqb5yCnEFfO9HMxByPTD7QEjSj0DpbMPJadRjy5zHo3xQezfzAmoVcHE53YJP3YDmbBUzU0p1ufPbu/VVkvEcqFcfRNqR/q926UjF3D771rKJdNrrP2cAOFWUVGPLLmVHu46teGL3U=
+	t=1787900249; cv=none; b=mH3fXVLfbXFv1mTfzR4B6edgzaNUXeubzEl5SZ8rkYZsqacp09wJ2rONzOuPY4AjJdF8X61EznZ/V/enAUMQzmp6I0cDcNpAFyB9RLDefOwa+7PlSg6lGCnnPKapn4SIsgtUH1DbtsQgMFWSDckVTx4HM3d4jy8P76nDhoMbpQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900248; c=relaxed/simple;
-	bh=Y2hwC6HB/PlSar3c1yv/Z5mk8yEnHxfNWGCAraG2jVw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jos+rhzYAk/HtFc2ufaROK5jVRAZnghtstaE0++2L4KrnE7guN787WwjZ3ZWeJWFUiYLFMqxIS/SbMqxR2sWCQ9HhJqdAGPV0RCE93+T1c3A68clk5V9vUQBjlW6OEdZN35vtQEOaiQnukLzrgWHEHFCAtryqPQHB72S+vihvio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=WVMILWJc; arc=none smtp.client-ip=117.135.214.72
+	s=arc-20240116; t=1787900249; c=relaxed/simple;
+	bh=mowNlomkjWV8WhtYoTKyfiaWwBDsTac8oQVst65R16Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qASareZ+HQq3LAO2KNciJSsw1LwldyZha2wpPjmgJxGmEOY1VjotpyYc+Kh5FOhCivF7PGp1cW8dCoSO23S8Po22b3XTaUe2BClapYPWoID4gOMLmGwErTQYC1EZJX3OtN8sSu/JExSSLNeQuQFT7UFLpQutsPmyaVuHb0lAZc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=J3ln/bxy; arc=none smtp.client-ip=101.71.155.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="WVMILWJc"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="J3ln/bxy"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d582;
-	Fri, 28 Aug 2026 14:52:02 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5a4;
+	Fri, 28 Aug 2026 14:52:05 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -46,10 +47,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 0/5] Add eDP lane mapping support
-Date: Fri, 28 Aug 2026 14:51:48 +0800
-Message-Id: <20260828065153.590802-1-damon.ding@rock-chips.com>
+Subject: [PATCH v8 2/5] drm/dp: Add helper to validate DP lane counts
+Date: Fri, 28 Aug 2026 14:51:50 +0800
+Message-Id: <20260828065153.590802-3-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,93 +60,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04723c63e03a8kunm9cc188d518831f
+X-HM-Tid: 0aa04723d5e203a8kunm9cc188d518834a
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0hNHlYeQhgfHkkYHh
-	4ZQkhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSEpKQk1VSktLVUpCWQY+
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGk4aGlYaSEMdSEsZSU
+	IeQ0lWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=WVMILWJcBzV6eYWE+qJSZLa1Tskj+ReLam0Ikoo9j1KGwt7fsyffBUVJltHgeDr6uavrZT+73hAj8CeSZIVFerWoWgNE6m31ub0cmaIk8z54+D86aTe4RGlkS7ZVl7m9gF0h4RwYoNwCvXBegjWO5UWBDYXfQEUR+MKcpuBuSxc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=xUWryYLszvMhpY9lSrgXJtpEJ4lE5ULsbA6OqmZWLbc=;
+	b=J3ln/bxybGTsOfkGBbZzKL9bXT2jZ9+ygl5ZAisrNMxtrVWSl2FG5ZFDMbj6iGPWwecOCgPNJFC+PF3O1qIsbsDr/VcpySVQUJRnOxamoNBrZvltJ9/Duo8jBMIzVAjRuvyhGVnF5/X9fvXA1sjPqaTYubqoh+eUn2HVj5d3WX0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=3D3tCxbxiOqvsJFvLlKoOy9RkGLmHyoV0izPMCA9ZDc=;
 	h=date:mime-version:subject:message-id:from;
 
-This series adds configurable eDP physical lane mapping support via
-device tree data-lanes property.
+Add a generic helper function drm_dp_lane_count_is_valid() to check
+if a DisplayPort lane count is valid. According to the DP specification,
+only 1, 2, or 4 lanes are supported.
 
-Lane mapping is mainly used for below scenarios:
-1. Correct PCB lane swap and differential line routing crossover
-   without hardware changes;
-2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-3. Support multiple panel hardware variants on the same board
-   by configuring data-lanes in device tree only.
+This helper avoids duplicating DP lane count validation logic across
+individual DisplayPort drivers.
 
-The series includes driver implementation and device tree binding
-updates to support custom lane mapping configuration from endpoint
-node, and keeps default linear lane order if no configuration is given.
-
-Patch 1: Add endpoint data-lanes property to analogix-dp binding
-Patch 2: Add DRM DP helper API to validate DP lane counts
-Patch 3: Restore mandatory for samsung,link-rate and samsung,lane-count
-         properties
-Patch 4: Add validation for samsung,lane-count property as preparation
-Patch 5: Implement lane mapping in analogix_dp driver
-
-Damon Ding (5):
-  dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
-    endpoint
-  drm/dp: Add helper to validate DP lane counts
-  drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
-  drm/bridge: analogix_dp: Add validation for samsung,lane-count
-    property
-  drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-
- .../bindings/display/bridge/analogix,dp.yaml  | 19 +++--
- .../rockchip/rockchip,analogix-dp.yaml        |   1 +
- .../drm/bridge/analogix/analogix_dp_core.c    | 84 ++++++++++++++++++-
- .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 +
- include/drm/display/drm_dp_helper.h           |   6 ++
- 7 files changed, 115 insertions(+), 18 deletions(-)
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v2:
-- Add lane mapping application scenarios in commit message.
-- Remove redundant deprecated property 'data-lanes' for eDP node.
-- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
-
-Changes in v3:
-- Squash [PATCH v2 2/3] into [PATCH v2 1/3].
-- Add unevaluatedProperties: false to both the port@1 and endpoint
-  nodes.
-
-Changes in v4:
-- Add validation for samsung,lane-count property as preparation.
-
-Changes in v5:
-- Add DRM DP helper API to validate DP lane counts.
-- Apply DRM DP helper API to check the validity of samsung,lane-count
-  property.
-- Add Acked-by and Reviewed-by tags.
-
 Changes in v6:
-- Add a separate commit to restore mandatory samsung DP DT properties.
 - Add Reviewed-by tag.
+---
+ include/drm/display/drm_dp_helper.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v7:
-- Add Reviewed-by tag.
-
-Changes in v8:
-- Expand the commit message of [PATCH v7 3/5] with the detailed link
-  training failure analysis, and add 'Cc: stable'.
-- Fix reg parameter of of_graph_get_endpoint_by_regs() from -1 to 0
-  in [PATCH v7 5/5].
-- Rename 'tmp' to 'lane_idx' and add comment to explain the lane map
-  fill loop in [PATCH v7 5/5].
-- Add Reviewed-by tags.
-
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index ab16c1be3900..5b05a7fbe174 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -139,6 +139,12 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
+ 
+ int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
+ 
++static inline bool
++drm_dp_lane_count_is_valid(int lane_count)
++{
++	return lane_count == 1 || lane_count == 2 || lane_count == 4;
++}
++
+ static inline int
+ drm_dp_max_link_rate(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ {
 -- 
 2.34.1
 
