@@ -1,196 +1,113 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D973BB123
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCFB1FC0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787891392; cv=none; b=VvzyueI934h1h1WsIzD/VfeEXPuy0LELeLxdfdGM/+0FHQGnOlScOgt+N0qIxJX3/v16RzdXNLscaUcc0aVIT9h7nB4gfRV4ZrdjsTF0/AIrUnBPRlbJ1g1j6xSveMsDccYhFZB7kARmJyMW3G0aKe8HKn2vb4Z9o1P4On45oqM=
+	t=1787891451; cv=none; b=OU7bST17gJuiaMsKOafTSeI2C9tkwbfAxNXNAZYWMYkqFhCBwWdjgf1FhKPyYQOnX7AscK6MIP3QnjhMODcX2sfdCHAoRpFd8ae2/3y1kFv6oQyi5ft3AF5ywaKLr3xyXL0USDN+AN2YE9Sk4SdWG8GBdYKX9k5B/ySef1bpBOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787891392; c=relaxed/simple;
-	bh=4H9VOdLYTH9v60s11zzZp+ccy2UVkAzHbMGzN9G2LCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YDv6yJHy2rGoRo3oRm4I0JiBc/2KFVLJvVlECP0SGJmbUN8agMbS+MU3/Hknvj9FVYwSRYFA8CpsrcfIUMgYDhml5Pp6M6l/YsolOzElS6O7HMDdedVcrn6yXZheXN3BSZPtK0N4KawjWkQVc/unkNPXn996Sb+cGuOQ29C6v5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RAbhMwQj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jby82Sv3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787891451; c=relaxed/simple;
+	bh=kG58sF3RZ5u9NnjOKQXNOz8FhkA7f7nNGMaw3qY76mA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K/fJ/zxkJVasBIRVaHQwjYQtsEtGoe7vnx6DusAkHre3cnrf5SYy6k8IDUfJcPfGv2kO5RW5E/Va4hjD2kcVrY5KV/seq9kUU+iTpoOaJpqSwvBQNgXPRO+AoyDb4q5GxAhZjhCui6m0gJdtjY+7x6LfzhTGEtWaXQue96SxNLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HnqsjjQJ; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RAbhMwQj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jby82Sv3"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S3JmlS2145438
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:29:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=/M40XcNzHWaNv+Qt53p8xG
-	AAnzoWNCnfOfgxO8U3Ru4=; b=RAbhMwQjt9luMxjamCUE3SdggBfvYSPahfdBxf
-	IG7OWA5JjO5FoTeDMVUAA56UGJVgyFRP2tD5SvUbJD+HCcN3t49J5/xJLfLZT7de
-	7xmyZO2ZSlw4kjSlvAmgSlt33fqB2M9bn6hiaLYT7RgSZ/5HWiIQzzh9oADrJd+1
-	brXW3GFr8Qruq7YAYeKXRl2/Ig5DYIDy9E/0zazyxlbs7MVajrLaw0aIb74Q3/IM
-	MtehVdQAmWGIGJ6uwS1Xf0LA72EU0IFbt2H2/t/GUNDoJX7eOAIwY6kki/Bxtk8W
-	nMrYRKIZSYoRPHgtQDctnGnPhxkOnZVQL1uCzYQJLedKA1UA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4garn0jnwk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 04:29:49 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ca6bd8a190cso700309a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:29:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HnqsjjQJ"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d712281f8bso6947265ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:30:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787891389; x=1788496189; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/M40XcNzHWaNv+Qt53p8xGAAnzoWNCnfOfgxO8U3Ru4=;
-        b=jby82Sv3yBvIYOhvDuAt1j9cfaTKT0uvdB7Ew+kc4rIGNxmJ+T3HyITHH2kkej5xtf
-         EKousipjApAPYZMFQuFBCx6RE7NJPScUApL4LT31ain2162QCnnkZLOtwk/85T15OT/b
-         2JJOVCveDM9wslbkmlyhbw1M0qmCYLoe87Oul/2sy4P+5/+cqU7gLoKCoi5bMFsMvjp5
-         IdT16ANCQoGgEs6QsRxc1q3ngJmfOqb+/alymFhmy4TZILX/xJIF453Cg+PeKrtl+46n
-         kt1ppcp7wA0w1cPRWs1bUa04Pr8G3xAr1rJ5I/IvEbAO69Rdf9oMghhZYqla8IZVzvNu
-         q0rg==
+        d=chromium.org; s=google; t=1787891449; x=1788496249; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wWELYUdy0evcbSQbyM99+0EsELbqzDDQlDxke8jG9OY=;
+        b=HnqsjjQJ96I4GX86C+PjPYNe2AMblWrCe/cj1V7jUWrb6ADQRWIOvgvNhbsAHRaWfK
+         cG57yTbTFqx0irqjXcVvfTUaLO0Hk8PVNvKWC71hOAQ1aNESYyHell4A9k78J3zBhh9c
+         4gbMMBgUeMM1l/efZI7Y5seNzCiMaeHbX0Jjs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787891389; x=1788496189;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/M40XcNzHWaNv+Qt53p8xGAAnzoWNCnfOfgxO8U3Ru4=;
-        b=ewPtgjxr9KEwz1J1VMePA02WMi/WAZ+CGfOAPoN5mzmu+mDPPW7ScfcZYeVHr/XDpN
-         wbjkFg6FmBTaTepn0nQRkwoAV3vQcM2xlmVSyveAKsY4AiiN0OSyZNGB9ODEOJk5nIBb
-         J+Jw2O/SyfrmREVExE8le9fWKf9kCmz3q8GJuh21j0wBt+2kMhMSvinSnQ4j81QBgvD4
-         91WOlYbggY+thmJyVWuo2xLI6xIrPNSnWm7HDno7b9ssgIW6BZsQ8UxpHK6SmZByOBr0
-         KGm8JxMZQfHW4JxzyjdjuKiBrx/1SGFrXRgJ4SGv7wBrcAt1kjAfu3ZRkJkSQjSoVg0c
-         SCHw==
-X-Gm-Message-State: AFuF++m8Cf/Z97dOpiPq0yJrfpofyYgM1ff94op73MlbY8Y9h6v538Wy
-	y3ED5etOpU6LOUzCjAwHEPpxnOL/NVg1Wqd+eXi/GkKxWCtWn5ft4PFGC6xLsUsOp5mfIQVUmKH
-	nRU6H350PHD/n9o9Nvdc1X0FwiWlmn7yJPf3O7KzVS9LBqeszd9Jj2fuAV/mG/9GbWb4=
-X-Gm-Gg: AR+sD13kn/7u5rJ30v2jtzfwkdWlqO5YqejN7q1R5Q7EYVUJBTwB0SEuSOjhA8rBcKQ
-	h2NbBNSv5NFYREdSnYO0lQQXyFxdIFhg7YIXqpGZDQnAPrcx3pUt/KnAzaYGGR/tAqqvDwkUXTA
-	I+8rC9U9Lf/gZeFdNJ7s1Pa3vwYmUneWTJSAEHjxVFipBfu80H/WJSYN0pW7+PpOP9Q2V9Dv2D/
-	3PYxxlSFdLv6YPAhRNquOhRjl+aA5+u1uMNTZBtc6ISAV4IrXky0Zgy66CL3GuSr+Hl+IW2++x5
-	I973NQ6sof33kfoGnyJVamlu/Uql5+cLljYSq7kuuiBHgM7hAW75rl/c353du+fuxA4Z8C6Y7ux
-	2uOGkwV+cR8C1emv+BLECmmFeOGvNo4zdYjIy
-X-Received: by 2002:a05:6a20:43a2:b0:3cc:f008:8125 with SMTP id adf61e73a8af0-3d265a3d2a2mr8029257637.1.1787891388986;
-        Thu, 27 Aug 2026 21:29:48 -0700 (PDT)
-X-Received: by 2002:a05:6a20:43a2:b0:3cc:f008:8125 with SMTP id adf61e73a8af0-3d265a3d2a2mr8029196637.1.1787891388468;
-        Thu, 27 Aug 2026 21:29:48 -0700 (PDT)
-Received: from hu-ssmaurya-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0df264csm3482765c88.14.2026.08.27.21.29.45
+        d=1e100.net; s=20251104; t=1787891449; x=1788496249;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wWELYUdy0evcbSQbyM99+0EsELbqzDDQlDxke8jG9OY=;
+        b=Z26WHM/UL2snUhl+AGvcJFLm9h2BcYax+jpWBYo4SBxSrkIz4HqcgSBfW51h1TEKRa
+         C2X/S7z2gGpPfukkz8EVfV84+hainQ//guUm9cKIr39QNAxtT4qfIVRiNgkEucPM67Zt
+         bssSaLhsyT8jR44XpG/JMPMAfPDuv6ZeCz0D6QtQ8Gt7incnVnh8w24bT6whBVqpAyH6
+         9EE2XtVrQDDf1Kz7eBfgV5VY4yU9UXF1u2M3F3M487pAFYSPd7MIzyb2XYCQsuiFNxMF
+         NK7LdBq7ZcE2lO8sUTHp/ZdrVBsRFUggnx2EO8mjI1mvIT14D0ayCcF3LiP50HXwRXb7
+         qw6g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqwa6jNMxIly+qR616TRhG1MSdKiTiuLg+2rmjaZ7/1IrurfBDEnt3qXVW0tftydnaXVlpV4zaBY5rJlbU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYz1qM8+Hc28bbVnv6FpCPJRP1ne6uhUoe9Xv9SN5vpFbw+miy
+	B0IOxbbjCx1dTe+SYMBHvzLfJSDs8OnGMWYknsJ//lpqqo8nUjptSYujNEILIZibHA==
+X-Gm-Gg: AR+sD11n4evf5FqP2nIkHS6Q22DPmW/us9hvM85kI0yWqkTFuMRXHSP7UQz3uZJUbD7
+	iBpX+xKlOYee9kyY2eOLk52yek/76P1Z+OU6ciBJC+OVGkuar11sfHNKmSlHp4C1CXypW1OQvDD
+	rrG/HdAM4i7QHpqVzH4M6yni3m84Yu2sWBqXFbfrVN2tiYQZEzz5YWfeHe5qsMQO1MZ9bHtPjqD
+	iHNjTZb5NNVDcJZjXuLJ8ATn6B1w6pVWLhMKBaWxaLChQhCDyHdMXIsBZMKtZ2K3CyfGyzJ4nHV
+	x6wNt/KVvuLEFL1MdWcUooHQdCKxgm2nqfa02PuBMuvxFFIDCNws9T+wh9oVaDYMMYcC6Oco0bH
+	SE5vxUYvpKa/v5L7qMf8sdwbJWf7KM+9z4JNpAyVaQYJluhmGxX//w5sb9rN1TWVN+aawvfOSAV
+	VZN2z0LDavA0j4Bw4Oyo+kNTIs5gDbw7l9PCBK3Y5tNiEMogeMgFGXMwAMoxkxCFuApgEkmtyst
+	YJ8b2jm3Ec7PCbSoVsJk8uY+r9Ryul5FTucsw==
+X-Received: by 2002:a17:903:350f:b0:2d6:d3f9:d394 with SMTP id d9443c01a7336-2d74ce2d81dmr81411195ad.0.1787891448977;
+        Thu, 27 Aug 2026 21:30:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:ff0:ad84:24b0:9e52])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fc0c9sm1794885ad.2.2026.08.27.21.30.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 21:29:47 -0700 (PDT)
-From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 09:59:43 +0530
-Subject: [PATCH] regulator: rpi-panel-v2: Add optional vcc-supply support
+        Thu, 27 Aug 2026 21:30:48 -0700 (PDT)
+Date: Fri, 28 Aug 2026 13:30:43 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Hao Jia <jiahao.kernel@gmail.com>, Brian Geffon <bgeffon@google.com>, 
+	minchan@kernel.org, axboe@kernel.dk, akpm@linux-foundation.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>
+Subject: Re: [PATCH] zram: fix idle age_sec underflow in idle_store()
+Message-ID: <apEOgZEaDXntmbKn@google.com>
+References: <20260825092316.69658-1-jiahao.kernel@gmail.com>
+ <apEK-yRTQR8VdT3e@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-rpi_reg-v1-1-1066b1f68630@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALYOkWoC/yXMQQ5AMBCF4avIrDWpCsVVRESZMhbIFJE07q5Yf
- sn/ngeHTOigijwwnuRoXQKSOIJ+6pYRBQ3BoKTKZaEKwRu1jKNIbTmYRGY6yzWEemO0dH1PdfP
- bHWbGfn/ncN8PudR4F2sAAAA=
-X-Change-ID: 20260828-rpi_reg-3f9db1057567
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787891385; l=1905;
- i=shashank.maurya@oss.qualcomm.com; s=20260828; h=from:subject:message-id;
- bh=4H9VOdLYTH9v60s11zzZp+ccy2UVkAzHbMGzN9G2LCQ=;
- b=Lqdlb0mhX9qZw4F8BnY+MAYnIe+VDdEEGMI2gTEm+Evnf9YAuBi0wqzkvBaA0u830dRo4FyoE
- 1q6p93vP9HhA1g936ofwhTfKVPm2nGLlApN+sLfNJH0pui1rFPXBtQa
-X-Developer-Key: i=shashank.maurya@oss.qualcomm.com; a=ed25519;
- pk=xld72d+QYBwDMDcn3+QLCb5AUsj/D0j8klGIuxWd860=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDAzNSBTYWx0ZWRfXx7Dzi/FOrSJS
- FiqMrvw6VwnWmThj7R8oZA2uZ4y9et2RFAWkQprJ/+Jr+Ox0sEG0ovk2S8R7ggGBP4yPW4xDneA
- zXXjlenlrP21c8p3kq7usZK0/S/EbxFC/+Dg+YWV5SgDZLc/DKhL3/mZCvC+XmLe2ORwoGcktkL
- qomOOdx0fy4W1uKSF+62IpKRp0v0KaSG2FSci+iDoWFLRIIH9TgQTOOE1KBViqC9K//7VsnXYSw
- p7e0cfLcWdF6/H7EqvyEKjRGkOtL9hJokk7FfW5OAgwcz6rTFg7p7nQp0M7UCJhAasQxOLdqAMo
- 8Smmp7GLV9dqrvnOk/lN+730Z9H+0dJf9+dk1+41I2x1QBqi7Hq94TAW3A0qQyJe0QkQtXkHUWm
- ccRSYOG/TGOfKlVl0xCbbkX3VirOrcEmbynch2DA216h+OdCu3wL7hph4UYFko2UoG7nVdhddG9
- tS5yTc8ZAihGdrc2oYQ==
-X-Proofpoint-GUID: L4foSJ4wFiuYMWV-pn7-eHkORwoNHf0Q
-X-Authority-Analysis: v=2.4 cv=C+3ZDwP+ c=1 sm=1 tr=0 ts=6a910ebd cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=X_4rVqSs34DrZzfsBiQA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: L4foSJ4wFiuYMWV-pn7-eHkORwoNHf0Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDAzNSBTYWx0ZWRfX5QYrJsBGGTmZ
- bBCIJGAm4UzjaPh4ToC0YcNYsLuI+zk7L8UyrTpk4ZAKnMjHeJ/kBErM+EI7Lh6zU6EZnAFKBAg
- ttS0ci9/Xqi5gO/2thZMHM7+MBM5p7I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_01,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280035
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apEK-yRTQR8VdT3e@google.com>
 
-The Raspberry Pi Panel V2 regulator driver may rely on an external
-power rail being provided through the device tree. Add support for an
-optional "vcc" regulator and enable it during probe before accessing
-the panel controller.
+On (26/08/28 13:23), Sergey Senozhatsky wrote:
+> Can we instead just reject such cases?   It should be an error to
+> request writeback of pages that are 2y old on a system that has
+> uptime of 2d.
+> 
+> Maybe something like this:
+> 
+> +             time64_t uptime;
+> 
+> -             if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
+> -                 !kstrtouint(buf, 0, &age_sec))
+> -                     cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
+> -                                        age_sec);
+> -             else
+> +             if (!IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) ||
+> +                 kstrtouint(buf, 0, &age_sec))
+>                       return -EINVAL;
+> +
+> +             /* No slot can be older than the system uptime */
+> +             uptime = ktime_get_boottime_seconds();
+> +             if (age_sec >= uptime)
+> +                     return -ERANGE;
+> +
+> +             cutoff = uptime - age_sec;
+>       }
+> 
+> We are probably fine doing just basic arithmetics operations on those two.
+> One is u32 the other one is s64: we should be fine just doing >= and sub.
+> I guess we also can use plain comparison
+> 	cutoff > zram->table[index].attr.ac_time
+> in mark_idle().  Or am I hallucinating?
 
-This ensures the panel controller is powered before I2C communication
-is attempted while maintaining backward compatibility with existing
-platforms.
-
-Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
----
- drivers/regulator/rpi-panel-v2-regulator.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulator/rpi-panel-v2-regulator.c
-index 30b78aa75ee3..4e84f05f6811 100644
---- a/drivers/regulator/rpi-panel-v2-regulator.c
-+++ b/drivers/regulator/rpi-panel-v2-regulator.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/pwm.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- 
- /* I2C registers of the microcontroller. */
- #define REG_ID		0x01
-@@ -66,10 +67,27 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *i2c)
- 		.parent		= &i2c->dev,
- 		.reg_set_base	= REG_POWERON,
- 	};
-+	struct regulator *vcc;
- 	struct regmap *regmap;
- 	struct pwm_chip *pc;
- 	int ret;
- 
-+	vcc = devm_regulator_get_optional(&i2c->dev, "vcc");
-+	if (IS_ERR(vcc)) {
-+		ret = PTR_ERR(vcc);
-+		if (ret == -EPROBE_DEFER)
-+			return ret;
-+		/* vcc-supply is optional, proceed without it */
-+		vcc = NULL;
-+	}
-+
-+	if (vcc) {
-+		ret = regulator_enable(vcc);
-+		if (ret)
-+			return dev_err_probe(&i2c->dev, ret,
-+					     "Failed to enable vcc supply\n");
-+	}
-+
- 	pc = devm_pwmchip_alloc(&i2c->dev, 1, 0);
- 	if (IS_ERR(pc))
- 		return PTR_ERR(pc);
-
----
-base-commit: bd2a0c2d8c49ffb7acfcb0c1177af355ea417caf
-change-id: 20260828-rpi_reg-3f9db1057567
-
-Best regards,
---  
-Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-
+That implies that cutoff becomes time64_t both in idle_store() and in
+mark_idle().
