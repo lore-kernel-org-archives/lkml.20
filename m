@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C153E3166;
-	Fri, 28 Aug 2026 10:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73E223B63E;
+	Fri, 28 Aug 2026 10:04:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911332; cv=none; b=n2lwy6K+Udfsw5AdpZXoB17OhqCp+qqApqbIChWu/KMhB0HNcx9DGY66aOsQbaK++wwzYG0YtqRl6QybeI+QrK8XRi8QKxG27ibRlsQFsU25BsKjBXNNwzk1/fxdRw896vf3RNrSNGURGV/JeXNK0sUAPHjl78gpP6wv35F27gU=
+	t=1787911474; cv=none; b=OYbx5rOYk+eWYEP2A1RK8ILioqmsc+L+Gekq32i1GT+hdZqs0QcbIpoEgg5WUBscxLFOwXQ2+EKf//4g+ADKZG1U2EDcqHGd65mUBkdeMoLQcFroNXPzIg7fNzrqRUqSkvaCzKAJZRGSop+c0yN7iiIS9tyoe1QGl5YpOHsVzhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911332; c=relaxed/simple;
-	bh=bWTsBLn9Zi8pkuCX3I/yaIC/rl+jr2FlvVFaaAu0eJE=;
+	s=arc-20240116; t=1787911474; c=relaxed/simple;
+	bh=YCVvM5M24cLnkU48lkz16rdvbuz4qzGIamcNWPzzPQE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z3lOtfMcXfb5fBCviEojaR+yBHK3QhLIfsVHq58BOpqt/ImE6UeQmMTuWjPL+Fbxj9BuFk9urTLOp3M8LfYlRJ86lqRNGTKP89Nhx262kKwjMg8KBM8ORzZm+I3LeBcK597MPrpC7wnzTsMkPlKiZLYehzIcs1bLj6Dpmhpr4xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHWKdvjb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tB9N6AdNWpM0FScdu6wDgoSCBJvn5EFi9jm9GQ6Q4HbpEPSpROqWupsQZkS/I3lFWGwgEfqyVUGeaPb6umqXiNg2WXrggFEGURoFYkPvRhq2CJh1nsyCcEyH/objw5kFIckVIy9mG7nYxcl0tts4azYTmE5bA3XH1EGvUrpYdyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gc1qbTV/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHWKdvjb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4F81F000E9;
-	Fri, 28 Aug 2026 10:02:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gc1qbTV/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71F21F000E9;
+	Fri, 28 Aug 2026 10:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787911331;
-	bh=CdzP0rcBfvAaEJiCxHa7caervMCqRxSGKElJK3cb35k=;
+	s=k20260515; t=1787911473;
+	bh=IBePXtuwz3UROMrvACxQz+WPm2fXBzAK6QjtPmpsvHE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FHWKdvjb6bOxosoawZN7GRp+ZQdranBZybCP2X4n4jWaDSeWlcsg9tSyyMhWb2AjQ
-	 49BxPdWFhREOk+xxO06HZiJis0Luoi8CnXzmtTcTrWNgiiXGrAsi1nJ4090IlcXX0V
-	 4+gjW8AE8E4fCp0wZjbz+MwWANBEy7vLh/RzJSuvX4hhH4gQOnq0cs37hoDReyh3fl
-	 UZQP81FNinOlTQXYcq1t4O9uJTPtgQM19mgKc4eOlVFbPFPDowxF89x4QkEY2B4XfY
-	 7ZWokTkJxqDVkZt+cg15PMYfbI0RpAV0UR+iksBs1RynrZgo5Iw9yYujq5tnRKADec
-	 NlLkEwSXzuwhg==
-Date: Fri, 28 Aug 2026 12:02:08 +0200
+	b=Gc1qbTV/hUi3xsY6uZ6QPA3lyHZd5D9dzslTN/47xJwIEUtOYQSMy4UPqmtNIZH3F
+	 l+heWhx2oxwNLAW7dzMWQVmcbDA6hR0uFXbcohYtTMOIsQC9PGkhR12cqN3dWGtZXK
+	 IJj70y32KKHCobbmpZ6StwIwRzsCHxmM2flyelnXFc1g0kK4PsxCH6kT/Ajp7D8ws0
+	 bg5hHEbmduqROHutdXbKNnBe9NA9I4LwlM4l06aq5ggV0ABtx3JpuQq23aE3fKEzMS
+	 wEp6yGr/Grolf7sXUKR8FGF7Pi+NQa6PnjeRVF8hur5SJjtYxv8dxJLXHCtgndLfRu
+	 9hi48QF2l8tdA==
+Date: Fri, 28 Aug 2026 12:04:29 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: hwmon: ti,tmp401: add
- #thermal-sensor-cells
-Message-ID: <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
-References: <20260825-for-upstream-dt-tmp401-vcc-tsc-v2-1-cbc360ec51d9@free.fr>
+Subject: Re: [PATCH 1/2] dt-bindings: usb: qcom,snps-dwc3: Add IPQ9650
+ compatible
+Message-ID: <20260828-accurate-wrasse-from-betelgeuse-faecac@quoll>
+References: <20260825-ctrl-v1-0-609e2291814d@oss.qualcomm.com>
+ <20260825-ctrl-v1-1-609e2291814d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,22 +47,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260825-for-upstream-dt-tmp401-vcc-tsc-v2-1-cbc360ec51d9@free.fr>
+In-Reply-To: <20260825-ctrl-v1-1-609e2291814d@oss.qualcomm.com>
 
-On Tue, Aug 25, 2026 at 12:13:18AM +0200, Vincent Jardin wrote:
-> The property is missing, so a board that uses it with a thermal zone fails
-> with dtbs_check:
-> 
->   tmp411@4c (ti,tmp411): '#thermal-sensor-cells' does not match any of the
+On Tue, Aug 25, 2026 at 10:38:32AM +0530, Varadarajan Narayanan wrote:
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 6
+> +          maxItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: cfg_noc
+> +            - const: core
+> +            - const: iface
+> +            - const: sleep
+> +            - const: mock_utmi
+> +            - const: ref_clk
 
-Cannot find such node.
+Just "ref" or "xo" (if it has purpose of XO), so this would fit the
+eliza block
 
-How can I reproduce this warning? If it is non-reproducible, then it is
-not a valid reason for a change and instead driver implementing thermal
-sensor would be the proper reason.
-
-
->   regexes: '^pinctrl-[0-9]+$'
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -506,6 +527,7 @@ allOf:
+>                - qcom,ipq5210-dwc3
+>                - qcom,ipq5424-dwc3
+>                - qcom,ipq9574-dwc3
+> +              - qcom,ipq9650-dwc3
+>      then:
 
 Best regards,
 Krzysztof
