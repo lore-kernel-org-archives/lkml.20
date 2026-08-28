@@ -1,94 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F9E286881
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE79286881
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933870; cv=none; b=eTvuaEidkRwMM10gEGHFsQYPmZhRkNuUgeC3tsmALZP4UldJh0FlnCiDFJXsLF8RweaNna8663tbE8qoo443ff3YRLT+Af1fHsZ7cK6r0mvpWdWTHBXK9MhAWro6L9IS98VNDE7vmEx/sEN7GsD/s8IcxSDbmeVMys3Yngvx6n4=
+	t=1787933927; cv=none; b=PeZhQn5yD1NrRWwOKlarfsqzcizPG39PsU5WJTE4Bf8MVFXQA6+hA0Y612cxuETObKDkeMA5I/O51IH+wNwBr7y0bIy3O+//+2rdWO7YkQoERC1jps4140FBTIdzNw5jO4bjkq/K+L+WMW/O4zMLSBfMvTHpsttMDa2xhMNjIZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933870; c=relaxed/simple;
-	bh=31jn+ZflGNeptEWnU+H7PqU+oMzvnAXJoGDtzDIfLZw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PHt/XdddHJS5g7Us+FUvBMcBlkSlQmHaKMEM9TqcfO0sIDapxgybFa2p+G8NswlcvLxTrwUl6S/5ewU+sSGwY62VDi2y+NTrQsQ5HD6jdFj/Qjr0jEbPSeMksz7Z4b4mCUz/mK8osqq8P7hOZ/r3YgnJTnjjGy8D8tFmqOHi7fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiBFUEo6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787933927; c=relaxed/simple;
+	bh=On0EpPCW7Xs+kBPpQMK/g/Ox2aYtF5AyHy/Ph11d7Nc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TCMy8oPUX9f2aPlFmqEurySCdrCz6lKxZorCPWlCE/9xMkSuE8WmKn457ZuJI7yYRhEBC3sSs1OiO24Z+Vb6QNZHIsMpGWsawrqLxbmtOCXX2pjslIjfl16i0TyKFuNfAptF7aSY43Q35mwklPThpHBz2RrGLQZFBuoAU/TCFAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bEd0fCVE; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiBFUEo6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B151F00AC4
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:17:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787933868;
-	bh=1tv8Tm8R0ZAZUADjQb2rjUZ5SgJ1aUsSJAnw3EF0xWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PiBFUEo63zfvjTsAPZg3tDWfaru3f0MTUgLLJSCcJa/BbaisYT6MGHr48un4XN1eo
-	 c2ffIkkz25EgKqfqktLa/eKaoA5/+0/1BIwlpfwT0IhF7Madg8v78/lyktww9eyeKH
-	 f+jMQnsafuJ1WaNTn81UDN9dGXrRCmNCDrNOjPiDHGmyGuGM8qIptyiGAQZgBnhCfc
-	 VFwcVKLJLbpx50xKSpwpMQRYrgZXtixgFpw9cugX0epb6BQte5mHwncZpZ8lTckzFU
-	 QlkdXGV/UgutpPpfrDyBHnEVZ0ImSX3wvcsbEYiW36AJAwEfNDie3//sJ4MZXthqSp
-	 CAH5FLVy+bA8A==
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-92e7632b193so80301385a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:17:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqhQBpwRzXCt3WMK4ixnASHns6FR6Da9rxWDaUK5qZgrCpzB6OgwmOex0Y6uX3QBoptwq5ZcD5SkCr2Wc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcVH+8zB9gpyf+NDVhFJbQYSdjF2Kk9MRkJ7u0Z6/Ts+UNVYCS
-	FJlcy+F+QWP6isavzRPWQL6T6oaH3G0XyCmmDgKzKCpDyO5Jnt+KtKJX/VCSC1OhJF7NmDldQ3N
-	wEX2BXsdIW/pDcb2K+qL0bgc8cxNPQSU=
-X-Received: by 2002:a05:620a:2b48:b0:936:ce17:dac3 with SMTP id
- af79cd13be357-939139aef87mr944576385a.40.1787933867884; Fri, 28 Aug 2026
- 09:17:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bEd0fCVE"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47fde295992so928662f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:18:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787933922; x=1788538722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dASx059M7n9jDKHVd3+xN5EtgdIyRPi/zKAv/mkblak=;
+        b=bEd0fCVEn4pqUpscZe2rFpfwF3+19Y6p3CcnajMI0SKoPLFdt4ne3RjoqO2LDKUmxF
+         dDlJd/ZkLrRxi7mC/5DaQ9KRHE6niG4cRLKkY1hxc7IBCCkB/WdJUNo0Tj10BsF8P9GR
+         QU0tlh4vvTTkgOkb/Nthlu8JjJ3jc6jDADXU8asMP9O/1qaOt1luqzk16eSgq8WEnMfK
+         m29NFf7lYzkx0Nf2iUeJUm+tRHhzO29BAdp+i9DEFSGS/ab4NBjIsLXgPaL3DodxfZud
+         2Z+0yr03rMiOnmwSupzWkmTa6yYIAqmKZ06b34ZSmqDRAmYxmy8ZM4gNPdgmR2FBWrCt
+         o4fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933922; x=1788538722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dASx059M7n9jDKHVd3+xN5EtgdIyRPi/zKAv/mkblak=;
+        b=JqFZ7q+CnNkLkudeJSj/glZ4YBL+WltEaW5BBj5F3uLOCKVvdHxhgAEdWsOZDasj1K
+         H0nqsM7WOMFTOoOMq8mbLMHzDQlc2K8AwhHjmXefsDMr52S/uNO7Xh8BvyCqz2oUF3Mc
+         qIm+Xb7NPv0hy7CAcvSxjdjgTLUl9hTBBTCw9kWFBpDIXnlLJZnTzThaB15ybwRkrmM3
+         AWESNPPui3IF1QMnPA/6AqnH8L2qvBieHzH1d4vRSIhA/nSDETBBa3ln39Ydwezx/1Pw
+         /iqgjjj50qVTXPZbchV/9qhMBuapyQ3qnFPWNxNFUO8WXoIFOzhSerCIifgns6eBJWOP
+         MDCg==
+X-Forwarded-Encrypted: i=1; AHgh+RoXUZuvUD6vvOYoR2XdsQzEj4gQ7d+K4Qv5XTSP4Ctdvq0jG7avw6hevRfRqxaAbbyXBjRhrnTWrywqbQo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNoyVMYsJRhsEsMmw4pjRk0TRN4P9t4SSx+eVeNxjkEqwHu2XX
+	wAT1nH8kYLDvDf9EEqXf2k7sdJiyqbLYQ2Zm6vKGVEq2+Ums+haU8LSr
+X-Gm-Gg: AR+sD12RsVzhQivAp78tGcobF/d+Gt8VtfBW2ta/1XxGvOYP998r5y38yCUVcAaBG7S
+	Cu1WfRslpU0snL5HX8YtCwYsxdWaA5pFNunLW+LSS2sTDyvKddoY3ewNvD9BVJjzHvGuO/8+O33
+	INLvya5wiUKAXoJcwlnyBoAN8Tr+5gsIWBczF1IHZwnvR65jv4OKnghgywYJruyyjGwnVczU8un
+	C9MozIUAjBUon5tj51bWockNFoNPr8nUJBkihthZ7oG5wWcSur7Y+RT0B4U+kB/FFNLHZA+WP9A
+	chHzv3vN9dQVYAD+KF82BjX22GLeC0vAJdpbPYud3jyRk+sEzvG58n/A2ZqPPwEI01TPlnev+y3
+	WJERLGvzcC5QY+v60DTqkDJC+HVj7VBlRDJiNP/PULCR7yPW3zvRwEimbI+++ZBFPowkF+VCxAM
+	IZg+tn1pPe5DWw7tikx8LY/YfcFHkecSczVB1+ObRAdRSyW/Zb5OH3yDIxue26FPlcRvXuHKdU
+X-Received: by 2002:a05:6000:25e2:b0:482:e2f2:19c0 with SMTP id ffacd0b85a97d-483007e922cmr1959296f8f.3.1787933922555;
+        Fri, 28 Aug 2026 09:18:42 -0700 (PDT)
+Received: from main ([176.237.234.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32ce2sm5294284f8f.33.2026.08.28.09.18.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 09:18:41 -0700 (PDT)
+From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	ojeda@kernel.org
+Cc: boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	linux-pm@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+Subject: [PATCH v2] rust: cpufreq: reject NULL from cpufreq_cpu_get()
+Date: Fri, 28 Aug 2026 19:16:57 +0300
+Message-ID: <20260828161834.29539-1-mehmet.mkoseoglu@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823060734.58443-1-x90613@gmail.com>
-In-Reply-To: <20260823060734.58443-1-x90613@gmail.com>
-From: Song Liu <song@kernel.org>
-Date: Fri, 28 Aug 2026 09:17:36 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW70RpkZ1ciioSjt6qkQePWyeic_L+98d0h-Ao3ze-TmkA@mail.gmail.com>
-X-Gm-Features: AcwNN1VJy8nH2sdZFR2KuQawv-IkOq_WyTdDQowYx_pyUkDU7wCkjInIfZQ2pDI
-Message-ID: <CAPhsuW70RpkZ1ciioSjt6qkQePWyeic_L+98d0h-Ao3ze-TmkA@mail.gmail.com>
-Subject: Re: [PATCH v2] livepatch: Reject livepatches with aliased old_func
-To: Harry Hsu <x90613@gmail.com>
-Cc: pmladek@suse.com, jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz, 
-	joe.lawrence@redhat.com, live-patching@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 22, 2026 at 11:07=E2=80=AFPM Harry Hsu <x90613@gmail.com> wrote=
-:
->
-> Several symbols can share one address:
->
->   ffffffff8ed7fef0 t __do_sys_fork
->   ffffffff8ed7fef0 T __ia32_sys_fork
->   ffffffff8ed7fef0 T __x64_sys_fork
->
-> klp_find_ops() looks the ops up by func->old_func, i.e. by address, so
-> two klp_funcs of the same livepatch naming two of these symbols resolve
-> to the same klp_ops and are both pushed onto one ops->func_stack.
->
-> This breaks the assumption that a single livepatch contributes at most
-> one entry to any func_stack.  klp_ftrace_handler() picks the entry at
-> the top of the stack, but when both entries belong to the same livepatch
-> there is nothing that says which of them should be used in the PATCHED
-> state, and the UNPATCHED state has to end up at the original function
-> either way.  klp_check_stack_func() cannot tell them apart either: it
-> asks whether the preceding entry is the original function or another
-> livepatch's replacement, and an aliased sibling is neither.
->
-> Patching two aliases of one function from a single livepatch was never
-> meaningful, so reject it while the object is being initialized rather
-> than leave the redirection undefined.  Compare the resolved old_func of
-> each klp_func against the ones already resolved for the same klp_object
-> and return -EINVAL on a match, naming both symbols so that the offending
-> pair can be found in the livepatch source.
->
-> Fixes: 3c33f5b99d68 ("livepatch: support for repatching a function")
-> Suggested-by: Petr Mladek <pmladek@suse.com>
-> Signed-off-by: Harry Hsu <x90613@gmail.com>
+cpufreq_cpu_get() returns either a referenced policy or NULL.
+PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
+rejects ERR_PTR values but accepts NULL.
 
-Acked-by: Song Liu <song@kernel.org>
+If the lookup fails, Policy::from_raw_mut() therefore constructs a mutable
+reference from NULL. Dropping the resulting PolicyCpu then passes the
+invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().
 
-Can we add a selftest for this case?
+Reject NULL with NonNull before constructing the Policy reference. Return
+ENODEV instead.
+
+A KUnit negative-control run reproduced the oops with the original
+conversion. The same test passed with this change. The reproducer is
+available on request.
+
+Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and driver ops")
+Assisted-by: LLM
+Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+---
+Changes in v2:
+- Format modified imports using the kernel's vertical import style.
+
+ rust/kernel/cpufreq.rs | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
+index affa2b9490ef..4b992ea9a0f0 100644
+--- a/rust/kernel/cpufreq.rs
++++ b/rust/kernel/cpufreq.rs
+@@ -14,7 +14,13 @@
+     cpumask,
+     device::{Bound, Device},
+     devres,
+-    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
++    error::{
++        code::*,
++        from_result,
++        to_result,
++        Result,
++        VTABLE_DEFAULT_ERROR, //
++    },
+     ffi::{c_char, c_ulong},
+     prelude::*,
+     types::ForeignOwnable,
+@@ -29,7 +35,10 @@
+     marker::PhantomData,
+     ops::{Deref, DerefMut},
+     pin::Pin,
+-    ptr,
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ 
+ use macros::vtable;
+@@ -687,12 +696,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Option<T> {
+ impl<'a> PolicyCpu<'a> {
+     fn from_cpu(cpu: CpuId) -> Result<Self> {
+         // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CPU.
+-        let ptr = from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) })?;
++        let ptr =
++            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) }).ok_or(ENODEV)?;
+ 
+         Ok(Self(
+             // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
+             // the returned reference.
+-            unsafe { Policy::from_raw_mut(ptr) },
++            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
+         ))
+     }
+ }
+-- 
+2.55.0
