@@ -1,145 +1,149 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m21472.qiye.163.com (mail-m21472.qiye.163.com [117.135.214.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207F63D47DA
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900222; cv=pass; b=btxvH+Q+mleUHp+f/1vkE5eGDTVfcYrh0j3Ytg0QaCfpU8RxrWQ9pNABjEBZWkTSpVztuXXHjjvHT1m+CjgyNtuJyZe0k7qQtOcRUFsPBkycoPsz1615BLQ763hfxqT4Dr/FKVQ+6UmE/JFzYjboKXp5yIO/JzEoE/fE1vghLBQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900222; c=relaxed/simple;
-	bh=pR8lzbcrGU+mduT81ko12cR/81LPWWYiWTahcEa6OJU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HTLR+ElNfq90tUceWqY5N8ysT5jlS/CGaF9Okz3mcUB8gmnpKZmEXKD6Tuz4RLIpLO8fcLSWN7QtlyHlhguwWdiLCXKRykU0r5VzDJPKIsRwBzrhkexmU7o7B7ErxUZs5ZyYZG6ON02fkDhdKqCb/KaDJjyrnB3Bm6sSA+1rUr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=i6bTVJ6w; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E97B3D4119;
+	Fri, 28 Aug 2026 06:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.214.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787900248; cv=none; b=jmHoadtX+ZxPYL0+jLqSNkRWo4tAW6VNrpqb5yCnEFfO9HMxByPTD7QEjSj0DpbMPJadRjy5zHo3xQezfzAmoVcHE53YJP3YDmbBUzU0p1ufPbu/VVkvEcqFcfRNqR/q926UjF3D771rKJdNrrP2cAOFWUVGPLLmVHu46teGL3U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787900248; c=relaxed/simple;
+	bh=Y2hwC6HB/PlSar3c1yv/Z5mk8yEnHxfNWGCAraG2jVw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jos+rhzYAk/HtFc2ufaROK5jVRAZnghtstaE0++2L4KrnE7guN787WwjZ3ZWeJWFUiYLFMqxIS/SbMqxR2sWCQ9HhJqdAGPV0RCE93+T1c3A68clk5V9vUQBjlW6OEdZN35vtQEOaiQnukLzrgWHEHFCAtryqPQHB72S+vihvio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=WVMILWJc; arc=none smtp.client-ip=117.135.214.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="i6bTVJ6w"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a6142b49aeso33554a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:56:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787900217; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AO8UepKJ2/oEg4I9ok5qIgn5NaymtTMYP+ZTyIVkfCOp4w449QlrBqLbtO6b++f9Kz
-         YjX5vILfzObhMFjPGA1jmH/5/8TACu2SWVMIr0faXPFdXmE8ql7oJ1TgS9cOwUFTossQ
-         I7rKeyg6LfNW8HZtA1b1b3q5zglK4qAfbP2rD1KCnRQc64pbbaRQSFe1OcRhFC9uEyXj
-         7BfBgA+nDMBK804OWZIZaWKeg0cBwl7aKttZAYN8hvQshtuaRO5qDgH3ugM4y64AfRiW
-         yb/KV5Il1LhhvdZH6eOys8cVwBxSoH15BRKXlHULHwtSukPi6itehBSVyKTBNFOSFtEP
-         WLaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ClJcyzcXv03ttdoVDIVXl7vZcyMM3/8g1hhdRTAECV8=;
-        fh=fcsnw89equRmdVGq4BQUL+3KmJdh5Q/9h8IftA1KJWg=;
-        b=HotlDCXH/tBTGno4m+tm8g8wZzAJySq8SFRGcQD8yclfKh1f+WRfI4U2XbC8STmH6s
-         AdThHdL77HB3hUmoKYnQEOr6Y4yXncEtQsVvSv3RuKmgsjZYiEStyOIjv4vn3n0r6Ugg
-         dclt7NJL0PXmtVLzmBgGIVAk3k3e3l9CvQCPW+MLGMYSdVjBL7/S2cWZJCSPmprDZgI9
-         fG7yoAMSBm0956/eD5u9PKFNZS2Gr+9d7l9aCbrswK7dQEMqKwA1K0Pg9GdfSDcRHscV
-         /GpwUujyXOJrZbXzfZKUZgp6uz4JdSnSK3olBaeF7IcO4Wqrri3thvArrnoaVq9f5cRY
-         v3eA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1787900217; x=1788505017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ClJcyzcXv03ttdoVDIVXl7vZcyMM3/8g1hhdRTAECV8=;
-        b=i6bTVJ6wAnY38qnwYo91JD1OK2ype9VuxTINuqhk/xX4p00fPj1Lsqijmxbm7VYm98
-         c6EnIjpvKUvvpBK+YrSLlVmV9s3vYS54ar64MnNhessLhEnCzlj/AMp0KrwKYh6TjVtw
-         m0U9XwCLlxu/Wm0tzn3ytl8UrZnSs8f+F9EIEleBmf+xucvVW3meJtfP+1WzlJbY3yrI
-         VZESC6jIxjCo36QsCj5I2JhJxKZCZuvgYzRaNaunx66WYowOAzb8w1EBOIPE2typs9Bf
-         EKgfYTvkd/TIsPmYCt9JebkiijXQsodPobWZ8JFq1RyzWHPtLosF+IKpYgz3nuVGR2al
-         YvAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787900217; x=1788505017;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ClJcyzcXv03ttdoVDIVXl7vZcyMM3/8g1hhdRTAECV8=;
-        b=FS6iuIyucu+ElLBzhrmigX7bsqsVIRL/b1+iOgXzU1fmQZAjg/dWeMndZHZt9IMHgy
-         52QzYIS7WBHBaFks5OvObb+y+pBE8pzK8yRa3sAZCIcRYfp884YWFFUdS+hF4bgS0xol
-         UwUVkwnQFdokZ7+Z2nnsuVvKj/X0K4GkxWFQiEjE9uew8BAOW/Bth2/wJ0M0D8d/TCTB
-         w/91qmVjvy/patMszFTvIfL96cvcy/WUS51OOSCiK+m/Dl4YXDyT+D7KftkxbSCcZ2sL
-         oBPVCTxNVNB/pca/ZrXCMPmwTP8y7ejSQIJVSgxJEFqPe3qbK551/Ytg82p7s3OziQXm
-         DphA==
-X-Forwarded-Encrypted: i=1; AHgh+RoEhn7ViF+GsewT43ogYPGFiMwWJxWpKpFWWpRruVTReG+nFOXRbMTbffXH5Qymyacgn3PesMejjM+3fMg=@vger.kernel.org
-X-Gm-Message-State: AFuF++muRbKGezehrSHPtYvKdzKZSNgGai4fRu3mlmzZXUN8ueafYJIZ
-	R5IosF+b8xq/ZGgEpgYKAunKLSfOdAG7A9nqkpZSo87hxU7kUpH0+3FJt4enoPb0Tr/cnxANgGN
-	OBdVs1I4+y1vOsBDHtZWYcTGs3KoYPNT2eai7DMeiuythGQghH1VAA7vNVw==
-X-Gm-Gg: AR+sD10Af1O/21QPgfda7SQ0gwEQ4bXs6KysuhudO/QEvtmReWq2XzQKcpugDNdG/1o
-	I3tqAorXilUaX5785FdNCNmLyX60JDRNGbkPMpXlNtq9nqXrFVXww9gimSFDwwzKaxhdhAbclvl
-	CjjQYoq6WaJxI+v7IxXGAC4flFtMhgpM8ObAGGCAgYt0ltlIxrH/ThNNs6jhPWS8GlrwQ0++mTg
-	FaqUs8Wotq29uRzOQEAjqovWkt0JiwUkUnursW82S/l2MqC6Duq0+HpeKzBaesGQ+aJzdJ8wV9n
-	HlsXk52IFurFyH0gmvZJCg0TUieotctXhdWhoUpvmNwW3aIFAJnIty7gQq6Z5ow+XWxXySkpDIh
-	0ng==
-X-Received: by 2002:a17:907:1b0d:b0:c1f:4754:d87b with SMTP id
- a640c23a62f3a-c2556c18157mr145957266b.1.1787900217282; Thu, 27 Aug 2026
- 23:56:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="WVMILWJc"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d582;
+	Fri, 28 Aug 2026 14:52:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 0/5] Add eDP lane mapping support
+Date: Fri, 28 Aug 2026 14:51:48 +0800
+Message-Id: <20260828065153.590802-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+0ovCiJZz6O8LzsS9Dq1-JE1OE1L_OTA6Mr-WratpUE6jczHw@mail.gmail.com>
-In-Reply-To: <CA+0ovCiJZz6O8LzsS9Dq1-JE1OE1L_OTA6Mr-WratpUE6jczHw@mail.gmail.com>
-From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Date: Fri, 28 Aug 2026 08:56:45 +0200
-X-Gm-Features: AcwNN1WdLy54onDAnumUWqn32SBPHutYhZ4YRkU8KaULyqBmFlcvls2nylPuDos
-Message-ID: <CAMGffEkQiuEC7vP9aWzdppJ+2O6pkCEdoqkJhzqVE3Mm-jp0hA@mail.gmail.com>
-Subject: Re: [BUG] rtrs-clt: general protection fault in process_io_rsp() / rtrs_clt_rdma_done()
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: "Md . Haris Iqbal" <haris.iqbal@ionos.com>, Jason Gunthorpe <jgg@nvidia.com>, 
-	Leon Romanovsky <leonro@nvidia.com>, falemi@asu.edu, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723c63e03a8kunm9cc188d518831f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0hNHlYeQhgfHkkYHh
+	4ZQkhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=WVMILWJcBzV6eYWE+qJSZLa1Tskj+ReLam0Ikoo9j1KGwt7fsyffBUVJltHgeDr6uavrZT+73hAj8CeSZIVFerWoWgNE6m31ub0cmaIk8z54+D86aTe4RGlkS7ZVl7m9gF0h4RwYoNwCvXBegjWO5UWBDYXfQEUR+MKcpuBuSxc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=xUWryYLszvMhpY9lSrgXJtpEJ4lE5ULsbA6OqmZWLbc=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Aug 28, 2026 at 7:22=E2=80=AFAM Farhad Alemi <farhad.alemi@berkeley=
-.edu> wrote:
->
-> Hello,
->
-> As part of the kernel research at ASU's SEFCOM
-> lab, we hit the crash below. Crash reports can be found here:
->
->   https://github.com/farhad-alemi/public_bug_reports/tree/main/135-rtrs-w=
-arn-on-peer-supplied-completion/
->
->   Oops: general protection fault, probably for non-canonical address
-> 0xdffffc000000000b: 0000 [#1] SMP KASAN NOPTI
->   KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
->   Workqueue: rxe_wq do_work
->   RIP: 0010:process_io_rsp drivers/infiniband/ulp/rtrs/rtrs-clt.c:502 [in=
-line]
->   RIP: 0010:rtrs_clt_rdma_done+0x732/0x1450
-> drivers/infiniband/ulp/rtrs/rtrs-clt.c:637
->   RBX: 0000000000000058
->   Call Trace:
->    <IRQ>
->    rtrs_clt_rdma_done+0x732/0x1450 drivers/infiniband/ulp/rtrs/rtrs-clt.c=
-:637
->    __ib_process_cq+0x149/0x440 drivers/infiniband/core/cq.c:110
->    ib_poll_handler+0x78/0x280 drivers/infiniband/core/cq.c:157
->    irq_poll_softirq+0x1ea/0x500 lib/irq_poll.c:110
->    handle_softirqs+0x191/0x5a0 kernel/softirq.c:622
->    </IRQ>
->    rxe_receiver+0x1224/0xc940 drivers/infiniband/sw/rxe/rxe_resp.c:1567
->    do_task drivers/infiniband/sw/rxe/rxe_task.c:127 [inline]
->    do_work+0x1aa/0x720 drivers/infiniband/sw/rxe/rxe_task.c:191
->   Kernel panic - not syncing: Fatal exception in interrupt
->
-> Our reproducer.c is available upon request.
-Hi Farhad,
+This series adds configurable eDP physical lane mapping support via
+device tree data-lanes property.
 
-Thanks for the report. Please share the reproducer.c so we can take a
-closer look.
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Thanks,
+The series includes driver implementation and device tree binding
+updates to support custom lane mapping configuration from endpoint
+node, and keeps default linear lane order if no configuration is given.
 
->
-> Happy to test a patch if that would help.
->
-> Regards,
+Patch 1: Add endpoint data-lanes property to analogix-dp binding
+Patch 2: Add DRM DP helper API to validate DP lane counts
+Patch 3: Restore mandatory for samsung,link-rate and samsung,lane-count
+         properties
+Patch 4: Add validation for samsung,lane-count property as preparation
+Patch 5: Implement lane mapping in analogix_dp driver
+
+Damon Ding (5):
+  dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+    endpoint
+  drm/dp: Add helper to validate DP lane counts
+  drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+  drm/bridge: analogix_dp: Add validation for samsung,lane-count
+    property
+  drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 +++--
+ .../rockchip/rockchip,analogix-dp.yaml        |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 84 ++++++++++++++++++-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 +
+ include/drm/display/drm_dp_helper.h           |   6 ++
+ 7 files changed, 115 insertions(+), 18 deletions(-)
+
+---
+
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+
+Changes in v3:
+- Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
+
+Changes in v4:
+- Add validation for samsung,lane-count property as preparation.
+
+Changes in v5:
+- Add DRM DP helper API to validate DP lane counts.
+- Apply DRM DP helper API to check the validity of samsung,lane-count
+  property.
+- Add Acked-by and Reviewed-by tags.
+
+Changes in v6:
+- Add a separate commit to restore mandatory samsung DP DT properties.
+- Add Reviewed-by tag.
+
+Changes in v7:
+- Add Reviewed-by tag.
+
+Changes in v8:
+- Expand the commit message of [PATCH v7 3/5] with the detailed link
+  training failure analysis, and add 'Cc: stable'.
+- Fix reg parameter of of_graph_get_endpoint_by_regs() from -1 to 0
+  in [PATCH v7 5/5].
+- Rename 'tmp' to 'lane_idx' and add comment to explain the lane map
+  fill loop in [PATCH v7 5/5].
+- Add Reviewed-by tags.
+
+-- 
+2.34.1
+
