@@ -1,113 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEA2360EED;
-	Fri, 28 Aug 2026 16:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831837E5D0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935393; cv=none; b=fhN+AOsp7YLevfS9k+/DCvoXstJkfISRKUywiHDZJczE/lmpefUqAPt7SWXs09focFY8Cuvqh6TxH/4Kcedum7EerVRKeyZEt4qac2Jl78wIfTnsTMfXEAWbY6u0MZEZLh2xuzuC/MFVi8+lxrmoBXfVQcH44rlbt65Jp154JK4=
+	t=1787935495; cv=none; b=id0Dol/4j+E5z2LuH0LnpQmVUmmuiCbLU/rrBsUsrfZjgR2dAzHwZp66CPZTbRB6iVkNVr+p+JZCMkSLGr8XV8A10U6+3CfBq+FDbsLpjCMvLoqZxVDXp3i5QI0N7FviKyC+B0L6efjMdlTRZwjzKXAf/TBcUOQMlPqvJURmk4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935393; c=relaxed/simple;
-	bh=DbFHuBt91lj3USprpB9lZyuz3ekarI2nJ42r1c8Chfk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PmrNizM4GDsJ5N1dor+xfX6x+Tsx4/FauUgNPNb0U4ZH//fbpfV74eWO4XtcA5uE6bO1YgrUOsC45H8KBKaMNGc/QK2kCO+XBtXgTB4G+ksgVNEy0ZBkUBJebt8Kb+aqAJmCa3EAdRh1iiFAWiammGt0jLRQNP+YHsL0fadDQKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlMEhQmZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787935495; c=relaxed/simple;
+	bh=MaAAHQxxeuQW7h5KWHAzOdXY9T2/4cCdUoKT/r2MLX4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RMHYQHr2m7UGOoiC6SC+s/r1p/pcn5wF/Dwmqp6vGBJCTO71eBCrLboDPY61/4bl1npA/oCxUqgvh1GqsCVkbrEygO+ESJ91oEDiv+iXVPVnvjCx5YXk37CXeQOanrQhz+9f6MzLi35IwQRSGNtWwL64RYZNF8oby1xSL8+wsBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=PUykPEag; arc=none smtp.client-ip=185.136.64.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlMEhQmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019661F000E9;
-	Fri, 28 Aug 2026 16:43:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787935391;
-	bh=sZhi+PUsJgvLChAVERL3VabJ3ZhgAoRELKqEbZMxnag=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YlMEhQmZgmm8ZzYGm9XHtqqhGRckC4bAQ+2tUg5K9WWnx3i8IFHQErCPNXbQ/m8LA
-	 rDmNM+DRmpFH5oxKu9wxdRgNTMCysYsHE8CZlvITZVAVvbu1/FxU4lN3p5hXZNabiH
-	 WzVIXVrPJ5nDda2avE3yQSR+GTcyzdNQdWvus/iPvtteE2HxIvfQ+oto3Dg81f4RwV
-	 kVDOlthv20IolO1phhNMzZKAI5xu5nu4QTcG7WmTVMm07VOMe9fEU+lbFDCNEcqSzB
-	 B3TpR4V6b0Q3LaSucLQmMQe+YDRBVjzRrx/JchTfrRWuTFNC7Y5tuV2vn1dHe39oXJ
-	 KMMTS2owO02nQ==
-Date: Fri, 28 Aug 2026 17:43:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Dominique Belhachemi <db@domibel.de>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
-	Icenowy Zheng <uwu@icenowy.me>, Andy Yan <andyshrk@163.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Graham Markall <hello@big-grey.co.uk>
-Subject: Re: [PATCH v2 01/15] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-Message-ID: <20260828-unnoticed-reputable-37156d7953a6@spud>
-References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
- <CGME20260828134815eucas1p2b2aabc17e9cc6346e5a93bde5c650958@eucas1p2.samsung.com>
- <20260828-jh7110-clean-send-v2-1-331680c8b9d1@samsung.com>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="PUykPEag"
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 20260828164448bb6d72ca1900020734
+        for <linux-kernel@vger.kernel.org>;
+        Fri, 28 Aug 2026 18:44:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=kXLCFidKi6n6sOXueq9fqumGD6TSvCxnTaxk9VwuH28=;
+ b=PUykPEag2AvzTBQzKTlowarLf2HLQCa9Ees8wFxZ/xKzUmlY5g1sbhamHWtzacwF0dI4Fb
+ 4jliY9/ptEHpTwoIdLfM8HojXvZbNokocFHkOsLGsOJ4PnuF5mrjj9cZ9bapYu7hQRZbuHeI
+ Lr025xu0xEAirYyvrTxpcDJ9Fcz1MFl/ayI/QHCuzSAvncQ84MNn1Mp5vKsuU0NMzGQ5PVBI
+ wDztRw9p+XnkY6o/6zcWVbpRvB6ngp1KdVm6+X8HjFQsJi01BmiSfqIFcS+wq3aGGKKmhT0G
+ fF1ZNFKbbzQXKEIRkSgM8leujB0BtSZLN6PjK/OXOioDwpb6dl/s7/vQ==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-rtc@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] rtc: pcf85063: Update interrupt support
+Date: Fri, 28 Aug 2026 18:44:38 +0200
+Message-ID: <20260828164445.3907839-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IjnpyshY8lzNsBCD"
-Content-Disposition: inline
-In-Reply-To: <20260828-jh7110-clean-send-v2-1-331680c8b9d1@samsung.com>
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
---IjnpyshY8lzNsBCD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-On Fri, Aug 28, 2026 at 03:47:25PM +0200, Michal Wilczynski wrote:
+Add hardware-backed UIE (1 Hz update interrupt) support to the pcf85063
+driver. The PCF85063A/RV8263 have no dedicated update-interrupt source,
+so chrony and similar tools that rely on RTC_UIE_ON fall back to the
+kernel's software polling emulation. This series repurposes the chip's
+countdown timer (TCF = 1 Hz, T = 1) to generate a periodic interrupt on
+the INT pin, serving UIE entirely in hardware.
 
-> +  clock-names:
-> +    const: refoclk
+Patches 2-3 are preparatory: they fix an AIE race in the interrupt
+handler and a lost-alarm-flag race in the clkout helpers.
 
-> +  clock-output-names:
-> +    const: hdmi_pclk
+Patch 1 fixes a pre-existing use-after-free in the clkout clock provider
+on unbind, found during review by Sashiko.
 
-Can you drop the obvious "clk" suffixes from these please? Although,
-with one input and one output clock, what's the point of the -names
-proeprties anyway?
+Changelog:
+v3:
+- split into 3 preparatory patches and the final new feature patch
+- replaced racy regmap_write() with regmap_update_bits() in IRQ handler
+- the timer flag (TF) is write-0-to-clear, so every read-modify-write of
+  CTRL2 preserves it by writing it back as 1
+v2:
+- https://lore.kernel.org/all/20260820112437.3715237-1-alexander.sverdlin@siemens.com/
 
-Cheers,
-Conor.
+Alexander Sverdlin (4):
+  rtc: pcf85063: use devm_of_clk_add_hw_provider() for clkout
+  rtc: pcf85063: do not clear AIE in the interrupt handler
+  rtc: pcf85063: preserve the alarm flag in clkout register updates
+  rtc: pcf85063: add 1 Hz update interrupt (UIE) support
 
+ drivers/rtc/rtc-pcf85063.c | 139 +++++++++++++++++++++++++++++++------
+ 1 file changed, 118 insertions(+), 21 deletions(-)
 
---IjnpyshY8lzNsBCD
-Content-Type: application/pgp-signature; name=signature.asc
+-- 
+2.55.0
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG6lQAKCRB4tDGHoIJi
-0sm8AP4oliWIKMzgp8Ut3A394llDZYxdfr4HRcVVe7khXDrtiQEAnHjEzjNSnHhx
-0TyqrToY++PvSu1CTCWyTFL6ZUf3FAU=
-=a1Yl
------END PGP SIGNATURE-----
-
---IjnpyshY8lzNsBCD--
