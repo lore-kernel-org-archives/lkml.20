@@ -1,83 +1,71 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AF23DDAFB
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7623546D6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904495; cv=none; b=EyY5QJqGd3lvCVcqNts+Y6DYjrwghXLF7dQuqNZw7/3SNoL+i04zH6rlB3bg3KndrFNO6DQREwkPCSbXOqjB/7crvDxGw0qBO86Tbf8KhXz6+HKdqak/tD1cruI5TteZ9nUtQ1P0JWAraOjqSCEzgbFDQeoYfZK3/N7Hi9EgVhY=
+	t=1787904534; cv=none; b=FvgRpoYWj1xT26Jp4GLy4WlcKqaINTXihFeHCB8QYpG5wzPHJmvdf2rZWUlciINrEHfZ/Wpz4f6TnX30T5YV03oafm3lC2OFIUTuy8Af+1q5JPzEiodfrGc0jMxBGtvxjcfsTQd7/5UJzecRK90Z1mJt5jbzzsY32TCgA0qd478=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904495; c=relaxed/simple;
-	bh=HuGnxPkrP++JhIOty86OoEu+y5wkYW0oqmS3RUjsEAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gWrLNnyvPGPx2WJ3PkHPq2I+Cy2T6EFhX4L5P2c7LYV5hUyCxy64VrrTspAYzhJ00WVFDtiIknvdquJSqY9zYAgqA3xYlEnG4l4qpaRtn35CEzA3s7GdyrL0N8VkHz5tpgkvXSYHsgjOQT77ltqKej8mQuf9r2vUuAMwc8XRDOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hSRRfkyU; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1787904534; c=relaxed/simple;
+	bh=91vSMxIcxrt/sn6Z5+g0ObIeuw2alq/Ik7/ec2oxwys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BMkJPUh52UI7vtrDFwPWvt1Ye3ynNNfVK9AinA9w0ooT5Ti0WuvPVcGgjp4/F05PJMz3zyEP0M0yMc83ZzMIe5+M2S8gM6gclR/tfjaUOwRCMmeh3onsaYFmPN5JPuVv+okaFjnAINvqJagXiTCQSINMeu1vu4MqffTPiJBOl60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ljkW3RAP; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hSRRfkyU"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6f55a7089so6089265ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:08:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ljkW3RAP"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d7200b2e15so8287725ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:08:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787904493; x=1788509293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1RxSzc/tdhLrfiCMdxDqFkVCnqjmbHn0IwP7JFLZaWY=;
-        b=hSRRfkyUAu3yP+2+eTeRmP9OPpQScDPVewxKcgc5xkkmliaX/W/2KfTYPGhEvYCxw9
-         4+g0vyEa8DkgUzE8wtl3ZgFmrBOg02794N6so2XwjS55mSG3R4LiO1YVI+CSZwLYV47K
-         HWWsZq4DP+or7Y1A/auFAbxFcwR2Wg8gf7pbSvJDtxPUJumaGKuPSTYDdK+1OtfebHzj
-         ChCSVJZjHscM0LhwwKSS0OCIEMPyBy1F/ZwCIu3Ix+FlgRWMqLZv9wuCNYIPZ/JqcNDx
-         YyHB85sTO0+n53Ac2OhiWjTttqFMuUknQmr1hHkxTsmd68DGPDM8QY+ps6lIKjw0XzyA
-         VGpg==
+        d=gmail.com; s=20251104; t=1787904532; x=1788509332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fPgMCSl2sKRMIjnl120zjXDtspUsaBpky4/u0rMEfqI=;
+        b=ljkW3RAPopV8QHqdEfXSTdIvtM9fHi3jmH4ED8sxlv037tyRlWeDkUQb74ROpcOsGp
+         9PxJI92Z82JndZVcv54P2cdGLotdU7Hrhpf2Aea7PBgEn2lIcUCsx7n0Qe8V4b5yccX9
+         G9dJUbmo8N1y5dfWnGLqzvW3l1BXKJqBcYgqMktnaFXQQDoFk0AvSpPZPHyEkH+3WIrr
+         4hBNLK+mvw+kZzimqebEyh4vuKcbGLrBtPXtgPRRolGnHuwdLPi3Vys2/Abxc5fAdau4
+         bn/PX7QGdnqVxZz0fkBq1sqlyEp7h1Ht0X0aBr29VM5akPlfn8Qk1e7oMSy4Z31ITtxw
+         I44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787904493; x=1788509293;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1RxSzc/tdhLrfiCMdxDqFkVCnqjmbHn0IwP7JFLZaWY=;
-        b=K5u+dxsmnGN/1HsNC0wgsSHnx/jt33WfixDN1obJ6BBKY33ZVnEXLYZtP9JzZZfu07
-         Q3uSvYqYLrdoWNrQ6oamaqoGn3bqUUlw7ZgrwPUEGdK8vngHgA78i6WR0qhctmCJ4y94
-         hhXN/WPGXXSTAMgF8pjZ6As4kJO5h6QiEy+hCyIjGb9hCxeFBnTugS4yYVWkUuYPK1PD
-         ApfKmskYi0kpKOAdwL7C3ERczO89VADnUSgaU901xmU5Flj9WLrD49kIFsvUEQsRVH/v
-         mINWoBJK8iVpzrnDEzI5rGSqOX2e06h+7PP7ii4mD64qzFqHGO6BYsicSIC3iU6YFXC/
-         mtWw==
-X-Forwarded-Encrypted: i=1; AHgh+Roa0/XAYjrWB6aWeeYphaUQrF0qyJLxObtyTshqkIe5FvZo64KfpnkF5g7qmIlwDr90YPaW8Nok+0alObU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgulUhm/TH4OvO5r6UY0ixgfw0pdopZK2oC+EiERJlRCCpq6g0
-	IGJ20ATWMQ4HrQigVzAs2WMF9dpAaxpK3awaEU2xfMT1wLo+l2Hc0XDr
-X-Gm-Gg: AR+sD1176ZA/8gbawCL/Nv9bzBgOwL91obbbFtjxOWxNA04DtBPwpI2cbry8SbdL5cU
-	oSml0FJ4cVOr21znvnaMi89mdJb0/NtpkvEn3DPxHnspFqfXDRtj8HozSOz63G17i0uXKNCYLwF
-	hlt4u1OPiGz+R5Ozp/H3LWREf/EfTTz7BK1ULF71GNCUWXJbVzaxafQqDqkJILriPja2P0DSf7n
-	uRfvA4bzr4DzrAnpxWsnKRtNFKCooEcHyi7U7TONrt1DHIKbzP4n96ZT7iM+EXq2BpVFdwqrhE2
-	01ReVtYl4eLhF+kJcXTAE7W+vF6TcYk1EZLSpMzf1nfuBbXuvMNRJLB4XVVptf1iBwneA7f/AOs
-	cJ8akhHYvm2+fnA6GoXcHbOP49bbtsjRwuO1ynOtMDpViq6uHLGbLE7EK/KDn6UkFoEhCY5eifl
-	0pXsqKrhXYJ/CB3iXjTTwhyv+rzUu6YCcNzOZHljH3/uPW9w/1OBT/HvAqcHpJpiXg7Tg3qqOj
-X-Received: by 2002:a17:903:2f0d:b0:2c9:aae1:a61a with SMTP id d9443c01a7336-2d74e07003dmr100122815ad.14.1787904493442;
-        Fri, 28 Aug 2026 01:08:13 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869cfdsm3074755ad.51.2026.08.28.01.08.08
+        d=1e100.net; s=20251104; t=1787904532; x=1788509332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fPgMCSl2sKRMIjnl120zjXDtspUsaBpky4/u0rMEfqI=;
+        b=jRHYHQUF65boUV9W31L4uP1c3tik/uA53QzpXxypI36nDosz4ZXHFygspTgDXWeyKf
+         auR+FG1mDt5zHefQCBPthf5t6THWEghQsFg2eBuTE8lSsQVpEWxA8B9xUIbcSJ+EVaGe
+         b/0/mt9lc/+Z40FcPhyZ4Oy3ZY0+zICweupUApMMetsqHu+IENFPwiEvTJqL8ONEuU//
+         O776LGzIZe2DWJVtDlr7c//FUqD/2d+jIK5OsYVjtgb736GHiVIZlTVrijtw1Oxwil0r
+         TqhYFcfRfzFbwgyu3yBdO/M2Alwkobbke+9syRK7cM/+gygXGsRGvjO1AVitGSTC9oir
+         BPtQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8WL5MdxW+/Cc7obEDVlmENLPYQP0fGVShd2+shX/EBrQnPRQW1+kRFdeRjuhn4/vbVQ6nfxoIGCX0nfk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz6OSNcy0GAvUFSty8EpSDtVoH1N9BmgXNtnsY/BPn2XY95eGD
+	M+95gS9ylTMuMEX8c9wRNOeE2UYCWCE5c/rLDqlsDMnaISTJpABuRxLJ
+X-Gm-Gg: AR+sD10NUn74M6l0n80qc71Dak4tQYbkSbZjOrfQlQYOrPsOfEjTPMUav1Yzyr4EVPt
+	jiiKyj9uZ66P8n7gite68EUNT37cmFTQ6qCklylwpZoOIJL8DC8UnExcwfV0/G7QI/QpDqpNLZj
+	Szo3thKrQBd8tDKmGA9veV+pck18CKgFwDcol5pfA4Eq0GoGaxNDVmN4MaGGXlmO6w5l78eR4tO
+	bqQYdOtwAWIF+NaGEpslp9rrjCqdzjZAwvfYu8ZVehUw7d+w8L2my8a68tVb3quSmjoMuf10Oua
+	5eOQ6gKkio9t+zButfSnkd6ONeYfJlPOwKiK+bcSpcCyiulPRntmUlUl2gPms2vqpMDd2xmIAYi
+	nQwJ3836RRh/5KqQR4PMQv8Og9+S8OXKHQ9cR20Jvje9d4b7udmjfHI0XCrB+W9Q/zv9KWeomPG
+	XJlAi2o7yQwH6zR6QI7O4yUNLSgZfwHDSaf8b8P9drkev4rZRhbrymDvP/zdBw2M3EOw==
+X-Received: by 2002:a17:903:3a8b:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d74dee96b5mr97935495ad.9.1787904532289;
+        Fri, 28 Aug 2026 01:08:52 -0700 (PDT)
+Received: from Default ([2409:40f4:1018:6686:df4d:699c:e13c:43d2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm3525959eec.14.2026.08.28.01.08.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:08:12 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	lukas@wunner.de,
-	ignat@linux.win
-Cc: paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
+        Fri, 28 Aug 2026 01:08:51 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	4ncienth@gmail.com
-Subject: [PATCH v2] keys: reject descriptions that exceed the index length
-Date: Fri, 28 Aug 2026 17:07:28 +0900
-Message-ID: <20260828080728.2641312-1-4ncienth@gmail.com>
-In-Reply-To: <20260828053805.1410721-1-4ncienth@gmail.com>
-References: <20260824113004.3755053-1-4ncienth@gmail.com> <apEWZUFe8NmwgPDb@kernel.org> <20260828053805.1410721-1-4ncienth@gmail.com>
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
+Subject: [PATCH] Input: atkbd - fix UAF in atkbd_set_repeat_rate() on disconnect
+Date: Fri, 28 Aug 2026 13:38:39 +0530
+Message-ID: <20260828080839.116065-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,113 +74,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-struct keyring_index_key::desc_len is a u16.  User-provided key
-descriptions are limited to 4095 bytes, but a key type preparser can
-generate a longer description when the caller passes NULL.
+Commit 0ef7a26af127 ("Input: atkbd - fix canceling event_work in disconnect")
+moved cancel_delayed_work_sync() after input_unregister_device() on
+the premise that events may arrive until input_unregister_device returns.
 
-The X.509 parser forms a description from the certificate subject and
-twice the raw serial length when the certificate has no Subject Key
-Identifier.  A certificate with a two-byte subject and a 32766-byte serial
-therefore produces a 65536-byte description.  Assigning strlen() to
-desc_len wraps it to zero, after which __key_link_begin() hits:
+However, this created a UAF as work that may have passed the
+atkbd->enabled check in atkbd_event_work() may attempt to dereference dev
+which is freed in input_unregister_device(). Reverting the commit also
+does not solve the issue as events may still come through and pass the
+atkbd->enabled check as atkbd_disable() and atkbd_event_work() guard with different
+locks. Fix this by closing the hardware first using serio_close()
+and then unregistering to prevent work from executing after
+input_unregister_device(). serio_close() closes the device preventing
+work from arriving.
 
-    BUG_ON(index_key->desc_len == 0);
-
-This was reproduced through keyctl on a v6.12.105 KASAN kernel with
-panic=1 and oops=panic.  The process ran as uid and gid 1000 with no
-capabilities, and the console recorded:
-
-    CapInh: 0000000000000000
-    CapPrm: 0000000000000000
-    CapEff: 0000000000000000
-    [   14.044055] ------------[ cut here ]------------
-    [   14.044211] kernel BUG at security/keys/keyring.c:1308!
-    [   14.044375] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-    [   14.044558] CPU: 0 UID: 1000 PID: 138 Comm: keyctl Not tainted 6.12.105-dirty #1
-    [   14.044788] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-    [   14.045025] RIP: 0010:__key_link_begin+0x1e5/0x250
-    [   14.047630] Call Trace:
-    [   14.047711]  <TASK>
-    [   14.047785]  __key_create_or_update+0x490/0xcd0
-    [   14.047954]  ? __pfx___key_create_or_update+0x10/0x10
-    [   14.048139]  ? __pfx_lookup_user_key_possessed+0x10/0x10
-    [   14.048323]  key_create_or_update+0x47/0x60
-    [   14.048484]  __do_sys_add_key+0x219/0x430
-    [   14.048632]  ? __pfx___do_sys_add_key+0x10/0x10
-    [   14.048794]  ? switch_fpu_return+0x127/0x250
-    [   14.048980]  ? srso_return_thunk+0x5/0x5f
-    [   14.049163]  ? arch_exit_to_user_mode_prepare.constprop.0+0x6f/0xa0
-    [   14.049417]  ? srso_return_thunk+0x5/0x5f
-    [   14.049582]  do_syscall_64+0x5a/0x130
-    [   14.049721]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-    [   14.051772]  </TASK>
-    [   14.051975] ---[ end trace 0000000000000000 ]---
-    [   14.054729] Kernel panic - not syncing: Fatal exception
-
-The same boundary was independently reproduced on 3/3 fresh v6.12.105
-KASAN boots with the source reproducer.
-
-A one-byte-short control with a 32765-byte serial parsed successfully and
-returned EDQUOT without a splat, showing that the wrap boundary is causal.
-
-Measure generated descriptions before narrowing the length and reject
-values that cannot be represented.  On 3/3 fresh patched mainline KASAN
-boots, the boundary returned EINVAL and the control continued to return
-EDQUOT, with no BUG, Oops, KASAN report, warning or panic.
-
-A tested source reproducer exists and is available to maintainers
-privately.
-
-Fixes: f771fde82051 ("keys: Simplify key description management")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reported-by: syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
+Fixes: 0ef7a26af127 ("Input: atkbd - fix canceling event_work in disconnect")
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 ---
-Changes in v2:
-- Add the observed keyctl crash trace and before/after runtime results to the
-  commit message.
-- Clarify that the serial is used when the certificate has no Subject Key
-  Identifier.
-- No code changes.
+ drivers/input/keyboard/atkbd.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
- security/keys/key.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/security/keys/key.c b/security/keys/key.c
-index b34a64d81d47ab..f2f472b45f4eee 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -14,6 +14,7 @@
- #include <linux/workqueue.h>
- #include <linux/random.h>
- #include <linux/err.h>
-+#include <linux/limits.h>
- #include "internal.h"
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index 5736f4bc5a50..8874d9007a67 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -963,17 +963,18 @@ static void atkbd_disconnect(struct serio *serio)
  
- struct kmem_cache *key_jar;
-@@ -820,6 +821,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 	const struct cred *cred = current_cred();
- 	struct key *keyring, *key = NULL;
- 	key_ref_t key_ref;
-+	size_t desc_len;
- 	int ret;
- 	struct key_restriction *restrict_link = NULL;
+ 	atkbd_disable(atkbd);
  
-@@ -865,7 +867,12 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 		if (!index_key.description)
- 			goto error_free_prep;
- 	}
--	index_key.desc_len = strlen(index_key.description);
-+	desc_len = strlen(index_key.description);
-+	if (desc_len > U16_MAX) {
-+		key_ref = ERR_PTR(-EINVAL);
-+		goto error_free_prep;
-+	}
-+	index_key.desc_len = desc_len;
- 	key_set_index_key(&index_key);
+-	input_unregister_device(atkbd->dev);
+-
+ 	/*
+-	 * Make sure we don't have a command in flight.
+-	 * Note that since atkbd->enabled is false event work will keep
+-	 * rescheduling itself until it gets canceled and will not try
+-	 * accessing freed input device or serio port.
++	 * close serio first so device will not get any data, which prevents
++	 * atkbd_event_work from being rescheduled after cancel_delayed_work_sync
++	 * returns. This ensures no work can dereference atkbd->dev after it has
++	 * been freed.
+ 	 */
+-	cancel_delayed_work_sync(&atkbd->event_work);
  
- 	ret = __key_link_lock(keyring, &index_key);
-
-base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+ 	serio_close(serio);
++	cancel_delayed_work_sync(&atkbd->event_work);
++
++	input_unregister_device(atkbd->dev);
++
+ 	serio_set_drvdata(serio, NULL);
+ 	kfree(atkbd);
+ }
 -- 
-2.54.0
+2.55.0
+
