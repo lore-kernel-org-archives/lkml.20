@@ -1,61 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AED853E0B
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330521990A7;
+	Fri, 28 Aug 2026 00:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787878551; cv=none; b=LZTwLqmDEGuSxkoA+8NEFHY0XvDsXZBT8+vQ0zpcqKV4KDL8y6ntSf8To7yOCQKLs8fBWhp1Bu+vXduoceaJ+raCO+QgKKKcWZblcXnrj0Z0o9tLyktZ+gRevB8l+PmcGjPCX6DmIGI0Xg2FkhrMDxcKs9ZzfRu9+OiB6xBhbb4=
+	t=1787878579; cv=none; b=i9P1r4dsik0M80M3gdVzEB3sRTdNGPFEcUNnrE1Isj3j7NEPrYB658dmScb0F8DKPAsmvugmJgKEVhZjdXdSPwblupGeXygHwMbKc6/5lQccTNSsXPw25eizJDTMrMwGNTPgtPx2voDwcBFjIkLMqrbQCoEymX6dY4fnZXmKWMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787878551; c=relaxed/simple;
-	bh=pxJJ/Gq2BOZaGKWbI4sy8nb0IV9yvaOJO4OZ8lJb3Fw=;
+	s=arc-20240116; t=1787878579; c=relaxed/simple;
+	bh=yvPeGpWHCbKwTZF/cuBsW0J2qtW6g9A2DtckzYmO4S4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CunffDUkhSW4FXgyvSlGaBImLtesUydgVVcDxpD8wTUTSwUStLx9owNAUsE1LIRsPrMUR0uwobHfWWMEUdCl2MVyKbjwapFL/6DOFPYrkhs+ssuEq8JgdRvgzDcLD6Wj6miyiCskcqwuFfBEqZPdurfzHaA3mBEcrqX6wEx8yo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TdBTlzKQ; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lLoTXSOVvmjTTG47IUcUkGvqJ4FYgyO8qlzecs+69HIeXiT40emEyNSuSiR22OufzrWxUNeQ73jIxPZL5xSyawilP/K/3/HkbaT7YVKrpw+53eeJQ8j4/y44TyN5/p4QdF0OTUb/LzcSVL5rRzIDxJluDBLZ3O0h1+UWsQIWPv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma5x5bYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TdBTlzKQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787878550; x=1819414550;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pxJJ/Gq2BOZaGKWbI4sy8nb0IV9yvaOJO4OZ8lJb3Fw=;
-  b=TdBTlzKQo/2RJ0ldl0lyYP8VLhRvpVYtZhPi2XIWwKjqrnfl4MiCFbtm
-   AQ/fVukYQ3+85UCdKY1ZqRBI5biDGYXraZEapf60GfS34CE8Bseu1Rdlk
-   s8s8oTVI25BxEaX/nox+px7Itr1lGDm6H16qEE/Za1SauEaGPi/N2aJWy
-   BuEnc+T9ge6lIaNnmU+3+feesHwM8edN/uhCQI6/RkislZ0ndCp9iPli8
-   Sc2I07Mrr/9/z6eh8aruNXFUTgn/UOrHmbV+pHluaT8oyorrjpSZX7CQo
-   1Sq6BZCsJ2/6nYtuXrXY6PDXs06cnnDSi2UevSJkHmFI/VveqDB3dsAsC
-   A==;
-X-CSE-ConnectionGUID: n4xBz2RqSGag6PMVZIbUbA==
-X-CSE-MsgGUID: QLt4KBNwTcGv3QdczbwiGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92246509"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="92246509"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 17:55:50 -0700
-X-CSE-ConnectionGUID: D94VrNDqS12fWXoUw+nM9w==
-X-CSE-MsgGUID: TwDvaBS/Q6qrl8OnJjoNTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="271834038"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 27 Aug 2026 17:55:47 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzksj-00000000ADN-27PO;
-	Fri, 28 Aug 2026 00:55:45 +0000
-Date: Fri, 28 Aug 2026 08:54:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Zenghui Yu <zenghui.yu@linux.dev>, damon@lists.linux.dev,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, sj@kernel.org, akpm@linux-foundation.org,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-Subject: Re: [PATCH] mm/damon/core: remove declaration of kdamond_fn()
-Message-ID: <202608280848.9o0Z64CP-lkp@intel.com>
-References: <20260827163953.83520-1-zenghui.yu@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma5x5bYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABC91F000E9;
+	Fri, 28 Aug 2026 00:56:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787878577;
+	bh=EKWVIMLjuqiZHTIRgJpFJCAMP4yhuBa8RStZMoMCJvY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ma5x5bYKNbUbVoQsSNtkqRSCDgvzI0KIplOOmZKIdS4JeBRkaR+qU1eLueQd12c9t
+	 +4A67GawOdELSWMcaD75YAIBGP8h+Brc2VKIpHVdAO4sZhxayEZHA+P+vIszzYaGw6
+	 MyhMqu1iDr/SPeFRTbXQj3zVjufmcBBq0vDGLpBo1ZRbftlOLGKiXVoOUPB9EvEKhH
+	 Z66aksnNI9GR9Y1OUJZxGqPXCVLS18uUersdt2RLVbT/Z4EXX5vm+XJea3rc5FsbB7
+	 xm90uszTUaq/lCXL/RZvGROiUvSTVwPNm59DVl0fZrK7C4m7wKcCjy+GM/WVRZUA3d
+	 O1Fj8MV9HA/tQ==
+Date: Fri, 28 Aug 2026 02:56:15 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, Wolfram Sang <wsa@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
+Message-ID: <apDcMmn6GB46gXfU@zenone.zhora.eu>
+References: <20260812094425.3515179-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,69 +45,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827163953.83520-1-zenghui.yu@linux.dev>
+In-Reply-To: <20260812094425.3515179-1-lgs201920130244@gmail.com>
 
-Hi Zenghui,
+Guangshuo,
 
-kernel test robot noticed the following build errors:
+On Wed, Aug 12, 2026 at 05:44:25PM +0800, Guangshuo Li wrote:
+> cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
+> does not call the matching pm_runtime_dont_use_autosuspend() before
+> disabling runtime PM.
+> 
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without undoing the autosuspend setting during
+> teardown, this reference is not dropped and usage_count remains
+> unbalanced.
+> 
+> Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
+> state. Its managed cleanup disables autosuspend and runtime PM and
+> restores the suspended state on probe failure and driver removal.
+> Remove the now redundant manual runtime PM cleanup.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-[auto build test ERROR on akpm-mm/mm-everything]
+Although Krzysztof's comment is very valid, I can't ignore the
+reviews that have already been done. I pushed this patch to
+i2c/i2c-fixes.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Zenghui-Yu/mm-damon-core-remove-declaration-of-kdamond_fn/20260828-003953
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20260827163953.83520-1-zenghui.yu%40linux.dev
-patch subject: [PATCH] mm/damon/core: remove declaration of kdamond_fn()
-config: hexagon-randconfig-r052-20260828 (https://download.01.org/0day-ci/archive/20260828/202608280848.9o0Z64CP-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260828/202608280848.9o0Z64CP-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608280848.9o0Z64CP-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> mm/damon/core.c:1941:30: error: use of undeclared identifier 'kdamond_fn'
-    1941 |                 ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-         |                                            ^
-   1 error generated.
-
-
-vim +/kdamond_fn +1941 mm/damon/core.c
-
-b1029f29eb1d5fb SJ Park        2026-02-28  1924  
-2224d8485492e49 SeongJae Park  2021-09-07  1925  /*
-2224d8485492e49 SeongJae Park  2021-09-07  1926   * __damon_start() - Starts monitoring with given context.
-2224d8485492e49 SeongJae Park  2021-09-07  1927   * @ctx:	monitoring context
-2224d8485492e49 SeongJae Park  2021-09-07  1928   *
-2224d8485492e49 SeongJae Park  2021-09-07  1929   * This function should be called while damon_lock is hold.
-2224d8485492e49 SeongJae Park  2021-09-07  1930   *
-2224d8485492e49 SeongJae Park  2021-09-07  1931   * Return: 0 on success, negative error code otherwise.
-2224d8485492e49 SeongJae Park  2021-09-07  1932   */
-2224d8485492e49 SeongJae Park  2021-09-07  1933  static int __damon_start(struct damon_ctx *ctx)
-2224d8485492e49 SeongJae Park  2021-09-07  1934  {
-2224d8485492e49 SeongJae Park  2021-09-07  1935  	int err = -EBUSY;
-2224d8485492e49 SeongJae Park  2021-09-07  1936  
-2224d8485492e49 SeongJae Park  2021-09-07  1937  	mutex_lock(&ctx->kdamond_lock);
-2224d8485492e49 SeongJae Park  2021-09-07  1938  	if (!ctx->kdamond) {
-2224d8485492e49 SeongJae Park  2021-09-07  1939  		err = 0;
-6376a824595607e SJ Park        2023-12-08  1940  		reinit_completion(&ctx->kdamond_started);
-2224d8485492e49 SeongJae Park  2021-09-07 @1941  		ctx->kdamond = kthread_run(kdamond_fn, ctx, "kdamond.%d",
-2224d8485492e49 SeongJae Park  2021-09-07  1942  				nr_running_ctxs);
-2224d8485492e49 SeongJae Park  2021-09-07  1943  		if (IS_ERR(ctx->kdamond)) {
-2224d8485492e49 SeongJae Park  2021-09-07  1944  			err = PTR_ERR(ctx->kdamond);
-7ec1992b891e59d Colin Ian King 2021-11-05  1945  			ctx->kdamond = NULL;
-6376a824595607e SJ Park        2023-12-08  1946  		} else {
-6376a824595607e SJ Park        2023-12-08  1947  			wait_for_completion(&ctx->kdamond_started);
-2224d8485492e49 SeongJae Park  2021-09-07  1948  		}
-2224d8485492e49 SeongJae Park  2021-09-07  1949  	}
-2224d8485492e49 SeongJae Park  2021-09-07  1950  	mutex_unlock(&ctx->kdamond_lock);
-2224d8485492e49 SeongJae Park  2021-09-07  1951  
-2224d8485492e49 SeongJae Park  2021-09-07  1952  	return err;
-2224d8485492e49 SeongJae Park  2021-09-07  1953  }
-2224d8485492e49 SeongJae Park  2021-09-07  1954  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Andi
