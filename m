@@ -1,128 +1,203 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289AA368950;
-	Fri, 28 Aug 2026 15:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931915; cv=none; b=pDLLE2PXQLD8VBDKsxGbY8pbh9eZCgUVgZHwnA8MdC7EjCyTzftGZdykHAmfMRy3AsXeCowG2/gmZ4TMLrat+CdiwQmJWeMSZ30ED89JZPCIJt5VnP1+D/MhaxSGVc2PHyFUPDgBd4KpKVIEq3mw6NsmDp5A7zicnUF+hQ4qpRM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931915; c=relaxed/simple;
-	bh=oEGD98eP5LuYUS7ScktmqudS+PymyQ1EvYYYUzfHpHM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cbLfQER41Gikg4b0Nmo5HtWPcoby/7/RKFSjWPjnPLV1Xe8tSRbiQvxC8rGDyPndHMuWJcPey0Gs5ZQ4lYlLiMHtv0zHppDHgdwTOzMNPBMl5OB7UI4gHkzKYYqHeamVqT7LaLzByMO0P7K4X5+udD8CBTv40ynkDzhuwcW/8Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xm2W10pb; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92FD36D9E0
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787931937; cv=pass; b=tRSySIx+d+fdzgn5wGDPw94fGpYgzerAqMSCr939RjKoYAOODbudb64Ef+m76H0zOBsLHTjYe3tAQclIi0IOtFx1/tO2/gr6Cd7cpij7eyWeXh/h1yJA8syKzU0vaTwoJgbMvX9+zj2NzSfLoAa9NB6dsGePBkcCrJUpsWt2JAw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787931937; c=relaxed/simple;
+	bh=4k5Hmi2w3haDBLxOGkPPHctNj3pmhYTu676GaexA2eM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L0lcZTbXpoC9tJIrvnYA8VJvtYgoRBtZn+sBy4pHKCKkwgNKwSzjH0RTc3eOR2LtoDLz7a54vHOzXZRdlEwFME9KcecIFpHhO3nncrUzNNKLNobkW5yOH1J3vLKl5/+rmUchlzlWUJ9efYFy/FfUsT09xz+EBWdbw2OdvU6pMcM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KM7821oO; arc=pass smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xm2W10pb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787931913; x=1819467913;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=oEGD98eP5LuYUS7ScktmqudS+PymyQ1EvYYYUzfHpHM=;
-  b=Xm2W10pbcxn8MNhYIiKUXolsGF+SAdcct4KNdOYyi1puBuAcuNX6JvqB
-   6EnLNVSzy/7+G2iz0/ZJloVQC4WFYzINMSq6KTW+aRS4esxpFy7b3ztE2
-   87h18ksdJdhM1Rk3MzFM7KHabnmaEQuCG4fOSOm+HO+6c/r/T+mRe3Plt
-   Li7dx8St3Pi9+l7a3RCWzI+hXr1PtJkjQ1V8hOl7rNcAXTLfJcT9bWzT2
-   7yozzinQwdVH1nsCVCl5Fv60Kjq5BlaTxwI70ojh01b31Xt7c4Wdm1crz
-   CzVl2CrGhxxdbagKVp5k3ClHuyUTPYeSJgrtCQi9PvU+drm5OQcnwGsyE
-   g==;
-X-CSE-ConnectionGUID: NLiP/h42T+axTpT8ZZYyKw==
-X-CSE-MsgGUID: ebz6XvMaQq65YJQX7YFcCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88648712"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="88648712"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:45:13 -0700
-X-CSE-ConnectionGUID: ktkROrMOT+KLwjalPUsyag==
-X-CSE-MsgGUID: sDIX/640RzOLCN7lCTUGJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="268228672"
-Received: from aschofie-mobl2.amr.corp.intel.com (HELO spandruv-desk1.amr.corp.intel.com) ([10.124.223.143])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:45:12 -0700
-Message-ID: <42d7b3ad68ed7870e141fcfa62a483356e7c5b7f.camel@linux.intel.com>
-Subject: Re: [BUG] ish_hw_start -- page fault on a PIO cookie: intel_ish_ipc
- maps an I/O BAR and dereferences it
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>, Jiri Kosina
- <jikos@kernel.org>,  Benjamin Tissoires	 <bentiss@kernel.org>, Zhang Lixu
- <lixu.zhang@intel.com>
-Cc: falemi@asu.edu, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 28 Aug 2026 08:45:11 -0700
-In-Reply-To: <CA+0ovCgaya8JEc4xmBKPbe5AbrPuaK0tUKxuOxQYMsPTQT1ALw@mail.gmail.com>
-References: 
-	<CA+0ovCgaya8JEc4xmBKPbe5AbrPuaK0tUKxuOxQYMsPTQT1ALw@mail.gmail.com>
-Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
- keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
- YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
- y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
- NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
- GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
- TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
- oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
- AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
- b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
- AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
- oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
- UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
- ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
- wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
- NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
- J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
- oOfCQxricddC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KM7821oO"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9d290216d0so130685a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:45:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787931931; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B6Pkpcx+NaN9kFi7098xoe0cvREle37dVP+npXMjOQU71CDm8WbPhAZ6DujfEPXjUN
+         V9OqaTS48m4+LmHAbhdm7iWtz6Ay1uuHP9dgXh9wJon81tw+Z8nAIklpj3NbnTOegYqm
+         hTlHYsqKR0EV9Ib0jpSOH2hRjt04Q3kZ3LCxFJS0zIWTXfF9ZRy3WmtsWE/P9N+KKBP4
+         XbeOILF+sUKXKeOCsBRetH1bgeIedPYKxlurcKDa8H6PVvfs48Jb2mLn6mRJ5iz3RUlw
+         u2c+7/N1nEosM/GEWSJ+XilTQowNhCSGD0VHgdslVIJT2RL1qw/bkqWw+vfy/7C7gsOu
+         4SJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vJ5XpwnkHox6a4w3pC/S2+0qhPwO5SkHdON4Vp8od9s=;
+        fh=qhiW7kUf7UZBt7faqJnz0ugLl5j6vc6+LiIj9XFDeOc=;
+        b=G7Ved0QVSfvqjxd3yg0vygsWTw+RXapMvPMo/R7+R2uEt/rcglr9F9Hbscu39MJn3h
+         8g2G0+/q6pyQ9G/lh1qPCLXYusfxNDf74hZREJO7+Dt8w+8kGCTp7EAqYvus4AehE8K8
+         kVGD18dSumLUC9c+Z0GlV09nsxqmUlf9GQdFjNMPvVXo8g6/avpTRtTnv6WeXDe16Dqc
+         7Qg7HpiqW8twnAj36GBIBnqnHta8FhrlEVFiMyN/UYOaeqmCiqYxuyVyd3SUABYPXRUY
+         8564zOayoFAQ01Ocs5moOfo+axjtaIqu2pAimCUA7JDJxVopRK8I6gcZ/nDgBwe77UFn
+         aGng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787931931; x=1788536731; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vJ5XpwnkHox6a4w3pC/S2+0qhPwO5SkHdON4Vp8od9s=;
+        b=KM7821oOjoKAA+WIFroihix8ijEfIAQhEhfuvSNakXhrCTkczZPHaUDmFM9I0gGISN
+         BsUC3XLsz6d2IDkedz4DMoW309EAANIhGdUda02T4E4vV+oueGvH7aECBlJk2rFU88Jk
+         ffS+EllOgdTYx90znr5uYg5e+ReLoRc67R+O1FLXgVw+7lcwd1CAZc3gLHFE+yLJ+/Og
+         2uUTORd8Etm8QqxQW9cAVBKS0Gm0TubJaa6x8Z1VH7APUjsYHV9WVxVPHVoIJWNdkl9h
+         /SqCBLHLjTmn/RxgFvggtHd1aFYruW+bIWz2NCZ2cYPBOhqHWTVztM4cLHCkr/dmYKJy
+         RTkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787931931; x=1788536731;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vJ5XpwnkHox6a4w3pC/S2+0qhPwO5SkHdON4Vp8od9s=;
+        b=jVnu5uvMZGbNwBiEqfhm3iUx48TZThGQPl1atEQ6XpdmbXFdG0U2i8YN9GhQiPH9iD
+         NGZYO+vF+Mfegkl05jRs9KoNCJ15WTb1ZVPWEF7kUwLZHtvDQ/U2mw25+K95TA0QwOwk
+         3a003FWqqgQyvcECai27JJLkKyHCioStig3ArtKD0l9d9wTogGHlXKtN+0iH912z6yyg
+         WbVYd2vsbz++EGCDYWcVkiOlK8IdXRZX40f9CrGZ1opjZU5xnaUCHuvbhYfIsML4mV5d
+         dZTyuwovXzvliLP23YuC97Uo0ljhQZm/wKltg4L9OHRh7T1QV6tcSk5F3aNDrMq09giD
+         j6/w==
+X-Forwarded-Encrypted: i=1; AHgh+RrwlqywodpH5w6gLnVw9LmSZrGoeJMbcSANYBEr1oWdRFColMVVS4Uhr80FydKJI0hr3M5jgIgVh2P9bU0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lF+rBqvXQpA72MQlLF3NtFp8IPxu5JRByXHXfcLSPzjK1czNP9
+	5WTACv7X5y5+xWORI6r8LX1Eqp6OLAADwtjBYpGq4U02wAslHyrlVRZnTqSUJDpKGTGnu4BJNfC
+	D2q4aSg47QEorl2vGHbzB/uybKfX41m8=
+X-Gm-Gg: AR+sD13/GNuB5kI1IqY4p5iBnbnsdkWoh8/NjnD90+aRFWoIz5TbLRsmmVKry3nk7by
+	QqiYSxWS8Xi5xiRKRoQIf+M80by+3+dbp94yVHPMC1jHbMqmocoWXjMKzzAZhAOFe/++TkBymg2
+	wb0Y7gFwjkASRtgspTAqmfPSeSztPS9izLwWCXrLjGKI6kmV4lWmUpEJ54zxFiIC0U4VItzDtcl
+	JfitXpFHvuigBd263pzXIZ5qllV4aggvTAgQJwzFYxSDVW/uOYv2TUFkUcEywgN0Wh2kjq3POyH
+	8S/AaegONi2A2ZQMUxZox5Mq1ZkS7ZbwtJD0LzORy32D0ZW6JWpuSGctTvkippWHep/ju97ggYt
+	twyG+hjD5JUXt1q0SUM4rv70mzWV0j1Q=
+X-Received: by 2002:a17:90b:1f8b:b0:396:a47f:d38f with SMTP id
+ 98e67ed59e1d1-396d1042d5cmr8007195a91.3.1787931930762; Fri, 28 Aug 2026
+ 08:45:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260827010802.56422-1-yanglinlin@kylinos.cn>
+In-Reply-To: <20260827010802.56422-1-yanglinlin@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 28 Aug 2026 11:45:18 -0400
+X-Gm-Features: AcwNN1UYBdRuALeVF9bH1FXOugA6dKfisK_IHiNKuZW7SAtdOSEUBOQ6I0dUBI4
+Message-ID: <CADnq5_Pmd=LBP4BPD4KZCrfraKyHbB6R46KLJB4yjSiyTHJOJw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix misspelling of "overridden"
+To: Linlin Yang <yanglinlin@kylinos.cn>
+Cc: harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Farhad,
+Applied.  Thanks!
 
-On Thu, 2026-08-27 at 22:36 -0700, Farhad Alemi wrote:
-> Hello,
->=20
-> As part of the kernel research at ASU's SEFCOM
-> lab, we hit the crash below. Crash reports can be found here:
->=20
-> =C2=A0
-> https://github.com/farhad-alemi/public_bug_reports/tree/main/152-hid-inte=
-l-ish-ioport-bar-deref/
->=20
-> =C2=A0 BUG: unable to handle page fault for address: 000000000001c078
-> =C2=A0 #PF: supervisor read access in kernel mode
-> =C2=A0 #PF: error_code(0x0000) - not-present page
-> =C2=A0 Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-> =C2=A0 RIP: 0010:ish_hw_start+0x41/0x2d0
-> =C2=A0 Call Trace:
-> =C2=A0=C2=A0 <TASK>
-> =C2=A0=C2=A0 ish_probe+0x34d/0x460
-> =C2=A0=C2=A0 pci_device_probe+0x436/0xc90
-> =C2=A0=C2=A0 really_probe+0x267/0xaf0
-> =C2=A0=C2=A0 __driver_probe_device+0x1e2/0x350
-> =C2=A0=C2=A0 driver_probe_device+0x4f/0x240
-> =C2=A0=C2=A0 __device_attach_driver+0x270/0x410
-> =C2=A0=C2=A0 bus_for_each_drv+0x258/0x2f0
-> =C2=A0=C2=A0 __device_attach+0x2c5/0x450
-> =C2=A0=C2=A0 drivers_probe_store+0x11c/0x220
->=20
-> Our reproducer.c is available upon request.
->=20
-> Happy to test a patch if that would help.
-
-Thanks for reporting.
-
-Please submit a patch.
-https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html
-
-Thanks,
-Srinivas
-
->=20
-> Regards,
+On Thu, Aug 27, 2026 at 8:47=E2=80=AFAM Linlin Yang <yanglinlin@kylinos.cn>=
+ wrote:
+>
+> Fix misspelling of "overridden" (missing a 'd') in comments.
+> No functional change.
+>
+> Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
+> ---
+>  .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
+>  .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
+>  drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
+>  4 files changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30=
+.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+> index 33b5136f7ce3..75bdad22bf69 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+> @@ -1805,7 +1805,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchPar=
+ametersWatermarksAndPerforman
+>         v->DISPCLKWithRamping =3D 0;
+>         v->DISPCLKWithoutRamping =3D 0;
+>         v->GlobalDPPCLK =3D 0.0;
+> -       /* DAL custom code: need to update ReturnBW in case min dcfclk is=
+ overriden */
+> +       /* DAL custom code: need to update ReturnBW in case min dcfclk is=
+ overridden */
+>         v->IdealSDPPortBandwidthPerState[v->VoltageLevel][v->maxMpcComb] =
+=3D dml_min3(
+>                         v->ReturnBusWidth * v->DCFCLK,
+>                         v->DRAMSpeedPerState[v->VoltageLevel] * v->Number=
+OfChannels * v->DRAMChannelWidth,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31=
+.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> index 8064c4b3fd25..3f62ea493787 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> @@ -2045,7 +2045,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchPar=
+ametersWatermarksAndPerforman
+>         v->DISPCLKWithRamping =3D 0;
+>         v->DISPCLKWithoutRamping =3D 0;
+>         v->GlobalDPPCLK =3D 0.0;
+> -       /* DAL custom code: need to update ReturnBW in case min dcfclk is=
+ overriden */
+> +       /* DAL custom code: need to update ReturnBW in case min dcfclk is=
+ overridden */
+>         {
+>         double IdealFabricAndSDPPortBandwidthPerState =3D dml_min(
+>                         v->ReturnBusWidth * v->DCFCLKState[v->VoltageLeve=
+l][v->maxMpcComb],
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel=
+_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_c=
+ontrol.c
+> index 16951a9550f2..d3fe6e024891 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_contro=
+l.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_contro=
+l.c
+> @@ -108,7 +108,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *=
+link)
+>                         /* alternate scrambler reset is required for Trav=
+is
+>                          * for the case when external chip does not
+>                          * provide sink device id, alternate scrambler
+> -                        * scheme will  be overriden later by querying
+> +                        * scheme will  be overridden later by querying
+>                          * Encoder features
+>                          */
+>                         if (strncmp(
+> @@ -124,7 +124,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *=
+link)
+>                         /* alternate scrambler reset is required for NUTM=
+EG
+>                          * for the case when external chip does not provi=
+de
+>                          * sink device id, alternate scrambler scheme wil=
+l
+> -                        * be overriden later by querying Encoder feature
+> +                        * be overridden later by querying Encoder featur=
+e
+>                          */
+>                         if (strncmp(link->dpcd_caps.branch_dev_name,
+>                                 DP_VGA_LVDS_CONVERTER_ID_3,
+> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gp=
+u/drm/amd/display/dmub/src/dmub_srv.c
+> index 204375f1eff8..587d26c742cd 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> @@ -584,7 +584,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, =
+enum dmub_asic asic)
+>                 return false;
+>         }
+>
+> -       /* set default inbox type if not overriden */
+> +       /* set default inbox type if not overridden */
+>         if (dmub->inbox_type =3D=3D DMUB_CMD_INTERFACE_DEFAULT) {
+>                 if (default_inbox_type !=3D DMUB_CMD_INTERFACE_DEFAULT) {
+>                         /* use default inbox type as specified by DCN rev=
+ */
+> --
+> 2.25.1
+>
