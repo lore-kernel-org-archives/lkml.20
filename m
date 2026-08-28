@@ -1,65 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A957282F13;
-	Fri, 28 Aug 2026 07:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE2F3D669A;
+	Fri, 28 Aug 2026 07:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902055; cv=none; b=OysHUxaz0cBk8d0I0UUMhKQgUXWvXOR6pFudJfNwnkwFcBllKyD0726WNpRmAjMcZKJlWESM/yN4iZf1oybfJhR5sRIewYK3c7CieuDt70dLjKCT0cKUchXGgmFVBxXIjG/FTnhGvCiDHResAmlzCP1Dlze7q2tt5VhF0/brDY0=
+	t=1787902136; cv=none; b=K8CVGusi3QUhcdexZK+W1sbvemQ8T14Bl0LVFh+lPIlUqa4ndYZJM0rcHe2Is0ZzCSNt1OwPcxItOkfq+b3FR5PDcL7UbnzPtBjdQCmKLcHWM2ZP9LI/hrYtbeo0qofBSCxJOzB0JXkOAXerIc/joidYe2dxmH66FWpHCligQoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902055; c=relaxed/simple;
-	bh=+Blv6x1Dj7+uIINgojVzeN/m+MwN/nz/k6eKUjShcg0=;
+	s=arc-20240116; t=1787902136; c=relaxed/simple;
+	bh=XwJl0gxDY7xCu0UxsNKq6Cviiw1BtSgyXNf8lyTcOeE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N4FR46PJ0HaqQ61Jr+kKIvgJP4G4dKhEULe3tCxtZYz0CoHNfm5QIHsew4OVcyN82sB8Wa87vuPkgfPpFKx1URMJr72nbqmfU3li+vDC9cSzPHxxAnoXA3PEbC7YxHImOQtpsxZ3+ysLV0Tvws1xVa9RZ1L1Du5JaSmPN/lgMa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQD0nOrD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ROHtyf+0+vhBeKiy1XkM5lAIKM3pROLTLUoBrsTROHtYEYda7z3w+pFnme66RZ17pBMYv65YdLD2mw0dyAHiQV5/4ELkJkm19mfz075f4uwsHoTM3Yo5uZBTuhrlxww6SjNvY6XROW7mTclpGid7x//hBfGhScZPkSHSEP6CY/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hyqSqMnx; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQD0nOrD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DD51F000E9;
-	Fri, 28 Aug 2026 07:27:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787902054;
-	bh=6j6ZsKL94I8Ps6lT4mQY48Y0LAIoexS/cfshDQ2M7/A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bQD0nOrDutoR4eEsIx/wysPLcZaMsviJu28zgjczLiGRCPmFw4qblAQD8J6fc5xZc
-	 Ce5rkz2LG2m5nCNg/H2SamVlRagCJ85XjXxParO3oEWcNT3ya+4/tNNLsw9cctkgkE
-	 zwiiEIyKZYuM1gY3YmNFrQlJM+W2lfwJh+rFNcybTmy3wSAXgWnEOunLTrgvSsgw66
-	 a6Vl/41dYMcjDyzVubuTkurs6e0y+d9LcbHPyE7ox+/uPCIW6S8MWZeXccqF4cB8ud
-	 Ifab9Uw2By6z6now30DbQaWHqx8yGhUuly1SXxQXlpM8XQ3mAeCk+NEcCDTDfCvxaK
-	 ZG5x30qVLSQoQ==
-Date: Fri, 28 Aug 2026 09:27:30 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com
-Subject: Re: [PATCH] dt-bindings: regulator: Convert TPS65023 to DT schema
-Message-ID: <20260828-sturdy-unbreakable-ibis-aa68d7@quoll>
-References: <20260815082913.2144978-1-egbostina@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hyqSqMnx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787902134; x=1819438134;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XwJl0gxDY7xCu0UxsNKq6Cviiw1BtSgyXNf8lyTcOeE=;
+  b=hyqSqMnx/+0NRj7eWk80WQpagS5Mn5fHpfhndV08VFMNIFi9gpjRpJT9
+   2PpWH9+Ad6GokEIhL8XTMhTAFHz/kTftD4KsfIY3plzeOukTvuXuke2gq
+   W3XflyspVHZ443EqNsdTjtv7SEXfz1BB6a+WCv/fEqjAdkNMqklY9KV0Z
+   V4XB7tM8uxXpGjL6U7KDxX3489OjKirn369YVL0bWrFjSENppd3NNPoxc
+   ys1iMaprs4C1V1FtuNCJuX7M43RcjQ9ZOq/NxJ/iE4O3g7cXGF6bGYXQH
+   GxFbsQ44QmAUuOt3kAgw0R3J5rdniwsfTdGBkm+SdViMqLxNIlC9fKD4X
+   Q==;
+X-CSE-ConnectionGUID: 5uERxZbgRX2iamYxkRKmdg==
+X-CSE-MsgGUID: qfk5HRmLRCaw6P9xPWOs3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88613151"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88613151"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:28:47 -0700
+X-CSE-ConnectionGUID: /N1cfWzdTfO8oVIrhWMFNQ==
+X-CSE-MsgGUID: QN9CT17nTh+TV6FRQP7uzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="263799695"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:28:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id A5C86121505;
+	Fri, 28 Aug 2026 10:28:39 +0300 (EEST)
+Date: Fri, 28 Aug 2026 10:28:39 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 02/11] media: ov8858: support 19.2 MHz clock and CHT
+ gain setup
+Message-ID: <apE4pzPqsjmQW-6J@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-3-mauriziocasciano7@gmail.com>
+ <apCUKIgOZMoeSAP1@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260815082913.2144978-1-egbostina@gmail.com>
+In-Reply-To: <apCUKIgOZMoeSAP1@ashevche-desk.local>
 
-On Sat, Aug 15, 2026 at 08:29:13AM +0000, Eduard Bostina wrote:
-> Convert the Texas Instruments TPS65023 family of PMICs bindings
-> to DT schema.
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
->  .../bindings/regulator/ti,tps65023.yaml       | 90 +++++++++++++++++++
->  .../bindings/regulator/tps65023.txt           | 60 -------------
->  2 files changed, 90 insertions(+), 60 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/regulator/ti,tps65023.yaml
->  delete mode 100644 Documentation/devicetree/bindings/regulator/tps65023.txt
+Hi Andy, Maurizio,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Thu, Aug 27, 2026 at 10:46:48PM +0300, Andy Shevchenko wrote:
+> > +#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
 
-Best regards,
-Krzysztof
+You can do:
 
+#define OV8858_XVCLK_FREQ_19_2MHZ	(19.2 * HZ_PER_MHZ)
+
+i.e. no need for a division, the compiler can handle it.
+
+-- 
+Regards,
+
+Sakari Ailus
