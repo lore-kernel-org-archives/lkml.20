@@ -1,43 +1,75 @@
-Received: from mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723B845039
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C443C870E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787901631; cv=none; b=Bh9jrXpb/UClaSqb3tthv4YrfsqKjsDmxNKMNafcNaGmHiBVvo2RA17s5X4wa19O6U7Uhk3VtYdJW6BwLXukIa+/QxtIPJGdh1Ynp9jN0Ll4TqxU6cV11Rin72X0hK7hPaO1kQ3JYsUl5z713O3j1V0ex7s2+jvJKd5mBqa6QF0=
+	t=1787901632; cv=none; b=cbJhhZZTEa/Kb7aOgfv/Q0B1IsUHJD7sltsJNBbZfM7DAPw03EeSL7LFe2mhK1p7+miP688G8RLBvY9iyBYaJIf+MTv7hVBAsoOtfifq6ZSzgvoy85m8UTh22JTsbZPQJaU/NJlO1o/WVb7cpvM79/MpjG7rhXYZrYS7dbEgXMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787901631; c=relaxed/simple;
-	bh=lyJSjacjcFvHRNzPVGXfZPUd0xoPdr41+3jUabfwPgg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WaP47DCQYY22rC+duQssctCvxtx/a+X1+O+LKeV8nqbDnpdT7D0qj2sBRP/3g4xFgN3dF3JAHDvUISQ8dsGLrdlsYA029yBa+V2ov9wWSQFrhvUXZy7ZrymRd9Rcodk298hYUjzsILT5Ch2YHPx0MBYg4q179WOR6n73ez585EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AxEFuAZO; arc=none smtp.client-ip=91.218.175.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787901632; c=relaxed/simple;
+	bh=3gZQe4naWkCk3PI6QwGN0Xy6nwQOLhavNa+Y40M9jx0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D8wDbyb/vR3Trh3fMkuDIRzi9+mOcN0j0cgtf/zBwgrCCAYg4fteeQdLjrY6sPUyrky3ZuHwDoVkwO1vBnr+e2nXtShu506OETAIICIAhu/N8OELbRz7xjPa2Drk+ulkhE3MAPfbAyEiqKvlY2hPOgo2l5IWT2hv/SNUu83+Lek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ic/wpcz0; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AxEFuAZO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lyJSjacjcFvHRNzPVGXfZPUd0xoPdr41+3jUabfwPgg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787901627; v=1; x=1788506427;
- b=AxEFuAZONFGlr+bnw4xYt96k2snAK+cHqXcfjKqIZrWo47gtiMpW8MbRhrdcBeTw++RJHdRV
- Xo5GMAG2LxFjM6J2IL2L3Gc82v/LzfjDAihUYnJcz6Woaf3NfW8v4qrpzdPlpc+A7/kH1gAt+VF
- MW7jtwXFpa/XBoya2x6aa0Ow=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60ab96d263ab17e5;
-	Fri, 28 Aug 2026 07:20:16 +0000
-X-Mizu-Trace-ID: 60ab96d263ab17e5
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: axboe@kernel.dk,
-	hch@lst.de
-Cc: linux-block@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ic/wpcz0"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so560280a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 00:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787901630; x=1788506430; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uXsApZa8Vi5ynohBI7cN4DA/XtwNMqC5yo4nBQCk/iE=;
+        b=Ic/wpcz0uSdCf1GimLs8tzj74RpYnoykAGn6xNtBC7QjugOXG8syM6KBhNxpHsRJeB
+         Gxvgk7Td6fn8K0w9YJzAzu/i1O1qzMuIFv6dSeQ0TprU182bsBq+Q7i1aBQ51h838lP+
+         zVljBpzaSVB+5y+gLCMYPbJNygqRv3ts6WuvtJUc9VAilYA/K+EPck96QaSIgtL0lX1b
+         aT5X7e81B62cGJuyYDFfqNrlP0/p3rY03CCB9kmnDJiiHRS1MEpWLpN8gkrhjz7KGCvj
+         NgK0rSwsh92+S8L6W07lX57LxKlwjmvGD4/cRl3XVUTt8ueL8DC3LVkNU8Q9Uv0ISPq0
+         97bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787901630; x=1788506430;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uXsApZa8Vi5ynohBI7cN4DA/XtwNMqC5yo4nBQCk/iE=;
+        b=E7/iMow7VgUxMkaEdtj3sUeVIYn6CtNJ/c8lLLH+MQSbkva7FZHmnRn4jh7W+A2hjt
+         4Ze3Negl74OwvZwwy4hjJVp8/qdXAf/qIkpQL5rXOQzUCJ6Eo5NQM7UdbzDXI/kJzCiX
+         OdLU8UowZnYvv2m1gzbZS8k90TrSX0IcDfVfWUD1gbbH4SXjpJGzG+5y0XIenrwM+TVw
+         d/t2jV8KtFg4ERlF0hAzSqqE11zmje0Nj8NASZKClIVfAyljr/0vO0uKKQSgzJt9/jfi
+         w33NDHC/i+vmV3H/ro6LdvRVKTUcK7zSIY/rBy0q8PGLf1Abnj2tJZnQSXp+rhHpTMBv
+         jRBw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+XoJaHYq3vcxnbg7lkhw2XI4dk9q4HBBBwinrRh34CUEeiU+RKchXnQw9eKJYJXKNDMKFFK4Og/0wi2g=@vger.kernel.org
+X-Gm-Message-State: AFuF++m51YWxfE/+ooQ8rn4bm0A05djcS1Qbm5Wms5fJk21Bhek6WX3y
+	wt2JXXzUiJ0WThBLHriqakb5C9u3HOrbdD3B7MMaLqo+aqGTiNJ9OeCT
+X-Gm-Gg: AR+sD13Gcy8yylce4Ht5s2zFXbtk9IUw1kN+l7fOOl+Eqzu7B52H+ZEx+74fMR1toHl
+	q296ZugCsmeWVKWeZL9t8VptoQ2mxGCOUTUduKAe+OzmAkN0GkBtH5bvnQGke76EgRdRzVcTvkH
+	9cqXbVz5mSXN0PNUiGpfGt9Rn8WwmhMdWuWQGk7dStMLs5hwmc8PIDWY1+XkQfi6e93vPf6elnd
+	xkglk/EgyuNWBNkcTD2RzgSe2RcdG3hkvo2tiiLjmBHuS72QQYr/EwmIYzUT+u26iZC7S4kId9N
+	OipVTJl9JZfJzmL2KaxmcCEorGXROFBg99sEZD286wLs64B7phfu7HT3hsWlRNhU9ZhrodkJTSL
+	cL1BK01LQZcOhHpRyfpFjHt2Mqzk7GZnMr70NFTVR94tpLtRK21XjWP9JHeAPNvfjbyCkZSjfrG
+	96V4259/RYfUfCsqzbwem/iXYhR4Ej9Ycrjz/GgK06wWY8LraEUjHzcsXoaeOxQDgKSd0=
+X-Received: by 2002:a17:90b:54c5:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-396d0e5ccc7mr10951364a91.3.1787901630320;
+        Fri, 28 Aug 2026 00:20:30 -0700 (PDT)
+Received: from jeuk-MS-7D42.. ([211.226.54.223])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea7fa9sm6123731a91.4.2026.08.28.00.20.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 00:20:30 -0700 (PDT)
+From: Jeuk Kim <jeuk20.kim@gmail.com>
+X-Google-Original-From: Jeuk Kim <jeuk20.kim@samsung.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Yohan Joung <jyh429@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH] loop: defer the queue limits clear to a workqueue
-Date: Fri, 28 Aug 2026 15:20:04 +0800
-Message-ID: <20260828072004.273519-1-cui.tao@linux.dev>
+	j-young.choi@samsung.com,
+	yunjae00.jo@samsung.com,
+	keosung.park@samsung.com,
+	Jeuk Kim <jeuk20.kim@samsung.com>
+Subject: [PATCH 0/3] f2fs: add per-file out-place update control
+Date: Fri, 28 Aug 2026 16:20:14 +0900
+Message-ID: <20260828072017.44569-1-jeuk20.kim@samsung.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -47,98 +79,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+F2FS currently has only filesystem-wide controls for its update policy.
+Both "mode=lfs" and ipu_policy affect every file in the filesystem, so
+there is no way to force OPU for a selected file while leaving unrelated
+files under the normal adaptive policy. This series adds a persistent
+per-file OPU override.
 
-loop_clear_limits() calls queue_limits_commit_update() directly from
-the loop workqueue that processes the request.  That does a
-non-atomic struct assignment to q->limits without freezing the queue,
-which races with lockless readers of q->limits on other CPUs - bio
-splitting reads max_hw_sectors, the discard path reads
-max_hw_discard_sectors - and can let them observe torn values.  The
-trigger is a discard or write-zeroes request on a loop device whose
-backing file does not support the corresponding fallocate operation.
+Patch 1 fixes write tracking for pinned direct I/O in LFS mode. Pinned
+files still overwrite in place, so FI_UPDATE_WRITE must be set to ensure
+that fdatasync() flushes the device cache.
 
-The code already has an XXX comment saying this should move to a
-workqueue.  Do that: schedule a work item on the system workqueue,
-where it is safe to freeze the queue and update the limits using
-queue_limits_commit_update_frozen().  Accumulate pending modes in
-lo->clear_limits_mode so that failures between scheduling and
-execution of the work item are not lost, and cancel the work item
-before the device is freed.  If the device is reconfigured to a
-backing file that does support the operation in that window, the
-stale clear takes effect and discard is disabled until the next
-reconfiguration.
+Patch 2 fixes a regression in the existing LFS-mode direct-I/O path.
+Since commit 351bc761338d ("f2fs: optimize f2fs DIO overwrites"), an
+O_DIRECT overwrite of an already mapped range can reuse the existing
+physical block even in LFS mode. Restore OPU for those overwrites before
+extending the same path to per-file OPU in patch 3.
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- drivers/block/loop.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+Patch 3 adds F2FS_IOC_{SET,GET}_OPU_FILE and stores the per-file policy
+in a new F2FS_OPU_FL bit in the inode's on-disk i_flags word. A
+runtime-only inode flag would lose the setting on inode eviction.
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 6f12976035b0..5a1e8b6794ed 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -67,6 +67,8 @@ struct loop_device {
- 	struct list_head        rootcg_cmd_list;
- 	struct list_head        idle_worker_list;
- 	struct rb_root          worker_tree;
-+	struct work_struct      clear_limits_work;
-+	int			clear_limits_mode;
- 	struct timer_list       timer;
- 	bool			sysfs_inited;
- 
-@@ -222,9 +224,12 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
- 		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
- }
- 
--static void loop_clear_limits(struct loop_device *lo, int mode)
-+static void loop_clear_limits_workfn(struct work_struct *work)
- {
-+	struct loop_device *lo =
-+		container_of(work, struct loop_device, clear_limits_work);
- 	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
-+	int mode = lo->clear_limits_mode;
- 
- 	if (mode & FALLOC_FL_ZERO_RANGE)
- 		lim.max_write_zeroes_sectors = 0;
-@@ -234,14 +239,13 @@ static void loop_clear_limits(struct loop_device *lo, int mode)
- 		lim.discard_granularity = 0;
- 	}
- 
--	/*
--	 * XXX: this updates the queue limits without freezing the queue, which
--	 * is against the locking protocol and dangerous.  But we can't just
--	 * freeze the queue as we're inside the ->queue_rq method here.  So this
--	 * should move out into a workqueue unless we get the file operations to
--	 * advertise if they support specific fallocate operations.
--	 */
--	queue_limits_commit_update(lo->lo_queue, &lim);
-+	queue_limits_commit_update_frozen(lo->lo_queue, &lim);
-+}
-+
-+static void loop_clear_limits(struct loop_device *lo, int mode)
-+{
-+	lo->clear_limits_mode |= mode;
-+	schedule_work(&lo->clear_limits_work);
- }
- 
- static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
-@@ -1781,6 +1785,7 @@ static void lo_free_disk(struct gendisk *disk)
- 		destroy_workqueue(lo->workqueue);
- 	loop_free_idle_workers(lo, true);
- 	timer_shutdown_sync(&lo->timer);
-+	cancel_work_sync(&lo->clear_limits_work);
- 	mutex_destroy(&lo->lo_mutex);
- 	kfree(lo);
- }
-@@ -2100,6 +2105,7 @@ static int loop_add(int i)
- 	spin_lock_init(&lo->lo_lock);
- 	spin_lock_init(&lo->lo_work_lock);
- 	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
-+	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
- 	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
- 	disk->major		= LOOP_MAJOR;
- 	disk->first_minor	= i << part_shift;
+There is no free bit in i_inline or i_advise, and extending extra_attr
+would require a larger i_extra_isize, which cannot be assumed for existing
+inodes. Store the policy in an unused i_flags bit instead, avoiding an
+inode layout change and allowing the policy to be set on existing files.
+
+Comments on the per-file interface and the use of an i_flags bit for the
+persistent policy would be appreciated.
+
+Jeuk Kim (3):
+  f2fs: set FI_UPDATE_WRITE for in-place direct writes to pinned files
+  f2fs: fix in-place direct I/O overwrites in LFS mode
+  f2fs: add ioctl to force out-place-update per file
+
+ fs/f2fs/data.c            | 36 ++++++++++++------
+ fs/f2fs/f2fs.h            | 16 ++++++++
+ fs/f2fs/file.c            | 80 ++++++++++++++++++++++++++++++++++-----
+ include/uapi/linux/f2fs.h |  2 +
+ 4 files changed, 113 insertions(+), 21 deletions(-)
+
 -- 
 2.43.0
-
