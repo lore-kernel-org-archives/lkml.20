@@ -1,142 +1,111 @@
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8399279907
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C0A31F98B;
+	Fri, 28 Aug 2026 09:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909112; cv=none; b=JR38LmqKrgonJpFoy0u5ezXgbJ4pN06tMb9eM5vB6PBAUobE1SdrG+ArV1BwDx8Vh2LBwiOAglys/1B9jjWaPjumEl6Jhb8PNwIrAAPxL7d5g4s4YDXIAKAETglVTFFV3O86ITb5XHO1sS50oJj2/o9bu9pvNVKFDgYxt55t+N8=
+	t=1787909116; cv=none; b=S+Bkv8NJ7ly03Y4/OKbim/5o02rIn+eUIMJPOR2d8gCoVwa0enKNrDYylmXxTFWYOSwcw+4qO7y53JIecZdkf+GPg7nDcM/1t10w6fBLayLCjTKrYnzpL5zs8N0a9VqMe/9ocgPkgbClQclWe2o/bVsKfBSbbbhjvxshESl9h+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909112; c=relaxed/simple;
-	bh=dBqn/fwXS6Yqu7+OeooRTuVzLOlPePdPqVBD4zdNuTA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=txxXBUHqdhmqGA8kd6xFb/ol9U54L348rBlYr4l2RSs8KeSl3Hm5N4TvwAxK0VujWaoasA5rR5Vs+6WlbkxPGQ3Im0ohWJB4nR1snfC0kGQXEqnunafNAaeoFaySc1fzjtR+odAl+DXOmEJD3ngG2f25bY1DDJ0TTQ/yHJRnPKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S9ChDKaL; arc=none smtp.client-ip=91.218.175.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787909116; c=relaxed/simple;
+	bh=ro5y0b1NUHCS8Gf1GaZCgkRAWn+DHH5UHaRGUT8IAeY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IJ98lT+JoFalJgWPzwIn3lRXprYp11TKOAfCOrSaqZz1OPze9sRCnIIWHW+qdybnnFU3GXUpv3pzcMG6sQVLXm2p9vgC16LEKyFKBMZ1rzthn+/qNGl43VQ+uRDOsgF2Yok0MYap+lkiF+qETrVciSyYNHm/AWGc0OI+tHYfR3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h13/6Lor; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S9ChDKaL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dBqn/fwXS6Yqu7+OeooRTuVzLOlPePdPqVBD4zdNuTA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787909107; v=1; x=1788513907;
- b=S9ChDKaLDw1RrTJFJfcqJNeTpafUMPONVvbaQW8JqDshbUn0LnQJnL6RgjNKr8Q28oSO42RH
- oIOmhPqXy1J60mbKDF+3BJIHk3ZR/AigbVTa+TlmkrewN5JVFuvc41K+K6B8C4FsVfdpUIlwNN/
- noG+AmmaXTB9yQ7GDxneWt6s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 770e0ca2d72166ed;
-	Fri, 28 Aug 2026 09:25:07 +0000
-X-Mizu-Trace-ID: 770e0ca2d72166ed
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Chris Down <chris@chrisdown.name>,
-	Tejun Heo <tj@kernel.org>,
-	Yu Zhao <yuzhao@google.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] mm/page_counter: avoid integer overflow in effective_protection()
-Date: Fri, 28 Aug 2026 17:24:31 +0800
-Message-Id: <20260828092432.1257917-2-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828092432.1257917-1-ridong.chen@linux.dev>
-References: <20260828092432.1257917-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h13/6Lor"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5E11F000E9;
+	Fri, 28 Aug 2026 09:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787909110;
+	bh=CnGTkSuPhMo4o4xzFHF7FoTv5QLfV/byl/doe/uvGEY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h13/6LorWe73zIjVh/hXal+aDc3reCQrAELCgGfBQc4dKzAsL12PaQXq4XTI8H+aV
+	 UgRKqX0b91ja0KiqlGI2Ai6nAGxJLjK2xDFwkkOyO12EBpoatxcz7Hf3wERBOdSyNP
+	 QyuN7mSIgIbyOnyj5byfzGbCuuJvc7lGUcC/MZWMhaXGQGVvvos/VOdczuC/yiRh1f
+	 cy1zsZbVwkRJkYpJ7DH0L1Z4TOPQ/lJOydfQ6ACH0pAevSbtFzQOBiMHitfLTtYrou
+	 LhcdPNg5GFnuIIvAjSwMAYy+wml/fi0XHYSACv06zTjVoLJMfvtpmzp9ZjLUpRYygX
+	 mdg/kdSeOK0ZA==
+Message-ID: <8441fd0b-3ad0-4ff3-8bd5-c501a94b61a3@kernel.org>
+Date: Fri, 28 Aug 2026 11:25:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] leds: max77705: use
+ fwnode_for_each_child_node_scoped() in max77705_add_led()
+To: Manush Prajwal <manushprajwal555@gmail.com>, cw00.choi@samsung.com,
+ lee@kernel.org, pavel@kernel.org
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dsankouski@gmail.com, sakari.ailus@linux.intel.com
+References: <6a914e1e.7d702ed2.1273e8.2a52@mx.google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <6a914e1e.7d702ed2.1273e8.2a52@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On 28/08/2026 11:00, Manush Prajwal wrote:
+> Rework the subled loop in max77705_add_led() around
+> fwnode_for_each_child_node_scoped() instead of adding a manual
+> fwnode_handle_put(child) before the early return on a
+> max77705_parse_subled() failure, so the reference on the current
+> child fwnode is released automatically on every exit path from the
+> loop. child is never used outside the loop, so the now-unused outer
+> child declaration is dropped along with it.
+> 
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-effective_protection() distributes a parent's protection among its
-children with two proportional calculations:
+That's probably a stretch, I suggested only a solution, not the commit
+itself. Anyway, no need to resend to change it.
 
-	protected * parent_effective / siblings_protected
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-and, for recursive protection:
-
-	(parent_effective - siblings_protected) * (usage - protected)
-		/ (parent_usage - siblings_protected)
-
-All operands are page counts in unsigned long, and the multiplication is
-done at unsigned long width before the division. On systems with >= 16TB
-RAM the product can exceed 2^64 and wrap, yielding a bogus effective
-protection value and silently breaking memory.min/low enforcement. This
-was reported by the sashiko review tool [1].
-
-Use mul_u64_u64_div_u64() for both expressions, which performs the
-multiply in a 128-bit intermediate before dividing. The divisors are
-non-zero on the paths that reach them: siblings_protected >
-parent_effective in the first case and parent_usage > siblings_protected
-in the second.
-
-[1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
-
-Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/page_counter.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 661e0f2a5127..311153b0e002 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -8,6 +8,7 @@
- #include <linux/page_counter.h>
- #include <linux/atomic.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/string.h>
- #include <linux/sched.h>
- #include <linux/bug.h>
-@@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
- 	 * otherwise get a smaller chunk than what they claimed.
- 	 */
- 	if (siblings_protected > parent_effective)
--		return protected * parent_effective / siblings_protected;
-+		return mul_u64_u64_div_u64(protected, parent_effective,
-+					   siblings_protected);
- 
- 	/*
- 	 * Ok, utilized protection of all children is within what the
-@@ -399,9 +401,9 @@ static unsigned long effective_protection(unsigned long usage,
- 	    usage > protected) {
- 		unsigned long unclaimed;
- 
--		unclaimed = parent_effective - siblings_protected;
--		unclaimed *= usage - protected;
--		unclaimed /= parent_usage - siblings_protected;
-+		unclaimed = mul_u64_u64_div_u64(parent_effective - siblings_protected,
-+						usage - protected,
-+						parent_usage - siblings_protected);
- 
- 		ep += unclaimed;
- 	}
--- 
-2.34.1
-
+Best regards,
+Krzysztof
