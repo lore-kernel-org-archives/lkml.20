@@ -1,112 +1,186 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010014.outbound.protection.outlook.com [52.101.61.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B65371CFF;
-	Fri, 28 Aug 2026 15:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932409; cv=none; b=D3ZWExFJi/MUgUat8fUe+acaCNXXXaojX92VfW806DHiaHCXT9VrcTE4SK1P087nKuL2KZgVC2sIL7p3wP3+uiH+4IDQY99Sl001R2c5/xsVuKOKw2ePk8RGP6aaLGcDWR9ujAM4ODcHiF8/OB0lfMNgvwBPit/LaynTzUSQeQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932409; c=relaxed/simple;
-	bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=UYXOwRhwG1D232Akp6R7saZI1GdZOKE39gm5Mdyjun+dW906KHp5tvCkGV057WRlWRlbGqG3wpOBItdzqTFrsiRN2cvB8Mx+RpW7txAsS49FUVa3hR2sEqkRSQzpgjKhYwUI9CkiTw8/i6pEYdEn5TrTN/VvhISbmMwm+TjnNVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=zcysypdu; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B540D346769
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787932422; cv=fail; b=FnbiW9CIv3CB29VSM5xF3uNB5pEnEpAaMZY2c+R3vsSwkdJP5GRv7TRDGcSEMI+qf2XDqRQr/ae3++LZVGuP3rAYzwOihKHidTkGMTIz89nXyQMiAApXPcCqEDKZGWGzKUDuWMQuMEzPtdNmvbqNRSRFnFbq/iVYu9BT26tXv/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787932422; c=relaxed/simple;
+	bh=/Qnk3NHscVx0ldx9vHuvL/A2TlQScAE4TGef7PuTe+k=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dP68I4cHhW7KYDsMw4kEYLNUGs2BQueqGdOAY7FU4z+UPrY71j8bMCr1366k1db8IYQwEKy2/9j+mF+H59Nc6DUHn1uUpU7UqxYVT6eD+VNyEpzuqGxEFSmkZrYRXiyxWhLJWI3P7ErGSo9VS1E5QlBn93rbzAanb0jo106hGO8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jc3L6i9M; arc=fail smtp.client-ip=52.101.61.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="zcysypdu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1787932408; x=1819468408;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
-  b=zcysypduE/ffseUJT/bwtmMi5xxfHq/9F6NbRAA9QNVTgImcpt8r2Fij
-   IvgmPqB6iDEjhglNvyrRnpukVoX6vX53NaBA45XLEyLgd11Kt9Ozh8bCd
-   e7vzo+SUkhZ55cAM4qNCh5DSITZPGQaNqwvO1Seq4sapGAjmmVl8NEVE/
-   YMxbxJQK9zStaYSSamV19NutXh3Jdp6/IfbYzUFQ2mOaB27BxjTsiBtxr
-   kE46f8xOLA2swMrXQDPcjsrb2bON/nePd3wmiX+NzOKQB2zL0/SNEtky3
-   +faU7EMLqWr1NPKwP1QWxqEhZWo+n8Cqb7J2TQ3CfIVpOuiESiEc3X0K3
-   g==;
-X-CSE-ConnectionGUID: j5/KmXZdQsSFlgTWsaTc8g==
-X-CSE-MsgGUID: N2KYhVp+QAqc84LomdPdzg==
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="63124554"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Aug 2026 08:53:22 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 28 Aug 2026 08:53:21 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 28 Aug 2026 08:53:18 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Fri, 28 Aug 2026 17:52:25 +0200
-Subject: [PATCH v8 4/5] ARM: dts: microchip: sam9x7: Add GFX2D GPU
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jc3L6i9M"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dMBKOO2R5O6twqwKui6BQmoo3sRGgYAT25OyYo/l7E2i9F5J5NYopyPj3x4newFvlG6gbWuZ87F7cm2CztgWtGIqFu6gUTeepMOf1b6+rv8uCFdTaqqpCcY8n2tllO7PfrfVZJPDt5QxwEmbJ7+LFKZrPQ2pLpu9deglJ5bYycgEMY4yGHdFhg574dveoJcmeyEUY+qDyf4MAHO8LJ62swt+tXNPaAAzwF3764MWBlExCcjUE+A+OqJK26WkmRasDz2theumPzoPmCwzuyZVtAd8QuIAqxzHuUkvMhFgWxXw99BGLJhVMVbu/dpRH+htYjIFvWej+uvUrxDt/z3kig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Te/nibzvRNz/l4yc+XX1tJsA5REE/CbQ0uUXruNZAF4=;
+ b=eFtpLXMp1jfLNuZqPI9DyaWOzueSFu02J2jSqWHIkgNJhCzCRCFNMsrCMOOsFLlwmxnNGtoyPtXMQNpUpJP8dXATpAZ7l/6G82GQqEtXk3K4mzxSotqazpDlNBI0P13bOJ2h+e+95ccXVDGmC2wxYnm3+j0yiVxJIORXwVZBio7p0VEkjexXwA+ix2b+THajJ4Q3hjhLR/CnidIRSJ23weGP0CNyWpwc8Z33GJzx84s9UTkBYC29/tuPOZMQdW+Irv70mQ94rOGKFl53bqZtNHPX0lcMoMzLFuvQ8R1/dv0P8qEbEfxfU/vUODIl1a/lBpNUlohiuWXAIglOxQFfBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=rong.moe smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Te/nibzvRNz/l4yc+XX1tJsA5REE/CbQ0uUXruNZAF4=;
+ b=jc3L6i9Mh3Q7sf7gccjWINRqbyovs1x6NWpkucHJviDAp2uIHxJmKOQm63orv2Ir++0FIGBs/OwRdSU0EYG/Glz4rgUMjbAZ5MMzjSOLrFxlBrKpcjnYv4peVILPWjBPlGZrzxzCOBi6c8oytma8vyGr7kZ+SS7pGc32azrWHpA=
+Received: from PH7P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::22)
+ by DM6PR12MB4202.namprd12.prod.outlook.com (2603:10b6:5:219::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 15:53:36 +0000
+Received: from CY4PEPF0000E9D1.namprd03.prod.outlook.com
+ (2603:10b6:510:338:cafe::6f) by PH7P223CA0001.outlook.office365.com
+ (2603:10b6:510:338::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
+ 28 Aug 2026 15:53:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D1.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 15:53:33 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
+ 2026 10:53:32 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
+ 2026 10:53:32 -0500
+Received: from amd.com (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 28 Aug 2026 10:53:28 -0500
+Date: Fri, 28 Aug 2026 15:53:26 +0000
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: Rong Zhang <i@rong.moe>
+CC: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Huang Rui
+	<ray.huang@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/3] iommu/amd: Remove ad-hoc checks that are never
+ true
+Message-ID: <ocec7sibtqumour7yrbom46ya3rpyfrhe4yhi446gluf4i5e24@an5rjva2wlyh>
+References: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
+ <20260823-amd-iommu-fix-acs-v3-3-dd768e09d771@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260828-cpitchen-mainline_gfx2d-v8-4-378374559738@microchip.com>
-References: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
-In-Reply-To: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>, Manikandan Muralidharan
-	<manikandan.m@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=946;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9bEdXcDmQKiv+4W+ZKx9vNx9Zl1P0KmW97a8fXYidgTr
- 547FW2T7ihlYRDjYpAVU2Q59GZrb+bxV4/tXolKwcxhZQIZwsDFKQATeSfKyDD74pPJHl9eLnXR
- WnVCXC5W334n1x157gPfnPxYJ8nJvZBk+B+unJ3qKNIW0LFgxVbZAqXtNzYKTz2c4Srxa3LikRX
- q/hwA
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260823-amd-iommu-fix-acs-v3-3-dd768e09d771@rong.moe>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D1:EE_|DM6PR12MB4202:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5826d314-c125-4130-0432-08df051c8384
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|6133799003|10067099003|4143699003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/n7nKEL0D6T7zoXO5eg3X/gW71W4lI0sKhI+dY3JEx91t+CRRG69qDDt/ao27UZ1F9shfUj57P81bHUZ+b4oaEXllNYKB7TTGqFb0danfyVnIAaNBnAquOVvgL49k1MTIVIDCuGzCj2dLEAYwWKh+cQu8p0CcjxxYYN2yvo2mdDpW/E9ycSjN3zumlAK6VYb/zcbLpi5b8HLSon//v1YoIBzzf6bQmyoajthAA6TI8T+clmmdf+7c8ze3HLZhTfR4zgUuWpEyVGY2vDIguIxP8Z/WexIYxhhIyfikemGJ3d+ROSR/xJE4V1QF3cL1pXMOyZXJUkT2Ywh/1absL7N5hi7lYhxtFZNTbC489Zepzz5hAzuUcR9aJkA7TTyJpG7pFmJhTs/sqHdLeMtTApdnIiirRgHH4EAHhcVDl3MfulSndmgqMTeKRSj0sd4CUkhAEhUEd4SpC4ME1NgSXfEOnLftuEEt74NLtCbFPND7VmJqe9xbiooMzMLq6Qq8OnXzy8BUWJYg6PhgwT3ieAFUTZfhS3Z5qSaNyhrzw+jYdZJiHFIqHkaICIR3Z8bEztlpFb9Gon/oGv98WRQjt1O/aK4WwHQdIBSEsKRsPH9ep1518eBobEj6Uxi7ppdEMnk663J3gLF4AybrgnddebOXmb4lRdKRA+E6TSqjs+vjVhUPNOmmTdEX+Wf8oOU47vzul2Ij1XjFKi99AowQD+RQw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(6133799003)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	P93M6RweapjHGljXi3IbmCD65WzZylSFPVLeFLS1yGe5hYcIgkUUhNdjJXxeh+IaMt3/Aku6R6SbeBwzXGdlYqxHv5Y1tMh+wJsfMZpqX326DrY9KbaBQplFafx/zxcvlihhfpHVVevq9ETSZBPItQQHEZwY8uqZhV94uUd4Y4ArcEZtSpVfSgoQGbTgP/UwgJgvqFrz03ITJ8uYWKiMJhrzg1RGoU3Td/DFeWf8kjPug1+ZIjjVKn9v5REpzDaUjQCSVK1xbX4rthQtQ/jAxVkzU7F3zak5V0+P7EoqodgNN5lb/reeqAT1dlfwvvVVN0r8dKNvkcr01h8itdbbYb5CUfLSxO34pO5oIpOPmjKSuLtG9gZhUouG1LUXkLf738AlSJlgVH/x2vkivXU9SLPoyCvfmsex78wCB37JDn4kcIVPRRjocDAc/I+a1skt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:53:33.2714
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5826d314-c125-4130-0432-08df051c8384
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
 
-Add support for the GFX2D GPU.
+On Sun, Aug 23, 2026 at 06:20:17AM +0800, Rong Zhang wrote:
+> The state transitions of the AMD IOMMU Initialization State Machine
+> imply that some ad-hoc checks will never be true. In detail, they are
+> only reachable if the previous state transitions have succeeded, but the
+> conditions are only true if the previous state transitions have failed.
+> 
+> Therefore, remove the redundant ad-hoc checks.
+> 
+> Signed-off-by: Rong Zhang <i@rong.moe>
 
-Reviewed-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/boot/dts/microchip/sam9x7.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Reviewed-by: Ankit Soni <Ankit.Soni@amd.com>
 
-diff --git a/arch/arm/boot/dts/microchip/sam9x7.dtsi b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-index c680a5033b6b..5450fddf89dd 100644
---- a/arch/arm/boot/dts/microchip/sam9x7.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-@@ -292,6 +292,14 @@ AT91_XDMAC_DT_PERID(26))>,
- 			status = "disabled";
- 		};
- 
-+		gpu: gpu@f0018000 {
-+			compatible = "microchip,sam9x7-gfx2d";
-+			reg = <0xf0018000 0x100>;
-+			interrupts = <36 IRQ_TYPE_LEVEL_HIGH 0>;
-+			clocks = <&pmc PMC_TYPE_PERIPHERAL 36>;
-+			status = "disabled";
-+		};
-+
- 		i2s: i2s@f001c000 {
- 			compatible = "microchip,sam9x7-i2smcc", "microchip,sam9x60-i2smcc";
- 			reg = <0xf001c000 0x100>;
-
--- 
-2.53.0
-
+> ---
+>  drivers/iommu/amd/init.c | 13 +------------
+>  1 file changed, 1 insertion(+), 12 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index 72b5b11b9d75..d81adb8efe0e 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -163,7 +163,6 @@ int amd_iommu_gpt_level = PAGE_MODE_4_LEVEL;
+>  int amd_iommu_guest_ir = AMD_IOMMU_GUEST_IR_VAPIC;
+>  static int amd_iommu_xt_mode = IRQ_REMAP_XAPIC_MODE;
+>  
+> -static bool amd_iommu_detected;
+>  static bool amd_iommu_disabled __initdata;
+>  static bool amd_iommu_force_enable __initdata;
+>  static bool amd_iommu_irtcachedis;
+> @@ -3222,9 +3221,6 @@ static int __init early_amd_iommu_init(void)
+>  	acpi_status status;
+>  	u8 efr_hats, max_vasize;
+>  
+> -	if (!amd_iommu_detected)
+> -		return -ENODEV;
+> -
+>  	status = acpi_get_table("IVRS", 0, &ivrs_base);
+>  	if (status == AE_NOT_FOUND)
+>  		return -ENODEV;
+> @@ -3303,7 +3299,7 @@ static int __init early_amd_iommu_init(void)
+>  	}
+>  
+>  	/* Disable any previously enabled IOMMUs */
+> -	if (!is_kdump_kernel() || amd_iommu_disabled)
+> +	if (!is_kdump_kernel())
+>  		disable_iommus();
+>  
+>  	if (amd_iommu_irq_remap)
+> @@ -3398,12 +3394,6 @@ static __init void iommu_snp_enable(void)
+>  	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
+>  		return;
+>  
+> -	/* SNP support required IOMMU to be ON */
+> -	if (no_iommu) {
+> -		pr_warn("SNP: IOMMU disabled, SNP cannot be supported.\n");
+> -		goto disable_snp;
+> -	}
+> -
+>  	amd_iommu_snp_mode0_sup = check_feature2(FEATURE_SNP_PAGE_MODE0_SUP);
+>  	/*
+>  	 * If SNP page mode 0 is not enabled, then SNP support requires that IOMMU
+> @@ -3716,7 +3706,6 @@ void __init amd_iommu_detect(void)
+>  	if (ret)
+>  		goto disable_snp;
+>  
+> -	amd_iommu_detected = true;
+>  	iommu_detected = 1;
+>  	x86_init.iommu.iommu_init = amd_iommu_init;
+>  	return;
+> 
+> -- 
+> 2.55.0
+> 
