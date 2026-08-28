@@ -1,96 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE093AAF76;
-	Fri, 28 Aug 2026 09:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18EA3B2D18;
+	Fri, 28 Aug 2026 09:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909800; cv=none; b=sfdM63kcyd4vPfzhnk+nu7sa09kLodC/RnRzrLeleJ2y4Y5//T33y5nEWnz5pOIFA9M8FZLu54UrEk+prgGA/qeBepUHCKeCmUHo78/w5qsLdub7mDhFayU4fhAJJWyU5bmGSLwGzGXj0xBgxD2XXMDy60SXhCMQ66CtqHWBwMg=
+	t=1787909810; cv=none; b=PBxqMxlAwBE6UgU9aTOjrDe2aOsK4jQycpF2YiSWqafTosdmAKIFmFeQwVYYupgLL76Pv6hL4hEEGCEnv6BC2kDwDUf1vPjyMZwtxKIjsmK0WGyY2qmYop2qq/FUsoWjvnBHdcsQWlt57/PyZf33EbGDqh8GRs1TV3ZTaELGDBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909800; c=relaxed/simple;
-	bh=ra7B/CRlCkfTGO18ujJxPnwd+JnlEiwTGId3F5w9AWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLUNpzk3LC43dF+8Dy7N0AwiI1AOZ9ES33XGE7iQthZzeYaaFNOcjIN7RdJu6WI9XfrRpbw0fz0IKQ256wr1E/wcbH+loed7Ti28ARzrYsbsfLwfV93scXOdkC/fOrX7xZC3k8mtR6rhrTqCgALKRFuNK0EkpzRgnn47MjhMCuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJEvjfWq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787909810; c=relaxed/simple;
+	bh=CV5337KllrqzoibVYKGVHEwImKxG5nbm4g/avDe9flY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O2u3v8TpTgcUzUD0HLZGNpFKYt+urtlMdO8XC1vgrvZTtL56zo1iBpV7lC8AXmeork9sOGsZz5sXx2bdHx59+duF/+Jte3WUm/QGk60vqIOlpWd20XbJ8BZGLGGwGcJ3v7MJQ8M29S/sw1FfUfrxknIgvmSmCOo70fXALRVjp80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G6Up8Fd/; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJEvjfWq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584221F000E9;
-	Fri, 28 Aug 2026 09:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787909787;
-	bh=MwjUAXNUUvz4D6ldzo7m5AsPVasm7oVJK4lkRaOM9Xk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IJEvjfWqdXlStH93ycQd1tqLvl+vtd1gRjU9Xt0UMNq98BolvrQ3O7MqHpoqqJFH1
-	 xQg2NPYkhkijl3LzoMhXFEnkgPvEoaYo7FeZ5k9qngwtt7x0Liz9AO0FjRZpo6UF7r
-	 5yExlEtCBu6C02mbJ6s10cZ+qxv3lGvE/NfVj4QVbmUktAm89wWDrEZDXg2/+40tqG
-	 u6uqr4PnFIPJ5JfX3T/vOkWWaVw2Vc3P86zNPNYnTWg62I8ubjnR/hynb0Ej/PggNa
-	 rMDiPWlfSeHKaWB0YrDB+Wx9m2WhLSiAdz+nA2VlDI3ByFA5dN7XKpoWzJqhgq/+Yl
-	 tlfmpXuIvDzNw==
-Date: Fri, 28 Aug 2026 11:36:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: phy: qcom,usb-snps-femto-v2: Add
- IPQ9650 compatible
-Message-ID: <20260828-encouraging-cricket-of-energy-1b96c1@quoll>
-References: <20260824-phy-v1-0-257d68a3210b@oss.qualcomm.com>
- <20260824-phy-v1-2-257d68a3210b@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G6Up8Fd/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LW
+	o5zQbL1k2n17EXASJEhxs5Bp+/4dt02LXAxbY6d6I=; b=G6Up8Fd/pwGPHmcmAl
+	Px82zVC3pV6/8342SMlatKnZmUZTZA7kRUjQZtWGzJF9H10CItp8iEzCKPnOGxe7
+	OmHU12jZ661RybDqdlBUzeomc6rSPUuC1nBgVKVM047Je9w2krHvLyEwNI20efL5
+	LVbOUgz6DhedC4ZeB0bHE2roo=
+Received: from zengchi (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXJzaGVpFqVvfGEA--.15969S2;
+	Fri, 28 Aug 2026 17:36:06 +0800 (CST)
+From: Zeng Chi <zeng_chi911@163.com>
+To: zhaotianrui@loongson.cn,
+	maobibo@loongson.cn,
+	chenhuacai@kernel.org
+Cc: yury.norov@gmail.com,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zengchi@kylinos.cn,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] LoongArch: KVM: Validate MSI data before routing it to EIOINTC
+Date: Fri, 28 Aug 2026 17:36:04 +0800
+Message-Id: <20260828093604.56622-1-zeng_chi911@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260824-phy-v1-2-257d68a3210b@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXJzaGVpFqVvfGEA--.15969S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15XFWfJr4kXF4UAry8uFg_yoW8CrW7pF
+	W5uws8tF4rGw17ZFWvg34kW3y5ua1fXFsxWF1a9a43CFn0yF15CryrZFsrX3WYk3yrKrW0
+	gFnIgw1Yva4DJa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUVysUUUUU=
+X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwAe1cWqRVoc-hAAA3S
 
-On Mon, Aug 24, 2026 at 12:07:42PM +0530, Varadarajan Narayanan wrote:
-> Document the IPQ9650 USB high-speed PHY compatible. The PHY uses the SNPS
-> HS 6 nm PHY fallback, so allow it in the binding.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml b/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
-> index 661759b25064..405bfad2080e 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
-> @@ -20,6 +20,10 @@ properties:
->                - qcom,sa8775p-usb-hs-phy
->                - qcom,sc8280xp-usb-hs-phy
->            - const: qcom,usb-snps-hs-5nm-phy
-> +      - items:
-> +          - enum:
-> +              - qcom,ipq9650-usb-hs-phy
-> +          - const: qcom,usb-snps-hs-6nm-phy
+From: Zeng Chi <zengchi@kylinos.cn>
 
-I would prefer if we stop adding more generic nm-process-based
-compatibles and use SoC based ones. Both as front and fallbacks, for new
-devices. I know it will be inconsistent, but OTOH each of such pattern
-encourages people to replicate it in new bindings.
+pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
+the irq number.  The MSI data comes from userspace, either via a
+KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
+and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
+against EIOINTC_IRQS.
 
-Therefore, add simple enum at the beginning of the oneOf like:
+eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
+256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
+the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >= 256
+therefore reads and writes memory past the end of those arrays, i.e.
+any process holding a VM fd can corrupt kernel memory beyond the
+loongarch_eiointc allocation.
 
-oneOf:
-  - enum:
-      - qcom,ipq9650-usb-hs-phy
-  - items:
-       ....
-     - const: qcom,usb-snps-hs-5nm-phy
+Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
+path is unaffected as it decodes the vector from the address and masks
+it.
 
->        - items:
->            - enum:
->                - qcom,qcs8300-usb-hs-phy
-> 
+Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
+Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+---
+ arch/loongarch/kvm/intc/pch_pic.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+index e7b77705c516..81fb534ce8dd 100644
+--- a/arch/loongarch/kvm/intc/pch_pic.c
++++ b/arch/loongarch/kvm/intc/pch_pic.c
+@@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
+ 		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
+ 	}
+ 
++	if (e->msi.data >= EIOINTC_IRQS)
++		return -EINVAL;
++
+ 	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
+ 
+ 	return 0;
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
