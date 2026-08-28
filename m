@@ -1,31 +1,35 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDCC364950;
-	Fri, 28 Aug 2026 02:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1695A36195A
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787885332; cv=none; b=W9uJtyrBTATYh0shmY+pYlH3cSFjy3OwD+Mme0iaPu++BIlPgz/8byxg+7hBSKaYYMBI7j4Jp74POfGei6tEYzbtDuJO2EkUEObXCOPvFOZHwr8kE/FJqZhvGIW2sctwfhnT9rXSF8x11dCd0q3q26e+swOGpxWiCJVflIniwsU=
+	t=1787885334; cv=none; b=Y0o4zgM3wWIUsfugHlcuYu2NwceMqCT366gBMHPRMDK5Zh9Tq3gVv1nSzGqPFWsrdPGakTRuNcyFghdRGFAif2V7lB9TAJH1EavCo6gEElNOMZWJ804lMgnQ7Jg1AB95rBNPErb2FRGk80yMKjQ7Zi0wIz3zlkHTLCEy63D/lPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787885332; c=relaxed/simple;
-	bh=a534VKCJpgJHYaSDX+fqzyy3bXd9xWPq0gq8LxDR/xQ=;
+	s=arc-20240116; t=1787885334; c=relaxed/simple;
+	bh=p2ffFFqlot4uRmrajtMu/cdM/mLnbrmiDMtUqVJBXEw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JzKApvNMZIIipb39ZHQmd7BEzoGmzzLhLs3KV0kRUAzVPir2WNAxbsTs28pN+PzOhGjzeahopDAvgmwv2l9WKA5Twlb3hXdFhw+6gJvWqfN4+PRCcXTmoZgHRigOiAJ+prXzoSelzKjMi1q/zyB9DYd+cB4KQKhM4edfgdTuci4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=BXg8ers9; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=C6+CkovL4iIh1t6KrGpPWpUCIvPw76jgOT0+s94ked4xtypWm+lw4wFOQvJenxbpMhVbiMH1i5pTPiYub6t0qGRLRD3Y9ccvhquBHFDCHMJy0wwQcSggGUyZdx8+jBMANpRMgh2qQndXaoZsBpZHKkZhGjHnLv31EBKkf9ZM0UU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k7scsRan; arc=none smtp.client-ip=95.215.58.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="BXg8ers9"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787885320; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=DuRxDoDziUk9uWatqTDIUUsjQ7S9vnzkdYkPkz7h+kU=;
-	b=BXg8ers9Cef8TM5Cuh2A4b2cIBWOMGiJygfhvyEBSlnvjD6rjl8YuaFSWgAxB3peZ6e3Az5TH/ByUuFAdofYdH5Kw5zrNtpwV8iGdvsVfagVkweX+kZeTPicWxydCMnLhZFxwwGFg4hfF/Ahbkk0rQwdphwxGOmAc1Y4L61rkPE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0X9l4CfN_1787885318;
-Received: from 30.221.131.225(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0X9l4CfN_1787885318 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 10:48:39 +0800
-Message-ID: <3d3a1fdc-9d65-4524-9957-a872595e3621@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k7scsRan"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=p2ffFFqlot4uRmrajtMu/cdM/mLnbrmiDMtUqVJBXEw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787885328; v=1; x=1788490128;
+ b=k7scsRan4j02tUFUrEaHP1uBpz2lfZQTZlzIe+5xLq+qCadFF44KtZfTbOenAzoDlc1Dc9xz
+ GtPJUkxIpbxVpG9nCWDBd3LgY7QU5n8MFPTc1FO4qm4XSlWaYZa3UuTJhj/p+JCCAb1YLAnyzui
+ 2Q/0oiFoo2oQ1/EsftLAaadE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 646f3d9741400a38;
+	Fri, 28 Aug 2026 02:48:48 +0000
+X-Mizu-Trace-ID: 646f3d9741400a38
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <51f48626-c38b-4cd6-a826-92d107ae35bb@linux.dev>
 Date: Fri, 28 Aug 2026 10:48:38 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -34,124 +38,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ext4: fix ABBA deadlock in ext4_rmdir()
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
-References: <20260827125158.4030598-1-senozhatsky@chromium.org>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20260827125158.4030598-1-senozhatsky@chromium.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 0/4] make unused huge shrinker memcg aware
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
+ brauner@kernel.org, david@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
+ <20260827155020.530e28b0afa3b43fede9aa9c@linux-foundation.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260827155020.530e28b0afa3b43fede9aa9c@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2026/8/27 20:50, Sergey Senozhatsky wrote:
-> We observe the following ABBA deadlock (casefolding enabled):
->
->  INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
->  task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
->  Call Trace:
->   <TASK>
->   __schedule+0xc2c/0xe60
->   schedule+0x40/0xe0
->   jbd2_journal_wait_updates+0x8f/0xf0
->   jbd2_journal_commit_transaction+0x321/0x1850
->   kjournald2+0xa9/0x230
->   kthread+0x226/0x2a0
->   ret_from_fork+0x101/0x1e0
->   ret_from_fork_asm+0x1a/0x30
->
->  INFO: task Thread-10:4161 blocked for more than 720 seconds.
->  task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
->  Call Trace:
->   <TASK>
->   __schedule+0xc2c/0xe60
->   schedule+0x40/0xe0
->   wait_transaction_locked+0x8c/0xd0
->   start_this_handle+0x252/0x870
->   jbd2__journal_start+0x120/0x280
->   __ext4_journal_start_sb+0x11a/0x250
->   ext4_evict_inode+0x208/0x760
->   iput+0x222/0x5c0
->   dput+0x293/0x690
->   ____fput+0x145/0x2b0
->   task_work_run+0x7a/0xb0
->   exit_to_user_mode_loop+0xc0/0xd0
->   do_syscall_64+0x14b/0xf10
->   entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
->  NMI backtrace for cpu 0
->  CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
->  RIP: 0010:d_walk+0x0/0x290
-> [..]
->  Call Trace:
->  <TASK>
->   shrink_dcache_parent+0xb2/0x100
->   d_invalidate+0x50/0x110
->   ext4_rmdir+0x3a2/0x3d0
->   vfs_rmdir+0x9d/0x1d0
->   do_rmdir+0xf0/0x330
->   __x64_sys_unlinkat+0x34/0x50
->   do_syscall_64+0x61/0xf10
->
-> The problem is that ext4_rmdir() calls d_invalidate() before stopping
-> the jbd2 transaction handle.  Because d_invalidate() traverses child
-> dentries it can encounter dying or in-use dentries.  If a concurrent
-> thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
-> it requests a new transaction handle via ext4_journal_start(), which
-> waits for all running handles to close.  However, the thread executing
-> ext4_rmdir() still holds its active transaction handle while looping
-> in shrink_dcache_parent() waiting for the dying child dentry to complete
-> eviction.
->
-> Stop transaction handle in ext4_rmdir() before calling d_invalidate().
->
-> Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
-> Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
-> Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Hi Andrew,
 
-Looks good!
+On 8/28/26 6:50 AM, Andrew Morton wrote:
+> On Mon, 17 Aug 2026 17:03:24 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
+> 
+>> Changes in v4:
+>> Changes in v3:
+>> Changes in v2:
+> 
+> Thanks for the diligent versioning info.  fyi, it is conventional to
+> maintain this below the --- separator.  It's not really the most
+> important part of the [0/N]!
 
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+Got it.
 
-> ---
->  fs/ext4/namei.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-> index a6386c1d237f..231a274b814e 100644
-> --- a/fs/ext4/namei.c
-> +++ b/fs/ext4/namei.c
-> @@ -3209,19 +3209,20 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
->  	ext4_fc_track_unlink(handle, dentry);
->  	retval = ext4_mark_inode_dirty(handle, dir);
->  
-> +end_rmdir:
-> +	brelse(bh);
-> +	if (handle)
-> +		ext4_journal_stop(handle);
-> +
->  	/* VFS negative dentries are incompatible with Encoding and
->  	 * Case-insensitiveness. Eventually we'll want avoid
->  	 * invalidating the dentries here, alongside with returning the
->  	 * negative dentries at ext4_lookup(), when it is better
->  	 * supported by the VFS for the CI case.
->  	 */
-> -	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
-> +	if (!retval && IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
->  		d_invalidate(dentry);
->  
-> -end_rmdir:
-> -	brelse(bh);
-> -	if (handle)
-> -		ext4_journal_stop(handle);
->  	return retval;
->  }
->  
+> 
+>>
+>> The shmem unused huge shrinker maintains a per-superblock list of inodes
+>> whose tail huge folio extends beyond i_size.  Because this list is not
+>> memcg aware, reclaim triggered by memcg A can scan inodes across the
+>> entire superblock and split huge folios charged to unrelated memcg B,
+>> causing unexpected impact on it.
+>>
+>> In the worst case, memcg A has no reclaimable shmem at all, making the
+>> reclaim entirely useless and incurring unnecessary latency.  We observed
+>> this in production, where page lock contention during split caused
+>> multi-hundred-millisecond stalls:
+> 
+> Ugh.  That's the most important part!
+> 
+>>    tid 11340 comm scanner locked a page for 182264 us! kstack:
+>>            unlock_page+1
+>>            split_huge_page_to_list+3135
+>>            shmem_unused_huge_shrink+767
+>>            super_cache_scan+329
+>>            do_shrink_slab+291
+>>            shrink_slab+533
+>>            shrink_node+400
+>>            do_try_to_free_pages+206
+>>            try_to_free_mem_cgroup_pages+262
+>>            try_charge_memcg+591
+>>            mem_cgroup_charge+136
+>>            __handle_mm_fault+2431
+>>            handle_mm_fault+194
+>>            do_user_addr_fault+462
+>>            __do_page_fault+176
+>>            do_page_fault+48
+>>            page_fault+62
+>>
+>> Usama's recent patch [1] prevents the shmem unused shrinker from being
+>> invoked during memcg-level reclaim altogether, but this is overly
+>> conservative: we can do better by reclaiming only the shmem charged to
+>> the reclaiming memcg.
+>>
+>> This series converts the shrinker list to a memcg-aware list_lru, so
+>> that non-root memcg reclaim walks only candidates charged to the
+>> reclaiming memcg.  Global reclaim, root memcg reclaim and shmem quota
+>> reclaim retain their existing global semantics.
+>>
+>> To avoid pinning a dying memcg through a long-lived CSS reference, each
+>> inode stores an obj_cgroup reference instead of a mem_cgroup reference.
+>> The list_lru add/delete paths resolve the current memcg from the objcg
+>> under RCU, staying consistent with list_lru's own memcg migration on
+>> offline.
+> 
+> Sashiko said a few things and they look disturbing-if-true:
+> 
+> 	https://sashiko.dev/#/patchset/cover.1786955972.git.zhengqi.arch@bytedance.com
+> 
+> (Apologies if this has already been considered - we don't have ways of
+> tracking all this (yet, I hope) apart from personal memory and personal
+> memorys are quite fried at present)
 
+As both Usama and I have pointed out [1][2], [PATCH v4 1/4] is the part
+that got dropped during the merge. The complete patch [3] was actually
+reviewed a while ago.
+
+[1].https://lore.kernel.org/all/20260810101954.822260-1-usama.arif@linux.dev/
+[2]. 
+https://lore.kernel.org/all/9c7efd5f-f8d3-4926-acb4-34c326ffb1c3@linux.dev/
+[3]. 
+https://lore.kernel.org/all/20260715103516.2410175-1-usama.arif@linux.dev/
+
+Thanks,
+Qi
+
+> 
 
