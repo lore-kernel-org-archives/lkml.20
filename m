@@ -1,84 +1,100 @@
-Received: from mta0.migadu.com (out-141.mta0.migadu.com [91.218.175.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A0341C6A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F493CD8CC;
+	Fri, 28 Aug 2026 06:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899330; cv=none; b=E6gFKMrZDODkzJqf7bH28DunazDiKRIGOZgrSytkDHf9sS5CiCOs884tBLHfO1HMfEIDny6M+nxS6dKA56rw+xTCXbTz7moV5NzqENegvmhwYiIiO9nI0N/AMSebYbnxPEgrdaJO2j5Rjidfkp2dQKhGur7UMvswsmgUP3tK+SA=
+	t=1787899332; cv=none; b=VJNxAe9bBMwexjbxGICqTLzfXiBThdEzDt3MlKLefUJnNRxy/FSK/uFtsOynG4rJQTyqBNiJKsto4vGUPcke9op2oyKP40UEpUndH2EM7CMAUcyt46HbAKZ0JjNYidTalA2RHSmIRivrGNTj4hAEXLS3bpoc1A91pBVZSu3kBPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899330; c=relaxed/simple;
-	bh=SXRmLWTxklsm1zcLkmzlYzJZu9xlAGNyhvOD0WxKqaI=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=C2ypxf6TNVdcKBcsu/5xDl80jfFfG9uXENpAAU435gStO7K+8Cy85maf828QfcREjGTsYWq2JkF9Yzg0oufQDZQyDtGHH3MdRMwrMCebirHdWb0CWXnfLG79U8tJYywl3r9AaqCGg8mUmQ7GHHgM/3wBusjDB2f4ISyYAhWdVs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JLc7M1BJ; arc=none smtp.client-ip=91.218.175.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JLc7M1BJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SXRmLWTxklsm1zcLkmzlYzJZu9xlAGNyhvOD0WxKqaI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787899325; v=1; x=1788504125;
- b=JLc7M1BJjBBxbWiRMu24+tnS6++XVj1JJVdzhO1VKPJyNQ8SNPfipZoKA6yAngPteCtdpRFo
- sQ9Ijf/MwunWIkFEK0yB7XvnSNDo8dOcnamoba8dFVHtEApWNMK1SbYwHAUFdAKunddx8Kq34EG
- 2n4z6UgK5lfuL2dsfvkELqAE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id da3454e6c9281e75;
-	Fri, 28 Aug 2026 06:42:05 +0000
-X-Mizu-Trace-ID: da3454e6c9281e75
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1787899332; c=relaxed/simple;
+	bh=bcpa63J0o25IM6NFvk4XKQTyi0xgLbuzf4zdAkKoglQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W8gpZo5K075/nccRzR47nzxUONMVEENoqR/lP33GQgS3iYaJnQnHOJIoK0KY+amxdy6AhKRlkmVCqROuBfndGRnDbbXMSffd3TOUTdE7XeQXyqJxUYvy97JTu6QgFYRvg39jGPmbEJtWkp/DOYqshPvHlToowzrDhvE80b1yOCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
+Received: from Mogu.localdomain (unknown [223.73.65.69])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4baa740d9;
+	Fri, 28 Aug 2026 14:42:06 +0800 (GMT+08:00)
+From: Haoming Gao <Naixumogu@whut.edu.cn>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Greg KH <greg@kroah.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5 2/3] accel/rocket: Collect job dependencies before arming
+Date: Fri, 28 Aug 2026 14:41:51 +0800
+Message-ID: <20260828064152.37822-3-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
+References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v2 1/2] mm/hugetlb: do not dissolve gigantic pages without
- runtime support
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260823044118.1097121-2-xialonglong2025@163.com>
-Date: Fri, 28 Aug 2026 14:41:51 +0800
-Cc: osalvador@suse.de,
- akpm@linux-foundation.org,
- david@kernel.org,
- mike.kravetz@oracle.com,
- mhocko@suse.com,
- linmiaohe@huawei.com,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- xialonglong@kylinos.cn
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E654A716-5F59-4B7B-B402-17B1A776D541@linux.dev>
-References: <20260823044118.1097121-1-xialonglong2025@163.com>
- <20260823044118.1097121-2-xialonglong2025@163.com>
-To: Longlong Xia <xialonglong2025@163.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0471aaec303a1kunmd9ea7a958c2ae
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU9JVklMHUJOGkpIGUsaSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 
+rocket_job_push() arms the scheduler job before collecting its implicit
+dependencies. Dependency collection can fail with -ENOMEM, but an armed
+job must be pushed and must not be aborted with drm_sched_job_cleanup().
 
+Collect dependencies before taking the scheduler lock and arming the job.
+Only operations that cannot fail remain after drm_sched_job_arm().
 
-> On Aug 23, 2026, at 12:40, Longlong Xia <xialonglong2025@163.com> =
-wrote:
->=20
-> From: Longlong Xia <xialonglong@kylinos.cn>
->=20
-> dissolve_free_hugetlb_folio() doesn't check
-> hstate_is_gigantic_no_runtime(h) though remove_hugetlb_folio()/
-> update_and_free_hugetlb_folio() silently bail for such folios, so it
-> frees a still-listed folio and, on vmemmap restore failure, the
-> add_hugetlb_folio() rollback corrupts the free list.
->=20
-> Fixes: 6eb4e88a6d27 ("hugetlb: create remove_hugetlb_page() to =
-separate functionality")
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
+---
+ drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-Again.
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index e6052d1973afa..b55e12aecfe64 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+ 	if (ret)
+ 		goto err;
+ 
++	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
++					   &job->base, false);
++	if (ret)
++		goto err_unlock;
++
++	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
++					   &job->base, true);
++	if (ret)
++		goto err_unlock;
++
+ 	scoped_guard(mutex, &rdev->sched_lock) {
+ 		drm_sched_job_arm(&job->base);
+ 
+ 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+ 
+-		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+-		if (ret)
+-			goto err_unlock;
+-
+ 		kref_get(&job->refcount); /* put by scheduler job completion */
+ 
+ 		drm_sched_entity_push_job(&job->base);
+-- 
+2.43.0
 
