@@ -1,48 +1,26 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE9305057;
-	Fri, 28 Aug 2026 14:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925852; cv=pass; b=NEjUsSCHlnAJtH4PRLk7is3xMOZJ8eusw9E05VpuqyVPgQ1TL+4Y81sRSJyHBU8SLs9LSSRW+qJPKgPm2RSI0+EQ2t6i70jTcPXA6Xw/HY2PqciWoaylImyffKeneBCWHgUPwBEmlJHvLagcI4K96+AIyWnRFoWHDJYvTTn5N8E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925852; c=relaxed/simple;
-	bh=Ad535Wtpy/NAKOQw/Sum6Su0zUz21ac7cKNpzwAo1oo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346F346C4C2;
+	Fri, 28 Aug 2026 14:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787925918; cv=none; b=B6aaREutJrqoYxxc/J2YAsjuQr0uegDpxqnljnMYrDS5O858v1GBtKFfBJkAtoO4mmLnsbHAEO3C2eXDakKIhMaKapOODQ/e7KtXF49sgxZls8hSl4qduVJnJS7US6EjJJnnd2GRRyh5e99dcljli+N8EGx3gNOpaaW5YeQ+mdI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787925918; c=relaxed/simple;
+	bh=QCnOTL9RmlnpNzyf0o0KmGshiONzlJMr+E+QWnmkBOw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s6DAekkITnLmC0d7LObmHuHkwOYFx+OWGHz2G3nMUpsaKo8B8KiTVCs5zYUwQS3KposbGD/Ustte67YCAyiUVMi5AITqIVxaaGGo6tlddVN8Sh+YTZbJLAVPmX1f/wKpMmqoQMNv/UX09sLBMghPgEX+tBOOogRO6/KJI6GXbVM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=dkbPNzY0; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="dkbPNzY0"
-ARC-Seal: i=1; a=rsa-sha256; t=1787925747; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=CkdrSK+t6z6SdsXa/+YswjsfkKz6vkB7f4zOJZiGd/L0A5xCXZtK8CSfDkxjidRWoQAJU0Tcipu6SkLnpkIE8/5zPL1C7qQe9PDTrCyPI5UZtlQ5sxKV4cm+f0zWEYN8lILhsJbgj2N6OdH2ET/HDnC35HZJO/yOV95UPbn8wzg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787925747; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=AcXzEC2kuqIzhwnq20y2zRMGD6N0f33XkiLL/jNqsGw=; 
-	b=FJ+T2YzD+KAu4aq1ICrOUu7v8JNEfoEmTq3OoYQ7mx3N3Y1jMWnmrEbjIeAf2RX3wvKetzJfHkgHcICyfCH3lwJmTJqtZODehgO830XRLNNUxLvVGD38K370k2Ed6py7WDCSoQRKl/PnpjJMXHQJtYG1Dg0kgTmA9o8ri0Bf8Ks=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787925747;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=AcXzEC2kuqIzhwnq20y2zRMGD6N0f33XkiLL/jNqsGw=;
-	b=dkbPNzY0Ew4xwpeqis9CoFDU6p+GAyjuPvJyBTFv3WIcYF/zhG7b/QntFccUgGti
-	Ik7KORNmkF7/EWl9I+Vaf5BJqKyPWmgXdlVc4xqLQ/MZAWyJMAR7kynyWndqlg/N6F5
-	4+JVm9l6Pd9mZlqPj0Z9jfj0DDpnTawRWbQH8BwZAGL7kbTyU+DYhc4lDTjeA6KTHn2
-	QY9nMcrAYUw3FPBGld8Q21fXAeB8gnIYSZMvcK0vMeyQ19Aov1Uzh/kfSKK+wpe0nOB
-	TWinRhJEuMh6/nVMromEWrT5RSRoXfpZ4/ZbqWVEoR0g08S6rZwgptEUL3d+GRkEkTk
-	IFMcGy8jeQ==
-Received: by mx.zohomail.com with SMTPS id 1787925743638449.66154944275536;
-	Fri, 28 Aug 2026 07:02:23 -0700 (PDT)
-Message-ID: <d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
-Subject: Re: [PATCH v2 15/15] MAINTAINERS: Add StarFive JH7110 display
- subsystem entry
-From: Icenowy Zheng <uwu@icenowy.me>
+	 Content-Type:MIME-Version; b=Htivq3kBDb3QY2VWJg/3DnYle0MdgyWEIoeKypEkAqxAHkZ/rEnre2rioa/fP49Xp3WP9LtZn5vM1KCAKaaZ6rcrq/jnMIsW/g1hHeU2sBsJ/kuB5JYyMq9mQ7H8Neb9v04xX3mDSadEGc/vvhnw2JQjWRP3NliDfXwZTdjycio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.201])
+	by APP-05 (Coremail) with SMTP id zQCowACX_zlmlZFqA_PgBg--.2413S2;
+	Fri, 28 Aug 2026 22:04:24 +0800 (CST)
+Message-ID: <b41dff8e5f62be2da467e48631a79677c5066422.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 02/15] dt-bindings: display: bridge: Add
+ starfive,jh7110-inno-hdmi-controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
  <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
  Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
@@ -69,14 +47,13 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
  Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
  <maudspierings@gocontroll.com>,  Graham Markall <hello@big-grey.co.uk>
-Date: Fri, 28 Aug 2026 22:01:58 +0800
-In-Reply-To: <20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
+Date: Fri, 28 Aug 2026 22:04:21 +0800
+In-Reply-To: <20260828-jh7110-clean-send-v2-2-331680c8b9d1@samsung.com>
 References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
-		<CGME20260828134841eucas1p100590973cc6808103c41d0b0fc82573a@eucas1p1.samsung.com>
-	 <20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
-Organization: Anthon Open-Source Community
+		<CGME20260828134817eucas1p2e2756deff8871be4ea8bb5c65f9c179d@eucas1p2.samsung.com>
+	 <20260828-jh7110-clean-send-v2-2-331680c8b9d1@samsung.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,58 +61,115 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-CM-TRANSID:zQCowACX_zlmlZFqA_PgBg--.2413S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKr15Xr1Uury8Xr4UWFWDXFb_yoW7AFW3pF
+	18JrW7JrW8Jr1fXr4Utr1UGFyrJr1kA3Wqqr1xXF1Utr1UWFyjqr1jvF1vgF1UJr4xXr1U
+	Jr1UXr43uF17Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
+	Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6F
+	y7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2
+	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
+	43ZEXa7IUnK0PDUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-=E5=9C=A8 2026-08-28=E4=BA=94=E7=9A=84 15:47 +0200=EF=BC=8CMichal Wilczynsk=
-i=E5=86=99=E9=81=93=EF=BC=9A
-> The JH7110 display subsystem spans a PHY driver, a DRM bridge driver,
-> a parent device and their bindings, and has no existing maintainer
-> entry.
->=20
-> Add an entry covering them so patches reach someone who can review
-> them.
->=20
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
-> =C2=A0MAINTAINERS | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index
-> 8014b9f8253edf15231df215d1b14063a54a55ec..84ac5cfe61cdf775167cf903386
-> 2724c37946a5f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25778,6 +25778,16 @@ S:	Maintained
-> =C2=A0F:	Documentation/devicetree/bindings/net/starfive,jh7110-
-> dwmac.yaml
-> =C2=A0F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-> =C2=A0
-> +STARFIVE JH7110 DISPLAY SUBSYSTEM
-> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
+5ZyoIDIwMjYtMDgtMjjkupTnmoQgMTU6NDcgKzAyMDDvvIxNaWNoYWwgV2lsY3p5bnNraeWGmemB
+k++8mgo+IEFkZCB0aGUgZHQtYmluZGluZyBmb3IgdGhlIFN0YXJGaXZlIEpINzExMCBJbm5vc2ls
+aWNvbiBIRE1JCj4gY29udHJvbGxlcgo+IChEUk0gYnJpZGdlKS4KPiAKPiBUaGlzIGRldmljZSBp
+cyB0aGUgc2Vjb25kIGNoaWxkIG9mIHRoZSBzdGFyZml2ZSxqaDcxMTAtaGRtaS1zdWJzeXN0ZW0K
+PiBub2RlLgo+IEl0IGNvbnN1bWVzIHJlZ2lzdGVyIGFjY2VzcyBjbG9ja3MgKHN5cywgbWNsaywg
+YmNsaykgZnJvbSB0aGUgdm91dGNyZwo+IGFuZAo+IGJvdGggdGhlIHBpeGVsIGNsb2NrIChwY2xr
+KSBhbmQgdGhlIFBIWSBmcm9tIGl0cyBoZG1pX3BoeSBzaWJsaW5nLgo+IAo+IFNpZ25lZC1vZmYt
+Ynk6IE1pY2hhbCBXaWxjenluc2tpIDxtLndpbGN6eW5za2lAc2Ftc3VuZy5jb20+Cj4gLS0tCj4g
+wqAuLi4vc3RhcmZpdmUsamg3MTEwLWlubm8taGRtaS1jb250cm9sbGVyLnlhbWzCoMKgwqDCoMKg
+IHwgMTA5Cj4gKysrKysrKysrKysrKysrKysrKysrCj4gwqAxIGZpbGUgY2hhbmdlZCwgMTA5IGlu
+c2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0Cj4gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvZGlzcGxheS9icmlkZ2Uvc3RhcmZpdmUsamg3MTEwLQo+IGlubm8taGRtaS1jb250
+cm9sbGVyLnlhbWwKPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5
+L2JyaWRnZS9zdGFyZml2ZSxqaDcxMTAtCj4gaW5uby1oZG1pLWNvbnRyb2xsZXIueWFtbAo+IG5l
+dyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXgKPiAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwLi4wZTU4NGU3Yjc1NmUyNGUyZjk5YTYyZGFhYjMKPiAxMTdiYmY0YjQ3MmI2
+Cj4gLS0tIC9kZXYvbnVsbAo+ICsrKwo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL2Rpc3BsYXkvYnJpZGdlL3N0YXJmaXZlLGpoNzExMC0KPiBpbm5vLWhkbWktY29udHJvbGxl
+ci55YW1sCj4gQEAgLTAsMCArMSwxMDkgQEAKPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
+KEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4gKyVZQU1MIDEuMgo+ICstLS0KPiArJGlk
+Ogo+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL2Rpc3BsYXkvYnJpZGdlL3N0YXJmaXZl
+LGpoNzExMC1pbm5vLWhkbWktY29udHJvbGxlci55YW1sIwo+ICskc2NoZW1hOiBodHRwOi8vZGV2
+aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMKPiArCj4gK3RpdGxlOiBTdGFyRml2
+ZSBKSDcxMTAgSW5ub3NpbGljb24gSERNSSBDb250cm9sbGVyCj4gKwo+ICttYWludGFpbmVyczoK
+PiArwqAgLSBNaWNoYWwgV2lsY3p5bnNraSA8bS53aWxjenluc2tpQHNhbXN1bmcuY29tPgo+ICsK
+PiArZGVzY3JpcHRpb246Cj4gK8KgIFRoZSBjb250cm9sbGVyIHBvcnRpb24gb2YgdGhlIFN0YXJG
+aXZlIEpINzExMCBJTk5PIEhETUkgSVAuCj4gKwo+ICtwcm9wZXJ0aWVzOgo+ICvCoCBjb21wYXRp
+YmxlOgo+ICvCoMKgwqAgY29uc3Q6IHN0YXJmaXZlLGpoNzExMC1pbm5vLWhkbWktY29udHJvbGxl
+cgo+ICsKPiArwqAgaW50ZXJydXB0czoKPiArwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoCBj
+bG9ja3M6Cj4gK8KgwqDCoCBpdGVtczoKPiArwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBTeXN0
+ZW0gY2xvY2sgZm9yIHJlZ2lzdGVyIGFjY2Vzcwo+ICvCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246
+IE1vZHVsZSBjbG9jawo+ICvCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IEJ1cyBjbG9jawo+ICvC
+oMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IFBpeGVsIGNsb2NrIGZyb20gUEhZCj4gKwo+ICvCoCBj
+bG9jay1uYW1lczoKPiArwqDCoMKgIGl0ZW1zOgo+ICvCoMKgwqDCoMKgIC0gY29uc3Q6IHN5cwo+
+ICvCoMKgwqDCoMKgIC0gY29uc3Q6IG1jbGsKPiArwqDCoMKgwqDCoCAtIGNvbnN0OiBiY2xrCj4g
+K8KgwqDCoMKgwqAgLSBjb25zdDogcGNsawo+ICsKPiArwqAgcmVzZXRzOgo+ICvCoMKgwqAgbWF4
+SXRlbXM6IDEKPiArCj4gK8KgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqAgY29uc3Q6IGhkbWlfdHgK
+PiArCj4gK8KgIHBoeXM6Cj4gK8KgwqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqAgcGh5LW5hbWVz
+Ogo+ICvCoMKgwqAgY29uc3Q6IGhkbWktcGh5Cj4gKwo+ICvCoCBwb3J0czoKPiArwqDCoMKgICRy
+ZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjL3Byb3BlcnRpZXMvcG9ydHMKPiArwqDCoMKgIGRlc2Ny
+aXB0aW9uOgo+ICvCoMKgwqDCoMKgIEEgZ3JhcGggbm9kZSB3aXRoIG9uZSBpbnB1dCBwb3J0IGFu
+ZCBvbmUgb3V0cHV0IHBvcnQuCgpNYXliZSB0aGlzIGRldmljZSBzaG91bGQgaGFuZGxlIHRoZSBk
+aXNwbGF5IG11eCBpbiB0aGUgZG9tX3ZvdXRfc3lzY29uCnBhcnQuIFRoaXMgc3lzY29uIGlzIGRv
+Y3VtZW50ZWQgaW4gdGhlIEpINzExMCBUUk0sIGFuZCB0aGUgYWRkcmVzcyBpcwphdCAweDI5NWIw
+MDAwLgoKQWNjb3JkaW5nIHRvIHRoZSBtYW51YWwsIGJpdCAzMDoyNSBvZiByZWdpc3RlciAweDQg
+YW5kIGJpdCA0IG9mCnJlZ2lzdGVyIDB4OCAod2hpY2ggaXMgbWFya2VkIGFzIHUyX2Rpc3BsYXlf
+cGFuZWxfbXV4X3BhbsKtZWxfc2VsLCBidXQKaW4gdGhlIGJsb2NrIGRpYWdyYW0gb2YgZGlzcGxh
+eSBzdWJzeXN0ZW0sIGl0IGNvdWxkIGJlIHNlZW4gdGhhdCB0aGUKbXV4IGNvbnRyb2xsaW5nIHRo
+ZSBpbnB1dCBvZiBIRE1JX0N0cmwgaXMgdTJfZGlzcGxheV9wYW5lbF9tdXgpIGlzCnJlbGF0ZWQg
+dG8gdGhlIEhETUkgZGlzcGxheSwgd2l0aCB0aGUgc2V0dXAgb2YgOC1iaXQgRFBJMCBjb25uZWN0
+ZWQgdG8KSERNSSBjb250cm9sbGVyIGFzIHRoZSBkZWZhdWx0IHZhbHVlICh1MF9oZG1pX2RhdGFf
+bWFwcGluZ19kwq1waV9kcF9zZWwKPSAwIChEUEkpLCB1MF9oZG1pX2RhdGFfbWFwcGluZ19kwq1w
+aV9iaXRfZGVwdGggPSAwICg4LWJpdCksCnUyX2Rpc3BsYXlfcGFuZWxfbXV4X3BhbsKtZWxfc2Vs
+ID0gMCAoUGFuZWwgMCkpLCBhbmQgdGhpcyBpcyBjdXJyZW50bHkKeW91ciBleGFtcGxlIHNldHVw
+LgoKQXQgbGVhc3QgbGVhdmUgYSBzeXNjb24gcHJvcGVydHkgcG9pbnRpbmcgdG8gdGhlIHN5c2Nv
+biB3b3VsZCBiZSB0aGVuCnVzZWZ1bCwgYW5kIG1heWJlIGl0J3MgYmV0dGVyIHRvIHNldHVwIHRo
+ZSBzeXNjb24gdmFsdWVzIGJhc2VkIG9uIHdoaWNoCkRDODIwMCBvdXRwdXQgaW50ZXJmYWNlIGlz
+IGluIHVzZS4KClRoYW5rcywKSWNlbm93eQoKPiArCj4gK3JlcXVpcmVkOgo+ICvCoCAtIGNvbXBh
+dGlibGUKPiArwqAgLSBpbnRlcnJ1cHRzCj4gK8KgIC0gY2xvY2tzCj4gK8KgIC0gY2xvY2stbmFt
+ZXMKPiArwqAgLSByZXNldHMKPiArwqAgLSByZXNldC1uYW1lcwo+ICvCoCAtIHBoeXMKPiArwqAg
+LSBwaHktbmFtZXMKPiArwqAgLSBwb3J0cwo+ICsKPiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZh
+bHNlCj4gKwo+ICtleGFtcGxlczoKPiArwqAgIyBTaG93biBhcyBhIGNoaWxkIG9mIHRoZSBIRE1J
+IHN1YnN5c3RlbSBub2RlOyBzZWUKPiArwqAgIyBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvbWZkL3N0YXJmaXZlLGpoNzExMC1oZG1pLQo+IHN1YnN5c3RlbS55YW1sCj4gK8KgICMg
+Zm9yIHRoZSBmdWxsIG5vZGUuCj4gK8KgIC0gfAo+ICvCoMKgwqAgI2luY2x1ZGUgPGR0LWJpbmRp
+bmdzL2Nsb2NrL3N0YXJmaXZlLGpoNzExMC1jcmcuaD4KPiArwqDCoMKgICNpbmNsdWRlIDxkdC1i
+aW5kaW5ncy9yZXNldC9zdGFyZml2ZSxqaDcxMTAtY3JnLmg+Cj4gKwo+ICvCoMKgwqAgY29udHJv
+bGxlciB7Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGUgPSAic3RhcmZpdmUsamg3MTEwLWlu
+bm8taGRtaS1jb250cm9sbGVyIjsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzID0gPCZ2b3V0Y3Jn
+IEpINzExMF9WT1VUQ0xLX0hETUlfVFhfU1lTPiwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgPCZ2b3V0Y3JnIEpINzExMF9WT1VUQ0xLX0hETUlfVFhfTUNMSz4sCj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDwmdm91dGNyZyBKSDcxMTBfVk9VVENMS19IRE1J
+X1RYX0JDTEs+LAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8JmhkbWlfcGh5
+PjsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXMgPSAic3lzIiwgIm1jbGsiLCAiYmNsayIs
+ICJwY2xrIjsKPiArwqDCoMKgwqDCoMKgwqAgaW50ZXJydXB0cyA9IDw5OT47Cj4gK8KgwqDCoMKg
+wqDCoMKgIHBoeXMgPSA8JmhkbWlfcGh5PjsKPiArwqDCoMKgwqDCoMKgwqAgcGh5LW5hbWVzID0g
+ImhkbWktcGh5IjsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzID0gPCZ2b3V0Y3JnIEpINzExMF9W
+T1VUUlNUX0hETUlfVFhfSERNST47Cj4gK8KgwqDCoMKgwqDCoMKgIHJlc2V0LW5hbWVzID0gImhk
+bWlfdHgiOwo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcG9ydHMgewo+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICNz
+aXplLWNlbGxzID0gPDA+Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb3J0QDAgewo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDA+Owo+ICsKPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVuZHBvaW50IHsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZkcHVfb3V0X2RwaTA+Owo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB9Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb3J0QDEgewo+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDE+Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGVuZHBvaW50IHsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZoZG1pX2Nvbl9pbj47Cj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4g
+K8KgwqDCoMKgwqDCoMKgIH07Cj4gK8KgwqDCoCB9Owo+ICsKPiArLi4uCg==
 
-Feel free to add
-
-```
-R: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
-
-if you want. I am interested in this.
-
-Thanks,
-Icenowy
-
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/display/bridge/starfive,jh
-> 7110-inno-hdmi-controller.yaml
-> +F:	Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-
-> subsystem.yaml
-> +F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-
-> hdmi-phy.yaml
-> +F:	drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
-> +F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-> +F:	drivers/soc/starfive/jh7110-hdmi-subsystem.c
-> +
-> =C2=A0STARFIVE JH7110 DPHY RX DRIVER
-> =C2=A0M:	Jack Zhu <jack.zhu@starfivetech.com>
-> =C2=A0M:	Changhuang Liang <changhuang.liang@starfivetech.com>
