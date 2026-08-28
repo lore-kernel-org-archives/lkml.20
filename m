@@ -1,121 +1,233 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696803B3894
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7383C0635;
+	Fri, 28 Aug 2026 19:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944633; cv=none; b=iUOezwM4pZ64OFI2vXqq+Smd6KXNhgaVNIPmEag/mHAUcuKDNCt8rpvmHR1mJYnXwwwpk5jfeEvAUCrPEbqtvdsQOTfRC2ZL31SQz7GD2O82tm7JZy8V3POgkRirLzYq4lgR8FE94aeYd/w9bYzBb50eEnaoerkWJZ9rACk53Cw=
+	t=1787944816; cv=none; b=M5cuuIxEV4lGCJzI3+0S/3IkcMrw+TE0mFnRgjUjSjrtncpCV09yER6oK/OT+NvlZA3goO25/dFMDnBSMBHewH9fWFPpfODjcnPJeTQTS31MIbAig1/FTUAlhlgf9lq9FmR5pfN8aKON63RmKMDr2CHZ6vcdvHFqr8+5DYBfliE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944633; c=relaxed/simple;
-	bh=OjCe3CktZlYFOQFPLmGRlHo4AyWyH9sO8Gk+RrBAlYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ng0ual3yZb/rNyxXWGKwfdSj3aYJcOWBfqrmtdcgnc5weys/QGyoUI0jXsmYePFtPoK5HZ/F3bYHvjlwFwwvFl4b1e6jT09VsvyCk0/FhmZyXpQVzod2uoKDRo+uM6FUvSVa+v7cx8IJ7F5OnC7jEja2ysdlYeH8S+F/nuU+svU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=gAZTVjGD; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787944816; c=relaxed/simple;
+	bh=UdnvFOwwykS8c2+NQn/oufyhz+Crer07sPsKyM8EjKM=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=m+khlnRyjQTZUn+W/yieanRdyqNtN/DNA07DDwX+DAPVKWjeoS3aBIcNaAHmiHeznOvw9awzV8XK2j2JCDZx3sI9KIOMwYp43RgvLVn3Y5HTuW8zW9qabOlt4TkpNtYYD0axM8XMAvdpCxHr2F4KEhehm4syiXkbt7Be8t0J4sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFpmlwke; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="gAZTVjGD"
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id C52951A053F;
-	Fri, 28 Aug 2026 19:17:06 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id C3E9F20011;
-	Fri, 28 Aug 2026 19:16:57 +0000 (UTC)
-Date: Fri, 28 Aug 2026 15:17:47 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, David Stevens
- <stevensd@google.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin"
- <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
- <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin
- <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
- <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
- <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Uladzislau
- Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook
- <kees@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
- suleiman@google.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260828151747.20035d50@gandalf.local.home>
-In-Reply-To: <20260828151313.5c4a5e4b@gandalf.local.home>
-References: <20260827232948.2520558-1-stevensd@google.com>
-	<20260827232948.2520558-7-stevensd@google.com>
-	<20260828133620._x2XfJR_@linutronix.de>
-	<20260828135947.GU776954@noisy.programming.kicks-ass.net>
-	<20260828151018.HnR9xV1N@linutronix.de>
-	<20260828150836.2d5b378c@gandalf.local.home>
-	<20260828151313.5c4a5e4b@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFpmlwke"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7711F000E9;
+	Fri, 28 Aug 2026 19:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787944813;
+	bh=xeO8K8urtRRpzneGp75YRRQW+VtVinclfOs0PEYddzo=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=cFpmlwkevEepHtLO0hRKbkA5fcrshuQA3wMKRXblfX6xLjdSCC6IwSpAFevmOdzUS
+	 ZepXn7yUvmWFJcaSnKf0/havel88tIeySDeK1aeY5js8Xw0LcUaW0zuL2lc+fJ9rF+
+	 TT0YIyC74bqF7c5TFZr3HUOonMpwlSG2JXu49Z54aRWEp1j/twCAXjh6OdGVCJ6i95
+	 I1pNMvPWgaZLMIj5pf7sQZgNB+vXg1S0CBcQyWYg0VWdZJbTfw1skuT0m3okV5p5I8
+	 PT7DcpY6jSMWdrG3ywLh9cfnME2vVhVzpKEhcHXkG/QpTTA9Gk+06xQTsIFC8yV5L3
+	 /yZtolE4bqEGQ==
+Content-Type: multipart/mixed; boundary="===============7842322834384672897=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Message-Id: <346b4f3064cb8ce5081488d5baf604c843439e0730e9a9c0b16ec6ce3e189fbf@mail.kernel.org>
+In-Reply-To: <20260828183326.3330530-2-sh_def@163.com>
+References: <20260828183326.3330530-2-sh_def@163.com>
+Subject: Re: [PATCH bpf 2/2] selftests/bpf: add RHASH iteration stress test
+From: bot+bpf-ci@kernel.org
+To: sh_def@163.com,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,yatsenko@meta.com,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 28 Aug 2026 19:20:12 +0000 (UTC)
+
+--===============7842322834384672897==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: C3E9F20011
-X-Stat-Signature: j65tfsnn7wb96ijjjfomjeapo6aro4m7
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/FRCRqi3s+JC4roW7NUQua3g10tn9P4XM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=0RDwr71FlsrAMrAAlqln64IM9QGsxwXWA77DtZDfZwQ=; b=gAZTVjGDveN8fhsH4aJV2blL0f0S/QpEEvr3BQpYaHupiEQdLMD69nFOfdLEk1spL0/g6lXtTnfNyIqHZGTSM2GCgE4DvzYvzij8bAWlZRrSpkm67+yI+NJTg387b0JmME/jtx2tEqWIUYUrCD2W7DFVoX4NatssuHtJiesq2nE=
-X-HE-Tag: 1787944617-357454
-X-HE-Meta: U2FsdGVkX1+ViF3OvOgaM5ssQLR7tn0uySWJaFHYtcXWZ21cz7nnxMRW6iHpDWrp6Htrs0cIkgW4SbBQGFpZUf1ROkYnZEWGOtcWKXjDukDAh5xQHzSUkPxJbyaumnTpSqP3YXkkCipkNohafMlloaOqbdI5ACVjC77j7iGbrpU8lCltcFJhtONUqXBCJpw9eTajIr0/aLHn6NisdoeErwIxVK/oB2Np5iYGqcWQEGRVIxOt9i1N8E1VkhWj8uFuSoYqfpNN0eEmhPs7aE8vmz2WPbGl+v4Ry92BAG7LkkOQAqWIZjLFKEu432FqDcWspoc2zzLFnstcV5vVdG65ka7IObsOxeMhd+5KlkygWN4xwraefOr4pQuVKgzS9Rrd
 
-On Fri, 28 Aug 2026 15:13:13 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+> diff --git a/tools/testing/selftests/bpf/prog_tests/rhash.c b/tools/testing/selftests/bpf/prog_tests/rhash.c
+> index 98bb66907b7f..a2ecd7e7905f 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/rhash.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/rhash.c
+> @@ -3,12 +3,17 @@
+>  #include <test_progs.h>
+>  #include <string.h>
+>  #include <stdio.h>
+> +#include <pthread.h>
+> +#include <stdatomic.h>
+>  #include "rhash.skel.h"
+>  #include "bpf_iter_bpf_rhash_map.skel.h"
+>  #include <linux/bpf.h>
+>  #include <linux/perf_event.h>
+>  #include <sys/syscall.h>
+>
+> +#define RHASH_STRESS_KEYS		4096
+> +#define RHASH_STRESS_DURATION_NS	(3ULL * 1000000000ULL)
+                                       ^^^^
 
-> If one worries about stack size, they may want to turn off
-> CONFIG_RANDOMIZE_KSTACK_OFFSET as I see some big numbers for do_syscall_64()
+A subsystem pattern flags this as potentially concerning: the userspace
+RHASH_STRESS_KEYS (4096) has to stay equal to stress_rhmap's
+max_entries (RHASH_STRESS_MAX_ENTRIES, 4096 in progs/rhash.c:12) for
+the test to keep its meaning. The point of the stress driver is to keep
+the map at its capacity so that rehashing happens and a walk has enough
+elements to exceed the budget. These are two independent literals in two
+different files with no compile-time or run-time tie, so raising the map
+size in the BPF object silently leaves the userspace threads churning
+only the first 4096 keys.
 
-And the scheduler has some heavy stack usage here!
+The function fetches the authoritative value at line 113
+(max_entries = bpf_map__max_entries(skel->maps.stress_rhmap);)
+but uses it only for the printf() at line 144, so the key range could be
+driven from max_entries instead of a duplicated literal.
 
-  # trace-cmd stack
-(stack tracer running)
-        Depth    Size   Location    (31 entries)
-        -----    ----   --------
-  0)     8120      48   __msecs_to_jiffies+0x9/0x30
-  1)     8072     104   update_group_capacity+0x94/0x960
-  2)     7968     528   update_sd_lb_stats.constprop.0+0x426/0x39b0
-  3)     7440     424   sched_balance_find_src_group+0x8f/0x1150
-  4)     7016     552   sched_balance_rq+0x934/0x4130
-  5)     6464     408   pick_task_fair+0xa71/0x1fe0
-  6)     6056     496   __schedule+0x628/0x76f0
-  7)     5560      32   schedule+0xde/0x2c0
-  8)     5528      32   io_schedule+0x8c/0x100
-  9)     5496     256   rq_qos_wait+0x12b/0x230
- 10)     5240     136   wbt_wait+0x150/0x260
- 11)     5104      40   __rq_qos_throttle+0x51/0xa0
- 12)     5064     304   blk_mq_submit_bio+0xc40/0x28e0
- 13)     4760     240   submit_bio_noacct_nocheck+0x410/0xb30
- 14)     4520      40   ext4_io_submit+0xca/0x1a0
- 15)     4480     144   ext4_bio_write_folio+0x5e2/0x1470
- 16)     4336      96   mpage_process_page_bufs+0x392/0x700
- 17)     4240     616   mpage_prepare_extent_to_map+0xaae/0x1120
- 18)     3624     480   ext4_do_writepages+0x971/0x37f0
- 19)     3144     312   ext4_writepages+0x2d2/0x610
- 20)     2832     152   do_writepages+0x21e/0x560
- 21)     2680     184   __writeback_single_inode+0x119/0x1240
- 22)     2496     752   writeback_sb_inodes+0x67d/0x17b0
- 23)     1744     168   __writeback_inodes_wb+0xf2/0x270
- 24)     1576     304   wb_writeback+0x63e/0x890
- 25)     1272     320   wb_workfn+0x844/0xca0
- 26)      952     360   process_one_work+0x8b4/0x15d0
- 27)      592     176   worker_thread+0x5d3/0xfb0
- 28)      416      64   kthread+0x33c/0x420
- 29)      352     160   ret_from_fork+0x65c/0x9e0
- 30)      192     192   ret_from_fork_asm+0x1a/0x30
+Could the value that gates the assertion (RHASH_STRESS_MAX_ENTRIES) be
+used both for max_entries and for the overrun threshold to avoid drift,
+or could the userspace key range be driven from the fetched max_entries?
 
-Note, I'm running this on my server. That is, this is a production machine.
+>
+>  static void rhash_run(const char *prog_name)
+>  {
 
--- Steve
+[ ... ]
+
+> +static void rhash_iter_stress(void)
+> +{
+> +	struct rhash *skel = NULL;
+> +	struct rhash_stress_arg args[2];
+> +	LIBBPF_OPTS(bpf_test_run_opts, opts);
+> +	atomic_bool stop = false;
+> +	__u64 start;
+> +	__u32 max_entries;
+> +	pthread_t threads[2];
+> +	bool created[2] = {};
+> +	struct bpf_program *prog;
+> +	int map_fd, err, i;
+> +
+> +	skel = rhash__open();
+> +	if (!ASSERT_OK_PTR(skel, "rhash__open stress"))
+> +		return;
+> +
+> +	prog = bpf_object__find_program_by_name(skel->obj,
+> +						"test_rhash_iter_stress");
+> +	if (!ASSERT_OK_PTR(prog, "find stress program"))
+> +		goto cleanup;
+> +	bpf_program__set_autoload(prog, true);
+> +
+> +	err = rhash__load(skel);
+> +	if (!ASSERT_OK(err, "stress skel_load"))
+> +		goto cleanup;
+> +
+> +	map_fd = bpf_map__fd(skel->maps.stress_rhmap);
+> +	max_entries = bpf_map__max_entries(skel->maps.stress_rhmap);
+> +	for (i = 0; i < ARRAY_SIZE(threads); i++) {
+> +		args[i].map_fd = map_fd;
+> +		args[i].stop = &stop;
+> +		args[i].seed = i * 977;
+> +		err = pthread_create(&threads[i], NULL, rhash_stress_update,
+> +				     &args[i]);
+> +		if (!ASSERT_OK(err, "pthread_create"))
+> +			goto stop_threads;
+> +		created[i] = true;
+> +	}
+> +
+> +	start = get_time_ns();
+> +	while (get_time_ns() - start < RHASH_STRESS_DURATION_NS) {
+> +		err = bpf_prog_test_run_opts(bpf_program__fd(prog), &opts);
+> +		if (!ASSERT_OK(err, "stress prog run"))
+> +			break;
+> +	}
+> +
+> +stop_threads:
+> +	atomic_store(&stop, true);
+> +	for (i = 0; i < ARRAY_SIZE(threads); i++)
+> +		if (created[i])
+> +			pthread_join(threads[i], NULL);
+> +
+> +	ASSERT_GT(skel->bss->stress_max_visits, 0, "stress callback visits");
+> +	ASSERT_EQ(skel->bss->stress_overruns, 0, "stress callback bound");
+        ^^^^
+
+Does the stop_threads label fall straight through into the result
+assertions? If pthread_create() fails for i == 0 the BPF program is
+never run, so skel->bss->stress_max_visits is still 0 and
+ASSERT_GT(skel->bss->stress_max_visits, 0, ...) emits a second,
+misleading failure (unexpected stress callback visits: actual 0 <=
+expected 0) on top of the real pthread_create failure. The printf()
+then reports "stress max callback visits: 0 (limit 4096)" as if a
+measurement had been taken.
+
+The same fall-through happens when bpf_prog_test_run_opts() fails on
+the very first iteration (break out of the timing loop). Every other
+error path in the function uses goto cleanup to skip the result checks.
+
+Should the thread-creation path goto cleanup, or should the two result
+assertions be guarded by a flag recording that at least one prog run
+completed?
+
+A subsystem pattern flags this as potentially concerning: the
+load-bearing assertion is ASSERT_EQ(skel->bss->stress_overruns, 0),
+i.e. no single walk returned more than max_entries. On a kernel without
+the iteration bound fix, the walk still terminates naturally after
+visiting roughly nelems (<= 4096) entries whenever the
+rehash-during-walk race does not fire, so stress_overruns stays 0 and
+the subtest reports PASS on the unfixed kernel.
+
+Nothing in the test reports whether the race was actually exercised:
+bpf_each_rhash_elem() runs under migrate_disable() + rcu_read_lock(), so
+on a 1-vCPU CI VM the two updater threads cannot mutate the table during
+a walk at all and the test can never detect the bug there, yet it still
+passes.
+
+The companion liveness check, ASSERT_GT(skel->bss->stress_max_visits,
+0), is satisfied by a single visited element, and stress_max_visits
+reads ~4096 both when the budget clamped a duplicate-heavy walk and when
+a quiescent walk simply covered the whole table, so the printed number
+cannot distinguish a real pass from a vacuous one either.
+
+This isn't a bug, but would it be worth recording something that proves
+the stress happened, such as a count of walks that consumed the full
+max_entries budget, or a skip/warning when libbpf_num_possible_cpus()
+is 1?
+
+> +	printf("stress max callback visits: %llu (limit %u)\n",
+> +	       (unsigned long long)skel->bss->stress_max_visits, max_entries);
+> +cleanup:
+> +	rhash__destroy(skel);
+> +}
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/progs/rhash.c b/tools/testing/selftests/bpf/progs/rhash.c
+> index fc2dac3a719e..eca428db1fbc 100644
+> --- a/tools/testing/selftests/bpf/progs/rhash.c
+> +++ b/tools/testing/selftests/bpf/progs/rhash.c
+
+[ ... ]
+
+> +SEC("syscall")
+> +int test_rhash_iter_stress(void *ctx)
+> +{
+> +	/*
+> +	 * Concurrent rehash may produce duplicate visits. Check that the
+> +	 * helper still gives one walk a finite callback bound; no snapshot
+> +	 * or unique-visit guarantee is expected here.
+> +	 */
+> +	long visits;
+> +
+> +	visits = bpf_for_each_map_elem(&stress_rhmap, stress_iter_cb, NULL, 0);
+> +	if (visits > stress_max_visits)
+> +		stress_max_visits = visits;
+> +	if (visits > RHASH_STRESS_MAX_ENTRIES)
+> +		stress_overruns++;
+> +	return 0;
+> +}
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33200467478
+--===============7842322834384672897==--
