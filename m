@@ -1,210 +1,321 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF303002CF;
-	Fri, 28 Aug 2026 17:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898833822AA
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:56:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939784; cv=fail; b=CnqnPs3OSgztdG1F9i1h3qKBX5xfd3O+i4NScR7UwgiOcC1DGYMWhP1Ar0rCUei7K4yQ8RewTvLQjNJpAN2+ejvAZh+pMrIkojBVSdfBZBCRY2AfqHKgxrvYiztNE5eJS99jxpp0IQ3FSrlr3dtxFJtbOYzqdiTBDdKElW3p26g=
+	t=1787939810; cv=pass; b=aGs0VROreLSL+h8T9HAoeCGyrqprrJD1ff8eXDvdeNQJHu/aYpiwYPQ60KdWweX85M5MLimPtfuLs3Brh+LeJcImUUpk6jNgeUYOMXUcN8w9O5CIhBFnDRD9iY52/FTsV6UkRfhHFnetCaXCVCY5kp2S4K26p38//8ilq5/emVM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939784; c=relaxed/simple;
-	bh=lMTpwlF9FIT6w38EU4K02uXVt4SxIVNPHrkUZgP9wn4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=i/cuPmbxQXmeziNZGu3+hu8j9iMvnvsFHSmSYaiHWWqPCIo/Nb5SLwm2j21g7Dmugf+LMshmdKJ4BrqiQ04+MbrHxJc0r3ssRN3ruSrxhdIbtRC9HGOqCrHdZfWM23Ds9fFLfKjQMCe9Ze8EGdBFN1Pk+v7tooxvdf1wRJ/+CsQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OnxgsMFb; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787939810; c=relaxed/simple;
+	bh=ICqqDvyGEpfs6xaL7LEARpobE8FjqdmW+8cG+j4iELk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K/+nT6evTlMWFivNTgtzhnBnw1KPloQ4M6lWmtCwQ4ee5nhyR3b80OqiiFyOmrTJ+NcNYh+JgDIRQsLTdODfPLXDWV1kddJiJa4CM6jTHl6gAEAcWGT+AQNHqC2Xg52cZ5ruOSV1XLbuQaml3s+qBbiHNSeW9xwU2FiQoMgmjG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHz3U2no; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OnxgsMFb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787939781; x=1819475781;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=lMTpwlF9FIT6w38EU4K02uXVt4SxIVNPHrkUZgP9wn4=;
-  b=OnxgsMFbGBC2FU7AsbfTH8Dr1XNcqZlR/DfYfsczfIiraVmplXtpv1Wy
-   q8f6iLW+6+BDUQhAh/sWNVDp1SY53pDCJfYVGA7ZD5gw8WTlS8F65WBaY
-   z96+UEKMb7h3QBvosoZjEfuaWGMKzOteAON8fK+N5ig+cE3nYaSC9+Bkx
-   fVL0foVQCG8LsAd11Dfnsc3s+T9xikvuyicwHYJAv0/8x0Xij5GCXTqQm
-   URImhDbDE8G+D1RJM5l5L/CunNE+0CoDxM7MpZtfpQyT7G23qYRtz3hN5
-   kF8YZMy7PAVbUe8CD8AL/SA+TEd6rkggwiU47xI1xaQqBVrTbvh0vuZxg
-   Q==;
-X-CSE-ConnectionGUID: XMRljnSXQtOrvhiQ7EVXcg==
-X-CSE-MsgGUID: DGrHgQ8+QtWly82/p5ZSZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88504677"
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="88504677"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 10:56:20 -0700
-X-CSE-ConnectionGUID: Dz24lPwNR96OUAhYFW7Dmg==
-X-CSE-MsgGUID: ktlSm+5PSa+aoEZXNJ0wZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="306434178"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 10:56:20 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 10:56:20 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 10:56:19 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.53) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 10:56:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g9n6rySrd59smCkyONG0b65ompeWmipOnFvihgXVPQvXGb+bec46/hbIcfSgYpEe5iZfXa8FYXi+292acHOl+6c7LF5Dv0n54EKsxXFfBekx11GYBFtfoHBtA6vBtCsVK8LOspVtc4K7fIkwLLPyERYmR/LEnCwRQvxf+p13RkCjv+L7WR1kDObaiBw3qcvaoGQprGJtMLrvISzEb8QUBqN0YY/sloYRaTqIwy0C48TbJ+wx/fVcyLkK1TAJCEk1kqiUWXNJ3LC4Ww7FNe4SW7KImP7tnh/OQOTFRLesTHlz6uQ4lesNICCgK0ERydQqPbvBxmvNBuNUHQod7TS44g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9g/uuxDpv3/QgTlPmDNmfFS1R3sz3J3rZXKcKrHd/0w=;
- b=gkgBK0pU0iqPjDg75NeQc8EX2N7TTRcGUlGptJ3vBuWeHRKOigw153Cnh4SbB2J9YII4BB4dgYMLRvKB6Vx8MUpBO6SuTZG4DD2TTg+bhtUxaUHtkvl5XOFcbl0qas6RwWs3ip0Ox1iOkyD33MxonfAwCDk9Tv7KcfMTW0IHY1v70hl1NNqzSFoFWdukPqJFyvxO+g1P+l8RVo2iIsexk8RanunNHi8NK5Rb3lTbegXDnIeSYJHUnfoDU3qokF5U+Yj7tz4kazq90fBG5BlnvFHLzuUQd3ePm9XmkN46O7SyIietQ2IFyzPREHhn4jwgMPdlPX65v+ER8ojLqE7oYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by DS4PPF7551E6552.namprd11.prod.outlook.com (2603:10b6:f:fc02::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 17:56:14 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::e721:90d7:9214:2d53]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::e721:90d7:9214:2d53%6]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 17:56:13 +0000
-Date: Fri, 28 Aug 2026 10:56:08 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Richard Cheng <icheng@nvidia.com>
-CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
-	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
-	<gourry@gourry.net>, <rrichter@amd.com>, <linux-cxl@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <kees@kernel.org>, <newtonl@nvidia.com>,
-	<kristinc@nvidia.com>, <kaihengf@nvidia.com>, <kobak@nvidia.com>
-Subject: Re: [PATCH v6 4/7] cxl/region: Start unmapped poison scan at the
- committed decoder boundary
-Message-ID: <apHLuBhvjRPu46zG@aschofie-mobl2.lan>
-References: <20260826014508.9989-1-icheng@nvidia.com>
- <20260826014508.9989-5-icheng@nvidia.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260826014508.9989-5-icheng@nvidia.com>
-X-ClientProxiedBy: SJ0PR13CA0075.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::20) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHz3U2no"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so2033955a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:56:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787939807; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ABbawxIDK6mlsGdEOZhyciTalEuiwfXT2e8Hol9m7EeTJ+l8A8Y8007NXKHQANpFH2
+         bqfm1LPtYtEPXzVGqdbhdaipiqHjEcpt0ZCtlQ5sZbY0XImFbmyEU7aHopFWCkh9mGmP
+         Dizvf1syYZvpc1BZsyRcgwNCrX+dQojcq3oM8Tznau50NAwFzxsvcvKGhspSJVYJmC/y
+         iQGWRLBz/pED+072VE9V1tRLAmkgWp0681xS33mjYLduKdk58NOwec3DMHdy+YxniQk1
+         9VusuV5GPk9Y/nx7YH+7CEJKLvjkHZrgHvKQHYh4rZmUUx8CiThT6ddOHlVMW4HAr11C
+         RU9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=C4g2HsKIGS/dtUBl5Hgz5rVIhORADLJiU0SI1ip2ThE=;
+        fh=e/D6zF/WOebgHH619mjWEPjbJyb3CgaN2lbnIgdAx4g=;
+        b=Sd08KKf7RQBorDqght0cYk6b5AUdtcX493tdg3oZOvQ4alb/hCv/5t4FzttRNnF1r8
+         9aDNEwVQSTjvy98fwopPoK5+G67SaR0lLUhqGXKeNQIs0IYfHIPCz9guFU9SNjLc4dwV
+         SKFWqwcldu9ft6FiFc1twgaqXmC0Ox2uZAOkSy6R17djlpMBNyPX8j2g+67/l26WGj3Y
+         xAoX9zf8JcSFKmJyHQqRK2W3Uap5hHFlP7WmP4XbISAoNXC0WnXmScFPoh8m7cFUozV6
+         Nmzk9AtVsKlfUb68sMHEaCK8+zi802e6wTTiUxXevrhIN4F0rxYL1g1//haFYwQWKtg5
+         gjbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787939807; x=1788544607; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C4g2HsKIGS/dtUBl5Hgz5rVIhORADLJiU0SI1ip2ThE=;
+        b=bHz3U2nonr828MKfxEBox61A/jPclQKNTv39wM20EaHLZflzakCpbJH2U19aoz7X/2
+         nQold+tF1Du9Zul1zxMftXKYdaiJPKfqXTb9EK9ek82yrQmWq5PbJ8ti4CEduz9vRK3A
+         GGvDliW6N04evLo761uHXW/ETasbao+FS3hkNG/aATuywVEW7HANLgoOyV6GDAOKeaIq
+         m+pm6DpGnsP0CMz/ktmedjWqCVDetLSy5wIVbN5lM/OxQAkwAtfrXPkhYX59erGkSb/u
+         FAuPE/g0Zto+rSc+oFwM/QBiMmP6DCONQGfBHpJH/CBDNromTPo3m+vkV3YfSB7bsizC
+         smqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787939807; x=1788544607;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C4g2HsKIGS/dtUBl5Hgz5rVIhORADLJiU0SI1ip2ThE=;
+        b=QuSkGnG8Ul7/cgyFQAnN29vd8WLembPG5t8g86rlybpSx5K1B2trUF5qxAtbocfD6j
+         ZOBnxaf3ScoSOKKlUVpVpxujE/Z+n9mcLmuWTJ0d177pKDOOM3nJQU9SNR2yMoqGpKkO
+         Kdqx2JTqlHhOJg1C+YhySl8D3AYxZvMC42wVy8E2/fmsYEoKUROr2S0jJ0L0O3WxUkqf
+         KduBOcB+4Cd8mJzi9kmbtyd1aOAhUmEyiJKM0kHcC+/q42PYb+CEoRoNBQ1mmas8ogj/
+         48S/xE01LDSWPv9VslcOolGVnWAuSJydASM9pXhJQrDGIkZQoQ8ifIDOIv3CmxzDSQ7p
+         QcAg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+f4ff2l48JqBzh2fUtpBrRjuaLZud/Hrbi6VZfP8P3RuwoWcMbWrrELSO68L0IVzzv+OQBM1fjTXXxxA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNXsIiWWx5veohLx5Z1wSCwogiiZnGn4hQxEVjwQkO7XZPsDdZ
+	IoRMnYYZ/62mN5l3mTv07p5OC6O/punwq83gE8RjLtp755SAfZZUoIkGT3joEpW2d+WQf4WDTLg
+	D4OEQbi91OlNsy+rMHXUUEdJfutyKsWg=
+X-Gm-Gg: AR+sD10Iw7FmsyhmISrCOKEfdh3hqn4MLMwZUTFehfn8/DDUCQ/Yy2E53iGGx6F1gho
+	TQZJr8qyX2aQdqyzu/UO7RqPZ9HS2eJWhQTr+s7VcooTQHeey5xeDOWe+jnVUGWkfL9IPqgneFu
+	EsE7y89qyQ5T58q8Hucrhle2XuQf1CQifp4DhWQcNDcJd16lx6RzJgfWUiIfUFMeFTf3lxjq9rR
+	qUSUDKD9h9JXmbToCQ2/8WJXtDHbh4EBY1NrLP6m+/s8S8cIGzVhsU3VKn6WaZqxCl+aHVp6XXB
+	/DFM0IRBlzRTUHh63ZSkGtsRoTCCxl+bzJFzYOhNKOfYaPoFRLl0lY+Ej3SNdR9Ykjoss7IV09u
+	Q
+X-Received: by 2002:a05:6402:2088:b0:6a5:fbc6:cad1 with SMTP id
+ 4fb4d7f45d1cf-6a60d334d1cmr5875728a12.7.1787939806479; Fri, 28 Aug 2026
+ 10:56:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|DS4PPF7551E6552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e1a3d04-af51-4beb-4753-08df052da68b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|5023799004|11063799006|56012099006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: 8RKXh4ZyrDl3sG+6elwS4B2a77z4RzY6iCc2CvQduaBiZLbGLMZOh6GEVDFbFChcMvyTsUtRg0x/sgR7RoUuUe8OpVf02IfYKbOTK6ti4WmDWE7v53uksIVYCAH9zYIu2210XSrCctbCp/tIVaMgvYq8ssXd0MOE/y9vx1EecyUMZkiEAID3wujkeV2TEOvDjJt8KD3n+ohqmB8XoNlCc4AGQA8klK7ig89vqy0AE+fZU78+YwinL953kzSRRi4R8ltHdihKq+sRo48k0EKfrRaK0P9Fw1VH4M95oBoTx0og9PVAXIiNedLvooWwrQ5gneKqnz03RQNk/h8m91ruKPJ3jWVFC223oRqLBZyNhliZY+yHe6Zon28j2QJQHFBzNAYt3035iBzkFSIUzaI9LQm7NlFQVNqAimH6/noqw7pmU6cUrnZco+wf2fjNk/ExBTY2qIHDPl71xmgwg2rp1V0wiDX2HDTUS+GlKwGsOC1/wFlRi5+PYMT5T+s6LNPgcJ10jhPpzneIhfbPuJLJMKEXXxiNfuMPJaQDwT4hA91rqA0CJlQCSQe8IBbHwaHee9niRMirVmEd8Z/lqm9wvJ/Q7Y228ndabwOO6noCYYmtl6co/QeYRgtDXIGI9DBP/imv56w/uigtp+n5paG3LXRDsCPKPSg/tLmQyhqS2nw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(5023799004)(11063799006)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uN1pep618IZeyA3JJ38gVhnd+S4BRqoe9P34CQkwPe8RfJjiZxucn/NVW/0U?=
- =?us-ascii?Q?wX8kZ2pTpg5HwbstptSJXvhp8j31mrfzs2+REsQfaC8uIK4KyYl48kefO7oq?=
- =?us-ascii?Q?jGhrd2s5msgg7wOd7FzovkE+84ou213LhHc56uTMhnpf9ckKGHr0ej5GpuHu?=
- =?us-ascii?Q?usH+rWnCd+4N0NQ1s1o2WiejMRGyn3L5WmzgNikoYIQskFefnW5m4C3Szcmd?=
- =?us-ascii?Q?jhk4IfUHXgf/UyX28qEdWogHw5Epd9gt7BubKOjRXgy0ZIkzc9maM7Opxnij?=
- =?us-ascii?Q?HpHS20ry14Krw1/kXB3D/uH4FznVRQ++9BJqbuYnq5TpbeFfUjTWQMS0+6/F?=
- =?us-ascii?Q?EAd0zzHdSebQUR7sAcQUzB/BIv1vTMrBcxxCCkL3Hn2sfj2+ark1UaSTDqIX?=
- =?us-ascii?Q?rZSAQ5SRpXwn5s6tAG5FwjKsZ/IpdVzHxbZHzWQgCObM5CZAGBIxSFzdys0t?=
- =?us-ascii?Q?kDrP3PcUl7e4RaMHEPGITh1eFJGUbQTD6fqGyUrzC+IKREmWW6u2IlABqUgj?=
- =?us-ascii?Q?La5toM7jcZXqcyAsqLvfjXVnqg7WJ5QI1tvOYSSgVYI7SdQE2X+3scZmRtAS?=
- =?us-ascii?Q?KW0zdc0iq/XXhv0+NaKJlUyh5f+MODUFwD7nSpNPFvHJDBa+jQCrRkIwovn5?=
- =?us-ascii?Q?m0DqZLi8D4qdaKpVw4cBH21+SABGjJ/sak7iAommpHC9QdPgEQMtx2rbsGNF?=
- =?us-ascii?Q?JkpNultiWwt0SgrIpkiD2y9TRarv6LCDNmHLYHep8gEwL5JKcKTiu0aBydCm?=
- =?us-ascii?Q?G65OX4cf7N9Aqrm/dqMibHd5Hy/QAuEwMgMbXKPf5CzybrdcoKLfkrTH9bEw?=
- =?us-ascii?Q?LKNRy7LyJNM0fRvja75+kcgyI9mH/Vnjqz8B2W69ZHmS+SghmGhpbTIo/EkY?=
- =?us-ascii?Q?5rrI1/Zs6z8fZmy6J/O52M1HKQDIOPvzbkhlRZarzpx2gPg1iZMjWftiP+h5?=
- =?us-ascii?Q?gIeAsv9bGz5ZAy5UrQDcZol9obQUHs7y/ysV3Tmaa0olS/pPMRH+57fNGJcm?=
- =?us-ascii?Q?YFMksOz46MymCcR7wC7DDmMH6ujOdxFzzQZc8xR7ldZL8B1e3gkm7gPpmiRT?=
- =?us-ascii?Q?Nr94ZMDF/N/3KaLw+TmbDjZ2P2Y4cCuu9efz75TQi1ZDge83aMCmD42em3Kj?=
- =?us-ascii?Q?G5xLAek/a5PAPW8HdO1ieRvgE+xjgxOPBErfCsB3DVEpntN34OiS+xNprsp8?=
- =?us-ascii?Q?Uu1Za+GAaHI1pmczjTAaa6eGKY0TYRJo8yVgxkJkqDn/zZaqposjgVKYbSYL?=
- =?us-ascii?Q?nqBclnOgADMfI1pcMgKEEh9ScMGz5iV+ucqtqkyUVdcmG+iEd5fO+Cp2VTvQ?=
- =?us-ascii?Q?kRMpOZfaeg9woUTsxS/7uK5GIC4vde9iqJlxbptGJO+VMc0cbOnjUmgA2pdR?=
- =?us-ascii?Q?Pb4582bLrwoPo0kGu8GVHSGhiAnOEWoO+rb6pNIq2ErGRXHJE89c7EpquZ1v?=
- =?us-ascii?Q?jcHPw+5aMhejQRsIvjZMN8NvwW7qKzwoTgoDXp3uininThLVvWayepitrqvD?=
- =?us-ascii?Q?ZyJhwX9yGbrr1x1H3T12lZGGBbYmHpFU30KhbC+nr5jpBxX8RcZd3lFxhS1M?=
- =?us-ascii?Q?Yy8555X+4bRjq95g4bO/yb4ADIM8qtfXKYjQj+diEZQA9bcgZ/hGrdVbJwYL?=
- =?us-ascii?Q?iGQvUMfxoIU/wkMycK3j/TKbJJMezPZj3qe5HdH4gv8/274d/nuTZlycpI//?=
- =?us-ascii?Q?Hs0JP30ypjC4nsQrFd0aiCeihCB9tufGiI0UBbFtCzeQUGaoFulD+04wbY6W?=
- =?us-ascii?Q?wTnoai6O9kIqBoUUMlJVi7EffPsRYyA=3D?=
-X-Exchange-RoutingPolicyChecked: prWm8LS//52fidnpzc+BZxYTfbZnNrKm5QhFYh+/ncDm0jMRfMvpc0m0q3w/mezW+YmBJuHb8PhHYQM198fXcrV8lLr4p5G4PvKTcs3SXTxDaTe6HQfZ5ajL2OgWZvYDZKFJGZvu2CxzHjv1KD4xrNPvcVFKMB5BQ48e7qx6VbQoMcJbtIZMsG8rxdZbaUmo2/Eyf66YZufX3rjRfiJaJ6RJV9TlE4Jmc4Wjf9PNLtjDWtfR78tFihHWki22rkyOrXwt7gdU0efjQvQZQLAMYWQN2ulYiAbnSHVbvUIj8jCyQ9p5U2IIE0209UFxBBwJuf04WbTIqGqyVf5ANEF9xA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e1a3d04-af51-4beb-4753-08df052da68b
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 17:56:13.7563
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jLXEgR5fZaer8dZxGaIeT+vhoV1r3NYzgLLqUMNpTsYE5A0r7CfLC/8EC6KowQ43w0q6dwFMDC9j9M8xhT274pLFzAJJtfrADdpF3ZamUvc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF7551E6552
-X-OriginatorOrg: intel.com
+References: <20260803125138.1937674-1-mjguzik@gmail.com>
+In-Reply-To: <20260803125138.1937674-1-mjguzik@gmail.com>
+From: Mateusz Guzik <mjguzik@gmail.com>
+Date: Fri, 28 Aug 2026 19:56:33 +0200
+X-Gm-Features: AcwNN1Xc89jOY26XnM7VSbYzHf8zhXSzLDxdDgRseL6RwITE5J33Vd4MONdnAVw
+Message-ID: <CAGudoHH7RrKW27Gmrvb-njqAKLB_v3NQB4Jgd9Siyf3JhkmQ_Q@mail.gmail.com>
+Subject: Re: [PATCH v5] fs: avoid spurious dentry ref/unref cycle on open
+To: brauner@kernel.org
+Cc: viro@zeniv.linux.org.uk, jack@suse.cz, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 09:45:05AM +0800, Richard Cheng wrote:
-> poison_by_decoder() stops at the last committed decoder and records the
-> handoff in ctx->offset, but cxl_get_poison_unmapped() ignores it and
-> starts after the highest DPA allocation instead. Allocation exist for
-> uncommitted decoders too, so their DPA is skipped by both phases and
-> poison there is never reported. Resume the scan at ctx->offset, and scan
-> later partitions in full, restoring the pre-rewrite behavior.
+any flames on this? it is ridiculous the problem remains imo
 
-Reviewed-by: Alison Schofield <alison.schofield@intel.com>
-
-FWIW This written but never used offset field popped up while reviewing
-the zero size decoder set. (It's all coming together now ;))
-
-
-> 
-> Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+On Mon, Aug 3, 2026 at 2:51=E2=80=AFPM Mateusz Guzik <mjguzik@gmail.com> wr=
+ote:
+>
+> Opening a file grabs a reference on the terminal dentry in
+> __legitimize_path(), then another one in do_dentry_open() and finally
+> drops the initial reference in terminate_walk().
+>
+> That's 2 modifications which don't need to be there -- do_dentry_open()
+> can consume the already held reference instead.
+>
+> When benchmarking on a 20-core vm using will-it-scale to open the same
+> file read-only, the results are (ops/s):
+> before: 4043375
+> after:  5629378 (+39%)
+>
+> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
 > ---
-> Changelog:
-> 
-> v1->v2:
->     - New added patch ( sashiko's report )
-> ---
->  drivers/cxl/core/region.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
-> index ddf12075b95c..b7dc5d4988da 100644
-> --- a/drivers/cxl/core/region.c
-> +++ b/drivers/cxl/core/region.c
-> @@ -2907,7 +2907,6 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
+>
+> The spurious ref cycle remains an issue and it is trivially avoidable,
+> for the most common case anyway.
+>
+> Al Viro had a more involved patchset which got stalled, see:
+> https://lore.kernel.org/linux-fsdevel/20240822003359.GO504335@ZenIV/
+>
+> I already pointed this out over a year ago when sending v3.
+>
+> Given lack of traffic on the more involved variant, the nice win from my
+> simple patch and its overall triviality, I think it should go in. Worst
+> case, if the more involved work ever gets off the ground it can be
+> trivially reverted later.
+>
+> bench is:
+> $ cat tests/openro3.c
+>
+> #include <stdlib.h>
+> #include <unistd.h>
+> #include <sys/types.h>
+> #include <sys/stat.h>
+> #include <fcntl.h>
+> #include <assert.h>
+>
+> static char tmpfile[] =3D "/tmp/willitscale.XXXXXX";
+>
+> char *testcase_description =3D "Same file open/close read-only";
+>
+> void testcase_prepare(unsigned long nr_tasks)
+> {
+>         int fd =3D mkstemp(tmpfile);
+>
+>         assert(fd >=3D 0);
+>         close(fd);
+> }
+>
+> void testcase(unsigned long long *iterations, unsigned long nr)
+> {
+>         while (1) {
+>                 int fd =3D open(tmpfile, O_RDONLY);
+>                 assert(fd >=3D 0);
+>                 close(fd);
+>
+>                 (*iterations)++;
+>         }
+> }
+>
+> void testcase_cleanup(void)
+> {
+>         unlink(tmpfile);
+> }
+>
+> v5:
+> - the extra ref is of course needed, i blame the heatwave for thinking
+>   it is not this time around
+>
+> v4:
+> - rebase
+> - don't grab the extra ref on mnt for truncate
+> - bench opening things r/o. note perf improved from last year thanks to
+>   other changes
+>
+>
+>  fs/internal.h |  1 +
+>  fs/namei.c    | 15 ++++++++++++---
+>  fs/open.c     | 27 ++++++++++++++++++++++++++-
+>  3 files changed, 39 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/internal.h b/fs/internal.h
+> index c658c8a5ebd5..9632239036ac 100644
+> --- a/fs/internal.h
+> +++ b/fs/internal.h
+> @@ -205,6 +205,7 @@ int do_fchownat(int dfd, const char __user *filename,=
+ uid_t user, gid_t group,
+>                 int flag);
+>  int chown_common(const struct path *path, uid_t user, gid_t group);
+>  extern int vfs_open(const struct path *, struct file *);
+> +int vfs_open_consume(struct path *, struct file *);
+>
+>  /*
+>   * inode.c
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 3f9bf103ba12..f71481b9bf8f 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -4789,6 +4789,7 @@ static const char *open_last_lookups(struct nameida=
+ta *nd,
+>  static int do_open(struct nameidata *nd,
+>                    struct file *file, const struct open_flags *op)
 >  {
->  	struct cxl_dev_state *cxlds = cxlmd->cxlds;
->  	const struct resource *res;
-> -	struct resource *p, *last;
->  	u64 offset, length;
->  	int rc = 0;
->  
-> @@ -2920,10 +2919,8 @@ static int cxl_get_poison_unmapped(struct cxl_memdev *cxlmd,
->  	 */
->  	for (int i = ctx->part; i < cxlds->nr_partitions; i++) {
->  		res = &cxlds->part[i].res;
-> -		for (p = res->child, last = NULL; p; p = p->sibling)
-> -			last = p;
-> -		if (last)
-> -			offset = last->end + 1;
-> +		if (i == ctx->part)
-> +			offset = ctx->offset;
->  		else
->  			offset = res->start;
->  		length = res->end - offset + 1;
-> -- 
-> 2.43.0
-> 
+> +       struct vfsmount *mnt;
+>         struct mnt_idmap *idmap;
+>         int open_flag =3D op->open_flag;
+>         bool do_truncate;
+> @@ -4830,11 +4831,17 @@ static int do_open(struct nameidata *nd,
+>                 error =3D mnt_want_write(nd->path.mnt);
+>                 if (error)
+>                         return error;
+> +               /*
+> +                * A dedicated reference is needed because after the call=
+ to
+> +                * vfs_open_consume() we no longer own the reference in n=
+d->path.mnt
+> +                * while we need to undo write acess below.
+> +                */
+> +               mnt =3D mntget(nd->path.mnt);
+>                 do_truncate =3D true;
+>         }
+>         error =3D may_open(idmap, &nd->path, acc_mode, open_flag);
+>         if (!error && !(file->f_mode & FMODE_OPENED))
+> -               error =3D vfs_open(&nd->path, file);
+> +               error =3D vfs_open_consume(&nd->path, file);
+>         if (!error)
+>                 error =3D security_file_post_open(file, op->acc_mode);
+>         if (!error && do_truncate)
+> @@ -4843,8 +4850,10 @@ static int do_open(struct nameidata *nd,
+>                 WARN_ON(1);
+>                 error =3D -EINVAL;
+>         }
+> -       if (do_truncate)
+> -               mnt_drop_write(nd->path.mnt);
+> +       if (do_truncate) {
+> +               mnt_drop_write(mnt);
+> +               mntput(mnt);
+> +       }
+>         return error;
+>  }
+>
+> diff --git a/fs/open.c b/fs/open.c
+> index 6b1c14e684a9..2a7697cee00b 100644
+> --- a/fs/open.c
+> +++ b/fs/open.c
+> @@ -931,6 +931,11 @@ static inline int file_get_write_access(struct file =
+*f)
+>         return error;
+>  }
+>
+> +/*
+> + * Populate struct file
+> + *
+> + * NOTE: it assumes f_path is populated and consumes the caller's refere=
+nce.
+> + */
+>  static int do_dentry_open(struct file *f,
+>                           int (*open)(struct inode *, struct file *))
+>  {
+> @@ -938,7 +943,6 @@ static int do_dentry_open(struct file *f,
+>         struct inode *inode =3D f->f_path.dentry->d_inode;
+>         int error;
+>
+> -       path_get(&f->f_path);
+>         f->f_inode =3D inode;
+>         f->f_mapping =3D inode->i_mapping;
+>         f->f_wb_err =3D filemap_sample_wb_err(f->f_mapping);
+> @@ -1055,6 +1059,7 @@ int finish_open(struct file *file, struct dentry *d=
+entry,
+>         BUG_ON(file->f_mode & FMODE_OPENED); /* once it's opened, it's op=
+ened */
+>
+>         file->__f_path.dentry =3D dentry;
+> +       path_get(&file->f_path);
+>         return do_dentry_open(file, open);
+>  }
+>  EXPORT_SYMBOL(finish_open);
+> @@ -1098,6 +1103,7 @@ int vfs_open(const struct path *path, struct file *=
+file)
+>         int ret;
+>
+>         file->__f_path =3D *path;
+> +       path_get(&file->f_path);
+>         ret =3D do_dentry_open(file, NULL);
+>         if (!ret) {
+>                 /*
+> @@ -1110,6 +1116,25 @@ int vfs_open(const struct path *path, struct file =
+*file)
+>         return ret;
+>  }
+>
+> +/**
+> + * vfs_open_consume - open the file at the given path and consume the re=
+ference
+> + * @path: path to open
+> + * @file: newly allocated file with f_flag initialized
+> + */
+> +int vfs_open_consume(struct path *path, struct file *file)
+> +{
+> +       int ret;
+> +
+> +       file->__f_path =3D *path;
+> +       path->mnt =3D NULL;
+> +       path->dentry =3D NULL;
+> +       ret =3D do_dentry_open(file, NULL);
+> +       if (!ret) {
+> +               fsnotify_open(file);
+> +       }
+> +       return ret;
+> +}
+> +
+>  struct file *dentry_open(const struct path *path, int flags,
+>                          const struct cred *cred)
+>  {
+> --
+> 2.53.0
+>
