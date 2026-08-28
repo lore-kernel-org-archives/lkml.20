@@ -1,178 +1,129 @@
-Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A759396D03
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5987138E5F9;
+	Fri, 28 Aug 2026 09:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908990; cv=none; b=mdlwoSD63Oj8t85w7WLHuQL7MAQWDaUk3031mLr22ilSRh4RyAgn5aQqaHb34I5ApYRaOVlt6Ge8S2Kyfdy4Ecyuj2gtYlKVPls9WprTupfEWA3D+d1tdmq/F4KhiCYAtjEvrUFY/jL4UoGMBqDDZoMzLwtjtK4kMyHIIH3KcbQ=
+	t=1787909002; cv=none; b=f7i26fc2CN43sHeFsNg3FoSk1/eydmyL0zK2bJrxUeRQKBNeaxddto4PzVMtQZ/1hYn8dxydIZqe8Nk4OYp+XhoU0lusGqB09I5dHf3eLgnPXgNlv6J4GVCQCLVTD8tjwAxgUj+TRvqKofzgjxSC/KubQvHRo5Q4XgVyHQP04GE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908990; c=relaxed/simple;
-	bh=W2mLHB6kx+ymVq/ryG0/Ntgfi59bYxFBsTJVA6D4EUk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JwAXJomqn7FeZR+EF2lYta9IaRmBeVybKdOLdVbdzAHWeAGxmxUFAxXc+evOWeyL1/3tu6V6n2JFLrsDsu/GOU3OrzD+/Qh20a4wrIWhaxErNK+heobMoDtFLooJOfFdo9fGE6zfxwL+Irhl6IklNqGg2LViXwy9WohXMFbvsEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LOZOCZel; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LOZOCZel"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W2mLHB6kx+ymVq/ryG0/Ntgfi59bYxFBsTJVA6D4EUk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787908985; v=1; x=1788513785;
- b=LOZOCZel2WuPPetP6DJLe5RFL0fj4gx0vJb0kV4F5FWQxqff6NEHeCYbMW7ktKCB/fa7+ns1
- 5NTGqdYlKg6uB8EN39f0+b4EqYJdB8lg0ApEGdxGNoe9fGwXQB8YtFgX3afaUV0Fo7338I69S37
- w0MR1uckg4PjWjOg5iNsTMaA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cd96e012bdad3c10;
-	Fri, 28 Aug 2026 09:23:04 +0000
-X-Mizu-Trace-ID: cd96e012bdad3c10
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bd452f33-a34c-443a-bad9-a03012de7c29@linux.dev>
-Date: Fri, 28 Aug 2026 17:22:55 +0800
+	s=arc-20240116; t=1787909002; c=relaxed/simple;
+	bh=lck/uXkDIS5zoO1M6uHWkF8x8sVfkxe/XW0JA9yXW7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tw7KGOMVQmY19Rz0CiMt/h2c+epdxCnRBi8dibSgDCsOjz9gkmubeGGp9+9ovbohY52q+kux0yr4T+yKxoNIYmfOSKLuEd93qFUMOONLVWH9vQfVDQhxDdni08ew1sdqtj4UrJNb8em+iUEGfeCtdJFcTuGFNje2DzNJCJziR4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wT+BU5Fqb1d1Bg--.60494S2;
+	Fri, 28 Aug 2026 17:23:13 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Peter Wang <peter.wang@mediatek.com>,
+	Chaotian Jing <chaotian.jing@mediatek.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Stanley Jhu <chu.stanley@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-scsi@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] scsi: ufs: mediatek: Handle mPHY power-on failures
+Date: Fri, 28 Aug 2026 17:23:11 +0800
+Message-ID: <20260828092311.10774-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] hung_task: Reset warning budget when problem gets
- resolved
-Content-Language: en-US
-To: Petr Mladek <pmladek@suse.com>
-Cc: atomlin@atomlin.com, akpm@linux-foundation.org, mhiramat@kernel.org,
- linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, neelx@suse.com,
- sean@ashe.io, chjohnst@gmail.com, steve@abita.co, mproche@gmail.com,
- nick.lange@gmail.com
-References: <ao7LW7-3GjJzKNp0@pathway.suse.cz>
- <20260827153001.18515-1-lance.yang@linux.dev>
- <apFPXhPynOlfON4B@pathway.suse.cz>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <apFPXhPynOlfON4B@pathway.suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wT+BU5Fqb1d1Bg--.60494S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr45WF1rGr1kGw4xtF1fZwb_yoW5JF1Dpa
+	ykKrWqyr1kWayI9F42gF4293WFg3yrGrW8Gr13Cw1I93ZxKrZFqFykKa4xWF1ftryrAa47
+	tF4xta47GanI9wUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
+ufs_mtk_mphy_power_on() enables the optional VA09 supply before powering
+on the mPHY.  The PHY result is ignored, so a failure leaves VA09
+enabled and records mphy_powered_on as true, suppressing later retries.
+The initialization path also ignores the helper result and continues
+setting up the host.
 
+Check phy_power_on(), turn VA09 back off on failure, and leave the state
+flag unchanged.  Propagate the helper error from initialization as well
+as the existing resume caller.  Keep regulator and mPHY diagnostics on
+separate paths so regulator errors are not mislabeled.
 
-On 2026/8/28 17:05, Petr Mladek wrote:
-> On Thu 2026-08-27 23:30:01, Lance Yang wrote:
->> On Wed, Aug 26, 2026 at 01:17:47PM +0200, Petr Mladek wrote:
->>>> @@ -314,6 +317,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
->>>>   	if (test_taint(TAINT_DIE) || did_panic)
->>>>   		return;
->>>>   
->>>> +	if (atomic_xchg(&reset_hung_task_warnings, 0))
->>>
->>> I would use here atomic_xchg_acquire(). It serializes the ordering
->>> of reset_hung_task_warnings vs sysctl_hung_task_warnings.
->>> It would make it symetric with the barrier in the sysctl handler.
->>
->> Yep, _acquire is enough here. Plain atomic_xchg() is already fully
->> ordered, though, so this looks like making the intent clearer rather
->> than fixing the ordering :)
-> 
-> Yes, my intention was to make the ordering more clear and symmetric.
+The issue was identified via static analysis and manually reviewed.
 
-Yep, that makes sense. atomic_xchg_acquire() is a better fit here :)
+Fixes: 561e3a8726b2 ("scsi: ufs-mediatek: Fix unbalanced clock on/off")
+Fixes: cf137b3ea49a ("scsi: ufs-mediatek: Support VA09 regulator operations")
 
-> The original code worked because the barrier was even stronger.
-> 
->> The old-value return already makes plain atomic_xchg() fully ordered :)
->>
->> ORDERING  (see memory-barriers.txt)
->> --------
->>
->> The rule of thumb:
->> ...
->> - RMW operations that have a return value are fully ordered;
->> ...
->> Except of course when a successful operation has an explicit ordering
->> like:
->>
->> {}_relaxed: unordered
->> {}_acquire: the R of the RMW (or atomic_read) is an ACQUIRE
->> {}_release: the W of the RMW (or atomic_set)  is a  RELEASE
->>
->>>
->>>> +		hung_task_warnings_printed =
->>>> +			READ_ONCE(sysctl_hung_task_warnings);
->>>
->>> This would work only when "sysctl_hung_task_warnings"
->>> is updated using WRITE_ONCE(). But it seems that this
->>> is not the case. My understading is that it is updated by:
->>
->> Wait, I think proc_dointvec_minmax() already handles this.
-> 
-> You are right.
-> 
->> For proc_dointvec_minmax(), the converter is:
->>
->> int proc_dointvec_minmax(const struct ctl_table *table, int dir,
->> 		  void *buffer, size_t *lenp, loff_t *ppos)
->> {
->> 	return do_proc_dointvec(table, dir, buffer, lenp, ppos,
->> 				do_proc_int_conv_minmax);
->> }
->>
->> Here, i is table->data, while lval is local:
-> 
-> I have missed this.
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/ufs/host/ufs-mediatek.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-No worries at all. This was easy to miss in that call chain ...
-
-> 
->> static int do_proc_dointvec(const struct ctl_table *table, int dir,
->> 		  void *buffer, size_t *lenp, loff_t *ppos,
->> 		  int (*conv)(bool *negp, unsigned long *u_ptr, int *k_ptr,
->> 			      int dir, const struct ctl_table *table))
->> {
->> ...
->> 	i = (int *) table->data;
->> 	vleft = table->maxlen / sizeof(*i);
->> ...
->> 	for (; left && vleft--; i++, first=0) {
->> 		unsigned long lval;
->> 		bool neg;
->>
->> 		if (SYSCTL_USER_TO_KERN(dir)) {
->> 			proc_skip_spaces(&p, &left);
->>
->> 			if (!left)
->> 				break;
->> 			err = proc_get_long(&p, &left, &lval, &neg,
->> 					     proc_wspace_sep,
->> 					     sizeof(proc_wspace_sep), NULL);
-> 
-> I have missed that proc_get_long() assigns the value to the local
-> variable @lval.
-> 
->> 			if (err)
->> 				break;
->> 			if (conv(&neg, &lval, i, 1, table)) {
->> 				err = -EINVAL;
->> 				break;
-> 
-> The real asigment to table->data is done here. And I agree that it
-> goes down to proc_int_conv() which does WRITE_ONCE().
-> 
-> So, we are on the safe side and do _not_ need the proxy table.
-
-Agreed.
-
-> 
-> Now, I am not sure whether we need v10. It might be worth it.
-> AFAIK, Andrew has not taken this patchset yet...
-
-I think we do. Definitely :) And if Andrew hasn't picked it up
-yet, even better. There's still time to fold the changes in :)
-
-> 
-> I am sorry for complications.
-
-No need to apologize at all, Petr. I really appreciate you taking
-another careful look!
-
-Cheers, Lance
+diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
+index 814c1b7343b9..9d481147ea38 100644
+--- a/drivers/ufs/host/ufs-mediatek.c
++++ b/drivers/ufs/host/ufs-mediatek.c
+@@ -509,6 +509,7 @@ static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
+ 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+ 	struct phy *mphy = host->mphy;
+ 	struct arm_smccc_res res;
++	int rollback_ret;
+ 	int ret = 0;
+ 
+ 	if (!mphy || !(on ^ host->mphy_powered_on))
+@@ -523,7 +524,18 @@ static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
+ 			usleep_range(200, 210);
+ 			ufs_mtk_va09_pwr_ctrl(res, 1);
+ 		}
+-		phy_power_on(mphy);
++		ret = phy_power_on(mphy);
++		if (ret) {
++			if (ufs_mtk_is_va09_supported(hba)) {
++				ufs_mtk_va09_pwr_ctrl(res, 0);
++				rollback_ret = regulator_disable(host->reg_va09);
++				if (rollback_ret)
++					dev_warn(hba->dev, "failed to disable va09 after mphy failure: %d\n",
++						 rollback_ret);
++			}
++			dev_info(hba->dev, "failed to enable mphy: %d\n", ret);
++			return ret;
++		}
+ 	} else {
+ 		phy_power_off(mphy);
+ 		if (ufs_mtk_is_va09_supported(hba)) {
+@@ -1295,7 +1307,9 @@ static int ufs_mtk_init(struct ufs_hba *hba)
+ 	 *
+ 	 * Enable phy clocks specifically here.
+ 	 */
+-	ufs_mtk_mphy_power_on(hba, true);
++	err = ufs_mtk_mphy_power_on(hba, true);
++	if (err)
++		goto out_variant_clear;
+ 
+ 	if (ufs_mtk_is_rtff_mtcmos(hba)) {
+ 		/* First Restore here, to avoid backup unexpected value */
+-- 
+2.43.0
 
