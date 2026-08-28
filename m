@@ -1,80 +1,168 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5E8399D0C;
-	Fri, 28 Aug 2026 17:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5990E399D0C;
+	Fri, 28 Aug 2026 17:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939913; cv=none; b=WjHuNDpG6BzGA8s1qFfaE9FmlwjOLmMUh4vbYawaBWpColZEmTEMXFzJsR7AYFtcgRLHX9A1j14BOURlUqjQDnN1Dvdfz4sPHNQzXLcDJaErQqFPfgr4FTNqBt6zA7gWKdXjXIw9YIeVWJIPnXKzo6CJwApqUwUPUguwp7oAPoE=
+	t=1787939961; cv=none; b=g+iwNsZca60WtZo1M6vBiKgYM5KvlmBHp1VO4Zo3/w9H51IlU7xLcnTh7HShcK23FunyGwfKcJQ4OKthemZc4BjbNuam1vy2H9quSRIXKUfXxSzlF6F1RR+aaagwubBWHOOUzpT+6iijR6fmQkKJVDY4Zu4E5SfPsieqOzm05vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939913; c=relaxed/simple;
-	bh=cdv4G1v1iPQh+uog2MJQGouCWPMjvkyzyRfo7p9D3Lw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qRlw+496xK7HtYoBWdRuNGW+d7U1mXZHUD9gK375wiSBAiKIPAMXyAgB3Objo0pAg7awFXvJaSXwJCijiFJeZa6rK/UFj7J7Fnz4Y+/MvlrL7aaiY7Y7Bymz2KHaTw1JfgTCP6ITCvkXOt/1SZfVp0RYXn5lrKunpaDX/+q/M1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XebOZkYV; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1787939961; c=relaxed/simple;
+	bh=AXZDVDkzkAENtUyn357mFS4vmqmHwbxegiYqabISVi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nNbbEBOtHviT0wZ9VNqE+gPkfehqkFv2fCL11Da95NGeDDEQGwjlNHn5L0NK9Ttf2G50BYPc0tlJWxi3DfoqYyj5YOcSMQSVNt5V7gnndb/3s6cTSbxkTJnvA7+RILtp+5IQg6IzE7wlpA9/AQQOewQKSNc7NhG+jZhIKjIKTZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pFEzQ2Wr; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XebOZkYV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1787939904; x=1788199104;
-	bh=cdv4G1v1iPQh+uog2MJQGouCWPMjvkyzyRfo7p9D3Lw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XebOZkYVtRikZ+tyW+mcs98Ef1BeA/utB0qQXkGAz3JPDTffYcXKVPQekkzIQ7bHb
-	 UckrRssIvlkYrft3thPNnopBydkaf8oQeCRZOW2MPP3Luh1rQAe3HXniPNLNwoRgWG
-	 YVzZqqUtPKaD9xyzMRlBwiR7B0El41RrJ0E25AT0NvSGRPWf7z9+Gak6jS+pryIlUB
-	 oSmYKqYwJebl7fur4/plGV1kBcRkBnpWuaq3V8ixgCUBLPmp0O7DpiMFU7Jgwbf6WJ
-	 84N7Qf+msNOwxJ4Hqjbr0Kwi7u/epZhEUwNvNbLknsNVBeuykEJcAHfUGIuv7q8/Sf
-	 kfA/MvK7D/+XQ==
-Date: Fri, 28 Aug 2026 17:58:18 +0000
-To: Alexandra Winter <wintera@linux.ibm.com>, David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Hidayath Khan <hidayath@linux.ibm.com>, Aswin Karuvally <aswin@linux.ibm.com>, Thorsten Winkler <twinkler@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/iucv: filter frames in afiucv_hs_rcv() by ingress device
-Message-ID: <20260828175803.11391-1-hexlabsecurity@proton.me>
-In-Reply-To: <20260821125501.3718748-1-wintera@linux.ibm.com>
-References: <20260821125501.3718748-1-wintera@linux.ibm.com>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: c5ea6a74dcb098c0a4b2f7c327c483d5d58ce252
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pFEzQ2Wr"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SGVluO721927;
+	Fri, 28 Aug 2026 17:58:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=AZFBZK
+	lZxOOnh7LYWP8T1WR9V2U7Ewlnl/05R2xnW1w=; b=pFEzQ2Wrc0RQAapmmBD6W2
+	GKyaFb0C3hjy2/vyaTApogAFCjrZ/timR10B8bIJckCxkX5I3dz7BnaOfraFk3tO
+	tkBnbLAepDkYENxlTFqQLPAJqQfDFHTmSmzVtQIU8M76oTzE7YRFqIdjtjOPAhd7
+	vD5k6zT1FQKzUArFLbkkhNT3QC5OUNb4hjCfAcWPFI9dqasPHHP7X6u3XmVxEuEZ
+	QkHDi07Lb0S6Jkdu9+icPYAyIv7lbI0Pbj4qXkflPyllXE6NCrXXc76fQA2uipPD
+	LKj6Wrqs4w6IdnFXw7mbU7WB5JdEyRgQ4vrXikpcGexzZo/Ka2q9VLI5PTVb5IWw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73ere7uh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 17:58:55 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SHuWfi008298;
+	Fri, 28 Aug 2026 17:58:54 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsyqqjb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 17:58:54 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SHwo5W38338878
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 28 Aug 2026 17:58:50 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 831A020040;
+	Fri, 28 Aug 2026 17:58:50 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 20D1E20043;
+	Fri, 28 Aug 2026 17:58:50 +0000 (GMT)
+Received: from p-imbrenda (unknown [9.224.75.30])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Fri, 28 Aug 2026 17:58:50 +0000 (GMT)
+Date: Fri, 28 Aug 2026 19:58:48 +0200
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo
+ Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>,
+        Bibo
+ Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+        Anup Patel
+ <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt
+ <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian
+ Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank
+ <frankja@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly
+ <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K
+ Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Atish
+ Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
+        David
+ Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh
+ Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH 02/20] KVM: selftests: Bump the minimum GPA for page
+ tables to 0x200000
+Message-ID: <20260828195848.2d14e9aa@p-imbrenda>
+In-Reply-To: <20260826230511.972824-3-seanjc@google.com>
+References: <20260826230511.972824-1-seanjc@google.com>
+	<20260826230511.972824-3-seanjc@google.com>
+Organization: IBM
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: 6HLzcE55zTkKQP62ckFMr43JzrkoC_oe
+X-Proofpoint-ORIG-GUID: _S2ZlVd_KKoZRw557abXl1I420nQqrgM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDE1MyBTYWx0ZWRfX0qLLxglo25xX
+ c0LNE8XwpN3clTQ27kM5obCN/mEKCM9T/V2UrYDQGoDeLX/sVrfZOyt/r6/j4m6ZL9tZwwdloCX
+ 4ypWX+xcPPxfyFFj9CzHJ+H1Jy+Nesr9gJfeq0vFd2dplKnzTWJssOegw+X8u4WcEZkJzQEUZze
+ fMhRqtdMmDyXsI5MbPZ0klTINPE7IkclPa0O3GRO+hXLWMcECgv1UVnO0USv3G3nQs2z/fAyFHt
+ gNF+rh3+M4hf2TlE3OLLpCOZzZ0quhk9kQX7DNKwRaTTPu9yI5FGeBiu38rACVpkLaS76RTvvwk
+ ELUm+pM5KW56fI0RwGoW8Y541MsPZt4YlDLI0plXmqCecpK+KMoc14R0xuC6t5Q+da6p9BTxg9I
+ Z2MJP0donTGv3lcaG4UoyVdwmTdFs+WvA2dxyIbg21fJJAVArBBYfJ7ZgKbehjiHOWklyrh9NP/
+ jx1EDxOnKwX5OS/aUiA==
+X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a91cc60 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=1XWaLZrsAAAA:8
+ a=Rex0ZKQa4XsKW5WIoWMA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDE1MyBTYWx0ZWRfX/pS+uSLiiIVc
+ dz0zFaQHlHiFiK9bsIl+xi1GR3ZuN8ixPgN9QIrOdnh1lnLipbWGJZ07LBCw2zrVE6icQuqM30v
+ TB/vJ8xy+UMB1HVhNbAWSTx71V1+vCs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1011 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280153
 
-Alexandra,
+On Wed, 26 Aug 2026 16:04:53 -0700
+Sean Christopherson <seanjc@google.com> wrote:
 
-> Bryam, would you accept a Co-developed-by, as you did the analysis
-> and you proposed to add checks in afiucv_hs_rcv()?
+> Bump selftests completely arbitrary minimum GPA for page tables from
+> 0x180000 to 0x200000 (LoongArch's minimum), so that LoongArch can use
+> vm_alloc_page_table() instead of open coding a rough equivalent.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  tools/testing/selftests/kvm/include/kvm_util.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> index 5a7a455b5387..70906a0d1003 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -175,7 +175,7 @@ static inline struct userspace_mem_region *vm_get_mem_region(struct kvm_vm *vm,
+>  
+>  /* Minimum allocated guest virtual and physical addresses */
+>  #define KVM_UTIL_MIN_VADDR		0x2000
+> -#define KVM_GUEST_PAGE_TABLE_MIN_PADDR	0x180000
+> +#define KVM_GUEST_PAGE_TABLE_MIN_PADDR	0x200000
+>  
+>  #define DEFAULT_GUEST_STACK_VADDR_MIN	0xab6000
+>  #define DEFAULT_STACK_PGS		5
 
-Yes.
+this breaks s390/cmma_test
 
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+I tried a quick fix, but nope... I will need to actually invest some
+time (i.e. next week) to understand why the quick fix is not enough,
+and come up with a proper fix
 
-Late for the commit itself: 80230a18c164 went up in the 27 Aug pull request=
- and
-is in mainline carrying the Co-developed-by without a matching sign-off, an=
-d
-submitting-patches.rst pairs the two. Nothing to do about it there. Putting=
- the
-sign-off on the list is the record that the consent existed.
-
-I'm dropping 1/2, as I said I would, and I'm not respinning the
-transport-filter patch either: yours closes it, and it answers what Jakub
-asked for on that thread -- the device test in the same loop. He was right
-there. The changelog argued a reach the two-line check did not close.
-
-2/2 is unaffected.
-
-On timing: I'm in the middle of a larger project and have only a few hours =
-a
-week for this at the moment. I'd rather say so than go quiet on the thread.
-
-Thanks,
-Bryam
-
+the good news is: it seems like cmma_test is the only test that is
+negatively affected by this series.
