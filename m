@@ -1,89 +1,97 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D65371880;
-	Fri, 28 Aug 2026 15:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C20374A15
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932696; cv=none; b=aUOeyrId5kdxiXSUWE/pcr62Ic3jpI9uZMXYVkeUHvWpS1x0SD49gtjkd4nnq+Cqt9nbWsqAu5s2GoQgMXyeVuq53EEzyEBClIDcDl6P85UVXr9rWaa4CZCTud753F+9FZj3JnCdQbnwjM/Nord2KQ1X3iGBWu4Xrfrjlw7CDxA=
+	t=1787932728; cv=none; b=iLGpTqNAhgfW/HeIKsRXMROsas0iIKbH0tmvtzgjJQDkSgdUJ/+VL5oRiQscNm1q398zMXiiyfk1LvHZq/+LddSHm8BLNgN5fPRowNEpGaqOD5hyvO8NgIlUipiRIsoeZ5jdfgV6gNdV3DIkXzKDDpPCATgNNc+j8u+whqpZe2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932696; c=relaxed/simple;
-	bh=LbR0znRzRfTh41Qv63K7WCKvumr+27ShRRjRn+x07XM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZcmT2pd6OGcXtFlBNnjfz5ELvh4TnAdFANQq4RmQ1a0rPpf+0LKfcublZiOy4bMZSd9NAei3olKUSpmVsKUb9bRjAID5cXVGbG4xrCyVGnIE0I26inyCKqHO6lq5Ml7lo+BHPGgVCei4Y15nZfByz67WDvrjJJXwrR8RnIu/q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vgr9CwGF; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=9ZKqs/sY; arc=none smtp.client-ip=193.142.43.55
+	s=arc-20240116; t=1787932728; c=relaxed/simple;
+	bh=x5IFlUG3Gp1H70vRS982SS1fEJ7RE3Giv2Qt4O6gvhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LR/lC3siGwrQrCXx9LuO+49E0iZ076SZGtrsZat1e7jbtJar0W4TM0G+6xBiubxa7uyPEdDMNb6vKgat8NTbR8wcsUcLi96NDWd2ryHCdoDREmOvl9Sgg4eNnhXpIjqrcrZq7/iCIdvIkairAM4DL5L9HgAYIdBvPSeGA6siYUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o2SzTzUs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Eit7LjiA; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vgr9CwGF";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="9ZKqs/sY"
-From: John Ogness <john.ogness@linutronix.de>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o2SzTzUs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Eit7LjiA"
+Date: Fri, 28 Aug 2026 17:58:42 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787932692;
+	s=2020; t=1787932724;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JPqDNKwChZDP342Usda3rhXvIiQJ79oFJiWvu8RCDfs=;
-	b=vgr9CwGFwIpbZ3tRYFS2Q1oWvi1gg0ZmIIumv845hUKj6VOmsd0XqwMSqr+UP2dRdkDrP7
-	ueLX52oBedFeESloBN6CvppQMU9CXIFVtN8+02FXHbdPHOClrhKZ4rEw60dgK5xRglqIrk
-	448FSL+FwojzxRnXCRnZ3eDKNUzUL9Yi1o3BnbGWePv2zDOYCh59BM2RSSGh3iXHqkS1OD
-	Hd+KldjJfWHxP6xb6rq8rsAyDqc0ZGJjxA4EvwcYTt69fVj6D17gCWjaFUsBVp8SJOtRaD
-	L7x1ZWDGCFDypmDWip3tHGFcPySpH7WVRrvuHVkHRh8aicvEjAs8uLj9KMDGJA==
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MjQ31cfuQKa5k82uaGT/Cyx34wNELqTN6/K1Rh0XD+c=;
+	b=o2SzTzUsSOuV/AWS4fKiiKyn/1LhaPYC6Yfdi9fN77edZ6oncnntoZNhDlY+g5FN0uIwEw
+	zDLTrEojOcnJRJhRQAb5HCWHd7BbTk9sIN0zPDHE7URywDDDKInIzLBonFQjkJNHVimBoL
+	kWzGMCLwRRmRuqGEMRRmC+06LriM6fJe9MbsK+pBSojb6eX8G3SqLu20XaIhwBNbTl5OoI
+	9/FFI5P8JkXnl0wGKMTDSeUYaukHKz3pwoo7a0R18G6ypphqw6MC2H45rnhcZbOQ/ClAs7
+	vMj0j3h3AzvP+zmWK/m3B+PnqHU7/qIvx3PIK31jHYeE3+dcsciApSaUFtlioA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787932692;
+	s=2020e; t=1787932724;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JPqDNKwChZDP342Usda3rhXvIiQJ79oFJiWvu8RCDfs=;
-	b=9ZKqs/sY+4yXeseYqQX9V6otfoW63uvuR3CmzbgqFuO5VzBNiWtZFo0MHXsEm8bhZCHLrs
-	R/orb+uBMeRcDQDQ==
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Petr Mladek <pmladek@suse.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org
-Subject: [PATCH tty 0/1] Make 8250 deferred MSR handling LAZY
-Date: Fri, 28 Aug 2026 18:04:07 +0206
-Message-ID: <20260828155811.270462-1-john.ogness@linutronix.de>
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MjQ31cfuQKa5k82uaGT/Cyx34wNELqTN6/K1Rh0XD+c=;
+	b=Eit7LjiABhdeRfzT4glURHG1RCeV2ZAjuv33J9ECHEaXD7arcRHH/58kzIbGZWU8KSPYLR
+	Vh8qqix9q1P5ueBA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: David Stevens <stevensd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260828155842.kIh5T7iS@linutronix.de>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
+ <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+ <20260828142552.GN788244@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828142552.GN788244@noisy.programming.kicks-ass.net>
 
-There was a report and follow-up discussion [0] about a problem
-using regular irq_work queuing on some platforms when entering
-cpuidle. To circumvent this problem, all irq_work for printk will
-become IRQ_WORK_LAZY [1].
+On 2026-08-28 16:25:52 [+0200], Peter Zijlstra wrote:
+> Taking faults on the task-stack is not going to work. That fault will
+> happen while you have locks held and IRQs disabled. Ideally, it'll
+> happen when you're knee deep in the allocator.
+> 
+> That fault will then again call the allocator to allocator your stack
+> page, and...
 
-The 8250 console driver uses irq_work to defer MSR handling during
-atomic printing. This means it is vulnerable to the same problem if,
-for example, a WARN() is hit while entering cpuidle on one of the
-affected platforms.
+indeed. So I do have a few ideas floating around but I leave it at it.
 
-Avoid the problem for deferred MSR handling by changing
-console_msr_work to IRQ_WORK_LAZY.
-
-[0] https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
-[1] https://lore.kernel.org/lkml/20260828140218.232439-1-john.ogness@linutronix.de
-
-John Ogness (1):
-  serial: 8250: Change console_msr_work to IRQ_WORK_LAZY
-
- drivers/tty/serial/8250/8250_port.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.47.3
-
+Sebastian
