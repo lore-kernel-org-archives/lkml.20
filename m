@@ -1,22 +1,22 @@
-Received: from mail-m15572.qiye.163.com (mail-m15572.qiye.163.com [101.71.155.72])
+Received: from mail-m15571.qiye.163.com (mail-m15571.qiye.163.com [101.71.155.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79DE1684B0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5DD21767D;
 	Fri, 28 Aug 2026 03:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787888977; cv=none; b=iuogS/EptXS8OehzrO/0F+27+S6mCN6iNOxvu+RiyJcg6O1x1v0PSyjnOTwxFbxtnLD06TdcTc+ZLV3zvXBUMZ9wc+9YkReFBFbKACaNYRnBDzuze01Y187mh4SK7fMjdNsNkebw5Um4MJyu1klAS+ZGCDpvonkcgFoErT2J4Ao=
+	t=1787888977; cv=none; b=cX3h9bOF6jBkC9Mngsc0tnbGUEAWbXLY2Jnf9yap/8pxs3X9J2nom0lbIWQGhBbb2ZmbpVgn5dXu1kso4yj0vSTQBEuclD3JRbCQc0UkDAtpNNtWU94kqnkXMK3NNHDzdjZs52j0DDiXyOoNXOzKG9UcolgXwsJqds90qVCW+9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787888977; c=relaxed/simple;
-	bh=xK5AniTkiNlM8WCrPaWuzkP15+yNQb1EBVA4yZ9y9D0=;
+	bh=0RDdhaNY7DbsgRfHuXjuEykk+p8NlJvJuNNFqZdbZSc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uHX/yvcpzzVYsFkRoZVvGF4CUgGywqHBIwL928G+pHxF/tQ9Q/8jADLE8dy4C9nNv4Ktf2PXCvv1iSqm34J09Od0ZATtRpEoFd1wo36xb4NbUI5ruLgZ04COgTLKOIhAGO7/KgrQuISOizWeurlUoy08WWpekUVNFPxVQoo4Epk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.72
+	 MIME-Version; b=lGkvxx9RwZ9ORrjbvSZoPm6GzwRVjJZdkGlTzCywgsoWMTOdZiXAeMpQmUtGbNp0a+N+BAmziK0raMnT9dLYKzj9KBmZX2JEkm3ZFLbzsBTxQaIYj4bEXa4to5G3q8KO5IYoot7+r+WzRdefKR7DgY2Cw1UFMocuCvB8qTCZrH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20da8;
-	Fri, 28 Aug 2026 11:13:56 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20dbd;
+	Fri, 28 Aug 2026 11:14:02 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -36,9 +36,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 4/8] mm/page_owner: Refactor memcg handling for cgroup filter support
-Date: Fri, 28 Aug 2026 11:13:35 +0800
-Message-Id: <20260828031339.1270699-5-zhen.ni@easystack.cn>
+Subject: [PATCH 8/8] Documentation: page_owner: Document PID/TGID/COMM and cgroup filters
+Date: Fri, 28 Aug 2026 11:13:39 +0800
+Message-Id: <20260828031339.1270699-9-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
 References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
@@ -49,165 +49,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0465c1cf80229kunma81ef96712a344
+X-HM-Tid: 0aa0465c31140229kunma81ef96712a363
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHh4YVhlPSh9OT05JHh9PHVYVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEpLVkpMS0pKT0tNTkJNSFYVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Extract memcg information retrieval from printing logic to prepare for
-cgroup filtering support. Introduce struct memcg_info to hold cgroup
-data that can be reused for both display output and filtering
-decisions.
-
-No functional change - output behavior unchanged.
+Update page_owner.rst to document process and cgroup filtering
+support in page_owner_filter tool. Add usage examples for PID, TGID,
+COMM (with wildcard support), and cgroup filters along with their
+respective limits.
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
- mm/page_owner.c | 62 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 44 insertions(+), 18 deletions(-)
+ Documentation/mm/page_owner.rst | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 7cd533682054..09cfad10a7df 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -69,6 +69,13 @@ static const char * const page_owner_print_mode_strings[] = {
- 	[PAGE_OWNER_PRINT_STACK_HANDLE]	= "stack_handle",
- };
+diff --git a/Documentation/mm/page_owner.rst b/Documentation/mm/page_owner.rst
+index a6bd3fe6423a..c8a7e6c242c5 100644
+--- a/Documentation/mm/page_owner.rst
++++ b/Documentation/mm/page_owner.rst
+@@ -283,7 +283,7 @@ page_owner supports filtering output at the kernel level before reading,
+ which reduces the amount of data that needs to be processed in userspace.
  
-+struct memcg_info {
-+	char name[80];
-+	bool is_slab;
-+	bool is_objcg;
-+	bool is_online;
-+};
+ The page_owner_filter tool provides a convenient interface for this filtering
+-capability. It supports two types of filters:
++capability. It supports the following types of filters:
+ 
+ 1. **print_mode filter**: Control what information is printed for each page
+ 	- ``stack``: Print full stack traces (default, compatible with existing usage)
+@@ -300,6 +300,16 @@ capability. It supports two types of filters:
+ 	- Ranges: ``-n 0-3``
+ 	- Mixed format: ``-n 0,2-3,5``
+ 
++3. **Process filters**: Filter pages by process identifiers
++	- Filter by process ID: ``-p PID_LIST`` (comma-separated, max 16)
++	- Filter by thread group ID: ``-t TGID_LIST`` (comma-separated, max 16)
++	- Filter by task command name: ``-c COMM_LIST`` (comma-separated, max 8)
++	- Name matching supports wildcards: ``*``, ``?``, ``[a-z]``
 +
- /* PID_MAX_LIMIT = 4,194,304 (7 decimal digits) */
- #define PID_MAX_DIGITS  	7
- #define MAX_FILTER_PIDS 	16
-@@ -573,16 +580,13 @@ void pagetypeinfo_showmixedcount_print(struct seq_file *m,
- 
- #ifdef CONFIG_MEMCG
- /*
-- * Looking for memcg information and print it out
-+ * Get memcg information from page
-  */
--static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+static void get_page_memcg_info(struct page *page, struct memcg_info *info)
- {
- 	unsigned long memcg_data;
- 	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
--	bool online;
--	char name[80];
- 
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
-@@ -590,8 +594,7 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 		goto out_unlock;
- 
- 	if (memcg_data & MEMCG_DATA_OBJEXTS) {
--		ret += scnprintf(kbuf + ret, count - ret,
--				"Slab cache page\n");
-+		info->is_slab = true;
- 		goto out_unlock;
- 	}
- 
-@@ -600,21 +603,38 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 	if (!memcg)
- 		goto out_unlock;
- 
--	online = css_is_online(&memcg->css);
--	cgroup_name(memcg->css.cgroup, name, sizeof(name));
--	ret += scnprintf(kbuf + ret, count - ret,
--			"Charged %sto %smemcg %s\n",
--			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
--			online ? "" : "offline ",
--			name);
-+	info->is_objcg = (memcg_data & MEMCG_DATA_KMEM) != 0;
-+	info->is_online = css_is_online(&memcg->css);
-+	cgroup_name(memcg->css.cgroup, info->name, sizeof(info->name));
- out_unlock:
- 	rcu_read_unlock();
-+}
++4. **Cgroup (memcg) filter**: Filter pages by memory cgroup
++	- Filter by cgroup path: ``-g CGROUP``
++	- Useful for containerized environments and multi-tenant systems
 +
-+/*
-+ * Print memcg information from memcg_info
-+ */
-+static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
-+					 const struct memcg_info *info)
-+{
-+	if (!info)
-+		return ret;
+ Usage examples::
+ 
+ 	# Filter by print mode
+@@ -310,9 +320,19 @@ Usage examples::
+ 	./page_owner_filter -n 0
+ 	./page_owner_filter -n 0-3
+ 
++	# Filter by process
++	./page_owner_filter -p 1234
++	./page_owner_filter -t 1,2,3
++	./page_owner_filter -c python*
 +
-+	if (info->is_slab)
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Slab cache page\n");
++	# Filter by cgroup
++	./page_owner_filter -g system.slice
++	./page_owner_filter -g kubepods/besteffort/pod123
 +
-+	if (info->name[0])
-+		ret += scnprintf(kbuf + ret, count - ret,
-+				"Charged %sto %smemcg %s\n",
-+				info->is_objcg ? "(via objcg) " : "",
-+				info->is_online ? "" : "offline ",
-+				info->name);
+ 	# Combined filters
+ 	./page_owner_filter -m stack -n 0,1,2
+ 	./page_owner_filter -m handle -n 0,2-3
++	./page_owner_filter -g user.slice -c bash -n 0
  
- 	return ret;
- }
- #else
- static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
--					 struct page *page)
-+					 const struct memcg_info *info)
- {
- 	return ret;
- }
-@@ -624,7 +644,8 @@ static ssize_t
- print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 		struct page *page, struct page_owner *page_owner,
- 		depot_stack_handle_t handle,
--		struct page_owner_filter_state *state)
-+		struct page_owner_filter_state *state,
-+		const struct memcg_info *memcg_info)
- {
- 	int ret, pageblock_mt, page_mt;
- 	char *kbuf;
-@@ -674,7 +695,7 @@ print_page_owner(char __user *buf, size_t count, unsigned long pfn,
- 			migrate_reason_names[page_owner->last_migrate_reason]);
- 	}
+ 	# Save to file
+ 	./page_owner_filter -m handle -o filtered_output.txt
+@@ -323,6 +343,9 @@ reduce output size by ~66% (84MB vs 244MB) and improve read performance by ~4.4x
+ compared to full stack output.
  
--	ret = print_page_owner_memcg(kbuf, count, ret, page);
-+	ret = print_page_owner_memcg(kbuf, count, ret, memcg_info);
+ The NUMA node filter is useful for NUMA-aware memory allocation analysis and debugging.
++Process filters help isolate memory allocations for specific processes or tasks.
++The cgroup filter is essential for containerized environments where you need to
++analyze memory usage per container or service.
  
- 	ret += snprintf(kbuf + ret, count - ret, "\n");
- 	if (ret >= count)
-@@ -777,6 +798,7 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		 * user through copy_to_user() or GFP_KERNEL allocations.
- 		 */
- 		struct page_owner page_owner_tmp;
-+		struct memcg_info memcg_info = {};
- 
- 		/*
- 		 * If the new page is in a new MAX_ORDER_NR_PAGES area,
-@@ -876,13 +898,17 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 				goto ext_put_continue;
- 		}
- 
-+#ifdef CONFIG_MEMCG
-+		get_page_memcg_info(page, &memcg_info);
-+#endif
-+
- 		/* Record the next PFN to read in the file offset */
- 		*ppos = pfn + 1;
- 
- 		page_owner_tmp = *page_owner;
- 		page_ext_put(page_ext);
- 		return print_page_owner(buf, count, pfn, page,
--				&page_owner_tmp, handle, state);
-+				&page_owner_tmp, handle, state, &memcg_info);
- ext_put_continue:
- 		page_ext_put(page_ext);
- 		cond_resched();
+ Behind the scenes, page_owner_filter opens /sys/kernel/debug/page_owner and
+ writes filter commands before reading the filtered output. The filtering uses
 -- 
 2.20.1
 
