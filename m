@@ -1,57 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEA446AA99
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:45:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677D846C4D3
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787924754; cv=none; b=NnH7hCyyfydqS8YOmkds2soFacwOi/Cm2vQmLb8bv0UwqrwtfzTI8/nMc4Clgq/HDlfggx8psbyY74nwIVjg1RTsrVFlCSDRUwYBCeZzSxJ/lBU244Twqxx4llUaN5mdk1EqNQypKtNPZ/AjuFg+JJR/gfjxo7yRykNx1+lEnQk=
+	t=1787924768; cv=none; b=i/M25tJNR+ulpKEtvlejM8nOSkXgbwib3RpFu+FQYqtVA+gehUnZnqepH2Y+iepICuVdZGdj+znCXTjlWrqXj5DwRAUwVDQaGnbSRiSYBG5hJ6/0wkiIUCczox7oSs3/5XouKqZx0ouzYFeC2h/tTBrqzGSVbMrg+e9fP+YGF0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787924754; c=relaxed/simple;
-	bh=NtoB/PwGYi1IYe64mBKhj480/PgADJc+9jlallI3SyA=;
+	s=arc-20240116; t=1787924768; c=relaxed/simple;
+	bh=gkSqlDq6APygC/OM/4tvXNaEjzq2vyBt+ttOQovyURw=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=NDv4vgyCBCsEjps1a+T9Iut3sqgltqrsAy6eC1jmRXFbOKdeRm3wzVWhudbgFrwxHUg+1I/C0tZFqfwun22NIMV4TXsJ5OmlTgdguxkRRNXOzBppvSgh/txdevHd2GvUGtXsVZNO24vpgxuU0gPvfDYqN2uaUWRqYR/02jO1Hhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jd3LNTY7; arc=none smtp.client-ip=100.103.45.18
+	 Subject:Content-Type; b=Gd5TzPe6/z6tM8ysCjojjYQHOJmlUTqX+jeSqLgZ8tS4CqE/1TWJI+MrAujQxXnVOaTPKy+vOS+liboNLQlmim/akWGqsDPQMYxRiuIl27b1RChotwbLCVjzQRrNkULYDSEhjPaqMKEtWn+lRhHKHeM9fqDFf6ahd4AfAuRWnvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjUjFPGg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jd3LNTY7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06051F00A3A;
-	Fri, 28 Aug 2026 13:45:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjUjFPGg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61C81F000E9;
+	Fri, 28 Aug 2026 13:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787924753;
-	bh=UsvEpAxVOXL2c0hrmmniPIkC4Dj3YSJv09HPjKZlAEw=;
+	s=k20260515; t=1787924765;
+	bh=ZkAIK4sJSZ+M6U7rXtAMjWYbvL4XnlFujZHGVX//GSY=;
 	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Jd3LNTY7TGms/hgxbxckaqegk4ikmjWerfPrlMa9NL7oroWoLN0n4807k9eB0vrJA
-	 que1DWMlP61RuVIcm2R6xNWZdKtYBxp8H495vdgDH3NTyLpco5YDaCy8WYVDtjOXmb
-	 Y0zccx8xEsA8nIbnnYCz8uk1W0+kQrmqXmzVbpZw0TTiOlTSqDzKcWH3cFf2QtP8G2
-	 IkcJrKH+yYVT6BMh3hrqR0MlTylM/y0vvL1OEUC5houR6wPdLD1cyNrBG3bP/lsUq7
-	 xZ6gwQUMXYtB2BpuLQlAWUADI89rirhAPaI9JvNRV/ag8alOkHQT5FIFOwDSoxdmQr
-	 8yHLT4BPTt9fg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id F2945F40066;
-	Fri, 28 Aug 2026 09:45:51 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 28 Aug 2026 09:45:51 -0400
-X-ME-Sender: <xms:D5GRanm39Wa7GixveWNkcff_QFX0XTOCJ_f8rfECaplHhPqJ9Q4klA>
-    <xme:D5GRalqokIaazroDqr7sflT-e2bhmItFZ7Iy6rVr-1YN40WcXh9x-TwbiqvS6Y_NF
-    jcoGFSacTt2GfPUjqwGfNInWGeRKap-XOVbrN-ermVgDdstkcOrmrv7>
-X-ME-Proxy-Cause: dmFkZTFKxBJg2l7TvJN2an8XJKVS9kOrubOAFSJ7rrbSsvtUMjo7v1UATWVFclqcTvtF3a
-    nI88C+c2UEyrYIagavCGKYoYaC6NMP27bU+k2qqYY/EQHY0zh0IJwwpM/sde0KZ3fts17m
-    CGyDW3MlFBfH0JVja8WlH7pQ4nAeHM8iyT5L7zMGbREJbMHGlLe4Q3siPCFLKqrBrD7DoU
-    Mbfs3jvxB0qIEwmHNpAZM8AKLTVuKImD/0S/L+KRNOldY0hGWa5FoLsArpXlAkHx2YBs6W
-    KuFwNlpLrEAHdTp8ITaLQEBnLLpP28qhfimOmTrfW5phbzjWYzbYNoQ+ZJoynFDuHtrin7
-    TQ6kLo8p1qBo/UBba5GOdhqjyUrxAQpn4qe/q620OW2el20NE0Cc+aVtJsktPBxL3/wGqs
-    G/KPA6+XM4iWJj60tLu9C8GWWJXRs8LwGS1Qghoy5ugz83z76UTKFAq2UlZkSgvOdnuddL
-    PaLuldsWeM5jtvaWKt1O1jw18kQPNnp6dLjdazn412lvC5XI0pggfzS32K9o7Z+LQEBwYg
-    ZkSvHxmCoxhJMryVsWkeQWKQ8rFB90fvExDtXXuezLdlXUhaWUqLMZwEM6e3z5HR/7aFSC
-    BJ8M/m/lYVUfhhDfb6g0hzESDkcr9HnLPTgb5l35k92xMhgX9nyJkwYCVorA
-X-ME-Proxy: <xmx:D5GRasce66aPY7l8GIS9mj-9ZIUWVayYeMKvM63Z67-Z_gC5L5iDuQ>
-    <xmx:D5GRaly0yJdEP32hAdv56XMSmc33j2geh-0znI4-6fDPa_HG9YXgcA>
-    <xmx:D5GRatJ9-hmTOc0LL7bdXY7IYld1t486-bK10w6jGo7atPcURORmNA>
-    <xmx:D5GRauud_ekpLN-Iq9kq81l4ZkeWfs56ZW4p1aHslDm3WBszNY6_FA>
-    <xmx:D5GRavTm0u_dChvKp6X19lE_EfPiTsbgu1XCL4arWmpN1x5wlDzQ4DOf>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id C671A7811F3; Fri, 28 Aug 2026 09:45:51 -0400 (EDT)
+	b=NjUjFPGg1szvr3eb78v2BpGQv+wgHid47nEyNFCF4UtD4VOdqNOt8xN/TmW/lz7pC
+	 Hfb3M4OLv9NBqnBI+kJP2HzzaQSfvx4FzS4UkOu2qMkys/Jzo+q0CYKmZHRdS8Cfoj
+	 JqFpNq+Z2uR2W0ItcWD+dCY9h2kI2Pmtons2mtYREqzuyo7tePoAoomC+yQ+/8dMxh
+	 MYP2TMHM1ohEBtisAJojUoUmBbyoKBQAGOZ2Dgt2MclbRwi7ECg1HEnTtD0fhWK0ol
+	 OchJFRcQw7oZASNd4EtzB9ztlpmIdHTFtHoNS9+K5QGBPzOzEazxuoD3I83FcQ3XIJ
+	 x6jZWn3Eo7bEQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 5F2B21980072;
+	Fri, 28 Aug 2026 09:46:03 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 28 Aug 2026 09:46:03 -0400
+X-ME-Sender: <xms:F5GRaqE2NkgyW7Ns-LsvSLTTDYKdh01qS6ZTDLQ4fw9t-N0Ddrtc0Q>
+    <xme:F5GRamK8JEod1kC8v70PUAKg83EM3BJ4mNsF9zenJckTWXg_DbGiqaZsOaLiTcf1f
+    Un5nzICP58n5e2w4IxsrJ6DR2ew4HXCRnU0kgMGarbUP730m9edsSHf>
+X-ME-Proxy-Cause: dmFkZTERWf76UbFSBm7gP10dcMTeqKkA8/cAL0sZG2rtqNj9Cm8XygX+z/UkBm5JSSVYUy
+    tiYsLDls4/Z8P0ArKeB4JwxyT1aUPV/lD2jc7QsFKIVQHQani//0H1PZEuJk/TiRbXXB2d
+    2quRJqkXk73Cy9UXGvcExqZtTKUBQHobcpzJhpw2JFide00btCWCAKJxj+FFD/0LYuztV0
+    RDQfQ9I5GuMU2Gp/6HPTrAQR0FUWuP5nz+ODfL0oI1jx4s+jzNT/OxnaNHzIWAbOUDVPAP
+    w5fd1Gn9Re9N8rvjRkwEA2WKBs4KNvy7cNDKTIaIdI60cHjToYvMPt6lZJQt9iOoIsFcNt
+    RgMeFGqQHwKXp/37eumLweC5yrLclcKzJJT5cNY+IHV1VdIyqIG3ZtBU5HWRsmj47nFXXO
+    E35L8lICEmkjQ8uKpI/zFxfHP7ZNKUlS9+8zbra8ZkiUUpsAFf0YCS46pUJJrUCDgx6aMI
+    V3tmtGKfMb0aauZJvHtfGU1pRrhYIJs+OLLCQ73AXWjoo3DemVX15rIZX+nlbfZxakHWuF
+    qQOXvsSwhEkofy7Mi18iqc/ZOGzI2iapsjruAeX/BsRit5HFPQYWWAYVRwICynS23+3qDa
+    lSE1BUqfAQ+/hmaZUT/n/B29/elggaG5nEArlIRIROmCs2ooVKdFgmt50K7A
+X-ME-Proxy: <xmx:G5GRaidmDIofxjDrnckkltqpU-EBp3Rle_aBNo2F6P7BC62Z4iDwZQ>
+    <xmx:G5GRagLQLLdIZbdkb7L2guevnkadNbHtrAwSNHFCWgxQJ7GeNQ4xXQ>
+    <xmx:G5GRasCciwc4APHUJloqDeNMxyVffl53TzupnMualIviek0VAjp3Uw>
+    <xmx:G5GRaphOIhi5fNP21BBwmTKuIl5vQHIh-O74BW-RnFIO-oBnHepfnQ>
+    <xmx:G5GRamNZICx_vr-e_gFs2Augf5avMnxddCHXulCSvH7Iw1aF3MgajzWL>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 89751F80080; Fri, 28 Aug 2026 09:45:59 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,57 +59,75 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A2Uxtb9eUQMg
-Date: Fri, 28 Aug 2026 09:45:33 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "J. Bruce Fields" <bfields@fieldses.org>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
- tgopinath@linux.microsoft.com, kys@microsoft.com
-Message-Id: <978293e7-430d-4b11-9a29-1fb479cb0082@app.fastmail.com>
-In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
-References: <20260828041925.36758-1-blbllhy@gmail.com>
- <2026082828-palpable-dingo-241b@gregkh>
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
+Date: Fri, 28 Aug 2026 15:45:39 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Petr Pavlu" <petr.pavlu@suse.com>, "Ard Biesheuvel" <ardb+git@google.com>
+Cc: "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Will Deacon" <will@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>,
+ "Daniel Gomez" <da.gomez@kernel.org>,
+ "Sami Tolvanen" <samitolvanen@google.com>,
+ "Aaron Tomlin" <atomlin@atomlin.com>,
+ =?UTF-8?Q?Adrian_Barna=C5=9B?= <abarnas@google.com>,
+ "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Kevin Brodsky" <kevin.brodsky@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ linuxppc-dev@lists.ozlabs.org
+Message-Id: <cee89666-9de0-4012-b665-69da3846c5ef@app.fastmail.com>
+In-Reply-To: <524b5817-c097-47cb-b301-4a9c0f1d2947@suse.com>
+References: <20260822135323.795946-11-ardb+git@google.com>
+ <524b5817-c097-47cb-b301-4a9c0f1d2947@suse.com>
+Subject: Re: [RFC PATCH 0/9] arm64: Allocate .text and .init.text together
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
 
 
-On Fri, Aug 28, 2026, at 1:29 AM, Greg KH wrote:
-> On Fri, Aug 28, 2026 at 12:19:25AM -0400, Cen Zhang (Microsoft Security 
-> FORGE Labs) wrote:
->> client_has_openowners() walks clp->cl_openowners and reads so_stateids
->> without clp->cl_lock. nfs4_put_stateowner() unhashes that openowner under
->> cl_lock and then frees it, so a concurrent EXCHANGE_ID with mismatched
->> creds can use-after-free the nfs4_openowner.
+On Fri, 28 Aug 2026, at 15:07, Petr Pavlu wrote:
+> On 8/22/26 3:53 PM, Ard Biesheuvel wrote:
+>> From: Ard Biesheuvel <ardb@kernel.org>
 >> 
->> BUG: KASAN: slab-use-after-free in client_has_state+0x10a/0x140
->>   fs/nfsd/nfs4state.c:3718 client_has_openowners()
->>   nfsd4_exchange_id
->>   nfsd4_proc_compound
->>   nfsd_dispatch
->>   svc_process
+>> The arm64 module loader has to deal with a couple of corner cases that
+>> may occur when .init.text is placed out of direct branch range of .text:
 >> 
->> Take clp->cl_lock while client_has_state() walks the openowner list.
+>> - ordinary direct branches from .init.text into .text may require the
+>>   use of a PLT entry (i.e., a trampoline aka veneer), which means not
+>>   only that additional PLT entries need to be allocated for
+>>   cross-section calls, but also that .init.text needs its own PLT
+>>   reservation, as the one in .text will be out of range as well;
 >> 
->> Fixes: 4eaea1342507 ("nfsd: improve client_has_state to check for unused openowners")
->> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
->> Cc: AutonomousCodeSecurity@microsoft.com
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
+>> - dynamic patching of the ftrace handler into .init.text code needs its
+>>   own dedicated trampoline as the one in .text may be too far away.
+>> 
+>> - recent compilers may omit BTI veneers for static functions that never
+>>   have their address taken, and so additional veneers will need to be
+>>   added to .text in case cross-section direct branches from .init.text 
+>>   require a PLT entry (and therefore a landing pad at the target end).
+>> 
+>> This is unfortunate, because it is actually somewhat unusual for .text
+>> and .init.text to be so far away from each other: only when allocating
+>> either of them (but not both) exhausts the 'near' (PLT-less) module
+>> region, the other will be allocated from the spillover region, which is
+>> not in direct branching range, and therefore requires PLT entries for
+>> cross-section calls.
+>> 
+>> This series addresses this wart by allocating both of them as a single
+>> chunk, and freeing the .init.text part along with the other init
+>> sections at the appropriate time. This ensures that the two regions will
+>> never require veneers for cross-section calls, allowing the arm64 module
+>> loader to be simplified.
 >
-> Please use your microsoft.com email address, and not a random gmail.com
-> address.  It's kind of odd that Microsoft would have to rely on Google
-> to send kernel patches :)
+> It looks like this should also be useful for ppc64, which currently
+> merges .init.text and .text because keeping them separate would require
+> stubs between the two, and consequently .init.text is never released in
+> modules on this architecture.
+>
 
-Greg, would you prefer that I hold off on applying this to nfsd-testing
-until Cen can post this one again?
+Thanks for the data point - are those stubs needed when there is some
+distance between the placements of .text and .init.text?
 
-
--- 
-Chuck Lever
