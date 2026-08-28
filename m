@@ -1,102 +1,85 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BB0250BF2
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89086250BF2
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787880495; cv=none; b=THpU6GBIVT5kykO+NJYfUYuttCw+/Tx5RNJQ83MQ0DWsE2k3EV/C+IrxHJjIlLTl896A4qI8voHqMvJZijBCYqJ57/SjM7ICNe9IExy2XpKByKWn/Dg6k3OxCsI/PPSn4XoPNcXgfueaG6eSC2bVU+w7UjBjvxVwALZO/9P65FM=
+	t=1787880505; cv=none; b=kFhjM+gkt8R/EnijKVas3XTurn+ffahC5i2FvPMtGvnU4dQz5Y6m7ukZqj/tq5jXtNL7et/YEdQ3FYAtwEIOKX+kVx5WlU6MPlcrWtWXflyVW1UwRyMuUEiIdqTCOxBoWRbAMf0ZhwNYM3F+rAqA2Jpo7sxv8aw14VMlLvEoNb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787880495; c=relaxed/simple;
-	bh=Sl0a9B9nADNHHFtAngkvL/Yf+242p1ix8kNJ/h47Www=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dOa6jCFBvweMegpAShXhpB6wDSKIyqjQPK2MyUYCOPXTfCGzNQJhoycPEXwdsGixEYEJ5LbwuOZ//v+2I0yMEwLqZ79mPgEXiURqGOJ+KZxrGSRtHUEUgJttYMWmI4XgPB3VmwU8U/tFShbGmG2T6xAl0Q4oiFEjIRZUzJKQOeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CNeiVYTr; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787880505; c=relaxed/simple;
+	bh=ju+6gtsA7pTTbXuAoUHSFVHHz1C7YG8+BAOEUMHtmyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C+zbpWkoMTHuVMhEoxXijD8cN518ZT/vPl1VSPnRjb9dP4EfGhb36/f707OjQVeIUnbEVPENdIvR9x7q0T4k33XyfLwHcsbw3VwN26QxhAIhxy6iSoP1Tb2WrlpotOhAMLL2XFcy7LScfTvP8Bd7lOZVWjzYxo9iAZDzXBSkE0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NQW0PQHu; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CNeiVYTr"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caced6038eso5181655ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:28:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787880494; x=1788485294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sl0a9B9nADNHHFtAngkvL/Yf+242p1ix8kNJ/h47Www=;
-        b=CNeiVYTr9OEgOc2fEclVcSp0tO6FEXbZNpzel5pCM6manF9ZiNbAel675L1spvzt+n
-         Mh6y5Qmdtn+MSyyLtokM1pPCcV4WruTDytnkjEVq/X/wXWyrQK3frjQEph8I323b+hi+
-         WzzkeCCblIm/45MsfVQy20FDcaJr6Nfjll6D3vyFsgdbFUmlyAyASHr2colQrAJk1dIw
-         NdGXfQwg2ol14dIMK4BTbLMAhGP1FNpQ4n0AS5lviJtdPAjWtX559h3QWII94agnVDTE
-         srA35nL9WLfIbQV7Nt44Rg9U7vMuemPNOFisVRjNOA7htyMHrxse36tSv4D6EDqWHbVR
-         i8VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787880494; x=1788485294;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sl0a9B9nADNHHFtAngkvL/Yf+242p1ix8kNJ/h47Www=;
-        b=H+rD9RZDj66hlVeoLBRvmotmT8gSSvkkhCXG6QI9Zq/mladP+9VqPmguFqwTDuS/z9
-         NXpjTzo87JDsbMhaDTWNENCQ3p3M5cr6KoK6YV3m6DPUKoHsjmlkFZKQC2R/84Cozxnl
-         nKvHmOsmcpZD+3QN+KkLsDo6Lx+eQvP3QGi3mM9pvmCb1Jb4T5/e9DydPPCbYwgvEX8n
-         OaQ7YtQQq5mdgEZOnIXJBx3RtKo45yAHO8M1AatBoVoPpkEEdumzOl5wEVxFEVOm+ktx
-         Q9NQXinkLN5Iiu8Kw0CBD4osf/aFpaoUGnV2gbum4a+DZBymsz4U/w/TdUuX86fKQ7Zd
-         6l3g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8gXEWDEg+RHrsxVstou6Zy+E80IhV08X0eig6o2N6EqL8+HbmsgD2q/5P9Xc+X5VboLopxDLX0N456UA=@vger.kernel.org
-X-Gm-Message-State: AFuF++miXMUngOH+bRNaoBov9yXoRsXQNZGB3ANTmVLRGwGn7RWhRU6S
-	6ICH/jmjctyEM7eTgG9H8P5XSKfZN7z8gScEE/JCEpGa9LPxEG3YrSdB
-X-Gm-Gg: AR+sD10V9gry+D8ZRp412SknORpiMeUqtsLUguvM5sBcq2wTbXvwUUttypwFEm9Sdxl
-	4MG+a2wAaqD3owA0Y13jnh5zmPWnZF5WsYQmqkJmIfcDbsh8HsoxkC4l5defOv7d/9HdLfLPhGj
-	7KevJahklZRzt1nKNc+uHfN5+IniD2ngg3XiZFkiutOgDonMj6vrXRRPkHGv9K5G9U8zzt151d3
-	AZJ23XX08F0kn6jY3tHFXtfbt8nue+bnfwksR47doAj6f/0z3edgE9fRm4JDm/DvoV3Kc7KOIki
-	c7H2LHaIhzAj0vu0BZbzycxMLKwv/Tt54F+kE5rf16+kcwZ/yRo3taoraS/YFSBHX7IciKLDNRB
-	p9lcwwwkQQhJ+eS41qYXbSw7yTrmoN0feWkibjmTeug/3OnIo2XVL/Lwbr803iZAmiHjGvEmg8q
-	aDI0kHyOJW7foKAUlXZemxpSRtHj8X6Qw8yKmtkjj2BmMGFIn5KGylvKEuBSe5gE66rZZ4i46te
-	g==
-X-Received: by 2002:a17:903:a90:b0:2cf:8aa7:7810 with SMTP id d9443c01a7336-2d74cc49176mr37059565ad.2.1787880493557;
-        Thu, 27 Aug 2026 18:28:13 -0700 (PDT)
-Received: from autotest.lge.net ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988d8cesm633415ad.66.2026.08.27.18.28.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 18:28:13 -0700 (PDT)
-From: Dongbum Kim <dongbumkim75@gmail.com>
-X-Google-Original-From: Dongbum Kim <dongbum.kim@lge.com>
-To: hch@infradead.org
-Cc: dongbum.kim@lge.com,
-	dongbumkim75@gmail.com,
-	lenb@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	pavel@kernel.org,
-	rafael@kernel.org
-Subject: Re: [PATCH] power: use EXPORT_SYMBOL() to export symbol
-Date: Fri, 28 Aug 2026 10:28:08 +0900
-Message-ID: <20260828012808.2462015-1-dongbum.kim@lge.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ao0v6G68S_W5CBz5@infradead.org>
-References: <ao0v6G68S_W5CBz5@infradead.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NQW0PQHu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ju+6gtsA7pTTbXuAoUHSFVHHz1C7YG8+BAOEUMHtmyg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787880500; v=1; x=1788485300;
+ b=NQW0PQHuVwhxO2KEGjSspu1e5nMbhIiHyTCpUVYuNHIstVPQ/CEuqLHYxQXbkX0I5Aq2e1fl
+ QyTQFOns1FrHy86tG/WJBV6Otk8m/IFDIqtrry4Pq70+YMcGkmpQSHbPz9WXCvDucPcMLoujzFk
+ l/80nU1kqYXPLXwp1hV1c4Vw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4426f3ea3515209d;
+	Fri, 28 Aug 2026 01:28:20 +0000
+X-Mizu-Trace-ID: 4426f3ea3515209d
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 28 Aug 2026 09:28:12 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+	Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
+Message-ID: <apDkLDjq7atCR97E@fedora>
+References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
+ <20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
+ <d045bf04-be89-41ad-bd0a-b62fe4de8dfe@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d045bf04-be89-41ad-bd0a-b62fe4de8dfe@redhat.com>
 
-On Mon, Aug 24 2026, Christoph Hellwig wrote:
-> ...
+On Thu, Aug 27, 2026 at 03:42:23PM +0200, Paolo Abeni wrote:
+> > @@ -170,8 +171,14 @@ static void tlb_deinitialize(struct bonding *bond)
+> >  
+> >  static long long compute_gap(struct slave *slave)
+> >  {
+> > -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
+> > -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+> > +	u32 raw_speed = READ_ONCE(slave->speed);
+> > +
+> > +	/* It's meaningless to compare gap on unknown speed NIC */
+> > +	if (raw_speed == (u32)SPEED_UNKNOWN)
+> > +		return LLONG_MIN;
+> 
+> Sashiko noted the above could entirely disable:
+> 
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825-bond_overflow-v5-0-7a800de133f1%40kylinos.cn
+> 
+> I think the v2 code for the above should be fine.
 
-Hello,
+Thanks, it looks like I was over‑thinking this.
 
-Thanks for the feedback.
-I agree that exporting freeze_timeout_msecs variable is not right way.
+I was considering a case with two slaves: one at 1 Gbit/s and another at
+10 Gbit/s. Once traffic exceeds 1 Gbit/s, `compute_gap` may still select the
+1 Gbit/s slave, which leads to overload.
 
-The real issue is that the driver thread cannot be frozen until timeout
-expired for try_to_freeze_tasks. I think freeze_timeout_msecs value is
-necessary for all module, including non-GPL modules, to prevent to fail
-try_to_freeze_tasks.
+In any case, this behavior is still better than no balancing at all. I will fix this.
 
-I will reconsider the approach.
-
-Thanks,
-Dongbum.
+Thanks
+Hangbin
