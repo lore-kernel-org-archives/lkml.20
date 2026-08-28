@@ -1,114 +1,78 @@
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371BA222565
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71470387378;
+	Fri, 28 Aug 2026 03:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887508; cv=none; b=Wnbw+yF+l7FpluvslB51jAoUcZxKACptGVBnCkB+6eSkjpepA07zHy6CQr/EBbVmcPDCPDGUMSgY7AO0go4zK7zptPi6+M2FIpIF+hlQS72pKsk6st3eR5CfjnLkLHzwM/d+h7IBS4/S39JMQrTGrfTC80fFCBMvQC4+exGEFmk=
+	t=1787887569; cv=none; b=sOfhLH39hiOliEySBCuC5oxv8m0MBnsO/Wmiql3c0eXVPw7wskoQWiHOS6HDiIFG9Qmec/NJQJx8dfA5WLq5Q/S5Jp1359DUihZatQ9adJ7eawC4RNdkqtJ1+AJFLa8tZy05DRbssXUG1Z2nDvCh+zR3i0LpEJCgpDTdv12nvI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887508; c=relaxed/simple;
-	bh=yt+mLfSWcK0f6sKjTvFhMgbeBoBtwF/0GIVGw2ZnO4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=enRAhb3bzLmtmXJP/WOaYwM9jJUFJ3jUobCfiEpYES8k5Aqs7yG6+euDUZ6NJ7FYJSFAWUDzHoBovS/mPL7GwX7GI7+8PO+79j0Z+6lOd6qPavAiwoSWzTs2Q4tgvWUgn7iA8l9AiYoXUn7/I5Xv62Y9IdpC0X7hBSyyfR9mU8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-380f4166f80so508934a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:25:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787887505; x=1788492305;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BaJs+obz6L+QhNc39Iv8LiC8QOj4nRSSCQxNzvKMxEk=;
-        b=o+qQaCk0grtEhw8zJO4yv68x05S1+EFA2/guGHT/myOscDOC5FWXxrtf2oz46giPpt
-         zVU3KfKySqTS4h6tsCVwvo12zBIIVwDuoagD45QnzMpxkVlwGWxeoBe+VhosJHLEpe7j
-         SIaoC2flPyOzl+ve3gRXUnaxiufnQ3rqAtsN/SU9YErYEE+3npFGNwU2NfX/uAGl7JXX
-         Tf1HdB9WyzOY2jFxZRTQLGtwCoAK7UmoW4HpiRWNKo6+jW7P4UoQ7xg/1M67HC43VErr
-         DR5uvv0MqQHKPZQtxuZ1UI5GcZcJ/Gzf7Y8k6aK2T5Mj5xoLc9y4cJIqlAd/oBFKVf2/
-         AMgw==
-X-Forwarded-Encrypted: i=1; AHgh+RrX/A0A4QUIM0g/bqseDgRFNKiG3At9W2FQ3wrV4t6WZ/lpbZxXh/05a/Z/NiicZw07HNLbPKzfPcjksPM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgqI284fRc1rSXaqWFLpTldkgeeRanodFLx9mOg9oZnNOZaSwH
-	UdMQycLmUrxH/kFFeGH9NISQCKzlM+y+MrVSFUxLP9tgUdJXIo8Et3ja
-X-Gm-Gg: AR+sD12Xj6dvd9ubw4yzSJYPqpQhqcV7cMSQBHeprNdE6ZudaEk9I2zFbhvOWXf7L7l
-	J2BZH9Rl5sdcEIrUcj37cFeILx9BXHj2KlGE6Tzigx+f8+afFCsQeBzcFprqDF8zSRcDkEMwh4R
-	ZZQSqXKQGOyCTDAAfMGadPsbiW1fltrMIwIa9oO5uFco2CJyAYIMieq7hDuM3CDS3zkP59o4Kjo
-	bkK/6cQzdY0RjaMGQBxHEZEN8ajc72S9885TbFtOXa+fKsivCuWTOTxwBtLCy4kjHt2aYFTY/XD
-	r+ENnS+sQRq70Q/Y5AafL4Y6dRbMZnCibGGb7DQ2W2EOdf/ZGZ7qgL0vFXq3bMlfpkxZM5QFVJM
-	5WQK0Uby6BqZEEgM/vF3RigyfxsAM8gw6dhsDhPoA6TXTqWk+3TmhM895W7BvEr6Hz4xRzCTpZn
-	ikRpxcdDzMkuusRrc15N1nFVsHhzsnZ7FTfsB27bgxnSzO2V4jAEqE7IhbBgAJMQEprXnpvjZl9
-	BoXvsOFSOl5iLHYQ8p4
-X-Received: by 2002:a17:90b:2b90:b0:38a:c3f:3b87 with SMTP id 98e67ed59e1d1-396d0fce294mr8160222a91.12.1787887505458;
-        Thu, 27 Aug 2026 20:25:05 -0700 (PDT)
-Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1ab4e12sm5142275a91.16.2026.08.27.20.25.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 20:25:05 -0700 (PDT)
-From: Xueqin Luo <luoxueqin@kylinos.cn>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org,
-	christian.loehle@arm.com
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xueqin Luo <luoxueqin@kylinos.cn>
-Subject: [PATCH v2] cpuidle: teo: Do not return a disabled idle state
-Date: Fri, 28 Aug 2026 11:24:57 +0800
-Message-ID: <20260828032457.2317326-1-luoxueqin@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1787887569; c=relaxed/simple;
+	bh=If6pFuI6QDQHA0hFfA38OqT4ci3nl2lGKZkVIxxUHFc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=h1Y1JSFc972G4nPbGL3yjXFCM4oELSaFNm4Mjc/zryhmQtNZWoJRaTmsRtP2ENxHsk/J3j805ipPRZxYJplxknd0HMMuaXqqpDK3pRIsRhdHtq8E8ziW6WYbv5ozl2VviirxBS9MZ8gXnlfIA9y/fFT6Pm2pGEsbXeeLoNjKy1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=PvU3CQ++; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PvU3CQ++"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9A21F000E9;
+	Fri, 28 Aug 2026 03:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787887567;
+	bh=II1URtKtPgW2aBnP2LnNfS7g5Xg8tEyvHqFapSYpJx4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PvU3CQ++Qk4XMymJjAGZeEkfkCXtconpx83jMCKRI1hL0JlGRGyt0io0ASr91sd5V
+	 J5UFAeLSoZbl3UPWm1EHZKcoVkL0PuM5Bgojx5VjcUB15+oWZOF5vkFdUlTZcr+Bnx
+	 FnU599q5+LrB7mA7KOMcv7fou5CUrXN71aRFv75c=
+Date: Thu, 27 Aug 2026 20:26:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hao Jia <jiahao.kernel@gmail.com>
+Cc: minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Hao Jia
+ <jiahao1@lixiang.com>
+Subject: Re: [PATCH] zram: fix idle age_sec underflow in idle_store()
+Message-Id: <20260827202607.3845123c74f438f8d2951a4d@linux-foundation.org>
+In-Reply-To: <20260825092316.69658-1-jiahao.kernel@gmail.com>
+References: <20260825092316.69658-1-jiahao.kernel@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-If idle state 0 is disabled and none of the enabled idle states satisfies
-the PM QoS latency constraint, constraint_idx in teo_select() stays at its
-initial value of 0, because the loop that updates it starts at state 1,
-and so the candidate state index is capped at state 0, which is disabled,
-and that state is returned to the caller.
+On Tue, 25 Aug 2026 17:23:16 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
 
-The cpuidle core does not validate the returned state index against the
-per-state disable flags, so the CPU ends up entering the disabled state 0.
+> From: Hao Jia <jiahao1@lixiang.com>
+> 
+> After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
+> idle_store() computes the idle cutoff as follows:
+> 
+> 	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
+> 
+> Because the left operand is cast to a 32-bit unsigned integer, when
+> age_sec exceeds the current uptime, the subtraction wraps modulo 2^32
+> and the huge result is zero-extended into the s64 cutoff.  mark_idle()
+> subsequently marks every entry as idle instead of matching nothing,
+> breaking the intended semantics of /sys/block/zramX/idle.  For instance,
+> running echo 86400 > idle on a machine up for only two minutes causes
+> all newly written pages to be marked as idle and handed over to idle
+> writeback and recompression.
+> 
+> Drop the explicit cast to perform the subtraction in signed arithmetic
+> again, restoring the previous behavior: an age_sec greater than uptime
+> yields a negative cutoff, and one equal to uptime yields 0. Since a
+> cutoff of 0 is now a valid computed value, it can no longer double as
+> the "all" sentinel. Switch to KTIME_MIN instead, which no ac_time can
+> be after.
 
-To address this, ensure that constraint_idx is at least equal to the index
-of the first enabled idle state (idx0), so that the candidate state is
-never capped to a disabled one.
+whoops.
 
-Fixes: c410a9a142f1 ("cpuidle: teo: Change the main idle state selection logic")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
----
-v1 -> v2:
-    - Instead of falling back to idx0 after the candidate index has been
-      capped to a disabled state, ensure that constraint_idx is at least
-      equal to idx0 before the capping check (suggested by Rafael J. Wysocki).
+> Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
 
- drivers/cpuidle/governors/teo.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Thanks, I'll add cc:stable@vger.kernel.org to this and shall queue it,
+pending additional review.
 
-diff --git a/drivers/cpuidle/governors/teo.c b/drivers/cpuidle/governors/teo.c
-index ac43b9b013b3..906f4f89e365 100644
---- a/drivers/cpuidle/governors/teo.c
-+++ b/drivers/cpuidle/governors/teo.c
-@@ -426,6 +426,17 @@ static int teo_select(struct cpuidle_driver *drv, struct cpuidle_device *dev,
- 		}
- 	}
- 
-+	/*
-+	 * If the latency constraint does not allow any of the enabled idle
-+	 * states to be used, the candidate state index will be capped to 0
-+	 * by the check below, but state 0 may be disabled.  To prevent the
-+	 * selection of a disabled state in that case, ensure that
-+	 * constraint_idx is at least equal to the index of the first
-+	 * enabled idle state.
-+	 */
-+	if (constraint_idx < idx0)
-+		constraint_idx = idx0;
-+
- 	/*
- 	 * If there is a latency constraint, it may be necessary to select an
- 	 * idle state shallower than the current candidate one.
--- 
-2.43.0
 
