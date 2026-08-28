@@ -1,231 +1,119 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0224B311C2D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE34417B425
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787888233; cv=none; b=LfSRu/Hov3MUrs6EwkMPZzS+QTN6U4gVOfyyElmckllChpw9DTCloeGFShK0QiE516FvaD9fsPJ3C2GMplialJSnVKN/tWgrtSwuNCbnW8DrvjBZAlPldnAtEoSy3sYMJ16mMvDuorNXV1Shi1oh2uGqThrKE9U8MVX1zrl66bU=
+	t=1787888267; cv=none; b=GB5LTfJ3h5ANfjt1lLOZyPT8FOiIzmwdMtH/daVYZ5WxDMI3lW7XYfcbDR3Dv/MDEP8LEslmORZx9U3DUgfOrlDsQGZ4u0HbRDXDTXLIb5tHoU66RM5J6SbzjyyVE3oTN82caA9KVmikKVvj8mxkre5Jjbq+tJ1DMarDLj6kCNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787888233; c=relaxed/simple;
-	bh=f7WV+5JRBH7+b0h8Wle29pWQgflTwoQSptZTR/oRVxc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WGRneyOmCYqz7zVcOeJb+H8eBushXvDS0BqMCMAW+VCd4AIJAf69KvKNJTUmqsRCLp420RRq5r0pgYyfg7vfiQMbo5dqoBYW/OX2CGNRY/u9IZRU1M6SPUHgHTZELT+lpsB7hgbskDB7VCZ6vACpPGKofqX7dX9ru2bX3UfYK5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LuP09Cxz; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787888267; c=relaxed/simple;
+	bh=aHUELh+5QTQvTY2lgbLEFQIKyjcUuZxlGydQgfB3twY=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=noDcZ1OjMrYLy4N3cprXr3P3TCtyiCUnKXmCwfTFQsEbbLcINRHUM51vKGyXR727+jDQAzWYea0nZOhXQHUzZvn4i4yTUN0ek5BxooC2zZRQitZnJmECI6FTEnGVUP814/RgM27/lEaD25X8u5VnY05kejYFa0RycsKq+gfOOck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kj2gQpim; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LuP09Cxz"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so367225a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kj2gQpim"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso8223205ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787888231; x=1788493031; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kClGC4Q1h2cpbmXDDO/Cni49gBRV6utUcLJ4NZAQIpg=;
-        b=LuP09CxzqBR29isgye+UoveYCFTy74KRZ1sqIa/08LoLaEZuPjWySDU3+kCgabR6rs
-         IZkppA+P7n04T0+ZyWFnyV7dGuqqxFnOU4/SDS63IZdkGWZ9vqFffDi7STtBciD4lpVe
-         gt/CHzNZxC8d3ErFZDFt0BQBebjRzW+NJycPAX//FYAfC7dRABmP+4gLMAqGE9BYM48v
-         dmJLl96jyqF5TJVCAL/6XlmHECChzxkN7mN1hNSqzWndZmlzGBHdQo2Lj/gzsb8a+zxN
-         lrEoPoDhc0pOncRC0GGH8Z22Y6SJangjt5yN8fccVqhK4SfXYwYsbfQ1TPnsjX5a6z44
-         mU9g==
+        d=google.com; s=20251104; t=1787888265; x=1788493065; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bBeMGceDtS7wvXAGGzR5dbY5boET7zUUnip9K7sfHCc=;
+        b=kj2gQpimbr4i5H+xxApO2jIFDgneJD8XWd7dJ18WqKXe0gbOTuef3mc7qLvTrKw5G7
+         fB+1ON9KO+jQEj6A/VJWwzTkwEyNmzEmB0hFoteTxeJPX0mQDBJFLtlhTuMlvrQT7HR9
+         iVPGfp1FAoUc94kNRcD+DcD3BHd6Bc6p0LWxM0sVw61w5hnlRR5Mskpwg4ScnRjDccP5
+         RUSSrbXhj2vaG5Lo5wJ/NwMnucwbxkZGtz06tgsENZt1H2nD1vRgDWFd3kqKnuIyAzAu
+         5TLe4eCnnOmvs0pxGg+QiOvmy/P9KyZS+jvi6oh6Pb7Usz4ipY3SjT/OeORGCcPzNgxT
+         xxNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787888231; x=1788493031;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kClGC4Q1h2cpbmXDDO/Cni49gBRV6utUcLJ4NZAQIpg=;
-        b=EPIB2HacCL0hb2b1CIBEzT+Ne7ofAXbSit9JgJrLOhdp3SUY66jdUzbhcjAQv0/pTQ
-         z0r4S2NFwr5cqFeJQmU6EB1co8puT62Xq12UM2hjHKEjUQaq5x0/lN9nBkz1XZ2QEQBc
-         IGsRGA3zUOgmH1NLf1bJAB/2pIWWvYzSsGja06VL3Q5TYI9U/hO/pVMAUP1q5zNSzgyy
-         uQxVfAfLBDnQ85UW1O8/HyfcTeMgub9Gi3K/YbNHv10Zd0GdC8/9dPScYog4o8NuoImf
-         0WmKMKQo5HjVUXs+0Ci79HbV6+2xjkNwdpuZHmAcm37R4c08GDdPnuLGUlJPz5OTZZqO
-         MYKw==
-X-Gm-Message-State: AFuF++nNTAfYaTgIC5MqR8I7MAezroIZf8HZnqKbH5QbTyIf4nVxmexP
-	/8MMvyDVFgkoNshp85vFoQpy1utNyeLgSLJVIr7OJLLaRKY7iKPKIclJ
-X-Gm-Gg: AR+sD11/ZUGnNEOXBKhdHWMurho0ck1swOG2SSd+IUjHVyf37mIpy8REkmXom3rBuPh
-	PAg7LT6K6DXmwZ42Ui3Cl02zPk2cOATyEfmB3ueDi8R8vyAAEFlLQqA1QBOA/A/vkGW0ZHa6t6t
-	f3zffDBNFuRlfEfOea8sAmmVhsXSR2z6xSX7BuCoRHNFj76NoJb8ZVHqA8+Bv8KjZu7gHORjhyS
-	uNScpr6nuPoA2KHBVevyK/+Xtytd0zV43zYM3VjC5ppoeQUVaj4qnHvY/M8VGJ+pG0uGiq8hR7j
-	VVTPTxUQA7nTDTafagPgRk6cj6zpw6GPUDRrTpz905dmoVZLasGnPAaWw3Y4WSNfq/S2BRyZoDE
-	1ryO1nk1YJFMAGQgpdChHXgNwWd6hyduiFnypRYa+CDGqbxGqYP7bpmX4MWZgK7ByGIeCMGrcwe
-	GCaq7bMHhouZAZnPxart1vduGK/4NxFVZXle6GqbL3omHcsg9Clop2S0pWaa1i8ZNeRH3czwuaY
-	UI5hssKQoZa+SOF5ePUSjFB7IySvlAR+K3U+hRf/e2bGQ==
-X-Received: by 2002:a17:90b:2886:b0:396:4729:43fa with SMTP id 98e67ed59e1d1-396d0bfc429mr9095264a91.0.1787888231214;
-        Thu, 27 Aug 2026 20:37:11 -0700 (PDT)
-Received: from lima-xfs.. (174-126-236-85.cpe.sparklight.net. [174.126.236.85])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1992435sm5589943a91.13.2026.08.27.20.37.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 20:37:10 -0700 (PDT)
-From: Eric Peterson <linuxinstalled@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Eric Peterson <eric.peterson@hpe.com>
-Subject: [PATCH] xfs: add per-mount read/write I/O completion counters
-Date: Thu, 27 Aug 2026 21:34:29 -0600
-Message-Id: <20260828033429.4070267-1-linuxinstalled@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20251104; t=1787888265; x=1788493065;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bBeMGceDtS7wvXAGGzR5dbY5boET7zUUnip9K7sfHCc=;
+        b=KHfO2AfVsVD2VpDrqpf2cL9aRW/fgY2eUCLuBCZEqGt3ejgsJKdNj+W/qMW5MzeMBx
+         Q8vdK3kys15tm7wjFid7DrJQajhx7EFePgqg75mtw+M3ksjCk5ib/oa71TcGjRQYQlAm
+         6MBY+K18sHrL4vLWAR49gaqns++CIewDFKuU9gGIxSQxtHBzAuQwLnIYc8M8MbAYrFaK
+         JujFwtet5MsIxPguT02cGRm/Op5czkxxIjg+JsXHEQ+0zTfntcq49dfGUDk0SygfvWlU
+         xhu0/vnWGD3w4MRwh8wOt8B3H34m+LDwIm10il+Tre5ABzzYaX/6D0L4ee1HG5w4MVqQ
+         FHTw==
+X-Forwarded-Encrypted: i=1; AHgh+RqGyupJ0n5h7uzgLW+p+HwmQKvaksUDLq4ci8jvM74voXqt9aUNjBM7RGRBWfFUZP3sBhyiPqPV/XrpWbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksXypprL4a0xd87G3rwOBS+2K/+nDKvJJc8bf2CzUX9MeA2gDY
+	ZCr/SfKw0BdunoTaSDlZcZeiLty1/rryHzq1aZpl6EN5/dhigQqX8Y/20ZxA9d5wlAmzjUO8wD+
+	DhY/589UUJQ==
+X-Received: from pld16.prod.google.com ([2002:a17:903:3550:b0:2ca:ceab:34a3])
+ (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:9cc:b0:2d3:716e:e2ae
+ with SMTP id d9443c01a7336-2d74dc5f3f5mr61909945ad.6.1787888264856; Thu, 27
+ Aug 2026 20:37:44 -0700 (PDT)
+Date: Fri, 28 Aug 2026 03:37:30 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260828033741.2184560-1-wfelipe@google.com>
+Subject: [PATCH v4 0/2] selftests/cgroup: fixes for test_zswap on single core VM
+From: Wilson Felipe Pereira <wfelipe@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Wilson Felipe Pereira <wfelipe@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Eric Peterson <eric.peterson@hpe.com>
+This series fixes two test failures in test_zswap observed when running on
+a single-core VM (-smp 1) with 4GB of RAM.
 
-Add two per-mount statistics counters, xs_read_completions and
-xs_write_completions, to complement the existing xs_read_calls and
-xs_write_calls counters. The existing counters count I/O submissions
-(entries); the new counters count I/O completions. The pair (calls,
-completions) lets a consumer compute outstanding I/O as a queue depth
-(calls - completions) and, via Little's law, derive an approximate
-response time in userspace without any hot-path timestamping.
+Patch 1 addresses a race condition in test_zswap_writeback() where
+waitpid() returns before the exiting child process is switched away by the
+kernel, causing an immediate write of "+memory" to cgroup.subtree_control
+to fail with -EBUSY. We fix this by waiting for cgroup.events to report
+"populated 0".
 
-The counters are plain monotonic increments (no clock reads), so they
-add negligible cost to the read/write path. Per-op timestamping was
-deliberately not used: a clock read on the hot path costs ~20-30 ns on
-TSC but hundreds of ns to ~1 us on HPET, which would be a regression for
-general users. Queue depth from completion counters is an approximation
-(instantaneous depth); this is a deliberate design choice, not
-a placeholder.
+Patch 2 fixes an implicit unsigned conversion bug in test_no_kmem_bypass()
+where small negative timing differences between debugfs stored_pages and
+cgroup zswapped bytes caused the comparison to falsely fail due to
+unsigned promotion.
 
-Completions are accounted at exactly the same sites where XFS already
-accounts the xs_*_bytes counters, so their semantics match the existing
-byte counters per path:
+v3 -> v4:
+- Patch 2: Use `long long` for `delta` and `max_delta` to avoid integer
+  overflow on 32-bit platforms (Andrew Morton, Sashiko).
 
-  - Reads are counted at the frame in xfs_file_read_iter and
-    xfs_file_splice_read.
-  - Buffered writes are counted at the frame, i.e. when data reaches
-    the page cache, mirroring how xs_write_bytes is accounted for
-    buffered writes -- not at physical writeback.
-  - DAX writes are counted at the frame after the synchronous
-    dax_iomap_rw copy returns, mirroring xs_write_bytes for DAX.
-  - Direct I/O writes are counted at true completion in
-    xfs_dio_write_end_io, which is async-safe and fires for both sync
-    and async DIO, mirroring xs_write_bytes for DIO.
+v2 -> v3:
+- Patch 1: Collect Acked-by from Michal Koutn=C3=BD.
+- Patch 2: Explicitly cast stored_pages to (long) in delta calculation and
+  inline the return comparison (Michal Koutn=C3=BD).
 
-Caveat: async O_DIRECT reads are counted at submission, not completion,
-because XFS has no read end_io today (iomap_dio_rw is called with NULL
-ops for reads). This matches the existing read-byte semantics.
+v1 -> v2:
+- Patch 1: Replace EBUSY retry loop with cg_read_strcmp_wait() waiting for
+  cgroup.events "populated 0" (Michal Koutn=C3=BD).
+- Patch 1: Clarify task lifecycle in commit description (Yosry Ahmed).
+- Patch 2: Remove abs() and declare delta/zswapped as signed longs with a
+  signed threshold comparison (Michal Koutn=C3=BD).
+- Patch 2: Add Fixes tag (Michal Koutn=C3=BD).
 
-The counters are uint32_t and wrap like the existing xs_*_calls
-counters; userspace diffs handle wrap.
+v3: https://lore.kernel.org/all/20260827034807.2822234-1-wfelipe@google.com=
+/
+v2: https://lore.kernel.org/all/20260824033533.2147900-1-wfelipe@google.com=
+/
+v1: https://lore.kernel.org/all/20260804042053.56940-1-wfelipe@google.com/
 
-The per-mount stats file gains a new appended "rwcmpl" line printing
-write and read completions. The existing "rw" line is unchanged, so
-positional parsers of "rw" are unaffected:
+Wilson Felipe Pereira (2):
+  selftests/cgroup: test_zswap: wait for cgroup to unpopulate in
+    test_zswap_writeback
+  selftests/cgroup: test_zswap: fix implicit unsigned promotion bug in
+    test_no_kmem_bypass
 
-  rw     <write_calls>       <read_calls>
-  rwcmpl <write_completions> <read_completions>
+ tools/testing/selftests/cgroup/test_zswap.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Signed-off-by: Eric Peterson <eric.peterson@hpe.com>
----
-
-Notes for reviewers (not part of the commit log):
-
-* Placement: the new "rwcmpl" group is inserted between "rw" and
-  "attr" in the xstats[] table. The "rw" line itself is unchanged,
-  and "rwcmpl" is appended after it, but lines below "rw" in
-  /proc/fs/xfs/stat shift by one for strictly positional parsers. I
-  can instead append the group at the END of the table if preferred.
-
-* checkpatch --strict reports two CHECKs preferring u32 over uint32_t
-  for the new fields. They are kept as uint32_t to match struct
-  __xfsstats, whose every field is uint32_t; changing only these two
-  would break local consistency.
-
-* Testing: fstests -g auto on v6.12.74 shows baseline and patched
-  fail the identical 6/1277 tests -- zero regressions. The rwcmpl
-  interface was verified on hardware (rw >= rwcmpl, counters
-  advance under load). This for-next port applies cleanly with no
-  drift and compiles clean; a runtime -g quick smoke on for-next was
-  omitted as the logic is identical to the tested v6.12.74 patch.
- fs/xfs/xfs_file.c  | 11 +++++++++--
- fs/xfs/xfs_stats.c |  3 ++-
- fs/xfs/xfs_stats.h |  2 ++
- 3 files changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 426a67b813..3ecd4ed534 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -347,8 +347,10 @@ xfs_file_read_iter(
- 	else
- 		ret = xfs_file_buffered_read(iocb, to);
- 
--	if (ret > 0)
-+	if (ret > 0) {
- 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
-+		XFS_STATS_INC(mp, xs_read_completions);
-+	}
- 	return ret;
- }
- 
-@@ -375,8 +377,10 @@ xfs_file_splice_read(
- 	xfs_ilock(ip, XFS_IOLOCK_SHARED);
- 	ret = filemap_splice_read(in, ppos, pipe, len, flags);
- 	xfs_iunlock(ip, XFS_IOLOCK_SHARED);
--	if (ret > 0)
-+	if (ret > 0) {
- 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
-+		XFS_STATS_INC(mp, xs_read_completions);
-+	}
- 	return ret;
- }
- 
-@@ -663,6 +667,7 @@ xfs_dio_write_end_io(
- 	 * for it on submission.
- 	 */
- 	XFS_STATS_ADD(ip->i_mount, xs_write_bytes, size);
-+	XFS_STATS_INC(ip->i_mount, xs_write_completions);
- 
- 	/*
- 	 * We can allocate memory here while doing writeback on behalf of
-@@ -1032,6 +1037,7 @@ xfs_file_dax_write(
- 
- 	if (ret > 0) {
- 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
-+		XFS_STATS_INC(ip->i_mount, xs_write_completions);
- 
- 		/* Handle various SYNC-type writes */
- 		ret = generic_write_sync(iocb, ret);
-@@ -1098,6 +1104,7 @@ xfs_file_buffered_write(
- 
- 	if (ret > 0) {
- 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
-+		XFS_STATS_INC(ip->i_mount, xs_write_completions);
- 		/* Handle various SYNC-type writes */
- 		ret = generic_write_sync(iocb, ret);
- 	}
-diff --git a/fs/xfs/xfs_stats.c b/fs/xfs/xfs_stats.c
-index c13d600732..5b276666b6 100644
---- a/fs/xfs/xfs_stats.c
-+++ b/fs/xfs/xfs_stats.c
-@@ -40,7 +40,8 @@ int xfs_stats_format(struct xfsstats __percpu *stats, char *buf)
- 		{ "log",		xfsstats_offset(xs_try_logspace)},
- 		{ "push_ail",		xfsstats_offset(xs_xstrat_quick)},
- 		{ "xstrat",		xfsstats_offset(xs_write_calls)	},
--		{ "rw",			xfsstats_offset(xs_attr_get)	},
-+		{ "rw",			xfsstats_offset(xs_write_completions)	},
-+		{ "rwcmpl",		xfsstats_offset(xs_attr_get)	},
- 		{ "attr",		xfsstats_offset(xs_iflush_count)},
- 		{ "icluster",		xfsstats_offset(xs_inodes_active) },
- 		{ "vnodes",		xfsstats_offset(xb_get)		},
-diff --git a/fs/xfs/xfs_stats.h b/fs/xfs/xfs_stats.h
-index 57c32b86c3..608d12d0c6 100644
---- a/fs/xfs/xfs_stats.h
-+++ b/fs/xfs/xfs_stats.h
-@@ -93,6 +93,8 @@ struct __xfsstats {
- 	uint32_t		xs_xstrat_split;
- 	uint32_t		xs_write_calls;
- 	uint32_t		xs_read_calls;
-+	uint32_t		xs_write_completions;
-+	uint32_t		xs_read_completions;
- 	uint32_t		xs_attr_get;
- 	uint32_t		xs_attr_set;
- 	uint32_t		xs_attr_remove;
--- 
-2.39.5
-
+--
