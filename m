@@ -1,124 +1,137 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C44239C006;
-	Fri, 28 Aug 2026 09:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934C6399354
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908928; cv=none; b=XEF8TZC0Hlo7qSMBafc/lPzNQ37Bi8aUNxCdgIVmmRM5c1JDWUzBGAqqGqtEwbIW1TrTrPIvUB6efzN4bLg2SoSsnOk3qFrev7vzV5yQ287RjT3Jjdx8/cC+/iw5RwB7Nz1qtMfaTu9UNKdypt1HLgNsZCkRlcb5bdL9CEzha1o=
+	t=1787908936; cv=none; b=krEtJdtm7mmQAN5mdbFEh4Ex3YSh9G44hCsvx6b+QsS0XOYM5lQXVzN86MgM3il3INZ0dh77nz8K7scdHQIvhrD/CUwG/BcpEJaYo8KuFWiBLq4en4huEPDgG6WGiy097qkZXItaMvyWLyIuTXWThRbu/tPpewG1I0p6Exwgj4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908928; c=relaxed/simple;
-	bh=xdCnY/3DX3sXooEk/gY9+LpZS07QhwIdT3OEWA1yDMk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rAH+Y21tJjTOEgGCSHYPyxweTeOYzceFyNWOfmSfRzDPl+qUOC+8SE21HDVLie4xb9IVDIrMTIgPsswM6yqiLNdW+OoYN/rkJVrgHvmoPPBX4FYujzKf6B+V6LOZWsb4d1vqRCUbWErFR7BcdSsOv/4wqoQeaWAYWVDGFCsOpto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mYQm1fMr; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787908936; c=relaxed/simple;
+	bh=CJLgODrfV2Cp1dGKQQzoBAn4r52V04Ohp6JVxo0/bF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n/4s/9IWjluHih8enEFR1sseAvuzHIBaw72aqJZLAjvHsKs2gdnGwhc0sib4g3mJC5Y4wD5wgGpsVK/NjC7HqabM1VkjXOUoEppqCD2u0lN2EdVgRw64SY9tH2hM5OK3cCoghpc9jEFZb98eIN73z6PHp254rPwz6csh50KBb70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L12MpWWM; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mYQm1fMr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 801031A189B;
-	Fri, 28 Aug 2026 09:22:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4C9CA60537;
-	Fri, 28 Aug 2026 09:22:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7B0B211C78144;
-	Fri, 28 Aug 2026 11:22:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787908923; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=NW+Ti3IITyJJsuvwqKKh41ldDnxjK1STj2/1r0/iZGs=;
-	b=mYQm1fMrkItBOJaJOpyDh5/9JeH665SvRMuouElQMEzaf4+Pt+z5VCcUlgny7DB8bswSMZ
-	t5ug//nG+vQaQ0oHlGYFpiKrFebRQ/QLXY02renX+hv1NRbQmE8VDxLLy8BJtqR+/gwFJ/
-	O2ZrnlI/5RfHLvnmF0rMNz9QqPQItc2b6J4UdZkEd69N8BWKWDvhSgyes9ehG/oT59r5ze
-	DlCiO/WhUUiBwhN6k2PkZt+nSXtckOEGWdaR1FIalxPZaApFXpGvDnZEGsltWKcGb+c6iF
-	EeZD0Mf+4bqx7/M/B//DLreRtijgJaLMxmtInZqUigt3NCVB69Sw1Eh9JiRtEQ==
-From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-Date: Fri, 28 Aug 2026 11:21:15 +0200
-Subject: [PATCH bpf-next v8 7/8] selftests/bpf: add helpers for KASAN in
- JIT testing
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L12MpWWM"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cbedbaba5fdso627026a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:22:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787908934; x=1788513734; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3lLlM8Ydp+ABqyPX6Fa3ap8cVbB1qq0q8Y2hRhjdpUI=;
+        b=L12MpWWMOZUt09UoFHsRWKPAJTpqXfi6VfEyIe25WREFacR0HNk5S9rXfiTBspm97u
+         WfCZVE1kOE2ATN+3YK+Ub0ReFnxlH7rq2h2FKn5ekq6D8MphHZrxWXRfJeQppyutAKSM
+         B6bmvkIr5VYLOIcZZCRcDulbUAb/816d4xl50=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787908934; x=1788513734;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3lLlM8Ydp+ABqyPX6Fa3ap8cVbB1qq0q8Y2hRhjdpUI=;
+        b=NRpmDOL/qsdhdw3GqkoekXJ8kk/0pK3eMZCLKr883vnS1ZAIOI3zPEZZ+ntaf7utTJ
+         +FvwkoQPisCe0+rJR7J7Zs4rMoM9RnWeHiEw1ujBkB6tVpdHgOosqtCGx1xUoe0IEapj
+         Fq0tJ+UwplezvU3tTP4p8NqacgHDbds3xGFqP/gyx8v9CmBTNR16xqsqW26MO8NsSjIE
+         /gZXPU9oebtKLBpz9R3sh1K0QUHeLAf55C4aIMhbmZADaBzCZXFQ3AJRzx/IHR++8Hl3
+         WIa8SxfQ7shbTsWDeoT4nrxSpvSMWVxU8sWAJA3gx+0GJ/r7syCaRzCvXPC7jPOLA7A3
+         aaRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpg11wtzGcSCqtm2hhkTzw50GNJAVclZX7Hs+AF5b4KMNO+jNeP6k2iPsSsgrskW8AGasnEm/XurkwaaN0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lu2hIqvhbVl9eVTuYCnyJnGfzo2mwm/WxULeNW/uhqrJA+AMc/
+	GWBaNbD8xko+DT2IXqtNL3xkAJZX7q7pzASmc6URozlnN7dgJtEHGW/Fcamf5I9xVQ==
+X-Gm-Gg: AR+sD12uv3Ia9zCb7r2gsB8zCSpLqwDWKEadWhnFdo9WLLUGKN7/YLAJ7+P490cuDT9
+	LyGLYEhNkO4AIJNf/1d/2LojibVTK08tokkZmWNcs129VYYeBI2ki2MSAQw0Cup7fzcBhJfTW+A
+	l095U7MMLfXf7Vto9vu2RGmaCyupvMYHuo+kKVTCAJLfMgUqcSw1JjBjBEc5kbXf/CzP0bSSKQB
+	7h3rL6I9QEFmcxWavSsGBNSZz7zD0/cxI4kJEPzubWWPYXrlw5i95jCNSr0V4nhZf0BCRM0lNRP
+	q8w/uEqJlCfW+9+cCl4Jc7RB1JBawC/O5EQm9Z0Gl2s7mrb4fs77sNPjFN9m5Y6CYMRKOB8RPfM
+	IStxgfkaMRXqXzFfd/eJ/SHTBHIsKSMAR8OYKPS6BVm2AFtHCJ6KDoVubVw0qD3h9mLNXhKeLZt
+	WC8+3/rVK4Js9gl0WHe4r0w6o+8MWB6AIhWh97m6B/NJdguEPgj1bFEh5BaipDe7xm/YnGZ5UAi
+	3frgVsCxnWGMiOyqwI37AnIezsLyg==
+X-Received: by 2002:a17:90a:da83:b0:396:5cdc:4bea with SMTP id 98e67ed59e1d1-396d0e7cd03mr10652759a91.5.1787908933848;
+        Fri, 28 Aug 2026 02:22:13 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:a804:e404:4b31:580b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea808csm6454217a91.2.2026.08.28.02.22.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:22:13 -0700 (PDT)
+Date: Fri, 28 Aug 2026 18:22:09 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Hao Jia <jiahao.kernel@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Brian Geffon <bgeffon@google.com>, minchan@kernel.org, axboe@kernel.dk, akpm@linux-foundation.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+Subject: Re: [PATCH] zram: fix idle age_sec underflow in idle_store()
+Message-ID: <apFS2a3lkskcZaag@google.com>
+References: <20260825092316.69658-1-jiahao.kernel@gmail.com>
+ <apEK-yRTQR8VdT3e@google.com>
+ <apEkQSC5PLQAsrqj@google.com>
+ <55c09f16-4b0d-58a8-9413-f88279ed69fe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-kasan-v8-7-7c1c0fdb9d7f@bootlin.com>
-References: <20260828-kasan-v8-0-7c1c0fdb9d7f@bootlin.com>
-In-Reply-To: <20260828-kasan-v8-0-7c1c0fdb9d7f@bootlin.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Yafang Shao <laoar.shao@gmail.com>
-Cc: ebpf@linuxfoundation.org, 
- Bastien Curutchet <bastien.curutchet@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, bpf@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <55c09f16-4b0d-58a8-9413-f88279ed69fe@gmail.com>
 
-Add two simple helpers to allow checking whether KASAN for eBPF tests
-should be executed:
-- one helper to check if BPF_JIT_KASAN is enabled in kernel
-  configuration
-- one helper to check if the kernel is running with kasan_multi_shot
-  (otherwise only the first test will be able to trigger a report)
+On (26/08/28 16:38), Hao Jia wrote:
+> On 2026/8/28 14:02, Sergey Senozhatsky wrote:
+> > On (26/08/28 13:23), Sergey Senozhatsky wrote:
+> > > On (26/08/25 17:23), Hao Jia wrote:
+> > > > After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
+> > > > idle_store() computes the idle cutoff as follows:
+> > > > 
+> > > > 	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
+> > > > 
+> > > > Because the left operand is cast to a 32-bit unsigned integer, when
+> > > > age_sec exceeds the current uptime, the subtraction wraps modulo 2^32
+> > > > and the huge result is zero-extended into the s64 cutoff.  mark_idle()
+> > > > subsequently marks every entry as idle instead of matching nothing,
+> > > > breaking the intended semantics of /sys/block/zramX/idle.  For instance,
+> > > > running echo 86400 > idle on a machine up for only two minutes causes
+> > > > all newly written pages to be marked as idle and handed over to idle
+> > > > writeback and recompression.
+> > > > 
+> > > > Drop the explicit cast to perform the subtraction in signed arithmetic
+> > > > again, restoring the previous behavior: an age_sec greater than uptime
+> > > > yields a negative cutoff, and one equal to uptime yields 0. Since a
+> > > > cutoff of 0 is now a valid computed value, it can no longer double as
+> > > > the "all" sentinel. Switch to KTIME_MIN instead, which no ac_time can
+> > > > be after.
+> > > 
+> > > Can we instead just reject such cases?   It should be an error to
+> > > request writeback of pages that are 2y old on a system that has
+> > > uptime of 2d.
+> > > 
+> > > Maybe something like this:
+> > > 
+> > > +             time64_t uptime;
+> > > 
+> > > -             if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
+> > > -                 !kstrtouint(buf, 0, &age_sec))
+> > > -                     cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
+> > > -                                        age_sec);
+> > > -             else
+> > > +             if (!IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) ||
+> > > +                 kstrtouint(buf, 0, &age_sec))
+> > >                        return -EINVAL;
+> > > +
+> > > +             /* No slot can be older than the system uptime */
+> > > +             uptime = ktime_get_boottime_seconds();
+> > > +             if (age_sec >= uptime)
+> > > +                     return -ERANGE;
+> > 
+> > Or perhaps, instead "return len" and make it a fast path out, w/o the
+> > need to iterate any slots, take locks, etc.
+> 
+> Thanks for the feedback! I've sent out v2 of the patch. Please take a look
+> when you get a chance.
+> 
+> https://lore.kernel.org/all/20260828083149.45760-1-jiahao.kernel@gmail.com
 
-Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
----
-Changes in v5:
-- add kasan_multi_shot helper
-
-Changes in v2:
-- fix condition
----
- tools/testing/selftests/bpf/unpriv_helpers.c | 10 ++++++++++
- tools/testing/selftests/bpf/unpriv_helpers.h |  2 ++
- 2 files changed, 12 insertions(+)
-
-diff --git a/tools/testing/selftests/bpf/unpriv_helpers.c b/tools/testing/selftests/bpf/unpriv_helpers.c
-index 9dadcacaef0c..2c8c5edb8751 100644
---- a/tools/testing/selftests/bpf/unpriv_helpers.c
-+++ b/tools/testing/selftests/bpf/unpriv_helpers.c
-@@ -143,3 +143,13 @@ bool get_unpriv_disabled(void)
- 	}
- 	return mitigations_off;
- }
-+
-+bool get_kasan_jit_enabled(void)
-+{
-+	return config_contains("CONFIG_BPF_JIT_KASAN=y") == 1;
-+}
-+
-+bool get_kasan_multi_shot_enabled(void)
-+{
-+	return cmdline_contains("kasan_multi_shot");
-+}
-diff --git a/tools/testing/selftests/bpf/unpriv_helpers.h b/tools/testing/selftests/bpf/unpriv_helpers.h
-index 151f67329665..a7ceb51577cd 100644
---- a/tools/testing/selftests/bpf/unpriv_helpers.h
-+++ b/tools/testing/selftests/bpf/unpriv_helpers.h
-@@ -5,3 +5,5 @@
- #define UNPRIV_SYSCTL "kernel/unprivileged_bpf_disabled"
- 
- bool get_unpriv_disabled(void);
-+bool get_kasan_jit_enabled(void);
-+bool get_kasan_multi_shot_enabled(void);
-
--- 
-2.55.0
-
+Thanks, looks good.
