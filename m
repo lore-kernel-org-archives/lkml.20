@@ -1,192 +1,251 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10AB353A74;
-	Fri, 28 Aug 2026 18:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F630380FE5
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941476; cv=none; b=T86XYD9AsyLbzh7zowYG/Yccf8GZMI06LKnsoFxf4tGbkEpGXs1RQTIom+30kV+cd7Nr8j/yMVkzxFrbzQRoJtcZrsHTS1Si8UmB/FQJxVCA1q4RhshV/7UOdIeUOFf/JSFv2JV94wTlZKEtC2Fa7je7W3WU6cT52p1mSdiPUPM=
+	t=1787941719; cv=none; b=P7+84lYFEngKGV+AaY6SoLUw+APg/G1e+hInHgUjV1aMwFJ35dFBNrwFJqVOkVubPbnSkG6EgxpsLNlF1FFeAaZLQIXK7LsI0oQapJk08AV5QA8OA1/fQKfk54xchcHTUx/ViQpUCfiayTtGw61MCeX5muBfXDyTa2F9VHehfpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941476; c=relaxed/simple;
-	bh=l+nBGPULbxhyr/PagIwYffNWegikca8YJNHx5+ze5zU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bft80x+ipDt4fWgBHrPmqKKIW37kWgAUWZ0vsUhDlYSnsyJyLQlmckCpYhdVuOWbTRtwb2z04WdJxssPot3Nr3zuVSMRXdDKPff06RMM2UKypXoHtuUTvTjqK7Wgzi17GXfg/5I/LwOrJ+yrDzCMTD58yM0XmcHzdA/XAoW26Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=n/T3fWWo; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=VmsDwdVw; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1787941719; c=relaxed/simple;
+	bh=aIJ3XedisAPbkx/BHNvcS+HFrCoktU7SSApXHopa3VY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ctQRSnLdMh/K7ylTcTCdoePjwKQjGTQS7tB+bMjGfkpQqPv4gbIQEgfMOQvbxYcqBwIRFrh3M5s4f9ax3L2zwAO9/AZLDTTjl0Pxlebup3/fLYgu8ltjNzhnrLr+8yU7PkajYHlDC5Kqgby9mlSYse5xV5aSsNFZ7Hq4t93Q60I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G3AF+sDv; arc=none smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="n/T3fWWo";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="VmsDwdVw"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hWmxj6D7RzMlC5;
-	Fri, 28 Aug 2026 20:24:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787941465;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iD1rS5EjcQmZcEhrhcQ9DyPs5ERHj0pb6khnJ8s9qok=;
-	b=n/T3fWWo1aLPxQpj+Edu9YzyNQTrwy+TY/XMxImdWGv5iivfZm3xeDB91bcrFrRcLXwvPm
-	DF5gk4IAQFQL1brbpz7icezk8SyNfyVVo3jCvn2P3BODQI5rHsUQ879eEqkPKo+85a9F6u
-	N0BAQ0p/dZb7vsdNs7gYt9vvGBHJsRQWW9rd7vm3IhvQKZvmv86277ROaK7dbi0POH/mob
-	73nRsCH3N/SAf+konJYkVLU95FbwYVImxwiUuNHZ442lbdTmiHGrTenhDinsPLEYFm/aKr
-	f+GPomoGMjvu7Ml5r7j3wFRR0YHJAXjRyg45Xar4pGeQkuUzBWtGiONF+GLhcg==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787941464;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iD1rS5EjcQmZcEhrhcQ9DyPs5ERHj0pb6khnJ8s9qok=;
-	b=VmsDwdVwABvMfxaKd7Vz0B090V/DkR+WaUXL/vQBETdkK1C/f2qmbQRghG/W8Tpec+mgt8
-	jwojUsumJIbEksdHpGND9M7qmPRz0oa5nPn1IpJmVXBjctK6BXLc9oWDMBjTbpZgTtqhuN
-	AQte+QofwFJh3NflA63aOSdm80TXC6fqLiKI/PmeHoQ+D8Eb0IGPCdaLLj9JjAcCizqEJT
-	+AYOLSn1gBp6T+jkmN2n+LUbpwRxtpzaqQxx7lUFDxNj1ooj9vzR3Nv/OFiDGxVOAGlnRA
-	1lZiX9wtLjlC3XKQfM5iDOMWrNwWJ6uGMXHU0R5jVQvfD+t9RAE+pOU8ZnoAyQ==
-To: linux-usb@vger.kernel.org
-Cc: Thanh Quan <thanh.quan.xn@renesas.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v5 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car Gen5 DWC3 xHCI USB controller glue
-Date: Fri, 28 Aug 2026 20:23:25 +0200
-Message-ID: <20260828182415.388367-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260828182415.388367-1-marek.vasut+renesas@mailbox.org>
-References: <20260828182415.388367-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3AF+sDv"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-81ecf499af9so15784527b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:28:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787941717; x=1788546517; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=00XcgwP2TaQwLmCHa5/Xf0oEUUJDtZf0rSmRiAN3I7M=;
+        b=G3AF+sDvPKLPPpVkB20tD2xb8lHDW26GUhPmxpOW1y3N+zE4qZCBDizoQ3ywuCfbSo
+         Tk1NsFTj/RBtb7fuFNciVvckX17teu7a9rlNKaz/sEqZyWQWCNnexCSkVlxfT1RiQwSU
+         atsfFkR8gldbxlOKsuhEy58wW8coxErI+y9LRl5WkGiZd7EKYuthDVE6MajqIxsjzgAK
+         lfNwAbWWt/QMHU+8LDLneKmGBqZD9KfJdVpO7dXa7hM0/d9otWpO/v6i+LRNhDKJVDSF
+         4Q9julHqumQPxn+DpfHWKD2ZyYIbLb+CQBbdsw7TG/BwM23c1cK+Tfqo4pv6OjKfbjM4
+         hITQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787941717; x=1788546517;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=00XcgwP2TaQwLmCHa5/Xf0oEUUJDtZf0rSmRiAN3I7M=;
+        b=dJ9sNoMVYVGpI+FVNpzfmaT/pb+PNt+zL6bGVvpfVTor4/IlSCB1yCn6Hcj7IYMMW6
+         3cDc1d7kHIF1CTBRnwNYmnz699c0sp+p5FSkJRY602J/pK+n33NYGYME6jva2ShigMLX
+         TnBZt9tXWrmIH1/DxgCTCpYjOzIA2NEm4lVSeLR7NEPNRQb4p7QAV/0uxQRmEBxkvVJq
+         9YCcLoEeRfOjw8BD7Q4KDcUcoFIn65yMJdKrf3H6jBp4O0DPpXGJxCvo4XVNPqc82o6Y
+         M5viBJLgOkAMiBUf9A6+3AdUJMAWbK/bi2QdcKV9OUhQiKBUTOS2mxKCD7P20oseW5oH
+         kj9A==
+X-Forwarded-Encrypted: i=1; AKwUvBzSVVqdQCYWG+EWEzGR+Sya7kLB6w8WPye0/iZquPcUOjsV0oi5Kp7u5+v9lg70pXZY0wiEcVUiRZy4rwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k49Gi2t/wZx6ntblSEmf+ResYHx8udVrHjuqth49Ya305lRySL
+	VcKsYZ0GokUCm2jFS40jDYbH3axEi2siu+q0BBs8THQDIjbgFfNQNsGf
+X-Gm-Gg: AYBFou09RNQYZirPOz9uw1UVPCliHOkIfDthrc+4KzJt9J5K8CwQ4tmny60tgWKSWqN
+	y/VK3oV/wnVzxFGF83k2Tjf81Wme+eA0wIi0lGvPTrkknuYfDoiPVe4k34iEEdahGPwivv5ZidK
+	dMt4vfkrGnX6wF3LFK8xCWi7u7LLnmGmi2NU0PeAADTHNUVeH61FrqBy/QSnlzshZhPbEkP7yCz
+	6ER9yMa7txWqqI+lRcO1pYNxNr+5oX6bdJCzkGGlNeUgUMJYBaaEWpCWcnnHuRXrF9CSqnyahvJ
+	PKC66mF+xoGui5d/aE2FhNqZ+ZdmgoSe/Wo9ksNxvgC+NjGZFD2JKshplxNFDxjZJMhnggxNLBs
+	K1qDFNLCf2KKjTnmn6hiY+1K6rLZHjlpBTmHxamUcHuR3/5OKN+ZUOeDM6npF6cBcO1e9w+GBI4
+	OlM/8WwP9tG7jisCoEG8lbK8ADHz5IgzNVb7K8ePmLw4SETqSKX2RBWBItnjQ/jaXQJTmAH4LvO
+	PpOx6FP231NvxaXKsIkda8=
+X-Received: by 2002:a05:690c:e313:b0:857:f33:6f1d with SMTP id 00721157ae682-85d660d961fmr32735737b3.6.1787941717079;
+        Fri, 28 Aug 2026 11:28:37 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:a21d:f263:629b:a8f0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e668ce7ecsm10420247b3.34.2026.08.28.11.28.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 11:28:36 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:28:35 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	kpsingh@kernel.org, mic@digikod.net, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	kees@kernel.org, gnoack@google.com, jack@suse.cz, song@kernel.org, 
+	yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next 00/13] BPF interface for applying Landlock
+ rulesets
+Message-ID: <apHN2WNQWeM9lzHc@zenbox>
+References: <20260731022047.189137-1-utilityemal77@gmail.com>
+ <CAHC9VhSSzNBCSvy4cQHh6OOM4-EvHF+bmrB9=V1y=Lj53RvxQQ@mail.gmail.com>
+ <anOnaGmBTlBW9xwj@zenbox>
+ <CAHC9VhRBYMaNBPfnV=TK8g-M7H_qsBu=CsVVOwnAzTPAkpAZaA@mail.gmail.com>
+ <anPAbFzuLOizAhm-@zenbox>
+ <CAHC9VhSJ1q59RUtEEMAmiZLLLi92=XO1tkd9z0fr5T7vuhoy8Q@mail.gmail.com>
+ <anZIGtlHvTaidOEC@zenbox>
+ <CAHC9VhQcysVLosHhuz_FTh+LUH7KSw1hJWmwucmV1G-seSbHHg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: aptgfjytc9rnmgmxgtxf44ehfb3yawck
-X-MBO-RS-ID: 97b189517dc149d5cfc
+In-Reply-To: <CAHC9VhQcysVLosHhuz_FTh+LUH7KSw1hJWmwucmV1G-seSbHHg@mail.gmail.com>
 
-From: Thanh Quan <thanh.quan.xn@renesas.com>
+On Sun, Aug 09, 2026 at 03:18:21PM -0400, Paul Moore wrote:
+> On Fri, Aug 7, 2026 at 6:00 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> > On Fri, Aug 07, 2026 at 04:36:20PM -0400, Paul Moore wrote:
+> > > On Wed, Aug 5, 2026 at 8:32 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> > > > On Wed, Aug 05, 2026 at 06:51:56PM -0400, Paul Moore wrote:
+> > > > > On Wed, Aug 5, 2026 at 5:37 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> > > > > > On Fri, Jul 31, 2026 at 04:30:39PM -0400, Paul Moore wrote:
+> > > > > > > On Thu, Jul 30, 2026 at 10:21 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> > > > > > > [...]
+> > > > > > > As you may, or may not have seen, there is currently an ongoing debate
+> > > > > > > regarding the location of LSM kfuncs that will impact this patchset.
+> > > > > > > Sadly, we don't appear to be approaching an agreement on this issue
+> > > > > > > which introduces some additional risk to this patchset.  We'll have to
+> > > > > > > see how that ends up, but I just wanted you to be aware of the
+> > > > > > > situation.
+> > > > > >
+> > > > > > Quick aside question: Would security/bpf/ be a better place for these
+> > > > > > type of kfuncs?
+> > > > > >
+> > > > > > security/bpf/bpf_lsm_kfuncs.c could be for LSM framework kfuncs,
+> > > > > > and each LSM could maintain their own security/bpf/<lsm>_kfuncs.c
+> > > > > > for kfuncs dealing with lsm-specific types.
+> > > > >
+> > > > > This gets back to the other issue in the patchset that we've
+> > > > > discussed: general LSM interfaces vs Landlock specific interfaces.
+> > > > > There are plenty of reasons why we don't support the kernel calling
+> > > > > directly into individual LSMs, and from my perspective this is another
+> > > >
+> > > > I'm 100% on board with the no calling directly into individual LSMs part.
+> > > >
+> > > > > instance of that.  Here it just happens to be that the kernel caller
+> > > > > was written in BPF and not C (or Rust for that matter).
+> > > >
+> > > > The intention is the opposite. The point of the separate directory is
+> > > > that the kfuncs can never call into an individual LSM, they only get
+> > > > the LSM framework API in <linux/security.h>.
+> > > >
+> > > > Every kfunc is a thin wrapper over the generic policy kptr hooks:
+> > > >
+> > > >     bpf_landlock_get_ruleset_from_fd()
+> > > >       -> security_policy_kptr_from_fd(LSM_ID_LANDLOCK, ...)
+> > > >         -> Landlock's hook implementation
+> > > >
+> > > > So kfunc -> generic lsm hook -> individual LSM, same as any other
+> > > > caller in the kernel.
+> > >
+> > > Not exactly.  That "bpf_*landlock*_XXX" kfuncs are a move away from an
+> > > LSM agnostic API and not something we currently do in the kernel.
+> > > Some will, and have, argued that this is more akin to the Landlock
+> > > syscalls, but I see (at least) two problems with that comparison: the
+> > > kfuncs being presented aren't syscalls, they are cross-subsystem
+> > > kernel function calls; the Landlock syscalls were created in a
+> > I see the argument for normal in-tree kernel interfaces.
+> >
+> > Unlike normal kernel interfaces, kfuncs:
+> >
+> > 1. Can exist without in-tree callers.
+> 
+> Yes, although I'm not sure how relevant that is to our discussion.  I
+> can say that it isn't relevant to my decisions.
+> 
+> > 2. Are explicitly allowed to change or be removed at any time [1].
+> 
+> FWIW, the LSM hooks can be changed or removed at any time as well.
+> For obvious reasons we try to avoid churn where possible, but there
+> are plenty of cases where hooks have been modified, removed,
+> relocated, etc. (some without our explicit permission, but that's
+> another issue for another time).
+> 
+> > 3. Can't break builds or other in-tree subsystems when they do.
+> 
+> Of course.  Rule #1 of any kernel subsystem is don't break the build :)
+> 
+> > This isn't hypothetical: the entire KF_KPTR_GET class
+> > (bpf_task_kptr_get(), bpf_cgroup_kptr_get(), the flag itself) was
+> > removed and replaced with a better abstraction within about a year
+> > of introduction.
+> >
+> > If Landlock (or any LSM) dies, there's zero uapi/in-tree cost to
+> > removing the kfuncs, unlike syscalls which are burned into the uapi
+> > forever, or ones with in-tree callers where we can break builds.
+> >
+> > I argue that the transient, low-commitment nature of kfuncs mitigates
+> > maintainability issues that arise from lsm-specific interfaces with
+> > in-tree callers. (which we are both opposed to).
+> 
+> Sadly, the current situation between the BPF and LSM devs is not good,
+> which means any discussion around LSM kfuncs has a good chance of
+> turning ugly and something that should be relatively easy to maintain
+> is likely to turn into a significant headache.  To be clear, this
+> doesn't mean I'm opposed to LSM kfuncs, I just don't agree that they
+> are "low-commitment" at this point in time or in the foreseeable
+> future.
+> 
+> > To avoid strawman style arguments, I ask what you would see as
+> > an alternative interface?
+> 
+> As I've mentioned a couple of times now, you need to grant me the time
+> to properly review your existing patches before I can comment in
+> detail on the interface.  You've been quick to post with new thoughts,
+> ideas, arguments, etc., which is fine, but replying to them steals my
+> time away from the very patchset you want me to review ;)
+> 
+> It's up to you how you want to handle things, but my suggestion would
+> be to pause some of these thoughts until I've had a chance to review
+> your patchset in detail; then we can have a better discussion.
+>
+Hi Paul,
 
-The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-controller with glue logic wrapper around them. Extend the generic
-DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
+Gonna admit I was wrong on this one. It is entirely possible to make
+a generic kfunc interface for this, without it turning into an ioctl
+style multiplexer either. Honestly I think it's the better design anyway.
+Just took a month of staring at the code before the realization
+hit me.
 
-Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
-Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
-Cc: linux-usb@vger.kernel.org
----
-V2: Extend dwc3-generic-plat driver instead
-V3: Handle maximum-speed as optional property, test for USB 3 PHY
-    non-presence to determine whether the controller is USB 2 only,
-    consider optional maximum-speed DT property, but if it is missing
-    then default to maximum controller capabilities based on the
-    presence of PHY phandles.
-V4: No change
-V5: - Drop superfluous code comment
-    - Drop duplicate speed >= USB_SPEED_LOW test
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 55 ++++++++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+Since it's been about a month since the original submission, my plan is
+to send a revised version based on generic kfuncs in
+security/bpf_lsm_kfuncs.c, which expose no LSM-specific interface:
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07ce..3994a6d93b9de 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -71,6 +71,55 @@ static int dwc3_eic7700_init(struct dwc3_generic *dwc3g)
- 	return 0;
- }
- 
-+static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
-+{
-+	struct device *dev = dwc3g->dev;
-+	struct platform_device *pdev = to_platform_device(dev);
-+	enum usb_device_speed speed = usb_get_maximum_speed(dev);
-+	bool usb2only = false;
-+	void __iomem *glue;
-+
-+	/* Wireless USB is not supported */
-+	if (speed == USB_SPEED_WIRELESS)
-+		return dev_err_probe(dev, -EINVAL, "Wireless USB not supported\n");
-+
-+	/* No USB 3 PHY in DT means this is surely USB 2 controller */
-+	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
-+		usb2only = true;
-+
-+	if (speed <= USB_SPEED_HIGH)
-+		usb2only = true;
-+
-+	glue = devm_platform_ioremap_resource_byname(pdev, "glue");
-+	if (IS_ERR(glue))
-+		return PTR_ERR(glue);
-+
-+	/*
-+	 * The datasheet describes initialization procedure without full
-+	 * information about the registers. Therefore, the source code is
-+	 * based on the bare metal code shared by the board team.
-+	 */
-+	writew(0x211, glue + 0x26);
-+
-+	/* USB2 does need additional register programming. */
-+	if (!usb2only)
-+		return 0;
-+
-+	writew(0x11, glue + 0x81c);
-+	writew(0x0, glue + 0x81a);
-+	writew(0x1, glue + 0x802);
-+
-+	usleep_range(10000, 20000);
-+
-+	writew(0x0, glue + 0x802);
-+	writew(0x1, glue + 0x2a);
-+	writew(0x1, glue + 0x81a);
-+
-+	usleep_range(10000, 20000);
-+
-+	return 0;
-+}
-+
- static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
- {
- 	struct device *dev = dwc3g->dev;
-@@ -231,11 +280,17 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
- 
-+static const struct dwc3_generic_config renesas_rcar_gen5_dwc3 = {
-+	.init = dwc3_renesas_rcar_gen5_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
-+
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
-+	{ .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
- 	{ .compatible = "starfive,jhb100-dwc3", },
- 	{ /* sentinel */ }
- };
--- 
-2.53.0
+  bpf_lsm_policy_from_fd(fd, flags)                                   KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE
+  bpf_lsm_policy_acquire(struct lsm_policy_object *)                  KF_ACQUIRE | KF_RCU | KF_RET_NULL
+  bpf_lsm_policy_release(struct lsm_policy_object *)                  KF_RELEASE
+  bpf_lsm_policy_apply_bprm(struct lsm_policy_object *, bprm, flags)  KF_SLEEPABLE
 
+  struct lsm_policy_object {  /* initialized in LSM object structs */
+          u64 lsmid;
+          u32 type;
+  };
+
+I know I said I'd hold off on revisions until your review, so if
+you're already reviewing the current set (or still plan to), just
+say so and I'll sit on it. Otherwise I'd rather send the new version
+than have you waste time on a stale patchset, or on making a point
+you've already convinced me of.
+
+This generic design is better, and I've already experimented with
+implementing the same hooks/kfuncs for AppArmor / SELinux exec-time
+transitions (possible future patchsets?). This would allow writing
+LSM-agnostic BPF programs (like liblsm).
+
+Thank you so much for your feedback Paul.
+
+Mickäel,
+
+I think this should address your concerns about the multiplexer
+design, this avoids it handily by making the rulesets/"policy object"
+self-identifying so there's no need for an opcode/lsmid parameter.
+There's a small lsm_policy_struct that gets embedded in the ruleset
+with the lsmid already initialized, and then the original ruleset
+is retrieved via container_of.
+
+Otherwise, the semantics of the API, the flags, and implementation
+are identical to this set, with the exception that ruleset
+references can be taken under RCU.
+
+Thank you for both your time and feedback,
+Justin
+> -- 
+> paul-moore.com
