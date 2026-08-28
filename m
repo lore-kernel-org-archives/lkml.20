@@ -1,129 +1,124 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818E63B9D96;
-	Fri, 28 Aug 2026 05:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787896199; cv=none; b=M0fF8qinWCXnpuKSz6ZNCGaOkE/hbbCwfZIyOxisoLSa7EFhc4rOOhN0i1rKNDWifquBP6WpDDo5FzEL9oiAFKZOMP59Vbr+QwkNMPg4sWnW8qe9Yvt6bf9GhfKRUJS9tfascUUhqjQRrZMf+UyDjfoxUhJzaQSV15n6I4GGJjY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787896199; c=relaxed/simple;
-	bh=bSdhR5S3AkTzQkyTak/kjnC83qdpRObNJhjUYRIhjbE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=il1cpIMZJj3y8fj2EKtkS/Wu/27TfGMme+bc1/zsOg3PFCJIFMOAvHRSrH3qT6k2PRsSHhIwrctLGilez+VOsWLYekSkMgOz7wGh1KDAnHKiUTzsl2kPKEe+aEjs5yU0DvlxZPgdtmk+7vM+jsmSsGqQbeDQrERJ9nPbSDqOOCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=aIdJQ3GH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UUbcIz2Q; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50F13C7689
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787896204; cv=pass; b=R9fryxIcX3ImlQQ4cVyCR7g8jxm+aAqc6sQrxPXSkLaFOC2GyCSJ6giH8be4EH90GUZa8IpIM8fBTY9DjnjugG7Ud6/L7pUh1ytuuJhZQW75Bah8vhvZkSBBLmCDv3cTVwEFl2KjLkGB1RBA753lrvTKwIlTnnn0sp5ugLMijl4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787896204; c=relaxed/simple;
+	bh=Jio7sO4pCEGq3rVPHZZ84dICs7hxJu4+ln/FH4TXjhI=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=ahpvt8K/L5XYVN3JFVacHL3TYJgKMCvx5Ld8kWV2x3w1Yh3WhSrMcTwqeR1OfzlQWTE0YJrX01URPn6yQ9Yx7kJNS18+9adotdE24hikdVcle51LKY0C0VZ9bUXtSzfG5LcDyomSSABi3s2fZL+ZyKFjvEh4bxviYdueUmKjCb8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=ISwtKVCf; arc=pass smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="aIdJQ3GH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UUbcIz2Q"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 634EBEC0173;
-	Fri, 28 Aug 2026 01:49:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 28 Aug 2026 01:49:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1787896195; x=1787982595; bh=hUuuNKbF7i
-	a6LW/61+fyL2pbCSwKKHq6tMLrvuAJie8=; b=aIdJQ3GHBSOhA4RZaeEZu+Qdcm
-	SmOmoPi1S0Zhc1C2VXU1MlUZs8AP3p7ba4b69KEMXiNMo0ZASCHt5atQACziOALk
-	o8zZii8Fec6hnyYr/KFWKpReU/zL3AGMBxG6ZDCVsMVx0sEZLq80bxHPbc+RzCR4
-	+Qh66UItf5MMoCkXtm72OVpKTDKyl3watovBGIaPyoQtt/2+BXrcQUKlXynWH7p0
-	W4obcej7nlDQ/yFA4Taz2pHYMHak5kvInkRpIegv5bubqKKOcHTVWPOuSYBBWObr
-	eIWRqu4kg/U8U9SW8jtESg/svo5CjUpgYCo9M5C3xLwvGYqrCtfqDdukv3HQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1787896195; x=1787982595; bh=hUuuNKbF7ia6LW/61+fyL2pbCSwKKHq6tML
-	rvuAJie8=; b=UUbcIz2QrzEw0Lzhf/1Rqcw2GmqCiqJiMvnU7KbqoiYly6tV/Q4
-	ho2v6OiPePxXg0LUDMfCXXKsukv1Y1T+oYUUkj5eiw/TiL6sbGKK+WfygOTbOpia
-	l/1Dk/GrP3AI0WU2gfppUWXHF/hqLB/FqQHM7EPHWZqIorisB7iGg75FAT31vMXb
-	es2AFsgaFIItI41nHRArqioaCHdsem698W2vOWlX9aOr6RgTyXWzUXqI3yNiwTSh
-	R5qDDAC1tZDnGI8ByvRrglHNVxl1Ijf46vz7fX+Az3YGpF4fZv68UUOi6MkCxmIK
-	i+M665V0kK9FKgZgN1kejgIyi5NEdCyCwfQ==
-X-ME-Sender: <xms:gyGRavyYDi_GwF_XdyLu_5pkGGO-9VwyAoAZmS5SrNaizc079JXhhA>
-    <xme:gyGRaveba3miuE8EqqL70O0usyS_Us-Li5NU10xNVyBTe_pZi8RjJEaMvCnomNIh6
-    F9u7sDAMM9UVE4m8jHiSR3KAw0I3V4E9lCbwr9vkTDjOX3INdI>
-X-ME-Received: <xmr:gyGRak4UIORU75psIz3eLaZstUzyjJlHN_9aVt6BJREBK-gC8voEarbarkJc6GYUvtD_lPskWbzEL12vHa7Sky7nTO7Oab9SwjuJNSG_XSM>
-X-ME-Proxy-Cause: dmFkZTEwdERN5tuXiXY2JgpmJsfNP8Jt5mZl9BTviXkB4bIcyt9492f0lm5XtfnlrBBYhq
-    /1DHaY0sJ8pm4g3Pg7eQRpOS7AWpfKzExaW3hEJRapO9G4Nf7XXHMBU7UP5b7yEgJyT8iY
-    p1iEyvlYQQ6KVtazYmuQ71nVT78DI8UK/UO787z/eTx/Y3r/w2boNAd2hc1YUzZVWs7E3r
-    XvBaR2gfQ5tYwXb26vVkA8bCxxfTEkjbHdEje4x0mOau6sNam0YebkWks1zQtNITyJ9KvH
-    p13oAEXwWFknyclGO2UMFZjljkbIVXcRalCJjkC/TyKsQIBJFVS68HLOHam05j0Iy13/Vy
-    iNbih18PDoTJcwqhD03EpujmTQMGVq8yn7OUq0Kkds/yo3z5yGCnLud/bGlwQiTfM7faqx
-    WkDuHAyWtiAI4utij8gGkvc+NPPbKW3KckZbEPluUFbGQHhx/AoNX+OOxDMyhINykViPPt
-    jmgepO8PQSmXvYMSgVre5Dl201ZReeOQdACwIByIgTSnsUO6eoPmtQEWKqq1MpQjRW6XiT
-    J4DYz/pg3RnsPpY/VjdxeAhKwAOpQCzTd+SYbT0EODGDUv0onl4HXOjfvf7R1Z1l77e3CN
-    vi8vv1qZpTzWu7SdU03GbuztnvAqEvNxmc9QvqpKhSG/Xw6zNpBaMcdsOtwQ
-X-ME-Proxy: <xmx:gyGRakI_R7JVTWbVlZVTHRgUue8CuFMC1BPrW-Kl2s6Xx0me9o5zKg>
-    <xmx:gyGRasx-UW-sAp_4vZJf_Tnf9-g2ik5F6wEHRNZQ-jN5RCzTQnNYpQ>
-    <xmx:gyGRasIXk2BhIB3JWStrNrIB-dP0AjJvLHDHZd9bei81rAkq3nS6VA>
-    <xmx:gyGRarWEnDgjxpERVv45G-2ndSkJ2K09guCnvFg2M_mKFFceF0P-Rg>
-    <xmx:gyGRaqW7MeDPf2TzGGDLNVcPTIHKHkgaE27uFODIYV27nmXBhA21LVVP>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Aug 2026 01:49:54 -0400 (EDT)
-Date: Fri, 28 Aug 2026 07:49:52 +0200
-From: Greg KH <greg@kroah.com>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: Jiri Slaby <jirislaby@kernel.org>, falemi@asu.edu,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] nozomi: missing BAR-TYPE check -- writew() on an IOPORT
- cookie
-Message-ID: <2026082848-subdivide-yield-b210@gregkh>
-References: <CA+0ovCh_phuo7TsORd9dZGA3joG6rAOyXm=cv9+BrGgQb4w33Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="ISwtKVCf"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so888128a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:50:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787896202; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eCifwr57CwvFNY5PTrJklHQgVbY2Ou9I5W2ccmQV1CYKurn/pQTier9B0qu+jNB+43
+         L+fAdEavgKxBYfUap30DX2ycpatXQHI4I6bwETTt/6gDC/MXn2o2wWbJIJqr6A/FEk9e
+         1eCGibYIBHXN/LdqZsvcCzC3YmU8WudV1rklPrWIfaLMtM2MCuOnPDWJ7hy8SqgSBiih
+         XQntHk2EEqFV9YtnrdaVD/jeBSmKHYwxlzNYrwF+TAgJGpy/zbsigsX86o1FiVAPHjWu
+         8ZVEncErXr8I8PPxMUreAF6AX0TuPlxMQZ0z66rpxVJHcB0idQpf5EZBuekmJb9Wykoa
+         hGAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
+        fh=vp9qQdTbfkZp0vOZxr7tCol57fQZjFATLd6c7TLXiAM=;
+        b=Y5/2Sjp6grhj50fHKiLne4OEgOOWVH0zG8P2k/QeREPohIOtrT/cWUIAM9ixzGc1j6
+         h/8bXPPSQugM0SWvwKbvrNiiWp7kusmLwbR0LYzEOLr8IdT4UB2vJvgiw4wGJtJNVmdh
+         hL+kTJXmLM9EXMX5JIL25dDfpyD0FDzJXo4IujxDriYnfHrBvH8+8wZncmVyDpSvtSOk
+         +robiWa2O15AeOwr1j5cs9cxT6lUx6snwAa6nY8VnoHKPw1qiKGkF0Lz2fdju3N/ul+g
+         p9xa6gdka2vCTtMeYxcnvON7ZIdnqdAex6s7YQnDQUAyDrz3wicUWz3yj0bGwHhvVaWX
+         k9gw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1787896202; x=1788501002; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
+        b=ISwtKVCf93Am4tpo4/v6ixMpAT2rHZfdTnV6KL2rH1Tzyqo1mtmd1Ii+VaAqcXsHyK
+         I2DxuN4L+s8UvHS/4q8py7ntvLz9Q6YsEQDKHq/opeKVyfJ4uPBKgsYrme2KLbKYSYfE
+         youstZ79VUV5WXldc7fcmvp5StzHIZunjpjqvDo5aAkmsSmtQMXl1yUCQ6nld2hjnw4v
+         tozGG4w4/eUGP0JVjF+m1+QM6JpY/GYxQ+zag+8iJ56Jaum1vqYwXFUCwICw0OBK3gIT
+         qldXTi92l+O0PvBcs66lSK8KgHKR7foVvrsY1Z1ejmtkHHjjv1pDjDo5TYaRXhje92Py
+         LlMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787896202; x=1788501002;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vAOGoOHxM3mKR4qJD3BaTZbqRLt/kDWX0QIIW8aFtCo=;
+        b=PjWf2VbFU0h1llAC4sJcSBYWV93m+8pRzwf5sXeCfmEXfjAKrx7IhzaJMtJ0Y4DBum
+         jK1tS0tjwko1GmMW3u/vW5w15ei/wJ8d563dIpC7gVPq9e/TN8SIVTHHK1Og6PJgFCkV
+         t1o62o9T+i+kX26WsWDEPFNG0I6T9JZNo8JWUvKAmJkzePhFHe2cRXJmM4FDe4nU60+f
+         ikrwbLBudPnEODMgpBOiqCcALQ7KJmUlNc+IyupgXfLCJ5xpq0OJuyiqfIJzm1Sa83vm
+         g9WqSmY9V5GlMpwjIwl+CnHBUG0MyeF/76+PRwtrvWINOYZEpxMGJ4d6lUY5N+ZFTxti
+         XN3w==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0VmTi1w1XEkkhPn02+/vDr17lwFQl65DQ9qoTQwmkaj0bm9VkaS2emYy7odYK76IR+WZHRbJEMX3LehA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwL/IThKbyJtqGH9YpyX/y5QNkYU1UwZcwYr9OmoirY98N/Vos
+	pV9VHnp4pT3cJzMDJhXc+Sps55Dwx0cuMfr28nMoJ4P+34OAnc0qEyka/HuR6Ov6oMKax/9Yv6s
+	sEBb5kZ7eUbfxlNDI95y2hzlt9epB6sFAye6SwXC6
+X-Gm-Gg: AR+sD11SiUbqzZLFF6r4aqlrA9eKbcJsVCgKZM5vHcazz9wnP2Q6GVqlR/ZxHKhwepM
+	6WVD2/gfmXCsNJH6h/JjqWHb4SKFWHYAAENNOC2OKerLjRA8TH94Mi5Pop+F6+v9bU2gIL96isk
+	g1oeOYx7uroWexqRzlaB3/BVDChrMKsK0XvgD9jivqBWARN1XzXZXhOXAdr61EWSY9kX7xZ6bXa
+	kYnJZPDMGREtuiLu9TQsayukFzHj++TmG7WFJ+ZURRNQSLhQ7Mo+eb9FlS4lezyeuJ6OFKwGyQA
+	2S6IgWSKI/4c3bjVbuTqeA2n9e8C5TIwq+PsJnOyFivjDU3MUurZccNy+BahHW31M+uLUhQpDTg
+	qWlksyPTBAgSh8ixXY4Bo+cHGHiZwcJ1C
+X-Received: by 2002:a17:90b:582e:b0:395:4de4:92be with SMTP id
+ 98e67ed59e1d1-396d0fabb3amr8959710a91.13.1787896200987; Thu, 27 Aug 2026
+ 22:50:00 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:50:00 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 28 Aug 2026 05:50:00 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+0ovCh_phuo7TsORd9dZGA3joG6rAOyXm=cv9+BrGgQb4w33Q@mail.gmail.com>
+Date: Fri, 28 Aug 2026 05:50:00 +0000
+X-Gm-Features: AcwNN1VB4Lu0vx7OeyLBFvG_yf7maW27jBuMibH6lUCi0Q10SkfZv_mKR60M03I
+Message-ID: <CA+0ovChyLaYfEN19Fomt6qWx6dYtX47Ptyaej3gfMeNGB1xoFg@mail.gmail.com>
+Subject: [BUG] general protection fault in sysfs_do_create_link_sd
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>
+Cc: falemi@asu.edu, driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 27, 2026 at 10:33:24PM -0700, Farhad Alemi wrote:
-> Hello,
-> 
-> As part of the kernel research at ASU's SEFCOM
-> lab, we hit the crash below. Crash reports can be found here:
-> 
->   https://github.com/farhad-alemi/public_bug_reports/tree/main/148-tty-nozomi-writew-on-ioport-cookie/
-> 
->   nozomi 0000:00:02.0: Card type is: 8192
->   BUG: unable to handle page fault for address: 000000000001d044
->   #PF: supervisor write access in kernel mode
->   #PF: error_code(0x0002) - not-present page
->   Oops: Oops: 0002 [#1] SMP KASAN NOPTI
->   RIP: 0010:nozomi_card_init+0x9fe/0x14c0
->   Call Trace:
->    nozomi_card_init+0x9fe/0x14c0
->    pci_device_probe+0x436/0xc90
->    really_probe+0x267/0xaf0
->    __driver_probe_device+0x1e2/0x350
->    driver_probe_device+0x4f/0x240
->    __device_attach_driver+0x270/0x410
->    bus_for_each_drv+0x258/0x2f0
->    __device_attach+0x2c5/0x450
->    drivers_probe_store+0x11c/0x220
->    kernfs_fop_write_iter+0x3af/0x540
->    ksys_write+0x150/0x270
-> 
-> Our reproducer.c is available upon request.
-> 
-> Happy to test a patch if that would help.
+Hello,
 
-Please send a patch, thanks.
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-Oh wait, why are you attempting to force drivers to random fake devices?
-You have seen this patch set which will taint your kernel if you attempt
-such a broken thing to do, right:
-	https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/188-general-protection-fault-in-sysfs-do-create-link-sd/
 
-Please test that patch set (well, after fixing up the obvious problems
-with it...)
+  Oops: general protection fault, probably for non-canonical address
+0xdffffc0000000006: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: 0010:sysfs_do_create_link_sd+0x4b/0x110 fs/sysfs/symlink.c:35
+  Call Trace:
+   sysfs_do_create_link_sd+0x4b/0x110 fs/sysfs/symlink.c:35
+   nfs_sysfs_link_rpc_client+0x3a3/0x590 fs/nfs/sysfs.c:343
+   nfs_init_server fs/nfs/client.c:770 [inline]
+   nfs_create_server+0x7e8/0x2110 fs/nfs/client.c:1155
+   nfs3_create_server+0x1e/0x180 fs/nfs/nfs3client.c:56
+   nfs_try_get_tree+0x1fa/0x11a0 fs/nfs/super.c:981
+   vfs_get_tree+0x8f/0x290 fs/super.c:1754
+   do_new_mount+0x341/0xd80 fs/namespace.c:3834
 
-greg k-h
+Our reproducer.c is available upon request.
+
+Happy to test a patch if that would help.
+
+Regards,
