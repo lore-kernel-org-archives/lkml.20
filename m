@@ -1,112 +1,232 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D80F3E6381
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906230; cv=none; b=pJiIC4kVFNq9UNIRlfFtcNYDzFJ4LtMhjIC0JGLOmN0tzHwF4XbxchgYUiN99pnzZ+xPzCrHfoLgopqXG4EZnrQ9Y04JQ54fEUbfRnpp+iceIuJ1ebaRmISPQDfUfGVhD7WIVH6lojvYRtmcVJlyNdienRa7AgritjiKOrweGp8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906230; c=relaxed/simple;
-	bh=JjimoRVScCSqsPgCSM4g4WWACozV9xBIYZan/cGHbEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NTORQoNKj9vdn8KV98/ovdEcW08GtCYw4goMqySwhex7HRGY9LuUdGohpugso2CaTI3lrHYbFMc2yIFY2XpTW+v06qy13qnvLjE2BBC1KGzuYfJTXQfrI+Kn5jC3pd5Mm96+QoMM4/vsTjy5iKjd2YfR1E4AqCleGTuI2izpeRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T9kJhNEO; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37166199920
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787906289; cv=pass; b=JmnIIotM468aIG3u00rfHmBqtPOJiSJgSIJ7x/OcvxCp0rev6/jPDS0HLP0y7yxQfrmZLw3EWMqYHTlRIUn2/6w4/4GF0d+L5Y4irsQtnDg7dzC+ADsg964++LvrDi//j5TnfiuSijD4qNPMuJ/6EV0z3HPhFj5tI9PiM0a3Ch8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787906289; c=relaxed/simple;
+	bh=Ov7oNLMXlrDII+yjoRbu1WpWpBvD+/TAzTcydjCpFgU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JXEbfYdMJXjJ+FkMHbS/ibqlDcrqCU+i3PnuJZHNrcVelccLRZDRqpXCXWbMKHmFWFRV59ApL3F5NoRvo1cF9IQmaK3TpV0IZ+Sm3xYen2yND1amXozOVOXAQ8N9qZ58wO7t0x9VlXwxCzcbdqGilVoJDdghcrSn7lCvFiIb4v8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fL9UtJfQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EiiWbcOP; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T9kJhNEO"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-495590dde14so6393795e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:37:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fL9UtJfQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EiiWbcOP"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S85M6k1894870
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:38:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QaKy5r5sUgNHinEqWyUrjHzH93zojyTrqfcdfZ0ImOs=; b=fL9UtJfQBopg+Dyf
+	KjIYOkoCrV/CAztJwATKLOt8FKtaJ7OTm93FRB3aZlVth5qyY6FIXSIY8JmjQ/eG
+	SVee5/Pawj6P5JoW4//IIEFaM8JMWoZnJiGH5KYqD+mhZBl21DGfpm7nykBSKuuT
+	kGdDl5iAZ2UjnkzgVgURpSvsjBfsTEPDoQh7zgbcjVifKdwd6wcSt/KSJ43tkotY
+	503Cc0f/AwnCNdLDIpjz3TqRDGZYaqyslyoZjMn5xPJpkhbLCiOndwzMQirsntZU
+	l5ubctFuzWSr9Nkoggez7n6sLy3cyO7+J+2gexOWX9sHmswI0ad8C4kmMzOdn8vj
+	Thhopw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb6h0048e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:38:07 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93903622880so205341185a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:38:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787906286; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XTyG0jPoce38dPFOMUFopvN7psHQ+DDtPV6smki/8xbc2vpzdl4xfkfTSKLnhL9a4J
+         BqwYsD41eqz/4wlf6OOaHZolxVwE92T2eCMXJopJEv5sT7jkkO/kPUWM5uq9Qk4gObuV
+         5UMA5SKMvItahYLBfqEt1H5saK0h0lQBnqeuLL9NRMjcmq+l+DIDpYGoDT8CgyHnEcd9
+         dbVVc3KdKGS0QSHEcCE2HOZ24pamMWoqQo+q5GbAURATv8k6NdiTJgBBNT1LdmCS8+JU
+         fffiDOo/9gnyDAKMWoRJQhdVhLXosUghOba8uHBwku2JwAfbVPk/PWMX56ixpy5RGkup
+         c3ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QaKy5r5sUgNHinEqWyUrjHzH93zojyTrqfcdfZ0ImOs=;
+        fh=7A80qtM/N5uLT1eT8aj8kB8vvqMYYwzqpcO3YZjwcT8=;
+        b=DEzV9RO9k8ybTzjckO7pc0xmQQqLRHXwvW1eUBrHKt1YgxO9w6MGlaMEOQDBPydSc0
+         td38YHajxBwMQQLyCzyEUwdNbzouIsSnp+uq5tjT2kEZuI9sQ7TSrLAWJiUxbLSJqEv4
+         hja5kt1VxR80Ldz6zBNRvV9eLEJ7CoOgozMyqbXypQuLMGFpdDslct7gFQB6HKk4KHAL
+         Nb6JsXZoTU0AUYZI0EqKKMs70ywJPk2L4ZIEGm2AMR0gTFxfeAR1USDbWcgkGOGXRFXV
+         rzWiV3PyNTpiGrwZN+BIewbeDGVHQ8SfZ//0pgiARaJkufyoh/7dALGDdDCpeuHFNiJ8
+         6OMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787906228; x=1788511028; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1787906286; x=1788511086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xY6rbTR5zEzizwjLS/TmjAP1rgdrCTsmvdQtVQtF9P0=;
-        b=T9kJhNEOsj1kF51Bmky2hbGcUeL2Rtto0QRtEp7USCaEljuIUpOtwCceoM3TAbbpmH
-         917IxUrp0WKArqLNfqYyvEzamcl+JKi5zwRSQxVP+JgSKy16AiME70ZVsfQscHMpGz3n
-         74BlXyysTu3Gv5KwUZNQ/QjHdz5YdQvJSMBUiyGdF8h9N/JvZrlu+Jfcb2505RsK0CzA
-         gkSPZMa4STlTxQ7ua6Iy9MCvrrSC0D/dCOJr9neu+1IsjBCrF4kQG0NRDIP3BfHxrDVm
-         85ETEUw0Kzj5TW0TjlEPNFrxHJ1yOqYCXgGubANkBQMgPFW6n+1I6naBoNOPkoKb25MW
-         YLDw==
+        bh=QaKy5r5sUgNHinEqWyUrjHzH93zojyTrqfcdfZ0ImOs=;
+        b=EiiWbcOPXb+a2xQOewQEL0xw22PGH3OB8o9n2cVW1lmrJ7aLOQYeY32M0z8WxLXus5
+         Je9IqCmhv7avaQt0ZW9BMPPavt7JYg7vtas7wgT4l0xJ921YPQkESHeioTXEREvBMqMR
+         wvkCFRvCX41pMTTpjJVrDmmi4jKMh0wEiCD7KrHaD5c1dbJA++JmbktGQe5B9HtS9oiN
+         PgLrxwI5X/fa4x77Cyc5Gyc7jYFtURrVxI+Or/3QoUYJ48TQxQSKSkX+x329tX+7FREn
+         odiQ6gn0VL/2yaXEd5KjI7nA4jMLde5UcIM6A/fBcJ7CtO/11BTS5S+kEDSoxCgjlOQi
+         7QmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787906228; x=1788511028;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787906286; x=1788511086;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xY6rbTR5zEzizwjLS/TmjAP1rgdrCTsmvdQtVQtF9P0=;
-        b=swe05bh5HG6Jl8NCbA/6fYlInqzrXQ/l97wmhpCJLnhOON4A4U2pSARB7+72e2nLnK
-         sgAVmvNHHGVTqvFm06RHm7h7w9MCnWmBnlejEcb7vyUYXCDHYHa3usxX1dyc3JJyHXiZ
-         Dp6guPxTO1lLPqzjMYcuF+gEfbQlkn3oBLU1dVRBS5leqlseL9k31mRhqk6cEHYZlhAA
-         cNJ0FhYXrUjUAVvBzEfq6Vh8NqI3TIpIySNEAy52mQ6ButhKp+X5a/gyGDWG7wf+sSzq
-         OnM1/qE2ILiNZSmyHcDXkpAVZagt7oRCFKFzm2b61rx2I4qnrB8UM03bjXGV9+eugMUK
-         KOtw==
-X-Forwarded-Encrypted: i=1; AHgh+RoQI1UhuwAwPoDzNMlxSlHekfnqrZZ5gcHGitiQoU1crN9FREpiYDQ2aSfpzNCUi2hJI95/gE7+6BLPsdM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHP2sb3KqKG6xXl3OYsRkas+kGgHLohsfhT9m9fqw2Rn1Gm3R2
-	ZFZ7W+OaV6RrXS/iaBlxyAS9NbnlkqltDGtH20thKtUU0/12H1oihwzv
-X-Gm-Gg: AR+sD11F911sxdYSI6B6tzYltAPUYlT5P8YA1c3rACkLcFiYd/h+Wc/as7//xn3aF0V
-	pTFZHm9bDs5NWlSIdeT8hfUp7Il82p8GGGtscne0u54gAQc8zHbLM9iM+kcEWnkPdNEvmkrrv5j
-	CaJkZPt5mJVEPsbAm6fYsQKjuAhsC3F6kQbwP4CiyH+bqH/SG1rXuuCCK28V6rN5WPVY13NuAAy
-	QLIoy/69CTHMpkQ3sSpT0ys1IRLbHwkj0+e7iWz4vt+2E/xMmZ/2sRpriqjovbYOoEg7/ukE42y
-	GmPVm0TMArshRjbrqrRnSE90X1Ae5r4kM30rMw/jJBjV6m7XtKsGdc93S8bOks74B60rpyusjd3
-	bZ8Th/o4HC/3yAg9HReDtiJXU5Bpnk+Gt/kE0qLFaXmdWudXMSsr4I2vQ6O06kSwZsFa8LhFmw5
-	qR4VJIuAQb1TgaQRn6fl6t3FHelftHRt9Bt26UNiVu+qmejAT1Tyzgom5blyJHEwOyLxwXMu/lF
-	c95vuXHm9ZVnZAHDBshUbNgrQ==
-X-Received: by 2002:a05:600c:3f0b:b0:49b:9105:cdaf with SMTP id 5b1f17b1804b1-49b91c30753mr77538815e9.8.1787906227824;
-        Fri, 28 Aug 2026 01:37:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49cc61cfsm121431165e9.6.2026.08.28.01.37.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:37:07 -0700 (PDT)
-Date: Fri, 28 Aug 2026 09:37:06 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Nicolai Buchwitz <nb@tipi-net.de>, =?UTF-8?B?VGjDqW8=?= Lebrun
- <theo.lebrun@bootlin.com>, Conor Dooley <conor.dooley@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Jonathan Bell
- <jonathan@raspberrypi.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] net: macb: exclude software FCS from TX byte
- statistics
-Message-ID: <20260828093706.3419d646@pumpkin>
-In-Reply-To: <20260827115601.6bf0b18a@kernel.org>
-References: <20260824134703.766708-1-nb@tipi-net.de>
-	<20260824134703.766708-2-nb@tipi-net.de>
-	<20260827115601.6bf0b18a@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=QaKy5r5sUgNHinEqWyUrjHzH93zojyTrqfcdfZ0ImOs=;
+        b=LVOxnuPdvX3DU0OELqH9VcHAWoIcwWOKlbxIJSCjdl/1Yxx7xiZKMhuuIVWnUBx66O
+         6v6s9G5m8KC+Qg+jXhLMy2jC7k0iYRfV6zNMyYtCvFq6sovFQMd9/Ji9ufv0HUPGhTKI
+         HPl2womTyZqxoDJ/HKECdsROV7DAlcW+MQICPm0Kw8It8aaIYKJ1IDjG5TECGHISEA6g
+         pa0+TIXlNZQz3l0gNnFe5jJJXRDUsgTX2cNOE15rexhOhERZZvo9lAEctGy/l5o7eFO9
+         afE5dzJgxRwyEQUNr09fj+Dq5hpH7tU+T0JYgMgyokrfU77qwx+UKDRny3GxbxBR3hE2
+         MVvA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr4bKYQjC1pVa7uQopW/E3mwJfU1u8b29U5Cn04KybT+ZTPAVTk+GZ0q+Sj6vr3NfqCPjPZ7YyHzzaoLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZcXoUGRLIx1P6HXQFosUmEwhNx4vQ+2/nZ5cMRRn3313NvHzl
+	hPzh2LcDGXSuvILL9aHUZmPMssKuFHLZcmUK3r9qQK5inr4WVRafwQKwYAiD6rgK+CWTN7hj+Tz
+	aaAzG7LDt8vqQy79bkZYkQktsLGvV6o8LJCcgDgh+lbof5oEA8XaGFoau1pBhwLCR2ET9IYzXpw
+	GOEeJnwe3o9KvgPHvdpkIFSoblusY1tiGOpO9c+CMrFQ==
+X-Gm-Gg: AR+sD13Tt6JxAHFxdxSjmhXYixxHPC2NwdHRscZtpISRCuW40wrstrdGw6Jbuua/JFr
+	9uHdDHUvfJhjQeLY8dI0JyRvUffV/nxfF7Df2tzU9nhQEUrk2Z/vzoQ70Saf7DDJqDRbCOE2yVj
+	crvOIl02uSU9wWYMeGLNwoCn5hC0m09ujE7jiEquQZUS6rPSEadvjbLJVzF7sOm/X3K7ivPbvwy
+	rOxfQhOsWT9ZcMa0g+MFT+ZfP/hbv/HgJ0uTKzu4qhkb5+K0zdS0+D4OXRB6WaGHax2dqUbEaCl
+X-Received: by 2002:a05:620a:aa1a:b0:937:17f9:da2 with SMTP id af79cd13be357-9390016b299mr1349501685a.6.1787906286360;
+        Fri, 28 Aug 2026 01:38:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:aa1a:b0:937:17f9:da2 with SMTP id
+ af79cd13be357-9390016b299mr1349499285a.6.1787906285947; Fri, 28 Aug 2026
+ 01:38:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260820-agatti-audio-v3-1-47337097ee53@oss.qualcomm.com>
+In-Reply-To: <20260820-agatti-audio-v3-1-47337097ee53@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 28 Aug 2026 10:37:54 +0200
+X-Gm-Features: AcwNN1Xrc4yuLFTSexVNFwDPpWatuABG_1Mx8-1NlWVrfGRZ6KtGSzjHOyIqCdY
+Message-ID: <CAFEp6-3O_L0dSqGWxg0TKOBTWMeAm8epikTzRBWa0DyJcQ3MLw@mail.gmail.com>
+Subject: Re: [PATCH v3] arm64: dts: qcom: agatti: Add memory-region for audio PD
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: ky2c8vFSwjmwYcGFBwyShuTANeoaXS2G
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA3MyBTYWx0ZWRfX3Ot8X4hYaK4I
+ HOE/EA569c3AjnVLhH2ldRPWOdQKENp9YsDgdhmaWNw3GcY9Q1GF4E/9rZPr72SQvuOB9r/Nhma
+ FSOPL++qnZjd89hIg5d3LbqDirLRWf0=
+X-Authority-Analysis: v=2.4 cv=KPpqylFo c=1 sm=1 tr=0 ts=6a9148ef cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=6amzoLWt3lXFUk3ngxoA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: ky2c8vFSwjmwYcGFBwyShuTANeoaXS2G
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA3MyBTYWx0ZWRfX+9eBC1Ko/GLP
+ OcwBp38M6wcy/lwJCOMjQUd29HG1aIbGzqh+JPk8c7X/MR2lnZqBtpQQHqMgsyaI6hf092lEBe/
+ 1/pVrrB0a8ZDB37D/MTRKCUaZTH3eWnnuOM61Av9/OdjC0ZRrxyvvlhJhfqv6YXnC/UiZzLntWq
+ 0T5UFF378lR8GXNzWV5gy3YGExs6xjZ6MJRLJ1qvGKD0lEQDVoEtGwOclH+6S+zvcjWTYa/I7X1
+ iNh1htpjTK3Zv499JyhNtRq2GWTMIvjoW0xX7MTBoRubbSoolXpkkntqiVeeWjMMBiGdUe1G0Dw
+ 94qOvfpJWC1IdEmAIIbsEwj80rvIwoIGm3qqHG8Ky4IZQ5aFMERKfvA0HcAwfGhQNAo0ukZlY4g
+ FZtiUPjUgem62QM/oEkNhCKX5ojhdbpWeTXUjowEs1SXGSemOBPIMix6dgxBoGa8kuC4Sx3vTOz
+ ozw0OwKMm6kDGI3el2A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608280073
 
-On Thu, 27 Aug 2026 11:56:01 -0700
-Jakub Kicinski <kuba@kernel.org> wrote:
+Hi Vinayak,
 
-> On Mon, 24 Aug 2026 15:47:02 +0200 Nicolai Buchwitz wrote:
-> > + * @skb_len: skb->len as handed over by the stack, before padding and
-> > + *           software FCS, only set for the last buffer of the frame  
-> 
-> counting pad bytes to ETH_ZLEN as sent is perfectly legit,
-> it's a driver preference. Some don't because HW pads and
-> the driver doesn't want to bother adding a conditional.
-> But it's best if the driver bytes match wire bytes IMO.
-> 
-> Either way, you only need u8 or even a flag for this,
-> not a full u32?
-> 
+On Thu, Aug 20, 2026 at 7:52=E2=80=AFAM Vinayak Katoch
+<vinayak.katoch@oss.qualcomm.com> wrote:
+>
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
 
-You could save a count to be subtracted from skb->len.
-But isn't that also unrelated to the UDP checksum issue?
+My understanding is that this patch fixes an unexpected reboot during
+the launch of the audiodp service? If so, should we add a Fixes: tag
+to make it eligible for stable?
 
-Note that the receiver will treat an IPv4 checksum of zero as valid.
-For IPv6 it is a protocol error.
-
-David
+>
+> Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Changed alloc-ranges to <0x0 0x0 0x1 0x0> to cover the full 32-bit addr=
+ess space.
+> - Collected Reviewed-by/Tested-by tags.
+> - Link to v2: https://lore.kernel.org/r/20260807-agatti-audio-v2-1-3959b1=
+ab8059@oss.qualcomm.com
+>
+> Changes in v2:
+> - Fixed VMID list alignment.
+> - Link to v1: https://lore.kernel.org/r/20260806-agatti-audio-v1-1-cd6766=
+cc9ccb@oss.qualcomm.com
+> ---
+>  arch/arm64/boot/dts/qcom/agatti.dtsi | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
+com/agatti.dtsi
+> index 590bd2432d85..d010ef7fdf8c 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+> @@ -381,6 +381,14 @@ rmtfs_mem: memory@89b01000 {
+>                         qcom,client-id =3D <1>;
+>                         qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMI=
+D_NAV>;
+>                 };
+> +
+> +               adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
+> +                       compatible =3D "shared-dma-pool";
+> +                       alloc-ranges =3D <0x0 0x0 0x1 0x0>;
+> +                       reusable;
+> +                       alignment =3D <0x0 0x400000>;
+> +                       size =3D <0x0 0x800000>;
+> +               };
+>         };
+>
+>         smp2p-adsp {
+> @@ -2348,6 +2356,9 @@ fastrpc {
+>                                         compatible =3D "qcom,fastrpc";
+>                                         qcom,glink-channels =3D "fastrpcg=
+link-apps-dsp";
+>                                         label =3D "adsp";
+> +                                       memory-region =3D <&adsp_rpc_remo=
+te_heap_mem>;
+> +                                       qcom,vmids =3D <QCOM_SCM_VMID_LPA=
+SS
+> +                                                     QCOM_SCM_VMID_ADSP_=
+HEAP>;
+>
+>                                         qcom,non-secure-domain;
+>
+>
+> ---
+> base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
+> change-id: 20260806-agatti-audio-357bcd74ae9c
+>
+> Best regards,
+> --
+> Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+>
+>
