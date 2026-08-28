@@ -1,76 +1,41 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C32B3E0C7A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51573E276D
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905629; cv=none; b=rgy2uqAui99mejbWxiJ1r+lhryetGgxgVbp06Xevd0hSjrqFIjRteKStBMqgwruvzg05Bsc2Cu06Y36CFzymW1Fst/czzL7pgHFtwAJkFYgsRKWXbvupbayn4LThMcStZvjMcG7BA3QfTX38crOwqsBZ5aZMBluM8/QfQyjsJi8=
+	t=1787905806; cv=none; b=pNIx6esRLpV6BaKWoHc4z8YbzpfJXVV6Oot1GsNQGIR2r6IF6dW/XUnZYTaVqaH6FJWNmGN6lft3Qoqk0cWa8wskNHnvwLh3YSgDufbg/VMmDnxZ3xcSzD49ESpFxLbyvPn94nWp5JISfxUf759CD4PClQ9PcROwgMusJFilXMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905629; c=relaxed/simple;
-	bh=5hEvnLDNcTGoaqofp1S+4NAECFlyfDmkOkI6CNlGqy0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o7tK16dmCL7Xmog4Tjt4p30pPYDy61ajuyJ6XdSMDC6tif1M1zR6dXP2v5g9E4IRXF6PcUN5glc11RzPq1SjoPmQxzITENoFaSUVHzUsnKyOfiJOGh2pomIpASRNsmh5pVLq6eB75HvId0uuvvo+Dckg8Rw3f5UZXMt+YgOTdf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f1d35dkG; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f1d35dkG"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84864086bfeso621856b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:27:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787905628; x=1788510428; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YBtdkO99POWoOXgQruRlbYMJZ092vG9oZUJO+zx1F24=;
-        b=f1d35dkGfhnAIZ8XxgxYTGXMM7qfZ4vn7wMUY/4rJsFBYeXUOhdv8MNWQ7jtrf+gqp
-         HSl+Uoxygss3K4Ik6UWhjy4YgOO5wu1tivW7phh18fnz5G/JR4IyBPGI6tP6lKdYpYxx
-         sqTZNpON3qxJROkZRX/7cFM0a0sqKRihqdmbBjZY4yUsgxcuuMLCOeHzWUjdIcvC5s8E
-         ExEPIAvgEZeHW8ECS0RZdKjKV7U/bwqILcCVihmTfXyiRG9I2D5Ab76gxEtojsFmAmu6
-         ObfZ05S6gHwbk0l6PoiCQ+w+/tlk9zYvdsrJ3IYidlbdATIbFluPCKLrZdSgkJPdpyBR
-         tpcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787905628; x=1788510428;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YBtdkO99POWoOXgQruRlbYMJZ092vG9oZUJO+zx1F24=;
-        b=Gaf3p9ZMiEHH/qMv+317g3nkwcOBZ6QqRFolC2WjIHI/p3IhZ+7bpvkQUDsfFKIoJs
-         t314aAVa3cLtZxo1NeAdD7YnehghtXB/euR+wiyRvf7Il/D2DPF20wwzOfVvKMh3dGNr
-         5yOM+VMU5TWEmyDI0UfrGaoZvlOBLOxKhDQ4lNu6HvqE95Q7uZGiT2q1Jdyi5+2trWYw
-         76qltRtdt99+CF8nF3TnlLU2b3FOgoEfo8RYo3nZ3jc7fql8YeOUQWpwdWNLd73mpVlA
-         85fKyyqvuaDXmHIRyuC/gB+TD+/5NvwhF98rc0RQMjwwkxBU0hClI1p+bYY4bK+sugWo
-         Txng==
-X-Forwarded-Encrypted: i=1; AHgh+Rr15VwtaJvA84nH+SlI5vBYIP7zTpVYa34s0TzuPy1t/l88DLkh4GSryn0Q/r3keC+88cHE2ppOX8bpK8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kObz5T9GDrqo04BD5RZlM1upeBbO4VlwrLBOHCDqeCzdbbbfYd
-	AM+ySr233AckpEXtPrnKUDg+rkPfDJMmXGtxhg4T5h/ACRV22PbGOUUV
-X-Gm-Gg: AR+sD10Y/D8YSBRe6VyM/l8YhAJiJBlh9zWgz7kPmol0yY+s34wQ8hYo22XcQSH4z0R
-	S+FSkRIBG3NF5GqwLjZyJrIl5vXBe1Lv2HOp9F3/d3PQv+912+6rzBMTLIu4/BrkUEuNyMi5cJh
-	HRDBZU+QmJnWi9GqPT7Uu4gixBbicOT/X91pBwj7PW9IUzFrHeBdjHywHAaJzW/cQzuHTVMsTeY
-	w+lIgakefjV/NMSGAyvsnBI3azjlpM5OwGmG+4CWYXj6hBSVk+urycXtirecwWLza575BikWe5b
-	wREhb04LWjT+dmZW6/ZS70E2W2LQw/iK6SOW970IbAD8/+45dgTGocf48ZTc5fbV+mv9vSolxWk
-	HyIMV359hVw+Ro4rOG1mOOCN1y8P/ZSG+aeO0AAsw8g/qCDBtTmYWf12B4sJSgYWQ6KVD0VeOpE
-	gO1G2dG1iadcpvpy3t/co2frHdtNDZMhUu7vWcVITwXfXhGRNWi+tt+V2gwIK3vgNiuK2+K6wya
-	u8urvyxmxEXz6CBVRyd8Zf5NGMWR9d7aU+pAjbLt9YEz+m0EviGhkib4JrOqk16pU0H2W0I
-X-Received: by 2002:a05:6a00:1daa:b0:848:3f07:c5a2 with SMTP id d2e1a72fcca58-85627dc169bmr10564110b3a.4.1787905627482;
-        Fri, 28 Aug 2026 01:27:07 -0700 (PDT)
-Received: from ian-lin-DREAMBOOK-PRO-14V.. (59-124-157-10.hinet-ip.hinet.net. [59.124.157.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569fe78fc3sm350364b3a.24.2026.08.28.01.27.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:27:06 -0700 (PDT)
-From: Ian Lin <jisayme@gmail.com>
-To: johan@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Lin <jisayme@gmail.com>
-Subject: [PATCH v2] USB: serial: option: add Compal EXM-G1x support
-Date: Fri, 28 Aug 2026 16:26:45 +0800
-Message-ID: <20260828082645.13018-1-jisayme@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828075644.6228-1-jisayme@gmail.com>
-References: <20260828075644.6228-1-jisayme@gmail.com>
+	s=arc-20240116; t=1787905806; c=relaxed/simple;
+	bh=+U6lXjJAefqQh7K+T2Gu5krjGwA0QqW2Eb8M5L4vRZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aqUtPYSaQjnkfflsdA4kJcPJO2vNIHBwQLw/SfDGnjKCsJPJ4ZpgW+YI7xSWe99jbjjHC9kT+bY/v5xvuvnjyfoKxfBdMJyg+cBAUZ5qt+EtmX6Z8ooA8TtvRMoOIXFF6aGXr4c1nfN8n69ecvD9ikJnBcQjOc0g2ns6/DDH9aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-05 (Coremail) with SMTP id zQCowAD3J0LxRpFqlvfbBg--.615S2;
+	Fri, 28 Aug 2026 16:29:38 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: bridge: adv7511: Stop power-on after cache sync failure
+Date: Fri, 28 Aug 2026 16:29:35 +0800
+Message-ID: <20260828082935.82266-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,51 +43,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3J0LxRpFqlvfbBg--.615S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF4kZF47Jr4rur1fuw1rZwb_yoW5Zr15p3
+	y7ZFWqk3y8XrnxGFsrJF15Aa45ua95AFy5ZrZ7uw1xuw17Wr1qvrs8JryUXF17CrWkJw1j
+	y3WUJFWDCFnxGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-The Compal EXM-G1x is a Qualcomm SDX12-based LTE modem. Add support for
-its vendor-specific serial interfaces with protocols 0x30, 0x40, and
-0x60.
+adv7511_power_on() replays the register cache after taking the bridge
+out of power-down.  If that replay fails, the function still powers on
+the DSI side and records the bridge as powered, so hotplug and
+atomic-enable paths can continue with incomplete hardware state.
 
-Relevant output from usb-devices:
+Return the replay error, put the bridge back into power-down, leave its
+cache dirty and keep powered clear.  Make the three callers stop their
+follow-on work when restoration fails.
 
-T:  Bus=04 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  4 Spd=5000 MxCh= 0
-D:  Ver= 3.20 Cls=ef(misc ) Sub=02 Prot=01 MxPS= 9 #Cfgs=  1
-P:  Vendor=04b7 ProdID=8217 Rev=05.04
-S:  Manufacturer=COMPAL
-S:  Product=EXM-G1x
-C:  #Ifs= 6 Cfg#= 1 Atr=a0 MxPwr=896mA
-I:  If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
-I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
-I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
-I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
-I:  If#= 4 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
-I:  If#= 8 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
+The issue was identified via static analysis and manually reviewed.
 
-Tested on a Compal EXM-G1x modem.
+Fixes: 9c8af882bf12 ("drm: Add adv7511 encoder driver")
 
-Signed-off-by: Ian Lin <jisayme@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
-Changes in v2:
-- Split the USB serial change into a standalone patch.
-- Document the Qualcomm SDX12 chipset and include usb-devices output.
-- Sort the VID/PID entries and add a product-name comment.
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 26 ++++++++++++++++----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
- drivers/usb/serial/option.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
-index e4ad14375..e4d9f2e70 100644
---- a/drivers/usb/serial/option.c
-+++ b/drivers/usb/serial/option.c
-@@ -2542,6 +2542,9 @@ static const struct usb_device_id option_ids[] = {
- 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, TOZED_PRODUCT_LT70C, 0xff, 0, 0) },
- 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, UNISOC_PRODUCT_UIS7720, 0xff, 0, 0) },
- 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, LUAT_PRODUCT_AIR720U, 0xff, 0, 0) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x30) },	/* Compal EXM-G1x */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x40) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x60) },
- 	{ USB_DEVICE_INTERFACE_CLASS(0x1bbb, 0x0530, 0xff),			/* TCL IK512 MBIM */
- 	  .driver_info = NCTRL(1) },
- 	{ USB_DEVICE_INTERFACE_CLASS(0x1bbb, 0x0640, 0xff),			/* TCL IK512 ECM */
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 038b852405b5..c57c566cf0ad 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -341,18 +341,31 @@ static void __adv7511_power_on(struct adv7511 *adv7511)
+ 				   ADV7511_REG_POWER2_HPD_SRC_NONE);
+ }
+ 
+-static void adv7511_power_on(struct adv7511 *adv7511)
++static int adv7511_power_on(struct adv7511 *adv7511)
+ {
++	int ret;
+ 	__adv7511_power_on(adv7511);
+ 
+ 	/*
+ 	 * Most of the registers are reset during power down or when HPD is low.
+ 	 */
+-	regcache_sync(adv7511->regmap);
++	ret = regcache_sync(adv7511->regmap);
++	if (ret) {
++		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
++				   ADV7511_POWER_POWER_DOWN,
++				   ADV7511_POWER_POWER_DOWN);
++		regcache_mark_dirty(adv7511->regmap);
++		adv7511->powered = false;
++		dev_err(&adv7511->i2c_main->dev,
++			"failed to sync register cache: %d\n", ret);
++		return ret;
++	}
+ 
+ 	if (adv7511->info->has_dsi)
+ 		adv7533_dsi_power_on(adv7511);
+ 	adv7511->powered = true;
++
++	return 0;
+ }
+ 
+ static void __adv7511_power_off(struct adv7511 *adv7511)
+@@ -425,7 +438,8 @@ static void adv7511_hpd_work(struct work_struct *work)
+ 	    adv7511->status == connector_status_disconnected &&
+ 	    adv7511->powered) {
+ 		regcache_mark_dirty(adv7511->regmap);
+-		adv7511_power_on(adv7511);
++		if (adv7511_power_on(adv7511))
++			return;
+ 	}
+ 
+ 	if (adv7511->status != status) {
+@@ -634,7 +648,8 @@ adv7511_detect(struct adv7511 *adv7511)
+ 	 * has to be reinitialized. */
+ 	if (status == connector_status_connected && hpd && adv7511->powered) {
+ 		regcache_mark_dirty(adv7511->regmap);
+-		adv7511_power_on(adv7511);
++		if (adv7511_power_on(adv7511))
++			status = connector_status_disconnected;
+ 		if (adv7511->status == connector_status_connected)
+ 			status = connector_status_disconnected;
+ 	} else {
+@@ -788,7 +803,8 @@ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_crtc_state *crtc_state;
+ 
+-	adv7511_power_on(adv);
++	if (adv7511_power_on(adv))
++		return;
+ 
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (WARN_ON(!connector))
 -- 
 2.43.0
+
