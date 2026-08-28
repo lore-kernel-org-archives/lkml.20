@@ -1,64 +1,64 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B6B3AC0EC
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C213AA1A7
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787889058; cv=none; b=IPWPyZGs1kHJ44T6r/XIUrvKonS0709U2LfJJh78wjKUbzmpX8T2gCWPrahZS8HxyNZ0DTxhRJebkpodskx5+7O/8kGhNxuAv9ZmMy5ezRH8QcJoaOr/Ky9+copRWBjFzwkJiYuzmji2JkZ5aJl/fGjHJ8Px0yZq0y3BemKxuy0=
+	t=1787889060; cv=none; b=LS9BD7YkBSokTJS70D8w4YDjwkBBTsQieX3SLcCuty3JrV9na0o01veWUjcXXqNuEaDCcQ3hIrrg47jjXpBSSfBo8YZeob7ZGHBDsSLH189mpfG1o/t5Hke/MmcwLZ5lN3evj5d88sZMAk1fGft4pELbdsMgkI2S2MSiLUcm3P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787889058; c=relaxed/simple;
-	bh=qxXuDSETb1QGvICRb6JF6QpQpSR+Hex0aJPS9wGqpCo=;
+	s=arc-20240116; t=1787889060; c=relaxed/simple;
+	bh=kq43sLBz2ZHXLrl07cvrQHErCwpMzQX0LD1VRAlDuTU=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=fM8PKyQpdOQcnDCQGZjnibeE6n9JHfVhDIVQwPBzKkOgwjE+kJbzfhG4GKVpmr1G6Lu8CCUfESdJjli2hvNuxXXYx7tSdv7p8fUHvqjEySZXkkSMt9o5JU2Z5jgrta+qHuvWH6/guNotW3yfw6qZNK17tRGtH6M2n7a9eFy+0o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iu0MssnI; arc=none smtp.client-ip=209.85.215.175
+	 References:Date:Message-Id; b=Jx3f61kTAbPtZC82h18GMMv+RnPz4bODb/1CnJK6tj7hV/dVss78xs52KyZQCsmg3s6aJpA48+PP6Ld1eCNi/XpvsvTh+80EaC5rdCr4LN0DPQbCRUxd9/JZySqiUc/zBvQAeg33FUEPaX7L+qFnODXgpz3qMbZEKP9VlBwzyI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R7U4HWhw; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iu0MssnI"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso638468a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:50:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R7U4HWhw"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so652076a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:50:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787889053; x=1788493853; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787889054; x=1788493854; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=x4Wo3AFVWJoN6NjZ+CjXyOXScjwk81QQP/wB9zVSLpE=;
-        b=Iu0MssnIdYs5oBK61RGMgLHv6pbQmm0G6nj+OX53oQc2QIqBIWgKGMStsPhVAIZXCZ
-         6KIXJtU1ggJmTlrObkqAuCwZn5yEFW5irkp2NNYE2E3fib97Y+lIbq35w47CbNm9LQNH
-         1Pplh4AsO8hmM6kJsbIPymf1lYDt+de/jqC+BFGVjCAnzWzped3LlncDTU27kLDQSRqT
-         6189Df9kTOUSqqMjLd3TU9N7vd8l5YdhqVTr/qJQ5EPDza1KH1h/GBp++7QTeUrcSBhS
-         TVgjBixy9VNwEKh5VZ/5DOayOPA26D8vPLHLIBqZoH4yolHFkjNhhuuJqAk2P7qJumAo
-         zfRw==
+        bh=3KcPIBnQ86fi9vMxouOV7SSnCq2u1kcpTpfhzejq3Hs=;
+        b=R7U4HWhwLrwKMC+FupEIzsfEhLvkgpLRjCuG3fdRGIljVMKbcUWbOmNIafc+8KVkyX
+         qzTfcd3PB3t3/jaQD8N50cEdW4hbc410bFTwUxI7LwATn8I+Lpqa/mFKJyComo2SusIV
+         xJwGDdklVmGtT46XLy5JByHJf983m3WagzUdyOFq0XRQZqjc0zx4C+jsFzpMH8TE4x3U
+         Sno4HDcLKkj3+2hW/v0XuOwqDjeTHBou3395tlXX2tr2KKxqXZ5cvFzfFP5485jbhwJz
+         zsvaC0BLJA/2+GdpRn71zBgS2LJuhOEGC6szDvEEJ4bDnO5p9b8cX1QskMBPH/onhBU1
+         jrkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787889053; x=1788493853;
+        d=1e100.net; s=20251104; t=1787889054; x=1788493854;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x4Wo3AFVWJoN6NjZ+CjXyOXScjwk81QQP/wB9zVSLpE=;
-        b=df7+jFgnYy9q318cE8Si5vLKqghKpCRsoz2Yi57Cw28/9sphVGVZedgKsX6mt8inG6
-         VjTdakpQAdCtSdagXp1WDyC1DLbPVCaeFsLc320BRhE+IWOD860xRxlb5rVZxBzM6Jkh
-         X4Y7Ex/80vx+yFyCI2cgWTZkKnrvEtpm/xtecXkE7fJ9Ej/yn2eQCLjybC3JQ+1LgQzU
-         XKmnCDf2iK39cfQ8DarZ84oG7GFZarg4Eyu3mTQ1KaMgmHcVtt7kOJKD3OiYMRTCvaih
-         x2Lp1Uu3EeS7eT3K2j6yvTFwkvLkrkvSjz5YIvccTj/KdMZf3nhZ1Mc0J/hsz7sZO8TG
-         L/aA==
-X-Forwarded-Encrypted: i=1; AHgh+RqWQPhv1QCYYKZ0x4ginOm8qbXHv+06LLPeMCWvcltDtU9/+l5qQGPW/Q7TCCNELarB7MoxDKuri+aDfrc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2tn7tvg/7tDtBrOP5Jo7QtNwuRwKSuIGoNw/lCzWMx+sT9ndi
-	sOPzrJH45ptorbl99QL9mG0W0NpUO/C6DvqH2YbOoNb+8p2ASHUz175BQ7xOt7NV
-X-Gm-Gg: AR+sD11thso4fyL4QxZq+4KcMwGC1A1aYTuXr1mqqNk2RYgROIyuHilzZB2vpZNwblN
-	ATLITh6faojK/1WRtJwEcu+K6Uwj1L7/ZyBKgpMaPMJ3pA/MEHnVrg+XVatWVsWXd1vRaQqEKrx
-	Tl3jocCuBDMsuev5CTuK/nh1w+WCn52aX5LRugkJLREC8SUsS4nPfWhsjFbnbQAm3R2z1Kmlj5+
-	HGSN+xF6VR9uNkhi0jbfonqHT28+ZZNKEMz5JO9B2YlbOvOejSnOVafdK5tbaExFkKv/EeQtmML
-	roQXoWwHgKePwMVubEeQD0kiLbF8SVy1Ih3zcwn2fE6PV6UfVJm+Sd+XJbRKmyGbVXr0MO8AvLl
-	GfLxfhlVGUOrSslJ6XkSEOjDvyXjij+VapfBhAn76u41b6WoU3dxDGo7qGNQsuBzrJJefFRFC4r
-	lQNANmE5HGcz+NRjRlbBHpVtzLV5/tUSrZ3ou+kCU7pfLZwbxbjCqqG6M6+Zkg9Z0Wdw==
-X-Received: by 2002:a17:90b:5484:b0:36b:de66:92c3 with SMTP id 98e67ed59e1d1-3969bc0223emr15330087a91.10.1787889053319;
-        Thu, 27 Aug 2026 20:50:53 -0700 (PDT)
+        bh=3KcPIBnQ86fi9vMxouOV7SSnCq2u1kcpTpfhzejq3Hs=;
+        b=MfOZMb/PPzouvMUif3FPhep5g2BwjqA1GSwvHMwgLopL/ew6nYn9YaMrs8+m48mzkw
+         waOp646J7nL/h7Lq9gMPaM1LZoNuYXgPJDWmQ1yUeddqDZXzeQUNMfVfDeTfhXL12aM7
+         GG7KkRH3eSPPCjt7w34pLss1xJAwT3jqoWi2RFDm2/SnEq7+I5/MYVNrZqjL2oWSSQET
+         BXP6WcbkHhJ+vQ5zxM063tbjOmgZyQWF/AfusMf9H1GO18tz1UWESeru/1cyw/96EIeg
+         LWWla0tr7ClBvx56l7ZlCE4MxqSHdlQR4PQ6ufPSJSaFNWTLwFPO4nJCpZxzCNQYrtvi
+         5mHw==
+X-Forwarded-Encrypted: i=1; AHgh+RqdJ1z8MUB8vDkUdBzCitcX1vHIgXj0QS0+zuXsfwWF3iFh/6QywrV0OGzndBtURLX9pJH2ScNiHj/oB78=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwHgG6gF1G98t1jUKgNdkW30lFf6QcnfP82NTDXjLa5J6C73xU
+	gUQ4MQ1GpvGUL9AKbVjqJFnjAQ9ELahL1DYR0dZfFgU1VHuX1t4/WQI2
+X-Gm-Gg: AR+sD13RhW3Ow2SClr/uxk++Mh42410HtNeXagpcUVit6ke5uzYIKF1tli33hjlHLWw
+	0tKLxv8gpB5ORfDhfAEP7MF3/35RKRi1D+KOnNAAOmrTgf/0FCdrvs050E+fe/uGuPOXZZU4Sbb
+	9zhgaiNZI8CNFdHmhiDU4CPB7AQPnNYuKafAlgr10lskAmBYXpuW0TFwl6/cPoCeTKGpYikChNr
+	gLQ6Qng+pqyTDsTnbYcJdeUV4bzL4tvmSnRtFgyTUU/OhWlc2AKmMeEtt4sxc8KvM6QqrIZmYIb
+	LNkAH0hbbFygT7yvCiWei3MikMEAz6pxfulSsmQaXymV5MHb9+OvkH/PMnmoC7sZK5gGv2yawGX
+	1gB8v0OIJJL8XclgRXhUOu042yvJ6S2+MOAV7kGgYtd2QK4W4J9gPTFXFC21KMwaw9RmVNDd177
+	17XmJTB3bBe2uQy5tR0ucXGcbqJATGm7uqE6TVnhVTusoXfpR9F4esVm+ure9z6ZHx7w==
+X-Received: by 2002:a17:90b:2d82:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-396d0f6f8bfmr8174751a91.10.1787889054288;
+        Thu, 27 Aug 2026 20:50:54 -0700 (PDT)
 Received: from [127.0.0.2] ([73.222.46.22])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0e0e67dsm1659184c88.15.2026.08.27.20.50.52
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0e0e67dsm1659184c88.15.2026.08.27.20.50.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 20:50:52 -0700 (PDT)
+        Thu, 27 Aug 2026 20:50:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,7 +67,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/3] binfmt_misc: only let punctuation delimit a
+Subject: Re: [PATCH 1/3] binfmt_misc: only let punctuation delimit a
  register string
 From: Farid Zakaria <farid.m.zakaria@gmail.com>
 To: Christian Brauner <brauner@kernel.org>
@@ -75,24 +75,37 @@ Cc: linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
  Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, linux-mm@kvack.org, 
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
  linux-doc@vger.kernel.org, Farid Zakaria <farid.m.zakaria@gmail.com>
-In-Reply-To: <20260826-work-binfmt_misc-delim-v1-0-43618adf8599@kernel.org>
+In-Reply-To: <20260826-work-binfmt_misc-delim-v1-1-43618adf8599@kernel.org>
 References: <20260826-work-binfmt_misc-delim-v1-0-43618adf8599@kernel.org>
+ <20260826-work-binfmt_misc-delim-v1-1-43618adf8599@kernel.org>
 Date: Thu, 27 Aug 2026 20:50:28 -0700
-Message-Id: <178788902858.3236768.15019506644956689303.b4-review@b4>
+Message-Id: <178788902860.3236768.6730484936359324341.b4-review@b4>
 X-Mailer: b4 0.15.2
 
-On Wed, 26 Aug 2026 17:55:45 +0200, Christian Brauner <brauner@kernel.org> wrote:
-> [...]
->  tools/testing/selftests/exec/Makefile            |   4 +
->  tools/testing/selftests/exec/binfmt_misc_delim.c | 127 +++++++++++++++++++++++
->  4 files changed, 143 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-> change-id: 20260810-work-binfmt_misc-delim-83f62cbcfe23
+On Wed, 26 Aug 2026 17:55:46 +0200, Christian Brauner <brauner@kernel.org> wrote:
+> diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
+> index ddfd3aa57ac8..809c91d21b39 100644
+> --- a/fs/binfmt_misc.c
+> +++ b/fs/binfmt_misc.c
+> @@ -100,6 +100,13 @@ static const struct binfmt_misc_flag *misc_flag_by_char(const char c)
+>  	return NULL;
+>  }
+>  
+> +static bool misc_valid_delim(const char c)
+> +{
+> +	if (!isascii(c) || !ispunct(c))
+> +		return false;
+> +	return c != '\\';
+> +}
+> +
 
-Makes sense.
-I think it's still pretty accepting when you consider all the
-punctuation characeters even allowed :)
+Is there a ready you did not make it a single && ?
+Feels a bit weird to check the negative;
+
+i.e. return isascii(c) && ispunct(c) && c != '\\';
+(DeMorgan's law)
+
+Reviewed-by: Farid Zakaria <farid.m.zakaria@gmail.com>
 
 -- 
 Farid Zakaria <farid.m.zakaria@gmail.com>
