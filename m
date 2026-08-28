@@ -1,221 +1,227 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCF531E82E
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA27463B6C;
+	Fri, 28 Aug 2026 14:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927792; cv=none; b=I7t1CoxedBPQPn9zuAa3Ndzz02XXSH2mWHdfvJ0SL+BPBHXop2V/AXu+WKsIxO9n2NnwnrIfQIiCJ57n9pUvVPegvVDZ93sDHZEwtAdRKU7+zV8ACbNy0BsjSYFYARuyNFyIld24YT0u/UPw6UwKxFTVDcqfU+4QyDrRg19v63Q=
+	t=1787927995; cv=none; b=GhB8Q6VqTiVCWGm2GNtQURzT7lY1Emw3ec9jDDJaCMmnGsxxGVNrpGjCEvrfLF5XoUiATGDEyY7F6VsfuCIzkqB6+rwFB1F8xmuHJeQBYu9sy3IuefMZgqr+Zj8m93QrDtLxL80uLiAYj6nl25Y0kDjore0+OfA4FsnbIRlgl+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927792; c=relaxed/simple;
-	bh=4JiDX/yubXfTIhjMav9YvfmI0tVcsBWXL9wlEHdvhAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l2HVHOJIKVP1i4htIE2nQ2MFK4U3RjFU/Lnqqt2FGiPsLgqNu6COD+9b6ca6GEjiWRi1wwpcjP1fOqXlZa9wTmC05yseISPw8Ou7whCsYNMIKMZpCk6OTGtedzIHwbLM6VpFjgmFeOPoPDEof5xHIffseLX2gVH2W4rCTkh1vgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=F12H2c2U; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=BgkaPEJS; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1787927995; c=relaxed/simple;
+	bh=XZJkabDsz1o/isv8GnlIwvHXCQapvDug2lqh0wzM0uA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bwCw9S9g25UOxHnvmDicGLNQcjsBKkzWw9N7+VdwiV7kEPCtYrtF9+YwYTYRx3G9r/MNTtk1eGSJ/EHSkO1/DH6i9QiouN80QfPc3St9PITJuv+kpmqTa1R5Pnaoojz0MtyOZNlsiqaGDrpPnf/IOtesbHNV7OGXt634Pzp8txA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOvgczhR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="F12H2c2U";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="BgkaPEJS"
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SEYQwV2228612
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:36:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=598u
-	fPSbILHNfdSaKUhv0/mnqSbYE6cS+Ejd1n/aDFM=; b=F12H2c2UtXrwM4aiV8RY
-	T6eQfL7tPt9zJqQ0qDMpHJTRIQx7uGaXr8PNXlYmtIP4tw1xsinsanB65kvwh6yr
-	cJWEGlHk7hbi0+jCkEw+P/O34iplGmfv49C3D1qBwP+Wwyl+lcaVjXbwVYyCayZk
-	qyIlyk6Gia5BIiB1ESl6zKVrwigefZhXwWUTyxis/IL0bPrfDUvT9IC9t+p3zqnm
-	9dsIKRbVfZ5zPwf//UZ/woAuXC1Z9hwJS8+RkgdjQ5NeqiZH1tvUQUWT8nAWoryf
-	aYCSICh+wUlIkDYoWFVtNBPlhDVehUoa1Fy8e76aK0yqkmYKCfhPTrWp60RRKqJZ
-	Qw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gbb430mdy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:36:29 -0400 (EDT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8f0f45415cfso12332226d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:36:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1787927789; x=1788532589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=598ufPSbILHNfdSaKUhv0/mnqSbYE6cS+Ejd1n/aDFM=;
-        b=BgkaPEJSo1hxlb0zXY0hE+q2wv25R1sExia+G3E+vxBCYikXiW64MFmXlqEbBh4VpN
-         5EYkzH+7IWfpvCgcpSyqdkPU5XvDpGDPDFsWSyKxC5n8eADpE8LUZ+xHr5lcN5faC7+D
-         kZxpevNKM99Mo2ctCpTQ7KkwbNQ3qe4vxMH2USUU574uKSVy/sIz1iIj7Qt07FoJ/ljN
-         RVTjF2kujjYAcE9rsze0xb3gBNRtKOl63bI+keFynD/03vfQvs6l41MH6mbNiYfz+4js
-         B3gd93htJIS0zuKxFN7Df63/O1WQc4SxZ3wRIBjmr0E2KpmTMVvXEzsZpvdTav1RAyQP
-         3PiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787927789; x=1788532589;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=598ufPSbILHNfdSaKUhv0/mnqSbYE6cS+Ejd1n/aDFM=;
-        b=o3xBDSD/Urmp4VboqXJgfudKxajJeIpw/TzcaNEgt7M/lS0fwbC0UeghW0Xik4aA2H
-         oCjmfIZ744gN/pQsq7Au15EI1wFZMBdCZ67RFVU/uEy/UTaRuTjTPM18Ob/gWkKp1Iwc
-         7LE3KY9u8w8AR8QZcjneLtWWs5fXU7KGaqe/moPstdABalUbm/DwriG0nUuBevVtDrtU
-         XhTFZ2wb35exxYpKoi6LhawJYl7AyD/l5A9wVoPpMlhl0IZvnNunmXbVTDAz0NCQjx3S
-         rTEmB4e9frkD5t6Rcu/KPNHzRd16EatPp5IjxAulmUkgt2Wn2GYLanA2xiScq+RvrrYo
-         ryNw==
-X-Forwarded-Encrypted: i=1; AHgh+RoniL8zzzWrdz9L7pZ3E2mnSmn6WzQ0YTHlozEhX2Kd6eb/QOL0KExTEDts4javENuMkbLhEHP/x8OxuAA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL8FDLsBBfvUPiJByNP80dGbs8/xmYGSM0Y3P1kyw/xsu5HEwp
-	mHh0/NIdqJvLXSDYKsN4YF+S0aTzcKskHhurTyf+6kyf6cUSUEGm8dVSzv2AvJxhPtUdVZNSKvg
-	9gF2mH337WsXLMME/VNezD+0SDf7Nf+9xeNrscDZhmpX3QXL7bVhv/3bTu9IP9A==
-X-Gm-Gg: AR+sD10n3eAfvFJlLD9+/P9NKs3LPmCcu4foBcPZmd/Vsd/SfWCbNwyK4RSD6RA8FXv
-	EDssedNgFsdvJ0NfuHmRhzR5iwQtCcmyf+b76CC8pe/+jYyBVUK+l9/EQcPtJM9QoDmMOSZ9q5t
-	EnJ9T3n2Fv5Y61wIQIyIBmg3XE2GY8lOcCmtrIRHtSlfReg41jM6IrU5C53r2O9qXim0VtdKer7
-	tCsvfklLRC/HsetyTjdJNkvZnKbTVHJ1AGV5EWBN3y76M4QHJVSMfVDwNFLzJrhVda4UA1zGbfl
-	xW6u6UVkXwdyRJG1Is7oBbTUnItgXpO8Css6WmwhneOyvbLh0oo1O4lhRS0qR4HMqvADGPd9eiR
-	TA2yoDkWdSQPQLuNZVZd885saG1T+mf/B3n5x0ydXWpRKBHIpV8AeRVYms+qV6LQ=
-X-Received: by 2002:ac8:598f:0:b0:51c:805:1be3 with SMTP id d75a77b69052e-52fb96ffa65mr81226551cf.31.1787927788782;
-        Fri, 28 Aug 2026 07:36:28 -0700 (PDT)
-X-Received: by 2002:ac8:598f:0:b0:51c:805:1be3 with SMTP id d75a77b69052e-52fb96ffa65mr81225571cf.31.1787927788195;
-        Fri, 28 Aug 2026 07:36:28 -0700 (PDT)
-Received: from ?IPV6:2a00:a040:199:85d9:7dc6:c240:3de1:e554? ([2a00:a040:199:85d9:7dc6:c240:3de1:e554])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20793sm4116286f8f.17.2026.08.28.07.36.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 07:36:27 -0700 (PDT)
-Message-ID: <8da4a2dd-a4ef-4a61-888f-60c611d3f911@columbia.edu>
-Date: Fri, 28 Aug 2026 17:36:24 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOvgczhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7D81F000E9;
+	Fri, 28 Aug 2026 14:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787927994;
+	bh=WbdV6eyXnQMzQohIWg66E1PllhjkKmNk21VhpQgF4DQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZOvgczhRpjakBqo71x01gh2pyyrydUU9UID+2PNXbAeHvJpuuYNdpDGv3gj9a3IeE
+	 M9IRbxEK/Uw4ZD9G46Y+GgX+x/tYk/ujap8MmZIunYM3nGmDvlhLJdeFX/nLXPCC85
+	 5mMAnwD6yXkOGq+qslOaSSkgYPBm9I+YDGLab3drSOYlJZwvd1gkggpgRk/tXxQyR0
+	 Bot0MC+mtwBCTW0mNJm/1p9X39w75wU/3GuEZZqZYBP5i3ybAia9O8bJGyMZ3nC+S+
+	 6uGn27WyqoUs2J2ii/pkHkSe9Jf+DnWPLmDirUfGAYDmvGKdTOEdeODgNs2cj8tJMV
+	 HWZL2pGkD4knA==
+Message-ID: <343cc59a0bf305ea5de8691257930aec4f44cc29.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: don't modify a session slot when replaying its
+ cached reply
+From: Jeff Layton <jlayton@kernel.org>
+To: Ameer Hamza <ameer.hamza@truenas.com>, cel@kernel.org, neil@brown.name, 
+	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	alexander.motin@truenas.com, caleb.stjohn@truenas.com
+Date: Fri, 28 Aug 2026 10:39:51 -0400
+In-Reply-To: <20260824173641.3274260-1-ameer.hamza@truenas.com>
+References: <20260824173641.3274260-1-ameer.hamza@truenas.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
+ n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
+ egyjnSsFt7EGoDjdKqr1TS9syJYFjagYtvWk/UfHlW09X+jOh4vYtfX7iYSx/NfqV3W1D7EDi0PqV
+ T2h6v8i8YqsATFPwO4nuiTmL6I40ZofxVd+9wdRI4Db8yUNA4ZSP2nqLcLtFjClYRBoJvRWvsv4lm
+ 0OX6MYPtv76hka8lW4mnRmZqqx3UtfHX/hF/zH24Gj7A6sYKYLCU3YrI2Ogiu7/ksKcl7goQjpvtV
+ YrOOI5VGLHge0awt7bhMCTM9KAfPc+xL/ZxAMVWd3NCk5SamL2cE99UWgtvNOIYU8m6EjTLhsj8sn
+ VluJH0/RcxEeFbnSaswVChNSGa7mXJrTR22lRL6ZPjdMgS2Km90haWPRc8Wolcz07Y2se0xpGVLEQ
+ cDEsvv5IMmeMe1/qLZ6NaVkNuL3WOXvxaVT9USW1+/SGipO2IpKJjeDZfehlB/kpfF24+RrK+seQf
+ CBYyUE8QJpvTZyfUHNYldXlrjO6n5MdOempLqWpfOmcGkwnyNRBR46g/jf8KnPRwXs509yAqDB6sE
+ LZH+yWr9LQZEwARAQABtCVKZWZmIExheXRvbiA8amxheXRvbkBwb29jaGllcmVkcy5uZXQ+iQI7BB
+ MBAgAlAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAUCTpXWPAIZAQAKCRAADmhBGVaCFc65D/4
+ gBLNMHopQYgG/9RIM3kgFCCQV0pLv0hcg1cjr+bPI5f1PzJoOVi9s0wBDHwp8+vtHgYhM54yt43uI
+ 7Htij0RHFL5eFqoVT4TSfAg2qlvNemJEOY0e4daljjmZM7UtmpGs9NN0r9r50W82eb5Kw5bc/r0km
+ R/arUS2st+ecRsCnwAOj6HiURwIgfDMHGPtSkoPpu3DDp/cjcYUg3HaOJuTjtGHFH963B+f+hyQ2B
+ rQZBBE76ErgTDJ2Db9Ey0kw7VEZ4I2nnVUY9B5dE2pJFVO5HJBMp30fUGKvwaKqYCU2iAKxdmJXRI
+ ONb7dSde8LqZahuunPDMZyMA5+mkQl7kpIpR6kVDIiqmxzRuPeiMP7O2FCUlS2DnJnRVrHmCljLkZ
+ Wf7ZUA22wJpepBligemtSRSbqCyZ3B48zJ8g5B8xLEntPo/NknSJaYRvfEQqGxgk5kkNWMIMDkfQO
+ lDSXZvoxqU9wFH/9jTv1/6p8dHeGM0BsbBLMqQaqnWiVt5mG92E1zkOW69LnoozE6Le+12DsNW7Rj
+ iR5K+27MObjXEYIW7FIvNN/TQ6U1EOsdxwB8o//Yfc3p2QqPr5uS93SDDan5ehH59BnHpguTc27Xi
+ QQZ9EGiieCUx6Zh2ze3X2UW9YNzE15uKwkkuEIj60NvQRmEDfweYfOfPVOueC+iFifbQgSmVmZiBM
+ YXl0b24gPGpsYXl0b25AcmVkaGF0LmNvbT6JAjgEEwECACIFAk6V0q0CGwMGCwkIBwMCBhUIAgkKC
+ wQWAgMBAh4BAheAAAoJEAAOaEEZVoIViKUQALpvsacTMWWOd7SlPFzIYy2/fjvKlfB/Xs4YdNcf9q
+ LqF+lk2RBUHdR/dGwZpvw/OLmnZ8TryDo2zXVJNWEEUFNc7wQpl3i78r6UU/GUY/RQmOgPhs3epQC
+ 3PMJj4xFx+VuVcf/MXgDDdBUHaCTT793hyBeDbQuciARDJAW24Q1RCmjcwWIV/pgrlFa4lAXsmhoa
+ c8UPc82Ijrs6ivlTweFf16VBc4nSLX5FB3ls7S5noRhm5/Zsd4PGPgIHgCZcPgkAnU1S/A/rSqf3F
+ LpU+CbVBDvlVAnOq9gfNF+QiTlOHdZVIe4gEYAU3CUjbleywQqV02BKxPVM0C5/oVjMVx3bri75n1
+ TkBYGmqAXy9usCkHIsG5CBHmphv9MHmqMZQVsxvCzfnI5IO1+7MoloeeW/lxuyd0pU88dZsV/riHw
+ 87i2GJUJtVlMl5IGBNFpqoNUoqmvRfEMeXhy/kUX4Xc03I1coZIgmwLmCSXwx9MaCPFzV/dOOrju2
+ xjO+2sYyB5BNtxRqUEyXglpujFZqJxxau7E0eXoYgoY9gtFGsspzFkVNntamVXEWVVgzJJr/EWW0y
+ +jNd54MfPRqH+eCGuqlnNLktSAVz1MvVRY1dxUltSlDZT7P2bUoMorIPu8p7ZCg9dyX1+9T6Muc5d
+ Hxf/BBP/ir+3e8JTFQBFOiLNdFtB9KZWZmIExheXRvbiA8amxheXRvbkBzYW1iYS5vcmc+iQI4BBM
+ BAgAiBQJOldK9AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRAADmhBGVaCFWgWD/0ZRi4h
+ N9FK2BdQs9RwNnFZUr7JidAWfCrs37XrA/56olQl3ojn0fQtrP4DbTmCuh0SfMijB24psy1GnkPep
+ naQ6VRf7Dxg/Y8muZELSOtsv2CKt3/02J1BBitrkkqmHyni5fLLYYg6fub0T/8Kwo1qGPdu1hx2BQ
+ RERYtQ/S5d/T0cACdlzi6w8rs5f09hU9Tu4qV1JLKmBTgUWKN969HPRkxiojLQziHVyM/weR5Reu6
+ FZVNuVBGqBD+sfk/c98VJHjsQhYJijcsmgMb1NohAzwrBKcSGKOWJToGEO/1RkIN8tqGnYNp2G+aR
+ 685D0chgTl1WzPRM6mFG1+n2b2RR95DxumKVpwBwdLPoCkI24JkeDJ7lXSe3uFWISstFGt0HL8Eew
+ P8RuGC8s5h7Ct91HMNQTbjgA+Vi1foWUVXpEintAKgoywaIDlJfTZIl6Ew8ETN/7DLy8bXYgq0Xzh
+ aKg3CnOUuGQV5/nl4OAX/3jocT5Cz/OtAiNYj5mLPeL5z2ZszjoCAH6caqsF2oLyAnLqRgDgR+wTQ
+ T6gMhr2IRsl+cp8gPHBwQ4uZMb+X00c/Amm9VfviT+BI7B66cnC7Zv6Gvmtu2rEjWDGWPqUgccB7h
+ dMKnKDthkA227/82tYoFiFMb/NwtgGrn5n2vwJyKN6SEoygGrNt0SI84y6hEVbQlSmVmZiBMYXl0b
+ 24gPGpsYXl0b25AcHJpbWFyeWRhdGEuY29tPokCOQQTAQIAIwUCU4xmKQIbAwcLCQgHAwIBBhUIAg
+ kKCwQWAgMBAh4BAheAAAoJEAAOaEEZVoIV1H0P/j4OUTwFd7BBbpoSp695qb6HqCzWMuExsp8nZjr
+ uymMaeZbGr3OWMNEXRI1FWNHMtcMHWLP/RaDqCJil28proO+PQ/yPhsr2QqJcW4nr91tBrv/MqItu
+ AXLYlsgXqp4BxLP67bzRJ1Bd2x0bWXurpEXY//VBOLnODqThGEcL7jouwjmnRh9FTKZfBDpFRaEfD
+ FOXIfAkMKBa/c9TQwRpx2DPsl3eFWVCNuNGKeGsirLqCxUg5kWTxEorROppz9oU4HPicL6rRH22Ce
+ 6nOAON2vHvhkUuO3GbffhrcsPD4DaYup4ic+DxWm+DaSSRJ+e1yJvwi6NmQ9P9UAuLG93S2MdNNbo
+ sZ9P8k2mTOVKMc+GooI9Ve/vH8unwitwo7ORMVXhJeU6Q0X7zf3SjwDq2lBhn1DSuTsn2DbsNTiDv
+ qrAaCvbsTsw+SZRwF85eG67eAwouYk+dnKmp1q57LDKMyzysij2oDKbcBlwB/TeX16p8+LxECv51a
+ sjS9TInnipssssUDrHIvoTTXWcz7Y5wIngxDFwT8rPY3EggzLGfK5Zx2Q5S/N0FfmADmKknG/D8qG
+ IcJE574D956tiUDKN4I+/g125ORR1v7bP+OIaayAvq17RP+qcAqkxc0x8iCYVCYDouDyNvWPGRhbL
+ UO7mlBpjW9jK9e2fvZY9iw3QzIPGKtClKZWZmIExheXRvbiA8amVmZi5sYXl0b25AcHJpbWFyeWRh
+ dGEuY29tPokCOQQTAQIAIwUCU4xmUAIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEAAOa
+ EEZVoIVzJoQALFCS6n/FHQS+hIzHIb56JbokhK0AFqoLVzLKzrnaeXhE5isWcVg0eoV2oTScIwUSU
+ apy94if69tnUo4Q7YNt8/6yFM6hwZAxFjOXR0ciGE3Q+Z1zi49Ox51yjGMQGxlakV9ep4sV/d5a50
+ M+LFTmYSAFp6HY23JN9PkjVJC4PUv5DYRbOZ6Y1+TfXKBAewMVqtwT1Y+LPlfmI8dbbbuUX/kKZ5d
+ dhV2736fgyfpslvJKYl0YifUOVy4D1G/oSycyHkJG78OvX4JKcf2kKzVvg7/Rnv+AueCfFQ6nGwPn
+ 0P91I7TEOC4XfZ6a1K3uTp4fPPs1Wn75X7K8lzJP/p8lme40uqwAyBjk+IA5VGd+CVRiyJTpGZwA0
+ jwSYLyXboX+Dqm9pSYzmC9+/AE7lIgpWj+3iNisp1SWtHc4pdtQ5EU2SEz8yKvDbD0lNDbv4ljI7e
+ flPsvN6vOrxz24mCliEco5DwhpaaSnzWnbAPXhQDWb/lUgs/JNk8dtwmvWnqCwRqElMLVisAbJmC0
+ BhZ/Ab4sph3EaiZfdXKhiQqSGdK4La3OTJOJYZphPdGgnkvDV9Pl1QZ0ijXQrVIy3zd6VCNaKYq7B
+ AKidn5g/2Q8oio9Tf4XfdZ9dtwcB+bwDJFgvvDYaZ5bI3ln4V3EyW5i2NfXazz/GA/I/ZtbsigCFc
+ 8ftCBKZWZmIExheXRvbiA8amxheXRvbkBrZXJuZWwub3JnPokCOAQTAQIAIgUCWe8u6AIbAwYLCQg
+ HAwIGFQgCCQoLBBYCAwECHgECF4AACgkQAA5oQRlWghUuCg/+Lb/xGxZD2Q1oJVAE37uW308UpVSD
+ 2tAMJUvFTdDbfe3zKlPDTuVsyNsALBGclPLagJ5ZTP+Vp2irAN9uwBuacBOTtmOdz4ZN2tdvNgozz
+ uxp4CHBDVzAslUi2idy+xpsp47DWPxYFIRP3M8QG/aNW052LaPc0cedYxp8+9eiVUNpxF4SiU4i9J
+ DfX/sn9XcfoVZIxMpCRE750zvJvcCUz9HojsrMQ1NFc7MFT1z3MOW2/RlzPcog7xvR5ENPH19ojRD
+ CHqumUHRry+RF0lH00clzX/W8OrQJZtoBPXv9ahka/Vp7kEulcBJr1cH5Wz/WprhsIM7U9pse1f1g
+ Yy9YbXtWctUz8uvDR7shsQxAhX3qO7DilMtuGo1v97I/Kx4gXQ52syh/w6EBny71CZrOgD6kJwPVV
+ AaM1LRC28muq91WCFhs/nzHozpbzcheyGtMUI2Ao4K6mnY+3zIuXPygZMFr9KXE6fF7HzKxKuZMJO
+ aEZCiDOq0anx6FmOzs5E6Jqdpo/mtI8beK+BE7Va6ni7YrQlnT0i3vaTVMTiCThbqsB20VrbMjlhp
+ f8lfK1XVNbRq/R7GZ9zHESlsa35ha60yd/j3pu5hT2xyy8krV8vGhHvnJ1XRMJBAB/UYb6FyC7S+m
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] block: unpin all pages of a bvec in
- bio_iov_iter_align_down()
-To: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-        Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@suse.de>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        John Garry <john.g.garry@oracle.com>,
-        Christian Brauner
- <brauner@kernel.org>,
-        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
- <20260828-blkdev-fixes-v2-6-32f3f40cebed@columbia.edu>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20260828-blkdev-fixes-v2-6-32f3f40cebed@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEyNiBTYWx0ZWRfXye7BYVBLM6Td
- eAxZu7nBmu7okJzo+dTZ7zcM6qwf3O5+abIc2o+QxtzhEsaQPoKL0J0P3ngKb+1N9bLUuZKDSM+
- idmxmBj3Z9KdsWLc0aQEBLF8m3JMN8e29xTgWbX8D2YDB9GKynDvnELItDjC2ZMSa8bOL9cqXMY
- 0hL0+EAFCC1YJizpuulDct26YKZcMMlFzZmfPU5ehuq3SaoOHA4l5gKu3wW0y8+E/wf6c2wqVc+
- WcxOVAxhEz/eIqtEDb7dtZj9M7xu+FS0U6tNJYlChdFzV3UpxnpBdOkDgn7pfGypoq4fiH+Dvkh
- Esmq8q+ma8tRh+aXwPwfDjS1b6KBAqPC1GMIVRXCiV/W4f51R4Ku+b6BawyFYCDkc6Ls3l19g2h
- Vm9RC4ipLWPrQXdHd+7UMggYNCChHoD84u8FGlzwDdoRGAhE50wBoRLAIwBgA10BHUr1SVR5igl
- X3XsbNXEbviSZg7TgWg==
-X-Authority-Analysis: v=2.4 cv=M5F97Sws c=1 sm=1 tr=0 ts=6a919ced cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=8X_uEV4oKehs6EEG2ucA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: yoD8jXOcPPfHtxz0GBVpM4BecIiVcEEW
-X-Proofpoint-GUID: yoD8jXOcPPfHtxz0GBVpM4BecIiVcEEW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEyNiBTYWx0ZWRfX/6ZsPWNTUMSN
- uVR1yPwN8AYK2D72HjgEtiv/EZmvlwsNl5rmRh9Z7T31QoHmfQ0AFmooM9MkiMqQgT9oHoKpMtG
- paY+IYHxkI0xOx+lu6pYybiodP7d6R7E9QWPWtmN+0saBMtnUvrH
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11889
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=10 malwarescore=0
- phishscore=0 lowpriorityscore=10 impostorscore=10 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280126
 
-On 8/28/26 4:49 PM, Tal Zussman wrote:
-> bio_iov_iter_align_down() drops trailing bvecs with unpin_user_page(),
-> but a bvec built by iov_iter_extract_bvecs() can span several pages of
-> one folio, each with its own pin. All but the first pin leak.
-> 
-> The partially trimmed bvec has the same problem. Shrinking bv_len does
-> not release the pins for the pages cut off by the trim, and
-> __bio_release_pages() only unpins the pages bv_len still covers at
-> completion.
-> 
-> Both issues occur only with a logical block size above PAGE_SIZE and a
-> large folio backing the user buffer. On a device with a 64K logical
-> block size, an O_DIRECT pwritev() from a hugetlb mapping that ends 16K
-> past a block boundary leaks one huge page per call, whether the
-> remainder is its own bvec or the tail of a larger one.
-> 
-> Unpin all pages of a dropped bvec with unpin_user_folio(), as
-> __bio_release_pages() does, and unpin the pages trimmed off the last
-> bvec as well.
-> 
-> Fixes: 20a0e6276edb ("block: align the bio after building it")
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+On Mon, 2026-08-24 at 22:36 +0500, Ameer Hamza wrote:
+> nfsd4_sequence() claims a session slot by setting NFSD4_SLOT_INUSE
+> under nn->client_lock. A reply served from the slot's reply cache does
+> not claim it, and that distinction lived only in cstate->status, which
+> nfsd4_sequence() set to nfserr_replay_cache. Commit cc028a10a48c
+> ("NFSD: Hoist status code encoding into XDR encoder functions") moved
+> nfsd4_proc_compound()'s cstate->status assignment below the out:
+> label, and the replay path's goto out was the one path that relied on
+> skipping it. The test in nfsd4_sequence_done() therefore no longer
+> identifies a replay, and every replay now stores its reply and clears
+> NFSD4_SLOT_INUSE as though it owned the slot.
+>=20
+> NFSD4_SLOT_INUSE is the interlock: check_slot_seqid() rejects every
+> sequence id for a slot that is in use, before replay_matches_cache()
+> runs. A replay never sets it, so two replays can be in flight on the
+> same slot at once. One can read slot->sl_cred under nn->client_lock
+> while the other's completion frees and rebuilds it from the XDR
+> encoder without that lock. Two completions can also collide with each
+> other and release the same group_info twice. free_svc_cred() leaves
+> cr_uid, cr_gid and cr_flavor intact, so the reader passes every
+> earlier test in same_creds() and dereferences a NULL cr_group_info.
+> From a 6.12.91 production server:
+>=20
+>   BUG: kernel NULL pointer dereference, address: 0000000000000004
+>   CPU: 63 UID: 0 PID: 39015 Comm: nfsd
+>   RIP: 0010:same_creds+0x38/0xa0 [nfsd]
+>   RDX: 0000000000000000
+>   Call Trace:
+>    nfsd4_sequence+0x6a8/0x910 [nfsd]
+>    nfsd4_proc_compound+0x345/0x670 [nfsd]
+>    nfsd_dispatch+0x100/0x220 [nfsd]
+>    svc_process_common+0x311/0x700 [sunrpc]
+>    svc_process+0x131/0x1c0 [sunrpc]
+>    svc_recv+0x7ef/0x9c0 [sunrpc]
+>    nfsd+0xa3/0x100 [nfsd]
+>   Kernel panic - not syncing: Fatal exception
+>=20
+> Since v6.14 a live session's slot table can shrink, and the unowned
+> store becomes a use-after-free write. nfsd4_sequence() defers the
+> shrink while a slot is in use, but it tests NFSD4_SLOT_INUSE, which a
+> replay does not set, so free_session_slots() can kfree() the slot the
+> replay still holds in cstate->slot.
+>=20
+> Record the claim in cstate->slot_owned when nfsd4_sequence() accepts a
+> request and test that in nfsd4_sequence_done(), so only the request
+> that claimed the slot updates its cached reply and clears
+> NFSD4_SLOT_INUSE. svc_generic_init_request() zeroes the compound
+> response before each request, so the flag starts clear.
+>=20
+> Fixes: cc028a10a48c ("NFSD: Hoist status code encoding into XDR encoder f=
+unctions")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Ameer Hamza <ameer.hamza@truenas.com>
 > ---
->  block/bio.c | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
-> 
-> diff --git a/block/bio.c b/block/bio.c
-> index 898b2f5ef8c8..48fa6b9a6dba 100644
-> --- a/block/bio.c
-> +++ b/block/bio.c
-> @@ -1196,6 +1196,11 @@ bool bio_iov_iter_set(struct bio *bio, const struct iov_iter *iter)
->  	return true;
->  }
->  
-> +static unsigned int bvec_nr_pages(const struct bio_vec *bv)
-> +{
-> +	return DIV_ROUND_UP(bv->bv_offset + bv->bv_len, PAGE_SIZE);
-> +}
-> +
->  /*
->   * Aligns the bio size to the len_align_mask, releasing excessive bio vecs that
->   * __bio_iov_iter_get_pages may have inserted, and reverts the trimmed length
-> @@ -1205,6 +1210,7 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
->  				   struct bio_vec *bv, unsigned len_align_mask)
->  {
->  	size_t nbytes = bio->bi_iter.bi_size & len_align_mask;
-> +	unsigned int npages;
->  
->  	if (!nbytes)
->  		return 0;
-> @@ -1213,14 +1219,24 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
->  	bio->bi_iter.bi_size -= nbytes;
->  	while (nbytes >= bv->bv_len) {
->  		if (bio_flagged(bio, BIO_PAGE_PINNED))
-> -			unpin_user_page(bv->bv_page);
-> +			unpin_user_folio(bvec_folio(bv),
-> +					 bvec_nr_pages(bv));
+> Reproduced on an unmodified tree with a client that pipelines two
+> copies of a cached request before reading either reply.
+>=20
+>  fs/nfsd/nfs4state.c | 7 ++++++-
+>  fs/nfsd/xdr4.h      | 1 +
+>  2 files changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 2c1b8b2cbbb5b..a4a75a512e9f0 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -5170,6 +5170,7 @@ nfsd4_sequence(struct svc_rqst *rqstp, struct nfsd4=
+_compound_state *cstate,
+>  		slot->sl_flags &=3D ~NFSD4_SLOT_CACHETHIS;
+> =20
+>  	cstate->slot =3D slot;
+> +	cstate->slot_owned =3D true;
+>  	cstate->session =3D session;
+>  	cstate->clp =3D clp;
+> =20
+> @@ -5244,7 +5245,11 @@ nfsd4_sequence_done(struct nfsd4_compoundres *resp=
+)
+>  	struct nfsd4_compound_state *cs =3D &resp->cstate;
+> =20
+>  	if (nfsd4_has_session(cs)) {
+> -		if (cs->status !=3D nfserr_replay_cache) {
+> +		/*
+> +		 * Only the request that claimed the slot may update its
+> +		 * cached reply and clear NFSD4_SLOT_INUSE.
+> +		 */
+> +		if (cs->slot_owned) {
+>  			nfsd4_store_cache_entry(resp);
+>  			cs->slot->sl_flags &=3D ~NFSD4_SLOT_INUSE;
+>  		}
+> diff --git a/fs/nfsd/xdr4.h b/fs/nfsd/xdr4.h
+> index b841bc462dac8..5b7edf1893e0a 100644
+> --- a/fs/nfsd/xdr4.h
+> +++ b/fs/nfsd/xdr4.h
+> @@ -62,6 +62,7 @@ struct nfsd4_compound_state {
+>  	struct nfsd4_slot	*slot;
+>  	int			data_offset;
+>  	bool                    spo_must_allowed;
+> +	bool			slot_owned;
+>  	size_t			iovlen;
+>  	u32			minorversion;
+>  	__be32			status;
+>=20
+> base-commit: 46ff234c7129c7c10ed493413d4f60d0cf4dd1f1
 
-And right after sending this, I noticed bvec_unpin()...
-
-I think a cleaner solution is to move bvec_unpin() up, make bvec_nr_pages()
-handle bv_offset > PAGE_SIZE, use bvec_nr_pages() in bvec_unpin(), and then
-use bvec_unpin() here.
-
->  		if (!--bio->bi_vcnt)
->  			return -EFAULT;
->  		nbytes -= bv->bv_len;
->  		bv--;
->  	}
-> +
-> +	/*
-> +	 * __bio_release_pages() only unpins the pages still covered by
-> +	 * bv_len, so drop the pins for the pages trimmed off here.
-> +	 */
-> +	npages = bvec_nr_pages(bv);
->  	bv->bv_len -= nbytes;
-> +	npages -= bvec_nr_pages(bv);
-> +	if (npages && bio_flagged(bio, BIO_PAGE_PINNED))
-> +		unpin_user_folio(bvec_folio(bv), npages);
->  	return 0;
->  }
->  
-> 
-
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
