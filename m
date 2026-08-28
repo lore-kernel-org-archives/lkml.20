@@ -1,87 +1,75 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7C146EF87
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF9C411F8B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926221; cv=none; b=p8XqHFFWCbRr+FyWsdwt20YeANxVyCOwo4rvTmoOWm3rnVhw0ncWKxsMq7NtHOT8KqegDvgb6d0JEooARL6ps69DEpP7jcCdBQpa+q/ed2qJkhgIwbvKr29EKaVrWOUFRl0McdTOYA1GFvfQuAfvZRVcQMI+SY19WVHhXE0zTos=
+	t=1787926283; cv=none; b=kmTkrXvAjFj9athPkhqepO8C8ZgtjeCchMbSRR0mDUW7SKLgYNPiygu/W0pXkXmIQar67EDg0+EDc4IOMRYqzgemhHRUSrU1SwMv5WUcxivxkTFfp4fAgAyiP+Y+RbSjLbAZsR2YlFbq557mUCtH/AN4J/foKQuBupe5LIzVIMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926221; c=relaxed/simple;
-	bh=ZNKccxZiCzly9I5k80F35B1pc+eR7vQ/qDH/pYuN0m8=;
+	s=arc-20240116; t=1787926283; c=relaxed/simple;
+	bh=zx3nsKWTltY3MFKuLkPckkA8gWREFpd2w76hoQ5jIcc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddBrHjFIq0CGK/laJen6gmAqeZt12EGECbPgPGnO8mWSF1nKQqcmyQY8SaORE9I/xlcslUXVlIGJGZdNVDWX2g8TrgcX/XLeTd1DveywSru9JMtq5hye6h09aDArEn0LqvajQpad8qWrW754zyidS9JWXGnNHe24/d2X6fwoGP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=TvOCVadC; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=niYe+VPugQGVeAIq148qAqGJy4gnqGGRFoxoTtgyj+5rRCynqQEAEU5kbNpcxmZvlV+ZlcjUUcwPl57cM/YONsL5qQ1p9jHaj6Vr/Vbl/NJueHRaF10ZONHfGD7BoQkpF6VSg2WlaFefhYVjnr/BpeJAtvWLklQfH+CrfOAPwX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URfLviro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="TvOCVadC"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-936dfd009d1so182714585a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:10:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1787926208; x=1788531008; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DMTxMAG/rJvYI6GDoxI7NDM2NcdqW0dm+aSGvfT6mdk=;
-        b=TvOCVadC1WTItmA22XmsKcrfeIiy/ML5wGK/co9em10igxF8Yku06eJvoOSCxyfrLM
-         fIZPDzlOkzXWr6E4yojYGEar2yz//3QL4Mp4AKxHagEAGXH1pxkXXaNVgyB8uS3MC96+
-         i1keVpSBwc8qJIrsDzJlmVsdqxnrWCvYHrp5qXZRWDlE1Epweu4GrJvH0h5k3zVW/Wxf
-         lU8YKakaJHNa393oM/EPH9qpc5nHpoy+2igaJ4Exjf65vyi2GYneEQZBuOPj3zolNdBb
-         FwOUHD6H+esaqClg4YssScg5kZassGR2pTAWGWuvWF9pgjZj8JOs9RVqqFRo8tYnIlTg
-         CEzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787926208; x=1788531008;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DMTxMAG/rJvYI6GDoxI7NDM2NcdqW0dm+aSGvfT6mdk=;
-        b=qo0bqLTy7wj3IDz2jdUX4fmvd67Zo9rudHJRYlgD/QFnghCvOAc0EVJya6DfchiiNY
-         O2eluTh1VpEx36FqZlXx9PrStkalyuETSIbcOrI/TI2ahx1BDJPXWGR/37wcjcXAZYxd
-         gJ1HPfOvDsAplR8MCqqPwYQAmgGgGyWq4Fip8DqsN6Fl9XeDnD6m1hU6vDkghawsflcj
-         39Qad8fhJSJY5BX0ANjwRQ5qAMIWx9Btg4TyBvU9uFZ2svjFT+gwcZiaBCe4j/rEkq+b
-         MGlpcvdXgK7PzVqCo+lwJAx8hIQTDvK4j+2iTBY4hYwHKyAAhyf/J6Xq/4Q1bY9owKWj
-         SKdw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+OEwJlboxe+TVlktw4mLnC3evq3SD52UpOcT1ygXKvBCXSiPdu5Ancu/GFD91v5u2DMN/dXGfb8JfL8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIVoofspM5qCi2Grr0KplPRe6dztIKPIWhuay4V0z3THoBoQzS
-	DEOvP9Jb2y2u2zcPbdo5t9jYQNblHSCDZpQW9mzFnTX5DzfX9xi9/LqGNkehc/ShPA==
-X-Gm-Gg: AR+sD11bLjZHWe6wjtubGWq7UHzFZTHXCQ1QD7V1cC/0a8TPV6k3jscRrbFO1YOSFKN
-	wBONSAJt8wN4RnFyjbqxOpggwZnNtTpjjYMIwz484YOQxQ24xoadJvV1jYH3ZXxGv3nm1c3eGop
-	EPcA3qES3Jqv8R/4LJWkvghf4YslG3sQlr6fi2N6VWSf2BJ98uSkdhVqEwFfxbrH8vuBWFVc6vK
-	KZPXsvLk6krEufxgKSSxdCEcUT6uJKILSRDhf7i5JOGI4oZAAAcUTT36BfGx9AU5RhumfnQ9NFW
-	RAp5dZWcB+nvPlrDWw+PP8lRGBaj+gN2bWY30FNzkimC4DutMvmI3aD9HFQSPEHX1eGk2GypXsY
-	B5936Rh5j6ms/P7gOlsfxEh6ixya8820dT037tBwllI/RwjUZ19g3Bv3PFvcXqEquCvEwfgHPrk
-	44enJNTM7ha+tDAqqvUiQbcHznt94O9QjhyWrDTzSc89GihqAqqkmqsLU2e4wqeLPjkJzGyWVUh
-	RQ6FiE=
-X-Received: by 2002:a05:620a:1588:b0:930:9cbc:7121 with SMTP id af79cd13be357-93900131031mr1301468585a.3.1787926205824;
-        Fri, 28 Aug 2026 07:10:05 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4460e0dsm15997766d6.11.2026.08.28.07.10.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:10:04 -0700 (PDT)
-Date: Fri, 28 Aug 2026 10:10:01 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Oliver Neukum <oneukum@suse.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Petko Manolov <petkan@nucleusys.com>, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
- work on system_dfl_long_wq
-Message-ID: <b6cf44a1-d2b1-443d-8efe-c596ef89cc2a@rowland.harvard.edu>
-References: <20260720100902.155605-1-marco.crivellari@suse.com>
- <20260720100902.155605-6-marco.crivellari@suse.com>
- <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
- <20260825151812.4aJyFUgE@linutronix.de>
- <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
- <20260828094318.bOajNBno@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URfLviro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC541F000E9;
+	Fri, 28 Aug 2026 14:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787926279;
+	bh=U7b6NXuQpbm+Bpwe770MpMgWC/+r6IvbVv/YGtdtPR8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=URfLviro2w0VdJ4YO8neeZvUxtIdNwrPWpvPo48fNJ8y84NnI1SrupmK5IKxoSOny
+	 n+fC7M1OrWiec6Ar1qgigzfapw4D/MkkurtVnFwnp8FqLyTa5wd76JTmA+0klf8cx7
+	 I12MgxdC88orwWRC/waMtG3j6M5KsSimDuLC9jWVROYPDlF9kZ3Ib6yI3++Eg4yzl7
+	 m7fcdj1sN25g+P9JHwJF3gDCGg49Bpl5+94pckjbqGHpaKSvWDa9F+BQpv5O9GUZHM
+	 MdSKP7Cvh7/nBMkuA4W5AXbbiT5Y6lzR+bBK2JFFLQBJLP6Jr13EBYRjt8Yi+KAFet
+	 pKbM60O03S71w==
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E6CB4198003A;
+	Fri, 28 Aug 2026 10:11:12 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-07.internal (MEProxy); Fri, 28 Aug 2026 10:11:16 -0400
+X-ME-Sender: <xms:AJeRas1aZk9opjMSiGX5jElAqjZ4yIFj2k79pkjQWBBDs2rRAZz-GQ>
+    <xme:AJeRaqPZSBLSs0GN8Ma9LdPe9x3z3EXOw3X4xZZ3t6AdjbQEFNUAw03QHcz8KE-4c
+    gfOnZTcW8a2Jq_e4kyjWntEV2vEZ231XWkT4_Qb_6D4Pub9gbb2G14>
+X-ME-Received: <xmr:AJeRaiWuEV238jidr06ojGeBuk6qzsjid56OXlDDKuTMiedxTLZPhL_oZmY>
+X-ME-Proxy-Cause: dmFkZTGfMEtIdxK9TZhqZLeRbfNvLYXlwoNy36VBDoEf9Mft6xswYTLKr5+mL4ccPtdqIJ
+    +vUC/Jlk/xplE2julyVEiux1aCh0eTADY2ObZjiUqkrKT5Ef1K/Qc+X4X0h0mCPmpbKqPL
+    AjDnxuLaEDPB4g2sNEZHXSXz0it2PYy7eaS5EAF/3j8NDfbb1e2T+8R6ZWYLnhBvUGl17y
+    1sAzCDfz5CMOQDgVGhn24L+BZer5Uyqd71kfJ6/xMXI3m8JiQIMTFF4KPRsN79kPqDCBAY
+    w1NnkXoPPSuNed5UOjneSlrXRudTr2DT8EOVI2Rn2XM0JKcyccE5oUSCd89xeQcNPWIMqW
+    2o/KtmRCeONuaV8kcZ3bSQ9t3OqJhmCbPkO1VXJO6s3+D7dlY6dmU9D3tPPOqBhNvdtKTK
+    OlaIZTh4bSsVAY/aKs93BhArFKW2i3ZdUkEb81t3r9qa1ONHeB9sHjOY0dXWaLTARhkva4
+    vIi3zi/TNm4LExcwt8SOAO0b1TWucerQhHfZrj1XTyd44r1NHzSJG1WmyL7CUUMDkVGO6H
+    SpcvpmXTUDEpUJJ5+nx0UJxYbn1u7Wz+yOACY9/dhRipLWlz+rP1JSLvg/ZlrszAEwRUbV
+    tDHQCBk21ZXc2A2ldQQ9t4qy/RXSjvgl7kAflQd5gF1SRV3DvYJUOlXmZruw
+X-ME-Proxy: <xmx:AJeRaqbiOjLtG_O770h2bh6BHEdo4Bfr0xoea3h137RsTu7NgBpFug>
+    <xmx:AJeRatvSmGpff_pBo8O3gYONJARpaii_gjMdzsVD37p2L3pNXZ5jqw>
+    <xmx:AJeRasls8flkBSEysMaaYuVugCPUBY3Vj4AGw7dHVBnplXF-iqOgAw>
+    <xmx:AJeRanSZBbWnVQE4lXp4-_7P4acsvBKQPgaH-3fdXqdmG9QsGgIrXg>
+    <xmx:AJeRauMjyfqAE17oyt7EQXafma_xxc_kKuxVOfPciLs7NHoGagJ_eI5B>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 10:11:11 -0400 (EDT)
+Date: Fri, 28 Aug 2026 15:11:10 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3 3/5] mm/memory-failure: efi: record hardware-poisoned
+ frames into the poisoned-memory table
+Message-ID: <apGWUWi5-RbhFHpe@thinkstation>
+References: <20260826-hwpoison-kho-v3-0-6f79c4b605bc@debian.org>
+ <20260826-hwpoison-kho-v3-3-6f79c4b605bc@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,90 +78,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828094318.bOajNBno@linutronix.de>
+In-Reply-To: <20260826-hwpoison-kho-v3-3-6f79c4b605bc@debian.org>
 
-On Fri, Aug 28, 2026 at 11:43:18AM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-08-27 12:01:02 [-0400], Alan Stern wrote:
-> > > > These drivers have their own work queues because they are part of the block layer.
-> > > > USB devices can share a device with a block device (storage & UAS) and
-> > > > USB devices have common, per device operations, in particular reset
-> > > > and runtime power management and disconnect handling. Because these operations
-> > > > can be necessary to complete block IO neither they nor anything
-> > > > they depend on can use IO to allocate memory. That is they need to
-> > > > perform any memory allocation with GFP_NOIO or GFP_ATOMIC.
-> > > 
-> > > This is a networking driver. It has nothing to do with storage and UAS.
-> > > It uses USB, yes.
-> > 
-> > Ah, but a composite USB device can have both a networking interface and 
-> > a mass-storage interface.
-> 
-> okay.
-> 
-> > Suppose you have such a device, and suppose the disk attached to its 
-> > mass-storage interface contains a swap partition.  Now suppose the 
-> > device is being reset, and as part of the preparation for that reset the 
-> > networking driver needs to flush its workqueue.  This means waiting 
-> > until the work routines that are already running have completed.
-> 
-> The individual functions are usually independent. But if the USB core
-> would reset the whole device it would reset each function.
-> 
-> > Since it's a general-purpose workqueue, you don't know what those work 
-> > routines are going to do.  One of them might try to allocate memory 
-> > using GFP_KERNEL.  Suppose that in order to satisfy the memory request, 
-> > the kernel decides it needs to write some pages to the swap partition on 
-> > the USB mass-storage interface.  But the mass-storage driver is stuck; 
-> > it can't do anything until the device reset finishes.  Deadlock.
-> 
-> So you are saying, the USB-storage device is in reset and we wait until
-> the networking part finishes its workqueue flush. That flush is stuck
-> behind behind a memory allocation which waits on the storage device. So
-> any URB passed to usb_submit_urb() just waits for the reset to complete?
-> 
-> > That's why USB drivers have to use their own workqueues.
-> 
-> While this does make sense I don't see how this is related to this
-> patch. The pegasus driver uses `system_long_wq'. This is a system wide
-> workqueue_struct and is not limited to USB or this driver.
-> This workqueue is per-CPU meaning if you enqueue the work item on CPU3
-> it will be executed on CPU3. However pegasus uses a delayed work item
-> and the timer can fire on any CPU so even if it is enqueued on CPU3 it
-> could be executed on CPU1.
+On Wed, Aug 26, 2026 at 05:03:54AM -0700, Breno Leitao wrote:
+> diff --git a/drivers/firmware/efi/poison.c b/drivers/firmware/efi/poison.c
+> new file mode 100644
+> index 0000000000000..d6855e712832c
+> --- /dev/null
+> +++ b/drivers/firmware/efi/poison.c
+> @@ -0,0 +1,126 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Runtime side of the LINUX_EFI_POISONED_MEMORY table: one bit per
+> + * EFI_POISON_UNIT_SIZE, set here as frames go bad, honored by the next kernel.
+> + *
+> + * Copyright (c) 2026 Meta Platforms, Inc. and affiliates.
+> + * Copyright (c) 2026 Breno Leitao <leitao@debian.org>
+> + */
+> +
+> +#define pr_fmt(fmt) "efi: " fmt
+> +
+> +#include <linux/bitmap.h>
+> +#include <linux/efi.h>
+> +#include <linux/io.h>
+> +#include <linux/log2.h>
+> +#include <linux/memblock.h>
 
-It doesn't matter what CPU the work item runs on.  Here's the deadlock 
-sequence, in brief:
+Is it leftover? I don't see any memblock usage.
 
-	USB device reset cannot proceed until network interface's
-	->pre_reset() method returns.
+> +#include <linux/mm.h>
+> +#include <linux/overflow.h>
+> +
+> +static struct linux_efi_poisoned_memory *efi_poison __ro_after_init;
+> +static u64 efi_poison_nbits __ro_after_init;
+> +
+> +static u64 __init
+> +efi_poison_usable_size(const struct linux_efi_poisoned_memory *pm)
+> +{
+> +	u64 nr_units = DIV_ROUND_UP(PFN_PHYS(max_pfn), pm->unit_size);
+> +	u64 bytes = DIV_ROUND_UP(nr_units, BITS_PER_BYTE);
+> +
+> +	/* Whole words: the bitmap is reached an unsigned long at a time. */
+> +	return min(round_up(bytes, sizeof(unsigned long)), pm->size);
 
-	The ->pre_reset() method cannot return until its call to
-	flush_workqueue() returns.
+Hm. Why bother to clamp to max_pfn? What's what's wrong with just using
+pm->size directly?
 
-	flush_workqueue() cannot return until the already executing
-	work item finishes.
+> +}
+> +
 
-	The work item cannot finish until its kmalloc() call returns.
-
-	kmalloc() won't return until the kernel can free up memory by 
-	writing some pages to the swap partition.
-
-	The write to the swap partition cannot take place until the
-	usb_storage/uas driver carries it out.
-
-	usb_storage/uas cannot do anything until the USB device reset
-	is finished.
-
-> Therefore the suggested change system_long_wq -> system_dfl_long_wq
-> should not make a difference here: it is a different workqueue and it is
-> unbound (instead of per-CPU) but given the usage it is unchanged but
-> more obvious. Also its usage recommendations (use this for long running
-> items) is the same.
-> 
-> The plan is remove system_long_wq from the tree.
-
-The point Oliver was making is that the driver shouldn't be using a 
-general-purpose workqueue at all.  Switching from one general-purpose 
-workqueue to another ignores this point; it's not the right thing to do.
-
-Alan Stern
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
