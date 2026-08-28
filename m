@@ -1,73 +1,75 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A3557C9F;
-	Fri, 28 Aug 2026 14:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8278D46D093
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925608; cv=none; b=MQl53OlgO1vfv9s7Iwgul8i6AA0aITt2gWw12YWptmiW47UjXtPMw82pHKrAlbWK/FqHXU6kFKzlnDN1KIJRrPBsG0WwBqk6q+29dXeCgyJfvK5dIlKFMZzeduFLl1UEUbfIyjRUay5U224hw3M+0f8drZjPh6+12V5OMCbDzyk=
+	t=1787925612; cv=none; b=YBNsd5w5TSf4jyl7p3JqtClD4qaJ7aQXFCqIQ1LzZfVe446Bmcq+pwOaw7+Xak/vyRp2+zORsbxQYVInnT5tqj4oJWtUFTLn/sa/Sf7C8pZqvESFUmRJFOxrUNvVWMD4Tup6ZuB9DbbC5sQaf2rMCHJQWor4PdK6i2Mk18b9VXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925608; c=relaxed/simple;
-	bh=bGgnoFrFidNEZffnwuT1K657Hs/NpOW53aHDHEol8EQ=;
+	s=arc-20240116; t=1787925612; c=relaxed/simple;
+	bh=8HD9FV0lPZmnx5SuWJTOlDwZsVhQRXXyk7EnIJvWF54=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iqOALBVCd7xElHw4sIq0IlqTawgcY22uB7jLBFvJ5aE+x1dTvk+ker4jWQke3/WGdc1kUFZZcS3SrdIESFYMGUmr9M8c98Vjh5SoJ8V/+vQ7G/PKt7/lojMM8+pNzNPyO0jfy48dvlkbFscIH8S99wLzhpU3cCfSlXTFwKEsboU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MGYbK7pg; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=oBreISKO8QvvmJkGVXsilAbqUQvkHqdKzhwyaNum1AXkJjwlxavSxfZnXDPTPG4qOoq9K1SAzp2b2YJ0VKPQH7ZhB4y+MGo7VeGHnzsvSpSNo9ZmapsDzTfJN7aYGZlaZMVDIdK8wgul30a5PLMhwy0bEJGuzXEZuOWMPYnVYIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=aBMCiJav; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MGYbK7pg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Z/vQkPRWfO3dMD1qnZW0cONo4+Wv9gcM6DMq0ft41q4=; b=MGYbK7pgkLwreR1NbEJ2ExVAGl
-	KTSjrpILVYOMD0bXalDOVqN/fVKi44fsPfymsoGuNmuRRaofeLVyUrTIHNb0siKB3sHW1QfFH/ElJ
-	XJqv6SDJOSrPIt+kYiBVrZwpvDs7W76upT8P/0xg+JI1Uyn2mz5bsErnOPePpn3Q6EeVga+qZWe8P
-	aFyvCXNgTh8vEzFs4LxWN7e6eFMAk6q9tFW/1D3cAhu4R2IZPpdqSf72p3g1JzFYqCHmn4H5doMo5
-	+U3XKywepWEMgvPNZ8vWLa/1x4zGYEyw/PiASNH/8vyscBy1cgu06aUJ2BsbF/FK0ZwUBrskyEqax
-	Yp9ajIzQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wzx7U-00000008IYq-40GE;
-	Fri, 28 Aug 2026 13:59:49 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 5325230030F; Fri, 28 Aug 2026 15:59:47 +0200 (CEST)
-Date: Fri, 28 Aug 2026 15:59:47 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260828135947.GU776954@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="aBMCiJav"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52fa9c055b5so15292461cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:00:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1787925609; x=1788530409; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5RW9O/btoipt/pNA5wGJbBttBme2fvSaZk+CT8WHc9o=;
+        b=aBMCiJavFpFcN7+BbUwE0LsePOxsQJFJVzTjW/21Ibdh5KmdXuZtAPemXoLqhsJ5Ut
+         RaCbvBG9r7BbOdEfxBEP4gwZJiBlMXVxuy88ay571BxDMRNMU7hhe603XAafAzUYTZ2f
+         RwFNNralyqM6c7dF6dHNuMptlLr5g6dUrck7+rmIA3aSNtkw91xQorm5YaQx1DdAFtR0
+         xpffWuGP3pDJhUvTHV6HS3aMG/bFidO6qOqUe157KdB0hFA7jugZ0Rt6yfEm5gMHcVbM
+         3BHDVSDCMmSCyVRxSBzPMnHoyRzlQWMWkbMjTJtg7TkakGp0B3ViOjNWixNoxDHl/JTi
+         kqAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787925609; x=1788530409;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5RW9O/btoipt/pNA5wGJbBttBme2fvSaZk+CT8WHc9o=;
+        b=k2IZmZIiGal1icc5AVqGAmKnObiFNugI8GzybrlY6xv/u+MoliSHHs3h33cxymph0N
+         QKctHXvc9akVR6nE/g0Pn0pau5VryaVVG6HB73Pzb/J89Z4Hy5WQ6W8ep+15KPs1msU3
+         AJ3vRjVRw7bms5o6Nmdsgc89oIr3IY5tcxKEkv4SuNCsuyMOeMXiAqK+E1sWYTxMhbQr
+         aZhGeRRLhG0qd7+QvyBh//Z8eZ3esRneZLc8OS1R66L2f66K9rK9K+XUNAMQB+tIHzIf
+         NPD2hI0b1Vn5lpexJWEO9NnCAo02N+LwpNll9h3f7ZF5epAfU39zxibY5UI7jY2EjKcG
+         jUCA==
+X-Forwarded-Encrypted: i=1; AHgh+RqoOCI4RlxT5TG9o/LBKYrzh8zuEBNq+/+roM8RlRTxQEfaDzuKOTT50QvkEMAeNIWZrioy4IuWciQ8yEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLWhHTzQOX5p+0lZwTtxcREZ9gOYGh+ANfmgtVURVxIUVeG9S8
+	6ci+K0hs2SbV5+KaTlw91FsWAG7ZdUdghTA3WA0s0L5umGH9tN7Hc4nWjBpuNV8vXg==
+X-Gm-Gg: AR+sD10I46ZLFz4MKgv481i07G14E000K+4A8BjibHsfXFr961fBV6D3/jluttrDohT
+	oRynxFSqNioOS8nYUtOJWNO8Dbn+egHWKDM5EVXfJck5mwfLpdp+cBPVUpCWI/EpUcdlTxj9EMd
+	d+RblDUxPVITlL+7Kx/88TMWIogB+uROePSfqF1NfjlXeSl1rb3+TfKZYn+GDs0vp48wNFmxW1L
+	4ins0KEkOFOJnRdLv5TTL4Lja+hA925zlDi3FdGO9zcCA2ORl066LiRZFM91lPdpUGTxsXyLcdx
+	Fy0CIbgS+O7sZIYk+lp5Re4eF4CkozimVJp3YTr8PGW3Ji9yUpySlrRVKGYY6NlqUB8uWZKWzjn
+	irjTkcrkUaxVZKNlLf33We77wQB4oiTbgjvkkQpfb3kJgYFIytMIBO+FkOFJHIQujQFecbKmA2S
+	DlLRgJ5hcXLZo55mye+Jt8YekxvlAInfsg90GolcY1Rkcba/V2Rlhss50dP0TsLPlBvMCPvSiMh
+	AF+PE4=
+X-Received: by 2002:a05:622a:258d:b0:51c:4f35:81b8 with SMTP id d75a77b69052e-52ff4c8d121mr2582461cf.7.1787925608993;
+        Fri, 28 Aug 2026 07:00:08 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe5a6422sm13371571cf.12.2026.08.28.07.00.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 07:00:08 -0700 (PDT)
+Date: Fri, 28 Aug 2026 10:00:06 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+Subject: Re: [PATCH usb-next v1] USB: gadgetfs: Fix use-after-free in
+ gadgetfs_kill_sb
+Message-ID: <0e612926-f447-40a8-9bd1-da06ddcd63e0@rowland.harvard.edu>
+References: <20260828061829.566256-1-rafad900@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,78 +78,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828133620._x2XfJR_@linutronix.de>
+In-Reply-To: <20260828061829.566256-1-rafad900@gmail.com>
 
-On Fri, Aug 28, 2026 at 03:36:20PM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-08-27 16:29:44 [-0700], David Stevens wrote:
-> > diff --git a/arch/Kconfig b/arch/Kconfig
-> > index fa7507ac8e13..adb4a5957996 100644
-> > --- a/arch/Kconfig
-> > +++ b/arch/Kconfig
-> > @@ -1534,6 +1534,24 @@ config VMAP_STACK
-> >  	  backing virtual mappings with real shadow memory, and KASAN_VMALLOC
-> >  	  must be enabled.
-> >  
-> > +config HAVE_ARCH_RECLAIMABLE_STACK
-> > +	def_bool n
-> > +
-> > +config RECLAIMABLE_STACK
-> > +	default !PREEMPT_RT && !PROC_KCORE
+On Thu, Aug 27, 2026 at 11:18:29PM -0700, Rafael Alejandro Diaz Cruz wrote:
+> When gadgetfs_fill_super() fails, it's error path calls
+> put_dev() which drops refcount inside the_device to 0
+> and frees the objet. But the_device pointer is not
+> cleared, leading to point at freed memory.
 > 
-> This shouldn't default like this for RT. It either is useable or it is
-> not.
+> VFS will then call gadgetfs_kill_sb() after mount
+> failure leading to put_dev() to be called on the
+> already freed pointer.
 > 
-> > +	bool "Allow stacks of some blocked threads to be reclaimed"
-> > +	depends on VMAP_STACK && !STACK_GROWSUP
-> > +	depends on HAVE_ARCH_RECLAIMABLE_STACK
-> > +	depends on !DEBUG_STACK_USAGE
-> > +	depends on !KASAN_VMALLOC # TODO: add support for this
-> > +	depends on !DEBUG_KMEMLEAK # TODO: add support for this
-> > +	help
-> > +	  Enable this to allow the unused portion of kernel stacks of most
-> > +	  blocked tasks to be reclaimed.
-> > +
-> > +	  The wakeup latency of tasks with reclaimed stacks may increase,
-> > +	  especially while the system is under memory pressure.
+> Fix by setting the_device = NULL during error path
+> before calling put_dev() inside gadgetfs_fill_super()
+> so that gadgetfs_kill_sb() skips put_dev().
 > 
-> It says *may* increase and on RT it _definitely_ will increase since
-> there is a kworker involved not to mention the memory allocation itself.
-> Anyway. This either needs to stay away from PREEMPT_RT or find a way to
-> exclude at the very least mlock()ed tasks.
-> Did lockdep see this?
+> Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+> ---
+>  drivers/usb/gadget/legacy/inode.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+> index d87a8ab51510..77efa984ce84 100644
+> --- a/drivers/usb/gadget/legacy/inode.c
+> +++ b/drivers/usb/gadget/legacy/inode.c
+> @@ -2059,6 +2059,7 @@ gadgetfs_fill_super (struct super_block *sb, struct fs_context *fc)
+>  	rc = gadgetfs_create_file(sb, CHIP, dev, &ep0_operations);
+>  	if (rc) {
+>  		put_dev(dev);
+> +		the_device = NULL;
 
-It should have. They're taking spinlock inside raw_spinlock and lockdep
-should very much warn about that by default.
+This is what the description says the patch will do.
 
-> If I understood the whole exercise correct then you have a kernel stack
-> of two pages and in best case you can unmap and release the second page
-> while the task is napping.
+>  		goto Enomem;
+>  	}
+>  
+> @@ -2066,6 +2067,7 @@ gadgetfs_fill_super (struct super_block *sb, struct fs_context *fc)
+>  	 * from binding to a controller.
+>  	 */
+>  	the_device = dev;
+> +	get_dev(dev);
 
-THREAD_SIZE_ORDER	2
-THREAD_SIZE		(PAGE_SIZE << THREAD_SIZE_ORDER)
+So why is this here?
 
-that makes for 4 pages.
+Alan Stern
 
-> What might be a tad simpler is to memset(,0,) the remaining part of the
-> stack. Since the stack is vmap-ed it should be swapped out on its own
-> without additional tricks. That memset() would help zram to compress
-> better so it uses less memory. ta-da.
-
-That would still be a 12k memset with IRQs-disabled and rq->lock held.
-
-> What also should be simpler (and I am not saying just to move you away
-> from the scheduler) is to have a shrinker which iterates over all tasks
-> which are marked for reclaim and then similar to swap just unmap both
-> stack pages and release the second page which is not used.
-> Upon wake up the task should create a page_fault which would be used to
-> allocate the second stack page and map the whole stack again.
-
-Right, so you can FREEZE the task, unmap its stack and then thaw it or
-something. But there should be a definite opt-out on all this, because
-taking faults on your stack will be horrible.
-
-Not to mention you'll suffer wakeup latencies while frozen.
-
-This all really sounds like what should be addressed is this insane
-number of tasks rather than trying to cope with the consequences of
-that.
+>  	rc = 0;
+>  	goto Done;
+>  
+> -- 
+> 2.43.0
+> 
+> 
