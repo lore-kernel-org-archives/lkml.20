@@ -1,428 +1,157 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020121.outbound.protection.outlook.com [52.101.193.121])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA863D7A07
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1B03CA49C
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787950744; cv=fail; b=XT6YB3xMswfi3NRfrQk05UZ1K8tqBEL74iaIIRVNs9eNT8w0SidrBmYm0PMzDASe769jVlr2V7QWZlvpMEDJFCPxPJ3cLtFav1DtI6X30Wr4s9prCI3qb+1O4I4I5Zls0SO9FQFfj2OxxTI5tu54S+DqGLF6DER2hJE+yuopQqw=
+	t=1787950750; cv=pass; b=llBdb3edr3ovJKZmgf6HsDvVFug8sMUqi1huJTDtChkID9qgr0YVm44Xljy8uHOhLp+xxrbZyaePMAN4VOC/KE+jaNpuxTWeajjbfxLj5x2Z5vKXSovMDWxEEsJAvGjt68IjWC5XgdonQXaAcRr2tn/m4b3G3j+sq/Bzm7eLG8I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787950744; c=relaxed/simple;
-	bh=O4npxMRja9fo11/lLQcDjNVG03nvzm+xZL5VuiKXtQo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=kVm5r6SUNi+nt+fsU4/uF3Tgb0QCPC7wbzhcgFZ48VTmkq781jQGgvuvwlUzp47EzWcKDvqsD29HxilMMe7JbbQww2sE/kIUQl3/yYhb/SprDDu4/w7hN9hc24dWraaFehworJy40aYYtAgE1vydDaz145sPt5Wsi+MTh50wkGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=os.amperecomputing.com; spf=pass smtp.mailfrom=os.amperecomputing.com; dkim=pass (1024-bit key) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.b=Auyae366; arc=fail smtp.client-ip=52.101.193.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=os.amperecomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=os.amperecomputing.com
+	s=arc-20240116; t=1787950750; c=relaxed/simple;
+	bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e+7MBTw/kOhNqH6rKFWzzaMMZbHoF4lVnfp1Zd3FM+T/NzyY9l52UXkolXdK3btmGiCOj1/NS2TNOi1EFWyJfRPkieVGcdBvjJXC3TGmBd9mAtz0BOELH2gd8dzoDutNfNCPgEM8EElp0tpuA4sNKGtWtNnSJ9zOLy7HZTr+jfU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=jTDd6GcP; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.b="Auyae366"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s75x7y9CYuaM9/nGDdUBQ6qz/jdjubZvqP3XYOOZjRDkvz/btW+GwdJa89J8v060M64444DbNdzc8C57pgTC3W1CW+aUuGjO8iwvRZl1AvLwGit6H3UBnmcc+DziYzFgGKIYq4oN8OqmvnZ9XbJ6foWS/3hrE+lOB/V1Obhpib49maluEBHn9yjqjDVT+gkUFhTTvmshOnvi/Pg2jshRGJD6Bsqd6EHlLiFCcqbws/KfVnj8+IWu/4FPu7E7O0L8GdzB0/R5aJ5mn15GucxJL4pRka6GrkHRP+32t/Vq96RtVg2LoI+8xrhd7FMB0hwzlSqpWYhy6qyFRW4BDfBmaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WW2b3IJFH3R5O+YyVv5U6CsFkBHtaNIK3J3+4SAj95M=;
- b=eD+yw08qYIp0AZ3G2TUQZplaFIXxMPsGd4KEn0031TRTVRTDstnvpqAoaUHFA/9nivE8TS8XKyet1A/rn930Yg8U7Pw26ILIrRbQWRwkcDMbljcDw6jcgA/pet4SYtvWMMllmaTWsG2ct2/01YrS/FIqeT/EyI8N/Jr9lWhXibBnpeEo8lA6O0juj70nOv7RskZQdOmZEDClswK7joHjTototOE9FWkOpuwi8rSj40tHOpR26IXXmAN66o1byECkjAHhyf2w5OkDqztMDBbuaALadXhLGog66NwVD2osi9rX0aZU2ctoVXMzAxM4oFR27ZnufgH9v991T5mkdF0vEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
- header.from=os.amperecomputing.com; dkim=pass
- header.d=os.amperecomputing.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=os.amperecomputing.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WW2b3IJFH3R5O+YyVv5U6CsFkBHtaNIK3J3+4SAj95M=;
- b=Auyae3668u/x4/puHoVkeHWLI5szYcul5PYlCDiFJWpa7DVmPrBh8+RcYzYVN0IyJnmjDaTdYAJyLpib6nr6cTshcb30Nt0XwJOfltYUPYQZF1YSqBDPIFB1CYdRckkMXeYEYl9onyYqu/pKo2xVVJAUzHulD10sNyM7DGAYaTU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
-Received: from CH0PR01MB6873.prod.exchangelabs.com (2603:10b6:610:112::22) by
- DM8PR01MB6999.prod.exchangelabs.com (2603:10b6:8:18::18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.11; Fri, 28 Aug 2026 20:58:56 +0000
-Received: from CH0PR01MB6873.prod.exchangelabs.com
- ([fe80::46eb:64a3:667c:c1a0]) by CH0PR01MB6873.prod.exchangelabs.com
- ([fe80::46eb:64a3:667c:c1a0%7]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 20:58:55 +0000
-Message-ID: <6c8d880a-0517-4669-80be-8a134f4bf7cb@os.amperecomputing.com>
-Date: Fri, 28 Aug 2026 13:58:52 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/18] mm: arm64: Add kernel replication feature
-To: artem.kuzin@huawei.com, catalin.marinas@arm.com,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- vbabka@kernel.org, cl@gentwo.org, linux@armlinux.org.uk, will@kernel.org,
- mark.rutland@arm.com, liam@infradead.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, wangkefeng.wang@huawei.com,
- panov.nikita@huawei.com
-References: <20260827161158.3618409-1-panov.nikita@huawei.com>
-Content-Language: en-US
-From: Yang Shi <yang@os.amperecomputing.com>
-In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY1P220CA0040.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:59e::16) To CH0PR01MB6873.prod.exchangelabs.com
- (2603:10b6:610:112::22)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="jTDd6GcP"
+ARC-Seal: i=1; a=rsa-sha256; t=1787950712; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kkkcR0W7AW+zFLk3L40w2uOncO2Wjj96MqiOxL+cPEI7WEKjMXFifffjYVlFAHBze/NF4Iq9ppuJqrGbpD1TLB6aIyFhptlsghM1FmL/gxJ4JFko3bkAbmk9RRyDqCZQw1R6H4XJ7PWZYw4PdiC2RMW6Qx2dIdwjWlJT13RWduc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787950712; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=; 
+	b=TbzXl4m4UTlQLz97cRjsapnOYatCJI/okt3dAbD/FjTY3kcFV8B7L6USVUUKCUDAlogVgcZKI834VxMuCPPGe9Rb4pCNsE6wRSDjIHqncPAd9D94x4igq7CSL3nww9g4quWDnbjYNpbJG5ZwyOUl6qwNo7qlmLNEng0gjb3MLd4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950712;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=;
+	b=jTDd6GcP0Y0uwyPHT2YjliUflt3fF7SDqj1iJgXdXCiriQh1EwAsnwTwejQ8el15
+	ah2pajkOlgmtgCnTT0MaNVHUoruSC9FtwPJmZBynzjrpiJy0/n7oKCTkBH8ehC+tCaj
+	raUVmD50G5mZY7O5MMA6P5zBsk4WnStIYKRqHxdA=
+Received: by mx.zohomail.com with SMTPS id 1787950711151220.13419455364135;
+	Fri, 28 Aug 2026 13:58:31 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Fri, 28 Aug 2026 21:56:52 +0100
+Subject: [PATCH v7 12/17] drm/panfrost: Move perfcnt GPU disable sequence
+ into a helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR01MB6873:EE_|DM8PR01MB6999:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd39a912-c37b-452c-aa1b-08df05472c65
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|6133799003|22082099003|18002099003|55112099003|3023799007|11063799006|56012099006|5023799004|10067099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	mOyE77vJe3PnqPPArWXcSi6WaoWTXYMjQpWVxqOvukyTwR7jNYzqKr8IR3cM2XWEtMGkZGkdq7CdNrxbLD3/v0rv9R0eRqE6c3NDAuPhkAunopeaU1h8FRR5gXVe90siqBdFIdz1tBn3ZKdM8yDX7wZY20id+v+VPvK553DquOP2uPIWidpQsrHcTrhhhSChQ1dQRU4jZB4n9ikmp8xVJfRzPR33OAWjRfsRiwsi5UnOvKJ/2Fw3XGnet3LoCAfG0YiSfumlUJHbHNstgCHmeMBYYOUsR5vT7Y2+U4+hOHxjokYnVm7EfUmBO2JkdNDIlQkFBktEVk2QrWNQQ3QhkspxhK5FU0JjQ/rrVUSIhYK+YqSKzy+WzP2ug3uO4AVLPsA6tvZ8juntjT+5SyKDkL9lJpQ6npvSMmwFxw8XIv3wnJ2czLPMxJmj4Rt/VDERNAn/M7SZyrxf/KhBaPLxlwfCjYyz0tXs18fnH9H2K5hIeCKt1qJOYMs+obKZMj0wS0Wq099GMm8pbVaatmyn9d6V3GqWvEgAenQT/sgXdEBFH5BrUgLU8FueRjb4C6oATWBnjRpMCb4zKk65pEwB7bL3jaIQz6sjJFU/VAfwNCBlQQ/PLkzBt09HZ1GQ8nVa/RpSI4tzDqLqSayREbaKXg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR01MB6873.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(55112099003)(3023799007)(11063799006)(56012099006)(5023799004)(10067099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWF5aXdhMUM4NzQ0cldyVHpWY1J6NHQ5UU1WY0JISFM0TEVzZnRJcXFlbnd5?=
- =?utf-8?B?eWpINXlRL092azhKUGduVW5WbXdtYjlUY1NaR21zK0tGM01pUHRQQnFsTGZQ?=
- =?utf-8?B?RDBhZHc4UGk4NElFSnhZbTJUS2Rub21wSEszSjhNbkV4K3hPcTlVNzFidTFE?=
- =?utf-8?B?T1hpcmpLRUNuVGhiNGhQbVlmd1BueEs0T0hlOFhHY1I2UlBoYkU0L0JuVm5E?=
- =?utf-8?B?dmVCcWxYUzZYZzlnOEE5SjUySmNTc3dTemVrQkxyYXM5MEdoNVVVdW1IRlU1?=
- =?utf-8?B?N08wKzJGd0x6QU45RmEzT0tCWTY4V3RaZU5wZ1JYVHBDRkVFZWx4K0NpSVlQ?=
- =?utf-8?B?NDR6djY3anZITGJCWmNTeit1M0liajNjVjFyY1p6cnVGZXFlWFpOUGhGZ3JY?=
- =?utf-8?B?VFNFVjAweTJoaE8vTXd0QkszOFR0MS9zS3pBYUtSK3prc2d5bDV2bHJCSVpi?=
- =?utf-8?B?T0hvT0lpOThoeG0zWHY1NEE1U3cycUZ4NUQ4S1JhY21TZS9rSjVzUHQxRnZK?=
- =?utf-8?B?ZEliRmZFVzhRRng0ai9QdVRoeWJGNHl5TDFLalRpTlBNMW16bURTR0tIY1Z5?=
- =?utf-8?B?cXVKcUJCdVg0aGZ3NjZMNXM0SUFXYnRPUXk4NmxmQ2RGOHlWTUpYU2xidGc4?=
- =?utf-8?B?Ykthcy91d2hYZFFyKzJKazl5K0VLMllTTk5BOFhzdzV1MldKWE9hUDRoUFJl?=
- =?utf-8?B?VFRTV3BzbkZJeVJZRVA0NmtrTFFySlU2MEJmV0QwK1ZNYjREbzhSQW5VL29v?=
- =?utf-8?B?a2V2MkkwdXJ4a1RHTncwMWcrdmNLNE5STDdma3hjR3hUYTIwelRyTTNBRm1u?=
- =?utf-8?B?R3puOWhnMHpPRGNCSmVrdGhLcGc3NTVQSE5RdzBuMVNHcVo2em81OFZ2b2N1?=
- =?utf-8?B?aGIrcDFCaHBhN0dWbWRCZU03cmUwYnlrZEk2dVZYc1NtcjhsUTE5TGVLMlVX?=
- =?utf-8?B?cHRJVm12d29IZ1B0anFOTlZxQ3AxWHgrM3Nwdkg1T2FEMW5iSHRld0daZWRX?=
- =?utf-8?B?ZERGelJMRCtNcmkvQllEcWIrZEszQXl1cEsyZXRZZDJhVkk1NWdCVnJaRXV2?=
- =?utf-8?B?V241TjZwQ2xYMHRQZzVQZ1hob0Fuc1ZlNEN5Z241M0p4WGZpaDl4VFJucG80?=
- =?utf-8?B?OXA2WkR3azV1MG4xdHIvZld3WGUrRVVoTXRRbUxSQnFGODQ5WkFEVG9IaThr?=
- =?utf-8?B?S0k0bTI2K1ZEcTQvVWJ1VTIxQjhPUlBpS3E0c2NPSHBXYzAxYTl2RWRBLzRn?=
- =?utf-8?B?bjkwMUtMLzhDUnNCZ1JvNktlN0x5VXdkWXhKZUg0ZUk0U3hpNXdHZThCTUZC?=
- =?utf-8?B?aVozNE1vdnEvSUZ1dWZZemc1VVZPQ1VzVlErRXl3NUhuamc3UHZ6SEZrSVR0?=
- =?utf-8?B?dFcvUGhJL2JjR3FRQlZ0bVk4ODE3eitsUW9sTkx1QUpiWXBCN3RPOFFSckNk?=
- =?utf-8?B?WWVRV0tZNW5NU2hlTGg0NmQwUjNGM05RRnQrUUhka0JsSDF3elYxaUlXelZp?=
- =?utf-8?B?dVpwV1JBT1dJMnRFZGFxcjRCdnFlbzEwQTFBTVFKVUpJa3hxWDhqeXJqRUNr?=
- =?utf-8?B?TVFjbkR0WGFMYnlNUUpoa01lMFZDaktLMjBOVE1ObkszRTZqKzJoZWRGT2dt?=
- =?utf-8?B?SzVqRVhPVUhWdWV5aG1WTGtJQlB4dnhsUFV3TWNNSWVEYndmaU12Umh5KzQr?=
- =?utf-8?B?ZEIxU2VOYUE5MU1pTWNhWnJsbG1PTUwxUUtxM01pOENPYUpwMnFwRmFYYjMy?=
- =?utf-8?B?ZXFBSllBTHdzVVFncENuaE1Zb2RiTVl4YzlIQXpOcVJOVEtPNm9IUWZTeW5M?=
- =?utf-8?B?cloveWU0UW9xV2F5cDVwbTBJVld6YVl1YTJaN3NoZjRKR00vSXRDZ25tU2Fl?=
- =?utf-8?B?YXZ3bElFTUI1M3ZqWUh2WS9qbENCODdFQVkrNTVNMkpmV3J6TVhCdVFKQlov?=
- =?utf-8?B?K0Eza3JueExtdGFlWjMrZS9mM1pxODdsVzJJbWFpTnY4dWx5QnlXbnNrQVVW?=
- =?utf-8?B?V0k3U2l2R2R6NkJHbjIySWFCa2FZeVpwczdjTzhYTmd1UDFhQzNnL3lnVEZH?=
- =?utf-8?B?Z3kwVDFxK3REMmZRa0N5TDhoVVBzUnVjVUxKdk1JU0dGSWFKbEh1WFpTWEFU?=
- =?utf-8?B?eHZONnE2M00wY3RuYWRJcFZ4cFNmZlN5d3lST2tPTEpKdDhqcmx4TG9TdnFG?=
- =?utf-8?B?YnF6Wm5tUjh4Y1BsUHpiaDFBSVEwcE9CaXlGRFhHMU5OZklRZG4zb3JCY3lk?=
- =?utf-8?B?U2dkZnpxeEI0MmY1OUhSZmtqWVhIWVpxTmNPcE1EZEQyd3pBQzNtSUZHSlRJ?=
- =?utf-8?B?MjRSZXBwM08vM2xNVGx2djZ4WS9aRFNVOGE2N3pBVHNSakUwQ2NJc1VTS01I?=
- =?utf-8?Q?l812XpGkVjXueJco=3D?=
-X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd39a912-c37b-452c-aa1b-08df05472c65
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR01MB6873.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 20:58:55.7650
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VCfZS0LbDenOmrHUBvBnRVnFxau0iqLBSaV99a1zH0R+8gJynVpzMc3sduJ8l0Lizdhe9EdMuZW4x91/4peCS79CG0zARGpjv9mSgdodMyA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR01MB6999
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260828-claude-fixes-v7-12-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYtxm3AVPOcXINjegZ/R/mBtqCxiHu992Ikw
+ w67eF3BT8SJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LQAKCRAOJn5M7lND
+ PaHwC/0XlXEuTw57uMTxN6Wyzo/Ux9MjgdXClxwidwRiXEBnXjWUC0D4RcKurESnJTvxynV1UKI
+ K27eIbqH+fzQn7g31kjulstzEFC21PSTup8phhtZ+NrA0UYrNragZnZJq8ccIn0lpb1C6lvEMah
+ Ku7a9ebE94ICj9y8SJ6zX0EqD7AFQzQqVT7vH6PD5gznttsHauQ/U+C/VLj62dtH5pH0I591rg3
+ ktNIWxr8lyDcCJQEpenr4EKyhC0ns5vq6wRlymQG80kgxeGX+1Kk/o/AgL4+bbTm4ZsvKq3iACC
+ VMtkkq6NSrS6ts0ahWrrYzEqM24hmGI51+y47M1oIQlZ+iXFtCOJ9froH9xJS2/vQRgFxJUiR+r
+ YgPWwRkq9NV651xL5gDQMwxWT73E7Xf7nMzXY/R3XL97Rrpp29YfJkfslvGt2jxrhaKaxRC3cKQ
+ 8kvUZN4BYyrLVos+DZ4CHZL8JMSvFl7JgygiSuhrkgo2pvKBZEmUFnzijENGeTmcmM2y0=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
+Just for the sake of avoiding repetition.
 
+Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
 
-On 8/27/26 9:11 AM, Nikita Panov wrote:
-> Current status:
->
-> There were several prior submissions with some sort of replication
-> for NUMA systems, including one from our side for the x86_64 platform.
-> In the last couple years, several research articles related to solving
-> locality issues on NUMA machines through replication emerged as well.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index 7020c0192e18..f71534e741b6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+ 	struct completion dump_comp;
+ };
+ 
++static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
++{
++	gpu_write(pfdev, GPU_PERFCNT_CFG,
++		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++}
++
+ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+ {
+ 	complete(&pfdev->perfcnt->dump_comp);
+@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
+ 	if (user != perfcnt->user)
+ 		return -EINVAL;
+ 
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	panfrost_perfcnt_hw_disable(pfdev);
+ 
+ 	perfcnt->user = NULL;
+ 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ 	perfcnt->bosize = size;
+ 
+ 	/* Start with everything disabled. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ 
+ 	init_completion(&perfcnt->dump_comp);
+ 	mutex_init(&perfcnt->lock);
+@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
+ {
+ 	/* Disable everything before leaving. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ }
 
-Hi Nikita,
-
-Thank you for the effort. As Christopher said we are working on the same 
-feature. Please see the below inline comments.
-
->
-> [1]  - arm64 kernel text replication
-> [2]  - x86 NUMA-aware kernel replication
-> [3]  - x86 kernel text replication
-> [4]  - NUMA replication of user data
-> [5]  - Mitosis: Transparently Self-Replicating Page-Tables for Large-Memory Machines
-> [6]  - WASP: Workload-Aware Self-Replicating Page-Tables for NUMA Servers
-> [7]  - PaCaR: Improved Buffered I/O Locality on NUMA Systems with Page Cache Replication
-> [8]  - Memory page replication for Linux on X86 processors
-> [12] - Optimize this_cpu_*() ops for non-x86 (ARM64 for this series)
->
-> As of today, none of it was merged into mainline.
->
-> Patch set description:
->
-> This patchset implements initial support of the kernel
-> text and ro-data replication for arm64 platform.
-> Linux-next was used as a baseline.
-> (903c1cf6dff9 Add linux-next specific files for 20260821).
-> This patch set heavily relies on our previous submission [2],
-> their generic part is the same, these solutions might be merged into a single one.
-> However, after thorough re-evaluation, we were not able to observe
-> performance improvement for the x86 platform, so we have decided to stop this
-> direction and switch on arm64.
->
-> Current implementation supports the next functionality:
->
-> 1. Replicated kernel text and rodata per NUMA node
-> 2. Vmalloc is able to work with replicated areas, so
->     kernel modules text and rodata are also replicated during
->     modules loading stage.
-> 3. KPROBES, KGDB and all functionality that depends on
->     kernel text patching work without any limitation.
-> 4. KPTI, KASLR, and KASAN are supported.
-> 5. Only part of a translation table related to
->     replicated text and rodata is replicated
->     (up to 2 pgd entries if kaslr is enabled)
-> 6. 4K + 48bit and 64K + 48/52bit are supported and tested.
-
-I think 16K + 47 VA bits should work too. I guess it is because there 
-are just 2 top level entries with 16K + 48 VA bits. That requires some 
-extra effort to sync up kernel page tables.
-
-> 7. New cmdline option: "kernel_replication=on|off",
->     to configure on the boot stage
-> 8. For verification check dmesg output or /sys/kernel/debug/numa_replication/
->
-> In general, setting up a new pgd entry in kernel translation table
-> not often scenario, most of them are covered by current patch set.
->
-> TT overview:
->                     NODE 0                   NODE 1
->                     KERNEL                   KERNEL
->             ---------------------    ---------------------
->       PGD   |@| | |@|   | | | |*|    |@| | |@|   | | | |*|
->             ---------------------    ---------------------
->                                |                        |
->              -------------------      -------------------
->              |                        |
->             ---------------------    ---------------------
->       PUD   | | | | |   |@| |*|*|    | | | | |   |@| |*|*|
->             ---------------------    ---------------------
->                                |                        |
->              -------------------      -------------------
->              |                        |
->             ---------------------    ---------------------
->       PMD   |READ-ONLY|MUTABLE  |    |READ-ONLY|MUTABLE  |
->             ---------------------    ---------------------
->                    |       |                  |     |
->                    |       --------------------------
->                    |               |          |
->                  --------       -------      --------
->     PHYS         |      |       |     |      |      |
->      MEM         --------       -------      --------
->                  <------>                    <------>
->                   NODE 0        Shared        NODE 1
->                                 between
->                                 nodes
-> * - entries unique in each table
-> @ - same entries accross replicated tables
->
-> Since for kernel space and user space different tables are used,
-> user space tables are not replicated at all, so synchronization
-> is not required.
->
-> Known problems:
->
-> 1. Other combinations of base page size and va size (especially with 16K pages)
->     should be adapted and verified.
-> 2. Replicated translation tables for the vmalloc region are not local right now.
->     Allocation performed with default memory policy, so translation tables
->     for kernel modules will not be local. However,
->     replicated text and rodata of the modules are local.
->     In general, vmalloc patch should be cleaned up.
-> 3. Any modifications of kernel PGD level. These modifications
->     should be synchronized across all replicated tables.
->     Right now, for example, memory hotplug/hotunplug
->     lacks this support, vmemmap and kasan regions for
->     added memory might not be observed correctly. This could be fixed
->     by patching all places in the kernel where swapper_pg_dir
->     is modified, or by "lazy" propagation on kernel faults in the pgd-level.
->     Propagation approach will not help in the case of pgd_clear()
->     on swapper_pg_dir though.
-
-My percpu patchset (I saw you mentioned it above) already had these 
-problems solved. I have not looked into too much detail yet, but it 
-seems like you have replicate kernel page tables per node. My patchset 
-added percpu kernel page tables. It should be able to support kernel 
-text replication as well without too much extra effort. And it can 
-support multiple usecases, for example, this_cpu optimization 
-implemented in my series, kernel text replication and some potential 
-security features. Multiple usecases should be able to make it more 
-attractive and convincing. So as Christopher suggested it may be better 
-to combine the effort.
-
->
-> Overall, this patch set in an early PoC stage and require some improvements.
->
-> Overhead:
->
-> Memory overhead for the kernel itself is about 30MB per NUMA node
->    on our deployment. For kernel modules - depends on their sizes, but text
->    and ro-data are not that big.
-> CPU overhead - replication performed on the boot stage. After boot
->    only "rare" operations are slowed down -
->    module loading, text patching, kernel table pgd-level modifications.
->
-> Performance evaluation:
->
-> Our local testing was performed on
-> Kunpeng 920, 128 CPU, 4 nodes, 100Gb for each node.
->
-> Microbenchmark:
-> Kernel module with a huge text section (~50MB) filled with CPU-bound
-> instructions. For each NUMA node thread is spawned, each thread in a loop
-> executes isntructions. Total execution time of each thread is measured.
-> The insmod call bound to node 0 through numactl (less time is better).
->
-> node                 0        1        2        3
-> Before time, s     5.567    7.598   13.294   18.905
-> After  time, s     5.469    6.960    6.777    5.531
->
-> Diff               ~0%      -8.5%    -49%     -70%
-> In this benchmark, interconnect was not used by any other actors,
-> so microbenchmark numbers might be significantly improved.
->
-> Customer's evaluation:
-> We were provided with the following feedback on this patch set
-> directly from our customers. Unfortunately, we do not have details
-> regarding how these measurements were done other than it was
-> a production setup.
-> Evaulation was performed on Kunpeng 920 and 920B platforms:
-> CEPH distributed storage +5%
-> StarRocksDB              +5%
->
-> Couple more words about patch set and technology:
->
-> This patchset was merged into the innovative branch of
-> the openEuler distributive 1.5 year ago (openEuler-25.03)
-> and was actively tested in production environment [9], [10].
-> In addition, besides the kernel part, we have published
-> user space replication (for translation tables and rodata) as well,
-> but it is very complex and experimental
-> even compared to this patch set [11]. With replication in user
-> space, we were able to achieve the following numbers in
-> performance improvement:
-> MySQL + sysbench      1-6%
-> Spark TPC-H           4-20%
-> Phoronix test-suite   0-25%
-
-Thank you for sharing the performance data. Does the SUT with 4 nodes 
-have 4 real sockets? Nowadays the CPU design is moving to multiple 
-chiplets. Subnuma configuration may be more and more popular in the 
-future, so we thought kernel text replication can help performance for 
-more usecases other than multi sockets machines.
-
-Thanks,
-Yang
-
->
-> Discussion:
->
-> The main question we'd like to discuss is the following:
-> Should the kernel replication feature be merged into the Linux
-> somewhere in the future? In any form, not specifically this patch set,
-> but the core concept itself.
->
-> If the answer is yes, please share your thoughts on this patch set. What else
-> should be fixed (or reimplemented and redsigned completly) in this patch
-> for mainline in your opinion? We'd be glad to do it, and in that case
-> I'll send an updated version in the near future.
->
-> [1]  https://lwn.net/ml/linux-doc/ZHYCUVa8fzmB4XZV@shell.armlinux.org.uk/
-> [2]  https://lwn.net/ml/linux-mm/20231228131056.602411-1-artem.kuzin@huawei.com/
-> [3]  https://lwn.net/Articles/36602/
-> [4]  https://lwn.net/Articles/45082/
-> [5]  https://github.com/mitosis-project/mitosis-asplos20-artifact
-> [6]  https://dl.acm.org/doi/10.1145/3620665.3640369
-> [7]  https://dl.acm.org/doi/10.1145/3767295.3769359
-> [8]  https://github.com/Carrefour/linux-replication
-> [9]  https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/message/C7M5E2K2UD7FV7XYPWPZREJBCOCBIVRN/
-> [10] https://www.openeuler.org/whitepaper/en/openEuler%2025.03%20Technical%20White%20Paper.pdf
-> [11] https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/message/73MAUDM6WCGSSOKPZGPNZAYRNQGUR6DE/
-> [12] https://lore.kernel.org/linux-mm/20260715180455.515692-1-yang@os.amperecomputing.com/
->
-> Nikita Panov (18):
->    mm: arm64 add Kconfig option for kernel replication
->    arm64: align kernel text and rodata
->    mm: allow per-NUMA node local P4D/PUD/PMD/PTE allocation
->    arm64: add arch callbacks for kernel replication
->    mm: per-NUMA node replication core infrastructure
->    mm: add support of memory protection for NUMA replicas
->    arm64: add support of memory protection for NUMA replicas
->    mm: set memory permissions for BPF handlers replicas
->    mm: add replicas allocation support for vmalloc
->    arm64: enable per-NUMA node kernel text and rodata replication
->    mm: enable per-NUMA node kernel text and rodata replication
->    arm64: make power management aware about kernel replication
->    arm64: make kernel text patching aware about replicas
->    arm64: add correct alignment to kimage in efi code
->    arm64: add support of NUMA replication for ptdump
->    arm64: add kernel modules text and rodata replication support
->    mm: init kernel modules with replication support
->    mm: introduce kernel cmdline option "kernel_replication="
->
->   .../admin-guide/kernel-parameters.txt         |   7 +
->   arch/arm64/include/asm/efi.h                  |  18 +-
->   arch/arm64/include/asm/mmu_context.h          |   4 +
->   arch/arm64/include/asm/numa_replication.h     |  54 ++
->   arch/arm64/include/asm/pgtable.h              |   4 +
->   arch/arm64/kernel/alternative.c               |  33 +-
->   arch/arm64/kernel/hibernate.c                 |   5 +
->   arch/arm64/kernel/module.c                    |  11 +
->   arch/arm64/kernel/patching.c                  |  96 ++
->   arch/arm64/kernel/sleep.S                     |   8 +
->   arch/arm64/kernel/smp.c                       |   8 +
->   arch/arm64/kernel/vmlinux.lds.S               |  22 +
->   arch/arm64/mm/init.c                          |  49 ++
->   arch/arm64/mm/kasan_init.c                    |   2 +
->   arch/arm64/mm/mmu.c                           |  42 +-
->   arch/arm64/mm/pageattr.c                      |  72 +-
->   arch/arm64/mm/ptdump.c                        |  24 +-
->   arch/arm64/net/bpf_jit_comp.c                 |   4 +-
->   include/asm-generic/pgalloc.h                 |  90 ++
->   include/asm-generic/pgtable-nop4d.h           |   5 +
->   include/asm-generic/pgtable-nopmd.h           |   5 +
->   include/asm-generic/pgtable-nopud.h           |   5 +
->   include/asm-generic/set_memory.h              |  14 +
->   include/linux/mm.h                            |  92 +-
->   include/linux/mm_types.h                      |   3 +
->   include/linux/moduleloader.h                  |   4 +
->   include/linux/numa_kernel_replication.h       | 112 +++
->   include/linux/set_memory.h                    |  21 +
->   include/linux/vmalloc.h                       |  18 +
->   init/main.c                                   |  17 +
->   kernel/bpf/core.c                             |   4 +-
->   kernel/bpf/trampoline.c                       |   2 +-
->   kernel/module/main.c                          |  20 +
->   kernel/module/strict_rwx.c                    |  12 +-
->   mm/Kconfig                                    |  10 +
->   mm/Makefile                                   |   2 +
->   mm/execmem.c                                  |  39 +-
->   mm/memory.c                                   | 129 +++
->   mm/mm_init.c                                  |   3 +
->   mm/numa_kernel_replication.c                  | 821 ++++++++++++++++++
->   mm/vmalloc.c                                  | 454 ++++++++--
->   41 files changed, 2246 insertions(+), 99 deletions(-)
->   create mode 100644 arch/arm64/include/asm/numa_replication.h
->   create mode 100644 include/linux/numa_kernel_replication.h
->   create mode 100644 mm/numa_kernel_replication.c
->
-> --
-> 2.34.1
->
->
+-- 
+2.55.0
 
