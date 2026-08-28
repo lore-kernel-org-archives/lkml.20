@@ -1,82 +1,82 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD9B2D0C63
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1724E3822A9
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 05:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895299; cv=pass; b=Ll457ZO+bt8NdluHcHHrP5tbc38nKsZfIWk1fzMoy0jTPhK9KKKBfPXChjiPoPq0/umjjCpCKInkf5DuLusxJGHDt0ZJK/M5Cqzafih6oeeQ4MFIGD149lN/BWyMcD3RFIAdkmDZvT6j40cYTK25wZyb8QmEUfAgcB1tACysDMQ=
+	t=1787895346; cv=pass; b=DtborscYWZEz2XsmeVFje3KpW6olgsQkoOUtrqP0XqjwIkY9iZa9n6HPD9AozJQDbaTNz82GgH/4Tg+BQ2I7HRHSgAuTnR1kx3nrJn6tXvNIwV5zeuGxhF6K/0+J65sVWKFa7p404hcaAHERD2RG5whltkcg2uOn5Nl2Q4pp6KY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895299; c=relaxed/simple;
-	bh=sO5dSXBaHvsFXkX2Tziwa0K3ga1aeB/vw+imQuoh05A=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Vs3P4Hjb4ZWDh1NyAgVirELf49QdnXF6XGeNzmHjWd3dQTwYjRPfTxe/LzCLTcS5miG2/i7Zleoe2r/Kplq97hife68STsBn/HOhVBNVrNn4ot4Yg1aOp7rjFiPRodc3Sw4bxYBsgyWYqw9si5vxt6dXndh8YarVbMqGILo/r9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=oPztFiqe; arc=pass smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1787895346; c=relaxed/simple;
+	bh=p1v1IVzRIDgNx/N8eH1pS5FUDeCgq5tkPUQHyB+es3w=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=cJLLycIVO+fOQN6kvTpTwNDYS58WuaowpG6nq41GHGPVYGVoQDAOmBWrFFv8QQSLYVFl2hKuNhoB5TTW8l5EyvHP/ZMPCfKAuuhhcJ+2Ev+tc2vgjS3Pf3MlrIOUqiQGx8qzUcr8xrgdA3L5zChGylHipG38okkZ4uf8kH0UpdM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=DyN81XPm; arc=pass smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="oPztFiqe"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so526900a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:34:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787895298; cv=none;
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="DyN81XPm"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d712281f8bso7375765ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:35:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787895344; cv=none;
         d=google.com; s=arc-20260327;
-        b=ZCjrvL6NBq7rYZEMAsf8AJ7eXorKX8TkDyKPwWmINnpt/VF/UGnaN5FDf5I8UU9UPt
-         LtwemFfdJey7nyKqtrzH6hnsJuF+kefVPg2vtIY2G/19R9Rw2wqCtzqKOooo37lkd5Vd
-         Dn7AilQnzB6oSJbeGlpyNRJYVVIAUDmyg/ZEihV54MV9ue/7Wy1gIhv+r40vEnU3MW8T
-         snXLySf4f3uC5WlmV7KWod0otb2Y3gkrioFGhyLV8/0L21LGKuJdGDH2ZkBFDfDx4leS
-         QgDGNa3Tku8+GCkv7yq4zbNweMta/PNYgOMa65z1o+ep8tM/AlRhwUmWIsfO7F+PMRli
-         nHzQ==
+        b=JKS4V8jT1EtQP7HtqGOqqP9G5p/elixLWsQcy9OF7rk/8eQazj1qMwSyo09pHtFOVU
+         uG57PksNZgeklSjX2FLsR+QI7v2J/PkihNrvXq83o7mrRqD4psKyPkSOdDk+XAZ+Hgfj
+         HLMdNp+f074xqtiqbtkQeec48S4m9BiRjBeFL78soOKERT9nlW3zuD71TgVovq+rJvZD
+         KJl7K1WUuLL6Obzm+zI0SG7BPkML5ndpg3PNlIpgOSv6txl2tNojK0YE5x03VZUWl0Zk
+         hA3nRSYAoDhyU5NrzGhHWQQzvJbmnkX23EPXp+KCnLIw8DYw8eULHBgaDDJa2+1qJ2dW
+         LYNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
-        fh=caDhrU/00dhhZ+HD+agg78qfj9n4KKFSwNGAtIdX8PA=;
-        b=PgVkNotsRJd1O4eajeCr/ooZeturnFg5bFWvlOPuMUjwOhHjm41+LLWFor2b8aY+4r
-         VIPsWS3jRjS/6ZhUxy/ElswJppvV3hG69TCee1uQkV1PUmgbf5JjvglCXL9Peqslq5H5
-         y4g/YgxSZ5S5g89uSREfpvGOGr5pa5Wl0Fl05ZdAzSagwqjO8ZWckOP8kA+MBjP0uclE
-         ZVxMY1SPWQYxB5kJs10z4fUpTdI6Elzjr2jLNAWT3AKZs3gMhNmhDLvVt+KY5VmxnRDn
-         2tewMBiwRqw8pa+IHrTDYGqG5xwihmOQ1rJMlXmcutkrWi9Lr2ErKhcVGq+EVPtECcvb
-         42sQ==;
+        bh=LT4To0OsjX1/jK+rL4EorTsovtuZzKeOb1eHUmWtFGk=;
+        fh=7zzX2eFj3E4HQY2kXFYkzz0LXlHh4g/cyQVKmPoRzng=;
+        b=R/5QhUHc/c66IqvbBsbCrQyy7LhWZXLXjdIVTYoMcWA4zE2/TlI6SsimoHgY54qaIV
+         5mJsTLRdW8YFJ2FXyNQaQkWCLG/jYuAUmiejfJK7vfMpeWbM+wi5PMdo5sH72sLVnnvq
+         sFR0ZE5OSal5aZlbZz4XoKfd4t3TZA5VNERdOU1pW0nSSp8bTHz401qQW/knSgf9vXAM
+         jsowWetYBq3P9yoZ64ZGuIUykPtxyTqZDmnlZId6Z7vkDoK3FIScBoucjZbg3tYy7cnf
+         Vn7+EUVBwSnj4C+Tue5Tr5sb+FvuHHYl73tGKcHUMvhZgpmXMrPOZAhWgGORNTA27fUr
+         onnA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787895298; x=1788500098; darn=vger.kernel.org;
+        d=berkeley.edu; s=google; t=1787895344; x=1788500144; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:mime-version:from:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
-        b=oPztFiqeU2/8NvmWKsButQVdy+hAjB+dV6W2E+EeysZVNDYSc1FjLcLGyaKui3MzUk
-         RYP3Cjcv1Jx6E0Ige019QdOz1T3JtvVDk004w4tbB4MWg1S2GCFeBKOeXurIDWIhoojz
-         7OzHN5si/8+0+BeMzEzMNNbBzktHkX9Qd2Ww3nq03WkJDLodw7ZeS+f8zxFo2gAh0U3z
-         R032LAjXPopmI6YvC4XkOraQj4Hvqhh3zwM5tiAtAW0qi0Z5oTuywClH572L0RA/+SrL
-         QyVImnK1IFwb7zO9PNNf7xbJfh9uhgJDKyrunlwvx4WYSXyujC/qij9jBjyhbnDZwktO
-         flbw==
+        bh=LT4To0OsjX1/jK+rL4EorTsovtuZzKeOb1eHUmWtFGk=;
+        b=DyN81XPm5L1yPoMoypvFNvYw/+qE7t1U961tPx2an9bkhjo8M53rrXvnraqatq0mwD
+         /KCqmaSfaDSAd75nFy8wZwMGv5dJV1G9A0fkSYHlNTjRq5FSoEfDgaFe6hm12KIy9Je2
+         Ba8xYxhpfZ32ZGkkB7ncT3i2S4/7sFI20KXYYA1f68ZqQHZmwRx/7dPn5KCy98w1kSa+
+         GcrDgbaYjUpxduxgs8UoEiPnriELi1TbQF6ZwDOxMWjJO5Ch4kF+XyGJdp6+VKKjqfjk
+         hMFAmYwm2uTnbQb7tqnEPHgmfpxj5YAJx96il49nlTrO/4xYYykDMvhAVCP4kOv2jO9B
+         ra/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895298; x=1788500098;
+        d=1e100.net; s=20251104; t=1787895344; x=1788500144;
         h=content-type:cc:to:subject:message-id:date:mime-version:from
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=MDPyu9NJUwBSIvoRoRLkuEmxgNNfQg32MOjandJIVTk=;
-        b=nRDijzzFFUqEyq+xhqGq6OEXQHGeRvj2+xs0zi3uMDF8vvhBm6bxwB9lJxEn7I/syR
-         Y2m1D6b1O/yK5wF1YZ8/pcCVoIx8TqbGlHKzL/JYbIWfxOXVR7Z1wVdVMM3/IzE4drqj
-         UZqtETWtCje7WwhZT7FaACL2uqM9WIb2UwymFLu5OUXss1RJ9CPuGl9m59l7qP6FL0+H
-         kWI+/iUCNMVCv7bVqHxbrH5j4hxkZ80aC11nB+MB93g3dutoCKG0Dmy3U/xsyWEEVS6s
-         aaAltvc+oIVbOVLrPXg4Va6m3gp3eQjTL79kcALHZgdyCsABqLtg8eTbzqyJMljcrDWu
-         571w==
-X-Forwarded-Encrypted: i=1; AHgh+RrEx9T6a89Bm4B7weXC8r+mR+RJHGtHvxHiCDW5YehD6SAYasSjmBlQ4PuazkF5oZFgJE3eAj1X32Jy9K4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3pkw6zlGVNhzJeMNamxKDeQ2sUwElE06w+axqolw05cuVrbaG
-	GKkDl8qFFh1ac6YcxpNhSH/T47cERz+oZ6j3BLrRoekzg/8Kd3f2WjvG47LXVDtjFWtsSvJbLsp
-	dC8Tol9JquZqUYnA0rSWnMP0xaG4uNXXErdqUfmI/
-X-Gm-Gg: AR+sD12TqFMZ9gghDueaBkSFdQEotO4c7B5oX1lwMbBehsUteM9z1bgLenZjOgs5fb9
-	NXZGgVjZL8auWOFey274mBUMo4GVGj20nj62kWtqO+NxvRYQclNMcqKRyhjFw5dNaLdLoq/q4zI
-	CBIlWu188ZJLr8mNzRlj1aeqAe//NdCPfwElD4xGHaZQHCMbQgM1cp9fH4WynqdybAFipLKHu7p
-	rGyCEOoZ2dP1bVLnP6aErfOdYg3ftS6sgzH5PC0XNGrTbBqA+cAPQV7oQ4ICtA29gWDdHrOY3zK
-	2FKtqMzTi0R5w5R1qIG41qSxDxIhdsOAp9P5718DYVvlkJjr9QVVgJJfeNtuEDc89zaaxIbPBT+
-	/8OLPLVl5DZNS9TeFMQ4/OuISu+Wq82n6LQ==
-X-Received: by 2002:a17:90b:4a8c:b0:392:6638:2e6a with SMTP id
- 98e67ed59e1d1-396d0f69d10mr7205264a91.13.1787895297054; Thu, 27 Aug 2026
- 22:34:57 -0700 (PDT)
+        bh=LT4To0OsjX1/jK+rL4EorTsovtuZzKeOb1eHUmWtFGk=;
+        b=PR020uVb6MSASKHMQ7tdrehxJACfBx9wMzpSclaXBhOmJkK8269VBonbxhzSRLC4r5
+         GHsNgnwoqq8muSEWBNyNIcU6TmPZk7pc1RSoIpgSX4bOZ49MY6VzS1NUjz70191BQFk6
+         lHz6xmsYOLTMl7aehv0OaHlosSaePvHdKhM88yyfwJulritM1chQp6TnWppNmMWymEYG
+         51DKGJqlpQVZmRWXc2pSvbrmZnBOYhwpXm7bOtT3POEEf9L5ioSkODHTddUQAcr57RCy
+         qp9UGxQHhwcx6+gRRh29LpZRCcLpFZoG0kv45+rIJlDqnfJcSEk9cmaCKN8jCN7LTa1D
+         cKtg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5kjz3Xr8Y3l4vBYn3EfdCMp7rOdS7UqHkQXDVakayT6Mj1Y7zumdhK01CU/ZOVcdlGaAlpm+Q0WiEQD8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTPXkjEFtCFekrVNTy3z8cjnuLrW4qQyhcT6OOeLT8gZOvrWEI
+	PgLdfyxGKKw75+T9JYbV7l4PBkolT7V0nvmK8zmMsEzfjUAoOj1Ponm9vrOeZz/uZT1MeU9Pm/h
+	fxUwVJ8eMwXeqYm2BJNZfUGFwUWTFCWlETUwhpYBd
+X-Gm-Gg: AR+sD13iaSDP0JRD5GMAvbDSjdGDituyrKRrzzqkn3SBsZIaOF6BaO2n9N0yX5GGXqJ
+	58t0sOKBethxYO6w/fBWyrfdQ4NiNZAr0CqYZA+goIWDF1CMGUYEWk0dVmS8zh+wq0FcEG2QyS6
+	DhHt0AKs5WSlpbeZ1vFiMCAW0zzNlUBHgB43gc3R4szQP8W5Rgy5Ta8jAMh3PzAqv9ptx8qgYDX
+	M+j0yikBKqgeRlTem2CYLswPMpc0Wshc6OSU8IrmeobxRr0V9TIQ4nm5Fis0PgP6VuKdzcZ8s6o
+	XKZdcIOlXTwAUIE1C+rEdkB/VIUpZhd6ANpggZ6y0q5QSIhGqf08dpPUSgGW7l1X0e6UseQWBJ1
+	ONdny+ZiAaqWMxUFq5Q6NFmwh9HAcSYBl
+X-Received: by 2002:a17:903:22ca:b0:2d6:fd55:3a9d with SMTP id
+ d9443c01a7336-2d74dc111bcmr73203035ad.3.1787895343268; Thu, 27 Aug 2026
+ 22:35:43 -0700 (PDT)
 Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:34:56 -0700
+ HTTPREST; Thu, 27 Aug 2026 22:35:42 -0700
 Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:34:56 -0700
+ HTTPREST; Thu, 27 Aug 2026 22:35:41 -0700
 From: Farhad Alemi <farhad.alemi@berkeley.edu>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
@@ -85,13 +85,13 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 22:34:56 -0700
-X-Gm-Features: AcwNN1Wfzp6gNlZZMQnQaX8vcqcoxNhl1n6Biw_pymg2M1kxA9FjqGACk_v-958
-Message-ID: <CA+0ovCi63OBqOySpNgU5xND840CDhi3B1dp1QsxhmcOOo-7w1w@mail.gmail.com>
-Subject: [BUG] ci_hdrc_add_device -- KASAN slab-out-of-bounds reading a
- FOREIGN device's platform_data
-To: Peter Chen <peter.chen@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: falemi@asu.edu, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 27 Aug 2026 22:35:41 -0700
+X-Gm-Features: AcwNN1VyngbgcKs50N3MJkg3MeaR66VvRj9F8NMxHZOvLMicNByVpJwrJCJE87E
+Message-ID: <CA+0ovCgxQ3_H-5BWXLR_o=AG8EJ_bofmx_E07VazDm44KiZKgA@mail.gmail.com>
+Subject: [BUG] vga16fb_probe -- KASAN slab-out-of-bounds reading platform_data
+To: Helge Deller <deller@gmx.de>
+Cc: falemi@asu.edu, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
@@ -99,13 +99,12 @@ Hello,
 As part of the kernel research at ASU's SEFCOM
 lab, we hit the crash below. Crash reports can be found here:
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/150-usb-chipidea-foreign-platform_data-oob/
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/151-fbdev-vga16fb-vesafb-efifb-platdata-size-check/
 
-  BUG: KASAN: slab-out-of-bounds in ci_hdrc_add_device+0xb76/0xd10
-  Read of size 4 at addr ffff88810e9061c8 by task repro/9505
+  BUG: KASAN: slab-out-of-bounds in vga16fb_probe+0x828/0x9e0
+  Read of size 1 at addr ffff888105ba2dcf by task repro/9494
   Call Trace:
-   ci_hdrc_add_device+0xb76/0xd10
-   ci_hdrc_usb2_probe+0x22d/0x370
+   vga16fb_probe+0x828/0x9e0
    platform_probe+0xf9/0x190
    really_probe+0x267/0xaf0
    __driver_probe_device+0x1e2/0x350
