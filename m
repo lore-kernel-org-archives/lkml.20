@@ -1,113 +1,141 @@
-Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F533260D
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8300A367B96
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910447; cv=none; b=DTU8DdO7RTyD9bKuOmtoTsxbVpc7HWn+voO7KDihhadWa/wJNPvoNopC1DHF8DnicYZf9huT4kbC+MIzD8QuGyU35ndoviWct1XdvUfbnfZnc8stJj3SNxsSvE+avRCSVctZeOXxMMO6GjvXNaYYIyyHPaF/krW1m3tNvO3Oo1E=
+	t=1787910517; cv=none; b=mhfyaJE8n9aR3ASQ6DNU0pkfpb5SPhYibAc6dLfsZG7YSP50fPkOAuLAlCt4ylTMXVf3dPPbHCFVQ9RvRiTTsqfjWIpooGqvaifZvldE8H7uoBB2pXHP7TtaUx6gAJspyodz/vziIfRDZi6lt9KiegFM37gJqAImNFlkY5wJQ80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910447; c=relaxed/simple;
-	bh=e2tq/2mp/rNEDN4L24NTPonrqDPRQjbDqRitpaYNyjU=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=X5zO0CHT23N/csWIK5lVId7hYGzSSFgoENV7I1Z9l6ZcqKnL/Zy/wvu3rVBOArnl6QN6KsG1BbrqjuWCs79S/lkC3t25iN5GhY7pZwxTKnkZGvkIpP/zoRhmGM1YI5JJIbGDqnjmieEM4cyCKum67d9vjDfVBbKK7Xo1CKYWfWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kCIopN4M; arc=none smtp.client-ip=95.215.58.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787910517; c=relaxed/simple;
+	bh=8IuohYJIFQq7XvofNgNPwVDtDoQLhfZC62FmH3VKmfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MNvErqoMog/BcP8MNitOwATbzwgwe+lVYLKnwGWod2tvRIAqfIAfSuTI4f+G9SGzzraWVIo2MlwNLH9FDrffWXMf5nafrcIgBzu3dAZZ6+88/hjrVz65SsLkBVcGNPjRqBs3P0wACORwEiqHtPnRiBTCneQ6YmivUvp+3N/LzCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IIVI867I; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kCIopN4M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=e2tq/2mp/rNEDN4L24NTPonrqDPRQjbDqRitpaYNyjU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787910443; v=1; x=1788515243;
- b=kCIopN4MwssuJf6/js/6iQSBuimUle+n//ZaHJZkqePCjhvwt7LYHzXiVMxE2N8kjt6IidnV
- nwdwU9UPYF/6rRu91LPZQ99q7yn91jXNK5IGSlIMj8fMbWjAY+Mz0YfsuB91+M3/ec523eB/ah/
- Ydw143ZI96+3XxqkIoap9UxA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 656fa8ba58c7583a;
-	Fri, 28 Aug 2026 09:47:23 +0000
-X-Mizu-Trace-ID: 656fa8ba58c7583a
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 11:47:21 +0200
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Michael Straube <straube.linux@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>, luka.gejak@linux.dev
-Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v8_6/6=5D_wifi=3A_rtw88=3A_sdio=3A_add_T?=
- =?US-ASCII?Q?X_back-pressure_and_retry_on_page_starvation?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <abbadda4537640eab1bce5620ade5f47@realtek.com>
-References: <20260825163314.1590-1-luka.gejak@linux.dev> <20260825163314.1590-7-luka.gejak@linux.dev> <abbadda4537640eab1bce5620ade5f47@realtek.com>
-Message-ID: <FCC54106-9CBC-4987-899B-4C7E0C997063@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IIVI867I"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d5335cf904so7573555ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:48:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787910516; x=1788515316; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=glXaJJLLc7413zYTPQe8CxMRLtRUMADuZ7/9ajV0cjY=;
+        b=IIVI867IcRoqi9VOfWGb0hpKKI/vEC3ZJcN/3n9jveYsiJaU/Z0R3y43lfPa+FM61s
+         vEvJvBqoDmkM3VeKbxfkHt0kNlRCSucw7ZguMoZ74dlvLKdpxfeKVt+BNJp8LbST/UIB
+         CG2KRMHfFXcHxxj2igGRixUz7LZIcE736TAFuZ90hcFUKo18EpoCbbxV2eb5Yen7Srid
+         Xr90QHSmPQj1krce9k6W9Dhvl2RuefA80UmVNGSTatQnE3RzD6JdKt9s2RqvOa5fS2R6
+         LCKuavItkaWAWefLjLmn9O05Rv83abIk8evGKtadFwTXYxW8LpUY1yUXKbosyZDxBzu8
+         CP/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787910516; x=1788515316;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=glXaJJLLc7413zYTPQe8CxMRLtRUMADuZ7/9ajV0cjY=;
+        b=Jt6mYCr4qzxI0cruU9QVRnm4hzTrht+Xsv+xqLNBOxRVhX7r0nYoOqZhUkoa9BCltz
+         51XWqxrvdrOrb+Ej0ss5gjKt9cg68AbLlD/SDdPEcov99uch3wQnutrS4rbMCd78sZHk
+         ds0M8ycig5rqaIzAa5MZFwQ6StKwecfZBY/zszdGNfDSQnCUlhnOOLvfcN+1nDHex00C
+         uHum5VmpsGeIFQqS27am5tnNsAfbJJb60C+AQrBxWibZuz7zoDoxP7vSWX8/KrjHNvc8
+         FtjM65brZrbhY0v4sOei41KfER+uP0MQYdpMvpMLcaCBPyElQ/El3Wxn/tnKh03EdLZE
+         8Pqw==
+X-Forwarded-Encrypted: i=1; AHgh+RqNe9q2kNmNu+XsKzxBER+njJ/KP68C2zBXIRnn0aGkodqJ3eoJAVYWfHGI3LGeLo1+cRE7EGRcBHSr230=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltyFb2puncBmdyVSQ84DDOWaHr3zdTFeaginPf//wISTcbEvEg
+	bKm7sqDwjitDZvWXi16ggo1Y/9UyLachfAUoM7J1BJTRZ5vdGTWY5VLz
+X-Gm-Gg: AR+sD13lozyod5oxUPM14QaqIfjFPflIWR7XfUi9G8UsqmHw+ocHZ0evQ1FnKJkcvUQ
+	bS9XFsX8RBsRKaABHuMqS8UrS58o/5yWxNl5zXx/z/fu3K0bNOBwHAnBdbsUjuu5zNgIUisTyIC
+	xESn4luZsu3qQEU9SfN6pBj9tV/QVupZyJ8FKstMG+KVZyiNIoe7uhDHhkani+AwrIhzCiGv//5
+	6oglsnFYL1e6hKZ3cgqzqnRYSIOspzT8Iax55WQ9R/4aX48FjBiTmyDZY+mnFHOzD9UY0viGP+6
+	SAPBrnWzQ3a24r7yI+sensQEyNyxUGGtUw3kIAkRuJbjYzqj5h+hSOrxKPka7XYIomgec6ZDWeC
+	kZfkb23JuuPjxv72dsd1DY98xhmXT1YnszbaN8z66nCmfGeep4UX9B6BLtSmT49bRSw9YPx78rn
+	IF4TiiUdL5fP1PZa90bxlvcx2TUuIrpj3grvOhSZNp+vKQcIvwuXi20w5awBqbAsRtfgbBt2B5y
+	HDt+fQ=
+X-Received: by 2002:a17:903:3a8b:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d74dee96b5mr108548445ad.9.1787910515336;
+        Fri, 28 Aug 2026 02:48:35 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759531f5csm3778075ad.28.2026.08.28.02.48.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:48:34 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mremap: fix locked_vm accounting for MREMAP_DONTUNMAP
+Date: Fri, 28 Aug 2026 17:48:22 +0800
+Message-ID: <20260828094823.594279-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Ping-Ke,
+From: Kunwu Chan <kunwu.chan@gmail.com>
 
-On August 28, 2026 11:29:29 AM GMT+02:00, Ping-Ke Shih <pkshih@realtek=2Ec=
-om> wrote:
+When mremap() is called with MREMAP_DONTUNMAP on a locked VMA,
+vrm_stat_account() increments mm->locked_vm for the new VMA while the
+source VMA is still marked VM_LOCKED.
 
-> At the last review (I think v9), I will focus on the changes of this
-> patchset doesn't affect existing chips=2E
+For a normal mremap(), the source VMA is subsequently unmapped and the
+munmap path decrements mm->locked_vm, balancing this accounting.
 
-That is the right thing to focus on and it is the part I cannot test, so
-let me set out what the other parts actually run, and correct something
-in the v8 cover letter while I am at it=2E
+With MREMAP_DONTUNMAP, the source VMA is left in place and
+dontunmap_complete() clears VMA_LOCKED_MASK.  When the source VMA is
+subsequently unmapped, VMA_LOCKED_BIT is already clear, so the munmap
+path does not undo the increment from vrm_stat_account().  This leaves
+mm->locked_vm over-accounted.
 
-New code that is not behind rtw_is_8723bs(), all of it structural:
+Undo the locked_vm increment in dontunmap_complete() before clearing
+VMA_LOCKED_MASK.  MREMAP_DONTUNMAP requires old_len == new_len, and
+only VMA_LOCKED_BIT is checked to match the accounting performed by
+vrm_stat_account().
 
-  sdio=2Eh                   struct delayed_work work
-  rtw_sdio_init_tx()       INIT_DELAYED_WORK(), mutex_init(), and
-                           mutex_destroy() on its error path
-  rtw_sdio_tx_kick_off()   mod_delayed_work(=2E=2E=2E, 0) in place of
-                           queue_work()
-  rtw_sdio_deinit_tx()     cancel_delayed_work_sync(), mutex_destroy()
+Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ mm/mremap.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Only this chip ever arms a delay, so on the other parts the work is
-still queued immediately, and only this chip ever takes the mutex=2E
+diff --git a/mm/mremap.c b/mm/mremap.c
+index e8df5cdb0ac..37ea5ee1986 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1334,6 +1334,14 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	unsigned long old_start = vrm->vma->vm_start;
+ 	unsigned long old_end = vrm->vma->vm_end;
+ 
++	/*
++	 * vrm_stat_account() accounted the new VMA while the source VMA
++	 * was still locked.  Since DONTUNMAP leaves the source VMA in
++	 * place after clearing VMA_LOCKED_MASK, undo that accounting here.
++	 */
++	if (vma_test(vrm->vma, VMA_LOCKED_BIT))
++		vrm->vma->vm_mm->locked_vm -= vrm->old_len >> PAGE_SHIFT;
++
+ 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+ 	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
+ 
+@@ -1343,8 +1351,6 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	 */
+ 	if (new_vma != vrm->vma && start == old_start && end == old_end)
+ 		unlink_anon_vmas(vrm->vma);
+-
+-	/* Because we won't unmap we don't need to touch locked_vm. */
+ }
+ 
+ static unsigned long move_vma(struct vma_remap_struct *vrm)
+-- 
+2.43.0
 
-Two existing functions were also restructured and every chip runs
-through them, so I should not describe the above as the whole story=2E
-rtw_sdio_process_tx_queue() now returns a value instead of void, and
-rtw_sdio_tx_handler() uses it=2E The behaviour is meant to be identical
-for the other parts: on an empty queue the new "if (ret > 0) break"
-takes the place of the old skb_queue_empty() break, and on a failed
-write the frame is still requeued and the loop still retries, since
-rtw_sdio_8723bs_reschedule_tx() returns false for anything that is not
-this chip=2E That is the piece I would most like you to check=2E
-
-Two things I verified against the base commit that I will spell out in
-the v9 cover letter rather than leave implied:
-rtw_sdio_check_free_txpg() differs by exactly one inserted branch ahead
-of the existing 8051 test, which becomes an else if, everything else
-unchanged; and the generic path through rtw_sdio_write_port() is step
-for step what it was, same address from skb->len, same
-sdio_align_size(), same check, same transfer, same failure message=2E
-
-The correction: the v8 cover letter says patch 2 is "gated on the SDIO
-interface rather than the chip id"=2E That was true of an earlier version
-and I did not update it=2E The code you have uses rtw_is_8723bs(), so it
-is gated on the chip id as well, and the sentence understates how narrow
-the check is=2E I will fix that section in v9=2E
-
-One thing that would settle this better than any argument from me=2E rtw88
-already supports five other SDIO parts that share sdio=2Ec: RTL8723CS,
-RTL8723DS, RTL8821CS, RTL8822BS and RTL8822CS=2E If anyone on the list has
-any of them, a boot and some traffic with this series applied would
-answer the question directly=2E I do not have that hardware=2E If nobody
-does, I will say so in the cover letter rather than let it look tested=2E
-
-Best regards,
-Luka Gejak
