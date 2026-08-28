@@ -1,34 +1,35 @@
-Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
+Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958DE442FD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EBA446C01
 	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917562; cv=none; b=SYcPyB0C1HsC7iJ/buv0w2TxKY7z9uQ7dm2C8JkQG0zdLHMXHxOBppt4T5/WdyGghweNiA/WQIjD2rD89/4oBuIXVADIxx9LxfRMXOmj5aTMmUJCEk8mqFUOrjfRCynAxyaTApw/IJcGIBBltLP9Ss+Iy43QL4SdgP8JYpERukc=
+	t=1787917569; cv=none; b=Muo4sWsX2v3Cgf0IIK9uk49CoIFSp5AMqtMjcMMZ2jGeYvZsoulIIWIP4F4pONFGVc2DxDrfluG0I/1NIp8FAXAultpzEmreb7oCPgc6NyEMuASdI139DgWH0spT6Cm0J8b2WoZtaHtut2ZU8mK4N+VVTYsY6rKJqIN+fig6U14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917562; c=relaxed/simple;
-	bh=WmzJl/gDki4yCRQarSuDUHp+vGo780vLHnW9dx/7YuI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o8gmzuo7+ZVRyCAwhYM0frkm/pLccmB4KYWkTTdyEmjfQO8A/sMaLM8nTFSVp7zNsYMKJ1RzjWtU46oa2Y5/jq8ICH9cGq1+rF3xbb5mgPHU/3WttTOwBI0ZveDX4+V0nwWXh97GuYbroQ8/5o55j+DTUg6vVy8ADsnT8M3oqao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=hiGTM8YH; arc=none smtp.client-ip=95.215.58.39
+	s=arc-20240116; t=1787917569; c=relaxed/simple;
+	bh=KJSKVfVDA4BnilE2RrZaUQRN55DrOrdNl6twBREZKDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jX3UiQRRfHeC79dp7jwk9kTgcasZ4HDN9IPHssMLNufRFTctfRNRTqS63GMDv24u1tBgKZR6/D+bDF4sxPEJKGeWru0g1QSXQ5EHUtsD/ABjt8bx05WLdYHrG48XSWgDqyeOc10htCElCNkYWN8hMcJXNxFokClHhmfhcHKQc2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=TPXSYFoP; arc=none smtp.client-ip=95.215.58.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="hiGTM8YH"
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="TPXSYFoP"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WmzJl/gDki4yCRQarSuDUHp+vGo780vLHnW9dx/7YuI=;
+DKIM-Signature: a=rsa-sha256; bh=KJSKVfVDA4BnilE2RrZaUQRN55DrOrdNl6twBREZKDE=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
  t=1787917550; v=1; x=1788522350;
- b=hiGTM8YHVvGCyZ/JGYFUvM/aucdzvC8iw+Axb/hY27GC5stllEqGczXKQ4lUnL9gArzWfip/
- kKRgxqV/McUufBA3s5feYb613hMKVvPZw7msSXKPap8X0k0+OGgR89DaTb3aDlb0hzidcu9Oqta
- K6eyDEdIJAwgBo+zSDABJaYHWvRqiwlu2Uk2TFZK6JcppyyO8IPTUY799c+ZTZPN/kmc2HWfY9K
- xvbLWh6luDqw9PPQxSgvY6LBEDysZEV9t+BaRsEzWq1Rxnw8v1Npz/KE+VsRO8VaWeeoLKoRIlo
- i/M2vQShocY+7lO69jJLZD5Q16U+RDOmvluT7DQuTdM+Q==
+ b=TPXSYFoP/8A/ZLUBCcG3l83HNSxL733EySUyQJOHgcdsOA3xFtxJFQPmegZaWAhRIV/2aX/m
+ v33V+nVnUU2H0glHWsPIVuCPhO1ygQvneBTU3s3wwNFenf9Tc40//xkaiCk2fbROvBlklklTxY1
+ Yx/PuG8cmDGU0tIg+mk2fjg9RUS4n6Zpalqbelylzy2n+bKUCBN90U8WkkN1nm8QwVn3zTUsehk
+ gxsMGOGTzlB66D1NY6qMXS9ytqTGvu2225ggV9kKQU6irYpnijOVZE7QlrRs9lDE5hcHtLfTO2Y
+ sS9h4pxUrKnSihqHJipfQvvD3RUZKe9ktvwcW2IaEP8WA==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 632b3452a606ff6f;
-	Fri, 28 Aug 2026 11:45:40 +0000
-X-Mizu-Trace-ID: 632b3452a606ff6f
+Received: by smtp.migadu.com with ESMTPS id 326993ff3a397364;
+	Fri, 28 Aug 2026 11:45:50 +0000
+X-Mizu-Trace-ID: 326993ff3a397364
 X-Migadu-Flow: FLOW_OUT
 From: Diederik de Haas <diederik@cknow-tech.com>
 To: Rob Herring <robh@kernel.org>,
@@ -44,10 +45,12 @@ Cc: Ricardo Pardini <ricardo@pardini.net>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH 0/7] Cleanup DT description of NanoPC-T6
-Date: Fri, 28 Aug 2026 13:43:00 +0200
-Message-ID: <20260828114530.1315798-1-diederik@cknow-tech.com>
+Subject: [PATCH 2/7] arm64: dts: rockchip: Fix PCIe 2 pinctrl names and sorting on NanoPC-T6
+Date: Fri, 28 Aug 2026 13:43:02 +0200
+Message-ID: <20260828114530.1315798-3-diederik@cknow-tech.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828114530.1315798-1-diederik@cknow-tech.com>
+References: <20260828114530.1315798-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,26 +59,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series cleans up the DT description of NanoPC-T6 devices by
-- Remove unneeded nodes
-- Align pinctrl names with names used in the schematics
-- Fix sorting of various nodes and their properties
-- Fix an unneeded pull_up
-- Switch to using I2S0_8CH_MCLKOUT_TO_IO for audio
+Use the pinctrl names as used in the schematics and use natural sort order
+by property names for the PCIe 2 nodes.
 
-Diederik de Haas (7):
-  arm64: dts: rockchip: Remove unneeded vcc_3v3_pcie20 on NanoPC-T6
-  arm64: dts: rockchip: Fix PCIe 2 pinctrl names and sorting on NanoPC-T6
-  arm64: dts: rockchip: Fix hym8563 pinctrl name and sorting on NanoPC-T6
-  arm64: dts: rockchip: Don't pull up rtc int pin on NanoPC-T6
-  arm64: dts: rockchip: Sort usb nodes on NanoPC-T6
-  arm64: dts: rockchip: Improve sound config on NanoPC-T6
-  arm64: dts: rockchip: Drop duplicate USB nodes on NanoPC-T6 LTS
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ .../boot/dts/rockchip/rk3588-nanopc-t6.dtsi   | 36 +++++++++----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
- .../dts/rockchip/rk3588-nanopc-t6-lts.dts     |  17 --
- .../boot/dts/rockchip/rk3588-nanopc-t6.dtsi   | 165 ++++++++----------
- 2 files changed, 69 insertions(+), 113 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+index fc49b927ef73..16c35250bacf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+@@ -195,8 +195,8 @@ vdd_mpcie_3v3: regulator-vdd-mpcie-3v3 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpio = <&gpio4 RK_PC2 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&pcie_m2_1_pwren_pin>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pcie_m2_1_pwren>;
+ 		regulator-name = "vdd_mpcie_3v3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+@@ -207,8 +207,8 @@ vcc3v3_pcie_m2_0: regulator-vcc3v3-pcie-m2-0 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&pcie_m2_0_pwren_pin>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pcie_m2_0_pwren>;
+ 		regulator-name = "vcc3v3_pcie_m2_0";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+@@ -629,26 +629,26 @@ map1 {
+ };
+ 
+ &pcie2x1l0 {
++	pinctrl-0 = <&pcie_25glan_perstb_b_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_0_rst>;
+ 	status = "okay";
+ };
+ 
+ &pcie2x1l1 {
++	pinctrl-0 = <&pcie_wifi_perstn_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vdd_mpcie_3v3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_1_rst>;
+ 	status = "okay";
+ };
+ 
+ &pcie2x1l2 {
++	pinctrl-0 = <&pcie_25glan_perstb_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PA4 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_2_rst>;
+ 	status = "okay";
+ };
+ 
+@@ -716,25 +716,25 @@ ir_receiver_pin: ir-receiver-pin {
+ 	};
+ 
+ 	pcie {
+-		pcie2_0_rst: pcie2-0-rst {
+-			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+-		};
+-
+-		pcie2_1_rst: pcie2-1-rst {
+-			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		pcie_25glan_perstb_pin: pcie-25glan-perstb-pin {
++			rockchip,pins = <4 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie2_2_rst: pcie2-2-rst {
+-			rockchip,pins = <4 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
++		pcie_25glan_perstb_b_pin: pcie-25glan-perstb-b-pin {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie_m2_0_pwren: pcie-m20-pwren {
++		pcie_m2_0_pwren_pin: pcie-m2-0-pwren-pin {
+ 			rockchip,pins = <2 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie_m2_1_pwren: pcie-m21-pwren {
++		pcie_m2_1_pwren_pin: pcie-m2-1-pwren-pin {
+ 			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
++
++		pcie_wifi_perstn_pin: pcie-wifi-perstn-pin {
++			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
+ 
+ 	usb {
 -- 
 2.55.0
 
