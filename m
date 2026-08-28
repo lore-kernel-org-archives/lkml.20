@@ -1,79 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19ED2836A6;
-	Fri, 28 Aug 2026 07:26:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564FD383C84
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:27:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787901991; cv=none; b=iXDzxtyRIJDB1YLZl3o28CzQPOwAU9nf9Ojs9bHQTFGR6JuyRfxJnOjjCikWAzCg2RgOkUrYC8yLF1OdN+jKqUSTGk3eee77PsO73WcRGAW+1JoP4kheZHhazcAwdKFHzhkav7mKChxIOuBoC2iMTF/USYSB5guNg0AK62ibhec=
+	t=1787902031; cv=none; b=NF8JHS6me95KzW3osLDqdA1C6FMm2yqjyv7L6qbdG5yxCgDqCRlcUFJHK8xkErsaerm3eBTc8chiotJXtfhyEz/J3pP6cx/6M5UUdx6pXPCXp1RQgbHAEU83UanlmZbZasKMh3UO7RprnLQr1n1ZwqjllilNHWXWkVpnloF/66o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787901991; c=relaxed/simple;
-	bh=ex6Sy2hqtfD1Zec2Gqgz3Urw9u+2vmPtk2jinG1sy2k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kgYRrpo5S+moIdeyogKQsd0LTvwfXjlGQDgFNo5acpHf7UPzvimVHVuC+/loMJUwg/3aIWoLTJJ8FNHl5vey5bv6fDoyzF4KQPjHfdcq0xF9OcmCjLd3gVkqkH/P0DQLz3FfmpOGyKXDA7vo2pSiNI/WqZ0yPenoG9vA5rnltIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geLi/UIH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787902031; c=relaxed/simple;
+	bh=YOaIooRmfC3FPrSaNswv8niRo3TmeCLk0mVieo8uMrg=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=WtuzLu0Jlfx3qauLeC7IMxAu/3rIZy6PbAf1iT+//BBqf2Hrw20T7peowv3Sty8zlA9sqJpzi/K28zfwBgmCUIAgGvT5y54ucKj9S5VyRXyJuRVN7dp9QPBgaHVnuFMD1Vis68501FbSxYlzZrGbcEdAVtskeDt4oERNfqbvDwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCZXgkRk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geLi/UIH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE261F000E9;
-	Fri, 28 Aug 2026 07:26:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCZXgkRk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B261F00A3A;
+	Fri, 28 Aug 2026 07:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787901990;
-	bh=ex6Sy2hqtfD1Zec2Gqgz3Urw9u+2vmPtk2jinG1sy2k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=geLi/UIHExJytJEB9UrWGKZPP8xJxNXHobKsxEWsSYbEoscffOgds8grTCQkmEMAc
-	 WEsKK+AfgULw9wwQ2DVnuPOZ0TBZnldjCKNCoFr0W1GELldRQ+3U9FVMdFLRS+h3dz
-	 /KkXQSTC8Ufwa/jpNNdhLAe+qJiPKlOvzX3sn3WAOFzp/5sdUD/HTBSqbSkVKAf/ws
-	 DbNJit4JFpqacGG+926L6ZCwu5tLb3VPeE85O1ZYfuGLU+UimdQCB6hwNGwnfGTlln
-	 QOt+/TvtP3ohvZe3ZwjcESm9cImB3iY7S7/u4NVIjqm9JLbU07p+5ileFeozMFcGTC
-	 cY+HOdDWY81XQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, Boqun Feng <boqun@kernel.org>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Frederic Weisbecker
- <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, Thomas Gleixner
- <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, John
- Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda
- <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
- Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 9/9] rust: time: add ktime_get_real_seconds
-In-Reply-To: <20260826162851.2497-10-mike@fireburn.co.uk>
-References: <20260826162851.2497-1-mike@fireburn.co.uk>
- <-MGvfW7sYYLrXTWvmTSX5lTwjEMfK97Q5QgNWBrHikC8aI_fyF3Sa3qzN4A9Th5lK46jMOYU4KjO59m00z4P9A==@protonmail.internalid>
- <20260826162851.2497-10-mike@fireburn.co.uk>
-Date: Thu, 27 Aug 2026 15:39:53 +0200
-Message-ID: <877blb1y3a.fsf@kernel.org>
+	s=k20260515; t=1787902030;
+	bh=k2vBzac2CbGqM8xG3fuwgDkMdJk6+vPRFv4ESM0iG2E=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=UCZXgkRkaVoCKi6cqhTTht5sj4zu9m4OQOFWX2DoWgC0qg1gkwXIaCSGH+2fyzP+7
+	 3s/x5NoMx5k5/gC8MJReFfTF311TTKDP5zVAkbJaRWDVHeOHGVyneejjJ7IPn+tXVB
+	 Da5fdWmd9wD1vI99E3DEQc4HN/Hmeqr1Op2jBDacl8mpE9a8WSxvkPQO7JJOzLsRVo
+	 ENAz2ZO28XfjrJKy44m6TlcuXwfWAIsCZCzfvzvddc/TLP62rarcJgTjsNh97tKEZh
+	 A9g35DyrU+Oy2Ub9WxIbnL1Yqi2FLjGk6O2Uq3NzPSRaZtnaz5YRzznU3C3vDDqCCW
+	 cDgMXXp+3XZ6A==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id D230C1980064;
+	Fri, 28 Aug 2026 03:27:07 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 28 Aug 2026 03:27:07 -0400
+X-ME-Sender: <xms:STiRaia9Ciez7K4pbTqGUVwLHqU_BF33HqNYPdYeHXfZjiht_CTozQ>
+    <xme:STiRagOBGXQQ5SRiZyoswm-pBOz1TE_qYBaYD0YCOfxSuyZle5PSOGkcEbkomF7Ey
+    gPqJk-7ZsNAYPNktBnXclxgbHMVdL_NiPzwb4dt8gyTAb3eTdKMDttr>
+X-ME-Proxy-Cause: dmFkZTGKC7MJVsVhwe7apdyGUvleWgqZguDJI/SNNS1FzJ8hsWOiVRzxWnmF1rq8Soikfy
+    7XeSva86wvoFj9ysLgkIXIHOStH/wOg2Qtg6/mFUw+KMM0kXNfbmQd69Hg54MJpR6RDrNM
+    vevQjW+cPRY83Rgxqpf9OXBIqmVIz9jO8n1uR0PbB3o3NT4kdH7SRMIOcbVlVAPKpetbTb
+    1pDIlJU+36zzvnRN83CTlYVuENfUI9AumZk5Q9NTZQmngHrB8hzBaYIshl3qtl660SqHsc
+    Q688sfFJAx4XoQq1ej0WiN9ft6VgIgTq4pohWiJ54KHagKZE/dHFvzRtZUeOg0uX35lmoV
+    /09Tzt/Eof5BGhbi+ri6wdOx26pZutZrjBwFIfwK+v3+FzVcjgLwQB4lWRMujVjmDa8Xhx
+    mtE87RcmGaOsNdd3n0gZi7+mKPk5zrbMEbSvFMqWLp6H7QkKI09EK7bWWfL6qwvAWWOkCe
+    EXx2u3cWnckVPjYU61rfm10XSFIAun7OFox3eeSiib9fmJIszqznWyNus+9v/B96Uu9scZ
+    zdtwOX0GIBBGObYfvjqHbi48YWYPebOofCETaw1dQa1KwS/+6BJdhgjnU8O8VFU99MrzdB
+    +5jErgjGqngQwyJOzIHrg14MHt9n0mWY5bYNkDYeLHGxxls6wK15SnGBD4LA
+X-ME-Proxy: <xmx:SziRat52uZT2BCr3C9JgVfiDWACDjBoSbGZ7aJ2BOBMNPkDFxSK6ug>
+    <xmx:SziRat8R4Dy_GetnS5wUUESZFg35g_bdiQgZJX8gZgAx4Gr0p9nO6A>
+    <xmx:SziRavHNJ3M-C-ORrA84t3bd7hkLiidTKkuIvNkjrnQR39ZqPcmUTw>
+    <xmx:SziRaiWtJ3yRDFOwVAdaiH57LWDbBgcAq9wiEABtXxoPQX3BDUj4-w>
+    <xmx:SziRar9fUMrXh-pahspJ38xn5qi0RxWTqMyCEfPVxuCU80gr0o70gQ5A>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A8123F8007B; Fri, 28 Aug 2026 03:27:05 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Fri, 28 Aug 2026 09:26:42 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Johnny.Fan" <johnny.fan@cixtech.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ linux-rtc@vger.kernel.org
+Cc: "Feng Tang" <feng.tang@linux.alibaba.com>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ bob.zhang@cixtech.com, jie.fu@cixtech.com
+Message-Id: <549999fa-4b1a-4f53-872a-9036a377f8cf@app.fastmail.com>
+In-Reply-To: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+References: <20260828031519.2749354-1-johnny.fan@cixtech.com>
+Subject: Re: [PATCH] rtc: efi: restore alarm support with runtime capability probe
 Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-"Mike Lothian" <mike@fireburn.co.uk> writes:
+Hello Johnny,
 
-> Reading an `Instant<RealTime>` is the wrong tool for a caller that only
-> wants a calendar time in seconds: it takes a full nanosecond timestamp and
-> then needs a 64-bit division to get back to what the timekeeping core
-> already maintains as a plain seconds field.
+On Fri, 28 Aug 2026, at 05:15, Johnny.Fan wrote:
+> From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
 >
-> Wrap `ktime_get_real_seconds()`, which is that field. Document the property
-> that matters at the call site and that the type cannot express: the value
-> follows CLOCK_REALTIME, so it is not monotonic and can move in either
-> direction.
+> Restore the EFI RTC alarm functionality (read_alarm/set_alarm and
+> procfs output) that was removed by commit 18a3510bc87d ("rtc: efi:
+> Remove wakeup functionality").
+>
+> The removal was motivated by the observation that many EFI platforms
+> lack RTC wakeup support while also omitting the RT_PROP table, causing
+> the wakeup capability to be incorrectly advertised.  While that is
+> true, removing the feature entirely also breaks platforms where the
+> wakeup runtime service actually works.
+>
+> On CIX SoCs with an I2C-connected RTC, the firmware owns the RTC and
+> exposes it via EFI runtime services.  Using the native I2C RTC driver
+> under Linux breaks Windows, which relies on EFI runtime services to
+> access the RTC.  rtc-efi is therefore the only viable option for
+> shared RTC access across operating systems, and it needs working
+> alarm/wakeup support.
+>
 
-We recently added the concept of `TimeUnit`. For now it is exposed via
-`Delta<U: TimeUnit>`. We could extend this to `Instant` as well to have
-a seconds based `Instant`.
+Why does it need working alarm/wakeup support?
 
-
-Best regards,
-Andreas Hindborg
-
+I'm not saying we shouldn't bring it back, but this deserves a bit of
+motivation, no?
 
