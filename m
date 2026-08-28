@@ -1,109 +1,105 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680443644BC
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7128638E5F9;
+	Fri, 28 Aug 2026 09:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908893; cv=none; b=QwylyJmT+CR1S7C5Lwm0UP/WpM1XspGYxgchPhkJKi+g8bVIlpQBjiplHob5JbmpncDe54G3dCDtQw9td319LB1uU69UGe5VzOtKtZBIfS9CecjM4/kXoX0vvsT6HCGUjyzKvc7X+lVn9J3Ds9gFC3ZGZhxf/1LT4gPmpHWY3UE=
+	t=1787908895; cv=none; b=KQYdosWcVQxREmJ3QlA6Titz+dWMbkzf38njVbi0i8uhHc4CcHtkzu6NtNb27ulHGCJZzpbyAYpuIrHfZAPObZBJaIn9aa/bmHOgCpMqCUgB11hCT8C7xZKFllD1PShR2ihWbdC1SoG5ALKXlAs4ngjmMsaS4ErfOlNNRnEQtuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908893; c=relaxed/simple;
-	bh=NxqJ3F5F2fcQeY3OCz8eCtxPd/hh4STLXcjymWcf4KI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=sCM04QIe7dhPGZEWcpgM6xHhvzwu+J0wanJx7UeAvrEa/xGt70Mjndv+31gfjWkXdsN2M6sN7R9+NRZkJCbDSfH4Z/VKvkcfopAvnnLyHv5pXNblHTy8/iRUDokRhxwbhF62eGx7211qqPac8HP0ovtPMl1iC+ffwjF8uSEnEFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uMx487Ci; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uMx487Ci"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D43CD1A189B;
-	Fri, 28 Aug 2026 09:21:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F01F60537;
-	Fri, 28 Aug 2026 09:21:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E90F111C78028;
-	Fri, 28 Aug 2026 11:21:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787908876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=TLtk2lBHyf4laQvUhBYdFUmCeCvqgv04fPuI7JBoqdk=;
-	b=uMx487Ci3CN9sAO4PuSX+wMlCxyJVfgtm6++wQkYdYa0HeHqEKAGhJ5V/mK+2BYL/52uND
-	HSszgTcp4nFCq+EePbf0n+VA2ZZm+pQRegAPrAcauy1JB5xpNIl5ig3v0hzUTqFcXkT+rN
-	bYXcVzeWDW3TtJ6iZBl6VYHpX7bHKT7HE3+F+5KhpUB+6aNYhK7nfRoimLhiT/XzemGKwt
-	Rh6rDLezF9d4milbXTbqjlLwlzTm4PAr+nPoTxsbyMlfxdHuberb4OfyWqSF1kipgEdDn9
-	iQpzlkk5NJYguRDF4+sNdlOPwz8mJRFyDvQrlvsvsP5tWrcHJi33k7KhiKuBTg==
+	s=arc-20240116; t=1787908895; c=relaxed/simple;
+	bh=j6YQgf6FwIVaMMxB4QIQAm887k/7zlpmVlYw4bqoXi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JNFbXQ6k7rxlTjj2v/4sUU+wTJArFJ+/+mBqtzsrhJA/+/yAHszKkiwIOrhEc5AJPkjS1VoROkd7TbLhBhZ7R00fzLU17TiwVHJ08dvAX9wNvwZFapJgMciCK0Q03pLuFg1caIv7Xe6lnvx9gqfr0nxGrUio3b/yIsjw5GKWDnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAD3+zkVU5FqI1F1Bg--.10685S2;
+	Fri, 28 Aug 2026 17:21:25 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: John Madieu <john.madieu.xa@bp.renesas.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] thermal: rzg3e: Propagate reset assertion failure from suspend
+Date: Fri, 28 Aug 2026 17:21:23 +0800
+Message-ID: <20260828092123.9707-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 11:21:12 +0200
-Message-Id: <DL0GSSXQPVDE.2O8IIQA60348U@bootlin.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net-next 1/4] net: macb: Rename MACB_CAPS_QBV to
- MACB_CAPS_TC
-Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <git@amd.com>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Karumanchi, Vineeth" <vineeth@amd.com>, "Conor Dooley"
- <conor@kernel.org>, "Vineeth Karumanchi" <vineeth.karumanchi@amd.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260807095012.640223-1-vineeth.karumanchi@amd.com>
- <20260807095012.640223-2-vineeth.karumanchi@amd.com>
- <20260807-juggle-porcupine-71281d2d9041@spud>
- <DKIX8UXQE9AW.3V3Y8P4USSJDR@bootlin.com>
- <080ab679-cd69-48ed-b96d-c515741101ba@amd.com>
-In-Reply-To: <080ab679-cd69-48ed-b96d-c515741101ba@amd.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3+zkVU5FqI1F1Bg--.10685S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AryrurykZr1UWF17CFWDCFg_yoW8WFy5pF
+	4kGF4UCr4DWF18Aa12yr4kZF9YkFWSkFW3XryrKwn5Za13A34ftFyYvFWaq3y8Jry8tFyr
+	CF47tw4UCF4DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtxhJ
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Mon Aug 10, 2026 at 12:11 PM CEST, Karumanchi, Vineeth wrote:
-> On 8/7/2026 11:56 PM, Th=C3=A9o Lebrun wrote:
->> On Fri Aug 7, 2026 at 7:09 PM CEST, Conor Dooley wrote:
->>> On Fri, Aug 07, 2026 at 03:20:09PM +0530, Vineeth Karumanchi wrote:
->>>> The MACB_CAPS_QBV capability flag was originally introduced to
->>>> gate TAPRIO/QBV support. However, GEM IP versions that support
->>>> QBV also implement multiple TSN clauses.
->>>>
->>>> Replace this with a generic capability flag that can be reused
->>>> by other TSN features. Rename MACB_CAPS_QBV to MACB_CAPS_TC to
->>>> better reflect its role as a general traffic-class offload capability.
->>>
->>> I'm not convinced that this is broadly correct, whether or not there's
->>> Qav support (which is what you're using the newly renamed flag for)
->>> depends on an IP configuration time define that I think is independent
->>> of whether or not there's Qbv support (gem_exclude_cbs).
->>>
->>> That said, the only platform that supports Qbv that I have the exact
->>> documentation for does not disable the CBS bits.
->>=20
->> EyeQ5 instances have both active qbv and cbs as well.>
->> I see two ways forward:
->>  - MACB_CAPS_TC aggregating the two, coming from match data
->>  - split and use runtime-detection, see DCFG1/0x0280 bits 1 and 24
->
-> This was the initial plan for the QBV implementation.
->
-> Quoting from
-> https://lore.kernel.org/netdev/20250814071058.3062453-3-vineeth.karumanch=
-i@amd.com/
->
-> "The 'exclude_qbv' bit in the designcfg_debug1 register varies across
-> MACB/GEM IP revisions, making direct probing unreliable for detecting
-> QBV support. This patch introduces a capability-based approach for
-> consistent QBV feature identification across the IP family."
+rzg3e_thermal_suspend() powers off an active sensor and then ignores
+failure to assert its reset.  System sleep can therefore continue
+without the clean reset state expected by resume.
 
-This is surprising to me! What's the source? Do you have AMD hardware
-where DCFG1-6 have diverging layouts?
+Return the reset error and, when the sensor had been active, try to
+restore power before failing suspend.  This remains an RFC because a
+reset assertion failure can represent partial hardware state and the
+preferred recovery policy needs platform confirmation.
 
-Thanks,
+The issue was identified via static analysis and manually reviewed.
 
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/thermal/renesas/rzg3e_thermal.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/thermal/renesas/rzg3e_thermal.c b/drivers/thermal/renesas/rzg3e_thermal.c
+index c44f5b8858d0..7686a45341b3 100644
+--- a/drivers/thermal/renesas/rzg3e_thermal.c
++++ b/drivers/thermal/renesas/rzg3e_thermal.c
+@@ -499,15 +499,19 @@ static int rzg3e_thermal_runtime_resume(struct device *dev)
+ static int rzg3e_thermal_suspend(struct device *dev)
+ {
+ 	struct rzg3e_thermal_priv *priv = dev_get_drvdata(dev);
++	bool active = pm_runtime_active(dev);
++	int ret;
+ 
+ 	/* If device is active, power it off */
+-	if (pm_runtime_active(dev))
++	if (active)
+ 		rzg3e_thermal_power_off(priv);
+ 
+ 	/* Assert reset to ensure clean state after resume */
+-	reset_control_assert(priv->rstc);
++	ret = reset_control_assert(priv->rstc);
++	if (ret && active)
++		rzg3e_thermal_power_on(priv);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int rzg3e_thermal_resume(struct device *dev)
+-- 
+2.43.0
 
