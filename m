@@ -1,178 +1,181 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DE73DAADD
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFB843CE6D;
+	Fri, 28 Aug 2026 14:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929092; cv=none; b=pMN0Dzi2kf8LcSOho3hdXz/9pLlSMRHhZEVKqTpivmonZCDcpgGcOnbnQokaqq0HfB6fcZsv45oif3wkcJ05IroQagXLzXZVwdFrk4opLFNPVfIpw8JYwdnemkYnOwE7CE45cGYLCRYfJfWu+DND753+RzFYuBPwIOK8KS3Rhy0=
+	t=1787929127; cv=none; b=WXZ2uli2sMFIuu90sXadk1EuW0wqPrgpIyAEx/qCUyDulA398MlIQAlwxLGxvoXEwpRFM0Mf1iLWAy8ZyC3adT4hev2rWfPT6WrX90n2WubI7M/PWw6+2/C4zBkfscvDAPRu1CBc5BfhCFJYg/RiCUwCBUPVKZHBXbgUvR/4Rx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929092; c=relaxed/simple;
-	bh=qfrJbJBmuOXs/R7ZViUhL3sk3TtGFRGTyuf8b/EnpNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QZR+InrPSPDQ1EViI4k5O7WIajy5IRwhkj9a2dwh4T67+I6M4j4LsnNCkfuEGTuW2FHTY1G93JuOCL/8urG8wlxmoIXYojLqmDYNLVYMH3QkAh0zz1zY3lIZ1szMbmtuQWp4F6ruEBXYYUyTLM0Ib6lTk+TUj/EQ0QxEETTkiKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpVIYDDT; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787929127; c=relaxed/simple;
+	bh=hTFP47AvnYEQMlF2SecKaz9yq+IFHH0SegM4sJFxZLs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cQOQ3QzGydz+62b2fTxP06sGpHSteSldSr9AjqE8jZEudb+Q4xbiXrstI3YfyC6sChfte0GdxF9EZDD2qE+IVOSY1nfgOw59Pnqdvg/fywXvEzDB8hM/JmZtf7W8zE+6CcwrGaoE18p8Y1Ctlg6QfXFt8Bxv9wfe/IJ35JB9fFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WwPgn4e+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpVIYDDT"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d71a50caa9so12936265ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 07:58:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787929090; x=1788533890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UpZ9SLDzN6L/jZYPiTPvyIKpc053VdrqfuuoBmjatWk=;
-        b=FpVIYDDTpLLljGfaP9QEdQFPUDarLGPvlgezrSzTd5xO78qe28kcI+XUQd8tAIFAOL
-         wGl3d25JCjaiaZT5UO9QHuh6lQpoF+cSp+WT94ZfgqR7k/FnE2gNIe3qDTk4jtP7Nc6V
-         /DjLe43V3fBG7JIXMbBSWajuyJ87PKb6cuiOhNHprsrSEtokGfBSYEAZSYIgsc9/k+V5
-         qLS30eHFDqMhzVcaqFxCdfg+VyEvYsv2AvnM4pjnbl7cV9EXin3Frbjl8XqdTCE+FQiG
-         mhQGPOpnHaNJrRXrxCZp2XjdZr23hjNtpACXnS6IekyjERomtTGXNGlX3vLtbgmevDjo
-         H/3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787929090; x=1788533890;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UpZ9SLDzN6L/jZYPiTPvyIKpc053VdrqfuuoBmjatWk=;
-        b=OZJNSpKiLWUzldaBAdt++5UfJiZj7Ig0Xyd3nXM8NoLfaYTfWWsICS+FIRcG7aUIX6
-         54SNqdcDcU016VSvHo0eWr/tPVX9mkVMHr7jP/S1fYrP30spMq8RfD4lv6ZFT9UkJ+1g
-         EMB5geBmP9G91LV4YnuFbCFNCWW0k/nl4oTj+5OExPb9vvDF3tOfZ7coNDDEF3ZZg3Of
-         z07eMcsi6Y4ooOTIkDI8p2/32S6goLy3Hu0u2FkUOk48x3/J3zbhGCZJQ73HzYhy0zx4
-         5/3rGnL2BMkTUem64aOdvEBeG7Akr6cBpwkRzCFnedLjt0zlXOi5XkS0OVwD5lbZgtAo
-         gJCA==
-X-Forwarded-Encrypted: i=1; AHgh+RrYmYIL3b6KYVlZgmNP9jrqRHiamoWxxQL9jh8tUtmbJA9VEbLw/AeBLCXnDMJXtWT/5f6zIIS3u4Ay9OU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWR3wCzXu72/Uq/9bnd1gD5zlK6vEE3zGgnsyJtlScNFwwy5KR
-	1W//jyjWb7IpuQDODuEHgw9mMAJOPfZQkD/Bw+8fLGdE8bcCmshaV2c=
-X-Gm-Gg: AR+sD12PgQhmcTslMjLJP/b3m1KP7RhwJu+HQKwS9YJdfkbHoSA7g6Yt8w0fcErudkE
-	/5X5eAifSVQeBfCc+At87k77minOgs2ZTEUV/D4rFmJopgQfyScunDMN7r8Oemvublz6kacnbaZ
-	GWKZKUpCTF0zngmm0ZTQvoZq9yz5GG/xx75qTH0epL6pLqE1XxeOeBM3Lt4kQQasbK1f/FxWVwC
-	YcLjbvl3dZMqY7K9mFwClFVcQkOlSzhdyeLxqa9HJKIqoeErrFuPl4hiYF13VCIaW3dxTSN7RuF
-	SsSGWLnqjSd/IxQb9SlElhDhwnMQSkmOfeRJ1/rFqTwA6czzTsLWTrV+IGSnNGd0gUv+qDx9/th
-	N4rVuydJ8P2tevSaMz5tqeCU4I6UQvuJVYQsUfkKH5VMXnLku0y/BHlwQ5SDKjgAddcspp67bkl
-	NOZOqTMlKbi5e5wgMBKu/NrL3GDVb8KvZcZwMXhJUbpU0cg7m3QtURZWkH1Kkxu9gHqm1SlZxfQ
-	pjbNCdbgeLTjU8Dv1T2qgN1O/0=
-X-Received: by 2002:a17:903:2342:b0:2d7:414e:f2f with SMTP id d9443c01a7336-2d74def676fmr134531005ad.14.1787929090198;
-        Fri, 28 Aug 2026 07:58:10 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:58:09 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v1 2/2] drm/sched/tests: add a UAF regression test for get_timeline_name()
-Date: Fri, 28 Aug 2026 23:57:57 +0900
-Message-ID: <83d1cde658ad4c34080398ea89fc17dc1e87d5ae.1787928528.git.malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1787928528.git.malhyuk97@gmail.com>
-References: <cover.1787928528.git.malhyuk97@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WwPgn4e+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC9A1F000E9;
+	Fri, 28 Aug 2026 14:58:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787929125;
+	bh=74Fj7tL96kGwBLO/hArSSyCch8gm1RowcBdTkqeKx+A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WwPgn4e+trs/BZwls4wxpRFxK9REZMof7hb21Ppo2q66+K9DsCie8wCr5rlENlCD3
+	 7xRwQdhchci/f4l6nq94TkKZZv+V/5L1PlbCFhselAhfX8di3TkFtTV6xg6LZCzbwF
+	 ALr9rMohE0wvyIGL4aFroAr5++8Z9Ud2GZ8Rptvt2ojtPhLUHy22YkbNrsfqpm6yKP
+	 VYdYuDQGNp/pA8WE9MpJT5ZRnP0cfhhPA4PFCnyA0KV8EVN0+GzjcjcliNX9o2kuXS
+	 0b2/hyly6VBi2wLH5cY2jQKGQFGhFmBD3cVvbWel4UhqVBUGEf9PNJs3QQ4vFWO/3A
+	 inhldz1ZwbDEA==
+Message-ID: <f91bdb9a-bcfb-4f37-8163-19ce7ebe0d46@kernel.org>
+Date: Fri, 28 Aug 2026 09:58:44 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] thunderbolt: Fix tb->lock deadlock during hot-unplug
+ on AMD USB4 routers
+Content-Language: en-US
+To: westeri@kernel.org
+Cc: andreas.noever@gmail.com, YehezkelShB@gmail.com,
+ Basavaraj.Natikar@amd.com, Sanath.S@amd.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Juan Martinez <juan.martinez@amd.com>
+References: <20260827215740.415496-1-juan.martinez@amd.com>
+ <20260828051903.485922-1-juan.martinez@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260828051903.485922-1-juan.martinez@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add a KUnit test that reproduces the use-after-free fixed by the previous
-patch. It holds a reference on a job's finished drm_sched_fence (standing
-in for a userspace sync_file), frees the mock scheduler, then calls
-get_timeline_name(). Before the fix this triggers a KASAN
-slab-use-after-free read of the freed scheduler; after it the test passes.
 
-The test needs no hardware - it exercises the drm_sched core through the
-existing mock scheduler under KASAN.
 
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
----
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 65 ++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+On 8/28/26 00:19, Juan Martinez wrote:
+> Commit f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on
+> DMA path teardown for AMD USB4 routers") introduced a deadlock when
+> physically unplugging a Thunderbolt cable on AMD systems.
+> 
+> The problem occurs because tb_handle_hotplug() holds tb->lock while
+> processing the unplug event. When it removes the XDomain services,
+> tbnet_remove() calls tb_xdomain_disable_paths() which eventually calls
+> tb_domain_reset_interface(). That function tries to acquire tb->lock
+> via guard(mutex), but the hotplug worker already holds it, causing a
+> self-deadlock.
+> 
+> The deadlock manifests as a complete network hang because
+> tb_handle_hotplug() holds RTNL while waiting on its own mutex, blocking
+> all network operations system-wide.
+> 
+> The existing code already handles this scenario partially: when
+> xd->is_unplugged is true, tb_disconnect_xdomain_paths() intentionally
+> skips the DMA teardown because the hotplug handler will do it later
+> via __tb_disconnect_xdomain_paths(). However, the reset was still
+> being called unconditionally.
+> 
+> Fix this by:
+> 1. Splitting tb_domain_reset_interface() into a locked inner function
+>     __tb_domain_reset_interface_locked() and a locking wrapper
+> 2. Skipping the reset in tb_domain_disconnect_xdomain_paths() when
+>     xd->is_unplugged is true (matching the existing teardown skip logic)
+> 3. Calling __tb_domain_reset_interface_locked() from tb_handle_hotplug()
+>     after __tb_disconnect_xdomain_paths() where the actual DMA teardown
+>     happens and tb->lock is already held
+> 
+> This preserves the reset behavior for normal shutdown paths while
+> avoiding the deadlock during physical cable unplug.
+> 
+> Fixes: f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on DMA path teardown for AMD USB4 routers")
+> Signed-off-by: Juan Martinez <juan.martinez@amd.com>
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-index a5a5a35a87b0..2c6744b58f04 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-@@ -555,9 +555,72 @@ static struct kunit_suite drm_sched_credits = {
- 	.test_cases = drm_sched_credits_tests,
- };
- 
-+/*
-+ * Reproduce the drm_sched_fence get_timeline_name() lifetime bug.
-+ *
-+ * drm_sched_fence_get_timeline_name() dereferences fence->sched->name, and the
-+ * drm_sched_fence ops keep .release set, so the fence is NOT ops-detached on
-+ * signal (unlike stub fences). A driver that frees a per-context
-+ * drm_gpu_scheduler while userspace still holds the exported ->finished fence
-+ * (via sync_file / drm_syncobj) leaves fence->sched dangling; reading the
-+ * timeline name then touches freed slab memory (arbitrary-read once the slab is
-+ * re-sprayed). Confirmed instances: amdxdna, nouveau, msm. Same class as
-+ * CVE-2025-38703 (xe) and CVE-2025-71302 (panthor). KASAN reports a
-+ * slab-use-after-free READ in drm_sched_fence_get_timeline_name.
-+ */
-+static void drm_sched_fence_get_timeline_name_uaf(struct kunit *test)
-+{
-+	struct drm_mock_sched_entity *entity;
-+	struct drm_mock_scheduler *sched;
-+	struct drm_mock_sched_job *job;
-+	struct dma_fence *finished;
-+	const char *name;
-+	bool done;
-+
-+	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+	entity = drm_mock_sched_entity_new(test, DRM_SCHED_PRIORITY_NORMAL,
-+					   sched);
-+	job = drm_mock_sched_job_new(test, entity);
-+
-+	/* Arm + submit first; the s_fence is only created by drm_sched_job_arm(). */
-+	drm_mock_sched_job_submit(job);
-+
-+	/* Independent reference on the finished fence == userspace sync_file. */
-+	finished = dma_fence_get(&job->base.s_fence->finished);
-+
-+	/* Let the job get picked up (hw_fence created), then signal + finish. */
-+	done = drm_mock_sched_job_wait_scheduled(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+	drm_mock_sched_advance(sched, 1);
-+	done = drm_mock_sched_job_wait_finished(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	/* Free the per-context scheduler while the finished fence is held. */
-+	drm_mock_sched_entity_free(entity);
-+	drm_mock_sched_fini(sched);
-+	kunit_kfree(test, sched);
-+
-+	/* UAF read: fence->sched->name is read from the freed scheduler. */
-+	name = finished->ops->get_timeline_name(finished);
-+	kunit_info(test, "get_timeline_name() on stale fence returned %p\n", name);
-+
-+	dma_fence_put(finished);
-+}
-+
-+static struct kunit_case drm_sched_fence_uaf_tests[] = {
-+	KUNIT_CASE(drm_sched_fence_get_timeline_name_uaf),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_fence_uaf = {
-+	.name = "drm_sched_fence_uaf_tests",
-+	.test_cases = drm_sched_fence_uaf_tests,
-+};
-+
- kunit_test_suites(&drm_sched_basic,
- 		  &drm_sched_timeout,
- 		  &drm_sched_cancel,
- 		  &drm_sched_priority,
- 		  &drm_sched_modify_sched,
--		  &drm_sched_credits);
-+		  &drm_sched_credits,
-+		  &drm_sched_fence_uaf);
--- 
-2.43.0
+Looks good to me now, thanks for iterating.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
+Mika,
+
+The quirk this is fixing came in 7.3 cycle.  So this patch should also 
+go to -fixes for 7.3 cycle.
+
+> ---
+>   drivers/thunderbolt/domain.c | 20 +++++++++++++++++---
+>   drivers/thunderbolt/tb.c     |  1 +
+>   drivers/thunderbolt/tb.h     |  1 +
+>   3 files changed, 19 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
+> index 12c88509a54f..4cef9f4de523 100644
+> --- a/drivers/thunderbolt/domain.c
+> +++ b/drivers/thunderbolt/domain.c
+> @@ -788,14 +788,22 @@ int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
+>   			transmit_ring, receive_path, receive_ring);
+>   }
+>   
+> -static void tb_domain_reset_interface(struct tb *tb)
+> +/*
+> + * __tb_domain_reset_interface_locked - Reset host interface (lock held)
+> + *
+> + * Caller must hold tb->lock. Used by hotplug path where lock is already held.
+> + */
+> +void __tb_domain_reset_interface_locked(struct tb *tb)
+>   {
+>   	struct tb_nhi *nhi = tb->nhi;
+>   
+> +	lockdep_assert_held(&tb->lock);
+> +
+>   	if (!nhi->ops->reset_interface)
+>   		return;
+>   
+> -	guard(mutex)(&tb->lock);
+> +	if (!(nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN))
+> +		return;
+>   
+>   	/* The reset clears the ring state so stop the control channel */
+>   	tb_ctl_stop(tb->ctl);
+> @@ -803,6 +811,12 @@ static void tb_domain_reset_interface(struct tb *tb)
+>   	tb_ctl_start(tb->ctl);
+>   }
+>   
+> +static void tb_domain_reset_interface(struct tb *tb)
+> +{
+> +	guard(mutex)(&tb->lock);
+> +	__tb_domain_reset_interface_locked(tb);
+> +}
+> +
+>   /**
+>    * tb_domain_disconnect_xdomain_paths() - Disable DMA paths for XDomain
+>    * @tb: Domain disabling the DMA paths
+> @@ -835,7 +849,7 @@ int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
+>   	if (ret)
+>   		return ret;
+>   
+> -	if (tb->nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN)
+> +	if (!xd->is_unplugged)
+>   		tb_domain_reset_interface(tb);
+>   
+>   	return 0;
+> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+> index b7cc6894a598..89dfb3381345 100644
+> --- a/drivers/thunderbolt/tb.c
+> +++ b/drivers/thunderbolt/tb.c
+> @@ -2489,6 +2489,7 @@ static void tb_handle_hotplug(struct work_struct *work)
+>   			tb_xdomain_remove(xd);
+>   			port->xdomain = NULL;
+>   			__tb_disconnect_xdomain_paths(tb, xd, -1, -1, -1, -1);
+> +			__tb_domain_reset_interface_locked(tb);
+>   			tb_xdomain_put(xd);
+>   			tb_port_unconfigure_xdomain(port);
+>   		} else if (tb_port_is_dpout(port) || tb_port_is_dpin(port)) {
+> diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
+> index 4373336d9425..2e6e0920cb1f 100644
+> --- a/drivers/thunderbolt/tb.h
+> +++ b/drivers/thunderbolt/tb.h
+> @@ -789,6 +789,7 @@ int tb_domain_disconnect_pcie_paths(struct tb *tb);
+>   int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
+>   				    int transmit_path, int transmit_ring,
+>   				    int receive_path, int receive_ring);
+> +void __tb_domain_reset_interface_locked(struct tb *tb);
+>   int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
+>   				       int transmit_path, int transmit_ring,
+>   				       int receive_path, int receive_ring);
 
