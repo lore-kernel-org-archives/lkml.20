@@ -1,196 +1,144 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649A83E5598
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912349; cv=pass; b=gpWawWJVO93GiEBkr5b2oYg+n31pkyYMVZtuYKTHYYWyrigO2ylNYZZ1nhayciMSdTLU8XSTBGdqiYltSQPYcSdQcTrpoOlErJiEDzTkV4z8PJJ+USzMzIg/6yk8Rdcsxpbk6834lC2mhMeA7uMAfhqvdKkhVoxHYEbuEZGZTMo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F02439A07E
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787912349; cv=none; b=Jm2TUo1CYejc61OjVlaRe/zONzlaKmpvcsjhxmPcWwxinAuyCKT1ruGOTi2BYg9DienqFosRpZ7p0GNTLd3KdjgYuFr1lUnFGJDweUb4akIfdS3jE2VG731S0C/huzylNa56L0HiYkUz7uVrN6ojfny25xl9DPZFatfdQbrb8qU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787912349; c=relaxed/simple;
-	bh=xPSovF27zR1ygx9YQZCEuX/Hht8b3O0ju3f9ZTUK1G4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WlfTxVAK+zWFnDyWiPragppK6PyflsIijmMSgNN74KD42DQYxFMYAUjnnKIwofzsJkpCCLbz0i8rP6H0gUjNpt+6vqCaQj8hprww3bO1I+ecHX5RSme+fPObRD/3a/29qmegyigVgcnQ1hsnaQi+HWxrGUsppxX4vVcCzukAsfY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pppTIpyL; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=rbvnhY73mXXfTxu+bLbyfaSKBNwQbWLwwtzOCw/1swQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gO30PmjZDeV0i9UOvBxaMUqFA9NMLBNmsCUjzW7Y/mY2Jh6gdzOp/W/tDr4hKZgOOhbmG249tbjG10EGg56rN/HHMR4wrsb1XvxVMmSjlZkvqnlrOmHlz7FN9TaeS0WRrUUCmXUTY3kUxCZuQD4ZE3B7xDimFzudCLYyO5xH2/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M6xso+rn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hyzW8d6X; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pppTIpyL"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a611ba5130so634373a12.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M6xso+rn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hyzW8d6X"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SA7RQt2061302
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:19:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=lPcn6i0GuP5FuV0mD6U8uId0
+	cdgsQPaoW5qSq7vxMo8=; b=M6xso+rnVwRsZm03dOAyLUCpNanhCmyExRIO1C0c
+	YDiyjeZFjs/ENnI2t0to60S4XPcWYdIvc7BdUOpQWsqCoI40ll5BOYOBgNcvjZHC
+	d/JskZ/w4NvT973/Oiim7hRrPEtLEIhTkaoEekTsMFUT5wP0f/hNlk2tvYvqwEmY
+	xACB+j3FtWbUiHnDkmE14j7VlaTskb568oN1RL5sCSHvD0QRpqJGpwTkyz7VIHpT
+	asmbT0uEA2w3Sqe4c7lwk+R4So9v713Vc2t4Q98VZhnkuMRdOFmgniHGXYFvooue
+	mDplJu0k+tNLUGHiiI0cfc+E0hcJLAHv+G4inS8IC+wQww==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb3mu97te-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:19:07 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51a8b0a08d2so8449081cf.0
         for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:19:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787912345; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n0uZuQq3i5Hv/4DvKaU9/Ns/kgLjy6RXs6DcIuA2WaPcHQgyrnbsUrswWQvNdrVXNO
-         mXSUjwiNMHVVIrf4cUbtxApDz6rn/m27w3ipNudzdODDHhslZ8aC23GUOHEjab+H11Tn
-         7aasybn/bu/JfUc+w+65pXP3+4v8OhsUgywZtaUtUM0DjAbTrtnGcoLWQRlkd+2pmr/i
-         wktqPpBAp2sdcmDy5r1xrQs266oc2or3UTMOzXZ0dXMdgw/1qK8yjMXLf67Xt/qdz89Z
-         dzAULX3XrOViXn44eb85YO9mhU+ygMUqPwpyqpFmnzSFjQAvkJFwu3iDj7ptOJDP9trf
-         cJpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G94/g0rpxrLTiPX43qTFT7KbB2uJFdvGtG9HayUlus0=;
-        fh=Z92zIeqV3KM1rNx1YXZGVzwQAG0Vj5bIapJdsOle/PY=;
-        b=MoEJk/cGp8YVxO3yzdeY2BX8E4A1yYQ+lnv6vZIqq+a8uIDItbtK/XqWFmfaQEzLgu
-         9p8OFIls22Xjj75swH3GRM6euFF4yh4VK5uFp2ClWdz8TuRNeGguzDnfVJV+d1E5XVZa
-         gBdW67v6/cDf1VSGURuGygvBkmGpLEGBriipQWPaLCjoqPRgWEjXyH51+5JNIprpFlvG
-         akffbw3DmkXLxBsl/qU/lk8AkTdWvZuArEL5GaPmgV1tpBtd/1axAiH4e4PC1zLNGQMt
-         4GQDvQDWqgYFCe6hJo69DboG1a/if7RCR577pYKa/bDzbu/676HkVJth8uYBln64PD43
-         Xjqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787912345; x=1788517145; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1787912347; x=1788517147; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=G94/g0rpxrLTiPX43qTFT7KbB2uJFdvGtG9HayUlus0=;
-        b=pppTIpyL19ki0ekal1ycwimN1FzZpAFQgD/wPg6MjPrvKOLrYUqRlDH1zSk14oA6Vt
-         +kxBMmRUNCnuyIH1HVLtxl+UJpEu5pm+RNRceC8++SLhvzKl0L6ccq4Z4lvMv5JbwPBV
-         66eblMAjpEMMSOv2BWz7ZzYyDiajSS6puXLbnwH1oe2cC+GjVcIm5arFg8YjJJf8kCkD
-         fZkkK4vtk3psmVpXgCmM9DWXw6EE31Dz+jxNaQru1BsTs/0k3GywfspMGMBR9OxBK8ee
-         Oc2TuMUNrSFGluU6o2dzaMhtrgLj1wkX/WYNsTcX6RB2qmSavCJOdU8CubPxNtFd877b
-         ijnA==
+        bh=lPcn6i0GuP5FuV0mD6U8uId0cdgsQPaoW5qSq7vxMo8=;
+        b=hyzW8d6XgwSAWzwVPWNNkIotyKANlTfZty6Br6jy7SroWO1Ce5K6sOPeiTzs88eCAG
+         bc6cWXZayxQ/T5VKaei+PRDqMQXCU5YtLmIvhsut78LLrfzLUfJ0KvnTB49j8or6I2mB
+         KlHZLyCrSxxYAM3sgZBFqfAN1VxCuxyjYiyebMFnHkcGWYzx971zKxsgwDGq7zgmXGrF
+         hfkQKyryUGCOlGK335cRH8WZDAblGFt77dD+O2VwanvPjfgDWhvOxO/bhNYnvjkBPxsD
+         2YImn9gWDRB1QAZhocF1NDS4e51EFn3QHWOqtxof/R0CIP9om6+0sCcR+Ne6AV2Zua8+
+         LTxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787912345; x=1788517145;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787912347; x=1788517147;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G94/g0rpxrLTiPX43qTFT7KbB2uJFdvGtG9HayUlus0=;
-        b=OK3WQSwPMkgPtriSlBK12E3ISvMeCBRmlkhFIKiOdwZ6QBJ4eXzdggqmCq+FnRnbRD
-         X5Rf2T/n7VeQQE4PgOfbe0s55LtXgqStI1Pz1TetxhdGGPgj6fkyVXcGGdrzqmyBiXtE
-         7xQQ4s47lRQF1vMEIst9wvpUih7gqENz7XUfbIqj6t0xNvz3URPsmxilkhH/Mq/8FBg2
-         Qh6vXnEA+FlmAQOdb01KLn2i9qKpgJbjWiBvAnSe0eF0BRL3p7DTT6R357Ss3mH0qGfB
-         f6L1V0zToNXx/Qcfp/lDKx+60kaMI8E/oGgWZ4NMyzUUozWmnxxv2Y0Ki3TgXU08tFkw
-         ITPg==
-X-Forwarded-Encrypted: i=1; AHgh+RrGWpsOD8EaFY41XW9V5mQjZJ3/BuaI3QwkcOR9oFz2HoZ797vbw6+t3m1iIxwNV0pRjTdHd7Mm3did8RE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8gddczhfSLkVkBCFNGRlka4mhrKoNfbS4IHBji/Qzpm5JLMXq
-	wflzPcoWxUYR3wdB5awkKxmy/J3M4BUjCsif0NSERh2CuZzleI8gn7ZAZOrUliXHkt+c1vUJhem
-	DZHsellDE9TT1zwBGmoTbr0ccIlMiXks=
-X-Gm-Gg: AR+sD12uMSiZ5DYVlSFNRLcPlHKbe/glgm/6CZuTsrTkP5qIp8uOav9/NHGW3rPxLYB
-	+tTsO8ejo52XaKog5E09+nKsag7szocts4Ph6lKVVpe7jC+48zv+nf/j5ErwDUWeQhLx63TpQwh
-	CQhZ09dLBgw11OJoq3yIqxVvzmG9/58um3hcinbXaOCl/gBQvJ7vakmffYj79MqyMWQm2aPM+N8
-	U/9yOatXrMaHdBQoXehGSpg6oiB+D1JjaxQBmOKAaDQQHsGM7DsF4n/VQzL42kYPit9gJjlsPtV
-	UIkOGFLsDZKw+8oIlurU0H22PJ06w2UtoDTb8Gk5D/3Iqg==
-X-Received: by 2002:a05:6402:a214:20b0:6a6:1c0b:72cd with SMTP id
- 4fb4d7f45d1cf-6a61c0b73b1mr124271a12.13.1787912345042; Fri, 28 Aug 2026
- 03:19:05 -0700 (PDT)
+        bh=lPcn6i0GuP5FuV0mD6U8uId0cdgsQPaoW5qSq7vxMo8=;
+        b=UgtttfmCxAUgMvT0NQfQSYaFK1FDPJQydf3Zb/Sa/QsTRJe0WVwlSGarQTdIDoLYlG
+         9Xmg75w/ugTUPo3bPr7lJsL0VjJnm4OCcwxzh7o69U+bxsWIj6RD4n4jVBk8YpQereOR
+         u+0kBZJXSMXWmlldfLAkG+0VxV7VVgScBBf97BPRtyuzVIuzulUvjd8wTG0KtqcZRvTz
+         iVQ8wNu6+GuOk6VfFQpsCSm+qYSpwAD0F8SWNeWvuQZV7gDXs92gEK+D2V4GD+iBSXj8
+         HvyBXkl+nDUfkCndObz+Crr4FDxynAUWzmctS/1RWW7a8BMqABcMWe94xJUNJ7M2tZqG
+         KK4g==
+X-Forwarded-Encrypted: i=1; AHgh+RpjQ3Ry2gM2D9b8DO0z+IUPw0MGiszDrb7wEWTI2f3R8oNT2dVw689RIHeN1ti7Fn7qM/ERE+9i+7H4nr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFHpYYxD2P267TfM5AHhLrkGpbTvCBEBRqix+KZxqkc+EP5O14
+	7vT+aIVadh9NJBhfWCJUgTHVJB8388HwsrNT0xyREceLALsieYD18lDpbnBlWBTFCwWDm6A9d0V
+	F2eUu9FmZL9KuSz+KSCW+iJ+Ut8AizSNLSDugU8PslptD6lk4DiWshGuvth5yj2zg9Lo=
+X-Gm-Gg: AR+sD11dw5nh32vlRKb4CjzFMhlXckCtJXe7cDxvbJOJ98MOq3RGPL89XAnFO6rdG8x
+	7Ow4jXaFk6r7X/gJkDi03BkSMjErY5nqXZD3TfxrdOGJRpWJzJdiHb+mMjqqRwJ6/nnYJ8mWai0
+	z4gtGheIZapwdm5QASONHCSXlhiK4ii9zAgpdcZo+4OaOixnQrG/3AEQevVOJAc7l0r3Npt1Y8H
+	R8w/QxghDpt+1ia7AVi0X7OQAcB50Sf9JFMkZ2amnbMKJvOB4W3k1/JbnXdgImkBksoSLRVmTOg
+	kzryc0p7Ii12m0apZFqEU6wN/Ae8cXB3GsWcfH0UUyP/2eTvtAqxx6Y1269eAwq5DtYokh3MId9
+	jJ/v/JdnFIFJoAw==
+X-Received: by 2002:ac8:5a41:0:b0:528:38b1:b547 with SMTP id d75a77b69052e-52fb9379da3mr66887211cf.8.1787912346616;
+        Fri, 28 Aug 2026 03:19:06 -0700 (PDT)
+X-Received: by 2002:ac8:5a41:0:b0:528:38b1:b547 with SMTP id d75a77b69052e-52fb9379da3mr66886571cf.8.1787912346039;
+        Fri, 28 Aug 2026 03:19:06 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b92679be5sm45707765e9.3.2026.08.28.03.19.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 03:19:05 -0700 (PDT)
+Date: Fri, 28 Aug 2026 13:19:03 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/4] phy: qualcomm: qmp-combo: Update DP PHY common
+ init tables
+Message-ID: <c76vte7k6iky26lm6gazhkkoojceykwkgt3fc5zw32kxh6uge7@vnpvkfyyjfel>
+References: <20260828-glymur-phy-v3-v3-0-8e73ce7c4636@oss.qualcomm.com>
+ <20260828-glymur-phy-v3-v3-2-8e73ce7c4636@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827045007.3831259-1-4ncienth@gmail.com> <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
- <20260828042421.964822-1-4ncienth@gmail.com> <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
-In-Reply-To: <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 28 Aug 2026 12:18:52 +0200
-X-Gm-Features: AcwNN1Wswmvr4jf3jw-aoY5R0HAHlqDLIpRVY4i-uiy8R8EZM3DFgLb4bzUry_k
-Message-ID: <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
-Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
-To: Jan Kara <jack@suse.cz>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, Miklos Szeredi <mszeredi@redhat.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828-glymur-phy-v3-v3-2-8e73ce7c4636@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=ZbMt8MVA c=1 sm=1 tr=0 ts=6a91609b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=Oqahiz4U4qnBBrGiSRoA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: -i33QsjhoEJ9kpfl0LZevLaCsupbXAaj
+X-Proofpoint-GUID: -i33QsjhoEJ9kpfl0LZevLaCsupbXAaj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA4OCBTYWx0ZWRfX8Pt30XdCezKH
+ YsiH7ownAxIHAaP8JBtBgViWYUHfrnOtLDa8XvgrGp3HemgyTzhkJaYgWOLxDlIXaXRVezuxuj1
+ SWu1+mSa3XFJJBeMC5G0cLGRHNTpWVM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4OCBTYWx0ZWRfX0d6AKBrLNpAa
+ 2oZIi+fOt8ieyOkenJfDwlXrYR3ETl62lNloYVgGdVxhdHT3e8rL+tPCeexXwt+RelONYFANBWm
+ 03XhWPy90xybWI4vP4qiKJl1fh15bRIvgao1f7W6HqWppQ9xBbJUuXyISyVFqYNrCibG/EJ3+pc
+ Us0FvrnTVqrzt+3Ff0RkXmk4I5DhU/js9H5ambNJ1HGfNAwDUSLnC0nJYqA41df/Slz/fkVmix1
+ aWB6IXBLJo+v6kT1U8FJfaZ2o6dv0pBVVgqReEvicj0et7/7lg/WNKn4lVN7Nf8zn0U2tzB3cl7
+ G7mQmSAfvJe3eN0UeFSsQigMz8X/VleTw5HHOZDTZfxZEB9/V9zmkjUHavNhC/e5yi3KxTS63Ry
+ GIRveRnKreBL4SXz198ewwjXKamfm/IgpZNA6GuaawjuRsGxCE5hhFfvF1TeRX251Qx9L1Xjne4
+ AcD2JAjyu0kyOkDHdyg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608280088
 
-On Fri, Aug 28, 2026 at 11:05=E2=80=AFAM Jan Kara <jack@suse.cz> wrote:
->
-> Hi!
->
-> On Fri 28-08-26 13:24:19, Daehyeon Ko wrote:
-> > You are right that an fd-held dentry cannot satisfy the count =3D=3D 1 =
-check. I
-> > was imprecise in the report: the fd and the final unlink refer to two
-> > different hard-link dentries for the same inode.
-> >
-> > The setup is:
-> >
-> >   1. create A/x and link it as B/y;
-> >   2. open B/y, add the old-group inode mark through that fd, then unlin=
-k
-> >      B/y, leaving i_nlink =3D=3D 1 while the fd retains the B/y dentry;
-> >   3. race these two calls:
-> >
-> >        unlink("A/x")
-> >
-> >        fanotify_mark(racer_group, FAN_MARK_ADD, FAN_MODIFY,
-> >                      victim_fd, NULL)
-> >
-> >      where victim_fd still refers to the already unlinked B/y dentry.
-> >
-> > So the A/x dentry checked by d_delete() is not held by the fd and can h=
-ave
-> > d_lockref.count =3D=3D 1. Its unlink drops the inode's last link and re=
-aches
-> > dentry_unlink_inode() -> fsnotify_inoderemove(). At the same time,
-> > fanotify_find_path() gets the same inode through the fd-held B/y dentry=
- and
-> > adds the racer mark.
->
-> Thanks for explanation of the reproducer. Now it makes sense. The
-> conclusion from this is that fsnotify_inoderemove() can indeed be called
-> for still fully alive open inodes which should be (think of permission /
-> pre-content events) still generating events. That could be actually
-> breaking some assumptions of userspace although I don't think it's a
-> serious issue in practice because users of permission / pre-content watch=
-es
-> tend to use filesystem / mount watches.
->
-> Also I think we could generate FS_DELETE_SELF twice for the inode - once =
-it
-> will we generated as a result of d_delete("A/x"), and finish_dput() ->
-> dentry_kill() -> dentry_unlink_inode() will generate it for the second ti=
-me
-> on the last close of the open through "B/y". That should be mostly harmle=
-ss
-> but still it's an oddity to keep in mind and preferably avoid if we can.
->
+On 26-08-28 15:13:14, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Update common DP PHY serdes and TX initialization tables with
+> corrected PLL control values (MODE0 instead of MODE1), updated
+> SSC step size, reset control, and various TX lane configuration
+> parameters including emphasis levels and driver enable settings.
+> 
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 
-I don't know. This sounds like a fundamental behavior change.
-In current upstream FAN_DELETE_SELF is a dying breath of an
-inode and no more events on this inode are expected IIUC.
-
-Applications could be relying on this.
-In fact I have an application that almost relies on this, but IIRC
-it does one last open_by_handle_at() to make sure before calling
-the inode dead. Other applications could be less strict.
-
-Changing behavior so events could happen after FAN_DELETE_SELF
-sounds risky.
-
-> Now there's the question about the best fix for the problem. I've realize=
-d
-> we cannot just remove the call to fsnotify_inode_delete() from the place
-> where fsnotify_inoderemove() is called (and rely on the call from
-> __destroy_inode()) because the connector holds inode reference and so
-> __destroy_inode() would never get called. Hrm, this is a hairy issue and =
-so
-> far I don't see a good place to reliably trigger detaching of connector
-> from the inode. One reliable place would be iput() but that's really ugly
-> and would slow down every iput() user. The cleanest solution I can
-> currently see is to stop holding inode reference from a connector as I've
-> proposed in the past. Then we can reliably perform the cleanup in
-> __destroy_inode(). But that will be a rather non-trivial undertaking. Ami=
-r,
-> do you see some other option?
->
-
-What about the option I proposed to live with the orphan marks
-Is it so bad? I mean it's confusing and removing the assertion could
-hide real bugs/races, but maybe it's worth not complicating the code
-until we move forward to re-attachable marks.
-
-One way to think about it is that if we do the re-attachable marks,
-we would need to store ino/st_dev and maybe fid in the mark and
-then show_fdinfo wont need to get the inode reference at all.
-
-So in a way, allowing an orphan mark on the connector is a step in
-the direction of allowing re-attachable marks on the connector.
-
-Maybe...
-
-Thanks,
-Amir.
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
