@@ -1,74 +1,56 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E93636196E;
-	Fri, 28 Aug 2026 21:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A5A3F1059;
+	Fri, 28 Aug 2026 21:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787952611; cv=none; b=tgK+5NPl62bHh8bJMsrTUPTFRQMLTqLUUhtLmVKhUSLW1XRCPjC6t/xm29YiyPosZacF0vXuTjzT/g+2vAUhMALH94kNImajMzLlC/Wwyf6ChW/1Fv4tUZPDsuntxyQqcqJo3mW8Tc4VfAULYxCPaTvwYuBcRXCf/uoxfvWldrM=
+	t=1787952679; cv=none; b=RvVFlnb9hsHYPByZ8voI/KFFi0hsJ0YccZWiBH9XrVyytDK8LyqMa2fyUYv6SFpQRWBEYLN2lM4F2mGLoFUaBuNRntwiii/111QfY/NTAcbzdk8IW1x9RtCIsjdElFPfUWH13i1NJqPrIzVZN7LRSPnARPFbIkL37bIT7mdxchQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787952611; c=relaxed/simple;
-	bh=MIdWbeMcZfGGJ/pZCUQTDeV/oaWcUupEL9QLvxkoY3s=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Os+0v0uhQ7rybIv4wLCg89yqUXCa77MbXcedg90mA32W002Kj1elyHP1cXup/TSi5Nu9Gnq4uuSqsyR85jpNzB+SMg4Gb/+cJqj3REbaj6TNE0tcTIA7lEEZcxxL027vgg4qFbasHS4L4JUaVdgcWvmLu01PoxvpKSfNTVY4ejs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=I473wf8g; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1787952679; c=relaxed/simple;
+	bh=vK0MWqvsEM8G61x3hHaMlLU9QkQBw6bwsPBPwytLNVM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OvonYPFdKoCHCWD41NIooatqAY+dv/vqMf880qP99Ou9e22mU+FThzn4ALo8Nfr44rpkRr5uTUjpj9jTtqOmlO8lZ4d7QBDOrUuWMgqHYizP8gAxTDMzkDyn1zcYkU+sE1E5l3ACPwWs91sR9hYny1n8oVtTExY6sf2yujpT/Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyyiH+Br; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="I473wf8g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Subject:To:From:Reply-To:Cc:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=4XP1MNEQIFS/15FmvgwBeVhstHa8LWxSKOwtOogdACw=; t=1787952609; x=1789162209; 
-	b=I473wf8gV0ZmgWCPktEeqQMDzkw1+AtNQFRvUAItl7eDjz7hFR3ovxryX+2zmbZMtSeLTeIP6C1
-	OAzIh6+70NdJ3L4g/V8QX/LLs0Xmmv5RSJJ6tMQqXiDqwLFWgS4v+2HWFbtwKUKta0Ir3iom5O2EX
-	z51eErunUPRKF9uFWv3SeKOm0Wpm7qY3Cf7rgWbtKfB/tslS1lgPltv4YqNMmw1EF4p3i458PpxFw
-	qQ9OCrWpQ3KufxitpicUv1UdFBBAzfkfzKoU1PLdwYqkuOwS7e4JrA08jUkmnIuydeija+38/FOR3
-	N+MocFL/liDnaKTzf4Y3cIK9Tz4e1Oj3xMzg==;
-From: Andreas Kemnade <andreas@kemnade.info>
-To: aaro.koskinen@iki.fi,
-	andreas@kemnade.info,
-	khilman@baylibre.com,
-	rogerq@kernel.org,
-	tony@atomide.com,
-	linux@armlinux.org.uk,
-	terrelln@fb.com,
-	dsterba@suse.com,
-	linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: omap2plus_defconfig: Support for compressed firmware
-Date: Fri, 28 Aug 2026 23:28:43 +0200
-Message-ID: <20260828212843.614296-1-andreas@kemnade.info>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyyiH+Br"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17DB61F000E9;
+	Fri, 28 Aug 2026 21:31:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787952678;
+	bh=vtiMS/3YslYhddnyU0cS2S0GILaOrhkFCql6qI+eOOg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IyyiH+BrPBg2ehoA0W8i4rSUiq16bhTtSxFggxUjyx7XQoGmUcdQkbxb/5XD1dP29
+	 idJE103gb4kCd1IBD4StT8oT3veyk9iAqwFfgyD3mIzRm6tO5bt3ZpLuib7OPg+Brh
+	 Obcb3rr5yuBWfCXhNWoOWMqNuaWrtuR1RElT6o+/RK5747WIOTotk+njxMh2ZNiAIx
+	 pgTeQjn7HG+OFrBKDYhOPGsqlpxD+X8r0CY82R9EWHZrVfuOmg9ruzCFsGlXsNAy/I
+	 kp4YPwwCLd3+pu510nugQJYYXA8V9lxCcvktfuhwN0ravbkiLg6Rq31E7SQ7Skf4jw
+	 KFe11/YiNFWDw==
+Date: Fri, 28 Aug 2026 14:31:14 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org, ojeda@kernel.org
+Subject: Re: Prebuilt LLVM 23.1.0 uploaded
+Message-ID: <20260828213114.GA430879@ax162>
+References: <20260827190431.GA1817346@ax162>
+ <CANiq72nM+yxePYAD1wM+_Wjhm3E6+TpwXkP6BAK9ZwkuJqkNbQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANiq72nM+yxePYAD1wM+_Wjhm3E6+TpwXkP6BAK9ZwkuJqkNbQ@mail.gmail.com>
 
-Especially zstd-compressed firmware is at least the standard in Alpine,
-so enable it to avoid confusion when using firmware from such distros.
+On Fri, Aug 28, 2026 at 06:56:37PM +0200, Miguel Ojeda wrote:
+> By the way, in the table in the LLVM page, it is still has the the -rc3 row.
 
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
- arch/arm/configs/omap2plus_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+Hmmm, interesting. My generated index.html has 23.1.0 in it locally and
+there is no error when uploading with kup, so maybe it is a mirroring
+problem? I'll reach out to helpdesk@ to see, thanks for noticing!
 
-diff --git a/arch/arm/configs/omap2plus_defconfig b/arch/arm/configs/omap2plus_defconfig
-index f827f89567fdf..01b834d4b7106 100644
---- a/arch/arm/configs/omap2plus_defconfig
-+++ b/arch/arm/configs/omap2plus_defconfig
-@@ -268,6 +268,8 @@ CONFIG_PCI_ENDPOINT_CONFIGFS=y
- CONFIG_PCI_EPF_TEST=m
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y
-+CONFIG_FW_LOADER_COMPRESS=y
-+CONFIG_FW_LOADER_COMPRESS_ZSTD=y
- CONFIG_OMAP_OCP2SCP=y
- CONFIG_CONNECTOR=m
- CONFIG_MTD=y
 -- 
-2.47.3
-
+Cheers,
+Nathan
