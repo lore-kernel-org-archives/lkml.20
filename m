@@ -1,226 +1,395 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012052.outbound.protection.outlook.com [40.107.200.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D2F3F1068;
-	Fri, 28 Aug 2026 01:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24704224AF1
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787880833; cv=fail; b=JVcB5q/8ddBftSqH49Kxu3/3YowO6r1rzHaoRY7uo+DgBjIxSK/4G2DQUSdJMXYAltqRjGtAnqxLq6/GzgytPOI6nMdr32gIw21z/quQ3J7pl5pl3O/tlwocgXehrBo6CSx3MmnL4a9obGZJPgD/i72u1jZatFyiXzcCfzN1m6w=
+	t=1787880870; cv=pass; b=fPKwGBwJX6yvyG9gJz3/CCDi+n/1/ChcBQlYc1CnCoHPyVKFQbYLoGr8+w5LTxVIngiuGqGlvncLrkZWytC/2ua4u6MoOrPHZWoIRUbMnE+W/NScSarUyPFXuL20pr8IFRUC6QKXtgLalsLw0+Nl0j0TyLq8SDW8y1RTJmEX4Ek=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787880833; c=relaxed/simple;
-	bh=f2NLjHfMJiGNnPyy8LKuCds7HifuaFvyS5gIwTuiflM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=j1Za9UC5HW4vf9LeARKH/X35nHUBMfMJ1oAoK93nUkDXmMJNxliGbYL9hxkhceUEb1MOfJb1MdvlbTBeRCJQzIilXHMn3GO3d+xp0OrwqrGMW/9k8rEbtWB2cUtQodmUT2OqTxd/7By8zceoJDrkwNL3HHgkp21AgLZ01o8p+WE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GCvmFgLL; arc=fail smtp.client-ip=40.107.200.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1787880870; c=relaxed/simple;
+	bh=AUn4DkMjfbz0V9bw2QLRkD+OcVVZ5kBHdFTD2sSMLKU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I6WNlgrGkQPqmGuDGxBxjqrtEZUUjLRN+RjJhCpqzut68oYcv23D82cQNLdmZFKEMHzPHdVVHGmMQD+uPdfjxdq1WBaNUS08CCskjn/3QA4YbeSDilQTBIQlA2S3Y7ick93tneDbAjcNPJVrfNCDH37KUZliB9n8DkjGT2ghXNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=REaBnfks; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GCvmFgLL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DY0S9yk+5T7nflLifKha0mmwAkLZBGi0Yf2rKRFV0n6q2dbTmngKlLe15m49I3+u6GVyhwPXEIXIUHOPqFlBcuv3GLvtu7StQx+0xdEVVRjuudEkCWf6qIDF92a9pubDaAQYdA/rZgK2zlsPSlxWIc5oAJXwI3/lKJnAH8jMDAcHzvr7nUShu5yQssBw+nzWO6GNsdps1Zot9hocgbRyajD7gpZooLHMcTsalmSlgYjrRX8MtRne0KBga6rcFy48DmxPTKV/2j4dNdBlhtKsBr2BRDDCKkX7zCZmmQIVh/ZSsrTB2AXDISLYHxANSbB9eXg2qTxzSTL1rB3gE0Gu7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ohFDdh4m5HTyj9rSKKYk+PtZTS27I2ZntPwkMhq3lkM=;
- b=fuSDD72DzevG7lMEiFlmOfDojSqipsY8o2Cnt+C7mqVIpqmDvJVnUHbxq3xlGPgdAIhOLgOJwgkZ4dEqM8GCRJrsjwEKfoPkk1gXwElTkwEYz8WJ+N/lqXXlxv3OVuU3/watz4oWJAsxZigP7BhMWiy1YZDSDL/PRR6mcHtn9QI1Qc/BcSjO8Ani10GA+/8s3JlW+50IVO6HuTRlgghrl4fcpqSKdrPb1LVCS5YGeW3KJ1LNUdjlboqL7gX04B3LTvcEIJT01l4vhqRh3eHvfAr6JyWdEIshXOkvTFzOIDhCUCM8IsN4mK8gkOOn9lOJQrIT0BaDZJh77JY+t/MpWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ohFDdh4m5HTyj9rSKKYk+PtZTS27I2ZntPwkMhq3lkM=;
- b=GCvmFgLLjW49nhrcw3QOsIEeDn3v5HrmoyhXRqlrJ1wx0axxDoIdQqe0i6yDByM+6/3GO2sWmifl4e2OT83Z2NDfSll8jenhTcOWP9dYr27MGUWUMy/U7979KaCgHje4wK1Oe+UHrtx0w1LU8UxNzeJje43bECh7hX0+2r48qUsfVNbSchLeSnnsoKNzK10uENa27e38sAhZBvkxirinTxCWc3bfWVHQzg8QiTj80nWzje2helLcQjErYt7GwzQVRd1ZGdFhXsWKaYYyuxAk115m4PLaCMYjBHcJ0o6d8o5tJ+7MonDYyS8Ys3PLeT1T9gbBOB233EXdNR84jII+Wg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH0PR12MB8776.namprd12.prod.outlook.com (2603:10b6:510:26f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 01:33:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Fri, 28 Aug 2026
- 01:33:48 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 10:33:45 +0900
-Message-Id: <DL06UWAYHK5E.3GMA2E2HA0AE@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 14/16] rust: io: register: remove relative registers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-14-3699a75fadf1@garyguo.net>
-In-Reply-To: <20260819-typed_register-v3-14-3699a75fadf1@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0149.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31b::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="REaBnfks"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso81021166b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:34:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787880865; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dH8Dywjdu44v02PgWowi6dOk2MutN5JOBSX6fXZynEoNEsRYu5HwFXMhMbN7KnRYXh
+         YliUYIYS5ENFzzAMEww6guezkuEiwh7KLUaGeMQz9SjwDBH7yP2b6rO2IC4naGUUBrqF
+         3GO2rY1+uns3quzuMxDJPoiNTwK/+dKkmhrQlX/USC5rN9fgnIdsAIoI3c+MIi2dbg8h
+         NoCjDn0azODt4AP1bgUw24eYNiG3qsMMOkySidlbkzG53C8u+2gb4I3P8FQ7HKsBZ9B8
+         Z2u+SeO2FYREEXf9cEBD0ud00psYyZpgTXnQA3v6tEZ4DR24hnrSQnh8BaVYNI+TBUgm
+         kFcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rsZyppuQWLfhq5DS8SqBctU08ErRMd+s2J1xe+oQRY0=;
+        fh=+htjnDbtzDrjyfDzOimJ4PouXHXYjFzZyRUPQP49c1g=;
+        b=NV2paI6b2VXc9wuZtIagfM7xTTo573zzp8CusgEbWWZYSRWgSiXJJETUjyoAtFub6A
+         3uCXY+K5l6fUoIrzlb7L6HP95LdPr41B5uhz3pMO51XsY059rO6ZB65TNXWww7iBi5v+
+         WxdSwdzrxap0+XUuCJlDK6MkjU5yY2LI/EZlaxcNmu5cECrrDZx1vBdGIcEPRdxabWRi
+         EmLwsMeAeca8nF+lYPpR6PhzrQgir7gjpd2Ox99iMLZ91bkudod2jJ7qEGQeq5fagMvP
+         XDbzI1/NfF+N8z3O/Z+LjfSCHz4IdCKg/we4zrFMEYWXVnOrvjKmH0rP/DMFXt/mJUlY
+         161g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1787880865; x=1788485665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rsZyppuQWLfhq5DS8SqBctU08ErRMd+s2J1xe+oQRY0=;
+        b=REaBnfksxxyOxHYUZyu7EQK3yB3UFkwoQtO8/7MGudu3ZA3Z7hVre+dhIt3ZUJN6jg
+         nI3nPNYfxCkfwkfcm8adDTVoxcxMf8M4eGxE96D+yJBPQA66VcYwuxv3L0I8cKUgj2Ze
+         D1xPmFmO9fTdiizA+dlOcP1Ai3cdAMvzUYLmc8AwlIlmZ3qSgSksPgqPFAGskMSbw8jv
+         BLviHWZE4JvEV3ivXHI/gZYrn4YLvK4T+A+6AcfiHD0JM29kRr5a08E1c6o6z1axUFQ6
+         HIiSO1S2z56a22xFJ6PQk2oAuJ/e0rb+oA82B5zI9spJDANQWO5wgihoCPU6NlUGy7Ca
+         zT3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787880865; x=1788485665;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rsZyppuQWLfhq5DS8SqBctU08ErRMd+s2J1xe+oQRY0=;
+        b=irsyhwP+xzWTa27N2OCEalbgejMVz8c+QIhS4a6ma/gWUIFnDZNYXP6Azg203EpuDw
+         jv7dZjObhiRvTrhcdTCF9VDoVU3UEw1+1EVGspGyDm5xLjTCo19GySNYoIOQtvBCerl1
+         eOj1tNkGgVNHIBiORnM/1+Xo+rcGThYLL9tuXkTzCyMXGq89TDfstYY84gQMPiIKcgfs
+         0VusZPl9VQpvLedcGGqKkyCaBkSbW5Fxujrm3OmfVwquhi7fx0tAw5X+LgsLSRkq+cGC
+         U4yj91f4C7RgqM7U2MD5TgJPfOUBcW9SOddg4QImOcCnZmHlgWxiZ4Cc2LYpiDJ/HQ8E
+         Uyyg==
+X-Forwarded-Encrypted: i=1; AHgh+RqbQ8qa63xpf/hADgTmjj5dv0/o+DS5TlvwbSzqFX975B8Kq56Lha3WK6yV/MBXJa1puPGoY0mMubTx3Vc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZbs+D6UydO+2byMK+uRSBhhRSoMGbZTSPxH/v8b6xXMI9CGqF
+	QrktejfHhxVhTP9QNA3cc0PQGIlZqUMAHECDnACvUqQi+3HizQCHCPfXBvTEz54eroeKQYQrrXC
+	1qf2gYbiXnRejin5l0iMW1YmvRgBhR/pIJ4kTd9Qz8Q==
+X-Gm-Gg: AR+sD128Hl/QN2S9PN1k5CLqfMs24P1DbT4bBbkA/s9fAeezNRZt87+Gso6k/7CuT3d
+	rY2Xyvj2QYCuEdY9oZxeCI2QKSz40sTkFPUVKiwN4Lh/CrjFKxMy8d8/0PTsS7CkoAkR2Oo6UsF
+	pDphIkCbR1jWpD9Y9WRTMvRB3GW3zwFBSFpzE4e+NocTUi7gpl+nSswhTDY96W5JQtc+5hRtWPa
+	jPc/VZoY1ANBsN6bkOULK+4Zjo192CoIYwCe/hlWF94faLphYMfEh22Sh37tk6uXwLHdP/oJTUN
+	e2bZv0ZPP2LLk53+rFojK/0GqGg+T0cD5sfbKiZidsA/3yq9n4U3xC6AbA==
+X-Received: by 2002:a17:907:3c91:b0:c15:ee0d:9a32 with SMTP id
+ a640c23a62f3a-c25571b8fa2mr166349366b.21.1787880865465; Thu, 27 Aug 2026
+ 18:34:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH0PR12MB8776:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a3cca30-ed35-4434-8af6-08df04a4683a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|10070799003|366016|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2wwauoR57ULCk7+EDw7rUS+yu1eJhE1i/9OlpUBYHS4TLL5uogV7KCYxGje55/s3XnRZBdD47ahLvovYO77CtWGNlbnVDWi5rrVaDSKm+I+p0JfjnhYK6DissArivvc5dSPzbzq8eF4wIAgIO+QN01c12Wc6j3jsu4uen01CBlm4Ywu1ezSxKBdd6lS/QDrCu3coJkz5TZNrbm64IZHMsjUhvHEQRYU9T54rC05yIaXOYw7Cpf3AHp24ivK9PW7c3B30au22ufrQeMtwV0Cd57/sdVQVx67+4aZ3CR+VMe7bbpX33jC9XhBlzwCWeKqGOgZLlxGYSMaYAzp6moxgAqeSKYpx6gkxaiYH4WkajtrGHbh8qx5kArKYJfYRpQ4dXGcZfQ4As/pM7RbnArErNMnx6Q7x+1U+eZAYdgU5/K56iSis7N+9tpWcCQcSMQLw3VKOTxkuwyNbpD8ZiDPt48ZnIhb5f+gH8PZPKiAbgd+acD6dr7FMdtnyq/NfeoK21ZCF8+RyBIAiGTyVFCGJcNVHGB89qJWHsYgsib94h2f2jVrcqDbAY0aLSOy9gUgaItJKMPtv6uvTfR8WeESrqzibKCK7Nqat5864V1EuTkvyfaTjryXfAA45BaysRAB/eYLaIcnKFccAyDfZswvty2TDDudGW7BhIoEj6nWv9IY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(10070799003)(366016)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHJiZHdCN292cUlvMkV3TmZVTVZ2RHZwL2JnN05DTFhFVUpYSld2OW1PSFc4?=
- =?utf-8?B?OWZiMExGaE5CQVhzVldiN2ZFcDZyRzcyR2xibTZFZ0JUdFo5V2JOQzlPelFN?=
- =?utf-8?B?M0d4MjlobDJyNlVieGhSaG54QWtzUkNpcVpUMTEwSDh1ZkJwNEVWRlNDRUxi?=
- =?utf-8?B?dzJlcVpSc0ZIYTk3VWtyTUxBQ3hDSUllblNIYjNCSmpwY1J3NHRiSGkrUnZi?=
- =?utf-8?B?M1J3dm81ZVczUjFOWnNLYlo0OWlaVGlzRmROeUgxQmJ6WkJmSDY3WjFJamNi?=
- =?utf-8?B?dE9yaHdnaUZuMWpwQWk1WDJ6L0l4bGU0V2M3UU5HYUdRMFUrOG1ZNkpBWWJq?=
- =?utf-8?B?QW83dWk4b0drc3dDZXVUcmhRTDZjQUsrKzgzZHZadi9UOGh4SjhCVzJsMks0?=
- =?utf-8?B?b01wNlhKTU1Qamg0WFJIZXpQd1VaQmdhb0FBOHZjK1Zvam9KM0w2b3lKTldY?=
- =?utf-8?B?N2hoOFlseW0vVEVBbEFHSzZkYTdKdXluVStYOXMvRTF3SUlINUhNT1NlZGJD?=
- =?utf-8?B?anZDZWx3MlBMNzh4ZmJSTWE0MEZpVTMwRjRvWURoTUVUQ3BURWIvd3RieVlk?=
- =?utf-8?B?WVZ0NE16OWNDcHIyU0cvTytnc0Nvanh2dDdMTktzYWhUVjRGRm9UNnkwRkdo?=
- =?utf-8?B?emZTK2kwSFJXd0h4TjQ3TWRCcXB6elpsMnRPMXVoUEtpcDdXUTBCSUlzcEJZ?=
- =?utf-8?B?a1NYUCtKQ2RRVzB6dWdpWXdUcUJDNWUrOXRXc3hrbzZWdC9tOU9yek8yclpQ?=
- =?utf-8?B?a0NPelNhdjkyazFTQklwV2c3dFd1Z2g2RnYrT0JzcU9oc0Iyd3N4MGN1TXBO?=
- =?utf-8?B?WElSN1RWcmtYMWI2emo5dmUvOFA0QnZLUVNsQlc4dE52bnk3ejdaTDZsWXhJ?=
- =?utf-8?B?bURscUJtSnNSZ0lnM3E5aTBjRm1EODZFMXV5OWp6eVFhdWk4RW5QRXNYSE90?=
- =?utf-8?B?NlVJNE5iclNCc0RCUHlXMzU4cFptWnhOVWpDMzh5RTI3MCtqMXh0bG90aHlC?=
- =?utf-8?B?UmRnc0M2QjhUZVZnNkpoY3pUS2g2OUs3U0lyKzdiMWtUYWxWVXcvUkx3Q3J3?=
- =?utf-8?B?MlIzUlBxYUxSSU1aRWVUaTNPRjNkekgzRXMxNDRrdGtIR1hUcDV2WkowRlkw?=
- =?utf-8?B?cWZkeUpkVGNUSkJUWmdicG5LYlVDZjBQbDBaRUp4THNtMmxmUXIrdG9XeEV0?=
- =?utf-8?B?emZ2bzZsc2R1NzZPOW1pYmVHc3BQWld4MkhERnlHQ00zazNiVjNvcnpETm1j?=
- =?utf-8?B?cE5CNDNWQTNoMnRxNWRlMmJVbGxFRGVvQmlvOVlZUTE0K3E5dnRlSUIxUk42?=
- =?utf-8?B?aVA0bTZyaVk5M1VBL2R4Z25iV2lBNmtnL1gya1c3RjJpaWpjVTY2bTE0S29v?=
- =?utf-8?B?dWJ6MkdlMVU3RHVjUTREWlNTUlRXRytZMURKdjBSanJ0S2pYeHYzUHFtUkFn?=
- =?utf-8?B?eCtjdUxycDlEL0l3bnNPYUxwS0x3S0grb2RHOUN1K09VbXZpdXJvWEhzOVVk?=
- =?utf-8?B?N0lpSEVqS3p6TzBjM3A1dDd6WWhCU3FZRmtnMGlUeURjSXIvTUtCamhianZF?=
- =?utf-8?B?cDFMSnhhd3NEbElXQWhvaGJjVldwbVRYZ3FvckdxeWxmaE9NLzNueklLeXRU?=
- =?utf-8?B?U0p3L3Azc09EdkxWWHUyRFg1SnRTcWwzenZOWWwwK2gzR2hVQ090RUxzRlJ1?=
- =?utf-8?B?K2Y3N3BuQjh1bVB3VW43bmpTYUJPUjlzRHlaNkNaNkFWSFpKNVpDVjVwMUtz?=
- =?utf-8?B?dUJ1cFdyRjRhaEkxTE5HQUlBMitOUkw5UDZjUmdIdmFVdGFzaktySEhTVlhE?=
- =?utf-8?B?WEZZdmkyM3Z1ejFqTnFlNWd5K1ZNZ1dKSFAyUmdmZk1lYktleWxJL3N4YldI?=
- =?utf-8?B?WXBaODdzSFpqWS8zVDQ1ZnEzN29KOWpSUnFRVmZZOHlhSU1BUHF1Rmc5WUZB?=
- =?utf-8?B?Q2tCZVVBbXprMVc3ZXNnWUVieFZrYWdEdFhCUVBrSmUzQ1R1QnF6M1UvT2lq?=
- =?utf-8?B?d1ZJbGRoc2lERmF2RVhsZDFhY011WHNNaFkxYm9MeEZMOTRBVGNUQjVCUFho?=
- =?utf-8?B?U2FQRnMxekpBOE1GcldobW03YUk0Q0hkMFJYa3h3R3BmYUhPa2N5QS95dEo5?=
- =?utf-8?B?blBiTVRVdG1BNGxzbHhZQXU2WnVUQm02SlVibkE1a1o0Y3o2Q3RuejRHdVpk?=
- =?utf-8?B?WVJTeFp3ZU1RcGNBQk5mb1VsT29OalpDd0lucndxbGZZeVdJQVNPOGQzQlAx?=
- =?utf-8?B?QzVHVldPeVBMdlpBN0lGbEZzVy9EbnRHbUc4aVJXWGVkRDAwMEhlb2JKR1FT?=
- =?utf-8?B?aHM0b2dKYU15ZjBZeHU0TjRIL1gvbElkaFNIdXlhenNndFJ6WHFHTGJmU2V1?=
- =?utf-8?Q?nxHCBF+PRxKV8lJKF0NfOSZEOUXMFb8R+cmeU3uE7dhuL?=
-X-MS-Exchange-AntiSpam-MessageData-1: DjUI8N6440ZWKQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3cca30-ed35-4434-8af6-08df04a4683a
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 01:33:48.2161
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WuQf8BTjoL+osAe8lgj6E1+wT05wJ3CfaqZZMQNb6ppcolMc2dZ0iKx4w9x0JBZ0sTalabM1BjEfdUkLPYQ0kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8776
+References: <20260824022034.3916570-1-zong.li@sifive.com> <20260824022034.3916570-2-zong.li@sifive.com>
+ <ab59c5b8-2915-4d59-8766-7a6297224494@picoheart.com> <CANXhq0rBYWyLztFQzLCPx1vMSdahcuH-kfKPGO+WRDvFEW6Osg@mail.gmail.com>
+ <6c4c4785-eb68-47b2-bbf5-ad77a9414100@picoheart.com>
+In-Reply-To: <6c4c4785-eb68-47b2-bbf5-ad77a9414100@picoheart.com>
+From: Zong Li <zong.li@sifive.com>
+Date: Fri, 28 Aug 2026 09:34:13 +0800
+X-Gm-Features: AcwNN1Xen4xFnCyv1PkZQefqoDWMXNLxWGjnJH5Zg8I4ZwvV5fK_3heb91B4sRM
+Message-ID: <CANXhq0qrjGq26OoduJ9Z7NnMZOJnE5vqSQ=POhcD8vDJyTcUSQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/2] drivers/perf: riscv-iommu: add risc-v iommu pmu driver
+To: Yicong Yang <yang.yicong@picoheart.com>
+Cc: tomasz.jeznach@linux.dev, joro@8bytes.org, will@kernel.org, 
+	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, mark.rutland@arm.com, 
+	andrew.jones@oss.qualcomm.com, guoren@kernel.org, 
+	david.laight.linux@gmail.com, zhangzhanpeng.jasper@bytedance.com, 
+	iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	Chen Pei <cp0613@linux.alibaba.com>, Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
-> Relative registers can be better served by projection to subregion instea=
-d
-> of ad-hoc handling in register macro. Projection composes better (e.g. it
-> natively allows relative registers of relative registers without needing
-> additional support).
+On Thu, Aug 27, 2026 at 5:57=E2=80=AFPM Yicong Yang <yang.yicong@picoheart.=
+com> wrote:
 >
-> Remove relative register support, and update the documentation to
-> demonstrate how projection and subregions can be used to achieve this
-> instead.
+> On 8/27/26 5:22 PM, Zong Li wrote:
+> > On Wed, Aug 26, 2026 at 4:28=E2=80=AFPM Yicong Yang <yang.yicong@picohe=
+art.com> wrote:
+> >>
+> >> On 8/24/26 10:20 AM, Zong Li wrote:
+> >>> Add a new driver to support the RISC-V IOMMU PMU. This is an auxiliar=
+y
+> >>> device driver created by the parent RISC-V IOMMU driver.
+> >>>
+> >>> The performance monitor provides counters with filtering support to
+> >>> collect events for specific device ID/process ID, or GSCID/PSCID.
+> >>>
+> >>> The RISC-V IOMMU PMU separates the cycle counter from the event count=
+ers.
+> >>> The cycle counter is not associated with iohpmevt0, so a software-def=
+ined
+> >>> cycle event is required for the perf subsystem.
+> >>>
+> >>> The number and width of the counters are hardware-implemented and mus=
+t
+> >>> be detected at runtime.
+> >>>
+> >>> Leave out all the dead cleanup code (i.e. .remove() operation) if the
+> >>> PMU driver is tied to the IOMMU driver and can never realistically be
+> >>> removed.
+> >>>
+> >>> PMU-related definitions are moved into the perf driver, where they ar=
+e
+> >>> used exclusively.
+> >>>
+> >>> According to RISC-V IOMMU specification Chapter 6:
+> >>> Whether an 8 byte access to an IOMMU register is single-copy atomic i=
+s
+> >>> UNSPECIFIED. Use two separate 4 byte accesses for hardware
+> >>> compatibility.
+> >>>
+> >>> Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+> >>> Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> >>> Reviewed-by: Guo Ren (Alibaba DAMO Academy) <guoren@kernel.org>
+> >>> Suggested-by: David Laight <david.laight.linux@gmail.com>
+> >>> Suggested-by: Guo Ren <guoren@kernel.org>
+> >>> Link: https://lore.kernel.org/linux-riscv/20260618143634.7f3dd6c5@pum=
+pkin/
+> >>> Signed-off-by: Zong Li <zong.li@sifive.com>
+> >>> ---
+> >>>  drivers/iommu/riscv/iommu-bits.h |  61 ---
+> >>>  drivers/perf/Kconfig             |  12 +
+> >>>  drivers/perf/Makefile            |   1 +
+> >>>  drivers/perf/riscv_iommu_pmu.c   | 813 +++++++++++++++++++++++++++++=
+++
+> >>>  4 files changed, 826 insertions(+), 61 deletions(-)
+> >>>  create mode 100644 drivers/perf/riscv_iommu_pmu.c
+> >>>
+> >>
+> >> [...]
+> >>
+> >>> +
+> >>> +/* cpumask */
+> >>> +static ssize_t riscv_iommu_cpumask_show(struct device *dev,
+> >>> +                                     struct device_attribute *attr,
+> >>> +                                     char *buf)
+> >>> +{
+> >>> +     struct riscv_iommu_pmu *pmu =3D to_riscv_iommu_pmu(dev_get_drvd=
+ata(dev));
+> >>> +
+> >>> +     return cpumap_print_to_pagebuf(true, buf, cpumask_of(pmu->on_cp=
+u));
+> >>
+> >> needs to use sysfs_emit(), cpumap_print_to_pagebuf is removed in 7.3-r=
+c
+> >>
+> >> https://lore.kernel.org/lkml/20260702154725.185376-1-ynorov@nvidia.com=
+/
+> >>
+> >
+> > I will fix it in the next version. Thanks
+> >
+> >>> +}
+> >>> +
+> >>
+> >> [...]
+> >>
+> >>> +
+> >>> +static int riscv_iommu_pmu_probe(struct auxiliary_device *auxdev,
+> >>> +                              const struct auxiliary_device_id *id)
+> >>> +{
+> >>> +     struct  riscv_iommu_device *iommu_dev =3D dev_get_platdata(&aux=
+dev->dev);
+> >>> +     struct riscv_iommu_pmu *iommu_pmu;
+> >>> +     void __iomem *addr;
+> >>> +     char *name;
+> >>> +     int ret;
+> >>> +
+> >>> +     iommu_pmu =3D devm_kzalloc(&auxdev->dev, sizeof(*iommu_pmu), GF=
+P_KERNEL);
+> >>> +     if (!iommu_pmu)
+> >>> +             return -ENOMEM;
+> >>> +
+> >>> +     iommu_pmu->reg =3D iommu_dev->reg;
+> >>> +
+> >>> +     /*
+> >>> +      * Counter number and width are hardware-implemented.
+> >>> +      * Detect them by write 1s. Counter should be consecutive.
+> >>> +      */
+> >>> +     addr =3D iommu_pmu->reg + RISCV_IOMMU_REG_IOCOUNTINH;
+> >>> +     writel(RISCV_IOMMU_IOCOUNTINH_HPM, addr);
+> >>> +     iommu_pmu->num_counters =3D hweight32(readl(addr));
+> >>> +
+> >>> +     addr =3D iommu_pmu->reg + RISCV_IOMMU_REG_IOHPMCYCLES;
+> >>> +     riscv_iommu_pmu_writeq(RISCV_IOMMU_IOHPMCYCLES_COUNTER, addr);
+> >>> +     iommu_pmu->cycle_cntr_mask =3D riscv_iommu_pmu_readq(addr);
+> >>> +
+> >>> +     /* Assume the width of all event counters are the same */
+> >>> +     addr =3D iommu_pmu->reg + RISCV_IOMMU_REG_IOHPMCTR_BASE;
+> >>> +     riscv_iommu_pmu_writeq(RISCV_IOMMU_IOHPMCTR_COUNTER, addr);
+> >>> +     iommu_pmu->event_cntr_mask =3D riscv_iommu_pmu_readq(addr);
+> >>> +
+> >>> +     iommu_pmu->pmu =3D (struct pmu) {
+> >>> +             .module         =3D THIS_MODULE,
+> >>> +             .parent         =3D &auxdev->dev,
+> >>> +             .task_ctx_nr    =3D perf_invalid_context,
+> >>> +             .event_init     =3D riscv_iommu_pmu_event_init,
+> >>> +             .add            =3D riscv_iommu_pmu_add,
+> >>> +             .del            =3D riscv_iommu_pmu_del,
+> >>> +             .start          =3D riscv_iommu_pmu_start,
+> >>> +             .stop           =3D riscv_iommu_pmu_stop,
+> >>> +             .read           =3D riscv_iommu_pmu_read,
+> >>> +             .attr_groups    =3D riscv_iommu_pmu_attr_grps,
+> >>> +             .capabilities   =3D PERF_PMU_CAP_NO_EXCLUDE,
+> >>> +     };
+> >>> +
+> >>> +     auxiliary_set_drvdata(auxdev, iommu_pmu);
+> >>> +
+> >>> +     name =3D devm_kasprintf(&auxdev->dev, GFP_KERNEL,
+> >>> +                           "riscv_iommu_pmu_%u", auxdev->id);
+> >>> +     if (!name) {
+> >>> +             dev_err(&auxdev->dev, "Failed to create name riscv_iomm=
+u_pmu%u\n",
+> >>> +                     auxdev->id);
+> >>> +             return -ENOMEM;
+> >>> +     }
+> >>> +
+> >>> +     iommu_pmu->numa_node =3D dev_to_node(iommu_dev->dev);
+> >>> +     iommu_pmu->irq =3D riscv_iommu_pmu_get_irq_num(iommu_dev);
+> >>> +
+> >>> +     ret =3D riscv_iommu_pmu_request_irq(auxdev, iommu_dev, iommu_pm=
+u);
+> >>> +     if (ret) {
+> >>> +             dev_err(&auxdev->dev, "Failed to request irq %s: %d\n",=
+ name, ret);
+> >>> +             return ret;
+> >>> +     }
+> >>> +
+> >>> +     /*
+> >>> +      * Bind all events to the same cpu context to avoid race enabli=
+ng.
+> >>> +      * Pick a local CPU from the numa node of this iommu for the lo=
+cality.
+> >>> +      *
+> >>> +      * Hold the hotplug lock until this instance is registered, oth=
+erwise
+> >>> +      * the CPU picked here could go offline in between. The teardow=
+n
+> >>> +      * callback does not run for an instance which is not registere=
+d yet,
+> >>> +      * so nothing would move the PMU off that CPU afterwards.
+> >>> +      */
+> >>> +     cpus_read_lock();
+> >>> +
+> >>> +     iommu_pmu->on_cpu =3D cpumask_local_spread(0, iommu_pmu->numa_n=
+ode);
+> >>> +     ret =3D irq_set_affinity(iommu_pmu->irq, cpumask_of(iommu_pmu->=
+on_cpu));
+> >>> +     if (ret)
+> >>> +             dev_dbg(&auxdev->dev, "failed to set irq %u affinity to=
+ cpu %u: %d\n",
+> >>> +                     iommu_pmu->irq, iommu_pmu->on_cpu, ret);
+> >>> +
+> >>> +     ret =3D cpuhp_state_add_instance_nocalls_cpuslocked(cpuhp_state=
+,
+> >>> +                                                      &iommu_pmu->no=
+de);
+> >>> +
+> >>> +     cpus_read_unlock();
+> >>
+> >> it could be simplified to init the ->on_cpu in the hotplug handler wit=
+hout
+> >> holding the cpu hotplug lock like below:
+> >>
+> >> iommu_pmu->on_cpu =3D -1;
+> >> ret =3D cpuhp_state_add_instance() /* init the ->on_cpu in the hotplug=
+ handler */
+> >
+> > It seems we might lose the benefits of cumask_local_spread this way.
+> >
 >
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+> could use cpumask_local_spread() in the online handler for a local cpu,
+> refer to dwc_pcie_pmu.c.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Yes, you are right. Let's modify it in the next version. Thanks
 
-And good riddance!
-
-<...>
-> @@ -763,115 +511,83 @@ pub const fn element_alias_offset<Base: ?Sized, Al=
-ias: RegisterArray<Base =3D Base
->  /// # }
->  /// ```
->  ///
-> -/// ## Relative arrays of registers
-> +/// ## Relative registers
->  ///
-> -/// Combining the two features described in the sections above, arrays o=
-f registers accessible from
-> -/// a base can also be defined:
-> +/// There are cases where a register region is subdivided into small sub=
-regions, and you may wish to
-> +/// have your register definition be relative to these subregions. This =
-may be needed, for example,
-> +/// if these subregions are instantiated several times, or you just want=
- it for encapsulation
-> +/// purpose.
->  ///
-> -/// ```ignore
-> -/// register! {
-> -///     ...
-> -///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride =3D 4] @ Base + 0x100=
- {
-> -///         ...
-> -///     }
-> -/// }
-> +/// For instance, imagine the following I/O space:
-> +///
-> +/// ```text
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           |                             |
-> +///  0x100--->+------------CPU0-------------+
-> +///           |                             |
-> +///  0x110--->+-----------------------------+
-> +///           |           CPU_CTL           |
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           |                             |
-> +///           |                             |
-> +///  0x200--->+------------CPU1-------------+
-> +///           |                             |
-> +///  0x210--->+-----------------------------+
-> +///           |           CPU_CTL           |
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           +-----------------------------+
->  /// ```
->  ///
-> -/// Like relative registers, they implement the [`WithBase`] trait. Howe=
-ver the return value of
-> -/// [`WithBase::of`] cannot be used directly as a location and must be f=
-urther specified using the
-> -/// [`at`](RelativeRegisterLoc::at) method.
-> +/// `CPU0` and `CPU1` both have a `CPU_CTL` register that starts at offs=
-et `0x10` of their I/O
-> +/// space segment. Since both instances of `CPU_CTL` share the same layo=
-ut, we don't want to define
-> +/// them twice and would prefer a way to select which one to use from a =
-single definition.
-> +///
-> +/// This can be done define a new type for the subregion, and then defin=
-e registers that use the new
-
-nit: "done by defining ... and then defining registers"
+>
+> >>
+> >> otherwise looks good to me.
+> >>
+> >> Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
+> >>
+> >>> +
+> >>> +     if (ret) {
+> >>> +             dev_err(&auxdev->dev, "Failed to register hotplug %s: %=
+d\n", name, ret);
+> >>> +             return ret;
+> >>> +     }
+> >>> +
+> >>> +     ret =3D devm_add_action_or_reset(&auxdev->dev,
+> >>> +                                    riscv_iommu_pmu_remove_cpuhp_ins=
+tance,
+> >>> +                                    iommu_pmu);
+> >>> +     if (ret)
+> >>> +             return ret;
+> >>> +
+> >>> +     ret =3D perf_pmu_register(&iommu_pmu->pmu, name, -1);
+> >>> +     if (ret) {
+> >>> +             dev_err(&auxdev->dev, "Failed to registe %s: %d\n", nam=
+e, ret);
+> >>> +             return ret;
+> >>> +     }
+> >>> +
+> >>> +     ret =3D devm_add_action_or_reset(&auxdev->dev,
+> >>> +                                    riscv_iommu_pmu_do_unregister,
+> >>> +                                    iommu_pmu);
+> >>> +     if (ret)
+> >>> +             return ret;
+> >>> +
+> >>> +     /*
+> >>> +      * The PMU name only carries the aux dev id, not the iommu dev =
+name, so
+> >>> +      * find the iommu dev name here to map this PMU back to its iom=
+mu dev.
+> >>> +      */
+> >>> +     dev_info(&auxdev->dev, "%s: Registered with %d counters (iommu =
+%s)\n",
+> >>> +              name, iommu_pmu->num_counters, dev_name(iommu_dev->dev=
+));
+> >>> +
+> >>> +     return 0;
+> >>> +}
+> >>> +
+> >>> +static const struct auxiliary_device_id riscv_iommu_pmu_id_table[] =
+=3D {
+> >>> +     { .name =3D "riscv-iommu.pmu" },
+> >>> +     {}
+> >>> +};
+> >>> +MODULE_DEVICE_TABLE(auxiliary, riscv_iommu_pmu_id_table);
+> >>> +
+> >>> +static struct auxiliary_driver iommu_pmu_driver =3D {
+> >>> +     .driver =3D {
+> >>> +             .suppress_bind_attrs =3D true,
+> >>> +     },
+> >>> +     .probe          =3D riscv_iommu_pmu_probe,
+> >>> +     .id_table       =3D riscv_iommu_pmu_id_table,
+> >>> +};
+> >>> +
+> >>> +static int __init riscv_iommu_pmu_init(void)
+> >>> +{
+> >>> +     int ret;
+> >>> +
+> >>> +     cpuhp_state =3D cpuhp_setup_state_multi(CPUHP_AP_ONLINE_DYN,
+> >>> +                                           "perf/riscv/iommu:online"=
+,
+> >>> +                                           riscv_iommu_pmu_online_cp=
+u,
+> >>> +                                           riscv_iommu_pmu_offline_c=
+pu);
+> >>> +     if (cpuhp_state < 0)
+> >>> +             return cpuhp_state;
+> >>> +
+> >>> +     ret =3D auxiliary_driver_register(&iommu_pmu_driver);
+> >>> +     if (ret)
+> >>> +             cpuhp_remove_multi_state(cpuhp_state);
+> >>> +
+> >>> +     return ret;
+> >>> +}
+> >>> +module_init(riscv_iommu_pmu_init);
+> >>> +
+> >>> +MODULE_DESCRIPTION("RISC-V IOMMU PMU");
+> >>> +MODULE_LICENSE("GPL");
