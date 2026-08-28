@@ -1,202 +1,234 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D64275870
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0218443B6F6
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787923267; cv=none; b=o7ueL/wTcrSD4eiXg9K2yGjYf9Yws3y7vH4qbW0OlrIP3At/qawc2ELhPWNVFJaWwJSyNzLVpRragOc87qshBNJBZifgekM3NHR6QtAz7Fj/ME5E83/INDVhc2LSGr0gK9pgIrIWKx01IGu6uMTuHqVT7/YNJhaYQ7DaemOBjWg=
+	t=1787923271; cv=none; b=EyVlZqQL5ZPVDujHe434MuDZUxiyu4RPxNrFgQa8VgrLZ1cx0E6VBjo3Qb2c46plopedgLifu30KaQpBIDC+pffZH8SZ9yO013t3eoT+d5CKvK0HO/V9vt/lghWKWJpvJk4o5+lDqYktEIiU7xysq8zbAy2IJLO0vT6rVltMBQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787923267; c=relaxed/simple;
-	bh=ns6vabdA+KzCPnmZGWFA6+vVuPjYuLmrqN9pTxWPMAU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UQu9W2D4Br0BaywI9TWhHt2K6rn8YLWkEFZa5zDo+ZkCkdXctO8j+tSeAx75jLUKIvQ7xLlRMoKfRwkSLlIBMceyfgUWBu1IlJv7nnghrkrbAIlOnxX/ocGnuc1e2Xxhq39bU0EZ6ukLVRg35BRA2wiOqlvWEdGvTJZ0SvqSlP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=irF2wzFl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VIq/Ae9/; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787923271; c=relaxed/simple;
+	bh=itqN/gwS/i687N48L05stuHt671wjDtOCAZ7Zu9GEPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r2i9o3RZd2w4+v59/he1EWkemSjHNgppgLRj/rUBd1LWXyty2t3xj2wIKMm0GnEluQQSHYuEBDPRLcxIxNmflV9PP4fngcOvgMGLSH/NAJ7Z9zRdKM/3W/RAWjl8IN5NsBD41TJmOMvWtZM8Sio4YdqFXK039iyObOEIZPsbEys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdZoHXxx; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="irF2wzFl";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VIq/Ae9/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787923264;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V2F7fOxUu4V0dP2Sv1iyT3HhBi0Yf+rjtTWsb6sJWmE=;
-	b=irF2wzFlIJWYm/XsFRjwKh2wJ7Av9bTqWrEU+3nEbBW0Lx6vls6iGHfCe7AgIyYmrtkkpf
-	+5v3QlaMlJu42m4SVYQNR14URMY/Ei7bQwlYwl2ofpy+yFGKDsmny9r+74hbeErWmE/FNx
-	hv5vPpkErX8jeLvINbziymHbz93qSLo=
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-459-XrFYXHhCMuakLBPj7FqtBw-1; Fri, 28 Aug 2026 09:21:02 -0400
-X-MC-Unique: XrFYXHhCMuakLBPj7FqtBw-1
-X-Mimecast-MFC-AGG-ID: XrFYXHhCMuakLBPj7FqtBw_1787923261
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cec4226c70so12738385ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:21:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdZoHXxx"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso886330f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:21:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787923261; x=1788528061; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V2F7fOxUu4V0dP2Sv1iyT3HhBi0Yf+rjtTWsb6sJWmE=;
-        b=VIq/Ae9/XD0nHaVfK1nVFgP9A+x2tUU51isuMeCmuRevIuSb7oHlFQuA6c6e/NHHe2
-         DVu0AqYmYux9GTm0Pdhw3Q/VkJ2GfNAgPtRrZE8lUdW0z/vOXpkDxUIVBV99zvUVA/69
-         igcgbmXT6CVDXJp9GMGT7HKY3xv02QjPkuSYXyy5Q5QPB1+Hxm3ypWw+yLKeutl/E1En
-         6QqqNPxQVuh6UUTReRNRE7phDOYgzAiXcBbxiQo45Mw9PRi0FTj4NT4I3riNO7OzsFvL
-         qQx0Ctj4tsJAJaVcxpAH89/Z1p+JW/wQ93QpfXnHiRYElPs+lIywdxq+oJrhXg8nqMqz
-         3Gsw==
+        d=gmail.com; s=20251104; t=1787923268; x=1788528068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iKhErXnLCnts7fqquSWjOHgXXWcaxFgUdUyVBMAuuDc=;
+        b=cdZoHXxxJSpQUyZfZAqvJR4L+Ws+GR9zlanVJgx3RTOX71pCPx/ngEqa1ZQpF/xM8j
+         RS8GcL6pLLFmAn0kzZuZ4rs/HOMuQGEmwwGvyQg9Guho6o12SXhqcYgxOfQzn88b1O2o
+         paIdAtiy4idfRIqY/rEeaHeB68Mm47gNkbDuU3VR0cNdOmo6f17Thu5DMOE6rOoB9G+A
+         nGKW5rrQeEC0PySEQgfJhOxCuFE85Z+KcAD2tnBAIJ68/GKAeymGTmqS2iytS5qjSddI
+         u0Xq6tHy/2KFoTZCiMqFrTMqFhZAdYJEAwhZBO48RG5cozBkLHjhrRLffT9H+kpPHH1r
+         o03g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787923261; x=1788528061;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787923268; x=1788528068;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V2F7fOxUu4V0dP2Sv1iyT3HhBi0Yf+rjtTWsb6sJWmE=;
-        b=gj9ClICAEt7CnePG7ydY/iuwzLTU7HxqGBdUYUSPKJxA/940kET045eBo4eSGK/k3b
-         ebMwZ+s3jrYFI/m7SU/+OFBmRZkTg2U8DrXSnbVTeMnFfzC1GDsWt/pCaRJsHovBdFcD
-         EkIhOS5AQUtifMVWoIb6H8R1K05IkdDcxV577li1qzSLocfLAkgUSsZVSkSFmLK5bKT8
-         wh5sk+HouGQYg7wiNseBLq/FRr9KEUUGXhRwjurmkQgQ9Un4tJKP1SY5UXO+q9VbNVng
-         UXg0oPVeYFxJMkpuwyHaSlJZeD6j3TeDFV0rTWyR79ywTh1t7so/EUwoKxMoDEYZmicK
-         4Arw==
-X-Forwarded-Encrypted: i=1; AHgh+RpyJUDTeaBtfPUQ7PiwNOyaZOpekNzQI8hoGT6EzntWMpG+35f9vnZbZSmncvTXXaikCLWUiztdOwF2iGc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRgChchUh2vvvtxCyxrFqf1EHv1NoEzWSj3F9+uQYfVYVoE0sb
-	N3YMNzUk9G8jNsdE4R4ldhcACjQpY3utINSjZ7BOz2Q71QlwlSYqgT4uYq5uIq+33ALO2u2iA27
-	Ibh10CNpxSwaLd5Oej5jzFerIbLV04JIlbJjmpgRJRrxYkrs2xbtQ0RNCDl3kykrH/Q==
-X-Gm-Gg: AR+sD13RZZFQW7ZOc5IjzqY0aNFfrP7zkx+XY0nwm7CFoA3GAxb6RhRFyaNZYMr9w01
-	J7E46j6L+E5BDHe2CWSNIR04ToKrNLtok8DSdGtKXesOc+zdksZXgeQ3iuTBUAQYU+HpGPBUnld
-	EJAk3ZXG9LVdyHkY1MgE+sjyVmeU+JicJ2HG1QqoXfTxpXIThScRfJCvIcPaKpEAaapfZ8oT+fR
-	gph6eqNe2m3FozefmCOQFlbekzI4kM0ugo2+w+ieDrOGqkiu5WMpCd7IYUe7UyCgD/ZH5z/sEuU
-	HNqC43m+WkXmrxnuGwlL0iqaMYLGTOPAze7bvO16TQZ4WmcY34Qcojyowq/pWVNQqrdeniRKonn
-	wS1vbQk9BJDl9L7NM
-X-Received: by 2002:a17:902:ca13:b0:2cf:afe8:b722 with SMTP id d9443c01a7336-2d74deed25dmr102923925ad.11.1787923261362;
-        Fri, 28 Aug 2026 06:21:01 -0700 (PDT)
-X-Received: by 2002:a17:902:ca13:b0:2cf:afe8:b722 with SMTP id d9443c01a7336-2d74deed25dmr102923095ad.11.1787923260879;
-        Fri, 28 Aug 2026 06:21:00 -0700 (PDT)
-Received: from [192.168.1.2] ([122.171.16.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6c7sm5149255ad.60.2026.08.28.06.20.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 06:21:00 -0700 (PDT)
-Message-ID: <d16164ef-7211-4272-bc74-bc38efd8623e@redhat.com>
-Date: Fri, 28 Aug 2026 18:50:50 +0530
+        bh=iKhErXnLCnts7fqquSWjOHgXXWcaxFgUdUyVBMAuuDc=;
+        b=bdRcZPz8EX4ZESnAb+n3YUVegV6KGKzCLl7sBHxbYsBydsnkXP+I1jhRErg5HYRX4/
+         2GjOSF6Nzc+HX+3h+OJQiH/r49CggynsvJh8UE545siPSE4G98VteCQUdEV+sjWciaHq
+         2vej+/z+eqlXpKmW15pQN2Uz3Zhr3RcfEPQ3jGndLLKZaH+XzshGVAgvMbUn+t4KZ5w3
+         Z9evvzXt7odxsciKB2n6kTdnQasiJzhnRl38ZE2sSW4ph4MWQbHnM+6gWglhncqVmFG1
+         33MaSJV/fJBSXkUzwp5ZpUw8gILY0O668FK5ii+peYGHV7cYfh/2vwsuxfg05OdOo4rW
+         0VhA==
+X-Forwarded-Encrypted: i=1; AHgh+RpDOIx2shgXJYl5ugUxnoTTjrvYZx5RnDigacGjz5XWfDnYlwGV83lZL0UwquDTDBqPAsZITDqD0gVMLlI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOTlrvsZ/CwrKx4kqbchGJOiAruDbDFPkas8Rr5Lu1n1GWurXQ
+	uPl5XOnj3KSkDFfeYjp58mG9sVo6/nPGlPQs0C79a8W2G0ysmUR7lBQa
+X-Gm-Gg: AR+sD11fTtoS3l8cY8sDqMpKDDFyszqLGrGZ2VvF7KR5dl0WiMiYXgRZoUyrfytnuo4
+	ibRxf8RC7DjOHAg8m+Uzq9IzVoTjPwD1JBVn59pbcLD0wV8emuUMHomAzSkn08YvGWt8T1enNgQ
+	Nm5LskdwMN5Rz5Rgp/47BOIf3+ykzXjvKu+ZmDqgS0xXI1TmAWiIsgf511m2Zd7Jx9IZvAsQtd3
+	x+10G5VxQ6B1xiWm0obvzo75JyKSuLi8+JCOhiZ4rZKicuSGTkHbN4OZeeZEJTRyKCjFklc1Cma
+	P2/KsAh7dRGEFKBgf4pHcK16pm0wL72wlLVmcjHPYo/Cp/HR/Jj4kkfr1pSBEUnrD/SHsxxvOOI
+	D1CwTuyOc7CUQLE0Y49iXh5ALastmHUZSNFi5cZuDnNqPaNDf0FBFFoU0LAIy2A5c1BMk3DXacd
+	lgaR82FCl+S6qe6dsvEXthDAVfDAUuu6B1DYovfpdx7RQr7i+UVdBTVel1hEbkmm7+c1S+h/kJK
+	ZdMO39r7bBfk00Zw7Q4sbAJDRvj72WEkPcxi6Zsds2JlCcBveddpFlBXwuac45ePw5sK5AmnC7t
+	qcYlVO3XPeb4tns=
+X-Received: by 2002:a05:6000:2003:b0:482:eabd:642c with SMTP id ffacd0b85a97d-482f797606bmr9126690f8f.1.1787923267828;
+        Fri, 28 Aug 2026 06:21:07 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbac526dsm3997335f8f.12.2026.08.28.06.21.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 06:21:06 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Robert Bozik <robertbozik@gmail.com>
+Subject: [PATCH v2 0/3] media: Add OmniVision OV32C4 sensor driver
+Date: Fri, 28 Aug 2026 15:21:01 +0200
+Message-ID: <20260828132104.21473-1-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kexec_file: remove unused arch_kexec_locate_mem_hole hook
-To: Sourabh Jain <sourabhjain@linux.ibm.com>, linux-kernel@vger.kernel.org
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Baoquan He
- <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Paul Walmsley <pjw@kernel.org>,
- Pratyush Yadav <pratyush@kernel.org>, linux-riscv@lists.infradead.org,
- kexec@lists.infradead.org
-References: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
-Content-Language: en-US
-From: Mukesh Pilaniya <mpilaniy@redhat.com>
-In-Reply-To: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Sourabh,
+Hi,
 
-The patch touches three files across three subsystems so kexec: would be
-a more accurate prefix than kexec_file, for e.g.:
+v2 of the OV32C4 sensor driver. v1 is at
+https://lore.kernel.org/linux-media/20260826072002.14357-1-robertbozik@gmail.com/
 
-kexec: remove unused arch_kexec_locate_mem_hole hook
+Changes in v2:
 
-On 27/08/26 8:14 pm, Sourabh Jain wrote:
-> No architecture provides an implementation of
-> arch_kexec_locate_mem_hole(). Use kexec_locate_mem_hole() directly
-> and remove the unused fallback wrapper from the kexec header.
-> 
-> This simplifies the kexec memory allocation path without changing
-> its behavior.
-> 
-Also, it might be worth mentioning in the commit message that this hook
-was originally introduced by commit f891f19736bd and that the last arch
-override was removed in commit 6e5250eaa665; making it safe to remove now.
+ - dt-bindings: drop the frequency from the xvclk description - 19.2 MHz
+   is a constraint of the platform and of this driver, not of the sensor
+   - drop the sentence about the modes the driver supports, and make the
+   supplies plain "true" without descriptions (Conor Dooley).
+ - driver: use pm_ptr() rather than pm_sleep_ptr() for dev_pm_ops, and
+   free the embedded control handler on the probe error path (both
+   found by the Sashiko review bot; details in the per-patch changelogs).
+ - all three patches: Signed-off-by placed last in the trailer block
+   (Krzysztof Kozlowski).
 
-Otherwise, the change looks good to me. Feel free to add:
-Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+No functional change on the hardware: the pm_ptr() difference is only
+visible with CONFIG_PM=y and CONFIG_PM_SLEEP=n, and the other fix is on
+an error path. The driver was rebuilt and the camera re-tested after the
+change.
 
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Paul Walmsley <pjw@kernel.org>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: linux-riscv@lists.infradead.org
-> Cc: kexec@lists.infradead.org
-> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> ---
->  arch/riscv/kernel/kexec_elf.c |  2 +-
->  include/linux/kexec.h         | 15 ---------------
->  kernel/kexec_file.c           |  2 +-
->  3 files changed, 2 insertions(+), 17 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
-> index 3e9a32acb8f2..ca5abbad59e5 100644
-> --- a/arch/riscv/kernel/kexec_elf.c
-> +++ b/arch/riscv/kernel/kexec_elf.c
-> @@ -91,7 +91,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
->  	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
->  	kbuf.cma = NULL;
->  	kbuf.top_down = false;
-> -	ret = arch_kexec_locate_mem_hole(&kbuf);
-> +	ret = kexec_locate_mem_hole(&kbuf);
->  	if (!ret) {
->  		*old_pbase = lowest_paddr;
->  		*new_pbase = kbuf.mem;
-> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-> index 0af8ae4fdd08..e5f1cfc11fef 100644
-> --- a/include/linux/kexec.h
-> +++ b/include/linux/kexec.h
-> @@ -259,21 +259,6 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
->  extern int kexec_add_buffer(struct kexec_buf *kbuf);
->  int kexec_locate_mem_hole(struct kexec_buf *kbuf);
->  
-> -#ifndef arch_kexec_locate_mem_hole
-> -/**
-> - * arch_kexec_locate_mem_hole - Find free memory to place the segments.
-> - * @kbuf:                       Parameters for the memory search.
-> - *
-> - * On success, kbuf->mem will have the start address of the memory region found.
-> - *
-> - * Return: 0 on success, negative errno on error.
-> - */
-> -static inline int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
-> -{
-> -	return kexec_locate_mem_hole(kbuf);
-> -}
-> -#endif
-> -
->  #ifndef arch_kexec_apply_relocations_add
->  /*
->   * arch_kexec_apply_relocations_add - apply relocations of type RELA
-> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-> index 59fb9d71e9d8..9a981359addd 100644
-> --- a/kernel/kexec_file.c
-> +++ b/kernel/kexec_file.c
-> @@ -784,7 +784,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
->  	kbuf->cma = NULL;
->  
->  	/* Walk the RAM ranges and allocate a suitable range for the buffer */
-> -	ret = arch_kexec_locate_mem_hole(kbuf);
-> +	ret = kexec_locate_mem_hole(kbuf);
->  	if (ret)
->  		return ret;
->  
+The series adds a driver for the OmniVision OV32C4, a 32 megapixel RGBC
+CMOS image sensor. It ships as the under-display camera in the Lenovo
+Yoga Slim 9 14ILL10, where it is enumerated through ACPI (_HID
+"OVTI32C4") behind an INT3472 discrete control logic node and feeds an
+Intel IPU7. The last patch adds the sensor to ipu-bridge; without it the
+bridge builds no fwnode graph for the sensor and the driver never binds.
 
+The driver supports 3264x1840 at 30 fps, 10-bit Bayer, 4 CSI-2 lanes at
+a 400 MHz link frequency, with exposure, analogue gain, digital gain,
+vblank, hblank and flip controls, runtime PM and .get_selection.
+
+Tested on the machine above: the sensor probes, streams continuously at
+a measured 30.00 fps, and the frames arrive complete (60 frames =
+720691200 bytes = 60 * 3264 * 1840 * 2, V4L2_PIX_FMT_SGRBG10 carrying
+one 16-bit sample per pixel). The full path up to a processed image was
+exercised with libcamera's software ISP.
+
+There is no public datasheet for this sensor, so a note on where the
+numbers come from, since that is the first thing a reviewer will want to
+know:
+
+  - The mode register table is the verbatim initialisation sequence from
+    the vendor Windows driver: 1787 writes, strictly ascending, copied
+    1:1 with nothing added or reordered.
+  - The register meanings the controls depend on (exposure 0x3500,
+    analogue gain 0x3508, digital gain 0x350a, VTS 0x380e, and the rule
+    exposure_max = VTS - 32) were read out of the same binary and then
+    confirmed against the values the chip reports.
+  - The derived timings were checked against reality: the computed
+    320000000 / (4080 * 2614) = 30.005 fps matches the measured 30.00.
+  - The 6560x4928 pixel array and the 6528x4896 active area reported by
+    .get_selection follow from the window registers of the mode table
+    and agree with the vendor's published product brief.
+
+The gain ranges in this series were measured on the sensor, not
+inherited: the vendor driver clamps gain a layer above and carries no
+limits of its own, and the obvious donor - ov13b10, same registers -
+puts analogue unity at 0x80, which turned out to be wrong here. Analogue
+response is exactly proportional between 0x100 and 0x7c0 (1x to 7.75x,
+0x100 also being the power-up value); digital gain is proportional with
+1024 as unity and clips to black one step above 16383. I mention it
+because these are the kind of constants that get copied between
+OmniVision drivers unchecked.
+
+Flip handling was measured the same way. This sensor preserves the Bayer
+order across mirror and flip, so the driver only toggles the bits and the
+media bus code never changes. I mention it because ov13b10 compensates the
+crop window by one pixel on the same registers to undo a Bayer shift; doing
+that here introduces one rather than removing it, which is easy to copy
+across by accident.
+
+Two things I would like reviewers to look at, because I am not confident
+they are right:
+
+1) The sensor core rail is gated by a companion chip that ACPI lists as
+   the second I2C resource of _CRS and that ipu-bridge instantiates as a
+   VCM. Without a single write of 0x04 to register 0x1001 on that chip,
+   the sensor does not answer on I2C at all. The driver currently does
+   that write itself with a bare i2c_transfer(), deliberately not
+   claiming the address so the VCM driver can still have it.
+
+   I am aware this bypasses both the I2C device model and the regulator
+   framework, and that the architecturally correct answer is probably a
+   regulator provided by the VCM driver, consumed here as dvdd-supply.
+   I did not want to redesign ipu-bridge's VCM handling as part of an
+   initial sensor submission, so I am asking rather than assuming. If
+   the bare write is not acceptable, I am happy to do it properly -
+   I would just like guidance on the shape.
+
+2) While streaming, the IPU7 receiver reports exactly one
+
+     csi2-0 error: Received packet is too long
+
+   per frame. It is not a lost or corrupted frame: bit 2 of the D-PHY
+   error register ("unrecognised data type") never fires, the image data
+   is complete, and the byte count above is exact.
+
+   I could not make it go away from the sensor side. All of 0x4800-0x48FF
+   and 0x3800-0x38FF were swept register by register - 512 measurements -
+   and no value silences it while streaming continues. The vendor driver
+   does not suppress it either; it exposes EnableEmbeddedData next to the
+   MIPI link parameters and the Windows IPU stack has a matching
+   GetEmbeddedData path, i.e. Windows receives that extra packet rather
+   than turning it off.
+
+   Receiving it on Linux would need metadata capture in the IPU7 driver,
+   which is marked as a TODO there today, plus a second frame descriptor
+   entry - and adding that entry alone makes the IPU7 wait for a second
+   capture node that does not exist in the graph, so streaming stops.
+   I therefore left the driver reporting a single stream and am
+   documenting the warning here rather than papering over it.
+
+Tooling disclosure, as asked for by Documentation/process/generated-content.rst:
+this series was written with the help of an AI coding assistant (Claude,
+Anthropic; claude-opus-5 for the early work, claude-fable-5 for the rest)
+in an extended interactive session. The assistant drafted the driver
+source, the binding and this cover letter from my descriptions of the
+hardware and of the vendor driver; every register meaning, gain range and
+timing in it was measured by me on the sensor as described above, I ran
+all of the tests, and I have reviewed and understand all of the code and
+take responsibility for it. The mode register table was copied 1:1 from
+the vendor driver, not generated. Static checks used: checkpatch.pl
+--strict, sparse (C=1), W=1 and dt_binding_check. The individual patches
+carry Assisted-by tags.
+
+The series applies to media_stage.git; base-commit is below.
+
+Thanks,
+Robert
+
+Robert Bozik (3):
+  dt-bindings: media: i2c: Add OmniVision OV32C4
+  media: i2c: Add driver for OmniVision OV32C4
+  media: ipu-bridge: Add OmniVision OV32C4
+
+ .../bindings/media/i2c/ovti,ov32c4.yaml       |  105 +
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/ov32c4.c                    | 2839 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   10 +
+ 6 files changed, 2974 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+ create mode 100644 drivers/media/i2c/ov32c4.c
+
+
+base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
 -- 
-Regards,
-Mukesh Pilaniya
+2.53.0
 
