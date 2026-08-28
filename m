@@ -1,242 +1,217 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1E03E9C26
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906536; cv=pass; b=VFBrTb2O/s1qynS9AoXh3uTbLb46PHk3caL173Dx6xMj0KzsfXO9pEXGcHIENg4iuIDMcW3Z223mBvV+CHOMpgYIYVeGkIhrH2kIH7T9e4FQmjQR1ZBbJD48xORTcUYyJn6XJ6bA5TFM4NJIXQRU4yCmSCfEMHsjE9+V+id5x1w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906536; c=relaxed/simple;
-	bh=fEE+65zMqX/ESlt+j6tEmMpTDakYWgxrcLiEmC0Yq0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aRMnWZ9hiIYZmkjCoVsP/y0E4Ee8fPHUzNjtd6JIMfAj4skViI5gYWUHLEZqYYPzd5nZIZI5T+sOj5UERb1Jd8ebL6xt8HkfTT1PxH67UmHyLLNBh6SZyzQTzVAsS86VZbPgG0ZwGcY87g99kQuaPuzQ2Lx0PGDlzwDS0Qg3Efw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=JHHaZLXd; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE89199920
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787906636; cv=none; b=KqpWnQRO0jWufUTlv5R9vlCRYSOtNWcoblvtnxs/iMEFFt8UlMD/7MZRPqvsL+mK6nPaUC/p0ULH6b4o7OFYWDxJss5rPJ7yiFCoy1l+mF6Octs1PghaOvJekBd+zgMuCpYXcRVYuAh8E85ogDpBZsSVzLpbAcv0ky9zL0oXpJU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787906636; c=relaxed/simple;
+	bh=tIwPPb3FEHbFHjDaQ5ESAFuaUuExJUDsggZM58cySkI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nM8fcIXinzpRscjuY3K4h6INo6OxE4C/LDIit+NGuqKo+/S2Nni7iWdzBff+pTSjU2CZ5wN1a3PjYoFTmsgXshPbRex0soXuA4ySls9ZgOLQBhDUXaIq2nQzrZ5N6G+1mT/R4FB/QFy8sb40VfhTO8sFKHaIb/KQiGaVBnx0lQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j46y6+rN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jMP591Gl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="JHHaZLXd"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c207cb16cf5so121479766b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:42:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787906532; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PUM7vhdLD69G7Vk8Q5vl5KtFwfokfVgRbEHOO2zlXEaEfBd8XBI4zrkseKHPio2apV
-         6YUe+czCRv7MOhTqrrveqVGQxhXmp7Ox4Y2vs4nlbh+mYuAtp+DaL9Om8OZI321r9R7M
-         ma2i9PT+UGpSCc9tEU4vL5xoL9+Iawkefz9nooOlKhf7EB7lADtq4h073hbjxOFn3PE3
-         by9NctL+fhn378h+2H8g2kO2IAidFZH+JqoueTEH91CcH96orrf+Agx/hmXeNJKzd7c0
-         rsOQGaAQ/OAJeDEUR2yYl9h1x9ayBVWoF32ibgxIBQGkXb+Dr/G+fGHfoBXUdpwwhIoP
-         7X3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
-        fh=cZhhWNexwcI8tgT+fJdED0KHnx8S853PD5oPCUQMfQ4=;
-        b=esR19MfqZ4TXVaQvXwNODxNRokD7cZyb4v11RzTV8aG8fQaoUivGx06J+shj5U8kaA
-         ojtK8KPgolfquSFEpBCiqyESIcrdVKTq8o5djk6Cpomq1Asy4ux/M2hh3LcrPtFVHOVg
-         mARnTni/S6Zd2V7Hj5ULf0HgKw5KMlV9msbv0/oWv4PDQVXaSKKlYAr/f10KncWrjdZ9
-         pQoxYA84vFSXJkzb/n1nvK2VFgSNmHtFoRcz9vmn7/M6qzwpcu9BZUTLICyNReVOfqSg
-         AqbYbBxD9Ckol3/xMwKwB+CEkeGIV/TJwnjnoVKp9NDhA+Yqyds2UDmFEOCJeV5M+z7E
-         Nu/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j46y6+rN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jMP591Gl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66xeG2515412
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:43:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Z0PYFW43js7S7UiYi1d8R4
+	YiJmIx8iYtVRZMJ14WZXY=; b=j46y6+rNkv6KjRxKPyX+1h7DZknrCuGNo0Kso5
+	c6tEObIYIkVfixmcnuJZRbEr1MqhOTMsPK4ReQJQMvzGLDyKITw4Rxofxudv85aj
+	xKSMAPbS9y/LJzJCXFvRKQgzRirI0bLYcGI8afW/UQM4wY3pCMLUP8KlZDTKhzPR
+	YwRYSWzEVyqteZby9UXd0YanFYpEzqlkQKE4FSRCXDAmVVQZzVEa22XeNrTreAic
+	tZYQSeX/y7J/chy53RUAP1khlEoZhLzw4ICzMI2BJL74mLo88OKdj5fsYtvNjz5D
+	cpsD8HHLuwuJ+gIabvVcEgURH3iONPMfxrG6XV1pd2cNcTYg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb47n0rab-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:43:53 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso720407a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:43:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1787906532; x=1788511332; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
-        b=JHHaZLXdkYEXbeJ3HsbnpPmnqgw9kPKvGI6jsykuKzX+9Rc3dSFwx5qgk9q5hYp6u1
-         BhquNc5u6GauamBVczBgNA1GnKBxFr34hwbKZk9IEbd9ZXO50q4KRS7CfS/rbbLnV9KI
-         INaCgf7UQMYd3clcEqIQVyLdkIk/LnuT831rz0+PEC/brfpFWQOEOdq89Hl13AmqjNUX
-         SBxYi0qb0zJ2Pil8rCwGwyhe9+Qa4TB4Aia6O+FJYe7wIyMQdcMJgumtrVNsaKBGhcBo
-         rg6WYJMw0kn7OPLx5cm30rCT9rhwLFsQ4SOhYIikXjLk3NI5FD7gF0kxv2Onz/YdKoPK
-         8Qlg==
+        d=oss.qualcomm.com; s=google; t=1787906633; x=1788511433; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Z0PYFW43js7S7UiYi1d8R4YiJmIx8iYtVRZMJ14WZXY=;
+        b=jMP591GllRYWjhQX5nVqGosFkcwyspkVXuMKKA1O5LsoewuwNnSmLjFO3RY2QT/Zb7
+         FZ+F4nuWDc+PlMYOmBxI/NqDvuTNx9gDlpYzZN+4k1tt2RppPu2xHDaJS3rn2cXAxnQC
+         SYMWS4K3Vx4E2J3kniwQFz+HpF7uR7KuzIunmQiRbfm5eVxuBgnLg9SEPXIgsOsxI8RT
+         bxYfXheBOiqjGW1tLnGfA3GnstR5Zq4LvdDRuMPxLgAQPTSZgZBdCwGWHSstBjwk0eK5
+         zXAnehFcerEgZ4bIxCDRmDInyrOgc9eiekWSWiG5T4lBvSU3pNrXPyTGuilTXCmCWQ40
+         ONQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787906532; x=1788511332;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ezFi05tPQzp8t++/2HJlKxh2g0ZUNbvpyQdfBqWin94=;
-        b=n2RbX0Q8V+mvKscuIFBOF6ZPpaBA+/N+RnUTxdmFNVLfcJoqQrvqMunMI9FEIP1Dng
-         diTj3QJmHOr24027/qnPLlymJs1J4TAZOkAJl2sxokMAsjDdzGndCf5SYGDkGun6Vfh6
-         pZjPkzyCttaiWxp3CBQTentDFkPafrCzlx06mYHO86p6lBfGiZmJAc7owMOAsHgT7H7O
-         KsIOf4jptXgcs726dUFMSYCldiRArQynSHGZ5a/S1qxrlka7RQmHO8nwMEbyhKblndGu
-         iwN312WC/7YDebC+Tq8m3eHYgkIXi88pahiiX6s0vDDxtTo7dX9+63AkKY8wtlfMQuRX
-         l84w==
-X-Forwarded-Encrypted: i=1; AHgh+RpQrzXqokIIqhP1E9mCv+yTkAwUqaTMAvWizYAUNvAMJrrt176aPfYONplXJfdt1jR8NSIWhb/2WK0QRYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsie/0DfwYOniaWS5irT7HN8VjTrQwrkvwcg68GJK59cD83p/d
-	8CkGkB9DJXVH9KReeRUPviV7Pr6KdtTTzPwe+UoEfw85qc9s7sByjQGLLACP+AEz+bAaPf+5tLq
-	lt8/EEfOh6lePOUYbswU3IJv1PRZBhyg2IWV+p//E5g==
-X-Gm-Gg: AR+sD11zMZC0rBVu0rNTdwkRuTNvMu4ux1aK0z4pouAi48x4Dk6KY0C9ChA+q/CWt//
-	QudRUxsLs9hG81ytBODcBJZNCvXwAm6clReZAQ4aYeZ3ATOqaFyan28mfRyW2IypA/fvqtOfHJs
-	T7SBPn3hfQhEgBFHinP7eHS4WssrAWXH4kxQvycZtZWzTCyoNf3ipW3QAo5+0i8POjZUzrC1Ktp
-	SOlD+prHhdNFUxe3kGFZlmHMeeELrxiqJD7/10kMiBzJOqrrLxgqKqhZ1//ZASRT6JaDvYtaBNR
-	jzc1ml9Z5yuHVAH438t8VtWMb3q3LxU6RX1QI58hIlH8Cn0=
-X-Received: by 2002:a17:906:f596:b0:c24:c22c:6372 with SMTP id
- a640c23a62f3a-c2556bc89ddmr380599066b.5.1787906532051; Fri, 28 Aug 2026
- 01:42:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787906633; x=1788511433;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Z0PYFW43js7S7UiYi1d8R4YiJmIx8iYtVRZMJ14WZXY=;
+        b=bhteV+OYJuMhM9SWOYT2dVm58zTce9UNU33nO3cbjQ2XOkgBagr6HKQcalyn62/HOM
+         M0w1167sWMaqHk33TTMWlYlwbdHzJUNXhq7L8O2MlqEyGvwDZumBPtczTpaaIp6z2J/X
+         8LjYsMAgPXccxq1qL/kpfTCoJEqkpEvFFoJxRcODJAIcoBUp4xzPv7w5Sm2eETt+IFzE
+         PWVI5ty7tWKcu1DL6duxl9lwmFfoVcKoeAHy+RvyihX61RSQZFRcmW2r2A9LgReGx0bH
+         v+aV6D91tWhd8HX0Mz/JVLCd4yYDPKfWtT4/N81lQYblN4XSYaxy0DyLKa64yIfWa+B9
+         KeWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrLvjqe3Hv+muRbyhHpfWwQtIYEa2S3Ym8Bno9wRA/plKVZag0L7x1zMabPcL/QJXvTnDlTRfaQHDowuxY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVNJq1tQIKi4VVcgFB5ojNNCO6zzQ8u1BPJgvdCKdRoaxI0AmX
+	adGfMBZRXb0L/Rh6vMQkK48RI8UUQ1I1dNQ3QZvAv6kkHJuFAuo/gbrTckG16X9D7XAQCGnnnzY
+	Aqr3EIxVwbo8kisTkNyabgNm6ZDnjusjKlSt91HjTuJNZ9sWRVgubbq1GNcvhLsc1MRY=
+X-Gm-Gg: AR+sD11oeHE4XMF51OV/6bduT5xcB8TKcOhDgBLoV6OwPoUUTjVgyraKeK0Tg9xzT48
+	Xn7uzKdM2tTsNNtuiJao5MewHBwnc0W0YDXg6uRxGM4nRHfmm2rCjvURBubiIEG9HuY0wQJO+i/
+	L3L0Pdhegw3NoV+IrCMRlxQl6KvXX4lFT0zu6e6v3OSR9rCHelB6i6HtRjZUUp/HwDqvfdBl5+t
+	cDCXuHIgP1vPJBUcwwZ8ggbKG4TT8loBCQgjy31j+HCjhRUv6DoUUrVgVWFVxG+ZcpYzn/itQtO
+	r/BCmBmrLLUVraUzv/OhnKumBdhE1kE8Gx0DIWXcw/EA8xEi4a9Q7xcsOgiHwV8L6PhMog5poZF
+	aZe1lpZiiDDKEzhvCJ/y2Pw8U7jI0B1MbIYQ=
+X-Received: by 2002:a05:6a20:9c13:b0:3cf:a7a5:e310 with SMTP id adf61e73a8af0-3d267b656e9mr12127960637.9.1787906632747;
+        Fri, 28 Aug 2026 01:43:52 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9c13:b0:3cf:a7a5:e310 with SMTP id adf61e73a8af0-3d267b656e9mr12127876637.9.1787906632314;
+        Fri, 28 Aug 2026 01:43:52 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f784857sm3673459eec.3.2026.08.28.01.43.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 01:43:51 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v2 0/4] Add PCIe support for Qualcomm Nord platform
+Date: Fri, 28 Aug 2026 14:13:34 +0530
+Message-Id: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615064855.90316-1-zhangzhanpeng.jasper@bytedance.com>
- <20260615123821.373248-1-guoren@kernel.org> <7c490aeb-a3d9-4fe9-81de-f9662577851d@iscas.ac.cn>
- <CAJF2gTQ+-gpvUDtOh99aKP2-iDJy3MYOWti9k2Ntd0-J0MXqxQ@mail.gmail.com>
- <e051d822-d0be-4a88-ba86-ec9b5905fd1e@iscas.ac.cn> <CAJF2gTRH6x78A3J5HJ5kUM47aDv8R0yFr8LRP+7jiLX4GL3ssg@mail.gmail.com>
- <20260618143634.7f3dd6c5@pumpkin> <CANXhq0qtt7U3jKEB4drvSn7gg55nwWm8VFnfY-NRGjBaWVr_MQ@mail.gmail.com>
- <20260828085211.2c8e6b74@pumpkin>
-In-Reply-To: <20260828085211.2c8e6b74@pumpkin>
-From: Zong Li <zong.li@sifive.com>
-Date: Fri, 28 Aug 2026 16:41:57 +0800
-X-Gm-Features: AcwNN1Vs0PjxxPtn0TUC_KuzAnVZJvtJ55ltk6ptl2Y2t9swn9PGcyLQJdEC5LA
-Message-ID: <CANXhq0q0pRXbL3sA9hFoFh6YGJh+M8SDUcXNhsHDA433mFb8+w@mail.gmail.com>
-Subject: Re: [PATCH v1] iommu/riscv: Support 32-bit register accesses
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Guo Ren <guoren@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>, 
-	zhangzhanpeng.jasper@bytedance.com, alex@ghiti.fr, aou@eecs.berkeley.edu, 
-	cuiyunhui@bytedance.com, iommu@lists.linux.dev, joro@8bytes.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	luxu.kernel@bytedance.com, palmer@dabbelt.com, pjw@kernel.org, 
-	robin.murphy@arm.com, tjeznach@rivosinc.com, will@kernel.org, 
-	yuanzhu@bytedance.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADZKkWoC/2WNwQ6DIBAFf8VwLgZQQXvqfzQeALHSVGlZNW2M/
+ 15QD0162WSSN7MLAuOtAXROFuTNbMG6IQA7JUh3crgZbJvAiBHGSUkJHpxvcM5pSaqWNoU0KEy
+ f3rT2vWWu9c4wqbvRY3TjorMwOv/Z/sw07o4ky/fkTDHBFa9UJoQiIssuDiB9TfKhXd+n4cTM4
+ RQ/jtCEtUyVghfy36nXdf0CA+IPcOUAAAA=
+X-Change-ID: 20260810-nord-461809f1d5ae
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787906625; l=3019;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=tIwPPb3FEHbFHjDaQ5ESAFuaUuExJUDsggZM58cySkI=;
+ b=JEUk8jdqpAVjMnx6k0dgKfpIFjSlX9NiSxeD2+qbk+SjZjFRWPJuDPz7I2ZXvNr+nr/jHcECL
+ jZAHHJtdjwuBfkC/ateQOYmBglb5Yqa1x0KMPIAKnkvCh4q/LoXONUZ
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Authority-Analysis: v=2.4 cv=a8YAM0SF c=1 sm=1 tr=0 ts=6a914a49 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=1XWaLZrsAAAA:8 a=P-IC7800AAAA:8 a=JfrnYn6hAAAA:8 a=mkAmWphk72FtIL2ZoEcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=d3PnA9EDa4IxuAV0gXij:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: yJZISJUqciFIpwv0UVBSZx5CVJcE78Pe
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA3NCBTYWx0ZWRfX0koNuhjY9Mhh
+ 3oN9JEdAn+0WEefQxkEUHJ5L7REAoZ2Oydv/Tbm8b/ETSSGSGkRDabUpRzlh04dmYdCJettVORr
+ 3BmJfVSEX6oCRiEVi0Gq4ioHNUtdbDM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA3NCBTYWx0ZWRfX5bKxjq3OB+u5
+ D0tKDK7sb88iisChwld9G5h2AH2kmGPXiBeMeT3EamchQX1AkUOE7ks9f8FQ7AO5HvYuQY0XYC+
+ Py0XfnDn8CGrIfBUeOPZs835xc6sTJJ846sk3BOwmux/i7c9CNZx6mtQTiwzgFRS4irIjZ2YH/i
+ LDuBvVCCFPiXjHd+G9i5z1fR196nfwOjXJoPl59TPQlaBDQoFREizJMSAzE9kzDU7E5Aa2BzVtn
+ OD8zC97AuXA3C5rVvVo06BgO2Xh1UYzMKJ2hdrmcvJvteAYxbnckdf5kn+xTZukdZphCztbRIZm
+ Xh8MRqvyhBs284HO1phqAUS06dEb/iUeaXe1CPI/rQh8nGjxwWJ0wLUygo8Bsan6WSF6g9a1p3X
+ eJbMI2Zl8Ec/nj7x9NJiajnx+eZVU1V0Au145/k8bvLIqMv8gepqPVDsVMxY9arDxGgkb/zk7Bf
+ RWImST4Jzt2X+FkiXMQ==
+X-Proofpoint-GUID: yJZISJUqciFIpwv0UVBSZx5CVJcE78Pe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280074
 
-On Fri, Aug 28, 2026 at 3:52=E2=80=AFPM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Fri, 28 Aug 2026 10:52:08 +0800
-> Zong Li <zong.li@sifive.com> wrote:
->
-> > On Fri, Jun 19, 2026 at 12:02=E2=80=AFAM David Laight
-> > <david.laight.linux@gmail.com> wrote:
-> > >
-> > > On Thu, 18 Jun 2026 17:51:34 +0800
-> > > Guo Ren <guoren@kernel.org> wrote:
-> > >
-> > > > Hi Vivian,
-> > > >
-> > > > As noted in the RISC-V IOMMU Specification, Chapter 6:
-> > > > > Whether an 8-byte access to an IOMMU register is single-copy atom=
-ic is UNSPECIFIED, and such an access may appear, internally to the IOMMU, =
-as if two separate 4-byte accesses =E2=80=94 first to the high half and sec=
-ond to the low half =E2=80=94 were performed.
-> > > >
-> > > > Therefore, the atomicity of 64-bit MMIO accesses is UNSPECIFIED and
-> > > > not clearly defined in the current ratified RISC-V IOMMU
-> > > > specification. To handle this correctly, the Linux RISC-V IOMMU dri=
-ver
-> > > > should fall back to 32-bit MMIO accesses when reading 64-bit regist=
-ers
-> > > > (e.g., performance counters). The behavior of 32-bit MMIO accesses =
-is
-> > > > more precisely defined in the RISC-V IOMMU specification.
-> > > >
-> > > > Thus, many hardware vendors implement 32-bit MMIO (rather than 64-b=
-it
-> > > > MMIO) based on the current ratified RISC-V IOMMU specification, and
-> > > > this driver does not appear to benefit from 64-bit MMIO access eith=
-er.
-> > > > Performance is fundamentally constrained by bus latency; assuming t=
-hat
-> > > > simply reducing the number of accesses will improve performance is =
-an
-> > > > oversimplification that ignores the underlying hardware
-> > > > characteristics.
-> > >
-> > > If the bus latency is significant it is almost certainly worth using
-> > > memory accesses to avoid re-reading the hi register.
-> > >
-> > > Something like this might work:
-> > >
-> > > static volatile u32 hi_prev, lo_prev;
-> > >
-> > >         u32 hi =3D read_reg_hi();
-> > >         u32 lo =3D read_reg_lo();
-> > >
-> > >         if (lo <=3D lo_prev || hi !=3D hi_prev) {
-> > >                 u32 hi_tmp =3D read_reg_hi;
-> > >                 if (hi_tmp !=3D hi) {
-> > >                         hi =3D hi_tmp;
-> > >                         lo =3D 0;
-> > >                 }
-> > >                 lo_prev =3D ~0u;
-> > >                 hi_prev =3D hi;
-> > >         }
-> > >         lo_prev =3D lo;
-> > >         return (u64)hi << 32 | lo;
-> > >
-> >
-> > Hi Daivd,
-> >
-> > I included this in my v5 of the IOMMU PMU series, but we noticed that
-> > sashiko-bot AI reported two issues:
->
-> I did say 'something like this' might work....
->
+This series adds PCIe support for the Qualcomm Nord (SA8797P) platform.
 
-Got it! Thanks for clarifying. Just to share with you and everyone
-here, I will go with the previous version. Thanks again!
+Nord has a single Gen5-capable QMP PCIe PHY block split into four
+independently-clocked and independently-resettable ports (A/B/C/D).
+Firmware selects the active lane topology at boot via a TCSR
+configuration register, and the same PHY block can appear as a single
+x16 port, x8+x8, x8+x4+x4, or x8+x4+x2+x2 depending on that mode. This
+is similar in spirit to the Glymur multi-PHY support already posted,
+except Nord's PHY registers are programmed by Linux rather than by
+firmware, so this series adds the PLL, TXRXZ, PCS and PCS-lane init
+tables along with the power-up/power-down/soft-reset sequencing needed
+to bring each port up.
 
-> David
->
-> >
-> > 1: The lo_prev is immediately overwritten:
-> > The trailing 'pmu->lo_prev[idx] =3D lo;' is outside the if block and
-> > runs unconditionally, so the 'lo_prev =3D ~0u' is clobbered before the
-> > function even returns. It never survives to the next call. lo_prev
-> > ends up holding the guessed value (typically 0) instead, which is a
-> > perfectly ordinary small number, and the intended "always re-verify
-> > next time" behaviour never happens. The sentinel write was effectively
-> > dead code.
-> >
-> > 2: The wrap check itself can miss a wrap
-> > Here is a concrete sequence. Assume a previous call left hi_prev =3D 1
-> > and lo_prev =3D 5, i.e. the counter was 0x1_00000005. Some time later
-> > the counter has advanced close to 0x1_FFFFFFFF:
-> >
-> >   1. hi =3D readl(addr + 4)  -> counter is 0x1_FFFFFFF0, so hi =3D 1
-> >   2. the counter crosses the boundary and becomes 0x2_00000008
-> >   3. lo =3D readl(addr)      -> lo =3D 8
-> >
-> > The check then evaluates:
-> >
-> >   lo (8) <=3D lo_prev (5)   -> false
-> >   hi (1) !=3D hi_prev (1)   -> false
-> >
-> > Both are false, so the fast path is taken and 0x1_00000008 is
-> > returned. The true value is 0x2_00000008, so the result is short by
-> > 2^32 and the third read of the high half never even executes.
-> >
-> > Both situations share the same root cause: It puts the reliable check
-> > (the third read) inside an if guarded by the unreliable cross-call
-> > heuristic 'lo <=3D lo_prev || hi !=3D hi_prev)'
-> > Case 1 is an issue in the bookkeeping that heuristic depends on, and
-> > case 2 shows that even with correct bookkeeping the heuristic is not
-> > sound.
-> >
-> > To make everything simpler, I would use your first version for the
-> > latest IOMMU PMU series:
-> >
-> >         hi =3D read_hi();
-> >         lo =3D read_lo();
-> >         if (hi !=3D read_hi()) {
-> >                 // Pick a value that happened while doing the reads.
-> >                 hi++;
-> >                 lo =3D 0;
-> >         }
-> >
-> > > It shouldn't need any locking but the accesses do need to be ordered.
-> > >
-> > >         David
-> > >
-> > >
-> > >
-> > > _______________________________________________
-> > > linux-riscv mailing list
-> > > linux-riscv@lists.infradead.org
-> > > http://lists.infradead.org/mailman/listinfo/linux-riscv
->
+The series also documents and wires up the qcom,nord-pcie compatible
+(reusing the existing SA8775P PCIe controller binding), and adds a
+CORE_CLK_CGC_DIS/AUX_PWR_DET workaround required to avoid a timing
+convergence issue in the PCIe power domain.
+
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Krzysztof Wilczyński <kwilczynski@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+
+---
+Changes in v2:
+- Fix dtbinding errors (Krzysztof)
+- Link to v1: https://patch.msgid.link/20260825-nord-v1-0-7c02f2b8765a@oss.qualcomm.com
+
+---
+Krishna Chaitanya Chundru (4):
+      dt-bindings: phy: qcom: add Nord QMP PCIe PHY binding
+      dt-bindings: pci: qcom: add Nord PCIe controller compatible
+      PCI: qcom: Add CGC disable workaround for Nord PCIe
+      phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe multi-PHY support
+
+ .../devicetree/bindings/pci/qcom,pcie-sa8775p.yaml |    1 +
+ .../phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml        |  276 +++++
+ drivers/pci/controller/dwc/pcie-qcom.c             |   16 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c  | 1077 +++++++++++++++++++-
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v6_40.h |   56 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v6_40.h      |   14 +
+ .../qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h |   94 ++
+ .../phy-qcom-qmp-qserdes-txrxz-pcie-v6_40.h        |  194 ++++
+ 8 files changed, 1688 insertions(+), 40 deletions(-)
+---
+base-commit: 6e448b42dcb885d89dfb80c4263e579c1c4f15ca
+change-id: 20260810-nord-461809f1d5ae
+
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+
