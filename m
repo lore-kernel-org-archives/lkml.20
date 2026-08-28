@@ -1,103 +1,75 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3653C1D56;
-	Fri, 28 Aug 2026 06:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D123D6472
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900376; cv=none; b=SRHdEzR2kvnnXKFfPbgOuWgR4lmtVPNaLm2vq9drCHxRy9UTk5y9LmEMUkneJnVpu1kH/CG0Uubyc2zrcSzBiG8rRV4c/XWa5aeACG31hyr4onUUd6QVKP+8BbQqdsMp0JSqDumLBvGkzfL+7+RuOW7vqkzym5nzVgRZ2Z9WvTs=
+	t=1787900388; cv=none; b=JIX+qIFnE18KTSUIQOB2Qdxg2C4AsQgKPMsDX2mDWXVwtJgYzcHk0d675Kps/f+bOMvcRQiEpLgpVca0KQ6T04JdEcq0K/S3hU/wt0j/TdR0dVMDUNw/n78PC5EGCc4CideOmzEKs34GQJxBrJ0diQct2gkrQqygaOENak9s1P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900376; c=relaxed/simple;
-	bh=o1C2EDwKr2DNH71cdifEGbUkSRu/14k1VLApC0DUmSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eaCE5jGQdlU3ZS+FoKgP5H1BjzeWlz439sHVOsvqUAj4LoZKwrvenvZHqcuQ8/K1Z6I+KmvlvqE9APdpFfD/9koiUkZO3erACocrQVBQUpwdLIUl6EzO0PA7UWrO+GCo0BBvZ5ND93wNcVf5QMMb0otwaZ5ZEeFbmWUqn62xzHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=jgxaEfCj; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1787900388; c=relaxed/simple;
+	bh=MdT3W271N3Wha9R1D5X427tnwnPEZ5bbdYUbKc1pl+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+wt/5IoeQ5YDOGpht7CRIfaCNOXQwxUlLliFHiqdS5QtmR7PWLQsGix4LiZSKx4CPSHYEzLhqBMfyShXglleYOfwTZkX6kWM7/i0f6AdQLn8VduvkZHawhPBMhTu+169HYxp0bWzahBRiDXW8Kf6UzNh9Z5boC4CUpf2XuUVS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vyETShr+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="jgxaEfCj"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 75DD888283;
-	Fri, 28 Aug 2026 08:59:30 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id rSWBirneRrZK; Fri, 28 Aug 2026 08:59:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1787900369; bh=o1C2EDwKr2DNH71cdifEGbUkSRu/14k1VLApC0DUmSg=;
-	h=From:To:Cc:Subject:Date;
-	b=jgxaEfCjawzCG2HEX/z5AU9MBW0mNiEco0Lv3ZZ7qFRgwYiDmdwNu8MbF7wm9oFsv
-	 kAxW7A/sZHXbghfcPWgIp3mHLRtnYrZmUlJ9kC/sIbBVSSIeTlN2xcS+7KP8/ABe20
-	 BjqYkhgope6lKf5kry96iu5iBkHW/4lIhdAtvdGexMHm7rYTuO7AvnC6M9sJU/emAu
-	 wADGOXLZSroBhkmmfxPua+vGI20YlmDx7bqGGMH5AVyKytbQ7fasCEfIz7N6TOxbzh
-	 5gNwAsx8FaqURtxx+2uS6vVUmOJxpSJQE7S0O0Rjx1DM8qWlr0pXZCKj2OVNxoTu+7
-	 MAoi3LdDJDEPQ==
-From: Marco Scardovi <scardracs@disroot.org>
-To: scardracs@disroot.org
-Cc: corentin.chary@gmail.com,
-	denis.benato@linux.dev,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	luke@ljones.dev,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH] platform/x86: asus-armoury: add power limits quirk for G614FM
-Date: Fri, 28 Aug 2026 08:59:01 +0200
-Message-ID: <20260828065904.11355-1-scardracs@disroot.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vyETShr+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE8E1F000E9;
+	Fri, 28 Aug 2026 06:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787900387;
+	bh=hi17zgl84PCeUep1FCq/kezNsaS1vttLaSBVh5BY5G4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=vyETShr+HVQO11UydbAVGApL1wrSLEfOud3Io89QV8yi44dD/ahAb4SRADrB6w6Ig
+	 PmCchWHhEtCFOlHduLp+lWf+gPX/rzQw5ri4eoycqeGKR2deDH4uvdEh+x1zNntyXs
+	 RqJgSRbgWXBXOFxRQS5++BAzdbhEoJuo+p3yboUI=
+Date: Fri, 28 Aug 2026 08:59:45 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	falemi@asu.edu, greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] greybus: ODEBUG free-active-timer in
+ gb_operation_sync_timeout()
+Message-ID: <2026082839-corny-reputably-a5ff@gregkh>
+References: <CA+0ovChDP9RtBDgTou=xz5Vmsk2hxaRryNCARO5h5JtiMS_OXQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovChDP9RtBDgTou=xz5Vmsk2hxaRryNCARO5h5JtiMS_OXQ@mail.gmail.com>
 
-add power limits quirk entry for ASUS G614FM laptop.
-The limits are extracted from the device's ThrottleGear XML configuration.
+On Thu, Aug 27, 2026 at 10:42:25PM -0700, Farhad Alemi wrote:
+> Hello,
+> 
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
+> 
+>   https://github.com/farhad-alemi/public_bug_reports/tree/main/165-warning-odebug-bug-in-gb-operation-sync-timeout/
+> 
+>   ODEBUG: free active (active state 0) object: ffff888014747a70 object
+> type: timer_list hint: gb_operation_timeout+0x0/0x100
+> drivers/greybus/operation.c:1265
+>   WARNING: lib/debugobjects.c:632 at
+> debug_check_no_obj_freed+0x3fd/0x540 lib/debugobjects.c:1156, CPU#1:
+> kworker/u8:3/10201
+>   Call Trace:
+>    kmem_cache_free+0xcb/0x4d0 mm/slub.c:6378
+>    gb_operation_sync_timeout+0x1c7/0x270 drivers/greybus/operation.c:1172
+>    gb_operation_sync include/linux/greybus/operation.h:203 [inline]
+>    gb_svc_dme_peer_get+0x10a/0x250 drivers/greybus/svc.c:428
+>    gb_interface_read_and_clear_init_status
+> drivers/greybus/interface.c:380 [inline]
+>    gb_interface_enable+0x146/0x900 drivers/greybus/interface.c:1075
+>    gb_module_register_interface drivers/greybus/module.c:162 [inline]
+>    gb_module_add+0x1b3/0x3d0 drivers/greybus/module.c:209
+> 
+> Our reproducer.c is available upon request.
+> 
+> Happy to test a patch if that would help.
 
-Signed-off-by: Marco Scardovi <scardracs@disroot.org>
----
- drivers/platform/x86/asus-armoury.h | 31 changes(+/-)
- 1 file changed, 31 insertions(+), 0 deletions(-)
-
---- a/drivers/platform/x86/asus-armoury.h
-+++ b/drivers/platform/x86/asus-armoury.h
-@@ -1056,6 +1056,37 @@
- 			.requires_fan_curve = true,
- 		},
- 	},
-+		{
-+			.matches = {
-+				DMI_EXACT_MATCH(DMI_BOARD_NAME, "G614FM"),
-+			},
-+			.driver_data = &(struct power_data) {
-+				.ac_data = &(struct power_limits) {
-+					.nv_dynamic_boost_max = 15,
-+					.nv_dynamic_boost_min = 5,
-+					.nv_temp_target_max = 87,
-+					.nv_temp_target_min = 75,
-+					.ppt_pl1_spl_max = 120,
-+					.ppt_pl1_spl_min = 30,
-+					.ppt_pl2_sppt_def = 140,
-+					.ppt_pl2_sppt_max = 165,
-+					.ppt_pl2_sppt_min = 65,
-+					.ppt_pl3_fppt_def = 140,
-+					.ppt_pl3_fppt_max = 165,
-+					.ppt_pl3_fppt_min = 65,
-+				},
-+				.dc_data = &(struct power_limits) {
-+					.nv_temp_target_max = 87,
-+					.nv_temp_target_min = 75,
-+					.ppt_pl1_spl_max = 65,
-+					.ppt_pl1_spl_min = 25,
-+					.ppt_pl2_sppt_max = 65,
-+					.ppt_pl2_sppt_min = 25,
-+					.ppt_pl3_fppt_max = 75,
-+					.ppt_pl3_fppt_min = 35,
-+				},
-+		},
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_NAME, "GA401Q"),
--- 
-2.55.0
+Again, please send a patch.
