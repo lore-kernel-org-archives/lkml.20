@@ -1,148 +1,120 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E298A306775;
-	Fri, 28 Aug 2026 15:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E4F306775;
+	Fri, 28 Aug 2026 15:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930548; cv=none; b=rT/BuYZEju7C2DFamdz/GaeugUhAE4uNUP1fOASWtDfzTQl+v+6sN/Yy/0U6FF4ehBfFh3xKe7cuIy/lKrdcC2FQUDnPOB7QdPY5pdTiJJCHiS1qM96Ly4WUwa8k1BJ6C0QzAkUThT2llvdpNIFT9ZnFduJ7lkohz0IWW5CNNw8=
+	t=1787930621; cv=none; b=O9m2OH+9iakg9Kg2VuZ1ibKMn+IpfdHvNnYLbqkmxr7wcAiMFWDyw5HLh/vLZQ2KUzBDuF2BWJjYm4COhvAsBMY1tgV2qHEJipCleb0jymL0B7MGfO4CZdq4QirZwEvTf6Cw5HgPDUk1inj+7PzLwBpRyYm0jLXM2RvJuj+kOD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930548; c=relaxed/simple;
-	bh=DeoGFjBx4QLJFcn9hvDThwnNjY7LxUiYB4ZZ9ewETl0=;
+	s=arc-20240116; t=1787930621; c=relaxed/simple;
+	bh=RIpq0fcu4z18g2ZR2/RqViNKQGjMYREZSLaDEfhbKgU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TqqNc3PZU+8P/neI2M1Ur1NYmdjWhH3xY9kwuDNMnO0L3fq/TyJmw3gCwr5tVrpI3pyTl8JwWsdYDD9Zmh7xQBWzZS21QA5lHWljxLNVqEcuk9PjrbDMvq21FsVdOQEBWQXggmssKhx2GLBjMONHEFKKKlQX1fz7933GuomJE+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iP1lnHdg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=MFslJRach0a2+4NKgWp97Z3PEpDGd5l9t23un3xHIdTf+PJoCPGP5yyK3y2/PhXIbT1wUH9kEWJbNjFra9HIVp/4gjSbOqlcXXrf4eSJKGIcgWoZVmLRE76CzNAkjd9MstQcV4DoOYQQrV3jQCyu1fjp9p7YkntGdLqMpfxTCM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LfpcNHIb; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iP1lnHdg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44F541570;
-	Fri, 28 Aug 2026 08:22:21 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F01223F7D8;
-	Fri, 28 Aug 2026 08:22:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787930545; bh=DeoGFjBx4QLJFcn9hvDThwnNjY7LxUiYB4ZZ9ewETl0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iP1lnHdg/9SHv+4JNCQ7rQjXirwsx40DhHTEyr7I0/55vHHoe6LgJqGsGDhKr/jfK
-	 M2pOWxa4Us+u+fR0QBf0ZVWt0rXfJ4osSoW5Mi9gWwYfixqt/7/SHTyz/MBbck2n6u
-	 5hGNxmUuwR53Rq+/Zkld5N+Ru3N2Db8y+AjqDaE0=
-Date: Fri, 28 Aug 2026 16:22:19 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <apGnq7HNAbPOQhLO@e129823.arm.com>
-References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
- <20260828-fix_split-v3-2-374022586a4b@arm.com>
- <DL0OA5ZF6VX2.33NA9XE20959G@nvidia.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LfpcNHIb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787930619; x=1819466619;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RIpq0fcu4z18g2ZR2/RqViNKQGjMYREZSLaDEfhbKgU=;
+  b=LfpcNHIbBrB+0uqxexost+40kZlfe5zOl4yasAufKSKN3lbuQunRext7
+   4mT8fLd/bPXga4Ujv9fVKG9nLtLVN3f+IaWehpb1ASW1O8gaV8IbWhmlJ
+   ZfpSA7gGTxojo0s4JK58uKaPkMSBQA2KXpUCG19q+ZdYHonZ/Ssgdelqt
+   8nE6vFIEw6L6I6PcVai9mx8a1FE5cVLrDqVNXsbF3otoHDe6GVjwolMYr
+   0P9x6kH/nEykT17x6Uwk6CJE1lcfiWs5APYQ3HgD8cCa3yrtO+KOsyMp4
+   cbh4seRs13U1SjLI8G5bg02oNS43vS7aEVLlj4laOACHrjqc8xkPZ79So
+   g==;
+X-CSE-ConnectionGUID: FWWabpmRSoO2vvexnmNAzg==
+X-CSE-MsgGUID: iUGawxtBRSKR9GYZGIKTuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99104061"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="99104061"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:23:38 -0700
+X-CSE-ConnectionGUID: 0shzixaHQRq7PiUb7/XZcw==
+X-CSE-MsgGUID: 3r5CrJlHQ5ey/4C+sAu7fQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="291680592"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.176])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:23:36 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id A5D0D121BDC;
+	Fri, 28 Aug 2026 18:23:32 +0300 (EEST)
+Date: Fri, 28 Aug 2026 18:23:32 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Robert Bozik <robertbozik@gmail.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] media: ipu-bridge: Add OmniVision OV32C4
+Message-ID: <apGn9PvuUw_AODd-@kekkonen.localdomain>
+References: <20260828132104.21473-1-robertbozik@gmail.com>
+ <20260828132104.21473-4-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DL0OA5ZF6VX2.33NA9XE20959G@nvidia.com>
+In-Reply-To: <20260828132104.21473-4-robertbozik@gmail.com>
 
-On Fri, Aug 28, 2026 at 11:13:00AM -0400, Zi Yan wrote:
-> On Fri Aug 28, 2026 at 4:11 AM EDT, Yeoreum Yun wrote:
-> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > made by memalign().
-> >
-> > The underlying VMA may start at a different address from the aligned
-> > address returned by memalign(). Furthermore, a subsequent
-> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > already set.
-> >
-> > This causes split_huge_page_test to fail because the check_huge_xxx()
-> > helpers incorrectly require the address returned by memalign() to
-> > match the VMA start address reported in /proc/self/smaps.
-> >
-> > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-> > /proc/self/smaps to detect huge pages.
-> >
-> > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Suggested-by: Zi Yan <ziy@nvidia.com>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> >  tools/testing/selftests/mm/vm_util.c | 145 ++++++++++++++++++++++-------------
-> >  tools/testing/selftests/mm/vm_util.h |   1 +
-> >  2 files changed, 92 insertions(+), 54 deletions(-)
-> >
-> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> > index 4821a3563036..083b72d92b14 100644
-> > --- a/tools/testing/selftests/mm/vm_util.c
-> > +++ b/tools/testing/selftests/mm/vm_util.c
-> > @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
-> >  	return entry;
-> >  }
-> >  
-> 
-> <snip>
-> 
-> > +	for (; start < end; start += scan_mapping_size) {
-> > +		categories = pagemap_scan_get_categories(pagemap_fd, start);
-> > +		pfn = pagemap_get_pfn(pagemap_fd, start);
-> > +		if (pfn == -1UL) {
-> > +			if (!allow_nonpresent)
-> > +				goto out;
-> > +			else
-> > +				continue;
-> > +		}
-> > +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
-> > +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
-> > +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
-> > +			nr_pmd_mappings++;
-> > +		if (kpf & KPF_COMPOUND_TAIL)
-> > +			continue;
-> > +		if (!check_huge_type(categories, kpf, type))
-> > +			goto out;
-> > +	}
-> > +	
-> 
-> There is a trailing tab.
-> 
-> > +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
-> > +		goto out;
-> > +	ret = true;
-> > +
-> > +out:
-> > +	close(pagemap_fd);
-> > +	close(kpageflags_fd);
-> > +	return ret;
-> >  }
-> >  
-> 
-> Otherwise, LGTM. I assume the replacement of memalign(), from the
-> discussion between you and Lorenzo, will be added in a separate patch.
-> For this patch,
+Hi Robert,
 
-Yeap. I'll post with the separated one.
+Thanks for the update.
 
+On Fri, Aug 28, 2026 at 03:21:04PM +0200, Robert Bozik wrote:
+> Add the sensor configuration for the OV32C4, matching the _HID the
+> sensor enumerates with. Without this entry the bridge does not build a
+> software node graph for the sensor, so its driver defers probing on the
+> missing fwnode endpoint forever and the camera never binds.
 > 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Assisted-by: Claude:claude-opus-5 sparse
+> Assisted-by: Claude:claude-fable-5 sparse
+> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+> ---
+> Changes in v2:
+> - Signed-off-by placed last in the trailer block (Krzysztof Kozlowski).
+> - No other changes.
+> 
+>  drivers/media/pci/intel/ipu-bridge.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index 1bb3a3e98..7d3c7e09f 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -93,6 +93,16 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+>  	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+>  	/* Omnivision OV2680 */
+>  	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
+> +	/*
+> +	 * OmniVision OV32C4.
+> +	 *
+> +	 * 400 MHz link frequency, i.e. 800 Mbps per lane. There is no public
+> +	 * datasheet; the value comes from the vendor Windows driver, which
+> +	 * carries it as MipiBps, and it is confirmed on hardware: the IPU7
+> +	 * D-PHY locks and the sensor streams 3264x1840 at a measured
+> +	 * 30.00 fps, matching pixel_rate / (ppl * vts) exactly.
 
-Thanks!
+This bit could go to the driver but the IPU bridge isn't the right place to
+document this.
+
+> +	 */
+> +	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
+>  	/* Omnivision OV5675 */
+>  	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+>  	/* Omnivision OV8856 */
 
 -- 
-Sincerely,
-Yeoreum Yun
+Regards,
+
+Sakari Ailus
