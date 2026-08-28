@@ -1,89 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mail-m12741.qiye.163.com (mail-m12741.qiye.163.com [115.236.127.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7B935AC0E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0508E3537E5;
 	Fri, 28 Aug 2026 07:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900859; cv=none; b=AnTWulPmy4XkgsnNkKsW9qoP5Ho2Rx5vCwzml1U6C6fb+k6amY0LkpJTgGvFPWUXlndfBRI0ijvekvsn1BXqo+la5atx4RDQYNvJeMnL9fAplvXTVqMj4Vgd5w+tP5orgf8zcnAT6j5YbCpxuYFoitEHJuEbsDP84kA6fgCclSo=
+	t=1787900861; cv=none; b=mZsjAM9LQKaMNAa+vdfLWF5lKyBWHgRx+sPibjNVLRyKK6Qi6mGATGmm3svqsSF6PHb3qAj99zdekbMNj2k/tgaktftplDhNOj1gcrUnq1kMxWiOSv+ZqlKzg7iA/PAgjA+60OI2LgpZhVE2awojQm3vJm9RYqVK58wyRYto5is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900859; c=relaxed/simple;
-	bh=VrIWWpmc5vKlkCin2jq2A7cOl2DZDju3YX6kEF2v+74=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aCsiYGt96HUEvpRo9OBEg4G/66Aux4y55cr+KvN8lm65IpexLkV+I5156iQAafZ49Jdl50JlHjRnkCfxCp3G+GW4Du9goQUxS2nofIiqoEklavdED++tQNwOfayuwL3T0uX5gQVf1HphjNTFc3VlUsbugUqh3JSf3pkHhBFH6jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nmG0TcBP; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787900861; c=relaxed/simple;
+	bh=EGc2jTS3oA/w9O5c/npYY+tNjKBHzGb7vkKuG05Wbbc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cy1nA6qaVx9HTePUjAzJeLjt0pXHDnRSM+3qX28g/KlKs8oM/fcoEE8z3ARAPA8FnzNDRhuS4vrFm0uZRzULwIqq6sVfTa6zNv3vWpW24MOrme744HFS/h6DfG606AiGSfhgqZQes4iD7fzd0vYDykjgx8Q607T+uhUynNdloOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=KVkwSm5d; arc=none smtp.client-ip=115.236.127.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nmG0TcBP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787900857; x=1819436857;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VrIWWpmc5vKlkCin2jq2A7cOl2DZDju3YX6kEF2v+74=;
-  b=nmG0TcBP9g3/j0f+xqw9RMgScFTGJ4cwAnfviTh9e53Fb+3GcZ/kItUr
-   KBK8/VVdvsUTe4LbLOc6tLeIqNYZ0H0PAnlh3Fd1EnLEo4oc6k2nGiZjR
-   Fh5u4KyobeQBAZn3nAinsN9Dc33UYmg4a8HYAXhXr+kKo550qGl2K2bs3
-   B/f2cwFwQQTuYHl9EiZ7oaOIEG6NQwUKNEibYBEgihoQ1zmwJ1oBLBsLf
-   OkVdVYVfTT+Oy+dkwdR+zXBagDIYDbJDiOb+7mdu3P9J4Djp1UX6PpgU7
-   Ao6ViWivoSNezmeUVPsLkhBGL0rgVpaZJLiWp5CiDuyjHaD0bgp6vNqiE
-   g==;
-X-CSE-ConnectionGUID: B1tHB1LLT9mtnf0wAaYUXw==
-X-CSE-MsgGUID: Vygwy7H3Q4uQbEBuyIhgtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="90918911"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="90918911"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:07:35 -0700
-X-CSE-ConnectionGUID: dOg9J/vSQQSCCbP9PmQWKw==
-X-CSE-MsgGUID: SnfpyDzDSNWxXIeXpUUf3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="291577136"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.42])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:07:29 -0700
-Date: Fri, 28 Aug 2026 10:07:26 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Kendall Willis <k-willis@ti.com>, Tony Lindgren <tony@atomide.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Peter Hurley <peter@hurleysoftware.com>, s-kochidanadu@ti.com,
-	a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] serial: 8250_omap: fix wake irq cleared during suspend
-Message-ID: <apEzrqovJW8iONKK@tlindgre-MOBL1>
-References: <20260825-uart-wakeirq-fix-v2-1-0b9fba03d9b6@ti.com>
- <20260826145307.4GWTzB5f@linutronix.de>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="KVkwSm5d"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5be;
+	Fri, 28 Aug 2026 14:52:09 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
+Date: Fri, 28 Aug 2026 14:51:52 +0800
+Message-Id: <20260828065153.590802-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826145307.4GWTzB5f@linutronix.de>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723e4b303a8kunm9cc188d5188370
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGU1DSVZOHh5MTEpCQk
+	saGUhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=KVkwSm5di3V6qSiThNRmucxAg335yGzJyOAchgHUR/WdaUY42A0nLiI6EVs/yylLilGbMJLmnLKwQ/VTt2u2ENAygyJqa62QdkGGlbBLdzWfOI4oMFC+fEeh+AjTYvhj2Cg30WqlBe3Fw0nW/Fm1ypcYVVZP7AYNtZawTtHSOwQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=sufZXYFvhqt99gCkQ0mCK5s0oy3fyCr/7BG8YjyOEgU=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Aug 26, 2026 at 04:53:07PM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-08-25 17:06:07 [-0500], Kendall Willis wrote:
-> > The wake irq was cleared in shutdown(), which runs during the suspend
-> > sequence, making it impossible to wake the system via UART.
-> > Move wake irq setup to probe() and teardown to remove() so the irq
-> > remains armed during suspend when the UART is a wakeup source.
-> 
-> The omap-serial has the same problem, doesn't it?
+Add validity check for samsung,lane-count to ensure DT-provided
+lane count values are specification-compliant.
 
-Yes likely.
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> I would still like to see an ACK from Tony here.
+---
 
-Maybe there was some deferred probe type issue with getting the wakeirq
-earlier.
+Changes in v5:
+- Apply DRM DP helper API to check the validity of DP lane count.
 
-In any case if there was an issue getting the wakeirq it should be handled
-nowadays with -EPROBE_DEFER.
+Changes in v6:
+- Rebase after the new commit for restoring mandatory properties
+  samsung,link-rate and samsung,lane-count.
 
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Changes in v7:
+- Add Reviewed-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index ddb15d6de05f..a74c855936b2 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1274,7 +1274,8 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,link-rate\n");
+ 		video_info->max_link_rate = val;
+-		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val) ||
++		    !drm_dp_lane_count_is_valid(val))
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,lane-count\n");
+ 		video_info->max_lane_count = val;
+-- 
+2.34.1
+
