@@ -1,133 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCCA3F1048
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8A23F1048;
+	Fri, 28 Aug 2026 09:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908046; cv=none; b=OGcAfSoaSd1CUGSqtbInZCJ/4eawviY2c/JcUtOAWIWefxSPyigjBoIUS4mlsts4/fO78tBMcZ4Ja44zAPW/LSYYltetIkbBK8OPXEi5kq2taRbgxpLI4j1yDxFgOxZC2xt/CRCqx3drJo82Pesj1TkE8wxXqD3LTlTrdo7SkmU=
+	t=1787908054; cv=none; b=KHcpww6+OPvy3M+Eo66RyR+QZ5wT+JhuESoI8ImwTzhDQExLJwLpNfGC5UlokrKfiObeGDVrNuWrK0/hDwdb/6X0TA8TKwRdyRZgVRSdp59VGYJKUVhceS0oBES1sucroOSIfWWWizGGTeeHNUa4hk9d5Ri0QpbTP6xq3G+mTAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908046; c=relaxed/simple;
-	bh=xVxY45sxyo2kZ1v8r74VlABGlXYg2ltKQ96hThjr30U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PZmETu1m0WVuyjGBZa+WQYPuiAYeZ4w/r9kx24nGc/G5lPQIu9srKaUQZnt47+nmZEK5Kl/X9eTO3CBZ6vFoHHo9bnjgPih1FI52MsPeHjWjIhBDO1Ri3IT0HPUB1ge3a2SR0cBflLcAnKrhI/XQZXXKKwSHdNjdkWWK2n1bCik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ep2Ot8PB; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787908054; c=relaxed/simple;
+	bh=86sz1V3bKxZpfGEL5e4mwUOaBK+GG5lZdCd22DPwfCA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ewRifEZgrOF+oSqGVv36rSGHt7l71M+U6opfEOka9s8pmVvyTjqVtQ22S0LX5JdQCPIo9zF6Cg00AmjZvgu2gs+BSJRqTDuWLNv9LqKvaqkBouVY4VJ5GgE/dMZBzro9uRK4dmYZjAUIcq6eKg9czqliFYBTKP+gN55DtBDOSMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lU5n6Ryd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ep2Ot8PB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1n
-	fvSbyXaygGDA9i7aXU+p5NHnBngMiGbJBtvILo9no=; b=ep2Ot8PBv4cG1dA+XG
-	EW/ww9dNvYTLLGRNbuayPsG/f2D8i964U7XfOQYx7oNErd8Sgu1hxBmSUkPQxqxL
-	WAPpIEJd3aujYYO+8H1Hs2MldsKJjtA+OcYGB9Xc4TfxvVr8E/cmoTv93yUOuElS
-	uSVUzo9IrUhsFIH5jbS6AanHI=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDnj3CLT5Fq7b3+SQ--.22427S2;
-	Fri, 28 Aug 2026 17:06:19 +0800 (CST)
-From: oushixiong1025@163.com
-To: David Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	spice-devel@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	Ye Liu <liuye@kylinos.cn>
-Subject: [PATCH] drm/qxl: Add pixel blend mode property
-Date: Fri, 28 Aug 2026 17:06:08 +0800
-Message-Id: <20260828090608.792944-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lU5n6Ryd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12291F000E9;
+	Fri, 28 Aug 2026 09:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787908053;
+	bh=lkvdRT0VDXFsl27OQ7S/vcWtfXEbK5/fJY0aWx/dxYA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lU5n6RydZGeD1grRZs2xyKOafmZv5KHQ7yvW6fssIyqb81HSrpoa5Jwn1h3nsJRqE
+	 ii+1yaGLNykyvawIyLVykFvAbkX13tAPHLcUMn8rOQ+Gl5eguhb5q36a7auDtOw8g9
+	 d3yxe9Rq8Q0OEIohHuiulzwvT220uLmaVYMQN/XJuAIIvqHuaR5FvO5GKxoN3NwBTz
+	 2cWTC9DNLjktC4Jm12rD4GONL3OQQoyH58m1CEPBcQfspyvvPJhbAxegdSefEGjryp
+	 Gu7IUW/OfyY7K9wf3KDlybPsETrBkXNypUSP6QXODSdcMkX+E18AsJEqmHdUVH4PdD
+	 WLVnoHh/GA8aA==
+Date: Fri, 28 Aug 2026 11:07:29 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Kendall Willis <k-willis@ti.com>, 
+	Markus Schneider-Pargmann <msp@baylibre.com>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chandrasekar Ramakrishnan <rcsekar@samsung.com>, s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com, 
+	vishalm@ti.com, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: m_can: add out-band-wakeup
+ property
+Message-ID: <20260828-antique-lumpy-donkey-51ff42@quoll>
+References: <20260821-temp-v3-0-9ac1f8806929@ti.com>
+ <20260821-temp-v3-1-9ac1f8806929@ti.com>
+ <20260821-regulate-recharger-2e984e9591ef@spud>
+ <20260821190511.jwdgox4uocbf4brd@uda0506412>
+ <20260824-public-mashing-252473f928c3@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnj3CLT5Fq7b3+SQ--.22427S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyUXFWDCF4DJF17tF1UKFg_yoW5Jr1rpa
-	y3CFWYyrW5Ja13Jay7Arya9rsxXan3Ka48Cry3t3s7Zw1jyrykAr10kr1I9rW5AaykGa1f
-	Xas7GFWDCF4UCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8pnQUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Qv0BGqRT4vpewAA3r
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260824-public-mashing-252473f928c3@spud>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+On Mon, Aug 24, 2026 at 05:50:20PM +0100, Conor Dooley wrote:
+> On Fri, Aug 21, 2026 at 02:05:11PM -0500, Kendall Willis wrote:
+> > On 17:45-20260821, Conor Dooley wrote:
+> > > On Fri, Aug 21, 2026 at 11:07:00AM -0500, Kendall Willis wrote:
+> > > > Add the out-band-wakeup property as a possible property. The property
+> > > > indicates that the device can wakeup the system even when its power
+> > > > domain is off.
+> > > > 
+> > > > Signed-off-by: Kendall Willis <k-willis@ti.com>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > index 2c9d37975bedd652b3060ab11ba75c37565edaad..0663beaa532bcc4a71cd6ad01520a4dfea294d0c 100644
+> > > > --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > @@ -150,6 +150,8 @@ properties:
+> > > >      description:
+> > > >        List of phandles to system idle states in which mcan can wakeup the system.
+> > > >  
+> > > > +  out-band-wakeup: true
+> > > 
+> > > Where is "-wakeup" defined genericly, or out-band-wakeup defined that
+> > > you're getting the property definition from?
+> > 
+> > I sent a PR to define out-band-wakeup in the wakeup-source.yaml binding
+> > in dt-schema repo. I figured it made more sense to be defined in the
+> > wakeup-source.yaml binding to allow other drivers the option to use it.
+> > 
+> > dt-schema PR:
+> > https://github.com/devicetree-org/dt-schema/pull/205
+> 
+> This sounds like something you should be able to determine from
+> device specific compatibles for these platforms. Not sure why they are
+> not used for this particular device, but this is an indication to me
+> that that is a mistake.
 
-The qxl primary and cursor planes expose formats with an alpha
-channel but do not create the pixel blend mode property. Since
-commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-format with alpha exposed") this triggers a warning during
-drm_mode_config_validate():
+Yeah, it looks a bit too much replicating Linux PM detail. I can imagine
+that some devices on some board are capable of waking up the system even
+when power domain is off, but this does not look like a capability of
+the actual device, but power domain. Device does not have different
+wakeups. (by device I mean this individual schema - Bosch CAN)
 
-[    4.252654] ------------[ cut here ]------------
-[    4.252676] [PLANE:38:plane-0] pixel format with alpha exposed but blend mode not setup
-[    4.252719] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
-......
-[    4.253089] Call trace:
-[    4.253091]  drm_mode_config_validate+0x398/0x558 [drm] (P)
-[    4.253177]  drm_dev_register+0x1cc/0x2a0 [drm]
-[    4.253262]  qxl_pci_probe+0x120/0x1e0 [qxl]
-[    4.253277]  local_pci_probe+0x48/0xb8
-[    4.253287]  pci_call_probe+0x70/0x190
-......
+Happy to see some bigger picture through DTS or board layouts. Actually
+DTS, showing same Bosch CAN devices which are different on a board -
+some are wakeups and some out of band wakeups - would illustrate it
+better.
 
-Blending is done by the host with premultiplied alpha, so create
-the property with DRM_MODE_BLEND_PREMULTI as the only supported
-mode.
-
-Reported-by: Ye Liu <liuye@kylinos.cn>
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- drivers/gpu/drm/qxl/qxl_display.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 7f4178800afd..8193d08485f2 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_framebuffer.h>
-@@ -991,13 +992,25 @@ static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
- 	if (err)
- 		goto free_plane;
- 
-+	/*
-+	 * Both planes expose formats with an alpha channel. Blending is
-+	 * done by the host with premultiplied alpha, which is also the
-+	 * property's default value.
-+	 */
-+	err = drm_plane_create_blend_mode_property(plane,
-+						   BIT(DRM_MODE_BLEND_PREMULTI));
-+	if (err) {
-+		drm_plane_cleanup(plane);
-+		goto free_plane;
-+	}
-+
- 	drm_plane_helper_add(plane, helper_funcs);
- 
- 	return plane;
- 
- free_plane:
- 	kfree(plane);
--	return ERR_PTR(-EINVAL);
-+	return ERR_PTR(err);
- }
- 
- static int qdev_crtc_init(struct drm_device *dev, int crtc_id)
--- 
-2.25.1
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Best regards,
+Krzysztof
 
