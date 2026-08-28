@@ -1,194 +1,207 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE76757C9F;
-	Fri, 28 Aug 2026 13:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981E7377541;
+	Fri, 28 Aug 2026 13:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787924982; cv=none; b=ujmnH//zbokOvSzwhn6cHWtmfdCVvUWw2L7uHgP9UnfO8QoUCcWI9piyT59SlMkP4xRz0BZTjXQayJvgYjVLBAlxS/oi61j5j/GLeKaqi1j5xzxDKIR5El1sZ2LbecqTJ/MBM5Ifr35+lLbubCERtpk4jQm33ZAC/aA1dbhuKo4=
+	t=1787924993; cv=none; b=Zu0fpWsmh1YI7lXb64nUWaGlda4CZha6EAMuSrJF0gdYPaUSxG+j4VZ6Rax13pBABvyTZJarMjOycrhgmsEi9DIdVChpwy7f6a2e7Jp4rL7mkg4wcxtuJOre1zGBjPZBSgGUS8Eiu/AOgtFToIaIXF3XvCItf5BpwvZ3ujoJswc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787924982; c=relaxed/simple;
-	bh=yM4daaz5EGYsnOT02SS39XlhFRk0UH5e4rF7tLOYAqQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
-	 References:In-Reply-To; b=CMZkJR3V4MWVoYFIJvelqAcPViRrB11Ly5ASnrnsH4DQ8jBlGAJMMROKYSzUPBkwWWkldVeNgZPW+ZiixjY+zFvNT1VyzQRBonplVnHYw5ARxrpMrtQNA32tKHz23hf+rMsI2Mh+hfS6YFtP840psGqBnTURyChJ2xaMj1Ct9Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=luToD1c7; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787924993; c=relaxed/simple;
+	bh=L/vtVOuW152LypUSH+OZVSSz4b7e/pD6T/lCivxelpw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c/nITJSS6qp/XJ4b3MHbYkxeLFgu09b9wdhFA5+eDbWQhDdEjwuLZzRzbzT67HvLA64w8PfhDOOt4LQrHFnkLi3SzFRlCK3r5X2K6aoz3iD8/bMAhrBTF5LtWRG4ixP5C6kiAe9FRkQXdwiAgwxrOLOUtvgE5Z9TMDHKRg1uwz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uZaK880V; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yqOZ/ggz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=iQIxoWgQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1z2TNRvZ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="luToD1c7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F2AC34E413FF;
-	Fri, 28 Aug 2026 13:49:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A551060537;
-	Fri, 28 Aug 2026 13:49:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D41411C78212;
-	Fri, 28 Aug 2026 15:49:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787924974; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=69exiOAVHdIVW9goACtvVSF9zJavgJQ+ojNwMsZPEro=;
-	b=luToD1c7hijfLRa8kWHEBKEP9XRU6yMf3qwN/ks0Y+O1kI/mG9dU+fBjddu0sif0laqLAi
-	Dt0zw4vbvBQZ2t7n1c8WGxiV4J6cQkKG58dnz+kMJgJcZ+5Aafg0Pue7kHz/a08snAVLRP
-	UiAsZRy2CDCpDjUPQwM2XB5zddnTBZdXvBynO66FTeeFcc/XS9mTZKaSj4LLmMvbVOGkXm
-	/8kK68hmA1j2GMe42cuiPneYKhI9sRLQ36hQ4GJW41jcDqP5//SnFrhY8e7VTlHCtcG8cp
-	HVJWSFwKHXp7DKyGGvfDdZv7Vs3UEK0IkBHs0eGjPN6hO2CQmyqyOILKu4FPzw==
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uZaK880V";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yqOZ/ggz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iQIxoWgQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1z2TNRvZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D4F0F1FDEF;
+	Fri, 28 Aug 2026 13:49:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787924962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OXlN0Lemb4BL44E4k0eIHMPf36FJp1GheSM6Mt20CWI=;
+	b=uZaK880VjicEmP7d0TP/bv5QZh6K9ANPOEdEamUCkpzpSCqoUBKQFutMzghSoq/cg3cMDT
+	rVtQ2nIitBuJibstKhYhF6LUqgFwPfY1oLNJ95qq8CEJv9qGsLSs1NcWJ5DacQfAkKeH/S
+	ymTUBRKW55su3OylNxqXzGuGvTATJ/c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787924962;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OXlN0Lemb4BL44E4k0eIHMPf36FJp1GheSM6Mt20CWI=;
+	b=yqOZ/ggzHYj84l8iGctiqty9wE+Oi8xlaPUpfeQ/YwRjq8sieVxnJZ+Ao0AULUSgktDisa
+	4DjrCygDyiZDT9Dg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787924957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OXlN0Lemb4BL44E4k0eIHMPf36FJp1GheSM6Mt20CWI=;
+	b=iQIxoWgQGPyhEjwUKjrx6IrY0pVrjYDG0GwMfREUNmaB2LXUw38LebcIn3APWoDnvlWlG7
+	SPTphIQZee8R5LIIYLFY+KpRujPpweIeLbCTh8O7nh4VF36UneiEeinRuOpnHpv7DuGJ4x
+	afvCg42KNWbfymexS+/fZdbcGO/6Dqc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787924957;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OXlN0Lemb4BL44E4k0eIHMPf36FJp1GheSM6Mt20CWI=;
+	b=1z2TNRvZvz1wc81sz2aHdHV3Ki7W+n94JmbiugyVM2kjQI4qctymKc7BH/L1XwlCrnIhTE
+	A/qvWYLwUcuZhuAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8B8A31352D;
+	Fri, 28 Aug 2026 13:49:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2/WxIN2RkWpzBAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 28 Aug 2026 13:49:17 +0000
+Date: Fri, 28 Aug 2026 15:49:17 +0200
+Message-ID: <87se3ytkwy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Subject: Re: ALSA: usb-audio: guessed channel positions on a device that names its channels
+In-Reply-To: <CABXGCsPh2d=1tJzszkFFQS=WrtNh3pD+Mhv_uj9VE2w58QPQrA@mail.gmail.com>
+References: <CABXGCsPh2d=1tJzszkFFQS=WrtNh3pD+Mhv_uj9VE2w58QPQrA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 15:49:24 +0200
-Message-Id: <DL0MI5O31J44.1W5BV6GJMJTT7@bootlin.com>
-To: <bot+bpf-ci@kernel.org>, <alexis.lothore@bootlin.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <john.fastabend@gmail.com>, <andrii@kernel.org>,
- <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
- <tglx@kernel.org>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
- <x86@kernel.org>, <hpa@zytor.com>, <shuah@kernel.org>, <mingo@redhat.com>,
- <andreyknvl@gmail.com>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <laoar.shao@gmail.com>
-Subject: Re: [PATCH bpf-next v8 8/8] selftests/bpf: add tests to validate
- KASAN on JIT programs
-Cc: <ebpf@linuxfoundation.org>, <bastien.curutchet@bootlin.com>,
- <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <martin.lau@kernel.org>, <clm@meta.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260828-kasan-v8-8-7c1c0fdb9d7f@bootlin.com>
- <45923d9ec2441312cfd8f12fd02a19d717dad306fd636614c83d02c864340ebe@mail.kernel.org>
-In-Reply-To: <45923d9ec2441312cfd8f12fd02a19d717dad306fd636614c83d02c864340ebe@mail.kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-On Fri Aug 28, 2026 at 12:30 PM CEST, bot+bpf-ci wrote:
->> diff --git a/tools/testing/selftests/bpf/progs/kasan.c b/tools/testing/s=
-elftests/bpf/progs/kasan.c
->> new file mode 100644
->> index 0000000000000..fe8e0dd228a09
->> --- /dev/null
->> +++ b/tools/testing/selftests/bpf/progs/kasan.c
->
-> [ ... ]
->
->> +SEC("tcx/ingress")
->> +int simple_atomic_fetch_on_stack(struct __sk_buff *skb)
->> +{
->> +	struct kasan_test_val val;
->> +
->> +	bpf_kfunc_kasan_poison(&val, sizeof(struct kasan_test_val));
->> +	__sync_fetch_and_or(&val.data_8, 8);
->> +	bpf_kfunc_kasan_unpoison(&val, sizeof(struct kasan_test_val));
->> +	return 0;
->> +}
->> +
->> +SEC("tcx/ingress")
->> +int simple_atomic_fetch_not_on_stack(struct __sk_buff *skb)
->> +{
->> +	struct kasan_test_val *val;
->> +	__u32 key =3D 0;
->> +
->> +	val =3D bpf_map_lookup_elem(&test_map, &key);
->> +	if (!val)
->> +		return 0;
->> +
->> +	bpf_kfunc_kasan_poison(val, sizeof(struct kasan_test_val));
->> +	__sync_fetch_and_or(&val->data_8, 8);
->> +	bpf_kfunc_kasan_unpoison(val, sizeof(struct kasan_test_val));
->> +	return 0;
->> +}
->
-> Can these two programs build with the no_alu32 flavor? Looking at
-> Documentation/bpf/clang-notes.rst, __sync_fetch_and_or() needs -mcpu=3Dv3
-> for the BPF_OR atomic instruction, but the no_alu32 build uses plain
-> -mcpu=3Dv2 (tools/testing/selftests/bpf/Makefile:497-501). Clang at v2 ca=
-n
-> only generate BPF_ADD atomics without BPF_FETCH, so BPF_OR should be an
-> instruction-selection error.
->
-> The sibling programs simple_atomic_on_stack and simple_atomic_not_on_stac=
-k
-> use __sync_fetch_and_add(), which lowers to BPF_ADD without BPF_FETCH whe=
-n
-> the return value is unused, so those build fine. Every other prog in
-> selftests/bpf/progs/ that uses a non-ADD or fetching atomic guards it wit=
-h
-> #ifdef ENABLE_ATOMICS_TESTS (progs/atomics.c, progs/arena_atomics.c,
-> progs/atomic_bounds.c, progs/tcp_ca_write_sk_pacing.c), and
-> -DENABLE_ATOMICS_TESTS is only passed to the default and cpuv4 runners, n=
-ot
-> to no_alu32.
->
-> Would it make sense to guard both simple_atomic_fetch functions with
-> #ifdef ENABLE_ATOMICS_TESTS, or to verify whether test_progs-no_alu32
-> actually builds?
->
-> Also, since the return value of __sync_fetch_and_or() is discarded here,
-> does clang emit BPF_ATOMIC | BPF_OR without the BPF_FETCH flag? That woul=
-d
-> make these identical to simple_atomic_*, just with OR instead of ADD, and
-> the JIT path for is_atomic_fetch (the CMPXCHG loop in
-> arch/x86/net/bpf_jit_comp.c added by bc9fb0ddd5f3b, where the KASAN check
-> is emitted before branch_target assignment) would not be exercised by
-> kasan/simple_atomic_fetch_on_stack or kasan/simple_atomic_fetch_not_on_st=
-ack.
->
-> The commit message shows #175/29 and #175/30 as :OK, but
-> progs/atomics.c:or64 uses or64_result =3D __sync_fetch_and_or(...) to for=
-ce
-> the fetch variant (checked in prog_tests/atomics.c:98), and keeps a
-> separate or_noreturn_value program for the discarded-result form. Would
-> consuming the result here test the intended path?
+On Mon, 24 Aug 2026 00:55:21 +0200,
+Mikhail Gavrilov wrote:
+> 
+> Hello,
+> I ran into this setting up a Topping M62 on Linux. It is a USB
+> interface with ten playback channels and sixteen capture channels --
+> five stereo pairs out, a set of inputs and loopback returns in. Nothing
+> about it is a home cinema. But alsamixer labels its playback controls
+> M62 Front, Rear, Center, Woofer and Side, its capture controls Mic
+> Front, Rear, Center, Woofer and Side, and a player that lists ALSA
+> devices directly offers "5.1 Surround output to Front, Center, Rear and
+> Subwoofer speakers" for it. Choosing one of those gives silence or the
+> wrong pair, and nothing explains why.
+> 
+> The layout is not in the descriptors. Every AudioStreaming interface on
+> this device declares bmChannelConfig 0x00000000. It comes from
+> convert_chmap() in sound/usb/stream.c:
+> 
+> } else {
+> /* If we're missing wChannelConfig, then guess something
+>    to make sure the channel map is not skipped entirely */
+> if (channels == 1)
+> chmap->map[c++] = SNDRV_CHMAP_MONO;
+> else
+> for (; c < channels && *maps; maps++)
+> chmap->map[c++] = *maps;
+> }
+> 
+> for (; c < channels; c++)
+> chmap->map[c] = SNDRV_CHMAP_UNKNOWN;
+> 
+> The standard position list is walked positionally, so channel 3 becomes
+> FC, channel 4 LFE and so on, while the honest answer the next lines
+> already use for the tail -- SNDRV_CHMAP_UNKNOWN -- never reaches the
+> head.
+> 
+> What makes this more than an unlucky guess is that the device does say
+> what its channels are, in the field beside the one we read:
+> 
+> bNrChannels            10
+> bmChannelConfig    0x00000000
+> iChannelNames          11 Playback 1
+> 
+> bNrChannels            16
+> bmChannelConfig    0x00000000
+> iChannelNames          21 Analogue 1
+> 
+> iChannelNames indexes the name of the first channel and the rest follow
+> in order. Reading those string descriptors from the same Linux machine
+> gives:
+> 
+> 11  Playback 1        21  Analogue 1      29  Loopback 1
+> 12  Playback 2        22  Analogue 2      30  Loopback 2
+> 13  Playback 3        23  AUX 1           31  Loopback 3
+> 14  Playback 4        24  AUX 2           32  Loopback 4
+> 15  Playback 5        25  BT 1            33  Loopback 5
+> 16  Playback 6        26  BT 2            34  Loopback 6
+> 17  Playback 7        27  Mobile 1        35  Loopback 7
+> 18  Playback 8        28  Mobile 2        36  Loopback 8
+> 19  Playback 9
+> 20  Playback 10
+> 
+> That is the hardware, exactly: two microphone inputs, a stereo AUX, a
+> Bluetooth return, a phone return and eight loopback returns. In
+> sound/usb the field appears only in validate.c, counted towards a
+> descriptor's expected length and never read.
+> 
+> Two questions, then, and I would rather ask than send a patch that
+> guesses at the answer.
+> 
+> Should the positional guess stop where the position list stops meaning
+> anything? For two channels it is almost always right and clearly
+> useful. For ten or sixteen it is not uncertain but wrong, and UNKNOWN
+> is both honest and already available.
+> 
+> And is there interest in surfacing iChannelNames at all? The chmap API
+> is positional and has no room for free text, so this is not a matter of
+> filling in a map -- it would need somewhere new to live, and I do not
+> want to invent that unilaterally. But devices do provide these names,
+> and on an interface with ten identical-looking channels they are the
+> only thing that tells a user which is which.
+> 
+> Happy to write either patch if a direction is agreeable.
 
-Even for no_alu32, the __sync_fetch_and_or is properly generated:
-
-  $ llvm-objdump --disassemble-symbols=3Dsimple_atomic_fetch_on_stack tools=
-/testing/selftests/bpf/no_alu32/kasan.bpf.o
- =20
-  tools/testing/selftests/bpf/no_alu32/kasan.bpf.o:       file format elf64=
--bpf
- =20
-  Disassembly of section tcx/ingress:
- =20
-  00000000000006d0 <simple_atomic_fetch_on_stack>:
-       218:       bf a6 00 00 00 00 00 00 r6 =3D r10
-       219:       07 06 00 00 f0 ff ff ff r6 +=3D -0x10
-       220:       bf 61 00 00 00 00 00 00 r1 =3D r6
-       221:       b7 02 00 00 10 00 00 00 r2 =3D 0x10
-       222:       85 10 00 00 ff ff ff ff call -0x1
-       223:       b7 01 00 00 08 00 00 00 r1 =3D 0x8
-       224:       db 1a f8 ff 41 00 00 00 r1 =3D atomic_fetch_or((u64 *)(r1=
-0 - 0x8), r1)
-       225:       bf 61 00 00 00 00 00 00 r1 =3D r6
-       226:       b7 02 00 00 10 00 00 00 r2 =3D 0x10
-       227:       85 10 00 00 ff ff ff ff call -0x1
-       228:       b7 00 00 00 00 00 00 00 r0 =3D 0x0
-       229:       95 00 00 00 00 00 00 00 exit
+I'd say yes for both.  It's beyond the standard definition, so we'd
+just need to do the best.
 
 
-My understanding is that _32 bits_ atomics aren't available with
--mcpu=3Dv2, but 64 bits atomic fetch operations are, so that's why I stuck
-with a DW operation for the simple_atomic_fetch(_not)_on_stack tests.
+thanks,
 
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/331600=
-00533
-
-
-
-
---=20
-Alexis Lothor=C3=A9, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Takashi
