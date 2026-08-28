@@ -1,423 +1,109 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EBA3F23BE;
-	Fri, 28 Aug 2026 08:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5296339E184
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907559; cv=none; b=AJZLrr5wSPTgPascFKI+ZtjeNFLCK5atkUeiLZdxjLiLDzZElOMfZHZs6CcA8pF4ilQp/6LWF2XleQJbOFjyS+90C2TTF2lmlnxAaiYiyXLza9ETA595/dtMy+G5ka+pTIRLjER4ir3kDsoRzQqYCbUxvATc4tu5uHqKtmy+6Y0=
+	t=1787907617; cv=none; b=QUewVf3k+wvO9MFT5bnECeZqzOIaxpR+PZwYy4JvEXjtkX3SsRW7jI78iiwDOXUcPaiKfvBJ/Qe6TZPU6zOIHrYQa/wd47Vmw5NtloObGW/b7LjojO0ZHHSr4Sx/4u/l3enm8j2tfkeVtOs05vARN65Wm5B5BLem9+vyqBIE9g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907559; c=relaxed/simple;
-	bh=sj5QSx0jVTLcLKXl0dw0yMOgaejSa65zBLL6FKu0G28=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qsHmhvbAkS38h5kgPSiw+yPRPGQS/yeqE+vR9k1nmEeTXZfvzQJ8vEJWejtSG8SF8kPibK4AmB+dn1dbJS6qHVbwRpP0CW7TjrStQyw812XrwpQeghoI7B899aA/TwQucMS5UlM45PUQnxagQO0ZHrQnnbNbc8xN7eGs4Ws/SIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=AzBeEO64; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1787907617; c=relaxed/simple;
+	bh=QzTyrp5ZtI9h+7JIfZbJaZg9Ky9cEZndB4nrChNEIME=;
+	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=s+D0ZNTj6a7UOh3b3XtlfIRFNlKDGYZ47Umzy5F1LONXQ3LDimkvGYHOZi7YmeNLpDfR5isIQbqyAQrHX3H0F0kgmB9D4BBRAyV+aa/NgdnQdJJwDcMdE84tlELEY/LQCbgdg/CD9E9hn6KHt55idhtKTVBnNMufZ2OIf4jpEJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OcN2PdNV; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="AzBeEO64"
-Received: by chaosmail.tech (Postfix) id 0A5E51CC17F;
-	Fri, 28 Aug 2026 08:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1787907549;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Fnn+sn/viviSJMIrXgo/zR8sy63zVOzZqPp+tjXwopE=;
-	b=AzBeEO64VI+HARa/LzNFueqWknHUHiFAPUC/wcZ9xsaSeTyCchVCJ6tm77s/KZLdst+Jjo
-	+ESI6u/WmWreOVTrmJxRTfa4RzZyHoGbpvt5b7laIkEO9XTblGccqq1WGFS0qn2ZmrnknQ
-	bSXMWHzMQJuhs9FTTdVaGDTXXKZrBWA=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Fri, 28 Aug 2026 10:59:02 +0200
-Subject: [PATCH v8 6/6] spmi: apple: Add interrupt functionality
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OcN2PdNV"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-853c401326eso528745b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 02:00:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787907615; x=1788512415; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GBj03YUyO42gKTg2Nn2xcgaGG+u4Z9YmWa87lQqvR2k=;
+        b=OcN2PdNVPtAyoq51gmjz56YHAyusWFiyAuOh1Ubdoch/6SqykNYERzxusfm2cTaYsw
+         oB+bNCyg19ajeHQ7378lqgxn+Pj2N3/8Djd/va6qsipt9S9i+y1vmfOW3DKdR+PHKUV3
+         vnlxm3cY6ZOaJDNakI1jbT3BbtkgLl94KlI3gpN53jbmVGxz3ZEMtW0D6IWOkMWEzPv+
+         Ax4zdhV9vjOAqNV8KnKvKIsymuTZLKa0EY8C5TrMX79BNrThG/TiJ8XndQjRYoyDF/J8
+         MCUjiHHIETXpm6WxiPrX40pKoOfdWgAsnKoOE9xt2e+XskMsYGzpsn3cCR5uOxNHk9Sv
+         Nezw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787907615; x=1788512415;
+        h=content-transfer-encoding:content-type:subject:date:cc:to:from
+         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GBj03YUyO42gKTg2Nn2xcgaGG+u4Z9YmWa87lQqvR2k=;
+        b=JdQpUDG63iphu6kawOrkPmKe/YVVaihjP2oddO9y+u/8V8bnG+5TeAUeQ7nGnVq33A
+         CkJUUFEIbeBCKlkKOlGH9t+B9s/OH5IKV8tyqSJFXDOhEXatqEAig5mzEC3pCPptwiBH
+         umv4nnwLC7tL6sgSrcJ2QBVOxac2EkpfSOJS3z3lBSKvl5aSogqXfSQPI07gTtrBhfu8
+         +bfIxJd6U41JT/MqR4Hk06bn08w0c6oH+IeWrkYzEB+hEAzrYVIcObRMLB4PW93ZtSnI
+         c7W+Af3HVUO89CmUBGr2c5DVP0hRaPY/iNNZAiYOxTUtvFIu+GqpludjTxIIgrYWxORq
+         KoCw==
+X-Forwarded-Encrypted: i=1; AHgh+RrNWCZusMF2FViRqVt+1e172fIezbn5q/Aji0EdpNXxRm1xol+gDwjo+it0RV626DskCUvhZY1YoRIh6bs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4UOpow2b4EBtQa6sq+bekmr4wDfBXLv/qXfHPFnvB0Y5lH03d
+	j06TNDSUqU+G91SYebm/Cc5o7KkAc4xBjHokIk4w5ULAZP50Gcn5aSzn
+X-Gm-Gg: AR+sD13948tmPqEtN9bK3WAYrNxqR8/Ki79WwdZ+kwZeKo6vkO9ijck2ZDVCaof+kSn
+	Ph5rC6RsvS0nwweuPcDUMmZWsmdWJ9MTM0VQKWxY4nD+NpE8ayEDZTTVjXjiXAlL2t99fBZfoKF
+	JK6BNAOxaloyccNtHUqXPg3J8iiX1ElpwY+d7F64IGZJ8BpTkv+Q06cBk7poR8Qfk4a1bp5k5LG
+	vqOBTS3DHty66tGuQ+6q3V6bP2IzZVBKRw0Jv52BBqd/cuEBRe2cYgfu9ZLy/TcVdWOVFJdmLPy
+	Utt/xqdJJL6snjJxPfEE2mn6i7cwMOFXTWCdOf+e5kD1FSYw2S7XYidW3i/ZlwTk2pofgWBcZgZ
+	8NGlv24bd357cN7C5bfNDJ7eLuGGLHxUPfptS3PnmUdVSw/V4ZuyK1rPS++Fhs6lgqJp22yjphw
+	lPMirejssaZNa1WV1kjAa7E3CGM6yStPeXKJJfE95cPY/edDn2c8xnugMrhgeitM3ctuVU9Nq7e
+	twx6H6om0/5+mdmetnXnBCcWoV+UPZO5XH5SXo5JD9ceTm9lHwkQUsbeg==
+X-Received: by 2002:a05:6a20:7faa:b0:3cc:3d08:da2b with SMTP id adf61e73a8af0-3d2684a3f6emr9285413637.15.1787907615195;
+        Fri, 28 Aug 2026 02:00:15 -0700 (PDT)
+Received: from manush ([2406:7400:94:7a79:ddde:713d:7785:c4a3])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0e0e67dsm3987107c88.15.2026.08.28.02.00.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:00:14 -0700 (PDT)
+Message-ID: <6a914e1e.7d702ed2.1273e8.2a52@mx.google.com>
+X-Mailer: git-send-email 2.46.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-t603x-spmi-v8-6-708d4d12e0fd@chaosmail.tech>
-References: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
-In-Reply-To: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787907544; l=11043;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=6TU+MwrLfTiyBv4VeYrsCfpmcIubiyjlPuis5CkV52c=;
- b=EqSXLGaNEgHvPbW/X4htkPlE4tM9masCsSHgwWOZYjeJmXDusUMYTb4UBohRMHa/ornUQvxPQ
- ho4A/br1vMrAa5X9gg6if0CWo13rEXW0n6eWivpBYWeDfH9pHHcAINO
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+From: "Manush Prajwal" <manushprajwal555@gmail.com>
+To: cw00.choi@samsung.com, krzk@kernel.org, lee@kernel.org, pavel@kernel.org
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dsankouski@gmail.com, sakari.ailus@linux.intel.com
+Date: 28 Aug 2026 14:30:13 +0530
+Subject: [PATCH v2] leds: max77705: use fwnode_for_each_child_node_scoped()
+ in max77705_add_led()
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Alba Mendez <me@alba.sh>
-
-Add support for interrupts sent by slave devices and use IRQ for
-RX FIFO if possible, as that IRQ fires as soon as the reply is
-available, which is usually takes a few us instead of the 10ms sleep
-interval for polling.
-
-Signed-off-by: Alba Mendez <me@alba.sh>
-Reviewed-by: Janne Grunau <j@jannau.net>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- drivers/spmi/Kconfig                 |   3 +-
- drivers/spmi/spmi-apple-controller.c | 257 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 258 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/spmi/Kconfig b/drivers/spmi/Kconfig
-index a80cf4047b86..7243863a09b4 100644
---- a/drivers/spmi/Kconfig
-+++ b/drivers/spmi/Kconfig
-@@ -13,7 +13,8 @@ if SPMI
- 
- config SPMI_APPLE
- 	tristate "Apple SoC SPMI Controller platform driver"
--	depends on ARCH_APPLE || COMPILE_TEST
-+	select IRQ_DOMAIN_HIERARCHY
-+	depends on ARCH_APPLE || (COMPILE_TEST && 64BIT)
- 	help
- 	  If you say yes to this option, support will be included for the
- 	  SPMI controller present on many Apple SoCs, including the
-diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index fabccd25aa0d..2390174452ab 100644
---- a/drivers/spmi/spmi-apple-controller.c
-+++ b/drivers/spmi/spmi-apple-controller.c
-@@ -13,11 +13,17 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/completion.h>
-+#include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-+#include <linux/irq.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/platform_device.h>
-+#include <linux/spinlock.h>
- #include <linux/spmi.h>
- 
- /* SPMI Controller Registers */
-@@ -26,6 +32,13 @@
- #define SPMI_RSP_REG 0x8
- #define SPMI_ACT_REG 0xa4
- 
-+#define SPMI_IRQ_MASK_BASE 0x20
-+#define SPMI_IRQ_ACK_BASE 0x60
-+#define SPMI_NUM_PERIPHERAL_IRQS 256
-+#define SPMI_NUM_IRQS (SPMI_NUM_PERIPHERAL_IRQS + 32)
-+
-+#define SPMI_IRQ_NOTIFY 256
-+
- /* SPMI_RSP_REG reply word */
- #define SPMI_REPLY_FRAME_PARITY_STATUS GENMASK(31, 16)
- #define SPMI_REPLY_ACK BIT(15)
-@@ -41,6 +54,12 @@
- struct apple_spmi {
- 	void __iomem *regs;
- 	struct mutex fifo_lock;
-+	struct completion fifo_rx;
-+	struct irq_domain *irqd;
-+	raw_spinlock_t irq_mask_lock;
-+	DECLARE_BITMAP(irq_mask_cache, SPMI_NUM_PERIPHERAL_IRQS);
-+	int irq;
-+	bool notify_irq;
- 	bool prev_fail;
- };
- 
-@@ -48,6 +67,56 @@ struct apple_spmi {
- 	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
- 			   REG_POLL_INTERVAL_US, REG_POLL_TIMEOUT_US)
- 
-+static void apple_spmi_irq_ack_raw(struct apple_spmi *spmi, u32 irq)
-+{
-+	u32 __iomem *reg = spmi->regs + SPMI_IRQ_ACK_BASE + (irq / 32) * 4;
-+
-+	writel(BIT(irq % 32), reg);
-+}
-+
-+static void apple_spmi_irq_mask_raw(struct apple_spmi *spmi, u32 irq)
-+{
-+	u32 __iomem *reg = spmi->regs + SPMI_IRQ_MASK_BASE + (irq / 32) * 4;
-+
-+	writel(readl(reg) & ~BIT(irq % 32), reg);
-+}
-+
-+static void apple_spmi_irq_unmask_raw(struct apple_spmi *spmi, u32 irq)
-+{
-+	u32 __iomem *reg = spmi->regs + SPMI_IRQ_MASK_BASE + (irq / 32) * 4;
-+
-+	writel(readl(reg) | BIT(irq % 32), reg);
-+}
-+
-+static void apple_spmi_irq_ack(struct irq_data *d)
-+{
-+	struct apple_spmi *spmi = irq_data_get_irq_chip_data(d);
-+
-+	apple_spmi_irq_ack_raw(spmi, d->hwirq);
-+}
-+
-+static void apple_spmi_irq_mask(struct irq_data *d)
-+{
-+	struct apple_spmi *spmi = irq_data_get_irq_chip_data(d);
-+	unsigned long flags;
-+
-+	raw_spin_lock_irqsave(&spmi->irq_mask_lock, flags);
-+	apple_spmi_irq_mask_raw(spmi, d->hwirq);
-+	clear_bit(d->hwirq, spmi->irq_mask_cache);
-+	raw_spin_unlock_irqrestore(&spmi->irq_mask_lock, flags);
-+}
-+
-+static void apple_spmi_irq_unmask(struct irq_data *d)
-+{
-+	struct apple_spmi *spmi = irq_data_get_irq_chip_data(d);
-+	unsigned long flags;
-+
-+	raw_spin_lock_irqsave(&spmi->irq_mask_lock, flags);
-+	set_bit(d->hwirq, spmi->irq_mask_cache);
-+	apple_spmi_irq_unmask_raw(spmi, d->hwirq);
-+	raw_spin_unlock_irqrestore(&spmi->irq_mask_lock, flags);
-+}
-+
- static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
- {
- 	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
-@@ -60,7 +129,19 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
- 	int ret;
- 	u32 status;
- 
--	ret = poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO_EMPTY));
-+	if (spmi->notify_irq) {
-+		ret = wait_for_completion_timeout(&spmi->fifo_rx,
-+			usecs_to_jiffies(REG_POLL_TIMEOUT_US));
-+		if (!ret)
-+			ret = -ETIMEDOUT;
-+		else if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)
-+			ret = -EIO;
-+		else
-+			ret = 0;
-+	} else {
-+		ret = poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO_EMPTY));
-+	}
-+
- 	if (ret) {
- 		spmi->prev_fail = true;
- 		dev_err(&ctrl->dev,
-@@ -84,8 +165,10 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
- 
- 	if (spmi->prev_fail) {
- 		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
-+		apple_spmi_irq_ack_raw(spmi, SPMI_IRQ_NOTIFY);
- 		spmi->prev_fail = false;
- 	}
-+	reinit_completion(&spmi->fifo_rx);
- 
- 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
- 
-@@ -188,6 +271,167 @@ static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
- 	return -EINVAL;
- }
- 
-+static int apple_spmi_irq_set_type(struct irq_data *d, unsigned int type)
-+{
-+	/* all interrupts have MSI semantics */
-+	return type == IRQ_TYPE_EDGE_RISING ? 0 : -EINVAL;
-+}
-+
-+static struct irq_chip apple_spmi_irq_chip = {
-+	.name = "apple_spmi",
-+	.irq_mask = apple_spmi_irq_mask,
-+	.irq_unmask = apple_spmi_irq_unmask,
-+	.irq_ack = apple_spmi_irq_ack,
-+	.irq_set_type = apple_spmi_irq_set_type,
-+	.flags = IRQCHIP_ONESHOT_SAFE,
-+};
-+
-+static int apple_spmi_irq_domain_map(struct irq_domain *irqd,
-+					unsigned int irq, irq_hw_number_t hw)
-+{
-+	irq_domain_set_info(irqd, irq, hw, &apple_spmi_irq_chip, irqd->host_data,
-+				handle_edge_irq, NULL, NULL);
-+	return 0;
-+}
-+
-+static int apple_spmi_irq_domain_translate(struct irq_domain *irqd,
-+					struct irq_fwspec *fwspec,
-+					unsigned long *hwirq,
-+					unsigned int *type)
-+{
-+	u32 *args = fwspec->param;
-+
-+	if (fwspec->param_count != 2)
-+		return -EINVAL;
-+
-+	if (args[0] >= SPMI_NUM_PERIPHERAL_IRQS)
-+		return -EINVAL;
-+	*hwirq = args[0];
-+	*type = args[1] & IRQ_TYPE_SENSE_MASK;
-+	return 0;
-+}
-+
-+static int apple_spmi_irq_domain_alloc(struct irq_domain *irqd, unsigned int virq,
-+				unsigned int nr_irqs, void *arg)
-+{
-+	unsigned int type = IRQ_TYPE_NONE;
-+	struct irq_fwspec *fwspec = arg;
-+	irq_hw_number_t hwirq;
-+	int i, ret;
-+
-+	ret = apple_spmi_irq_domain_translate(irqd, fwspec, &hwirq, &type);
-+	if (ret)
-+		return ret;
-+
-+	if (hwirq + nr_irqs > SPMI_NUM_PERIPHERAL_IRQS)
-+		return -EINVAL;
-+
-+	for (i = 0; i < nr_irqs; i++) {
-+		ret = apple_spmi_irq_domain_map(irqd, virq + i, hwirq + i);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void apple_spmi_irq_domain_free(struct irq_domain *irqd, unsigned int virq,
-+				unsigned int nr_irqs)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_irqs; i++) {
-+		struct irq_data *d = irq_domain_get_irq_data(irqd, virq + i);
-+
-+		irq_set_handler(virq + i, NULL);
-+		irq_domain_reset_irq_data(d);
-+	}
-+}
-+
-+static const struct irq_domain_ops apple_spmi_irq_domain_ops = {
-+	.translate	= apple_spmi_irq_domain_translate,
-+	.alloc		= apple_spmi_irq_domain_alloc,
-+	.free		= apple_spmi_irq_domain_free,
-+};
-+
-+static void apple_spmi_irq_handler(struct irq_desc *desc)
-+{
-+	struct apple_spmi *spmi = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	bool handled = false;
-+	unsigned long val, offset, bit;
-+
-+	chained_irq_enter(chip, desc);
-+	val = readl(spmi->regs + SPMI_IRQ_ACK_BASE + (SPMI_IRQ_NOTIFY / 32) * 4);
-+	if (val & BIT(SPMI_IRQ_NOTIFY % 32)) {
-+		apple_spmi_irq_ack_raw(spmi, SPMI_IRQ_NOTIFY);
-+		complete(&spmi->fifo_rx);
-+		handled = true;
-+	}
-+
-+	for (offset = 0; offset < SPMI_NUM_PERIPHERAL_IRQS / 8; offset += sizeof(val)) {
-+		val = readq(spmi->regs + SPMI_IRQ_ACK_BASE + offset);
-+		/**
-+		 * because of other masters in the bus, we're going to get a multitude of
-+		 * interrupts we're not interested in. irq_resolve_mapping isn't very
-+		 * optimized for the nonexistent path, so instead we mask with (a locally
-+		 * cached version of) the IRQ mask
-+		 */
-+		val &= spmi->irq_mask_cache[offset / sizeof(val)];
-+		for_each_set_bit(bit, &val, 64) {
-+			generic_handle_domain_irq(spmi->irqd, offset * 8 + bit);
-+			handled = true;
-+		}
-+	}
-+	if (!handled)
-+		handle_bad_irq(desc);
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static void apple_spmi_teardown_irq(void *data)
-+{
-+	struct apple_spmi *spmi = data;
-+
-+	for (size_t offset = 0; offset < SPMI_NUM_IRQS / 8; offset += 4)
-+		writel(0, spmi->regs + SPMI_IRQ_MASK_BASE + offset);
-+
-+	synchronize_irq(spmi->irq);
-+	irq_set_chained_handler_and_data(spmi->irq, NULL, NULL);
-+}
-+
-+static int apple_spmi_init_irq(struct platform_device *pdev,
-+			       struct apple_spmi *spmi, int irq)
-+{
-+	int ret;
-+	struct irq_domain_info info = {
-+		.fwnode		= pdev->dev.fwnode,
-+		.hwirq_max	= ~0U,
-+		.ops		= &apple_spmi_irq_domain_ops,
-+		.host_data	= spmi,
-+	};
-+
-+	raw_spin_lock_init(&spmi->irq_mask_lock);
-+
-+	for (size_t offset = 0; offset < SPMI_NUM_IRQS / 8; offset += 4) {
-+		writel(0, spmi->regs + SPMI_IRQ_MASK_BASE + offset);
-+		writel(U32_MAX, spmi->regs + SPMI_IRQ_ACK_BASE + offset);
-+	}
-+
-+	spmi->irqd = devm_irq_domain_instantiate(&pdev->dev, &info);
-+	if (IS_ERR(spmi->irqd))
-+		return PTR_ERR(spmi->irqd);
-+
-+	ret = devm_add_action(&pdev->dev, apple_spmi_teardown_irq, spmi);
-+	if (ret)
-+		return ret;
-+
-+	irq_set_chained_handler_and_data(spmi->irq, apple_spmi_irq_handler, spmi);
-+	apple_spmi_irq_unmask_raw(spmi, SPMI_IRQ_NOTIFY);
-+	spmi->notify_irq = true;
-+
-+	return 0;
-+}
-+
- static int apple_spmi_probe(struct platform_device *pdev)
- {
- 	struct apple_spmi *spmi;
-@@ -200,6 +444,8 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 
- 	spmi = spmi_controller_get_drvdata(ctrl);
- 	mutex_init(&spmi->fifo_lock);
-+	init_completion(&spmi->fifo_rx);
-+	platform_set_drvdata(pdev, spmi);
- 
- 	spmi->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(spmi->regs))
-@@ -211,6 +457,15 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 	ctrl->write_cmd = spmi_write_cmd;
- 	ctrl->cmd = spmi_cmd;
- 
-+	spmi->irq = platform_get_irq_optional(pdev, 0);
-+	if (spmi->irq < 0 && spmi->irq != -ENXIO)
-+		return spmi->irq;
-+	if (spmi->irq >= 0) {
-+		ret = apple_spmi_init_irq(pdev, spmi, spmi->irq);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
-
--- 
-2.55.0
+Rework the subled loop in max77705_add_led() around=0D=0Afwnode_f=
+or_each_child_node_scoped() instead of adding a manual=0D=0Afwnod=
+e_handle_put(child) before the early return on a=0D=0Amax77705_pa=
+rse_subled() failure, so the reference on the current=0D=0Achild =
+fwnode is released automatically on every exit path from the=0D=0A=
+loop. child is never used outside the loop, so the now-unused out=
+er=0D=0Achild declaration is dropped along with it.=0D=0A=0D=0ASu=
+ggested-by: Krzysztof Kozlowski <krzk@kernel.org>=0D=0AFixes: 3b6=
+eaa3db567 ("leds: Use fwnode_for_each_child_node() instead")=0D=0A=
+Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>=0D=0A-=
+--=0D=0Av2: Rework around fwnode_for_each_child_node_scoped() ins=
+tead of the=0D=0A    manual fwnode_handle_put(child) from v1, per=
+ Krzysztof=0D=0A    Kozlowski's review.=0D=0A---=0D=0A drivers/le=
+ds/leds-max77705.c | 3 +--=0D=0A 1 file changed, 1 insertion(+), =
+2 deletions(-)=0D=0A=0D=0Adiff --git a/drivers/leds/leds-max77705=
+.c b/drivers/leds/leds-max77705.c=0D=0Aindex 1e2054c..4fd803c 100=
+644=0D=0A--- a/drivers/leds/leds-max77705.c=0D=0A+++ b/drivers/le=
+ds/leds-max77705.c=0D=0A@@ -160,7 +160,6 @@ static int max77705_a=
+dd_led(struct device *dev, struct regmap *regmap, struct fw=0D=0A=
+ 	struct max77705_led *led;=0D=0A 	struct led_classdev *cdev;=0D=0A=
+ 	struct mc_subled *info;=0D=0A-	struct fwnode_handle *child;=0D=0A=
+ 	struct led_init_data init_data =3D {};=0D=0A=0D=0A 	led =3D dev=
+m_kzalloc(dev, sizeof(*led), GFP_KERNEL);=0D=0A@@ -191,7 +190,7 @=
+@ static int max77705_add_led(struct device *dev, struct regmap *=
+regmap, struct fw=0D=0A 		cdev->brightness_set_blocking =3D max77=
+705_led_brightness_set_multi;=0D=0A 		cdev->blink_set =3D max7770=
+5_rgb_blink;=0D=0A=0D=0A-		fwnode_for_each_child_node(np, child) =
+{=0D=0A+		fwnode_for_each_child_node_scoped(np, child) {=0D=0A 		=
+	ret =3D max77705_parse_subled(dev, child, &info[i]);=0D=0A 			if=
+ (ret < 0)=0D=0A 				return ret;=0D=0A--=0D=0A2.46.2.windows.1
 
