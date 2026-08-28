@@ -1,112 +1,221 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C763E2740
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905083; cv=none; b=WkxS5NgGc7aUG5juvW63qayLcQDH0B3krsD24vIPqyzFXWc+vStsRBg+OFaBq29VlDBw9eg9lmGCeKCRdARTNtJyShobkp8yBc35Aij7eOqPQzQQtov+ixQcEjLA159+wncgu031w6lsS5mvscTCQVcTazVu9CpwvOzgHMB1GxE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905083; c=relaxed/simple;
-	bh=E3uh5dMSl5lB8wa1w3SfYQF+zxHKT7iF0fPmyAKdw5s=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=n9baPo7PyN+K79ZScoYXV13M7W0jEekmzx+63vBlGscD/vXs8zzs2fhjg4cmdzIz120F0JUen4VUDt9hqcAfz4avabCLV/wcsO2VByfNMzTB1myFMtmz5sX6S++Ha+FumogXECMXtA/ipER/LB/EF1WfELKIirAlH6r5SKAi818=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=iqg/IkxR; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BA83C456F;
+	Fri, 28 Aug 2026 08:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787905115; cv=fail; b=pBC+LIrMZ8T5xfX0RD5qtb7foaYNfARvVw8irU5uloIBSbg4/Qa1TSTGpIsv7RDUmOlZiedwvHvvafxGhMlxxDS49PcQyVXkCatMT/KkpoMnqFL6L7ys1/DFMsmQ5UwYqis9QN08nxKRoe98Pe/UqO/ClW9cIIAbxmRoM65DdWk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787905115; c=relaxed/simple;
+	bh=BwPTXyD7k2xp2Lfm7T6ZFzLeQfcGG3t6puQptCd/Qrc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=G+09q6PboR0eciDXjn2sC7iUemGHSTNRJpicDhslXr+55zO+a29CV6K8PCqnP1vW8jCFlSXPisXa/FlbxKUJr2AIJQqrEQL2F7NEFfPmaFeJeMXode7ZbEQ3yND0aPlvQEnKBD1RHtUpgPiZI0Mj0xwQIlLjd9y67/LDvOy8wQw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B86AGb4M; arc=fail smtp.client-ip=40.107.209.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="iqg/IkxR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787905076; h=Message-ID:Date:MIME-Version:Subject:From:To:Content-Type;
-	bh=Hl/xWp7o0V5c9DhHxf8+TpCNwaALGvLpkx6fF+2bN8s=;
-	b=iqg/IkxRzSGxXOYgAq9sqv+8FDrhnm5Wla60KNXuM9E2tnhVQvJpww0aQtZQK1cravTa8YhLWwvyhuUvPCylFHedZH5P7fRfoxLNDCKtE/W3dGJQEjISdRGHZCx9LUW0qMYufb854raw1Uw9pqkZYujYwrfsNc5TICf7JM2+WqM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9lrTvy_1787905075;
-Received: from 30.221.129.54(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9lrTvy_1787905075 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 16:17:55 +0800
-Message-ID: <abac1aed-17bc-48c2-9912-9dbc8af44302@linux.alibaba.com>
-Date: Fri, 28 Aug 2026 16:17:54 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B86AGb4M"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xMtBW0eWz4SmT8yiVgV88hvCABar9gdpOsqO8Q4ifCqppmWds2b8Gjpb5K1i7MC/TSVg2VfEH8DCWoB3H5UqvL+zv83b+dDgOu1tBzsWQhW1xvq7/Z5dSEheTeq8N8vsQLR5V1uv31vv073GNjfQ4qYm8M84nf5DeXDyd5ftjbIVf9SwIq+9djF+8FdXke1HMG19cwo9YeUb6NtZRVHBNg3dN7Lvwlp0oQB7fW7IJo7KD1D+4vQlJ1wkJH5AJYJP5hvZCQELvVDSAD0xpRS6+bM7UTkxcDzOuhc45iEGBf0n/fnvB3CuyXLQicVdmLhRour++fDzvx+TFKJQ7xLjGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OGp9mhz6iaGudhw1clnmnQtxbYq5tUhToCkH1HLO/CI=;
+ b=Mc18RcFlAuEKAdv+PcGoyW7QhHlmkEIg8M0hbJ+o63mZrWgCHkBD0G+sJTioGFC1Yyxws6snzlGLz5YfI9Z4NrEjUUqxao063A0UApdVQMOjjhjpG3z/K0EDIySObfV+C2WSMsT3uUV6+EZV8RPck9hytUFpJHzw7l3nqyZqB+V0Majx3kj/RwJyvfeVPWTFBOBPa/SFmZm8QF8NwZjI7iLQx45qoJRhAW/yzT7HQWcgADXIH/xcPWYPJJ+FoCRhEkuRmtrsYHnSKvrdFD43C22j9YS3q6/L01DZlnImYNd5zdOVxcrNn/hb31SJePxkIsfAInX0QNMjdywPjzrLhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OGp9mhz6iaGudhw1clnmnQtxbYq5tUhToCkH1HLO/CI=;
+ b=B86AGb4MJqs7idkR5//v/cYHvJFXRq8pGStDzaZ3kvoTXGRWoYVM3s/eUDVCjovv5yGnDN3c6DRPGc616rhVkyBobHkTvYAuqFFTAyuEOxcpP5c/mhPLKWnNvBaopHVbBlxk7nv+PVkuNnNyLLnrQEpW4X5/1yJedHDqcuPqaVY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB8355.namprd12.prod.outlook.com (2603:10b6:610:131::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 08:18:30 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 28 Aug 2026
+ 08:18:30 +0000
+Message-ID: <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
+Date: Fri, 28 Aug 2026 10:18:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] drm: Add common drm_user_fence helper
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
+ <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
+ <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
+ <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0235.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] ocfs2: exit recovery thread on mount error path
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
- Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260828071553.262254-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8355:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b4dac39-0dc1-4947-7b7a-08df04dcf1c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ntb3u91syXfdafFf8U17v/fegVc4h1eNVo6NFUM2SA8Af33ArawrOHajdSflZedRYahqYdPLfwytn+/dCTIn5VrLRaFYuZ4+h7PtmJ6AI7qW51vMdvjGTAUSt8PnY1dGEGYQKHYkEhRdM2BWxYDkEbot70xlBA5EsUqDlTUzQrblQGPp1ukYvSzIy1JajGxTY7EZnYKRtoBDe2wIoxRsWH6bckliewpEuyibwx69dShlgaNM1j3WFzXNza8+oOBSKZGvPeVTqnwrHIfzZYwbqJ/VwDKQ0neFSz81bUvDcVhDulA7Y6IstzGt5eYCQjTgq9lvI4y2+fazT69pwRlnh56JAzFq+dorqrtGXy3lVT28G7JmH5HoDCWLlPqXj81rMWZ//7gtQO09K53v5s0lEnkJuTZynhEn2qsro35il9KB3772bSnJ/BYzwOSQQ4IUspSkBm91fZlwofRAo7YMGwpeGKkV+Du/YeAQnBnBN+lIO5PXpAb1z2XXix+Oglz/CE2pCVPKjG/T3FUjIgXTlfbIghKH99RWb3TEf3ZSiqWW87GrGEL3IHSsvDxnMA6mo5ot4gisMGoDTW2H69muGz1RQnTyyD/qRsbRnLxtooVPF70JbmVhPm/6bst61PidziTmjDi+fOWWunGwT0U40o7m7PKi6bvOdDLNezXLPL0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RmV0RXhsNjJJSUZsa2Q5TUNvK0xtMHpLaThUdXUwMHlnUEpjNnoxM0RKTU9p?=
+ =?utf-8?B?My94T0lhcGw2cFlVNmxqNnlRMU1LdGtVNzU0dzEvNTU3NGVod0JjMXdXUHRF?=
+ =?utf-8?B?aEVvekloUk43NE10KzlzbjFGVndlamNMNytGb3lpNVFTK1ZqeUJKbTBjZDBn?=
+ =?utf-8?B?ajRJVVF4VzA0ZWtsaHZ4ZUZmdDRxb2g3T2lIRk15eEt3K1AwWGVjMHJZakhu?=
+ =?utf-8?B?M0VscWF4aTBCUmZnOWdBS3E5d1l3UVdPNFhQK2I4dEhVZHVPR3dEai8xYVly?=
+ =?utf-8?B?WktNcnNHdkVwZEJLQTFwaEdteE8yZzJCQmlDWldNSC9zbDVvSnFyNFFIR0pC?=
+ =?utf-8?B?QkZMNzgxbS94bHJ5QjZBS3cvRmNHZFlQNjZwZHUxc0dZZmtiTCtSMkg5QnRX?=
+ =?utf-8?B?SG1kQndiWlA0TkhPdWxOOWRIS1kxRlB2S0VkUHBWTGZmQXJQOUF5VzdJNGpP?=
+ =?utf-8?B?QXJacmhRT0g5SmRYS2Npc1NzQXo5cCtWVy85aW8yaDFBL2lRTllqbzlVYzg4?=
+ =?utf-8?B?WUgzTjVDUmVWU1BRNmd1Q0JGc21uMDh6TDZQTkdieWYzL091YlZ6TkplMWM3?=
+ =?utf-8?B?ZGRmc29XSXM4OGE4MisvVFVxQWFZN1JMU1ZubG00b0toWEI2RmswckgyS2F4?=
+ =?utf-8?B?MXZhOVBhVWFIejZrTmlxbnExY2ZhL0Fmc0NLUTRPKzUxRE1YMEtyTGM2NzVG?=
+ =?utf-8?B?NFNVVFFna1FSSFdDbzRmVkQ2QzVlcEdKeUdSMDVhZWdvZnlDak53UjVnS1B5?=
+ =?utf-8?B?d1ZPZXM2b2pHY0p0Umx2ZjNYQTBRNzZHbkdiSEx6Z3o0UkxIR0FBampJaHIz?=
+ =?utf-8?B?UTFMcGdpU3FmblNEMkh0SUx5UjFNS1lBRUw4V3g1cXQvbFd3aU1MVVVUZEZm?=
+ =?utf-8?B?WkR2S0h4NmdWQjN1M0VUbnlyR1crKzV6dkx5ZVFHSUNYem90Uk9BSUhSVGIv?=
+ =?utf-8?B?Yk9NWW81TU5rNitncitOdFAwZEkycW1qeSs0eUF2cjQrMUtNR1JITW1WcWU1?=
+ =?utf-8?B?U0hYMGlaS2dQdlRtTHRIc2dpSmEvOGNFVURzbzdjc2o0Ym9rdWxkTTE0Vzc0?=
+ =?utf-8?B?Ryt1cW5scUVLd3JWaG1nMUd0VTgwU0ptUklGME4zVUgraExFd2F6cGlaam04?=
+ =?utf-8?B?M3dVRnFubk5EbjVoUVc2cElmUVJlSDA1ZEFYNUcwWDVVQWZ3ZUgzNWE5WWtk?=
+ =?utf-8?B?ZXQyL0VGQmRaM25HNFpOaU14NkZKaUl0bUtHUlBlR2FQY0U0VEhVOEt2TjU0?=
+ =?utf-8?B?ckNtNi85eS9GUmk5QnlKczNCbkdsN1VvcGszRGV0VGV2d2dYc1RiSFY2NWw0?=
+ =?utf-8?B?bUZYV0VuS3BoZnd2a2IvWUd4SWx4TEE0UjNjbDdWS2NyaUFDbExQTG4zYlNR?=
+ =?utf-8?B?M3ltbFZMaUNTUWhaU0MraG5vWWtsY2plMG9TM2p2Q2lNWDNEbnlNOE9KRTR4?=
+ =?utf-8?B?SnVUcU5TTjR2aW5IWmRMMmszVlAyd2pzU2hZNm5TdGF0dlMvNnZuaGhWb1NQ?=
+ =?utf-8?B?R2tUaUZpbGlEZHVvc0l4NGpVeXU5R24yV0JZdFJSZHRXdG1PVzFJUldiZzB6?=
+ =?utf-8?B?TzlDRDFZUmFKaENWTTBtdmN3bXNhdWtHRzNRV05ET0tleHk3YkNyeGcrTzYy?=
+ =?utf-8?B?cGNLUzBRZXFKMXVPQnhsbUtScHA3RGN2UUlweWlqYTFkMDJlS0QyaE5ZQyta?=
+ =?utf-8?B?T1pzWDZhdnUzSFRmbTRvK0VQcFpMdWp2TEVzc09Sc0VnMUUxTXVWTUJwZ0g0?=
+ =?utf-8?B?SllkSHBtVUd5UmV2eDRqQVJWOWsxdDkySy9oUTU4UUx3dzB4d2VYWlR6MWlJ?=
+ =?utf-8?B?NUZtTXJ0STJmam8xOVNyY1dmZlAzOFNGU0Z5S0Z3MXg5ZGR5ZmVsTlNXNUpu?=
+ =?utf-8?B?SHFaRk0rckxwbVhNVSt1SHhiSHF1NlZtb2JoV2tqdVg5ait6TUw1NE9kYkow?=
+ =?utf-8?B?S1NCbnJGTWpTQmFGbU50YVZoRElBYUhvbzJkNjNXcEs4RTYrUGVRZ2tqM044?=
+ =?utf-8?B?NCtySzFoR2x1cXpHM1RaTnoxUUR2ZU1vZVhNRnExcjZSc1hqN1lUUFJuTUts?=
+ =?utf-8?B?cWJhQys0c09QV21rWHNPUkRQdWVLaWZucVJFZjZGZDd1bThQbWFSUjM0T1Ry?=
+ =?utf-8?B?WnF3eTFheklLTlB3TkNlUS9qL1E4NzJRc1RpOVRLemNMUEttSUlucDBUaFRx?=
+ =?utf-8?B?Z0w0cmpoZ2V2NUdMN0xqVE8rUnJzMUQycEx4N3hjT2hTSVVjamQxNS9pTEpV?=
+ =?utf-8?B?cnNYTDhKNllTTTI3YTRyZnREOUNqZTVTdGpEYWt4MkFSd2NaNDlhQVRDZ1lY?=
+ =?utf-8?Q?FszvFVfNfHl37/6/08?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b4dac39-0dc1-4947-7b7a-08df04dcf1c6
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 08:18:30.6957
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FRPb+oE+xjFjGDBDvgckFlP/VGyhWt+535jOaRtkZ9Vdu7RrPccHGPnMYbKVpx4X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8355
 
-
-
-On 8/28/26 3:15 PM, Joseph Qi wrote:
-> When a mount fails after the cluster connection has been established,
-> e.g. in ocfs2_mount_volume(), ocfs2_fill_super() unwinds via
-> out_debugfs/out_super and frees the osb without disabling recovery.
+On 8/28/26 10:06, SHANMUGAM, SRINIVASAN wrote:
+...
+>>> +/**
+>>> + * struct drm_user_fence - embeddable DRM user fence
+>>> + *
+>>> + * Drivers embed this in their own structure and implement
+>>> + * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
+>>> + * drm_user_fence_add_callback() to arm on a dma-fence.
+>>> + * Call drm_user_fence_cancel_sync() before driver teardown.
+>>> + */
+>>> +struct drm_user_fence {
+>>
+>> Should this common layer be split into two distinct concepts?
+>>
+>> - drm_work_fence: 90% of what is here, minus the kthread_use_mm() and
+>>   mm-related code.
+>> - drm_user_fence: a subclass of drm_work_fence that adds the
+>>   kthread_use_mm() and mm-related code.
+>>
+>> I suggest this because I was thinking about it the other day (I forget the exact
+>> context) and reconsidered a pattern where a fence signals and then I need a worker
+>> because some work must be done outside of IRQ context. A user fence is one
+>> example, since copy_to_user() can fault, which is not allowed in IRQ context. At
+>> various times in Xe we've had multiple patterns like this, although at the moment
+>> user fences are probably the only case that requires it. If we looked across DRM as
+>> a whole, I suspect we'd find this pattern open-coded in a number of places.
+>>
+>> Yes, drm_user_fence would be a very thin layer on top of drm_work_fence, but I still
+>> see value in the split.
 > 
-> A node failure event can concurrently launch the recovery thread, which
-> blocks in __ocfs2_wait_on_mount() waiting for the volume state to
-> become VOLUME_MOUNTED or VOLUME_DISABLED.  As the mount error path
-> neither sets VOLUME_DISABLED nor wakes osb_mount_event, the thread can
-> never make progress: the kthread leaks and stays blocked on the wait
-> queue embedded in the freed osb, which may then be accessed as freed
-> memory.
+> Hi Matt,
 > 
-> Fix it by setting VOLUME_DISABLED and waking osb_mount_event on this
-> path so the thread bails out, and replace the plain
-> kfree(osb->recovery_map) with ocfs2_recovery_exit(), which waits for a
-> running recovery thread to exit before the recovery map is freed.
+> Thanks for the review and for being supportive of the idea.
 > 
-> Fixes: f1e75d128b46 ("ocfs2: rewrite error handling of ocfs2_fill_super")
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> ---
->  fs/ocfs2/super.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+> The split into drm_work_fence (general fence-to-workqueue pattern) and
+> drm_user_fence (subclass adding kthread_use_mm) makes sense. I'll
+> restructure v5 as follows:
 > 
-> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-> index c62e389d4dd6..f785c39d1fb8 100644
-> --- a/fs/ocfs2/super.c
-> +++ b/fs/ocfs2/super.c
-> @@ -1169,8 +1169,17 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
->  out_debugfs:
->  	debugfs_remove_recursive(osb->osb_debug_root);
->  out_super:
-> +	/*
-> +	 * A recovery thread launched by a node failure event may still be
-> +	 * waiting for the volume to be mounted.  Set VOLUME_DISABLED and
-> +	 * wake it up, then wait for it to exit before osb is freed,
-> +	 * otherwise the kthread would leak and stay blocked on the wait
-> +	 * queue embedded in the freed osb.
-> +	 */
-> +	atomic_set(&osb->vol_state, VOLUME_DISABLED);
-> +	wake_up(&osb->osb_mount_event);
->  	ocfs2_release_system_inodes(osb);
-> -	kfree(osb->recovery_map);
-> +	ocfs2_recovery_exit(osb);
->  	ocfs2_delete_osb(osb);
->  	kfree(osb);
->  out:
+>   drm_work_fence: kref, work_struct, dma_fence_cb, stored fence ref,
+>                   wq, ops — add_callback, cancel, cancel_sync
 
-Sashiko has found 2 more issues:
-https://sashiko.dev/#/patchset/20260828071553.262254-1-joseph.qi@linux.alibaba.com?part=1
+Yeah, this pattern came up so often that I already considered adding it to the core dma_fence framework.
 
-But both are pre-existing issues, so I'd rather fix them in a separate
-thread. More specifically,
-1. The double free race of osb->replay_map looks real, will send a fix
-later.
-2. The early return on ocfs2_super_lock() failure leaks resources,
-forcing teardown of cluster state would be worse than the leak, so I'd
-keep as it is.
+So if you feel really brave make that a dma_fence_work helper. If I'm not completely mistaken AI should be able to find quite a number of use cases for that already.
 
-Thanks,
-Joseph
+> 
+>   drm_user_fence: embeds drm_work_fence, adds mm_struct and the
+>                   kthread_use_mm/mmput boilerplate, thin wrappers
+> 
+> XE will continue to use drm_user_fence. For AMDGPU, The long-term
+> per-signal filtering approach (reading the fence value via copy_from_user
+> before signaling) will use drm_user_fence — further validating both
+> layers of the split.
 
+It would be really nice if we could move those compare functionality (>, <, !=, == etc...) XE has for the user value into the drm_user_fence handling as well.
+
+We also need to add a heck of documentation that while this is able to consume dma_fences it *CAN'T* be used to implement dma_fence_ops. I had more than enough headache because of that.
+
+Regards,
+Christian.
+> 
+> Regarding the CI failure — the root cause was a missing trailing newline
+> at the end of xe_sync_types.h which caused the kunit build to fail with
+> "unterminated #ifndef". I've set up kunit locally and confirmed the fix:
+> 
+>   Testing complete. Ran 588 tests: passed: 570, skipped: 18
+>   Elapsed time: 22.916s total, 3.949s configuring, 18.350s building,
+>   0.601s running
+> 
+> The 18 skipped tests require Intel hardware — expected. The CI fix will
+> be included in v5 along with the drm_work_fence restructuring.
+> 
+> Thanks,
+> Srini
+> 
+>>
+>> Matt
 
