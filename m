@@ -1,221 +1,152 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9308F348898;
-	Fri, 28 Aug 2026 05:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787893735; cv=none; b=HHYCESTDpglmt+pOmKFm1kUTfnzUab1msXB6TAevhASQG6HlUwmcanexd+KE4D/KjB480lHHWR7qbwbmljjn56hTKtqcfZXxCZ4cbii2iKmWuN2FHO0D0LQhYdzA/othJfDYl5UyDzZ2TvG5Whfb3DXmYsiJdqYRSPC16De8Soc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787893735; c=relaxed/simple;
-	bh=8wrwRZmXV7c1kit9DHdHncVIapI+5wgRg6JtVOj1gmw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O8cM1GlLOTuH/XwJyiQ2B0PH7o0eURA+L8VAT0cQiglo5slcHCOGGWeRqzJhD+yVnbvF+pWB1fopQG+A/NAEKDaLmJ2lTZFsBhXZW7eJFuKJg+cK0L4fRfFN8V9W7AbscmNk06Sta3rfa03frwkJJPOTskcg7YFwCYQLN+lyuH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com; spf=pass smtp.mailfrom=airoha.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=DcjvGGbF; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35DB3ACA48;
+	Fri, 28 Aug 2026 05:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787893900; cv=fail; b=jOkp3zb6rIR6UmD2WYgU3QpIWEWHw0Mb6vSsq8mpxv1qOCm2AzEjiefYLlay+t9Q+LlXliuWBHanGo3RUX3PfgkFnCTK+lXMthVirjucKrgVcSQXqEBxvcHU97IFhwNziz1CqMYCEvyFt0LfvBsZ3QAn4BRtyqjkXEbeEVa58f4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787893900; c=relaxed/simple;
+	bh=CSn7jKksh9L/amRSlDIN+TA9xbbAk4v0MIUueu0zCwA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=nu5QvYk7DXtuJUMOP0fs9H8ySXaY+dAvjtiH47WQ+5ryrd5kEPjkkEexLn4utgIZw5+CE0EeLezKDw0W28ukNdGMlUDFMOb+Aj64LzeyhNziUwSHqsGGHGYGvxEnbc3PYB51/mpgTBuwGsRaRbcMJvgHo0v+Sota026RU5dtMAQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YX4GsFCv; arc=fail smtp.client-ip=52.101.43.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="DcjvGGbF"
-X-UUID: 8c75fcfea29e11f1b1788b6acf885367-20260828
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=uQ1iJTPql4QJ/5QzAf6I6rFP6Ucg6tGTRI9VOFDo99k=;
-	b=DcjvGGbFI/yfQgMbLwAQunsEJzbCxBQFQ01cmPHDVbc+1w7n5yTtRIPxFUvng1nXF50J9xoWRCKWvHNX38F48cEQuch9KZIAqj7uwp3CGHrnKkB/0vKfYSRgAmOcuzQrp8V/K825rdwSvV6xdthpqlltGIu046XxCSAg9kNJrDI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:cd853161-e651-46d3-a48c-27537f4f7245,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:2b7e2ef2-6b5d-4016-ba8d-9f799a78b7e4,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 8c75fcfea29e11f1b1788b6acf885367-20260828
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
-	(envelope-from <ar702101@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 760232335; Fri, 28 Aug 2026 13:08:47 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 28 Aug 2026 13:08:45 +0800
-Received: from mediatek.com (172.18.153.125) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Fri, 28 Aug 2026 13:08:45 +0800
-Received: by arhtenbupstream01.localdomain (Postfix, from userid 1007)
-	id A602A141B88; Fri, 28 Aug 2026 13:08:45 +0800 (CST)
-From: Weiting Lee <weiting.lee@airoha.com>
-To: <netdev@vger.kernel.org>
-CC: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <edumazet@google.com>,
-	<pabeni@redhat.com>, <linux-kernel@vger.kernel.org>, <bjorn@mork.no>,
-	<ericwouds@gmail.com>, <frank-w@public-files.de>, <joseph.lin@airoha.com>,
-	<wenshin.chung@airoha.com>, <lucien.jheng@airoha.com>,
-	<albert-al.lee@airoha.com>, Weiting Lee <weiting.lee@airoha.com>
-Subject: [PATCH v2 net-next] net: phy: air_en8811h: select LED GPIO pins based on AN8811HB package variant
-Date: Fri, 28 Aug 2026 13:05:36 +0800
-Message-ID: <20260828050537.2728253-1-weiting.lee@airoha.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8530a501-705b-45b2-b876-68855955bccd@lunn.ch>
-References: <8530a501-705b-45b2-b876-68855955bccd@lunn.ch>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YX4GsFCv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MU4RakfZlpi1znm2KqLDtJ0W94zc1z3JE/tHiHZaaQ5B62YM//utf+bEVAE1fvrQOTdRL0WDOkYXzAcdflUaOKxGEyL6NIOIPAQqtiKoq3dm1cjeWihDw12span/lmTXgwC8zA7RVj2t1ooMugFNIbnpujmMgWStDPQLWl8Xb9lXa5WAxTrBNAFhdvZ7RsKsP65mpvIPqUTa30urLRQn/uMEnVHlc/3Xf/AfrjYOaAEiwda6yYG3VqWkDpS2sgLOwqIC2lyefUo/zhMZ3KRwebWg01EVPl7b7q/IMS2rYyTJiRuvhtiVtZv2PjcrEX3Ir3LKbcqc4xcNYdp+29t4vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CSn7jKksh9L/amRSlDIN+TA9xbbAk4v0MIUueu0zCwA=;
+ b=ZleVKRC1tZYsQAbNdr/gZ0Uh2Q1r3aDgJlbtr/2uwZHe4XppH+D6QRV6FYqoFVUMeDxspkvqeSox8rW5k/TUR0oVDbkjV7Lmd/eua3MY8iOd/Vaaj4RIcfJOR0pUlmXU8XxniqDuR3jvXK8vKXGF6VY+LbWXQDyMQk99hGabVEmMj1nuaPF+O2YQtNV1UQSiam/AZRPwEd9Eh4jOSV+W1IMjlLJajVT/HnzhYg0Hf1eNPYofEB/LoSYQMw16kL/pLonAvcUef/9DwbexLC9EDksRgys+gFEW7gtNjENdmUJlusufkKpVcqYh3iII3oeTrY9ZvT2GWnpnlv0gD+gvNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CSn7jKksh9L/amRSlDIN+TA9xbbAk4v0MIUueu0zCwA=;
+ b=YX4GsFCvZ8vkUGM/4WLiSY9sTUgFKlQyiV+F8/6qPxZQbS+LARkHLrfuMI5/xbCFBQCsDMqcF0YOop1u7XSx5WurqPC8CR5htglELLHYVZ8cg3ZS9BYkg0qyTTRd0bwT7poKKcf6zeqnC1j8TAWOaHcyEsgyS1GFSiHmcQbIyv4HSSp803oIwYLFbMusK9zlYcz/MUgy09YRJeh5ASnFXchk8mhXLvVOLylLOcPLcepNbvd+jKNak3dCDQZyJiePu4tGl4hLABwfYySAjd1sHsgMBieltnv3OllSDZyNge4vKdhaCdVS/luWEYAqx2GdAzqHJAoyhmEqBjYQkSKC5g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH1PR12MB9623.namprd12.prod.outlook.com (2603:10b6:610:2b3::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 05:11:33 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Fri, 28 Aug 2026
+ 05:11:33 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Aug 2026 14:11:29 +0900
+Message-Id: <DL0BHLZWX2H0.3N2GZ8OO2NY7B@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v8 06/12] rust: sizes: add sub-1K size constants
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-6-bc74c77d0214@nvidia.com>
+In-Reply-To: <20260827-chid-v8-6-bc74c77d0214@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0059.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b5::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH1PR12MB9623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 544c725c-bf38-4180-b06a-08df04c2d364
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|10070799003|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	OCXtPAQSd8nrfYinVFKoNLBpp92nPsPTVqGraDKe9rju9YmI4O7wsJQ8o4JJyTWYo/tS5lECHWFzt9ibFg6k4Ho7Ye5kwh1LDPY2+0EOtOLZigG3D3s8nFHNfLoLVRregtPu60yMUcMA2dU723EucYkOfwhRoGibUtwscejjYLJb6TjmyNE9gOipVIr0wpQtmrf7mlF0UxJchhmUHR3NYsUIJrEfwVnigzEkhvRtNCwrW9RJ77joIE3trpXN6v/blSmNlbdxIhJScoB4u0rlzkumOWgxnk0ALh1DGnMQHZLOBTHvgHhWg1wRdiHEBkXqwVa+b5lzoYFz2+t8r0sngTsmuhqpRP+RNpDelE/vO/1WnijC+EeecUMQu3TmgW8X99Gv4cqBvA1rFpzdJwCM0hJ6ja0zCdXLZKzM1PLkZRle+4z32aU4/DTi2sOL7aiacd9AiNqueNUpTAUItvnKSP03EICFr4zglXbq1gVLU2RWfT1XEdocFoPdUH/5LSVjL8oBYNNd9hbKoUmPa/DCDr76w8j0fQmT+2Ye5nM7tpurMHpwG+W4eq9Bp0oZofKfZlk3eYYxoCJr3MyxKZoZxEIlezvE+fJGVokqGUk2aeA4T7jhgPzlGnJjV9mAvSyuTtRnCP32jALQ8SE62Y7gGEHcj1QtoCsY0nVROfilCfA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(10070799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eXd3RWtHQjFVb3Rjek5jVktCKzFrY3Y2K2lSRWFVQ0lDQzNWcFMyTWJ4TWhy?=
+ =?utf-8?B?SzVGUnJnMHFSaFRvN0xhaWNuWHpWKzZVVU5ubEh4SlY1djZEYjZMNFBPZEFW?=
+ =?utf-8?B?RVFuM2VPa3RybERVd1FVM1NjOVBrS2NLMUEzZUZVSkFPT2ZZUjIzVjF4d2wr?=
+ =?utf-8?B?TmxIZ2xkYjFPcXhMS0VOQ2lTZHQzcU1UeGt4cnBsRnVpa1FWYzcyTXNLNnNH?=
+ =?utf-8?B?NzlUNmsxc254Ukk0d0RoSWtDYlFaYUd6Uk4zUEJPVnRnY1pKMXl4dDl5M1FH?=
+ =?utf-8?B?VGltbmdRV0w4SXBlenJEN2xaaXdNL1Q2MVAycEhOV0ZyME5iWnNmUXZZUEZu?=
+ =?utf-8?B?cnhQcDNjRFR6RmRleWpTSUxGekhKd0JKQXNJdm1MLzdBcU5rMVUzQ0dHanVN?=
+ =?utf-8?B?MnRMb0xqQnBvQzJna2Z4a1ZxcVhweCtJc2R3Vkttc01UUStveWtJQ2lCQUxK?=
+ =?utf-8?B?ZDVMcStPWXp1bDM3emlqenVMZ1F4cklSK1Y1cDE0SllneXczSThSYWZXNE5M?=
+ =?utf-8?B?bm9PVHdZK2pkZmFMdVUzMVpBMC90ZW1qUWs1VGZYR1VHWm50TVRiZTR2OTFQ?=
+ =?utf-8?B?Ynh5NzBYU0ZhQ1hmMVdGbUtBbWYwS28wYlVLbXZEY1ZjYU4vSzFGc0tHaEdN?=
+ =?utf-8?B?Umt6OVkzZ21EcjgwUjdCRVp3YWxyTWtSL01uWGxNQkZxdk9GK3BGa2w3N2NT?=
+ =?utf-8?B?N1VMS2JtV2xlbG1OcWlnMlNLRVczc09mSjBYL3NNRkV4SEZGODJSZDBpRzdL?=
+ =?utf-8?B?T1pCRHFpam1OV1BQNnM3VEhQVWJHWjZYdktnSmFraWlHZ2swZGJYNmNwYlRN?=
+ =?utf-8?B?Ymp5bDVqekRjSmt4Qm9jcmtsaktaYnZ0d0lMcGNWaXE0UjBHeDlickdKZldi?=
+ =?utf-8?B?TjhGaFg3UHFvcFc4WnlPRGYzSDhHZDdGVXNmTDhiN1JuakxOeDNmbG5jcE0z?=
+ =?utf-8?B?dWllL0wrQnpRcmxycEN5OS9FSHQvajM4NEtMbFlYKzhaSnRFeU5Yblp2R0pI?=
+ =?utf-8?B?Nk9vaE9hWWdVRUtqekZOMTF3WmRYUitKK0NFb2pKWjJPZEFsdmRMMkxnSkZG?=
+ =?utf-8?B?WXNLSWRiR3pxeGdTdHhNaUVCdVh2d09KZGx4UzhIc2ZHMjlXeUdIQTJXQjNq?=
+ =?utf-8?B?SFpNbmdyY044RHhWd3FLQ3NkZGVPQzQ5S1ZQcUJ5UUgrR2E5SW9NeDg4WUJa?=
+ =?utf-8?B?aWpVbUdNczVUaVEwMkFlMXJiTkpTaTZ6RHd3Qkw4bjRIb3lWRkdOUitUMWNR?=
+ =?utf-8?B?d1NKZDJiU2I0UDRCUXo3VTNrL0xUdC9Ec2FqV2tUdExTUVd1aEVZMFg1M2ZS?=
+ =?utf-8?B?RzhEK2xiYXVsUk45QVpORzcyOHNhSjNXcFFlbHhLSU10TitIOE1tTVloU0Zr?=
+ =?utf-8?B?SnFtY3FRMmpwbFZnMXVYUkxEOE0xWVFacFdaNU92bHR0TzB6Q2l3d0RxVlIz?=
+ =?utf-8?B?WS9XMzlmMG5kdFpmaHRTWEpqSko1SGQrczZvVjBTNzRMZG1Xc2ltZW1BaURq?=
+ =?utf-8?B?RGhaUzlYUS9ZQVEycU5XQnMvNFZrN01HKy85LzJhNko4SEtZNi9hV013N0JW?=
+ =?utf-8?B?MHFhTVJRWS9NRW9leE9Bbm1YcTFVQnRyUm1URjBjcDNLV3FqTWtaRGE3eFJH?=
+ =?utf-8?B?Zk14cHlTV21TTnZwNER2WlpEK2pmK3FoOGhXOE1YNWZ2MWtkM1dZQ1YxbHVw?=
+ =?utf-8?B?d0U0bm0rMUZMbW80bUllTDBWVFlUSFJHeWx3YkI1cEVxSm0yMUluL0hXZE5Q?=
+ =?utf-8?B?YktJU2p3THhHaEptSW5uWGNTVGQ5VVo5VE1LNHFJM2dPYmExU2NOejNLS1E5?=
+ =?utf-8?B?NmtJdFVES3dWbkhqeFlCVTIyekRXekJ2Y0ozbzJLeVlGc3B0NGxjRkdjUC9Q?=
+ =?utf-8?B?aVkwNHc5UFNTTjBqZWxxY2NDWVFxMC9uZFFmZFhjckt2NjBUaG1zVnYwU1Vt?=
+ =?utf-8?B?UlVqWVhKUkt1NmZNZXNYVnZDbTFTd1J2WTl0NXZOdzJaL2pCTzFxSitLTm92?=
+ =?utf-8?B?Yzk4cmhEU24zS1NJWUZjNlBmbTU3dzRjZ1BPYlFRVHhTTkcyUWdMakp0b1J3?=
+ =?utf-8?B?UmZUZyttMThTakR6U1JyYnNSViswOWIxNERRL1Nvd3o1NVBudUxNYi9XZkVH?=
+ =?utf-8?B?dU5Cc1NyWWU5N0JyNFM3YnFpUEJkNDhaMGVjOW53ZExTZDVyN2ZtMHlOYU9z?=
+ =?utf-8?B?S2JXa2VFQXpTbXkxSFZZUVRZOVkvTmpLNmdrYTFJZEUzWFN4MXZVZWQ5OWE2?=
+ =?utf-8?B?N01QeXVCWDVUZGljOHdMdDl0cXdMTVN2bnRHK1lPWDhUSUt6Sm55aW1nYVFF?=
+ =?utf-8?B?Y1VtYjdSNTIrUXhzUTlPNmtjeUxNQmgrY1E4QWNSb1A2RmpoQm95emRGWkNi?=
+ =?utf-8?Q?CJotvlGQqYQAL4D98D2OtZ6E3AGTOvnZXCCa5okl/yviP?=
+X-MS-Exchange-AntiSpam-MessageData-1: DFJVgQlqiO2cwg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 544c725c-bf38-4180-b06a-08df04c2d364
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 05:11:32.9317
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AXUALiczVMed2Nqaf6YubitHau8bEshvLry4YMgXmN6KMEAwyVuxU5+N7yIdBEdwZoEc4bo/ac5Iy9g+e2N5fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9623
 
-The AN8811HB comes in two package variants, AN8811HBCN and AN8811HBN,
-which use different GPIO pins to drive LED outputs. AN8811HBCN uses
-GPIOs 0, 1, and 15, while AN8811HBN uses GPIOs 3, 4, and 5. Using a
-fixed GPIO assignment causes incorrect LED behavior on one of the
-variants.
+On Thu Aug 27, 2026 at 4:28 PM JST, Eliot Courtney wrote:
+> Add some more size constants, mirroring include/linux/sizes.h. This is
+> useful for making `Alignment` implement `SizeConstants` in a following
+> patch, because these are more common alignment values.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Read the package variant from the read-only silicon identification bits
-in AN8811HB_HWTRAP2 at probe time and store it in priv->is_an8811hbcn.
-Add an8811hb_led_gpio_setup() to configure the correct GPIO output pins
-and select lines based on the detected variant, and call it from
-config_init.
-
-Signed-off-by: Weiting Lee <weiting.lee@airoha.com>
----
-v1 -> v2:
-- Rename pkg_sel to is_an8811hbcn (bool) for clarity
-- Remove phydev_info log to avoid spamming the kernel log
-- Fix commit message: HWTRAP2 bits are read-only silicon
-  identification, not a hardware strap pin
-
-v1: https://lore.kernel.org/netdev/20260827054156.2681908-1-weiting.lee@airoha.com/
- drivers/net/phy/air_en8811h.c | 69 +++++++++++++++++++++++++++++++----
- 1 file changed, 62 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index 0eeb7b9a4e26..7b69bb79b77f 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -145,10 +145,22 @@
- 
- #define AN8811HB_GPIO_OUTPUT		0x5cf8b8
- #define   AN8811HB_GPIO_OUTPUT_345		(BIT(3) | BIT(4) | BIT(5))
-+#define   AN8811HB_GPIO_OUTPUT_0115		(BIT(0) | BIT(1) | BIT(15))
-+
-+#define AN8811HB_GPIO_SEL1		0x5cf8bc
-+#define   AN8811HB_GPIO_SEL1_0_MASK		GENMASK(3, 0)
-+#define   AN8811HB_GPIO_SEL1_1_MASK		GENMASK(7, 4)
-+#define   AN8811HB_GPIO_SEL1_0			BIT(0)
-+#define   AN8811HB_GPIO_SEL1_1			0
-+
-+#define AN8811HB_GPIO_SEL2		0x5cf8c0
-+#define   AN8811HB_GPIO_SEL2_15_MASK		GENMASK(31, 28)
-+#define   AN8811HB_GPIO_SEL2_15			BIT(29)
- 
- #define AN8811HB_HWTRAP1		0x5cf910
- #define AN8811HB_HWTRAP2		0x5cf914
- #define   AN8811HB_HWTRAP2_CKO			BIT(28)
-+#define   AN8811HB_HWTRAP2_PKG			GENMASK(14, 12)
- 
- #define AN8811HB_CLK_DRV		0x5cf9e4
- #define AN8811HB_CLK_DRV_CKO_MASK		GENMASK(14, 12)
-@@ -202,6 +214,7 @@ struct en8811h_priv {
- 	struct phy_device	*phydev;
- 	unsigned int		cko_is_enabled;
- 	struct mdio_device	*pbusdev;
-+	bool			is_an8811hbcn;
- };
- 
- enum {
-@@ -1071,10 +1084,49 @@ static int en8811h_leds_setup(struct phy_device *phydev)
- 	return ret;
- }
- 
-+static int an8811hb_led_gpio_setup(struct phy_device *phydev)
-+{
-+	struct en8811h_priv *priv = phydev->priv;
-+	int ret;
-+
-+	if (priv->is_an8811hbcn) {
-+		/* AN8811HBCN: LED GPIOs are 0, 1, 15 */
-+		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-+						  AN8811HB_GPIO_OUTPUT_0115,
-+						  AN8811HB_GPIO_OUTPUT_0115);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_SEL1,
-+						  AN8811HB_GPIO_SEL1_0_MASK |
-+						  AN8811HB_GPIO_SEL1_1_MASK,
-+						  AN8811HB_GPIO_SEL1_0 |
-+						  AN8811HB_GPIO_SEL1_1);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_SEL2,
-+						  AN8811HB_GPIO_SEL2_15_MASK,
-+						  AN8811HB_GPIO_SEL2_15);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		/* AN8811HBN: LED GPIOs are 3, 4, 5 */
-+		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-+						  AN8811HB_GPIO_OUTPUT_345,
-+						  AN8811HB_GPIO_OUTPUT_345);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int an8811hb_probe(struct phy_device *phydev)
- {
- 	struct mdio_device *mdiodev;
- 	struct en8811h_priv *priv;
-+	u32 reg_val;
- 	int ret;
- 
- 	priv = devm_kzalloc(&phydev->mdio.dev, sizeof(struct en8811h_priv),
-@@ -1115,6 +1167,12 @@ static int an8811hb_probe(struct phy_device *phydev)
- 	/* MDIO_DEVS1/2 empty, so set mmds_present bits here */
- 	phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
- 
-+	/* Detect package variant */
-+	ret = air_phy_buckpbus_reg_read(phydev, AN8811HB_HWTRAP2, &reg_val);
-+	if (ret < 0)
-+		goto err_dev_create;
-+	priv->is_an8811hbcn = FIELD_GET(AN8811HB_HWTRAP2_PKG, reg_val);
-+
- 	ret = en8811h_leds_setup(phydev);
- 	if (ret < 0)
- 		goto err_dev_create;
-@@ -1125,13 +1183,6 @@ static int an8811hb_probe(struct phy_device *phydev)
- 	if (ret)
- 		goto err_dev_create;
- 
--	/* Configure led gpio pins as output */
--	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
--					  AN8811HB_GPIO_OUTPUT_345,
--					  AN8811HB_GPIO_OUTPUT_345);
--	if (ret < 0)
--		goto err_dev_create;
--
- 	return 0;
- 
- err_dev_create:
-@@ -1263,6 +1314,10 @@ static int an8811hb_config_init(struct phy_device *phydev)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = an8811hb_led_gpio_setup(phydev);
-+	if (ret < 0)
-+		return ret;
-+
- 	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
- 			    AIR_LED_MODE_USER_DEFINE);
- 	if (ret < 0)
--- 
-2.43.0
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
