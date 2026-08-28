@@ -1,135 +1,105 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD7D199E89
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:01:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0723AB29B
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911283; cv=none; b=KlIG0A7jRcBDTIlTNFIkPkwGAeyFe34nm+sQ2QHhJrNfMirEc+GoziTG5V4pwtcs8EqhuJEcNWrTAyzVUSPRxmuFsvEyXiKnf/4mVqRt85JnhYJAE/oJRmezlZ5SVUdQzuLFg3UtA0o5+wDcXPy4WAIZEQJCp4WvDVt9yQv0FiA=
+	t=1787911284; cv=none; b=WDpPV+WUWTj82MOvn6/qDJewWH6swHaJC1Ikg62kY3vCqZZV1FRT4SG3mvIgHbL1kSlPJ+Q9BEAj00VZJNDSuFnRZPqZbeSraaVyRXpI87xbU1lWTunAt2RK2DuTgFv1vQbejnwBTWd8PDh6CQb77m4yDyeX58mbRIQRJ4ZUM38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911283; c=relaxed/simple;
-	bh=/gbHNmSgNtdIkDrciN2lrqMW46sgKlW++Y8k09AhWXI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PyaTasRPDTGkPLz58hPyS3nU3ZD4J5v4t6Z+wl4Qd7ZMnMUWDwxbzJZWwNhTAkB55sjVAN5w58BdCbUcHGtQOMAelFIsXqFJ2i9rAYWYsuCwSkMjEquSA7moHBrRHtcYqKr6KF6kBf4DqlErzPuKked62tn3erUG2UbwLan3raQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=uptdnKMY; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1787911284; c=relaxed/simple;
+	bh=orsjozxBZeT+wGghT0EHb8YkNsbbJw9UBRcSf69LwFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ELuXyKnZXw6xXL0vVnulXN5HMdF3NogMhj1mHosDbbO49+wF10Dt5iuWRznvy/m49io5FH+nMftUS4mmRNGY322mTJwH95BnCqjs/KSJRxDbtExnEYYcItTBgIiURQiXLrqTLb1DLJoOdj5xC5WpvoSH6GXoNh4GdKGZoMu6CcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ndQWzNbl; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uptdnKMY"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787911275; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=KJGFtURAmGWFRlSvSJgxs80wZh9Z33BZIa4VmJay+WE=;
-	b=uptdnKMYNxxP/L3SLEKkXC3AokMcey+7htZA/gCoqFbsizCBCLnTTvdhRdJWg/8ZLTn120dwwxUTV1e+gKWBBP29ZA1kUnorXzn1l3k1MhYKteiMfuT+nX8QNBcIgwD0l16lV4NV8oPUNTjFWruRp4Eat/8DoJsqRsYkvuNHdnk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9m7fj2_1787911274;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9m7fj2_1787911274 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 28 Aug 2026 18:01:14 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Li Zetao <lizetao1@huawei.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ocfs2: free replay slots in ocfs2_recovery_exit()
-Date: Fri, 28 Aug 2026 18:01:14 +0800
-Message-Id: <20260828100114.530941-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ndQWzNbl"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso8749415e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 03:01:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787911281; x=1788516081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=THvdq2ntZwEYx4ps0NMR1RlHkdeyM/nQsNOsv9R8Y7Y=;
+        b=ndQWzNbl8xDpxyqBUvFITfsnfre58IqnPrVQNDQf+VSqxkgPLwdltiwsHEeTu6w6By
+         OAMulH/crQ0uOttcMz3kA96fYHJTECvj+nGZo4Enc/lpQzuwEP34GFFDlGsIQuyaJG0A
+         kTsDMhBUUm8mhSY4l5sC4IWdi5PPU+kx2qgIFP65AMF4BgqsckjxqsLpGXeoFk8eN1pE
+         Tz6FZFSyF1aFUCOcWG2eFUIKWksspWXIdO71W/S5ype73BS6u9Xj5Izju3EL7kbICjc4
+         JtO2OJYNfF3cXE9MlZdy+HUCVTjYJfsHjAHE2xdO+kTVgfZfgwuLIzw320jac2oC1qIN
+         vUKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787911281; x=1788516081;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=THvdq2ntZwEYx4ps0NMR1RlHkdeyM/nQsNOsv9R8Y7Y=;
+        b=S+7OzIfyd016mfLBZQVKGBrpBT1mc+lfg2kfvUs5SUuVPTjDB2zSKi11x9JMyMhBlW
+         7TpUP9DA3LkeETTVQzf84GThQacS4Q/YEX5zAbOk/R6DokzXLQF2pNaTfOVPBvbFuuCD
+         UJByOL3yWvAVfF98J8lflb1650IcaiAfHHgCGWMb/6fOYw+HoRb86HJtxjIh5IWyT7Ih
+         uYKSqXiX7jf1o2yc/d0KoRy3dhJrJQS1hrilgSUJU33NR/h2QLOFkQ9XIh+LNlaLRqai
+         /tjn0i02hMBXrRKVQRl+uQz9lKrGn31Q/qyzxwzLNQbqSbi0/JamI9VEaMOCfVYnt3Y5
+         4+2w==
+X-Forwarded-Encrypted: i=1; AHgh+RqNXl0XGmx95M1EDW7yzj6xOoGa2BAFsy895PDl1kG9NTVI3O9MDbyqZFX/5wCut+1yDLUGN0iy1B35cI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJPgZIR5+Ji8SR0BUPuIwBkvT9V/CDW5bjpNkkjl20aFPC36dW
+	4M9t6WtuQQMQ72LkSPCGJF8EjTBTQR3Du95nePIknYBtTywOSmJVwiZ0
+X-Gm-Gg: AR+sD11IZcsFQyXwgY/mW8xZr24Tw9ni3o8k9OIz9PS/MLLksrI3OWn0V67uJUdgnb7
+	129BbHM5Xj54fvIxcZNen42hdNUwJ6ioSMc0QDGOX+WeoUqTEK629kfgQmBata1eMoT6YCvS8Vn
+	acLpOosEBsO1v5AjXf+aqhYTWMUSkLim+bTb3zwSrj61dPgkNjWHAYAPva/w9okNhQ6wqSojpLN
+	dcu2z4G4xVT8coIMnXfa/nSjbGEinj/0TYotTJxpWCxmBqfv700S/kPTSvshhpdGAFxwkNhhlwN
+	o7vNjOCeTLgbLqtLVrgPg47N8OE9QUYHXNnjpVWiX0QMeGY4Sps3QkHR4Mp9P4J/89j6atrBSSq
+	KVz+d2b9rx0uBSqUQuhqQ2zPU7Z9wo9pEjVKhn7vsy7j3hCMd83cQOlgnWK2XKFnYx0jT2Ld4ni
+	KWFxWaPidTOXD/VHeDCxA/3SeYVT0iVFjdFQlxWG3nQTEVsnRtfwKN3uX6g52mJxlQQw2c4oe7k
+	/FA1oseRDYoJRhSogfX0Kl1D4+aO1ZfH5OlfaCtlSAAd8SGmDsZ6NEDrDTf1TSMM19u/vUQAGv5
+	xbZ6e4FBHW6irUh3/9suKcep6/l9AwL00b/yv6YvvL6HqCw/9Fazabts57W+WijnZ1MUzPNa8JR
+	A3WkpLSDvRxaCleyv/i48adHdbwupaVn8OBB7fT3SRcMjdPV6Ra+/ha7yWkkm7ia7zQQlQg==
+X-Received: by 2002:a05:600c:a106:b0:49b:92df:87be with SMTP id 5b1f17b1804b1-49b92df8833mr53912515e9.4.1787911280853;
+        Fri, 28 Aug 2026 03:01:20 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc103dsm36740705e9.1.2026.08.28.03.01.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 03:01:20 -0700 (PDT)
+Date: Fri, 28 Aug 2026 12:01:11 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: "Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+ gregkh@linuxfoundation.org, andy@kernel.org, dlechner@baylibre.com,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v6] staging: iio: adc: ad7816: Use modern IIO attribute
+ macros
+Message-ID: <20260828120111.00000aab@gmail.com>
+In-Reply-To: <20260827214721.19395-1-mdmahmudulhasan1511@gmail.com>
+References: <20260827214721.19395-1-mdmahmudulhasan1511@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-added ocfs2_free_replay_slots() calls to the mount error paths
-out_dismount and out_check_volume to fix a leak of osb->replay_map.
-However these calls are unlocked while the bail path of the recovery
-thread, which is woken up by out_dismount right before the call, also
-frees the replay slots under osb->recovery_lock.  Both sides can thus
-observe a non-NULL osb->replay_map and trigger a double free.
+On Fri, 28 Aug 2026 03:47:21 +0600
+"Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com> wrote:
 
-Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
-after ocfs2_recovery_disable(), which waits for a running recovery
-thread to exit under osb->recovery_lock, and drop the unlocked call
-sites.  Both ocfs2_dismount_volume() and the out_super path of
-ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
-freed on every path.  Since super.c no longer references it, make
-ocfs2_free_replay_slots() static again.
+> Replace the legacy IIO_DEVICE_ATTR() macros with the modern
+> IIO_DEVICE_ATTR_RW() and IIO_DEVICE_ATTR_RO() macros.
+> 
+> This includes renaming driver-specific callback functions to
+> standard <name>_show() and <name>_store() formats.
+> 
+> Signed-off-by: Md. Mahmudul Hasan Mabud <mdmahmudulhasan1511@gmail.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> ---
 
-Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/journal.c | 3 ++-
- fs/ocfs2/journal.h | 1 -
- fs/ocfs2/super.c   | 5 +----
- 3 files changed, 3 insertions(+), 6 deletions(-)
+Also, as trivial as the requested change was, please wait at least
+24 hours before resubmitting, let others review the code as well.
 
-diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-index d8afbc1a76bb..a3938a03e93b 100644
---- a/fs/ocfs2/journal.c
-+++ b/fs/ocfs2/journal.c
-@@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
- 	replay_map->rm_state = REPLAY_DONE;
- }
- 
--void ocfs2_free_replay_slots(struct ocfs2_super *osb)
-+static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
- {
- 	struct ocfs2_replay_map *replay_map = osb->replay_map;
- 
-@@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
- 	/* XXX: Should we bug if there are dirty entries? */
- 
- 	kfree(rm);
-+	ocfs2_free_replay_slots(osb);
- }
- 
- static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
-diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
-index f8b3b2a3d630..19fc920d26b1 100644
---- a/fs/ocfs2/journal.h
-+++ b/fs/ocfs2/journal.h
-@@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
- void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
- 
- int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
--void ocfs2_free_replay_slots(struct ocfs2_super *osb);
- /*
-  *  Journal Control:
-  *  Initialize, Load, Shutdown, Wipe a journal.
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index f785c39d1fb8..6a8092b65bb5 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
- out_dismount:
- 	atomic_set(&osb->vol_state, VOLUME_DISABLED);
- 	wake_up(&osb->osb_mount_event);
--	ocfs2_free_replay_slots(osb);
- 	ocfs2_dismount_volume(sb, 1);
- 	goto out;
- 
-@@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
- 	status = ocfs2_truncate_log_init(osb);
- 	if (status < 0) {
- 		mlog_errno(status);
--		goto out_check_volume;
-+		goto out_system_inodes;
- 	}
- 
- 	ocfs2_super_unlock(osb, 1);
- 	return 0;
- 
--out_check_volume:
--	ocfs2_free_replay_slots(osb);
- out_system_inodes:
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
 -- 
-2.39.3
-
+Kind regards,
+Joshua Crofts
