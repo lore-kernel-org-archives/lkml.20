@@ -1,149 +1,230 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010031.outbound.protection.outlook.com [52.101.56.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C253B8BA1
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933733; cv=fail; b=iifsNyip3OebW8/YGzguNZebhwpcepEUYvo7DXurF9kin7PuCiAKlWwxGqFVy1jQgJw65GrUOZih0plaQgTHJBs845j8cpNUMXxCYv8Cej6Y2R9kDSNebvXZXjI+WAnAwMny8wVCH8rBy0BG31q0h5MbGKk25LYx1GSC0djX7fU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795A94534A7
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787933733; cv=none; b=afRR69qqpq674XWeEWnw27c7zZfkc6f1JaAH1q2/KdIHM1jWd4z5MFGWrjd+bW2O/AQheyq6kj84jCABP4eWHOX0JOG7UU44ABZt8YFwxkUyGv+JKJo0Sz2iOUu+EIAkgrc9qcJED7/DFR0r6yynqPDDblsj3IvwDhJRLCB8BV0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787933733; c=relaxed/simple;
-	bh=OOEjbAS1MUINaMqWDR6sMV4VtoH2U97ujBYwTaPWfJs=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rxh5/0YQ8baa3htfKlbJmsjGlx0tLrUJXxaHZIgFbEWos2CwFXXoafe1NptC0redwqiD7LdeTXTCnlkH2c9U0Uq0F/qpJGHou6MkoUMohucOVsZF3nPjh99gMQvS/ixb+LkXBfqegENrjMLJjEwnCtwC1oy6SE6uBMFAXIqRwXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GLiYHHpT; arc=fail smtp.client-ip=52.101.56.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	bh=BODxtu22bMbCeaCPm4r8rZD3W2Qadd/rUd5ROI9uEaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cip086BPI/I8QtmG854Z5w+6vVLp0Ak6C7JVDyk2fC1U3C8b7do/TosipSP4dp7PrAm2LLVF/57sEAFQ574LxnaNaHtIG2hXP64YTd1wxz/tasaSHAJjVM/IN/9xlyxDiENTF0FF32/B7Z8FRjOmZ7hyX3wk3OyzVVxkGp/HgZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NwJZcSsm; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GLiYHHpT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BM21jAW6GfyffkyKGi+Em3rhXt7gEBGnqqV9b1Ru1IgRPEYb5sfIZKoHzO/NW9ytaoAaNNcWq7mLhR29br3FP58AM5RKndilEfd6u0GEol4lehsyUdFO4TIVEol/JiJB6HTzHw8vt7ZpBa+D2x4czHkY3Qn0zodzcoaolhrr6ARYg/dHuFq2iDuGxLtslXkXTnc5WqahGCbvJvde8JyC8SDVSTnpFlSd/vLCe51pWyvU38xldjAbS6u1KH2ZtPwmuipIC3FoK/RxvioBaUeWKfGeSBKT9B5tdB604Gb9DQ9Zpgylf15Fiq8g01glMV3jadc2h2fC0IRdXFgyeA95Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N91F5h46GEsdVvPIGcLJmUY8syOiUXO23DUtpVzNeGA=;
- b=pu5jPp1s7Y/t6VghJlni1xYEeMzjpYQ1ATbXAl3YZA5mYwSJBSQXvP0aIWNrYi7LOq5EcN6aQ9sFORO/ZJUEUihZ+a/O1ycZB5tTDnJVO6CujV2jzXHiErRJg7y5JB93lfpxcyBbIeeoCwL4TX2B1qd8N7wD522ZhTdqBo4EnfK1AjbVO693bhZ+BTlrF7IxFHRYL+h51UDi9EUXfGU9Jo8hc4nFeg2GhpB5Ut+KZXzaTnZWb0/zBz9lNrIx+cZJ2tY7MmSNsRzibI2VSVYpQbs16bmNOAgBgwq53ni3yqBi42HNCGripi8+Byo71X9J3YQI9uN5ygoIhewSl91QAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N91F5h46GEsdVvPIGcLJmUY8syOiUXO23DUtpVzNeGA=;
- b=GLiYHHpTDJtCqiDZRj2LoUX9+WNqD1gM871kjpWOISpWJXBTlgRH7baOtM2lGSYfMINg2gRf3eSoZCv1uWN5G2H17ymfEk7z2ewafweMJ/9Yox2gTRSotshuQXWdd+JOQoZxLG4X4Q0nMQnY+DCy59jnUvUy011xvUuIQ4kJntsB7CVGtbX92wkD56IvB+03Q6uPumYswhqaZj39B6HWaDUaw+fSv0zjEGq/GAoEI2Y603Imuf1BhDk16Hgv0GJ3M5rAWKn4krtowVDn+xVuykQW+m364l9osXH8ZtHPY8Lr3KaxK5tLNmdJPDR3bYuQz/hcIoLEossdfxzep+IvgQ==
-Received: from SJ0PR03CA0008.namprd03.prod.outlook.com (2603:10b6:a03:33a::13)
- by DS5PPF7B9F1F8E0.namprd12.prod.outlook.com (2603:10b6:f:fc00::656) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Fri, 28 Aug
- 2026 16:15:24 +0000
-Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
- (2603:10b6:a03:33a:cafe::2b) by SJ0PR03CA0008.outlook.office365.com
- (2603:10b6:a03:33a::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 16:15:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 16:15:23 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 28 Aug
- 2026 09:14:52 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 09:14:52 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Fri, 28 Aug 2026 09:14:51 -0700
-Date: Fri, 28 Aug 2026 09:14:50 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <linux-kernel@vger.kernel.org>, <iommu@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>, <will@kernel.org>,
-	<robin.murphy@arm.com>, <joro@8bytes.org>, <jgg@ziepe.ca>, <praan@google.com>
-Subject: Re: [PATCH 7/7] iommu/arm-smmu-v3-test: Fix UBSAN error
-Message-ID: <apGz+o0k+uz+UN5i@nvidia.com>
-References: <20260828125409.1921538-1-smostafa@google.com>
- <20260828125409.1921538-8-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NwJZcSsm"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4815bce4652so905991f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787933729; x=1788538529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pCkwaqt6mT/Mgi3LcK6pYptNejEWdk/2Ric0vWmObaI=;
+        b=NwJZcSsmuLytFiukC6ddgOt+GaEainfG9kfrdthYL635duk1+oOy9bCaTO3u/MAc+v
+         vCe+BBeqM45lsFPPhbx1jf1UbByeH4bGkMs8s1srDUzJALEPLjFXnBBdYDZb2do/FuH3
+         EzpXhlBgU5LeJzBJU5cOOFzRt3kH5lCeu2ZpSa3Bmqr37h2e99yiP5QL835ILDeP/EIa
+         RjRJXuZgOl+WcLQyseFiaQS4klKQ+m1TS6/4xglbf+vkr0LWCz3Sk0IKQmyBEAuTAeMB
+         7L+wSO8QV75jVNzFtAzJN7BYaCkCi0K7paRMhpczQqba+a1113Mf9zt+9cCeRh0mRZTb
+         8u9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933729; x=1788538529;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pCkwaqt6mT/Mgi3LcK6pYptNejEWdk/2Ric0vWmObaI=;
+        b=l06C7lU10MZisQdb+0LoWa6O+1pOqraG/GcKz+B9X5K7rq3Ljb3JxlJ+LdSEk/bBQI
+         QRWvODKikqmHmMy8SiQ1jFmwaHs9/+cl+CeFLFadjUCQMYQVShm0V0r4cwa//r2JHtSO
+         j6wyLC/XaPti4AyIswTA8VEwSKbJIvfVgtJu5uIbDEzMfLQ4sir/a399EhzExdZosaXs
+         LBvFjOZQ9Lvm9gmAmNWM0ZeFD2Dli01dbPk8iM4CV53l1bAMTrttoeW4dt8M/fVxmo3M
+         rDnLKg4pCGEFPznJdU8mrCyhuQH+c2V8tJjv3ieSW4bbtzr+0bPmN8vzZ7Ai2gGVcBjV
+         pEWA==
+X-Forwarded-Encrypted: i=1; AHgh+Rok5VQZ0Dat0Pz5Zd+wX+adMwOG9VF+k47GaWCvBwgnAGNw1owGzPvlZ/GPO4jfuP/cBfiy1H1W9wG+LpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ42eGv8bFjdi3zGQnLKc88xwX4alLNsdI2iiRYbPBjmq6t54h
+	eOkYFXYW2yS8hCjzPWlCoFPaZ2w35gcWqeZiWqJhAQdjEEKJbx8wOV6t
+X-Gm-Gg: AR+sD11cha/tlnZVdmAJTsUoHBmRjCfYhH1sA77CGtXMMWeOS8mU62M05wcuPw0hciI
+	HwhsF5Q9NGIasCuH0gMZ9p9FcdRAzwXUhCFipQ5pqzgaw1xUPL6Ho1/n19k5Av5C1ZYjfAe5Py0
+	uXkiPi7nfLMPkFmvpS489CJHgX+R/UH4gw34wID/MTEFgzs+EsL3O1D+4INMtkkC9WhxmlZx+Q1
+	TBSJ9FUOI4foiR8hazoaBaKH/iyT3YiwWslR078BFs4D+z68c+vy177yBygZQa5qzQyr6WwWbrC
+	+pO4M/9jAMctQYQcwAkEHDpI7JfHAS9eaaq6jLRB015oOGTvDEl8yQFFp0nHMmduHkrf5oa1CF8
+	II9W68bpmL+dWi31AAagVQZPv3gJyROdN5AZuRu1GFSU3xEJ3G0e9Ti1Hz974BfE3HUsDdt74yO
+	fIroHPIftM0fDREF2qh3Il/yy1CB3mDzJYi8PiOBA9RiHTOEePEmhGgxvuYUTipZV7R5mycUm7r
+	pc57L7+DMa7R+jDfgN+n817dyPNusvcOZqG/rua7g==
+X-Received: by 2002:a5d:5d05:0:b0:482:e6ec:4ee9 with SMTP id ffacd0b85a97d-482f79947cfmr13628325f8f.7.1787933728667;
+        Fri, 28 Aug 2026 09:15:28 -0700 (PDT)
+Received: from 1Z10 ([78.213.5.213])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.15.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 09:15:28 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v4 12/15] media: ov2740: add manual white balance controls
+Date: Fri, 28 Aug 2026 18:14:54 +0200
+Message-ID: <a34bb1a2647d85de407b4c93627981ef0577cc75.1787933456.git.mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260828125409.1921538-8-smostafa@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|DS5PPF7B9F1F8E0:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9564684-d5d9-4928-1fe6-08df051f90ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	pZz3zL9CdqaWV7DQZWPYX0MMz8cLMky7HYXPYVYdi+7TNd4fETEXfnBYLKGVBiiXTvFJnHDFr/M9nQ3HazHN8fn99i5+Hwfw7E7lpOkgIFfUAQiv5QN2xoG31NwbRbf/Mwslc+RtpQPcLuKdZ16rPyi6CL/ixONnYY9vaotlFxo/QPg2gDKbiYfHEqmfRVnD5x+lmFPMKuLrt6Kd5fGJp28N7LHIVTqb9pZdXKcZ3SBTvntY0xIj2gHriL4n7Xix+9S0MEuea7+VXQouP1956n7E91J1nBRLYnRuimia1PYQMvaWdvOJT1nVOIdvGC+t+Fbb2C+OyeQ6sgQLjFEmw2B0E63zoc4QB3KapKeLcISGmX+6bLsi/Md58uXby3Ns5mNWiM0XyPmD0KMJmsB/OGrUIsVWtGcXrU1sGgpE0d4xScgNAAYGbn8KEA0/rzf3JxkY9hoVS5mmZCGfrIRRGKJ4U1LGoLSruQoTsfVR6+oAijldwDBIzj1jcR9+Cyfd74WQLe146QYG0O7bXLsVJ4FG07+ulDZ4zGbBaeVhuzbTQgJeu9YSZoi8l71O8xTRIDc+3VVjkGtmYQAsEvYl3Hby6EDDF4Ab+BVecxrKfNnuf0P0SO9qJ+riI6oHaIjr+oVTndMIHgj8tcz8oOz3Hy/PAs+L2mmBJfpR+GdbkMU6O+039gG5deSYX+vTaFnGrZQWoyCEW7AmJ/+CRjn4Hw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kKVfFKHb1UPiH4zJCbKFRSSyOOx4aFtbSz7DYoJgqLL5dskvOFdEk0kR0MMvf2YzIcVMwNGeEIUZ5pfpWDFnCDiqyX3H6m8Wzg/rltf71QTmKriKx3UqRTXZvKuz1BGdfKirsPstV9YDBElL9UR6K2l3UUlwHpqfHaWXx83jxrxkX0OqruOTTLJ/fkjJX/MKdiCanJGopIHV/zFnfqmOilMrKMIR9j1Z3vl4r4yAJlszDcxzX3tRSatydJcnZwyD2LzZ82Eude5sWkABPg8k21UQsrXRCKhqr24MKNkfpL/5R7rLMjydnC1XAyMgq4nT1ClunCaLvgWiFqsU/2rVjG8WAGb2hiPS095JBTMzVgJa0DF86NL3MEGt1N2zltUFDyYD+z3sEx1kHk4Sm2iy40Vg2D2EkPxSqgAoV/O1h2iKqxYPHZhYFAcoUj6ISjgt
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 16:15:23.9090
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9564684-d5d9-4928-1fe6-08df051f90ad
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001EC.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7B9F1F8E0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 12:53:42PM +0000, Mostafa Saleh wrote:
-> struct arm_smmu_invs marks its flexible array member inv[] with the
-> __counted_by(max_invs).
-> 
-> arm_smmu_v3_invs_test() uses invs1 to invs5 which has num_invs = 3
-> but omit max_invs.
-> 
-> This causes the following UBSAN error:
-> [    2.333240] UBSAN: array-index-out-of-bounds in drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c:1116:21
-> [    2.333604]     # arm_smmu_v3_invs_test: lib/ubsan.c:228: array-index-out-of-bounds in drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> [    2.334129] index 1 is out of range for type 'struct arm_smmu_inv[] __counted_by(max_invs)' (aka 'struct arm_smmu_inv[]')
-> [    2.335375] CPU: 6 UID: 0 PID: 155 Comm: kunit_try_catch Tainted: G                 N  7.2.0-g8dcb331fbb72 #2 PREEMPT
-> [    2.335759] Tainted: [N]=TEST
-> [    2.335791] Hardware name: linux,dummy-virt (DT)
-> [    2.336254] Call trace:
-> [    2.336932]  show_stack+0x18/0x24 (C)
-> [    2.338443]  __dump_stack+0x28/0x38
-> [    2.338494]  dump_stack_lvl+0x54/0x6c
-> [    2.338518]  dump_stack+0x18/0x24
-> [    2.338541]  ubsan_epilogue+0x10/0x44
-> [    2.338565]  __ubsan_handle_out_of_bounds+0xb8/0xbc
-> [    2.338834]  arm_smmu_invs_merge+0x688/0x8ac
-> [    2.338862]  arm_smmu_v3_invs_test+0xd4/0x598
-> [    2.338890]  kunit_try_run_case+0x64/0x160
-> [    2.338914]  kunit_generic_run_threadfn_adapter+0x28/0x4c
-> [    2.338955]  kthread+0x10c/0x12c
-> [    2.338984]  ret_from_fork+0x10/0x20
-> [    2.339433] ---[ end trace ]---
-> 
-> Explicitly set max_invs = 3 on the test arrays to match the number of
-> elements.
-> 
-> Fixes: 15a2a5645ad7 ("iommu/arm-smmu-v3: Introduce a per-domain arm_smmu_invs array")
-> Signed-off-by: Mostafa Saleh <smostafa@google.com>
+The sensor has separate red, green and blue manual white-balance gain
+registers, but the driver currently writes the same digital-gain value
+to all three channels. This prevents userspace from correcting the
+strong color cast of raw Bayer capture.
+
+Expose red- and blue-balance controls relative to the digital gain,
+update all three channels under group hold, and always release and
+launch the group even when a channel write fails.
+
+Tested on the Yoga Book OV2740 with live gain changes and continuous raw
+capture.
+
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Assisted-by: Codex:gpt-5.6-sol sparse
+---
+ drivers/media/i2c/ov2740.c | 65 ++++++++++++++++++++++++++------------
+ 1 file changed, 45 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index c67fcbad5bdb..c7f85c47bbd7 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -565,6 +565,9 @@ struct ov2740 {
+ 	struct v4l2_ctrl *vblank;
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *digital_gain;
++	struct v4l2_ctrl *red_balance;
++	struct v4l2_ctrl *blue_balance;
  
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+ 	/* GPIOs, clocks, regulators */
+ 	struct gpio_desc *reset_gpio;
+@@ -694,35 +697,41 @@ static int ov2740_identify_module(struct ov2740 *ov2740)
+ 	return 0;
+ }
+ 
+-static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
++static int ov2740_update_mwb_gains(struct ov2740 *ov2740)
+ {
+-	int ret;
++	u32 d_gain = ov2740->digital_gain->val;
++	u32 blue_gain, red_gain;
++	int end_ret, launch_ret, ret;
+ 
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+ 			       OV2740_GROUP_HOLD_START);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, d_gain);
++	/* Balance controls use 1024 as unity relative to the digital gain. */
++	red_gain = DIV_ROUND_CLOSEST(d_gain * ov2740->red_balance->val,
++				     OV2740_DGTL_GAIN_DEFAULT);
++	red_gain = min(red_gain, OV2740_DGTL_GAIN_MAX);
++	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, red_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
+ 
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, d_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, d_gain);
+-	if (ret)
+-		return ret;
++	blue_gain = DIV_ROUND_CLOSEST(d_gain * ov2740->blue_balance->val,
++				      OV2740_DGTL_GAIN_DEFAULT);
++	blue_gain = min(blue_gain, OV2740_DGTL_GAIN_MAX);
++	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, blue_gain);
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_END);
+-	if (ret)
+-		return ret;
++release_group:
++	end_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				   OV2740_GROUP_HOLD_END);
++	launch_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				      OV2740_GROUP_HOLD_LAUNCH);
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_LAUNCH);
+-	return ret;
++	return ret ?: end_ret ?: launch_ret;
+ }
+ 
+ static int ov2740_test_pattern(struct ov2740 *ov2740, u32 pattern)
+@@ -763,7 +772,9 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		ret = ov2740_update_digital_gain(ov2740, ctrl->val);
++	case V4L2_CID_RED_BALANCE:
++	case V4L2_CID_BLUE_BALANCE:
++		ret = ov2740_update_mwb_gains(ov2740);
+ 		break;
+ 
+ 	case V4L2_CID_EXPOSURE:
+@@ -804,7 +815,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	int ret;
+ 
+ 	ctrl_hdlr = &ov2740->ctrl_handler;
+-	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 10);
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -839,9 +850,23 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+ 			  OV2740_ANAL_GAIN_MIN, OV2740_ANAL_GAIN_MAX,
+ 			  OV2740_ANAL_GAIN_STEP, OV2740_ANAL_GAIN_MIN);
+-	v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+-			  OV2740_DGTL_GAIN_MIN, OV2740_DGTL_GAIN_MAX,
+-			  OV2740_DGTL_GAIN_STEP, OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->digital_gain =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_DIGITAL_GAIN,
++				  OV2740_DGTL_GAIN_MIN, OV2740_DGTL_GAIN_MAX,
++				  OV2740_DGTL_GAIN_STEP,
++				  OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->red_balance =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_RED_BALANCE,
++				  1, OV2740_DGTL_GAIN_MAX, 1,
++				  OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->blue_balance =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_BLUE_BALANCE,
++				  1, OV2740_DGTL_GAIN_MAX, 1,
++				  OV2740_DGTL_GAIN_DEFAULT);
++	v4l2_ctrl_cluster(3, &ov2740->digital_gain);
+ 	exposure_max = ov2740->cur_mode->vts_def - OV2740_EXPOSURE_MAX_MARGIN;
+ 	ov2740->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
+ 					     V4L2_CID_EXPOSURE,
+-- 
+2.53.0
+
