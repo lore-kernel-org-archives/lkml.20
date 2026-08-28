@@ -1,132 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18ACA3D5C3C;
-	Fri, 28 Aug 2026 07:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC0A3749E8;
+	Fri, 28 Aug 2026 07:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900404; cv=none; b=fspMjQzCw/xKzm9Z4hw/UsjjyRsm7CZ24eaVeP6P1jFeSQNZlBKjCoWJ1HA0328RrLQYiRMM3LHXkbkOTBLwrPqcxxayflwZ92i/EWDiHo7Tq0Lb5G1S25U+kwno5tUEDPk9qDp6KFBNFCPGebYRL63LghlRaESTcog6LkM/9Tk=
+	t=1787900518; cv=none; b=rxvn/aWAlK8Pmqjy3ver/NqNKngkmLuQk/eEjlfUPin2lR+pRLHKeUk0z7OyAUEwsZ5jW8bR7Mr6fAHlROiLAJf9DaLpB2p8zPeKKV/tPnVu3NEwRBQ1g12u8uaWa0veCz0XaWV0pC04UT/YELpcVWaUmut05foNwd6uBH52oIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900404; c=relaxed/simple;
-	bh=oyA3xK/3QayanvmoSu85s0Sx5Hri2ay2g0Fl7G7Sqbo=;
+	s=arc-20240116; t=1787900518; c=relaxed/simple;
+	bh=4jXzHVfk6onz6MLCfIF4eccIsIjSibkxZeNK9blm0JY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j2v4b6AFszEN7sXUmjZFZ+h5z137U9fC/qD3YjVdxtNtPoQM6V9etIsJzmT8V2073xoOJ5RoSoo/My5e8oRhLc7MYEL2d2Im4UasKPyHsi3myHz/jJRx015erGLhcDMKC6UHrNRLH3sU6ZEIp/yqPFQcES//+gwwXMKzcJah/bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnh/OCul; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTYbCeUULmk+ZUMsFhId9JQN94FKUFG0acy5bF7Z+i9z0JowH90sp1vWOMQqd1b3Wo80kaYHikwdQus2Ecg392CQn3hBXOMylGJGiH0cQJWZEiiF7Xi+njtpSzq13QMr81KDzUerYhEUeXLWYk2EQZkYqdGCEBOYt6ETrnb7vwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QzGj3+Nl; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnh/OCul"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2DE1F000E9;
-	Fri, 28 Aug 2026 07:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787900402;
-	bh=DCV/soKd0vC4UfcJ2C13p0eqWOyka0Ke2GoaHDqUKuQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gnh/OCulUL6Y3OsVq70tRyEABuXlC6JyBU4IJKIYTSOBfZ4+/6Bw7WXuVzHK+5kJ9
-	 03Fo2Di1VsmhoduwYEANkeHL5cWrnSRdAgdIYvdL2mF58MEB/q5IUZVFiRkZ41JsGr
-	 sI3EwmZ1IfP/DvHgkLvTA0kw1htpNhDjSaMWk1JShxcz5Ar1wZFOhyow0nT1TXVe2l
-	 6ERo7Djcf79D4tKnYExFkWm5mk4ugUonqSvW89QFZHD51BHVjhiodkIwKcJMANtxpD
-	 16guQSlCYZKwa8HhCjaW0ScVuhRTDLGkEQhgF20qpmUnxkOend2YTjk3N43msi+UoB
-	 aerprC3a/iqLw==
-Date: Fri, 28 Aug 2026 08:59:57 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ahmed Naseef <naseefkm@gmail.com>
-Cc: linux-gpio@vger.kernel.org, 
-	Benjamin Larsson <benjamin.larsson@genexis.eu>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
- controller
-Message-ID: <20260828-adorable-bug-from-arcadia-fcad00@quoll>
-References: <cover.1786262697.git.naseefkm@gmail.com>
- <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QzGj3+Nl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787900516; x=1819436516;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4jXzHVfk6onz6MLCfIF4eccIsIjSibkxZeNK9blm0JY=;
+  b=QzGj3+NlDTeZIlT8QYzHXGMwv5RCobkLM8/4L6u+O1Te/tP6DwiC2fzD
+   lwk0R0RjdsjMRjpnKrFtm0oQ/PybsidetwP1CXv4RQtFklseOMiB3qrwe
+   A2g9WvKRuPe2mlQL7gE1gFNRFK1Ke+/bZt9nLgO5OeLYTSZteR9/qIkCH
+   GVMOa8OtJeylEqOwdbl27y8fU+9XKUXOqgyBk6swV/p/hRMwdE112QoPd
+   wKaeqFUbTeblPdLVc0YmpIrYNqILyXyJ9Nhrzm3kCy01nerI4MdH/fD/M
+   1xezoVYeB/2q0yOvqxmXsNmpOIUEdqZTOqkdmjMLESFLHnhocau/OFP6S
+   Q==;
+X-CSE-ConnectionGUID: 60MtdSj+REmLi7qwwltTsg==
+X-CSE-MsgGUID: sEbvQsqYTBOHXC5+7lN8LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88171220"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88171220"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:01:56 -0700
+X-CSE-ConnectionGUID: l00rTkhSSNGvUe2pX1CNyg==
+X-CSE-MsgGUID: Bm5I9lqkTb6V16WhEy+GMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="266775124"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 00:01:53 -0700
+Date: Fri, 28 Aug 2026 10:01:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Pandith N <pandith.n@intel.com>,
+	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: dw-axi-dmac: Fix LLI dump out-of-bounds
+ access
+Message-ID: <apEyX4mTTMiSE4_0@ashevche-desk.local>
+References: <20260828-dma-fix-v1-0-a6947f487e07@ultrarisc.com>
+ <20260828-dma-fix-v1-2-a6947f487e07@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
+In-Reply-To: <20260828-dma-fix-v1-2-a6947f487e07@ultrarisc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Aug 09, 2026 at 12:04:59PM +0400, Ahmed Naseef wrote:
-> +maintainers:
-> +  - Lorenzo Bianconi <lorenzo@kernel.org>
-> +
-> +description:
-> +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
-> +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
-> +  registers have a different layout.
-> +
-> +properties:
-> +  compatible:
-> +    const: econet,en7528-pinctrl
-> +
-> +  airoha,chip-scu:
-> +    description: phandle to the chip SCU syscon
-> +    $ref: /schemas/types.yaml#/definitions/phandle
+On Fri, Aug 28, 2026 at 08:48:27AM +0800, Jia Wang wrote:
+> axi_chan_list_dump_lli() uses the channel-wide descs_allocated count to
+> walk the hw_desc[] array of a single transaction. If multiple
+> transactions have allocated LLIs, the channel count can exceed the
+> transaction-local nr_hw_descs and make the DMA error path read past the
+> end of hw_desc[].
+> 
+> Use the descriptor-local nr_hw_descs count when dumping LLIs.
 
-If the entire address space is part of the SCU, then this device should
-be part of the SCU, e.g. its subnode.
+...
 
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  gpio-ranges:
-> +    maxItems: 1
-> +
-> +  interrupt-controller: true
-> +
-> +  '#interrupt-cells':
-> +    const: 2
-> +
-> +allOf:
+>  {
+> -	int count = atomic_read(&chan->descs_allocated);
+>  	int i;
+>  
+> -	for (i = 0; i < count; i++)
+> +	for (i = 0; i < desc_head->nr_hw_descs; i++)
 
-This goes to the end of the file, before the additionalProperties.
+While at it,
 
-> +  - $ref: pinctrl.yaml#
-> +
-> +required:
-> +  - compatible
-> +  - airoha,chip-scu
-> +  - interrupts
-> +  - gpio-controller
-> +  - gpio-ranges
-> +  - "#gpio-cells"
-> +  - interrupt-controller
-> +  - "#interrupt-cells"
-> +
-> +patternProperties:
-> +  '-pins$':
-> +    type: object
+	for (unsigned int i = 0; i < desc_head->nr_hw_descs; i++)
 
-"patternProperties" should follow "properties"
+and drop that 'int i;' as well.
 
-> +
-> +    patternProperties:
-> +      '^mux(-|$)':
-> +        type: object
-> +
-> +        description:
-> +          pinmux configuration nodes.
-> +
-> +        $ref: /schemas/pinctrl/pinmux-node.yaml
-> +
-> +        properties:
-> +          function:
-> +            description:
-> +              A string containing the name of the function to mux to the group.
-> +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
-> +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
-> +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uart]
+>  		axi_chan_dump_lli(chan, &desc_head->hw_desc[i]);
+>  }
 
-Best regards,
-Krzysztof
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
