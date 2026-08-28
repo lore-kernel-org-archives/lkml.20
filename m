@@ -1,22 +1,22 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946B9448BB7;
-	Fri, 28 Aug 2026 11:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0600C43F08D;
+	Fri, 28 Aug 2026 11:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917214; cv=none; b=Wl9Jf/POA85hflq0/4E9HW8q0AeG0vaw65Eg+obB3cS7uU8QAVsJFr6UVwcH9ntkJReHOPaQHI7+k1CXNAqh663Bs7MTgNOTFWqu1iNMDxmr+tFRZOeLXnlcWpYcHlruergDhcykzDJb7rQC79CXjSgNrT/ZpgLykJ13bs/4b88=
+	t=1787917217; cv=none; b=LdDlb4DgEIt7yEI3YDmgat2D8iUrJYaq0vyRYcEdDk5DEEXhrEezXUrECq0cVfmnNUwtvLHVxFdf2k+wOe/Rg3nkFiVnwpxVCF6XHEbLOqmc1FwlO8XbM+Yw4j0hP3/q3dnOJoVDVpQIGkT+/IlLLfDKmwebUpdoWcM9Z178TC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917214; c=relaxed/simple;
-	bh=YtaIj7j6uklHV3bsU5JR56b9uu1S94tIVVqnBv3DlJs=;
+	s=arc-20240116; t=1787917217; c=relaxed/simple;
+	bh=V3JosSjIlcx2rclEYF1Mg9DEYWeN0sKlLa9leJswnQA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fqVIAFANMfpFIyOVEc6Ndc+MQAaZBWZwuh2vHaPto/NJ4VxhH5T4d03KNsJBpVV8bwAU3248/1HofuBQVCdMMb1fjNFLXon8Lnxf3E4MysFjqGKNOuQcuNPZXFEvEJsd8tt+YvMdoc9oqg7zA+Os3jDCmF9Mjm2eonLO8rJpI34=
+	 MIME-Version; b=Ujt4oBE3frx7sq/K/yCe4QdJ+VBQ9R5Fo3+PhEQ+iWmEG5zupzZUp3rJicGFji8nHrqFWDHnhV5zSJV8lyXZBeeeo1TIJltSFyb09PY+TUL+q+nTlM+ikDbP5t2xWHjnQ7561c1tR4gQAuOr3DylYCScni3RIrloDpSmHmRnt9A=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S19;
-	Fri, 28 Aug 2026 19:34:22 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowACnfPA6cpFqpPm9Bg--.43118S14;
+	Fri, 28 Aug 2026 19:34:21 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
@@ -26,9 +26,9 @@ Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 17/20] ASoC: wm8993: Unwind supplies on cache replay failure
-Date: Fri, 28 Aug 2026 19:34:12 +0800
-Message-ID: <20260828113416.47061-18-pengpeng@iscas.ac.cn>
+Subject: [PATCH 12/20] ASoC: wm8770: Unwind supplies on cache replay failure
+Date: Fri, 28 Aug 2026 19:34:07 +0800
+Message-ID: <20260828113416.47061-13-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
 References: <20260828113416.47061-1-pengpeng@iscas.ac.cn>
@@ -39,62 +39,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S19
-X-Coremail-Antispam: 1UD129KBjvJXoW7JF45Cr18CFy7uFWxXw4Utwb_yoW8JF4Upr
-	93WrZ8trWkXr4rAFZ8tr1rZa4rKrWqk3W3C342yw1vv3s8A3W7Wrn5tr40vFyUXrWDGFsr
-	ZFy7Aay8CF13tw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAV
-	WUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr
-	1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUaZX7U
-	UUUU=
+X-CM-TRANSID:qwCowACnfPA6cpFqpPm9Bg--.43118S14
+X-Coremail-Antispam: 1UD129KBjvdXoWruw1xAF47CryrCrWDtF43KFg_yoWkZrc_Wa
+	y0g3s8XrZ09rWIv39rJrW2vFWkZFWrCFyj9r1vg3Z3Jr97tan5J3yDXFn3u34Uu348Ca43
+	uFnagr1xAry0kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbDkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
+	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
+	F7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr
+	1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
+	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
+	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
+	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r
+	1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
+	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjBTYUUU
+	UUU==
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-wm8993_set_bias_level() enables supplies, makes the regmap live and
-ignores regcache_sync() before VMID programming.
+wm8770_set_bias_level() enables supplies and then ignores
+regcache_sync() during the OFF-to-STANDBY transition.  It continues with
+global power-up after an incomplete restore.
 
-Return the cache error after restoring cache-only and dirty state and
-disabling the supplies acquired for the failed transition.
+Return the cache error and disable the supplies acquired for the failed
+transition.
 
 The issue was identified via static analysis and manually reviewed.
 
-Fixes: cf56f62746c3 ("ASoC: Disable WM8993 regulators when turning bias off")
+Fixes: c046fd4dd613 ("ASoC: WM8770: Initial driver")
 
 Assisted-by: LLM
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- sound/soc/codecs/wm8993.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm8770.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8993.c b/sound/soc/codecs/wm8993.c
-index 2a94b23319b5..5f7ecee6ea0f 100644
---- a/sound/soc/codecs/wm8993.c
-+++ b/sound/soc/codecs/wm8993.c
-@@ -996,7 +996,14 @@ static int wm8993_set_bias_level(struct snd_soc_component *component,
+diff --git a/sound/soc/codecs/wm8770.c b/sound/soc/codecs/wm8770.c
+index b8b4d1e823e6..5bcad0729ece 100644
+--- a/sound/soc/codecs/wm8770.c
++++ b/sound/soc/codecs/wm8770.c
+@@ -517,7 +517,12 @@ static int wm8770_set_bias_level(struct snd_soc_component *component,
  				return ret;
+ 			}
  
- 			regcache_cache_only(wm8993->regmap, false);
--			regcache_sync(wm8993->regmap);
-+			ret = regcache_sync(wm8993->regmap);
+-			regcache_sync(wm8770->regmap);
++			ret = regcache_sync(wm8770->regmap);
 +			if (ret) {
-+				regcache_cache_only(wm8993->regmap, true);
-+				regcache_mark_dirty(wm8993->regmap);
-+				regulator_bulk_disable(ARRAY_SIZE(wm8993->supplies),
-+						       wm8993->supplies);
++				regulator_bulk_disable(ARRAY_SIZE(wm8770->supplies),
++						       wm8770->supplies);
 +				return ret;
 +			}
  
- 			wm_hubs_vmid_ena(component);
- 
+ 			/* global powerup */
+ 			snd_soc_component_write(component, WM8770_PWDNCTRL, 0);
 -- 
 2.43.0
 
