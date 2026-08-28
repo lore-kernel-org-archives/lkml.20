@@ -1,22 +1,22 @@
-Received: from mail-m3284.qiye.163.com (mail-m3284.qiye.163.com [220.197.32.84])
+Received: from mail-m12739.qiye.163.com (mail-m12739.qiye.163.com [115.236.127.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7D338AC68;
-	Fri, 28 Aug 2026 03:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1DD39BFF2;
+	Fri, 28 Aug 2026 03:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887160; cv=none; b=tXSFW3WJFCZ5xEurh9N+SPR3J3DHSzWVMcO/5ttv/LCqYsmvr/H56xbHg/vFEF4qmjOxMnPd01XM6CoPmPliPy6q9afc28Cq5SB1dqnTvTq5kky5TJu+rtxRJhwWzd8USluxA/2o+TCd5cx06QJYKrYKi+yhun9k4WuJu91FgCI=
+	t=1787887165; cv=none; b=BrdzcvcTqq2OEJha1kyY573lxoSxe0z6QNHIeu67s8n+MmbD2vbDkSspGzO7eW+MxqueNgOpIGrL5EWvNGgXXuRVIb+jXhTQgrabGQWQgSSBpdCo6LBAN6ezgUign+CpRTCEe4k99rfZiUOMchkdCBnBUYyszQGwiP8+izQNgDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887160; c=relaxed/simple;
-	bh=dOA2CLreTGapet+ozgio/gFEInLVcWqQDCAMPQusI6c=;
+	s=arc-20240116; t=1787887165; c=relaxed/simple;
+	bh=3/vUaMKK3pIlYXKxw06c1SsYKUK53h42nctrWLZR4kk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bRy9BvTqIQpvWQbYKwyQi932e9OqKrCxE4I4c9tJ/KZyWBBI5txnHhPmkPjWcFclrDmN+X4Fcak12DoustUh5FHH8h9YvWAZ0K7awazZlWM5SQCxBG9RzYL1ozuPnIDA+jo6CVxk/eKagtfE6RThncKsjZm/6dyKDeJ4NdUg4sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.84
+	 MIME-Version; b=kpwnkytCSW8koXPBJQ6OsV9GDMcLWcfj0lvFcRzS88pu66p34mtX75ck7AATX9EHveyBdS1kLU0BH4sBpw3wJuVOEFDs+LDZ8d0ebqWfS7DnYrrnWaW1CIynWVTEXYMMGzZNYRk70YKgJc9DdDwNnFhTaGUXTN98W1ceDsnroXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20d97;
-	Fri, 28 Aug 2026 11:13:54 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20db8;
+	Fri, 28 Aug 2026 11:14:00 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -36,9 +36,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 2/8] mm/page_owner: Add TGID filtering support
-Date: Fri, 28 Aug 2026 11:13:33 +0800
-Message-Id: <20260828031339.1270699-3-zhen.ni@easystack.cn>
+Subject: [PATCH 7/8] tools/mm: Add memory cgroup filtering support to page_owner_filter
+Date: Fri, 28 Aug 2026 11:13:38 +0800
+Message-Id: <20260828031339.1270699-8-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
 References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
@@ -49,134 +49,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0465c12fe0229kunma81ef96712a32f
+X-HM-Tid: 0aa0465c2c190229kunma81ef96712a35a
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0MdVhofS0NMTRoaTRpDS1YVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGR8eVkxNHh8YHR5IQkxKGlYVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Extend filter to support thread group ID (TGID) filtering alongside
-PID filtering. Reuses existing PID parsing and binary search
-infrastructure with separate TGID list and count fields.
+Add filtering capability for page_owner to allow filtering by
+memory cgroup path.
+
+Filter page_owner output by cgroup path:
+./page_owner_filter -g /
+./page_owner_filter -g /user.slice
+./page_owner_filter -g /user.slice -c systemd
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
- mm/page_owner.c | 43 ++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 36 insertions(+), 7 deletions(-)
+ tools/mm/page_owner_filter.c | 56 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 53 insertions(+), 3 deletions(-)
 
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 33b9e12a019b..077867e9e572 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -71,6 +71,7 @@ static const char * const page_owner_print_mode_strings[] = {
- /* PID_MAX_LIMIT = 4,194,304 (7 decimal digits) */
- #define PID_MAX_DIGITS  	7
- #define MAX_FILTER_PIDS 	16
-+#define MAX_FILTER_TGIDS	16
+diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
+index 9256ffad4939..1ffbe4387854 100644
+--- a/tools/mm/page_owner_filter.c
++++ b/tools/mm/page_owner_filter.c
+@@ -20,7 +20,7 @@
+ #include <getopt.h>
+ #include <signal.h>
  
- struct page_owner_filter_state {
- 	enum page_owner_print_mode print_mode;
-@@ -78,7 +79,9 @@ struct page_owner_filter_state {
- 	bool proc_filter_enabled;
- 	nodemask_t nid_filter;
- 	int pid_count;
-+	int tgid_count;
- 	pid_t pid_list[MAX_FILTER_PIDS];
-+	pid_t tgid_list[MAX_FILTER_TGIDS];
- };
+-#define MAX_CMD_LEN	512
++#define MAX_CMD_LEN	2048
+ #define TASK_COMM_LEN	16
  
- static int cmp_pid_t(const void *a, const void *b)
-@@ -837,11 +840,19 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		if (state->proc_filter_enabled) {
- 			bool proc_match = false;
+ static void usage(const char *prog)
+@@ -33,12 +33,13 @@ static void usage(const char *prog)
+ 	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
+ 	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
+ 	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
++	fprintf(stderr, "  -g, --cgroup PATH     : Memory cgroup path\n");
+ 	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
+ 	fprintf(stderr, "  -h, --help            : show this help message\n");
+ 	fprintf(stderr, "\nExamples:\n");
+ 	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
+ 	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
+-	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
++	fprintf(stderr, "  %s -c \"python*\" -g user.slice\n", prog);
+ }
  
--			proc_match = bsearch(&page_owner->pid,
--					    state->pid_list,
--					    state->pid_count,
--					    sizeof(pid_t),
--					    cmp_pid_t) != NULL;
-+			if (state->pid_count > 0)
-+				proc_match = bsearch(&page_owner->pid,
-+						    state->pid_list,
-+						    state->pid_count,
-+						    sizeof(pid_t),
-+						    cmp_pid_t) != NULL;
+ static int validate_mode(const char *mode)
+@@ -221,6 +222,38 @@ static int validate_comm_list(const char *comm_list)
+ 	return 0;
+ }
+ 
++static int validate_cgroup_path(const char *path)
++{
++	char cgroup_path[512];
++	const char *input_path = path;
++	int is_cgroup_v2 = 0;
 +
-+			if (!proc_match && state->tgid_count > 0)
-+				proc_match = bsearch(&page_owner->tgid,
-+						    state->tgid_list,
-+						    state->tgid_count,
-+						    sizeof(pid_t),
-+						    cmp_pid_t) != NULL;
- 
- 			if (!proc_match)
- 				goto ext_put_continue;
-@@ -1010,7 +1021,9 @@ static ssize_t page_owner_write(struct file *file,
- 	bool new_nid_filter_enabled;
- 	bool new_proc_filter_enabled;
- 	pid_t new_pid_list[MAX_FILTER_PIDS];
-+	pid_t new_tgid_list[MAX_FILTER_TGIDS];
- 	int new_pid_count = 0;
-+	int new_tgid_count = 0;
- 
- 	/*
- 	 * Maximum input length for filter commands:
-@@ -1021,7 +1034,8 @@ static ssize_t page_owner_write(struct file *file,
- 	 * - For list filters: (digit+comma) * count + prefix
- 	 */
- 	if (count > 32 + 6 * MAX_NUMNODES +
--			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4)
-+			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4 +
-+			(PID_MAX_DIGITS + 1) * MAX_FILTER_TGIDS + 5)
- 		return -EINVAL;
- 
- 	kbuf = memdup_user_nul(buf, count);
-@@ -1038,6 +1052,10 @@ static ssize_t page_owner_write(struct file *file,
- 		memcpy(new_pid_list, state->pid_list, sizeof(state->pid_list));
- 		new_pid_count = state->pid_count;
++	if (!path || strlen(path) == 0)
++		return -1;
++
++	if (path[0] == '/')
++		input_path++;
++
++	/* Check if v1 memory controller exists */
++	if (access("/sys/fs/cgroup/memory", F_OK) != 0)
++		is_cgroup_v2 = 1;
++
++	if (is_cgroup_v2)
++		snprintf(cgroup_path, sizeof(cgroup_path),
++			"/sys/fs/cgroup/%s/memory.stat", input_path);
++	else
++		snprintf(cgroup_path, sizeof(cgroup_path),
++			"/sys/fs/cgroup/memory/%s/memory.stat", input_path);
++
++	if (access(cgroup_path, F_OK) != 0) {
++		fprintf(stderr, "Error: Cgroup path '%s': not found or no memory controller\n",
++			path);
++		return -1;
++	}
++
++	return 0;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	const char *output_file = NULL;
+@@ -240,6 +273,7 @@ int main(int argc, char *argv[])
+ 		{"pid",		required_argument, 0, 'p'},
+ 		{"tgid",	required_argument, 0, 't'},
+ 		{"comm",	required_argument, 0, 'c'},
++		{"cgroup",	required_argument, 0, 'g'},
+ 		{"output",	required_argument, 0, 'o'},
+ 		{"help",	no_argument,	   0, 'h'},
+ 		{0, 0, 0, 0}
+@@ -266,7 +300,7 @@ int main(int argc, char *argv[])
+ 		return 1;
  	}
-+	if (state->tgid_count > 0) {
-+		memcpy(new_tgid_list, state->tgid_list, sizeof(state->tgid_list));
-+		new_tgid_count = state->tgid_count;
-+	}
  
- 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
- 		if (*token == '\0')
-@@ -1073,6 +1091,10 @@ static ssize_t page_owner_write(struct file *file,
- 			ret = parse_pid_t_list(token + 4, new_pid_list, &new_pid_count);
- 			if (ret < 0)
- 				goto out_free;
-+		} else if (!strncmp(token, "tgid=", 5)) {
-+			ret = parse_pid_t_list(token + 5, new_tgid_list, &new_tgid_count);
-+			if (ret < 0)
-+				goto out_free;
- 		} else {
- 			ret = -EINVAL;
- 			goto out_free;
-@@ -1083,7 +1105,7 @@ static ssize_t page_owner_write(struct file *file,
- 	state->print_mode = new_print_mode;
- 	state->nid_filter = new_nid_filter;
- 	state->nid_filter_enabled = new_nid_filter_enabled;
--	state->proc_filter_enabled = new_pid_count > 0;
-+	state->proc_filter_enabled = new_pid_count > 0 || new_tgid_count > 0;
- 	if (new_pid_count > 0) {
- 		memcpy(state->pid_list, new_pid_list, sizeof(state->pid_list));
- 		state->pid_count = new_pid_count;
-@@ -1091,6 +1113,13 @@ static ssize_t page_owner_write(struct file *file,
- 	if (state->pid_count > 1)
- 		sort(state->pid_list, state->pid_count, sizeof(pid_t),
- 		     cmp_pid_t, NULL);
-+	if (new_tgid_count > 0) {
-+		memcpy(state->tgid_list, new_tgid_list, sizeof(state->tgid_list));
-+		state->tgid_count = new_tgid_count;
-+	}
-+	if (state->tgid_count > 1)
-+		sort(state->tgid_list, state->tgid_count, sizeof(pid_t),
-+		     cmp_pid_t, NULL);
+-	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
++	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:g:o:h", long_options, NULL)) != -1) {
+ 		int len;
  
- 	ret = count;
- 
+ 		switch (opt) {
+@@ -340,6 +374,22 @@ int main(int argc, char *argv[])
+ 			cmd_len += len;
+ 			break;
+ 		}
++		case 'g': {
++			const char *cgroup_path = optarg;
++
++			if (validate_cgroup_path(cgroup_path) < 0)
++				return 1;
++			const char *path = (cgroup_path[0] == '/') ? cgroup_path + 1 : cgroup_path;
++
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%smemcg=/%s", cmd_len > 0 ? " " : "", path);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
++			}
++			cmd_len += len;
++			break;
++		}
+ 		case 'o':
+ 			output_file = optarg;
+ 			break;
 -- 
 2.20.1
 
