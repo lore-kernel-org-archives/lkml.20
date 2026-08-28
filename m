@@ -1,124 +1,199 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DF03D566F
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717A3440622
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 13:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922625; cv=none; b=ePuwOswMXdV1KPMAJppvXMbyVllVUFO4QqxbrDGFn/994GZInAvwdUCeS3gK0HtGgiRboqreNk7iHhKYObct2U2EeDBYgNapO0PlQag2uDufO/VgeU5tU2nuukJkZSRW9kZefnXqjAoT8QDfOhoQXZnn9yGBOpZjAteZ/AOX324=
+	t=1787922651; cv=none; b=akuEOrtr0kYPpq7RhHaDzjWg9M1CsLDUZgGLVZ2nqYfNIU1FsD+lz0SWAVLkZLpV8gG7lXJJdL+U30IPJmryHwHRGXtxIlUW7I7mRzpBnHuh3SwJdbIApvOVBuY8GkxF4CfNrRTbwfh4ItvOokWxYxmpTYrRSCBmPW6kNwdpLXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922625; c=relaxed/simple;
-	bh=KPdnlZF27f6Z79k/kponOhNjrKoNEGAFbCTbXooWC8w=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=uwKhbG7ycnoHcxieS1PJ+BnhQml6dvuFEB/gdzRlr8H5diNsvtifZ/0hS81Uu2kk3JALr0XNZ82tnGlAw1D558TW/I3+D+ThFVGRtg/ncPptHu44QBnyvTRyc8ltFvXWATHetC02bgJpsiKMGvNw4wLedbRlGPDF8xzYjBuaxnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=expunge.us; spf=pass smtp.mailfrom=expunge.us; dkim=pass (2048-bit key) header.d=expunge.us header.i=@expunge.us header.b=pjlpDbKH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jL5Dxk+u; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=expunge.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=expunge.us
+	s=arc-20240116; t=1787922651; c=relaxed/simple;
+	bh=iFjL9XI9CHMHdv0QincBDDMEbFGBO5icuMXCstbvhdQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gzSRNaT5GBslkmGQTxw6mJi9q7IVSeTAHI4pjf6hG8H76JZWlnfMBU9JqmMAs5tAnQhIr2ABgiUFQCRWqO2zYvMSCxUrCtQghz4h/VbREdh2uobU5IOslN5MaL4+0x4ZiNFBfQyguDn8FS6+mozhGenCZnA3G9NHlsssheSaNwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=AKAqMOzR; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=expunge.us header.i=@expunge.us header.b="pjlpDbKH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jL5Dxk+u"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 8F1E914000B7;
-	Fri, 28 Aug 2026 09:10:22 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-01.internal (MEProxy); Fri, 28 Aug 2026 09:10:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=expunge.us; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1787922622;
-	 x=1788009022; bh=AZMNej9K+RTFDxSQbSdONK5K4K7qFBjx2poSPSj7ojE=; b=
-	pjlpDbKHYTaGJbFFPXHkxRdwvRXWavBV/dayW0h+DMhgErLR/D20HuYArRXcpvVv
-	8WqNWX2yG8Aq1FdbbfEVbNVM3+JO+rW1Ou89yusnxwtTEF+aW5KS3WC3N99GjfWO
-	jl8UDxPC1R+wP6LBHe0sIFx/WULqdkRq9OfoHcgp2/ekrrBAihRfAeLM7OQEUedk
-	/UAzVPsxtJxlDRUf8g0tFLm3xe8znVW9N7r+PkFKQrgVRoHfCiQfiR8MNWb492m8
-	SQ3IjQV+qLaIhWFO8uRGs85xiPJqd5yayEZJgnt9Gwk1H7975AaBS4GhpPF66sV2
-	9Uv8AWDY+eBn1o01eW4tWQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787922622; x=
-	1788009022; bh=AZMNej9K+RTFDxSQbSdONK5K4K7qFBjx2poSPSj7ojE=; b=j
-	L5Dxk+uCgcuRveb8GbWmJTTNEc2q9z/dIQkZ7ZvLw48LPSKcB4mW4Q+C17i4iwj0
-	Mblk9wrTYOZqsk2Pp3tSR3k2SHEg0EpZjo5fSJWd1FMG95Qx/cvhtepTdDnmKcBU
-	CfzXNjOOAh5BPmH4FNGdBjBSIlxMEQSp4HO1C7cP4o30WUOea7qQ8vLv1XUZ1Mnu
-	kUBwWzKYudHfQsn0WF4van7nFgCQYWet1wkqdXDEqpsQG8qHshLqjir+Nd7KMM4w
-	EmTYsYIlXa0rd3Vot3FVSaxY8K5+HI5hC05GPyPDcdIdVRoVt/0C1dPBVAH0Ayrx
-	4Yh/E+E97H33u+UD+dcZA==
-X-ME-Sender: <xms:voiRam3TK_a2rk5x0hr60Kjy_Po_VoE9eeAB3MmcvJ4ZI-XlYb9qwA>
-    <xme:voiRaj7Hp3orfkN-y9YB5HeOrMwThFuTypC88FBX7oBvRcMc5Fqr8ySTZz-vtqHEA
-    jd53zL7ggcxbp0kogWv2406aReCp9cNrrzj-dyNCYfQ92aekf8phdE>
-X-ME-Proxy-Cause: dmFkZTFgSqJaJF/bRd4EOSdQutdCaKBQfkb/o38GXBlcbHQ8ZP8+jhCVvkF632nQ/QkX6K
-    cXK9C6m7ija7xsuROAKHmQcG35794lH8p3f7fsbtmkpadcwBVQdzlvBVuuN21hLY23FaHn
-    ctFdbArHSlO4+Fi9ZNRHNctmJooYJQKvoQVjmAc/DhqjYC8TIhd/2tcnwz5mZh1vIRjWLN
-    p9bxjHGj7vSFVqdepy8dGIs/g6Ncq6ENKndT05Bs6Ft7nvXktnWF5cU2bQq9v7KOJDojTt
-    gaN+EY/sqiv5mS7HI/oE6O+WYXCfEWBNfqBp87J3B0MybgZ/rDAiRheucl0G+XtDKs09Zc
-    7AfaUuzGmprwBM7CQBbMWkYW4343xmLZauhy/hYVXSMhsyJWAi2xeqXER7qjJ92qf1Too4
-    VU0NAZ0Wfh1UK7eddD0Vu1hiCjxU0SLi5HOb/vi3GI8lfcmRKnrPwh3XC1Bx0gbWnOchAt
-    a8oh6NWxLvXqJLDEhltXUUq1kuS3c5aAyooqei7WYYaYETYWb4FPs5J7RiGnNXn8Sa1SJR
-    zTJCc2HagILRZyClO18ZlDCMeM8PTvU79Ceg1dFUUCid5+gJZOk+sJw17xc+KHVaH0fyfU
-    OINobpytE+2v47RvJViqHi0jvhrpJ5v5VsoEZPTEBuo/tv622Y2bMXA9J21A
-X-ME-Proxy: <xmx:voiRajpMkmQw_SUOC1sfB5-Y2WvdEn_L3O3zqw-SdKXZ52nr44V9hw>
-    <xmx:voiRarNsgr_E9kTuXyHF1DJLYTkcklXT4VDQ-UdxjwghKHyxU31rzQ>
-    <xmx:voiRamqI5LW1yG5xs70dNOpIxKUuAwGFfeG2g_ZQx7tcil4AuQ-hyQ>
-    <xmx:voiRaoclSrp9I10JAkEhN4YWkH3fYG8HxPffx7HNXDe55DN1_gRa2A>
-    <xmx:voiRajeIcScYWUGBQMKiGxKxlmp8dF_kZISW4LJuu4o--uoweuCJ9_Rz>
-Feedback-ID: i0af9447b:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 1120218E006C; Fri, 28 Aug 2026 09:10:22 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="AKAqMOzR"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0dbfbf7bso6363705e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 06:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1787922648; x=1788527448; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=D9vn94z6fRxQMjXUuhba8xPlc8Nhl/43jHnKAHyxeqo=;
+        b=AKAqMOzReIVUmXieuMkyu3uN4Roz3tDaThEUg28h9XVib4NrhGbkj/QvLUUrtg58Os
+         A1WNJnFzPGUyK52oOVthazcWjk7oNh0lfZRs8VLheVFNQrlvjOFExld0zbOqDl7ykxmc
+         aGJUT7aDzcUpXvsy+eApGI4JQpftYkc0kyXELD/7LwI6UuZ+0Mnp+YY0P0GeYW75S6f4
+         7GtHLqkkR/eC1LOVoIbFM16hdNWgn6WgfLpC+q9BWybEOUBLrSnO/nPY6GkuXKLuVQqI
+         9cyWSvLVV+fwge7PTUqp56jk87O1PTj8FJIYi5ZQRm5uJ4us3Vp1nMZtKS0jOuRR2oz8
+         0+sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787922648; x=1788527448;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=D9vn94z6fRxQMjXUuhba8xPlc8Nhl/43jHnKAHyxeqo=;
+        b=JPaSyAQ6HKjWpL93gLQ4FKiK8xRDScuN2aHAGbTCWyIxonmptd3hdQQWq589DN2pAB
+         /6UDtdk5obV8pAZNGdrXsY9J+RkxRge2J06PZ/dZvL/3mMDZ5bPgj2D7wodJ3AFeK98g
+         qT3TXpr7TrpFtXrnlACGBEWmU8kHEh4vZu01g7mHCGLA9BmNXmgs1yizic93Vu4vv8Dn
+         dSsSh7tslKeOwZG115+foYNbw2NAHHStSoXoij57wguv72Z+qbYfgTLEe0nZDqg8CR0E
+         qf79y9p498/edjVTf1GrkyFC4/Bm3EJrxZctUlXStV3nVQavTRprqlSQ9zOvOkzs/1Qk
+         akJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoRaQmBIlMpveio6MidFjsLWvfOaX4pRW1gOUciRAPUGWuEe3giN4KHQqOTI9aJZgDAKEV7EmupOW7YzRw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzBXOkaa7HVERcZ73LwevQs3UyfH5CWHwTlgYlDLlceaxBhZr/
+	S62fYRvsJcBMu+v11bhAFZa8nVnVFpPS3w4bESLAPgUmHTs0y7H3YfRJKxqT01UrCA==
+X-Gm-Gg: AR+sD10vwsU7JKKiMLR0O0thQ30gcmnu1+JmYaj6VfhWQ2qeFybENDf9qOirAvbFVJ8
+	f69wVx5JzGgSHRm5xdXQz7E831a3Cebh6kdD08OUYl97pG6U2rnBrvxhkhRzWqX/MwJWupTvMTe
+	J2E9iKuk3aZEs92EhHJbzvraVVyyQNH4ssznQEXyk1L7G+cxfulMokRVzeGMM1j+M0kodG4iNEV
+	coybnM83W2Vvtbfla5bFUN8HeaPkdiE2IS/VZJsmDNggEO2yfLaa9/KDwBiKXZ6+DiOGnTRdPDU
+	w+e49unI9w4uHgAhle84Im/R7YnrNf7DCQT8kICnJemFL4b1ZwB0nD5gq6eRf5FV5d8oxLWFLd/
+	nmfWN2IGMuRauGTtsq6MV/7nysAk/QH9lGzti/KjiGb9LhUooT6Dbrqv+932XdSFYA2ztxKCBZA
+	isCELS9D32jThKxl7i0wRerkRO5bkYGmF987OpZSuM9jWnw+mPaqjOueRu9IwdMVnmQvcE
+X-Received: by 2002:a05:600c:8106:b0:49b:9161:db26 with SMTP id 5b1f17b1804b1-49b91c5554bmr101629195e9.14.1787922647567;
+        Fri, 28 Aug 2026 06:10:47 -0700 (PDT)
+Received: from [127.0.0.2] ([188.111.3.154])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm56510265e9.9.2026.08.28.06.10.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 06:10:46 -0700 (PDT)
+From: Michal Gorlas <michal.gorlas@9elements.com>
+Date: Fri, 28 Aug 2026 15:10:27 +0200
+Subject: [PATCH v3] PCI: imx6: Enable ASPM L1 only iff CLKREQ# is supported
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AqFmyooDI3tB
-Date: Fri, 28 Aug 2026 09:08:57 -0400
-From: "Jared Baldridge" <jrb@expunge.us>
-To: "Thorsten Blum" <blum@kernel.org>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Michael Ellerman" <mpe@ellerman.id.au>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Message-Id: <bcd3ff40-3b04-44a6-9ddc-4d2851c24240@app.fastmail.com>
-In-Reply-To: <20260828130622.576064-3-blum@kernel.org>
-References: <20260828130622.576064-3-blum@kernel.org>
-Subject: Re: [PATCH v2] powerpc/boot: Drop unused min_t()/max_t() helpers
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260828-l1-conditional-imx-v3-1-6fbba62164d9@9elements.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrCMBBFf0WyNpJJTR+u/A9xkaZTO9KHJLFUS
+ v/dpCKIdHnh3HNm5tASOnbazcziSI6GPoxkv2Om0f0NOVVhMylkKjJIeAvcDH1FPoC65dRN3Mi
+ yrqTQKHLFwvFhsaZplV6un+2e5R2Nj6ZINOT8YF9rdYTIfQPFVmAEDlwrpVVWgDJpfi6wxQ577
+ w5m6FiMjPJHk8CmRgZNKiBFLOCYl/JfsyzLG+PCBvIRAQAA
+X-Change-ID: 20260713-l1-conditional-imx-c2bfd20ae085
+To: Richard Zhu <hongxing.zhu@nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3353;
+ i=michal.gorlas@9elements.com; h=from:subject:message-id;
+ bh=iFjL9XI9CHMHdv0QincBDDMEbFGBO5icuMXCstbvhdQ=;
+ b=owEBbQKS/ZANAwAKAWKaksyA3pPLAcsmYgBqkYjTmIJt8HzaDIwWBTuzO0XYQLVdHphGqgd9t
+ Ozgk/OH9HiJAjMEAAEKAB0WIQTgoC0bQQLz7jVH2W9impLMgN6TywUCapGI0wAKCRBimpLMgN6T
+ y9lAD/9Dpcx4rPTWIi/H3T+yE1CkO3UrBGGil0YZcJK6Nwmj5nficiQ2wPGBFmYcq5o3O18dOrj
+ g45HsYt22VGBm/SZttLS5SZE4Uum5hB0fl4nLEb+0YII3xG5CUfWZOoKS2+5/vOT9ifd6NS+8mo
+ fkvMprL8gXyydiPFz1egwgG2MTKlLrVzgsdMZqNxB5+FFcpVOBb25NHijfYQKJAdmf8NSy2oOme
+ AShDxz3D8et5fE4nbWbw1TnAIFzaQJ9W2toAusfgFVs7UP4luI7nchOOKZMxDlCJxtYpdCM1l7w
+ 27lExhbVWpxcGxgha4JKvc3dhc3ZtJFSAYPnjhZyQkDZZXjDlmINs1+zdrJKttfENCUuO8Hp3N9
+ nnHCBcvVDSoFRcHyMfpxQ7fbCL9BX7Rc0TGgEmOjfpOo/x/fdnGgyP+Yst8k/s7pREkYW7kuDLe
+ xzrMrpCAQZ77ObhdrrNdzCQk3X4K+/LA0DeWhqY6Xx8+47gT5dhR9r3LdF0DwCzrPgGS+Q5wU6I
+ KbXSiPeptwyiNId8PSIwsoXI8Wg5NobJkh+7BhjaZz26fTznFtYbbHUEttjdGhSGP4PWU4RP29S
+ ypzhaVjUk98wp/0mbjFBz2vbvDTLo35xAebud6sOsNouJE79S92U/t6NWA9dEmTaLq1AgzOG05f
+ x7dsOOE2HhA/VKQ==
+X-Developer-Key: i=michal.gorlas@9elements.com; a=openpgp;
+ fpr=B4EB74EA41969D1140A4D1791596726986433F8C
 
+Since commit f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM
+states for devicetree platforms"), ASPM states are force enabled
+on all devicetree platforms. This causes PCI devices on some i.MX SoCs
+(for e.g. i.MX 8M Plus Kontron SMARC eval carrier) to enter L1 even
+though CLKREQ# is not supported (and consequently supports-clkreq is
+not set in pcie controller node of their DT), which causes the device to
+never wake up from L1.
 
+Hence, disable L1 capability in the LNKCAP register if supports-clkreq
+is not set in the DT explicitly. For devices that set
+IMX_PCIE_FLAG_BROKEN_SUSPEND, disable L1 on resume as well, as these
+skip imx_pcie_host_init().
 
-On Fri, Aug 28, 2026, at 9:06 AM, Thorsten Blum wrote:
-> Commit c762c69e106f ("powerpc/boot: Add support for XZ compression")
-> added min_t() and max_t() to support XZ in the boot wrapper. However,
-> since commit 9f121705503a ("lib/xz: replace min_t with min") XZ no
-> longer depends on these helpers. Remove them from the boot wrapper.
->
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
-> Changes in v2:
-> - Mention the commit that removed XZ's dependency on min_t(), fixing the
->   build failure seen with v1
-> - v1: https://lore.kernel.org/r/20260525091839.817778-3-thorsten.blum@linux.dev/
-> ---
->  arch/powerpc/boot/types.h | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/arch/powerpc/boot/types.h b/arch/powerpc/boot/types.h
-> index 8a4c418b7260..c5085c2632bf 100644
-> --- a/arch/powerpc/boot/types.h
-> +++ b/arch/powerpc/boot/types.h
-> @@ -37,9 +37,6 @@ typedef s64 int64_t;
->  	(void) (&_x == &_y);	\
->  	_x > _y ? _x : _y; })
-> 
-> -#define min_t(type, a, b) min(((type) a), ((type) b))
-> -#define max_t(type, a, b) max(((type) a), ((type) b))
-> -
->  typedef int bool;
-> 
->  #ifndef true
+Note, the logic here is very similar to 613f3255a35a, only difference
+is that leaving L0s enabled does not cause issues (at least
+I never encountered them myself when testing on the device) as its
+not dependent on CLKREQ# being physically there.
+Since there is already a way of specifying its presence in the DT,
+the driver should be aware and disable L1.
+
+Fixes: f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM states for devicetree platforms")
+Signed-off-by: Michal Gorlas <michal.gorlas@9elements.com>
+Tested-by: Richard Zhu <hongxing.zhu@nxp.com>
+Reviewed-by: Richard Zhu <hongxing.zhu@nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v3:
+- pick up the reviewed-by tag
+- Link to v2: https://patch.msgid.link/20260827-l1-conditional-imx-v2-1-40b324aa2a94@9elements.com
+
+Changes in v2:
+- disable L1 unconditionally on resume for platforms advertising
+IMX_PCIE_FLAG_BROKEN_SUSPEND (Sashiko)
+- typos in the commit message
+- Link to v1: https://patch.msgid.link/20260719-l1-conditional-imx-v1-1-a55a57915c68@9elements.com
+---
+ drivers/pci/controller/dwc/pci-imx6.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index 98e1db751132..1fdcbcd2422e 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -1318,6 +1318,22 @@ static void imx_pcie_assert_perst(struct imx_pcie *imx_pcie, bool assert)
+ 	}
+ }
+ 
++static void imx_pcie_disable_l1(struct dw_pcie *pci)
++{
++	u32 val;
++	u8 offset;
++
++	offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++
++	dw_pcie_dbi_ro_wr_en(pci);
++
++	val = dw_pcie_readl_dbi(pci, offset + PCI_EXP_LNKCAP);
++	val &= ~PCI_EXP_LNKCAP_ASPM_L1;
++	dw_pcie_writel_dbi(pci, offset + PCI_EXP_LNKCAP, val);
++
++	dw_pcie_dbi_ro_wr_dis(pci);
++}
++
+ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+@@ -1442,6 +1458,9 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+ 
+ 	imx_setup_phy_mpll(imx_pcie);
+ 
++	if (!imx_pcie->supports_clkreq)
++		imx_pcie_disable_l1(pci);
++
+ 	return 0;
+ 
+ err_phy_off:
+@@ -1748,6 +1767,7 @@ static int imx_pcie_resume_noirq(struct device *dev)
+ 			return ret;
+ 		imx_pcie_deassert_core_reset(imx_pcie);
+ 		imx_pcie_assert_perst(imx_pcie, false);
++		imx_pcie_disable_l1(imx_pcie->pci);
+ 
+ 		/*
+ 		 * Using PCIE_TEST_PD seems to disable MSI and powers down the
+
+---
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+change-id: 20260713-l1-conditional-imx-c2bfd20ae085
+
+Best regards,
+--  
+Michal Gorlas <michal.gorlas@9elements.com>
+
