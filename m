@@ -1,181 +1,280 @@
-Received: from mail-m12739.qiye.163.com (mail-m12739.qiye.163.com [115.236.127.39])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1DD39BFF2;
-	Fri, 28 Aug 2026 03:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61A33A5431;
+	Fri, 28 Aug 2026 03:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887165; cv=none; b=BrdzcvcTqq2OEJha1kyY573lxoSxe0z6QNHIeu67s8n+MmbD2vbDkSspGzO7eW+MxqueNgOpIGrL5EWvNGgXXuRVIb+jXhTQgrabGQWQgSSBpdCo6LBAN6ezgUign+CpRTCEe4k99rfZiUOMchkdCBnBUYyszQGwiP8+izQNgDw=
+	t=1787887166; cv=none; b=lF3xYOQ5fnTGnwDX033t8YQV4UGoxYq3OZiGpVKbnldjeTB5jDkys775U4jWp7YXykGShwbWfvq/rjAEIqCtEos9Xnb0FWPjDpEh02XxT1P81fThPnv9uXPT1HM0+8Nr0v6bHEi/4/pOYrlC/H6euRq0EnXmo38Yzs4gzJtP/vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887165; c=relaxed/simple;
-	bh=3/vUaMKK3pIlYXKxw06c1SsYKUK53h42nctrWLZR4kk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kpwnkytCSW8koXPBJQ6OsV9GDMcLWcfj0lvFcRzS88pu66p34mtX75ck7AATX9EHveyBdS1kLU0BH4sBpw3wJuVOEFDs+LDZ8d0ebqWfS7DnYrrnWaW1CIynWVTEXYMMGzZNYRk70YKgJc9DdDwNnFhTaGUXTN98W1ceDsnroXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e6a20db8;
-	Fri, 28 Aug 2026 11:14:00 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH 7/8] tools/mm: Add memory cgroup filtering support to page_owner_filter
-Date: Fri, 28 Aug 2026 11:13:38 +0800
-Message-Id: <20260828031339.1270699-8-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260828031339.1270699-1-zhen.ni@easystack.cn>
-References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1787887166; c=relaxed/simple;
+	bh=nlfd2yJ+A9oMv4LIvY+m2B3z4qQnrnI5OXm6U3jGoBQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kim2htX8M3Y7UrA2mqggA48C3Ig02XeeSChxazQpXRz+RYuYA75hlBq60X4komfVtVm0Oivv2c5iBX55IIJ3NrxX8NHszbmJ8UqsCppl725u5E7M3QiUvQ2ptFxHz3D2jbzu8jM17QwFqV80HzmaJxykZ4VlC3MyDJtQh4aCha4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LH6+w6vw; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LH6+w6vw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787887162; x=1819423162;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nlfd2yJ+A9oMv4LIvY+m2B3z4qQnrnI5OXm6U3jGoBQ=;
+  b=LH6+w6vw7HYJBHF4RtwGzo41ktkG2kw8KpzlNVFdo7o5rJYtGFpLT0xU
+   vDm1t6wwbmkjHGqdSQXUiCS6v4scHbMQuyjRl2mkY5x5QUJiO7e2Yual0
+   6HiLDItMIrPPXKCRTp6vQB6/day9bZ8tCCqyQvlRzS0ITGIShjaanFlzU
+   RlUm6Xz1lzvF8uLwNkQqIrMYUqz/Wsv0BzAiOLtCPgh+MChjlVuhaXbEG
+   YCSv1ETK0v4bqbsz1dqN/U5j4/cx5Bol8BTZjR5mpYXGL6RD/9rPqMnDl
+   oe827SiXYj7mRJh1zjQUXu1ykJyGQattY8ItqUHfzpEOSyegtLUoxtg30
+   w==;
+X-CSE-ConnectionGUID: K6+nx1HQQkOw0Bz61/DyHg==
+X-CSE-MsgGUID: KWjeBXMkTVW5p0Dbc+lg+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88517924"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="88517924"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 20:19:19 -0700
+X-CSE-ConnectionGUID: BXn9MfMaRa2fhsCjj1d22g==
+X-CSE-MsgGUID: I695iusqRR+ly/MF1Rgeaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="268612773"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 20:19:17 -0700
+Message-ID: <d2efe512-e4fe-407f-96a8-b274fef23382@linux.intel.com>
+Date: Fri, 28 Aug 2026 11:19:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
+ <seanjc@google.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0465c2c190229kunma81ef96712a35a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGR8eVkxNHh8YHR5IQkxKGlYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
 
-Add filtering capability for page_owner to allow filtering by
-memory cgroup path.
+On 8/28/2026 3:33 AM, Edgecombe, Rick P wrote:
+> On Thu, 2026-08-27 at 11:18 +0800, Binbin Wu wrote:
+>> Hi,
+>>
+>> The purpose of this patch series is to prevent userspace from enabling
+>> host state clobbering features that KVM does not support for TDX.  A host
+>> state clobbering feature exposed on a new TDX module/platform can corrupt
+>> host state if KVM does not explicitly save and restore the related MSR(s)
+>> across host/guest transitions.  If such a feature is blindly exposed to
+>> and used by a TD, the host will behave unexpectedly.
+>>
+>> Except for a few fixed-1 bits required for basic TDX support, host state
+>> clobbering features are either directly configurable or gated by TD
+>> ATTRIBUTES/XFAM.  So an allowlist covering only the directly configurable
+>> CPUID bits, plus the corresponding filtering and validation, is sufficient
+>> to serve the purpose while keeping the code footprint small.
+>>
+>> Open question for Sean/Paolo
+>> ============================
+>> This revision comes long after Sean confirmed the overall direction on
+>> RFC v2 [1], due to internal discussions about a potential backward
+>> compatibility issue: a CPUID field can change virtualization type to
+>> directly configurable.  The TDX module can maintain backward
+>> compatibility in most cases; the problematic case is a single bit that
+>> was effectively "1" and non-configurable becoming directly configurable.
+>> The only scenario we can envision for that is an x86 feature deprecation.
+>>
+>> In that case the TDX module has to decide how to handle deprecation,
+>> especially with respect to TD migration compatibility.  That
+>> pre-existing VMs with the deprecated feature enabled cannot migrate from
+>> an old platform to a new one is a problem shared by TDX and VMX, but the
+>> TDX module additionally has to decide:
+>> - Whether to allow TDs newly created on old platforms to migrate to new
+>>   platforms.
+>> - Whether to allow TDs created on new platforms to migrate to old
+>>   platforms.
+>>
+>> There are two options:
+>> 1. Do not offer the VMM the ability to configure the bit, i.e. simply
+>>    report it as zero on platforms that no longer support the feature.
+>>    This disallows both migration cases above.
+>> 2. Make the bit directly configurable so the VMM can clear it even on
+>>    platforms that still support the feature, allowing both migration
+>>    cases above.  However, since the bit is not in KVM's allowlist,
+>>    userspace would no longer be able to enable it on old platforms after
+>>    a TDX module update.
+>>
+>> Adding all supported CPUID bits to the allowlist, regardless of their
+>> virtualization type in the TDX module, would avoid the compatibility
+>> issue for option 2, at the cost of a significantly larger series.
+> 
+> I think we could only do this if no new fixed-1 bits are added. If they were,
+> then a future fixes-1 bit could be added then deprecated. An old kernel would
+> not know about it.
+> 
+> But we will not see new fixed-1 bits?
 
-Filter page_owner output by cgroup path:
-./page_owner_filter -g /
-./page_owner_filter -g /user.slice
-./page_owner_filter -g /user.slice -c systemd
+The expectation is that no new fixed-1 bits will be added after the initial TDX
+basic support. A new fixed-1 bit means the x86 architecture itself leaves the
+TDX module no choice, so the TDX module will not add one unless some very
+unusual future architectural change forces it to (and it's hard to see such a
+design passing the design review in practice). If that ever does happen, it
+would imply a significant architectural change, and we can figure out how to
+handle it then.
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
- tools/mm/page_owner_filter.c | 56 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 53 insertions(+), 3 deletions(-)
+> 
+>>
+>> Given that x86 feature deprecation is expected to be very rare, and that
+>> Intel will discuss such cases with the community beforehand, does the
+>> approach taken by this series look acceptable?
+>>
+> 
+> In the event a feature bit is turned configurable to support creating TDs that
+> can be migrated to new platforms without the feature, then the desired value for
+> the bit on the old platform will be 0. Which is what it would end up being set
+> as, if the bit was not in the KVM side allow list. So everything will work as
+> desired for that use?
 
-diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
-index 9256ffad4939..1ffbe4387854 100644
---- a/tools/mm/page_owner_filter.c
-+++ b/tools/mm/page_owner_filter.c
-@@ -20,7 +20,7 @@
- #include <getopt.h>
- #include <signal.h>
- 
--#define MAX_CMD_LEN	512
-+#define MAX_CMD_LEN	2048
- #define TASK_COMM_LEN	16
- 
- static void usage(const char *prog)
-@@ -33,12 +33,13 @@ static void usage(const char *prog)
- 	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
- 	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
- 	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
-+	fprintf(stderr, "  -g, --cgroup PATH     : Memory cgroup path\n");
- 	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
- 	fprintf(stderr, "  -h, --help            : show this help message\n");
- 	fprintf(stderr, "\nExamples:\n");
- 	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
- 	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
--	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
-+	fprintf(stderr, "  %s -c \"python*\" -g user.slice\n", prog);
- }
- 
- static int validate_mode(const char *mode)
-@@ -221,6 +222,38 @@ static int validate_comm_list(const char *comm_list)
- 	return 0;
- }
- 
-+static int validate_cgroup_path(const char *path)
-+{
-+	char cgroup_path[512];
-+	const char *input_path = path;
-+	int is_cgroup_v2 = 0;
-+
-+	if (!path || strlen(path) == 0)
-+		return -1;
-+
-+	if (path[0] == '/')
-+		input_path++;
-+
-+	/* Check if v1 memory controller exists */
-+	if (access("/sys/fs/cgroup/memory", F_OK) != 0)
-+		is_cgroup_v2 = 1;
-+
-+	if (is_cgroup_v2)
-+		snprintf(cgroup_path, sizeof(cgroup_path),
-+			"/sys/fs/cgroup/%s/memory.stat", input_path);
-+	else
-+		snprintf(cgroup_path, sizeof(cgroup_path),
-+			"/sys/fs/cgroup/memory/%s/memory.stat", input_path);
-+
-+	if (access(cgroup_path, F_OK) != 0) {
-+		fprintf(stderr, "Error: Cgroup path '%s': not found or no memory controller\n",
-+			path);
-+		return -1;
-+	}
-+
-+	return 0;
-+}
-+
- int main(int argc, char *argv[])
- {
- 	const char *output_file = NULL;
-@@ -240,6 +273,7 @@ int main(int argc, char *argv[])
- 		{"pid",		required_argument, 0, 'p'},
- 		{"tgid",	required_argument, 0, 't'},
- 		{"comm",	required_argument, 0, 'c'},
-+		{"cgroup",	required_argument, 0, 'g'},
- 		{"output",	required_argument, 0, 'o'},
- 		{"help",	no_argument,	   0, 'h'},
- 		{0, 0, 0, 0}
-@@ -266,7 +300,7 @@ int main(int argc, char *argv[])
- 		return 1;
- 	}
- 
--	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
-+	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:g:o:h", long_options, NULL)) != -1) {
- 		int len;
- 
- 		switch (opt) {
-@@ -340,6 +374,22 @@ int main(int argc, char *argv[])
- 			cmd_len += len;
- 			break;
- 		}
-+		case 'g': {
-+			const char *cgroup_path = optarg;
-+
-+			if (validate_cgroup_path(cgroup_path) < 0)
-+				return 1;
-+			const char *path = (cgroup_path[0] == '/') ? cgroup_path + 1 : cgroup_path;
-+
-+			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
-+				       "%smemcg=/%s", cmd_len > 0 ? " " : "", path);
-+			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
-+				fprintf(stderr, "Error: Command too long\n");
-+				return 1;
-+			}
-+			cmd_len += len;
-+			break;
-+		}
- 		case 'o':
- 			output_file = optarg;
- 			break;
--- 
-2.20.1
+Yes, it would work for migration cases.
+
+> 
+> But a user on the old platform that didn't care about migration and was using
+> the feature, would suddenly lose it after TDX module upgrade that turned the bit
+> configurable
+
+Yes. This is exactly the backward compatibility issue for option 2.
+Though I am not sure how important it is when losing a feature that is being
+deprecated.
+
+> 
+> But it isn't a kernel bug, so I'd think to punt on this and let TDX module
+> figure out a solution if/when the time comes. Probably various opt-in knobs to
+> allow for working around it.
+
+Do you mean on the old platforms, the according TDX module versions add opt-in
+knobs to allow the "effective 1 -> directly configurable" change?
+
+
+> If they are not worried, we don't need to worry and
+> bloat the kernel to prepare for it.
+> 
+>>   If so, the goal for this
+>> revision is to collect detailed feedback and, where appropriate,
+>> Reviewed-by tags.
+>>
+>> Expected host state clobbering behavior for TDX
+>> ===============================================
+>> We also want to call for discussions about the expected host state
+>> clobbering behavior for TDX here for future features.
+>>
+>> For a normal VMX guest, VM entry/exit behavior for a given piece of CPU
+>> state is architecturally defined: state is either switched by hardware via
+>> VMCS host/guest fields, or left as the guest value on VM exit and managed
+>> by KVM in software.
+>>
+>> For TDs, the host/guest transition goes through TDH.VP.ENTER, and what the
+>> TDX module does with a given piece of host state is defined by the TDX
+>> module ABI rather than by the x86 architecture.
+>>
+>> What we would like to align on is the expected baseline behavior of
+>> TDH.VP.ENTER for future features.  The proposal is to have TDX simply
+>> match VMX behavior, i.e. on return from TDH.VP.ENTER, state that VMX would
+>> restore from the VMCS host fields is restored, and state that VMX would
+>> leave as the guest value is clobbered.  That keeps a single model for VMM,
+>> and means enabling a new feature for TDs requires the same work flow as
+>> enabling it for VMX.
+> 
+> Ideally the TDX save/restore would share code with normal VMs. On the other hand
+> if we don't share enter/exit paths sufficiently, we may need to duplicate some
+> save/restore in tdx code.
+
+It probably needs some TDX specific handling, since the TDX module clobbers the
+MSRs (setting them to either their INIT values or some default values), whereas
+in the VMX case the guest values are left.
+
+ Depending on how much of which category we have, it
+> could be better for the kernel to have either one.
+> 
+> And if TDX always saved/restored all state across VP.ENTER, then we don't need
+> bit filtering? What are the problems then with exposing everything to userspace
+> as we currently do?
+
+One consideration is performance.
+
+- When The TDX module clobbers an MSR, there are 1 RDMSR + 2 WRMSR
+  TDX WRMSR to restore guest value
+  ---
+  TDX RDMSR to save guest value
+  TDX WRMSR to set to default value
+- When The TDX module save/restore an MSR, there are 2 RDMSR + 2 WRMSR
+  TDX RDMSR to save host value
+  TDX WRMSR to restore guest value
+  ---
+  TDX RDMSR to save guest value
+  TDX WRMSR to restore host value
+
+In most cases where the TDX module chooses to clobber an MSR rather than restore
+the host value, that MSR isn't consumed in ring 0, so the Linux kernel/KVM
+simply restores the value before returning to userspace.
+
+That means for most TD entry/exit paths there is one extra MSR read per MSR.
+
+Previously in the PUCK meeting, we proposed that the TDX module preserve host
+state by default for any new feature, and provide an interface for the host VMM
+to opt in to "don't preserve" as an optimization. That proposal wasn't pursued,
+since Sean suggested letting KVM do the CPUID validation for TDX instead.
+
+> 
+>>
+>> FRED is a useful concrete example.  Under VMX, the FRED host state in
+>> IA32_FRED_CONFIG, IA32_FRED_STKLVLS, IA32_FRED_RSP1-3 and
+>> IA32_FRED_SSP1-3 is covered by the VMCS host-state area, so the TDX module
+>> is expected to restore these MSRs on TDH.VP.ENTER return.  IA32_FRED_RSP0
+>> and IA32_PL0_SSP (a.k.a. IA32_FRED_SSP0) are handled by software, so the
+>> TDX module is expected to clobber them on TDH.VP.ENTER return.
+> 
+> And so the ability to have a design like this for the feature depends on CPUID
+> bit filtering to be in place, otherwise new modules on old kernels can clobber
+> host state unexpectedly. 
+
+Yes.
+
+> Future features that follow this approach will need
+> some VMM opt-in to say "VMM is filtering CPUID bit config", so TDX can safely
+> expose new clobbering bits. Otherwise, features like FRED will be problems on
+> old kernels.
+
+If FRED support lands in KVM for non-TDX VMs before this filtering/invalidation
+is in place, adding FRED to the hardcoded denylist would work as a temporary
+solution.
+
+But that only holds for a well-behaved userspace VMM. QEMU, for example, only
+enables features supported by both KVM and TDX, so if FRED isn't supported in
+KVM for non-TDX VMs, QEMU won't enable it for TDX either.
+
+A malicious userspace VMM, however, can set a feature regardless of KVM's
+reported CPU capabilities, and could still cause trouble.
+
+> Do we want it? Where would it get plugged in?
+
+So if the approach in this series is taken, I think we still need such an opt-in
+interface to tell the TDX module that the VMM is now filtering the CPUID bits so
+that the TDX module knows that it's safe to report new host state clobbering
+features.
+
 
