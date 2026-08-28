@@ -1,232 +1,70 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0047A357D18;
-	Fri, 28 Aug 2026 09:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908366; cv=fail; b=opvhJkBMQf8e1pLxQoC9bqQxP5hdgtKu2pKM+u+YlJ0p72SFJhzHmLyV1qIHYp2H/wYB3hWB+FE/PEqJDswB4avEiBkz9P5jnMN/K2YQWYW6/dtNPoKdA8xBF1nxwbwDO1cPWwgN08fn87YWFhrwC7CnhBvEhQylw9f79hB/QDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908366; c=relaxed/simple;
-	bh=hj6bY3ewB/MkDZYU83138s9AwH200rw3MoayOStJmgk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=d0k+PVjA2JJileHF0k6JcKWPWRnNYguG1QaB+vHqZVu+JLXLu4fmdBsBLsTzTWiTia2jXiW7LGIs2954Vbq6giiMzXXXjwyblew6iTTEV8o/t2u5KKocCXwGyjKmOSNdpGYwpW3Uz/u2tVkE3puPGKyPQZVjyAeyrQQnZZTA7Os=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tO2N5rIX; arc=fail smtp.client-ip=52.101.201.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A6826B742;
+	Fri, 28 Aug 2026 09:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787908428; cv=none; b=jpsY28P6NK2nAL5s3QqSchuNbfcWWau+of3JFYnWochNcXeh6msI2fJgWpIRcNtI1zv2Z2QJax72goKAo5TDVheOc3cPQ5WVEDPtvtDN0wX+00Db7Dic9RpZ1alvUYllKxQ6D7Tqo76VenB7cNDcBoGcxvBDRxmoMcNwbxAcSAI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787908428; c=relaxed/simple;
+	bh=7vqB5kVCtlgGODPknu1efKSqxOo5/8MQttYHRS2tvFY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t75Ut4c1qh/VBF37OdEtdKFELyxazB9DyHqmg5aUjpynAbzqmDaC4KD4PiHtYvrdyuLY9mzJ6Y4QlvczZ5s1gxArdNcsblD5nXGevlF5JZpr8ryuO9cg9fmF/sxKf2X48NWbtnKqsXyhJF082UxFhkQ4zE+to5Hz41wCYlQndvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BSbNOk/M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tO2N5rIX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MYIjd2OXQTVnhwkNvFxk1bslaEHSgw8TFQDHsnPBmx15BVjUPq6+BD8ZkundCYPqGVuVPYrq+WSyyN+LjrfSt4JH+Lcn93ldcns+u+pIaaqbieqelLUqhv/i++rm0RQ08ygm+zBRkWk3hPNyEVPIz7MNjNOFFGDAOKF9ozag7NoWQWi9L7CoYLEvStx4E8NUdEIzPhV1ErZkfO6gJVvaNJG8BpDnaZWCXsORwkNwcGP7ZKY/dKvGIA3+vhVqfcTOOgmsT55VRampCGmi3BbpX7miY3Iiv6IrRQtuyObOPfNEuGsZIZQcGAp/ZIWgN0x4Gmfg+E+KwKlEpk8Zyx0yow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rf9/NjLbe0yq6rGc6UQYe6b1rciqWHr/iG63zHowHGM=;
- b=qfILXNfzJGr8anICfXo6m+Cj2La90P4KX7rcEQDEAjpq5xrmj0U+S2blZbfZ//LlksEEkjKeuGUoS0OdMy/rWssM+RVAow/Nt209fsZSyFJrGN1HpRJia9nM1zzPl0evALqr0Ik0/jJQAuNzUsBpkvR+vTuzpJds+zjGf+iqAIhtzerF/rqoBO9Qa1DwUnzSd1PcDM8+JSh8VYPBFz7PCqMVgjqi+XHLYvx8p5SXt+SlIh0POCDLq3/Gap4xVYrsa4s8vYfGjNrad9hYPZ8jP7rOPtfezFwZiWnWjhpYkHl4L+QzvMPqNL1+moF4KwRlhPM8Rlic77Vm8wfpICelXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rf9/NjLbe0yq6rGc6UQYe6b1rciqWHr/iG63zHowHGM=;
- b=tO2N5rIXR4EXi8ru/+l9/sIZ6ZDjEepAsP8dZOVDpet3Adi8N/R9PsWV94bd8uVPjRQ6iAw+pBGD1XfwR+MMOvEConf49jA6vvz/dbwZTZNQU2gvZO0AItJfpNkFoGlEW/otI7UJUAwYnHK5sESNHE4k4Mi9Mz5Z88UFxahfiN0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6883.namprd12.prod.outlook.com (2603:10b6:510:1b9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Fri, 28 Aug
- 2026 09:12:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 28 Aug 2026
- 09:12:41 +0000
-Message-ID: <99a34ffb-b702-45c8-aa0c-129442841c2f@amd.com>
-Date: Fri, 28 Aug 2026 11:12:36 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] drm: Add common drm_user_fence helper
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- Matthew Brost <matthew.brost@intel.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260828063103.4106629-1-srinivasan.shanmugam@amd.com>
- <20260828063103.4106629-2-srinivasan.shanmugam@amd.com>
- <apE17lJZmTD4+5jR@gsse-cloud1.jf.intel.com>
- <IA0PR12MB8208533952E71C3153ED308190AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
- <1ea90a49-ec2f-4150-a7e2-4f645ef3a98b@amd.com>
- <IA0PR12MB820813A9D08CAF799558FB5A90AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB820813A9D08CAF799558FB5A90AC2@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0281.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BSbNOk/M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC3A1F00A3D;
+	Fri, 28 Aug 2026 09:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787908427;
+	bh=7vqB5kVCtlgGODPknu1efKSqxOo5/8MQttYHRS2tvFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BSbNOk/MIr0IH/xOkK7Ij3mfjoZ4sX5NoqRZW6BxD9va/h+OWqGlsaHFGxWXaavdx
+	 nUPCl3mZ6/8YJphIM94WEjlrMrI/jysRtQxojDB66jkOl1QNf7l/zmg7RMm5qBTktl
+	 LhJXUcDCm1U3I5m0sprYPg65cCJ2I99JUiA73oEpH/bUvWHrwk+H+YJ6v+nt/b7/nE
+	 MdRo8hcD/WsmnS1Frrj1GzTmpsxJhu1nmZch+F785y2zE8TNIwezHuUNOp3Pxo8pDg
+	 UwnhzkwVazIHURtAa3RDQf9okldqQmCh7DNYEQPMj6IGSE5TaSjt+100EMC97wTbzl
+	 QOiNHEbbFDrRQ==
+Date: Fri, 28 Aug 2026 11:13:44 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, 
+	Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
+	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v3 3/9] dt-bindings: usb: generic-ehci: Document
+ access-controllers property
+Message-ID: <20260828-puzzling-shapeless-gaur-f0d737@quoll>
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-4-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6883:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3dcf4d3-4e11-4aeb-4fd8-08df04e48383
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|56012099006|11063799006|10067099003|18002099003|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	UzB9XEcQZJ1TbmU/dS6Xv8ejZ/cSBQGDB0whDJV5XUYizOhN5Hcx9lCalgJjq7WzAgqG9xf+KSdANNh++834R1Zb2b/JNy9oM7QX5+e3BN7KltHkuBlDFqos5BhomVK5gJkkgVQNcwWnzwgrqhzxW/j8ssLbIUYYNi/8UjbYjxubCLGNVyFTrke2l18oojyImmgQXykU2Xmq76xswMTQmajkEtDCDL3LzLR+02977CKVmzSKK9DeER0vs0KqncS/CAQl0jp4BziORQ2LXTFG+xqAcAI06ZPXpghCqPmNOZrIS2vT3RJt0wWdfkPVxPec6WRkYD23TfloMI/uVhvYeOMyFFFPLNbV4KyFP78BfjXE1V8y/iVWjyLLXcJIhj0MN/2Ent+ubyOsg1o84mY5mUMmOuqLvIVEQ/0wluzsVG83rhAEiCq4a/u9BMBQnqMIcXKjqtfQDqOkBFLC8rKmvFTkh2cE+iPO3QeqCFsVrbWbWeceLoBdEap8FvxSjW/8nCf9YVHlMnEkGnSRI248oeh7NG9HbBbD29CSTFNqAOi9+/b8Mwaqtz2GJOWgLZGf75R/XS6qQxexzwMQhg5ld/m0391XisvY+4cV/jIijcMkcBEih2w3fljj8Z3G7QLe+5xkxse7bOA2D2TWgfzYTWXxaejRAZsM3oZZwQoOLCo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(56012099006)(11063799006)(10067099003)(18002099003)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eldjbU5ZSENZRlJ4ZjNGd3l6MUlhTElGRUtWNW41VkczTGw3VDlVYm1iVXUv?=
- =?utf-8?B?enNCeHFZOFdhZlRYYjZjdi9wUExjbDdMQnRmWE1hTjh6ZENYcEQ4RjdwVWtX?=
- =?utf-8?B?OG1Yd1U5MmgrKy96M1F2NkZPZmhObVA0NGphVFhSUCtuSUhnOHBqYTVXbmts?=
- =?utf-8?B?ajE1YnlmdmZVMFN1SE54NWRYUEtiLzM4SExadk9WdXR6d2YxTDZBRUlQMm9t?=
- =?utf-8?B?Nms2ejlaaTBnQWhPTkdqOEorZ1c3RVNyRXJBZTFLdUpFb0gwS3FwZDV2QnpV?=
- =?utf-8?B?dEN1Mzd6TDIxU1NpdWtMSFIzOXpRMENCNWpacmJZVjdTL2M3L1pKRVFWYm9y?=
- =?utf-8?B?V1JMYmRWbEEzYksyZ1FBdUs3S3F3WmdZeTgveGxpMzNTRkpwbEY4OE5tUnJW?=
- =?utf-8?B?U1BQUGd1ZWhPblFpVFhZZzNpVldrMTliSk5rWW14MGxvSDJFYWpZUDZ1WGxQ?=
- =?utf-8?B?eFNYb1gvVnBBWGxtY1p4THkra3Q3VVJiU1dXNHUxRGZ6TXFoOTBpVG9RVmlY?=
- =?utf-8?B?Sjd4bTh1Wi9RRHVJUCtTWTAyYzJ1Y0VOMjFTdVh0NzlDRzdoRXdXT1ltVmJl?=
- =?utf-8?B?RENHOFFOcFZZVmdmOW4yTHRKWXR1UkJMQ3ZoMjFwNktSa1l0T2xGa3hXekFs?=
- =?utf-8?B?Vm1pZEhsYXhtU1JjYVJtZ2lvOVc1SFFGQjRUSFhWcnNsK1Mya09tYVg2NzlI?=
- =?utf-8?B?TDVCNk1NajR5dmY0cElJTk1ySFJTcGluRjNBZGZtaXNHbHBkenJFTG9zaFFI?=
- =?utf-8?B?UHpQenZqcVFIcHMxbVRmd0lrZm16OUhsWjQ1UWh6Y0JBLzR3aXFPVnd5NWUz?=
- =?utf-8?B?dTYzTW1CWWk2aFVEWmVPVW1qZGxiNGJFN0xnYVNMZ1dNMVhIczJISGtDTVUw?=
- =?utf-8?B?MlNjRDNJOStvbGxqZEd4RXFyVk9TQWhDb1pma1BEOFdYSzFWRytBZmltQnpt?=
- =?utf-8?B?ZlVuYUtXM3FWQnF2c25SaUtxZktqZW5kd0xES2hRQ3ZUUG5TYTMva3ZLN1p4?=
- =?utf-8?B?ZEg1RHVTZ1FXMkc2MUduVmlGL016UlBlYmZZVldINDJnUzZFTDM5dFZaWUZM?=
- =?utf-8?B?NkJHYXRJM0pTK3hqeHdyVThTU290THlvd2JQbDl3TVJhVEZkbHdJVTZUeVEy?=
- =?utf-8?B?V0NFQzd6S2hTWUJTQ0JiSXlic21vK24ycmpwTGxiLzZ3cWJXRGtjcUdQZVlr?=
- =?utf-8?B?OFhsVWx2Y2xEd3hZa291VlNyTmU4d09lZjArcXlONHVEakIrdzlLTTdGQnRR?=
- =?utf-8?B?U2U2RmZYVEM4NndiZWg4UWJsWXpweEZnbkNwdFh5Z1pNTWM2cHU5VHNMcjlI?=
- =?utf-8?B?Y1hlNVdIQTkyWFJxa1lqajZiY2NxTFltbDlmQ0I2VWFRclAwQlFtZnlGMkI0?=
- =?utf-8?B?Vm1IWmRMRTRuNlVFT01CY25yN0NPZnRLTllDejhNZkZ1K09KQ0h3Vkx5MDdy?=
- =?utf-8?B?YkJyc3h1N3FSa2JyZE11cy9EQVRMZkdlMXZMN0tyUE9GZEo3WXM5UnZIM3Nh?=
- =?utf-8?B?d2hqS0ZId25EaVBXRFlyYUNkU2tCMUpBT0NUWmlDUzZacHRZbVpZTzl4TjRK?=
- =?utf-8?B?MFlNbnNyRnRTNktWcmFGQnpKUkNLS1JycDVXaklRRU1KRXB2VWlIWXhxakxB?=
- =?utf-8?B?cnR3clFkVnJ4K2p3UHR5STNnUStzZTF1MVE0N29uRFl6OXFwQnh0SUZ5MWhw?=
- =?utf-8?B?bnRPK0hUWk9qY1ZYa0tpU0FBVHFTRlA4Q2RPUmo1WDBJcjVscGJOQzBsek9J?=
- =?utf-8?B?UXVnU2NEdWRnTjg3TU5Oc01YK243dUdNeFIyamE1ZDJrdlU2UTV5WHlnaHo0?=
- =?utf-8?B?OWJodVJodmJiNHRBUTNoQ2ZnYXZGcU5qYVhYaTh1K3VrRE5ZRjVhYkFoaUUv?=
- =?utf-8?B?Um9QaG9tL1hURkJJaG1tb2hGanNDdk5yMEJzNkloV0xzZGh1YnRhNlRpNkEy?=
- =?utf-8?B?STZMQVdYWUhNTFhiZmVwMFpCMWdNMTdWMlEzK1RDMWFUaVVTblM0c0NnK0Rx?=
- =?utf-8?B?K3o4VXhYSklSckMyTHFDUFhZTVpHSU01YzlOUVV6ci9JTVZvUHltWkNoUHY0?=
- =?utf-8?B?eTBvNXVuamNDa0NCMmxtTURuelNHbzBHUnBJL0srYktVOHd6RFVxcmhjY2JG?=
- =?utf-8?B?ekg2ZGlKa2xNR1lmbHlnMi9uNXlTdm5NcGxjbnZ6dXUxTWhrbEdGb0NKcmFD?=
- =?utf-8?B?MXVRZzkreXlUaGZ3WUQzdVF6UXBzYXVsS0hHNFJzeVVNbmxFbDNZY1FzbGxL?=
- =?utf-8?B?VXBlWnFqOG12VHZCWEY0dWt0MVBKWDFpR0twRDNNWlRaTzVrOWljUXhIdi8w?=
- =?utf-8?Q?1Mi7X7/CypyNqbafQW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3dcf4d3-4e11-4aeb-4fd8-08df04e48383
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:12:41.6944
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xApinwDhbDbbo8iCuW5nSA61rg/zqypOJzhknepSsr5bJSL0VDmIbQs10YcsGDC8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6883
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260822074816.548662-4-marex@nabladev.com>
 
-On 8/28/26 10:31, SHANMUGAM, SRINIVASAN wrote:
-> AMD General
-> 
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Friday, August 28, 2026 1:48 PM
->> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Matthew Brost <matthew.brost@intel.com>
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Maarten Lankhorst
->> <maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>;
->> Thomas Zimmermann <tzimmermann@suse.de>; David Airlie
->> <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Sumit Semwal
->> <sumit.semwal@linaro.org>; Thomas Hellström
->> <thomas.hellstrom@linux.intel.com>; dri-devel@lists.freedesktop.org; intel-
->> xe@lists.freedesktop.org; linux-media@vger.kernel.org; linaro-mm-
->> sig@lists.linaro.org; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH v4 1/2] drm: Add common drm_user_fence helper
->>
->> On 8/28/26 10:06, SHANMUGAM, SRINIVASAN wrote:
->> ...
->>>>> +/**
->>>>> + * struct drm_user_fence - embeddable DRM user fence
->>>>> + *
->>>>> + * Drivers embed this in their own structure and implement
->>>>> + * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
->>>>> + * drm_user_fence_add_callback() to arm on a dma-fence.
->>>>> + * Call drm_user_fence_cancel_sync() before driver teardown.
->>>>> + */
->>>>> +struct drm_user_fence {
->>>>
->>>> Should this common layer be split into two distinct concepts?
->>>>
->>>> - drm_work_fence: 90% of what is here, minus the kthread_use_mm() and
->>>>   mm-related code.
->>>> - drm_user_fence: a subclass of drm_work_fence that adds the
->>>>   kthread_use_mm() and mm-related code.
->>>>
->>>> I suggest this because I was thinking about it the other day (I
->>>> forget the exact
->>>> context) and reconsidered a pattern where a fence signals and then I
->>>> need a worker because some work must be done outside of IRQ context.
->>>> A user fence is one example, since copy_to_user() can fault, which is
->>>> not allowed in IRQ context. At various times in Xe we've had multiple
->>>> patterns like this, although at the moment user fences are probably
->>>> the only case that requires it. If we looked across DRM as a whole, I suspect
->> we'd find this pattern open-coded in a number of places.
->>>>
->>>> Yes, drm_user_fence would be a very thin layer on top of
->>>> drm_work_fence, but I still see value in the split.
->>>
->>> Hi Matt,
->>>
->>> Thanks for the review and for being supportive of the idea.
->>>
->>> The split into drm_work_fence (general fence-to-workqueue pattern) and
->>> drm_user_fence (subclass adding kthread_use_mm) makes sense. I'll
->>> restructure v5 as follows:
->>>
->>>   drm_work_fence: kref, work_struct, dma_fence_cb, stored fence ref,
->>>                   wq, ops — add_callback, cancel, cancel_sync
->>
->> Yeah, this pattern came up so often that I already considered adding it to the core
->> dma_fence framework.
-> 
-> Hi Christian,
-> 
-> Thanks for the feedback.
-> 
-> On dma_fence_work: would you prefer I place the generic fence-to-work
-> helper directly in the core dma_fence framework (drivers/dma-buf/),
-> or is starting with drm_work_fence in DRM and promoting it later also
-> acceptable?
+On Sat, Aug 22, 2026 at 09:46:36AM +0200, Marek Vasut wrote:
+> Document the access-controllers for EHCI USB controllers in case
+> access checks need to be performed to use them.
 
-Maybe ask AI to search for use cases. If you find something outside of drivers/gpu/drm then please place it under drivers/dma-buf.
+Please mention in the commit msg which compatible/device from this
+schema actually uses such access controllers. I see your work is for
+STM, but there is no STM compatible in generic-ehci/ohci.
 
-If you don't find any existing use case drivers/gpu/drm should do as well.
+Also, please send USB patches separately from DTS and other subsystems,
+because Greg takes entire set.
 
-Thanks,
-Christian.
-
-> 
-> I'll add the value comparison logic and will add a clear note that this cannot be
-> used to implement dma_fence_ops.
-> 
-> Thanks,
-> Srini
+Best regards,
+Krzysztof
 
