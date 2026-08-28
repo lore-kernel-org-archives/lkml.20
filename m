@@ -1,234 +1,177 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D317F379C32;
-	Fri, 28 Aug 2026 15:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A898F46A603;
+	Fri, 28 Aug 2026 15:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929788; cv=none; b=Fr/QdNXOQgJW27jA2hFjaev+AQukhnCmCDEmny4q68GiDI2YURY1PV1oDMIvqxGF7V+OugFF8U/U3oCQcQh6oBRfia3ZEreA2iNgxMXLVeQYduywHBE2w6hWVJZltE95ellaLmMgpDRyKP6ppEDgraz1XQjMLTLtO3238vVFXwM=
+	t=1787929795; cv=none; b=TlNLzxzeEMkk17Gg+GE0KfnYg5DFsFnOjBr48OYnmy8bYxpUYCEn6kgw2imqzb6/7z/HNt9RBtiEbl03QZLEOAxTlULTWFQYT3pbSgVXd8DaaciLI8V/JTf1pQa776uQHYskwka5XraEUmbiCkYlyJlBLJEko9qW9WQy2PG1KmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929788; c=relaxed/simple;
-	bh=zhO8zGISVXD7PRGwsHN1rjefun2PO+OkTMdVdz031Ek=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nYU55/WjMDEfBAzlcOEtJUekDU132OxqIF2C8HdNaoTF8b0KegEOoKQDUtuglMQcOCJFvkEF9Wlx3Bfs5mWj0Qu0nIc0d4WrZfmbjDYfw/FyLpjJRBxD0OIAMGXqfLj+IBIE+6RTkRwFrjwB1G0KzuTBk0USdPEYZ/E3hXvVQ1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=C3pVW/YB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=S9xZdhGL; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1787929795; c=relaxed/simple;
+	bh=2ht7LSF54lpV7TrPbfz5U6zYSpkXQBDP5kxwisLOc6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P6+M7O3xVs61sN82MR3cbRTqWKEP9aTvCQfzstIY82JrCWk9Am8R+PPmbTgGV60M3DEmkMNYYO5VgGkwDvzt+ZsXwml15gqe9J5+5VfmJAv31mMYxnVCq1AG1k0wBfV9YvdD6IB7jt8sRJLkC49pF5kS3urB9C0DOIQWwjyPUmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Jya9Q8Xk; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="C3pVW/YB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="S9xZdhGL"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 423071D00163;
-	Fri, 28 Aug 2026 11:09:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Fri, 28 Aug 2026 11:09:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787929783;
-	 x=1788016183; bh=J7fhSdF2wHuM0Q5K5Nel4RxIzjNwRWdYNSgjeXswKtM=; b=
-	C3pVW/YBEvdrjEZxFYZhYPbAfnisE6n3PmOSuvMDOHNvfhG73B5h9faYONpglCIN
-	Ai+09V+M3qCS36b5bd9ho89Lk3rUxeWP5KspVb3zpqfw/EkZTDpry5si//Z2Dk8P
-	Q0H0WoAG1Mjhr5Jo5hBXjBqbI3NkzKosuQD5SfQ256ZbmGlugmCxK+YjwK2O3BxT
-	YqIwfuFjKWR/nZ5bwxGUDySbn1aqhaghpXHbcPY1+ho8Uf2ttOP0R9LLO48GVB4D
-	t+4Ya2CLnmPuDtUOW3qtSDwfyD1x5PNc66dcSalOefZPkNWzdkvByVW/cb6aFUb6
-	EVNv1h6wARjpj0q+2OicEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787929783; x=
-	1788016183; bh=J7fhSdF2wHuM0Q5K5Nel4RxIzjNwRWdYNSgjeXswKtM=; b=S
-	9xZdhGLk1dU7W5KQQdONSbGbZoyRDPN+HwZnfdmCe91JIbUfPq92LBvNFyUJw75F
-	JilbigLGdiMudLIzqcPLTOBoVx1D8h4CQgxlYyWh9Ibv7o1jOSqF5zMjckRbT8mu
-	lSmaL/59VwQxD/SS25dNJs9MaIjVxLL7/wsg6xYL9sHsWFIX4XFPX9Hqc20BM7Se
-	dzztXHh1/Z6Yk90zWQq5wksTv5zmttXozoT9HIXEA8yuCh9/jamOKqGRgdPU4IR1
-	trjfSGJCVV0Vab4vQgA9M7tq1MT4+RPPq/ti08tgSL5VLqKujD5fMaKAiL5TiCR9
-	nGZsok6I59v8kg1znxOBg==
-X-ME-Sender: <xms:tqSRamWNvAZzpR7mqxKJyFdZFMrxs89CJq_RdAuQDnebZkv0fkk0-g>
-    <xme:tqSRagOtDILmHdgnfLdpX7jXISHGpGYy_p9rU_BS3MLyvAUtgJNSEJOA2an4AsBf8
-    HvHefd7bmhQlUJJFTF1bJ1kjN7IzJn-5NRWIoNU6P4sHrjJnlM2etA>
-X-ME-Received: <xmr:tqSRahzu0qqR-IyQx5DWe5i7B047PEdkpWZyOIp5cgyFmfJEO80vCjHMWMN1tQ>
-X-ME-Proxy-Cause: dmFkZTFXGrMYbLY+LdvceoYAUK59SwxkuxWrEEfFhx7Oo48w4szBreo/JFGuyK/kX2r3RZ
-    /9jkoKemr0M8aGtfrx58I9eCa4dAMjXoq/KnvMhaWsIJGn4WWBhEgzjtix1UQfFFio7Ogn
-    ninILXq7bDTI8F5C3HjV2yW4/M9BUl68Q01TrOE9TW43F3UAA74s3vgQCbhOsN4KTtxJ/6
-    koHNG+EBMttzofnzdmAatjTjU48/zTIzddY5KliI1v7dB5ThFS6BU5h7eEN5GR3NzPLMo4
-    lAWi9RFZtF1qcQuiHRqOsp+RZhVirWm+EUKRelRTpmCIzzsmfFx7UuaG+QVwddEmBlwpLi
-    at47XqWYb6BaM5vwNBdViJnf96MKz7EBPSIUxevSwjjZPUgEwAznsKLVBRCa/nRGtr85+v
-    84WXvqkZ6TwjNsyX6jljdEYV1FilS1m+96jJABro0J2rWpMC8puM0OHAwjySpN2lqJY4+1
-    NPGh4QXyq3qbuUqS1dy0Zn1phIaKtCryLVrVCHericq3VxPTYsMEDEjd3cZyaQR1dwtTce
-    Lfbi05iYWjTMWtKtUKBFAykU/++xZd8z4OF5d4yiAs7arVzT128C7F/lT16wVLDTHY0wa6
-    8dTtAb3ti+qd107i48JAP12fEicDribtpTNCmp35Ja4IwAPIjVl8PgIhv28Q
-X-ME-Proxy: <xmx:tqSRalhWtNmmYwp-fxJve5-KD69bN43VQNIwZBu4FV5XdPnhmdbcMA>
-    <xmx:tqSRaoSLY6p4E9mSeWE0jCujTHADWERJbvmBG8Cs9zQaLT8BE_bfYA>
-    <xmx:tqSRaiOA-vTGXjpnREAug-QGLremyWun4BJxBjbMQXfeYaMbCCN3bQ>
-    <xmx:tqSRatFL6uKuaLcW4gNFAqDxTfgdgDPsxBCOzWxahjCbpYGpiIyljg>
-    <xmx:t6SRash-d7Zdysx5_8yVdmM22mQP1aKtTcKAx1b6yDXM9tGVpeDGQhVa>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Aug 2026 11:09:38 -0400 (EDT)
-Date: Fri, 28 Aug 2026 09:09:35 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v4 16/27] vfio/cxl: Shadow the CXL DVSEC body at open
-Message-ID: <20260828090935.719115e9@shazbot.org>
-In-Reply-To: <20260813093631.2288172-17-mhonap@nvidia.com>
-References: <20260813093631.2288172-1-mhonap@nvidia.com>
-	<20260813093631.2288172-17-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Jya9Q8Xk"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C08E11D128;
+	Fri, 28 Aug 2026 17:09:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787929787; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=w4V2xYYZPxGiTt4YXxNmtjNTOnhx0km+lR8iVd4Fx10=;
+	b=Jya9Q8XknBXVZsKtuL1AFEBOuKGqRuCmY2cdxrvpzdJ6zt6Y6+4lhqK0D0zc0wjMuVXOar
+	GOZaRAy+3HQQzUShMt5YZ/ZOeCgb/pWg5v85uReUAFLNsaGiZ9vSQq4a/jTWJ0PR4jcYP0
+	oVpP7leKUAOnYOG4Y2uudcypVi110HZXHfjl9A9VgdUJuYRQbqOOx7R5vNpjGpbDBEOx+Z
+	WzbHqtkTP6h/1B/o6NawYeg07XgcK3HsIAXv2mea7GPmfamUF2SSa79EEM8Zqf/E/m2U4s
+	1i7lWPAw2endyjWicvDMlerFGnHV2zowpgynmzmVbqlzYmIj/wE96z0sDdHbqA==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-usb@vger.kernel.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v4 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
+Date: Fri, 28 Aug 2026 17:09:15 +0200
+Message-ID: <20260828150937.174735-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260828150937.174735-1-marex@nabladev.com>
+References: <20260828150937.174735-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 13 Aug 2026 15:06:20 +0530
-<mhonap@nvidia.com> wrote:
+The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
+glue logic wrapper around it controlled by syscon. Extend the generic
+DWC3 platform driver with ST STM32MP2 glue logic specifics.
 
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> Sample the CXL DVSEC body into a per-open shadow when the guest opens the
-> device, and free it at close. Reading it here rather than at bind picks
-> up any change from a low-power transition, and gives the DVSEC access
-> handler added next a per-tenant copy to serve from.
-> 
-> Annotate the shadow with __counted_by_ptr(dvsec_dwords) so its accesses
-> are bounds-checked against the recorded dword count.
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-usb@vger.kernel.org
+---
+V2: No change
+V3: - Use generic over-current-active-low
+V4: - Include bitfield.h
+    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+---
+ drivers/usb/dwc3/dwc3-generic-plat.c | 45 ++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-It would be useful to describe why we want to shadow the DVSEC
-capability here.  Also, it's the whole DVSEC capability, not just the
-body.  We're again mentioning that low power transition that the
-earlier path prevented (but shouldn't have).
-
-> 
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> ---
->  drivers/vfio/pci/cxl/vfio_cxl_core.c | 39 ++++++++++++++++++++++++++++
->  1 file changed, 39 insertions(+)
-> 
-> diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> index d19fd638f538..2e516a0929c6 100644
-> --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-> @@ -8,6 +8,7 @@
->  #include <linux/module.h>
->  #include <linux/pci.h>
->  #include <linux/range.h>
-> +#include <linux/slab.h>
->  #include <linux/vfio_pci_core.h>
->  #include <cxl/cxl.h>
->  #include <cxl/pci.h>
-> @@ -17,11 +18,19 @@
->   * @cxlds: CXL device state; kept first for devm_cxl_dev_state_create()
->   * @cxlmd: memory device joined to the CXL topology at bind
->   * @hpa_range: host physical range of the HDM region
-> + * @dvsec: CXL device DVSEC config-space offset
-> + * @dvsec_len: length of the DVSEC body
-
-Nit, not just the DVSEC body.
-
-> + * @dvsec_dwords: dword count of @dvsec_shadow
-> + * @dvsec_shadow: guest view of the CXL DVSEC body, sampled at open
->   */
->  struct vfio_cxl_state {
->  	struct cxl_dev_state cxlds;
->  	struct cxl_memdev *cxlmd;
->  	struct range hpa_range;
-> +	u16 dvsec;
-> +	u32 dvsec_len;
-> +	u32 dvsec_dwords;
-> +	u32 *dvsec_shadow __counted_by_ptr(dvsec_dwords);
-
-dvsec_len is bound by PCI_DVSEC_HEADER1_LEN, which is 12-bits, so it
-fits comfortably in a u16.  dvsec_dwords is therefore bound at 10-bits.
-Both of these fit comfortably in u16.  I'd argue that length is easily
-derived from dwords, but we end up with a hole in the data structure
-regardless, so it's arguably useful to keep both.  We can drop 4-bytes
-from the structure though, which actually turns into an 8-byte savings
-with the two holes above (2 + 4) vs one hole below (2):
-
-	u16 dvsec;
-	u16 dvsec_len;
-	u16 dvsec_dwords;
-	u32 *dvsec_shadow __counted_by_ptr(dvsec_dwords);
-
->  };
->  
->  static int vfio_cxl_init_device(struct vfio_pci_core_device *vdev)
-> @@ -71,6 +80,8 @@ static int vfio_cxl_init_device(struct vfio_pci_core_device *vdev)
->  	if (!cxl)
->  		return -ENOMEM;
->  
-> +	cxl->dvsec = dvsec;
-> +
->  	/*
->  	 * vfio-pci requests the whole component BAR when the guest opens the
->  	 * device. Declare the BAR owned so the CXL core maps the HDM/RAS
-> @@ -102,11 +113,39 @@ static void vfio_cxl_release_device(struct vfio_pci_core_device *vdev)
->  
->  static int vfio_cxl_open_device(struct vfio_pci_core_device *vdev)
->  {
-> +	struct vfio_cxl_state *cxl = vdev->cxl;
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	u32 hdr, *shadow;
-> +	int i, dwords;
-> +
-> +	/*
-> +	 * Sample the DVSEC body now rather than at bind: a low-power
-> +	 * transition could have changed it since the device was bound.
-> +	 */
-> +	pci_read_config_dword(pdev, cxl->dvsec + PCI_DVSEC_HEADER1, &hdr);
-> +	cxl->dvsec_len = PCI_DVSEC_HEADER1_LEN(hdr);
-> +	dwords = cxl->dvsec_len / sizeof(u32);
-> +
-> +	shadow = kcalloc(dwords, sizeof(u32), GFP_KERNEL);
-> +	if (!shadow)
-> +		return -ENOMEM;
-
-dvsec_len becomes inconsistent with the other fields if we take this
-return.
-
-> +
-> +	for (i = 0; i < dwords; i++)
-> +		pci_read_config_dword(pdev, cxl->dvsec + i * sizeof(u32),
-> +				      &shadow[i]);
-> +
-> +	cxl->dvsec_dwords = dwords;
-> +	cxl->dvsec_shadow = shadow;
-> +
->  	return 0;
->  }
->  
->  static void vfio_cxl_close_device(struct vfio_pci_core_device *vdev)
->  {
-> +	struct vfio_cxl_state *cxl = vdev->cxl;
-> +
-> +	kfree(cxl->dvsec_shadow);
-> +	cxl->dvsec_shadow = NULL;
-
-This makes the counted-by field inconsistent.  All fields should be
-cleared.  Thanks,
-
-Alex
-
->  }
->  
->  static const struct vfio_cxl_ops vfio_cxl_ops = {
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+index ca69ac0eb07ce..bb2be75a82875 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+@@ -7,6 +7,7 @@
+  * Inspired by dwc3-qcom.c and dwc3-of-simple.c
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/platform_device.h>
+ #include <linux/reset.h>
+@@ -22,6 +23,12 @@
+ #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
+ #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
+ 
++#define STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT	BIT(0)
++#define STM32MP2_USB3DRCR_OVRCUR_POLARITY			BIT(1)
++#define STM32MP2_USB3DRCR_VBUSEN_POLARITY			BIT(2)
++#define STM32MP2_USB3DRCR_USB2ONLYH				BIT(3)
++#define STM32MP2_USB3DRCR_USB2ONLYD				BIT(4)
++
+ struct dwc3_generic {
+ 	struct device		*dev;
+ 	struct dwc3		dwc;
+@@ -85,6 +92,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
+ 	return 0;
+ }
+ 
++static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
++{
++	struct device *dev = dwc3g->dev;
++	bool ovrcur_polarity_low = device_property_read_bool(dev, "over-current-active-low");
++	bool prt_pwr_ctrl = device_property_read_bool(dev, "st,enable-port-power-control");
++	bool usb2only_conf = device_property_match_string(dev, "phy-names", "usb3-phy") < 0;
++	bool vbusen_polarity_low = device_property_read_bool(dev, "st,vbusen-active-low");
++	struct regmap *regmap;
++	u32 drcr;
++
++	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg", 1, &drcr);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle specified\n");
++
++	return regmap_update_bits(regmap, drcr,
++				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
++				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
++				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
++				  STM32MP2_USB3DRCR_USB2ONLYD |
++				  STM32MP2_USB3DRCR_USB2ONLYH,
++				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
++					     prt_pwr_ctrl) |
++				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
++					     ovrcur_polarity_low) |
++				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
++					     vbusen_polarity_low) |
++				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD,
++					     !!usb2only_conf) |
++				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH,
++					     !!usb2only_conf));
++}
++
+ static int dwc3_generic_probe(struct platform_device *pdev)
+ {
+ 	const struct dwc3_generic_config *plat_config;
+@@ -231,12 +270,18 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
+ 	.properties = DWC3_DEFAULT_PROPERTIES,
+ };
+ 
++static const struct dwc3_generic_config stm32mp25_dwc3 =  {
++	.init = dwc3_stm32mp25_init,
++	.properties = DWC3_DEFAULT_PROPERTIES,
++};
++
+ static const struct of_device_id dwc3_generic_of_match[] = {
+ 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+ 	{ .compatible = "spacemit,k3-dwc3", },
+ 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+ 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+ 	{ .compatible = "starfive,jhb100-dwc3", },
++	{ .compatible = "st,stm32mp25-dwc3", &stm32mp25_dwc3 },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
+-- 
+2.53.0
 
