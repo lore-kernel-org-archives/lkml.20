@@ -1,177 +1,155 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB941361DAB
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787941313; cv=none; b=GIldqP+VbFe2ACwm8uZBhKBO6xThqEj3aatGfySm866SjuWhWwn6bZDWrTwRK/WjFscGvForj9fC/eP3OClizECtqIX7lNAWA5cPS3LNC1SOtYNgYnA5qxtmBCpOe7dPxKT8Wd0Q50WN2hx4g5rbY2D6RkMhvXfpDYof9NwZJnc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787941313; c=relaxed/simple;
-	bh=IFR7ul7pp8/kLgTPiH28FnLtifyeTJtoTjKJ6ePRonU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G9FCYkC6TbELwtxah2qWL9aVDep/EcFKuCMbNxbe1m06HimQtK240P7iCbwKrIphjDpqz7d2iIO6AAr/whh75ewtDGvnzrWlRoDoO1Yn4mJNd4gkh9AGW6IYlXdsvLEgm0x4osKszIP3AEGRXLkZDBvXBUUHHXlpW0Ld5KH7ZAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mivOZ65B; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE42371076
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:22:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787941376; cv=pass; b=M/XMZnlvepbei1mV5SUK1XQpskR47Z53BrGmFmG5cLv0LB3rYoh0Vtnv/+FR1mJ4GRsK87Axwgnd5CF7ivLy+vKSH96qtRpqd9tZuWSI5h07j4wheU7e8CYjZcxWl+Rv8gCyEyb9lv11AxcX11oQkkE9QepbETfC8NJq/nD0Jp4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787941376; c=relaxed/simple;
+	bh=j60wtDEgu//7CzF8nDZvikt5eDgBjEg9IddlLKg/ltY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ilwELkOfNWvx1ZUOYrnjcKGYixw0smoHM5BGsGLdj5kQ3ySs5dNWqi/YEP1DeIoXxWz3J9Hgx+Rwz5Bc912Jk4Xp7v7SJpIlg0K+3OIBp0wVoNCxCGYblxxsOGi5gYQ1Z3xFuo1KaUHwDsHFORR8b9U5GD9d+qDCaSzXyWKa8ts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=blm9HMUw; arc=pass smtp.client-ip=209.85.167.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mivOZ65B"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90cd4631090so12631676d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:21:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="blm9HMUw"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b5e907853eso825542e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 11:22:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787941373; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nQwhqopGSFoUOxbvIVif4an8icJmMqhxwjBYx6N7PkbAcjqtQ30TcRSjPzxRkuC9Ci
+         d1eLT9xXTPMZGUR6+H2PP0ZiYaFuZzEVpMMfcNj2iMB3HV30BaAlxyx5+O2LOTHdDDnd
+         in49ndQwiAfaoJ346ZgdlB44YzgIbKYFzYUjsTbenBOQwokW71oAanPfY4CNQuEE8oh9
+         NM1lNTv+p4s/X03Uj2w4yFiRWHm19Bd9gu1EJmndgBlIrjX6SkxeBGZ9fnqD0f87cC7S
+         w62bpbXk3f0xp8Sdw8i/ga91Ap4a0dkOKE5riw7vmN7LqhbcXwDIfjP3/7tTwipwsDfw
+         2O6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oLLWpA7UkByQ7zwy3ykP7hLm5Nq+lnUYf3Hct5wt0Lc=;
+        fh=VAK/NdTgRE+MmJIzVDgMTfpS/03/LLf1694B8SiFtTo=;
+        b=HETsnJBKadORi1uPGaHq4G6kc/pUFaSMNjqs70A3KcrbMGUVY/kJ4a2oSN3OhRdp6O
+         dea8JuclLuWESOi9be59j44OwKKQo6qDJNPfpA8Q9o3ZmXbtQSxIQoqKuaig7jK7TsgH
+         BkHFyrIN8VWdJjbyH14vUhTtSWhWCPt6pvjX+hbVvgZyfZKWmiKaQTo+V1MeijarUzBv
+         Rf2hbYadUiYFxvzEXY3sPeqEZx1O5mCou7O5/AmWhLDmgTpmS05tAdm2Y17wQhF/r/CM
+         Hs5QvJXRl+CJvUbvI7qPpu0tGOuR/9NnqClJ6I80IVjZoKwEjkzMIc1f5Cng3Ev9Pv+T
+         I4wA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787941310; x=1788546110; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e07rpWXrsj3p6ul0XVkxknQ6M4V6UQIKlB7MI75kBKY=;
-        b=mivOZ65BJIMUCCen8ejbI9qGe+/i++Dol4vlgzS2Obe1hdnhi6XELjeqcUIv774l2z
-         KnHfUmKWf7OlUQTl2+CRQkY8+nV8rNCv2N+VsZd7SHB7HdyrdGr8MVW1DGz45WJzPJ5p
-         wP2vmMn91r+EmQhPipCy/S9vrQn+12eUYufnaARQizHTNGMlk+Vhge13hqn0Kj7p0tWb
-         KNrLcaUfdskQghduVFtxLkQX2axtgZoc35GiUM/TaQTho27BZKk689vZjL9NY5F40CWj
-         M9bLlTHTBbDeQZJJsvsUslXFPNd3iW9NjI+phteu8N9SzUX4CKtojZK2WCzduew7WWou
-         OVWw==
+        d=gmail.com; s=20251104; t=1787941373; x=1788546173; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oLLWpA7UkByQ7zwy3ykP7hLm5Nq+lnUYf3Hct5wt0Lc=;
+        b=blm9HMUwxiRufNARWx8NN/r4Ox9uOm3BJnOxTLJ/e3rP6ECtWE0lVQi2dpxZ8gfq0C
+         bwilY4afAKSdONSuWW7vqM1KKYERC/Of1YahzQ7aisWAwN56Ts2ceEQaq1/fp3S2fCqV
+         04wv6BZWAqc9Mu5LrImUZYjCKmVIwph9XNrFM/VV+3Qaaq/qO0Vy7s6djsbadH3YzbQy
+         c1juFhvIcNvjLmmUoTQzsxIE8xOheBdetCuYXJQkW75I052CubtK2L+Yd0/oRowXpzHk
+         GU8/5B0cTMh4sXy6aYWdKA3DQkMzNdh8WrnOq5Auh3XlgKB+WUutliCQOc+I2KqKuMZC
+         NpNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787941310; x=1788546110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e07rpWXrsj3p6ul0XVkxknQ6M4V6UQIKlB7MI75kBKY=;
-        b=IFimDD3b13t9wUTeI0sBtL7ahmPnm+5KKx9ySfgxe3BZMaxmS7Dz/W9NzD7ap9sc4T
-         EhLin7wCu8mjgoW1rzFpcLODbLpJxgocEzhspZjvC0jnfwpwuJ/t7uLF2FQcDDU0jW/q
-         GlY73bt24VhscvZ/hB4G6wrgh0nbYYOnQTzAGA7ftIGrgfvbJXCVNdSfs+OSxgy4govs
-         DSU6hFyt5ZKan3wwfS1sHGRAsVm3jlJJCY1wyY/u+fwo0OfjGA6TtYDkGQsJOZQfnJh4
-         d3VsN9aq18iHYP6ekgHAqGKrZTiWlI8HMWs1kCPuqQJchHEwAJEfv77DTD2goiT4B9ST
-         SEBw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6ImnkvFKD1nNL1C/sn1yU1BrEIhCBbbYlQHC4g9GlbC4q7DRYH/nDfpOw2Er9Gn9oXT/+rBLeE/4yLeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6n6iN+denuN3Q/4sFZAPof+yMl5wqsZWkwwoiAg67PS5P4x/Q
-	bVES63pnqQm/RPZBIWRXb6T1r2iMpBt3eqAabyTHi1GfhJSWfRMH197G
-X-Gm-Gg: AR+sD11OjweYEMjoOPFfFpKROK5NQLMDnZPTYOuJZC/T0pyVeK4OZ4VK/VKEXae7siw
-	mNcbapUxBGXWuR/vgjDuz0QWLE1Wxfri7Fq8KOY+hOBA3yt9pwmzj3uBMxJuCQvW02mNrwnNDiE
-	fSnqaT4S17cWaCP8tUBwLMekDO1EwtMK9ka089loom6gSWbNOfJNILNSE6yIcU1SW5NglrNxguv
-	/0IWIosC2KQwN+gc60U/t5L9aN7jdJ5WMlND06kq1QNATHgUGM6ddhhJu6bmiLn/D0IeUAMiFgk
-	US3mDxPns79dzQormdTt/frXfGxItAK/MVasmdDOdFdJpF9LEh8MUP/65ERJ/318NtyNGUgC/rv
-	3YbZt+SfW6IYrYCQhnffevYKpiTv91EvoK2sLRwFdMN9N3a5o2QC6bGbAiBcyqi5b+QAZDR25Ep
-	wdGXgXSppoNbZJayrEmxd6Q8I3x7TR0wPXAAECN6wQZIXOPQeGGwVBAC1QHu+2F6K5/gQ=
-X-Received: by 2002:a05:6214:518c:b0:908:598a:91d4 with SMTP id 6a1803df08f44-90ceaf5d9c8mr27447786d6.8.1787941305827;
-        Fri, 28 Aug 2026 11:21:45 -0700 (PDT)
-Received: from zambezi ([2a02:8308:b10e:9400:faf:460b:2f23:8f6f])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4467957sm21270406d6.15.2026.08.28.11.21.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 11:21:45 -0700 (PDT)
-From: Ilya Dryomov <idryomov@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Ceph fixes for 7.3-rc1
-Date: Fri, 28 Aug 2026 20:21:20 +0200
-Message-ID: <20260828182122.1668032-1-idryomov@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1787941373; x=1788546173;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oLLWpA7UkByQ7zwy3ykP7hLm5Nq+lnUYf3Hct5wt0Lc=;
+        b=EvNjlcphuVQLzYMYk/tTbLVc219atm6p606oKveQ30OphjGQw+Z/YKqnd7bQ/dTwox
+         DFc7H5mAGkqTALBavIunhZye+pqb/+KtmGnlTWqivYqKYej5STyKFCoO0udKeiPaGfHc
+         j3LHlZzFfOj4unMUFFGl35TUzmhMS1ZMgd6Eabh1baJUIGApQTMXYP6ONMfa4Tj1CmEL
+         vHtds6+XRIPMGchH76Z1XKhLZ0BAxKm+y1Hg9JJvQ9ZZiRLMjfh2ct5E4E609wi9dC0n
+         4CsaHIPJ5TjNoOrjuAmuM35pieccY6RH8JdTYqZpaYzkPAWu3WhYwCp4yK6H+0eM5nG5
+         camA==
+X-Forwarded-Encrypted: i=1; AHgh+Roh4n241XLEeUoN3MLerlc1PMO2UVw3eG3zefkXji5myZ0iSDXMgeYQbESqivHIaeb/rDm3ApHZXXL1klI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdWmDV5k1qwngsOTn5pzNM/VOmQqeJ3lHokZkd26L+wctzQW1N
+	mtiBImyr52/ZMYriCQdmOH0PEoa889zPE234+QcfUsU2mCjGv6xpGfcmzgZG9V2+pKFM3UsQsHX
+	wN2EVBCIbVWtEToUMvuJdoIPAjTfmFnqOnPRfcjDNhA==
+X-Gm-Gg: AR+sD10cnKxzEwZVWI6XULq7QIuV2PEnUZMH8YIWFE4YeGPpN8oc9iHuIWvhA/mBjiY
+	C9OT5ra02jLsp8C7cLbfxCYDSqh0pm3BReWomnJJc5tC1TMn/12//xMVqgDqAKgif69fCN/0+yQ
+	vZrp/KoPzck3Miq4JspfH0P6cb8iYosElH5Rub4BS808ATeXKAhxGppq8vA/BO5wqNLbt1VgZzI
+	JiiMCoQ1qPaxUxopFaVha6SFM/RpAM9dyijDuofJBSLlthRj6BrBlTiBRV47C1YomlvAjFNW2Wf
+	zY+6qcdnaDpP1X1wRFcDLuo6oideUYBis0zvL3eMcYGMK9gXDgFwQ24oJ8IV6QzD58e4EoLe6Z9
+	c4WTohS3n5bjpy2NAVBwhne1kwYWoj0lmiiY=
+X-Received: by 2002:a05:6512:1248:b0:5b5:ef13:5bda with SMTP id
+ 2adb3069b0e04-5b5ef135cd3mr136646e87.9.1787941372640; Fri, 28 Aug 2026
+ 11:22:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260825130126.2078627-1-chao@kernel.org> <20260825130126.2078627-10-chao@kernel.org>
+ <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com>
+ <b4711014-844e-45c0-b85a-4e3a98d7137c@kernel.org> <12dc55dd-f85d-4f21-8eac-f1042bcf0565@kernel.org>
+In-Reply-To: <12dc55dd-f85d-4f21-8eac-f1042bcf0565@kernel.org>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Fri, 28 Aug 2026 11:22:40 -0700
+X-Gm-Features: AcwNN1UEfcN4VxIkT4-9GbXI8caiY-ku97cijW_B7gjP7FaCFtCNTayTSYPOTUc
+Message-ID: <CACOAw_zaxYUzPUSktX1KWeZ1Ha1gH1dC4hX81d9CehWDGTqtDg@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v3 09/12] f2fs: cache: use compress cache
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
+On Fri, Aug 28, 2026 at 5:25=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
+>
+> On 8/28/26 20:00, Chao Yu wrote:
+> > On 8/27/26 04:04, Daeho Jeong wrote:
+> >> On Tue, Aug 25, 2026 at 6:03=E2=80=AFAM Chao Yu via Linux-f2fs-devel
+> >>> +               f2fs_lock_cache(entry);
+> >>>
+> >>> -                       if (ino !=3D folio_get_f2fs_data(folio)) {
+> >>> -                               folio_unlock(folio);
+> >>> -                               continue;
+> >>> -                       }
+> >>> -
+> >>> -                       generic_error_remove_folio(mapping, folio);
+> >>> -                       folio_unlock(folio);
+> >>> +               if (!f2fs_is_compress_cache(entry)) {
+> >>
+> >> How is this possible?
+> >> or if (!entry->cache)?
+> >
+> > I suffer a panic from f2fs_bug_on(sbi, !f2fs_is_compress_cache(entry)) =
+here,
+> > it may suffer race condition w/ shrinker.
+>
+> I changed like this, because:
+> 1. we will never update entry->ino after initialization, so it's safe to
+> check w/o lock.
+> 2. f2fs_truncate_cache() has checked entry->cache by itself, so it doesn'=
+t
+> need to check w/ f2fs_is_compress_cache() outside __f2fs_truncate_cache()=
+.
+>
+>         for (i =3D 0; i < nr; i++) {
+>                 struct f2fs_cached_block *entry =3D entries[i];
+>
+>                 index =3D entry->index + 1;
+>
+>                 if (entry->ino !=3D ino)
+>                         continue;
+>
+>                 f2fs_truncate_cache(entry, false);
+>         }
+>
+> Let me know if you have any concern about this.
 
-The following changes since commit 8d3ae59288f1e7d58d76558a6ee96d533bc5019f:
+Hi Chao,
 
-  Linux 7.2 (2026-08-16 14:32:26 -0700)
+This looks much cleaner and straightforward.
 
-are available in the Git repository at:
+I have no further concerns on this part.
 
-  https://github.com/ceph/ceph-client.git tags/ceph-for-7.3-rc1
+Thanks,
 
-for you to fetch changes up to 8fdf946445732c2bcd685abc8bd0e509d2ebc158:
-
-  ceph: force a cap message when a deferred revoke can't be acked immediately (2026-08-26 19:57:29 +0200)
-
-----------------------------------------------------------------
-A wide variety of mostly CephFS fixes and cleanups, split between
-changes that address edge cases (Sam, Xiubo, Matthew), efficiency
-improvements (Max) and AI-assisted hardening (Michael, Jeremy).
-
-One thing that stands out is Alex's change to how CephFS behaves in
-NEARFULL scenarios: the long-standing "make all writes synchronous"
-behavior has become opt-in.  It was always somewhat controversial and
-doesn't make much sense for modern deployments; the new default is to
-continue normal operation (i.e. buffer writes as MDS allows, etc).  The
-behavior in case the cluster reaches any FULL state remains the same as
-before.
-
-----------------------------------------------------------------
-Aleksandr Nogikh (1):
-      libceph: validate banner payload length
-
-Alex Markuze (1):
-      ceph: make nearfull sync writes opt-in
-
-Hongling Zeng (1):
-      ceph: Fix ERR_PTR(0) in ceph_mkdir()
-
-Jeremy Jean (2):
-      ceph: reject export_targets ranks >= CEPH_MAX_MDS in mdsmap decode
-      libceph: reject buckets with mismatched CRUSH ids
-
-Marco Crivellari (1):
-      ceph: Change system_unbound_wq with system_dfl_wq
-
-Matthew Brown (1):
-      ceph: fix leaked inode reference on writeback abort at umount
-
-Max Kellermann (9):
-      ceph: skip __touch_cap() most of the time
-      ceph: use detach_cap_releases() in ceph_send_cap_releases()
-      ceph: make __ceph_remove_cap() static
-      ceph: add helper function ceph_cap_is_removed()
-      ceph: mark cap remove with RB_CLEAR_NODE() instead of setting ci=NULL
-      ceph: pass inode pointer around instead of reloading it
-      ceph: drop mdsc->mutex before decoding the MDS reply
-      ceph: do not repeat ceph_trim_dentries() if no progress possible
-      ceph: force a cap message when a deferred revoke can't be acked immediately
-
-Michael Bommarito (6):
-      libceph: validate OSD extent maps before cursor advance
-      ceph: bound copied dentry name length in NFS export get_name
-      ceph: bound xattr value length in __build_xattrs()
-      ceph: bound MDSCapAuth path and fs_name decode in handle_session()
-      ceph: bound num_export_targets array for mds info v2/v3
-      ceph: cap delegated inode count in ceph_parse_deleg_inos()
-
-Sam Edwards (2):
-      ceph: pass fscrypt `tname` buffers directly
-      ceph: properly decrypt filenames in vmalloc() buffers
-
-Tal Zussman (1):
-      libceph: remove ceph_put_page_vector()
-
-Xiubo Li (7):
-      ceph: use GFP_NOFS for cap flush allocation in writeback path
-      ceph: use GFP_KERNEL consistently in __ceph_pool_perm_get()
-      ceph: do not cache negative dentries for snapped directories
-      ceph: fix use-after-dereference of NULL ci in __ceph_remove_cap()
-      ceph: revalidate ki_pos for O_APPEND writes after cap acquisition
-      ceph: fix UAF in __kick_flushing_caps() on cf entry freed during unlock
-      ceph: fix UAF in check_new_map() on session freed during unlock
-
- Documentation/filesystems/ceph.rst |   6 ++
- fs/ceph/addr.c                     |  30 +++++--
- fs/ceph/caps.c                     | 166 ++++++++++++++++++++++++++-----------
- fs/ceph/crypto.c                   |  50 ++++++++---
- fs/ceph/crypto.h                   |   4 +-
- fs/ceph/dir.c                      |  22 +++--
- fs/ceph/export.c                   |  26 ++++--
- fs/ceph/file.c                     |  56 ++++++++++++-
- fs/ceph/inode.c                    |   3 +-
- fs/ceph/mds_client.c               | 110 +++++++++++++++++++-----
- fs/ceph/mds_client.h               |   1 +
- fs/ceph/mdsmap.c                   |  11 ++-
- fs/ceph/super.c                    |  10 +++
- fs/ceph/super.h                    |  45 +++++++++-
- fs/ceph/xattr.c                    |   1 +
- include/linux/ceph/libceph.h       |   2 -
- net/ceph/messenger_v2.c            |   5 ++
- net/ceph/osd_client.c              |  30 +++++++
- net/ceph/osdmap.c                  |   2 +
- net/ceph/pagevec.c                 |  13 ---
- 20 files changed, 462 insertions(+), 131 deletions(-)
+>
+> Thanks,
+>
