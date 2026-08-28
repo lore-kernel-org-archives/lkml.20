@@ -1,166 +1,159 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBA03BFE2A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9454F35E92F;
+	Fri, 28 Aug 2026 19:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787944258; cv=none; b=oGSh9suKeh0mAxqIFzBtpRIz+n9mkSzfK18bQknfmfojWCeS0wZCLvcfWx77mKwsTmRXbkT3Ccj16C/7YQBowEbO9/STI7d1uakLVx3YBCnvGVqgEXRi5mAkwdGPQBE0WCrjCMYV8ulkm5Jb2f0QCg5HN0tlohMyvKRMm3dp8AI=
+	t=1787944346; cv=none; b=A6w27s0UR+nhqpdqPAGb0T4eUPU+UEEjoseljJYn+4GzesKsflU5bY2l6B7KwLvsnWxMomem1X1/aX3KmibOXNb48gmCzCDx9SpistMUGVEov5bJpnYwSWv8PXOP1rZ/dDk2r3xhb4ZrAEfCfylnF15FzFw5CxQKTyQnn3LZsGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787944258; c=relaxed/simple;
-	bh=36nLVAjVnyXQ9NM1V1+VNywtVenoPVkoSYIpnXSwhjY=;
+	s=arc-20240116; t=1787944346; c=relaxed/simple;
+	bh=w4nQpbW2SJfEH8/UMUa+zqT9BEUAGKdaa63d0JTf3Eg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S7vno4DND0rN0mHFBn3gjgEbHNvAmOQb2z6NHk3pxL5tThYUyv5ywbNRsazlbRWnw2DDfwyGBN3Dzv0u2pA0WDkjdFZIN9E/STTBQkq8Yuitii3+bDV1ggRIQTkFgbKJQnShiP9hbQRU5fLS4wP+LFmzwFsF4DgSXcft8LymNIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOubuykF; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=dWILURSDEwyieALPWD4gPIfcUfYfTTVD3yMdWwH6szDblI302teW6Dxu+1ItvA8Z9ypticIqjfV5NVs/M+e3HL5QFpM4d5DMrNsUy6Qdx9lmpoDuVcSj4M43n8Cv+EFwVmN7A7L9ujF8XhxexLMtObDHY9acyl9f7lmAwz9mSNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=MCku4eFE; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOubuykF"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-495590dde14so12994695e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 12:10:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787944254; x=1788549054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SoUMcMxZ4jSXfVyBbNxTOmQ0cjlOeDjZWBJ+hZQ/vkM=;
-        b=KOubuykFkd/Zm10i9hogf8FcNAJnnLoy2MEc4DWGfjmPO+8lhatipPJOMJIW3+iTcf
-         AvFim3g0WPe+sFbPouMhjh9VvWPx35rtQ5MVkZua442Ci9D3XJ0auOJoGlt5j4eG9Esm
-         aGbKctCOhTe+Iaba8d4koR+J3GB0/sIEDqFo5xU+OwZOh73Z8YoXGY+zTbv/edq0aR96
-         1D7hv2VvTGyoOlN6mJ4R32Fk4xfYHQooHhaqGCIaH5Ch3YoK3HynfLh8FWTeUWIpCqSq
-         IBUFnVjK8jf9e1WwjrhOeOGXAUgKVjz1QzP6JsvdGa87IXbtuwZrM+5S6bm5W2OK8Ly3
-         d1hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787944254; x=1788549054;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SoUMcMxZ4jSXfVyBbNxTOmQ0cjlOeDjZWBJ+hZQ/vkM=;
-        b=YBx8ByXDienHPB2Fx7Krq2GmZSSLAgYw1smgDEpqpBOAvwAU3AEyLa6hU2iwoOUvPq
-         j2SJ8StlrAOp++mSrfyaBkC5/jq090hxG4dm4h8U8DY7KErivkn+XQYftjBHKq228+Oh
-         aFPOhqr4fgXSgNe1ASR4//I59EUZRv9QCF6wffluSdDyTXeEAiOgIJRHPM0tl8csgFSZ
-         CRdP6c1HqRzcn/Glxgi9X+1cSytfH6aB5jIkM5T4l7mu4CyEO0goAzj6ZW+GHhLQJOxx
-         +IVkPHt7Po+HR/V3fP0VngEC5EOZWK3Uv486ivz/IkJ5PvUwCVnVyP8zAyymczVDT/2I
-         084w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0nCaq7JzM7f/BNnsRpWUG5GOEfZllJIFQvF8TDCYfIU7pJrKsGDyR9+r8L1HqecQ6KI9muVMNDXqNf9g=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljIXiScmYwlBtaDGzr68QfA34yUxXSHODY0Nc2bpgGVTO5OHsk
-	JxkKP+5qg6JfxgTao7uzJOnQbsTCqSsJCpjDvWprzohlxaEYTTdgq2zQ
-X-Gm-Gg: AR+sD10tXvbLgeX1mwsu5WHrUvD53ENp7cACNz/uJTfHRTM+1S3eyUTdKNkAPMUjBt2
-	KLo+q37nzSePuxEFy1MWYhS+1/pbVA8SJkNp1vU3yCuXfy3H3leDJMqM+KzJ7aeynId6tTXevPc
-	1lDYtWsCLEVoc1rZg6FsXg0Jp5qgQfY9mKQrkcW9Rb7ktCKA2zIMFi+cGr8KYp8xrKZhqrz4Hzp
-	ek2S/xxIia7UVDU/ElHuf48KH8CuH80uMb832WxjkqQGzgqucbh23YZ3wjl0ix+o08BI85e1900
-	ZbX/ioY1BYD/YvARIfAACH9zhWICdPsqd9H/FrmO27AGnh1jjGa5mpU15RRarJyRIMds+ANhnN4
-	5B60/0okqxrAqpMe0eqtnzo712oCD5qDYDdCosjAttDkrrnw9ZsrjDbfVzr9p790mCWYxcLyJxu
-	6HQcJTFsQ9dez7J+P3n0hm4dQSpJNMR8TvpgfynlBQH/BK1zKXqh2KHCcfarH7HMdeiB/iVxaYd
-	Aw1
-X-Received: by 2002:a05:600c:c493:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49b91c20914mr137793525e9.3.1787944253452;
-        Fri, 28 Aug 2026 12:10:53 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49cc61cfsm165049015e9.6.2026.08.28.12.10.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 12:10:52 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Mehmet Fide <mehmet.fide@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="MCku4eFE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1787944337; x=1788203537;
+	bh=FeJlaW2B8oO576wp67QQ5FK5OyHGETUHK344nwqMpYM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=MCku4eFEFfnuU4wTKnRsvfHFKD9y0nP4mJ8meIJAAV5WwadywMYJu18hVP3D1GIcQ
+	 RLj7CcybbRpYMPgQwQ90aBxYne1p96UAy0EGD/qe+W8fKQ2CBKhgh/sjhCAE0rOKx6
+	 rV30iq5XHWCpJcP2s/rcYdXiY97CPtv01IofiOz+As89ttOIi/iIMoSbV3kLvFLSDH
+	 17JtkybS0JuGH/ivSEtkhjrpMIhxYwR3oQf+TuL1XRbFD8BKZPkPmNKzK0bJyjy7Oa
+	 rSMBBNsVZsph4CTYNj7wOGW8YiSUkt6xdNAeWZ9/F28zDykCZQtYFvelR1R1B/yxTY
+	 7uF4RquQFcfvg==
+X-Pm-Submission-Id: 4hWp0t3wnKz2Scht
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+Cc: rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	linux-pm@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the high queue only for DTIM delivery
-Date: Fri, 28 Aug 2026 21:10:51 +0200
-Message-ID: <20260828191051.178481-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260814053426.2473247-1-mehmet.fide@gmail.com>
-References: <20260814053426.2473247-1-mehmet.fide@gmail.com>
+Subject: Re: [PATCH v2] rust: cpufreq: reject NULL from cpufreq_cpu_get()
+Date: Fri, 28 Aug 2026 22:11:45 +0300
+Message-ID: <20260828191213.45530-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260828161834.29539-1-mehmet.mkoseoglu@gmail.com>
+References: <20260828161834.29539-1-mehmet.mkoseoglu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ping-Ke, Bitterblue,
-
-thanks for the ack on this one. It has not been applied yet, and before
-I post anything on top of it I would like your opinion, because I now
-have a case where the same lockup comes back with this patch in place.
-
-What happens
-============
-
-The patch made the after-DTIM routing conditional, but nothing bounds
-that path. mac80211 sets IEEE80211_TX_CTL_SEND_AFTER_DTIM on every bmc
-frame while a single station is dozing, so one client in power save is
-enough to put all broadcast and multicast traffic back on the high
-queue. The chip drains that queue at beacon pace while the frames
-occupy the shared TX page pool, so ordinary chatter such as mDNS
-exhausts the pool and with it every other transmit, including the auth
-and assoc responses other clients need. The AP still beacons and looks
-alive, but nothing can join until the device is rebooted. That is what
-our field report looked like.
-
-Measured on an AM62 based AP with an RTL8822BU, one associated client
-in power save, and 40 broadcast frames per second generated on the AP
-itself. Free page count at 0x240:
-
-  t=0     1803
-  t=30s   1148
-  t=60s    716
-  t=90s     16   <- 0.9 % left
-  ...       16   pinned for as long as the traffic runs
-
-and at that point dmesg starts printing "error beacon valid" and
-"failed to download drv rsvd page". When the client wakes or the
-traffic stops the pool recovers; in the field both conditions persist,
-so the AP stays dead.
-
-How to reproduce
-================
-
-  - any rtw88 USB device as an AP, one client associated
-  - put the client into power save (a phone with the screen off will
-    do; on Windows set "Wireless Adapter Settings -> Power Saving Mode"
-    to maximum and reconnect)
-  - from the AP itself send roughly 40 multicast or broadcast packets
-    per second, for example in a loop:
-      socat -u - UDP4-DATAGRAM:224.0.0.251:5353,ttl=1
-  - watch the free page count:
-      echo "0x240 4" > /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
-      cat /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
-
-Do not ping the client while watching. That wakes it, mac80211 flushes
-the queue and the pool recovers, which is what hid the problem from me
-in the first run.
-
-What I would like to do
-=======================
-
-Mirror the vendor driver. It never lets chatter into the hardware high
-queue: xmitframe_hiq_filter() in core/rtw_xmit.c admits only ARP, EAPOL
-and DHCP (CONFIG_RTW_HIQ_FILTER, default "allow special"), everything
-else leaves on its access category queue. With the same rule in rtw88
-the pool stays at 1803 in the test above, a DHCP flood still takes the
-after-DTIM path, so the filter is selective rather than a blanket
-disable, and plain join/ping cycling without power save is unchanged
-(10/10 here).
-
-The trade-off is that a dozing station can miss non-special multicast,
-since we do not buffer it in software the way the vendor does.
-
-Before I post a patch:
-
-  1. Is such a filter acceptable as the fix, or would you rather see a
-     hard bound on how many bmc frames may sit on the high queue, which
-     would also cover an ARP or DHCP broadcast storm?
-
-  2. Or both, filter first and bound on top?
-
-  3. Is there a way to learn the DTIM boundary on USB that I have
-     missed? With one the driver could hand the chip a single burst per
-     DTIM and the pool could not run dry at all.
-
-The patch is ready in either shape and I can post it as soon as you
-tell me which one you prefer.
-
-Thanks,
-Mehmet
+On Fri, 28 Aug 2026 19:16:57 +0300=0D
+Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com> wrote:=0D
+=0D
+Hi Mehmet,=0D
+=0D
+> cpufreq_cpu_get() returns either a referenced policy or NULL.=0D
+> PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which=0D
+> rejects ERR_PTR values but accepts NULL.=0D
+> =0D
+> If the lookup fails, Policy::from_raw_mut() therefore constructs a mutabl=
+e=0D
+> reference from NULL. Dropping the resulting PolicyCpu then passes the=0D
+> invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().=0D
+> =0D
+> Reject NULL with NonNull before constructing the Policy reference. Return=
+=0D
+> ENODEV instead.=0D
+> =0D
+> A KUnit negative-control run reproduced the oops with the original=0D
+> conversion. The same test passed with this change. The reproducer is=0D
+> available on request.=0D
+> =0D
+> Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and d=
+river ops")=0D
+> Assisted-by: LLM=0D
+> Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>=0D
+=0D
+This should be tagged for stable:=0D
+=0D
+	Cc: stable@vger.kernel.org=0D
+=0D
+LGTM otherwise.=0D
+=0D
+> ---=0D
+> Changes in v2:=0D
+> - Format modified imports using the kernel's vertical import style.=0D
+> =0D
+>  rust/kernel/cpufreq.rs | 18 ++++++++++++++----=0D
+>  1 file changed, 14 insertions(+), 4 deletions(-)=0D
+> =0D
+> diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs=0D
+> index affa2b9490ef..4b992ea9a0f0 100644=0D
+> --- a/rust/kernel/cpufreq.rs=0D
+> +++ b/rust/kernel/cpufreq.rs=0D
+> @@ -14,7 +14,13 @@=0D
+>      cpumask,=0D
+>      device::{Bound, Device},=0D
+>      devres,=0D
+> -    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABL=
+E_DEFAULT_ERROR},=0D
+> +    error::{=0D
+> +        code::*,=0D
+> +        from_result,=0D
+> +        to_result,=0D
+> +        Result,=0D
+> +        VTABLE_DEFAULT_ERROR, //=0D
+> +    },=0D
+>      ffi::{c_char, c_ulong},=0D
+>      prelude::*,=0D
+>      types::ForeignOwnable,=0D
+> @@ -29,7 +35,10 @@=0D
+>      marker::PhantomData,=0D
+>      ops::{Deref, DerefMut},=0D
+>      pin::Pin,=0D
+> -    ptr,=0D
+> +    ptr::{=0D
+> +        self,=0D
+> +        NonNull, //=0D
+> +    },=0D
+>  };=0D
+>  =0D
+>  use macros::vtable;=0D
+> @@ -687,12 +696,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Opti=
+on<T> {=0D
+>  impl<'a> PolicyCpu<'a> {=0D
+>      fn from_cpu(cpu: CpuId) -> Result<Self> {=0D
+>          // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CP=
+U.=0D
+> -        let ptr =3D from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32:=
+:from(cpu)) })?;=0D
+> +        let ptr =3D=0D
+> +            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cp=
+u)) }).ok_or(ENODEV)?;=0D
+>  =0D
+>          Ok(Self(=0D
+>              // SAFETY: The `ptr` is guaranteed to be valid and remains v=
+alid for the lifetime of=0D
+>              // the returned reference.=0D
+> -            unsafe { Policy::from_raw_mut(ptr) },=0D
+> +            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },=0D
+>          ))=0D
+>      }=0D
+>  }=0D
+> -- =0D
+> 2.55.0=0D
