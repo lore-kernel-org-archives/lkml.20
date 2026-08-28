@@ -1,176 +1,136 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FC5395AF7
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4893A27A47F
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787953994; cv=none; b=QrPv3jLZFzEbAjR4hW5DpQApt03VoMsTcNWcSwwlkAKN9Tn+OOzJWKtDo++GlAfZiW2MSnkLtWDnbos6vkwqS9zRdVIeCrF86ldxkeLUlBFR2w0iLXfCDW6u9Sw1Jlp0k/AXTbXo2d9lVlek+3/0WQMlUQoCXoqryQvGwOpOqAM=
+	t=1787954051; cv=none; b=ou/eks2Fn5Q5IrIt3FplC4zS5CUVR64jeyAR9YE0ql4lLAuVsnYGu5D/lHbDY7CaaXOAyXZmsbZzXBLDaG584FJUS4IGGzo1awmbkUl3d9jemH8yGe202Cm5RbiMqakersxAXWwd2nu5gCpyMllfhK97lA5JpWzB7sLCpHBSGAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787953994; c=relaxed/simple;
-	bh=ZbSKxgcvJNKCZb5NN2exAqDxafTIHVtkUQsS+TGA2ig=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GClhuyGg5cuAgi7GkRExa4k1rypU9vNCpegcVCby44nvg+Frik5T42sWH9GLOavr9yvWlmIBKyUJoMHeE+GCAGI/v8I3nviWeEi/CAmdeCx4SQs2xvR3kGAg6VqyoR3AxGzqnZlOFEJgLkCp8J/Wa6cb2Ev48Ifim5oVjqwKu2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eperot.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pv7usd1g; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eperot.bounces.google.com
+	s=arc-20240116; t=1787954051; c=relaxed/simple;
+	bh=5+eRRSBmCBRgSPBWzjUGNn9aTqnNzTiJA7y5CU2N/Gc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WwGglFeU9iIP+z4sht7Iwo/JsnDt2v/0mifsORp48LXFJvcvU1Q2M8d+Gi+nWRDaM127MdhHMlCoBr9qNXppAP+o9xD949j6lk50fANpRboB+ndpwqWOFYSdvgb2vPYAsbq1Asa6bUS3tncgX0iuDFzcqtBJ9kYevNWFCy1w7Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ly9si7oY; arc=none smtp.client-ip=95.215.58.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pv7usd1g"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so2995556a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 14:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787953992; x=1788558792; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LONXRy8p8ypM84GZsyXqlc4REgdbXBjlmnbaUHr3UhQ=;
-        b=pv7usd1gPlIzPLWjwN4LAVEB3U+8twYCEj5fH0+Cua96z0aFzyL6PGZBX9XDM2U75w
-         uraXrWw9odHFyHK2xbgAoCc2/zLu0v+rniaEDro6ZMYjR+krU1QCpxAI/UNlIWGh5Rqx
-         Y9RwC3J6j3TJaZ4c3KFUSMdPHXDmqp7cWdGZPzuPVCKr7Lcpj6IvAdIITntJHO8EY9Xu
-         siBiKALVnnXTlQ5xu/7zJrwGsrEx9mxG6doXOLYJBJ0/vf6kxiOOR1Fi1HQpBV3Fsp6i
-         8NaIPGRhr+wB1ltwiY7luQK0XSa64+zAZukv/3W+5/4YWinbLvwzO3A4IqJul13XuvUA
-         FpQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787953992; x=1788558792;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LONXRy8p8ypM84GZsyXqlc4REgdbXBjlmnbaUHr3UhQ=;
-        b=Q0WIfKvo3RtQzWORLDKp5Vgj2JsF/sdopI5MMnvCzCscQv+2+0swV1IYlot54Z7nZy
-         h/A2cWXAy4siiPX93W78qj8J1jCHHNPLhI6kTPp+j+56EHljrjHJotCk7qSf/nk/KSSk
-         JAtzR12l5BRLO+5WYl6Gr2dQeMMRvXMU1NWZ1otudFdzsRC7PtZf/J4iQ2cto1LBoSCz
-         qYXwBs9E2Vt+hJ044wKznjuyzD22B4FYaEK2HAaENccvvEaxKB5VEFBLUMysEMwxOWgP
-         7wth4qQDqj2ndNQl6ztfgfdUrt2r0C1EPOFgxfJ8Rv7Mdxn70Te/OgE14AL9nBYEhLX6
-         92Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxyL8AuybgsAgWnZqn17fNN6cqQziRERFFacL54RkCZ75y3xC5dRzJFBtSlhoC/NaObxESB4E6yfFdHmLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOcNiE/OB6w3Emz8alHYkIxwTU2D5PJoBxYaP/aWWwi/4d7P63
-	s0XX2kSoM9M2vKdWI2SrfxtBUuoywaioO6FQTMOPhnICqmo/Hcv4r01gR3T9vOVzbE2lMVEXSHo
-	c9riXGw==
-X-Received: from dykg9.prod.google.com ([2002:a05:7300:5789:b0:327:c2c1:f06f])
- (user=eperot job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:56c7:b0:398:9bd4:d18
- with SMTP id 98e67ed59e1d1-3989bd41466mr3966381a91.23.1787953992182; Fri, 28
- Aug 2026 14:53:12 -0700 (PDT)
-Date: Fri, 28 Aug 2026 21:52:52 +0000
-In-Reply-To: <20260828215252.4126811-1-eperot@google.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ly9si7oY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5+eRRSBmCBRgSPBWzjUGNn9aTqnNzTiJA7y5CU2N/Gc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787954048; v=1; x=1788558848;
+ b=Ly9si7oYdpchxRPRjQuhwGTeuxijO5pRC4uJ/6u5kXTq2WXQ8P7KYtaz0Eb+CsblB9aW0Ntr
+ aVWo5NuMe4Di1aX5rtpd4cLoydTqB/h6p3AWYVvhp6iHqLnI00QV83wc0gMXmP8LNHdtWNZA4T3
+ fr6W1FjIry6OersGa1QI22o4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a377096cbc5bc423;
+	Fri, 28 Aug 2026 21:54:08 +0000
+X-Mizu-Trace-ID: a377096cbc5bc423
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c0bca273-1395-419a-a2eb-5627f2243452@linux.dev>
+Date: Fri, 28 Aug 2026 22:54:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260828215252.4126811-1-eperot@google.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260828215252.4126811-2-eperot@google.com>
-Subject: [PATCH 2/2] selftests/cgroup: test clone3() into a previously killed cgroup
-From: Etienne Perot <eperot@google.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Christian Brauner <brauner@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Etienne Perot <eperot@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] zstd: probe the CPU for BMI2 support once, not per
+ context
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, David Sterba <dsterba@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Nick Terrell <terrelln@fb.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, yosry@kernel.org,
+ Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kernel Team <kernel-team@meta.com>
+References: <CAHk-=whZf9=X+qKkO9_pQzbLdOnbMw5yO8gu0TkahegVW3cC-g@mail.gmail.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <CAHk-=whZf9=X+qKkO9_pQzbLdOnbMw5yO8gu0TkahegVW3cC-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Once cgroup.kill had been written to a cgroup, a stale kill_seq
-snapshot (taken in cgroup_css_set_fork() before the target cgroup was
-resolved) caused every child subsequently cloned into that cgroup with
-clone3(CLONE_INTO_CGROUP) to be SIGKILLed on the spot.
 
-Add a regression test: create a cgroup, kill it while it is empty,
-then clone a child into it and check that the child runs and exits
-cleanly. On a kernel without the fix, the test fails:
 
-  not ok 4 test_cgkill_clone_into_killed
+On 28/08/2026 21:19, Linus Torvalds wrote:
+> [ Sorry for breaking threading - I have turned off IMAP access to my
+> mailbox, and so I have issues replying to lore messages sanely ]
+> 
+> On Thu, 27 Aug 2026, Usama Arif wrote:
+>>
+>> On 27/08/2026 03:39, Eric Biggers wrote:
+>>>
+>>> Why not just use cpu_feature_enabled(X86_FEATURE_BMI2), which compiles
+>>> down to a static branch?  All these issues are caused by lib/zstd/ using
+>>> its own custom CPU feature detection code, instead of the normal CPU
+>>> feature detection code that the rest of the kernel uses.
+> 
+> Yes, please. The zlib code is just broken in how it makes up its own
+> random inine asm that is actively worse than what the kernel already
+> exposes.
+> 
+>> The only issue I saw with that was that zstd is a standalone library that
+>> is imported
+> 
+> Let's ignore that part, and just make it work right. The Zstd people
+> should think about this problem on their side.
+> 
+>> Keep the existing raw CPUID fallback for preboot and other builds which
+>> cannot use the normal x86 feature infrastructure. Also retain the early
+>> return when dynamic dispatch is disabled.
+> 
+> No, this is not great, that whole
+> 
+>         cctx->bmi2 = ZSTD_cpuSupportsBmi2();
+>         ...
+>         if (bmi2) ...
+> 
+> model in zstd needs to just die.
+> 
+> For the kernel, the whole dynamic "test a variable" model is simply wrong.
+> It should expand to
+> 
+>         if (cpu_feature_enabled(X86_FEATURE_BMI2))
+> 
+> because for the kernel, that becomes a simple static branch.
+> 
+> When zstd goes through that variable, it loses that entirely and
+> instead turns it in a static assignment and then a dynamic test (well,
+> not "entirely" - with inlining it could still recover the right code).
+> 
+> So zstd really should be fixed to get rid of that bad
+> 
+>         #if DYNAMIC_BMI2
+>             if (bmi2) {
+>          ....
+> 
+> pattern entirely, and be taught to have a *helper* macro that just turns
+> into 0 for when DYNAMIC_BMI2 is not set, and turns into using that stupid
+> flag in user mode, and for the kernel it should just turn into that
+> "cpu_feature_enabled(X86_FEATURE_BMI2)"
+> 
+> Why does it check for both BMI1 and BMI2 anyway? And Arif added an
+> extra check for ABM. That all looks bogus. You can't have BMI2 without
+> having BMI1, so all this code looks completely bogus to begin with.
+> 
 
-The test is skipped on kernels without clone3() or without
-CLONE_INTO_CGROUP.
+The three checks came from interpreting BMI2_TARGET_ATTRIBUTE("lzcnt,bmi,bmi2")
+as requiring all three feature bits. Agreed that this is unnecessary here.
+The kernel path should check only X86_FEATURE_BMI2.
 
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Etienne Perot <eperot@google.com>
----
- tools/testing/selftests/cgroup/test_kill.c | 55 ++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+I was also trying to preserve zstd’s standalone-library behavior.
+I will instead make normal x86 kernel builds use a helper that expands directly to
+cpu_feature_enabled(X86_FEATURE_BMI2) at each dispatch site. The stored BMI2
+context flag and private CPUID probe will be removed from that path.
+Preboot and standalone builds will retain their existing caller-provided 
+lag and CPUID-based detection.
 
-diff --git a/tools/testing/selftests/cgroup/test_kill.c b/tools/testing/selftests/cgroup/test_kill.c
-index f6cd23a8ecc7..5ba8e285b2f3 100644
---- a/tools/testing/selftests/cgroup/test_kill.c
-+++ b/tools/testing/selftests/cgroup/test_kill.c
-@@ -7,6 +7,7 @@
- #include <stdlib.h>
- #include <string.h>
- #include <sys/types.h>
-+#include <sys/wait.h>
- #include <unistd.h>
- 
- #include "kselftest.h"
-@@ -261,6 +262,59 @@ static int test_cgkill_forkbomb(const char *root)
- 	return ret;
- }
- 
-+/*
-+ * Test that a cgroup that was killed in the past can still be the target
-+ * of clone3(CLONE_INTO_CGROUP): writing cgroup.kill must only kill the
-+ * tasks in the cgroup at the time of the write, not tasks cloned into
-+ * it afterwards.
-+ */
-+static int test_cgkill_clone_into_killed(const char *root)
-+{
-+	pid_t pid;
-+	int cgroup_fd = -EBADF;
-+	int ret = KSFT_FAIL;
-+	char *cgroup = NULL;
-+
-+	cgroup = cg_name(root, "cg_test_clone_into_killed");
-+	if (!cgroup)
-+		goto cleanup;
-+
-+	if (cg_create(cgroup))
-+		goto cleanup;
-+
-+	/* Kill the cgroup while it is still empty. */
-+	if (cg_write(cgroup, "cgroup.kill", "1"))
-+		goto cleanup;
-+
-+	cgroup_fd = dirfd_open_opath(cgroup);
-+	if (cgroup_fd < 0)
-+		goto cleanup;
-+
-+	pid = clone_into_cgroup(cgroup_fd);
-+	if (pid < 0) {
-+		if (errno == ENOSYS)
-+			ret = KSFT_SKIP;
-+		goto cleanup;
-+	}
-+
-+	if (pid == 0)
-+		exit(EXIT_SUCCESS);
-+
-+	/* The child must not be SIGKILLed; it has to exit cleanly. */
-+	if (clone_reap(pid, WEXITED) != EXIT_SUCCESS)
-+		goto cleanup;
-+
-+	ret = KSFT_PASS;
-+
-+cleanup:
-+	if (cgroup_fd >= 0)
-+		close(cgroup_fd);
-+	if (cgroup)
-+		cg_destroy(cgroup);
-+	free(cgroup);
-+	return ret;
-+}
-+
- #define T(x) { x, #x }
- struct cgkill_test {
- 	int (*fn)(const char *root);
-@@ -269,6 +323,7 @@ struct cgkill_test {
- 	T(test_cgkill_simple),
- 	T(test_cgkill_tree),
- 	T(test_cgkill_forkbomb),
-+	T(test_cgkill_clone_into_killed),
- };
- #undef T
- 
--- 
-2.55.0.897.gb25b4bd76c-goog
+I will send a revised patch in a little bit.
 
+Thanks!
+Usama
