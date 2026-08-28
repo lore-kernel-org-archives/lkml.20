@@ -1,190 +1,91 @@
-Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com [209.85.167.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8538146D562
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6086F246762;
+	Fri, 28 Aug 2026 15:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930069; cv=none; b=Aqq/0ftFSZKIeYDvwWOKwPQGUJQiyBO6e2rgaWlwQy8NPfssrW6RTiTaYAFb4OrhqQPrv8WlUFhfi0AD8YL7CE8jeG0xoXvraHm50viBgwETJ/pwuvKbuQl83v297OUQKIEitRuNa0sv16hj1TCyudjRJ++SjRun/hVS68R9Bpg=
+	t=1787930137; cv=none; b=W7f8yBoPerTpbTTweL+flvqTgDuBKCKARbTpFyBDE9spkfa/SipzxEdhn9rJ3N6l68aixuLl1FHtTYxuiu3s0tqmmlwtbJT0LOJ9U7Z0FK8F5a8W5rdkl6wh1nLJeyUsmHP/oTJts6pWpcoT0McFZtku5l4NEvSg3M83gTBxbJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930069; c=relaxed/simple;
-	bh=bxkizeat5GUcIP4sFJ+GCIBzsET33wm+HcTeHEwKYLY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=dA/eiRS4g4tDIofp0QYzdJJeu5oupQ/VjBiLM8izQddBngo7yTm6cXa2Q5TToFtwkWJNhsT7ne1S2sKkwvKsr6qtNIKlAQB7shzr6XRiA4cu8R0FdHO851hynCGqiDtbu4vk37x/PWHqGVEPBy/fkI6CFqHFtL3cFDmC4GfoaCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f206.google.com with SMTP id 5614622812f47-4b3b05aa29dso26108b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:14:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787930066; x=1788534866;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F35JUbY5RodIRW30ZhUW7omH8qQRFCxSw/t423wJwO0=;
-        b=G3hMyYsNMr+Rrab/+bY4NjCy2C4BRFRimlRK2pwdiqizBM78waEae0JfTaFnbUYGMD
-         rizTLzqRajZ9SD1zu8fSXbcH1pVydd7hczKHvyQyuzKzXrRLMnkvu8wTqmEzprd0JrDR
-         xoRKuA1wrUlq4co3GNPsxezYvpy0F69NSC8oWZToIAtU8+kIeVlz8Tkvbq17YuQwcjjU
-         GrgbgfadzdNkrntErP7iowkh87tvNnZcToYhbBlHBmMIbnQ8z4ZDl3ynVwm64sbseUWh
-         xup3rUQ3JuTni+3HpRXk16eeLc0sNZ4GDJVyfF5o/yMpE5BTUiPnbZCs6SnubDoNiaAf
-         n6yA==
-X-Forwarded-Encrypted: i=1; AHgh+RqW7Zp1AjTbY7lPgY2Zv8oiCtjS02NehV1FyVkece7/NjFieDWNNCjHEn6msdddSN5rivOA4KyFaXkL8C0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kltNmc+Ae86Pq+H5k5FoE3/irS+KiNmxWSqq858lWwbJPD6yKa
-	lzlXPxTRDEApsRpcS/9NfzhEZi6GPsVGGCI4bPnAh2pa9tokulnYttrAKWDtUSFkKJcELx1tpg8
-	EYJqqxaxtUfOx/JFLgotLmQUG9EtMEERBbYcu2GEeeVgp7E0qYA/C7XQ8f20=
+	s=arc-20240116; t=1787930137; c=relaxed/simple;
+	bh=vHM7IuyBYqU+aanM6T9n5z+27YmsvMatP4sTu9IDIVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VLBUR8QBGUQLs+tSZOShJU90ckX2xk39Zcz3f1C4HflSrKhFnjoEFdOPW77k7Jkip1MLPsLvddNzQrPmDfP3DxFH7+sYqb7y7juyW0+Y+xvP0PnIdB+lCtaN0pT6HlIH7lwF7zFB/uiwwgnaJIo7cIw4lM5loRA1rtvQFTODoA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eh0ELsyP; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eh0ELsyP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=6SkOmdvoiBqKfQ+sV84Hc+Uue6acCGOEhTyi6KmwzcE=; b=eh0ELsyPIb23kpIE0hDOnUu2oX
+	FyHQv6MYEIL52keZa60gVvbLPfPJo9Dt9YZOTRgjnEkbgh6Ob6idFvhoL8p1jDVC8LWbExWCpGd/u
+	lIwNOsE8KHELjRcozypECl+SJe3l0MmVNjiM2IBX+IfssjTFn51I6FBtctClAr13laKk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wzyId-001pR5-5c; Fri, 28 Aug 2026 17:15:23 +0200
+Date: Fri, 28 Aug 2026 17:15:23 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	falemi@asu.edu, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] _phy_state_machine / phy_stop -- a USB PHY that reports an
+ MDIO error to phylib panics a panic_on_warn kernel
+Message-ID: <63bfddae-b456-4645-b992-e730bdd4b1ac@lunn.ch>
+References: <CA+0ovChAkaCGmDrkaAzfrmpccDXVampiV9OmjLKwDgkYXThvGg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c173:b0:492:c9a4:2104 with SMTP id
- 5614622812f47-4b37c999474mr12651871b6e.10.1787930066527; Fri, 28 Aug 2026
- 08:14:26 -0700 (PDT)
-Date: Fri, 28 Aug 2026 08:14:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a91a5d2.4d659fcc.734b4.0021.GAE@google.com>
-Subject: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in k90_backlight_work
-From: syzbot <syzbot+abcedffc9201f2bb66c2@syzkaller.appspotmail.com>
-To: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovChAkaCGmDrkaAzfrmpccDXVampiV9OmjLKwDgkYXThvGg@mail.gmail.com>
 
-Hello,
+On Thu, Aug 27, 2026 at 10:29:36PM -0700, Farhad Alemi wrote:
+> Hello,
+> 
+> As part of the kernel research at ASU's SEFCOM
+> lab, we hit the crash below. Crash reports can be found here:
+> 
+>   https://github.com/farhad-alemi/public_bug_reports/tree/main/146-phylib-phy_error-warn_on-mdio-error/
+> 
+>   smsc95xx 6-1:1.0 eth0: Error reading MII_ACCESS
+>   smsc95xx 6-1:1.0 eth0: smsc95xx_mdio_read: MII is busy
+>   _phy_start_aneg+0x0/0x480: returned: -32
+>   WARNING: drivers/net/phy/phy.c:1352 at phy_error_precise
+> drivers/net/phy/phy.c:1352 [inline], CPU#0: kworker/0:3/5063
+>   WARNING: drivers/net/phy/phy.c:1352 at
+> _phy_state_machine+0x667/0xf20 drivers/net/phy/phy.c:1613, CPU#0:
+> kworker/0:3/5063
+>   Modules linked in:
+>   CPU: 0 UID: 0 PID: 5063 Comm: kworker/0:3 Not tainted 7.1.0-rc5 #1
+> PREEMPT(full)
+>   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+> 1.16.3-debian-1.16.3-2 04/01/2014
+>   Workqueue: events_power_efficient phy_state_machine
+>   RIP: 0010:phy_error_precise drivers/net/phy/phy.c:1352 [inline]
+>   RIP: 0010:_phy_state_machine+0x66d/0xf20 drivers/net/phy/phy.c:1613
+>   Call Trace:
+>    <TASK>
+>    phy_state_machine+0x2b/0x70 drivers/net/phy/phy.c:1652
+>    process_one_work kernel/workqueue.c:3314 [inline]
+>    process_scheduled_works+0x881/0x1170 kernel/workqueue.c:3397
+>    worker_thread+0x988/0xde0 kernel/workqueue.c:3478
+>    kthread+0x333/0x420 kernel/kthread.c:436
+>    ret_from_fork+0x351/0x940 arch/x86/kernel/process.c:158
+>    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>    </TASK>
 
-syzbot found the following issue on:
+Could you point out the crash here? I don't see a crash.
 
-HEAD commit:    73e3f0710014 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17a76579580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9efed59cf70d6280
-dashboard link: https://syzkaller.appspot.com/bug?extid=abcedffc9201f2bb66c2
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ef9dc2fd7978/disk-73e3f071.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1de9c5b90e55/vmlinux-73e3f071.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/79167e663675/bzImage-73e3f071.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+abcedffc9201f2bb66c2@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in k90_backlight_work+0x174/0x1c0 drivers/hid/hid-corsair.c:209
-Read of size 1 at addr ffff888026a23b00 by task kworker/1:3/5600
-
-CPU: 1 UID: 0 PID: 5600 Comm: kworker/1:3 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)} 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events k90_backlight_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- k90_backlight_work+0x174/0x1c0 drivers/hid/hid-corsair.c:209
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 11427:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- k90_init_backlight drivers/hid/hid-corsair.c:430 [inline]
- corsair_probe+0x627/0xbc0 drivers/hid/hid-corsair.c:589
- __hid_device_probe drivers/hid/hid-core.c:2839 [inline]
- hid_device_probe+0x46a/0x870 drivers/hid/hid-core.c:2878
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- hid_add_device+0x272/0x3e0 drivers/hid/hid-core.c:3065
- usbhid_probe+0x9dc/0xde0 drivers/hid/usbhid/hid-core.c:1452
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2708
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 11427:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x1c5/0x6d0 mm/slub.c:6792
- hid_device_remove+0xc8/0x1d0 drivers/hid/hid-core.c:2897
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+      Andrew
