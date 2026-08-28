@@ -1,60 +1,49 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C031F985
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 01:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568641624C0;
+	Fri, 28 Aug 2026 01:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881996; cv=none; b=eJw0kuvipdilDjU7pFb1dkAyo1qoNMazMItJxj8RtkFtC+cl2f0KOk/nVSCZ6DIYyK1MWH722gwREmiAtilXvzaclUdZ4RVL8ewm0sZJDZAJZ7ZKW8qEv4wPR4oIU/wuy/PAkB3FyW/OjW4HX4irqYsudR1ZnYbdy2yWbYhgUZ4=
+	t=1787882031; cv=none; b=a+WG4Rm2ST4rvFGq8wEWRj71Ci7u7UO9BcZ8PeT3tTT6ZnXVDIpYO4EB/b0uKdPmmhFC7IdClCTD7/mwlP51Q9iGEPql/yWo/OSfC2/vjha/99V2iRjEE7STlbYUq/HcxBqZ6bk/JUkf7jIprnOPgSVK9d+GXtS09vpyJPbXsEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881996; c=relaxed/simple;
-	bh=a879juwz7YnXRSU0aj4H9oqy8QG+UQ6p/1llyGoW7h8=;
+	s=arc-20240116; t=1787882031; c=relaxed/simple;
+	bh=38aD5Z1llzQWEUWRyxWZi7A1+PE7kLPT2aOFcM0IotQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W/15eOc8LNIFdBeEV3RUEa7OtBgyD1c+dUMhWcxkXVuW/D3vvgsoV5OWRq3v/b8/bwANJVVYHhZP97Vhy21D/Ps+CNAaaOQmaEjiWn5Hq6AT3ihfGQEi7YvAagCtcqFHNC/rRVJrA7lJS95F/M59x5OcGqYQkdHQTQRdr+tXLxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OK3bA1gE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=FPQlE0v2V8iEZcxvnnuI5z87M+Wj/Z2ZntrVTvtF6HE4gJ7493BZ573Inlt5cSumb8dVedqGGabbqz0WzVXJjEn9SthHc+aOc/xrMqSe82wbhrqKCUmtYeB2uF++NiavJrmXiWD77qJ+isSVm7ZTPX7i3T7bVJPUtWWGK6ji7MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlgepBem; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OK3bA1gE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787881992;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cVa9ltN/AYxfIIR3vFfpODM3T6RUi+J6FBmrLKMnXUo=;
-	b=OK3bA1gE1ESCr4nrsx5EgkrK2BBT6xAD17iV55vT4x/GUEE3k+W9qE8C+WYXyDlXhS0v9+
-	fTRElR9iNBt3cMuSYsQ7P5QInVnxviLKQbOebx3D7d+eBu1QhGy04D2l1Xd+Fh/tC2jhg+
-	HPtrN9frrTd97uLSIR1QqgbDCnS+l34=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-256-jo8oXn_8Ne6Y4KKQywx0iw-1; Thu,
- 27 Aug 2026 21:53:09 -0400
-X-MC-Unique: jo8oXn_8Ne6Y4KKQywx0iw-1
-X-Mimecast-MFC-AGG-ID: jo8oXn_8Ne6Y4KKQywx0iw_1787881988
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6056219539AE;
-	Fri, 28 Aug 2026 01:53:07 +0000 (UTC)
-Received: from madcap2.tricolour.ca (unknown [10.22.76.4])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B4CB5180059E;
-	Fri, 28 Aug 2026 01:53:04 +0000 (UTC)
-Date: Thu, 27 Aug 2026 21:53:02 -0400
-From: Richard Guy Briggs <rgb@redhat.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: Linux-Audit Mailing List <linux-audit@lists.linux-audit.osci.io>,
-	LKML <linux-kernel@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
-	Linux Kernel Audit Mailing List <audit@vger.kernel.org>,
-	Eric Paris <eparis@parisplace.org>, Steve Grubb <sgrubb@redhat.com>,
-	Roman Dolgikh <rmd4work@mail.ru>,
-	Ricardo Robaina <rrobaina@redhat.com>
-Subject: Re: [PATCH v3] audit: free proctitle in context so it can be re-set
- by  fork on exec_binprm
-Message-ID: <apDp/lou9KwOz7M/@madcap2.tricolour.ca>
-References: <ef5bf18a4b3805ec0fe5fb638963ccbdfc01d6fe.1787077711.git.rgb@redhat.com>
- <65425b98ae226a9d19f89bd66a1defbe@paul-moore.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlgepBem"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5C1C01F000E9;
+	Fri, 28 Aug 2026 01:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787882029;
+	bh=J+KiUj8K3vNiZHvNshThClNRWFPlWXgKFpM7uZcUsD8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GlgepBemnFBZ92mm4s14pC/+w9mtI/vrlPJRxHHweeaT+vhA/T7eC9o9MK0BwinFa
+	 UZBDWFVGSbJWKqSwAcCDyvhrZW6ZBcjuPwUvSyRdoalur6xtpNjRyYfsSdJBuu+oxu
+	 QdCIaBrzn7gWSxwFPWdoon84aC8pOgJzJYdmmz1AVNMNVYojxV2mFajJ5ksieDqDd+
+	 vU7A+i+V5MBwD23IpQZC+oJ5p1KSxKCa1RbYSy2N7csyTI7YK1OBZNyaNL1Uxqm+oh
+	 fR758X+ock4GFCeJlLLeyScgvNCrNKpTTlhxAIB4sGoQ8CeOSlPMHLAw7IohGFwQ4U
+	 DYgq+Q8Fos1BQ==
+Date: Fri, 28 Aug 2026 04:53:45 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Roberto Sassu <roberto.sassu@polito.it>,
+	David Safford <safford@watson.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kees Cook <kees@kernel.org>, Francis Perron <francis@akrites.dev>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Akrites SIRT <sirt@akrites.dev>,
+	AutonomousCodeSecurity@microsoft.com,
+	Cen Zhang <cenzhang@microsoft.com>
+Subject: Re: [PATCH v2] KEYS: encrypted: fix integer overflow of datablob_len
+Message-ID: <apDqKZ1vbdWRQ6r-@kernel.org>
+References: <20260826154456.85974-1-blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,51 +52,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <65425b98ae226a9d19f89bd66a1defbe@paul-moore.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+In-Reply-To: <20260826154456.85974-1-blbllhy@gmail.com>
 
-On 2026-08-24 18:07, Paul Moore wrote:
-> On Aug 18, 2026 Richard Guy Briggs <rgb@redhat.com> wrote:
-> > 
-> > Between the actual process startup (fork systemd) and the executable file
-> > replacement (exec), systemd sets a temporary file name (executable file
-> > name in parentheses). If an auditable system call occurs at this point,
-> > the audit context will latch the temporary process name into the cache.
-> > This name will not change again. The patch clears proctitle into the
-> > audit cache when the exec call is made, allowing the new process name to
-> > be latched.
-> > 
-> > Suggested-by: Roman Dolgikh <rmd4work@mail.ru>
-> > Link: https://github.com/user-attachments/files/20751461/fix_audit_proctitle.txt
+On Wed, Aug 26, 2026 at 11:44:56AM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@microsoft.com>
 > 
-> I did drop the link above from the commit as it is contained within the
-> link below.
+> The datablob_len field in struct encrypted_key_payload and the local
+> variable in encrypted_key_alloc() are declared as unsigned short, which
+> has a maximum value of 65535. The datablob_len is computed as:
 > 
-> > Link: https://github.com/linux-audit/audit-kernel/issues/170
-> > Signed-off-by: Richard Guy Briggs <rgb@redhat.com>
-> > Reviewed-by: Ricardo Robaina <rrobaina@redhat.com>
-> > Reviewed-by: Bradley Morgan <include@grrlz.net>
-> > ---
-> > Changelog:
-> > v3: use previously assigned context
-> > v2: simplified to call single use directly before need in audit_bimprm
-> > ---
-> >  kernel/auditsc.c | 2 ++
-> >  1 file changed, 2 insertions(+)
+>   format_len + 1 + strlen(master_desc) + 1 + strlen(datalen) + 1
+>   + ivsize + 1 + encrypted_datalen
 > 
-> Merged into audit/dev-staging since we're currently in the middle of the
-> merge window, this will got to audit/dev once the window closes.
+> An attacker can create an encrypted key with a very long datalen string
+> (e.g., 32756 characters of leading zeros followed by "4096", which
+> kstrtol() happily parses as 4096), and then update it with a very long
+> master_desc string (~32760 characters). The combined lengths exceed
+> 65535, causing the unsigned short to silently wrap around. This results
+> in a grossly undersized kzalloc() allocation, and the subsequent
+> memcpy() in __ekey_init() writes ~32KB past the end of the buffer,
+> corrupting adjacent slab objects.
+> 
+> Fix this by:
+> 1. Using check_add_overflow() to calculate datablob_len directly into
+>    its existing unsigned short destination.
+> 2. Checking the total payload length the same way before passing it to
+>    key_payload_reserve(), since key->datalen is also unsigned short.
+> 3. Using kzalloc_flex() to allocate encrypted_key_payload together with
+>    its trailing payload_data[] array.
+> 
+> Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub-Copilot:claude-opus-4.6
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@microsoft.com>
+> Signed-off-by: Francis Perron (Akrites SIRT) <francis@akrites.dev>
 
-Thank you!
+Please remove "(Microsoft Security FORGE Labs)" and "(Akrites SIRT)"
 
-> paul-moore.com
+> ---
+> Changes in v2:
+> - Keep datablob_len unchanged and check both unsigned short bounds with
+>   check_add_overflow().
+> - Use kzalloc_flex() for the trailing payload_data[] array.
+> - Correct the attribution and sign-off trailers.
+> 
+> The initial version was discussed off-list and is not publicly archived.
+> 
+>  security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+> 
+> diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
+> index 59cb77b237b3..e07092ea301a 100644
+> --- a/security/keys/encrypted-keys/encrypted.c
+> +++ b/security/keys/encrypted-keys/encrypted.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/parser.h>
+>  #include <linux/string.h>
+>  #include <linux/err.h>
+> +#include <linux/overflow.h>
+>  #include <keys/user-type.h>
+>  #include <keys/trusted-type.h>
+>  #include <keys/encrypted-type.h>
+> @@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+>  {
+>  	struct encrypted_key_payload *epayload = NULL;
+>  	unsigned short datablob_len;
+> +	unsigned short payload_totallen;
+>  	unsigned short decrypted_datalen;
+>  	unsigned short payload_datalen;
+>  	unsigned int encrypted_datalen;
+> @@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+>  
+>  	encrypted_datalen = roundup(decrypted_datalen, blksize);
+>  
+> -	datablob_len = format_len + 1 + strlen(master_desc) + 1
+> -	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
+> +	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
+> +			       + strlen(datalen) + 1 + ivsize + 1,
+> +			       encrypted_datalen, &datablob_len))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (check_add_overflow(datablob_len,
+> +			       payload_datalen + HASH_SIZE + 1,
+> +			       &payload_totallen))
+> +		return ERR_PTR(-EINVAL);
+>  
+> -	ret = key_payload_reserve(key, payload_datalen + datablob_len
+> -				  + HASH_SIZE + 1);
+> +	ret = key_payload_reserve(key, payload_totallen);
+>  	if (ret < 0)
+>  		return ERR_PTR(ret);
+>  
+> -	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
+> -			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
+> +	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
+> +				GFP_KERNEL);
+>  	if (!epayload)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -- 
+> 2.55.0
 
-- RGB
-
---
-Richard Guy Briggs <rgb@redhat.com>
-Sr. S/W Engineer, Kernel Security, Base Operating Systems
-Remote, Ottawa, Red Hat Canada
-Upstream IRC: SunRaycer
-Voice: +1.613.860 2354 SMS: +1.613.518.6570
-
+BR, Jarkko
