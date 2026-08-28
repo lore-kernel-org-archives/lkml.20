@@ -1,177 +1,237 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6082A394E8A
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787937261; cv=pass; b=hwt7hgXbTTVevU1Oaq0zU7M17RzPON7c4bj9e7Yc1A+L+muiy2BMMW6lGUxzz6Er0wlFFgqGV+jlI+3bRXfTvITU9qJE455IKRQEXYKC8490o9DLomgQeFb1/oniZYUNJy817Mo2mu4z7o4xmocDIKcQE4VoVINfzYq+MGwnLOU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787937261; c=relaxed/simple;
-	bh=RTw5eZPViX4U6YbuomM2SMnBYmpA9Wuf4cmaoazLpuU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GlRM4Excyu7lSr4NBsRjdQjcgkb2cDo+DRp2YxLxxOJuv5MtTg3ecuG7DieDKYTSgXsqglHhMYX8vbTMg4bpaFOA0Dfpe4ai7/x8Fc2dBXy/Ks6D9jYlWXfQK/zbYsT86rycX1nebSjv3YylSuEPmz3Ha6MUI/rBKxxZFJK7Bkc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IgXm3bgY; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228FE39B94D
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787937311; cv=none; b=W/Bk9uolm+NZCki0rXrQHYA7/npmtrZodUzw5XStxP9lAWPiDOpyvURlyxg95LmUoT71Wvojp2bpFGlgolMAqRyXitPxD42qg7jOOWWzp1/dTHcmwWpKXY9a3kTICC7ICz1FP9bURd5v7NBff1OCJNIVwPNOSSAY1f7bjDwFGQc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787937311; c=relaxed/simple;
+	bh=A+XwQ7hx7c/PpoK2zYD8Ti9Cfmu9dIdyNosReE7Z13A=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Jn/724MczI1SpG4Heycd0hFMIKzs311nOjCzEU+4PxSV0y41gf4t54y9N4lyZpeaL3vJ7BfNKQIRjlj9LqOCjA2Bm4QFET6ZbiGALdCGObF+2xuw+AelaLdLD6UcPNPG7Vf4TlQDgzy5CyNVgliWcz0RYm8rGaTZyG7jFw/mQ3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HaPS5SSb; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IgXm3bgY"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so13433425e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:14:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787937257; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JeMhwCrgcHYLcy2fYVyHzpEpZAwQvMBkKFw5K86Bm9B9INq2o0peYllsuDWJLjFvG/
-         ew99bjbNN23UY5dIILX0qE59s5Xa27eoRr7w5vXCp+IIAC0Ep7Lt5h4UJ9D6GbmhS49E
-         JdLBp77BFJVvMSJNoBJrLFAzBcnIitXJJ6GvJUcpyiEgrK2PAshShZp8NDfmFXrI5+YJ
-         gjQxECJT9B+a29boa/8vj5wkJmX/acOiqGtM/NezyClbND/dG88bSyWhdr7VpActChpQ
-         pw+Y3VXZRMummRbQ7QP0R6FN4Z4mtF2gumUsuHPoD9Q1Xf7EKoVTK6CmsOn15c0A8/Sz
-         /XmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fLW8KjG+1iJkxaiPEbmpBvUr0x4Qil1Zdzs/J2jlauI=;
-        fh=PYF0DSNxmBEHLqSUwWBByXSr4fFEiLqrOxLS5grh7m8=;
-        b=YY6wYZTMH8RaelyHV/jKJ6A3XTibf6wph213tOpHBAGez6XHbvyDry4tZ83CjjDCbo
-         Rip2XFzm25Cl+SmJtfvdul7KkHvMrBMefMBPN9wA8mrdiQsVneejV7oeVk01xcmBHvSz
-         Ncr9UDVeVerC+3a96xDAMe4lwuNxM+YFo60FqIe1jE8WYMhDNBgFBF6hBo42d/ie19DC
-         dRQgH6YAtx1EpZcDRgYc9DrdBlGkXO4O4pTLFAeyfsehSphePKykAmZ5ReMzPUctyvdq
-         oeKpoODwQFXIK9ZObmzqPWtq+dbg1VqRVcIBoaS7RqcQgybygebK1qc+teKi+rtWNJlb
-         1i3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HaPS5SSb"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1cb806660so1777266a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 10:15:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787937257; x=1788542057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fLW8KjG+1iJkxaiPEbmpBvUr0x4Qil1Zdzs/J2jlauI=;
-        b=IgXm3bgYaZHU/OuEB1CzwJkJ4T4UWKXbz6YQbLI46gKQmEHEo1o215LFVMzxKR8127
-         mS6sZj/27figRw+OMbtn483mFrmIUKDzMmxPDwreFZrPi1PGs8eFsba+Pqa/msqvYB/l
-         9QXsDDryEa2wFMQkKinig3EHpBelkorPntQlaf4YHywD8EdO7dCu3diSQNS0oPxbYQ6P
-         /pnia78JJjKtVgusvSacam1uEnZfo5mwnNoJKeEJlg+xs4GVaBDWtaciy4jIiVh8C+9H
-         bHJKCTe+zEKfkxL8F8t11h/jtEhoDe5JJkPoFKV33Ib2zZ6Kf0zBc0NyT+YACEhI9I4D
-         1uNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787937257; x=1788542057;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787937308; x=1788542108; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fLW8KjG+1iJkxaiPEbmpBvUr0x4Qil1Zdzs/J2jlauI=;
-        b=mojCwoGpeVEw4k3B2Dy6UY4oW9J+JH/iKd0i30kvnnA4/obiwA70HX2QD0Sdxq8Wf7
-         SZDoOI31Dz+i/2W2Tc0bWEVUgTul5tqTxpp+yRwFVQbS2eVjwCaO/I5Y3oDS/fiL3xjO
-         lTDWExFdwrI3a2qITK8mqI/ooehDMc2y3zYG5IK6vNZHGfEAahJv9aSeNYH3KxNEtIB6
-         p17XxuV+YYc0BNmJr/VCcLjxC2vGYB25aZUhRWSohPlOXty37ILuYL+JtLkntqqmMGVk
-         y8/jlxrvV2W62I5xmClQRbzKMmY75NIwYtB5nEiTTA9bdCedmShv7CSqfojCUlpq74pk
-         cHBw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9ibDoXkAlpji9Pa11UVq2Z6DJn0xM/GhioM/qIER6ZV+QlUoRMbgbmSy9XrPpl0HIT2/N0/fHIfSFMYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCwwADXdmlAs3PVbIAhLO3IdGfS5gDJ7H45s0Ri5BoUHhlK3mN
-	VBZP0DEypZ1jA7Oswtzk3aYu++BGQfzMcpdRaMRCL+J004dgk/Efjr0kk+YUwarZkFa6aPSPCvz
-	6X/XNioKmecraulJWKETp8qfrZYmoMp4=
-X-Gm-Gg: AR+sD10k26q7Wf6S/ENPJWFuH1WfZvjqCFFoD59Khj1w80p4sIDF9N0xMv9KhAL0AMS
-	+L1p++Ye3lsXSdlI2GVZi7RDQCm3QQqtU0cP0AEUUhmIJwtgOvJfKpZBTeUT1zXcVOCDTW7sV0t
-	lESPxvxaGBvAd77+10B+G91mdiXIi+RCzpFrdUdmXQFXU3fFcGfmj6hq31iBMwJQBN0EflPwjsf
-	twSK/aN+cY9b+O2AriFuqzvuyNgY/PZbn9Y8eqkU7ZQ/Zhr07QTGfVEAl/xXPMbqouVerZAmFAr
-	fxjlhE5/6xtIZE6bnS1Lk0DYVLQHxiSr0zlwrz6qJQ0U/q7h9SpR9nd6mhJSQtWc59FcAqE53AC
-	Z
-X-Received: by 2002:a5d:5f91:0:b0:482:fbb0:a262 with SMTP id
- ffacd0b85a97d-482fbb0a404mr7651916f8f.20.1787937257283; Fri, 28 Aug 2026
- 10:14:17 -0700 (PDT)
+        bh=oz0Aruxc0OsgSYrqyxjcA7Qxw4lkCYaQy9l/Ml6P7S0=;
+        b=HaPS5SSbVhOC2R8m6r91iePwZsMR8G/zsOI1fM+tzH6dG7iEX2eHWx9yQ4dItOMa4D
+         wqbEni/VlTzwG3YAomWS6L4T6lBNwP25PsUPWeQQPw7+hv79OtIgWgIEaqtghRBD+xm7
+         PVSVT/viVMuJX7hKHTvbPKeHO5vfeMcL2+J07EnDLCfGlFxlc9aVyUXZb5QtYwaU26+c
+         KknNfw50ckiQ27Cd9+0Kck1ygFtu7YWUYnuLUpVKCbkZ6ZoODPYyX/jFfGUJ2a14QLDK
+         LzcF/ZKFR17StUQLsElE8afspPU5Ul5cgVmzLSpGtnrVYhLZYCSPK9LazEmYgX4Rp+gh
+         XGuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787937308; x=1788542108;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oz0Aruxc0OsgSYrqyxjcA7Qxw4lkCYaQy9l/Ml6P7S0=;
+        b=DLB/jF+JdkfsA1U+uURS5SscRMPGYy/WqmxXw2LGecmfNv/XxDBdty255bwT8M8QVF
+         Ko5ObcbSD36m43BiJAOzvTQACt0S6VxH5N+CtAmmHSPCfn6ROoqBnLM3qAkRAm+48ebo
+         h8WUlZ7vZxwQhJikV99maj84IRlm5EVDlcq6EE9RmafFaDC+MFrN8QAWLVUgD6tlnFl7
+         pO7iOccIFkPcBs8foiufGYecDy66mlpNC7bIT4sG/4YYe5IweD+USzEqZ7S/Wg5KnUWc
+         WQSf5vsirvvwigOmBNJenFmpFH9me+UQNTximqp2Wve2L2hRE/Qrp2mODaEIUwXPuolU
+         ZATQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpvMVMF1KfyBYSHZL2ttnaDOPy+XwwBdbBDe6XYG5g48cLQLcDC8LIofkhmjDshF7/QIOCLvfy69a3FuC8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3yyrOb3a03H6BqmqNo2aLAkGryXTcuUuDqrSaXN0WPR5jTWW3
+	ScFIPq5g2LrvoGDC8+mawyHOV/mnodnJSQwQH+DK9tg3uXrT9E7D1DV4fmmgQ2GokGsdq/EW3SL
+	JcbuRDQ==
+X-Received: from pfbem11.prod.google.com ([2002:a05:6a00:374b:b0:848:4690:d658])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2991:b0:851:92fe:504b
+ with SMTP id d2e1a72fcca58-856274efd7bmr20706200b3a.7.1787937307954; Fri, 28
+ Aug 2026 10:15:07 -0700 (PDT)
+Date: Fri, 28 Aug 2026 10:15:07 -0700
+In-Reply-To: <20260828102728.1308266-1-zeng_chi911@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260825153238.2695446-1-nphamcs@gmail.com> <20260827200716.97881447f243c4afd275144e@linux-foundation.org>
-In-Reply-To: <20260827200716.97881447f243c4afd275144e@linux-foundation.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 28 Aug 2026 10:14:05 -0700
-X-Gm-Features: AcwNN1VqRctLWtrJqo_bsUXm3dQvc_4Ji-SS_KiORUhzWLUsKtjvYyQhD1-JmPo
-Message-ID: <CAKEwX=NdnBM7cqbO3rSsUB7JFZK6DBxNMFbpGWgLh5m6M7yRXw@mail.gmail.com>
-Subject: Re: [PATCH v4 00/11] Virtual Swap Space (Swap Table Edition)
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: chrisl@kernel.org, kasong@tencent.com, hannes@cmpxchg.org, 
-	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
-	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
-	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, riel@surriel.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <apCD3F3oOyC6E5oN@google.com> <20260828102728.1308266-1-zeng_chi911@163.com>
+Message-ID: <apHCG78KyLuzPrNa@google.com>
+Subject: Re: [PATCH v2] KVM: Don't treat reserved xarray entries as having
+ memory attributes
+From: Sean Christopherson <seanjc@google.com>
+To: Zeng Chi <zeng_chi911@163.com>
+Cc: chao.p.peng@linux.intel.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, pbonzini@redhat.com, zengchi@kylinos.cn
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, Aug 27, 2026 at 8:07=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Tue, 25 Aug 2026 08:32:26 -0700 Nhat Pham <nphamcs@gmail.com> wrote:
->
-> > Currently, when an anon page is swapped out, a slot in a backing swap
-> > device is allocated and stored in the page table entries that refer to
-> > the original page. This slot is also used as the "key" to find the
-> > swapped out content, as well as the index to swap data structures, such
-> > as the swap cache, or the swap cgroup mapping. Tying a swap entry to it=
-s
-> > backing slot in this way is performant and efficient when swap is purel=
-y
-> > just disk space, and swapoff is rare.
-> >
-> > However, the advent of many swap optimizations has exposed major
-> > drawbacks of this design. The first problem is that we occupy a physica=
-l
-> > slot in the swap space, even for pages that are NEVER expected to hit
-> > the disk: pages compressed and stored in the zswap pool, zero-filled
-> > pages, or pages rejected by both of these optimizations when zswap
-> > writeback is disabled. This is arguably the central shortcoming of
-> > zswap:
->
-> Thanks.
->
-> I asked Gemini for a tl;dr and was told
->
-> : Introduce Virtual Swap Space (vswap) to decouple swap entry management
-> : from physical disk slots by using dynamically allocated virtual
-> : clusters that back swap entries on demand via zswap, zero-filled pages,
-> : or physical disk.  Eliminate wasted storage space, remove the need for
-> : static swapfile provisioning, and enable in-memory swap features on
-> : diskless systems without degrading performance.
->
-> I'll take no action at this time - let's see what the other swap
-> developers make of this.
+Please don't send a new version of a patch/series while there is active discussion
+on the previous version.  As is the case here, there's often not enough context
+in the new, standalone patch to carry on the discussion.  And even when there is
+enough context, it's annoying to have to read one thread, and then skip over to
+a different thread to respond.
 
-Hi Andrew!
+On Fri, Aug 28, 2026, Zeng Chi wrote:
+> From: Zeng Chi <zengchi@kylinos.cn>
+> 
+> kvm_vm_set_mem_attributes() reserves an xarray entry for every gfn in
+> the range before storing the new attributes, so that the store loop
+> can't fail partway through.  If one of the reservations fails, e.g. with
+> -ENOMEM, the entries that were already reserved are left in the array.
+> That is harmless as far as xa_reserve() is concerned, as the reserved
+> entries read back as NULL via xa_load(), but it confuses the "does this
+> range have no attributes at all" check:
+> 
+> 	if (!attrs)
+> 		return !xas_find(&xas, end - 1);
+> 
+> A reserved entry is XA_ZERO_ENTRY, not NULL, and xas_find() returns it
+> as present.  So a leftover reservation makes KVM report that a fully
+> shared range has attributes even though kvm_get_memory_attributes()
+> returns none for every gfn in the range.  On x86, the next time
+> mixed-attribute tracking is recomputed for the range (memslot creation,
+> or a later attribute change that straddles the 2MiB page),
+> hugepage_has_attrs() treats a fully shared 2MiB range as mixed and
+> refuses to map it with a hugepage, until userspace happens to set
+> attributes on the range again.
+> 
+> Walk the range and ignore reserved-but-unset entries when checking for
+> the absence of attributes, so a leftover reservation is treated the same
+> as an empty slot.  Note, the generic loop for the attrs != 0 case
+> already skips zero entries via xas_retry(), i.e. only the !attrs shortcut
+> was affected.
+> 
+> While at it, skip the reservation loop entirely when clearing attributes,
+> as storing NULL only erases the entry and never needs to allocate, so no
+> reservation (and no cleanup of a failed one) is required in that case.
+> 
+> Fixes: 5a475554db1e ("KVM: Introduce per-page memory attributes")
+> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+> ---
+>  virt/kvm/kvm_main.c | 21 +++++++++++++++++----
+>  1 file changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 65eb26a0520d..29534bcc7f02 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2447,8 +2447,19 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+>  		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
+>  
+>  	guard(rcu)();
+> -	if (!attrs)
+> -		return !xas_find(&xas, end - 1);
+> +	if (!attrs) {
+> +		/*
+> +		 * Reserved but unset entries (XA_ZERO_ENTRY, e.g. left behind by
+> +		 * a failed reservation in kvm_vm_set_mem_attributes()) are
+> +		 * returned as present by xas_find(), but hold no attributes.
+> +		 * Skip them so that the range is correctly reported as having no
+> +		 * attributes.
+> +		 */
+> +		xas_for_each(&xas, entry, end - 1)
 
-Thanks for taking a look. I'm also waiting for review from fellow swappers =
-:)
+Curly braces needed for the outer loop.  And +1 to Sashiko's feedback, both from
+a correctness perspective and from a "make boths paths look similar" perspective.
 
->
-> Sashiko was talkative, as usual:
->         https://sashiko.dev/#/patchset/20260825153238.2695446-1-nphamcs@g=
-mail.com
+Though even better, we can use the same core logic.  Pulling in your response from
+v1:
 
-I've been going through the sashiko review on every iterations!
-Hopefully the list will keep getting smaller and smaller.
+ : > I think it would be this?
+ : >
+ : > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+ : > index 65eb26a0520d..a01b2af1cb17 100644
+ : > --- a/virt/kvm/kvm_main.c
+ : > +++ b/virt/kvm/kvm_main.c
+ : > @@ -2447,8 +2447,9 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ : >               return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
+ : > 
+ : >       guard(rcu)();
+ : > -     if (!attrs)
+ : > -             return !xas_find(&xas, end - 1);
+ : > +
+ : > +     if (!attrs && !xas_find(&xas, end - 1))
+ : > +             return true;
+ : > 
+ : >       for (index = start; index < end; index++) {
+ : >               do {
+ : >
+ : I tried that first, but it doesn't fix the false positive.  Falling through to
+ : the generic loop for the !attrs case still returns false for a range that only
+ : contains reserved (zero) entries: the loop does
+ : 
+ :         do {
+ :                 entry = xas_next(&xas);
+ :         } while (xas_retry(&xas, entry));
 
-There are a couple of false positives, as per usual (the first issue
-for e.g was intended behavior, at the point of that patch at least).
+The other subtle wrinkle is that the xarray APIs reset the index when no entry is
+found (this wasted a good 30 minutes of my time, argh).  I.e. when on entry is
+found, then KVM *must not* check the index, because it is effectively invalid.
+E.g. I initially wanted to check for xas.xa_index >= end, but that doesn't work.
 
-That said:
+This code also needs comments, because the xarray APIs have all kinds of sharp
+edges (or maybe a better way of looking at things, xarray isn't a great fit for
+what KVM is doing here).
 
->
-> There are a few pre-existing things in among this, They look legit to
-> me, from a quick read.  SWAP_USAGE_OFFLIST_BIT should use
-> BITS_PER_TYPE(atomic_long_t)?
+Yeesh, speaking of which, simply using xas_next_entry(), as I want to do, would
+be slightly suboptimal for non-zero attributes, because xas_next() (confusingly,
+IMO) doesn't return the next non-NULL entry, it returns literally the next entry,
+whereas xas_next_entry() returns the next non-NULL entry, bounded by the max. I
+don't actually care about the performance impact, but I want to document the
+behavior, at which point it's just as easy to use next() vs. next_entry().
 
-I think that might be pre-existing. Maybe we just have not seen users
-who used 4TB+ swapfile yet?
+So after way, waaay too much fiddling, this?  As a bonus, the changelog can call
+out that xas_next_entry() is essentially an optimized version of xas_find(),
+e.g. to communicate that the effective diff is actually just adding xas_retry().
 
-Might be worth just putting in a quick fix independent of this patch
-series just in case.
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 65eb26a0520d..cc94d9881582 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2447,14 +2447,39 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
+ 
+ 	guard(rcu)();
+-	if (!attrs)
+-		return !xas_find(&xas, end - 1);
+ 
++	/*
++	 * Lookup the entry for each index instead of iterating over the xarray
++	 * as KVM deletes/nullifies entries to represent "no attributes", and
++	 * the xas index is effectively invalid when no entry is found.  I.e.
++	 * matching non-zero attributes for *every* entry effectively requires
++	 * a manually lookup for each index.
++	 *
++	 * Skip pre-allocated, reserved entries, or restart the lookup if the
++	 * xarray was concurrently modified, via xas_retry() ("retry" means the
++	 * entry holds an internal xarray value, i.e. is either invalid or NULL
++	 * from the caller's perspective.
++	 *
++	 * Use xas_next() when looking for non-zero attributes to optimize for
++	 * the case where the start of the range (or the entire range) doesn't
++	 * have any attributes, as xas_next() returns literally the next entry,
++	 * whereas xas_next_entry() returns the next non-NULL entry (bounded by
++	 * a maximum index).
++	 */
+ 	for (index = start; index < end; index++) {
+ 		do {
+-			entry = xas_next(&xas);
++			entry = attrs ? xas_next(&xas) :
++					xas_next_entry(&xas, end - 1);
+ 		} while (xas_retry(&xas, entry));
+ 
++		/*
++		 * Don't check the index if there's no entry; as above, the xas
++		 * index is invalid (and if no entry was found, then the entire
++		 * range has no attributes).
++		 */
++		if (!entry)
++			return !attrs;
++
+ 		if (xas.xa_index != index ||
+ 		    (xa_to_value(entry) & mask) != attrs)
+ 			return false;
 
-Let me see if I can quickly whip sth up :)
