@@ -1,120 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E4F306775;
-	Fri, 28 Aug 2026 15:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481693537EE
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930621; cv=none; b=O9m2OH+9iakg9Kg2VuZ1ibKMn+IpfdHvNnYLbqkmxr7wcAiMFWDyw5HLh/vLZQ2KUzBDuF2BWJjYm4COhvAsBMY1tgV2qHEJipCleb0jymL0B7MGfO4CZdq4QirZwEvTf6Cw5HgPDUk1inj+7PzLwBpRyYm0jLXM2RvJuj+kOD0=
+	t=1787930763; cv=none; b=Gp6lOmpDTXnAThgSxnUzaqV0R2JgPLDsqjswbz/z3vkQ+P1inm4Ip0jDrLAtIWfehRpuyU6txlMf/ZnCCMZM0VnluWfLHnD+rJd/Xa9N6qglI6IDAuboacl1PRI/JA4oRy18HObvBxXEQRLzpzCPPYXPIBtbLIRMWZbxcOVUbGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930621; c=relaxed/simple;
-	bh=RIpq0fcu4z18g2ZR2/RqViNKQGjMYREZSLaDEfhbKgU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MFslJRach0a2+4NKgWp97Z3PEpDGd5l9t23un3xHIdTf+PJoCPGP5yyK3y2/PhXIbT1wUH9kEWJbNjFra9HIVp/4gjSbOqlcXXrf4eSJKGIcgWoZVmLRE76CzNAkjd9MstQcV4DoOYQQrV3jQCyu1fjp9p7YkntGdLqMpfxTCM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LfpcNHIb; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787930763; c=relaxed/simple;
+	bh=1j5HoO6Rw6w7CAFZbqcTNA+EG1BhAQMUNIONwCzMFm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lSYvsSSYcudXAZwYT05NuxvLxeGVnYDy5+8mWlrIl1XrhS6z1CmmM0a595ml1+4cHdxkMtpzyYmSpwvV4iAgG/6JWEqNR5e6jRQyOFQCDpj+lqmzWELYCnae5U9H4nbFvea0/A/kLipFEeJZziNr5Jw4+Otkhy1aR1NsEmd6dv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lrxer6Wm; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LfpcNHIb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787930619; x=1819466619;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RIpq0fcu4z18g2ZR2/RqViNKQGjMYREZSLaDEfhbKgU=;
-  b=LfpcNHIbBrB+0uqxexost+40kZlfe5zOl4yasAufKSKN3lbuQunRext7
-   4mT8fLd/bPXga4Ujv9fVKG9nLtLVN3f+IaWehpb1ASW1O8gaV8IbWhmlJ
-   ZfpSA7gGTxojo0s4JK58uKaPkMSBQA2KXpUCG19q+ZdYHonZ/Ssgdelqt
-   8nE6vFIEw6L6I6PcVai9mx8a1FE5cVLrDqVNXsbF3otoHDe6GVjwolMYr
-   0P9x6kH/nEykT17x6Uwk6CJE1lcfiWs5APYQ3HgD8cCa3yrtO+KOsyMp4
-   cbh4seRs13U1SjLI8G5bg02oNS43vS7aEVLlj4laOACHrjqc8xkPZ79So
-   g==;
-X-CSE-ConnectionGUID: FWWabpmRSoO2vvexnmNAzg==
-X-CSE-MsgGUID: iUGawxtBRSKR9GYZGIKTuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99104061"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99104061"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:23:38 -0700
-X-CSE-ConnectionGUID: 0shzixaHQRq7PiUb7/XZcw==
-X-CSE-MsgGUID: 3r5CrJlHQ5ey/4C+sAu7fQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="291680592"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.176])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:23:36 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A5D0D121BDC;
-	Fri, 28 Aug 2026 18:23:32 +0300 (EEST)
-Date: Fri, 28 Aug 2026 18:23:32 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Robert Bozik <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: ipu-bridge: Add OmniVision OV32C4
-Message-ID: <apGn9PvuUw_AODd-@kekkonen.localdomain>
-References: <20260828132104.21473-1-robertbozik@gmail.com>
- <20260828132104.21473-4-robertbozik@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lrxer6Wm"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8200b55dc47so9723187b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:26:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787930761; x=1788535561; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oIM+ChIl0h+IYty+JJJ/R34I0BvTfYNv7RhSnKuWxkU=;
+        b=Lrxer6WmoxXdYAAWjcYgKbTYMH/bF5fD1QALrcqh1qJT5mVisZ3I1vAJepcEA4sL3P
+         KXhlK9xKwoFGE5KC7+uWf9goqdlwXquPVv+HNeBPYmrSTiG6Gw+j34PNhzjlQMmzc/uV
+         cTTDmiVsMsYkL0eQ9NNfkVK1aEsYwGwylpDqZlLo6FLW4hcWfR0cWdRd+MKNd2J1CzRX
+         ZQ4K5KWgb/EEA0md4emDYTsxB8CjSDWNtfeFTe4xeP4nTUMLzRE2JQYGnEyDwpqFb3kz
+         P7pQ7XuqbdQU3Ri7vRqNKh7CoY4rn/TBdfy/PVsC2WuVFCiaT9kjHg9OUGZu8+nP7Xct
+         eayA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787930761; x=1788535561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oIM+ChIl0h+IYty+JJJ/R34I0BvTfYNv7RhSnKuWxkU=;
+        b=BnU98q6uuoji9BocAIxHH3ZP5YPSZQvOr5ML/7NW1jJrxsxNSgH8hcI+td1zrQUG9U
+         2Mgtd9Zqx4Jdtbrj1i9c3tDi01nPJIgjqhmlqc0lvNzgqzufCHufyq9SqSdUZrMS+qiN
+         lqKiBaHhGac4JmisgzMYqhnpkyo9QzivmUvP85EpDgvean3ki9dxR+Pynj3OGJ7To+Dc
+         eHwCIFQ6iprARuSeG1hTcR4v7dTPghKoEPfBPKe4AY1965hw640n7z3tv+dnKDzyu++1
+         3qX/oGGOQ6zNKFD+be438Jl0G1gZ8ukpm7kLDiYVw9oS5Wyq7YNnY1aGgLXqedJ1VAyn
+         Pg2A==
+X-Forwarded-Encrypted: i=1; AKwUvBx0KJDhSv3c5iexfInxgrAB4fUygX77q3ujkm1VmXDoPZEQ1Ll+S/iY6ZZ8HvLuTyFON++1lReTn3WuVUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH73rQgd3mrXlhDIwHkwWAyahXGGB5k2ydZyzw5zPKSvOzzn1C
+	QAxa30myip7r8MK5400vYKv42a41iIG2NLsycFVBj5z6aTHtPWFbLdnTSaWW3e7q
+X-Gm-Gg: AYBFou0MzI8tmDpGoO4eFieLIHuw+w35Atg0zk726qk2guPrai/Uvql1eNPGSXgXebr
+	zrSWG/ly0c17QQseaUTFXlvq8qbj3YJgRpdxsxdEZPlScX7Q1wKPC5n5lRXY3DBPbFRt7RJ6sqR
+	HYqtJK1MEYt32BoSDUv3JcD8aI6vMETiiwLu7FfgApT/lFCEzoJmxn2QAmxEsov+neNiTtqLRC8
+	xPijQefkpkYwyfZSjN76/VSrTcQ9MEnPxoR9D2XGKvggPeHd4B6FB6ykua4BA4k/J5EzI0mi1fY
+	5ZBGbUnMsya77NdiLeUjuoBnfUjyWHPkOTyA8CdRKztlcAeyXO9/wTeKqCaShibmZrGTpdEdhT7
+	LgaLtpeGZ00UOJcNDkVQ76vTkyY4iIWhCZr+MNzKZD1WW15QVWedFB1mBVZCvTqcXpdoQMkzib7
+	D7C9NJumhLdIrVpfF/0QQ4oJeNL/lLYoOqdhNiJZcXVVSWRBC/VfVJxuEl7nG8QHK/nm9khPia+
+	vTvd5cF9BDR8259Z+lzHXuFdNyyXdK+dXfj18ZBEdg=
+X-Received: by 2002:a05:690c:e143:10b0:857:b0bc:af77 with SMTP id 00721157ae682-85d6964253amr26650697b3.7.1787930761220;
+        Fri, 28 Aug 2026 08:26:01 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e6756e0f3sm8064327b3.43.2026.08.28.08.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 08:25:59 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Jordan <jordan.mymail@gmail.com>
+Subject: [PATCH 0/3] media: uvcvideo: live pan/tilt position on the OBSBOT Tiny 2
+Date: Fri, 28 Aug 2026 11:25:54 -0400
+Message-ID: <20260828152557.653475-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828132104.21473-4-robertbozik@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Robert,
+This replaces "[PATCH] media: uvcvideo: query pan/tilt position from the
+device on every read" [1], following the review there. The approach in
+that patch (a driver-side VOLATILE flag with a separate live buffer) is
+dropped: as Ricardo pointed out, a control that carries AUTO_UPDATE
+already gets re-read from the device on every VIDIOC_G_EXT_CTRLS, so the
+problem on this camera reduces to its firmware clearing the AUTOUPDATE
+bit in GET_INFO, and the fix reduces to a flags fixup for the device.
 
-Thanks for the update.
+Patch 1 reports V4L2_CTRL_FLAG_VOLATILE (with EXECUTE_ON_WRITE for
+writable controls) for AUTO_UPDATE controls, which the driver never did.
 
-On Fri, Aug 28, 2026 at 03:21:04PM +0200, Robert Bozik wrote:
-> Add the sensor configuration for the OV32C4, matching the _HID the
-> sensor enumerates with. Without this entry the bridge does not build a
-> software node graph for the sensor, so its driver defers probing on the
-> missing fwnode endpoint forever and the camera never binds.
-> 
-> Assisted-by: Claude:claude-opus-5 sparse
-> Assisted-by: Claude:claude-fable-5 sparse
-> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
-> ---
-> Changes in v2:
-> - Signed-off-by placed last in the trailer block (Krzysztof Kozlowski).
-> - No other changes.
-> 
->  drivers/media/pci/intel/ipu-bridge.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 1bb3a3e98..7d3c7e09f 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -93,6 +93,16 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
->  	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
->  	/* Omnivision OV2680 */
->  	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
-> +	/*
-> +	 * OmniVision OV32C4.
-> +	 *
-> +	 * 400 MHz link frequency, i.e. 800 Mbps per lane. There is no public
-> +	 * datasheet; the value comes from the vendor Windows driver, which
-> +	 * carries it as MipiBps, and it is confirmed on hardware: the IPU7
-> +	 * D-PHY locks and the sensor streams 3264x1840 at a measured
-> +	 * 30.00 fps, matching pixel_rate / (ppl * vts) exactly.
+Patch 2 renames uvc_ctrl_fixup_xu_info() to uvc_ctrl_fixup_flags() and
+calls it from uvc_ctrl_get_flags(), so the per-device flags table can
+correct standard controls as well as XU ones. No functional change for
+the devices already listed.
 
-This bit could go to the driver but the IPU bridge isn't the right place to
-document this.
+Patch 3 adds the OBSBOT Tiny 2 entry, restoring AUTO_UPDATE on its
+CT_PANTILT_ABSOLUTE control.
 
-> +	 */
-> +	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
->  	/* Omnivision OV5675 */
->  	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
->  	/* Omnivision OV8856 */
+Tested on an OBSBOT Tiny 2 (3564:fef8): pan_absolute and tilt_absolute
+now report volatile/execute-on-write, and polling VIDIOC_G_CTRL during
+a commanded 60 degree pan returns 0, 21600, 46800, 90000, 115200,
+158400, 183600, 216000 -- the live position -- where a stock module
+returns the commanded value from the first read. Reads also follow the
+gimbal when it is moved by hand. The vendor was asked to fix the
+firmware on 2026-08-04 (ticket #8220); no fix so far.
+
+[1] https://lore.kernel.org/linux-media/20260725212332.64927-1-jordan.mymail@gmail.com/
+
+Michael Jordan (3):
+  media: uvcvideo: report AUTO_UPDATE controls as volatile
+  media: uvcvideo: generalise the XU flags fixup to all controls
+  media: uvcvideo: fix up missing AUTO_UPDATE on OBSBOT Tiny 2 pan/tilt
+
+ drivers/media/usb/uvc/uvc_ctrl.c | 107 +++++++++++++++++++------------
+ 1 file changed, 66 insertions(+), 41 deletions(-)
 
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
