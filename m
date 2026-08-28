@@ -1,61 +1,80 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E4D326939
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053A6360EF9
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 15:35:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931247; cv=none; b=p0ZJeBE5xeLOKZ5RyrQTGY3GreQ+bNoMEriutRAU4NjuQ/gjdf9pZi7EHMf+8HXDSHw1mJ5zaNrosZG0NpQDE//q+Cl0+/WNzqryHwgaCXRBtw96m1AGScTt/lXZw1Ol86dR1SNrMUXJPW5DS0aaDhFfbnI/80R1MPE3y0N6E/g=
+	t=1787931306; cv=none; b=V433017IAwyQipuTIcgEjw0JLkK2N+Y2WtSs3gM1R35bZE29OGX1cDadUXKs2OLw6rbTRwlJH9SjN2X9eBm6m74TH9CnUsJ0ivdFLP774CiLimzoUNlIs/rgz6UBm6JnAUnViXGYNhtwAlSa8jARGxATHXKA21lDiq9moO+/2Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931247; c=relaxed/simple;
-	bh=S2cYy7vhOT57cVqfL/vpOpekNqT+Eo0KcUG4NFUxEVw=;
+	s=arc-20240116; t=1787931306; c=relaxed/simple;
+	bh=c/t9wvTrRm3cNtaiF1yv0aTmAvMyzHTd2ks5sPAyh+8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IXQqUG7wuwub9s1c9IcPjeRHJhH0pWp6rizd1u/m6L/Ctlzth3Y1T8oYdxhnLjlc/NdFxyz8GmEGrG0LcWqHUs+Lj1aHSSs2ICkVn2BCWxd2V3GBIDRovgHw24bKCK74LHk9J7iKBz1v8+6CN9oKDvGWHkz9p+iWuTrAXOLMOUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=LuVWlOwZ; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	 MIME-Version; b=Km7tNYsvLezXMv1eshagC2hMGOuHg4rcszU2vw3rECbcuQu7aaFtLhwpxZMdTM0okIuuhmuO+Z0cwMIrZLmVoU9T+/eHrSKiRb2oxyYund8V1gZDEjoDTlwdnYXODytYUHnZGwSKby6aNq3o1koLVZ/Ot4OjnTKnneZrUVqkBgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jPiENSN4; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="LuVWlOwZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1787931238;
-	bh=s3vazJV1gATKw5/G/0f4A7CGJjt06s+h9fsOEt1EOeM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LuVWlOwZYOBzGpIEYIu2HxTBVud85sC7dNkGPjtwGyCyvK4W1guXGGBmbZfbnloT+
-	 BjRZESyNEQENyHyNSqOStD+udkW62O0Nkg7mXdUDl9pXSzEe5gUYGXghkNoUqLMKQ0
-	 DvbB5P1zjgWhMIr1NwEcAUNocT91URrTSjrkA6/+70lyppZfw5mTPqIRaezIYKMuVl
-	 1fTegKLCnq+vCkwbie6Mdmz/81H/By0/2Ug3CTy346txXJgmphxDYa56Oqjn4UVAMX
-	 us3EltrPuCOKETGreYX8vZMREh7uVbM5R03MzJnwiD6/WUfK0qy54hK1ehg1WGT7Ys
-	 n78rTlsryaQOA==
-Received: from laura.localdomain (199-193-172-8.cpe.axion.ca [199.193.172.8])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hWj92220FzTCc;
-	Fri, 28 Aug 2026 11:33:58 -0400 (EDT)
-From: odion@efficios.com
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	David Matlack <dmatlack@google.com>,
-	Marco Elver <elver@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Florian Weimer <fweimer@redhat.com>,
-	Mathias Stearn <mathias@mongodb.com>,
-	Chris Kennelly <ckennelly@google.com>,
-	Blake Oler <blake.oler@mongodb.com>,
-	Rich Felker <dalias@libc.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Carlos O'Donell <codonell@redhat.com>,
-	Olivier Dion <odion@efficios.com>
-Subject: [RFC PATCH 5/5] selftests/rseq: add coverage for rseq operations
-Date: Fri, 28 Aug 2026 11:33:43 -0400
-Message-ID: <20260828153349.8061-6-odion@efficios.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260828153349.8061-1-odion@efficios.com>
-References: <20260828153349.8061-1-odion@efficios.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jPiENSN4"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4815bce4652so878007f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 08:35:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787931303; x=1788536103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2qLyJXx3vDV6RKEzodqCE4zKvUZXhtE2BMX7guEURaQ=;
+        b=jPiENSN4GoR5xzo5GAvIeeKAc7FTcAvSjwrqcKLQ8zhuJwTPBqzaRx53Brshn2MDqo
+         piVDJH5QOYvSEhfo3Zn2M5yhndEPBFBd49ZGCOaCt1qzxtnDxN3R8ldCt53YQku5waQo
+         sJq5VBwbD9adLJ0SMjq0v2hTUTjFqkcMQ0kJ68+CVBiX8CT8sHk1N3rDgIzWRGLqYejK
+         4mtEKHoJYKHaB+28Dx4BKSyWuY06IKELnL4Oy1Zolwnzco922fxIxiujL8oj5xtgOBGp
+         SII1bTufyk1+XmHaNhHolJU5ZDt+9CuEkH3FTJV7lh11iIVAYYypJKMNc0+REP/GfH8O
+         +IvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787931303; x=1788536103;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2qLyJXx3vDV6RKEzodqCE4zKvUZXhtE2BMX7guEURaQ=;
+        b=KEHamRLtsxn2FHB7cSzjLkx5Ee+SmA/iMnNAbMJ8VYm1kxu5FE5dSHzx20KWAyZk1X
+         j4HpDgSD7gIQRqlaqrVXSNJ2Q2YSNIDxxp39bplJyw39bJAMaHhllhoH8ZYCtkLePAuu
+         vz/VwZc/SF2OAw5r8bjupkYbvVA3cbAyXWaQnNtJ7T644atudmFJD8s+q1QOuNju4vSa
+         42/7VOiWsrXuws85N+6c9NLdkgqfs7S2sj9mPErqFTcQxSn0bg72AwoxBN3KDI9joM52
+         LlMy7rgjtW1SopzNolZ2xXbrwarmkAUq6Y4lxkcgYdqvbVCrzz26bFxCjeJao+4Wt1Ma
+         rEMw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4R4Uytjb33C5RYHJlYAAI91FAmH3hwbh8+GAUyB9oQgfCASE5nATr/dhzNIazeEU9iaeBW/HlHxyortk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmtf9lFx5fqKdJxC/+TSmtJjkaZFq7Sddkcn6fsV8eINWGAd1J
+	8SaOZas2CHaxtWxW5mUGx/71twds0ph7sX+Qr1KByLcGjivyG03IoTaa
+X-Gm-Gg: AR+sD10jHAzLAh0cuz8almGoYf0mycHr92zDnjY22rquE/NhS69c5+fjrggAyvhqawg
+	eFL2P+W6nydZxSQ3uADN2rJOTf+PMVSx+mz5ObIQWE8js09MacqC5WQcvNQI2vJdspoSnuFh0m5
+	nXxz1cP9Twj40t/VPDqdEKVbvAweALspmfa+xkpmcqQzMvpZcqdlHjLBXzybb3F3AzWRpXqfXTl
+	1WG6pwAN0Es9jKqiw/lprOiVWncC+VqC/0mo73rLkFp44bTi53GX8Lhj6FcPwiZu3ZOxjs3f4fR
+	buCZPR8Worw/P0eS7rtSHPzMe1hbmg720zoTF4ssvJ5udEyfDOfzXXEfH7ctwgOKi1Oz17PWlPm
+	mDRUdezs7XawaP0LJsOAKBY4dPQwiXCtlJU3f8rZrCphmAuw4X0u2tXB3e+McIlLfMmpiZ85l5P
+	R8/2Nssgkq4STRYBz5/tisqTe+S6C+II0HdoKJEjjLU9mu5nLbzQteWDrES/syXh3u0q0lRMqEI
+	oksutuUH5JSl8yRQUaOCWlkiZiGOyxdmQoEuFu4IfsvcDhs0xqhwe2wQJNdVzAJ98rVvkcc6o9d
+	SsC8h7YBxDbjN0I=
+X-Received: by 2002:a05:6000:4705:b0:47f:f4b9:88b7 with SMTP id ffacd0b85a97d-482f7988875mr13087444f8f.1.1787931303054;
+        Fri, 28 Aug 2026 08:35:03 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3fcesm4453038f8f.5.2026.08.28.08.35.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 08:35:01 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: Add driver for OmniVision OV32C4
+Date: Fri, 28 Aug 2026 17:34:58 +0200
+Message-ID: <20260828153500.31556-1-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <apGbnVqQczMrzoUg@kekkonen.localdomain>
+References: <20260826072002.14357-1-robertbozik@gmail.com> <20260826072002.14357-3-robertbozik@gmail.com> <apGbnVqQczMrzoUg@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,395 +83,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Olivier Dion <odion@efficios.com>
+Hi Sakari,
 
-Add selftest-side support for the rseq operation ABI and wire a new
-rseq_op_test into the rseq selftest suite.
+Thank you for the review - that is a lot of detail for a 2800 line
+driver and I am grateful for it.
 
-The new test covers:
-- reset before entering a signal handler,
-- reset on return to userspace after poll(),
-- reset after scheduler-driven preemption,
-- no-operation cases where nothing should be reset,
-- register-time rejection of non-pristine nodes and unknown types,
-- fatal cases for corrupted list links (self and transitive cycles),
-- invalid destination and next pointers,
-- unsupported lengths,
-- unaligned destinations, and
-- NULL-source clearing.
+One note first: v2 crossed with your mail. It only carries Conor's
+binding comments, two fixes the Sashiko bot found (pm_ptr() instead of
+pm_sleep_ptr(), and the control handler freed on the probe error path)
+and a trailer reorder. Nothing below is addressed there; it all goes
+into v3.
 
-Also extend the selftest ABI/helpers with the rseq operation node
-definitions and prctl-based register/unregister helpers, and add a
-dedicated runner that disables glibc's implicit rseq registration.
+> Nearly all of this belongs to the cover letter -- here you're expected to
+> say just what the patch does [...]
 
-Signed-off-by: Olivier Dion <odion@efficios.com>
----
- tools/testing/selftests/rseq/.gitignore |   4 +-
- tools/testing/selftests/rseq/Makefile   |   4 +-
- tools/testing/selftests/rseq/rseq-abi.h | 146 ++++++++++++++++++++----
- tools/testing/selftests/rseq/rseq.c     |  23 +++-
- tools/testing/selftests/rseq/rseq.h     |  75 ++++++++++++
- 5 files changed, 223 insertions(+), 29 deletions(-)
+Will do. The commit message will say what the patch adds, and the
+measurement detail moves to the cover letter, along with the long
+provenance comments in the file that you flagged further down.
 
-diff --git a/tools/testing/selftests/rseq/.gitignore b/tools/testing/selftests/rseq/.gitignore
-index ec01d164c1f0..8d5f02d79b98 100644
---- a/tools/testing/selftests/rseq/.gitignore
-+++ b/tools/testing/selftests/rseq/.gitignore
-@@ -2,7 +2,6 @@
- basic_percpu_ops_test
- basic_percpu_ops_mm_cid_test
- basic_test
--basic_rseq_op_test
- param_test
- param_test_benchmark
- param_test_compare_twice
-@@ -11,3 +10,6 @@ param_test_mm_cid_benchmark
- param_test_mm_cid_compare_twice
- syscall_errors_test
- slice_test
-+check_optimized
-+legacy_check
-+rseq_op_test
-\ No newline at end of file
-diff --git a/tools/testing/selftests/rseq/Makefile b/tools/testing/selftests/rseq/Makefile
-index 50d69e22ee7a..5e761df0e5aa 100644
---- a/tools/testing/selftests/rseq/Makefile
-+++ b/tools/testing/selftests/rseq/Makefile
-@@ -22,12 +22,14 @@ TEST_GEN_PROGS_EXTENDED = librseq.so \
- 	param_test_compare_twice \
- 	param_test_mm_cid \
- 	param_test_mm_cid_compare_twice \
-+	rseq_op_test \
- 	syscall_errors_test \
- 	legacy_check \
- 	slice_test \
- 	check_optimized
- 
--TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh
-+TEST_PROGS = run_param_test.sh run_syscall_errors_test.sh run_legacy_check.sh run_timeslice_test.sh \
-+	run_rseq_op_test.sh
- 
- TEST_FILES := settings
- 
-diff --git a/tools/testing/selftests/rseq/rseq-abi.h b/tools/testing/selftests/rseq/rseq-abi.h
-index 5f4ea2152c2f..051636f84194 100644
---- a/tools/testing/selftests/rseq/rseq-abi.h
-+++ b/tools/testing/selftests/rseq/rseq-abi.h
-@@ -26,6 +26,10 @@ enum rseq_abi_cs_flags_bit {
- 	RSEQ_ABI_CS_FLAG_NO_RESTART_ON_PREEMPT_BIT	= 0,
- 	RSEQ_ABI_CS_FLAG_NO_RESTART_ON_SIGNAL_BIT	= 1,
- 	RSEQ_ABI_CS_FLAG_NO_RESTART_ON_MIGRATE_BIT	= 2,
-+	RSEQ_ABI_CS_FLAG_SLICE_EXT_AVAILABLE_BIT	= 4,
-+	RSEQ_ABI_CS_FLAG_SLICE_EXT_ENABLED_BIT		= 5,
-+	RSEQ_ABI_CS_FLAG_RSEQ_OP_AVAILABLE_BIT		= 6,
-+	RSEQ_ABI_CS_FLAG_RSEQ_OP_ENABLED_BIT		= 7,
- };
- 
- enum rseq_abi_cs_flags {
-@@ -35,6 +39,14 @@ enum rseq_abi_cs_flags {
- 		(1U << RSEQ_ABI_CS_FLAG_NO_RESTART_ON_SIGNAL_BIT),
- 	RSEQ_ABI_CS_FLAG_NO_RESTART_ON_MIGRATE	=
- 		(1U << RSEQ_ABI_CS_FLAG_NO_RESTART_ON_MIGRATE_BIT),
-+	RSEQ_ABI_CS_FLAG_SLICE_EXT_AVAILABLE	=
-+		(1U << RSEQ_ABI_CS_FLAG_SLICE_EXT_AVAILABLE_BIT),
-+	RSEQ_ABI_CS_FLAG_SLICE_EXT_ENABLED	=
-+		(1U << RSEQ_ABI_CS_FLAG_SLICE_EXT_ENABLED_BIT),
-+	RSEQ_ABI_CS_FLAG_RSEQ_OP_AVAILABLE	=
-+		(1U << RSEQ_ABI_CS_FLAG_RSEQ_OP_AVAILABLE_BIT),
-+	RSEQ_ABI_CS_FLAG_RSEQ_OP_ENABLED	=
-+		(1U << RSEQ_ABI_CS_FLAG_RSEQ_OP_ENABLED_BIT),
- };
- 
- /*
-@@ -74,6 +86,103 @@ struct rseq_abi_slice_ctrl {
- 	};
- };
- 
-+union rseq_ptr {
-+	__u64 ptr64;
-+
-+	/*
-+	 * The "arch" field provides architecture accessor for
-+	 * the ptr field based on architecture pointer size and
-+	 * endianness.
-+	 */
-+	struct {
-+#ifdef __LP64__
-+		__u64 ptr;
-+#elif defined(__BYTE_ORDER) ? (__BYTE_ORDER == __BIG_ENDIAN) : defined(__BIG_ENDIAN)
-+		__u32 padding;		/* Initialized to zero. */
-+		__u32 ptr;
-+#else
-+		__u32 ptr;
-+		__u32 padding;		/* Initialized to zero. */
-+#endif
-+	} arch;
-+};
-+
-+/*
-+ * Maximum number of nodes walked in the rseq operation list.
-+ */
-+#define RSEQ_ABI_OP_LIST_LIMIT	2048
-+
-+/*
-+ * enum rseq_abi_op_type - Type of an rseq operation
-+ * @RSEQ_ABI_OP_RESET:			Plain reset. Uses struct rseq_abi_op_reset.
-+ * @RSEQ_ABI_OP_RESET_WITH_STRIDE_CPUID:	Reset indexed by the current CPU ID.
-+ *					Uses struct rseq_abi_op_reset_with_stride.
-+ * @RSEQ_ABI_OP_RESET_WITH_STRIDE_MMCID:	Reset indexed by the current MM CID.
-+ *					Uses struct rseq_abi_op_reset_with_stride.
-+ */
-+enum rseq_abi_op_type {
-+	RSEQ_ABI_OP_RESET,
-+	RSEQ_ABI_OP_RESET_WITH_STRIDE_CPUID,
-+	RSEQ_ABI_OP_RESET_WITH_STRIDE_MMCID,
-+	RSEQ_ABI_OP_NR,
-+};
-+
-+/*
-+ * struct rseq_abi_op_node - Common header linking an rseq operation into the list
-+ * @next:	Address of the next node. Owned by the kernel.
-+ * @prev:	Address of the previous node. Owned by the kernel.
-+ * @type:	Operation type. See enum rseq_abi_op_type.
-+ * @reserved:	Must be zero on registration.
-+ *
-+ * User space allocates the node, sets @type and zeroes @next, @prev and
-+ * @reserved before passing it to prctl(PR_RSEQ_OP, PR_RSEQ_OP_REGISTER, node).
-+ * The kernel owns @next and @prev for the lifetime of the registration and
-+ * links the node into a circular doubly-linked list anchored by an internal
-+ * sentinel in struct rseq_abi. User space must not touch @next or @prev while
-+ * the node is registered.
-+ */
-+struct rseq_abi_op_node {
-+	__u64 next;
-+	__u64 prev;
-+	struct {
-+		__u8  type; /* enum rseq_abi_op_type */
-+		__u8  reserved[7];
-+	};
-+};
-+
-+/*
-+ * struct rseq_abi_op_reset - Reset one word to a value on return to user space
-+ * @node:	Operation list node.
-+ * @src:	Address of the source word, or 0 to reset @dst to zero.
-+ * @dst:	Address of the destination word.
-+ * @len:	Word length in bytes. Must be 4 or 8.
-+ */
-+struct rseq_abi_op_reset {
-+	struct rseq_abi_op_node	node;
-+	__u64			src;
-+	__u64			dst;
-+	__u32			len;
-+};
-+
-+/*
-+ * struct rseq_abi_op_reset_with_stride - Reset one word in a strided array
-+ * @node:	Operation list node.
-+ * @src:	Address of the source word, or 0 to reset the slot to zero.
-+ * @dst:	Base address of the strided destination array.
-+ * @dst_stride:	Stride in bytes between consecutive array slots.
-+ * @len:	Word length in bytes. Must be 4 or 8.
-+ *
-+ * The destination slot is @dst + @dst_stride * index, where index is the
-+ * current CPU ID or MM CID depending on the operation type.
-+ */
-+struct rseq_abi_op_reset_with_stride {
-+	struct rseq_abi_op_node	node;
-+	__u64			src;
-+	__u64			dst;
-+	__u64			dst_stride;
-+	__u32			len;
-+};
-+
- /*
-  * struct rseq_abi is aligned on 4 * 8 bytes to ensure it is always
-  * contained within a single cache-line.
-@@ -127,26 +236,7 @@ struct rseq_abi {
- 	 * atomicity semantics. This field should only be updated by the
- 	 * thread which registered this data structure. Aligned on 64-bit.
- 	 */
--	union {
--		__u64 ptr64;
--
--		/*
--		 * The "arch" field provides architecture accessor for
--		 * the ptr field based on architecture pointer size and
--		 * endianness.
--		 */
--		struct {
--#ifdef __LP64__
--			__u64 ptr;
--#elif defined(__BYTE_ORDER) ? (__BYTE_ORDER == __BIG_ENDIAN) : defined(__BIG_ENDIAN)
--			__u32 padding;		/* Initialized to zero. */
--			__u32 ptr;
--#else
--			__u32 ptr;
--			__u32 padding;		/* Initialized to zero. */
--#endif
--		} arch;
--	} rseq_cs;
-+	union rseq_ptr rseq_cs;
- 
- 	/*
- 	 * Restartable sequences flags field.
-@@ -192,9 +282,21 @@ struct rseq_abi {
- 	struct rseq_abi_slice_ctrl slice_ctrl;
- 
- 	/*
--	 * Place holder to push the size above 32 bytes.
-+	 * Sentinel of the circular doubly-linked list of rseq operations
-+	 * registered via prctl(PR_RSEQ_OP, ...). Fully owned and maintained by
-+	 * the kernel: it is initialized to point to itself on registration and
-+	 * user space must never read or write it directly.
-+	 *
-+	 * The kernel only use next and prev from rseq_op_list.  The rest of the
-+	 * bytes are reserved for later usage and should be zeroed.
- 	 */
--	__u8 __reserved;
-+	union {
-+		struct rseq_abi_op_node rseq_op_list;
-+		struct {
-+			__u64	op_used[2];
-+			__u64	reserved;
-+		};
-+	};
- 
- 	/*
- 	 * Flexible array member at end of structure, after last feature field.
-diff --git a/tools/testing/selftests/rseq/rseq.c b/tools/testing/selftests/rseq/rseq.c
-index be0d0a97031e..6a5406f3353b 100644
---- a/tools/testing/selftests/rseq/rseq.c
-+++ b/tools/testing/selftests/rseq/rseq.c
-@@ -116,6 +116,17 @@ bool rseq_available(void)
- 	}
- }
- 
-+/* The rseq areas need to be at least 32 bytes. */
-+static
-+unsigned int get_rseq_min_alloc_size(void)
-+{
-+	unsigned int alloc_size = rseq_size;
-+
-+	if ((int) alloc_size < ORIG_RSEQ_ALLOC_SIZE)
-+		alloc_size = ORIG_RSEQ_ALLOC_SIZE;
-+	return alloc_size;
-+}
-+
- /*
-  * Return the feature size supported by the kernel.
-  *
-@@ -261,12 +272,14 @@ void rseq_init(void)
- 
- 	/* rseq flags are deprecated, always set to 0. */
- 	rseq_flags = 0;
-+	{
-+		unsigned int rseq_kernel_feature_size = get_rseq_kernel_feature_size();
- 
--	/*
--	 * Set the size to 0 until at least one thread registers to mimic the
--	 * libc behavior.
--	 */
--	rseq_size = 0;
-+		if (rseq_kernel_feature_size <= RSEQ_THREAD_AREA_ALLOC_SIZE)
-+			rseq_size = rseq_kernel_feature_size;
-+		else
-+			rseq_size = ORIG_RSEQ_ALLOC_SIZE;
-+	}
- }
- 
- static __attribute__((destructor))
-diff --git a/tools/testing/selftests/rseq/rseq.h b/tools/testing/selftests/rseq/rseq.h
-index c62ebb9290c0..8f65d272e7cf 100644
---- a/tools/testing/selftests/rseq/rseq.h
-+++ b/tools/testing/selftests/rseq/rseq.h
-@@ -18,6 +18,9 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <stddef.h>
-+#include <string.h>
-+#include <sys/prctl.h>
-+#include <linux/kernel.h>
- #include "rseq-abi.h"
- #include "compiler.h"
- 
-@@ -395,4 +398,76 @@ int rseq_cmpeqv_trymemcpy_storev(enum rseq_mo rseq_mo, enum rseq_percpu_mode per
- 	}
- }
- 
-+/*
-+ * prctl commands for the rseq operation list. The kernel owns the list: the
-+ * feature is enabled implicitly by registering the first operation and
-+ * disabled by unregistering the last one. There is no explicit enable knob.
-+ */
-+#ifndef PR_RSEQ_OP
-+#define PR_RSEQ_OP			82
-+#define PR_RSEQ_OP_REGISTER		1
-+#define PR_RSEQ_OP_UNREGISTER		2
-+#endif
-+
-+/*
-+ * Initialize a plain reset operation. Sets the operation type, the destination
-+ * and source words, the word length, and leaves the node in a pristine state
-+ * (next, prev and reserved bytes zeroed) as required by the kernel at
-+ * registration time.
-+ */
-+static inline
-+void rseq_op_reset_init(struct rseq_abi_op_reset *op,
-+			void *dst, void *src, size_t len)
-+{
-+	op->node.next = 0;
-+	op->node.prev = 0;
-+	op->node.type = RSEQ_ABI_OP_RESET;
-+	memset(op->node.reserved, 0, sizeof(op->node.reserved));
-+	op->src = (__u64)(unsigned long)src;
-+	op->dst = (__u64)(unsigned long)dst;
-+	op->len = len;
-+}
-+
-+/*
-+ * Initialize a strided reset operation indexed by the current CPU ID or MM CID
-+ * depending on @type.
-+ */
-+static inline
-+void rseq_op_reset_with_stride_init(struct rseq_abi_op_reset_with_stride *op,
-+				    enum rseq_abi_op_type type,
-+				    void *dst, void *src,
-+				    size_t dst_stride, size_t len)
-+{
-+	op->node.next = 0;
-+	op->node.prev = 0;
-+	op->node.type = type;
-+	memset(op->node.reserved, 0, sizeof(op->node.reserved));
-+	op->src = (__u64)(unsigned long)src;
-+	op->dst = (__u64)(unsigned long)dst;
-+	op->dst_stride = (__u64)dst_stride;
-+	op->len = len;
-+}
-+
-+/*
-+ * Register an rseq operation node. The kernel links the pristine node into its
-+ * internal list and enables operation processing when the first node is
-+ * registered. Returns the prctl() return value (0 on success).
-+ */
-+static inline
-+int rseq_op_register(struct rseq_abi_op_node *node)
-+{
-+	return prctl(PR_RSEQ_OP, PR_RSEQ_OP_REGISTER, (unsigned long)node, 0, 0);
-+}
-+
-+/*
-+ * Unregister an rseq operation node. The kernel unlinks the node, clears its
-+ * next/prev links, and disables operation processing when the last node is
-+ * unregistered. Returns the prctl() return value (0 on success).
-+ */
-+static inline
-+int rseq_op_unregister(struct rseq_abi_op_node *node)
-+{
-+	return prctl(PR_RSEQ_OP, PR_RSEQ_OP_UNREGISTER, (unsigned long)node, 0, 0);
-+}
-+
- #endif  /* RSEQ_H_ */
--- 
-2.54.0
+> Is this needed? The DT bindings suggest otherwise. :-)
 
+No. Dropping the ACPI dependency.
+
+> Please calculate this instead of adding a comment.
+
+Will do.
+
+> This macro name suggests it's a register address, not value. The register
+> address should have a macro associated with it, with a human-readable name.
+
+Will rename it, and add macros for the timing register addresses,
+including the ones behind the fields in struct ov32c4_mode.
+
+> This isn't really specific to the sensor, is it? It'd be nice to know what
+> this required write is really about but it sounds like there's another
+> device there that needs its own driver. Is it found in the system as a
+> device (see what's under /sys/bus/i2c/devices)?
+
+It is, but as the wrong device, and I think there is a problem in
+ipu-bridge underneath this.
+
+ipu-bridge takes the VCM model from ACPI and does not verify it:
+
+	sensor->vcm_type = ipu_vcm_types[ssdb.vcmtype - 1];
+
+Here SSDB.vcmtype is 2, so it instantiates a "dw9714" client on _CRS
+resource 1, which is the same address my driver writes to (0x3e). dw9714
+has no identification register, so its driver binds unconditionally and
+cannot notice.
+
+The chip at that address is not a dw9714. With the sensor powered and
+the dw9714 driver unbound:
+
+	w2@0x3e 0x10 0x01  r1@0x3e   ->  0x04   (what my driver wrote)
+	w2@0x3e 0x10 0x00  r8@0x3e   ->  00 04 00 00 00 00 00 00
+	w2@0x3e 0x00 0x00 r32@0x3e   ->  all zeroes
+
+repeatably. So it has a 16-bit addressed register file and retains what
+is written to it, which a dw9714 - a write-only DAC with no register
+addressing at all - does not. Its lens subdev has zero pads and zero
+links.
+
+I could not identify the chip. Only a sparse block around 0x1000 and
+0x1010-0x1018 reads back non-zero, and I found no ID register. It has no
+ACPI device of its own; the only other unbound I2C node on this machine
+is TXNW3643 at \_SB.FLM1, which is the flash module.
+
+Without the write the sensor NACKs everything at 0x36, so it does gate
+it somehow. The Windows driver issues the same write from its sensor
+driver, so there is no separate driver for it there either.
+
+So I agree this does not belong in the sensor driver. What I do not know
+is what shape you would prefer instead: a regulator provider consumed as
+dvdd-supply would mean writing a driver for a chip I cannot name, and
+something would have to stop ipu-bridge from claiming the address as a
+VCM first. Guidance welcome.
+
+> These belong to the int3472 driver or the ipu-bridge.
+
+Agreed. They go away with whatever the answer to the above turns out to
+be.
+
+> These are 0 and 5 ms, respectiely.
+
+I am not sure I follow - could you say what you would like here? The
+values in the patch are 5 ms after the supply and 20 ms after reset,
+arrived at during bring-up rather than from a datasheet, as there is
+none.
+
+> Is this required?
+
+I will test without the retries and drop them if the power-up sequence
+is enough on its own.
+
+> That's not right, these are in pixels in terms of the value of the
+> PIXEL_RATE control, that reflects timing on the sensor's pixel array.
+
+Thank you - I will correct the comment and re-check the arithmetic
+against that definition.
+
+> There's (typically) no need for get_frame_desc() op if you have a single
+> stream.
+
+That was my assumption too, but it measured otherwise here: without the
+op the call returns -ENOIOCTLCMD, the receiver is configured from the
+media bus code alone, and the IPU7 then reports one oversized packet per
+frame. I will re-test that for v3 in case something else I changed since
+has made it moot; if it still holds I would rather explain why the op is
+there than drop it silently.
+
+> No need to check for errors here -- v4l2_fwnode_endpoint_alloc_parse()
+> already does.
+
+You are right - __v4l2_fwnode_endpoint_parse() returns -EPROBE_DEFER for
+a NULL fwnode, and the comment there names the IPU bridge case
+explicitly. Dropping the check.
+
+Everything else - pm_runtime_get_if_active(), setting the control flags
+after the handler error check, v4l2_fwnode_device_parse() moved up, the
+error checks on __v4l2_ctrl_modify_range() and in disable_streams(), the
+definitions from mipi-csi2.h, unsigned int for the loop variable, and the
+debug prints and redundant comments - will be as you say in v3.
+
+Thanks,
+Robert
