@@ -1,83 +1,227 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CB738A71F;
-	Fri, 28 Aug 2026 09:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57E936F8E5
+	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 09:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909118; cv=none; b=o8c1W6OJTgnwfSSZ07ixT5yYOaAvV7A/H04z7Sp8K3Sx9kbTNf9VY7PcDuqTBQJVGMEqg6igQVIpGvhhy6Y9YBDELXHWCYZTjj/12Tsfht3KaTHNwBQhW4a66Rv0BvgUw6c5fsdf1+NfCQkSWiMo/9krZqR/hh2ZotrzGzTS6nQ=
+	t=1787909127; cv=none; b=iqaSrqGns0jMAzYww5GCvTAbxbWNApTzESthRM7Ywm1cmqRz6uZc9z4LZaFeH+W7ieMk6iyFACvg6I2E5GCPMY9kvYJWStubBaBAOPvSVJZbfGexAP7t+QyRe/rL/ZwtCeJM2NdfH7vOyL9IwWJnDc0p8RFKVRvppZIPtg1A6ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909118; c=relaxed/simple;
-	bh=HFWIYqbamR9H7JG+SKSGlBKoxUG1LOgShNgbcylqktk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=CDfROyinUXkhm+3XQ7dcqPqNZ/qWIIhyJi/e7LItKri2D5yrAkPDFdUCSOpUMrqNLriMS7/+KAiQSiQsDqP5md+vyKax+z4XXrGcIywY6gkz+DFcmHSynQxFQtREjX+uQXmh0ywqL3Fd02yBiRYN4UCwVexhwroTpLmTUQ+iEyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HYRXmWDW; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787909127; c=relaxed/simple;
+	bh=eE7AKtJ5rHDjCHFP0sbjzrcKFX6z6p2ntCRRXg0JHB8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=e0E9OvAjKnoV9keY7MJofKBgPqGZYkXMWfhuxF0FQ49tNfCM8wWUXwyVsjwg6e0E6TH81c8JUEEPlqt7DqsbdXVMxKOsYnGW1ZQ9Kdwk9cd8wo4yQcXPnQvIzqner0Xd+4dxhud+KZ1dUPcDc7FPjfO+0slXbOHPRlhwFa6/LU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qLJlYmEQ; arc=none smtp.client-ip=95.215.58.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HYRXmWDW"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C92241A189B;
-	Fri, 28 Aug 2026 09:25:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9BCCC60537;
-	Fri, 28 Aug 2026 09:25:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55C5711C78028;
-	Fri, 28 Aug 2026 11:25:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787909109; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HFWIYqbamR9H7JG+SKSGlBKoxUG1LOgShNgbcylqktk=;
-	b=HYRXmWDWUOZ1zEyHJbQDi/zzqTGz43VaGd25flf+99Ab+gUA+YbP+Sz71zNVxpX/By+ClB
-	Ykt4ORz5ydsAa5VV8ANY3gF7NZfOx4tXaXIptfKp82lN6UPZ57Qrgxjxh6LxcnIYgFXyRG
-	8D1iPOUo2xCJW79N5YgmulAipTZypbqtKzRkguXIhSjDwGnt7LxNmhPVcxBPygKhXfCQt8
-	YpEOAoXoWkbUOxm5dcz/jHnd8q9PJkgjjAL2VYbe2T1VvVoRn4KBtLdIXzglYSbZSmxzCW
-	gqp0zLmoXHYqmy1LDU3sehCNVFSmfSsUpPzBf+f/YAuKSNCgst6XGHyQrbuLAg==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qLJlYmEQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eE7AKtJ5rHDjCHFP0sbjzrcKFX6z6p2ntCRRXg0JHB8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787909123; v=1; x=1788513923;
+ b=qLJlYmEQsg2nGJ/WAESfsZ/t9JC5CFBWxE2aegEVKi8U8bbevbLb//xflTlm5GQeXfE7XX8T
+ 5XQHjx9bsh3uYTsSO8TuNRk142VfY1KWzZ3Y89MRbduq6e38gvfY6LcZhrB2jfiB+BoN8dbwazT
+ CMElWu1CgruvFk3htBtBNN90=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ae2bfd24aaee5f26;
+	Fri, 28 Aug 2026 09:25:22 +0000
+X-Mizu-Trace-ID: ae2bfd24aaee5f26
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>,
+	Yu Zhao <yuzhao@google.com>,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
+Date: Fri, 28 Aug 2026 17:24:32 +0800
+Message-Id: <20260828092432.1257917-3-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828092432.1257917-1-ridong.chen@linux.dev>
+References: <20260828092432.1257917-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 11:25:06 +0200
-Message-Id: <DL0GVSSI2FQU.24LQFERB8T03X@bootlin.com>
-Cc: <git@amd.com>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Vineeth Karumanchi" <vineeth.karumanchi@amd.com>,
- <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net-next 2/4] net: macb: Move TC capability and PM
- checks to macb_setup_tc()
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260807095012.640223-1-vineeth.karumanchi@amd.com>
- <20260807095012.640223-3-vineeth.karumanchi@amd.com>
-In-Reply-To: <20260807095012.640223-3-vineeth.karumanchi@amd.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello Vineeth,
+From: Ridong Chen <chenridong@xiaomi.com>
 
-On Fri Aug 7, 2026 at 11:50 AM CEST, Vineeth Karumanchi wrote:
-> Move the NETIF_F_HW_TC capability check and the runtime PM suspend
-> guard from macb_setup_taprio() into the common macb_setup_tc()
-> entry point.
->
-> These preconditions apply to all hardware TC offload paths routed
-> through ndo_setup_tc(), not just TAPRIO. Centralizing them avoids
-> duplicating the same checks as new TC qdisc types are added.
->
-> Signed-off-by: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
+memory.min/low is silently bypassed for MGLRU during global proactive
+reclaim (writing to the root memory.reclaim) and global direct reclaim.
+It can be reproduced as follows:
 
-Makes sense
+  # echo 7 > /sys/kernel/mm/lru_gen/enabled
+  # cd /sys/fs/cgroup
+  # mkdir -p a/b
+  # echo 100M > a/memory.min
+  # echo +memory > a/cgroup.subtree_control
+  # echo 100M > a/b/memory.min
+  # echo $$ > a/b/cgroup.procs
+  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+  # cat a/b/memory.current
+  222650368
+  # echo 500M > memory.reclaim
+  -bash: echo: write error: Resource temporarily unavailable
+  # cat a/b/memory.current
+  6070272
 
-Reviewed-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+protection. The traditional LRU path is not affected because
+shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+visits during a top-down tree walk.
 
-Thanks,
+Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+moved the protection computation into lru_gen_age_node(), which only
+runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+lru_gen_shrink_node() -> shrink_many() without any protection
+computation, so emin/elow remain stale or zero.
 
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Introduce mem_cgroup_protection_path() which computes emin/elow along
+the root-to-target path only by iterating through the cgroup ancestors
+array top-down. This avoids the full tree traversal that would be
+needed with mem_cgroup_calculate_protection(), limiting the cost to
+O(depth) per memcg - typically 3-5 levels.
+
+Call it from shrink_one() for the non-kswapd path so that each memcg
+about to be shrunk has correct protection values.
+
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ include/linux/memcontrol.h | 11 ++++++++++
+ mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                |  8 ++++++-
+ 3 files changed, 63 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 7d1c0ce189a8..8066b798a759 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+ 
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 				     struct mem_cgroup *memcg);
++#ifdef CONFIG_LRU_GEN
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg);
++#endif
+ 
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+@@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ {
+ }
+ 
++#ifdef CONFIG_LRU_GEN
++static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
++					      struct mem_cgroup *memcg)
++{
++}
++#endif
++
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+ {
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..095050d4296a 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+ }
+ 
++#ifdef CONFIG_LRU_GEN
++/**
++ * mem_cgroup_protection_path - compute protection along root->memcg path
++ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
++ * @memcg: the target memory cgroup
++ *
++ * Walk the ancestor path from @root down to @memcg and compute the effective
++ * protection at each level.  This is safe for isolated queries because it
++ * ensures parents are computed before children.
++ */
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg)
++{
++	bool recursive_protection =
++		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
++	struct cgroup *cg;
++	int root_level, i;
++
++	if (mem_cgroup_disabled())
++		return;
++
++	if (!root)
++		root = root_mem_cgroup;
++
++	if (memcg == root)
++		return;
++
++	root_level = root->css.cgroup->level;
++	cg = memcg->css.cgroup;
++
++	rcu_read_lock();
++	for (i = root_level + 1; i <= cg->level; i++) {
++		struct mem_cgroup *cur;
++
++		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
++						     &memory_cgrp_subsys));
++		if (cur)
++			page_counter_calculate_protection(&root->memory,
++							  &cur->memory,
++							  recursive_protection);
++	}
++	rcu_read_unlock();
++}
++#endif /* CONFIG_LRU_GEN */
++
+ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+ 			gfp_t gfp)
+ {
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..e0ba68ede745 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+-	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
++	/*
++	 * For kswapd, lru_gen_age_node() has already called
++	 * mem_cgroup_calculate_protection()
++	 */
++	if (!current_is_kswapd())
++		mem_cgroup_protection_path(NULL, memcg);
++
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return MEMCG_LRU_YOUNG;
+ 
+-- 
+2.34.1
 
