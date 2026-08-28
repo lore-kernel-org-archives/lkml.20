@@ -1,114 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38910242D6B;
-	Fri, 28 Aug 2026 01:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FDA3F106C;
+	Fri, 28 Aug 2026 01:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881381; cv=none; b=gcFvnBTWot3QOpwP2TqoP3JFysSdQzAB6/5Kd74gsxP5rlGkaop7wXjAf/XVUyAb50VEiyZTa5hr1xZL9rYZzo9SVxyEfZZBGFHIVQFsJf62G8j15aDMNCwh8bDvlvMYmE94g0h4ZhsJsjNpfTDzvZHNR5A7KaRefzL0WTDeD7k=
+	t=1787881474; cv=none; b=R89F0E1GzQe7/PDskxpoea26J90DvFrtnd1hdgVfVDI4DDtfuNTqokjeO/sbcagb0mOc5Q7mdITOIVU68BafM9rg9wmqBZF0keq+0g1Ude+WY27BkdwpjyLERK/NmXkRKTzYIY/kjV7bwUgcLw/UChERoY9btTzj73S3x/ZODIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881381; c=relaxed/simple;
-	bh=vqaChCZkyZZZIvsTx/SEe3/93qR/OjmGOLlRobYJrM0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mR2sdpuoCwiT12gcG7ZyN/2R5XflJZgHCXnMqxbWXr9LBIxNhjZNUJej/Su01Do6QelMXGceeEFWg9A0VmTfutldkMq/fQ+RHJaQ56YFr5ugs3ZZPQ57TldrHau9VeOM77D4TjRmTngd8QK8pSahamSEe2amnA+/Ua4HUO2nqno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Syw0EC8U; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787881474; c=relaxed/simple;
+	bh=Jie+QLkYg6YgDo8ApBRmyR11+TL4JDlQwsPxo4+6amY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UbmgGu/SrNiAoOz1mMgr+4pC/8hfFN7A2ykm/o7pAA+jTeRCh9NmOagPq5IyfmRYMoCheWS4cr4q64R/vcOdAH0evIB7Wj+gkBsK1dHfcY8yR4X/xnkWEKxnTr3NLOk1moBbiFNPQEfQRufjcGs0CzS0j4zT6QMaoNVeG8atgMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GofVuAGE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Syw0EC8U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787881380; x=1819417380;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vqaChCZkyZZZIvsTx/SEe3/93qR/OjmGOLlRobYJrM0=;
-  b=Syw0EC8UIxZ5iayRqddt3/WncL5gzCHT44e7av3tvzd5N8DhUCXXbC0A
-   Ejzw8K35VTL6rScvE0SW6MnHmrmpZydFZg96EHqN5jjj4m/IRP2jnpPPJ
-   oSJmfdJb38ebg13VayVLn7x3ofhFbwV1Y7Stiy7cLrneVyVc12fXYgDR4
-   tASCZsisHcuefhvZRS7YBE8AjPKq/k9ogogCRNoy+qmCucvqa5K2sTRH+
-   V2ktBdm9Ick+5xRRhoGxs5UvmsXrnnIRZXX6NVdg8XKmebVaEeztj/7RG
-   /W+QT1IF6Qz2drQ71p9gm3R38Ep9ee1v8i5KzrtznZ2xkEKm83jlEWUYR
-   g==;
-X-CSE-ConnectionGUID: LjWC2Ui/Q7u+CrRTXUhHfA==
-X-CSE-MsgGUID: faL2i/Q4SkSOfF0TqjYyiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92074068"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="92074068"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 18:43:00 -0700
-X-CSE-ConnectionGUID: Xgwwq5bnRCKnKggV6d4E0g==
-X-CSE-MsgGUID: +JgdhPQqSEOJuQsCaeqAPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="264256923"
-Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 18:42:56 -0700
-Message-ID: <1849b176-4aa4-437f-8dd1-b91993f73b4d@linux.intel.com>
-Date: Fri, 28 Aug 2026 09:42:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GofVuAGE"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 195861F000E9;
+	Fri, 28 Aug 2026 01:44:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787881472;
+	bh=ptnA8B4SOg2D1E4VCTxVl7KR4hgwvDyXWo+zLIjdg3I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GofVuAGEYqcjKWWKyO90i6xTGjHcx6cEhcPDQcRDAFCuYWYcVTaI5U6ZaVgy845d6
+	 +mvfNkVEelT7Ltce5qOQlrCM/jS+oS0jgvQ1dcmGnzg/SpNOmtSEYCQ3FmjZXmi2Sr
+	 yttQJG6iuIf/fXJLt2cN4M8QbZhm8vwAGizYiQe6AVLJ3GWS6tAGs9svZ9++7xDUjK
+	 BwI1iu9na3htC4YV3vBaaM0ygBRS6ziTqLq4H4Zs0RzkoekeiWYQiSrokJeuXi3y6q
+	 Em4iSk983HU/UdqqAyrXhmEYVq+CVEDEcel4oGxCe9K5sZPA+2y7M7QFFB6hMEP4rK
+	 F7zQ+u4cKN1qw==
+Date: Fri, 28 Aug 2026 04:44:28 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: sn0x-sharma <sanketsharmacsec@gmail.com>
+Cc: James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	dhowells@redhat.com, linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+	security@kernel.org, w@1wt.eu
+Subject: Re: [PATCH 2/2] keys: trusted: tpm1: reject unauthenticated response
+ tag in TSS_checkhmac1/2
+Message-ID: <apDn_ODmEGo0JxRQ@kernel.org>
+References: <20260825182919.15943-1-sanketsharmacsec@gmail.com>
+ <20260825182919.15943-2-sanketsharmacsec@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/18] iommu/vt-d: Handle reattach of the restored
- domain
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-13-skhawaja@google.com>
- <5b920299-260b-4025-ac4f-e8f83beebf95@linux.intel.com>
- <apBso6So7UqwR3AX@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <apBso6So7UqwR3AX@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825182919.15943-2-sanketsharmacsec@gmail.com>
 
-On 8/28/26 01:52, Samiullah Khawaja wrote:
->>> +
->>> +static int domain_reattach_iommu(struct dmar_domain *domain,
->>> +                 struct intel_iommu *iommu,
->>> +                 struct iommu_device_ser *device_ser)
->>> +{
->>> +    struct iommu_domain_info *info, *curr;
->>> +    int restored_did;
->>> +    int ret;
->>> +
->>> +    if (!iommu_domain_restored_state(&domain->domain))
->>> +        return -EINVAL;
->>> +
->>> +    restored_did = device_ser->domain_iommu_ser.attachment_id;
->>> +    if (!ida_exists(&iommu->domain_ida, restored_did))
->>> +        return -EINVAL;
->>
->> It seems that checking only whether the domain ID is reserved on this
->> IOMMU may not be sufficient. It would be safer to also verify that:
->>
->> - device_ser->domain_iommu_ser.iommu_phys matches iommu->reg_phys, and
->> - device_ser->domain_iommu_ser.domain_phys matches @domain.
->>
->> ?
+On Tue, Aug 25, 2026 at 06:29:19PM +0000, sn0x-sharma wrote:
+> TSS_checkhmac1() and TSS_checkhmac2() silently return success when the
+> response tag is TPM_TAG_RSP_COMMAND (0x00c4), bypassing HMAC
+> verification entirely. A forged TPM response with this unauthenticated
+> tag allows an attacker to skip integrity checks on TPM responses.
 > 
-> Interesting.. The caller of this attach from core fetches the correct
-> domain based on the checks you mentioned. But you are right, adding a
-> check here makes sense to prevent anyone else calling attach with a
-> mismatch.
+> Reject TPM_TAG_RSP_COMMAND with -EINVAL in both functions, requiring
+> all responses to carry a proper authenticated tag.
+> 
+> Reported-by: sn0x-sharma <sanketsharmacsec@gmail.com>
 
-If the iommu core has already verified the domain-device relationship,
-then we probably don’t need to duplicate that check in the iommu driver.
-Maybe just add a short comment above this function stating that
-validation is done by the iommu core?
+SOB is enough.
 
-Thanks,
-baolu
+> Link: https://lore.kernel.org/linux-integrity/
+> Signed-off-by: sn0x-sharma <sanketsharmacsec@gmail.com>
+
+If by any means possible, use your real name here.
+
+> ---
+>  security/keys/trusted-keys/trusted_tpm1.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index d47cb7108..c89fc6cfe 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -202,7 +202,7 @@ static int TSS_checkhmac1(unsigned char *buffer,
+>  	ordinal = command;
+>  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+>  	if (tag == TPM_TAG_RSP_COMMAND)
+> -		return 0;
+> +		return -EINVAL;
+>  	if (tag != TPM_TAG_RSP_AUTH1_COMMAND)
+>  		return -EINVAL;
+>  	authdata = buffer + bufsize - SHA1_DIGEST_SIZE;
+> @@ -270,7 +270,7 @@ static int TSS_checkhmac2(unsigned char *buffer,
+>  	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+>  
+>  	if (tag == TPM_TAG_RSP_COMMAND)
+> -		return 0;
+> +		return -EINVAL;
+>  	if (tag != TPM_TAG_RSP_AUTH2_COMMAND)
+>  		return -EINVAL;
+>  	authdata1 = buffer + bufsize - (SHA1_DIGEST_SIZE + 1
+> -- 
+> 2.53.0
+> 
+
+otherwise looks ok
+
+BR, Jarkko
