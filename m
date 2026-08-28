@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED6B3B389E;
-	Fri, 28 Aug 2026 16:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2494534A7;
+	Fri, 28 Aug 2026 16:37:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935074; cv=none; b=oIdXUUwZR5BY40r/7UyGzvGQGb8TP56noXtl8lX2FxT0AycXzkW6aeYpol0Wo/xqSLQdfqFkzOwNz0hR8nOuhbFETz8pus/AVChtalptTR1aYMsEJapgFSFJAz3AaOMFW25Gh0qrIU3Nq8x8rEpB+AUrB0pihNOm6ZGZGNt8dWw=
+	t=1787935078; cv=none; b=eVSK62y98i0YzeFqKQdhFBlgQ+3Y1f7DW1nD/zB0isUjnf1y1tmL9RwlLtnVy2uyWnQTfZpZKiyQ/iUNyh3+jLqEwnCq+hkzknG9ZsfC73Ozxt2gf/8CBWq0mKPTb5lif6j9YWobLi/NYsT0XS2GY3j8NCEhmZTt/m3xeYDkfr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935074; c=relaxed/simple;
-	bh=V+wvIGsJlzSDNv4WKj3Vpj9Bw7A+dysnBkXbj7sTYeg=;
+	s=arc-20240116; t=1787935078; c=relaxed/simple;
+	bh=iBISyt3zCPwOU6LhEil5+ZXak53MIzcx4tHXZSTAl18=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ll2F40t4+rBt9sSallnG/kBfTIJPcof9FUH/yDhy6qDvK44rBvKBBIxNXUmDpaH2nNGMIpprnvVKXR2OOwzFjjapqSNJqRNOF6luLNJfp8DhSWp9oWQTiLOzYZNSxzXim+haKuE57KRym9SSpNwHujM89RN5CwaAbG9dCPj+IAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVOOwJxE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=jW0DroESnpschAy19LqUXs/n9w2mHvKJIs9OztkHR9r6B+wopNanT6NhPzr1c+nqQFfuOxuybPCecIz1qx6AI1qDJStb4tzUB6nmYhKjW+7jY33SLKR4l/NNd0xHo+LUhNeYw0PMKXvYKn6XUIyf93g/h4uinRRmJalcsXVYhxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHOD29UF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVOOwJxE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B061F000E9;
-	Fri, 28 Aug 2026 16:37:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHOD29UF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611231F00A3F;
+	Fri, 28 Aug 2026 16:37:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787935073;
-	bh=dtpz+uXivVuZd9+O4vrtoCG96NBwe0+gdme3nSBwjT8=;
+	s=k20260515; t=1787935076;
+	bh=p4VaHOgmeNFMziXpqxvwDBqmcVr4dEvVqtOV2sYB+yY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DVOOwJxEwPyPFVNHqFo6WPJc7doWCYfTuPiVsoN07toqemsRdr5C+5bS7Nfke5W+D
-	 nIgx1aqFPgcDc/Z7LlmoQzW3WzrHC5V4ErwgNb9jsoduqoEk5hErUwmZv1hksHJDga
-	 m+BBzv/qxd3hrZT18203L2ng6aHi0uzejChAxdqsnuGhQyKoExpzKbVu9KRfieIh5T
-	 AJGTqeWwiDurepdmk0tWZIvDXrLHshOaT96bZyGvCoNa6dvvZcCxxNxwu6Y+8yFKTr
-	 g7FHEZPp9kzshSB23SN9H984vivLiylGTvgdfzwE4Gqtsg+Ng7cw9sTIrhXiE1nkVW
-	 buY9lM3pB6Hyw==
+	b=fHOD29UFj4s/cNiCiPTgSw0uWqqqD1ee9xX/a6A32/fmANJQ7SacguFI4SI5UwJiv
+	 wh8ommnFswfOSOgUfR7oFVGu2gcLO0CY8egy3sRmSoH1KpjagPyff57+og/21cjypN
+	 BPclDR0kM3s64A40TRA10ueifZFPxCYABgFG6+FGap5WOiEQ+Qap3On5/w8FqKmaYy
+	 MKDZ9lQ137ng+Opm5u8brzhczW6MAMuoYqBNXGLClLg9KYSkGgntOxRtEPDSpdYc8X
+	 cCtprGnr1JOkAU9yR6HWwIaz2vmLJ828YjG8k3+4vbCEbD337e5twCvhJhjp1XJLQa
+	 2iRtF17VxuI/w==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 28 Aug 2026 12:37:35 -0400
-Subject: [PATCH v3 05/14] NFSD: report listener creation failures through
- extack
+Date: Fri, 28 Aug 2026 12:37:37 -0400
+Subject: [PATCH v3 07/14] SUNRPC: stop svc_register() once rpcbind stops
+ answering
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-nfsd-nl-hang-v3-5-55026685c75d@kernel.org>
+Message-Id: <20260828-nfsd-nl-hang-v3-7-55026685c75d@kernel.org>
 References: <20260828-nfsd-nl-hang-v3-0-55026685c75d@kernel.org>
 In-Reply-To: <20260828-nfsd-nl-hang-v3-0-55026685c75d@kernel.org>
 To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
@@ -53,81 +53,52 @@ Cc: Slawomir Stepien <sst@poczta.fm>, linux-nfs@vger.kernel.org,
  Trond Myklebust <trondmy@gmail.com>, linux-kselftest@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2186; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=V+wvIGsJlzSDNv4WKj3Vpj9Bw7A+dysnBkXbj7sTYeg=;
- b=kA0DAAoBAA5oQRlWghUByyZiAGqRuVXIkhKLjoVK2Xf8t97Nob429skz7qEVJf+VzuQ/ACxBc
- IkCMwQAAQoAHRYhBEvA17JEcbKhhOr10wAOaEEZVoIVBQJqkblVAAoJEAAOaEEZVoIVEKsP/3hp
- HMShPkUd7LRnvHya7w9OlIts1azmUNvymC/6Bo8UF4h6ku8lEOd5wVQotYujAUO7mpvWJT4QRum
- sskrv7sSRFY+AXtf+0wUpZI2+Y2eKUChpLQc/xTenweOpo7As6iZJsRqG2ZukebqptbpjDM2qPY
- Hgtv6095Lcy+bvkca4PStU/hTpk0/0Y7BcJD9jB6bcHo9JzkXoveT1xdQ8VHPgw0syrRKrUtt16
- nJw5M68NfifzuuFHSjOIgc1jZAnGNeGa//2jq4+atT64IIHeZEnvyPbQ+8Y3UyGlv3FS/yXZhdQ
- UvsM77j7Lw2DvRJlebx7WyX1QaLimZRsqzJdQC3G/kgXmFp4Ghn0P9pJNpAYeuaAC6a5rhQ5BRQ
- BZKxv3dj1xHN+Tdtnw2PStP3ut3yLdaRaGVnnwlq833y+lkcotGN1QKL7GiIdLmuhd8twZiJdGv
- hyKQOy4jptNMNsYG6yme7iMZ6XFNaquMc0Z7x/j2CSFARr/r1B1JsmimtrJqew4mlJ2/03/s8Cm
- Sx/J5au1C0gMlJjdOlGdrOSG9IBWNIaauhReOcWnOKcpO9Pbo4v22P6sKHxkMLKAl8rvu737Y/q
- /74jonzh0MGdfoL+HRZQIvmvtsB+2PIxOr8KN4KlQWOMdYW9XU2GWtWbmum+edm4GxlD7boQ3Ws
- Kj+Iz
+X-Developer-Signature: v=1; a=openpgp-sha256; l=931; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=iBISyt3zCPwOU6LhEil5+ZXak53MIzcx4tHXZSTAl18=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqkblVlWDOGbDKEE0DrYizTKFH8DxyCPM9XY2OK
+ QcY1YE1iNmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapG5VQAKCRAADmhBGVaC
+ FSEnD/4utauLkgitX1LWSsTq11DqkDEAZgmizCQkzQSaL1T7KMG+KBO3B/pHMSP9/K68RimkQ7/
+ jgv1iBk7vxvI1AH3uuC3QmI7z5zRRRArS6YWBR0nLbnQ9M437bsYHo37PbEWGu8hXxSmcwBV60k
+ mxWSvPa02v+QR46q0YRiaZpFFq3B8ORdSp+O1XvpT5OwnAKnPmSm20O+h8tStWYPfYnkjLZ/M7b
+ bIEllrMCKR6QQbcnYkFECpGODER+AFtDn1GIHoPJUlZpnUylbI8XTssOXB4E1yKkzvOlUC/1HFE
+ 4DiJ0NdmxlUYWIJ/g+nHuC/IaYayju46ovYZU3DKUB+6dtqdwy7Mn7g0zyzADLXFWFW6Un5HnLL
+ 6dYEQwpF802KebFeXGu2WX6xEfThnuNLosJ4ZQiuQ5lHPUWQ/sxQ0jbGlFbB95E4Nnt7JCBsCVw
+ vZ0QVEan9TNJwwuM3+5IoXCRjYaMBWbDsD2B2mrWt0KcfvWdXF85BhFTTBod8i+1wsE/5FOnDhN
+ dmOdJ3MsPACUknKyeCfwg4n3LP9pTu/F4WGhp/7kVLPFgCQ3pHJcYsgcAJpCRU3g0LgvhW8Goxn
+ i8nYiWatrfztxwzia7EhDCJG9AmVMyvbFfJdMvzQ0O4T76HdsPDEb3UcWN0FiTAoAsYzG9Rl3Ua
+ d5BYhaqjkz8kw7g==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-nfsd_nl_listener_set_doit() returns the raw errno from
-svc_xprt_create_from_sa() and sets no extack. A failed LISTENER_SET
-therefore tells userland only "Address already in use", or whatever else
-the transport returned. It never tells userland which entry failed.
+svc_register() walks every program and every version. The break on error
+leaves the version loop only, so a program whose call to the local rpcbind
+timed out is followed by the next program timing out in the same way. With
+the 1s bound on the local rpcbind client, an nfsd serv pays 2s for that,
+once for nfsd and once for nfsacl.
 
-Record the attribute and the transport name of the entry whose errno the
-call returns, and report both after the loop. NL_SET_BAD_ATTR() names the
-entry, which the message alone cannot do: a request can carry several
-entries with the same transport name.
-
-The rejections in nfsd_nl_validate_listeners() other than -E2BIG and the
-unsupported transport name still carry no extack. This patch does not
-change them.
+Stop the program loop too, but only when the call got no answer.
 
 Assisted-by: LLM
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/nfsctl.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ net/sunrpc/svc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index d8135f38e69f..6cbdcee4b733 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -2089,7 +2089,9 @@ static int nfsd_nl_validate_listeners(struct genl_info *info)
- int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- {
- 	struct net *net = genl_info_net(info);
-+	const struct nlattr *bad_attr = NULL;
- 	struct svc_xprt *xprt, *tmp;
-+	const char *bad_xprt = NULL;
- 	const struct nlattr *attr;
- 	struct svc_serv *serv;
- 	LIST_HEAD(permsocks);
-@@ -2208,8 +2210,22 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- 		ret = svc_xprt_create_from_sa(serv, xcl_name, net, sa, 0,
- 					      current_cred());
- 		/* always save the latest error */
--		if (ret < 0)
-+		if (ret < 0) {
-+			bad_attr = attr;
-+			bad_xprt = xcl_name;
- 			err = ret;
-+		}
-+	}
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index 54f8e8b0bf28..e437e99a0b36 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -1258,6 +1258,10 @@ int svc_register(struct svc_serv *serv, struct net *net,
+ 				break;
+ 			}
+ 		}
 +
-+	/*
-+	 * The ack carries the errno of the last entry that failed. Point at
-+	 * that entry as well, since several entries can share a transport
-+	 * name and the errno alone cannot tell them apart.
-+	 */
-+	if (err) {
-+		NL_SET_BAD_ATTR(info->extack, bad_attr);
-+		NL_SET_ERR_MSG_FMT(info->extack, "cannot create %s listener",
-+				   bad_xprt);
++		/* Give up on trying to register anything if it didn't respond */
++		if (noanswer)
++			break;
  	}
  
- 	if (!serv->sv_nrthreads && list_empty(&nn->nfsd_serv->sv_permsocks))
+ 	if (noanswer)
 
 -- 
 2.55.0
