@@ -1,137 +1,107 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6E73B0ACB
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09839415F20
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788021290; cv=none; b=YoFoxz7yZkxGGNw/u6oXfCK3POZaQt6GdxJhNgGLEvEiQij4XUH9n3WPp3Vvhgi3V1mI3Ajfvf3VRtSTksZlPV9zanCN8jG0Dogs+cynqLJqzpivjdRUzvjh+YxO41LIxIBx4ZxNcYOFWjo3UwF2f7taEDInM840Z0DPxK4lsGc=
+	t=1788021294; cv=none; b=Ac+Peh0mYcFaF6KB+sMqEZACGuyYCnpSMH4/EvC5lDPFLD1oNCBOvvWxcKb5NQddWezW6XhtsvHG2e7oxVqAhTeK7O5cXhzhlnVYRCnD2gTczogt65CX29tb+PhuISLrWlbclam3OOQcIQ76X+EiJ6pMlQCgq0YfaHpuif6gUqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788021290; c=relaxed/simple;
-	bh=hVExYRrLgPRcRJFEdHlm/lR6vy7PMGHxSW/wkJhOTjQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TrFXc3L0vv54e2gZ9A+5vRacUOBImOKQFOGSZ2xWm9qDYUCkY064T8ztRWDIGdsR8G66kQ5Zsm0E7sGLiuwJxrm5xsu4Ure2b0NiCV1Fo2ZeszDc7bOoiYxv2W/zYrc5qZmYVr1+3Ycov70sMRwb/MdvzBcK0Hy8SgT3eC2ahT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uu5klKV5; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1788021294; c=relaxed/simple;
+	bh=4D9nZXAm9tLvW+Sewbt+Au+wdgNuOS3iH1O3wBuX5Wk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jslEZp0mfoVRcf+ZnFSCmNdNj0HMczg9WPWQ6Ud9y6AAFRM2CyPG5esRSvI8a4boRZHuwym27qN6ACxIED+aWfY3dnaQY8EJ0gnhQoBGYpk5CN2Ve7ynHd5rhqMW3tVFG7o7UPL/U8PwaQx+MK/yfL6/8miB8yJq9niihojMvSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/Qg9D+t; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uu5klKV5"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso18144875e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:34:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/Qg9D+t"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d71a50caa9so25362095ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:34:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788021285; x=1788626085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788021292; x=1788626092; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nZEugiUgDUntzd2j7JleFMnc4ZUpEg9vc3iXITyX7q0=;
-        b=Uu5klKV5qRiu0hAyYLvZsWq0BQJXiyHuZ2mECKoz9frWtMCj2jJX3CpZbUi73pgaEr
-         bhYsYciWlfDjYc+qqJwBt1sAD9dMnXXEahIlMcW6aNgwZW/dSJF38YapjvHM/ba1vQRN
-         rTdGPyfgh8sV3tjPDRYSuZphr43YiM/0mkmBQqRLMPFVJftosQGM5SCzECaI9q/pJpX0
-         t5ymyLIu10geK7rW3k1QgDT0iyastsz7TrXymwtwlrr0MtZkE6zBUB/ZuS0DqQtypE/A
-         MWyLnapuY2rh+MI9UPH+uUEJmwWfGBFC9NjBD735wT+8UySN2LDGNNE7Ch31BK3XhAJo
-         pK2g==
+        bh=US8cD6b1qOpH/CBv47csfwQnjWV034hIbN8Yzufaviw=;
+        b=B/Qg9D+tutMmvP1FdGyoGoGjLEOxobUVgQRnmZ7oovgWuTSa4wd1TwU+xQIIX0jUOf
+         PmKCi8+zG/dofh9j8XFUfpxO49y4hodFNBBgJ7wYNlYEC1P3lrQJQ4AHDXQ+ujK0w6jD
+         kC+l56fRrjE3jCPQe4aFl6HeJ25hI0Zllfc36v3mSTmw5QfdbLjd5c2aCp0HL6wJ1x5i
+         +roEBNi80g+SHjcbkbksh6y3eAF/PEQ0o7A4ScOFB2ZYswz6HGb1HQgxOKxRnYOxyDm5
+         XVJFXzzzwg21ChISyHe/AnUXhC0paTQGyUmybDqqEKw58lcUJFvxiv14Mbvgt0hFzD0H
+         itdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788021285; x=1788626085;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788021292; x=1788626092;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nZEugiUgDUntzd2j7JleFMnc4ZUpEg9vc3iXITyX7q0=;
-        b=i3RyU0xVpAf1ESSWcod8bHW0eX7MIhuJW0mZm2hxsa2moEIsWg3wHTtKSubFeipLuz
-         JGJiXAMlvLX/dh0fKybZuahC8Lq4iS4dSXLp/AWtzivwrd1iRf6PtdYHgSlsT8k6iVXu
-         Is8pw8qJbr1/8+tVuIbnJYMJo0+lV3lghvcPi8W+glA3meTX9w2+OnUF7v4QLjchEZ1o
-         p9KVaA9348d+3cOOU9lmDpD9ISWOmuVUQzVEWl/taJOPFMYDws7QK5oGO7pqx4XSSjO2
-         cmMkFBPQjRkMDGQEWIWW7WmKPiON0Uk2hldevkWKRg9dF3oVN8yuFrDSAJLUyF6WL6zI
-         Ps6A==
-X-Forwarded-Encrypted: i=1; AHgh+RrPXbNSjtbhDVKwbe/OD3nywIPiAXwoA6fGfAVdfwpOSP4pOpaG2aIN3H3pv5KBEAw3yB0Hk/hdZB2E7js=@vger.kernel.org
-X-Gm-Message-State: AFuF++k41s0lBHoHoM5I+sNlGnyBE0hk6zGh5PvJngEUu6JCBXDz1Dpb
-	OxcTz3EYHiYVr7WpRlO8HO5T0uOH/cRGXycdNrULaLFZp8l1X+BzY+9G
-X-Gm-Gg: AR+sD13ZHmLJu/ZOXpxk+Di1yrWcnNqaIYmefvL1XV8OOPjgrLx/GlIqNrEBd6yieAk
-	VIGH+vQDecX/6o5mzOfC9Cy9Nh5eP3aMOaDW82mGptOgjrMnu0N0fW+YlJxGqd6IYa75UxJo5pg
-	/H341IXKsd7HNh3ZCtPKRoGArMTJvpKvU8gdaSUeJKWwwLtnosEKs/4uLF5UHl/kHaWulSX7I2s
-	6D7TWQ8JVpLBXMZDO+mknCTnak1clNKSuvt8AH+NaRMkvX0byoIosPnU72J+tdbLLgwvbINuJB2
-	3THDP7oKbAypW8kEpIYWU9spi8ETJb5UoLXAlJ5srKZ3VjvsgJCLpIKBuPa4h46ZBTlQoY/Nz+s
-	hUtgjGiQL4ms0hwf8F9YMTHF5uyZ8YOnoE9wLw1o3LAkMaimZCKPmXHZIW/u65qsiZ9BaJX7COo
-	Mfw9bUH7mCUKl64zA5VSP0iY5yXFWx4cVC2dq2nJ6/dZYNTayC2kMHG3aMHDd1vo/Xapla0vlVn
-	wBJwcBoPcke/akQT543iHinRC1bdP1BhD1qWUe3DZgHFTxQYNnQ6ncXfK5D66Bn9iA6UYXSQlOe
-	on9qVlTtsrJKWTRDcuBZq2DXTKGHQfBgTwucKspVL/swJHQhBO784M3lJt6I6q7euJ0pre1KOtf
-	RXzXgRBXPYA9ISH1e7W+x
-X-Received: by 2002:a05:600c:c08b:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49b92027118mr191962305e9.6.1788021285069;
-        Sat, 29 Aug 2026 09:34:45 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4e2c1af7sm233169495e9.15.2026.08.29.09.34.44
+        bh=US8cD6b1qOpH/CBv47csfwQnjWV034hIbN8Yzufaviw=;
+        b=KVv0AKhptDPBd1dVwCWko5SJxUgC3kj/VKM83CmXxnqL/gzQAcAXtoqmHpD0cx4HHT
+         uad7jdTfAx/ieYEPXmQJ8RBk39p+rJl6eaScyYx7M7WKPb5KSa2wpAIvJCDY60UX4pJT
+         vUae0PFFLTq4vd/K9jOS96jrdzVAN4o+CEH63HXJ/EZ3tTcBcCH9DU5omIsQ1NfZ8s1K
+         UlPGpyt2aTLnobF3o18uryWVFuwwvrGtcBVJ5XMBa1l4ONOCmua2kbuALtzW94JZPUDb
+         LoYQfEzcCTT7bjdYpBm/vzdhJb4YGXYZ0bfAdVzmHjCjG2Sce+Jso8hYtSMQhXBefn78
+         s5fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfhvToYSkogY+WZ2W2QDOIBEJ0gGLSQNnSpkbKGRBHNuSWApK3+MYMW1lRYgBvc9k/rg2tjkDkDTclcGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6gNAqY1E6dyqQTbGINO5DFE7eekG638eTQZJFwSg9zb2Q1a9i
+	PKHphBzJMaWorh+TMW0HpF92pzENFYup6iVJ0MJzNHO7aWFf8UWK5X13RWgVHl/F
+X-Gm-Gg: AYBFou1+yn+SPxuglDCPuvN1BOYxH5pwW+1U17YzHG2HvOWBUEa/LY252rrJkwfWxK5
+	8tmtA7QzsrhWD8FXLtwx/zL02Q5LvHv0Z5N30ObN5q7iy5GlWEalhau82rvHyUPDPgVMolvnWVB
+	eoBPrU34cr6jUND9UnuB4RlyFND950P0X92Drg6tHWAhUpp8+HWv9eYgtdWFh4a/H1ilacQ60j7
+	nhmlskiYqFrWZNSBmmyQi0nhlplq0y8KkiYXJvD2iuVQM5OnuMgmgLTdqF9P3MQgec7VCxBkKNj
+	sepJH9I2Y2FFiC4J6Bl1GpNjXLJJt73P6MPZKRjdXQGPMoKSmXbdxes6ZOddNow0QpU37KsR0q3
+	qQDUPlHNHtQmqvknTVtwyUtzo2XRLdLT5Ha5jhHkmHdDgfSHiw+OV4VvO4e15Jxh+PQhQu1iXUh
+	UA+nGRItHePxLEwo9LSdQfxGzFa1V3KOVUZuBCys/Tx2Wv7y09MTcH2VVb7LB+Hz3TuPZAgr3wb
+	XOke1lxZSePil3LuO3Q2mIAY7gQGw==
+X-Received: by 2002:a17:902:fc4d:b0:2d8:d4cc:5bb0 with SMTP id d9443c01a7336-2d8d4cc5d79mr129510945ad.16.1788021292182;
+        Sat, 29 Aug 2026 09:34:52 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm17925741eec.13.2026.08.29.09.34.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 09:34:44 -0700 (PDT)
-Date: Sat, 29 Aug 2026 18:34:43 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Matt Ranostay
- <mranostay@gmail.com>, Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: pulsedlight: fix iio_device left
- registered on PM setup failure
-Message-ID: <20260829183443.3b5ac19f@systembl0wer>
-In-Reply-To: <20260828105909.2425439-1-congnt264@gmail.com>
-References: <20260828105909.2425439-1-congnt264@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        Sat, 29 Aug 2026 09:34:50 -0700 (PDT)
+Date: Sat, 29 Aug 2026 09:34:48 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
+Subject: Re: [PATCH v4] Input: atkbd - fix uaf in atkbd_set_repeat_rate
+Message-ID: <apMJ1qoPOffbB0t-@google.com>
+References: <20260829135959.14882-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829135959.14882-1-jeffinphilip14@gmail.com>
 
-On Fri, 28 Aug 2026 17:59:09 +0700
-Cong Nguyen <congnt264@gmail.com> wrote:
-
-> pm_runtime_set_active() failing in probe() jumps to error_unreg_buffer,
-> which only calls iio_triggered_buffer_cleanup() -- it does not undo the
-> iio_device_register() that already succeeded a few lines above. probe()
-> then returns the error, the devm-managed indio_dev is freed, but the
-> iio core still has it registered: the sysfs/chardev nodes stay live and
-> point at freed memory.
+On Sat, Aug 29, 2026 at 07:29:59PM +0530, Jeffin Philip wrote:
+> atkbd_disable() marks atkbd as disabled to prevent any work
+> event to be executed, however this can race with atkbd_event_work().
+> If a pending work passes the atkbd->enabled check and atkbd_disable()
+> runs after in disconnect, it could dereference dev which is freed in
+> disconnect following atkbd being marked disabled. Fix this by adding
+> disable_delayed_work_sync() which drops all work events preventing
+> any rescheduling after atkbd is marked disabled.
 > 
-> Add an error_unreg_dev label that unregisters the iio device before
-> falling through to the existing buffer cleanup, mirroring the teardown
-> order already used in lidar_remove().
-> 
-> Fixes: 4ac4e086fd8c ("iio: pulsedlight-lidar-lite: add runtime PM")
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> Reported-by: syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
+> Fixes: 0ef7a26af127 ("Input: atkbd - fix canceling event_work in disconnect")
+> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 > ---
->  drivers/iio/proximity/pulsedlight-lidar-lite-v2.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> index 400477b4c740..8a9ee21f2bf6 100644
-> --- a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> +++ b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> @@ -294,12 +294,14 @@ static int lidar_probe(struct i2c_client *client)
->  
->  	ret = pm_runtime_set_active(&client->dev);
->  	if (ret)
-> -		goto error_unreg_buffer;
-> +		goto error_unreg_dev;
->  	pm_runtime_enable(&client->dev);
->  	pm_runtime_idle(&client->dev);
->  
->  	return 0;
+> Changelog:
+>  - Changed in v4:
+>      Changed location of disable_pending_work_sync() after input_unregister_device()
+>    as per Dmitry's suggestion.
 
-Hmm, you should just return iio_device_register() here instead of 0,
-as that should always be the last function called in any *_probe()
-function.
+Actually I think I was wrong and Sashiko was right. I will probably pick
+your v3 but I do not like that we do not clean up/reset LEDs properly
+on disconnect. I will have to think about it some more...
 
-No need to add a new label then.
-
-> +error_unreg_dev:
-> +	iio_device_unregister(indio_dev);
->  error_unreg_buffer:
->  	iio_triggered_buffer_cleanup(indio_dev);
->  
+Thanks.
 
 -- 
-Kind regards,
-Joshua Crofts
+Dmitry
