@@ -1,85 +1,85 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA49C3B38AD
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD053D75BC
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788025777; cv=pass; b=ecMrp6tD0c+ORwOpQ+w9W2vtAjqG63LPWY9SVdvdtO2m5eES1FglRsv6it1TJk30ipX+wDpc3Yx+Z8p2+X8Ljkxz0KnC+pYDfQZ6OjvCw2xl4FJjLCv8GEPp/k8pIaswYLqOGf6TnFA4ZN4PV7lJxQGIVLAz0suIcdO2Zfpje5E=
+	t=1788025779; cv=pass; b=eHwyTyhpGtZW/3GjM+iTB0pKOzZTkacwDJFeOeNL3fGkpoDwOYX1SUzwCcTa3f7nSrf5RfnJkV6alYTmK56OVjfqx08O3sVAc1/Zq/asGIhRxHDfhJmNg/AKO+UZdeJDpVPZOs2KpQTWU/0e8J7N2Q4Xvu1tUbrD//V2JiLxsAc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788025777; c=relaxed/simple;
-	bh=qNRF3YeXMitXYdKB4L8bxydNSGLW49/DDxaNEd4uNT8=;
+	s=arc-20240116; t=1788025779; c=relaxed/simple;
+	bh=16FRETOzYCXLjDNk6dtxhmSh4wxkMOoKYzSB907owhY=;
 	h=From:MIME-Version:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pcBCywrB/oFxyc5YIgLDjPH/CmQCZq9jCeFgn515ilbJ/zGgsyCnMoj+rERxU5TKOVuaKvo9l3PebLE0zkTK5jXFDN/mGUn89XTckIoJGqGeye+nCIpIih5mPmzul7FktEL9pKmfYGpTL8BlIOUtd14IFg6EouDzBu6ZlptlAxo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3JLoNb0; arc=pass smtp.client-ip=209.85.208.48
+	 To:Cc:Content-Type; b=Ek7nOATOrjJYU3m9y2VShVpJItBzELbD0yF5Dv7PhM+qcxEBGQUgnBGnSyfWLs97FgQTctyVYwtI1qnmI++QjYLBU2oObdo20GQe05u7ON5H0PIEwoRH5fxs9yku0maKvLGJiTix3qxHLjlMPcIunEcwgMU7MexOQeOzrZLF8bE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dM09pMBk; arc=pass smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3JLoNb0"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso2838914a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788025774; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dM09pMBk"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a5f1d0af69so3297777a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788025775; cv=none;
         d=google.com; s=arc-20260327;
-        b=WFB+AAyFL0y5MHo277l35g6Jhsw5FKkdPfc1XZoL8CIOSJAetOxEZk0vV+NG+mhRIU
-         /4LkHOdfTZarsFlpCaC9i1bdlYXYqNvRgE2VTXgYXakRHGAOFN9Ym4wqwCxtYO0CvI5e
-         J5+3W0oKTivSgaUZ4YPZg+M3vGqX+gS2pm0cl2t95/y6EFjsmiyqnTwfn/fdmRD+sjaa
-         yVyF1oS1ZvpWe2riaXFxIH2qbSDsDu5q51J/L7JffJEZkE9XUS4S1kfXYiCCBKemajD5
-         JdmQ+xR683VuJ1nLMtzG1mTQ3L5HuljM5G+w9Na/1YC5CnlMHUCJ75ME5gqIQvtnpCaM
-         nmrw==
+        b=mqsDF4perfmDBgue5YGN/Uv/qitAWkuJc9VNxxO9h5sET8KTX2e5qWC09A4bTxQ8qJ
+         aNq8ICM84+DIwQ0VQ+llFFusaPvvta6qOtQ7gxPQvY0P3GmQDpmfYepYX22re534phPr
+         ng/fa6X6pGvruOjxlUG41HszdAX2fNk2uB8tYe1UyEwIGnmCyKhRUO+1fWfFkaG0x4KD
+         RN8/64rzt2B/QvcxINbrZoU0W5Vxw1Ri3IkQHsdF3hRVnbDAje6nWDI/5KBMQHLTjKGg
+         JV6wZfyISSHVlMH/4nGd4z6QYQ0vbfYGoon+bHuYhLFe6qAldnV4vvRf17M7stMvKO6q
+         oTHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
          :from:dkim-signature;
-        bh=Lxs6re5XMINX1YAgGCNMKMyhwD4CCm+XoEwKtl4IBc4=;
-        fh=p7maRXQ6f0bP0uv3jabF119vZ1hCK+lLZhQ0goK47j4=;
-        b=fQjbGNaCwCFM2Z/LLtb7u3HDiE3M6iGnaFM4pRy3RcTyfKJZl5ndD0qCDo/SHvdw+i
-         5oOVQOK7YAREOdmaQ0V19+bV/2tsJnZIojA9NN0R8Dsc6B9qFjyrXbmb+ncGW0sUNS1D
-         C9uReHvkh9Oeq+kbJxox6sakj1wflOiLaLV6hk9c4/ew+19N7RzOEflTrR2XxICxPbOt
-         3gU99Yco+emzJ7WcBjDC5hMvRRBjql19Lop8xh7Pk/ph1ey0br4qFxLyLHK3HjkF8u9K
-         ZqOOqjCDxoFdQ3NQAZVdvylYh2A6jYITDy3tmH40l7+RgtIApyip8xLdSskCURDfrQnN
-         j4ZQ==;
+        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
+        fh=LzHP93Jg/H7FSlqKp9jcJ1TaXgsAzgk1bvFFVSowG24=;
+        b=MLsrUn5zehGDW5tegTRovn0MD7eEbDVLGvVhwyibD7cPkrkYAPXYyYxXdbYRYfsMob
+         h2eW6eASLA/KfrixfppkZKv4C2b3L70Pw7FTipleR7r4cXgBEz+0FkXEdvj6cW/hA+u5
+         5h/lsQ9Nt05hBJMsVf/oSP6TtxC5eWhyoMQijUVbQtgVrfhbaWe8IuGx6H2hw12claYy
+         drBiYE7XBZf/JnKnc4ZWPs9TRbhwP7Vn/nRY8sXD469BC5YeNxfhKc4RGKm1woqGMNdM
+         SWhhVUWUhROUpZmPJGcf1xFtOJeRBkIxPFC9IHe8Ua8D0gsBpguMNqR9u+2Cp3RccbQF
+         cm6Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788025774; x=1788630574; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788025775; x=1788630575; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Lxs6re5XMINX1YAgGCNMKMyhwD4CCm+XoEwKtl4IBc4=;
-        b=M3JLoNb0+4xFbRJ25magbEWzM9TLdsX2rrzW9KAdW+ZW1JsLI8KtnZJ9abZ0TFtg7j
-         zFVy4cZEG8qyiPyQT4qyAi7T8960hqBaiepv0Q8LwZ4pi3TI/xz+PObMei0vPlltb76c
-         zgqn8qYriAfU2bZFdp0TSy5UeyYG5T6FALzhBH9XHHvXJIyxgYooTQ0ehlQLoJi7S/5F
-         7fps/7WyxcONnrhO/r7A/zZQAVJKQpl22pJhce2Cz0zEN0FXUNXb/ceQHRlJDwuAbEQx
-         u0pZJu830JLmbtK+BZh+cfSfwTN6QW3sh0VIrxif8Gm00MwhMdk9DfpjA8ayX9ZbA7TC
-         HSyw==
+        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
+        b=dM09pMBkMf2w/PBJkOXy10mo5CJ+/5fsRyy6eDV65zcK3mQi8oD+O0zMSK0KmjMCya
+         vLIHqcqROC2iTxHjEPLYA9B/BqxXn+onU5xX9CV0DaJiuKedobDURXx5E7s/2I2FnjIz
+         0uROGgPoM/QLbH6lQk8uKNfjJkujfBQQtNYkUVW5+30a/VnTylAeaTNU2fxIONA2619m
+         3GZ4dEgDo15zG5TdcRrdp//r7B7dMRKn/nFLlH6vf3wdVGku2ibBWMHYDP91YubnxhV/
+         WmhitNr9uoCIFPvnmkty4OY3XoR73v+K0aU7pYal/xhE+JowGgO/lY22L6wVuC7Armoa
+         rs2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788025774; x=1788630574;
+        d=1e100.net; s=20251104; t=1788025775; x=1788630575;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Lxs6re5XMINX1YAgGCNMKMyhwD4CCm+XoEwKtl4IBc4=;
-        b=s9S/LV4IhMvu9XzNTh3/giGRePCuEX24A07VWI0KdPNsU187dVW4Nr3QFVGor4DJiE
-         NgjoVinNE559pZKGMH+k4dMItBWCr/UDDNw2Eztt/ZpFe3buoOJOLFhRQgZnQ471c57g
-         Amg4n2rD0VaGqnZ/43ezFG1VFsJUnjUxmXDKoOkXVhalEnw5jZ822+HH+OK4w2mXMTCx
-         xBuS2Og4kc6xvgQLhu2pDVY670G2dfLktJKEWpuutcHE3LS10pCwpBMlV3iAaktg1jEd
-         2Lnx8WqiQeYvJX1YGGyWtRyn1RcGruajg1pzMBcYlgMBzt/FxSsmLInn3f9pRr8PGDsN
-         xaMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNpbF0dxEHApLkluwPgXHFEYIx7oKX/WNHF6bdYHDpGlCN/2NcZpUiGDLq0YidXrMnCJ2dtfcZuZsR4ys=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2z9I7/+4Lj/3UEoD3XsYCGGks8rWG8XLgvR9GYgB/s9lyFTKr
-	7Cn0WPSY1r36UE52AbxrmOWFYl2WC+Haw3DRoGIgrEz95QnCcqbeFpwybnBgLX6uJHSN6V2SjYm
-	xN2A+3gEXn+KDf/mCjw81mP83UPrKjW/+GG70x0Q=
-X-Gm-Gg: AYBFou3RWIySfKQ59GFNrUtg6y89WZLhzs3A3w6JlHBfsACS6Kxpb3QO2gQQ6mQ9s1C
-	3iSHjCyf/ntm7PY1q0ZRb9OzwIIPXjm5Qzkg9Kyzd3scAzMWCq/2KuADepzv/ThvuLYJtgCD1Nb
-	wEqzrNZONcAxG2Jr+EBiB+Azv3D4G8fi7GixFlAfjqwSnUdf6ObD7L/j4U0X241wXvdqJtRiahM
-	K0PYHko7t4uihHJSs2T/VGEBlgElJwTwwLb4hkBAiT4bfo7ItHR8FDKoSYgWyI46lrSLyIEPkSY
-	2qjI+q5sQSe6QFizJbGrOcCsOydGzdK7r3a8EqCqmnyZjvlpJ2XrEiBFr1vep5loXPHwB2W2IRm
-	gkW72nrAUNvZpbg==
-X-Received: by 2002:a05:6402:24d5:b0:697:f6b2:a94e with SMTP id
- 4fb4d7f45d1cf-6a60d3a7b8cmr7959598a12.13.1788025773849; Sat, 29 Aug 2026
- 10:49:33 -0700 (PDT)
+        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
+        b=Vgt1l770MiZv3iFjMAowgCpH0sDXlXYoE/HAlMMwSryW/xQJ5yEhQghN3wF6yaNhcA
+         qeYVU0qF0gozv9B3rGE/O+snLs3Sib6kPtnKi8+VMzF3OryREkalTrOkgJ/M3kjJqk4j
+         +XGCKbe5WKE6YgIhP1bA+gqUY8xLQduVvAA4dOH4kthhyz7fgXcwgHgQsdQq9J6WvImD
+         htHNOYsGoLxehmlbbbpjOWoZswEpfRit8a3FlxXswbAYfNqVNEaOA6nt75SDA7qnI3xw
+         HCu+JGjSyQHbprH8HLWLDlH9NhtSiJ8hH4Lfw4SAL4OreU2drEPJg+iL1vOEJJg53xoS
+         5bGQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGIrD0bBkK5hdZXiWMA5P0L148g+DfPORPpM4skYKBMSc2IhWTi9HToXbJ018A0b5zH9I1qYaUbmLELrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/ncJId294ZRWJIbCeS6zFboDbX71u0KBIT8rWAGH6+Qr7ds5m
+	rAm3Pju3QBAuqU4FSJ59fYsuHDuRU76kb6mmRXKrJ5G7jb2R7AwcbzVcD7Rx16inBmyNh8IS0AG
+	9w3cSRLebDsV+Fz6bDjyT82kPpn8XwRU=
+X-Gm-Gg: AYBFou2UxXhxifguAiRUG37Zz0cyq9vta/iD8YaVmxPw7x+ojkRtZlSDcSaX9YaxBxi
+	tJ+FZqH19ZaB1HSvvbK7BP2z7Dd5Z/9c71K/q/iVYUJPUNNXw36OJFv3SWTbNvg0CoC3/cmZ4oT
+	QP9syO9Bjjkf5iLda2B/Vl9QJh9a9LqdOYd5CuSHZbeUSTCiNPmt7w+8W1yAmLwhxH20CWvLI2A
+	6EkyFx8sjAyHb7NkKbFvPxYFb32nzu9OSM+qrnGW2Tw1pjnuuPd4JPiGN6aagY8iJhCZuFpe3Xz
+	mYPUkcxzBZe71eI8931sRT9lKTF5rLDWAtIhAPNqI6TLGVF/piy2qy+IeCsB4+QJcAHsbxaODhh
+	e/Hw=
+X-Received: by 2002:a05:6402:a6d2:10b0:6a6:1719:3f42 with SMTP id
+ 4fb4d7f45d1cf-6a6171940bcmr5519070a12.6.1788025774643; Sat, 29 Aug 2026
+ 10:49:34 -0700 (PDT)
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:32 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:33 -0700
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:32 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:33 -0700
 From: Xinping Zhang <zhangxp1998@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -89,205 +89,270 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 In-Reply-To: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
 References: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
-Date: Sat, 29 Aug 2026 10:49:32 -0700
-X-Gm-Features: AcwNN1WvMxuhExni0UWMXGddN8jm3UA89aH7som-upGcLpEU6TAEjTgje9k8tDQ
-Message-ID: <CAH=xXfFy10WpCebZSsVhoe1gyktix60bWh2a6Y_OVX9ZcdFEYg@mail.gmail.com>
-Subject: [PATCH v2 07/11] f2fs: describe xattr block layout dynamically
+Date: Sat, 29 Aug 2026 10:49:33 -0700
+X-Gm-Features: AcwNN1U6oNO5oJ362powaMyP2M3wJ3wAubS464nVL0S4R0oZoMdglV6MClMJkG8
+Message-ID: <CAH=xXfFGDEsnVeZ+NH167rp6wCcEnCi9xhLYrx4+qok+ogKJRg@mail.gmail.com>
+Subject: [PATCH v2 08/11] f2fs: parameterize sector conversion macros
 To: linux-f2fs-devel@lists.sourceforge.net
 Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-The usable capacity of dedicated on-disk extended attribute blocks and
-inline xattr regions scales with the filesystem block size.
+Sector-to-block and block-to-sector conversion helpers previously
+assumed a fixed sector count per block derived from 4KB pages.
 
-Parameterize VALID_XATTR_BLOCK_SIZE and MAX_INLINE_XATTR_SIZE to
-calculate usable xattr limits dynamically from sbi->blocksize rather than
-hardcoding PAGE_SIZE or DEF_ADDRS_PER_INODE.
+Parameterize F2FS_LOG_SECTORS_PER_BLOCK, SECTOR_FROM_BLOCK, and
+SECTOR_TO_BLOCK with struct f2fs_sb_info *sbi, using
+sbi->log_sectors_per_block.
 
-Update mount option consistency validation for inline_xattr_size to
-evaluate allowed boundaries dynamically against the runtime block size.
+Update all call sites across metadata I/O, data mapping, discard
+operations, and zoned block device reporting.
 
 Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
 ---
- fs/f2fs/inode.c         |  4 ++--
- fs/f2fs/node.c          |  2 +-
- fs/f2fs/super.c         | 17 +++++++++++++++--
- fs/f2fs/xattr.c         |  8 +++++---
- fs/f2fs/xattr.h         | 15 ++++++++++-----
- include/linux/f2fs_fs.h |  2 ++
- 6 files changed, 35 insertions(+), 13 deletions(-)
+ fs/f2fs/data.c          |  2 +-
+ fs/f2fs/f2fs.h          |  5 +++--
+ fs/f2fs/file.c          |  4 ++--
+ fs/f2fs/inode.c         | 11 +++++++----
+ fs/f2fs/segment.c       | 14 +++++++-------
+ fs/f2fs/segment.h       |  8 ++++----
+ fs/f2fs/super.c         | 10 +++++-----
+ include/linux/f2fs_fs.h |  2 +-
+ 8 files changed, 30 insertions(+), 26 deletions(-)
 
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 751b7a457d9a..44e1ae43565e 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -466,7 +466,7 @@ struct block_device *f2fs_target_device(struct
+f2fs_sb_info *sbi,
+ 	}
+
+ 	if (sector)
+-		*sector = SECTOR_FROM_BLOCK(blk_addr);
++		*sector = SECTOR_FROM_BLOCK(sbi, blk_addr);
+ 	return bdev;
+ }
+
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 247e56522441..b90c5a42703f 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2609,7 +2609,8 @@ static inline int F2FS_HAS_BLOCKS(struct inode *inode)
+ {
+ 	block_t xattr_block = F2FS_I(inode)->i_xattr_nid ? 1 : 0;
+
+-	return (inode->i_blocks >> F2FS_LOG_SECTORS_PER_BLOCK) > xattr_block;
++	return (inode->i_blocks >>
++		F2FS_LOG_SECTORS_PER_BLOCK(F2FS_I_SB(inode))) > xattr_block;
+ }
+
+ static inline bool f2fs_has_xattr_block(unsigned int ofs)
+@@ -2815,7 +2816,7 @@ static inline void dec_valid_block_count(struct
+f2fs_sb_info *sbi,
+ 						struct inode *inode,
+ 						block_t count)
+ {
+-	blkcnt_t sectors = count << F2FS_LOG_SECTORS_PER_BLOCK;
++	blkcnt_t sectors = count << F2FS_LOG_SECTORS_PER_BLOCK(sbi);
+
+ 	spin_lock(&sbi->stat_lock);
+ 	if (unlikely(sbi->total_valid_block_count < count)) {
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index d440231b8cb9..2c72e028cec2 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -4510,8 +4510,8 @@ static int f2fs_reserve_compress_blocks(struct
+file *filp, unsigned long arg)
+ static int f2fs_secure_erase(struct block_device *bdev, struct inode *inode,
+ 		pgoff_t off, block_t block, block_t len, u32 flags)
+ {
+-	sector_t sector = SECTOR_FROM_BLOCK(block);
+-	sector_t nr_sects = SECTOR_FROM_BLOCK(len);
++	sector_t sector = SECTOR_FROM_BLOCK(F2FS_I_SB(inode), block);
++	sector_t nr_sects = SECTOR_FROM_BLOCK(F2FS_I_SB(inode), len);
+ 	int ret = 0;
+
+ 	if (flags & F2FS_TRIM_FILE_DISCARD) {
 diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
-index fda9ee3bfc61..20b0561fe35d 100644
+index 20b0561fe35d..b628fdc4198f 100644
 --- a/fs/f2fs/inode.c
 +++ b/fs/f2fs/inode.c
-@@ -337,12 +337,12 @@ static bool sanity_check_inode(struct inode
-*inode, struct folio *node_folio)
- 	}
-
- 	if (f2fs_sb_has_flexible_inline_xattr(sbi) &&
--		(fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE ||
-+		(fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE(inode) ||
- 		(f2fs_has_inline_xattr(inode) &&
- 		fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE))) {
- 		f2fs_warn(sbi, "%s: inode (ino=%llx) has corrupted
-i_inline_xattr_size: %d, min: %zu, max: %lu",
- 			  __func__, inode->i_ino, fi->i_inline_xattr_size,
--			  MIN_INLINE_XATTR_SIZE, MAX_INLINE_XATTR_SIZE);
-+			  MIN_INLINE_XATTR_SIZE, MAX_INLINE_XATTR_SIZE(inode));
+@@ -221,11 +221,11 @@ static bool sanity_check_compress_inode(struct
+inode *inode,
  		return false;
  	}
-
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index e3f594f7bcce..7dabfada1b54 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2919,7 +2919,7 @@ int f2fs_recover_xattr_data(struct inode *inode,
-struct folio *folio)
- 	/* 3: update and set xattr node page dirty */
- 	if (folio) {
- 		memcpy(F2FS_NODE(xfolio), F2FS_NODE(folio),
--				VALID_XATTR_BLOCK_SIZE);
-+				VALID_XATTR_BLOCK_SIZE(inode));
- 		folio_mark_dirty(xfolio);
+ 	if (le64_to_cpu(ri->i_compr_blocks) >
+-			SECTOR_TO_BLOCK(inode->i_blocks)) {
++			SECTOR_TO_BLOCK(sbi, inode->i_blocks)) {
+ 		f2fs_warn(sbi,
+ 			"%s: inode (ino=%llx) has inconsistent i_compr_blocks:%llu,
+i_blocks:%llu, run fsck to fix",
+ 			__func__, inode->i_ino, le64_to_cpu(ri->i_compr_blocks),
+-			SECTOR_TO_BLOCK(inode->i_blocks));
++			SECTOR_TO_BLOCK(sbi, inode->i_blocks));
+ 		return false;
  	}
- 	f2fs_folio_put(xfolio, true);
+ 	if (ri->i_log_cluster_size < MIN_COMPRESS_LOG_SIZE ||
+@@ -446,7 +446,8 @@ static int do_read_inode(struct inode *inode)
+ 	i_gid_write(inode, le32_to_cpu(ri->i_gid));
+ 	set_nlink(inode, le32_to_cpu(ri->i_links));
+ 	inode->i_size = le64_to_cpu(ri->i_size);
+-	inode->i_blocks = SECTOR_FROM_BLOCK(le64_to_cpu(ri->i_blocks) - 1);
++	inode->i_blocks = SECTOR_FROM_BLOCK(sbi,
++			le64_to_cpu(ri->i_blocks) - 1);
+
+ 	inode_set_atime(inode, le64_to_cpu(ri->i_atime),
+ 			le32_to_cpu(ri->i_atime_nsec));
+@@ -695,6 +696,7 @@ struct inode *f2fs_iget_retry(struct super_block
+*sb, unsigned long ino)
+
+ void f2fs_update_inode(struct inode *inode, struct folio *node_folio)
+ {
++	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct f2fs_inode_info *fi = F2FS_I(inode);
+ 	struct f2fs_inode *ri;
+ 	struct extent_tree *et = fi->extent_tree[EX_READ];
+@@ -711,7 +713,8 @@ void f2fs_update_inode(struct inode *inode, struct
+folio *node_folio)
+ 	ri->i_uid = cpu_to_le32(i_uid_read(inode));
+ 	ri->i_gid = cpu_to_le32(i_gid_read(inode));
+ 	ri->i_links = cpu_to_le32(inode->i_nlink);
+-	ri->i_blocks = cpu_to_le64(SECTOR_TO_BLOCK(READ_ONCE(inode->i_blocks)) + 1);
++	ri->i_blocks = cpu_to_le64(SECTOR_TO_BLOCK(sbi,
++					   READ_ONCE(inode->i_blocks)) + 1);
+
+ 	if (!f2fs_is_atomic_file(inode) ||
+ 			is_inode_flag_set(inode, FI_ATOMIC_COMMITTED))
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index b29df65ab5b7..f565b6873832 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -1310,7 +1310,7 @@ static void __submit_zone_reset_cmd(struct
+f2fs_sb_info *sbi,
+ 	/* sanity check on discard range */
+ 	__check_sit_bitmap(sbi, dc->di.lstart, dc->di.lstart + dc->di.len);
+
+-	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(dc->di.start);
++	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(sbi, dc->di.start);
+ 	bio->bi_private = dc;
+ 	bio->bi_end_io = f2fs_submit_discard_endio;
+ 	submit_bio(bio);
+@@ -1327,7 +1327,7 @@ static int __submit_discard_cmd(struct f2fs_sb_info *sbi,
+ {
+ 	struct block_device *bdev = dc->bdev;
+ 	unsigned int max_discard_blocks =
+-			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
++			SECTOR_TO_BLOCK(sbi, bdev_max_discard_sectors(bdev));
+ 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
+ 	struct list_head *wait_list = (dpolicy->type == DPOLICY_FSTRIM) ?
+ 					&(dcc->fstrim_list) : &(dcc->wait_list);
+@@ -1389,8 +1389,8 @@ static int __submit_discard_cmd(struct f2fs_sb_info *sbi,
+
+ 		dc->di.len += len;
+
+-		__blkdev_issue_discard(bdev, SECTOR_FROM_BLOCK(start),
+-				SECTOR_FROM_BLOCK(len), GFP_NOFS, &bio);
++		__blkdev_issue_discard(bdev, SECTOR_FROM_BLOCK(sbi, start),
++				SECTOR_FROM_BLOCK(sbi, len), GFP_NOFS, &bio);
+ 		f2fs_bug_on(sbi, !bio);
+
+ 		/*
+@@ -1518,7 +1518,7 @@ static void __update_discard_tree_range(struct
+f2fs_sb_info *sbi,
+ 	struct discard_info di = {0};
+ 	struct rb_node **insert_p = NULL, *insert_parent = NULL;
+ 	unsigned int max_discard_blocks =
+-			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
++			SECTOR_TO_BLOCK(sbi, bdev_max_discard_sectors(bdev));
+ 	block_t end = lstart + len;
+
+ 	dc = __lookup_discard_cmd_ret(&dcc->root, lstart,
+@@ -2041,8 +2041,8 @@ static int __f2fs_issue_discard_zone(struct
+f2fs_sb_info *sbi,
+
+ 	/* For sequential zones, reset the zone write pointer */
+ 	if (f2fs_blkz_is_seq(sbi, devi, blkstart)) {
+-		sector = SECTOR_FROM_BLOCK(blkstart);
+-		nr_sects = SECTOR_FROM_BLOCK(blklen);
++		sector = SECTOR_FROM_BLOCK(sbi, blkstart);
++		nr_sects = SECTOR_FROM_BLOCK(sbi, blklen);
+ 		div64_u64_rem(sector, bdev_zone_sectors(bdev), &remainder);
+
+ 		if (remainder || nr_sects != bdev_zone_sectors(bdev)) {
+diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+index 534e376cbc92..2275404e769c 100644
+--- a/fs/f2fs/segment.h
++++ b/fs/f2fs/segment.h
+@@ -114,10 +114,10 @@ f2fs_start_segno(struct f2fs_sb_info *sbi,
+unsigned int segno)
+ #define f2fs_bitmap_size(nr)			\
+ 	(BITS_TO_LONGS(nr) * sizeof(unsigned long))
+
+-#define SECTOR_FROM_BLOCK(blk_addr)					\
+-	(((sector_t)blk_addr) << F2FS_LOG_SECTORS_PER_BLOCK)
+-#define SECTOR_TO_BLOCK(sectors)					\
+-	((sectors) >> F2FS_LOG_SECTORS_PER_BLOCK)
++#define SECTOR_FROM_BLOCK(sbi, blk_addr)				\
++	(((sector_t)blk_addr) << F2FS_LOG_SECTORS_PER_BLOCK(sbi))
++#define SECTOR_TO_BLOCK(sbi, sectors)					\
++	((sectors) >> F2FS_LOG_SECTORS_PER_BLOCK(sbi))
+
+ /*
+  * In the victim_sel_policy->alloc_mode, there are three block
+allocation modes.
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index fcaeaacaab33..3ba4df757213 100644
+index 3ba4df757213..46973207cd7b 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -855,9 +855,11 @@ static int f2fs_parse_param(struct fs_context
-*fc, struct fs_parameter *param)
- 		break;
- 	case Opt_inline_xattr_size:
- 		if (result.int_32 < MIN_INLINE_XATTR_SIZE ||
--			result.int_32 > MAX_INLINE_XATTR_SIZE) {
-+			result.int_32 >
-+			MAX_INLINE_XATTR_SIZE_FOR_BLOCKSIZE(F2FS_MAX_BLKSIZE)) {
- 			f2fs_err(NULL, "inline xattr size is out of range: %u ~ %u",
--				 (u32)MIN_INLINE_XATTR_SIZE, (u32)MAX_INLINE_XATTR_SIZE);
-+				 (u32)MIN_INLINE_XATTR_SIZE,
-+				 (u32)MAX_INLINE_XATTR_SIZE_FOR_BLOCKSIZE(F2FS_MAX_BLKSIZE));
- 			return -EINVAL;
- 		}
- 		ctx_set_opt(ctx, F2FS_MOUNT_INLINE_XATTR_SIZE);
-@@ -1596,6 +1598,8 @@ static int f2fs_check_opt_consistency(struct
-fs_context *fc,
- 	}
+@@ -3944,7 +3944,7 @@ static int __f2fs_commit_super(struct
+f2fs_sb_info *sbi, struct folio *folio,
+ 	bio = bio_alloc(sbi->sb->s_bdev, 1, opf, GFP_NOFS);
 
- 	if (ctx_test_opt(ctx, F2FS_MOUNT_INLINE_XATTR_SIZE)) {
-+		int min_size, max_size;
-+
- 		if (!f2fs_sb_has_extra_attr(sbi) ||
- 			!f2fs_sb_has_flexible_inline_xattr(sbi)) {
- 			f2fs_err(sbi, "extra_attr or flexible_inline_xattr feature is off");
-@@ -1605,6 +1609,15 @@ static int f2fs_check_opt_consistency(struct
-fs_context *fc,
- 			f2fs_err(sbi, "inline_xattr_size option should be set with
-inline_xattr option");
- 			return -EINVAL;
- 		}
-+		min_size = MIN_INLINE_XATTR_SIZE;
-+		max_size = MAX_INLINE_XATTR_SIZE_FOR_BLOCKSIZE(F2FS_BLKSIZE);
-+
-+		if (F2FS_OPTION(sbi).inline_xattr_size < min_size ||
-+				F2FS_OPTION(sbi).inline_xattr_size > max_size) {
-+			f2fs_err(sbi, "inline xattr size is out of range: %d ~ %d",
-+				 min_size, max_size);
-+			return -EINVAL;
-+		}
- 	}
+ 	/* it doesn't need to set crypto context for superblock update */
+-	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(folio->index);
++	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(sbi, folio->index);
 
- 	if (ctx_test_opt(ctx, F2FS_MOUNT_ATGC) &&
-diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
-index 6728d1488cad..99c863513725 100644
---- a/fs/f2fs/xattr.c
-+++ b/fs/f2fs/xattr.c
-@@ -310,7 +310,8 @@ static int read_xattr_block(struct inode *inode,
-void *txattr_addr)
- 		return PTR_ERR(xfolio);
-
- 	xattr_addr = folio_address(xfolio);
--	memcpy(txattr_addr + inline_size, xattr_addr, VALID_XATTR_BLOCK_SIZE);
-+	memcpy(txattr_addr + inline_size, xattr_addr,
-+	       VALID_XATTR_BLOCK_SIZE(inode));
- 	f2fs_folio_put(xfolio, true);
-
- 	return 0;
-@@ -393,7 +394,7 @@ static int read_all_xattrs(struct inode *inode,
-struct folio *ifolio,
+ 	if (!bio_add_folio(bio, folio, folio_size(folio), 0))
+ 		f2fs_bug_on(sbi, 1);
+@@ -4520,7 +4520,7 @@ static int f2fs_report_zone_cb(struct blk_zone
+*zone, unsigned int idx,
  {
- 	struct f2fs_xattr_header *header;
- 	nid_t xnid = F2FS_I(inode)->i_xattr_nid;
--	unsigned int size = VALID_XATTR_BLOCK_SIZE;
-+	unsigned int size = VALID_XATTR_BLOCK_SIZE(inode);
- 	unsigned int inline_size = inline_xattr_size(inode);
- 	void *txattr_addr;
- 	int err;
-@@ -502,7 +503,8 @@ static inline int write_all_xattrs(struct inode
-*inode, __u32 hsize,
+ 	struct f2fs_report_zones_args *rz_args = data;
+ 	block_t unusable_blocks = (zone->len - zone->capacity) >>
+-					F2FS_LOG_SECTORS_PER_BLOCK;
++					F2FS_LOG_SECTORS_PER_BLOCK(rz_args->sbi);
 
- 	if (inline_size)
- 		memcpy(inline_addr, txattr_addr, inline_size);
--	memcpy(xattr_addr, txattr_addr + inline_size, VALID_XATTR_BLOCK_SIZE);
-+	memcpy(xattr_addr, txattr_addr + inline_size,
-+	       VALID_XATTR_BLOCK_SIZE(inode));
+ 	if (zone->type == BLK_ZONE_TYPE_CONVENTIONAL)
+ 		return 0;
+@@ -4563,10 +4563,10 @@ static int init_blkz_info(struct f2fs_sb_info
+*sbi, int devi)
 
- 	if (inline_size)
- 		folio_mark_dirty(ifolio ? ifolio : in_folio);
-diff --git a/fs/f2fs/xattr.h b/fs/f2fs/xattr.h
-index bce3d93e4755..d9e2c65a1fc7 100644
---- a/fs/f2fs/xattr.h
-+++ b/fs/f2fs/xattr.h
-@@ -71,24 +71,29 @@ struct f2fs_xattr_entry {
- 		for (entry = XATTR_FIRST_ENTRY(addr);\
- 				!IS_XATTR_LAST_ENTRY(entry);\
- 				entry = XATTR_NEXT_ENTRY(entry))
--#define VALID_XATTR_BLOCK_SIZE	(PAGE_SIZE - sizeof(struct node_footer))
-+#define VALID_XATTR_BLOCK_SIZE(i)	(i_blocksize(i) - \
-+					sizeof(struct node_footer))
- #define XATTR_PADDING_SIZE	(sizeof(__u32))
- #define XATTR_SIZE(i)		((F2FS_I(i)->i_xattr_nid ?		\
--					VALID_XATTR_BLOCK_SIZE : 0) +	\
-+					VALID_XATTR_BLOCK_SIZE(i) : 0) +	\
- 						(inline_xattr_size(i)))
- #define MIN_OFFSET(i)		XATTR_ALIGN(inline_xattr_size(i) +	\
--						VALID_XATTR_BLOCK_SIZE)
-+						VALID_XATTR_BLOCK_SIZE(i))
-
- #define MAX_VALUE_LEN(i)	(MIN_OFFSET(i) -			\
- 				sizeof(struct f2fs_xattr_header) -	\
- 				sizeof(struct f2fs_xattr_entry))
-
- #define MIN_INLINE_XATTR_SIZE (sizeof(struct f2fs_xattr_header) /
-sizeof(__le32))
--#define MAX_INLINE_XATTR_SIZE						\
--			(DEF_ADDRS_PER_INODE -				\
-+#define MAX_INLINE_XATTR_SIZE_FOR_BLOCKSIZE(blocksize)			\
-+			(((blocksize) - OFFSET_OF_END_OF_I_EXT -	\
-+			SIZE_OF_I_NID - sizeof(struct node_footer)) /	\
-+			sizeof(__le32) -				\
- 			F2FS_TOTAL_EXTRA_ATTR_SIZE / sizeof(__le32) -	\
- 			DEF_INLINE_RESERVED_SIZE -			\
- 			MIN_INLINE_DENTRY_SIZE / sizeof(__le32))
-+#define MAX_INLINE_XATTR_SIZE(inode)					\
-+			MAX_INLINE_XATTR_SIZE_FOR_BLOCKSIZE(i_blocksize(inode))
- #define DEFAULT_XATTR_SLAB_SIZE	(DEFAULT_INLINE_XATTR_ADDRS *		\
- 				sizeof(__le32) + XATTR_PADDING_SIZE)
-
+ 	zone_sectors = bdev_zone_sectors(bdev);
+ 	if (sbi->blocks_per_blkz && sbi->blocks_per_blkz !=
+-				SECTOR_TO_BLOCK(zone_sectors))
++				SECTOR_TO_BLOCK(sbi, zone_sectors))
+ 		return -EINVAL;
+-	sbi->blocks_per_blkz = SECTOR_TO_BLOCK(zone_sectors);
+-	FDEV(devi).nr_blkz = div_u64(SECTOR_TO_BLOCK(nr_sectors),
++	sbi->blocks_per_blkz = SECTOR_TO_BLOCK(sbi, zone_sectors);
++	FDEV(devi).nr_blkz = div_u64(SECTOR_TO_BLOCK(sbi, nr_sectors),
+ 					sbi->blocks_per_blkz);
+ 	if (nr_sectors & (zone_sectors - 1))
+ 		FDEV(devi).nr_blkz++;
 diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
-index f339f83220f2..18a9abaa879a 100644
+index 18a9abaa879a..786bda333784 100644
 --- a/include/linux/f2fs_fs.h
 +++ b/include/linux/f2fs_fs.h
-@@ -15,6 +15,8 @@
+@@ -14,7 +14,7 @@
+ #define F2FS_SUPER_OFFSET		1024	/* byte-size offset */
  #define F2FS_MIN_LOG_SECTOR_SIZE	9	/* 9 bits for 512 bytes */
  #define F2FS_MAX_LOG_SECTOR_SIZE	PAGE_SHIFT	/* Max is Block Size */
- #define F2FS_LOG_SECTORS_PER_BLOCK	(PAGE_SHIFT - 9) /* log number for
+-#define F2FS_LOG_SECTORS_PER_BLOCK	(PAGE_SHIFT - 9) /* log number for
 sector/blk */
-+#define F2FS_MIN_LOG_BLOCKSIZE		12
-+#define F2FS_MIN_BLKSIZE		4096UL
++#define F2FS_LOG_SECTORS_PER_BLOCK(sbi)	((sbi)->log_blocksize - 9) /*
+log number for sector/blk */
+ #define F2FS_MIN_LOG_BLOCKSIZE		12
+ #define F2FS_MIN_BLKSIZE		4096UL
  #define F2FS_BLKSIZE			PAGE_SIZE /* support only block == page */
- #define F2FS_MAX_BLKSIZE		PAGE_SIZE
- #define F2FS_BLKSIZE_BITS		PAGE_SHIFT /* bits for F2FS_BLKSIZE */
 -- 
 2.53.0
