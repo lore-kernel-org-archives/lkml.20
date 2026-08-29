@@ -1,64 +1,63 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0511348C52
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF74353A9B
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981163; cv=none; b=OpKVPK0bbu+alsDMn6ATeg7ZqgMI4OEUfLKuibxP5BV+FzPVIO/KbKtjIn6JPlUYi9EtNbjm5CaiKxyMULgaRfNTNvHA4p4IiUpEhJPEM7rknVmoWwTbmhAV+8scU0TnHnnN6aPnxBGfv7/LebGC9O+KDaQmqcu8/xdhN91ygLk=
+	t=1787981169; cv=none; b=rq+3c1Y9Hygr0HTOr7Gg3N6tMc9/I9qTLtCVAFKgTHdlQVW1KNrmhxdRpw/uQJAvvuxoIqVBZCMLhGdvdiT4TnlTPPaN9QbsL/s85B/XzNs7d/awao2l4Zj4MxG3t3VHkBBxxiwzxDIw9ZiB26VlFrC6hQLa8CpHw9yAv3NrJtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981163; c=relaxed/simple;
-	bh=4572s9xTVdwUzbQzLlssFdKtKIqWv8RdY2kJgP8ww1A=;
+	s=arc-20240116; t=1787981169; c=relaxed/simple;
+	bh=yBMJnSe/wEAhqAMpDl5hLrpEj78hz9koYakkvhJfxN4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GW0//neFG/mhD3Nwjf8YCv0oFZKll3Ad+nLlgW0/gOs4lWWhhXxhrkBvFmon3q38kijx6n8mKhqyViE254W81sMQgP+oQOWSWXexMedlbXoO1VfDn+dDnDS5LcMMNxQQsq6ihIKgjQ4zDu79R9kEVgCFIi89VSy5p6VeCrxF1q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=P4Wm1mTD; arc=none smtp.client-ip=209.85.218.45
+	 MIME-Version; b=IE6K4VEeDyRRad1PFSJ2NpujwXBy3zYcwdkDOUGxX46zV+pVJuZGKvl8JDZXfzJ5U/V2awIEL5xTecpJgF4e4vCqwnreBgDsXw2VKKTZGgukNveaj1G1JQC2O/dALFwghNcXCh8T30VhvKLaCR6jiKdlXgl2HviFVVInbyTXIh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=OBxqmdL7; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="P4Wm1mTD"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c25099bb1fbso232150666b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:26:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="OBxqmdL7"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c169ae1cb26so567146166b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:26:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1787981159; x=1788585959; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1787981162; x=1788585962; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ztbe6Uhz7Z72lD3H/7iN0kwRmG9muPWYwtlM3Qzlp7I=;
-        b=P4Wm1mTDlCpcdux95bv3Pgjge1uEm+jhDVhd+BG22NooAs/3cVb+C2zRnlAYQujmcC
-         psHCLz3WAM/IcQKxe1l9sDTegfvSZ/D1j7wmAQE8nmq7zgQmkWItZCpxKp/an+ahO8I7
-         lCc/dsCFuUl7YZF/0KW1K8I+MgWmAD2r+1/lGZJ6BsPRkU3cS9jaiiqufGHzDpDMdsLx
-         p524Gsd+VZiHCwUSWQPiEciIg5ye839Yh3VPrtbyx4ap+tDIBW6jdjIP/i/T/kdGEdd/
-         7M0+4AAN0jqUMDciYRFLggRzjURO5Q7ruW/A8hHmc8D8/fqFGDFkVuINICutiEAedl+Q
-         EMYw==
+        bh=zmhTKeCBnYxrxfWImIjksOW0xx35+iGmqwjBQ/LHq7E=;
+        b=OBxqmdL7SeNZxPPcnrEy5Q5aSWJqCIjCAFCiwvTpTU0MBCd8SRMbHRK2jznJX1lJgW
+         egYTaHf23LGtf8BW0LZE4I3nT2KNB+/WVhXo9JduSXN4D1/NpmDcIlhPGOFuNbkyrKin
+         TxuuBJ8qleFmwwaI365h3yY31INsUMGsh7tZXNzP9pyUoU35BXH7b9BHQOTFrsHAQc5i
+         J4DDeVsR8k6bSbR0pFTHJB+Aejt2dyCTALlN6QI7zuoOqwx3Svb0vOdFWLZ5Bp5I2iZ1
+         HK3eCuLXQuOswggVaLdmTwimUSGZXsQSZ9PZUUTqN9TGO4vqVSFy6ZEqHQqhpzZiLmwP
+         /oug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787981159; x=1788585959;
+        d=1e100.net; s=20251104; t=1787981162; x=1788585962;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ztbe6Uhz7Z72lD3H/7iN0kwRmG9muPWYwtlM3Qzlp7I=;
-        b=E93J+jksYFaC3dqcDKy50elMTpzt2zJSH7mweZib4CkfVeBTqThSlk83VBR26DuJpz
-         UcXr2rseeXSrafVAGRy+u1fa3wWc+QZfrpJ2gnMSADyxHb1RJufHFvPenrZ0TKB2MupH
-         jroNYf/A5/x6/k+44RZXRo49ChjNnXHfsuORAhOte61/4+W60zje5HYSkR1uPb8Gxu50
-         wWS2r+WPLdCX8W/ewsEmRrOKmsiSOpTnyzQcUPb3+MWZhN1g2F1m8x9ireomKESuurdm
-         kFx3zxoKGqMWEw7/+ZgtGK1ch2P3hYlwAk+ZTB/vq9Nya3vBQt3FlFKXvoMiZPlz/OkS
-         7kQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKWPmnsXggQpi3QY0I8JCypzvHHXSXRTg995jiGeOGPW+XST2GQIl57ha0jtxVzMi8Paztq7RZwS/5ZRY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxeoFJIP6JYXbJmHq8byQhjwv5XTin/VjGQOqJ/osEDbz+TPfQ
-	UvDpJ5DwLO41HwkfVVqat1tNtBKFGMRkUO8OGPStHgn3x91gJ9QX3LSCmwKApEj4zZETGo74bQG
-	CXvCRc4W46A==
-X-Gm-Gg: AR+sD10QIvOXpe6jDbYuQYjUDBZcgcixhaZcxZbnAuVfQlHhL9zsm/+4rO+2KR3/Tr+
-	rKwQZuEO+hbBavosRKYmwEYA5XWIekPIwfPrV0otG0vvQTDO9DtEGKN4xkpNcKNxvDzUraDq9Tu
-	RdH5nPINXf6g7jXblwzx4Q/XOxaaL0Wop57jbDq/W/oHOGISyNyAZ4ACDnHKXTy5j5QoslnpYvp
-	d727HvwNmynVc9yN/H9Eowg8hjLXf2aqfzUR7xhhWdN9zohF60Go/pLZtrGbrIP5jw2eIuQxMJU
-	WM4RvKpUrgDGu7JwJg1M3Uzs7Ja01Ror5Jkg0u2S7AAfxT9DuA94lcufEyMKbpTywcaQQJEPS/R
-	jAC6XxByvVsEoST2tfCkSHS8l0bpskKAfnO1GCqBpTSbneucq4Y+4EWKiIlEk47+x5BzkaoOlTH
-	Xjhog5as/hdbxb6iaDZIkTiYPVmmadUbzV+735Gsa4QA==
-X-Received: by 2002:a17:907:3e20:b0:c24:d914:6d64 with SMTP id a640c23a62f3a-c255720d399mr799327766b.23.1787981158722;
-        Fri, 28 Aug 2026 22:25:58 -0700 (PDT)
+        bh=zmhTKeCBnYxrxfWImIjksOW0xx35+iGmqwjBQ/LHq7E=;
+        b=knHUy2pwX8YwqjuXAJdZO9OzzAHjKUkhp4eYr4hEXrDjy+7gWU1LOkTdGCkl/92jnM
+         g9Q3iM7v2HT41NpPVVUohOSkoh5zFJBvfQXH9cEpd17nhdmrKg5jTe6hrg9MJHe/2upU
+         U2sXlCF57gvY69uXrYhSB+H0RdIBWdi1r9Dw7HWQKR91lUJEZvlbEvr7ttZ/szkst8K/
+         DRdUrFBgioS6BUfvGCtv6ZCznMtx/V6vXXCHbjXPpqIHSQ4onpHTe8XfxMWp0v2fy+Vf
+         qWmXVxnVAAPs81e+ut7fhpIfpFLuARYg1bkctah74N3oZo62i2MfZorNodm3R892wKKL
+         iKWA==
+X-Forwarded-Encrypted: i=1; AHgh+RqmwTstbvjNpHvc3HbjWH4HKbzYpHdGk59PnhmL/kzQK+Glt/D2q75UTMKqdNe8QncvWtRRPBvRMjZZk6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGONFutUbmY4OniybNhHW942+2W+vKyBOOyQzme0yw7n2t4/WA
+	ky4gQCrFSWDhvxA5EdlQP+LCb8dVCaxdIqoZjBe5p3q6RlVcyBoc8jAoaD+Ot4gwYLU=
+X-Gm-Gg: AR+sD118tybwbWTkwbh2NQty1bfRM2sSgYDeY+yGlZuvPZlhycBEaTvHqgIcagb2pOr
+	XgBo38Q2Quk9swMcfvWT3IERcpoUs+KWPkAsAvnotR1PCmTCR8J1Td0EdfgatWGuhiESjPM8uQd
+	aiIm1a5cW4Oi3rT4sOZwc7mgB3Lj4s5obGbHZsTSCRbZq+8rOUiW1f6yFsR792qQbnsFAfW1/Yy
+	TL9QAUuQtpjiuLPse0CP+OEctXr88CDWwrCpNHnr/M8U4lYANCyibyoM6pk3bOmOJ4UYOll2GZi
+	p7iB6s1a+cgFrQ/JeRkcei3wa3vBVNfAupcpdiiJhS52RVYm6vz21VUOAS2LzIk93Q+QzM7kERk
+	LhmAnK5vzROIcRnuw9rdZFLH4srbCXZvCnLW0f5mDUyZad9H/UeOIRvBbAS5m5Hy6FzXqVH6kW8
+	Au5B6yye+C5e7W3QvMoTRjVM3S433AO90e2Ylqz2Tjcw==
+X-Received: by 2002:a17:906:7315:b0:c08:580e:899a with SMTP id a640c23a62f3a-c256ddef826mr325586566b.10.1787981162504;
+        Fri, 28 Aug 2026 22:26:02 -0700 (PDT)
 Received: from remote-01 ([45.85.105.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm163750666b.28.2026.08.28.22.25.57
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm163750666b.28.2026.08.28.22.26.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 22:25:58 -0700 (PDT)
+        Fri, 28 Aug 2026 22:26:02 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -74,9 +73,9 @@ Cc: andrew@lunn.ch,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aleksei Sviridkin <f@lex.la>
-Subject: [RFC PATCH net-next 3/9] net: phy: air: type the buckpbus core on the bus and address
-Date: Sat, 29 Aug 2026 05:25:40 +0000
-Message-ID: <20260829052546.1152446-4-f@lex.la>
+Subject: [RFC PATCH net-next 5/9] net: phy: air: skip the download when the MD32 is already running
+Date: Sat, 29 Aug 2026 05:25:42 +0000
+Message-ID: <20260829052546.1152446-6-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260829052546.1152446-1-f@lex.la>
 References: <20260829052546.1152446-1-f@lex.la>
@@ -88,221 +87,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The buckpbus accessors only need an MDIO bus and an address, but they
-take a phy_device, which ties them to a probed PHY. An upcoming MDIO
-device driver needs the same register access before any phy_device
-exists, since it runs precisely to make the PHY presentable.
+The download is unconditional, so a chip whose firmware was loaded by
+something else - a bootloader, an earlier bind of the PHY driver, or
+an MDIO device serving the chip - is reprogrammed with what it is
+already running, at 144KB per probe.
 
-Retype the internal helpers onto (mii_bus, addr) and keep the exported
-phy_device API as page-selecting wrappers around them. The file
-already carries an mdio_device-typed accessor for the AN8811HB pbus,
-so this follows an existing direction rather than opening a new one.
+Read the status register the loader already polls for readiness and
+skip the download when it reports ready, only picking up the running
+firmware's version. The wait that follows is what makes this safe: a
+chip that was not in fact running fails there instead of coming up
+misprogrammed.
 
-No functional change.
+Living in the shared helper, the check covers every caller, and it is
+what lets the PHY driver and the coming MDIO device driver coexist:
+whichever runs second finds the firmware already up and leaves it
+alone.
 
 Assisted-by: LLM
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
- drivers/net/phy/air_phy_lib.c | 85 +++++++++++++++++++----------------
- 1 file changed, 46 insertions(+), 39 deletions(-)
+ drivers/net/phy/air_en8811h.c |  5 ++++-
+ drivers/net/phy/air_phy_lib.c | 28 ++++++++++++++++++++++++++++
+ drivers/net/phy/air_phy_lib.h |  1 +
+ 3 files changed, 33 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+index fdc64362a565..fcc6e373edd6 100644
+--- a/drivers/net/phy/air_en8811h.c
++++ b/drivers/net/phy/air_en8811h.c
+@@ -1030,7 +1030,10 @@ static int en8811h_probe(struct phy_device *phydev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* mcu has just restarted after firmware load */
++	/* Freshly downloaded firmware has just started; firmware adopted
++	 * from the bootloader is already past its own start. Neither needs
++	 * the restart a later resume would.
++	 */
+ 	priv->mcu_needs_restart = false;
+ 
+ 	/* MDIO_DEVS1/2 empty, so set mmds_present bits here */
 diff --git a/drivers/net/phy/air_phy_lib.c b/drivers/net/phy/air_phy_lib.c
-index 5141db19fa5e..e0fca5f285d2 100644
+index 1ed5c69d7073..c1187f357f4c 100644
 --- a/drivers/net/phy/air_phy_lib.c
 +++ b/drivers/net/phy/air_phy_lib.c
-@@ -14,31 +14,32 @@
- 
- #include "air_phy_lib.h"
- 
--static int __air_buckpbus_reg_read(struct phy_device *phydev,
-+static int __air_buckpbus_reg_read(struct mii_bus *bus, int addr,
- 				   u32 pbus_address, u32 *pbus_data)
- {
- 	int pbus_data_low, pbus_data_high;
- 	int ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_MODE, AIR_BPBUS_MODE_ADDR_FIXED);
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_MODE,
-+			      AIR_BPBUS_MODE_ADDR_FIXED);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_RD_ADDR_HIGH,
--			  upper_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_RD_ADDR_HIGH,
-+			      upper_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_RD_ADDR_LOW,
--			  lower_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_RD_ADDR_LOW,
-+			      lower_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	pbus_data_high = __phy_read(phydev, AIR_BPBUS_RD_DATA_HIGH);
-+	pbus_data_high = __mdiobus_read(bus, addr, AIR_BPBUS_RD_DATA_HIGH);
- 	if (pbus_data_high < 0)
- 		return pbus_data_high;
- 
--	pbus_data_low = __phy_read(phydev, AIR_BPBUS_RD_DATA_LOW);
-+	pbus_data_low = __mdiobus_read(bus, addr, AIR_BPBUS_RD_DATA_LOW);
- 	if (pbus_data_low < 0)
- 		return pbus_data_low;
- 
-@@ -46,64 +47,66 @@ static int __air_buckpbus_reg_read(struct phy_device *phydev,
- 	return 0;
+@@ -374,6 +374,12 @@ static int air_mmd_status_read(struct mii_bus *bus, int addr, bool is_c45)
+ 	return ret;
  }
  
--static int __air_buckpbus_reg_write(struct phy_device *phydev,
-+static int __air_buckpbus_reg_write(struct mii_bus *bus, int addr,
- 				    u32 pbus_address, u32 pbus_data)
++bool air_en8811h_mcu_running(struct mii_bus *bus, int addr, bool is_c45)
++{
++	return air_mmd_status_read(bus, addr, is_c45) == EN8811H_PHY_READY;
++}
++EXPORT_SYMBOL_GPL(air_en8811h_mcu_running);
++
+ int air_en8811h_wait_mcu_ready(struct mii_bus *bus, int addr, bool is_c45,
+ 			       struct device *dev)
  {
+@@ -409,6 +415,28 @@ int air_en8811h_fw_download(struct mii_bus *bus, int addr, bool is_c45,
+ 	const struct firmware *fw1, *fw2;
  	int ret;
  
--	ret = __phy_write(phydev, AIR_BPBUS_MODE, AIR_BPBUS_MODE_ADDR_FIXED);
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_MODE,
-+			      AIR_BPBUS_MODE_ADDR_FIXED);
++	if (air_en8811h_mcu_running(bus, addr, is_c45)) {
++		/* Loaded by a bootloader, an earlier bind, or another
++		 * device serving the chip. The wait below is what makes
++		 * trusting the status register safe: a chip that was not
++		 * in fact running fails there instead of coming up
++		 * misprogrammed.
++		 */
++		ret = air_en8811h_wait_mcu_ready(bus, addr, is_c45, dev);
++		if (ret < 0)
++			return ret;
++
++		ret = air_mdio_buckpbus_reg_read(bus, addr,
++						 EN8811H_FW_VERSION,
++						 fw_version);
++		if (ret < 0)
++			return ret;
++
++		dev_info(dev, "MD32 already running, firmware %08x\n",
++			 *fw_version);
++		return 0;
++	}
++
+ 	ret = request_firmware_direct(&fw1, EN8811H_MD32_DM, dev);
  	if (ret < 0)
  		return ret;
+diff --git a/drivers/net/phy/air_phy_lib.h b/drivers/net/phy/air_phy_lib.h
+index 6b11dbeaea9b..8d9f24da1271 100644
+--- a/drivers/net/phy/air_phy_lib.h
++++ b/drivers/net/phy/air_phy_lib.h
+@@ -59,6 +59,7 @@ struct firmware;
  
--	ret = __phy_write(phydev, AIR_BPBUS_WR_ADDR_HIGH,
--			  upper_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_ADDR_HIGH,
-+			      upper_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_ADDR_LOW,
--			  lower_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_ADDR_LOW,
-+			      lower_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_DATA_HIGH,
--			  upper_16_bits(pbus_data));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_DATA_HIGH,
-+			      upper_16_bits(pbus_data));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_DATA_LOW,
--			  lower_16_bits(pbus_data));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_DATA_LOW,
-+			      lower_16_bits(pbus_data));
- 	if (ret < 0)
- 		return ret;
- 
- 	return 0;
- }
- 
--static int __air_buckpbus_reg_modify(struct phy_device *phydev,
-+static int __air_buckpbus_reg_modify(struct mii_bus *bus, int addr,
- 				     u32 pbus_address, u32 mask, u32 set)
- {
- 	int pbus_data_low, pbus_data_high;
- 	u32 pbus_data_old, pbus_data_new;
- 	int ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_MODE, AIR_BPBUS_MODE_ADDR_FIXED);
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_MODE,
-+			      AIR_BPBUS_MODE_ADDR_FIXED);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_RD_ADDR_HIGH,
--			  upper_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_RD_ADDR_HIGH,
-+			      upper_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_RD_ADDR_LOW,
--			  lower_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_RD_ADDR_LOW,
-+			      lower_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	pbus_data_high = __phy_read(phydev, AIR_BPBUS_RD_DATA_HIGH);
-+	pbus_data_high = __mdiobus_read(bus, addr, AIR_BPBUS_RD_DATA_HIGH);
- 	if (pbus_data_high < 0)
- 		return pbus_data_high;
- 
--	pbus_data_low = __phy_read(phydev, AIR_BPBUS_RD_DATA_LOW);
-+	pbus_data_low = __mdiobus_read(bus, addr, AIR_BPBUS_RD_DATA_LOW);
- 	if (pbus_data_low < 0)
- 		return pbus_data_low;
- 
-@@ -112,23 +115,23 @@ static int __air_buckpbus_reg_modify(struct phy_device *phydev,
- 	if (pbus_data_new == pbus_data_old)
- 		return 0;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_ADDR_HIGH,
--			  upper_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_ADDR_HIGH,
-+			      upper_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_ADDR_LOW,
--			  lower_16_bits(pbus_address));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_ADDR_LOW,
-+			      lower_16_bits(pbus_address));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_DATA_HIGH,
--			  upper_16_bits(pbus_data_new));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_DATA_HIGH,
-+			      upper_16_bits(pbus_data_new));
- 	if (ret < 0)
- 		return ret;
- 
--	ret = __phy_write(phydev, AIR_BPBUS_WR_DATA_LOW,
--			  lower_16_bits(pbus_data_new));
-+	ret = __mdiobus_write(bus, addr, AIR_BPBUS_WR_DATA_LOW,
-+			      lower_16_bits(pbus_data_new));
- 	if (ret < 0)
- 		return ret;
- 
-@@ -144,7 +147,9 @@ int air_phy_buckpbus_reg_read(struct phy_device *phydev, u32 pbus_address,
- 	saved_page = phy_select_page(phydev, AIR_PHY_PAGE_EXTENDED_4);
- 
- 	if (saved_page >= 0) {
--		ret = __air_buckpbus_reg_read(phydev, pbus_address, pbus_data);
-+		ret = __air_buckpbus_reg_read(phydev->mdio.bus,
-+					      phydev->mdio.addr,
-+					      pbus_address, pbus_data);
- 		if (ret < 0)
- 			phydev_err(phydev, "%s 0x%08x failed: %d\n", __func__,
- 				   pbus_address, ret);
-@@ -163,8 +168,9 @@ int air_phy_buckpbus_reg_write(struct phy_device *phydev, u32 pbus_address,
- 	saved_page = phy_select_page(phydev, AIR_PHY_PAGE_EXTENDED_4);
- 
- 	if (saved_page >= 0) {
--		ret = __air_buckpbus_reg_write(phydev, pbus_address,
--					       pbus_data);
-+		ret = __air_buckpbus_reg_write(phydev->mdio.bus,
-+					       phydev->mdio.addr,
-+					       pbus_address, pbus_data);
- 		if (ret < 0)
- 			phydev_err(phydev, "%s 0x%08x failed: %d\n", __func__,
- 				   pbus_address, ret);
-@@ -183,8 +189,9 @@ int air_phy_buckpbus_reg_modify(struct phy_device *phydev, u32 pbus_address,
- 	saved_page = phy_select_page(phydev, AIR_PHY_PAGE_EXTENDED_4);
- 
- 	if (saved_page >= 0) {
--		ret = __air_buckpbus_reg_modify(phydev, pbus_address, mask,
--						set);
-+		ret = __air_buckpbus_reg_modify(phydev->mdio.bus,
-+						phydev->mdio.addr,
-+						pbus_address, mask, set);
- 		if (ret < 0)
- 			phydev_err(phydev, "%s 0x%08x failed: %d\n", __func__,
- 				   pbus_address, ret);
+ int air_fw_write_buf(struct mii_bus *bus, int addr, u32 address,
+ 		     const struct firmware *fw);
++bool air_en8811h_mcu_running(struct mii_bus *bus, int addr, bool is_c45);
+ int air_en8811h_wait_mcu_ready(struct mii_bus *bus, int addr, bool is_c45,
+ 			       struct device *dev);
+ int air_en8811h_fw_download(struct mii_bus *bus, int addr, bool is_c45,
 -- 
 2.53.0
 
