@@ -1,192 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E95E1B4138
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1964D33F8AA;
+	Sat, 29 Aug 2026 08:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787991993; cv=none; b=V5uJGYtupsK6lYDtQ8jPjNx37RkHCw62mpJP5RcqnV9B7SRsl/BA1sAum9Uhs4oKtddY5frAMLja77RsR8NQBTLDieyqY+6GuU4u64om6tQfdK3P/gpjZKVwZ1dcVfWP9KBMbPxd3xOktJ6e29J75sLYMKwlINqCebWcwZXK26s=
+	t=1787992193; cv=none; b=SVDwc9jd4JMMGsginj8LqVapo72AHa1VLvlvFpnwDEBXz5r+1rInOn+feyjvpSaIIyzN25bzD9n1sjKoZpb8nxqQRgxv7ab6PGaTIWceyoMzZ4yd2pdiew8QW2+4h2ALPb/5c6l3fzZ5xN7XXBc1gN5pyCRslPvIR/NXIAAl5Qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787991993; c=relaxed/simple;
-	bh=QlpEr6psokW89EvWptF0Mm+nNLInCn2pyJ8lW/QPn8U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d4FYQjVS3X+3C6WMdaahl3MbUEUc2dr2jxLqrTLpASAEQ4/SYkUhhTTs9L2lMFJ5MnchKGCC6O0GDalc+E/gmJcBhmU6xPAW/nMyg4uWgaXddT4k+FONGC1/Smdz93sb+qF6bCkZ+vTF5QoI47+cH0YFV9xkgGvSQk0betIsC0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX3mGmcw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787992193; c=relaxed/simple;
+	bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EctMc8GGQZ0o/j2KkbONeC9KgpPLqSQmlcCfBexdHejc9nxUKqPO1SkumaHFTa6Pb081vYmo4W2NPG9yD515uf5gKexsxSs005nCRGHgqefv75RaEZpxlnrCRE0jCm4G3uEFAuRRJG9U1spzq9FkRpPUF+n+r1iTQ5RV4JkrGUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=a/Ip4aBb; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX3mGmcw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF5F1F00A3E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787991992;
-	bh=ELz8WpSjJQ38zjegY/jVb779cX2lY7cfwp1pllayTUM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VX3mGmcwK3arZBZaxnK+cLQQYM75+vBP4n+6HcOqKFptpaZqeOC+MYXommfOyItgJ
-	 swHsvPpCgTE3WvLmZqhHBwFNIZ/uOytolr4D8399ZL1UhHyeDsxIpRMgCp8oyTHKL7
-	 1zWgFobF0P7xX0A1Nki6UMpR5fkwcDMbYhmnD7b4qwxRIJUpPOYseuQ2vOWQmdd5/H
-	 /609oaOqp1k6M18mTaqFq4cV3HEx1yGp8BfaXdxs8TZFfa6c3vzs1BAzC9GcU5eNwN
-	 wConOUZXx+3CQTdsLXtXjey8YgS6KgFfwQxfgmhRwnegQx0vNNVBHEim/4gG2fYB+S
-	 1xmwww2NXkhvg==
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-936623c6dd3so218413285a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:26:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrJ/xUOwWeBQ+FWXnxbTmMoQYhH4oiP8uj9t8JPcnCYduJe/JRi1tQxxrjHYGp9WU8RmZmqgsAk4q6QzSg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLNj2HMfV38XIoSxR8hvVf1AkM+e+3RITd8uZm8JI8onN7SKJF
-	8mwZp4EZdCHc/ClZiVgSKfjHR6DG5PN6shMlriR5TULEJVni/LuaCVkFjAJUyiZk3CDIL/v2xQI
-	d8+RdborSqYaOVzIxqFU5Lfpx+v/aEik=
-X-Received: by 2002:a05:620a:2901:b0:92e:57ea:8c8b with SMTP id
- af79cd13be357-938ff9abf4fmr2092839685a.0.1787991991229; Sat, 29 Aug 2026
- 01:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="a/Ip4aBb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1787992179; x=1788251379;
+	bh=7oRmJ2JX9SjpY6C/SXCk9S84RaRvCnvAhCHlB7P4mR8=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=a/Ip4aBbJGeReuRd1WH0oAu3Yq7/WmH9H7bbUFEtOhX/TRTmrrEWG3vJh6GonFM1W
+	 HI6BwREaaLaxGtLNjH5mp4hOPsM6ZPK3CLxgN9L/ZqdDpCDD6sqvMXNyd0MfOAnUqt
+	 NT7xOZAba8qKETyE/Fv9XRmGpm50Ug02GKKPxvUW7tgg4O8jrJE2TguN85Jrkvay9E
+	 YG0IG7HFfQ7KJkG3D+oDXcNykGVk35Rf/ClvVztToRdaH8j5Ji/qdl/vUYARGP1t7q
+	 xv7ops7uoiq+hO2+giFTv+Qb6aWa4IHWOzqfp0Zg6RR59WY1h6B36vep0VeUiKimxo
+	 zDf/2bFcv59Gg==
+X-Pm-Submission-Id: 4hX7hw5gNHz2Schg
+From: Jakob Berg Jespersen <dev@berg.pm>
+Date: Sat, 29 Aug 2026 10:29:09 +0200
+Subject: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
- <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
- <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com> <CAMgjq7B7TFfBZLPorZEmg5y9u6TzFbYVQXZNC8+iztGtifmdKQ@mail.gmail.com>
-In-Reply-To: <CAMgjq7B7TFfBZLPorZEmg5y9u6TzFbYVQXZNC8+iztGtifmdKQ@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 29 Aug 2026 16:26:19 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z0f=gN58BgneY8GMyOPk+T-D9kY99Fo5FA1MKx2sADyA@mail.gmail.com>
-X-Gm-Features: AcwNN1Vh8SvUhrDJHT68EhT8q8n0BxzVKAvDoklCBhtG9RXuinmOYLs_SOCYxYw
-Message-ID: <CAGsJ_4z0f=gN58BgneY8GMyOPk+T-D9kY99Fo5FA1MKx2sADyA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
- and refs flags
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ridong Chen <ridong.chen@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNTQ7CIBgFr9KwFtMPWimuvIdxQflpMdoSaImm6
+ d2FutCFLid5M29BQXurAzoWC/I62mDHIQHdFUj2Yug0tioxIiU5lAw4Do652xywHSZaMYIbU0L
+ VNkozLlGynNfGPrbi+fLmMLdXLaecyYvehmn0z+0yQt79r0fAgGsCoqKmlsDh1Grf7d0d5XYkX
+ zb5YZNkS2WE4UxIKtTHXtf1BYLqaFP8AAAA
+X-Change-ID: 20260719-sp7plus-int3472-8f014b8de79c
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tooraj Taraz <tooraj.taraz@yahoo.com>, 
+ "Joseph V. Lavigne" <jlavig88@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, 
+ Jakob Berg Jespersen <dev@berg.pm>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787992176; l=4742;
+ i=dev@berg.pm; s=20260719; h=from:subject:message-id;
+ bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
+ b=dbV30rfjQdGqZ21edpu8veocZUStpZAUfOfjUl9Vy1eFK+OjkqOx5HOI0JHeI79P5Fh/3LEWa
+ 3FbTlFhoVLQCyIihqGKjRvggxAufu8aC3rb+1uCwr8FRBeILl9gJ8Gy
+X-Developer-Key: i=dev@berg.pm; a=ed25519;
+ pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
 
-On Sat, Aug 29, 2026 at 3:48=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
-[...]
+INT3472 can describe a second sensor power rail as a GPIO of type
+POWER1 (0x08), which the driver does not recognise, so the rail is left
+unmapped and never enabled:
 
-> > > + * lru_gen_set_flags - Set the LRU generation number to specified fo=
-lio flags.
-> > > + * @flags: pointer to the folio flags
-> > > + * @gen: generation number, between 0 and (MAX_NR_GENS - 1), inclusi=
-ve.
-> > > + */
-> > > +static inline void lru_gen_set_flags(unsigned long *flags, int gen)
-> > >  {
-> > > -       unsigned long flags =3D READ_ONCE(folio->flags.f);
-> > > +       VM_WARN_ON_ONCE(gen >=3D MAX_NR_GENS || gen < 0);
-> > > +
-> > > +       *flags &=3D ~LRU_GEN_MASK;
-> > > +       *flags |=3D (gen + 1UL) << LRU_GEN_PGOFF;
-> > > +}
-> >
-> > It seems that we are setting the gen in the flags, rather than
-> > setting the flags themselves.
-> >
-> > The current name makes me think that the function is setting the
-> > entire flags field, especially since `lru_gen` is used as the
-> > namespace for various MGLRU functions, e.g.:
-> >
-> > void lru_gen_add_mm(struct mm_struct *mm);
-> > void lru_gen_del_mm(struct mm_struct *mm);
-> > void lru_gen_migrate_mm(struct mm_struct *mm);
-> > struct lru_gen_folio;
-> > lru_gen_update_size(lruvec, folio, old_gen, new_gen);
-> >
-> > However, this function only sets the gen bits in the flags.
-> > Maybe we could use a name that makes this distinction clearer?
-> >
-> > Could they be named as below, or is there a better naming option?
-> >
-> > set_gen_to_flags(unsigned long *flags, int gen);
-> > get_gen_from_flags(unsigned long flags);
-> >
-> > Or something like flags_to_gen() or gen_from_flags()?
->
-> I think having lru_gen as the prefix is a good idea actually since the
-> header here is a very generic one, the word "gen" could be used my
-> many other subsystem or drivers, gen_to_flags sounds too generic..
-> While lru_gen is a very specific MGLRU thing.
+  int3472-discrete INT3472:01: GPIO type 0x08 unknown; the sensor may
+  not work
 
-Yes. The current problem is that `lru_gen` has been used as a
-generic prefix for MGLRU functions. Here, however, we mean the
-actual generation (`gen`), rather than `lru_gen` as the MGLRU
-namespace.
+On the Microsoft Surface Pro 7+ the rear camera's INT3472 (INT347A,
+ov8865) has such a pin; without it the ov8865 "dvdd" supply resolves to
+a dummy regulator and the sensor never probes.
 
->
-> How about just rename it lru_set_gen_flags / lru_get_gen_flags? And we
-> will have lru_set_refs_flags / lru_get_refs_flags below.
+Define the POWER0 (0x07) and POWER1 (0x08) GPIO types and map POWER1 to
+a regulator with con_id "dvdd" for all devices, the supply the in-tree
+ov8865 driver already requests. POWER0 is defined but left unmapped, as
+no device that uses it is known.
 
-sounds good to me.
+Out-of-tree work approached the same rail by exposing it to the sensor
+as a new "pwr1" supply (linux-surface PR #1867 for the Surface Pro 9,
+PR #2201 for the Pro 7+ ov8865); mapping POWER1 to the existing "dvdd"
+keeps the change contained to int3472.
 
-[...]
+With this change the Surface Pro 7+ rear camera probes and streams
+reliably.
 
-> > > +static inline void lru_refs_set_flags(unsigned long *flags, unsigned=
- int refs)
-> > > +{
-> > > +       VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
-> > > +       BUILD_BUG_ON(LRU_REFS_MAX !=3D (LRU_REFS_MASK >> LRU_REFS_PGO=
-FF) + 1);
-> > > +
-> > > +       *flags &=3D ~LRU_REFS_FLAGS;
-> > > +       if (!refs)
-> > > +               return;
-> > > +       *flags |=3D (BIT(PG_referenced) | ((refs - 1UL) << LRU_REFS_P=
-GOFF));
-> > > +}
-> >
-> > Similar to the above, maybe we could use more descriptive names?
->
-> And here we have lru_set_refs_flags?
+Link: https://github.com/linux-surface/linux-surface/pull/1867
+Link: https://github.com/linux-surface/linux-surface/pull/2201
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
+---
+Changes in v3:
+- No functional changes; the patch is identical to v2, rebased onto
+  current pdx86/for-next (which has since gained the multi-HID GPIO map
+  entries and the IMX471 "vana" entries).
+- Resent with linux-media@vger.kernel.org on Cc, as requested.
+- Link to v2: https://patch.msgid.link/20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm
 
-sounds good to me.
+Changes in v2:
 
-[...]
+- Reworked from a per-device INT347A quirk into a generic mapping of the
+  POWER1 (0x08) GPIO type to "dvdd" for all devices, per review.
+- Added INT3472_GPIO_TYPE_POWER0 (0x07) and POWER1 (0x08) definitions;
+  POWER0 is defined but left unmapped for now.
+- Retested on the Surface Pro 7+ (kernel 7.1.5): the rear ov8865 probes,
+  instantiates its VCM, and streams.
+- Link to v1: https://patch.msgid.link/20260719-sp7plus-int3472-v1-1-521a43f5c191@berg.pm
+---
+ drivers/platform/x86/intel/int3472/discrete.c | 8 ++++++++
+ include/linux/platform_data/x86/int3472.h     | 2 ++
+ 2 files changed, 10 insertions(+)
 
-> > > --- a/mm/vmscan.c
-> > > +++ b/mm/vmscan.c
-> > > @@ -843,19 +843,22 @@ static bool lru_gen_set_refs(struct folio *foli=
-o, const vma_flags_t *vma_flags)
-> > >         if (!folio_test_referenced(folio) && !folio_test_workingset(f=
-olio)) {
-> > >                 /* Activate file-backed executable folios after first=
- usage. */
-> > >                 if (is_exec_file_folio(folio, vma_flags)) {
-> > > -                       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS=
-, BIT(PG_workingset));
-> > > +                       folio_set_workingset(folio);
-> > > +                       folio_set_lru_refs(folio, 0);
-> > >                         return true;
-> > >                 }
-> > >
-> > > -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_=
-referenced));
-> > > +               folio_set_lru_refs(folio, 1);
-> >
-> > We have quite a few instances of folio_set_lru_refs(folio, 1) and
-> > folio_set_lru_refs(folio, 0). Do these values have any special
-> > meaning? Could we add wrapper helpers to make the code more readable?
-> >
-> > `1` just means `PG_referenced`, right? Could we add a comment or
-> > changelog description to clarify that `1` actually means `refs =3D 0`,
-> > but `PG_referenced` is set?
->
-> Right, I introduced a LRU_REFS_REFERENCED in a later series. Now a
-> comment could be good enough, as in fact PG_referenced is already kind
-> of a unstable page flags under both MGLRU and CLRU. For MGLRU it only
-> mean the refs count is larger than 1 so using a strict 1 here seems
-> even cleaner, but it still keep getting cleared in many places. As for
-> CLRU, the flag keeps getting reset when a folio is activated leading
-> to an under-accounted value from smap and other components. So
-> sanitizing its usage is a long-term goal.
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index 6c729fcfce5d..6ab8e589fcd3 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -266,6 +266,10 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 		*con_id = "avdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+ 		break;
++	case INT3472_GPIO_TYPE_POWER1:
++		*con_id = "dvdd";
++		*gpio_flags = GPIO_ACTIVE_HIGH;
++		break;
+ 	case INT3472_GPIO_TYPE_DOVDD:
+ 		*con_id = "dovdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+@@ -296,6 +300,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+  * 0x00 Reset
+  * 0x01 Power down
+  * 0x02 Strobe
++ * 0x07 Power 0
++ * 0x08 Power 1
+  * 0x0b Power enable
+  * 0x0c Clock enable
+  * 0x0d Privacy LED
+@@ -382,6 +388,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
+ 	case INT3472_GPIO_TYPE_PRIVACY_LED:
+ 	case INT3472_GPIO_TYPE_STROBE:
+ 	case INT3472_GPIO_TYPE_POWER_ENABLE:
++	case INT3472_GPIO_TYPE_POWER1:
+ 	case INT3472_GPIO_TYPE_DOVDD:
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+ 		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
+@@ -408,6 +415,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
+ 		case INT3472_GPIO_TYPE_POWER_ENABLE:
+ 			second_sensor = int3472->quirks.avdd_second_sensor;
+ 			fallthrough;
++		case INT3472_GPIO_TYPE_POWER1:
+ 		case INT3472_GPIO_TYPE_DOVDD:
+ 		case INT3472_GPIO_TYPE_HANDSHAKE:
+ 			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
+diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/platform_data/x86/int3472.h
+index a73841dfae27..b1040e36deb8 100644
+--- a/include/linux/platform_data/x86/int3472.h
++++ b/include/linux/platform_data/x86/int3472.h
+@@ -25,6 +25,8 @@
+ #define INT3472_GPIO_TYPE_RESET					0x00
+ #define INT3472_GPIO_TYPE_POWERDOWN				0x01
+ #define INT3472_GPIO_TYPE_STROBE				0x02
++#define INT3472_GPIO_TYPE_POWER0				0x07
++#define INT3472_GPIO_TYPE_POWER1				0x08
+ #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
+ #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
+ #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
 
-Ok.
+---
+base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
+change-id: 20260719-sp7plus-int3472-8f014b8de79c
 
-Best Regards
-Barry
+Best regards,
+--  
+Jakob Berg Jespersen <dev@berg.pm>
+
