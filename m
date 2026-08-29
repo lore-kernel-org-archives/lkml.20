@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AF23812D1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B873B6363;
 	Sat, 29 Aug 2026 20:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788033856; cv=none; b=S2jP4BIWXcQSBRwtpfIdIVWX9GzqU7T/zLxXtIAK70gx5cxOegm22tCTc05HnmHHGvD5mUbORzxZQmxZZIN0e5ifPiX+wzq6pBzHrsk6XkGt0vt4ovRlZetc2AAGfVXVJjaHW5p9vTBvnJum0fNHHhmQfIOfV2QlQyF24HWgEZc=
+	t=1788033856; cv=none; b=Kgz3b1BSsLwbwLlcWpOsCAj2mJa5NjBBOPe5S7t1W1c2vb9LfxcJElua2LXGcvYc8YQVm7Se8sRFXvR1D1yeFO9XHourPbQpfRx8QO2RFKDrou1ShuP3eIcAu2iqlvdL373gSusSZbHJxLkZJfc7DCbhFKl66jLO1irqqVPD02g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788033856; c=relaxed/simple;
-	bh=CKY7e3bB5GlmgcceIuLJLrwmWVVlfIcFh0TCPWYRpPY=;
+	bh=GJR0Kyqh3iDrrchfwebBHJmpzUqyb/ADg0s5jUpQl6o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X6lGKjm5BDoG0yP9kENuGfDoitEnUxV0moa+69OHMnMbZruyVC4jr+1ul6VvGCnU+h1P2cllzGg5tKayrTGDCKZtEV/+xQiNSo80Q0MO/L7uKpyL2upzEs5xag0bdGhidrMfRNMEcyEBtlUytHTPwFwe9aDNWxxRBQgDo2irpik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rZ1xQW7S; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Yx1m+uMuuBdWyfuiimeTfbt/ieweELS6w6XiWIx+PCelvTmWAmi4pMk6pYipENLg1EbRcGhJwwzciVd5ZYtzzhcHB6mSEJqH6hZEHZl7BOw+bQVx3riEIiMWsIQADJjyBT6ax4JpEJjp49jBOZvnIfGnc5yrpwQ0HAv60DPA3ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OchsXqDp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rZ1xQW7S"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D8BF8C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OchsXqDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C9783C2BCF5;
 	Sat, 29 Aug 2026 20:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788033855;
-	bh=CKY7e3bB5GlmgcceIuLJLrwmWVVlfIcFh0TCPWYRpPY=;
+	bh=GJR0Kyqh3iDrrchfwebBHJmpzUqyb/ADg0s5jUpQl6o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rZ1xQW7SrW3rn3PVb2t8rlBSZK5BlDEP65TufvoRA+UjSeA+RCUGGWRIZZPb6QspW
-	 KbaOKpv0Hct7WDz2U+WkS7xvqNGo2gxtLWIiWr+0XN8qOvkINmXRu701gsudONzRMy
-	 HJpLbhWF2VeEHZ4pr6tAk2qTI1LQKbbZLCh0hmg//VTjrkcMsd0W3MRaBft87Qxbzl
-	 p2fqZGrcFwPT491L0XbHHnPVk8Ye/HWoxfaiNw2kvsUbuLnjR37OW0DBdoGTWgmiYh
-	 fF9pBlCjhCgnBTgR6Vo8YeK2o9101jZmrfOka9ZjJCSiInc97E8NVqa6ngvfj5S2Oj
-	 rk4ayUYoHe8Qw==
+	b=OchsXqDp1HAePzeHbmvOF0IBJzA5ikDWmn4adJ6AWk65hBl6uL+SOe1RJnheCztjp
+	 xMpTaD/E4U50JjqfJ64Qt90gmJkqrSpXbDmzAtqu8V2CxzTISA9VZf8Bq57fxvyo4A
+	 oJ6L6+iiaVM+CaqvNwLvXEASbiQ2X3esjlCupWGs8k75yL06mo2BQSSWRJqVsC+5Vz
+	 Yiph9lCY2gJBHTawDS1YaAuYzz8oXOmaslR90GAFHzAXB3KgWw5xElgLFTjm60i9il
+	 7TzTLj4TQh+Evv0Ukkx3wtGkdzRoeFvoEa9ZGD4UbcvWBxf/Vg8WtCiKVrwEgRdZGB
+	 HR7a0uRAj5Gog==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C838AC61DCB;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B958CC61DE2;
 	Sat, 29 Aug 2026 20:04:15 +0000 (UTC)
 From: Matt Eaton via B4 Relay <devnull+linux.divinehawk.com@kernel.org>
-Date: Sat, 29 Aug 2026 22:04:12 +0200
-Subject: [PATCH v2 3/3] usb: dwc3: qcom: set xhci_no_soft_retry for IPQ4019
+Date: Sat, 29 Aug 2026 22:04:11 +0200
+Subject: [PATCH v2 2/3] usb: dwc3: add xhci_no_soft_retry software property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-xhci-no-soft-retry-v2-3-0efe22f1c2f8@divinehawk.com>
+Message-Id: <20260829-xhci-no-soft-retry-v2-2-0efe22f1c2f8@divinehawk.com>
 References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com>
 In-Reply-To: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com>
 To: Mathias Nyman <mathias.nyman@intel.com>, 
@@ -49,11 +49,11 @@ To: Mathias Nyman <mathias.nyman@intel.com>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, Matt Eaton <linux@divinehawk.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788033855; l=3072;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788033855; l=3697;
  i=linux@divinehawk.com; s=20260828; h=from:subject:message-id;
- bh=pZdj9EBvPXV7nO9flwfMVrSwQKB9H/3tZS+G/WrrLgA=;
- b=cXcKD/TOysPCU/i/CcnxXTgpuqlAXCyvLvU+XVNC3ebgO4vj85HYdu/8ui3f0jqTTgg+O6gzi
- 4+TPh3rVV7NAAB/BBF/9JD0DLvk5w+7U9hAhq6qIPsfNSN7Ta/f8vQf
+ bh=8I5kFxZQTwOwXEoL87NTYKHACEZsZUaVcRMYWJSXOYw=;
+ b=O5lEqcGo/HbB5TD3tPVFvLyPYoBq0ArNwyh9Jh7lgzWQFjiNZw0tKAkHWMPneOxzTAJCclEf0
+ gyF7fV4TD9GA7m4iXdsEhvMEH6aE4aqocDyzTJJf0v32bSS5hjfj4wC
 X-Developer-Key: i=linux@divinehawk.com; a=ed25519;
  pk=UG4KnKXGwxjTNdirUPh/nySblET4aRxWYWSMTQwzlMw=
 X-Endpoint-Received: by B4 Relay for linux@divinehawk.com/20260828 with
@@ -63,79 +63,99 @@ Reply-To: linux@divinehawk.com
 
 From: Matt Eaton <linux@divinehawk.com>
 
-The dwc3 instances on IPQ4019 mishandle xHCI 1.0 Soft Retry. A Stop
-Endpoint command that lands on a just-soft-retry-reset endpoint wedges
-the command ring, and the stop-endpoint watchdog kills the host five
-seconds later:
+Some DWC3 instances cannot carry out xHCI 1.0 Soft Retry correctly. Add a
+software property so a glue driver can say so on behalf of hardware it
+recognises from its compatible, carry it into struct dwc3, and pass it on
+to xhci-plat as an xhci-no-soft-retry-quirk swnode property alongside the
+other xHCI properties dwc3_host_init() already sets.
 
-xhci-hcd xhci-hcd.1.auto: xHCI host not responding to stop endpoint command
-xhci-hcd xhci-hcd.1.auto: xHCI host controller not responding, assume dead
-xhci-hcd xhci-hcd.1.auto: HC died; cleaning up
-
-Reproducible by unplugging a USB-tethered phone mid-transfer. The port
-stays dead until the platform device is rebound. The controller itself
-is alive throughout, hence the -110 timeout rather than -ENODEV.
-Qualcomm's 4.4 vendor kernel predates Soft Retry entirely, so it has
-never been able to hit this.
-
-This is a property of the IP rather than of any board, so it is carried
-as match data on the SoC compatible.
-
-Both dwc3 nodes on this SoC share the compatible, so both get the quirk.
-Measured on the usb2 instance, which drives the external port; the usb3
-instance on the board under test hosts a soldered Bluetooth radio that
-is never unplugged, so it cannot reach the trigger in normal use.
+Nothing sets it yet, so no platform changes behaviour.
 
 Suggested-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 Signed-off-by: Matt Eaton <linux@divinehawk.com>
 ---
- drivers/usb/dwc3/dwc3-qcom.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/usb/dwc3/core.c | 3 +++
+ drivers/usb/dwc3/core.h | 3 +++
+ drivers/usb/dwc3/glue.h | 3 +++
+ drivers/usb/dwc3/host.c | 5 ++++-
+ 4 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index ac68b4218b56..1edf75696e45 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -607,8 +607,19 @@ static struct dwc3_glue_ops dwc3_qcom_glue_ops = {
- 	.pre_run_stop	= dwc3_qcom_run_stop_notifier,
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..1acfad333271 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1694,6 +1694,9 @@ static void dwc3_get_software_properties(struct dwc3 *dwc,
+ 	if (properties->needs_full_reinit)
+ 		dwc->needs_full_reinit = true;
+ 
++	if (properties->xhci_no_soft_retry)
++		dwc->xhci_no_soft_retry = true;
++
+ 	dwc->gsbuscfg0_reqinfo = DWC3_GSBUSCFG0_REQINFO_UNSPECIFIED;
+ 
+ 	if (properties->gsbuscfg0_reqinfo !=
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..c8beca1b10b3 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1123,6 +1123,8 @@ struct dwc3_glue_ops {
+  * @usb2_gadget_lpm_disable: set to disable usb2 lpm for gadget
+  * @needs_full_reinit: set to indicate the core may lose power and need full
+  *			initialization during system pm
++ * @xhci_no_soft_retry: set to indicate the xHCI cannot carry out Soft Retry
++ *			correctly
+  * @disable_scramble_quirk: set if we enable the disable scramble quirk
+  * @u2exit_lfps_quirk: set if we enable u2exit lfps quirk
+  * @u2ss_inp3_quirk: set if we enable P3 OK for U2/SS Inactive quirk
+@@ -1384,6 +1386,7 @@ struct dwc3 {
+ 	unsigned		usb2_lpm_disable:1;
+ 	unsigned		usb2_gadget_lpm_disable:1;
+ 	unsigned		needs_full_reinit:1;
++	unsigned		xhci_no_soft_retry:1;
+ 
+ 	unsigned		disable_scramble_quirk:1;
+ 	unsigned		u2exit_lfps_quirk:1;
+diff --git a/drivers/usb/dwc3/glue.h b/drivers/usb/dwc3/glue.h
+index d738e1739ae0..595880332d19 100644
+--- a/drivers/usb/dwc3/glue.h
++++ b/drivers/usb/dwc3/glue.h
+@@ -14,10 +14,13 @@
+  * @gsbuscfg0_reqinfo: Value to be programmed in the GSBUSCFG0.REQINFO field
+  * @needs_full_reinit: indicate the controller may not remain power during system
+  *			pm and need full initialization
++ * @xhci_no_soft_retry: indicate the controller cannot carry out xHCI Soft
++ *			Retry correctly
+  */
+ struct dwc3_properties {
+ 	u32 gsbuscfg0_reqinfo;
+ 	unsigned needs_full_reinit:1;
++	unsigned xhci_no_soft_retry:1;
  };
  
-+/*
-+ * The dwc3 instances on IPQ4019 mishandle xHCI Soft Retry: a Stop
-+ * Endpoint command landing on a just-soft-retry-reset endpoint wedges the
-+ * command ring and the host is killed by the stop-endpoint watchdog.
-+ */
-+static const struct dwc3_properties dwc3_qcom_ipq4019_properties = {
-+	.gsbuscfg0_reqinfo = DWC3_GSBUSCFG0_REQINFO_UNSPECIFIED,
-+	.xhci_no_soft_retry = 1,
-+};
-+
- static int dwc3_qcom_probe(struct platform_device *pdev)
+ #define DWC3_DEFAULT_PROPERTIES ((struct dwc3_properties){		\
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b2b0..e22a8dc5d090 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+ 
+ int dwc3_host_init(struct dwc3 *dwc)
  {
-+	const struct dwc3_properties *properties;
- 	struct dwc3_probe_data	probe_data = {};
- 	struct device		*dev = &pdev->dev;
- 	struct dwc3_qcom	*qcom;
-@@ -704,7 +715,10 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	probe_data.dwc = &qcom->dwc;
- 	probe_data.res = &res;
- 	probe_data.ignore_clocks_and_resets = true;
--	probe_data.properties = DWC3_DEFAULT_PROPERTIES;
-+
-+	properties = of_device_get_match_data(dev);
-+	probe_data.properties = properties ? *properties : DWC3_DEFAULT_PROPERTIES;
-+
- 	ret = dwc3_core_probe(&probe_data);
- 	if (ret)  {
- 		ret = dev_err_probe(dev, ret, "failed to register DWC3 Core\n");
-@@ -839,6 +853,7 @@ static const struct dev_pm_ops dwc3_qcom_dev_pm_ops = {
- };
+-	struct property_entry	props[6];
++	struct property_entry	props[7];
+ 	struct platform_device	*xhci;
+ 	int			ret, irq;
+ 	int			prop_idx = 0;
+@@ -186,6 +186,9 @@ int dwc3_host_init(struct dwc3 *dwc)
+ 	if (DWC3_VER_IS_WITHIN(DWC3, ANY, 300A))
+ 		props[prop_idx++] = PROPERTY_ENTRY_BOOL("quirk-broken-port-ped");
  
- static const struct of_device_id dwc3_qcom_of_match[] = {
-+	{ .compatible = "qcom,ipq4019-dwc3", .data = &dwc3_qcom_ipq4019_properties },
- 	{ .compatible = "qcom,snps-dwc3" },
- 	{ }
- };
++	if (dwc->xhci_no_soft_retry)
++		props[prop_idx++] = PROPERTY_ENTRY_BOOL("xhci-no-soft-retry-quirk");
++
+ 	props[prop_idx++] = PROPERTY_ENTRY_U16("num-hc-interrupters",
+ 					       dwc->num_hc_interrupters);
+ 
 
 -- 
 2.43.0
