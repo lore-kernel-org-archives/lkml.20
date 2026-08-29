@@ -1,464 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013043.outbound.protection.outlook.com [40.107.201.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE7E1DDA18;
-	Sat, 29 Aug 2026 01:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787966656; cv=none; b=QFgEII5UtC+pJTtmo7AowoE3AgEoZI5NJrbHusx1S49whcTIxGAGdwXuHGEUyWxLHOT1gTAwjqzpRSU5EdhmndjZGG7K6lWuFjmEuPHcvedbWbimT09QESzba8EUhc/W13tfPh2d8VT9Dy6uEuRg30pL2V8umQYfSWUJb3wR3XI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787966656; c=relaxed/simple;
-	bh=K2ODE5LpnUomQDchg8CeKV1Ya/gLals4Ilh/2O9C7V0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P0QiEv/k73vyAfvh/eY3cfnZjZ1fYaW3t+asXaML9NhUTZZuNRHsFgYFIuSFj+EFag8VXgjlJVEO8gqiCadOnTkGjNWDj3bvw1iJ86kZwvS/K6wA2j+zO6WUfDTib8qOfVdW6YsH1d14a8gcS/VRdaKNcygI1W/43Fhd0iaXlek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYNE/zNs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB6A361675
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787966767; cv=fail; b=aCf5hIgP45+0zxuP6pnk6w6W+g2PgM3yPvpFj5TZivXJU3Q8px3M1sE6PcdMJ2v9XjXaFbCxwpq9/c4DUejV5MFToENMxSxlhKq7RFbuy2//3c807FLojea9lVU4h1RTrfaj8uGoz9nh7LziFMS73ajUBHy0EPe1RKMlURwUM0I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787966767; c=relaxed/simple;
+	bh=cCZTEiyBv0LCPA1YfNICEirtzv0aWdA74BS195wQ3ZY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=sSBokGLFpLianiu9L/6LfPUa+Jdid8E2SNgzAJ4uF2tM4eTo/nPn2kNSbR3kdZS1m6mhkj1LW2EUxoiIxZK4fklmxEiSSQJXOyNI3s+Z/nHAZPj4boWrmte4eJXGr4FPtgMtdEjZ2WFrNT92WptkIw1aRXa9lBP9HX5b03qPIis=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H75yJpaa; arc=fail smtp.client-ip=40.107.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYNE/zNs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FB31F000E9;
-	Sat, 29 Aug 2026 01:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787966654;
-	bh=R5WVcDrT5XETZut+iUsGNvHNNk6Bn9BOjdIb0S6FsiM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mYNE/zNs5iyT7gIQVjg7cffkUT6tdnwyAQMkHDHqYmfWw6eipxR82QSCf4eCVqF6p
-	 W1w+4LHYPncEpjUrBwzDly4bHL5TVbNvz7Bx+TlgpdRylDsAvNgx6nXToKabE2ekEd
-	 ijgrIJ0U5uPcxpkDA75M2rSg7t3KKcoXa4btldhTg0JHU/5mkLMCwgbFUlsUI5uJj8
-	 C0KshmxJF/Lln62/svB94LzFjU+u8ndG+O12xYLPjsoTvkaFPiOUY9G54RzNtOxIhS
-	 hWwmz3PFqjAVhGOzK7u+5Ntt580VNAI2CGrFt20gvRJbv6YCQ+XADOzR2g+P3TqKv5
-	 6U5FBB6n9tQSw==
-Date: Sat, 29 Aug 2026 02:24:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Magnus
- Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/9] iio: adc: rzt2h: implement DMA buffer support
-Message-ID: <20260829022407.4c9771e8@jic23-huawei>
-In-Reply-To: <178796644341.2599003.10846523729399514118.b4-review@b4>
-References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
-	<20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
-	<178796644341.2599003.10846523729399514118.b4-review@b4>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H75yJpaa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vXnf9NcnOWJ3LmG2kWNAFXsCixqAjC/tMIMMq5Rj4716M6v69HinilnZbSC0p3jQgumCgkBRkb9JkXbZkKaxcOsmwC0F91HeFIz2Pu6jFBzBWS5YDejnvKWFO53byZPY5lP/puMXa1vhq4G6V5Izel00fAGxxYtsOqHSbAAGWqdkyvx20jlIAUeNNaT+QRmnUao87+X0uuHHyAQhC2sd/Ph4EiELM0rvgEQwkn5vN/L/WIPtpz9Mv5rEuUDzsXAeYu98LwZ5HQcUfPagvjKlDRphx1/eI2Fobta1lffYTkLAMQAXC/+oM9QeVLUlo/3GMbxIPcD1fQp7nYDUPaw9SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cTpJlwp4SYJE+nh8s8M2lN1pqZTudSwRZVBNSR1nm/I=;
+ b=qXZB00w81ekwlry5P8u1MiDJeMLSmQYgS/sBIMswRfrfeMme0b01lDRG94uUy5RyjxrbhDVj2LO/y9gSudSp3csFGyRFMS4hjQIW5YiE8iinKHW5wWUneo+W5JpydwuBsgz7cBdwLMqPfPBAB1ekn0k5ThAyar0N31xzt9Uh948cHg3IDxc/wYsOUCgLTFqBjt3oRDjB2hTGiZp5Npvsq5sGLxvIOjy3Wu72nxyxmu+nhubtcmKvrfoHT/vPqjqdol40ktuwee70AkayhB16d52PvK5u4q2Ai2+Tq+CxXX5MXX6JWULlMRR42Xa7+sfkbfdHcouW21FEqJFR03e2LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cTpJlwp4SYJE+nh8s8M2lN1pqZTudSwRZVBNSR1nm/I=;
+ b=H75yJpaaqHiPWUkMKktDT3GbaiZck0UUgTHhzNhd3xlB6npp4nkKwlKsTxwEn/ukMdZvXnhoSKprezIwk0chtbuMBxJatGV4S6OSJSWr6hAnX+pd4uNq7ltB+NKSCF9QYodK60ym7MWeXoACVULJofHXKinWXWJvyKpDTfUxk9OeaNzzcbzMOye1Wg1XJ+tdtAHCRSLGTNvI27yj4EmYSi9Xp/vMvXTmByixVDefUSGBCY5asEfzFPSMNNzsuWT+PXUafT2ILyNHD/b/OW0/SIr5yhgEepksFtjby9Stk/reee/znDnaHPu2WsVzE8ZGEABcEsPn6e31ox028lROEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
+ 2026 01:26:02 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 01:26:02 +0000
+Message-ID: <1e7ac24e-5a14-4324-8e3b-a84f96af5ec2@nvidia.com>
+Date: Fri, 28 Aug 2026 18:25:59 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/15] nova-core: GPU interrupt support and GSP event
+ delivery
+To: Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260829012243.496697-1-jhubbard@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0072.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::17) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d4dc0cb-5e59-453a-6913-08df056c7ce8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	wCyvWUggAQq1n9gML4qPnNCSj246E8J5BescKF8qtv/5erszCOYroHoiRGvQ1rLGascKfFk5PQMU+JnlWf734sqiAjdYInQzdBxha7z/gYA1fUFdGixDtkzufWexj3/Qs4uZmjR/kXso75bq+lBoyA5eDUk/0wZ1y/+MDt8qXPw+Ty30vAyoGyDkyALY00QIjzPoOKWvQKyUw0KOhuXtEZpVvsi4QgoRBZbDUYbmOlfFeA6GwdqXGAC1GPKW677QZ82K3ONuzgHr68hvlVyW5zRrbEgj4j5DFxE7U8ltRLIaJmzVDCnIIGfMAHvPXSxtqY0pG8Qxy6OkvhBPhyslrt/ac3mwUbX0wQUYaq2HKuRxChj0XzSgYalOWiUmxgIuoWHbI5Q19skYycItLJu+UDU7xx1fCGXpy326MVAQ5kd9GII3ejwd596OfiWtlk8EgQxR6R35eVUDSJjfhIi4h/OqXPbPF2VQLiFwtig03JaCsBvNGlbxjypj3Ksq3Q420AP4/0FzeHucvlibjFwvTRbBZX0SEOeGlQBgzbmknY5LNXGSwm9kcK7XEPdWUg85dwfJGEesTh2YpDLUZ0LZlrPVeGREVeE5oOO1Q7ezeYu1HVwW+KBxHfBZgSv+NYvCaH9oQmN86BdBhkVWKCSFGSElWwYetATyJ6xdNoFkQP0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QWFDdmF0UTJmOEUxSXExa3NDdUFRY2JBa0IrWXVoelJFVEh5WWZsNzZKUnNr?=
+ =?utf-8?B?ak1lN29xNjI1NzBYbEZ2MG5wNVNXTDNsRzhpdGpmQnA3OStoUngzYVRIREhE?=
+ =?utf-8?B?aGtuaDNvOTc2V1FMUFo2YXEwTjZrWFM5MHRZdzBIczlJYW1mYjk1RGpyeHBS?=
+ =?utf-8?B?TlpQLzhWcmdhbVQxMFhPbHhzbXB1TFU1M2lMOFF1T2VVcTl4N2draHVNM3c5?=
+ =?utf-8?B?N05wTDlidE0vR3dycU1PYTRhK3hTL0sxWTNBYmZoTzZHY2tFenVGM0V1dTNO?=
+ =?utf-8?B?cm1kOGltSmM2b1FmVGp0QVBHWm1qVlI0RjJtYktMdUVQdXo3V01sbEdOMTZz?=
+ =?utf-8?B?SFFINGx2QlRHV1lrNVFFUlNSNS93b21DRk55d3hyaHUzNnRkdVlQT1FSNXNV?=
+ =?utf-8?B?bXd0RGEzdVFubFpIZlFRTGt6TnJrMkdyVllySHczSzF6OE5FL2MyYmZCKzBE?=
+ =?utf-8?B?OUxKZ2IxRlhURXRmbE1aTHRNK1ljNXFiZFR3NUY5Tjk3K09VN1NVOGRnd3hR?=
+ =?utf-8?B?MFNjNG9Tcy9EbC9IMC80ZzVZUTZhQ3B5Yk90czNrQmdkVnUwbHptVVQxb0c5?=
+ =?utf-8?B?QThFdjdCNlAvdUZ6dnROcmJwRGQvMnNMQzdyWkNXOTVNWkRHbGV3b0Q2U1RH?=
+ =?utf-8?B?ODZ1MXJmUFdCenZ3NWM1eTViMmgwa0lBSUdmNDBtWnJRUXloTTlRWXRySnRs?=
+ =?utf-8?B?M0psYkt1RW1NSjk4WElwbEJSeW90bUVxbVd6dHVGWmsvRUk5OThMaEF1UmNu?=
+ =?utf-8?B?d09MdTAvVnhKYW1DdnprNU1EYy8zd0FuRXhVUGJCaGtxZUg2VmZPNEpqYk9n?=
+ =?utf-8?B?am9xdVN3RlR3anVQYTlPS1RuZ3llMTRGaEJBQytUQzNEWm43SFllSFFwQjRQ?=
+ =?utf-8?B?dmdXeU9lenFkamtVTW15U0ZoakNCUjB1Sm5qT09ueWdmZDIzQlVONVgyNWtz?=
+ =?utf-8?B?Z2FhRHJFQnNBTGZZSU9MS2dkbDFUNk5QOW1PeXZ0Mlo4NFJwSWY3eDVGcklq?=
+ =?utf-8?B?dXhUbER4WFE2ZzdaUXczNXhKeURsSjhjTFNYbDVQUmdhUGUwMGp4WFdhditM?=
+ =?utf-8?B?c3FmQnRnZlZ4QWpYQW8rMXRyQ05sUE9Id2ZudVhNUklmNU1qRk1ybmFvVUtQ?=
+ =?utf-8?B?QjJrUEJET2wwcGtVWmpkZFRCOVY1V1VNYTJXTE8ySUY4cFpvbTdkTklZRTRE?=
+ =?utf-8?B?YlRiRnR3SDN0ZWdxMFhHc0xDeXhvZVRPOVJ1RnlFTGthZzgwMEdGUnhMaCs3?=
+ =?utf-8?B?VHg0RXRJb3dFc3pOY0l5NXdNeUJ0dDZMSkl5aEY2R01Wb0RVemZUM1NBcllY?=
+ =?utf-8?B?UjhCYXlPSXJEcW1nZlJ0L2xBWDRMVndlWGFSVzBQRVR5WHBET2lTL0VpTXJv?=
+ =?utf-8?B?cW9qanpoQ2JnY2dOalM0YXRvNTNhdkhGNTZ4WTRpakNZS2xNZGEzR21iczNR?=
+ =?utf-8?B?c0tJckhlWjRNM1NqbTFrVFI2VEh6YjhDTDdwcjNqVStuMkdqRER4b3ZEOHJj?=
+ =?utf-8?B?Y29BYzVmd2VLZ3YraC83aWV4ZGlkMlBFNVhLMUJvNlpEM3d5Yk5Lb2xhQWN0?=
+ =?utf-8?B?bGJsOUpPWDZMNHBjb2JUN0UwbnB4b0hpb1g5dHZjeUNnSjQvUGJlKzQ4cHky?=
+ =?utf-8?B?SUE0Rk5wQkwrNEViM0E5cUFrVG8vcmVpYm1FbnlDVjhjZU9McE55di9QQkN2?=
+ =?utf-8?B?YUxKWWtkV09BOUJOQzNmNXdGc2s4WHpad093NXlmSTBRQTgwYWp5RDhteGJz?=
+ =?utf-8?B?TDlHWmEzbHBFVm4rN2c4Nlg4cWw3RlpYelVKbVdVM0tXSk1WeWtBT01DRDlr?=
+ =?utf-8?B?VENCR0syZ091M0JEZ2h1M3JZbWV6aUY5eTV6TFdQeXBZb0dRajhma3p0V1FI?=
+ =?utf-8?B?bEhiaEVRcDdDTG82UmJsZ3JBUXgvMk5pSVVPR0FJS0htVHUrN2lxd1F1RUY2?=
+ =?utf-8?B?ZGlsVDdNdkJEU3BNQVNWakdiNi9CUzdjNkFrVXYwUXBOM2N5NHFJRE9YUVNT?=
+ =?utf-8?B?dmNncHF0YWhrRkozTXZZbTFKM2tUeHoyWXRvZ1hJM24yYjFFUENjVE5ET2s4?=
+ =?utf-8?B?bmV0ZEdxTWJ1aEZBcUs5WVpNQmVGbWhJcm8wbkZkWitjYnQ2UHBQS1B1d25X?=
+ =?utf-8?B?bnNFMXd6MFllejdqTnFzTHNYTHFrN1Bqb1ozYXFBNkRNRXdsOC9TYnBXVDNy?=
+ =?utf-8?B?ek1LRm5UVFA5RXM0OExhdWFNeHo4T2UvSTBwK0hDS05NQ01LYWVETEIvajlD?=
+ =?utf-8?B?Z25TTXBvU0h0aG5hcVRicHJGNWg2ZDZaeEdoQVgvMGY4cTNLQzk0YnFWVHBY?=
+ =?utf-8?B?TmxmdkhVblRHRGd4TWFTVHRER0RyOTU0UFppTnZXTjN0enBwUnpZQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d4dc0cb-5e59-453a-6913-08df056c7ce8
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 01:26:02.1697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2Emfc3O15E52XR/GMRQwvcW17wUf6YXNY3mgrX8O8wPhqEtWo7rn335oEhbWeAQhMMEp6yOAf9m8/IUei4nxrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 
-On Sat, 29 Aug 2026 02:20:43 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On 8/28/26 6:22 PM, John Hubbard wrote:
+> I'm posting a v2 because there have been some significant changes, as a
+> result of the v1 review, plus Danilo's new IRQ commits that I've rebased
+> onto.
 
-> > Implement buffered capture using a cyclic DMA transfer into a kfifo
-> > buffer to support continuous high-rate sampling.
-> > 
-> > On buffer enable, switch the ADC to continuous conversion mode and start
-> > a cyclic DMA transfer over the active channels.
-> > 
-> > Because the DMA controller does not support native scatter-gather, and
-> > because of the cyclic DMA setup, transfers must be done in widths
-> > covering all the enabled channels.
-> > 
-> > Since DMA transfer width must be a power of two and aligned to its size,
-> > cover the smallest power-of-two-aligned group of channel registers
-> > spanning the enabled channels.
-> > 
-> > Split the cyclic buffer into fixed-size periods. On each period
-> > completion, bump a pending counter and wake a consumer kthread from the
-> > DMA callback.
-> > 
-> > For every completed period, gather the enabled channels out of the DMA
-> > layout into the scan layout the IIO core expects and push each scan
-> > with iio_push_to_buffers().  
-> 
-> Could you instead use the available_scan_masks infrastructure.  bit annoying
-> to specify the full list but isn't that long I think with 16 channels
-> 
-> 16 x single
-> 8 x double,
-> 4 x quads
-> 2 x octect
-> 1 x all of them.
-> 
-> The the IIO demux in (sits behind the push_to_buffers path if
-> we have available_scan_masks set) will then deal with repacking
-> the data if necessary.
-> 
-> > 
-> > If the consumer kthread falls behind by a full buffer, drop the oldest
-> > periods.
-> > 
-> > Because the DMA transfer must cover all channels between the first and
-> > last enabled ones, skip disabled channels while compacting.
-> > 
-> > Also, the DMA controller transfers data in 32-bit words, but the ADC's
-> > data registers are 16-bit wide, causing adjacent channel data to be
-> > swapped. Swap consecutive channels while compacting to account for this.
-> > 
-> > Allocate the DMA buffer via dma_alloc_noncoherent() and synchronise it
-> > per period to allow it to be cached by the CPU while compacting.
-> > 
-> > Disable the completion IRQ for the duration of the DMA transfer, as the
-> > ICU does not mask this event from reaching the GIC even if it is being
-> > used to drive the DMA capture.
-> > 
-> > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>  
-> 
-> I'm messing around with b4 review tui and sashiko integration. I've
-> left the Sashiko comments in here as I'm out of time today to look
-> at them in detial.
+There was a failure in git-send-email part way through. I'll attempt to
+resend, once I figure out what went wrong.
 
-Apparently I got the options wrong to include the sashiko replies :(
+Only the cover letter and the first 4 patches got sent.
 
-So take a look at :
-https://sashiko.dev/#/patchset/20260828145943.2077589-1-cosmin-gabriel.tanislav.xa%40renesas.com
+thanks,
+-- 
+John Hubbard
+> 
+> This series adds support for GIN, the GPU Interrupt and Notification
+> unit, which is the GPU's interrupt controller, so that GSP events reach
+> the driver as interrupts instead of only when the driver polls.
+> 
+> The design uses a threaded IRQ handler. The top half touches only
+> GPU registers, while the threaded bottom half drains the message queue.
+> 
+> Fine-grained locking is left for a follow-up patchset, I'm working on
+> that next. For now, there is just a big ugly lock around anything that
+> even gets close to the GSP message queue. :)
+> 
+> This is based on drm-rust-next, plus the six commits of Danilo
+> Krummrich's PCI interrupt-vector series [1], which I've cherry-picked
+> from mainline for now.
+> 
+> There is a git branch with the patches as applied to drm-rust-next:
+> 
+>     https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tree-v2/
+> 
+> Changes in v2:
+> 
+> * Rebased onto current drm-rust-next. The PCI interrupt-vector rework
+>   that v1 patches 2 and 3 proposed is in mainline now as Danilo's series
+>   [1], so both are dropped. This series carries those six commits as
+>   prerequisites until drm-rust-next picks them up.
+> 
+> * nova-core uses the merged API: the driver's device data owns the
+>   vector allocation under an explicit lifetime rather than through
+>   devres, and each handler takes an IrqRequest for its own subtree's
+>   vector.
+> 
+> * Dropped "allocate PCI MSI vector during probe" (v1 patch 4). What it
+>   added is replaced by patch 6, and its commit message justified MSI
+>   with a VFIO claim that does not hold. nova-core still allocates MSI-X
+>   or MSI, and no longer falls back to INTx. (Danilo)
+> 
+> * Dropped the type-invariant documentation and the SAFETY rewrites from
+>   the wait_for_completion_timeout() patch, leaving only the new method
+>   itself. (Alexandre)
+> 
+> * New: declare pci::IrqType and IrqTypes with impl_flags, so a call site
+>   reads IrqType::MsiX | IrqType::Msi. (Gary)
+> 
+> * New: the GIN vector and subtree newtypes. A vector, a leaf index, a
+>   set of vectors within one leaf, one subtree, a set of subtrees, and a
+>   leaf count are separate types now, so a leaf mask cannot be passed
+>   where a TOP bit belongs. The HAL returns a LeafCount rather than a
+>   usize. GSP_LEAF and GSP_BIT are gone, along with the
+>   LeafIndex::new::<GSP_LEAF>() calls. (Danilo)
+> 
+> * Merged the tree API patch into the vector allocation patch, and moved
+>   both after the HAL. Tree owns the BAR mapping, so no tree method takes
+>   a bar argument. The Leaf<Idle>/Leaf<Pending> type state gives way to a
+>   LeafPending newtype that only Tree::read_pending hands out, and enable
+>   and disable are Tree methods. (Danilo)
+> 
+> * Added LeafEnableGuard and TopEnableGuard. The self-test's teardown
+>   guard and GspIrq's open-coded destructor are both gone, and probe no
+>   longer needs a separate interrupt-enable step. (Danilo)
+> 
+> * Moved the GIN and MSI EOI register definitions to irq/regs.rs.
+>   (Danilo)
+> 
+> * 13 KUnit tests rather than 14. The tree tests now cover the newtypes,
+>   and testing those needs no BAR mapping. One test went away because a
+>   leaf count derives its subtree set by construction.
+> 
+> Tested on Turing, Ampere, Blackwell GPUs.
+> 
+> One known gap: driver_read_area still reads the GSP producer pointer
+> with no acquire barrier. Gary Guo's barrier series puts dma_mb(Read) at
+> exactly that point [2], so let's just wait for his fix to land.
+> 
+> [1] https://lore.kernel.org/all/20260813165234.620555-1-dakr@kernel.org/
+> [2] https://lore.kernel.org/all/20260609-rust-barrier-v2-4-30fcc48e1cd0@garyguo.net/
+> 
+> 
+> Joel Fernandes (2):
+>   rust: sync: completion: add wait_for_completion_timeout()
+>   gpu: nova-core: add the GIN interrupt tree and allocate its vectors
+> 
+> John Hubbard (13):
+>   rust: pci: declare IrqType and IrqTypes with impl_flags
+>   gpu: nova-core: add the GIN CPU interrupt tree and MSI EOI registers
+>   gpu: nova-core: add the GIN vector and subtree newtypes
+>   gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
+>   gpu: nova-core: add an interrupt delivery self-test
+>   gpu: nova-core: dispatch GSP events instead of discarding them
+>   gpu: nova-core: match GSP RPC replies by sequence, not just function
+>   gpu: nova-core: recover the GSP receive path from corrupt framing
+>   gpu: nova-core: bound a GSP wait by a single deadline
+>   gpu: nova-core: drive GSP events with the SWGEN0 interrupt
+>   gpu: nova-core: retrigger the GSP falcon and clear every latched cause
+>   gpu: nova-core: add KUnit tests for the interrupt tree and HALs
+>   gpu: nova-core: document the GIN interrupt controller and GSP events
+> 
+>  Documentation/gpu/nova/core/interrupts.rst  | 686 ++++++++++++++++++++
+>  Documentation/gpu/nova/index.rst            |   1 +
+>  drivers/gpu/nova-core/Kconfig               |  15 +
+>  drivers/gpu/nova-core/driver.rs             |  55 +-
+>  drivers/gpu/nova-core/falcon/gsp.rs         |  71 +-
+>  drivers/gpu/nova-core/falcon/hal.rs         |  32 +
+>  drivers/gpu/nova-core/gpu.rs                |  28 +-
+>  drivers/gpu/nova-core/gsp.rs                |  17 +-
+>  drivers/gpu/nova-core/gsp/cmdq.rs           | 286 ++++++--
+>  drivers/gpu/nova-core/gsp/commands.rs       |   8 +-
+>  drivers/gpu/nova-core/gsp/fw.rs             |  13 +-
+>  drivers/gpu/nova-core/gsp/sequencer.rs      |   8 +-
+>  drivers/gpu/nova-core/irq.rs                | 105 +++
+>  drivers/gpu/nova-core/irq/doorbell_test.rs  | 298 +++++++++
+>  drivers/gpu/nova-core/irq/gsp.rs            | 232 +++++++
+>  drivers/gpu/nova-core/irq/hal.rs            | 192 ++++++
+>  drivers/gpu/nova-core/irq/hal/gh100.rs      |  31 +
+>  drivers/gpu/nova-core/irq/hal/tu102.rs      |  30 +
+>  drivers/gpu/nova-core/irq/interrupt_tree.rs | 615 ++++++++++++++++++
+>  drivers/gpu/nova-core/irq/regs.rs           |  71 ++
+>  drivers/gpu/nova-core/nova_core.rs          |   1 +
+>  drivers/gpu/nova-core/regs.rs               |  24 +
+>  rust/kernel/pci/irq.rs                      |  68 +-
+>  rust/kernel/sync/completion.rs              |  23 +-
+>  24 files changed, 2767 insertions(+), 143 deletions(-)
+>  create mode 100644 Documentation/gpu/nova/core/interrupts.rst
+>  create mode 100644 drivers/gpu/nova-core/irq.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/gsp.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/hal.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/interrupt_tree.rs
+>  create mode 100644 drivers/gpu/nova-core/irq/regs.rs
+> 
 
-> >
-> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> > index 415e519ad4eb..6c7b30d2b6e7 100644
-> > --- a/drivers/iio/adc/Kconfig
-> > +++ b/drivers/iio/adc/Kconfig
-> > @@ -1551,6 +1551,8 @@ config RZT2H_ADC
-> >  	tristate "Renesas RZ/T2H / RZ/N2H ADC driver"
-> >  	depends on ARCH_RENESAS || COMPILE_TEST
-> >  	select IIO_ADC_HELPER
-> > +	select IIO_BUFFER
-> > +	select IIO_KFIFO_BUF
-> >  	help
-> >  	  Say yes here to build support for the ADC found in Renesas
-> >  	  RZ/T2H / RZ/N2H SoCs.
-> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> > index 95bcebdc02cb..d76226375f22 100644
-> > --- a/drivers/iio/adc/rzt2h_adc.c
-> > +++ b/drivers/iio/adc/rzt2h_adc.c
-> > @@ -4,11 +4,16 @@
-> >  #include <linux/cleanup.h>
-> >  #include <linux/completion.h>
-> >  #include <linux/delay.h>
-> > +#include <linux/dma-mapping.h>
-> > +#include <linux/dmaengine.h>
-> >  #include <linux/iio/adc-helpers.h>
-> > +#include <linux/iio/buffer.h>
-> >  #include <linux/iio/iio.h>
-> > +#include <linux/iio/kfifo_buf.h>
-> >  #include <linux/interrupt.h>
-> >  #include <linux/io.h>
-> >  #include <linux/iopoll.h>
-> > +#include <linux/kthread.h>
-> >  #include <linux/module.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/pm_runtime.h>
-> > @@ -18,6 +23,7 @@
-> >  #define RZT2H_ADCSR_ADIE_MASK		BIT(12)
-> >  #define RZT2H_ADCSR_ADCS_MASK		GENMASK(14, 13)
-> >  #define RZT2H_ADCSR_ADCS_SINGLE		0b00
-> > +#define RZT2H_ADCSR_ADCS_CONTINUOUS	0b10
-> >  #define RZT2H_ADCSR_ADST_MASK		BIT(15)
-> >  
-> >  #define RZT2H_ADANSA0_REG		0x04
-> > @@ -31,18 +37,47 @@
-> >  #define RZT2H_ADCALCTL_CAL_ERR_MASK	BIT(2)
-> >  
-> >  #define RZT2H_ADC_MAX_CHANNELS		16
-> > +#define RZT2H_ADC_CHANNEL_BYTES		sizeof(u16)
-> > +#define RZT2H_ADC_DMA_PERIOD_SAMPLES	128
-> > +#define RZT2H_ADC_DMA_PERIODS		64
-> > +#define RZT2H_ADC_DMA_BUFFER_SAMPLES	(RZT2H_ADC_DMA_PERIODS * \
-> > +					 RZT2H_ADC_DMA_PERIOD_SAMPLES)
-> > +#define RZT2H_ADC_DMA_BUFFER_SIZE	(RZT2H_ADC_DMA_BUFFER_SAMPLES * \
-> > +					 RZT2H_ADC_MAX_CHANNELS * \
-> > +					 RZT2H_ADC_CHANNEL_BYTES)
-> > +
-> > +struct rzt2h_adc_dma {
-> > +	struct dma_chan *chan;
-> > +	u16 *buf;
-> > +	dma_addr_t addr;
-> > +
-> > +	unsigned int period_index;
-> > +	unsigned int period_bytes;
-> > +	unsigned int first_chan;
-> > +	unsigned int sample_chans;
-> > +
-> > +	u8 gather[RZT2H_ADC_MAX_CHANNELS];
-> > +	unsigned int gather_len;
-> > +
-> > +	atomic_t pending_periods;
-> > +
-> > +	wait_queue_head_t wq;
-> > +	struct task_struct *thread;
-> > +};
-> >  
-> >  struct rzt2h_adc {
-> >  	void __iomem *base;
-> >  	struct device *dev;
-> >  
-> >  	phys_addr_t phys_base;
-> > +	struct rzt2h_adc_dma dma;
-> >  	struct completion completion;
-> >  	/* lock to protect against multiple access to the device */
-> >  	struct mutex lock;
-> >  
-> >  	const struct iio_chan_spec *channels;
-> >  	unsigned int num_channels;
-> > +	u16 buf[RZT2H_ADC_MAX_CHANNELS];
-> >  
-> >  	int irq;
-> >  };
-> > @@ -151,6 +186,253 @@ static int rzt2h_adc_calibrate(struct rzt2h_adc *adc)
-> >  	return 0;
-> >  }
-> >  
-> > +static void rzt2h_adc_push_period(struct iio_dev *indio_dev, u16 *period,
-> > +				  dma_addr_t addr)
-> > +{
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +	u16 *dst = adc->buf;
-> > +	u16 *src = period;
-> > +
-> > +	dma_sync_single_for_cpu(adc->dev, addr, adc->dma.period_bytes,
-> > +				DMA_FROM_DEVICE);
-> > +
-> > +	for (unsigned int sample = 0; sample < RZT2H_ADC_DMA_PERIOD_SAMPLES; sample++) {
-> > +		for (unsigned int i = 0; i < adc->dma.gather_len; i++)
-> > +			dst[i] = src[adc->dma.gather[i]];
-> > +
-> > +		src += adc->dma.sample_chans;
-> > +
-> > +		iio_push_to_buffers(indio_dev, adc->buf);
-> > +	}  
-> 
-> 
-> 
-> > +}
-> > +
-> > +static void rzt2h_adc_advance_period_index(struct rzt2h_adc *adc, unsigned int i)
-> > +{
-> > +	adc->dma.period_index += i;
-> > +	adc->dma.period_index %= RZT2H_ADC_DMA_PERIODS;
-> > +}
-> > +
-> > +static void rzt2h_adc_dma_thread_loop(struct iio_dev *indio_dev)
-> > +{
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +	int pending, drop;
-> > +	dma_addr_t addr;
-> > +	u16 *period;
-> > +
-> > +	pending = atomic_xchg(&adc->dma.pending_periods, 0);
-> > +
-> > +	if (pending >= RZT2H_ADC_DMA_PERIODS) {  
-> 
-> Add a comment here to say what is being dropped and why.
-> 
-> > +		drop = pending - RZT2H_ADC_DMA_PERIODS + 1;
-> > +
-> > +		rzt2h_adc_advance_period_index(adc, drop);
-> > +		pending -= drop;
-> > +	}
-> > +
-> > +	for (unsigned int i = 0; i < pending; i++) {
-> > +		unsigned int backlog = atomic_read(&adc->dma.pending_periods) +
-> > +				       pending - i;
-> > +
-> > +		/*
-> > +		 * Bail if enough new periods have completed since reading the
-> > +		 * pending_periods that the next period about to be read is at
-> > +		 * risk of being overwritten.
-> > +		 */
-> > +		if (backlog >= RZT2H_ADC_DMA_PERIODS)
-> > +			break;  
-> 
-> 
-> > +
-> > +		period = adc->dma.buf + adc->dma.period_index *
-> > +			 RZT2H_ADC_DMA_PERIOD_SAMPLES * adc->dma.sample_chans;
-> > +		addr = adc->dma.addr + adc->dma.period_index *
-> > +		       adc->dma.period_bytes;
-> > +
-> > +		rzt2h_adc_push_period(indio_dev, period, addr);
-> > +		rzt2h_adc_advance_period_index(adc, 1);
-> > +	}
-> > +}
-> > +
-> > +static int rzt2h_adc_dma_thread(void *data)
-> > +{
-> > +	struct iio_dev *indio_dev = data;
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +
-> > +	while (!kthread_should_stop()) {
-> > +		wait_event_interruptible(adc->dma.wq,
-> > +					 atomic_read(&adc->dma.pending_periods) ||
-> > +					 kthread_should_stop());  
-> 
-> I've not thought that much about the following but it seems plausible so please
-> take a look
-> 
-> 
-> > +
-> > +		if (kthread_should_stop())
-> > +			break;
-> > +
-> > +		rzt2h_adc_dma_thread_loop(indio_dev);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void rzt2h_adc_dma_callback(void *data)
-> > +{
-> > +	struct iio_dev *indio_dev = data;
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +
-> > +	atomic_inc(&adc->dma.pending_periods);
-> > +	wake_up(&adc->dma.wq);
-> > +}
-> > +
-> > +static void rzt2h_adc_dma_calc_layout(struct iio_dev *indio_dev)
-> > +{
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +	unsigned int hi = 0, lo = RZT2H_ADC_MAX_CHANNELS - 1;
-> > +	const struct iio_chan_spec *chan;
-> > +	unsigned int sample_chans;
-> > +	unsigned int first_chan;
-> > +	unsigned int scan_index;
-> > +	unsigned int swap;
-> > +	unsigned int idx;  
-> 
-> As mentioned at the top, I think you can probably avoid all this complexity.
-> Lots of devices have restrictions on combinations of channels that
-> are enabled together. For that we have available_scan_masks
-> and the demux stuff in the IIO core.
-> 
-> > +
-> > +	/* Find the lowest and highest enabled channel. */
-> > +	iio_for_each_active_channel(indio_dev, scan_index) {
-> > +		chan = &indio_dev->channels[scan_index];
-> > +
-> > +		lo = min_t(unsigned int, lo, chan->channel);
-> > +		hi = max_t(unsigned int, hi, chan->channel);
-> > +	}
-> > +
-> > +	/*
-> > +	 * The DMA has no scatter-gather and transfers must have a power-of-two
-> > +	 * width, so pick the smallest power-of-two-aligned block of channels
-> > +	 * that covers all enabled channels.
-> > +	 */
-> > +	for (sample_chans = 1; sample_chans < RZT2H_ADC_MAX_CHANNELS; sample_chans <<= 1) {
-> > +		first_chan = round_down(lo, sample_chans);
-> > +
-> > +		if (first_chan + sample_chans > hi)
-> > +			break;
-> > +	}
-> > +
-> > +	/*
-> > +	 * Build a table to map each enabled channel to its position in the
-> > +	 * transferred block, it will be used later to extract only the enabled
-> > +	 * channels out of it.
-> > +	 * The DMA moves data in 32-bit words, which swaps each pair of adjacent
-> > +	 * 16-bit channels. Undo it.
-> > +	 */
-> > +	adc->dma.gather_len = 0;
-> > +	swap = sample_chans > 1;
-> > +	iio_for_each_active_channel(indio_dev, scan_index) {
-> > +		chan = &indio_dev->channels[scan_index];
-> > +		idx = chan->channel - first_chan;
-> > +
-> > +		adc->dma.gather[adc->dma.gather_len++] = idx ^ swap;
-> > +	}
-> > +
-> > +	adc->dma.first_chan = first_chan;
-> > +	adc->dma.sample_chans = sample_chans;
-> > +	adc->dma.period_bytes = RZT2H_ADC_DMA_PERIOD_SAMPLES * sample_chans *
-> > +				RZT2H_ADC_CHANNEL_BYTES;
-> > +}
-> > +
-> > +static int rzt2h_adc_start_dma(struct iio_dev *indio_dev)
-> > +{
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +	struct dma_async_tx_descriptor *desc;
-> > +	struct dma_slave_config config = {};
-> > +	unsigned int buffer_bytes;
-> > +	dma_cookie_t cookie;
-> > +	int ret;
-> > +
-> > +	rzt2h_adc_dma_calc_layout(indio_dev);
-> > +
-> > +	config.src_addr = adc->phys_base + RZT2H_ADDR_REG(adc->dma.first_chan);
-> > +	config.src_addr_width = adc->dma.sample_chans * RZT2H_ADC_CHANNEL_BYTES;  
-> 
-> 	config = (struct dma_slave_config) {
-> 		.src_addr = adc->phys_base + RZT2H_ADDR_REG(adc->dma.first_chan),
-> 		.src_addr_width = adc->dma.sample_chans * RZT2H_ADC_CHANNEL_BYTES,
-> 	};
-> 
-> 	keeps all the filling in of info together and avoids need to do = { }
-> 	above then overwrite some of the zeroed memory.
-> 
-> > +
-> > +	buffer_bytes = RZT2H_ADC_DMA_PERIODS * adc->dma.period_bytes;
-> > +
-> > +	ret = dmaengine_slave_config(adc->dma.chan, &config);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	desc = dmaengine_prep_dma_cyclic(adc->dma.chan, adc->dma.addr,
-> > +					 buffer_bytes, adc->dma.period_bytes,
-> > +					 DMA_DEV_TO_MEM, DMA_PREP_INTERRUPT);
-> > +	if (!desc)
-> > +		return -EBUSY;
-> > +
-> > +	desc->callback = rzt2h_adc_dma_callback;
-> > +	desc->callback_param = indio_dev;
-> > +
-> > +	cookie = dmaengine_submit(desc);
-> > +	ret = dma_submit_error(cookie);
-> > +	if (ret) {
-> > +		dmaengine_terminate_sync(adc->dma.chan);
-> > +		return ret;
-> > +	}
-> > +
-> > +	adc->dma.thread = kthread_run(rzt2h_adc_dma_thread, indio_dev,
-> > +				      "rzt2h-adc-dma");
-> > +	if (IS_ERR(adc->dma.thread)) {
-> > +		dmaengine_terminate_sync(adc->dma.chan);
-> > +		return PTR_ERR(adc->dma.thread);
-> > +	}
-> > +
-> > +	disable_irq(adc->irq);
-> > +
-> > +	dma_async_issue_pending(adc->dma.chan);
-> > +
-> > +	return 0;
-> > +}
-> > +  
-> 
-> > +static int rzt2h_adc_setup_dma(struct iio_dev *indio_dev)
-> > +{
-> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > +	struct device *dev = adc->dev;
-> > +	int ret;
-> > +
-> > +	adc->dma.chan = devm_dma_request_chan(adc->dev, "rx");
-> > +	if (IS_ERR(adc->dma.chan)) {
-> > +		ret = PTR_ERR(adc->dma.chan);
-> > +		if (ret != -ENODEV)
-> > +			return dev_err_probe(adc->dev, ret, "DMA channel request failed\n");  
-> 
-> You have dev that can be used here.
-> 
-> > +
-> > +		adc->dma.chan = NULL;
-> > +		return 0;
-> > +	}
-> > +
-> > +	adc->dma.buf = dma_alloc_noncoherent(adc->dev, RZT2H_ADC_DMA_BUFFER_SIZE,  
-> 
-> Same here.
-> 
 
