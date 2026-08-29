@@ -1,85 +1,85 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD053D75BC
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB40B3F9F28
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788025779; cv=pass; b=eHwyTyhpGtZW/3GjM+iTB0pKOzZTkacwDJFeOeNL3fGkpoDwOYX1SUzwCcTa3f7nSrf5RfnJkV6alYTmK56OVjfqx08O3sVAc1/Zq/asGIhRxHDfhJmNg/AKO+UZdeJDpVPZOs2KpQTWU/0e8J7N2Q4Xvu1tUbrD//V2JiLxsAc=
+	t=1788025778; cv=pass; b=ZOZqDqv/sJXmD+UrbiUOKK72hUycNkNvYpVvgh3uBz+qfa2FYoliuZgkmXQXF0UwNOGUxBNnALjuw2oCSEjJi7TS2SmfIZlnEXC8DB7X3b3dnFwBkllU+DTT7CNngofRGv2U6Hqx/2fv1rhhwAx6vFe0C4for5LGNRQHjAXgoYg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788025779; c=relaxed/simple;
-	bh=16FRETOzYCXLjDNk6dtxhmSh4wxkMOoKYzSB907owhY=;
+	s=arc-20240116; t=1788025778; c=relaxed/simple;
+	bh=+aGc1KA0K5wi8chGACL8NUCmh6wES3I+uQtDCZ/nCls=;
 	h=From:MIME-Version:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ek7nOATOrjJYU3m9y2VShVpJItBzELbD0yF5Dv7PhM+qcxEBGQUgnBGnSyfWLs97FgQTctyVYwtI1qnmI++QjYLBU2oObdo20GQe05u7ON5H0PIEwoRH5fxs9yku0maKvLGJiTix3qxHLjlMPcIunEcwgMU7MexOQeOzrZLF8bE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dM09pMBk; arc=pass smtp.client-ip=209.85.208.42
+	 To:Cc:Content-Type; b=HOqFJKSvLudQz6EpA18GERc5zLHTdQ93Pim8KgoPduoqHboVUjaLpagQaIXgB0mun50Ibjyb62YTvVjr49S409+Qp3yTcvI+iFJoP8ImKZsj1y/RuZu6xVXq2xQkokAx7G+1CSZoH31x4c64ealXKQONvVRvljK6fDk0PAsCcLs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rbdBjWBE; arc=pass smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dM09pMBk"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a5f1d0af69so3297777a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788025775; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rbdBjWBE"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso3402121a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788025773; cv=none;
         d=google.com; s=arc-20260327;
-        b=mqsDF4perfmDBgue5YGN/Uv/qitAWkuJc9VNxxO9h5sET8KTX2e5qWC09A4bTxQ8qJ
-         aNq8ICM84+DIwQ0VQ+llFFusaPvvta6qOtQ7gxPQvY0P3GmQDpmfYepYX22re534phPr
-         ng/fa6X6pGvruOjxlUG41HszdAX2fNk2uB8tYe1UyEwIGnmCyKhRUO+1fWfFkaG0x4KD
-         RN8/64rzt2B/QvcxINbrZoU0W5Vxw1Ri3IkQHsdF3hRVnbDAje6nWDI/5KBMQHLTjKGg
-         JV6wZfyISSHVlMH/4nGd4z6QYQ0vbfYGoon+bHuYhLFe6qAldnV4vvRf17M7stMvKO6q
-         oTHg==
+        b=eFrVhsAJQ0j1RXdbLg6Ddv892WGE8nrfZ+K8S/KiLIRaiEmET0Rt8zFfMdiD875dwb
+         oaVyRoBk/4of84Su+np1myGM7VUN864YCXfixVZkUrSJE6syDF2QALD/wBAwx+OGLXCW
+         Ttc1QJ5WlJtnZcmIUTdD0msdd6mLbE9gDXqK5CbpAUlDp7Rq9V5Ma/kGQk+bAAeTOZ5Q
+         SkyxRN67ujMucbFLbBqABRdIq3YOWre1Qq37T2WSBKtppNPRh7QycG7Qe8NRk21jsGzB
+         0tzjZoefqHmpXs+T5ClMyyS/irGTWOYhvknuNdH8uAV6YvypLGQ91Ad+IH+dh5lS7qO/
+         uLyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
          :from:dkim-signature;
-        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
-        fh=LzHP93Jg/H7FSlqKp9jcJ1TaXgsAzgk1bvFFVSowG24=;
-        b=MLsrUn5zehGDW5tegTRovn0MD7eEbDVLGvVhwyibD7cPkrkYAPXYyYxXdbYRYfsMob
-         h2eW6eASLA/KfrixfppkZKv4C2b3L70Pw7FTipleR7r4cXgBEz+0FkXEdvj6cW/hA+u5
-         5h/lsQ9Nt05hBJMsVf/oSP6TtxC5eWhyoMQijUVbQtgVrfhbaWe8IuGx6H2hw12claYy
-         drBiYE7XBZf/JnKnc4ZWPs9TRbhwP7Vn/nRY8sXD469BC5YeNxfhKc4RGKm1woqGMNdM
-         SWhhVUWUhROUpZmPJGcf1xFtOJeRBkIxPFC9IHe8Ua8D0gsBpguMNqR9u+2Cp3RccbQF
-         cm6Q==;
+        bh=a3vUnhoZ0DDWhQkZH/JXhh0SaXXrmqevnGvD80vVTLY=;
+        fh=eDX40yQVbzfivdk4A3Ws+eoz2rysdbRZeM+NFezln0s=;
+        b=LJKU1zJMd5KNVsfwgfJXDU/6gD5iTKBHzeeW1sHueWIQ11k+n3u2O8e2GCkPZwxvSX
+         tZhJLas2IEJyC5wdRWX1nyW7phSeVDsaRvmIy4ZQfnFoer41nbS9Tzt7gwbni5fntyGN
+         a6zVPWXwCB1+X9je9DBqY/oNDRvYIo/8QdLAXaFcWRs3dHc11uf1RGR5/ZSERyCOaucI
+         69tjWo44vV45Ng7DJK6UpFq7Rx/gk5gU8MYt590pJJk2KnE2OObkUnYF0/oGmmCbtZ3H
+         awYUJq2SKp5dLGP+SSZNjoyWlt8TIoGGwHx83+xeAbQubuBxOZD+nE/NRThjh14/1rRP
+         jLRg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788025775; x=1788630575; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788025773; x=1788630573; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
-        b=dM09pMBkMf2w/PBJkOXy10mo5CJ+/5fsRyy6eDV65zcK3mQi8oD+O0zMSK0KmjMCya
-         vLIHqcqROC2iTxHjEPLYA9B/BqxXn+onU5xX9CV0DaJiuKedobDURXx5E7s/2I2FnjIz
-         0uROGgPoM/QLbH6lQk8uKNfjJkujfBQQtNYkUVW5+30a/VnTylAeaTNU2fxIONA2619m
-         3GZ4dEgDo15zG5TdcRrdp//r7B7dMRKn/nFLlH6vf3wdVGku2ibBWMHYDP91YubnxhV/
-         WmhitNr9uoCIFPvnmkty4OY3XoR73v+K0aU7pYal/xhE+JowGgO/lY22L6wVuC7Armoa
-         rs2Q==
+        bh=a3vUnhoZ0DDWhQkZH/JXhh0SaXXrmqevnGvD80vVTLY=;
+        b=rbdBjWBEOYjTVAhGnW+bgjq9vv31L2b/++Ga3komZeDDkF89MvxkhO6JvsxIgScUX/
+         NbJ4vGL6Q+euBEmmRbFJDfTMdTfm5q22KWejSp3PGJElgOqk8LJvlSuKZZOGPNy9LWa+
+         enWYQUCK7hcBhVAaYrNzL1ESh5cEW+wNkhsWJNvRefQGvbpylBq+xDlhHFiue/cVnCgd
+         aBB8ahxdQPFw5/PsK+dZBF0+yUlsNjaQxSRJ/Bnv1oQU3FqQXLwzheMb3jGzbPs/mZrw
+         Cl1DBC8oenPXfWS3IgeyRLmpSGu7K5OfntwjroddEpChasoLiJujcpMdoZbu4Afegujd
+         ur7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788025775; x=1788630575;
+        d=1e100.net; s=20251104; t=1788025773; x=1788630573;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=c8moUB83P+kp5KmjBYVfuFkLyzF/rET/Hv2+K65l3kk=;
-        b=Vgt1l770MiZv3iFjMAowgCpH0sDXlXYoE/HAlMMwSryW/xQJ5yEhQghN3wF6yaNhcA
-         qeYVU0qF0gozv9B3rGE/O+snLs3Sib6kPtnKi8+VMzF3OryREkalTrOkgJ/M3kjJqk4j
-         +XGCKbe5WKE6YgIhP1bA+gqUY8xLQduVvAA4dOH4kthhyz7fgXcwgHgQsdQq9J6WvImD
-         htHNOYsGoLxehmlbbbpjOWoZswEpfRit8a3FlxXswbAYfNqVNEaOA6nt75SDA7qnI3xw
-         HCu+JGjSyQHbprH8HLWLDlH9NhtSiJ8hH4Lfw4SAL4OreU2drEPJg+iL1vOEJJg53xoS
-         5bGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGIrD0bBkK5hdZXiWMA5P0L148g+DfPORPpM4skYKBMSc2IhWTi9HToXbJ018A0b5zH9I1qYaUbmLELrU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/ncJId294ZRWJIbCeS6zFboDbX71u0KBIT8rWAGH6+Qr7ds5m
-	rAm3Pju3QBAuqU4FSJ59fYsuHDuRU76kb6mmRXKrJ5G7jb2R7AwcbzVcD7Rx16inBmyNh8IS0AG
-	9w3cSRLebDsV+Fz6bDjyT82kPpn8XwRU=
-X-Gm-Gg: AYBFou2UxXhxifguAiRUG37Zz0cyq9vta/iD8YaVmxPw7x+ojkRtZlSDcSaX9YaxBxi
-	tJ+FZqH19ZaB1HSvvbK7BP2z7Dd5Z/9c71K/q/iVYUJPUNNXw36OJFv3SWTbNvg0CoC3/cmZ4oT
-	QP9syO9Bjjkf5iLda2B/Vl9QJh9a9LqdOYd5CuSHZbeUSTCiNPmt7w+8W1yAmLwhxH20CWvLI2A
-	6EkyFx8sjAyHb7NkKbFvPxYFb32nzu9OSM+qrnGW2Tw1pjnuuPd4JPiGN6aagY8iJhCZuFpe3Xz
-	mYPUkcxzBZe71eI8931sRT9lKTF5rLDWAtIhAPNqI6TLGVF/piy2qy+IeCsB4+QJcAHsbxaODhh
-	e/Hw=
-X-Received: by 2002:a05:6402:a6d2:10b0:6a6:1719:3f42 with SMTP id
- 4fb4d7f45d1cf-6a6171940bcmr5519070a12.6.1788025774643; Sat, 29 Aug 2026
- 10:49:34 -0700 (PDT)
+        bh=a3vUnhoZ0DDWhQkZH/JXhh0SaXXrmqevnGvD80vVTLY=;
+        b=fO2ZtHawMs4e52qs68+4+eim1Yjg/sZbSWAdvmOegjx1hVxyaYG6/ESet+TRbAmRnS
+         cVgwes4FTTR2B5doc+f2gAQi4LXh7aCXTqM8Qnov7i9JR1gdVbNe0BtBSh0weA8EG4x1
+         00t/2H36s1dibXbZ0T13OwCXqzZpJmMo5nRXHceE5f2CAvvArTkht1LIvMinSGasQPCj
+         bV+WVxg810B5KqiEj3w/qYLQ+HZ5uCSwAIJh4za36NdfkYBxEJUM7JCA8CGKTBOW7tze
+         p/dJBRBALbkYCcBnR1XfccLf4pINE2bkaTu2Pk8fuKbq3Z/5HKzt8uEl6MdbDcifayZN
+         3XAg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9sTjKlOeDpygJ4yRHMmyUutcS4IDCkM1MFQCbVb1MEUoi3dEbhEU2kemBdQGz9n4ugASYhJ8JNIioyNU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcBDQH8nSTu0uiAf7mARoYLokpoDGqIQN5xon98u9Oruk4+/3o
+	JnonArObr/CmHcl7Ksos2WiDHRM/ptKlyv+YpX1iKQfvtSHFT3entLjFvXTYUxAOxfhs/asKcTA
+	tI0dewB/7Tlme4X4tpcrrS7HsTinJIdI=
+X-Gm-Gg: AYBFou1bPLfSy/edRdwz/DXt4vyGbDQqQ7lMbIrtHfGdXIdNCQzRV/9MVXseXFMYWAS
+	tF9nyjfplgqQ7a6cL6M/fFNgupc5EdCAreNItKkSMa2hUxwpZw39fFnuwLurTqDmHpn/dNU+ZZ3
+	v97ntRl84a3P4ytsRCJTw7nDdNrrp4QgFtgr3DqHMnKhtx0D9akh4jzW8t6r+qmIZB4JwoaUisU
+	UcYadtcEHWFtl6MIGWNY4MWtlxw3DrE77EQ3oXUiYf94xFB3FYaNtohA74Ii9eOt86hHhJWK/kv
+	Y206KbJgsa/hXahsj2q01eRqBye5Hq/qFu3A5rbVXdNsBE91lBVd+M9Qb+a8QRpBORv/0HYpJj5
+	jKw==
+X-Received: by 2002:a05:6402:a0d2:b0:6a5:d6b5:cf80 with SMTP id
+ 4fb4d7f45d1cf-6a60d3933b6mr8655807a12.11.1788025772325; Sat, 29 Aug 2026
+ 10:49:32 -0700 (PDT)
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:33 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:31 -0700
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:33 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:31 -0700
 From: Xinping Zhang <zhangxp1998@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -89,270 +89,459 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 In-Reply-To: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
 References: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
-Date: Sat, 29 Aug 2026 10:49:33 -0700
-X-Gm-Features: AcwNN1U6oNO5oJ362powaMyP2M3wJ3wAubS464nVL0S4R0oZoMdglV6MClMJkG8
-Message-ID: <CAH=xXfFGDEsnVeZ+NH167rp6wCcEnCi9xhLYrx4+qok+ogKJRg@mail.gmail.com>
-Subject: [PATCH v2 08/11] f2fs: parameterize sector conversion macros
+Date: Sat, 29 Aug 2026 10:49:31 -0700
+X-Gm-Features: AcwNN1WYntt6bHzdxzV2qW1yi22J731-ms4zmWjzx4Jb6zsBISTPIORQUtNU4Lg
+Message-ID: <CAH=xXfGM-AsgPQFJjP29QGwuxoPH_O5VR6_308+KaSyDrFLYrw@mail.gmail.com>
+Subject: [PATCH v2 06/11] f2fs: describe {i,d,id}node block layout dynamically
 To: linux-f2fs-devel@lists.sourceforge.net
 Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Sector-to-block and block-to-sector conversion helpers previously
-assumed a fixed sector count per block derived from 4KB pages.
+An inode block ends with five i_nid entries followed by a node footer.
+Data block address pointers (i_addr[]) precede them. Similarly, direct and
+indirect node blocks contain data addresses or node IDs followed by a node
+footer at the end of the block.
 
-Parameterize F2FS_LOG_SECTORS_PER_BLOCK, SECTOR_FROM_BLOCK, and
-SECTOR_TO_BLOCK with struct f2fs_sb_info *sbi, using
-sbi->log_sectors_per_block.
+Describe struct f2fs_inode, struct direct_node, and
+struct indirect_node using flexible array members. Compute the locations
+of i_nid and node footers dynamically from the filesystem block size.
+Introduce F2FS_INODE_NIDS() and F2FS_NODE_FOOTER() helpers to access these
+tail fields.
 
-Update all call sites across metadata I/O, data mapping, discard
-operations, and zoned block device reporting.
+Compute sbi->addrs_per_inode, sbi->addrs_per_block, and
+sbi->nids_per_block in init_sb_info(), and update node management, file
+mapping, and recovery paths accordingly.
 
 Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
 ---
  fs/f2fs/data.c          |  2 +-
- fs/f2fs/f2fs.h          |  5 +++--
- fs/f2fs/file.c          |  4 ++--
- fs/f2fs/inode.c         | 11 +++++++----
- fs/f2fs/segment.c       | 14 +++++++-------
- fs/f2fs/segment.h       |  8 ++++----
- fs/f2fs/super.c         | 10 +++++-----
- include/linux/f2fs_fs.h |  2 +-
- 8 files changed, 30 insertions(+), 26 deletions(-)
+ fs/f2fs/f2fs.h          | 32 ++++++++++++++++++-------
+ fs/f2fs/gc.c            |  2 +-
+ fs/f2fs/inline.c        |  3 +--
+ fs/f2fs/inode.c         |  5 ++--
+ fs/f2fs/node.c          |  4 +---
+ fs/f2fs/node.h          | 53 +++++++++++++++++++----------------------
+ fs/f2fs/super.c         |  5 ++++
+ include/linux/f2fs_fs.h | 26 +++++++++++++++-----
+ 9 files changed, 79 insertions(+), 53 deletions(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 751b7a457d9a..44e1ae43565e 100644
+index 6ae0eb37d20f..751b7a457d9a 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -466,7 +466,7 @@ struct block_device *f2fs_target_device(struct
-f2fs_sb_info *sbi,
- 	}
+@@ -2027,7 +2027,7 @@ static int f2fs_xattr_fiemap(struct inode *inode,
 
- 	if (sector)
--		*sector = SECTOR_FROM_BLOCK(blk_addr);
-+		*sector = SECTOR_FROM_BLOCK(sbi, blk_addr);
- 	return bdev;
- }
+ 		phys = F2FS_BLK_TO_BYTES(ni.blk_addr);
+ 		offset = offsetof(struct f2fs_inode, i_addr) +
+-					sizeof(__le32) * (DEF_ADDRS_PER_INODE -
++					sizeof(__le32) * (DEF_ADDRS_PER_INODE_SBI(sbi) -
+ 					get_inline_xattr_addrs(inode));
 
+ 		phys += offset;
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 247e56522441..b90c5a42703f 100644
+index d2e54573ed34..247e56522441 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -2609,7 +2609,8 @@ static inline int F2FS_HAS_BLOCKS(struct inode *inode)
- {
- 	block_t xattr_block = F2FS_I(inode)->i_xattr_nid ? 1 : 0;
+@@ -1853,6 +1853,9 @@ struct f2fs_sb_info {
+ 	unsigned int log_blocksize;		/* log2 block size */
+ 	unsigned int blocksize;			/* block size */
+ 	unsigned int nat_entries_per_block;	/* NAT entries in a block */
++	unsigned int addrs_per_inode;		/* addresses in an inode block */
++	unsigned int addrs_per_block;		/* addresses in a direct node block */
++	unsigned int nids_per_block;		/* node IDs in an indirect node block */
+ 	unsigned int sit_entries_per_block;	/* SIT entries in a block */
+ 	unsigned int orphans_per_block;	/* orphan inodes in a block */
+ 	unsigned int dentries_per_block;	/* dentries in a block */
+@@ -2248,6 +2251,7 @@ static inline struct f2fs_sb_info
+*F2FS_F_SB(const struct folio *folio)
 
--	return (inode->i_blocks >> F2FS_LOG_SECTORS_PER_BLOCK) > xattr_block;
-+	return (inode->i_blocks >>
-+		F2FS_LOG_SECTORS_PER_BLOCK(F2FS_I_SB(inode))) > xattr_block;
+ #define SIT_ENTRY_PER_BLOCK(sbi)	((sbi)->sit_entries_per_block)
+ #define NAT_ENTRY_PER_BLOCK(sbi)	((sbi)->nat_entries_per_block)
++#define DEF_ADDRS_PER_INODE_SBI(sbi)	((sbi)->addrs_per_inode)
+ #define F2FS_ORPHANS_PER_BLOCK(sbi)	((sbi)->orphans_per_block)
+ #define GET_ORPHAN_BLOCKS(sbi, n)	DIV_ROUND_UP((n), \
+ 					F2FS_ORPHANS_PER_BLOCK(sbi))
+@@ -2297,6 +2301,12 @@ static inline struct f2fs_checkpoint
+*F2FS_CKPT(struct f2fs_sb_info *sbi)
+ 	return (struct f2fs_checkpoint *)(sbi->ckpt);
  }
 
- static inline bool f2fs_has_xattr_block(unsigned int ofs)
-@@ -2815,7 +2816,7 @@ static inline void dec_valid_block_count(struct
-f2fs_sb_info *sbi,
- 						struct inode *inode,
- 						block_t count)
++static inline struct node_footer *F2FS_NODE_FOOTER(const struct folio *folio)
++{
++	return folio_address(folio) + F2FS_BLKSIZE -
++		sizeof(struct node_footer);
++}
++
+ static inline struct f2fs_node *F2FS_NODE(const struct folio *folio)
  {
--	blkcnt_t sectors = count << F2FS_LOG_SECTORS_PER_BLOCK;
-+	blkcnt_t sectors = count << F2FS_LOG_SECTORS_PER_BLOCK(sbi);
+ 	return (struct f2fs_node *)folio_address(folio);
+@@ -2307,6 +2317,12 @@ static inline struct f2fs_inode
+*F2FS_INODE(const struct folio *folio)
+ 	return &((struct f2fs_node *)folio_address(folio))->i;
+ }
 
- 	spin_lock(&sbi->stat_lock);
- 	if (unlikely(sbi->total_valid_block_count < count)) {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index d440231b8cb9..2c72e028cec2 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -4510,8 +4510,8 @@ static int f2fs_reserve_compress_blocks(struct
-file *filp, unsigned long arg)
- static int f2fs_secure_erase(struct block_device *bdev, struct inode *inode,
- 		pgoff_t off, block_t block, block_t len, u32 flags)
++static inline __le32 *F2FS_INODE_NIDS(const struct folio *folio)
++{
++	return folio_address(folio) + F2FS_BLKSIZE - sizeof(struct node_footer) -
++		SIZE_OF_I_NID;
++}
++
+ static inline struct f2fs_nm_info *NM_I(struct f2fs_sb_info *sbi)
  {
--	sector_t sector = SECTOR_FROM_BLOCK(block);
--	sector_t nr_sects = SECTOR_FROM_BLOCK(len);
-+	sector_t sector = SECTOR_FROM_BLOCK(F2FS_I_SB(inode), block);
-+	sector_t nr_sects = SECTOR_FROM_BLOCK(F2FS_I_SB(inode), len);
- 	int ret = 0;
+ 	return (struct f2fs_nm_info *)(sbi->nm_info);
+@@ -3277,13 +3293,11 @@ static inline void
+f2fs_radix_tree_insert(struct radix_tree_root *root,
+ 		cond_resched();
+ }
 
- 	if (flags & F2FS_TRIM_FILE_DISCARD) {
+-#define RAW_IS_INODE(p)	((p)->footer.nid == (p)->footer.ino)
+-
+ static inline bool IS_INODE(const struct folio *folio)
+ {
+-	struct f2fs_node *p = F2FS_NODE(folio);
++	struct node_footer *footer = F2FS_NODE_FOOTER(folio);
+
+-	return RAW_IS_INODE(p);
++	return footer->nid == footer->ino;
+ }
+
+ static inline int offset_in_addr(struct f2fs_inode *i)
+@@ -3292,9 +3306,11 @@ static inline int offset_in_addr(struct f2fs_inode *i)
+ 			(le16_to_cpu(i->i_extra_isize) / sizeof(__le32)) : 0;
+ }
+
+-static inline __le32 *blkaddr_in_node(struct f2fs_node *node)
++static inline __le32 *blkaddr_in_node(const struct folio *folio)
+ {
+-	return RAW_IS_INODE(node) ? node->i.i_addr : node->dn.addr;
++	struct f2fs_node *node = F2FS_NODE(folio);
++
++	return IS_INODE(folio) ? node->i.i_addr : node->dn.addr;
+ }
+
+ static inline int f2fs_has_extra_attr(struct inode *inode);
+@@ -3311,7 +3327,7 @@ static inline unsigned int get_dnode_base(struct
+inode *inode,
+ static inline __le32 *get_dnode_addr(struct inode *inode,
+ 					struct folio *node_folio)
+ {
+-	return blkaddr_in_node(F2FS_NODE(node_folio)) +
++	return blkaddr_in_node(node_folio) +
+ 			get_dnode_base(inode, node_folio);
+ }
+
+@@ -3639,7 +3655,7 @@ void *inline_xattr_addr(struct inode *inode,
+const struct folio *folio)
+ {
+ 	struct f2fs_inode *ri = F2FS_INODE(folio);
+
+-	return (void *)&(ri->i_addr[DEF_ADDRS_PER_INODE -
++	return (void *)&(ri->i_addr[DEF_ADDRS_PER_INODE_SBI(F2FS_I_SB(inode)) -
+ 					get_inline_xattr_addrs(inode)]);
+ }
+
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index c15c6ba91597..f15ab07a7347 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1176,7 +1176,7 @@ static bool is_alive(struct f2fs_sb_info *sbi,
+struct f2fs_summary *sum,
+
+ 	if (IS_INODE(node_folio)) {
+ 		base = offset_in_addr(F2FS_INODE(node_folio));
+-		max_addrs = DEF_ADDRS_PER_INODE;
++		max_addrs = DEF_ADDRS_PER_INODE_SBI(sbi);
+ 	} else {
+ 		base = 0;
+ 		max_addrs = DEF_ADDRS_PER_BLOCK;
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 718dd785865a..73cd9b6ddcc5 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -36,14 +36,13 @@ bool f2fs_may_inline_data(struct inode *inode)
+
+ static bool inode_has_blocks(struct inode *inode, struct folio *ifolio)
+ {
+-	struct f2fs_inode *ri = F2FS_INODE(ifolio);
+ 	int i;
+
+ 	if (F2FS_HAS_BLOCKS(inode))
+ 		return true;
+
+ 	for (i = 0; i < DEF_NIDS_PER_INODE; i++) {
+-		if (ri->i_nid[i])
++		if (F2FS_INODE_NIDS(ifolio)[i])
+ 			return true;
+ 	}
+ 	return false;
 diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
-index 20b0561fe35d..b628fdc4198f 100644
+index 96cc0e777567..fda9ee3bfc61 100644
 --- a/fs/f2fs/inode.c
 +++ b/fs/f2fs/inode.c
-@@ -221,11 +221,11 @@ static bool sanity_check_compress_inode(struct
-inode *inode,
- 		return false;
- 	}
- 	if (le64_to_cpu(ri->i_compr_blocks) >
--			SECTOR_TO_BLOCK(inode->i_blocks)) {
-+			SECTOR_TO_BLOCK(sbi, inode->i_blocks)) {
- 		f2fs_warn(sbi,
- 			"%s: inode (ino=%llx) has inconsistent i_compr_blocks:%llu,
-i_blocks:%llu, run fsck to fix",
- 			__func__, inode->i_ino, le64_to_cpu(ri->i_compr_blocks),
--			SECTOR_TO_BLOCK(inode->i_blocks));
-+			SECTOR_TO_BLOCK(sbi, inode->i_blocks));
- 		return false;
- 	}
- 	if (ri->i_log_cluster_size < MIN_COMPRESS_LOG_SIZE ||
-@@ -446,7 +446,8 @@ static int do_read_inode(struct inode *inode)
- 	i_gid_write(inode, le32_to_cpu(ri->i_gid));
- 	set_nlink(inode, le32_to_cpu(ri->i_links));
- 	inode->i_size = le64_to_cpu(ri->i_size);
--	inode->i_blocks = SECTOR_FROM_BLOCK(le64_to_cpu(ri->i_blocks) - 1);
-+	inode->i_blocks = SECTOR_FROM_BLOCK(sbi,
-+			le64_to_cpu(ri->i_blocks) - 1);
+@@ -150,9 +150,8 @@ bool f2fs_enable_inode_chksum(struct f2fs_sb_info
+*sbi, struct folio *folio)
 
- 	inode_set_atime(inode, le64_to_cpu(ri->i_atime),
- 			le32_to_cpu(ri->i_atime_nsec));
-@@ -695,6 +696,7 @@ struct inode *f2fs_iget_retry(struct super_block
-*sb, unsigned long ino)
-
- void f2fs_update_inode(struct inode *inode, struct folio *node_folio)
+ static __u32 f2fs_inode_chksum(struct f2fs_sb_info *sbi, struct folio *folio)
  {
-+	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct f2fs_inode_info *fi = F2FS_I(inode);
- 	struct f2fs_inode *ri;
- 	struct extent_tree *et = fi->extent_tree[EX_READ];
-@@ -711,7 +713,8 @@ void f2fs_update_inode(struct inode *inode, struct
-folio *node_folio)
- 	ri->i_uid = cpu_to_le32(i_uid_read(inode));
- 	ri->i_gid = cpu_to_le32(i_gid_read(inode));
- 	ri->i_links = cpu_to_le32(inode->i_nlink);
--	ri->i_blocks = cpu_to_le64(SECTOR_TO_BLOCK(READ_ONCE(inode->i_blocks)) + 1);
-+	ri->i_blocks = cpu_to_le64(SECTOR_TO_BLOCK(sbi,
-+					   READ_ONCE(inode->i_blocks)) + 1);
-
- 	if (!f2fs_is_atomic_file(inode) ||
- 			is_inode_flag_set(inode, FI_ATOMIC_COMMITTED))
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index b29df65ab5b7..f565b6873832 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1310,7 +1310,7 @@ static void __submit_zone_reset_cmd(struct
-f2fs_sb_info *sbi,
- 	/* sanity check on discard range */
- 	__check_sit_bitmap(sbi, dc->di.lstart, dc->di.lstart + dc->di.len);
-
--	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(dc->di.start);
-+	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(sbi, dc->di.start);
- 	bio->bi_private = dc;
- 	bio->bi_end_io = f2fs_submit_discard_endio;
- 	submit_bio(bio);
-@@ -1327,7 +1327,7 @@ static int __submit_discard_cmd(struct f2fs_sb_info *sbi,
+-	struct f2fs_node *node = F2FS_NODE(folio);
+-	struct f2fs_inode *ri = &node->i;
+-	__le32 ino = node->footer.ino;
++	struct f2fs_inode *ri = F2FS_INODE(folio);
++	__le32 ino = F2FS_NODE_FOOTER(folio)->ino;
+ 	__le32 gen = ri->i_generation;
+ 	__u32 chksum, chksum_seed;
+ 	__u32 dummy_cs = 0;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 960c6657d0d6..e3f594f7bcce 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -3001,7 +3001,6 @@ int f2fs_recover_inode_page(struct f2fs_sb_info
+*sbi, struct folio *folio)
+ int f2fs_restore_node_summary(struct f2fs_sb_info *sbi,
+ 			unsigned int segno, struct f2fs_summary_block *sum)
  {
- 	struct block_device *bdev = dc->bdev;
- 	unsigned int max_discard_blocks =
--			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
-+			SECTOR_TO_BLOCK(sbi, bdev_max_discard_sectors(bdev));
- 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
- 	struct list_head *wait_list = (dpolicy->type == DPOLICY_FSTRIM) ?
- 					&(dcc->fstrim_list) : &(dcc->wait_list);
-@@ -1389,8 +1389,8 @@ static int __submit_discard_cmd(struct f2fs_sb_info *sbi,
+-	struct f2fs_node *rn;
+ 	struct f2fs_summary *sum_entry;
+ 	block_t addr;
+ 	int i, idx, last_offset, nrpages;
+@@ -3023,8 +3022,7 @@ int f2fs_restore_node_summary(struct f2fs_sb_info *sbi,
+ 			if (IS_ERR(folio))
+ 				return PTR_ERR(folio);
 
- 		dc->di.len += len;
-
--		__blkdev_issue_discard(bdev, SECTOR_FROM_BLOCK(start),
--				SECTOR_FROM_BLOCK(len), GFP_NOFS, &bio);
-+		__blkdev_issue_discard(bdev, SECTOR_FROM_BLOCK(sbi, start),
-+				SECTOR_FROM_BLOCK(sbi, len), GFP_NOFS, &bio);
- 		f2fs_bug_on(sbi, !bio);
-
- 		/*
-@@ -1518,7 +1518,7 @@ static void __update_discard_tree_range(struct
-f2fs_sb_info *sbi,
- 	struct discard_info di = {0};
- 	struct rb_node **insert_p = NULL, *insert_parent = NULL;
- 	unsigned int max_discard_blocks =
--			SECTOR_TO_BLOCK(bdev_max_discard_sectors(bdev));
-+			SECTOR_TO_BLOCK(sbi, bdev_max_discard_sectors(bdev));
- 	block_t end = lstart + len;
-
- 	dc = __lookup_discard_cmd_ret(&dcc->root, lstart,
-@@ -2041,8 +2041,8 @@ static int __f2fs_issue_discard_zone(struct
+-			rn = F2FS_NODE(folio);
+-			sum_entry->nid = rn->footer.nid;
++			sum_entry->nid = F2FS_NODE_FOOTER(folio)->nid;
+ 			sum_entry->version = 0;
+ 			sum_entry->ofs_in_node = 0;
+ 			sum_entry++;
+diff --git a/fs/f2fs/node.h b/fs/f2fs/node.h
+index 0dce97aac5fc..6a2b7c63f4a3 100644
+--- a/fs/f2fs/node.h
++++ b/fs/f2fs/node.h
+@@ -252,73 +252,68 @@ static inline void set_to_next_nat(struct
 f2fs_sb_info *sbi,
 
- 	/* For sequential zones, reset the zone write pointer */
- 	if (f2fs_blkz_is_seq(sbi, devi, blkstart)) {
--		sector = SECTOR_FROM_BLOCK(blkstart);
--		nr_sects = SECTOR_FROM_BLOCK(blklen);
-+		sector = SECTOR_FROM_BLOCK(sbi, blkstart);
-+		nr_sects = SECTOR_FROM_BLOCK(sbi, blklen);
- 		div64_u64_rem(sector, bdev_zone_sectors(bdev), &remainder);
+ static inline nid_t ino_of_node(const struct folio *node_folio)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(node_folio);
+-	return le32_to_cpu(rn->footer.ino);
++	return le32_to_cpu(F2FS_NODE_FOOTER(node_folio)->ino);
+ }
 
- 		if (remainder || nr_sects != bdev_zone_sectors(bdev)) {
-diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-index 534e376cbc92..2275404e769c 100644
---- a/fs/f2fs/segment.h
-+++ b/fs/f2fs/segment.h
-@@ -114,10 +114,10 @@ f2fs_start_segno(struct f2fs_sb_info *sbi,
-unsigned int segno)
- #define f2fs_bitmap_size(nr)			\
- 	(BITS_TO_LONGS(nr) * sizeof(unsigned long))
+ static inline nid_t nid_of_node(const struct folio *node_folio)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(node_folio);
+-	return le32_to_cpu(rn->footer.nid);
++	return le32_to_cpu(F2FS_NODE_FOOTER(node_folio)->nid);
+ }
 
--#define SECTOR_FROM_BLOCK(blk_addr)					\
--	(((sector_t)blk_addr) << F2FS_LOG_SECTORS_PER_BLOCK)
--#define SECTOR_TO_BLOCK(sectors)					\
--	((sectors) >> F2FS_LOG_SECTORS_PER_BLOCK)
-+#define SECTOR_FROM_BLOCK(sbi, blk_addr)				\
-+	(((sector_t)blk_addr) << F2FS_LOG_SECTORS_PER_BLOCK(sbi))
-+#define SECTOR_TO_BLOCK(sbi, sectors)					\
-+	((sectors) >> F2FS_LOG_SECTORS_PER_BLOCK(sbi))
+ static inline unsigned int ofs_of_node(const struct folio *node_folio)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(node_folio);
+-	unsigned flag = le32_to_cpu(rn->footer.flag);
++	unsigned int flag = le32_to_cpu(F2FS_NODE_FOOTER(node_folio)->flag);
+ 	return flag >> OFFSET_BIT_SHIFT;
+ }
 
- /*
-  * In the victim_sel_policy->alloc_mode, there are three block
-allocation modes.
+ static inline __u64 cpver_of_node(const struct folio *node_folio)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(node_folio);
+-	return le64_to_cpu(rn->footer.cp_ver);
++	return le64_to_cpu(F2FS_NODE_FOOTER(node_folio)->cp_ver);
+ }
+
+ static inline block_t next_blkaddr_of_node(const struct folio *node_folio)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(node_folio);
+-	return le32_to_cpu(rn->footer.next_blkaddr);
++	return le32_to_cpu(F2FS_NODE_FOOTER(node_folio)->next_blkaddr);
+ }
+
+ static inline void fill_node_footer(const struct folio *folio, nid_t nid,
+ 				nid_t ino, unsigned int ofs, bool reset)
+ {
+ 	struct f2fs_node *rn = F2FS_NODE(folio);
++	struct node_footer *footer = F2FS_NODE_FOOTER(folio);
+ 	unsigned int old_flag = 0;
+
+ 	if (reset)
+-		memset(rn, 0, sizeof(*rn));
++		memset(rn, 0, F2FS_BLKSIZE);
+ 	else
+-		old_flag = le32_to_cpu(rn->footer.flag);
++		old_flag = le32_to_cpu(footer->flag);
+
+-	rn->footer.nid = cpu_to_le32(nid);
+-	rn->footer.ino = cpu_to_le32(ino);
++	footer->nid = cpu_to_le32(nid);
++	footer->ino = cpu_to_le32(ino);
+
+ 	/* should remain old flag bits such as COLD_BIT_SHIFT */
+-	rn->footer.flag = cpu_to_le32((ofs << OFFSET_BIT_SHIFT) |
++	footer->flag = cpu_to_le32((ofs << OFFSET_BIT_SHIFT) |
+ 					(old_flag & OFFSET_BIT_MASK));
+ }
+
+ static inline void copy_node_footer(const struct folio *dst,
+ 		const struct folio *src)
+ {
+-	struct f2fs_node *src_rn = F2FS_NODE(src);
+-	struct f2fs_node *dst_rn = F2FS_NODE(dst);
+-	memcpy(&dst_rn->footer, &src_rn->footer, sizeof(struct node_footer));
++	memcpy(F2FS_NODE_FOOTER(dst), F2FS_NODE_FOOTER(src),
++	       sizeof(struct node_footer));
+ }
+
+ static inline void fill_node_footer_blkaddr(struct folio *folio,
+block_t blkaddr)
+ {
+ 	struct f2fs_checkpoint *ckpt = F2FS_CKPT(F2FS_F_SB(folio));
+-	struct f2fs_node *rn = F2FS_NODE(folio);
++	struct node_footer *footer = F2FS_NODE_FOOTER(folio);
+ 	__u64 cp_ver = cur_cp_version(ckpt);
+
+ 	if (__is_set_ckpt_flags(ckpt, CP_CRC_RECOVERY_FLAG))
+ 		cp_ver |= (cur_cp_crc(ckpt) << 32);
+
+-	rn->footer.cp_ver = cpu_to_le64(cp_ver);
+-	rn->footer.next_blkaddr = cpu_to_le32(blkaddr);
++	footer->cp_ver = cpu_to_le64(cp_ver);
++	footer->next_blkaddr = cpu_to_le32(blkaddr);
+ }
+
+ static inline bool is_recoverable_dnode(const struct folio *folio)
+@@ -378,11 +373,12 @@ static inline bool IS_DNODE(const struct folio
+*node_folio)
+ static inline int set_nid(struct folio *folio, int off, nid_t nid, bool i)
+ {
+ 	struct f2fs_node *rn = F2FS_NODE(folio);
++	__le32 *inode_nids = F2FS_INODE_NIDS(folio);
+
+ 	f2fs_folio_wait_writeback(folio, NODE, true, true);
+
+ 	if (i)
+-		rn->i.i_nid[off - NODE_DIR1_BLOCK] = cpu_to_le32(nid);
++		inode_nids[off - NODE_DIR1_BLOCK] = cpu_to_le32(nid);
+ 	else
+ 		rn->in.nid[off] = cpu_to_le32(nid);
+ 	return folio_mark_dirty(folio);
+@@ -391,9 +387,10 @@ static inline int set_nid(struct folio *folio,
+int off, nid_t nid, bool i)
+ static inline nid_t get_nid(const struct folio *folio, int off, bool i)
+ {
+ 	struct f2fs_node *rn = F2FS_NODE(folio);
++	const __le32 *inode_nids = F2FS_INODE_NIDS(folio);
+
+ 	if (i)
+-		return le32_to_cpu(rn->i.i_nid[off - NODE_DIR1_BLOCK]);
++		return le32_to_cpu(inode_nids[off - NODE_DIR1_BLOCK]);
+ 	return le32_to_cpu(rn->in.nid[off]);
+ }
+
+@@ -406,8 +403,7 @@ static inline nid_t get_nid(const struct folio
+*folio, int off, bool i)
+
+ static inline int is_node(const struct folio *folio, int type)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(folio);
+-	return le32_to_cpu(rn->footer.flag) & BIT(type);
++	return le32_to_cpu(F2FS_NODE_FOOTER(folio)->flag) & BIT(type);
+ }
+
+ #define is_cold_node(folio)	is_node(folio, COLD_BIT_SHIFT)
+@@ -416,14 +412,13 @@ static inline int is_node(const struct folio
+*folio, int type)
+
+ static inline void __set_mark(const struct folio *folio, bool mark, int type)
+ {
+-	struct f2fs_node *rn = F2FS_NODE(folio);
+-	unsigned int flag = le32_to_cpu(rn->footer.flag);
+-
++	struct node_footer *footer = F2FS_NODE_FOOTER(folio);
++	unsigned int flag = le32_to_cpu(footer->flag);
+ 	if (mark)
+ 		flag |= BIT(type);
+ 	else
+ 		flag &= ~BIT(type);
+-	rn->footer.flag = cpu_to_le32(flag);
++	footer->flag = cpu_to_le32(flag);
+ }
+
+ static inline void set_cold_node(const struct folio *folio, bool is_dir)
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 3ba4df757213..46973207cd7b 100644
+index 8d2224e585d3..fcaeaacaab33 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3944,7 +3944,7 @@ static int __f2fs_commit_super(struct
-f2fs_sb_info *sbi, struct folio *folio,
- 	bio = bio_alloc(sbi->sb->s_bdev, 1, opf, GFP_NOFS);
-
- 	/* it doesn't need to set crypto context for superblock update */
--	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(folio->index);
-+	bio->bi_iter.bi_sector = SECTOR_FROM_BLOCK(sbi, folio->index);
-
- 	if (!bio_add_folio(bio, folio, folio_size(folio), 0))
- 		f2fs_bug_on(sbi, 1);
-@@ -4520,7 +4520,7 @@ static int f2fs_report_zone_cb(struct blk_zone
-*zone, unsigned int idx,
- {
- 	struct f2fs_report_zones_args *rz_args = data;
- 	block_t unusable_blocks = (zone->len - zone->capacity) >>
--					F2FS_LOG_SECTORS_PER_BLOCK;
-+					F2FS_LOG_SECTORS_PER_BLOCK(rz_args->sbi);
-
- 	if (zone->type == BLK_ZONE_TYPE_CONVENTIONAL)
- 		return 0;
-@@ -4563,10 +4563,10 @@ static int init_blkz_info(struct f2fs_sb_info
-*sbi, int devi)
-
- 	zone_sectors = bdev_zone_sectors(bdev);
- 	if (sbi->blocks_per_blkz && sbi->blocks_per_blkz !=
--				SECTOR_TO_BLOCK(zone_sectors))
-+				SECTOR_TO_BLOCK(sbi, zone_sectors))
- 		return -EINVAL;
--	sbi->blocks_per_blkz = SECTOR_TO_BLOCK(zone_sectors);
--	FDEV(devi).nr_blkz = div_u64(SECTOR_TO_BLOCK(nr_sectors),
-+	sbi->blocks_per_blkz = SECTOR_TO_BLOCK(sbi, zone_sectors);
-+	FDEV(devi).nr_blkz = div_u64(SECTOR_TO_BLOCK(sbi, nr_sectors),
- 					sbi->blocks_per_blkz);
- 	if (nr_sectors & (zone_sectors - 1))
- 		FDEV(devi).nr_blkz++;
+@@ -4384,6 +4384,11 @@ static void init_sb_info(struct f2fs_sb_info *sbi)
+ 	sbi->blocksize = BIT(sbi->log_blocksize);
+ 	sbi->nat_entries_per_block = sbi->blocksize /
+ 		sizeof(struct f2fs_nat_entry);
++	sbi->addrs_per_inode = (sbi->blocksize - OFFSET_OF_END_OF_I_EXT -
++		SIZE_OF_I_NID - sizeof(struct node_footer)) / sizeof(__le32);
++	sbi->addrs_per_block = (sbi->blocksize -
++		sizeof(struct node_footer)) / sizeof(__le32);
++	sbi->nids_per_block = sbi->addrs_per_block;
+ 	sbi->sit_entries_per_block = sbi->blocksize /
+ 		sizeof(struct f2fs_sit_entry);
+ 	sbi->orphans_per_block = (sbi->blocksize -
 diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
-index 18a9abaa879a..786bda333784 100644
+index 23ca80fc4997..f339f83220f2 100644
 --- a/include/linux/f2fs_fs.h
 +++ b/include/linux/f2fs_fs.h
-@@ -14,7 +14,7 @@
- #define F2FS_SUPER_OFFSET		1024	/* byte-size offset */
- #define F2FS_MIN_LOG_SECTOR_SIZE	9	/* 9 bits for 512 bytes */
+@@ -16,6 +16,7 @@
  #define F2FS_MAX_LOG_SECTOR_SIZE	PAGE_SHIFT	/* Max is Block Size */
--#define F2FS_LOG_SECTORS_PER_BLOCK	(PAGE_SHIFT - 9) /* log number for
+ #define F2FS_LOG_SECTORS_PER_BLOCK	(PAGE_SHIFT - 9) /* log number for
 sector/blk */
-+#define F2FS_LOG_SECTORS_PER_BLOCK(sbi)	((sbi)->log_blocksize - 9) /*
-log number for sector/blk */
- #define F2FS_MIN_LOG_BLOCKSIZE		12
- #define F2FS_MIN_BLKSIZE		4096UL
  #define F2FS_BLKSIZE			PAGE_SIZE /* support only block == page */
++#define F2FS_MAX_BLKSIZE		PAGE_SIZE
+ #define F2FS_BLKSIZE_BITS		PAGE_SHIFT /* bits for F2FS_BLKSIZE */
+ #define F2FS_MAX_EXTENSION		64	/* # of extension entries */
+ #define F2FS_EXTENSION_LEN		8	/* max size of extension */
+@@ -343,18 +344,25 @@ struct f2fs_inode {
+ 						 */
+ 			__le32 i_extra_end[0];	/* for attribute size calculation */
+ 		} __packed;
+-		__le32 i_addr[DEF_ADDRS_PER_INODE];	/* Pointers to data blocks */
++		__le32 i_addr[];		/* data block pointers */
+ 	};
+-	__le32 i_nid[DEF_NIDS_PER_INODE];	/* direct(2), indirect(2),
+-						double_indirect(1) node id */
++	/*
++	 * __le32 i_nid[DEF_NIDS_PER_INODE];
++	 *
++	 * It is stored immediately before the node footer at the end of the
++	 * filesystem block. Its offset depends on the filesystem block size, so
++	 * locate it dynamically with F2FS_INODE_NIDS().
++	 */
+ } __packed;
+
+ struct direct_node {
+-	__le32 addr[DEF_ADDRS_PER_BLOCK];	/* array of data block address */
++	/* The address count depends on the filesystem block size. */
++	__le32 addr[];			/* array of data block address */
+ } __packed;
+
+ struct indirect_node {
+-	__le32 nid[NIDS_PER_BLOCK];	/* array of data block address */
++	/* The node ID count depends on the filesystem block size. */
++	__le32 nid[];			/* array of data block address */
+ } __packed;
+
+ enum {
+@@ -373,7 +381,13 @@ struct f2fs_node {
+ 		struct direct_node dn;
+ 		struct indirect_node in;
+ 	};
+-	struct node_footer footer;
++	/*
++	 * struct node_footer footer;
++	 *
++	 * It is stored at the end of the filesystem block, after the inode or
++	 * direct/indirect node data. Its offset depends on the filesystem block
++	 * size, so locate it dynamically with F2FS_NODE_FOOTER().
++	 */
+ } __packed;
+
+ /*
 -- 
 2.53.0
