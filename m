@@ -1,270 +1,158 @@
-Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2E833970F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B916298CC4
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981189; cv=none; b=bjki/ahZDvLjUkdho47292g70RmctLE1BUTLirPgVcYC8zaW/f4ujuXXRYtQAjQ2XwFUj9iEqA0TxvQiIc/lcLxJAxN1elTRnKAyUzqWy5W6j3EY+3DFY/B8A4wTu9w+aa8epKe/16psJCNt6KnNAsajUF+9WvhEkX4NjbnprW4=
+	t=1787981316; cv=none; b=hAQKVWaHefCjW3hDFzSRwH7EVV03Fb5yok3lXJOh43lGgpYPPaL8dUvdhrWip4tcLhPQ7mjlL5ICUf/oDWQ1HxZQ+W0/Fa0Fs3p4790gahl2Pyv6uIjd9avzpJA+PbpnpQZrsSResdIk8kFusMkfstrjYZkBV8T865p0oLzL9Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981189; c=relaxed/simple;
-	bh=gMiVGtvLV3mH/7H3GivycOy54NP7nzz97CqQNM/VtCU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CQm6jwEvFLql4P/+O76SiloElR8M8jOnCpwtO8U3xNHRlAphCjlMmO3LIc29jzcHULIcbnuI99kb+WLgv34ExV2Uu2WKzDZayOGPbI2zlRK11DH3H66opPq0/7TCGMU5KFrU/UZQ1mJcj1904EPp3kmGD9csPC5MMYox6+cMgh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sO0QlM1r; arc=none smtp.client-ip=91.218.175.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787981316; c=relaxed/simple;
+	bh=KRc9qyuFWFm2b6xa/PBwfZWdCOb8+f/ZEHB88nfl5dM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a8vGyAN/oZ1uHONRKAt5ps3kdQs79U2b1dKaYtXmZA8yZ8mXnBD3BrFRJRVmGnkDnJK6qfLWwBn45hlzcRv04SNbe8cI96gBIRWWmL6icecxjxTndXNVnH8aHU+x2z5m9Y1osOXTAaH7f00wTiE8NEcHNdxe0xUDN6e53kdf6+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q/6PuX8O; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sO0QlM1r"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gMiVGtvLV3mH/7H3GivycOy54NP7nzz97CqQNM/VtCU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787981181; v=1; x=1788585981;
- b=sO0QlM1rdCf8z3trdOWBO+0NmI0sgFfCtIogkd+kMvAINVYNkSC0io9Iwdd9kGuTDPGqtEhh
- iYB2pmdPwAOo/q6zCFf0f5Kl1zY8yfGf30zrj91ebnWrtH0rveHn7+0nazZzymTCaJdfrmn/QZU
- HGzX0jC+zKYfNUTvBzWaKxCE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9000a047d4d4bcd1;
-	Sat, 29 Aug 2026 05:26:11 +0000
-X-Mizu-Trace-ID: 9000a047d4d4bcd1
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: jthoughton@google.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	shy828301@gmail.com,
-	zokeefe@google.com,
-	hughd@google.com,
-	kas@kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q/6PuX8O"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cc891373e0so14475245ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:28:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787981314; x=1788586114; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1nDR1cAc1qp81BSF1PrPq02zwDhN5A+sV31uJ637JL0=;
+        b=q/6PuX8OX6dwm3PpiB/fBUhqMtRsLrFikr2pc2AI7eg3q/FmGpN53nZFMNIz0cl5VW
+         sMyZvDAEI0bqeg3sagONaZ/OvnYbLF6xnWre+mgpGqX7Su9KDDEJwbG/AXiVd4WRSNDn
+         YYleDqcm5MBloT/+8EOA/Ud9Flgm8ZU6yNvPy+cdp4def5LDj8S0/ZQK4L8da3H8hDDr
+         jFebKQyCIGnEJiy8tkH7B5paG0lrnHUiXusYOt7K6thOHyBpuVYO0PSPmFIqBlzlXnb/
+         B7EvNG5UxEY42K3ISmWtGxn+hYSdYwZaNOHczUuLWLcAX1QSWItInXD6lDxKUvlcgcz5
+         P+cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787981314; x=1788586114;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1nDR1cAc1qp81BSF1PrPq02zwDhN5A+sV31uJ637JL0=;
+        b=jUm4Ywy6S0EEcPecBOJO3IpsYwyGLDTFO94Ct2pogMPS5J7ujYDIUKtwsjaYhHDvfd
+         GdtEjWgmfFzNOYDODhp3Q9yA4N4ZGmm05E9dlSlU4wmdzO+rbA+3nwycCMxW3VVUP/pa
+         bVYw20VnuKeuw/QXE87Y6tcABQHXMAROeRi2A5tfjYBxbCLU5OqsgHxo6AOugD+k429/
+         3dwvG0TeQ47JneOPDMeutdNwCmHOmgUTYMSoko2aymyhl7TNRVhaI3I727OtUzq0Xro1
+         frn2TqJqLlPrSY6SWTou2R/3dc4v3DgezcbsrLiw5WC4itpzjMHmb8uK9GPFtDlE6LT4
+         nb6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx2QBuBTfLgwm1zMwzGVIVDq4Y6r0qBx3BpOQNpYMGEGSebzLU1yUwe34J1rdfmlSla7deHrp0WA7qXDIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLr32JCeHMc4OEhWJZ/0hzrqRnQR8ZrdIXSNLmAr9N2TWAkZCr
+	yidBpdFhIO0x1X+wxjS79S4yXDMRF94yoSd6bbGBZbauKzVe+M8C5PqU
+X-Gm-Gg: AYBFou3V9HhDyvDzzqltDvW5+P28PSJUKWUOcwqKpWgfL8EEmEDhbtKUrg2dSRZuNAk
+	8jU3z/FjlcIEMCwguaO/0kyiSqwclbDTjfOR4EkSWzRn4Y8YkFhm0K6Fy+exHzplDxfveCHWRAg
+	nD0TDBTYXoYl8//bNepuNXj7aGngIPpI1h9UMvreXW2zH1ijIA9fWNkZf+Ehi1vlKxF1tUysqra
+	ZaqvxyJwLDzUFtdUTdXfhrYEKqbMnhndQZi56DvF0EYSq428HEsvDSSYthVGcci6uflwlOlt4MQ
+	pp6gjAyO/Tk0vpPoFUu31qP5a1DdJUa7U+ubFM3QM4vVaE+4+FQuxBQxDYxgjRdcTdm4HNrlwai
+	Ds8ZieszezW97jkxbkWs5I7FYJnWpMNJ5qVLzKS1miFbJu9pY1XrgBWyjQKi2jRhciAFqNkXZm7
+	kQGyhpO1xBtUF3KL540lTKYgO0SkHJN17uZjlD/FJK/B6GUdVRWD2EeowDwx0pn3Q=
+X-Received: by 2002:a17:90b:2783:b0:398:9beb:5c19 with SMTP id 98e67ed59e1d1-3989beb6352mr6712139a91.20.1787981314230;
+        Fri, 28 Aug 2026 22:28:34 -0700 (PDT)
+Received: from Default ([2409:40f4:101c:2e82:3697:838b:5d1b:b1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm12043695eec.13.2026.08.28.22.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 22:28:33 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com
+Cc: dwlsalmeida@gmail.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
-Date: Sat, 29 Aug 2026 13:26:06 +0800
-Message-Id: <20260829052606.49470-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260828094703.11081-1-lance.yang@linux.dev>
-References: <20260828094703.11081-1-lance.yang@linux.dev>
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [media?] WARNING in vidtv_stop_feed
+Date: Sat, 29 Aug 2026 10:58:16 +0530
+Message-ID: <20260829052816.23479-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6a90f648.1d9ded08.62e62.00e2.GAE@google.com>
+References: <6a90f648.1d9ded08.62e62.00e2.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On Fri, Aug 28 2026, syzbot wrote:
 
-On Fri, Aug 28, 2026 at 05:47:03PM +0800, Lance Yang wrote:
->
->On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
->>Userfaultfd minor faults provides userspace with the ability to manually
->>install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
->>map holes in the VMA when a naturally-aligned THP is present without
->>explicit action from userspace.
->>
->>This is a problem, as it bypasses userfaultfd minor faults that
->>userspace is expecting to handle.
->
->One basic question first. Should MADV_COLLAPSE refuse to collapse a
->UFFD-minor-registered VMA, regardless of whether all PTEs are present?
->
->I'd leave that to the maintainers :D
->
->Anyway, assuming the answer is yes, I wonder whether the new check is
->sufficient. See below.
->
->>
->>If userspace implements post-copy live migration using userfaultfd minor
->>faults, this situation is currently possible:
->>1. The VMA for guest memory is userfaultfd-minor-registered and nothing
->>   is mapped in the page tables.
->>2. A stale copy of a page is present in a naturally-aligned THP (from
->>   pre-copy live migration).
->>3. khugepaged collapses the mapping of the THP, installs a PMD.
+>------------[ cut here ]------------
+>DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+>WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU>3: syz.3.334/7114
+>WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bc0 kernel/locking/mutex.c:821, CPU>3: syz.3.334/7114
+>Modules linked in:
+>CPU: 3 UID: 0 PID: 7114 Comm: syz.3.334 Tainted: G             L      syzkaller >0 PREEMPT(full) 
+>Tainted: [L]=SOFTLOCKUP
+>Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+>RIP: 0010:__mutex_lock+0x94b/0x1bc0 kernel/locking/mutex.c:821
+>Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 b4 10 00 00 44 8b 05 b8 11 7a 05 45 85 c0 75 13 48 8d 3d 9c 16 7d 05 48 c7 c6 80 d3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+>RSP: 0000:ffffc90025f2fae0 EFLAGS: 00010246
+>RAX: 0000000000000003 RBX: ffff888029f2d128 RCX: 1ffffffff22898cc
+>RDX: 0000000000000000 RSI: ffffffff8befd380 RDI: ffffffff9147cb50
+>RBP: ffffc90025f2fc50 R08: 0000000000000000 R09: 0000000000000000
+>R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+>R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
+>FS:  0000000000000000(0000) GS:ffff888096c84000(0063) knlGS:0000000057892480
+>CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+>CR2: 00000000f544aff4 CR3: 00000000577a8000 CR4: 0000000000352ef0
+>Call Trace:
+> <TASK>
+> vidtv_stop_feed+0x75/0x2a0 drivers/media/test-drivers/vidtv/vidtv_bridge.c:256
+> dmx_ts_feed_stop_filtering+0xe9/0x1d0 drivers/media/dvb-core/dvb_demux.c:780
+> dvb_dmxdev_feed_stop.isra.0+0x162/0x270 drivers/media/dvb-core/dmxdev.c:494
+> dvb_dmxdev_filter_stop+0x1d0/0x390 drivers/media/dvb-core/dmxdev.c:572
+> dvb_dmxdev_filter_free drivers/media/dvb-core/dmxdev.c:856 [inline]
+> dvb_demux_release+0x92/0x560 drivers/media/dvb-core/dmxdev.c:1256
+> __fput+0x3ff/0xb50 fs/file_table.c:512
+> task_work_run+0x150/0x240 kernel/task_work.c:233
+> resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+> __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+> exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+> __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+> syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+> syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+> __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
+> do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+> entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+>RIP: 0023:0xf6ffefec
+>Code: Unable to access opcode bytes at 0xf6ffefc2.
+>RSP: 002b:00000000ffb45dfc EFLAGS: 00000202 ORIG_RAX: 00000000000001b4
+>RAX: 0000000000000000 RBX: 0000000000000003 RCX: 000000000000001e
+>RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+>RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+>R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+>R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+> </TASK>
+>----------------
+>Code disassembly (best guess):
+>   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+>   4:	38 d0                	cmp    %dl,%al
+>   6:	7c 08                	jl     0x10
+>   8:	84 d2                	test   %dl,%dl
+>   a:	0f 85 b4 10 00 00    	jne    0x10c4
+>  10:	44 8b 05 b8 11 7a 05 	mov    0x57a11b8(%rip),%r8d        > 0x57a11cf
+>  17:	45 85 c0             	test   %r8d,%r8d
+>  1a:	75 13                	jne    0x2f
+>  1c:	48 8d 3d 9c 16 7d 05 	lea    0x57d169c(%rip),%rdi        > 0x57d16bf
+>  23:	48 c7 c6 80 d3 ef 8b 	mov    $0xffffffff8befd380,%rsi
+>* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+>  2f:	90                   	nop
+>  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+>  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+>  3c:	4c 89 e7             	mov    %r12,%rdi
+>  3f:	e8                   	.byte 0xe8
 
-Ouch ... I missed this earlier. The problem is real, but this commit
-message describes the wrong trigger.
+I believe this is a extension of this crash[1]. Would consider marking it as invalid
+as it is a user-unreachable path said by Greg KH here[2]
 
-Background khugepaged calls try_collapse_pte_mapped_thp() with
-install_pmd=false, so it cannot install the PMD or trigger this
-sequence. MADV_COLLAPSE passes install_pmd=true and installs the PMD.
+[1]: https://lore.kernel.org/all/6a8c451c.dbb3a75c.7844.0004.GAE@google.com/T/
+[2]: https://lore.kernel.org/all/2026082737-traitor-shorter-a4cc@gregkh/
 
-So the problem described here can only be triggered by MADV_COLLAPSE,
-whether it comes through madvise() or process_madvise(), no?
-
-Cheers, Lance
-
-
->>4. The VM now has access to the stale contents => VM is broken.
->>5. After installing the correct contents, userspace attempts to map the
->>   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
->>   unexpectedly mapped the page.
->>
->>The naturally-aligned THP case is the only case where this is a problem.
->>khugepaged otherwise requires all PTEs to be present for
->>userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
->>correct. This check is essentially bypassed for naturally-aligned THPs.
->>
->>To deal with this issue, completely disallow collapsing in
->>userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
->>would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
->>present, but that seems more complex than it is worth.
->>
->>Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
->>Cc: <stable@vger.kernel.org> # 6.1
->>Signed-off-by: James Houghton <jthoughton@google.com>
->>---
->>This was caught with manual review while diagnosing a related issue
->>that came up with in Google's live migration testing.
->>
->>I've uploaded a mostly-AI-generated reproducer here[1]. As long as
->>/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
->>the repro should work.
->>
->>[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
->>---
->> mm/khugepaged.c | 9 +++++++++
->> 1 file changed, 9 insertions(+)
->>
->>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->>index b237f6e7662a..66f956d3dd67 100644
->>--- a/mm/khugepaged.c
->>+++ b/mm/khugepaged.c
->>@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
->> 		goto end;
->> 	}
->> 
->>+	/*
->>+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
->>+	 * userspace is expecting to explicitly install PTEs.
->>+	 */
->>+	if (userfaultfd_minor(vma)) {
->>+		result = SCAN_PTE_UFFD;
->>+		goto end;
->>+	}
->
->Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
->drops the mmap read lock and before it reacquires it.
->
->Doesn't this still leave a registration race, no?
->
->
->int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
->		     unsigned long end, bool *lock_dropped)
->{
->...
->	cc->is_khugepaged = false;
->...
->		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
->...
->}
->
->static enum scan_result collapse_single_pmd(unsigned long addr,
->		struct vm_area_struct *vma, bool *lock_dropped,
->		struct collapse_control *cc)
->{
->...
->	if (userfaultfd_minor(vma)) {
->		result = SCAN_PTE_UFFD;
->		goto end;
->	}
->...
->	mmap_read_unlock(mm);
->	*lock_dropped = true;
->...
->	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
->		mmap_read_lock(mm);
->		if (collapse_test_exit_or_disable(mm))
->			result = SCAN_ANY_PROCESS;
->		else
->			result = try_collapse_pte_mapped_thp(mm, addr,
->							     !cc->is_khugepaged);
->...
->		mmap_read_unlock(mm);
->	}
->...
->}
->
->static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
->		bool install_pmd)
->{
->...
->	struct vm_area_struct *vma = vma_lookup(mm, haddr);
->...
->	if (!vma || !vma->vm_file ||
->	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
->		return SCAN_VMA_CHECK;
->...
->	if (userfaultfd_protected(vma))
->		return SCAN_PTE_UFFD;
->...
->	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
->	switch (result) {
->	case SCAN_SUCCEED:
->		break;
->	case SCAN_NO_PTE_TABLE:
->...
->		goto maybe_install_pmd;
->	default:
->		goto drop_folio;
->	}
->...
->maybe_install_pmd:
->	/* step 5: install pmd entry */
->	result = install_pmd
->			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
->			: SCAN_SUCCEED;
->...
->}
->
->
->static inline bool userfaultfd_minor(struct vm_area_struct *vma)
->{
->	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
->}
->
->static inline bool userfaultfd_protected(struct vm_area_struct *vma)
->{
->	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
->}
->
->Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
->passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
->set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
->
->Maybe:
->
->---8<---
->diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->index 33c41bc32af8..0eada7265d59 100644
->--- a/mm/khugepaged.c
->+++ b/mm/khugepaged.c
->@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
-> 	 */
-> 	if (userfaultfd_protected(vma))
-> 		return SCAN_PTE_UFFD;
->+	if (userfaultfd_minor(vma))
->+		return SCAN_PTE_UFFD;
->
-> 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
-> 			       linear_page_index(vma, haddr));
->--
->
->With that, LGTM.
->
->Tested-by: Lance Yang <lance.yang@linux.dev>
->
->Cheers, Lance
->
+Thanks,
+Jeffin.
