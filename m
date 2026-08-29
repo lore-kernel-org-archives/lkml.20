@@ -1,116 +1,275 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from a11-132.smtp-out.amazonses.com (a11-132.smtp-out.amazonses.com [54.240.11.132])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F0040B379
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554D53F9F28;
+	Sat, 29 Aug 2026 17:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.11.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788023491; cv=none; b=sM1vowy+uvTRDKPgS3ljh9M+h3wraFC795fus4p4wrnx6rb4nt3Ny0OkCgDFiJSZwsVItSCTgcLfhz/+1wClgUta6gUYqt8AZIp3Y6wH74+SNgrMXFu+vR694G8fAKRHkuIfiTulz39ub95GLdlqT1ffuyc57hveY+6WbBJfg5A=
+	t=1788023490; cv=none; b=lwHdKixVx6dWZLcx/9oDhmsR98D0oXk8zFwvPGDLG5R8tylFE0AdGobknWotGxSJM9MLszNlDAoWnk/UzopF06yJa3U0+SJQWRYMqIhhCgYeW5IW5vb2lLzikM7vec0mIzAgNEX7B9SQCu9IHGAsbOVfEXuRyWiwpblxbbsff6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788023491; c=relaxed/simple;
-	bh=OfUrTqIkSk4Kw7Wg3ir9GpO7S8j2lJn2BdM716gS8Jw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=St4PC9xB+cozBph5q0iB5BSRvLmbNh/39acgHzKV1zxPn8g4zmq9lGwRmBuT9c7nAotLA2bcQkdrlAj0UEkgAoYAJlR2LGRFCeQ1L+D0Vt2Y5Zp7HRA4mnwZvF+nFzt3jRg7YtndWrRLKbXwcMruT1VP+fHo2ztjSSLWvU8FQzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pqkS/ygB; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788023490; c=relaxed/simple;
+	bh=qOHa7W+cQx4P3O5NPB6FOKhbasld/d8G3/e9dZcKbCs=;
+	h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:In-Reply-To:
+	 References:Message-ID; b=HSKsZTjCxAS30iFWb5zdSqscSsRufNgMyyiQdi3AJrCF4vaHxZ57+Xjl39udxOuTn1MlmBDPrIK+w0aQBnJ3JDD+alwyMD7HQI6++smLVyPorS021SBUiBlU0OlnF13FU4oQ4PcwjVIB5jcgpvlWuyHAKt1EVw4x9yDWnVLfBWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jagalactic.com; spf=pass smtp.mailfrom=amazonses.com; dkim=pass (1024-bit key) header.d=jagalactic.com header.i=@jagalactic.com header.b=h8lK2xls; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=h6udmjRq; arc=none smtp.client-ip=54.240.11.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jagalactic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazonses.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pqkS/ygB"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48436216a98so86805f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:11:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788023484; x=1788628284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5baizEik9LVqkqVVxQCllEe5i/HuJak1Rsnjhc2TfXw=;
-        b=pqkS/ygBjVApmPDR4JvbltlDsCr1C/2N7lImSd/CIdfXiidyz8v5dt6i+lXgw3z3qA
-         5I/Zf5MTt+5ZyY4aNTHw+K+FCH92Z7UYGgW3hHWgkMWY9g9CwcgQLYI5/p7DxM6ARdf4
-         rvBhxjlZD7YvaQTTnqaeKAPtaTu/KpNbiBHvF7ob5Z8OJ8QIJcIsOOkU0c0VOVBJf57c
-         F/mMkaKSEtfdb5nF9RFMAK6w1bHoTnfd8elA+D4RjUiXzT3ZXO9uUxXmkDsce6TW9DDv
-         mgMi/dq2EoGUknI7ues1ZfIEqri32Xxe+d1Cn6CuvbVV+cssUO5us0e/WxTUaqBowXvu
-         zx1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788023484; x=1788628284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5baizEik9LVqkqVVxQCllEe5i/HuJak1Rsnjhc2TfXw=;
-        b=DEP6rBcpvqJkxiNi2D066G18WEJR9XK4te85jBy/2kyJfwc5MaoHWM3l322PUTnlYx
-         i5hHX56tlvjNbaBHBhWfWioqG2rti7P3Ql0LnXxG27sc+JPsfAM1xp/FFdPN6/rs00hu
-         nvlWFCKeHo1YkP8jggmogHfib92xlfeYxFVp6Zsnz0kbtkqUZIxyDDgf9dhLZ83aHT5B
-         4/EzKKAeWHy8ULrhYDcE11QS8Exo/wBTijHkYIDawDMXinLKABiREjQeGxMc+sY5zVVy
-         JljChTwjSAZUq6TNuMlxLxK+2mfCT+FuQNhP//xVVDUHJ1H4zYGA00YMhZhRLAP/Fz+o
-         kwTw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3VgVMkHg9JdjL0jGwnew6ihaPnP44NBEU+kkUo9QwO/ZS1fBhdBQe+r+MkK6/ppUo702LHoW0ciiddtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6fFKpYbJiToiFnZh8is9SqDaIzMZ64Bm70/8Q1/mE5NlMWPRE
-	hGtx2WuohmPVbz7rehcPqHyXB580xX6XS2o+khv2VHs9fP2qmtu14uj/
-X-Gm-Gg: AR+sD108MrJ+j4VNPC3G+MCWGm6BXursUnD+jsXg67cC4SPo/7mHUYY/evK/Ha2KZ3R
-	aEQDTxmVOGj88fFvHZtjGL2LmG5W2iMy7gKZOzfxcpZA+I562PDIM0tK+xskhwwHNmM8fldThK1
-	mYPWQpb2K3uvmRT7NqFDo+J/bv5UBiAEtvjL9OJmBTj9jHlfqAvpVo/DCZ2iUOqH6QZ3JcuyDvD
-	q9FwCl3RZl6p2ij3gCPsrsao1NqlE94BLQbDtR6dYQNFlEhthysiQYOSdos9beiCyJ+pTnMsTwr
-	H6mgX6qY1FpdIsh7QYimpbeNsgDettlA7zuR4on9WhGfo16JYg4NuAaeS6d9cDfvBod8wjsxD8+
-	cIojmDCw2IWJElXnDhRWbUrDY6igIoTHLVPOFXCQ4w1FlAXYYzlYbFtzHitXnfH+8p4rcQGG707
-	MKRlzmf+sgEFVbjg2jMGifrWKV4U6dltE2rtZ03EuTduUVy41BApIKrTjV218KGc1SXUZM+gxTl
-	K4VWzXjjQ==
-X-Received: by 2002:a05:600c:8411:b0:499:4892:d022 with SMTP id 5b1f17b1804b1-49b91c279e1mr256215865e9.8.1788023484059;
-        Sat, 29 Aug 2026 10:11:24 -0700 (PDT)
-Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4cef:8600:c993:2682:3ff:b27])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c7cfsm154861105e9.11.2026.08.29.10.11.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:11:23 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH v3 0/2] mm/memory: improve insert_pages() error handling
-Date: Sat, 29 Aug 2026 20:11:11 +0300
-Message-ID: <cover.1788022178.git.thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=jagalactic.com header.i=@jagalactic.com header.b="h8lK2xls";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="h6udmjRq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=rjayupzefgi7e6fmzxcxe4cv4arrjs35; d=jagalactic.com; t=1788023482;
+	h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References:Message-Id;
+	bh=qOHa7W+cQx4P3O5NPB6FOKhbasld/d8G3/e9dZcKbCs=;
+	b=h8lK2xlszHjLOnIc/Cvt/5X0sq/GvWOHps2B46TEIDXLhQJUwzSD7yvrQCoMga5X
+	mxgrwXZdy+LZU+mooBSJlwiRFnGuSUFVe8EP4bxpBLHgi+CpUSIQLqaSs4FXd2n25Ub
+	BpQcXNhf8sZSr24MCXM6iUiKIPkcILcf16yzM0fY=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788023482;
+	h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References:Message-Id:Feedback-ID;
+	bh=qOHa7W+cQx4P3O5NPB6FOKhbasld/d8G3/e9dZcKbCs=;
+	b=h6udmjRqn49yys9eLvH0OeHcThoQShiU/ATTkp8yfsa/svCJJWVhP+yll5O/eN0J
+	XofSWYik72dy3zZqWhPWPjy7IHgAtAPReGjSX5SfQJxtTnWb0qD8gt2/dqjpB7CkIW4
+	1RVXWR4tBcLUVlrAiXSQQ2EHAvnz4aFbJTHx2XQY=
+Subject: [PATCH V14 04/12] famfs: Introduce inode_operations and
+ super_operations
+From: =?UTF-8?Q?John_Groves?= <john@jagalactic.com>
+To: =?UTF-8?Q?John_Groves?= <John@Groves.net>, 
+	=?UTF-8?Q?Miklos_Szeredi?= <miklos@szeredi.hu>, 
+	=?UTF-8?Q?Dan_Williams?= <djbw@kernel.org>, 
+	=?UTF-8?Q?Bernd_Schubert?= <bschubert@ddn.com>, 
+	=?UTF-8?Q?Alison_Schofiel?= =?UTF-8?Q?d?= <alison.schofield@intel.com>
+Cc: =?UTF-8?Q?John_Groves?= <jgroves@micron.com>, 
+	=?UTF-8?Q?Jonathan_Corbe?= =?UTF-8?Q?t?= <corbet@lwn.net>, 
+	=?UTF-8?Q?Jake_Edge?= <jake@lwn.net>, 
+	=?UTF-8?Q?Shuah_Khan?= <skhan@linuxfoundation.org>, 
+	=?UTF-8?Q?Vishal_Verma?= <vishal.l.verma@intel.com>, 
+	=?UTF-8?Q?Dave_Jiang?= <dave.jiang@intel.com>, 
+	=?UTF-8?Q?Matthew_Wilcox?= <willy@infradead.org>, 
+	=?UTF-8?Q?Jan_Kara?= <jack@suse.cz>, 
+	=?UTF-8?Q?Alexander_Viro?= <viro@zeniv.linux.org.uk>, 
+	=?UTF-8?Q?David_Hildenbrand?= <david@kernel.org>, 
+	=?UTF-8?Q?Christian_Bra?= =?UTF-8?Q?uner?= <brauner@kernel.org>, 
+	=?UTF-8?Q?Darrick_J_=2E_Wong?= <djwong@kernel.org>, 
+	=?UTF-8?Q?Randy_Dunlap?= <rdunlap@infradead.org>, 
+	=?UTF-8?Q?Jeff_Layton?= <jlayton@kernel.org>, 
+	=?UTF-8?Q?Amir_Goldstein?= <amir73il@gmail.com>, 
+	=?UTF-8?Q?Jonathan_Cameron?= <jic23@kernel.org>, 
+	=?UTF-8?Q?Stefan_Hajnoczi?= <shajnocz@redhat.com>, 
+	=?UTF-8?Q?Joanne_Koong?= <joannelkoong@gmail.com>, 
+	=?UTF-8?Q?Josef_Bacik?= <josef@toxicpanda.com>, 
+	=?UTF-8?Q?Bagas_Sanjaya?= <bagasdotme@gmail.com>, 
+	=?UTF-8?Q?Chen_Linxuan?= <chenlinxuan@uniontech.com>, 
+	=?UTF-8?Q?James_Morse?= <james.morse@arm.com>, 
+	=?UTF-8?Q?Fuad_Tabba?= <tabba@google.com>, 
+	=?UTF-8?Q?Sean_Christopherson?= <seanjc@google.com>, 
+	=?UTF-8?Q?Shivank_Garg?= <shivankg@amd.com>, 
+	=?UTF-8?Q?Ackerley_Tng?= <ackerleytng@google.com>, 
+	=?UTF-8?Q?Gregory_Pric?= =?UTF-8?Q?e?= <gourry@gourry.net>, 
+	=?UTF-8?Q?Andrew_Morton?= <akpm@linux-foundation.org>, 
+	=?UTF-8?Q?Namjae_Jeon?= <linkinjeon@kernel.org>, 
+	=?UTF-8?Q?Lorenzo_Stoakes?= <ljs@kernel.org>, 
+	=?UTF-8?Q?Greg_Kroah-Hartman?= <gregkh@linuxfoundation.org>, 
+	=?UTF-8?Q?Ira_Weiny?= <iweiny@kernel.org>, 
+	=?UTF-8?Q?Pasha_Tatashin?= <pasha.tatashin@soleen.com>, 
+	=?UTF-8?Q?Haren_Myneni?= <haren@linux.ibm.com>, 
+	=?UTF-8?Q?Pratyush_Yadav?= <pratyush@kernel.org>, 
+	=?UTF-8?Q?Giovanni_Cabiddu?= <giovanni.cabiddu@intel.com>, 
+	=?UTF-8?Q?Jiri_Slaby?= <jirislaby@kernel.org>, 
+	=?UTF-8?Q?Ethan_Nelson-Moo?= =?UTF-8?Q?re?= <enelsonmoore@gmail.com>, 
+	=?UTF-8?Q?Gabriel_Whigham?= <gabewhigham@gmail.com>, 
+	=?UTF-8?Q?Aravind_Ramesh?= <arramesh@micron.com>, 
+	=?UTF-8?Q?Ajay_Joshi?= <ajayjoshi@micron.com>, 
+	=?UTF-8?Q?venkataravis=40m?= =?UTF-8?Q?icron=2Ecom?= <venkataravis@micron.com>, 
+	=?UTF-8?Q?linux-doc=40?= =?UTF-8?Q?vger=2Ekernel=2Eorg?= <linux-doc@vger.kernel.org>, 
+	=?UTF-8?Q?linux-kernel=40vger=2Ekernel=2Eorg?= <linux-kernel@vger.kernel.org>, 
+	=?UTF-8?Q?nvdimm=40lists=2Elinux=2Edev?= <nvdimm@lists.linux.dev>, 
+	=?UTF-8?Q?linux-cxl=40vger=2Ekernel=2Eorg?= <linux-cxl@vger.kernel.org>, 
+	=?UTF-8?Q?linux-fsdevel=40vger=2Ekernel=2Eorg?= <linux-fsdevel@vger.kernel.org>, 
+	=?UTF-8?Q?fuse-devel=40lists=2Elinux=2E?= =?UTF-8?Q?dev?= <fuse-devel@lists.linux.dev>, 
+	=?UTF-8?Q?John_Groves?= <john@groves.net>
+Date: Sat, 29 Aug 2026 17:11:22 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: 
+ <010001a04e801a4e-8eb212cd-b263-4043-ab65-33e480d2d7d4-000000@email.amazonses.com>
+References: 
+ <010001a04e801a4e-8eb212cd-b263-4043-ab65-33e480d2d7d4-000000@email.amazonses.com> 
+ <20260829171114.7409-1-john@jagalactic.com>
+X-Mailer: Amazon WorkMail
+Thread-Index: AQHdN9lAfqnLmnnsQyaIwPphM+3eHAAACkhI
+Thread-Topic: [PATCH V14 04/12] famfs: Introduce inode_operations and
+ super_operations
+X-Wm-Sent-Timestamp: 1788023481
+X-Original-Mailer: git-send-email 2.55.0
+Message-ID: <010001a04e81289e-047de24d-e6c8-4a14-8f25-1cc2249072b2-000000@email.amazonses.com>
+Feedback-ID: ::1.us-east-1.LF00NED762KFuBsfzrtoqw+Brn/qlF9OYdxWukAhsl8=:AmazonSES
+X-SES-Outgoing: 2026.08.29-54.240.11.132
 
-Improve insert_pages() error handling.
-
-The first patch simplifies error handling by initializing the error
-status to zero and assigning error codes at their respective failure
-sites.
-
-The second patch returns -ENOMEM when walk_to_pmd() fails. A NULL
-return from walk_to_pmd() indicates failure to allocate an upper
-page-table level, so -ENOMEM is more appropriate than -EFAULT and is
-consistent with the subsequent pte_alloc() failure.
-
-Changes in v3:
-
-* drop the walk_to_pmd() rename following review
-* use the mm/memory: prefix consistently across the series
-* carry review tags from v2
-* rebase onto current mm-new
-
-Link: https://lore.kernel.org/r/cover.1785847364.git.thnkslprpt@gmail.com/
-
-Avi Weiss (2):
-  mm/memory: simplify error handling in insert_pages()
-  mm/memory: return -ENOMEM for page-table allocation failure in
-    insert_pages()
-
- mm/memory.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
-
-base-commit: d2aad7fdcda7ae8a726926f2d6de7fe9e8ee7563
--- 
-2.43.0
-
+From: John Groves <john@groves.net>=0D=0A=0D=0AThe famfs inode and super =
+operations are generic other than=0D=0Ashow_options, evict_inode and seta=
+ttr (which prevents truncation..=0D=0A=0D=0AThis commit builds but is sti=
+ll too incomplete to run=0D=0A=0D=0AReviewed-by: "Darrick J. Wong" <djwon=
+g@kernel.org>=0D=0AReviewed-by: Jeff Layton <jlayton@kernel.org>=0D=0ASig=
+ned-off-by: John Groves <john@groves.net>=0D=0A---=0D=0A=0D=0A fs/famfs/f=
+amfs_inode.c    | 289 +++++++++++++++++++++++++++++++++++++-=0D=0A fs/fam=
+fs/famfs_internal.h |   6 +=0D=0A 2 files changed, 292 insertions(+), 3 d=
+eletions(-)=0D=0A=0D=0Adiff --git a/fs/famfs/famfs_inode.c b/fs/famfs/fam=
+fs_inode.c=0D=0Aindex 5735d8d1900b..b7a3d8d6ee8c 100644=0D=0A--- a/fs/fam=
+fs/famfs_inode.c=0D=0A+++ b/fs/famfs/famfs_inode.c=0D=0A@@ -29,6 +29,9 @@=
+=0D=0A=20=0D=0A #define FAMFS_DEFAULT_MODE=090755=0D=0A=20=0D=0A+static c=
+onst struct inode_operations famfs_file_inode_operations;=0D=0A+static co=
+nst struct inode_operations famfs_dir_inode_operations;=0D=0A+=0D=0A stat=
+ic struct inode *=0D=0A famfs_get_inode(=0D=0A =09struct super_block *sb,=
+=0D=0A@@ -55,11 +58,11 @@ famfs_get_inode(=0D=0A =09=09init_special_inode=
+(inode, mode, dev);=0D=0A =09=09break;=0D=0A =09case S_IFREG:=0D=0A-=09=09=
+inode->i_op =3D NULL /* famfs_file_inode_operations */;=0D=0A+=09=09inode=
+->i_op =3D &famfs_file_inode_operations;=0D=0A =09=09inode->i_fop =3D NUL=
+L /* &famfs_file_operations */;=0D=0A =09=09break;=0D=0A =09case S_IFDIR:=
+=0D=0A-=09=09inode->i_op =3D NULL /* famfs_dir_inode_operations */;=0D=0A=
++=09=09inode->i_op =3D &famfs_dir_inode_operations;=0D=0A =09=09inode->i_=
+fop =3D &simple_dir_operations;=0D=0A=20=0D=0A =09=09/* Directory inodes =
+start off with i_nlink =3D=3D 2 (for ".") */=0D=0A@@ -73,6 +76,286 @@ fam=
+fs_get_inode(=0D=0A =09return inode;=0D=0A }=0D=0A=20=0D=0A+/************=
+***************************************************************=0D=0A+ * =
+famfs inode_operations=0D=0A+ */=0D=0A+=0D=0A+static int=0D=0A+famfs_seta=
+ttr(=0D=0A+=09struct mnt_idmap *idmap,=0D=0A+=09struct dentry *dentry,=0D=
+=0A+=09struct iattr *iattr)=0D=0A+{=0D=0A+=09struct inode *inode =3D d_in=
+ode(dentry);=0D=0A+=09struct famfs_fs_info *fsi =3D inode->i_sb->s_fs_inf=
+o;=0D=0A+=0D=0A+=09/* Resizing a famfs file (its size is pinned to the fm=
+ap) */=0D=0A+=09if ((iattr->ia_valid & ATTR_SIZE) &&=0D=0A+=09    !famfs_=
+opt_enabled(fsi, FAMFS_OPT_TRUNCATE) &&=0D=0A+=09    iattr->ia_size !=3D =
+i_size_read(inode))=0D=0A+=09=09return -EPERM;=0D=0A+=09if ((iattr->ia_va=
+lid & ATTR_MODE) &&=0D=0A+=09    !famfs_opt_enabled(fsi, FAMFS_OPT_CHMOD)=
+)=0D=0A+=09=09return -EPERM;=0D=0A+=09if ((iattr->ia_valid & (ATTR_UID | =
+ATTR_GID)) &&=0D=0A+=09    !famfs_opt_enabled(fsi, FAMFS_OPT_CHOWN))=0D=0A=
++=09=09return -EPERM;=0D=0A+=09if ((iattr->ia_valid & (ATTR_ATIME | ATTR_=
+MTIME)) &&=0D=0A+=09    !famfs_opt_enabled(fsi, FAMFS_OPT_UTIMES))=0D=0A+=
+=09=09return -EPERM;=0D=0A+=0D=0A+=09return simple_setattr(idmap, dentry,=
+ iattr);=0D=0A+}=0D=0A+=0D=0A+static const struct inode_operations famfs_=
+file_inode_operations =3D {=0D=0A+=09/* All generic */=0D=0A+=09.setattr=09=
+   =3D famfs_setattr,=0D=0A+=09.getattr=09   =3D simple_getattr,=0D=0A+};=
+=0D=0A+=0D=0A+/*=0D=0A+ * Internal inode creation helper, shared by ->cre=
+ate, ->mkdir, ->mknod and=0D=0A+ * ->symlink. Each of those callers is re=
+sponsible for its own FAMFS_OPT_*=0D=0A+ * permission check before gettin=
+g here.=0D=0A+ */=0D=0A+static int=0D=0A+famfs_mknod(=0D=0A+=09struct mnt=
+_idmap *idmap,=0D=0A+=09struct inode *dir,=0D=0A+=09struct dentry *dentry=
+,=0D=0A+=09umode_t mode,=0D=0A+=09dev_t dev)=0D=0A+{=0D=0A+=09struct famf=
+s_fs_info *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=09struct inode *inode;=0D=
+=0A+=0D=0A+=09if (fsi->deverror)=0D=0A+=09=09return -ENODEV;=0D=0A+=0D=0A=
++=09inode =3D famfs_get_inode(dir->i_sb, dir, mode, dev);=0D=0A+=09if (!i=
+node)=0D=0A+=09=09return -ENOSPC;=0D=0A+=0D=0A+=09d_make_persistent(dentr=
+y, inode);=0D=0A+=09/* Adding an entry updates the parent directory's mti=
+me/ctime */=0D=0A+=09inode_set_mtime_to_ts(dir, inode_set_ctime_current(d=
+ir));=0D=0A+=0D=0A+=09return 0;=0D=0A+}=0D=0A+=0D=0A+static struct dentry=
+ *=0D=0A+famfs_mkdir(=0D=0A+=09struct mnt_idmap *idmap,=0D=0A+=09struct i=
+node *dir,=0D=0A+=09struct dentry *dentry,=0D=0A+=09umode_t mode)=0D=0A+{=
+=0D=0A+=09struct famfs_fs_info *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=09in=
+t rc;=0D=0A+=0D=0A+=09if (fsi->deverror)=0D=0A+=09=09return ERR_PTR(-ENOD=
+EV);=0D=0A+=09if (!famfs_opt_enabled(fsi, FAMFS_OPT_MKDIR))=0D=0A+=09=09r=
+eturn ERR_PTR(-EPERM);=0D=0A+=0D=0A+=09rc =3D famfs_mknod(&nop_mnt_idmap,=
+ dir, dentry, mode | S_IFDIR, 0);=0D=0A+=09if (rc)=0D=0A+=09=09return ERR=
+_PTR(rc);=0D=0A+=0D=0A+=09inc_nlink(dir);=0D=0A+=0D=0A+=09return ERR_PTR(=
+0);=0D=0A+}=0D=0A+=0D=0A+static int=0D=0A+famfs_create(=0D=0A+=09struct m=
+nt_idmap *idmap,=0D=0A+=09struct inode *dir,=0D=0A+=09struct dentry *dent=
+ry,=0D=0A+=09umode_t mode,=0D=0A+=09bool excl)=0D=0A+{=0D=0A+=09struct fa=
+mfs_fs_info *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=0D=0A+=09if (fsi->dever=
+ror)=0D=0A+=09=09return -ENODEV;=0D=0A+=09if (!famfs_opt_enabled(fsi, FAM=
+FS_OPT_CREATE))=0D=0A+=09=09return -EPERM;=0D=0A+=0D=0A+=09return famfs_m=
+knod(&nop_mnt_idmap, dir, dentry, mode | S_IFREG, 0);=0D=0A+}=0D=0A+=0D=0A=
++static int=0D=0A+famfs_mknod_op(=0D=0A+=09struct mnt_idmap *idmap,=0D=0A=
++=09struct inode *dir,=0D=0A+=09struct dentry *dentry,=0D=0A+=09umode_t m=
+ode,=0D=0A+=09dev_t dev)=0D=0A+{=0D=0A+=09struct famfs_fs_info *fsi =3D d=
+ir->i_sb->s_fs_info;=0D=0A+=0D=0A+=09if (!famfs_opt_enabled(fsi, FAMFS_OP=
+T_MKNOD))=0D=0A+=09=09return -EPERM;=0D=0A+=0D=0A+=09return famfs_mknod(i=
+dmap, dir, dentry, mode, dev);=0D=0A+}=0D=0A+=0D=0A+static int=0D=0A+famf=
+s_symlink(=0D=0A+=09struct mnt_idmap *idmap,=0D=0A+=09struct inode *dir,=0D=
+=0A+=09struct dentry *dentry,=0D=0A+=09const char *symname)=0D=0A+{=0D=0A=
++=09struct famfs_fs_info *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=09struct i=
+node *inode;=0D=0A+=09int len, rc;=0D=0A+=0D=0A+=09if (fsi->deverror)=0D=0A=
++=09=09return -ENODEV;=0D=0A+=09if (!famfs_opt_enabled(fsi, FAMFS_OPT_SYM=
+LINK))=0D=0A+=09=09return -EPERM;=0D=0A+=0D=0A+=09inode =3D famfs_get_ino=
+de(dir->i_sb, dir, S_IFLNK | 0777, 0);=0D=0A+=09if (!inode)=0D=0A+=09=09r=
+eturn -ENOSPC;=0D=0A+=0D=0A+=09len =3D strlen(symname) + 1;=0D=0A+=09rc =3D=
+ page_symlink(inode, symname, len);=0D=0A+=09if (rc) {=0D=0A+=09=09iput(i=
+node);=0D=0A+=09=09return rc;=0D=0A+=09}=0D=0A+=0D=0A+=09d_make_persisten=
+t(dentry, inode);=0D=0A+=09inode_set_mtime_to_ts(dir, inode_set_ctime_cur=
+rent(dir));=0D=0A+=0D=0A+=09return 0;=0D=0A+}=0D=0A+=0D=0A+static int=0D=0A=
++famfs_link(=0D=0A+=09struct dentry *old_dentry,=0D=0A+=09struct inode *d=
+ir,=0D=0A+=09struct dentry *dentry)=0D=0A+{=0D=0A+=09struct famfs_fs_info=
+ *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=0D=0A+=09if (!famfs_opt_enabled(fs=
+i, FAMFS_OPT_LINK))=0D=0A+=09=09return -EPERM;=0D=0A+=0D=0A+=09return sim=
+ple_link(old_dentry, dir, dentry);=0D=0A+}=0D=0A+=0D=0A+static int=0D=0A+=
+famfs_unlink(struct inode *dir, struct dentry *dentry)=0D=0A+{=0D=0A+=09s=
+truct inode *inode =3D d_inode(dentry);=0D=0A+=09struct famfs_fs_info *fs=
+i =3D dir->i_sb->s_fs_info;=0D=0A+=0D=0A+=09/* A file with an fmap may on=
+ly be unlinked when explicitly enabled */=0D=0A+=09if (inode->i_private &=
+& !famfs_opt_enabled(fsi, FAMFS_OPT_UNLINK))=0D=0A+=09=09return -EPERM;=0D=
+=0A+=0D=0A+=09return simple_unlink(dir, dentry);=0D=0A+}=0D=0A+=0D=0A+sta=
+tic int famfs_rmdir(struct inode *dir, struct dentry *dentry)=0D=0A+{=0D=0A=
++=09struct famfs_fs_info *fsi =3D dir->i_sb->s_fs_info;=0D=0A+=0D=0A+=09i=
+f (!famfs_opt_enabled(fsi, FAMFS_OPT_RMDIR))=0D=0A+=09=09return -EPERM;=0D=
+=0A+=0D=0A+=09return simple_rmdir(dir, dentry);=0D=0A+}=0D=0A+=0D=0A+stat=
+ic int=0D=0A+famfs_rename(=0D=0A+=09struct mnt_idmap *idmap,=0D=0A+=09str=
+uct inode *old_dir,=0D=0A+=09struct dentry *old_dentry,=0D=0A+=09struct i=
+node *new_dir,=0D=0A+=09struct dentry *new_dentry,=0D=0A+=09unsigned int =
+flags)=0D=0A+{=0D=0A+=09struct famfs_fs_info *fsi =3D old_dir->i_sb->s_fs=
+_info;=0D=0A+=09struct inode *target =3D d_inode(new_dentry);=0D=0A+=0D=0A=
++=09if (!famfs_opt_enabled(fsi, FAMFS_OPT_RENAME))=0D=0A+=09=09return -EP=
+ERM;=0D=0A+=0D=0A+=09/*=0D=0A+=09 * Renaming over an existing target remo=
+ves it, so require the same=0D=0A+=09 * policy gate that unlink()/rmdir()=
+ would. RENAME_EXCHANGE swaps the=0D=0A+=09 * two entries rather than rem=
+oving the target, so it is exempt.=0D=0A+=09 */=0D=0A+=09if (target && !(=
+flags & RENAME_EXCHANGE)) {=0D=0A+=09=09if (S_ISDIR(target->i_mode)) {=0D=
+=0A+=09=09=09if (!famfs_opt_enabled(fsi, FAMFS_OPT_RMDIR))=0D=0A+=09=09=09=
+=09return -EPERM;=0D=0A+=09=09} else if (target->i_private &&=0D=0A+=09=09=
+=09   !famfs_opt_enabled(fsi, FAMFS_OPT_UNLINK)) {=0D=0A+=09=09=09return =
+-EPERM;=0D=0A+=09=09}=0D=0A+=09}=0D=0A+=0D=0A+=09return simple_rename(idm=
+ap, old_dir, old_dentry, new_dir, new_dentry,=0D=0A+=09=09=09     flags);=
+=0D=0A+}=0D=0A+=0D=0A+static const struct inode_operations famfs_dir_inod=
+e_operations =3D {=0D=0A+=09.create=09=09=3D famfs_create,=0D=0A+=09.look=
+up=09=09=3D simple_lookup,=0D=0A+=09.link=09=09=3D famfs_link,=0D=0A+=09.=
+unlink=09=09=3D famfs_unlink,=0D=0A+=09.symlink=09=3D famfs_symlink,=0D=0A=
++=09.mkdir=09=09=3D famfs_mkdir,=0D=0A+=09.mknod=09=09=3D famfs_mknod_op,=
+=0D=0A+=09.rmdir=09=09=3D famfs_rmdir,=0D=0A+=09.rename=09=09=3D famfs_re=
+name,=0D=0A+};=0D=0A+=0D=0A+/********************************************=
+*********************************=0D=0A+ * famfs super_operations=0D=0A+ =
+*=0D=0A+ * TODO: implement a famfs_statfs() that shows size, free and ava=
+ilable space,=0D=0A+ * etc.=0D=0A+ */=0D=0A+=0D=0A+/*=0D=0A+ * famfs_show=
+_options() - Display the mount options in /proc/mounts.=0D=0A+ */=0D=0A+s=
+tatic int=0D=0A+famfs_show_options(struct seq_file *m, struct dentry *roo=
+t)=0D=0A+{=0D=0A+=09struct famfs_fs_info *fsi =3D root->d_sb->s_fs_info;=0D=
+=0A+=0D=0A+=09if (fsi->mount_opts.mode !=3D FAMFS_DEFAULT_MODE)=0D=0A+=09=
+=09seq_printf(m, ",mode=3D%o", fsi->mount_opts.mode);=0D=0A+=0D=0A+=09ret=
+urn 0;=0D=0A+}=0D=0A+=0D=0A+static void=0D=0A+famfs_evict_inode(struct in=
+ode *inode)=0D=0A+{=0D=0A+=09inode->i_private =3D NULL;=0D=0A+=09dax_brea=
+k_layout_final(inode);=0D=0A+=09truncate_inode_pages_final(&inode->i_data=
+);=0D=0A+=09clear_inode(inode);=0D=0A+}=0D=0A+=0D=0A+static const struct =
+super_operations famfs_super_ops =3D {=0D=0A+=09.statfs=09=09=3D simple_s=
+tatfs,=0D=0A+=09.drop_inode=09=3D inode_just_drop,=0D=0A+=09.show_options=
+=09=3D famfs_show_options,=0D=0A+=09.evict_inode    =3D famfs_evict_inode=
+,=0D=0A+};=0D=0A+=0D=0A+/************************************************=
+*****************************/=0D=0A+=0D=0A /*=0D=0A  * famfs dax_operati=
+ons (for famfs-mode dax)=0D=0A  */=0D=0A@@ -312,7 +595,7 @@ famfs_fill_su=
+per(struct super_block *sb, struct fs_context *fc)=0D=0A =09sb->s_blocksi=
+ze=09=09=3D PAGE_SIZE;=0D=0A =09sb->s_blocksize_bits=09=3D PAGE_SHIFT;=0D=
+=0A =09sb->s_magic=09=09=3D FAMFS_SUPER_MAGIC;=0D=0A-=09sb->s_op=09=09=3D=
+ NULL /* famfs_super_ops */;=0D=0A+=09sb->s_op=09=09=3D &famfs_super_ops;=
+=0D=0A =09sb->s_time_gran=09=09=3D 1;=0D=0A }=0D=0A=20=0D=0Adiff --git a/=
+fs/famfs/famfs_internal.h b/fs/famfs/famfs_internal.h=0D=0Aindex 37f667b2=
+b79a..30f0b01010d5 100644=0D=0A--- a/fs/famfs/famfs_internal.h=0D=0A+++ b=
+/fs/famfs/famfs_internal.h=0D=0A@@ -70,6 +70,12 @@ struct famfs_fs_info {=
+=0D=0A =09struct rw_semaphore       devlist_sem;=0D=0A };=0D=0A=20=0D=0A+=
+/* This stub will be replaced in a later commit=0D=0A+ * Note: the opt pa=
+rameter is intentionally unused, and will be used by=0D=0A+ * the replace=
+ment function when that commit lands=0D=0A+ */=0D=0A+#define famfs_opt_en=
+abled(fsi, opt) (fsi !=3D 0)=0D=0A+=0D=0A int famfs_lookup_daxdev(const c=
+har *pathname, dev_t *devno);=0D=0A int famfs_devlist_alloc(struct famfs_=
+fs_info *fsi);=0D=0A int famfs_install_daxdev(struct famfs_fs_info *fsi, =
+struct super_block *sb,=0D=0A--=20=0D=0A2.53.0=0D=0A=0D=0A
