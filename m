@@ -1,134 +1,113 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C313093D8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546001F09A5
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787987821; cv=none; b=urOODEUJ+HZilbmto+F8LVAKwYg/xCGuEIKu0L8RveQFky7O1n+9JpR5rNSy86q9Pro18A58vX1dkNETc4eXvcebhkCDd8MzlRfxvFu3AkLxIglfckhvReqSca6OxENZSZvwQPkohpvpXw0hD/ZkD3hgWHPAVwDWftdIvN2GENI=
+	t=1787987933; cv=none; b=Ve1cDZhYK9KLSWO4yXxqUivbh6U2tGkTLfdDTTJvKYn7HCtcu6bkfzHO760d7iCbleWFcRyjFP6lZWmP4V0adgySA91q+vGJIs+8hr1tAkUCq/dQTbsSjNlDzyO0yKv6tsmVmJ2WiUzfobx26ZnDO0S/iArDz+M86Tl1imCqw9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787987821; c=relaxed/simple;
-	bh=bnW1uRPPym7D4jFDJHKaKR3hWA0klTNeikygi8E9nsM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kj7GPCUwb8/oHhHc3veKN30GVon0haWHAch1Fv4K9t0LUmOAH2ERHgpcWCQk6pTyQ+RiU4tlnysrsHSQ33q6pTdqs+uc8zaOj4IAYMEvaOr2BQPQSSDS86jjaTVzJ7OZFpmjmgx/KluJUJWDyGRRO4BHGHh21HqOH7xiVSFHipQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=B/1Ex00v; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787987933; c=relaxed/simple;
+	bh=uz3vQj8FYbM4kGyR/T+IybsJavOIJ5kvlHU/+x+Z1EQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LiVXv0NEfpo2wuiGFQadBRfs6D3wYTLk23SGACCBur/Ejk8RfWquY5uNjoST/Y8+0B5652h77vgJZ16ifj8xoSE5kfwD1xRmtJY2tIWpQUNK6hsn94XhlPq1yRgWCOj5+BkcLhMPYb4ixdoa+pnd2ty6J3Oh7r+TLnDRSoe+U/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M4pj8MRa; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="B/1Ex00v"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=xNys40qzCinjjkeQyfa5/uHXe62MEi0scb5rOsIlERM=;
-	b=B/1Ex00vL4B1NGhygBdjgt8P6GU9hjy/4FB9a2qGim9uYzJ0pyfJtu43TFUGqY5BYSMvKYImN
-	BPSdVPKIgwz39emn7ft14BIO5fzULtpQDvdbIpawvP65j4M80CTtjAWbDuUjQpzJFBBZD8BsFU1
-	Ja2sEl4QSGFFrQNNHH4YvSo=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hX5rY0VMyzmVZQ;
-	Sat, 29 Aug 2026 15:06:05 +0800 (CST)
-Received: from kwepemo200010.china.huawei.com (unknown [7.202.195.178])
-	by mail.maildlp.com (Postfix) with ESMTPS id A77E74048B;
-	Sat, 29 Aug 2026 15:16:52 +0800 (CST)
-Received: from [10.174.178.56] (10.174.178.56) by
- kwepemo200010.china.huawei.com (7.202.195.178) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sat, 29 Aug 2026 15:16:51 +0800
-Message-ID: <c7b0dc34-ae1e-4a3d-a286-fdae0e1d978b@huawei.com>
-Date: Sat, 29 Aug 2026 15:16:51 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M4pj8MRa"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbee846deecso2369157a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:18:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787987932; x=1788592732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ztdXvXEqMzZ0Iyqk5KJ2aSAe13KdXybpN8xuCs49paw=;
+        b=M4pj8MRaqZYoGds6BkzqaVc9UOcT5iyx7rQje9HLInsDjLTFgyopazUx+XfanRiSOv
+         ZCu09rAXuZDt+vjUvLpSg7sHeh9NcdUZFsvjUFnx12qIWvoiuqN7w/5BbOUYb8iTrYEO
+         aCT4WJDgOmFn1cQzLkScLIHxKYli5imWRX2KtJ/mnLtjO2QE32XW1zC+nOg2tV4MzTs7
+         m2zKitQN+0eHwb2JV90gq2NWjwFBifa5R8qffcjbmJjPrBwu6SofFeqdhWr10MfRUY5m
+         gKuXBGAbQiajsBFZve/vnLiZ1b8Nko4vEtkwFSYs8OT99iVruXSD3w0ZUQr+iEShH/Te
+         30mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787987932; x=1788592732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ztdXvXEqMzZ0Iyqk5KJ2aSAe13KdXybpN8xuCs49paw=;
+        b=NIsLi4h0IMlLFoQXKrSN/OzX1ntel9mrG4W2k+Bu/rpMaxHyEeLPIbR+GlABm8PEDA
+         VjLWK5lMrdhaNV2Tlg5Bn35qZUPIytjuRVqZfEdNjZ/oOFX/ThYBOEk9B0IGGVY5/DY5
+         paIG3BIh4bj48bFugeF905i3l6an4sT4oxd0086AkBliBe9UZ+IoHRiXyL5IapIzhTmI
+         RtQsJvyJlhOIhFWX5g0GfSGY5mxR+2hBiN7W9A9rFO6vq+tbbVYwavl+nbSd+GgzUXLY
+         tbZwZbQ6ZxVcpPUyqiQzcPvMdDuMFRfkklibhgpE/SLSIqVm8VnAgK1NmKYGGO9mtMY7
+         j4Zw==
+X-Forwarded-Encrypted: i=1; AHgh+Row5Bc7zsWh6XnySAgd8kWmYFpivxJWjTO0bU4TvrCy/iwodDuIW5vP47HCF7FEowDyN8Zpj+s5xhv2sa0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqfbyR+6u3DzZ6iAvQ4TcSmk73mJyqt+taWmkXkJrRd9V7U7je
+	5B/iEPQYNbMjvS2N3EY3IenrwPVUX2wVXUdVKLK8SonVasVFNNblGFZ3
+X-Gm-Gg: AR+sD101h/BGUEaEvq3wln9ZE2ZBf+5dhJ//QBXOKvjOK94Tw+GTePrWmFVnTB+S/py
+	Fxi07bbswK9D5JSX7lyeE6bWJy90fRfDh/i2I+08x95GPFE1LsUSXHYirLKj9MSM3XR/DA5sd42
+	9e9qUOHQskSrLknbWYrlLTXGEm1HcGz+zXKGPfeu+6gtNVoyWqJkhzTxkJE2rKp0Iev755Fhnk1
+	7JikdrJlgF6OlShc+vtpCJzZrQeKB+O7UpMnNloh1inOqICJZdPBBbeNQKSVHKPHq81ONuUDiNh
+	p6Z3h9hCvnSi6O54KM8bKdkXGcSw3+Qzje8GvHqiTX5BCjGqfE9f/smnXkZ4CXijhLRlNlJxrc4
+	dDihPyl9/NJDSkbjmm/qFTNxnK7I3qE5ngvnWc3DSdZmoGb/WBds8KxUDNtc1mzWz1bsNueGEE3
+	1TzonTaO0fB7vxKBOs2hgdOaXLK/4fb6s80XFaiu14uKSj8t3PTs8Pl0nHFQiu1aHpUGi+LKpHe
+	AM1+/j/w4aPhMAMHN1Foso+BpCsorpNqd7YAbq+iHx/cvX/ubigDurXX+uTitDxvKIpy60Al8LH
+	U4rfqg==
+X-Received: by 2002:a05:6a20:2587:b0:3d0:d933:af97 with SMTP id adf61e73a8af0-3d267b6d040mr18600165637.15.1787987931774;
+        Sat, 29 Aug 2026 00:18:51 -0700 (PDT)
+Received: from archlinux.tailec59cb.ts.net ([2405:201:1b:20ef:268a:fa82:9f05:61a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm18648545c88.4.2026.08.29.00.18.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 00:18:51 -0700 (PDT)
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krishna Chomal <krishna.chomal108@gmail.com>,
+	Jan Ziobro <ziobrojan79@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Add support for Omen 16-am0xxx (8D3F)
+Date: Sat, 29 Aug 2026 12:48:43 +0530
+Message-ID: <20260829071843.62902-1-krishna.chomal108@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] mm/page_isolation: guard compound_order() against
- racing
-To: Andrew Morton <akpm@linux-foundation.org>
-CC: Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan
-	<surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan Jackman
-	<brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan
-	<ziy@nvidia.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<sunnanyong@huawei.com>, <wangkefeng.wang@huawei.com>
-References: <20260825120549.966271-1-xiqi2@huawei.com>
- <20260825120549.966271-3-xiqi2@huawei.com>
- <20260827204732.367c52ad420acb0b87bf29ed@linux-foundation.org>
-Content-Language: en-GB
-From: Qi Xi <xiqi2@huawei.com>
-In-Reply-To: <20260827204732.367c52ad420acb0b87bf29ed@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemo200010.china.huawei.com (7.202.195.178)
 
-Thanks for raising this. I checked the path: PageHuge(head) resolves to
-folio_test_hugetlb(), which reads page_type via data_race(). I don't think
-it's the same issue this series targets:
+The HP Omen 16-am0xxx (board ID: 8D3F) has the same WMI interface as
+other Victus S boards, but requires quirks for correctly switching
+thermal profile.
 
-- It never touches page->flags or PF_SECOND — folio_test_hugetlb() reads
-page_type on the head page via FOLIO_TYPE_OPS, a separate "page type" mechanism,
-so neither folio_flags() nor its VM_BUG_ON_PGFLAGS assertions are on its path.
-- The only shift is a fixed >> 24 on a u32, not a variable 1 << order,
-so it can't produce the shift-out-of-bounds UBSAN this series fixes.
+Add the DMI board name to hp_wmi_feature_boards[] table and
+map it to omen_v1_legacy_board_params.
 
-So no extra stabilization seems needed for PageHuge() itself.
-Happy to add it if you see a case I missed.
+Testing on board 8D3F confirmed that platform profile is registered
+successfully and fan RPMs are readable and controllable.
 
-Qi
+Tested-by: Jan Ziobro <ziobrojan79@gmail.com>
+Signed-off-by: Krishna Chomal <krishna.chomal108@gmail.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On 28/08/2026 11:47, Andrew Morton wrote:
-> On Tue, 25 Aug 2026 20:05:49 +0800 Qi Xi <xiqi2@huawei.com> wrote:
->
->> The PageCompound branch reads compound_head() without holding a reference.
->> A racing split or free can cause compound_head() to return a stale pointer,
->> and compound_nr() reads the order from that stale head, leading to
->> out-of-range shifts and making the skip distance meaningless.
->>
->> Read the order explicitly with compound_order() and validate it is within
->> MAX_FOLIO_ORDER before shifting. Also verify the derived head_pfn against
->> the legitimate pfn: the head must not be past pfn, must be aligned to
->> nr_pages, and pfn must fall within the compound page. Bail out with
->> -EBUSY if any check fails.
->>
->> ...
->>
->> --- a/mm/page_isolation.c
->> +++ b/mm/page_isolation.c
->> @@ -418,10 +418,28 @@ static int isolate_single_pageblock(unsigned long boundary_pfn,
->>   		if (PageCompound(page)) {
->>   			struct page *head = compound_head(page);
->>   			unsigned long head_pfn = page_to_pfn(head);
->> -			unsigned long nr_pages = compound_nr(head);
->> +			unsigned int order = compound_order(head);
->> +			unsigned long nr_pages;
->> +
->> +			/* compound_order() is racy. Cap it at MAX_FOLIO_ORDER. */
->> +			if (order > MAX_FOLIO_ORDER)
->> +				goto failed;
->> +
->> +			nr_pages = 1UL << order;
->> +
->> +			/*
->> +			 * compound_head() is also racy, so the derived head_pfn
->> +			 * needs additional checks to make sure it is valid.
->> +			 * Otherwise, just fail the check. pfn comes from
->> +			 * __first_valid_page() as a legitimate PFN, so use it to
->> +			 * check head_pfn.
->> +			 */
->> +			if (head_pfn > pfn || !IS_ALIGNED(head_pfn, nr_pages) ||
->> +			    pfn - head_pfn >= nr_pages)
->> +				goto failed;
->>   
->>   			if (head_pfn + nr_pages <= boundary_pfn ||
->> -			    PageHuge(page)) {
->> +			    PageHuge(head)) {
-> Sashiko suggests that this PageHuge() test suffers the same issue?
->
-> 	https://sashiko.dev/#/patchset/20260825120549.966271-1-xiqi2@huawei.com
->
->>   				pfn = head_pfn + nr_pages;
->>   				continue;
->>   			}
->> -- 
->> 2.33.0
->>
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index b2773fc1aca4..4011d2a8afc6 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -323,6 +323,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D26") },
+ 		.driver_data = (void *)&omen_v1_legacy_board_params,
+ 	},
++	{
++		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D3F") },
++		.driver_data = (void *)&omen_v1_legacy_board_params,
++	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D41") },
+ 		.driver_data = (void *)&omen_v1_no_ec_board_params,
+-- 
+2.55.0
+
