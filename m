@@ -1,47 +1,47 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A4737FF6A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B8D33D503
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787984746; cv=none; b=TrOKsEM1eSlouhuuSj5YjLKYkcLadrIlYUPyNTmPRqoE8Z4UyRTkOhW4JSWihqPZEFmo8ezxED2JzE0AOMRhP0pRNBfmvvjt8VowUOYd6zB9jH4lgSa6BldkOWLU89zQPAaiOCXLtdonKmhszY8G1PB9XemaXLIjFLFZHc2MoXY=
+	t=1787984746; cv=none; b=QyboIrw+2q4g2cJT+UMeZaPpbosKeyDR5YHBvHA662Z1ou16DaonD0Or9KmJdUeYf6DX+3hbEZstw/qv6T7fxC0zkfe6qTJPU2ZN5xQb7esx1L8YvXrPmZthXT8T1fZ9vMF1/vWvh3u8mV8DIke/x4mmkFg44hxN2Pscs0+bhzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787984746; c=relaxed/simple;
-	bh=4mkDA3DTJy+F1HmdRVu0rZavlRs/aR2tHpPpt6EMdLk=;
+	bh=I8Mkf4P1ZRlT1OD2x0FWmt5Ym4BkhW/QXHrxcGJFh2k=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DpDmxwhPePxEZeZQzzDyFeggk9spdjVrXUMv6k4TtT0a27glt+209CYMta7CeOqWoJ2GJa+H2N73UDoq08kWgwMMHHz46A+8ih7zAHVu0mBVb+2BwcRe2QELjQkwf8cuVU4qkSvwqoMrpo0BbKLIlC+kqmTy8LnEPL2+8N9YJbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=UG3cQnou; arc=none smtp.client-ip=113.46.200.217
+	 MIME-Version:Content-Type; b=DqklPseh9Zb4L5PQ4ayydqasG6L236k79nMWK0P9Egvse5sTftH9TDA8rL7uRz+DpC68240HIDwKbdYHefv2VSGLtSsWihuddOPK/giPNsvGsU0kELBkFvkWleaZSIhVGQtIIz2s0C24lMpW1cIeJaI8b3Jbs47ethHFlgS9o2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=dYeGUVwc; arc=none smtp.client-ip=113.46.200.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="UG3cQnou"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="dYeGUVwc"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=osxjT7f1JxWv5xezKwzK5ISq924sZF9A35E3+reEz8Q=;
-	b=UG3cQnouTZYLXE7dXFFi1mNX00e5Uge+R1PKM3c75ZlP+Xd5IOgoqoCncgffXfrxTCDXcHuHu
-	4bZYSRLh0UczZAljLHJ/3CHV8Gqu+8BDLdGai45CHGaqPYlbQsLlu+sHMSUyVrrNGgvEO/cWLVi
-	r2nyRxkna3kj6EcHJzVU+RM=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hX4jX2rPyzcb3P;
-	Sat, 29 Aug 2026 14:14:56 +0800 (CST)
+	bh=Pn2SmxuVjFwFpqXGdu8OZwKamj1BHEHNT/tHVR/vSTw=;
+	b=dYeGUVwcG1LDa8xv9mPu47y6etjh2IMRAV9Drf7EGVvZKHnrOiJzZOm2ruTqAFBUstbuwQrh2
+	Jez+frkwp1AVHS4qRmwFzYQlODzEuoODMXTOqsDQe1Js8QxpnK1mfV+L15PYfsSTrmKmx+pS+8K
+	Nk8NutdrLYEa65TYILoJIIo=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hX4jL0gjdz1K9D2;
+	Sat, 29 Aug 2026 14:14:46 +0800 (CST)
 Received: from dggpemr100018.china.huawei.com (unknown [7.185.36.64])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7CF5A4058C;
-	Sat, 29 Aug 2026 14:25:34 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id A9F524055B;
+	Sat, 29 Aug 2026 14:25:33 +0800 (CST)
 Received: from huawei.com (10.50.85.155) by dggpemr100018.china.huawei.com
  (7.185.36.64) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Sat, 29 Aug
- 2026 14:25:33 +0800
+ 2026 14:25:32 +0800
 From: zhouminqiang <zhouminqiang2@huawei.com>
 To: <linux@armlinux.org.uk>, <vz@mleia.com>, <piotr.wojtaszczyk@timesys.com>,
 	<maddy@linux.ibm.com>, <dwmw2@infradead.org>, <richard@nod.at>
 CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-mtd@lists.infradead.org>,
 	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH v2 6/7] jffs2: rename CONFIG_JFFS2_FS_WBUF_VERIFY to CONFIG_JFFS2_FS_WRITE_VERIFY
-Date: Sat, 29 Aug 2026 14:16:56 +0800
-Message-ID: <20260829061658.306854-7-zhouminqiang2@huawei.com>
+Subject: [PATCH v2 5/7] jffs2: add write verification to NOR direct write paths
+Date: Sat, 29 Aug 2026 14:16:55 +0800
+Message-ID: <20260829061658.306854-6-zhouminqiang2@huawei.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260829061658.306854-1-zhouminqiang2@huawei.com>
 References: <20260829061658.306854-1-zhouminqiang2@huawei.com>
@@ -56,167 +56,289 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  dggpemr100018.china.huawei.com (7.185.36.64)
 
-Write verification now covers all write paths including NOR direct
-writes and write-buffer direct page writes, not just the write-buffer
-flush path. The Kconfig option also no longer depends on
-CONFIG_JFFS2_FS_WRITEBUFFER.
+NOR Flash and other non-writebuffered devices write directly through
+jffs2_flash_direct_writev() and jffs2_flash_direct_write() without
+any write-back verification. If mtd_write() succeeds but the readable
+medium differs from JFFS2's source buffer, a later node CRC failure
+cannot distinguish transport/program-time corruption from post-commit
+media damage.
 
-Rename the option from CONFIG_JFFS2_FS_WBUF_VERIFY to
-CONFIG_JFFS2_FS_WRITE_VERIFY to reflect its broader scope and
-independence from the write-buffer configuration.
+Move jffs2_verify_write() from wbuf.c to writev.c so it can be shared
+by both writebuffered and direct write paths. Add jffs2_verify_writev()
+to iterate over kvec entries and verify each one individually. In both
+direct write functions, add mtd_write() return value and retlen checks,
+and invoke verification after a successful complete write.
 
-Update defconfig files that explicitly enabled the old symbol to use
-the new name, so that platforms which previously relied on this
-verification continue to have it enabled.
+In jffs2_flash_direct_writev(), move the mtd_writev() call before
+jffs2_sum_add_kvec() so that *retlen is always set by the MTD layer
+first. The original ordering let jffs2_sum_add_kvec() return early on
+error without ever touching *retlen, leaving the caller's retlen check
+to read an uninitialized value. Keep the same order in
+jffs2_flash_direct_write().
 
 Signed-off-by: zhouminqiang <zhouminqiang2@huawei.com>
 ---
- arch/arm/configs/keystone_defconfig     |  2 +-
- arch/arm/configs/lpc32xx_defconfig      |  2 +-
- arch/arm/configs/pxa3xx_defconfig       |  2 +-
- arch/arm/configs/pxa_defconfig          |  2 +-
- arch/powerpc/configs/44x/fsp2_defconfig |  2 +-
- fs/jffs2/Kconfig                        | 23 ++++++++++++++++++-----
- fs/jffs2/os-linux.h                     |  2 +-
- fs/jffs2/writev.c                       |  4 ++--
- 8 files changed, 26 insertions(+), 13 deletions(-)
+ fs/jffs2/os-linux.h |  11 ++++
+ fs/jffs2/wbuf.c     |  70 -------------------------
+ fs/jffs2/writev.c   | 121 +++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 131 insertions(+), 71 deletions(-)
 
-diff --git a/arch/arm/configs/keystone_defconfig b/arch/arm/configs/keystone_defconfig
-index b0cadd878152..d485b8b0b91d 100644
---- a/arch/arm/configs/keystone_defconfig
-+++ b/arch/arm/configs/keystone_defconfig
-@@ -212,7 +212,7 @@ CONFIG_VFAT_FS=y
- CONFIG_NTFS_FS=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_UBIFS_FS=y
- CONFIG_CRAMFS=y
- CONFIG_NFS_FS=y
-diff --git a/arch/arm/configs/lpc32xx_defconfig b/arch/arm/configs/lpc32xx_defconfig
-index b9e2e603cd95..dd0c6db641be 100644
---- a/arch/arm/configs/lpc32xx_defconfig
-+++ b/arch/arm/configs/lpc32xx_defconfig
-@@ -164,7 +164,7 @@ CONFIG_MSDOS_FS=y
- CONFIG_VFAT_FS=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_UBIFS_FS=y
- CONFIG_CRAMFS=y
- CONFIG_NFS_FS=y
-diff --git a/arch/arm/configs/pxa3xx_defconfig b/arch/arm/configs/pxa3xx_defconfig
-index fb272e3a2337..f2121269f7c8 100644
---- a/arch/arm/configs/pxa3xx_defconfig
-+++ b/arch/arm/configs/pxa3xx_defconfig
-@@ -84,7 +84,7 @@ CONFIG_LEDS_TRIGGER_BACKLIGHT=m
- CONFIG_LEDS_TRIGGER_GPIO=m
- CONFIG_LEDS_TRIGGER_DEFAULT_ON=m
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_COMPRESSION_OPTIONS=y
- CONFIG_JFFS2_LZO=y
- CONFIG_JFFS2_RUBIN=y
-diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
-index 66cc149c5ca4..e05cbebb0d8b 100644
---- a/arch/arm/configs/pxa_defconfig
-+++ b/arch/arm/configs/pxa_defconfig
-@@ -596,7 +596,7 @@ CONFIG_TMPFS_POSIX_ACL=y
- CONFIG_CONFIGFS_FS=y
- CONFIG_JFFS2_FS=m
- CONFIG_JFFS2_FS_DEBUG=1
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_SUMMARY=y
- CONFIG_JFFS2_FS_XATTR=y
- CONFIG_JFFS2_COMPRESSION_OPTIONS=y
-diff --git a/arch/powerpc/configs/44x/fsp2_defconfig b/arch/powerpc/configs/44x/fsp2_defconfig
-index b8b21fa15a07..e626dcb98d34 100644
---- a/arch/powerpc/configs/44x/fsp2_defconfig
-+++ b/arch/powerpc/configs/44x/fsp2_defconfig
-@@ -97,7 +97,7 @@ CONFIG_EXT4_FS_SECURITY=y
- CONFIG_PROC_KCORE=y
- CONFIG_TMPFS=y
- CONFIG_JFFS2_FS=y
--CONFIG_JFFS2_FS_WBUF_VERIFY=y
-+CONFIG_JFFS2_FS_WRITE_VERIFY=y
- CONFIG_JFFS2_SUMMARY=y
- CONFIG_JFFS2_FS_XATTR=y
- CONFIG_CRAMFS=y
-diff --git a/fs/jffs2/Kconfig b/fs/jffs2/Kconfig
-index 560187d61562..556025a5d438 100644
---- a/fs/jffs2/Kconfig
-+++ b/fs/jffs2/Kconfig
-@@ -42,13 +42,26 @@ config JFFS2_FS_WRITEBUFFER
- 	    - NOR flash with transparent ECC
- 	    - DataFlash
- 
--config JFFS2_FS_WBUF_VERIFY
--	bool "Verify JFFS2 write-buffer reads"
--	depends on JFFS2_FS_WRITEBUFFER
-+config JFFS2_FS_WRITE_VERIFY
-+	bool "Verify JFFS2 writes"
-+	depends on JFFS2_FS
- 	default n
- 	help
--	  This causes JFFS2 to read back every page written through the
--	  write-buffer, and check for errors.
-+	  Read back data immediately after flash writes and compare it
-+	  with the in-memory image that was written. This covers both
-+	  write-buffer flushes and direct writes to non-writebuffered
-+	  devices.
-+
-+	  This may catch corruption introduced after node CRCs are
-+	  calculated but before/while data is transferred to the flash
-+	  controller (e.g. RAM or DMA), where mtd_write() may succeed
-+	  while the medium does not match what JFFS2 intended.
-+
-+	  Without an immediate read-back, a later node CRC failure cannot
-+	  tell transport/program-time corruption from post-commit media
-+	  damage.
-+
-+	  If unsure, say 'N'.
- 
- config JFFS2_SUMMARY
- 	bool "JFFS2 summary support"
 diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
-index e73ef643fd97..65604a6f8148 100644
+index 86ab014a349c..e73ef643fd97 100644
 --- a/fs/jffs2/os-linux.h
 +++ b/fs/jffs2/os-linux.h
-@@ -192,7 +192,7 @@ int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
+@@ -192,6 +192,17 @@ int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
  int jffs2_flash_direct_write(struct jffs2_sb_info *c, loff_t ofs, size_t len,
  			size_t *retlen, const u_char *buf);
  
++#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
++int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
++		       uint32_t ofs, size_t len);
++int jffs2_verify_writev(struct jffs2_sb_info *c,
++		       const struct kvec *vecs,
++		       unsigned long count, loff_t to);
++#else
++#define jffs2_verify_write(c, b, o, l) (0)
++#define jffs2_verify_writev(c, v, cnt, t) (0)
++#endif
++
+ #endif /* __JFFS2_OS_LINUX_H__ */
+ 
+ 
+diff --git a/fs/jffs2/wbuf.c b/fs/jffs2/wbuf.c
+index 81f3538ca258..2f4937951a0c 100644
+--- a/fs/jffs2/wbuf.c
++++ b/fs/jffs2/wbuf.c
+@@ -226,76 +226,6 @@ static struct jffs2_raw_node_ref **jffs2_incore_replace_raw(struct jffs2_sb_info
+ 	return NULL;
+ }
+ 
 -#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
-+#ifdef CONFIG_JFFS2_FS_WRITE_VERIFY
- int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
- 		       uint32_t ofs, size_t len);
- int jffs2_verify_writev(struct jffs2_sb_info *c,
+-static int jffs2_verify_write(struct jffs2_sb_info *c, unsigned char *buf,
+-			      uint32_t ofs, size_t len)
+-{
+-	int ret;
+-	size_t retlen, i;
+-	char *eccstr;
+-	void *verify_buf;
+-
+-	verify_buf = kmalloc(len, GFP_NOFS);
+-	if (!verify_buf) {
+-		pr_warn("%s(): verify buffer allocation failed, skipping verification\n",
+-			__func__);
+-		return 0;
+-	}
+-
+-	ret = mtd_read(c->mtd, ofs, len, &retlen, verify_buf);
+-
+-	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
+-		pr_warn("%s(): Read back of page at %08x failed: %d\n",
+-			__func__, ofs, ret);
+-		goto out_free;
+-	} else if (retlen != len) {
+-		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %zu\n",
+-			__func__, ofs, retlen, len);
+-		ret = -EIO;
+-		goto out_free;
+-	}
+-	if (!memcmp(buf, verify_buf, len)) {
+-		ret = 0;
+-		goto out_free;
+-	}
+-
+-	for (i = 0; i < len; i++) {
+-		uint8_t c1 = ((uint8_t *)buf)[i];
+-		uint8_t c2 = ((uint8_t *)verify_buf)[i];
+-		int dump_len;
+-
+-		if (c1 == c2)
+-			continue;
+-
+-		if (ret == -EUCLEAN)
+-			eccstr = "corrected";
+-		else if (ret == -EBADMSG)
+-			eccstr = "correction failed";
+-		else
+-			eccstr = "OK or unused";
+-
+-		dump_len = min_t(int, 128, len - i);
+-		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%zu). Wrote:\n",
+-			eccstr, ofs, i, len);
+-		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
+-			       buf + i, dump_len, 0);
+-
+-		pr_warn("Read back:\n");
+-		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
+-			       verify_buf + i, dump_len, 0);
+-
+-		ret = -EIO;
+-		goto out_free;
+-	}
+-
+-out_free:
+-	kfree(verify_buf);
+-	return ret;
+-}
+-#else
+-#define jffs2_verify_write(c,b,o,l) (0)
+-#endif
+-
+ /* Recover from failure to write wbuf. Recover the nodes up to the
+  * wbuf, not the one which we were starting to try to write. */
+ 
 diff --git a/fs/jffs2/writev.c b/fs/jffs2/writev.c
-index 2cb8cb030ae3..75b4244e93b8 100644
+index a1bda9dab3f8..2cb8cb030ae3 100644
 --- a/fs/jffs2/writev.c
 +++ b/fs/jffs2/writev.c
-@@ -14,7 +14,7 @@
+@@ -10,12 +10,121 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/slab.h>
  #include <linux/mtd/mtd.h>
  #include "nodelist.h"
  
--#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
-+#ifdef CONFIG_JFFS2_FS_WRITE_VERIFY
- int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
- 			      uint32_t ofs, size_t len)
- {
-@@ -100,7 +100,7 @@ int jffs2_verify_writev(struct jffs2_sb_info *c,
- 	}
- 	return 0;
- }
--#endif /* CONFIG_JFFS2_FS_WBUF_VERIFY */
-+#endif /* CONFIG_JFFS2_FS_WRITE_VERIFY */
- 
++#ifdef CONFIG_JFFS2_FS_WBUF_VERIFY
++int jffs2_verify_write(struct jffs2_sb_info *c, const unsigned char *buf,
++			      uint32_t ofs, size_t len)
++{
++	int ret;
++	size_t retlen, i;
++	char *eccstr;
++	void *verify_buf;
++
++	verify_buf = kmalloc(len, GFP_NOFS);
++	if (!verify_buf) {
++		pr_warn("%s(): verify buffer allocation failed, skipping verification\n",
++			__func__);
++		return 0;
++	}
++
++	ret = mtd_read(c->mtd, ofs, len, &retlen, verify_buf);
++
++	if (ret && ret != -EUCLEAN && ret != -EBADMSG) {
++		pr_warn("%s(): Read back of page at %08x failed: %d\n",
++			__func__, ofs, ret);
++		goto out_free;
++	} else if (retlen != len) {
++		pr_warn("%s(): Read back of page at %08x gave short read: %zu not %zu\n",
++			__func__, ofs, retlen, len);
++		ret = -EIO;
++		goto out_free;
++	}
++	if (!memcmp(buf, verify_buf, len)) {
++		ret = 0;
++		goto out_free;
++	}
++
++	for (i = 0; i < len; i++) {
++		uint8_t c1 = ((uint8_t *)buf)[i];
++		uint8_t c2 = ((uint8_t *)verify_buf)[i];
++		int dump_len;
++
++		if (c1 == c2)
++			continue;
++
++		if (ret == -EUCLEAN)
++			eccstr = "corrected";
++		else if (ret == -EBADMSG)
++			eccstr = "correction failed";
++		else
++			eccstr = "OK or unused";
++
++		dump_len = min_t(int, 128, len - i);
++		pr_warn("Write verify error (ECC %s) at %08x (+%zu/%zu). Wrote:\n",
++			eccstr, ofs, i, len);
++		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
++			       buf + i, dump_len, 0);
++
++		pr_warn("Read back:\n");
++		print_hex_dump(KERN_WARNING, "", DUMP_PREFIX_OFFSET, 16, 1,
++			       verify_buf + i, dump_len, 0);
++
++		ret = -EIO;
++		goto out_free;
++	}
++
++out_free:
++	kfree(verify_buf);
++	return ret;
++}
++
++int jffs2_verify_writev(struct jffs2_sb_info *c,
++			const struct kvec *vecs,
++			unsigned long count, loff_t to)
++{
++	loff_t ofs = to;
++	unsigned long i;
++	int ret;
++
++	for (i = 0; i < count; i++) {
++		if (!vecs[i].iov_len)
++			continue;
++		ret = jffs2_verify_write(c, vecs[i].iov_base, ofs,
++					 vecs[i].iov_len);
++		if (ret)
++			return ret;
++		ofs += vecs[i].iov_len;
++	}
++	return 0;
++}
++#endif /* CONFIG_JFFS2_FS_WBUF_VERIFY */
++
  int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
  			      unsigned long count, loff_t to, size_t *retlen)
+ {
++	int ret;
++
++	ret = mtd_writev(c->mtd, vecs, count, to, retlen);
++
++	if (ret) {
++		pr_warn("%s(): Write failed with %d\n", __func__, ret);
++	} else {
++		size_t totlen = 0;
++		unsigned long i;
++
++		for (i = 0; i < count; i++)
++			totlen += vecs[i].iov_len;
++		if (*retlen != totlen) {
++			pr_warn("%s(): Write was short: %zu instead of %zu\n",
++				__func__, *retlen, totlen);
++			ret = -EIO;
++		} else
++			ret = jffs2_verify_writev(c, vecs, count, to);
++	}
++
+ 	if (!jffs2_is_writebuffered(c)) {
+ 		if (jffs2_sum_active()) {
+ 			int res;
+@@ -26,15 +135,25 @@ int jffs2_flash_direct_writev(struct jffs2_sb_info *c, const struct kvec *vecs,
+ 		}
+ 	}
+ 
+-	return mtd_writev(c->mtd, vecs, count, to, retlen);
++	return ret;
+ }
+ 
+ int jffs2_flash_direct_write(struct jffs2_sb_info *c, loff_t ofs, size_t len,
+ 			size_t *retlen, const u_char *buf)
+ {
+ 	int ret;
++
+ 	ret = mtd_write(c->mtd, ofs, len, retlen, buf);
+ 
++	if (ret) {
++		pr_warn("%s(): Write failed with %d\n", __func__, ret);
++	} else if (*retlen != len) {
++		pr_warn("%s(): Write was short: %zu instead of %zu\n",
++			__func__, *retlen, len);
++		ret = -EIO;
++	} else
++		ret = jffs2_verify_write(c, buf, ofs, len);
++
+ 	if (jffs2_sum_active()) {
+ 		struct kvec vecs[1];
+ 		int res;
 -- 
 2.52.0
 
