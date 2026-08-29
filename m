@@ -1,102 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CACF2FBE;
-	Sat, 29 Aug 2026 00:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0CD149DF1
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787963585; cv=none; b=NNtO/xBSYY7lNnPJPwsuScyCYl3BdPCteuXE+jRWEsx0I8xQnNjQga1By/j2Gxgc2uZFvSanTHeuuWZn4KtveOgmVNGIPYs+I3FY9g6Hl09SK0dTPF3cdsUP/mDGU557Jh/IBOiKy9i3F57UNZbE8zAqkq6l3n7hmmgV092NimM=
+	t=1787963616; cv=none; b=VMTiFLG25xm+KdY39Gbyk6EP0ddaegu/DYhEW7GKT3HfaiY9Ci6rNYAVaehPSV6X4HI/CbKQFyUljLxMcYmUS7wnBB7W8VWh3/Tt43ImF8FERJ8pEnkxwZuJ2lCXik7iyOX6hdKcDAchZpG3GhdbY08AiQFY2ufshm/Ql+VTq4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787963585; c=relaxed/simple;
-	bh=t4OKDZ1wCgiyviduCSp8NdpPwSKWHxM1m5mCu/wgp7Y=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=PY+b0SavFvDywBWYp5UQ5grxdtF3Pt/FjrPYpETW6ujwjO5Gq0N+VWTdZFxZKWHXVsH12/k5EwJ9jbMhWADj/5hgu4pExtwhbYkCryQShPOKSbc1auu/q+6oLeG/kZLk7WlBNhbfMKZeMebxEujty5g0VTiNCVVckIJouSi6uWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=nU20J96s; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="nU20J96s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB381F000E9;
-	Sat, 29 Aug 2026 00:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787963583;
-	bh=Rx5znqdJGkl3U/Uccn0MBlBkR7uBNv5MBWL8vTAd4/g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nU20J96swjtewWfNW6NOEeQ2fgGx2KF8MwoiCZqj+/+UQDopAatdvPYy9TXSMTuqF
-	 wRgbp6PJ75bfgfUpmoCMdNnxAdpVOka4FAWn3zJCRtY7dfir6t8303h64kBtwSh+Q+
-	 XYCBvqn+3TB4isHKJHpPv7zYQEZd4jrV+95rS/ik=
-Date: Fri, 28 Aug 2026 17:33:02 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: James Houghton <jthoughton@google.com>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- liam@infradead.org, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
- <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com,
- hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
- uffd-minor-registered VMAs
-Message-Id: <20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
-In-Reply-To: <20260828222640.1638457-1-jthoughton@google.com>
-References: <20260828222640.1638457-1-jthoughton@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1787963616; c=relaxed/simple;
+	bh=nkPhFdgmWtXtAyV4iyyrZcCvowT2KbVn3gNKW2Yrtfc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Rben+zXG/3euAhVvKFOC1d/I8TaJDrKzGR3wRw07F4T8cJ3Mbo6JYNnzDG+0vxELN1yJiot7UVmV9RF8PmwGngSYAO3/nGM8AD2snT53vFIKDIaRHG1TWbZbMcF0+roR9lvmgGCM3UYT77uwSM+JzGxRDNz0eJscgg8Rv0NuKSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a49b13b745so543611b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787963613; x=1788568413;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IlIMu5bgBCnFIxaX2eV5zuV1R2iOSwt6vufRHu6k+8k=;
+        b=HeQugRe09bYy9EkxSZwtVncLERnZRnJCPS+XJUloYzC/kuvlWQt0hkbvFpPhdZjzmY
+         UmZtLy0tpDvpzzwx4yuzSh9YPQniNknaX2gXL1f7QWEyvaJXustvtZW7WMgu5RLSNEow
+         UL8xs8S8mjZHXV/BWDYLg7KuoyPCCtsOX9adcF6EJUkrvLghbV5XpwJsBXwlvmJd1x9q
+         kYhRd6BIcgmkNh2Z5SxjuCokK4NIzTORcnv55rsjwXokISczpcysGpn0w32CyR22Zvtn
+         ivyioaZ+MPOdF1TUud9nglyurZmtRWWmrNR479SftJD3SApQwUla9JWr4YQy1coAEUUZ
+         4fXA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqh/uOX+0cRBE4rqZ5W+8cK2vQgX3XSeAYLRVyzTNBLx8GgaItbGIAamyVk8l/BtNtLSInesLKfLCJFZdE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mY4GOTGqtGbkyXJuT4otwwnLYWm0n2Ogizn3peEC3BR+1pxbFr
+	yYUOQeIczXnwL/eT9dw3d1aHUM7Omn6xEmsMqiJBixyhR3GAMCuCIN9yDxEOTm2ouFypr+g+ONo
+	bVeNWN2uv3Xh4+4Jfd8ng4gWbolxN/EazA8K2+KE0LDdzxkE2UUjKOoDo3DU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1306:b0:4b3:80b8:8741 with SMTP id
+ 5614622812f47-4b39804f929mr11891424b6e.5.1787963613752; Fri, 28 Aug 2026
+ 17:33:33 -0700 (PDT)
+Date: Fri, 28 Aug 2026 17:33:33 -0700
+In-Reply-To: <6a807bfd.f7a79266.2f965f.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9228dd.1d9ded08.62e62.00f7.GAE@google.com>
+Subject: Re: [syzbot] [block?] [cgroups?] possible deadlock in blkg_conf_prep
+From: syzbot <syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, cgroups@vger.kernel.org, josef@toxicpanda.com, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 28 Aug 2026 22:26:40 +0000 James Houghton <jthoughton@google.com> wrote:
+syzbot has found a reproducer for the following issue on:
 
-> Userfaultfd minor faults provides userspace with the ability to manually
-> install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
-> map holes in the VMA when a naturally-aligned THP is present without
-> explicit action from userspace.
-> 
-> This is a problem, as it bypasses userfaultfd minor faults that
-> userspace is expecting to handle.
-> 
-> If userspace implements post-copy live migration using userfaultfd minor
-> faults, this situation is currently possible:
-> 1. The VMA for guest memory is userfaultfd-minor-registered and nothing
->    is mapped in the page tables.
-> 2. A stale copy of a page is present in a naturally-aligned THP (from
->    pre-copy live migration).
-> 3. khugepaged collapses the mapping of the THP, installs a PMD.
-> 4. The VM now has access to the stale contents => VM is broken.
-> 5. After installing the correct contents, userspace attempts to map the
->    page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
->    unexpectedly mapped the page.
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=104ced79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=144a1c0e22e53a08ef5a
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16f08379580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=124ced79580000
 
-Did I read somewhere that this it biting you in a real-life scenario? 
-That would use useful info to spell out.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
 
-Or is this a theoretical thing?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com
 
-> The naturally-aligned THP case is the only case where this is a problem.
-> khugepaged otherwise requires all PTEs to be present for
-> userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
-> correct. This check is essentially bypassed for naturally-aligned THPs.
-> 
-> No changes are needed for file_backed_vma_is_retractable(), as zapping
-> PTEs is safe. Userspace must already handle cases where PTEs are zapped
-> without explicit action (e.g. due to reclaim).
-> 
-> Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
-> Cc: <stable@vger.kernel.org> # 6.1
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.1.18/6027 is trying to acquire lock:
+ffffffff8efc6c00
+ (
+fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:314 [inline]
+fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4539 [inline]
+fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:4899 [inline]
+fs_reclaim){+.+.}-{0:0}, at: kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
 
-From the changelog it isn't clear why a -stable backport is proposed? 
-I assume the userspace-visible runtime effect is a rare and bogus
--EEXIST from UFFDIO_CONTINUE?
+but task is already holding lock:
+ffff888028683bc0 (&q->blkcg_mutex){+.+.}-{4:4}, at: blkg_conf_prep+0xbc/0xf10 block/blk-cgroup.c:849
 
-> Suggested-by: Lance Yang <lance.yang@linux.dev>
-> Tested-by: Lance Yang <lance.yang@linux.dev>
+which lock already depends on the new lock.
 
-Wondering what Lance tested.  Was he able to reproduce the bug?
 
-Sashiko might have found another race in there:
+the existing dependency chain (in reverse order) is:
 
-	https://sashiko.dev/#/patchset/20260828222640.1638457-1-jthoughton@google.com
+-> #2 (&q->blkcg_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       blkcg_activate_policy+0x34f/0xbf0 block/blk-cgroup.c:1608
+       blk_throtl_init+0x39a/0x5b0 block/blk-throttle.c:1339
+       tg_set_conf.isra.0+0x252/0x500 block/blk-throttle.c:1368
+       cgroup_file_write+0x1e6/0x8a0 kernel/cgroup/cgroup.c:4412
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&q->q_usage_counter(io)#17){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       blk_alloc_queue+0x610/0x790 block/blk-core.c:504
+       blk_mq_alloc_queue+0x174/0x290 block/blk-mq.c:4420
+       __blk_mq_alloc_disk+0x29/0x120 block/blk-mq.c:4467
+       loop_add+0x498/0xb60 drivers/block/loop.c:2071
+       loop_init+0x1d3/0x200 drivers/block/loop.c:2310
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (fs_reclaim){+.+.}-{0:0}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:314 [inline]
+       slab_pre_alloc_hook mm/slub.c:4539 [inline]
+       slab_alloc_node mm/slub.c:4899 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
+       __radix_tree_preload+0x333/0x820 lib/radix-tree.c:338
+       blkg_conf_prep+0x489/0xf10 block/blk-cgroup.c:885
+       tg_set_conf.isra.0+0x1ed/0x500 block/blk-throttle.c:1373
+       cgroup_file_write+0x1e6/0x8a0 kernel/cgroup/cgroup.c:4412
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  fs_reclaim --> &q->q_usage_counter(io)#17 --> &q->blkcg_mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&q->blkcg_mutex);
+                               lock(&q->q_usage_counter(io)#17);
+                               lock(&q->blkcg_mutex);
+  lock(fs_reclaim);
+
+ *** DEADLOCK ***
+
+locks held by syz.1.18/6027: 6, last CPU#3:
+ #0: ffff888035cc8b70 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
+ #1: ffff8880372a4460 (sb_writers#11){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
+ #2: ffff888037174c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+ #3: ffff8880534200f8 (kn->active#66){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #3: ffff8880534200f8 (kn->active#66){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x332/0x5f0 fs/kernfs/file.c:337
+ #4: ffff888028683a40 (&q->rq_qos_mutex){+.+.}-{4:4}, at: blkg_conf_open_bdev+0x253/0x410 block/blk-cgroup.c:806
+ #5: ffff888028683bc0 (&q->blkcg_mutex){+.+.}-{4:4}, at: blkg_conf_prep+0xbc/0xf10 block/blk-cgroup.c:849
+
+stack backtrace:
+CPU: 3 UID: 0 PID: 6027 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+ lock_acquire kernel/locking/lockdep.c:5886 [inline]
+ lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+ __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+ fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+ might_alloc include/linux/sched/mm.h:314 [inline]
+ slab_pre_alloc_hook mm/slub.c:4539 [inline]
+ slab_alloc_node mm/slub.c:4899 [inline]
+ kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
+ __radix_tree_preload+0x333/0x820 lib/radix-tree.c:338
+ blkg_conf_prep+0x489/0xf10 block/blk-cgroup.c:885
+ tg_set_conf.isra.0+0x1ed/0x500 block/blk-throttle.c:1373
+ cgroup_file_write+0x1e6/0x8a0 kernel/cgroup/cgroup.c:4412
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7b6519e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7b66080028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f7b65425fa0 RCX: 00007f7b6519e159
+RDX: 000000000000006a RSI: 00002000000000c0 RDI: 0000000000000005
+RBP: 00007f7b65235024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7b65426038 R14: 00007f7b65425fa0 R15: 00007ffc8680c158
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
