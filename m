@@ -1,153 +1,163 @@
-Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021113.outbound.protection.outlook.com [52.101.95.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245DD1D5146
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.104
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788044622; cv=none; b=iOtXBAGPVItloDdm+LMqbiNtxvJ+SzmtwydoKj6z770H7cCjtWqj12Gjy82P0re2aNKJ3wG7pknO0S2W6eyVVxHu7C+y0obwHst/9JQf8cq7rsAGTW926/rZ1PEUJx1JXpJ5X4RlMVx59RCORenLghA3u4Ocozn/1UAG4nqqDIo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788044622; c=relaxed/simple;
-	bh=AyOm2TXQF+vHB5DKi+6/N1l7J2DIrOuqazhRuRGLwOU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XUkX6IuFzZrkQEaHpAKAvqf73T3N6xqFPUUyXIwWmqhrLd+JuoXYRH79evoKXcaSoQx47rc6U8XjLM2aMogcArVo3MlVMFi7Ho2WTHk1Q89VFHQ3P9If4ntUEY0m0hAIGUyVYf/yHMZizOIYje6c/Z9lsIIuC79/vC+APipQ9Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m8DbkWh0; arc=none smtp.client-ip=95.215.58.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m8DbkWh0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AyOm2TXQF+vHB5DKi+6/N1l7J2DIrOuqazhRuRGLwOU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788044617; v=1; x=1788649417;
- b=m8DbkWh005tladlZR82YU9scT4LSRebh/dr5h+Lniknw/jMrBUxuzIhkteAZvgJwp+tO7j/O
- wiNWy1WIz7ykLaKzA3J9gmm5jkz9a2RJ51R+7aHt2pu0vq1+bpFNQZAZ98OrEpDo/Dk1D5kby2I
- /H2B+anYIoMtgWH3k7Hjzn14=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aa1b5c9235c53fae;
-	Sat, 29 Aug 2026 23:03:36 +0000
-X-Mizu-Trace-ID: aa1b5c9235c53fae
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 29 Aug 2026 16:03:35 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
-Message-ID: <apNjw0HRyr1Oj7q4@linux.dev>
-References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925E43FC5D1;
+	Sat, 29 Aug 2026 23:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.113
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788044729; cv=fail; b=R9tgSffGeQmHak7qDvens5NVxibOvlxy+Ad4h3h25NJHuEbIh77k4qXe2WR2QlE6GGTgbvw12e/IbqVZkL1ncEE02lXKSm91Wmar2h2I6HVqBwHGIGIfrx2Qvd6SkBrMrS9gogxKnV8tB80pS1kMyGs+wLp3bJBF8xLvRF1n/TA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788044729; c=relaxed/simple;
+	bh=LHvmAtCX0//c2Wnv4/O43M6AZ2dHWxWFMpGrKGwekvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=i4csfGWmVeo9UDvfi0t4Fl+wsZo5hhhJO7QAM3Hy8c77M6Yw6ZRA5UDHaEh5JlS+ha8vJldT7nGcKCcmXiBHn3qHM++VXTG7dz6qJmxmuCUZwaShE6KATglyCWLqlY/9kI307pZ4jEAVfAjAKT6drSSm7LEO6QDt7i/2wo/2uzo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CiYtGie7uSxJ7dyk3cOj2BsTOznsoCVbLlODimKvsg87wfFj8w9xKGbZO8ba5vRDiLerybJtc00zfGqtIkQ6+UaEIQ/YlFCtkOD69hKjHc9NVGV4yTtWkEYC3CcXUglIVemxfURTfW1IO5wW/SlpC/LwAuBzwvM5gD6YaC4HofQtHrC8EIoRvMXAV5FnEilYCR3mutEyoRooXNxm15cK85NRwebYEn7Vil9IRi6bnwQGRfOyXWHFT6M6KF3EPj7jS3P9PhcIMTiOZR6S07Lk7qH6T7Ev3cXOTsj65/2NAreEv0rwxu9DbUIApbLyuPWDK0phN+lpA24KHKQoX1wc4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=V5kuxSBt/VMAEKHC+ZgKZ2GcMbaS8f6o2/NmxJ8Gk90=;
+ b=bjVORX34GlpO0+B6zH4b7ZheSusHq2AFafYHavVO7mNctHG5SWKqvxk3x5MCoXfInM8v+8nSuzCyCNnszy/3ipoB96MKivJRUKPLQzrA5aI7cG75A3Rg2Bfd/B16envUHFDtnmyz01IuZ+JDIO9RMHWicLcXbfQhKDg43nDVGSInKBxSdZCnd7nQhoh6b4Kr06Qkoxp4aBv1r3LrJPebfIeSiNRUgLFFjmQDXR9gTjqBHQ9UXUm8HpuZxB7bHPwSgkxOxOpqnOutDZkMWd14R42H5uKjewhBUWmtVqVNgYS/vYx31qTuk98EOI4nfMUOW2Tk7urIM536jtDQQooF/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWYP123MB9008.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:288::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 29 Aug
+ 2026 23:05:23 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 23:05:22 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: tj@kernel.org
+Cc: jianshanlai@mail.com,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	osandov@osandov.com,
+	atomlin@atomlin.com,
+	neelx@suse.com,
+	sean@ashe.io,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH 0/3] workqueue: Add telemetry tracepoints for CPU hogs, distress, and BH budget yields
+Date: Sat, 29 Aug 2026 19:05:14 -0400
+Message-ID: <20260829230517.42468-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9P223CA0015.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:408:10b::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWYP123MB9008:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e52c797-36bc-42c6-34bb-08df06220084
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	r03Q8RkJiHZR1bpRfvoL7mTwVwkhL3uDieuIeq7qU9diagvmgiyzObOD5Xi6MnyMZukSBex2FuQfT7dG4EPZG6fsZdnXqEHh8vwXJeWRoIsQKiCTDiT/QauS75S4pMX5NbwfeBRWC0ZNSceRfDeaxnG4TaC5dkBY3KhjXN59d8Hs1SgAaCDwg3f8+gXrWfVuRa/Eu77tnjRZDqy8n3cZL0KGPlLGDesNqCj+nXvmfHKPqU+ALtXTHWYSvDyME44DzR6NXquhWV066VyMRbam6m0h7vFrynUp4/sJEX8wWUwEJPyVDnt3Yd6W+0naB52eGGbQCP1sSrvNN6p/9ZOCWCkGLzi9/GnmYtAGltPZEA4PTT3YGZlYVIgAo57DEw48doksY73N3aSXlJPrgFlrj3WJsfZt2nINZBanQxGrv1yIsVSt6HrgKLlep6MVJeFowOsB51zlNQCZYuyTZGT8zLlppq/TALuRNmva9rafip/UKad9IRFYKQst+rUOiA2/Pg+ocu7ifvx1Z2WwgAuLMZFsXWLh+jZ4DvHFK3EImx540xgyvzcRd0YOVidnvCbSwXB9Ad8Rko+keSFWcvGblFh7f/gUWQlt15upplZLyI0CqRprugJn9BkMsstesIhbQZ7vndHSWVh7dvXLIIG87n5olixtiDEo/3sMThpwZg4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5e5BtvVlu6IDPgDqetJs4xoZkm4yuC6gCTmVJ2XugS3utObKfK8T7pzNBKeV?=
+ =?us-ascii?Q?KGauIqdZy7RiB73N/h5TiblddiL4bqdTUP+2efV75/ThD69OX+r4s4JzbvJz?=
+ =?us-ascii?Q?EiKrlaiqP6SOtmTpn6vIEuFdgH+nTfsxQhtTFyb/HBoj3hN7U2misbB46ENN?=
+ =?us-ascii?Q?lPNG3MizCYUSfCOl6k79HX5IIYUmTrf50FAhk2aEvvTmy/WNxEloGkwa3F3w?=
+ =?us-ascii?Q?+db87xDUlnLBfkOuH2FQq1+C2mgn2kAStRx/To7/0VbnPzeqAK0Ghj8cTpjW?=
+ =?us-ascii?Q?B3aAIILWa7U6vqfXn25lYZm9mn5rCQ61oavosF9EbGae6uDpYUicC7BPvJYc?=
+ =?us-ascii?Q?pGlkp5pd9xAW8qK4iAcsxWi+rPcdbsqBngtR5cUc6/S3lgKcTPpFWkXX8rHC?=
+ =?us-ascii?Q?qCEqzDnDAxx4lYtvPusfu9MrA7TTrVQEJdIEStWk4KFvCio0t+acptFNl0PA?=
+ =?us-ascii?Q?iFgQvwIpYaB2eOeuZr4GZoZK+NORAjP4A5+9J4aRzz/YEvcxD0NJAtNJHMjs?=
+ =?us-ascii?Q?vMBr5Zk25O2nFNHOtbugO1Rieiy8g479dWR57tPB+DESJM6mgNwH4KvE78wD?=
+ =?us-ascii?Q?GNkAox6tJUCTZG64+7giG4OgkTUZskqpwws3VCBkOSFN6L8uGIQ9qNrLURDG?=
+ =?us-ascii?Q?vkBsdA+GZYmUD3o6Z7mZ0zJ930gTYa6MlXQDghiO2ala0N05zSDrNKeEn5ZA?=
+ =?us-ascii?Q?KSjOJmECSn/i91DZ0encqtnwSPnwZKpM4UxbEI+dfeh5lhrxpwmnSaLAAPcD?=
+ =?us-ascii?Q?AEYwXyzgtCxaINRfWxngA2O7YrmLXKaf64mVhLR8Ll3AqF6Ov+9L2YJ1Ktan?=
+ =?us-ascii?Q?RI9e7lDcvfhlbQ/cmQkFT+bgE9/2lUw6oArPrxVTcfeQ68nXFZRcM8UjPNIL?=
+ =?us-ascii?Q?p55yPmRLKxeCLcNZHXKCpgAezRM+WKsXBXcMwwuRYn7mFHzJecNDuLUKaCCX?=
+ =?us-ascii?Q?unrjxNoDPK7YvX+wvHA7JzW8AqHKx0VpJfnxxO8OVJ87WN1Avs5VwKxoV8u9?=
+ =?us-ascii?Q?MTV0kCXHxnq2aYwCBNr2wXk17+vslWVQP719XyIzBKUoXgXd0wuGeB6VGep/?=
+ =?us-ascii?Q?0GTkp/vo9uym9XCwZ8eVRNKxBQyplv8SCuYCPPJR3R8I3sLUsRhy+aPV4kwf?=
+ =?us-ascii?Q?8odiMuurPqQEXEFN0kKpVZslu2gWWlhJRMfFCF8gZHHLKi1XTitA6OZlfSSd?=
+ =?us-ascii?Q?kSz8q/or2uoc5yVWAI0a6wdcRTW557QRldp5I+wXJeKf67tw3WSvJPqiqMw7?=
+ =?us-ascii?Q?YBFc0W/HpKumGQJmgaM1IzzexVolk7EHPop0FdXKPFQ20ZZ8QyvPFkeIcYPR?=
+ =?us-ascii?Q?U8hpxbilqt+vgrEuVUDh05e95aaD+md3l8KHFePglh5winHOOqMDlKNOkawU?=
+ =?us-ascii?Q?89cH019ln5h3Vw42By6iIYbEyzSklXYP6R8KRmcYws/Kx8tsgm5xoqChOsSr?=
+ =?us-ascii?Q?AU2Njbk4Z5qPGUvTsYq2nLfdQe5MkfHCu4KjNMg5RIaLfUTXt54BbzpPt/v0?=
+ =?us-ascii?Q?R4kaNC51Ed1epegU3BuLYO2f1/jJIaASXK1IaGf5P/XP2enrTdUQkpl+XxhP?=
+ =?us-ascii?Q?Vbt1g7LtbCyP8qKrVZI9JqDkm2BEj67JOpKuxVII7a2FavArXB5+UICuemeG?=
+ =?us-ascii?Q?2/YHo4IiquUUpXPWV4O7c5wI5ke1ouNYojrNrnVV9nJqpUa4VNG1Ra6mqYuJ?=
+ =?us-ascii?Q?DSYl2hsKQ8Plc0Jr4ZiOk+U1AWaPqlYXRpQVO1x3yaogCEhsm9IV/hcpE0FU?=
+ =?us-ascii?Q?ldedF2xr/g=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e52c797-36bc-42c6-34bb-08df06220084
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 23:05:21.9664
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pUrbbou2a4S8HrO5Wid6c8vsiNcIxvQGDP7dEXwlMSIEBGa92dGIMaVjYJXw57X+mUGSANU0+t1AHVEluWPKag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWYP123MB9008
 
-On Sat, Aug 29, 2026 at 10:52:26AM -0700, syzbot wrote:
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=10286d79580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> dashboard link: https://syzkaller.appspot.com/bug?extid=cd2073ee6d958a8d0fcd
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cf7625580000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
-> 
-> smpboot: CPU 1 is now offline
-> ------------[ cut here ]------------
-> IS_ENABLED(CONFIG_PREEMPT_COUNT) && __lockdep_enabled && (preempt_count() == 0 && this_cpu_read(hardirqs_enabled))
-> WARNING: mm/vmstat.c:361 at __mod_zone_page_state+0x96/0x190 mm/vmstat.c:361, CPU#2: syz-executor412/6040
-> Modules linked in:
-> CPU: 2 UID: 0 PID: 6040 Comm: syz-executor412 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> RIP: 0010:__mod_zone_page_state+0x96/0x190 mm/vmstat.c:361
-> Code: d0 00 00 00 8b 05 3e 44 ea 0e 85 c0 74 1f 65 8b 05 87 e0 2e 12 65 0b 05 d0 99 2e 12 75 0f 65 8b 05 d3 db 2e 12 85 c0 74 04 90 <0f> 0b 90 48 c7 c7 c0 e7 ff 8b e8 3b b3 6d 09 65 48 0f be 5d 00 48
-> RSP: 0018:ffffc9000627f8e0 EFLAGS: 00010202
-> RAX: 0000000000000001 RBX: 0000000000000000 RCX: 1ffffffff2287150
-> RDX: 0000000000000000 RSI: 0000000000000008 RDI: ffff88807ffd79b8
-> RBP: ffffffff9489f448 R08: 0000000000000001 R09: 0000000000000000
-> R10: 0000000000000001 R11: 0000000000000000 R12: ffffffffffffffff
-> R13: 0000000000000008 R14: ffff88807ffd7940 R15: ffffffff9489f440
-> FS:  00005555785ce400(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00005608d531ffb8 CR3: 000000002cb7c000 CR4: 0000000000352ef0
-> Call Trace:
->  <TASK>
->  __zone_stat_mod_folio include/linux/vmstat.h:410 [inline]
->  __munlock_folio mm/mlock.c:144 [inline]
->  mlock_folio_batch+0xf97/0x36e0 mm/mlock.c:204
->  mlock_drain_remote+0xe5/0x140 mm/mlock.c:230
+Hi Tejun, Lai,
 
-So, we are calling stat update functions which requires preemption disabled
-(because they access per cpu data) an offlined CPU which is fine but we have
-warning that preemption is not disabled.
+While the workqueue subsystem maintains rich internal telemetry via
+pwq->stats[], wq_cpu_intensive_thresh_us, and distress mechanisms, several
+critical state transitions and execution anomalies currently lack real-time
+event notifications.
 
-Let see if syzbot comes up with a reproducer. We can just simply take the local
-locks like neighboring functions or something else.
+Across production fleets and low-latency networking workloads, polling
+pwq->stats[] or running drgn scripts is impractical for detecting
+intermittent stalls. Tail-latency spikes and packet drops often stem from
+softirq overruns or latency-critical work items queueing behind CPU-bound
+tasks. These event-driven tracepoints allow zero-overhead eBPF tools and
+latency profilers to capture stack traces and kernel context at the exact
+moment a starvation event or softirq budget exhaustion occurs.
 
->  page_alloc_cpu_dead+0x16/0x130 mm/page_alloc.c:6468
->  cpuhp_invoke_callback+0x3b4/0x9a0 kernel/cpu.c:194
->  __cpuhp_invoke_callback_range+0x158/0x1d0 kernel/cpu.c:972
->  cpuhp_invoke_callback_range kernel/cpu.c:996 [inline]
->  cpuhp_down_callbacks kernel/cpu.c:1386 [inline]
->  _cpu_down+0x523/0x1020 kernel/cpu.c:1457
->  cpu_down_maps_locked kernel/cpu.c:1483 [inline]
->  cpu_down kernel/cpu.c:1491 [inline]
->  cpu_device_down+0x82/0xc0 kernel/cpu.c:1508
->  device_offline drivers/base/core.c:4283 [inline]
->  device_offline+0x2f4/0x400 drivers/base/core.c:4267
->  online_store+0xd1/0x180 drivers/base/core.c:2883
->  dev_attr_store+0x58/0x80 drivers/base/core.c:2509
->  sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
->  kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
->  new_sync_write fs/read_write.c:595 [inline]
->  vfs_write+0x6af/0x1050 fs/read_write.c:687
->  ksys_write+0x12a/0x250 fs/read_write.c:739
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7f90996d005e
-> Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-> RSP: 002b:00007ffd7eb94578 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-> RAX: ffffffffffffffda RBX: 00005555785ce400 RCX: 00007f90996d005e
-> RDX: 0000000000000002 RSI: 00007f90997150ff RDI: 0000000000000003
-> RBP: 00007f90997175e0 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 00007f9099717578
-> R13: 00007f909971509a R14: 00007f90997150b9 R15: 0000000000000002
->  </TASK>
-> 
-> 
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
-> 
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-> 
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
-> 
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
-> 
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
-> 
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
-> 
-> If you want to undo deduplication, reply with:
-> #syz undup
+This patch series introduces lightweight tracepoints for these key
+operational boundaries:
+
+Patch 1 adds workqueue_cpu_intensive tracepoint. When a concurrency-managed
+worker runs for longer than wq_cpu_intensive_thresh_us without sleeping,
+wq_worker_tick() marks it as WORKER_CPU_INTENSIVE and kicks the pool to
+prevent queue starvation. The tracepoint will capture the offending work
+function, workqueue name, CPU, and elapsed duration.
+
+Patch 2 adds workqueue_mayday and workqueue_rescued tracepoints. One when
+worker allocation stalls trigger mayday distress, and another when pending
+work items are handed off to the rescuer thread to ensure forward progress.
+
+Patch 3 adds workqueue_bh_budget_yield tracepoint. Bottom-Half (BH)
+workqueues enforce execution limits in softirq context (BH_WORKER_JIFFIES
+and BH_WORKER_RESTARTS). When a BH worker hits these limits while pending
+work remains, it yields and re-raises the softirq. The tracepoint can be
+used to identify softirq budget saturation and track whether yielding
+occurred due to time slice expiration or restart counts.
+
+Aaron Tomlin (3):
+  workqueue: Add workqueue_cpu_intensive tracepoint
+  workqueue: Add workqueue_mayday and workqueue_rescued tracepoints
+  workqueue: Add workqueue_bh_budget_yield tracepoint
+
+ include/trace/events/workqueue.h | 146 +++++++++++++++++++++++++++++++
+ kernel/workqueue.c               |  24 ++++-
+ 2 files changed, 168 insertions(+), 2 deletions(-)
+
+-- 
+2.55.0
+
