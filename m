@@ -1,113 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D057F3812D1;
-	Sat, 29 Aug 2026 20:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8D03F106C;
+	Sat, 29 Aug 2026 20:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788033914; cv=none; b=YrPEmgpHjNP6B83HgwIg2aXknNnUCtsiYDHQD9rmI9LnMJ7NXvi3FbkF2cDq0sIegYhRiVArFhyPUVNn6Uc+3uQ0ZyC5inm4+4NGIIJCS8Z3ZWrkoZ8rFC+F6Ab7NKRt/FAqfzN886WL+eZs44CX8/y/NDmEmUooYI9L/J6lmMc=
+	t=1788034165; cv=none; b=SfRT0myZDa/lIjLBk6AehzxQQoPYaWOCFtr5j+5gQnC8XVL7ovcl0XwmNNu0N+VM4/13maNpcr7gppd7iVXRSpTQPllHfhpbF2uWTnI6Vz8Jm9tVDB2EAv/EKByzjhdjedG1z6JzetsgpHjmzr7JhUXjH1P9pB4kwSPA2K8YPHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788033914; c=relaxed/simple;
-	bh=gY6FSJWgwoYVeJSPXpe+kK4hGkqcWed5jSj8uFrTtBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LA0k02p65CliUm7EAaE2oEWdNbYr8xVNBu3BjYpQxFIBYzFizzBebqZC6KyjviVconOGgopQeFQRPbAgTTLFukOZGkkrxfhMqVus3J5dvXD5DGUfCy2BF8sBYfF4U0rwLy7lBweMbqIwm7bQ971x5OjmtpqSl/gQ8p71ssRv+Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jv81zQ30; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788034165; c=relaxed/simple;
+	bh=5kmSpgALd9GTo3pAxZGgQ31AVpAy1mkPvNU6vZn+7pk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cSTRfjRFIboaxK4zDTaUHdjiKyMETPomcE9ZtNBW+ZnQMQbV/9IH/5lf/uirH73HqBVtD/q83ZHF+pHeFkgwLitjnGJMEqJYv0rxObHP+4YzCq/1A4O+xUAKLmvxGGcqRsyNdTW+7A9+VUlq1aIvI7xRLc948+Z8MyXOZDbWQ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=mEtp9emI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=aTMLP/LQ; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jv81zQ30"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A231F000E9;
-	Sat, 29 Aug 2026 20:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788033912;
-	bh=+2Dt5/BbAVekxcUUIjKXOQEvmb4XXCWGEA7Zc0IQ9tw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jv81zQ306+cAkPB/utYyGrgbdFKEL4L4yenho/60R1++l4hUj/CyOVIOPyY67/raS
-	 yCnGd/yclav90BGnZCFsXw8cCU5G41HditwlTZaCA0oTwbETxKHGxvcVe0xLdzeDqN
-	 6vwtJNE4dGPfbzJV0+aUKHcNUOyemvAcEnLSletJF1hy0XElVpyAK7QpkYoAkUz80Z
-	 J5v9RWMOkozWcRWgjPUHhXEKPp7tWAQYbK7t+PgETNESMXe7QPn2YkER/U8HAadVDb
-	 deYyV2FzlamS/zxaK9NJEzVqR5ODLs4PSFXvFidCF9qKl1x+ldlW07iR6DS7crcIRk
-	 CjQrQ9pnGqthw==
-Date: Sat, 29 Aug 2026 13:05:08 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Jiebin Sun <jiebin.sun@intel.com>
-Cc: acme@kernel.org, mingo@redhat.com, peterz@infradead.org,
-	adrian.hunter@intel.com, alexander.shishkin@linux.intel.com,
-	irogers@google.com, james.clark@linaro.org, jolsa@kernel.org,
-	mark.rutland@arm.com, dapeng1.mi@linux.intel.com,
-	thomas.falcon@intel.com, tianyou.li@intel.com,
-	wangyang.guo@intel.com, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] perf c2c: Add function-view stdio support and
- coverage
-Message-ID: <apM7dIdexptTo-1M@google.com>
-References: <cover.1787283281.git.jiebin.sun@intel.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mEtp9emI";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="aTMLP/LQ"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Date:Subject:From; t=1788034159; bh=D1D5yRftzRyJg0Ypyl8P/j6
+	WTdLdYr1mjt3rnU2v1tM=; b=mEtp9emIimkvUSHzeMF1s711bfFFu7Sc1MJi7O8tc5SeEWjSUf
+	qsQ7ynZ9JRlHrA+6Rr6omcu+e6r4JG9+d/9a+YqKUa9DMEutj8121+YDUHL+4o6BpYzTy+R89fe
+	H0co+DfeWvVcpatpjCbePXtRwupI0YMBxhT8n7aaA6ZumuctxKmyVjKh2vKRCwOO07NpJOlr8Z2
+	CmdvjnEND9iCJ0JjjbmcJtpR1mhNaLcK/A6G6C7PbIh3xPc7B0H8zd0FdbmEVnk7Sz/5EO/aeoF
+	hCucnvzLAhNTtNRkQFwpVDbeOvp9rIjpFCHHao8EKbyW0U5iOK9vo5DxsgDpYmN/t2w==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Date:Subject:From; t=1788034159; bh=D1D5yRftzRyJg0Ypyl8P/j6
+	WTdLdYr1mjt3rnU2v1tM=; b=aTMLP/LQvhMu/kQv+5jAZo+vB/HZ4n13sXgy8uYcLmIiCzovTN
+	yNEKkyrs6WOuQzj+rjMkQEOE3Bq+yNqsXLCA==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Subject: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+Date: Sat, 29 Aug 2026 23:09:12 +0300
+Message-Id: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1787283281.git.jiebin.sun@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQrCMBBA4auUWTuQBFobt4IH6FZcpOlUx5+kZ
+ mIRSu9u1OV7i28BocQksKsWSDSzcAwl9KYCf3HhTMhDaTDKNKo1Fp8+PjDE2WW6Yci1Vkbj5AL
+ dBcmMdujb2tlmC0WYEo38/ulH6A57OP2nvPor+fx1YV0/UD967oQAAAA=
+X-Change-ID: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nickolay Goppen <setotau@mainlining.org>, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788034158; l=1077;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=5kmSpgALd9GTo3pAxZGgQ31AVpAy1mkPvNU6vZn+7pk=;
+ b=kC1ufeMgGc2m9ghrxnRsQs/IbG541xgXBRRFrYDz03UGoqgoWFrFHI4BvPdYbvfpQ+xFE+2yu
+ Ii1s0RaaEAoB/Qis/wAGred42z6a9nmhiSLm/Gi7uq5Je6w6mGlEqKP
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-Hello,
+This series adds support for Novatek NT51021-based panels 
+for upcoming xiaomi-clover submission
 
-On Fri, Aug 21, 2026 at 01:56:07PM +0800, Jiebin Sun wrote:
-> The recently merged function-view series added an interactive TUI for
-> examining the c2c data as:
-> 
->   read-side function -> contending writer -> shared cacheline
-> 
-> This follow-up makes the same view available to builds without SLANG and
-> to pipes and scripts. `perf c2c report --function` now implies stdio and
-> prints the three-level hierarchy fully expanded. It requires `iaddr` in
-> the coalescing fields and is rejected together with `--stats`.
-> 
-> The first two patches fix adjacent pre-existing issues: the documented
-> default coalesce fields are stale, and a workload recording failure in
-> the existing c2c shell test is incorrectly reported as a pass. The third
-> patch adds the stdio function view, and the final patch adds automated
-> coverage using a separate contended futex workload. Systems that record
-> no contended samples report a skip for the hierarchy checks rather than a
-> spurious failure.
-> 
-> This series follows the function-view work merged from:
-> 
->   https://lore.kernel.org/linux-perf-users/20260817094623.3288456-1-jiebin.sun@intel.com/
-> 
-> The series is based on perf-tools-next commit 9453bc6a69ef ("perf vendor
-> events arm64: Fix Tegra410 Olympus event 0x0197").
-> 
-> Tested with:
-> 
->   - SLANG and NO_SLANG=1 builds
->   - perf test c2c
->   - perf test 'import perf'
->   - checkpatch.pl --strict on each patch
->   - unresolved-symbol checks on the Python perf module
-> 
-> Jiebin Sun (4):
->   perf c2c: Fix documented default coalesce fields
->   perf tests c2c: Report skip when the workload fails
->   perf c2c: Add stdio support for the function view
->   perf tests c2c: Add function view stdio coverage
+Although according to datasheet, the IС has three power rails 
+in the use case of xiaomi-clover, all of them are wired to one 
+fixed regulator
 
-Thanks for doing this!
+Maybe I should create a dt option for enabling CABC for panel
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+---
+Nickolay Goppen (2):
+      dt-bindings: display: panel: Add bindings for Novatek NT51021
+      drivers: gpu: drm: panel: Add BOE NT51021 driver
 
-Thanks,
-Namhyung
+ .../bindings/display/panel/novatek,nt51021.yaml    |  93 +++
+ MAINTAINERS                                        |   6 +
+ drivers/gpu/drm/panel/Kconfig                      |   9 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 804 +++++++++++++++++++++
+ 5 files changed, 913 insertions(+)
+---
+base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
+change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
 
-> 
->  tools/perf/Documentation/perf-c2c.txt |  14 +++-
->  tools/perf/builtin-c2c.c              |  85 +++++++++++++++++--
->  tools/perf/tests/shell/c2c.sh         | 114 ++++++++++++++++++++++++++
->  tools/perf/util/c2c-function.c        |   9 +-
->  tools/perf/util/c2c.h                 |   1 +
->  5 files changed, 205 insertions(+), 18 deletions(-)
-> 
-> 
-> base-commit: 9453bc6a69ef43755f1c28d5688cacdd69fa16bd
-> -- 
-> 2.52.0
+Best regards,
+--  
+Nickolay Goppen <setotau@mainlining.org>
+
