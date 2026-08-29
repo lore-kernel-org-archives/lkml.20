@@ -1,116 +1,544 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2669B374A14
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787993660; cv=pass; b=AMVKwmE0rTC+7TTlrDCEi7GJGjvbnEaVO9CGqxrkn3ilAPuA9BQKKewqbj1lZBMm/PVSrJk65c2c5HMqrpcdEybdjvb18rhyoViQi6Pfk9fNzZI4bsTFIBlNNnxdgsF0WWYztM1nYo4NV4hgzCIT83G2kTJBmV5BafOvirs3fB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787993660; c=relaxed/simple;
-	bh=hrtNEgtG3j6zaZK3E0236Rq/kyzlkNTa4Qq5rfR+cX4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XAC9mK2uhNNgMTKxDQsMh1g0qu+Z1aAerkM2fj68zBMCsp5KiCoDS5Z9cB3cBysajHee87ZM1Q+DDAN3Kvd0OyGUtSA5uqFpSOBLIgw/FqGAljiPw/l/esI2pNmb0VLlLA9wE+WeumnXHp5Cr6UMH2+CcJrxOKLzJpYV42JOwJE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nL6zmajk; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627B439A071
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787993723; cv=none; b=GcH0Ji74bTDBkYgvLFnT5/jbsi0NW/k0jliyPU7L+CR/cz+IghGZotNRnaJxyYiYaTaNrmsi3FA14oWbmn/JWZb0fXLK56yRE1iAUT0hXG42NMpNmJ5N6BDKHdu4qMUWyJ/M02mrltn/+enBvdb72SmasdQektF+xwmEiB3Tr+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787993723; c=relaxed/simple;
+	bh=klWAKI1xdzKm+nupPY6CjSPUAbK2mZHi41rxwu10ixc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FZqVv4lT+qsycQRDFj2XnmiHUZWVaK8QoPRjhsVWrmUtW/eb+ScABoXfdgCH7toQfPQtGhhYvbnvofxz6P3uiRGIFZ3s2JUDwGXAbheaK1xtWtjAcfW0UJosTqeZYfxZJbN3la66GKi54t5FRXwqpC9cRbVr67eiCaOLdn6c23w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eQ6pFDxk; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nL6zmajk"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a5e392b2b3so2807604a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:54:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787993657; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rhmOXgJ/J7UsLGbVTCSSSZx0Q6M+nOANQt0BUgO+/9uF84of54mFSDOa7SMiu1kY/x
-         dKYlFOGsCKXLCyvdOuiwCVpySJ9nWyNFkqgrcQT/riyDp2C7IOJ1YrgG5epBB5JRlenU
-         vT0Uc8APJpkagLElw2l9537VR6BdnNBG+LbqJwpX/1hLiuyPiL+HSd203Z27HeVK+qCl
-         GFprdbC5DnlDYAKmAPdWws9zzR5u5DwGp6uH6JtWCIxSEDEV99MUNUHv+ESABarNDFuW
-         wDi7zFc0VpHa3JRFB25bSkZoT/PsiHo3EV5sUBq4PrHSVjCm3GdrDCb0AbAmtLdSLzTX
-         i9AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hrtNEgtG3j6zaZK3E0236Rq/kyzlkNTa4Qq5rfR+cX4=;
-        fh=0TS+cbugEj6E6cmB2szpEbxF4eqFQDmwLPf/ufl7Wso=;
-        b=Io6JX4PJ7LuP1EAZHX8deAlYhTiNfUqMxT7ejudlqeaEDpgx9nPpaRanFZzqeyxGcU
-         iQJvsMDmESLPI5v/2IiuTQjC8daizn49jnurHF7ra/ZEbaGU4Fr+PUtzeCnvVKAiH7Ys
-         +k0R78ckW119Eaf9aO3R8wHOchqPZs2d+ci5XekIQBstmzGjKeHtiX8B3exW5hmWkDmt
-         Y/RXSlJyg6nbZx8lCdL9ddB8HC6cbxbwqid6wI4hOMDZoCeIYzbhJB6hKW4qnOX9jPsa
-         Fs6zEvAa/vBa6TNto1kKw5Yc78oVEFs+OPeMh4RHnHxumUYzcZKK4CzAp4FU4zFaYYsr
-         EZiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eQ6pFDxk"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so21149055e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787993657; x=1788598457; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hrtNEgtG3j6zaZK3E0236Rq/kyzlkNTa4Qq5rfR+cX4=;
-        b=nL6zmajkEZ/qFYFDwXGycrsf64x0wQAyYSCEbwO4TbG8E5VPzoddPYFzJfUtLudb9T
-         /Hn1TuUU4GgqOzO/ePVCs3cGJy8YeuEBWjQyqfyEs7Bw5MCU/CwTAHMYNxAX3575Ztwm
-         9MF/Qv42oMQRDYWSOe0mll7uxWdR0XX1Vd5XnM/JLt/1RzQdTvX6yMTaV6jtg8fw9nDC
-         XO8IKIhOJQP2rChjLNzw24zBbsxQUEJR0RS6cto1Gc8ubo2Qel78VPyReXbCcAiBpzFw
-         CetIxPt+7b74JPKKmFC59xJ/MNqH1DOS1v7FbRnuQ/wmOXe110vqmyjD3s+cLij5wGte
-         JaAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787993657; x=1788598457;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1787993718; x=1788598518; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hrtNEgtG3j6zaZK3E0236Rq/kyzlkNTa4Qq5rfR+cX4=;
-        b=mnLiEJCEjFcOM5ZCX9WjcrQ+X8xvnOu3RtC9khb01iglT+eyf02MB6SBRdCULYccag
-         W/4RGKBHkdNlqfkyAgvw5wuWGtLT9UuKPHXsVeZSvbWBsETVnFKipsJBHFkfOIR0x/Sf
-         DFOG80Ua/KIh4GCNT6myLkJQ6VAJAgn2Kv95Jb0UT+oYkedBhEhe5MVvrV0OF3VVPe0W
-         N7iA+IRQJhkye+pnLns+cZhckuf8LzkYoo0KQFexdx4Sjk8igeEbA+11tvN9tJ5xG2/x
-         gy78hpoKyZ/NQE3B5SYnAMlRybBd93VJSc/mSXLbXfKDSWULhpZlDzKYHCeTVDohUtme
-         YurQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw43jWw2zbF6F9ssA1/hcKGjO09GfSTiv/9p6O8A0kpga48xjAZeeQmbNtveo989qvwNPnTbyq9bydqNgA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWyXhNM4EZgFxIiwGJKWkFIjYaf+CAW0ApcbreQeXOT6mFIpwo
-	3Y6+nfAdSeMND6EGE+49aHXA4EbdX3JgTg8fxIcjdr8DwGPbHA4ojxdtwQ9LBEF1HeuYooXaehg
-	z88WDuUC1Qqyh6Jm/60IMv6UDmDNt9L8=
-X-Gm-Gg: AYBFou05uGfyBnDKn2EDmrwvKD1WK1fAgurIuXbNMKQn5SCeoiCnTlCb5gbZochXLo1
-	5c0Wn+0V8xA5lcRlEKTHtPgZkK/KJ2we33pAVEvNjtylxEkU7/pM1WfYXQzy5jMk/o1mU/rL4SR
-	53PAQXFVB/oCKjqcnlS/jKwY5HYCwzrXk1O37yPIHN7Gw2VxJKEA/tz0m9iezd6YhdVUi2tUJZ4
-	zijH+6st48EPFNv9X1cszL08TTk7vZ+AlpYdzhhI7CEk9+OzyMcz8iR272dDvDXLoRocqXHlv5B
-	5oB3OKBEiOkuCjmbGcAssaMTuTVSc9EkxMqBLJ7Wj9mmANTxsW4+MNyIUAdHV+UtOPuhXeBcSwE
-	EvoO1dctm7K30Kw8psfFU1n4Di5dC4Dg=
-X-Received: by 2002:a05:6402:3812:b0:6a3:6d83:ba44 with SMTP id
- 4fb4d7f45d1cf-6a60d2f3663mr9153249a12.2.1787993657229; Sat, 29 Aug 2026
- 01:54:17 -0700 (PDT)
+        bh=WEjM648ER5aishfL1JIqeHwOsItXTvc1vL4fQj7q6AM=;
+        b=eQ6pFDxkT3dDy4J5KqFGMmiobA6JUz0g3/Q8VF9sA2fW3oH/uH+ET4wuirwl6QZQfc
+         d9H/jc2WUZaT69nR8x1z9/9vrXOdDRl9e7+5vpEQl53NmrE18vhnGf2h43oqs2Vx/sl3
+         p86DH+Cu8MeeLfZ+E6X3+1D2lIX65C4cYffH/q3y2/c2QjJNtoUXwmHQGu/86QIU1TZE
+         X/fddH6ONlCTR7VhE44XK0HAvrUfSzKSl+hYHpEFqnT/NvImvrFnM7zNWmSkB11faHv2
+         oZ2pOOXSgFd96PxFRl/QRUnZxmdfR9otscl1YRTR/PJnewOst92LJGila+QKOp/625tk
+         9baA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787993718; x=1788598518;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WEjM648ER5aishfL1JIqeHwOsItXTvc1vL4fQj7q6AM=;
+        b=PpLxROHQcM/t2MIAdnBhj9v7wpyLcceNaL0QgSeFDFvThqUFMKnEEatDQbROY60T/W
+         HLSscGcd/tPcvSa3qvRFTC3tq9ohyCQcL2JahJRqGLQnbVl/Z/FjXGzqEoDOncpPtLfw
+         +FVj3pH9zEFX6AkwHXZb6+QXXljPNiBUtwy0H9qBcBBhsvxcSQDd8mEM0sSwkaVsQRI3
+         4e/m7AKeothhuzqddq0ri+apcO/cC9w0nNqsvA0iHFYLFYY+g8tTtLoH9eQDkG3IVeJ4
+         XEggYjaVdBwtT62hF349anCJVDapmZxTO+nf+PMQI4MZv7KDasEPBCcpXUu+recWR6Vz
+         XnmA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1ORbNx+O5jYWKZidtSWbJq0dtiwfPdwXXTvIkvIm5Ynx0eLXRenfo58xATskC+qpISmQ1Uiirtd/6W9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKPh9+pN1pIpjqxwosxla8PBzmY8mWXrJK84Gi729P2d9XjY8B
+	OfoczGHs5OTqXUu8mggK0I0GH/SVp+8khnueXRA84U3zHsrM94m7Ag1cBqnlkNHZm18=
+X-Gm-Gg: AR+sD124wuqpgjD77JO8S9y1WcJ5wH48ra7uvFYyUQHt/Pv5pPfeP1IfbqxKHymo1Ps
+	9/MD23+jOFNXrtOt5hHX5EN3Fxf+kcHPN0RF1AbPj8raypPuuLlBJNYW3eLgHkRHTe+g03sQ74p
+	ewHpWXv+nmZArO2bOuqCunlT6TgelwxvwkkjlFdrZfxbVK+hAdJsRNgIVAPA/FS0AGDie5MFAA5
+	S45ft9Kkqz4h0riSaDYeDa0Z8kVRp2F+Lte6fEb/PKV3Aj2abWQBodxbpaSnCM22wx0lLZPGGMC
+	GDmzXDWvVRSi1MNBrva6HkUjDu8ubwJM+w0b9uHcSQKN4XKOMxIiuxrkH2/UH0I7X4SOIsOdd8t
+	HJQRQTC3AZUzQRaRq0JAPRxS0QVaGL948di9HxZi9n+b01wCxvZJ88GWfo1iwwD5BBtO5fJFyIt
+	zfg5O22L9k0DgiozbdXFSiSO4cThBvuvg7/+Bkb18D1IRhD43w+rLv
+X-Received: by 2002:a05:600c:6215:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49b91c1d5f4mr193915025e9.3.1787993718277;
+        Sat, 29 Aug 2026 01:55:18 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f68bdsm1529837a12.3.2026.08.29.01.55.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 01:55:17 -0700 (PDT)
+Message-ID: <bbcc2791-442f-4bf5-aabf-40eb2edc0165@suse.com>
+Date: Sat, 29 Aug 2026 18:25:11 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827182757.6856-1-linmag7@gmail.com> <20260829062933.GB44338@ravnborg.org>
-In-Reply-To: <20260829062933.GB44338@ravnborg.org>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 29 Aug 2026 10:54:06 +0200
-X-Gm-Features: AcwNN1U6gDCQuxm8O0njez-6ceR_nScc2jt9Lo2gqUB-dHcQWIJBt5FHMPzsBF4
-Message-ID: <CA+=Fv5QAFULPP=hwFFAKjrhEm0Mcb8J5kqr3tdvkTzJ3bFgwCw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] sparc32: replace sp_banks with memblock
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: sparclinux@vger.kernel.org, davem@davemloft.net, andreas@gaisler.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix deadlocks with transaction commit when cloning
+ inline extents
+To: Melon Liu <melon1335@163.com>, clm@fb.com, dsterba@suse.com,
+ fdmanana@suse.com
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Sam,
 
-On Sat, Aug 29, 2026 at 8:29=E2=80=AFAM Sam Ravnborg <sam@ravnborg.org> wro=
-te:
 
-> Patches 1,2,3,5 are:
-> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
->
-> I left some comments in patch 4.
->
+在 2026/8/29 17:09, Melon Liu 写道:
+> Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transaction
+> commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
+> cloning inline extent when using flushoncommit") moved the destination
+> i_size update before btrfs_start_transaction() to prevent
+> extent_writepage() from invalidating a folio beyond EOF.  However, two
+> deadlock windows remain.
+> 
+> First, after the folio is dirtied but before i_size is updated,
+> extent_writepage() can still see the folio beyond EOF.  It calls
+> folio_invalidate(), and btrfs_invalidate_folio() waits for the destination
+> extent range lock held by the clone task.
+> 
+> Second, if extent_writepage() sees the folio within EOF, it proceeds to
+> writepage_delalloc(), which also waits for the destination extent range
+> lock.
 
-Thanks alot for taking the time to review this, I'll pick up your tags
-and address
-your comments in a v2 of this series.
+What about letting the agent to create a reproducer, trigger it and 
+paste the lockdep/hang calltrace?
 
-Regards
+Also an ASCII chart showing the window between involved threads?
 
-Magnus
+> 
+> In both cases the transaction commit waits for writeback to complete,
+> while the clone task waits in btrfs_start_transaction() for the
+> committing transaction to become unblocked.
+> 
+> To close both windows, first call btrfs_start_transaction() after reserving
+> delalloc space and before creating and dirtying the folio.
+> However, a commit may still start writeback before all extwriters have left
+> the transaction.  Therefore, when the copied range extends beyond EOF,
+> update i_size while the folio is still locked and before marking it dirty,
+> so that extent_writepage() cannot treat it as being beyond EOF.  The
+> resulting ordering also makes BTRFS_INODE_NO_DELALLOC_FLUSH unnecessary, so
+> remove the flag and its associated logic.
+> 
+> Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline extents")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Melon Liu <melon1335@163.com>
+
+And AI disclosure.
+
+> ---
+>   fs/btrfs/btrfs_inode.h |  14 +----
+>   fs/btrfs/dev-replace.c |   2 +-
+>   fs/btrfs/disk-io.c     |   2 +-
+>   fs/btrfs/inode.c       |  16 ++----
+>   fs/btrfs/ioctl.c       |   4 +-
+>   fs/btrfs/qgroup.c      |   4 +-
+>   fs/btrfs/reflink.c     | 117 ++++++++++-------------------------------
+>   fs/btrfs/send.c        |   4 +-
+>   fs/btrfs/space-info.c  |   2 +-
+>   9 files changed, 45 insertions(+), 120 deletions(-)
+> 
+> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+> index 1082fa92c..aafe47b23 100644
+> --- a/fs/btrfs/btrfs_inode.h
+> +++ b/fs/btrfs/btrfs_inode.h
+> @@ -68,15 +68,6 @@ enum {
+>   	 * to an inode.
+>   	 */
+>   	BTRFS_INODE_NO_XATTRS,
+> -	/*
+> -	 * Set when we are in a context where we need to start a transaction and
+> -	 * have dirty pages with the respective file range locked. This is to
+> -	 * ensure that when reserving space for the transaction, if we are low
+> -	 * on available space and need to flush delalloc, we will not flush
+> -	 * delalloc for this inode, because that could result in a deadlock (on
+> -	 * the file range, inode's io_tree).
+> -	 */
+> -	BTRFS_INODE_NO_DELALLOC_FLUSH,
+>   	/*
+>   	 * Set when we are working on enabling verity for a file. Computing and
+>   	 * writing the whole Merkle tree can take a while so we want to prevent
+> @@ -531,9 +522,8 @@ int btrfs_add_link(struct btrfs_trans_handle *trans,
+>   int btrfs_delete_subvolume(struct btrfs_inode *dir, struct dentry *dentry);
+>   int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 start, u64 end);
+>   
+> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context);
+> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+> -			       bool in_reclaim_context);
+> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root);
+> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr);
+>   int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+>   			      unsigned int extra_bits,
+>   			      struct extent_state **cached_state);
+> diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+> index dc0834f92..ea1e43b9a 100644
+> --- a/fs/btrfs/dev-replace.c
+> +++ b/fs/btrfs/dev-replace.c
+> @@ -899,7 +899,7 @@ static int btrfs_dev_replace_finishing(struct btrfs_fs_info *fs_info,
+>   	 * flush all outstanding I/O and inode extent mappings before the
+>   	 * copy operation is declared as being finished
+>   	 */
+> -	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	if (ret) {
+>   		/* Stays started/resumable; keep both denied. */
+>   		mutex_unlock(&dev_replace->lock_finishing_cancel_unmount);
+> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+> index 819727460..fcd627251 100644
+> --- a/fs/btrfs/disk-io.c
+> +++ b/fs/btrfs/disk-io.c
+> @@ -4403,7 +4403,7 @@ void __cold close_ctree(struct btrfs_fs_info *fs_info)
+>   	 * getting delayed iputs than are never run. So flush delalloc and wait
+>   	 * for ordered extents.
+>   	 */
+> -	btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+>   
+>   	/*
+> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+> index 3c10a0ef0..00795c3de 100644
+> --- a/fs/btrfs/inode.c
+> +++ b/fs/btrfs/inode.c
+> @@ -8901,7 +8901,7 @@ static struct btrfs_delalloc_work *btrfs_alloc_delalloc_work(struct inode *inode
+>    * of all the inodes with pending delalloc and forces them to disk.
+>    */
+>   static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+> -				 bool snapshot, bool in_reclaim_context)
+> +				 bool snapshot)
+>   {
+>   	struct btrfs_delalloc_work *work, *next;
+>   	LIST_HEAD(works);
+> @@ -8919,10 +8919,6 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+>   
+>   		list_move_tail(&inode->delalloc_inodes, &root->delalloc_inodes);
+>   
+> -		if (in_reclaim_context &&
+> -		    test_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags))
+> -			continue;
+> -
+>   		tmp_inode = igrab(&inode->vfs_inode);
+>   		if (!tmp_inode) {
+>   			cond_resched_lock(&root->delalloc_lock);
+> @@ -8971,17 +8967,16 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+>   	return ret;
+>   }
+>   
+> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context)
+> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root)
+>   {
+>   	struct btrfs_fs_info *fs_info = root->fs_info;
+>   
+>   	if (unlikely(BTRFS_FS_ERROR(fs_info)))
+>   		return -EROFS;
+> -	return start_delalloc_inodes(root, NULL, true, in_reclaim_context);
+> +	return start_delalloc_inodes(root, NULL, true);
+>   }
+>   
+> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+> -			       bool in_reclaim_context)
+> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr)
+>   {
+>   	long *nr_to_write = nr == LONG_MAX ? NULL : &nr;
+>   	struct btrfs_root *root;
+> @@ -9003,8 +8998,7 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+>   			       &fs_info->delalloc_roots);
+>   		spin_unlock(&fs_info->delalloc_root_lock);
+>   
+> -		ret = start_delalloc_inodes(root, nr_to_write, false,
+> -				in_reclaim_context);
+> +		ret = start_delalloc_inodes(root, nr_to_write, false);
+>   		btrfs_put_root(root);
+>   		if (ret < 0 || nr <= 0)
+>   			goto out;
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 72bc9d4f7..43a956a00 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -926,7 +926,7 @@ static noinline int btrfs_mksnapshot(struct dentry *parent,
+>   	 */
+>   	btrfs_drew_read_lock(&root->snapshot_lock);
+>   
+> -	ret = btrfs_start_delalloc_snapshot(root, false);
+> +	ret = btrfs_start_delalloc_snapshot(root);
+>   	if (ret)
+>   		goto out;
+>   
+> @@ -5586,7 +5586,7 @@ long btrfs_ioctl(struct file *file, unsigned int
+>   	case BTRFS_IOC_SYNC: {
+>   		int ret;
+>   
+> -		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   		if (ret)
+>   			return ret;
+>   		ret = btrfs_sync_fs(inode->i_sb, 1);
+> diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
+> index f68b696b4..a4e01403c 100644
+> --- a/fs/btrfs/qgroup.c
+> +++ b/fs/btrfs/qgroup.c
+> @@ -1321,7 +1321,7 @@ static int flush_reservations(struct btrfs_fs_info *fs_info)
+>   {
+>   	int ret;
+>   
+> -	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	if (ret)
+>   		return ret;
+>   	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+> @@ -4228,7 +4228,7 @@ static int try_flush_qgroup(struct btrfs_root *root)
+>   		return 0;
+>   	}
+>   
+> -	ret = btrfs_start_delalloc_snapshot(root, true);
+> +	ret = btrfs_start_delalloc_snapshot(root);
+>   	if (ret < 0)
+>   		goto out;
+>   	btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
+> index d2a410191..11950a2cd 100644
+> --- a/fs/btrfs/reflink.c
+> +++ b/fs/btrfs/reflink.c
+> @@ -58,7 +58,8 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   			       char *inline_data,
+>   			       const u64 size,
+>   			       const u64 datal,
+> -			       const u8 comp_type)
+> +			       const u8 comp_type,
+> +			       struct btrfs_trans_handle **trans_out)
+>   {
+>   	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+>   	const u32 block_size = fs_info->sectorsize;
+> @@ -84,6 +85,18 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		goto out;
+>   
+> +	/*
+> +	 * Start the transaction before creating and dirtying the folio, otherwise
+> +	 * commit writeback can deadlock on the destination range locked by the
+> +	 * caller.
+> +	 */
+> +	*trans_out = btrfs_start_transaction(inode->root, 1);
+> +	if (IS_ERR(*trans_out)) {
+> +		ret = PTR_ERR(*trans_out);
+> +		*trans_out = NULL;
+> +		goto out_unlock;
+> +	}
+> +
+>   	folio = __filemap_get_folio(mapping, file_offset >> PAGE_SHIFT,
+>   					FGP_LOCK | FGP_ACCESSED | FGP_CREAT,
+>   					btrfs_alloc_write_mask(mapping));
+> @@ -100,19 +113,6 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		goto out_unlock;
+>   
+> -	/*
+> -	 * After dirtying the page our caller will need to start a transaction,
+> -	 * and if we are low on metadata free space, that can cause flushing of
+> -	 * delalloc for all inodes in order to get metadata space released.
+> -	 * However we are holding the range locked for the whole duration of
+> -	 * the clone/dedupe operation, so we may deadlock if that happens and no
+> -	 * other task releases enough space. So mark this inode as not being
+> -	 * possible to flush to avoid such deadlock. We will clear that flag
+> -	 * when we finish cloning all extents, since a transaction is started
+> -	 * after finding each extent to clone.
+> -	 */
+> -	set_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+> -
+>   	if (comp_type == BTRFS_COMPRESS_NONE) {
+>   		memcpy_to_folio(folio, offset_in_folio(folio, file_offset), data_start,
+>   					datal);
+> @@ -140,6 +140,14 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (datal < block_size)
+>   		folio_zero_range(folio, datal, block_size - datal);
+>   
+> +	/*
+> +	 * A commit may start writeback before all extwriters have left the
+> +	 * transaction.  Update i_size while the folio is still locked and before
+> +	 * marking it dirty, so that writeback cannot treat it as being beyond EOF.
+> +	 */
+> +	if (file_offset + datal > i_size_read(&inode->vfs_inode))
+> +		i_size_write(&inode->vfs_inode, file_offset + datal);
+> +
+>   	btrfs_folio_set_uptodate(fs_info, folio, file_offset, block_size);
+>   	btrfs_folio_set_dirty(fs_info, folio, file_offset, block_size);
+>   out_unlock:
+> @@ -150,6 +158,10 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		btrfs_delalloc_release_space(inode, data_reserved, file_offset,
+>   					     block_size, true);
+> +	if (ret && *trans_out) {
+> +		btrfs_end_transaction(*trans_out);
+> +		*trans_out = NULL;
+> +	}
+>   	btrfs_delalloc_release_extents(inode, block_size);
+>   out:
+>   	extent_changeset_free(data_reserved);
+> @@ -180,12 +192,11 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	struct btrfs_drop_extents_args drop_args = { 0 };
+>   	int ret;
+>   	struct btrfs_key key;
+> -	bool copied_inline_to_page = false;
+>   
+>   	if (new_key->offset > 0) {
+>   		ret = copy_inline_to_page(inode, new_key->offset,
+> -					  inline_data, size, datal, comp_type);
+> -		copied_inline_to_page = (ret == 0);
+> +					  inline_data, size, datal, comp_type,
+> +					  &trans);
+>   		goto out;
+>   	}
+>   
+> @@ -290,73 +301,6 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	if (unlikely(ret))
+>   		btrfs_abort_transaction(trans, ret);
+>   out:
+> -	if (!ret && !trans) {
+> -		if (copied_inline_to_page &&
+> -		    new_key->offset + datal > i_size_read(&inode->vfs_inode)) {
+> -			/*
+> -			 * If we copied the inline extent data to a page/folio
+> -			 * beyond the i_size of the destination inode, then we
+> -			 * need to increase the i_size before we start a
+> -			 * transaction to update the inode item. This is to
+> -			 * prevent a deadlock when the flushoncommit mount
+> -			 * option is used, which happens like this:
+> -			 *
+> -			 * 1) Task A clones an inline extent from inode X to an
+> -			 *    offset of inode Y that is beyond Y's current
+> -			 *    i_size. This means we copied the inline extent's
+> -			 *    data to a folio of inode Y that is beyond its EOF,
+> -			 *    using the call above to copy_inline_to_page();
+> -			 *
+> -			 * 2) Task B starts a transaction commit and calls
+> -			 *    btrfs_start_delalloc_flush() to flush delalloc;
+> -			 *
+> -			 * 3) The delalloc flushing sees the new dirty folio of
+> -			 *    inode Y and when it attempts to flush it, it ends
+> -			 *    up at extent_writepage() and sees that the offset
+> -			 *    of the folio is beyond the i_size of inode Y, so
+> -			 *    it attempts to invalidate the folio by calling
+> -			 *    folio_invalidate(), which ends up at btrfs' folio
+> -			 *    invalidate callback - btrfs_invalidate_folio().
+> -			 *    There it tries to lock the folio's range in inode
+> -			 *    Y's extent io tree, but it blocks since it's
+> -			 *    currently locked by task A - during reflink we
+> -			 *    lock the inodes and the source and destination
+> -			 *    ranges after flushing all delalloc and waiting for
+> -			 *    ordered extent completion - after that we don't
+> -			 *    expect to have dirty folios in the ranges, the
+> -			 *    exception is if we have to copy an inline extent's
+> -			 *    data (because the destination offset is not zero);
+> -			 *
+> -			 * 4) Task A then does the 'goto out' below and attempts
+> -			 *    to start a transaction to update the inode item,
+> -			 *    and then it's blocked since the current
+> -			 *    transaction is in the TRANS_STATE_COMMIT_START
+> -			 *    state. Therefore task A has to wait for the
+> -			 *    current transaction to become unblocked (its
+> -			 *    state >= TRANS_STATE_UNBLOCKED).
+> -			 *
+> -			 * This leads to a deadlock - the task committing the
+> -			 * transaction waiting for the delalloc flushing which
+> -			 * is blocked during folio invalidation on the inode's
+> -			 * extent lock and the reflink task waiting for the
+> -			 * current transaction to be unblocked so that it can
+> -			 * start a new one to update the inode item (while
+> -			 * holding the extent lock).
+> -			 */
+> -			i_size_write(&inode->vfs_inode, new_key->offset + datal);
+> -		}
+> -		/*
+> -		 * No transaction here means we copied the inline extent into a
+> -		 * page of the destination inode.
+> -		 *
+> -		 * 1 unit to update inode item
+> -		 */
+> -		trans = btrfs_start_transaction(root, 1);
+> -		if (IS_ERR(trans)) {
+> -			ret = PTR_ERR(trans);
+> -			trans = NULL;
+> -		}
+> -	}
+>   	if (ret && trans)
+>   		btrfs_end_transaction(trans);
+>   	if (!ret)
+> @@ -376,8 +320,7 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	btrfs_release_path(path);
+>   
+>   	ret = copy_inline_to_page(inode, new_key->offset,
+> -				  inline_data, size, datal, comp_type);
+> -	copied_inline_to_page = (ret == 0);
+> +				  inline_data, size, datal, comp_type, &trans);
+>   
+>   	goto out;
+>   }
+> @@ -665,8 +608,6 @@ static int btrfs_clone(struct btrfs_inode *src, struct btrfs_inode *inode,
+>   	}
+>   
+>   out:
+> -	clear_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+> -
+>   	return ret;
+>   }
+>   
+> diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+> index dca357016..e0febffaf 100644
+> --- a/fs/btrfs/send.c
+> +++ b/fs/btrfs/send.c
+> @@ -7908,7 +7908,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+>   	int i;
+>   
+>   	if (root) {
+> -		ret = btrfs_start_delalloc_snapshot(root, false);
+> +		ret = btrfs_start_delalloc_snapshot(root);
+>   		if (ret)
+>   			return ret;
+>   		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> @@ -7916,7 +7916,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+>   
+>   	for (i = 0; i < sctx->clone_roots_cnt; i++) {
+>   		root = sctx->clone_roots[i].root;
+> -		ret = btrfs_start_delalloc_snapshot(root, false);
+> +		ret = btrfs_start_delalloc_snapshot(root);
+>   		if (ret)
+>   			return ret;
+>   		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> diff --git a/fs/btrfs/space-info.c b/fs/btrfs/space-info.c
+> index 39a28e1be..7915819d7 100644
+> --- a/fs/btrfs/space-info.c
+> +++ b/fs/btrfs/space-info.c
+> @@ -770,7 +770,7 @@ static void shrink_delalloc(struct btrfs_space_info *space_info,
+>   		long nr_pages = min_t(u64, temp, LONG_MAX);
+>   		int async_pages;
+>   
+> -		btrfs_start_delalloc_roots(fs_info, nr_pages, true);
+> +		btrfs_start_delalloc_roots(fs_info, nr_pages);
+>   
+>   		/*
+>   		 * We need to make sure any outstanding async pages are now
+
