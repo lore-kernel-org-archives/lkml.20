@@ -1,131 +1,110 @@
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161028C5B1
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815E321FF2E
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787970778; cv=none; b=Yf4/XYQwel4Lh3fUEdGy0MTMy/ETXmB4d4dErmuwgUD3AD8nQUAsIQgSvMO2cfLDJmcE6mF3gaZ21fxfRFwdDKYmlvgqt+OC3jFMdmXm5Qgooygs2JdcgkCeWJBb+bUj5nUHF557Dv1CNvhlB2hRdUv8A5kTSmfRLVRPE18M398=
+	t=1787970929; cv=none; b=rUQnrT+DpT6uKkb5aeC4tD0MEx8+8GTkoobk54Fzdle+ykV9Rgv1NSh85RiJ/Ia7m7xgD2ljGVDX5zGVoNFa8XfWH6YEJTYoaA3GmBYRVAdlAsXy4+BkOmkm4s+/gcHh5Wxqo42o6irFOlDfliPOtBrSt22tAWmn++TBcuXuB3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787970778; c=relaxed/simple;
-	bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WCIxyvdgq+a0jey1lISHvA/f/6M6DUyUSntzu2+1xDRUMMAdtHIKtkiC1ifbmy2bX0L6NJEkZslHyiJGx9Z36HKcT740gDKz2L2/+KkcSYKTyXciTpVyBaoqrZQL+Rs95g/zYx9N25QgSTRGL1eLTD126nO/oPO+/sEwYZAChEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e9qHmgdf; arc=none smtp.client-ip=91.218.175.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787970929; c=relaxed/simple;
+	bh=8FKAW2fbU/+vR19TKosg0DLDdJCJyJiydWvYDurbDWg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JvFDTRLkv0/k+bEMwdcX6OSPRjZexCDhjCZ9FuR7h4SMY+5C3S7BEiV4vfQqshsC7tlMhV5dHrYcJIdnHxLRxvGTLr+QngXbqjm73bUauR91nOWy0KzjaxbE9HR/TqJLOh4OSKQ/PsXJFW9AYI/QMSTxGeNj6m/ilLyaxS7/3qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvgSsVkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e9qHmgdf"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787970774; v=1; x=1788575574;
- b=e9qHmgdffEAllsCyb3XwlS1rkgZlJ+NInPSUhsjHQBBpLcbnM72Sqa9kufFDnea4Tv1p6xZD
- sDGOTlrdvt8vXOZHdHr0d9g1mFa6Q7Gd47tBmMEe6Iw3EBGaff36Iq5/7Mo9+LfWUS1VcWeqLKQ
- 8QEvlD0bKue2ELQbhlMl9y0g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dddd84c8fda15912;
-	Sat, 29 Aug 2026 02:32:53 +0000
-X-Mizu-Trace-ID: dddd84c8fda15912
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
-Date: Fri, 28 Aug 2026 19:32:51 -0700
-Message-ID: <20260829023251.474083-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvgSsVkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 255E41F00ACF
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:35:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787970928;
+	bh=wnMnsReKWSz815XNXaYZFmrLpOzJUPyAVGLRSq7zVwE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MvgSsVkMluUE8oXut+FGg3KKNJ1j8G8f4xb0JCHTrVAI9AbfnXSPIUog07lReI9Zf
+	 oxt8Whp7q5MrYvBy8429De4oFPVcEtENu3miqkY2Gu1/ANzIMutYiQTNmzuAvJzp57
+	 rqO3MRWDU/Lg5EQZLM6FmTiD6xwK3W9ctkFkvrJcqpOO4BDrSzNB29vCgEo+uGyAen
+	 QOWp4ac38pGDajvdIM5u59de4BjOPkCd/SreUYmDtsvsoaebBXkQoXqcLaGbc8vfsF
+	 92HDGzECOU7zs2aITC5o56JxF52jLZCsPQdx1RtMCptnwwsBtRRcHd5exrSwoDLtMv
+	 cz/+v2FIQo2fw==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso2398974a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:35:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJbxsDw7AUN+lpodIZ7OF1CH5gwEZloCbuyBaK7Dt3JDr69QmpRm/1VJw3voCmgHb5v12hB3hD1D8b3aI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxoUTmZeB2uinJMXAFyl67QLLsF2pjTx4DuD4WxmqLteXqM40B
+	rcl1qnzgSoDECvoLcZSCFeTkZ0sVJ49c/+DTBft3VZMJ+Bg+oIW0TlVO6RZ0BXC4l/JXV6sgqwh
+	EnX3m6tDySxpqM80P6zstoGiefYsHxQg=
+X-Received: by 2002:a05:6402:5050:b0:6a3:f4fe:9d5f with SMTP id
+ 4fb4d7f45d1cf-6a60d3ae3fbmr7538205a12.11.1787970926774; Fri, 28 Aug 2026
+ 19:35:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828150203.1419003-1-diego@bynar.io>
+In-Reply-To: <20260828150203.1419003-1-diego@bynar.io>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 29 Aug 2026 11:35:14 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_HuQvCPPBjaX99StocSW_J9nU2NeZ+YRB9Z_jqpRHhJg@mail.gmail.com>
+X-Gm-Features: AcwNN1XfIqYxhFMPTbWsezDpwgaxp9K14cZ5H3IOLo775v95VJOsR-jH9991m9I
+Message-ID: <CAKYAXd_HuQvCPPBjaX99StocSW_J9nU2NeZ+YRB9Z_jqpRHhJg@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
+To: Diego Oliva <diego@bynar.io>
+Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
+	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-obj_cgroup_charge_pages() resolves the objcg to its memcg and calls
-try_charge_memcg(), which does not short circuit the root memcg.  That
-memcg can be the root memcg: obj_cgroup_is_root() reflects the memcg the
-objcg was created for and is never updated, while memcg_reparent_objcgs()
-does redirect objcg->memcg to the parent on rmdir.  An objcg of a dying
-child of root therefore passes every obj_cgroup_is_root() filter but
-resolves to the root memcg.
+On Sat, Aug 29, 2026 at 12:02=E2=80=AFAM Diego Oliva <diego@bynar.io> wrote=
+:
+>
+> The SMB1 synchronous read helper CIFSSMBRead() validates the server's
+> DataLength against CIFSMaxBufSize and the caller's count, but never
+> validates DataOffset. The copy source is formed as
+>
+>         &pSMBr->hdr.Protocol + le16_to_cpu(pSMBr->DataOffset)
+>
+> and memcpy()'d for DataLength bytes with no check that the
+> [DataOffset, DataOffset + DataLength) range lies within the response
+> actually received from the server.
+>
+> A malicious or compromised SMB1 server can return a short response
+> carrying an in-range DataLength and a large DataOffset, driving the
+> source pointer past the end of the response buffer. The memcpy() then
+> copies adjacent kernel heap into the caller's read buffer (information
+> disclosure), or reads unmapped memory and oopses (denial of service).
+> SMB1 is not negotiated by default; reaching this code requires an
+> explicit vers=3D1.0 mount.
+>
+> Both DataOffset and the received response length recorded in
+> rsp_iov.iov_len are relative to the start of the SMB header, so reject
+> the response unless DataOffset + DataLength fits within that length,
+> using overflow-safe arithmetic, before forming the source pointer.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Bynario AI
+> Signed-off-by: Diego Oliva <diego@bynar.io>
+> ---
+> Note for backporting: this uses the smb_EIO2() tracepoint helper added
+> in v6.19 with f80ac7eda1cf5. For older kernels, the call can be
+> replaced with a simple return of -EIO.
+>
+>  fs/smb/client/cifssmb.c | 11 +++++++++--
+>  fs/smb/client/trace.h   |  1 +
+>  2 files changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+> index f5aad5f61dce..1a822121a883 100644
+> --- a/fs/smb/client/cifssmb.c
+> +++ b/fs/smb/client/cifssmb.c
+> @@ -1721,6 +1721,7 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_=
+parms *io_parms,
+>                 cifs_dbg(VFS, "Send error in read =3D %d\n", rc);
+>         } else {
+>                 int data_length =3D le16_to_cpu(pSMBr->DataLengthHigh);
+Should we make data_length unsigned also ?
 
-Folios keep the objcg they were charged with, so this is easy to reach
-through zswap: allocate anon memory in a cgroup, move the task out,
-remove the cgroup, then write to the root cgroup's memory.reclaim.  The
-reclaimed folios are charged through the reparented objcg and end up in
-refill_stock() with the root memcg:
-
-  WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940
-   refill_stock+0x644/0x940
-   try_charge_memcg+0x12d6/0x1570
-   __obj_cgroup_charge+0x35/0xf0
-   obj_cgroup_charge+0x1de/0x210
-   obj_cgroup_charge_zswap+0x83/0x270
-   zswap_store+0x1620/0x2000
-   swap_writeout+0x94c/0x14c0
-   shrink_folio_list+0x3388/0x52b0
-   [...]
-   try_to_free_mem_cgroup_pages+0x30d/0x830
-   user_proactive_reclaim+0x504/0x840
-   memory_reclaim+0x1f/0x30
-
-Beyond the warning, the charge is asymmetric: obj_cgroup_uncharge_pages()
-skips refill_stock() for the root memcg, so the root's page counter grows
-and is never uncharged.  It is not user visible, since memory.current is
-not exposed on the root, but it is a leak.
-
-Use try_charge(), which returns early for the root memcg, restoring the
-symmetry with obj_cgroup_uncharge_pages().
-
-The above sequence was scripted into a standalone reproducer (zswap on,
-swap on a virtio disk, 512MB of anon memory faulted in inside a child of
-the root cgroup, the task then migrated to the root cgroup, the child
-removed, followed by "echo 600M swappiness=max > memory.reclaim" on the
-root) and run in a CONFIG_DEBUG_VM=y VM.  It reproduces the splat on the
-first zswap store of a reparented folio, with the same call chain as the
-report.  With this patch applied the splat is gone while the zswap store
-count over the run is unchanged, so the same path is still exercised.
-cgroup selftests test_zswap, test_kmem and test_memcontrol show no new
-failures.
-
-Fixes: 20d6c1725228 ("memcg: avoid refill_stock for root memcg")
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Closes: https://lore.kernel.org/all/CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
-
-Note: I kept it simple for easy backports. I will followup with more cleanups
-where I will remove try_charge().
-
- mm/memcontrol.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 4a18ee4509ab..1709ac96bbde 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -3157,7 +3157,7 @@ static int obj_cgroup_charge_pages(struct obj_cgroup *objcg, gfp_t gfp,
- 
- 	memcg = get_mem_cgroup_from_objcg(objcg);
- 
--	ret = try_charge_memcg(memcg, gfp, nr_pages);
-+	ret = try_charge(memcg, gfp, nr_pages);
- 	if (ret)
- 		goto out;
- 
--- 
-2.53.0-Meta
-
+> +               __u16 data_offset =3D le16_to_cpu(pSMBr->DataOffset);
