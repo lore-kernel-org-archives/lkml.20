@@ -1,141 +1,173 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 143D04C6D;
-	Sat, 29 Aug 2026 02:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787972268; cv=none; b=j+ehbd6QiDhbOd2hCcSVWrL5W8neiNS02TZ49aCJLQQe/arGut2oZ4UloJURFSVGUDPdmww276kjMQg7QeyFTG+WM7gQz+XARpSVBkdZO+xnwV1OrdLv5Nm49v6I4hmGL5Avg7Lhtm68G/i4iJ3neb+8lrojTg19zBX6PpsJXOo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787972268; c=relaxed/simple;
-	bh=TzJoHjCt8v3OyD1rEx+AxrfBI//whlUclKf2F/yk6dM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rDuNadk1Uw+6/c8qTD0fgGwl1rhYf66GYrDFGITvkIrrVIkztFyIZX/L0X4cMmbR8yTwzHfFpRcRaTrDWwrLmpt6NltbCLmnd48PpRfzKk08eUx/Pc29Dg+mf/P7iSBICCx1pgoWPYCMPW1HPFuXzfMJj25USOQ6aF0pLmoRYhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMA2vk+lSpJqiaEKAA--.25595S2;
-	Sat, 29 Aug 2026 10:57:41 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wCnRKGhSpJqOoYrAA--.39705S2;
-	Sat, 29 Aug 2026 10:57:39 +0800 (CST)
-Message-ID: <8490cbf8-0514-40a0-8456-d6a1085c29f0@hust.edu.cn>
-Date: Sat, 29 Aug 2026 10:57:37 +0800
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2119.outbound.protection.partner.outlook.cn [139.219.17.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6562F3C1F;
+	Sat, 29 Aug 2026 02:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.119
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787972277; cv=fail; b=F4+vrmv75xT/wAo6Zr3AQABvVezui0lOu7OUaXimbhf2Ss9dVV4e4CkIGwzEjLkc4817KNCKcJGaAJGKIL7jE8Ayl6fLFISZVHPviyHWyGtnVYfTtlBzstWCfzB9uCoziDx08RfHs43blWtrQgJ7TncbyFxGTPmBUvT2TyQbrDI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787972277; c=relaxed/simple;
+	bh=t28L1oUTsZ9XD6sIT2YdGl+zE3QrFsAYrzOna7rTNqs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=epX9Bt4U0q9zv8rsFANCpw56W2wsCpng1nNWUcaT+gAF0rOF3VyjYupzWnVkcpv6rulwghc+dvPgkTv65R9xC4TDY64Sq1oKFWQ75Fzs/7ebeImqK13B56tov2AgpEfhQLbQe0b3Mf+lIRehKaJ9jhRGr1iZZOaR3IeU3IagM24=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UgnOLQeHB6nYZkWyORZ0W8EER1PxRcQQalTRx0o36c/zPpFHhlZSpiNRB3kTe1mgeh9oyB9BxQBqEdbiwL2n78vOqlgxXDtr13mTBFaaoMOjfc8s37nHdUCcMK9Ei+fzKvdJR9XWB3j81BVj9Dtn3Vgh0/c4xm5vKmTwShLjYFu1bGFW6W8voiMH1LmrrUbsdZkrku98pAG6Y980KKJR9vr3+SUo7Jpfr7eRMnPAacO5ibgU9bxvljX2AaVgYHhclrcdIfuCj3XlD92nXpWRvJOOOl8oWXgz0tESTaVs4WGuFoaiOLey0LcjNwWKjS9os61i6VLqKLRkwaBn7XrooQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KtsTRBD5By9lnAKnAtnF+WiK4mH+R20oalbMwPvliys=;
+ b=kjWROjJXX0B+u9Tt+HNy3KtErS4baZu9Ln5qolzS5G3YlI/X2toPdidDWRKFCzsSGLtPr53o4wWiCO96cNDF9pIh+XXFJi1lQ25NvkPdJdB6CmuH3TFxUqrXTPO9YqIonQrybx3qpee8+jxZIdi4jbrp2pAzbifSxeeHBAqk/5RwCml97+kzPjQ5y79+qSlR0bbgE4YOh+Z9V/+019tDZ4un5JOxbu0t9IFeDl5xlXBZtwoSxy3SZZjSdJWeyohwDSMHUKWpfYhGGZkLhiDtNkx/Ue9H+8SbBvc8e6aXwsjJhCPw+zPZoxb2N6JPDaACDWSWMXmxEC1VRHfW6vW+6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1153.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.19; Sat, 29 Aug
+ 2026 02:57:34 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Sat, 29 Aug 2026 02:57:34 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v6 01/21] dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+Date: Fri, 28 Aug 2026 19:57:00 -0700
+Message-Id: <20260829025720.23915-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0020.CHNPR01.prod.partner.outlook.cn (10.2.8.16)
+ To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/zh_CN: Update arch/riscv/patch-acceptance.rst
- translation
-To: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
- Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260829022344.192491-1-xiaoyewuz.Ruster@gmail.com>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <20260829022344.192491-1-xiaoyewuz.Ruster@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMA2vk+lSpJqiaEKAA--.25595S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jw1fAFW7Zr4kZF47CF1rWFg_yoW7WrWrpr
-	ZFgF9aqFn29r1UKa4xKr1UJFW8ZFsxWFZI934DA3s3tr4kJrWIgayDJ3srCF1ag3s3Zry0
-	va4kuFy8Ca47A3JanT9S1TB71UUUUb7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
-	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jw
-	0_GFylnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
-	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
-	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkIec
-	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
-	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU-zBTDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1153:EE_
+X-MS-Office365-Filtering-Correlation-Id: b781f8b6-daed-4875-2f56-08df057946b2
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|52116014|3023799007|18002099003|22082099003|56012099006|6133799003|10067099003|921020|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	EX8ZBFQiOz5AVUJ5Rswlz4FcyMh9csubp7XxjTCgz2/iEzxi0sLontI9FeqipmS2GKRnyKWxk3n/6cF03/xn7b5LAyEeku32nqTj7Y4OPRcHV3EfLFBIC+G8JxHCtUQs9RvKOIBkaKNygpsqjy5Ed1K6tc0DAayq1WdRcPyhDce4NWs3KV+6CQmVvW4gtp+FWbsSGcotHMbZOWfrM1lkNdhSJZQD7MNM8n1zKgC4XFsziuuxGNVM12b+CCWT/HthIKIgFJSf62b/D7lNE0x7bkkvOqzHBls1X/EdwLDWbfppXaW9cuNsE/6u2rztwIp8Y/yAk0TwyUtNdEEfEFcvjYOCrZo4ivxA5PvS1ktXLwENWh5AbLMxF/TOKJs9ZdTEIlSBa8qYOwvSnk9dLInqYBOc01S/j8CgzNY14+4wFOHXFT1lwb+fvCCMUo5IqOWBg46v0fXs2UQxtVpcxX+U4KsxjwQE/pgTcUFkDLk6sUu2DU6fLHox5REL7lEij7pNB95BGgAaAZQ4SeJFTE63tEE85p6qHEA1gR++15rx1QeWDXsaUurEE26rAA+OgIRzMu/MTFkhU47ECDlVlChbjg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(52116014)(3023799007)(18002099003)(22082099003)(56012099006)(6133799003)(10067099003)(921020)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CAMf0iut2DnxFehOtZkZ0Q3Y63aWQ/Wc+rVFk5Ud0HfSOkeBC1ZUPHR7Ue2M?=
+ =?us-ascii?Q?ApCJEUP+dCfflmIymzsafqPnXue9e7LracqKPG7WeljbU39pj3AM99CR48jn?=
+ =?us-ascii?Q?XwOp7qXuo1Lw+bW63lTeaiy8Ey/m+2oYKQsSYbUUF4V3sKKj8CJbIKGkF86o?=
+ =?us-ascii?Q?6ng7TkcKAcn0ZOqmzrGMccG6+ISZLo9rb4j2qBixkf2kHSg8mlIWNulndt+a?=
+ =?us-ascii?Q?U/MyxRXqKd+S5Z/B2J4v01jIew5Lbe7m90sWpHG+PfqLMdKx6Z7PgPZiLq4A?=
+ =?us-ascii?Q?GHDZgdFprsjx/cC1SSnu+z9wkc+Y2RTlgOxRS2DPa5iGSn0254wODnfrpSkH?=
+ =?us-ascii?Q?SrVNZhcyLHzcgP4VT4EUtBGxpGIirTgvxFwsxBPy0hJ+9eW+46s0zbNgpZJV?=
+ =?us-ascii?Q?eazUwSdZ+nqN93BRjjnOfDTH3R66730LaAZswujWw10/JsZ6zdj0IKamy/Wp?=
+ =?us-ascii?Q?wmxcMjX2q2rIYPIBDej/HSwYv4+jknYQ3OZ0VecZ0MekFDoRuyHMD9sZPMnP?=
+ =?us-ascii?Q?ZVKWugxXZhBYDn12XfFFBhHOL0o4QRZpMwr978M+Wf0NwYxFNiqY1P1LOWLl?=
+ =?us-ascii?Q?Q01Z/9qsfznhyv8cURzivU4kT/Cg8xHpjTUGvtkrN85ewFBT3QUhAL+Syvi1?=
+ =?us-ascii?Q?rF4m5RCqupYKvChhCuaPwvuJguDi5Y/tAILUBChuRQfOEcPDml1uKavMF5Fq?=
+ =?us-ascii?Q?fDHndj+HukDYQ6kz9MFWADWEAZP4A+F1BkAKLlf1CoBnUSWA2fAJ8SCoheWQ?=
+ =?us-ascii?Q?w0SbuYokBxoSF+c4HGBaP/q3l2yqtygfF0HOcNmXPi0sGVXgOxbRY1enDtP6?=
+ =?us-ascii?Q?y/ikJH2AQHIaDu7l9ihcn91zoUvQ0zFfw2iUJKVkeN9la6BmEG0IVeLH9xCD?=
+ =?us-ascii?Q?azpIPBxQM1At5cM0BZ9VlqbzZ+so9Z8Zl9RWKBdh6ZcGpQeq1Zr+ntsn0gUU?=
+ =?us-ascii?Q?R+Yj7DE8sUV7BcYNhkRRCyhiOgVb5rdOC4GT8dY/u3e6DDr7enGRbhMXXKEg?=
+ =?us-ascii?Q?4MMD1HeuCl0KDWZ/pOS1rwuEEVJX9JHGtelya+2B/larg95kKAVww+4ZRoM2?=
+ =?us-ascii?Q?hIhVmDMEvCxnWLZDsTQ4dSLDqtCxINAcoA4NEeBpZ0Pjn6w9hUxi9vnp/Uz6?=
+ =?us-ascii?Q?jVjZ+vycvv8Oej6HAzX4ODx3WUv/a8+x1d3W6QeKampdp7QzmVN4qMbj7zr4?=
+ =?us-ascii?Q?5xVlQzMobObhNWuWuQSIQ0x0r4JqGbhtD8naydLkJAqF7s+mZOUy7QHTXsNw?=
+ =?us-ascii?Q?jj4KrNOqTyB1JFQX1Ak+qlSAa6nd/Di4q+xwS80QgirNcBIAPmo+NHP/NtE7?=
+ =?us-ascii?Q?nInzhz3HXzpNWsbbQRmajd5atnwJOkbZct2ThCi+gO6R2aYHdNA7bLX8zKJl?=
+ =?us-ascii?Q?GJPM6LpwzdF53H8/LvBhLDVn61AnpNODY+glUmM3WOyH1T+EEyBgaIQd0yLJ?=
+ =?us-ascii?Q?ng+PpWKQLExrt5EBshAG0BzKJcdeBad1kruM77O2St1r+YKSKW77T3nBQpmM?=
+ =?us-ascii?Q?MHRQL0xkrPLdYu6OLb3wJhyTYeca+Tcpg3fo4ofR9jkDY6WqYXZUTwQVetyk?=
+ =?us-ascii?Q?q8ZbWy5DmGkJEnhOmIwn0qmzPYGxkju7GX0TBlDBAAopOtp50/Ten9j52ZVL?=
+ =?us-ascii?Q?/d0mUlIT9jn8o1GVDIKfQ+7kY/e4Wcve9igUziXSS2yEHalx/Q2Msv0IN6n3?=
+ =?us-ascii?Q?Uje+x59b92Fy7pDLI6Kz/uLgH42tFp2cNTazrhbMi/eae0tGUVRLvwp1z5dA?=
+ =?us-ascii?Q?ZdDiSIUZl2pZ1jmauGkx8zNh6mKjnGwfZQyUo8bPRrkJfrsa24vW?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b781f8b6-daed-4875-2f56-08df057946b2
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 02:57:34.6159
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: InFR+zxB3ltNotYPSY/8FwYO0JSeLwSd4hNmY8oCddvbN8JNCmEpUxHINOwzF/hM9iz+tgFx1lOxkvbFZDquztJsS489FEcy7101gJsIIaU41wFlv1+X9nWKtpbK1r92
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1153
 
+The StarFive JHB100 SoC hardware supports debounce time configuration
+with nanosecond granularity. The existing 'input-debounce' property
+uses microseconds, which is insufficient to accurately represent the
+hardware's finer timing steps.
 
-On 8/29/26 10:23 AM, Yukai Wu wrote:
-> Update Documentation/arch/riscv/patch-acceptance.rst translation.
->
-> Update the translation through commit ed843ae947f8
-> ("docs: move riscv under arch")
->
-> Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-> ---
-> Changes in v2:
->   - Changed "补丁跟踪系统" to "Patchwork".
->   - Corrected branch selection to "for-next 或 fixes" (was "和").
->   - Adjusted "已批准" or "已冻结" order.
->   - Changed "只接受" to "只考虑".
->   .../zh_CN/arch/riscv/patch-acceptance.rst     | 46 ++++++++++++++-----
->   1 file changed, 34 insertions(+), 12 deletions(-)
->
-> diff --git a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-> index c8eb230ca8ee..20b91d0433a9 100644
-> --- a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-> +++ b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-> @@ -15,19 +15,41 @@ arch/riscv 开发者维护指南
->   
->   概述
->   ----
-> -RISC-V指令集体系结构是公开开发的：
-> +RISC-V 指令集体系结构是公开开发的：
->   正在进行的草案可供所有人查看和测试实现。新模块或者扩展草案可能会在开发过程中发
-> -生更改---有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给RISC-V Linux
-> -维护者带来挑战。Linux开发过程更喜欢经过良好检查和测试的代码，而不是试验代码。我
-> -们希望推广同样的规则到即将被内核合并的RISC-V相关代码。
-> +生更改 --- 有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给 RISC-V
-> +Linux 维护者带来挑战。Linux 维护者不赞成频繁的变更，且 Linux 开发过程更喜欢经过
-> +良好检查和测试的代码，而不是试验代码。我们希望推广同样的规则到即将被内核合并的
-> +RISC-V 相关代码。
-> +
-> +Patchwork
-> +---------
-> +
-> +RISC-V 有一个 patchwork 实例，可以在那里查看补丁的状态：
-> +
-> +  https://patchwork.kernel.org/project/linux-riscv/list/
-> +
-> +如果你的补丁不在默认视图中出现，那么 RISC-V 维护者很有可能已要求修改，或者希望
-> +将其应用到另一个代码树上。
-> +
-> +自动化流程会在该 patchwork 实例上运行，在每个补丁到达时立刻对其进行构建/测试。
-> +自动化流程会根据补丁是否被识别为修复，选用 RISC-V `for-next` 或 `fixes` 分支
-> +当前的 HEAD；若上述均应用失败，则使用 RISC-V `master` 分支。补丁系列被应用到的具
-> +体提交将标注在 patchwork 上。任何检查未通过的补丁通常不会被应用，并且在大多数情
-> +况下将需要重新提交。
->   
->   附加的提交检查单
->   ----------------
-> -我们仅接受相关标准已经被RISC-V基金会标准为“已批准”或“已冻结”的扩展或模块的补丁。
-> -（开发者当然可以维护自己的Linux内核树，其中包含所需代码扩展草案的代码。）
-> -
-> -此外，RISC-V规范允许爱好者创建自己的自定义扩展。这些自定义拓展不需要通过RISC-V
-> -基金会的任何审核或批准。为了避免将爱好者一些特别的RISC-V拓展添加进内核代码带来
-> -的维护复杂性和对性能的潜在影响，我们将只接受RISC-V基金会正式冻结或批准的的扩展
-> -补丁。（开发者当然可以维护自己的Linux内核树，其中包含他们想要的任何自定义扩展
-> -的代码。）
-> +我们仅接受针对新模块或扩展的补丁，前提是这些模块或扩展的规范被列为未来不太可能发
-> +生不兼容的变更。对于来自 RISC-V 基金会的规范，这意味着“已冻结”或“已批准”，对于
-> +UEFI 论坛的规范，这意味着已发布的 ECR。（开发者当然可以维护自己的 Linux 内核树，
-> +其中包含他们所需的任何扩展草案的代码。）
-> +
-> +此外，RISC-V 规范允许实现者创建自己的自定义扩展。这些自定义扩展不需要通过 RISC-V
-> +基金会的任何审核或批准流程。为了避免因添加实现者特定的 RISC-V 扩展带来的维护复杂
-> +性和对性能的潜在影响，我们将只考虑符合以下任一条件的扩展补丁：
-> +
-> +- 已由 RISC-V 基金会正式冻结或批准
-> +- 已按照标准 Linux 惯例，在广泛可用的硬件中实现
-> +
-> +（实现者当然可以维护自己的 Linux 内核树，其中包含他们所需的任何自定义扩展的代码。）
+Add the property 'input-debounce-ns' to specify debounce time in
+nanoseconds as an alternative to the existing 'input-debounce' which
+uses microseconds. Make the new property unavailable when the existing
+property 'input-debounce' is selected to prevent conflicting definitions.
+
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/pinctrl/pincfg-node.yaml      | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+index 97dbce8a261f..17a6270dce31 100644
+--- a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+@@ -104,6 +104,10 @@ properties:
+     description: Takes the debounce time in usec as argument or 0 to disable
+       debouncing
+ 
++  input-debounce-ns:
++    description: Takes the debounce time in nsec as argument or 0 to disable
++      debouncing
++
+   power-source:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description: select between different power supplies
+@@ -214,6 +218,13 @@ allOf:
+         input-schmitt-enable: false
+         input-schmitt-microvolt: false
+ 
++  - if:
++      required:
++        - input-debounce
++    then:
++      properties:
++        input-debounce-ns: false
++
+   - if:
+       required:
+         - drive-strength
+-- 
+2.25.1
 
