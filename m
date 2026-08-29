@@ -1,75 +1,46 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C065B2EC09B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCC835C69E;
+	Sat, 29 Aug 2026 09:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787996930; cv=none; b=NuH3cLRUblIIWYnR5WJneIEzZUfgY6fkFDpxzdIthCBr7CqdH0PUlT7KN9ByokrGSksoI3ab1SgUpll6No2SikvSUCAKeVfl2SYMEv+E4lJptbt8mxqwPp4g/dFDkuK3Shg7Pfm15FcYv6rvfWWavd+bQWWZWCvTrYH/BQ0qIeM=
+	t=1787996973; cv=none; b=JdMIEaxH3FoVGcrSpSoqnzaAztL2zNlGsd0YX6UXqi5wYlaq1JzQKQD/E8GwetQdUIPFXCNZZoD7RhnhBZ5zpQVoTs7GGx6p0EjQlw/eS7JMRt6TqTlSFVoF/c3gh1teEphNdq1MedwolZ552p1uQUAgqFXhs29y2fuWPAyej64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787996930; c=relaxed/simple;
-	bh=4NaOSnad3ovSdHyfMpXrqbIZhtmfgN/COGu0UHmwoHs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JOxczBLLxX7c8UpZZHiYvTNFpxX51a83p1jfSdzoY946qkeK+6l+VUFq/U7r6l+csIg6gl2WA87ZStDFNif51SwWoQHOMjPdPwIWJjbdT2V+k6IMywoJMHIPAZKeqIsedmKDP2nJd2geYCj4Ykn75x4imyA7RqWR5/K9uBkavO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lbrMLDRW; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787996973; c=relaxed/simple;
+	bh=mf0nw60dGKb8Wlo2I5kUlLo5yPxvNu0fpugcs+pgkxE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dbhh4jynUmB7U+9bT9ppgClmVt6P9j+A8nbmWHATwOs1Xuwu0RhO8Ix0ggHPWeAKx6WtEE9nkJASpxbtGq5/XCHvb1EZiswt0NGArGOniSLFgVGdp0g4Y27NBqUM1uLOvKWuZIxk8PZKcUN5a+f8VS0ioUwKj1xSs6O2fGFvG/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=L5ckq+ED; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbrMLDRW"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso2521391a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787996927; x=1788601727; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vr48OlihL3z/Xr4r4Y0Vtz7OZXseZdEoR3eobBbUMjA=;
-        b=lbrMLDRWCYi4qxA381CMQ+ksTp55hmazEvRHuXeq+SOih+vW7HZzBXceDkKAziU147
-         4M+/Y82yZ2Bcd65EycYGqaNicX0UjNgSPBnLoHJ1xURRC9BIfKiJmMo3ED4QPY47oIMK
-         svlZM6XN60xwOY4gLrj1xcAsp+6yGLfnNOrRQ0yUqdel/hMY9gV/ZbaabmlrI2uGqbgt
-         ab3jKkcnY8KFKZ3QIkfgKofLUSvx7ppiKKH4t0Ax6mvxbInh9XH6DYjiIV7LT+X5tlxx
-         dyFvQWh0Lv07FsdZFIYfkToLQQOPRrxF5I0JUBC8sfENHStuGCaX6X5/iVjQ0/ofD08M
-         fK/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787996927; x=1788601727;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vr48OlihL3z/Xr4r4Y0Vtz7OZXseZdEoR3eobBbUMjA=;
-        b=UkpvoudFSJZmy3ZEuKtCNRYVDdmdsEUswT8NpxWVLyYfYZqKiuE3eSJRuyOcCWBII6
-         0zf9by/VYD3QV3D22kb+9Yt4nBdkAwPGF54CmQSasLa/454LZVcCsqMipqtWR1KeDdXa
-         mPm+JymLqTgoS3tOphCCRNiBAH30AdviFD1SiIJFSzwE7OZnjUNdzWQCeQwz36+8doBB
-         +AG7rZwHcSPbFsJJl5DvxBbQpwkEONAiQJo70jyJS/jPNwUoBNMtS3x3yETix+t715nw
-         Bi5lg/FMiMC4BirA2Crj9RfgYsDhU8kqzxIly9criY94MNjDS+IsqPIusn9uvhuLsdJR
-         EK9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RojrsNRL+dgS8VU0TyoanccLX7f7+N7WnXgHx31lRbH35DUqsIFLOSu4ZHM67oXS5dsuFmWbYhHyGoCfyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3aCfds/nTH2P/MzaVbUBLCs5ckq4p1oycB3LdpwxjLY7Ckpty
-	N99QH0zf2UgLgq69RTIzGVJFHw6bN5tfs6nFrv24dy46PN+LtWxtW3uS
-X-Gm-Gg: AR+sD12B8KjG7XHugYkqgupXw/upWNPsy7uhWY0ralCSmWwaiKuy1lqzvx0n1sG2pxE
-	XRnFIupF6Ckdb933KJXkUhoPYBzgisifHLG22dZ+0a+gzFCFMaKJk5ILBHasCWUxzudDmPt1lka
-	wQ9/w+z0KfmzosKyJUq4HmMfSYKQPQp9NYeJseANKTEEjgn12xGBp5owazhHfOaqBj0AEfLbNvP
-	S6nLkdNpvxH4YWUhDISEhNur2cdsUGIKsRnSdKERJDQ1BSUe0SzaBYYcmASQA/jDwv9MpFJ8ZLC
-	Yw+Mf6ocvfKwUg10vPcps35KZ7OuYdjzTJq3u1o/x2yJfh6mTdeHF5XgzMtuMNX/YHVV+jOsqo4
-	9e0zwQZBPC6W90Jj4dcJfkNvWoBcCWVV0HX9T9LKqg9vvw0aGGRLDkzxixWheeNqHeNEwloW1wt
-	ZXKdsmNSYDUOdqwsjRdWrsvNoxiA3ohK2Lh+7Z3g/6t9/p9nrcw10AQrBsYbtrlpQMEKI6xZTV9
-	gfV9P8syCv3jPIRP+leUGbcjrH/xK5grq8czhE=
-X-Received: by 2002:a17:907:c1f:b0:c21:757:1bb4 with SMTP id a640c23a62f3a-c25571d8ff6mr949921466b.16.1787996926837;
-        Sat, 29 Aug 2026 02:48:46 -0700 (PDT)
-Received: from Lenovo (public-gprs210891.centertel.pl. [46.134.163.12])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee28596sm190811766b.20.2026.08.29.02.48.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 02:48:46 -0700 (PDT)
-From: Marcin Dawid <mdawid@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	"Jiakai Xu" <xujiakai24@mails.ucas.ac.cn>,
-	"Sasha Levin" <sashal@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: [REGRESSION] 6.12.y: s2idle hangs after 171ef40fce41 ("PM: sleep: Use complete() in device_pm_sleep_init()")
-Date: Sat, 29 Aug 2026 11:47:47 +0200
-Message-ID: <20260829094750.574649-1-mdawid@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="L5ckq+ED"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=w2lwvObpes5WXP7OnRLwWjlTCcoX59peKlzhnmLYZMw=;
+	b=L5ckq+EDi5v6x++7Xt33v1DJelVC4Nxc8Ulziodsw5bx1Rg5zOtsIoV83GXOj/NKfrpPChR9r
+	rX7u9XYhyJ2Hp6d4Rbb1RaqbIN7jH2I685gqh1AujPFoyLeFjDX46qY3XcmXB84xlD005FOjslx
+	8YClPp1KHgVFWw5d+QlnBEs=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hX9DZ2S2GzmV91;
+	Sat, 29 Aug 2026 17:38:38 +0800 (CST)
+Received: from whupemk200001.china.huawei.com (unknown [7.152.184.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0514C40586;
+	Sat, 29 Aug 2026 17:49:26 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ whupemk200001.china.huawei.com (7.152.184.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sat, 29 Aug 2026 17:49:25 +0800
+From: Chenghai Huang <huangchenghai2@huawei.com>
+To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>
+CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<liulongfang@huawei.com>, <qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
+	<lizhi206@huawei.com>
+Subject: [PATCH] crypto: hisilicon/zip - enable auto clock gating for DAE
+Date: Sat, 29 Aug 2026 17:49:24 +0800
+Message-ID: <20260829094924.2191402-1-huangchenghai2@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,161 +48,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemk200001.china.huawei.com (7.152.184.93)
 
-Hi,
+From: lizhi <lizhi206@huawei.com>
 
-My ThinkPad P16v stopped suspending after a kernel update. I bisected
-the problem to commit 171ef40fce41 ("PM: sleep: Use complete() in
-device_pm_sleep_init()"), the 6.12.y backport of mainline commit
-3855941f1e40. Reverting this commit fixes the problem.
+Enable auto clock gating for the DAE module. The clock gating
+is enabled after DAE initialization is completed, so the device
+can reduce power consumption when idle.
 
-#regzbot introduced: 171ef40fce41b13f5115d988c45997e94113c7ab
+Signed-off-by: lizhi <lizhi206@huawei.com>
+Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
+---
+ drivers/crypto/hisilicon/zip/dae_main.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
-Symptoms:
-When I close the lid my laptop does not go to sleep and its fans
-keep running. If I open the lid, the screen stays black and the laptop does
-not respond. I must do a hard reset. Only the lid triggers this. Calling
-"systemctl suspend" with the lid open works.
+diff --git a/drivers/crypto/hisilicon/zip/dae_main.c b/drivers/crypto/hisilicon/zip/dae_main.c
+index 68aebd02fc84..57ea836a265e 100644
+--- a/drivers/crypto/hisilicon/zip/dae_main.c
++++ b/drivers/crypto/hisilicon/zip/dae_main.c
+@@ -39,6 +39,8 @@
+ #define DAE_AM_RETURN_MASK		0x3
+ #define DAE_AXI_CFG_OFFSET		0x331000
+ #define DAE_AXI_SHUTDOWN_EN_MASK	(BIT(0) | BIT(5))
++#define DAE_AUTO_CG_EN_OFFSET		0x331070
++#define DAE_AUTO_CG_EN_MASK		(~(BIT_ULL(4) | BIT_ULL(18) | BIT_ULL(19)))
+ 
+ struct hisi_dae_hw_error {
+ 	u32 int_msk;
+@@ -61,6 +63,17 @@ static inline bool dae_is_support(struct hisi_qm *qm)
+ 	return false;
+ }
+ 
++static void hisi_dae_set_clock_gating(struct hisi_qm *qm, bool enable)
++{
++	if (qm->ver < QM_HW_V5)
++		return;
++
++	if (enable)
++		writeq(DAE_AUTO_CG_EN_MASK, qm->io_base + DAE_AUTO_CG_EN_OFFSET);
++	else
++		writeq(0, qm->io_base + DAE_AUTO_CG_EN_OFFSET);
++}
++
+ int hisi_dae_set_user_domain(struct hisi_qm *qm)
+ {
+ 	u32 val;
+@@ -69,16 +82,22 @@ int hisi_dae_set_user_domain(struct hisi_qm *qm)
+ 	if (!dae_is_support(qm))
+ 		return 0;
+ 
++	hisi_dae_set_clock_gating(qm, false);
++
+ 	val = readl(qm->io_base + DAE_MEM_START_OFFSET);
+ 	val |= DAE_MEM_START_MASK;
+ 	writel(val, qm->io_base + DAE_MEM_START_OFFSET);
+ 	ret = readl_relaxed_poll_timeout(qm->io_base + DAE_MEM_DONE_OFFSET, val,
+ 					 val & DAE_MEM_DONE_MASK,
+ 					 DAE_REG_RD_INTVRL_US, DAE_REG_RD_TMOUT_US);
+-	if (ret)
++	if (ret) {
+ 		pci_err(qm->pdev, "failed to init dae memory!\n");
++		return ret;
++	}
+ 
+-	return ret;
++	hisi_dae_set_clock_gating(qm, true);
++
++	return 0;
+ }
+ 
+ int hisi_dae_set_alg(struct hisi_qm *qm)
+-- 
+2.43.0
 
-In every hang, the kernel log ends like this, here on 6.12.105:
-
-  [   94.290011] PM: suspend entry (s2idle)
-  [   94.296689] Filesystems sync: 0.004 seconds
-
-This is the last output visible in the journal.
-
-System:
-Manjaro Linux (rolling release), x86_64, systemd 261
-Lenovo ThinkPad P16v Gen 1 (21FE0011PB)
-AMD Ryzen 7 PRO 7840HS w/ Radeon 780M Graphics
-BIOS N3VET59W (1.59), 05/13/2025
-2x NVMe, WiFi Qualcomm QCNFA765 (ath11k_pci), USB4/Thunderbolt
-/sys/power/mem_sleep: [s2idle]   (the laptop does not support S3)
-
-Affected versions:
-
-  6.12.y: last working 6.12.96 -> first bad 6.12.97
-
-I only see the hang on 6.12.y. I also tested 6.18.45, 7.1.8 and mainline
-7.2, which carry the same commit and the laptop suspends normally on all
-three (see the table below).
-
-The latest 6.12.107 still has the commit and no fix or revert. I tested it
-and it hangs the same way.
-
-Reproducing the problem:
-I bisected stable branch between 6.12.96 (good) and 6.12.103 (bad).
-Every tested kernel was built from the kernel.org stable tree using
-config based on the Manjaro 6.12.96 (trimmed with make localmodconfig
-and updated with make olddefconfig).
-
-  171ef40fce41b13f5115d988c45997e94113c7ab is the first bad commit
-  PM: sleep: Use complete() in device_pm_sleep_init()
-  [ Upstream commit 3855941f1e4069182c895d5093c5fa589f5b38bd ]
-
-Bisect log:
-git bisect start
-# status: waiting for both 'good' and 'bad' commits
-# bad: [25c09b42358e73e1476e517b296edb6344f2e4bd] Linux 6.12.103
-git bisect bad 25c09b42358e73e1476e517b296edb6344f2e4bd
-# status: waiting for 'good' commit(s), 'bad' commit known
-# good: [6d15a1029d425b15c59463910ebdccc4afe760d6] Linux 6.12.96
-git bisect good 6d15a1029d425b15c59463910ebdccc4afe760d6
-# bad: [afb45d1142b3031f408c0505d1c3e89edc68fb49] iio: adc: ad7380: select REGMAP
-git bisect bad afb45d1142b3031f408c0505d1c3e89edc68fb49
-# bad: [29c801cbd8ad1a27adef6a325cc5a1e6ef275a97] selftest/mm: register existing mapping with userfaultfd in hugetlb-mremap
-git bisect bad 29c801cbd8ad1a27adef6a325cc5a1e6ef275a97
-# bad: [eb7cb798e563b3f3b3baeb9cc6f7455764267e50] IB/mlx5: Properly support implicit ODP rereg_mr
-git bisect bad eb7cb798e563b3f3b3baeb9cc6f7455764267e50
-# good: [5d52b6dc6fd0640e355877e8370b21eb84dc13e0] sysfs: clamp show() return value in sysfs_kf_read()
-git bisect good 5d52b6dc6fd0640e355877e8370b21eb84dc13e0
-# bad: [fa766e5e53ad389d6ec810783f5d5367010f9412] media: qcom: venus: drop extra padding in NV12 raw size calculation
-git bisect bad fa766e5e53ad389d6ec810783f5d5367010f9412
-# bad: [962eae1f30e57ac8e6e20a8b862e269145dc6d9a] driver core: Guard deferred probe timeout extension with delayed_work_pending()
-git bisect bad 962eae1f30e57ac8e6e20a8b862e269145dc6d9a
-# good: [16723523c74f90d487df270ae4dad263542aab26] cpufreq: conservative: Simplify frequency limit handling
-git bisect good 16723523c74f90d487df270ae4dad263542aab26
-# good: [7d9fbee252f84de3e6947a40eec01481c9d8afbb] RDMA/hns: Fix log flood after cmd_mbox failure
-git bisect good 7d9fbee252f84de3e6947a40eec01481c9d8afbb
-# bad: [7670a3a6ccaf6f081c474338d204461c67d9e126] MIPS: DEC: Remove do_IRQ() call indirection
-git bisect bad 7670a3a6ccaf6f081c474338d204461c67d9e126
-# bad: [171ef40fce41b13f5115d988c45997e94113c7ab] PM: sleep: Use complete() in device_pm_sleep_init()
-git bisect bad 171ef40fce41b13f5115d988c45997e94113c7ab
-# good: [5452b60cb1db44cf507aa9b85ab51901ed593c6c] RDMA/counter: Fix incorrect port index in rdma_counter_init() error cleanup
-git bisect good 5452b60cb1db44cf507aa9b85ab51901ed593c6c
-# first 'bad' commit: [171ef40fce41b13f5115d988c45997e94113c7ab] PM: sleep: Use complete() in device_pm_sleep_init()
-
-What I tested:
-All tests were done on the same machine, on AC power, by closing and
-opening the lid. One cycle means that the laptop went to sleep and woke
-up. The numbers come from the system journal:
-
-  6.12.96 Manjaro, before the commit       works  - 48 cycles over 29 days
-  6.12.103 (with the commit)               hangs  - first attempt after boot
-  6.12.103 with the commit reverted        works  - 5 cycles in one boot
-  6.12.103 /sys/power/pm_async set to 0    works  - 11 cycles in one boot
-  6.12.104 Manjaro                         hangs  - first attempt after boot
-  6.12.105 (with the commit)               hangs  - first attempt after boot
-  6.12.105 with the commit reverted        works  - 10 cycles in one boot
-  6.12.105 /sys/power/pm_async set to 0    works  - 11 cycles in one boot
-  6.12.107 (with the commit)               hangs  - first attempt after boot
-  6.18.45 Manjaro                          works  - 7 cycles over 2 boots
-  7.1.8 Manjaro                            works  - 12 cycles over 5 boots
-  7.2 mainline, built from source          works  - 11 cycles over 5 boots
-
-Every hang happened on the first suspend attempt after boot and never after
-a successful cycle.
-
-Setting /sys/power/pm_async to 0 is a workaround I found. The original bad
-kernel suspends normally with this flag set to 0. I have used this
-workaround without failures.
-
-Changing /sys/power/pm_async back to 1 on a running system did not
-immediately reproduce the problem. I did this on 6.12.105 and after 11
-successful cycles with pm_async=0 the next 3 cycles also worked. The first
-suspend attempt hung again after reboot.
-
-With the commit reverted, 6.12.105 logs this when I close the lid:
-
-  [  154.523353] PM: suspend entry (s2idle)
-  [  154.530033] Filesystems sync: 0.003 seconds
-  [  155.273772] Freezing user space processes
-  [...]
-  [  155.273951] PM: Some devices failed to suspend, or early wake event detected
-  [... device resume messages ...]
-  [  155.290012] PM: suspend exit
-  [  155.290087] PM: suspend entry (s2idle)
-  [  156.163505] Filesystems sync: 0.004 seconds
-  [... no error this time; the laptop enters s2idle and later resumes ...]
-  [  156.223357] PM: suspend exit
-
-With the commit present, the same 6.12.105 stops at the "Filesystems sync"
-line:
-
-  [   94.290011] PM: suspend entry (s2idle)
-  [   94.296689] Filesystems sync: 0.004 seconds
-
-6.18.45, 7.1.8 and mainline 7.2 contain the same change and log the same
-failed first attempt, but their second attempt suspends normally.
-
-Calling "systemctl suspend" with the lid open succeeds on the first
-attempt on 6.12.105 with the commit, never logs "Some devices failed to
-suspend" and did not hang in 18 cycles over 7 boots.
-
-My local settings:
-Kernel command line:
-  BOOT_IMAGE=/boot/vmlinuz-6.12-x86_64
-  root=UUID=985b52ba-a61a-41f8-ab5c-fad209ce7c44 rw zswap.enabled=0
-  resume=UUID=9f557da2-d7c5-4623-83c0-3ea696bb1b3c udev.log_priority=3
-Module options:
-  thinkpad_acpi fan_control=1
-Other:
-  /sys/power/disk set to "shutdown", vm.swappiness=100, vm.page-cluster=0,
-  CoolerControl daemon, a local systemd unit that reloads ath11k_pci
-  after resume
-
-
-I can test patches or collect more information if needed.
-
-Regards,
-Marcin Dawid
