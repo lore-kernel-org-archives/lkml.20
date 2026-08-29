@@ -1,102 +1,228 @@
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com [209.85.214.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52491799F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289D21643B;
+	Sat, 29 Aug 2026 01:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787968353; cv=none; b=jkKpAwMS5Tq8vljk6NoB5ThtXOWcqlQ9tIDSBHrmCwi1ca17RiwMvxC+F1hsLZ9+UqvQ+O60/Wp28Uk7WktsjG+0lXlcNtAve/+/3gbPXvd/MShqSLuwjCGMrp+oiOYH6qHCXXflvXCop+7T0UzFi+8RCJMaF8CAjtZRW8afq9Y=
+	t=1787968520; cv=none; b=X/vsK9/IpSYLApYwBrPxbpAHC78+RvModS0SG+RIho86qvQzGaQf3T4cm1/+lMZQRK7KtY4aPaY8/8f/VsZ5WETXOUz4+PJ99sfvaPKxeuZYp3LYwK3sLya2Rt8VKg9CSYzovjw97qOu7EeWNRnm0w7tcgfgVC6csCHjH4PcqrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787968353; c=relaxed/simple;
-	bh=Q1fxs9Cuh7MABhOUaj3Dq6spYafZwoVaMo6QE7grAIU=;
+	s=arc-20240116; t=1787968520; c=relaxed/simple;
+	bh=Tx6peCwq6LWddKFCzINod9VezXpbPUn4luF4f3Yzd7w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YQZdxM1JZIw7Sv+y9QT2I4HjIiqeMppVfO2o03JwLsjcCgc3KN/YR04RgXYDGxh2qWW3G3QiM+e1Rez13uux9zlqwSBK/kXfD7cC0wp7JwwOMyc3o6fhT0I8QZdcnboLBqeRZ7kxEjdzTX47YlMXLXR5jmB0IfYfwFlDkBwWi4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQ4nFmH1; arc=none smtp.client-ip=209.85.214.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=QLOXevf+AsYJ+lb8jiemZk0y6Imm1VphJKnS+nwQI2R1oIT7abF5h/45agVrjYHDtPdCuJeZxX0OYKz1SqjXNNEBNK54V2UbAV/i4FbcO1h3ArdO9bJuVTMFHQOipU8ByNS8EPlWTsTIKDZSBOAgxLL3ZmdpserdkUN9u3kN1g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZGB1bkQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQ4nFmH1"
-Received: by mail-pl1-f195.google.com with SMTP id d9443c01a7336-2caced6038eso16880215ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:52:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787968352; x=1788573152; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q1fxs9Cuh7MABhOUaj3Dq6spYafZwoVaMo6QE7grAIU=;
-        b=dQ4nFmH1sNXv+lRIDrFlX0HgFYX2rWlgI3u9vqP3WFN5lvMDjSlujDPoTTIvbAk7HL
-         YnaqeiZDBVR1Z8X2WM829yk5Uch7jZ5pn0rYpgMwQQAsl94f/j4H+p1KajmXdsoPaglG
-         mGxHRAiczMrC3v4O3/jweqqJIN8zKnOnb55MJWj1v1BQj2HMplMrn4UmVQiYZahKICG9
-         qCgCiskPIrGcZ0F8Be8dAwqurn4M0DIuJXdoBbpxM9mA3spWNbpYSlV/cf+fiKOnYXN0
-         Uks82Th8zaShVNOkMkXm7ymjrsgEossdICxvU1ulcjX53jIiAYeCb1LbySc2CbN03E7o
-         Y04Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787968352; x=1788573152;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q1fxs9Cuh7MABhOUaj3Dq6spYafZwoVaMo6QE7grAIU=;
-        b=Q8KNw1lhhIIU0NV1fTH+FGHIpvLAzF2BT5P4fPgB70JKQ/XR5HeSPMSHJzfWmhNhK0
-         RmM856IiweZDjn/FPS+TvmhcswHwtaUf5bd6kgDCeQpz1mwkGDlZmDfpwY3JBSmiHfGy
-         41jfdl089XpJKmZTk105AlDvTasM7drAg99NyPMRn9qmq0HPhwFxRWSB7S7YdFJ9QJVz
-         QIm1UGFsmQA0kELTFO5nECeFktinNG52mjreWUpOH5I5R+uquE18h9Pk+KsGLeZFUZK1
-         fzjrEvs+gxG8Gw2fW7cJzrv34NkgIu+3nTSC+Qc17DxZXB3ugKcDiMsYhCUZ+DaVt7uv
-         9p1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ+H7lSkkgLD4jbQtmJKxOt1T9eMPu3hTPcEX8ElKPvqYQXpJynr6Rrla/r8vvTmPdrIYh/Bqq9PEyUW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ml2NeNBdtvG0dMQPKv0S2G2X3wXpVbVBNfM8vyjfECpYbyVmsl
-	WuVWbSLbDBVK9ypKgjmEuVQKELOQHw8K687Ajz2F7HiZ6r+KNDQMnhN4
-X-Gm-Gg: AYBFou008yLcgHtUiXikwjM/IyD5KnEYtnw0jYimESMmfaxMzcbIymAKfdrio+LZ6xz
-	Xb+O+aoXUBOF/QToG15d+THnZqBBXB+T49G3SfTpfHztqTmcjkmeLNSQtl2t7Yo6P0Zp2GR/uho
-	Jn9xsirZlIhZZTSErVlXO5v8awfQ0REJ7eJa5EBYg6J1nS//WJnKIKXg+Qhw0Oh9tIIKFE1de0f
-	nOazWX9vhTOEFUCF5B0BApMq5rZt+yWM8jiohzXtjDhI4bxCBkyr507/o9YygY4ExyE/xc+NnlD
-	a97l31Rh3XWtfj7Q1ieEiegUFltv4O8f3mvrdgUeUJhbzEvAOM3u0RG1N9shxE8+GbSgoNYfQ2Y
-	XW4Ev4GGYGVDaSjGUHJ+FRrf4HT/LEOPsaRZuwawFepZG9ddyP9tR5Cux0zNolhqLKEw7LopLb3
-	boGh+PH3voHDcdnk0HOVUq+oCKPBKa04tLpZHw1Eh0FWo/LC1y/Dx8NBedw50C1hCU9XwWgk6md
-	RgC+M5P
-X-Received: by 2002:a17:902:f68a:b0:2d3:c3b:c7cc with SMTP id d9443c01a7336-2d725df6dc7mr197429485ad.3.1787968351866;
-        Fri, 28 Aug 2026 18:52:31 -0700 (PDT)
-Received: from hppc-archlinux.localnet ([2408:8240:c13:2170:c21d:681:ea:d5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm9335864eec.23.2026.08.28.18.52.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 18:52:31 -0700 (PDT)
-From: Yukai Wu <xiaoyewuz.ruster@gmail.com>
-X-Google-Original-From: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-To: =?UTF-8?B?5oWV5Yas5Lqu?= <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Jonathan Corbet <corbet@lwn.net>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Shuah Khan <skhan@linuxfoundation.org>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] docs/zh_CN: Update arch/riscv/patch-acceptance.rst translation
-Date: Sat, 29 Aug 2026 09:51:25 +0800
-Message-ID: <qEGu0mcxR2u_YYmRciJGuA@gmail.com>
-In-Reply-To: <14a7a290.91f.1a048b9be40.Coremail.dzm91@hust.edu.cn>
-References:
- <20260828061834.3645176-1-xiaoyewuz.Ruster@gmail.com>
- <14a7a290.91f.1a048b9be40.Coremail.dzm91@hust.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZGB1bkQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681B81F000E9;
+	Sat, 29 Aug 2026 01:55:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787968518;
+	bh=bqsrIgE1vMZSFVutAeptIWgwiGFQSyUVPvdWjryJwx0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PZGB1bkQAPezLN4UngIrermFUA4t75K1Hc/7NB6Lwhne5lHDBNfm+pH5K3af4KccM
+	 +KYUewu/UttfS5UY5I6E5fttCivXAMb7FtQRzfU0Ao9rMn274VuC9gu32Ob255Tlez
+	 noEj3NKap7EgNwqR+iNLoZVhwBDsxsPhtgolQr/ApvnLl/O1U/H16nPAf43WwOjTE8
+	 ymVzs3dIDX83CIlUO7Kvzo44tBFK1pvsqPvrPWN+SByW7tEwBVkHvsEeCjQOKZaYZ9
+	 KKLQ3y3OWsi7Pw1k9HDgyfwb1l8tEvg8HtYnY7fRgGxF4PIiYJ+C8K/PXCnMfvx2a0
+	 qTHCTCc1pTIAg==
+From: SJ Park <sj@kernel.org>
+To: Nathan Gao <zcgao@amazon.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	baolin.wang@linux.alibaba.com,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Fri, 28 Aug 2026 18:55:11 -0700
+Message-ID: <20260829015511.74221-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260829010455.28607-1-zcgao@amazon.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Dongliang,
+On Fri, 28 Aug 2026 18:04:55 -0700 Nathan Gao <zcgao@amazon.com> wrote:
 
-Thanks for your review! I agree that "=E4=BB=85=E6=8E=A5=E5=8F=97" should b=
-e changed to "=E4=BB=85=E8=80=83=E8=99=91" to match=20
-the original "consider". I'll include this fix in v2.
+> Hi SJ,
+> 
+> Thanks for your review!
+> 
+> On Thu, 27 Aug 2026 17:22:11 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > Hello Nathan,
+> > 
+> > On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+> > 
+> > > __damon_va_prepare_access_check() picks a random byte address within the
+> > > region and stores it in r->sampling_addr. There are two users of
+> > > r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> > > both use it as the address of a page.
+> > > 
+> > >   damon_va_mkold(mm, r->sampling_addr)
+> > >     damon_va_walk_page_range(mm, addr, addr + 1)
+> > >       damon_mkold_pmd_entry()
+> > >         damon_ptep_mkold(pte, vma, addr)
+> > >           ptep_test_and_clear_young(vma, addr, pte)
+> > >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> > > 
+> > >   damon_va_young(mm, r->sampling_addr, &folio_sz)
+> > >     damon_va_walk_page_range(mm, addr, addr + 1)
+> > >       damon_young_pmd_entry()
+> > >         ptep_get(pte)
+> > >         mmu_notifier_test_young(walk->mm, addr)
+> > > 
+> > > test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+> > > arm64, documents @addr as "Address the first page is mapped at".
+> > > 
+> > > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> > > clearing of the young flag for large folios"),
+> > 
+> > The @addr documentation is also introduced by this commit.  This commit is
+> > authored at 2026-02-09.
 
-I've also addressed Weijie's suggestion to keep "Patchwork" untranslated.
+I was wrong.  The documentation was introduced by commit 6d7237dda44f ("mm: add
+a batched helper to clear the young flag for large folios"), which was authored
+by Baolin on 2026-03-06.
 
-v2 will be sent shortly.
+> > 
+> > > the contpte helper walked
+> > > exactly CONT_PTES entries from the aligned-down page table pointer and
+> > > used @addr only to pass down to each entry, so an unaligned value was
+> > > harmless:
+> > > 
+> > >         ptep = contpte_align_down(ptep);
+> > >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+> > >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> > 
+> > So, there was no issue before the commit.
+> > 
+> 
+> Right. Before 6f0e1142173a, unaligned addresses were tolerated but I don't
+> think this is guaranteed.
+> 
+> > > 
+> > > Align the sampled address down to a page boundary. It is the address of
+> > > the page to sample, so this matches its intended meaning and fixes both
+> > > users in vaddr.c.
+> > 
+> > This indeed sounds like can fix the issue to me.  However, was it a clear rule
+> > that we should pass only contepte-aligned addrss to
+> > ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
+> > caller that is mistakenly passing the unaligned address?
+> > 
+> 
+> It is not spelled out as an explicit rule, but the documented "Address
+> the first page is mapped at" implies it,
 
-Best,
-Yukai
+You mean the comment on test_and_clear_young_ptes(), right?  But as I mentioned
+above, the comment was introduced by Baolin's patch that was authored on
+2026-03-06.  I'd still appreciate Baolin's opinion.
+
+> and these callers are using
+> aligned addresses:
+> 
+>  mm/page_idle.c: page_idle_clear_pte_refs_one()
+>  fs/proc/task_mmu.c: clear_refs_pte_range()
+> 
+> > If not, it might make sense to make contpte_test_and_clear_young_ptes() support
+> > unaligned adress again in my opinion.  May I ask your opinion, Baolin?
+> > 
+> > > 
+> > > Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+> > 
+> > I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
+> > large folios") would be mroe correct 'Fixes:', if there was no issue before the
+> > commit.
+> > 
+> 
+> Will use that in v2.
+> 
+> > > -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
+> > > +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
+> > > +						      r->ar.end));
+> > 
+> > If we need to have the fix in DAMON, this kind of change would be needed.
+> > 
+> > However, what happens if the address is backed by large folios?
+> > 
+> > Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
+> > we do same?
+> 
+> Passing a page-aligned address restores the pre-6f0e1142173a behavior.
+> Before the change, the helper aligned ptep down to the block start and
+> walked a fixed CONT_PTES entries, regardless of addr.  After the
+> change, the walk covers [ALIGN_DOWN(addr, CONT_PTE_SIZE),
+> ALIGN(addr + nr * PAGE_SIZE, CONT_PTE_SIZE)).  With a sub-page offset,
+> addr + PAGE_SIZE lands just past the block boundary, so the round-up
+> extends the walk a whole block further.  With a page-aligned addr,
+> addr + PAGE_SIZE is at most the block end, so the round-up lands
+> exactly on the block end and the walk covers the same CONT_PTES
+> entries as before the commit.
+> 
+> We also can't align to CONT_PTE_SIZE in DAMON since it's defined only under
+> arch/arm64/:
+> 
+>   #define CONT_PTES		(1 << (CONT_PTE_SHIFT - PAGE_SHIFT))
+>   #define CONT_PTE_SIZE		(CONT_PTES * PAGE_SIZE)
+
+DAMON cares only exactly the byte of the address, so I agree this would work
+for DAMON and be safe.  But, still the behavior is not exactly same to
+pre-6f0e1142173a, isn't it?  I'm not really sure if this is really the correct
+use of the function.  Again, I'd appreciate Baolin's comment.
+
+> 
+> 
+> > Also, I think we should pass aligned address to only the functions that
+> > require alignement.  Making the alignment to the sampling address in general
+> > sounds too much to me.  Particularly, we are working on supporting new page
+> > access check primitives other than PTE Accessed bit, like AMd IBS.  In the
+> > case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
+> > address in general will make it more complicated.
+> 
+> Makes sense. I will keep sampling_addr as is and align inside damon_va_mkold()
+> and damon_va_young() in v2.
+
+Regardless of Baolin's comment, let's fix this issue.  So the v2 would be
+appreciated.  In the v2, could you also add more details about how the issue
+can be reproduced, and the user impact?  You mentioned you found memory
+corruption from DAMON selftets.  It would be nice if you could make it more
+detailed, such as what selftest reproduces the issue and what symptoms it
+showed you.
+
+Nevertheless I'm also wondering if supporting unaligned address again, like
+below also works.
+
+'''
+--- a/arch/arm64/mm/contpte.c
++++ b/arch/arm64/mm/contpte.c
+@@ -519,9 +519,12 @@ bool contpte_test_and_clear_young_ptes(struct vm_area_struct *vma,
+         * of the same large folio in a single VMA and a single page table.
+         */
+
+-       unsigned long end = addr + nr * PAGE_SIZE;
++       unsigned long end;
+        bool young = false;
+
++       ptep = contpte_align_down(ptep);
++       addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
++       end = addr + nr * PAGE_SIZE;
+        ptep = contpte_align_addr_ptep(&addr, &end, ptep, nr);
+        for (; addr != end; ptep++, addr += PAGE_SIZE)
+                young |= __ptep_test_and_clear_young(vma, addr, ptep);
+'''
+
+Nathan, what do you think?  If it makes sense to you, could you also test this?
 
 
+Thanks,
+SJ
+
+[...]
