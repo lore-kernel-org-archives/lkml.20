@@ -1,275 +1,372 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118133C1D7E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788019091; cv=fail; b=IpG/qZ0R6MgK9ADYFNlnZm/QuwXLXUW6HPrytZ3JYJgNRYWBgSAzuJlH6Ac0Dsbm2cdCGvn2g2djE4LRV8DkeJRyIJpSnMk4WEt2Mobs4dvCr51QU3ywcH42qAku4/umfSnxzygZPj7tulbiaC2NQk8VQjD4MUVj8hrqttCyUwc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788019091; c=relaxed/simple;
-	bh=t6huyOK6qidcCKDouuZ6EXM4LSPATqJCWDzAb/GCjig=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=i5T/2/E7K3VbqM3zKx6WG5LVzdSMADAa9yvhNKE9biM06mqWlUVJk3qQ5SQaqd2E7dS6vfHOqR6wFxJzjTYSrG/ZB4tjV6SwkJ0JW8Rh5Vn8+VO+/vQOUy0YLg+B2EHoBdaIE8H6Y9F7SKdqWpCtY7IMB2Oj0ArPbF7wSc1FS48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tyOInEDV; arc=fail smtp.client-ip=52.101.61.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8D03C942C
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788019109; cv=none; b=OgyyFVIKdJf/nazVjuzkz9Ch123YB5xdOdiuU1QtjVewspKekw+hT+r9XlXiXQXVWOTzd/maoJMYfV5/AMoYmV6u4UZv8asixSpA5aGsV0V/YJXvcaiRggjg18mRSSLeYBExQ1yNR/ai3lkdYtSb36yTgOacBJMtPYtUIbRlHg4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788019109; c=relaxed/simple;
+	bh=BJmpszAVUgMa2fCtYXv8n0YghEBIN+j6vj6SGyKCCkU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tlbcLzFhahVQHduwZ8CZcqZAYUPrA6tUXNUEwFejPmukWxHKihBakPj3JrVrDpq8JzRg/K8F5Axb7XuhfvQguYPKRNdtzvyCkAtM7U0AUA3OSZHCix0PLP/oJDwxdtqgZEzRH/UOaMmo4jmF+8lUzYBO/eru+kYu9NW5TsmybYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IebLFYJk; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tyOInEDV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cbB2ou1f+ew74Irk7rmE0/7p6Y64OTOO3l+phuhquXAGCTTyD45oQG9s6X2mq2fYybRijhWbxIFDp6mTs/dXPv+wSpvg0GUAkkxOCYU6/aQjiZ/3hDu4XmIaGw6ddKZR5MhL0sk66O1KRwKYrVoyfIiVGistC1HPKWBR6ec88rR6dePEfRa3JBcvG9F38zL6NrCFShQcCk1OHEvKV0JvgqcQidunQukD8jK0udHiqOKh+B9UvTI4d+WJsQgO6sWjkOFVf+u8JQ1zUEuuvantFZHPvmjuvBQETYaLUw8LBnCOyPWTO8Mu+Cy0j9WrBtKURrJmF7nSV7JM/I5lrWMHog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lAcvh70LPrdtjgzxRd43l4haJjb1tQe8ow0yAX/7JzQ=;
- b=OOp1V5uyfjH7xXn8yieghtf/qxnfBCzmYEcCgz6TXmYcqProeG2JDIzKIRN89e1qf0JQeuxyEaMRytIDXgz7NBaOo+vZnqV25i2ay+QZO+DXkai5t0jINJigYLP6oz2ryUYRmEX77lGKzW2dzztk3APksOAyWjwtul2+Y/JMQfvEfjZ7tdiGaIWrRTQMnnILCd+i3dFBm6K9zfymkJ+jFcWtwyd+gUBVMCODtFo8lzDBtXbMPoasb+KXVk+g3d4/LMv4WWwvW62hJcaYi19pJufEWyUynbbLwi/AtqAJrVS/F2zNTVrjbt1JOsCW9LelFZByF0Ur7lTheTYhJoy7PA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lAcvh70LPrdtjgzxRd43l4haJjb1tQe8ow0yAX/7JzQ=;
- b=tyOInEDVVMN2EMqafR9w7YRX8efv7hWL3ObA0pZTQaPYr87EkAz+EhlGBMo+lsjSlpvv4rgHQnXIBw1A17fGa8Z/OEbRYonMohJs7GlwckKLChtOGKiMtRGVD8oP68+boG1+7I2TKTtIns9FotIcso8oZwGW7cCzlp5G4Eca71c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB8131.namprd12.prod.outlook.com (2603:10b6:806:32d::12)
- by CH3PR12MB9022.namprd12.prod.outlook.com (2603:10b6:610:171::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Sat, 29 Aug
- 2026 15:57:56 +0000
-Received: from SN7PR12MB8131.namprd12.prod.outlook.com
- ([fe80::c2dd:62c5:67fe:aa46]) by SN7PR12MB8131.namprd12.prod.outlook.com
- ([fe80::c2dd:62c5:67fe:aa46%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 15:57:55 +0000
-Message-ID: <d3ee909d-9bfe-41bb-95e5-d90abac8cda5@amd.com>
-Date: Sat, 29 Aug 2026 10:57:54 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] virt: sev-guest: Fix lifetime of message descriptor
-To: Kohei Enju <kohei@enjuk.jp>, Nikunj A Dadhania <nikunj@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org
-References: <20260822-sev-guest-mdesc-lifetime-v1-1-b489d434796c@enjuk.jp>
-Content-Language: en-US
-From: Tom Lendacky <thomas.lendacky@amd.com>
-Autocrypt: addr=thomas.lendacky@amd.com; keydata=
- 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
- WiyqywZI5g==
-In-Reply-To: <20260822-sev-guest-mdesc-lifetime-v1-1-b489d434796c@enjuk.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR12CA0004.namprd12.prod.outlook.com
- (2603:10b6:806:6f::9) To SN7PR12MB8131.namprd12.prod.outlook.com
- (2603:10b6:806:32d::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IebLFYJk"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso2500961a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:58:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788019091; x=1788623891; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nf6G640r6g2kWcuN1r9tsGekDWw+N72hsYzercLFMd8=;
+        b=IebLFYJkfNsgrWEfiYgyQN8OLUHJP1+LK382EEbYX0emAXATZk0ziB4RBlH2WLRFs1
+         eRkQplTFE2nLwBaiZMckXFvm+QxR/P8aBCAntLRywgN3mZzC63sx177qsee9xyjxsR0X
+         iuhOQ8jXhUGQmEtkvQQkbfmK4dgUqhovrxibwpjcsI6Uoeuafrgvw4gMSlsE7BZB4Wky
+         eMGacMmMe7I/bhJlRn0N/tqvxt9LjjHMwD335W0pp9DOe1oObeFEUk9AGo+kh2ec5Pjj
+         QbuiMpvAARVdwtBJAXuOc+UcLm9d7TM1BVkO4+OUjR4tVoudZPv+I4TlWx87vp+aAEFe
+         Txyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788019091; x=1788623891;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nf6G640r6g2kWcuN1r9tsGekDWw+N72hsYzercLFMd8=;
+        b=ZGQjxAL3OI7Qg+6YUU4z15bcnYx1YQNkRImTzGIFBO3rEc81HdcHT1EyMi1IDRQfJf
+         iQ90OktV/gamLN/xHnaxLr5G3mivNukyC0+L5sMNYHoA0iSkkqbwswb5n9zUIO3OVMgk
+         aTcmuhzXe/2ieG4th/JkPBQZiDiz9Jc2NVcvhxG57n4TUd8gCWWFlXoxw1tcuXCUP0gY
+         60Cb0n6WqYFKXANKLYruhXKdEgRo1XKKed4+bzsnFp0VZDTX4p5bGuVHJu+yWhfwYSU8
+         IrUmFv2Ny7nRcPb2pQxynGovRQT0kG6tIykh3MKE93VffNJ1goJOkrfDafwo7u4oe2wn
+         nkLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0rbJ68FBYQdvcuVuixSU/M2+ANcvbhdJipu5lnvTWCP9wjBIN5Uo9PJLM+IROHY3tAWt0LUwlpWEhHNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHygOBYht4A6+04LYcmWfYkTss2wl4syeBO/cxsrUafbGGAx9D
+	NifIXkRQFcws6kRP2z8HxTqPeKOAK9KT5iijuoLVSMQgVVATx+YvqClj
+X-Gm-Gg: AYBFou03nmzeTjRIh5Cc/xWwmPkqx+q0deq+YxrSCiJeufNV3jecMl66l1rOm0hoQ9p
+	KPImLzt5/TZVZDO74TWyYpvI6gZpZVY0aD+i2qJFHX3rIbg+IYSppYVMBDANzYonbg+vN/T1k5a
+	DBeoXWiyAD0bd7N4IHQpaIfuwi3+cgYWwc7rwgRgM/vCTwhhXfeMeivYR7FC5oOGVzUplVYSyG4
+	6w2ZKcD9uiG4YvOcg/xUkchtHG7s7sVmh7jBzBGkrPymam3RXWLS5WO9hLYuLrCPVTeoXNqCoaa
+	Bw07VRzM8y2dtEsgG7Fx2rLVLfekMYaVpBRBUqvptApPqomI94OuxPSTX5YUOfoXw00+8xfS4tE
+	aT+cA3yE5VP8+6E/hY2G3GQVoJlH4hqCtqZto9J4Io1aAwpeg6IZZEKSGMPXVigsFfHxjgFmkbs
+	sGIXhbIse0NimAqCZbTkC9OEZ9Vbyo2mHMBUJYCwe5nQ8YBJvQJwCObujbOc5vRZWUvugdzTc3V
+	HrQOtf2s1qujOG99gXOTr/kZA3PUrK+Gs7IwQ==
+X-Received: by 2002:a17:90b:5905:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-396d0d7b94bmr26730626a91.4.1788019091222;
+        Sat, 29 Aug 2026 08:58:11 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc898dsm15761053c88.9.2026.08.29.08.58.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 08:58:10 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <fac7741f-5bd6-428d-91f9-6dbd71343f76@roeck-us.net>
+Date: Sat, 29 Aug 2026 08:58:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB8131:EE_|CH3PR12MB9022:EE_
-X-MS-Office365-Filtering-Correlation-Id: e45086af-6c16-4308-725e-08df05e64a4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	G/7dSPXUBpinCfHWDgil085eCEbdC8R7Q6W0bjzH/6op14NSoGa/zS+zWvP8lTj+7QnzWKDTrY9Zqm1fll4L7NA1dC8z/cHwWWZD7LeAm2LjHaOUOrdT5OM4kh117TFk7E2uwrE6vhEsAIgu30h/gSwkzNTPEEykT02X7JJz9pmMVUSKC00znp2fFJ2d9lbpWrdgnNZW/EPdq/AD1oQneuGeGQDyrYENn2uiojDu3rLakyGiLqK75s19UmtVbXTbnoQZU23OY3UODOMXI6XR7s9oBy2aLvmuaDY0av6tYOTlyH+p89eVugZTCtIObsoOoIKn4zK3IOGm/oE74Nf+U6vHzCQcZoO84pNIgspU4M1vnmm4TRV3HUzskJLKKd8Lpii/ikCtHxnWAOVFq6RthEssUzcxeUHyWHatlWpq+lDGjfco5vFana5fIMb+7zOfWGQDFMnuBwc53DnjJYE6xdUXR1MGaC+0xqdRa69SLemHrhZAEkI4c8D+ed79ZaOwL0/QjnaPWgsN0v5d7D6o8StEonannzn5spTE9V7Dl4GVEPe0pv79j812g2FbHOQlZ9/u1QblSp9NYWkZYBxYQQA29UkLnYcaxR6d7Gjfmc/vSzhiCYZT96UcUyViiMdop0Qt4RxPNNM3Y0pfkJEYFwrfZRXYVIG6N2X3IEtlnd8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8131.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WDBhcU53QXVPcVVVYm1ESS9tblJHZDVENHRUcVJyUXZiWUlheUlXa3VlUVIz?=
- =?utf-8?B?ekIxMzliMEdvdnN3UDBZZ3J6R21HMW1lNTl5N1lsR1BhQ0pOQVA3UU1uTW5h?=
- =?utf-8?B?ZVEzTDQreWRuNEtpZUlRVERNWXVmMEh2enI2YlBFKzdaWE1yUnBqYk12VDVL?=
- =?utf-8?B?aFJ2TnJ3TzZUYzhiK001TCtmYlBBSGRXVEltS1hsbnlBRkt4SlpoM2xUam5q?=
- =?utf-8?B?Rm5JSUFoQ0d3TkR6SU5FQzBvRm9BYjIzYStYbjQ1dzc5Yk0rRHU3MnA3eUpP?=
- =?utf-8?B?S05yV3VxZUNTYUNhVnNVdnI1SHdjcVA4T1ZUK25PVFFwSTdhSDVoQ09OTjBH?=
- =?utf-8?B?T0ZMU3Q2NTlKR0VUVGlKdFp6ZmhOeXpHVVU5WFR3ZjZPZFI1Y0EyWUJlN2NE?=
- =?utf-8?B?M0xMbUwwMXU5ek9JM0pNN1g1Tk1SN3FINDJZL1R3RzY3c0d0NFZIZzJwOG51?=
- =?utf-8?B?aWppWDJkOGI2ZzFHbXNxTG9LSE5GREdCZ0NCeFY0Q3BCVWlUSGZoSTJuSkpo?=
- =?utf-8?B?WkpMWW9wTU9WUkJlSkJPWEFQbmxuNE1aV1MvcWRyWEZDQkQ0K08zNE13Qk0z?=
- =?utf-8?B?VURmTG9jQ0xJbStDY1VhaG5rdFREbktCMVAwenNZWDlHamlCQkhXdzYwQnJE?=
- =?utf-8?B?RDNzL1NjSVhicEtaZThvZElIVVNEOGhXM2dRTVFadWFESjBxNnBvOWhlQ0o1?=
- =?utf-8?B?VmNYbnR1WEJDSEpWRmZEUTg5N2JsbkhjWjd4Y1lZZWlmcU9OcTFzUys0OWYv?=
- =?utf-8?B?N3hrM3B6VnBxK0lYeE5rNWJTWTZvWnlFVVpUYUFudEFJTDE2QUJ3Y1R3WGNa?=
- =?utf-8?B?dEw1WVFDYzFFYTdiSWVQNmR5QkhqaWZva2NEV3UxT3pEempBUXN2VEVQZUhp?=
- =?utf-8?B?Q2NiQllldmd1N0YyWEZDaU55S2t1TklWUmNqVFZrcGZTeUxDciszaGlFdHNz?=
- =?utf-8?B?THRZYW9xSmFVaFk2SGg0bEg0dDU5NGd4MmdzSms1VHRFMkVGcy9ZeVpIdXlh?=
- =?utf-8?B?VmlOcG53Vk4vWTk1bnplYmNCUDRKY2d3T3dNamtVRmg4eTROTFdWMzBzaHlI?=
- =?utf-8?B?OFpJSEkvQ3NuRFFWUS8xbjdrWmtCcXFFUXkySlk3OXhvb0VVL1RXY3BkbXFv?=
- =?utf-8?B?ZG1JY2JiTll4Wk9UWUlxNWtlb01sYTk0ekJWTDNIK1ZFQk1PTHNwdGFzQjgz?=
- =?utf-8?B?MCtoNVVGYlRHTWtNNktQZU1WOGZHMmowYncvVWtrMFRLZ09vV210dlJwNjAw?=
- =?utf-8?B?UDJVWHlPdWtVZG40eitOc0dySEMxZ1FmNEpLU3ZOWG5mOHRJM3FZVzhlbkRh?=
- =?utf-8?B?dXJocDdXNWdaWUV0YXhvUGl5RTgwSU11MFM1VHk2Ykh0NWFHdW1ITVBGNnZs?=
- =?utf-8?B?QjliaGZiVStNdUZUTjRubHBTcnJvMXFUMzI4TDBWMytRN0tVR3Y1eDBjc0xu?=
- =?utf-8?B?WjRMbEdvb1B2RzBRM2J1d1NJdkxrZTEvdjBEeU1TZTlrb2J4SmlDOWtoMmFG?=
- =?utf-8?B?NE50YThVTUlJWE1sbENZaWgyOGxTYjVPSE93K3RHV2JEaDRkTzZTdGZPRkJ0?=
- =?utf-8?B?SlFsV0Z6RVNsWTk4bG9PWXdKb3MrenpjajZWQlQ5YWoyV3pRUGFTdmQzbVFo?=
- =?utf-8?B?dk1Qc0dIWHRHcGVJcXlQbjdTUTlzNEdGV1pTQVNYWFhrV3J6cXpwTGxpSzlk?=
- =?utf-8?B?d0QvWjEySm5OTExsMEg5STdqWUFIK2VnZ3dKODlHclJZN0pjOGJRWVNySEdu?=
- =?utf-8?B?dDlUcmxRQ0pQM1grcVIrSlR3WWQ4cUdmaFpJSEh4Q3JJMVZ5L0tVRDh6Rzk0?=
- =?utf-8?B?eU1pNlRGQlhGRHZZT2tqSFRHMnNraHFFSEN5YzZPdWowY2FtRTBvVFVJL2Ex?=
- =?utf-8?B?b0l0MzVtNGxHSXdNV2k5bTBFZnVFUWFBeEhtQkhFTzRYcnRRSWFEYzgwbkZ2?=
- =?utf-8?B?RjNHK0FVUVprd0pFSEY2cXlpQVFNdFVYWS8rQ0lxREpkR1Y3Ynhqbm4yTzVX?=
- =?utf-8?B?M3BVNmgvazFWZCtLMFZIS0RVblF5SmFaaGlxa1BpZkF5VnFGMFFULy9Zb0dl?=
- =?utf-8?B?Y04zc0hjc21URnAyVlZhL0FCell6aEFkeElCV2N3aE5LdUYySm8wLzBQS0tD?=
- =?utf-8?B?TzNQRzRUWUdUNER2S2M2SVZLZUJQcVJUMEVuY01WNDdFakR0dzRFR3prTmd1?=
- =?utf-8?B?UUQrQ2tFZnBmUlRVendORE45YkNYeTNOWWVSdTNway92QzRHRWpMSi90aUpH?=
- =?utf-8?B?TTRsN1hTM1VkQ1JKcmZYdWhHd3d4TXFBOHdOQjJkY282Uks4dWNWRlg3OVdL?=
- =?utf-8?Q?UBvyR+C2r7ex60APkG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e45086af-6c16-4308-725e-08df05e64a4d
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8131.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 15:57:55.8284
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zwYQESTKf/IYRFCLuF6hWC5xaAYZvujpxVPdmtWR9I5eR3FBIEZ/CCO2Yfwae/EZXyNVjoFz6XLytNDbWJS1dQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9022
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2] hwmon: it87: Add basic IT8613E fan monitoring
+ support
+To: Jerome Tollet <jerome.tollet@gmail.com>, Jean Delvare <jdelvare@suse.com>
+Cc: linux-hwmon@vger.kernel.org, Benoit Masson <yahoo@perenite.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260829113011.51290-1-jerome.tollet@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260829113011.51290-1-jerome.tollet@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 8/22/26 07:35, Kohei Enju wrote:
-> sev_guest_probe() registers the TSM provider before assigning
-> snp_dev->msg_desc. Once the provider is registered, a concurrent
-> configfs report request can reach get_ext_report() and dereference a
-> NULL message descriptor.
+On 8/29/26 04:30, Jerome Tollet wrote:
+> The IT8613E is not recognized by the in-tree it87 driver. Full
+> support was proposed previously but withdrawn after problems were found
+> in the temperature and PWM paths.
 > 
-> Additionally, sev_guest_remove() frees the message descriptor before the
-> managed TSM unregister action runs, allowing the provider to access the
-> freed descriptor.
-> 
-> Assign snp_dev->msg_desc before registering the TSM provider. Add a
-> managed cleanup action for the message descriptor before adding the TSM
-> unregister action. Since devres actions run in LIFO order, the TSM
-> provider is unregistered before the message descriptor is freed both
-> during probe failure and driver removal.
-> 
-> Fixes: f47906782c76 ("virt: sevguest: Add TSM_REPORTS support for SNP_GET_EXT_REPORT")
-> Fixes: 0a895c0d9b73 ("virt: sev-guest: Carve out SNP message context structure")
-> Signed-off-by: Kohei Enju <kohei@enjuk.jp>
 
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Those problems should be fixed instead. Given the feedback in the link
+that should not be too difficult.
 
+Guenter
+
+> Add conservative support limited to fan input monitoring. Detect device
+> ID 0x8613, check the fan pin muxes, use the existing 16-bit tachometer
+> layout, and expose enabled fan inputs read-only. Do not expose voltage,
+> temperature, PWM, limit, beep, or alarm interfaces.
+> 
+> The device ID and fan pin-mux checks follow the earlier v4 proposal by
+> Benoit Masson.
+> 
+> Tested on a system with an IT8613E at 0xa30, revision 12. Only
+> fan2_input was exposed, with stable readings between 1268 and 1320 RPM.
+> In a back-to-back comparison, the in-tree driver with force_id=0x8622
+> reported 1483 RPM and the out-of-tree driver reported 1442 RPM.
+> 
+> Link: https://lore.kernel.org/linux-hwmon/20260114221210.98071-1-yahoo@perenite.com/
+> Signed-off-by: Jerome Tollet <jerome.tollet@gmail.com>
 > ---
->  drivers/virt/coco/sev-guest/sev-guest.c | 26 +++++++++++++++-----------
->  1 file changed, 15 insertions(+), 11 deletions(-)
+> Changes in v2:
+> - Skip PWM, limit, and voltage configuration for fan-input-only chips
+>    in the resume path.
+> - Link to v1: https://lore.kernel.org/linux-hwmon/20260829110829.34269-1-jerome.tollet@gmail.com/
 > 
-> diff --git a/drivers/virt/coco/sev-guest/sev-guest.c b/drivers/virt/coco/sev-guest/sev-guest.c
-> index 935537a41469..458c96fd82f3 100644
-> --- a/drivers/virt/coco/sev-guest/sev-guest.c
-> +++ b/drivers/virt/coco/sev-guest/sev-guest.c
-> @@ -618,6 +618,11 @@ static struct tsm_report_ops sev_tsm_report_ops = {
->  	.report_bin_attr_visible = sev_report_bin_attr_visible,
->  };
->  
-> +static void free_snp_msg(void *data)
-> +{
-> +	snp_msg_free(data);
-> +}
-> +
->  static void unregister_sev_tsm(void *data)
->  {
->  	tsm_report_unregister(&sev_tsm_report_ops);
-> @@ -644,9 +649,15 @@ static int __init sev_guest_probe(struct platform_device *pdev)
->  	if (IS_ERR_OR_NULL(mdesc))
->  		return -ENOMEM;
->  
-> +	ret = devm_add_action_or_reset(&pdev->dev, free_snp_msg, mdesc);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = snp_msg_init(mdesc, vmpck_id);
->  	if (ret)
-> -		goto e_msg_init;
-> +		return ret;
-> +
-> +	snp_dev->msg_desc = mdesc;
->  
->  	platform_set_drvdata(pdev, snp_dev);
->  	snp_dev->dev = dev;
-> @@ -661,32 +672,25 @@ static int __init sev_guest_probe(struct platform_device *pdev)
->  
->  	ret = tsm_report_register(&sev_tsm_report_ops, snp_dev);
->  	if (ret)
-> -		goto e_msg_init;
-> +		return ret;
->  
->  	ret = devm_add_action_or_reset(&pdev->dev, unregister_sev_tsm, NULL);
->  	if (ret)
-> -		goto e_msg_init;
-> +		return ret;
->  
->  	ret =  misc_register(misc);
->  	if (ret)
-> -		goto e_msg_init;
-> +		return ret;
->  
-> -	snp_dev->msg_desc = mdesc;
->  	dev_info(dev, "Initialized SEV guest driver (using VMPCK%d communication key)\n",
->  		 mdesc->vmpck_id);
->  	return 0;
-> -
-> -e_msg_init:
-> -	snp_msg_free(mdesc);
-> -
-> -	return ret;
->  }
->  
->  static void __exit sev_guest_remove(struct platform_device *pdev)
->  {
->  	struct snp_guest_dev *snp_dev = platform_get_drvdata(pdev);
->  
-> -	snp_msg_free(snp_dev->msg_desc);
->  	misc_deregister(&snp_dev->misc);
->  }
->  
+>   Documentation/hwmon/it87.rst | 10 +++++
+>   drivers/hwmon/it87.c         | 73 +++++++++++++++++++++++++++++++-----
+>   2 files changed, 73 insertions(+), 10 deletions(-)
 > 
-> ---
-> base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
-> change-id: 20260822-sev-guest-mdesc-lifetime-e08772b010d4
+> diff --git a/Documentation/hwmon/it87.rst b/Documentation/hwmon/it87.rst
+> index fc1c90b02..d00238e7e 100644
+> --- a/Documentation/hwmon/it87.rst
+> +++ b/Documentation/hwmon/it87.rst
+> @@ -11,6 +11,16 @@ Supported chips:
+>   
+>       Datasheet: Not publicly available
+>   
+> +  * IT8613E
+> +
+> +    Prefix: 'it8613'
+> +
+> +    Addresses scanned: from Super I/O config space (8 I/O ports)
+> +
+> +    Datasheet: Not publicly available
+> +
+> +    Only fan input monitoring is currently supported.
+> +
+>     * IT8620E
+>   
+>       Prefix: 'it8620'
+> diff --git a/drivers/hwmon/it87.c b/drivers/hwmon/it87.c
+> index 87edb1b60..a60a68b62 100644
+> --- a/drivers/hwmon/it87.c
+> +++ b/drivers/hwmon/it87.c
+> @@ -12,6 +12,7 @@
+>    *  similar parts.  The other devices are supported by different drivers.
+>    *
+>    *  Supports: IT8603E  Super I/O chip w/LPC interface
+> + *            IT8613E  Super I/O chip w/LPC interface (fan inputs only)
+>    *            IT8620E  Super I/O chip w/LPC interface
+>    *            IT8622E  Super I/O chip w/LPC interface
+>    *            IT8623E  Super I/O chip w/LPC interface
+> @@ -65,7 +66,7 @@
+>   
+>   enum chips { it87, it8712, it8716, it8718, it8720, it8721, it8728, it8732,
+>   	     it8771, it8772, it8781, it8782, it8783, it8786, it8790,
+> -	     it8792, it8603, it8620, it8622, it8628, it8689, it87952 };
+> +	     it8792, it8603, it8613, it8620, it8622, it8628, it8689, it87952 };
+>   
+>   static struct platform_device *it87_pdev[2];
+>   
+> @@ -159,6 +160,7 @@ static inline void superio_exit(int ioreg, bool noexit)
+>   #define IT8786E_DEVID 0x8786
+>   #define IT8790E_DEVID 0x8790
+>   #define IT8603E_DEVID 0x8603
+> +#define IT8613E_DEVID 0x8613
+>   #define IT8620E_DEVID 0x8620
+>   #define IT8622E_DEVID 0x8622
+>   #define IT8623E_DEVID 0x8623
+> @@ -328,6 +330,7 @@ struct it87_devices {
+>   #define FEAT_FOUR_PWM		BIT(21)	/* Supports four fan controls */
+>   #define FEAT_FOUR_TEMP		BIT(22)
+>   #define FEAT_FANCTL_ONOFF	BIT(23)	/* chip has FAN_CTL ON/OFF */
+> +#define FEAT_FAN_INPUT_ONLY	BIT(24)	/* only fan inputs are supported */
+>   
+>   static const struct it87_devices it87_devices[] = {
+>   	[it87] = {
+> @@ -476,6 +479,12 @@ static const struct it87_devices it87_devices[] = {
+>   		  | FEAT_AVCC3 | FEAT_PWM_FREQ2,
+>   		.peci_mask = 0x07,
+>   	},
+> +	[it8613] = {
+> +		.name = "it8613",
+> +		.model = "IT8613E",
+> +		.features = FEAT_16BIT_FANS | FEAT_FIVE_FANS
+> +		  | FEAT_FAN_INPUT_ONLY,
+> +	},
+>   	[it8620] = {
+>   		.name = "it8620",
+>   		.model = "IT8620E",
+> @@ -560,6 +569,7 @@ static const struct it87_devices it87_devices[] = {
+>   #define has_scaling(data)	((data)->features & (FEAT_12MV_ADC | \
+>   						     FEAT_10_9MV_ADC))
+>   #define has_fanctl_onoff(data)	((data)->features & FEAT_FANCTL_ONOFF)
+> +#define has_fan_input_only(data)	((data)->features & FEAT_FAN_INPUT_ONLY)
+>   
+>   struct it87_sio_data {
+>   	int sioaddr;
+> @@ -2427,6 +2437,9 @@ static umode_t it87_is_visible(struct kobject *kobj,
+>   	struct device *dev = kobj_to_dev(kobj);
+>   	struct it87_data *data = dev_get_drvdata(dev);
+>   
+> +	if (has_fan_input_only(data))
+> +		return 0;
+> +
+>   	if ((index == 2 || index == 3) && !data->has_vid)
+>   		return 0;
+>   
+> @@ -2469,6 +2482,9 @@ static umode_t it87_fan_is_visible(struct kobject *kobj,
+>   	if (!(data->has_fan & BIT(i)))
+>   		return 0;
+>   
+> +	if (has_fan_input_only(data) && a != 0)
+> +		return 0;
+> +
+>   	if (a == 3) {				/* beep */
+>   		if (!data->has_beep)
+>   			return 0;
+> @@ -2790,6 +2806,9 @@ static int __init it87_find(int sioaddr, unsigned short *address,
+>   	case IT8623E_DEVID:
+>   		sio_data->type = it8603;
+>   		break;
+> +	case IT8613E_DEVID:
+> +		sio_data->type = it8613;
+> +		break;
+>   	case IT8620E_DEVID:
+>   		sio_data->type = it8620;
+>   		break;
+> @@ -2944,6 +2963,28 @@ static int __init it87_find(int sioaddr, unsigned short *address,
+>   
+>   		sio_data->beep_pin = superio_inb(sioaddr,
+>   						 IT87_SIO_BEEP_PIN_REG) & 0x3f;
+> +	} else if (sio_data->type == it8613) {
+> +		int reg27, reg29, reg2a;
+> +
+> +		superio_select(sioaddr, GPIO);
+> +
+> +		reg27 = superio_inb(sioaddr, IT87_SIO_GPIO3_REG);
+> +		reg29 = superio_inb(sioaddr, IT87_SIO_GPIO5_REG);
+> +		reg2a = superio_inb(sioaddr, IT87_SIO_PINX1_REG);
+> +
+> +		/* fan1 is not available on IT8613E. */
+> +		sio_data->skip_fan |= BIT(0);
+> +		if (reg29 & BIT(2))
+> +			sio_data->skip_fan |= BIT(1);
+> +		if (reg27 & BIT(7))
+> +			sio_data->skip_fan |= BIT(2);
+> +		if (!(reg2a & BIT(0)) || (reg29 & BIT(7)))
+> +			sio_data->skip_fan |= BIT(3);
+> +		if (!(reg27 & BIT(1)))
+> +			sio_data->skip_fan |= BIT(4);
+> +
+> +		/* PWM control is not yet supported. */
+> +		sio_data->skip_pwm |= GENMASK(5, 0);
+>   	} else if (sio_data->type == it8603) {
+>   		int reg27, reg29;
+>   
+> @@ -3355,7 +3396,8 @@ static void it87_init_device(struct platform_device *pdev)
+>   		data->auto_pwm[i][3] = 0x7f;	/* Full speed, hard-coded */
+>   	}
+>   
+> -	it87_check_limit_regs(data);
+> +	if (!has_fan_input_only(data))
+> +		it87_check_limit_regs(data);
+>   
+>   	/*
+>   	 * Temperature channels are not forcibly enabled, as they can be
+> @@ -3364,7 +3406,8 @@ static void it87_init_device(struct platform_device *pdev)
+>   	 * run-time through the temp{1-3}_type sysfs accessors if needed.
+>   	 */
+>   
+> -	it87_check_voltage_monitors_reset(data);
+> +	if (!has_fan_input_only(data))
+> +		it87_check_voltage_monitors_reset(data);
+>   
+>   	it87_check_tachometers_reset(pdev);
+>   
+> @@ -3525,10 +3568,14 @@ static int it87_probe(struct platform_device *pdev)
+>   	}
+>   
+>   	/* Check PWM configuration */
+> -	enable_pwm_interface = it87_check_pwm(dev);
+> -	if (!enable_pwm_interface)
+> -		dev_info(dev,
+> -			 "Detected broken BIOS defaults, disabling PWM interface\n");
+> +	if (has_fan_input_only(data)) {
+> +		enable_pwm_interface = 0;
+> +	} else {
+> +		enable_pwm_interface = it87_check_pwm(dev);
+> +		if (!enable_pwm_interface)
+> +			dev_info(dev,
+> +				 "Detected broken BIOS defaults, disabling PWM interface\n");
+> +	}
+>   
+>   	/* Starting with IT8721F, we handle scaling of internal voltages */
+>   	if (has_scaling(data)) {
+> @@ -3580,6 +3627,10 @@ static int it87_probe(struct platform_device *pdev)
+>   		if (((reg >> 4) & 0x03) == 0x01)
+>   			data->has_in |= BIT(12);
+>   	}
+> +	if (has_fan_input_only(data)) {
+> +		data->has_in = 0;
+> +		data->has_temp = 0;
+> +	}
+>   
+>   	data->has_beep = !!sio_data->beep_pin;
+>   
+> @@ -3660,9 +3711,11 @@ static int it87_resume(struct device *dev)
+>   	if (err)
+>   		return err;
+>   
+> -	it87_check_pwm(dev);
+> -	it87_check_limit_regs(data);
+> -	it87_check_voltage_monitors_reset(data);
+> +	if (!has_fan_input_only(data)) {
+> +		it87_check_pwm(dev);
+> +		it87_check_limit_regs(data);
+> +		it87_check_voltage_monitors_reset(data);
+> +	}
+>   	it87_check_tachometers_reset(pdev);
+>   	it87_check_tachometers_16bit_mode(pdev);
+>   
 > 
-> Best regards,
+> base-commit: 75f2c0b3690702c90863c2e138cb5520670845ea
 
