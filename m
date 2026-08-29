@@ -1,124 +1,299 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCEE3F1070
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788001321; cv=pass; b=o2V0d9FxDOEjw3ZqxkC22iiM4d9PsfTmlcMvl2zWpUQkmJde4ymwCFgkMl7U/yV9heKW0x/Np1Qzgjy88Ft2x/taD7c/muvIH1Z14sDx+1W/ggFOjtnGWSng5YQ0+I6AJ0/8jbyI4z7FQghfdB6t+6vgWYJwSmRoIU2IsrWnlbo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788001321; c=relaxed/simple;
-	bh=PGN0umUN7ZwJT7rzn/2t7QWwI4c5VBIve6Ja7MU/aek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YMX2SPxYanrjGXDsonUOzuakh1j4rCYPMr6FyrMkpDUuJMq2BZ4HscLAJohqsWd4JttKHXbTYcxVQMe9gxcIoY12vhyIqzrsA4bqg6rHdtPQZwWCVDWwDoBJBVlCAmGVDu9eUsUNNYHwKmwhOVbWl94bJdc68B4oXUzrnkJmZnw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULY/4yEK; arc=pass smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9571875809
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788001717; cv=none; b=jVGQKlm7hELEpbo9z4RNMVBug39C1sd2LCsZ0v01dJwCS70W0d/jH3X3ccQQMDPFXfUHITI4mkhqlt8/Wz1o90Jt2CyweYv1Xb3ZilxDgUosuIPMBq+qVgz+2G7jwrmod8UicIrul5Dy57FPsSZhVGC//fJCCf3f3cUY/hldvi8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788001717; c=relaxed/simple;
+	bh=LDYOr0rEyS7amfq1J9ayMBTRgACWhl+Rh4F8K2IMMzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sx95aps5GNJ5yG/15c185j/XPPLVHBKhRu714g1eGLnRjTZl4t4Qh+F+xJiX+HgaqSp1vMp2e+uU/Ng/wKxJ6Bm75weeifbQF0VzZtlaMB3NIODYLepTCX2rrE3BodtHrdIimsb2RY5l81T9qjcgRR67Oyo3am2l1IpgVP1yU8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjGHmE7I; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULY/4yEK"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d5862bc921so4451775ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:01:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788001319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pyje2zF/5aMLxu79gIaBYSKrpB8n7OuOMZrlSHsCKLq1aJSgqa5vg998q/KjcM17KS
-         jUaenR2ePuDxQvsQIybwOvjDPVNZk0Ay9KES/DXrvP21NHow8n5OOjPBxUwApQT0TKZO
-         lZWPvHMLMZJOMcw9TQ4VJnoPbIkF5HQwtkdCjyJLUruW6iZuWZAAwGmfZBSaTqDOSmms
-         g1SWRUSXKXxfJDcoSl+l+vzhK0suGhGDig36TH7EnZmhHLWDZObqNrKtvfmFkhyq7VgC
-         c/PuUy1r3YxnV2XHES1ZdLtoq7ag6BENArDWsxdwDBF4cLON69pLzaCArozxXOksev80
-         7dTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PGN0umUN7ZwJT7rzn/2t7QWwI4c5VBIve6Ja7MU/aek=;
-        fh=ET0DhiHRUAobuCDqxtvx8XmAych7Spkgy2a2rGKN0BY=;
-        b=mKBO68rXdOMjmSs6RyDBWX0bFG6Iwli1UKxWpWHqH5WuZ4U3Mo6YNad6c/0psNfOCE
-         TzK8xP7bHEA3jXtNCA5IydCfCb21WqNIQJcJPL21IV0l/0xK43XKCXAw88nKFjmpKXZ/
-         nOteMxUH8aGu5X0hS8NvVc1THSWrbTSTIc66Bwndohg37IM2pw2VNKzNrQKpYQdUfjkb
-         8atT66+WPKGXBDwkA2goh3rS8dK8RzAQnWhA2cmP5yY3sOn0dBdtvFlQvNVdk/GQvqds
-         Hv3tAhhFBbvnwrY4bf1I14pBADGa38lOVfbDAgPBLknWS0cChTUpqz2RN/sg3MCh62Rp
-         gfaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjGHmE7I"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a60d406a5cso2872458a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:08:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788001319; x=1788606119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PGN0umUN7ZwJT7rzn/2t7QWwI4c5VBIve6Ja7MU/aek=;
-        b=ULY/4yEK/OIiEqWn0gINn/0zr+jhfFt2Hmb7UdU5PhDYhCKiZ/XEyFVW0fzWgR83FF
-         rgDVvp6gNTgymqikWmL5xLfNdE0/GAmAfWcf0zBKSqfcyg+GbtCPgseRu4mbTV+eeDw7
-         w6hM1fMEVUUD1g2NgAyU5A6LX/1rUtFHxVssN8iciKkldDjtCRyqdaZMgu8ZI2nrZBli
-         MfjO9Bg6za2Xqlz8j6liqXDJ38WDtIl/NRRwJnPJw9oy+7tu4Ayjl6u9I4M8HdMzhjgq
-         Fbu9QZ/RcF+77fA0G120L64raDnchxzfwejLB6GqZTN/4PT3ElQWrlPHzAoHIe1fXhcQ
-         j0Fg==
+        d=gmail.com; s=20251104; t=1788001714; x=1788606514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S+l1SqkWk65wBJ+489uxNBFWoE04JKMlEtghGIetHEQ=;
+        b=LjGHmE7ID2wmz740rl/zKZDX1V7uVvGVpw7GDhajZGNq65an/EGtSweeon5SYGkPls
+         3A1LvhIGLdczlTviUiKHEVUKY0XnZksMuJVbPrnm86zqcV4lD9rDqVteuTrJcQFKxVwe
+         4TrU7y876wArmLYzE/JR9bs9PSXUgD0DSohFM7VHFPelPGUYjbDgwmmKvpdhc1O2Q0+H
+         qpHx2i8fnUUH/pmlwNC9qR2rA7DBxwOrD8nHHsn6wgvmbl5Ny7/CAuoH0tVPiN9evCnR
+         bK+OePfWusG8g86tdERgoo2q+8FrKoDhivkpTKddYT4yrPxC5Kt6xvu6l5Nxvax/ZRm1
+         k+WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788001319; x=1788606119;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PGN0umUN7ZwJT7rzn/2t7QWwI4c5VBIve6Ja7MU/aek=;
-        b=cDTHmKYPWJi9DApJ69L+sXL5ynmaP9+OS3ulJ4FGJO5TQ/smGHzGBRwrIT4uqNYtJf
-         mH0yw1uV+ZBe+XzbdQVQ45csqqTCfBwEv5nMAcl2FvsuAdHdnsOxEksoGRcZrDYD6MRj
-         lgUzQoaemwRyyY9IXkWNiksxJVw5nrkeXuNe8sXCQHaxWplzJ4Tm4pCegUVaPsjEhNzM
-         PYROO4UgsXnTSC5BldCeUrUJ9kqXo0+SeqOX5CuBmszZrBLQ3KcjvLpXxU49TqyLOW63
-         gFd64bADZl1BHxYiZoxsg6vwEQIQ60q87HDxwuyHRaeQsZguxm72+p2gkZ4yTSfaMdkr
-         2FTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdZtNxqfM9KkkG9CqI5vuNN0j3kYRbz6XBlHeU9RpxR1xQPYg6EF/59i7EQCf8gZ8yxzK6zZ+t0sq+aDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l50rNE2rBo+GMOMCB4fR5QSjkfZMRu6weGPZx+m8+UZIDV1wsU
-	kytYkNiFDE6YHWhOkklC8HE045o0/aJEDJBZx0fH9ATViPTmOL4HLPV04epTFDs+OTjLNWma+Yg
-	L4gUVDmW+oG9pur2VXkndGpSpzBpFGNA=
-X-Gm-Gg: AYBFou3UJFdBve7Dyv0pT4C9z+l5xU3bncqMUaUo4OpNU4za5Pl2GYAwz6Q+j1HhsgO
-	UV4Oo5e1HrtjVWuxPGQlsFvGEU/PO2ZfgFhOVx/KP5wlKFYcJ+TCtHuGLRiyxmRv8cXArLoMmzc
-	puvnbj1IYrW53PLMMtRDYSOlH83Vsfl1eDpNi8Y+YR1PdOzELcI61EB3TjFnkCADFu1Km9uWleD
-	1RTsra3BCrx3Wl4UoTGz9eGyCXkQTe8TH1GNlIfGZNgQPC4DV35kCXwdDHGk8yme7G3FPLsCdt7
-	FH1n9iGrq2uS0fl1fMFB1Ug3mPjdRaj578DHWsXISjzW3Z5l7byNk0k2ZO/lKi4+tC9moOOou1L
-	cz/KiRlWn1R/NwMYIHYLjb656Y+XDg9FaZxpZGjzF7I9Rj0B5k9stnl+9IQHa
-X-Received: by 2002:a17:90b:5546:b0:381:77cd:38ca with SMTP id
- 98e67ed59e1d1-398bacc54eemr1390032a91.4.1788001318956; Sat, 29 Aug 2026
- 04:01:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788001714; x=1788606514;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S+l1SqkWk65wBJ+489uxNBFWoE04JKMlEtghGIetHEQ=;
+        b=NGM9Pwhyn6Qs4dumQnl47GsPEf5tk7bDKzlHEM1p0r4DmRb9/cUFI5/s2AFtgHaSjb
+         vVAeuzY7qZGjGWNmok/DJGxNm2hYQTQzNXrZnMjdd0rqnrUah5WqVAJQvzAl1YZHzzdT
+         zRwFCHZ7IqHWDRIsNL+JlFO0ejXJLWsVPRlG1tvWvDcS3WZemSiUVT9RcEBsCso0wVRI
+         j4ed9k5awRJkhUqFNCA8DrwvqvouRmEmDH05qJQICGmKqbF8zhiZ4BB2B6rrRTbX9eQt
+         FZkUhYyPLvkrTANhcMcQtS8R0H6TI8rrkXgUqg6bmoqwZX9sho9Zr+I/cQ7mXOuHaI+4
+         Mnxg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4Wqq0vpfB97cfTtbfzdKKwTdayEJRoVCFag5LXwqyy8Wmd6yqMuLMQOKpztoYS85j+Z4G9zHg6p/DmJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mf10iTudrKE3GeIPN+JcmhF7wpQPwcGmzZuM0SJDNI9V0t16Lq
+	5cqKKreCbU2/t3804RVLglVzu4n46MUz/nMxCn9xuYcEYy2yKkb4byDK
+X-Gm-Gg: AYBFou0l7RJLo+djpKgXbD0BbYahfQT0S9sVwgFnUlRgHeCm1HNI955C6nSz0L0EDNt
+	giecqQKq5QX0yn7EWN+c5ynl7EAC8jgqfiCQDEy2QWFpKT3dSgZolbhCpLmRm8TdsI8zYHtealn
+	/sUZQmlUAX4Vg4bq7Qv1PvL1maWkkSpSq0k18MtHPMQSjeRLkvGmOdX1u8GOhWgCzXxdNx5cg23
+	C4yBLEePmZpJ6KBEcgVU2W+a04a/7ItcCFdYjN80YYLMjAIymPO8fxAZPtkc7fq7kNlNXkzWmDy
+	Xhi8J7sEmXcraPz7zloLROITYu/DSAjSGJqv09Wxs/idfaTqgLEgP4lylsaI/sG7twJaIOQtz+O
+	wDlYD77fBWfBQRfD8aPmfM4ClpkUg2hgmRV26xFPjUIwUEnyJsKMT+gwGh3kHEBtRWVgWIwVgBZ
+	4dX4FiDSLCmN97SvFf5Hi8jGRlAA7zTlSxstQZG/H1sHFBMQFmd4mGab6EOdSPqYci+ajhES0xM
+	GrQBkDKmzl42WOv
+X-Received: by 2002:a05:6402:360e:b0:6a6:32f5:90b2 with SMTP id 4fb4d7f45d1cf-6a632f59377mr984771a12.20.1788001713268;
+        Sat, 29 Aug 2026 04:08:33 -0700 (PDT)
+Received: from localhost ([2603:5004:20a0:100c:cf7b:6b6c:bc26:7dfa])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611c389aasm1507540a12.14.2026.08.29.04.08.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 04:08:31 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+To: Jean Delvare <jdelvare@suse.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	Benoit Masson <yahoo@perenite.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jerome Tollet <jerome.tollet@gmail.com>
+Subject: [RFC PATCH] hwmon: it87: Add basic IT8613E fan monitoring support
+Date: Sat, 29 Aug 2026 13:08:29 +0200
+Message-ID: <20260829110829.34269-1-jerome.tollet@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
- <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
- <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com> <faa022bc-bda5-47ee-9984-4e8ff067c6e1@gtucker.io>
-In-Reply-To: <faa022bc-bda5-47ee-9984-4e8ff067c6e1@gtucker.io>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 29 Aug 2026 13:01:45 +0200
-X-Gm-Features: AcwNN1XslLuUNYYS77elbKGG8v398s8YpVlpDc2SDM6GYH7rCRkfYicjHiuXC00
-Message-ID: <CANiq72mmxxrm3-a-sN7G=t6CEqHkG3MVvkfRMqe7NyNR+C7C7Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
-To: Guillaume Tucker <gtucker@gtucker.io>
-Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, automated-testing@lists.yoctoproject.org, 
-	"kernelci lists.linux.dev" <kernelci@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 10:56=E2=80=AFAM Guillaume Tucker <gtucker@gtucker.=
-io> wrote:
->
-> In
-> principle newer, version should be backwards compatible so if we just
-> bumped the minimum to v3.13 older scripts that were written for v3.9
-> should still work - but it'd be nice to have a way to test that.
+The IT8613E is not recognized by the in-tree it87 driver. Full
+support was proposed previously but withdrawn after problems were found
+in the temperature and PWM paths.
 
-If they don't work today with e.g. v3.13, then that is something we
-would need to fix regardless of the minimum.
+Add conservative support limited to fan input monitoring. Detect device
+ID 0x8613, check the fan pin muxes, use the existing 16-bit tachometer
+layout, and expose enabled fan inputs read-only. Do not expose voltage,
+temperature, PWM, limit, beep, or alarm interfaces.
 
-Since some distributions offer the latest versions all the time, then
-it is likely things generally work (or they are niche enough that
-nobody notices).
+The device ID and fan pin-mux checks follow the earlier v4 proposal by
+Benoit Masson.
 
-But, yeah, it would be very nice to have tests on most scripts and
-thus be able to run those with every version etc.
+Tested on a system with an IT8613E at 0xa30, revision 12. Only
+fan2_input was exposed, with stable readings between 1268 and 1320 RPM.
+In a back-to-back comparison, the in-tree driver with force_id=0x8622
+reported 1483 RPM and the out-of-tree driver reported 1442 RPM.
 
-Cheers,
-Miguel
+Link: https://lore.kernel.org/linux-hwmon/20260114221210.98071-1-yahoo@perenite.com/
+Signed-off-by: Jerome Tollet <jerome.tollet@gmail.com>
+---
+ Documentation/hwmon/it87.rst | 10 ++++++
+ drivers/hwmon/it87.c         | 65 ++++++++++++++++++++++++++++++++----
+ 2 files changed, 68 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/hwmon/it87.rst b/Documentation/hwmon/it87.rst
+index fc1c90b02..d00238e7e 100644
+--- a/Documentation/hwmon/it87.rst
++++ b/Documentation/hwmon/it87.rst
+@@ -11,6 +11,16 @@ Supported chips:
+ 
+     Datasheet: Not publicly available
+ 
++  * IT8613E
++
++    Prefix: 'it8613'
++
++    Addresses scanned: from Super I/O config space (8 I/O ports)
++
++    Datasheet: Not publicly available
++
++    Only fan input monitoring is currently supported.
++
+   * IT8620E
+ 
+     Prefix: 'it8620'
+diff --git a/drivers/hwmon/it87.c b/drivers/hwmon/it87.c
+index 87edb1b60..2f5800424 100644
+--- a/drivers/hwmon/it87.c
++++ b/drivers/hwmon/it87.c
+@@ -12,6 +12,7 @@
+  *  similar parts.  The other devices are supported by different drivers.
+  *
+  *  Supports: IT8603E  Super I/O chip w/LPC interface
++ *            IT8613E  Super I/O chip w/LPC interface (fan inputs only)
+  *            IT8620E  Super I/O chip w/LPC interface
+  *            IT8622E  Super I/O chip w/LPC interface
+  *            IT8623E  Super I/O chip w/LPC interface
+@@ -65,7 +66,7 @@
+ 
+ enum chips { it87, it8712, it8716, it8718, it8720, it8721, it8728, it8732,
+ 	     it8771, it8772, it8781, it8782, it8783, it8786, it8790,
+-	     it8792, it8603, it8620, it8622, it8628, it8689, it87952 };
++	     it8792, it8603, it8613, it8620, it8622, it8628, it8689, it87952 };
+ 
+ static struct platform_device *it87_pdev[2];
+ 
+@@ -159,6 +160,7 @@ static inline void superio_exit(int ioreg, bool noexit)
+ #define IT8786E_DEVID 0x8786
+ #define IT8790E_DEVID 0x8790
+ #define IT8603E_DEVID 0x8603
++#define IT8613E_DEVID 0x8613
+ #define IT8620E_DEVID 0x8620
+ #define IT8622E_DEVID 0x8622
+ #define IT8623E_DEVID 0x8623
+@@ -328,6 +330,7 @@ struct it87_devices {
+ #define FEAT_FOUR_PWM		BIT(21)	/* Supports four fan controls */
+ #define FEAT_FOUR_TEMP		BIT(22)
+ #define FEAT_FANCTL_ONOFF	BIT(23)	/* chip has FAN_CTL ON/OFF */
++#define FEAT_FAN_INPUT_ONLY	BIT(24)	/* only fan inputs are supported */
+ 
+ static const struct it87_devices it87_devices[] = {
+ 	[it87] = {
+@@ -476,6 +479,12 @@ static const struct it87_devices it87_devices[] = {
+ 		  | FEAT_AVCC3 | FEAT_PWM_FREQ2,
+ 		.peci_mask = 0x07,
+ 	},
++	[it8613] = {
++		.name = "it8613",
++		.model = "IT8613E",
++		.features = FEAT_16BIT_FANS | FEAT_FIVE_FANS
++		  | FEAT_FAN_INPUT_ONLY,
++	},
+ 	[it8620] = {
+ 		.name = "it8620",
+ 		.model = "IT8620E",
+@@ -560,6 +569,7 @@ static const struct it87_devices it87_devices[] = {
+ #define has_scaling(data)	((data)->features & (FEAT_12MV_ADC | \
+ 						     FEAT_10_9MV_ADC))
+ #define has_fanctl_onoff(data)	((data)->features & FEAT_FANCTL_ONOFF)
++#define has_fan_input_only(data)	((data)->features & FEAT_FAN_INPUT_ONLY)
+ 
+ struct it87_sio_data {
+ 	int sioaddr;
+@@ -2427,6 +2437,9 @@ static umode_t it87_is_visible(struct kobject *kobj,
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct it87_data *data = dev_get_drvdata(dev);
+ 
++	if (has_fan_input_only(data))
++		return 0;
++
+ 	if ((index == 2 || index == 3) && !data->has_vid)
+ 		return 0;
+ 
+@@ -2469,6 +2482,9 @@ static umode_t it87_fan_is_visible(struct kobject *kobj,
+ 	if (!(data->has_fan & BIT(i)))
+ 		return 0;
+ 
++	if (has_fan_input_only(data) && a != 0)
++		return 0;
++
+ 	if (a == 3) {				/* beep */
+ 		if (!data->has_beep)
+ 			return 0;
+@@ -2790,6 +2806,9 @@ static int __init it87_find(int sioaddr, unsigned short *address,
+ 	case IT8623E_DEVID:
+ 		sio_data->type = it8603;
+ 		break;
++	case IT8613E_DEVID:
++		sio_data->type = it8613;
++		break;
+ 	case IT8620E_DEVID:
+ 		sio_data->type = it8620;
+ 		break;
+@@ -2944,6 +2963,28 @@ static int __init it87_find(int sioaddr, unsigned short *address,
+ 
+ 		sio_data->beep_pin = superio_inb(sioaddr,
+ 						 IT87_SIO_BEEP_PIN_REG) & 0x3f;
++	} else if (sio_data->type == it8613) {
++		int reg27, reg29, reg2a;
++
++		superio_select(sioaddr, GPIO);
++
++		reg27 = superio_inb(sioaddr, IT87_SIO_GPIO3_REG);
++		reg29 = superio_inb(sioaddr, IT87_SIO_GPIO5_REG);
++		reg2a = superio_inb(sioaddr, IT87_SIO_PINX1_REG);
++
++		/* fan1 is not available on IT8613E. */
++		sio_data->skip_fan |= BIT(0);
++		if (reg29 & BIT(2))
++			sio_data->skip_fan |= BIT(1);
++		if (reg27 & BIT(7))
++			sio_data->skip_fan |= BIT(2);
++		if (!(reg2a & BIT(0)) || (reg29 & BIT(7)))
++			sio_data->skip_fan |= BIT(3);
++		if (!(reg27 & BIT(1)))
++			sio_data->skip_fan |= BIT(4);
++
++		/* PWM control is not yet supported. */
++		sio_data->skip_pwm |= GENMASK(5, 0);
+ 	} else if (sio_data->type == it8603) {
+ 		int reg27, reg29;
+ 
+@@ -3355,7 +3396,8 @@ static void it87_init_device(struct platform_device *pdev)
+ 		data->auto_pwm[i][3] = 0x7f;	/* Full speed, hard-coded */
+ 	}
+ 
+-	it87_check_limit_regs(data);
++	if (!has_fan_input_only(data))
++		it87_check_limit_regs(data);
+ 
+ 	/*
+ 	 * Temperature channels are not forcibly enabled, as they can be
+@@ -3364,7 +3406,8 @@ static void it87_init_device(struct platform_device *pdev)
+ 	 * run-time through the temp{1-3}_type sysfs accessors if needed.
+ 	 */
+ 
+-	it87_check_voltage_monitors_reset(data);
++	if (!has_fan_input_only(data))
++		it87_check_voltage_monitors_reset(data);
+ 
+ 	it87_check_tachometers_reset(pdev);
+ 
+@@ -3525,10 +3568,14 @@ static int it87_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Check PWM configuration */
+-	enable_pwm_interface = it87_check_pwm(dev);
+-	if (!enable_pwm_interface)
+-		dev_info(dev,
+-			 "Detected broken BIOS defaults, disabling PWM interface\n");
++	if (has_fan_input_only(data)) {
++		enable_pwm_interface = 0;
++	} else {
++		enable_pwm_interface = it87_check_pwm(dev);
++		if (!enable_pwm_interface)
++			dev_info(dev,
++				 "Detected broken BIOS defaults, disabling PWM interface\n");
++	}
+ 
+ 	/* Starting with IT8721F, we handle scaling of internal voltages */
+ 	if (has_scaling(data)) {
+@@ -3580,6 +3627,10 @@ static int it87_probe(struct platform_device *pdev)
+ 		if (((reg >> 4) & 0x03) == 0x01)
+ 			data->has_in |= BIT(12);
+ 	}
++	if (has_fan_input_only(data)) {
++		data->has_in = 0;
++		data->has_temp = 0;
++	}
+ 
+ 	data->has_beep = !!sio_data->beep_pin;
+ 
+
+base-commit: 75f2c0b3690702c90863c2e138cb5520670845ea
+-- 
+2.55.0
+
