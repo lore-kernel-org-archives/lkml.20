@@ -1,70 +1,64 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1B0377541
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788012082; cv=none; b=Pi3KL3qYY0+lIs0ktHuhSxQh95eKRWHctTbJD7+ab7+9VDVFBb3Zm1z5GkhASIVbxiVFchqRq8UBbRUJJng65wl+8GZcQvgtv14DM97p58B2xGWO1J02AMSkNpInx1OWBx7sxTnJvl/5HVQQm4AoofJ9cW6qup1GSukvw1I8Hno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788012082; c=relaxed/simple;
-	bh=2lSqc2bQD+3BAB4HtH+U2/gL2LSerJv90szA9o/SbOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q9F761gBvkmmojUN4XzIYPHgDkHNES4NZU1HSsWo6gDHHP4IXVALMK18QvYwb0sQHYliP2rUNecGwIWjMklodipfikehb7aGcIqcOh6Kar4f/DhlKPqW6AC1joRcbAMS1CIE+UK3J38J//Wsu/CQNtwHI1JnxkpZkZu4aRWUGgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8isnG9r; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A09214812;
+	Sat, 29 Aug 2026 14:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788013256; cv=pass; b=ruOVprUo+p7kB+qbw6D6WZdGvoEfAph5yHc1o8emv3VWMRmQANWfXyVEg178yaz3GGL+KyQ1jqWekm73E7B23WQAPswohUc5FPBKZXN3ass785zHnokKd1BNe7o0omEAQzyCFO6Q6x9zUJvrvVjx3r2qx79sxP/rOcv4e9JDIHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788013256; c=relaxed/simple;
+	bh=vfcO2HIVDpXsRGWJyk9fcRHKGyejb1nTdiagSFbANT4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E05tLSp15cga9wFQcO8N+XDAI1tRCe2CDHeh/ZoMwk5kc3XD6yFS1X1pALgDt115uHO9vF+o2MiRXq9yNwarJmJ6sjW3x50fYJrT8muCnQm6zfp5Tn3t95zqRnQBgh6SosBIAercTF/isgcuM4nmi5Q8VoSRSRI59Mq3j/0Cgsk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=eOHc0+fv; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8isnG9r"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso1756205a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:01:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788012081; x=1788616881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PM4UZAT9CCPbss6oTyHI3ruACwrbn6SRzKqwXx7LBog=;
-        b=X8isnG9ro0NbVHR4J6MOfyUZeVU5JTbNDdH3Sl+BSOGjuzqetspoGsy3yEd1JyyLjw
-         VHSWwi92NbGPXnquEKZ46S5C22SojMnf11XZon5Xkfzn09aYgLqUi32M87x5srVurJR6
-         vPF2WPXC092QRAgRHlVFxq6CBU4sjXOhyioEa9IEzQ+fxmiwhNPB9xJtEk7hnnBDIsR+
-         HiSD3lZLcik0F0Dp01vVl6ENmYVRtWPuGgJH6IcM9iO/+cUhADf+ziFCTyp1qS+vMYvC
-         BSTDDWoTPVfeXc5mY0JWX8U7+X70+mqH67QX82633abAegR4sLjCmQbYFuVDVWOpULcD
-         Nt+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788012081; x=1788616881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PM4UZAT9CCPbss6oTyHI3ruACwrbn6SRzKqwXx7LBog=;
-        b=lTKmx3jGnXX17QCmT4sDq0RV/w8h+oo1YnZG3iawsgWOOaxKxHLMCNPJltfQIMlByt
-         22LtQ5s3lpJHNA5nn1C2qQ9X/M0L+mxATmEHSV3u+LTPOJiUjfRpH6NqmkKeDDL23O6d
-         q+xxRPJ7dJmSfepVeYUDxs3hCS51a+287goztzwe80GNBY47NsDT6OMJWhfPddJB6U0i
-         MWla6iP++KNrWoh29iZ7G0izqwAj3nVpDIiuHGjg5AMyMNdFIPcFG9O20ZYrMi4A09nX
-         EGf9uZbyW+oNR0CQHbFeoxMtPYv2e2iLh6qQ+Id2tDWbNf0VqDWvzrywEtCoN+Fnt3J7
-         UKAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGdWHx/BDOCxUR7PJCZYL9CflI34xso4aXpq0fadP/nJm6OwB6WRYZhS6xeOJdAQbqxcWo8n7iH6H7ITg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1LBXUKiYokaZ2c29rsBG5m7ZGKOcrhgS5teTCF3swVaqqTR2d
-	IrEA3qggUEm/dbGgdcsTjjcaXR+nufu6ZNnlFCGMLIM+yhZa+o/ukoxS
-X-Gm-Gg: AYBFou3qUaVlkpxq3zhVZOMIwjiRxCmlso9Zmp20aSfI0V8IchYu9R9j7rRaJk+3JQk
-	mGrHTwd9rfprGgZd5NuIvaknRbGkzhDOYNnILsUmJ6lA6fzRo3CUP5AuG1cTSC6c2Uck3IJwtFm
-	Eg8IeD56psUXW3/Am43Y6Hbeh93g5zw6FAbxoEl4iozgVDCHpGWlI/LjGaf2MYOrAx6yUlgSGxa
-	J2/06e87IpDgfvhYCoeMnW3l7UUe810aqbd7PG2fo6wGZDhHCXYWqiW5Z1dtAZ1EtQQuUq6Ng9w
-	MZBnZE5QfisK3Owk+PvJmvVgBZMW5nyG6mKx3aCaZdGHCl9pNFXLm82E19r7Qpwrta9HJX/CeZM
-	wTINy/sUZkqy4ru4i0PxA0ecoh9LQsSk3AOT2Fo9DnzOCVCz5HRvszGzgoa6ZgOY3AXgAJeanoE
-	JoabJgKgeHn40kZQp0lWMD7G+r5WuPBcjKLsMTVBD1fUnWywxKn7PJd+iYDKomre4=
-X-Received: by 2002:a17:90b:3e48:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-396d0ebd7fbmr26366003a91.7.1788012079250;
-        Sat, 29 Aug 2026 07:01:19 -0700 (PDT)
-Received: from Default ([2409:40f4:101d:58bb:2280:df9:f5e:8242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7836easm18638156eec.1.2026.08.29.07.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 07:01:12 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jeffin Philip <jeffinphilip14@gmail.com>,
-	syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-Subject: [PATCH v4] Input: atkbd - fix uaf in atkbd_set_repeat_rate
-Date: Sat, 29 Aug 2026 19:29:59 +0530
-Message-ID: <20260829135959.14882-1-jeffinphilip14@gmail.com>
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="eOHc0+fv"
+Received: from monolith.lan (unknown [IPv6:2a03:1b20:1:e011::d701])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hXHTz1Jc7zyWl;
+	Sat, 29 Aug 2026 17:20:38 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1788013240;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tQulovXJaLSdm6tYD7cO44sRjje+qD1MhZ55tnYtBFI=;
+	b=eOHc0+fvq1j0kMSRhNv1wfcnwfZ2Eek7GUWlnWVN/JNjt9rm+6peUFMZ3IBnutvcjSgYzB
+	8T0TTZcBKnUr7frS2gsi6Nka92sD/l+PTg0thAGfLhM5gSB6W/odTuW8Iygak7XQb5iJ/B
+	h8ceJnoOzbc3HcntopnahNLg4oamBLI=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788013240;
+	b=pEZMdvmzCmpOCzyY6zkvGwhItaHGKg2ITeCFjnUpfw9yFWy/2wqXAaMSXdh0ahZD6z6cxw
+	Xgf/16RyVLuplPlekV87e5Q1r/ch6F9VWd56wnPs0lI6JxUx9E/TkD3cqtnePYOo/+WUmv
+	299ZALOsAxIE6Z2RSaEkhlN58aFCHlw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1788013240;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tQulovXJaLSdm6tYD7cO44sRjje+qD1MhZ55tnYtBFI=;
+	b=Zm31CWLFi+5d8TE9xp5Ej2fzzTp7AcVlOzvHDfwHGTrZhfPAwqYaCo7NZt+4fzMhKlEmdK
+	LXAs1rtUfw3ba9vruMcL8mKsc0/NIi+Ft7H7jfBYC/DojXi8mzEFXuTLVIG5DHYww1fxlE
+	7vrxMKw2gIjDtseOfD3ms4LKZdh+vWY=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
+From: Pauli Virtanen <pav@iki.fi>
+To: linux-bluetooth@vger.kernel.org
+Cc: Pauli Virtanen <pav@iki.fi>,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	oss@fourdim.xyz,
+	error27@gmail.com,
+	elver@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 00/16] Bluetooth: L2CAP: fix and annotate l2cap_conn::chan_l locking
+Date: Sat, 29 Aug 2026 17:19:55 +0300
+Message-ID: <cover.1788013041.git.pav@iki.fi>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,54 +68,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-atkbd_disable() marks atkbd as disabled to prevent any work
-event to be executed, however this can race with atkbd_event_work().
-If a pending work passes the atkbd->enabled check and atkbd_disable()
-runs after in disconnect, it could dereference dev which is freed in
-disconnect following atkbd being marked disabled. Fix this by adding
-disable_delayed_work_sync() which drops all work events preventing
-any rescheduling after atkbd is marked disabled.
+The intent in current code is that:
 
-Reported-by: syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
-Fixes: 0ef7a26af127 ("Input: atkbd - fix canceling event_work in disconnect")
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
----
-Changelog:
- - Changed in v4:
-     Changed location of disable_pending_work_sync() after input_unregister_device()
-   as per Dmitry's suggestion.
- 
- - Changes in v3:
-     Rewrote the patch to include disable_delayed_work_sync() as per
-   Dmitry's suggestion.
- 
- - Changes in v2:
-     Added a check for atkbd->enabled so userspace cannot queue events after
-   atkbd_disable.
----
- drivers/input/keyboard/atkbd.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+- l2cap_conn::chan_l read/write is guarded by l2cap_conn::lock
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 5736f4bc5a50..41a0d55dae0e 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -966,12 +966,9 @@ static void atkbd_disconnect(struct serio *serio)
- 	input_unregister_device(atkbd->dev);
- 
- 	/*
--	 * Make sure we don't have a command in flight.
--	 * Note that since atkbd->enabled is false event work will keep
--	 * rescheduling itself until it gets canceled and will not try
--	 * accessing freed input device or serio port.
-+	 * Prevent work from being rescheduled after atkbd is marked disabled
- 	 */
--	cancel_delayed_work_sync(&atkbd->event_work);
-+	disable_delayed_work_sync(&atkbd->event_work);
- 
- 	serio_close(serio);
- 	serio_set_drvdata(serio, NULL);
+- l2cap_chan_del called with held l2cap_chan::lock (l2cap_sock.c uses
+  this)
+
+This is currently not done right in several code paths.
+
+This series fixes the locking vs. the above, and adds context analysis
+annotations to make more sure it is systematic.
+
+The last three patches fix some miscellaneous locking related issues.
+
+Mostly straightforward, but two more complicated parts:
+
+- race condition in acquiring l2cap_conn::lock & l2cap_chan::lock
+
+- __l2cap_ecred_conn_rsp_defer(chan) may l2cap_chan_del other l2cap_chan
+
+To deal with these, this series adds
+
+- l2cap_chan_lock_conn / l2cap_chan_unlock_conn
+- l2cap_chan_close_unlocked
+- l2cap_chan_try_sibling_lock-
+- new nesting rule for l2cap_conn::lock
+
+The context analysis annotations for l2cap_chan_close() declare via
+context_unsafe() that __must_hold(&chan->conn->lock) even if chan->conn
+is NULL. This is OK for the current static locking analysis, doesn't
+affect code generation.  It could be cleaner by adding separate
+l2cap_chan_del() variant assuming chan->conn == NULL, but playing loose
+here avoids such duplication.
+
+LLM tools were used for patch review, catching some some corner cases
+before sending this series out. No code / commit messages are generated
+by them.
+
+Finding the bugs here is mostly based on adding the context analysis
+annotations which make it obvious where appropriate locks are missing.
+
+Assisted-by: gpt-5.6 deepseek-4-flash
+
+Pauli Virtanen (16):
+  Bluetooth: L2CAP: take chan->lock for l2cap_chan_add/ready/del
+  Bluetooth: L2CAP: add l2cap_chan_close_unlocked() and locking helpers
+  Bluetooth: L2CAP: fix race condition in l2cap_sock_shutdown()
+  Bluetooth: 6lowpan: use l2cap_chan_close_unlocked()
+  Bluetooth: L2CAP: remove unused l2cap_chan_close()
+  Bluetooth: 6lowpan: avoid concurrent peer_del() in
+    bt_6lowpan_disconnect
+  Bluetooth: L2CAP: hold conn->lock for __l2cap_ecred_conn_rsp_defer
+  Bluetooth: L2CAP: hold l2cap_conn::lock in l2cap_connect_cfm()
+  Bluetooth: L2CAP: add annotations for l2cap_chan list locking
+  Bluetooth: L2CAP: take lock for l2cap_chan_del in
+    l2cap_ecred_rsp_defer
+  Bluetooth: L2CAP: hold chan in l2cap_ecred_conn_rsp()
+  Bluetooth: L2CAP: annotate locking for l2cap_chan_del()
+  Bluetooth: L2CAP: annotate locking for l2cap_ops callbacks
+  Bluetooth: L2CAP: make concurrent l2cap_set_timer() refcounting safe
+  Bluetooth: L2CAP: remove conditional locking from l2cap_connect()
+  Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+
+ include/net/bluetooth/l2cap.h | 100 ++++++++-----
+ net/bluetooth/6lowpan.c       |  44 +++---
+ net/bluetooth/l2cap_core.c    | 257 +++++++++++++++++++++++++++++++---
+ net/bluetooth/l2cap_sock.c    |  95 +++++++------
+ 4 files changed, 384 insertions(+), 112 deletions(-)
+
 -- 
 2.55.0
 
