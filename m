@@ -1,170 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302F522E3F0
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED44D18FC97
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787974971; cv=none; b=tNWw3HH6k+ia2qUwT6cvbChOPbpfZEARk7r2If+gjYLbLU4+iH6yDCbW/keE6zyfo/EoHDc4QFPMN8LgFtd10WgH7Dc1Ws9EzWrMuswKjWFCBVPmXeVC6oxkhXGJiu2VJwbkLsRnYPU3zCjhHBgtkG/n6h/iAeoRKCnlQVRsn8w=
+	t=1787975171; cv=none; b=eS9fR236wx1MyOM/7kFOhPqLXmSSzfzx2yFAaZPyUKIMiclhJRHoWCoqClvyrNqOBzjY+rWOGokjY8Z/WJK4KahgVmJTz63hToMP0G015d3qW0RUaw69THPejegK8ylSCvq5sueeSUv6mXhwqvejWMYKu83PdZDWv7WyV0s4nBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787974971; c=relaxed/simple;
-	bh=6z0dnWBafKXYdvmlwvIikffPES600dqGaEQBuxEz3Kc=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=cdRFWqE45SP9ZLa3cA1HhwC2CfvXHoKXvxYzDdESUxO/GH+QVhdda2d5LCdjop0nZILPISOiQJMja/ldItaQ5At5RmqHxgJPVlX4o/DbcHV005DQTTh45E3Y90PvlErntO8aft6OoGjzm7dktAymEn6u+NkvglLQAIqZL5gpIhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DkxqrFNs; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787975171; c=relaxed/simple;
+	bh=xLGClAwILCuywTlHy+7B36+0AJLSorI01gzy7qmp9Qg=;
+	h=From:Subject:To:References:Cc:Message-Id:Mime-Version:In-Reply-To:
+	 Date:Content-Type; b=dfQIEaSFIW/WqZQqXhdORklCdfB3j6izMs/Nu9p/4TjJMnwOhWLh2jEXMYU7BoFh7p1O7Kjyrcd6d9z0/TcBbDbyDcPlrG8G3bmaWBXPPM73ZJhfjAQCuVXQel5zyVVI33CcmqmeLDEgeDjlsF9hlCG+kadX36N7eg7ht+3LeEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=S1IVKUOP; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DkxqrFNs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787974968; x=1819510968;
-  h=date:from:to:cc:subject:message-id;
-  bh=6z0dnWBafKXYdvmlwvIikffPES600dqGaEQBuxEz3Kc=;
-  b=DkxqrFNsSQXA49CybvTbZQmmW9m+lDoe/Q8oMSif1+RajSkzpaIsZt/J
-   YPe51dLAM56wqvzbDprAX+hhLhXIZWZTHwtXFHp3kRB9uM/3WJ7fRU9z/
-   5sd22EmEmVFuYrUzzLSP/VaAZ+jy1jqByu+x9yQTxa2C7gBUBl9i+D4DC
-   f4KpnOjcb6d0ZPT3XBOOgV05JIITseFma/J3w4zwIZMdNkbqmPi8XZBmX
-   DTIfupPj9fG00A2uAA3i86cg27b4+L/S+BteZgC38rdLl8wGc3qYMe3GU
-   9JpMVV4JvuvzOvaU7MHad9/Gf/Abnhl+/WPb3IidSwKmW3AH7GQF1ZpSw
-   g==;
-X-CSE-ConnectionGUID: WilM5TkqR0C7zJ7LD3cXXw==
-X-CSE-MsgGUID: 3TTlNyk6T0iE1Re6CZlEww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88603656"
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="88603656"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 20:42:47 -0700
-X-CSE-ConnectionGUID: iNPK2Yz3RBG1Y6VEwkyiow==
-X-CSE-MsgGUID: KqNKfQuSQ9ScO1NURPrEMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
-   d="scan'208";a="266523115"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 28 Aug 2026 20:42:46 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x09xs-00000000CL5-0ZX3;
-	Sat, 29 Aug 2026 03:42:44 +0000
-Date: Sat, 29 Aug 2026 11:42:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:master] BUILD SUCCESS
- 5385e8f4cb975bf4cc651e739ef06a4cc3cc2850
-Message-ID: <202608291120.39dCACEc-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="S1IVKUOP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1787975158; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ATP/kUiSwffiaR2fVHyPd7W9IcoS9IWeEorLQ80/wEY=;
+ b=S1IVKUOPa+oaX/d8Ymttzq5b6KNPcCZTY1n1A8Hvt2KimyK9VTTRDzdIhq02xKjLX+bVpP
+ 0Z6RuumjEIjvpQShUBjYUA6lkIY5uWxJmUkxn9OhjaFZxrX0+PXYEOYyESLs6JK8FyCTcM
+ IY9PsW+wiDUp3gcKAFHwMHnmt70aQHtgr8dKQi//PbYXH3diQEi11kEwNNPPLGxxNj7lKr
+ 2lyr/z20PGGlUAO5TTqBxWUiZrFJwUjJYzCheXboxNP65eXuhERwJ1FKvOmCL/EkwmcjBV
+ kMEyYx2YCVwZBsAZoJYlzrWMMk7DNF4SclJVskW59JyWUCA+Rlas1j59dm/wbQ==
+From: "Rui Qi" <qirui.001@bytedance.com>
+Subject: Re: [PATCH] riscv: ftrace: only use pre-function NOPs with call ops
+User-Agent: Mozilla Thunderbird
+To: <palmer@dabbelt.com>, <pjw@kernel.org>, <aou@eecs.berkeley.edu>, 
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>, 
+	"Steven Rostedt" <rostedt@goodmis.org>
+References: <20260706123554.455065-1-qirui.001@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Cc: <stable@vger.kernel.org>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	"Andy Chiu" <andybnac@gmail.com>, "Puranjay Mohan" <puranjay@kernel.org>, 
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>, 
+	"open list" <linux-kernel@vger.kernel.org>, 
+	"Mark Rutland" <mark.rutland@arm.com>, <stable@vger.kernel.org>, 
+	<linux-trace-kernel@vger.kernel.org>
+Message-Id: <0d448a8f-1695-47ab-bf88-fd49b5b20bc3@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+In-Reply-To: <20260706123554.455065-1-qirui.001@bytedance.com>
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+Date: Sat, 29 Aug 2026 11:45:38 +0800
+X-Lms-Return-Path: <lba+26a9255f4+993311+vger.kernel.org+qirui.001@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
-branch HEAD: 5385e8f4cb975bf4cc651e739ef06a4cc3cc2850  Merge branch into tip/master: 'timers/urgent'
+On 7/6/26 8:35 PM, Rui Qi wrote:
+> Commit c217157bcd1d ("riscv: Implement
+> HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS") changed CC_FLAGS_FTRACE to use
+> -fpatchable-function-entry=3D8,4 or -fpatchable-function-entry=3D4,2
+> for all dynamic ftrace builds. That layout makes the compiler place an
+> 8-byte area before the function entry, which is used as the per-callsite
+> ftrace_ops literal when CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS is enabled.
+>=20
+> RISC-V can still build with CONFIG_DYNAMIC_FTRACE=3Dy and
+> CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS=3Dn, for example when
+> CONFIG_CFI_CLANG is enabled because HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS
+> is selected only when !CFI_CLANG. In that configuration
+> ftrace_call_adjust() does not skip the pre-function literal area and
+> only returns addr + MCOUNT_AUIPC_SIZE. With the pre-function layout,
+> that points into the pre-entry padding instead of the callsite jalr, so
+> dynamic ftrace records the wrong patch address.
+>=20
+> Use the pre-function literal layout only when call ops are enabled.
+> Otherwise keep the previous patchable-function-entry counts so the
+> recorded address matches ftrace_call_adjust() non-call-ops path.
+>=20
+> Fixes: c217157bcd1d ("riscv: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+> ---
+>  arch/riscv/Makefile | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+> index 3070c3874305..235730a243aa 100644
+> --- a/arch/riscv/Makefile
+> +++ b/arch/riscv/Makefile
+> @@ -14,11 +14,19 @@ endif
+>  ifeq ($(CONFIG_DYNAMIC_FTRACE),y)
+>  	LDFLAGS_vmlinux +=3D --no-relax
+>  	KBUILD_CPPFLAGS +=3D -DCC_USING_PATCHABLE_FUNCTION_ENTRY
+> +ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
+>  ifeq ($(CONFIG_RISCV_ISA_C),y)
+>  	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D8,4
+>  else
+>  	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D4,2
+>  endif
+> +else
+> +ifeq ($(CONFIG_RISCV_ISA_C),y)
+> +	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D4
+> +else
+> +	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D2
+> +endif
+> +endif
+>  endif
+> =20
+>  ifeq ($(CONFIG_CMODEL_MEDLOW),y)
 
-elapsed time: 788m
 
-configs tested: 93
-configs skipped: 0
+Hi,
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Gentle ping on this patch. It's been about two months since submission
+without any review feedback.
 
-tested configs:
-alpha               allnoconfig    gcc-16.1.0
-alpha              allyesconfig    gcc-16.1.0
-arc                allmodconfig    clang-24
-arc                allmodconfig    gcc-16.1.0
-arc                 allnoconfig    gcc-16.1.0
-arc                allyesconfig    clang-24
-arm                 allnoconfig    clang-17
-arm                 allnoconfig    gcc-16.1.0
-arm                allyesconfig    clang-24
-arm                allyesconfig    gcc-16.1.0
-arm64              allmodconfig    clang-24
-arm64               allnoconfig    gcc-16.1.0
-csky               allmodconfig    gcc-16.1.0
-csky                allnoconfig    gcc-16.1.0
-hexagon            allmodconfig    clang-24
-hexagon            allmodconfig    gcc-16.1.0
-hexagon             allnoconfig    clang-24
-hexagon             allnoconfig    gcc-16.1.0
-i386               allmodconfig    clang-22
-i386                allnoconfig    gcc-14
-i386                allnoconfig    gcc-16.1.0
-i386               allyesconfig    clang-22
-loongarch          allmodconfig    clang-24
-loongarch           allnoconfig    clang-20
-loongarch           allnoconfig    gcc-16.1.0
-m68k               allmodconfig    gcc-16.1.0
-m68k                allnoconfig    gcc-16.1.0
-m68k               allyesconfig    clang-24
-m68k               allyesconfig    gcc-16.1.0
-microblaze          allnoconfig    gcc-16.1.0
-microblaze         allyesconfig    gcc-16.1.0
-mips               allmodconfig    gcc-16.1.0
-mips                allnoconfig    gcc-16.1.0
-mips               allyesconfig    gcc-16.1.0
-nios2              allmodconfig    clang-20
-nios2              allmodconfig    gcc-11.5.0
-nios2               allnoconfig    clang-24
-nios2               allnoconfig    gcc-11.5.0
-openrisc           allmodconfig    clang-20
-openrisc           allmodconfig    gcc-16.1.0
-openrisc            allnoconfig    clang-24
-openrisc            allnoconfig    gcc-16.1.0
-parisc             allmodconfig    gcc-16.1.0
-parisc              allnoconfig    clang-24
-parisc              allnoconfig    gcc-16.1.0
-parisc             allyesconfig    clang-17
-parisc             allyesconfig    gcc-16.1.0
-powerpc            allmodconfig    gcc-16.1.0
-powerpc             allnoconfig    clang-24
-powerpc             allnoconfig    gcc-16.1.0
-riscv              allmodconfig    clang-24
-riscv               allnoconfig    clang-24
-riscv               allnoconfig    gcc-16.1.0
-riscv              allyesconfig    clang-24
-s390               allmodconfig    clang-17
-s390               allmodconfig    clang-24
-s390                allnoconfig    clang-24
-s390               allyesconfig    gcc-16.1.0
-sh                 allmodconfig    gcc-16.1.0
-sh                  allnoconfig    clang-24
-sh                  allnoconfig    gcc-16.1.0
-sh                 allyesconfig    clang-17
-sh                 allyesconfig    gcc-16.1.0
-sh                    defconfig    gcc-14
-sparc               allnoconfig    clang-24
-sparc               allnoconfig    gcc-16.1.0
-sparc64            allmodconfig    clang-20
-sparc64               defconfig    gcc-14
-um                 allmodconfig    clang-17
-um                  allnoconfig    clang-17
-um                  allnoconfig    clang-24
-um                 allyesconfig    gcc-14
-um                 allyesconfig    gcc-16.1.0
-um                    defconfig    gcc-14
-um               i386_defconfig    gcc-14
-um             x86_64_defconfig    gcc-14
-x86_64             allmodconfig    clang-22
-x86_64              allnoconfig    clang-22
-x86_64              allnoconfig    clang-24
-x86_64             allyesconfig    clang-22
-x86_64                defconfig    gcc-14
-x86_64                    kexec    clang-22
-x86_64                 rhel-9.4    clang-22
-x86_64             rhel-9.4-bpf    gcc-14
-x86_64            rhel-9.4-func    clang-22
-x86_64      rhel-9.4-kselftests    clang-22
-x86_64           rhel-9.4-kunit    gcc-14
-x86_64             rhel-9.4-ltp    gcc-14
-x86_64            rhel-9.4-rust    clang-22
-xtensa              allnoconfig    clang-24
-xtensa              allnoconfig    gcc-16.1.0
-xtensa             allyesconfig    clang-20
-xtensa             allyesconfig    gcc-16.1.0
+The patch fixes a bug where ftrace_call_adjust() returns the wrong
+patch address when CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS is disabled
+(e.g., under CONFIG_CFI_CLANG), because the pre-function literal
+layout is still used unconditionally.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Adding the ftrace maintainers and mailing list, which were missing
+from the original submission =E2=80=94 that likely explains the lack of
+response.
+
+Link:
+https://lore.kernel.org/r/20260706123554.455065-1-qirui.001@bytedance.com
+
+Thanks,
+Rui
