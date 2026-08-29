@@ -1,199 +1,222 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B773F1055
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788027743; cv=fail; b=DcIseVkz6v9OCYLGzuJ4EXEYgAA6dq1DTFGqtLCdc9JG5yTkvF1hiBSs3JdpgV5TCTDxKXfKe2FCX8SwLa4B961osf87JXXDQxLobLoGbEApVAzlAHP0Oxz3q3Txyv7eRTRS0WSvriW+TxtU3b/EBfFcessje5ds/FnGwNn2W7A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788027743; c=relaxed/simple;
-	bh=zINxc7FFcdGgovKApvH5+8T1ZgidzaSDf06JHYmmi2s=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sJb9v5fVFYx7Z3ROCo90T0RkHNId93CWPHYftuwvMkuE9BNxj3obFhLTZTjFdENAu2GxGRrxXc+juVesbaDQrPy6OwZx+PFVD4aNN8gaTwGsqWOCDQGLBdVi7PrG4qyBGMSWH7Z9mXclHlAY755uWrvr/xVCTIqF2fWjEIOoSsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RSRVTQbs; arc=fail smtp.client-ip=52.101.85.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CC134F48F;
+	Sat, 29 Aug 2026 18:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788028049; cv=none; b=pvbrJxhmmFcyHh2cfObsbuDSufr5heobrbcOK96bc/g0sZzHAql1S9IsXdJBsHevphvu+toZEHoFjvtJfpDZYKkVZ4BX0AdUnDqqt3dabys3GyO1/Lx7dZ4dCUNI9z+zYIlEU6iBMRz0oqiJni2kepji2n0GFirDvGl8z+xh/Z8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788028049; c=relaxed/simple;
+	bh=LivnsdYaAsMQGMsE2ie4eqMcE/yWP8ruqgVpFntbrIQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ARkPlf9zl9OOvHMF422JaH9Ngm6O/wff4Z8xhPTb8PjudLX4JhrxMvRfqiBZYGjImYurdAb2EZ2skZ03A+oo07O+pPw3X64YS6gg76+F1MEKgBXbVApPHvQCIx3ou/TTrdv8VkHwdPalnbQmpZbUVKKgFzM2FKL3ViIIuqjtagA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bJgjYnm4; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HE8CFLfy; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RSRVTQbs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OA9aZTlUsLW12KmEwzpZdeL3XlWZi2f+HCJ121pgD+XSQ3+H1YsMKD98k/lKnRMLd8gz7rBi0rkMg2oHCXXnfWxsdqO02SFLHd3M6Q/KHqr/zbVmKtLd64+akj3vj09w+rNmwji/Z8uhxQ9dcX9hVfmBroiVMwG+obA6nA7JwC1iJk7XBXNAutNkrkyv4oOkoftjYaXQnytrOsyyqCQMKnEeTf3Mlqfc0fu/D6jtFAo+FoRN8KEngNGZNz0yfW51CEblhiJ+SDDAE25Wxjk3H4TWSZNTenrDscjki7CcVFuNTkQpZ1sNmTMP2GV3OA18qW7MKSwV/P5+LVuGtdzcvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4TOxm/EjdQ4sLGsI4PX3BcNlLNgsTi2DIFAs4AYkqvs=;
- b=KPmMgbsqjaPV2sobwCt3SnzWED5VziApZSk9jJDOq4Opv00GaR4SfQ13bRg8wh0+YgKoKxW3K6DkkM/+NX8WlKgkvM4KjpQe6Guhq0SHv8y78oSCs9sGEJWLmPfxHJUuZPCXvzzefoB/kgXD331l94LKhDniit/GNOeHzXOJN8uz8d1UT6umoBIEL1kpvzeftmAxQAPFXLL20u21Hx4XHMsXQ1Z7R6paHrkF293p1zsNJq7c+iUrP7i+uJtRFysnGw4B1WQS1W7MMgyzhu7NdF+gerKFmpfrg6stw4kzWwpgX0sr7xlW26emdiyTKSNYMNKXX7p7O2yoJqaNad7zlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4TOxm/EjdQ4sLGsI4PX3BcNlLNgsTi2DIFAs4AYkqvs=;
- b=RSRVTQbsTJsp+3J0Nw4vUBe340XRccQODl5ThSFPudKQSMCjYYmAmKYKDyF7VlzHC679tOG5wZEiYvX23y4fwu1basaxwQe3Kmmq+gy9s3lezCBcR/NyOo8UGKBtUZqq58lZsRr73Kw6OxniJ8E73pLYOfNs7xS178DXfyOO93VadcD68xKE82zjMi+RBAOTE2DTq8TESuaDJdtvJInp8LMY0SnVv535m4uZVMWb72Vm8KAX6G0+qDj3oeGC8AY0j/qGr7BbiN2nMH4/uU/SoMEzE3Yrn5OIcY5FlCR1NiWk+fuKKi/YxhbjPvdxspObbz9XCcrHQb0qrsn85ndISw==
-Received: from CH2PR19CA0012.namprd19.prod.outlook.com (2603:10b6:610:4d::22)
- by PH7PR12MB5711.namprd12.prod.outlook.com (2603:10b6:510:1e2::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
- 2026 18:22:16 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:610:4d:cafe::d) by CH2PR19CA0012.outlook.office365.com
- (2603:10b6:610:4d::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.12 via Frontend Transport; Sat,
- 29 Aug 2026 18:22:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Sat, 29 Aug 2026 18:22:16 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 29 Aug
- 2026 11:22:12 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 29 Aug 2026 11:22:11 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Sat, 29 Aug 2026 11:22:10 -0700
-Date: Sat, 29 Aug 2026 11:22:09 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-CC: <linux-coco@lists.linux.dev>, <kvmarm@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>, Jonathan Cameron
-	<jic23@kernel.org>, Marc Zyngier <maz@kernel.org>, Pranjal Shrivastava
-	<praan@google.com>, Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz
-	<sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
-	<Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 01/16] iommu/arm-smmu-v3: Discover RME support and
- realm IRQ topology
-Message-ID: <apMjUSbxcnlAKjks@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-2-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bJgjYnm4";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HE8CFLfy"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788027726; bh=xDAuqtB5MiI9SXqWj0T58s5
+	SFUyYrKShuk4bdDdV7TU=; b=bJgjYnm4Zc43/Xco7Z4ZR3NZKElYUBwD1wPGU1YeULQ3fb9RRJ
+	Kdnmwev4VyPWaZgMB3cpdqyuzGZCaUsNs60l7PAcsp7wdZqZXu7BLETlCp7od2r8EkJNF7ALaUh
+	YsroqiGoseJa/jaa6Rcr8+7+uICY66sx+rtqWMSjXuEKILU2fWKSWW8onJ/t2L93Etj6yV/G4sv
+	cODBOutsVACaI9dCNwOwVS84H+fwieAN/lIHOG5TWmGTHSP4SV7PAn1H8p9+Fzrfs+aEjD07rkP
+	AXqliKv1SQxKizfPd3pDGWnIBoxmFHSYVpOFfNWR2nB4M01lTjA6iT8Dt/hh0aWaZCA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788027726; bh=xDAuqtB5MiI9SXqWj0T58s5
+	SFUyYrKShuk4bdDdV7TU=; b=HE8CFLfy5wwx/eD1vlkwP9AtYL9ijJtpOVU0hj/8K6ugN3obiz
+	clx9c+KemaBbj89JkIVZl/fdIWhJkr3LUkCQ==;
+Date: Sat, 29 Aug 2026 19:22:07 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: syzbot <syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com>,
+ audit@vger.kernel.org, eparis@redhat.com, linux-integrity@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ paul@paul-moore.com, roberto.sassu@huawei.com, stable@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, zohar@linux.ibm.com
+Subject: =?US-ASCII?Q?Re=3A_=5Bsyzbot=5D_=5Baudit=3F=5D_BUG=3A_unable_to_handle_ke?=
+ =?US-ASCII?Q?rnel_paging_request_in_integrity=5Faudit=5Fmessage?=
+In-Reply-To: <6a93210d.4d659fcc.734b4.002c.GAE@google.com>
+References: <6a93210d.4d659fcc.734b4.002c.GAE@google.com>
+Message-ID: <2A2D4D25-BB50-40A5-AF2F-956EBDB07876@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260427085344.941627-2-aneesh.kumar@kernel.org>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|PH7PR12MB5711:EE_
-X-MS-Office365-Filtering-Correlation-Id: c01f161a-66a5-42ff-3b63-08df05fa74a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|7416014|376014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	gYGGoOz/yPH6ypA6BBTqcUhL4gci7n4GnxlySarNAc79PC/SBo0UXQ5sZ7sKnx7GPxvbh90IN2Hff2Ue1cZAolU995kM27m1cShPIUymmLJmV1cZev5PjUOepJcHnC2rAfAGe4oc+kdZko/PM3DfaLnN3amgyLoLucbm8aGXrBrsRk1Go6XmkmyiusSHxw7LSq7KfCPXemWeRHNHjTktM5fNMPQGp1X493AoOhm+XA4JC3Y2rueFntw9A/fy06H5UBMhdNGcavqM9pCIHeeXsbALtiExb71dmVmRK7gRc+vP2lM82L/WYost0ozN3011m5yvXVD+2CenL9M0PbpS2Fn++R+EoUuupM7j29TSPuDDiucknKByWhwxmVAnWcK36f8ycz5VFPZS1DGE4sd9QxCPHy9Ng7tg69XybmhpaVGrjPRjlUpFFm38P/HH2o2VrvZUPupU5URnCOarmUZWmoy9uolNIMjH8LV/diRMmSGckCVGIovGMlk60CrU1BV4+72KFqmlftiOzKyviZqtfOOSZKmC8SZjC5SmbYT61kvCklLJjOtyWRTLIF53EhjP9lUzjZqJlKLGRELT2tk5p8ShWx5ckV/wET+rU5hzGt6AfB6u+tn4BAkTDusnylZGUMppwZzfVjV+7e0Gz6t1EELXrs5Vx4JZrWMtTHuU4VLT+KkYYAFFDwQcyMtmm3kQlV+Xj2h0Y8TvG5MLzxrPbg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sCsc+0kxK69zsufTPcnVlAYvvv/Q80k/YYL+Q/epGYA5LcyO++w3wovt3qKfbQyUiJiz0s7ekCpNAYQUo7EjnD3xoBVC5MC4WRo/RTol/7rQMGFvunTTGzH6Ii+RqY2O6kyDDtv8KQXhfLmxV4uxGVcVAhva/zKV1PKf59WFAKuSAvyALq00wQkpxjuHSr5vNHSFybZxHLcpvGBQgqYKKQC8IMfE81cX0viI3AGwwjNlMzQ44SbV3m4Gtbz2TvRsyjYo1vLISlTP3NxDO7SCSBtiF0Qtev1uBQvC5z2AofIlXCrF/VO9gGYcTS2hqbfa4gCYl2JCyXSLj7RmT9QbLxoZayeLuXamO2oxteUEtMZzdcrXkUQvfgOj1+AaSYbEvd9BgwqTAJ8CNu93GDDoGpT1XOoRHi2Ln6ST2fFRBOuRChY6XCnrhXsor3uLVIB5
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 18:22:16.4844
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c01f161a-66a5-42ff-3b63-08df05fa74a4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5711
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 27, 2026 at 02:23:29PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-realm.c
-> @@ -0,0 +1,124 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 ARM Ltd.
-> + */
-> +
-> +#include <linux/interrupt.h>
-> +#include <asm/rmi_smc.h>
-> +#include <asm/rmi_cmds.h>
-> +
-> +#include "arm-smmu-v3.h"
-> +
-> +#define	RMI_PSMMU_IRQ_GERROR	BIT(0)
-> +#define	RMI_PSMMU_IRQ_EVENTQ	BIT(1)
-> +#define	RMI_PSMMU_IRQ_PRIQ	BIT(2)
-> +#define	RMI_PSMMU_IRQ_CMDQ	BIT(3)
-[...]
-> +	if (irq == smmu->realm_evtq_irq)
-> +		notify_flags =  RMI_PSMMU_IRQ_EVENTQ;
-> +	else if (irq == smmu->realm_gerr_irq)
-> +		notify_flags =  RMI_PSMMU_IRQ_GERROR;
-> +	else if (irq == smmu->realm_pri_irq)
-> +		notify_flags =  RMI_PSMMU_IRQ_PRIQ;
+On 29 August 2026 19:12:29 BST, syzbot
+<syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com> wrote:
+>syzbot has found a reproducer for the following issue on:
+>
 
-These are defined as BIT(x)...
+#syz test: dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path
+exceeds the
+buffer. validate_hash_algo() passes the result straight to
+integrity_audit_msg() without checking. ERR_PTR is not NULL, so
+integrity_audit_message() sees a valid pointer and calls strlen() on
+it, which faults:
 
-> +		if (rmi_psmmu_irq_notify(smmu->base_phys,
-> +					 notify_flags, &event)) {
-[...]
-> +			rmi_psmmu_event_consume(smmu->base_phys, notify_flags);
+    BUG: unable to handle page fault for address: ffffffffffffffdc
+    RIP: 0010:strlen+0x30/0xa0
+    Call Trace:
+     audit_log_untrustedstring+0x19/0x30
+     integrity_audit_message+0x366/0x4f0
+     ima_inode_setxattr+0x512/0x5f0
 
-.. and passed to RMI_PSMMU_IRQ_NOTIFY and RMI_PSMMU_EVENT_CONSUME.
+Check for IS_ERR() and use NULL instead, which makes the audit message
+skip the name= field instead of crashing.
 
-RMI_PSMMU_IRQ_NOTIFY takes RmiPsmmuIrqSet type, which is a 4-bit
-field that has a range of [BIT(0), BIT(3)]. So this is correct.
+Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=SETXATTR_CHECK")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com/
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+ security/integrity/ima/ima_appraise.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-However, RMI_PSMMU_EVENT_CONSUME takes RmiPsmmuIrq type, which is
-a 2-bit field that has a range of [0x0, 0x3]. So this seems wrong.
+diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
+index ced2e131b061..b280488e15fc 100644
+--- a/security/integrity/ima/ima_appraise.c
++++ b/security/integrity/ima/ima_appraise.c
+@@ -748,6 +748,8 @@ static int validate_hash_algo(struct dentry *dentry,
+ 		return -EACCES;
+ 
+ 	path = dentry_path(dentry, pathbuf, PATH_MAX);
++	if (IS_ERR(path))
++		path = NULL;
+ 
+ 	integrity_audit_msg(AUDIT_INTEGRITY_DATA, d_inode(dentry), path,
+ 			    "set_data", errmsg, -EACCES, 0);
+-- 
+2.47.3
 
-> +void arm_smmu_setup_realm_irqs(struct arm_smmu_device *smmu)
-> +{
-> +	int irq, ret;
-> +
-> +	irq = smmu->realm_evtq_irq;
-> +	if (irq) {
-> +		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
-> +						arm_smmu_realm_notify_thread,
-> +						IRQF_ONESHOT,
-> +						"arm-smmu-v3-realm-evtq",
-> +						smmu);
+>HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of
+>git://gi..
+>git tree:       upstream
+>console output: https://syzkaller.appspot.com/x/log.txt?x=16e7cc15580000
+>kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+>dashboard link:
+>https://syzkaller.appspot.com/bug?extid=5ebeb3089ea6439c37be
+>compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+>userspace arch: i386
+>syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=159ebd79580000
+>C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=123d1d79580000
+>
+>Downloadable assets:
+>disk image (non-bootable):
+>https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-cf72cbb3.raw.xz
+>vmlinux: https://storage.googleapis.com/syzbot-assets/755d053ff703/vmlinux-cf72cbb3.xz
+>kernel image:
+>https://storage.googleapis.com/syzbot-assets/0837738ba281/bzImage-cf72cbb3.xz
+>
+>IMPORTANT: if you fix the issue, please add the following tag to the commit:
+>Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+>
+>BUG: unable to handle page fault for address: ffffffffffffffdc
+>#PF: supervisor read access in kernel mode
+>#PF: error_code(0x0000) - not-present page
+>PGD eb99067 P4D eb99067 PUD eb9b067 PMD 0 
+>Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>CPU: 0 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+>Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+>1.16.3-debian-1.16.3-2 04/01/2014
+>RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
+>Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
+>RSP: 0018:ffffc90002eb7920 EFLAGS: 00010246
+>RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
+>RDX: 0000000000000004 RSI: ffffffff82081bc1 RDI: ffffffffffffffdc
+>RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000a9
+>R10: 00000000000006c0 R11: 0000000000000001 R12: ffff888027be0e40
+>R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
+>FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:000000005783f480
+>CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+>CR2: ffffffffffffffdc CR3: 0000000055e55000 CR4: 0000000000352ef0
+>Call Trace:
+> <TASK>
+> __fortify_strlen include/linux/fortify-string.h:218 [inline]
+> audit_log_untrustedstring+0x19/0x30 kernel/audit.c:2203
+> integrity_audit_message+0x366/0x4f0
+> security/integrity/integrity_audit.c:60
+> integrity_audit_msg+0x41/0x60 security/integrity/integrity_audit.c:32
+> validate_hash_algo security/integrity/ima/ima_appraise.c:752 [inline]
+> ima_inode_setxattr+0x512/0x5f0 security/integrity/ima/ima_appraise.c:775
+> security_inode_setxattr+0x299/0x560 security/security.c:1940
+> __vfs_setxattr_locked+0xad/0x2b0 fs/xattr.c:309
+> vfs_setxattr+0x14a/0x390 fs/xattr.c:344
+> do_setxattr+0x145/0x180 fs/xattr.c:662
+> file_setxattr fs/xattr.c:672 [inline]
+> file_setxattr+0x139/0x1b0 fs/xattr.c:666
+> path_setxattrat+0x335/0x3b0 fs/xattr.c:732
+> __do_sys_fsetxattr fs/xattr.c:782 [inline]
+> __se_sys_fsetxattr fs/xattr.c:779 [inline]
+> __ia32_sys_fsetxattr+0xc4/0x140 fs/xattr.c:779
+> do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+> __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+> do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+> entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+>RIP: 0023:0xf7fb7fec
+>Code: Unable to access opcode bytes at 0xf7fb7fc2.
+>RSP: 002b:00000000fffd97bc EFLAGS: 00000296 ORIG_RAX: 00000000000000e4
+>RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000080
+>RDX: 0000000080001080 RSI: 0000000000000002 RDI: 0000000000000000
+>RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+>R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+>R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+> </TASK>
+>Modules linked in:
+>CR2: ffffffffffffffdc
+>---[ end trace 0000000000000000 ]---
+>RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
+>Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
+>RSP: 0018:ffffc90002eb7920 EFLAGS: 00010246
+>RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
+>RDX: 0000000000000004 RSI: ffffffff82081bc1 RDI: ffffffffffffffdc
+>RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000a9
+>R10: 00000000000006c0 R11: 0000000000000001 R12: ffff888027be0e40
+>R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
+>FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:000000005783f480
+>CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+>CR2: 00000000f7fb8000 CR3: 0000000055e55000 CR4: 0000000000352ef0
+>----------------
+>Code disassembly (best guess):
+>   0:	00 00                	add    %al,(%rax)
+>   2:	00 00                	add    %al,(%rax)
+>   4:	00 fc                	add    %bh,%ah
+>   6:	ff                   	lcall  (bad)
+>   7:	df 55 48             	fists  0x48(%rbp)
+>   a:	89 fa                	mov    %edi,%edx
+>   c:	48 89 fd             	mov    %rdi,%rbp
+>   f:	53                   	push   %rbx
+>  10:	48 c1 ea 03          	shr    $0x3,%rdx
+>  14:	48 83 ec 08          	sub    $0x8,%rsp
+>  18:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax
+>  1c:	48 89 fa             	mov    %rdi,%rdx
+>  1f:	83 e2 07             	and    $0x7,%edx
+>  22:	38 d0                	cmp    %dl,%al
+>  24:	7f 04                	jg     0x2a
+>  26:	84 c0                	test   %al,%al
+>  28:	75 50                	jne    0x7a
+>* 2a:	80 7d 00 00          	cmpb   $0x0,0x0(%rbp) <-- trapping instruction
+>  2e:	74 3d                	je     0x6d
+>  30:	48 bb 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbx
+>  37:	fc ff df
+>  3a:	48 89 e8             	mov    %rbp,%rax
+>  3d:	48                   	rex.W
+>  3e:	83                   	.byte 0x83
+>  3f:	c0                   	.byte 0xc0
+>
+>
+>---
+>If you want syzbot to run the reproducer, reply with:
+>#syz test: git://repo/address.git branch-or-commit-hash
+>If you attach or paste a git patch, syzbot will apply it before testing.
+>
 
-These IRQ numbers are raw numbers forwarded by firmware and then
-returned by RMI_PSMMU_INFO:
-
-+		if ((psmmu_info->flags & RMI_PSMMU_IRQCFG_MASK) ==
-+		    RMI_PSMMU_IRQCFG_IRQ_WIRED) {
-+			smmu->realm_gerr_irq = psmmu_info->gerror_intr_num;
-+			smmu->realm_evtq_irq = psmmu_info->eventq_intr_num;
-+			smmu->realm_pri_irq = psmmu_info->priq_intr_num;
-
-Should they be converted to Linux IRQ numbers before forwarded to
-devm_request_threaded_irq?
-
-> @@ -782,6 +787,9 @@ struct arm_smmu_device {
->  
->  	int				gerr_irq;
->  	int				combined_irq;
-> +	int				realm_gerr_irq;
-> +	int				realm_evtq_irq;
-> +	int				realm_pri_irq;
-
-Nit: this series adds a few realm-specific things in the top SMMU
-structure. Maybe a "struct arm_realm_psmmu" can make them clearer.
-
-Thanks
-Nicolin
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
