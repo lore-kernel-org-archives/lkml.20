@@ -1,111 +1,88 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229FF370D5C
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BA4379EF0
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787983534; cv=none; b=sBHbSd8odTVmn2gy4F5tUy4bzYqYUe30oYQ4If0gaxR1bmcyD6MtJdBRn20BKk591rGdsOnB3GKHRAYlBUcNkrIlD1RdBZbdd8Skp+DNBFeV/Xz7At8LyJizCexiBQqT8MfkYggkNLd6XRTgMu/tQNx/GdWNX7Ct0nGudBYs5AI=
+	t=1787983537; cv=none; b=UQOcd6qAZ3BiT7BEbyiy97clHevPmHInUGKYnNVfAfRNc7y50CoHwlAYYZn6lCk0+LgbIhKNaUA+Ie9PzcaZvwwuOnKabm53QMI3iFVOzeL/3TGOtMizMQM+J+qjORs77zFWFWfJ5UGVo3lkCNDGeOAtnkznU2NVS81rRN6Qw8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787983534; c=relaxed/simple;
-	bh=o6PeFz/eb2/Zu4CF1vb+zadSXp55cFSSJyfDin3quVw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bRbwrVgIYBYa6cQ0h0RrfaR1imMIKcR8/k9ol3jXajGdYsFwgXVgpl4fx6W2SDGWeSUGWnJbOqLPJ9H2cPkLjjMeq7qLHXTzvjE2aDQz/Dkg5ns1Cp4p4s5r9/3ZWeCuVBZIhpBpXlEypC4QVUWCzwabzhgxMIINDz804LI//CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nOBRmksV; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787983537; c=relaxed/simple;
+	bh=U/TNpxXOdrQL61OvXDHMNpk6Uq9BDXbfNNEI4cvHvkE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RkD7KHT01ACcN5ZdyVKxgfuRFHkTBiVmGfu+3iLWpr0hTPbcxb9vH4RzLkjX+tOFNmP180pIb8copH5EEUWHuCh2e4xfAkIUVGhnVdZwJ3CaRKKepAn4FOckBd3ArwJoPCdcBFdaXR0E/5KaTcTzmqCIbrDuR6WYDZ5+wcyTbC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=njSa9ZdW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nOBRmksV"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d530328efbso15429965ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787983532; x=1788588332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TkuG7a4t9AcWIusJS9uwYTZnKDwEZgSxcZyE1iPjyLY=;
-        b=nOBRmksV/kL92K2z8ILE3CgNu+5d+u1HcGaaUaUZ0zb3OpbWsGqjj8f5C7dp8n7Jzv
-         9ydVigGLHiA5nqLQTb9HgIvy46cYlsxKsJjmPdy2etjtCYEebbke+ualwMWVzYXhWU4Q
-         suKjc6JHwRhwhHuPvbU4nbuE6GZ3QVOCmPdFLNjN0LDyNl5iB3bjnySQPpHt51Is9fUY
-         Qa4+S2u5uU/wkxt9WaPCbPTZvnC9HxJfqL6d3hGp6yPp/8n/kFVK1OuPXaKSyibegVpp
-         EgFspv+3JX5g6YSOoIGUHGLJ04evhGOkzCom9qyxM+3160u8DTvIaRjd5JfSE0rlaPYT
-         5Sfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787983532; x=1788588332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TkuG7a4t9AcWIusJS9uwYTZnKDwEZgSxcZyE1iPjyLY=;
-        b=GxXFIj9zXT2LnTfVdZbWKYsXzHltI9uA+kX0P7eagLevvzJiO8mQdBSJlMy7m/VkCS
-         BZKSheTmyPcDdi9P5o/EDnukuwZ1lZfK53sH3N1OK2JHW+3/V6jHUzttOIw7fk7PDAu+
-         ATlMe9wZY2+R1UKHygt7PUq7V+NZircYJideum6s7rZ75t/XLVln73PBXB7/QDrQeyuk
-         YGUp/vT3x4NG2M2D7waR6T0Z/kZsKuYT9dKWyhj5SBc+wX46ouiSqSS3ee2LqjxuWHK6
-         ooAsoG6mjCZM3ZZhhUbX6NODxmvdFOEeJ4Ou2cwZMpA+lofqkmi8CSrr6GnKyOOelofX
-         t4ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzuMGP38GUd5HX/rORE6/oVXYucw+vQ0/KdXnMcMHkySJ8nD50LqLwn6rYLeVgmXicquc/ImfsNUgiYp2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6dCi/imdZlEFLfhJDlXxZtV20+xR8auSB51a9PKx2ZPTeDxl9
-	vQ9VsAc8c1eRs0FO/6cpSs5rrAJX2his+AZXojR2RvfHqRhLg5rM8OCj
-X-Gm-Gg: AYBFou2zjtyC9EX7lmDXIlacmTepuaoLHtqmkPLVwCGrGSu/D98lpYae/3C7a/K64TZ
-	gngPl7dPKyAqHA9UNajItMNcjt0oS+j87z7jGowDVQ5Jboi8A4aBezVKcmyA87tDlrIGeDZZduD
-	LNU6qg/WYE0lJurpb3Ukv1hP4VbKbZTe9rMCR37Dcft6jykY/LVfakSJbj+vtDg1ZdfKeZK5ajw
-	f5PhZ0s60VjZeug24BDfLdS0BhIIMw7lvM5bnsrqpXSM8PBqNP8BBHz5lkfGiYIQqoBqfCmJKm9
-	D/OJmoCqPmD/2rfSGcJUf9ij/PKBOErjvDLfFeaq1kbi9n37yog7ZnL3xEnfrfXAgq1gZxRDypN
-	7UvZd6uKJ2hxQA8VGwYwrDzLkduOr4ruJRW3a0Gd7ALNlxev2iE18OekhFBdSvCmPJq/m4a4bNE
-	T0mEviEwNTHJHDiJ83oSkWfy399qZN1BDo+HffR9JutQswKCqqENs9RXcPbJIuQdAPGqDNiX9g/
-	DiVR/NCZ4E8Yj8JsDDrmC15
-X-Received: by 2002:a17:90b:50cf:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-396d0ed78e5mr21704468a91.8.1787983532176;
-        Fri, 28 Aug 2026 23:05:32 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36ed6sm5609411a91.2.2026.08.28.23.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 23:05:31 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: sunqiuyang@huawei.com,
-	daeho43@gmail.com,
-	daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH v2 0/2] f2fs: fix online resize state
-Date: Sat, 29 Aug 2026 14:05:22 +0800
-Message-ID: <20260829060524.2656620-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="njSa9ZdW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7DA1F00A3D
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787983535;
+	bh=U/TNpxXOdrQL61OvXDHMNpk6Uq9BDXbfNNEI4cvHvkE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=njSa9ZdW51F7u9sNbBbSeSniECyxKh0bQnizh3VPdRvUwiVeZcRUX8L4WK0vKmpek
+	 s0OJspytUqxUMuWackfDsNRyOxUSECh3L0nbybetugS02R9OHuIEXtrGX2QrscqR1r
+	 AeRCSWr+DPpKQrT7fgY5r62SpEPj1dMOhsbfJGDwfETLAo8wfVDI/xPPqj1f11AFr9
+	 WlnEI2pVlvq4RGIgbmiec1BEtIaeo5IKsqawN1XuVzsvflPv53D2LX9rXki4fUUXN+
+	 hw53DOWeyuCAZHUuEDw6QI6iXDlhrq8nzX04GRXJiyEdMydLBBvb7N1YPJLfKT1wUi
+	 6PZfQO2yiedCA==
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93905b1dc65so101969185a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:05:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrAFbG3B+V2zsPZ49DBAq7v/SwZwFQG7AFRmKUxwm/rxES2fkebuFyT4EFbQCVusPa6Lb1s1HS6Ok1qpxg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mInZ1ZgdSHPODFI5OafkzvTuDslVl0xVfMLOo/TPg7IYoZiaUh
+	03G7ziwAvIWjB+/3gFmgnt/MO3+Wfw50/D/6sB2+T+4Lu0PBxp9xUFAeaZa5pM9B31ngX5UnMdv
+	jpz0cjC+CkN9jePzA/MMxRsBNrQDMneQ=
+X-Received: by 2002:a05:620a:28c7:b0:92e:7c7e:9c9a with SMTP id
+ af79cd13be357-9391392cde0mr1366007085a.31.1787983534861; Fri, 28 Aug 2026
+ 23:05:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820045603.68809-1-baohua@kernel.org> <7e897a4e-2075-485a-8cc5-5bb928fba437@linux.alibaba.com>
+ <CAMgjq7DFpKU=QdT4QNAREL8oLg-OAxM6zMcYkCECBVg=U5ECsg@mail.gmail.com>
+ <56b8e283-f849-4fd7-9c2a-64b604176a82@linux.alibaba.com> <CAMgjq7Aemn51JRVx1_zxG=Z3ZhTBUW01erEpgHfDWT=BPGBLMw@mail.gmail.com>
+ <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com>
+ <70133332-966f-4bd2-99da-cfc5ad5fb6b6@linux.alibaba.com> <CAMgjq7DudvXYMLD_1hnbK3ivPY0j6jUiO9b0JWdRg24B8vA7VA@mail.gmail.com>
+In-Reply-To: <CAMgjq7DudvXYMLD_1hnbK3ivPY0j6jUiO9b0JWdRg24B8vA7VA@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 29 Aug 2026 14:05:23 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y-7-hgz2TvMs8=RoACQ0ZWyJFqugaMxjbQqCTym8zSmQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VwCOvfnTCjzcZkqOm-T-J65w6YYJr1de_FRQVVIFGp6yGiSJJxNIRacKM
+Message-ID: <CAGsJ_4y-7-hgz2TvMs8=RoACQ0ZWyJFqugaMxjbQqCTym8zSmQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] mm/mglru: clean up isolate_folios and scan_folios for
+ readability and clarity
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org, 
+	linux-mm <linux-mm@kvack.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Ridong Chen <chenridong@xiaomi.com>, 
+	David Hildenbrand <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Lian Wang <lianux.mm@gmail.com>, 
+	LKML <linux-kernel@vger.kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, lyugaofei@xiaomi.com, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Stevens <stevensd@chromium.org>, 
+	wangzicheng <wangzicheng@honor.com>, Wei Xu <weixugc@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Online filesystem shrink changes both persistent SIT state and the
-in-memory geometry used by pinned allocation. Two stale-state paths can
-leave old information active after the main area is reduced.
+On Thu, Aug 27, 2026 at 3:25=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+[...]
+> > Anyway, personally I'd prefer to keep the original code until more
+> > impact investigation is done.
+> >
+> > Just my 2 cents.
+>
+> No problem, I'm OK with this change for now.
 
-Patch 1 makes the resize checkpoint drain existing SIT journal entries
-through the normal SIT-area write path even when there are no newly
-dirty sentries. Patch 2 refreshes the pinned allocation boundary after
-every geometry change and rejects a shrink that conflicts with the
-configured resizable tail.
+Thanks, Baolin and Kairui.
 
-Changes since v1:
-- Simplify the incompatible-tail condition.
-- Log the main, shrink, and tail section counts on rejection.
-- Validate before acquiring the mount write reference.
-- Restore compact formatting in the shared boundary helper.
-- Recheck after freeze to cover a concurrent remount option change.
+If the effect of the exhaustion check is unclear =E2=80=94 it improves the
+zram case but might slightly regress the SSD/NVMe case =E2=80=94 we could
+simply drop patch 2 and keep patches 1 and 3 in v2. That would make
+the patchset focused entirely on readability.
 
-Wenjie Qi (2):
-  f2fs: flush SIT journal during filesystem resize
-  f2fs: refresh pinned allocation boundary after resize
-
- fs/f2fs/gc.c      | 27 ++++++++++++++++++++++++---
- fs/f2fs/segment.c |  2 +-
- fs/f2fs/segment.h | 13 +++++++++++++
- fs/f2fs/super.c   | 15 ++-------------
- 4 files changed, 40 insertions(+), 17 deletions(-)
-
--- 
-2.43.0
+Best Regards
+Barry
