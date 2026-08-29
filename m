@@ -1,126 +1,93 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA8A5474F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 13:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FD72264C0;
+	Sat, 29 Aug 2026 13:06:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788008776; cv=none; b=GpiSz66RJAduVyuQayKs9plg7exylBYsoYLvemzLtsqesQOXj7UOILpgD1yVqc28zYWxG9QZ9E4Y3RTVWvIuOK0qlAhoFNLBPJukjNliXcBm1L+dp5GrT3e3k6Tm56XRP43ePGHdaWundyklK5B2VaCOxgd1wZUYUwhMDZ+orGw=
+	t=1788008811; cv=none; b=l0owa5fr85MgRLMxXgo8oiAgnJaPseGD47E7cprsJJgJH3xmYVDM8dZfPuTxLgI4cIEGqQFmT5YH80Pa38nXsLdTfYU1rGiErREbSevD8n8/YB4K4XiqUvXU41aVOR+Rl11GvMS4yldi0N9cfH6nPvrfLh2VgWrQREI06PVXLnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788008776; c=relaxed/simple;
-	bh=QyePVgSgntKbPOF5HNZ7ZVtA1SOpKXV9ugVrJN2nBIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LB/7kcc6vSMYX6FaHmZjFa+hb4hpsaUMPR3Xh19oDvnoKCAMD9Kd9HcDaevDaiNMo0L/BjdPNzYphpxWiYCVSyi+OEBJ7Gp62/LUVLIeahDY21yLux/ir6XShMTMZb3xCGvN20hiP7+6otqNlG/1GqZHccx0INPVq8FyibCu3WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LAr5pcLK; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788008811; c=relaxed/simple;
+	bh=3T1abFEb3q0LHyV+GB3FmH+SEqo1auqa1Sh66RzFZRw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sjZ0OjgillnMWUcCbasAMhMadYxiqQlZqduijyErePv/ug0bZV9Tg7HDCQ/Wvj4guKjJkrszn0jhBTLboNOa9sbpaBoin5ovhpkrCJevUHi9nioQDbaTX1P5YAe0J+WwxxwihVXuT3zUk5QMTFmecqPZ+CTN6xEDPYttcoC77bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fIU3R1i7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LAr5pcLK"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84830c774a0so2236029b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:06:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788008774; x=1788613574; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bxUY1SL27+UsLjI3ipAM6u1C7f8w0P8IFMgoZ49BAgw=;
-        b=LAr5pcLKc41iVck5TdL1BWgV0EaJ2NxNlv79FD48YwkcVXzHhUHPD+iVNz5w2ncdxL
-         GEo4Nihpltp60kWrnsjVz4oNc6M/cWT3LfIsa3Xigny1IzAHe9ImydPipw8lVx4Kb6ok
-         HjT8gU5ezAwMbRNrfvCDHlCBxnGWsLUD2gPfAkK2kHdF6IqoL4G8PSfshJBe+4tzRoFd
-         PkXe2EbPXyA0wScBTlKcryLK1YL/Rb8ze0huiSqIXGi1SasT9RwMMVYinEcHIe+zc/J5
-         lXSftovsFathBhlLHHKdPUw9PuXl3tvdgPEeyEfvEX9Agicl6c171uzT/pa6IKOMK+AU
-         Rx3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788008774; x=1788613574;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bxUY1SL27+UsLjI3ipAM6u1C7f8w0P8IFMgoZ49BAgw=;
-        b=EM5ZrxI4oNh5ssUulq0IJRmcyJ/PHmN0GeZwffnaDJ2f+AsCbkfbBn9NznDY816Kyj
-         oZ8HQE7KYTMh/9bSlNk4d/1j/p2lT0eegdP7epnfQqtxnNRW2gNLEFUFSLe6eHa75cUD
-         lGGC/FnpdCKbyqxQJeHGp44UKWwE1mHfxidZ9Ie5G97heX7F4q5870ExndbTjZsWjVv0
-         xCdDM1ZX2d7dby1wuhKKB1bvlaI0Cv8VTFsc1zqff5a6DfklpYuNcYvz67F9G0nT0+fm
-         yCTJh891O/B7plLlPrJDIoxBLL/KeKDtyS/zOvmLBiWgo5P0owDzVzlbGrIJKhSYszC2
-         ygtg==
-X-Forwarded-Encrypted: i=1; AKwUvByijEtFFtUg0SqKnKzadFbWb7M52KoQQnStgFLzvS5EKs9CnG8DSUwKUB8j9Esnh1j5AI6QIFKAd4Vlsu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nH267RW4BEpeWvfhATObK7UBjU6DX7IjCzMXXQKznkXqE6B72Q
-	2Xp4YgEHd+n8NwhjX2hSyRenO2FIPTXi8rOzbYlIByxLZ25MX/28+7UC
-X-Gm-Gg: AYBFou3NTP+i/vylUgXAv5WIbm6nN6/r00Z28eThDWEdy6yyVUfT6sFPcge9mEsnfzL
-	3Rdj9Njak6QwHSGInZDP11z9H5oY26Dcl2Y9YRFCU89ieG/4s85K0QHX8tFBnoCOiMso4mtlKz4
-	VUumpCOhJ2wdvcO88LdLK8rVqooo7J7xYxut9kqOUsLnNgkyT/N+FgZ6b397w5z42A00MUe6Y7m
-	sddwSnNou+L+gLzhGjPN/1w3jLBM4dPBeKaMkwm6Z/4cJDJ/0AEVwkroyPhFDpI8hEqO83S8nxB
-	LEUVhIUw5jayeLdzesoCAQ01FC7GyuNjdBANn0gXpmA29Uqh+ziQ1lQV6ugUI8ok6KtqG0PPTUF
-	SIqNcniIWH1CR452jEd8HEozp+K1JzENHA1OXduJpbu6gmY3sWgiCpqnHVj1cIW4/FUvWMd95N4
-	xka5MqajuDWV+izb0cz6TmBRpLBWGQJm1F20jfHdJFUoWVwGfaP6rjiWqV9YsVH589xjs5+DZK9
-	DXizpNRqL85yc0ZOb+Q6ppAHvLEcQ==
-X-Received: by 2002:a17:90b:2f0f:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-396d0d92d15mr25514114a91.3.1788008773691;
-        Sat, 29 Aug 2026 06:06:13 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm16489606eec.13.2026.08.29.06.06.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 06:06:12 -0700 (PDT)
-Date: Sat, 29 Aug 2026 06:06:10 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, 
-	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] platform/x86: x86-android-tablets: Add Yoga Book
- audio GPIOs
-Message-ID: <apLZF6b3F39z6bUc@google.com>
-References: <cover.platform-v2.1787872237.git.mauriziocasciano7@gmail.com>
- <ed99294bd4ac7cd40fa0b2053795aa24b27a632b.1787872237.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fIU3R1i7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 14F33C2BCF7;
+	Sat, 29 Aug 2026 13:06:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788008811;
+	bh=3T1abFEb3q0LHyV+GB3FmH+SEqo1auqa1Sh66RzFZRw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fIU3R1i7SrIj0hbtvjhW+X9e2UO/23Kyi5iD4B2iBxhTk7kNADDZOdG3ibyrhACCr
+	 IiJwJ4Rq7nQBGT9hwUxLOt2afkyvzuGZxIEUyHUbuWuPan3qHmYkG+DYdS1Qzg8FF2
+	 IhbIUpjbV3puVyYFCKU0fUL9iw1NLYOkVF33gMdsm2M+IU7NWUEPiMsNPLNa6zvWjZ
+	 P9gYsKBq3Bf7QnNv+4NhnHVMGKgjf6gd+9Y2sx339B7Yq00qqQ74OYE+UQ40pVh528
+	 Mju/+R2D5uhUfAOoF8fg4Lpn3mGpp/jrkiPrRSqaAFB2V4VeUuabUY2rdg8GgGlpzA
+	 z3u8MkbS1UX4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA433C61DBE;
+	Sat, 29 Aug 2026 13:06:50 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Sat, 29 Aug 2026 16:06:33 +0300
+Subject: [PATCH v2 1/2] media: i2c: imx258: Add wait after enabling
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ed99294bd4ac7cd40fa0b2053795aa24b27a632b.1787872237.git.mauriziocasciano7@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-imx258-add-reset-gpio-patch-v2-1-bfd27891e225@mainlining.org>
+References: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
+In-Reply-To: <20260829-imx258-add-reset-gpio-patch-v2-0-bfd27891e225@mainlining.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788008809; l=852;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6gFgGcWn8XWMZgFcAqImtkE7Mtn0Fv/loz0A+OqkWoQ=;
+ b=uDYz4J8Nixs5xOqxBYgf/sToUz4lEo/oxloyl5W/XX50cB3pCXI9ryVqXDpD2cvMOCYz4mBB5
+ gDjt0HwAdhpDyOM1OGRks8jJLKAZGPyV9NUsTA31ue5+WUOQEMa7t6Z
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-Hi Maurizio,
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-On Fri, Aug 28, 2026 at 01:17:00AM +0200, Maurizio Casciano wrote:
-> The Yoga Book YB1-X91F/L uses two GPIOs provided by the RT5677 codec
-> itself. GPIO2 enables the second speaker amplifier and GPIO4 enables the
-> headphone path, but ACPI does not map either signal.
-> 
-> Add lookup entries for the codec device so the Yoga Book ASoC machine
-> driver can request both controls by function name. Register and remove
-> the table with the tablet description lifetime.
-> 
-> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-> Assisted-by: LLM sparse
-> ---
->  drivers/platform/x86/x86-android-tablets/lenovo.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
-> index 88693b9a1b01..8a69194a724e 100644
-> --- a/drivers/platform/x86/x86-android-tablets/lenovo.c
-> +++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
-> @@ -345,6 +345,16 @@ static const struct x86_i2c_client_info lenovo_yogabook_x91_i2c_clients[] __init
->  	},
->  };
->  
-> +static struct gpiod_lookup_table lenovo_yb1_x91_rt5677_gpios = {
-> +	.dev_id = "i2c-10EC5677:00",
-> +	.table = {
-> +		/* GPIO2 drives the second speaker amp; GPIO4 drives headphones. */
-> +		GPIO_LOOKUP("rt5677", 2, "speaker-enable2", GPIO_ACTIVE_HIGH),
-> +		GPIO_LOOKUP("rt5677", 4, "headphone-enable", GPIO_ACTIVE_HIGH),
-> +		{ }
-> +	},
-> +};
-> +
+After enabling the device, a delay is required before the sensor is
+ready for CCI access. 0.4ms delay needed between enabling and
+reading the ID register over CCI.
 
-It would be better if we used software nodes here instead of lookup
-tables.
+Link: https://lore.kernel.org/phone-devel/apF5oxsCf7MJt1lk@kekkonen.localdomain/T/#md6a0411e81a2e3a563c935348f2fb4f3d52df64f
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ drivers/media/i2c/imx258.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks.
+diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
+index bc9ee449a87c..9c3a6579df0d 100644
+--- a/drivers/media/i2c/imx258.c
++++ b/drivers/media/i2c/imx258.c
+@@ -1129,6 +1129,7 @@ static int imx258_power_on(struct device *dev)
+ 		dev_err(dev, "failed to enable clock\n");
+ 		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
+ 	}
++	fsleep(400);
+ 
+ 	return ret;
+ }
 
 -- 
-Dmitry
+2.54.0
+
+
