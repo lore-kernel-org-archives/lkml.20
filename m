@@ -1,127 +1,107 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A8D1624C0
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788001057; cv=pass; b=hqOZ1/H2FxoNTBlguq8Hc21a3YjyAU0zslPPVMdcAWBLWBhCD5sJ5/X+rTeIJ/6KK7TKE6kge2XuWXr57QN2yRHfj/8Ui0qOfUqwUuqkFfm/HdcP+iLnGamKH8VQ9IXcuoRVdrjtecboEEzhE9ZFckGqDu665o8X02uXL3vKhxE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788001057; c=relaxed/simple;
-	bh=hsBKohLfCZd0jfnALC1cEzA++W2MrcDhahlgqPLVM7Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VmJ0qU20IDcrvW6qZpI3WdCxy+xyc1FoD4Z+6NOUWO88PKINuLgw/4ZJ1tV9/cgO/hInc6weCGtnJJXDauhqc3PyCJJB1or78Qhi2Cqm0nsorfwg1Ew2DrmPRhRRaFB8h5jXRzhcs7iA0nZNmFVEAI+XHfrDt+Jl9eiOatUeb6U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qxB9/ucO; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3375809;
+	Sat, 29 Aug 2026 11:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788001218; cv=none; b=RR7XTUMizAWPxCsHZ37lAv98Qf5HgficPbQwg5PyN7LdsoaUxrIKySfiTI9BU8e+/Ecd5Ea61woZWq3wLdwUzIRaCHR6FHspC1XUDeIreoAyb9WqKrOirnqJ3wbitW3NvJQJ11tefmOuGng8reqyhnPRaGOD+cxOVo6kMf97iZc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788001218; c=relaxed/simple;
+	bh=ioxXzp74CW+7ObdcFL8p7Q1p8/W90TOj2urXj4LNitc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gRht62Z2XXaLs8h91IxJdaiu1DyTzUmyNpn84SCMFSHr/ph1ks23cNXcNiSZhMJ+2QP9py1elTMCoOxVH6PzYRUOUotgxNQlfzNPnvaCWj8TpsrOULifTuMIkex+ak/9su2Iajt9BLmhRiujdV+VNFALgIcfk+ZeLs6ArEA+B58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuX452UX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qxB9/ucO"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8f2ed7bdcso461485ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:57:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788001056; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IthrXNUcscOLjF5bMRZHqL7IaQJQ7NYwyiw9GkoMTQvuJFNo4pSpo0tmJrf4fKPObR
-         YhGXxDlCE4yfiL49m99ebLu6/ayYO9MLcqLJCjPX1/WugqikRrD9hSQR8A04Guqr5Q8z
-         1YY27juBj8S30+UIrEighfnHRrVa+SmovRYqEJKYEDrfFVt3s/3xFFR5GqHM8lBUHeiP
-         zMmW8EmixvegAFAzCi+k4dKsxj5Z2ch5wNsgl2US620p3WDWWFR1p7d7/IcYdJpCxPaM
-         3xoN+JC8KS4zMkB7Z/VWx7iG4OchTYmaNM//ucsjh2Y36MTCA9P8sMV2LhW06VYSMxPc
-         VD6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
-        fh=jDzMYz5MaOYKHOMNIrNCVTsZdnpwhViGOvDjH3DuhSQ=;
-        b=FhRSas7yJ3eOV+ukiNXOTuHnCKZk+QuyJsPEtkA3vOOCaACUnGmrnkipdMrvMoFZU2
-         f/1s5ecOnyFK55XfbUyYOxdStAx14Mz/mvZ1zQOxGGlHQhdd+vXcfpUcpzWoe16oK2id
-         wy314927qQtgkuYHi5BxVwMcK0vQ42XmE/CB6czAgzRxTraoFpZ0BoUj8PEDSY+LfHb4
-         AcYIl5BtEkTnBpBg8gd+F+tedLkfZXI7l7OPlxCzFgii0muvUk8bKi8McsIobgSiIpmt
-         JRbEnfB4bnUx1aRjDoGRXEG4wtO+WNQp5Fd0hJTa2cvfQ2is6fZ26UvbGHNe7lbyLrpb
-         LsAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788001056; x=1788605856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
-        b=qxB9/ucOSNJYhkRxeEyJuIaaChnbkIeziSSD+2tZkrRhLbLNtPwwaw4AnOsFMkGHgH
-         g8av33wNg8aFOi0uNrjq+Yypt2oDfrdfygCqbkDmAzG5fuTS1GaoG3u/rzSOQp64bZcr
-         Wr8t+It1pfy/S1oP/PjrrW6Lt8BGDP9OyfNZoC6PKX9aTpe0hvxrhZVOb2JooagrMlPz
-         TUMkgAqwJXV3g83TJ0bJH6Fnm2rHWOxxW7ClpQ3zjd3BOyBL4NDx9juMBCRdInYkLope
-         g97Vy96kHGCKy87vUJsdUFVo8/sZJhGJwdy6K//5s348jFOgAAUIsevfCJRcwtlGtwCE
-         +tfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788001056; x=1788605856;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
-        b=ElnFZ4tbe1xs4ALWwFdk/cLNAXvv3knOcRI6qhjBtjLt9mnRA3tTl3JbXB018ZQChY
-         5eavjzsVW6XuMvIOz+x1LovzRa0gMS3J5sq36G41UpU9RC/JQVs2dV4SsIhMzclIFnGb
-         Qx70mJ+Ysn3rQBsKEfEeOOc2GisuZfgwLdJpjKZwfhBUxOF5zv1drNJec2DufrCKTa78
-         yeo3oEwuBGZBz7XudlDQpHljVAwoD/1/Yw73JYW41VynkfeFSxWlmrGQCs0KlG0dzX+O
-         TFPdT4DGe/rSSPoPHw7Lo97cTm5i5yQcHDaWokmh/srEx3SbMCNArINO6xjspMdGVhMw
-         PPpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx65wbMQrEVil/v2RK/CJVBwpdQCT2JfTNbHd74KJzeNZ+p6RM8EHApJdRfLjTs/XKrUGOg0E4b6hU/i88=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMyG8NgCFQVP1Jhu03uOylbCDwc0E3fE4+33yAwvWfUXRIcqiW
-	XHK0V8zd5h/WFWXeuodrHP7qFUScM8g3YBQVL+GXstw5FPOApLVfpFcqhWcbNo3FOmMvebccQ7a
-	AV+QdDqGKr0FPPR1FWjqw5M836L7oZ0Q=
-X-Gm-Gg: AR+sD12h/3iw4vrM36onI84Dan9Oa/7XkHs6+WwVBaZJLitnQvnZzZm+qgv5Hmh3d9c
-	NWhvWO6tC1P3EFgQezsIj2hndNE3Farr0wqI9HybbRAcgbBHLUb5XbK+Zc0V+ray7JQEzwxWtDx
-	c8F/0N1DXE0kUM8xiwJkFUAhFP1LhgXYliNo5GZ0MbjAZV5ck9YmxDgzsjOGR6hI4k0FGa5Fqe1
-	lw3WJ28nmM/rrljH6IIa6gFq/HwaYv8H2X5J/2bDpyH7fR2Ad9ZNIL9WV0zfznqCqQpzzf45YEX
-	4p/8aLIPc5dMO0ksOofYeotlg0+8dfjCrP+WKe92+zDccMO434ieCsfEDuu/FaaaOdD0R6eNGqk
-	cp5duIun6q8XTO2iOleTszbeRj9Gxyf6kogAOTn1X1kTBl0o/kgPjRlXZHSM6
-X-Received: by 2002:a17:903:1104:b0:2c9:8287:fd0d with SMTP id
- d9443c01a7336-2d74df62ccemr115727945ad.3.1788001055774; Sat, 29 Aug 2026
- 03:57:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuX452UX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACDE1F000E9;
+	Sat, 29 Aug 2026 11:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788001217;
+	bh=gXc6uvmEEbs0tjpDmzTEGwxIlYg9TWDsfiwiPxngOzE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FuX452UXi8Md7T20vL745dUi69Ui1QV/KOxLJj/ty2S9fwWxlS38Y55KfLpQWahhr
+	 hopl168pK0jYYEkNMg236NXMW6s3gtPGn3OvYa4cKJiZ3YyALIKdJwqiSbyfy7rnrL
+	 PXnGZl2bYgkAb+OsTZMJfjlYbazbGpwXeglNtUEFeqIgSiw59ymCfL5oNAX0RsVmLf
+	 T2vqLfykJ4tJGrDwUQkkVsFB69QnkEz41lElPHW4pzsVHGhlXtNPu50Q2Esmi3tJng
+	 O38SgqKGHA2jitUBjxGfntIUAYcJMU8BeA3MtqD6nWhNjIAqTUVLfyVtTFW8ciUo3x
+	 Kn6KLeUl0ZKlQ==
+Date: Sat, 29 Aug 2026 14:00:03 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
+	Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
+	Nico Pache <nico.pache@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/6] userfaultfd: collapse VM_UFFD_{MISSING,WP,MINOR,RWP}
+ into single VM_UFFD
+Message-ID: <apK7s4xSgA_GmY7d@kernel.org>
+References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
+ <20260823-uffd-vm-flags-v1-v1-6-3086981b33cf@kernel.org>
+ <ao16VxNvaYzlt2WG@gremlin>
+ <ao_9R3CbjYFipFu7@kernel.org>
+ <apAB9GSnHNyNoSc1@gremlin>
+ <apAcweThjiD-iIBF@gremlin>
+ <37f6af95-950e-4457-886e-6548d4719f0d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
- <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
- <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com> <9a3eabd1-4057-45cf-99b9-9c3c1b6260d3@gtucker.io>
-In-Reply-To: <9a3eabd1-4057-45cf-99b9-9c3c1b6260d3@gtucker.io>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 29 Aug 2026 12:57:22 +0200
-X-Gm-Features: AcwNN1U4Xd-ZPEH0J5NkeG85FCsQEWIBZhyX8xsSVfYp0sl8uMCqeYTmtDyhT2w
-Message-ID: <CANiq72m0eemCPbEAvZSC49OZHyaNvQgbMdSDphT01no1B+YWEA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
-To: Guillaume Tucker <gtucker@gtucker.io>
-Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, automated-testing@lists.yoctoproject.org, 
-	"kernelci lists.linux.dev" <kernelci@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <37f6af95-950e-4457-886e-6548d4719f0d@kernel.org>
 
-On Sat, Aug 29, 2026 at 11:02=E2=80=AFAM Guillaume Tucker <gtucker@gtucker.=
-io> wrote:
->
-> See "bc20c56e98e0 docs: changes: better document Python needs"
->
-> Also it's explained briefly in the docs here:
->
->    https://www.kernel.org/doc/html/latest/process/changes.html#python
->
-> So I guess that if it's needed for at least one build configuration,
-> then it's not optional anymore.
+On Thu, Aug 27, 2026 at 05:19:30PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/27/26 13:18, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Aug 27, 2026 at 12:16:32PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >> So actually you're increasing by a cacheline and increasing the VMA size by
+> >> 64 bytes, i.e. 1/3, which is unacceptable obviously.
+> >>
+> >> Maybe there's something that can be done with:
+> >>
+> >> 		/* forced alignments: 1 */
+> >>
+> >> Perhaps? But that looks potentially ugly.
+> >>
+> > 
+> > I say elsewhere (or think I do) but to highlight - I think probably we could fix
+> > this by putting the flags in the low bits of vm_uffd_state.ctx?
+> 
+> if that's possible that would be clearly preferable memory-wise.
 
-Yeah, that is the commit I was referring to, but I am not sure what
-that commit meant, i.e. if that were the case, then e.g. Rust would be
-mandatory too since it is required for at least one build
-configuration... :)
+This gives only 4 bits and makes this completely not extendable.
 
-I guess the commit was trying to say "used in enough places" or
-perhaps "the default config of at least one architecture" or "some
-`make` targets" or a combination of all those, but it is not clear.
+So I think I'll drop this for now and wait until VMA grows another cache
+line or until having per-VMA uffd state rather than a pointer to per-fd
+context is a must.
+ 
+> -- 
+> Cheers,
+> 
+> David
 
-Cheers,
-Miguel
+-- 
+Sincerely yours,
+Mike.
