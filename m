@@ -1,117 +1,133 @@
-Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f2.google.com (mail-oi2-f2.google.com [74.125.231.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB87037F303
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5181D3264C7
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787986794; cv=none; b=UTsG9kNStYxggR8dNYjtigauLV90A/mRCuCeQG9G/0+WL6zmYuErjthQE6XPK0DUzQ1tKnl+Wz9/aHTKkafSRL3Epu9zLNbFLoNETSzgjWhC58SndegMtbCnR5LnK5+7cf7HxzNJ7WvToprCpPA9Nc03YE7G4FfvlgMJPBr3vVc=
+	t=1787986958; cv=none; b=jVf6z9mH7r4VGkU7t90A4UFSPjlU5Pd5BkU0y7S3S/9rXfv9BltsltrJeBs1b9Uv1oNbMi4Httn3DpbMehbnArPnJdoo5WADSGttrR8HANYxfVntCfIw4ntv2q0+ObfOOW2/H5pNk4k53dEtDZkJiczKamg8vea91f2W9wjGMP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787986794; c=relaxed/simple;
-	bh=5fMCBdzwLA5onSHUizBNdTx2ky5fA1AqgqfKUksyyvI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=umc9uBCv5M3Y0Hg5P0Umx20zq3hfX/Yy0kHY6Znm0FbSpsMmla3f7gMfVIqnlxTim3q54ZykkEfpHw/gCerDGzc6g4LcQsOp0MCJJjjbypNfZND3gJ12P70OqRynWpIqmBScNHPQYY54zRbLYE4E9aUHq9Z6kL31reuUnMG/4fQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=skogtun.org; spf=pass smtp.mailfrom=skogtun.org; dkim=pass (2048-bit key) header.d=skogtun.org header.i=@skogtun.org header.b=UXp2WnFp; arc=none smtp.client-ip=194.63.252.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=skogtun.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=skogtun.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=skogtun.org header.i=@skogtun.org header.b="UXp2WnFp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=skogtun.org
-	; s=ds202512; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:
-	Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
-	References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
-	List-Owner:List-Archive; bh=BGdPJZoaHgFpDX/qpBzTnrtD0hg+72iqg/nLh6STzHU=; b=U
-	Xp2WnFpdX3CicEDu2Swax9OLqI+1mzWsQAjgJCfTV0CM3LSPnLga2MfdSwM7hm2i8bZkDs4MU7Cht
-	clIYzYzr/z8TFUEvlpHudajoviY5OczdMRm4v9YNYIM1pFTkShJ3BLHw9ojWKryuqAMledz+kl318
-	Na/X+3DmHhO0WEmkmBy5uttekVZPmx1bCiSjjibQuLxvnm1Xi9dkErecEihCy/LyGX6IEEM5Cp6ee
-	ZlczfE6wk408MMAxng+2iCQ65WVaEwXN1YNg4I2Nlt46dYEFblaBLyzx8EoDbRTyDuiaAVW6tQFmQ
-	nJ8wYnJBZDArS+ScSe/vemCgWlAqLLFXw==;
-Received: from smtp
-	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.95)
-	id 1x0D2b-00A2s4-6N;
-	Sat, 29 Aug 2026 08:59:49 +0200
-Message-ID: <7a9796d7-5484-4369-a5c3-21a0b8127b08@skogtun.org>
-Date: Sat, 29 Aug 2026 08:59:48 +0200
+	s=arc-20240116; t=1787986958; c=relaxed/simple;
+	bh=kbNeXW/ICKHU30aJ/o4rsV0t4dRnuC4Lb/lKpiyyjL0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=M8l48/A+jPt3b6TmmfSYLDSq+rZJXbnfERFYGDrbX/q9rVsKkSlppVXNA1HyhkUbfMaavX4aqQo6HekhbfloJonM3t7CKqabtI4RmgLstmSwfbqq9sABU2NSIguOOXe9pKtSGXiIjWReSPiL3CxPAKNWb2HOKBr1RgdbnQuc2os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f2.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so470211a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:02:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787986956; x=1788591756;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DUXjaMzi5/EgJKrAoped5owNC5y56qkeKiobRo8ozcI=;
+        b=GpMao132WIIAV1Es1GRWbC/P3tAD3zekIRok/W1hWiNeQyZkefuijhd85oGp+doupI
+         6UjbckyFchjP3+9WkMRTg/U4Tk4D2D7q3DXdUW+cEGV/o8tTkrBy8F73Mgxxwn8dkcgX
+         vhydW1lvfcJX6tPTEmgYlSg70X95Lgqp7vy0EwNPoRly8rUjsSdR957CZRbwUH22n/Ok
+         jhd4KDKOGKyHaox2zaBpx/79wZ0upXfdQKIMAKLFsNhuP9F4YB1fzJmD6N9iIH5KJdZ2
+         ak4vmoq91ryqooPqm3kHcnWeAi9v9xOcSNnivJBbWkO/R6QnCJhQaffjEkl1fn53SiR7
+         vh9w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqooil5QowxAnZPpSAxdBFVrbBZpfkFPrnwg5LVk5u4k46ZFDAwZPZ8mueIzKV0bOX8FpH4QEvBe9ttLic=@vger.kernel.org
+X-Gm-Message-State: AFuF++kt9sSVmw3xTYWGjP0LxA4S9PV4TSLew5GiMRrR+QmxPjyrRqSB
+	7O5y9M1A/GVjXBWWzbqZz6nzdvDMqO4G5GqKasWCRsudQavLs6jBZ4F+ey0MliLDdSYrfUen5Hx
+	yhnKQ7p5ksQ/VyJn546a1+1T60E61TILIWPQy289J2wL5Zgolq6AfBPZB140=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BISECTED]: Non-working USB mouse
-To: "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>,
- Harald Arnesen <linux@skogtun.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <e31cb69a-e5ff-4870-a9ab-8a8c4e35e445@skogtun.org>
- <09570109-8cb8-4c43-b3fb-d1dacf68c41f@intel.com>
-Content-Language: nb-NO
-From: Harald Arnesen <harald@skogtun.org>
-Autocrypt: addr=harald@skogtun.org; keydata=
- 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
-In-Reply-To: <09570109-8cb8-4c43-b3fb-d1dacf68c41f@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:6d92:b0:489:5d05:552c with SMTP id
+ 5614622812f47-4b398352104mr14860732b6e.18.1787986956323; Sat, 29 Aug 2026
+ 00:02:36 -0700 (PDT)
+Date: Sat, 29 Aug 2026 00:02:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a92840c.1d9ded08.62e62.0105.GAE@google.com>
+Subject: [syzbot] [btrfs?] WARNING in btrfs_remove_from_free_space_tree
+From: syzbot <syzbot+df8b249da18c45425242@syzkaller.appspotmail.com>
+To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Wysocki, Rafael J [2026-08-28 22:16:23]:
+Hello,
 
-> On 8/28/2026 1:21 PM, Harald Arnesen wrote:
->> My Logitech M350 USB mouse does not work with the latest kernel. 
->> Pointer doesn't move, buttons do not work.
->>
->> Bisected to commit dc948f8b384a516ac5c471eb9382959f838e02f4
->> (ACPI: scan: Defer device power initialization), which does not revert 
->> cleanly.
->>
->> Attached is output from dmesg, lsusb and lsmod, both for good and bad 
->> kernels.
-> 
-> That one has been reverted from the mainline already.
-Right. I can confirm that 7.2.0-16172-gcf72cbb39da8 works again.
--- 
-Hilsen Harald
-Слава Україні!
+syzbot found the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16467549580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3c35c7e43de75adb
+dashboard link: https://syzkaller.appspot.com/bug?extid=df8b249da18c45425242
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9adea981957f/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6676075cd03e/bzImage-818bebeb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+df8b249da18c45425242@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+btrfs_abort_should_print_stack(__error)
+WARNING: fs/btrfs/free-space-tree.c:869 at btrfs_remove_from_free_space_tree+0xbcd/0xda0 fs/btrfs/free-space-tree.c:869, CPU#0: kworker/u4:2/24
+Modules linked in:
+CPU: 0 UID: 0 PID: 24 Comm: kworker/u4:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events_unbound btrfs_async_reclaim_metadata_space
+RIP: 0010:btrfs_remove_from_free_space_tree+0xbcd/0xda0 fs/btrfs/free-space-tree.c:869
+Code: e2 74 1a 41 83 ff fb 74 0d 41 83 ff f4 75 15 e8 29 c1 8c fd eb 17 e8 22 c1 8c fd eb 10 e8 1b c1 8c fd eb 09 e8 14 c1 8c fd 90 <0f> 0b 90 44 89 f9 f7 d9 49 bd 00 00 00 00 00 fc ff df e9 5d fe ff
+RSP: 0018:ffffc9000031ef60 EFLAGS: 00010293
+RAX: ffffffff843a73ac RBX: ffff888052270001 RCX: ffff88801b7b4b00
+RDX: 0000000000000000 RSI: ffffffff8f3ffd50 RDI: 00000000ffffffe4
+RBP: ffffc9000031f158 R08: ffff88801b7b4b00 R09: 0000000000000003
+R10: 00000000fffffffb R11: 0000000000000000 R12: 1ffff92000063df8
+R13: dffffc0000000000 R14: ffff88801f5fb580 R15: 00000000ffffffe4
+FS:  0000000000000000(0000) GS:ffff88808c30a000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00002000007ff000 CR3: 000000000eb46000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ alloc_reserved_extent+0x4a/0x2b0 fs/btrfs/extent-tree.c:4976
+ alloc_reserved_tree_block fs/btrfs/extent-tree.c:5155 [inline]
+ run_delayed_tree_ref fs/btrfs/extent-tree.c:1815 [inline]
+ run_one_delayed_ref fs/btrfs/extent-tree.c:1851 [inline]
+ btrfs_run_delayed_refs_for_head fs/btrfs/extent-tree.c:2058 [inline]
+ __btrfs_run_delayed_refs+0x18b5/0x43b0 fs/btrfs/extent-tree.c:2134
+ btrfs_run_delayed_refs+0xdc/0x2a0 fs/btrfs/extent-tree.c:2246
+ btrfs_commit_transaction+0x28a/0x30b0 fs/btrfs/transaction.c:2256
+ flush_space+0x28a/0xde0 fs/btrfs/space-info.c:-1
+ do_async_reclaim_metadata_space+0x3e8/0x940 fs/btrfs/space-info.c:1211
+ btrfs_async_reclaim_metadata_space+0x89/0xe0 fs/btrfs/space-info.c:1278
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
