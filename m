@@ -1,102 +1,108 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9271A262A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DB237F8C4
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788016949; cv=none; b=AQrdFiLfFzN90OfYndGZcehDiFE3QC/ircggA3jh4To169n8kn9leb9meCSJhvRwjQsBZsgYrIioL2ADCv63JviyOyq/tLBq4GEDUwLIZR7wQ4I/ypmgSl72gJPIx4AAfLdWSkBJe4QsYdCS/huStZWZNV0L6QlP5RTObEBLuxM=
+	t=1788016968; cv=none; b=pBCMl1KvYgAZfVXagL9YF4kZazmsINgTSGE5ZwKlJKn3EBkyeotvxzHZDOAXj9zGTBXaCGy/+K7InlFF+eH/fYgIsdn/6QSDtYzr2fdtw3IhFdqmbjqLQeerhrpmGq9CLeoAMLUXesFA/laRD12UAXy7vPU+9QOu+ZZP05fyGWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788016949; c=relaxed/simple;
-	bh=NOgOZlUaM/P473Dt/4oHR5EYD3Awq+JCy67VWmWka1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P4JlxwZFhyD+nCB1t7rrSek+rh/oboI8sQ+6/QQ0UiSfzPakSyjaDl9N5YWIZay46S1bOP9DAjMvl6n/R2ldBBc+TnnI5TDQtZup6lIPxuF0GKxeNybUbOfy7PhO+jr8gM0D0aA0/WNvvNMba5k2DSjz/C0rwUynFTG5qj6pfmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VZUtgcT+; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788016968; c=relaxed/simple;
+	bh=RJokLjFBw8XGvTdzB73iwGmk3lSuWcPfXxc0MAxraNA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=iZVYPDdQl1gu9gWD+jie8x01HCZEPbRKPSthJHcMVv2eqQ4AVWVehB8q76pTIxX3CZLR/GasqCWrMUCgjIWVCPFAcHp7Y4hC1kyq24EEY17ESySNjNUnqle+AhQloguDK/1yJNV6N/33QxjVjoFHs+1lEIJwG246O8z7F9IXc4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=owtBKJcC; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=4Sdq0IoN; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VZUtgcT+"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so3106945a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:22:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788016947; x=1788621747; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QZLJvRZdayHOtyOM9Jv6yNvITLKiJ6K0DLdKhkNStuI=;
-        b=VZUtgcT+jqU+247AHm2DW63aXUcC8GI7zjKSzIO+t6LeB/5kjjFqORfGVZKcf75ORP
-         wP6r+JhHK8yUZMEavCPvoGmuBJfqkKbDOvMkZc3+VVAMgQdhj1bRpMUNM//Ur/f+E0Ek
-         fybbXT4GxlICs/0d5PnhD4f/2mEARNWS1QQ3+89KuWUQhF4HfCVB8lbqPJlFDemJYUiU
-         TeGiSmRHfv0HePym9GdnXGgZ77jnM97eJQTaFFEN0hKK9KuZo9HDRwxI0quelNIUNwb2
-         0uXQB20W/wzt3q3Z3lCyg60uDdj6Nm5RHgZs1O05xB6DSWYIOL3TVjoKonB5z+lPQx78
-         c1Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788016947; x=1788621747;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QZLJvRZdayHOtyOM9Jv6yNvITLKiJ6K0DLdKhkNStuI=;
-        b=JcyYOXk2ArPaEMXnYj6OWg6uoLKd1UQ7iFizbmEx119D1spX+fSSdpcgjJK72PNyWy
-         s6v9+rsJpcKTINd1KmIsRhYiuFy36NNvjyC0L0mbRtRQb3l7I+NZTagrsidF76/lhdAB
-         1L6CVk+oS6JvNRchISQDXjKxQp2/aCgvj6apYORn1saTR+BRt/VIr/5EbE7cLj68k+C+
-         RIp8h39do7z/wzQeoMQF+0iXZu2RpDxNI2Qqr55wgpTxwugnc6gvrAjU8lNRRYk6zdK/
-         ARd/u31ILnHTP7I3sExotaImJHa5huq7I2bA8I1d9n972DqkD4R30nA7OAoFqLTd/m1c
-         78eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+EjLFzYkP062pwmnBY64JYafaCMdSkvk2gMZdyY/2Z6YoWS1zK1L0QoaYZZnpmtGaR4WW+WjsUoxj43o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnP0sU18GR11PtPAcwNf0Q0oZ01jvf6jczoBMgd2ZMzDK2L5Jb
-	4mJET2RBrx77wyX/t/vaX9fmpqzWnaxbvPgXl4Pg1OkoiGU6s9gFEnqAx+kLC/+E
-X-Gm-Gg: AYBFou0KLsRHaq+1xAjGce3KdQzIA8vyR+bAuw8PhoKPdxDZ6qmBTK9njIQcBD/uz0x
-	2/qjnguzvCEFXLig9gBqR2u0qCMzOecFYGeYwdN31XMmk0d4+JILMAXZcfVlI+EQeXP3cXw/Ew+
-	jC5XzGc2oSh4qwYRDlAIIx47e7h6DRnP19txkQ7Tke6iAwTLmvikaEiZVAHSwGuxdA8SDnjF3wa
-	Apc3VDJ8eGh8d5cyWjg2Ahl+xkKaxfYuIlbI/zFfM8bPZnhFuyDUGqNhco3xMqgrdKZ6Bmxah2b
-	UujZtjfmdw8uI6WZLzA4nDP42ytujBVU7QoQD5SwOY3RAYkJmiRaJ3rpG4Kbclr5p5ijK83pZcP
-	fpRRaOQDxfvWVGrrhMrlmXJcdAHn7hLmsxac2yOT5i79wFIPd9bxslU+ZuY5yircWn9ARMy+G0x
-	tORQnxtcW6goldwebN3pF1pg7bJhG46UMJyi2M4PTj391miPROJWy0f44UgBC0M9IBXWtAmtBYP
-	iza
-X-Received: by 2002:a17:90a:e708:b0:398:9bd4:d17 with SMTP id 98e67ed59e1d1-3989bd40d98mr11033731a91.22.1788016947352;
-        Sat, 29 Aug 2026 08:22:27 -0700 (PDT)
-Received: from localhost ([183.82.161.179])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-142e0d2e465sm23599024c88.4.2026.08.29.08.22.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 08:22:26 -0700 (PDT)
-Date: Sat, 29 Aug 2026 20:52:24 +0530
-From: Mirza Ishan Beg <seedandsyntax@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	nikolayof23@gmail.com, lkp@intel.com
-Subject: Re: [PATCH v4] staging: rtl8723bs: refactor traffic_stat access in
- collect_traffic_statistics
-Message-ID: <apLzDlcfiu9NJUwc@Debian.myguest.virtualbox.org>
-References: <20260803180549.20859-1-seedandsyntax@gmail.com>
- <20260807150940.5066-1-seedandsyntax@gmail.com>
- <2026082546-treble-delivery-49dc@gregkh>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="owtBKJcC";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="4Sdq0IoN"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788016950; bh=ZfNv9Mocg/AkDbBuad2Wj/A
+	4dXk4VtLjNROEqtR3IJg=; b=owtBKJcCubDznJOIKZNuYshC1fPy+IB1uxw258WA47xvUP7c2n
+	hIKq/CNWBmR+f2yCjsj8q1upxx+uqKL4tovNryM+TJPE45LRfMmHr8dtUErR0rDUUUP5yk6pCoA
+	/+S5YCt1Jp+36MUQ1Xyva7j/HVNlwza7BqPuu105InByM5VLaXpwJS8yR1Ksrz5zfW2Et5efXUh
+	//6DNG3UEmO/9NF8k0zg/a7i7+g6tclpbixuf8btfU4ATvCOoHN8r3ydx7qMvMvMAyMRZOGukxj
+	lB0w09Yh4BRXf+qDtEBibuPXS7MBY3rpmZF7H5yi1IbgtZIghZc/5gH7b/FTPqtoSKQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788016950; bh=ZfNv9Mocg/AkDbBuad2Wj/A
+	4dXk4VtLjNROEqtR3IJg=; b=4Sdq0IoNM0s4crs5zk9ukREoXOtj//mBP6i0wZJ1t+PjXYoixJ
+	O5wgfa7PjQl5uf3vrGRCyZ+dd/P3d5sKI4Bg==;
+Date: Sat, 29 Aug 2026 16:22:31 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: atomlin@atomlin.com
+CC: akpm@linux-foundation.org, chjohnst@gmail.com, david.laight.linux@gmail.com,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, mhiramat@kernel.org,
+ mproche@gmail.com, neelx@suse.com, nick.lange@gmail.com, pmladek@suse.com,
+ sean@ashe.io, steve@abita.co
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v10_2/2=5D_hung=5Ftask=3A_Log_summa?=
+ =?US-ASCII?Q?ry_line_when_warning_budget_is_exhausted?=
+In-Reply-To: <20260829145321.18423-3-atomlin@atomlin.com>
+Message-ID: <41DC3C37-B2D8-4B74-BA05-87FCDFC20CBD@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026082546-treble-delivery-49dc@gregkh>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 26/08/25 05:43PM, Greg KH wrote:
-> Where is the 1-3 version info?
+On 29 August 2026 15:53:21 BST, Aaron Tomlin <atomlin@atomlin.com> wrote:
+>Once the warning budget is exhausted, hung_task_info() normally stops
+>printing per-task details. When panic is triggered, full details are
+>still printed so diagnostics remain available before panic.
+>
+>To retain visibility without restoring per-task output after budget
+>exhaustion, emit a single aggregate summary line at the end of each
+>watchdog scan that detects hung tasks with an exhausted budget. This
+>keeps non-panic per-task reports budgeted during system-wide hangs.
+>
+>Suggested-by: Petr Mladek <pmladek@suse.com>
+>Suggested-by: Lance Yang <lance.yang@linux.dev>
+>Reviewed-by: Petr Mladek <pmladek@suse.com>
+>Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+Ok, Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+>Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+>---
+> kernel/hung_task.c | 6 +++++-
+> 1 file changed, 5 insertions(+), 1 deletion(-)
+>
+>diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+>index a5043188456d..49d47ae475ab 100644
+>--- a/kernel/hung_task.c
+>+++ b/kernel/hung_task.c
+>@@ -277,7 +277,7 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
+> 		debug_show_blocker(t, timeout);
 > 
-> And the "Closes:" isn't correct, 0-day was responding to previous errors
-> you made in other versions of this series, not the original code.
-> THere's nothing wrong with the original code that needs to be "Closed".
+> 		if (!hung_task_warnings_budget)
+>-			pr_info("Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings\n");
+>+			pr_info("hung_task: further per-task details suppressed until warning budget is reset or panic is triggered (see sysctl kernel.hung_task_warnings)\n");
+
+Cool.
+
+> 	}
 > 
-> thanks,
+> 	touch_nmi_watchdog();
+>@@ -363,6 +363,10 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+> 		return;
+> 	}
 > 
-> greg k-h
+>+	if (!hung_task_warnings_budget && !hung_task_call_panic)
+>+		pr_info("hung_task: %lu hung tasks detected, warning budget exhausted\n",
+>+			this_round_count);
+>+
 
-I see, thanks for the feedback. I will prepare v5 with a complete
-changelog covering v1 to v5, and I will remove the Reported-by and
-Closes tags for the reasons stated: those errors were introduced from my own
-earlier patch versions. I'll send v5 shortly.
+Nice!
 
-Regards,
-Mirza Ishan Beg 
+> 	if (need_warning || hung_task_call_panic) {
+> 		si_mask |= SYS_INFO_LOCKS;
+> 
+>
 
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
