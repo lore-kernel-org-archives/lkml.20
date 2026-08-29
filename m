@@ -1,129 +1,75 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED44D18FC97
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3C51B3B19
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787975171; cv=none; b=eS9fR236wx1MyOM/7kFOhPqLXmSSzfzx2yFAaZPyUKIMiclhJRHoWCoqClvyrNqOBzjY+rWOGokjY8Z/WJK4KahgVmJTz63hToMP0G015d3qW0RUaw69THPejegK8ylSCvq5sueeSUv6mXhwqvejWMYKu83PdZDWv7WyV0s4nBA=
+	t=1787975171; cv=none; b=WnAZ+XkrVzRQDz7/cT7AK7sQ70DVslaS0UMpvLFITYnX19mmK3k3r46uLlJhuPh+j4JDGcSYP+I7FKclwB7tEbKh7775q89dHkf8TUOx1e8VeTrLXITtnEjNOoGGCygVUvQC0bm54J0kMQOzmq8koqWXusCDuzKXOf4jbMwZFzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787975171; c=relaxed/simple;
-	bh=xLGClAwILCuywTlHy+7B36+0AJLSorI01gzy7qmp9Qg=;
-	h=From:Subject:To:References:Cc:Message-Id:Mime-Version:In-Reply-To:
-	 Date:Content-Type; b=dfQIEaSFIW/WqZQqXhdORklCdfB3j6izMs/Nu9p/4TjJMnwOhWLh2jEXMYU7BoFh7p1O7Kjyrcd6d9z0/TcBbDbyDcPlrG8G3bmaWBXPPM73ZJhfjAQCuVXQel5zyVVI33CcmqmeLDEgeDjlsF9hlCG+kadX36N7eg7ht+3LeEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=S1IVKUOP; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	bh=6Li4JioL9nQQjO0JcYz13/zQiRGOScBYSVjTddVtr4A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uSCDGonFlXFyW0ObMEzh4deeK4WJYJoOF1511EYAB8vDvwqANMOW9dlBydfEkUphrS6P8iUlc9ltywW/ocLi1kxsW/Qo6yb3lWWUPUEjGvAZ/DJG66uk5pKrE29WcbPMAYO5z8O6K/uFVUAO7qQVJglE6LnrRd2fM3LsDW3I7hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+jrDYIx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="S1IVKUOP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1787975158; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=ATP/kUiSwffiaR2fVHyPd7W9IcoS9IWeEorLQ80/wEY=;
- b=S1IVKUOPa+oaX/d8Ymttzq5b6KNPcCZTY1n1A8Hvt2KimyK9VTTRDzdIhq02xKjLX+bVpP
- 0Z6RuumjEIjvpQShUBjYUA6lkIY5uWxJmUkxn9OhjaFZxrX0+PXYEOYyESLs6JK8FyCTcM
- IY9PsW+wiDUp3gcKAFHwMHnmt70aQHtgr8dKQi//PbYXH3diQEi11kEwNNPPLGxxNj7lKr
- 2lyr/z20PGGlUAO5TTqBxWUiZrFJwUjJYzCheXboxNP65eXuhERwJ1FKvOmCL/EkwmcjBV
- kMEyYx2YCVwZBsAZoJYlzrWMMk7DNF4SclJVskW59JyWUCA+Rlas1j59dm/wbQ==
-From: "Rui Qi" <qirui.001@bytedance.com>
-Subject: Re: [PATCH] riscv: ftrace: only use pre-function NOPs with call ops
-User-Agent: Mozilla Thunderbird
-To: <palmer@dabbelt.com>, <pjw@kernel.org>, <aou@eecs.berkeley.edu>, 
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>, 
-	"Steven Rostedt" <rostedt@goodmis.org>
-References: <20260706123554.455065-1-qirui.001@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Cc: <stable@vger.kernel.org>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	"Andy Chiu" <andybnac@gmail.com>, "Puranjay Mohan" <puranjay@kernel.org>, 
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>, 
-	"open list" <linux-kernel@vger.kernel.org>, 
-	"Mark Rutland" <mark.rutland@arm.com>, <stable@vger.kernel.org>, 
-	<linux-trace-kernel@vger.kernel.org>
-Message-Id: <0d448a8f-1695-47ab-bf88-fd49b5b20bc3@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+jrDYIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D611F00A3D
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787975170;
+	bh=6Li4JioL9nQQjO0JcYz13/zQiRGOScBYSVjTddVtr4A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=K+jrDYIxDRFxrmEFfJZWnuZLz2xLi1ZyfqhEIOQE35p4QOgMvGYcYluq/n0R6BIGy
+	 +r89XeksP3sKWlQI4uFzS0C6yKHKl7yXZ7zaf4fXi51P0mvuui5uqVp40PF1K0h7Ik
+	 u2OX8X35rNmbhPuQgNXqKRfWWNp3h3sxpaxK+mYWqRIgoRGfPHMyATHPhbUvwyecqO
+	 mfAWe9KXD0xMmhBBeNCtWMK7go8H3WjHgc5iCFtu0XTAcaK8KxmBazhRIO3zmR43zr
+	 k4xOQa1kMDjhG+Ht20TEiPzR+2J0v3BGXDVlhvnYSmFdJ+t1XbJQ6woOuUlAHxojWH
+	 83oR19j6UaB5g==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c25366c9b42so189468766b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:46:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoJ2h0T6uMTRR3ECsGaQ256YOrKO7ZXfGIqeJksbghN9VJL57jX+F0db8nVE7o0CpNZoX77O4zSpfn2Q3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBaU6fSkBiFJSYt9TWRJrIAtJC4okYDaCHf3nm5f8Hbvssk+xz
+	1WpIogiYgUux+eBFHYKtx1BzYQ420UfecSI1oiZxFCBP/cgsOTVJH4g2zdhEa+58ACVzEsVR+/9
+	cS+8WCY0a20w50+GmyGICDo2tKXnNc4U=
+X-Received: by 2002:a17:907:9809:b0:c24:6f60:3f7e with SMTP id
+ a640c23a62f3a-c2556fe8495mr880352766b.2.1787975169048; Fri, 28 Aug 2026
+ 20:46:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20260706123554.455065-1-qirui.001@bytedance.com>
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Date: Sat, 29 Aug 2026 11:45:38 +0800
-X-Lms-Return-Path: <lba+26a9255f4+993311+vger.kernel.org+qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+References: <20260828125154.1104851-1-anmuxixixi@gmail.com>
+In-Reply-To: <20260828125154.1104851-1-anmuxixixi@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 29 Aug 2026 12:45:56 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8oDiKPkQiE0vXCTdmEASKzbbVJhgs_2H4ZpS0_oFY_qw@mail.gmail.com>
+X-Gm-Features: AcwNN1W_N4ZBLICX2FjnAe9Z42Lj2hoKPX-2iWnr8faayfgda5TCBeyE253aWFU
+Message-ID: <CAKYAXd8oDiKPkQiE0vXCTdmEASKzbbVJhgs_2H4ZpS0_oFY_qw@mail.gmail.com>
+Subject: Re: [PATCH v2] exfat: validate vendor allocation directory entries
+To: Yang Wen <anmuxixixi@gmail.com>
+Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/6/26 8:35 PM, Rui Qi wrote:
-> Commit c217157bcd1d ("riscv: Implement
-> HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS") changed CC_FLAGS_FTRACE to use
-> -fpatchable-function-entry=3D8,4 or -fpatchable-function-entry=3D4,2
-> for all dynamic ftrace builds. That layout makes the compiler place an
-> 8-byte area before the function entry, which is used as the per-callsite
-> ftrace_ops literal when CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS is enabled.
->=20
-> RISC-V can still build with CONFIG_DYNAMIC_FTRACE=3Dy and
-> CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS=3Dn, for example when
-> CONFIG_CFI_CLANG is enabled because HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS
-> is selected only when !CFI_CLANG. In that configuration
-> ftrace_call_adjust() does not skip the pre-function literal area and
-> only returns addr + MCOUNT_AUIPC_SIZE. With the pre-function layout,
-> that points into the pre-entry padding instead of the callsite jalr, so
-> dynamic ftrace records the wrong patch address.
->=20
-> Use the pre-function literal layout only when call ops are enabled.
-> Otherwise keep the previous patchable-function-entry counts so the
-> recorded address matches ftrace_call_adjust() non-call-ops path.
->=20
-> Fixes: c217157bcd1d ("riscv: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS"=
-)
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
-> ---
->  arch/riscv/Makefile | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-> index 3070c3874305..235730a243aa 100644
-> --- a/arch/riscv/Makefile
-> +++ b/arch/riscv/Makefile
-> @@ -14,11 +14,19 @@ endif
->  ifeq ($(CONFIG_DYNAMIC_FTRACE),y)
->  	LDFLAGS_vmlinux +=3D --no-relax
->  	KBUILD_CPPFLAGS +=3D -DCC_USING_PATCHABLE_FUNCTION_ENTRY
-> +ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
->  ifeq ($(CONFIG_RISCV_ISA_C),y)
->  	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D8,4
->  else
->  	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D4,2
->  endif
-> +else
-> +ifeq ($(CONFIG_RISCV_ISA_C),y)
-> +	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D4
-> +else
-> +	CC_FLAGS_FTRACE :=3D -fpatchable-function-entry=3D2
-> +endif
-> +endif
->  endif
-> =20
->  ifeq ($(CONFIG_CMODEL_MEDLOW),y)
-
-
-Hi,
-
-Gentle ping on this patch. It's been about two months since submission
-without any review feedback.
-
-The patch fixes a bug where ftrace_call_adjust() returns the wrong
-patch address when CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS is disabled
-(e.g., under CONFIG_CFI_CLANG), because the pre-function literal
-layout is still used unconditionally.
-
-Adding the ftrace maintainers and mailing list, which were missing
-from the original submission =E2=80=94 that likely explains the lack of
-response.
-
-Link:
-https://lore.kernel.org/r/20260706123554.455065-1-qirui.001@bytedance.com
-
-Thanks,
-Rui
+On Fri, Aug 28, 2026 at 9:52=E2=80=AFPM Yang Wen <anmuxixixi@gmail.com> wro=
+te:
+>
+> The exfat entry validator checks the type and ordering of benign secondar=
+y
+> entries, but does not validate Vendor Allocation entry fields. In additio=
+n,
+> exfat_find() reads only the first two entries, allowing malformed trailin=
+g
+> Vendor Allocation entries to bypass validation.
+>
+> Validate the allocation flags, VendorGuid, FirstCluster, DataLength, and
+> NoFatChain extent. Read the complete entry set during lookup so malformed
+> Vendor Allocation entries are rejected.
+>
+> Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
+Applied it to #dev.
+Thanks!
