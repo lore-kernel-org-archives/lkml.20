@@ -1,296 +1,476 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704CB2DB7B8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50812E54B6;
+	Sat, 29 Aug 2026 07:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787989110; cv=none; b=ZiCYR7VFNCwkTXyeptjYXH63FEm2B2PojNYwEw8F4F90Wq8rI96tfPLwAMqa2cnL1F8o4NdFucineZfg40UtvbjrjcktPFcBzKgBAcBZwKC0O563NzsunDgvPq02SQ5/X6Q+iIeaW2Qhm+oi5roGxD9bCvy1mUHhrLQzWlH9hyA=
+	t=1787989200; cv=none; b=uTUQgzCKR4tH24irLA/GuFEgoQLJy7nbo3F9GVcGqY+6yFZ2peodO3CwNTdq19foKOeMl8DjoTBUu+JB4XkPf/YYAOXwxTzWtE59457To2Uf1d+GQE5XsQEplAwsQgVONIjyjeJjal+3iivp8gIpzirksMbAoJ0rgmndwcwOYiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787989110; c=relaxed/simple;
-	bh=wX9ZihvakbhGqPB1UdM4iWTzVGFQowBUA9bRDFMSJEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mkkb7EPtyxi1UCQ3DcTY16V45DREUODzSPhC0QmTm294ncBnFmXZ4a9bDsNeO6/YZ3/CJS/wo2ydeNxpL0uzyVD3gl3Eg2IzAPS0zPsWHHcuiXuqbvMX8G7GdXDCbjzs4vPlJmfa2awVq+1U+qTsyH4s73ainyHlvcfY44fpxdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JhdxXLfv; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787989200; c=relaxed/simple;
+	bh=LfhJ+6384aYpoQBg36HmAaan1Prf4MdeYaUT1aqWoMo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=o74iTr08e2M8IhZm505ElDc1byxD9gsiJYyvxXJ6pxB0Da9Z5A6V5vh7xkW/UA8v2StpbQFoYexpOE9DFHThLSk2Jsluqr7ned16l/Qg8Yjb+1/KlF6hwIhmJtTDV3uHgdBJbFaBDpnpSBQz7pVU8N4mwfWBOfXwn2XIbskcjjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eufVxewE; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JhdxXLfv"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d72ae08fa1so15436405ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:38:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787989108; x=1788593908; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AygLwoJ1AVtSpfiyYiWc6BhU8FQ//SlXkeaxEkXuQqo=;
-        b=JhdxXLfvySUJT1RtxHnS2RIg2LeLck/PuK25GRCy7gORbIjAaQ3BZWUFcXuzbafmHy
-         rs0InyP3hLyLZ79bbQo+bbCkWRyI1D0VrBVs3NHFfT5O/PGhXfEWUNaA0qOlUwa3pO/C
-         5qc499leOtl091a28TYvkkyzFyGLcocGoMcO1uY9hlQ+fGX8ZNYkUv9+slV6hdWFxl/w
-         y1PxnVLII8zBr37YWtKH+5ME4wP3BQlllyuxlTBnr0e1e8miTF42aO2Nus1oOgtCDQDD
-         uujwxMDISCPOKPYPj+hSYxOafIPqAgLcqD2rTsQduDjaP+8jeN4n53jezcG4fGUS4pfw
-         Gj/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787989108; x=1788593908;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AygLwoJ1AVtSpfiyYiWc6BhU8FQ//SlXkeaxEkXuQqo=;
-        b=m/Kh2PUJWTPyLGIG/SvWVy2hnoynN5lyDKtiX1ex5XdO1KRQFpfVot9wQtpJ+7AZBn
-         sO8EWqFD4m4/2LyuSMBWfbnvW+WkqQL/IWV2AyyGjoK36i2KXQkKlaGih4qtWgf9QLsZ
-         dWToV/fQbcUaPPcqdYEA43dfDooVY3ABEp3jJ3sfz+9mAWZAkFdU+PMtAnLbKImRYqS2
-         Rj95tHSqQCOJehTw9UhIGsA/bQXJ3ChKxp/6A5Vl7ZDAC/4db89GmmlC6zqtEgMbU9GG
-         ToTniboVwwni7vaGWW86hDAvToMupS6K3Sun2o2pWdIMSXFvZCcATQeFtsH4jOwiY1VW
-         twlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxyRpr7ZHxBvz4TL7zVTpySlG3IAwGZeEuXuXe2iy8ASrLuomUYZAHWvnPGSz2IfzteVerID26ZXZWrV54=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0nNhVBo2fxHm9byMwRPsd11D/TpFMS8u1+tYWyKW8Ac2Ofb9y
-	ZJW1wiAKV8GKprNwlJaOW3wtujYyzT42Mi8AfpwOSLr/Shl0z2rJMgMx
-X-Gm-Gg: AYBFou2wN1q9/5KtEqldiW9K3F+wKGrNLqLx1cPzKNu1n4dkbefUyXCirBL6aqBLBk3
-	XzAlHc3wX0kAxluxBncDTUSzDUgxqYPL5gjcK70rqDX6MNHR2J9Pk/s04fZLkZ/2RYjoX+XyP1x
-	lDgp3fj7LBOd/1KJiFJz4F0uZf04E8h+XpPRmmGEHKSb80GeQkGWSHr3qmvdMJQOADWfN7h6l7v
-	tXkv9ayB+/sr3J7rfn6yWqelx0VcP4RkgPMYfTjn7Kga+Wg6vZIrimXI97RXTmXByjahREvOjUJ
-	CLfA3gWPAzXabG7n1xPGYZJIVvQztb0YKBStasH29pbepRygLjsfhXKuMxdSLHuip86AzWY1+K1
-	hbaHlPKhg6rKSn0zoyPHiCe8tDnxnfCVPzGAWPeMdNmgjly0OIAt1xCq2VDKbo+ptE+goCYx4V9
-	zcbsMQ9+CaK3fKhCkLlXbhVqm5RP7rBiP+veLmHQHx2oF1/5P4knTqX4QQE29r8V6NYEebNdG+r
-	raKxcATZXNgCX3ebYrZ9vmfEHF5
-X-Received: by 2002:a17:903:3b85:b0:2d8:d4d3:da4c with SMTP id d9443c01a7336-2d8d4d3db71mr79800865ad.16.1787989107667;
-        Sat, 29 Aug 2026 00:38:27 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8dad3ddeesm5987615ad.61.2026.08.29.00.38.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 00:38:27 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Kairui Song <kasong@tencent.com>,
-	Jihan LIN <linjh22s@gmail.com>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v2 00/13] mm/swap: introduce per-priority allocation queues
-Date: Sat, 29 Aug 2026 15:38:02 +0800
-Message-ID: <20260829-swap-pcp-priq-v2-0-68d3d925578c@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eufVxewE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+	Content-Type; bh=m6FaTcgkpDRlGc7s97iqalckofElr6p4Ey+1HCFnxiU=;
+	b=eufVxewEHNzgBmvezadinc7+nGgo7ahmKL2WByKElDggdPLI+bAUcClg+rLRH4
+	mVlnXk3e3zqiNwMEsNcvl2a7Z+H7B2R7FbiSk4i0jqh7E9aW5zIXC/3+rZO4ESrn
+	f2LewjVbCyqzHm8nwlOLnqWygmeGCgoe+noUgePgz08LM=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBn6sa0jJJqn_XhRw--.55828S2;
+	Sat, 29 Aug 2026 15:39:33 +0800 (CST)
+Date: Sat, 29 Aug 2026 15:39:31 +0800
+From: Melon Liu <melon1335@163.com>
+To: clm@fb.com, dsterba@suse.com, fdmanana@suse.com
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: fix deadlocks with transaction commit when cloning
+ inline extents
+Message-ID: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-CM-TRANSID:_____wBn6sa0jJJqn_XhRw--.55828S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3Zw1DWFy3Xr4DGr43Xr4ruFg_yoW8WFy8Zo
+	WfZFsFqrn5Kwn8KrWxKw4kG3yUu39rKw4kJr1aqryF9wn7JF1UXw47Ka1DGa4UZ3WrGF1r
+	Ja48Xan8JrZ2y3Wfn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU2BT5DUUUU
+X-CM-SenderInfo: ppho00irttkqqrwthudrp/xtbC5BWPsGqSjLWfNQAA3l
 
-From: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
+Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transaction
+commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
+cloning inline extent when using flushoncommit") moved the destination
+i_size update before btrfs_start_transaction() to prevent
+extent_writepage() from invalidating a folio beyond EOF.  However, two
+deadlock windows remain.
 
-Hi all,
+First, after the folio is dirtied but before i_size is updated,
+extent_writepage() can still see the folio beyond EOF.  It calls
+folio_invalidate(), and btrfs_invalidate_folio() waits for the destination
+extent range lock held by the clone task.
 
-This is v2 of Kairui's swap priority queue RFC [1].  With Kairui's
-agreement, I am carrying this revision while preserving the original
-authorship of his patches and Youngjun's per-device percpu-cluster patch.
+Second, if extent_writepage() sees the folio within EOF, it proceeds to
+writepage_delalloc(), which also waits for the destination extent range
+lock.
 
-My substantive code changes are concentrated in patches 3, 9 and 11.
-Patches 5, 10 and 12 contain the dependent adaptations needed to keep
-the stack coherent and bisectable.  The code patch-ids of patches 1, 2,
-4, 6, 7, 8 and 13 are unchanged from v1.  My Signed-off-by on the full
-series records the handoff and DCO chain; Co-developed-by is limited to
-the three patches with substantive changes.
+In both cases the transaction commit waits for writeback to complete,
+while the clone task waits in btrfs_start_transaction() for the
+committing transaction to become unblocked.
 
-The current swap allocator rotates swap_avail_head with plist_requeue()
-when it moves between devices of the same priority.  That couples device
-selection to the global cluster cache and serializes cluster transitions
-on swap_avail_lock.
+To close both windows, first call btrfs_start_transaction() after reserving
+delalloc space and before creating and dirtying the folio.
+However, a commit may still start writeback before all extwriters have left
+the transaction.  Therefore, when the copied range extends beyond EOF,
+update i_size while the folio is still locked and before marking it dirty,
+so that extent_writepage() cannot treat it as being beyond EOF.  The
+resulting ordering also makes BTRFS_INODE_NO_DELALLOC_FLUSH unnecessary, so
+remove the flag and its associated logic.
 
-This series first restores per-device percpu clusters, then replaces the
-allocation-time plist rotation with a priority-ordered queue.  Each
-priority has a mostly immutable ring of devices.  Per-CPU readers rotate
-within a ring after a fixed allocation quota, so the allocator preserves
-strict priority ordering without contending on one global rotation point.
-
-The queue is also intended to separate device selection policy from the
-per-device cluster allocator.  Youngjun's swap-tier series [2] remains
-under separate review.  This RFC does not introduce a tier ABI or assume
-that the tier series has landed: a ring is keyed by the existing swap
-priority.  If tiers land first, the same queue can become an in-tier
-allocation policy rather than a competing tier definition.
-
-Changes since v1
-================
-
-The core allocator and lifetime changes are:
-
-- keep a task-local cursor stable across retries, so a retry walk visits
-  each same-priority peer exactly once even if another task rotates the
-  shared per-CPU reader;
-- disable task migration across the queue walk, keeping queue accounting
-  and per-CPU cluster allocation on the same CPU while leaving the loop
-  sleepable;
-- retry every same-priority peer for a large folio before returning
-  -E2BIG, without falling through to a lower priority merely because one
-  device is fragmented;
-- initialize the per-CPU quota consistently;
-- represent full/disabled devices with tagged ring entries, serialize tag
-  writers, and use READ_ONCE()/WRITE_ONCE() for lockless readers;
-- publish swap_file, the live percpu reference, queue membership and
-  SWP_WRITEOK in one swapon writer section, and tighten swapoff disable
-  and teardown ordering;
-- fix the transitional available-list locking and publication issues
-  reported by Jihan;
-- bound allocation-path synchronous discard to one cluster, while the
-  background worker can continue draining the list; and
-- remove the transitional available/active plists and the now-unused
-  plist_requeue() API after the queue becomes authoritative.
-
-These changes address the public review on patch 9 from Youngjun and
-Jihan [3][4].
-
-Open questions
-==============
-
-Two performance-policy questions from the v1 discussion remain open:
-
-- A one-device ring, which is likely the most common configuration,
-  still follows the common reader path and takes the local lock.  A
-  size-one fast path could return ring->dev[0] directly while
-  swapon_rwsem keeps the ring stable.  This revision keeps the tested
-  common path unchanged; feedback on whether the special case is worth
-  adding would be welcome.
-- Full devices remain as masked entries in the static ring.  Readers skip
-  them rather than rebuilding the ring on each full/available transition.
-  This keeps writers simple, but a workload with many full devices in a
-  higher-priority ring still pays the masked-entry checks before falling
-  through.  It is not clear that extra per-ring availability state would
-  justify its synchronization complexity.
-
-Testing
-=======
-
-Kunwu ran an A/B/C/D/E matrix on a Kunpeng 920 server with 256 CPUs,
-249 GiB RAM and an aarch64 kernel.  The workload built a fixed kernel
-source with "make -j96 defconfig Image modules" under 2 GiB and 3 GiB
-memory cgroups, using eight equal-priority ZRAM devices.  Every arm used
-one warm-up followed by 12 measured runs.
-
-A/B/C share the v1 base and reproduce the progression reported in v1:
-
-  A: before the series
-  B: after patch 8, with per-device percpu clusters but the old plist
-  C: after patch 13, with the complete priority queue
-
-D/E share the tested v2 base and isolate the current series:
-
-  D: before the series
-  E: after all 13 v2 patches
-
-1. Reproducing the v1 performance shape
-
-Average system time over 12 measured kernel builds:
-
-                              2 GiB       3 GiB
-  Before (A)                40899.14s    22621.86s
-  After patch 8 (B)         88712.52s    53244.70s
-  After patch 13 (C)        41140.76s    22925.48s
-
-Patch 8 alone increased system time by 116.9% in the 2 GiB workload
-and 135.4% in the 3 GiB workload.  Adding the priority queue returned
-system time to within 0.59% and 1.34% of A, respectively.  The absolute
-times differ from the v1 machine, but the expected performance shape is
-reproduced: moving the cluster cache back to device scope is expensive
-while allocation still rotates the plist, and the queue removes that
-contention.
-
-2. Isolating the v2 delta
-
-Average system time over 12 measured runs:
-
-                              2 GiB       3 GiB
-  Base (D)                  39643.77s    22139.66s
-  Full v2 (E)              40336.91s    22984.62s
-  Delta                       +1.75%       +3.82%
-
-Average elapsed time, with sample standard deviation:
-
-                              2 GiB       3 GiB
-  Base (D)              518.97 +/- 5.87s  334.07 +/- 4.01s
-  Full v2 (E)           527.24 +/- 5.21s  342.98 +/- 2.78s
-  Delta                       +1.59%       +2.67%
-
-The arms were run sequentially rather than interleaved, so these small
-D/E deltas may include temporal drift.  They are reported as observed
-instead of being described as zero regression.
-
-3. Correctness and stress
-
-All 120 measured builds completed with build_exit=0, oom_kill=0,
-pswpout>0 and a clean dmesg delta.  Arm E also passed tests covering:
-
-- same-priority distribution and lower-priority isolation;
-- concurrent swapon/swapoff and /proc/swaps readers;
-- full-device mask, unmask and peer refill;
-- same-ring large-folio peer retry without fallback; and
-- dmesg cleanliness and complete cleanup.
-
-A 600-second stress run concurrently migrated the memory-pressure tasks
-across CPUs and inserted and removed a device from the priority ring.  It
-completed with live workers, swapout progress and a clean dmesg delta.
-
-For the 48 D/E measured runs, all eight ZRAM devices had nonzero recorded
-peak usage.  On E, the per-sample largest/smallest peak ratio averaged
-1.021 for 2 GiB and 1.031 for 3 GiB; the worst observed ratio was 1.049.
-
-4. Scope and posting base
-
-The full server matrix was run from commit 94f9b3980dd4
-("mm/page_reporting: Add page_reporting_delay_ms module parameter") to
-commit d5c8964cf19f ("lib/plist.c: remove requeue function").  The series
-below is rebased onto current mm-unstable; range-diff shows all 13 patches
-are patch-identical.
-
-The original 48 GiB BRD workload and a real multi-SSD workload were not
-rerun, so this revision makes no BRD or hardware-scaling claim.
-
-Link: https://lore.kernel.org/20260714-swap-pcp-priq-v1-0-de9b164ed419@tencent.com [1]
-Link: https://lore.kernel.org/20260713025644.170839-1-youngjun.park@lge.com [2]
-Link: https://lore.kernel.org/alZ7UBXweuuOX4qz@yjaykim-PowerEdge-T330 [3]
-Link: https://lore.kernel.org/77d6da3d-10af-49a1-a356-72aa8b462e85@gmail.com [4]
-
-Thanks to Kairui for the original design and handoff, Youngjun and Jihan
-for the v1 review, and Kunwu for the server validation.
-
-Signed-off-by: Lian Wang (ProcessMission) <lianux.mm@gmail.com>
+Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline extents")
+Cc: stable@vger.kernel.org
+Signed-off-by: Melon Liu <melon1335@163.com>
 ---
+ fs/btrfs/btrfs_inode.h |  14 +----
+ fs/btrfs/dev-replace.c |   2 +-
+ fs/btrfs/disk-io.c     |   2 +-
+ fs/btrfs/inode.c       |  16 ++----
+ fs/btrfs/ioctl.c       |   4 +-
+ fs/btrfs/qgroup.c      |   4 +-
+ fs/btrfs/reflink.c     | 117 ++++++++++-------------------------------
+ fs/btrfs/send.c        |   4 +-
+ fs/btrfs/space-info.c  |   2 +-
+ 9 files changed, 45 insertions(+), 120 deletions(-)
 
-Kairui Song (12):
-  mm/swap: remove unused parameter for reading swap header
-  mm/swap: slightly cleanup the code for hibernation error handling
-  mm/swap: cleanup and document swap device availability flag usage
-  mm/swap: introduce swap device iteration helper
-  mm/swap: change the swapon lock into a percpu rwsem
-  mm/swap: remove swapon mutex and update proc reader
-  mm/swap: consolidate swap inuse accounting helpers
-  mm/swap: add priority queue for swap device allocation
-  mm/swap: remove available list
-  mm/swap: bound synchronous discard during allocation
-  mm/swap: drop swap active plist
-  lib/plist.c: remove requeue function
-
-Youngjun Park (1):
-  mm/swap: change back to use each swap device's percpu cluster
-
- include/linux/plist.h |    2 -
- include/linux/swap.h  |   43 +-
- lib/plist.c           |   64 --
- mm/swap.h             |   12 +-
- mm/swapfile.c         | 1301 +++++++++++++++++++++++++----------------
- 5 files changed, 817 insertions(+), 605 deletions(-)
-
-
-base-commit: aeddb4d52acfcc5ce5e988acd48f2906fe966ca3
+diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+index 1082fa92c..aafe47b23 100644
+--- a/fs/btrfs/btrfs_inode.h
++++ b/fs/btrfs/btrfs_inode.h
+@@ -68,15 +68,6 @@ enum {
+ 	 * to an inode.
+ 	 */
+ 	BTRFS_INODE_NO_XATTRS,
+-	/*
+-	 * Set when we are in a context where we need to start a transaction and
+-	 * have dirty pages with the respective file range locked. This is to
+-	 * ensure that when reserving space for the transaction, if we are low
+-	 * on available space and need to flush delalloc, we will not flush
+-	 * delalloc for this inode, because that could result in a deadlock (on
+-	 * the file range, inode's io_tree).
+-	 */
+-	BTRFS_INODE_NO_DELALLOC_FLUSH,
+ 	/*
+ 	 * Set when we are working on enabling verity for a file. Computing and
+ 	 * writing the whole Merkle tree can take a while so we want to prevent
+@@ -531,9 +522,8 @@ int btrfs_add_link(struct btrfs_trans_handle *trans,
+ int btrfs_delete_subvolume(struct btrfs_inode *dir, struct dentry *dentry);
+ int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 start, u64 end);
+ 
+-int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context);
+-int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+-			       bool in_reclaim_context);
++int btrfs_start_delalloc_snapshot(struct btrfs_root *root);
++int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr);
+ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+ 			      unsigned int extra_bits,
+ 			      struct extent_state **cached_state);
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index dc0834f92..ea1e43b9a 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -899,7 +899,7 @@ static int btrfs_dev_replace_finishing(struct btrfs_fs_info *fs_info,
+ 	 * flush all outstanding I/O and inode extent mappings before the
+ 	 * copy operation is declared as being finished
+ 	 */
+-	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
++	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+ 	if (ret) {
+ 		/* Stays started/resumable; keep both denied. */
+ 		mutex_unlock(&dev_replace->lock_finishing_cancel_unmount);
+diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+index 819727460..fcd627251 100644
+--- a/fs/btrfs/disk-io.c
++++ b/fs/btrfs/disk-io.c
+@@ -4403,7 +4403,7 @@ void __cold close_ctree(struct btrfs_fs_info *fs_info)
+ 	 * getting delayed iputs than are never run. So flush delalloc and wait
+ 	 * for ordered extents.
+ 	 */
+-	btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
++	btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+ 	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+ 
+ 	/*
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 3c10a0ef0..00795c3de 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -8901,7 +8901,7 @@ static struct btrfs_delalloc_work *btrfs_alloc_delalloc_work(struct inode *inode
+  * of all the inodes with pending delalloc and forces them to disk.
+  */
+ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+-				 bool snapshot, bool in_reclaim_context)
++				 bool snapshot)
+ {
+ 	struct btrfs_delalloc_work *work, *next;
+ 	LIST_HEAD(works);
+@@ -8919,10 +8919,6 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+ 
+ 		list_move_tail(&inode->delalloc_inodes, &root->delalloc_inodes);
+ 
+-		if (in_reclaim_context &&
+-		    test_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags))
+-			continue;
+-
+ 		tmp_inode = igrab(&inode->vfs_inode);
+ 		if (!tmp_inode) {
+ 			cond_resched_lock(&root->delalloc_lock);
+@@ -8971,17 +8967,16 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+ 	return ret;
+ }
+ 
+-int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context)
++int btrfs_start_delalloc_snapshot(struct btrfs_root *root)
+ {
+ 	struct btrfs_fs_info *fs_info = root->fs_info;
+ 
+ 	if (unlikely(BTRFS_FS_ERROR(fs_info)))
+ 		return -EROFS;
+-	return start_delalloc_inodes(root, NULL, true, in_reclaim_context);
++	return start_delalloc_inodes(root, NULL, true);
+ }
+ 
+-int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+-			       bool in_reclaim_context)
++int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr)
+ {
+ 	long *nr_to_write = nr == LONG_MAX ? NULL : &nr;
+ 	struct btrfs_root *root;
+@@ -9003,8 +8998,7 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+ 			       &fs_info->delalloc_roots);
+ 		spin_unlock(&fs_info->delalloc_root_lock);
+ 
+-		ret = start_delalloc_inodes(root, nr_to_write, false,
+-				in_reclaim_context);
++		ret = start_delalloc_inodes(root, nr_to_write, false);
+ 		btrfs_put_root(root);
+ 		if (ret < 0 || nr <= 0)
+ 			goto out;
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 72bc9d4f7..43a956a00 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -926,7 +926,7 @@ static noinline int btrfs_mksnapshot(struct dentry *parent,
+ 	 */
+ 	btrfs_drew_read_lock(&root->snapshot_lock);
+ 
+-	ret = btrfs_start_delalloc_snapshot(root, false);
++	ret = btrfs_start_delalloc_snapshot(root);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -5586,7 +5586,7 @@ long btrfs_ioctl(struct file *file, unsigned int
+ 	case BTRFS_IOC_SYNC: {
+ 		int ret;
+ 
+-		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
++		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+ 		if (ret)
+ 			return ret;
+ 		ret = btrfs_sync_fs(inode->i_sb, 1);
+diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
+index f68b696b4..a4e01403c 100644
+--- a/fs/btrfs/qgroup.c
++++ b/fs/btrfs/qgroup.c
+@@ -1321,7 +1321,7 @@ static int flush_reservations(struct btrfs_fs_info *fs_info)
+ {
+ 	int ret;
+ 
+-	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
++	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+ 	if (ret)
+ 		return ret;
+ 	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+@@ -4228,7 +4228,7 @@ static int try_flush_qgroup(struct btrfs_root *root)
+ 		return 0;
+ 	}
+ 
+-	ret = btrfs_start_delalloc_snapshot(root, true);
++	ret = btrfs_start_delalloc_snapshot(root);
+ 	if (ret < 0)
+ 		goto out;
+ 	btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
+index d2a410191..11950a2cd 100644
+--- a/fs/btrfs/reflink.c
++++ b/fs/btrfs/reflink.c
+@@ -58,7 +58,8 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 			       char *inline_data,
+ 			       const u64 size,
+ 			       const u64 datal,
+-			       const u8 comp_type)
++			       const u8 comp_type,
++			       struct btrfs_trans_handle **trans_out)
+ {
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+ 	const u32 block_size = fs_info->sectorsize;
+@@ -84,6 +85,18 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 	if (ret)
+ 		goto out;
+ 
++	/*
++	 * Start the transaction before creating and dirtying the folio, otherwise
++	 * commit writeback can deadlock on the destination range locked by the
++	 * caller.
++	 */
++	*trans_out = btrfs_start_transaction(inode->root, 1);
++	if (IS_ERR(*trans_out)) {
++		ret = PTR_ERR(*trans_out);
++		*trans_out = NULL;
++		goto out_unlock;
++	}
++
+ 	folio = __filemap_get_folio(mapping, file_offset >> PAGE_SHIFT,
+ 					FGP_LOCK | FGP_ACCESSED | FGP_CREAT,
+ 					btrfs_alloc_write_mask(mapping));
+@@ -100,19 +113,6 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 	if (ret)
+ 		goto out_unlock;
+ 
+-	/*
+-	 * After dirtying the page our caller will need to start a transaction,
+-	 * and if we are low on metadata free space, that can cause flushing of
+-	 * delalloc for all inodes in order to get metadata space released.
+-	 * However we are holding the range locked for the whole duration of
+-	 * the clone/dedupe operation, so we may deadlock if that happens and no
+-	 * other task releases enough space. So mark this inode as not being
+-	 * possible to flush to avoid such deadlock. We will clear that flag
+-	 * when we finish cloning all extents, since a transaction is started
+-	 * after finding each extent to clone.
+-	 */
+-	set_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+-
+ 	if (comp_type == BTRFS_COMPRESS_NONE) {
+ 		memcpy_to_folio(folio, offset_in_folio(folio, file_offset), data_start,
+ 					datal);
+@@ -140,6 +140,14 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 	if (datal < block_size)
+ 		folio_zero_range(folio, datal, block_size - datal);
+ 
++	/*
++	 * A commit may start writeback before all extwriters have left the
++	 * transaction.  Update i_size while the folio is still locked and before
++	 * marking it dirty, so that writeback cannot treat it as being beyond EOF.
++	 */
++	if (file_offset + datal > i_size_read(&inode->vfs_inode))
++		i_size_write(&inode->vfs_inode, file_offset + datal);
++
+ 	btrfs_folio_set_uptodate(fs_info, folio, file_offset, block_size);
+ 	btrfs_folio_set_dirty(fs_info, folio, file_offset, block_size);
+ out_unlock:
+@@ -150,6 +158,10 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+ 	if (ret)
+ 		btrfs_delalloc_release_space(inode, data_reserved, file_offset,
+ 					     block_size, true);
++	if (ret && *trans_out) {
++		btrfs_end_transaction(*trans_out);
++		*trans_out = NULL;
++	}
+ 	btrfs_delalloc_release_extents(inode, block_size);
+ out:
+ 	extent_changeset_free(data_reserved);
+@@ -180,12 +192,11 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+ 	struct btrfs_drop_extents_args drop_args = { 0 };
+ 	int ret;
+ 	struct btrfs_key key;
+-	bool copied_inline_to_page = false;
+ 
+ 	if (new_key->offset > 0) {
+ 		ret = copy_inline_to_page(inode, new_key->offset,
+-					  inline_data, size, datal, comp_type);
+-		copied_inline_to_page = (ret == 0);
++					  inline_data, size, datal, comp_type,
++					  &trans);
+ 		goto out;
+ 	}
+ 
+@@ -290,73 +301,6 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+ 	if (unlikely(ret))
+ 		btrfs_abort_transaction(trans, ret);
+ out:
+-	if (!ret && !trans) {
+-		if (copied_inline_to_page &&
+-		    new_key->offset + datal > i_size_read(&inode->vfs_inode)) {
+-			/*
+-			 * If we copied the inline extent data to a page/folio
+-			 * beyond the i_size of the destination inode, then we
+-			 * need to increase the i_size before we start a
+-			 * transaction to update the inode item. This is to
+-			 * prevent a deadlock when the flushoncommit mount
+-			 * option is used, which happens like this:
+-			 *
+-			 * 1) Task A clones an inline extent from inode X to an
+-			 *    offset of inode Y that is beyond Y's current
+-			 *    i_size. This means we copied the inline extent's
+-			 *    data to a folio of inode Y that is beyond its EOF,
+-			 *    using the call above to copy_inline_to_page();
+-			 *
+-			 * 2) Task B starts a transaction commit and calls
+-			 *    btrfs_start_delalloc_flush() to flush delalloc;
+-			 *
+-			 * 3) The delalloc flushing sees the new dirty folio of
+-			 *    inode Y and when it attempts to flush it, it ends
+-			 *    up at extent_writepage() and sees that the offset
+-			 *    of the folio is beyond the i_size of inode Y, so
+-			 *    it attempts to invalidate the folio by calling
+-			 *    folio_invalidate(), which ends up at btrfs' folio
+-			 *    invalidate callback - btrfs_invalidate_folio().
+-			 *    There it tries to lock the folio's range in inode
+-			 *    Y's extent io tree, but it blocks since it's
+-			 *    currently locked by task A - during reflink we
+-			 *    lock the inodes and the source and destination
+-			 *    ranges after flushing all delalloc and waiting for
+-			 *    ordered extent completion - after that we don't
+-			 *    expect to have dirty folios in the ranges, the
+-			 *    exception is if we have to copy an inline extent's
+-			 *    data (because the destination offset is not zero);
+-			 *
+-			 * 4) Task A then does the 'goto out' below and attempts
+-			 *    to start a transaction to update the inode item,
+-			 *    and then it's blocked since the current
+-			 *    transaction is in the TRANS_STATE_COMMIT_START
+-			 *    state. Therefore task A has to wait for the
+-			 *    current transaction to become unblocked (its
+-			 *    state >= TRANS_STATE_UNBLOCKED).
+-			 *
+-			 * This leads to a deadlock - the task committing the
+-			 * transaction waiting for the delalloc flushing which
+-			 * is blocked during folio invalidation on the inode's
+-			 * extent lock and the reflink task waiting for the
+-			 * current transaction to be unblocked so that it can
+-			 * start a new one to update the inode item (while
+-			 * holding the extent lock).
+-			 */
+-			i_size_write(&inode->vfs_inode, new_key->offset + datal);
+-		}
+-		/*
+-		 * No transaction here means we copied the inline extent into a
+-		 * page of the destination inode.
+-		 *
+-		 * 1 unit to update inode item
+-		 */
+-		trans = btrfs_start_transaction(root, 1);
+-		if (IS_ERR(trans)) {
+-			ret = PTR_ERR(trans);
+-			trans = NULL;
+-		}
+-	}
+ 	if (ret && trans)
+ 		btrfs_end_transaction(trans);
+ 	if (!ret)
+@@ -376,8 +320,7 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+ 	btrfs_release_path(path);
+ 
+ 	ret = copy_inline_to_page(inode, new_key->offset,
+-				  inline_data, size, datal, comp_type);
+-	copied_inline_to_page = (ret == 0);
++				  inline_data, size, datal, comp_type, &trans);
+ 
+ 	goto out;
+ }
+@@ -665,8 +608,6 @@ static int btrfs_clone(struct btrfs_inode *src, struct btrfs_inode *inode,
+ 	}
+ 
+ out:
+-	clear_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+-
+ 	return ret;
+ }
+ 
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index dca357016..e0febffaf 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -7908,7 +7908,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+ 	int i;
+ 
+ 	if (root) {
+-		ret = btrfs_start_delalloc_snapshot(root, false);
++		ret = btrfs_start_delalloc_snapshot(root);
+ 		if (ret)
+ 			return ret;
+ 		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+@@ -7916,7 +7916,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+ 
+ 	for (i = 0; i < sctx->clone_roots_cnt; i++) {
+ 		root = sctx->clone_roots[i].root;
+-		ret = btrfs_start_delalloc_snapshot(root, false);
++		ret = btrfs_start_delalloc_snapshot(root);
+ 		if (ret)
+ 			return ret;
+ 		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+diff --git a/fs/btrfs/space-info.c b/fs/btrfs/space-info.c
+index 39a28e1be..7915819d7 100644
+--- a/fs/btrfs/space-info.c
++++ b/fs/btrfs/space-info.c
+@@ -770,7 +770,7 @@ static void shrink_delalloc(struct btrfs_space_info *space_info,
+ 		long nr_pages = min_t(u64, temp, LONG_MAX);
+ 		int async_pages;
+ 
+-		btrfs_start_delalloc_roots(fs_info, nr_pages, true);
++		btrfs_start_delalloc_roots(fs_info, nr_pages);
+ 
+ 		/*
+ 		 * We need to make sure any outstanding async pages are now
 -- 
-2.55.0
+2.43.0
+
