@@ -1,65 +1,65 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E15928C5B1
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B973B396579
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:20:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787995225; cv=none; b=IReLTRNkGyU46g5tc7LkprWmKwdwrT98+Ud3+ulqszhMr4FmE6ixuSmqv3WApsXS0URS/iW90wOd1QavpblrsulFHoQsv8H0Zg20QiHdutibR9OWSQIUcL+AONGGui/KS4os963OHcVuXiTOFmZ23WdBlL60o1e0wlhAT7IO4D0=
+	t=1787995230; cv=none; b=PYpRDqxjRZtbzjWNJCRs3BWAermPZjh2WAc/q7gomTYCXT8QHlocq48FA2UKHRYoNm4v0oum88NhEUrhT+r4GP2YsU+HZfT1Sle5rag2qUm06uqKB67+11KAIow1iWacUH3aSb6ric+AL/c4vQoeVTccCIU/hOHwfkEB0D6/SRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787995225; c=relaxed/simple;
-	bh=vn/sETwpwRxIemo/a/l/1eaolipfFb+WGFx72ujwMnU=;
+	s=arc-20240116; t=1787995230; c=relaxed/simple;
+	bh=xEJsUJXXq+AQ7oTTfzOKOEAmZg7d58nz4OsI75LCCcw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Q8Mh7HktgNRc/4qKIv++t5w42fKGMDxPGtav7ouIR5IcNzxCbAqwW6gcKmN46q2G3YgDg8hFhEWDrKc1jZVz26QxXT934Leiz3vjBvtwsvQ/g9+ngCZWfmEexYIBa/nwktT8qrv7bhosem/RMmWP0D/yg5MEijV0VSqvW4WrJdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPMoUOYq; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=TMRE/4PqucybfzSJHbnJ93f2a9wvIj+q92B95A/li8F1NNh+/cVt4cjYY36vYQ7pJEGR9alMnU0Vt3qC4pWFsY/vyC6S0UweND3hOIpQl2J1GEYGnAQotCGXn0Cr7mdrMwbWjiiP+tSO4tN7nsqC6Kz041UdjWYZSa5ZTXQcrn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3WVR+9z; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPMoUOYq"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso17951715e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:20:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3WVR+9z"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so21324695e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:20:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787995222; x=1788600022; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787995226; x=1788600026; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6KyIsLM4pqBiHmYPP6l16RwLjR486x3K93pSlYk67Ow=;
-        b=CPMoUOYqLLRaJO8R8xh8MS7rosVZJ2VWsWPZRYb5vgY4ofN5+HQ0gwSIIM6uw9ouaM
-         Ok510JCSGatI79q4SiFb/lCoOx3CfKTm9ofYhLc306pATISnkwGcF5Oayalu1eX0g0vT
-         xGK6+O1DhSxXm3OS/qVMpyqLNwtjuq2RjV3Qmgb2+ytnEe01zHXNDZn5luT6ElQTSfeH
-         Hc9QAYdWs+QRDEZwPKuinUfyDgkgSKM3KPU4ToBYICAVgSFSVIWMGEgp9ItMW2vfrEmH
-         cVQKysDsIywPOnEWxdHVNcWTiGvhxGhsLl3Az1L0PV8+2DKv+88T8AZDV/VwZ+ROtTmX
-         Rtng==
+        bh=g1+HRCUsJSMaHeBVju8py9w9BV9sqUgEs0fVkhwu3rA=;
+        b=H3WVR+9zSVGEDR4B1B+nf4ASE48ffTgB9KdvfEkMyzya4pm5cQsRqpzOsguV6ppDWN
+         brBXDz8xRt+ZMqhrvC9nRYNx4tS6wchDlYwaW+LCzwWyGeoguT7rPy1QyKFLN9JzWW7S
+         wjWJPwE6beWr9tPIdYOhpJJuq+TjDCUFGQa2oI0soTiB9lA1+cAVzgJuIadfpJaMXB1x
+         dsTCuEoAsnojs86neyKJ6z/Zu5yEHMD4Q5JxEbR2se0yqy8baFpvl/X8/gD85C1Krpm/
+         8ecyOTqYjH9kN5fyVpKLlkd/cnj6wpemu1hkeRZXFf/+QBBm5bh0+4bZB8ySg1Fh72+P
+         zcSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787995222; x=1788600022;
+        d=1e100.net; s=20251104; t=1787995226; x=1788600026;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KyIsLM4pqBiHmYPP6l16RwLjR486x3K93pSlYk67Ow=;
-        b=baA5q50W0xRu8Ge4hm3/hdXH/lrfDe4SoEwuh3Z+S5Q7Ax9ank7PprJLrExMRQ9Lsb
-         gEXe5fDCE+5QKjlWIs762BxuCsKdbf+U2MyeDZIqUyoMAQZM6AaBhpSe88iGHf+3kVB5
-         NobXjHfMTK+kx44SfFsCwED7ChCc8Wyqbo0wCSjsqvYr8fbYkax00fXSyCLzvKjMa7hY
-         VH9NwAHrpiUXjBWVeZSoSzPS+Amr4wARLXBY9Abpu6uCiVRjIwaTB0JDUQHRInlE4eFp
-         eemkzSMmMsp3vksAuY9Q5HvCStOJAA2PzDlu1tG8vFnXDyck60LpdQ3mpf7oP0hziHtH
-         LhnQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoGphJtRLCJgPRmOED1ye3XM5MeAdLiZTA6120gtnGilNr0vOpHON2zIWYmb1mttDK1iEs2tk/erHzpGHk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgzdz5bmSwMR+BR5c99O/eWoeoQo/cpbK4bzBSuzUVDBVZ1Gwe
-	nc7kwiZ9H9QIdHBaD0UdZDVs/A82Gy3dqN0DmFk+tQku6dRALi2IaG90
-X-Gm-Gg: AR+sD13Bitxp6yA2RLu+IR35jZGbMQKhQ4jzzrqyEGGsuIGsWbXHu8PqnQtbX33uj3Y
-	DMaGq85sr/vf4m+ldoIu5tlkiw6GqaZHoV3bc5xtvEGLHiDGT4z8+aRwLtDao90x/WlxSaL5V7H
-	UgXkfW3ctLwzGxe1oVGEglmbrOxXJcHUXrv6NImfERBp25WHiw86QU1r4JZORmfu3OTZ9QDlOAL
-	mTlQE/kgZds3kc+/mVfeSCfplZrpvGjRYFqMsbI2h1nhxedVF/fpwbxvzBN/QObai6z4bVO3PXS
-	TRfA9Yc+e79P5G/FJR8ssob9lvVWL3jC4ZU3EuX+5KdCzAPcwsOfd1BZ9bCOZMwQne6XBXgR+ME
-	Yj6Ea/TvPV78ANaqhC85Wsd4UekkOhcyzMHfFMe+yP3fE4qIahx7nWPbvKOgMNiapF73676R1h7
-	1OpvrvS9sDMiaJkyEwMnN4F4oBd26y4GJvVeoPpLM7BP3gRm1NW3UyHnHls5Vfl3pgT4DqF9BgV
-	M74CJmlL29QfODgALwzm9/CYUlKhrOy/6ZsmBtYShZJ8miIlASQeFe4DJoMAhAS+Q46TyhBqbgi
-	bWMxko8OfhfFqMhjBi/M
-X-Received: by 2002:a05:600c:4683:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49cca3125c5mr67614085e9.6.1787995222205;
-        Sat, 29 Aug 2026 02:20:22 -0700 (PDT)
+        bh=g1+HRCUsJSMaHeBVju8py9w9BV9sqUgEs0fVkhwu3rA=;
+        b=pWXWjsLBjUlpQ6c8o6mKTbgxr4JC7Az8hJgnmusy3UmoNFr4MZiKvpiLC9ZW742oQQ
+         5qvsBaWXAC6+DEbhLgDXaGEyx678IJmD5BH3/H8b8XRy8nIQNGDVWlckwx6y1psBv8zK
+         6mXyazmI+rojCWC0VozrDedKgciGqrT/VXozxV2ZGn0YicGZuuszRpfvq+9QnR4t5r2o
+         GAt3RVU5bCwU78oYLSErc3k+giff5WO2Qxl3pVBeyTrfw08p9njl/eMsgGWqcEygOdDz
+         D9BBUskU/1sImzgJLlnXKm6d4/QGh/RD74l5gqq/7oNEY9Ti3fFij2ct0s7U+pkXB6eR
+         3/rw==
+X-Forwarded-Encrypted: i=1; AHgh+RoyZ9alu4ajBcX/oBRCpxOqLJZjMQKwQ58vXye//rCI6AI+aSLAS04OTsZRqYT2hmouR0mnKAs32lr4Mag=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZt71mO6Ms8fuYr8rgs+d7XepIph3EFNxICaS+x8tCNbtrVJHw
+	Afsxfz4nGUh/SeMBqC2KQYURWuGnPdoKVZcHL54o7QZqOXZkSgIr5YqA
+X-Gm-Gg: AR+sD10QRSBJsYjZLO5m4UzsIuryL/srXskFme2gdEKtJgQFTKtitIQevAwNi9757cx
+	Cg13IwpRacHVNmCWI905vZZSB/dC8+qCF4tAyiU3ATF7mpbk3rkAlvkdxQOciyFhV1CP5bemQeP
+	mCA+S5nMXFJOlrDA74wtAOOayusaEcKHts05WDLzfANoqWuLw7ELItX+pT/W/1MZntJ7CmIquZb
+	b9B5OL6KBOeEFJUJmF9m6HX8fQwjfWFYaOIlDIkTRmDB9y+M6K86I7nOJxDueOIl1SWzp6YTsv/
+	hexAgFCXw9xIoTQsYz4fGf+91xBCDkn4gDeOWgcBw7QgP4gSDM1l934ydhGSVI/B5AMawf0baaz
+	S8axoElPPLntBJ2/y1naLnZxcjsIEvCpfqUUeIo5UInftstIHcETjklOLa3wNioXPzFxJjJbIas
+	wLyJ00Ffp0tlvAeZ8PfRa/DqhVqhMsbifEqU7nKVHWTfdxLm42b+l8OvP283npc0iu4gqcT4SuA
+	aUMO1B1ygVfXc6yBgHci6m9gYwRuVU6WbZDIfQNM+/AP8+KSdrQOIAxaDSsl2MhN67HimkZylqv
+	D+EQYtp9uigXWNzyACzG
+X-Received: by 2002:a05:600c:3493:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49b91c4792bmr196921055e9.10.1787995225544;
+        Sat, 29 Aug 2026 02:20:25 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-077-007-015-136.77.7.pool.telefonica.de. [77.7.15.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c510c9sm80468505e9.0.2026.08.29.02.20.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c510c9sm80468505e9.0.2026.08.29.02.20.24
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 02:20:21 -0700 (PDT)
+        Sat, 29 Aug 2026 02:20:24 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Haren Myneni <haren@us.ibm.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
@@ -68,9 +68,9 @@ To: Haren Myneni <haren@us.ibm.com>,
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/3] lib/842: reject output overflows from index and short data
-Date: Sat, 29 Aug 2026 11:18:49 +0200
-Message-Id: <441d06b2f8c8fdb25bbe552c71c7896d6da778fa.1787978627.git.kmehltretter@gmail.com>
+Subject: [PATCH v1 2/3] lib/842: require a complete history block for repeat templates
+Date: Sat, 29 Aug 2026 11:18:50 +0200
+Message-Id: <582dd9a92a793481f9836e1b90726935e90f5414.1787978627.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1787978627.git.kmehltretter@gmail.com>
 References: <cover.1787978627.git.kmehltretter@gmail.com>
@@ -82,24 +82,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The output length passed to sw842_decompress() is the caller's buffer
-capacity. Indexed copies write 2, 4 or 8 bytes and short-data templates
-write up to 7, but neither checks that capacity before writing and
-decrementing p->olen.
+An 842 repeat template copies the preceding eight-byte output block. The
+decoder rejects a repeat only when no output has been produced. A
+short-data operation can produce between one and seven bytes before a
+repeat.
 
-Overwriting an undersized destination then underflows p->olen, which is
-unsigned, so every later bounds check in the stream passes. Subsequent
-operations keep writing past the destination, and a matching CRC lets
-sw842_decompress() return success with an output length larger than the
-capacity the caller supplied.
+Such a stream makes the repeat copy read before the start of the output
+buffer. Depending on the surrounding mapping, this can fault or bring
+preceding memory into the decompressed data.
 
-This is reachable through zram's compressed writeback path. With 842
+This is also reachable through zram's compressed writeback path. With 842
 selected, targeted corruption of the compressed data on its backing device
-made a KASAN kernel report vmalloc-out-of-bounds writes in __do_index() and
-sw842_decompress() when zram read the page back.
+to a short-data-then-repeat stream made a KASAN kernel report a
+vmalloc-out-of-bounds read when zram read the page back.
 
-Check the remaining output before both operations and return -ENOSPC,
-matching the other output-producing templates.
+Require at least one complete output block before accepting a repeat.
 
 Fixes: 2da572c959dd ("lib: add software 842 compression/decompression")
 Cc: stable@vger.kernel.org
@@ -108,43 +105,31 @@ Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 Review notes:
 
-  - Baseline i386 and x86_64 return success and change post-capacity
-    canaries for both vectors; fixed kernels return -ENOSPC without
-    changing them.
-  - QEMU 11.0.2 TCG with x86_64 KASAN reproduced both operations through
-    zram. A 568-byte compressed page was written to a virtio backing disk
-    with compressed_writeback enabled, then its backing block was replaced
-    before readback. Since zram supplies a PAGE_SIZE destination, these
-    were PAGE_SIZE-scaled versions of the KUnit streams: the baseline
-    reported an eight-byte vmalloc-out-of-bounds write in __do_index() for
-    the indexed copy and a one-byte write in sw842_decompress() for short
-    data. Fixed readback returned -EIO without a KASAN report.
+  - add_short_data_template() has one caller, immediately before
+    add_end_template(), so valid compressor output cannot place a repeat
+    after short data.
+  - QEMU 11.0.2 TCG with x86_64 KASAN reproduced this through zram. A page
+    was written to a virtio backing disk with compressed_writeback enabled,
+    then the backing block was replaced with SHORT_DATA(seven bytes),
+    REPEAT(one block), END and CRC. Baseline readback reported an eight-byte
+    vmalloc-out-of-bounds read starting one byte before zram's output page.
+    Fixed readback returned -EIO without a KASAN report.
 
- lib/842/842_decompress.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ lib/842/842_decompress.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/842/842_decompress.c b/lib/842/842_decompress.c
-index 582085ef8b49c..87d1e0f8a4926 100644
+index 87d1e0f8a4926..45a9815abd637 100644
 --- a/lib/842/842_decompress.c
 +++ b/lib/842/842_decompress.c
-@@ -165,6 +165,9 @@ static int __do_index(struct sw842_param *p, u8 size, u8 bits, u64 fsize)
- 	u64 index, offset, total = round_down(p->out - p->ostart, 8);
- 	int ret;
+@@ -309,7 +309,7 @@ int sw842_decompress(const u8 *in, unsigned int ilen,
+ 			if (ret)
+ 				return ret;
  
-+	if (size > p->olen)
-+		return -ENOSPC;
-+
- 	ret = next_bits(p, &index, bits);
- 	if (ret)
- 		return ret;
-@@ -344,6 +347,8 @@ int sw842_decompress(const u8 *in, unsigned int ilen,
- 
- 			if (!bytes || bytes > SHORT_DATA_BITS_MAX)
+-			if (p.out == out) /* no previous bytes */
++			if (p.out - p.ostart < 8) /* no complete previous block */
  				return -EINVAL;
-+			if (bytes > p.olen)
-+				return -ENOSPC;
  
- 			while (bytes-- > 0) {
- 				ret = next_bits(&p, &tmp, 8);
+ 			/* copy rep + 1 */
 -- 
 2.53.0
