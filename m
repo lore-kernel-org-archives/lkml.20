@@ -1,160 +1,173 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442F5342539
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E40392C3C
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788027006; cv=none; b=C1u3evzv785npZKtJBv26cGZqzF5hNccZVSc4UA703Wm6+gVuAVIcuLFq4xTmyuqBMwQpWZrW+TZwwiWjPHi41gD/fyQe0n8+1EuOUivrpqDVVWbVYl+jCTSnkKVxAr8PeKvAqcICv6m4SZKIRQxOLVd/g6SGtZUKLcJTx+Iu/4=
+	t=1788027152; cv=none; b=ghaT8/qO1+3xwxBbrFO6GyZxvWuA7DyardN50V/Q6y+M+rNFib7yMpQOSZ2DBNYM4Dmed+ApoG0lQznWjP3D0dgwKe+4hJz8IwwId1oJadeY+XEAqCM4dOwodQIXqSbG9E6cVC1EfkYOaAh1s7woc1t2IYLC0B4rFAaqX7zdg5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788027006; c=relaxed/simple;
-	bh=vVU0OpClUIp4f1XeMs9HBap3ZS/7JuhoLDquig3Yxwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b/z5Th3skg5bHG4U6hwpyCZlqzE7Lct1w2haDPSbybRysvOTWV/fPokO8pGLM2tDatrDJi97nN9YJJZ1x6WR9bqsKEvU8MR98ptfr3BW8x7rtvGXAtJR3YYNIG+/4T4p+nf6BkGX6chKyiC2WUICZn4OLafenxBcWtLUx0sTZu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xgk6TesK; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xgk6TesK"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b965570d7so17442205e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:10:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788027001; x=1788631801; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2iPoRSblvqH1fQl98XO+rNc9dHksM216Rwuk/S3Z3OA=;
-        b=Xgk6TesKfwz0MGd0ZB/kfwgg0y+gXFP6gX13VcMMk+w2+o3sBZmrq0/zq70sw0Nnjf
-         vkmBPsllUrG7LL5JqJtqWThYpPOLrOQ23UhvP4cRnLz7tJ6gJzl57L/sDJNrUezMzTRL
-         Uuf6BNwbwihV21NffAKEQSyUd/CttAZJ+FPo17vU7eEqOI+zlpt2yBAo0WOUqsHdNw8i
-         IKxnyYehgGSoHratszRrz5DfIYqGI9OugipnNayNpvKjPGC7c9VJkmgJ+yNLcfCE4OyR
-         ld+SEm2RkcFBylIyy7R90aYLT3psctU0+MR0P6/CvVWmNX+X2OxKnlyCakD9Ba4AZYdH
-         jgZg==
+	s=arc-20240116; t=1788027152; c=relaxed/simple;
+	bh=JoCX3fnSCShZjp0GSA5kQJjw14vfli5MDAi6+QzeUxo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=hOi+4ythf962FyKZ9Mree1LSJ2eU91C2brUeCydgtpQ1luD3kvN6znBjLKDVEnHxIi4SxwfV2dU/RiD5mJsRRX4sJ8bIEgWtR9yxo5pPDV7/2QlOxOnX88HOXEnWfYUN6WAh1PLWnVrbdNJAG210ijQAbhH8B/MuBb0MF7rYBII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-4569f25c19dso776128fac.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:12:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788027001; x=1788631801;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2iPoRSblvqH1fQl98XO+rNc9dHksM216Rwuk/S3Z3OA=;
-        b=DK0DHR2Q4+6WTlciLH7LuU58E4lwyjftRFKxPBCmVzJuQ9Ego92iVAumlBCLZ3JBu4
-         zXvrYxIaNxEguoVS/GDolKarQlhxYAqEfur+SwBRkt4FvF5QkY54IiuY2Po1ZxkVUFdo
-         HZ2cgSyxCylqQkI0HZmCy4E+Hypv7ly5eNRWVvWK8kZM4I4WHRv3eKzfdGUL9rOj0ZP6
-         zvqb8CXSHpH2UInUuiniE83RPeRQadkdgzJnAzvwe36Sh3ReMCxI4qGM9bifDYps+ENN
-         dQqI5lwnYkA1P5mMzHZuwWuhUZP89u+V/2aub48DkUlxDBC6SJhSs7CPskIA5NsMjMa6
-         DcaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwxz6YOlrnDJXb2vHkQX4bxCFtDqGTtsDtce9Hr8UFbdKHKCq3v7H8E2QwHITDoL/GK2F4i7w5gvWGcKR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mH2dPUPBFIJY2jhRg+AKjX59x4CTqaujXt4KYHLovRPEQfqE1D
-	TLfqh/CFPfuMulVeNUfoCXp3Z4cwRG3a5Fm06Kq7Lgp17qc+DeGyIhjNjDVO0i8Z
-X-Gm-Gg: AYBFou2HUfKv9qHdmkvKukCNlol9O0i6gDgoqYrEpY486Nq1HYk8tPMiHWTQUs8q7YQ
-	OsG25EM+mYaT79cqBrn9upinqQ9SsUxmG6I8sZQxDyBnbql7WmuQqtJX1fW4Q+QpwhqjkMIvdsY
-	63S0jy362UsH6Ux8IJFpxE2J4isRtTNZ0T88ZG6D3MheAv5QO6mw7tU+UAIqZnWnIId/+F8KB22
-	I5hzY/Pdw098Gj2aW7V+w0MYa7uRPHe1xDvpJ7aUiN9/k/ai+DgorCe9f8xb2Itdg6CpACUI5rE
-	r/hDrxgApP3dHNIhsI51Earkx+U8iEC5IUV49q/KTlym6A5VEe2KjWNPzUiADEbEeNGa4JE9xFW
-	LOMYsTRfBvHLJDSaK83zOgANq4RyiKpXRPZKqXQpVli80Co0NVDbZ+b4i6LmP1jQiDFM2HhJnui
-	SJ03HtXnx/CkmoQLqLTyEf7H7YGlEnKZ0bwObmBDOI2v5jWbmt2FsaAhTJ4oxeW+Bobfdu6EQw/
-	7XG7+NcdoNKBVtBpfqdq1E6VAfbxVaQ8fkJhkv7LNDSBCFYZwHPGwQ2nuMN277odlfxJenm1yS9
-	Wjfn4iXX8tf98CbBjlfeIgNVnNjYyuKQpXS9Cbx6e79wx5iBjafFyuNFFwHALdrBV1fLsMK/U4H
-	ht0h5eT5tbjEtRb5ryEuh
-X-Received: by 2002:a05:6000:2510:b0:483:ca4a:6b9d with SMTP id ffacd0b85a97d-483ca4a6d9cmr8743130f8f.20.1788027001191;
-        Sat, 29 Aug 2026 11:10:01 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32ce2sm12442751f8f.33.2026.08.29.11.10.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 11:10:01 -0700 (PDT)
-Date: Sat, 29 Aug 2026 20:09:59 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Crt Mori
- <cmo@melexis.com>, Puranjay Mohan <puranjay@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 09/11] iio: temperature: tsys01: make headers conform
- to IWYU
-Message-ID: <20260829200959.09e58aac@systembl0wer>
-In-Reply-To: <178802625991.2637008.10673317877221890998.b4-review@b4>
-References: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
-	<20260829-kernel-header-removal-v2-9-c67739d5dedf@gmail.com>
-	<178802625991.2637008.10673317877221890998.b4-review@b4>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        d=1e100.net; s=20251104; t=1788027149; x=1788631949;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pHsLquJqNRAjRm+7ZW66khh06nIsTIk5CmRuM7gIIu4=;
+        b=cH4DhQl5/ggrxLg9Mzy16PeMOyJdUZp7izZliPpntD14PQrSn2dN130HOX10F/DKuJ
+         tliqIgcxTNnXYD8arGHbunBLm6/6ZxOddPGZBAqCqvihqTNvoTcaf3E3VrXNiPwkO8qb
+         y2bugusdM8clcU3LSt6lxunRmc7a0ISksmkW/CU5dlBhuRVOAepN6oIYxcnBR5YAips0
+         MOHSxRGAMZPrhen5mNJbrCWahoDO2/tCj5CVZDwOURUsjHw6kkf8TFuOr7nvxbLvgDTK
+         nrt+sWFN3WRrq6WVomt9tPxXM5MHOfC3VQZX+ywbvAM1+iUWoHKIF3pDFzAvCD6CsD/T
+         Eyyw==
+X-Forwarded-Encrypted: i=1; AHgh+RoelUejWU7SVFwjBW334T4XFljKNs8C8rEkYhMU3m9Czs2o+Pb25GsuoMKQcBZEthB2zy4k8AJ97Hb/DF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnYeilCDYhQfdRZOv7fSoEFAILtB58pXULuqjoHETLffrGfKjD
+	UwPixTrgD5Jytm8HbP+xkCKKYtJBzCUOieg7nNUU75D1q+2K0/BPaYbROsFLHiNGyJAaNDX8lrz
+	dCKse39g8b2+d+cJT2n71h+3RhShdxtyqP9OxUfienGohcAE68GNbwbjO1rs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:c1e8:b0:4b3:3e1:4999 with SMTP id
+ 5614622812f47-4b398434703mr16842286b6e.15.1788027149515; Sat, 29 Aug 2026
+ 11:12:29 -0700 (PDT)
+Date: Sat, 29 Aug 2026 11:12:29 -0700
+In-Reply-To: <6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a93210d.4d659fcc.734b4.002c.GAE@google.com>
+Subject: Re: [syzbot] [audit?] BUG: unable to handle kernel paging request in integrity_audit_message
+From: syzbot <syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com>
+To: audit@vger.kernel.org, brads@mainlining.org, eparis@redhat.com, 
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, 
+	roberto.sassu@huawei.com, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, zohar@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 29 Aug 2026 18:57:39 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+syzbot has found a reproducer for the following issue on:
 
-> > Remove the catch-all kernel.h header, add missing headers and remove  
-> 
-> Seems some fixups in wrong patch as tmp117 stuff in here.
-> 
-> Sashiko shouted about that.
+HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16e7cc15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=5ebeb3089ea6439c37be
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=159ebd79580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=123d1d79580000
 
-Yeah, must've been half asleep when I was squashing commits.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-cf72cbb3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/755d053ff703/vmlinux-cf72cbb3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/0837738ba281/bzImage-cf72cbb3.xz
 
-> 
-> > unused headers.
-> > 
-> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> >
-> > diff --git a/drivers/iio/temperature/tmp117.c b/drivers/iio/temperature/tmp117.c
-> > index 25bc98e64e48..96252627613f 100644
-> > --- a/drivers/iio/temperature/tmp117.c
-> > +++ b/drivers/iio/temperature/tmp117.c
-> > @@ -12,13 +12,12 @@
-> >  #include <linux/array_size.h>
-> >  #include <linux/bitops.h>
-> >  #include <linux/delay.h>
-> > -#include <linux/dev_printk.h>
-> > +#include <linux/device.h>
-> >  #include <linux/err.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/limits.h>
-> >  #include <linux/minmax.h>
-> >  #include <linux/module.h>
-> > -#include <linux/property.h>
-> >  #include <linux/regulator/consumer.h>
-> >  #include <linux/types.h>
-> >  
-> > diff --git a/drivers/iio/temperature/tsys01.c b/drivers/iio/temperature/tsys01.c
-> > index 14de67ee8be7..3c1f5b6ac156 100644
-> > --- a/drivers/iio/temperature/tsys01.c
-> > +++ b/drivers/iio/temperature/tsys01.c
-> > @@ -8,12 +8,14 @@
-> >   *  http://www.meas-spec.com/downloads/TSYS01_Digital_Temperature_Sensor.pdf
-> >   */
-> >  
-> > -#include <linux/device.h>  
-> 
->  | sashiko.dev <sashiko@sashiko.dev>:
->  |
->  | [Severity: Low]
->  | Does removing <linux/device.h> contradict the Include What You Use principles
->  | mentioned in the commit message?
->  |
->  | Looking at tsys01_probe(), it directly dereferences struct device and struct
->  | device_driver:
->  |
->  | tsys01_probe() {
->  |     ...
->  |     indio_dev->name = dev->driver->name;
-> 
-> Looks valid to me.
-> 
->  |     ...
->  | }
-> 
-> Jonathan
-> 
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
 
-Yep, all Sashiko issues addressed in my series locally, but I'll let this
-sit for a while before resending.
+BUG: unable to handle page fault for address: ffffffffffffffdc
+#PF: supervisor read access in kernel mode
+#PF: error_code(0x0000) - not-present page
+PGD eb99067 P4D eb99067 PUD eb9b067 PMD 0 
+Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
+Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
+RSP: 0018:ffffc90002eb7920 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
+RDX: 0000000000000004 RSI: ffffffff82081bc1 RDI: ffffffffffffffdc
+RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000a9
+R10: 00000000000006c0 R11: 0000000000000001 R12: ffff888027be0e40
+R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
+FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:000000005783f480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: ffffffffffffffdc CR3: 0000000055e55000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __fortify_strlen include/linux/fortify-string.h:218 [inline]
+ audit_log_untrustedstring+0x19/0x30 kernel/audit.c:2203
+ integrity_audit_message+0x366/0x4f0 security/integrity/integrity_audit.c:60
+ integrity_audit_msg+0x41/0x60 security/integrity/integrity_audit.c:32
+ validate_hash_algo security/integrity/ima/ima_appraise.c:752 [inline]
+ ima_inode_setxattr+0x512/0x5f0 security/integrity/ima/ima_appraise.c:775
+ security_inode_setxattr+0x299/0x560 security/security.c:1940
+ __vfs_setxattr_locked+0xad/0x2b0 fs/xattr.c:309
+ vfs_setxattr+0x14a/0x390 fs/xattr.c:344
+ do_setxattr+0x145/0x180 fs/xattr.c:662
+ file_setxattr fs/xattr.c:672 [inline]
+ file_setxattr+0x139/0x1b0 fs/xattr.c:666
+ path_setxattrat+0x335/0x3b0 fs/xattr.c:732
+ __do_sys_fsetxattr fs/xattr.c:782 [inline]
+ __se_sys_fsetxattr fs/xattr.c:779 [inline]
+ __ia32_sys_fsetxattr+0xc4/0x140 fs/xattr.c:779
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7fb7fec
+Code: Unable to access opcode bytes at 0xf7fb7fc2.
+RSP: 002b:00000000fffd97bc EFLAGS: 00000296 ORIG_RAX: 00000000000000e4
+RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000080
+RDX: 0000000080001080 RSI: 0000000000000002 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+Modules linked in:
+CR2: ffffffffffffffdc
+---[ end trace 0000000000000000 ]---
+RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
+Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
+RSP: 0018:ffffc90002eb7920 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
+RDX: 0000000000000004 RSI: ffffffff82081bc1 RDI: ffffffffffffffdc
+RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000a9
+R10: 00000000000006c0 R11: 0000000000000001 R12: ffff888027be0e40
+R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
+FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:000000005783f480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7fb8000 CR3: 0000000055e55000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	00 00                	add    %al,(%rax)
+   2:	00 00                	add    %al,(%rax)
+   4:	00 fc                	add    %bh,%ah
+   6:	ff                   	lcall  (bad)
+   7:	df 55 48             	fists  0x48(%rbp)
+   a:	89 fa                	mov    %edi,%edx
+   c:	48 89 fd             	mov    %rdi,%rbp
+   f:	53                   	push   %rbx
+  10:	48 c1 ea 03          	shr    $0x3,%rdx
+  14:	48 83 ec 08          	sub    $0x8,%rsp
+  18:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax
+  1c:	48 89 fa             	mov    %rdi,%rdx
+  1f:	83 e2 07             	and    $0x7,%edx
+  22:	38 d0                	cmp    %dl,%al
+  24:	7f 04                	jg     0x2a
+  26:	84 c0                	test   %al,%al
+  28:	75 50                	jne    0x7a
+* 2a:	80 7d 00 00          	cmpb   $0x0,0x0(%rbp) <-- trapping instruction
+  2e:	74 3d                	je     0x6d
+  30:	48 bb 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbx
+  37:	fc ff df
+  3a:	48 89 e8             	mov    %rbp,%rax
+  3d:	48                   	rex.W
+  3e:	83                   	.byte 0x83
+  3f:	c0                   	.byte 0xc0
 
--- 
-Kind regards,
-Joshua Crofts
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
