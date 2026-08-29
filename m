@@ -1,85 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA0B364052;
-	Sat, 29 Aug 2026 21:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAAB38E5F9
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788038456; cv=none; b=cNSK7pjkfTCvSb8PjnhhE8e7yDuP2xQ/VaP0ApWqKuN7qd3pGfraPXpx9lpVwdS+WVGSXgqOU+FMAQF+plRAVR7emIH15/GNFM2ZKnSV0iz74juJBtWPweIfMxPXtjFnDpz/hhO56+1KuYFoYyIEmWAbR5iZE2TmpKWy72oD5RA=
+	t=1788038553; cv=none; b=o8OGXSWZ67ELqME3Yunmw8+btRktLsg3N2PnJ5ntujhKyjZwlhKN70OhC19YYEeVhTzfkGnM0NP2GkRVNTjyjEHRSBk3P+CtlyYj6/vxWle9FiyUC1Ux8BoiEX4hPATLd4+/6Bvq2cTjMMXSmfFz6EQfcWRLcoSoBngi9KEPuys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788038456; c=relaxed/simple;
-	bh=7+AKVSCv81q3zwE5ABq4d4psS2kgIpKN5OfukAqKhSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nudYM4W9fRXOpDA9FQhkWpjVE8z1WN2qU4SBCbzIuhf+SM5pUc3YnS0MhjeoTduX97/nBiyq9yCmD6vh/lh5Rp3ZA9tQWcRa5j7LQKX0wiT3wyMm6K07GO8F89H0Jb5fyCiXsoEa5l7y3PfPfsF2sbUp3ut176rHoYU2xHZnEhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWhIPwuG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWhIPwuG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A0A1F000E9;
-	Sat, 29 Aug 2026 21:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788038454;
-	bh=OMVXHLa1HmQu4uo8XsSIwn4sntIQRJHfffEiJUyFrKo=;
-	h=From:To:Cc:Subject:Date;
-	b=CWhIPwuGtVzyGHppN0Joo/2AdlhLp/vqnNVoNG2z7dePN67VW057cO3gxb7eU19pq
-	 Vg64bqjWkmPicDWMpzaKbsYWnTsYOtfmimRIeIAITk23hnWkwUydvyez7RjiCX1uju
-	 lVeeOQ/ZuPsyqiEuUHYcOGtU7a9oOCkqSol26PsoC/so4FwDaFEKty4BwiMYo0q+r7
-	 j5Lv55nzlrUF/KaIsMKW/tIYzY5WvckBbP/Qd4LImt9XWQP0cLxlO3oY3PMk8P0nCC
-	 V52f7AOKHszRoq6J9MAij7n08Ipf6nbfh6Bqm6k+04KNq89whCcIdZquBXDXgFAGqt
-	 7/PNWoq3CgI7Q==
-From: Thorsten Blum <blum@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Lenny Szubowicz <lszubowi@redhat.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Francesco Pompo <francescopompo2@gmail.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] efistub/x86: Use struct boot_e820_entry for size calculations
-Date: Sat, 29 Aug 2026 23:20:35 +0200
-Message-ID: <20260829212037.335569-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788038553; c=relaxed/simple;
+	bh=WI7AZhtEqr9xVlLFzEDYIIFNWQlxz9PEtDtkd4+D4f0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=bWmGx5MepBZ4EeKu+onzdkQ5DunhXG10fdp2a0Cld790CD4eN/OW9cN00L+VUod+CDD1nomVGqRMyw2DUc6pN06Da2C5CBDzYcjjdvjg4SW4jSkOsfA5glwXFqzM6KkRBP6IG7gIbGvOOIEuSUsbIPjgu3ARPX7vxML0vu85A9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so726422b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:22:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788038550; x=1788643350;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LJMEXdlk7d61VrtM7qDRU6Bog3O/MwGb1q5vlyd9SZA=;
+        b=FxBOWiGkc9C2MaPa24aDUBTMq5Rz+vMWh/ty4xdzWN1oOWj6/0CDH2sl41AXbBWFa7
+         7BWUVUbV41NOo17DBB2uCdcBqd+Mu+UWSYqt2ZQ2gLBiPSzBgSewRtdZHFn4YcE55Nxk
+         5Y0dWFNh5axCLVMZtchv5Cm6xnLyH7PEqluK/aIVdumMqw5Y54XalMLRYBGbCSJVGPn7
+         /TIk035/wPXJACun/akQSoBSfkXmVVWq4n/j1pekoxpLNA//5RM9Z4CY8eHhoO4RwHBV
+         M3cvDl5lCGFLdHVk/9Vtjt4eaEExTICtYtvbUbK7erp8TWq+Te7yUJNHnD20mlnjhOQW
+         WBKA==
+X-Forwarded-Encrypted: i=1; AHgh+RrUBDrzJGjFAij5c1oYmQgF2h5lP5+fCQwOjTcnFK8bUvv0e6D7U6R11SH6BZfWiFRdLE0TNwViPSCdoac=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnmkFLFeeauQ+dZMJVnZFP2555gsjfZFQDIDtRS11770SUq+Ap
+	7CNnWOsgmrBWO6Kt2NRylnP31dGSrck3NRzCiATE8BX7mdrzGttOhnfTsOnCPM/XMSSGLWQa+Qh
+	LM2wZfTPOITbKIHK4J2IUT1aiM70EFr+45fSM87bKMuckZjGld6WyRY/rt6M=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1334; i=blum@kernel.org; h=from:subject; bh=7+AKVSCv81q3zwE5ABq4d4psS2kgIpKN5OfukAqKhSo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmTfVWfznmQ/yJV6dcC69kNlu5R3UEpnpyed1co6ETNn 1/GpPizo5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACay6xDD/+Cf8y4r5s3zS2Re 2mBbcrlF/G/3CemLIs+0lta8dtBvv8bwP/zP9/MPYtKFyjTjCn1E+NmVOGNrXyd89ug1aO2S1tj DDwA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:10c8:b0:4b2:8d89:6a40 with SMTP id
+ 5614622812f47-4b397ffa6e9mr16173861b6e.7.1788038550449; Sat, 29 Aug 2026
+ 14:22:30 -0700 (PDT)
+Date: Sat, 29 Aug 2026 14:22:30 -0700
+In-Reply-To: <699fe31c.050a0220.2fcbed.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a934d96.08e933ee.dbf97.00aa.GAE@google.com>
+Subject: Re: [syzbot] [input?] possible deadlock in __kernfs_remove (3)
+From: syzbot <syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com>
+To: dmitry.torokhov@gmail.com, driver-core@lists.linux.dev, 
+	gregkh@linuxfoundation.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-alloc_e820ext() and setup_e820() use sizeof(struct e820_entry) when
-calculating the sizes of boot_e820_entry structures.
+syzbot has found a reproducer for the following issue on:
 
-Even though struct e820_entry and struct boot_e820_entry have the same
-size, use sizeof(struct boot_e820_entry) for consistency instead.
+HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14c09d79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=161fae25580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1084c379580000
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-cf72cbb3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/755d053ff703/vmlinux-cf72cbb3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/0837738ba281/bzImage-cf72cbb3.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.17/6098 is trying to acquire lock:
+ffff88804e56bf08 (kn->active#66){++++}-{0:0}, at: __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
+
+but task is already holding lock:
+ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
+ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40 drivers/input/serio/serio.c:677
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (serio_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5908 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       class_mutex_intr_constructor include/linux/mutex.h:255 [inline]
+       drvctl_store+0x3c/0x350 drivers/input/serio/serio.c:360
+       dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+-> #0 (kn->active#66){++++}-{0:0}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
+       lock_acquire kernel/locking/lockdep.c:5908 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+       kernfs_drain+0x4f0/0x600 fs/kernfs/dir.c:532
+       __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
+       kernfs_remove_by_name_ns+0x7c/0x120 fs/kernfs/dir.c:1797
+       kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
+       remove_files+0x96/0x1c0 fs/sysfs/group.c:28
+       sysfs_remove_group+0x8b/0x1b0 fs/sysfs/group.c:328
+       sysfs_remove_groups fs/sysfs/group.c:352 [inline]
+       sysfs_remove_groups+0x60/0xb0 fs/sysfs/group.c:344
+       device_remove_groups drivers/base/core.c:2918 [inline]
+       device_remove_attrs+0x192/0x290 drivers/base/core.c:3048
+       device_del+0x36e/0x9b0 drivers/base/core.c:3964
+       serio_destroy_port+0x476/0x590 drivers/input/serio/serio.c:543
+       serio_unregister_port+0x2b/0x40 drivers/input/serio/serio.c:680
+       userio_char_release+0x91/0xe0 drivers/input/serio/userio.c:105
+       __fput+0x3ff/0xb50 fs/file_table.c:512
+       task_work_run+0x150/0x240 kernel/task_work.c:233
+       resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+       __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+       exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+       syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+       __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(serio_mutex);
+                               lock(kn->active#66);
+                               lock(serio_mutex);
+  lock(kn->active#66);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.17/6098: 1, last CPU#2:
+ #0: ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
+ #0: ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40 drivers/input/serio/serio.c:677
+
+stack backtrace:
+CPU: 2 UID: 0 PID: 6098 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
+ lock_acquire kernel/locking/lockdep.c:5908 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+ kernfs_drain+0x4f0/0x600 fs/kernfs/dir.c:532
+ __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
+ kernfs_remove_by_name_ns+0x7c/0x120 fs/kernfs/dir.c:1797
+ kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
+ remove_files+0x96/0x1c0 fs/sysfs/group.c:28
+ sysfs_remove_group+0x8b/0x1b0 fs/sysfs/group.c:328
+ sysfs_remove_groups fs/sysfs/group.c:352 [inline]
+ sysfs_remove_groups+0x60/0xb0 fs/sysfs/group.c:344
+ device_remove_groups drivers/base/core.c:2918 [inline]
+ device_remove_attrs+0x192/0x290 drivers/base/core.c:3048
+ device_del+0x36e/0x9b0 drivers/base/core.c:3964
+ serio_destroy_port+0x476/0x590 drivers/input/serio/serio.c:543
+ serio_unregister_port+0x2b/0x40 drivers/input/serio/serio.c:680
+ userio_char_release+0x91/0xe0 drivers/input/serio/userio.c:105
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf6ffefec
+Code: Unable to access opcode bytes at 0xf6ffefc2.
+RSP: 002b:00000000ffbd8fbc EFLAGS: 00000202 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 0000000000000003 RCX: 000000000000001e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+
 ---
- drivers/firmware/efi/libstub/x86-stub.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index cef32e2c82d8..ae2481f8a4c3 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -648,7 +648,7 @@ setup_e820(struct boot_params *params, struct setup_data *e820ext, u32 e820ext_s
- 		}
- 
- 		if (nr_entries == ARRAY_SIZE(params->e820_table)) {
--			u32 need = (nr_desc - i) * sizeof(struct e820_entry) +
-+			u32 need = (nr_desc - i) * sizeof(struct boot_e820_entry) +
- 				   sizeof(struct setup_data);
- 
- 			if (!e820ext || e820ext_size < need)
-@@ -684,7 +684,7 @@ static efi_status_t alloc_e820ext(u32 nr_desc, struct setup_data **e820ext,
- 	unsigned long size;
- 
- 	size = sizeof(struct setup_data) +
--		sizeof(struct e820_entry) * nr_desc;
-+		sizeof(struct boot_e820_entry) * nr_desc;
- 
- 	if (*e820ext) {
- 		efi_bs_call(free_pool, *e820ext);
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
