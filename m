@@ -1,134 +1,87 @@
-Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF0D313E38
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A2F298CC4;
+	Sat, 29 Aug 2026 05:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981489; cv=none; b=a6tR1kcnPFXCqeMjnSz5On1MI0dRPAqNGFz7nRz8u++rqrn/szUrfF++WU2u0thqZjpRZnGXAst4rFQqUfDsfP8TcHzetSOQurI19SDsV4TTVn618rXhfUWEx7tB1Jm8iJc7LaeH07sJnhKuMf0arHj3HCW+HJBXsdnAs2bLtUM=
+	t=1787981551; cv=none; b=jWs/jqXaOU/qitA301lm39vnUvNdn4WfoF5W/5wFBt/RUIjWSXPeRltFmfiQ4t7GdNXoENnrusUdIZodhjwLjTX8pJ2bo3dXgK9cu6K466N5aLiwwzRelwtuaHyIXKjdEk7Bax/J6/5WF4KD3DTmeHi6xFfiIYx2O80BsSHEvB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981489; c=relaxed/simple;
-	bh=J63cCjU7NQMqNc4BYfZxkPvygTtwZPK/s48tuhKYo9w=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Tf37BbdFrAxK4bgyxfsZTRt5JcNIIFS4/nqf1oRyCJwOGR3ntu8tr2T2Ddkfmpaa2/exJQxvBC1FhBjzS7svjZraa5qtd/7qVTdpVGK1XrXzrFh7RPocqk6oEnn9JY3Lrp4E2Etafc1ryKb4nUcSKj2zz0/YnBSZYGYXl3mljSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b385b9c4e8so614498b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:31:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787981487; x=1788586287;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IUjmvQ8X6s/JHGzOzsHlequ1pScp7s06KOL9eRF58EU=;
-        b=mhCMwHrwfkutzfMb1g0kwJzH9BgJ15v1Mlpnz6JakJgVddfN58ga+VeYD+69Xo6O78
-         kBh4H0DhFNfrR1vhlWwx4RuMIRNvMT1SDfX8waCKfZBDAPgsjO/yWUFvz+yKse5/wbjU
-         fUh4/fItZm9x5YphXo9KQV6rTWXkJTOymJTAeJA4NXXyc6W/IACoaU1rhuBkzA9p4Xgj
-         nIZdLVi6NTqlpdIkBLHEZ9NvOuWjgA7obqc9uyYZ8r+zIjOM9DW/Nppj1QxFsk8wPOcT
-         2V9sYPXz3ZwsXrNiC/OSN3qVv8/yYBKm4LhtlkwchyGtLsGcWFqjG2nj9qkp4ndICs+Y
-         UFfg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/3xYC9pJJbQqDzEd0p093hOLRsY8igmdQk71KG0NVqo2vE5VMdrOzvCHqVTYVHArqXfvyqGxUEoUitEI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxyEn3Izh14WQlELsd+S+gVhpXR9OI6sFXiE0brALskTIXCfg9
-	fMrRGGWqDhkeks9PttF4tOoDxUrTXQTrM34xevfX4NVvgc5yWFs1aAEP8ltnLCEe7H9YwKlaq4N
-	+TtlxwdDS0mnUxFVAlEGm+094ihWBj1SCoZwZu6qbIrQgFiGs4XhkyA3BKaE=
+	s=arc-20240116; t=1787981551; c=relaxed/simple;
+	bh=Gf2VGnQ66RnudBR5MwjrWXa+Tg7a0cP4fOJpJzX964g=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=hLeZQlqsK4vs+Jq16DHqSg81cQgaRAKL1k4dM52NYh15FJw9CywVZ6cYfl0wA0IEGGIlwk73akYL9wGFzh+et8H900VkIDfowMuny1dTs55mVzE2Vv+a+g6E/0ia+JIAL4SPd1E3gUBjaBparq43tdHbodf/TMEKB/KEFcZ+FgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VBac0gXp; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VBac0gXp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787981538; bh=uT5VjJfiqLWdyGc+W2u0ru+21BjULfiDjNCFK3lMG4I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VBac0gXpyi8PJeKM1jPH8pLGklYOuEdkmyoYqm3GEAIKbcfpeDROzk/c0HeTGwXDW
+	 jycxV59avDFXwWvcjtrvz4e/F8urAtkpVsHIioraAN8kSIXPb3lsF2+hgXhz8NpyBW
+	 ufPNuUHIjDUK3GS88clA243aZJy4YV+XDCxuLREs=
+Received: from wang-VMware-Virtual-Platform.localdomain ([42.48.27.17])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 80B3A623; Sat, 29 Aug 2026 13:32:11 +0800
+X-QQ-mid: xmsmtpt1787981531tyui8wm1w
+Message-ID: <tencent_762005AB7B4F04A2824BBD13EBFFB6CFC607@qq.com>
+X-QQ-XMAILINFO: MRBm8gEMwvbCu9iXU3KBdPM1P09mvn9B+JoSaf+LKwa4uBBnulru5tV+GzfF+1
+	 nFVFexzi/mI7rTRmuZdNCBCJEvC4q38f3hCsWZWwARycBMnzcXfX7zqROwQnuiWfLbLM/Sdv1Gl2
+	 h5m1qJooUCyKbZNir5n52AZZE2qbp6XS8SYDSHGGZ+FvjJRRLZfXX/uxNXkCH5FqbfFZYgILmNXe
+	 hhJpNIolNOLyLWa6pdUzc6k+9TI0EhTSpzIvzQcBUgUkgL0SM7OktZLo9urJR73yPjtD2ROOGlBl
+	 Vdhwt54AKgITwUWTLTVJVZjwyUWMRG69qwrUn7tC13esVxu4lss1GA515OqpfGi9QsA/x63yZoEZ
+	 7TSocVnwEFrG38SuM3SSkJYaW5txMTwMVx3njUW4mR41+Kn8B8QpcW4GPt9nX5pHPtXKs5OYhubI
+	 8Bn07y+jwRqo0QmQRH+0yQpBs3jPFuCCZN01t8ePHgJeqIaVVnNPeT5n5WlmXU+Aroxeddh6DEQz
+	 kuSX4mSd3PGN/VYMmTNiTsJoBziDJNtdwTBvKYAxWQyB00D35UT0V+fGfGjm4gs4VxB0j3egY4a7
+	 zlAJZeSbhJdt4Xt9p35VlZ61OxlmwPN6DvSl7flD+H+w3GCVhRP9q+l9aFXuSzKZVFRJNuRQBcpZ
+	 3WkxuARIvqSp9zOAwgYqqXKZCZFC15xZk/yHzJGLbnVQzSIPK8gyeNb+FjtfAgEjT0uGJWs1PNoe
+	 Aeo44km/dUqI+0kh2swbbTGfgQuyhb4v7HpYNkgFgwca1RbRGDgy7wd3grBDVq8/kih4/gYI97cB
+	 TBfAwteFOA/aNclDiQhH4MmmVLaNVODW6kEfOvCIuQFZ9ptZbLusBNbRgy3CdkcvUMmOg1OGy0GW
+	 91YWjfgnFjZVnqA7FF9dAUmXYhWLlfp8v3JF7wG+ynJ4ltYuJQgprkZK7tyydlji7fisksqTd+BD
+	 1m/BBY9e4exiPID1kSaBAtoHPWYrHKd9wAS3DSiP4vaMe2HF3xC9igC00fyw/oyANx9HogIabpIK
+	 ej+V+5BNPT1c9m4n6r
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Yingjie Wang <1075151112@qq.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: unix: reject negative max_dgram_qlen values
+Date: Sat, 29 Aug 2026 13:32:10 +0800
+X-OQ-MSGID: <20260829053210.397417-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAAVpQUAYOo1hRXD_fFx9oa2bqTV_x17i7Y=vajcx1knYNLjdsQ@mail.gmail.com>
+References: <tencent_4AD5738B48FDD2FC84E21FE59338C8DBAA05@qq.com> <CAAVpQUAYOo1hRXD_fFx9oa2bqTV_x17i7Y=vajcx1knYNLjdsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c1ad:b0:495:f8a6:81f8 with SMTP id
- 5614622812f47-4b3981e5467mr14147676b6e.13.1787981487283; Fri, 28 Aug 2026
- 22:31:27 -0700 (PDT)
-Date: Fri, 28 Aug 2026 22:31:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a926eaf.1d9ded08.62e62.0102.GAE@google.com>
-Subject: [syzbot] [block?] BUG: corrupted list in blk_mq_request_bypass_insert
-From: syzbot <syzbot+f4353e96f7004ae5a09e@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Fri, Aug 28, 2026 at 10:49 AM Kuniyuki Iwashima <kuniyu@google.com> wrote:
+> I'm not sure if this was intended, but passing -1 for sk_max_ack_backlog
+> is known hacky config to get max, see __sys_listen_socket().
 
-syzbot found the following issue on:
+I checked this.  In __sys_listen_socket(), a negative backlog is cast to
+unsigned and capped to somaxconn; there are also in-tree tests using
+listen(..., -1).
 
-HEAD commit:    f1b8fa82cab7 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=14f18379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
-dashboard link: https://syzkaller.appspot.com/bug?extid=f4353e96f7004ae5a09e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
+I could not find the same convention for max_dgram_qlen.  It is not
+documented or special-cased, and I found no in-tree user or test relying
+on -1.  The sysctl value is copied directly to the u32 sk_max_ack_backlog,
+so -1 becomes UINT_MAX without the somaxconn cap.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+> At least, this effectively limits the upper bound to half,
+> sk_buff_head.qlen is also u32.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/932d85a2bda2/disk-f1b8fa82.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5b6b8fb76e8d/vmlinux-f1b8fa82.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c246b61ee396/Image-f1b8fa82.gz.xz
+Good point.  I'll change sysctl_max_dgram_qlen to unsigned int and use
+proc_douintvec_minmax in v2, so negative writes are rejected while keeping
+the full u32 range.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f4353e96f7004ae5a09e@syzkaller.appspotmail.com
+Thanks,
+Yingjie
 
- non-slab/vmalloc memory
-list_add corruption. prev->next should be next (ffff0000c8a39040), but was ffff0000c8ab0e48. (prev=ffff0000c8ab0e48).
-------------[ cut here ]------------
-kernel BUG at lib/list_debug.c:34!
-Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-Modules linked in:
-CPU: 0 UID: 0 PID: 4390 Comm: kworker/0:1H Tainted: G             L      syzkaller #0 PREEMPT 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-Workqueue: kblockd blk_mq_requeue_work
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : __list_add_valid_or_report+0x144/0x148 lib/list_debug.c:32
-lr : __list_add_valid_or_report+0x144/0x148 lib/list_debug.c:32
-sp : ffff8000947079f0
-x29: ffff8000947079f0 x28: ffff800094707aa8 x27: ffff800094707aa0
-x26: 1fffe00019147209 x25: ffff0000c8a39040 x24: ffff0000c8a39048
-x23: 1fffe000191561c9 x22: dfff800000000000 x21: ffff0000c8ab0e48
-x20: ffff0000c8ab0e48 x19: ffff0000c8a39040 x18: 1fffe00034bb7428
-x17: 3034303933613863 x16: 3030303066666666 x15: 28207478656e2065
-x14: 6220646c756f6873 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: 0000000000000002 x9 : d55a73c626cee600
-x8 : d55a73c626cee600 x7 : ffff80008048c60c x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008049731c
-x2 : 0000000100000001 x1 : ffff0000c56f3a80 x0 : 0000000000000075
-Call trace:
- __list_add_valid_or_report+0x144/0x148 lib/list_debug.c:32 (P)
- __list_add_valid include/linux/list.h:96 [inline]
- __list_add include/linux/list.h:158 [inline]
- list_add_tail include/linux/list.h:191 [inline]
- blk_mq_request_bypass_insert+0x130/0x1cc block/blk-mq.c:2551
- blk_mq_requeue_work+0x3a4/0x52c block/blk-mq.c:1560
- process_one_work kernel/workqueue.c:3322 [inline]
- process_scheduled_works+0x788/0x10b8 kernel/workqueue.c:3405
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3486
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-Code: 91270000 aa1303e1 aa1403e3 979c2c73 (d4210000) 
----[ end trace 0000000000000000 ]---
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
