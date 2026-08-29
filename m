@@ -1,112 +1,157 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE873B5F63
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8F6238159
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018786; cv=none; b=RNnGp64z0EMrsIHo7xyRhuIdEKCY7CjVYeKtUT07GiLFNd7wIIsyqrMR7JYlOJ9kgRM6E2ZwHSt6VWBYvxa801rmzI7Jv7mwXmVCvjVneXx0d0JK2kfLG0DsfCZHWLxT4xrxl+wxiPCWk7tN/sHSA/wTblXjQCK80sTU8qXR9Xw=
+	t=1788018818; cv=none; b=m7d5cYkvvVqc+XVMECPIpSBIzV5Mp4bDddbiMrziGPtwgm9KYoulWoLLmpnkA4FhdEFzjWxXdZZXZ11we+K8Bd/PNojxg78PGx5wHuf6O6x9Vfk8Cy6nD5QzkzoATvIUjLFc2/oqPEHkPeo6kiNZrV83gpO/QxsijdG2O0YxDvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018786; c=relaxed/simple;
-	bh=u/QcdMTFyvL/N8kNdZkXvPw5nH3ZXvrAXroaB5kwYPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MNDW8xC5ABGiPYF8Ui9eZjthLLpO3Pl17yRUo9SJw35QKPbs+J80oVSiuP9PsfhVscukkAdgqlP3/fNKi8bpbHN7sUQ9NcSqrlJSNb4lCacw1FdB3Ll7rWf3fpbz2eWaUzAoTVwCJxrBy/juQAE8M8YMpwppsZxszwbq/Xj+OEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFI8qlPJ; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788018818; c=relaxed/simple;
+	bh=qh51favisqRYFIIJw45kc1LAAx7fR21479+AvfqL/04=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Lx38cbM/qdPz8bfNwrxxd1lnZjvZU8SVEiiqYlKGD08C3XDj7iAulWyJDzk9JSnLGcXiWbcG7E4jOrwRVyzHn+KHzlf/gTBKsH7hcKV3xSTilZfyWn/6s43xmrUmgIsv0s5fnCMU/lZz5CgElWkr3f2IIROEPEXUHne5f9GYFac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=o+T9xXEZ; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=aBtAL7HJ; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFI8qlPJ"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1321376f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:53:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="o+T9xXEZ";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="aBtAL7HJ"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TEf0xH1322383
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:53:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=8ymD
+	ovfw/EFXV/LaI27PWgfgegjJSquVlVvW7s1UYGk=; b=o+T9xXEZ8enT9OA0oMXX
+	MAwHYlBvVBNQq/jeJDWvIJXTZNvcPRZPR/NMQFGbDwud9gBXxSv8nupTfqjdIWum
+	JPRQsdHKxBJSdb+bbK2Ast6AriOck1LKP3Y5rLtlAuImz53Tc6zsuWqevgLS4Hlk
+	XI79aokYsSont52zNxNWqDAUdn+59yzIAUgpgRrUlZoGDmKysiWCNF/Ki8xGH2eZ
+	Jtuyaxv66aS5sDXDd9d+V1erALxlKH4hruwqaIBo9r+OMsauBA8rrQhbAQ+DPnRC
+	cIXQWQ/FW2jfmg/e9gIdFZhYND1MKch2MKuDbyTmyKc/XXZU7N2yjNsowcRP1bXW
+	fQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gbsppa7qe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:53:35 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52fb2a46cb5so51405271cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:53:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788018783; x=1788623583; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kqxt2pJA79TUQhxHKJFLWKa2wf0Abmgu0fLyjHQBRCk=;
-        b=lFI8qlPJ6V2ZjAKioi4Q+RhnIlFDQ7LXTv4LzWnXJa2JHUtTzQL5E+qjXSGWLhnOSK
-         SSkeT2zmb71LCwDhflFfmvP2vPkQdBWg/3V9DhSRDiulX09BTD1p3i7kTSjzX4SMNmdj
-         gxA8xaQxibtBq6ARAkbKuZYokNtW44QTXZqBQ9GMho64wORLOShoQgHHwz+6mRu4L8kZ
-         pcfSX/BwDO3RZpH5wm8dgIKBSu4elMAuaWNyiA1WVwPEjrBTaPXsHtmZQg/BoLVhtNuQ
-         7QvrLdSkicsaeuFbBygrGq96eD7hpXtz9W3lWMeYlV54kaTJF83QwAYKPUZA/Z+2ezLY
-         VhwQ==
+        d=columbia.edu; s=lionmail; t=1788018815; x=1788623615; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8ymDovfw/EFXV/LaI27PWgfgegjJSquVlVvW7s1UYGk=;
+        b=aBtAL7HJTTf5uIPdZphj88AXDN4vNoX1Wm4cY1YqGKVtE1nTf7jhxpPw1B73WblaFJ
+         +rUj3aWn2N/p09aR0itbLaNqCtS2p/Nxcjp19XQeN2Y5asuJlJgSzmE7J9/N8UaoMjYD
+         oq7OHahqVmdNUVv63nJDmf2hcamsf3dfTLy9QAPHZqDEvGYFSZlN5yRIBZjIkLhhWVPp
+         tN78TpMPCSE7RNtV++igtwecRJH2DRAfe2tzvgPv1IniuCpBo/FYTrwkszEVw0NzAUmF
+         FGlNtPQFeAqHy4i6WVyW9+5UJbZHejw7Vzs01LYR97ahJUmPSiWR70NUHV+5HJ9Jv4kA
+         SWVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788018783; x=1788623583;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788018815; x=1788623615;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kqxt2pJA79TUQhxHKJFLWKa2wf0Abmgu0fLyjHQBRCk=;
-        b=ZpwojDFCAj46jvKrJv1Y4KV7jeYbDlyyexC565WhV0AsHep4Oed4dysabIwslN6o2v
-         wqfRYxRgQJy3JRdt2OOviZy2jYsJobGRGXmrRaRglsqU+JAV8eMBkFP3aUAmYsu+uGSe
-         IQfKuBtZIBK2g7rGdHbfTMq11uWGpbu4SVQAZ1+8kxoL750ygtllALZVt/wlWZCBCxOs
-         O9KnbfuicLUFV7Axx7U5XDMM4ASp9fJhizFOcNgIZ5RBJQxGLdu938GamlIMdR7ybAA2
-         R4E4UY/VomDC3M56mhzmJDB5T//2nrsMyyIuTaCKlsvVXeIH9E1lhmDPoIZtQJkuGEzk
-         8Cyg==
-X-Forwarded-Encrypted: i=1; AKwUvBxHGP173WZT7pN4EsW7FZzaQIU4cXAL8pm2c0s3Hc7tk++v8rdvIH3lnMww+sKgY5S4fCY1uQrAIPiV0wM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/jlsKfbmSiP5oJwMci50OWwqoX+cFpGcMZHxUqVglcfX3mDSN
-	ZUZqyP8qow5Tezz7HfQe1ehjGr6Bx1Wg56ehVzh5hIR74TVIzYE9ZcP7
-X-Gm-Gg: AYBFou0T9pMzAabD8P6znN9pIIdGXE8sMMtleXUjpOgsDDLpZ5h6E+lha3nzCh+n9Mw
-	NkuuWGlDELVryYydJXwBUs3LMFdV5zKftESCx9RN6Mw9U0BZyk6UpJ4a5S5qvbNU+p82Mb9MvW1
-	x5Up749+zXiFvaQyuYk4gbbR7yYR4j5E1bCgHlCK3bI5yGOV8dvoudsYkt6AG2vaKLKg+oLXV2c
-	TAREUZfb3BPdXozIPpkRUiqtsOyDTMaPHNk1GnGdr6ZgO2xYej9m+tPtB6fDFvRTnlnlRjv25Ji
-	VADHwAS3vMoHkVOvJjEhLkF0A1WHvhdMXeyNFGzhx+kbTgOQc2kx40yXOaqNyHXqK5/4eUsFh2p
-	E9KuQFztClUHoG8CKvawG3z9WC4A3Ee1pO139yajoA8baLONlsFHYoot4D3kD3nyaOnWSC3xLV9
-	yZX5PZeMKO/b0mkmxrrWaTgceU1eogglbI6yIfD9G3zhf+Kn/IyiMYu+ujttTto6iM30TPCrlQ7
-	oHmTxf51MdEb2lg8On5CgLXGrWQBUsff1xVXOSEeifzPgdlYeNEKoYJEPCjc2upalHdcObG/9r4
-	pbf7WZVi1WEtohstE/lTRaRpdeFombW7GbQV5tob0iLG4v59XtZuLnq8JKT3Umfjb4NwJA==
-X-Received: by 2002:a05:6000:2287:b0:484:3310:f399 with SMTP id ffacd0b85a97d-4843310f41cmr3869418f8f.26.1788018782440;
-        Sat, 29 Aug 2026 08:53:02 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-ae86-1b01-80e2-8851-4221-68d8.310.pool.telefonica.de. [2a02:3100:ae86:1b01:80e2:8851:4221:68d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20122sm10864679f8f.20.2026.08.29.08.53.00
+        bh=8ymDovfw/EFXV/LaI27PWgfgegjJSquVlVvW7s1UYGk=;
+        b=q8rteI+dIdgG7tiUXZPXxRwlH/sGxZvnyfssW0ERwo8jiDYzhOgmZ4TN70DP4LGrZM
+         1rlft+/xoS9elgWYWLBi6kYALI0E6NhVi3Os+wpeA0P4/97Yr+0JB15we7zVf9+hHyuZ
+         r5Ez241nZzbqxms9nffGFtDyYR+eXQktM9Y65noAlUjf2QHaWE81t7nyDkT59OTgo2eF
+         cIeJr/tbTroq7n8WPqbjdFIwKBv/mm1EqGGkdnYE7we9UX3A+tbZlqHzGraiMuXEf3oE
+         ttpM0NpJrahltWKQ6B10kXCtTvwU4KfiulFLuM3XgxvmHtmID6RYABqD1Nu3JJs+j9ya
+         evvw==
+X-Forwarded-Encrypted: i=1; AHgh+RrnwzA7QtOW9YtU02RoX1kKKOf7iGWpI7XcmOk/mUNS3R1sE7UG/GBZe9AorwSs0Z87ERk587K8Jm+zrEw=@vger.kernel.org
+X-Gm-Message-State: AFuF++liRm7KbAaT7CWbNXQxi4tQCuQtKPas0SaZVrEek0mKFYrAUj4q
+	85RhbZhlUGoQvn0Mn49WVceiOVYzdDUBOzqSnxE7fyaLnYCHl3wmbyjnJnkLZPEFfzbOcdv6ZIS
+	OoPiggckU6C8xDNVqh2mLbGXNDztVzkJEjnEfKormXMrjJL1w1SNLAOAxGw9uQQ==
+X-Gm-Gg: AR+sD10M940ohvZNZDqirxar88JYB3W3VFWo1NEhnJdhXLxVuz4STvL6559uhlEyz+T
+	+1fvydVb4uExeXjYwcCvTbvJAgu1vZA+7Ft69VpZTpTnoqn9bU8G7xDjVmRvqESb/QW653/yEmL
+	cSWmNYMxnkb4mcWuZs6aAyDT2jpJIb4t/wQVKV98Usj4WXnNB15mLWC3WSoVq/B8x5vucQdeHko
+	yH2b/dCsp9vGbieOLCMROxPdNGvCQ7a89GvMRwwWIYwFj0t1lRFCyyjiLiS4058SP1etayHcikC
+	dxUnj6fXfEfyNFSs4Mzq5iPfD1a5DSEKSoQd8Gm3CHD6H+GvH+dTBVwXslI5vjEgMAMkUsQvd/K
+	Oe7hwwrF9+8r09zduYRd8w2PbV+oh0M/hz2c6hIc9rg==
+X-Received: by 2002:ac8:58c8:0:b0:52f:f546:c683 with SMTP id d75a77b69052e-52ff546dc18mr97024341cf.29.1788018810142;
+        Sat, 29 Aug 2026 08:53:30 -0700 (PDT)
+X-Received: by 2002:ac8:58c8:0:b0:52f:f546:c683 with SMTP id d75a77b69052e-52ff546dc18mr97023781cf.29.1788018809486;
+        Sat, 29 Aug 2026 08:53:29 -0700 (PDT)
+Received: from [127.0.1.1] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a8e0657sm108099655e9.13.2026.08.29.08.53.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 08:53:02 -0700 (PDT)
-Date: Sat, 29 Aug 2026 17:53:00 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	kvmarm@lists.linux.dev, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter
- range at base 0
-Message-ID: <apL9jzg-KM_n3Vv2@gmail.com>
-References: <20260829054856.70549-1-kmehltretter@gmail.com>
- <20260829054856.70549-2-kmehltretter@gmail.com>
- <CA+EHjTzQM0bf1x2X-Y+eMmUHSYUmJXpt_jQ4Csu7JpkjtFT72Q@mail.gmail.com>
+        Sat, 29 Aug 2026 08:53:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTzQM0bf1x2X-Y+eMmUHSYUmJXpt_jQ4Csu7JpkjtFT72Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] mm: filemap: retain mapped dropbehind folios
+From: Tal Zussman <tz2294@columbia.edu>
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org,
+        linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, baohua@kernel.org, axboe@kernel.dk,
+        trond.myklebust@hammerspace.com, qiwenjie@xiaomi.com
+In-Reply-To: <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com>
+ <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+Date: Sat, 29 Aug 2026 11:53:20 -0400
+Message-Id: <178801880005.667254.16521776519325089161.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788018806; l=870;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=qh51favisqRYFIIJw45kc1LAAx7fR21479+AvfqL/04=;
+ b=9D2u9tIK2luFb739fqW5+911YvX99bhciYQK2e9hDkpVr5QE+J47y/qLzFvrZsNOv4iZBwOd+
+ 88JH/jEfrXMAg8nXG80s4x1xQYClTr9LeVpgl9V2v1bUAu3R3xvjiUE
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: DccKFLb1UifhmY6UMZR1UPJpz4BFnKAk
+X-Authority-Analysis: v=2.4 cv=B6qJFutM c=1 sm=1 tr=0 ts=6a930080 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=pGLkceISAAAA:8 a=IeNN-m2dAAAA:8 a=Xs2TF1iIujOxxFI1s40A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDEzNyBTYWx0ZWRfXyQ6P1Xom+2s8
+ aa4wPo6rNHktw/HSPgbGZcOKERD75NvFt806RxnT4THzC/HYze6ZgZimTeCYUaTSuIPVTDdQseT
+ 4uGQ5LwIeEVOIrUbdQQMQvtJgP8x8DPskcCt/f+WP9uAzE8J1pyJbxLeHYMQ844LofgQ8cbZ4uZ
+ WsPRU3bQl5FJyUI4j8WQdnqxoAAnU4Rb5pGV3/5SAZhwOLYd7gL+PDLEEV1gJe0ewxCZ79gdAeb
+ SLqhdVtwySPAPW4b1mTGYn9gpjQvaEbZSFRzvmRJyVxT9jd1w17Y8Y13YfvIitwhvX+SfErEkwY
+ X+USUjgChGu+sY7855hXSE7eEc/gzhu+DhmBn5qKlBe0THkrpaqNsHTgckHvSnZ/kn6Kwo7tCVA
+ wFBqrZKrfXdLRCYJhbwSLAwM0gG1BXoJxj63/tSLIszpshzQnhr8oOHferNSgHnF22XEbthfMB6
+ TRF8ghZcfS7ysVh0SkA==
+X-Proofpoint-GUID: DccKFLb1UifhmY6UMZR1UPJpz4BFnKAk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDEzNyBTYWx0ZWRfX1JA8Mb2jcF9q
+ +QgvLSNJyMMOUX2L4JJqlTWIj0yAaKmUz+UYqw+r1k/zHG0eNMeiSPTjstC7OVTyCOWbDnCgQaX
+ PlnGBoOuDMmVFgoRd6dI/1nJWTaMIS/vTe6U46wY2MZZR1Pb5qJS
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11890
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 impostorscore=10 clxscore=1015
+ phishscore=0 bulkscore=10 priorityscore=1501 lowpriorityscore=10 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290137
 
-On Sat, Aug 29, 2026 at 04:04:01PM +0100, Fuad Tabba wrote:
-> > Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
-> > Assisted-by: LLM
+On Sat, 29 Aug 2026 20:30:47 +0800, Wenjie Qi <qwjhust@gmail.com> wrote:
+> Fault-around can map ready dropbehind folios without going through the
+> normal page-cache lookup that clears dropbehind. A mapping represents a
+> competing cached user, so retain the folio instead of forcibly unmapping it
+> when writeback completes.
 > 
-> nit: this should be `Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1]
-> [TOOL2]` rather than LLM
+> Unmapped dropbehind folios continue through the existing invalidation path.
 > 
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 
-When I first saw 'LLM' in a patch I thought so too.
+Overall looks good to me. It may be nice to add a sentence about the
+safety aspect of this in the commit message. Maybe something like:
 
-But it is now allowed, see recent discussion and merge: 
+  folio_unmap_invalidate() may sleep if the folio is mapped, so this
+  also ensures that folio_end_dropbehind() is safe to call from
+  non-preemptible task context.
 
-  https://lore.kernel.org/r/87qzkuahlr.fsf@trenco.lwn.net/
+Reviewed-by: Tal Zussman <tz2294@columbia.edu>
 
-  816d9992d9ed ("coding-assistants: simplify attribution")
- 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Tested-by: Fuad Tabba < fuad.tabba@linux.dev>
-
-Thanks for the review and also testing!
-
-Karl
+-- 
+Tal Zussman <tz2294@columbia.edu>
