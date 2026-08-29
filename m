@@ -1,273 +1,319 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EFB36606A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F8435F19D
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788032532; cv=none; b=EJkEq2IesxxQoBGAF71kfIoglBpVvlWEUBGslzruVMlBySoalHdNhB2EABpU3/a8EAvV3yH4+8Z3Hp7foGeiML/bN80P86Csk0LK6FByqLgxizNmO7llvjWOrSsYLQej5UfcTXwmm2e0tWcP6qgKTjs9hUmpIu0dDkdqdhZP06o=
+	t=1788032546; cv=none; b=a4FwRTMghYOVT8lP9L3QSRCLc2wKSsYI3P8AAVIKDexpe/iiVY8IdCOoIAoOtaXIevSQzCn9acdSZijwNGsQFrEPlkbz9WJGmVuO98JbOihk2Yj2EHhqABFA/R5O6LDCdGALQrQVHKSZjK6sJd8Z1wt9GpzkgjwobN6S5GgVVlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788032532; c=relaxed/simple;
-	bh=BbCuz6cFPXT9NGbskaMTv8v+sD3jV6Mr18Elc9/RIhM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NI+4E95/jO22F86yYdIy4l0vcTLzsZQEe8rxN5qJl+MhP9vYCVAwySbd8aVnEJerDuQQe9GaY4IgEm/mMSA+vOM2mUH4xMQTzqRDAxxlJU261NkLGNQG2Y3hbxzKfweDXXur0KI2PlxxCE4qOQrJXKLQkgych2xKo8FOQ3f1p6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AuHa/bhQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FPY1bEHn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AuHa/bhQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FPY1bEHn"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TH0QtV3459543
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:42:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=qoO8N/t+dbhkTmzXPT0NEb1XZflknAdTKZX
-	b5wgS1ks=; b=AuHa/bhQlze39BVcvDwSIBIpCiPFSjZ+OVX/eTm9QBU08whQN/e
-	AWhpUd+Z4MpBIWbiRCewfLR1FuagvceoB40v3Cek4KPWvQDoPLXMK0kSt/OmzbOP
-	jZim8VCEMMYldTKjoBQbFDz/9MkuG5YbD+o2huEt+TIbq0y7irH3NNSuDaJwg1xl
-	TjqSNEiOVvaPaSU+5yANxmC7F6yNkmmMpj57OiOGU+kX0nLJ6VaQmbjBYo7sAHPS
-	X7wh61kJjh7fOm1/49ecSw9eFSTZ/YLMdgY3ZRUxMdAIzmulCXU9tC7204xdwVYn
-	9IyQbwdXrkW7/8dJDFbmmo+1gyNM1EQ/Few==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhmsnc1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:42:09 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52ff59f2c47so24847561cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788032529; x=1788637329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qoO8N/t+dbhkTmzXPT0NEb1XZflknAdTKZXb5wgS1ks=;
-        b=FPY1bEHnhN7xZRHLIVckCjYnJ/BTe6MIWD6R17K0zy7zRdFyM/66X27sctIux1SOk9
-         3u4k56kLXH1IKTr1MNrAdDmvY9Pn6eSO3l6C/qm1NqKK5GZDxFp4skOWFUO5tAfJBbQm
-         iWcY+tpUvOgiyJBo/SoKxMWUqy6JwIyf+vOi33f8cdk/aaR9PkqoxreyXdfVyFnYAtB6
-         W269RjLFnUZdvOqUjFeQDyV8kTvPv93ir+CGjUT71Isuv7UXOmO0COT4p3kfB5R2znj8
-         nfeMRBdk8r/j48TyKegZ8b5c7ABsGo7M4dB39vP14v+5egRh/jiPcnJEXSmFyfAnAsL9
-         XRBQ==
+	s=arc-20240116; t=1788032546; c=relaxed/simple;
+	bh=k0FiHL7zb0VcpJ1YIXi7ZhMDgu/z9UgZ/RLbSYHVwSo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=klGs01yWl/QTCcnoNwk7jn7JqfTYti4BA+V4gshmL8vrkUBFiogNwfBKKNH0wKOuhZykEdNN1P4HAoj94SnhW5TpUaNov7j5hMxomfqw8FJ8WGSZeUJ73zWkXZU8bejJN5asfIsybhCD/XI2Nt8/9SYmTIPdX3+dI9IoMfV/KvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f4.google.com with SMTP id 46e09a7af769-7f4e3bad307so204958a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:42:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788032529; x=1788637329;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qoO8N/t+dbhkTmzXPT0NEb1XZflknAdTKZXb5wgS1ks=;
-        b=FZaqbOi+53DAYxaJnd+w9AQxn840/eQMufNi6Q41dL6ByX3oAO5WC4LnLcRcZ3FUkX
-         u3I0tvBCtwOSBleKOd9eyw7XvYzuGgKG5ABZrrM3o1OrnsfnFvRe3O7VRuZjpzzko4c9
-         K6LhKeylTJMF4ufG3u2vTc74n2BbZrIJAKijneDe9+e8IWgdB2FBe0LBX51wR1M5Bo/j
-         GgjOaRTS7zsGURR+eyaysEXsqtEh+WCTYlHfd8gyyjVfp8+micHE7m63CrkSBI1PsIRc
-         sizA9igM+HfE/g1itYaYQ5nM/NLXE/Y7WqLudqNxsW/9um34fjwh1P+wrVBWzNLuHBL9
-         dJWw==
-X-Forwarded-Encrypted: i=1; AHgh+RqJ/WDpash4rnfcSEMuEzZ5ot7Buja4cQzVlJ+2zdSQCELYYTdiO90M13aEEfP5kjJ6Db8qB72CmI0NRD8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1WMz44dQYK4bX6SjQqFs3/HuxggDWjwQRf9n1m+xweE14V8iK
-	xlrxinIUfu4k3P3ztwiDOOMwbqpaySYdKozB6Z0tk1avahHTYbmlaKzOBLp2NNdjZBP/l6pK/OO
-	RGc5nylI/Wqm62xLs+gXj5TgdhAQw8jxRtKaqiCDkObZfnLRfQ188reKsOfACQUTKzfk=
-X-Gm-Gg: AR+sD11LEwFFMv8MUVcyp6pWvQbPEmKZ0p5aR/JvJtV3Jiiaik1cD+F2uWwmboz8hg6
-	yHAhWjkiGecUEjVMX7OzZK/6YS4lRyIGHWjblYbldo6wAKZyUJuISHuf2MzbcQz8GOWFgxysXFx
-	pmVhmkuU6mk9eoVqkhLDodQoKlJOF2Iz02LRe0qZrBKKx4UgFp7eBVuyZwsVvL9vhOGHtYR6hW0
-	bveQNfzfHO/x/7NaqtiXFNvHu7mpp0vRYC2DVnk31G7chgGcPJzMHAus3eBDfpJ91FxTJ6ZEkqV
-	5mhuFaD1t96fPeeag0jbx+jU3DYlG63mT0q4tSxIAiZceEJrOcS8p9yo/KRzulUkYoHZyCG9Qt9
-	2hsrTS5N3IPL2W3k=
-X-Received: by 2002:a05:622a:2d3:b0:517:6fc2:4760 with SMTP id d75a77b69052e-52fa1a9aa93mr222014631cf.9.1788032528618;
-        Sat, 29 Aug 2026 12:42:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:2d3:b0:517:6fc2:4760 with SMTP id d75a77b69052e-52fa1a9aa93mr222014391cf.9.1788032528192;
-        Sat, 29 Aug 2026 12:42:08 -0700 (PDT)
-Received: from quoll ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab730fsm12565406f8f.8.2026.08.29.12.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 12:42:07 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-        Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
-        Giulio Benetti <giulio.benetti@benettiengineering.com>,
-        Jesse Taube <Mr.Bossman075@gmail.com>, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: pinctrl: fsl: Replace tabs with spaces
-Date: Sat, 29 Aug 2026 21:42:04 +0200
-Message-ID: <20260829194203.108240-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1788032544; x=1788637344;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FgGAEc6tgDgVeHJOxVNevJhdTjr5Q/Z/SHLlOeuVhKA=;
+        b=Y7nul68VPe/bWwTnMU4RK34R1hZZwCc9Qcq+cCN0CwCpD04R8Wr9o9Xc8I7w4qz+Tx
+         IAn7rpJd7sTDkSJ/fa2Rtj6NBi6GFJ6x9rXI23id7FBLe1TSeZGG6vsW7QbFvfRb03Wt
+         kb1k53Qwumt3FT/rMsxdxDgIkHsWFYCWrM6nhHKC7Kdxq6+bodR4dPoYMLez3OWMsKCm
+         x8kOG3v4S/n5Xc1WPQDSB3zLH91IJLteaaXIWMjgNUL9siii5ZLPBEajtW3PzlsKW1U6
+         dBz9PZME2GSsZOIFQuGNCxjK0CXiccJ9CBmmJ5gmzt9tHint0xloWqlw1WIuwLxAer2X
+         ofcg==
+X-Forwarded-Encrypted: i=1; AHgh+RqJKysp83L94ymxCJqDlh+LV5uv3tfXhuRExeONYRDByzL9rzMwGXfdYGvod5t1eNvug7R3QzZvcGiyOx4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHAqLtVUD8JLj2gzMMLJwVTtru/ye9JfRC8FXKyUxkJGjOkhwe
+	rHFnJYR6mEphAXOs7oITkf3zxbbNvJ/XKAq4HkVtSCRycLFBy7ZN9e+OrTqaLB8d5N0zkw7Fmu+
+	qUaaYAmYS+/H79DMhJ8RiLrAzHoqaIleKuOEgzndhUU95Ee283iBaiuqwmys=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5713; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=BbCuz6cFPXT9NGbskaMTv8v+sD3jV6Mr18Elc9/RIhM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqkzYLmZBZmlopcykPk8eVfdVP9/2i7IHlLyPM+
- ZT+T5E593OJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapM2CwAKCRDBN2bmhouD
- 1/+tD/9s18VfyOGpsT+XoJaxwp3s0w7usBuNWv1fkwBgjf2lYeI/cQJUCiMjpXYGx0xksnc2Io+
- jD5FJieHhT3zJh/pWPreX2I3Oy4faVIj9ZsoRxqjJCJz76bZ3GxwVjowcqhL2/z7HnmWJ60oirr
- WnilmFowVLaxmWoGaHzfR5/oGNtU7hpkJqgwr24n5PKGLiqYzx6DJoBanCEIEdoAJHbZCGU1aCu
- IsMDG5kWTrY1CektmR3Cg48F25YEZ9MNziz//eklc5xRUU73GecmBCvX32fOAxY78xpctFZ/WaR
- 8MCRn/khXZjQMsY7DLMg5KIeCvLCP7845BH7AkjVR2ng3QWM171Y4q+reGUZSJxm78CzuIASrbM
- /J+vA0/mlA7O176NMvuykp0Dk1+e8nR3ODutk/rpL6Hk/VhqsR/5j4bo1xtIAR45shdNF8oIQDK
- uMesdqh+q2uM06SPMsA6tz2ySFYUpkhnSzpMeCeXNJkCvqWxK/TTQxCd2hok3hnyp1EIOiPzgRp
- Hj2sgm0t1AX0uayw5B9rscv/zucJ+hhMVXPWwr+0QLIji3sIs8M2a67d1Q/N1sa+whOuMU+9Nm2
- b9zHI09cPHDtSBHDORyRp3QOKOBAZuSC/DYwveLiBotd2wy3LOdQlioljN4HPSdl6jPSkmN0lm+ yVweh0mpsrFq3WQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE3MSBTYWx0ZWRfX5M/wMrPGqZ+a
- y6IN4q8JVsg77VfFZiw2fQRIKYWqcKJrp1c6JDkyBVTJ5LuH29eh0YqvierKRZ1cPxSx7uZXk9k
- +69cwssz2Sb07gPhowVrcq6DNdKvyNjstIBfEVd796ddbbpOes6L8BBG/5LhiaX71qQGqwXB4sZ
- LLQXumwVWf5AhN8apKOghpNsUlTBvHmq1hEBxHnT/l3IZBCPX+LMsJ4nFZoI9uCfVHpGITC/Ion
- 7jOkyM+RF13SGeuyccOkf47D6ET+Xcy9RO1sU2KvDnww+xOB+yDrtx+tGN5krEw2sxZqivxethG
- /c+/SJqiS8SzdWXhJZc/XjO7DPKe/Vji/zDFbUhhqeRHuPd1O5N00mU+bPCESeU1AE3YxlktF5S
- qpjpWF+XfXjkGwHSU2OkNwHNwJyakd3m4cREseJjrmMvMAUeqOmffAYdhvNBzJ3MeYBAQAARYWE
- Eg7bRJJDJrNwMMvfpEg==
-X-Proofpoint-ORIG-GUID: IX1AIDhm8FKwVshEF6TW9tfg4STSxM7A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE3MSBTYWx0ZWRfX3zSMhC3vgOG5
- 3VTIOHt0Zzg4EyBWfpcSDKepzR4A7VK5LVISbcP6hXVYoCTJQXY/mdILQKUssQZmV+LIBncVHWF
- xOtNyIZg5Pl1FUc7yHlL7xm8TViYfnY=
-X-Proofpoint-GUID: IX1AIDhm8FKwVshEF6TW9tfg4STSxM7A
-X-Authority-Analysis: v=2.4 cv=bpl8wkai c=1 sm=1 tr=0 ts=6a933611 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=4PiMN3fzvG74CLbEUuQA:9 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0 impostorscore=0
- adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290171
+X-Received: by 2002:a05:6820:52d5:b0:6b1:3534:a5b8 with SMTP id
+ 006d021491bc7-6b1c66161d9mr12613999eaf.15.1788032543934; Sat, 29 Aug 2026
+ 12:42:23 -0700 (PDT)
+Date: Sat, 29 Aug 2026 12:42:23 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a93361f.08e933ee.dbf97.009b.GAE@google.com>
+Subject: [syzbot] [usb?] possible deadlock in fifo_open (2)
+From: syzbot <syzbot+e6737343c72c2accf79e@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-YAML files do not use spaces, even within the values in DTS.  No
-functional change, although dt-style-check will warn about it
-("[tab-in-yaml] tab character not allowed in DTS example").
+Hello,
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+syzbot found the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1140199e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=e6737343c72c2accf79e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e6737343c72c2accf79e@syzkaller.appspotmail.com
+
+9p: Bad value for 'version'
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.8.3362/18795 is trying to acquire lock:
+ffff88805662e860 (&pipe->mutex){+.+.}-{4:4}, at: fifo_open+0x139/0xb40 fs/pipe.c:1235
+
+but task is already holding lock:
+ffff88802b41f920 (&common->filesem){++++}-{4:4}, at: fsg_store_file+0x193/0x450 drivers/usb/gadget/function/storage_common.c:452
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #5 (&common->filesem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       fsg_store_cdrom+0xe2/0x190 drivers/usb/gadget/function/storage_common.c:478
+       flush_write_buffer fs/configfs/file.c:207 [inline]
+       configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #4 (&p->frag_sem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       flush_write_buffer fs/configfs/file.c:205 [inline]
+       configfs_write_iter+0x218/0x4e0 fs/configfs/file.c:229
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #3 (&buffer->mutex#2){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       configfs_read_iter+0x79/0x6f0 fs/configfs/file.c:86
+       __kernel_read+0x397/0xad0 fs/read_write.c:532
+       integrity_kernel_read+0x7e/0xb0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm+0x25e/0x350 security/integrity/ima/ima_crypto.c:222
+       ima_calc_file_hash+0x1e3/0x380 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x94f/0xb30 security/integrity/ima/ima_api.c:300
+       process_measurement+0xdfe/0x2350 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xc3/0x110 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xc4/0x210 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x5cd/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       process_measurement+0x5ab/0x2350 security/integrity/ima/ima_main.c:319
+       ima_file_check+0xc3/0x110 security/integrity/ima/ima_main.c:685
+       security_file_post_open+0xc4/0x210 security/security.c:2755
+       do_open fs/namei.c:4839 [inline]
+       path_openat+0x5cd/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       file_open_name+0x1c3/0x3e0 fs/open.c:1375
+       filp_open+0x2e/0x50 fs/open.c:1392
+       kernel_read_file_from_path_initns+0xec/0x240 fs/kernel_read_file.c:159
+       fw_get_filesystem_firmware drivers/base/firmware_loader/main.c:549 [inline]
+       _request_firmware+0x733/0x13c0 drivers/base/firmware_loader/main.c:873
+       request_firmware+0x35/0x50 drivers/base/firmware_loader/main.c:948
+       reg_reload_regdb+0x85/0x460 net/wireless/reg.c:1067
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       ____sys_sendmsg+0xa4d/0xbe0 net/socket.c:2713
+       ___sys_sendmsg+0x190/0x1e0 net/socket.c:2767
+       __sys_sendmsg+0x160/0x210 net/socket.c:2799
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (cb_lock){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       genl_rcv+0x19/0x40 net/netlink/genetlink.c:1217
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       sock_sendmsg+0x394/0x410 net/socket.c:838
+       splice_to_socket+0xb3c/0x11a0 fs/splice.c:884
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&pipe->mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       fifo_open+0x139/0xb40 fs/pipe.c:1235
+       do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+       vfs_open+0x82/0x3f0 fs/open.c:1101
+       do_open fs/namei.c:4837 [inline]
+       path_openat+0x19fa/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       file_open_name+0x1c3/0x3e0 fs/open.c:1375
+       filp_open+0x2e/0x50 fs/open.c:1392
+       fsg_lun_open+0x9e/0x7b0 drivers/usb/gadget/function/storage_common.c:199
+       fsg_store_file+0x1e7/0x450 drivers/usb/gadget/function/storage_common.c:455
+       flush_write_buffer fs/configfs/file.c:207 [inline]
+       configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &pipe->mutex --> &p->frag_sem --> &common->filesem
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&common->filesem);
+                               lock(&p->frag_sem);
+                               lock(&common->filesem);
+  lock(&pipe->mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz.8.3362/18795: 5, last CPU#0:
+ #0: ffff888034a2c9b0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
+ #1: ffff8880238a2460 (sb_writers#18){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
+ #2: ffff88803d2cde80 (&buffer->mutex#2){+.+.}-{4:4}, at: configfs_write_iter+0x76/0x4e0 fs/configfs/file.c:226
+ #3: ffff88803c8bd070 (&p->frag_sem){++++}-{4:4}, at: flush_write_buffer fs/configfs/file.c:205 [inline]
+ #3: ffff88803c8bd070 (&p->frag_sem){++++}-{4:4}, at: configfs_write_iter+0x218/0x4e0 fs/configfs/file.c:229
+ #4: ffff88802b41f920 (&common->filesem){++++}-{4:4}, at: fsg_store_file+0x193/0x450 drivers/usb/gadget/function/storage_common.c:452
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 18795 Comm: syz.8.3362 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+ lock_acquire kernel/locking/lockdep.c:5886 [inline]
+ lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+ fifo_open+0x139/0xb40 fs/pipe.c:1235
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ file_open_name+0x1c3/0x3e0 fs/open.c:1375
+ filp_open+0x2e/0x50 fs/open.c:1392
+ fsg_lun_open+0x9e/0x7b0 drivers/usb/gadget/function/storage_common.c:199
+ fsg_store_file+0x1e7/0x450 drivers/usb/gadget/function/storage_common.c:455
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f485679e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f4857660028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f4856a25fa0 RCX: 00007f485679e0d9
+RDX: 0000000000000005 RSI: 00002000000003c0 RDI: 0000000000000003
+RBP: 00007f4856835024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f4856a26038 R14: 00007f4856a25fa0 R15: 00007ffd7288fbb8
+ </TASK>
+mass_storage.0/lun.0: unable to open backing file: file0
+
+
 ---
- .../devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml    | 4 ++--
- .../devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml    | 8 ++++----
- .../devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml    | 4 ++--
- .../devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml  | 4 ++--
- .../devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml     | 4 ++--
- .../devicetree/bindings/pinctrl/fsl,imxrt1050.yaml        | 4 ++--
- .../devicetree/bindings/pinctrl/fsl,imxrt1170.yaml        | 4 ++--
- 7 files changed, 16 insertions(+), 16 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
-index 846e110062b2..0a69ed9880e4 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
-@@ -179,7 +179,7 @@ examples:
- 
-         pinctrl_uart4: uart4grp {
-             fsl,pins =
--                <0x288 0x658 0x000 0x3 0x0	0x140>,
--                <0x28c 0x65c 0x938 0x3 0x3	0x140>;
-+                <0x288 0x658 0x000 0x3 0x0 0x140>,
-+                <0x28c 0x65c 0x938 0x3 0x3 0x140>;
-         };
-     };
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
-index 7bd723ab1281..948160cfbc5f 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
-@@ -95,8 +95,8 @@ examples:
- 
-       pinctrl_uart5: uart5grp {
-         fsl,pins =
--          <0x0160 0x03D0 0x0714 0x1 0x0	0x7e>,
--          <0x0164 0x03D4 0x0000 0x1 0x0	0x76>;
-+          <0x0160 0x03D0 0x0714 0x1 0x0 0x7e>,
-+          <0x0164 0x03D4 0x0000 0x1 0x0 0x76>;
-       };
-     };
-   - |
-@@ -107,7 +107,7 @@ examples:
- 
-       pinctrl_gpio_lpsr: gpio1-grp {
-           fsl,pins =
--            <0x0008 0x0038 0x0000 0x0 0x0	0x59>,
--            <0x000C 0x003C 0x0000 0x0 0x0	0x59>;
-+            <0x0008 0x0038 0x0000 0x0 0x0 0x59>,
-+            <0x000C 0x003C 0x0000 0x0 0x0 0x59>;
-         };
-     };
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
-index 6068be11dfe2..2341633943c7 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
-@@ -82,8 +82,8 @@ examples:
- 
-         pinctrl_uart2: uart2grp {
-             fsl,pins =
--                <0x23C 0x4A4 0x4FC 0x0 0x0	0x140>,
--                <0x240 0x4A8 0x000 0x0 0x0	0x140>;
-+                <0x23C 0x4A4 0x4FC 0x0 0x0 0x140>,
-+                <0x240 0x4A8 0x000 0x0 0x0 0x140>;
-         };
-     };
- 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
-index 7dcf681271d3..dc86bf6e580f 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
-@@ -74,8 +74,8 @@ examples:
- 
-         pinctrl_lpuart5: lpuart5grp {
-             fsl,pins =
--                <0x0138 0x08F0 0x4 0x3	0x3>,
--                <0x013C 0x08EC 0x4 0x3	0x3>;
-+                <0x0138 0x08F0 0x4 0x3 0x3>,
-+                <0x013C 0x08EC 0x4 0x3 0x3>;
-         };
-     };
- 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
-index 96e7b6995273..333b2e7fdaac 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
-@@ -78,8 +78,8 @@ examples:
- 
-         pinctrl_uart3: uart3grp {
-             fsl,pins =
--                <0x48 0x1f8 0x41c 0x1 0x0	0x49>,
--                <0x4c 0x1fc 0x418 0x1 0x0	0x49>;
-+                <0x48 0x1f8 0x41c 0x1 0x0 0x49>,
-+                <0x4c 0x1fc 0x418 0x1 0x0 0x49>;
-         };
-     };
- 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
-index db5fe66ad873..854fbcd8e78a 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
-@@ -73,7 +73,7 @@ examples:
- 
-         pinctrl_lpuart1: lpuart1grp {
-             fsl,pins =
--              <0x0EC 0x2DC 0x000 0x2 0x0	0xf1>,
--              <0x0F0 0x2E0 0x000 0x2 0x0	0xf1>;
-+              <0x0EC 0x2DC 0x000 0x2 0x0 0xf1>,
-+              <0x0F0 0x2E0 0x000 0x2 0x0 0xf1>;
-         };
-     };
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
-index 2e880b3e537c..988db9507543 100644
---- a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
-@@ -71,7 +71,7 @@ examples:
-         reg = <0x400e8000 0x4000>;
-         pinctrl_lpuart1: lpuart1grp {
-             fsl,pins =
--              <0x16C 0x3B0 0x620 0x0 0x0  0xf1>,
--              <0x170 0x3B4 0x61C 0x0 0x0	0xf1>;
-+              <0x16C 0x3B0 0x620 0x0 0x0 0xf1>,
-+              <0x170 0x3B4 0x61C 0x0 0x0 0xf1>;
-         };
-     };
--- 
-2.53.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
