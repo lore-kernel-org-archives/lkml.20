@@ -1,238 +1,194 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE4E33F5A9
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6657937C908
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788005829; cv=none; b=HlksUx1pZTsNQxv79azecUqbohfV5o4x6eGF//GDGm1YFV8hKDkXDXRv0+kuA40iwSFBKEbBI8Mh+lKghqo/+a0rq4LcN3mvRpg90CgjOLUbm7PgluF1PKwk3Lswt4qjC4I9BRLTH90tzzwY6w2TNHHVZhGHSGgU/AcV9sda5O4=
+	t=1788006042; cv=none; b=NvKehxN9IqxxeNHJgwRSInff7f4ohpBHY0x6DGZLYz7vdyVUsT78b+jtSJv0M9k7H1AkkV4bUt+YSXaxnJNVprCQEUkztY94LtNmXDuXqlpeiQQ6rfqClDXps0X18UM9QCPumcx2D16LAoOXv6UrL6BrXnbACdMWNqz8Xzy9Jqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788005829; c=relaxed/simple;
-	bh=FXdqBljQrrOkSCYhVMOBG8COgmSTsXA+73XDyaj2RTs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XnfNwxwkZXV9N5yxQ5hcSCrthzZI3dQDy0JV+mxkuQ/tBCbonRfjtI1qKkRqLBDOi+s4YkwkJ+gvKQAw2kLe5B1o7/lu75ghTqvsjEHMd0nAIR9fgaULstPwBGevvyFIsmNWfBs1V6G0gzidW4HPFQ4gdVjhdimSNmnikXeuhEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LGjJbGTp; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1788006042; c=relaxed/simple;
+	bh=On5QLSADWXj7ehvrb5mpi4doFVUA0NCpPYlWd5mFwE0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N97NeM/qHEDZ9OgbBN0qqyPikXlq/Q/zU3pHzKRvRARKOJ1bET+gV/3lBu6c9MZvI8ZLnk80nIVVlU7K+UcEfspAwsL9okAXwpRQDJtJJ3XZW+V9q6UoPoLwVbyAkOWRqMtin0iYRE9vNTi/vSzugsnD2Vw+J2aGgbdCC/6SBEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZoWInOzc; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LGjJbGTp"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so2982117a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:17:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZoWInOzc"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso18580585e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788005828; x=1788610628; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IxDEN5h3lEQH8b8SjBjggeIIHExzyIDlG18CyIBp748=;
-        b=LGjJbGTprKrMrqbyjhKwC7AHKhPVWO0rDzS5tqOmpaUDsGv4NPi0QoEqA6taid0CFO
-         yniM4XunjuOsYRa8OgLZEJ9o7zFOkvL+gjIlkm+NS+IEyItOLtBkxUat7G1OcorqDJt0
-         ANe3CgAFJEOBo69bNM8MPoJdLUiWc+UH4Hov6itmkeaRHbH6uQBFlMjdhC6CJFAlNRKH
-         75h/wGtrd9W2ZGhj2uyYoX5yaW8MNRJK85ENFlzs1fv8bw2Uqp1Qi7cD6GX0Uq5Uyj64
-         GaWmcCPdt5CZlLmFszEkhH+GgIljn0NAEMZn4JU+TyHQKheGgacqX7jTLahA1aw9gpMi
-         Hejg==
+        d=gmail.com; s=20251104; t=1788006038; x=1788610838; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b9Hl9L5OM4zLmYxZt3PdWHTJUIrg0x1d8J+XYA0ccVA=;
+        b=ZoWInOzcsApWwLvRrgSYkknxQSeh14RbZqORYqK64XXqMt1EthifU6GMQenqoBKXcO
+         XJnVycgo0Sywdf+JxksAVwiYwMl8+DhaPkS5ixEfZo9oLIjSKlwCWjm5Av092BWuj3VD
+         +DH/6V8xCeX8ncP/93PQq6qMvZrKrmR7M6LWkjtCZMEKdc8H/8XuBeumahK9qWaF2uEr
+         TsgCd8t+FB/XSqB4Ux/0kxcg2Pa25JyEBMp6oQbFmlYSVrtout3PZ1kakVKcPGyoK8qu
+         D6flpDQNo5ohmnqlSQP7yIHfNr2sQTYZWPR3A+VcOhXDcw2sps44kUYiRDDH32KJ7DY2
+         5TTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788005828; x=1788610628;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IxDEN5h3lEQH8b8SjBjggeIIHExzyIDlG18CyIBp748=;
-        b=fYj1oMFFtQIo2ZOuv3B/dLb9V0Vh5c4IgVKlbhZEbuSnPRggfA+pBOnfHc2bDg+V95
-         WSQyiGk9XGT5allu8sAZFbKIJdFw7dkZ6JOBhgmZzV/djm2l9HqRbR9RVankjJR+UsGc
-         IQnbvE4bRDNiorpI2ENSek/mOx63Z5URegI/gU25SO6UICaKonHhRPyzBZG9/ehq/eg8
-         LFm7CVVpC8+7edtdt1PdTdC4Se4vDAr09IPZFsVPIfA8bl+XVgpoSkWW21XvaHcFf5za
-         t75M+ELq6Chp1VHFy9NVzkjg3iijDQTGR1Z/Jk9Hk4OR3Iiy4dbT77he320rmBfU9WBo
-         ZMFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMUGXbG+B7cy7vvDt2sTI2YYGbzaN1cRdQKEI41t6uAu+vA9mJ2uXWDnho46OOeDz2RDlIQFw/6ExEWPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE+muB/t6LRc8nqoF2wIljHxB35z2xPofARfvhehjUwLnZT7CC
-	g9k0aJajxjoDh4sn6SLdY9JG4gjVfnFX7UduzdHJ7gMh3sCumSo+JQqVQG6sS/kz
-X-Gm-Gg: AYBFou1TPIKGwXwWBpUrHPNei5/ktQ16pPIuWm19T5lAUQ4OHttSq7EQ1ht1dNgtSGE
-	juvZHMtQ+h0JWz69d3x9cRAWIEvKwtqeTKqFqGiuO+7czCh5X5Hj3aML05E03gktjXGx21TEnk1
-	l0LXOGMHeYX7KvdnZKYUUuMVpblsAHHep/tsNfFpkc0NdKgdg4DSpxmAdn8g4vmdu3sCFYoqFx/
-	gKuFlNBFuR+1A2dFOg8ilT8m9WRzOe6h/mU5hEmhxRaI5t6nmqt7Iw9mf7m7rgHTeIU2bN+keSN
-	qQ1Royoj4CNzI95v9xEmcZbPySOOpf2MKmJmfEPXAYotjF1e9bpFf6C+HveuRIFwDST0pnuv6Oj
-	e48xNbJB53ABLUfxqmI1UWjn0I5KmA11yZzWG8Ea9LUN2MXXKqwnPff6zing8a4jbYWNkZzM/7r
-	oCimpNn9zgRp3MLd8mT0wCgyUnAasw001iIKRvlfHQaY2FzR/DC1EIis9YaBGC1X8D
-X-Received: by 2002:a17:90b:56c7:b0:398:9bd4:d18 with SMTP id 98e67ed59e1d1-3989bd41466mr9165110a91.23.1788005827437;
-        Sat, 29 Aug 2026 05:17:07 -0700 (PDT)
-Received: from localhost ([45.112.44.58])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398b18b4074sm2555834a91.12.2026.08.29.05.17.06
+        d=1e100.net; s=20251104; t=1788006038; x=1788610838;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b9Hl9L5OM4zLmYxZt3PdWHTJUIrg0x1d8J+XYA0ccVA=;
+        b=pHxaVtYfpUR14bmcxf2GojF/FrWQ2Li1qtw9Ik4uQAunxYkpFqGxWRuYhwoxGmfHCV
+         4+Zv6Cv875T/CR3toHm/Hg0Sv8beI8Yfh1XhkneFcsZRcfOjPsU9Hb/K77kVc5fYU1PA
+         uwiTMS1t5/LH9EEwXhqV8xZqqXUp+xjHreWJx4Ukh90Vhgg6JCXqXUKbuO/lCvLMj85O
+         tIBVwHUa3McD7C62diDWKHAKvR7BGGuKvTSzWK/ueLrEhQfbCuGKS312pIPsM/6dg2K+
+         G0xuqt9cgCc1WfpQ/KiK+Yf856IlRXTwZPb7K/CuzNaiA8Ba8QaaG00rpXZ5BP4NURve
+         ITyQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqddURWseI/k0EepgMj7jSNT7EvL0ZNmDTiUsEsDD5T/Q6XsEn+yPvwafBSodDIRD+oSrJiNkCyV7KlsH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHGvGe2ZOOz2mGynil2bcRUj6228FuACpmCKzpYp9GME/WeTPO
+	5pK59Nylli+JgkqTuG+IGKA7fbvFJZ03ioheZCSXbFtGGgpPNsgEETBy
+X-Gm-Gg: AR+sD11KTE6jJHA4muKxCr2CMOntlULgvsFVNim45bNFhfx9OyR/8T355mw20x+fGAx
+	3i7OTRnYZM1bEJ904Ovj5uM5gmOVF/SXLp4b6KslkI8f9/vzU7KIJVhXKpQsw8xiJHNssphWs45
+	wqCjBr/x6hjOjcL0QvyP0Ah4qhJQtuPg3gwDViK0oDdNfLmf/AOKIHT3YzIs0CVCmCvK2FDIv8j
+	dSrZy0BreIwRVl2BZL8oTRQZaZXAPacAWkOW41l5eHhkkIIRF0+idkW3FwvGcZtBKIs+vYtKmvL
+	MMH4Dcr4KHFWwu7j4l6oKmGbLlnz6K/kw6SmhOJVah4t4nC6Dj2NN0twheLPPUOvdt0cXU+YxWP
+	WrAME7c5GEQBsiYE3r77JgLgZ6IA+Z/t3kTm3S+tHitvrKdM1Elh/jI0u2rE1Fg606vOBoiqrtw
+	mdS1VQ6SUWpvMrH7T2El5y3v887+K0duqWVM/EEnSkm0dg+Zos8/HEAxpag5OGUSjHjnG+aDyqZ
+	bPDFwFudGwuzBu64rDVLYwSxr6zv6JrvmL1F/VVf+nsFpzm
+X-Received: by 2002:a05:600c:4ecc:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49cced9abb7mr32848505e9.8.1788006038105;
+        Sat, 29 Aug 2026 05:20:38 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b494228bfsm207048685e9.2.2026.08.29.05.20.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 05:17:06 -0700 (PDT)
-From: Coiby Xu <coiby.xu@gmail.com>
-X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
-Date: Sat, 29 Aug 2026 20:17:00 +0800
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>, 
-	Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 2/9] crash_dump: Disallow writing to dm-crypt configfs
- during kexec_file_load syscall
-Message-ID: <apLKk_P9wHc9uSZQ@Rk>
-References: <20260828084900.1496839-1-coiby.xu@gmail.com>
- <20260828084900.1496839-3-coiby.xu@gmail.com>
- <86f3b10d-6fc2-4dbc-a20b-5d2365601be2@linux.ibm.com>
+        Sat, 29 Aug 2026 05:20:37 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: tj@kernel.org
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	changwoo@igalia.com,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH] tools/sched_ext: Extend the prolog migration probe to cid-form schedulers
+Date: Sat, 29 Aug 2026 13:20:35 +0100
+Message-ID: <20260829122035.58018-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <86f3b10d-6fc2-4dbc-a20b-5d2365601be2@linux.ibm.com>
 
-On Sat, Aug 29, 2026 at 12:32:46PM +0530, Sourabh Jain wrote:
->
->
->On 28/08/26 14:18, Coiby Xu wrote:
->>If writing to the configfs group happens concurrently during
->>kexec_file_load syscall, it may lead to the following issues,
->>   - buffer overflow if dm-crypt keys are added after allocation
->>   - stale total_keys if dm-crypt keys are removed during iteration
->>   - keys_header will not be freed if config/crash_dm_crypt_key/reuse is
->>     set true
->>
->>So hold config_keys_subsys.su_mutex for the entire sequence during the
->>kexec_file_load syscall to ensure a consistent snapshot. To have serial
->>access to config/crash_dm_crypt_key/reuse, use the kexec lock as we also
->>need to access kexec_crash_image serially.
->>
->>Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump reserved memory")
->>Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->>Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
->>---
->>  kernel/crash_dump_dm_crypt.c | 28 ++++++++++++++++++++++++----
->>  1 file changed, 24 insertions(+), 4 deletions(-)
->>
->>diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
->>index 4335b6cb1fc4..026c7de4ad85 100644
->>--- a/kernel/crash_dump_dm_crypt.c
->>+++ b/kernel/crash_dump_dm_crypt.c
->>@@ -7,6 +7,7 @@
->>  #include <linux/configfs.h>
->>  #include <linux/module.h>
->>  #include <linux/sysfs.h>
->>+#include "kexec_internal.h"
->>  #define KEY_NUM_MAX 128	/* maximum dm crypt keys */
->>  #define KEY_SIZE_MAX 256	/* maximum dm crypt key size */
->>@@ -296,14 +297,20 @@ static ssize_t config_keys_reuse_store(struct config_item *item,
->>  	bool val;
->>  	int r;
->>+	if (!kexec_trylock()) {
->>+		r = -EBUSY;
->>+		goto unlock;
->
->
->Are we unlocking a lock that we didn't acquire? How about returning 
->-EBUSY directly instead?
+scx_lib_init_probe hooks bpf_scx_reg(), which is where a cpu-form
+scheduler enters the kernel when its struct_ops link is created. A
+cid-form scheduler comes in elsewhere: bpf_sched_ext_ops_cid points .reg
+at bpf_scx_reg_cid(), a separate function, so the probe never fires and
+the flag it is meant to set keeps whatever it was compiled with. Give
+that path its own probe over the same body. The catch is that
+bpf_scx_reg_cid() has only existed since v7.2 while this header still
+builds schedulers for older kernels, so the new program is "?" and
+__SCX_OPS_OPEN() switches it on once it sees the symbol.
 
-Ah, thanks for catching my mistake! And also thanks for prioritizing
-reviewing my patch!
+Default __scx_prolog_disables_migration to false, the over-reporting side
+of is_migration_disabled(current), so the value used when no probe runs
+matches what the comment describes as safe. That also covers loaders
+which attach the struct_ops map but not the fentry programs.
 
->
->
->>+	}
->>+
->>+	r = -EINVAL;
->>  	if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
->>  		kexec_dprintk(
->>  			"dm-crypt keys haven't be saved to crash-reserved memory\n");
->>-		return -EINVAL;
->>+		goto unlock;
->>  	}
->>  	if (kstrtobool(page, &val) || !val)
->>-		return -EINVAL;
->>+		goto unlock;
->>  	if (is_dm_key_reused) {
->>  		pr_info("Already got dm-crypt keys, please continue with kexec_file_load syscall\n");
->>@@ -311,12 +318,15 @@ static ssize_t config_keys_reuse_store(struct config_item *item,
->>  		r = get_keys_from_kdump_reserved_memory();
->>  		if (r) {
->>  			pr_warn("Failed to get dm-crypt keys from reserved memory\n");
->>-			return r;
->>+			goto unlock;
->>  		}
->>  		is_dm_key_reused = true;
->[...]
->>  	}
->>-	return count;
->>+	r = count;
->>+unlock:
->>+	kexec_unlock();
->>+	return r;
->>  }
->>  CONFIGFS_ATTR(config_keys_, reuse);
->>@@ -421,6 +431,8 @@ static int build_keys_header(void)
->>  	return 0;
->>  }
->>+static bool mutex_acquired;
->>+
->>  int crash_load_dm_crypt_keys(struct kimage *image)
->>  {
->>  	struct kexec_buf kbuf = {
->>@@ -432,6 +444,9 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  	};
->>  	int r = 0;
->>+	mutex_lock(&config_keys_subsys.su_mutex);
->>+	mutex_acquired = true;
->>+
->>  	if (key_count <= 0) {
->>  		kexec_dprintk("No dm-crypt keys\n");
->>  		return 0;
->>@@ -481,6 +496,11 @@ void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image)
->
->I explored the kexec_file_load syscall entry path and noticed
->that there is a path where the call to
->kimage_file_post_load_cleanup() can be skipped.
->
->For example, if kexec_file_load is called and everything goes well
->but kexec_post_load() fails, we skip
->kimage_file_post_load_cleanup(), and consequently
->kexec_file_post_load_cleanup_dm_crypt() as well.
->
->If that happens, the config_keys_subsys.su_mutex remains locked,
->which could cause problems with the next kexec load, right?
+Cc: Changwoo Min <changwoo@igalia.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ tools/sched_ext/include/scx/common.bpf.h | 53 +++++++++++++-----------
+ tools/sched_ext/include/scx/compat.h     |  3 ++
+ 2 files changed, 32 insertions(+), 24 deletions(-)
 
-Thanks for exploring the kexec_file_load syscall entry path! I took a
-further look at it. Even though kimage_file_post_load_cleanup can be
-skipped, kimage_free will be called regardless which will in turn call
-kimage_file_post_load_cleanup. 
-
-     // kernel/kexec_core.c
-     void kimage_free(struct kimage *image)
-     {
-     	/*
-     	 * Free up any temporary buffers allocated. This might hit if
-     	 * error occurred much later after buffer allocation.
-     	 */
-     	if (image->file_mode)
-     		kimage_file_post_load_cleanup(image);
-     }
-
-But I realize by using kexec lock to ensure serial access to
-is_dm_key_reused, we can actually release the mutex lock at the end of
-crash_load_dm_crypt_keys function which can make the code simpler and
-potentially more robust. Thanks for inspiring me to find a better
-way!
-
->
->- Sourabh Jain
->
->>  		kfree_sensitive(keys_header);
->>  		keys_header = NULL;
->>  	}
->>+
->>+	if (mutex_acquired) {
->>+		mutex_unlock(&config_keys_subsys.su_mutex);
->>+		mutex_acquired = false;
->>+	}
->>  }
->>  static int __init configfs_dmcrypt_keys_init(void)
->
-
+diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
+index 76f5e025e107..be37c451cc0d 100644
+--- a/tools/sched_ext/include/scx/common.bpf.h
++++ b/tools/sched_ext/include/scx/common.bpf.h
+@@ -530,37 +530,29 @@ static __always_inline const struct cpumask *cast_mask(struct bpf_cpumask *mask)
+ }
+ 
+ /*
+- * True if the non-sleepable BPF trampoline prolog (__bpf_prog_enter) calls
+- * migrate_disable() for the current task. Recorded once by
+- * scx_lib_init_probe, an fentry program on bpf_scx_reg() that fires during
+- * the natural scheduler-attach call chain (auto-attached by scx_ops_attach!).
++ * True if the non-sleepable BPF prolog (__bpf_prog_enter) calls
++ * migrate_disable() for the current task. Set by the probes below.
+  *
+- * Defaults to true (conservative). Over-reporting in is_migration_disabled()
+- * causes local-only dispatch, which is safe. Under-reporting can crash the
+- * scheduler, so we err high if the probe somehow fails to run.
++ * Only affects is_migration_disabled(current): set attributes
++ * migration_disabled == 1 to the prolog (returns false), clear takes it at
++ * face value (returns true). Under-reporting can crash the scheduler, so the
++ * default is false for loaders that never attach the probes.
+  */
+-bool __scx_prolog_disables_migration __weak = true;
++bool __scx_prolog_disables_migration __weak;
+ 
+ /*
+- * scx_lib_init_probe - non-sleepable prolog probe.
++ * Prolog probes. Each struct_ops type needs its own: bpf_scx_reg() serves
++ * bpf_sched_ext_ops, bpf_scx_reg_cid() serves bpf_sched_ext_ops_cid, and the
++ * two are separate functions. Both run before ops.init() and are vtable
++ * entries, so neither can be inlined away.
+  *
+- * Attached to bpf_scx_reg(), the .reg callback in bpf_sched_ext_ops
+- * (kernel/sched/ext.c). The kernel's struct_ops machinery invokes
+- * bpf_scx_reg when userspace creates the scheduler link, before
+- * ops.init() fires. Its address is taken in the vtable, so the symbol
+- * is non-inlinable and has been stable since introduction.
++ * bpf_scx_reg_cid() only exists from v7.2, so that probe is "?" and
++ * __SCX_OPS_OPEN() enables it when the symbol is present.
+  *
+- * Entering via fentry runs us through __bpf_prog_enter -- the
+- * non-sleepable prolog that consumers of is_migration_disabled() live
+- * under.
+- *
+- * Loud warning: the prolog adds at most 1 to migration_disabled.
+- * Reading > 1 means something upstream in the
+- * bpf_struct_ops_link_create -> bpf_scx_reg path disabled migration
+- * before the prolog ran, invalidating the probe; audit and adjust.
++ * The prolog adds at most 1 to migration_disabled. Reading > 1 means
++ * something disabled migration before it ran and the result is unreliable.
+  */
+-SEC("fentry/bpf_scx_reg") __weak
+-int scx_lib_init_probe(void *ctx)
++static __always_inline void __scx_record_prolog_migration(void)
+ {
+ 	if (bpf_core_field_exists(((struct task_struct *)0)->migration_disabled)) {
+ 		const struct task_struct *p = bpf_get_current_task_btf();
+@@ -573,6 +565,19 @@ int scx_lib_init_probe(void *ctx)
+ 
+ 		__scx_prolog_disables_migration = md > 0;
+ 	}
++}
++
++SEC("fentry/bpf_scx_reg") __weak
++int scx_lib_init_probe(void *ctx)
++{
++	__scx_record_prolog_migration();
++	return 0;
++}
++
++SEC("?fentry/bpf_scx_reg_cid") __weak
++int scx_lib_init_probe_cid(void *ctx)
++{
++	__scx_record_prolog_migration();
+ 	return 0;
+ }
+ 
+diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
+index 7c12df45fdba..3a42f65a9346 100644
+--- a/tools/sched_ext/include/scx/compat.h
++++ b/tools/sched_ext/include/scx/compat.h
+@@ -284,6 +284,9 @@ static inline long scx_hotplug_seq(void)
+ 	SCX_BUG_ON(!__oskel, "Could not open " #__scx_name);			\
+ 	__oskel->struct_ops.__ops_name->hotplug_seq = scx_hotplug_seq();	\
+ 	SCX_ENUM_INIT(__oskel);							\
++	if (__COMPAT_has_ksym("bpf_scx_reg_cid"))				\
++		bpf_program__set_autoload(					\
++			(__oskel)->progs.scx_lib_init_probe_cid, true);		\
+ 	__oskel;								\
+ })
+ 
 -- 
-Best regards,
-Coiby
+2.55.0
+
