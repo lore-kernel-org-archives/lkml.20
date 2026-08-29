@@ -1,98 +1,68 @@
-Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1C53C0A08
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048E63C37A2;
+	Sat, 29 Aug 2026 15:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018969; cv=none; b=TWM/wiR7Wgg0IZ4G1ZwQCP7fcnY19FhWAIBKL76NSL8m1S9njbSMFfKv8Yxe8asEA0slgHCF26un+8B+2TTlqSDRstBfKxsXQjsFG9MHiYK1gRu+iycX8FkMULyQXC03j0qv6cD4LN8JgIAvrBmjz1UMxPHYPoSqpuc8fBjLQfg=
+	t=1788019028; cv=none; b=OUT8PregSBQfADb3BxyA4L3Ek1OJUmCIuIC+08Cb07TW/AW16Q3F7qLQBtqtkv+M99hbd8YK+mcIIJS3dHg8GqqeSURtwKU1ixViIeg6v44BkvbZAB6FO5uj2zsTqRS2qDWeGnq6m5LkIG8s4bmj9a8hkMDOkrp7++zuOAJXzWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018969; c=relaxed/simple;
-	bh=3dTe4I+jOUWdWEDTdrRhpKO6zN5DvkrePHACeVTRXMA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tHjRP8j1nNNAA7PxaaVOYPfdED2fX5mBXdjH5X6WTetp8Yhav8aHOgYEh3+OuRQNTqP73hUxa0Y1LpDFiLJ/8vBPV54BiSKxPT0RQ5Q3KEmGufKMQeglzfX7hHtWa8DZ1G2mVxEdePaKHyFbjiODM4RISQ6v6EvM6JFDAc52Z+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dVvsLidc; arc=none smtp.client-ip=95.215.58.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788019028; c=relaxed/simple;
+	bh=HeCXmdkgRFbDezLSHWSl0Pwk1Bc2zb0lZwKQ/W0UEVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=prnV5oIaE2Dr0rlchZjWYYLQeWZxjrUdengkHMpx014g0fGRJr7pbaV0DG5KMxiw7uyWVeQHciH3MwVe2s5aX8J7GV3deIXQ605UjLOTJkXnOcuSGAkzuUv7XK/xXjlFJB479M7Y6KSx66Fj8OQWSA+PoSlWo7zE2HuTP2nwLao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2tjMpSUp; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dVvsLidc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3dTe4I+jOUWdWEDTdrRhpKO6zN5DvkrePHACeVTRXMA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788018957; v=1; x=1788623757;
- b=dVvsLidcMR1dWi8BRMWNvY2WiZ7LvSHOqx/DoN+uDn0bNJi5i0K+PMyx9ExsmYnbBquGVCd6
- iLzYQ1ap5VaYAHd6KkxAy4HXom3iQulxuXZTQJrYaIjHaQ08K5tMGqVMRay4znTB8N9Nny+qZD6
- OFfbYsM39yzNm24lwUQQh7o4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 179e113f95269d76;
-	Sat, 29 Aug 2026 15:55:57 +0000
-X-Mizu-Trace-ID: 179e113f95269d76
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so4294e87.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:55:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy+GoX13byq0Z+k8LXgTdFYsZImO4WvjPljixPUOVJ70QxuXJPq69ou74Ckk53r5NndwKBWNNk9r6s2ta4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5TegNM+ER5CKpHxBOZuB+p7GizrFc4LnZuaGKzTdhnvzeaEn3
-	5BWOaanxD9OK3KnXDHO3G/yixP77+J3Voup89k/mvJ0guniCQoghLBeEUjsehIZidscbehVsX28
-	P1bHll0SecCdkS4vz3h5MkGCFtgs1DrsC7xnR64nn
-X-Received: by 2002:a05:6512:4484:b0:5b1:ca0b:25d2 with SMTP id
- 2adb3069b0e04-5b5ef1bf21emr94137e87.4.1788018952785; Sat, 29 Aug 2026
- 08:55:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2tjMpSUp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=3EqEssvX4y3oKC26f8RzZt874lyrdjRDqGiG8St32LQ=; b=2tjMpSUphVTxVDM/4As863VXtL
+	tMqCzKQXzq6YfWKp5LfTq1UK6MvxuMtFEAdbVJxelz0IBzKA6NE5OXIvvub8JZLsBLMv6+pJ+6hub
+	VAbZE34MdFruBDZTUNNfNQll0n3EDmlOmMqXnsfysZW7WxyVvlv7Dyggp0br80cfRspY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x0LQ9-001wv6-T1; Sat, 29 Aug 2026 17:56:41 +0200
+Date: Sat, 29 Aug 2026 17:56:41 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Miguel Garcia <miguelgarciaroman8@gmail.com>
+Cc: netdev@vger.kernel.org,
+	syzbot+372a7d84708b07f64d9b@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org
+Subject: Re: [PATCH net] devlink: request flash firmware without instance lock
+Message-ID: <007f4b52-f19e-4b7f-b9aa-6002b3213423@lunn.ch>
+References: <6a908733.1d9ded08.62e62.00d9.GAE@google.com>
+ <20260829142525.3900565-1-miguelgarciaroman8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829054856.70549-1-kmehltretter@gmail.com>
- <20260829054856.70549-2-kmehltretter@gmail.com> <CA+EHjTzQM0bf1x2X-Y+eMmUHSYUmJXpt_jQ4Csu7JpkjtFT72Q@mail.gmail.com>
- <apL9jzg-KM_n3Vv2@gmail.com>
-In-Reply-To: <apL9jzg-KM_n3Vv2@gmail.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Sat, 29 Aug 2026 16:55:16 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzP0ijpos=1UOTz36b6_e1Ux90rNPm8HV5AKRhMOd76Zg@mail.gmail.com>
-X-Gm-Features: AcwNN1VTjw50xqm9AUGeQ2iOjooRY4VH0Aw3j5JN4xMy5Uv_aVYtiX-pVxGi2Is
-Message-ID: <CA+EHjTzP0ijpos=1UOTz36b6_e1Ux90rNPm8HV5AKRhMOd76Zg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter
- range at base 0
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829142525.3900565-1-miguelgarciaroman8@gmail.com>
 
-On Sat, 29 Aug 2026 at 16:53, Karl Mehltretter <kmehltretter@gmail.com> wrote:
->
-> On Sat, Aug 29, 2026 at 04:04:01PM +0100, Fuad Tabba wrote:
-> > > Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
-> > > Assisted-by: LLM
-> >
-> > nit: this should be `Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1]
-> > [TOOL2]` rather than LLM
-> >
->
-> When I first saw 'LLM' in a patch I thought so too.
->
-> But it is now allowed, see recent discussion and merge:
->
->   https://lore.kernel.org/r/87qzkuahlr.fsf@trenco.lwn.net/
+On Sat, Aug 29, 2026 at 04:24:40PM +0200, Miguel Garcia wrote:
+> request_firmware() may enter the userspace fallback and call
+> try_to_freeze(). Holding the devlink instance lock across that call
+> triggers a lockdep warning and can block unregister for the duration of
+> the firmware fallback.
+> 
+> Drop the instance lock around firmware loading in both flash update paths.
+> The callers hold a devlink reference, which also pins the parent device.
+> Recheck registration after reacquiring the lock before calling into the
+> driver.
+> 
+> Fixes: b44cfd4f5b91 ("devlink: move request_firmware out of driver")
 
-I missed that. Makes sense to be honest. Either way, that was just a nit :)
+Jacob Keller was the author of this patch. It would be good to Cc:
+him.
 
-Thanks!
-/fuad
-
->
->   816d9992d9ed ("coding-assistants: simplify attribution")
->
-> > Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> > Tested-by: Fuad Tabba < fuad.tabba@linux.dev>
->
-> Thanks for the review and also testing!
->
-> Karl
+	Andrew
