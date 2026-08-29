@@ -1,127 +1,126 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20890346A14
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA8A5474F
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 13:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788007055; cv=none; b=SJx4pdb2SyXLGaeXgkjooSy9G6RkQ2MpSteJ267z6KLTaLHBin06GJHu2G207BojzlaVkEEJgA6UvemKaib6K4EsQ+QDjtCjOQRs5b/ZhjxIrN95KlgU7eg8KHGJhmFWQtrt++Udo3WDn79ni7R7cMgLkWvECRHQZyP2Cr3wXNA=
+	t=1788008776; cv=none; b=GpiSz66RJAduVyuQayKs9plg7exylBYsoYLvemzLtsqesQOXj7UOILpgD1yVqc28zYWxG9QZ9E4Y3RTVWvIuOK0qlAhoFNLBPJukjNliXcBm1L+dp5GrT3e3k6Tm56XRP43ePGHdaWundyklK5B2VaCOxgd1wZUYUwhMDZ+orGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788007055; c=relaxed/simple;
-	bh=jZ/lKIPH3msbV5HTdGIEOWuVbVvQFeF5aIS22QAKE1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YKCmudRCtizL1TBzOVJwMWFAt0VXy9O57V8cQWCrkJs/HvS8td3MAvTTmpKaGROY/E6z2sqhSqUrpkCZYeTCcy29Y2+sJ7PN5bBGQjm+BiZmZnhLUXh24HUurkoFpjSbfedlsng/e64TkTOTfnDiRhwmo6tolrfltA1AIBn9l7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nd/4LCly; arc=none smtp.client-ip=209.85.214.177
+	s=arc-20240116; t=1788008776; c=relaxed/simple;
+	bh=QyePVgSgntKbPOF5HNZ7ZVtA1SOpKXV9ugVrJN2nBIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LB/7kcc6vSMYX6FaHmZjFa+hb4hpsaUMPR3Xh19oDvnoKCAMD9Kd9HcDaevDaiNMo0L/BjdPNzYphpxWiYCVSyi+OEBJ7Gp62/LUVLIeahDY21yLux/ir6XShMTMZb3xCGvN20hiP7+6otqNlG/1GqZHccx0INPVq8FyibCu3WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LAr5pcLK; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nd/4LCly"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d590f4c291so5328025ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:37:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LAr5pcLK"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84830c774a0so2236029b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:06:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788007053; x=1788611853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jZ/lKIPH3msbV5HTdGIEOWuVbVvQFeF5aIS22QAKE1E=;
-        b=Nd/4LClyODk27e6ZJMBxAQODmhe9JGZ/zkKakM7KucleOtUz1JPmzloeDtEsu6Vvvz
-         9f4j5K/wDRIsXd20eh697wIExGsuQv27K2y1eU/zpT1a1zi3XyyxA3MWc8ifQguTO4LK
-         qiLjRZIgZaoTNrJkHV+gz3M2IORvGsvZj3T7UDD24pyFUw4ioTn8keryhHiX7jnYnIzm
-         7d9pCrTSZD5aJSf9AnYLX9+YZrN15diTiYJ09tGjifvFYg0hPdlWlmmSvMflqanznUDB
-         2ox2K3cfuIqq6f6RcPxUw6C7wsz9INHThU1yrJQVuQ3lQXOFlL6o9RY+VkZs9+tahMxw
-         haDg==
+        d=gmail.com; s=20251104; t=1788008774; x=1788613574; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bxUY1SL27+UsLjI3ipAM6u1C7f8w0P8IFMgoZ49BAgw=;
+        b=LAr5pcLKc41iVck5TdL1BWgV0EaJ2NxNlv79FD48YwkcVXzHhUHPD+iVNz5w2ncdxL
+         GEo4Nihpltp60kWrnsjVz4oNc6M/cWT3LfIsa3Xigny1IzAHe9ImydPipw8lVx4Kb6ok
+         HjT8gU5ezAwMbRNrfvCDHlCBxnGWsLUD2gPfAkK2kHdF6IqoL4G8PSfshJBe+4tzRoFd
+         PkXe2EbPXyA0wScBTlKcryLK1YL/Rb8ze0huiSqIXGi1SasT9RwMMVYinEcHIe+zc/J5
+         lXSftovsFathBhlLHHKdPUw9PuXl3tvdgPEeyEfvEX9Agicl6c171uzT/pa6IKOMK+AU
+         Rx3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788007053; x=1788611853;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jZ/lKIPH3msbV5HTdGIEOWuVbVvQFeF5aIS22QAKE1E=;
-        b=ZrtVvtRLujzXyWidGEkFY+81jU6YryAndQLayQFEJY6MqKV0jrutq5gfhdC8cPqznU
-         MaCsm02PGrGb5qTGwIL8VtfyQI6k41jiKFIpFuN+1P61J5zmveNhARKULGmXT/+eeIyQ
-         5XRuo2lGxwF8SKqBMK2NoJo19TkVtz0k8IW8cEQKw0dy5MfEysdR69CnA3Bg5FDj7IQQ
-         20ZngKgLQR5n/hX8YWqZxHLk2NGAAbUUuAsuQgPP8H6+kETZZAA9goM0pY4hKakWFJFy
-         LzZAxJQoqsh4pEe3UHQZHcQqQ/HFMW++5JVH8yWA8ZZqoUWlV6oFAsIrzWQQg1trYN6F
-         +uzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTnlpA+n/C1PaNKaWkB4OpZCSg/gYFTQK5yx2voU9rTPKd59PjqripzvWn+l8b0TyleJwwJnwkcf+D7Mg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPyAWQ8jBtYmF33X52T1odfxe17iKchLW++reOeIEAV4AqR2Wd
-	uoKAIVMrwsbKptle26DGbHzm2Ia189lF0kis3DEVREKJt86/I53t/fTr
-X-Gm-Gg: AYBFou1mLQ/aWVOIzw75UKFQsz7iIzbVAMZBSZJ9umxGWTiEBsaRis+ap+84BsTez3L
-	R7AKAEJYXrzonQGoYUdjw73KzDD4YyR43RQmYcZdv14LhYEN15DbsuI8edH70v/unVGntuRe1wK
-	UEAgsa6GDH8lMdK0E/8NJyW+2YwaVu/dA4/HSXAlZPee4sb8XSgtkoiVW7OuMZ940TWCbZJdDCc
-	64X0ejoSpW2AVuSqmJZzPuRK5zWflsiGMHv8Ha1jFwH1omAUO6KJFj/lEu1zevN6LXUQhSeoWC3
-	ZxLYklUzc3nNg8JLK8kc7p2cn6/IUdzxz5YGLV7XLyz1BzyMGwhh3VYAAcRViOeNLuXb8cEmG1E
-	qABArTePY3+UcqEyg+yhXppuBM9Fggw5kSj/zMqO95HIcWgrr0rcBNnq+bfdztk3sRdAm2GIJ+C
-	KivjieNbWftYaU+HcrRUYvxbSQKpQwHn3JTLuvCXJ8EMD0kvwXOcPg2SyrmzMTFehxNmyDvo46L
-	+HnsuvE3PqhWAc1cL2uaQoq0a8EJ4pPsnHilyg=
-X-Received: by 2002:a17:90b:17cd:b0:398:bad2:c10 with SMTP id 98e67ed59e1d1-398bad20e70mr1703035a91.6.1788007053352;
-        Sat, 29 Aug 2026 05:37:33 -0700 (PDT)
-Received: from cachyos-aura ([45.112.149.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1b38esm14008113c88.3.2026.08.29.05.37.29
+        d=1e100.net; s=20251104; t=1788008774; x=1788613574;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bxUY1SL27+UsLjI3ipAM6u1C7f8w0P8IFMgoZ49BAgw=;
+        b=EM5ZrxI4oNh5ssUulq0IJRmcyJ/PHmN0GeZwffnaDJ2f+AsCbkfbBn9NznDY816Kyj
+         oZ8HQE7KYTMh/9bSlNk4d/1j/p2lT0eegdP7epnfQqtxnNRW2gNLEFUFSLe6eHa75cUD
+         lGGC/FnpdCKbyqxQJeHGp44UKWwE1mHfxidZ9Ie5G97heX7F4q5870ExndbTjZsWjVv0
+         xCdDM1ZX2d7dby1wuhKKB1bvlaI0Cv8VTFsc1zqff5a6DfklpYuNcYvz67F9G0nT0+fm
+         yCTJh891O/B7plLlPrJDIoxBLL/KeKDtyS/zOvmLBiWgo5P0owDzVzlbGrIJKhSYszC2
+         ygtg==
+X-Forwarded-Encrypted: i=1; AKwUvByijEtFFtUg0SqKnKzadFbWb7M52KoQQnStgFLzvS5EKs9CnG8DSUwKUB8j9Esnh1j5AI6QIFKAd4Vlsu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH267RW4BEpeWvfhATObK7UBjU6DX7IjCzMXXQKznkXqE6B72Q
+	2Xp4YgEHd+n8NwhjX2hSyRenO2FIPTXi8rOzbYlIByxLZ25MX/28+7UC
+X-Gm-Gg: AYBFou3NTP+i/vylUgXAv5WIbm6nN6/r00Z28eThDWEdy6yyVUfT6sFPcge9mEsnfzL
+	3Rdj9Njak6QwHSGInZDP11z9H5oY26Dcl2Y9YRFCU89ieG/4s85K0QHX8tFBnoCOiMso4mtlKz4
+	VUumpCOhJ2wdvcO88LdLK8rVqooo7J7xYxut9kqOUsLnNgkyT/N+FgZ6b397w5z42A00MUe6Y7m
+	sddwSnNou+L+gLzhGjPN/1w3jLBM4dPBeKaMkwm6Z/4cJDJ/0AEVwkroyPhFDpI8hEqO83S8nxB
+	LEUVhIUw5jayeLdzesoCAQ01FC7GyuNjdBANn0gXpmA29Uqh+ziQ1lQV6ugUI8ok6KtqG0PPTUF
+	SIqNcniIWH1CR452jEd8HEozp+K1JzENHA1OXduJpbu6gmY3sWgiCpqnHVj1cIW4/FUvWMd95N4
+	xka5MqajuDWV+izb0cz6TmBRpLBWGQJm1F20jfHdJFUoWVwGfaP6rjiWqV9YsVH589xjs5+DZK9
+	DXizpNRqL85yc0ZOb+Q6ppAHvLEcQ==
+X-Received: by 2002:a17:90b:2f0f:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-396d0d92d15mr25514114a91.3.1788008773691;
+        Sat, 29 Aug 2026 06:06:13 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm16489606eec.13.2026.08.29.06.06.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 05:37:32 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: linux-wireless@vger.kernel.org,
-	miriam.rachel.korenblit@intel.com
-Cc: nika@nikableh.moe,
-	emmanuel.grumbach@intel.com,
-	helgaas@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH wireless 1/2] wifi: iwlwifi: pcie: arm the product reset at probe
-Date: Sat, 29 Aug 2026 18:07:25 +0530
-Message-ID: <20260829123725.86014-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829100758.8E8491F000E9@smtp.kernel.org>
-References: <20260829095437.44716-1-navonjohnlukose@gmail.com> <20260829100758.8E8491F000E9@smtp.kernel.org>
+        Sat, 29 Aug 2026 06:06:12 -0700 (PDT)
+Date: Sat, 29 Aug 2026 06:06:10 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] platform/x86: x86-android-tablets: Add Yoga Book
+ audio GPIOs
+Message-ID: <apLZF6b3F39z6bUc@google.com>
+References: <cover.platform-v2.1787872237.git.mauriziocasciano7@gmail.com>
+ <ed99294bd4ac7cd40fa0b2053795aa24b27a632b.1787872237.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ed99294bd4ac7cd40fa0b2053795aa24b27a632b.1787872237.git.mauriziocasciano7@gmail.com>
 
-Both findings are correct. Please drop this series; a v2 is coming.
+Hi Maurizio,
 
-On the first: arming at probe does leave the mode selected for the
-lifetime of the driver, and the disarm in iwl_trans_pcie_removal_wk()
-cannot be relied on to undo it, because it fails in exactly the case
-that matters - the DSM is gated on the platform reading the device's
-PCI ID out of config space, so it is unavailable once the device is off
-the bus, and set_product_reset() ignores that failure when disarming.
-_RST is not gated the same way: it reads the mode variable directly, so
-a stale selection does execute a full product reset, Bluetooth off/on
-included, with no BT teardown and with the ME downgrade bypassed.
+On Fri, Aug 28, 2026 at 01:17:00AM +0200, Maurizio Casciano wrote:
+> The Yoga Book YB1-X91F/L uses two GPIOs provided by the RT5677 codec
+> itself. GPIO2 enables the second speaker amplifier and GPIO4 enables the
+> headphone path, but ACPI does not map either signal.
+> 
+> Add lookup entries for the codec device so the Yoga Book ASoC machine
+> driver can request both controls by function name. Register and remove
+> the table with the tablet description lifetime.
+> 
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> Assisted-by: LLM sparse
+> ---
+>  drivers/platform/x86/x86-android-tablets/lenovo.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
+> index 88693b9a1b01..8a69194a724e 100644
+> --- a/drivers/platform/x86/x86-android-tablets/lenovo.c
+> +++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
+> @@ -345,6 +345,16 @@ static const struct x86_i2c_client_info lenovo_yogabook_x91_i2c_clients[] __init
+>  	},
+>  };
+>  
+> +static struct gpiod_lookup_table lenovo_yb1_x91_rt5677_gpios = {
+> +	.dev_id = "i2c-10EC5677:00",
+> +	.table = {
+> +		/* GPIO2 drives the second speaker amp; GPIO4 drives headphones. */
+> +		GPIO_LOOKUP("rt5677", 2, "speaker-enable2", GPIO_ACTIVE_HIGH),
+> +		GPIO_LOOKUP("rt5677", 4, "headphone-enable", GPIO_ACTIVE_HIGH),
+> +		{ }
+> +	},
+> +};
+> +
 
-I also need to retract something. The cover letter argued for stable on
-the grounds that "every _RST evaluation is already preceded by
-set_product_reset() setting the mode that reset wants, so arming at
-probe cannot alter the behaviour of any later reset". That is wrong. It
-holds only when the disarm succeeds, and the disarm cannot succeed on a
-device that is gone. The backport rationale as written does not stand.
+It would be better if we used software nodes here instead of lookup
+tables.
 
-On the second: yes, it logs IWL_ERR on every probe on any platform
-without this DSM, and the commit message's claim that it is a no-op
-there is wrong. The two neighbouring functions,
-iwl_trans_pcie_check_product_reset_mode() and _status(), already return
-silently in the same situation, so the asymmetry looks unintended - and
-it is what hid the failed disarm above.
+Thanks.
 
-v2 will instead select the mode from the suspend callback and clear it
-on resume, so it is only selected across the suspend window; guard the
-_RST call with pci_device_is_present(), which reads the same config
-register the platform's own gate does; and demote the log.
-
-Unrelated, but found while checking this: iwl_pcie_recheck_me_status()
-reads CSR_HW_IF_CONFIG_REG without a liveness check, so on a device that
-is off the bus it sees 0xffffffff, concludes IAMT_UP is set, and marks
-ME present on a machine that has none - which then downgrades every
-later product reset. I will send that separately.
-
-Patch 2/2 is substantively unchanged in v2.
-
-Thanks for the review.
-
-Navon
+-- 
+Dmitry
