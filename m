@@ -1,139 +1,101 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1371F3624DB
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB09835E1A2;
+	Sat, 29 Aug 2026 08:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787993814; cv=none; b=mZndofrqw01OXqyRAsD4O9WOYGAqIRNMLNT6fRvw+E8JpJT/R8BuD/KK3m1/ldJyC/3uWtDU8706ttAX01hzrJmhiTy0pyQqzs4zdTxsvCBoA4KBEiWI0ASGWXA1uRZ5dyGOOO4sGY4yy0LvsB5DoquveZB5SErX40MqcSylY5A=
+	t=1787993824; cv=none; b=YIpR3oLndEfZHnzvYNXNB0AKrrwEDGOACsICQNrK1tMHNbKMZmpXL8vsuPzbnyKRzd6BqPOnBMpMA7fA5/UmDAWFAtRWYmErE4t7nHOp894eDd7EvMPr0ZDiYmOMJOMhV8BIygyKG4dsKNygUn2Vix4UTcVFK+mcIZ0ue4vb+QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787993814; c=relaxed/simple;
-	bh=ltGi5MoC4EqeGkD1f/psn6+vFglQOgPgyI7woW41wpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BmiKHdQfB7Erm0rAvSMLeNYVmfkX4xsKW5uAnwvEdOBFDufwBgFkJTjyFi2M5bT1YO79p1/3nFcThYdUb2e+A2rTS/0zN6Dq68Hfi9nEFoXI51aahBY/ARullOaUm2+/A2AMuYRgcgXJKAiUILXrNKGPKo4qNR6Aw+cvvGzOtCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gA502XLO; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787993824; c=relaxed/simple;
+	bh=LGACgt+8Df37Y3JPPTb1rL1JX2ET15vTRLVxMOSpkqw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QWB+0b2JVElVla6tLY8NT4WTqcMUASzo5rmgZv/9v5y8Y6pU/YszbNJzLG60759bEv5A4RnNXMl5z8GHCzbIzyw3gVYF7HtapoeqmjxvUcDinuWLvJikqkiMHMhacRXYd8c7XoWGr7vdzc2CcFv/hA4Xbl2qHeMQEBS37ewqptU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=ERwauQZq; arc=none smtp.client-ip=217.70.183.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gA502XLO"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47fd4531020so1010752f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:56:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787993808; x=1788598608; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
-        b=gA502XLORfJXeysWAdJE9JYNlCfDN1frWUzWkvrETnXvcg07xtAQiyG66WjCFeiDwB
-         ZvAhs+AEpEjWk2svMROTcT3Qi6O8opfeM39z2PCIL+ZqbIQjMl0LglRcHkEoCO3cvu/Q
-         EGPDl2/l2NPhRKbfV28wWhnuf7CPdEEwLq46mJorRMy2gxrdojrH9tCb8t9ayWPnqAX4
-         VO2V/XNdKk4HW2E7LB6bnxMzy7RTr4oYvLpwp/Zbk+uCpy1dVNWqaQaw5+bOc+tkVhy1
-         Co/bvoD0HGD3nBaF6lW/+FgI1GI2BlPlQmmQ6cdOeWyWJvd24nbsNq7t9INVOXK0D4Us
-         xLpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787993808; x=1788598608;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
-        b=HWbXyB7wcBFRgri1/3qp/HdA/By4aqRz0fYn+EdqKdsMffQV7d2YYEeS4vcBPWez1x
-         NQBJXydF+M2xNkNQxF1KudibIp0J/FuSS7F7U2UQ/LQlmPFGhuiJCDCoDC7caUfn2C74
-         c/QplVdv9gdJA4IYSsYD8LBVnNi2fCQu7bosxy2a4uokVppxwfahgzdgLyYA6B6NWGHb
-         KHaa1zKOfOvKSCdgX73dvG7vysB7X6EaNhhQf3eKxBO1wMhbg/Sm6s0yAbSzLWimya8c
-         DIFupllFdHP2DhZKIV8RpTY53771JEYLp9MAQdmoYKacY6GnDmSYRWxH5amkbuxZGIFt
-         HovQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGBjuQCXAzV7hJJhcKOVEZnlEe9eSftheX3HiGWmW0RrBGbgUrYQSTI55Qf2uVhvkOJ68vx5qlrMqbUjE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2tW09dnzqOlEFTQSo8AoWyth/fP4+vHLX7BM9zTHoSUBff3sD
-	N1PiPSshJfVg5hB1loxMMpQvCejnlrU394g6qSVQJ0L/TmMuxo2sbPbC
-X-Gm-Gg: AYBFou183epHFcBnbwNWKVGIGU0ELhtPOvXjdABM1FWm5BPGxEi03lds9dsXRgiYZSo
-	HBlHgtTPwmVR4FwZAo423UGDbZHQemAPwUJO+hSQp18JMpprX5tAbYUZTaH0JRSUK0nGaCXcbqI
-	ovfRa+ITAJ6+TJ4AYd1Fjp5Xgr6DQ27mWc3fGX8hqffMhP+f7CyIhXplaJ+GAxkHtqD3KtQUGiq
-	WYVOJselO4De16qoK54c376BivNJtXOxmR1Fhwx+9Oxj0zo6ZYpj8BRmX8Hqjj0XM1QA5zx1wYT
-	JQBlECvCFfKqHt4BQEXg76JBOQTrALp87JtNvs+aKR8qtQwoV20Xf6A08ZzS5Kf9F1aigakXah5
-	3RECWYrOoI2E0qoOcJLld/r7TphsJfYUbuc4atAb4Owmwiz5h5fCd0i5W1ihbUmWgW5+fvoFJFH
-	p5NFMuVAIOlukzwpG1ki8ECPAz/o8VNkGs3odmiRMA4aaVQDo/VzXbazpcyVDFSoDFc2PpwyNaf
-	ukNfLzB4GHdJ7FW8oOKSWAco2hPLu+1XgMk0Ny851ssSaEYGunegGr2vM40S4A/tC0tMZjk
-X-Received: by 2002:a05:6000:481a:b0:47f:f43e:f0cd with SMTP id ffacd0b85a97d-482f7977a45mr20810773f8f.4.1787993807937;
-        Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
-Received: from drago.hgw.local ([2a00:1d34:e90c:f900:e29d:3a79:ac40:9edd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb28276sm10109373f8f.29.2026.08.29.01.56.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
-From: Deniz Aydogan <denizaydogan1902@gmail.com>
-To: lizhi.hou@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Deniz Aydogan <denizaydogan1902@gmail.com>
-Subject: [PATCH v2] accel/amdxdna: fix NULL deref and GEM object leak in error paths
-Date: Sat, 29 Aug 2026 11:56:44 +0300
-Message-ID: <20260829085644.38103-1-denizaydogan1902@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
-References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="ERwauQZq"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6C3FB3EB86;
+	Sat, 29 Aug 2026 08:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1787993810;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y+CpA5GAaRjy3INgxdWrQaq/dl9yZxsAV6OWAodl4SI=;
+	b=ERwauQZq5v/JxXo0++DXBPYJ1nC5x6lxfoj5NA84VfazDKD03CsWHlZtxDylaPWhvVTh3G
+	/AtcxXnK33qFDHWfv+lWmbzYGeAJd6f2EpNrY1UKnygCRNwywdmtpFXkU3QtNOR5t/CLYL
+	1c5AOsfzWPcGe+UqdqVSgSyAYBca6q+68HYVQrXpXb7Vx1DW88w1SAl0+dhu+xJ97ynJM6
+	GBcFKtjgBqrp9ycsXm54FnQH7myICAT9wHvHmDLDQqPcilSI/XB4JFk88k0dVF4Vi/Lvgh
+	nhNhMaa94dSIIk+WQNByI5u5S76U+/4kXBk1NDZQumJBiMh4PzAgiCGRbb7nWw==
+Message-ID: <faa022bc-bda5-47ee-9984-4e8ff067c6e1@gtucker.io>
+Date: Sat, 29 Aug 2026 10:56:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ automated-testing@lists.yoctoproject.org,
+ "kernelci lists.linux.dev" <kernelci@lists.linux.dev>
+References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
+ <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+ <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com>
+Content-Language: en-US
+From: Guillaume Tucker <gtucker@gtucker.io>
+In-Reply-To: <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE1dvSdG2yLVPvYEeDPLpZvAqI4U17AliU/2sONyT60xA9QjvCGHnYlEEn9XGIt3XbuHahlbWdvwXEWRImKnijMDijjF2iSVw6SqEgNXE/BrKi7EEDrX8+WbrF59CL2xLw0pS6tQP9xXF8O52/ynmGpOHva4BnOei9JSPVRSE+k+TSCD9P0CW1zOsWTKk+uSqXBqJCS2BRzojx8J0iCiaCfT9qHvVDYNDnOHw2yCWfDPYN2Ufu5sl/oKs5pxXqo0dmSjctTpcBZRUhE1JQ28sQftLyHKp31QfSW0mthak4nsb/QNkpYXs71gNZfoYCf8rxDEkrg/b6ZKUBKCsCuaIBqqfsrrC6Kh+OvfU1PFK7MYd62ghSoEreATXwdQTSDdEay7t7VoVeXCLFx2eAJrpWqhQ2OcKonA5A+t6x8yZ22ngtl6BSoQTMRZAJjKVcRBc3l7GsaiNhuW5vBqehUbaOeVqQ6YI7NJqYWv1OIixd9H9NChW6W23/i1g0vTLP0u9TkLE5uyfPAdVRE/fUQh9UPdh8jIMha4OTgQ/IcHyF9eNw02GzScnTcz8kVnnZ75h80i9rHHAi1Q1LDKQn56ffRooY+vmP+baIyC1SAXUofDKwSMeRK6D3q3ciNB27e+JVZTS5lEWVyLQ2EDs9DRNjLF8MuNOXEBG5N/9Xl4kA9/g
 
-amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
-commands that pass AMDXDNA_INVALID_BO_HANDLE. When such a job hits
-an error or completes normally, both the submit error path and
-amdxdna_sched_job_cleanup() call amdxdna_gem_put_obj(job->cmd_bo)
-unconditionally, dereferencing NULL.
+Hi Miguel,
 
-Separately, amdxdna_cmd_set_error() acquires a GEM reference via
-amdxdna_gem_get_obj() when handling a chained command, but leaks it
-when the subsequent amdxdna_gem_vmap() returns NULL.
+On 28/08/2026 7:35 pm, Miguel Ojeda wrote:
+> On Fri, Aug 28, 2026 at 7:25 PM Guillaume Tucker <gtucker@gtucker.io> wrote:
+>>
+>> It states Python 3.9 which was already older than the 3.10 minimum
+>> set when the container tool was merged.  Also my understanding is
+>> that it's not a hard requirement for all the kernel tools, only for
+>> building and producing a functioning kernel.  If I misunderstood this
+> 
+> I didn't check at the moment, but at least back when the "(optional)"
+> tag was removed, it was only required for certain configurations from
+> what I understand (I am not sure why the tag was removed).
+> 
+> In any case, it is nice if we could just say that it is required -- it
+> is quite useful to have around, especially due to its standard
+> library.
 
-Guard all three amdxdna_gem_put_obj(job->cmd_bo) call sites with a
-NULL check and release the GEM reference on vmap failure.
+OK so I'll leave this part as-is for now unless someone makes a
+strong case for downgrading to v3.9, thanks for confirming.
 
-Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
-Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_ctx.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> And regarding the minimum version, it would be nice to eventually have
+> a single minimum for all Python scripts, no? Debian oldstable is
+> already at 3.11, so I think we could perhaps bump the minimum already.
+> And Debian stable is 3.13, which from your list would be enough for
+> everything on your list, right? So we could perhaps set that as the
+> actual minimum for everything in the future.
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f..a806702ec 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 		if (!abo)
- 			return -EINVAL;
- 		cmd = amdxdna_gem_vmap(abo);
--		if (!cmd)
-+		if (!cmd) {
-+			amdxdna_gem_put_obj(abo);
- 			return -ENOMEM;
-+		}
- 	}
- 
- 	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
-@@ -575,7 +577,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
- 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
- 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
- 	amdxdna_arg_bos_put(job);
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- 	dma_fence_put(job->fence);
- 	mmdrop(job->mm);
- }
-@@ -676,7 +679,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- put_bos:
- 	amdxdna_arg_bos_put(job);
- cmd_put:
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- free_job:
- 	if (job->mm)
- 		mmdrop(job->mm);
--- 
-2.55.0
+I was wondering about this too, especially since v3.10 is soon going
+to reach end-of-life which means no more security patches.  In
+principle newer, version should be backwards compatible so if we just
+bumped the minimum to v3.13 older scripts that were written for v3.9
+should still work - but it'd be nice to have a way to test that.
+
+Well that's beyond this series anyway, maybe something for KernelCI?
+
+Guillaume
 
