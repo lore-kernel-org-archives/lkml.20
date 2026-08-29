@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D22E54B6
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:42:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444DF2E54B6
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:42:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787989336; cv=none; b=nHVj8ky3/GDD/UiDFKTWOhHYe9HjILgvPCDYjE/ne8U2TZcOJoAH/oG9qhi2wm6Kxd8xj3GEX8mWb3alUfPsZHRgQvQ5aaAblOQq2hiLuXae+GiKROm4GQlErv/7vhtGxurwkBDXIuPrq5sf9vPUUTaW2VmE+9kkDyucRiQS70M=
+	t=1787989340; cv=none; b=M3i7sYVmX/q0ezM3LyW0pJT+xciiKla9/7OxWXIFyNlH1D23+Gx+Eore5Ep2wjqaCC1m5Xrc7ySHu0OhbJW+HgqwprGQvrXXUBRjtfXLNbGo9aloghxo2GN4VkWCQkhBeso2qfvFUkGKqs2ZQX9FngI3vAib9qEut/cYL5fY37o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787989336; c=relaxed/simple;
-	bh=NTxYo9Ej/c8YW+EPb2/nm3nEJ5raymWy1rczZfm2QRU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EM92x+bs2LuW2bgFDvKjaybFIT+PClqXtnabr6opzeZacwNvfi+HkUCiZ85n06Xp+P7ew1wZQ0dN7blbZDtUdsozLrvYJqZSiHQa7JLarVUbQTy6Up+w0oKO2jP0auw2oW8Txpbv7wWZihw4K6yPH9kn9m/ZF9xEZJLed810HvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGnCJk1u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787989340; c=relaxed/simple;
+	bh=bxI5llQDDHwdoVi7ZJ4fOKKs1z0W++CUOXMmbVQH9Ww=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SNjAVZ+6RaZdCHiDSljJs95fsBMMfu83apjpL/WFP7DnNk2C8JlJ//w5n3RBrJaSz4blRjPbkq1ssMenIJ6mHmbK6/MOkkDqdZXNYHzkH8cP7Lm//VTbbzGkMaHj8XHHjcxScXBElCpUKJ0hbJDX727dFVjBP3GJwkNq6Pjq3Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ln6IGQ3W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGnCJk1u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17B71F000E9;
-	Sat, 29 Aug 2026 07:42:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ln6IGQ3W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851F71F00A3E;
+	Sat, 29 Aug 2026 07:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787989335;
-	bh=DUmBwzRISwqZ5Rg6ptgDhg+OBbGHowA1pcDsVBKPQN8=;
-	h=From:To:Cc:Subject:Date;
-	b=ZGnCJk1uq36JecqZEMc1G4T5znWg/8/9HBjU2rywXy9kz+ORqzwgI5JGijLFds+Ue
-	 QK9bTTo33n3N6/iBWBhiXyHkg6WRZ3vqCDahxUgraUp9ieP+rIeXP8TtU3xr3BL9bq
-	 VNAarmVH/a2v1yzOLZZ2295719l+n4xVHIIjnZgb7Aj/HQCJn9oxULymVxb80Pk94k
-	 N1H8Szl2iX6q5u4eKAkdVLV+jE2vUw1feGhE0JNF2K03Q5ILB513+ep5nanDr9VwJp
-	 ADP1KCNKF/Lg7CUPLfo1uIfbD4mUORCnYKSaxobnZbCk2PsiLtkDuDSsJDjVhZ4kwo
-	 jZc8+rba/V09A==
+	s=k20260515; t=1787989339;
+	bh=Ae9c4vZDXmNsxI4AdcLQro9NNVm5MPBZzf84/REbvA8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ln6IGQ3WV6IeHmrg10U5ceIy56PEPVtGtpAAax24IdWmKpTzpp+86hL3xcu3AaJqL
+	 INTubcliazpz9aoUI1sdyqJJ0+gULgCpcq07nzu5PWTc9rXbONFKfOPoeBVmuoi6nP
+	 jSoI+bKv0JTaeppyswbN02SjOZFC9N0FKhd7zXmHJchIjeWpLOgnlCxhkS2FFKJQfy
+	 i4x10maRQcYmjeY6+3JqjMvB2aKeIv0Q4FCgaGVoy0W/1cm4c9TZLl8wZLS5AxINJ3
+	 r8ttq56E1GZfaWlBBezM0HVFmf2iZC83RSqOu1nKBfbbdONpI+bT7O4icpvyrgt0kh
+	 fzmmEZFuN3ZVQ==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -46,11 +47,13 @@ Cc: axelrasmussen@google.com,
 	wangzicheng@honor.com,
 	weixugc@google.com,
 	yuanchu@google.com,
-	"Barry Song (Xiaomi)" <baohua@kernel.org>
-Subject: [PATCH v2 0/2] mm/mglru: clean up isolate_folios for readability and clarity
-Date: Sat, 29 Aug 2026 15:42:02 +0800
-Message-Id: <20260829074204.45304-1-baohua@kernel.org>
+	Barry Song <baohua@kernel.org>
+Subject: [PATCH v2 1/2] mm/mglru: make type fallback logic explicit in isolate_folios()
+Date: Sat, 29 Aug 2026 15:42:03 +0800
+Message-Id: <20260829074204.45304-2-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260829074204.45304-1-baohua@kernel.org>
+References: <20260829074204.45304-1-baohua@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,45 +62,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Right now, `isolate_folios()` is quite difficult to follow:
+From: Ridong Chen <chenridong@xiaomi.com>
 
-1. It uses `for_each_evictable_type(i, swappiness)` to iterate over
-   the types, but `i` is not actually used as the type within the
-   loop body.
+The for_each_evictable_type() loop in isolate_folios()
+is misleading: it does not actually iterate over each
+evictable type. Instead, get_type_to_scan() selects the
+type to scan, while the iterator `i` merely bounds the
+number of attempts.
 
-2. It retries the same type when folios were scanned but none could
-   be isolated, but the retry is implemented in a rather subtle way
-   that is difficult to understand.
+Make the fallback behavior explicit in the code and remove the
+opaque for_each_evictable_type(i, swappiness).
 
-This patchset makes both behaviors explicit and much easier to follow.
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+---
+ mm/vmscan.c | 46 ++++++++++++++++++++++++++--------------------
+ 1 file changed, 26 insertions(+), 20 deletions(-)
 
-There are no functional changes for swappiness values from 1 to 200.
-There is a slight functional change for 0 and 201: with the existing
-code, there is no chance to retry for these values because
-`for_each_evictable_type()` only iterates once. After this patch, 0 and
-201 have behavior that is more consistent with the 1-200 range.
-
--v2:
-* Rename patch 1, to address Baoquan's comments;
-* Drop patches 2/3. Patch 2 seems to improve the zRAM case
-  but negatively affect the SSD/NVMe case, according to Baolin
-  and Kairui. Drop it to keep the patchset focused on readability.
-* We received many tags from Baolin, Kairui, Ridong, and Lian.
-  Since patch 1/3 and 3/3 were renamed and patches 2/3 were dropped,
-  I did not carry the tags forward. Many thanks for the reviews,
-  and hopefully you can re-review this version.
--v1:
-  https://lore.kernel.org/linux-mm/20260820045603.68809-1-baohua@kernel.org/
-
-Barry Song (Xiaomi) (1):
-  mm/mglru: make retry logic explicit in isolate_folios()
-
-Ridong Chen (1):
-  mm/mglru: make type fallback logic explicit in isolate_folios()
-
- mm/vmscan.c | 56 ++++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 36 insertions(+), 20 deletions(-)
-
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index fdd13299a04a..35a233623368 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4838,35 +4838,41 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+ 	return positive_ctrl_err(&sp, &pv);
+ }
+ 
++static inline bool is_single_type_reclaim(int swappiness)
++{
++	return swappiness == MIN_SWAPPINESS ||
++	       swappiness == SWAPPINESS_ANON_ONLY;
++}
++
+ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 			  struct scan_control *sc, int swappiness,
+ 			  struct list_head *list, int *isolated,
+ 			  int *isolate_type, int *isolate_scanned)
+ {
+-	int i;
+-	int total_scanned = 0;
++	bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
+ 	int type = get_type_to_scan(lruvec, swappiness);
++	int total_scanned = 0, scanned, tier;
+ 
+-	for_each_evictable_type(i, swappiness) {
+-		int scanned;
+-		int tier = get_tier_idx(lruvec, type);
++retry:
++	tier = get_tier_idx(lruvec, type);
++	scanned = scan_folios(nr_to_scan, lruvec, sc,
++			      type, tier, list, isolated);
+ 
+-		scanned = scan_folios(nr_to_scan, lruvec, sc,
+-				      type, tier, list, isolated);
++	total_scanned += scanned;
++	if (*isolated) {
++		*isolate_type = type;
++		*isolate_scanned = scanned;
++		return total_scanned;
++	}
+ 
+-		total_scanned += scanned;
+-		if (*isolated) {
+-			*isolate_type = type;
+-			*isolate_scanned = scanned;
+-			break;
+-		}
+-		/*
+-		 * If scanned > 0 and isolated == 0, avoid falling back to the
+-		 * other type, as this type remains sufficient. Falling back
+-		 * too readily can disrupt the positive_ctrl_err() bias.
+-		 */
+-		if (!scanned)
+-			type = !type;
++	/*
++	 * We are running out of the current reclaim type. Fall back to
++	 * the other type if allowed.
++	 */
++	if (!scanned && type_fallback_allowed) {
++		type = !type;
++		type_fallback_allowed = false;
++		goto retry;
+ 	}
+ 
+ 	return total_scanned;
 -- 
 2.34.1
 
