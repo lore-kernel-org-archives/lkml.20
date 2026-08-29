@@ -1,104 +1,169 @@
-Received: from www74.your-server.de (www74.your-server.de [213.133.104.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13F340F749;
-	Sat, 29 Aug 2026 16:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBCD3CB2D7
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788019813; cv=none; b=UXDziutHQgJHIQ/FuxWRnSZLE0Fj67wFaQUF6m4NmMvbUXiY+yD1UrhZLNCVW9X8UXbc6so0ChY7pa/2Y/LQp0A9cy8+FLw8TPVhDzRT13tFDrqn1oQk+GCXc1ziJ605sor8EN4Ci8c8ZPc2v7IcaHXmwxzfsQEWFvb/Ni7gJjI=
+	t=1788019833; cv=none; b=ZZF0GM2LSVdfI2SaE8pVewSBCSGsjnpw+LzTmTFSJAJKy2bzI7KORSyGVwCup+tpgo1DAUrWSULJL2rrTbrzH2UQENUYGfCM9jjVfqRaIXUp4phQcnTttK0zbEht46m/+m8Z6FvfjHcI0URpBDIiMqCxuYNdOtQy39q7kus2Ldk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788019813; c=relaxed/simple;
-	bh=NgOheKEQojj7ZB5mxcRlKJrHrMPsNR/KQAFrGu4KfEo=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=mo8JfZOLBbePp19ttOlcQtSlmkuzC5ozuSABi9JgwGcTQbXkZG7bSrIqvd3aW74JNSbl4VdfOjazrxmAEgszhGUEKwX7YYsjA8KmS36ZUGZRAA7N2HWkPw8L1lvFaczhP/Z4jA563tSoTOQy22mRsY2Aqoz2ipu3gxIuiXNrvOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info; spf=pass smtp.mailfrom=computerix.info; dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b=krRlffmT; arc=none smtp.client-ip=213.133.104.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computerix.info
+	s=arc-20240116; t=1788019833; c=relaxed/simple;
+	bh=tz0jWWQTpodY19HeFvg6WNoeFkXiXO6opCc4a24Hdz8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rGWU1spI5q2wDS2+xRyAliNQntthO5EgXNta68pdxjzJH2bu76WW3GEqo8E4J9g2wKblxsI1ouWYDnBEJDbV+qRojIM72eVWiuI5I6gDynU75ss2uJD8yad3Y/lioRrGhCcZmCvslAFK2dqeJvAnVoIJZs+8Z78oPHV9UcV4JyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mFBvJ++J; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b="krRlffmT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=computerix.info; s=default2306; h=Content-Transfer-Encoding:Content-Type:
-	Subject:From:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=5JPZHw3lLUqythwjkdXzN3t8neOTkjT3tYApG+tbo/U=; b=krRlffmTklLEIHcAP+vpqnhbwv
-	1f/biutkhfptOVnK7o8LVRFgSqhg1mvgH4fGH/H/D5dRh3dpwBsq+YuGVvu5zONUV/P+fKSQZjwfJ
-	o5s8n0GXxWb1V8v5XS3SeP3Srp9ow+NaU9XEN7Z5GIyfMNnF7KEPTV9WpmauJJX8aNFPjJ8wVOB4w
-	DYjUqtBBL1TQkvMxWSf4VqnTJ1KcgUdhUP+K2Kx8G5ZlGSbYH630GDWRa6ww2zId85PgOkVE/N4B7
-	3VSKC0EO7v2FSWnQySkrkHUbVO3EcCHFtRLFuRsp+Q37rsD3ZX7S+9nTSB9E5/5UZwQGDpEksk972
-	NnaMUlKA==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
-	by www74.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1x0LCC-000E4N-0Z;
-	Sat, 29 Aug 2026 17:42:16 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1x0LCB-0003X5-20;
-	Sat, 29 Aug 2026 17:42:15 +0200
-Message-ID: <2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info>
-Date: Sat, 29 Aug 2026 17:42:15 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mFBvJ++J"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48436668d20so37928f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:10:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788019830; x=1788624630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QgJ9jtAoeYlks4PDRyS9bvaYSTRudzDH89X7ZOwziXY=;
+        b=mFBvJ++JJwu1tx/dcGd2i8HJ9jTIGzCwcd+Si2UTfe7azta4QhcqV6wO4CjdV/XjH4
+         TcznmIdYWhuv7jYd+uc7jEgQO6Y68SxkN84DCatWS+T77zfHkx4k5MBY+yRP1rWY+roF
+         u+OqkgJYnyXXrcwvpcfHClKxZa2DZvtYzSqptLs3lmipsbKop4ngmt2H8SvoajO9BR7X
+         McH7gB6HcUdjXrMtCa/Vdn4kZhA91gRHVRoUZyJOt/9CraacYR03k6lu7NPYwi3mdCzZ
+         JIgWP+54PCli/5ER6gmzLqk7PU9rPqkeM0Fqqhn77i77CklOe8bpngfwEiCKxyO+rfIR
+         YeTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788019830; x=1788624630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QgJ9jtAoeYlks4PDRyS9bvaYSTRudzDH89X7ZOwziXY=;
+        b=bqkZxkNAcP/3lEFNUpgBSwy6wU7MKgLHBfV9YfFzN2DOCRCNQ1NI0CSP7kkG/jNAzi
+         uuNCIdjH8uThwsfzDMP5D05E6iSAKUglGfWUMZwgtreii4Ho3T5lpo0HAb9s2quTGbei
+         I9rV8Ax4XbMlEsQwRRgoqSNeVrNMLR8m+3cu310UgIV+UNQDyVDvLs3Fh2pKJ5t8gPQ3
+         0ciX2rg13sH0GkwJEeAnkXX3eHwOc+zwXGDG38999OYZIG3QiqyfgpPYlApukYJXGqFF
+         WpEThyaCjr4kgbijqWoZXAN5UH8JAy76bi5YAhxGT24yqe0T2ax52b7mn19UHCMjsgMq
+         T1+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx9St8A4rpgt/BSlLKxt+ihcJJ7fU52bHAocoarxMWCvlWnj5C6UXA3jfDkpaPwaAx5HiPJM07HGBccz2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCCOopPjZnIEyVJGhwONAcUouwK0ELdzpRnyiKLHjSV3CK5Anr
+	6BMQ0EUngCAXWMnkQ8KXtAF3PObsimI9LMKgF7j+CbvwdHI0aZtnkOco
+X-Gm-Gg: AYBFou1vkS/cea0NI/h5a3laXOBeak7Q6GM/TlVmK3q++5rURsg064b+gz/nlDdJ5JB
+	RxeQI5rP/xnkEazCOKM1hPWOV55hHMUACMqFg0T7yLS9HxyY4YKNuajRqMsysduaCRKqzmsjctT
+	NFCT6ucss/0TuGBVD0uVW7mkbuMeTlxnQwIrjTlKWQqh4qNe+2zN4XuRJKeFpr+ftI2Dr62YcG/
+	i5T0cdM02xYmo9y4UGYv3ewvEzg0hhGxs40u3KQ5x/Y50kGB6D3AtF3PxJWqZcDCyh0AE/OF391
+	9AMKR8bLb25hFohIWQUQT7rLNQZbZmadhLv+dpCv9sLc6/ZGKglfvG+A//q/RzPkqgBjWp3j02+
+	o90+t0BLlbAbq8RkHHt7I609c49pP1RAdxlNP30jvf1+bFQgavEB4kSlrwIAydRxn+XS6kHcflX
+	xrP2CMXfL3r59E1J7Vc/KR9FPjcUNUYvf097p3bMeX+UnR5kMiw8qH73d61THxyQ==
+X-Received: by 2002:a05:6000:38f:b0:484:3317:a1a with SMTP id ffacd0b85a97d-48433170bb5mr5978519f8f.27.1788019829637;
+        Sat, 29 Aug 2026 09:10:29 -0700 (PDT)
+Received: from main ([176.237.234.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4843310ab41sm3581883f8f.7.2026.08.29.09.10.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 09:10:28 -0700 (PDT)
+From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	ojeda@kernel.org
+Cc: boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	linux-pm@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] rust: cpufreq: reject NULL from cpufreq_cpu_get()
+Date: Sat, 29 Aug 2026 19:10:13 +0300
+Message-ID: <20260829161013.102967-1-mehmet.mkoseoglu@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Mario Limonciello <mario.limonciello@amd.com>
-From: Klaus Kusche <klaus.kusche@computerix.info>
-Subject: Cache-aware scheduling does not work well with amd big/little cores
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28107/Sat Aug 29 08:23:59 2026)
 
+cpufreq_cpu_get() returns either a referenced policy or NULL.
+PolicyCpu::from_cpu() passed its return value to from_err_ptr(), which
+rejects ERR_PTR values but accepts NULL.
 
-Hello,
+If the lookup fails, Policy::from_raw_mut() therefore constructs a mutable
+reference from NULL. Dropping the resulting PolicyCpu then passes the
+invalid pointer to cpufreq_cpu_put(), causing an oops in kobject_put().
 
-I'm running linux on an AMD Ryzen HX 370.
-I use Gentoo and compile a lot of things (including the kernel)
-with Clang using full LTO, which results in a single LTO process
-running for minutes on an otherwise idle processor.
+Reject NULL with NonNull before constructing the Policy reference. Return
+ENODEV instead.
 
-Before Cache-aware scheduling was introduced,
-AMD's pstate driver informed the scheduler about big and little cores,
-and the scheduler always moved those LTO processes to a big/fast core.
+A KUnit negative-control run reproduced the oops with the original
+conversion. The same test passed with this change. The reproducer is
+available on request.
 
-Now, the cache-aware scheduling takes precedence over big/little
-scheduling: All big cores form one L3 cache domain,
-and all little cores form the other L3 cache domain.
+Fixes: 6ebdd7c93177 ("rust: cpufreq: Extend abstractions for policy and driver ops")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+---
+Changes in v3:
+- Add Cc: stable@vger.kernel.org.
 
-When a process is started on a little core (and LTO is in most cases),
-it will no longer be moved to a big core,
-even if it runs for minutes and all big cores are idle.
+Changes in v2:
+- Format modified imports using the kernel's vertical import style.
 
-In case of LTO this hurts twice and badly
-(slows down LTO not just noticeably, but dramatically:
-In total, any compilation with LTO-linking takes much longer
-compared to earlier kernels without cache-aware scheduling):
+v2: https://lore.kernel.org/r/20260828161834.29539-1-mehmet.mkoseoglu@gmail.com
 
-* The little cores run slower (3.3 GHz instead of 5.1 GHz).
+ rust/kernel/cpufreq.rs | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-* LTO linking is very cache intensive,
-and the L3 cache of the little cores is only half the size (8 MB)
-of the L3 cache of the big cores (16 MB).
-
-
-So if a big core is idling, and a process on a little core
-is long-running, big/little scheduling should overrule
-cache-aware scheduling and move that process to a big core,
-even if this moves the process to another cache domain.
-
-Greetings
-
+diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
+index affa2b9490ef..4b992ea9a0f0 100644
+--- a/rust/kernel/cpufreq.rs
++++ b/rust/kernel/cpufreq.rs
+@@ -14,7 +14,13 @@
+     cpumask,
+     device::{Bound, Device},
+     devres,
+-    error::{code::*, from_err_ptr, from_result, to_result, Result, VTABLE_DEFAULT_ERROR},
++    error::{
++        code::*,
++        from_result,
++        to_result,
++        Result,
++        VTABLE_DEFAULT_ERROR, //
++    },
+     ffi::{c_char, c_ulong},
+     prelude::*,
+     types::ForeignOwnable,
+@@ -29,7 +35,10 @@
+     marker::PhantomData,
+     ops::{Deref, DerefMut},
+     pin::Pin,
+-    ptr,
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ 
+ use macros::vtable;
+@@ -687,12 +696,13 @@ fn clear_data<T: ForeignOwnable>(&mut self) -> Option<T> {
+ impl<'a> PolicyCpu<'a> {
+     fn from_cpu(cpu: CpuId) -> Result<Self> {
+         // SAFETY: It is safe to call `cpufreq_cpu_get` for any valid CPU.
+-        let ptr = from_err_ptr(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) })?;
++        let ptr =
++            NonNull::new(unsafe { bindings::cpufreq_cpu_get(u32::from(cpu)) }).ok_or(ENODEV)?;
+ 
+         Ok(Self(
+             // SAFETY: The `ptr` is guaranteed to be valid and remains valid for the lifetime of
+             // the returned reference.
+-            unsafe { Policy::from_raw_mut(ptr) },
++            unsafe { Policy::from_raw_mut(ptr.as_ptr()) },
+         ))
+     }
+ }
 -- 
-Prof. Dr. Klaus Kusche
-Privat: Söllmnitz 32 d, D-07554 Gera/Söllmnitz
-036695/859909 klaus.kusche@computerix.info https://www.computerix.info
-Dienstlich: DHGE Gera, Weg der Freundschaft 4, D-07546 Gera
-klaus.kusche@dhge.de https://www.dhge.de
-
+2.55.0
