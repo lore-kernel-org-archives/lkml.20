@@ -1,114 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14EE4398FD;
-	Sat, 29 Aug 2026 23:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB034398FD
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788047318; cv=none; b=nXOEg1e4FIQodbnBD0pcg8Gv6TF0gkqLy9bihuhx0dt73hiDTJUxU/LdaiGh8KwwULZU9/s2gY5CtcoFsKWZmfnpS+hQiiTELabb6rvw/TbIhELm2tEtyge8yI7nRr/YmjoNRnjd3fy6BMDSN1mEZc9V7bKoRxvQnUTe28nTKvc=
+	t=1788047580; cv=none; b=ti6Q88Ikpa3DQMZXlTNdLPsWIeog9UKv0VVG7IXQacKzyqHIxcLcrNg+htTY/KHPMYFxkYFpQVPZyD+pmlHeyuxC3iUTIqw0kaIvWEkwsKHAgcoYc/SCyoLv2b9hNlhnnlvEa8cX67LBlkztZv0b77HGq/oJ6qPRgF9rY6GLCzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788047318; c=relaxed/simple;
-	bh=BZNMXodnRPnijnQCG7TktPuaaXski6AuhLZmiWfeK7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jYZS20kf7FaTdzUXuMwtbBYf+/BxBYPOtqSMle9qK6JYSy0xkyrK5LAKUxYWFbpcF/HtC1Z6oKFVWMiTdfGYvweULfVYIt/+VbNCmxb625J1fcijkiN+UqjPnCivp30AG9V2AG2d8Umu5I2RVr7ys/380EBqeyvcI2Z2BAYkjxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nR9vDmfh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788047580; c=relaxed/simple;
+	bh=c3JAQhfMKNk+6kiMRPSrnUdsXyQEdot2+hCdBfwrLbo=;
+	h=Date:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dup/4y2WuOteBFXXgtjLfgoGh4mCsfXezCMtg6MuiHEPbN7mfjL+Mp+8IhXQf10YiJ5/QYq4AWsNwOuDCMyeC5Guzl27PlFQjLV/gY9HhSI4fnClx3dbjNugr9sznPcnyxfKCE8d0pFKGEi9SKv1PUT4gheJ/RtYDvksAJu+StI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=W1G0yDCZ; arc=none smtp.client-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nR9vDmfh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F87D1F000E9;
-	Sat, 29 Aug 2026 23:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788047317;
-	bh=CzfSHF7h5RjL0+eRPLgpm3xRv4votq18WCdd9uzCzuY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nR9vDmfh1qsxbC7OoUQEAaFJGMV6fpFNmZD02tP9yqG781Z+ZvMuS4zqKqtzDpKRb
-	 L3ARsMaQnhwlmH6YChhg7sGRfBSjbz3u6KQ7BBGKVJeOeI/RwMbV1TeyEDhGRv6N1X
-	 stGUHxXUq46QFVRMkdy63rllEu4iDbkgtIt0R3DreeEUtN7JzYM3eXYiqZzCA6ytxO
-	 w58Bsrn1tCsAcqdXYtKzDJoK034kBSVQCSNDQ0yJFfHcMiqEvXciTKAxddLOsed/8Z
-	 W0JWRnTKow3dkzsrVd7tdWp8Z4i/gGlbRj/C5+qxIQFghie1WWwttkMYEZ0B5eks6i
-	 LltGVsXlhkULg==
-Date: Sun, 30 Aug 2026 00:48:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Cong Nguyen <congnt264@gmail.com>, Matt Ranostay <mranostay@gmail.com>,
- Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: pulsedlight: fix iio_device left
- registered on PM setup failure
-Message-ID: <20260830004832.357df308@jic23-huawei>
-In-Reply-To: <20260829183443.3b5ac19f@systembl0wer>
-References: <20260828105909.2425439-1-congnt264@gmail.com>
-	<20260829183443.3b5ac19f@systembl0wer>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="W1G0yDCZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788047574; x=1788306774;
+	bh=c3JAQhfMKNk+6kiMRPSrnUdsXyQEdot2+hCdBfwrLbo=;
+	h=Date:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=W1G0yDCZBPDzF6iodFIva6eQ9hApFb5ZLxek8P3Xs1rRPWT4lMB9skCebRaEicvyZ
+	 UJGr+ydM3VH5biezkeVsSa6+T2Hu1UY9bDOeGI7YYQLpqivGf28TzLME0iOlg2L+F4
+	 YEbgUOOZBBKkU6yXdQORxGQ+a6gu833PmebvKHK47/gcon5nzKTovbd3aaFwsmAIQB
+	 a8qPi7y82PJGqI4v1kzb09vvduBgyFjzEWfB8PUkf3U3+fmFr8kYEEzDHnYrYHABdK
+	 kiEfvTzRgupvO1aBEI8U12aZL5N3pJw5I8A8KejSngXz4H8UB2viYs8tF2C5LrVYzk
+	 eXMtXZ9ikM5Bg==
+Date: Sat, 29 Aug 2026 23:52:50 +0000
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible string for SM8475
+Message-ID: <667aa4a5-c14c-4dac-a141-d4f908767eb3@proton.me>
+In-Reply-To: <20260829-sm8475-pmic-glink-v4-1-0c646c835f7b@proton.me>
+References: <20260829-sm8475-pmic-glink-v4-1-0c646c835f7b@proton.me>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: 5d54c3a174ac90576f655080d4fd8fb38fed6448
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 29 Aug 2026 18:34:43 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+For some reason my mail server sent this message instead of reflecting
+it.
+Please ignore, sorry for the noise.
 
-> On Fri, 28 Aug 2026 17:59:09 +0700
-> Cong Nguyen <congnt264@gmail.com> wrote:
-> 
-> > pm_runtime_set_active() failing in probe() jumps to error_unreg_buffer,
-> > which only calls iio_triggered_buffer_cleanup() -- it does not undo the
-> > iio_device_register() that already succeeded a few lines above. probe()
-> > then returns the error, the devm-managed indio_dev is freed, but the
-> > iio core still has it registered: the sysfs/chardev nodes stay live and
-> > point at freed memory.
-> > 
-> > Add an error_unreg_dev label that unregisters the iio device before
-> > falling through to the existing buffer cleanup, mirroring the teardown
-> > order already used in lidar_remove().
-> > 
-> > Fixes: 4ac4e086fd8c ("iio: pulsedlight-lidar-lite: add runtime PM")
-> > Assisted-by: Claude:claude-opus-4
-> > Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-> > ---
-> >  drivers/iio/proximity/pulsedlight-lidar-lite-v2.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> > index 400477b4c740..8a9ee21f2bf6 100644
-> > --- a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> > +++ b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-> > @@ -294,12 +294,14 @@ static int lidar_probe(struct i2c_client *client)
-> >  
-> >  	ret = pm_runtime_set_active(&client->dev);
-> >  	if (ret)
-> > -		goto error_unreg_buffer;
-> > +		goto error_unreg_dev;
-> >  	pm_runtime_enable(&client->dev);
-> >  	pm_runtime_idle(&client->dev);
-> >  
-> >  	return 0;  
-> 
-> Hmm, you should just return iio_device_register() here instead of 0,
-> as that should always be the last function called in any *_probe()
-> function.
-> 
-> No need to add a new label then.
-Lets keep this fix minimal.  Agreed that it gets interesting
-if runtime pm is enabled only after the userspace interfaces
-are exposed, but we'd need to find if there is actual bug to
-'fix' it as opposed to moving to a easier to understand flow.
-
-So applied this one to the fixes-togreg branch of iio.git
-
-Thanks,
-
-Jonathan
-
-> 
-> > +error_unreg_dev:
-> > +	iio_device_unregister(indio_dev);
-> >  error_unreg_buffer:
-> >  	iio_triggered_buffer_cleanup(indio_dev);
-> >    
-> 
+Regards,
+Esteban
 
