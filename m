@@ -1,99 +1,142 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047362AE68
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA67345CCE
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788035734; cv=none; b=CZO9ZpCTgLvtfQfe97XNtN2nwOc0j4aykTRPJlgzBICyE+X6TeLFGitHaoWmixjcx0dNCKhEy3/9hkLG1nNylwR4UTRfUwNq55L/9snvqoQaOhuCUnRVNQyKZBP7MSqe8a73CJY6IZi7jY3NuPuil/5B5V4c8mt++GcLypRU8wE=
+	t=1788035844; cv=none; b=kT87HTJoFOVDPrBUcoDHAw/or2+dnkxsbQ4lnR338NzjBPh9XsmglWAio1ErsX0srcxHutqNDth4gG2vSW4mF5XxAoZIejW9QbcFtC67G6YDKV/r3Ps+/TVsvubPgYMSdr//fObuk0Q5lPTfSH1JhbqhIK4tQ2QwCYE+3OztR5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788035734; c=relaxed/simple;
-	bh=26UloDN3pckdO1GiQm553vAEBFScY+P3R3riomFFHFo=;
-	h=Message-Id:Content-Type:To:Date:Cc:Subject:Mime-Version:From; b=FHHjfMHR74ARyZXKDL31/9txjxHl5bscFNbpFMWtqIEN8kQrKSztHDMTLqrke3/TuM+77ZfTK59Dt9szvCrMK4o5Tnpy+UaSzYsjM/CISkAOZRRrqAMW2BU3tDwu8gZHpBddE42e9CPnR/R+lsUQBL+pBzmL4UsIxx5qrgpxyiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=y5fXMTBi; arc=none smtp.client-ip=71.18.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1788035844; c=relaxed/simple;
+	bh=V2EzM9GSZHPxKG42rhvLV4dZm/L2p9HfxEU+IhfD584=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DYAZVsuNMcyE4w9SB48uq/8Ap0W2jjkCSCjXD+t7dFeT36/+qDNx+K4D+kcdSyqtPR2UKWFIeztJlWAUjdAqEarL8nAFZtHbKukqDpgLf/JszOtVCypfxaEve/fjCw1aPH6NsUFUDodDDIgcNyFtW9dRDHoOrtNkkw8zJaoRbQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCeVsTZr; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="y5fXMTBi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788035718; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=lFVqAV4JkcIfwSJYin0Cux+02hj1M9RyVM7CgTQPVgs=;
- b=y5fXMTBiQZmyI5BjlaygOLEYtbf4P80sXeMPZFUyanREY7yHs6cdyVObGIwUfj9rouBDeK
- TI4kYzGBAHCzDSPaT9QAPEn0BshgFH0M/XGf9P6xHDJLqeEGfgReRBUHJ7EyLNEAdxV96e
- Wnu9UZiqHCRBHbb+MQKpkrKpBFL/MgtQ3WrHveBFbfYJn6NRybwaieCm63kfrteyOls3Cc
- /Pp9O0G+8QIUjMsQkEWV6OVF3bqPpKNNNuGMCuBFXS97kBUyQV9wzbK+iAYLfvVGg6d5vi
- gIaMOn7Nl8Q1fDaIf7/TwPSvNjfHXrkwPEopMezkYoEZF4WYeqsVGIzySZEG+g==
-Message-Id: <20260830-enc28j60-cancel-works-v1-1-4c40f17d401e@cherr.cc>
-X-Change-Id: 20260827-enc28j60-cancel-works-62a0e02806af
-Content-Type: text/plain; charset=UTF-8
-To: "Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, 
-	"Claudio Lanconelli" <lanconelli.claudio@eptar.com>, 
-	"Jeff Garzik" <jeff@garzik.org>
-Date: Sun, 30 Aug 2026 04:35:13 +0800
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26a934284+56bd7d+vger.kernel.org+me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAIBCk2oC/yWMQQrCQAwAv1JyNhBzWBe/Ih7WmGqqpLJpVSj9u 6seZ2BmgdBqGrDvFqj6tLDRG2w3Hci1+EXRzo2BiRNl3qG6cB4SoRQXveNrrLfAxIWUOFMqPbT 2UbW39+97ANcJjn8Z82lQmb5HWNcPZsXkA34AAAA=
-Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH net] net: enc28j60: fix use-after-free on remove
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCeVsTZr"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398b3c37877so574200a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788035842; x=1788640642; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
+        b=JCeVsTZrNfX7jxJrOhZeuFWB6/sVC99mGKJINxZMnNlN+rNUXY3IMSxvPY6I7Xf5Fi
+         KDhuBtf907SYaVoxvbE37WuLIxvp84Kt3nXUUb6CQgLcNStoMPMVKTJVwuyC88JieRGW
+         VYmt3fFs28z2JokNu5Jb3vDV80cEbIOn7XEHDcqn9GveJf/8zJqr3SosLdfREg9m/CwM
+         AVsLkyI30za7OJBVgbboqYidPcgWaGjNsTCF772uJ0FR+A1MWwsY8warfyC+03jgddxC
+         AD8HnAxLs0RSxZhqCaehFouezCpo0y4ht5hsknZNnbS1scqqE6Yj1ufqGhwgxitYB43N
+         Wk5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788035842; x=1788640642;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
+        b=pBjViv1wkKU8m7BlS+U7/v1iH2t1sx2H88F3K+7FJhOvYYOVD/BAPWxapZ9drCz1dQ
+         Z2K6Ffu9NRcRYlZ2qoQ+OYYrDVweEe4bY3cqrNByWC1wf5089+If5S5CXWiwJiMZu1GO
+         EQ2e9DyUCKcqqH8d6Us4NI5ZtRyFGx8IyvKHCsfdi77A8slDp8QR6xH6fEidNggzhEIo
+         gvgNRIc/etpH1xLsGp/s4nSzdnIejs+IpXHgzxymQuqVGNizAAdBj/44n7Yad94N30H5
+         WebCZcTZmGl7pO7jg15OV9oRsH9xT9mJOnUFSDiKeeYGYsEh+2bKn8OJIF2pMjkuZjSz
+         G3Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4J4bNupZ+WeZl4hurVwWxm+XFClGq6j68J03tOjg3vuVqc7SQBtWx5EGhYXCuKqiT2b3/HZ6gC8ngYmA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCRdW0OA4m39xFNUr0skTqoZYrbUfJBJHSewgvC5+iAThKveAZ
+	TC4mUAiQj7nwYnW8o7dYuAjK/a+PIXpEyT7aKY5BN2uxUfRKneWuZyd6
+X-Gm-Gg: AYBFou0h/58EpXq1Ycy8iAI0aHpaQQwH+tS0G0KnI9l+MHK/2W3/hwz1o6hRGFs2tnS
+	pg1jtl+ZkxKYf0y0Tus+/NhvpuE39jd+ejSTjKUX4yHQzlqA4lJAJba25myh3AStfmbZcYr74Xg
+	yc2D3xda+T3FaCZq+Fxgx9hDPYVTKGGZNJIZrmQIw837iiHxjWFXE5jU385QYHQNpeRn4mGh9ir
+	xf3C5hzFL7x+ortzayF7C0O2FpsBLYKLhzTNTJCAElGzVjCYjOXxPQIyTC9g4Eq2B93HY0RmV4y
+	3haUrnwTf5y1RtlIx0qBVfpzfVWeQPlTSKZXrbPgISbNqqtXp51vvFlyjzH7rranda1002z7BgM
+	sB54WXbYDRycpdQV2/+5iUKG75MLPZ9I2qqf9kL/S96symVKfIf9ekvfvRYa3iAwDbozxbr1bsI
+	eXBBwbzI6WINq7605GINJ4UBWR12tbYcfsoiocETzWIsMTsqCwhZS+WjEAMJwd1WMB4PFcTYwNw
+	or/eDB50M5wXIC21pgwW1usIOm4KDkXZ2PJZbtteZYoNrV0O+qiM06d1ADhLxG/v9oiu8aXreQt
+	JUiLW+IS3tSvHCoRtWyrNTgZcfSAdfejDd+ap5ODTLcsvosp
+X-Received: by 2002:a17:90b:1a8e:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-396d0fe45damr27054160a91.11.1788035842198;
+        Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398a2f5187fsm1771407a91.1.2026.08.29.13.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 13:37:21 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: helios4: fix spi1 location
+Date: Sat, 29 Aug 2026 13:37:20 -0700
+Message-ID: <20260829203720.44633-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: b4 0.16.0
-From: "Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.40.58.194]) by smtp.feishu.cn with ESMTPS; Sun, 30 Aug 2026 04:35:15 +0800
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-enc28j60_remove() frees the net_device without cancelling the
-tx_work, setrx_work, and restart_work items the ndo callbacks queue,
-so a work racing with remove can run after free_netdev(). A queued
-tx skb is also left waiting for its transmit-complete interrupt,
-which never arrives, and leaks.
+This spi node is specified in armada-38x.dtsi with proper compatible
+strings whereas they are not present here. Instead of copy and pasting
+various lines, just reference the node in the dtsi.
 
-Unregister the netdev, free the IRQ, and cancel the works before
-freeing the net_device, and release the leftover tx skb.
+This dts seems to predate the move of spi from internal-regs to the soc
+node so this moves it in line there.
 
-Fixes: 3ec9c11da033 ("add driver for enc28j60 ethernet chip")
-Cc: stable@vger.kernel.org
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Allows proper probing of SPI at runtime.
+
+Remove the microsom_spi1_cs_pins pinctrl group and its reference in
+&spi1. The group only muxed mpp59 to the "spi1" function, but that
+pin (SPI1 cs0) is already covered by spi1_pins, which selects the
+same function for mpp56-59 in armada-38x.dtsi.
+
+Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Found by source inspection. Compile-tested with
-CONFIG_SPI_ENC28J60=y and W=1; no ENC28J60 hardware was available,
-so no runtime reproducer or hardware test was performed.
----
- drivers/net/ethernet/microchip/enc28j60.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../arm/boot/dts/marvell/armada-388-helios4.dts | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
-index d6c9491537e4..d16564060fbc 100644
---- a/drivers/net/ethernet/microchip/enc28j60.c
-+++ b/drivers/net/ethernet/microchip/enc28j60.c
-@@ -1602,6 +1602,11 @@ static void enc28j60_remove(struct spi_device *spi)
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index 9de9a8a4267c..ae03d42f92a0 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -254,13 +254,6 @@ sata3: sata-port@1 {
+ 				};
+ 			};
  
- 	unregister_netdev(priv->netdev);
- 	free_irq(spi->irq, priv);
-+	cancel_work_sync(&priv->tx_work);
-+	cancel_work_sync(&priv->setrx_work);
-+	cancel_work_sync(&priv->restart_work);
-+	if (priv->tx_skb)
-+		dev_kfree_skb(priv->tx_skb);
- 	free_netdev(priv->netdev);
- }
- 
+-			spi@10680 {
+-				pinctrl-0 = <&spi1_pins
+-					     &microsom_spi1_cs_pins>;
+-				pinctrl-names = "default";
+-				status = "okay";
+-			};
+-
+ 			sdhci@d8000 {
+ 				bus-width = <4>;
+ 				cd-gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
+@@ -327,11 +320,13 @@ helios_fan2_pins: helios_fan2_pins {
+ 					marvell,pins = "mpp48", "mpp55";
+ 					marvell,function = "gpio";
+ 				};
+-				microsom_spi1_cs_pins: spi1-cs-pins {
+-					marvell,pins = "mpp59";
+-					marvell,function = "spi1";
+-				};
+ 			};
+ 		};
+ 	};
+ };
++
++&spi1 {
++	pinctrl-0 = <&spi1_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++};
+-- 
+2.55.0
 
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-enc28j60-cancel-works-62a0e02806af
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
