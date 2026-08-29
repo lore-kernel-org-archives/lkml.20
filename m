@@ -1,80 +1,424 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DD021D3E8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7215F33FE05
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787992419; cv=none; b=frDsyXaLevvrAuxG/UYDAwSASPe5rGcvdJFksBTpI+y4idz3H8ddW3vzsD/WOxikcfpEGtTzllSGjUY0g9TOlyMmJgKri51/Ptw1WKqiy/Vg+IIjZu2Ra+02NXIQ521vSgxBa+dkOgnzZBeZmCR4c7iM5UJ3vHk6p+SL6/a6IGo=
+	t=1787992659; cv=none; b=s2COhIEdDak0loo1cJRB+mYEmMLHUPbEWBRnOCx+zFj80OXk1UrD3BhNITYn8G2y9Gac2plhdFshGcbLmVm47Iv7Yk7UjLk7bommxE3UiQISHypvVTj9OeNTyG2isjCE4gbfAYYLFpn7g9qcxviyJs/GcQ8a1EoaM6YShhuUzio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787992419; c=relaxed/simple;
-	bh=Dy6oWb7lZ4dhDyxnyavQpwjGmxSU1wtoKSU1FuS7AAg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AzBdimyVZQzqMb1WKLVXqytGr5lQF4fBN4dLhIlbMIpGv2Ewjm7zgWaoi0P4I7ajfucJAaEzW3BUrOxEV07yy8ILwrh3zCvHh75t9tSOcOeoti1U1dz0X1EsGN4JVtOFHSq3B4cJNjiIPFy1hwLE8nWuQN+yi+EOCCYXfke+No8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BivmIfnD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787992659; c=relaxed/simple;
+	bh=0W57UE75lT0JWXkqYkhmkWBGe2aIvBBA8agCtfF8vLE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hNSuMYV6TOZ7P+OpshyIjdcta7ay19VSIFeNmh9MweUh3TYkhn6tv6FlcLn3ebwX8zqTBnfH6ryWKKHLGMfuflgiaKOqQv/MEtLzMddsUhIc6f1o+/c3e7YF/kWN5J1Toucj03hdFxVAlw4fKD4hTtpmIaqvHItZuildZjSEB44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe7ITDte; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BivmIfnD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75901F00ACA
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:33:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787992417;
-	bh=Dy6oWb7lZ4dhDyxnyavQpwjGmxSU1wtoKSU1FuS7AAg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BivmIfnDhj+VvKF6t/7WagXWRkXTW1A2W9esJEnqVSYVxSC80RLSGbT3FcoecsReo
-	 /qq2n+b9ZJtcqQgLxSb+jZb5jsaWRXus1JOBAwRB9LjPC8wUDSAKH9KcC/lw+sbPim
-	 JQ4brKVN0oy1W7FgcbAfEJD1O2DayLJ3k7vKs1bKc8L/PrUtQW1oHi5Ags92jyzUZl
-	 vdFizGt0N12sto+MH6vLdpduJ0r/G1hSa5h3yB0UW1FUYNsngMv/O5KRutKkIY1tjy
-	 50oYg3SLzaNmNwqBWXklyjImhT2LX8vElf2sUqU2FUUrZ6LqnZD/A1V59gi5/mHcQM
-	 rrDbKzT31J8nA==
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66c744a00edso1391811d50.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:33:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKgoWjuX0YccXkxF3Jy2UFYS/iTojhaH0ojM1QNkDVHhqZKDgXLbudRbpBZvDGAovzWrlVU53MywNaoLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lasusHjGaTPsxY+DYAkNzw8JIdzS8tGKaTid0f//jIfbTD2fHP
-	/TQiSIoXA2zdLJvvMgKl11ubxDS+rfxZ8em3dW0843X/PlzumjdznZDzNuHSk+KaQojSIUFkLww
-	oukbEjO+omRgZeWZw1kpyf1uvhSSd5Xg=
-X-Received: by 2002:a05:690e:4511:20b0:66e:5bff:66cf with SMTP id
- 956f58d0204a3-66e5bff6af9mr382853d50.32.1787992417088; Sat, 29 Aug 2026
- 01:33:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe7ITDte"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce7d2adef4so27764475ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:37:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787992657; x=1788597457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A4IwbgMrRyJTDKTZ/KQuUur9K0X+mbmrk/E1Z34LTpY=;
+        b=Oe7ITDteXKwSfQafATKAMTZHlYOgihG0S1ShPekbCmqdndjJws7LdktstnkhkRpWLv
+         N9BEw/LSISnJdi52RK3CkHZHvtj/6KNCapt8puelQLAN7Gh2I36zNtsWT+1pHtmEmoaC
+         9Lukp8zuwGiA7wg1PysU7bxOySbzDrGgp9ld/QO9HEXgJqfGrLwg/vYUtwV/9/vjcuCa
+         VuzzQmLFBNvzrptfHw/rr0InFPcD8QIVSGMITr0u2LUnVpZJcyejXwvrsEJ4+XOyWNUo
+         SNWDFFSTfCeELOyOnDSIKX6XSYEhpbg6RBD3uSf63XYnZrSy2GEemGZMCmV3+B4ZQ7uN
+         U9Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787992657; x=1788597457;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A4IwbgMrRyJTDKTZ/KQuUur9K0X+mbmrk/E1Z34LTpY=;
+        b=ZN27TYStHEvGvHZUTpOBoCOEu1UX2gO6sL/QjXN7IKZmN2iNG7ow4+ld4GGZ3NDesK
+         sHT42N5p7e/H8/nXnhLaoyyy/XZSAPd/FQu136Xse1cD+c7tsVngFnxF5HOXfrEVMjuV
+         IQu2wYISO+sNh2s1/0+rKTzu1WOIw3AmEnJGgDNoGQx/9C/rOtjA2HEI3VNyFsa8PHm0
+         w3YCA37fLQGXec1ME8OLLmmb7hluZTfZbTb0GXakat9Q/lKHUCcIsVZ7PMZl748QbriY
+         D5YKGbtPTvl9rIq3f+1kjtvMggKWD+1fHgVr3fycnRp3hj7ln4otwo9xdmnX85pefM6V
+         z7cg==
+X-Forwarded-Encrypted: i=1; AKwUvByFGTGqA3F4PGKqyozjQIBrggwg9aQFZWQ5gM4Jr/Don9Y7Qq2Ts3k2JoUqqqI7V/vOwB3E02WVp4Wo3uI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mv1tlluYpNenySN0WRm1INoJAIGPOxsQ7Ofykyo/NhjnqwYYpT
+	01Ogc6l2D4i/EgYh3Vy/hEm1lop72u4UuPj4oGwLNvCDOLGvWOe3aR/u
+X-Gm-Gg: AR+sD13e6QtGSygFEKG0fMcQE6+RcjsR2T/W5pC4cb8q6+W1rJyRgtTAbby2+rQOZmu
+	t3h2BuBIxxE8rXIc0XvbdEKEuZ/qQ8oX3yHL7jAvi683rzw+ISpi+wTUKE6Fu4UQq9o8SqDpl9P
+	6b7oks+dQrDXNEbEqn8R9i2FmUvK3DS9sLEuI/nrzOLTIl814NWBFctU2iDzfVaJURQgXoN3SM7
+	QfRDbcfvsVafq2KDxRHORhGLu1O4XaCvkaKxwpFC38iT9myhvOBMmONEWwQZy3RmP9OYx6JPVGR
+	xrr4ZtKWGMKJPYw80bdzwbyaJY8VlT6aaBESeGaNXHJxN36ZXbwoKt5E/8bfnij/Qk8NnWj7C+K
+	cot/WHqv8OWJsC0FGKO6J45K6y6OysIOJZEeB6vamAD4UV4XBGPm/3YCDjTS65Lr+IcBb83xKXb
+	Fr///IXv4jRa3jWMZDkEWsC2MQ9mEM7UW0ZMvr0m/wLt6JS1ZslfWcEVZ2V+Hyu29aHNltPgFju
+	R70Js8+6F6hZPqIbgLIJFOySsku
+X-Received: by 2002:a17:902:ffce:b0:2d8:d4d2:dc9a with SMTP id d9443c01a7336-2d8d4d2dfadmr79579325ad.22.1787992656523;
+        Sat, 29 Aug 2026 01:37:36 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:88cd:27c4:5897:46d2:587d:19e7])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594ffc94sm12819105ad.5.2026.08.29.01.37.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 01:37:35 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
+Date: Sat, 29 Aug 2026 16:34:26 +0800
+Message-ID: <20260829083744.73299-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828182910.70304-1-sj@kernel.org>
+References: <20260828182910.70304-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829-review-ksmbd-normalized-name-v1-v1-1-4fab73835057@berkeley.edu>
-In-Reply-To: <20260829-review-ksmbd-normalized-name-v1-v1-1-4fab73835057@berkeley.edu>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 29 Aug 2026 17:33:22 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_tdxLTY3VYpMFekC4j48NK_hZB=bwhG9QN-soipE0R-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1W76Bmp3Cu1MVEWZ-VaTdXw1SOtInuN9gJINxvLJ7XkKzzsxkesgqVhDbU
-Message-ID: <CAKYAXd_tdxLTY3VYpMFekC4j48NK_hZB=bwhG9QN-soipE0R-Q@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: validate normalized name response length
-To: shakevsky@berkeley.edu
-Cc: Steve French <smfrench@gmail.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 3:27=E2=80=AFPM Alon Shakevsky via B4 Relay
-<devnull+shakevsky.berkeley.edu@kernel.org> wrote:
->
-> From: Alon Shakevsky <shakevsky@berkeley.edu>
->
-> FILE_NORMALIZED_NAME_INFORMATION converts the open file path to UTF-16.
-> smb2_allocate_rsp_buf() leaves these responses in the 448-byte small
-> buffer, and get_file_normalized_name_info() converts the path without
-> checking the remaining space.
->
-> An authenticated client can query a long path and make
-> smbConvertToUTF16() write beyond work->response_buf.
->
-> Use the large response buffer for normalized-name queries. Before
-> conversion, verify that the response has room for the worst-case UTF-16
-> output and its terminator.
->
-> Fixes: 10aeff72ab82 ("ksmbd: support normalized name information")
-> Assisted-by: Antiproof:GPT-5.6-Sol
-> Signed-off-by: Alon Shakevsky <shakevsky@berkeley.edu>
-Applied it to #ksmbd-for-next.
-Thanks!
+On Fri, 28 Aug 2026 11:29:09 -0700 SJ Park <sj@kernel.org> wrote:
+
+> On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > Once quota set, the charge_{target,addr}_from unconditionally skips and
+> > resets at the last region of the tracked target, so the last region can
+> > be skipped even when it has not been processed.
+> > 
+> > Example:
+> > 
+> >     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+> >     2. Quota is configured to process only 50 bytes per window.
+> >     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
+> >        at (Target, 50).
+> 
+> Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
+> keep using the terms (charge_{target,addr}_from).
+
+Yes, thank you for pointing that out!  I changed cursor to
+charge_{target,addr}_from now.
+
+> 
+> >     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
+> >        full. Cursor is saved at (Target, 100), which is exactly the
+> >        start of R2.
+> >     5. Window 3: The loop reaches R2.  Because R2 is
+> >        damon_last_region(t), the old code unconditionally returns true,
+> >        skipping R2 entirely and resetting the cursor.
+> > 
+> >     Result: R2 is permanently skipped even though it has never been
+> >     processed.
+> 
+> Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
+> quota size 100 bytes per window.
+
+This is the updated example:
+
+'''
+Example:
+
+    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+    2. Quota is configured to process only 100 bytes per window.
+    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+        addr}_from is saved at (Target, 100).
+    4. Window 2: The loop reaches R2.  Because R2 is
+        damon_last_region(t), the old code unconditionally returns true,
+        skipping R2 entirely and resetting the charge_{target,addr}_from.
+
+    Result: R2 is permanently skipped even though it has never been
+    processed.
+'''
+
+> 
+> Also, it continues being skipped only in a corner case that the region
+> addresses and the access patterns are kept.  So the user impact is mild.  Let's
+> clarify that to not make users unnecessarily afraid.
+
+I will add this clarification in the next revision:
+
+'''
+However, it is important to note that this is a very minor issue.  This
+is because it is triggered only when the previous window saved/kept
+charge_{target,addr}_from, and in the next window, all regions except
+the last region were skipped by damos_skip_charged_region().
+'''
+
+> 
+> > 
+> > Fix this by only skipping the last region after it has been applied.
+> > 
+> > Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+> > Cc: <stable@vger.kernel.org> # v5.16.x
+> > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+> > ---
+> > 
+> > Changes from RFC v1:
+> > - Minimal fix, only fixes the issue where the last-region is skipped.
+> > - Add an example to the commit message to demonstrate that this error
+> >   occurs very rarely.
+> > - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
+> > 
+> > ---
+> >  mm/damon/core.c | 13 +++++++------
+> >  1 file changed, 7 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/mm/damon/core.c b/mm/damon/core.c
+> > index 644daf5a1656..21dc6b086c42 100644
+> > --- a/mm/damon/core.c
+> > +++ b/mm/damon/core.c
+> > @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+> >  	if (quota->charge_target_from) {
+> >  		if (t != quota->charge_target_from)
+> >  			return true;
+> > -		if (r == damon_last_region(t)) {
+> > -			quota->charge_target_from = NULL;
+> > -			quota->charge_addr_from = 0;
+> > -			return true;
+> > -		}
+> >  		if (quota->charge_addr_from &&
+> > -				r->ar.end <= quota->charge_addr_from)
+> > +				r->ar.end <= quota->charge_addr_from) {
+> > +			if (r->ar.end == quota->charge_addr_from ||
+> > +					damon_is_last_region(r, t)) {
+> > +				quota->charge_target_from = NULL;
+> > +				quota->charge_addr_from = 0;
+> > +			}
+> >  			return true;
+> > +		}
+> >  
+> >  		if (quota->charge_addr_from && r->ar.start <
+> >  				quota->charge_addr_from) {
+> 
+> As Sashiko pointed out, this doesn't work if the the last region's start
+> address is smaller than charge_addr_from and the end address is larger than
+> charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
+> smaller than min_region_sz.
+> 
+> As you replied to Sashiko, let's do the last region handling in every case.
+> While doing that, let's do the charge_{target,addr}_from reset in only one
+> place, like below.
+> 
+> '''
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
+>  {
+>         struct damos_quota *quota = &s->quota;
+>         unsigned long sz_to_skip;
+> +       bool skip = false;
+> 
+>         /* Skip previously charged regions */
+>         if (quota->charge_target_from) {
+>                 if (t != quota->charge_target_from)
+>                         return true;
+> -               if (r == damon_last_region(t)) {
+> -                       quota->charge_target_from = NULL;
+> -                       quota->charge_addr_from = 0;
+> -                       return true;
+> -               }
+>                 if (quota->charge_addr_from &&
+> -                               r->ar.end <= quota->charge_addr_from)
+> -                       return true;
+> +                               r->ar.end <= quota->charge_addr_from) {
+> +                       skip = true;
+> +                       goto out;
+> +               }
+> 
+>                 if (quota->charge_addr_from && r->ar.start <
+>                                 quota->charge_addr_from) {
+>                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+>                                         r->ar.start, min_region_sz);
+>                         if (!sz_to_skip) {
+> -                               if (damon_sz_region(r) <= min_region_sz)
+> -                                       return true;
+> +                               if (damon_sz_region(r) <= min_region_sz) {
+> +                                       skip = true;
+> +                                       goto out;
+> +                               }
+>                                 sz_to_skip = min_region_sz;
+>                         }
+>                         damon_split_region_at(t, r, sz_to_skip);
+> -                       return true;
+> +                       skip = true;
+>                 }
+> +       }
+> +out:
+> +       if (r == damon_last_region(t)) {
+>                 quota->charge_target_from = NULL;
+>                 quota->charge_addr_from = 0;
+> +               return true;
+>         }
+> -       return false;
+> +       return skip;
+>  }
+> 
+>  static void damos_update_stat(struct damos *s,
+> '''
+
+I noticed a potential subtle issue in the suggested fix above:
+
+'''
++out:
++       if (r == damon_last_region(t)) {
+                quota->charge_target_from = NULL;
+                quota->charge_addr_from = 0;
++               return true;
+        }
+'''
+
+If 'skip' is false (region should be processed), but it happens to be
+the last region, the condition 'if (r == damon_last_region(t))' would
+still be met.  This would cause it to reset the state and 'return true'
+(skip it), which inadvertently re-introduces the original bug we are
+trying to fix.
+
+To ensure the reset logic is centralized and correct, I refined the fix
+as follows.  The comment is intended to help you and other reviewers
+quickly understand the rationale behind the compound condition.  I will
+remove this comment in the next revision.
+
+'''
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 644daf5a1656..82c5aed8a417 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2342,36 +2342,48 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ {
+        struct damos_quota *quota = &s->quota;
+        unsigned long sz_to_skip;
++       bool skip = false;
+ 
+        /* Skip previously charged regions */
+        if (quota->charge_target_from) {
+                if (t != quota->charge_target_from)
+                        return true;
+-               if (r == damon_last_region(t)) {
+-                       quota->charge_target_from = NULL;
+-                       quota->charge_addr_from = 0;
+-                       return true;
+-               }
+                if (quota->charge_addr_from &&
+-                               r->ar.end <= quota->charge_addr_from)
+-                       return true;
++                               r->ar.end <= quota->charge_addr_from) {
++                       skip = true;
++                       goto out;
++               }
+ 
+                if (quota->charge_addr_from && r->ar.start <
+                                quota->charge_addr_from) {
+                        sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+                                        r->ar.start, min_region_sz);
+                        if (!sz_to_skip) {
+-                               if (damon_sz_region(r) <= min_region_sz)
+-                                       return true;
++                               if (damon_sz_region(r) <= min_region_sz) {
++                                       skip = true;
++                                       goto out;
++                               }
+                                sz_to_skip = min_region_sz;
+                        }
+                        damon_split_region_at(t, r, sz_to_skip);
+-                       return true;
++                       skip = true;
+                }
++       }
++out:
++       /*
++        * The last region may remain unapplied for extended period due to
++        * various regions (e.g., it is invalid or has been filtered out),
++        * preventing other regions from being applied (those preceding the last
++        * region and all regions with different targets).  Therefore, when
++        * encountering a region that needs to be processed, reset
++        * charge_{target,addr}_from.  If necessary, this parameters will be set
++        * to the correct value in damos_do_apply() due to quota is full.
++        */
++       if ((r == damon_last_region(t) && skip) || !skip) {
+                quota->charge_target_from = NULL;
+                quota->charge_addr_from = 0;
+        }
+-       return false;
++       return skip;
+ }
+ 
+ static void damos_update_stat(struct damos *s,
+'''
+
+> 
+> Btw, I think damos_skip_charged_region() may deserve a kunit test.
+
+I agree that a kunit test would be valuable.  While I am still getting
+familiar with the kunit and it might take me a little time, I plan to
+work on it.
+
+Should the tests include these scenarios?  Note that I use 1-based index
+in here since it is easier to understand.
+
+1. Baseline test:
+
+    - Parameters: charge_target_from = NULL, charge_addr_from = 0,
+      nr_target = 1, nr_region = 3.
+
+    - Expected: Returns false three times in a row.
+      charge_{target,addr}_from remains (NULL, 0).
+
+2. Skip test:
+
+    - Parameters: charge_target_from = target[1], charge_addr_from =
+      region[2]->ar.end, nr_target = 1, nr_region = 3.
+
+    - Expected: Returns true, true (for region[1] and region[2]), then
+      false (for region[3]).  charge_{target,addr}_from is reset to
+      (NULL, 0) after region[1].
+
+3. Split test:
+
+    - Parameters: charge_target_from = target[1], charge_addr_from =
+      midpoint of region[2], nr_target = 1, nr_region = 3.
+
+    - Other: Ensure region[2] is large enough for the split to succeed.
+
+    - Expected: Returns true (region[1]), true (region[2] first half),
+      false (region[3] second half), false (region[4]).  Total nr_region
+      becomes 4.  charge_{target,addr}_from is reset to (NULL, 0) after
+      region[0].
+
+4. Sashiko's edge case (Split failure on last region):
+
+    - Parameters: charge_target_from = target[1], charge_addr_from =
+      midpoint of region[3], nr_target = 1, nr_region = 3.
+
+    - Other: Ensure region[3] is small enough so that the split is
+      guaranteed to fail (sz_to_skip < min_region_sz).
+
+    - Expected: Returns true three times in a row.  Crucially,
+      charge_{target,addr}_from is reset to (NULL, 0) on the third call,
+      preventing permanent state leakage.
+
+5. Last region processing test:
+
+   - Parameters: charge_target_from = target[1], charge_addr_from =
+     region[2]->ar.end, nr_target = 1, nr_region = 3.
+
+    - Expected:
+
+        - Round 1: Returns true (region[1]), true (region[2]), false
+          (region[3], resets charge_{target,addr}_from because !skip).
+
+        - Round 2: Since the charge_{target,addr}_from is now (NULL, 0),
+          it should return false three times in a row, proving that
+          subsequent regions are not incorrectly blocked.
+
+If there are any issues or missing edge cases in these scenarios, please
+let me know!
+
+> 
+> [1] https://lore.kernel.org/20260828090410.40AEA1F000E9@smtp.kernel.org
+> [2] https://lore.kernel.org/20260828115047.332978-1-aethernet65535@gmail.com
+
+Best regards,
+Rui Yan
