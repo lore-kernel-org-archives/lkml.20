@@ -1,85 +1,73 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C466A43713E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CE43BB123
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788039192; cv=none; b=jmEqQVWO1Mk+DiAzE3qBea94zg66MzlDDgOOwzf/5pNFc8C8G/aXb5Qch2AaHb1Cc8IUFMG/GlYqQqwhLv6I7Rfhf+tWRh4JUhrHD6IKgQkFKqV7YpVkZyEv9jul9d/wz+HRZvBfaBc1IR73BV80TD94RQRItsBaSjV6QfLoRSY=
+	t=1788039260; cv=none; b=PYAqGw1HGe8LYPKTnD6QkCJOcRxA0BVcPDHpwXrSyvrxZcaZ/GfgAxLCZomP041TV8DdxZD5QPWC9/pWv5pCFPuVKoYEgu83yXngDwkg0tH1VuOmjTC31JtYpkqGz1GH7lm7Zd/+48ezqHoQncLr2afIlHN8EbKK6IVE6AYnaMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788039192; c=relaxed/simple;
-	bh=co+2fxzxIKsrqg4QHh3FK11V9lST4YMEzCqjZ1hMMe4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mDB6t0b4XIIf5yyyZZwCYmE0A9Xm0CV3zIYXRAyMCWAFWw/VIvQenU4NbmV8LlCZAtqC9eV3legcQuJHm/c6HkgDozj5Dv430tdlwseJ4NILdQOIvL+c95xYfD+1+crqPkOeQIgJXuC3Wb2mMaiGYaOm5+CKsr/NDHNBE9nAUoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OI3OzQYj; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788039260; c=relaxed/simple;
+	bh=j4nwfEkF4DYlOTlB4f5GhOpkMuy9KoqFsSQJQgqPcpY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=owg5DY126exg2pGllBA34n7UuzdwuGYDatmtTJDXZ20oTqI2IDza3cDiw5x4Td1o6CwNp0gt6nG9uB8HnCdXPPok6YqX7RgrdnwpSJ2meX9AQJ6S1XXe/38ay7AD2ylSk4P5V+gm8cF+4PYkK908lM0Jz3PLlqnkSw30ZzElTDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cv85sR0W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OI3OzQYj"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-482e4998d28so1546039f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788039188; x=1788643988; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kgtzxw+fLI0xgDG63CMY9iJwpkHw7jAnoCmbSNosjoM=;
-        b=OI3OzQYjMJaScY9Nrt4ilDXIt8x6p9Q4tC4RBQgBhP59cHu7C5RuBq77vzRPPpcReh
-         EEyTwZpVEblQZcfv9Nnls1xaausUUCgGJgV6OvlrPmDIWFxOz1NO5VM9vq5U34BxcLFJ
-         bm2XuLp0Yzxd3ZsebduwI/tZBcpxTn7HO1Bkl4w4XW5EmBNjIrkJ0xpule2yT2ltgS/D
-         mmDaKU9KgMvhmRMx6t1UG7turKc0ODGrU0RLJ8CwZi/9ij7+qXw+Ol6/qoY+vimcwfwB
-         1g44DxI1L1PL3DnJ8P8BNooRQaMFEpFBNMQzzs3d19PJB5ghYxW7vsjDIYTNPhbDPndi
-         1GkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788039188; x=1788643988;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kgtzxw+fLI0xgDG63CMY9iJwpkHw7jAnoCmbSNosjoM=;
-        b=VTXXOmTWlirUW62BrTm5po44iEXrK+Pt4+HeaG77zWM/fVarc6LGMV69LX/dpqVk2e
-         sc4SDDPkH1bl9XgkUAOSBMc5Y+kRBP2+mgpENJ3ten1HB7EruK0vKeom0hEBgPslORCP
-         CVot1KDZkzqdw1rAWc2pAEKltlfUBr5uHl6grK1748RTJWzvOA5MEglbcYYcZsJp5Fy/
-         4IJHCisJmVVMq9jn9fb9h4Eri6UrqxcTeXIoVFk0zfgBId+2TF+xWPrkG+hbuhbHGOXs
-         QWIPT4NzL911EezGSGAccQYjIQvzjKG/xUqTa7TwdbhMUpPTtV6SkXeSFgfrMuadsQhK
-         hfNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSxCAJm0N3fcvZN92Ezkqq2BhsrtREo6nTCe/T/uB1ohGx8ClB+gCmWwHvSI5WFomhc/Ut+VhR4CYfA4Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPyrYCdOZPePPE2S/csEK0rTujXOjWAP2WUJH65VEOdgBUgd7p
-	S556/vnu+8edpxVqFpc9m+JF5TIklwKg6cu+U3aH3IhX6DpGN21CnmFg
-X-Gm-Gg: AYBFou3DJmxrzMTvrqQd/F1TbX1Px8GYOo/fTIwIWpUd6nk/4eCDXYfmOt4QdjbilGV
-	9nd1lFy4FCIl4GyWDL2w8tcElXow8x/UhLWHvSmCdX066YPa/xeHPWo2UgfdaabyecCKT2HEe3G
-	YpBU9S9Kyr07dnKBC1FBA5WU0Lteur+rFIvcVWqrdC36Aw8argg/u+YDhXGR9BAGFvjaUavvCd7
-	Nxib7NB/FTvEtgAwcJrEnKqW+offT5tWkkUJCCb4zAvRduojdcySug5SaV1mWjK35u1J/5hxQyw
-	FG6kt31qRloHbXsN+Ga9bTp2iFmgYEXPX5OArUsH3dkXe/gfQpcRbw3MVQ4kpg8N5bO3AfYlF/c
-	obDiILouqe00sHDQhHwxmfQN3NJ+PfK4S9ILvkGieWEhyypnxfhzN0pgHDFLN3G4mWcoT+OPdn7
-	0/EOWFm8oVH6vBv1kOPykKiEJ92zoFeojQWlLAqjhIeOPrAd4IcqgLRhTHjLQA5HJSwOaPCDeQw
-	GYlobB1UGag6TSNE9OLB9f7d1+wySvHTODuM422AMBbCHdN1mb/7M/1oNlWPzx5fdmMIJ7ISZb9
-	EJeSiPjar7ovCx/nBzmubXUxJHEJ9o7NCOV4lJU+PrgxB0IEikIXbbPYR9YIdd0IZck=
-X-Received: by 2002:a05:6000:420b:b0:482:e10e:58df with SMTP id ffacd0b85a97d-482f7a03ba8mr20017068f8f.21.1788039187820;
-        Sat, 29 Aug 2026 14:33:07 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ae86-1b01-80e2-8851-4221-68d8.310.pool.telefonica.de. [2a02:3100:ae86:1b01:80e2:8851:4221:68d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb33070sm12540616f8f.36.2026.08.29.14.33.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 14:33:06 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: selinux@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Ondrej Mosnacek <omosnace@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cv85sR0W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02C41F00A3E;
+	Sat, 29 Aug 2026 21:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788039259;
+	bh=c86yAAUqw1PEI48hVuJx+eWQphlPsYYM6FcKC2EZA4M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Cv85sR0WsS53CALYBAvguKvUaVRfoDG2zMXCYD5k1HZkrONkUEcY2LUpb2yoKfqa8
+	 A2rDiryx6OpDkbIYTL9ZySSU6t6TcE6Vv4aaJwLvuF+Ru7i3FazUNkfbdhaCh1yptG
+	 PfTJsxeM2JtjoSIRVhdEaa8GS3wLfr1n8UvyQNvX/pbR7MBiRTsCF582AH6oCkD64W
+	 0u+7Txujk/C1MAFSZSsQl3oVY4Em19ADfptUfYTNKpB9uLVZHxpK3vCFCpGk/4MDdt
+	 wxj7E5FjqvzdBMQg83NTT6+c29eJy6oV/8liwWqxASPBx5nFXy1zKxFKp/QpsftatJ
+	 hyC8ZoF8NxDpw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.phl.internal (Postfix) with ESMTP id F2D06F40067;
+	Sat, 29 Aug 2026 17:34:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sat, 29 Aug 2026 17:34:17 -0400
+X-ME-Sender: <xms:WVCTajWz5tKCMRErCSIlmEpCw6dHdwjvWLtZtsZWnqawhyZ_5GHF2w>
+    <xme:WVCTaqrmgMrnI3A6PQ08s9IuwOIN3Aj4TEH86FtDJ_0b4LOej3lWbvNLrs87v4cXO
+    orM64AxFg1hwXYgTaT-W1geAmVKMqvWReyE1EfxWrteqOT0rc-Lyg>
+X-ME-Received: <xmr:WVCTalmwY6yoL7mdDoPxPtwNhq6uHc2pqRU8JzfoqhElGzHHuMhKwPk8YazbV0ZlRBTar3PwgZMrcB4MCemvaOo_DUlnCkwM>
+X-ME-Proxy-Cause: dmFkZTGEmGXujidXmSvlGxSFHgsUDNrIWAkCDvChG2pkvHu1IfA10scQnm63QS0P/mRWGv
+    MolCaXBRdzE9k/9RfAvx9sVk7iGLdccpBjZCGxZPLqnsp/RBgJGg31u+tLgLQQJ0rlHHKm
+    7vZoFAOOBTkyw6+N7X2EAcoGSIkVtI5nzygiCxlbeMobPSTGGA8uxN15YAGXbRyVBqnrOo
+    DWU7HnUzf/IlcoohKPqGtfuZWkCoXC4FLsO3lkazl556kOn8QBtpN+j89e2lxtzZhJYe3b
+    85o8kT6hVmRCqedIpcBkaU5igPJwS8KjzfvczxCA/9Rj9fWF88V4wc/GSWcEZrzNc6ajkI
+    eqDXK7zG7QK5NP6iKQlfMPrrW113tM2mjNjzGtuYluhvk5t5EeLvkvsI0X5jX1j8LwP7XP
+    5Eq2thJM/aidzU4mzQw/+9uXFO940E6vNR/nEQe766HI11l70dDjnk82CoVSelbyB9u8xu
+    iYbDqdFsrjGSPESOAdftUYsNJzhgsfvq7x5lrw82aItYVS4fMqL05/T/2kl+MhImE4j2oG
+    +N+X7UW5DENuvTWrq0Se9wB7tM9/BrTRooJARER21qI6FVdKUJ2A7K0O1z0ZMM+V7WEyKz
+    6dXIUtI0pZpKi78WNvF4X0fJaiEX3qsxWX/ApQsxvrGgivD61zDxxvqqkOrA
+X-ME-Proxy: <xmx:WVCTaq0p1yvFpp0P3_GPQTpzidZrEcgi70Q0U1fyoUVS0LfaO4TvOA>
+    <xmx:WVCTaiS7yJPgiILnmfXA7zwvf7GvbKJthX7G3RWDwhI1e9WAECswrg>
+    <xmx:WVCTajwEguJRu_tPgioeBVftRTzGOplhs4F5FbDIPqgN3yv0WU2D-w>
+    <xmx:WVCTaiAGPbMy9kiRZdIXf60Onu54QPIAamTRclj5hXZ57XPzi-NJFw>
+    <xmx:WVCTavE7sLxP0LlSdFkiSDcace9tklPWT3gl2YnSocyzHDzz4eIb614n>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 29 Aug 2026 17:34:17 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: tglx@kernel.org
+Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] selinux: recheck intermediate backing files on mprotect
-Date: Sat, 29 Aug 2026 23:32:56 +0200
-Message-Id: <20260829213256.51527-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260829213256.51527-1-kmehltretter@gmail.com>
-References: <20260829213256.51527-1-kmehltretter@gmail.com>
+	Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>
+Subject: [PATCH v2] interrupt: Disable interrupt before modifying hardirq_disable counter
+Date: Sat, 29 Aug 2026 14:34:12 -0700
+Message-ID: <20260829213412.14303-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260827181106.30090-1-boqun@kernel.org>
+References: <20260827181106.30090-1-boqun@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,288 +76,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mprotect() can be used to bypass the SELinux checks that mmap() performs
-against the intermediate layers of a stacked filesystem.
+Currently a softirq may be pending longer then expected if the
+triggering interrupt happens in-between hardirq_disable_enter() and
+_local_interrupt_disable() in local_interrupt_disable():
 
-mmap() checks every backing layer as the request descends through the
-stack.  mprotect() only has the lowest backing file in vma->vm_file, so it
-rechecks the top-level user and the lowest mounter, but skips the mounters
-of every layer in between.  With two nested overlayfs mounts and a policy
-denying mounter_t -> middle_file_t:file { execute }, a direct
-mmap(PROT_EXEC) is denied:
+    local_interrupt_disable():
+      hardirq_disable_enter();
+      <interrupt>
+      ...
+      __irq_exit_rcu():
+        // false because hardirq_disable_count() is not 0
+        if (.. && !hardirq_disable_count() && ..) {
+	  invoke_softirq();
+	}
+      _local_interrupt_disable();
 
-  avc:  denied  { execute } for  pid=71 comm="nested_exec"
-    path="/payload" dev="overlay" ino=9
-    scontext=user_u:base_r:mounter_t
-    tcontext=user_u:object_r:middle_file_t tclass=file permissive=0
+, it'll defer the softirq to the next interrupt which can be forever.
 
-while mmap(PROT_NONE) followed by mprotect(PROT_EXEC) succeeds.
+The order between hardirq_disable_enter() and _local_interrupt_disable()
+is to optimize re-disabling interrupts if they are already disabled, but
+as 1) local_interrupt_disable() is not widely used yet and 2) the proper
+way to achieve this optimization may need fixing up the counter at
+entry/exit time [1], so reverse the order for now to avoid the softirq
+pending issue.
 
-Preserve each intermediate path, mounter SID and file-description SID in
-the backing-file security blob, copying the saved entries when another
-backing layer is opened.  Allocate the array only for nested backing files,
-and release it and the path references in the backing_file_free hook.
+Because of this fix, the part of saving the current state is separated
+from irq disabling, and the logic of local_interrupt_disable() becomes:
 
-During mprotect(), recheck fd { use } and the requested inode permissions
-for every saved mounter, and include the intermediate layers in the execmod
-checks.  Policy for nested stacking may then need to grant intermediate
-mounters what a direct mmap() already requires, and execmod on intermediate
-labels for binaries using text relocations.
+    local_irq_save(flags);
+    if (counter++ == 0) {
+      this_cpu(local_interrupt_disable_state) = flags;
+    }
 
-Tested on arm64 QEMU with a small BusyBox initramfs and a purpose-built
-SELinux policy, on a mainline tree containing
-commit f2381b546e7e ("fs: fix user path of nested backing files").
+Therefore change the helper function _local_interrupt_disable() to
+_local_interrupt_save_state() which only saves the current irqflags
+(when interrupts get disabled the first time).
 
-Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
-Cc: <stable@vger.kernel.org>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://lore.kernel.org/lkml/87v78wezid.ffs@fw13/ [1]
+Reported-by: Thomas Gleixner <tglx@kernel.org>
+Closes: https://lore.kernel.org/lkml/87jypbfu1t.ffs@fw13/
+Fixes: e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Boqun Feng <boqun@kernel.org>
 ---
- security/selinux/hooks.c          | 141 ++++++++++++++++++++++++++----
- security/selinux/include/objsec.h |   8 ++
- 2 files changed, 133 insertions(+), 16 deletions(-)
+v1 -> v2:
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 232b7e7bfcafd..b6750edcc4783 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1674,26 +1674,32 @@ static int cred_has_capability(const struct cred *cred,
- 	return rc;
- }
+* Use imperative mood in the last paragraph of the change log.
+* Add "Closes" tag to the email of the explanation of the issue.
+* Apply the RoB tag from Bradley Morgan
+
+ include/linux/interrupt_rc.h | 19 ++++++++-----------
+ kernel/softirq.c             | 17 ++++-------------
+ 2 files changed, 12 insertions(+), 24 deletions(-)
+
+diff --git a/include/linux/interrupt_rc.h b/include/linux/interrupt_rc.h
+index b9a7f05ecf42..e68e1bedba66 100644
+--- a/include/linux/interrupt_rc.h
++++ b/include/linux/interrupt_rc.h
+@@ -20,11 +20,8 @@
+ /* Per-CPU interrupt disabling state for local_interrupt_{disable,enable}(). */
+ DECLARE_PER_CPU(unsigned long, local_interrupt_disable_state);
  
--/* Check whether a task has a particular permission to an inode.
--   The 'adp' parameter is optional and allows other audit
--   data to be passed (e.g. the dentry). */
--static int inode_has_perm(const struct cred *cred,
--			  struct inode *inode,
--			  u32 perms,
--			  struct common_audit_data *adp)
-+/*
-+ * Check whether a SID has a particular permission to an inode.  The 'adp'
-+ * parameter is optional and allows other audit data to be passed (e.g. the
-+ * dentry).
-+ */
-+static int inode_sid_has_perm(u32 sid, struct inode *inode, u32 perms,
-+			      struct common_audit_data *adp)
+-static __always_inline void __local_interrupt_disable(void)
++static __always_inline void __local_interrupt_save_state(unsigned long flags)
  {
- 	struct inode_security_struct *isec;
--	u32 sid;
- 
- 	if (unlikely(IS_PRIVATE(inode)))
- 		return 0;
- 
--	sid = cred_sid(cred);
- 	isec = selinux_inode(inode);
- 
- 	return avc_has_perm(sid, isec->sid, isec->sclass, perms, adp);
+-	unsigned long flags;
+-
+-	local_irq_save(flags);
+ 	raw_cpu_write(local_interrupt_disable_state, flags);
  }
  
-+static int inode_has_perm(const struct cred *cred,
-+			  struct inode *inode,
-+			  u32 perms,
-+			  struct common_audit_data *adp)
-+{
-+	return inode_sid_has_perm(cred_sid(cred), inode, perms, adp);
-+}
-+
- /* Same as inode_has_perm, but pass explicit audit data containing
-    the dentry to help the auditing code to more easily generate the
-    pathname if needed. */
-@@ -3854,13 +3860,63 @@ static int selinux_backing_file_alloc(struct file *backing_file,
- 				      const struct file *user_file)
+@@ -36,9 +33,9 @@ static __always_inline void __local_interrupt_enable(void)
+ }
+ 
+ #ifndef INSTANTIATE_EXPORTED_INTERRUPT_DISABLE
+-static __always_inline void _local_interrupt_disable(void)
++static __always_inline void _local_interrupt_save_state(unsigned long flags)
  {
- 	struct backing_file_security_struct *bfsec;
-+	const struct backing_file_security_struct *ubfsec;
-+	struct backing_file_security_layer *layer;
-+	u32 i;
- 
- 	bfsec = selinux_backing_file(backing_file);
- 	bfsec->uf_sid = selinux_file_user_sid(user_file);
-+	if (!(user_file->f_mode & FMODE_BACKING))
-+		return 0;
-+
-+	ubfsec = selinux_backing_file(user_file);
-+	/* a wrapped count would make kmalloc_array() return ZERO_SIZE_PTR */
-+	if (unlikely(ubfsec->layer_count == U32_MAX))
-+		return -EOVERFLOW;
-+
-+	/*
-+	 * The final VMA only retains the lowest backing file, so record the
-+	 * whole chain here rather than in the mmap hook, where concurrent
-+	 * mappings would have to be serialized.  Size it dynamically: erofs
-+	 * inode sharing adds a backing file without bumping s_stack_depth.
-+	 */
-+	bfsec->layers = kmalloc_array(ubfsec->layer_count + 1,
-+				      sizeof(*bfsec->layers), GFP_KERNEL);
-+	if (!bfsec->layers)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < ubfsec->layer_count; i++) {
-+		layer = &bfsec->layers[i];
-+		*layer = ubfsec->layers[i];
-+		path_get(&layer->path);
-+	}
-+
-+	/* f_path, not file_user_path(): this layer, not the top-level file */
-+	layer = &bfsec->layers[i];
-+	layer->path = user_file->f_path;
-+	layer->mounter_sid = cred_sid(user_file->f_cred);
-+	layer->fd_sid = selinux_file(user_file)->sid;
-+	path_get(&layer->path);
-+	bfsec->layer_count = ubfsec->layer_count + 1;
- 
- 	return 0;
+-	__local_interrupt_disable();
++	__local_interrupt_save_state(flags);
  }
  
-+static void selinux_backing_file_free(struct file *backing_file)
-+{
-+	struct backing_file_security_struct *bfsec;
-+
-+	/* security_backing_file_free() may be called twice after an error */
-+	if (!backing_file_security(backing_file))
-+		return;
-+
-+	bfsec = selinux_backing_file(backing_file);
-+	while (bfsec->layer_count)
-+		path_put(&bfsec->layers[--bfsec->layer_count].path);
-+	kfree(bfsec->layers);
-+	bfsec->layers = NULL;
-+}
-+
- /*
-  * Check whether a task has the ioctl permission and cmd
-  * operation to an inode.
-@@ -3978,6 +4034,53 @@ static int selinux_file_ioctl_compat(struct file *file, unsigned int cmd,
+ static __always_inline void _local_interrupt_enable(void)
+@@ -46,27 +43,27 @@ static __always_inline void _local_interrupt_enable(void)
+ 	__local_interrupt_enable();
+ }
+ #else
+-extern void _local_interrupt_disable(void);
++extern void _local_interrupt_save_state(unsigned long flags);
+ extern void _local_interrupt_enable(void);
+ #endif
  
- static int default_noexec __ro_after_init;
+ #else /* !MODULE */
+-extern void _local_interrupt_disable(void);
++extern void _local_interrupt_save_state(unsigned long flags);
+ extern void _local_interrupt_enable(void);
+ #endif /* !MODULE */
  
-+static u32 file_map_prot_to_av(unsigned long prot, bool shared)
-+{
-+	u32 av = FILE__READ;
-+
-+	if (shared && (prot & PROT_WRITE))
-+		av |= FILE__WRITE;
-+	if (prot & PROT_EXEC)
-+		av |= FILE__EXECUTE;
-+
-+	return av;
-+}
-+
-+static int backing_mounters_has_perm(const struct file *file, u32 av)
-+{
-+	const struct backing_file_security_struct *bfsec;
-+	const struct backing_file_security_layer *layer;
-+	struct common_audit_data ad;
-+	struct inode *inode;
-+	u32 i;
-+	int rc;
-+
-+	if (WARN_ON_ONCE(!(file->f_mode & FMODE_BACKING)))
-+		return -EIO;
-+
-+	bfsec = selinux_backing_file(file);
-+	for (i = 0; i < bfsec->layer_count; i++) {
-+		layer = &bfsec->layers[i];
-+		inode = d_inode(layer->path.dentry);
-+
-+		ad.type = LSM_AUDIT_DATA_PATH;
-+		ad.u.path = layer->path;
-+
-+		if (layer->mounter_sid != layer->fd_sid) {
-+			rc = avc_has_perm(layer->mounter_sid, layer->fd_sid,
-+					  SECCLASS_FD, FD__USE, &ad);
-+			if (rc)
-+				return rc;
-+		}
-+
-+		rc = inode_sid_has_perm(layer->mounter_sid, inode, av, &ad);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
-+}
-+
- static int __file_map_prot_check(const struct file *file, unsigned long prot,
- 				 bool shared, bool mounter_check,
- 				 bool bf_user_file)
-@@ -4011,14 +4114,10 @@ static int __file_map_prot_check(const struct file *file, unsigned long prot,
- 	if (file) {
- 		const struct cred *cred = mounter_check ?
- 				file->f_cred : current_cred();
--		/* "read" always possible, "write" only if shared */
--		u32 av = FILE__READ;
--		if (shared && prot_write)
--			av |= FILE__WRITE;
--		if (prot_exec)
--			av |= FILE__EXECUTE;
+ static inline void local_interrupt_disable(void)
+ {
+ 	int new_count;
++	unsigned long flags;
  
--		return __file_has_perm(cred, file, av, bf_user_file);
-+		return __file_has_perm(cred, file,
-+				       file_map_prot_to_av(prot, shared),
-+				       bf_user_file);
- 	}
+ 	WARN_ON_ONCE(in_nmi());
  
- 	return 0;
-@@ -4113,6 +4212,7 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 	int rc;
- 	const struct cred *cred = current_cred();
- 	u32 sid = cred_sid(cred);
-+	u32 av;
- 	const struct file *file = vma->vm_file;
- 	bool backing_file;
- 	bool shared = vma->vm_flags & VM_SHARED;
-@@ -4156,6 +4256,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 			if (rc)
- 				return rc;
- 			if (backing_file) {
-+				rc = backing_mounters_has_perm(file,
-+							       FILE__EXECMOD);
-+				if (rc)
-+					return rc;
- 				rc = file_has_perm(file->f_cred, file,
- 						   FILE__EXECMOD);
- 				if (rc)
-@@ -4168,6 +4272,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 	if (rc)
- 		return rc;
- 	if (backing_file) {
-+		av = file_map_prot_to_av(prot, shared);
-+		rc = backing_mounters_has_perm(file, av);
-+		if (rc)
-+			return rc;
- 		rc = file_map_prot_check(file, prot, shared, true);
- 		if (rc)
- 			return rc;
-@@ -7642,6 +7750,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(file_permission, selinux_file_permission),
- 	LSM_HOOK_INIT(file_alloc_security, selinux_file_alloc_security),
- 	LSM_HOOK_INIT(backing_file_alloc, selinux_backing_file_alloc),
-+	LSM_HOOK_INIT(backing_file_free, selinux_backing_file_free),
- 	LSM_HOOK_INIT(file_ioctl, selinux_file_ioctl),
- 	LSM_HOOK_INIT(file_ioctl_compat, selinux_file_ioctl_compat),
- 	LSM_HOOK_INIT(mmap_file, selinux_mmap_file),
-diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
-index 853f7266ed189..2f21568251ffe 100644
---- a/security/selinux/include/objsec.h
-+++ b/security/selinux/include/objsec.h
-@@ -86,8 +86,16 @@ struct file_security_struct {
- 	u32 pseqno; /* Policy seqno at the time of file open */
- };
++	local_irq_save(flags);
+ 	new_count = hardirq_disable_enter();
  
-+struct backing_file_security_layer {
-+	struct path path; /* this layer's real path */
-+	u32 mounter_sid; /* SID of the mounter that opened it */
-+	u32 fd_sid; /* SID of its open file description */
-+};
-+
- struct backing_file_security_struct {
- 	u32 uf_sid; /* top-level user file fsec->sid */
-+	u32 layer_count; /* number of intermediate backing files */
-+	struct backing_file_security_layer *layers;
- };
+-	/* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
+-
+ 	if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
+-		_local_interrupt_disable();
++		_local_interrupt_save_state(flags);
+ }
  
- struct superblock_security_struct {
+ static inline void local_interrupt_enable(void)
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 7980a4a232f9..5d02c36c40e3 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -91,11 +91,11 @@ EXPORT_PER_CPU_SYMBOL_GPL(hardirq_context);
+ 
+ DEFINE_PER_CPU(unsigned long, local_interrupt_disable_state);
+ 
+-void _local_interrupt_disable(void)
++void _local_interrupt_save_state(unsigned long flags)
+ {
+-	__local_interrupt_disable();
++	__local_interrupt_save_state(flags);
+ }
+-EXPORT_SYMBOL(_local_interrupt_disable);
++EXPORT_SYMBOL(_local_interrupt_save_state);
+ 
+ void _local_interrupt_enable(void)
+ {
+@@ -749,16 +749,7 @@ static inline void __irq_exit_rcu(void)
+ #endif
+ 	account_hardirq_exit(current);
+ 	preempt_count_sub(HARDIRQ_OFFSET);
+-	/*
+-	 * Interrupts may happen between hardirq_disable_enter() and
+-	 * local_irq_save() in local_interrupt_disable(), if irq_exit() invokes
+-	 * softirq here, we may have a softirq handler calling
+-	 * local_interrupt_disable() but it won't disable the IRQ because
+-	 * hardirq disabling count is already 1, hence we need to prevent
+-	 * invoking softirq when a local_interrupt_disable() is ongoing.
+-	 */
+-	if (!in_interrupt() && !hardirq_disable_count() &&
+-	    local_softirq_pending()) {
++	if (!in_interrupt() && local_softirq_pending()) {
+ 		/*
+ 		 * If we left hrtimers unarmed, make sure to arm them now,
+ 		 * before enabling interrupts to run softirq.
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
