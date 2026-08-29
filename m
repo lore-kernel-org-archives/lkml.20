@@ -1,269 +1,184 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6C3175A66
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788036987; cv=none; b=WZL0W59OqS9XmiMyWMfVP5V9wrWQ8bK4ahF7NZRamx2+/rCyGGrJsnF1CpcVcnl3CEAwdGU2eB4SfddADwU+SytGlqpsaqa1eZQft3ZaNAVLPhlyIsKkSaRtzy5s0AV/JuO4Neziqmq9hxdY3Z97o46I3EcLOclA9452kTZj89Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788036987; c=relaxed/simple;
-	bh=9tAkEZ2XhpqmF7/+G3pRrzwdclDQTE9d2M3Fgk90lN0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=aQFDdrAgmujuUgVkUPr3YIK0zveHM1rDUoUdlQ3rZdzxki21MBNfwcM1GeNsLOFMpBtXMC0W7bmVVIUSCPGgjRnnVPnYPpk6XBHnnekxtMcXrcRt1vQDyDcB70SP9NYb6g3y+c5dexGyyjxl7l0V7lDj8RCNAsRkkjhbn0svxfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f10.google.com with SMTP id 46e09a7af769-7f193d62888so212145a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 13:56:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788036984; x=1788641784;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0Ws6gQRIE8eSXPt1lDzQoqN14AzV/vLo5gDbb9DjxQI=;
-        b=Qek8ywmEmkM3OQMOcYApdEw0HjvUohL77mvHNUg+3i44jWDMETR+20SHoGbHw06Hiu
-         JIqA9koLz42I6jd4PnwC+SChF9nMx8lq0hmE+Dk1jHeRshMtR41sNpjXiQOWywbcLFNT
-         dS8h2LoLUpAADRVAn26xVM7LUVoD6ld+KwKacdaoYbd+IcXXrjI3r9h0T3dmtcfYjZMi
-         +PCSuPDItnY4fZNMaKd2+O0tzPBrssqfLuOegTLAc/rs2IqnWhzsECSk8ZPJCU+LjxJJ
-         aCQ8/Mje2S4OqTTYnH9uZJ3kpz5ViLssDufLL+rD81scmTacbX39VVWe5z65GatBZYQE
-         eJCA==
-X-Forwarded-Encrypted: i=1; AHgh+RovOjqUhAZEd8pryVbWzecL95VbYHkzIvviwI1oig88vBrf5SlLJA6LwFOtm4YyU1ssA1IC6IAQx3Uoko8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmJFwP6IPxIs4HyS/DlQlihIQ673pprkfUZMK24KF3cOrC/cGB
-	T3nfHZdUqDVmAXGqwG0nQAgH9twW1asIzxVCRJOOwTF2EZjqLEx/tC9p7BikSts6Egbn8f9jDH2
-	tMQ7s+MNR3uAHxGJcy4VNEt+26N6pQQtqWPCUwUcm82NiI/BdpRW0ui55+VE=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F34841D62C;
+	Sat, 29 Aug 2026 20:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788036995; cv=fail; b=WKjrUDucD560FTPNF+BhMUKzBEH/6I/ki/wde01jKKMoitR37Mdm+1Im61T94ftHEprL91JP0keMkTKr4hqN3oJlKz0UF9Wa+Ih1u38obNDhZeRM+TLfZkXCYOx9Qe8GVFHLUCYQkY9K9qZxOaBZL5+gjn94eFGGanMUibpBBIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788036995; c=relaxed/simple;
+	bh=iQYQVlCy+IQySs0CLYPFxsWApvzPC8aFHf0hDISerWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PxgBxwRO199uM8CROhpJ/s9a2xa9SgddhwknVgl6pemdmpeibbQvciLmyqV+GFb7JCq+O4tGmVLA5IBd3yJyXh7Yl7cqA8eEYs4kpb3VKnNovUKnBqKJL77vl3oyQtNAdRvzKHBRhMiSbMqhRCCLmHOggLrVlDh8Mx3gbPkqOac=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jaCbOhivUIcLCgvxF9vEMJ9CJAWRoMPuGqjVOERMAQkh7JQ3rKgewXrj6LTTueiN2qAkIK3ukyJUQsiFST4Lm12b8j8pPz68VIIO2smRJGJ6e/RmqYbFxvd3/MF+sLlCf9NzrDphi5D9S3Zh80M/EphgGMLcfulr+mQfdDYg50+IDTqLtHjCUOwH4fIoYjhbx07LtGaXIsQfiQihBFqKhzci7xCbzNCexcZI5ZcxSNPBCFXmSSAYsf4jiwrLLW/9y9PpM9vQCBnpLTeF02XnnvSqxTqqf6C6kDrRLbwmEqlY9JpFd0IyEkoA5Qow9OfRmBO7/ssUBS7KywSnhwld3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M9g1i6iTFbZ+gpnieiWQgYULXeGpVwZmdfuT/028Ql8=;
+ b=YPp6BEa1qdF+et4nblwGZrzVg5Fk5d/hX6QmNqHpxRjG/jzI1V7fhDfJpriZOY+tErMLkFlvhyibvdXojE36kxrjSZZW3SeBGH81uFcVRJ+pOUd62SqE9ZYZ+4LHRwHjQzxk/bTzbmkw46P+roaHlWSmT+RoYiQbcYHLTlFJsHMVZ9a24qIONcBgqTVv5Go5s+bzWRqdniuGpdaScWEvdF24sg9FAjxApszcqY7IiHNm0RScmDOfRIMSPTBZn5cs1FN5ZeFbkRhvjHiWA7b84RrZg3J1FWYzUrV0qPJCyaOsuZILef9Bpg21V4IAKMk/DJyPWFDGhyQzeiLhS5KfBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23) by BJXPR01MB0709.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Sat, 29 Aug
+ 2026 20:56:18 +0000
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e644:7bf5:5a3c:e548]) by
+ BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn ([fe80::e644:7bf5:5a3c:e548%3])
+ with mapi id 15.21.0315.011; Sat, 29 Aug 2026 20:56:17 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ulfh@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Add RISC-V RPMI device power service support
+Date: Sun, 30 Aug 2026 04:55:17 +0800
+Message-ID: <20260829205520.1691-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0062.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:12::29) To BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c197:b0:4b3:89ae:df60 with SMTP id
- 5614622812f47-4b398342e94mr17578034b6e.16.1788036984074; Sat, 29 Aug 2026
- 13:56:24 -0700 (PDT)
-Date: Sat, 29 Aug 2026 13:56:24 -0700
-In-Reply-To: <695aefde.050a0220.1c9965.001c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a934778.4d659fcc.734b4.002f.GAE@google.com>
-Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in __mmap_complete
-From: syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, dvyukov@google.com, elver@google.com, 
-	glider@google.com, jannh@google.com, kasan-dev@googlegroups.com, 
-	liam.howlett@oracle.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	lorenzo.stoakes@oracle.com, netdev@vger.kernel.org, pfalcato@suse.de, 
-	syzkaller-bugs@googlegroups.com, vbabka@suse.cz
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BJXPR01MB0838:EE_|BJXPR01MB0709:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a1ff247-8f1b-4012-9d38-08df060ff895
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|23010399003|1800799024|7416014|376014|366016|18002099003|56012099006|10067099003|3023799007|38350700014|6133799003|921020;
+X-Microsoft-Antispam-Message-Info:
+	y5oABsVmHsj7QuRjEk5Bi5PSIzIKEOhM4RKB2K9UQo8azxMh1Mr9Mm4X1nBDWtmFOladG2Z9PbCIP+0ZjHdL8NkCqkVQCkOvh12AjRb8f9ju1r0DwxVbbmjGTjxPgMIbV0+81zSrZNXJzHWKrqVcO9e5rW2IYnUKeFZXgwjuqz/b6Aik/Yska/MOuEyTisX6FwcGjuKsiJP8XX6ww3IDIlvmkxUL7QnyL2RyDuyK9kaZJkQlbefGy35YWAGaTTClSs5yPLyqH4AV4qz78eetinCv9LzhD0FR7p0ynWrc7NgLyX7i6XFe2bjfTzjbDO1AScaorxCFr/rYgllRbwnFsuaj9mjR3rDXZkuX7SQ21iGj5enJpeJ7ZFSWxR19P3vkPllwTJS3Dp4QNiLYi09qKySBSQriFM0RbdozL5M1O1XuDEFI/QvV+1wIPpc0TY1v1bV89NdQVV5DiOxm41Was2cXwAVe+8Jzd/2q2D3Yf/GRxClXlNtH8b5uTBnLQsgzzc2pH9f22xrar0TX2NYxBJOWtk6lIRtIu3olTrq8VcU53taI/36nv0XSr+F3LRP85zTR1XRbEtUHVNMp4Yh82A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(1800799024)(7416014)(376014)(366016)(18002099003)(56012099006)(10067099003)(3023799007)(38350700014)(6133799003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I38AFtD0LaL7nDffBVMCz5S8NSbL9UKFd0P4DXpw5SK0iQ4EAYeWeESCVWPD?=
+ =?us-ascii?Q?NtzJ6RXEQ930sp0THU39JncMWK0RdrYPB+W/Gkj2K/VjK414PoQuuA53ysY6?=
+ =?us-ascii?Q?binFZ5T51Xnh70+LmEsXfBdul+1V1oNPNVZBZHleDWYxWw+kyledFnd9wa6q?=
+ =?us-ascii?Q?Lk2Rvm1L+hU7h11v1qQwLhVYtvXi3VHPHPkSJM6O3e9RarxiEFVA+d0rSfRF?=
+ =?us-ascii?Q?YB3jE0QGt0tJasUjLHUnxBCjLATTjC0x18Sr+rfM2tXy3mnb2CxM5GvHGxGa?=
+ =?us-ascii?Q?ImSP9yI5tzEdc+NKkqTLydXvynGMD18dlXKq/ZCORfyaemLlBw5JfMNSWdN9?=
+ =?us-ascii?Q?BAx4J0GsWT4QU2vrb2YdPwgejG9+QdDi/mu859UTc6wQMS9xlobELw7onihS?=
+ =?us-ascii?Q?M/Y3EuKw1aYyP3i2qpBbXQbww4+19U9LpnAO9mcBumUlmsPq8tGFh1gfCoLm?=
+ =?us-ascii?Q?IXv+jMos11MUqTXVpBd1Y1g7KsJPOlecIvrA9rs16uhbb9i+4QLAjum1Z3ad?=
+ =?us-ascii?Q?R72zxqovNcKx5FtxbQu4OsvUUEOkXuG1peN136xFAktEnYQ+ZO0bgqde9U8J?=
+ =?us-ascii?Q?1Nmzl35cVMRcIQ8RFrGiUyz5ux/Jk4WrLN3opVDFJdbgS8DOnh+gWVoOIggl?=
+ =?us-ascii?Q?oCCsqOtBcGiGQOt8ZvxFFky5Z7KeL7wv6uxX78eLNZItWaEa1X7NF+Ooj3Ka?=
+ =?us-ascii?Q?nwuxkim9k5p6+dSGc6d9ZWaCU6Of5vEdWat12FhMSBi7I3LAOD4f3QoQE5lN?=
+ =?us-ascii?Q?OovhwghQ+b9xE/SVtd86l9Y0F/Q2EW9ubV5+0yY9eLzqtLFfpxevoOQ3iJGB?=
+ =?us-ascii?Q?PBhW+UhxhdPpeU7LeIJ0ofV9aGENhoIc6FM1CyeOt2S8aDNbivrK7q2aFgzl?=
+ =?us-ascii?Q?MC7kikFzkDX6Gp6Htv7aUs0QGX0O3MM9hiNnLAAX0zx/mRYq4xWjUnmy2FCm?=
+ =?us-ascii?Q?zFSDlmVvv7hHINN5Gvde+0zYbnFNhptrFTQAKx5Pov13919sZpY2EIrdf9Pn?=
+ =?us-ascii?Q?jtDGIi8IEIhynJuGANLnP9QhKH1wcqaMeuFjrKw3aUv86xeYISiyLG1q4jV+?=
+ =?us-ascii?Q?+cT/QqjVG8HMEeqFU41v6DJ3GLsAdHRjhFZo2hxs/e44NYv1xbQk2ehTpj5x?=
+ =?us-ascii?Q?WE3EE54s8YyO2fbicmQh+nJ4GYg/i4vubtgqq3mU6/p7WXlxeHYS7vEDWrol?=
+ =?us-ascii?Q?EfBwghSjCMLg3Fqn18MShvX16QgGEgbLyPpvEQrYNfU5uD0MJunUnL9O5zTi?=
+ =?us-ascii?Q?ND4iCM+pzvgAvh+lntyERvkADUin3Xu8ws8F3TrkIPeoegBm7NczmhvZtygz?=
+ =?us-ascii?Q?DJEFVmyom6S7adZuDqNmwuPAjtgqKcGuUfJfp8voqg5owYebLdoOC0raVuTi?=
+ =?us-ascii?Q?IW3xSMg9uMPkcBXG8dtISNvdrgLJR0heQk0UBOkMY3gxl9GvNN6rjzT7CoPK?=
+ =?us-ascii?Q?HH6U6n0oMz18PL/r1d/Llt6RtG9Ii6lLsIgldxUoBKeiduGVydT+rN499uBj?=
+ =?us-ascii?Q?GgPk0G3sS+0+p7W0lKLvRG9uysU+AUdgNeipLvobwI5cirEFoKVH7Cazq8YU?=
+ =?us-ascii?Q?Ae2dij4pEi9EdghWiT8q2t5ZtloAUeoGOB2vgdfRH5H2XckWFijI9bTLPAV7?=
+ =?us-ascii?Q?WGH51MUUndmI92o2V/m3JkpwVpUn8xz/LOmabpMAx8fMVVPFOuhFVHKfqRfV?=
+ =?us-ascii?Q?oZk2Ta42z3MNTZoJf/j1FSMQA8w7RbrQaHDOXPAm/4cYDNk//04w5LsSHcRx?=
+ =?us-ascii?Q?dni28js0326+lJqSDTLr6vg3IYN5bxI=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a1ff247-8f1b-4012-9d38-08df060ff895
+X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 20:56:17.7641
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HnH/lc9gFpJZEAnKk8JZlLMDylbj6OZ2SCgYwnwjH2l50APuBf8jBs5P84A9+cZrsZdd0khuKIS0Kt5pYiqZ/md/RjNjyKCPiqNnjWiHSuI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0709
 
-syzbot has found a reproducer for the following issue on:
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the device power service group (service group ID 0x00009), which allows
+the supervisor to enumerate the power domains of platform devices managed
+by the PuC, query their attributes, and get/set their power state.
 
-HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=154d7d49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e4aa91d7f20c34417d4e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=134d7d49580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1177ae25580000
+This series adds supervisor-side support for that service group:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/18856a03a9a3/disk-1b78070a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/cc2bc68d7ef4/vmlinux-1b78070a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/05a5e00f8f91/bzImage-1b78070a.xz
+ - DT bindings for the power domain controller exposed to the supervisor
+   ("riscv,rpmi-device-power") and for the SBI MPXY channel that the SBI
+   implementation uses to expose the service group to the supervisor
+   ("riscv,rpmi-mpxy-device-power").
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
+ - A generic power domain (genpd) provider driver under
+   drivers/pmdomain/riscv/ which talks to the PuC over an SBI MPXY
+   mailbox channel. At probe it queries GET_NUM_DOMAINS, then for each
+   domain queries GET_ATTRS for the name and transition latency and
+   GET_STATE for the initial state, and registers the whole set as a
+   onecell genpd provider. Domain power on/off is driven through
+   SET_STATE with the generic ON/OFF power state parameters, so devices
+   can simply reference a domain through the "power-domains" property.
 
-rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-rcu: 	0-...!: (1 GPs behind) idle=a1cc/1/0x4000000000000000 softirq=17251/17256 fqs=2
-rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-1): P4982/1:b..l
-rcu: 	(detected by 1, t=10502 jiffies, g=15057, q=530 ncpus=2)
-Sending NMI from CPU 1 to CPUs 0:
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 6026 Comm: cmp Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:arch_atomic_try_cmpxchg arch/x86/include/asm/atomic.h:107 [inline]
-RIP: 0010:raw_atomic_try_cmpxchg_acquire include/linux/atomic/atomic-arch-fallback.h:2170 [inline]
-RIP: 0010:atomic_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:1302 [inline]
-RIP: 0010:queued_spin_lock include/asm-generic/qspinlock.h:112 [inline]
-RIP: 0010:do_raw_spin_lock+0x12b/0x2f0 kernel/locking/spinlock_debug.c:116
-Code: 14 04 04 c7 44 24 40 00 00 00 00 48 89 df be 04 00 00 00 49 89 d6 e8 34 c1 93 00 48 8d 7c 24 40 be 04 00 00 00 e8 25 c1 93 00 <8b> 44 24 40 b9 01 00 00 00 f0 0f b1 0b 0f 85 20 01 00 00 43 c6 44
-RSP: 0018:ffffc90000007c40 EFLAGS: 00000097
-RAX: 00000000ffffff01 RBX: ffff88807cbce2a8 RCX: ffffffff81a3bd0b
-RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffffc90000007c80
-RBP: ffffc90000007ce8 R08: 0000000000000003 R09: 0000000000000004
-R10: dffffc0000000000 R11: fffff52000000f90 R12: 1ffff92000000f8c
-R13: ffff88807cbce2b0 R14: dffffc0000000000 R15: 1ffff1100f979c56
-FS:  0000000000000000(0000) GS:ffff888124ce0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2972a84000 CR3: 0000000073aec000 CR4: 00000000003526f0
-Call Trace:
- <IRQ>
- spin_lock include/linux/spinlock.h:347 [inline]
- advance_sched+0xc2/0xc80 net/sched/sch_taprio.c:931
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x3bc/0xa10 kernel/time/hrtimer.c:2124
- hrtimer_interrupt+0x4cd/0xaa0 kernel/time/hrtimer.c:2243
- local_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1051 [inline]
- __sysvec_apic_timer_interrupt+0x102/0x430 arch/x86/kernel/apic/apic.c:1068
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa1/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x232/0x350 kernel/locking/lockdep.c:5913
-Code: ff ff ff e8 40 dc 3f 0a f7 44 24 10 00 02 00 00 0f 84 38 ff ff ff 65 48 8b 05 92 e7 f0 11 48 3b 44 24 50 75 33 fb 48 83 c4 58 <5b> 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc 48 8d 3d 07 23 da
-RSP: 0018:ffffc900037eeda0 EFLAGS: 00000296
-RAX: 27e016d3b0e95d00 RBX: 0000000000000000 RCX: 0000000000000046
-RDX: 00000000e9c5941a RSI: ffffffff8e6fac39 RDI: ffffffff8c6d8b80
-RBP: ffff88801df9be80 R08: 7a00000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff8ed5c6e0 R12: ffffffff8ed5c6e0
-R13: 0000000000000002 R14: 0000000000000000 R15: 0000000000000246
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xac/0x2550 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x11b/0x150 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0xa9/0x100 kernel/stacktrace.c:122
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- slab_free_hook mm/slub.c:2700 [inline]
- slab_free mm/slub.c:6499 [inline]
- kmem_cache_free+0x156/0x650 mm/slub.c:6626
- remove_vma mm/vma.c:517 [inline]
- vms_complete_munmap_vmas+0x897/0xbe0 mm/vma.c:1441
- __mmap_complete+0xab/0x4b0 mm/vma.c:2721
- __mmap_region mm/vma.c:2888 [inline]
- mmap_region+0x11d0/0x2240 mm/vma.c:2964
- do_mmap+0xe0a/0x1300 mm/mmap.c:573
- vm_mmap_pgoff+0x272/0x4e0 mm/util.c:581
- ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2972aaf242
-Code: 08 00 04 00 00 eb e2 90 41 f7 c1 ff 0f 00 00 75 27 55 89 cd 53 48 89 fb 48 85 ff 74 33 41 89 ea 48 89 df b8 09 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 5e 5b 5d c3 0f 1f 00 c7 05 46 40 01 00 16 00
-RSP: 002b:00007ffd9a1c6af8 EFLAGS: 00000206 ORIG_RAX: 0000000000000009
-RAX: ffffffffffffffda RBX: 00007f29727db000 RCX: 00007f2972aaf242
-RDX: 0000000000000001 RSI: 0000000000004000 RDI: 00007f29727db000
-RBP: 0000000000000812 R08: 0000000000000003 R09: 000000000000b000
-R10: 0000000000000812 R11: 0000000000000206 R12: 00007ffd9a1c6b80
-R13: 00007f2972a83b20 R14: 00007ffd9a1c6f30 R15: 00000fffb3438d62
- </TASK>
-task:udevd           state:R  running task     stack:26384 pid:4982  tgid:4982  ppid:1      task_flags:0x400140 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
- preempt_schedule_irq+0x4b/0x90 kernel/sched/core.c:7592
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
- irqentry_exit+0x14f/0x910 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:kasan_check_byte include/linux/kasan.h:402 [inline]
-RIP: 0010:lock_acquire+0x6d/0x350 kernel/locking/lockdep.c:5882
-Code: 9b 01 00 00 89 c0 48 0f a3 05 b7 eb d6 0e 73 0d e8 68 34 09 00 84 c0 0f 84 e2 01 00 00 83 3d a9 1c d7 0e 00 0f 84 e9 00 00 00 <48> 8b b4 24 88 00 00 00 4c 89 e7 e8 33 3a 94 00 83 3d 8c 1c d7 0e
-RSP: 0018:ffffc900044df268 EFLAGS: 00000202
-RAX: 0000000000000001 RBX: 0000000000000000 RCX: 8000000000000001
-RDX: 0000000000000000 RSI: ffffffff8c6d8b60 RDI: ffffffff8c6d8b20
-RBP: 1ffff9200089be7c R08: 0000000000000000 R09: 0000000000000000
-R10: ffffc900044df3f8 R11: ffffffff81b272d0 R12: ffffffff8ed5c6e0
-R13: 0000000000000002 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xac/0x2550 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x11b/0x150 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0xa9/0x100 kernel/stacktrace.c:122
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6792
- tomoyo_check_open_permission+0x32c/0x470 security/tomoyo/file.c:791
- security_file_open+0xa9/0x240 security/security.c:2739
- do_dentry_open+0x4a0/0x1380 fs/open.c:973
- vfs_open+0x3b/0x340 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1443/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f22b3aa7407
-RSP: 002b:00007fffdfe06440 EFLAGS: 00000202 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f22b425c880 RCX: 00007f22b3aa7407
-RDX: 0000000000080141 RSI: 0000559823bb502e RDI: ffffffffffffff9c
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 00000000000001a4 R11: 0000000000000202 R12: 00000000ffffffff
-R13: 00000000ffffffff R14: ffffffffffffffff R15: 0000000000000000
- </TASK>
-rcu: rcu_preempt kthread starved for 10498 jiffies! g15057 f0x0 RCU_GP_WAIT_FQS(5) ->state=R ->cpu=1
-rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
-rcu: RCU grace-period kthread stack dump:
-task:rcu_preempt     state:R  running task     stack:27496 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7362
- schedule_timeout+0x152/0x2c0 kernel/time/sleep_timeout.c:99
- rcu_gp_fqs_loop+0x30c/0x11f0 kernel/rcu/tree.c:2122
- rcu_gp_kthread+0x9e/0x2b0 kernel/rcu/tree.c:2330
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-rcu: Stack dump where RCU GP kthread last ran:
-CPU: 1 UID: 0 PID: 12 Comm: kworker/u8:0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events_unbound toggle_allocation_gate
-RIP: 0010:csd_lock_wait kernel/smp.c:363 [inline]
-RIP: 0010:csd_lock kernel/smp.c:396 [inline]
-RIP: 0010:smp_call_function_many_cond+0x61e/0x1500 kernel/smp.c:944
-Code: b6 04 04 84 c0 0f 85 d5 03 00 00 44 8b 3b 44 89 fe 83 e6 01 31 ff e8 51 51 0c 00 41 83 e7 01 75 07 e8 46 4c 0c 00 eb 3f f3 90 <48> b8 00 00 00 00 00 fc ff df 41 0f b6 04 04 84 c0 75 0f f7 03 01
-RSP: 0018:ffffc90000117720 EFLAGS: 00000293
-RAX: ffffffff81bb677e RBX: ffff8880b8643708 RCX: ffff88801def8000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: ffffc90000117870 R08: ffff88801def959f R09: 1ffff11003bdf2b3
-R10: dffffc0000000000 R11: 0000000000000000 R12: 1ffff110170c86e1
-R13: 0000000000000000 R14: ffff8880b8643700 R15: 0000000000000001
-FS:  0000000000000000(0000) GS:ffff888124de0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000555570500a38 CR3: 000000000eb48000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- on_each_cpu include/linux/smp.h:71 [inline]
- smp_text_poke_sync_each_cpu arch/x86/kernel/alternative.c:2602 [inline]
- smp_text_poke_batch_finish+0x5fd/0x1110 arch/x86/kernel/alternative.c:2812
- arch_jump_label_transform_apply+0x1c/0x30 arch/x86/kernel/jump_label.c:146
- static_key_enable_cpuslocked+0x128/0x240 kernel/jump_label.c:210
- static_key_enable+0x1a/0x20 kernel/jump_label.c:223
- toggle_allocation_gate+0xab/0x290 mm/kfence/core.c:902
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+The series is based on the existing RISC-V RPMI/MPXY infrastructure
+already present in the tree (drivers/mailbox/riscv-sbi-mpxy-mbox.c and
+include/linux/mailbox/riscv-rpmi-message.h), and only adds the device
+power service group definitions on top of it.
 
+Testing
+=======
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+The series was tested under QEMU with the RPMI device power service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: latest master branch
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_RISCV_RPMI_DEVICE_POWER (default y on RISC-V
+when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The RPMI device power domains advertised by the emulated platform
+microcontroller show up as generic power domains and can be inspected
+through /sys/kernel/debug/pm_genpd/.
+
+--
+2.43.0
