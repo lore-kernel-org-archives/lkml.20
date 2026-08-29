@@ -1,107 +1,127 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09839415F20
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15098331EDD
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788021294; cv=none; b=Ac+Peh0mYcFaF6KB+sMqEZACGuyYCnpSMH4/EvC5lDPFLD1oNCBOvvWxcKb5NQddWezW6XhtsvHG2e7oxVqAhTeK7O5cXhzhlnVYRCnD2gTczogt65CX29tb+PhuISLrWlbclam3OOQcIQ76X+EiJ6pMlQCgq0YfaHpuif6gUqw=
+	t=1788021403; cv=none; b=KAqYVLhZaAL/tdvsvWWvV75DBIQ3uKl7fCd4WrcX+KtY41dC7Ye4h6kXPjTCoT8RhsnSF4Z3aPS1r7onFdC9GBxqZeTuLvYMc7nlmCuqtnslGhaYAZPDhDGu36QKgSehIlhygy7nHG/kr3KUGNu/nr0UNg3eaMHSqSHE7KFzdvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788021294; c=relaxed/simple;
-	bh=4D9nZXAm9tLvW+Sewbt+Au+wdgNuOS3iH1O3wBuX5Wk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jslEZp0mfoVRcf+ZnFSCmNdNj0HMczg9WPWQ6Ud9y6AAFRM2CyPG5esRSvI8a4boRZHuwym27qN6ACxIED+aWfY3dnaQY8EJ0gnhQoBGYpk5CN2Ve7ynHd5rhqMW3tVFG7o7UPL/U8PwaQx+MK/yfL6/8miB8yJq9niihojMvSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B/Qg9D+t; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1788021403; c=relaxed/simple;
+	bh=GQDdbYBhfTWwI4lw+f/HHlZvilbjL/C3vJRwmTyJO1A=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JPB64+5Ms/eh57pOYSjcBkHR9fa6gqoX3kMcyflCfrh62WnWxW2RWjj+n088xiioD+xuY005R6eDottow06nsscSte84fa23oAUi6pWlNDl9ANTtw+bo9+48QBQ7M/cCRL62YszCKwJ7UnjztndGJoNg6WIoG8xlc6lWYC1Zcag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZVclHmzQ; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B/Qg9D+t"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d71a50caa9so25362095ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:34:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZVclHmzQ"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1340498f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788021292; x=1788626092; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788021400; x=1788626200; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=US8cD6b1qOpH/CBv47csfwQnjWV034hIbN8Yzufaviw=;
-        b=B/Qg9D+tutMmvP1FdGyoGoGjLEOxobUVgQRnmZ7oovgWuTSa4wd1TwU+xQIIX0jUOf
-         PmKCi8+zG/dofh9j8XFUfpxO49y4hodFNBBgJ7wYNlYEC1P3lrQJQ4AHDXQ+ujK0w6jD
-         kC+l56fRrjE3jCPQe4aFl6HeJ25hI0Zllfc36v3mSTmw5QfdbLjd5c2aCp0HL6wJ1x5i
-         +roEBNi80g+SHjcbkbksh6y3eAF/PEQ0o7A4ScOFB2ZYswz6HGb1HQgxOKxRnYOxyDm5
-         XVJFXzzzwg21ChISyHe/AnUXhC0paTQGyUmybDqqEKw58lcUJFvxiv14Mbvgt0hFzD0H
-         itdg==
+        bh=4OSi7MMm07peXNc9aOu04WCVC9TQOGqHoXbsa8tJFTQ=;
+        b=ZVclHmzQRzUyolY59bubDpUdVKrA61Dyk2BQizqDigloXP/pMchdqU4EjDX6YaRM3q
+         sGO3unDNlbVYyEU/84ELgJ5OSfSkgrp3BWagHj7aGifUwECQzDF/bGRrQrz4OcLB24/m
+         nZLfijxaQQe8I3KygkzwGX08mF20LeBVVbUUJac4ZwngwPyLVwW8ypYvc/AKBtp019IY
+         OHDKn8vwEIgK/piOv2LkjSmA2xgI4suOVMHqs4FVPQkwaCYQpqQmpIumNGNvawQIYabB
+         9qD7mdWXpDh2khU4cVHeEhxhv0J+JLSJSkolvDB7Va4u0jk96oKdVs6b1vZ97fyCWhfd
+         GyRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788021292; x=1788626092;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788021400; x=1788626200;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=US8cD6b1qOpH/CBv47csfwQnjWV034hIbN8Yzufaviw=;
-        b=KVv0AKhptDPBd1dVwCWko5SJxUgC3kj/VKM83CmXxnqL/gzQAcAXtoqmHpD0cx4HHT
-         uad7jdTfAx/ieYEPXmQJ8RBk39p+rJl6eaScyYx7M7WKPb5KSa2wpAIvJCDY60UX4pJT
-         vUae0PFFLTq4vd/K9jOS96jrdzVAN4o+CEH63HXJ/EZ3tTcBcCH9DU5omIsQ1NfZ8s1K
-         UlPGpyt2aTLnobF3o18uryWVFuwwvrGtcBVJ5XMBa1l4ONOCmua2kbuALtzW94JZPUDb
-         LoYQfEzcCTT7bjdYpBm/vzdhJb4YGXYZ0bfAdVzmHjCjG2Sce+Jso8hYtSMQhXBefn78
-         s5fw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfhvToYSkogY+WZ2W2QDOIBEJ0gGLSQNnSpkbKGRBHNuSWApK3+MYMW1lRYgBvc9k/rg2tjkDkDTclcGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6gNAqY1E6dyqQTbGINO5DFE7eekG638eTQZJFwSg9zb2Q1a9i
-	PKHphBzJMaWorh+TMW0HpF92pzENFYup6iVJ0MJzNHO7aWFf8UWK5X13RWgVHl/F
-X-Gm-Gg: AYBFou1+yn+SPxuglDCPuvN1BOYxH5pwW+1U17YzHG2HvOWBUEa/LY252rrJkwfWxK5
-	8tmtA7QzsrhWD8FXLtwx/zL02Q5LvHv0Z5N30ObN5q7iy5GlWEalhau82rvHyUPDPgVMolvnWVB
-	eoBPrU34cr6jUND9UnuB4RlyFND950P0X92Drg6tHWAhUpp8+HWv9eYgtdWFh4a/H1ilacQ60j7
-	nhmlskiYqFrWZNSBmmyQi0nhlplq0y8KkiYXJvD2iuVQM5OnuMgmgLTdqF9P3MQgec7VCxBkKNj
-	sepJH9I2Y2FFiC4J6Bl1GpNjXLJJt73P6MPZKRjdXQGPMoKSmXbdxes6ZOddNow0QpU37KsR0q3
-	qQDUPlHNHtQmqvknTVtwyUtzo2XRLdLT5Ha5jhHkmHdDgfSHiw+OV4VvO4e15Jxh+PQhQu1iXUh
-	UA+nGRItHePxLEwo9LSdQfxGzFa1V3KOVUZuBCys/Tx2Wv7y09MTcH2VVb7LB+Hz3TuPZAgr3wb
-	XOke1lxZSePil3LuO3Q2mIAY7gQGw==
-X-Received: by 2002:a17:902:fc4d:b0:2d8:d4cc:5bb0 with SMTP id d9443c01a7336-2d8d4cc5d79mr129510945ad.16.1788021292182;
-        Sat, 29 Aug 2026 09:34:52 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8094dasm17925741eec.13.2026.08.29.09.34.50
+        bh=4OSi7MMm07peXNc9aOu04WCVC9TQOGqHoXbsa8tJFTQ=;
+        b=GDVpWNW69IkjMc3ppDx3W5UMUaniGwqUUhPSN90lipATF11kdENRpe2j70Iz7bP/tO
+         TvyRofyUzTF4rbwdQ8pCdVJNfJg80XE3Uy794NEWU6IxeSoYr/BcM0zwaDJiD+EU2oQV
+         U8aqfAq+5XoiJe0tiEmzzAMGb2Nb/PqAnRLVBTdgTXq1KpYblZ2+GC+in/6MHmb6FvEi
+         71SNzVj+nvjOrBY2/UVmm0WYFyGo4MWHhekuEx5h8aVAraW2MFIiwQneg/F7QFOGquHa
+         Ph0Z3S6DA7ycf4C9jB5Ll1B1CU73oP5AAFek8uh4k+8pNcul636dU5l222qEw0LVnNzB
+         ntbQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrQkhj3EsdmNyVC83s4QevvQPquPe8sZaqVkWn8Qt3uqBBrm5SF5jXFgSNIKuWZZJlSZvk2vvQTmsEGpVA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljdfvjRSvruonPaeO3eVxUDg3FNbIsxSBZYcxGiIQt/dT5kUPn
+	h9FLIZqekXUiGbo64ZOJ4jnKOa5PnMUOM7K/VfRMonNdXJlT9e9+hsI706ku2l8L
+X-Gm-Gg: AR+sD13Y3x7nxh8TvPcwKkfQVBd/X6O+dSNuEmtTVeTWzSj1mgQ4JT5rS+sxAW5rrXm
+	E5ItzAoGvfowG9/GfMLfDLVFAT5jJZI1MxstAjuFLjNi6GlLfltfYJMTRzv8F1DyWDMNbHoBSTQ
+	bRq8BY4eE89NwyH7rBGXTgV5ZCCjtLUBY0xuow+6ktiVnITHY7CAN4Cs0twmIUnixDUtQdOZxKY
+	n2DVGQmRxnvXMtwP1UEUi2+77bXj7mS1AeKOk5AQomO/rRRy7QqQdmdc27kllZZPJzvtcwsaNkC
+	TM6qFrCGZTUduNfemsxnoQk09eGlbDUpz9pDEv6uV4GiMCXK0dy6nr0tLKJCVnWiJijDhlYdVdJ
+	68/a8o2KtXUOyPQADPAnb8hGtlTu1LmsmgeXFdnE+yj6VDovMNv5Ds7/4liXAo9qJX5CmfrGgHw
+	gpurjBUpifQAKnC/K9ZfD09lm26vPZa/9iN+t8ViHpNY7AdWspGI8gUZnz/HpCbAiSSu9+dGJ1m
+	YUmOvT2vPXh1GMrUw8G984BqbzJqDkrd+0/LnuI05u8H0WDKx1kc+nV8wN0Q1ea+pJTdNK+SdPs
+	q5PBr9vlmwiqKEH8VSCarImp3DhUy4GkHxgufxCLVcqA0WCUAVcjEZXdOePwrBFZqeS7HKMA+wK
+	IXHcHqQQl1yZnij++yQH+eYDe1l0iDgk=
+X-Received: by 2002:a05:600c:1d08:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49b91c2e145mr237756535e9.1.1788021400014;
+        Sat, 29 Aug 2026 09:36:40 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32d30sm11662342f8f.34.2026.08.29.09.36.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 09:34:50 -0700 (PDT)
-Date: Sat, 29 Aug 2026 09:34:48 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-Subject: Re: [PATCH v4] Input: atkbd - fix uaf in atkbd_set_repeat_rate
-Message-ID: <apMJ1qoPOffbB0t-@google.com>
-References: <20260829135959.14882-1-jeffinphilip14@gmail.com>
+        Sat, 29 Aug 2026 09:36:39 -0700 (PDT)
+Date: Sat, 29 Aug 2026 18:36:38 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, Puranjay Mohan
+ <puranjay@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/11] iio: temperature: tsys02d: make headers
+ conform to IWYU
+Message-ID: <20260829183638.607526bd@systembl0wer>
+In-Reply-To: <20260829-kernel-header-removal-v2-11-c67739d5dedf@gmail.com>
+References: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
+	<20260829-kernel-header-removal-v2-11-c67739d5dedf@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829135959.14882-1-jeffinphilip14@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 29, 2026 at 07:29:59PM +0530, Jeffin Philip wrote:
-> atkbd_disable() marks atkbd as disabled to prevent any work
-> event to be executed, however this can race with atkbd_event_work().
-> If a pending work passes the atkbd->enabled check and atkbd_disable()
-> runs after in disconnect, it could dereference dev which is freed in
-> disconnect following atkbd being marked disabled. Fix this by adding
-> disable_delayed_work_sync() which drops all work events preventing
-> any rescheduling after atkbd is marked disabled.
+On Sat, 29 Aug 2026 18:26:08 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+
+> Remove the catch-all kernel.h header, add missing headers and remove
+> unused headers.
 > 
-> Reported-by: syzbot+1e2ef9bcb29af666b2e6@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
-> Fixes: 0ef7a26af127 ("Input: atkbd - fix canceling event_work in disconnect")
-> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 > ---
-> Changelog:
->  - Changed in v4:
->      Changed location of disable_pending_work_sync() after input_unregister_device()
->    as per Dmitry's suggestion.
+> Header changes explained:
+> Added:
+> - <linux/array_size.h>: for ARRAY_SIZE()
+> - <linux/bits.h>: for GENMASK() and BIT() macros
+> - <linux/i2c.h>: for i2c_client and i2c_device_id
+> - <linux/mutex.h>: for struct mutex and mutex_lock/unlock
+> - <linux/sysfs.h>: for sysfs API
+> - <linux/types.h>: for fixed-width integer types (u8, u16, etc.)
+> Removed:
+> - <linux/init.h>: not directly used in this driver
+> - <linux/kernel.h>: catch-all header no longer needed
+> ---
+>  drivers/iio/temperature/ltc2983.c | 1 -
+>  drivers/iio/temperature/tsys02d.c | 8 ++++++--
+>  2 files changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+> index b8deb9aa9d48..6c4de6854683 100644
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
+> @@ -11,7 +11,6 @@
+>  #include <linux/bitops.h>
+>  #include <linux/completion.h>
+>  #include <linux/container_of.h>
+> -#include <linux/dev_printk.h>
 
-Actually I think I was wrong and Sashiko was right. I will probably pick
-your v3 but I do not like that we do not clean up/reset LEDs properly
-on disconnect. I will have to think about it some more...
-
-Thanks.
+Ugh, how did this stray change get in here? Must've been
+a bad fixup...
 
 -- 
-Dmitry
+Kind regards,
+Joshua Crofts
