@@ -1,74 +1,50 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A05175A66;
-	Sat, 29 Aug 2026 14:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E85C35E1B1;
+	Sat, 29 Aug 2026 14:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788014992; cv=none; b=KbKuaGp0XtXpXyG1XmZplGZV0nF5jHaRt77Rkt5sZkDKeBaHgojXYQFxzj7GvTW1HfSyss+Gz4vrPdT5rXAqCPCS1PNx600VHM6LAY6L+Rf3HpwUzOfPQs2UV9fLma8DblDkcwZ849mBKLShWR8pPnENnBBN9DxvvnvGlqtoHPg=
+	t=1788015100; cv=none; b=Kih/FMgfn9dZ9L2bInrbpcZaDWkosjQEU/+5csw1fa8tqkv8DMOQrzvo0Pc4Xb9BRIqQnXW4+BXC7CVTcS1r+fJD4M/hfYvtwOH+g54ac/y72uopaaZHBYuZwXFOLRWOCFAgMOsJV81ObLf2415jIX1LirKY7bMfaW9hGUgIpE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788014992; c=relaxed/simple;
-	bh=66dDGRD1kT5icwzJuYUEOtk0SliXmmuCYMcXg/Mpo5s=;
+	s=arc-20240116; t=1788015100; c=relaxed/simple;
+	bh=StKd2ZIap2J+HRJgyGPM6HsvOrfkPs3zR5k1WEfSonA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UjF3NobTQPuDChQIX2HNKyM2h7vYRiHKwoMZQJS+EvpLFkrsstvdqCM/qxZuFcGdV0ISJDjhUiZxJzzScT0KOPgAIa0Ezd7cFF5nTlQ1ViSv+m0UTQA9rjiouuRbLXDnKA9ErCvXfrElm6Ax1WZpn9w26qirqQmeTF70yTht7Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OvozmjiX; arc=none smtp.client-ip=90.155.50.34
+	 Content-Type:Content-Disposition:In-Reply-To; b=UpsrqwSRr2l/RJ/sSxOrKvxXx18mgcNV4aekl4dgFmohhOf0RN/ZArlUfkpA716lw5hI2Ue6ksJrWRt3auWkKTYh7pT1rHgolzVK2StnL61eBsDeFpkf8wDOH7U7gQ1k79pe7qDUExdjl5HdbZp5Lgfym/RhcHbCzcNGOzcTIZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=yyM1OyiD; arc=none smtp.client-ip=198.137.202.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OvozmjiX"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="yyM1OyiD"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=SX1FLvOIFSHuqgjqZXoyvcWzn59rRJ4yAy3cPilBPfs=; b=OvozmjiX5mFbDoB4jSgTxkNxJ5
-	Zfhj7AJNCi2u1p2S6ieZ3nMrvkj151vzofRuiFEtBNVz43gfPB5P7/Oa1vbTIskKCIYUXSrO07ppN
-	OiKsyqHdyBhlVSw78tpf1rYf+g1rT66QEZeH0x/zWKX8tst6RBW1U+4WyQFQlRjQUUXCwlnsbDBbb
-	idHkygyLw05rNiH0LzWDD+blm0X/hIK6DUYdKm2oQJZAulbAmC5fFqheRJehMiJxsOO7Cqd8ORGIs
-	3YicaqqUsyNU956MFxLwfQJ5/3Eq5JxZwq3wNIO2WvwMUIvUjQMWbQkYm4ij7TR9l6nMPYkOb0OOF
-	7lzqn0VA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x0KN1-0000000Gbyg-0k1Y;
-	Sat, 29 Aug 2026 14:49:23 +0000
-Date: Sat, 29 Aug 2026 15:49:22 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: David Stevens <stevensd@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <apLxcg3Lgy0-nXA4@casper.infradead.org>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <20260828135947.GU776954@noisy.programming.kicks-ass.net>
- <CAOiLmNHrbXeTY7zoNodmaZUoMWf+NgvGvZ_LjfWD-1sKAoiLeQ@mail.gmail.com>
- <20260829084901.GA776954@noisy.programming.kicks-ass.net>
+	bh=Bx10bEY/grytVZ3FAi9tmQtowXP7McpUMX6Ne8Ta2yA=; b=yyM1OyiDLAU2UCK0dYc1cSrokc
+	jpImvVd9z4tjGyxdwdGEqJBU38z/QPxwVqOGAQjQ9Nlgj4CnZLuUFvCyvRuA53HWoq39j9YQy2JAB
+	Qjb1/OeESL/bty10UMyaiyPVmeqCSfMQLjZ2gTso4CZ/aNmKdjEnGY3hBz7VcI1LmFvEff3fAKpOC
+	i19PVvkCnNuoKDM++itYauWh0TNvpMZUKZvYd7Uq6SK0I5xfmA7TbqTRYSunX2y3ucbBmKbLkVIHE
+	GcRN/ORqp4cZFsywN1Tow9VP6qWIgd0PBdG3FQkHDKdhUiBOVoylfhq1EaV5waddpugOP4Y887Gth
+	giBEqlVA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0KP0-000000072CH-32rN;
+	Sat, 29 Aug 2026 14:51:26 +0000
+Date: Sat, 29 Aug 2026 07:51:26 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jan Kara <jack@suse.cz>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org, Chris Mason <clm@fb.com>,
+	David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+	Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org,
+	Gao Xiang <xiang@kernel.org>, linux-erofs@lists.ozlabs.org
+Subject: Re: [PATCH RFC 4/8] xfs: port to fs_bdev_file_open_by_path()
+Message-ID: <apLx7pdNVkHPkrAq@infradead.org>
+References: <20260602-work-super-bdev_holder_global-v1-0-bb0fd82f3861@kernel.org>
+ <20260602-work-super-bdev_holder_global-v1-4-bb0fd82f3861@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,17 +53,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260829084901.GA776954@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260602-work-super-bdev_holder_global-v1-4-bb0fd82f3861@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Sat, Aug 29, 2026 at 10:49:01AM +0200, Peter Zijlstra wrote:
-> > On PREEMPT_RT, it is necessary to skip the call to
-> > alloc_pages_nolock_noprof() from under pi_lock, since with that
-> > configuration spin_trylock can end up needing to take pi_lock. But at
-> > least on !PREEMPT_RT, there is no risk of deadlock.
-> 
-> Yeah, which puts the lie to that horrific hack Alexei did. We should
-> probably teach lockdep about spin_trylock() not being safe and see the
-> house of cards crumble.
+This causes regressions in xfstests xfs/006 xfs/264 when running with
+a RT device because reopening the dm substitutef RT device returns
+-EBUSY:
 
-Why is spin_trylock() unsafe on PREEMPT_RT?  It's not intuitive since
-one can mutex_trylock() in interrupt context or under spinlock.
+[   20.814542] XFS (dm-0): log I/O error -5
+[   20.815055] XFS (dm-0): Filesystem has been shut down due to log error (0x2).
+[   20.815960] XFS (dm-0): Please unmount the filesystem and rectify the problem(s).
+[   20.906440] device-mapper: zone: dm-1 using native zone append
+[   20.954262] XFS (dm-0): Invalid device [/dev/mapper/error-rttest.264], error=-16
+[   20.970876] XFS (dm-0): Invalid device [/dev/mapper/error-rttest.264], error=-16
+
+I'm also a bit surprised a RFC patch without any xfs rviews landed in
+Linus tree, especially as the series alsso got various NAKs..
+
