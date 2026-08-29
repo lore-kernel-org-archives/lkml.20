@@ -1,83 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1031C5D72;
-	Sat, 29 Aug 2026 02:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05143175A88
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787971405; cv=none; b=cOgfaPlON6v2bu342yZJZERARMG51T+QEyep4Wcj3ACkQZHV5tAZeHa0Y2A9wetwJoNVaVUTaV+vDM6EgO7kl+9Tgz2Cj1taSHaDPplwsySNXPgRg5WjWQ4plHzfrwVOndgbWSXbuVlRPV7jNDJzIAjVYFfY0iHbiQudsZNy+68=
+	t=1787971837; cv=none; b=WKIxUve0rByPTMD1w8RBZjEzrhfAqquQh4IKK6vb+Sgf7UDoKZjGnlhHGIonBFNKdOS18eMJbTWJBF1zvTjHbdmZnu/cyUhC4lKLQVbGEHKqUtbQHczduYjAR4nrRErxUEL3t8/c9je3Zrh70QgRPeDDpSzwWSTNHR3FYf7K0nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787971405; c=relaxed/simple;
-	bh=thP91mX7wqWMMxEyUu4iTH0+5STX7OCArkhdBDmoR0E=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=XRMBQikLXLZsCLVjjK7lhGcez1rFx1fgBbIxVHeIabDdOJ1K8Qmoq09Oac98z5s4tu/XlEDnlCVWYB3xsjvZulaX3iN6nVRcBxrvxN+CJNX+48qDRuiKsbBmvK6Cg5NLvaWbH5sK0C/qeC0HN8CbAPsBOKMQzD34OrF7n+wYEQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=IB77iyYK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787971837; c=relaxed/simple;
+	bh=lCZXxzRerXIchs3t7cBfPwyZnkO4/85G4yhAubjTB/M=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=TgPk1KG8AIcz8lWSgcZkjZDXwVhHfWeA4kIWiGlrEtkNzGCQqdK5rGwzcGf0L3cq1va2f5hpMxwCck0AbQFI/FzBMoLiMaUAdcxp91mI44uLiV+za39mZ5sQuhDByxhqP0DjYIOj2COz0Ff3uA/bIIBljLTfXf85Fx4mqG/Raho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=a0ZHTeUK; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="IB77iyYK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D681F000E9;
-	Sat, 29 Aug 2026 02:43:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="a0ZHTeUK"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1a439db36so2270544a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787971403;
-	bh=ZbdBpOVVjZYRbR08NMFYy3lM8LyPK44ueETY+0xcqms=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IB77iyYKD6owUschePt6VzG+y2xpsaYWgTocU7aVh4cUSVWCugOJKlVUDpt+eK/Xo
-	 uzKreizUhB4hGXW3yK1UUk49uOqddCkT2Ijk4AkbfPr0MqMWTs7b1u7nKZIXlnp5hu
-	 P4fGuPEf2sg39h5c7GiBDTCHsDv398Y0Aj2914N4=
-Date: Fri, 28 Aug 2026 19:43:22 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song
- <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, Qi Zheng
- <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Meta kernel team <kernel-team@meta.com>,
- linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH for-7.4 0/9] memcg: remove the v1 soft limit
-Message-Id: <20260828194322.0556dcbd1c261c23a1f6efec@linux-foundation.org>
-In-Reply-To: <apJCb-8RK0azF8_h@linux.dev>
-References: <20260811203203.3456029-1-shakeel.butt@linux.dev>
-	<apJCb-8RK0azF8_h@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20251104; t=1787971835; x=1788576635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vFZPhakOwxRZAFtn7md9lSxeY1Cg1zyr2h0Gca9vEbU=;
+        b=a0ZHTeUK8witb+tda1eYJ+paPdPNF+KSWEbjlSb6Y8TdD2pSjwcFpviG2n7GoqggWm
+         rcRo6nkuh8NLRFzkNY2aWC0tTY9krs2qtAq3nvnDlWWkMMBwYVuwZeB+G+qBahnsuSOc
+         /3YkCzS1lYwkyKoMNvd7ieNg1NWYSI2Ef/18cG0Ru4NlC3MCoTNndZXWdq+YT2LkmzZc
+         PojQcW0g9tIKmu0UKWiXOJpwCWts+tLZyj2oGRaQf/uEHJR0DUWFNtQX6qfpPOt6HuME
+         xQwIINdNx/jE3Bp1soLBfhGBLjPt42oPsXxEj+fMYjcgt/sOga9pJjI5P+xjwZzLRcAC
+         /vRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787971835; x=1788576635;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFZPhakOwxRZAFtn7md9lSxeY1Cg1zyr2h0Gca9vEbU=;
+        b=FCG6lSHJMVvTmUARbPxGDYHagzQGhHU9J7ytbV8pkN0qWmH+Jf8b0JejU+CQsjcJpJ
+         rzGrUT4+2Ldycd0i/1l2SysxMXLmc+EpUm6ttpblBo6gpVRZuA4zgRVH+VrNtU/sIJ6E
+         2hTL6fkJ2p2sDtHEVXG2BlLHZ6Fih40k2ZumQTZX1dtBN/rs92TkoZN4F0edPGeBCksa
+         maDNiGEwBHaGn6piTyjYtVZOdC1e9ab3BF2CY3pphOzUveLEKmddolDudFalevLc37WD
+         lbecAIX1ADU4D3ZbVKgO2BUWU0QHIWZR0qF46C4CegxWtC4Zc6uxJpRE/hXUkN6DmpdF
+         Or6A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1j8qIRRoTsathKZYfgBEZDHb9N2ZxhBhCuJLCD/Wqma8G37GCeCznueyw27lFFcSZQER3myW/NHPdKF0=@vger.kernel.org
+X-Gm-Message-State: AFuF++laDClOV9jRokz7ovGh4sMKbqfPZrO/x1H8EOVvzQaF/3Sn2s1F
+	hfoKeUe1PgclX2xrTDoMPNwIcVQOwJedT3taoDxRMR9K5BVZvZy8xNq30cHbEgyhqtuuYGxxJc3
+	ZUpsOOvBRIWfldtwzo3xXJQ==
+X-Received: from pgby8-n2.prod.google.com ([2002:a05:6a02:6508:20b0:cc1:c78b:a2fb])
+ (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:f94:b0:857:7317:cff4 with SMTP id d2e1a72fcca58-8577317d1bcmr6303601b3a.21.1787971835104;
+ Fri, 28 Aug 2026 19:50:35 -0700 (PDT)
+Date: Sat, 29 Aug 2026 02:50:33 +0000
+In-Reply-To: <20260828183801.04fd2d2a6af837cb45b60e0f@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260828183801.04fd2d2a6af837cb45b60e0f@linux-foundation.org>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260829025034.2500920-1-jthoughton@google.com>
+Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
+ uffd-minor-registered VMAs
+From: James Houghton <jthoughton@google.com>
+To: akpm@linux-foundation.org
+Cc: baohua@kernel.org, baolin.wang@linux.alibaba.com, david@kernel.org, 
+	dev.jain@arm.com, hughd@google.com, jthoughton@google.com, kas@kernel.org, 
+	lance.yang@linux.dev, liam@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, shy828301@gmail.com, stable@vger.kernel.org, 
+	usama.arif@linux.dev, ziy@nvidia.com, zokeefe@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 28 Aug 2026 19:23:19 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
+On Fri, Aug 28, 2026 at 6:38=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Fri, 28 Aug 2026 18:18:11 -0700 James Houghton <jthoughton@google.com>=
+ wrote:
+> > Ah, just to be clear, I linked a repro on v1. Here[1] is that repro.
+> > Sorry, slipped my mind to also include it in the notes for this v2.
+> >
+> > [1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
+>
+> Cool thanks, I'll slap this into the changelog.
+>
+> # ./a.out
+> TAP version 13
+> 1..1
+> madvise(MADV_COLLAPSE) succeeded
+> ioctl(UFFDIO_CONTINUE) failed: File exists (errno=3D17)
+> not ok 1 - memfd userfaultfd MINOR continue test
+>
+>
+> We do have a ton of uffd selftesting code in there.  Adding this case
+> to uffd-unit-tests.c would presumably be pretty simple.  We don't
+> really have a policy on adding a test-case after fixing something -
+> it's common practice but why?  We already fixed it!
 
-> On Tue, Aug 11, 2026 at 01:31:54PM -0700, Shakeel Butt wrote:
-> > Syzbot reported [1] a set_mm_walk() warning from kswapd. Soft limit
-> > reclaim is the only thing that runs shrink_lruvec() from kswapd with a
-> > target memcg set, and thus the only way kswapd can reach
-> > lru_gen_shrink_lruvec() and in turn set_mm_walk(). The offender,
-> > mem_cgroup_shrink_node(), has long carried a "Only used by soft limit
-> > reclaim. Do not reuse for anything else." comment and a priority hack,
-> > and it simply never got taught about MGLRU.
-> > 
-> > Rather than teach it, let's delete it. The v1 soft limit was deprecated
-> > in v6.12 by commit 569c4f62d84a ("memcg: initiate deprecation of v1
-> > soft limit"). Nobody has reported depending on it in the ~21 months
-> > since, and v2 has covered the same ground for a long time with
-> > memory.low and memory.min.
-> > 
-> > Link: https://lore.kernel.org/all/6a7a6929.b50370da.49fe0.005e.GAE@google.com/ [1]
-> 
-> Andrew, should I resend this series (without the first patch) or will you pick
-> it up?
+Good idea. The below patch should work; I'll send it properly on Monday.
 
-I added the series, thanks.
-
-The [1/9] has already been queued in mm-hotfixes as a backportable
-hotfix.  So I added it as an 8-patch series.  Because of this the cover
-letter of that series is now irrelevant, so could you please prepare a
-brief replacement for me to paste in?
-
-Sashiko suggests that there's more that can be removed:
-	https://sashiko.dev/#/patchset/20260811203203.3456029-1-shakeel.butt@linux.dev
-
-So maybe an 8-patch v2 series is appropriate, your call.
+diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/s=
+elftests/mm/uffd-unit-tests.c
+index ef9b3956bdcf..227bcd6aef9d 100644
+--- a/tools/testing/selftests/mm/uffd-unit-tests.c
++++ b/tools/testing/selftests/mm/uffd-unit-tests.c
+@@ -518,19 +518,34 @@ static void uffd_wp_fork_pin_with_event_test(uffd_glo=
+bal_test_opts_t *gopts, uff
+ 	uffd_wp_fork_pin_test_common(gopts, args, true);
+ }
+=20
+-static void check_memory_contents(uffd_global_test_opts_t *gopts, char *p)
++static int __check_memory_contents(unsigned long offset,
++				   unsigned long nr_pages,
++				   uffd_global_test_opts_t *gopts,
++				   char *p)
+ {
+ 	unsigned long i, j;
+ 	uint8_t expected_byte;
+=20
+-	for (i =3D 0; i < gopts->nr_pages; ++i) {
++	if (nr_pages + offset < nr_pages)
++		err("overflow in memory check");
++	if (nr_pages + offset > gopts->nr_pages)
++		err("out of bounds memory check");
++
++	for (i =3D offset; i < nr_pages; ++i) {
+ 		expected_byte =3D ~((uint8_t)(i % ((uint8_t)-1)));
+ 		for (j =3D 0; j < gopts->page_size; j++) {
+ 			uint8_t v =3D *(uint8_t *)(p + (i * gopts->page_size) + j);
+ 			if (v !=3D expected_byte)
+-				err("unexpected page contents");
++				return 1;
+ 		}
+ 	}
++
++	return 0;
++}
++
++static int check_memory_contents(uffd_global_test_opts_t *gopts, char *p)
++{
++	return __check_memory_contents(0, gopts->nr_pages, gopts, p);
+ }
+=20
+ static void uffd_minor_test_common(uffd_global_test_opts_t *gopts, bool te=
+st_collapse, bool test_wp)
+@@ -539,6 +554,8 @@ static void uffd_minor_test_common(uffd_global_test_opt=
+s_t *gopts, bool test_col
+ 	pthread_t uffd_mon;
+ 	char c =3D '\0';
+ 	struct uffd_args args =3D { 0 };
++	unsigned long checked =3D 0;
++	bool bad_contents;
+ 	args.gopts =3D gopts;
+=20
+ 	/*
+@@ -564,19 +581,51 @@ static void uffd_minor_test_common(uffd_global_test_o=
+pts_t *gopts, bool test_col
+ 	if (pthread_create(&uffd_mon, NULL, uffd_poll_thread, &args))
+ 		err("uffd_poll_thread create");
+=20
++	if (test_collapse) {
++		/*
++		 * Read just a single page and try collapsing. The collapse
++		 * should either be rejected or be a no-op.
++		 */
++		if (__check_memory_contents(0, 1, gopts, gopts->area_dst_alias))
++			err("unexpected memory contents before collapse");
++
++		madvise(gopts->area_dst_alias, gopts->nr_pages * gopts->page_size,
++			MADV_COLLAPSE);
++		/*
++		 * If the above collapse mapped pages that were not explicitly
++		 * CONTINUE'd, the below __check_memory_contents() will not
++		 * fault on some pages, resulting in incorrect contents. The
++		 * PTE for the first page may get retracted, so avoid checking
++		 * that page, as we might take a second fault, flipping the
++		 * contents a second time.
++		 */
++		checked =3D 1;
++	}
++
+ 	/*
+ 	 * Read each of the pages back using the UFFD-registered mapping. We
+ 	 * expect that the first time we touch a page, it will result in a minor
+ 	 * fault. uffd_poll_thread will resolve the fault by bit-flipping the
+ 	 * page's contents, and then issuing a CONTINUE ioctl.
+ 	 */
+-	check_memory_contents(gopts, gopts->area_dst_alias);
++	bad_contents =3D !!__check_memory_contents(checked, gopts->nr_pages - che=
+cked,
++						    gopts, gopts->area_dst_alias);
+=20
+ 	if (write(gopts->pipefd[1], &c, sizeof(c)) !=3D sizeof(c))
+ 		err("pipe write");
+ 	if (pthread_join(uffd_mon, NULL))
+ 		err("join() failed");
+=20
++	if (bad_contents && test_collapse) {
++		uffd_test_fail("unexpected memory contents after collapse");
++		return;
++	}
++
++	if (bad_contents) {
++		uffd_test_fail("unexpected memory contents");
++		return;
++	}
++
+ 	if (test_collapse) {
+ 		if (madvise(gopts->area_dst_alias, gopts->nr_pages * gopts->page_size,
+ 			    MADV_COLLAPSE)) {
+@@ -593,7 +642,10 @@ static void uffd_minor_test_common(uffd_global_test_op=
+ts_t *gopts, bool test_col
+ 		 * This won't cause uffd-fault - it purely just makes sure there
+ 		 * was no corruption.
+ 		 */
+-		check_memory_contents(gopts, gopts->area_dst_alias);
++		if (check_memory_contents(gopts, gopts->area_dst_alias)) {
++			uffd_test_fail("unexpected memory contents");
++			return;
++		}
+ 	}
+=20
+ 	if (args.missing_faults !=3D 0 || args.minor_faults !=3D gopts->nr_pages)
