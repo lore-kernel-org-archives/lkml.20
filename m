@@ -1,204 +1,156 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49566375AAB;
-	Sat, 29 Aug 2026 07:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787989975; cv=fail; b=WZzz7Yn8VtBV5aLYhbvH4giVi04MBB25MQezoFOuJFPY/KEi8gAb63UqnvrxUFaiACXfMeyJ6C+WmcQCrr9ZiiSxl8q6DMHOUv66+64SCHswLevXwuG2HLEfO0d7zeOM/GeY9UrQWR18GxJKkz1ysvlps+MoL1np8RD72kjVQIc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787989975; c=relaxed/simple;
-	bh=GmADziPeeBYtOmGPP+TLmeXk02/Od5loVIwAQcQEWi4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=D/5vqN123KJCN2YvaGAPrrHpS6MPLYkRPPo+BpqAfUYLldTFXmv1QuRuGB2dj34b/1Btvq3l/230mzH/lP89RNCpj7W4bAyyv0g0qjitkvCLAkM9wx3xIe9Xdt/roWzD4sWJIo5skpFE2R5RMohaspAhHUwqi/gDgfq1S0+PR58=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lddIhLbb; arc=fail smtp.client-ip=52.101.57.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EB212CDA5
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787989991; cv=none; b=P7/rh1T1YZFdsfPMnxdu3ryvqPHn3RfQLNxSOMTVsETS+VWtL4NxaaFQlu4062PmOZbALQyzN1dG7q3ZgVxpuEj9OOYSNoKTa25j2pyh4MFuw6VIjW19mmF0DiwqxXaqUXwBAgIJIdBk7glQsjDTD40RYqnFGiy9rpg/UfuzZwA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787989991; c=relaxed/simple;
+	bh=UxqJXvFBdjwr2wD+zBN4Ru/ByXkkod3JWX8Z4PelXdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IkPsM2+nUwJpeia/dl9VIl7WN0y2z87igCUeNvURinZ+XPUCT10sZdSnWzu5ZFinxr0bPKH/206FlrU4vb8BxD04opqfhpC5JqYjeHfhUgIkcQotCmPn7wOPRneWmrslKcuoERpHmaZZFuH10dWEoUrpwwjCGKkRuoDeN63PAfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OievMS34; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lddIhLbb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PSqtZkdgj2ErPArzhMhGHrvVKON+MJW07Tw9wWq8Nfi56B9RlT2bZR9VyhGAs5DEDLpl5H3vk11ZZIqVacsUaY2T4wldP19s2u+BD1EIzDRg6mZnTNhBI+w4TJ+bVZMCTQ1BBMoXm+ausZVu6o9khLTY/EqtU57WPgJI9D4Eq5RnuCQN5Xw+7QuLEY6KuMKwGgvH+Bd++ZKWU2BUHPxmLwBgzSdiWxzVAqTslvQZTtG7OApVXPYx5CKroPXy3PgEnouxbSjzyh4OJ4qXPcIyqY7ZgurMZbqMimYWo80aEhWu/ErnEX+RQ9uZ0F10dK8aN5mTzhY6WO1HxH6p07ReLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=C5DMgFNc1stJn6akTQwyeurg3WBNx/xwt6aTjVF8wesOner/YVo0KMep3QYCb8Wa4xY7WX9FCkexiySrVhofuzBDYTk2V08zKfZTVvwVFneF71ByR4LzEp2kdhO+YpSuPixJEzOXPAM1pWwfcGf120ZQ4wHXNhYlPoYnfbD5BPrVdfYfcs13hmTPdy1i0xmTC8t3jD2E8Mzu+E6P4vp1O2mQCMryJi7Qfhj5rnXTqNv9Q+3DX+L+M+4JzwARdU5AWmsczq8mK3LQiSqYd2L5l2FHDGdfamOjFPX0Ns6QeZ2UxtkCmctVyjBsLJlHHnuMsbN0GPi3ntM9YdKTv+3IwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=lddIhLbbDozUkUJJxWAC73w2g6vg0ouLuaW9fk7O9R+vfVNGGQZTB74TKaOOtDWw0xyCadb4Oye3eSVQSX5tNeP9WBk205IGZFOTCpJ/GQJeuv6bpX2y2p4uVW5nwjpRRPlbLG6e6suqD6Int0ss7GhJMcjFhqr70dqK/E7KgyQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com (2603:10b6:8:279::16)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 07:52:47 +0000
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b]) by DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b%7]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 07:52:46 +0000
-Message-ID: <9c6c08d3-9ec1-481a-8d66-4b0183036c39@amd.com>
-Date: Sat, 29 Aug 2026 13:22:37 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] fpga: add dma-buf based FPGA programming interface
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- mdf@kernel.org, yilun.xu@intel.com, trix@redhat.com, sumit.semwal@linaro.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-fpga@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, git@amd.com, nava.kishore.manne@amd.com
-References: <20260816150734.2092802-1-aravind.thokala@amd.com>
- <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Language: en-US
-From: Aravind Thokala <aravind.thokala@amd.com>
-In-Reply-To: <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::15) To DS2PR12MB9566.namprd12.prod.outlook.com
- (2603:10b6:8:279::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OievMS34"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499840a2575so11130855e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787989987; x=1788594787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+jbQ6QwM5+BlZ7cOazrDoJ7hDb3esvgCSdcu8xIlmJE=;
+        b=OievMS34zh8vq0mAUFeKe1Rd226XdLn0uPXKpTJ80ogXSrj6dqLF5KGSYld9TsyDv8
+         ElFV2+RO7CiSf9XdTNIhlMuC5alYqbHyrGSfv7aTXLK8HN9dF+XUmuHOkF3tKQUKE5np
+         JXXd+icfhScfG5ksNAIoaNp0lBTrYXm+eAm54agjWwMyy0jk07LlP5rDzWnbHpKnRIku
+         xrx9L8be0UFs4fh5367bWyN8Uw0BPcyAwonLHtX7nRvwtqwNp0079ig7BI+GY0xQe2Ee
+         xQeL1J8UChLpDvTMlaGf5kJ57UBknSYezYI0edwJI5TKBA5dcOeuzecnfG9OaUC9IJwm
+         XVlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787989987; x=1788594787;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+jbQ6QwM5+BlZ7cOazrDoJ7hDb3esvgCSdcu8xIlmJE=;
+        b=I0IYWGd6ONYDwjuherMYW5oiZyxqdBQOfje1prvMvsPNtsWayuIhf5HoIYxlBJbQfR
+         KrKKl319OhAjlls0jF/rFHvq7K+Xs5+FI/v6J3cx9Fm2aZHIUKTzQ5MUV7b65zys4e91
+         6JYCdP2e4I0UpIO7FsNSu7HsVxggvgB8NC7ZC/B+xyTxRtYeBX5x2y14FOrJab8siNwN
+         9SApNj6vMcW0miu8M0gRgOpyO+pGfjU1oL32h/eWvnKlwwIFliWdskU9mpPq4MWF0kwX
+         csZOxMgwRVfVEHrMLJxg7GV2lrFPSrab5oAPJSF8cbX9VpV4YgmosLl9jHE2xk7hZFSB
+         HYhw==
+X-Forwarded-Encrypted: i=1; AHgh+RpqYViWEhzreDOOWc3RSk6QwlWwONgDPBSdVWT3d2JCKwLaUgXSZUIXpb2A83yxNhFv/Wp8IvW50nubucs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRow27YvCT0njr79NqINmQoaNwUhN6cVHNYO6TQDJ/cxj7vvVN
+	ImEzxtg/L/m3oaDckMCoyPHuYgijXieaorGW/nLOEHp7D95Z25Z/yFUpfT0/T2iPzoh+bA==
+X-Gm-Gg: AR+sD13DYfyWKdbZuYIYWrrTXleJK+5tofJmiEGdW56QagZANxLoLJFSLxPZ0RyQA0w
+	hpWbRitc83cmaEAZg3YW7I2YiN8N3iEsPTovISOV4VZX6sO5nRygZisp6B6Rdxsr1M6k5I/BwVQ
+	6ACSgSmT0nQJMa2ksQPGOgB3y51g9F6Av3r7rKu2sQ2Ytv11Y4bTiY4jwR3KzQfhPcemfpMRzeW
+	wQVnWgIHFP61mvy3IbmCSA0LmU64ZWfu79o5cWAiPGbBIvV5Uuv3BVBuItAlMg1f3z1g9+GI08c
+	PyWNJOszcnni4Q6W13HzfFp95lgEKKcybL2M6fjYQ/Ki/+Bk7/pmLUwiQZDVuVU8SOdWuxi8XTn
+	FASx8mACarA6SDiBNR+hRkBanJijwccX04wUVQaTpGweGzL+uXAOoO8mXJitWER9OLWO37UsaU/
+	ihQpEP6tvEW0xdzdvwbV4c0B+rN0uQ5zc0Pdg9mUZ+lmQlb2kXXPvfp67CAyy/J+A26wy1gJVrp
+	EvpXQgxFnpnLevadwOIrzqQRsO6V1LWq4ubJVKWroDDxRlK7efSHeSOp3J/gA==
+X-Received: by 2002:a05:600c:1c0a:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49b91c276efmr191294575e9.6.1787989986916;
+        Sat, 29 Aug 2026 00:53:06 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:e90c:f900:e29d:3a79:ac40:9edd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb2794dsm9017193f8f.25.2026.08.29.00.53.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 00:53:06 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH v2] accel/amdxdna: fix race condition in mailbox send path
+Date: Sat, 29 Aug 2026 10:53:03 +0300
+Message-ID: <20260829075303.7457-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+References: <20260828221641.10034-1-denizaydogan1902@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9566:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|10067099003|3023799007|6133799003|4143699003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	gSSSIf/FDXF2ZY54djwV232NQ1js/FlNWaQ3MSv/AMezu3IwDot22jhAKL3tuB8TFqtbbDu3/j3xgi5HjBZfB9j2A4nFYrzAHdjA00EKJeksMakg2wYY/Mj7MWwILrBUi6aP5XX7VDpv+xGqP5Dhhzkzch0Vk4kAtyNwq61HQGIqqf6ILB70S+Ijazsrje9sFO7j1QNKWW5oyP6ZbE1fiJj0mT911aEbBhNVu80PgbqY6PVA1cikq8pdUm/EY8vX+YBFmxXwHdU2B4YmqwQNe0Jyf+D4+on1GCQuNTPbfZ8Cf8ERUSjnrMruK9n+19OOpd+tckA+wIAeTmBjAQ6AwlkIMBRGb0dLmXIyXo/cSFOWCtPxlWtv+VcGNOuGDTIOXq9zh/rag9pv1zQjvVrsfRyP1v1OOsX+9xvI17aFMfrOfmR8Z5Trqmgcr44pkEyI7c3RmpqAaU0aZu2YsdY4DfaBWEJgVCaqbh5Vd3mxcNZiOWU76pO4kLVi8OKJuhdHrpbfH18OE1p9Zx4q+r1iOwr/to+08SjiE0CX0si5aa7hstrZrFv3lUmQGy+moIspOTuKSZdRjfuCpHHFSYDHaD/OTQ1Tb0bvIkzYm4P8EHtvL39hYUAHQnrGP6ppT1L2HU8Os8ynxZGiMTqgvd93a+b6BoONvRLYlf5E9tlhciM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9566.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(3023799007)(6133799003)(4143699003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WlFCUmt2YkJadEYyOHpKUlNtaXprZURDbkxUaTIyYWxnenl4V3B0VFd6ZWdW?=
- =?utf-8?B?TU9Cb29HUVpRYzd4R2k4NGdXSDNBWVJCVStsckV2TXowNDBkR2VJdzZsSGpm?=
- =?utf-8?B?WEZxNUhQMFdlWEdSZ243dDNWRis2Sm5od1EzMkQ2aWtkWmxHWENSamxmVFZ1?=
- =?utf-8?B?MFZ4dFl4cm02Q1lZd0RtbW96Vm5KUWk3dVFiR2VUR0xnT1JLdlVHeGdDbGpm?=
- =?utf-8?B?ZSsybEV4MnA5a3NPRDJhbHZZWmZYc3JoZTF1c1lnaUoxaW84eDJJVkdOV09y?=
- =?utf-8?B?dmlYVkdydGJpUU8xUWRQbXdFT1U3bWZLR1NnTGVCd3ZFZDNuUWNrV1RCVXB3?=
- =?utf-8?B?RkRIY2laayt6Um9oem5nQU9teW5sRVprYzFRbm5McThlMmpFT3lBRTFxSjZK?=
- =?utf-8?B?VloyOGl6ZjFGNWdvZ2hSKzRWa0lYR1ZvYmEzOGwvZXJVVzg4ZVBTRFgzRlZT?=
- =?utf-8?B?ZXNWRXJmYURYTUtkQzRNME5rQUxqM1R4TTFlQTdUSFdRcUt6UEV4TnN5SXYr?=
- =?utf-8?B?dGxyVzhsMHpnNWFaTXprM0dDQys1YjFFaERYaTc5cTJkOFZvdDNqMTkxdzdz?=
- =?utf-8?B?QUJqK0hWWldjU3JaSVRZWWw2Y2phQnJYZzVUZys1L3NNZEh1eE9EMEZXZW0x?=
- =?utf-8?B?eWxMMW9pOWdva0srVURGWEZxQUZvNWZiUUFVbUxkdTJocUJSMWMzRzROY1Za?=
- =?utf-8?B?d1hpTFZnTlgvcllhZUxLZG9LTnBJNkd2aTg3TFBWeG5TTGczc2ZPamM1M0JY?=
- =?utf-8?B?eTR5OG00UGIrWkpPRkdJbG1kSWdZRnQwM1JaVWZ2NGhPU3hmemh5WExtQllE?=
- =?utf-8?B?akxGLzhSZTdITVZYWnd4OVJhMGFUdzNraUdaUnlibGg4Qk9qL2pBZTBvcDFh?=
- =?utf-8?B?TGdHaWFwd1R0YXUzYzN1VzZFdzJWMUhZc2VNcTFoTEV2bVVhM25Kb2hHVmVG?=
- =?utf-8?B?cklJT3hsSkFyWVRsc2QySmhDUEd6V1FCQjdqTjVvbC9FaksrZnBxUHIzSlhn?=
- =?utf-8?B?eUswdjd1c1BYOHlJVXhFU1hEbVBmbFo5dXVubzhnU0FDOWlrQ3dOMjk0VEJW?=
- =?utf-8?B?d3I0WXJXSHhPYytMU3ZmVmw2K3l3UjE2ckRQUmtGRUNZelBiSENkTHArbE94?=
- =?utf-8?B?WG0rV0M1OHVoWHpmZWJpZjFJbUVXblU1d0p5V0kzNkltK1J0dDRhclB6dVh2?=
- =?utf-8?B?d3d4b1MrSEJRbDRYSVZ3UVB3NExBSnpxeUkwSHFrWnNyYU1pdktLNE14YUtN?=
- =?utf-8?B?UzdJclhqbllreXBnZ210UElzeFpJckZYWlhjajIxdmlpZzA2bGdVSmcyUS9j?=
- =?utf-8?B?eVFqMTZrN2xSenhVeGRtbkVNME1UUThMTHdOenpGbTByWUdmUmNZYU90VHky?=
- =?utf-8?B?TW1MbWFRbitmcXpiRUJLcEZYUnhXNExST2QxdnpXa05LcVBuRjNlb0VHc0NI?=
- =?utf-8?B?TjJLdG5VTmpaMW82ZW54TXEzUnhKUFd3MHA4dHNYd3ovaEZCQ1U4MzNoSDln?=
- =?utf-8?B?Vmdlc2dFQ1ZncU5lcW1kTjZJVVpocmpqa1ZyYVRtV2xEaXppcXJDQ2FvckhX?=
- =?utf-8?B?U3hqTWpzUi8xTTZBR1BWbllsMWRNVElXSjB3ZHlJZlg4aTdKZkluRTAvRk1R?=
- =?utf-8?B?dUxIcVhqd0JKRG11NTBnb1BoeHlXR2tTWnVGb2FwVnRsS0Y5WHo3YkJQMmZj?=
- =?utf-8?B?UEFQSHNoZ0lKbTZjYk5sV2RWNVJna0FUa28zNUVDOFNjMXZvcmRaZ0VtenJX?=
- =?utf-8?B?TlI5SXdpSHNoc0tpM1FRQmU2VVpxM0FRZ2JDNzBFYVFWM0RTeko4VVJkR1Fs?=
- =?utf-8?B?cVo3RkNwVVNHNzR6ZVZKaUVLTlNta28zOTEzWXF0QWxqb3A2dkRJZXlMOXl4?=
- =?utf-8?B?UlhNeDBFTGQyTC9zZXNjdTZBbU5ZVlpyeEp6dzRIMjZrNmRTc3plNlBNdW0r?=
- =?utf-8?B?TnpsR0t0WGNTT2Rob2I1TVlWRG1kVVNLQXAvYlRaZnNicWgzSDJVVFJPRUJl?=
- =?utf-8?B?alcvbnJEancrSHMzdk9aZjZjSzRWbjFZNW1pczUyZkJxcDQ0OEpDamR5Y0gz?=
- =?utf-8?B?UjNvcXZJdDNSRS8wM2x1NmtCZ3lnb2c2ODdnWUtITDBXVkdMNklpSFJDdEVz?=
- =?utf-8?B?QUpaZGtMUE9JaHJyYjZ6emRDbVhuQTZYU2VQbkh2RUxBZFFGOWVuVUlod29q?=
- =?utf-8?B?bm9ybis3NkNyOHQyb3lSK0hzWE1waUtRQnp1ZjdZUzFwU2tPQmFIV0tZdkw2?=
- =?utf-8?B?VjMxakpSTVFhQ0VSZWg4L0w5Z0M0UW9RVWFUM0pzU0Q5NjlSWXIwVURkVU9u?=
- =?utf-8?B?by9GTWVHdHpMSFdlbUtQS056YjZjR1hJOGdJU2VxTWtwWWNwNngxQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 07:52:46.1861
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTj6khviDJkZKmqWDmVqcGKfb9IIrTKousxjFZ32zbu4/P8OxY1+NWKr5dmTi5MKTA5gq8OFkXJol+gTgigjPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+mailbox_send_msg() reads and updates x2i_tail without any
+synchronization. The DRM scheduler and ioctl paths can call
+xdna_mailbox_send_msg() concurrently on the same channel, which
+allows two threads to read the same tail value and corrupt the
+hardware ring buffer.
 
-On 8/24/2026 2:20 PM, Christian König wrote:
-> On 8/16/26 17:07, Aravind Thokala wrote:
->> Some systems need to load large FPGA configuration images. The FPGA
->> subsystem allows loading images from the filesystem, but this requires
->> the entire image to be loaded into kernel memory first. For drivers
->> that need a DMA-capable buffer for programming, the data is then
->> copied again into DMA memory. This creates needless memory pressure
->> and delays due to the extra copy.
->>
->> This series adds dma-buf support that allows userspace to allocate a
->> buffer directly from a DMA heap, write the FPGA image into it, and
->> pass the file descriptor to the kernel via ioctl — skipping the
->> intermediate kernel buffer entirely.
-> 
-> Well when you have a device with limited DMA capabilitiesthen DMA buf heaps doesn't allocate DMA-capable memory for that device either.
-> 
-> So the explanation you give above why this interface might be useful is clearly not correct. The DMA subsystem will still do an additional copy when you try to import the DMA-buf allocated from the heap into this device.
-> 
-> Either you need to define a heap with specific allocation restrictions (e.g. GFP_DMA32) or you allocate the DMA-buf through your fpga device so that dma_alloc_attrs() knows that a certain device needs to access the pages beforehand.
-> 
-> Regards,
-> Christian.
-> 
+Add a mutex to serialize the entire send path. A mutex is used
+rather than a spinlock because the existing code calls
+read_poll_timeout() with a non-zero sleep, which can reschedule.
 
-Thank you for the review. Agreed, the current approach does not 
-guarantee DMA-capable allocations for all devices.
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-We are looking into the device-owned allocation approach using 
-dma_alloc_attrs() and plan to follow up with an updated series.
-
-Kind Regards,
-Aravind.
-
-
->>
->> Userspace flow:
->>    1. Allocate buffer from /dev/dma_heap/ (e.g., CMA heap)
->>    2. mmap the buffer and write the FPGA image into it
->>    3. ioctl(/dev/fpgaX, FPGA_IOCTL_LOAD_DMA_BUF, &dmabuf_fd)
->>
->> The dma-buf logic is implemented as a separate layer on top of the
->> FPGA manager, keeping buffer management separate from the write path.
->> Individual FPGA drivers opt in by calling fpga_dmabuf_register().
->> ---
->> This work is based on the approach discussed in [1].
->>
->> [1] https://lore.kernel.org/all/20231122053035.3758124-1-nava.kishore.manne@amd.com/
->> ---
->> Aravind Thokala (2):
->>    fpga: Add dma-buf interface for FPGA programming
->>    fpga: versal: add dma-buf programming support
->>
->>   .../userspace-api/ioctl/ioctl-number.rst      |   1 +
->>   MAINTAINERS                                   |   1 +
->>   drivers/fpga/Kconfig                          |   9 +
->>   drivers/fpga/Makefile                         |   2 +
->>   drivers/fpga/fpga-dmabuf.c                    | 198 ++++++++++++++++++
->>   drivers/fpga/versal-fpga.c                    |  33 ++-
->>   include/linux/fpga/fpga-dmabuf.h              |  22 ++
->>   include/linux/fpga/fpga-mgr.h                 |   1 +
->>   include/uapi/linux/fpga.h                     |  15 ++
->>   9 files changed, 281 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/fpga/fpga-dmabuf.c
->>   create mode 100644 include/linux/fpga/fpga-dmabuf.h
->>   create mode 100644 include/uapi/linux/fpga.h
->>
-> 
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 271617347..8338f03bd 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -8,6 +8,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/interrupt.h>
+ #include <linux/iopoll.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/xarray.h>
+ 
+@@ -60,6 +61,7 @@ struct mailbox_channel {
+ 	struct xarray			chan_xa;
+ 	u32				next_msgid;
+ 	u32				x2i_tail;
++	struct mutex			lock;
+ 
+ 	/* Received msg related fields */
+ 	struct workqueue_struct		*work_q;
+@@ -205,6 +207,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 	u32 tmp_tail;
+ 	int ret;
+ 
++	mutex_lock(&mb_chann->lock);
+ 	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+ 	tail = mb_chann->x2i_tail;
+ 	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
+@@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 		ret = read_poll_timeout(mailbox_get_headptr, head,
+ 					tmp_tail < head || tail >= head,
+ 					1, 100, false, mb_chann, CHAN_RES_X2I);
+-		if (ret)
++		if (ret) {
++			mutex_unlock(&mb_chann->lock);
+ 			return ret;
++		}
+ 
+ 		if (tail >= head)
+ 			goto check_again;
+@@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 			    mb_msg->pkg.header.opcode,
+ 			    mb_msg->pkg.header.id);
+ 
++	mutex_unlock(&mb_chann->lock);
+ 	return 0;
+ }
+ 
+@@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		goto free_chann;
+ 	}
+ 	mb_chann->mb = mb;
++	mutex_init(&mb_chann->lock);
+ 
+ 	return mb_chann;
+ 
+-- 
+2.55.0
 
