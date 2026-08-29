@@ -1,56 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF56E22E3F0;
-	Sat, 29 Aug 2026 03:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF955343D63;
+	Sat, 29 Aug 2026 03:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787974494; cv=none; b=j2F5cPKEYBZOT7QcvU5cucAfGzAgdm6kOx6zr51eAzcJ43WCKTIZ77jerOSGWr3i7lCdfJOYENNWrHJjEBFZHR68qrx/bKECmb4GXZU6Q2OhypoxWI0rMCYELJ8Iit0eX8YAbL53FLyXzcn4klynIq7PbbtXbEfF9m5kD1jxdgI=
+	t=1787974496; cv=none; b=UBIUbUmmSF1DtivVkf0k/BwzyRwpxK8tLaX0JctZybPFhF1mkj+UhZtO1wylbWcCuRh+NiwYsdP41ZndZqVeJcj7T1G1hNW4dBNd9nKFCnJx0PDLBSRf29OOxOCIdO/atPrxXrZJXYy8hNdMYs1WscaDz+B7vOYvB5ZW7LnhKbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787974494; c=relaxed/simple;
-	bh=G6YnDC3Bd8h6Mtz4c2METMXpJ1rzqwFdpsYXgmmrLEA=;
+	s=arc-20240116; t=1787974496; c=relaxed/simple;
+	bh=mqo6RXhbqK0a7bKTbyuqHGSxMVVKty5TSzXt10GwHVk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xfaz7ZIYqxA6rE8avY10oWWwRYPkYXDUk6xqKaZAOEcovTrp8KdgQFHMgAK7J9Dv87Lz9s2gCxE+rrauVAgHT9mhsbzE7MmxvCpkteWup4HknClXiYnLRJwjqT8bsXPsyZTag72k+gIGOKNDaWC5QswZsXl4myu4B31K1V7kUVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVKB7qwO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p9wU/tu7w0+LQCgUWKyCs3FcygDehxqjrW7PrlnEk0iGUq6boez4EflnMqJfAxUrC3eLE9Pzpk0AeetLuGAVrhKe+W7ume/mZ97PaOiLSdDeAPEP2+d1dhpS1hUuXOgOdVASBTw/SwafBYTg99GNVUaJjbZX4BQWFrzGvlw+hzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxWb7x3y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVKB7qwO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58581F00A3F;
-	Sat, 29 Aug 2026 03:34:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxWb7x3y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94171F00A3E;
+	Sat, 29 Aug 2026 03:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787974493;
-	bh=E6siB1YvZalUIraySCKgtvZ+KGOogw5b479lEh9bn/0=;
+	s=k20260515; t=1787974495;
+	bh=xbaZqm6ArufAHT/YW+nOlk/tIqrW9IH+o3BJpw65ul0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EVKB7qwOUh8sEmcXsJJyF0knMqvxQoKDszQorTifOvxGlTpewwdxPsR84bz2cqaR0
-	 QAvx6xDoKLWdWdU3ilQEQWdL7Qh9aHhWYWBuT/MAbMBm/OWcZLM5XCVdF08hnJLXN4
-	 REDWdePV0kNK30xzVYpQJLLMMzLWQ0OOLeOn9bwIf7Xovs/I0/k80VhKU0kANQRplR
-	 /kkOnTJpu6+rHTdm6EgU6cKNGbWkgatHot0O0GtcGDI2WT2t6T3trQTAJL9e3YK19k
-	 LwXH0fzkzAg04vCZIPwm29sPZPkTU5yGX4EumsdK0zvzx27ZLO0RBCJvcEuI5epa0f
-	 KY0yP5ApVg8Sg==
+	b=LxWb7x3yegeaUjOO+B6/VynLCp9iV/8YpI8msRT0FuSoFh1spA71RQ8ugMVBtptyy
+	 qvrV0ue0E/EKssYKbHHNgxtU3s9s89Rz2tUZ408DWYZV5DZHIZMCQOkec7kqyrAsZR
+	 1SdT+F91F8bbomhbDBmPuDpy4EMqHApbLULTTeGDRTpOLYDOAm378BHDbQnJcXH5m8
+	 a/1SznMLOvXmKopOAPy/yMk70UhJewQNNwJaGdg3ZWJjQa/oFyY+hEXHhZ/ABeK0Zt
+	 t6u35Mgwu5dplG4kjGNrd+f67BoZkk8YNX2XRa0hwiBRdI5JmPnZouKYumGRNGmIhL
+	 xmQJ1q6BeIq0Q==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Wensong Zhang <wensong@linux-vs.org>,
-	Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Dwip Banerjee <dwip@linux.vnet.ibm.com>,
-	netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
+	Ralf Lici <ralf@mandelbit.com>,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
-	Denis Arefev <arefev@swemel.ru>
-Subject: Re: [PATCH 5.10/6.1] ipvs: reload ip header after head reallocation
-Date: Fri, 28 Aug 2026 23:34:38 -0400
-Message-ID: <20260828-stable-daily-0007-ipvs-reload-iph@kernel.org>
+	linuxppc-dev@lists.ozlabs.org,
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH 6.1.y] Revert "usb: phy: fsl-usb: Fix use-after-free in delayed work during device removal"
+Date: Fri, 28 Aug 2026 23:34:40 -0400
+Message-ID: <20260828-stable-daily-0009-revert-fsl-usb-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828085522.31015-1-arefev@swemel.ru>
-References: <20260828085522.31015-1-arefev@swemel.ru>
+In-Reply-To: <de6cc86708372c418d670cf8ec4d5929538c3417.1787901520.git.ralf@mandelbit.com>
+References: <de6cc86708372c418d670cf8ec4d5929538c3417.1787901520.git.ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,13 +49,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit a2f57827bf7c695b8c72dc4511cae8e86582369d upstream.
->
-> __ip_vs_get_out_rt() calls skb_ensure_writable() which may
-> reallocate skb->head.
+> The reverted commit uses disable_delayed_work_sync, which was introduced
+> by commit 86898fa6b8cd ("workqueue: Implement disable/enable for
+> (delayed) work items") in v6.10. The function is therefore unavailable
+> in 6.1.y, causing configurations that enable CONFIG_FSL_USB2_OTG to fail
+> to build.
 
-Queued for 6.1, 5.15 and 5.10, thanks.  5.15 has the same dangling iph in
-ip_vs_bypass_xmit(), so I applied the same patch there as well.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
