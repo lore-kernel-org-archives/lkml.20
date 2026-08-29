@@ -1,59 +1,50 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from tabos.org (krueger-it.net [145.239.1.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A2F298CC4;
-	Sat, 29 Aug 2026 05:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4448B24679C;
+	Sat, 29 Aug 2026 05:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=145.239.1.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981551; cv=none; b=jWs/jqXaOU/qitA301lm39vnUvNdn4WfoF5W/5wFBt/RUIjWSXPeRltFmfiQ4t7GdNXoENnrusUdIZodhjwLjTX8pJ2bo3dXgK9cu6K466N5aLiwwzRelwtuaHyIXKjdEk7Bax/J6/5WF4KD3DTmeHi6xFfiIYx2O80BsSHEvB4=
+	t=1787981704; cv=none; b=rr9OhxudJXT1hBvjPQXdfluKNqgJbWiP5NSEIfdpIORdPuDRglz5w6u1Q2DFcUeZnLGE23ivokFeHl62Zl1gyrtgVe2L1TwnMRlmOOrAVg0wJ3UnVJkwsIkR5lLACNWPovH8jKsiXEjCxTnQGJCJqPrXoriv0PuASY9w9XlvYyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981551; c=relaxed/simple;
-	bh=Gf2VGnQ66RnudBR5MwjrWXa+Tg7a0cP4fOJpJzX964g=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=hLeZQlqsK4vs+Jq16DHqSg81cQgaRAKL1k4dM52NYh15FJw9CywVZ6cYfl0wA0IEGGIlwk73akYL9wGFzh+et8H900VkIDfowMuny1dTs55mVzE2Vv+a+g6E/0ia+JIAL4SPd1E3gUBjaBparq43tdHbodf/TMEKB/KEFcZ+FgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VBac0gXp; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1787981704; c=relaxed/simple;
+	bh=5a8K65dJw13zsEoi3pTHf74nNUh0kVf0LC+CltOyKIk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sq3BVyB07JVUYJStT6pzKj1+0fTmmoDsFe/i5vCYccm4WnexL15hMRiZZdvsjhUh224VG4H0lzgjco6iZCBDI2kU/J+xhlBAXOVQ7yBDlcnq1+GwMOTfDadGqbMOH/KpHwnBo2QqXnNhW7PWqATXdGPyVG+JFFvm+bdStz3zL3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org; spf=pass smtp.mailfrom=tabos.org; dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b=Ubjm0wPy; arc=none smtp.client-ip=145.239.1.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tabos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VBac0gXp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787981538; bh=uT5VjJfiqLWdyGc+W2u0ru+21BjULfiDjNCFK3lMG4I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VBac0gXpyi8PJeKM1jPH8pLGklYOuEdkmyoYqm3GEAIKbcfpeDROzk/c0HeTGwXDW
-	 jycxV59avDFXwWvcjtrvz4e/F8urAtkpVsHIioraAN8kSIXPb3lsF2+hgXhz8NpyBW
-	 ufPNuUHIjDUK3GS88clA243aZJy4YV+XDCxuLREs=
-Received: from wang-VMware-Virtual-Platform.localdomain ([42.48.27.17])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 80B3A623; Sat, 29 Aug 2026 13:32:11 +0800
-X-QQ-mid: xmsmtpt1787981531tyui8wm1w
-Message-ID: <tencent_762005AB7B4F04A2824BBD13EBFFB6CFC607@qq.com>
-X-QQ-XMAILINFO: MRBm8gEMwvbCu9iXU3KBdPM1P09mvn9B+JoSaf+LKwa4uBBnulru5tV+GzfF+1
-	 nFVFexzi/mI7rTRmuZdNCBCJEvC4q38f3hCsWZWwARycBMnzcXfX7zqROwQnuiWfLbLM/Sdv1Gl2
-	 h5m1qJooUCyKbZNir5n52AZZE2qbp6XS8SYDSHGGZ+FvjJRRLZfXX/uxNXkCH5FqbfFZYgILmNXe
-	 hhJpNIolNOLyLWa6pdUzc6k+9TI0EhTSpzIvzQcBUgUkgL0SM7OktZLo9urJR73yPjtD2ROOGlBl
-	 Vdhwt54AKgITwUWTLTVJVZjwyUWMRG69qwrUn7tC13esVxu4lss1GA515OqpfGi9QsA/x63yZoEZ
-	 7TSocVnwEFrG38SuM3SSkJYaW5txMTwMVx3njUW4mR41+Kn8B8QpcW4GPt9nX5pHPtXKs5OYhubI
-	 8Bn07y+jwRqo0QmQRH+0yQpBs3jPFuCCZN01t8ePHgJeqIaVVnNPeT5n5WlmXU+Aroxeddh6DEQz
-	 kuSX4mSd3PGN/VYMmTNiTsJoBziDJNtdwTBvKYAxWQyB00D35UT0V+fGfGjm4gs4VxB0j3egY4a7
-	 zlAJZeSbhJdt4Xt9p35VlZ61OxlmwPN6DvSl7flD+H+w3GCVhRP9q+l9aFXuSzKZVFRJNuRQBcpZ
-	 3WkxuARIvqSp9zOAwgYqqXKZCZFC15xZk/yHzJGLbnVQzSIPK8gyeNb+FjtfAgEjT0uGJWs1PNoe
-	 Aeo44km/dUqI+0kh2swbbTGfgQuyhb4v7HpYNkgFgwca1RbRGDgy7wd3grBDVq8/kih4/gYI97cB
-	 TBfAwteFOA/aNclDiQhH4MmmVLaNVODW6kEfOvCIuQFZ9ptZbLusBNbRgy3CdkcvUMmOg1OGy0GW
-	 91YWjfgnFjZVnqA7FF9dAUmXYhWLlfp8v3JF7wG+ynJ4ltYuJQgprkZK7tyydlji7fisksqTd+BD
-	 1m/BBY9e4exiPID1kSaBAtoHPWYrHKd9wAS3DSiP4vaMe2HF3xC9igC00fyw/oyANx9HogIabpIK
-	 ej+V+5BNPT1c9m4n6r
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Yingjie Wang <1075151112@qq.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b="Ubjm0wPy"
+Received: from c0d1ngstat1on.fritz.box (unknown [94.31.74.100])
+	by dserver.krueger-it.net (Postfix) with ESMTPA id A830E62E0388;
+	Sat, 29 Aug 2026 07:25:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tabos.org;
+	s=default; t=1787981122;
+	bh=TnlQvivcYtmg8pXMUQUCzn01H5WF5wXF821/Q4UxPvQ=; h=From:To:Subject;
+	b=Ubjm0wPyru5AukNY9spx+mmKN75HNcqeQFlNqGg2TusGwuS0EmKasRHvSue6QFHgd
+	 PqCo5ZfyAQ5OYcTWBlp6hXHP7THyJrGLctqAtzP7iCnXS5C03Z4ch21ZnEbznvA7hY
+	 W29lDqJatxdhibcB5ePZnOlB959QmGl29hLMtOI42Et03R+pmL6M57IlfSYk8oSNMS
+	 VO5MYzOtIRyutpk3ZgZBfmgAZiyIHnmpHvokvIxxlrwI5zXN6wD6qLeqDIh92RQrPd
+	 WLcuTuD/EK9UJkLe3TQMTk8b4pM8QK34evq6WGWOQYBUJCRPBUORkv7Wg8AWk/nQAJ
+	 xQ0ECgnr/gInQ==
+Authentication-Results: dserver.krueger-it.net;
+	spf=pass (sender IP is 94.31.74.100) smtp.mailfrom=jan.brummer@tabos.org smtp.helo=c0d1ngstat1on.fritz.box
+Received-SPF: pass (dserver.krueger-it.net: connection is authenticated)
+From: Jan-Michael Brummer <jan.brummer@tabos.org>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	tian.shu.qiu@intel.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: unix: reject negative max_dgram_qlen values
-Date: Sat, 29 Aug 2026 13:32:10 +0800
-X-OQ-MSGID: <20260829053210.397417-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAAVpQUAYOo1hRXD_fFx9oa2bqTV_x17i7Y=vajcx1knYNLjdsQ@mail.gmail.com>
-References: <tencent_4AD5738B48FDD2FC84E21FE59338C8DBAA05@qq.com> <CAAVpQUAYOo1hRXD_fFx9oa2bqTV_x17i7Y=vajcx1knYNLjdsQ@mail.gmail.com>
+	Jan-Michael Brummer <jan.brummer@tabos.org>
+Subject: [PATCH 0/3] media: ak7375: Add AK7377 support
+Date: Sat, 29 Aug 2026 07:25:11 +0200
+Message-ID: <20260829052514.18178-1-jan.brummer@tabos.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,26 +53,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 10:49 AM Kuniyuki Iwashima <kuniyu@google.com> wrote:
-> I'm not sure if this was intended, but passing -1 for sk_max_ack_backlog
-> is known hacky config to get max, see __sys_listen_socket().
+The AK7377 drives the focus actuator of the main camera on the Fairphone
+5, and is register compatible with the AK7375 already supported by this
+driver: a 12 bit position in registers 0x00/0x01 shifted left by four,
+and standby control in 0x02.  Patches 1 and 2 add the binding and the
+compatible.
 
-I checked this.  In __sys_listen_socket(), a negative backlog is cast to
-unsigned and capped to somaxconn; there are also in-tree tests using
-listen(..., -1).
+Patch 3 is a fix that is independent of the above and applies to every
+user of this driver.  probe() calls pm_runtime_set_active() while the
+regulators are still off, so the first runtime transition is a suspend
+against an unpowered chip; it fails its I2C writes and then disables
+regulators that were never enabled.  On the Fairphone 5 that showed up
+as an -ENXIO from the first resume, after which focus control stayed
+dead for the whole session even though the actuator answered fine on the
+bus, and as a WARN from regulator_bulk_free() on unbind.
 
-I could not find the same convention for max_dgram_qlen.  It is not
-documented or special-cased, and I found no in-tree user or test relying
-on -1.  The sysctl value is copied directly to the u32 sk_max_ack_backlog,
-so -1 becomes UINT_MAX without the somaxconn cap.
+I can send patch 3 on its own if that is easier to route - it does not
+depend on the other two.
 
-> At least, this effectively limits the upper bound to half,
-> sk_buff_head.qlen is also u32.
+Testing: the AK7377 on a Fairphone 5, driving the lens across its range
+and checking that the image comes into focus, with an out-of-tree IMX800
+sensor driver.  I have no AK7345 or AK7375 hardware, so patch 3 is
+untested on those; the change moves the first runtime resume from probe
+to the first focus request, and confirmation that this does not regress
+them would be welcome.
 
-Good point.  I'll change sysctl_max_dgram_qlen to unsigned int and use
-proc_douintvec_minmax in v2, so negative writes are rejected while keeping
-the full u32 range.
+Jan-Michael Brummer (3):
+  media: dt-bindings: ak7375: Add AK7377
+  media: i2c: ak7375: Add support for the AK7377
+  media: i2c: ak7375: Do not mark the VCM active before powering it
 
-Thanks,
-Yingjie
+ .../bindings/media/i2c/asahi-kasei,ak7375.yaml |  1 +
+ drivers/media/i2c/ak7375.c                     | 45 ++++++++++++++++---
+ 2 files changed, 41 insertions(+), 5 deletions(-)
 
+-- 
+2.51.0
