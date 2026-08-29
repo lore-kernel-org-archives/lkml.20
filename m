@@ -1,126 +1,94 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558F141E6D6;
-	Sat, 29 Aug 2026 21:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3BF3C1412
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788037260; cv=none; b=dj4BDdapx6Q7IwuCuNkTbl5hp69FESm/dqyEmuut5o3OHefK6igMmrak4kVbPD93oSjn5S5T7+t/LDtEumj45XGzLNpbE8c0H91EGTy4STbwA30YhiW26yfhn2q0P9RLfs0e3O/MKA5Txs+/oiYLy+c28fmF0OKJJcss3Q+RoDg=
+	t=1788037334; cv=none; b=WGOoym7tyTHAq0xbhxH1spRt+pIXux/190fRPFD+fw9VzkHnsPikcpjTp6ALswQ5dD/cDS0ynJaLpKtBaLbiWweL6wUPBgRfSR7OX+M/MQLj3qENgUK6Q2GiWyV7ITiz4VOAYvDegwXdwxeYIJgK7jOW++LV+hzg1OY/Tp74/S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788037260; c=relaxed/simple;
-	bh=ZCLOYdLGGTaPVrrUIRi0LAyGhJetauKnrguCAJ2ChTE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OUimX5kQeuHIFtmO6VH1DpXIr+9bOEfzIF1il1EeW6H96RAZ89CLmuGztBgc5ts5UJS6meTduRIioolTCktNYwFGinyTb8SwPUdT3a1H0GLQCuJKwctPSkNoQnAWDWokNRzluGOCOrynmyAzUv362Yy7mB49v0sPtfgJfWorzr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Y80z3+d5; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	s=arc-20240116; t=1788037334; c=relaxed/simple;
+	bh=hvzuxqHgfGmIRgSIcRCW+5UopEY1wnVLKdL60h93pvo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IDE6TmsfymU4MoA4y7mjAzwk49EGEl6Z5aAy5+YeNTBIFEjPkTS09AMfkno9fmQd+s8Yc5bjH2KonqiMzc1pJEiE29peCsui7gzC/idpYf3QvS+X85PiOgNSVo5NKWYONw67KCxCg0VBITDsMA5QVhFfnbVc1O7gW4mlGBso4os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbupArtD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Y80z3+d5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-ID:Date:Subject:To:From:Reply-To:Cc:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=4jb3oLVhDjJ7a0scPyLkRRvMhtD2ofVRTFUL2iPH0Po=; b=Y80z3+d5afY3id+R+ikQ/EEroF
-	5t21K1vFEtJVtC8zWMsWVZkcoEfRj73tkwGDdkxTIpAEUWHzpTCxw8LBt23bZvP0M0ub1aV8uETmD
-	Gf3BUYb+ICKP5V6JPcSSYGPad/6D3BgRdFTTyTf+WTgttAUak0M3StZzqnpmUMANB10sUw9uhYvsT
-	+1JRKRpyetx0ZVzPQYjTWAKQCwqPavNfz6GhhqXbNe62H7XeIFnJQnTtqDdS4hh+asDrI8ai/EaJU
-	0zaRW5XQSd4JlEqz2DCc2dOKXZek8okHmtiSIqjt2UFF3HcBD+mhOOxYYoQ/OyvWa7LUfzpRoPSLw
-	4eCa5/XA==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x0QAR-0000000912J-32w6;
-	Sat, 29 Aug 2026 21:00:48 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.4 #2 (Red Hat Linux))
-	id 1x0QAO-00000000AbX-2sZn;
-	Sat, 29 Aug 2026 22:00:44 +0100
-From: David Woodhouse <dwmw2@infradead.org>
-To: Rodolfo Giometti <giometti@enneenne.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	John Stultz <jstultz@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>
-Subject: [PATCH v4 0/4] Add ntp_error to clock snapshot, enable NTP_PPS on tickless kernel
-Date: Sat, 29 Aug 2026 21:56:58 +0100
-Message-ID: <20260829210041.40649-1-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbupArtD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACC91F000E9;
+	Sat, 29 Aug 2026 21:02:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788037333;
+	bh=+UL151QUzzTff2jOjVTBzE39JZhThLDGVNAm23KMxm0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=mbupArtDALysAa+5T7moUFeboWCkRkDslTbWP1NDQnBI8+/IyxTm+wfTOSFa3qkZa
+	 ZBnUyxKTbKKQja/XRRLX4SYxZAaSpDWyXkhXG4ENuSE6+s2zfb3n4kVt3bGJMYUV2r
+	 Mea1TprRG19X+cUJ//qgYIg3BqEFiezyyD2EZAZs9IeHMt5NaGIEqsp1OJNtLVNVwz
+	 BUVXmtuxf9zbllnV4VxKiADYg2zTGPjiVuPpmNdq1su/gZxskl+7z9fgiXDvjjAotr
+	 geULgC6QGGreOpELqkdwO/T3m8hp2P3mPcVnN0Kkutc3nMFRLtGZErHwQaFDaGmsM5
+	 717Ygm2WonNxQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, "Peter Zijlstra (Intel)"
+ <peterz@infradead.org>, Lyude Paul <lyude@redhat.com>, Sebastian Andrzej
+ Siewior <bigeasy@linutronix.de>, Joel Fernandes <joelagnelf@nvidia.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] interrupt: Disable interrupt before modifying
+ hardirq_disable counter
+In-Reply-To: <20260827181106.30090-1-boqun@kernel.org>
+References: <20260827181106.30090-1-boqun@kernel.org>
+Date: Sat, 29 Aug 2026 23:02:10 +0200
+Message-ID: <87ecfgej3h.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain
 
-The real time reported by the kernel's timekeeping sawtooths around the 
-'ideal' time line that the kernel would like to report. Limited by the 
-integer arithmetic, the kernel varies the 'mult' factor by ±1 each tick 
-to achieve the correct rate on average over time. The reported time is 
-further sanitized to ensure continuity when mult changes, even part way 
-through a tick. The delta from the ideal to what is currently reported, 
-is stored in tk->ntp_error. The sawtooth effect is more pronounced on 
-tickless kernels, as the 'mult' value does not get adjusted each tick 
-but only less frequently.
+On Thu, Aug 27 2026 at 11:10, Boqun Feng wrote:
+> Currently a softirq may be pending longer then expected if the
+> triggering interrupt happens in-between hardirq_disable_enter() and
+> _local_interrupt_disable() in local_interrupt_disable():
+>
+>     local_interrupt_disable():
+>       hardirq_disable_enter();
+>       <interrupt>
+>       ...
+>       __irq_exit_rcu():
+>         // false because hardirq_disable_count() is not 0
+>         if (.. && !hardirq_disable_count() && ..) {
+> 	  invoke_softirq();
+> 	}
+>       _local_interrupt_disable();
+>
+> , it'll defer the softirq to the next interrupt which can be forever.
+>
+> The order between hardirq_disable_enter() and _local_interrupt_disable()
+> is to optimize re-disabling interrupts if they are already disabled, but
+> as 1) local_interrupt_disable() is not widely used yet and 2) the proper
+> way to achieve this optimization may need fixing up the counter at
+> entry/exit time [1], so reverse the order for now to avoid the softirq
+> pending issue.
+>
+> Since we are doing this, the part of saving the current state is
+> separated from irq disabling, and we basically do the following in
+> local_interrupt_disable():
 
-Both ktime_get_snapshot_id() and get_device_system_crosststamp() report 
-the same sanitized time, but *every* user of those functions (PTP, PPS, 
-KVM enlightenments) would be better served by the true ideal time.
+We do nothing. See
 
-Add snapshot_ntp_error() helper and use it from both of those functions 
-to adjust the system time they report and return the more accurate 
-result.
+https://docs.kernel.org/process/maintainer-tip.html#changelog
 
-With this change, CONFIG_NTP_PPS works correctly on a tickless kernel;
-enable it. And change the non-CONFIG_NTP_PPS code path in pps_get_ts()
-to use ktime_get_snapshot_id() too, for the more accurate data.
+>     local_irq_save(flags);
+>     if (counter++ == 0) {
+>       this_cpu(local_interrupt_disable_state) = flags;
+>     }
+>
+> Change _local_interrupt_disable() to _local_interrupt_save_state().
+>
+> Link: https://lore.kernel.org/lkml/87v78wezid.ffs@fw13/ [1]
 
-Tested with a hack to make vmclock simulate a 1PPS signal, although there
-are now better options for that. But it's enough to show that even the
-tickless kernel converges to ±1ns of the PPS signal and remains there
-(tested with a periodic PTP_SYS_OFFSET_EXTENDED to compare with the
-vmclock reference).
+  https://lore.kernel.org/lkml/87jypbfu1t.ffs@fw13/
 
-[    0.631862] Run /init as init process
-PPS: coarse-set CLOCK_REALTIME from vmclock
-[    1.633957] pps pps0: bound kernel consumer: edge=0x1
-PPS: enabled, bound to hardpps, STA_PPSTIME|STA_PPSFREQ set
-PRECISE: dev-sys(adj)=+5565ns OK
-EXT[ 0] diff=+5564ns
-EXT[ 1] diff=+5562ns
-[    2.696938] hardpps: PPSJITTER: jitter=5563, limit=0
-EXT[ 2] diff=+5560ns
-EXT[ 3] diff=+398ns
-EXT[ 4] diff=+1ns
-EXT[ 5] diff=+0ns
-EXT[ 6] diff=+0ns
-EXT[ 7] diff=+0ns
-EXT[ 8] diff=+0ns
-EXT[ 9] diff=+0ns
-EXT[10] diff=+0ns
-
-
-
-David Woodhouse (4):
-      timekeeping: Apply extrapolated ntp_error to clock snapshots
-      pps: Drop the !NO_HZ_COMMON dependency from NTP_PPS
-      pps: Always use ktime_get_snapshot_id() for pps_get_ts()
-      [DO NOT MERGE] ptp: ptp_vmclock: Add simulated 1PPS support
-
- drivers/pps/Kconfig                 |   3 -
- drivers/ptp/ptp_vmclock.c           | 196 ++++++++++++++++++++++++++++++++++--
- include/linux/pps_kernel.h          |   4 +-
- include/linux/timekeeper_internal.h |   6 ++
- kernel/time/timekeeping.c           |  70 ++++++++++++-
- 5 files changed, 258 insertions(+), 21 deletions(-)
+is the mail where I explained that softirq issue.
 
