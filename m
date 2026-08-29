@@ -1,63 +1,65 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994CE3515D6
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E8D33B970
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787982626; cv=none; b=rWUXjRBD+dQB0t8Oy8G1MB9c6pLSKFWRtEyV9NldVn82VVRGo5ccPU0e5vhBDZcJhV3+BG5Br+OFTxlQw8K6PAqOD6NYYLtfI/lBsizbVz7ba2zgbU29C+URqI9x1g73A/UHNpfjJy5lehodMrMzGHcJniIDCTRgMtpX/+lxVA4=
+	t=1787982627; cv=none; b=MkFTtbmCJUR/7a6GxxvpGx1nL1vqISTxty6pafQH5hUeY0sBzUcBHLjDDeSe8EhVmH6eqXS+FkQYCPJoRWd1WrKZPESIkukX85RPukD04CDqTnkueAQryPdv9OhbuT6AFgQ5Obxz4VtEOxVrcGi9pbHRZlUZYor7rgAtpo+ORMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787982626; c=relaxed/simple;
-	bh=Z+A8Tz7FckQ9L2HOE2LwzbrR7eujbvyPlVNZTZIai2Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IiXV+r4coRTdOZ0zO9dTGVAG8IDQylybNYGjjRiPTlsm2BszdPrKvxC/yk1AKkkMbotnsxl1lZTNk3xjbsZb1Sd9C2drr5fNYhISdjalfwd76dZIhaePHnY4BwctGIKDzd9HbjQAbZVI+Fwn69fKzbzHunRxwUAMSBzX6KEYh6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GicLlpl+; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1787982627; c=relaxed/simple;
+	bh=aru3gpZckcqhzLmD1P2HSOiefupvneO2iUB5oqNw958=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nv1FuCKWjV4nz97I4W0MjgLJml3I7BIDvEmRb8Om2Ysbo/Pr7TTi0oYDmdytO/MYn7/sArivk6moRUdGf7CkWhulIGrAxIT7TulCjbtC/IqWzNexUe523C2TsMwrdRNHTmBRmCYs2zueNlut+BoG7TLQiHw8pFjW5aD5OKpP/2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjAKPDiH; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GicLlpl+"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so12094735e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjAKPDiH"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-495590dde14so15687495e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:50:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787982621; x=1788587421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ukS+6O6VUnt+grJqSVzkQJWIYuNE2DdB1/VCqDk7Wk0=;
-        b=GicLlpl+0dShPSzzFHsX+0hw752r/IAaqQdMRk81ppy7F8ryPOJQX7oGojnRirEM7N
-         wdIqOY20pTEr7hFLb55QfMpUk9bEk2ikoJNmf7EgX05jbjuR+gnn1d6kRZ+RDubCkqZN
-         IopSkTmu5DShb7DlLpC+dG1v1vSj7IZpmVSmvm4V+0SF7N4aF8cuF5cyCPCg32qxYJu6
-         wVTz4lzHpGgeY70OZMYO3sLTuz1SBn2+YcSVZE3kqwDWd+rduClgiY6Z4JCci/Bw1NS6
-         A+UUKUP0BvoxkUPt5W0tpBo0VkDowT6Ph75zczE/cm3BK9i5N+b4zkkqADVhYVbDkVPB
-         LzCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787982621; x=1788587421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787982623; x=1788587423; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ukS+6O6VUnt+grJqSVzkQJWIYuNE2DdB1/VCqDk7Wk0=;
-        b=JbW5PDhXlPuqhhfzLIVEATJnO0ogsIbA3OAaE3SnFnXdk5z6/8NiGv2+SdS5sKu6C1
-         s2cRtE4wQX2bazp8rgP11LbS8LsbMpKryHWk4v9Eq37LoQcX48WsJBgL0nUQbyDjtR4o
-         ZqiABEhE5XXeqfIWrI4ca/Qad4wOEP4aEcC+ysuyXxZyefBzyO9X1C2cWe5nk9B3XWgz
-         gWn51C3sSJpXs/WRGoCpD0Sjo2Tkigq+wTD3RliQ9IZKOtCdBrbtB5Suu5WFX1iju7c6
-         l7kgcqfSRg0Px3r55vExADPTRUqqxbfrqUgU12MARDDSLkOvi5ciR2lr7Wuwx3Crbafs
-         7gRQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/2gDe1ZzyXiZrt+AwZoyJTh1TJLpfrc4li6fTMn361IWSH7Bp86R+JadjTA7L24AkOnRsCKlgC2tJxYU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2w0o9o5Y3N5heWRmwTq3o4Gen8itoljv1Nro909EWQ2fxt2TI
-	WQU0TAjzyW3g/IfcmkC8a7MVhm1iAyfKv4VcD7p35IM5WWdRq3rIs4y7
-X-Gm-Gg: AR+sD11GLs0V8AuAvJsXb3zsAQBGo9lfPgC1tiqBuF/fQnPSMrkdL0JgVQvLKTquG4F
-	3BbCc3Ed49NrziR8+rElDRDAE5MtN6LUdxmAVq3e/D2f4CCpnEiXEnDwhB4408iZz7znJdh+tYr
-	WQUEjJknuMlIfM3vKPXYjhrUDM5YHjylfyND8OO8YXuG8ytcMF8Bdh03j3NVLcOCl0913DhnNiX
-	Qf8QsCl1iVAhL7RmoSsqK9YxT3r3NOOVyhcWlePfZDKb/MjCAWgyypwk/KpRlRdCWTiPIIde9/O
-	RfwRntNX62/j2pN7fdQGD4SAkrJQc0+oBKKjHJrlqpPWkDjbynuk/dRIsLP8hQh0RbwS/9xgdQy
-	qDNmO8/OBSsldKU3iEUdwwBsbCtgl3YwIMGJeZ7WjSrh1iHmETxntcxskeXhRgfqvT9vpbutc9z
-	UofNgwBiSnliyImoY+/qsp0z0Pf4Puqeas4Ajy2bmsYPofvhPysYu80M+h1EMXT+LuQ2DMYX7wL
-	dFIEkZniBS9EqxcckT1Y+h8cuiNpEJcpoSiaspoBwMsIdSsSP4n0aUikRFm9gMppkU+DKnavIYo
-	KWJZXvWjnrw04N+I0egz
-X-Received: by 2002:a05:600c:4715:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49b91c26a01mr172319715e9.5.1787982621199;
-        Fri, 28 Aug 2026 22:50:21 -0700 (PDT)
+        bh=JBWN6j8OnBuuPy0FKZmRrD0AlW+PPdIjJrnUe6crviU=;
+        b=GjAKPDiHLPFArNBvKMyLefBHvLNucNuoYwePhbhaGfb4sQLyCCXC09en94CFYNO1pC
+         eH6fZ565GQSH1oU4WpjLr8tF+Xndp9TpBI49LrxFH2fWKaoRHfIGnH953h/MN26lUCuO
+         Ergud5VSUpWpV+wWQyQJFmYNBqIPtQII/+xcudqKpXSB/Jzodj/0kc9eEkAlpcvlyc3R
+         nR8FGnBuiZAuj/6LH9j/8jR/cj6+1bm8UMLvJDKGhE5w3DccTzdAyeE7OY9K2ebRzxKP
+         zwVUOXuu5QdwZFPyirRxjYh7vSYQ0d721cBj6YGS98j18ct50NB67Vmk08T8F60LKVPW
+         lZ/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787982623; x=1788587423;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JBWN6j8OnBuuPy0FKZmRrD0AlW+PPdIjJrnUe6crviU=;
+        b=krUbTos63ccOY6PL/KLNqsAP4V6OvWDd7E7ICAJOMPvhgrFXF5j6MZ+nxXKB2toQOa
+         50i2m2tDnCp8m5r8EREElD9ZAYY760zt2QMLTmkkOlYkmvvpkczPSIKMUx8tZA+z3PhS
+         hbm/yFq0+hTfNdYF2s6YRCa/b8gNGN5H9mubOZsAoe1XL97akDE7qey4sxZzm+YLqI5W
+         ohogtO1wFtY03TQUBhIDdzaKMsg+/hwUS50YgYxDlpc1lL4fW9GwZhh6ax7+p7aRZV+v
+         AsgRKRwq4jMTHL7zY3JQbo8BUmlQxEJIJ0mf4qb1j92pFPFrokCrEOQbmZ2yUkJkSg1J
+         R5Qw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8fRMG6iLGWmaTFFOuxj5kUn5TnjR9HvQhImzBK8cafkuW9JzVyWf5sqmAF8t57vmZOODlMg0HiqhUiHk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOawhXEx6lPm0X1wcrjUVq6PJ08+AZ+E5INgRiRPArNv+v6bOG
+	aq16k6O1rCIs/FGsaDxJZAMpTl8VkaEyYZ47iHl1fmiZf/ADgYCynVwO
+X-Gm-Gg: AR+sD12BgdDTwuRP64k7XsHtenlGExzFWStJtDVIAca6rOnggs32k4XzbL0DOy0XTTS
+	OXHetv+xVK7wGvH8t9Gazb88UgR8hCEKUaF5mH8b3N/MYdydtVbgew6Wh+DKVmDqXVXGi5VWAGF
+	DRvEUCe/GKc/gySFTf1PAOAh9/0cYLIUgGEMpoeENwdY7rRBVnM9Vwyu+KSYSUTrvEyPZPCAK0o
+	3HkjbYSvCmu7WdB4d9GispeTt6JZX18vpgK/m485VHWG0RoVaGdSQnudkHeAPPY5KrV2CQh9Ej8
+	XEqrTUGhDPkObpAqUiKPalvuVbqMQKMlKoMrpUY8UqBdmbOtm4uA0kwQ6ut2ZczTJP+QBpMpVRC
+	Q8PWtAcuIEzeEYmQIYhRMKgfZSK6IK8Ug5Es2/KOIFH4a7uSJ+mhRIeiniJKPNbLO6ze9+waXCK
+	0UEzNSfbSmmPs/9G+gwmyNTnaKxpKf+eF/A0zQ/fTHmpHHWLM1cScu0Lab7Abz87nYiat5YxNlL
+	bcvGdwpM7n9jht8POm8WT4qjKYDxd9xSneGg32iha8d8XHpLrtNx7fvSol6JIDzBax/JZEO5VFL
+	CMfOAokTd01BcoH0f8hp
+X-Received: by 2002:a05:600c:a47:b0:499:be9e:49c8 with SMTP id 5b1f17b1804b1-49b91c50957mr150918935e9.13.1787982622515;
+        Fri, 28 Aug 2026 22:50:22 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-077-007-015-136.77.7.pool.telefonica.de. [77.7.15.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm35357485e9.2.2026.08.28.22.50.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm35357485e9.2.2026.08.28.22.50.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 22:50:20 -0700 (PDT)
+        Fri, 28 Aug 2026 22:50:22 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -78,10 +80,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH 0/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter range at base 0
-Date: Sat, 29 Aug 2026 07:48:54 +0200
-Message-Id: <20260829054856.70549-1-kmehltretter@gmail.com>
+Subject: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter range at base 0
+Date: Sat, 29 Aug 2026 07:48:55 +0200
+Message-Id: <20260829054856.70549-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260829054856.70549-1-kmehltretter@gmail.com>
+References: <20260829054856.70549-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,35 +94,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM_ARM_VM_SMCCC_FILTER rejects an empty range (nr_functions == 0) with
--EINVAL for every base except 0. kvm_smccc_set_filter() only rejects a
-range if its inclusive end, base + nr_functions - 1, is below base; for
-base 0 that end wraps to U32_MAX, and KVM then tries to insert
-[0, U32_MAX], which overlaps the reserved Arm Architecture Calls
-ranges, so the attribute returns -EEXIST instead of -EINVAL.
+kvm_smccc_set_filter() only rejects a range if its inclusive end,
+base + nr_functions - 1, is below base. That catches an empty range
+(nr_functions == 0) at every nonzero base, but at base 0 the end wraps
+to U32_MAX and KVM tries to insert [0, U32_MAX], which overlaps the
+reserved Arm Architecture Calls ranges. KVM_ARM_VM_SMCCC_FILTER then
+returns -EEXIST instead of the -EINVAL that the smccc_filter selftest
+expects for an empty range.
 
-The request is rejected either way; only the errno is wrong, so this is
-a minor UAPI validation fix.
+Reject a zero function count explicitly.
 
-Patch 1 rejects a zero function count explicitly. Patch 2 adds the base
-0 case to test_invalid_nr_functions(), which only covered a nonzero base
-and therefore never caught this.
+Tested with a userspace reproducer on an arm64 VHE host under QEMU TCG:
+EEXIST before, EINVAL after.
 
-Tested on an arm64 KVM host in VHE mode running under QEMU TCG: a small
-userspace reproducer gets EEXIST before patch 1 and EINVAL after it, and
-the smccc_filter selftest including the new assertion passes with patch 1
-applied and fails at the new assertion with EEXIST without it.
+Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ arch/arm64/kvm/hypercalls.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Karl Mehltretter (2):
-  KVM: arm64: Return -EINVAL for an empty SMCCC filter range at base 0
-  KVM: arm64: selftests: Test empty SMCCC filter range at base 0
-
- arch/arm64/kvm/hypercalls.c                      | 3 ++-
- tools/testing/selftests/kvm/arm64/smccc_filter.c | 4 ++++
- 2 files changed, 6 insertions(+), 1 deletion(-)
-
-
-base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
+diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
+index b11b8821c9fb..dfa25bb6f25d 100644
+--- a/arch/arm64/kvm/hypercalls.c
++++ b/arch/arm64/kvm/hypercalls.c
+@@ -185,7 +185,8 @@ static int kvm_smccc_set_filter(struct kvm *kvm, struct kvm_smccc_filter __user
+ 	start = filter.base;
+ 	end = start + filter.nr_functions - 1;
+ 
+-	if (end < start || filter.action >= NR_SMCCC_FILTER_ACTIONS)
++	if (!filter.nr_functions || end < start ||
++	    filter.action >= NR_SMCCC_FILTER_ACTIONS)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&kvm->arch.config_lock);
 -- 
 2.39.5 (Apple Git-154)
 
