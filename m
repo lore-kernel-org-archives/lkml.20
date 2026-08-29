@@ -1,105 +1,142 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731A0392803
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A886D2DC783;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788006093; cv=none; b=af2cWIKjWzmOcYCrV63a4IOBI9GlETpLJ7N9izwTUFGEky9+Ijwj2WE/e7BZdxTvtX9F+KpKv91QQjaICzgVnwUif3qd/Ajo783Uhxxnm6KufpFahfn/M58GXXvC0NMQLCVqHJ0EETRsg43zfRlIEyvq0Df125Qfha2wdmCGAj8=
+	t=1788006483; cv=none; b=poFe93Zx4xowCtbVSIITpR3L4jK+yaV965KkQK8oHTMsso8tjlQs3+M7uzKOlXoOSv+VfUzkOSmJFIDMJUROJdiV5rmHXUIpRKVpe9bukyk83rxBEAosudyFQI2LKUP5dyJwf49JWloDJuwx7HcgFgTm3bXww41aaEjpbgwcwc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788006093; c=relaxed/simple;
-	bh=VcyCGctu1g0xc0Z6WK6gwbU+4XuhAb+0zAuOkn6SwdY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=iPAGKAhbtz6GwZgnv3cMek8NQL8/k37y11DlN4+07JChnxy4t3CIEOMQ3qk/Qfgyabl2bbRmf3g6GMMcx1NmrdKLjOGDrSNTQDT4dU7V/eD99nZ8QkQ9BDxIswZPZ+0kvWk38iWgD2c7zkxiOyJEDLPVoSbLbI2Vvaiam5wde04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPfMgSy8; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788006483; c=relaxed/simple;
+	bh=VwUiMkZBnNI69pBkdAmD5Xsm/G/FSJcHnsrHJ3DRI1s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bY86FerpZ3rfeK67RTleK3MgJZNtvntqgNawA7qvs0C1qzWQoaqhpeOKsSIvpl8AISB13qwLv/ZptYZ/x8Gvpjz4mrLSqo7GZ4BxXBURg+ayaI6jzi0RVoqZKiFo+SzWP7Closr/exvAi49ewUvmGG80au49GA0H79+GoyCWhdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcV3yJPc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPfMgSy8"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so16277435ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:21:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788006092; x=1788610892; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FcrdV1chy8E5sLFVdinxAMnEwzUKSY0vgBRq1ljoevQ=;
-        b=GPfMgSy8wbGkO3PpBbkYF+/p1vCz1uT0RG6OG+eM3/z1vASphskdgTi50KhAPW1x+v
-         xB8KrKTCYqH+Uawne5i6bKf9z+Jev4y+w7sp/50LDrH8DRPRzpbe5ueJDQIgOs/4ROF/
-         592H4m2SMJTy+HG2wpCPLsmpgbweV2kIxrzZ1f8K+w1CDWhGU6DgjnrAy7eXOQ7suAQ1
-         nKtBvXG/HDTdiIxXSKdWechEVGUy13D26RcbfinejSn/m7m5DnsJZlLmgsjLoklvfmd4
-         7TB72Q8rw6fGKIWWJvFQnzbNcaCcwsQpcLtPKjX4HcmrZne/q27UFXIGINRTMIcb0xg0
-         C0xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788006092; x=1788610892;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FcrdV1chy8E5sLFVdinxAMnEwzUKSY0vgBRq1ljoevQ=;
-        b=hzlP3hmsg3g/FhQQzYm7MVnm87XAQNWMANgx9RMLYPS6az3XKDwAvmN2gn8dp/5Q28
-         wKRo1niYqGOVCMnGt+37O1jJPwVhq6SGv8RLzPna5+oXXzJ+WXurmSvT3Ok8TALLSvFx
-         7EQunVwnfvjQBnmFDvn5HvgeYxktqeuTce+pDzDRwEEe24wRVvhVgjL1EHcBVnTjelgV
-         3tzikiHyAAmfcsiXLS8/IvRPVwOjOvRG8NMa0bIH4dK6mpf3JLIpViTgv05rhzmSTKZz
-         d0X8mNDY5xw3rZc7EEqJH4403zY7xpwnG5h4lM4JzBv7MWvEhq1i3maaXDrlUHzhoBlt
-         oNWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSd/SOMsrePO2Fn2xs6EsrsIwhpLW75aT9uAdr0iURukX9uczX2PKMB52bBkxWOEYON016NjWyi14P9Wk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxWgbMAjL2Ko0b3/j2TtQgMEfFy/mOR05F7yZvP82h4ojNxyrA
-	tWq3XTuW+ECm01zkZ43R3Gr5oSN/dCesZgbpk90lVbG8FSCfy+s4sgbKQSdgdyIJ
-X-Gm-Gg: AYBFou3i8zP7SIoh1DEEAJ4hF8057UsGlt7L/C9TipWY9atByk//+CbznMbdzIKIN5t
-	gGaLncFQvbSk4nhJ1Tatv2Xz00NMAPXAy+pp7H32A7rYDgAi+1urLOGBL03IuQxutxQUXaysSOQ
-	m43rmooSyLOrlcp6KVlVkRo7zGYKcSHQZwPy4ZDOcRncDxpYGHSQqZFY5TkXwP8M/S6zMcOKbuO
-	NRrnhe4kR5e8n8oR1KEcLI2BodHxEitxYL6M2WkJR6nKUVokx0v322yFn/AMfzrlGInScIQSCow
-	lxFLN0UxcSI1MKynmvbfpnD/rBdKafib0SaOZff5GSYXr9GBevXmCum2ZpU36zwZCymQez29M0s
-	L9KRg1WLVhxEJNR8WKpZy23QEoZCKqKO9DYM1c7YWMoURDVhPP2Pdn/y/GBHkqGsm0hOI70yCDI
-	6jf/pKQDYDBkbIKTIYwd8x70uAOcT5/maQewxLxcSXfnHVQ9Qudg07QkDsZvy9ZEcOczRJ05S11
-	EERfqidlLo8OXB8EPv6Ey6ofYHNyQ==
-X-Received: by 2002:a17:903:3884:b0:2d6:3c22:993a with SMTP id d9443c01a7336-2d74dbe96fdmr255095475ad.3.1788006091685;
-        Sat, 29 Aug 2026 05:21:31 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm12041393eec.20.2026.08.29.05.21.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 05:21:31 -0700 (PDT)
-Date: Sat, 29 Aug 2026 05:21:28 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Input: drv260x - switch to using fsleep()
-Message-ID: <apLOXaWFZ8ueIEAm@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcV3yJPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 28CDDC2BCF5;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788006483;
+	bh=VwUiMkZBnNI69pBkdAmD5Xsm/G/FSJcHnsrHJ3DRI1s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mcV3yJPcCp7qluBM9FSrIzefUajMd/IEYQEJ71Cx6CcccjcVnHwI880PimSqx3Mlx
+	 kbPFgfTuY7C9IDAZT2P/i5ODPJlUzoum4Z9WbHU4Z0Bo/6RNnB7uqECqXB1xifKlH9
+	 C0gaW4YoHda97rHmLywqsD1kM0v9gGljK19m6enX3Ifbo+i4mBP5fVUxOJrpy7VAYo
+	 /pY/2cLsiQIINJ9gxFWKgq7NYBnKYcgmN6kmtXsYLIckCcHamEHnRz2CGHQ93iORlP
+	 OfOo/7UgZZFINxp7GDhuSGvcH86aMYptPiJCYX+InR7/oLBQbOsCkHkOX45KcprGa+
+	 gcW6MyV2hYJfA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B4A1C61DDE;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Sat, 29 Aug 2026 05:28:00 -0700
+Subject: [PATCH v2 2/2] ceph: don't wait forever for undrainable dirty refs
+ in vmtruncate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-2-71fb4aa49968@clyso.com>
+References: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-0-71fb4aa49968@clyso.com>
+In-Reply-To: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-0-71fb4aa49968@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Sage Weil <sage@newdream.net>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788006479; l=3073;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=9a3HsBuwTPgOP5z1+94cCYsCp9toglPrah46KIsV2Vs=;
+ b=rxokNK7vuqrMhJnHCmuCtU+X2bPSReQnMp+IKA9037NojxQHfRb0q2Qx/kx6p2dqBHJFVXkym
+ tvNbBQHXHtvCepq/sxMUo6j7g1uyRraWUfXK5Y8J4QGu+vPQNpLk6wk
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
-Switch from udelay() to fsleep() in drv260x_worker() as it runs in a
-sleepable workqueue context where busy-waiting is unnecessary.
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+When a session is lost, ceph_purge_inode_cap() removes all cap_snaps
+of the inode, but the dirty folios referencing their snap contexts
+survive in the page cache.  Their refs are left in i_wrbuffer_ref
+while no cap_snap owns them, so i_wrbuffer_ref_head stays below
+i_wrbuffer_ref forever, and the flush in __ceph_do_pending_vmtruncate()
+can never drain them: get_oldest_context() returns NULL and
+ceph_writepages_start() bails out with -ENODATA without writing
+anything.  The retry loop then spins forever while holding
+i_truncate_mutex, starving concurrent truncates and unlinks on the
+same inode.
+
+Detect the orphaned refs (i_wrbuffer_ref - i_wrbuffer_ref_head exceeds
+the sum of the cap_snaps' dirty_pages) and skip the flush in that
+case: there is no snapped data left to preserve, and
+truncate_pagecache() below discards the folios and drops the refs,
+which ceph_put_wrbuffer_cap_refs() tolerates for a missing cap_snap.
+
+Fixes: 355da1eb7a1f9 ("ceph: inode operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
- drivers/input/misc/drv260x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ceph/inode.c | 37 +++++++++++++++++++++++++++++++------
+ 1 file changed, 31 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
-index 6c5c4c53753b..477ec84ea09b 100644
---- a/drivers/input/misc/drv260x.c
-+++ b/drivers/input/misc/drv260x.c
-@@ -222,7 +222,7 @@ static void drv260x_worker(struct work_struct *work)
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index 9ea0588a18f9..44d99fab5716 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -2334,12 +2334,37 @@ void __ceph_do_pending_vmtruncate(struct inode *inode)
+ 	 * possibly truncate them.. so write AND block!
+ 	 */
+ 	if (ci->i_wrbuffer_ref_head < ci->i_wrbuffer_ref) {
+-		spin_unlock(&ci->i_ceph_lock);
+-		doutc(cl, "%p %llx.%llx flushing snaps first\n", inode,
+-		      ceph_vinop(inode));
+-		filemap_write_and_wait_range(&inode->i_data, 0,
+-					     inode->i_sb->s_maxbytes);
+-		goto retry;
++		struct ceph_cap_snap *capsnap;
++		int snap_dirty = 0;
++
++		list_for_each_entry(capsnap, &ci->i_cap_snaps, ci_item)
++			snap_dirty += capsnap->dirty_pages;
++
++		/*
++		 * i_wrbuffer_ref - i_wrbuffer_ref_head should equal
++		 * the sum of capsnap->dirty_pages.  A session loss
++		 * removes all cap_snaps (ceph_purge_inode_cap()) while
++		 * the dirty folios referencing their contexts survive
++		 * in the page cache, leaving orphaned refs that no
++		 * flush can drain: get_oldest_context() returns NULL
++		 * and ceph_writepages_start() bails out with -ENODATA.
++		 * Waiting here would spin forever while holding
++		 * i_truncate_mutex.  In that case skip the flush and let
++		 * truncate_pagecache() discard the folios and drop the
++		 * refs; ceph_put_wrbuffer_cap_refs() tolerates the
++		 * missing cap_snap.
++		 */
++		if (ci->i_wrbuffer_ref - ci->i_wrbuffer_ref_head > snap_dirty) {
++			doutc(cl, "%p %llx.%llx orphaned dirty refs\n",
++			      inode, ceph_vinop(inode));
++		} else {
++			spin_unlock(&ci->i_ceph_lock);
++			doutc(cl, "%p %llx.%llx flushing snaps first\n", inode,
++			      ceph_vinop(inode));
++			filemap_write_and_wait_range(&inode->i_data, 0,
++						     inode->i_sb->s_maxbytes);
++			goto retry;
++		}
+ 	}
  
- 	gpiod_set_value(haptics->enable_gpio, 1);
- 	/* Data sheet says to wait 250us before trying to communicate */
--	udelay(250);
-+	fsleep(250);
- 
- 	error = regmap_write(haptics->regmap,
- 			     DRV260X_MODE, DRV260X_RT_PLAYBACK);
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+ 	/* there should be no reader or writer */
 
 -- 
-Dmitry
+2.53.0
+
+
