@@ -1,241 +1,144 @@
-Received: from sirius.syn-flut.de (sirius.syn-flut.de [94.125.25.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F216D348C52
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.125.25.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D6A3AAF6E
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788020602; cv=none; b=OchSNCt8NgMADFEOY9h3Rec78IWUZ5VgWidpL3HBWtw26WZ0stxH6d1xR2vrmD3kSL16Xn8t6IKHUcRIqhWxNuDbDKGtIsM/nMc0Ny6Bl1YbQQpRtKHv96ZUtXSSkMe2F2bNk6DGt9qorbUZ1m9ASfmR5Xi8fuTYIFYYxo41qrg=
+	t=1788020769; cv=none; b=U1EGG6SUBVhuf+KtCM66RqDHro1xjvRp8uvR4cbYfsoMsJZ4m1rgczVYd2nIRAhXjyD0OXMA5hGYd1OWhEzOP3XMSoUCv8l/AW/VjXWBZBkwG2CRtZNkerpit12i92GVnrDa2riiA+wly81s3VuvZUSPWwK5icHdkFi2hkgECTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788020602; c=relaxed/simple;
-	bh=QFRQpyuaj/SzH90kVPPqUqMC3MM/02NCfoijqjrjluA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SU4j6hemeF6wjghP5wQESyf+sxHBhAMherwbT+Av0PtNp6KFG83FKOHS1r19DRhkymrTo3aj1AK8qoHEjj8Ac0OLN91nBBt++VgAZRA3yENZRgz48p3gnaO/LIdyD81Kn9cCeYOjhPoV3Cvx9MpOEQBPODutQa/iqQzRxrv9U7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org; spf=pass smtp.mailfrom=kait2en.org; dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b=G33glvvG; arc=none smtp.client-ip=94.125.25.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kait2en.org
+	s=arc-20240116; t=1788020769; c=relaxed/simple;
+	bh=JRj39m44UG7x7nuL83AF6glKV07IjewUYbAQNaqM7lk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JLO5lRfXpmn6DF9dTuGpdJu6uqOQ2QOgdjlCeBJhn7MUommH8jmqCK1A0+lSIiJx+5/gmJ56J6jhT6RLi79INZKZBbWpPKTB732QsZtogAm0+YabJk1xGzDjm3mFTkRS+XzvJc9OSWS5vGAxpUknTgEHjt+q3SwBBxlAocbo5eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dY50TZ9E; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b="G33glvvG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C75BD140C2D;
-	Sat, 29 Aug 2026 18:17:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kait2en.org; s=dkim;
-	t=1788020241; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=/+I+O36jO/lXD9IlDR8z4K8ai67tG6lZ1hAuywqjwQE=;
-	b=G33glvvGhfB7fWc15SrGUMc+apCf2pcAnZlrGYEbQrWgfyxtwFqa/501QLUTWVnxftYU4F
-	HGf1JGvFP68/7tj/yZs7WIfGmMV405+ddtz50yPFwQ9s1zfhqj8XjR8aKgHWoYS4P7iaHx
-	l81Y1HGtvW0gNCh+74ARPS9/n25+s41tn6cZ5hkRJlkkA1r+ketAsyCnrtYF/fHKLi9HqP
-	6bI8eMHvCjMgGWb/Sc8Hboc8CLqibAXqvlIX9RKPVnDnUFY3+sPLIL+O7sGIrUX4AMcpzx
-	w1lIC+KveGOsqIw7Er0G8g7j215NzU4BaXMcdfwwbkSqKdrmfdjzZdxSQMVUSA==
-From: Alexander Fischer <alexander.fischer@kait2en.org>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
-	=?UTF-8?q?Andr=C3=A9=20Eikmeyer?= <andre.eikmeyer@kait2en.org>,
-	Yossef Osman <yossef.osman@proton.me>
-Subject: [PATCH] drm/i915/psr: enable PSR on Apple T2 eDP panels
-Date: Sat, 29 Aug 2026 18:16:22 +0200
-Message-ID: <20260829161622.11396-1-alexander.fischer@kait2en.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dY50TZ9E"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482dd6ee390so1752049f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:26:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788020765; x=1788625565; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qCJSMZoS0QNd9wZ2SP5uBlAyYhJin6wW0R5sadc6nCw=;
+        b=dY50TZ9E7jYtz27W5ZSHELio0WReBYA6z4GXq+H75nIN1LmsF98GKgA7QdYs4nE/me
+         pDW5u5q8BipNXYnDEDokRQFVCfsCEkjOmGSlMO3XoqKvAv6FeVHSF3/RI/i6gcPnA5HK
+         XhTS3yH/GqjC2u6LDmZgKoaC5tIrmg+qqKwAy+I1/lIBVeOBgwxAMemI6tfJ7eShyZ1C
+         dyPQzoqqnoJs4Tj9GqKMVcl8qswKv07320v/zC4Cf+Ix1/xwj8g/QilaFTBAjB68yqaF
+         vPQsAlzAK+KisroZje1xoIgp0HM+GpD97CA6u1bCuo9xc+nHNGfZnyxi281MIx8ezTnU
+         J9dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788020765; x=1788625565;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qCJSMZoS0QNd9wZ2SP5uBlAyYhJin6wW0R5sadc6nCw=;
+        b=bnSE20sB4PwJM0PWv8gvMIgd5Uyws+H6MJ+bLHo1tJkqhZT23NPq06RNU51C5Q7VyI
+         xseqEgSsxQqiOnpRCsV8ae/AC+yJgJPkiODE9eF2Mn4EmnTDL+2tR4KoHrAMwGNW7dcN
+         BbUGKESAC9kHVa7szyiHycSHBrAPDRTMTK7uMR/2VTXzePcixdfQzAWbcTxbvKd5uK4I
+         Y8fyOMKP1uz22tdoOTUolKGWijPKgQVNdq8wydG0BTpmoGXxW9hPKTRZ0O9ob7jiKgz7
+         syinIAalGh8Vgp77Rq+8XSmLBN+vLfEuIJsUW+gPGLPE7VhZyKWb2q7oXUu2JyA4ESvv
+         atug==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5LVNTkA9szKZmF2ssb+qCviZkFfOWZCg6t9/ankeDJ7sulKRjLK5LcxBWLg0BIfk0xSAJx7icpWHIutc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG+EwnAeCPgbYW4UJhZco1y+opoR50TLUtUT5vYhxWIQHWQTTq
+	M0eQpzGlZQWxAyWphL4HcWZtETf7W54D7SEnw/whmOe+JjHu5L3xQyXo
+X-Gm-Gg: AR+sD11UZ0RFefRkIP3PK4SWKXQxFonEUZzzHwgrRH35YdusZQRVRnIGhZQPDXUBK5D
+	43aTaJkuUEb6wgomfVIekazboOoNVIiB/FfIGI3uTlPT22GQWfF5dq6Iw6u1qChmC1fy+pwdf+t
+	RW4QYyjiERgVCGkk7qYU36mzWbpz6dIM7ciT8xWnnYgO6Kt+lU19YYHyl3brzaPd3GTJoZMkxoW
+	Xc61dhGd79dgq0UNdAnStMv2PSxO9pC7eQga4QClqizxRHhd2hZK6I9hvgtUCcI8KFoI7PrarOW
+	chqikBpHgZBpeAqrMwda5ernBpg2hVRT8YNk227RyepHpesmUG6schjWHa4LhDClZyFvm//4V0k
+	3ZQdx4UdGr7f6wdECi3C1JHUVdKkoGJMG8WleWJKHJHUx63mBjBOFcPbktwFRejko265SJvhlPb
+	dsa/xftBlfcY16SAjd15/kOUvqfeW8hcs0jYOq5dPJ2RYI4ntJJI9aFA/JnwYo/cX+Gahje9mTy
+	brGYoZc1NzHMN23y7hhqtHMziuv1u+z7KgaENB+NZbrdDthfxne0rVma/RJ0ZJ4SoAR8LUwEIqc
+	fRJ3bOcVeIXYmzBMxYaxpBzudVuu0lnAMLAOlKdC323/NrYCxZlGx3n/Xfu1zE3RRuYPSaC43AS
+	JYtFVkoVnMYqh53vn/3Ux94AM
+X-Received: by 2002:a05:600c:3b20:b0:499:8704:242c with SMTP id 5b1f17b1804b1-49b91bd78cdmr189918175e9.0.1788020765322;
+        Sat, 29 Aug 2026 09:26:05 -0700 (PDT)
+Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b92679be5sm137861705e9.3.2026.08.29.09.26.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 09:26:04 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH v2 00/11] iio: temperature: make headers conform to IWYU
+Date: Sat, 29 Aug 2026 18:25:57 +0200
+Message-Id: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jFMfQCu/A/DotABJgI1U9NoC
+ P9uJXHp8pzknrtAYBUOcMkWUI4SxM8JzC6DdrBzzyguMZjcnPPSEN5ZZx5xYOtYUXny0Y7oqhN
+ 3jqrCFSWk7UO5k9fWvdWJBwlPr+/tJtLX/ormTzES5sh8oIbMsWGiaz9ZGfetn6Be1/UDlXWqO
+ roAAAA=
+X-Change-ID: 20260821-kernel-header-removal-d95efd197d78
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788020764; l=2113;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=JRj39m44UG7x7nuL83AF6glKV07IjewUYbAQNaqM7lk=;
+ b=hR/2meirejwqk7Aum4g7w7kis+9c0lVjbw0i7GaYrzwy+BIaUw6lXx4kOmrmf2Na2JOM31Vup
+ RuVl9jONATBAbzxenstawDr+1hGf5cDVG6osRsZQqd2YpnHwGYlRxVA
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Commit 1035f4a65f58 ("drm/i915: Disable PSR in Apple panels")
-disabled PSR on all Apple sinks until i915 gained the required panel
-handling.
+This series removes any instances of kernel.h in the temperature/
+subdirectory and cleans up the headers in order to improve readability
+and enforce IYWU instead of relying on transitive dependencies during
+the build process.
 
-An AUX trace on a MacBookPro16,2 running macOS 15.7.7 shows the
-following writes when the panel is powered on:
+I had Gemini generate a summary (a bit more verbose) of changed headers
+under the --- in each IWYU patch to improve the review process.
 
-  DPCD 0x321 = 0x3c
-  DPCD 0x4d2 = 0x01
-  DPCD 0x4d1 = 0x03
-  DPCD 0x170 = 0x01 (DP_PSR_ENABLE without CRC verification)
+This is part of an ongoing effort to remove kernel.h entirely from IIO.
 
-Five seconds later, a write of 0x01 to DPCD 0x4d4 occurs between the
-BanksiaTcon FIFOEnter() and SRDEnter() events. This register is the
-vendor trigger for entering self refresh.
-
-With the three setup writes, CRC verification disabled, and the 0x4d4
-trigger added to i915's existing PSR enable sequence, the tested panels
-enter PSR1.
-
-Implement this handling as an i915 DPCD quirk. Limit it to Apple-OUI
-eDP sinks on systems containing an Apple T2. All other Apple sinks
-retain the existing NO_PSR quirk. Override the VBT PSR flag for matching
-panels because Apple leaves it clear.
-
-The same sink-side protocol may also be present on T1 and Apple silicon
-systems, but leave those systems unchanged until it has been tested
-with their display drivers.
-
-Tested on MacBookPro15,1, MacBookPro15,2, MacBookPro16,1,
-MacBookPro16,2 and MacBookAir9,1, covering four panel device IDs. All
-five enter PSR1 after boot and across suspend/resume, report
-DP_PSR_SINK_ACTIVE_SINK_SYNCED, and show no sink errors.
-
-Tested-by: André Eikmeyer <andre.eikmeyer@kait2en.org>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Alexander Fischer <alexander.fischer@kait2en.org>
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c    | 28 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_quirks.c | 30 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 57 insertions(+), 2 deletions(-)
+Changes in v2:
+- Add missing headers pointed out by Sashiko.
+- Swap <asm/div64.h> for <linux/math64.h> (Jonathan, Andy).
+- Squash small reordering patches with iwyu changes.
+- Link to v1: https://lore.kernel.org/r/20260822-kernel-header-removal-v1-0-ee31b124be11@gmail.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 5283649..be4c05e 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -228,6 +228,9 @@ static bool psr_global_enabled(struct intel_dp *intel_dp)
- 
- 	switch (intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK) {
- 	case I915_PSR_DEBUG_DEFAULT:
-+		if (intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE))
-+			return true;
-+
- 		return intel_dp_is_edp(intel_dp) ?
- 			connector->panel.vbt.psr.enable : true;
- 	case I915_PSR_DEBUG_DISABLE:
-@@ -663,7 +666,8 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *co
- 	drm_dbg_kms(display->drm, "eDP panel supports PSR version %x\n",
- 		    connector->dp.psr_caps.dpcd[0]);
- 
--	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR)) {
-+	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR) &&
-+	    !intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE)) {
- 		drm_dbg_kms(display->drm,
- 			    "PSR support not currently available for this panel\n");
- 		return;
-@@ -803,19 +807,36 @@ static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
- 	drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG3, panel_replay_config_3);
- }
- 
-+/* Undocumented Apple eDP sink registers */
-+#define APPLE_PSR_SETUP_1	0x321
-+#define APPLE_PSR_SETUP_2	0x4d2
-+#define APPLE_PSR_SETUP_3	0x4d1
-+#define APPLE_PSR_TRIGGER	0x4d4
-+
-+static void psr_apple_prepare_sink(struct intel_dp *intel_dp)
-+{
-+	drm_dp_dpcd_writeb(&intel_dp->aux, APPLE_PSR_SETUP_1, 0x3c);
-+	drm_dp_dpcd_writeb(&intel_dp->aux, APPLE_PSR_SETUP_2, 0x01);
-+	drm_dp_dpcd_writeb(&intel_dp->aux, APPLE_PSR_SETUP_3, 0x03);
-+}
-+
- static void _psr_enable_sink(struct intel_dp *intel_dp,
- 			     const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-+	bool apple_psr = intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
- 	u8 val = 0;
- 
-+	if (apple_psr)
-+		psr_apple_prepare_sink(intel_dp);
-+
- 	if (crtc_state->has_sel_update) {
- 		val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
- 	} else {
- 		if (intel_dp->psr.link_standby)
- 			val |= DP_PSR_MAIN_LINK_ACTIVE;
- 
--		if (DISPLAY_VER(display) >= 8)
-+		if (DISPLAY_VER(display) >= 8 && !apple_psr)
- 			val |= DP_PSR_CRC_VERIFICATION;
- 	}
- 
-@@ -831,6 +852,9 @@ static void _psr_enable_sink(struct intel_dp *intel_dp,
- 
- 	val |= DP_PSR_ENABLE;
- 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, val);
-+
-+	if (apple_psr)
-+		drm_dp_dpcd_writeb(&intel_dp->aux, APPLE_PSR_TRIGGER, 0x01);
- }
- 
- static void intel_psr_enable_sink(struct intel_dp *intel_dp,
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f4..f289161 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -9,6 +9,7 @@
- 
- #include "intel_display_core.h"
- #include "intel_display_types.h"
-+#include "intel_dp.h"
- #include "intel_quirks.h"
- 
- static void intel_set_quirk(struct intel_display *display, enum intel_quirk_id quirk)
-@@ -100,6 +101,27 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+#define PCI_DEVICE_ID_APPLE_T2_BRIDGE	0x1801
-+
-+static void quirk_apple_psr_handshake(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	struct pci_dev *t2;
-+
-+	if (!intel_dp_is_edp(intel_dp))
-+		return;
-+
-+	t2 = pci_get_device(PCI_VENDOR_ID_APPLE,
-+			    PCI_DEVICE_ID_APPLE_T2_BRIDGE, NULL);
-+	if (!t2)
-+		return;
-+
-+	pci_dev_put(t2);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
-+	drm_info(display->drm, "Applying Apple PSR handshake quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -286,6 +308,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Apple T2 eDP panels */
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = PCI_ANY_ID,
-+		.subsystem_device = PCI_ANY_ID,
-+		.sink_oui = SINK_OUI(0x00, 0x10, 0xfa),
-+		.hook = quirk_apple_psr_handshake,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe..7b863d4 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_APPLE_PSR_HANDSHAKE,
- };
- 
- void intel_init_quirks(struct intel_display *display);
+---
+Joshua Crofts (11):
+      iio: temperature: iqs620at-temp: make headers conform to IWYU
+      iio: temperature: ltc2983: reorder headers
+      iio: temperature: ltc2983: make headers conform to IWYU
+      iio: temperature: mlx90632: make headers conform to IWYU
+      iio: temperature: mlx90635: make headers conform to IWYU
+      iio: temperature: tmp117: sort headers alphabetically
+      iio: temperature: tmp117: make headers conform to IWYU
+      iio: temperature: tsys01: reorder headers
+      iio: temperature: tsys01: make headers conform to IWYU
+      iio: temperature: tsys02d: reorder headers
+      iio: temperature: tsys02d: make headers conform to IWYU
 
-base-commit: 046bcac5ed22b09812cec3b0aef678195f1eae71
+ drivers/iio/temperature/iqs620at-temp.c |  9 +++++++--
+ drivers/iio/temperature/ltc2983.c       | 15 +++++++++++----
+ drivers/iio/temperature/mlx90632.c      | 10 +++++++---
+ drivers/iio/temperature/mlx90635.c      | 11 +++++++----
+ drivers/iio/temperature/tmp117.c        | 10 +++++-----
+ drivers/iio/temperature/tsys01.c        | 16 ++++++++++------
+ drivers/iio/temperature/tsys02d.c       | 11 ++++++++---
+ 7 files changed, 55 insertions(+), 27 deletions(-)
+---
+base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+change-id: 20260821-kernel-header-removal-d95efd197d78
+
+Best regards,
 -- 
-2.55.0
+Kind regards,
+Joshua Crofts
+
