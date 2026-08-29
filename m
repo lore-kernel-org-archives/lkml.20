@@ -1,257 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F5F284690
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64827E07E
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787999772; cv=none; b=psGnkbn4REjfeH7uaL5Cgtzr1SZUYVNxmjix30ZXbLJgUwJom+Yazpi3ARcYV7t3Bu7iGGfmTZ44cQHpb+uOq5fgYGHrjOT1rVU7oxu+leWmvgoN1fJApMOWU99by6Tru7AUCawieDUoRdiWCbEdWRDsINBa0oEHioXXXY9xhUc=
+	t=1787999787; cv=none; b=LmD4XXTe8TaXdER1rdmWU1/2awhMW086vxJboteRHtUhn7bS95GYXYWYWp/5Stnvri8g1fdnfxEwgPhSfPOlPwHkKO3+sT3t5kPo8iDQkDeaWAjYk3XkvDoZwTY2HQZOeEDkJimWJWpdeR397qTDsSb7HRmdfLG5ZbE8mBHwCTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787999772; c=relaxed/simple;
-	bh=KWNj1tfhDTMqgvVWCVcDzYwwxCOrZo/4oWyTTfhVVBU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EobjavmNBdCHWjFrjypJdvnX4yoJ/0Dh3+vKvSWRjd/CzXge3rJnLKYB6YfF5FxXeTtVSbnp8R8di7j8uBB6+WBW/xO6G2iI6MPf8CVghL5M9p22ga2g1g9wl3R/qkjfuFeSDXKcQ1Dt7kBhwLGDXpGao2locoFw+zIHP9dTQP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gKtNDNDQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RKtG1sIW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787999787; c=relaxed/simple;
+	bh=DCVGBSyrUIPN4PKewIU6LrxpXZw6DN05eFDi0br1u+g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t9MNzda9K+ul7cgtGiSIzEZM+LXGryAonmLJq8YJ/UGXsQK0SH7LEKe2Bf+BobVekVF43urKSdFeL/gnANvAim/XTf9ISzK4gRwfCEPWGlnOTbXishuH+st8RmfvSv9A/jiLEiNaJSfF+dGEdDqzheioVytJ4pYt2MZWpAWZo0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ck63mK0V; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gKtNDNDQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RKtG1sIW"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67T80OA11355953
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:36:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=r7oh96XdqBR/wkUfzzw8xK
-	GlhF6rxacfqe1Jd7qHA/g=; b=gKtNDNDQiFM3QvU486/S4ZSxmYiTf95ELX3CU3
-	CN8fTzikSNC3WH2KShymVmlzb342l30MRa3wZnSqvmac+KcnYzX3xG9xg1qW1Nvc
-	zTyCKDe8/OpxrpiHkz6lgBd9hEPOPdHTEw/9hVaswIRa1v5gFXni9OBV7nnMhYyg
-	vN7cNxA9JnSTq2l/mZ2WX0gvzUlUeYCisxKJ40MCePccvNVlAomHcuOoFhVmTV2v
-	cz5hvO3dnCDwRB70jyTZNgf6tmrFs8SHMPTJ4EBBil3GLAoQfnnYQouecuc64M4X
-	hAhotTGI6IXGkFujOBHAUY/2E6e4/GZXxnL4Uf7wF4wFRYjA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhw8qxk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:36:09 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52fa5c5a4a6so42472131cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:36:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787999769; x=1788604569; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=r7oh96XdqBR/wkUfzzw8xKGlhF6rxacfqe1Jd7qHA/g=;
-        b=RKtG1sIWnMCru5V7uAnaf5t5R051VbKkLbEcnQttwP5A3qzoQYN4tClaR0BUFltHAh
-         bRmAe/VqSJgprZdZsrT5T1hc9125/8XIWYpgsR9aFVD1KfU9hs7RfrJqQyJai13G9GYm
-         /JW+qgVDQOIuPfEPSFAbzRWpglQnj4HufCA/gELixM/UdU7aaUzFBwQc7DzQJOTHlhDf
-         ISV1FluTNUinRnQiTJSmWAGIkUuBehGFuP/hBCDWQ4LyS4FmbbZfnEeRP0t7JOeo/7nj
-         +2HGp+KKapE7pZdaK/OwM/OrW3rk6UyM9qXsg+yBSzDE6x16uTjTZbogKEswfQRZJfsU
-         gVIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787999769; x=1788604569;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=r7oh96XdqBR/wkUfzzw8xKGlhF6rxacfqe1Jd7qHA/g=;
-        b=dgCibMXxv4Mhx9KqkPstVqOs8DSMkrdUfEUbqYbAJdl1VL1oineqtRuFU1C3p9edtc
-         Ig0oyLGTpvD4TJmpxIG3RhdfQVNFJ2vZxYvUvz2T5tQBzoPSed1D8jSFHPwC6ifTIWc+
-         TElFjqvGVE/i7jZtpZ5F5AjXVFV1E4e9hy+Tn6E5/YCClJ/nhaZE6LKRnRcaMS3AHiV2
-         zZYpbXCwgvZoc5H0N2vQYL4NFMUj1VG1Rih8n2Tf+T99FIecEoZ2m0U7lppHtzP+nSfk
-         JmVV082GSVPvMgZxotOxCxR+V+XBQ7A2bPuVoHIaDRlY6L4+nwAWGhEdan0YGaj5CUex
-         RsqQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqiZA89+Ph5ImxXY+8zT0f8fRjuqT+EI3pslgjpctq9JIeah/W6NAh2qsH59x6t3Vnf6frApS2wQn8SW+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBt8CZpU3//7MjnTdQpowm96moPE+CiPskuL3Xa76AkTt2Omcf
-	W+s8F5iSptneJvQMsO+DIO6XnDdRgWRacRyu8/J09W0P2AkrQj06/SZ6O+zXFK46HFq7Ac3QEaw
-	7g5E0CeskJkkLClSH3ldZR/IcxcPfBOGxsQz4CJLYr309m2l+EU0nCJB0tQrljhue0tZTNbRtbu
-	I=
-X-Gm-Gg: AR+sD11L3S/K3ZLzWjuoIXKbAaJLv1Ec4nWiwNMsX8pC1EcIkEKtKavlmJaanbxbKTJ
-	dE4ot5MLz7Znwt/VmU1ktfB1SHTf4gIYYyHq8WV+nTCAOH3kIvFX7OB8ZDWXEZggYoYa9WZgxwu
-	NK65ilcKCRoxMQE4kQ8jHcwgg4ns6gZufwX7dZKj8Osa6k6W7/XD+yNMn4xOqVojXY0IgxU0ruY
-	ALvZK+dqrdbZGoRr92m5uAWkuTGQDXSUpXXXXqn/hXbqUAntnxfPx6ki5S1dUujX1+8p85LZQ/L
-	uL5PPoX5n5YypR0oIwfXxlo7YpjPzImkSBcb0WWsSrii8o6lDRaXY/OZED8/J3yViahjjzo8m5E
-	JrwpHI/vuRA==
-X-Received: by 2002:ac8:5996:0:b0:51c:1a17:eba0 with SMTP id d75a77b69052e-52fb93746acmr150357041cf.2.1787999768646;
-        Sat, 29 Aug 2026 03:36:08 -0700 (PDT)
-X-Received: by 2002:ac8:5996:0:b0:51c:1a17:eba0 with SMTP id d75a77b69052e-52fb93746acmr150356591cf.2.1787999768217;
-        Sat, 29 Aug 2026 03:36:08 -0700 (PDT)
-Received: from localhost ([86.149.41.185])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a8e0657sm90067615e9.13.2026.08.29.03.36.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 03:36:07 -0700 (PDT)
-From: Christopher Obbard <chris.obbard@oss.qualcomm.com>
-Date: Sat, 29 Aug 2026 11:36:00 +0100
-Subject: [PATCH] PCI: qcom: Only check bridge nodes for PERST# GPIOs
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ck63mK0V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787999769; x=1788258969;
+	bh=9gycK/4wH3LKRRi/ZIX7zEeGMX0rP58XKrd5YTKBKNc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ck63mK0VCiSeIDvO6v3PE+XFY6CD4/NQk9XxNNCw7Ckdm0aH7li2c1Pwc+VWUzX5K
+	 CphLkhRzSnzipU8zJQCyrg5qeRw7NQPy+BKz5jiYS1IP4w0RqQXmZa7wK8JIhN2KJM
+	 9hn77mPiJV7NxhXNMGxteckuaN1M/dKv5kmDipUb7Gvj0T4kuGCZWN6FbhyBhQELbr
+	 yfrjPPNJMX21669OsQhUhSJwVbVqC8G2kA/ypcqfc4ynyI/8NNtPLDkgsS8JYrc53m
+	 0ngCcvbdeGZ5ASF0GdcDffGrF03EJRAsnSLX2t1SesyGTsrFSsxQmcRSqR0hR7hp8x
+	 8VqgVXD7Xq3lw==
+Date: Sat, 29 Aug 2026 10:36:04 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: nirbhayykumarr@proton.me
+Cc: "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>, "arnd@arndb.de" <arnd@arndb.de>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: Re: [BUG] misc/mei: Race between mei_release() disconnect and mei_ioctl_connect_vtag() causes CSME reset storm and i915 freeze
+Message-ID: <SWbw2eeUo9ExN9Aw7wAoQuQdmYKIgs4QW6fz-1L8TIVtBowiohgHD7gxkCVeNC_3lT4U20731Kh8LJnrDScvF0-EUj2YxnXMe9yjDto70h0=@proton.me>
+In-Reply-To: <2026082929-bath-idiom-06e7@gregkh>
+References: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me> <2026082929-bath-idiom-06e7@gregkh>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: f92cdf5953adc231a5e2c89b01f1e5ad76ebfa01
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-wip-obbardc-drivers-pcie-qcom-rb3gen2-usb-fix-v1-1-337821131a99@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CMAxE0atUXmOpDSoqXAWxSBy3GIkk2LQgV
- b07AZZvFvNXMFZhg1OzgvIiJjlVdLsG6OrTxCixGlzrDu3gjviSgjkEr5EwqiyshoWE8UH5jhr
- 2EyeHswUc5Y089n1HRK0fItTPolznX+98+dvmcGN6fiOwbR/pwnzDkQAAAA==
-X-Change-ID: 20260829-wip-obbardc-drivers-pcie-qcom-rb3gen2-usb-fix-ef551ccc0a8d
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Christopher Obbard <chris.obbard@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4029;
- i=chris.obbard@oss.qualcomm.com; h=from:subject:message-id;
- bh=KWNj1tfhDTMqgvVWCVcDzYwwxCOrZo/4oWyTTfhVVBU=;
- b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBqkrYSRy//TWaaxaBgax4wdgFGhAlpr5Z6miRlk
- UsqTcT1FnCJAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCapK2EgAKCRBjTcTwaHBG
- +HZ+EACUqmFwJpJnfmXBxaTOcOdqgz37aXn1EK0RqFpeVGuIJfk35AJjhVB5gu+YEt3eC94PI2X
- XfqeKzjSI17X3VLYgG+g8k8+WkFhuWp9IH9JLeOnkACprcSJgzwe/hRSHlXKvArWDGZiOI/KZMG
- TS42frVUq9vWpBpAEZFwkqaQAXdRjaxdfiHqvmuUDESXFu+YPnmVWnphtm9/CnNihP+lD0+FoZQ
- uNZLZIrfcMqGuk4JeQjt24NB6OagLfnr9L65Nbkj59zKaE4u4xeZ+x7aMsF0AUma6JAZKSkxXsQ
- M5k7mfYTkLnw5a4c2Pr/e+uwbGmo2xc13Od1xH03ExD+0vr8km5s7+kCmAOyMbGwdZsnf15JUqJ
- XLc7l8wirgBK8vspDjpm2cWb8FyrnrUSn87+uqaRSpbEC/S1Kncg8wrlMYLNoi5fgKPJABSPfq8
- vh/IehzxdeWu9KpbOibuGGDyMw36BJTzpvgp660K/ogzHbwQ5Ry75YgjN79XOVSZM+Wt4x2G4CK
- +CH+QmzO9Jv60cvRA6GY9JgRevf7aA6E99dIXyriKobtx7/UxHMWWo7NKts+lWQzKmCoJe0w600
- i7vx79Jh+TtqTy90wretWSvozDwstMeQU+CQILxpcRkKBtCFp1skkmo4SgmG44WCHPaXwa9FIkL
- +KuhPbkfdLqaI0Q==
-X-Developer-Key: i=chris.obbard@oss.qualcomm.com; a=openpgp;
- fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
-X-Proofpoint-GUID: jp-o41BVmd9nEFdHisIU0EkasblpMYAa
-X-Proofpoint-ORIG-GUID: jp-o41BVmd9nEFdHisIU0EkasblpMYAa
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDA5MCBTYWx0ZWRfXzVL9ujyoZgVt
- w4PTZkFcXezblNEvJ1lcsmhPHzFUMSqWX6F6pQLNdbJBManbuQZo0/vQkqyEZnhJAmltv5lkxgM
- Vmc0r1PymttXGLW7BrvuiMwyOylZPlc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDA5MCBTYWx0ZWRfX2I5WjMuLGODs
- Trx5T5zeFOBHKb0ww8Q/MClnfYqgbcnxb05ca/McSB35oxEsrVA6eOYzXIfqVh5Skc5+if6/2yM
- j1h/nqATxazbRx+v7SRZrPdFA17BAv0tj+xz/+exnTlzSzGFL26ERpxg73yjmdTxgK9G/ONLj9L
- v4+5GI3C5CXtpXDzpPywAXDbHUJjsoPg0H3ELoj8M3eklei4ZmV0ITVq3m0m3PFwBg1UX1At6e9
- DjdAuQ0fU5DyK5TYZQjhYiXiR187S3Qa3ZQMGPC0ZARO1cPt4//dopEsNlHa/CqFTEveuv0Hj6j
- MJrD/Zy1dJJxe6P9lQJypkiPNi0FwIsO47K4f3RF1MJREjVWjYHIJjZns7GS1xacnsTjwZZrcMg
- G1Fi0qsY6YpnZEo3mfvu2LXqBuN2uxbu8stWJPwdfIDM9xzd54bXpus4bwy1qns0BOFp7mya+6Y
- tsArnxM8e13GPLkfEPQ==
-X-Authority-Analysis: v=2.4 cv=YKKvDxGx c=1 sm=1 tr=0 ts=6a92b619 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=1ZqYAqmp+mGnO5v9BrvPnw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FVExEZwIv0vllHUD6gcA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290090
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-qcom_pcie_parse_perst() walks the PCIe hierarchy described in the device
-tree below its root port and collects the PERST# GPIOs from each bridge
-node so all PERST# lines can be driven in unison during controller
-bring-up, reset and power sequencing.
+On Saturday, August 29th, 2026 at 1:00 PM, gregkh@linuxfoundation.org <greg=
+kh@linuxfoundation.org> wrote:
 
-However, the recursive device tree walk currently visits every available
-child node without checking that it is a PCI bridge. This allows the walk
-to leave the PCI hierarchy and collect reset lines from children of PCI
-enfpoitn nodes, where those reset lines belong to other drivers.
+> On Sat, Aug 29, 2026 at 07:14:10AM +0000, nirbhayykumarr@proton.me wrote:
+> > Hi all,
+> >
+> > This issue was discovered using a custom multi-threaded C fuzzer
+> > designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
+> > multiplexing over /dev/mei0. By concurrently racing rapid vtag
+> > connections against file descriptor closures and streaming I/O, a
+> > race condition is triggered during client teardown.
+>=20
+> But that's not a normal use case, right?
 
-This is reproducible on the Qualcomm RB3Gen2, where a Renesas uPD720201
-USB host controller sits behind a PCIe switch downstream port. A Genesys
-GL3590 USB hub connected to that controller is described as a child of
-the PCI endpoint:
+Yes, you are right. It is definitely not a normal, everyday
+workload. it is an extreme edge case that I caught unintentionally while
+stress-testing vtag multiplexing during a broader CSME research project.
+But because it results in an unrecoverable full system kernel and
+DRM/i915 display freeze when hit, I thought it was important to document
+and report it.
 
-	pcie@2,0 {
-		device_type = "pci";
+> > In mei_release(), closing the last file descriptor holding a virtual ta=
+g
+> > invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(), dev->device_=
+lock
+> > is dropped while awaiting the firmware disconnect ACK on cl->wait.
+> >
+> > During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTA=
+G
+> > call on the same UUID (e.g. MKHI) scans dev->file_list, matches the tea=
+ring-
+> > down client 'pos' (in MEI_FILE_DISCONNECTING), repoints file->private_d=
+ata
+> > to pos, and adds its new vtag to pos->vtag_map.
+> >
+> > When the disconnect ACK arrives, __mei_cl_disconnect() calls
+> > mei_cl_set_disconnected(cl), setting cl->me_cl =3D NULL and
+> > cl->state =3D MEI_FILE_DISCONNECTED. Because pos->vtag_map now contains=
+ the
+> > second thread's tag, mei_release() skips unlinking/freeing cl. The seco=
+nd
+> > thread then wakes up and attempts to reconnect via mei_ioctl_connect_cl=
+ient().
+> >
+> > Additionally, shared clients lack tag based demuxing on cl->rd_pending =
+in
+> > drivers/misc/mei/interrupt.c:
+> >   cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, li=
+st);
+> >
+> > Incoming packets are matched to the head of the FIFO queue regardless o=
+f
+> > vtag, causing -EPROTO errors, dropped packets, and out-of-order HBM com=
+mand
+> > sequences. This triggers continuous CSME hardware link resets:
+> >   mei mei0: FW not ready: resetting: dev_state =3D 3
+> >   mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D ...
+> >
+> > During each reset, child client drivers (mei_hdcp, mei_pxp) unbind and =
+rebind
+> > with i915 DRM. With resets looping at hundreds of cycles per second (>9=
+,800
+> > events in 27s), mei_cldev_enable() repeatedly fails with -EFAULT / -ENO=
+DEV,
+> > deadlocking i915 display worker mutexes in TASK_UNINTERRUPTIBLE and cau=
+sing
+> > an unrecoverable full system freeze.
+> >
+> > Proposed Fix:
+> > - Prevent vtag reuse during teardown: in mei_ioctl_connect_vtag(),
+> >    ignore existing clients on dev->file_list if they are in
+> >    MEI_FILE_DISCONNECTING or MEI_FILE_DISCONNECTED states or undergoing
+> >    teardown.
+> > - Implement proper reference counting / lifecycle synchronization on
+> >    shared struct mei_cl instances.
+> > - In drivers/misc/mei/interrupt.c, demux cl->rd_pending by matching the
+> >    incoming packet's vtag header to the corresponding callback rather
+> >    than assuming FIFO order.
+> > - Add rate-limiting / backoff to MEI client reprobing during hardware
+> >    link resets to prevent cascading bus storms into DRM / i915.
+>=20
+> Please send patches for this if you wish to see these issues addressed.
+> As you have a reproducer, it should be simple for you to do so.
 
-		usb-controller@0,0 {
-			compatible = "pci1912,0014";
+I appreciate the nudge. While the reproducer is straightforward, safely=20
+resolving the cross-subsystem interaction between MEI and i915 without=20
+introducing regressions seemed complex enough that I initially deferred=20
+to the Intel maintainers.=20
 
-			hub@1 {
-				compatible = "usb5e3,610";
-				reset-gpios = <&tlmm 162 GPIO_ACTIVE_HIGH>;
-			};
-		};
-	};
+However, since I've already mapped out the race in mei_ioctl_connect_vtag()=
+,=20
+I am happy to take a shot at it. I will work on implementing the localized=
+=20
+state checks to prevent vtag reuse during teardown, and I'll submit a=20
+patch for review in the next few days.
 
-The USB controller is a PCI endpoint, and not a bridge, but the PERST#
-walk descends through it and incorrectly claims the hub's reset GPIO:
+> And how does this differ from the patch you have already sent but has
+> not yet been merged?
 
-	$ gpioinfo
-	line 162: unnamed output consumer=PERST#
+The previous patch addressed a single-client teardown ordering issue where=
+=20
+incoming IRQ completions populated cl->rd_completed after mei_cl_flush_queu=
+es()=20
+was called, triggering a WARN_ON() in mei_cl_unlink().
 
-As a result, the onboard-usb-dev driver cannot acquire its reset GPIO
-during probe:
+This issue is a separate, multi-client race specific to Virtual Tag (vtag)
+multiplexing in mei_ioctl_connect_vtag(). While mei_release() drops
+dev->device_lock to wait for firmware disconnect, a concurrent thread
+requesting a new vtag matches the tearing-down client on dev->file_list.
+When the disconnect finishes, cl->me_cl is cleared/NULL'd while the client
+is actively reused, resulting in CSME hardware reset loops and cascading
+DRM/i915 display freezes.
 
-	onboard-usb-dev 1c08000.pcie:...:usb-controller@0,0:hub@1: \
-	  error -EBUSY: failed to get reset GPIO
-	onboard-usb-dev 1c08000.pcie:...:usb-controller@0,0:hub@1: \
-	  probe with driver onboard-usb-dev failed with error -16
 
-The GPIO is also added to the root port's PERST# list and is asserted
-and deasserted as part of PCIe reset sequencing. On the RB3Gen2 this
-causes the USB hub to repeatedly re-enumerate:
-
-	[  116.479598] hub 2-1:1.0: USB hub found
-	[  116.488601] hub 2-1:1.0: USB hub found
-	[  116.496971] hub 2-1:1.0: USB hub found
-	...
-
-This disrupts the hub and devices connected to it.
-
-Restrict the recursive walk to children with device_type "pci", so
-PERST# GPIOs are collected only from PCI bridge nodes and the walk
-does not descend through endpoints.
-
-qocm_pcie_parse_ports() has made the same distinction since
-commit 45df22935bdc ("PCI: qcom: Restrict port parsing only to PCIe
-bridge child nodes"), but the PERST# walk added later did not carry over
-that check.
-
-This bug is distinct from commit 3edb3a038d42 ("PCI: qcom: Skip PERST#
-GPIOs provided by downstream PCIe devices"), which filters PERST# GPIOs
-based on their provider. Here the GPIO is provided by the SoC TLMM; the
-bug is that reset-gpios is consumed from a non-bridge node at all.
-
-Fixes: 2fd60a2edb83 ("PCI: qcom: Parse PERST# from all PCIe bridge nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
----
-USB/Ethernet issue on RB3Gen2.
----
- drivers/pci/controller/dwc/pcie-qcom.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-index b58a607b713f..89a476c37098 100644
---- a/drivers/pci/controller/dwc/pcie-qcom.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom.c
-@@ -1953,7 +1953,7 @@ static bool qcom_pcie_is_child_node(struct device *dev,
- 	return false;
- }
- 
--/* Parse PERST# from all nodes in depth first manner starting from @np */
-+/* Collect PERST# GPIOs from PCI bridge nodes depth-first, starting at @np */
- static int qcom_pcie_parse_perst(struct qcom_pcie *pcie,
- 				 struct qcom_pcie_port *port,
- 				 struct device_node *np)
-@@ -2019,6 +2019,9 @@ static int qcom_pcie_parse_perst(struct qcom_pcie *pcie,
- 
- parse_child_node:
- 	for_each_available_child_of_node_scoped(np, child) {
-+		if (!of_node_is_type(child, "pci"))
-+			continue;
-+
- 		ret = qcom_pcie_parse_perst(pcie, port, child);
- 		if (ret)
- 			return ret;
-
----
-base-commit: 570f7e331f5febb30f1384817463c7e42b65ca7d
-change-id: 20260829-wip-obbardc-drivers-pcie-qcom-rb3gen2-usb-fix-ef551ccc0a8d
-
-Best regards,
---  
-Christopher Obbard <chris.obbard@oss.qualcomm.com>
-
+Thanks,
+Nirbhay Kumar
