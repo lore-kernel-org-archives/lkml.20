@@ -1,423 +1,270 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1109935DA47
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2E833970F
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981174; cv=none; b=hBtyLJovfoGf3H4ymR/Tl3+ynvtIuLS75ub46wOijWwHIIJwM4lfJX11G+6ObQtMHebY4PMxKK4DkGRrzy9NtFhLWpOU/rPCbMtPGNHKYjXc5y4VT1N8Dd47vX9khi3m6lDVohVg+tWPq1PWS4UxP7GTX+wajJEp32K5zAMJhYU=
+	t=1787981189; cv=none; b=bjki/ahZDvLjUkdho47292g70RmctLE1BUTLirPgVcYC8zaW/f4ujuXXRYtQAjQ2XwFUj9iEqA0TxvQiIc/lcLxJAxN1elTRnKAyUzqWy5W6j3EY+3DFY/B8A4wTu9w+aa8epKe/16psJCNt6KnNAsajUF+9WvhEkX4NjbnprW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981174; c=relaxed/simple;
-	bh=Nn4d0wHJqZTPdzNfFzD2yqGS9Q0cS3NqhyFR6MO2xBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PxsqBdW26HeoymHNXoDji6MAk2XPKsViXOOtBSrBzI7eqYGxeT9WrlH9NwlwN21x1r5g6J0PNB8m+qotQ0it+R0Z0oYx3kLoXg5lkTGTFak9U9arL+OAwyVH+TU3l3Ikb0A9YaNvnFVmPW43OlUWOd31wCYZANSneJ9PkbPH0Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=JDJvzlCC; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1787981189; c=relaxed/simple;
+	bh=gMiVGtvLV3mH/7H3GivycOy54NP7nzz97CqQNM/VtCU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CQm6jwEvFLql4P/+O76SiloElR8M8jOnCpwtO8U3xNHRlAphCjlMmO3LIc29jzcHULIcbnuI99kb+WLgv34ExV2Uu2WKzDZayOGPbI2zlRK11DH3H66opPq0/7TCGMU5KFrU/UZQ1mJcj1904EPp3kmGD9csPC5MMYox6+cMgh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sO0QlM1r; arc=none smtp.client-ip=91.218.175.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="JDJvzlCC"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c20ce3c118aso327417366b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 22:26:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1787981167; x=1788585967; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BexHGXJfmWG9wttaxQjMKssISHmEBGNX9tS0o3mB1bs=;
-        b=JDJvzlCCHzaweqCApEYNm3u9o6oXLSw7fbD4X4d00U4rX4h3XZau7IwhOEE6wQ/oZG
-         OXFNGh9z3h4jKdSUcXCjtlrGiLTysDOpkczZLoxFW2RhZ0UgYcJZ1X0KjlkumU9E3jbJ
-         p1s6Red65YAyg3ps5DDucymlNsAX6gUVI0w9vBVWSshGvvYkAy3dtb6+6VNpkmbteuiy
-         i4d0TVSvVtQjlCqBqbZq8AUO5Ubw9+GoxTURWqZWdmpDlDrfR1l/QUvYXtzNLXk0EnYc
-         0ZV51JuU0bEvT4mV+9/1RMKVr1iH4b4dhmk8dBtBsmSpFYvlchVVERxUywt4opbrhsSF
-         3VVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787981167; x=1788585967;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BexHGXJfmWG9wttaxQjMKssISHmEBGNX9tS0o3mB1bs=;
-        b=GbJ9Rh48OcFxe5si+XokIvZrb850x6yVflj3OEftObbQorMFLm7GTux9QosOq45Jz4
-         Vi2lVl1AX/OaxO9pt+TmBnJdj/cjTg9pXoNARNnAS+Kz02A7g00aUoww394Y/4msmNpb
-         D3+Tg2urve6xf+IqMT/pMPxaGtU4ZexOXM4ZVEtZoSulMjhKCJbT4FVsQ7+rEcAntl9y
-         p4Cy+1pJFdAsgAJkgmlCgZwEdcVh2mfpwGtSWEcFuUKJHR7XdgxRQjyzklzfAUbNioJJ
-         Qp4Xc0qQZPQ2kKPFmfsSwkki+NDyraMcAtvVCQIIsh0LXeCHHsrA+zQDInGRhhqNYuEe
-         wx2w==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1b3y57LXSlh6AxLLcISw/dnjKuOCuRyN1sJ7vgxgWbWkcAteIfCJZ1y6vc2M/xg+tC5QZhYeq6lsQTIQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+QXHhLy1Q01VlHvUsbZR+F8rfI7SFdXhKocruVY/M2P1CRnll
-	tJ2/JfBjACxMcG3utzIBQhiE3CvjbveR0He4k8hswUbswD5FU0/PG799FxGD1ToY/vNpNRoeqWZ
-	KYR15Emamhw==
-X-Gm-Gg: AYBFou0HUCUetWGAuXO2dI9BbLROpieCfCcS0EnLQfgorW6NJZyISSvKm43UvwM15oI
-	CskIptf1i0hQGJvcWrcSVRSGI22L67WKhKP99ixEAYy29kMeWWKEHtPESqoUAqyH78DZZTkgBhi
-	7B6hlLJn414awQFs0bNxFg2dDqIDwpSqRb6Ok4Kv8L1CnMGiFVHmYcSxznWtGa24AY1gUxrn7T0
-	I/Tl/L8JvWLYk8MuefslLOfvDHF1T+Stv79gYAeYFt0Qf685SZCMHDkHlh5XhkEi37bLpByYQd4
-	G9crlfzoD9F+eLfOMjGAiROynWqYmUIi2sWu4P1kugaXBn8InrXwtSXkUZq6sKRZLnBzOYSDnTa
-	EJi3M0D/8HejLZq4xTczrw6cT9S5dTw7O6K/SL5MDHqQ/U/HsFpdmV9Q9oepDV6DRWnMPCH4sS6
-	n/M7kF7sdJPkgefiVT3IXFnqGaXhjIG1VqZji5yqiMBQ==
-X-Received: by 2002:a17:907:1b0e:b0:c1c:2218:f317 with SMTP id a640c23a62f3a-c2535eab9b1mr1470544266b.2.1787981167088;
-        Fri, 28 Aug 2026 22:26:07 -0700 (PDT)
-Received: from remote-01 ([45.85.105.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm163750666b.28.2026.08.28.22.26.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 22:26:06 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sO0QlM1r"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gMiVGtvLV3mH/7H3GivycOy54NP7nzz97CqQNM/VtCU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787981181; v=1; x=1788585981;
+ b=sO0QlM1rdCf8z3trdOWBO+0NmI0sgFfCtIogkd+kMvAINVYNkSC0io9Iwdd9kGuTDPGqtEhh
+ iYB2pmdPwAOo/q6zCFf0f5Kl1zY8yfGf30zrj91ebnWrtH0rveHn7+0nazZzymTCaJdfrmn/QZU
+ HGzX0jC+zKYfNUTvBzWaKxCE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9000a047d4d4bcd1;
+	Sat, 29 Aug 2026 05:26:11 +0000
+X-Mizu-Trace-ID: 9000a047d4d4bcd1
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: jthoughton@google.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	shy828301@gmail.com,
+	zokeefe@google.com,
+	hughd@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Aleksei Sviridkin <f@lex.la>
-Subject: [RFC PATCH net-next 8/9] net: phylink: wait for PHYs that are known to probe late
-Date: Sat, 29 Aug 2026 05:25:45 +0000
-Message-ID: <20260829052546.1152446-9-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260829052546.1152446-1-f@lex.la>
-References: <20260829052546.1152446-1-f@lex.la>
+	stable@vger.kernel.org,
+	Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+Date: Sat, 29 Aug 2026 13:26:06 +0800
+Message-Id: <20260829052606.49470-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260828094703.11081-1-lance.yang@linux.dev>
+References: <20260828094703.11081-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A PHY whose driver or firmware lives on a filesystem mounted after the
-MAC probes cannot be connected when the port is set up, and the port is
-lost for the rest of the uptime. Let a port say so with slow-to-probe,
-and poll for the PHY instead of failing.
 
-Returning 0 rather than -ENODEV matters beyond the error itself: DSA
-reads -ENODEV as permission to go looking for the PHY on the switch's
-internal MDIO bus, which is the wrong device.
+On Fri, Aug 28, 2026 at 05:47:03PM +0800, Lance Yang wrote:
+>
+>On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+>>Userfaultfd minor faults provides userspace with the ability to manually
+>>install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+>>map holes in the VMA when a naturally-aligned THP is present without
+>>explicit action from userspace.
+>>
+>>This is a problem, as it bypasses userfaultfd minor faults that
+>>userspace is expecting to handle.
+>
+>One basic question first. Should MADV_COLLAPSE refuse to collapse a
+>UFFD-minor-registered VMA, regardless of whether all PTEs are present?
+>
+>I'd leave that to the maintainers :D
+>
+>Anyway, assuming the answer is yes, I wonder whether the new check is
+>sufficient. See below.
+>
+>>
+>>If userspace implements post-copy live migration using userfaultfd minor
+>>faults, this situation is currently possible:
+>>1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+>>   is mapped in the page tables.
+>>2. A stale copy of a page is present in a naturally-aligned THP (from
+>>   pre-copy live migration).
+>>3. khugepaged collapses the mapping of the THP, installs a PMD.
 
-Wait for a PHY whose own driver has finished probing, not merely for one
-that exists. A PHY can be registered long before its driver is, because
-the driver arrives when userspace gets around to loading it; connecting
-in between would bind the generic driver, which cannot drive such a PHY
-and leaves it worse off than not connecting at all.
-phylink_sfp_connect_phy() already refuses a PHY with no driver for the
-same reason. Binding alone is not enough either: phy_probe() publishes
-phydev->drv before it calls the driver's probe, so a PHY caught inside
-that window is validated against a supported mask that is still empty.
-Note that this makes slow-to-probe a request for a specific driver: a
-PHY meant to run on the generic driver must not sit behind the property,
-because the wait would then never end.
+Ouch ... I missed this earlier. The problem is real, but this commit
+message describes the wrong trigger.
 
-A PHY arriving this late has missed phylink_start(), which starts the PHY
-it finds already attached, so start it here when the port is up.
+Background khugepaged calls try_collapse_pte_mapped_thp() with
+install_pmd=false, so it cannot install the PMD or trigger this
+sequence. MADV_COLLAPSE passes install_pmd=true and installs the PMD.
 
-Keep polling after a failed connect, because the errno does not say
-whether the failure is permanent: phylink_validate_phy() returns -EINVAL
-both for a PHY that cannot speak the port's interface and for one whose
-link modes are not in place yet, and only the PHY's driver binding again
-changes that answer. Giving up would lose the port for good. Back the
-interval off and report the first failure only, since a retry that
-reaches bringup detaches the PHY again and phy_detach() asserts its
-reset line.
+So the problem described here can only be triggered by MADV_COLLAPSE,
+whether it comes through madvise() or process_madvise(), no?
 
-The poller runs from a workqueue and needs rtnl, while
-phylink_disconnect_phy() cancels it with rtnl already held, so it takes
-rtnl with trylock and requeues on failure. For the same reason the
-synchronous cancel belongs in phylink_destroy(), which documents that
-rtnl must not be held.
+Cheers, Lance
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
- drivers/net/phy/phylink.c | 202 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 196 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 5b8e956902fb..eda7b61ba5d1 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -73,6 +73,24 @@ struct phylink {
- 	struct phylink_link_state phy_state;
- 	unsigned int phy_ib_mode;
- 	struct work_struct resolve;
-+	/* Set while waiting for a PHY that is expected to probe late.
-+	 * Written and read under rtnl only: phylink_disconnect_phy() puts
-+	 * and clears it there, which is what makes the poller's dereference
-+	 * safe.
-+	 */
-+	struct fwnode_handle *slow_phy_fwnode;
-+	u32 slow_phy_flags;
-+	struct delayed_work slow_phy_poll;
-+	/* Interval before the next poll. Set when the poller is armed and
-+	 * thereafter owned by it, since a delayed work never runs twice at
-+	 * once.
-+	 */
-+	unsigned int slow_phy_poll_ms;
-+	unsigned int slow_phy_waited_ms;
-+	/* Written under rtnl, read unlocked by the poller; a stale read only
-+	 * costs an extra poll cycle.
-+	 */
-+	bool slow_phy_stop;
- 	unsigned int pcs_neg_mode;
- 	unsigned int pcs_state;
- 
-@@ -1829,6 +1847,8 @@ int phylink_set_fixed_link(struct phylink *pl,
- }
- EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
- 
-+static void phylink_slow_phy_poll(struct work_struct *work);
-+
- /**
-  * phylink_create() - create a phylink instance
-  * @config: a pointer to the target &struct phylink_config
-@@ -1867,6 +1887,7 @@ struct phylink *phylink_create(struct phylink_config *config,
- 	mutex_init(&pl->phydev_mutex);
- 	mutex_init(&pl->state_mutex);
- 	INIT_WORK(&pl->resolve, phylink_resolve);
-+	INIT_DELAYED_WORK(&pl->slow_phy_poll, phylink_slow_phy_poll);
- 
- 	pl->config = config;
- 	if (config->type == PHYLINK_NETDEV) {
-@@ -1950,6 +1971,10 @@ void phylink_destroy(struct phylink *pl)
- 	if (pl->link_gpio)
- 		gpiod_put(pl->link_gpio);
- 
-+	WRITE_ONCE(pl->slow_phy_stop, true);
-+	cancel_delayed_work_sync(&pl->slow_phy_poll);
-+	fwnode_handle_put(pl->slow_phy_fwnode);
-+
- 	cancel_work_sync(&pl->resolve);
- 	kfree(pl);
- }
-@@ -2201,10 +2226,8 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
- }
- 
- static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
--			      phy_interface_t interface)
-+			      phy_interface_t interface, u32 flags)
- {
--	u32 flags = 0;
--
- 	if (WARN_ON(pl->cfg_link_an_mode == MLO_AN_FIXED))
- 		return -EINVAL;
- 
-@@ -2242,7 +2265,7 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- 		pl->link_config.interface = pl->link_interface;
- 	}
- 
--	ret = phylink_attach_phy(pl, phy, pl->link_interface);
-+	ret = phylink_attach_phy(pl, phy, pl->link_interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2254,6 +2277,129 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- }
- EXPORT_SYMBOL_GPL(phylink_connect_phy);
- 
-+/* How often to re-check whether a late-probing PHY has turned up. */
-+#define PHYLINK_SLOW_PHY_POLL_MS	1000
-+#define PHYLINK_SLOW_PHY_WARN_MS	60000
-+
-+/* Ceiling that interval backs off to once a connect attempt has failed. */
-+#define PHYLINK_SLOW_PHY_POLL_MAX_MS	30000
-+
-+/* A phy-handle has resolved only once it names a device with its own driver
-+ * bound. A device that is absent, or present with the generic driver bound to
-+ * it, is equally unusable: this is the state slow-to-probe waits out, and both
-+ * the arming site and the poller must agree on it.
-+ *
-+ * Bound is not probed. phy_probe() assigns phydev->drv before it calls the
-+ * driver's own probe(), and only fills phydev->supported from get_features()
-+ * once that has returned; a device connected in between is validated against
-+ * an empty link-mode mask. PHY_DOWN is the documented state of a device whose
-+ * probe has not completed, and phy_probe() leaves it in PHY_READY.
-+ */
-+static bool phylink_phy_is_usable(struct phy_device *phy_dev)
-+{
-+	return phy_dev && phy_dev->drv && phy_dev->state != PHY_DOWN &&
-+	       !phy_driver_is_genphy(phy_dev);
-+}
-+
-+static void phylink_slow_phy_poll(struct work_struct *work)
-+{
-+	struct phylink *pl = container_of(to_delayed_work(work), struct phylink,
-+					  slow_phy_poll);
-+	struct phy_device *phy_dev;
-+	int ret;
-+
-+	if (READ_ONCE(pl->slow_phy_stop))
-+		return;
-+
-+	/* phylink_disconnect_phy() cancels this work while holding rtnl, so
-+	 * blocking on rtnl here would deadlock against it. Requeue instead and
-+	 * let the canceller finish.
-+	 */
-+	if (!rtnl_trylock())
-+		goto requeue;
-+
-+	if (READ_ONCE(pl->slow_phy_stop)) {
-+		rtnl_unlock();
-+		return;
-+	}
-+
-+	/* Do not "optimize" the lookup out from under rtnl: rtnl is what
-+	 * makes phylink_disconnect_phy()'s put-and-clear of slow_phy_fwnode
-+	 * safe against this dereference. The uncontended trylock above is
-+	 * cheaper than the use-after-free.
-+	 */
-+	phy_dev = fwnode_phy_find_device(pl->slow_phy_fwnode);
-+	if (!phylink_phy_is_usable(phy_dev)) {
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		/* A PHY that never turns up would otherwise wait in complete
-+		 * silence: one breadcrumb after a minute, like the connect
-+		 * failure below gets, and like a missing firmware file gets
-+		 * from the MDIO side.
-+		 */
-+		pl->slow_phy_waited_ms += pl->slow_phy_poll_ms;
-+		if (pl->slow_phy_waited_ms >= PHYLINK_SLOW_PHY_WARN_MS &&
-+		    pl->slow_phy_waited_ms - pl->slow_phy_poll_ms <
-+		    PHYLINK_SLOW_PHY_WARN_MS)
-+			phylink_warn(pl,
-+				     "still waiting for the slow-to-probe PHY (%pfw)\n",
-+				     pl->slow_phy_fwnode);
-+		rtnl_unlock();
-+		goto requeue;
-+	}
-+
-+	if (pl->link_interface == PHY_INTERFACE_MODE_NA) {
-+		pl->link_interface = phy_dev->interface;
-+		pl->link_config.interface = pl->link_interface;
-+	}
-+
-+	ret = phylink_attach_phy(pl, phy_dev, pl->link_interface,
-+				 pl->slow_phy_flags);
-+	phy_device_free(phy_dev);
-+	if (!ret) {
-+		ret = phylink_bringup_phy(pl, phy_dev,
-+					  pl->link_config.interface);
-+		if (ret)
-+			phy_detach(phy_dev);
-+		else if (!test_bit(PHYLINK_DISABLE_STOPPED,
-+				   &pl->phylink_disable_state))
-+			/* phylink_start() starts the PHY it finds attached,
-+			 * and ran long before this one turned up.
-+			 */
-+			phy_start(phy_dev);
-+	}
-+	if (ret) {
-+		/* Whether this is permanent cannot be read off the errno: the
-+		 * same -EINVAL comes out of phylink_validate_phy() for a PHY
-+		 * that is still filling in its link modes and for one that
-+		 * genuinely cannot speak this interface. What decides it is
-+		 * the PHY's supported mask, and only the driver binding again
-+		 * changes that, so keep polling - giving up here loses the
-+		 * port for the lifetime of this phylink. Back off instead: a
-+		 * failed bringup ends in phy_detach(), which asserts the PHY's
-+		 * reset line. Report the first failure only, so a PHY that
-+		 * will never fit costs one line rather than a stream of them.
-+		 */
-+		if (pl->slow_phy_poll_ms == PHYLINK_SLOW_PHY_POLL_MS)
-+			phylink_err(pl, "failed to connect late PHY: %pe\n",
-+				    ERR_PTR(ret));
-+
-+		WRITE_ONCE(pl->slow_phy_poll_ms,
-+			   min_t(unsigned int, pl->slow_phy_poll_ms * 2,
-+				 PHYLINK_SLOW_PHY_POLL_MAX_MS));
-+	}
-+	rtnl_unlock();
-+
-+	if (!ret)
-+		return;
-+
-+requeue:
-+	queue_delayed_work(system_freezable_power_efficient_wq,
-+			   &pl->slow_phy_poll,
-+			   msecs_to_jiffies(READ_ONCE(pl->slow_phy_poll_ms)));
-+}
-+
- /**
-  * phylink_of_phy_connect() - connect the PHY specified in the DT mode.
-  * @pl: a pointer to a &struct phylink returned from phylink_create()
-@@ -2282,7 +2428,13 @@ EXPORT_SYMBOL_GPL(phylink_of_phy_connect);
-  * Connect the phy specified @fwnode to the phylink instance specified
-  * by @pl.
-  *
-- * Returns 0 on success or a negative errno.
-+ * If the port node carries the slow-to-probe property and the PHY is not
-+ * usable yet, 0 is returned with no PHY connected: a poller connects it
-+ * once its driver has probed. Until then the MAC runs without a PHY and
-+ * ethtool reports no link modes.
-+ *
-+ * Returns 0 on success - the PHY connected, or the deferred connect
-+ * armed - or a negative errno.
-  */
- int phylink_fwnode_phy_connect(struct phylink *pl,
- 			       const struct fwnode_handle *fwnode,
-@@ -2304,6 +2456,32 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
- 	}
- 
- 	phy_dev = fwnode_phy_find_device(phy_fwnode);
-+	if (!phylink_phy_is_usable(phy_dev) &&
-+	    fwnode_property_present(fwnode, "slow-to-probe")) {
-+		/* The PHY is known to appear late, so keep the node and poll
-+		 * for it rather than failing the port for good. Returning an
-+		 * error here would also send DSA off to look for the PHY on
-+		 * the switch's own MDIO bus.
-+		 */
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		pl->slow_phy_fwnode = phy_fwnode;
-+		pl->slow_phy_flags = flags;
-+		WRITE_ONCE(pl->slow_phy_poll_ms, PHYLINK_SLOW_PHY_POLL_MS);
-+		pl->slow_phy_waited_ms = 0;
-+		WRITE_ONCE(pl->slow_phy_stop, false);
-+		/* mod_ rather than queue_: a poll that a disconnect cancelled
-+		 * mid-backoff may still be pending with seconds left on it.
-+		 */
-+		/* Freezable: attaching and starting a PHY has no place in
-+		 * the middle of a system suspend transition.
-+		 */
-+		mod_delayed_work(system_freezable_power_efficient_wq,
-+				 &pl->slow_phy_poll, 0);
-+		return 0;
-+	}
-+
- 	/* We're done with the phy_node handle */
- 	fwnode_handle_put(phy_fwnode);
- 	if (!phy_dev)
-@@ -2345,6 +2523,18 @@ void phylink_disconnect_phy(struct phylink *pl)
- 
- 	ASSERT_RTNL();
- 
-+	/* Cannot cancel synchronously: the poller takes rtnl, which is held. */
-+	WRITE_ONCE(pl->slow_phy_stop, true);
-+	cancel_delayed_work(&pl->slow_phy_poll);
-+	/* The next connect re-arms from its own fwnode lookup; holding on to
-+	 * this one would leak a reference per connect cycle and keep the
-+	 * pending state - and its empty-ksettings window - alive on an
-+	 * interface whose PHY is long since usable. The poller cannot race
-+	 * this: it reads the node only under rtnl, after the stop check.
-+	 */
-+	fwnode_handle_put(pl->slow_phy_fwnode);
-+	pl->slow_phy_fwnode = NULL;
-+
- 	mutex_lock(&pl->phydev_mutex);
- 	phy = pl->phydev;
- 	if (phy) {
-@@ -3730,7 +3920,7 @@ static int phylink_sfp_config_phy(struct phylink *pl, struct phy_device *phy)
- 	/* Attach the PHY so that the PHY is present when we do the major
- 	 * configuration step.
- 	 */
--	ret = phylink_attach_phy(pl, phy, config.interface);
-+	ret = phylink_attach_phy(pl, phy, config.interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.53.0
-
+>>4. The VM now has access to the stale contents => VM is broken.
+>>5. After installing the correct contents, userspace attempts to map the
+>>   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+>>   unexpectedly mapped the page.
+>>
+>>The naturally-aligned THP case is the only case where this is a problem.
+>>khugepaged otherwise requires all PTEs to be present for
+>>userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+>>correct. This check is essentially bypassed for naturally-aligned THPs.
+>>
+>>To deal with this issue, completely disallow collapsing in
+>>userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
+>>would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
+>>present, but that seems more complex than it is worth.
+>>
+>>Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+>>Cc: <stable@vger.kernel.org> # 6.1
+>>Signed-off-by: James Houghton <jthoughton@google.com>
+>>---
+>>This was caught with manual review while diagnosing a related issue
+>>that came up with in Google's live migration testing.
+>>
+>>I've uploaded a mostly-AI-generated reproducer here[1]. As long as
+>>/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
+>>the repro should work.
+>>
+>>[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
+>>---
+>> mm/khugepaged.c | 9 +++++++++
+>> 1 file changed, 9 insertions(+)
+>>
+>>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>>index b237f6e7662a..66f956d3dd67 100644
+>>--- a/mm/khugepaged.c
+>>+++ b/mm/khugepaged.c
+>>@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
+>> 		goto end;
+>> 	}
+>> 
+>>+	/*
+>>+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
+>>+	 * userspace is expecting to explicitly install PTEs.
+>>+	 */
+>>+	if (userfaultfd_minor(vma)) {
+>>+		result = SCAN_PTE_UFFD;
+>>+		goto end;
+>>+	}
+>
+>Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
+>drops the mmap read lock and before it reacquires it.
+>
+>Doesn't this still leave a registration race, no?
+>
+>
+>int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+>		     unsigned long end, bool *lock_dropped)
+>{
+>...
+>	cc->is_khugepaged = false;
+>...
+>		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
+>...
+>}
+>
+>static enum scan_result collapse_single_pmd(unsigned long addr,
+>		struct vm_area_struct *vma, bool *lock_dropped,
+>		struct collapse_control *cc)
+>{
+>...
+>	if (userfaultfd_minor(vma)) {
+>		result = SCAN_PTE_UFFD;
+>		goto end;
+>	}
+>...
+>	mmap_read_unlock(mm);
+>	*lock_dropped = true;
+>...
+>	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
+>		mmap_read_lock(mm);
+>		if (collapse_test_exit_or_disable(mm))
+>			result = SCAN_ANY_PROCESS;
+>		else
+>			result = try_collapse_pte_mapped_thp(mm, addr,
+>							     !cc->is_khugepaged);
+>...
+>		mmap_read_unlock(mm);
+>	}
+>...
+>}
+>
+>static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+>		bool install_pmd)
+>{
+>...
+>	struct vm_area_struct *vma = vma_lookup(mm, haddr);
+>...
+>	if (!vma || !vma->vm_file ||
+>	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
+>		return SCAN_VMA_CHECK;
+>...
+>	if (userfaultfd_protected(vma))
+>		return SCAN_PTE_UFFD;
+>...
+>	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
+>	switch (result) {
+>	case SCAN_SUCCEED:
+>		break;
+>	case SCAN_NO_PTE_TABLE:
+>...
+>		goto maybe_install_pmd;
+>	default:
+>		goto drop_folio;
+>	}
+>...
+>maybe_install_pmd:
+>	/* step 5: install pmd entry */
+>	result = install_pmd
+>			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
+>			: SCAN_SUCCEED;
+>...
+>}
+>
+>
+>static inline bool userfaultfd_minor(struct vm_area_struct *vma)
+>{
+>	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
+>}
+>
+>static inline bool userfaultfd_protected(struct vm_area_struct *vma)
+>{
+>	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
+>}
+>
+>Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
+>passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
+>set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
+>
+>Maybe:
+>
+>---8<---
+>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>index 33c41bc32af8..0eada7265d59 100644
+>--- a/mm/khugepaged.c
+>+++ b/mm/khugepaged.c
+>@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+> 	 */
+> 	if (userfaultfd_protected(vma))
+> 		return SCAN_PTE_UFFD;
+>+	if (userfaultfd_minor(vma))
+>+		return SCAN_PTE_UFFD;
+>
+> 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
+> 			       linear_page_index(vma, haddr));
+>--
+>
+>With that, LGTM.
+>
+>Tested-by: Lance Yang <lance.yang@linux.dev>
+>
+>Cheers, Lance
+>
