@@ -1,65 +1,65 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C8B3F823F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC33341835B
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788024007; cv=none; b=sERV1yTn0BfoMdmya/UDOayKtShD39wmoobFre44IBroJsOIkFdniDn3vvAKw5Rpxr4kLpy8VraEWuD9nEZiqWmvLgA32qcR7eB2fUhKZGBmjClHXmrpaQmcOQ4obDvWkB5XBQRYvsv62hevyQsd4YSvSqR2Cj7/kGLAYnaqiD4=
+	t=1788024013; cv=none; b=JD/oZGmsZa+Pp+6/wT8IS7Kfla4zXQwWjI/n9SedxB5cytfvFN21el29sByf+anrVbxwIb9z2jLkt6PKLyGEDDoCo+Cz5mnp/TIeOQMhCGn3KPNVpqctZPor/v0qkTkOJNBDd7fD69p7R+Is67WHihPKqwlQm76H2zdElyXgUfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788024007; c=relaxed/simple;
-	bh=FRGBjrUglqZRDJsdGH+697rjJyOvMHd9FF6O2v2HbLs=;
+	s=arc-20240116; t=1788024013; c=relaxed/simple;
+	bh=OSaq2gMX1EKiVTeTsGVjMX55IkhV3apM5CD7fszP9uc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KzMWAhawEDN2BOYm40KzCkZEGIMHIrHs5FzUUoSW7fC+sJ3bFp02rvFPzFkBPDvYCgkZtiuuKiu9ZgjdHXV2fejf5C0nhRg2R6lj96CL91ImDzwX76nGKpxvpGsqmz8/58Y9cssb+HY0wtba76gDD3NTE2tocsbV0myNt+KBJFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YUk8rxzA; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=KFaruxdmjQsJ3YxA1cSoj2e3URxP0RrtIOgzYlSgQzdmMgSdkcrLC3v4jGeZnnjboQ9tXoroMcf7oYtFzx9yqg5giUUg0PP6zT1oCtmLVLoEnYDpm+Pe63Vcoe7axZq7wGhWuA9/tjUeuaHa0TuE4gniFrWvvHC9Uvz6xph4R60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WJNG3cb5; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YUk8rxzA"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso7170355e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:20:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WJNG3cb5"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so18976595e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788024002; x=1788628802; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788024006; x=1788628806; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KT7lwoy3ywWQB29hoYCTALB62E661QzMt/79coS01X0=;
-        b=YUk8rxzAabqniagECQ0npFHr9i1rECMqvalm3LLmEiqSU6ACZNF77yN7+xsdiR1dj4
-         ayr4b4bupSw0nntTNDsNWTuVKptk0karW4sL++E36edDz2KFzQSci/etfsGdgE9x+q2u
-         LtJk1Qvnxi9AmcD2ht5+M5D4Yp5OZTMXwdSymCRBZV1INw3nxwdPJZuCsKw29RW1cwNg
-         Cxsc+rZ25HhrWmAjjpkEzhgSeeTjwVrAz12KkftJdChDXPOXXtiaWRmM3xsGSDKzVZtx
-         HsjA+Rs7tMlPc/Tx0WFI2qqXS3j9/2Y+dgYCUbqPnknhFx9E+f2mlL261orgHBMeQx21
-         qIng==
+        bh=H7iBDHstnVbLynr3vOPHFqOHTzA9DFC/5yqJJtpMTcc=;
+        b=WJNG3cb5qoBR/V5yQYm5CNkDNwPNNEXlVtzNdianob9DtxqG6xiLvW+OvnNl/+9tiS
+         t2JHum7suDGPAYKHznjTtPlthODcNzxcFcdyM3tb776BJ7i+AaTvz8ChfVxX9iET95HL
+         /W40wFuyMS6a/Uu5bsq+3b/mFU2aaGyZz0DJjcynOwGRXnZGY8XJgM7Ba86Q/GbyZHOb
+         +UtyIbAOayuN59KKEvAqxc/L4ZkbxTWbVqVWDqXHxw3IzcL2DSQVifPC42mzvHcRQfao
+         7MDGwJRUtFDzL5u/OWMcRrKNPqtjmWAueV2CDVZEZTE/xWcbUlRBnGwNKQwc8LsF0VVS
+         me6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788024002; x=1788628802;
+        d=1e100.net; s=20251104; t=1788024006; x=1788628806;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KT7lwoy3ywWQB29hoYCTALB62E661QzMt/79coS01X0=;
-        b=tYYRYDq4epc2u+kQBrngFQFvrEn+q/Fh3LhZdloo7ifI9Jl5PX65Kj86373vthRXGt
-         9qdzhPkrQzw39LHmI5/yMY9H54cjLLBPgHFNljXwhvhWSICeHraGxWe0+4iuVovhyMh6
-         L1uccRlo/RRBMfwaWvJW/UlzzIsKUMblSAKOnQPFD30wwebnBQu47kFBXjJeUkJHwCjS
-         iggpYTGucB1NkXqf0BqOjSP0VsZrC3l7fOYi0mZj5zXbK6zZ358qkbdpI3bHrBofm3n5
-         X0QOsf2Vw/IVcMnG+jkAC1oeF3JiDTXiQ9GT8U6kj4mqW/f3R1Fim6IvcmtrrAiv0jzR
-         Q76w==
-X-Forwarded-Encrypted: i=1; AHgh+RpkXmHiLxGYGGxAodMYgS1qPnYCYfMpQcJ7vZ2/Q7RhDZdYJFjH+tDlBWwkqsdd8xsmUjc4ozTygxD1VKk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPQq7+bQX1pl6N7roYByO0s608x+LyLfz4ANUmvkFHhX6FowBz
-	n3bfnmYvUyjCbbQIRliOoabOhnVevV+QLlR4T+jrvIl9suzMbd5tawat
-X-Gm-Gg: AR+sD10oD1uhqck6FDUSVrrh4IZUU0Y+eji6r0XiI3nrKpupIRiMIkdJ6/9LLJ08pbA
-	0ZjKWqrGxdYy/Kgh1c2cuCOkC/V50yK3K6nA6QPDzlX19ZerDrLVs1k6+H/JFGNZ5cISOj0+AfJ
-	7aNxINLil/8CnFpsgHQhMhiuJyBsxHb2QUkmsikzT2dnPfp5kLstsvjbPWqRTSLhxFmCEfSfMCS
-	ArpD74oBTjnj50Cr7kSPgGtQoBzgon++OOgRG/sZbAeolK+N6PN/OZxwShcxQW5EhKoa8rE3PHa
-	8zW1A9X3bW7k8zmraBL7cWC/XMG42i6ccFgUbX+Sg6aucwLss2Q9qJhaCL70uSYuX3O9kxBnbMw
-	nlfx7alvIGKfYPfIISjepWG80PnM65FGCtOIqIPUbsiQuWfDTSGm3krOqwvm38RB/xh3xREQmic
-	2FgNroY6lHf+wUAOBU5aZwho1Gdv+m/fSMw98t1dFqI8/sI4Z6wmFeWNpxBmClZnfjsu6d0nWLM
-	zlamt7/a4ihiLupjUMb3LpKlBYrKY5GRsJ7rEYn7NUizdGLs/Cm
-X-Received: by 2002:a05:600c:1549:b0:49c:d294:41e5 with SMTP id 5b1f17b1804b1-49cd294439fmr5324165e9.8.1788024001667;
-        Sat, 29 Aug 2026 10:20:01 -0700 (PDT)
+        bh=H7iBDHstnVbLynr3vOPHFqOHTzA9DFC/5yqJJtpMTcc=;
+        b=dKCyap7Sv6PJPgHNfX6cL2Fittg0dZ4c1iUxlAE8lYah57P2zCo3ObVWOe1sh9vZYS
+         9hTteTRqypOmM3nPZDJR74g7L+U/eGFfMZk1QZpCTEA9A1ThHA3KCnZG5KXUV3n3BHfs
+         gdO32NEWI/tOsZo8Gkwj7turLZqIg4D0hZHzXDvJ5KTZ1+fp4QFgzhaUlO7+Wx9rdzYV
+         U/hYFSjhducUeCv1L/H4cw4QDa6bGUHzVtKAHAjgKrvw06lvJHBZ6pYDDTU0hiprFCp1
+         yuO5HcFcWiMuy9S55cooG0s5H1tjDXwxqrOqUfuZUgYHun+tH80D8YpWlDfl2glLTptP
+         sn7A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrf5HztutsFtTqLFJ8qbz7YzKZBh2ayCDctas6/s+KyYCb2FGsbdOb07Mt0NIAPCk05+nqegkteDg1MxXg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXttpjnvYj4bOhaBT3onOD8oPT8cV5ranaBKLm1nsVLg7TJnmc
+	4NZ2mn4CHFySIJjSpz+PguSos+776sBPQY37arV1+sNwOC69nLi9Gg3p
+X-Gm-Gg: AR+sD10CM1at9cwGBe0zk9OrED4S8WsQrDiJwzqrQGIonCyNJ15HavHRPq2FM0HXgWE
+	nOdSG5rybu/3BwJoQfLPkfNJXm+D2+utN8btDM/fhKim5qTlXSapUhKJNgjYgZJ1j/iZ1K31IeU
+	ydi+1ePMH0y9dNl8I8xUzui+W8yIhwiBHzfMqo9w9qw/umvH2hC9v8ETTuA+KNnr5vKcWornzje
+	7tb2fPKZlxRKrmghaGmIbG+N6jLnEqnZKuD1AYIXI3SqByLfJzyFRDe/3jHP5LP0E9r3Hk8T3oS
+	PaVUpshC4bXWJ2bvH9DFBePGtVY8yS4bf2y/cUepKnW4ycjZiog053w8SpCQRpSP0dZuIk2iOIZ
+	K2H8o1nv1MZxWg1ebxBm8IaArggHsWGhlyw40uw1+gjvNDUQKuFRsQj+ctKgZc6j8sABTCgojy7
+	D1bM3X2+BGDKgMWWb+wm8BYmwC7eB1kROG+JkQhg9TWf5K4Z+QDtwhVfNm/aXaonic1kwIqnkPc
+	eAHLNCcATF6m0FqeDtDDfKnzigJvRvquCTk/4bCjuX1t92xVL0V
+X-Received: by 2002:a05:600c:34d1:b0:49c:ced8:303a with SMTP id 5b1f17b1804b1-49cced8316cmr53471535e9.14.1788024005472;
+        Sat, 29 Aug 2026 10:20:05 -0700 (PDT)
 Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm121080285e9.1.2026.08.29.10.20.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm121080285e9.1.2026.08.29.10.20.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:20:01 -0700 (PDT)
+        Sat, 29 Aug 2026 10:20:05 -0700 (PDT)
 Sender: Julian Braha <julian.braha@gmail.com>
 From: Julian Braha <julianbraha@gmail.com>
 To: nathan@kernel.org,
@@ -73,9 +73,9 @@ Cc: nico@fluxnic.net,
 	linux-kernel@vger.kernel.org,
 	linux-kbuild@vger.kernel.org,
 	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH 2/4] kconfig: check for out-of-bounds numeric constants
-Date: Sat, 29 Aug 2026 18:19:00 +0100
-Message-ID: <20260829171902.1510587-3-julianbraha@gmail.com>
+Subject: [PATCH 4/4] kconfig: prevent out-of-bounds user input for numeric options
+Date: Sat, 29 Aug 2026 18:19:02 +0100
+Message-ID: <20260829171902.1510587-5-julianbraha@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260829171902.1510587-1-julianbraha@gmail.com>
 References: <20260829171902.1510587-1-julianbraha@gmail.com>
@@ -87,289 +87,279 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Kconfig interpreter internally represents constants as strings, then
-attempts to parse them as 64-bit signed integers for 'int' options, and
-64-bit unsigned integers for 'hex' options.
+Currently, user input of out-of-bounds values for 'int' and 'hex' options
+is possible, leading to later silent failures in Kconfig if that value is
+used in a comparison, or a warning by GCC or error by Clang if used in the
+C code.
 
-However, there is currently no check that the conversion succeeds, leading
-to failures when the values are actually used. For example:
+Let's factor out the out-of-bounds check on constants, so that it can be
+reused for checking user input.
 
-  config LARGE_INT
-    int
-    default 10000000000000000000
+The frontend will now reject an attempted user input of an out-of-bounds
+numeric value, similarly to how a value outside the active 'range' already
+does.
 
-  config BUGGED_INT_COMPARISON
-    bool
-    default y if LARGE_INT < 2
-
-Obviously 10000000000000000000 is larger than 2, but the Kconfig
-interpreter will fallback to comparing the two values with strcmp() after
-the numeric conversion fails, causing the first character, '1', to be
-compared with '2', and giving the wrong result.
-
-Since none of these out-of-bounds values are used as constants anywhere in
-the tree, we can already make these error out.
+For migration of existing configurations, a .config file with an
+out-of-bounds numeric value will be allowed for now, but will warn the
+user when read in by confdata.c
 
 Assisted-by: Codex:gpt-5.6-sol
 Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
- scripts/kconfig/menu.c                        | 60 ++++++++++----
- scripts/kconfig/tests/err_num_bounds/Kconfig  | 79 +++++++++++++++++++
- .../kconfig/tests/err_num_bounds/__init__.py  | 12 +++
- .../tests/err_num_bounds/expected_stderr      | 10 +++
- .../err_num_non_numeric_ref/expected_stderr   | 30 +++----
- 5 files changed, 160 insertions(+), 31 deletions(-)
- create mode 100644 scripts/kconfig/tests/err_num_bounds/Kconfig
- create mode 100644 scripts/kconfig/tests/err_num_bounds/__init__.py
- create mode 100644 scripts/kconfig/tests/err_num_bounds/expected_stderr
+ scripts/kconfig/confdata.c                    |  6 +++++
+ scripts/kconfig/lkc_proto.h                   |  1 +
+ scripts/kconfig/menu.c                        | 11 +++-----
+ scripts/kconfig/symbol.c                      | 20 +++++++++++++++
+ scripts/kconfig/tests/warn_num_bounds/Kconfig | 24 ++++++++++++++++++
+ .../kconfig/tests/warn_num_bounds/__init__.py | 25 +++++++++++++++++++
+ scripts/kconfig/tests/warn_num_bounds/config  |  7 ++++++
+ .../tests/warn_num_bounds/expected_config     | 11 ++++++++
+ .../warn_num_bounds/expected_config_stderr    |  3 +++
+ .../warn_num_bounds/expected_frontend_config  | 11 ++++++++
+ .../warn_num_bounds/expected_frontend_stderr  |  0
+ 11 files changed, 111 insertions(+), 8 deletions(-)
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/Kconfig
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/__init__.py
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/config
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_config
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
+ create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr
 
+diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
+index 4234a51d16fd..2227d89d6328 100644
+--- a/scripts/kconfig/confdata.c
++++ b/scripts/kconfig/confdata.c
+@@ -354,6 +354,12 @@ static int conf_set_sym_val(struct symbol *sym, int def, int def_flags, char *p)
+ 	case S_INT:
+ 	case S_HEX:
+ 		if (sym_string_valid(sym, p)) {
++			if (def != S_DEF_AUTO &&
++			    !sym_string_check_bounds(sym, p))
++				/* hex uses 64-bit unsigned integer */
++				conf_warning("value '%s' for %s is outside the 64-bit %s integer bounds",
++					     p, sym->name,
++					     sym->type == S_INT ? "signed" : "unsigned");
+ 			sym->def[def].val = xstrdup(p);
+ 			sym->flags |= def_flags;
+ 		} else {
+diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
+index 8914b4e8f2a8..8b436c87ba4a 100644
+--- a/scripts/kconfig/lkc_proto.h
++++ b/scripts/kconfig/lkc_proto.h
+@@ -31,6 +31,7 @@ bool sym_set_tristate_value(struct symbol *sym,tristate tri);
+ void choice_set_value(struct menu *choice, struct symbol *sym);
+ tristate sym_toggle_tristate_value(struct symbol *sym);
+ bool sym_string_valid(struct symbol *sym, const char *newval);
++bool sym_string_check_bounds(struct symbol *sym, const char *str);
+ bool sym_string_within_range(struct symbol *sym, const char *str);
+ bool sym_set_string_value(struct symbol *sym, const char *newval);
+ bool sym_is_changeable(const struct symbol *sym);
 diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index 99a57ce0fdc9..ede791a2fe1b 100644
+index 2d8b0c65ce1e..6f99216ee76d 100644
 --- a/scripts/kconfig/menu.c
 +++ b/scripts/kconfig/menu.c
-@@ -4,6 +4,7 @@
+@@ -4,7 +4,6 @@
   */
  
  #include <ctype.h>
-+#include <errno.h>
+-#include <errno.h>
  #include <stdarg.h>
  #include <stdlib.h>
  #include <string.h>
-@@ -234,10 +235,46 @@ void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep)
- 	menu_add_prop(type, expr_alloc_symbol(sym), dep);
+@@ -255,17 +254,13 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+ 		return 1;
+ 	}
+ 
+-	errno = 0;
+-	if (sym->type == S_INT) {
++	if (sym->type == S_INT)
+ 		type_bounds = "64-bit signed integer";
+-		strtoll(sym2->name, NULL, 10);
+-	} else {
++	else
+ 		/* hex */
+ 		type_bounds = "64-bit unsigned integer";
+-		strtoull(sym2->name, NULL, 16);
+-	}
+ 
+-	if (errno == ERANGE) {
++	if (!sym_string_check_bounds(sym, sym2->name)) {
+ 		fprintf(stderr,
+ 			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
+ 			prop->filename, prop->lineno, sym_type_name(sym->type),
+diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+index 7e81b3676ee9..2d1c021fa395 100644
+--- a/scripts/kconfig/symbol.c
++++ b/scripts/kconfig/symbol.c
+@@ -5,6 +5,7 @@
+ 
+ #include <sys/types.h>
+ #include <ctype.h>
++#include <errno.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <regex.h>
+@@ -711,6 +712,21 @@ bool sym_string_valid(struct symbol *sym, const char *str)
+ 	}
  }
  
--static int menu_validate_number(struct symbol *sym, struct symbol *sym2)
-+/* Validate the sym2 value for numeric sym. */
-+static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
-+				const struct property *prop)
- {
--	return sym2->type == S_INT || sym2->type == S_HEX ||
--	       (sym2->type == S_UNKNOWN && sym_string_valid(sym, sym2->name));
-+	const char *type_bounds;
-+
-+	if (sym->type != S_INT && sym->type != S_HEX)
-+		return 0;
-+
-+	if (sym2->type == S_INT || sym2->type == S_HEX)
-+		return 0;
-+
-+	if (sym2->type != S_UNKNOWN ||
-+		!sym_string_valid(sym, sym2->name)) {
-+		fprintf(stderr, "%s:%d: error: '%s' is an invalid value for '%s'\n",
-+			prop->filename, prop->lineno, sym2->name,
-+			sym_type_name(sym->type));
-+		return 1;
-+	}
-+
++bool sym_string_check_bounds(struct symbol *sym, const char *str)
++{
 +	errno = 0;
-+	if (sym->type == S_INT) {
-+		type_bounds = "64-bit signed integer";
-+		strtoll(sym2->name, NULL, 10);
-+	} else {
-+		/* hex */
-+		type_bounds = "64-bit unsigned integer";
-+		strtoull(sym2->name, NULL, 16);
-+	}
 +
-+	if (errno == ERANGE) {
-+		fprintf(stderr,
-+			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
-+			prop->filename, prop->lineno, sym_type_name(sym->type),
-+			sym2->name, type_bounds);
++	if (sym->type == S_INT)
++		strtoll(str, NULL, 10);
++	else if (sym->type == S_HEX)
++		strtoull(str, NULL, 16);
++	else
++		/* string */
++		return true;
 +
-+		return 1;
-+	}
++	return errno != ERANGE;
++}
 +
-+	return 0;
- }
- 
- static int sym_check_prop(struct symbol *sym)
-@@ -259,13 +296,7 @@ static int sym_check_prop(struct symbol *sym)
- 				break;
- 			sym2 = prop_get_symbol(prop);
- 			if (sym->type == S_HEX || sym->type == S_INT) {
--				if (!menu_validate_number(sym, sym2)) {
--					fprintf(stderr,
--						"%s:%d: error: '%s': number is invalid\n",
--						prop->filename, prop->lineno,
--						sym->name);
--					errors++;
--				}
-+				errors += menu_validate_number(sym, sym2, prop);
- 			}
- 			if (sym_is_choice(sym)) {
- 				struct menu *choice = sym_get_choice_menu(sym2);
-@@ -296,13 +327,8 @@ static int sym_check_prop(struct symbol *sym)
- 			if (sym->type != S_INT && sym->type != S_HEX)
- 				prop_warn(prop, "range is only allowed "
- 						"for int or hex symbols");
--			if (!menu_validate_number(sym, prop->expr->left.sym) ||
--			    !menu_validate_number(sym, prop->expr->right.sym)) {
--				fprintf(stderr,
--					"%s:%d: error: range is invalid\n",
--					prop->filename, prop->lineno);
--				errors++;
--			}
-+			errors += menu_validate_number(sym, prop->expr->left.sym, prop);
-+			errors += menu_validate_number(sym, prop->expr->right.sym, prop);
- 			break;
- 		default:
- 			;
-diff --git a/scripts/kconfig/tests/err_num_bounds/Kconfig b/scripts/kconfig/tests/err_num_bounds/Kconfig
+ bool sym_string_within_range(struct symbol *sym, const char *str)
+ {
+ 	struct property *prop;
+@@ -722,6 +738,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+ 	case S_INT:
+ 		if (!sym_string_valid(sym, str))
+ 			return false;
++		if (!sym_string_check_bounds(sym, str))
++			return false;
+ 		prop = sym_get_range_prop(sym);
+ 		if (!prop)
+ 			return true;
+@@ -731,6 +749,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+ 	case S_HEX:
+ 		if (!sym_string_valid(sym, str))
+ 			return false;
++		if (!sym_string_check_bounds(sym, str))
++			return false;
+ 		prop = sym_get_range_prop(sym);
+ 		if (!prop)
+ 			return true;
+diff --git a/scripts/kconfig/tests/warn_num_bounds/Kconfig b/scripts/kconfig/tests/warn_num_bounds/Kconfig
 new file mode 100644
-index 000000000000..c439366c03b6
+index 000000000000..a810225a58a3
 --- /dev/null
-+++ b/scripts/kconfig/tests/err_num_bounds/Kconfig
-@@ -0,0 +1,79 @@
++++ b/scripts/kconfig/tests/warn_num_bounds/Kconfig
+@@ -0,0 +1,24 @@
 +# SPDX-License-Identifier: GPL-2.0
-+# Test bounds checks for 'int' and 'hex' constants
 +
-+config INT_SOURCE
-+	int
++mainmenu "Numeric bounds test"
 +
-+config HEX_SOURCE
-+	hex
++config INT_TOO_LOW
++	int "Integer below its type bounds"
 +
-+config BOOL_SOURCE
-+	bool
++config INT_TOO_HIGH
++	int "Integer above its type bounds"
 +
-+# Valid values at the limits of the type
++config HEX_TOO_HIGH
++	hex "Hex value above its type bounds"
 +
 +config INT_MIN
-+	int
-+	default -9223372036854775808
++	int "Minimum valid integer"
 +
 +config INT_MAX
-+	int
-+	default 9223372036854775807
++	int "Maximum valid integer"
 +
 +config HEX_MIN
-+	hex
-+	default 0x0
++	hex "Minimum valid hex value"
 +
 +config HEX_MAX
-+	hex
-+	default 0xffffffffffffffff
-+
-+config INT_RANGE_LIMITS
-+	int
-+	range -9223372036854775808 9223372036854775807
-+
-+config HEX_RANGE_LIMITS
-+	hex
-+	range 0 0xffffffffffffffff
-+
-+config INT_FROM_INT
-+	int
-+	default INT_SOURCE
-+
-+config HEX_FROM_HEX
-+	hex
-+	default HEX_SOURCE
-+
-+# Constants outside the bounds
-+
-+config INT_DEFAULT_TOO_HIGH
-+	int
-+	default 10000000000000000000
-+
-+config INT_DEFAULT_TOO_LOW
-+	int
-+	default -9223372036854775809
-+
-+config INT_RANGE_TOO_HIGH
-+	int
-+	range 0 10000000000000000000
-+
-+config INT_RANGE_TOO_LOW
-+	int
-+	range -10000000000000000000 0
-+
-+config INT_RANGE_BOTH_OUTSIDE
-+	int
-+	range -9223372036854775809 10000000000000000000
-+
-+config HEX_DEFAULT_TOO_HIGH
-+	hex
-+	default 0x10000000000000000
-+
-+config HEX_RANGE_TOO_HIGH
-+	hex
-+	range 0 0x10000000000000000
-+
-+config HEX_RANGE_BOTH_TOO_HIGH
-+	hex
-+	range 0x10000000000000000 0x20000000000000000
-diff --git a/scripts/kconfig/tests/err_num_bounds/__init__.py b/scripts/kconfig/tests/err_num_bounds/__init__.py
++	hex "Maximum valid hex value"
+diff --git a/scripts/kconfig/tests/warn_num_bounds/__init__.py b/scripts/kconfig/tests/warn_num_bounds/__init__.py
 new file mode 100644
-index 000000000000..72ac6aa24491
+index 000000000000..db7518258217
 --- /dev/null
-+++ b/scripts/kconfig/tests/err_num_bounds/__init__.py
-@@ -0,0 +1,12 @@
++++ b/scripts/kconfig/tests/warn_num_bounds/__init__.py
+@@ -0,0 +1,25 @@
 +# SPDX-License-Identifier: GPL-2.0
-+"""
-+Detect constants outside the 'int' and 'hex' bounds.
-+
-+An int constant must fit in a signed 64-bit integer, and a hex constant must
-+fit in an unsigned 64-bit integer.
-+"""
++"""Test user values outside the numeric type bounds."""
 +
 +
 +def test(conf):
-+    assert conf.olddefconfig() == 1
-+    assert conf.stderr_matches('expected_stderr')
-diff --git a/scripts/kconfig/tests/err_num_bounds/expected_stderr b/scripts/kconfig/tests/err_num_bounds/expected_stderr
++    in_keys = (
++        '-9223372036854775809\n'
++        '-1\n'
++        '9223372036854775808\n'
++        '1\n'
++        '0x10000000000000000\n'
++        '0x1\n'
++        '-9223372036854775808\n'
++        '9223372036854775807\n'
++        '0x0\n'
++        '0xffffffffffffffff\n'
++    )
++
++    assert conf.oldaskconfig(in_keys=in_keys) == 0
++    assert conf.stderr_matches('expected_frontend_stderr')
++    assert conf.config_matches('expected_frontend_config')
++
++    assert conf.olddefconfig('config') == 0
++    assert conf.stderr_matches('expected_config_stderr')
++    assert conf.config_matches('expected_config')
+diff --git a/scripts/kconfig/tests/warn_num_bounds/config b/scripts/kconfig/tests/warn_num_bounds/config
 new file mode 100644
-index 000000000000..3f06e13359ef
+index 000000000000..74bf263f99bf
 --- /dev/null
-+++ b/scripts/kconfig/tests/err_num_bounds/expected_stderr
-@@ -0,0 +1,10 @@
-+Kconfig:51: error: integer constant '10000000000000000000' is outside the 64-bit signed integer bounds
-+Kconfig:55: error: integer constant '-9223372036854775809' is outside the 64-bit signed integer bounds
-+Kconfig:59: error: integer constant '10000000000000000000' is outside the 64-bit signed integer bounds
-+Kconfig:63: error: integer constant '-10000000000000000000' is outside the 64-bit signed integer bounds
-+Kconfig:67: error: integer constant '-9223372036854775809' is outside the 64-bit signed integer bounds
-+Kconfig:67: error: integer constant '10000000000000000000' is outside the 64-bit signed integer bounds
-+Kconfig:71: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned integer bounds
-+Kconfig:75: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned integer bounds
-+Kconfig:79: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned integer bounds
-+Kconfig:79: error: hex constant '0x20000000000000000' is outside the 64-bit unsigned integer bounds
-diff --git a/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr b/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-index 4974ba2fcd9c..005f855ecbdd 100644
---- a/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-+++ b/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-@@ -1,14 +1,16 @@
--Kconfig:17: error: 'INT_DEFAULT_BOOL': number is invalid
--Kconfig:21: error: 'INT_DEFAULT_TRISTATE': number is invalid
--Kconfig:25: error: 'INT_DEFAULT_STRING': number is invalid
--Kconfig:31: error: 'HEX_DEFAULT_BOOL': number is invalid
--Kconfig:35: error: 'HEX_DEFAULT_TRISTATE': number is invalid
--Kconfig:39: error: 'HEX_DEFAULT_STRING': number is invalid
--Kconfig:45: error: range is invalid
--Kconfig:49: error: range is invalid
--Kconfig:53: error: range is invalid
--Kconfig:57: error: range is invalid
--Kconfig:63: error: range is invalid
--Kconfig:67: error: range is invalid
--Kconfig:71: error: range is invalid
--Kconfig:75: error: range is invalid
-+Kconfig:17: error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:21: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:25: error: 'STRING_SOURCE' is an invalid value for 'integer'
-+Kconfig:31: error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:35: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
-+Kconfig:39: error: 'STRING_SOURCE' is an invalid value for 'hex'
-+Kconfig:45: error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:49: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:53: error: 'STRING_SOURCE' is an invalid value for 'integer'
-+Kconfig:57: error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:57: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:63: error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:67: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
-+Kconfig:71: error: 'STRING_SOURCE' is an invalid value for 'hex'
-+Kconfig:75: error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:75: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
++++ b/scripts/kconfig/tests/warn_num_bounds/config
+@@ -0,0 +1,7 @@
++CONFIG_INT_TOO_LOW=-9223372036854775809
++CONFIG_INT_TOO_HIGH=9223372036854775808
++CONFIG_HEX_TOO_HIGH=0x10000000000000000
++CONFIG_INT_MIN=-9223372036854775808
++CONFIG_INT_MAX=9223372036854775807
++CONFIG_HEX_MIN=0x0
++CONFIG_HEX_MAX=0xffffffffffffffff
+diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_config b/scripts/kconfig/tests/warn_num_bounds/expected_config
+new file mode 100644
+index 000000000000..8b1aef612bc6
+--- /dev/null
++++ b/scripts/kconfig/tests/warn_num_bounds/expected_config
+@@ -0,0 +1,11 @@
++#
++# Automatically generated file; DO NOT EDIT.
++# Numeric bounds test
++#
++CONFIG_INT_TOO_LOW=-9223372036854775809
++CONFIG_INT_TOO_HIGH=9223372036854775808
++CONFIG_HEX_TOO_HIGH=0x10000000000000000
++CONFIG_INT_MIN=-9223372036854775808
++CONFIG_INT_MAX=9223372036854775807
++CONFIG_HEX_MIN=0x0
++CONFIG_HEX_MAX=0xffffffffffffffff
+diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr b/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
+new file mode 100644
+index 000000000000..be2ed7fbf648
+--- /dev/null
++++ b/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
+@@ -0,0 +1,3 @@
++.config:1:warning: value '-9223372036854775809' for INT_TOO_LOW is outside the 64-bit signed integer bounds
++.config:2:warning: value '9223372036854775808' for INT_TOO_HIGH is outside the 64-bit signed integer bounds
++.config:3:warning: value '0x10000000000000000' for HEX_TOO_HIGH is outside the 64-bit unsigned integer bounds
+diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
+new file mode 100644
+index 000000000000..a7e842517026
+--- /dev/null
++++ b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
+@@ -0,0 +1,11 @@
++#
++# Automatically generated file; DO NOT EDIT.
++# Numeric bounds test
++#
++CONFIG_INT_TOO_LOW=-1
++CONFIG_INT_TOO_HIGH=1
++CONFIG_HEX_TOO_HIGH=0x1
++CONFIG_INT_MIN=-9223372036854775808
++CONFIG_INT_MAX=9223372036854775807
++CONFIG_HEX_MIN=0x0
++CONFIG_HEX_MAX=0xffffffffffffffff
+diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr
+new file mode 100644
+index 000000000000..e69de29bb2d1
 -- 
 2.55.0
 
