@@ -1,194 +1,201 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6657937C908
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:20:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788006042; cv=none; b=NvKehxN9IqxxeNHJgwRSInff7f4ohpBHY0x6DGZLYz7vdyVUsT78b+jtSJv0M9k7H1AkkV4bUt+YSXaxnJNVprCQEUkztY94LtNmXDuXqlpeiQQ6rfqClDXps0X18UM9QCPumcx2D16LAoOXv6UrL6BrXnbACdMWNqz8Xzy9Jqw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788006042; c=relaxed/simple;
-	bh=On5QLSADWXj7ehvrb5mpi4doFVUA0NCpPYlWd5mFwE0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N97NeM/qHEDZ9OgbBN0qqyPikXlq/Q/zU3pHzKRvRARKOJ1bET+gV/3lBu6c9MZvI8ZLnk80nIVVlU7K+UcEfspAwsL9okAXwpRQDJtJJ3XZW+V9q6UoPoLwVbyAkOWRqMtin0iYRE9vNTi/vSzugsnD2Vw+J2aGgbdCC/6SBEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZoWInOzc; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A89A39795B
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788006063; cv=pass; b=qp3SncyK5Dwh5gHlrASrhrW1nEvxysYMFv6NoVVDS/AvHftw+IiImGRmb7onxo+OAow/826DP0JkA4xyPvBiwhlB8mkj/xHjEfxXb9QBlS4Zd5t9wt+W11A2xC3oUQcqcv8i1TisvFHVqVGyXDrp/vyLBizT1xyGoCfX1fm9BwU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788006063; c=relaxed/simple;
+	bh=YhhiT+lMqx5HjW0/PRoXbfXIAG7+7GDtlBab+gtNpMk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kAy4JBUAzYC4BORJZIneL8EhEg/4kKpzCMB7HoilXBLC2n8RuSrZSofcmOoTjBoqtG5GatCs3JRfKHdPB6zmxFja61ccKm/313GSvyIFosYwocVXPJjBPI5O0fOyVkDDnE67s+bZ1Qo+iqN1cqfyJMDV2OEvfN/4mET/IHGw9JU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=HFcDzDb6; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZoWInOzc"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso18580585e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:20:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="HFcDzDb6"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a20367cf82so16299541fa.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:21:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788006059; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PZibBT7yII+WBJOFy+6LKkyI5gDprrY6XJM/U2OuT164uW+8qFySa683HZQXbkfSqx
+         d5l1CmQ256aUip6K0aQrwBUqL845B4ni2XYDgwJZarzTiBSYHHSCXfwfekZW4Mm1QcrC
+         4qJIsmVmK3DdA6XB+yLByBEPTjHXAnG63PVR+FwWiMGlEyp2qa1gN3GmfCKuHgOdZNx0
+         S4sRiOXdLuoFBXuzKdMTYO8ZIBs1OHoj35YiR/0nTHxTLxp+oGr0OGF7WCdClq5a+YRH
+         pZZ3sxkJMli+I4hrHU4RZebgth6RBMmBxZ5xkMogxhPCvkussGjm/09ea0UqJldILEpl
+         KD5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
+        fh=9Rd+OtU5nzs6+au1VNoNcR1ahuUIp3bDFO4jit4YISw=;
+        b=nLK/BX+QWbfHEauAFD1pwx7GMSGSC+nlnnCrxolr1E8T9oCbUo/172hg9EPaL10xmv
+         n3lpNp7zNsfhjsdR8FHNk/+lcR5J2ZgNBR3mC4WccLGJWUV0jtFOAqmIpA2JzTz0vZ9c
+         w7rnK42tU5RmDtLdaBk/Gl1n1iZ27uS7J8hbSpVxCXMeg+r34+1kj5vDiqcooKVILzWC
+         +ITgra9PwAr/VqFlAL/tYRScvrnTANtsgvrei8cDAAhHcxXcL/FaoZ21VZUAgaDx9WV/
+         hy38PNM6loMv8t7CDELhzOUz/kWkhL6EAMPlaRimUBPT7ASBSjblVn7AJnEEwz+R0pWR
+         TgmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788006038; x=1788610838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b9Hl9L5OM4zLmYxZt3PdWHTJUIrg0x1d8J+XYA0ccVA=;
-        b=ZoWInOzcsApWwLvRrgSYkknxQSeh14RbZqORYqK64XXqMt1EthifU6GMQenqoBKXcO
-         XJnVycgo0Sywdf+JxksAVwiYwMl8+DhaPkS5ixEfZo9oLIjSKlwCWjm5Av092BWuj3VD
-         +DH/6V8xCeX8ncP/93PQq6qMvZrKrmR7M6LWkjtCZMEKdc8H/8XuBeumahK9qWaF2uEr
-         TsgCd8t+FB/XSqB4Ux/0kxcg2Pa25JyEBMp6oQbFmlYSVrtout3PZ1kakVKcPGyoK8qu
-         D6flpDQNo5ohmnqlSQP7yIHfNr2sQTYZWPR3A+VcOhXDcw2sps44kUYiRDDH32KJ7DY2
-         5TTg==
+        d=nebusec.ai; s=google; t=1788006059; x=1788610859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
+        b=HFcDzDb6kRKB9Quw6R/ZsGMk2g6xONxRRL7G7ZagrcGy+LkN9nw+h/uLM4ZNMHF89I
+         tMhKA+J4t0yIa2OombsSE6wxqK8xzFqfdZ1J4d25kNOfiszRZz20uL6iVVZhfwMPi5mw
+         qfJwwsnO6XEwWGBm1L3GmKfQGjjL1DlLzcjx1QWFS8Qe+MUd1Zwgdwreoj1Ii7Sj4Ze3
+         foymhnRv0iaJcgMc149nibCZNX5NuEcyBvm1v2nrYHyugSC/F8aByY+rzAzRdbxzxnZP
+         zNR7VMmsxXmV5gPT0prLq7SK1Ya4sQz8vjoJmg7tZ/1KY0HSPSxH+z5YR2EpPWP+JSsp
+         Ey4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788006038; x=1788610838;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b9Hl9L5OM4zLmYxZt3PdWHTJUIrg0x1d8J+XYA0ccVA=;
-        b=pHxaVtYfpUR14bmcxf2GojF/FrWQ2Li1qtw9Ik4uQAunxYkpFqGxWRuYhwoxGmfHCV
-         4+Zv6Cv875T/CR3toHm/Hg0Sv8beI8Yfh1XhkneFcsZRcfOjPsU9Hb/K77kVc5fYU1PA
-         uwiTMS1t5/LH9EEwXhqV8xZqqXUp+xjHreWJx4Ukh90Vhgg6JCXqXUKbuO/lCvLMj85O
-         tIBVwHUa3McD7C62diDWKHAKvR7BGGuKvTSzWK/ueLrEhQfbCuGKS312pIPsM/6dg2K+
-         G0xuqt9cgCc1WfpQ/KiK+Yf856IlRXTwZPb7K/CuzNaiA8Ba8QaaG00rpXZ5BP4NURve
-         ITyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqddURWseI/k0EepgMj7jSNT7EvL0ZNmDTiUsEsDD5T/Q6XsEn+yPvwafBSodDIRD+oSrJiNkCyV7KlsH0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHGvGe2ZOOz2mGynil2bcRUj6228FuACpmCKzpYp9GME/WeTPO
-	5pK59Nylli+JgkqTuG+IGKA7fbvFJZ03ioheZCSXbFtGGgpPNsgEETBy
-X-Gm-Gg: AR+sD11KTE6jJHA4muKxCr2CMOntlULgvsFVNim45bNFhfx9OyR/8T355mw20x+fGAx
-	3i7OTRnYZM1bEJ904Ovj5uM5gmOVF/SXLp4b6KslkI8f9/vzU7KIJVhXKpQsw8xiJHNssphWs45
-	wqCjBr/x6hjOjcL0QvyP0Ah4qhJQtuPg3gwDViK0oDdNfLmf/AOKIHT3YzIs0CVCmCvK2FDIv8j
-	dSrZy0BreIwRVl2BZL8oTRQZaZXAPacAWkOW41l5eHhkkIIRF0+idkW3FwvGcZtBKIs+vYtKmvL
-	MMH4Dcr4KHFWwu7j4l6oKmGbLlnz6K/kw6SmhOJVah4t4nC6Dj2NN0twheLPPUOvdt0cXU+YxWP
-	WrAME7c5GEQBsiYE3r77JgLgZ6IA+Z/t3kTm3S+tHitvrKdM1Elh/jI0u2rE1Fg606vOBoiqrtw
-	mdS1VQ6SUWpvMrH7T2El5y3v887+K0duqWVM/EEnSkm0dg+Zos8/HEAxpag5OGUSjHjnG+aDyqZ
-	bPDFwFudGwuzBu64rDVLYwSxr6zv6JrvmL1F/VVf+nsFpzm
-X-Received: by 2002:a05:600c:4ecc:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49cced9abb7mr32848505e9.8.1788006038105;
-        Sat, 29 Aug 2026 05:20:38 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b494228bfsm207048685e9.2.2026.08.29.05.20.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 05:20:37 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: tj@kernel.org
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	changwoo@igalia.com,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH] tools/sched_ext: Extend the prolog migration probe to cid-form schedulers
-Date: Sat, 29 Aug 2026 13:20:35 +0100
-Message-ID: <20260829122035.58018-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788006059; x=1788610859;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
+        b=WrVRsxWQsSh5bwZs7eENlfJcfA/HP0eZ0K5Ery+34/bDjH/MiTchnW8bZwvWN86/L0
+         m7kEBgIhr3csbh1SpLoc69xLj+w8ZAevzS+ql2GfNxqJtQY86/DeU3BcEw93qFKOlAgA
+         Cq9KuPfDmKh2zA+PsKqDG/zDZBBM/y0D3pJ890dKkx+7f1K1tuhu/TnVuSeaT/oFKJu1
+         onqbCY+aSBMSlz6WTOVk6gGqQJJ3CJdEE+zmeapFnCKMrD9eb7jSkqgupeQ707Pfs8Xi
+         UaLDcdbj17FascO7wtPThd3ceEmuxmtCxLKHyv45qhOe1sZLelyE9C7sXgqDfhkmQ28s
+         tKYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhAN22Oyu20HGULhF+tinNZ3vFrw5I0EDAST10IP+O13aQcvva0yG1KaB96zji0msbQ9IiB1YaLI8sgio=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfJfGF9HgnLj32iKp3o+5Nsp1/r9bycW1KEtHTxcs53gKxv8yR
+	aJTslPr/tPovvbJFj3UVCao4YPJqD386KZrNtMbW6nnUwhyd4vaofeJyThSe68llCJ4latl4XdX
+	n71mHOH5iZoeUlhsR8s05Y0/CW7RRl2Z727G2tKPLngk=
+X-Gm-Gg: AYBFou3SHZR4Z0cvdATcFF66r7R8A/ghOZp9IuvhyZnawi1z2drVPccIvKv7om22SYs
+	Vq0SbeH1ve7Hf3bRzlYmrZmpfZLRWBL5A0XTKRTBquYRB0q1PdTyT0V9oIriHc68oFzGs6vjGUP
+	Cht0+3c7nkG30CBGX79ZYnISXRQeSxcdSEoz8arLQZKc+dOMd0KvAyCgE8Sr5nuXp81F9s0RYK1
+	nnUgI4Z9bpMua+r5RhCXWHHq2aYD4PsA0S3QDGeLN9nWwMFb3zJjS24RjqUD1r4EKyfeHhD0NZs
+	VySv5y1rVPMzZBL9EFxUYr/6OnbmqxFksQYXvhWytvC6+oVZDUkbCJw3qrE/2VQSHXByRVQ1lBf
+	0Oug4cgFQO+w=
+X-Received: by 2002:a05:651c:2227:b0:3a3:2127:8ef3 with SMTP id
+ 38308e7fff4ca-3a321279098mr394261fa.10.1788006058169; Sat, 29 Aug 2026
+ 05:20:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1787903722.git.zihanx@nebusec.ai> <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
+ <apKl65BbdyWCtre7@strlen.de>
+In-Reply-To: <apKl65BbdyWCtre7@strlen.de>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Sat, 29 Aug 2026 20:20:44 +0800
+X-Gm-Features: AcwNN1WiZi8R9J8wiesRuFh5zNnD6DxT-pHV8VKVtagX319I_sL7Cv1N8NzmPJ4
+Message-ID: <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
+Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate recursion
+To: Florian Westphal <fw@strlen.de>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, coreteam@netfilter.org, 
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-scx_lib_init_probe hooks bpf_scx_reg(), which is where a cpu-form
-scheduler enters the kernel when its struct_ops link is created. A
-cid-form scheduler comes in elsewhere: bpf_sched_ext_ops_cid points .reg
-at bpf_scx_reg_cid(), a separate function, so the probe never fires and
-the flag it is meant to set keeps whatever it was compiled with. Give
-that path its own probe over the same body. The catch is that
-bpf_scx_reg_cid() has only existed since v7.2 while this header still
-builds schedulers for older kernels, so the new program is "?" and
-__SCX_OPS_OPEN() switches it on once it sees the symbol.
+On Sat, Aug 29, 2026 at 5:27=E2=80=AFPM Florian Westphal <fw@strlen.de> wro=
+te:
+>
+> Zihan Xi <zihanx@nebusec.ai> wrote:
+> > nf_dup_ipv4() and nf_dup_ipv6() use current->in_nf_duplicate to keep
+> > duplicated packets from being duplicated again while ip_local_out() or
+> > ip6_local_out() walks netfilter hooks. The task flag is cleared as soon
+> > as the output function returns.
+> >
+> > NFQUEUE can retain a duplicate and return from the output hook. A later
+> > NF_ACCEPT verdict resumes the same skb at the following hook from the
+> > verdict task, after in_nf_duplicate has been cleared. A later TEE targe=
+t
+> > or dup expression can then duplicate it again. With an earlier queue
+> > hook and a later duplication hook, one packet can sustain an unbounded
+> > packet generation loop.
+> >
+> > Record the duplication state in the cloned skb as well as the task. The
+> > skb flag survives queuing, reinjection, and skb metadata copies, so an
+> > asynchronously resumed duplicate cannot enter either IPv4 or IPv6
+> > duplication helper again. Copy the flag through nf_copy() so fragments
+> > retain the same state. Keep the task flag for the nested xtables jumpst=
+ack.
+>
+> Not sure about this one.  I think this is a case of "behaves as
+> intended", you get oops because you *ask* the kernel to oops.
+>
+> I think there are a great many other ways to OOM the kernel,
+> outside of dup/TEE/nfqueue.
+>
+> IFF we prented that this is a real problem, then I would
+> prefer to solve this in nf_dup, not involving sk_buff changes.
+>
+> I cannot see a sensible use case for nf_dup outside of
+> physical hardware (sending packets to some external
+> packet logging machine for instance).
+>
+> So. I think a better solution would be to either disable
+> dup in user namespaces entirely, or, restore the "old" behaviour
+> of passing the clone directly (no reentry) if we were configured
+> from user namespace.
 
-Default __scx_prolog_disables_migration to false, the over-reporting side
-of is_migration_disabled(current), so the value used when no probe runs
-matches what the comment describes as safe. That also covers loaders
-which attach the struct_ops map but not the fentry programs.
+Hi Florian,
 
-Cc: Changwoo Min <changwoo@igalia.com>
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- tools/sched_ext/include/scx/common.bpf.h | 53 +++++++++++++-----------
- tools/sched_ext/include/scx/compat.h     |  3 ++
- 2 files changed, 32 insertions(+), 24 deletions(-)
+Thanks for the review and for outlining the two possible directions.
 
-diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
-index 76f5e025e107..be37c451cc0d 100644
---- a/tools/sched_ext/include/scx/common.bpf.h
-+++ b/tools/sched_ext/include/scx/common.bpf.h
-@@ -530,37 +530,29 @@ static __always_inline const struct cpumask *cast_mask(struct bpf_cpumask *mask)
- }
- 
- /*
-- * True if the non-sleepable BPF trampoline prolog (__bpf_prog_enter) calls
-- * migrate_disable() for the current task. Recorded once by
-- * scx_lib_init_probe, an fentry program on bpf_scx_reg() that fires during
-- * the natural scheduler-attach call chain (auto-attached by scx_ops_attach!).
-+ * True if the non-sleepable BPF prolog (__bpf_prog_enter) calls
-+ * migrate_disable() for the current task. Set by the probes below.
-  *
-- * Defaults to true (conservative). Over-reporting in is_migration_disabled()
-- * causes local-only dispatch, which is safe. Under-reporting can crash the
-- * scheduler, so we err high if the probe somehow fails to run.
-+ * Only affects is_migration_disabled(current): set attributes
-+ * migration_disabled == 1 to the prolog (returns false), clear takes it at
-+ * face value (returns true). Under-reporting can crash the scheduler, so the
-+ * default is false for loaders that never attach the probes.
-  */
--bool __scx_prolog_disables_migration __weak = true;
-+bool __scx_prolog_disables_migration __weak;
- 
- /*
-- * scx_lib_init_probe - non-sleepable prolog probe.
-+ * Prolog probes. Each struct_ops type needs its own: bpf_scx_reg() serves
-+ * bpf_sched_ext_ops, bpf_scx_reg_cid() serves bpf_sched_ext_ops_cid, and the
-+ * two are separate functions. Both run before ops.init() and are vtable
-+ * entries, so neither can be inlined away.
-  *
-- * Attached to bpf_scx_reg(), the .reg callback in bpf_sched_ext_ops
-- * (kernel/sched/ext.c). The kernel's struct_ops machinery invokes
-- * bpf_scx_reg when userspace creates the scheduler link, before
-- * ops.init() fires. Its address is taken in the vtable, so the symbol
-- * is non-inlinable and has been stable since introduction.
-+ * bpf_scx_reg_cid() only exists from v7.2, so that probe is "?" and
-+ * __SCX_OPS_OPEN() enables it when the symbol is present.
-  *
-- * Entering via fentry runs us through __bpf_prog_enter -- the
-- * non-sleepable prolog that consumers of is_migration_disabled() live
-- * under.
-- *
-- * Loud warning: the prolog adds at most 1 to migration_disabled.
-- * Reading > 1 means something upstream in the
-- * bpf_struct_ops_link_create -> bpf_scx_reg path disabled migration
-- * before the prolog ran, invalidating the probe; audit and adjust.
-+ * The prolog adds at most 1 to migration_disabled. Reading > 1 means
-+ * something disabled migration before it ran and the result is unreliable.
-  */
--SEC("fentry/bpf_scx_reg") __weak
--int scx_lib_init_probe(void *ctx)
-+static __always_inline void __scx_record_prolog_migration(void)
- {
- 	if (bpf_core_field_exists(((struct task_struct *)0)->migration_disabled)) {
- 		const struct task_struct *p = bpf_get_current_task_btf();
-@@ -573,6 +565,19 @@ int scx_lib_init_probe(void *ctx)
- 
- 		__scx_prolog_disables_migration = md > 0;
- 	}
-+}
-+
-+SEC("fentry/bpf_scx_reg") __weak
-+int scx_lib_init_probe(void *ctx)
-+{
-+	__scx_record_prolog_migration();
-+	return 0;
-+}
-+
-+SEC("?fentry/bpf_scx_reg_cid") __weak
-+int scx_lib_init_probe_cid(void *ctx)
-+{
-+	__scx_record_prolog_migration();
- 	return 0;
- }
- 
-diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
-index 7c12df45fdba..3a42f65a9346 100644
---- a/tools/sched_ext/include/scx/compat.h
-+++ b/tools/sched_ext/include/scx/compat.h
-@@ -284,6 +284,9 @@ static inline long scx_hotplug_seq(void)
- 	SCX_BUG_ON(!__oskel, "Could not open " #__scx_name);			\
- 	__oskel->struct_ops.__ops_name->hotplug_seq = scx_hotplug_seq();	\
- 	SCX_ENUM_INIT(__oskel);							\
-+	if (__COMPAT_has_ksym("bpf_scx_reg_cid"))				\
-+		bpf_program__set_autoload(					\
-+			(__oskel)->progs.scx_lib_init_probe_cid, true);		\
- 	__oskel;								\
- })
- 
--- 
-2.55.0
+I take your suggestion to mean that, if we decide this is worth addressing,=
+ the
+fix should stay within nf_dup rather than add state to struct sk_buff. Befo=
+re
+deciding whether to pursue a patch, I rechecked the practical impact.
 
+The current reproducer intentionally drives the system into OOM, and this i=
+s
+not a memory-corruption issue. An unprivileged trigger requires user and
+network namespaces, NFQUEUE, TEE/dup support, and a userspace verdict servi=
+ce.
+CAP_NET_ADMIN is available in the child network namespace when user namespa=
+ces
+are enabled. However, vm.panic_on_oom is global and cannot be enabled by th=
+e
+child namespace. With the normal panic_on_oom=3D0 setting, the demonstrated=
+ effect
+is resource pressure and possible OOM-killer activity, rather than a direct
+kernel panic. I have not demonstrated privilege escalation or a memory-safe=
+ty
+impact.
+
+The crash log in the cover letter came from a separate root validation run =
+with
+panic_on_oom=3D1. It should not be taken as evidence that an unprivileged u=
+ser can
+directly panic the host.
+
+Based on this reassessment, I do not think the original struct sk_buff guar=
+d
+series is justified. My current preference is therefore to withdraw that
+series, unless you think a defense-in-depth change is still desirable.
+
+If you do prefer to keep a small nf_dup-only change, I can prepare either:
+
+1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial user
+   namespace; or
+2. restore the historical direct ip_output()/ip6_output() path there.
+
+The second option preserves one duplicate but bypasses the clone's LOCAL_OU=
+T and
+POST_ROUTING netfilter processing, so it changes observable semantics. The
+first option removes dup/TEE functionality in those namespaces but avoids t=
+hat
+hook bypass.
+
+Please let me know whether you prefer that I withdraw the series or prepare=
+ one
+of these defense-in-depth changes. I will hold off on sending a v2 of the
+struct sk_buff-field patch until then.
+
+Best regards,
+Zihan Xi
