@@ -1,174 +1,157 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E484C6D
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787961689; cv=none; b=enZ13ywAkUTtoAKGvrBSUSdOe+CmBld5/GFv2wYlWj+Bx7LX8GWWc01P0EJzkej0bI0iprwvXxvIseaiZWvTUORQaQfygWep2zFzfgwesvXKouPENL7A9hrU8Prur2bTuZqH2ai/h+4txUh6dYhhcHBohw78XwJnMJZyWAN6J60=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787961689; c=relaxed/simple;
-	bh=XTtWz0UzJqkUF4/34oCqxMpiGnDoUtBqy/FaIC8xjoc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MyfGOe4J/ikKJyzOuiqt3T6HYgcL3gU2jeqCv2uKd/SoJe2WynSD7ygMGrHZuy9CH9U01tzz+WiNvJHGIQlDXHpjoLObr6zijhkOfPge3BnbjUPYRsxv7EPtBiv8HnPghfR/ASZG2UPh8VGSm5H8j07JMlXRcKWGHMgjzGoREeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=L/OWsm4V; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8B135975
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787962701; cv=pass; b=W6dFrku9zWrzsQIAmwa/VyPU4MOG0njSqW8SftXx2tlD3nYebEr3cputCHae9QBUEFgr4LjhB1AQ3+9a0sBHHRkjl7RrTbWNVrxndBVgq6+uaRJE7oxOiMdvq0NyO0ECGAlL9wP24FHYPDxycaELV6hnE9MwhbBI7suCc0Ztzm0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787962701; c=relaxed/simple;
+	bh=EpZWMqJMFNnhSBqC/WC1fi00kpn5Ll9AMHDCeclZHmU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i7nAJWHGrJMz6H2qZ4ousHx3WZLp9CBmHaeVPcqOD/8Ji6gNaRlMLEFZ5buiUlvgg6JGAwNcLR0k6bLXSlUEhbkIyI6Q0XIW35CXzyQkoC3ifQQ9L6nQ26JIKVNcA57SlVhgOvsZzuk2JPNNDQ+3xfq14cl1W1q5mRoPhjPMVCQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R8CqcHza; arc=pass smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="L/OWsm4V"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47fe45db360so232757f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:01:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R8CqcHza"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b1409a75so8505e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:18:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787962698; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CEQfJ4C+knkwYCNOkSs7hQ66qyuO6mbYC2yOdBEPZjJN7/gkpybB9kWU9SIBjoZOh5
+         ccXnew9p/2iMvcSJHOV7w2KrKjj7wYWrFV06UYOrXYYasWH3NmLj9qe7IO5IKieix18r
+         N0774I7Vua74LuEljwWCkPK8Zj+wNOdCX1fy9JmyuKUsiV8ja3XLsNETnr/SBOdVbR+I
+         ubT2r7/I0ReXiMt1IrbCX+m7RrlaBN+HYaV14xtM8bJZFGVI2slG242pt+VY7Fy/jMkT
+         JzLwiah9NP99iL9a1+EUSlztS+nBtIa7QcLSSRUdZJgIyccYoi6CiVhv3artUWGL+LlO
+         MX7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=92zwtXlgyBYYVN9xkl2KGrhKya15L+GyHSeWZLE5yFc=;
+        fh=D+v3VTeTSeeR3bT72+WoJAsQz1LChj/zBletMiElENU=;
+        b=OrugmfRGZIRkVwKQschvgm/km8cD3a2YdqSKsyLQE7+kQbcHc+kp0ulM7khv6O9VTT
+         id3OKnc5cRnDwukalYOeAF+/0i5KVTWkcXekrfXtf8eVILxPDEwgyMNSb6fMVsnlumZL
+         edQ/ovRoKB4Iuxvi+fGjr2Hlmj44vQZXb2fgUlfi9MSeoRqRX1GT2hj4GU9pGy+Q3455
+         fLVSNB4HTIgG1c1DdQpBQr/wXA4j37BxDUE7IuxjSbLsLbgYDMDn7Rx/nYTK/ZI8W3Jc
+         TW0i8vlbjI4f1KWltTUoF6rFQsy++mBHMXashXtVGIRm38svyvlMkDa7zxPsqjibLJc1
+         r6tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787961686; x=1788566486; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1787962698; x=1788567498; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=78uVeNXTFjv5Imt5OX67hFUHeeD2uCgnWEQFVSHEokI=;
-        b=L/OWsm4V5Tm3fnlMTNjY750vRJleykx6TgBN3H/Jdu4WHg5rrRyqNq7g2UsSKPLp/S
-         MsTn4Sa+qHSngLeN8OOBQTEV1JSlbWpfslodj97yWnGAo+ZG9I1wH2cT2hy21fvPHg92
-         tRW+dkktgKe7nMsZh052VKLBG4ibD8I7F43vbZvbsKxUYKMZ7VoAwxaeo3xyTiRT10LP
-         XTIGlzoRruz4y/UCtpGa0YMW9uwY41+sEfjmwggustk9VE1mI/S+e50p8e4N3Qq5SGi0
-         HWaQxiO7/LRrdRH73arxkzmyRQMBsNc7+vhdsmnz5NYpRnP2QMt+Seo2RwhCI8GvxwGm
-         ISiQ==
+        bh=92zwtXlgyBYYVN9xkl2KGrhKya15L+GyHSeWZLE5yFc=;
+        b=R8CqcHzaRcp6vpJacgrjikf59WZrD6YOkzKiOhrrIuMguGbwkiw9k4nCpUrsQtEY/4
+         ktn8cgct7JXINkye+eEdhrdzo8bS6/UJTQsmt4zUWbLrp02qNLSeYXyfi/JAsTq+2Q7f
+         3Pi6bV0I3j695tpv8gb/6TcHZU3X6IXDXpKqqEC4kaYdN3hZAmMNVOSbRjpo8W6WPWIB
+         UF4SMwhbrpAvBDREGb2o90Wg9wljdQsoVdCSw+LYWWhp5C1zEKNasIvJZz/4/WTlExQJ
+         UWVmFcje9Cng3lVpQT4By+RxzOksW8tvZKjC/pnC6TYjwXwHE/7hO4tt5dzmwT5QVceL
+         E6eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787961686; x=1788566486;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787962698; x=1788567498;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=78uVeNXTFjv5Imt5OX67hFUHeeD2uCgnWEQFVSHEokI=;
-        b=QveozmrwTYKpbMkogiVsUObROt9UG6LTEslRwvRZ4oM+SI6Cf3c82YgktkfPYDKkD9
-         NifuJ2p33JREtCuS1iRV8pxxjefc2q3/q+ZIP+vmj2kargYGF173dnJHek/rafcLkIa1
-         SP48Dis+tRJhcaFdQNVuSGHLeO0fTDsiBzNgzdjr0q3OTdFr856VDn3BHiAdhmScRRdR
-         qsnZ2GWHMvBd2EdIGvOhuVOL/HZicGi0s/pRhdq3+TnQ5NbynXoEPclPB3EPfZMt46Ut
-         lZkdIL6n9XOSMdzO5dQYkBlUaNgVafEahAmmFubHovAmu/N1WTn5bGjNbGARHPPVfTJe
-         RbcA==
-X-Forwarded-Encrypted: i=1; AHgh+RpbkhOJugrTqKXjh8hbpoI7fOyE4YEmLw4UwF/orc5XJ+LHlETJr4MU9bnXtTMkaYYUvoesv/YEZ4fKW8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7MdP4G0TK3IPU4WxN7FAbfeZGC3p78BoP3qakio/PrWR9C0dh
-	BDJHMZSrukXRLMgyPi6k9KL4cTFBaBhPaVSCak9CmEQxAgEm+kGB2w6ZCWffCG3sKYk=
-X-Gm-Gg: AR+sD11VMJIzA7E5/1jc6VRyJfMpGLq5ulrNU6NCdHk6YTmbazaKFE8aoNGaDdkKMlP
-	zurdGRke7esnV8rhnjwT51v0Zxn2GVFypwv/Y8V+bkVB54d2WaEnswnEOi1v+uMZiG0DbOWph/b
-	1tyddeg/w8V4pkzbOQVMfJbsdBGcdUcxKXP9yFUyf+0cgaU4LZFmsF74VegqGxjCbsix8GdhWhR
-	nDShAmXqtst8CScv+7LROziHbFXkTQHW0M865cbApRqtURV+o2HVPti6tGzx6mrMcLGyoPCA+gY
-	KU48+XQBf4XgLGCN6y/yUL3tMABh3gh4a29+8jxZgAFxHuLV3eIdvp+FIE6lllR8uTCSera+W9w
-	pZToaESCXQ536B403iieVSZDy4R4/8x2/8s+iJ5CEE0pYHbHcZGSml2+ck15EzS6v0T4viNzIxN
-	GT7DJT+yAvizez89AmTkS+PzUui0AL+1biNBoGAzLFFhOgnWdbPRuiNy9PYEI=
-X-Received: by 2002:a05:600c:3103:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49b91c39a77mr80523985e9.1.1787961686337;
-        Fri, 28 Aug 2026 17:01:26 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569fe78fc3sm1024562b3a.24.2026.08.28.17.01.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 17:01:25 -0700 (PDT)
-Date: Sat, 29 Aug 2026 08:01:21 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Li Zetao <lizetao1@huawei.com>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] ocfs2: free replay slots in ocfs2_recovery_exit()
-Message-ID: <apIhL9ZVN4Hdc6Mu@p15>
-References: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
- <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
+        bh=92zwtXlgyBYYVN9xkl2KGrhKya15L+GyHSeWZLE5yFc=;
+        b=bJIqmkginVvRUlK/x+fHUKsDBCUWi9O0lM16lnf49ZmP5fKAWjF/jNTeKRH9x1xsLF
+         1lO8jz2UR83FUDE+forWr+evwNk3ZT4ibKfSGSKNYC+x5MYVrl8tIaDl2v/gjAcIOZe+
+         G2kGn7tLmMXxZXiDDRMTJsa4Z0xMDauuOj8SaVZIhLYghhZhd3GaSRUSMlrH3w91FLnO
+         mEnLiixiw09TK8sdSwdP1uu1+1zg2P6TjA9bOYy3TBPVlVJx+WPxYXBrjyAgfAZTQkCc
+         knUx2zF5HTqQwNdPO9X0be9QlwEvuHAzXLHjAv8NcNILHQol7UDAUIQmCN9jwA8CYJLe
+         n10A==
+X-Forwarded-Encrypted: i=1; AHgh+RoHz1buEXBEDIjXx4tJ0QN2SZ2nU0KepmHNM5iT26x/iLM+cAdrkhukzW+T4QlMweO6d+m9QsHKr9Wq88s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTIuup3+HXUGjdZ54E8lqCbJNmtzNFTRDUTxRm3mqIQI+8V8mm
+	8FROd3bU9wWW8hNxBMkJnSkj4cQ+N8t/Q5god+gsGyCgeOxQsoHsu5YO4dvgCaFde1JzyZE/acJ
+	wBEfbPy8eXigZ+NvsEr0VsiMldsOzIdlitfebvXJ7
+X-Gm-Gg: AR+sD12FsuHAJ+qXcBbwRZSDgW131f2Xg5DlPpeAfWszV1Bt+0PVttinq3T3o+mR35g
+	xvesvRZeANwrlQeyXOLBjTstItA2boPfC1sLXBgDpsd3xNqEEqQxJ04vpw0IJeZf9MwIroi75WK
+	33pk9GP69K6+RAQtoWx470xCtDfgc4gYlgw1LbLLk5HfjLFb452mcsCQ/mz7Kx+Ysp9PUW5B1dN
+	P6BxXt/aJjuuS7wUVr1qcnlRCGYSuhref35Iy4UvnBVfFv+YAuX/6cpUNarZdEh9yc675/DCvTw
+	u6V9IJuRIjxK/T/cZ5TIextqKfZ3kzj/0lchX6bufq06Hhd9HMknCjfvLFBGfhQiJ4T0C3wBYjA
+	=
+X-Received: by 2002:a05:600c:6051:b0:499:c46c:addc with SMTP id
+ 5b1f17b1804b1-49ccbb107damr428575e9.2.1787962697528; Fri, 28 Aug 2026
+ 17:18:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
+References: <20260827232948.2520558-1-stevensd@google.com> <20260827232948.2520558-7-stevensd@google.com>
+ <20260828120408.GN687043@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260828120408.GN687043@noisy.programming.kicks-ass.net>
+From: David Stevens <stevensd@google.com>
+Date: Fri, 28 Aug 2026 17:18:05 -0700
+X-Gm-Features: AcwNN1U6VBNd8zJTEq4mYD8VweLtljSgvulTToePYb44m-5Q8rEJ_yFqUyGXmiE
+Message-ID: <CAOiLmNHWGSwAqH815X3JWMrQCc2nh-fRNsNZ0hjQGv8JvFndag@mail.gmail.com>
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, suleiman@google.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 07:28:24PM +0800, Joseph Qi wrote:
-> Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-> added ocfs2_free_replay_slots() calls to the mount error paths
-> out_dismount and out_check_volume to fix a leak of osb->replay_map.
-> However these calls are unlocked while the bail path of the recovery
-> thread, which is woken up by out_dismount right before the call, also
-> frees the replay slots under osb->recovery_lock.  Both sides can thus
-> observe a non-NULL osb->replay_map and trigger a double free.
-> 
-> Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
-> after ocfs2_recovery_disable(), which waits for a running recovery
-> thread to exit under osb->recovery_lock, and drop the unlocked call
-> sites.  Both ocfs2_dismount_volume() and the out_super path of
-> ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
-> freed on every path.  Since super.c no longer references it, make
-> ocfs2_free_replay_slots() static again.
-> 
-> Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+On Fri, Aug 28, 2026 at 5:04=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Thu, Aug 27, 2026 at 04:29:44PM -0700, David Stevens wrote:
+> > @@ -4320,8 +4319,18 @@ int try_to_wake_up(struct task_struct *p, unsign=
+ed int state, int wake_flags)
+> >                * A similar smp_rmb() lives in __task_needs_rq_lock().
+> >                */
+> >               smp_rmb();
+> > -             if (READ_ONCE(p->on_rq) && ttwu_runnable(p, wake_flags))
+> > +             if (READ_ONCE(p->on_rq) && ttwu_runnable(p, wake_flags)) =
+{
+> > +                     trace_sched_waking(p);
+> > +                     break;
+> > +             }
+> > +
+> > +             if (!ensure_stack_is_present(p, &need_deferred_repopulate=
+)) {
+> > +                     WRITE_ONCE(p->__state, TASK_STACK_RECLAIM);
+> > +                     do_deferred_repopulate_wake =3D need_deferred_rep=
+opulate;
+> >                       break;
+> > +             }
+> > +
+> > +             trace_sched_waking(p);
+>
+> Absolutely not; ensure_stack_is_present() must not call
+> repopulate_stack() while holding ->pi_lock. Not happening.
 
-LGTM
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> ---
->  fs/ocfs2/journal.c | 3 ++-
->  fs/ocfs2/journal.h | 1 -
->  fs/ocfs2/super.c   | 5 +----
->  3 files changed, 3 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-> index d8afbc1a76bb..a3938a03e93b 100644
-> --- a/fs/ocfs2/journal.c
-> +++ b/fs/ocfs2/journal.c
-> @@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
->  	replay_map->rm_state = REPLAY_DONE;
->  }
->  
-> -void ocfs2_free_replay_slots(struct ocfs2_super *osb)
-> +static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
->  {
->  	struct ocfs2_replay_map *replay_map = osb->replay_map;
->  
-> @@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
->  	/* XXX: Should we bug if there are dirty entries? */
->  
->  	kfree(rm);
-> +	ocfs2_free_replay_slots(osb);
->  }
->  
->  static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
-> diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
-> index f8b3b2a3d630..19fc920d26b1 100644
-> --- a/fs/ocfs2/journal.h
-> +++ b/fs/ocfs2/journal.h
-> @@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
->  void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
->  
->  int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
-> -void ocfs2_free_replay_slots(struct ocfs2_super *osb);
->  /*
->   *  Journal Control:
->   *  Initialize, Load, Shutdown, Wipe a journal.
-> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-> index f785c39d1fb8..6a8092b65bb5 100644
-> --- a/fs/ocfs2/super.c
-> +++ b/fs/ocfs2/super.c
-> @@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
->  out_dismount:
->  	atomic_set(&osb->vol_state, VOLUME_DISABLED);
->  	wake_up(&osb->osb_mount_event);
-> -	ocfs2_free_replay_slots(osb);
->  	ocfs2_dismount_volume(sb, 1);
->  	goto out;
->  
-> @@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
->  	status = ocfs2_truncate_log_init(osb);
->  	if (status < 0) {
->  		mlog_errno(status);
-> -		goto out_check_volume;
-> +		goto out_system_inodes;
->  	}
->  
->  	ocfs2_super_unlock(osb, 1);
->  	return 0;
->  
-> -out_check_volume:
-> -	ocfs2_free_replay_slots(osb);
->  out_system_inodes:
->  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
->  		ocfs2_shutdown_local_alloc(osb);
-> -- 
-> 2.39.3
-> 
+The optimistic fast path for repopulate_stack() could be modified to
+try pulling from a pre-allocated pool of zero'ed pages. That would
+reduce the function to a couple of memcg_kmem_charge_page() calls and
+then vmap_pages_range() to repopulate the stack's page tables. That
+wouldn't require touching any locks except a raw_spinlock protecting
+the pre-allocated pool (or just make it per_cpu). In terms of cost,
+this would involve a couple of atomic operations for the page pool
+lock and the memcg charging plus non-atomic operations on 5-10 other
+cache lines.
+
+Is that within the scope of what can be done under the pi_lock? If
+that's still not happening, I can see how things look if we always
+defer wakeup to a workqueue.
+
+-David
