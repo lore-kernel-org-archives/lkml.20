@@ -1,44 +1,49 @@
-Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
+Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECB4308F39
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161028C5B1
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787970523; cv=none; b=sCa8u7tjNaRVDfWxTzrbFwRSUKc8w7bDJqx1bjdjkowccoG6rBDdAoyEHxnGfFlDFXjNwvPdL6404jXjTDB+62CiQhWD6KB5cjfsS0RkvXslnWJYk18P6S1kgPAA3eKt/ot5t2/u0zYcfp74wPXpa4sRYNm8y27dVmbl2+slZCY=
+	t=1787970778; cv=none; b=Yf4/XYQwel4Lh3fUEdGy0MTMy/ETXmB4d4dErmuwgUD3AD8nQUAsIQgSvMO2cfLDJmcE6mF3gaZ21fxfRFwdDKYmlvgqt+OC3jFMdmXm5Qgooygs2JdcgkCeWJBb+bUj5nUHF557Dv1CNvhlB2hRdUv8A5kTSmfRLVRPE18M398=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787970523; c=relaxed/simple;
-	bh=Wl1Q7zSGGwM6eDz4dkcZNpAYHBtLc5A/cH0j5Jz5sZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O3AdZ92hdgNaV8hh3hto1xf23kOjNpgEvfFynYIduYFC/TsLWqD2zDfpNoV6L+u+SNRXagi4LHe/7jwpRCSWGORiCwYgPbaI5C+CnOmu1RcBaP+InzbKJJvipxR/vn0Xei0CUKm6oyYm9Z/4cEVr22kI/Oscoe3YXPjzb4EZdW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NS4QYFeG; arc=none smtp.client-ip=95.215.58.51
+	s=arc-20240116; t=1787970778; c=relaxed/simple;
+	bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WCIxyvdgq+a0jey1lISHvA/f/6M6DUyUSntzu2+1xDRUMMAdtHIKtkiC1ifbmy2bX0L6NJEkZslHyiJGx9Z36HKcT740gDKz2L2/+KkcSYKTyXciTpVyBaoqrZQL+Rs95g/zYx9N25QgSTRGL1eLTD126nO/oPO+/sEwYZAChEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e9qHmgdf; arc=none smtp.client-ip=91.218.175.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NS4QYFeG"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e9qHmgdf"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Wl1Q7zSGGwM6eDz4dkcZNpAYHBtLc5A/cH0j5Jz5sZQ=;
+DKIM-Signature: a=rsa-sha256; bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787970517; v=1; x=1788575317;
- b=NS4QYFeGP/jcbbed68bYTDerpr6PjuVDvbgd32FoEIBxxxjqQ+7z39X8OIy5PKg8PsB8x6jT
- NLrZX/skawSnwES7PGkaoYJla+fg0HJXQ6OWz1buhz3s6xy9HZo9Yk7Xx/7edv1L2GMe9kf0fPw
- gz4pEqSzGyCCslVYXqguDqBs=
+ t=1787970774; v=1; x=1788575574;
+ b=e9qHmgdffEAllsCyb3XwlS1rkgZlJ+NInPSUhsjHQBBpLcbnM72Sqa9kufFDnea4Tv1p6xZD
+ sDGOTlrdvt8vXOZHdHr0d9g1mFa6Q7Gd47tBmMEe6Iw3EBGaff36Iq5/7Mo9+LfWUS1VcWeqLKQ
+ 8QEvlD0bKue2ELQbhlMl9y0g=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa1e52d5e91ab7a8;
-	Sat, 29 Aug 2026 02:28:37 +0000
-X-Mizu-Trace-ID: fa1e52d5e91ab7a8
+Received: by smtp.migadu.com with ESMTPS id dddd84c8fda15912;
+	Sat, 29 Aug 2026 02:32:53 +0000
+X-Mizu-Trace-ID: dddd84c8fda15912
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests: cover kernfs dentry revalidation
-Date: Fri, 28 Aug 2026 19:28:25 -0700
-Message-ID: <20260829022825.407836-1-shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
+Date: Fri, 28 Aug 2026 19:32:51 -0700
+Message-ID: <20260829023251.474083-1-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,750 +53,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kernfs_test only exercised two xattr calls, so nothing covered the part
-of kernfs most exposed to userspace: the dentry cache.
+obj_cgroup_charge_pages() resolves the objcg to its memcg and calls
+try_charge_memcg(), which does not short circuit the root memcg.  That
+memcg can be the root memcg: obj_cgroup_is_root() reflects the memcg the
+objcg was created for and is never updated, while memcg_reparent_objcgs()
+does redirect objcg->memcg to the parent on rmdir.  An objcg of a dying
+child of root therefore passes every obj_cgroup_is_root() filter but
+resolves to the root memcg.
 
-kernfs nodes appear and disappear from kernel contexts with no VFS
-operation driving them, and removal cannot reliably unhash the cached
-dentries, so ->d_revalidate() is the correctness backstop. It had no
-test at all.
+Folios keep the objcg they were charged with, so this is easy to reach
+through zswap: allocate anon memory in a cgroup, move the task out,
+remove the cgroup, then write to the root cgroup's memory.reclaim.  The
+reclaimed folios are charged through the reparented objcg and end up in
+refill_stock() with the root memcg:
 
-Add tests that drive kernfs from kernel context rather than through VFS
-create/unlink:
+  WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940
+   refill_stock+0x644/0x940
+   try_charge_memcg+0x12d6/0x1570
+   __obj_cgroup_charge+0x35/0xf0
+   obj_cgroup_charge+0x1de/0x210
+   obj_cgroup_charge_zswap+0x83/0x270
+   zswap_store+0x1620/0x2000
+   swap_writeout+0x94c/0x14c0
+   shrink_folio_list+0x3388/0x52b0
+   [...]
+   try_to_free_mem_cgroup_pages+0x30d/0x830
+   user_proactive_reclaim+0x504/0x840
+   memory_reclaim+0x1f/0x30
 
- - writing cgroup.subtree_control makes the kernel add and remove files
-   in every child cgroup, exercising both the negative-dentry revision
-   check and the deactivation check,
- - renaming a network interface renames the sysfs node underneath an
-   already cached dentry,
- - sysfs in a fresh network namespace must show only that namespace's
-   interfaces, covering the KERNFS_NS tagging paths,
- - lookup hammered against concurrent mkdir/rmdir must only ever see
-   success or an errno meaning "it went away",
- - removal-while-open, readdir duplicate detection and a
-   seekdir()/telldir() round trip over kernfs_dir_pos()'s hash cookie.
+Beyond the warning, the charge is asymmetric: obj_cgroup_uncharge_pages()
+skips refill_stock() for the root memcg, so the root's page counter grows
+and is never uncharged.  It is not user visible, since memory.current is
+not exposed on the root, but it is a leak.
 
-Also the other direction: walking already cached dentries must not
-invalidate them. That is not merely a lost optimisation --
-d_invalidate() calls detach_mounts(), so a revalidation that wrongly
-fails silently tears down any mount underneath the directory.
+Use try_charge(), which returns early for the root memcg, restoring the
+symmetry with obj_cgroup_uncharge_pages().
 
-Both filesystems are needed: cgroup2 has no ->rename and is not
-namespace tagged, and sysfs cannot be mounted with a controllable set of
-children. The config fragment keeps a kernel built via kselftest-merge
-from reporting a pass while running almost nothing.
+The above sequence was scripted into a standalone reproducer (zswap on,
+swap on a virtio disk, 512MB of anon memory faulted in inside a child of
+the root cgroup, the task then migrated to the root cgroup, the child
+removed, followed by "echo 600M swappiness=max > memory.reclaim" on the
+root) and run in a CONFIG_DEBUG_VM=y VM.  It reproduces the splat on the
+first zswap store of a reparented folio, with the same call chain as the
+report.  With this patch applied the splat is gone while the zswap store
+count over the run is unchanged, so the same path is still exercised.
+cgroup selftests test_zswap, test_kmem and test_memcontrol show no new
+failures.
 
-Verified the suite reacts to a broken backstop rather than passing:
-stubbing kernfs_dir_changed() to return false turns 8 of the 11 tests
-red.
-
+Fixes: 20d6c1725228 ("memcg: avoid refill_stock for root memcg")
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Closes: https://lore.kernel.org/all/CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com/
+Cc: stable@vger.kernel.org
 Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/filesystems/config    |   6 +
- .../selftests/filesystems/kernfs_test.c       | 657 +++++++++++++++++-
- 3 files changed, 663 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/filesystems/config
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 549df316f487..605fd2d47788 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14392,6 +14392,7 @@ S:	Supported
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
- F:	fs/kernfs/
- F:	include/linux/kernfs.h
-+F:	tools/testing/selftests/filesystems/kernfs_test.c
+Note: I kept it simple for easy backports. I will followup with more cleanups
+where I will remove try_charge().
+
+ mm/memcontrol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 4a18ee4509ab..1709ac96bbde 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -3157,7 +3157,7 @@ static int obj_cgroup_charge_pages(struct obj_cgroup *objcg, gfp_t gfp,
  
- KEXEC
- M:	Andrew Morton <akpm@linux-foundation.org>
-diff --git a/tools/testing/selftests/filesystems/config b/tools/testing/selftests/filesystems/config
-new file mode 100644
-index 000000000000..6e33f4188af4
---- /dev/null
-+++ b/tools/testing/selftests/filesystems/config
-@@ -0,0 +1,6 @@
-+CONFIG_CGROUPS=y
-+CONFIG_CGROUP_PIDS=y
-+CONFIG_NET=y
-+CONFIG_NET_NS=y
-+CONFIG_INET=y
-+CONFIG_SYSFS=y
-diff --git a/tools/testing/selftests/filesystems/kernfs_test.c b/tools/testing/selftests/filesystems/kernfs_test.c
-index 84c2b910a60d..5c9677682d13 100644
---- a/tools/testing/selftests/filesystems/kernfs_test.c
-+++ b/tools/testing/selftests/filesystems/kernfs_test.c
-@@ -2,8 +2,20 @@
- #define _GNU_SOURCE
- #define __SANE_USERSPACE_TYPES__
+ 	memcg = get_mem_cgroup_from_objcg(objcg);
  
-+#include <dirent.h>
-+#include <errno.h>
- #include <fcntl.h>
-+#include <limits.h>
-+#include <net/if.h>
-+#include <sched.h>
- #include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include <sys/ioctl.h>
-+#include <sys/mount.h>
-+#include <sys/socket.h>
- #include <sys/stat.h>
- #include <sys/xattr.h>
+-	ret = try_charge_memcg(memcg, gfp, nr_pages);
++	ret = try_charge(memcg, gfp, nr_pages);
+ 	if (ret)
+ 		goto out;
  
-@@ -34,5 +46,648 @@ TEST(kernfs_getxattr)
- 	EXPECT_EQ(close(fd), 0);
- }
- 
--TEST_HARNESS_MAIN
-+/*
-+ * Exercise the kernfs dentry cache: lookup, revalidation of positive and
-+ * negative dentries, readdir and namespace tagging.
-+ *
-+ * These drive kernfs from kernel context rather than VFS create/unlink,
-+ * which is what ->d_revalidate() exists for: writing cgroup.subtree_control
-+ * adds and removes files in every child cgroup with no VFS operation
-+ * touching those names.
-+ */
-+
-+#define CG_SCRATCH	"kernfs_selftest"
-+#define TEST_IFNAME	"kfstest0"
-+
-+/* Controllers that add a predictable file to each child cgroup. */
-+static const struct {
-+	const char *name;
-+	const char *probe_file;
-+} controllers[] = {
-+	{ "memory",	"memory.current" },
-+	{ "pids",	"pids.current" },
-+	{ "cpu",	"cpu.stat" },
-+};
-+
-+static int find_cgroup2_root(char *buf, size_t len)
-+{
-+	char line[PATH_MAX * 2];
-+	FILE *f;
-+	int ret = -1;
-+
-+	f = fopen("/proc/self/mounts", "re");
-+	if (!f)
-+		return -1;
-+
-+	while (fgets(line, sizeof(line), f)) {
-+		char mnt[PATH_MAX], type[64];
-+
-+		/* Octal escaping can expand a path fourfold; bound both %s. */
-+		if (sscanf(line, "%*s %4095s %63s", mnt, type) != 2)
-+			continue;
-+		if (strcmp(type, "cgroup2"))
-+			continue;
-+		if (strlen(mnt) >= len)
-+			break;
-+		strcpy(buf, mnt);
-+		ret = 0;
-+		break;
-+	}
-+
-+	fclose(f);
-+	return ret;
-+}
-+
-+static int write_file(const char *path, const char *val)
-+{
-+	ssize_t len = strlen(val);
-+	int fd, ret;
-+
-+	fd = open(path, O_WRONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return -1;
-+	ret = write(fd, val, len) == len ? 0 : -1;
-+	close(fd);
-+	return ret;
-+}
-+
-+static bool file_has_word(const char *path, const char *word)
-+{
-+	char buf[4096], *tok, *save;
-+	bool found = false;
-+	ssize_t n;
-+	int fd;
-+
-+	fd = open(path, O_RDONLY | O_CLOEXEC);
-+	if (fd < 0)
-+		return false;
-+	n = read(fd, buf, sizeof(buf) - 1);
-+	close(fd);
-+	if (n < 0)
-+		return false;
-+	buf[n] = '\0';
-+
-+	for (tok = strtok_r(buf, "\n ", &save); tok;
-+	     tok = strtok_r(NULL, "\n ", &save)) {
-+		if (!strcmp(tok, word)) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	return found;
-+}
-+
-+static bool path_is_mounted(const char *path)
-+{
-+	char line[PATH_MAX * 2];
-+	bool found = false;
-+	FILE *f;
-+
-+	f = fopen("/proc/self/mounts", "re");
-+	if (!f)
-+		return false;
-+	while (fgets(line, sizeof(line), f)) {
-+		char mnt[PATH_MAX];
-+
-+		if (sscanf(line, "%*s %4095s", mnt) != 1)
-+			continue;
-+		if (!strcmp(mnt, path)) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	fclose(f);
-+	return found;
-+}
-+
-+/* Shared by the stress tests below. */
-+static bool stress_deadline(const struct timespec *end)
-+{
-+	struct timespec now;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &now);
-+	return now.tv_sec > end->tv_sec ||
-+	       (now.tv_sec == end->tv_sec && now.tv_nsec >= end->tv_nsec);
-+}
-+
-+FIXTURE(kernfs_cgroup)
-+{
-+	char scratch[PATH_MAX];		/* <cg2>/kernfs_selftest.<pid> */
-+	char child[PATH_MAX];		/* <scratch>/child */
-+	char probe[PATH_MAX];		/* child's controller file */
-+	char scratch_sc[PATH_MAX];	/* scratch's cgroup.subtree_control */
-+	char root_sc[PATH_MAX];		/* root's cgroup.subtree_control */
-+	char enable[32];		/* "+<controller>" */
-+	char disable[32];		/* "-<controller>" */
-+	char mnt[PATH_MAX];		/* our own mount, if we made one */
-+	bool mounted;
-+	bool enabled_at_root;
-+};
-+
-+/* A cgroup stays busy briefly after its last task exits. */
-+static void rmdir_retry(const char *path)
-+{
-+	int i;
-+
-+	for (i = 0; i < 500; i++) {
-+		if (!rmdir(path) || errno != EBUSY)
-+			return;
-+		usleep(10000);
-+	}
-+}
-+
-+/*
-+ * Undo whatever SETUP managed to do.  The harness skips TEARDOWN after a
-+ * failed or skipped SETUP, so SETUP must call this before returning early.
-+ */
-+static void kernfs_cgroup_undo(FIXTURE_DATA(kernfs_cgroup) *self)
-+{
-+	rmdir_retry(self->child);
-+	rmdir(self->scratch);
-+	if (self->enabled_at_root)
-+		write_file(self->root_sc, self->disable);
-+	if (self->mounted) {
-+		umount2(self->mnt, MNT_DETACH);
-+		rmdir(self->mnt);
-+	}
-+	self->enabled_at_root = false;
-+	self->mounted = false;
-+}
-+
-+FIXTURE_SETUP(kernfs_cgroup)
-+{
-+	char root[PATH_MAX], ctl[PATH_MAX];
-+	const char *probe_file = NULL;
-+	size_t i;
-+
-+	if (geteuid())
-+		SKIP(return, "test needs to run as root");
-+
-+	/*
-+	 * A private mount namespace stops our mounts leaking, but does not
-+	 * isolate the cgroup hierarchy: cgroup2 has one default hierarchy
-+	 * however many times it is mounted.  The scratch cgroups live in the
-+	 * host's and must be removed, not discarded with the namespace.
-+	 */
-+	if (unshare(CLONE_NEWNS))
-+		SKIP(return, "unshare(CLONE_NEWNS): %s", strerror(errno));
-+	if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-+		SKIP(return, "make / private: %s", strerror(errno));
-+
-+	/* Use an existing cgroup2 mount if there is one, else make our own. */
-+	if (find_cgroup2_root(root, sizeof(root))) {
-+		strcpy(self->mnt, "/tmp/kernfs_selftest_cg2.XXXXXX");
-+		if (!mkdtemp(self->mnt))
-+			SKIP(return, "mkdtemp: %s", strerror(errno));
-+		if (mount("none", self->mnt, "cgroup2", 0, NULL)) {
-+			rmdir(self->mnt);
-+			SKIP(return, "mount cgroup2: %s", strerror(errno));
-+		}
-+		self->mounted = true;
-+		strcpy(root, self->mnt);
-+	}
-+
-+	snprintf(self->root_sc, sizeof(self->root_sc),
-+		 "%s/cgroup.subtree_control", root);
-+	snprintf(ctl, sizeof(ctl), "%s/cgroup.controllers", root);
-+
-+	/* Named after our pid so we cannot collide with anything else. */
-+	snprintf(self->scratch, sizeof(self->scratch), "%s/%s.%d", root,
-+		 CG_SCRATCH, getpid());
-+	snprintf(self->child, sizeof(self->child), "%s/child", self->scratch);
-+	snprintf(self->scratch_sc, sizeof(self->scratch_sc),
-+		 "%s/cgroup.subtree_control", self->scratch);
-+
-+	for (i = 0; i < ARRAY_SIZE(controllers); i++) {
-+		if (!file_has_word(ctl, controllers[i].name))
-+			continue;
-+		snprintf(self->enable, sizeof(self->enable), "+%s",
-+			 controllers[i].name);
-+		snprintf(self->disable, sizeof(self->disable), "-%s",
-+			 controllers[i].name);
-+		probe_file = controllers[i].probe_file;
-+
-+		/*
-+		 * A controller must be in the root's subtree_control before
-+		 * it appears in our scratch cgroup.  Note if we enabled it,
-+		 * so it can be put back.
-+		 */
-+		self->enabled_at_root = !file_has_word(self->root_sc,
-+						       controllers[i].name);
-+		if (self->enabled_at_root &&
-+		    write_file(self->root_sc, self->enable)) {
-+			self->enabled_at_root = false;
-+			probe_file = NULL;
-+			continue;
-+		}
-+		break;
-+	}
-+	if (!probe_file) {
-+		kernfs_cgroup_undo(self);
-+		SKIP(return, "no usable cgroup2 controller");
-+	}
-+
-+	snprintf(self->probe, sizeof(self->probe), "%s/%s", self->child,
-+		 probe_file);
-+
-+	/*
-+	 * Only an unusable environment may skip.  A scratch cgroup named
-+	 * after our own pid should always be creatable, so failing to make
-+	 * one is a result -- skipping would let a broken kernel look green.
-+	 */
-+	if (mkdir(self->scratch, 0755)) {
-+		int err = errno;
-+
-+		kernfs_cgroup_undo(self);
-+		if (err == EROFS || err == EACCES || err == EPERM)
-+			SKIP(return, "mkdir %s: %s", self->scratch,
-+			     strerror(err));
-+		ASSERT_EQ(err, 0) TH_LOG("mkdir %s: %s", self->scratch,
-+					 strerror(err));
-+	}
-+	if (mkdir(self->child, 0755)) {
-+		int err = errno;
-+
-+		kernfs_cgroup_undo(self);
-+		ASSERT_EQ(err, 0) TH_LOG("mkdir %s: %s", self->child,
-+					 strerror(err));
-+	}
-+}
-+
-+FIXTURE_TEARDOWN(kernfs_cgroup)
-+{
-+	write_file(self->scratch_sc, self->disable);
-+	kernfs_cgroup_undo(self);
-+}
-+
-+/*
-+ * Walking already-cached dentries must not invalidate them.  Spurious
-+ * invalidation is not merely slow: d_invalidate() calls detach_mounts(), so
-+ * an unrelated lookup would silently tear down any mount below.
-+ */
-+TEST_F(kernfs_cgroup, path_walk_does_not_invalidate)
-+{
-+	char src[] = "/tmp/kernfs_selftest_bind.XXXXXX";
-+	char sub[PATH_MAX], probe[PATH_MAX];
-+	int i;
-+
-+	snprintf(sub, sizeof(sub), "%s/sub", self->child);
-+	ASSERT_EQ(mkdir(sub, 0755), 0);
-+
-+	if (!mkdtemp(src)) {
-+		rmdir(sub);
-+		SKIP(return, "mkdtemp: %s", strerror(errno));
-+	}
-+	if (mount(src, sub, NULL, MS_BIND, NULL)) {
-+		int err = errno;
-+
-+		rmdir(sub);
-+		rmdir(src);
-+		SKIP(return, "bind mount onto a cgroup dir: %s", strerror(err));
-+	}
-+	ASSERT_TRUE(path_is_mounted(sub));
-+
-+	/* Walk a sibling path through the same directory, repeatedly. */
-+	snprintf(probe, sizeof(probe), "%s/cgroup.procs", self->child);
-+	for (i = 0; i < 8; i++) {
-+		int fd = open(probe, O_RDONLY | O_CLOEXEC);
-+
-+		if (fd >= 0)
-+			close(fd);
-+	}
-+
-+	EXPECT_TRUE(path_is_mounted(sub));
-+
-+	umount2(sub, MNT_DETACH);
-+	rmdir(sub);
-+	rmdir(src);
-+}
-+
-+/*
-+ * A cached negative dentry must be invalidated when the kernel creates the
-+ * name behind the dcache's back.  That is what kernfs_dir_changed() and
-+ * kernfs_elem_dir::rev are for.
-+ */
-+TEST_F(kernfs_cgroup, negative_dentry_invalidated_by_kernel_create)
-+{
-+	struct stat st;
-+
-+	/* Caches a negative dentry for the probe file. */
-+	ASSERT_EQ(stat(self->probe, &st), -1);
-+	ASSERT_EQ(errno, ENOENT);
-+
-+	/* The kernel now creates it, with no VFS operation on that name. */
-+	ASSERT_EQ(write_file(self->scratch_sc, self->enable), 0);
-+
-+	EXPECT_EQ(stat(self->probe, &st), 0);
-+}
-+
-+/* The mirror image: a cached positive dentry must go when the node does. */
-+TEST_F(kernfs_cgroup, positive_dentry_invalidated_by_kernel_remove)
-+{
-+	struct stat st;
-+
-+	ASSERT_EQ(write_file(self->scratch_sc, self->enable), 0);
-+	/* Caches a positive dentry. */
-+	ASSERT_EQ(stat(self->probe, &st), 0);
- 
-+	ASSERT_EQ(write_file(self->scratch_sc, self->disable), 0);
-+
-+	ASSERT_EQ(stat(self->probe, &st), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+}
-+
-+/* Opening a removed node fails; it never returns stale content. */
-+TEST_F(kernfs_cgroup, open_after_rmdir_fails)
-+{
-+	char path[PATH_MAX];
-+	char buf[64];
-+	int fd;
-+
-+	snprintf(path, sizeof(path), "%s/cgroup.procs", self->child);
-+
-+	fd = open(path, O_RDONLY | O_CLOEXEC);
-+	ASSERT_GE(fd, 0);
-+
-+	ASSERT_EQ(rmdir(self->child), 0);
-+
-+	/* Lookup by path must fail. */
-+	EXPECT_EQ(open(path, O_RDONLY | O_CLOEXEC), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+
-+	/*
-+	 * An fd held across removal must fail cleanly rather than hang or
-+	 * return garbage.  Empty read or error, both fine.
-+	 */
-+	if (read(fd, buf, sizeof(buf)) < 0)
-+		EXPECT_EQ(errno, ENODEV);
-+	EXPECT_EQ(close(fd), 0);
-+
-+	ASSERT_EQ(mkdir(self->child, 0755), 0);
-+}
-+
-+/* readdir returns every entry exactly once. */
-+TEST_F(kernfs_cgroup, readdir_no_duplicates)
-+{
-+	char names[512][NAME_MAX + 1];
-+	struct dirent *de;
-+	int n = 0, i, j;
-+	DIR *d;
-+
-+	ASSERT_EQ(write_file(self->scratch_sc, self->enable), 0);
-+
-+	d = opendir(self->child);
-+	ASSERT_NE(d, NULL);
-+	while ((de = readdir(d))) {
-+		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+			continue;
-+		ASSERT_LT(n, (int)ARRAY_SIZE(names));
-+		strncpy(names[n], de->d_name, NAME_MAX);
-+		names[n][NAME_MAX] = '\0';
-+		n++;
-+	}
-+	closedir(d);
-+
-+	ASSERT_GT(n, 0);
-+	for (i = 0; i < n; i++)
-+		for (j = i + 1; j < n; j++)
-+			EXPECT_STRNE(names[i], names[j]);
-+}
-+
-+/*
-+ * A telldir() cookie must resolve back to the same entry after seekdir().
-+ * kernfs encodes the cookie as the node's name hash, so this covers
-+ * kernfs_dir_pos() as well as plain iteration.
-+ */
-+TEST_F(kernfs_cgroup, readdir_seekdir_roundtrip)
-+{
-+	char names[512][NAME_MAX + 1];
-+	struct dirent *de;
-+	long pos[512];
-+	int n = 0, i;
-+	DIR *d;
-+
-+	ASSERT_EQ(write_file(self->scratch_sc, self->enable), 0);
-+
-+	d = opendir(self->child);
-+	ASSERT_NE(d, NULL);
-+
-+	/* Record the cookie *before* reading each entry, with its name. */
-+	while (1) {
-+		long here = telldir(d);
-+
-+		de = readdir(d);
-+		if (!de)
-+			break;
-+		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+			continue;
-+		ASSERT_LT(n, (int)ARRAY_SIZE(pos));
-+		pos[n] = here;
-+		strncpy(names[n], de->d_name, NAME_MAX);
-+		names[n][NAME_MAX] = '\0';
-+		n++;
-+	}
-+	ASSERT_GT(n, 0);
-+
-+	/* Seeking back to a cookie must land on the entry it was taken at. */
-+	for (i = 0; i < n; i++) {
-+		seekdir(d, pos[i]);
-+		de = readdir(d);
-+		ASSERT_NE(de, NULL);
-+		EXPECT_STREQ(de->d_name, names[i]);
-+	}
-+
-+	closedir(d);
-+}
-+
-+#define STRESS_SECS	2
-+#define STRESS_DIRS	4
-+#define STRESS_READERS	4
-+
-+/*
-+ * Hammer lookup against creation and removal.  Revalidation holds no lock
-+ * against the writers, so what makes it safe is that every answer it can
-+ * give is one the caller already handles: a reader must only ever see
-+ * success or an errno meaning "it went away", never garbage or a hang.
-+ */
-+TEST_F(kernfs_cgroup, lookup_vs_create_remove_stress)
-+{
-+	pid_t pids[STRESS_DIRS + STRESS_READERS];
-+	struct timespec end;
-+	int i, status, n = 0;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &end);
-+	end.tv_sec += STRESS_SECS;
-+
-+	for (i = 0; i < STRESS_DIRS; i++) {
-+		pid_t pid = fork();
-+
-+		ASSERT_GE(pid, 0);
-+		if (pid == 0) {
-+			char dir[PATH_MAX];
-+
-+			snprintf(dir, sizeof(dir), "%s/s%d", self->scratch, i);
-+			while (!stress_deadline(&end)) {
-+				if (mkdir(dir, 0755) && errno != EEXIST)
-+					_exit(10);
-+				if (rmdir(dir) && errno != ENOENT &&
-+				    errno != EBUSY)
-+					_exit(11);
-+			}
-+			_exit(0);
-+		}
-+		pids[n++] = pid;
-+	}
-+
-+	for (i = 0; i < STRESS_READERS; i++) {
-+		pid_t pid = fork();
-+
-+		ASSERT_GE(pid, 0);
-+		if (pid == 0) {
-+			/* Start each reader on a different directory. */
-+			unsigned int seq = i;
-+
-+			while (!stress_deadline(&end)) {
-+				int which = seq++ % STRESS_DIRS;
-+				char path[PATH_MAX];
-+				struct stat st;
-+				int fd;
-+
-+				snprintf(path, sizeof(path),
-+					 "%s/s%d/cgroup.procs",
-+					 self->scratch, which);
-+
-+				if (stat(path, &st) && errno != ENOENT &&
-+				    errno != ENODEV)
-+					_exit(20);
-+
-+				fd = open(path, O_RDONLY | O_CLOEXEC);
-+				if (fd < 0) {
-+					if (errno != ENOENT && errno != ENODEV)
-+						_exit(21);
-+				} else {
-+					close(fd);
-+				}
-+
-+				if (access(path, F_OK) && errno != ENOENT &&
-+				    errno != ENODEV)
-+					_exit(22);
-+			}
-+			_exit(0);
-+		}
-+		pids[n++] = pid;
-+	}
-+
-+	for (i = 0; i < n; i++) {
-+		ASSERT_EQ(waitpid(pids[i], &status, 0), pids[i]);
-+		ASSERT_TRUE(WIFEXITED(status));
-+		EXPECT_EQ(WEXITSTATUS(status), 0);
-+	}
-+
-+	for (i = 0; i < STRESS_DIRS; i++) {
-+		char dir[PATH_MAX];
-+
-+		snprintf(dir, sizeof(dir), "%s/s%d", self->scratch, i);
-+		rmdir_retry(dir);
-+	}
-+}
-+
-+/*
-+ * sysfs is namespace tagged (KERNFS_NS) and supports rename; cgroup2 does
-+ * neither.  Run in a private netns with its own sysfs so the host is
-+ * untouched.
-+ */
-+FIXTURE(kernfs_netns)
-+{
-+	char mnt[PATH_MAX];
-+	char net[PATH_MAX];
-+	bool mounted;
-+};
-+
-+FIXTURE_SETUP(kernfs_netns)
-+{
-+	if (geteuid())
-+		SKIP(return, "test needs to run as root");
-+
-+	if (unshare(CLONE_NEWNS | CLONE_NEWNET))
-+		SKIP(return, "unshare(CLONE_NEWNS|CLONE_NEWNET): %s",
-+		     strerror(errno));
-+
-+	/* Don't let our sysfs mount escape into the parent namespace. */
-+	ASSERT_EQ(mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL), 0);
-+
-+	strcpy(self->mnt, "/tmp/kernfs_selftest_sysfs.XXXXXX");
-+	ASSERT_NE(mkdtemp(self->mnt), NULL);
-+
-+	if (mount("none", self->mnt, "sysfs", 0, NULL))
-+		SKIP(return, "mount sysfs: %s", strerror(errno));
-+	self->mounted = true;
-+
-+	snprintf(self->net, sizeof(self->net), "%s/class/net", self->mnt);
-+}
-+
-+FIXTURE_TEARDOWN(kernfs_netns)
-+{
-+	if (self->mounted)
-+		umount2(self->mnt, MNT_DETACH);
-+	rmdir(self->mnt);
-+}
-+
-+/*
-+ * sysfs in a new network namespace must show only that namespace's
-+ * interfaces.  A fresh netns has exactly one, "lo".
-+ */
-+TEST_F(kernfs_netns, ns_tag_isolates_class_net)
-+{
-+	struct dirent *de;
-+	int n = 0;
-+	DIR *d;
-+
-+	d = opendir(self->net);
-+	ASSERT_NE(d, NULL);
-+	while ((de = readdir(d))) {
-+		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+			continue;
-+		EXPECT_STREQ(de->d_name, "lo");
-+		n++;
-+	}
-+	closedir(d);
-+
-+	EXPECT_EQ(n, 1);
-+}
-+
-+/*
-+ * After a rename the old name must stop resolving and the new one must
-+ * start, even though both dentries are already cached.
-+ */
-+TEST_F(kernfs_netns, rename_is_revalidated)
-+{
-+	char old_path[PATH_MAX], new_path[PATH_MAX];
-+	struct ifreq ifr = {};
-+	struct stat st;
-+	int sk;
-+
-+	snprintf(old_path, sizeof(old_path), "%s/lo", self->net);
-+	snprintf(new_path, sizeof(new_path), "%s/%s", self->net, TEST_IFNAME);
-+
-+	/* Warm both dentries: one positive, one negative. */
-+	ASSERT_EQ(stat(old_path, &st), 0);
-+	ASSERT_EQ(stat(new_path, &st), -1);
-+	ASSERT_EQ(errno, ENOENT);
-+
-+	sk = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-+	ASSERT_GE(sk, 0);
-+	strcpy(ifr.ifr_name, "lo");
-+	strcpy(ifr.ifr_newname, TEST_IFNAME);
-+	if (ioctl(sk, SIOCSIFNAME, &ifr)) {
-+		close(sk);
-+		SKIP(return, "SIOCSIFNAME: %s", strerror(errno));
-+	}
-+	close(sk);
-+
-+	EXPECT_EQ(stat(old_path, &st), -1);
-+	EXPECT_EQ(errno, ENOENT);
-+	EXPECT_EQ(stat(new_path, &st), 0);
-+}
-+
-+TEST_HARNESS_MAIN
 -- 
 2.53.0-Meta
 
