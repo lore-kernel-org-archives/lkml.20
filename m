@@ -1,54 +1,78 @@
-Received: from r3-19.sinamail.sina.com.cn (r3-19.sinamail.sina.com.cn [202.108.3.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DB623E35F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B35282F16
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787969167; cv=none; b=l8yCic345GkUGT9mk8bj23Ui3gGSb4JIQp6uHcMGsCBOY+YkqaQCcl2BASUhxTMkkHrTu8BZcIngUoyiYOeLuJy/qpkuay+iQU6iRYYyo0xOs3mOkxFP7U+qilLKHNNdkXhj2SpKxTWhvTRp7cU54kVGr+IJ3TBD/z6t42E4adM=
+	t=1787969468; cv=none; b=hupwg4ydZeO4D+BeKSlAThZxYpiQs7XTUmQTQRESFHzGOWvrCimY+x/wU8M+9+WamkrDI5ggslbX0nUlXE8nR8TqiWww+PEYtuYNWBzKT3cFLv42ufJPw0HHDGN6Zi3almt8m5/vyQL+vtwoqBT7+6z9RvEbgH/eehnpHOhzlz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787969167; c=relaxed/simple;
-	bh=ciUX1lps1HI4kb1N27vQyNQR8eEgViXfA256A71jiiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K9uaYpCgliCj2txG7ojkcFSZuX64XhL7JU0fgTizxAANxbs1f8QPsUdYseOPi0KYIRDViNevYM0Bp69m/WsCye8WmG/k3C7Zce3sxK2DrNp2BQSHQClbcZclIdKxV+H28TnnWOXl0jSSwDnQaXl2WoFUL/+uI0EBf3gI2N5Cywo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=rSyCqT5F; arc=none smtp.client-ip=202.108.3.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787969468; c=relaxed/simple;
+	bh=MQe/xEPoCNbr6+EP2KnUEhfg2k9z2+GVow4LGSXW9cY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oHap02H/QPcAHIyRanJkZ9T59oPrttfh4wy51mHnNdh09I79JUaSoYBiRTON9KkCVrckNTVCWgEY6oXqatDf7r+iULWOq0pFPDkR9gVCGgzv2yIbQih+lnBV/WF1UY5MWzdRvGliWWYUL4z/aS05gqR/Y6M7bHXtMFYWDWyL3Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vokk6r6l; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="rSyCqT5F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787969163;
-	bh=40U4ZTF2Y7xMg/3e6xEOg3jpZNTCeQRffS+aVi2Xbqo=;
-	h=From:Subject:Date:Message-ID;
-	b=rSyCqT5FzAVsI8J/2U2gp8wYFSgoNo3V9IyNbfVl6udWSKVM+f/v03os1lK1atHms
-	 bDv1CI7Ir+qUKoZDnhj4Zy7WBuusRMAvSf67jegCpxayGb14FYbXDV5/StzVRfvoX1
-	 ryjGSpR0MnsiDXLQ8wKqzHB+YV32EnzJNqS6nYr8=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6A923E7E00002478; Sat, 29 Aug 2026 10:05:53 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 3722434456674
-X-SMAIL-UIID: 3ECB4DC6E8F2424FA674AEC1F8EFFFFD-20260829-100553-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: tiwai@suse.de
-Cc: eadavis@sina.com,
-	gregkh@linuxfoundation.org,
-	kees@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	syzbot+c35f34092a4bc9855be6@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] usb: gadget: midi2: prevent in/out jack from oob
-Date: Sat, 29 Aug 2026 10:05:50 +0800
-Message-ID: <20260829020550.277161-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <87cxv2v46o.wl-tiwai@suse.de>
-References: <87cxv2v46o.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vokk6r6l"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964e480f76so2043831a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:11:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787969466; x=1788574266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4MPYBklt/xZLRwo665EAmIcEZjt6kKUUFD1xrGZB/rQ=;
+        b=Vokk6r6lkEhB7MCxFuMU3dy6uOr5FRBUCB9nPTSO/9PW0kd0Vn2NFwLZAQKw7mXH4j
+         mNEdJQxbLLfxoSJPu95pL3Uzvy8teHWZS0pp0NUohmub3mKYVAUJqMbqtp4+75p2hRQk
+         gL1wKuWV4ymx9SVVOh3uVYwFd4/lvHVtGX6/w0geGd6Y+4wFE+5hYhNNlpfhrWnE6yrv
+         81OaVOOBU1plkCerMOAOVlHULPh5HGtR6lMHzqH6Md7XEizZgYHhElmvy1+4+FZDBNyi
+         +Xipd/czc0Zn1M8YmUSmBRshfe07cvEl70S00c9N7ZWNlRXJmeCC5Ye/SmCmDp5bckGm
+         pLAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787969466; x=1788574266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4MPYBklt/xZLRwo665EAmIcEZjt6kKUUFD1xrGZB/rQ=;
+        b=k2PRPWMweAPWCCkLQwGRIny6we92uSAIiVELPLGlC+x67aU6KT9EVTyFxiQDq6WRlb
+         k81ZMg1XMbHBQ5R2ltz0bFvbUcOzRRN+qA7t4FoDoL78sBaUL9v9fOMrJcbUIe/0/pbu
+         1wtYOgcwdY9E5R4d/fOfbdD3JM33zIUfle4vcZNHdFjcHlQVDozyhxfvyPtVOefPTLLx
+         Bv8QjGbaQen3GYwO5AnJqqE7vJA+o8EFAnoc8GoMAKZqoHl+tZK05YdjovRTVJfVbfDc
+         XHfLcexLBZqFExJxw66wIfuxva6+oFUCwj5thvxLPOhBmW5nJgKgc0gNM2kj1mgfljbf
+         q6BQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjUV2+3RCwNAGuALIbsQJvnIDbe5lIbEv7Xngncp8aJZgBoTPYO7C3J0qkrRRBb17Srz6SN69iaN8NC3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyUeMUk8OyOzfDkfH5qkIczSC+/6zP4RvOKDEdQwZ2QgmyV656
+	fthTRMeHoGDeP9HFJDPsPvnV7oOIzBeKdD3fYaOGbTjHz3R6A6xejvYo
+X-Gm-Gg: AYBFou0e1HfAHoM042vrmHVP3naHqws0Kx6Kg35kzQHBxZyvR1Z0h0eQZWqssxfj6lu
+	LWPjMjsDw6uNbr81t4uWYP6C8sB05PiRsLlnYSfR1TsKDmLm51OOpJUOYTujLBvz1HRJny5QV4F
+	m68XyRqADvQvMONfkQmYT6YvZm1rLVAphsR32cGUkuwJfj0WNh5LDZK3aOYdcvttyQ8fKrKdzqe
+	lNNdnbyM1f45RNPCp0f6gcJRTI1qimTyX0DDDQxFNjPo2E7tnnssLyBTLbzGSgPcoNCoeHeF43O
+	2yR2FrbMLB+4Masf3Qep+92w6ywyrNhWCrIdEwp8v4ELeXyeoS4iG+WjlHkSzQNbv/AO4fWavrp
+	86SCAtIhAB/TdS4znKqnKFWK1yTAnPfX2WDlw9N0bAwQzpjIB79Em2LadYrfneTZb7tBboRlS5g
+	5GJX3flXpqp41RiRKFF90hMMOwsagRkaF/w2Eo517xqeSJKqLXo2p7il4gPaexEJLSh43TPxHSQ
+	DNs8DOW2cIu/460bJ+WXu8hQXQj2tkHSmelrwG5ZweDfDErdUULqAZjqU50EVNFaJPKBanbThAf
+	5yeRzODtUFTokRdvUFY6s5yM5dXhrmxLcNirT7+jUEnnF/tobw==
+X-Received: by 2002:a17:90b:384d:b0:38e:bbf1:de34 with SMTP id 98e67ed59e1d1-396d0ec6bc1mr15703233a91.7.1787969466062;
+        Fri, 28 Aug 2026 19:11:06 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm4848984a91.6.2026.08.28.19.11.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 19:11:05 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: helios4: fix vbus-supply for USB2 PHY
+Date: Fri, 28 Aug 2026 19:11:03 -0700
+Message-ID: <20260829021103.332384-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,53 +81,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Edward Aadm Davis <eadavis@sina.com>
+The usb-nop-xceiv binding and driver use "vbus-supply"; the driver
+acquires the VBUS regulator via devm_regulator_get_exclusive("vbus")
+(phy-generic.c). The stale "vbus-regulator" name is never read by
+the driver and dtbs_check rejects it as an unknown property. Rename
+the property so reg_5p0v_usb is honored.
 
-On Fri, 28 Aug 2026 14:07:43 +0200, Takashi Iwai wrote:
-> > The increment of config->jack_out in append_midi1_out_jack() lacked
-> > bounds checking, triggering issue [1] when the value approached the
-> > limit MAX_CABLES.
-> >
-> > A similar out-of-bounds issue exists in append_midi1_in_jack(), so it
-> > is being fixed as well.
-> >
-> > Before incrementing jack_out/in, the code now checks if the value has
-> > reached the upper limit MAX_CABLES; if so, it exits and returns -EINVAL.
-> >
-> > Additionally, the jack_id assignment is moved to occur after the jack_out
-> > bounds check to prevent wasting IDs on invalid increments.
-> 
-> I think the bug is rather the arrays are too small; they should have
-> been twice as the jacks can be added from both input and output.
-> 
-> Both append_midi1_out_jack() and append_midi1_in_jack() are called
-> from the loops of midi2->num_midi1_out and midi2->num_midi1_in
-> counts, and they are properly upper-bound to MAX_CABLES.
-In reproducer, set num_groups and midi1_num_groups to 16, this will cause
-num_midi1_in and num_midi1_out to both be 16 (total 32), overflowing the
-MAX_CABLES (16) sized arrays on the stack during bind.
-> 
-> Could you check whether the fix below works instead?
-Yes, the fix below works.
+Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-cheers,
-Edward
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> --- a/drivers/usb/gadget/function/f_midi2.c
-> +++ b/drivers/usb/gadget/function/f_midi2.c
-> @@ -1634,8 +1634,8 @@ struct f_midi2_usb_config {
-> 
->  	/* MIDI 1.0 jacks */
->  	unsigned char jack_in, jack_out, jack_id;
-> -	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES];
-> -	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES];
-> +	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES * 2];
-> +	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES * 2];
->  };
-> 
->  static int append_config(struct f_midi2_usb_config *config, void *d)
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index b8576ca0de1c..9de9a8a4267c 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -140,7 +140,7 @@ fan2: j17-pwm {
+ 
+ 	usb2_phy: usb2-phy {
+ 		compatible = "usb-nop-xceiv";
+-		vbus-regulator = <&reg_5p0v_usb>;
++		vbus-supply = <&reg_5p0v_usb>;
+ 	};
+ 
+ 	usb3_phy: usb3-phy {
+-- 
+2.55.0
+
