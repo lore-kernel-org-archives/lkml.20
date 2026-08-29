@@ -1,60 +1,31 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8B4224AF1
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BF22CCB9;
+	Sat, 29 Aug 2026 05:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787979516; cv=none; b=YI2uNGoPoT7dYbJehhwyr1vVIfBUmJydWCtmg+BDKpVwC23kmDp5AMpPnQ1mwiuETrAx7jK1v5yTdXSKRXEURKyh9f5yjZizhH83vhUNGtgg8Dn81iViZ/8tJQXMTWr8N2dF/ce4Xek3LiU3sKyBQ3nRQlGvLW8YpNvrHY+llvM=
+	t=1787980701; cv=none; b=Jgb+edLcZvz5neiGoyln2qmDjpt+vLE/IOSswIerZ0T3WAH/HHOyXoE/9Fwjz5RBiaZ69Lu3ia6S5MVJ+CVPEYyQwpyE/j3o9ToZx2xWewnaSBaHhuHRZdmyCTQaYc9gnxu5rQLF0DWf6iS1fU0FEcJAlH8s+Rmm0/15Telygh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787979516; c=relaxed/simple;
-	bh=nJatNh1tzJhEScXoBifGehLQ/5BC234MiN09J0Wk16o=;
+	s=arc-20240116; t=1787980701; c=relaxed/simple;
+	bh=qRwZ5NpNVPKe2b6/4sk8juFJHvLZLl114q8bZtIi3iw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AxQ6YUPK/cZeHC3/DvrvqIgzqXxL9jQL30xrV4foV6c7QkZ4Ra7iGcUFjUaQ+DKRm6/3o8JG0pjkQo41KU22gVC7oBL/ZEt1u+CbPxXAIzuSPbVl9qHsJIPaed9ZSwGi+6IMj4lxuAQXZuyrgxikujbajObQVChLgErATPobHQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Zj5rn3Cj; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Zj5rn3Cj"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67T4eZVp2999898;
-	Sat, 29 Aug 2026 04:58:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=MvU1Yg
-	ZR++bACy1sJMFzvjbRDgfeehycZdKhfrovGi4=; b=Zj5rn3Cjs02ununzct8Z2a
-	GbyZyUgT7tPqEI1srPF5w4Vft8X50TI3aN9rUhwInphRH1ebh3N5sX/NtvvXXGU4
-	kykve1Fa1OdKfn4SagLzHb3CLvbohgmvssIljgu/qyWR3Y6oMbnjwGxqlQgrRO23
-	F5UQqbXPO9PmmFoB/+w2pN5pjSBzX8oLje2RNMbNS0p/QIF1qSBb+CODux1LweMo
-	N/rY0sLgiSla69RWgwVSdQUFpMKiSTAS9JcBPpsRlWmV6AHgG1WriHAFR1G+PcWn
-	Y3r/KUoOVohEtAEye91DT8zpyD8zlyyTvbMh6bfe5sA5rf4KqJNUpYAXl/TBzUuQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnud8g69-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 29 Aug 2026 04:58:21 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67T4uKsi027085;
-	Sat, 29 Aug 2026 04:58:20 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7p3qt9nm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 29 Aug 2026 04:58:20 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67T4wIRd42598784
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 29 Aug 2026 04:58:18 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 455D920043;
-	Sat, 29 Aug 2026 04:58:18 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3F69C20040;
-	Sat, 29 Aug 2026 04:58:13 +0000 (GMT)
-Received: from [9.67.168.106] (unknown [9.67.168.106])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 29 Aug 2026 04:58:12 +0000 (GMT)
-Message-ID: <f1c3c554-8500-45ef-953d-b7bcece988c7@linux.ibm.com>
-Date: Sat, 29 Aug 2026 10:28:11 +0530
+	 In-Reply-To:Content-Type; b=j0FAdIfomSR3cJRlJimvyVzpWhgB7+3XmR8d9YLQvWl01UBo3rfSYbwZm9SqzB2duVqwgASWvRVwKr4gGVZgsmBK3oXmBpt6f4LPnPyQeVtFoF9rpGxHGlXS0wXqYEMvwtncZX+HGSkY8J+qKnSsW4BON4/PYDzyx5Dh6xLyBxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67T5H1Rj003598;
+	Sat, 29 Aug 2026 14:17:01 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67T5H01E003595
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Sat, 29 Aug 2026 14:17:00 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <903a22a2-432c-4e72-bc09-7898becf2f3e@I-love.SAKURA.ne.jp>
+Date: Sat, 29 Aug 2026 14:17:00 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,169 +33,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kexec_file: remove unused arch_kexec_locate_mem_hole hook
-To: Mukesh Pilaniya <mpilaniy@redhat.com>, linux-kernel@vger.kernel.org
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He
- <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Paul Walmsley <pjw@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
-        linux-riscv@lists.infradead.org, kexec@lists.infradead.org
-References: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
- <d16164ef-7211-4272-bc74-bc38efd8623e@redhat.com>
+Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
+To: Bart Van Assche <bvanassche@acm.org>,
+        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
+        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
+        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
+        Hillf Danton <hdanton@sina.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
+        linux-btrfs@vger.kernel.org
+References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
+ <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
+ <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
+ <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
+ <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
+ <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
+ <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
+ <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
+ <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+ <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
+ <c0df5f39-d103-4e36-9807-df0ae0247772@acm.org>
+ <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
+ <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
 Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <d16164ef-7211-4272-bc74-bc38efd8623e@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: QFEz6_1xCeh_s7XdPVEckiU29dNxYHT7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDAzNiBTYWx0ZWRfX2BX64Y0kbRAQ
- yc4BSUY5FEDucDc/PeW2rD8DJYpfjGFnD9GKQXtS/TI2Jdd3miY6W4iSmHZq8CGFR2bijfbcLoK
- EmVLyVCSTWshiJaVBIEsgCGgphuiOGlnZiDWSu7bO8sUs6Z4yTxvzUVOlvZ37R6Pa8PcHthar/D
- Zzwx/D97IfYtYt/uL9jOJGfbfDO+S/yr7EeeOLH1ZZ7jEdNvnmyjWVsaL+52Yiu88j3MnSGQGjJ
- 0vWd6Cn/WbHJfcgOnwk8S2Q1xxixWF57aUYk1hOoJI8HUp/09XgFyWW85ANYojvGxkSZrRRPQT+
- Xq23mkOB86FfTLtOejS8pB3Vhbjv+Muuu8EP06/0kJksmcAR323qDWnVMV6+GmzLme+AKVNbQex
- Rh+3CcnZRGsIh1babi8dJLFXC4H7Dx9SF2uSvnTsdkiIGntsPq+Zj8IMMXwxgdTyOjy6PWT1MrM
- tWeY19Kd223stIRnN8Q==
-X-Proofpoint-ORIG-GUID: QFEz6_1xCeh_s7XdPVEckiU29dNxYHT7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDAzNiBTYWx0ZWRfXxQd/LPuLAi1s
- gY/kvfTHIyKx6iKe6VDrVjCSOgeiiCJePziKcWU0pLAeh38sLfjmXdIJL4DzSo6jc/V/ykxYLFL
- KUiItu7b3WEx964RM5BBbZkG8lPoN6g=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a9266ed cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=20KFwNOVAAAA:8
- a=Z4Rwk6OoAAAA:8 a=VwQbUJbxAAAA:8 a=_O3DOGVWAAAA:8 a=7ipKWUHlAAAA:8
- a=JfrnYn6hAAAA:8 a=VnNF1IyMAAAA:8 a=QOtqApWeW9QkeAJZ1uEA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=HkZW87K1Qel5hWWM3VKY:22 a=2TKV-7w1aU1AVAwN0oqT:22
- a=gpc5p9EgBqZVLdJeV_V1:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_01,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608290036
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+In-Reply-To: <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav411.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-Hello Mukesh,
+On 2026/08/29 1:29, Bart Van Assche wrote:
+> On 8/28/26 8:53 AM, Tetsuo Handa wrote:
+>> +     * wait for already started loop_queue_rq() to complete.
+>> +     */
+>> +    synchronize_rcu();
+> 
+> Calling synchronize_rcu() to wait for ongoing loop_queue_rq() calls to
+> complete won't work if anyone would set BLK_MQ_F_BLOCKING for the
+> request queues created by the loop driver.
 
-On 28/08/26 18:50, Mukesh Pilaniya wrote:
-> Hi Sourabh,
->
-> The patch touches three files across three subsystems so kexec: would be
-> a more accurate prefix than kexec_file, for e.g.:
->
-> kexec: remove unused arch_kexec_locate_mem_hole hook
+Excuse me, but this ordering is correct (reviewed by Gemini and sashiko).
 
-As I understand it, the kexec: prefix is generally used when the changes 
-apply to both
-the kexec_load and kexec_file_load syscalls.
+>                                            Please use the block-layer
+> APIs instead of open-coding these. I'm referring to
+> blk_mq_quiesce_queue() and blk_mq_wait_quiesce_done().
+> 
+> Freezing the request queue must happen before waiting for ongoing
+> loop_queue_rq() calls to finish.
 
-Since these changes are specific to kexec_file_load, I used the 
-kexec_file: prefix for the patch title.
+I and Gemini cannot catch what you want to say here.
 
-That said, I’m happy to follow the convention if you and others feel the 
-patch should use the
-kexec: prefix. Otherwise, I would prefer to keep the kexec_file: prefix.
+> Calling synchronize_rcu() does not prevent new I/O to be submitted. What
+> prevents io_uring to submit more I/O asynchronously, e.g. if a file
+> descriptor that refers to a loop device instance has been registered in
+> the fixed-file table?
 
+Calling synchronize_rcu() makes sure that no more queue_work() calls are
+made from loop_queue_work() from loop_queue_rq(). Since loop_queue_rq() is
+called with RCU read lock, subsequent loop_queue_rq() calls which are made
+after synchronize_rcu() returned shall see lo->lo_state != Lo_bound and
+return with BLK_STS_IOERR.
 
->
-> On 27/08/26 8:14 pm, Sourabh Jain wrote:
->> No architecture provides an implementation of
->> arch_kexec_locate_mem_hole(). Use kexec_locate_mem_hole() directly
->> and remove the unused fallback wrapper from the kexec header.
->>
->> This simplifies the kexec memory allocation path without changing
->> its behavior.
->>
-> Also, it might be worth mentioning in the commit message that this hook
-> was originally introduced by commit f891f19736bd and that the last arch
-> override was removed in commit 6e5250eaa665; making it safe to remove now.
+> 
+>> +    /*
+>> +     * Now that no more works are scheduled by loop_queue_rq(),
+>> +     * wait for already scheduled works to complete.
+>> +     */
+>> +    drain_workqueue(lo->workqueue);
+>> +    /*
+>> +     * Now that no more AIO requests are scheduled by lo_rw_aio(),
+>> +     * wait for already started AIO to complete.
+>> +     */
+>> +    blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
+> 
+> Freezing the request queue must happen before lo->workqueue is drained.
 
-Sure, I don’t mind including this in v2.
+Again, I and Gemini cannot catch what you want to say here.
 
+Calling drain_workqueue() after synchronize_rcu() makes sure that no more
+loop_handle_cmd() calls are made from loop_process_work() from loop_workfn()
+and loop_rootcg_workfn().
 
->
-> Otherwise, the change looks good to me. Feel free to add:
-> Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+Calling blk_mq_freeze_queue() after drain_workqueue() after synchronize_rcu()
+does wait for completion of all pending I/O requests which has been scheduled
+via loop_queue_rq(), by waiting for q_usage_counter to reach 0. Also, this
+synchronize_rcu() => drain_workqueue() => blk_mq_freeze_queue() ordering
+guarantees that q_usage_counter won't be incremented again after it once
+reached 0, due to the lo->lo_state != Lo_bound check in loop_queue_rq().
+This makes it possible to call blk_mq_unfreeze_queue() immediately after
+blk_mq_freeze_queue().
 
-Thanks for the review.
+> 
+>> +    /* Step 2: Perform remaining cleanup, with open_mutex held. */
+>> +    mutex_lock(&disk->open_mutex);
+> 
+> After having obtained disk->open_mutex, lease add something like the
+> following: WARN_ON_ONCE(lo->lo_state == Lo_bound). Even if this
+> condition can't be triggered today, this may help with detecting bugs in
+> future loop driver changes.
 
-- Sourabh Jain
+Did you mean WARN_ON_ONCE(lo->lo_state != Lo_rundown) ?
 
->
->> Cc: Albert Ou <aou@eecs.berkeley.edu>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Baoquan He <baoquan.he@linux.dev>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Cc: Palmer Dabbelt <palmer@dabbelt.com>
->> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
->> Cc: Paul Walmsley <pjw@kernel.org>
->> Cc: Pratyush Yadav <pratyush@kernel.org>
->> Cc: linux-riscv@lists.infradead.org
->> Cc: kexec@lists.infradead.org
->> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->> ---
->>   arch/riscv/kernel/kexec_elf.c |  2 +-
->>   include/linux/kexec.h         | 15 ---------------
->>   kernel/kexec_file.c           |  2 +-
->>   3 files changed, 2 insertions(+), 17 deletions(-)
->>
->> diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
->> index 3e9a32acb8f2..ca5abbad59e5 100644
->> --- a/arch/riscv/kernel/kexec_elf.c
->> +++ b/arch/riscv/kernel/kexec_elf.c
->> @@ -91,7 +91,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
->>   	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
->>   	kbuf.cma = NULL;
->>   	kbuf.top_down = false;
->> -	ret = arch_kexec_locate_mem_hole(&kbuf);
->> +	ret = kexec_locate_mem_hole(&kbuf);
->>   	if (!ret) {
->>   		*old_pbase = lowest_paddr;
->>   		*new_pbase = kbuf.mem;
->> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
->> index 0af8ae4fdd08..e5f1cfc11fef 100644
->> --- a/include/linux/kexec.h
->> +++ b/include/linux/kexec.h
->> @@ -259,21 +259,6 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
->>   extern int kexec_add_buffer(struct kexec_buf *kbuf);
->>   int kexec_locate_mem_hole(struct kexec_buf *kbuf);
->>   
->> -#ifndef arch_kexec_locate_mem_hole
->> -/**
->> - * arch_kexec_locate_mem_hole - Find free memory to place the segments.
->> - * @kbuf:                       Parameters for the memory search.
->> - *
->> - * On success, kbuf->mem will have the start address of the memory region found.
->> - *
->> - * Return: 0 on success, negative errno on error.
->> - */
->> -static inline int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
->> -{
->> -	return kexec_locate_mem_hole(kbuf);
->> -}
->> -#endif
->> -
->>   #ifndef arch_kexec_apply_relocations_add
->>   /*
->>    * arch_kexec_apply_relocations_add - apply relocations of type RELA
->> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
->> index 59fb9d71e9d8..9a981359addd 100644
->> --- a/kernel/kexec_file.c
->> +++ b/kernel/kexec_file.c
->> @@ -784,7 +784,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
->>   	kbuf->cma = NULL;
->>   
->>   	/* Walk the RAM ranges and allocate a suitable range for the buffer */
->> -	ret = arch_kexec_locate_mem_hole(kbuf);
->> +	ret = kexec_locate_mem_hole(kbuf);
->>   	if (ret)
->>   		return ret;
->>   
+> 
+>> @@ -1168,8 +1186,6 @@ static void __loop_clr_fd(struct loop_device *lo)
+>>       /* let user-space know about this change */
+>>       kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
+>>       mapping_set_gfp_mask(filp->f_mapping, gfp);
+>> -    /* This is safe: open() is still holding a reference. */
+>> -    module_put(THIS_MODULE);
+>>         disk_force_media_change(lo->lo_disk); 
+> 
+> I don't think that it's acceptable to invoke __loop_clr_fd()
+> asynchronously in its entirety. I think at least the following code
+> should be executed synchronously from lo_release():
+> 
+>     loop_sysfs_exit(lo);
+> 
+>     mutex_lock(&lo->lo_mutex);
+>     WRITE_ONCE(lo->lo_state, Lo_unbound);
+>     mutex_unlock(&lo->lo_mutex);
+> 
 
+Doing so breaks the whole protection provided by the Lo_rundown state. As soon
+as lo->lo_state becomes Lo_unbound, lo_open() will succeed and loop_configure()
+will start changing an lo object before WQ context cleans up that lo object.
+
+>> @@ -1769,8 +1797,20 @@ static void lo_release(struct gendisk *disk)
+>>       need_clear = (lo->lo_state == Lo_rundown);
+>>       mutex_unlock(&lo->lo_mutex);
+>>   -    if (need_clear)
+>> -        __loop_clr_fd(lo);
+>> +    /*
+>> +     * In order to flush pending I/O requests before clearing the backing
+>> +     * device, defer __loop_clr_fd() to WQ context. The Lo_rundown state
+>> +     * guarantees that lo_open() will fail with -ENXIO.
+>> +     */
+>> +    if (need_clear) {
+>> +        /*
+>> +         * Grab all references that will be dropped as soon as
+>> +         * returning from lo_release() and releasing disk->open_mutex.
+>> +         */
+>> +        get_device(disk_to_dev(disk));
+>> +        __module_get(disk->fops->owner);
+>> +        queue_work(system_long_wq, &lo->lo_clr_work);
+>> +    }
+>>   }
+> 
+> Please convert the above code to the "early return" style that is used
+> elsewhere in the kernel.
+
+That is OK. But after you agreed that my patch works as expected.
+
+> 
+> Why system_long_wq instead of lo->workqueue?
+
+That is a deadlock. We can't flush a work in lo->workqueue from inside
+WQ callback function where that work is associated with.
