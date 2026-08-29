@@ -1,116 +1,170 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE5C331ED7
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302F522E3F0
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787974960; cv=none; b=qSVTrakRbB4HpCeyjJ8yrIeNSKrHONQ2GVUqLg/qcAfFb8cBj4Hb8WZy0mGUBvq0vPta4tIh2AeWKd1NgFScm3ZNbDntCtmCyb8vZo/o/6Il3AQfx/COqa751TjaHJ0UWyCX1O2E/tz4/Y4V/Ude7elGvVHRwd71jSb9GszN7+Q=
+	t=1787974971; cv=none; b=tNWw3HH6k+ia2qUwT6cvbChOPbpfZEARk7r2If+gjYLbLU4+iH6yDCbW/keE6zyfo/EoHDc4QFPMN8LgFtd10WgH7Dc1Ws9EzWrMuswKjWFCBVPmXeVC6oxkhXGJiu2VJwbkLsRnYPU3zCjhHBgtkG/n6h/iAeoRKCnlQVRsn8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787974960; c=relaxed/simple;
-	bh=cLdeMh0wt1YIoFsO2977qzjVSR7CabUPv5BfiYz3NmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sh5XGPHVJcS7Lz5HynNF693xGSHsDyXnhHSsJoDy3HRbN5dV7iqat7uA76Cr0uLP6PliafHMQ0KMHlgg0cuCP9jFGSmJeui6yCGoHSCJFn/QDa7XP86a2LLob5OWp2zMPDZtscE5U+DPBwMQLD+OzzXdT5HHKlaLyzkDL5wqbFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kKibKuvd; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787974971; c=relaxed/simple;
+	bh=6z0dnWBafKXYdvmlwvIikffPES600dqGaEQBuxEz3Kc=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=cdRFWqE45SP9ZLa3cA1HhwC2CfvXHoKXvxYzDdESUxO/GH+QVhdda2d5LCdjop0nZILPISOiQJMja/ldItaQ5At5RmqHxgJPVlX4o/DbcHV005DQTTh45E3Y90PvlErntO8aft6OoGjzm7dktAymEn6u+NkvglLQAIqZL5gpIhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DkxqrFNs; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kKibKuvd"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1562286a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:42:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787974958; x=1788579758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vWxpWnPJf9MfbGvBdDSI3OBheqNWUEBDYq0AJGNwOhQ=;
-        b=kKibKuvdEuVfdZMLcRtQgMgtI8S54CTgOmucnVQmM8cYkDLewzxIxGWF1d3qGImxet
-         uEvlBajsngq5KNrfOwINoxkprGe5UCoU9b70tnZw3xjE9/X7a+0yC19dXLOov419iWQH
-         W6uCr/ZwRnJlJ1wcJsmS68rfbz3e/BeOKCtrsNTwweeOThpPp9w5dazcnP5SHwuCsaeJ
-         gcRi1tTVM6emD4DOGNPEACm6MPZVZks3ZBQFkbMCUc8upN3c3+MnOiBeZyaxrMz2MsOu
-         LQuKuzyMXJKuix/bYFd/0hk1wi4lzAYalZrKdFgT/We1ShrEPDpWqqcUNQHr64/6sjvT
-         FmVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787974958; x=1788579758;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vWxpWnPJf9MfbGvBdDSI3OBheqNWUEBDYq0AJGNwOhQ=;
-        b=dlJ+0Birq0G0fui9PiIB33shvPTJBd48s3srXg2TwYlLqybBm93W6lkK3YFdz+bLUq
-         o3Tt9E8d+LLeYsdmdVSwrZWgyY10vWPg251nOYGHYOsR1hIZ97u9wOeL+qyl75j7Br9+
-         91JB/PAnosUZW8WOSsOZzJl8cCSZcRbtlk9xfUM3PV/s+hem3zDLT3kHNrOM2lW69Qw9
-         zIK/Nq5c1yS7GF1BSZJ2r1fDC+3+vtn+uniZyCpnL5IzL6ZSTKgcY9PF6YrtfGe55bE7
-         Jo6O55ewLv4Gq2GQPiz23FRQU0y9vFShLnjC79j9mzFMhcb2NQAEFrv50r27CHr/QT7B
-         avEQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFeyF5aKaDkgq3UNNutQOG716OeDIiMboBX5K37zS0A2OL0dHyYaCSjjnS0SLY7mXYnKgRriwMQ3Tkq4A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntPb/gR80qBdysKNPR2zDydztwWEIP/ouDtUHh0WWju6VTrURP
-	Fnseh7KpLJh37N/VXErSwfotplBKGBjaCrY+JOjH/ujl5+X6WYoTRRUuKYLw+TE=
-X-Gm-Gg: AYBFou2iKvTX9sEqgKc+JKaJnXWsDhG+nFha0XJWiSyhp6LHovI56ygAPUN3g6yS9YO
-	pCLCHjX4Q0cymmTmg9VRguvZBxQtdswMwLvMLCYNTiljFCcXodZ5g/X5pmLkFlDdE5Nd/B459Mm
-	v7ZaHCmrfRFIrAO2oRaYSI2HFEJBM4/FoNQaWXPLdtKeobp501MPtRFaM9FmouVK9XtQx5pDMHZ
-	sMpctCsUbM+3avDI2mn1mNp+woBywRnDB7bC8GhYe9GYhCAz7c+0VIqpbjaHxQGsbjamOB6/OtL
-	VMPp0SPG6Do4o427bRgNu7aXRNGPZx/aUeRr4uCbzg0HqXoj6Y5vqWdPY1JHigRIhMlCX6r2DMU
-	ElOOcCCkeIObMaFkvYVo0E+WChKGD/h3rJElHM3aJvutkuDD8me4g7VmXCicUcFKgCW81BA13Gz
-	zIJMVQQYkeu6dLDfJduVFgJNTvDbD2EegL4oXQ/M/yimrwgancaUfN7BAzaWya75UZ7ZppjTxOg
-	gbBUJY32lsB
-X-Received: by 2002:a17:90b:17c7:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-396d0fc1b2fmr19853921a91.16.1787974958550;
-        Fri, 28 Aug 2026 20:42:38 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([113.185.106.34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186803asm9716747a91.11.2026.08.28.20.42.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 20:42:38 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: andi.shyti@kernel.org
-Cc: bence98@sch.bme.hu,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	triet.hoang.dev@gmail.com
-Subject: Re: [PATCH v2] i2c: cp2615: handle allocation failure
-Date: Sat, 29 Aug 2026 10:42:20 +0700
-Message-ID: <20260829034220.3053-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apG_qiYtTQvt9s-y@zenone.zhora.eu>
-References: <apG_qiYtTQvt9s-y@zenone.zhora.eu>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DkxqrFNs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787974968; x=1819510968;
+  h=date:from:to:cc:subject:message-id;
+  bh=6z0dnWBafKXYdvmlwvIikffPES600dqGaEQBuxEz3Kc=;
+  b=DkxqrFNsSQXA49CybvTbZQmmW9m+lDoe/Q8oMSif1+RajSkzpaIsZt/J
+   YPe51dLAM56wqvzbDprAX+hhLhXIZWZTHwtXFHp3kRB9uM/3WJ7fRU9z/
+   5sd22EmEmVFuYrUzzLSP/VaAZ+jy1jqByu+x9yQTxa2C7gBUBl9i+D4DC
+   f4KpnOjcb6d0ZPT3XBOOgV05JIITseFma/J3w4zwIZMdNkbqmPi8XZBmX
+   DTIfupPj9fG00A2uAA3i86cg27b4+L/S+BteZgC38rdLl8wGc3qYMe3GU
+   9JpMVV4JvuvzOvaU7MHad9/Gf/Abnhl+/WPb3IidSwKmW3AH7GQF1ZpSw
+   g==;
+X-CSE-ConnectionGUID: WilM5TkqR0C7zJ7LD3cXXw==
+X-CSE-MsgGUID: 3TTlNyk6T0iE1Re6CZlEww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88603656"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="88603656"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 20:42:47 -0700
+X-CSE-ConnectionGUID: iNPK2Yz3RBG1Y6VEwkyiow==
+X-CSE-MsgGUID: KqNKfQuSQ9ScO1NURPrEMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="266523115"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 28 Aug 2026 20:42:46 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x09xs-00000000CL5-0ZX3;
+	Sat, 29 Aug 2026 03:42:44 +0000
+Date: Sat, 29 Aug 2026 11:42:34 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:master] BUILD SUCCESS
+ 5385e8f4cb975bf4cc651e739ef06a4cc3cc2850
+Message-ID: <202608291120.39dCACEc-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 19:09:03 +0200 Andi Shyti wrote:
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
+branch HEAD: 5385e8f4cb975bf4cc651e739ef06a4cc3cc2850  Merge branch into tip/master: 'timers/urgent'
 
-> Next time please don't send your v2 as in reply to v1. It
-> confuses me.
+elapsed time: 788m
 
-Sorry about that. Will keep it in my mind!
+configs tested: 93
+configs skipped: 0
 
-> Your patch looks good, but, as you are at it, can I ask you here
-> a little effort? Personally I don't like and I find unreadable
-> the form:
-> 
-> 	struct cp2615_iop_msg *msg = kzalloc_obj(*msg);
-> 	...
-> 
-> 	if (!msg)
-> 		return -ENOMEM.
-> 
-> Important assignments, like kzalloc_*(), shouldn't be made during
-> declaration. I prefer the form:
-> 
-> 	
-> 	struct cp2615_iop_msg *msg;
-> 	...
-> 
-> 	msg = kzalloc_obj(*msg);
-> 	if (!msg)
-> 		return -ENOMEM.
-> 
-> Works for you? Do you mind updating in v3?
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Sure, no problem. I will update and send the v3.
-Thanks for your reviewing and suggestion!
+tested configs:
+alpha               allnoconfig    gcc-16.1.0
+alpha              allyesconfig    gcc-16.1.0
+arc                allmodconfig    clang-24
+arc                allmodconfig    gcc-16.1.0
+arc                 allnoconfig    gcc-16.1.0
+arc                allyesconfig    clang-24
+arm                 allnoconfig    clang-17
+arm                 allnoconfig    gcc-16.1.0
+arm                allyesconfig    clang-24
+arm                allyesconfig    gcc-16.1.0
+arm64              allmodconfig    clang-24
+arm64               allnoconfig    gcc-16.1.0
+csky               allmodconfig    gcc-16.1.0
+csky                allnoconfig    gcc-16.1.0
+hexagon            allmodconfig    clang-24
+hexagon            allmodconfig    gcc-16.1.0
+hexagon             allnoconfig    clang-24
+hexagon             allnoconfig    gcc-16.1.0
+i386               allmodconfig    clang-22
+i386                allnoconfig    gcc-14
+i386                allnoconfig    gcc-16.1.0
+i386               allyesconfig    clang-22
+loongarch          allmodconfig    clang-24
+loongarch           allnoconfig    clang-20
+loongarch           allnoconfig    gcc-16.1.0
+m68k               allmodconfig    gcc-16.1.0
+m68k                allnoconfig    gcc-16.1.0
+m68k               allyesconfig    clang-24
+m68k               allyesconfig    gcc-16.1.0
+microblaze          allnoconfig    gcc-16.1.0
+microblaze         allyesconfig    gcc-16.1.0
+mips               allmodconfig    gcc-16.1.0
+mips                allnoconfig    gcc-16.1.0
+mips               allyesconfig    gcc-16.1.0
+nios2              allmodconfig    clang-20
+nios2              allmodconfig    gcc-11.5.0
+nios2               allnoconfig    clang-24
+nios2               allnoconfig    gcc-11.5.0
+openrisc           allmodconfig    clang-20
+openrisc           allmodconfig    gcc-16.1.0
+openrisc            allnoconfig    clang-24
+openrisc            allnoconfig    gcc-16.1.0
+parisc             allmodconfig    gcc-16.1.0
+parisc              allnoconfig    clang-24
+parisc              allnoconfig    gcc-16.1.0
+parisc             allyesconfig    clang-17
+parisc             allyesconfig    gcc-16.1.0
+powerpc            allmodconfig    gcc-16.1.0
+powerpc             allnoconfig    clang-24
+powerpc             allnoconfig    gcc-16.1.0
+riscv              allmodconfig    clang-24
+riscv               allnoconfig    clang-24
+riscv               allnoconfig    gcc-16.1.0
+riscv              allyesconfig    clang-24
+s390               allmodconfig    clang-17
+s390               allmodconfig    clang-24
+s390                allnoconfig    clang-24
+s390               allyesconfig    gcc-16.1.0
+sh                 allmodconfig    gcc-16.1.0
+sh                  allnoconfig    clang-24
+sh                  allnoconfig    gcc-16.1.0
+sh                 allyesconfig    clang-17
+sh                 allyesconfig    gcc-16.1.0
+sh                    defconfig    gcc-14
+sparc               allnoconfig    clang-24
+sparc               allnoconfig    gcc-16.1.0
+sparc64            allmodconfig    clang-20
+sparc64               defconfig    gcc-14
+um                 allmodconfig    clang-17
+um                  allnoconfig    clang-17
+um                  allnoconfig    clang-24
+um                 allyesconfig    gcc-14
+um                 allyesconfig    gcc-16.1.0
+um                    defconfig    gcc-14
+um               i386_defconfig    gcc-14
+um             x86_64_defconfig    gcc-14
+x86_64             allmodconfig    clang-22
+x86_64              allnoconfig    clang-22
+x86_64              allnoconfig    clang-24
+x86_64             allyesconfig    clang-22
+x86_64                defconfig    gcc-14
+x86_64                    kexec    clang-22
+x86_64                 rhel-9.4    clang-22
+x86_64             rhel-9.4-bpf    gcc-14
+x86_64            rhel-9.4-func    clang-22
+x86_64      rhel-9.4-kselftests    clang-22
+x86_64           rhel-9.4-kunit    gcc-14
+x86_64             rhel-9.4-ltp    gcc-14
+x86_64            rhel-9.4-rust    clang-22
+xtensa              allnoconfig    clang-24
+xtensa              allnoconfig    gcc-16.1.0
+xtensa             allyesconfig    clang-20
+xtensa             allyesconfig    gcc-16.1.0
 
-Regards,
-Triet
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
