@@ -1,76 +1,75 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF4235C696
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA23D433BC1
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 22:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788043864; cv=none; b=fZt2Je94nfacEz3lqsD0Ki68OSp7UjIJauf9pwN5AUOG9lwP8SoKji++kklzMzWW6rJ5VPLlRUfuaUH16tEX5UToUZwv+dN2ARKdJ6xmHVg5rcOhDS216J3yiJJmPBiGhX6Q0fMcrCR3+YN+aLHgSCp5nCb1wuuWiLgcTQUJogU=
+	t=1788044129; cv=none; b=VbtIsGY87Clp06ACD6dkRmMyRJbeJE6384M16S/A5t1i9DnXdF3Dk23u+rHnlORLnGX1JH/uqzS4btd15P8LqL4DzUKrtsV8Rej9GEaLiPgXc/gZPihRWqnLmU1Xi2wiknVn1Zc5idrTukKTFhPC6yOLDde7seu5L6sxYN1yW70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788043864; c=relaxed/simple;
-	bh=shQX2wo+f3M8UgqTq6bRgvEBOC3zQrskEH31c6+PGsw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cEHeVZpcDRXIlUV2gQ0JWHQ6sgJldS/PDxsWJVHAw/zVUrSTsbJII3+bFkPdTdsF0e2bMkkBzT9v1SjGbQ2k5Or1LnFSyU9iB2DxGtSOjRGwmeTH9AbY9sMzMmtmdB9zNJrOxGrhQKwXK/3L4Gfbb7EmQTudJ0Ra98zxFI0414Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ppqna2eT; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1788044129; c=relaxed/simple;
+	bh=qBN+DWx96hbQZQ9lNws+rysHWnkANX3wt4SsBuvYulk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VoOvfzYPpRojksFIjbZi6wTUkCnL8khX3V/37GiJXGyAQ98GEQr7zLwsb627lej34xpPJMEadC3K8Re1xICVW8Y1nj2+83NolCLT/NJXyWMqsVBIFF5GP2X4Hxsn5y/VxeQlMtBxarI2PuujfltIflpyyICFa0nk3k4ofykusq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Arsaecnn; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ppqna2eT"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso20088805e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:51:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Arsaecnn"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cacb8416a1so19108095ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:55:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788043861; x=1788648661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VZgKfK0BXySBVGINlvx9UFrNadPZLdOTWQIvm5BNrYc=;
-        b=Ppqna2eTKeGOAm+xwilERiUez3h5wBiUm3eYTgXtM/eZlm9x8rwbsJIxMmDjgl4G5g
-         OikmwyJRqF/W5rdzv6E1cZH2iWtmNO9wn6Y+Y2wnGO5q6Njs29/72/nURccClosnSeIF
-         yWpRgU2B22Ip9+mSlvT2DN2BDPxzn0RYYJeaqqrlBOhdd6GwFvAhzQYeZJ44JVzNbgI+
-         5mRIEXjj//mTMGmp9+sSAdtjNl73ztCZ0/F69Xc7lO6YureIkXe+k9popUfGe7a7uzel
-         absiq8ZL8RLQvi+JzZK6DnhWW8qua+4Z3Y04NHXw/HZ4nLp0g4fD1OeUO4w/gdt0jaZA
-         Fa9A==
+        d=gmail.com; s=20251104; t=1788044125; x=1788648925; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ma80YmNRqQi3IMfqK57hZ7nOz1u3fXlwt1Ge7kNJdZE=;
+        b=ArsaecnnzULayIDj2qCi5Sxr0Jnl8L84uhin1oAd5Ozcu6XAyfX9K7DqEtZOXio50q
+         TmBpKKlnKBA0xmyfBVpSeGc9HQDGEKDf2gKY3wZGrMdX2I5gcno/tSZr3n4YCq35gsqY
+         lBj8jPdUo9Lp43X+buxWau8B/EDFubVusPdicOyHK2Ajzrp1Ng2P7Xioun/KE8e4NPzC
+         A6i1xBzo5+NrW99FheLPbcaXlMs0P5bkxqlLyQXNgpJTUoNIaQdQCNSTCb1bKgicABew
+         x09qe1suXM8H3F6BTN6b2HFi9Sh3Q2hZD9/wKylR1XMqoEpZMWxN7sGU7X2sXzbLNC/V
+         taow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788043861; x=1788648661;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VZgKfK0BXySBVGINlvx9UFrNadPZLdOTWQIvm5BNrYc=;
-        b=oICtqa/gzx5CqB0GYHNO9Y9UX624Xelp6Bu3v4E67rbl26qB7/TL04uyFdEYcnmj2w
-         Svh6T8c6g4JwW13EfD6BYo7/saDZ2X9BZ8K7OnXszwu0V7nxXYYonAeeZbxVukzTy8Zj
-         gjf+8r91wgNLo6uhR7+RtHGCcnZ2vQM6DzLHRwJLXO9J1M8wq9Ei/f8pTzCBsXO6sj3+
-         oPLsmTTsWTWCG1itYZH++1OJIQ8sfflZ9SJIrkIXiUMZDZu9J0oU+4BKtZrYg+NE8Rb7
-         NV16NhGqdJ4FjQF2gclTkHkbLmm4xCWTmEbBu7hM/oDfAqrYA1lf5UhiILFY5GRUPYNf
-         OHWg==
-X-Forwarded-Encrypted: i=1; AHgh+RpoG6NIrpqWtiXwkKdFq9SmKhMu+CqG0fPRjxynDCLEj0tPN1BEw6sDfvgxo4RmpUIIfPNAflRzRnA5dzk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSgeeuL7EEpafc4RzoW74QRM7VgymK09xq5lYO2KOHW0vhquxY
-	0PBfO3fUZ70iNgFGb5xW623yOp/00NPYzkIRhiHx6iGbSmLDCDcTHjT5Lj/At+lj
-X-Gm-Gg: AR+sD10tiV6XNbkRY9g8hzrX+G0JEV6iIoH4XZBIiBxG0XGbcieC86W/Tl++u+On1P0
-	x/2Al29WrdqRs06B7m1541whANu0SuSx0F2IzWSl6hPE5+fbxMpve8VzDPfrz1rvRZrcoMQNRa8
-	cbaf0Lt192xc+dY5BPEjhWTdkKJ3xgIbUF0uz0RKS2+PnHM9zhw4tDM3+2vj/4fHz7YysYCYvFL
-	geWL9HjKIpBStLfrmdNdAMmnHZt0zBENvrKcEbQUJxNx8lA1Gl+YHF3PgDTZfem6AJcggyD9hrq
-	p0UwshVrOU6NtG359f4q2iZaihILIflAiTpOvP2Zp0A7hNKm+VUPRi1iz6CO2SGsHjd+M2cvnbj
-	haD6oH+G49pLWwRLJIDv3ncTRHJsRJcWdbqypSMPpYoCwS4AT/DodAlOTy8wkxFmQNrfmo2ERBk
-	JTn5HqFopQkDlDKA0HCryunfsCqcGZv7fB+b3Ji9lncNWTySffQAH4G3izP74yJJY+P0SiZeOF7
-	3PbChaBz5I6V79f6gSRgI8Mjd5KqTXrJd1+JztfibFA
-X-Received: by 2002:a05:600c:3103:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49b91c4fa9amr227707475e9.9.1788043861140;
-        Sat, 29 Aug 2026 15:51:01 -0700 (PDT)
-Received: from 1Z10 ([37.161.113.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b961820ffsm70466735e9.3.2026.08.29.15.50.59
+        d=1e100.net; s=20251104; t=1788044125; x=1788648925;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ma80YmNRqQi3IMfqK57hZ7nOz1u3fXlwt1Ge7kNJdZE=;
+        b=ooB7eSIyfV57e03jRuzJTJCdV90YoRNFYWTzo8BiuxnyThuG3j8TiT2M073Gvg+ElY
+         30Dk+mj1vYOj7xzYuk571p26EM4GgUpr4eG8flg0MpAVVa+KHlmGhSRXyBRU39ZbezTL
+         NMJqus8nruhPrwt+q0qt1bIUy7Ddv2nWttDZ/AIH+AqDwfmiK8/xJ9GN8YAcmug9LObj
+         2G3GbGsKSr5dCqnlpgT1FaadA9vKWR58r5kkTLb1cx6VU8Ek7ScPTuEi9ghxMdHTbJwV
+         e/OEfCaCEhf+Gg5T7jjJNIWleqZU1WYHsUKt9+GIsTQ3wlv+ol8rGi3ykHUi7CEApve5
+         b5+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy3KQph8tPhz53GEQJdkQ9Ob+/w++2DllzEkDhNsU6udIlZd18tU1KAXVrJxG4+Lp7eYmBJ/nlF+uVDjdQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++naleV4Sp8ueLboJ+S8MXXEOCZAHLFdoxSWQfLDCr+7mV7xD9ZB
+	uWCAKXp9RS3Zs/ylE7Wl3+l66tyDWnwYOV/fzubb/cGcGJv2GT4TlT1V
+X-Gm-Gg: AYBFou2Eeqf4O9e1Zp4XbGdiXht42ggli1PwrBztDwTCXF6yFgSDduYQbscTPv8nFPF
+	mARqzlrTN3NWMq8gVRBk+0MzWyKYs0y16Stq3n5i5kZfDKXGYsdbp5HoDuQq7GHEAoQiCJq4uJ0
+	vAOa0LQDqaIF2nFe9CmVv4mP8TBrJsnJXbpeUEninnagZCmuSZ1R7qaU29Km31yArcuy+vklKBN
+	iREFUpH/dpqfG6D6FQktBqdGJc9UM5R1wwjscLgpgEFQHBhsdblg7frbe6LblR02WNNCe5jDtPb
+	kLasGNfwubZbi/GC4jnpzIJxVYc7rdoJxURXpQikWebAjIGp/IXQdbWVzEYJyEiJOUqVBUIjqPJ
+	2AirxHfS3z8OQa9NS4V5D+bTJm04h4Hkv91vzPWnoaTbWk5XHIMbNB87HZ30uX77VJ7Q6FuyiZi
+	8OfmpEYosfGKCDfNQCm7d78p4zsyrDZPvJkBzg024ChNNkhyQlANiMIovVFgRy0/ASS2jPcO/Ho
+	QAyShHBVE3TkAWk7Y8Okl2l4guQwXl8ueeiK8/ZwTMGwEfkKRFoklxJKO1xhYOqOJmWUW+cYyq9
+	kZKG0EacH5+0GROVlcU=
+X-Received: by 2002:a17:903:388e:b0:2d7:44c5:1a13 with SMTP id d9443c01a7336-2d74df17b06mr307385625ad.8.1788044125345;
+        Sat, 29 Aug 2026 15:55:25 -0700 (PDT)
+Received: from bad.. ([43.227.227.194])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869afasm16958265ad.42.2026.08.29.15.55.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 15:51:00 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2 1/2] Input: drv260x: Restore configuration after device close
-Date: Sun, 30 Aug 2026 00:50:57 +0200
-Message-ID: <20260829225057.386976-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apLAjoZPxp9JJTrl@google.com>
-References: <cover.input-v2.1787872237.git.mauriziocasciano7@gmail.com> <684969b0f53a9e5f83636b219c139e904e74e14f.1787872237.git.mauriziocasciano7@gmail.com> <apLAjoZPxp9JJTrl@google.com>
+        Sat, 29 Aug 2026 15:55:25 -0700 (PDT)
+From: Nikhil <nikhilljatt@gmail.com>
+To: mst@redhat.com,
+	jasowangio@gmail.com
+Cc: eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	xieyongji@bytedance.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] vduse: do not take dev->rwsem in the virtqueue kick path
+Date: Sun, 30 Aug 2026 04:24:57 +0530
+Message-ID: <20260829225457.1037867-1-nikhilljatt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,90 +78,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Dmitry,
+vduse_vq_kick() runs in the context of the vdpa .kick_vq callback. With
+the virtio_vdpa bus driver that callback is invoked by virtqueue_notify()
+from the virtio device driver, which may be an atomic context: virtio-blk
+kicks from ->queue_rq(), which blk-mq dispatches under rcu_read_lock()
+(the tag set does not use BLK_MQ_F_BLOCKING), and virtio-net kicks from
+its xmit path with the tx queue lock held.
 
-Thank you for pointing this out in your review [8].  I reviewed the
-DRV2604 Rev. C
-datasheet and the regmap implementation again, and I am withdrawing this
-patch.
+Commit b282418bc366 ("vduse: Add suspend") made vduse_vq_kick() take
+dev->rwsem for reading in order to check dev->suspended. down_read() may
+sleep, so with CONFIG_DEBUG_ATOMIC_SLEEP the first I/O on a VDUSE-backed
+virtio-blk device bound to virtio_vdpa now triggers:
 
-The configuration-loss premise raised by the initial automated review
-[6] was incorrect.  Section 7.4.1.3, "Operation
-With EN Control", of the DRV2604 datasheet [1] explicitly states:
+  BUG: sleeping function called from invalid context at kernel/locking/rwsem.c:1573
+  in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 27, name: kworker/1:0H
+  preempt_count: 0, expected: 0
+  RCU nest depth: 1, expected: 0
+  3 locks held by kworker/1:0H/27:
+   #0: ((wq_completion)kblockd){+.+.}-{0:0}, at: process_one_work+0xac7/0xcf0
+   #1: ((work_completion)(&(&hctx->run_work)->work)){+.+.}-{0:0}, at: process_one_work+0x51f/0xcf0
+   #2: (rcu_read_lock){....}-{1:3}, at: blk_mq_run_work_fn+0x119/0x220
+  Workqueue: kblockd blk_mq_run_work_fn
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x80/0xa0
+   __might_resched+0x231/0x370
+   down_read+0x73/0x330
+   vduse_vq_kick+0x30/0x120
+   virtio_vdpa_notify+0x63/0x80
+   virtqueue_notify+0x45/0x70
+   virtio_queue_rq+0x19d/0x300
+   blk_mq_dispatch_rq_list+0x269/0xe20
+   __blk_mq_sched_dispatch_requests+0x761/0xa60
+   blk_mq_sched_dispatch_requests+0x6b/0xc0
+   blk_mq_run_work_fn+0x143/0x220
+   process_one_work+0x581/0xcf0
+   worker_thread+0x2fc/0x5a0
+   kthread+0x1cc/0x210
+   ret_from_fork+0x3c4/0x540
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-  "When the EN pin is logic low, the device enters the shutdown state,
-  which is the lowest power state of the device.  The device registers
-  are not reset."
+Without CONFIG_DEBUG_ATOMIC_SLEEP, a kick that finds the rwsem
+write-locked by vduse_dev_reset() or vduse_vdpa_suspend() blocks inside
+an RCU read-side critical section. The vhost_vdpa path kicks from the
+vhost worker, i.e. process context, which is why this went unnoticed.
 
-The same section says that a complete reset to the power-up state
-requires DEV_RESET in register 0x01.  Section 7.4.1.5 further describes
-DEV_RESET as equivalent to power-cycling the device [1].  Therefore,
-drv260x_close() deasserting the enable GPIO does not discard the
-configuration established at probe, and there is no need for an open
-callback to run drv260x_init() again.  The mainline close path can be
-seen at [3].
+Check dev->suspended under vq->kick_lock instead, which the kick path
+already takes, and have vduse_vdpa_suspend() cycle every virtqueue's
+kick_lock after setting the flag. A kick that observed suspended == false
+has thus finished signalling before suspend returns, which is the
+guarantee the rwsem used to provide. The flag is now also read outside
+the rwsem, so access it with READ_ONCE()/WRITE_ONCE().
 
-This datasheet applies to the tested tablet: its firmware exposes two
-present ACPI devices with HID and modalias DRV2604, at
-\_SB_.PCI0.I2C1.VBR0 and \_SB_.PCI0.I2C4.VBR1.  They enumerate as
-i2c-DRV2604:00 and i2c-DRV2604:01, and both are bound to the
-drv260x-haptics driver.  The TI Linux support page also lists DRV2604
-among the devices supported by this mainline driver [2].
+Fixes: b282418bc366 ("vduse: Add suspend")
+Signed-off-by: Nikhil <nikhilljatt@gmail.com>
+---
+ drivers/vdpa/vdpa_user/vduse_dev.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-Independently, Sashiko's follow-up warning [7] about the proposed
-implementation is valid.  drv260x_init() calls regmap_register_patch()
-for the selected actuator mode, as shown in the v7.2 source at [4].
-As [5] shows, regmap_register_patch() grows map->patch with krealloc(),
-copies the supplied sequence after the existing entries, and increments
-map->patch_regs.  Calling
-drv260x_init() on every input-device open would consequently append the
-same register sequence repeatedly and retain that growing allocation
-until the regmap is destroyed.  Repeated open/close cycles would thus
-cause unbounded kernel-memory growth.  The relevant implementation is
-quoted here and linked in full at [5]:
+diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+index 9891cd2cf712..766789a7bbfa 100644
+--- a/drivers/vdpa/vdpa_user/vduse_dev.c
++++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+@@ -506,7 +506,7 @@ static void vduse_dev_reset(struct vduse_dev *dev)
+ 	}
+ 
+ 	scoped_guard(rwsem_write, &dev->rwsem) {
+-		dev->suspended = false;
++		WRITE_ONCE(dev->suspended, false);
+ 		dev->status = 0;
+ 		dev->driver_features = 0;
+ 		dev->generation++;
+@@ -567,11 +567,17 @@ static int vduse_vdpa_set_vq_address(struct vdpa_device *vdpa, u16 idx,
+ 
+ static void vduse_vq_kick(struct vduse_virtqueue *vq)
+ {
+-	guard(rwsem_read)(&vq->dev->rwsem);
+-	if (vq->dev->suspended)
++	/*
++	 * This runs in the context of the vdpa kick_vq op, which may be
++	 * atomic (e.g. virtio-blk kicks from blk-mq dispatch under
++	 * rcu_read_lock()), so dev->rwsem must not be taken here.
++	 * dev->suspended is checked under kick_lock instead and
++	 * vduse_vdpa_suspend() cycles every kick_lock after setting it.
++	 */
++	guard(spinlock)(&vq->kick_lock);
++	if (READ_ONCE(vq->dev->suspended))
+ 		return;
+ 
+-	guard(spinlock)(&vq->kick_lock);
+ 	scoped_guard(spinlock_bh, &vq->ready_lock)
+ 		if (!vq->ready)
+ 			return;
+@@ -946,7 +952,17 @@ static int vduse_vdpa_suspend(struct vdpa_device *vdpa)
+ 	ret = vduse_dev_msg_sync(dev, &msg);
+ 	if (ret == 0) {
+ 		scoped_guard(rwsem_write, &dev->rwsem)
+-			dev->suspended = true;
++			WRITE_ONCE(dev->suspended, true);
++
++		/*
++		 * Kicks check dev->suspended under kick_lock without taking
++		 * the rwsem: cycle each kick_lock so that no kick that has
++		 * already passed the check is still in flight after this.
++		 */
++		for (u32 i = 0; i < dev->vq_num; i++) {
++			spin_lock(&dev->vqs[i]->kick_lock);
++			spin_unlock(&dev->vqs[i]->kick_lock);
++		}
+ 
+ 		cancel_work_sync(&dev->inject);
+ 		for (u32 i = 0; i < dev->vq_num; i++)
+-- 
+2.43.0
 
-  p = krealloc(map->patch,
-               sizeof(struct reg_sequence) *
-                       (map->patch_regs + num_regs), GFP_KERNEL);
-  ...
-  memcpy(p + map->patch_regs, regs, num_regs * sizeof(*regs));
-  map->patch_regs += num_regs;
-
-The related concern about haptics->mode being changed by playback only
-affected the proposed attempts to call drv260x_init() again during open
-or resume.  Once those unnecessary reinitialization calls are removed,
-the suspend/resume fix does not depend on re-running mode-specific
-initialization.
-
-I have therefore dropped v2 patch 1/2 completely, with no replacement.
-The forthcoming v3 contains only the suspend/resume sequencing fix from
-v2 patch 2/2.  It disables and drains the work item before suspend,
-balances the work state on error paths, restores power and communication
-before leaving standby, and does not call drv260x_init().
-
-Technical references:
-
-[1] Texas Instruments, DRV2604 Haptic Driver datasheet, Rev. C,
-    sections 7.4.1.3 and 7.4.1.5:
-    https://www.ti.com/lit/ds/symlink/drv2604.pdf
-[2] Texas Instruments, Linux Driver for DRV260x; supported devices and
-    mainline source information:
-    https://www.ti.com/tool/DRV260XSW-LINUX
-[3] Linux v7.2 drv260x_close(), including standby and EN deassertion:
-    https://github.com/torvalds/linux/blob/v7.2/drivers/input/misc/drv260x.c#L260-L274
-[4] Linux v7.2 drv260x_init(), including regmap_register_patch() calls:
-    https://github.com/torvalds/linux/blob/v7.2/drivers/input/misc/drv260x.c#L315-L379
-[5] Linux v7.2 regmap_register_patch() implementation:
-    https://github.com/torvalds/linux/blob/v7.2/drivers/base/regmap/regmap.c#L3417-L3473
-[6] Sashiko's initial review, including the configuration-loss premise:
-    https://lore.kernel.org/linux-input/20260827182855.DE8E91F000E9@smtp.kernel.org/
-[7] Sashiko's v2 follow-up identifying repeated patch registration:
-    https://lore.kernel.org/linux-input/20260827233020.416711F000E9@smtp.kernel.org/
-[8] Dmitry's review rejecting the EN-reset premise:
-    https://lore.kernel.org/linux-input/apLAjoZPxp9JJTrl@google.com/
-
-Thank you, and thanks to Sashiko for identifying the memory-growth issue
-in the proposed implementation.
-
-With Best Regards,
-Maurizio Casciano
