@@ -1,170 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19DB41C72;
-	Sat, 29 Aug 2026 06:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE9E41C72
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787983951; cv=none; b=HtCom1iUxShG11fq4R0NTdf7z8l2c0G6PoBQLGqqvMEeMzuJKUJd5H1RB7CRx+PRWPTsUEZEICZ/bZ4ETVcJu+XdUSnRAit7Ya1XOehNSBcAQaDMIxlum8ilYU9EIfmPTdW73VKG/drVwlUFeOaCgBXTf+FyqlokJ3cDxu5uKE0=
+	t=1787983979; cv=none; b=kUvCW/ywwZdjo3TGx5vejChupqz5yZJ/vjXOIHcRk1n0HWrTz43si9SiZKaqC2isZx9MRl3M9kWZS1d4GXtD+tA7x/3Z955s40SsfjLxbGiXORlVbI8KgQHNf62qStniZbtREObnqR8qQc9nrwNETeMby6JgPt3srvt5FA452k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787983951; c=relaxed/simple;
-	bh=Cp4EmIoziIZQhnMLJowP2o1f3w59naAntr9YLFs8PCY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ee8HuKvI9vTO98kNyGXK+H9XFxIaMnmNuBFib3hpf6vrwGdE/GCxmtlj+BvTQUg4DH7Nm+tIU0ipib2J5WQ9o9Q4+O/0CUvhxmmvCzunlWFYAXDHoQRUpFmTPPG9MF7G/myosJeqlDvq+uvqEyzxwaxEDJd9/4aIZbSsZsF+Uog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7m7g7Ps; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787983979; c=relaxed/simple;
+	bh=GWh4zXYWZWve7WCa1ybRUlJ4g1kljTHwU33poRapBeM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NCSumsgSMmikbjxWYYbJJRD9Q/deZTHRIb0aWpU9/mDomRasWHRWLdtHASb0yberYKDcw3akCS4GMG8kR+vz9q2agFb/0je12+Hjp0/DlA3S0gDZqzvb12oainUK+Yz2btBmy0RLpOOdEcCSZDRyeq+/IMnV8fcFKyyf3FhVzmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eqMlN03Z; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7m7g7Ps"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1701A1F000E9;
-	Sat, 29 Aug 2026 06:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787983950;
-	bh=TRZw1V1vB378QeSlvx5BVidjqGhxuO+qRstnpjHPWb8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=L7m7g7Ps2C498I4YlV7/C6DjkiyJ6vKG70Snu3K+r9J9UaUIbMjW1gV4QlFQh536/
-	 jSpCSm/Qt2WZ7gRJFGJTw1dAf0EC3itaGrMZvE79e9OxcdHvfTi9pORbP74TT0ztwE
-	 oHZFrpLtxWSWg2hBsGhnBMd8yVdcYS8fah5iOjplxgWvMqjiuI+XKsmDySwfT1cOCG
-	 s0LzhW6Px8IrQroI1TiwDC+N75K1wi+KYe554VP+n0gwZWXWqr0c6m8xuY7Ij5f9O7
-	 dJAh7PwqyAav04unbNz3h1+NHKHPuNjwHd2j59jK1UWyKH/MZdRYyZyZGLNGDWyXh4
-	 sqXuw4fuPdYWQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v9 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
- provider to an SMCCC device
-In-Reply-To: <178794567780.4159892.17969556982711821646.b4-review@b4>
-References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
- <20260805063255.1638614-7-aneesh.kumar@kernel.org>
- <178794567780.4159892.17969556982711821646.b4-review@b4>
-Date: Sat, 29 Aug 2026 11:42:20 +0530
-Message-ID: <yq5ald9ptpyz.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eqMlN03Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787983977; x=1819519977;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=GWh4zXYWZWve7WCa1ybRUlJ4g1kljTHwU33poRapBeM=;
+  b=eqMlN03ZCjAZMce9S1i8Rzq4MIjc5mhgRet2yGPmvO8ztkZCcLbjVmzJ
+   FDZCEQL7CiGz4VKxCXcSJ7rOS0U3Vgmpbo0pkJxui2rhV5lCYPuDU8gsC
+   9S0+/4IEZnyPkmt7duGKOfnzSKs2yChojl7GXdOAXi7UrEkuCyz9xS66+
+   t5MiowROyxSSNZOs55RBHZIVwVb+L2bAvdF3gSx/VVWBvx65EjTke2yyK
+   pWRGFZVQSPxmdmNN1B6HAD2oFmnnB0kCQuOYgrvRyk0gYnuHLwHN2mu7M
+   iX3ZTAl7ZekuySYwz8iuZlBsJBpAl24iA/MR4gFWhi0kTy9eO2T5tTVnB
+   Q==;
+X-CSE-ConnectionGUID: DTHz9/T0SnG+sechlYyfEw==
+X-CSE-MsgGUID: 233IZ8CeTG6FGsD8okDY8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88507849"
+X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
+   d="scan'208";a="88507849"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 23:12:56 -0700
+X-CSE-ConnectionGUID: N4DgrJ6PQRqTboDKsHkdmA==
+X-CSE-MsgGUID: d28Zia4PSSWTdKmAO+dx3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
+   d="scan'208";a="271860764"
+Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
+  by orviesa003.jf.intel.com with ESMTP; 28 Aug 2026 23:12:54 -0700
+From: Chen Yu <yu.c.chen@intel.com>
+To: tony.luck@intel.com,
+	reinette.chatre@intel.com
+Cc: tglx@kernel.org,
+	bp@alien8.de,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	fenghuay@nvidia.com,
+	babu.moger@amd.com,
+	chen.yu@linux.dev,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 6/9] x86/resctrl: Refactor the monitor read function
+Date: Sat, 29 Aug 2026 14:02:28 +0800
+Message-Id: <1e5d8b9da4bc7cc125bf0c34afd4bb837b6ca79d.1787976868.git.yu.c.chen@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1787976868.git.yu.c.chen@intel.com>
+References: <cover.1787976868.git.yu.c.chen@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+Split the monitor read helper into an L3 read path and an AET (Intel Application
+Energy Telemetry) read path. This makes the two distinct monitoring sources
+easier to extend independently and prepares the L3 path for ERDT-based MMIO
+reads.
 
->> [ ... 43 lines skipped ... ]
->> @@ -94,6 +95,12 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
->>  		.requires_smc   = false,
->>  		.device_name    = "arm-smccc-trng",
->>  	},
->> +
->> +	{
->> +		.func_id        = SMC_RSI_ABI_VERSION,
->  [Severity: High]
->  Does this new entry cause uninitialized registers to be passed to the
->  firmware?
->
->  Looking at smccc_probe_smccc_device():
->
->  	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
->
->  The invocation only passes the func_id, leaving r1 uninitialized. Since the
->  SMC_RSI_ABI_VERSION ABI requires r1 to hold the requested version parameter,
->  does this leak uninitialized kernel register state to the firmware and pass
->  a garbage ABI version?
->
+No functional change.
 
-Yes. This even can result in error return from firmware like
+Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
+---
+v6->v7:
+    Keep the original resctrl_arch_rmid_read() parameter order with the
+    resource first, and drop the unused closid/arch_priv arguments.
+    (Reinette Chatre)
+---
+ arch/x86/kernel/cpu/resctrl/monitor.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-[   rmm ] SMC_RMI_VERSION                   6 > RMI_RMI_ERROR_INPUT
+diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
+index 569894d6e5c8..8057f8403e56 100644
+--- a/arch/x86/kernel/cpu/resctrl/monitor.c
++++ b/arch/x86/kernel/cpu/resctrl/monitor.c
+@@ -239,9 +239,8 @@ static u64 get_corrected_val(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+ 	return chunks * hw_res->mon_scale;
+ }
+ 
+-int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+-			   u32 unused, u32 rmid, enum resctrl_event_id eventid,
+-			   void *arch_priv, u64 *val, void *ignored)
++static int arch_l3_read_event(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
++			      u32 rmid, enum resctrl_event_id eventid, u64 *val)
+ {
+ 	struct rdt_hw_l3_mon_domain *hw_dom;
+ 	struct rdt_l3_mon_domain *d;
+@@ -251,11 +250,6 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+ 	int cpu;
+ 	int ret;
+ 
+-	resctrl_arch_rmid_read_context_check();
+-
+-	if (r->rid == RDT_RESOURCE_PERF_PKG)
+-		return intel_aet_read_event(hdr->id, rmid, arch_priv, val);
+-
+ 	if (!domain_header_is_valid(hdr, RESCTRL_MON_DOMAIN, RDT_RESOURCE_L3))
+ 		return -EINVAL;
+ 
+@@ -281,6 +275,22 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+ 	return ret;
+ }
+ 
++int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
++			   u32 unused, u32 rmid, enum resctrl_event_id eventid,
++			   void *arch_priv, u64 *val, void *ignored)
++{
++	resctrl_arch_rmid_read_context_check();
++
++	switch (r->rid) {
++	case RDT_RESOURCE_L3:
++		return arch_l3_read_event(r, hdr, rmid, eventid, val);
++	case RDT_RESOURCE_PERF_PKG:
++		return intel_aet_read_event(hdr->id, rmid, arch_priv, val);
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int __cntr_id_read(u32 cntr_id, u64 *val)
+ {
+ 	u64 msr_val;
+-- 
+2.25.1
 
-
->
-> This seems like a good point.. Several other APIs had this 'pass a
-> thing in' as part of their version contract too.
->
-> There is ABI incompatabilitiy here right? It would make sense to break
-> up the really different versions into different device strings if
-> possible. eg v1 and v2?
->
-
-The goal is only to check whether the firmware function is supported,
-hence the explicit check for SMCCC_RET_NOT_SUPPORTED.
-
-	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
-	ret = res.a0;
-
-	if (ret == SMCCC_RET_NOT_SUPPORTED)
-		return false;
-
-
->
-> ...
->
->  [Severity: High]
->  Could this also execute an SMC64 call on 32-bit ARM (AArch32) systems?
->
->  The smccc_devices array unconditionally includes SMC_RSI_ABI_VERSION, which
->  is an SMC64 call. Executing an SMC64 function identifier from an AArch32
->  execution state is architecturally unpredictable and could cause a crash
->  or hang on 32-bit hardware.
->
-> No idea if sashiko is right , but it is what I was wondering about in
-> the rng patch...
->
-
-I will check whether issuing an SMC64 call on 32-bit ARM is a problem.
-
->
->> [ ... 44 lines skipped ... ]
->> +static void unregister_cca_tsm_report(void *data)
->> +{
->> +	tsm_report_unregister(&arm_cca_tsm_report_ops);
->> +}
->> +
->> +static int cca_tsm_probe(struct arm_smccc_device *sdev)
->>  {
->>  	int ret;
->>  
->> @@ -178,30 +175,33 @@ static int __init arm_cca_guest_init(void)
->>  		return -ENODEV;
->>  
->>  	ret = tsm_report_register(&arm_cca_tsm_report_ops, NULL);
->> -	if (ret < 0)
->> -		pr_err("Error %d registering with TSM\n", ret);
->> +	if (ret < 0) {
->> +		dev_err_probe(&sdev->dev, ret, "Error registering with TSM\n");
->> +		return ret;
->> +	}
->>  
->> -	return ret;
->> +	ret = devm_add_action_or_reset(&sdev->dev, unregister_cca_tsm_report,
->> +				       NULL);
->> +	if (ret < 0) {
->
-> Can just make unregister the remove function. Don't need to use devm
-> for everything.
->
-
-IIUC, you are suggesting to do the below?
-
-static void cca_tsm_remove(struct arm_smccc_device *sdev)
-{
-        tsm_report_unregister(&arm_cca_tsm_report_ops);
-}
-
-static struct arm_smccc_driver cca_tsm_driver = {
-        .driver_name = "arm_cca_tsm",
-        .probe = cca_tsm_probe,
-        .remove = cca_tsm_remove,
-        ...
-
--aneesh
