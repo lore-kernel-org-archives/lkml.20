@@ -1,45 +1,44 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57389378D9C;
-	Sat, 29 Aug 2026 16:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C104119E4;
+	Sat, 29 Aug 2026 16:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788020022; cv=none; b=OMHDkoIdAiQtNHL1jcV5k74tALmR4rQY781sQCox+NDEeqBnjP0Kf5G6kn+PKXiEhb6O5FHKVVvA7IMKTQkN5gphZ+JOa99yIpKbUZB8odSSDMm9Faj92BZsSLZZlfToStKfuf1fe4m6Mtf7lrOxdM0dZShx8/b1b+kCwsgZ8Ic=
+	t=1788020108; cv=none; b=BPFrWaXeoY9wRffHxra+nhQv+x+PQU3fhDVmxwZNZN/JpM1HM+tjMbvtXxeCxYCjaC6xYd8PFBCfQRpJGiW69J7trIpmoZIu5dnL5xQKKLmQj01f8CX39ZAazm55Z4mXbHV/y0l9aXx00bfuMRJ/5+pykRU5ulljLKqDRLj68tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788020022; c=relaxed/simple;
-	bh=fUlgM8CnOaMuuPMrcomCp9ui1YL6CpR0aSOVxgfXuJU=;
+	s=arc-20240116; t=1788020108; c=relaxed/simple;
+	bh=pZ3SLpqiCS+OOI3tRoR2gWsnZCSru2tNElsyfGcSbQ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KoigoPPTemOJS1CR92/4Ks+nOgAcZRuToc/6FEFhFWC++gYkjMrzgUeHEWOOM7Nd32//liYrxzQLlffImE7lCD0AoOKpvmc+a9aqr/I2m3OJMGPrAv92F68qWbVEm5WqFn/qTNHPle1csii5K3QpPifB8meJiIwV+64UhGgRFE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=U8L2Xle5; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lDKobK1p; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	 MIME-Version; b=St82nwaykWyilMEw3d4vtMuo9vCYl7KY+wbgOo8q20Vl7r/95F2BBBTAT0jvms7qtGxztrDmir3dI5RuDYu+p6oUMajlCqJf98pxnLVOtQas0AhBSfmFn7hmaBWCF0AHt+wfdUzfMKz+PHqYHvLQ8x4g87S1QemuAC4ao3k5rpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drb5GDYw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="U8L2Xle5";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lDKobK1p"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
-	AymSZP9fehyNnyo9s5JU=; b=U8L2Xle58YRW+5uhvbg4ehl7xK7Z7qeDqR5jMv9hDs75v1z5C/
-	XphkXv9P1L4kpskOuPWM3vIqSioXpq5aPxWL2vxmYCNVGdwAP+Ojp+JjDHxQirsL1TP3fkWAiwu
-	4c8dyzGnNrhPiClcOLzO6cwRN11RwsAytY+R3EvHdsEpskeFfhcz8GyJ+5SOYJnmgBbZMj5I6ZQ
-	2BjqDTkWDqAvGFBksHBArHJgcIu+jjV8JsQEil5oR489WorZMtYSlxjCOWcqVm5OWNXvmg93Gij
-	MaTmnUAbcSaipWZczEju2aWevWIXyt10RbBiOm+NM5zIqiqhFdZhfsFYMvlmAa4awfg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
-	AymSZP9fehyNnyo9s5JU=; b=lDKobK1pxKM1yWXeWvN4kysJyHL3XRQ1n5C72t1WoTQ2aeqlig
-	lIlq7RZM3MFrRg+JYxxOgBJa22hD9a+zsZAw==;
-From: Bradley Morgan <include@grrlz.net>
-To: Andy Walls <awalls@md.metrocast.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	brads@mainlining.org
-Subject: [PATCH 1/5] media: ivtv: convert to kthread_run_worker
-Date: Sat, 29 Aug 2026 16:13:35 +0000
-Message-ID: <20260829161336.17646-1-include@grrlz.net>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260829161150.16301-1-include@grrlz.net>
-References: <20260829161150.16301-1-include@grrlz.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drb5GDYw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9356D1F000E9;
+	Sat, 29 Aug 2026 16:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788020105;
+	bh=xc0dshg3icHa4t1hcy+a6/4dL2k18cPTkAmU4zs69Uw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=drb5GDYwaBggoPBWIv0Of5e52CjZcMsiD37+jUCO9Yd8Ii5fdj5tBUCRaXn+3u5Uw
+	 hKiraCi4jrS3BrFGSaZUpwwDjax+PDs+Jrt7gWAAbfQbjGPLORFiWdw2vYvj7ZBpSF
+	 2pqQ3UZpD6n6RqkWL0ieiAM9CyDnbSC+llErbdloP9XA8JKojNDNn7ZWDny+KKpWMD
+	 hQziTUNCAEmm+NH5tDlMSIYN+hvMTex9lhr2n8V/kTah1jGOe9IhwBODB9rj0M0a0r
+	 0iu6deqBENxmL/fzTcHNUh8vqQIeAlG/tf3GZNwuF04fMNtaajK/mrNeHSpnCAPiX/
+	 zYn2qlrWV/y6A==
+From: Alexey Gladkov <legion@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: "Eric W . Biederman" <ebiederm@xmission.com>,
+	Kees Cook <kees@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [RFC PATCH v1 17/30] sysctl: net: use sysctl_field in SCTP sysctls
+Date: Sat, 29 Aug 2026 18:14:43 +0200
+Message-ID: <cover.1788018958.git.legion@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAHk-=wjUmLrJd4KM4xvJHUN4P0r8oSu5LyvG4JipnhxizBrE9Q@mail.gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,78 +47,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bradley Morgan <brads@mainlining.org>
+On Wed, Aug 26, 2026 at 01:29:00PM -0700, Linus Torvalds wrote:
+> I detest this series.
+> 
+> Maybe it makes technical sense, but as long as it makes no human
+> visual sense, I'm NAK'ing it as being garbage.
 
-Embedding a kthread_worker and running kthread_worker_fn yourself is
-the old way. Convert ivtv to kthread_run_worker(), dropping the
-separate irq_worker_task pointer.
+You are right that my approach added too many macros and made the tables
+harder to read. Sorry.
 
-This is part of removing the worker->task self-assignment in
-kthread_worker_fn().
+> On Wed, 26 Aug 2026 at 12:43, Alexey Gladkov <legion@kernel.org> wrote:
+> >
+>  [..]
+> 
+> The whole series is full of complete illegible noise like this:
+> 
+> > +static const struct sysctl_field sctp_net_table[] = {
+> > +       SYSCTL_FIELD_CUSTOM("rto_min", 0644, sizeof(unsigned int),
+> > +                        sctp_rto_min_data, proc_sctp_do_rto_min),
+> > +       SYSCTL_FIELD_CUSTOM("rto_max", 0644, sizeof(unsigned int),
+> > +                        sctp_rto_max_data, proc_sctp_do_rto_max),
+> > +       SYSCTL_FIELD_INT_MINMAX("pf_retrans", 0644, sctp_pf_retrans_data,
+> > +                            SYSCTL_ZERO, sctp_ps_retrans_data),
+> > +       SYSCTL_FIELD_INT_MINMAX("ps_retrans", 0644, sctp_ps_retrans_data,
+> > +                            sctp_pf_retrans_data, sctp_ps_retrans_max_data),
+> > +       SYSCTL_FIELD_STATIC_UINT_MINMAX("rto_initial", 0644,
+> > +                                    sctp_rto_initial_data,
+> > +                                    SYSCTL_UINT_ONE, &timer_max),
+> [...]
+> 
+> where apparently the indentation has been decided by a rodent on crack
+> who was given an Ouija board and instructed to ask his dead ancestors
+> what indentation to use.
+> 
+> So no.
+> 
+> That kind of complete random code is simply not acceptable.
+> 
+> I don't know what the correct answer is, but it is *not* this series.
+> It needs to be consistent and visually parseable by humans *without*
+> asking your dead ancestors for help.
+> 
+> And it's not just the indentation. That SYSCTL_FIELD_CUSTOM() thing
+> needs to be usable and able to do some minimal type checking - not
+> just passed a random sizeof() in a random argumentt. I'd suggest
+> passing the actual type, and then checking that the type *matches* the
+> data pointer it is passed too.
+> 
+> The old code may be ugly too, and have various other warts, but at
+> least it had somewhat legible and understandable initializers:
+> 
+>         {
+>                 .procname       = "prsctp_enable",
+>                 .data           = &init_net.sctp.prsctp_enable,
+>                 .maxlen         = sizeof(int),
+>                 .mode           = 0644,
+>                 .proc_handler   = proc_dointvec,
+>         },
+> 
+> is at least something that can be read by a human and those things had
+> consistent whitespace rather than some quantum randomness.
+> 
+> And this is also just complete line noise that only makes the code worse:
+> 
+>     +#define SCTP_DATA(type, field)                                         \
+>     +static type *sctp_ ## field ## _data(const struct sysctl_context *ctx) \
+>     +{                                                                      \
+>     +       return &ctx->ns.net_ns->sctp.field;                             \
+>     +}
+>     +
+>     +#define SCTP_CUSTOM_DATA(field)
+>              \
+>     +static void *sctp_ ## field ## _data(const struct sysctl_context *ctx) \
+>     +{                                                                      \
+>     +       return &ctx->ns.net_ns->sctp.field;                             \
+>     +}
+>     +
+>     +SCTP_CUSTOM_DATA(rto_min)
+>     +SCTP_CUSTOM_DATA(rto_max)
+>     +SCTP_DATA(int, pf_retrans)
+>     +SCTP_DATA(int, ps_retrans)
+>     +SCTP_DATA(unsigned int, rto_initial)
+>     [...]
+> 
+> If we're doing these kinds of changes, the end result has to look
+> *BETTER* than the thing it replaces, not worse.
+> 
+> Yes, a few of the patches did look better. But the majority of them
+> only looked worse. Some of it should be easy to fix: use consistent
+> whitespace, and use sane argument ordering.
+> 
+> But honestly, the old setup didn't *rely* on argument ordering, and
+> used named initializers to make things more legible and robust.
+> 
+> So I suspect that should be what you should aim for in the new setup
+> too, and that probably means "completely different approach".
+> 
+>                Linus
+> 
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- drivers/media/pci/ivtv/ivtv-driver.c | 14 ++++++--------
- drivers/media/pci/ivtv/ivtv-driver.h |  3 +--
- 2 files changed, 7 insertions(+), 10 deletions(-)
+I tried an alternative based on offsets. The following four patches add the
+infrastructure and convert IPC, SCTP, and MPLS as examples.
 
-diff --git a/drivers/media/pci/ivtv/ivtv-driver.c b/drivers/media/pci/ivtv/ivtv-driver.c
-index b9ea56ec9593..6f0e0e46deb5 100644
---- a/drivers/media/pci/ivtv/ivtv-driver.c
-+++ b/drivers/media/pci/ivtv/ivtv-driver.c
-@@ -703,15 +703,13 @@ static int ivtv_init_struct1(struct ivtv *itv)
- 	spin_lock_init(&itv->lock);
- 	spin_lock_init(&itv->dma_reg_lock);
- 
--	kthread_init_worker(&itv->irq_worker);
--	itv->irq_worker_task = kthread_run(kthread_worker_fn, &itv->irq_worker,
--					   "%s", itv->v4l2_dev.name);
--	if (IS_ERR(itv->irq_worker_task)) {
-+	itv->irq_worker = kthread_run_worker(0, "%s", itv->v4l2_dev.name);
-+	if (IS_ERR(itv->irq_worker)) {
- 		IVTV_ERR("Could not create ivtv task\n");
- 		return -1;
- 	}
- 	/* must use the FIFO scheduler as it is realtime sensitive */
--	sched_set_fifo(itv->irq_worker_task);
-+	sched_set_fifo(itv->irq_worker->task);
- 
- 	kthread_init_work(&itv->irq_work, ivtv_irq_work_handler);
- 
-@@ -1232,7 +1230,7 @@ static int ivtv_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
- 	v4l2_ctrl_handler_free(&itv->cxhdl.hdl);
- 	exit_ivtv_i2c(itv);
- free_worker:
--	kthread_stop(itv->irq_worker_task);
-+	kthread_destroy_worker(itv->irq_worker);
- err:
- 	if (retval == 0)
- 		retval = -ENODEV;
-@@ -1372,8 +1370,8 @@ static void ivtv_remove(struct pci_dev *pdev)
- 	timer_shutdown_sync(&itv->dma_timer);
- 
- 	/* Kill irq worker */
--	kthread_flush_worker(&itv->irq_worker);
--	kthread_stop(itv->irq_worker_task);
-+	kthread_flush_worker(itv->irq_worker);
-+	kthread_destroy_worker(itv->irq_worker);
- 
- 	ivtv_streams_cleanup(itv);
- 	ivtv_udma_free(itv);
-diff --git a/drivers/media/pci/ivtv/ivtv-driver.h b/drivers/media/pci/ivtv/ivtv-driver.h
-index 000e8beecc7c..091bc44f13bc 100644
---- a/drivers/media/pci/ivtv/ivtv-driver.h
-+++ b/drivers/media/pci/ivtv/ivtv-driver.h
-@@ -668,8 +668,7 @@ struct ivtv {
- 	/* Interrupts & DMA */
- 	u32 irqmask;                    /* active interrupts */
- 	u32 irq_rr_idx;                 /* round-robin stream index */
--	struct kthread_worker irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
--	struct task_struct *irq_worker_task;		/* task for irq_worker */
-+	struct kthread_worker *irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
- 	struct kthread_work irq_work;	/* kthread work entry */
- 	spinlock_t dma_reg_lock;        /* lock access to DMA engine registers */
- 	int cur_dma_stream;		/* index of current stream doing DMA (-1 if none) */
+The remaining macros are short wrappers around offsetof() and are only used for
+compile-time type checking. If they still hurt readability, I can drop that
+checking and use plain offsetof() instead.
+
+Does this look better for you, or should I just stop?
+
+
+Alexey Gladkov (4):
+  sysctl: add typed field descriptors
+  sysctl: ipc: use typed fields for IPC namespace sysctls
+  sctp: use typed fields for per-net sysctls
+  mpls: use typed fields for per-device sysctls
+
+ fs/proc/proc_sysctl.c  | 282 ++++++++++++++++++++++++++---
+ include/linux/sysctl.h | 134 +++++++++++++-
+ ipc/ipc_sysctl.c       | 188 +++++++++----------
+ net/mpls/af_mpls.c     |  66 ++++---
+ net/sctp/sysctl.c      | 398 +++++++++++++++++++++--------------------
+ 5 files changed, 703 insertions(+), 365 deletions(-)
+
 -- 
-2.47.3
+Rgrds, legion
 
