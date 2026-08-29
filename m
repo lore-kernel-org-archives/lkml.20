@@ -1,72 +1,77 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1741F2EEE83
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D99F148850
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787977359; cv=none; b=sSQzvcfq99Xq7GmaSv7+TBpw0V+VME3YdVFlLWZVxF8CIx3BwrKrk0RxCyh3u9nkAdPJKI7o6v4O3XFfZEcjLnUgaEMNfX3GTXt2G3yM/EigljHJLbFAdSJhyTntEswuygVuBHbqa6KYoUNhxPximujNKw9fYujyHvWmvt0TUGM=
+	t=1787977651; cv=none; b=VJlw4P0a/FdrIiIuAks2yhWbHoOf1jS+384vII5hWxMm74TpftASKrkC1x976YxtakGXBzva/v55MCkaI23/lVM2myTIHZgWG8gNDYBVh4BOHbmbE0Hm2oixoAcokTKFXakpgDG8ttoLYYbVUc9QlZaVOv9L+oS8Ilofb1c0jRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787977359; c=relaxed/simple;
-	bh=AwOUkUcDpHDo5ZDzj3i/viDVju6Fox7LlmZcp7Ebp+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hok3PFuJOpk6273UCdw/KJhVF9sLYNu7UhifCKuLAH/apH6ZsmBhgPfEpJobxGBUii9Au6FDjOGRPTT8W71kGuZvXlVwKfqFxpGjSkD9KMNG91urCZ9SmdUJvwDri3DhMCZ6uinpwrxUvix/z1qneELuwfBR2/v7+V0TRrF9mw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8M6Z849; arc=none smtp.client-ip=209.85.214.178
+	s=arc-20240116; t=1787977651; c=relaxed/simple;
+	bh=moAU7WUbeJ7iQyI+ELpwXLBlUGap4t99Byv+JopKJnc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GJlqkvDjeiP7QOxMV3WTybbbAO1Yj2SpvNanWAKRApwENrzA7TXdrrUb+yf1YzmNsQFNrYc+/McG/QyQOgxFVJgh5A0R9lPSUszU+rGEL6+ENaA4KBykk4ehd0sHRCzA4gkxCAOYxFOmK/b727PdycpzvngG9FEGgh//USAB+Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gSNK2d5s; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8M6Z849"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6d28aa26cso12624325ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:22:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gSNK2d5s"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so15867715e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:27:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787977357; x=1788582157; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787977648; x=1788582448; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iVZiLDeRwsupettcPIKD0pcIzIKNg0UVhzocRgCkSCA=;
-        b=G8M6Z849XbvSWm0PmxKra7oVe4tWoR0vHtl7DHi2HlPE3e3uFPbPNb4X4M3e1tqUKV
-         cfTHkGd6wm984qbguQJENlb+CeRJ43TiIkNpLOcBnkxPJsTWq5LZu2oA+BL0EfSlwZzS
-         2blx+TNxwqusvGBBZU24lNOncnfesF/nu0HlYLl9WoSPmWdBfycvwpFxgRAvODBXOW7u
-         dek0VNW3fbcQ1lK/jra/XSvkdQpmiVX5HiSEll16efjdu5RI9maLRvkcfisRjXyROttM
-         iFUmppr7Z6mnfs0giQEWbY289yC7zrxty5Th7sQEhJRh04cd00i++NQeTxgnuxCUj0YH
-         NXDA==
+        bh=208RQngiBHE21PmHkOlyRcvNYTZaRPWqpBwhjg/rUVM=;
+        b=gSNK2d5sdXVwk+ke4z7wDzq8Fhevk9m96+MEGHkwfaumoyogUz4aGsmGZkIO+F1tFh
+         x6WyrHz13AsOOUxtsSz5POWEOYlDnUZtsEqslkrRZ+88fZi0g/Av5R+agOsaM/PI0mrw
+         QgsbNgTMPbl69Ph8CR/07EIwIhUp89MgQ0k5EA8Qi9RBD5ameFniQtn25vM9zxgKBzUI
+         LvE4+tODbdcImX58mz3It5nLasWKDjonGp81cFnXRdLYTXKAmWnciTZUjxgUATVuqMIj
+         NRqWCqc94JmJ1g8AM0c/qNA1Vx/Yh4scItfiNtFCMfBhX2q3FpvJMkM30Is0Am+nNmVO
+         jhWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787977357; x=1788582157;
+        d=1e100.net; s=20251104; t=1787977648; x=1788582448;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iVZiLDeRwsupettcPIKD0pcIzIKNg0UVhzocRgCkSCA=;
-        b=TsQ8m4xByd7sILn0/e4ZPnP7+gTkQT1PjQRtJ708DwsZdn0P1Y2iZ1OE+XIOm3Uzp5
-         O1oL3rK7T1zVxjbeCNiE+zlKrgNUhXsexQGhZuLdmYoI0rCT9HJG83MUSsw2VlDboB9W
-         Ai52NzKBp1yjxwSwXRhUvOe2YF6ekm4tLdbJXm1hjLBEhWr4yhO1tiZkkK9h7/5f1W28
-         8/+CtvXJggQcr60dhZiJDn71ztHXmz+TDa+sZtDqmunr+VQ8F5+NIo0+vR3p2elJUe9M
-         piJaYkJ2u7jhOM2U1yzDXrhgdR3yL2Samx3iFYEUA+1AVkxcukWtWfmtEp6sdVjrPrY1
-         rwKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBoxcHpkZ+it7Pr+khyMJq2LE+P4ezs7yoBYfzTeoBKQ+xGI/hbYuPLNQENLGms02ldxjeMCpX++qNJOs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIPHHLKe2KFgoOaqlKEiDmeq9F8T9iLHW6FCJAA0VO9QEDRmY1
-	Y4GsY78vTen45bhMLPpZ4nUSCOySLvcauLIeHgx44UE7N1FyTp5Oguk=
-X-Gm-Gg: AYBFou27RgB01f+HBHG7tqfBXZxk4cQhEqdClOUsoJ7DySFcCUoQ1DCHxZThuvLx+IC
-	dSith1b3lfgxMcpwwMCZ2HReIs+fnXdHt/Oh6JaeW7EMdpAsf2jLOqgMJgnH+aVa/Kqmss7wzJS
-	tmk85r4Q/xHgqrvTjiSm8sJ274i4zOd0zWCUcNX7u3gG5u2MUN6DRSu0rwac2fImwSrVVHdBzDY
-	26lDoSglXFCnjzjTkBjmrvp5KNaBDt+mVt6ZPQrva+UtEQCO9ADOERIeOUHAUYjtpb6uZMW3/KS
-	KTu8bz5NPVw21SYzSg/7ch2V8wW/GZKjq/IM9H2i2zzcTFLhnSRwp/hCq3mLabLfl7nxe5FU0F/
-	KNU7jZi0f1ZXbe28QBiw1drUPWHqN3+ncXQPdFAUGe1qlS1k6LaYTqlX7ypS/PiXyXSjMDF5WkM
-	Bqdw8sNQR+69X/rLnFOqZ2qoIBrQrS9xJnavA8mpFZmeUCOM+nEihWK/AxwNNfILe9irxT+RzoB
-	w==
-X-Received: by 2002:a17:903:1a30:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2d8d4cea3demr62880705ad.16.1787977357271;
-        Fri, 28 Aug 2026 21:22:37 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([113.185.106.34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598b98cbsm11139845ad.76.2026.08.28.21.22.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 21:22:36 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: andi.shyti@kernel.org
-Cc: bence98@sch.bme.hu,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH v3] i2c: cp2615: handle allocation failure
-Date: Sat, 29 Aug 2026 11:22:07 +0700
-Message-ID: <20260829042207.27323-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=208RQngiBHE21PmHkOlyRcvNYTZaRPWqpBwhjg/rUVM=;
+        b=DtBeDuBNl3r3ZWQkvTHQfYu+7X4quxT2djIYO8m6dA1rgCYwEEi3lJ9H1ZG8qWOFHc
+         vwOk/0fbMCEYRjraI/PwOxH/Vq8QDSdVX6ZlgLBA1Bo3m3U3lwq5vlJjT+xoPl2jPpYv
+         7bolAQokLvwCvC9+uUpeXqYM66SGP8CuNp84XpvdJD/t+kAwhsnLhkHh+uWLAdN4/ZS6
+         NXEq2ci5l0EmxBrIjRsmCBxHfz2yq4wAaX8JDpFyJyBdTIJnYinoLUAi9PkAAI/7mkAX
+         hzo2Vf7iWQWUt/wLYUI7CDiCsrDXbYjcfPEF6Zg/pGUDFr0JEZlgmMaNY44u/OH6Tkoh
+         HdDg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/6ATzTMaYu3N4DJE8t38Cvc0xRUm4e5Ug8ifGoRjmhLkt9omsRGRukSPDyCUCR6zIJNSxQYbnR5ZjpAw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAoOwB1AA7pLok5XkJVbgBE0Gth+pesSrc4dFK1BWjc8h8BVM8
+	rvQVLNJi+6NyvpwbfZ7+9YSeFvGA/jslowjNXGcvM4HRSwuwNiOgSTUz
+X-Gm-Gg: AR+sD13P9jhvbpKeaHgHa8OaiTjS5R4OYkXKz+O5SeqL0IUyfq13Sd+2Eh0hy/e9RNy
+	D8Rt0r8DiqTQCOjIbc94WO/Uaqgxy30ej0WWRzGniw+YHUFlDG7Tlx3AFebv5J9Fxe2SpMmQc8I
+	Nu/aEknhv23TlNeIWvQbpPbzWNUPbEfYYvJ6oAqnNAHqtGlV1iutB5Eqk7zPAG0LbBESA++fuPT
+	6suOMZgukGZGT84Z+/XGKfcNhR+PYDZtDfKvpjwud+Q2m5LjbDqJ/nMWlfAdAqy+QAKft7c7sab
+	GIDWD74xqplPFFE8KDEkEynttkoKV1DDJ7/2vpwXMHm/rY5QW1G/Hlfs+R//DRXwJuXktaj2Dmu
+	YQaoxh3KMbTlhyP/JUr/kQ87iPmKWo5vYTsNLyWJeyGdq4zI6ajaOqHo9G9C0/3hTfRcA1dlg54
+	oplZEDC0ghT3B+OhTcDS2JxB+KiSrc3v2qUzLv/0LHsBq8dwNwMsf7QbhSSbK//OojmZhLabkyL
+	rj+oitZef56ZVfdWaiXx/3blD7yEEHLPA7vLF1BiD0X2UYUPM60eAb6qh5bFWt2Gl9bRlCIgUU+
+	2v/JPz030HcjIvYo00vq
+X-Received: by 2002:a05:600c:3145:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49b91c44f6cmr167217795e9.10.1787977647580;
+        Fri, 28 Aug 2026 21:27:27 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-077-007-015-136.77.7.pool.telefonica.de. [77.7.15.136])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm116792405e9.2.2026.08.28.21.27.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 28 Aug 2026 21:27:26 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: atmel-aes - fix AADLENR for standalone GHASH
+Date: Sat, 29 Aug 2026 06:26:04 +0200
+Message-Id: <20260829042604.82719-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,73 +80,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check the result of kzalloc_obj() and return -ENOMEM
-when the allocation fails instead of passing a NULL pointer
-to the message initialization helpers, which would return -EINVAL.
+atmel_aes_gcm_ghash_init() writes dd->total, the request's text length,
+to AES_AADLENR.  But the GHASH it runs hashes the dd->datalen bytes passed
+in: the 16-byte length block, or the padded IV when the IV is not 96 bits.
+The data sheet requires AES_AADLENR to hold the length of that input.
 
-Also separate kzalloc_obj() calls from variable declarations.
+With empty plaintext and empty AAD, dd->total is 0 and the tag comes out
+wrong.  Later requests only pass because dd->total still holds the
+previous request's length.
 
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+This is testmgr's first gcm(aes) vector, so CONFIG_CRYPTO_SELFTESTS=y
+fails at boot:
+
+  alg: aead: atmel-gcm-aes encryption test failed (wrong result) on test
+  vector 0, cfg="in-place (one sglist)"
+
+Without selftests the broken atmel-gcm-aes is preferred at priority 300.
+Seen on a SAM9X75 Curiosity with 6.18 and current mainline.
+
+Write dd->datalen instead.
+
+Fixes: d4419548dba9 ("crypto: atmel-aes - add support to GCM mode")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Changes in v2:
-- Clarify the commit message to describe the actual behavior change.
-- Fix coding style regression
-Changes in v3:
-- Separate kzalloc_obj() calls from variable declarations.
----
- drivers/i2c/busses/i2c-cp2615.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ drivers/crypto/atmel-aes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-cp2615.c b/drivers/i2c/busses/i2c-cp2615.c
-index 951de6249834..62192e919744 100644
---- a/drivers/i2c/busses/i2c-cp2615.c
-+++ b/drivers/i2c/busses/i2c-cp2615.c
-@@ -124,10 +124,15 @@ static int cp2615_check_status(enum cp2615_i2c_status status)
- static int
- cp2615_i2c_send(struct usb_interface *usbif, struct cp2615_i2c_transfer *i2c_w)
- {
--	struct cp2615_iop_msg *msg = kzalloc_obj(*msg);
- 	struct usb_device *usbdev = interface_to_usbdev(usbif);
--	int res = cp2615_init_i2c_msg(msg, i2c_w);
-+	struct cp2615_iop_msg *msg;
-+	int res;
-+
-+	msg = kzalloc_obj(*msg);
-+	if (!msg)
-+		return -ENOMEM;
+diff --git a/drivers/crypto/atmel-aes.c b/drivers/crypto/atmel-aes.c
+index 50d97cef75b8..8e4de859cadc 100644
+--- a/drivers/crypto/atmel-aes.c
++++ b/drivers/crypto/atmel-aes.c
+@@ -1267,7 +1267,7 @@ static int atmel_aes_gcm_ghash_init(struct atmel_aes_dev *dd)
+ 	struct atmel_aes_gcm_ctx *ctx = atmel_aes_gcm_ctx_cast(dd->ctx);
  
-+	res = cp2615_init_i2c_msg(msg, i2c_w);
- 	if (!res)
- 		res = usb_bulk_msg(usbdev, usb_sndbulkpipe(usbdev, IOP_EP_OUT),
- 				   msg, ntohs(msg->length), NULL, 0);
-@@ -171,11 +176,16 @@ cp2615_i2c_recv(struct usb_interface *usbif, unsigned char tag, void *buf)
- /* Checks if the IOP is functional by querying the part's ID */
- static int cp2615_check_iop(struct usb_interface *usbif)
- {
--	struct cp2615_iop_msg *msg = kzalloc_obj(*msg);
--	struct cp2615_iop_accessory_info *info = (struct cp2615_iop_accessory_info *)&msg->data;
- 	struct usb_device *usbdev = interface_to_usbdev(usbif);
--	int res = cp2615_init_iop_msg(msg, iop_GetAccessoryInfo, NULL, 0);
-+	struct cp2615_iop_msg *msg;
-+	struct cp2615_iop_accessory_info *info;
-+	int res;
-+
-+	msg = kzalloc_obj(*msg);
-+	if (!msg)
-+		return -ENOMEM;
+ 	/* Set the data length. */
+-	atmel_aes_write(dd, AES_AADLENR, dd->total);
++	atmel_aes_write(dd, AES_AADLENR, dd->datalen);
+ 	atmel_aes_write(dd, AES_CLENR, 0);
  
-+	res = cp2615_init_iop_msg(msg, iop_GetAccessoryInfo, NULL, 0);
- 	if (res)
- 		goto out;
- 
-@@ -194,6 +204,7 @@ static int cp2615_check_iop(struct usb_interface *usbif)
- 		goto out;
- 	}
- 
-+	info = (struct cp2615_iop_accessory_info *)&msg->data;
- 	switch (ntohs(info->part_id)) {
- 	case PART_ID_A01:
- 		dev_dbg(&usbif->dev, "Found A01 part. (WARNING: errata exists!)\n");
+ 	/* If needed, overwrite the GCM Intermediate Hash Word Registers */
 -- 
-2.53.0
+2.39.5 (Apple Git-154)
 
