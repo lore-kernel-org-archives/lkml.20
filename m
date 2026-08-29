@@ -1,83 +1,47 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B62333D503
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A321A1F09AD
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787984716; cv=none; b=QPaaNhdmSAXLaWTeGvTob8ppFMguTvQfgDnVzljtsueRBxdZjRnNB1/ciGmm2OpoDNBO8HDqLhTaX+mBqdCdrmE2iuDh3BWXkUoFEsWIIJnbGoqbKdNKiZvAg3s2tPBFU5yHPx1Lux9MwitaR/Be5BBjwyLuPH1Hv6CtEns0EjQ=
+	t=1787984737; cv=none; b=NMLwItbttVP6nDo4aHZAznEHK12V4pi2mFaWkatkApzrF1WowkMu4K0LOnRW7EE7LPIinWGHpMvYcHmwWyUmQKknFhVDfi1A8F9vs48ROnE9j3klHGATxpy9ToUeHU/W4ROzS70lOFZuThHY0a7YHsAB6KeliAJUn3lSliZaiHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787984716; c=relaxed/simple;
-	bh=5+qNSuBfaI7rfZ2mss24vGAI3qaKMMf3Acwprabefjg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sfdNODgJJZ4yYYQ8Ox3idORDeobSYq0dCIYOLrK3bcYLdutOJVVqMSZm5jxduuKSGN2vuAg5z+Q4nT1wkZ5QKtWjgn7YtU9H89XXTNqUubAcpJQWMg/QvNNkLUTsy70/RzdrrdfCWnNduXG9+KEzAbdfhfEBGMDtzg7jpiKLEKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Wmb7UL8Y; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1787984737; c=relaxed/simple;
+	bh=xabPv2ypQj4l82cbpKM+eTp1Czpxbzm9LuhhVMSt0BI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XdmGTefdXHSQ6cEYflN53CYtQAprcmu7mm0uCBmsn3BKblzD8xw0YIiLi6V6ISzNwACVPiKcVzJ9VHdxgglh/scTs5C0ra24GBkHxAevhZ/BJykfS2a9R+DmX0GsDoLZteBO3pS41DAHYqZwIeLP0Y3c2nGlDYCCjbXs+LaRT/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ypPEvvDD; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Wmb7UL8Y"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d712281f8bso20542825ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:25:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1787984715; x=1788589515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YQpGeHFpF6hM3XAcJaWyHzxH1K1KBhOVpeax6pWgUcI=;
-        b=Wmb7UL8YWrPHOOqlAza3v9D6jmHXo/E25qKtIONgMJfwb1fFSObDhV3N6ajCv42qji
-         lW/SBEmFXgSRVBPEn0F75c3qrgj6gKEd81rPTTVE6LTwyD87nWME3oUI3hUf+wH09Nq4
-         QoEL7NX2Ww7LHZcWhqyPUatFxhNiWosRJpLB9Jr0lvKGW55PGGAxDY8Q611UwGHFYhbK
-         5SdoJ0PQrzuaAGP+wX6Z9V9MNM5BibKTY17ZGhfrA3YoUFicR6pW0jlIoO4aSNOFGsnV
-         iGOpEq/fWml4mDWtcyfa4IT3jpuSN2k9N0kFZvuDde7LirQP0tAw1zLwCSLbZhtZOMir
-         ApHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787984715; x=1788589515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQpGeHFpF6hM3XAcJaWyHzxH1K1KBhOVpeax6pWgUcI=;
-        b=RMyI0kr1VrKrh7YmO4V14wgAZ19uG0p+DRjeJXqminvk5+LnXww2WDzX4KW4XYBttz
-         ewy5TkTjSFA1wMC6aWF4fLbJWTnhy4PzyvhTgok5LS35hd8syFxLAm7M3hn8+YO1/9fx
-         9Jgy4AS2UAc0ig9RwvsH7g2BrUzBRaPsOfJk5p2zNAGY2WsE+o6uu89f6VNWZkscZ8u6
-         Fu7+LiSDuVSj492X1LB1oGStyQi0zqozn8u7XdEKeJKMrLXj10c5pn0i4IkaejSMXP4a
-         fYQEP2Nujs35yDtHQwFP19COqKOXnAgC1Hug68jKj9jmJtF5pif80iOaDSIKQPLzNv2f
-         /kdA==
-X-Gm-Message-State: AFuF++n3sWtra2VD3tx+PN5tLF1O/P60uvxIhvXDeb5rP25soeSegso2
-	tbpqUsaHILTz6Ly24uKCjFb6pNofURlt/MRpaPVkxBFzMY+swKfUbXOeWdvB7nIg58P7
-X-Gm-Gg: AR+sD114FcC2hR+ASCQ1Kixxa4/+wQ58amx6O/wH4+JcvdNAYO1wI5GXJZnQCsY/zMp
-	soieVxziZWioPhVu01UdNaBKg0yi6n1QleTBqD8WiG5gfxv0U4c7gVpO3uGTTNFCKgMcUMMQ1iX
-	yHVqA417EMM4ckWRgJncz+wofYCSD2ZHsq7SuX1CJlcrDwIyocdYoHAeVCoA/xq99cpbidOzdUi
-	7YioKCGY9rYGJcmLVEc0A/7qbXm064fhJTFyELiFBPAPYZ9uWgJ2HCtk2eTJT97Gcr4H3BCK2Ir
-	x+f7R6FpH6Gi2U/gG759d+iAiCN6IcF73ntW7/4CoTxtrIPZEhYvD9UdInhw7RXty0TvEvZaWWx
-	KhChKUdvf2UrHBnReDaFviMfOdv5PbIJ2iKASiv8osTo+PZPNFXyhfG45tIRABynF2wHSze0k+t
-	i438fzcyjl9uWhEeUi+UzataI7ZTSc2gzoku0U3hoTwxsGh4zf4rrxVq40N4oRhHRv0YDiay/8U
-	XVAOV4RrEzEBQ==
-X-Received: by 2002:a17:903:1ae5:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2d8d4ccc940mr72729095ad.15.1787984714542;
-        Fri, 28 Aug 2026 23:25:14 -0700 (PDT)
-Received: from gmail.com ([202.201.12.230])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fb48dsm12354185ad.14.2026.08.28.23.25.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 23:25:14 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Patrick McHardy <kaber@trash.net>,
-	Zihan Xi <zihanx@nebusec.ai>,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH net 1/1] ipv4: fib: avoid quadratic table ID lookup
-Date: Sat, 29 Aug 2026 06:24:57 +0000
-Message-ID: <0a00492a13038b268c1e0a219c138d07cfab92b3.1787982246.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1787982246.git.zihanx@nebusec.ai>
-References: <cover.1787982246.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ypPEvvDD"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hbh66aOropGenQ0Z2GHHlKgM+3L4scXCa7L2SnI/vvU=;
+	b=ypPEvvDDxhtb6fzDi/em1d1lCkxetpMf8OKOvk6mrLxSsMxbItSVNO7vdECe8um3YcBgEQ6EX
+	WPsXkvC2cUJ6qnES+MLBbSbt8EjiXcKzx2j7ZPr9Qsxp/IYYSh7EiZq1VLu2ZmuU8EKn9JVFIjC
+	5ap8YAaSvILxpiYgr0L9Bks=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hX4jD2SLxz1prKd;
+	Sat, 29 Aug 2026 14:14:40 +0800 (CST)
+Received: from dggpemr100018.china.huawei.com (unknown [7.185.36.64])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9A0C040537;
+	Sat, 29 Aug 2026 14:25:29 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr100018.china.huawei.com
+ (7.185.36.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Sat, 29 Aug
+ 2026 14:25:28 +0800
+From: zhouminqiang <zhouminqiang2@huawei.com>
+To: <linux@armlinux.org.uk>, <vz@mleia.com>, <piotr.wojtaszczyk@timesys.com>,
+	<maddy@linux.ibm.com>, <dwmw2@infradead.org>, <richard@nod.at>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-mtd@lists.infradead.org>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH v2 0/7] jffs2: extend write verification to all write paths
+Date: Sat, 29 Aug 2026 14:16:50 +0800
+Message-ID: <20260829061658.306854-1-zhouminqiang2@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,91 +49,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemr100018.china.huawei.com (7.185.36.64)
 
-fib_empty_table() probes every table ID from 1 until it finds a free
-one.  Since IPv4 tables are stored in a 256-bucket hash table, a dense
-set of IDs makes the probes repeatedly walk growing hash chains while
-RTNL is held.
+When JFFS2 writes data to flash, corruption can occur during the
+write transfer (RAM failures, bus errors) or after commit to the
+medium (bit flips). To distinguish whether the corruption happened
+before or after the data reached the flash, commit a6bc432e296d
+("[JFFS2] Add support for write-buffer verification.") introduced
+CONFIG_JFFS2_FS_WBUF_VERIFY: reading the data back immediately
+after a successful write and comparing it with the in-memory
+source buffer provides the missing observation point for that
+diagnosis.
 
-Count the existing tables once and use a bitmap for the bounded range
-that can contain the first free ID.  This keeps table-ID selection
-linear in the number of tables instead of quadratic, without changing
-the lowest-free-ID behavior.
+However, the current implementation only performs read-back
+verification on write-buffer flush paths. NOR flash devices write
+directly through jffs2_flash_direct_write() and
+jffs2_flash_direct_writev(), with no equivalent check. Data
+corruption incidents have been observed on NOR-based devices in
+production environments, yet there is no quick diagnostic tool to
+isolate whether the corruption occurred during the write transfer
+or after commit to the medium. A significant number of deployed
+devices rely on JFFS2 on NOR flash, making this gap a practical
+concern.
 
-Fixes: 1af5a8c4a11c ("[IPV4]: Increase number of possible routing tables to 2^32")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
- net/ipv4/fib_rules.c | 44 +++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 37 insertions(+), 7 deletions(-)
+During the investigation of the NOR flash gap, code inspection also
+revealed that when the write data length exceeds wbuf_pagesize in
+jffs2_flash_writev(), the excess data bypasses the write buffer and
+is written directly to flash via mtd_write(), with no verification.
+Additionally, jffs2_wbuf_recover() does not clear c->wbuf_len on
+recovery failure, which can lead to BUG_ON in jffs2_link_node_ref()
+or deadlock in jffs2_flush_wbuf_pad() on a subsequent write.
 
-diff --git a/net/ipv4/fib_rules.c b/net/ipv4/fib_rules.c
-index e068a5bac..55751b0d1 100644
---- a/net/ipv4/fib_rules.c
-+++ b/net/ipv4/fib_rules.c
-@@ -16,6 +16,7 @@
- 
- #include <linux/types.h>
- #include <linux/kernel.h>
-+#include <linux/bitmap.h>
- #include <linux/netdevice.h>
- #include <linux/netlink.h>
- #include <linux/inetdevice.h>
-@@ -216,16 +217,45 @@ INDIRECT_CALLABLE_SCOPE int fib4_rule_match(struct fib_rule *rule,
- 
- static struct fib_table *fib_empty_table(struct net *net)
- {
--	u32 id = 1;
-+	unsigned int h, count = 0;
-+	unsigned long *table_ids;
-+	struct fib_table *table;
-+	u32 id, max_id;
- 
--	while (1) {
--		if (!fib_get_table(net, id))
--			return fib_new_table(net, id);
-+	/* The first unused ID is no greater than the number of tables + 1. */
-+	rcu_read_lock();
-+	for (h = 0; h < FIB_TABLE_HASHSZ; h++) {
-+		hlist_for_each_entry_rcu(table,
-+					 &net->ipv4.fib_table_hash[h],
-+					 tb_hlist) {
-+			count++;
-+		}
-+	}
-+	rcu_read_unlock();
-+
-+	if (count == RT_TABLE_MAX)
-+		return NULL;
-+
-+	max_id = count + 1;
-+	table_ids = bitmap_zalloc(max_id, GFP_KERNEL);
-+	if (!table_ids)
-+		return NULL;
- 
--		if (id++ == RT_TABLE_MAX)
--			break;
-+	rcu_read_lock();
-+	for (h = 0; h < FIB_TABLE_HASHSZ; h++) {
-+		hlist_for_each_entry_rcu(table,
-+					 &net->ipv4.fib_table_hash[h],
-+					 tb_hlist) {
-+			if (table->tb_id <= max_id)
-+				__set_bit(table->tb_id - 1, table_ids);
-+		}
- 	}
--	return NULL;
-+	rcu_read_unlock();
-+
-+	id = find_first_zero_bit(table_ids, max_id) + 1;
-+	bitmap_free(table_ids);
-+
-+	return fib_new_table(net, id);
- }
- 
- static int fib4_nl2rule_dscp(const struct nlattr *nla, struct fib4_rule *rule4,
+This series closes these gaps with the following changes:
+
+- Patch 1: fix wbuf recovery failure exit paths to clear
+		   c->wbuf_len, preventing BUG_ON and deadlock
+
+- Patch 2: replace pre-allocated per-superblock wbuf_verify
+		   buffer with on-demand allocation inside jffs2_verify_write()
+
+- Patch 3: add byte-by-byte comparison after memcmp() mismatch
+		   to pinpoint the exact mismatch offset
+
+- Patch 4: add verification in jffs2_flash_writev() for the
+		   mtd_write() path that bypasses the write buffer
+
+- Patch 5: add verification calls in jffs2_flash_direct_write() and
+		   jffs2_flash_direct_writev() for NOR flash devices
+
+- Patch 6: rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+		   CONFIG_JFFS2_FS_WRITE_VERIFY and remove the Kconfig
+		   dependency on CONFIG_JFFS2_FS_WRITEBUFFER
+
+- Patch 7: add module parameter write_verify for runtime
+		   enable/disable of write verification
+
+This series extends the existing write verification mechanism to
+cover all write paths. It remains off by default and does not
+alter JFFS2's node CRC integrity checks.
+
+Changes in v2:
+- Add patch to fix wbuf recovery failure exit paths not clearing
+  c->wbuf_len, preventing BUG_ON and deadlock on subsequent writes
+- Use kmalloc() instead of vmalloc() for verify buffer allocation
+- Keep memcmp() on the hotpath and add byte-by-byte comparison
+  only after a mismatch, rather than replacing memcmp() entirely
+- In jffs2_flash_direct_write() and jffs2_flash_direct_writev(),
+  call mtd_write() before jffs2_sum_add_kvec() to prevent
+  retlen from being uninitialized if jffs2_sum_add_kvec() causes
+  an early return
+- Update defconfig files to rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+  CONFIG_JFFS2_FS_WRITE_VERIFY
+- Link to v1: https://lore.kernel.org/linux-mtd/20260820105003.2525647-1-zhouminqiang2@huawei.com/T/#t
+
+zhouminqiang (7):
+  jffs2: wbuf: clear wbuf on recovery failure paths
+  jffs2: replace per-superblock verify buffer with per-write buffer
+  jffs2: write verify: add byte-by-byte comparison on mismatch
+  jffs2: add write verification to direct page writes in flash_writev
+  jffs2: add write verification to NOR direct write paths
+  jffs2: rename CONFIG_JFFS2_FS_WBUF_VERIFY to
+    CONFIG_JFFS2_FS_WRITE_VERIFY
+  jffs2: add runtime toggle for write verification
+
+ arch/arm/configs/keystone_defconfig     |   2 +-
+ arch/arm/configs/lpc32xx_defconfig      |   2 +-
+ arch/arm/configs/pxa3xx_defconfig       |   2 +-
+ arch/arm/configs/pxa_defconfig          |   2 +-
+ arch/powerpc/configs/44x/fsp2_defconfig |   2 +-
+ fs/jffs2/Kconfig                        |  31 ++++-
+ fs/jffs2/jffs2_fs_sb.h                  |   3 -
+ fs/jffs2/os-linux.h                     |  11 ++
+ fs/jffs2/wbuf.c                         |  91 +++------------
+ fs/jffs2/writev.c                       | 144 +++++++++++++++++++++++-
+ 10 files changed, 198 insertions(+), 92 deletions(-)
+
 -- 
-2.55.0.windows.3
+2.52.0
 
