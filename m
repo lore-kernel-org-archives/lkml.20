@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C6A33F588;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F91134107D;
 	Sat, 29 Aug 2026 19:35:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788032142; cv=none; b=T03JgmhXySXUZxDTQMgrtd7G5B3Jbd9Tpi8h4+o80j3pVYYBp5a2MFqRbp70ZzB+vtb7axwp+3Gz3Yn22Rn93qD5x0CAuUlg5cg+rMQ7z90Qtp3L7DqDokq9q9ORCYIdblGIidbjd0yBZ8n6VL99h0Q1saRyZrilf9sxqYiec0s=
+	t=1788032142; cv=none; b=myQHh1FgZqbg0O92I3tkwr+2WgTWQSxhbTw17pn1Ax+yT9GUuogYLzOusXJjrHKGPf9rvpo60v4uQRaoV+zqrGsiKouPs1KASgjaXLtM8tiJDNHsoPAWCGoW9y6m9vEu7cpF53T4/PyZsaL4zR7tDqas1vpUKOOM+ICx+4Cyd74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788032142; c=relaxed/simple;
-	bh=BuWbjHqcjwSqo85dhSN0LQd7o4oQ8F03RwL2iZS0y6E=;
+	bh=qU8HCUtb3831/Mx0qfdyVNZoNQO2ntDLZ3cetr+bNrY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q09SvLi8eAQqUmcty6+aID4FV0q70cgsowxVnZ5T2iBrREIc4grihAI7VOR8RfXi98XIjo1alobXhcZXC1Xdq2/ktwlX4x3wUJHMnLqb48kg6DfmH4a5GJmLt32Osjg2mLws2dVxch5y7ih421RUcPEBlX3cNqwqz1JZNIZn/wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUdzqO/G; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=nQP7/OxwxSFv3prXdxOn/RKsegBnnr6huaX99dSYoyq8Z/0UJrOkTc4lzGfgN1HITzMHdLbrdtpIBlNA6gfQXATU48qxonFYfgjt7k3VzTNnIZQ6x9aw7DXzgEHoa/65AT1gaqxM0KKjMP/7pNWizQbiGtDiAE+eCyGKluZz6ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qZO7XSi4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUdzqO/G"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D349C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qZO7XSi4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 209F1C2BCFB;
 	Sat, 29 Aug 2026 19:35:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788032142;
-	bh=BuWbjHqcjwSqo85dhSN0LQd7o4oQ8F03RwL2iZS0y6E=;
+	bh=qU8HCUtb3831/Mx0qfdyVNZoNQO2ntDLZ3cetr+bNrY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mUdzqO/G1sMqKUXGdMFqfj2eE7eOeYbY5oPUccjG/iu/VBCdPM+8qD3Iy5UsepTcD
-	 Y+pOsWfoTW8lHp6d8JAi8hQJTWy7zahe7sPplQWwtAMnPl7f7ne/lcyaFjUj5B68fU
-	 rWz5Du3OlcDTvi+WjxTy4QDDzc5V16nHY5HozFdPsae7fLYhLu3LIzngeRTH4911I6
-	 560+S1iWMjzPNfXv9g4+5A4r0RersMxWKnraCzUA/aDs+ndCc0dSLee8a/2wpo1mJP
-	 3QdXK7vpOjmej96G4fa6FJOL457aixR44jG+NvG1gpLB2NObLj3FAtDLt9/nwTEELb
-	 VwAFj+LQiPuag==
+	b=qZO7XSi46e3CEQ3y+Bwu+bAGD+oU8pueD4ZUA/q8ESFwzmPyGhQbC+7wVfyeJDuel
+	 dQaM4aHDThhj/siOhLUCQAHLG/m2ilL1Vwbl8IseyIUHEMhplB6Kf+tb1vL5h3IXRZ
+	 50xrxm7iOobcKkwZ0Hsb9dQxZsTgDLeoXtfAkKzOB566MR+kmpIFGFQ4a7SayQb2Sp
+	 MtQ7r3UKdEP0dieimn1e4EGnThlSY9P7vEjrrFBnczN8LmuoTpOwn3q1zqgz8vZxYo
+	 qWi+5QQQyu8V0A+F4S6bebwNY8U8aIeKrSWM1i/5x4olrodSY7q/pexzzpv2mZoC5x
+	 J8M3IQkoxA7Jg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14108C61DE2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04D10C61DE4;
 	Sat, 29 Aug 2026 19:35:42 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sat, 29 Aug 2026 14:35:34 -0500
-Subject: [PATCH v3 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
+Date: Sat, 29 Aug 2026 14:35:33 -0500
+Subject: [PATCH v3 3/4] arm64: dts: qcom: Add Retroid Pocket 6
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-rp-qcs8550-v3-4-198d5b2fc475@gmail.com>
+Message-Id: <20260829-rp-qcs8550-v3-3-198d5b2fc475@gmail.com>
 References: <20260829-rp-qcs8550-v3-0-198d5b2fc475@gmail.com>
 In-Reply-To: <20260829-rp-qcs8550-v3-0-198d5b2fc475@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -49,11 +49,11 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788032141; l=4201;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788032141; l=4432;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=63P4oT6UJRI5RcFp4MDSgRO4yYmZZbwljJ7ZdnJQdDk=;
- b=nwHV3NkkV7sI7YBD3Fu/DkaYuLqOeo1Bi1uE2d0d4Ru/dHZaX0AN3skjYvqj9tRVWgQGn5yrh
- xXu0vW5HxeoBpHLEWNfNimQzLDdf39E1m/xT+QwsfXWQ1z8ctVUQPuZ
+ bh=Wvn74/6unZDQh66OwyzH7MkGfyg7mtx/3XanHCJ30no=;
+ b=ScHrXXBTRT7PP4U/gIBHEZbAWhIJqBIRT1AkDexDi+zXbVngEk+uylaIqHC0HHsyl6QGRUdoM
+ 7jYe1o3m2huCsaGVW919ZJB4vlP8W9ZIZonldJWF+Gz/xb6ZfsTM6On
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -63,35 +63,41 @@ Reply-To: webgeek1234@gmail.com
 
 From: Aaron Kling <webgeek1234@gmail.com>
 
-The Retroid Pocket Nova is a high-performance Android-based handheld
-gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
-featuring a 4.5-inch 4:3 AMOLED touchscreen.
+The Retroid Pocket 6 is a high-performance Android-based handheld gaming
+console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
+5.5-inch AMOLED touchscreen.
+
+This is based on the support by ROCKNIX, however their history does not
+show who the original author was, so direct attribution cannot be given.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/qcs8550-retroidpocket-nova.dts   | 116 +++++++++++++++++++++
- 2 files changed, 117 insertions(+)
+ .../boot/dts/qcom/qcs8550-retroidpocket-rp6.dts    | 120 +++++++++++++++++++++
+ 2 files changed, 121 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 09b3c5b2d9dab..582805e89f4cb 100644
+index a7b0fb759099e..09b3c5b2d9dab 100644
 --- a/arch/arm64/boot/dts/qcom/Makefile
 +++ b/arch/arm64/boot/dts/qcom/Makefile
 @@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2portal.dtb
  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-thor.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-nova.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-rp6.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-rp6.dtb
  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-rb5gen2.dtb
  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
+diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
 new file mode 100644
-index 0000000000000..0a0546977a026
+index 0000000000000..a93fe74b83383
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-@@ -0,0 +1,116 @@
++++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
+@@ -0,0 +1,120 @@
 +// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (C) 2026-present ROCKNIX (https://github.com/ROCKNIX).
++ */
 +
 +/dts-v1/;
 +
@@ -100,8 +106,8 @@ index 0000000000000..0a0546977a026
 +#include "qcs8550-ayntec-common.dtsi"
 +
 +&{/} {
-+	model = "Retroid Pocket Nova";
-+	compatible = "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550";
++	model = "Retroid Pocket 6";
++	compatible = "retroidpocket,rp6", "qcom,qcs8550", "qcom,sm8550";
 +
 +	backlight: backlight {
 +		compatible = "pwm-backlight";
@@ -180,8 +186,9 @@ index 0000000000000..0a0546977a026
 +		pinctrl-1 = <&ts_p_rst_sleep>, <&ts_p_int_sleep>;
 +		pinctrl-names = "default", "sleep";
 +
-+		touchscreen-size-x = <1280>;
-+		touchscreen-size-y = <960>;
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <1920>;
++		touchscreen-swapped-x-y;
 +	};
 +};
 +
@@ -194,18 +201,18 @@ index 0000000000000..0a0546977a026
 +};
 +
 +&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/adsp.mbn",
-+			"qcom/sm8550/retroidpocket/nova/adsp_dtb.mbn";
++	firmware-name = "qcom/sm8550/retroidpocket/rp6/adsp.mbn",
++			"qcom/sm8550/retroidpocket/rp6/adsp_dtb.mbn";
 +
 +	status = "okay";
 +};
 +
 +&spk_amp_l {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/aw883xx_acf.bin";
++	firmware-name = "qcom/sm8550/retroidpocket/rp6/aw883xx_acf.bin";
 +};
 +
 +&spk_amp_r {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/aw883xx_acf.bin";
++	firmware-name = "qcom/sm8550/retroidpocket/rp6/aw883xx_acf.bin";
 +};
 
 -- 
