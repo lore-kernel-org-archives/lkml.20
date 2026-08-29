@@ -1,64 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3544F81AA8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A0B1FBEA8
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787983586; cv=none; b=AiYqhoRmVL5IzDfExQ5mpuJgx9mydl09K/s9+vb1u/ROqCOnLN+wbUjpg98DnClCFDidJhubviayPXiONRsqLGsXHiwxj0MaUATLI/2P/jRQHLFRSA3o3q0yIshs5y4kSViSrcR/xoAnbcwMfR9MVPSdr0MRoU/eh823ApV8fo0=
+	t=1787983653; cv=none; b=Zdr9K+fx1WDHY4Uz8y2QtTxDdqDiSlhgkzL2D2efeVuoWMcpdV0RaKoNAjYmEelcCdpTiEZs5LjNd0iPBgbbkhJJ9eyyuP7bJyGWHunQdigGrGKtw7NTWiz9suQI5YoiB3jVBtQNPkPcMyGbBoUPnAZqMeHHeDea2Q09T9msn1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787983586; c=relaxed/simple;
-	bh=tRXmeR3iy4rsst5L/oFh1PpUuYUMV/Q+k9wbKFOdnns=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qb8+mToXb7srpQ4pfZe7OSQ60bMtx2N1ru/zhcSRJgJJf8BRSPJN6j7XzdfNiLsalioi8sSfTZ9vwi1VzPOBc51cEo1mFPBgNgaUdBhpGZRzCCbymNp8VZ74WQUP3tEW/yyYQmqGCNG7/UaoklBYahfIGbCYDxvDyBsXjqmxBMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=haWXPLgQ; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787983653; c=relaxed/simple;
+	bh=GPuxmifIgDDwJZd/SBO1euENzZKqws9a+V2RPHqyjdQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=raA0UGOyCUHr+4wgb76OPGWRIeptwEa0Z6Su42g+RaPvFJ/c1WL1Rytke4PHzMQumyiOsh/JL5skiOL0MWkcGBRzRlSrNgDTZp0zRr7VTEykjziUuZ75MyBrYy8Y6cI2d41RB0m+yRztUMMpK/A/eHyqbOnbLO40O0p27lA/OQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h99MzU1Y; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="haWXPLgQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787983584; x=1819519584;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=tRXmeR3iy4rsst5L/oFh1PpUuYUMV/Q+k9wbKFOdnns=;
-  b=haWXPLgQxxK6KJ/T1wrOw87N6bTNNQqguj3Lm/TdWK07mt221t3Vf0bQ
-   DnXc4NKVxQt35yPLC/TMJubvokMfX0IDKylyWKd+E+394iRyKp3m4kh+8
-   FWYVF66SAIY6lwum1iVRKtAHwAPaYMRLYcaBX2blCF4Bq/Cb+dFMavKy8
-   HNTTkrnFfoauMABmvk3BfGM1b9+5PN+rnTsgX4F04GNwRlqsB8su7esiK
-   CTq41dGSiRIEYGaerhSjbwj7C7PaS9MSN7PJi7Vq8yNXgQcQmMUySUrfS
-   zeYj/81rkZF29SHke81InryrhTjF6AS138J5yxUv0stmPQBJXZ0rlN1u8
-   A==;
-X-CSE-ConnectionGUID: moYBvIXHRVmM0WWW9zky4Q==
-X-CSE-MsgGUID: OvdEAsU+RqGJRSbsziydvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="98819492"
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
-   d="scan'208";a="98819492"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 23:06:23 -0700
-X-CSE-ConnectionGUID: 0aDIHcLiRMSWKks7KEoXww==
-X-CSE-MsgGUID: PL7cXvZ+QY+DyuZat0nmVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
-   d="scan'208";a="262246968"
-Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
-  by fmviesa009.fm.intel.com with ESMTP; 28 Aug 2026 23:06:19 -0700
-From: Chen Yu <yu.c.chen@intel.com>
-To: tony.luck@intel.com,
-	reinette.chatre@intel.com
-Cc: tglx@kernel.org,
-	bp@alien8.de,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	fenghuay@nvidia.com,
-	babu.moger@amd.com,
-	chen.yu@linux.dev,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/9] Introduce MMIO-based CMT access for Enhanced RDT
-Date: Sat, 29 Aug 2026 13:55:53 +0800
-Message-Id: <cover.1787976868.git.yu.c.chen@intel.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h99MzU1Y"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84830c774a0so2039529b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:07:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787983651; x=1788588451; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GPuxmifIgDDwJZd/SBO1euENzZKqws9a+V2RPHqyjdQ=;
+        b=h99MzU1YAOFD1cOaiLoafJ9F3ro1sFaybw2iMkLKVbcJ2sTv0Gz61zP7SemQwcuk7N
+         bTpvH73VUvO6jrqMEU7da1GnmLbcrqOe9BiRWX4O+zFiHekIZm5eBBOYpl2bk1RtOgpn
+         gKc2wNynnnD+MwEIStF+TtOAvZ9nJt0lIoJ/2wtR46LQrN2P8mlHI1Vs0pvlMxpz4CQF
+         rsIhre4NJPjH8K+LWDSvSug1Fko0O6SkTOkVmfSzHs8YGPuwOq3u8DSOuj7AVYvMigdj
+         NV6pcP6EGseNUcSjhUWzKcUHx23hp0vePx895H8mL+d1UOd+cA2jDKVErHnM0sB0ibLn
+         2wYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787983651; x=1788588451;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GPuxmifIgDDwJZd/SBO1euENzZKqws9a+V2RPHqyjdQ=;
+        b=nHqPVZjmCSaTj2V+ycVowzyUD82NupGZXGLVIqhlx6hmPbmHheGAjYDTjqt8svurpW
+         ZPqm9Okc5O5YNkx47pxa0Xb0i3bbCiJps30jRDKZ9+m0XRygPGpy0b1n/u4APQwZmDy1
+         CACXqb6lyxliDDkPPj/cLhVEKGbnNyJBLN32TcAjHpluDYQg2/TD8x+s7URp+7GSRbOu
+         RAUPZ3F7pzZaUfFJyTsKktKxjsLs4kzhNs24eHcwKKIV54XpKLYNTmSQszsKTQf0BzpN
+         veRSN33Xhyx7mssNhPcXUcDfNdZKMb21UgyyPo+AoSmt94nePLmuA/PpK9xKmtrfZ0v5
+         Q16g==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/Uwx5zDutL0jlUBUcxYxaQuI0IVQIL1U/TXtCSJPFXO8SrpQguQxv8npgfwk8caYW3HSHXgol37X162Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mriSS06t+UuNufhD51930Dzjbh/oWOpBluJ5bILs9072/GgW6/
+	4oDiAvMXSkBbmJeRQV+tb85JE480VjkGeEso34JjQTcN6EiPFK6NOK7Up7t6vm8S
+X-Gm-Gg: AR+sD10Bdx5T9eqWOfCvPh+XTOzDMUpbvgYdnweLzuo1ima6Ipynx+Ji18ZOJrgsczx
+	VO111tdSbXqWnb4WSnrOAChkF/9mrPHnk4GEboQvl6oIqARaDymk2i4f15n9HTNHpRTsuM6SaG8
+	ioOWhe/QhnUdotycivOGkO0sIwxi9V80UalFTGOdc+KMFx/lH5fIH8h4dP2laL5bNhBRaxnij5z
+	zl6vxXplf5WiU1Wtgg9Eqde8jODyn3IsszcpLfi7aqAPiRIXFLUmqUWtS9khgMoRUNWTVmGNniH
+	0ICmFdC9iTKOz54R6IVop9uhUb1m2q8qnrlnhh6Yz74kQ4Q/P6Yn9r1z7ggZyHiypixfY5X1KDR
+	GphUfAVQUJC7eBN/psW0uW457d9iUq9uyHPeVgpC9Grnwc9KnBlWjO8JrDIVB+4PFc2fBCeeo+k
+	5N2HLSCJJT+rUzg642vW0qNE58RR/TcVLnNtVvDssV1buluZb7hQm4mNzomwteaQ2qXho0/DB8r
+	GLU5X9x2m38zgtTP7sEw3+n
+X-Received: by 2002:a05:6a00:3692:b0:848:5f4f:289d with SMTP id d2e1a72fcca58-856277dba33mr24011291b3a.4.1787983651209;
+        Fri, 28 Aug 2026 23:07:31 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a2ea6fbbsm1230035b3a.38.2026.08.28.23.07.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 23:07:30 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: daeho43@gmail.com
+Cc: daehojeong@google.com,
+	jaegeuk@kernel.org,
+	chao@kernel.org,
+	sunqiuyang@huawei.com,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: Re: [PATCH 2/2] f2fs: refresh pinned allocation boundary after resize
+Date: Sat, 29 Aug 2026 14:07:24 +0800
+Message-ID: <20260829060724.2657266-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACOAw_x47vsdmPnYD1seCRjXMktocfcbAjPk7RMQEoPPJHLNiA@mail.gmail.com>
+References: <20260828141240.2391915-1-qiwenjie@xiaomi.com> <20260828141240.2391915-2-qiwenjie@xiaomi.com> <CACOAw_x47vsdmPnYD1seCRjXMktocfcbAjPk7RMQEoPPJHLNiA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,175 +84,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v6: https://lore.kernel.org/lkml/cover.1784968626.git.yu.c.chen@intel.com/
-v5: https://lore.kernel.org/lkml/cover.1782866200.git.yu.c.chen@intel.com/
-v4: https://lore.kernel.org/lkml/cover.1781332698.git.yu.c.chen@intel.com/
-v3: https://lore.kernel.org/lkml/cover.1780710620.git.yu.c.chen@intel.com/
-v2: https://lore.kernel.org/lkml/cover.1780587063.git.yu.c.chen@intel.com/
-v1: https://lore.kernel.org/lkml/cover.1779872016.git.yu.c.chen@intel.com/
+Hi Daeho,
 
-Intel Enhanced Resource Director Technology (ERDT) extends the existing
-RDT framework with two major capabilities:
+I incorporated the review in v2:
 
-  1. MMIO-based access to monitoring and allocation registers, replacing
-     the legacy MSR-based interface.
-  2. Region-aware RDT for fine-grained control over different tiers of
-     memory (e.g., CXL.mem, DDR).
+- Simplified the incompatible-tail condition.
+- Added an error message with the main, shrink, and tail section counts.
+- Moved the check before mnt_want_write_file().
+- Restored the compact formatting in the shared boundary helper.
+- Added a post-freeze recheck for a concurrent remount option change.
 
-This is described in the Intel RDT Architecture Specification:
-https://cdrdv2-public.intel.com/789566/356688-intel-rdt-arch-spec.pdf
+The complete v2 series was sent separately.
 
-This patch set focuses on the first part: enabling MMIO-based access for
-Cache Monitoring Technology (CMT), while CAT/MBM/MBA are still using MSR.
-The platform advertises the MMIO register layout through the ACPI ERDT
-(Enhanced Resource Director Technology) table, which contains sub-tables
-describing per-domain register regions for monitoring and allocation.
-
-With ERDT, L3 cache occupancy counters are read via MMIO rather than
-MSR, allowing the reads to be performed from any CPU without requiring
-cross-CPU IPIs. This series parses the relevant ACPI sub-tables (RMDD,
-CMRC), prepares the resctrl monitor infrastructure for MMIO-based reads,
-and adds initial support for reading L3 occupancy via the CMRC interface.
-
-kselftest of CMT and L3_CAT has passed with minor adjustment at
-https://lore.kernel.org/lkml/20260523101715.3964456-1-yu.c.chen@intel.com/.
-
-Thanks Tony, Reinette, Thomas, Dave, Boris, Peter, Hongyu for your time to
-look at this patch set.
-
-V7 has gone through local sashiko review, with false positives left
-unaddressed.
-
-Changes from V6 to V7:
-- Let get_rdt_resources() clean up its own state on failure and drop the
-  asymmetric __resctrl_arch_late_init() wrapper. (Reinette Chatre)
-- Make erdt_max_rmid and num_ids unsigned and use a plain min(), match
-  erdt_ioremap() argument types to ioremap(), and reset erdt_max_rmid in
-  erdt_exit(). (Reinette Chatre)
-- Run erdt_cpu_valid() once in resctrl_arch_online_cpu(), and match an
-  ERDT domain to a resctrl monitoring domain by domain id rather than by
-  cpumask. Warn on an invalid dom_id and on a duplicate ERDT-to-resctrl
-  domain mapping. (Reinette Chatre)
-- Fix the silent truncation of the 64-bit CMRC up_scale: reject an
-  out-of-range value with a FW_BUG warning and fail closed instead of
-  using max_t(int, ...). (Reinette Chatre, Tony Luck)
-- Keep the original resctrl_arch_rmid_read() parameter order (resource
-  first) and drop the unused closid/arch_priv arguments. (Reinette Chatre)
-- Keep a single erdt_cpu_has() declaration in asm/resctrl.h, required by
-  the inline resctrl_arch_round_mon_val(). (Reinette Chatre)
-- Use switch() in erdt_support(), clamp max_rmid with min_t() so MSR-based
-  MBM events are not handed the ERDT RMID, and divide the ERDT scale by
-  snc_nodes_per_l3_cache under SNC. (Reinette Chatre)
-
-Changes from V5 to V6:
-- Reorder the series so that the x86/topology change, which touches a
-  different subsystem, comes first. (Reinette Chatre)
-- Drop the v5 "x86/resctrl: Replace 'msr' in monitoring data identifiers"
-  patch. None of the renamed identifiers are used by the MMIO code.
-  (Reinette Chatre)
-- Split the domain setup into erdt_cpu_valid() and
-  erdt_l3_mon_domain_setup(). Validation now happens in
-  domain_add_cpu_mon() before the CPU is added to the domain cpumask,
-  and attaching ERDT data to a freshly created domain (Reinette Chatre)
-- Drop the SNC special case and the new resctrl_disable_mon_event().
-  (Reinette Chatre)
-- resctrl_arch_round_mon_val() now rounds to the ERDT scale instead of
-  returning the value unchanged (Reinette Chatre)
-- Make erdt_get_max_rmid() a global value instead of a per-CPU lookup.
-  (Reinette Chatre)
-- Use struct cpumask instead of cpumask_var_t, list_for_each_entry()
-  instead of open coded container_of(), and document every member of
-  struct erdt_domain_info. (Reinette Chatre)
-
-Thanks Tony, Reinette, Thomas, Hongyu for your time to look at this patch set.
-
-Changes from V4 to V5:
-There are some major changes since v4:
-- (biggest change) Eliminate the xarray for runtime lookups; embed
-  struct erdt_domain_info directly in rdt_hw_l3_mon_domain and assign
-  during l3_mon_domain_setup().
-- Separate CPUID and ACPI enumeration cleanly. Do not use CPUID feature
-  flags to gate MMIO-based monitoring. Use ACPI table presence (e.g., CMRC table)
-  to determine event enablement.
-- Use ACPI RMDD's own "Max RMID" field for MMIO access instead of relying
-  on CPUID's max RMID (which applies to MSR).
-- Enforce the SNC constraint in code rather than burying it behind a comment
-  WARN. Disable mon_capable in rdt_get_l3_mon_config() when ERDT is
-  enabled and snc_nodes_per_l3_cache > 1.
-- Split non-resctrl changes (topology.c, apic.h) into a separate preparatory
-  patch prefixed with x86/topology.
-- Move the "depends on X86" to "X86_64" adjustment to a separate patch with explicit
-  justification in its changelog.
-
-Changes from V3 to V4:
-- Remove the redundant table length check in subtbl_valid() (Thomas Gleixner)
-- Reuse subtbl_valid() for all the table iteration (Thomas Gleixner)
-- Refine the commit log of [PATCH 5/6] to state that this change is a
-  preparation for [PATCH 6/6] rather than fixing an existing issue
-  (Thomas Gleixner, Reinette Chatre, Tony Luck)
-- Fix if CACD lists all CPUs in the LLC domain (sashiko)
-- Deal with a corner case that if there is no valid RMDD tables,
-  the erdt_enabled_flag should remain false.(sashiko)
-- Add Thomas's Reviewed-by and Hongyu's Tested-by.
-
-Changes from V2 to V3:
-- Wrap __resctrl_arch_late_init() to avoid the goto logic. (Thomas Gleixner)
-- Make the variables in struct erdt_domain_info tabular format (Thomas Gleixner)
-- Remove tail comments (Thomas Gleixner)
-- Make the name of erdt_enabled() and variable in it consistent and
-  comprehensible. (Thomas Gleixner)
-- Use topo_lookup_cpuid() to search the CPU id according to the x2apic id
-  (Thomas Gleixner)
-- Fix kernel doc comment format (Thomas Gleixner)
-- Use brackets for multiple lines "if" case. (Thomas Gleixner)
-- Let the parameter for cacd_init() to fully utilize 100 characters.
-  (Thomas Gleixner)
-- Variables are reordered in reverse fir-tree.(Thomas Gleixner)
-- Added a named constant and use it in the rmdd->flags check.
-  (Thomas Gleixner)
-- Introduce helper functions to make the code readable when iterating
-  the RMDD tables. (Thomas Gleixner)
-- Make the macros tabular format. (Thomas Gleixner)
-
-Changes from V1 to V2:
-- Add #include <linux/cleanup.h> to follow the "include-what-you-use" best
-  practice (Tony Luck)
-- Fix 3 issues reported by:
-  https://sashiko.dev/#/patchset/cover.1779872016.git.yu.c.chen%40intel.com
-  Remove the variable of cacd in struct erdt_domain_info as it will
-  never be used after initialization.
-  Invoke erdt_exit() to avoid resource leak if rdt_alloc_capable and
-  rdt_mon_capable are both false.
-  Adjust the comments suggested by sashiko.
-
-Chen Yu (8):
-  x86/topology: Export topo_lookup_cpuid() for resctrl use
-  x86/resctrl: Require 64-bit x86 for resctrl support
-  x86/resctrl: Parse ACPI ERDT table and save CACD cpumask for RMDD
-    domains
-  x86/resctrl: Attach ACPI ERDT information to L3 mon domain on CPU
-    online
-  x86/resctrl: Parse ACPI CMRC table
-  x86/resctrl: Refactor the monitor read function
-  x86/resctrl: Introduce erdt_cpu_has() and erdt_support()
-  x86/resctrl: Add MMIO-based LLC occupancy monitoring support
-
-Tony Luck (1):
-  fs/resctrl: Do not invoke smp_processor_id() in preemptible context
-
- arch/x86/Kconfig                       |   4 +-
- arch/x86/include/asm/apic.h            |   1 +
- arch/x86/include/asm/resctrl.h         |  11 +-
- arch/x86/kernel/cpu/resctrl/Makefile   |   1 +
- arch/x86/kernel/cpu/resctrl/core.c     |  61 ++-
- arch/x86/kernel/cpu/resctrl/erdt.c     | 518 +++++++++++++++++++++++++
- arch/x86/kernel/cpu/resctrl/internal.h |  50 ++-
- arch/x86/kernel/cpu/resctrl/monitor.c  |  38 +-
- arch/x86/kernel/cpu/topology.c         |   2 +-
- fs/resctrl/monitor.c                   |  44 ++-
- 10 files changed, 702 insertions(+), 28 deletions(-)
- create mode 100644 arch/x86/kernel/cpu/resctrl/erdt.c
-
--- 
-2.25.1
-
+Thanks,
+Wenjie
