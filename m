@@ -1,196 +1,204 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010060.outbound.protection.outlook.com [52.101.201.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D8436606A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788033233; cv=none; b=iUCQU1g/SiH/Ie7Fzarba0J4TFpCZemQEgLgxyi55RHWX0pwvKj3kvXHlwc6e1vViEGiHorlIMfPljeBnLj+NUG7m1HoNplGntfE5g62IEWP6jCGeLd2XeO0tm3VW8sVutssxANlbGVzWG2bU+/lwgc6WpUqzpdTo9RdOPRTySU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788033233; c=relaxed/simple;
-	bh=Q4xOG+7CJmOJ9HgHFoiC99hD/Y1Ja8xpzFRhtIWs8pA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kd9vHqxEJWE9DQAbTRNInY3djFXKOr6/wRCRyxkk/pAGETc3kiQqkrBTPedKJ+2gss4gDfFGhYTKPv8zIYrq4+4Z8mxO9D6MHI1y1gAFtYhjxJarvtfO7lNRVvUolCr4yfxSddCjKVVfKF6Z8kq3YOm/11SFcQYaP9ZoVhqVr3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n8uVxuFD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T3GeLwsw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B0029D291
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788033674; cv=fail; b=sEIiqYL+sDBxV32+5L8MahR/tH59cQeJY2dUdDCY7GioqNjr7dV38JJ+i6GXN4kPxkW0iPguVlJMxkp+WJmqeEWAZR2t3SBTGTd83mu5v77Ldz4ax0THcS7ti+pK9M9/JufHZMqAUoVIckakeYB37yhVxWwyUG2P+brT6MXFXyU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788033674; c=relaxed/simple;
+	bh=xrGO+E+I/OcyzAMgAI3/ynR9AfyogNlX3BTQ1+Szf/s=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gnx3WywDhV9gDTYL34y34i+n8sae6Kr2L6TQ4eLRuveMY6EVvoZD3uPiRIz4K26eJxFFCwBRJ6sGgLzfyxKvv8l8P2Qb6S+nhqu8QDenL4xH4i2IKQQ+JIpbXTWW447mSRyT8moBhKk2i8jpRoHv8QKI0oAt1m0N7ZqR1O232I0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sn1mNuhx; arc=fail smtp.client-ip=52.101.201.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n8uVxuFD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T3GeLwsw"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TJlDRM2083369
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:53:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	A89yu4bxsqfiwMljGx17mCYDJ7tE45j5M/CKoT10KRc=; b=n8uVxuFDuLfFmk03
-	dw9aaqg90VH4kFsxos1WAXFrY54HNWZZL9LBmwDzDF6gMMKMqk45Z6kLcudWLJmn
-	aU+azpRhDC+qdf8XntC5989ItcqvsypzkbgwE+HCcukS/Dk6qsJn+BE3CFv+SbEs
-	Zd4q3jyrarzc2mtO6sU/hgUlxSfHPutIDymBLrBbEkFRp9ZqKpt3nwbhgAzWzAAl
-	UKFWgaVteC3Ldn40Ud8WDRPfnXh+wo2SS+7nfRr1Q+qnU+rLVm6soHW/MUGpjSbO
-	8wgnRpZ0qJwKC1VWBm5SoXB8huZW4XbFqnXEDNdAA7PxzDG76839QkN4R9vxH2wX
-	gMslkg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbrq81grj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:53:50 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c01ff996dso23504901cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:53:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788033229; x=1788638029; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A89yu4bxsqfiwMljGx17mCYDJ7tE45j5M/CKoT10KRc=;
-        b=T3GeLwswqhQuChAe0RnN58va8QhIwL6SLLoUWPdaZMGBuoatM6Tk7BO8gam+4nGR3/
-         vcWy6HyDNk/V/+qXqcxhWB652zaN+BqjEGeVBFmQKdKBGtQdE9DrlL6GLELshVnD/rqN
-         fnoVwlPC9KOlSq1x+HBW7xm8JDXhLUaae6u5wYuL1aBCDScrI9YfufFxVrwuGN6VArDi
-         cBE3TFaYHBNZ98fA1NHob7R5OLMdRDgVmcSS3gdiCbDqy89QnBrNccieox2vaicLBLlI
-         B//Op8QBzOtU4PW6+LkewUMJ56gP2ho6Xye0vJ9y1D3EXFg8ynvu1w+R7GJ/uYa5TSHo
-         YTVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788033229; x=1788638029;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A89yu4bxsqfiwMljGx17mCYDJ7tE45j5M/CKoT10KRc=;
-        b=SCNAvAQ2oHV+MqFOYCP6BVjXDvDs1Zo+6eAqfLzgTDG0tZbIiDBHyMFIXCVNOvT881
-         R3qg6+88VFPAcn+8xWw/aLKen87ndYJRpVsZvU96xL1aawF1Qw8aCpQVZWqBJFpmKsXw
-         5MdtmQ+1Lvq27L63hRdrQpQJFip2x7gubQxJvUrpfshrOVp3zbjtjIrStnMmg3WmTsPO
-         Rd1cxkf247cyqHO+L54chu9uAZuwmY+oIi0ow8gis0RjwfszPWXbK11M99kRa1+7Og0c
-         lHkRWbE/sylY8MTjQtTkkkxpWroBdJL2nTx5g361vecD3JBfoCy8hCKs841NZXy3AEzb
-         ACHg==
-X-Forwarded-Encrypted: i=1; AHgh+Roo35/EOvvMQvcBj2ZcdPeArIrtyjAKw2QLAg9DiAYbC2LvXIjPOXqnaBZlLIbSzJh0DerjJlZKVlZuCFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++niNO8xOoaxh9aRdPJx+pRkdpOmOj0nfAEGaQv8JcDllcZQBV4x
-	ApAidjOpR3qH36ZiItH/BiTZSTHZ3sUzyxX+j0FvtQMi00SxVJRhCi5hegFYy4oJN9EqQJE3FHc
-	yAxqAZhokDgVwSnmMjuIunDrYlpFtM5kfnMfg7+H0a5cxouxETcqQ7b4eFyBpyhPsNrk=
-X-Gm-Gg: AR+sD12rK6NUoQe+OjsxjJOoIu2C0wQqNYEw+EFmJOqoPZ+ohvwF4s0Qes3UIIzpA4B
-	E9PQ6kLNvBdqLD9vzzxy39ap+zm8janspMYf1ZgzRGOp5KMO97QuZN2h+nSj5CEhWY3zA+bG5Le
-	CsQhqrSD0VcVgJOLDdDvYI2YwW3m1UfVzlVB+ARSEOGTaKuFdrQDP8+v1MjMsKcKAOz8d9PiseF
-	aPVMKqgHGZziWGWI2E9GWfCSDIYnunhvhaUxb0axyhMO0O2wli5KtK1SKxbZOq3WwFAOrX+9/ly
-	pIf+E+aMhYbzGs1+2z8LzBKUmBAivL/36aq2UByevXfeG0IjSBSwoItpruDV15/oDPu2g1uSZQ6
-	Dm9qEQm/aH91wqSAnesv7zS0=
-X-Received: by 2002:ac8:7f93:0:b0:52d:6c37:6853 with SMTP id d75a77b69052e-52fb9490521mr182978491cf.16.1788033229201;
-        Sat, 29 Aug 2026 12:53:49 -0700 (PDT)
-X-Received: by 2002:ac8:7f93:0:b0:52d:6c37:6853 with SMTP id d75a77b69052e-52fb9490521mr182978251cf.16.1788033228798;
-        Sat, 29 Aug 2026 12:53:48 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32d30sm12446343f8f.34.2026.08.29.12.53.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 12:53:47 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sat, 29 Aug 2026 21:53:22 +0200
-Subject: [PATCH 6/6] dtc: dt-check-style: Check for indentation also in
- continued lines of bindings example
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sn1mNuhx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sQSv7tgouWFCUOwdKqT/ZbCK0eoML9PGFSNCHqp92YvRdRzcNlTSZbxWjRDu8Ar/4u/UtGN1KMc+YxcodlpP0eZcXdAYJTHwdtd1uX9tIjtXve04vQ6EEcuzY0YCQvC4Rm4s7i70Q7Q4yOBd8Dzw1X50n/mOc2Q+SDGB48MlfabmQRb0DDIAoVe4fLCah7C1J2gZ4RJps3QAm+SyE33Xvad7Az5WOangcbMttEhEnVeq5vM8eH83F3NZUN8vwuBp9lMH6X36PohUkrpVhQm3wNkGZnunjFu+Z4p9zhaT+ZCcG7qBinCnDR+1FogcXiWGw6emQshN8wnHROfZYlKoSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1KyyGb35nAAS4oA4Irll3Sa8Tk2Bw+6AdEssgThZrGY=;
+ b=dhsUkG14sp6fYMa/rI5U7SkxEbGno5WuCr7TspkJr/nQGbR9WHbfCsLsjPbPGzppQuTZL1VWFWCGDT3yqb7qbMRz3rDpZ49JufAp7XwUJ9YIDPhyL7jkE5MWs6PGNTppErbyVtVmUjNrRf69+xd/+bIbCuTbW9fNoJcMn6H8hFF5/pREHbeVh9h3ZbrCIFYL2KH5At/oOooaJXz9NvUTyEqsQxvNRmpjUHQG/8DYOv3RqJm1PNKQziofsW1Bj+YTk0fTAOwz9heRMwPhzZLmUDmDswpmF3Qi5ojU0CUihIaDaxnbVDYwrn7z1OwpokbS6lci+YFKW4DmjRKTi3lqCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1KyyGb35nAAS4oA4Irll3Sa8Tk2Bw+6AdEssgThZrGY=;
+ b=sn1mNuhxxP27HrG9eE0OgT2VA9FIQnxhb1Sg+odFt0sHJ7gdhP8heI1suzhQlqzFJJVEh7Dg/8csvsV5113BfYcw73RELxb0jgZZ7QaZi8OToEiAK+xHd/RpHctVqJw9oX3tJOwZZAOGDYyK6UI+d38s9eUOjlcp6NCazEH3P8nWdAUJlRa8Z4Ougf88VirhWupsViOx7aUDt8yLm0BvPmwBYPaVAUphxHoTvNSiLkiaveRS23emjg1vLsOFMhcadDcxhMv+/6xeLck0783DXOC2Qhqe8XvIGRzHF0yGaJvnfl+r4TWkcGMgFdslFgXrwzViuwF+AoK4DhMjoAwurg==
+Received: from PH0PR07CA0018.namprd07.prod.outlook.com (2603:10b6:510:5::23)
+ by IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
+ 2026 20:01:08 +0000
+Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
+ (2603:10b6:510:5:cafe::72) by PH0PR07CA0018.outlook.office365.com
+ (2603:10b6:510:5::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.12 via Frontend Transport; Sat,
+ 29 Aug 2026 20:01:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Sat, 29 Aug 2026 20:01:07 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 29 Aug
+ 2026 13:00:54 -0700
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 29 Aug
+ 2026 13:00:53 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Sat, 29 Aug 2026 13:00:52 -0700
+Date: Sat, 29 Aug 2026 13:00:52 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+CC: <linux-coco@lists.linux.dev>, <kvmarm@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>, Jonathan Cameron
+	<jic23@kernel.org>, Marc Zyngier <maz@kernel.org>, Pranjal Shrivastava
+	<praan@google.com>, Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz
+	<sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
+	<Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
+	<yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <apM6dOHcEI2ztWS0@nvidia.com>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-dts-style-checker-sort-v1-6-6693a37d7ae1@oss.qualcomm.com>
-References: <20260829-dts-style-checker-sort-v1-0-6693a37d7ae1@oss.qualcomm.com>
-In-Reply-To: <20260829-dts-style-checker-sort-v1-0-6693a37d7ae1@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2171;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Q4xOG+7CJmOJ9HgHFoiC99hD/Y1Ja8xpzFRhtIWs8pA=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqkzi4kK2WK0hmKDhJ+9pPyc/G4IifUG/9KYa7E
- hNdiRjjFMeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapM4uAAKCRDBN2bmhouD
- 15L8D/9ivhC+vXPLKgFj4FfvkPAdj4m9Hr5qffUfAj3ThVmq8cyafZT60dcLxaTgM2Oli0SK4V5
- GxDXqCFTVuv0qtUR3GPuWVL78yHf6IlK1UXzm61TTAUHBkER6+i2WRiE4sYkTCM4P6gVBl2e3n/
- nu4JOOz4BNbbfbn9tteZ09a936t/jmMtgq2Hu0lrdhlpbkPlK4BX5ki/c+95JjK6Jwcb130nyr6
- mNlbyy+2/E8Ymdvx8xv35TsV18rx01vsaGZN65fUDaAKuw6+Y/JmVpg40zGNS109JwB0Jc7B/A9
- c6JAru/Ru9lQW/bZ2g6XPBNynwT1nnDlcXf/bil9NKaGKwU+kqbQptG1DLgPhR7Y+HgLyFkWT1d
- V+SgjvDee5kzQrR3pJ1DPyqn/JEI1z4l9Y+S4iF7td6rAAT9a1BN+BdsVmNDlm+37jpnLg1lva8
- BOm6sOaLMUK8TFcTK5GeFtnuXlZOOl+U+47GcewOxRD6HpDODUcL88BQ/HaVnA6SV+jTO/VapCB
- SFlve8ql5Eue4VdAhwELR8oG4v7xdQSd3kkSJ/rZXft4yDpSlbwGiVcMUt1pjy38pbw7W4zbjPl
- JBeLmd98woNrGpYuOzdxf+fN4mNw6zNS1FZk+ZO+XWnbNCXHMmcoXqL21e/BagX852Gt1om1gp8
- mMNIUOdamLg3obQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-GUID: YK6OeHFjRn6SYeC7Nfh4M8ekuocnF472
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE3MiBTYWx0ZWRfX8858z5daUCxp
- oimRhQG1gELTyBW3DrHiZJCHsSiDzOmmuqJTf5xnya34q4gcsWwHbz+N/DabN75Fs3hS3EiIEXd
- TLu5p+Q9OvF19IlW/ix094yqOQ3wkW0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE3MiBTYWx0ZWRfX9TRYDvCb/tSu
- ZKAQ++ZygjC0fN5sIZ+8rW10y6W9FAd2gAHH1qWx9x/5YdLQNKARHHvzbahULwonrLIGqPunNmU
- anHHyeO4TepOLLBPyIkGnvHyszVGiUjFtWRsvbzOYO3L/SW5+eOBtLjjgpEbfWoD6q7ObfhFdC6
- xo5ZQqZapKrL9hwdkaSrlwmr0ET2EtHQWkSqojlF8EoEcEdMM1cfyCdgBNL9lT8T/8LrXcAdEWh
- s0xQY9C/jKFQKvQi29X+KiS9/m9CJDELJY5w3zjC18plsONrGxNwyHrEhRLIWzfsHDi/st33UhP
- 71RkDn19jzkGDwplqkcOD9Ujq0X3HAi+daE/hLw2bcgOAlFFbs3SbUksSZUE5w2aIvSIrmVkmlE
- j+zQjWh/QwSm5PA+EfTow9SsWLRAhC1dUry/nYcrWv6tRD0QoMKZ7udtEd/eZcukE+2i0AMY9/C
- SReHuHnDDlYkvKa2Etw==
-X-Authority-Analysis: v=2.4 cv=ZOPnX37b c=1 sm=1 tr=0 ts=6a9338ce cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=j2IC0oPSmSx7qzX_OycA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: YK6OeHFjRn6SYeC7Nfh4M8ekuocnF472
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_06,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608290172
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260427085344.941627-4-aneesh.kumar@kernel.org>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|IA1PR12MB8408:EE_
+X-MS-Office365-Filtering-Correlation-Id: af804dde-6e1c-4184-2dfa-08df060843ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|7416014|376014|22082099003|18002099003|56012099006|3023799007|6133799003|11063799006|4143699003|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	7oL0aYKYjVbpbk4U+IPrP9pFnIYkvRcEGI8e7L6xJ97rn2ZUFdMX7VRXsusQXvI9HemNYji4Vsy9EDjRaMJCYKPyHLUzvEBYNInMze8333EAoZV4grhBQnDuEwTHpbOGiSrODIQ6dk5TaUuYoZv63WwI1OfEUbmC3VvUp4G1Edz9dIxxd6ORzDoGlULV5nDD9+YBd6/Nfx9PuHpUQ3eBw1s4SUGfb8hk63gQH55sJc6j3Dmn7YJGJ3yieNfwiT04lgwXelZ4Zz76GXr7i2nKRzE2h51caAgjwxQbT1AhHcD651TjEeDoJWg2pEAvGzeIsHvYt0WXwQwkwA65gaMjgTmJPoUXCehPq6/N1Nbhj1O58UXoPtQg0jfjngL2hMpDrCQRVMkI3wY5bpdimQzpMP53/pjwCpfwQSh6q9TpmVlsp6P6ayARrg4Ra7lHccIXcYWX21R2vz9jj4RYf7KcsX49b5yN3GzEdXuG8D5vxP0I4Dx3oSYQzUybxGq9BHNzIss+10DhVMhHvxHeLnJRdWOffSQ+I9bQlaGI4/GlWIwz7EhelSWg6F7DhVWMLzIDsH0LGJzG2fV/gZI+zi1GLA0TnTjtg61oEpJ++Ct7ldfW+t1lBQ+wcyKkPCgOykmszZzGTioN600P5wBu86a3Th4ceWDqvDHvaPenk1QhgdsIACjTFbPr0OI3i0EaCosHFD7PYAQFJHDcZrqiYZHPdw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(3023799007)(6133799003)(11063799006)(4143699003)(5023799004)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KxE7Juy99ISE9fS7HIlwicdhr1SY1i0HaOCM6OzaCy1GUBwDJQX6Z+Ma3xheHUVfggeBlCd4OxXiOKPbLcyrG646BMqKdnciFsAfsMNl5DBlZ4JQMb9kEd8VVdFIoKn2BaVFozixM9fC5GzAzIlQoa/xOH4Wz/aXRQXyzAuYYaweTTbBFX1AO2yTru/4wjdbo8zubkp/3MFUASkvys5Ht7DOL9e522Tx+SyAV1TAhes93IzSMSN+wrMvrIxc9YF6k9oLhksgUqpj/NAA0+NE67Q3xgLZz+cmVpDQclBlIfoEJQUS3H1HLYUcPpRc7SGuzbz/BjmfbkTH6XFFJTya/79F10weERLn+vnYp0i+tUzA8eLRDJslmC+G4dUtDpzF1YoZaxW0zA7dy8XUCM0+skLnruoVTDF8Ufue9KHyq2+CRNO+1PlFpijV9Ysoir8p
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 20:01:07.4211
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af804dde-6e1c-4184-2dfa-08df060843ba
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF0000150A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8408
 
-Add missing code in check_tab_in_yaml_example() for example in the
-bindings to apply the same rule of discouraged tab character also for
-continued lines (iterating over all DtsLines is not enough).
+On Mon, Apr 27, 2026 at 02:23:31PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> +static const struct iommufd_viommu_ops arm_realm_smmu_v3_ops = {
+> +	.destroy = arm_realm_smmu_v3_destroy,
+> +	.alloc_domain_nested = arm_vsmmu_alloc_domain_nested,
+> +	.cache_invalidate = arm_vsmmu_cache_invalidate,
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- scripts/dtc/dt-check-style                                        | 3 +++
- scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml          | 2 ++
- scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt | 1 +
- 3 files changed, 6 insertions(+)
+I don't think realm vsmmu should include NS nested domain ops. I
+wonder if adding here is for some covert reason that prevents us
+from registering viommu/vdevice objects?
 
-diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index dc5a8ee23d68..0ebbe658b893 100755
---- a/scripts/dtc/dt-check-style
-+++ b/scripts/dtc/dt-check-style
-@@ -959,6 +959,9 @@ def check_tab_in_yaml_example(ctx):
-             continue
-         if '\t' in dl.raw:
-             yield (dl.lineno, 'tab character not allowed in DTS example')
-+        for cont in dl.continuations:
-+            if '\t' in cont.raw:
-+                yield (cont.lineno, 'tab character not allowed in DTS example')
- 
- 
- def check_trailing_whitespace(ctx):
-diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
-index c25a0d1a999e..4f76188b5e23 100644
---- a/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
-+++ b/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
-@@ -26,4 +26,6 @@ examples:
-     device@1000 {
-     	   compatible = "example,test-mixed";
-         reg = <0x1000 0x100>;
-+        clocks = <1>,
-+    	           <2>;
-     };
-diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
-index bc3fc3cf00cc..442f21f90e83 100644
---- a/scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
-@@ -1,2 +1,3 @@
- # mode=relaxed
- bad/yaml-mixed-indent.yaml:27: example 0 [tab-in-yaml] tab character not allowed in DTS example
-+bad/yaml-mixed-indent.yaml:30: example 0 [tab-in-yaml] tab character not allowed in DTS example
+> +static int arm_realm_smmu_v3_vdevice_init(struct iommufd_vdevice *vdev)
+> +{
+> +	struct device *dev = iommufd_vdevice_to_device(vdev);
+> +	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
+> +	// fixme which stream to pick
+> +	/* At this moment, iommufd only supports PCI device that has one SID */
+> +	struct arm_smmu_stream *stream = &master->streams[0];
+> +	struct arm_smmu_device *smmu = master->smmu;
+> +	unsigned long rmi_ret = 0;
+> +	int ret;
+> +
+> +	if (!smmu->realm_initialized)
+> +		return -EINVAL;
+> +
+> +	ret = rmi_psmmu_st_l2_create(smmu->base_phys,
+> +				     ALIGN_DOWN(stream->id, STRTAB_NUM_L2_STES),
+> +				     &rmi_ret);
 
--- 
-2.53.0
+The "vdevice" is for a PSMMU stream table allocation..
 
+> +int arm_realm_smmu_v3_init(struct iommufd_viommu *viommu,
+> +			   const struct iommu_user_data *user_data)
+> +{
+[...]
+> +psmmu_activate:
+> +	ret = rmi_psmmu_activate(smmu->base_phys, virt_to_phys(params),
+> +				 &rmi_ret);
+
+.. and the "viommu" is also for PSMMU activation...
+
+> +++ b/include/uapi/linux/iommufd.h
+> @@ -1055,6 +1055,7 @@ enum iommu_viommu_type {
+>  	IOMMU_VIOMMU_TYPE_DEFAULT = 0,
+>  	IOMMU_VIOMMU_TYPE_ARM_SMMUV3 = 1,
+>  	IOMMU_VIOMMU_TYPE_TEGRA241_CMDQV = 2,
+> +	IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 = 3,
+
+.. and we demand userspace (VMM) to use IOMMU_VIOMMU_ALLOC ioctl,
+even if VMM does not actually expose a guest-level SMMU instance.
+Thus, no user_data.
+
+I can get the reasoning behind the flow using this viommu/vdevice.
+
+But, on the other hand, I can imagine that a Realm VSMMU would add
+a new flag with a user_data to this VIOMMU. Then, this flow would
+give some troubles to VMM (QEMU for example):
+
+ - For VM with a guest-level SMMU, QEMU creates a realm instance
+   where IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 (with vsmmu) can be
+   allocated.
+ - For VM w/o a guest-level SMMU, QEMU won't create such a realm
+   instance, while still required to invoke the ioctl (w/o vsmmu). 
+
+Taking a step back, I wonder if we really need to use iommufd for
+PSMMU activation and its stream table allocations?
+
+Here are some facts:
+  - An iommufd has a ctx, that's one per VM. Similarly, a Realm
+    has an RD.
+  - For an RMI command that needs an RD, it makes sense to be per
+    iommufd ctx, e.g. RMI_VSMMU_* or RMI_VDEV_* commands.
+  - PSMMU commands are global; they don't need RD. So they don't
+    seem necessary to tie to an iommufd ctx.
+
+Instead, could the PSMMU activation be done after RMI_PSMMU_INFO
+check? Is there any reason not to do that? A safer timing might
+be at the device assignment stage?
+
+Speaking of which, RMI_PSMMU_ST_L2_CREATE doesn't seem necessary
+to be invoked in a vdevice context either. Maybe it should align
+with iommufd idev's lifecycle?
+
+Nicolin
