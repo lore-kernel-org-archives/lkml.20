@@ -1,41 +1,41 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28CB2AD2C;
-	Sat, 29 Aug 2026 00:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C572AD2C;
+	Sat, 29 Aug 2026 00:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787964672; cv=pass; b=jg34kdpL+0obq6kDcE2jS1Nq9K3T/yyQnatzZ7wcmV9OjVyw5sp/CmvuJnn8NKEj0FHjdz5H7yRS6S5wuWGRwfC1nN6wwSexO4/APAeo1vZiv4A2rxk3sPCy9Qlx09aVgzfbFHRXjj0/9H6fRsPZWrH+XQW2FqX5+1XFI3W6KP0=
+	t=1787964682; cv=pass; b=JzVBpYdlq4TRWlgDH/rvaV/ppC7IJZchHUSjX5wZ/kkbGZzgeHqzOSqIFVQkZ0KSTczljK3LPO66JoOHz2Wzompu2/qdyh6KEGqkS0a892t1Rv+Ym6DmuLusRyfN75y2SiL9zBTLjDbWh5i2s0/odW01y7vulznjmoc9RFjK19k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787964672; c=relaxed/simple;
-	bh=KcKC1lpd5M/MScUYNZMIZGW1zrmDVHSsSf9u2gafMIo=;
+	s=arc-20240116; t=1787964682; c=relaxed/simple;
+	bh=tVXdyNOKYq3qisWP/jPBYLDndSKOYshz7xCR09Z+TcM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U8zR0UyDzaW7HQZGrb3ch3bBlvdpIggHgvKEo4HOYIHf6hklJmhHSW/Yk5ZZQLvgj/oeEnsRb8x9FatZLcD+9H01QqyWgTi2NpAgS4YWxU5PZDtPMkwzoVzM2BEJ1mIQiXV5k9kw5JMsEF67+5ZYSlXUCYQu5cESRKpimZapniE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=soh.re; spf=pass smtp.mailfrom=soh.re; dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b=SLWl0ZZM; arc=pass smtp.client-ip=165.173.182.12
+	 MIME-Version; b=PSaMi5tRBEMe7JW/uLZp/Hl4l6KMApWWJ18y6c6RYSY/ZrccujDInTFeDIZVJkB5Cb7QiSLOnt0QRYB1wCzxsgOamfb2YAe1sCbkmCRJGGKO9UD2YsAauVtFX+dsztfibe+MjsSrX2wj6f8qvALG1nKBABPjl6r6r2EE9dm9er0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=soh.re; spf=pass smtp.mailfrom=soh.re; dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b=OwHr1HNc; arc=pass smtp.client-ip=136.143.188.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=soh.re
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soh.re
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b="SLWl0ZZM"
-ARC-Seal: i=1; a=rsa-sha256; t=1787964620; cv=none; 
+	dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b="OwHr1HNc"
+ARC-Seal: i=1; a=rsa-sha256; t=1787964624; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=M0KixUE2X4FvSnv0OWv7T+6lugmnStjMWs0IsVa7cwEJ/RiTaK5ZUe1gsMXrCucc/cRaH+xQZhZdm5uY38vHHwkmyGhqro7PTzBq7Cn1OBZTOdLxkmNCn3tvFhY2hyryvJybThjnrVDXCLwWBpvwUQOqvokpI/Vf3MV4PnqISL0=
+	b=PT8VBHVoZ6m7y17X1GbbBxsJ4u5KlGp+gyWyb5H8EzmG+ewYDutgvlWDb8snACf8Gfk9IrvkH3+BDkuNa4UGEVaAltwwVrmyMg8PhiOLgkEAJn2aa+qCXkx2m+FJX8rzwkyMohCPFmwMUudlM6nMxa6DyyK0iRADyKttUNVzqoI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787964620; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=eGLCFh/sS8kocbDCnBxw63CA+DWB2qQYWqmiwR0wgiA=; 
-	b=WcoPGCS82fk14hSQffbYnbw31404I8E5CdQd5rCnzHNKX7AOAs6c8EpJ6hyL5xkLVe0jJKUSyB6qqVueicdjcSpMM3CFwAzYFPUjBd53kb94Kwu6BUj9jhv5ZxrznPgdnsab110aOVqHdZtqcsf7xw1zl0s6YmKANFAXy9gdTlU=
+	t=1787964624; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=B2dQm398SYqYVR2Fx56qj0yNqkR/SFsRTmj7xa8dWK8=; 
+	b=RSmGiHLV47hgaEiiqeHjM/9vxUh2SICxJnXl9lYmk8LJS+SVai4euldJDSb2JCe8voA9RaKS5NenZzO6LDvIzD9b2WgPrySjKE6ziUR7mxebFnrAEbEkLrHdfdsw2jq11Ir/vWFTy+A+sa0/2oNsbg1Wjf/ppvQf8aihCAZWkks=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=soh.re;
 	spf=pass  smtp.mailfrom=jon@soh.re;
 	dmarc=pass header.from=<jon@soh.re>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787964620;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787964624;
 	s=zmail; d=soh.re; i=jon@soh.re;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=eGLCFh/sS8kocbDCnBxw63CA+DWB2qQYWqmiwR0wgiA=;
-	b=SLWl0ZZMM7t4OSXpwGMAGreXuy1BuvhrDs9071RTtGPQXpgWxJlD8ZlgAreXYvh5
-	svrzK8fQgVNUhOboXY3W6/Qzo+WRIZDL3O9g20+GgJVttQLXQVbMOEcWtcVAY7GQ7rp
-	X84lsU0JgfB/a8NnvuBfRnPmQOOhWGcGpMSkr8A0=
-Received: by mx.zohomail.com with SMTPS id 1787964618085979.0671666183343;
-	Fri, 28 Aug 2026 17:50:18 -0700 (PDT)
+	bh=B2dQm398SYqYVR2Fx56qj0yNqkR/SFsRTmj7xa8dWK8=;
+	b=OwHr1HNcknp0MaWnQl15EbmNknI19ziAywj6JdHfXWfoVSPszpbxgGpxtKIAATnT
+	4Rs/XRO38YP+4hxBYncznpwX4c243AWRrzLfXP6UBgr9Qc8pun3NVfg8diBze4PtMlW
+	SxXbzbjl4PGPzHInUbIhZ/FMAE0JVvJ2B4bF/nfg=
+Received: by mx.zohomail.com with SMTPS id 1787964621972180.44364146302325;
+	Fri, 28 Aug 2026 17:50:21 -0700 (PDT)
 From: Jonathan Seth Mainguy <jon@soh.re>
 To: linux-sound@vger.kernel.org
 Cc: perex@perex.cz,
@@ -43,9 +43,9 @@ Cc: perex@perex.cz,
 	niklas@aldervall.se,
 	linux-kernel@vger.kernel.org,
 	Jonathan Seth Mainguy <jon@soh.re>
-Subject: [PATCH 3/4] ALSA: usb-audio: add Roland QUAD-CAPTURE multirate support
-Date: Fri, 28 Aug 2026 20:50:00 -0400
-Message-ID: <20260829005001.534571-4-jon@soh.re>
+Subject: [PATCH 4/4] ALSA: usb-audio: set Roland Capture rate during stream preparation
+Date: Fri, 28 Aug 2026 20:50:01 -0400
+Message-ID: <20260829005001.534571-5-jon@soh.re>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260829005001.534571-1-jon@soh.re>
 References: <20260829005001.534571-1-jon@soh.re>
@@ -58,144 +58,138 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-The QUAD-CAPTURE provides alternate settings for 44.1, 48, 96 and
-192 kHz. Its fixed quirk currently describes only 44.1 kHz.
+Roland OCTA-CAPTURE and QUAD-CAPTURE select their hardware clock with
+a vendor control request. Streaming fails when the hardware clock differs
+from the rate selected for the USB endpoint.
 
-Add the remaining playback and capture settings. The device provides
-four playback and six capture channels through 96 kHz, and two channels
-in each direction at 192 kHz. Each setting uses an S32_LE container.
+During stream preparation, read the hardware rate and send the rate
+request only when it differs from the selected endpoint rate. The control
+transfer can complete before the device reports the new clock rate, so
+poll readback every 25 ms and continue as soon as it matches. Forty
+attempts avoid hammering the control endpoint while bounding an
+unresponsive transition to one second.
 
-Tested on a physical QUAD-CAPTURE with full-duplex streams at 44.1,
-48, 96 and 192 kHz.
+Run the transaction from the existing format-setup quirk, after ALSA has
+selected the endpoint rate and before data URBs are submitted. Hold the
+USB-audio device mutex so playback and capture preparation cannot issue
+overlapping clock changes.
+
+Apply the quirk to:
+
+  0582:0120  Roland OCTA-CAPTURE
+  0582:012f  Roland QUAD-CAPTURE
+
+Tested on physical OCTA-CAPTURE and QUAD-CAPTURE units. Rate changes
+followed by full-duplex streaming succeeded at 44.1, 48, 96 and 192 kHz
+on both. External digital clocking on the OCTA-CAPTURE was tested at all
+supported rates: 44.1, 48 and 96 kHz. The OCTA-CAPTURE disables its
+digital input and output at 192 kHz, so external clocking is unavailable
+at that rate.
 
 Signed-off-by: Jonathan Seth Mainguy <jon@soh.re>
 ---
- sound/usb/quirks-table.h | 98 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 97 insertions(+), 1 deletion(-)
+ sound/usb/quirks.c | 74 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 35eef9cf834b..a1a33f11de4a 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -1374,7 +1374,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 	}
- },
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 91938172912a..4936d66f9591 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -3,6 +3,7 @@
+  */
+ 
+ #include <linux/cleanup.h>
++#include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/slab.h>
+@@ -1855,6 +1856,75 @@ static int rme_digiface_set_format_quirk(struct snd_usb_substream *subs)
+ 	return 0;
+ }
+ 
++#define ROLAND_CAPTURE_RATE_REQUEST		3
++#define ROLAND_CAPTURE_RATE_READ_VALUE		0x0001
++#define ROLAND_CAPTURE_RATE_WRITE_VALUE		0x0008
++#define ROLAND_CAPTURE_RATE_WRITE_PREFIX	0x40
++#define ROLAND_CAPTURE_RATE_RETRIES		40
++#define ROLAND_CAPTURE_RATE_POLL_MS		25
++
++/*
++ * OCTA-CAPTURE and QUAD-CAPTURE use the same vendor request for their
++ * hardware clock.  A read returns the 24-bit little-endian rate followed by
++ * a transition-status byte.  A write carries 0x40 followed by the rate.
++ */
++static int roland_capture_read_rate(struct usb_device *dev, u32 *rate)
++{
++	u8 data[4];
++	int err;
++
++	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
++			      ROLAND_CAPTURE_RATE_REQUEST,
++			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      ROLAND_CAPTURE_RATE_READ_VALUE, 0,
++			      data, sizeof(data));
++	if (err != sizeof(data))
++		return err < 0 ? err : -EIO;
++
++	*rate = combine_triple(data);
++	return 0;
++}
++
++static void roland_capture_set_rate(struct snd_usb_substream *subs)
++{
++	struct snd_usb_audio *chip = subs->stream->chip;
++	struct usb_device *dev = chip->dev;
++	u32 rate = subs->data_endpoint->cur_rate;
++	u32 current_rate;
++	u8 data[4];
++	int err;
++	int i;
++
++	/* Serialize playback and capture endpoint starts during a clock change. */
++	guard(mutex)(&chip->mutex);
++	err = roland_capture_read_rate(dev, &current_rate);
++	if (!err && current_rate == rate)
++		return;
++
++	data[0] = ROLAND_CAPTURE_RATE_WRITE_PREFIX;
++	data[1] = rate;
++	data[2] = rate >> 8;
++	data[3] = rate >> 16;
++	err = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
++			      ROLAND_CAPTURE_RATE_REQUEST,
++			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      ROLAND_CAPTURE_RATE_WRITE_VALUE, 0,
++			      data, sizeof(data));
++	if (err != sizeof(data)) {
++		usb_audio_warn(chip, "cannot set Roland sample rate to %u Hz: %d\n",
++			       rate, err < 0 ? err : -EIO);
++		return;
++	}
++
++	for (i = 0; i < ROLAND_CAPTURE_RATE_RETRIES; i++) {
++		err = roland_capture_read_rate(dev, &current_rate);
++		if (!err && current_rate == rate)
++			return;
++		msleep(ROLAND_CAPTURE_RATE_POLL_MS);
++	}
++	usb_audio_warn(chip, "Roland sample rate did not reach %u Hz\n", rate);
++}
++
+ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 			      const struct audioformat *fmt)
  {
--	/* only 44.1 kHz works at the moment */
-+	/* S32_LE; altsettings 1-4 match the device clock. */
- 	USB_DEVICE(0x0582, 0x012f),
- 	QUIRK_DRIVER_INFO {
- 		/* .vendor_name = "Roland", */
-@@ -1396,6 +1396,54 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 					.rate_table = (unsigned int[]) { 44100 }
- 				}
- 			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(0) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 4,
-+					.iface = 0,
-+					.altsetting = 2,
-+					.altset_idx = 2,
-+					.endpoint = 0x05,
-+					.ep_attr = 0x05,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 }
-+				}
-+			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(0) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 4,
-+					.iface = 0,
-+					.altsetting = 3,
-+					.altset_idx = 3,
-+					.endpoint = 0x05,
-+					.ep_attr = 0x05,
-+					.rates = SNDRV_PCM_RATE_96000,
-+					.rate_min = 96000,
-+					.rate_max = 96000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 96000 }
-+				}
-+			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(0) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.iface = 0,
-+					.altsetting = 4,
-+					.altset_idx = 4,
-+					.endpoint = 0x05,
-+					.ep_attr = 0x05,
-+					.rates = SNDRV_PCM_RATE_192000,
-+					.rate_min = 192000,
-+					.rate_max = 192000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 192000 }
-+				}
-+			},
- 			{
- 				QUIRK_DATA_AUDIOFORMAT(1) {
- 					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -1412,6 +1460,54 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 					.rate_table = (unsigned int[]) { 44100 }
- 				}
- 			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(1) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 6,
-+					.iface = 1,
-+					.altsetting = 2,
-+					.altset_idx = 2,
-+					.endpoint = 0x85,
-+					.ep_attr = 0x25,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 }
-+				}
-+			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(1) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 6,
-+					.iface = 1,
-+					.altsetting = 3,
-+					.altset_idx = 3,
-+					.endpoint = 0x85,
-+					.ep_attr = 0x25,
-+					.rates = SNDRV_PCM_RATE_96000,
-+					.rate_min = 96000,
-+					.rate_max = 96000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 96000 }
-+				}
-+			},
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(1) {
-+					.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+					.channels = 2,
-+					.iface = 1,
-+					.altsetting = 4,
-+					.altset_idx = 4,
-+					.endpoint = 0x85,
-+					.ep_attr = 0x25,
-+					.rates = SNDRV_PCM_RATE_192000,
-+					.rate_min = 192000,
-+					.rate_max = 192000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 192000 }
-+				}
-+			},
- 			{
- 				QUIRK_DATA_MIDI_FIXED_ENDPOINT(2) {
- 					.out_cables = 0x0001,
+@@ -1885,6 +1955,10 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x2a39, 0x3fa0): /* RME Digiface USB (alternate) */
+ 		rme_digiface_set_format_quirk(subs);
+ 		break;
++	case USB_ID(0x0582, 0x0120): /* Roland OCTA-CAPTURE */
++	case USB_ID(0x0582, 0x012f): /* Roland QUAD-CAPTURE */
++		roland_capture_set_rate(subs);
++		break;
+ 	}
+ }
+ 
 -- 
 2.55.0
 
