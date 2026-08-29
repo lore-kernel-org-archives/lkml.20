@@ -1,262 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEEC41C72
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19DB41C72;
+	Sat, 29 Aug 2026 06:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787983942; cv=none; b=bzu09VM5Pm4N4WvqcjCF/jmmM03OhInGebCLZuC+8sf/m8bY1MH3rKwpBX20/v/BAd+wGdxqOQp787CM90WfTKPPvaabezY3acCw/gB9D/zKiLbq7jJE0/+esj7Lxc+mmqkw3pu4SADKm6ZJ3wbg1bjCnnBM6a3OeEhSr1Qrh2Y=
+	t=1787983951; cv=none; b=HtCom1iUxShG11fq4R0NTdf7z8l2c0G6PoBQLGqqvMEeMzuJKUJd5H1RB7CRx+PRWPTsUEZEICZ/bZ4ETVcJu+XdUSnRAit7Ya1XOehNSBcAQaDMIxlum8ilYU9EIfmPTdW73VKG/drVwlUFeOaCgBXTf+FyqlokJ3cDxu5uKE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787983942; c=relaxed/simple;
-	bh=fix6iz2cNNLmBg3gZC4CiSwZDNnVfTdlCYH244Rqc3s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=plv5LsmjKveAVl5+5EDAfVBndNj+8vR1LBXEoP+hxUFqCC7ZyjJ2ikUgBrJppVDCo+9FOzdiQQ09Y3o/MxKVhgkT95dpyln6Nebb84SAm0eS7g55as6/svZ2gfKPKXoyQk40SB2e0uVcHHB73qSRNGH8gQpTcDsQ3/ZNykpwrWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nOkVy6Kc; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787983951; c=relaxed/simple;
+	bh=Cp4EmIoziIZQhnMLJowP2o1f3w59naAntr9YLFs8PCY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ee8HuKvI9vTO98kNyGXK+H9XFxIaMnmNuBFib3hpf6vrwGdE/GCxmtlj+BvTQUg4DH7Nm+tIU0ipib2J5WQ9o9Q4+O/0CUvhxmmvCzunlWFYAXDHoQRUpFmTPPG9MF7G/myosJeqlDvq+uvqEyzxwaxEDJd9/4aIZbSsZsF+Uog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7m7g7Ps; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nOkVy6Kc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787983940; x=1819519940;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fix6iz2cNNLmBg3gZC4CiSwZDNnVfTdlCYH244Rqc3s=;
-  b=nOkVy6KcagFXXCR2XK34usYRih0bdaQeDmbMVOLFqTySV6bTIRoBnxLn
-   L6qX5d6bOItVl49BDd5EcuzlZY7G7M2TEUoMydGp2b0Qg2mHUDqwu3Yot
-   Rp+MYZRUXMWEf4fvFNhoJphpTLELv28CXO6oN9dlYBRfvny5COO0iBk2K
-   jr2nhRc4oYdD69PfNwXYHR9qf/mStVEs9GbogUKUoy0t2CsBj/32jqEvA
-   rX9hQH4IUevxt5ohfcWEag3ovUzWKW2+1/30kmcsGFv8mykSBMHbkOT88
-   Gg0qmYeOk7vo0cFtI6NMQYAS91y07WacpXeuJO4dUJjEMiMbmkGBAXwcC
-   w==;
-X-CSE-ConnectionGUID: bD0NxLXtReSNXAVBaVrp1A==
-X-CSE-MsgGUID: nU4TbL9MS6KFq43+vkwU7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88507821"
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
-   d="scan'208";a="88507821"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 23:12:20 -0700
-X-CSE-ConnectionGUID: nhvXT6AgS+S9syh/zVX4nw==
-X-CSE-MsgGUID: Dwe6FhZCTfqS0IPvjf2Bfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; 
-   d="scan'208";a="271860751"
-Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
-  by orviesa003.jf.intel.com with ESMTP; 28 Aug 2026 23:12:18 -0700
-From: Chen Yu <yu.c.chen@intel.com>
-To: tony.luck@intel.com,
-	reinette.chatre@intel.com
-Cc: tglx@kernel.org,
-	bp@alien8.de,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	fenghuay@nvidia.com,
-	babu.moger@amd.com,
-	chen.yu@linux.dev,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 5/9] x86/resctrl: Parse ACPI CMRC table
-Date: Sat, 29 Aug 2026 14:01:51 +0800
-Message-Id: <63fe5bf4f3314f6ea64b4c1d4284984825855b7c.1787976868.git.yu.c.chen@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1787976868.git.yu.c.chen@intel.com>
-References: <cover.1787976868.git.yu.c.chen@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7m7g7Ps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1701A1F000E9;
+	Sat, 29 Aug 2026 06:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787983950;
+	bh=TRZw1V1vB378QeSlvx5BVidjqGhxuO+qRstnpjHPWb8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=L7m7g7Ps2C498I4YlV7/C6DjkiyJ6vKG70Snu3K+r9J9UaUIbMjW1gV4QlFQh536/
+	 jSpCSm/Qt2WZ7gRJFGJTw1dAf0EC3itaGrMZvE79e9OxcdHvfTi9pORbP74TT0ztwE
+	 oHZFrpLtxWSWg2hBsGhnBMd8yVdcYS8fah5iOjplxgWvMqjiuI+XKsmDySwfT1cOCG
+	 s0LzhW6Px8IrQroI1TiwDC+N75K1wi+KYe554VP+n0gwZWXWqr0c6m8xuY7Ij5f9O7
+	 dJAh7PwqyAav04unbNz3h1+NHKHPuNjwHd2j59jK1UWyKH/MZdRYyZyZGLNGDWyXh4
+	 sqXuw4fuPdYWQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v9 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
+ provider to an SMCCC device
+In-Reply-To: <178794567780.4159892.17969556982711821646.b4-review@b4>
+References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
+ <20260805063255.1638614-7-aneesh.kumar@kernel.org>
+ <178794567780.4159892.17969556982711821646.b4-review@b4>
+Date: Sat, 29 Aug 2026 11:42:20 +0530
+Message-ID: <yq5ald9ptpyz.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The CMRC (Cache Monitoring Registers for CPU Agents Description) sub-table of
-ERDT describes the MMIO registers used to read cache monitoring counters (e.g.
-LLC occupancy) for a monitoring domain.
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-Parse each CMRC sub-table, ioremap its register window, and save a copy of the
-CMRC table in the corresponding ERDT domain entry so that monitoring code can
-read the counters via MMIO.
+>> [ ... 43 lines skipped ... ]
+>> @@ -94,6 +95,12 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
+>>  		.requires_smc   = false,
+>>  		.device_name    = "arm-smccc-trng",
+>>  	},
+>> +
+>> +	{
+>> +		.func_id        = SMC_RSI_ABI_VERSION,
+>  [Severity: High]
+>  Does this new entry cause uninitialized registers to be passed to the
+>  firmware?
+>
+>  Looking at smccc_probe_smccc_device():
+>
+>  	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
+>
+>  The invocation only passes the func_id, leaving r1 uninitialized. Since the
+>  SMC_RSI_ABI_VERSION ABI requires r1 to hold the requested version parameter,
+>  does this leak uninitialized kernel register state to the firmware and pass
+>  a garbage ABI version?
+>
 
-Suggested-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
----
-v6->v7:
-    Make erdt_scale and erdt_max_rmid unsigned int. (Reinette Chatre)
-    Reject an out-of-range 64-bit up_scale with a FW_BUG warning and fail
-    closed instead of using max_t(int, ...). (Reinette Chatre, Tony Luck)
-    Make cmrc_init() failure fail closed. (Reinette Chatre)
----
- arch/x86/include/asm/resctrl.h         |  2 +
- arch/x86/kernel/cpu/resctrl/erdt.c     | 73 ++++++++++++++++++++++++++
- arch/x86/kernel/cpu/resctrl/internal.h |  6 ++-
- 3 files changed, 80 insertions(+), 1 deletion(-)
+Yes. This even can result in error return from firmware like
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 575f8408a9e7..4225a518fada 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -49,6 +49,8 @@ DECLARE_STATIC_KEY_FALSE(rdt_enable_key);
- DECLARE_STATIC_KEY_FALSE(rdt_alloc_enable_key);
- DECLARE_STATIC_KEY_FALSE(rdt_mon_enable_key);
- 
-+unsigned int erdt_get_scale(void);
-+
- static inline bool resctrl_arch_alloc_capable(void)
- {
- 	return rdt_alloc_capable;
-diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
-index 0ce8ef85b2a0..1c477e35d044 100644
---- a/arch/x86/kernel/cpu/resctrl/erdt.c
-+++ b/arch/x86/kernel/cpu/resctrl/erdt.c
-@@ -23,6 +23,7 @@ static LIST_HEAD(domain_info_list);
- static bool erdt_enabled;
- 
- #define ERDT_VALID_VERSION		1
-+#define CMRC_SUPPORTED_INDEX_FN		1
- #define RMDD_FLAG_CPU_L3_DOMAIN		BIT(0)
- 
- /* Bitmask of valid sub-tables found in the first RMDD, used to ensure all RMDDs match. */
-@@ -37,11 +38,26 @@ static u16 first_rmdd_domain_id;
-  */
- static unsigned int erdt_max_rmid;
- 
-+/*
-+ * Used only by the limbo handler to round resctrl_rmid_realloc_threshold.
-+ * resctrl_rmid_realloc_threshold is a single global value, and
-+ * resctrl_arch_round_mon_val() takes no domain argument, so a single scale has
-+ * to be derived from the per-domain cmrc->up_scale. max() is chosen because the
-+ * rounding is a floor: a larger scale yields a slightly lower threshold, i.e. an
-+ * RMID has to drop to a slightly lower occupancy before it is reused.
-+ */
-+static unsigned int erdt_scale;
-+
- unsigned int erdt_get_max_rmid(void)
- {
- 	return erdt_max_rmid;
- }
- 
-+unsigned int erdt_get_scale(void)
-+{
-+	return erdt_scale;
-+}
-+
- static void __iomem *erdt_ioremap(resource_size_t base, u32 num_pages, const char *desc)
- {
- 	void __iomem *addr;
-@@ -71,6 +87,7 @@ static void erdt_iounmap_domain(struct erdt_domain_info *domain)
- static void cleanup_one_domain(struct erdt_domain_info *d)
- {
- 	erdt_iounmap_domain(d);
-+	kfree(d->cmrc);
- 	kfree(d);
- }
- 
-@@ -105,6 +122,49 @@ static __init int cacd_init(struct acpi_subtbl_hdr_16 *subtbl,
- 	return 0;
- }
- 
-+static __init int cmrc_init(struct acpi_subtbl_hdr_16 *subtbl,
-+			    struct erdt_domain_info *domain_info)
-+{
-+	struct acpi_erdt_cmrc *cmrc = (struct acpi_erdt_cmrc *)subtbl;
-+
-+	if (cmrc->header.length < sizeof(*cmrc)) {
-+		pr_warn(FW_BUG "Truncated CMRC sub-table\n");
-+		return -EIO;
-+	}
-+
-+	if (cmrc->index_fn != CMRC_SUPPORTED_INDEX_FN) {
-+		pr_info("Unsupported CMRC index function %u\n", cmrc->index_fn);
-+		return -EIO;
-+	}
-+
-+	if (!cmrc->clump_size) {
-+		pr_warn(FW_BUG "CMRC clump_size is zero\n");
-+		return -EIO;
-+	}
-+
-+	/* resctrl scales monitoring values with an unsigned int. */
-+	if (cmrc->up_scale > UINT_MAX) {
-+		pr_warn(FW_BUG "Insane CMRC up_scale value 0x%llx\n", cmrc->up_scale);
-+		return -EIO;
-+	}
-+
-+	domain_info->base[ERDT_MMIO_CMRC_BASE] =
-+		erdt_ioremap(cmrc->cmt_reg_base, cmrc->cmt_reg_size, "CMRC base");
-+	if (!domain_info->base[ERDT_MMIO_CMRC_BASE])
-+		return -EIO;
-+
-+	domain_info->cmrc = kmemdup(cmrc, cmrc->header.length, GFP_KERNEL);
-+	if (!domain_info->cmrc) {
-+		iounmap(domain_info->base[ERDT_MMIO_CMRC_BASE]);
-+		domain_info->base[ERDT_MMIO_CMRC_BASE] = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	erdt_scale = max(erdt_scale, cmrc->up_scale);
-+
-+	return 0;
-+}
-+
- static inline struct acpi_subtbl_hdr_16 *rmdd_subtbl(struct acpi_erdt_rmdd *rmdd)
- {
- 	return (void *)rmdd + sizeof(*rmdd);
-@@ -170,6 +230,19 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
- 
- 			subtbl_mask |= BIT(ACPI_ERDT_TYPE_CACD);
- 			break;
-+		case ACPI_ERDT_TYPE_CMRC:
-+			/*
-+			 * Only one CMRC is supported per domain as there is no
-+			 * method to distinguish different CMRCs within a domain.
-+			 */
-+			if (subtbl_mask & BIT(ACPI_ERDT_TYPE_CMRC))
-+				break;
-+
-+			if (cmrc_init(subtbl, domain_info))
-+				goto cleanup;
-+
-+			subtbl_mask |= BIT(ACPI_ERDT_TYPE_CMRC);
-+			break;
- 		default:
- 			break;
- 		}
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index dac1d7e71c0d..160174c25792 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -24,10 +24,12 @@
- /*
-  * Index into erdt_domain_info::base[] for each MMIO region.
-  * @ERDT_MMIO_RMDD_CREG: RMDD control register base address
-+ * @ERDT_MMIO_CMRC_BASE: CMRC monitoring register base address
-  */
- enum erdt_mmio_type {
- 	ERDT_MMIO_RMDD_CREG,
--	ERDT_MMIO_LAST = ERDT_MMIO_RMDD_CREG
-+	ERDT_MMIO_CMRC_BASE,
-+	ERDT_MMIO_LAST = ERDT_MMIO_CMRC_BASE
- };
- 
- #define ERDT_MMIO_NUM_TYPES	(ERDT_MMIO_LAST + 1)
-@@ -35,6 +37,7 @@ enum erdt_mmio_type {
- /**
-  * struct erdt_domain_info - Per-domain ERDT information
-  * @base:	Array of ioremapped MMIO region base addresses, indexed by ERDT_MMIO_*
-+ * @cmrc:	Copy of the ACPI CMRC sub-table for this domain
-  * @cpu_mask:	CPUs belonging to this resource management domain
-  * @max_rmid:	Maximum RMID supported by this domain
-  * @dom_id:	L3 cache ID shared by all CPUs in this domain (-1 if unset)
-@@ -42,6 +45,7 @@ enum erdt_mmio_type {
-  */
- struct erdt_domain_info {
- 	void __iomem		*base[ERDT_MMIO_NUM_TYPES];
-+	struct acpi_erdt_cmrc	*cmrc;
- 	struct cpumask		cpu_mask;
- 	u32			max_rmid;
- 	int			dom_id;
--- 
-2.25.1
+[   rmm ] SMC_RMI_VERSION                   6 > RMI_RMI_ERROR_INPUT
 
+
+>
+> This seems like a good point.. Several other APIs had this 'pass a
+> thing in' as part of their version contract too.
+>
+> There is ABI incompatabilitiy here right? It would make sense to break
+> up the really different versions into different device strings if
+> possible. eg v1 and v2?
+>
+
+The goal is only to check whether the firmware function is supported,
+hence the explicit check for SMCCC_RET_NOT_SUPPORTED.
+
+	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
+	ret = res.a0;
+
+	if (ret == SMCCC_RET_NOT_SUPPORTED)
+		return false;
+
+
+>
+> ...
+>
+>  [Severity: High]
+>  Could this also execute an SMC64 call on 32-bit ARM (AArch32) systems?
+>
+>  The smccc_devices array unconditionally includes SMC_RSI_ABI_VERSION, which
+>  is an SMC64 call. Executing an SMC64 function identifier from an AArch32
+>  execution state is architecturally unpredictable and could cause a crash
+>  or hang on 32-bit hardware.
+>
+> No idea if sashiko is right , but it is what I was wondering about in
+> the rng patch...
+>
+
+I will check whether issuing an SMC64 call on 32-bit ARM is a problem.
+
+>
+>> [ ... 44 lines skipped ... ]
+>> +static void unregister_cca_tsm_report(void *data)
+>> +{
+>> +	tsm_report_unregister(&arm_cca_tsm_report_ops);
+>> +}
+>> +
+>> +static int cca_tsm_probe(struct arm_smccc_device *sdev)
+>>  {
+>>  	int ret;
+>>  
+>> @@ -178,30 +175,33 @@ static int __init arm_cca_guest_init(void)
+>>  		return -ENODEV;
+>>  
+>>  	ret = tsm_report_register(&arm_cca_tsm_report_ops, NULL);
+>> -	if (ret < 0)
+>> -		pr_err("Error %d registering with TSM\n", ret);
+>> +	if (ret < 0) {
+>> +		dev_err_probe(&sdev->dev, ret, "Error registering with TSM\n");
+>> +		return ret;
+>> +	}
+>>  
+>> -	return ret;
+>> +	ret = devm_add_action_or_reset(&sdev->dev, unregister_cca_tsm_report,
+>> +				       NULL);
+>> +	if (ret < 0) {
+>
+> Can just make unregister the remove function. Don't need to use devm
+> for everything.
+>
+
+IIUC, you are suggesting to do the below?
+
+static void cca_tsm_remove(struct arm_smccc_device *sdev)
+{
+        tsm_report_unregister(&arm_cca_tsm_report_ops);
+}
+
+static struct arm_smccc_driver cca_tsm_driver = {
+        .driver_name = "arm_cca_tsm",
+        .probe = cca_tsm_probe,
+        .remove = cca_tsm_remove,
+        ...
+
+-aneesh
