@@ -1,509 +1,840 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3087081A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAEB30D401;
+	Sat, 29 Aug 2026 00:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787964224; cv=none; b=t1bwj3rgIOxcqt6bGZ3TmzdgsxEB0iWsDxHaIru6Hjm1qXqZS6L33JgZnls783SJXbK9zY7fDLTUfZJpjFUOBRegp2g8iRbT6EyuMi0NOO2Ufm0yQ0pA07dXniwJvtX2m29d0rf6PtFOPi0FlHzQQhpFujtTDOZivpy0zeOmMoc=
+	t=1787964361; cv=none; b=GBEFfbcxCmwyJBReK8b7jRthirhNW5WNIK8zkhCcBSHhmITxH7Js5Ke6F9W2Ya/xNdKvRHOoTihuBZF8sPkKYeymkkxe5YcbIgR7BABLeVZxrkkD+mbT4JhnNqS6e+QiMedVM03C0xYkioBU9mp++/jXsMH27g7JzBeOHbaUv+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787964224; c=relaxed/simple;
-	bh=vuQWjuWmc/4sF5KKA0zN5j2a6b7warJW3Qjsznw9VoM=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=b0Fr42RtgYbyb57NMimoL/LlD+YXDAFCqax5iFO4KqoVWPVqfAyBRR54+7YEPaFxosUM9qYECdDQla4TbFuTFX29HxnTJoiQ4WG88hKzyOcdABPuOTSCKjr5yQxshduiuYW/WVFSl4wRM+NXPPXawi77yMCKwugEbceLS18/PAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jqluv.com; spf=none smtp.mailfrom=jqluv.com; dkim=pass (2048-bit key) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b=JLMTQU/S; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jqluv.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=jqluv.com
+	s=arc-20240116; t=1787964361; c=relaxed/simple;
+	bh=1LIEzrExSJNQ4G5rWHRHv/z8xX126+D4fPUCClDFJcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3B6qV9Szzvyt4/74uvngxti3vAfEMHuiGUHXm1svrQP603tTgw0A/8DjDissYnkSy1l02doEanpgoUt54JhLvCfx8oTmWroCilOGbZV4Wg8vAH5aUhP3SpWHaWlR8Jp/2sQBiHKvhW4i1ZePKe4+TCiAx/N9TWzIYemABrAa1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+w9kHbz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="JLMTQU/S"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d032846c95so17655445ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:43:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1787964221; x=1788569021; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uQpe6EYgnCeHFjzDxcLFZOag62YE7lR3UJLijS4+XTo=;
-        b=JLMTQU/Suxj2V5ChDefQ2C0F+EXRnYNV6W8UfY+oyiwC3/L+DwZKQ10BfilCsVvjPk
-         MFJXmxbcrsAgkO+t02Rvc0jXfKbSiFJtAYIsjRfEsz9GVfB272BENY7v5ZirPlK5SdX5
-         Ra2pC7R/3Cf949fc3ki2meUCGR0ScFTKtk+WIddWAHMpPIgpYTHgF01a926Lk81icK9O
-         +iXhdquNUrAfAB0Sa9zizhN/QbmtYyPprYNy/FtGtWHuib6pbCfxH7jh4wxz1vdJ6VUw
-         0sFppFfWGs847xh1Rt7V8/IiukdufdPvRwaj3q7qRba212KXTVFURXAzynyKRlRPucLx
-         8m8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787964221; x=1788569021;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uQpe6EYgnCeHFjzDxcLFZOag62YE7lR3UJLijS4+XTo=;
-        b=PWmmwvjhtkFjfuBiUz2xyVuq0hQe6eTi0TCtnbdPH3SetyLO9FD8rMkwg+HbxZ9qKd
-         Fzyf+9FtIn0hiToizPimn6lDQKppq8Kw1qDaJ/8ZV3iyAOp/nLPxH0/GAGfb229JP5lH
-         JfOZ9X9Io8IwP/pubr+tQjZ2MG/he+0tjdgtP8SWMHOtdsLzLxeKLSVG9s25HPDyfj+e
-         h7flHnYtxrn4/V4hcluvU2Ew765mPFNOqa0vJI6qsY3Xxes+9oaTOXna57eUPAuJ28V4
-         ZlIyNwOpaN2k3lmrl4yfnewRTgfYcsmPymw3tdG9cuzW8rLWukGJWwfgc3U4/4LeJoO9
-         3YPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWCuZP0MC2K5pLZPhPNyq6gu/J8aH6fH5BaSyKb9L1/yWD9meIoeX+tYkpFc4E9Mgb0sc1CbNzxIZpVHM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXnubKuuG8h8h+T8mSB6iCMlVcP8AvmZZLqaSdX1CI3dmID1SM
-	ld1vUJ/VWU9kCU5fGmOWev8qR7a3zs5uam+iKZovXU63cLCqsbcpNULmoWZZaroEszc=
-X-Gm-Gg: AYBFou14hetSlsiLTTLC+v3HbU17UvD2whp17MmNXOzR+0Mlr06nhkPACGVE1u/YtwM
-	AiTNJ8zhDpLOyIlS6zLItJ7b4cqz8EnbVt5YSPFkEYAPDnPGXSlN7M+BzUQTBKt2+Ajju53AKXp
-	W+XA0ZDS6D4yel0Dm3SiXrcy3bL3W8pLBiiZWaH8FJyHPlc2J57/bExngAviYJeMA8i5cLGDerC
-	5bn5P98KnPe2vWjgTaHDJUP6Mg3pslNW9JVb25wpCc6RQUdMtnw+N0JaKGZtr+9XuE4G5d2wKVo
-	cz2IEPC9RR6nn6x3G5X52J0dLrmNXMMtrTVbODFZBgh8SKHNcUwkoZuSbKiQYSq8QXlbQaRRkUI
-	J5/G4++ly078QKZvISpGVt7djT8CjIMz6NqdtIZkfyMrer8P5Sffuj7QMh6CbSTEDfE2QXJ4uoL
-	mYSTOobKCaINFhj6E1utgKLRH0P7f5pPLJq1eHupHV6ekc7rPxSJ9nlogzIXBtVX6jmBG9ra1g1
-	h0ArS01T+GI7N56K4SXYnqaXBN9FtoNHAvsd9d+0uN/X8B2557YqpYgO5dWULqV3cHv
-X-Received: by 2002:a17:902:f688:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2d74dcafb41mr182731545ad.4.1787964220899;
-        Fri, 28 Aug 2026 17:43:40 -0700 (PDT)
-Received: from ?IPV6:2601:201:8000:f750:9062:e94c:b180:8e48? ([2601:201:8000:f750:9062:e94c:b180:8e48])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f784845sm10884356eec.2.2026.08.28.17.43.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 17:43:40 -0700 (PDT)
-Message-ID: <10fb16fb-2069-4d89-b473-1006ae5abfbc@jqluv.com>
-Date: Fri, 28 Aug 2026 17:43:38 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+w9kHbz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AF11F00A3D;
+	Sat, 29 Aug 2026 00:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787964355;
+	bh=NUXs1v2b7nE8F7StJ2mszwRpyPdftPLqgIE1U3Bpq60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S+w9kHbz6dJixmtNc2Jj3BxbCDPK0POahhQITx/+imBsFf1fCQRkD2p9Cv3yJrFtJ
+	 h2l2y0SNa7Go7OkXC/fs53XrFFu586v3ASK+JhrxCrEsFeqAVAps40dX+4tLkz4ydF
+	 QqaOJnSt7NQbuTTxmPHotdnSYrd1hcpj7mr7BQjbPMhjOhBhSxFMh6YbB37xYhAWvD
+	 UP8DDatSebQmhlk8LAnoRAolGS8oVjmozkKQcLP+FGNhz6nHP2RPGAKzhgs3zQ5M+H
+	 eatpm7NCGYQnwjuh+gT12kYvPHqmYxY+qsm7lNh6PaIyQiAjn4Hpdb87YNj6vBE78V
+	 J0TGNz0cNgowg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.phl.internal (Postfix) with ESMTP id A5FD8F40066;
+	Fri, 28 Aug 2026 20:45:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 28 Aug 2026 20:45:54 -0400
+X-ME-Sender: <xms:wiuSaviiCVqNgqNNqHYrkGDhyy_aPR3cy5clTJWE-AXNJG43WHkvOQ>
+    <xme:wiuSalWjEi8hG6p87plxfSHVvdE9JhXgKnQPw1qSNwtneIgjSteoQ5kg0JGffDSQD
+    pwFvRPyAs-w39KGsrw9WeegVqVGfSP3DGPT5D2YRWDyYa0XLGD_1Q>
+X-ME-Received: <xmr:wiuSamW4f3il0SD1zfDCqFelN2RnCUQT9urL1kJA4jwqextAU7Hbn9io9_DBUH-u4atXu8--2YQNGOvR_aMJWjgMIuIVCsbM>
+X-ME-Proxy-Cause: dmFkZTEk98i1wFlVA0woFhSDoydXZ33VYliQK8btV3MWOcNFFxgGawzP/oev/RqCn5m4b4
+    llr8enIJijlNNA/jm1KLc6GmKRmoNPDMJVVklucdRjbC39qI4rQrdpxkS96MENKseYNHGy
+    7aJX1UxHbf2FfUUH3lDHF+l+H01bLjrFgHSCqh+T3m6tp4wiPrWZof9iWAFn0fPDbMJsWH
+    Kv9XXukkgrO8rIOUQCzq9htjuuqYvOzs/SvTQxXwQSnRafnxeAKwNKMLOliKLMAKqNqnuc
+    iLPvfnT3pQo7YQubncRS/kaARQr9S6JUIZb3SL59lLPiNHsYfDK94pmzj8mb1wYH0kRXX6
+    PCCo96CYkbDd2Rj+SVbjAU/ItHxU5E4zp6kFQORPOpqilp31I3BIsBpB37MoyegM0ZEwZo
+    OW6T/dS6gG9aS/siDGrYB+RLmqeqFDM7jcL0HX3EakYb6zTXUAXKMJZk/BYQQi6Sf4ByUa
+    4YU77pySQhIgvOOQ2tfzTpajC+lG46KM3U2P4wUU3xhvdO8cbzvW1OOIfuwwwORpSJNauz
+    SNZbX/9kMI/2mHyGgBRQwzCsogfAmelq3Stl/E/QCZjGjo9MGXmZ/3qZ/NkdYr9LB13Xpr
+    KEn8Gp9GQaD82Ht8LvxsI4whVvfTpLAnfXONxVsyyNrYJbbUc8HMBUFq4B6A
+X-ME-Proxy: <xmx:wiuSathfWDAQ-eeLmWRfYaaZnI86xrtDX3wdncgvlvtt1PHywjIKXg>
+    <xmx:wiuSapZV5bQJY0podtaSnbfvLuCkvAKPXjFhr60bM3RWZUwrVGl4Jg>
+    <xmx:wiuSaio5oAmZ3ZTId9c5M5AaiAgd2F1WMNeVkygq3VbJe6XTWz43nQ>
+    <xmx:wiuSauPujxbYrFOyVBwfn9CLc6bP5Wf79rnQ9wBG37lCQ4kfyWqefw>
+    <xmx:wiuSatoW3I3_kurQFaN985PXB8GGbnekreZ0EE49acVSSKJTnU4_fMVv>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 20:45:54 -0400 (EDT)
+Date: Fri, 28 Aug 2026 17:45:53 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+Message-ID: <apIrwRYJbPpmjrNo@tardis.local>
+References: <877bldhkmq.ffs@fw13>
+ <ao4lO7U7L-7Zice1@tardis.local>
+ <87v78wezid.ffs@fw13>
+ <apA4M7Asz0mV9uaw@tardis.local>
+ <87jypbfu1t.ffs@fw13>
+ <apBrZuxU8bmCgG8h@tardis.local>
+ <87bjanfmzz.ffs@fw13>
+ <apCS3T63WUxHd1GH@tardis.local>
+ <87wltbdvmd.ffs@fw13>
+ <87mru5et6r.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: alexander.deucher@amd.com, ilpo.jarvinen@linux.intel.com,
- amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, nra3088@gmail.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Geramy Loveless <gloveless@jqluv.com>
-Subject: [PATCH v3] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87mru5et6r.ffs@fw13>
 
-Firmware typically sizes prefetchable bridge windows for the boot-time
-BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is then
-no room for a driver to grow a Resizable BAR afterwards: every window
-from the leaf up to the root is sized for the small BAR, so
-pci_resize_resource() fails with -ENOSPC. 
+On Sat, Aug 29, 2026 at 01:11:56AM +0200, Thomas Gleixner wrote:
+> On Fri, Aug 28 2026 at 00:52, Thomas Gleixner wrote:
+> > On Thu, Aug 27 2026 at 12:41, Boqun Feng wrote:
+> > So I sat down and reverted
+> >
+> >   1b0866874833 ("locking: Switch to _irq_{disable,enable}() variants in cleanup guards")
+> >   e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
+> >
+> > and then hacked it up just to see how far I get before vanishing to bed.
+> >
+> > Three hours later it surprisingly booted right away into a full distro
+> > kernel and survived kernel builds and a few test cases. :)
+> 
+> /FACMEPALM
+> 
+> Yesterday night I was really surprised but too tired to think about it.
+> 
+> When I came around today to look at it again I was more than embarrassed
+> to figure out that the KVM script rebuilt the wrong branch over and
+> over. So the build numbers kept increasing...
+> 
+> Brown paperbag time ...
+> 
+> Of course the real thing did _NOT_ boot at all, so I sat down and
+> figured out what's going wrong and added a pile of debug to it, which is
+> sadly non-existing in this magic local_interrupt_dis/enable() code.
+> 
+> The overall fallout is moderate. Some of it are actual (but harmless)
+> bugs and the rest are the oddball cases we talked about before.
+> 
+> It builds and boots now for real, but of course your mileage will vary
+> depending on hardware and .config. Combo patch on top of the reverts is
+> below.
+> 
+> The whole pile can be retrieved from git via:
+> 
+>   git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git irqflags
+> 
+> I have some thoughts about how to deal with the overall disaster, but
+> that has to wait until my brain is truly awake again...
+> 
+> Thanks,
+> 
+>         tglx
+> ---
+> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+> index 15fd9ec5ecac..c7229a7cfa7c 100644
+> --- a/arch/x86/Kconfig
+> +++ b/arch/x86/Kconfig
+> @@ -133,6 +133,7 @@ config X86
+>  	select ARCH_USES_CFI_TRAPS		if X86_64 && CFI
+>  	select ARCH_SUPPORTS_LTO_CLANG
+>  	select ARCH_SUPPORTS_LTO_CLANG_THIN
+> +	select ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
+>  	select ARCH_SUPPORTS_RT
+>  	select ARCH_USE_BUILTIN_BSWAP
+>  	select ARCH_USE_CMPXCHG_LOCKREF
+> diff --git a/arch/x86/include/asm/hardirq.h b/arch/x86/include/asm/hardirq.h
+> index dea60d66d976..34bdf24b939b 100644
+> --- a/arch/x86/include/asm/hardirq.h
+> +++ b/arch/x86/include/asm/hardirq.h
+> @@ -113,4 +113,6 @@ static __always_inline bool kvm_get_cpu_l1tf_flush_l1d(void)
+>  static __always_inline void kvm_set_cpu_l1tf_flush_l1d(void) { }
+>  #endif /* IS_ENABLED(CONFIG_KVM_INTEL) */
+>  
+> +#define __ARCH_IRQ_EXIT_IRQS_DISABLED 1
+> +
+>  #endif /* _ASM_X86_HARDIRQ_H */
+> diff --git a/arch/x86/include/asm/preempt.h b/arch/x86/include/asm/preempt.h
+> index fafb6f8cdac3..8b4d4cbae52e 100644
+> --- a/arch/x86/include/asm/preempt.h
+> +++ b/arch/x86/include/asm/preempt.h
+> @@ -61,10 +61,20 @@ static __always_inline void preempt_count_set(unsigned long pc)
+>   */
+>  #define init_task_preempt_count(p) do { } while (0)
+>  
+> -#define init_idle_preempt_count(p, cpu) do { \
+> -	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED; \
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +
+> +#define init_idle_preempt_count(p, cpu) do {						\
+> +	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED | HARDIRQ_DISABLE_OFFSET;	\
+>  } while (0)
+>  
+> +#else
+> +
+> +#define init_idle_preempt_count(p, cpu) do {						\
+> +	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED;				\
+> +} while (0)
+> +
+> +#endif
+> +
+>  /*
+>   * We fold the NEED_RESCHED bit into the preempt count such that
+>   * preempt_enable() can decrement and test for needing to reschedule with a
+> diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+> index 6b0a5861ccb8..0b5a05cb543f 100644
+> --- a/arch/x86/kernel/kvm.c
+> +++ b/arch/x86/kernel/kvm.c
+> @@ -256,9 +256,9 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
+>  {
+>  	u32 flags = 0;
+>  
+> -	if (__this_cpu_read(async_pf_enabled)) {
+> -		flags = __this_cpu_read(apf_reason.flags);
+> -		__this_cpu_write(apf_reason.flags, 0);
+> +	if (raw_cpu_read(async_pf_enabled)) {
+> +		flags = raw_cpu_read(apf_reason.flags);
+> +		raw_cpu_write(apf_reason.flags, 0);
+>  	}
+>  
+>  	return flags;
+> diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+> index 346c438ac880..b0be24a386f3 100644
+> --- a/arch/x86/kernel/process.c
+> +++ b/arch/x86/kernel/process.c
+> @@ -824,7 +824,7 @@ void __noreturn stop_this_cpu(void *dummy)
+>  	struct cpuinfo_x86 *c = this_cpu_ptr(&cpu_info);
+>  	unsigned int cpu = smp_processor_id();
+>  
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  
+>  	/*
+>  	 * Remove this CPU from the online mask and disable it
+> diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
+> index 0fed6d0d7e32..40104170be24 100644
+> --- a/arch/x86/kernel/reboot.c
+> +++ b/arch/x86/kernel/reboot.c
+> @@ -98,7 +98,7 @@ static int __init set_efi_reboot(const struct dmi_system_id *d)
+>  
+>  void __noreturn machine_real_restart(unsigned int type)
+>  {
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  
+>  	/*
+>  	 * Write zero to CMOS register number 0x0f, which the BIOS POST
+> @@ -535,7 +535,7 @@ static inline void nmi_shootdown_cpus_on_restart(void);
+>  #if IS_ENABLED(CONFIG_KVM_X86)
+>  static void emergency_reboot_disable_virtualization(void)
+>  {
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  
+>  	/*
+>  	 * Disable virtualization on all CPUs before rebooting to avoid hanging
+> @@ -699,7 +699,7 @@ void native_machine_shutdown(void)
+>  	 * not receive the per-cpu timer interrupt which may trigger
+>  	 * scheduler's load balance.
+>  	 */
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  	stop_other_cpus();
+>  #endif
+>  
+> @@ -823,7 +823,8 @@ static int crash_nmi_callback(unsigned int val, struct pt_regs *regs)
+>  	 */
+>  	if (cpu == crashing_cpu)
+>  		return NMI_HANDLED;
+> -	local_irq_disable();
+> +
+> +	raw_force_local_irq_disable();
+>  
+>  	if (shootdown_callback)
+>  		shootdown_callback(cpu, regs);
+> @@ -865,7 +866,7 @@ void nmi_shootdown_cpus(nmi_shootdown_cb callback)
+>  {
+>  	unsigned long msecs;
+>  
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  
+>  	/*
+>  	 * Avoid certain doom if a shootdown already occurred; re-registering
+> diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
+> index aa88370ce739..3164eab7cecd 100644
+> --- a/arch/x86/mm/fault.c
+> +++ b/arch/x86/mm/fault.c
+> @@ -1486,7 +1486,8 @@ handle_page_fault(struct pt_regs *regs, unsigned long error_code,
+>  	 * page fault handling might have reenabled interrupts,
+>  	 * make sure to disable them again.
+>  	 */
+> -	local_irq_disable();
+> +	if (!irqs_disabled())
+> +		local_irq_disable();
+>  }
+>  
+>  DEFINE_IDTENTRY_RAW_ERRORCODE(exc_page_fault)
+> diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+> index 132a9df98471..f13e88fb7a78 100644
+> --- a/drivers/acpi/sleep.c
+> +++ b/drivers/acpi/sleep.c
+> @@ -1095,7 +1095,7 @@ static int acpi_power_off(struct sys_off_data *data)
+>  {
+>  	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
+>  	pr_debug("%s called\n", __func__);
+> -	local_irq_disable();
+> +	raw_force_local_irq_disable();
+>  	acpi_enter_sleep_state(ACPI_STATE_S5);
+>  	return NOTIFY_DONE;
+>  }
+> diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+> index 3bf969ad8fe0..b54afbd6e073 100644
+> --- a/include/linux/interrupt.h
+> +++ b/include/linux/interrupt.h
+> @@ -594,13 +594,14 @@ struct softirq_action
+>  
+>  asmlinkage void do_softirq(void);
+>  asmlinkage void __do_softirq(void);
+> +void do_softirq_irqsoff(void);
+>  
+>  #ifdef CONFIG_PREEMPT_RT
+>  extern void do_softirq_post_smp_call_flush(unsigned int was_pending);
+>  #else
+>  static inline void do_softirq_post_smp_call_flush(unsigned int unused)
+>  {
+> -	do_softirq();
+> +	do_softirq_irqsoff();
+>  }
+>  #endif
+>  
+> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+> index 0bb6c03481fa..ba5210fab31f 100644
+> --- a/include/linux/irq-entry-common.h
+> +++ b/include/linux/irq-entry-common.h
+> @@ -97,6 +97,7 @@ static __always_inline bool arch_in_rcu_eqs(void) { return false; }
+>   */
+>  static __always_inline void enter_from_user_mode(struct pt_regs *regs)
+>  {
+> +	__preempt_count_inc_hardirqs_disable();
+>  	arch_enter_from_user_mode(regs);
+>  	lockdep_hardirqs_off(CALLER_ADDR0);
+>  
+> @@ -275,6 +276,7 @@ static __always_inline void exit_to_user_mode(void)
+>  	user_enter_irqoff();
+>  	arch_exit_to_user_mode();
+>  	lockdep_hardirqs_on(CALLER_ADDR0);
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
+>  
+>  /**
+> @@ -385,6 +387,8 @@ static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct p
+>  		.exit_rcu = false,
+>  	};
+>  
+> +	__preempt_count_inc_hardirqs_disable();
+> +
+>  	/*
+>  	 * If this entry hit the idle task invoke ct_irq_enter() whether
+>  	 * RCU is watching or not.
+> @@ -498,6 +502,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
+>  			instrumentation_end();
+>  			ct_irq_exit();
+>  			lockdep_hardirqs_on(CALLER_ADDR0);
+> +			__preempt_count_dec_hardirqs_disable();
+>  			return;
+>  		}
+>  
+> @@ -514,6 +519,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
+>  		if (state.exit_rcu)
+>  			ct_irq_exit();
+>  	}
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
+>  
+>  /**
+> diff --git a/include/linux/irqflags.h b/include/linux/irqflags.h
+> index 57b074e0cfbb..dd55786768d1 100644
+> --- a/include/linux/irqflags.h
+> +++ b/include/linux/irqflags.h
+> @@ -13,6 +13,7 @@
+>  #define _LINUX_TRACE_IRQFLAGS_H
+>  
+>  #include <linux/irqflags_types.h>
+> +#include <linux/preempt.h>
+>  #include <linux/typecheck.h>
+>  #include <linux/cleanup.h>
+>  #include <asm/irqflags.h>
+> @@ -163,33 +164,149 @@ extern void warn_bogus_irq_restore(void);
+>  #endif
+>  
+>  /*
+> - * Wrap the arch provided IRQ routines to provide appropriate checks.
+> + * Wrap the architecture specific routines to provide appropriate checks.
+>   */
+> -#define raw_local_irq_disable()		arch_local_irq_disable()
+> -#define raw_local_irq_enable()		arch_local_irq_enable()
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +
+> +// FIXME: Convert this into a proper debug mechanism
+> +#define debug_assert(c)					\
+> +do {							\
+> +	WARN_ON(!(c));					\
+> +} while (0)
+> +
+> +static __always_inline void raw_local_irq_disable(void)
+> +{
+> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == 0);
+> +	arch_local_irq_disable();
+> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +
+> +static __always_inline void raw_force_local_irq_disable(void)
+> +{
+> +	arch_local_irq_disable();
+> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +
+> +static __always_inline void raw_local_irq_enable(void)
+> +{
+> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET);
+> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +	arch_local_irq_enable();
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_irq_save(void)
+> +{
+> +	unsigned int cnt = preempt_count() & HARDIRQ_DISABLE_MASK;
+> +
+> +	debug_assert(cnt != HARDIRQ_DISABLE_MASK);
+> +
+> +	if (!cnt)
+> +		arch_local_irq_disable();
+> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +
+> +	return cnt;
+> +}
+> +
+> +static __always_inline void __raw_local_irq_restore(unsigned long cnt)
+> +{
+> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == (cnt + HARDIRQ_DISABLE_OFFSET));
+> +
+> +	if (!(__preempt_count_sub_return(HARDIRQ_DISABLE_OFFSET) & HARDIRQ_DISABLE_MASK))
+> +		arch_local_irq_enable();
+> +}
+> +
 
-Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing a 
-bridge's single prefetchable window with a much larger one (e.g., a 32 GiB 
-VRAM BAR) pushes the required window size past the large BAR's alignment. 
-Because bridge windows round up to a power of two, this forces a massive 
-alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window, 
-wasting ~32 GiB per GPU).
+So we can change the semantics of local_irq_disable(),
+local_irq_enable(), local_irq_save()  and local_irq_restore()? Nice!
+local_irq_{en,dis}able() are no longer idempotent, and
+local_irq_{save,restore}() have to pair with each other or a
+local_irq_{en,dis}able(). This would make things much easier. And TBH, I
+never think this is an option because there could be so much code not
+obeying this (at least not on day 1). Now I see your point on getting
+the design correct at the first place :D
 
-This patch solves both issues to enable ReBAR on cascaded switch fabrics:
+Regards,
+Boqun
 
-1. Reserve Headroom: 
-Reserve prefetchable window headroom for the maximum size of each 
-downstream Resizable BAR during the bridge sizing pass. The device BAR 
-and hardware ReBAR are left at their boot size to prevent tearing down 
-firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-
-2. Pack Oversized Windows (BAR Demotion): 
-The PCI-to-PCI Bridge spec (r1.2, sec 3.2.5) permits a prefetchable BAR 
-to be assigned from the non-prefetchable window. By clearing the PREFETCH 
-flag on small control BARs during enumeration, they are placed below 4 GiB. 
-The prefetchable window is then cleanly sized to the large BAR alone.
-
-Why this is safe for 32-bit (< 4G) MMIO space:
-To prevent exhausting legacy < 4G space, demotion is strictly bounded. It 
-only triggers beside a massive prefetchable BAR (>= 64 MiB), and the demoted 
-BAR is strictly capped at 16 MiB (PCI_BAR_PACK_CAP). Even on an 8x GPU 
-system, this consumes at most 128 MiB of < 4G space. 
-
-Fallback / Alignment logic:
-If the 32-bit space is exhausted, small BARs remain in the prefetchable 
-window. The alignment logic gracefully handles this by rounding the bridge 
-window up to the next power of two (e.g., growing to 64 GiB to fit a 32 GiB 
-BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land in 
-properly aligned slots.
-
-Reserving is safe by default: __assign_resources_sorted() satisfies all
-required resources first. Use pci=no_rebar_reserve and pci=no_bar_demote 
-to restore previous behaviours.
-
-Testing Context:
-- ASUS K14PG-D24
-- 2x EPYC 9354
-- 8x Radeon AI PRO R9700 (Navi 48, 1002:7551)
-- Broadcom PEX890xx switches
-- Kernel base: 45c13f3f9e3b (tested with SEV-SNP passthrough=1)
-
-Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
----
- .../admin-guide/kernel-parameters.txt         |   9 ++
- drivers/pci/pci.c                             |  15 ++
- drivers/pci/pci.h                             |   2 +
- drivers/pci/quirks.c                          |  89 +++++++++++
- drivers/pci/setup-bus.c                       | 142 ++++++++++++++++++
- 5 files changed, 257 insertions(+)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 37006fc3eac3..7360407dd4b8 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5246,6 +5246,15 @@ Kernel parameters
- 		hpbussize=nn	The minimum amount of additional bus numbers
- 				reserved for buses below a hotplug bridge.
- 				Default is 1.
-+		no_bar_demote	Do not demote small prefetchable BARs below 4 GiB to pack oversized prefetchable bridge windows.
-+		no_rebar_reserve	Do not reserve prefetchable bridge-window
-+				space for the maximum size of downstream Resizable
-+				BARs. By default such space is reserved so a driver
-+				can grow a BAR later (e.g. GPU VRAM BAR) even behind
-+				fixed PCIe switch fabrics that firmware sized for the
-+				boot-time BAR; the device BAR is left at its boot size
-+				for the driver to resize and only bridge windows are
-+				enlarged. Use this to restore the old behaviour.
- 		realloc=	Enable/disable reallocating PCI bridge resources
- 				if allocations done by BIOS are too small to
- 				accommodate resources required by all child
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b2879a6be5f8..0bb4ad570171 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -120,6 +120,17 @@ unsigned long pci_hotplug_mmio_pref_size = DEFAULT_HOTPLUG_MMIO_PREF_SIZE;
- #define DEFAULT_HOTPLUG_BUS_SIZE	1
- unsigned long pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
- 
-+/*
-+ * Prefetchable bridge-window headroom is reserved for the maximum size of
-+ * downstream Resizable BARs by default, so a driver can grow one later
-+ * (e.g. amdgpu VRAM BAR) even behind fixed PCIe switch fabrics.
-+ * pci=no_rebar_reserve disables this.
-+ */
-+bool pci_rebar_no_reserve;
-+
-+/* pci=no_bar_demote disables demoting small prefetchable BARs below 4 GiB. */
-+bool pci_bar_demote_disabled;
-+
- 
- /* PCIe MPS/MRRS strategy; can be overridden by kernel command-line param */
- enum pcie_bus_config_types pcie_bus_config = PCIE_BUS_DEFAULT;
-@@ -6840,6 +6851,10 @@ static int __init pci_setup(char *str)
- 					simple_strtoul(str + 10, &str, 0);
- 				if (pci_hotplug_bus_size > 0xff)
- 					pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
-+			} else if (!strncmp(str, "no_rebar_reserve", 16)) {
-+				pci_rebar_no_reserve = true;
-+			} else if (!strncmp(str, "no_bar_demote", 13)) {
-+				pci_bar_demote_disabled = true;
- 			} else if (!strncmp(str, "pcie_bus_tune_off", 17)) {
- 				pcie_bus_config = PCIE_BUS_TUNE_OFF;
- 			} else if (!strncmp(str, "pcie_bus_safe", 13)) {
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index ba3c3fddddc2..0f21972b674a 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -409,6 +409,8 @@ extern unsigned long pci_hotplug_io_size;
- extern unsigned long pci_hotplug_mmio_size;
- extern unsigned long pci_hotplug_mmio_pref_size;
- extern unsigned long pci_hotplug_bus_size;
-+extern bool pci_rebar_no_reserve;
-+extern bool pci_bar_demote_disabled;
- 
- static inline bool pci_is_cardbus_bridge(struct pci_dev *dev)
- {
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda21f..1094f618bb1f 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6423,3 +6423,92 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
- #endif
-+
-+/*
-+ * A small prefetchable BAR sharing a bridge's single prefetchable window with a
-+ * much larger one inflates that window past the large BAR's alignment.  Clear
-+ * PREFETCH on such small BARs at enumeration so they land in the
-+ * non-prefetchable window and the prefetchable window packs to the large BAR
-+ * alone.  pci=no_bar_demote disables this.
-+ */
-+#define PCI_BAR_PACK_MIN	SZ_64M	/* device must have a pref BAR at least this big */
-+#define PCI_BAR_PACK_CAP	SZ_16M	/* only demote small pref BARs up to this size */
-+
-+/* Demote only if the host's 32-bit aperture has room (tracked per host). */
-+static bool pci_pack_low_reserve(struct pci_dev *dev, resource_size_t bytes)
-+{
-+	static struct { struct pci_bus *root; u64 used; } budget[32];
-+	static int nbudget;
-+	struct pci_bus *root = dev->bus;
-+	struct resource *r;
-+	u64 aperture = 0, *usedp = NULL;
-+	int i;
-+
-+	while (root->parent)
-+		root = root->parent;
-+	pci_bus_for_each_resource(root, r, i) {
-+		if (r && (r->flags & (IORESOURCE_MEM | IORESOURCE_PREFETCH)) ==
-+		    IORESOURCE_MEM && (u64)r->end < SZ_4G)
-+			aperture += resource_size(r);
-+	}
-+	if (!aperture)
-+		return false;
-+
-+	for (i = 0; i < nbudget; i++) {
-+		if (budget[i].root == root) {
-+			usedp = &budget[i].used;
-+			break;
-+		}
-+	}
-+	if (!usedp) {
-+		if (nbudget >= (int)ARRAY_SIZE(budget))
-+			return false;
-+		budget[nbudget].root = root;
-+		budget[nbudget].used = 0;
-+		usedp = &budget[nbudget].used;
-+		nbudget++;
-+	}
-+	if (*usedp + bytes > aperture / 2)
-+		return false;
-+	*usedp += bytes;
-+	return true;
-+}
-+
-+static void quirk_pci_pack_prefetch(struct pci_dev *dev)
-+{
-+	resource_size_t max_align = 0;
-+	struct resource *r;
-+	int i;
-+
-+	if (pci_bar_demote_disabled)
-+		return;
-+
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		r = pci_resource_n(dev, i);
-+		if ((r->flags & (IORESOURCE_MEM | IORESOURCE_PREFETCH)) ==
-+		    (IORESOURCE_MEM | IORESOURCE_PREFETCH))
-+			max_align = max(max_align, pci_resource_alignment(dev, r));
-+	}
-+	if (max_align < PCI_BAR_PACK_MIN)
-+		return;
-+
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		r = pci_resource_n(dev, i);
-+		if ((r->flags & (IORESOURCE_MEM | IORESOURCE_PREFETCH)) !=
-+		    (IORESOURCE_MEM | IORESOURCE_PREFETCH))
-+			continue;
-+		if (r->flags & IORESOURCE_PCI_FIXED)
-+			continue;
-+		if (pci_resource_alignment(dev, r) >= max_align)
-+			continue;		/* an alignment-setting BAR, keep it */
-+		if (resource_size(r) > PCI_BAR_PACK_CAP)
-+			continue;		/* not a small control BAR */
-+
-+		if (!pci_pack_low_reserve(dev, resource_size(r)))
-+			continue;	/* no room below 4G: leave it prefetchable (fallback) */
-+		r->flags &= ~IORESOURCE_PREFETCH;
-+		pci_info(dev, "%pR: assigned from the non-prefetchable window to pack the prefetchable window\n",
-+			 r);
-+	}
-+}
-+DECLARE_PCI_FIXUP_HEADER(PCI_ANY_ID, PCI_ANY_ID, quirk_pci_pack_prefetch);
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e8c94aa1d3c1..d8b8cb35b8bb 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -19,6 +19,7 @@
- #include <linux/bug.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
-+#include <linux/log2.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-@@ -1258,6 +1259,61 @@ static bool pbus_size_mem_optional(struct pci_dev *dev, int resno,
- 	return true;
- }
- 
-+/*
-+ * pci_rebar_reserve_size - prefetchable window headroom to reserve for a BAR
-+ *
-+ * Reserve enough prefetchable window space to later grow @resno of @dev to
-+ * its maximum Resizable BAR size. This is done for every ReBAR-capable device
-+ * by default (disable with pci=no_rebar_reserve). Only the optional (add_size)
-+ * part of the enclosing window is inflated here; the device BAR resource and
-+ * the hardware ReBAR are left at their boot size, so the driver still performs
-+ * the actual resize into the reserved window. Reserving the window up front
-+ * avoids -ENOSPC in pci_resize_resource() on fixed switch fabrics, where a
-+ * window shared with a sibling's still-assigned BAR cannot be released and
-+ * regrown at resize time.
-+ *
-+ * The reservation is strictly optional: __assign_resources_sorted() satisfies
-+ * all required resources first and only then places add_size on leftover
-+ * space, so reserving by default cannot make a required BAR or window fail.
-+ *
-+ * Return the extra bytes to reserve and raise *add_align to the BAR's
-+ * alignment so the reserved space can actually hold the grown BAR.
-+ */
-+/* roundup_pow_of_two() is unsigned long and truncates 64-bit sizes on 32-bit. */
-+static resource_size_t resource_size_roundup_pow2(resource_size_t n)
-+{
-+	if (n && (n & (n - 1)))
-+		n = (resource_size_t)1 << fls64(n);
-+	return n;
-+}
-+
-+static resource_size_t pci_rebar_reserve_size(struct pci_dev *dev, int resno,
-+					      resource_size_t *add_align)
-+{
-+	struct resource *res = pci_resource_n(dev, resno);
-+	resource_size_t max_size, cur_size;
-+	int max;
-+
-+	if (pci_rebar_no_reserve || resno >= PCI_STD_NUM_BARS)
-+		return 0;
-+
-+	if ((res->flags & (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH)) !=
-+	    (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH))
-+		return 0;
-+
-+	max = pci_rebar_get_max_size(dev, resno);
-+	if (max < 0)
-+		return 0;
-+
-+	max_size = pci_rebar_size_to_bytes(max);
-+	cur_size = resource_size(res);
-+	if (max_size <= cur_size)
-+		return 0;
-+
-+	*add_align = max(*add_align, max_size);
-+	return max_size - cur_size;
-+}
-+
- /**
-  * pbus_size_mem() - Size the memory window of a given bus
-  *
-@@ -1285,6 +1341,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
- 	int order, max_order;
- 	resource_size_t children_add_size = 0;
- 	resource_size_t add_align = 0;
-+	resource_size_t rebar_align = 0;
- 
- 	if (!b_res)
- 		return;
-@@ -1343,15 +1400,26 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
- 				aligns[order] += align;
- 			if (order > max_order)
- 				max_order = order;
-+
-+			children_add_size += pci_rebar_reserve_size(dev, i,
-+								 &rebar_align);
- 		}
- 	}
- 
- 	win_align = pci_min_window_alignment(bus, b_res->flags);
- 	min_align = calculate_head_align(aligns, max_order);
- 	min_align = max(min_align, win_align);
-+	min_align = max(min_align, rebar_align);
- 	size0 = calculate_memsize(size, realloc_head ? 0 : add_size,
- 				  0, win_align);
- 
-+	/*
-+	 * Round a window sized above its own alignment up to a power of two
-+	 * >= its size, or siblings behind the same switch will not pack.
-+	 */
-+	if (rebar_align && size0)
-+		min_align = max(min_align, resource_size_roundup_pow2(size0));
-+
- 	if (size0) {
- 		resource_set_range(b_res, min_align, size0);
- 		b_res->flags &= ~IORESOURCE_DISABLED;
-@@ -2179,6 +2247,69 @@ static void pci_prepare_next_assign_round(struct list_head *fail_head,
-  * Second and later try will clear small leaf bridge res.
-  * Will stop till to the max depth if can not find good one.
-  */
-+/*
-+ * Release the 64-bit prefetchable BARs of resizable-BAR display devices so the
-+ * windows enclosing them empty out and can be re-sized. The BAR *size* is left
-+ * untouched (only released and re-placed), so the hardware ReBAR is never
-+ * programmed here - the driver still owns the actual resize.
-+ */
-+static int pci_release_pref_bars_cb(struct pci_dev *dev, void *data)
-+{
-+	struct resource *r;
-+	unsigned int i;
-+
-+	pci_dev_for_each_resource(dev, r, i) {
-+		if (i >= PCI_BRIDGE_RESOURCES)
-+			break;
-+		if (r->parent && (r->flags & IORESOURCE_MEM_64) &&
-+		    (r->flags & IORESOURCE_PREFETCH))
-+			pci_release_resource(dev, i);
-+	}
-+	return 0;
-+}
-+
-+/* True if the subtree holds a display device with a growable Resizable BAR. */
-+static bool pci_bus_needs_rebar_regrow(struct pci_bus *bus)
-+{
-+	struct pci_dev *dev;
-+	int i, max;
-+
-+	list_for_each_entry(dev, &bus->devices, bus_list) {
-+		if ((dev->class >> 16) == PCI_BASE_CLASS_DISPLAY)
-+			for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+				max = pci_rebar_get_max_size(dev, i);
-+				if (max >= 0 &&
-+				    max > pci_rebar_get_current_size(dev, i))
-+					return true;
-+			}
-+		if (dev->subordinate &&
-+		    pci_bus_needs_rebar_regrow(dev->subordinate))
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/*
-+ * Release the now-empty prefetchable bridge windows bottom-up so the sizing
-+ * pass re-sizes them (with pci_rebar_pref_reserve() reservation) to fit the
-+ * BARs a driver will later grow.
-+ */
-+static void pci_release_rebar_windows(struct pci_bus *bus)
-+{
-+	struct pci_dev *dev;
-+	struct resource *w;
-+
-+	list_for_each_entry(dev, &bus->devices, bus_list)
-+		if (dev->subordinate)
-+			pci_release_rebar_windows(dev->subordinate);
-+
-+	if (!bus->self)
-+		return;
-+	w = &bus->self->resource[PCI_BRIDGE_PREF_MEM_WINDOW];
-+	if (w->parent && (w->flags & IORESOURCE_MEM_64) && !w->child)
-+		pci_release_resource(bus->self, PCI_BRIDGE_PREF_MEM_WINDOW);
-+}
-+
- void pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
- {
- 	LIST_HEAD(realloc_head);
-@@ -2190,6 +2321,17 @@ void pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
- 	int pci_try_num = 1;
- 	enum enable_type enable_local;
- 
-+	/*
-+	 * Release resizable device BARs and their prefetchable windows so the
-+	 * sizing pass re-sizes those windows large enough (pci_rebar_pref_reserve)
-+	 * for the BARs a driver will later grow. Only released and re-placed - the
-+	 * BAR size is left untouched, so the hardware ReBAR is never programmed.
-+	 */
-+	if (pci_bus_needs_rebar_regrow(bus)) {
-+		pci_walk_bus(bus, pci_release_pref_bars_cb, NULL);
-+		pci_release_rebar_windows(bus);
-+	}
-+
- 	/* Don't realloc if asked to do so */
- 	enable_local = pci_realloc_detect(bus, pci_realloc_enable);
- 	if (pci_realloc_enabled(enable_local)) {
-
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.53.0
-
-
+> +static __always_inline unsigned long __raw_local_save_flags(void)
+> +{
+> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
+> +}
+> +
+> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long cnt)
+> +{
+> +	return !!cnt;
+> +}
+> +
+> +static __always_inline bool raw_irqs_disabled(void)
+> +{
+> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
+> +}
+> +
+> +static __always_inline void raw_safe_halt(void)
+> +{
+> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET);
+> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +	arch_safe_halt();
+> +}
+> +
+> +#else
+> +
+> +static __always_inline void raw_local_irq_disable(void)
+> +{
+> +	arch_local_irq_disable();
+> +}
+> +
+> +static __always_inline void raw_force_local_irq_disable(void)
+> +{
+> +	arch_local_irq_disable();
+> +}
+> +
+> +static __always_inline void raw_local_irq_enable(void)
+> +{
+> +	arch_local_irq_enable();
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_irq_save(void)
+> +{
+> +	return arch_local_irq_save();
+> +}
+> +
+> +static __always_inline void __raw_local_irq_restore(unsigned long flags)
+> +{
+> +	arch_local_irq_restore(flags);
+> +}
+> +
+> +static __always_inline unsigned long __raw_local_save_flags(void)
+> +{
+> +	return arch_local_save_flags();
+> +}
+> +
+> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long flags)
+> +{
+> +	return arch_irqs_disabled_flags(flags);
+> +}
+> +
+> +static __always_inline bool raw_irqs_disabled(void)
+> +{
+> +	return arch_irqs_disabled();
+> +}
+> +
+> +static __always_inline void raw_safe_halt(void)
+> +{
+> +	arch_safe_halt();
+> +}
+> +
+> +#endif
+> +
+>  #define raw_local_irq_save(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+> -		flags = arch_local_irq_save();		\
+> +		flags = __raw_local_irq_save();		\
+>  	} while (0)
+>  #define raw_local_irq_restore(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+>  		raw_check_bogus_irq_restore();		\
+> -		arch_local_irq_restore(flags);		\
+> +		__raw_local_irq_restore(flags);		\
+>  	} while (0)
+>  #define raw_local_save_flags(flags)			\
+>  	do {						\
+>  		typecheck(unsigned long, flags);	\
+> -		flags = arch_local_save_flags();	\
+> +		flags = __raw_local_save_flags();	\
+>  	} while (0)
+>  #define raw_irqs_disabled_flags(flags)			\
+>  	({						\
+>  		typecheck(unsigned long, flags);	\
+> -		arch_irqs_disabled_flags(flags);	\
+> +		__raw_irqs_disabled_flags(flags);	\
+>  	})
+> -#define raw_irqs_disabled()		(arch_irqs_disabled())
+> -#define raw_safe_halt()			arch_safe_halt()
+>  
+>  /*
+>   * The local_irq_*() APIs are equal to the raw_local_irq*()
+> diff --git a/include/linux/preempt.h b/include/linux/preempt.h
+> index 2e689de7b29a..c953cdfb3cc2 100644
+> --- a/include/linux/preempt.h
+> +++ b/include/linux/preempt.h
+> @@ -54,31 +54,31 @@
+>   *             NMI_MASK:	0xf0000000
+>   * (PREEMPT_NEED_RESCHED is in a different word)
+>   */
+> -#define PREEMPT_BITS	8
+> -#define SOFTIRQ_BITS	8
+> +#define PREEMPT_BITS		8
+> +#define SOFTIRQ_BITS		8
+>  #define HARDIRQ_DISABLE_BITS	8
+> -#define HARDIRQ_BITS	4
+> -#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+> +#define HARDIRQ_BITS		4
+> +#define NMI_BITS		(1 + 3 * IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+>  
+> -#define PREEMPT_SHIFT	0
+> -#define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
+> +#define PREEMPT_SHIFT		0
+> +#define SOFTIRQ_SHIFT		(PREEMPT_SHIFT + PREEMPT_BITS)
+>  #define HARDIRQ_DISABLE_SHIFT	(SOFTIRQ_SHIFT + SOFTIRQ_BITS)
+> -#define HARDIRQ_SHIFT	(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
+> -#define NMI_SHIFT	(HARDIRQ_SHIFT + HARDIRQ_BITS)
+> +#define HARDIRQ_SHIFT		(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
+> +#define NMI_SHIFT		(HARDIRQ_SHIFT + HARDIRQ_BITS)
+>  
+> -#define __IRQ_MASK(x)	((1UL << (x))-1)
+> +#define __IRQ_MASK(x)		((1UL << (x))-1)
+>  
+> -#define PREEMPT_MASK	(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
+> -#define SOFTIRQ_MASK	(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
+> +#define PREEMPT_MASK		(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
+> +#define SOFTIRQ_MASK		(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
+>  #define HARDIRQ_DISABLE_MASK	(__IRQ_MASK(HARDIRQ_DISABLE_BITS) << HARDIRQ_DISABLE_SHIFT)
+> -#define HARDIRQ_MASK	(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
+> -#define NMI_MASK	(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
+> +#define HARDIRQ_MASK		(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
+> +#define NMI_MASK		(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
+>  
+> -#define PREEMPT_OFFSET	(1UL << PREEMPT_SHIFT)
+> -#define SOFTIRQ_OFFSET	(1UL << SOFTIRQ_SHIFT)
+> +#define PREEMPT_OFFSET		(1UL << PREEMPT_SHIFT)
+> +#define SOFTIRQ_OFFSET		(1UL << SOFTIRQ_SHIFT)
+>  #define HARDIRQ_DISABLE_OFFSET	(1UL << HARDIRQ_DISABLE_SHIFT)
+> -#define HARDIRQ_OFFSET	(1UL << HARDIRQ_SHIFT)
+> -#define NMI_OFFSET	(1UL << NMI_SHIFT)
+> +#define HARDIRQ_OFFSET		(1UL << HARDIRQ_SHIFT)
+> +#define NMI_OFFSET		(1UL << NMI_SHIFT)
+>  
+>  #define SOFTIRQ_DISABLE_OFFSET	(2 * SOFTIRQ_OFFSET)
+>  
+> @@ -90,18 +90,29 @@
+>   *
+>   * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
+>   */
+> +
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +
+> +#define INIT_PREEMPT_COUNT	(PREEMPT_OFFSET + HARDIRQ_DISABLE_OFFSET)
+> +#define SCHED_PREEMPT_COUNT	(2 * PREEMPT_DISABLE_OFFSET + HARDIRQ_DISABLE_OFFSET)
+> +
+> +#else
+> +
+>  #define INIT_PREEMPT_COUNT	PREEMPT_OFFSET
+> +#define SCHED_PREEMPT_COUNT	(2 * PREEMPT_DISABLE_OFFSET)
+> +
+> +#endif
+>  
+>  /*
+>   * Initial preempt_count value; reflects the preempt_count schedule invariant
+>   * which states that during context switches:
+>   *
+> - *    preempt_count() == 2*PREEMPT_DISABLE_OFFSET
+> + *    preempt_count() == SCHED_PREEMPT_COUNT
+>   *
+> - * Note: PREEMPT_DISABLE_OFFSET is 0 for !PREEMPT_COUNT kernels.
+> + * Note: SCHED_PREEMPT_COUNT is 0 for !PREEMPT_COUNT kernels.
+>   * Note: See finish_task_switch().
+>   */
+> -#define FORK_PREEMPT_COUNT	(2*PREEMPT_DISABLE_OFFSET + PREEMPT_ENABLED)
+> +#define FORK_PREEMPT_COUNT	(SCHED_PREEMPT_COUNT + PREEMPT_ENABLED)
+>  
+>  /* preempt_count() and related functions, depends on PREEMPT_NEED_RESCHED */
+>  #include <asm/preempt.h>
+> @@ -168,6 +179,16 @@ static __always_inline unsigned char interrupt_context_level(void)
+>  #define in_softirq()		(softirq_count())
+>  #define in_interrupt()		(irq_count())
+>  
+> +/*
+> + * Check whether a fault happened in an atomic context. Depending on
+> + * CONFIG_PREEMPT_COUNT and CONFIG_PREEMPTION this check might be useless.
+> + */
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +# define fault_in_atomic()	(preempt_count() != HARDIRQ_DISABLE_OFFSET)
+> +#else
+> +# define fault_in_atomic()	in_atomic()
+> +#endif
+> +
+>  /*
+>   * The preempt_count offset after preempt_disable();
+>   */
+> @@ -322,6 +343,21 @@ do { \
+>  
+>  #endif /* CONFIG_PREEMPT_COUNT */
+>  
+> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
+> +static __always_inline void __preempt_count_inc_hardirqs_disable(void)
+> +{
+> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +
+> +static __always_inline void __preempt_count_dec_hardirqs_disable(void)
+> +{
+> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
+> +}
+> +#else
+> +static __always_inline void __preempt_count_inc_hardirqs_disable(void) { }
+> +static __always_inline void __preempt_count_dec_hardirqs_disable(void) { }
+> +#endif
+> +
+>  #ifdef MODULE
+>  /*
+>   * Modules have no business playing preemption tricks.
+> diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+> index eddbbb65ccc4..086de4c18575 100644
+> --- a/include/linux/uaccess.h
+> +++ b/include/linux/uaccess.h
+> @@ -296,9 +296,9 @@ static inline bool pagefault_disabled(void)
+>   * stick to pagefault_disabled().
+>   * Please NEVER use preempt_disable() to disable the fault handler. With
+>   * !CONFIG_PREEMPT_COUNT, this is like a NOP. So the handler won't be disabled.
+> - * in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
+> + * fault_in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
+>   */
+> -#define faulthandler_disabled() (pagefault_disabled() || in_atomic())
+> +#define faulthandler_disabled() (pagefault_disabled() || fault_in_atomic())
+>  
+>  DEFINE_LOCK_GUARD_0(pagefault, pagefault_disable(), pagefault_enable())
+>  
+> diff --git a/init/main.c b/init/main.c
+> index 2613d3f9b3ce..fa84ce260b04 100644
+> --- a/init/main.c
+> +++ b/init/main.c
+> @@ -991,7 +991,6 @@ void start_kernel(void)
+>  
+>  	cgroup_init_early();
+>  
+> -	local_irq_disable();
+>  	early_boot_irqs_disabled = true;
+>  
+>  	/*
+> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+> index f294dad43bd7..c44607990219 100644
+> --- a/kernel/Kconfig.preempt
+> +++ b/kernel/Kconfig.preempt
+> @@ -152,6 +152,15 @@ config PREEMPT_DYNAMIC
+>  	  Interesting if you want the same pre-built kernel should be used for
+>  	  both Server and Desktop workloads.
+>  
+> +config ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
+> +	bool
+> +
+> +config PREEMPT_COUNT_IRQFLAGS
+> +	bool "Enable reference counted interrupt disable/enable mechanisms"
+> +	depends on ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
+> +	help
+> +	  FIXME: Add some useful blurb
+> +
+>  config SCHED_CORE
+>  	bool "Core Scheduling for SMT"
+>  	depends on SCHED_SMT
+> diff --git a/kernel/entry/common.c b/kernel/entry/common.c
+> index e3d381fd3d25..3c93ce7f86f6 100644
+> --- a/kernel/entry/common.c
+> +++ b/kernel/entry/common.c
+> @@ -171,6 +171,7 @@ irqentry_state_t noinstr irqentry_nmi_enter(struct pt_regs *regs)
+>  {
+>  	irqentry_state_t irq_state;
+>  
+> +	__preempt_count_inc_hardirqs_disable();
+>  	irq_state.lockdep = lockdep_hardirqs_enabled();
+>  
+>  	__nmi_enter();
+> @@ -202,4 +203,5 @@ void noinstr irqentry_nmi_exit(struct pt_regs *regs, irqentry_state_t irq_state)
+>  	if (irq_state.lockdep)
+>  		lockdep_hardirqs_on(CALLER_ADDR0);
+>  	__nmi_exit();
+> +	__preempt_count_dec_hardirqs_disable();
+>  }
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index f78275192036..b6d14feaaf56 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5343,7 +5343,7 @@ static struct rq *finish_task_switch(struct task_struct *prev)
+>  	 *
+>  	 * Also, see FORK_PREEMPT_COUNT.
+>  	 */
+> -	if (WARN_ONCE(preempt_count() != 2*PREEMPT_DISABLE_OFFSET,
+> +	if (WARN_ONCE(preempt_count() != SCHED_PREEMPT_COUNT,
+>  		      "corrupted preempt_count: %s/%d/0x%x\n",
+>  		      current->comm, current->pid, preempt_count()))
+>  		preempt_count_set(FORK_PREEMPT_COUNT);
+> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+> index eb73b65ce6c4..7132320035eb 100644
+> --- a/kernel/sched/idle.c
+> +++ b/kernel/sched/idle.c
+> @@ -380,7 +380,8 @@ static void do_idle(void)
+>  	 * RCU relies on this call to be done outside of an RCU read-side
+>  	 * critical section.
+>  	 */
+> -	flush_smp_call_function_queue();
+> +	scoped_guard(irq)
+> +		flush_smp_call_function_queue();
+>  	schedule_idle();
+>  
+>  	if (unlikely(klp_patch_pending(current)))
+> diff --git a/kernel/smp.c b/kernel/smp.c
+> index b696bcc60c08..d51e4bc8da1b 100644
+> --- a/kernel/smp.c
+> +++ b/kernel/smp.c
+> @@ -665,19 +665,17 @@ static void __flush_smp_call_function_queue(bool warn_cpu_offline)
+>  void flush_smp_call_function_queue(void)
+>  {
+>  	unsigned int was_pending;
+> -	unsigned long flags;
+>  
+>  	if (llist_empty(this_cpu_ptr(&call_single_queue)))
+>  		return;
+>  
+> -	local_irq_save(flags);
+> +	lockdep_assert_irqs_disabled();
+> +
+>  	/* Get the already pending soft interrupts for RT enabled kernels */
+>  	was_pending = local_softirq_pending();
+>  	__flush_smp_call_function_queue(true);
+>  	if (local_softirq_pending())
+>  		do_softirq_post_smp_call_flush(was_pending);
+> -
+> -	local_irq_restore(flags);
+>  }
+>  
+>  static int __smp_call_function_single(int cpu, smp_call_func_t func,
+> diff --git a/kernel/softirq.c b/kernel/softirq.c
+> index e1a773e3eb4e..33f82d03ca2b 100644
+> --- a/kernel/softirq.c
+> +++ b/kernel/softirq.c
+> @@ -455,7 +455,10 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+>  		 * Run softirq if any pending. And do it in its own stack
+>  		 * as we may be calling this deep in a task call stack already.
+>  		 */
+> -		do_softirq();
+> +		if (IS_ENABLED(CONFIG_TRACE_IRQFLAGS))
+> +			do_softirq_irqsoff();
+> +		else
+> +			do_softirq();
+>  	}
+>  
+>  	preempt_count_dec();
+> @@ -517,20 +520,21 @@ static inline void invoke_softirq(void)
+>  
+>  asmlinkage __visible void do_softirq(void)
+>  {
+> -	__u32 pending;
+> -	unsigned long flags;
+> -
+>  	if (in_interrupt())
+>  		return;
+>  
+> -	local_irq_save(flags);
+> +	guard(irqsave)();
+> +	if (local_softirq_pending())
+> +		do_softirq_own_stack();
+> +}
+>  
+> -	pending = local_softirq_pending();
+> +void do_softirq_irqsoff(void)
+> +{
+> +	if (in_interrupt())
+> +		return;
+>  
+> -	if (pending)
+> +	if (local_softirq_pending())
+>  		do_softirq_own_stack();
+> -
+> -	local_irq_restore(flags);
+>  }
+>  
+>  #endif /* !CONFIG_PREEMPT_RT */
+> diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+> index 530d61257b9a..977dd8928934 100644
+> --- a/kernel/time/hrtimer.c
+> +++ b/kernel/time/hrtimer.c
+> @@ -2068,7 +2068,7 @@ static void __run_hrtimer(struct hrtimer_cpu_base *cpu_base, struct hrtimer_cloc
+>  
+>  	lockdep_hrtimer_exit(expires_in_hardirq);
+>  	trace_hrtimer_expire_exit(timer);
+> -	raw_spin_lock_irq(&cpu_base->lock);
+> +	raw_spin_lock_irqsave(&cpu_base->lock, flags);
+>  
+>  	/*
+>  	 * Note: We clear the running state after enqueue_hrtimer and
+> 
+> 
+> 
