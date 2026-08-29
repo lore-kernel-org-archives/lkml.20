@@ -1,81 +1,71 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02C7418368
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A513BB116
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788023164; cv=none; b=pWT2mpM1bJftDQ3LfLwO2csmqkZp4sgp8SKU6cDn633Ir2wHJUazBnFuT7S4Oy4nMI6e+dVUKCzFiah2kNQP/hZul5ioYbinJEiFQwPMK+vhoPY/Q7la4MuLrFuhM2zPeAAHCmx3vZAM8sjqRIwElJAYCSYOV8t9qTGMBQ12GYk=
+	t=1788023231; cv=none; b=td6pcweI5QisAQGF3ie91PtSIKJKqz+BjRIhWOS6XnvjWxfyiQAPvZsZ1cqS8WW0NC3JKy2NDli4RN//9nSH9EDUgwy6/uWN5JbYT4PFqY3z1+5ZJqbT6YoDb+OObarMKqjGknA5Y6ipdWLdizITgjxSWE34zIiE03wmvPVPj6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788023164; c=relaxed/simple;
-	bh=+T3SUvIdlpcApYIWZh4RPOenYo/eds0ZgRRRsx4ineI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Udps/DYqHmnE1C9TqelgqVjOd7joVWtjoWUVI3nUO8HtnXlVRfB4BpA77lz2TIZ3UZ8yOeibMBmuvU7FJsRL4XmYsVYlWjDsoliQ+pM0ZI/lR/nTmLmms8H+tQOpIABAFknUFprLqAp7MmsNy3RIW0xFFZr6p/GjeteI+XHv/6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kLoKVRQT; arc=none smtp.client-ip=209.85.218.47
+	s=arc-20240116; t=1788023231; c=relaxed/simple;
+	bh=pHbnwUN3UUCK4uiyoAaioeKCV4llbaKe1YQzv4Jod+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h256sAhNHbTP6oYDdLj2bt5Tnkp1/K3/s0eVD7AkFd5u9zWIY+2bvXKIhgYAVrpnOzJRZF/3UWFyK9NEACEUVtKjxpmZ59YS9z8NNWA1zGsw8TLE7QbOh8AyjNeuNC7Mi9OGAJ+IJdDyF7E2iEYFjJHU0vtJAOq3mhBXAQGbIKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fUhQOgkQ; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kLoKVRQT"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c197e7e4e94so291434966b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:06:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUhQOgkQ"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47de0093c42so1985466f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:07:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788023157; x=1788627957; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HTn/4/0+Yqcb2yJiGCQLjeFpCyIkZvplKqCgdVt4fEY=;
-        b=kLoKVRQTD77672gi+Q+eyzycfVY4HI3jl/phORUTdJLDEFhhScIWyIXPqfSM43BHFn
-         oHEhfJ7bBvtSBWpeBMy8kR703FVjwLc3h8td9fYT8rJYZUoo7uM07Wy/2BPVPpAXGHd6
-         wRLGZy5uYHDLoa5PzhuY6bvZBFdugCeiWNYHR23+5iTu1tLaBjb97KUXAzauewLBJKE0
-         R3dGzrt9y6QlBcUxRHmK8l14tJ1bdYtfK6ieOKH7mDuJN0rV7SptPVdMcWeDu1WtP1ag
-         /NwLV3rND/2OIGGjX43r8TKj84abW/No2l1w0uzUSQm9olGV5/hO+LbleO8BD/Hw+gJG
-         D7lA==
+        d=gmail.com; s=20251104; t=1788023224; x=1788628024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qc1W4fex00U+eOWL5xaR6NDiG48y7mOQwn5RsxVM7a4=;
+        b=fUhQOgkQ0huY0PfIjDpKtX1qwp34/hG2mIsavIkzOoZg17PInORw2E/9dkI9JWV0h6
+         ZpApOoJxEDvO1ZvoD9C7JgcRm5DbFyD6oSGBqQDOSyo2/fBezZzv/wwYePwsO+5gUTCA
+         KUlOSsMkQ9Oh4rh7FjYwQUXTSIDpYkCi/cccV/ISEYGdM5lB0iebrZPZLH8vG7OlrEiO
+         7CqKYJwXQyon7Un/HLV+yg0ZU2f8JFnTVL5wBMw84lPT5wWTLxIHhoYTu8xyzBi94OHj
+         sBDha1hvlxaDa9lSjuZnDtm3uDX2mnBPoDqVJKPusuKdb7OW/7JCtskFY39ebZ3ICv+t
+         2lyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788023157; x=1788627957;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HTn/4/0+Yqcb2yJiGCQLjeFpCyIkZvplKqCgdVt4fEY=;
-        b=e2HWvGOuee6awVOR1EcNSTgLgTi+CXivUBTZLWjTDIS6U9QWENuTbITqlH/8vjXpGw
-         fVZSGxshXLS+rC/fJKJDxzDow1+0p7nyUYocPq5b2Z9gX1wNwhFy0xFjVNdXzsH2J7xG
-         OY8zEIVNw5MXlYkV90Qml1p1yKcBi3tCxhYbtVn2A2X1eAU27N54HQkVxxT2lahboY4+
-         b2NiKP4rVfkOx9CZZRcPWNZri23bCoDpxfO84/+lz78senlHd+v4b7S9dfwyL33TFMku
-         DFXHWf6/EcD1VdmH+ir7tRB3XDWyKOLBDjocsr4vA1M4S0h6QsFkycZh4X1pdjdUmmIc
-         eOig==
-X-Forwarded-Encrypted: i=1; AHgh+Rqtnsf2JHSIOVfhmzk2MAWIYfEZXv+UQvW1GD28P/tRRvaJymC4kMxNSv+7zCgFSqmTv0UTIFtbzl7svMY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nE4BJNRbcEAjIPN6y20Ri9SG41cAugYa5TA6sQkeggM1rxiGi2
-	fQNih7L7L1qkWdJghUx2iMyQjkB97DoEezfPoW7pMWi5fADpogEstMR9
-X-Gm-Gg: AR+sD13PXkSG4Pcn+CG+yhWY+GZpVaftajJU+eenld0ULfVbLKU8PFqiZPtty7na/Ww
-	Xgu3mWLvuZnLWrKMMwxNXix0gUJ6IbAK0XLW/kE12IRuwMwIpI1TYM1SoCnkY+KwO6n+rN3MUOK
-	RXOntZAkd4rdGEicDWzNzGHqRuyltdkEbFsNvqAKBaPFyy28QANujSe+EqdouxE1Af7uJVnbxyp
-	UnfH1iUt0Fd29hHiY7R35nEtz+7qpXPD96i5twCUIJxDc0wfznCu9YHuBNKGM9dJ5ANbsQfeVzw
-	NBdiW0COZTwWYA8WeTIQh30oaueCOgf32H+gqwJCwSlVNnwpycSonOaEKoCuyXJ9/ygM8d8yN6k
-	tCPyxCR4pmzflYMeO91D1vPNdnZB50zru1YxPNqQs2fbdbw9YiFfrPTXD70vPs1XH1pzRSSRgDI
-	k4VXn/v+uFPDMJkGYaE+CI108Px3HIZ/wkPAvQTujXfXY4smqwtlUYdICmXCYBr5zwvCWKxxPYZ
-	UEVv9RtT75fGx84GoiAjAb4lQ==
-X-Received: by 2002:a17:907:6d25:b0:c20:2d38:e518 with SMTP id a640c23a62f3a-c2556c61d72mr1008446466b.2.1788023157326;
-        Sat, 29 Aug 2026 10:05:57 -0700 (PDT)
-Received: from localhost ([2603:5004:20a0:100c:4701:1ac4:1c21:4a1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee288afsm213294766b.23.2026.08.29.10.05.54
+        d=1e100.net; s=20251104; t=1788023224; x=1788628024;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qc1W4fex00U+eOWL5xaR6NDiG48y7mOQwn5RsxVM7a4=;
+        b=W4roSet8RL7SoxOWDdhgQpG6+oxG446895VkUw4VM2ogL8iGFPMFPD3t9fJ2YQ/ZKl
+         z0LZuc/QRzDftJsx8zMSJIut7FoRZDP95ujOvQhhH8aeTzI94nTu+LJepXTaMzibXCUw
+         5sy9XFDbL0f+R7WXVdCGPIWrdhJcOSWOLOlPMPqazXjZcHcA7ut6sOdDYmjl+7g6+mfp
+         PSoRk5yAJ5rOu+zhj7euGIymkl/HxmH+Wliv1VgjN0LZ8imBiPMgRt9h+h1T6O+XmmL6
+         pqbzJjA6g2gIhuivjDG6738RdYX6hagvsbllBmzcn8nAOOdtLuvOtSEsm+iYUxswzv4J
+         yMhw==
+X-Forwarded-Encrypted: i=1; AKwUvBxnd4cW7T4nS/l5HycEuAkIi11uthgdH9W12WrXs1W7C5sLB0Yau0QMUxFbimAM4d8Mcz0CjbP+zEeq8rI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+gl3m3WpxWpe51OtLVqvk+OXR940awqXIbtO6Q27vkpmsRDAb
+	NPI+nGgqVBAaTycN9n8rVlXoYmis+GIC4MHurvkY8BqpL4iS+2zgoJlo
+X-Gm-Gg: AYBFou1DPLvoWAvtQMEGpSUkZLk4rufoli08quaSpU7lA1A/uvrGhB7+Au+rMheYdQu
+	KEZoGRgNrEuS2bw1wS0yNkKEVINjK4moE0CDU3e0MBzOzCnnIeHNX37Tu5a5kOpZhzOrwhSXnls
+	bcaYm0kbKQ1tpdHe680TfzcSRlUdHLiEjHmRaXXCTn8JkWPdpq9OgY34F9g/VYl1V3kvB9J09ny
+	3VmYIQ3H/PVKGRsC1l4kAXMw6kMA9Q9fTXUxKdluVufGStlXdMjsIi/Yjb8D+P6t9en6C3i9yJ8
+	ipEHfHOPicirMi0o3jvWurXl0QI0UjtqJavkTpTO/rVgYx8v8F6gW60hmb5Xrcp0mC7fwBaAb1+
+	X+v2ST0nlOI3Ww5u+HcQspKutfDId+27nCHGwhq1jpqzxOZCIvkDLDxSmVByMUAcH3Zi1SlAHTN
+	SMwNa3e/nv+ciZ4aFmCip/JtTG3aZh7o30JGzp0yc6n/jNNL28vZif6UH2KNwGQdKOIg==
+X-Received: by 2002:a5d:64c5:0:b0:47f:8b24:ef01 with SMTP id ffacd0b85a97d-482f7977aabmr22156144f8f.1.1788023224359;
+        Sat, 29 Aug 2026 10:07:04 -0700 (PDT)
+Received: from SurHub.localdomain ([102.213.68.39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbad04d4sm11936201f8f.15.2026.08.29.10.07.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:05:55 -0700 (PDT)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-To: Jean Delvare <jdelvare@suse.de>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Benoit Masson <yahoo@perenite.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jerome Tollet <jerome.tollet@gmail.com>
-Subject: [PATCH v5 3/4] hwmon: it87: expose additional temperature limits
-Date: Sat, 29 Aug 2026 19:05:44 +0200
-Message-ID: <20260829170545.33401-4-jerome.tollet@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829170545.33401-1-jerome.tollet@gmail.com>
-References: <20260829170545.33401-1-jerome.tollet@gmail.com>
+        Sat, 29 Aug 2026 10:07:03 -0700 (PDT)
+From: "user.email" <suruurism@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: subash.a.kasiviswanathan@oss.qualcomm.com,
+	sean.tranchetti@oss.qualcomm.com,
+	horms@kernel.org
+Subject: [PATCH net v3] net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
+Date: Sat, 29 Aug 2026 20:06:56 +0300
+Message-ID: <20260829170656.15548-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,128 +74,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "benoit.masson" <yahoo@perenite.com>
+From: Abdifatah Suruur <suruurism@gmail.com>
 
-Expose extra temp min/max/offset/type/alarm attributes when a chip
-reports more than three temperature resources.
+An rmnet device may be created with its real device in a different
+netns than the rmnet device itself (rmnet_newlink() resolves it in
+link_net), and the rtnl config paths below only check CAP_NET_ADMIN
+against dev_net(dev), while mutating rmnet port state attached to the
+real device:
 
-Signed-off-by: benoit.masson <yahoo@perenite.com>
-Signed-off-by: Jerome Tollet <jerome.tollet@gmail.com>
+- rmnet_changelink() rewrites the endpoint mux table and
+  port->data_format and, via rmnet_vnd_update_dev_mtu(), can shrink the
+  MTU of the rmnet endpoint netdevs.
+- rmnet_add_bridge() and rmnet_del_bridge(), reachable via
+  ndo_add_slave/ndo_del_slave through RTM_SETLINK IFLA_MASTER, flip
+  port->rmnet_mode and port->bridge_ep on the real device's port; with
+  bridge_ep pointing at a caller-owned device, rmnet_rx_handler() then
+  forwards real-device ingress frames to it.
+
+A caller privileged only in the rmnet device's netns can therefore
+rewrite the shared cellular data-path state owned by another netns, and
+steer its ingress traffic.
+
+Gate all three with rtnl_dev_link_net_capable(), matching the "require
+CAP_NET_ADMIN in the device netns for changelink" series (vxlan/geneve,
+CVE-2026-68432).
+
+Fixes: 2abb5792387e ("net: qualcomm: rmnet: Allow configuration updates to existing devices")
+Fixes: 60d58f971c1077 ("net: qualcomm: rmnet: Implement bridge mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 ---
- drivers/hwmon/it87.c | 58 ++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 53 insertions(+), 5 deletions(-)
+v3:
+- cover rmnet_add_bridge() and rmnet_del_bridge() with the same gate;
+  they mutate the same real-device port state via ndo_add_slave/
+  ndo_del_slave and have no capability check of their own
+- correct the impact wording: rmnet_vnd_update_dev_mtu() only reads
+  real_dev->mtu; the MTU store lands on the rmnet endpoint netdevs via
+  rmnet_vnd_change_mtu(), not on the real device
+v2:
+- drop Reported-by: (implied for the author), per Jakub Kicinski
+---
+ .../ethernet/qualcomm/rmnet/rmnet_config.c    | 30 ++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/it87.c b/drivers/hwmon/it87.c
-index e077adbb3..e44ec65c7 100644
---- a/drivers/hwmon/it87.c
-+++ b/drivers/hwmon/it87.c
-@@ -1349,8 +1349,26 @@ static SENSOR_DEVICE_ATTR_2(temp3_max, S_IRUGO | S_IWUSR, show_temp, set_temp,
- static SENSOR_DEVICE_ATTR_2(temp3_offset, S_IRUGO | S_IWUSR, show_temp,
- 			    set_temp, 2, 3);
- static SENSOR_DEVICE_ATTR_2(temp4_input, S_IRUGO, show_temp, NULL, 3, 0);
-+static SENSOR_DEVICE_ATTR_2(temp4_min, 0644, show_temp, set_temp,
-+			    3, 1);
-+static SENSOR_DEVICE_ATTR_2(temp4_max, 0644, show_temp, set_temp,
-+			    3, 2);
-+static SENSOR_DEVICE_ATTR_2(temp4_offset, 0644, show_temp,
-+			    set_temp, 3, 3);
- static SENSOR_DEVICE_ATTR_2(temp5_input, S_IRUGO, show_temp, NULL, 4, 0);
-+static SENSOR_DEVICE_ATTR_2(temp5_min, 0644, show_temp, set_temp,
-+			    4, 1);
-+static SENSOR_DEVICE_ATTR_2(temp5_max, 0644, show_temp, set_temp,
-+			    4, 2);
-+static SENSOR_DEVICE_ATTR_2(temp5_offset, 0644, show_temp,
-+			    set_temp, 4, 3);
- static SENSOR_DEVICE_ATTR_2(temp6_input, S_IRUGO, show_temp, NULL, 5, 0);
-+static SENSOR_DEVICE_ATTR_2(temp6_min, 0644, show_temp, set_temp,
-+			    5, 1);
-+static SENSOR_DEVICE_ATTR_2(temp6_max, 0644, show_temp, set_temp,
-+			    5, 2);
-+static SENSOR_DEVICE_ATTR_2(temp6_offset, 0644, show_temp,
-+			    set_temp, 5, 3);
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+index 78d4df55740a1..50c60e553d09f 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+@@ -312,6 +312,14 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	if (!rmnet_is_real_dev_registered(real_dev))
+ 		return -ENODEV;
  
- static int get_temp_type(struct it87_data *data, int index)
++	/*
++	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev)))
++		return -EPERM;
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	if (data[IFLA_RMNET_MUX_ID]) {
+@@ -440,6 +448,14 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ 	struct rmnet_port *port, *slave_port;
+ 	int err;
+ 
++	/*
++	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
++		return -EPERM;
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	/* If there is more than one rmnet dev attached, its probably being
+@@ -488,7 +504,19 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ int rmnet_del_bridge(struct net_device *rmnet_dev,
+ 		     struct net_device *slave_dev)
  {
-@@ -1476,6 +1494,12 @@ static SENSOR_DEVICE_ATTR(temp2_type, S_IRUGO | S_IWUSR, show_temp_type,
- 			  set_temp_type, 1);
- static SENSOR_DEVICE_ATTR(temp3_type, S_IRUGO | S_IWUSR, show_temp_type,
- 			  set_temp_type, 2);
-+static SENSOR_DEVICE_ATTR(temp4_type, 0644, show_temp_type,
-+			  set_temp_type, 3);
-+static SENSOR_DEVICE_ATTR(temp5_type, 0644, show_temp_type,
-+			  set_temp_type, 4);
-+static SENSOR_DEVICE_ATTR(temp6_type, 0644, show_temp_type,
-+			  set_temp_type, 5);
- 
- /* 6 Fans */
- 
-@@ -2308,6 +2332,9 @@ static SENSOR_DEVICE_ATTR(fan6_alarm, S_IRUGO, show_alarm, NULL, 7);
- static SENSOR_DEVICE_ATTR(temp1_alarm, S_IRUGO, show_alarm, NULL, 16);
- static SENSOR_DEVICE_ATTR(temp2_alarm, S_IRUGO, show_alarm, NULL, 17);
- static SENSOR_DEVICE_ATTR(temp3_alarm, S_IRUGO, show_alarm, NULL, 18);
-+static SENSOR_DEVICE_ATTR(temp4_alarm, 0444, show_alarm, NULL, 19);
-+static SENSOR_DEVICE_ATTR(temp5_alarm, 0444, show_alarm, NULL, 20);
-+static SENSOR_DEVICE_ATTR(temp6_alarm, 0444, show_alarm, NULL, 21);
- static SENSOR_DEVICE_ATTR(intrusion0_alarm, S_IRUGO | S_IWUSR,
- 			  show_alarm, clear_intrusion, 4);
- 
-@@ -2368,6 +2395,9 @@ static SENSOR_DEVICE_ATTR(temp1_beep, S_IRUGO | S_IWUSR,
- 			  show_beep, set_beep, 2);
- static SENSOR_DEVICE_ATTR(temp2_beep, S_IRUGO, show_beep, NULL, 2);
- static SENSOR_DEVICE_ATTR(temp3_beep, S_IRUGO, show_beep, NULL, 2);
-+static SENSOR_DEVICE_ATTR(temp4_beep, 0444, show_beep, NULL, 2);
-+static SENSOR_DEVICE_ATTR(temp5_beep, 0444, show_beep, NULL, 2);
-+static SENSOR_DEVICE_ATTR(temp6_beep, 0444, show_beep, NULL, 2);
- 
- static ssize_t vrm_show(struct device *dev, struct device_attribute *attr,
- 			char *buf)
-@@ -2530,14 +2560,12 @@ static umode_t it87_temp_is_visible(struct kobject *kobj,
- 	int i = index / 7;	/* temperature index */
- 	int a = index % 7;	/* attribute index */
- 
--	if (index >= 21) {
--		i = index - 21 + 3;
--		a = 0;
--	}
--
- 	if (!(data->has_temp & BIT(i)))
- 		return 0;
- 
-+	if (a && i >= data->num_temp_limit)
-+		return 0;
+-	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
++	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
++	struct net_device *real_dev = priv->real_dev;
++	struct rmnet_port *port;
 +
- 	if (a == 3) {
- 		if (get_temp_type(data, i) == 0)
- 			return 0;
-@@ -2579,8 +2607,28 @@ static struct attribute *it87_attributes_temp[] = {
- 	&sensor_dev_attr_temp3_beep.dev_attr.attr,
++	/*
++	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but rmnet_unregister_bridge() below clears the bridge state of
++	 * the real device's port, which may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
++		return -EPERM;
++
++	port = rmnet_get_port_rtnl(slave_dev);
  
- 	&sensor_dev_attr_temp4_input.dev_attr.attr,	/* 21 */
-+	&sensor_dev_attr_temp4_max.dev_attr.attr,
-+	&sensor_dev_attr_temp4_min.dev_attr.attr,
-+	&sensor_dev_attr_temp4_type.dev_attr.attr,
-+	&sensor_dev_attr_temp4_alarm.dev_attr.attr,
-+	&sensor_dev_attr_temp4_offset.dev_attr.attr,
-+	&sensor_dev_attr_temp4_beep.dev_attr.attr,
-+
- 	&sensor_dev_attr_temp5_input.dev_attr.attr,
-+	&sensor_dev_attr_temp5_max.dev_attr.attr,
-+	&sensor_dev_attr_temp5_min.dev_attr.attr,
-+	&sensor_dev_attr_temp5_type.dev_attr.attr,
-+	&sensor_dev_attr_temp5_alarm.dev_attr.attr,
-+	&sensor_dev_attr_temp5_offset.dev_attr.attr,
-+	&sensor_dev_attr_temp5_beep.dev_attr.attr,
-+
- 	&sensor_dev_attr_temp6_input.dev_attr.attr,
-+	&sensor_dev_attr_temp6_max.dev_attr.attr,
-+	&sensor_dev_attr_temp6_min.dev_attr.attr,
-+	&sensor_dev_attr_temp6_type.dev_attr.attr,
-+	&sensor_dev_attr_temp6_alarm.dev_attr.attr,
-+	&sensor_dev_attr_temp6_offset.dev_attr.attr,
-+	&sensor_dev_attr_temp6_beep.dev_attr.attr,
- 	NULL
- };
+ 	rmnet_unregister_bridge(port);
  
 -- 
-2.55.0
+2.53.0
 
