@@ -1,296 +1,274 @@
-Received: from mail3.ecloud.global (mail3.ecloud.global [135.181.139.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461AB3191D3;
-	Sat, 29 Aug 2026 19:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.139.185
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788030188; cv=pass; b=ZiR0nqY6pL6HXpothH3u+wHwvYqj2GP1l9OdO6+eM5i81OoIcGjjoWDsJWyOE8J09zmwey92i+16PWrDNXl1seO4wzDRmVkfm5SxFZIlyMHDVAWdf4N1dT/J5+Rxj9TKrPTGGRCn7iuXb/YpLKbYSkKJ1UfaUH1PjgDpzBz6ar0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788030188; c=relaxed/simple;
-	bh=ZS2eW5V8GCydj07mgnOFacdC1mrX0S6vz92xaoJgopU=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=B30V+wnBpklVvCPbyJmbILdhGknUotoU6v1gi37BogiKWOT94ZGNFAhqAnn0A89utkHHR5yq1ks0UWV9MfVemw/zaTYda2ytyANsKAhXWmkLACGxHA4TFwQGyX8F54ZR8htWym6DwyGq9PHVjwJDOpWwvC7akgpN4sZJl2xDKxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=nkuOAMzB; arc=pass smtp.client-ip=135.181.139.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511273AFB18
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 19:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788030201; cv=none; b=cc6TmjAKlH7/BCrsfaNLj5gqpP77KEKAWWD5xbMDvPUGZqWoieNhbnRGYMhcdYSJM5OIXtuc6KBQZn1340ZkXipSOcEZNPmzBaRBXz4PBTZd2Q1dR4MAWhHJkC5WvW5RRnhROtRhurL9NXDtP9MeNhk90gKfZITQni9isTRLE1A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788030201; c=relaxed/simple;
+	bh=TIh4DOnD+S/iXHsrfiIEXNJifWn+ISjtMrnm++DfHQo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XO4K9fPAfYQ52VYho0aPnzoIQytbuOXdlYv4CV4wBwc5H5MkI//wa9KI8EHEvcabZlo7o+1sXVwuRAEXLQ68AsRv9YFd/1bfcKzSiO0JnC/K1ehFk7OPVzFKwjnHj8OTJV5RURyKVuQH2SIrqI3ZNseIQa7JQP8ORJ3hbvbmO7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rHwNax/x; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="nkuOAMzB"
-Received: from authenticated-user (mail3.ecloud.global [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail3.ecloud.global (Postfix) with ESMTPSA id 9E0E9883DCA;
-	Sat, 29 Aug 2026 18:54:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail3;
-	t=1788029646;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ehcjoluw1ltFHOACxESvJjxgUUGWa+g0poTQdMIRy1U=;
-	b=nkuOAMzBmGj+QW/LFVmCluA3XLtxasCrezDA5Gp8iboVAS5YbdiSaS4tPc2rRzEKDjCYkc
-	OSR5IyCbOTx5S9CuiWjcb9S2khgdusyJZQcyxiaFh2LVNDVnRNcG4AowmJimuO9OCmGUhM
-	E8ltcGFsoumAKU8e9XDn5NFnMzowtmM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
-	s=mail3; t=1788029646;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ehcjoluw1ltFHOACxESvJjxgUUGWa+g0poTQdMIRy1U=;
-	b=SUQju1a5AyeEzsWtU11p1zJQg4cmekzyHbQn978fM7Z94OJlpQkUWJ1Kf5ziFCMASSAE+q
-	g/465/MYThLZ7f2m9lYFLAPJJodxWKBQD4qtbleprFGCuTMdrW6whmVQqu6bSatvl+Om8B
-	XOOSzbyrTeaRUnxvI88HOy9celngZRo=
-ARC-Seal: i=1; s=mail3; d=murena.io; t=1788029646; a=rsa-sha256; cv=none;
-	b=4u//Z/BtuPsOYlapubZ5m21WKQAJm/nJb66dH3KaNyha5i+ennk/ENAKtj8HINSK53tyn4
-	5JPH3HWfg734eML0ysqPRxleYyjhd60c8M3yyDQ2xXlkyHVdWJdM/relDgP30qvuYkmy/5
-	E+ouPdROr+TNqlt/XVODzbVbfkCftOc=
-ARC-Authentication-Results: i=1;
-	mail3.ecloud.global;
-	auth=pass smtp.mailfrom=maud_spierings@murena.io
-Message-ID: <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
-Date: Sat, 29 Aug 2026 20:54:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rHwNax/x"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ce7d2adef4so32491815ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:03:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788030199; x=1788634999; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pwBa+9bQ9e6n2dIJ1FHVXbNuvQY4O8W1fjuVGTSJWDM=;
+        b=rHwNax/xGH5RNCmO73Uz+d8CXObAOns7PN9z+pQAIALA4xDb1O0ElYqqsfUZDvdwCJ
+         DsRd75piWpwTsMcNnEOo6u913+e2Iavm8PjLrA7hMRE0aaC6z+ZcRSiSOvCLkGscdTTs
+         lUD/KDSix4+LRELTVf3/whOB+BRKO9RMSZE9REJ9Fju9IaEiC1gVbzN4QonS5zs40nru
+         OaFsK6orOAzx/ksFkNDB6qaeQsv5wshBrNKwh1HxZu8vJb7GhnkKPGBb90jWHSErw5N1
+         VG4Br6ENhyjUZZQkiSz/o5SuJ2xYkOwhAtRsiHLSSQuVunexPnL/D7Q8x+1iEcDZWFcI
+         MxMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788030199; x=1788634999;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pwBa+9bQ9e6n2dIJ1FHVXbNuvQY4O8W1fjuVGTSJWDM=;
+        b=bCYwNEHIylyd+Ku9RbExdLMdsRZ3VQHvkbI1Rc5yM9uXpArcHvDleFTMQ+xRDZg9bb
+         ovQiaZUZQE2mH3XDsZ/0lhcB40KlZQOK1BOasfoYP2WZP3oUZotYtBMKfvmBzywXHyN7
+         GlcCRsbUvJBuqF5toovlBNgeMCHTNjBoWHLASHpRxKin9aXTEpKxa91kBzJssl2s/BNb
+         FX2rRZBAMhOo4qnDEtgwkrnJsV2MMjTFCUy5OwdYlRzP1j2o7zxm5iNp1Ze6DomsGZPJ
+         tBHkTZLFHIszHOSq5M0OxAnSdThcb3iiXmTCWHjdw0eQFN6dLIBgA52op8hI0NV3viSS
+         CzWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjG1V6zpgA7CJrii7PiSfsjqaedLvJl0Yw+OOtZtvdohPD+8JnL0/h19DQPop1rQInk20sFK0syG0RjVw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvZMqZA4gcQnFZWkAv3UzWYYQJsDY7bc06bPopkPT1VynzNYMv
+	xJ+DlNQDlWVexrlwcnsnGNVaxm8FYwPuXwDvNkmownolKvF7Sj50cpjQFlf9Pg==
+X-Gm-Gg: AYBFou2A7c14ZKheUC/a3k5ZuAJEtSXhmbq4iHc6F4+z5THSztw8xkGoThafzelu+DC
+	gcyy8/v2wM8cvuDTrljHZI4CGGLoAEDB0lfmJwjLNAFS82OgrggjjEr2a7AWKYs+/gB2pPFU3Y4
+	7keFlYfsNpZI0rYEcW29BQXAM4ytwpkj2xHd2u+hDXAqtrXwleq6TFM988BxYA9qGc0yhxj1nU8
+	8X7dRcIqlUJnpbV5wFpgtvIpHwd56RyJnTkZxFW5hLjXTc+jKKQ0s0AKVfuiWiPoyPitUhYHIQg
+	nKxBcN3iDB+40Czm/O+HB7Ecgb9Zd489HCCmSEjhnid/jRiu/wYrHFDbGRFIgZcrs7ZXMn4Vykw
+	YT+HtFOd+GMH3QiNhdjV7EnOLh1Sljgnk3/uzXF5LMO0g5bsLzo5k6CLLl77GGq4GFN6wniUlhu
+	WseZWOUAEo7cydv0fEO+gFvR5gLEHk2sxVcNH1AZL4O+qx6Peft9WsjuWs/qP4G44JjyA2TbrW1
+	eo22IlEZ2t7Vely
+X-Received: by 2002:a17:902:fc4d:b0:2d8:d4cc:5bb0 with SMTP id d9443c01a7336-2d8d4cc5d79mr139929965ad.16.1788030199448;
+        Sat, 29 Aug 2026 12:03:19 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d9055ddfdcsm900305ad.18.2026.08.29.12.03.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 12:03:18 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
+Date: Sun, 30 Aug 2026 03:03:27 +0800
+Message-ID: <20260829190327.17400-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829161509.77406-1-sj@kernel.org>
+References: <20260829161509.77406-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: m.wilczynski@samsung.com
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
- andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
- aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
- conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
- hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
- luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
- maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
- mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
- neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
- pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
-References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
-Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
-Content-Language: en-US
-From: Maud Spierings <maud_spierings@murena.io>
-In-Reply-To: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+On Sat, 29 Aug 2026 09:15:08 -0700 SJ Park <sj@kernel.org> wrote:
 
-Small request for an eventual v3
-
-> Add the HDMI PHY driver for the StarFive JH7110.
+> On Sat, 29 Aug 2026 16:34:26 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 > 
-> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
-> gets its regmap from the parent. It has no dependencies on voutcrg, only
-> on its refoclk (xin24m), which breaks the probe-time circular
-> dependency.
+> > On Fri, 28 Aug 2026 11:29:09 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > As you replied to Sashiko, let's do the last region handling in every case.
+> > > While doing that, let's do the charge_{target,addr}_from reset in only one
+> > > place, like below.
+> > > 
+> > > '''
+> > > --- a/mm/damon/core.c
+> > > +++ b/mm/damon/core.c
+> > > @@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
+> > >  {
+> > >         struct damos_quota *quota = &s->quota;
+> > >         unsigned long sz_to_skip;
+> > > +       bool skip = false;
+> > > 
+> > >         /* Skip previously charged regions */
+> > >         if (quota->charge_target_from) {
+> > >                 if (t != quota->charge_target_from)
+> > >                         return true;
+> > > -               if (r == damon_last_region(t)) {
+> > > -                       quota->charge_target_from = NULL;
+> > > -                       quota->charge_addr_from = 0;
+> > > -                       return true;
+> > > -               }
+> > >                 if (quota->charge_addr_from &&
+> > > -                               r->ar.end <= quota->charge_addr_from)
+> > > -                       return true;
+> > > +                               r->ar.end <= quota->charge_addr_from) {
+> > > +                       skip = true;
+> > > +                       goto out;
+> > > +               }
+> > > 
+> > >                 if (quota->charge_addr_from && r->ar.start <
+> > >                                 quota->charge_addr_from) {
+> > >                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+> > >                                         r->ar.start, min_region_sz);
+> > >                         if (!sz_to_skip) {
+> > > -                               if (damon_sz_region(r) <= min_region_sz)
+> > > -                                       return true;
+> > > +                               if (damon_sz_region(r) <= min_region_sz) {
+> > > +                                       skip = true;
+> > > +                                       goto out;
+> > > +                               }
+> > >                                 sz_to_skip = min_region_sz;
+> > >                         }
+> > >                         damon_split_region_at(t, r, sz_to_skip);
+> > > -                       return true;
+> > > +                       skip = true;
+> > >                 }
+> > > +       }
+> > > +out:
+> > > +       if (r == damon_last_region(t)) {
+> > >                 quota->charge_target_from = NULL;
+> > >                 quota->charge_addr_from = 0;
+> > > +               return true;
+> > >         }
+> > > -       return false;
+> > > +       return skip;
+> > >  }
+> > > 
+> > >  static void damos_update_stat(struct damos *s,
+> > > '''
+> > 
+> > I noticed a potential subtle issue in the suggested fix above:
+> > 
+> > '''
+> > +out:
+> > +       if (r == damon_last_region(t)) {
+> >                 quota->charge_target_from = NULL;
+> >                 quota->charge_addr_from = 0;
+> > +               return true;
+> >         }
+> > '''
+> > 
+> > If 'skip' is false (region should be processed), but it happens to be
+> > the last region, the condition 'if (r == damon_last_region(t))' would
+> > still be met.  This would cause it to reset the state and 'return true'
+> > (skip it), which inadvertently re-introduces the original bug we are
+> > trying to fix.
 > 
-> This driver provides two main functions:
->  - Clock Provider: It registers clk_ops to provide the variable pixel
->    clock (hdmi_pclk). The .set_rate operation configures the Pre-PLL
->    registers (0x1a0+) based on the requested rate.
+> Ah, good catch.  The 'return true' is a wrong copy-pasta.  Let's drop the line.
 > 
->  - PHY Provider: It registers phy_ops for the controller. The .power_on
->    op configures and enables the Post-PLL and other analog blocks (BIAS,
->    LDO, Serializer, etc.).
+> > 
+> > To ensure the reset logic is centralized and correct, I refined the fix
+> > as follows.  The comment is intended to help you and other reviewers
+> > quickly understand the rationale behind the compound condition.  I will
+> > remove this comment in the next revision.
+> > 
+> > '''
+> > diff --git a/mm/damon/core.c b/mm/damon/core.c
+> > index 644daf5a1656..82c5aed8a417 100644
+> > --- a/mm/damon/core.c
+> > +++ b/mm/damon/core.c
+> > @@ -2342,36 +2342,48 @@ static bool damos_skip_charged_region(struct damon_target *t,
+> >  {
+> >         struct damos_quota *quota = &s->quota;
+> >         unsigned long sz_to_skip;
+> > +       bool skip = false;
+> >  
+> >         /* Skip previously charged regions */
+> >         if (quota->charge_target_from) {
+> >                 if (t != quota->charge_target_from)
+> >                         return true;
+> > -               if (r == damon_last_region(t)) {
+> > -                       quota->charge_target_from = NULL;
+> > -                       quota->charge_addr_from = 0;
+> > -                       return true;
+> > -               }
+> >                 if (quota->charge_addr_from &&
+> > -                               r->ar.end <= quota->charge_addr_from)
+> > -                       return true;
+> > +                               r->ar.end <= quota->charge_addr_from) {
+> > +                       skip = true;
+> > +                       goto out;
+> > +               }
+> >  
+> >                 if (quota->charge_addr_from && r->ar.start <
+> >                                 quota->charge_addr_from) {
+> >                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+> >                                         r->ar.start, min_region_sz);
+> >                         if (!sz_to_skip) {
+> > -                               if (damon_sz_region(r) <= min_region_sz)
+> > -                                       return true;
+> > +                               if (damon_sz_region(r) <= min_region_sz) {
+> > +                                       skip = true;
+> > +                                       goto out;
+> > +                               }
+> >                                 sz_to_skip = min_region_sz;
+> >                         }
+> >                         damon_split_region_at(t, r, sz_to_skip);
+> > -                       return true;
+> > +                       skip = true;
+> >                 }
+> > +       }
+> > +out:
+> > +       /*
+> > +        * The last region may remain unapplied for extended period due to
+> > +        * various regions (e.g., it is invalid or has been filtered out),
+> > +        * preventing other regions from being applied (those preceding the last
+> > +        * region and all regions with different targets).  Therefore, when
+> > +        * encountering a region that needs to be processed, reset
+> > +        * charge_{target,addr}_from.  If necessary, this parameters will be set
+> > +        * to the correct value in damos_do_apply() due to quota is full.
+> > +        */
 > 
-> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
-> with the PHY register block shifted by 0x100 because it sits behind the
-> HDMI controller in the shared register space. The pre-PLL programming
-> therefore comes from the common Innosilicon helpers; this driver adds
-> the JH7110 pixel clock table, the post-PLL and the analog configuration.
+> Looks too verbose to me.  Let's drop this.
 > 
-> Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  drivers/phy/starfive/Kconfig                |  20 +
->  drivers/phy/starfive/Makefile               |   1 +
->  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 567 ++++++++++++++++++++++++++++
->  3 files changed, 588 insertions(+)
+> > +       if ((r == damon_last_region(t) && skip) || !skip) {
 > 
+> Why this becomes this complex?  We should reset charge_{target,addr}_from if it
+> is the last region, always.  Am I missing something?
 
-[snip]
+Thank you for pointing this out!  As long as it is the last region, we
+should reset.
 
-> +
-> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
-> +	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
-> +	{ 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
-> +	{ 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
-> +	{ 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170A3D },
-> +	{ 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51EB85 },
-> +	{ 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3D70A3 },
-> +	{ 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
-> +	{ 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xF851EB },
-> +	{ 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0DD2F1 },
-> +	{ 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48B439 },
-> +	{ 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3AE147 },
-> +	{ 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574BC6 },
-> +	{ 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
-> +	{ 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
-> +	{ 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
-> +	{ 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xE6AE6B },
-> +	{ 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
-> +	{ 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
-> +	{ 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
-> +	{ 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCCCCCC },
-> +	{ 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xE8F5C1 },
-> +	{ 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
-> +	{ 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
-> +	{ 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7B22D1 },
-> +	{ 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2E147A },
-> +	{ 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xE6AE6B },
-> +	{ 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
-> +	{ 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-> +	{ 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
-> +	{ 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91EB84 },
-> +	{ 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970A3C },
-> +	{ 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+> 
+> >                 quota->charge_target_from = NULL;
+> >                 quota->charge_addr_from = 0;
+> >         }
+> > -       return false;
+> > +       return skip;
+> >  }
+> >  
+> >  static void damos_update_stat(struct damos *s,
+> > '''
+> 
+> > 
+> > > 
+> > > Btw, I think damos_skip_charged_region() may deserve a kunit test.
+> > 
+> > I agree that a kunit test would be valuable.  While I am still getting
+> > familiar with the kunit and it might take me a little time, I plan to
+> > work on it.
+> 
+> Nice.  Looking forward to your patch.
+> 
+> > 
+> > Should the tests include these scenarios?
+> 
+> Let's not add new topics.  We can discuss this on your kunit patch.  Please
+> ensure it covers at least the corner case this patch is trying to fix.
 
-add:
-{ 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xB0A3D6},
+Okay, I will ensure that.  Should the test be sent along with this
+patch (as part of the same series), or should they be sent separately?
 
-This matches one of the framework 13 displays (fml13v01 board)
-
-source: [1]
-
-edid:
-
-edid-decode (hex):
-
-00 ff ff ff ff ff ff 00 09 e5 5f 09 00 00 00 00
-17 1d 01 03 80 1c 13 78 02 de 50 a3 54 4c 99 26
-0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 11 5c d0 18 81 e0 2d 50 30 20
-36 00 1d be 10 00 00 1a a7 49 d0 18 81 e0 2d 50
-30 20 36 00 1d be 10 00 00 1a 00 00 00 fe 00 42
-4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
-00 4e 45 31 33 35 46 42 4d 2d 4e 34 31 0a 01 21
-
-02 03 19 c1 44 83 10 02 01 23 09 07 07 83 01 00
-00 67 03 0c 00 10 00 00 44 11 5c d0 18 81 e0 2d
-50 30 20 36 00 1d be 10 00 00 1a 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
-
-----------------
-
-Block 0, Base EDID:
-   EDID Structure Version & Revision: 1.3
-   Vendor & Product Identification:
-     Manufacturer: BOE
-     Model: 2399
-     Made in: week 23 of 2019
-   Basic Display Parameters & Features:
-     Digital display
-     Maximum image size: 28 cm x 19 cm
-     Gamma: 2.20
-     Monochrome or grayscale display
-     First detailed timing is the preferred timing
-   Color Characteristics:
-     Red  : 0.6396, 0.3291
-     Green: 0.2998, 0.5996
-     Blue : 0.1494, 0.0595
-     White: 0.3125, 0.3281
-   Established Timings I & II: none
-   Standard Timings: none
-   Detailed Timing Descriptors:
-     DTD 1:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 
-MHz (285 mm x 190 mm)
-                  Hfront   48 Hsync  32 Hback  200 Hpol P
-                  Vfront    3 Vsync   6 Vback   36 Vpol N
-     DTD 2:  2256x1504   47.998302 Hz   3:2     74.349 kHz    188.550000 
-MHz (285 mm x 190 mm)
-                  Hfront   48 Hsync  32 Hback  200 Hpol P
-                  Vfront    3 Vsync   6 Vback   36 Vpol N
-     Alphanumeric Data String: 'BOE CQ'
-     Alphanumeric Data String: 'NE135FBM-N41'
-   Extension blocks: 1
-Checksum: 0x21
-
-----------------
-
-Block 1, CTA-861 Extension Block:
-   Revision: 3
-   Underscans IT Video Formats by default
-   Basic audio support
-   Native detailed modes: 1
-   Video Data Block:
-     VIC   3:   720x480    59.940060 Hz  16:9     31.469 kHz 
-27.000000 MHz (native)
-     VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz 
-148.500000 MHz
-     VIC   2:   720x480    59.940060 Hz   4:3     31.469 kHz 
-27.000000 MHz
-     VIC   1:   640x480    59.940476 Hz   4:3     31.469 kHz 
-25.175000 MHz
-   Audio Data Block:
-     Linear PCM:
-       Max channels: 2
-       Supported sample rates (kHz): 48 44.1 32
-       Supported sample sizes (bits): 24 20 16
-   Speaker Allocation Data Block:
-     FL/FR - Front Left/Right
-   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-     Source physical address: 1.0.0.0
-     Maximum TMDS clock: 340 MHz
-   Detailed Timing Descriptors:
-     DTD 3:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 
-MHz (285 mm x 190 mm)
-                  Hfront   48 Hsync  32 Hback  200 Hpol P
-                  Vfront    3 Vsync   6 Vback   36 Vpol N
-Checksum: 0x01  Unused space in Extension Block: 84 bytes
-
-
-> +	{ 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
-> +	{ 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xB33332 },
-> +	{ 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-> +	{ 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-> +	{ 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xE6AE6B },
-> +	{ 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
-> +	{ 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
-> +	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-> +};
-> +
-
-kind regards,
-Maud
-
-[1]: 
-https://github.com/DC-DeepComputing/fml13v01-linux/blob/97c64fe2832b6826914b6da7aa4febcdd4d3d444/drivers/gpu/drm/verisilicon/inno_hdmi.c#L112
+Best regards,
+Rui Yan
