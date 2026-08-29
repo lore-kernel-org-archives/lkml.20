@@ -1,134 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDCB21CC5A;
-	Sat, 29 Aug 2026 10:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788000522; cv=none; b=QSXiSR8m3HgA5mrNhnyLlHG5P54Vs4PD+b61mcKICOhQvT0LgT0AT10WyYtfxlxpJ/7n5B427quQ0gjIWuIb5zY5McFDYv2xdg4YPjkaln8Tn0pKjwy6Cp/eFbdsKUvUrT6xIcZrn26xRZ9dLMxbHb1v3zStp+DK1/x8zs8v6pI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788000522; c=relaxed/simple;
-	bh=3F/+YtJTPXmp2oYrKToOY/XGOwgYSjO/cwvzuDz7TQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZPnUQC2nFox9tkyLjFwOPRFxqv/ONsfFz4jm+u4bzzJtySEtOJVgzyhhJnL+MOULmKPsznu3JUVnvhTr8rQGQQzPgaAd/0Q45AWMLNMT+LFi/IgbJQgvvQ9ucsnHXHNnQWdcnFMTgUkPqlBND0w6T7+ROpt6596GiVB6/+ol6oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWRmvwZ5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A8D1624C0
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788001057; cv=pass; b=hqOZ1/H2FxoNTBlguq8Hc21a3YjyAU0zslPPVMdcAWBLWBhCD5sJ5/X+rTeIJ/6KK7TKE6kge2XuWXr57QN2yRHfj/8Ui0qOfUqwUuqkFfm/HdcP+iLnGamKH8VQ9IXcuoRVdrjtecboEEzhE9ZFckGqDu665o8X02uXL3vKhxE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788001057; c=relaxed/simple;
+	bh=hsBKohLfCZd0jfnALC1cEzA++W2MrcDhahlgqPLVM7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VmJ0qU20IDcrvW6qZpI3WdCxy+xyc1FoD4Z+6NOUWO88PKINuLgw/4ZJ1tV9/cgO/hInc6weCGtnJJXDauhqc3PyCJJB1or78Qhi2Cqm0nsorfwg1Ew2DrmPRhRRaFB8h5jXRzhcs7iA0nZNmFVEAI+XHfrDt+Jl9eiOatUeb6U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qxB9/ucO; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWRmvwZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C6B1F000E9;
-	Sat, 29 Aug 2026 10:48:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788000520;
-	bh=KFZ1nhGEZbR6O/VCAicWb32eNrolFHOIlFtmV4ujfk4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LWRmvwZ5mPls4Z+BaiG1qXwR10+CBxW+bUOShLfZyRmLMeWBsXFZbiPwmkePznqr5
-	 RDgCI5JSJI/PnwyJzmrjiTTIt4pQEyHh4ig4dGZIGujt3YWBOXTXM28p4gyqeJwbxf
-	 WsaqKftKKe5VsQ0VW/PEX8SxuQhw1GHVsePh+UKddYUexwRXUbdmDfNrJmoD2ZI1v6
-	 YA0GuLxzRK2viPxmPZf5a9S7TnaLyvMWbeiiVwoWcOVI5CYLFrXFWBc0Jr3YfAzGPD
-	 ENSQxCrpJykei+zA/nljjaxyFx/CEE02iM1psN14xjNoYwJ+aBxdLXjvTaTWkcJoke
-	 quOJdXXFQrxWg==
-Date: Sat, 29 Aug 2026 13:48:28 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Len Brown <lenb@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
-	Will Deacon <will@kernel.org>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-pm@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH v2 0/6] arch, mm/execmem: resolve confusion about
- set_direct_map_valid_noflush()
-Message-ID: <apK4_MgCtPFlDwoc@kernel.org>
-References: <20260823-execmem-set-vm-perms-v0-2-v2-0-b013a37d84b3@kernel.org>
- <20260827223947.c773e6a7324eaf3fe0d8362f@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qxB9/ucO"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8f2ed7bdcso461485ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:57:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788001056; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IthrXNUcscOLjF5bMRZHqL7IaQJQ7NYwyiw9GkoMTQvuJFNo4pSpo0tmJrf4fKPObR
+         YhGXxDlCE4yfiL49m99ebLu6/ayYO9MLcqLJCjPX1/WugqikRrD9hSQR8A04Guqr5Q8z
+         1YY27juBj8S30+UIrEighfnHRrVa+SmovRYqEJKYEDrfFVt3s/3xFFR5GqHM8lBUHeiP
+         zMmW8EmixvegAFAzCi+k4dKsxj5Z2ch5wNsgl2US620p3WDWWFR1p7d7/IcYdJpCxPaM
+         3xoN+JC8KS4zMkB7Z/VWx7iG4OchTYmaNM//ucsjh2Y36MTCA9P8sMV2LhW06VYSMxPc
+         VD6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
+        fh=jDzMYz5MaOYKHOMNIrNCVTsZdnpwhViGOvDjH3DuhSQ=;
+        b=FhRSas7yJ3eOV+ukiNXOTuHnCKZk+QuyJsPEtkA3vOOCaACUnGmrnkipdMrvMoFZU2
+         f/1s5ecOnyFK55XfbUyYOxdStAx14Mz/mvZ1zQOxGGlHQhdd+vXcfpUcpzWoe16oK2id
+         wy314927qQtgkuYHi5BxVwMcK0vQ42XmE/CB6czAgzRxTraoFpZ0BoUj8PEDSY+LfHb4
+         AcYIl5BtEkTnBpBg8gd+F+tedLkfZXI7l7OPlxCzFgii0muvUk8bKi8McsIobgSiIpmt
+         JRbEnfB4bnUx1aRjDoGRXEG4wtO+WNQp5Fd0hJTa2cvfQ2is6fZ26UvbGHNe7lbyLrpb
+         LsAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788001056; x=1788605856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
+        b=qxB9/ucOSNJYhkRxeEyJuIaaChnbkIeziSSD+2tZkrRhLbLNtPwwaw4AnOsFMkGHgH
+         g8av33wNg8aFOi0uNrjq+Yypt2oDfrdfygCqbkDmAzG5fuTS1GaoG3u/rzSOQp64bZcr
+         Wr8t+It1pfy/S1oP/PjrrW6Lt8BGDP9OyfNZoC6PKX9aTpe0hvxrhZVOb2JooagrMlPz
+         TUMkgAqwJXV3g83TJ0bJH6Fnm2rHWOxxW7ClpQ3zjd3BOyBL4NDx9juMBCRdInYkLope
+         g97Vy96kHGCKy87vUJsdUFVo8/sZJhGJwdy6K//5s348jFOgAAUIsevfCJRcwtlGtwCE
+         +tfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788001056; x=1788605856;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3yoXZjSinVl6bLZjtfCsRoIy2CcONJCPzcPUWytAk2w=;
+        b=ElnFZ4tbe1xs4ALWwFdk/cLNAXvv3knOcRI6qhjBtjLt9mnRA3tTl3JbXB018ZQChY
+         5eavjzsVW6XuMvIOz+x1LovzRa0gMS3J5sq36G41UpU9RC/JQVs2dV4SsIhMzclIFnGb
+         Qx70mJ+Ysn3rQBsKEfEeOOc2GisuZfgwLdJpjKZwfhBUxOF5zv1drNJec2DufrCKTa78
+         yeo3oEwuBGZBz7XudlDQpHljVAwoD/1/Yw73JYW41VynkfeFSxWlmrGQCs0KlG0dzX+O
+         TFPdT4DGe/rSSPoPHw7Lo97cTm5i5yQcHDaWokmh/srEx3SbMCNArINO6xjspMdGVhMw
+         PPpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx65wbMQrEVil/v2RK/CJVBwpdQCT2JfTNbHd74KJzeNZ+p6RM8EHApJdRfLjTs/XKrUGOg0E4b6hU/i88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMyG8NgCFQVP1Jhu03uOylbCDwc0E3fE4+33yAwvWfUXRIcqiW
+	XHK0V8zd5h/WFWXeuodrHP7qFUScM8g3YBQVL+GXstw5FPOApLVfpFcqhWcbNo3FOmMvebccQ7a
+	AV+QdDqGKr0FPPR1FWjqw5M836L7oZ0Q=
+X-Gm-Gg: AR+sD12h/3iw4vrM36onI84Dan9Oa/7XkHs6+WwVBaZJLitnQvnZzZm+qgv5Hmh3d9c
+	NWhvWO6tC1P3EFgQezsIj2hndNE3Farr0wqI9HybbRAcgbBHLUb5XbK+Zc0V+ray7JQEzwxWtDx
+	c8F/0N1DXE0kUM8xiwJkFUAhFP1LhgXYliNo5GZ0MbjAZV5ck9YmxDgzsjOGR6hI4k0FGa5Fqe1
+	lw3WJ28nmM/rrljH6IIa6gFq/HwaYv8H2X5J/2bDpyH7fR2Ad9ZNIL9WV0zfznqCqQpzzf45YEX
+	4p/8aLIPc5dMO0ksOofYeotlg0+8dfjCrP+WKe92+zDccMO434ieCsfEDuu/FaaaOdD0R6eNGqk
+	cp5duIun6q8XTO2iOleTszbeRj9Gxyf6kogAOTn1X1kTBl0o/kgPjRlXZHSM6
+X-Received: by 2002:a17:903:1104:b0:2c9:8287:fd0d with SMTP id
+ d9443c01a7336-2d74df62ccemr115727945ad.3.1788001055774; Sat, 29 Aug 2026
+ 03:57:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827223947.c773e6a7324eaf3fe0d8362f@linux-foundation.org>
+References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
+ <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+ <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com> <9a3eabd1-4057-45cf-99b9-9c3c1b6260d3@gtucker.io>
+In-Reply-To: <9a3eabd1-4057-45cf-99b9-9c3c1b6260d3@gtucker.io>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 29 Aug 2026 12:57:22 +0200
+X-Gm-Features: AcwNN1U4Xd-ZPEH0J5NkeG85FCsQEWIBZhyX8xsSVfYp0sl8uMCqeYTmtDyhT2w
+Message-ID: <CANiq72m0eemCPbEAvZSC49OZHyaNvQgbMdSDphT01no1B+YWEA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
+To: Guillaume Tucker <gtucker@gtucker.io>
+Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>, linux-doc@vger.kernel.org, 
+	workflows@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, automated-testing@lists.yoctoproject.org, 
+	"kernelci lists.linux.dev" <kernelci@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 10:39:47PM -0700, Andrew Morton wrote:
-> On Sun, 23 Aug 2026 14:46:11 +0300 "Mike Rapoport (Microsoft)" <rppt@kernel.org> wrote:
-> 
-> > Recent discussion about implementation of execmem's ROX caches on arm64
-> 
-> I'm assuming a "[1]" reference was intended here.
+On Sat, Aug 29, 2026 at 11:02=E2=80=AFAM Guillaume Tucker <gtucker@gtucker.=
+io> wrote:
+>
+> See "bc20c56e98e0 docs: changes: better document Python needs"
+>
+> Also it's explained briefly in the docs here:
+>
+>    https://www.kernel.org/doc/html/latest/process/changes.html#python
+>
+> So I guess that if it's needed for at least one build configuration,
+> then it's not optional anymore.
 
-Yes :)
- 
-> > revealed a confusion about how set_direct_map_valid_noflush()
-> > implemented on different architectures.
-> > 
-> > On arm64 it sets or clears the PTE_VALID bit marking a PTE as present or
-> > not present.
-> > 
-> > On other architectures it's a range version of
-> > set_direct_map_invalid_noflush() and set_direct_map_default_noflush()
-> > 
-> > Unlike arm64::set_direct_map_valid_noflush(),
-> > set_direct_map_default_noflush() not only marks PTE as present, but also
-> > sets its default protection mode.
-> > 
-> > Other than that, initial design of execmem ROX caches didn't rely on
-> > restoration of large mappings that's now available on x86, but
-> > completely removed the memory allocated for the ROX cache from the
-> > direct map to ensure that large mappings are not split. This precluded
-> > usage of VM_FLUSH_RESET_PERMS for the ROX cache allocations and required
-> > execmem to implement manipulation of the direct map alias.
-> > 
-> > Current implementation of ROX caches does not remove the direct map
-> > alias but simply calls set_memory_rox() that updates the permissions in
-> > both vmalloc address space and the direct map and relies on
-> > collapse_large_pages() in x86 CPA to keep large mappings.
-> > 
-> > This allow using VM_FLUSH_RESET_PERMS for execmem ROX cache allocations
-> > with small adjustments to set_direct_map APIs and vmalloc::reset_perms()
-> > behaviour: adding number of pages parameter to set_direct_map APIs and
-> > making resetting of the direct map permissions in vmalloc VMAP_HUGE
-> > friendly.
-> > 
-> > Implement these adjustments, make execmem always use
-> > VM_FLUSH_RESET_PERMS and revert set_direct_map_valid_noflush() changes.
-> > 
-> > [1] https://lore.kernel.org/all/20260611130144.1385343-4-abarnas@google.com
-> 
-> The patchset is perhaps a little green but I tossed it in there, thanks.
-> 
-> I hit a few rejects in arch/x86/mm/pat/set_memory.c, but minor stuff.
-> 
-> I trust you've seen Sashiko's incidental oh-btw comments.
-> 
-> 	https://sashiko.dev/#/patchset/20260823-execmem-set-vm-perms-v0-2-v2-0-b013a37d84b3@kernel.org
+Yeah, that is the commit I was referring to, but I am not sure what
+that commit meant, i.e. if that were the case, then e.g. Rust would be
+mandatory too since it is required for at least one build
+configuration... :)
 
-Yeah, it did discover something fishy with the fallbacks handling.
-I'm looking into it.
- 
+I guess the commit was trying to say "used in enough places" or
+perhaps "the default config of at least one architecture" or "some
+`make` targets" or a combination of all those, but it is not clear.
 
--- 
-Sincerely yours,
-Mike.
+Cheers,
+Miguel
