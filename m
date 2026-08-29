@@ -1,213 +1,173 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021117.outbound.protection.outlook.com [40.107.74.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509D8FC0A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA79EFC0A;
+	Sat, 29 Aug 2026 14:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.117
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788014247; cv=pass; b=rg6k4HYk8pQD+DU+T+goK8qgAogYfqzzNUVOtg+7qfrRMayiz9gjMPENbjVM8HBDhC4wEbMU1mFVJeYzn97XpZYGbiO2XyAgZIrbtHbpAKUCPD3B85WJ+tVs2cOg7lJ4Rj1sjfjQMUmzdiPfVmZ297UCWUY745IZfOaCrYHyqsc=
+	t=1788014340; cv=fail; b=fQjMfnkrsT+pydixe7GQHdb/sbWBEGVqhZo5NJoPaybiwABw6tEzYTIJ2r0lNZR4f44SIMh/GJUKfGq5pnPVQqzLNlHQYUF9C3JjDFK2Z/Pl3RIi8IfsoxRvlCiYsY8PDGVzDJlbryEAB4ZVV486Pp6VdNNvuGnv8TaIt79wutU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788014247; c=relaxed/simple;
-	bh=MgA2NGVooXkzTgVF6+l0Vmm7WuBIDGGtn85djZqTNkA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qTExkk4pny3huvt6ROsl1rgK7yTlRzPVCOuHIoHoC860qiOQgJFjLO8+M3BY4XmZV9kDWpbY5zMt8x/1DFwUyvM8GAA8ErkCyVbfYIribI09GyaJfL203dz3hqCWmlh2dKU7HPGN6sHZA4aQ5HuaovtqP9nNn5ZxlxJnnSWoIcg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kEjjXMtX; arc=pass smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788014340; c=relaxed/simple;
+	bh=Fucn6vIqm+EKDj91sPQqyiRtIva9Lr9ZwtRblrOONnY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gBx1W+Dekp/XsUWOfciatABKFgPmtcEnTpzu7QoZB4S0UNQ9j4fd2rNDjhA/Z+pFnpddm8lx74g6AnvDXcMYN024mUFkzUe74PDTu6ZJOxB5l/WRqqIcFA6LvSclq2M/O+FWp8yMuwJLsQ7TQT8pBIPg+BOycIW7j/8DBfuN8vE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=juCjKVAP; arc=fail smtp.client-ip=40.107.74.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kEjjXMtX"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so17053565e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 07:37:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788014243; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aGjIgJN9PJ0/zZvby4sOFfThYsTAGsHJQ6bo/9xOfrniZTnPytRC84h5YNV15X+syS
-         jg/PWtoTRpEMWgcmEPMKNzBWLecZEloqy6mfuq8iJ88EdzfKPZr1nQAr7hwGC7yNIXkB
-         N66uX/cPi3dwIbkmqdPxABb3DFWb6ZnyV18TXrOq6F2UAIS5q0SdGln2vcodrK4S70bb
-         eTR4kHA72O5AePuTHItRf1xbp5myPxwf7AB9Z/w9/lAnSdAtqiDujGWOrzZCOZWM0kuC
-         DNmoIYT15BrrQ3FbYk3h8D3mh648uNeiBYfZJSR3gnZQ1Io+1+JwYN4kq0y3lT3TVbRs
-         sVfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MZ9OdMIWwS+HeVefiMGtXz8F2WL73A/c0lBq2ihg7xE=;
-        fh=THGlnI3kPYYrpICgoKzdB06FtxMuig0lZXNWWMaH0xo=;
-        b=qrvsU8st6vEOoNRgKlrmLoTG6i5OO/w/UHiRKW6huzh6h2YKuH9VfZ3CenmYRwKs85
-         2V2hJVZthdsRE5NZqziE4+m7oEJ77PX8qLGic6H7i5Bl0nFTzlQ4mDhNuoNHbXe6R7+s
-         91TFtmuSGUCADjPUhooXnevIToBoMqgPD8LwfJJRxeLO6H1WhvlVdl6h6wO2Y0vx0PvH
-         mWvCBzx4ZOVZfBfbgZq9Fu4JmAxQ0SIqqTs4gFykaiXD63WL/409vRUP3Nv4wkv5aQ2q
-         omRbbrcu2RoRDGxsuADbEoAZrna9gAwv0ylvf4JYUtuGHXjgYm51E1x/V9q+QeMhbrW2
-         Lb8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788014243; x=1788619043; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MZ9OdMIWwS+HeVefiMGtXz8F2WL73A/c0lBq2ihg7xE=;
-        b=kEjjXMtXu39pMB9C5faeYrlg5lKBrPZ2ravxMQuZnrLbuCiJWblFeFmLDryjUxrNgz
-         u1DesDjOgH7iCZC6MM+1hUWUODbkgj0bdo/YcctesxGHlbd6en2R/V3oTeQPDaTLegmV
-         XuVrjcaiD412UIEFYbJSjCv8Etuom0zDzQzGvRLKDg20AVqDcLfBGjg+ZrLShGYoyhBe
-         6c5fCS/pRG2neBzBkWSUPP+iLSIAt85FEh5k4pNUbuTo4oIVwbZrF1M2ZolEjLJC9rAR
-         kuqKjsHijkrwBRjDmK0hpnaHK/8EioyHey4J98NHfaK0ndp0yvQHRsW0OOtZNqCtjAqL
-         6egQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788014243; x=1788619043;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MZ9OdMIWwS+HeVefiMGtXz8F2WL73A/c0lBq2ihg7xE=;
-        b=fBapYlMh35iAMUH3GyFojSg8cHPYtuFPq3xZ9l1Yelc9q0z3lbVrvf1lvHPy75naQ2
-         Uk7RK0m4i0gn/JRaGCI3Qm4Cz4qOpdHbb2rwjttRc66Q0Yn0KGAOt0nQrOT5f1VxPyKn
-         kvhJc9mca04ARKYuUN01qxoDdppHI1K13nbjZxNLSzOnNh+V/qmeXD3uH+F6Ca1tVdmH
-         0nHmnXa/IBVYNHwPqvj96/kPFpTvLc/fRmLH1JJ9NIowlsaYv7gqkIYWyFEGiKmr+wEb
-         yipep19Gtx/50rmozCA5oFZv1r/R3dbXVNLJm7915FEDfqs3oE5Ctn41whgyr2h4+/Xm
-         qw6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoP+o5v+paM9hkpa4A9GlvNpz+qKuhmTXigDtlD8RKMgFPU9Gb9frNhqzIQgtd7B4i+MeRAkZUP82k+3eY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkhwgJ3uKq2lxKXjOdewKFrmZBdxFDSgVbaMhcHqw4i8lj8uzM
-	jChyJwxn1/9s9g2svRQaQTiilbKv7Iytxg6p9ZQzkkRO0LJbax/k58yr9cG72np36lU4Zh+k646
-	0OcvYQQZKsRzzomZ2lr8IPSunCdlEKvk=
-X-Gm-Gg: AR+sD13z/xyYGUM8x+ZcApOw6clfLg5zEZec+vbH9R92ERRmittpFFssD2CXR5yVZF3
-	lkmGigAf5w36n5AGBszoMhE0jZpf8xWW7X984cJMhWLX2+fNc6EYFQkJ51huj94WTM/12Qviyum
-	73fPEaz3SH400vIkOkYlRKIgT/64aA7hMSO92UHxQcxDZDIQLBDGD/JZOpDgM6FBaABUiomB6mk
-	XF2HeL7KgYYTBqep3/DH0jWtgPXFCubEPBO5K7k7rClter7gPP+0svA7GA1oKUe+AjJFtdx/AgO
-	1NlBoaSflGCLvqb0cBEgBlsNJ/rXlMcQ5enj0Np8b/skDKo=
-X-Received: by 2002:a05:600c:190e:b0:49c:799a:177b with SMTP id
- 5b1f17b1804b1-49cca2b74a0mr76687805e9.2.1788014242555; Sat, 29 Aug 2026
- 07:37:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="juCjKVAP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ryyQACfXY1X6NFTN0O4RnrFoc8n0u5Cfjuv8UJD33FJa5eEDKEWn/7syagdcTJX/7YzNCM0IQQtwiyitHRGJcQ9ZQkrh0+GrxCmjRcXyf962KV1ev0VDRCRHtZXzQuUyMyrp7oUznXncl0Fmsd3ds9cvvYES9EHuHkJgupJFh8H+QSxK3RjvWRQr6mgNtxUKVTPz7dPMFA/oKRIodNRrFooNtwDzv/dDYmc2MFk5U02GHLWmqeJnDMOUPeJiiME5EOEDRQM3rrxPswpARvatOpJq67IFl1eBPTs2Per3m32mlKWQTSdfHNgb3tfhnZnR1cbTvOFcr36PoPgCuvA2pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jbnKJIY4d27LSF8JYvrxLckl+ehtRzWDr+6C32ltQGY=;
+ b=XaRVXxpA6hxDoRgJjkkUeaDtHLa/26JZEcGvi6L+/g9VuYCYJEe0RZzx3QnRmn0Q1d25Mah4wD0Mq1gJL/B0i9dhHQN8ukp88oV0K9I3uN7UL00xfWpzdbe5Wd+jjVlDspYOVQ7FC4XBjIeZMHKtWyimFrMVAp0oyDx+YeDOJyI8e0zxnC45FlT0KhuCwN4du3EcD3rDB+6f26TUnUvuFyp5hjDcXclhMQbK/6mwkw84jrlMXURajpPNYa9Eab5V+Qar2GDLUpjCBqQtqA09+hOV+JFRbvC0dj8GeNNnT6Hu+u+9SqRNaOOlhSZFwu7rF2Bc05g7efxLMTHpRS7wBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jbnKJIY4d27LSF8JYvrxLckl+ehtRzWDr+6C32ltQGY=;
+ b=juCjKVAPruRrICYVwCuUkhsLGnxoDzAJgO/2cJv1n7/9kcxwu+mBj3EQSe9W+sc027721tdv2A6X5yLQXL2GRlVcPU/7AacpNT8bkXzCqGZyDaAm01uqeWyk2D8vqvgcg/FoIUZbv6VAHS3y1BGGkonIEKnSCwlKzyshi69N/9U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OS7P286MB7244.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:455::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
+ 2026 14:38:55 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 14:38:54 +0000
+Date: Sat, 29 Aug 2026 23:38:52 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Simon Horman <horms@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: ntb_netdev: Fix statistics races
+Message-ID: <rlu5hlwm4qx36hwew3x2r5yyzh5sh2oad3lbahvkbquysidr53@slny6vshky2e>
+References: <20260828154122.2643578-1-den@valinux.co.jp>
+ <20260828134957.5b95472b@kernel.org>
+ <20260828141048.685b9e9a@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828141048.685b9e9a@kernel.org>
+X-ClientProxiedBy: TY4PR01CA0062.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::14) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828-mremap-fix-locked-vm-v1-1-c80be7505d1e@kernel.org>
-In-Reply-To: <20260828-mremap-fix-locked-vm-v1-1-c80be7505d1e@kernel.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Sat, 29 Aug 2026 22:37:11 +0800
-X-Gm-Features: AcwNN1VHoiYexiUTsHD52g-4kbK1C6nEM9rzNia-_c2hFJVdgL6ptuoVUWOQi4w
-Message-ID: <CAN_Opa9CZUTUyvveTnVXK7Wy9Xq-9wc=QkASceLv5hTE-NiNnw@mail.gmail.com>
-Subject: Re: [PATCH] mm/mremap: account mm->locked_vm correctly for MREMAP_DONTUNMAP
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OS7P286MB7244:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffc6403c-d1a6-413f-dc1b-08df05db401c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|376014|7416014|23010399003|22082099003|18002099003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Ce14AKfLK8pgW5zcJaGTFCYq4tnUYZNl25CVUWdF+h23Qo8C83sVJzTE7+7qouAFHAYshnyfiVpQOp7oWx4uxyvoWMOTyQ1yghaQx9on+nUQAfbItRuxi1bAvTaL1ambbAxK0cNXHVDBG4wmw2CBI52RDQaZqN4nt2StYGWdiTWfbHr8xUXhWjSdaNos0tcI3Rif4BAMu/mxiycwIusyHBYN9tuzkhaXHqxlttXTngt/DoHUajEFy70M/R2ci4PlC2uTZq+XsyqHEJgNr/qOyy0LUN6YUoDPuJ/uEDyCC+HphA6Ln4TApFTwB+w4th4XvjnsePGCsZKAPhXksyZBvwEiT30PIel3n4/3ZzqmvV9iIbnAFnpELdvDoxspwT6lQqji9+G8Ntk39yQqjSg8jvuXtfmgdANZk9s5EsgmYMm7p3upI2GDlE3z1BkNoG7OyOglLcWDyNDaotJTg7bZRC8vxh25lJmLcWWHTYENWYrwCXI89542zUgz8YPUadVp6Su6+b4G1BO2TVLZteiDDotqBJqhkfZGnTHzvoHWSM2V7oVTVSFMAH6t833XOmLK/01WwMoRhDjtAyemXJ5CICokQzfA75P9S8rxbPgP6PQ26WkIGHUtIS5SW5j1zD/808zhc8caOye6vg1icUJCOkKRyD+b7ZCq9vhwNTyMHKE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RS43y6Jsgzt7kuUAiL0jvv86oNcoNlMw9CSrqeTzM+YCgtqUW56NyCV//2JV?=
+ =?us-ascii?Q?R7JfsrdQn9Uu3xg4fMntHRhD5jmk5VUefNOwNlG2Sky05hHQRFm+s5l15WKq?=
+ =?us-ascii?Q?+ZXmT2IoYeSoHR3bXboycVTAHoifrC/w5pyDKIJkHc/Yr/Qu6rl6nsdWGQpF?=
+ =?us-ascii?Q?3ckcJd0Fs+ojsFWvvA0l/oqN6A44FKBHhbbYglh0Pl/a46DjJB2eAixv5Vrm?=
+ =?us-ascii?Q?qsFvFyjF9qKBI4GxfCP4lyeqID1LG9RdaBUBKJi1Dbot3Ux9ZytIm8QlNiTO?=
+ =?us-ascii?Q?mNZU5Y5+Yr/EULo7rgV0/QVWeru+UqSQ8WVCu0UUInK1vg9dz3agcfK60rTc?=
+ =?us-ascii?Q?UZdxCEiSkq1avuZ1mV5+hSlil1egKJpADMUfAadBEBWdI5rh9D5TOfKFRVbZ?=
+ =?us-ascii?Q?/Q+hvtqlQfboD+j1HERVYJKv2RdxVa0rlWD5ZHiUml1NnqSD+SUGKqGgMZoM?=
+ =?us-ascii?Q?PeHcyrXdLdHqVt1z4WMXviPlPIIAWkDA2VNqepkPBGERF/+qOLBfn9nzeF9T?=
+ =?us-ascii?Q?iperZVfn0EGAdnv1JOuLib8DVV45SFc2+1HKqcvq08HDKMugqMuZ3uGX1llF?=
+ =?us-ascii?Q?luon21d9xrICjSpmR9zWK6QLxZmH0hYuMjbLIGK8+bZfcJoGBnsdt2PjQsjd?=
+ =?us-ascii?Q?c9xqeux70/aYAIcxwfyKwscYH2ddpvVXyhOX3ImmBpoWKJ5Sex9MhmUwBju5?=
+ =?us-ascii?Q?AD7TUO4I9kaxddfsec9LQWrM+EOqlxI99ASE2SeT6Qs7AP/KZ0X00wAV+z/P?=
+ =?us-ascii?Q?80wGyd1o/6Db8Qnsr6s4yKg2Sizu+6cKSgMG7q+gfqfWGfKOB8PuaGMHr5jl?=
+ =?us-ascii?Q?9UxImcie+/3G86tmTMYeoa86SDlpJiqcw4Mr7gN9XUxd5UUpFvfPnUwIhXu5?=
+ =?us-ascii?Q?FXfDpjnzegYjMfMjylHopc/M3r6YfkTS6/KvNI8sV41uNmiWKNnG3Usz+cbs?=
+ =?us-ascii?Q?/WrZn0D6baZkcHdSym5wVbZO3ZB1i/32E6QSJIuL93m/xjSTwlR3ZkVKDN0z?=
+ =?us-ascii?Q?rDys3Exe4dNN+HDEiEaNKizCISp0+v4hYrTgu1SsMSgFZ4ATnwTjyjJwVnS3?=
+ =?us-ascii?Q?UhuPAQc70gSPmbWbPWwmTz+SLqLmArQLcxOMSG3dME1GrzMksTlQqNU1qLIR?=
+ =?us-ascii?Q?Ug1/JhDMXnGJGYBwtTXEUGD25ORqeokMoa0ZVk6nRorVmoGe7BSSuwFH1AQ6?=
+ =?us-ascii?Q?ysKADAp/5u1fMgots3ZP21mRONeCcO8fOCCTH4/v/bN3+YEqUatvTK3dii0b?=
+ =?us-ascii?Q?h63kfIkFCUEasxBg+Kp+5FCVvPnbIcfQKyMZZJUDdPFDrIaJdGABPqHBJDCm?=
+ =?us-ascii?Q?/8G3rBSTTmZaSKWZRU8bvrundAZoWeKP2vJ3wtsPhD+Sh8W2M7DUP5eKdEq0?=
+ =?us-ascii?Q?S/7DWqVV1Qme1dxJINvbpKcacdFwDaThz0LlNEpxL2cYasIev8NXxBuo7ukn?=
+ =?us-ascii?Q?Z0WQlsYDbmdJ/dbh7rOuxz0WwJHm2zjrWNhnLV3DFqsgNU3sxGPUSGPb2VAj?=
+ =?us-ascii?Q?BHCpc7mRmcCjolCW8b8wqiC1moyKjbcSxcrE0cdKmDCdGoQuAPaRfwtenZJo?=
+ =?us-ascii?Q?hPrr/c4EQW6iN2phwgiPBJzqaASsJu0oqEpXovQSAbKjG1F5DYQio+64CjT+?=
+ =?us-ascii?Q?cYhvF4o+YwLpw4lPnlClwTdpfmBnKog0VVN73fceSI1wMS1J85LT60SwmQ5c?=
+ =?us-ascii?Q?D6XxaT9Qucc8qbAXRuEpyWv678fXI/ltwhoR7UF5O8Id0JBbIApWIrH6weGQ?=
+ =?us-ascii?Q?uoqV06LyKFChLoYFVagQFPD0HPVez/MCt7DkGiqe3uOiz0eSsaqp?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffc6403c-d1a6-413f-dc1b-08df05db401c
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 14:38:54.2262
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d6FyL3LJgWbMZumfm4KgzoBg0UtF4tdh/9FsnoaZjbOXAioudjZmwefHb5a4lh5lt02BT6twrb1yxp3MAvLlbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB7244
 
-Hi Lorenzo,
+On Fri, Aug 28, 2026 at 02:10:48PM -0700, Jakub Kicinski wrote:
+> On Fri, 28 Aug 2026 13:49:57 -0700 Jakub Kicinski wrote:
+> > On Sat, 29 Aug 2026 00:41:22 +0900 Koichiro Den wrote:
+> > > Note that transport callbacks may still complete after
+> > > unregister_netdev(), so tie the tstats lifetime to the client device.  
+> > 
+> > We shouldn't really call devm_netdev_alloc_pcpu_stats() for types
+> > of stats declared by netdev core. We should set the pointer type
+> > like you did in v1.
 
-Thanks for the fix. I agree this is a very clean solution.
+Thanks for pointing that out, I wasn't aware of that.
 
-On Fri, Aug 28, 2026 at 7:20=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> When a VMA is mremap()'d with MREMAP_DONTUNMAP set, that results in the V=
-MA
-> being copied, but the source VMA not being unmapped.
->
-> If the VMA is mlock()'d this is a legal operation, though the source VMA
-> has its VMA_LOCKED_BIT cleared.
->
-> However this is done in dontunmap_complete(), after mm->locked_vm was
-> incremented via vrm_stat_account(), resulting in double-counting.
->
-> Worse, this is not even corrected when source VMA is unmapped, due to
-> the VMA_LOCKED_BIT flag having been cleared.
->
-> This all works fine in the usual mremap() case (without MREMAP_DONTUNMAP)=
-,
-> as the source VMA is unmapped with VMA_LOCKED_BIT intact, at which time
-> mm->locked_vm is decremented accordingly.
->
-> Resolve the issue by invoking vrm_stat_account() only after
-> dontunmap_complete() has run.
->
-> Note that MREMAP_DONTUNMAP requires old_len =3D=3D new_len, so no need to
-> account for a delta in size in this case.
->
-> The bug was introduced by commit b714ccb02a76 ("mm/mremap: complete
-> refactor of move_vma()") which incorrectly reordered the accounting and t=
-he
-> clearing of the VMA_LOCKED_BIT flag.
->
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgof=
-f-v1-1-39a40b2c98b3@kernel.org
-> Reported-by: Kunwu Chan <kunwu.chan@gmail.com>
-> Closes: https://lore.kernel.org/all/20260828094823.594279-1-kunwu.chan@li=
-nux.dev/
-> Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/mremap.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
->
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 2b4b523a86b8..7c368440fafe 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -1355,12 +1355,11 @@ static void dontunmap_complete(struct vma_remap_s=
-truct *vrm,
->                 if (vma_is_anonymous(vma) && !vma->vm_file)
->                         vma_set_pgoff(vma, pgoff_unfaulted);
->         }
-> -
-> -       /* Because we won't unmap we don't need to touch locked_vm. */
->  }
->
->  static unsigned long move_vma(struct vma_remap_struct *vrm)
->  {
-> +       const bool is_dontunmap =3D vrm->flags & MREMAP_DONTUNMAP;
->         struct mm_struct *mm =3D current->mm;
->         struct vm_area_struct *new_vma;
->         unsigned long hiwater_vm;
-> @@ -1401,10 +1400,10 @@ static unsigned long move_vma(struct vma_remap_st=
-ruct *vrm)
->          */
->         hiwater_vm =3D mm->hiwater_vm;
->
-> -       vrm_stat_account(vrm, vrm->new_len);
-> -       if (unlikely(!err && (vrm->flags & MREMAP_DONTUNMAP)))
-> +       if (unlikely(is_dontunmap && !err))
->                 dontunmap_complete(vrm, new_vma);
-> -       else
-> +       vrm_stat_account(vrm, vrm->new_len);
-> +       if (!is_dontunmap || err)
->                 unmap_source_vma(vrm);
->
->         mm->hiwater_vm =3D hiwater_vm;
->
-> ---
-> base-commit: aeddb4d52acfcc5ce5e988acd48f2906fe966ca3
-> change-id: 20260828-mremap-fix-locked-vm-b8991ffc4181
->
-> Best regards,
-> --
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
+> > 
+> > Could you instead fix the fact that the Tx callback runs on 
+> > an unregistered device? Maybe just wrap the whole body of
+> > ntb_netdev_tx_handler() in RCU and check 
+> > 
+> > 	READ_ONCE(ndev->reg_state) == NETREG_REGISTERED
+> > 
+> > ?
+> 
+> Maybe it's over-complicating. IDK.
 
-I tested the patch with the following tests [1]:
-1: test-vmlck.c =E2=80=94 Andrew Morton's test for basic locked_vm accounti=
-ng
-with mlock()/MREMAP_DONTUNMAP.
-2: test_mlock_onfault_nofault.c =E2=80=94 MLOCK_ONFAULT with no pages fault=
-ed in.
-3: test_mlock_onfault_fault.c =E2=80=94 MLOCK_ONFAULT with pages faulted in=
-.
+I think the RCU approach is clean enough. RCU plus the NETREG_REGISTERED
+check should address the stats lifetime issue without moving transport
+teardown under RTNL.
 
-All three tests passed with the patch applied.
-Tested-by:  Kunwu Chan <kunwu.chan@gmail.com>
+I'll respin and let the core manage tstats by setting
+NETDEV_PCPU_STAT_TSTATS, as v1 did for dstats. Late completions will still
+consume the skb, but skip accounting and queue wake.
 
-The fix also looks correct to me.
-Reviewed-by:  Kunwu Chan <kunwu.chan@gmail.com>
+Also, looking again at the commit message paragraph you quoted, I realized
+it was poorly written and confusing. What I meant was:
 
-[1] https://github.com/KunWuChan/vmlck_test
+    Tie tstats to the client device so they remain alive until transport
+    queue teardown. Moving that teardown into .ndo_uninit() would put
+    potentially long DMA waits under RTNL, so leave it after
+    unregister_netdev(). TX completions may therefore still update stats in
+    between.
 
-Thanks again!
+After reworking it as you suggested, the last paragraph in v3 will say:
 
-Best,
-Kunwu
+    Let the core manage tstats while keeping transport teardown after
+    unregister_netdev(), outside RTNL. RCU lets unregister wait for a
+    completion already updating stats, while later completions only consume
+    the skb and skip accounting and queue wake.
+
+Best regards,
+Koichiro
