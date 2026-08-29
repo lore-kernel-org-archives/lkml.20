@@ -1,76 +1,182 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F48A3016E0
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4FE42FCA9;
+	Sat, 29 Aug 2026 23:45:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788047045; cv=none; b=jow6GZukWfa7leTqmm5VsqlKCHyHz6x/zW7IpJQg9qV78N0P1Dv0fxceDXzOOINzStdiqfzbrY4dLRxeS7OTCs8FWSF1iYoCKkNY0Iv0hNjTRaK8slJUXgHLGj25KlMc2GX+7GPhHSVRmqzAm8pT74HbzNF6LkWnzxGoU3nDoGg=
+	t=1788047105; cv=none; b=RmKxu7oO20gw314oMAJqOWI4N/1ndYG8ov5unU0s/bzdFs4NEpODFUuSab0OXxatT9xpSKdrcZX8PIGtA4oSdpseXugC9LKs/ujZw/QenmK3xCS4sbJO7rCLKxiWaQhs000azrLm3oju7LwuFK/HCngvzzTW/uazwDWRfd7gsh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788047045; c=relaxed/simple;
-	bh=XyRzoIt9BKjeu+ZuM6OpvFtJ9CrPATeITWgkirouklA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ZzOk5dHwaM/rQTsCWkPp2/FIZ/wKt5AMTvgffqeAZv4kMHqdU21GsqMsWFI0b+m8gWyj/I8itEntVaxkXIfAeg8xb6hCl4kMMw5K9hwPtnBlvFDj0zDthsfa2H71oaiy0rBhOSXroPFrBLSwyQrzDUCpEVnQqwPFD7kv6w8asCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4ca7ce3fso2823685b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:44:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788047042; x=1788651842;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DQBWUg9lR1vGNw3aL5E0KsvI5tTpdhTutZWPXYdUw1M=;
-        b=j/oOW0AcODi4fSQfnh9FZAmqTQXfKYtW8/x7+5GvtllE9/rORn5ahkU7UQkt3CVx2z
-         HzE5dr03amdf4I4D6c0+5OjrsxOzHISe+6G9hDq9Edk6HYmzrtmcQewJQ59d18af1qvM
-         kIUo6tZVq9RZ29vezz3nc5DHjdEtjLvQw6d2LESmrdekTc7gsha7aO8eLxUGUw5eUJ16
-         Jqe2ISUHxesWhy40CjvVAAbjhaveFWnItbGaZ7fQCeqOnz739vWRvgRk4TV7iFkQyiRT
-         S8RAor28GhP7R5zG0oGIoSOK5nFXW7XRu0v0dFAaUjT64pQ//oAJnECMwuov1Ug5IdzL
-         gpmQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6fib7Y6OHF2pqJGlwXvthecWw5AevZ7t6h/+2nFYKAhfWZYN7HOmuzOX5TaQRrlBy4QMD9yL6Haco4mg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lux1BfhrzG0AA4UEEvSEZBpQGP7abZGIHMXySuqFzVnUC5wfOc
-	6gjXZhL9fSWXA3g3jgF5+2bA0eJ/Z0xDGwDz5hatkzjzSE0vTUiX2ry3ePoXnrVFbnm6pNZWCiF
-	lReatlPpLa8AsxGUqOT4RSjTULxeIYh0bXIVHOqX2zm4aDyafDIig6Kb1wtg=
+	s=arc-20240116; t=1788047105; c=relaxed/simple;
+	bh=rdoMO2J7sReJcPLf7gk+06zdhteWzAvHiPOA4c4Wibk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DnDe6duuyck2e/jgA7bLXdZDpg5TAdrH66KdsQc7Cm5To6YWBv0kLYhXd0OwNi1tWFsi6ABhKOwQZv+kxLI8b4oFLxvRaWsUThDDfqnvWlUs7Ge8sJ1xr+QGjJFO3m4u2bAGcsyhWKsLi7aQRzfYONKZFFo5J5kX5Lfbn6+nFFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=QsvW1XO3; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QsvW1XO3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=OKS0Pu27mknuDXj9ShVejMvGoXjwFrIKZvfnem0sSBA=; b=QsvW1XO3RdmIswlnTB5YpRQrdT
+	F1AiXQg1wGbGkRudhfEsbvItCyxb5nyxGIF0J+FwP61hoT+M/a4A5ppIxlX0TAl1xXpidba3NUiBU
+	NTcJEC3l2R+VJfayvxUfSImJWoz4WKnMyiM4iN6P5+gbUVHlGYkJIXhltYqqD89DU9+0v9ptro+Kz
+	ml2mSGGESBaRulDwo3L9/PxgUKmks+P3LyxrUOP2uR9VIHdO8zzRi3bdTfESX2S+83qfizTBgvI5M
+	QsKVFobIXXWT7+u7Zfb2ZVksY/hAo97iBKAxcqd0sCEIyF8TaK5wWtw9jKrU7sohO72TFeoZWPnbP
+	DsRIGtbg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0SjC-00000007Nt0-1i3R;
+	Sat, 29 Aug 2026 23:44:50 +0000
+Message-ID: <0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org>
+Date: Sat, 29 Aug 2026 16:44:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:538e:b0:4b2:e9d9:f13f with SMTP id
- 5614622812f47-4b3982ee646mr20396784b6e.17.1788047042590; Sat, 29 Aug 2026
- 16:44:02 -0700 (PDT)
-Date: Sat, 29 Aug 2026 16:44:02 -0700
-In-Reply-To: <20260829145838.19351db0a28b30b7ccc1b295@linux-foundation.org>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a936ec2.4d659fcc.734b4.0032.GAE@google.com>
-Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in __mmap_complete
-From: syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, dvyukov@google.com, elver@google.com, 
-	glider@google.com, jannh@google.com, junjie.cao@intel.com, 
-	kasan-dev@googlegroups.com, liam.howlett@oracle.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, lorenzo.stoakes@oracle.com, 
-	netdev@vger.kernel.org, pfalcato@suse.de, syzkaller-bugs@googlegroups.com, 
-	vbabka@suse.cz
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: verify/bisect: fix typos
+To: Manuel Ebner <manuelebnerli@mailbox.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260829055501.581856-2-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260829055501.581856-2-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reported-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
-Tested-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
+On 8/28/26 10:55 PM, Manuel Ebner wrote:
+> 'your' -> 'you' twice.
+> 'kernel kernel' -> 'kernel'
+> 'hay attention' -> 'pay attention'
+> 'as disabling then will reduce the consumed disk space'
+>               vvvv
+> 'as disabling them will reduce the consumed disk space'
+> 'You for example might' -> 'For example you might'
+> 'that create or modify' -> 'that creates or modifies'
+> 'and not from a one that' -> 'and not from one that'
+> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
+> I could't figure out what the "'" is for, they do show up in the .html.
+> Would this be a sane change?
 
-Tested on:
+I have no idea about the "'" marks. Dropping them LGTM ... and works
+in the html.
 
-commit:         1b78070a Merge tag 'net-7.3-rc1' of git://git.kernel.o..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-console output: https://syzkaller.appspot.com/x/log.txt?x=14e12c15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e4aa91d7f20c34417d4e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=11f37d49580000
+> @ -1186,4 +1186,4 @@ safe side, so often you will need less.
+>  If you have space constraints, be sure to pay attention to the :ref:`step about
+> -debug symbols' <debugsymbols_bissbs>` and its :ref:`accompanying reference
+> -section' <debugsymbols_bisref>`, as disabling them will reduce the consumed disk
+> +debug symbols <debugsymbols_bissbs>` and its :ref:`accompanying reference
+> +section <debugsymbols_bisref>`, as disabling them will reduce the consumed disk
+>  space by quite a few gigabytes.
+> ---
+>  .../verify-bugs-and-bisect-regressions.rst    | 20 +++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> index 7d38393f31f..43e15b16894 100644
+> --- a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> +++ b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> @@ -163,7 +163,7 @@ will be considered the 'good' release and used to prepare the .config file.
+>       section 'Complementary tasks: cleanup during and after the process'
+>       below.
+>  
+> -  d) Once your finished the bisection, put a few things away::
+> +  d) Once you finished the bisection, put a few things away::
 
-Note: testing is done by a robot and is best-effort only.
+I prefer:
+     d) Once you have finished the bisection, put a few things away::
+or maybe
+     d) Once you're finished with the bisection, put a few things away::
+
+
+>  
+>         cd ~/linux/
+>         git bisect log > ~/bisect-log
+> @@ -178,8 +178,8 @@ will be considered the 'good' release and used to prepare the .config file.
+>         ./scripts/config --set-str CONFIG_LOCALVERSION '-local-cafec0cacaca0-reverted'
+>  
+>      This is optional, as some commits are impossible to revert. But if the
+> -    second command worked flawlessly, build, install, and boot one more kernel
+> -    kernel; just this time skip the first command copying the base .config file
+> +    second command worked flawlessly, build, install, and boot one more kernel;
+> +    just this time skip the first command copying the base .config file
+>      over, as that already has been taken care off.
+>  
+>  * **Complementary tasks**: cleanup during and after the process.
+> @@ -232,7 +232,7 @@ set to report the bug -- unless it did not happen with earlier kernel versions,
+>  as then your want to at least continue with *segment 2* to **check if the issue
+>  qualifies as regression** which receive priority treatment. Depending on the
+>  outcome you then are ready to report a bug or submit a preliminary regression
+> -report; instead of the latter your could also head straight on and follow
+> +report; instead of the latter you could also head straight on and follow
+>  *segment 3* to **perform a bisection** for a full-fledged regression report
+>  developers are obliged to act upon.
+>  
+> @@ -1183,9 +1183,9 @@ Space requirements
+>  The numbers mentioned are rough estimates with a big extra charge to be on the
+>  safe side, so often you will need less.
+>  
+> -If you have space constraints, be sure to hay attention to the :ref:`step about
+> +If you have space constraints, be sure to pay attention to the :ref:`step about
+>  debug symbols' <debugsymbols_bissbs>` and its :ref:`accompanying reference
+> -section' <debugsymbols_bisref>`, as disabling then will reduce the consumed disk
+> +section' <debugsymbols_bisref>`, as disabling them will reduce the consumed disk
+>  space by quite a few gigabytes.
+>  
+>  [:ref:`back to step-by-step guide <diskspace_bissbs>`]
+> @@ -1254,8 +1254,8 @@ distributions:
+>        kernel-install-tools libelf-devel make modutils openssl openssl-devel \
+>        perl-base zlib-devel rpm-build ncurses-devel qt6-base-devel
+>  
+> -These commands install a few packages that are often, but not always needed. You
+> -for example might want to skip installing the development headers for ncurses,
+> +These commands install a few packages that are often, but not always needed. For
+> +example you might want to skip installing the development headers for ncurses,
+>  which you will only need in case you later might want to adjust the kernel build
+>  configuration using make the targets 'menuconfig' or 'nconfig'; likewise omit
+>  the headers of Qt6 if you do not plan to adjust the .config using 'xconfig'.
+> @@ -1365,7 +1365,7 @@ Start defining the build configuration for your kernel
+>    *Start preparing a kernel build configuration (the '.config' file).*
+>    [:ref:`... <oldconfig_bissbs>`]
+>  
+> -*Note, this is the first of multiple steps in this guide that create or modify
+> +*Note, this is the first of multiple steps in this guide that creates or modifies
+
+So you are saying that the "that" clause refers to "first" and that the
+verbs should be singular to match "first"?
+It has been ages since I diagrammed a sentence. :)
+Could the "that" clause be referring to "multiple steps" instead of "first"?
+
+https://www.writecream.com/sentence-diagram-generator/ says that "that" refers
+to "steps" so the verbs would be of the plural variety. IDK. [Refer to "ages" above.]
+
+
+>  build artifacts. The commands used in this guide store them right in the source
+>  tree to keep things simple. In case you prefer storing the build artifacts
+>  separately, create a directory like '~/linux-builddir/' and add the parameter
+> @@ -1407,7 +1407,7 @@ Occasionally odd things happen when trying to use a config file prepared for one
+>  kernel (say 6.1) on an older mainline release -- especially if it is much older
+>  (say 5.15). That's one of the reasons why the previous step in the guide told
+>  you to boot the kernel where everything works. If you manually add a .config
+> -file you thus want to ensure it's from the working kernel and not from a one
+> +file you thus want to ensure it's from the working kernel and not from one
+>  that shows the regression.
+>  
+>  In case you want to build kernels for another machine, locate its kernel build
+
+All of the other changes LGTM.
+Thanks.
+-- 
+~Randy
+
