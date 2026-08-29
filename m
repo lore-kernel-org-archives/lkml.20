@@ -1,126 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0672F28FF;
-	Sat, 29 Aug 2026 05:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FE23BCEE;
+	Sat, 29 Aug 2026 05:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787982866; cv=none; b=UPMT/METDAXPy2+9YVxGSsT57qgU06zfAahTtLJElFsduCL6pg5qrQ8gMaTJhnLuYcE4Ec7aNwYkkTeuAELnEmTlh/zV6AzHJmN8Gy3EVBUAi7+U9V2BZUjYYEk9ZehHNsgU8IC1R4Oy+9U8WM7TD/uI2HLc79s5pu303F4IETY=
+	t=1787982978; cv=none; b=Jo0/defSIlwSCJfOLgTb+/2SvCqrQchTitB5kwsNajJ8KohgntkOb0ss2r1pknwRx4J4fDo0bJSRyjLiY2A+D7FzV9r9nkdp7E3Aovtxxx+Ffnoyv4CNhRvA3u5br9Ri5KSkNPLECAX3LWHNG5jIV/1v18xCT6v4Zs8j/4XbRoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787982866; c=relaxed/simple;
-	bh=HIks4LV10ysmsNcUdePgwL6jjgFficWnCTvztD4WSGw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dl2aqQnW1P3EhQLqi5TaGSvRhOfXHMBmPR9/Fj8NnA7C+Lx//jfkV1eIAP1dDLVzkEo9Q7+rajOyPFBHsrWjDvQTi8QPvo2HefgXYE6pBBC4e4eeXXw3irOGRnphyQ56mbbnmOiJ1EJWJWAjniQRerZ5mYCQ+7DbSU21+Est+vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i134d/Wa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i134d/Wa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533FB1F000E9;
-	Sat, 29 Aug 2026 05:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787982865;
-	bh=yFTrJI2OeaOiAaQDcbHU1K6Yg8r+hEUD6sJwtiaktYE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=i134d/WacIrlcXNhsLMoRsdAUYUPQU+u5jVamSqmNuVIr31oNDoDyix3Bl7iQ3n4O
-	 cJ+/AWv1CT8il1Gy4Xhyz+/lXEW4ePaMV2mK0B+zawE6uIRXRiVqqyhF1AT5YsGMqp
-	 Z4VeVGpBz+Ra2Ovxs8VTNU2LA2HRxLYI6st5dFqRodePXpkNwBKWvMowdb4lDySqID
-	 /12B349d0ne77G9obHl+zZ3nHAgCn1YbqgpE+1i1hg96c1rGzVc+b1fMQWOlYNMFdx
-	 6ST4ftT2MkZXU5U1dLBCmCr2r1ZYrHJg8aLCtQLcAyiJZ+SYyMdufuVjQKNImiZ9SJ
-	 PEV9uQfDoOEYg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v9 2/7] firmware: hwrng: arm_smccc_trng: Register as an
- SMCCC device
-In-Reply-To: <178794567779.4159892.8570190086048719424.b4-review@b4>
-References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
- <20260805063255.1638614-3-aneesh.kumar@kernel.org>
- <178794567779.4159892.8570190086048719424.b4-review@b4>
-Date: Sat, 29 Aug 2026 11:24:14 +0530
-Message-ID: <yq5atsodtqt5.fsf@kernel.org>
+	s=arc-20240116; t=1787982978; c=relaxed/simple;
+	bh=2FOUWMlsR+RkhsyUYBfHnH37vrxo71hxEejjjfPLUuA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ggidxcd1vERInS8c55tuko6b3je1qbRZ3Zu23pi1BiArbCLjHOiyiKd9xiBCSYfhC5NHr22RHI2XjBU3lHI2f07bnxr+UocBmIQh9HUvmYM7sCEN57kdPcg0Z5nRkkbUWfv6CcV90qIepQr/jhRNRH/x+AhpFPssnJTSxknEUG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67T5tYcN010762;
+	Sat, 29 Aug 2026 14:55:34 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67T5tYl1010759
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Sat, 29 Aug 2026 14:55:34 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <6a770a9c-2642-4392-9b9c-609836693f36@I-love.SAKURA.ne.jp>
+Date: Sat, 29 Aug 2026 14:55:33 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: Bart Van Assche <bvanassche@acm.org>,
+        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
+        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
+        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
+        Hillf Danton <hdanton@sina.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
+        linux-btrfs@vger.kernel.org
+References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
+ <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
+ <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
+ <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
+ <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
+ <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
+ <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
+ <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
+ <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+ <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
+ <c0df5f39-d103-4e36-9807-df0ae0247772@acm.org>
+ <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
+ <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
+ <903a22a2-432c-4e72-bc09-7898becf2f3e@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <903a22a2-432c-4e72-bc09-7898becf2f3e@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav415.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+On 2026/08/29 14:17, Tetsuo Handa wrote:
+>                                                                 Also, this
+> synchronize_rcu() => drain_workqueue() => blk_mq_freeze_queue() ordering
+> guarantees that q_usage_counter won't be incremented again after it once
+> reached 0, due to the lo->lo_state != Lo_bound check in loop_queue_rq().
 
->> [ ... 58 lines skipped ... ]
->> @@ -94,29 +96,37 @@ static int smccc_trng_read(struct hwrng *rng, void *data, size_t max, bool wait)
->>  	return copied;
->>  }
->>  
->> -static int smccc_trng_probe(struct platform_device *pdev)
->> +static int smccc_trng_probe(struct arm_smccc_device *sdev)
->>  {
->>  	struct hwrng *trng;
->>  
->> -	trng = devm_kzalloc(&pdev->dev, sizeof(*trng), GFP_KERNEL);
->> +	/* validate the minimum version requirement */
->> +	if (!smccc_probe_trng())
->> +		return -ENODEV;
->
-> It feels like slightly poor practice to do this.. It is doing three
-> things:
->
-> 1) ARM32 disables this entirely for some reason, shouldn't the bus do
->    it? Maybe it already does?
->
+Well, this part was inaccurate. Since q_usage_counter is incremented before
+loop_queue_rq() is called, it is possible that q_usage_counter itself can be
+incremented even after synchronize_rcu() => drain_workqueue() => blk_mq_freeze_queue()
+sequence.
 
-Why? The bus only checks whether the firmware function is supported and
-creates the device if it is. Further validation should be the driver's
-responsibility, shouldn't it?
+But what makes this ordering safe are
 
->
-> 2) Checks the API exists and checks but the bus already did this.
->
+  (1) since we are in lo_release() with disk_openers(disk) == 0, the activity of
+      incrementing/decrementing q_usage_counter (incremented before loop_queue_rq()
+      is called, and decremented after loop_queue_rq() returned BLK_STS_IOERR)) will
+      cease shortly
 
-This checks that the firmware supports the minimum ABI version required
-by the driver.
+  (2) since there is no pending work in lo->workqueue, no I/O will be made to
+      backing file
 
->
-> 3) Checks the version number
->
-> Maybe the bus should capture the version output and pass it in as an
-> argument to probe so the driver can do the min version check directly?
->
-
-One of the earlier discussions suggested that the bus should only check
-whether the function ID is supported, rather than checking for an
-expected version or anything similar. This keeps the bus code generic.
-
-	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
-	ret = res.a0;
-
-	if (ret == SMCCC_RET_NOT_SUPPORTED)
-		return false;
-
-The other alternative discussed was a device-specific callback that
-would perform additional validation and create the device only when
-those conditions were met. It was dropped in favor of the simpler bus
-code above.
-
->
-> It is very minor anyhow, it looks OK
->
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->
-> -- 
-> Jason
-
--aneesh
+.
