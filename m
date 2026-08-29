@@ -1,114 +1,144 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B805D3ACEE3;
-	Sat, 29 Aug 2026 14:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788013392; cv=pass; b=od/2utLbCVf85h+0qyJWvqDoikRHjPkL0mpqr4ueCKUrgjuDMC+VWRyGnY28+NTAz3t/RUwVu+kz29lpJCxO3eTdGtrVv8hVzYmz/CIaIeSznpUc+VnxWpA6v4Qa+qmmUaWnZvald3iQOo7TtD/wV/nWNM+il+AMbk1RwcG18ck=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F88E3ACA6E
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788013392; cv=none; b=AyRTVa6VHjO8qfJLzcCUB6/ha0uOrBtcYEtjljSajM/NF2P01BJ6q0yQ9CrrCZzDmZNIAr24p+VOxz0P6waPAKtLgmQX/jfiRPFHqCLRnvJLog5FkXEkKmU2H9lnVilx+hR5wzbrfmEAzCbD3mF4ebLq/sP9TteZ+jjXwdseqfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788013392; c=relaxed/simple;
-	bh=XgZgRJaCP8RbAxF2F6wwlCNm2i4NZfHfXxO5tbt+JDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oukzFYZjYirqkm4fYzw6IieN+3IXPrRcUXHQVx7v+rhQmnEFDt9la+7hlWo4X6wrJdee8RSMk3NyDWj7KLSQeFPA2GKciqq53UDqyL7WSp76sVCWsuXmS+Zncgu1yKaIurao1QqupJ7H9KCOlosjt8EtX3JPun+Oy3y+a7Mw958=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=cs4pl9v5; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=S+dKh33W39w73152yMo0EKE85I1DfmK6AfQAPgfz7FiAfwu7AFzrVsif/9LUcQGR6HVnejAimP0/uTp+tYFks0BygqtVLACOcV4lgyE9Yt82DaFWaXmbUKORuc5Pwf9nPwY82caSRQD+AIeC3zlt3h2qOIubS2C8LMQrfDg3fvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=XrJqeiGe; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="cs4pl9v5"
-Received: from monolith.lan (unknown [IPv6:2a03:1b20:1:e011::d701])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hXHXk3YQrzyhS;
-	Sat, 29 Aug 2026 17:23:02 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1788013383;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qbD+jA3FjbPdP0383wROCsVf5CmDmabv7/udhP8xkLM=;
-	b=cs4pl9v5TgY5b0d2Q1jAeGjVHzY0gkFC0KmfCBq7aEXyLeqjOXHAqOWYbFmC4z+tEH8KMp
-	vhGpuuqqIvQKfzvD9ghfHqQqwg1LWpmQoSonAbB0KbJdbkucFp5oRsMed2zqra/T/PAjRc
-	xQ8lhtMqaRcnMFNEn400LVrWZFpKoLk=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788013383;
-	b=qRueV036TwZB1hTlcmmH7QS94jRf7OoB0PXKmI4VL+xk9558bwEdd8285iyKDKJyMV06ga
-	e4Tzyo8z197DQYvRArf/OYw+xDeuyaqMTsnQpYkpFgl70siwzAvQKB7VLF5WnXgX86MNZ6
-	3oAaEOXmWNLr6ewL9QMF55n9NxBK8T8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1788013383;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qbD+jA3FjbPdP0383wROCsVf5CmDmabv7/udhP8xkLM=;
-	b=TNEGXl8Z7Zi95Re/Txs0rMpRB9aAh+VoLxHEN3Jz/H7qoLt3u1oeHS7DtLZrEE2VJJZ5BW
-	yAonZQwuLyINkW9IVCGqaCybEzluUbIz6HBjGtQSmQ6ocbjywwztWL6AqZ6dXsZpnyg71h
-	dT9JIplv0rhc2yUx6FTqpnGCopa9v8c=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
-From: Pauli Virtanen <pav@iki.fi>
-To: linux-bluetooth@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	oss@fourdim.xyz,
-	error27@gmail.com,
-	elver@google.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 14/16] Bluetooth: L2CAP: make concurrent l2cap_set_timer() refcounting safe
-Date: Sat, 29 Aug 2026 17:20:09 +0300
-Message-ID: <c7b6bea07c66171e17ead1faeec6a9b07d307e00.1788013041.git.pav@iki.fi>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788013041.git.pav@iki.fi>
-References: <cover.1788013041.git.pav@iki.fi>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="XrJqeiGe"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 9F85524002D
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:22:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1788013378;
+	bh=RGGhD71B+UtcIgYaLVJcbUJD2ZD+NnVvBK4/H22TbeY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+	b=XrJqeiGeSauEgqwMwGoRM231q0cC1cTuyfmzOynjY1nA0uYu7LxfQGgXR1iQMIfsb
+	 mIJzKgs46sdopQQD1MHV2X/Q7+Tg/gjk53T8jEQvRk8OvJ0dfHE0Fj8YmqJ9BFN3+V
+	 fQOensOvOzDKHANgKk0j+6wbRjjSf5wSEPK7UX/FUJG/oCTgSd0NPPS40zw+ibLOKh
+	 OcWz7DVdm7lIFF3EelrSnUSdTlu0+NSV+VjywK0/2Nw2YRi9qU5oQTcvfAkyFDDeYX
+	 YnKy1oNUf/UxhsKciMFmUjWzdvqkZYsRalC1raaOR27dyF6TyggpKtAIE+vV+2KYTW
+	 1mdWt9IXfzYIw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hXHXc478hz6tyt;
+	Sat, 29 Aug 2026 16:22:56 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Sat, 29 Aug 2026 14:22:57 +0000
+Subject: [PATCH v7 2/6] rtc: s35390a: Add missing newline to dev_err
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-rtc_s35390a_int1-v7-2-debcd31143ae@posteo.de>
+References: <20260829-rtc_s35390a_int1-v7-0-debcd31143ae@posteo.de>
+In-Reply-To: <20260829-rtc_s35390a_int1-v7-0-debcd31143ae@posteo.de>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Michael Langer <michael.brainbug.langer@googlemail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=693;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqkus9ayjSwkOWvAgIFz9ahtG3Ars5u5zti/gsR
+ W+IP79Cv0mJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapLrPRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JfPxAAnpDmuia4lri84YYl2AhNRgOR/guyMGO
+ GaK4GAKyW8uT6gXJpaf844b5oYcGxl7sJli0nGCqHvs4EuY9JPlxpJAgwAKIDN8ehzvbbeS4E1l
+ 5fL44q6UOZmf3U1DzIvR85j0jsrOlCosWICppqRkjRdTf0UgB4Qcn8AHNRfsOCCBKsbzsdnNKGb
+ mqXQK+XPC3K6lO//nvrKA/ddlyU+QgWwUQsXof6yIy5lNeGrnpAIZ2e1jc6ajeIOtHG0vp57WNs
+ vozvjlyoVb3wRO40/QMobP4ADSDLgB94e80UQhRE642LxEetnePRcgPcByOXtq48Y1+KCXh2Rd5
+ tvIIP8rtgt/ydNPYMwQQvkjggqFbRmeuXgW3dxlCKvQZMTONwReAslDVH6ewuzNk3aaJddU0Ltx
+ wjq+8hqMe/9IcODm7ok7hR8L6qnwnEptbbwHCZxAWgASxuMguqPfKszvTipJvA+rt+e6siwEf2u
+ NqJFpePhuD8Q2Pnu18KALcmCklkNiAGr0/KTsrO+Dd00tNrhLqDCg6+DT0DW6hja0g6CzGsTeL1
+ 1MOxm9aeRCPN24oZ8kmodYdurQN1wKwNrfJ5lkF9kBab+cxqhC7Awp2BMx7WaI/XkPDT13qPs8c
+ 49I28D2s/AkzbYztDnJtDFAJNUqAdVSsiiHybdllVLXIVL0W6j0M=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-Since l2cap_set_timer() does not check return value of
-schedule_delayed_work(), two concurrent calls may result to l2cap_chan
-refcount leak.
-
-Change the refcounting by using mod_delayed_work() and checking its
-return value.
-
-Code paths aside from l2cap_chan_busy() hold chan->lock, so this has
-little correctness impact.
-
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Fixes: 3bd32722c827d ("rtc: s35390a: improve irq handling")
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- include/net/bluetooth/l2cap.h | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/rtc/rtc-s35390a.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 3d00ffb66cc9..efb9b7f422d1 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -859,12 +859,11 @@ static inline void l2cap_set_timer(struct l2cap_chan *chan,
- 	BT_DBG("chan %p state %s timeout %ld", chan,
- 	       state_to_string(chan->state), timeout);
- 
--	/* If delayed work cancelled do not hold(chan)
--	   since it is already done with previous set_timer */
--	if (!cancel_delayed_work(work))
--		l2cap_chan_hold(chan);
-+	l2cap_chan_hold(chan);
- 
--	schedule_delayed_work(work, timeout);
-+	/* put(chan) if timer was already queued so it already has a ref */
-+	if (mod_delayed_work(system_percpu_wq, work, timeout))
-+		l2cap_chan_put(chan);
- }
- 
- static inline bool l2cap_clear_timer(struct l2cap_chan *chan,
+diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+index b72eef4fb099..4cfe7034c516 100644
+--- a/drivers/rtc/rtc-s35390a.c
++++ b/drivers/rtc/rtc-s35390a.c
+@@ -494,7 +494,7 @@ static int s35390a_probe(struct i2c_client *client)
+ 		buf = 0;
+ 		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
+ 		if (err < 0) {
+-			dev_err(dev, "error disabling alarm");
++			dev_err(dev, "error disabling alarm\n");
+ 			return err;
+ 		}
+ 	} else {
+
 -- 
-2.55.0
+2.54.0
 
