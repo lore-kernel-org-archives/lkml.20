@@ -1,137 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1EF3A0B2E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:15:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA0B364052;
+	Sat, 29 Aug 2026 21:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788038144; cv=none; b=PVaIhW3ArsIQZ2kBOyXGIMhhypp5LMifjUy6KhJLvXkJEAVdw3OfKRVO4PyiZxfod67T0ZfRvqgohtBbENv2dAgYn7N8hMZms+Yjiqsdk3R3/291oIEx8VrbY3VIylyJiEOxQX9JWCfHvUX676VEKRS9G3IhyH2t/N23c5C00J8=
+	t=1788038456; cv=none; b=cNSK7pjkfTCvSb8PjnhhE8e7yDuP2xQ/VaP0ApWqKuN7qd3pGfraPXpx9lpVwdS+WVGSXgqOU+FMAQF+plRAVR7emIH15/GNFM2ZKnSV0iz74juJBtWPweIfMxPXtjFnDpz/hhO56+1KuYFoYyIEmWAbR5iZE2TmpKWy72oD5RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788038144; c=relaxed/simple;
-	bh=mjynPxD7nRchsj2Yqc6Yl1iIO6s6FS4XtySh9N842JY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b+Hpk/e2Kqi8NHr+S/stfUOr3tSiOg3UfZxx/JrFODOJyI5mqOtTC+Bj0Ab/SefGjWdUN2hGfCjfD+A4PWVgJ+UEtTBJ1Z9v4ZRIuZVE2Ih08XiEd0sVBTZiIAju0kOsUaWu37+YL4YrkcgoKlWNmaIvxIAqiBq0ZwdMas+l47g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oAy0sfCf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788038456; c=relaxed/simple;
+	bh=7+AKVSCv81q3zwE5ABq4d4psS2kgIpKN5OfukAqKhSo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nudYM4W9fRXOpDA9FQhkWpjVE8z1WN2qU4SBCbzIuhf+SM5pUc3YnS0MhjeoTduX97/nBiyq9yCmD6vh/lh5Rp3ZA9tQWcRa5j7LQKX0wiT3wyMm6K07GO8F89H0Jb5fyCiXsoEa5l7y3PfPfsF2sbUp3ut176rHoYU2xHZnEhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWhIPwuG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oAy0sfCf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96D51F00A3D
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:15:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWhIPwuG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A0A1F000E9;
+	Sat, 29 Aug 2026 21:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788038140;
-	bh=kl82kjwNjANSx5Y/E3qWOyitFO8M63uxkYUOYWoDpS0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oAy0sfCfornUy0c41L7gSGcznMexgpaCaMaVgzKlJPX9iyYBfYqZPNChZDocHEJqW
-	 dxs1lIfGylE2Kja4kWC1FdanGMgAHhhsqE4mS2URRWsUBHD3GKg81UB9VP8b/1UBge
-	 C3ZJ9UNUhToeuM/kRY/7CixFfTGBQVUCsdhfwuNmXsOfzpRJ5UuhNCON3mWOHtbhpZ
-	 iWAdr4gc1+bdX+BOZMjnuhN5OX1GLl6vzAU9Xq+zdPp/cxVifYGD5Zz+MQ8IqSsELd
-	 pQsEx3d+0Y27KkijJ4iEcLvGfdX+MnAqjJimXReBxNh0cbpFU6YRsf8FFUYptocVHX
-	 k1RaSuwt13KWg==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id F1829F40068;
-	Sat, 29 Aug 2026 17:15:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Sat, 29 Aug 2026 17:15:39 -0400
-X-ME-Sender: <xms:-0uTartXnnSIY76Ul1Telc3fHM_8u9LgRN2R7iPL-q2m108AH-bVaQ>
-    <xme:-0uTautgb_NXlu8NW6WXatpP0Lo4tOFKZSYRAisvspLOXAdtXF5KXvEZG8yB69fEK
-    tqrROK6f7PmdXAPOCTgQ_nGrrTfdDDUuJJ71ouZWTEBL3D1x3j_7A>
-X-ME-Received: <xmr:-0uTahBCZ8V41zQEhUkYl6ED3U2lr2g0cplVZvwRWVu3kBJPp4QVihaJGOCPHZmU43EZgOh7oiWy9809RVZB-KtmWhnqwLIr>
-X-ME-Proxy-Cause: dmFkZTGmpeKORl6G3QJhcnyta6QmboqpwAgEvILdgXf04fMXbSHlKiyMHSEs8fzwWeMSE2
-    goNVqKQQFg9+wMyPmaDuz4WXZCYiJCs57nJHQgL9Vaq6RaO1nqJq8+sRPWjHr59yi154wm
-    0JxEROeS25IXAKpS6S7j4ZV/cnKXEUCl30LNWgIMaEmh9vJTBSSwMNUResIs3QzylaTbHV
-    Nc0PtrHTvSKD/g5O2oba1eYNCGpeUSE8WPFqV1inKDxFcldSUN74T70mJcjjwG6pxiyUnA
-    BH4MojuD2hC9VLL9V0W+ZJAgcQw2KeHX/NwGzrSgxJF5j7A3uIGuE2XWNXotuyFKJX/3NO
-    k1vpDc5arxsfOYe2hR9ZjxIh1AFHgjXfHyZEAlCQZwEZwxxco7vLwoZdRv1aK2dpB/xB3m
-    nruiYT1B8pUE+8myc+C8nqudNcBSh+ZjFATvfPjmBEBB4ZyP6yQf1p27fDebYISqVKjfxY
-    GNIakcNJq/ZQt31hMPRV+pEPLXeYTtKHqcqEKiCdm+hAQac8BnIBl9fcQ4ThFAet5lzrgQ
-    puF2+/bk/oeIiqdl5AYVOskhE7UC7tX5DqlLIj62Z3k3m4IxhyvZJXe30pRznFZNOSc0NX
-    msAekGxFa5Vc5hWqQxaoFXzdssSlEc+pL4KdUSH+OammS7fCocE2kOkqO2TQ
-X-ME-Proxy: <xmx:-0uTagPvwCdP_e_7apmRQrtZwbHlWSSFW7M2XOEgMEsej4dlYIN8Pg>
-    <xmx:-0uTaqxKW3z3Zmeunc5ItOdipdrLuO4WlcLZwjv7TRSn9H1E58__lw>
-    <xmx:-0uTagWz0kjMZq0sFP4sMtZ_OQZN54S3pT8SUPQZhNaleXcKnFtYeA>
-    <xmx:-0uTasMSAyEqBrwRRPG-my6ALee7eTb6Z4FBhRemNY_CzMy4AUU2bw>
-    <xmx:-0uTaiAqV8X2BDnzzgCeKGSObcGZ3UHPCSq55R1VjKuBpViMhDfOT4bZ>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 29 Aug 2026 17:15:39 -0400 (EDT)
-Date: Sat, 29 Aug 2026 14:15:38 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
+	s=k20260515; t=1788038454;
+	bh=OMVXHLa1HmQu4uo8XsSIwn4sntIQRJHfffEiJUyFrKo=;
+	h=From:To:Cc:Subject:Date;
+	b=CWhIPwuGtVzyGHppN0Joo/2AdlhLp/vqnNVoNG2z7dePN67VW057cO3gxb7eU19pq
+	 Vg64bqjWkmPicDWMpzaKbsYWnTsYOtfmimRIeIAITk23hnWkwUydvyez7RjiCX1uju
+	 lVeeOQ/ZuPsyqiEuUHYcOGtU7a9oOCkqSol26PsoC/so4FwDaFEKty4BwiMYo0q+r7
+	 j5Lv55nzlrUF/KaIsMKW/tIYzY5WvckBbP/Qd4LImt9XWQP0cLxlO3oY3PMk8P0nCC
+	 V52f7AOKHszRoq6J9MAij7n08Ipf6nbfh6Bqm6k+04KNq89whCcIdZquBXDXgFAGqt
+	 7/PNWoq3CgI7Q==
+From: Thorsten Blum <blum@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lenny Szubowicz <lszubowi@redhat.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Francesco Pompo <francescopompo2@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-efi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] interrupt: Disable interrupt before modifying
- hardirq_disable counter
-Message-ID: <apNL-qhyr4PwSonr@tardis.local>
-References: <20260827181106.30090-1-boqun@kernel.org>
- <87ecfgej3h.ffs@fw13>
+Subject: [PATCH] efistub/x86: Use struct boot_e820_entry for size calculations
+Date: Sat, 29 Aug 2026 23:20:35 +0200
+Message-ID: <20260829212037.335569-2-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ecfgej3h.ffs@fw13>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1334; i=blum@kernel.org; h=from:subject; bh=7+AKVSCv81q3zwE5ABq4d4psS2kgIpKN5OfukAqKhSo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmTfVWfznmQ/yJV6dcC69kNlu5R3UEpnpyed1co6ETNn 1/GpPizo5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACay6xDD/+Cf8y4r5s3zS2Re 2mBbcrlF/G/3CemLIs+0lta8dtBvv8bwP/zP9/MPYtKFyjTjCn1E+NmVOGNrXyd89ug1aO2S1tj DDwA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 11:02:10PM +0200, Thomas Gleixner wrote:
-> On Thu, Aug 27 2026 at 11:10, Boqun Feng wrote:
-> > Currently a softirq may be pending longer then expected if the
-> > triggering interrupt happens in-between hardirq_disable_enter() and
-> > _local_interrupt_disable() in local_interrupt_disable():
-> >
-> >     local_interrupt_disable():
-> >       hardirq_disable_enter();
-> >       <interrupt>
-> >       ...
-> >       __irq_exit_rcu():
-> >         // false because hardirq_disable_count() is not 0
-> >         if (.. && !hardirq_disable_count() && ..) {
-> > 	  invoke_softirq();
-> > 	}
-> >       _local_interrupt_disable();
-> >
-> > , it'll defer the softirq to the next interrupt which can be forever.
-> >
-> > The order between hardirq_disable_enter() and _local_interrupt_disable()
-> > is to optimize re-disabling interrupts if they are already disabled, but
-> > as 1) local_interrupt_disable() is not widely used yet and 2) the proper
-> > way to achieve this optimization may need fixing up the counter at
-> > entry/exit time [1], so reverse the order for now to avoid the softirq
-> > pending issue.
-> >
-> > Since we are doing this, the part of saving the current state is
-> > separated from irq disabling, and we basically do the following in
-> > local_interrupt_disable():
-> 
-> We do nothing. See
-> 
-> https://docs.kernel.org/process/maintainer-tip.html#changelog
-> 
+alloc_e820ext() and setup_e820() use sizeof(struct e820_entry) when
+calculating the sizes of boot_e820_entry structures.
 
-Will fix this.
+Even though struct e820_entry and struct boot_e820_entry have the same
+size, use sizeof(struct boot_e820_entry) for consistency instead.
 
-> >     local_irq_save(flags);
-> >     if (counter++ == 0) {
-> >       this_cpu(local_interrupt_disable_state) = flags;
-> >     }
-> >
-> > Change _local_interrupt_disable() to _local_interrupt_save_state().
-> >
-> > Link: https://lore.kernel.org/lkml/87v78wezid.ffs@fw13/ [1]
-> 
->   https://lore.kernel.org/lkml/87jypbfu1t.ffs@fw13/
-> 
-> is the mail where I explained that softirq issue.
-> 
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/firmware/efi/libstub/x86-stub.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The link [1] here is for "the proper way to achieve this optimization
-may need fixing up the counter at entry/exit time [1]", so I think
-that's correct because it contains your explanation on how the fixup
-would work. I will add a "Closes" tag to the other email that you
-explained the issue. Sounds good?
-
-Regards,
-Boqun
+diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
+index cef32e2c82d8..ae2481f8a4c3 100644
+--- a/drivers/firmware/efi/libstub/x86-stub.c
++++ b/drivers/firmware/efi/libstub/x86-stub.c
+@@ -648,7 +648,7 @@ setup_e820(struct boot_params *params, struct setup_data *e820ext, u32 e820ext_s
+ 		}
+ 
+ 		if (nr_entries == ARRAY_SIZE(params->e820_table)) {
+-			u32 need = (nr_desc - i) * sizeof(struct e820_entry) +
++			u32 need = (nr_desc - i) * sizeof(struct boot_e820_entry) +
+ 				   sizeof(struct setup_data);
+ 
+ 			if (!e820ext || e820ext_size < need)
+@@ -684,7 +684,7 @@ static efi_status_t alloc_e820ext(u32 nr_desc, struct setup_data **e820ext,
+ 	unsigned long size;
+ 
+ 	size = sizeof(struct setup_data) +
+-		sizeof(struct e820_entry) * nr_desc;
++		sizeof(struct boot_e820_entry) * nr_desc;
+ 
+ 	if (*e820ext) {
+ 		efi_bs_call(free_pool, *e820ext);
