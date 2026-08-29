@@ -1,85 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33E542AFB2
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F48A3016E0
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788046971; cv=none; b=p1fPzsIJTP2X+HU0XO3wzzxFv7a6CPmJ5myXRZBqFaKLhXkbNpLI50dMuq/Lyy98tQ012RG4Iml+WKbSq0+UTfaL3Ui35kRxfYO+0WHE2uAAgFVKUu69v9OLbNUT+nrYOlarRfMIfbvqpdT2QMEoBUivutpWfeHUxzVbnIzT46c=
+	t=1788047045; cv=none; b=jow6GZukWfa7leTqmm5VsqlKCHyHz6x/zW7IpJQg9qV78N0P1Dv0fxceDXzOOINzStdiqfzbrY4dLRxeS7OTCs8FWSF1iYoCKkNY0Iv0hNjTRaK8slJUXgHLGj25KlMc2GX+7GPhHSVRmqzAm8pT74HbzNF6LkWnzxGoU3nDoGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788046971; c=relaxed/simple;
-	bh=hvib3xu+mCh3dIdR57++m42eWeewyViREqC/GFZPOBA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=JZlqfeNc5mST1L3X+8JU/59VOH7F1zz3zhhY3dQEL3oMAF7sCtoSP6TMsw7hc+70pU46i4j6u/qVh+1CVoYUFRMo+Qu1tMQitFVG18Wt0O6WMj7mjAiUfnz7ZxOmbPs8wqGDFQ6s0UTNiYWeDCYAqzUNfa2IQBFnbnVZO5f1+uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FIKyqdI6; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FIKyqdI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2011F000E9;
-	Sat, 29 Aug 2026 23:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788046970;
-	bh=2mRCQiRBd4NuPuRSBBLbKKxxhzvurCwnhLr1piTDSSg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FIKyqdI6RBvZQtl6PV7p2HB3PZzFD0Q95RBgzRmslyl1V5W/kT494hjE1GHYn/LwJ
-	 8NBRk1WYTe/Ua10h9hD4nxM9vXMNE0C4TaIe2oEOxV9MBTZN0Bj83YPCmoSCu4nf0O
-	 6xguUizHJB5Y41BdhY0cxqZvyIWOh/qcDHrZRx2o=
-Date: Sat, 29 Aug 2026 16:42:49 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: David Laight <david.laight.linux@gmail.com>, "H . Peter Anvin"
- <hpa@zytor.com>, zhanxusheng@xiaomi.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] minmax.h: update the stale 'x' versus 'ux' comment
-Message-Id: <20260829164249.78372631e4424a07bcf8c9da@linux-foundation.org>
-In-Reply-To: <20260817121613.3846511-1-zhanxusheng@xiaomi.com>
-References: <20260817121613.3846511-1-zhanxusheng@xiaomi.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788047045; c=relaxed/simple;
+	bh=XyRzoIt9BKjeu+ZuM6OpvFtJ9CrPATeITWgkirouklA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=ZzOk5dHwaM/rQTsCWkPp2/FIZ/wKt5AMTvgffqeAZv4kMHqdU21GsqMsWFI0b+m8gWyj/I8itEntVaxkXIfAeg8xb6hCl4kMMw5K9hwPtnBlvFDj0zDthsfa2H71oaiy0rBhOSXroPFrBLSwyQrzDUCpEVnQqwPFD7kv6w8asCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4ca7ce3fso2823685b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:44:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788047042; x=1788651842;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DQBWUg9lR1vGNw3aL5E0KsvI5tTpdhTutZWPXYdUw1M=;
+        b=j/oOW0AcODi4fSQfnh9FZAmqTQXfKYtW8/x7+5GvtllE9/rORn5ahkU7UQkt3CVx2z
+         HzE5dr03amdf4I4D6c0+5OjrsxOzHISe+6G9hDq9Edk6HYmzrtmcQewJQ59d18af1qvM
+         kIUo6tZVq9RZ29vezz3nc5DHjdEtjLvQw6d2LESmrdekTc7gsha7aO8eLxUGUw5eUJ16
+         Jqe2ISUHxesWhy40CjvVAAbjhaveFWnItbGaZ7fQCeqOnz739vWRvgRk4TV7iFkQyiRT
+         S8RAor28GhP7R5zG0oGIoSOK5nFXW7XRu0v0dFAaUjT64pQ//oAJnECMwuov1Ug5IdzL
+         gpmQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6fib7Y6OHF2pqJGlwXvthecWw5AevZ7t6h/+2nFYKAhfWZYN7HOmuzOX5TaQRrlBy4QMD9yL6Haco4mg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lux1BfhrzG0AA4UEEvSEZBpQGP7abZGIHMXySuqFzVnUC5wfOc
+	6gjXZhL9fSWXA3g3jgF5+2bA0eJ/Z0xDGwDz5hatkzjzSE0vTUiX2ry3ePoXnrVFbnm6pNZWCiF
+	lReatlPpLa8AsxGUqOT4RSjTULxeIYh0bXIVHOqX2zm4aDyafDIig6Kb1wtg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:538e:b0:4b2:e9d9:f13f with SMTP id
+ 5614622812f47-4b3982ee646mr20396784b6e.17.1788047042590; Sat, 29 Aug 2026
+ 16:44:02 -0700 (PDT)
+Date: Sat, 29 Aug 2026 16:44:02 -0700
+In-Reply-To: <20260829145838.19351db0a28b30b7ccc1b295@linux-foundation.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a936ec2.4d659fcc.734b4.0032.GAE@google.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in __mmap_complete
+From: syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, dvyukov@google.com, elver@google.com, 
+	glider@google.com, jannh@google.com, junjie.cao@intel.com, 
+	kasan-dev@googlegroups.com, liam.howlett@oracle.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, lorenzo.stoakes@oracle.com, 
+	netdev@vger.kernel.org, pfalcato@suse.de, syzkaller-bugs@googlegroups.com, 
+	vbabka@suse.cz
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 17 Aug 2026 20:16:13 +0800 Zhan Xusheng <zhanxusheng1024@gmail.com> wrote:
+Hello,
 
-> From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-> 
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Well that's confusing ;)
+Reported-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
+Tested-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
 
-I'll assume @xiaomi.com was intended.
+Tested on:
 
-> Commit b280bb27a9f7 ("minmax.h: reduce the #define expansion of min(),
-> max() and clamp()") made __sign_use(), __is_nonneg() and __types_ok() take
-> only 'ux', and commit a5743f32baec ("minmax.h: use BUILD_BUG_ON_MSG() for
-> the lo < hi test in clamp()") did the same for the clamp() limit test.  The
-> comment describing the old split was added one patch earlier and was never
-> updated.
-> 
-> 'ux' now carries the value check too, since __is_nonneg() tests it rather
-> than the original expression, and nothing here looks at the value of 'x'
-> any more: it is expanded only to initialise 'ux' and in the error message,
-> as the first of those changes intended.
-> 
+commit:         1b78070a Merge tag 'net-7.3-rc1' of git://git.kernel.o..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+console output: https://syzkaller.appspot.com/x/log.txt?x=14e12c15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=e4aa91d7f20c34417d4e
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11f37d49580000
 
-Thanks.
-
-> --- a/include/linux/minmax.h
-> +++ b/include/linux/minmax.h
-> @@ -38,9 +38,9 @@
->   * Note that 'x' is the original expression, and 'ux' is the unique variable
->   * that contains the value.
->   *
-> - * We use 'ux' for pure type checking, and 'x' for when we need to look at the
-> - * value (but without evaluating it for side effects!
-> - * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
-> + * We use 'ux' for both the type and the value checks, so 'x' itself is only
-> + * expanded twice: once to initialise 'ux', and once quoted in the error
-> + * message.
->   *
->   * Pointers end up being checked by the normal C type rules at the actual
->   * comparison, and these expressions only need to be careful to not cause
-
+Note: testing is done by a robot and is best-effort only.
