@@ -1,185 +1,166 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB3D328611;
-	Sat, 29 Aug 2026 09:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD014632
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787996101; cv=none; b=rQmPFDgIy49IopD4yi84fQ4it3e72YJCTsOjPsrxaI6qhh40WXMnWtT68dhnmbGhtQChUtGCH7lGVlRgs8HYbcYmywlFVy6Dqr07uWjaSm5+gz8aNuVINJ8XoA5xH6Dub1vuYQR0JbNR5nFbmnmW5kwVcYefj55/JNqRgM+cyiQ=
+	t=1787996376; cv=none; b=NzV77Qz8PlYj6ipK7pD4J5VafCHk42cIwgFEbQi+TzhX+C/NV/vuXU9M72w7zfkO2vCyHSfvP+KjZUj19IBN0wEvhbqxnK4zBhA2K2eIx64dQnBEtEn55+PYGFi6PbOqKQuApQd+I1FUylviJaeSBLGnYFAJOpXkVuBrlooRK+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787996101; c=relaxed/simple;
-	bh=BR/LqOPk0RDAOLrsALcIpnNEQFYMLtvBgIIirpHr8wI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XRu2rMAGocD1N2klUc31NvtjV90M1R6YSeMxpaPj9yzjg8SlsH5yjs+8i9Dj/7Fb11A4qpAJW+3dNLXvLf/ZbwqIk7PUAaq6Cv41mbY1OsSbjYhNB/wlBj4IcBlGQS7hyPRRNqRzaemzW1M8FWXmBFyj0oi5e+nSrxQgEw2zVs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=cJV/dhe0; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1787996376; c=relaxed/simple;
+	bh=kQH8utjEcMuMrgMJOI0fiTjjeIf/7vys7+no0w6kqg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=biMQgL/9l7YpiJP4rnKRpp+MPHqYTbCErLgbHHtg2Vc4uiSZmXIHUDcSTEJrHNV8CDrq5za99Nwnjfhr8IjJhsiJtFerOLe5Dhug6zmxL3AjMkepH8GPzzk86xVzGx0NdOW+celM4ClrF9Zl/7xIWSGoPXQJizhAfmXyfeLRjSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mu2Qt7+a; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="cJV/dhe0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1787996067;
-	bh=0PuWcwip6JcJo9sARTYnMIqkzQJvUceiNAvwxSOqEdU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To;
-	b=cJV/dhe0PkAo+29kPJtmNVx55dWgc3sfCGNG1oGHbl4mWuQZMrxEFqBVhzNVzXPQC
-	 sQmFaccGS9DcBKXsYeGQNPmOxtW4ylBr+gwWNv0il5lNrX9NP5MWUscl86YWMNGNW0
-	 1H3DaLq84tDA5W2H1ZiYsRM8vi0EOUNYOe18blfQ=
-X-QQ-mid: esmtpsz10t1787996063t4f4ae30d
-X-QQ-Originating-IP: bHFmHQV2y5Io5Zuo3VJUTChZNFdGAVEBf23y5X+76qc=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 29 Aug 2026 17:34:21 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2601375684384682277
-EX-QQ-RecipientCnt: 6
-Message-ID: <4028ADCCD8D1A8F8+ffb2a2cd-1c21-401e-baeb-3d042fbbe484@linux.spacemit.com>
-Date: Sat, 29 Aug 2026 17:34:21 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mu2Qt7+a"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d590f4c291so5001835ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:39:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787996374; x=1788601174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QwISUhSllAbTBUsml1VPg6731YykdVgMhKzGhwZ5KiQ=;
+        b=mu2Qt7+aAdbwrfTdvj+zIcPwvdnxkntmauvhsd5hyjRmtKIsYC+1RI39dFoxCTChsi
+         5CUeW4KheNoBoiB+YrtX284vbdeIxNA35zr4Ymx4l/bfQ+u/BvScC/dScUb4hOa3vaky
+         FGVghA5v6B+2K32U8McN+QNQ0Uaz25tLLRUXT42PgrLZqxjRKSNhXva8/N41qVRAqASB
+         3rRNZPeNKa+fuEi6BfufkL3LuIIhIUZz8yJQ/oXWEEtHY5SZ12atwxgIuaVH06GNGR/u
+         PKnS376LT1JFRDKJr4rD01QW3uig0QYOt4A9+9SwwGiZH4n9t13K1SnNiZqWhUpMEyHL
+         8Q7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787996374; x=1788601174;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QwISUhSllAbTBUsml1VPg6731YykdVgMhKzGhwZ5KiQ=;
+        b=Gi3NL1qsyRmNH6V0SM6ElF5uH1BXufeLUW82iMVD+T8i0ijGwaccdY8axjV6KZ53fQ
+         cp5s8u2SfmIXhkMYSnoZ70xsYNsowtJw46QQolM4zPkEJXORlOiI0OEWpYwquV/ZcMD5
+         PgCYYTcssYUdX0l1p0tLMt9P/o+6GBTN3V379BCPMYoxKLOJ9mZp+7TLiZZfk1diikh9
+         9Hm3WUSgoshN+lK7MhwbAP0elu1e7u7yrdzvCdQZ2oJivJOWWZztvEUmDyzYOWpdcvnM
+         8bQf4RW6+xV/A3vu+aZY17yztL+VDzeAjHv6DGwKzL+Ze1rmvY9NyM4UWwqLmqH2hzXs
+         Sgyw==
+X-Forwarded-Encrypted: i=1; AHgh+RpFdfLB6WmNesVGLkDIyGFAA4ffEkPdE+qvAxj3HYBBdJnBLCRYeitWY+zSMF2T8YCMotjK+R6/CKIx9L4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3el0SZrZEGrgFYgL3EA0K2jyvB3JYvtgQfs9vMDL41WQJJcUO
+	qe6mbBHMPFna6ifyg9eA21xBNl2LTLzmxhNncgZrnhKAQH1riBvXvcSIALlEjZDmSAI=
+X-Gm-Gg: AR+sD11mECnmrHyU9uiFRNPJWBrbX9L5CE/xVigEGffDNtOgHPPihWaRovTV0ol6Bi2
+	Dgh0QLVHb93T76SGkiU/akL0Wnitgu8kYwXNKWl0Wlpjp3xIBGelCnJTYc4kN1AzM74e0to7HXy
+	8J/b5pSS1ckhLiIwjhtUk6ySfiv5ZzsZz3ZlwQjf8MMZAVAwD7BDNtrx70OpjGX6fALjXKz80cW
+	nIHfMGFE82N/FKdUpIH4SOX7pOkAYwE6X0ZJbXuB25YFCqS7u7jkZNnLxoxZ/x3C1PTyRA3kEek
+	+aTjFYNNNNb9HdkikRH0seHiYb8ulP0IGCLgkt7yP2ggidK7YkcCCwwTIsavM9MF2Az2yAxPGJs
+	ghnSIRXyn85JgHq3csyoOcD7o9wPE6S4caljEwrE7/MRMPUW/9kSsRXdEj1qdMrRSr3pFKSYw0O
+	+a404tBXRN7Q/t/s4l1HTGVVFJgTt60Fr1cMb1YSSfZtR1bg5uidxg19Pp08OR2vb6VAEjulJh+
+	VMgnC7nXfuaZhPSi45mbw5gvm1INSmMoQ==
+X-Received: by 2002:a17:902:f542:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d74e0a47b0mr118524575ad.4.1787996374029;
+        Sat, 29 Aug 2026 02:39:34 -0700 (PDT)
+Received: from cachyos-aura ([2409:40f2:3104:d691:c7eb:3b03:2c8d:127f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b0451sm16446310eec.16.2026.08.29.02.39.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 02:39:33 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: nika@nikableh.moe,
+	emmanuel.grumbach@intel.com
+Cc: helgaas@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	markpearson@lenovo.com,
+	linux-wireless@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Navon John Lukose <navonjohnlukose@gmail.com>,
+	bhelgaas@google.com
+Subject: Re: [PATCH] x86/PCI: Disable D3cold on Intel BE200 Wi-Fi on Lenovo IdeaPad Pro 5 14IAH10
+Date: Sat, 29 Aug 2026 15:09:22 +0530
+Message-ID: <20260829093922.37103-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260729125202.33719-1-nika@nikableh.moe>
+References: <20260722021321.68902-1-nika@nikableh.moe> <20260729125202.33719-1-nika@nikableh.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Subject: Re: [RFC PATCH] usb: dwc3: core: resume xHCI child on runtime resume
- in host mode
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "troy.mitchell@linux.spacemit.com" <troy.mitchell@linux.spacemit.com>,
- "peixin.xie@linux.spacemit.com" <peixin.xie@linux.spacemit.com>
-References: <20260811090817.109350-1-panjunzhong@linux.spacemit.com>
- <ao-QDVibwU90yPm_@vbox>
- <8F4C0C8A8DA2D71A+7c57de3c-1f36-4e5b-b5e3-0eeb6ca88006@linux.spacemit.com>
- <apDJbcrAgzcFRLZM@vbox>
-Content-Language: en-US
-In-Reply-To: <apDJbcrAgzcFRLZM@vbox>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MYfgaE2Hdx7cKiuVvA+ITC61TYM2Zxb1qNUXwgcKGhLKqFIRyZQ0gcgd
-	59deBlb4x8j+3Pj/ZaNkcMEHZosb7oFsqLfX99vk5YpC7pLMblKcvrkPY+wXtX26NIj/jp/
-	4mnmMQjF70bIfPtRFdXpkU3zgYHol+FSy9PpnC6pVsB6BURLGIzhNbpRvcLNvjP8WaD9eX9
-	PzP+MsV5WE0gQkwq0MZEZ58KUyLJzbn17Sr3pClo7JJrXFjnZIkz9hHHKa7+T3s8Oka+h0i
-	TpM0ryAfuoMGGK02LzNws6WnrtUXJ6+O5hE9yLSJqHNbuO2XD2OKBLT5YXBmOmfY7ND5gxf
-	fWUTyDYoXjEma0ORfQrcCDkIoYjcs+GdR9vlzQQO0ESOgiARdc+OhpK5zq9oSmosSlQtppu
-	X3GOftUvyOa3jQPPvOHvdR16hkMaYhbHBk603OmIXpLmlKCRL4tBDMKFtB2JJyIbpZxx79N
-	oQvVGVrVzdWWO7udOHk4RSXEGSvglxgaMTPi/OnEwJOSuviGSuNtzh6if+KTLPLKFlkwPcT
-	ZHDaRE+feTW2x8+mUbds1P5i6iTsfs8kFw+1EfnZfgRrrQpyysAILYzlr5WJ9xigmAdFKNm
-	0pUxfKSW3+/aTFktLKd+IWrj6B375NkHzms9YZ5Jkh1h3rurhQCNtLMwMbgdwagAA6C6rl8
-	5xpiKF7JBD5Ea3WHT2zK72W5znPAP95aS1K33l+PwS0ZFgaRt66yujg5N20wjw/eR06nUwX
-	bGH2By5T4pwOex5zWXxp3j0QH5So/B56aQ/F05ojYeFH0NN7T6w27sZB+RTztDixD4pnHm6
-	6nsJEJWScVwGea1OgU8PCYXraicukHEarQWAtOsvhhgzx2qcIfr3nCYmy6TwC00RhqIalBB
-	IjEijhQ3A2EqiR1Tubnc24Hj5THOYMDlTfkQrj/mr3I3TN6UtZze1P0uKQfnSgQt4jI6kmu
-	zndGbwRcBbotgTszYKiR6828Oj4klf9h63fKWHaPKJnOYptnCWK5+y6WDQFc4ZrF3OVY90P
-	VXOc26TRM8I6aie30eKU975F9KDFl504nmb3+jYoHqTVo5SRCHqSRyuNAgiSOwK8mkNoZxL
-	A==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
 
-Hi Thinh,
+I hit this on a Lenovo Yoga Pro 7 14IAH10 (BIOS QGCN35WW), same BE200 and
+the same SUBSYS_00F48086 as your lspci dump, with an identical signature.
+I think I can explain why your AML trace looks clean and the link still
+does not train, and why Emmanuel's firmware-reset hunk made no difference.
 
-On 8/28/2026 7:42 AM, Thinh Nguyen wrote:
-> On Thu, Aug 27, 2026, Junzhong Pan wrote:
->>
->> On 8/27/2026 10:11 AM, Thinh Nguyen wrote:
->>> Hi,
->>>
->>> On Tue, Aug 11, 2026, Junzhong Pan wrote:
->>>> USB controller runtime suspend halts the controller on disconnection.
->>>> It relies on platforms with custom connection notification to start
->>>> the controller again.
->>>>
->>>> The host branch of dwc3_runtime_resume() does nothing currently. There
->>>> are two paths that can trigger a runtime resume of the dwc3 core in
->>>> host mode:
->>>>
->>>> (a) Wake lands on the xHCI child (DT platforms, e.g. Qualcomm, i.MX8MP)
->>>>     A platform wakeup IRQ fires and the glue handler calls
->>>>     pm_runtime_resume(&xhci->dev). Runtime PM walks upward, resumes
->>>>     the dwc3 parent first, then resumes xHCI. Both wake correctly.
->>>>
->>>> (b) Wake lands on the dwc3 parent (ACPI platforms)
->>>>     When an ACPI Notify(ACPI_NOTIFY_DEVICE_WAKE) targets the dwc3
->>>>     parent device -- for example via a Generic Event Device on a
->>>>     hardware-reduced platform where dwc3 is enumerated as an ACPI
->>>>     device without a glue driver -- the ACPI core turns this into
->>>>     pm_request_resume(dwc3_dev). Runtime PM does not propagate resume
->>>>     downward, so the xHCI child stays suspended. Root hub polling is
->>>>     never re-armed, and a device plugged in while suspended is silently
->>>>     dropped.
->>>
->>> Good catch.
->>>
->>>>
->>>> This patch fills in the host branch to cover case (b) by requesting an
->>>> async resume of the xHCI child so xhci_resume() can restore the port
->>>> state machine and re-arm root hub polling. Async is required to avoid
->>>> deadlocking on the parent's own rpm_resume() re-entry.
->>>>
->>>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
->>>> ---
->>>> base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
->>>>  drivers/usb/dwc3/core.c | 12 ++++++++++++
->>>>  1 file changed, 12 insertions(+)
->>>>
->>>> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
->>>> index ceb49f2f8004..bce56765ad90 100644
->>>> --- a/drivers/usb/dwc3/core.c
->>>> +++ b/drivers/usb/dwc3/core.c
->>>> @@ -2668,6 +2668,18 @@ int dwc3_runtime_resume(struct dwc3 *dwc)
->>>>  		}
->>>>  		break;
->>>>  	case DWC3_GCTL_PRTCAP_HOST:
->>>> +		/*
->>>> +		 * Only the xHCI child's resume re-arms root hub polling, which
->>>> +		 * is what rediscovers a device plugged in while suspended.
->>>> +		 * Runtime PM never resumes children on its own, so request it
->>>> +		 * here. This has to be asynchronous: resuming the child
->>>> +		 * synchronously would deadlock because rpm_resume() tries to
->>>> +		 * resume the parent before the child, and here the parent's
->>>> +		 * own callback has not returned yet.
->>>> +		 */
->>>
->>> This note sounds as if this is needed to all cases, but you're only
->>> describing only case b) here. Can you also mention for case a) that
->>> there maybe an extra resume work call.
->>
->> Will do.
->>
->>>
->>> Would be nice for it to be cleaner without the extra call, but I think
->>> it should be fine.
->>
->> I guess we could do this: after this merged, we patch those platform
->> drivers(case a) to drop their existing workaround hack, dwc3 will
->> take over it's child xhci in this wakeup resume path, they just wake
->> dwc3. That makes things consistent. What do you think?
->>
-> 
-> That would need to be validated on a case-by-case basis. Also, regarding
-> testing, I assume this change has been tested on real hardware. If so,
-> which platform(s) were tested?
+Short version: PERST# alone does not restart this card once the rail has
+been removed, and the reset that does is already implemented in iwlwifi -
+it is just armed too late to ever run.
 
-Yes, I have tested on SpacemiT K3 Pico‑ITX , ACPI boot with a GED
-Device to Nofity dwc3 node（HID 808622B7）of wakeup, and also DT boot
-cases.
+On my machine:
 
-As for the DT boot(using modified dwc3-generic-plat driver), I verified
-the extra call is handled well by pm framework checking RPM_ACTIVE. I
-will mention this on next send.
+_PR3 -> PXP._OFF genuinely removes the module's rail; PON() then restores
+power, waits PEP0, enables the source clock and releases PERST#. I checked
+the pins directly via the ACPI GPIO accessors: after resume the power
+enable reads 1 and PERST# is deasserted. So the firmware does everything
+your trace says it does, and the card still does not come back. What does
+bring it back is a third, WLAN-specific reset line reached only through
+_PRR -> <pwrres>._RST.
 
-I have also tested the extra call removed case by using a similar code
-of qcom/imx8mp, but just replace the xhci->dev with dwc->dev, it works
-find. But if need to send those patches, testing for regression helps
-are still needed from who have these two platforms available I think?
+That _RST is gated:
 
-> 
-> BR,
-> Thinh
+  Method (_RST) {
+      If (RSTY == One) { ...toggle the WLAN reset... }   /* product reset */
+      Else             { DCTR |= 0x8000; }               /* just an FLR   */
+  }
 
-Best regards.
+Disarmed, it degrades to an FLR, i.e. asking a device with no power to
+reset itself over a bus it is not on. That is the fallback that has been
+running all along.
 
+RSTY is set over the vendor _DSM by iwl_trans_pcie_set_product_reset(),
+which iwlwifi already calls with EN_PROD_RESET|EN_WIFI_FLR|EN_BT_OFF_ON
+for discrete parts. But it is only called from iwl_trans_pcie_removal_wk(),
+once the device is already being torn down, and the _DSM dispatch is gated
+on the firmware reading the device's PCI ID back out of config space:
+
+  Method (WIST) { Switch (ToInteger (VDID)) { Case (0x272B8086) {...} } }
+
+With the rail off VDID reads 0xffffffff, WIST() returns 0, and the arming
+fails:
+
+  scheduling reset (mode=6)
+  ACPI _DSM not available (-19), cannot do product reset
+
+So it can never be armed at the moment it is needed. I confirmed this
+directly: with the device dead, evaluating the set-mode _DSM returns
+success but RSTY stays 0.
+
+Arming at probe instead, while the device still answers, makes the whole
+existing path work. I will post two small iwlwifi patches for this as a
+separate series and link it here. With them my card dies in D3cold on
+every s2idle exactly as before, and comes back on its own in about 5s,
+repeatedly.
+
+Control: with the reset skipped but everything else identical, the device
+stays absent (2/2), and recovers immediately once a real reset is issued.
+So the reset is doing the work, not the remove/rescan.
+
+Emmanuel - to your question, this is not a firmware reset during
+suspend/resume. It only fires when the device is provably not answering
+config cycles, which today is the case where the driver instead spends
+~2s on handshakes with absent hardware and produces a bogus
+ADVANCED_SYSASSERT dump.
+
+Nika - I could not decode LTSM 0x32B either. Worth noting your sibling
+port 00:06.2 reads 0x33/0x40 with its link up, so 0x01 does look like a
+state the port never occupies while trained - but that is just my
+observation, not a decode.
+
+Caveats, so nobody wastes time: tested on one machine and one BIOS, on the
+discrete (!integrated) path only. I have no integrated/CNVi hardware. The
+recovery costs ~4.3s of Sleep() inside the platform's _RST, which is
+firmware and not something we can shorten. And this is recovery rather
+than avoidance - it keeps D3cold and pays a per-resume cost, where the
+quirk in this thread avoids the problem entirely. I have not measured what
+the rail actually saves, so I am not claiming it is the better trade, only
+that the hardware can recover.
+
+Thanks,
+Navon
