@@ -1,200 +1,80 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C64B3A59A3
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938C731E844
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787965233; cv=none; b=XWdaZhrxY2smZKrol4v37Wf4RLJrVlvvgwDjaMPFDQc0WIPSqQ0AVdCTIrWgaNaLjsFEgSNY0NURClqYv/GITSO1Tj0bqbPIcvF6600wrwutFPbYtNALzlncIK/54tSWGjSBb5lvSacbf/Wne+sS+it73otRO/dewUUUeYfumDA=
+	t=1787965420; cv=none; b=BGhh8gXtCdfnzLHBt068oc5Z1GVg+bBGwDzVN9USvmN0M/ZkGLb4NAiW/Supymtzxp3Ka7/t4D2LTfkVy+9LRmupudkMX2bWO0iPBPiHJgwH1RcNMbWMEYAA4qScbMm2Mlc/pxgT7x9c/vII21Cr7EUQ9Ty5AlCegnuopD/fqrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787965233; c=relaxed/simple;
-	bh=AdywQK2vtYiSsYhi6sIq4NfA3XpXoE4VXMIiQOI8gj4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=efwCPYkLF0tStS0OLrZtGVZUk7HVzaDdnVN+D+ePufqZo9hgMnPu9d6toLBBODi1V3IUaBIHhDTuJYtlS9+M4tGZ8b1DNZY79fsVEsNKtOpe0Dhtan+6Rkf7GIajPgQ5RIyYMu8iwf4Sf6i3CbfDICfGsP0t/E3LJgU8lN8upec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HAHX1gHA; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com
+	s=arc-20240116; t=1787965420; c=relaxed/simple;
+	bh=WrD+6JDQR3hiTGb8wBsGGQ4p/RwFwk/EytC3ah3Wum4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kzJeMAZubpmEjmQ3bS8hOj6pXj1lvKsK2zvFUT2GnP7YR+R+D5CQHzLWIBnTNptNKMRq4RFnVKEiyMAGQfzi7u/rckd/Ra+cnP+I34DWesrmykv3YRx7PETT4a7TpT07K6wEs9o2TTOWTmaq1gXDYrEsTu/MAs3IXu4849ignPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eQwi8PNY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HAHX1gHA"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381250979d5so2024324a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:00:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eQwi8PNY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E994D1F000E9;
+	Sat, 29 Aug 2026 01:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787965231; x=1788570031; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MDHpM2Mouytn9B02GRyIXBlE0tDWaaixXQnYQVljoqg=;
-        b=HAHX1gHAsfjoiMzvMQudbX4+Se/YwgEMbpyQl7eDfVvw6msEnw6PF1abOJUk71587U
-         mQhmJK7bHwZl/6hSlBkUrMT9Ftfzi9R1inUx2oPMFyUZITV637oK1cWEGuv+TxiROszn
-         kKmgUkT5cf+8UTUdfmsrHg4JWjy168E/gm2OCvNU8iPOLkT0F99EbFnfEzr23TzlqD7r
-         hlgMGIcPWJYUIkkxXfmpfl8oTvrvvZnwf3B0qzF64lenwof/JDnQXK1r6TWRaheHimPD
-         G8ZnDkWDp/WpHv72IwZWokffLrE5vZWXEAzcyl0W8a9X1LrWjRZN+GLJcF4eFyGNGQkZ
-         wyzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787965231; x=1788570031;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MDHpM2Mouytn9B02GRyIXBlE0tDWaaixXQnYQVljoqg=;
-        b=hj2QZi/aS5nGaHcCq43zmLpnoYd+S4eJTSG46nm5eIntyRylXI/IBLWZk0Z4Gu/W4W
-         LFHHkaLebgCzZVHhwE2SRdID8uL9JZAJ2GBYQmJ0FtWlBNyi3ffAyHbsKOexewScSi/M
-         /VBF76kw1KGoCN2r3Gh3rTyIWViiVPb8W887fo6n6jrXK9lBHu+BUfxa79Nhm0W3fBIT
-         QE76W5RgJrlf8Zg/Up+p2UyxTJbS1c9EIl9C7vxwkml6sp95PC55zvRBElHRJ+kBgkJq
-         meC/m4MwYb6+Gxdvnld90kQCJD/1OWdepLDP8d/IL8Crmo+PG8shpaeMULVeY6TD5az8
-         lsxA==
-X-Forwarded-Encrypted: i=1; AKwUvBxteVpo4TkdeDD5E0IvLXaYkIMoJFlzNVqTK6Gcl89f3ebJg4oGxWKf5NaWlIOYaM6t+UR1wBshd6CQq5M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mug2OWMfft3ySL7dcS61l0yKvfL97YM55HNwISK3xVmgk/TqAP
-	fkQVIcjQaks8TlL24OV/TMOO2fwgcmLlLSYYi+XJFMZ3abb2GZMi8qai1N5coB7tAjCVvQgg56D
-	bBmu+YcwLtg==
-X-Received: from dybcu36.prod.google.com ([2002:a05:7300:ad24:b0:327:dccf:72c8])
- (user=mrungta job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3e43:b0:37f:fd1f:d30f
- with SMTP id 98e67ed59e1d1-396d0f67646mr20132797a91.12.1787965230440; Fri, 28
- Aug 2026 18:00:30 -0700 (PDT)
-Date: Fri, 28 Aug 2026 17:59:59 -0700
-In-Reply-To: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com>
+	d=linux-foundation.org; s=korg; t=1787965419;
+	bh=lFyln8QEmRs5uikiP3R7oCsripVvL4fOG8PYbkvVJso=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eQwi8PNYwht4MHbQ1LuAdmHY+ZwV2eJWmjfwdMsNOuFIEYnKT/CABsi1AMO5LQsl4
+	 wH87a3S9v/spu2LY+5iXkE8GuZLou2B7oj8Ih43AWNHKHSUU9luXorPmcYtAt681+C
+	 1zYsnMkBG9SwtSqkQ1DvTIvEqSHmgpVL7PwpjPcE=
+Date: Fri, 28 Aug 2026 18:03:38 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>, chrisl@kernel.org,
+ kasong@tencent.com, nphamcs@gmail.com, baoquan.he@linux.dev,
+ youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] mm, swap: Fix potential NULL dereference when
+ trying a sleep table allocation
+Message-Id: <20260828180338.0e62379137b832bd66d48b7d@linux-foundation.org>
+In-Reply-To: <ao_ybL9yRO_pHphW@KASONG-MC4>
+References: <20260820115505.20027-1-shikemeng@huaweicloud.com>
+	<20260820115505.20027-2-shikemeng@huaweicloud.com>
+	<ao_ybL9yRO_pHphW@KASONG-MC4>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com>
-X-Developer-Key: i=mrungta@google.com; a=ed25519; pk=2Bjwbv/ibL10QnyvK9G7DoKpffXy7z6+M4NawEYgYDI=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787965218; l=3708;
- i=mrungta@google.com; s=20260212; h=from:subject:message-id;
- bh=AdywQK2vtYiSsYhi6sIq4NfA3XpXoE4VXMIiQOI8gj4=; b=kxYNMe8TIaM84CWHv8NQ/UaaZjYbEr5I+gGXw5xbYW95jwNEn3HR03JRZYZYYTFOMdblLLspb
- aMj71QLA8ZeAc/oA4IK9jOf3TD9fsjxJeyd2tYbIfiLIXbBs045csQF
-X-Mailer: b4 0.14.3
-Message-ID: <20260828-qcom-wdt-nmi-series-v2-5-363979fe6b6b@google.com>
-Subject: [PATCH v2 5/5] watchdog: qcom: Register pretimeout interrupt as NMI
-From: Mayank Rungta <mrungta@google.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, "Kirill A. Shutemov" <kas@kernel.org>, 
-	Douglas Anderson <dianders@chromium.org>, Mayank Rungta <mrungta@google.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When a system is completely unresponsive due to an interrupt storm or
-deadlocked CPU cores with standard interrupts disabled, a standard
-watchdog pretimeout bark interrupt will fail to execute, preventing the
-pretimeout governor from capturing CPU backtraces before the hardware
-reset bite.
+On Thu, 27 Aug 2026 17:10:54 +0800 Kairui Song <ryncsn@gmail.com> wrote:
 
-Attempt to request the Qualcomm watchdog pretimeout bark interrupt as an
-NMI (or pseudo-NMI) using request_nmi(). If NMI registration is not
-supported on the platform (e.g. pseudo-NMIs are disabled), gracefully
-fall back to a standard interrupt via devm_request_irq().
+> > --- a/mm/swapfile.c
+> > +++ b/mm/swapfile.c
+> > @@ -466,8 +466,6 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
+> >  	if (!table)
+> >  		return -ENOMEM;
+> >  
+> > -	rcu_assign_pointer(ci->table, table);
+> > -
+> >  #ifdef CONFIG_MEMCG
+> >  	if (!mem_cgroup_disabled()) {
+> >  		VM_WARN_ON_ONCE(ci->memcg_table);
+> > @@ -487,6 +485,12 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
+> >  		return -ENOMEM;
+> >  	}
+> >  #endif
+> > +
+> > +	/*
+> > +	 * Make tables visible to cluster_is_usable() after everything is
+> > +	 * ready.
+> > +	 */
+> > +	rcu_assign_pointer(ci->table, table);
+> 
+> Hmm, but for the error paths above, they will leak the new allocated table?
 
-When NMI is used, register a devres cleanup action to free the NMI upon
-driver unbind, and use enable_nmi() and disable_nmi() during start and
-stop.
+Sashiko thinks so ;)
 
-Assisted-by: Antigravity:gemini
-Signed-off-by: Mayank Rungta <mrungta@google.com>
----
- drivers/watchdog/qcom-wdt.c | 52 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 48 insertions(+), 4 deletions(-)
+It also might have found a pre-existing data-race which seems
+sufficiently on-topic for this patchset?
 
-diff --git a/drivers/watchdog/qcom-wdt.c b/drivers/watchdog/qcom-wdt.c
-index 4eb1bf979012..82eaf8786426 100644
---- a/drivers/watchdog/qcom-wdt.c
-+++ b/drivers/watchdog/qcom-wdt.c
-@@ -52,6 +52,8 @@ struct qcom_wdt {
- 	unsigned long		rate;
- 	void __iomem		*base;
- 	const u32		*layout;
-+	int			irq;
-+	bool			is_nmi;
- };
- 
- static void __iomem *wdt_addr(struct qcom_wdt *wdt, enum wdt_reg reg)
-@@ -74,6 +76,28 @@ static irqreturn_t qcom_wdt_isr(int irq, void *arg)
- 	return IRQ_HANDLED;
- }
- 
-+static void qcom_wdt_enable_irq(struct qcom_wdt *wdt)
-+{
-+	if (wdt->is_nmi && wdt->irq > 0)
-+		enable_nmi(wdt->irq);
-+}
-+
-+static void qcom_wdt_disable_irq(struct qcom_wdt *wdt)
-+{
-+	if (wdt->is_nmi && wdt->irq > 0)
-+		disable_nmi(wdt->irq);
-+}
-+
-+static void qcom_wdt_free_nmi(void *arg)
-+{
-+	struct qcom_wdt *wdt = arg;
-+
-+	if (watchdog_active(&wdt->wdd))
-+		qcom_wdt_disable_irq(wdt);
-+
-+	free_nmi(wdt->irq, &wdt->wdd);
-+}
-+
- static int qcom_wdt_start(struct watchdog_device *wdd)
- {
- 	struct qcom_wdt *wdt = to_qcom_wdt(wdd);
-@@ -84,6 +108,8 @@ static int qcom_wdt_start(struct watchdog_device *wdd)
- 	writel(bark * wdt->rate, wdt_addr(wdt, WDT_BARK_TIME));
- 	writel(wdd->timeout * wdt->rate, wdt_addr(wdt, WDT_BITE_TIME));
- 	writel(QCOM_WDT_ENABLE, wdt_addr(wdt, WDT_EN));
-+
-+	qcom_wdt_enable_irq(wdt);
- 	return 0;
- }
- 
-@@ -91,6 +117,8 @@ static int qcom_wdt_stop(struct watchdog_device *wdd)
- {
- 	struct qcom_wdt *wdt = to_qcom_wdt(wdd);
- 
-+	qcom_wdt_disable_irq(wdt);
-+
- 	writel(0, wdt_addr(wdt, WDT_EN));
- 	return 0;
- }
-@@ -256,6 +284,7 @@ static int qcom_wdt_probe(struct platform_device *pdev)
- 	u32 percpu_offset;
- 	int irq, ret;
- 	struct clk *clk;
-+	unsigned long irq_flags;
- 
- 	data = of_device_get_match_data(dev);
- 	if (!data) {
-@@ -311,10 +340,25 @@ static int qcom_wdt_probe(struct platform_device *pdev)
- 		if (irq < 0 && irq != -ENXIO)
- 			return irq;
- 		if (irq > 0) {
--			ret = devm_request_irq(dev, irq, qcom_wdt_isr, 0,
--					       "wdt_bark", &wdt->wdd);
--			if (ret)
--				return ret;
-+			wdt->irq = irq;
-+			irq_flags = IRQF_PERCPU | IRQF_NOBALANCING |
-+				    IRQF_NO_AUTOEN | IRQF_NO_THREAD;
-+
-+			ret = request_nmi(irq, qcom_wdt_isr, irq_flags,
-+					  "wdt_bark", &wdt->wdd);
-+			if (ret) {
-+				/* Fallback to normal interrupt if NMI not supported */
-+				ret = devm_request_irq(dev, irq, qcom_wdt_isr, 0,
-+						       "wdt_bark", &wdt->wdd);
-+				if (ret)
-+					return ret;
-+			} else {
-+				wdt->is_nmi = true;
-+				ret = devm_add_action_or_reset(dev, qcom_wdt_free_nmi,
-+							       wdt);
-+				if (ret)
-+					return ret;
-+			}
- 
- 			wdt->wdd.info = &qcom_wdt_pt_info;
- 			wdt->wdd.pretimeout = 1;
-
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+	https://sashiko.dev/#/patchset/20260820115505.20027-1-shikemeng@huaweicloud.com
