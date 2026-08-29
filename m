@@ -1,81 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8114B238159;
-	Sat, 29 Aug 2026 15:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D83F21767D;
+	Sat, 29 Aug 2026 15:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018843; cv=none; b=LrC8cUYhVopY0mNPDDVWEiJaJOi0gN36o7cvjVT7PM7VAuHBjlV0CQFN+oWxsJ4Nw6KqhDh8J82Cz8vFxxchxAxpFl2Yd64itilQCsxZHL1YvDkwRg3ssbggmszLNk0Ra0ovaLtucRrasT1sCzXE27Jo98JtmCiXLEDctHhwwkY=
+	t=1788018936; cv=none; b=PWcRluhZIIENY50+ikLMLfJbc1c3n9W5zUIzhOLgBRMDhrEmPngaWEl1vrBKL2erAHtIEVG6hHeU5EGSLxxSlfe1pJfS3ufn8VI40WRzlQ+AhPL5XRfaELcu2TpiIt4CuOtn84KwSFekIUcP00SkjZqE4nfCmiZfporJMgsBYO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018843; c=relaxed/simple;
-	bh=es4CFdV1k/X97tHxNiATXfqAEgr1SPtU1HfyhMG1eFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pvaa9ASKjtFwW8vLJJ9TYlz4BC918M8ydJcaiYsNfowSsRanOcmpGYLqs22abtf4qH1r+0qgjaZXIzp/JC3XkpcEfaVmaS7Q5DUAawWFLLedsLzSeWmNfJ0eelWEIX7Zg3+1vKbMmQbgCjDOBmFHK1YCPgxuKBrKciFM+fHxnX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b46Gvk5r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788018936; c=relaxed/simple;
+	bh=fUlgM8CnOaMuuPMrcomCp9ui1YL6CpR0aSOVxgfXuJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PnfP9FtxS+XUA1YZfBMjcXl3jp9uA/XBn4ss+87UsqCAJHFUxMrxagCCqRhGdVUgH8PKk+r6R6PZQh2cE1OooEx5XaQ7gSScGA4EVr1GZEAkGXzM5TcHjKroYu2J2ovYfydT9spQjrg4iOPuzUgbL2CUPKWN7Jhk626CVnTQtTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=P5EyHPiJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hUulZagG; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b46Gvk5r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ABE61F000E9;
-	Sat, 29 Aug 2026 15:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788018841;
-	bh=CcRwYGlFyyQc/kABNJ9tcz+R2dfR0kHZZcaxRgW1KGI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b46Gvk5rF0VnPyFPyLmHG6954mBhOIqbN+Z4aVa/xl3dQE/TDL95q1geAj6FzoRfL
-	 nE1Nhsj+DFsK/nYDV0ZDWr946TaTpVHTyuY9w7ilfzDp6vTlX9RT4tKMC9iQ6y1OVd
-	 wgt7iDRos13un4nsB5ZoApS4CeeqwYzVsbXDMwQhY8fkWioVrXkf3O2sA8ENm8JTrw
-	 vg1RZgielyYzWkm+B+Ng1O64pOqfzNksiV9wF6KK15IeY1AwHxnWtY3ToPyJTKKJTh
-	 Y5M5YsefA9srZGn3h6lNduPgrJSw0L/UH+FuDa02q+nNjDxfRchYjADPdCtquZTzkZ
-	 VSiqFIkj9L5cg==
-From: Chuck Lever <cel@kernel.org>
-To: jlayton@kernel.org,
-	"Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
-Cc: neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	bfields@fieldses.org,
-	linux-nfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="P5EyHPiJ";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hUulZagG"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788018907; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=P5EyHPiJABjr65r414h1x1GIl+lXvoT+BnjrXgljRmJk4rpdF4
+	KRdhn6x71QKhVVYQqoSF8mEdEr3oKgZMUBtvw7WCRZlzi3KGQkjmbRZK4OYPNTQwHCCjd8DQ2kX
+	YSLmBaxMj0gXoG0i2lm/K6hRo10ep+tItsDLl2+5DyYS1j094ubN5zPzB+wUwFFyVK9l6k20xS7
+	bH2sglK9EXDCIJ5VGGU7lDWTGOTnTuEb11BOZ0kVjXkJa6Wy2YvdzbPAf1MkNu16l+yYmi982eA
+	2nfHR4kFnNKxVTclSz5q3323I6p0zrv0gQREOii9z3fwesbm3dcxpHbeTTpLLgiwW9Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788018907; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=hUulZagG+arLjdr/b/VU2m/0H/CLJgyYmT8bDSYlk0k/KnpS4e
+	t/t5w52YsTZ4LY6yfIWxiaYuNlXs0ipgO4Dw==;
+From: Bradley Morgan <include@grrlz.net>
+To: Andy Walls <awalls@md.metrocast.net>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Date: Sat, 29 Aug 2026 11:53:57 -0400
-Message-ID: <178801882864.2077660.2011534008442729318.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260828041925.36758-1-blbllhy@gmail.com>
-References: <20260828041925.36758-1-blbllhy@gmail.com>
+	brads@mainlining.org
+Subject: [PATCH 1/5] media: ivtv: convert to kthread_run_worker
+Date: Sat, 29 Aug 2026 15:55:07 +0000
+Message-ID: <20260829155507.4270-1-include@grrlz.net>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 00:19:25 -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
-> client_has_openowners() walks clp->cl_openowners and reads so_stateids
-> without clp->cl_lock. nfs4_put_stateowner() unhashes that openowner under
-> cl_lock and then frees it, so a concurrent EXCHANGE_ID with mismatched
-> creds can use-after-free the nfs4_openowner.
-> 
-> BUG: KASAN: slab-use-after-free in client_has_state+0x10a/0x140
->   fs/nfsd/nfs4state.c:3718 client_has_openowners()
->   nfsd4_exchange_id
->   nfsd4_proc_compound
->   nfsd_dispatch
->   svc_process
-> 
-> [...]
+From: Bradley Morgan <brads@mainlining.org>
 
-Applied to nfsd-testing, thanks!
+Embedding a kthread_worker and running kthread_worker_fn yourself is
+the old way. Convert ivtv to kthread_run_worker(), dropping the
+separate irq_worker_task pointer.
 
-[1/1] nfsd: hold cl_lock in client_has_state()
-      commit: 6882aca9f9cabfaec5ea23d1512f345fbd288b65
+This is part of removing the worker->task self-assignment in
+kthread_worker_fn().
 
---
-Chuck Lever
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ drivers/media/pci/ivtv/ivtv-driver.c | 14 ++++++--------
+ drivers/media/pci/ivtv/ivtv-driver.h |  3 +--
+ 2 files changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.c b/drivers/media/pci/ivtv/ivtv-driver.c
+index b9ea56ec9593..6f0e0e46deb5 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.c
++++ b/drivers/media/pci/ivtv/ivtv-driver.c
+@@ -703,15 +703,13 @@ static int ivtv_init_struct1(struct ivtv *itv)
+ 	spin_lock_init(&itv->lock);
+ 	spin_lock_init(&itv->dma_reg_lock);
+ 
+-	kthread_init_worker(&itv->irq_worker);
+-	itv->irq_worker_task = kthread_run(kthread_worker_fn, &itv->irq_worker,
+-					   "%s", itv->v4l2_dev.name);
+-	if (IS_ERR(itv->irq_worker_task)) {
++	itv->irq_worker = kthread_run_worker(0, "%s", itv->v4l2_dev.name);
++	if (IS_ERR(itv->irq_worker)) {
+ 		IVTV_ERR("Could not create ivtv task\n");
+ 		return -1;
+ 	}
+ 	/* must use the FIFO scheduler as it is realtime sensitive */
+-	sched_set_fifo(itv->irq_worker_task);
++	sched_set_fifo(itv->irq_worker->task);
+ 
+ 	kthread_init_work(&itv->irq_work, ivtv_irq_work_handler);
+ 
+@@ -1232,7 +1230,7 @@ static int ivtv_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
+ 	v4l2_ctrl_handler_free(&itv->cxhdl.hdl);
+ 	exit_ivtv_i2c(itv);
+ free_worker:
+-	kthread_stop(itv->irq_worker_task);
++	kthread_destroy_worker(itv->irq_worker);
+ err:
+ 	if (retval == 0)
+ 		retval = -ENODEV;
+@@ -1372,8 +1370,8 @@ static void ivtv_remove(struct pci_dev *pdev)
+ 	timer_shutdown_sync(&itv->dma_timer);
+ 
+ 	/* Kill irq worker */
+-	kthread_flush_worker(&itv->irq_worker);
+-	kthread_stop(itv->irq_worker_task);
++	kthread_flush_worker(itv->irq_worker);
++	kthread_destroy_worker(itv->irq_worker);
+ 
+ 	ivtv_streams_cleanup(itv);
+ 	ivtv_udma_free(itv);
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.h b/drivers/media/pci/ivtv/ivtv-driver.h
+index 000e8beecc7c..091bc44f13bc 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.h
++++ b/drivers/media/pci/ivtv/ivtv-driver.h
+@@ -668,8 +668,7 @@ struct ivtv {
+ 	/* Interrupts & DMA */
+ 	u32 irqmask;                    /* active interrupts */
+ 	u32 irq_rr_idx;                 /* round-robin stream index */
+-	struct kthread_worker irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+-	struct task_struct *irq_worker_task;		/* task for irq_worker */
++	struct kthread_worker *irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+ 	struct kthread_work irq_work;	/* kthread work entry */
+ 	spinlock_t dma_reg_lock;        /* lock access to DMA engine registers */
+ 	int cur_dma_stream;		/* index of current stream doing DMA (-1 if none) */
+-- 
+2.47.3
 
