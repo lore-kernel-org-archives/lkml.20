@@ -1,361 +1,607 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011041.outbound.protection.outlook.com [52.101.52.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A684E56A;
-	Sat, 29 Aug 2026 01:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6779E1A9FBA
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787967138; cv=fail; b=rhmqF+yQG71B3COOiJzngZ6vwkSCCZEzg//zh3VeErBAzxfi/P/NyoaN2yITD3Mzaqb5bvNd8+QlnAtoRXWT6LWEXwRxunDkSmr2fZygfvYrs9NWT8APEnOXmn5/dLVD2kG6RyYLF96bYvNldZxkAvtXhBneAgLWnNF0i1p9MlU=
+	t=1787967218; cv=fail; b=BNZpQHRj8k1koUWOlmjr4jcEA5PNxctuLrrrawfpYWLSjUNiR89nVUPqaQRazjDp/aIaQ7MQUS7iaygwXyNTUIoHUAYTlI2SV92+MXvpgJ8ruPu1rTnrOdnPigvcP/Lph9pe5pY6OcmB0/I1mHFu05/+X/dUzcQ3mN0iFkmGeII=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787967138; c=relaxed/simple;
-	bh=Vl6eSii6QSI/G/eZi1JR7ZQctRmqLVOkJxQAU/DLBqs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eGTpMeg7pfazVQvGrKIkt0TMnXqjskm9of5u3puWf1JWOknAG/ueHSqti2wj2qmTOnJggzFQB0hhIc1lOP1DBmb7YdY03flfxTE0zY8qo+bleaIK3vWis8vP1XdyK/YbHERYrXb/4IrMwPVnq3Wf1aWl7kC3DNaKjX4laTeT1FU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=qCdU3omy; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=bs6IoONV; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=azE7GXVC reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	s=arc-20240116; t=1787967218; c=relaxed/simple;
+	bh=w4sWyG+SxM6Q8F7vsIlgkiJHqvOFsKgcpBM7whEoVVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CrPPmTClR8YNyoV/l+iSHjAbGR+UBUxODsSNWsKvDWq4OPx93eRC8evB0opGWzSs0f1ikVFJpKYWX9GzU0qUInPXjJ5199SLTDtRonVMQYXz8wWeRGFz+bO5kN/hjhP4LA4m2FAfvcsz8W0oV5oYTwFrDi5lYjfPhKpXoypZl2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cpv60VHv; arc=fail smtp.client-ip=52.101.52.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="qCdU3omy";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="bs6IoONV";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="azE7GXVC"
-Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
-	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SMTgX32153690;
-	Fri, 28 Aug 2026 18:31:33 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=Vl6eSii6QSI/G/eZi1JR7ZQctRmqLVOkJxQAU/DLBqs=; b=
-	qCdU3omyk7zpeQZuEGOsn2WFsoR1VImco79WkQvxo2LRw1ZxoC6KyTBtvRQe68FB
-	vbZxgzqGqRuc+EP9/9vWLw9dmqig6thbILGxHmCDok95hMkws8kubR5q0PwdkdAD
-	rG2OVbHvGxZ08pZkqP90aA5LaIAdx+Rw6T+4ba2UuV30P6wCICWYB7Arjlb/v7Mf
-	xARKLAR5UMjqruhq27OnzTT8YlSApJaKRwI29EiB5niccL9liVl48MRkC7B+sjtK
-	jzNbM/uZIxQJnhKx3XzLf3C8mOHNfWOD5EXGr6fsgbKYe7nxO2bMhkPQd6Z4tTSa
-	hH3jOQ1VCDel8Kju1p81tw==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
-	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4gb38mqb42-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 18:31:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1787967091; bh=Vl6eSii6QSI/G/eZi1JR7ZQctRmqLVOkJxQAU/DLBqs=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=bs6IoONVVdzJIhpJfBzUZVLCu3VfR7xAGmnbkJCWrv4WCNJFtELmH1PgLTX7iNIbo
-	 biT2oCn30R+KOSnJZ5hfhwuXHc4TJ7/yXk0N3k4LGt+csrh74iSMJrSfBRQsghFej3
-	 kZcAXlCuiQe7HI+9y+9zkRoS3Qvtn87JqrluE/YtqkJ19r3VeXCBtSS6EyU5b4vq+r
-	 qEFkEqLW5SGnq71glebYxs2ljNU/6epjghWXzuQNDHRNaWQKBKOr6gQfGzFMLfvQbq
-	 vBX9g0juR9B6ouZdXBrwoF2VufkNy44D3lXjSbsXIbLHMPFtfn5kybheF7mT40vcRc
-	 oWPOgUXY1/WNw==
-Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 4815140124;
-	Sat, 29 Aug 2026 01:31:29 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com [10.4.161.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id 05E12A0068;
-	Sat, 29 Aug 2026 01:31:26 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=azE7GXVC;
-	dkim-atps=neutral
-Received: from CO1PR08CU001.outbound.protection.outlook.com (mail-co1pr08cu00105.outbound.protection.outlook.com [40.93.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 1F681404F3;
-	Sat, 29 Aug 2026 01:31:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cpv60VHv"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yY73oCbvU8YnwGBgt5Et2D5BrN3Cwy+eNXpYy7Lt3AKQe01gg9XhZ8wMMN3oeLcWrAxp6Z5JkzN4PtQyJ5li6CVsQcGqrE8Dr2xm1jmp38QzIFDq3vC1GgYgZNx9BQhg1FUT1SKcKJZWc3m3LLflQHATrfuETUhWCSzVcv1lrMD+OfSEGB/M93iG0lrMD3yznM06b6Y1vz2DIMfx34WC+OTPVKYEd2w+nD+tmwFMwubVFA4eJ3WlcxcYmjSnH+n0atksZSl7w6Qk2jsSQVkwV4tap/mzFY+hH4aOg6dKHg7Ur6MmB7UZY67uKVbRvqLjKKg+4a6pmoqslWIVOZVvUQ==
+ b=CD3BjaaWsEXHVXCeogcY6H2JBAuaup/1jnoyz+y3JuGCZLC9oapNEvftbphMps4bc0QcY0x84VkFr7lyuR/uHi6LaEN1bkXMHWVaEgo6S+piWWzNdOi/k87O33kVXzhMlSOam+Q4+gLLvlNiw2OS+vJHe6+QRmuQx3cIMW7Da8wDjM/5OK40tpgWPxQxM3NhU9NjqzoWbYSvS3778OHH3ZM+zc/4e92mCCxTM3hfgZ/3Qif4mAPrHvYs/cHfIxLPpHUGkLehfwHUX95FIuROGnmFpCqa5Dc/PLa9WE6uTu8zAbjCujDb03bLT4GtUQBk+3vx4ynH+y/1X37J4InaEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vl6eSii6QSI/G/eZi1JR7ZQctRmqLVOkJxQAU/DLBqs=;
- b=IXgtRe4zpmDrttPSxzoWDXzcwnNAqY8PlLlJX3AurH9WUO6ungLna1+bGlywrJ0eHj29RdwUHENZPOs8ZIFojOTo0dYHbUQrECg/vcacd5vGcxRtfnVm0ahs35NUxShpu/I6Hsrbj3bTRU7Tz/yrglAVH+YLZEQU/b/Ox7qud+nUDMYK9BHWRy/w5wbN1RNFpQad0cS3hZV4nE/bs5rJ4J9lE0SJhgjRjvzpvRj3YFVoYKHAcHRx/UxijYI54gJyhVD7K1RpEpxcrUlq70Mg8xPFjCIOhBfILFbvbhPLTawvorrkL5rR5eHxZPMRGuC+M2LZEjr4LEmGmcr+6mXlPA==
+ bh=YOWkoMNv4jn5aRBD1G6M6IRId8wNLOa3O3Y/4Vsd3wY=;
+ b=o8WUAN6fRJqCyejKwzscJ6PpM06eP5ZHdSUFt+3bKSCscoqu+mEzncGRJeWQDznAYyr3WK7BhWqDGk29NCFU/RprtDgJvxyCZbnFaeMeEgzAWuBrDzqRnJTqBEADzMNRYZx7ocjJ6DXDWFuUwGuft9FU45f0zs1IPxQy0SQ5N6KG7poweSUehkpe/5snNCJorpHs7LsMcYgsRDO8ANumkVGnv9WoUezuEVL6jkqq9dY7F8/ThobM2BPmPsGpRP3UQCOaW20y2f/cVmCASfiaRGeHUNQBzYZW6MN2OcDdWQyQbUCIohUKzgb+KhMa+O3FfdI1ATNJesuW8Qd4I2xYJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vl6eSii6QSI/G/eZi1JR7ZQctRmqLVOkJxQAU/DLBqs=;
- b=azE7GXVCtn2jf4WOlDlCWNdLh10VflRsejh+tmPQPeeiBL8TD8BJaW0y6BTTMSF12p027RlU6SwPS7b0ckIj9g3Imh9kEOMO1hMlyIqJtulegpx1QPkEpZ4S8TKA2CMKjLbY1hpD6wrptUnSl2qmjaLIZya1tFxZmH8Q4eS6omI=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by CH3PR12MB9394.namprd12.prod.outlook.com (2603:10b6:610:1cf::11) with
+ bh=YOWkoMNv4jn5aRBD1G6M6IRId8wNLOa3O3Y/4Vsd3wY=;
+ b=cpv60VHvhKnu7pUusTapZa5DhTQVKTzMBPCwbm+rhedOPgo50qjKKRLiyDwWHHxJZWoUJiKM3xJOb4ePNzedrKe6kaO252SyXUIVkHEAeOB3nCdpiJCd9ieZGZQlLNw0Mk0IAnmn7f8dmCKwDgbrfG14GnbTjoijC3nCMZhnUfm/1d+ok224+licVVKMBlWYI9V6v4QNCKGmZnWiiNuWkLvsEtW+UJip6MWWGhguHc3dBVyDRGh2CquzeFZcSHo07v4Uvlx+AvjEp2qVqqwIVq4F+uQm34VYiLO+Mxzen1YVlvcSUpW5mgv2vI48SiPv4fnsaOsQW5ZTIWm+42+Umg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ SAVPR12MB999121.namprd12.prod.outlook.com (2603:10b6:806:4e7::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 01:31:18 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 01:31:17 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-CC: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Yubing Zhang <yubing.zhang@rock-chips.com>,
-        Alexey Charkov <alchark@flipper.net>,
-        Igor Paunovic <royalnet026@gmail.com>,
-        "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
-        "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-        "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "kernel@collabora.com" <kernel@collabora.com>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH v14 29/38] usb: dwc3: rockchip: introduce glue driver
-Thread-Topic: [PATCH v14 29/38] usb: dwc3: rockchip: introduce glue driver
-Thread-Index: AQHdK2ZrG+NkxuqG7U++8PVxGi84zba0VViA
-Date: Sat, 29 Aug 2026 01:31:17 +0000
-Message-ID: <apIu_Jb1APyI8Jh9@vbox>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-29-b5ad9c68fa11@collabora.com>
-In-Reply-To:
- <20260813-rockchip-usbdp-cleanup-v14-29-b5ad9c68fa11@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|CH3PR12MB9394:EE_
-x-ms-office365-filtering-correlation-id: 79767096-8728-4670-224d-08df056d390a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|7416014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- nNOfnAYnCHdNOzzF/6B88pvD+7VsH5XbFSxZ1nj/DlveXleE5Q6Va4ie9LZfpJvIoscaIiH5yqP2mEC+4KuxD6/cgDivyucPEcVj8z2nrszzp5PfpATPaun0VsSWDcvaSuHEXWY7kGClgNajgmiBD4oyli4o6Xa8SbTKj+ipv1JQjjhxp8ICGzCX7pT9GcxAwoKxnzZHDwjmhCz77YwxsGdmUkSnY+h8b0RA4/A/SFuFd5qZNz0QbnOY2s2T08x9sJROBgko5u2v+nvswCnMjiKwaaNaVm35nx0vjiKKBTGwJHTeY1QkXcCLIIqN8i1sc9X43rtfaAk5MAelZfAcGTMOPNZqIk2LYdcALKbp2qdXGyg21SwT2r1M3AIPBQ3ClMEoJ+Hwq6IwUcyja0wgsSVA5enW53+aKBI/Ox0lDVUs9tQUp+L415ICEJwdxZSBhvjIbONAXmKokujJfWCxNqyOenim8XiLRa7Pg1dnrmnvt6ir3XqSOFquSqvCvVBAqlAyKhP8GEhfqtk/i8gyp6htfN1/Hw4W7votU1cFufblFONSbZkSK5IDOvVYK+R/ZsKc+mZrMquoY1dv1epCtHeQiRij1ji4YZrVo3mHVw0sNVGlAqkTvrPwdtfRLDv951gUnL/rJiemnp3fuIiUYK14cxv6as2xPwo+iPeOsSwI2J2IluvT77oiD47kYN/7mAZYGQ91xfgGQ4pElb9Ac5BvyXQq4uk36fvzRECJbNY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(7416014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MS9vQzhWMFY5V0VMVHBtaDJMc2dhSmFhZTFZRytRMmprd2F1b3ZzQlczL2pI?=
- =?utf-8?B?VEpWRTZPeEhEWDByNGt3OXJiR05sdHRRVXVWanBLTU1qZG81YldreXpmT21k?=
- =?utf-8?B?QmR6Y2FTR2JXVlhKcGF5bEttM0hPK1dYWjZnOWVuZHpOY29SVzRGcktvbnBT?=
- =?utf-8?B?UTI0Ny9QalRtOEhWZm1OQUtETUhUYnR4TkJ1R28rZTlOVFgwZDgzN29IZXph?=
- =?utf-8?B?OVNHUko3L0t6cTBQd2NzZ21SNkZXK2dSOWVZS1lzQnZMRFM1SjIrd2VoZnhJ?=
- =?utf-8?B?Z3JaUzg0UnpKbFlER1hRMDU1aHZtYlRycXY3Sm5VLy8zL0x0Zkpyam5uZ1lG?=
- =?utf-8?B?TmdkVHlaSWZZcVFsdjhyVFlyNEJLWkNUdmlnTTNBRW5nK2YzYnhMeHppNVBy?=
- =?utf-8?B?YWZEOWkvNGVtSUNnbGowYlV1ZDNzeGJOdjVvYXhpdE5ZZ3NSelZsTVdCbjBZ?=
- =?utf-8?B?NFBPem96eVdNZEJCRUllQnVOYjMrcmViQXFLM1RNNFJNOUpvQTFCbFhOS1BV?=
- =?utf-8?B?L1owV0xRb1JUSVZ3dDY3Zm40TVhKakRPYnJGRXBFQlh1Q3k2ZUN2eDN2TEZv?=
- =?utf-8?B?K2RrcWFXMS9pSE05THVTK2h2REVtSUhtN21SRU5sY0FYQ21acGFBcEhsWGNv?=
- =?utf-8?B?Uy9DUm9ZNEt0N3hjOGZCSUtVU3JzRjltWWdkS0tUam1yRVN5ZkxSNnlaRC9u?=
- =?utf-8?B?QzlaTUlJclN2QTUwNXJva1FuL1hjelo4bTJtVVhESllWamVyZnZ2N2Ryb2Qr?=
- =?utf-8?B?OWdIRHFLWGF2UEVkeEcrR1pGcDkxNDVKZ0g5Rjg5Z0V4Q3o5M05QWWt2U216?=
- =?utf-8?B?NXpsOU1SZ3JvbjJIWFFrUWxTeXhFTHdpRml5VU1vd2ppUHRLL3lSc2YxZXgv?=
- =?utf-8?B?eTBuSFB4azZtQ2UzekNsZEFuZ1hNU3VLYXB2WEFRRmJWQzJ6aVVERzRSdzc4?=
- =?utf-8?B?RVhBVXpvemtBZDIwSU50ZktFRUtJdVF3L1k5SkNHdlhiZE5naEMrdWxtYjkw?=
- =?utf-8?B?a3J4cTFoVUc1Y3NHOUt5bnJ3bmNzNlZXeWV3VVZnWmw3bVc0RmtnSG82WExK?=
- =?utf-8?B?dkhuM2YwQjJQL3RxWnZTa0Y4aUx6RDR3ekYyVjliRzdMRmZic1R3U0xNWGxX?=
- =?utf-8?B?T2gzei9UUDN3VitmQmdPallSUnBmZjh1ZjJGV09LRmdvVTFtYWhzclgyNllD?=
- =?utf-8?B?SU5qcTYvRzBlRDJURXlBNHFuZkwzNFNNVjJjbGdWZStaNWtDUkI5Y1grNm9j?=
- =?utf-8?B?VmU3NGdDQ0ZiYytxeTQvcmFSbzVYUGFVd3hjcDd5MGRZSGR6TnBvQ2xzYnA1?=
- =?utf-8?B?SWRKb3kybWx3TmNhdW5MaXdnaE9XM2RHWnJFSnN0Q1FyQUVtd0FxTzFIV01i?=
- =?utf-8?B?K2NGcUF0WVRKNGhDd3pUZ2w0bnlwR2I2UWIzYURsaFo5bVprMkpUTWpYaklp?=
- =?utf-8?B?VmpqbWdKd0wzclJWZnQxbk82WGZCRUkvQWNiSE56ZHc0a0pMektzKzRUUUhE?=
- =?utf-8?B?SFBWQ05wZ1crYU1VZ3gySTExdDJZUTM3b3hYaTcwUGUwQTVkaDh4UHJZN3Zv?=
- =?utf-8?B?R0Z6c2RQZ08waGtGenF1K1I5R1g3T1ZzSE5YT01vY0ZjbzFZaGtUWEZHeTRh?=
- =?utf-8?B?RFQ3S01ubVhOSkppT3hwYXp6dGt1YW0xaDltY2poVnc0OUYvT1FUSDlHMzZ1?=
- =?utf-8?B?aDNrb1gzUUhWcVR6eklTL3Mwd3RGWHRFWVdrZUxUSzJQY25mb1E5aTg3Y1lo?=
- =?utf-8?B?eCtHSUYwRjNsNHgzWVAwdWNJQzRFSkp6ZmJsbEsxL2p6a21qaTViMVA5SjU4?=
- =?utf-8?B?ZHIvaHhsUTgxRmdCR1RWOE9kVmc3Zm53ZGFsdGVqRFo1bnlDVXdwVk1SZUFj?=
- =?utf-8?B?VThaSG9NUE5TRlVpWFVUcjc5dUY3ZkhBU1NMenhIYWNVMXdBeG9KU3dUTjNn?=
- =?utf-8?B?SXViZ21LNWxKaENHTm1HbWFjdG1BQ0wxWnVyckhDRTdueXh1NC82QjJGZ1Vi?=
- =?utf-8?B?R2xLbWpLcXFoZ0JQTmxrR0R1aVNaYWIyS1o1cTlTNlByTjIvZ2pnNTh4ZFpM?=
- =?utf-8?B?eFI1SmNNR3hiUU5kN3Bnb2trbVBPN1paeFdOdHVLcU5YTER0Z3JXZzd5VnB4?=
- =?utf-8?B?YXRwS3RYVlEybnhwc0JGS1EzYTUvYkFqdHJvYjFGWnlWU3FLTmVBK1QzcVNF?=
- =?utf-8?B?dHNyNW9zdGtCQzhqNHhtY2xndldqTDlUaEJza2pZNklDRFNNTnE5WENOYm15?=
- =?utf-8?B?elRkYi9qWkJxNm9CNmMwYWs2RDFkSnBlREJzWVJmVmxtNUtJdnhnR2FMQ2lM?=
- =?utf-8?B?VVVScnRScUdScWtzVE5Tem0yOHFFYkJzMWJYTFYydm02WmdoTmRNZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <825712D86E846D4284BFFEBA780DCDEB@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ 2026 01:33:32 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 01:33:32 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Will Pierce <wpierce@nvidia.com>
+Subject: [PATCH v2 06/15] gpu: nova-core: add the GIN interrupt tree and allocate its vectors
+Date: Fri, 28 Aug 2026 18:33:25 -0700
+Message-ID: <20260829013324.499542-11-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829012243.496697-1-jhubbard@nvidia.com>
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0389.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::34) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	X7Tz5Cy6x/jNy0zRZdsWpMDcHxdiZh5to6zMpHQOgwz3VMgkp7vGb0ZIAfppVz41A9pfYd2YIvVG8ICbYHQEXEbs1vDfobeLbC/BonClQEvm9HhPOp68kVol6KmLUZRdB86u+wu6uiJNGs6MHSxQue1aOkLEYSaJdxSkOWTQSZy1EAgQN3QfoTDlUNdWUDTQYdYdJedtv/ymlda6DXjALLOy0gS+9o5UTfg0Q8D0nSeCwniNdNkfFKomkKkJeiMxl4BGqctznxpTYqYVi03x56hyM0xarJWYAGZvyThtUODompES81G4u79pWXrbCk34LJPRqEBFYSNb5PayZOGe5g==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	EQf5xfh4utuA8WNX6VYFJ576Lallecm8NmuNNEDI2Q8L7Pld14wnPIvcB1dMkwhIKdTbTD0hW2CiqQgtoHIJMr0pwA4SmZbE8UllTlPW6g5npE80F/UdrQGiijayUjbbP83XB+NAoFXyFwcDrW6MN2MRTVBYTBQp/8axWPW27Lwxg/w1kzUkGeEnACNXruCpIDzA7UXbf9rRJPcpI6TSDXpRo0yJ+giRrFjKhI9xhKafO5uMLAIPYZNUEepFWFIHdLdlyf38PDPbUwdlPoHQKp9qkCq8uKgoIMvNWYs9sM97nzwDmqbAMTwT2gc5+OIECJDeE3w7GscsYdufmeWMrYkfG8nYmI36lqedX15O51y9HK5lVNmmLtKhuQJa0HN1CDrOu82+mRe5+RKp8aaQjH1mP2fpDLMt/qDiJkuhQ/1fU/H+AE/KAuTkWnzMBFaahxPDYVko+ETpJtpMeGRSX3Qi5AR8wVP4wM791Ce3NZKgv9tVj78Eb1RYOCU6qVne5672tmxeUyea5TO8oGQBr+d7jjaLnViz8fMCewVDZpq7pg/qffusmWTXE1oFC6dUMRFgQJFnGj+Hjrfay5H29caOAXXEwOoyItFnD+EsC3SGn1dnkT6DLqDdqtNfvDd7/DCpKSMp79xbLFSah2wDpw==
-X-OriginatorOrg: synopsys.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SAVPR12MB999121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d898e21-5b37-4462-1f03-08df056d88f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|6133799003|10067099003|56012099006|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9IQIHpiFDD2dJY8xQU50mbEmjsamzBZ5x49OUDbuShCN0q+RBFs2pgwWRUa0/zJxk7pOTztSp3jlSYo4yTclkEy/sXgxOKdsfW1ZQbAK1Jfls5UlTodiLNF8xb30tlfVx2YmYK3mgfYP/45K4XkncOeMaAeThq6yen8+MLigLsRBoeAWumcsF5ub19JBIwUz/Mrl2MunDu/Cag/zQ45jHj6bH7DJcPpbsJOzg6i3msKbcuDYbN9s5q5MyQvpUuKcNC0S/cDEaoJ+1YxN3So6Ak+XGetbqHqjq+YlgDwkVrXMDUHVZT3OBU/QEXtueUux0R585+k94sv0aRpU/tamTGchFhJe02DBKGslgFxGA0OgGxD8RrgbaL+5cIgfoyQIB6TJt6eUtGyx09FQTOFVCeR5yoqRXYDSxzt92y/+qFCB21MlpJ/tfliafu2MB1whkv00xTI029+8DWxXXdMzmGHE0lKWempQjO830WeNQPRWwBiLZOXCDsUxgSan1nJy1ExX1fU5hdaVpg6a29ShaM/hcMA33JdLB3iipeL3QMQFPKfDedeo59/ljqJzhRnyRcG3nITBuJLOPsQQBwZIPP2Yfky0U5RxqmPLjNu2gETL/vBqMTdBWN0ZhTQDlc0kREdFp33T6Eok/W80gkjh42wWHq56HLUfYQ8W0o5CSb8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(6133799003)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VSQ0pc5RmVUptZGnPEdtGj0i3fPXbCJWQZalULgTm6ZxMJkmddluJyHdhMkQ?=
+ =?us-ascii?Q?efsFSCq2WO9Whf57V2hIVYYQSgl57HJx+xqkv+b41vWwF97piopDzsGe45bL?=
+ =?us-ascii?Q?Jk827s4i29LXQuUR1RKSFYRx8A1sNXtt6MaQ4dXM+kQAb1u8mLxfxNiPQFkT?=
+ =?us-ascii?Q?eLO3rVmlaVXETi+v7hK5xZiMPrNq1iQS3Ub/n5dAG/ezuVTVVCVxyRDMzWof?=
+ =?us-ascii?Q?ZgV7g+TL0yo3Kh/blsQ/KrmiqgRBMosYgUQbd+9L9/XJAz8vuogn3U/K+LM7?=
+ =?us-ascii?Q?BPaZleolFDrL17XX3Ti9R6eMsSbjjh600IsjspnTe6jbTPMOgE+NTHCsvN5l?=
+ =?us-ascii?Q?owzzxBFMhJ5G8OSqhUcm1e7MqrzLtX8ala/y67215Qi3KQQTn1SDS9fVkiUc?=
+ =?us-ascii?Q?ZL0UecDQMqDWu+53nKOgxKhfllYXM5MXVZw89j0zZzv1RCDvTkjowXWSAf9P?=
+ =?us-ascii?Q?EqFXU/j2qUNufqv246cFx2ZYsFchw0ZFtyXvzqvXPxR6sCYdQbMocCXZVzjT?=
+ =?us-ascii?Q?IJ+xt1+OIZKVcEleUbq5+VKT3jIbe24f6SjZzfWhEmtjLCfuQqvNsRW3sxpg?=
+ =?us-ascii?Q?wUk8/1Ks0/JK2xOz4kKgvcNRUEb9xIPGPdFVGQjlROwCeQYCIvla4itleaZ7?=
+ =?us-ascii?Q?JbZTLky22LODlnFfN+g4jK3ShQALm32NK1FgAmVCkUq6/ppC/dOr3txiPlV2?=
+ =?us-ascii?Q?YaYblDv2B4VKuv89D5Kek677Cfa7Up9wGd9nDhhqZYOkqpFKnlQehcoWdbql?=
+ =?us-ascii?Q?Zi+tSzZHfrhNYMqpMyO7yENMhDag94x6Wilh4gI+H91k3kXwgyG3jyvbiO5P?=
+ =?us-ascii?Q?HvMb0n0nII1g0tJR86HB8qtX613qJD6Grfwic+2bzIyNfKQOmL4sC7HU34CP?=
+ =?us-ascii?Q?yH3E4lF9+4mfQEDwRdrRt4b3saU3zzREvmcNMAOw34YoI5MTou4q/rZqEZ5S?=
+ =?us-ascii?Q?YLl9a75OIFiP1sVIAkxh2Slw+rM47fhgATH+ps2hMxqUMjXFtOgU/qhuyG8q?=
+ =?us-ascii?Q?gi370BpgLHQlf1tEsr2A+UYSqjRK5Cmnp+kuwAPLgs+j6NEKp3oqdTqkgBQg?=
+ =?us-ascii?Q?kF4jYlIim487GsTGO6hXMCs3QDAo/o7za0LEXXY+xPD3TZRpBxjYjZJOhiZu?=
+ =?us-ascii?Q?wwbNWvRYORMOYzap70Vg8ioQLZnQUDdZHiFl76lZXd4NvNffi8EojCMW9d/g?=
+ =?us-ascii?Q?RnJFBzjYCR8/sgBrHR10+3ahvGCziRU5IkXoh691kwW9th/MLb8NSgDd7A5W?=
+ =?us-ascii?Q?punLYh54J2B2W/4Az+8TSKFw/D8X0TRmFS2vPVHfffbbqoyL9Zy9QKTsDRQO?=
+ =?us-ascii?Q?dyoGKHTddWmhum2GAjkzI12cMn6wfG2NCVucJ7wZG9YlLbMMzD+1ExgqC7s9?=
+ =?us-ascii?Q?u5c814XvnQEU9MvluIrMSlpc6TuPV5OlyZ7hzN4rZfsRuBj6cBQaRbItmIgD?=
+ =?us-ascii?Q?RStM3lrFnl2s4CaW4BzcpmEfvBJRd06nU0Xpr3az64n5acKEOxTS+NAiYGHu?=
+ =?us-ascii?Q?TaaEJMUMdeUpH74mtgxyoO+YfPV/L4zYvvQvpuVfGWlNdj2TNTAaGMVGafUv?=
+ =?us-ascii?Q?DnEoHpyMFMImSTgIpFDyyZzVZ1x4fy1GRRMKtcuMhZcqoxM3wAaND+eTltzR?=
+ =?us-ascii?Q?auecbO3YDVMatCM0O3Ki5vHdQ1qao41YAjiF6S/mhAb2Ry7iaJ7cOPLCPCEW?=
+ =?us-ascii?Q?6M+CySYF9wasTUE8H12LGMwJIY7TOU0vfnCgXAYfs4K6X6lWqa/z7RALkrC5?=
+ =?us-ascii?Q?jS8ZvGHRHA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d898e21-5b37-4462-1f03-08df056d88f0
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79767096-8728-4670-224d-08df056d390a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2026 01:31:17.5875
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 01:33:31.8719
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cG2ndcqhwTwx+KBTJk+8i+H7iA+KjCzCh0LCJxC0VxyJvYqAZ8fasvAbZ7va09hMKLZpYavACSXxqVS6oteJig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9394
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDAxMCBTYWx0ZWRfX1iW5T7OHM+mN
- 4F+MOjimbL/POavT/5cGvbXd/kQXt2fPuKtydBjGJl2aOZ2FB+y8EHxUva0CaQlWoEoiunlm90w
- ljDoqfd1BM61/b2Lb0H8Wcj7lEt6QPLIxxKQasjf2C5D/B7m7EoiIwSLhqh6pQISKfvIrQnxZHL
- BPnz8k7iYC3LDRJ2W8KkNJ7rUOC8PWViu2hpBbkj8Ib9URonSilio4yrXhmPFkhESmxXMax5oFW
- fmggFjH1znPdpgvJ0UpE5FMkJE/wEa0ZNA9HezRwq/iU+j3WP9sfAhqEzOA8LUYuM+g97i6l8q0
- 80nSLe/IzHK/7oxzgwghxxPNqwnbd8nPYSV2YXu0zZMk+xLqXY5Zw6qVb62SViiy/5QpUdw0K0v
- nozcb2hx2XOc9M5WpH0zZO/rg/KrfVltIVG9DzIx990Wy7afj5Nxn99lrKSpAF2iy6WNE7z1AKH
- iSQXTCFiTKLpcp6dRJw==
-X-Authority-Analysis: v=2.4 cv=TYemcxQh c=1 sm=1 tr=0 ts=6a923674 cx=c_pps
- a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22
- a=QX4gbG5DAAAA:8 a=N_l3tuSvK5gYoIjoa2AA:9 a=QEXdDO2ut3YA:10
- a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-GUID: M3f4KhF43sOWmjBseE8OmKQbkGzf_yef
-X-Proofpoint-ORIG-GUID: M3f4KhF43sOWmjBseE8OmKQbkGzf_yef
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDAxMCBTYWx0ZWRfX8nnnjPe+cOQ/
- ahE0Wjs4pvsIgTdWqvkuJU2OX2x6+FdwTsS6CGtxfE1XyWzBa9rsnmD7c9QG9O9IiHnmeMeAnCN
- mj5GMxmCgKlZsqTwmfM5CDxwLa0stDI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_07,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 adultscore=0 priorityscore=1501
- suspectscore=0 phishscore=0 spamscore=0 clxscore=1011 bulkscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2608290010
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c1ZYUUt3O2mcKiF4onyTGricGequxZWhH96N64LQj58eDNnEEd02MZUUFO0f7ILhZry42toYsqlzKIpy7ankBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999121
 
-T24gVGh1LCBBdWcgMTMsIDIwMjYsIFNlYmFzdGlhbiBSZWljaGVsIHdyb3RlOg0KPiBJbnRyb2R1
-Y2UgUm9ja2NoaXAgc3BlY2lmaWMgZ2x1ZSBjb2RlIGZvciB0aGUgU3lub3BzeXMgRFdDMyBVU0Ig
-ZHJpdmVyLg0KPiBGb3Igbm93IHRoaXMgaGFuZGxlcyB0aGluZ3MgaWRlbnRpY2FsIHRvIHRoZSBk
-ZWZhdWx0IGdsdWUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBTZWJhc3RpYW4gUmVpY2hlbCA8c2Vi
-YXN0aWFuLnJlaWNoZWxAY29sbGFib3JhLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL3VzYi9kd2Mz
-L0tjb25maWcgICAgICAgICB8ICAxMSArKysrDQo+ICBkcml2ZXJzL3VzYi9kd2MzL01ha2VmaWxl
-ICAgICAgICB8ICAgMSArDQo+ICBkcml2ZXJzL3VzYi9kd2MzL2NvcmUuYyAgICAgICAgICB8ICAx
-NSArKysrKw0KPiAgZHJpdmVycy91c2IvZHdjMy9kd2MzLXJvY2tjaGlwLmMgfCAxMTUgKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+ICA0IGZpbGVzIGNoYW5nZWQsIDE0
-MiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy91c2IvZHdjMy9LY29u
-ZmlnIGIvZHJpdmVycy91c2IvZHdjMy9LY29uZmlnDQo+IGluZGV4IDE4MTY5NzI3YTQxMy4uM2Mx
-MjBlYTk3NDZkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3VzYi9kd2MzL0tjb25maWcNCj4gKysr
-IGIvZHJpdmVycy91c2IvZHdjMy9LY29uZmlnDQo+IEBAIC0xOTAsNiArMTkwLDE3IEBAIGNvbmZp
-ZyBVU0JfRFdDM19PQ1RFT04NCj4gIAkgIE9ubHkgdGhlIGhvc3QgbW9kZSBpcyBjdXJyZW50bHkg
-c3VwcG9ydGVkLg0KPiAgCSAgU2F5ICdZJyBvciAnTScgaGVyZSBpZiB5b3UgaGF2ZSBvbmUgc3Vj
-aCBkZXZpY2UuDQo+ICANCj4gK2NvbmZpZyBVU0JfRFdDM19ST0NLQ0hJUA0KPiArCXRyaXN0YXRl
-ICJSb2NrY2hpcCBEV0MzIFBsYXRmb3JtIERyaXZlciINCj4gKwlkZXBlbmRzIG9uIEFSQ0hfUk9D
-S0NISVAgfHwgQ09NUElMRV9URVNUDQo+ICsJZGVwZW5kcyBvbiBPRg0KPiArCWRlZmF1bHQgVVNC
-X0RXQzMNCj4gKwloZWxwDQo+ICsJICBSb2NrY2hpcCBTb0NzIHdpdGggRGVzaWduV2FyZSBDb3Jl
-IFVTQjMgSVAgaW5zaWRlLA0KPiArCSAgYW5kIElQIENvcmUgY29uZmlndXJlZCBmb3IgVVNCIDIu
-MCBhbmQgVVNCIDMuMCBpbiBob3N0DQo+ICsJICBvciBkdWFsLXJvbGUgbW9kZS4NCj4gKwkgIFNh
-eSAnWScgb3IgJ00nIGlmIHlvdSBoYXZlIHN1Y2ggZGV2aWNlLg0KPiArDQo+ICBjb25maWcgVVNC
-X0RXQzNfUlRLDQo+ICAJdHJpc3RhdGUgIlJlYWx0ZWsgRFdDMyBQbGF0Zm9ybSBEcml2ZXIiDQo+
-ICAJZGVwZW5kcyBvbiBPRiAmJiBBUkNIX1JFQUxURUsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-dXNiL2R3YzMvTWFrZWZpbGUgYi9kcml2ZXJzL3VzYi9kd2MzL01ha2VmaWxlDQo+IGluZGV4IGYz
-Nzk3MTE5NzIwMy4uNDQ0ZTdlN2YzNGIyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3VzYi9kd2Mz
-L01ha2VmaWxlDQo+ICsrKyBiL2RyaXZlcnMvdXNiL2R3YzMvTWFrZWZpbGUNCj4gQEAgLTU4LDYg
-KzU4LDcgQEAgb2JqLSQoQ09ORklHX1VTQl9EV0MzX0lNWDhNUCkJCSs9IGR3YzMtaW14OG1wLm8N
-Cj4gIG9iai0kKENPTkZJR19VU0JfRFdDM19JTVgpCQkrPSBkd2MzLWlteC5vDQo+ICBvYmotJChD
-T05GSUdfVVNCX0RXQzNfWElMSU5YKQkJKz0gZHdjMy14aWxpbngubw0KPiAgb2JqLSQoQ09ORklH
-X1VTQl9EV0MzX09DVEVPTikJCSs9IGR3YzMtb2N0ZW9uLm8NCj4gK29iai0kKENPTkZJR19VU0Jf
-RFdDM19ST0NLQ0hJUCkJCSs9IGR3YzMtcm9ja2NoaXAubw0KPiAgb2JqLSQoQ09ORklHX1VTQl9E
-V0MzX1JUSykJCSs9IGR3YzMtcnRrLm8NCj4gIG9iai0kKENPTkZJR19VU0JfRFdDM19HRU5FUklD
-X1BMQVQpCSs9IGR3YzMtZ2VuZXJpYy1wbGF0Lm8NCj4gIG9iai0kKENPTkZJR19VU0JfRFdDM19H
-T09HTEUpCQkrPSBkd2MzLWdvb2dsZS5vDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9kd2Mz
-L2NvcmUuYyBiL2RyaXZlcnMvdXNiL2R3YzMvY29yZS5jDQo+IGluZGV4IDUxN2FhN2YxNDg2ZC4u
-NmU3OTY0ODlhMDRkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuYw0KPiAr
-KysgYi9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuYw0KPiBAQCAtMjM4MCwxMSArMjM4MCwyNiBAQCBp
-bnQgZHdjM19jb3JlX3Byb2JlKGNvbnN0IHN0cnVjdCBkd2MzX3Byb2JlX2RhdGEgKmRhdGEpDQo+
-ICB9DQo+ICBFWFBPUlRfU1lNQk9MX0dQTChkd2MzX2NvcmVfcHJvYmUpOw0KPiAgDQo+ICsvKg0K
-PiArICogTGlzdCBvZiBjb21wYXRpYmxlcywgd2hpY2ggaGF2ZSAic3lub3BzeXMsZHdjMyIgYXMg
-YSBmYWxsYmFjaw0KPiArICogY29tcGF0aWJsZSwgYnV0IGhhdmUgYSB2ZW5kb3Igc3BlY2lmaWMg
-Z2x1ZSBkcml2ZXIgdGhhdCBzaG91bGQNCj4gKyAqIGJlIHVzZWQgaW5zdGVhZCBvZiB0aGlzIG9u
-ZS4NCj4gKyAqLw0KPiArc3RhdGljIGNvbnN0IGNoYXIgKmNvbnN0IGR3YzNfY29tcGF0aWJsZV9i
-bG9ja2xpc3RbXSA9IHsNCj4gKwkicm9ja2NoaXAscmszNTg4LWR3YzMiLA0KPiArCSJyb2NrY2hp
-cCxyazM1NzYtZHdjMyIsDQoNCldoYXQgaWYgdGhlIHJvY2tjaGlwIGdsdWUgaXMgbm90IGJ1aWx0
-PyBBcmUgd2UgZ29pbmcgdG8gZmFsbGJhY2sgdG8gdGhlDQpjb3JlIGR3YzMgZHJpdmVyPyBPciBh
-cmUgeW91IGZvcmNpbmcgdG8gdXNlIHJvY2tjaGlwIGdsdWUgYWx3YXlzIChpZSBubw0KZmFsbGJh
-Y2spLiBJZiBpdCdzIHRoZSBmb3JtZXIsIHVzZSBJU19FTkFCTEVEIGd1YXJkLiBJZiBpdCdzIHRo
-ZSBsYXR0ZXIsDQp1cGRhdGUgdGhlIGtjb25maWcuDQoNCj4gK307DQo+ICsNCj4gIHN0YXRpYyBp
-bnQgZHdjM19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiAgew0KPiAgCXN0
-cnVjdCBkd2MzX3Byb2JlX2RhdGEgcHJvYmVfZGF0YSA9IHt9Ow0KPiAgCXN0cnVjdCByZXNvdXJj
-ZSAqcmVzOw0KPiAgCXN0cnVjdCBkd2MzICpkd2M7DQo+ICsJaW50IGk7DQo+ICsNCj4gKwlmb3Ig
-KGkgPSAwOyBpIDwgQVJSQVlfU0laRShkd2MzX2NvbXBhdGlibGVfYmxvY2tsaXN0KTsgaSsrKQ0K
-PiArCQlpZiAoZGV2aWNlX2lzX2NvbXBhdGlibGUoJnBkZXYtPmRldiwgZHdjM19jb21wYXRpYmxl
-X2Jsb2NrbGlzdFtpXSkpDQo+ICsJCQlyZXR1cm4gLUVOT0RFVjsNCj4gIA0KPiAgCXJlcyA9IHBs
-YXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JFU09VUkNFX01FTSwgMCk7DQo+ICAJaWYgKCFy
-ZXMpIHsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdXNiL2R3YzMvZHdjMy1yb2NrY2hpcC5jIGIv
-ZHJpdmVycy91c2IvZHdjMy9kd2MzLXJvY2tjaGlwLmMNCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQN
-Cj4gaW5kZXggMDAwMDAwMDAwMDAwLi4xZGYzMzYyNWI2OWYNCj4gLS0tIC9kZXYvbnVsbA0KPiAr
-KysgYi9kcml2ZXJzL3VzYi9kd2MzL2R3YzMtcm9ja2NoaXAuYw0KPiBAQCAtMCwwICsxLDExNSBA
-QA0KPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4gKy8qIENvcHlyaWdo
-dCAoYykgMjAyNiwgQ29sbGFib3JhIEx0ZC4gKi8NCj4gKyNpbmNsdWRlIDxsaW51eC9tb2R1bGUu
-aD4NCj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4NCj4gKyNpbmNsdWRlIDxs
-aW51eC9wbV9ydW50aW1lLmg+DQo+ICsjaW5jbHVkZSAiZ2x1ZS5oIg0KPiArDQo+ICtzdHJ1Y3Qg
-ZHdjM19yb2NrY2hpcCB7DQo+ICsJc3RydWN0IGR3YzMJCWR3YzsNCj4gK307DQo+ICsNCj4gK3N0
-YXRpYyBpbnQgZHdjM19yb2NrY2hpcF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
-KQ0KPiArew0KPiArCXN0cnVjdCBkd2MzX3Byb2JlX2RhdGEgcHJvYmVfZGF0YSA9IHt9Ow0KPiAr
-CXN0cnVjdCByZXNvdXJjZSAqcmVzOw0KPiArCXN0cnVjdCBkd2MzX3JvY2tjaGlwICpkd2Nfcms7
-DQo+ICsNCj4gKwlyZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwgSU9SRVNPVVJDRV9N
-RU0sIDApOw0KPiArCWlmICghcmVzKSB7DQo+ICsJCWRldl9lcnIoJnBkZXYtPmRldiwgIm1pc3Np
-bmcgbWVtb3J5IHJlc291cmNlXG4iKTsNCj4gKwkJcmV0dXJuIC1FTk9ERVY7DQo+ICsJfQ0KPiAr
-DQo+ICsJZHdjX3JrID0gZGV2bV9remFsbG9jKCZwZGV2LT5kZXYsIHNpemVvZigqZHdjX3JrKSwg
-R0ZQX0tFUk5FTCk7DQo+ICsJaWYgKCFkd2NfcmspDQo+ICsJCXJldHVybiAtRU5PTUVNOw0KPiAr
-DQo+ICsJZHdjX3JrLT5kd2MuZGV2ID0gJnBkZXYtPmRldjsNCj4gKwlkd2NfcmstPmR3Yy5nbHVl
-X29wcyA9IE5VTEw7DQo+ICsNCj4gKwlwcm9iZV9kYXRhLmR3YyA9ICZkd2NfcmstPmR3YzsNCj4g
-Kwlwcm9iZV9kYXRhLnJlcyA9IHJlczsNCj4gKwlwcm9iZV9kYXRhLnByb3BlcnRpZXMgPSBEV0Mz
-X0RFRkFVTFRfUFJPUEVSVElFUzsNCj4gKw0KPiArCXJldHVybiBkd2MzX2NvcmVfcHJvYmUoJnBy
-b2JlX2RhdGEpOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgdm9pZCBkd2MzX3JvY2tjaGlwX3JlbW92
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiArew0KPiArCWR3YzNfY29yZV9yZW1v
-dmUocGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldikpOw0KPiArfQ0KPiArDQo+ICsjaWZkZWYgQ09O
-RklHX1BNDQo+ICtzdGF0aWMgaW50IGR3YzNfcm9ja2NoaXBfcnVudGltZV9zdXNwZW5kKHN0cnVj
-dCBkZXZpY2UgKmRldikNCj4gK3sNCj4gKwlyZXR1cm4gZHdjM19ydW50aW1lX3N1c3BlbmQoZGV2
-X2dldF9kcnZkYXRhKGRldikpOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IGR3YzNfcm9ja2No
-aXBfcnVudGltZV9yZXN1bWUoc3RydWN0IGRldmljZSAqZGV2KQ0KPiArew0KPiArCXJldHVybiBk
-d2MzX3J1bnRpbWVfcmVzdW1lKGRldl9nZXRfZHJ2ZGF0YShkZXYpKTsNCj4gK30NCj4gKw0KPiAr
-c3RhdGljIGludCBkd2MzX3JvY2tjaGlwX3J1bnRpbWVfaWRsZShzdHJ1Y3QgZGV2aWNlICpkZXYp
-DQo+ICt7DQo+ICsJcmV0dXJuIGR3YzNfcnVudGltZV9pZGxlKGRldl9nZXRfZHJ2ZGF0YShkZXYp
-KTsNCj4gK30NCj4gKyNlbmRpZg0KPiArDQo+ICsjaWZkZWYgQ09ORklHX1BNX1NMRUVQDQoNClVz
-ZSB0aGUgbmV3IFBNIG1hY3JvcyBhbmQgcmVtb3ZlIHRoZXNlIGd1YXJkcy4NCg0KPiArc3RhdGlj
-IGludCBkd2MzX3JvY2tjaGlwX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQ0KPiArew0KPiAr
-CXJldHVybiBkd2MzX3BtX3N1c3BlbmQoZGV2X2dldF9kcnZkYXRhKGRldikpOw0KPiArfQ0KPiAr
-DQo+ICtzdGF0aWMgaW50IGR3YzNfcm9ja2NoaXBfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRldikN
-Cj4gK3sNCj4gKwlyZXR1cm4gZHdjM19wbV9yZXN1bWUoZGV2X2dldF9kcnZkYXRhKGRldikpOw0K
-PiArfQ0KPiArDQo+ICtzdGF0aWMgdm9pZCBkd2MzX3JvY2tjaGlwX2NvbXBsZXRlKHN0cnVjdCBk
-ZXZpY2UgKmRldikNCj4gK3sNCj4gKwlkd2MzX3BtX2NvbXBsZXRlKGRldl9nZXRfZHJ2ZGF0YShk
-ZXYpKTsNCj4gK30NCj4gKw0KPiArc3RhdGljIGludCBkd2MzX3JvY2tjaGlwX3ByZXBhcmUoc3Ry
-dWN0IGRldmljZSAqZGV2KQ0KPiArew0KPiArCXJldHVybiBkd2MzX3BtX3ByZXBhcmUoZGV2X2dl
-dF9kcnZkYXRhKGRldikpOw0KPiArfQ0KPiArI2VuZGlmDQo+ICsNCj4gK3N0YXRpYyBjb25zdCBz
-dHJ1Y3QgZGV2X3BtX29wcyBkd2MzX3JvY2tjaGlwX2Rldl9wbV9vcHMgPSB7DQo+ICsJU0VUX1NZ
-U1RFTV9TTEVFUF9QTV9PUFMoZHdjM19yb2NrY2hpcF9zdXNwZW5kLCBkd2MzX3JvY2tjaGlwX3Jl
-c3VtZSkNCj4gKwkuY29tcGxldGUgPSBkd2MzX3JvY2tjaGlwX2NvbXBsZXRlLA0KPiArCS5wcmVw
-YXJlID0gZHdjM19yb2NrY2hpcF9wcmVwYXJlLA0KPiArCS8qDQo+ICsJICogUnVudGltZSBzdXNw
-ZW5kIGhhbHRzIHRoZSBjb250cm9sbGVyIG9uIGRpc2Nvbm5lY3Rpb24uIEl0IHJlbGllcyBvbg0K
-PiArCSAqIHBsYXRmb3JtcyB3aXRoIGN1c3RvbSBjb25uZWN0aW9uIG5vdGlmaWNhdGlvbiB0byBz
-dGFydCB0aGUgY29udHJvbGxlcg0KPiArCSAqIGFnYWluLg0KPiArCSAqLw0KPiArCVNFVF9SVU5U
-SU1FX1BNX09QUyhkd2MzX3JvY2tjaGlwX3J1bnRpbWVfc3VzcGVuZCwgZHdjM19yb2NrY2hpcF9y
-dW50aW1lX3Jlc3VtZSwNCj4gKwkJCSAgIGR3YzNfcm9ja2NoaXBfcnVudGltZV9pZGxlKQ0KPiAr
-fTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgZHdjM19yb2NrY2hp
-cF9vZl9tYXRjaFtdID0gew0KPiArCXsgLmNvbXBhdGlibGUgPSAicm9ja2NoaXAscmszNTg4LWR3
-YzMiIH0sDQo+ICsJeyAuY29tcGF0aWJsZSA9ICJyb2NrY2hpcCxyazM1NzYtZHdjMyIgfSwNCj4g
-Kwl7IH0NCj4gK307DQo+ICtNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBkd2MzX3JvY2tjaGlwX29m
-X21hdGNoKTsNCj4gKw0KPiArc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgZHdjM19yb2Nr
-Y2hpcF9kcml2ZXIgPSB7DQo+ICsJLnByb2JlCQk9IGR3YzNfcm9ja2NoaXBfcHJvYmUsDQo+ICsJ
-LnJlbW92ZQkJPSBkd2MzX3JvY2tjaGlwX3JlbW92ZSwNCj4gKwkuZHJpdmVyCQk9IHsNCj4gKwkJ
-Lm5hbWUJPSAiZHdjMy1yb2NrY2hpcCIsDQo+ICsJCS5wbQk9IHBtX3B0cigmZHdjM19yb2NrY2hp
-cF9kZXZfcG1fb3BzKSwNCj4gKwkJLm9mX21hdGNoX3RhYmxlCT0gZHdjM19yb2NrY2hpcF9vZl9t
-YXRjaCwNCj4gKwl9LA0KPiArfTsNCj4gKw0KPiArbW9kdWxlX3BsYXRmb3JtX2RyaXZlcihkd2Mz
-X3JvY2tjaGlwX2RyaXZlcik7DQo+ICsNCj4gK01PRFVMRV9MSUNFTlNFKCJHUEwiKTsNCj4gK01P
-RFVMRV9ERVNDUklQVElPTigiRGVzaWduV2FyZSBEV0MzIFJvY2tjaGlwIEdsdWUgRHJpdmVyIik7
-DQo+IA0KPiAtLSANCj4gMi41My4wDQo+IA0KDQpCUiwNClRoaW5o
+From: Joel Fernandes <joelagnelf@nvidia.com>
+
+Servicing a GIN leaf has a required order: read its pending bits, then
+clear them. Clearing a leaf before reading it discards every vector
+latched in it, and nothing reports the loss.
+
+The driver must also allocate a PCI vector for every subtree it enables
+at TOP, and register a handler on that vector. MSI-X gives each subtree
+its own table entry. Linux masks every entry the driver did not
+allocate. An enabled subtree with no entry of its own raises interrupts
+that never arrive, and its leaf and TOP bits stay pending and enabled.
+MSI instead has one message that the whole tree raises, so a single
+entry serves every subtree.
+
+Add an API for one PCIe function's CPU interrupt tree, in which reading
+a leaf yields the handle that clears it. Size the vector allocation to
+the serviced subtrees, requesting MSI-X entries up to the highest
+serviced subtree and falling back to a single MSI rather than a shared
+INTx line.
+
+Reviewed-by: Will Pierce <wpierce@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+[jhubbard: name the module interrupt_tree with a Tree type that owns the
+ BAR mapping, use the canonical NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_*
+ register names, express vectors, leaves and subtrees as newtypes, let
+ the read of a leaf produce the handle that clears it, add the enable
+ guards, take the leaf count and the rearm method from the interrupt
+ HAL, and read every implemented leaf in drain() rather than descending
+ from the TOP registers, which cannot see a vector that latched while
+ disabled]
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
+ drivers/gpu/nova-core/irq.rs                |  89 ++++++
+ drivers/gpu/nova-core/irq/interrupt_tree.rs | 284 +++++++++++++++++++-
+ 2 files changed, 369 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
+index 02ecfc47f4d0..c6bf1dbacabe 100644
+--- a/drivers/gpu/nova-core/irq.rs
++++ b/drivers/gpu/nova-core/irq.rs
+@@ -11,3 +11,92 @@
+ mod hal;
+ mod interrupt_tree;
+ mod regs;
++
++use kernel::{
++    device::Bound,
++    irq,
++    pci::{
++        self,
++        IrqType, //
++    },
++    prelude::*, //
++};
++
++use interrupt_tree::{
++    Subtree,
++    SubtreeSet, //
++};
++
++/// The PCI interrupt vector that delivers each serviced subtree.
++///
++/// MSI-X raises a separate table entry per subtree, so subtree `N` arrives on entry `N`. MSI has a
++/// single message that every subtree raises, so all of them arrive on the one allocated entry.
++pub(crate) struct SubtreeVectors<'a> {
++    vectors: pci::IrqVectorRegistration<'a>,
++    /// Every subtree nova-core services.
++    serviced: SubtreeSet,
++}
++
++impl SubtreeVectors<'_> {
++    /// Returns the interrupt type the PCI core selected for these vectors.
++    pub(crate) fn irq_type(&self) -> IrqType {
++        self.vectors.irq_type()
++    }
++
++    /// Returns an [`irq::IrqRequest`] for the vector that delivers `subtree`.
++    ///
++    /// # Errors
++    ///
++    /// `EINVAL` if `subtree` is not one nova-core services.
++    pub(crate) fn request_for(&self, subtree: Subtree) -> Result<irq::IrqRequest<'_>> {
++        if !self.serviced.contains(subtree) {
++            return Err(EINVAL);
++        }
++
++        self.vectors
++            .index(entry_index(self.irq_type(), subtree))
++            .map(Into::into)
++    }
++}
++
++/// Returns the index of the allocated entry that `subtree` raises.
++///
++/// MSI-X gives subtree `N` its own table entry `N`. MSI raises its one message from every subtree,
++/// and nova-core allocates a single entry for it. nova-core never allocates INTx.
++fn entry_index(irq_type: IrqType, subtree: Subtree) -> usize {
++    match irq_type {
++        IrqType::MsiX => crate::num::u32_as_usize(subtree.index()),
++        IrqType::Msi | IrqType::Intx => 0,
++    }
++}
++
++/// Allocates the interrupt vectors that the subtrees in `serviced` require.
++///
++/// Every subtree nova-core enables at `TOP` must have an allocated vector with a registered
++/// handler, or the interrupts it raises are lost. Linux masks every MSI-X entry a driver did not
++/// allocate, so the MSI-X request covers every entry up to the highest serviced subtree. A part
++/// whose MSI-X table is smaller than that falls back to a single MSI, which serves the whole tree.
++/// nova-core does not fall back to a shared INTx line.
++///
++/// # Errors
++///
++/// `EINVAL` if `serviced` is empty. The error from the MSI request if neither type can be
++/// allocated.
++pub(crate) fn alloc_vectors(
++    pdev: &pci::Device<Bound>,
++    serviced: SubtreeSet,
++) -> Result<SubtreeVectors<'_>> {
++    if serviced.is_empty() {
++        return Err(EINVAL);
++    }
++
++    // One entry per subtree up to and including the highest serviced one.
++    let entries = serviced.span();
++
++    let vectors = match pdev.alloc_irq_vectors(entries, entries, IrqType::MsiX.into()) {
++        Ok(vectors) => vectors,
++        Err(_) => pdev.alloc_irq_vectors(1, 1, IrqType::Msi.into())?,
++    };
++
++    Ok(SubtreeVectors { vectors, serviced })
++}
+diff --git a/drivers/gpu/nova-core/irq/interrupt_tree.rs b/drivers/gpu/nova-core/irq/interrupt_tree.rs
+index da24f3d35893..523b26d55137 100644
+--- a/drivers/gpu/nova-core/irq/interrupt_tree.rs
++++ b/drivers/gpu/nova-core/irq/interrupt_tree.rs
+@@ -1,17 +1,49 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+-//! Vector addressing in the GIN CPU interrupt tree.
++//! The GIN CPU interrupt tree for one PCIe function.
+ //!
+ //! A vector's number fixes where it latches: leaf `vector / 32` at bit `vector % 32`, and that
+ //! leaf belongs to subtree `vector / 64`. The types here keep those three views apart, so a leaf
+ //! index, a set of vectors within one leaf, and a `TOP` bit cannot stand in for one another.
++//!
++//! Servicing a leaf has a required order: read its pending bits, then clear them. Clearing a leaf
++//! before reading it discards every vector latched in it, and nothing reports the loss. Only
++//! [`Tree::read_pending`] produces a [`LeafPending`], and only a [`LeafPending`] can clear, so the
++//! wrong order does not compile.
++//!
++//! Serializing access to the tree is the caller's responsibility.
+ 
+ use kernel::{
++    io::{
++        register::Array,
++        Io, //
++    },
+     num::Bounded,
++    pci::IrqType,
+     prelude::*, //
+ };
+ 
++use crate::{
++    driver::Bar0,
++    gpu::Chipset, //
++};
++
++use super::{
++    hal::{
++        cpu_interrupt_hal,
++        PciIrqRearmMethod, //
++    },
++    regs::{
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF as CPU_INTR_LEAF,
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_EN_CLEAR as CPU_INTR_LEAF_EN_CLEAR,
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_EN_SET as CPU_INTR_LEAF_EN_SET,
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_TRIGGER as CPU_INTR_LEAF_TRIGGER,
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR as CPU_INTR_TOP_EN_CLEAR,
++        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET as CPU_INTR_TOP_EN_SET, //
++    }, //
++};
++
+ /// Index of a leaf register, bounded to the `0..16` range covered by the leaf register arrays.
+ pub(super) type LeafIndex = Bounded<usize, 4>;
+ 
+@@ -97,7 +129,7 @@ pub(super) const fn contains(self, other: Self) -> bool {
+ ///
+ /// Exactly one bit is set.
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+-pub(super) struct Subtree(u32);
++pub(crate) struct Subtree(u32);
+ 
+ impl Subtree {
+     /// Returns this subtree's index within the tree.
+@@ -115,7 +147,7 @@ pub(super) const fn into_raw(self) -> u32 {
+ 
+ /// Set of subtrees, one bit per subtree, in the layout the `TOP` enable registers take.
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+-pub(super) struct SubtreeSet(u32);
++pub(crate) struct SubtreeSet(u32);
+ 
+ impl SubtreeSet {
+     /// Returns whether `subtree` belongs to this set.
+@@ -199,7 +231,7 @@ pub(super) const fn subtree(self) -> Subtree {
+     /// # Errors
+     ///
+     /// `EINVAL` if the vector lies beyond the last leaf such a tree implements.
+-    pub(super) const fn validate(self, leaves: LeafCount) -> Result {
++    pub(super) fn validate(self, leaves: LeafCount) -> Result {
+         if self.0 >= leaves.vector_count() {
+             return Err(EINVAL);
+         }
+@@ -207,3 +239,247 @@ pub(super) const fn validate(self, leaves: LeafCount) -> Result {
+         Ok(())
+     }
+ }
++
++/// Returns the leaves that subtree `index` covers.
++///
++/// An index beyond the leaf register arrays yields nothing rather than panicking.
++fn subtree_leaves(index: u32) -> impl Iterator<Item = LeafIndex> {
++    let first = index * LEAVES_PER_SUBTREE;
++
++    (first..first + LEAVES_PER_SUBTREE)
++        .filter_map(|leaf| LeafIndex::try_new(crate::num::u32_as_usize(leaf)))
++}
++
++/// The GIN CPU interrupt tree for a single PCIe function.
++pub(super) struct Tree<'a> {
++    /// Borrowed BAR0, through which every tree register is reached.
++    bar: Bar0<'a>,
++    /// Number of leaves this tree implements.
++    leaves: LeafCount,
++    /// The subtrees this tree enables and services.
++    serviced: SubtreeSet,
++    /// Method that rearms PCI interrupt delivery, or `None` if the interrupt type needs no rearm
++    /// write.
++    rearm: Option<PciIrqRearmMethod>,
++}
++
++impl<'a> Tree<'a> {
++    /// Creates a `Tree` for `chipset` covering `serviced`, with the rearm method that `irq_type`
++    /// requires.
++    ///
++    /// Each serviced subtree must have an allocated PCI vector and a registered handler, which
++    /// [`super::alloc_vectors`] sizes the allocation for. Subtrees the architecture does not
++    /// implement are dropped.
++    pub(super) fn new(
++        bar: Bar0<'a>,
++        chipset: Chipset,
++        irq_type: IrqType,
++        serviced: SubtreeSet,
++    ) -> Self {
++        let hal = cpu_interrupt_hal(chipset);
++        let leaves = hal.leaf_count();
++
++        Self {
++            bar,
++            leaves,
++            serviced: serviced.intersection(leaves.subtree_set()),
++            rearm: hal.pci_irq_rearm_method(irq_type),
++        }
++    }
++
++    /// Returns the subtrees this tree services.
++    pub(super) fn serviced(&self) -> SubtreeSet {
++        self.serviced
++    }
++
++    /// Rearms PCI interrupt delivery to the CPU after servicing `subtree`, the one subtree the
++    /// calling handler serves.
++    ///
++    /// A handler must call this before it returns, or it receives no further interrupts.
++    pub(super) fn rearm_pci_irq(&self, subtree: Subtree) {
++        if let Some(method) = self.rearm {
++            method.rearm(self.bar, self.serviced, subtree);
++        }
++    }
++
++    /// Enables this tree's serviced subtrees (`TOP_EN_SET`).
++    pub(super) fn enable_top(&self) {
++        self.bar
++            .write(CPU_INTR_TOP_EN_SET, self.serviced.into_raw().into());
++    }
++
++    /// Disables this tree's serviced subtrees (`TOP_EN_CLEAR`).
++    pub(super) fn disable_top(&self) {
++        self.bar
++            .write(CPU_INTR_TOP_EN_CLEAR, self.serviced.into_raw().into());
++    }
++
++    /// Enables this tree's serviced subtrees until the returned guard drops.
++    pub(super) fn enable_top_guarded(&self) -> TopEnableGuard<'_> {
++        self.enable_top();
++
++        TopEnableGuard { tree: self }
++    }
++
++    /// Enables the vectors set in `vectors` for `leaf` (`LEAF_EN_SET`).
++    ///
++    /// This is the per-vector counterpart of [`Self::enable_top`], which enables whole subtrees.
++    pub(super) fn enable_leaf(&self, leaf: LeafIndex, vectors: LeafMask) {
++        if let Some(loc) = CPU_INTR_LEAF_EN_SET::try_at(leaf.get()) {
++            self.bar.write(loc, vectors.into_raw().into());
++        }
++    }
++
++    /// Disables the vectors set in `vectors` for `leaf` (`LEAF_EN_CLEAR`).
++    pub(super) fn disable_leaf(&self, leaf: LeafIndex, vectors: LeafMask) {
++        if let Some(loc) = CPU_INTR_LEAF_EN_CLEAR::try_at(leaf.get()) {
++            self.bar.write(loc, vectors.into_raw().into());
++        }
++    }
++
++    /// Enables `vectors` for `leaf` until the returned guard drops.
++    pub(super) fn enable_leaf_guarded(
++        &self,
++        leaf: LeafIndex,
++        vectors: LeafMask,
++    ) -> LeafEnableGuard<'_> {
++        self.enable_leaf(leaf, vectors);
++
++        LeafEnableGuard {
++            tree: self,
++            leaf,
++            vectors,
++        }
++    }
++
++    /// Reads the vectors pending in `leaf`.
++    pub(super) fn read_pending(&self, leaf: LeafIndex) -> LeafPending<'_> {
++        let pending = CPU_INTR_LEAF::try_at(leaf.get())
++            .map(|loc| self.bar.read(loc).into_raw())
++            .unwrap_or(0);
++
++        LeafPending {
++            tree: self,
++            leaf,
++            pending: LeafMask::from_raw(pending),
++        }
++    }
++
++    /// Injects a software interrupt for `vector` via the trigger register.
++    ///
++    /// # Errors
++    ///
++    /// `EINVAL` if `vector` lies outside this tree. `EOVERFLOW` if `vector` does not fit in the
++    /// trigger register's vector field.
++    // Only the interrupt self-test injects a software interrupt.
++    #[cfg_attr(not(CONFIG_NOVA_CORE_IRQ_SELFTEST), expect(dead_code))]
++    pub(super) fn trigger(&self, vector: GinVector) -> Result {
++        vector.validate(self.leaves)?;
++        self.bar
++            .write_reg(CPU_INTR_LEAF_TRIGGER::zeroed().try_with_vector(vector.into_raw())?);
++
++        Ok(())
++    }
++
++    /// Disables every vector in every implemented leaf (`LEAF_EN_CLEAR`).
++    ///
++    /// Boot, or a driver that ran before this one, can leave leaf enables set for vectors
++    /// nova-core does not service, and such a vector delivers to nova-core's handler once its
++    /// subtree is enabled.
++    ///
++    /// This clears enables outside the subtrees nova-core services, so it is a probe-time
++    /// operation only.
++    pub(super) fn disable_all_leaves(&self) {
++        for index in 0..self.leaves.into_raw() {
++            if let Some(leaf) = LeafIndex::try_new(index) {
++                self.disable_leaf(leaf, LeafMask::all());
++            }
++        }
++    }
++
++    /// Clears every pending bit in every implemented leaf.
++    ///
++    /// Disables this tree's serviced subtrees at `TOP` across the walk, then enables them,
++    /// whatever their state on entry. The leaves cleared reach subtrees the driver does not
++    /// service, and the `TOP_EN` writes do not.
++    ///
++    /// Call `drain()` only during probe. It must not run concurrently with an interrupt handler.
++    pub(super) fn drain(&self) {
++        self.disable_top();
++
++        // `TOP` summarizes enabled leaf bits, so a vector that latched while it was disabled does
++        // not appear there.
++        for index in 0..self.leaves.subtree_count() {
++            for leaf in subtree_leaves(index) {
++                let pending = self.read_pending(leaf);
++                if !pending.vectors().is_empty() {
++                    pending.clear();
++                }
++            }
++        }
++
++        self.enable_top();
++    }
++}
++
++/// The vectors read pending from one leaf.
++///
++/// Holding one is the proof that the leaf was read, which is what [`Self::clear`] and
++/// [`Self::clear_vectors`] require.
++pub(super) struct LeafPending<'a> {
++    tree: &'a Tree<'a>,
++    leaf: LeafIndex,
++    pending: LeafMask,
++}
++
++impl LeafPending<'_> {
++    /// Returns the vectors that were pending.
++    pub(super) fn vectors(&self) -> LeafMask {
++        self.pending
++    }
++
++    /// Clears every vector that was pending, by writing its bits back (write-1-to-clear).
++    pub(super) fn clear(&self) {
++        self.clear_vectors(self.pending);
++    }
++
++    /// Clears the vectors set in `vectors` (write-1-to-clear), leaving every other pending bit
++    /// set.
++    ///
++    /// A handler that services one vector uses this rather than [`Self::clear`], which clears
++    /// every vector the leaf had pending.
++    pub(super) fn clear_vectors(&self, vectors: LeafMask) {
++        if !vectors.is_empty() {
++            if let Some(loc) = CPU_INTR_LEAF::try_at(self.leaf.get()) {
++                self.tree.bar.write(loc, vectors.into_raw().into());
++            }
++        }
++    }
++}
++
++/// Keeps a leaf's vectors enabled for as long as it is held.
++///
++/// Dropping it disables the same vectors, so an error path cannot leave a source enabled with no
++/// handler behind it.
++pub(super) struct LeafEnableGuard<'a> {
++    tree: &'a Tree<'a>,
++    leaf: LeafIndex,
++    vectors: LeafMask,
++}
++
++impl Drop for LeafEnableGuard<'_> {
++    fn drop(&mut self) {
++        self.tree.disable_leaf(self.leaf, self.vectors);
++    }
++}
++
++/// Keeps a tree's serviced subtrees enabled at `TOP` for as long as it is held.
++pub(super) struct TopEnableGuard<'a> {
++    tree: &'a Tree<'a>,
++}
++
++impl Drop for TopEnableGuard<'_> {
++    fn drop(&mut self) {
++        self.tree.disable_top();
++    }
++}
+-- 
+2.55.0
+
