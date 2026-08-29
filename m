@@ -1,323 +1,221 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EABA2DC783
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788004031; cv=none; b=HBI5vXZ+2TnskK0vrc8sICKLC8T/Jg9hLT8UyQP4/TZYfr25wDTwQIMxBfTdOFE8l8ZuTuFW9/9UgC9/OS82kT71YCe3SZSg3NAjj2SakxWUdZJOW09TOElFky9duOaUPna53t6mh/7dzCTvXulKv5pHM7SrNfLSdnQuWIQpfeU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788004031; c=relaxed/simple;
-	bh=QoA1i2bw1PTvwVLs0x0n58nVFfkIazHzKte0QfVr4jY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQx7fYKAZSyXnJ47Zq8O19pBFVvAFDzWo5DjZW7rMwnpgQsnscOBp7Ntta98gtZWxHW6uQ5wYns5955PR1u9gzoLDkOXcgyXoiLv4MzqotO8rFcO8oYI0SzOLjD5u+ltozkxDJg5+sh42QQrY6c7sy/TOdPOBiOBLeFmznOrm2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=al8MXR/x; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113DA1DF748
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.139
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788004209; cv=pass; b=c0JCJmfUJVoA63soiScvjujEYv60+JH5yIKPFNTOLtAFvRLO8mWdG55IeKhjXaowbWZWxYMQrfmpTcbOgJHXldEW9deid7WdqsWLobGvWGx6mAYL3fuhlvPn58NR39yoGoxIheG3yb6/cbhP7HSeOPC0P8KQgnSNKZ5B8YgsZxY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788004209; c=relaxed/simple;
+	bh=XB59oqxnl9vxrJXiFn7gVAo04muqOAUCBSUo2fWNdsg=;
+	h=In-Reply-To:References:From:Mime-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DwN9YUfLb63JjmDOeLS1901dBqRRQJFRvbjwDZDWgKYUfp1T2aT8UB3vGYgWWZYyrg7sD4jlbhpkzgtvsPJNGYR/+nzB/uI03HofGBOMbG3etNRC9ddG62HKqmI4h2m5zLcR4c5Ofqh1+6lkod3q+6h28qppM6b7K0FnQZtkeK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PtSOMIxX; arc=pass smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="al8MXR/x"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1859836a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:47:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PtSOMIxX"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-396bf83d458so593110a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:50:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788004207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MIujnevjN73TSAbshIUCrB2WPLnWFumVn87vbI3d/Y/v6jDEX/dFQf8hYs7f+Zqvuj
+         gP/nNG5BoI5lfzK6QvUXHolC0eLxuMtUFIaq0d1clwnJ4oqoyjLTu0Ta9CRI8VRxO8wn
+         iQkItsaxaDJU+ZTjrmXGWaFzLPqWghC/T93FtF3dlPtnY+ouA3YvpiOjbR7BdQTM/jqr
+         4FaiqVPBec2/IbWOpWCjk9R/iI18DKMI1UttWLA5QrBaYxA73oXaIdZWfzagNeZNr//h
+         EEhCfjk61AetBCTIBt5mlkZTYnWB4miq1PPj7cKAMwJo1rXDUp2aL13KXZX3sFVqQmYf
+         X2fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:feedback-id
+         :mime-version:from:references:in-reply-to:dkim-signature;
+        bh=2V7zWxDDkN+khoCSDL6WUb6TTSsQU+AdkqSv9hV5vbU=;
+        fh=EVuFiPDHWcVhqBNAA2+S1wPUzrbhPhEef6iIIXWduM0=;
+        b=plKrOx2p0SOcYGutWFZyv+nLtKSLZvHwmjl5zGkNEG+DF+BozHqnk3fUpJkvcj53gz
+         EK+yN8offlwqEPd20nhZtrP/LbFSDNMw3YEaPN/qgEiuE0S4mt0VFKCec87+PRzRjLeM
+         qSbKNyAmmdthUXS9U6JfL1vpCoUUQsLPKGC2MzG2okbh1bEEiPkxaTHMkc8I9f6ewlVa
+         K2w5FZlCxlA/cZRl9ms6ViVcPgqerZe0iLXHYkV7P/kBadb6TBivfsQoZW+geOpQl7TS
+         EoWGa5Hg02RCafgvASAslD9qMF/pxd10kQ3Ced3zPrzCHm2TwTDjljzHKv/r6V3fQIon
+         Xbfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788004030; x=1788608830; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1vqI14HLIzxZhfuAXP+1goiBkOtG4fYO1VJ85pvQxO8=;
-        b=al8MXR/xd09FiOzzU6PyeMTfW1zAl5c2sMvBNQzEjPqVvOkmLinTC56C/ub+WUfMgh
-         4oEYOwhSw25oVjwSg31xs6Uqvly9Z1a/iKXoVQDWRqkdJ6u7rQV9SVQU19uSwiUvia/G
-         GZfnWt8m45dJ+aAjsovuvs0/eX5agahl+0h97pyU9loD1WyL8+khFmosU2D3zICQP2qf
-         0ZjlkAK4ESdADzOXl0cCQAymazEV1TdE5RfLZHCnhYxg0iWHQih0Y63cLmctdDgyjFD1
-         WbE7mqXSosAYhaqVNUXBNCKApeqqxYexEb/TXL17SjjQrXnPKjNMm+nxxTymM1a9DYc9
-         GA7A==
+        d=gmail.com; s=20251104; t=1788004207; x=1788609007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:feedback-id:mime-version:from:references:in-reply-to:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2V7zWxDDkN+khoCSDL6WUb6TTSsQU+AdkqSv9hV5vbU=;
+        b=PtSOMIxXaaLKXxudcVpNtcvLi8V16ik2tjYkLbSyjBYfJXfyV4HQiyNTHVXCpL7ngQ
+         pHOZW8y/Ci32EFbGwYAn45Fx8sjohYnLK5Xcauz8zyIKtdYLc24T5QdLJqPbisu+VIJb
+         9+iknSJTQUlFLGKVaigUrb5PXVBMB1spZdCBBukCxtvlBeD6ZMi1eMiO522IuDbjcHhj
+         dordGKnUIdZhdD/SwRlJo+TWFG1l3/dHSPP1+/w9TG73DXsm7A4/9mP/c4lMjXAlY5g/
+         4TpBiYVarqPIwi1GN6AbXuF+rxalaTvRVVCn3wLvN3mZAdyAScNnQ2/oryAF0CcRvbAk
+         DxMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788004030; x=1788608830;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788004207; x=1788609007;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:feedback-id:mime-version:from:references:in-reply-to:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1vqI14HLIzxZhfuAXP+1goiBkOtG4fYO1VJ85pvQxO8=;
-        b=AjYM4nQTmbjTFwgEqWX75fcloMBC4owavUqRTj+qI0dSd7qo/z+BbvzhIZRRQlr8bQ
-         ACAoB34A7GKCZ9WIHns6AC9PjPLd0LRBL91E7XnDzeM/G471UlNM3SbL8C2r0AOK32QD
-         e3Si65wlOwyPNpnApnocsAMdcq0r3drUtyG1S3hn04+PA8n+YCxmNRks+cnXXo3ki6uD
-         tEDhrR6qGYE/nRsXPatmLYZrbc/EsyLeqBEEnIlk6ehiv0I+6RlK7D2MTtsDcoCTvlrz
-         Csw7ADuTU0xz81TnoLmPhqish3dsn1OL75JpH542WAqFsjkJGl3NloB3txKWmrGbJ9m1
-         ztUg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5turrXCA3+lCU/F4jDFqc7YE/o1YIrtdlGrmWuY9cxPZTUoxuEWSRUoUw/fQUsd1kVawRz5PvMuo2ye4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrPDhZY3aCQ88uJhSBtUkFITk/k2OiNlNsXlwpV4XB46iC/fPH
-	JMaA0gVk7kHWGllM4WXUcUTqGll4v6bcP5lAiyTk+oMELwbzouiaE5wE
-X-Gm-Gg: AYBFou32NmT1/AIaNkeW7hBDr7VeqzqfmTJRPBsm3US15cIrL/kLJxxQ9PFGon5fA/T
-	1tLKNsUt1Tl1EpVzfO2+kYS4VyUk9wcGsjzYFsanOyEeHmyzM0AbrKRwcnzOrieVlzaaxFuVbul
-	NNZp9y4LKMzS/cTb7dRJXArl4HqE4U0EV0QtTkhGf/n5MDUIDzxZgPefftzQSoot8atcMpD4zLA
-	8vaELntftsAP7ZjsW/bH9t5zPCw4cvD7rGYsd/dNIGR5CeMeEYzstkAiaKioCSItDuuBjK+IUn/
-	ROHuTUKGRW265c+qoqbr+AyITKofO/7ZIW8EHcGuysMB7kjbZWJbKHcHcAV6YXIWO8lKAwI2CjY
-	5r2re9rrg8jDEfgJMNkFfkybwrSLD7lhLn1an3RGEc0yeOF1MSa9bRBJtFm9E+iTDDKohE5SfP7
-	W8P9QvFYIKBVDaGLa2aXV699x1Lyy9DfOL5PQ+ENJXFxgq942+p/Hl5J3CdZH1x561ZdNKE49vl
-	JsbZwV8
-X-Received: by 2002:a17:90b:2f0f:b0:380:540:d499 with SMTP id 98e67ed59e1d1-396d0ed0023mr24877699a91.6.1788004029521;
-        Sat, 29 Aug 2026 04:47:09 -0700 (PDT)
-Received: from DESKTOP-TIT0J8O.localdomain ([157.51.208.77])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f552473sm16735823eec.0.2026.08.29.04.47.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 04:47:08 -0700 (PDT)
-Date: Sat, 29 Aug 2026 15:47:00 +0400
-From: Ahmed Naseef <naseefkm@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Ahmed Naseef <naseefkm@gmail.com>, linux-gpio@vger.kernel.org,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
- controller
-Message-ID: <apLGtCRjCP1j0u5i@DESKTOP-TIT0J8O.localdomain>
-References: <cover.1787931313.git.naseefkm@gmail.com>
- <c20005a81b4069f3ff68311629ff7d4678fa92dd.1787931313.git.naseefkm@gmail.com>
- <20260828-chaos-recovery-c99d547ee1b6@spud>
+        bh=2V7zWxDDkN+khoCSDL6WUb6TTSsQU+AdkqSv9hV5vbU=;
+        b=rT91macsbKLRp3r//yecv+oeI+ghPLJ1HPExXpi/JYk+vwfZUP8K332ViosMjMElM0
+         /TMo4rCxmoPugC/u6C5L20HZggS2Bq7LuQPX8HbcakQqHXhJFQUlbNUrfZi4Ai9RtaKd
+         ftxQf897f+OsRC+jKOruEDD5qjqNdp32a/5gmRETGMYMNpaWjcwWb3VmLOljh1vut8y7
+         546bsHIudMekfbpAdDJyZTjEfGcB2nlE/jrHaiTODpoenYZG9TVr2gPkvIfFpFuibGOA
+         ZxL2+bhsmmOvhWJX1FcE/lzo2b7BnByCpZgofx4to5hnd9fUr57IhsVDdAIw/bQqjpXx
+         SFUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2ZAhFIqcgJGVBZ29sEeAWQVThh81biKp9xSF73oLL4BOdNuJ+22NLwiJD/bcEfiwLCMZ18aC7p0yiYP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIF8f+mc1CSE1n2iIo32rGvRo16IZu62ct5F5h4MaoCWoIrwYM
+	ZFZNxKxby5rURX51BMgeJ/+zzAT7Bm4cjyWW0odS2b5BeVfWadoKPuN5ScrtmURYssIkFPqM0Gx
+	59cguqj783WMBAAn1WSTc4iYqWnqYYtw=
+X-Gm-Gg: AYBFou0Z6DfMKgQdnqYyftvfROXzfMSbrXXcVwGRwbT8BfZ4/1hM8hBrpkFZWnZ/akm
+	tc2gSKHjowKBESWTbrMJsjFMKkFkJrNivv9QxET4OB8sIvAHeMSsF/K48RHK39w7LIbpNPMA9Mc
+	leIM83gQjYy1eaQXibX8/hKJgIgT/NQOdv5hHsRK+dNpNo0moExfTEUPmrud2viS7I7at3NadPG
+	jJuOf1Nxuxe2lH912T71phXw0V8Ygr4NiKdmmWIYwWWBAIDZdWUNttr4rNHAvpYa6NPjiI7lkoL
+	KXUfgu0dOixvMaQvRSHhwMOFrQSbEmMv0dOsNcxbNa8Q
+X-Received: by 2002:a17:90b:5490:b0:398:9be6:f997 with SMTP id
+ 98e67ed59e1d1-3989be6fabamr8822016a91.22.1788004207359; Sat, 29 Aug 2026
+ 04:50:07 -0700 (PDT)
+Received: from 923746734024 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 29 Aug 2026 04:50:05 -0700
+Received: from 923746734024 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 29 Aug 2026 04:50:05 -0700
+In-Reply-To: <202608280842.861e5949-lkp@intel.com>
+References: <202608280842.861e5949-lkp@intel.com>
+From: Quanye Yang <quanyemostima@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828-chaos-recovery-c99d547ee1b6@spud>
+Mime-Version: 1.0
+Feedback-Id: 213336356:user:proton
+X-Pm-Message-Id: 8d3d2ceb8b9608c9c9d01d857cdd8149c2835fc1
+X-Pm-Byoe: Pw38uirqT6X9XEzvvf09C3EfIeu8ZGXF2AbJ5Fdhm3gGXIp_YuxTcMUccburTI2jepf8J_UHG8Snr_TTrKwRpA==
+Date: Sat, 29 Aug 2026 04:50:05 -0700
+X-Gm-Features: AcwNN1X7-N43NwbdvpT-VH5kWVylnqGHXWcCelBlkTW9FoL9KGDR2SlyEm8Am_g
+Message-ID: <CABcBDJuRf+TxC+D3FUBA8=DcsLjmU6As77D-VjPRewWvWAizTw@mail.gmail.com>
+Subject: Re: [PATCH] rhashtable: use per-init-site lockdep classes for bucket locks
+To: kernel test robot <yi1.lai@intel.com>
+Cc: quanyeyang via B4 Relay <devnull+quanyemostima.gmail.com@kernel.org>, oe-lkp@lists.linux.dev, 
+	lkp@intel.com, linux-crypto@vger.kernel.org, Thomas Graf <tgraf@suug.ch>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Andrew Morton <akpm@linux-foundation.org>, 
+	NeilBrown <neilb@suse.com>, "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+	syzbot+ef8d17bae14efb960935@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 04:51:27PM +0100, Conor Dooley wrote:
-> On Fri, Aug 28, 2026 at 07:35:14PM +0400, Ahmed Naseef wrote:
-> > Add the binding for the pin controller found on the EcoNet EN7528 MIPS
-> > SoC. It shares the IP with the Airoha pin controllers, but its IOMUX and
-> > pin configuration registers have a different layout, so it gets its own
-> > compatible.
-> > 
-> > The CHIP SCU holding those registers is referenced by the airoha,chip-scu
-> > phandle.
-> > 
-> > Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-> > ---
-> >  .../pinctrl/econet,en7528-pinctrl.yaml        | 190 ++++++++++++++++++
-> >  1 file changed, 190 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
-> > new file mode 100644
-> > index 000000000000..3ce1a5309d09
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
-> > @@ -0,0 +1,190 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/pinctrl/econet,en7528-pinctrl.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: EcoNet EN7528 Pin Controller
-> > +
-> > +maintainers:
-> > +  - Lorenzo Bianconi <lorenzo@kernel.org>
-> > +
-> > +description:
-> > +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
-> > +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
-> > +  registers have a different layout.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: econet,en7528-pinctrl
-> > +
-> > +  airoha,chip-scu:
-> > +    description: phandle to the chip SCU syscon
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  gpio-controller: true
-> > +
-> > +  '#gpio-cells':
-> > +    const: 2
-> > +
-> > +  gpio-ranges:
-> > +    maxItems: 1
-> > +
-> > +  interrupt-controller: true
-> > +
-> > +  '#interrupt-cells':
-> > +    const: 2
-> > +
-> > +patternProperties:
-> > +  '-pins$':
-> > +    type: object
-> > +
-> > +    patternProperties:
-> > +      '^mux(-|$)':
-> > +        type: object
-> > +
-> > +        description:
-> > +          pinmux configuration nodes.
-> > +
-> > +        $ref: /schemas/pinctrl/pinmux-node.yaml
-> > +
-> > +        properties:
-> > +          function:
-> > +            description:
-> > +              A string containing the name of the function to mux to the group.
-> > +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
-> > +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
-> > +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uart]
-> > +
-> > +          groups:
-> > +            description:
-> > +              An array of strings. Each string contains the name of a group.
-> > +            items:
-> > +              enum: [pon, sipo, sipo_rclk, uart2, uart2_cts_rts, uart3,
-> > +                     ejtag, pcm1, pcm2, spi_quad, spi_cs1, pcm_spi,
-> > +                     pcm_spi_int, pcm_spi_rst, pcm_spi_cs1, pcm_spi_cs2,
-> > +                     pcm_spi_cs3, pcm_spi_cs4, pcm_spi_cs5, pcm_spi_cs6,
-> > +                     pcm_spi_cs7, pnand, gpio0, gpio1, gpio2, gpio3, gpio4,
-> > +                     gpio5, gpio6, gpio7, gpio8, gpio9, gpio10, gpio11,
-> > +                     gpio12, gpio13, gpio14, gpio15, gpio16, gpio17,
-> > +                     gpio18, gpio19, gpio20, gpio21, gpio22, gpio23,
-> > +                     gpio24, gpio25, gpio26, gpio27, gpio28, gpio29,
-> > +                     gpio30, gpio31, gpio32, gpio33, gpio34, gpio35,
-> > +                     gpio36, gpio37, gpio38, gpio39, gpio40, gpio41,
-> > +                     pcie_reset0, pcie_reset1]
-> > +
-> > +        required:
-> > +          - function
-> > +          - groups
-> > +
-> > +        additionalProperties: false
-> > +
-> > +      '^conf(-|$)':
-> 
-> Why is this needed? Why can you not tell from the group which pins the
-> config applies to?
+Sent with Proton Mail secure email.
 
-Not for all of them: i2c_sda, i2c_scl, uart_txd and uart_rxd are in no
-group at all. The spi_cs0/clk/mosi/miso pads are only in pnand, which is
-17 pins wide, so no group names them individually either.
+On Friday, August 28th, 2026 at AM 8:54, kernel test robot
+<yi1.lai@intel.com> wrote:
 
-Ahmed
+>
+> Hello,
+>
+> kernel test robot noticed a 12.5% regression of stress-ng.shm-sysv.ops_pe=
+r_sec on:
+>
+>
+> commit: 62d8460a4e7a3ee028e5134d86169001490e7a60 ("[PATCH] rhashtable: us=
+e per-init-site lockdep classes for bucket locks")
+> url: https://github.com/intel-lab-lkp/linux/commits/quanyeyang-via-B4-Rel=
+ay/rhashtable-use-per-init-site-lockdep-classes-for-bucket-locks/20260815-0=
+14140
+> patch link: https://lore.kernel.org/all/20260801-fix-rhashtable-bucket-lo=
+ckdep-v1-1-15a0f8ae094c@gmail.com/
+> patch subject: [PATCH] rhashtable: use per-init-site lockdep classes for =
+bucket locks
+>
+> testcase: stress-ng
+> config: x86_64-rhel-9.4
+> compiler: gcc-14
+> test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (S=
+apphire Rapids) with 256G memory
+> parameters:
+>
+> 	nr_threads: 100%
+> 	testtime: 60s
+> 	test: shm-sysv
+> 	cpufreq_governor: performance
+>
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
+ion of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202608280842.861e5949-lkp@intel.=
+com
+>
+>
+> Details are as below:
+> -------------------------------------------------------------------------=
+------------------------->
+>
+>
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20260828/202608280842.861e5949-lk=
+p@intel.com
+>
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testc=
+ase/testtime:
+>   gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/l=
+kp-spr-r02/shm-sysv/stress-ng/60s
+>
+> commit:
+>   0131b508c0 ("Merge tag 'ntfs-for-7.2-rc6' of git://git.kernel.org/pub/s=
+cm/linux/kernel/git/linkinjeon/ntfs")
+>   62d8460a4e ("[PATCH] rhashtable: use per-init-site lockdep classes for =
+bucket locks")
+>
+> 0131b508c0e2489e 62d8460a4e7a3ee028e5134d861
+> ---------------- ---------------------------
+>     192413           +44.1%     277255        stress-ng.shm-sysv.nanosecs=
+_per_shmat_call
+>     349549           +24.2%     433996        stress-ng.shm-sysv.nanosecs=
+_per_shmdt_call
+>     174600           +51.9%     265191        stress-ng.shm-sysv.nanosecs=
+_per_shmget_call
+>     793610           -12.5%     694260        stress-ng.shm-sysv.ops
+>      13236           -12.5%      11578        stress-ng.shm-sysv.ops_per_=
+sec
+>      65737           -10.0%      59167 =C2=B1  4%  stress-ng.time.involun=
+tary_context_switches
+>   53645785           -12.0%   47213499 =C2=B1  2%  stress-ng.time.minor_p=
+age_faults
+>       4660           +24.6%       5806        stress-ng.time.percent_of_c=
+pu_this_job_got
+>       2585           +27.8%       3305        stress-ng.time.system_time
+>     214.61           -14.7%     183.11        stress-ng.time.user_time
+>   10735595            -7.0%    9986470        stress-ng.time.voluntary_co=
+ntext_switches
+>
+>
+> Disclaimer:
+> Results have been estimated based on internal Intel analysis and are prov=
+ided
+> for informational purposes only. Any difference in system hardware or sof=
+tware
+> design or configuration may affect actual performance.
+>
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+>
+>
+>
+Thanks for the report.
 
+This v1 was withdrawn after the subsequent discussion and was never
+merged. I do not plan to resend this approach, so no separate fix will
+be submitted.
 
-> 
-> Thanks,
-> Conor.
-> 
-> > +        type: object
-> > +
-> > +        description:
-> > +          pinconf configuration nodes.
-> > +
-> > +        $ref: /schemas/pinctrl/pincfg-node.yaml
-> > +
-> > +        properties:
-> > +          pins:
-> > +            description:
-> > +              An array of strings. Each string contains the name of a pin.
-> > +            items:
-> > +              enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
-> > +                     gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gpio13,
-> > +                     gpio14, gpio15, gpio16, gpio17, gpio18, gpio19,
-> > +                     gpio20, gpio21, gpio22, gpio23, gpio24, gpio25,
-> > +                     gpio26, gpio27, gpio28, gpio29, gpio30, gpio31,
-> > +                     gpio32, gpio33, gpio34, gpio35, gpio36, gpio37,
-> > +                     gpio38, gpio39, pcie_reset0, pcie_reset1, i2c_sda,
-> > +                     i2c_scl, uart_txd, uart_rxd, spi_cs0, spi_clk,
-> > +                     spi_mosi, spi_miso]
-> > +            minItems: 1
-> > +            maxItems: 50
-> > +
-> > +          bias-disable: true
-> > +
-> > +          bias-pull-up: true
-> > +
-> > +          bias-pull-down: true
-> > +
-> > +          input-enable: true
-> > +
-> > +          output-enable: true
-> > +
-> > +          output-low: true
-> > +
-> > +          output-high: true
-> > +
-> > +          drive-strength:
-> > +            description:
-> > +              Selects the drive strength for the pin, in mA.
-> > +            enum: [2, 4]
-> > +
-> > +        required:
-> > +          - pins
-> > +
-> > +        additionalProperties: false
-> > +
-> > +    additionalProperties: false
-> > +
-> > +required:
-> > +  - compatible
-> > +  - airoha,chip-scu
-> > +  - interrupts
-> > +  - gpio-controller
-> > +  - gpio-ranges
-> > +  - "#gpio-cells"
-> > +  - interrupt-controller
-> > +  - "#interrupt-cells"
-> > +
-> > +allOf:
-> > +  - $ref: pinctrl.yaml#
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/mips-gic.h>
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +
-> > +    pinctrl {
-> > +      compatible = "econet,en7528-pinctrl";
-> > +
-> > +      airoha,chip-scu = <&chip_scu>;
-> > +
-> > +      interrupt-parent = <&gic>;
-> > +      interrupts = <GIC_SHARED 10 IRQ_TYPE_LEVEL_HIGH>;
-> > +
-> > +      gpio-controller;
-> > +      #gpio-cells = <2>;
-> > +
-> > +      interrupt-controller;
-> > +      #interrupt-cells = <2>;
-> > +
-> > +      gpio-ranges = <&pinctrl 0 0 42>;
-> > +
-> > +      uart2-pins {
-> > +        mux {
-> > +          function = "uart";
-> > +          groups = "uart2";
-> > +        };
-> > +
-> > +        conf {
-> > +          pins = "gpio28", "gpio29";
-> > +          bias-pull-up;
-> > +        };
-> > +      };
-> > +
-> > +      pwm-pins {
-> > +        mux {
-> > +          function = "pwm";
-> > +          groups = "gpio30";
-> > +        };
-> > +      };
-> > +    };
-> > -- 
-> > 2.34.1
-> > 
+The regression is likely caused by the unconditional bucket_lock_key
+pointer changing the size and cacheline layout of struct rhashtable in
+a configuration with CONFIG_DEBUG_LOCK_ALLOC disabled.
 
-
+Thanks for the testing.
