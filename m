@@ -1,103 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1454A86341;
-	Sat, 29 Aug 2026 23:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EAC42376B
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 23:18:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788044936; cv=none; b=Nhq5ZmVhma/VZnN/qnPQ+9X3JaXMmTQQnasfnqt7Il8kVZtj3mAcYA2Z5E9t4MqnB0tGxGQ4TgJ/Pprwkk54udUC09yqRRAsfAh1cYmsBCXRrRnsLIvtkVXIbcZgxAPcrd4jXBQ39qBaL7coh6NvD34Ufpx7VFZVMz+nESIdpvY=
+	t=1788045532; cv=none; b=S5WR+ZOpJKWIZ0K0Frp3JyMpboT9tBNLhQ4iBSbtOvOj+9pub1KPyFIwDJcmFWg7fbzPhBzoG9PlZF+ArUQ7oTiGCalpgZdSu53Wwo/BPoah3+wPX4TmcCm/V2Re1ZJBOqcSRLwmFBp7xHKstOckXQ/DmDcFDck0xMM3aLKSQ28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788044936; c=relaxed/simple;
-	bh=LqCLwqKuWTL6vwDESXogvCGopr8QOkjSQ0447/MdRSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lAGk458139ruDQbNU+Tqh8WzU6Qi/SVfBJtNjyWZ2rpMEFdOI9VD3J/fjJhGGYjvA92y4gHwxT2iH04GHSO/FX39nQfohpv8X/9FxnQZ5iIvfcsiwQkQc+D7h+plVEkKV+oncc6+VQhsq+wMBnUwD3uTPgqjlmBXDB1Usk2mOh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/pJfjYi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788045532; c=relaxed/simple;
+	bh=gqxXw/n0E/WChgI8eGSYUFW55EGPYFtI9sWWHCL0SJo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=uGPUTXU0HO5n4jXPSWYShbJ7a3nWE6U5UEE0uc+j0jrtmMchzS4re6kOYaYlcCG+ZXRhuR2L45Xjj9JU9SE7cG+wF8NCcH9gXjs/STsedMo3Gv0XgXYAxamCJ4zd25ZZz4GBZN3o9wAnID9591RXCANi1sjmnQXTV3Uj1iDW/FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JAgz+RxN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/pJfjYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F9D1F000E9;
-	Sat, 29 Aug 2026 23:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788044934;
-	bh=QKZbSL0ssByTYNKKs03JMxEKHIZPEmymi2q/wIpi4Ac=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=G/pJfjYiO+FZ4tBBxMJmw39q7IujzVRMGjW14LydGtZSqvDIEzaL+695cEKmGvYRu
-	 5UMu4Kf1/OiePY1w0b4YdKHza0siD37BnWiKwlK5qbHux/nI0wEtJbM2Oi5Mpvm+8+
-	 K4Jd7Iizm6LxsPQGSZdNB9oDL4hmDo0kUf8kxLKaPu8eAXYDybiGskSvq9WUjJcNfQ
-	 nN8QY2psYuTxXJIDBNipqPP4n4zSXzRUfY2dlqB2hvGgTubWgWDSnGUajklSc+GGjL
-	 I0EyjNvexGskhA2IZ7nxrKOaqagfkfmS2pqXZwnDXsNijDjg5cukNVe279utJpQWUn
-	 lBHYDwiPyMbtw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 6E009CE0540; Sat, 29 Aug 2026 16:08:54 -0700 (PDT)
-Date: Sat, 29 Aug 2026 16:08:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: Sunho Park <shpark061104@gmail.com>, linux-kernel@vger.kernel.org,
-	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com,
-	rcu@vger.kernel.org
-Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
- 78a38cbf6f20
-Message-ID: <d3314430-102b-4b27-825d-c8c976100c99@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
- <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
- <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
- <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
- <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
- <e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev>
- <698a4d8b6c559f9049ee6fa6b0bc99d45a3d7e44@linux.dev>
- <d036078f31cd8f0fdf0b9185ce8cadef803cc375@linux.dev>
- <28ac9afd-92dc-4c92-91f3-94f025977ca7@gmail.com>
- <b3964e625bd41303b4b40357d4b30aa23a536098@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JAgz+RxN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F0521F000E9;
+	Sat, 29 Aug 2026 23:18:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788045531;
+	bh=SeUcL4nq46vAOTRNrJyFE6ffe6TtzURWgRlqZ+Mahn0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JAgz+RxNvvwe4PCQRC4qC5IYds3alR+iPeLhCZqByUhsSi5jP+5ZkUOam5IVVf3HV
+	 LP+8pndUSXapSJLVFClg24h6NWgeXkL+BsvgXvT3Gv6Js2U/yo3ob4U7OoYqlidLZ6
+	 IfdgX8xbCZVYP6k9iF5QVCbsz2LFjFdHHPr30nIM=
+Date: Sat, 29 Aug 2026 16:18:50 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ david@kernel.org, ziy@nvidia.com, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, urezki@gmail.com,
+ chenwandun@huawei.com
+Subject: Re: [PATCH 0/2] mm/mempolicy: stop copying state in the interleave
+ paths
+Message-Id: <20260829161850.db162f9f99deb419f4700c11@linux-foundation.org>
+In-Reply-To: <20260829015943.1258774-1-gourry@gourry.net>
+References: <20260829015943.1258774-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3964e625bd41303b4b40357d4b30aa23a536098@linux.dev>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 01:41:54PM +0000, Zqiang wrote:
-> > 
-> > On 8/27/26 21:40, Zqiang wrote:
-> > 
-> > > 
-> > > Now, I am trying to rephrase your problem in the following way:
-> > >  1- the step1 call_srcu() trigger SRCU grace period has been end and queue sdp->work.
-> > >  2- the step4 queue srcu callback has been intercepted by step5 srcu_barrier()
-> > >  and start a new SRCU grace period.
-> > >  3- this new SRCU grace period end, and invoke rcu_seq_end(&sup->srcu_gp_seq), queue a timer.
-> > >  4- the sdp->work begin run, and call srcu_segcblist_advance() with current sup->srcu_gp_seq.
-> > >  so the step4's srcu callback and step5's barrier calback both to be run.
-> > >  all callback finished, but the len not yet update.
-> > >  5- the srcu_barrier() return, begin call srcu_clean_up(), and then the srcu_clean_up
-> > >  find the a timer is still pending and the cb_len also not be zero, trigger WARN_ON()
-> > >  right?
-> > > 
-> > Exactly. The real callbacks are properly invoked as srcu_barrier() guarantees. The WARN is triggered only by the two transient states: a pending delay_work timer and a stale cblist len. So I think this is a false positive warning.
-> > 
-> > Sorry if my explanations were too wordy.
+On Fri, 28 Aug 2026 21:59:41 -0400 Gregory Price <gourry@gourry.net> wrote:
+
+> The interleave node selectors and bulk allocators take copies of
+> nodemasks and node weights (for weighted interleave) in the fault path.
+> Both of these copies can be entirely eliminated.
 > 
-> Would you like to send a patch to fix it ?
+> For node weights, use SRCU to pin the weights in place.  This eliminates
+> a copy and a kmalloc from the bulk allocator path.
 > 
-> remove WARN_ON() or use rcu_segcblist_empty(&sdp->srcu_cblist) to replace rcu_segcblist_n_cbs(&sdp->srcu_cblist) ?
+> For nodemasks, we can operate directly on pol->nodes as long as we bounds
+> check the walk.  A concurrent rebind can shrink the mask, or tear the read
+> of it so the mask appears empty.
 > 
-> Let's hear Paul's opinion.
-
-Thank you both for your work on this!  On the choice between
-rcu_segcblist_empty() and rcu_segcblist_n_cbs(), if you are just testing
-for zero or for non-zero, rcu_segcblist_empty() is better.  It generates
-slightly better code, but the main thing is the improved readability.
-
-I will take a closer look once you both are satisfied with it.
-
-							Thanx, Paul
-
-> Thanks
-> Zqiang
+>  - The interleave node selectors fall back to numa_node_id() when that
+>    happens, which is what they already did when a copy came back empty.
 > 
-> > 
-> > Thanks
-> > Sunho Park
-> >
+>  - The bulk allocator simply returns what it managed to allocate.
+> 
+> The node count and weight totals are read separately from the nodemask
+> walk that consumes them - creating a time-of-check / time-of-use race.
+> Just clamp the walk to a single pass (number of nodes), and clamp each
+> bulk allocation chunk to the space left in the request.
+> 
+> The cost is distribution accuracy during a rebind.  The copies never
+> corrected for that either - they only kept the code from dividing by
+> zero and overrunning the allocation request.
+
+Not very well, it seems.  Sashiko thinks there's a div-by-zero in
+alloc_pages_bulk_interleave().
+
+	https://sashiko.dev/#/patchset/20260829015943.1258774-1-gourry@gourry.net
+
+> Gregory Price (2):
+>   mm/mempolicy: use SRCU for the weighted interleave state
+>   mm/mempolicy: stop copying the nodemask in the interleave paths
+
+Looks nice, thanks - I'll queue it for testing.
+
