@@ -1,209 +1,156 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1AE31E82B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03E93C873B
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788019686; cv=none; b=hdHkMzm8+aTAJcPz+Na90xxC0EJXFTaeVjsba/GEpduHP0o5U+Qv5TWuJ+6RCUCcQPW8FN3yXMyWtfpZLEeC/+Ts+y0giP/cZfZgVAkbSNu3NgvspSAS2wOn2XLwOHkUREitFEksyy7/NuIhmNDJVq+cznn1Jkq5PLVYWtZSJq8=
+	t=1788019799; cv=none; b=RyL868rDtHgPtGc1ZMJ9FjBkBViv6RmwElrQ8rURLeFn/3JMQWw1xR9+aKv5YP7X3kgsiRpBQdY+QnAIlPec3XRj6MaDaI7N7JwGU2Z2bnrMrrdCuDlGFBc3+W3uzAv7lfyy/jpDGDfxM0c6tGqIfjKLMvnUvjh12OiQCKg7n9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788019686; c=relaxed/simple;
-	bh=jQSyP8+U7c9uD/qVhiaf5UWCI99IjG2iqT44kQWk8TQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3mV/6tk2LAs4nXlzFoBEe+XEDfuYQ+/4DbiuA5KwM8AtNViSw5TLicIIlkZDAQmcLAJevU6Qn8zak/wtxlWTc0CI8P52IS4zhPqYJAGjQeuXyLypwCc9D7wOrIV9pC+MeB4wFbz67eP2iDJlv1IxVwAnaW2I5yuS0FHznqPMZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=XQ43c005; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788019799; c=relaxed/simple;
+	bh=iUjVyOe/jREG2GHYVoZLwE8SqUmLFyehS+XSyQKX4wE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fZ204WcJZg0Kgu75DKWNHTVNcS7YIpVaI9Zabgce+ZX1mD8/eIAw3P38n20PkrIMuCmdSrePXHpl4Ryja5i5xSMbM9+8Nxhaa6A265iaIGYZljDVLhtHA7EDYhh6pB2cELQFGScvXPzq68O65aw1KFGOma8Ubux1Ar49mdEnPs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=cCuEdNbs; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=OATNHY6g; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="XQ43c005"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-90c776f6c13so23265016d6.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:08:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="cCuEdNbs";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="OATNHY6g"
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TEfKP1743167
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:09:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=+l4c
+	yquDZdPm1CRZEtsdD5WsyEM3FltNV4XbzdH7Ws0=; b=cCuEdNbsSPHxSxNaszD9
+	0bwjJ0fU1sRllrQXjJOZdhZoZuCbl2ZmpowDV89UeZunY+TwnqRjnLn4NFaN70NU
+	OErugq2WxJ4DlIbBPh74RuNVt4NM0z0vg3cnRGmNrf8ncWLeqVQ7Ml9Pik6Oxa18
+	g7fSr/qowFZk+Lnu07M+U4Kk63HJOGB9JgLXGcJJuM4CVBnQGlPY/r01B8brU4Kk
+	qq2uZzIUQeRvzdpkwQNw8o/0WhG7p3O7KCTXZXiOoFAYIlLqufkLL1CId2ZlUzzC
+	oo838p6yO7ct4Q7epkB49MukSs3qsnS1jUQRtp6M8eJjpI7XVqiCjcRI3iSRPr9P
+	dw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gbufx22n2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:09:55 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c0e702df8so52930491cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:09:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788019684; x=1788624484; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cv18aybuGBm7/t0+rnhtd1UHtg1560Ay8t97cC9ypmg=;
-        b=XQ43c005HbAFRXLC/1C3GnXpq95SbvAjmQETKYjV4PMnkBE/GTCWc5Vnneu+XKRfqO
-         EMs9CbB+e03H8WbxF3DXturbkWAzzrR0MI1WnIm+cmhLiPX1FoaA4yIN7/q4FvGfFbeQ
-         BfQwweJdq0/BECyj2Iuc0zqYsRyaHaiKeMFy7s/GWfCKBs6z2QtY7RSbqIviDlAwm6/5
-         n2e+8j2J75qzdoA8AgjPSU/Mu8qQXKxyZp64IOEFg4oOaIfVFQKOKSgWIw+tnX1SH9hS
-         Kz7A/xjuT11zQrZOvKLswMikWUKduTR8ireNifh4yM7JgzUijsv+lby72hKs4WapjfLe
-         3Q0g==
+        d=columbia.edu; s=lionmail; t=1788019794; x=1788624594; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+l4cyquDZdPm1CRZEtsdD5WsyEM3FltNV4XbzdH7Ws0=;
+        b=OATNHY6gju6XS13YHaLfIpPzox7LI4OxkOTeGrpk7RMixuYEaebAJ8vBrNXqYs6+um
+         LnGgJURx6SJkuFgmnY+cJMq3Zyy2ba3GfWHXxJNr3S7LVvVMDgcngS3wRhnL4qeMDZ0R
+         qghPJwfX2Wix3m7dYa0JlG7L+Rh5RtL/w3rrGjWlsq5rofYpSXGut8GVXiXhGZpjAtfy
+         tek4U6rLImbIUuDM9uYAoXf4J7zeiAjLlj9+y1Vw0hu6LGxox8n/rfVEL4GfxT6sny4h
+         tvxb7DSgJsLeFcRqYgcN3SS/uxBIgCGTgiTvY69QuHADD+015Zo7keM6WXkhtsVX2iIV
+         SNmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788019684; x=1788624484;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cv18aybuGBm7/t0+rnhtd1UHtg1560Ay8t97cC9ypmg=;
-        b=OPtwgN7P/KQJrZfhMFku5EM6KaICPLU/BdinZeEpoR1L4VhKdaMbL6I1a3OiIOskwI
-         tZar1dG7oG+0rqgTr9fUlhKwAnNZE3tMs6r5IvAG9nSmWlmzxEEXU49pKZFqqN3+LDz/
-         r3d0qinQvPok/5ejtanqlv5vdLnzbTRsxHu2Yz7sAouTovUtBMCjwg33U/MjYTL4M5UX
-         ht31xRG0yGZmKdJLn59C6IOAndu8lyd2HwtwcfhJcRGIEpJNCD41US4ztkCSRYPDko0z
-         7GL4qrb661cvaHgIGogYJOBMVyodmLEBmPPI1Zhg9CsFMZgNglXZunU9L7rzuEpmx6uv
-         VX5w==
-X-Forwarded-Encrypted: i=1; AHgh+RpPEwIXSjHgWp/XrC1KSL7aMxI0BuCREEJ0i+hFYF455t8DC9mW6DRgqK1WJ19rDy4AMnMOGdPKMvQQdbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+k/LiO+OGnDpnhZTkob+vtXzXufa5ndLZD8itowBIe7kXBXKG
-	CH1HvZvQDsT0Q+ujU8SSiv2cJZEP0sZmqiBEi7oNeyGYdP0nwyS0LTrY/ZsRfh4HRw==
-X-Gm-Gg: AR+sD11ICDuZjXPqj2ztSKZgtyMTzAY1lH+A1xdtZ0RPicRd9S9ADvwJdxgXTT7GxNT
-	19NyZJrGxE9v02WLHTkhPjRsHFU8SNtw0QAqvLxPbMqUxE1OypVxEhmr8zUsUBGKF1kT8Ki6eN+
-	AwKSAgDGz3ulEXJT71bPRFP2aVt2NRxQSXmeAu7KMdogO2SAXcmheBwTgJboITAuNs+cDT8mV6G
-	af7ga43MGOwzO/2krs9HYwMJ26Zo45zC7tefe8FsCqlE+qVXwD+dXFHyWGgyumd5HCVxuf8SIwX
-	s7GPW+uEoJSdbIsUozkgVmq32jEswNw0ksE/EcQ3BtiLrI/En8F1RocFTTN7YUgmOknH94WJp/q
-	nl3fHd9gVrOa8zTdtsIOmjhmF8+VHyz7kb8N1UGhnr8hTlI6aNjEZ+fdGbLWYrfzO/jHZgvhiEp
-	vtqT5aDoi7fkG3O7IOh1BKymfTgioAIm+LrsKn116n0Mm/FXSZY3ob+CZJTMIsYw==
-X-Received: by 2002:a05:620a:a18f:20b0:937:e422:85cd with SMTP id af79cd13be357-939137af78dmr1341500885a.7.1788019683790;
-        Sat, 29 Aug 2026 09:08:03 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::dfd8])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939173a6be1sm391717585a.27.2026.08.29.09.08.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 09:08:03 -0700 (PDT)
-Date: Sat, 29 Aug 2026 12:08:00 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: neck3922@gmail.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
-References: <CAFmvuTW2cfj5dzkRR8ymenWoA7tw1WAYsMitorvppTwcZ+xfbg@mail.gmail.com>
- <e8655e37-02b3-40ef-9ce0-98c8fa25481d@rowland.harvard.edu>
- <15185c2d-4544-42cc-ba0a-79dd36e82a21@rowland.harvard.edu>
- <CAFmvuTU=t5TiZSpHmF1MXpVs+3K7G1VOTDeeazwGru4+1eozBg@mail.gmail.com>
- <cd57f283-71e6-4531-a311-1180ccc22ab8@rowland.harvard.edu>
- <CAFmvuTVH=mVMZNoYnU07_WA+cBc4m+UG2BBTLwF5KWhcj-z-KA@mail.gmail.com>
- <908a5b29-e6d8-4595-b451-6c328e25c60e@rowland.harvard.edu>
- <CAFmvuTU5HnBKbve=v_C7Mhw2586rR_8qsRNua2XPokgKy_o31w@mail.gmail.com>
- <0305182d-5914-4022-a0a6-1ab4221b0a6c@rowland.harvard.edu>
- <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1788019794; x=1788624594;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+l4cyquDZdPm1CRZEtsdD5WsyEM3FltNV4XbzdH7Ws0=;
+        b=AoGrNzpcxgyaqhXzI27JLtNn0bbLZNdzcHztOOoPxk8SIAE9H3Xf6Bsm5PiqQn95TJ
+         r6fkz8Gw1XRUN+ACCPVuo6CZgOmtacUVpUW2Qxv9Zvdxv4FkrJG4LFcnbRBJATnReDAZ
+         LoPkLBrGDbYtZQRrOx3ucXRXeoZ8HMp/PND3KdF8/xtd7UFLNH8L6rOjVBwhZngHiCfK
+         D8TdnWZBXGFonKmWgb6efqVAbHsMm50I9QvHI3xwz060tvl3sdrpI0MFBxLj8noIhj49
+         d239KVnchEB3qexhAgFOzXGwvZdrDDrctDvciv34o7b5Wu7D2rnzsdroCvhOcdFyppCR
+         Ib3g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqpj3qdU5XYxoHsk4N+3SeM/9IJq6jhu4hMF9gClwoXoL+zSxUxqAefTQht4qgcPJ25MI29o3R+T9V1cmE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhppLumfJ16xDt4Mg8NHzgLAB/s9pxhM3ZjW3HojDFI0YnS7SW
+	Y4BpJ8YXExrIVAl18edAEzuFwmt2Ru563qaYQ3yAn5KXA/1P5eOoyTp++l8avIanFBbxsiu0xc7
+	T2/im2m3rnRTPbtOJPp7nZnhbB6OqDu1zoOkRYj/fL0zwj6hjjUUpw9aa0dnv6A==
+X-Gm-Gg: AR+sD10oLcTmgWzYfnLAIiVRtpAoM09Tlr2W+D74V0sG8Y3EYbw9xy0ORy83n1hbkV3
+	9VUcjFBGJN6016Xx9qVufLn80/7INHz8IwJhuvCA60LoetgcqBsDxWOsikaC+AlTQrpCsSRMMph
+	0cnvf8PVsJT+B3EehEq18GrHo9SqK1q25k2zwjIOD/QyFhozOCSP+h+ZU9kfnimpw/QZZepEFHg
+	pW8k3B/FQo+oMURMmvYS3Bq5N8igjHAGwofdCKWcEZ1VmILWE3qu4BjskXbW6X43HBS3stMIG0O
+	+FX0UtXnz5PeLnvn/rktlltrF4y5IXemS7iN3pW+lZgfEmendSI3pjSi3ufnDnIfpC3Zs/jzlT/
+	cJ79+JbjKGlzq+wtqitH97PSwpJE9XGsDDuPdHbUvHc4y+Tc=
+X-Received: by 2002:ac8:7dcf:0:b0:52f:f5f4:e9b6 with SMTP id d75a77b69052e-52ff5f4ea4amr82043441cf.20.1788019794348;
+        Sat, 29 Aug 2026 09:09:54 -0700 (PDT)
+X-Received: by 2002:ac8:7dcf:0:b0:52f:f5f4:e9b6 with SMTP id d75a77b69052e-52ff5f4ea4amr82042871cf.20.1788019793958;
+        Sat, 29 Aug 2026 09:09:53 -0700 (PDT)
+Received: from [192.168.0.175] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm117685355e9.1.2026.08.29.09.09.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 09:09:53 -0700 (PDT)
+Message-ID: <37fc5d8d-f226-4885-967c-3e873aaa662b@columbia.edu>
+Date: Sat, 29 Aug 2026 19:09:51 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: filemap: retain mapped dropbehind folios
+From: Tal Zussman <tz2294@columbia.edu>
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org,
+        linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, baohua@kernel.org, axboe@kernel.dk,
+        trond.myklebust@hammerspace.com, qiwenjie@xiaomi.com
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com>
+ <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <178801880005.667254.16521776519325089161.b4-review@b4>
+Content-Language: en-US
+In-Reply-To: <178801880005.667254.16521776519325089161.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDEzOSBTYWx0ZWRfX6fUQPOMf4QU6
+ BGpbreaoMXMX5eL/MF/Pqp+Hgy2n7NJW070uhQISIbF5w8mfMrUFFjbWWeu8BHGE3v92juBOL8K
+ 2ihn8NehmRmaeUUBxYM+AadAGMty4UJDvVtGQhJir3ykNeSYomp/
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDEzOSBTYWx0ZWRfX2ZGtFvgGcndn
+ +RgCOYcxM+JghVHR9Y2lU54M0DST6ShC/ErmPxLI27S4hEotkULvoVY8jFAZPtNsId6rIqQE78G
+ OftJ3LsF3dYPyg7dMqxa0ZCYIFZteKXk47CCeLghL6xRpmQoaPfbVWwqsv60aoB7TKt3wXh3g6E
+ 76d4jUWnwIIhDf80vD/za3QrLFBVpvqfSmW472VS/FkCAx4PxOjnfJWRc6d61uKcDQrrHHjGe0A
+ PpVt7PICqKj25lhYROG1l6i6F9pnSeS/Y+yTUgt1SgoDOdqQmnPw7pkhLWEPtSs81eLAseEr2as
+ w1plgDBJ+T+SMjyfIrzce3DT5iK46mWVlaLByIF+SwZGCjl4psgAKhhQbcz2iyTRZAAzak214DM
+ mjrnjjNr/Cyfy2VrGwPJq16w6fD7W/PYe7z0tph1YR9CL8zhLhnRzHFElF0hi+x3llHUYmYVLkV
+ QYzhKzhq07x/l1ywgbQ==
+X-Proofpoint-ORIG-GUID: xcTa4c0zhvNgKra7kiWxMgIegfiHW_DS
+X-Authority-Analysis: v=2.4 cv=BoitB4X5 c=1 sm=1 tr=0 ts=6a930453 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=pGLkceISAAAA:8 a=IeNN-m2dAAAA:8 a=B8_SjZw1YBUlbbQ4_qUA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: xcTa4c0zhvNgKra7kiWxMgIegfiHW_DS
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11890
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=10 lowpriorityscore=10 priorityscore=1501
+ spamscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=10
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608290139
 
-On Fri, Aug 28, 2026 at 03:30:10PM -0500, neck3922@gmail.com wrote:
-> Hi Alan,
+On 8/29/26 6:53 PM, Tal Zussman wrote:
+> On Sat, 29 Aug 2026 20:30:47 +0800, Wenjie Qi <qwjhust@gmail.com> wrote:
+>> Fault-around can map ready dropbehind folios without going through the
+>> normal page-cache lookup that clears dropbehind. A mapping represents a
+>> competing cached user, so retain the folio instead of forcibly unmapping it
+>> when writeback completes.
+>>
+>> Unmapped dropbehind folios continue through the existing invalidation path.
+>>
+>> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 > 
-> Thank you for the revised patch and for explaining the intended use of
-> the saved endpoint.
+> Overall looks good to me. It may be nice to add a sentence about the
+> safety aspect of this in the commit message. Maybe something like:
 > 
-> I applied the patch as posted to upstream v7.2-rc1, commit
-> dc59e4fea9d83f03bad6bddf3fa2e52491777482.
+>   folio_unmap_invalidate() may sleep if the folio is mapped, so this
+>   also ensures that folio_end_dropbehind() is safe to call from
+>   non-preemptible task context.
 > 
-> I first tested your revision unchanged. The IRQ-state fix and saved
-> endpoint behaved as intended. The exact pre-queue cancellation matrix
-> produced exactly one expected completion in every case, with no KASAN,
-> Oops, or LOCKDEP output. The original ep_aio_cancel() null-ptr-deref
-> and UAF signatures, the earlier ep_aio() submit-path regressions, and the
-> teardown NULL-endpoint failure did not recur in these tests.
-
-All good results.
-
-> > I think it will still be necessary to flush the workqueue after
-> > destroy_ep_files() runs.  The best way to check whether this is needed
-> > would be to put a long delay right at the start of ep_unlink_worker()
-> > and then run a test where during that delay, the test program closes its
-> > open files, unmounts the directory, and unloads the gadgetfs module.
+> Reviewed-by: Tal Zussman <tz2294@columbia.edu>
 > 
-> Using CONFIG_USB_GADGETFS=m on the posted revision, I inserted a
-> diagnostic 15-second delay at the entry of ep_unlink_worker(). While the
-> worker was delayed, the test process had no open /dev/gadget/* file
-> descriptors, GadgetFS unmounted successfully, the gadgetfs module
-> reference count reached zero, and rmmod succeeded before the delay ended.
-> The delay was diagnostic only.
-> 
-> When the delayed worker resumed, the kernel warned and then panicked. The
-> serial log showed an unresolved work-function address and identified
-> gadgetfs as the last unloaded module:
-> 
->   Modules linked in: dummy_hcd [last unloaded: gadgetfs(O)]
-> 
-> Thus, in this path, a running unlink_work item does not pin the gadgetfs
-> module. Teardown must quiesce pending or running GadgetFS AIO work before
-> module unload, or otherwise retain the module until that work completes.
 
-Indeed.  Quiescing won't be easy to do; it will just have to wait until 
-the work is complete.  In other words, flush the workqueue.
+And maybe:
 
-> While rerunning the directed cross-CPU test from my previous message, I
-> found that the underlying lifetime race involving ep_unlink_worker()
-> remained:
-> 
->   BUG: KASAN: slab-use-after-free in ep_unlink_worker
->   Read of size 8
->   drivers/usb/gadget/legacy/inode.c:489
-> 
-> The faulting statement was:
-> 
->   put_ep(priv->epdata);
-> 
-> After AIO_UNLINK_DONE was published, completion work could free priv
-> before the unlink worker's final accesses through priv. Saving epdata and
-> ep before usb_ep_dequeue() eliminated the failure in the directed test.
-
-Ah, yes.  I should have realized that last time.  I just didn't think 
-hard enough about how the ordering could interact with those tests at 
-the end of ep_unlink_worker().  (Or maybe I did and then forgot to 
-include the changes into the patch -- I can't remember.)  Anyway, my 
-version of the patch has been updated accordingly.
-
-> Based on our discussion and the results above, I prepared the cumulative
-> patch below, incorporating your latest revision. It also fixes an
-> existing native PREAD issue: the to_free predicate could skip copying an
-> ITER_UBUF payload while still reporting success.
-
-I'm not sure what you're referring to.  Are you saying that this test
-in ep_read_iter():
-
-		if (!iter_is_ubuf(&priv->to) && !priv->to_free) {
-
-is wrong, for example, the && should be || ?  In fact, I don't 
-understand the reason for the iter_is_ubuf() check at all.
-
-Note that to_free isn't a predicate; rather it's a pointer to a copy of 
-an iov_iter structure.
-
-> During development and validation, I found two further ordering issues.
-> In the existing completion ordering, request cleanup could overlap
-> usb_ep_disable() during final endpoint release.
-
-Yes, I know.  I understood that it was okay to call 
-usb_ep_free_request() after usb_ep_disable().  Was that wrong?  Did you 
-see it create any problems?
-
-Note that usb_ep_disable() doesn't return until all the requests queued 
-for that endpoint have completed.  So ep_aio_complete() will have run, 
-but the work routines may still be pending.
-
->  Separately, an
-> intermediate cumulative version allowed gadgetfs_unbind() to pass the
-> completion-work flush before a callback had queued that work.
-
-This is probably because you were flushing the workqueues at the wrong
-time.
-
-For the final submission, I think the workqueue management stuff should 
-go into its own separate patch.  Straightening out the various AIO races 
-is already complicated enough by itself.
-
->  The
-> resulting patch addresses all three issues and applies directly to
-> upstream v7.2-rc1.
-
-I'll review the patch later.  For now, there's two things to mention.
-First, when you create your patches, it would help to add the -p
-option to the diff command.
-
-Second, why did you change ep_aio_complete() to make it queue up
-ep_user_copy_worker() even when nothing needed to be copied to
-userspace?  It's a bad idea to run a workqueue routine if it isn't
-necessary.
-
-Alan Stern
+Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
