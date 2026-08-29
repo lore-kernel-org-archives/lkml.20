@@ -1,64 +1,64 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9618418A33
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D5421A434
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788023495; cv=none; b=bYJYf/lTn4jzL1V87poamzzdbNgeDI8UNHCaCjRrj0XPoQuS9ztOdDhUbN3r18W8MxrWDfzebcEbeWcpY6/e6cUEmBP8IQuFR/iSmnVPX3tUR1z1lAkOcjVA9C5ohL/+EI20RQEPcdXKVVjCPNoyfEEKKk8ZEHllnPbyOZ30h7s=
+	t=1788023500; cv=none; b=G1EDJbGumz3mF2G/NtXLOTceHAsSjsDnJl1itdrnLV7gtpsL8bPlnV30R3rCTTdKm81/TC3OcpagPoAP9IsaaehaCSTKLSTmFVpJ/KPcH4sG1GJd5ZQp9qzWym75e3Cqe4fDXnHAfCjQy+UwUlBN0fCzRrF5QVYVHodT/qxLR78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788023495; c=relaxed/simple;
-	bh=09G5ajLvFpZOOIkdo7Sg8P/+evqJXvwDjub93wjWV/M=;
+	s=arc-20240116; t=1788023500; c=relaxed/simple;
+	bh=Xqtq2mHIJA+xbl4aLCVOC9RtrabydrpAmcDh/0IeXsU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gRpn/X08hiLjj10zdzcsMHly4Io/UvrM5c8y9CNAgIJECM9CZjeTcyD42YLxHOuVDzua2lUMPxLoJ/s1wDvJbB6bbzBKW2twM7wO3XfsC+JeK7BODh9teapVX0YP403eLIX9Q9IamQsbSffnQ5P0u2YOZvqBaPgBJqmxw+P2o6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPNbpUt8; arc=none smtp.client-ip=209.85.221.41
+	 MIME-Version; b=BfXR5zqGFY9R+3QqUxD9XZXU2TUMb7k3kSQZVMltpm6RRWCUdlKIzoHl1zlVVH4+1NvgCxsWNY2gBYwajuWVeJ7E5wDOrUQRAfKPxAPGn/tyyPzLCOc/8TX4Pup0VVQLAPC/srNSxChdfIDgK5pvWi0OcISb3ceNjdNY7o6nmK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Am2wLIGs; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPNbpUt8"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so317115f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:11:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Am2wLIGs"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4957eefd361so16269665e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:11:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788023488; x=1788628288; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788023492; x=1788628292; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K5m/rmCWnwafcoVS/zA/mPp2kr4G2N0WDNX9qd9eijg=;
-        b=bPNbpUt8mPX1rNt4NkeriHxcbwiFCVYzZpuzruRgssJ7JVqTVRsWrwPDHtZSLxV5Oq
-         /WM0aD/GsRbiLgwQj4miJq1cF+nhE6anTb8+w24Bdlqx6zS3OMCJp32r3w43PvpqlgEx
-         kat7XLZYQ7G7z0oP323Y9JCJeDPNicDz+nv5Yg4V9PUhuCHZu58dxXzp9SzbemhKPO41
-         PK6IVnrs5ih8/jWWlOpeNuFxbzdkSP21KhQq24HhbyBkAqMQwMvYUNP6mj7mS3/rAh0D
-         Tz33m14iEPiBzQLYKT5gnggoYXsh31/IUPpmqhND9Qeu3xyqHJzFI3RuYx7iuNViPf02
-         +/fA==
+        bh=6eCHp0mkiyGBMAqKC0slmIwdkyokeuXLEojYHEhzvrA=;
+        b=Am2wLIGsK1DVAZGuPM56JmxXmogln506Uh9P3z9bZPSA9TydZuAY9nW1UWMBB9VNSu
+         HuLMtXAjf8i8AthBoqQUGdVFMoTEMh29vqPthV5CThUikko9oe5EaDcl6YPzrBCmamtM
+         b/tboTTxJRc0Bgb/WZ46cpT3O2qq9pPPKM1t5TmT5iM+JCoYwriyu9qM/PpzkWPIbYdV
+         TwvY4iR9ulsmk+VVDpMCYy0a0SHdk6+EnsmFVx56wdXu06I9UEXw75dsk7UvLk82n8H7
+         mVb48FAq5dm3qokbFvZRnwdb0ovbgRwLX5zEnVu775Af4ROBiIzQtRCUBFXdCcASPdwG
+         pnyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788023488; x=1788628288;
+        d=1e100.net; s=20251104; t=1788023492; x=1788628292;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K5m/rmCWnwafcoVS/zA/mPp2kr4G2N0WDNX9qd9eijg=;
-        b=jEmkk9j+FL7/5NfPjSh+oFhC29kS9bEODe/zR5xDGk13vK4zSCnfQ8w1sE62hF569e
-         FMfzIc91fiOjJtJAG9pLuFkKy55YoZGttybQi4s7b7NYyEX/s3KLLoVp1JnIkhRyo9qP
-         QXTmCV9Iy4iOTXN4r9/KlyG2NYkmVmIpzNNrYRl4mfUgBURT5pU/KlcNuTSeiBHkwhXu
-         NOEj9d1iRbNAwe2FnLW+0oXXHfAFwJY58Ymp6O9MlCX5m73ScL+hPu1+djOyz3PqD2Mg
-         spV63aztrs1/9SRyV7CD1NRSUReqDPWNF+1LA0tuRXZNaDupj3pKwUu0uSdeZGmy2yqp
-         a0Ng==
-X-Forwarded-Encrypted: i=1; AHgh+RqWA6HFII++is7DBFZDRpV3D6/HdffPERTE1JiHZWdmbzBmGMh1XwaO8irFhBCSWgVNhy416EdG7gQIUB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFudi/JRraMfDmE22FIFb3aUmBqHNJ63hVpRc4PC8VZ40GkpJJ
-	xi2adlUu1E2qxAEEcodaCDnp4tuznNskrHyHe/A5+RZ8ugL1SbCeCJnR
-X-Gm-Gg: AR+sD12OBfl4/QAEHmDi3D71Q9NhGoq9vC1OxSNKYQXWaHj+K3Eia2J/urEaDtJmW8E
-	bKB0vYU8BsGLhaRpL+OAnJwEp3eStNfEbeB0LBFP6cjRuWtAS8sScvVVv83LojWR6/Edu+c+pZT
-	tN6tiZbBRigcYFJP8YlROLVObtQbMbRRjWR9YX5U4GzHTVFmWciq06I7BWhkzcp6V0khoW2ga6B
-	ZjYin6gvcMjI6FBLskoMhElNVeetP7FlC5zoe3snPfHj7h603P1+JEQCLI/urilbY1s+JaNlDNh
-	WWOJiLtB0Yjz3YtyLHw6z2WAjOHIr7//+YYb20cIFiEWrEKGF0jAKDcd4bPgFut4+M8WjBzNO2h
-	ZiX5x4BqJ1Dvx96sBYrTKQZueqGoJygoAv5bJ5fi2o7R0TXFbNPu6h45R8ihRORyYfvIPR6lodj
-	8SyeHABZ/m8qIhjFMymYau6l48d/4zzN/iM2KgXdeW2pr0MSHKm05s19dN+tiBXU3S2dEYHIZGt
-	eyT+6Pv6w==
-X-Received: by 2002:a05:600c:c4a7:b0:495:5d6d:9cc1 with SMTP id 5b1f17b1804b1-49cca26ceeemr113194285e9.0.1788023487985;
-        Sat, 29 Aug 2026 10:11:27 -0700 (PDT)
+        bh=6eCHp0mkiyGBMAqKC0slmIwdkyokeuXLEojYHEhzvrA=;
+        b=dCHXcgi2QYrCcblVB8N4RdGptgjxxK+OaTYsp4Fnwvolero3M3kS8nwWZkm5mvDXxx
+         GqfqJD93BpIVDk+yi24bE4OpIltuOOSr2VvSKz4Efw/0pVHt5h6RUaCJbLX++TJMxFEC
+         W1zsDPHUvGexU7xY+78fTel3itgarwB+Rh2tu5fUfqzsKZZTEduPm+G/xCAoRABqI468
+         2RhdV1HuVh4DyOWuV/+htnpDpUeTGkbI4LIIAKLthUvB0Kgz2tZbNs1cJmtcna6LEF3p
+         tYp0uUyK7aMbxgJjL4g1KJ7QXxBdfoLI73AXRGuSQjTbMYCd/ww/SjPo7lL3pNpvPYyJ
+         9xRg==
+X-Forwarded-Encrypted: i=1; AHgh+Roj9BD0S8/qK9V2jC3ACAvilllsdkIe4+GNTwLvJjZQ4t9B7cXasHpxhV97N4nKZWQgY+pkIzMYEOigbJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJC9ar7MMdYzSu+7eBLOBSjsquDfcUtfKDrhKnWrqNkZPJZ53f
+	FK81l1YOAs8cWxGG0eWguJJTAksws3OsKcAWORY9KKW/CdpwkJ+TXHkL
+X-Gm-Gg: AR+sD13NlR3ebkHs7C9lahJrQktWR7lbxzYdUAOBvA29/slkuLeLJ7kec4ilX595C7X
+	zcezseIk0twYSoeHh0tzAbCLPwsn9Js9y3CVC0EWalBduKeg1gWJmawDMtX45YVCs7vFQjsFjBf
+	Iehu4xjtisse2R+auufc2iaD9fS592SNvYjoLDq2OsEVyRM6vLgy52kc7ZtGmLNr/lsJLhTPvu6
+	vxd0Cz9NjiSkOzhcMID3fMcQ//Adfj0cM7+WdiaOklXA9VMWbaoxCE+uXR40axgs/GA3CZ9gmyO
+	DSEKUQDlCnc73eNoVTzfXqY2IMeG6+Kl4r/Kdxxf5TwWnroZpBi1WY9aKZyQVat4kMUJKNWi6Sj
+	Jxsf9ns8uMYWoXvKkNlXkWoRO9Atkv6/cmXJfougy1clkTBLrckHxzzdbPHHsSI0q36TFvl3sM/
+	CvjEIEhoIQOKIJBwKdgjJfnWvNhRnZC0qdIICDM7NvxuR5qkllX9VmMUkmFBqwX+IlqUpDzvCx8
+	9930SB92A==
+X-Received: by 2002:a05:600c:a02:b0:499:da8b:1476 with SMTP id 5b1f17b1804b1-49b91c52579mr198169545e9.14.1788023491596;
+        Sat, 29 Aug 2026 10:11:31 -0700 (PDT)
 Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4cef:8600:c993:2682:3ff:b27])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c7cfsm154861105e9.11.2026.08.29.10.11.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c7cfsm154861105e9.11.2026.08.29.10.11.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:11:27 -0700 (PDT)
+        Sat, 29 Aug 2026 10:11:31 -0700 (PDT)
 From: Avi Weiss <thnkslprpt@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -71,9 +71,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH v3 1/2] mm/memory: simplify error handling in insert_pages()
-Date: Sat, 29 Aug 2026 20:11:12 +0300
-Message-ID: <dd3a672c858b38c7525541b19a919e120c4e5a0e.1788022178.git.thnkslprpt@gmail.com>
+Subject: [PATCH v3 2/2] mm/memory: return -ENOMEM for page-table allocation failure in insert_pages()
+Date: Sat, 29 Aug 2026 20:11:13 +0300
+Message-ID: <9d990c3ed43608e674d4b12a8c221a09fd200f49.1788022178.git.thnkslprpt@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1788022178.git.thnkslprpt@gmail.com>
 References: <cover.1788022178.git.thnkslprpt@gmail.com>
@@ -85,81 +85,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Initialize error return status to zero and then set it as needed at each
-point of failure.
+walk_to_pmd() returns NULL only when p4d_alloc(), pud_alloc(), or
+pmd_alloc() fails. These are page-table allocation failures, but
+insert_pages() currently reports them as -EFAULT.
 
-Assign -ENOMEM explicitly when pte_alloc() fails as the pte_alloc()
-macro returns a boolean.
+Return -ENOMEM instead, consistent with the subsequent pte_alloc()
+failure and with the single-page insert_page() path, which reports
+failure of the same page-table allocation chain as -ENOMEM.
+
+Address and range validation failures in vm_insert_pages() continue to
+return -EFAULT. Keep the later -EFAULT return for
+pte_offset_map_lock(), which is not an allocation failure.
 
 Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/memory.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ mm/memory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mm/memory.c b/mm/memory.c
-index 9cbce5c90bff..2561dc6bdde6 100644
+index 2561dc6bdde6..27ffe1a99a08 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -2565,20 +2565,22 @@ static int insert_pages(struct vm_area_struct *vma, unsigned long addr,
- 	unsigned long curr_page_idx = 0;
- 	unsigned long remaining_pages_total = *num;
- 	unsigned long pages_to_write_in_pmd;
--	int ret;
-+	int err = 0;
+@@ -2569,7 +2569,7 @@ static int insert_pages(struct vm_area_struct *vma, unsigned long addr,
  more:
--	ret = -EFAULT;
  	pmd = walk_to_pmd(mm, addr);
--	if (!pmd)
-+	if (!pmd) {
-+		err = -EFAULT;
- 		goto out;
-+	}
- 
- 	pages_to_write_in_pmd = min_t(unsigned long,
- 		remaining_pages_total, PTRS_PER_PTE - pte_index(addr));
- 
- 	/* Allocate the PTE if necessary; takes PMD lock once only. */
--	ret = -ENOMEM;
--	if (pte_alloc(mm, pmd))
-+	if (pte_alloc(mm, pmd)) {
+ 	if (!pmd) {
+-		err = -EFAULT;
 +		err = -ENOMEM;
  		goto out;
-+	}
- 
- 	while (pages_to_write_in_pmd) {
- 		int pte_idx = 0;
-@@ -2586,15 +2588,14 @@ static int insert_pages(struct vm_area_struct *vma, unsigned long addr,
- 
- 		start_pte = pte_offset_map_lock(mm, pmd, addr, &pte_lock);
- 		if (!start_pte) {
--			ret = -EFAULT;
-+			err = -EFAULT;
- 			goto out;
- 		}
- 		for (pte = start_pte; pte_idx < batch_size; ++pte, ++pte_idx) {
--			int err = insert_page_in_batch_locked(vma, pte,
--				addr, pages[curr_page_idx], prot);
-+			err = insert_page_in_batch_locked(vma, pte, addr,
-+							  pages[curr_page_idx], prot);
- 			if (unlikely(err)) {
- 				pte_unmap_unlock(start_pte, pte_lock);
--				ret = err;
- 				remaining_pages_total -= pte_idx;
- 				goto out;
- 			}
-@@ -2607,10 +2608,9 @@ static int insert_pages(struct vm_area_struct *vma, unsigned long addr,
  	}
- 	if (remaining_pages_total)
- 		goto more;
--	ret = 0;
- out:
- 	*num = remaining_pages_total;
--	return ret;
-+	return err;
- }
  
- /**
 -- 
 2.43.0
 
