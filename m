@@ -1,840 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAEB30D401;
-	Sat, 29 Aug 2026 00:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963F7356767
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787964361; cv=none; b=GBEFfbcxCmwyJBReK8b7jRthirhNW5WNIK8zkhCcBSHhmITxH7Js5Ke6F9W2Ya/xNdKvRHOoTihuBZF8sPkKYeymkkxe5YcbIgR7BABLeVZxrkkD+mbT4JhnNqS6e+QiMedVM03C0xYkioBU9mp++/jXsMH27g7JzBeOHbaUv+0=
+	t=1787964383; cv=none; b=EKYuHD9/X8iCUJ3oYxhYxcahoA9lXeXBOieEvx1FBzNhiIYMYsr7778CQyx8xcwBAPyApr/6IhNvJ4qD9fOlc9vLuitV45mX0Vj4j3GZJ/sH7XRxPDx5LZ802yyywdq6isTs5pgA2spQNI5wCWYOth59PalpOrCtQblQuISjot4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787964361; c=relaxed/simple;
-	bh=1LIEzrExSJNQ4G5rWHRHv/z8xX126+D4fPUCClDFJcA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y3B6qV9Szzvyt4/74uvngxti3vAfEMHuiGUHXm1svrQP603tTgw0A/8DjDissYnkSy1l02doEanpgoUt54JhLvCfx8oTmWroCilOGbZV4Wg8vAH5aUhP3SpWHaWlR8Jp/2sQBiHKvhW4i1ZePKe4+TCiAx/N9TWzIYemABrAa1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+w9kHbz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787964383; c=relaxed/simple;
+	bh=kXYtZBBC1GPdm7z1AYO/8rMtwiGaLv/qcIzwVA2KxMg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X9+hZq1p23y4h0rmRHnJPt2cV8arHDX3Xp3ceaAlqApC4h49O44lyiQAf+0rb53rXJvcMopjQfEfz7M7V+tvQbmVmErAwhQL05WC5kDNzhOtl9bmEapwrhz7PSV3I8MHIrQk0V39r5rLWYP+Rq+qhHXgAoTGML0XesQ8FoWCaNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iF0MzHpW; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+w9kHbz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AF11F00A3D;
-	Sat, 29 Aug 2026 00:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787964355;
-	bh=NUXs1v2b7nE8F7StJ2mszwRpyPdftPLqgIE1U3Bpq60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S+w9kHbz6dJixmtNc2Jj3BxbCDPK0POahhQITx/+imBsFf1fCQRkD2p9Cv3yJrFtJ
-	 h2l2y0SNa7Go7OkXC/fs53XrFFu586v3ASK+JhrxCrEsFeqAVAps40dX+4tLkz4ydF
-	 QqaOJnSt7NQbuTTxmPHotdnSYrd1hcpj7mr7BQjbPMhjOhBhSxFMh6YbB37xYhAWvD
-	 UP8DDatSebQmhlk8LAnoRAolGS8oVjmozkKQcLP+FGNhz6nHP2RPGAKzhgs3zQ5M+H
-	 eatpm7NCGYQnwjuh+gT12kYvPHqmYxY+qsm7lNh6PaIyQiAjn4Hpdb87YNj6vBE78V
-	 J0TGNz0cNgowg==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A5FD8F40066;
-	Fri, 28 Aug 2026 20:45:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 28 Aug 2026 20:45:54 -0400
-X-ME-Sender: <xms:wiuSaviiCVqNgqNNqHYrkGDhyy_aPR3cy5clTJWE-AXNJG43WHkvOQ>
-    <xme:wiuSalWjEi8hG6p87plxfSHVvdE9JhXgKnQPw1qSNwtneIgjSteoQ5kg0JGffDSQD
-    pwFvRPyAs-w39KGsrw9WeegVqVGfSP3DGPT5D2YRWDyYa0XLGD_1Q>
-X-ME-Received: <xmr:wiuSamW4f3il0SD1zfDCqFelN2RnCUQT9urL1kJA4jwqextAU7Hbn9io9_DBUH-u4atXu8--2YQNGOvR_aMJWjgMIuIVCsbM>
-X-ME-Proxy-Cause: dmFkZTEk98i1wFlVA0woFhSDoydXZ33VYliQK8btV3MWOcNFFxgGawzP/oev/RqCn5m4b4
-    llr8enIJijlNNA/jm1KLc6GmKRmoNPDMJVVklucdRjbC39qI4rQrdpxkS96MENKseYNHGy
-    7aJX1UxHbf2FfUUH3lDHF+l+H01bLjrFgHSCqh+T3m6tp4wiPrWZof9iWAFn0fPDbMJsWH
-    Kv9XXukkgrO8rIOUQCzq9htjuuqYvOzs/SvTQxXwQSnRafnxeAKwNKMLOliKLMAKqNqnuc
-    iLPvfnT3pQo7YQubncRS/kaARQr9S6JUIZb3SL59lLPiNHsYfDK94pmzj8mb1wYH0kRXX6
-    PCCo96CYkbDd2Rj+SVbjAU/ItHxU5E4zp6kFQORPOpqilp31I3BIsBpB37MoyegM0ZEwZo
-    OW6T/dS6gG9aS/siDGrYB+RLmqeqFDM7jcL0HX3EakYb6zTXUAXKMJZk/BYQQi6Sf4ByUa
-    4YU77pySQhIgvOOQ2tfzTpajC+lG46KM3U2P4wUU3xhvdO8cbzvW1OOIfuwwwORpSJNauz
-    SNZbX/9kMI/2mHyGgBRQwzCsogfAmelq3Stl/E/QCZjGjo9MGXmZ/3qZ/NkdYr9LB13Xpr
-    KEn8Gp9GQaD82Ht8LvxsI4whVvfTpLAnfXONxVsyyNrYJbbUc8HMBUFq4B6A
-X-ME-Proxy: <xmx:wiuSathfWDAQ-eeLmWRfYaaZnI86xrtDX3wdncgvlvtt1PHywjIKXg>
-    <xmx:wiuSapZV5bQJY0podtaSnbfvLuCkvAKPXjFhr60bM3RWZUwrVGl4Jg>
-    <xmx:wiuSaio5oAmZ3ZTId9c5M5AaiAgd2F1WMNeVkygq3VbJe6XTWz43nQ>
-    <xmx:wiuSauPujxbYrFOyVBwfn9CLc6bP5Wf79rnQ9wBG37lCQ4kfyWqefw>
-    <xmx:wiuSatoW3I3_kurQFaN985PXB8GGbnekreZ0EE49acVSSKJTnU4_fMVv>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Aug 2026 20:45:54 -0400 (EDT)
-Date: Fri, 28 Aug 2026 17:45:53 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-Message-ID: <apIrwRYJbPpmjrNo@tardis.local>
-References: <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local>
- <87v78wezid.ffs@fw13>
- <apA4M7Asz0mV9uaw@tardis.local>
- <87jypbfu1t.ffs@fw13>
- <apBrZuxU8bmCgG8h@tardis.local>
- <87bjanfmzz.ffs@fw13>
- <apCS3T63WUxHd1GH@tardis.local>
- <87wltbdvmd.ffs@fw13>
- <87mru5et6r.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iF0MzHpW"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c247f6687dcso270270766b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:46:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787964378; x=1788569178; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LNgBCT7AcYnH8EZ4h37NHCshagsts35rqplG0HejEE4=;
+        b=iF0MzHpWM4IzyLQxY/i7QljQFATCa+/Qx6i3/456X0badcSqvKERO/ok2Y/5jW20Wp
+         HVgssIfjy0aG23otrAEY5s2SXmWLfVN6tf9WNzYfxxkqI1wQYL+phXhRezCU1M3bcNfs
+         sEe7q+3MI2QQb42wa9TMDCV15zmpUPGVEJpIeqloitK8nlf6E8vQoEogzdmGGFu1PwVL
+         zO6O6XgXLchLMSJKtxxXo77owjIgeehDsbSMpLoOjSI33VNkQyYqChpwL0Mul+P8OMAd
+         JhgICSxq0talEcZT6DMqDSKXrTsmxX4cTvpsXk3EpByBHI11UOUAuD0v9utdSaN67uQC
+         OdEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787964378; x=1788569178;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LNgBCT7AcYnH8EZ4h37NHCshagsts35rqplG0HejEE4=;
+        b=h/A+5Gn+hRpEGJ6q93SUEGsLfL+5vmYimvo+oOqwGv0oGouW7cBWUym7oZwYFg1KIS
+         QeXfkoz86MGGPCbQTnDBrpveweFMUNZTDKQOdRWyL7HBEIGJjly1t/eaTkq+L0LuZhqM
+         Q9r1xxc7B1zwhKXt00StHUUIxC+yZY3UeNKs0ggvEeS3ZT4fJZ2CaJrnhtaAFoyk4Ahs
+         b7HSVcVBIhG3zy8/KP+/ciHN2jYE2Pz5cX/V6rNluNYlWDY1vLExAil0yI7w+bpY3YSA
+         lL6/mD6vTEn5tzXoI9/TTzVf8YZRVlWXvfbVCEJWNXt4BwkDbgdWMyrmomyB4Kq2TKR/
+         Pmxw==
+X-Forwarded-Encrypted: i=1; AHgh+Rri92pocZO8N2L1FIWJAhITJ7O390sref/qLqOoq2yU4jbvf9LbSqvVBpento+qvtS93ujZkdw0nWifqIc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n85x6ITRmRmPxU7zM9lr3qzNorOvul4fi7Hh6N8kQiW1uu5/E8
+	7T90ne7/5blNFn9EssIhPccE2GaZU3vf4py5kp+utCh3iCo853ajFc6F
+X-Gm-Gg: AR+sD128XnVZcYjNjW4lBzRRc/NmxFUwJtxoRRIyPIa4TQMZhiEn7rRFYVaWbN+55y9
+	D2hr6/JM0gBbVw9xjpRsmnfHQ39cYCj6vA2N4NxnGzKVtaMhtrZr8bg1bY9nPgdmB8JQorBavMu
+	qHGvrv4GqRy4MqofFT8l4Rdbuq0mL5DgH+rudteStST73tfifqeFJCaaye/ltLKLIbZ7Ilf+BpE
+	4IoOcDpRHQck0hJAtcKa3KykSc9gEQocnxR5ZRNGrAhwDJMxlN0/7tKqwiUIr985AVmRNpVFbFG
+	knzKkC+RYDJ+AVp6ehwAXky6ZnELGg/Y4NCpp37+fzjdbM5kpzs99T8VPGRA1+kJVj4FbzcqEIA
+	lRjUYEzg1y8NHCwGHKTP5RlO+YBodl/mmuZU3f6ENmpm5pJtf++okUQqXRi6lDX+7BWAH0d7bt0
+	vU3qFqh5kJywYrgEtQwlH2PQe8H41GTHFQXCqy0O8Qu190i0nCkmzRxev7yPrPI6eR0iPbCgxTd
+	SzKBnDlX8qis3sakB3C/vB6jgpa/rAnW+POUYLOrxSQGcLcOmnSaljAWhmc
+X-Received: by 2002:a17:907:805:b0:c25:61f4:b478 with SMTP id a640c23a62f3a-c2561f4e7f3mr480340066b.15.1787964378057;
+        Fri, 28 Aug 2026 17:46:18 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25613f8bc0sm128171966b.31.2026.08.28.17.46.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 17:46:16 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Wayne Lin <Wayne.Lin@amd.com>,
+	ChiaHsuan Chung <chiahsuan.chung@amd.com>,
+	Roman Li <roman.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amd/display: add missing CRC1 window registers and masks for DCN3.2
+Date: Sat, 29 Aug 2026 05:46:08 +0500
+Message-ID: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87mru5et6r.ffs@fw13>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 01:11:56AM +0200, Thomas Gleixner wrote:
-> On Fri, Aug 28 2026 at 00:52, Thomas Gleixner wrote:
-> > On Thu, Aug 27 2026 at 12:41, Boqun Feng wrote:
-> > So I sat down and reverted
-> >
-> >   1b0866874833 ("locking: Switch to _irq_{disable,enable}() variants in cleanup guards")
-> >   e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
-> >
-> > and then hacked it up just to see how far I get before vanishing to bed.
-> >
-> > Three hours later it surprisingly booted right away into a full distro
-> > kernel and survived kernel builds and a few test cases. :)
-> 
-> /FACMEPALM
-> 
-> Yesterday night I was really surprised but too tired to think about it.
-> 
-> When I came around today to look at it again I was more than embarrassed
-> to figure out that the KVM script rebuilt the wrong branch over and
-> over. So the build numbers kept increasing...
-> 
-> Brown paperbag time ...
-> 
-> Of course the real thing did _NOT_ boot at all, so I sat down and
-> figured out what's going wrong and added a pile of debug to it, which is
-> sadly non-existing in this magic local_interrupt_dis/enable() code.
-> 
-> The overall fallout is moderate. Some of it are actual (but harmless)
-> bugs and the rest are the oddball cases we talked about before.
-> 
-> It builds and boots now for real, but of course your mileage will vary
-> depending on hardware and .config. Combo patch on top of the reverts is
-> below.
-> 
-> The whole pile can be retrieved from git via:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git irqflags
-> 
-> I have some thoughts about how to deal with the overall disaster, but
-> that has to wait until my brain is truly awake again...
-> 
-> Thanks,
-> 
->         tglx
-> ---
-> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-> index 15fd9ec5ecac..c7229a7cfa7c 100644
-> --- a/arch/x86/Kconfig
-> +++ b/arch/x86/Kconfig
-> @@ -133,6 +133,7 @@ config X86
->  	select ARCH_USES_CFI_TRAPS		if X86_64 && CFI
->  	select ARCH_SUPPORTS_LTO_CLANG
->  	select ARCH_SUPPORTS_LTO_CLANG_THIN
-> +	select ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
->  	select ARCH_SUPPORTS_RT
->  	select ARCH_USE_BUILTIN_BSWAP
->  	select ARCH_USE_CMPXCHG_LOCKREF
-> diff --git a/arch/x86/include/asm/hardirq.h b/arch/x86/include/asm/hardirq.h
-> index dea60d66d976..34bdf24b939b 100644
-> --- a/arch/x86/include/asm/hardirq.h
-> +++ b/arch/x86/include/asm/hardirq.h
-> @@ -113,4 +113,6 @@ static __always_inline bool kvm_get_cpu_l1tf_flush_l1d(void)
->  static __always_inline void kvm_set_cpu_l1tf_flush_l1d(void) { }
->  #endif /* IS_ENABLED(CONFIG_KVM_INTEL) */
->  
-> +#define __ARCH_IRQ_EXIT_IRQS_DISABLED 1
-> +
->  #endif /* _ASM_X86_HARDIRQ_H */
-> diff --git a/arch/x86/include/asm/preempt.h b/arch/x86/include/asm/preempt.h
-> index fafb6f8cdac3..8b4d4cbae52e 100644
-> --- a/arch/x86/include/asm/preempt.h
-> +++ b/arch/x86/include/asm/preempt.h
-> @@ -61,10 +61,20 @@ static __always_inline void preempt_count_set(unsigned long pc)
->   */
->  #define init_task_preempt_count(p) do { } while (0)
->  
-> -#define init_idle_preempt_count(p, cpu) do { \
-> -	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED; \
-> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-> +
-> +#define init_idle_preempt_count(p, cpu) do {						\
-> +	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED | HARDIRQ_DISABLE_OFFSET;	\
->  } while (0)
->  
-> +#else
-> +
-> +#define init_idle_preempt_count(p, cpu) do {						\
-> +	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED;				\
-> +} while (0)
-> +
-> +#endif
-> +
->  /*
->   * We fold the NEED_RESCHED bit into the preempt count such that
->   * preempt_enable() can decrement and test for needing to reschedule with a
-> diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-> index 6b0a5861ccb8..0b5a05cb543f 100644
-> --- a/arch/x86/kernel/kvm.c
-> +++ b/arch/x86/kernel/kvm.c
-> @@ -256,9 +256,9 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
->  {
->  	u32 flags = 0;
->  
-> -	if (__this_cpu_read(async_pf_enabled)) {
-> -		flags = __this_cpu_read(apf_reason.flags);
-> -		__this_cpu_write(apf_reason.flags, 0);
-> +	if (raw_cpu_read(async_pf_enabled)) {
-> +		flags = raw_cpu_read(apf_reason.flags);
-> +		raw_cpu_write(apf_reason.flags, 0);
->  	}
->  
->  	return flags;
-> diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-> index 346c438ac880..b0be24a386f3 100644
-> --- a/arch/x86/kernel/process.c
-> +++ b/arch/x86/kernel/process.c
-> @@ -824,7 +824,7 @@ void __noreturn stop_this_cpu(void *dummy)
->  	struct cpuinfo_x86 *c = this_cpu_ptr(&cpu_info);
->  	unsigned int cpu = smp_processor_id();
->  
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  
->  	/*
->  	 * Remove this CPU from the online mask and disable it
-> diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-> index 0fed6d0d7e32..40104170be24 100644
-> --- a/arch/x86/kernel/reboot.c
-> +++ b/arch/x86/kernel/reboot.c
-> @@ -98,7 +98,7 @@ static int __init set_efi_reboot(const struct dmi_system_id *d)
->  
->  void __noreturn machine_real_restart(unsigned int type)
->  {
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  
->  	/*
->  	 * Write zero to CMOS register number 0x0f, which the BIOS POST
-> @@ -535,7 +535,7 @@ static inline void nmi_shootdown_cpus_on_restart(void);
->  #if IS_ENABLED(CONFIG_KVM_X86)
->  static void emergency_reboot_disable_virtualization(void)
->  {
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  
->  	/*
->  	 * Disable virtualization on all CPUs before rebooting to avoid hanging
-> @@ -699,7 +699,7 @@ void native_machine_shutdown(void)
->  	 * not receive the per-cpu timer interrupt which may trigger
->  	 * scheduler's load balance.
->  	 */
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  	stop_other_cpus();
->  #endif
->  
-> @@ -823,7 +823,8 @@ static int crash_nmi_callback(unsigned int val, struct pt_regs *regs)
->  	 */
->  	if (cpu == crashing_cpu)
->  		return NMI_HANDLED;
-> -	local_irq_disable();
-> +
-> +	raw_force_local_irq_disable();
->  
->  	if (shootdown_callback)
->  		shootdown_callback(cpu, regs);
-> @@ -865,7 +866,7 @@ void nmi_shootdown_cpus(nmi_shootdown_cb callback)
->  {
->  	unsigned long msecs;
->  
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  
->  	/*
->  	 * Avoid certain doom if a shootdown already occurred; re-registering
-> diff --git a/arch/x86/mm/fault.c b/arch/x86/mm/fault.c
-> index aa88370ce739..3164eab7cecd 100644
-> --- a/arch/x86/mm/fault.c
-> +++ b/arch/x86/mm/fault.c
-> @@ -1486,7 +1486,8 @@ handle_page_fault(struct pt_regs *regs, unsigned long error_code,
->  	 * page fault handling might have reenabled interrupts,
->  	 * make sure to disable them again.
->  	 */
-> -	local_irq_disable();
-> +	if (!irqs_disabled())
-> +		local_irq_disable();
->  }
->  
->  DEFINE_IDTENTRY_RAW_ERRORCODE(exc_page_fault)
-> diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-> index 132a9df98471..f13e88fb7a78 100644
-> --- a/drivers/acpi/sleep.c
-> +++ b/drivers/acpi/sleep.c
-> @@ -1095,7 +1095,7 @@ static int acpi_power_off(struct sys_off_data *data)
->  {
->  	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
->  	pr_debug("%s called\n", __func__);
-> -	local_irq_disable();
-> +	raw_force_local_irq_disable();
->  	acpi_enter_sleep_state(ACPI_STATE_S5);
->  	return NOTIFY_DONE;
->  }
-> diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-> index 3bf969ad8fe0..b54afbd6e073 100644
-> --- a/include/linux/interrupt.h
-> +++ b/include/linux/interrupt.h
-> @@ -594,13 +594,14 @@ struct softirq_action
->  
->  asmlinkage void do_softirq(void);
->  asmlinkage void __do_softirq(void);
-> +void do_softirq_irqsoff(void);
->  
->  #ifdef CONFIG_PREEMPT_RT
->  extern void do_softirq_post_smp_call_flush(unsigned int was_pending);
->  #else
->  static inline void do_softirq_post_smp_call_flush(unsigned int unused)
->  {
-> -	do_softirq();
-> +	do_softirq_irqsoff();
->  }
->  #endif
->  
-> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-> index 0bb6c03481fa..ba5210fab31f 100644
-> --- a/include/linux/irq-entry-common.h
-> +++ b/include/linux/irq-entry-common.h
-> @@ -97,6 +97,7 @@ static __always_inline bool arch_in_rcu_eqs(void) { return false; }
->   */
->  static __always_inline void enter_from_user_mode(struct pt_regs *regs)
->  {
-> +	__preempt_count_inc_hardirqs_disable();
->  	arch_enter_from_user_mode(regs);
->  	lockdep_hardirqs_off(CALLER_ADDR0);
->  
-> @@ -275,6 +276,7 @@ static __always_inline void exit_to_user_mode(void)
->  	user_enter_irqoff();
->  	arch_exit_to_user_mode();
->  	lockdep_hardirqs_on(CALLER_ADDR0);
-> +	__preempt_count_dec_hardirqs_disable();
->  }
->  
->  /**
-> @@ -385,6 +387,8 @@ static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct p
->  		.exit_rcu = false,
->  	};
->  
-> +	__preempt_count_inc_hardirqs_disable();
-> +
->  	/*
->  	 * If this entry hit the idle task invoke ct_irq_enter() whether
->  	 * RCU is watching or not.
-> @@ -498,6 +502,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
->  			instrumentation_end();
->  			ct_irq_exit();
->  			lockdep_hardirqs_on(CALLER_ADDR0);
-> +			__preempt_count_dec_hardirqs_disable();
->  			return;
->  		}
->  
-> @@ -514,6 +519,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
->  		if (state.exit_rcu)
->  			ct_irq_exit();
->  	}
-> +	__preempt_count_dec_hardirqs_disable();
->  }
->  
->  /**
-> diff --git a/include/linux/irqflags.h b/include/linux/irqflags.h
-> index 57b074e0cfbb..dd55786768d1 100644
-> --- a/include/linux/irqflags.h
-> +++ b/include/linux/irqflags.h
-> @@ -13,6 +13,7 @@
->  #define _LINUX_TRACE_IRQFLAGS_H
->  
->  #include <linux/irqflags_types.h>
-> +#include <linux/preempt.h>
->  #include <linux/typecheck.h>
->  #include <linux/cleanup.h>
->  #include <asm/irqflags.h>
-> @@ -163,33 +164,149 @@ extern void warn_bogus_irq_restore(void);
->  #endif
->  
->  /*
-> - * Wrap the arch provided IRQ routines to provide appropriate checks.
-> + * Wrap the architecture specific routines to provide appropriate checks.
->   */
-> -#define raw_local_irq_disable()		arch_local_irq_disable()
-> -#define raw_local_irq_enable()		arch_local_irq_enable()
-> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-> +
-> +// FIXME: Convert this into a proper debug mechanism
-> +#define debug_assert(c)					\
-> +do {							\
-> +	WARN_ON(!(c));					\
-> +} while (0)
-> +
-> +static __always_inline void raw_local_irq_disable(void)
-> +{
-> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == 0);
-> +	arch_local_irq_disable();
-> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-> +}
-> +
-> +static __always_inline void raw_force_local_irq_disable(void)
-> +{
-> +	arch_local_irq_disable();
-> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-> +}
-> +
-> +static __always_inline void raw_local_irq_enable(void)
-> +{
-> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET);
-> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-> +	arch_local_irq_enable();
-> +}
-> +
-> +static __always_inline unsigned long __raw_local_irq_save(void)
-> +{
-> +	unsigned int cnt = preempt_count() & HARDIRQ_DISABLE_MASK;
-> +
-> +	debug_assert(cnt != HARDIRQ_DISABLE_MASK);
-> +
-> +	if (!cnt)
-> +		arch_local_irq_disable();
-> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-> +
-> +	return cnt;
-> +}
-> +
-> +static __always_inline void __raw_local_irq_restore(unsigned long cnt)
-> +{
-> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == (cnt + HARDIRQ_DISABLE_OFFSET));
-> +
-> +	if (!(__preempt_count_sub_return(HARDIRQ_DISABLE_OFFSET) & HARDIRQ_DISABLE_MASK))
-> +		arch_local_irq_enable();
-> +}
-> +
+Opening the CRTC CRC debugfs file on a DCN3.2 card triggers a WARN from
+dc_helper.c on the first attempt after boot:
 
-So we can change the semantics of local_irq_disable(),
-local_irq_enable(), local_irq_save()  and local_irq_restore()? Nice!
-local_irq_{en,dis}able() are no longer idempotent, and
-local_irq_{save,restore}() have to pair with each other or a
-local_irq_{en,dis}able(). This would make things much easier. And TBH, I
-never think this is an option because there could be so much code not
-obeying this (at least not on day 1). Now I see your point on getting
-the design correct at the first place :D
+  WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:53 at
+  set_reg_field_values.isra.0+0x30d/0x730 [amdgpu], CPU#1: cat/58468
 
-Regards,
-Boqun
+Reproducer, on a fresh boot - the ASSERT is WARN_ON_ONCE, so it only fires
+once per boot:
 
-> +static __always_inline unsigned long __raw_local_save_flags(void)
-> +{
-> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
-> +}
-> +
-> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long cnt)
-> +{
-> +	return !!cnt;
-> +}
-> +
-> +static __always_inline bool raw_irqs_disabled(void)
-> +{
-> +	return preempt_count() & HARDIRQ_DISABLE_MASK;
-> +}
-> +
-> +static __always_inline void raw_safe_halt(void)
-> +{
-> +	debug_assert((preempt_count() & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET);
-> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-> +	arch_safe_halt();
-> +}
-> +
-> +#else
-> +
-> +static __always_inline void raw_local_irq_disable(void)
-> +{
-> +	arch_local_irq_disable();
-> +}
-> +
-> +static __always_inline void raw_force_local_irq_disable(void)
-> +{
-> +	arch_local_irq_disable();
-> +}
-> +
-> +static __always_inline void raw_local_irq_enable(void)
-> +{
-> +	arch_local_irq_enable();
-> +}
-> +
-> +static __always_inline unsigned long __raw_local_irq_save(void)
-> +{
-> +	return arch_local_irq_save();
-> +}
-> +
-> +static __always_inline void __raw_local_irq_restore(unsigned long flags)
-> +{
-> +	arch_local_irq_restore(flags);
-> +}
-> +
-> +static __always_inline unsigned long __raw_local_save_flags(void)
-> +{
-> +	return arch_local_save_flags();
-> +}
-> +
-> +static __always_inline bool __raw_irqs_disabled_flags(unsigned long flags)
-> +{
-> +	return arch_irqs_disabled_flags(flags);
-> +}
-> +
-> +static __always_inline bool raw_irqs_disabled(void)
-> +{
-> +	return arch_irqs_disabled();
-> +}
-> +
-> +static __always_inline void raw_safe_halt(void)
-> +{
-> +	arch_safe_halt();
-> +}
-> +
-> +#endif
-> +
->  #define raw_local_irq_save(flags)			\
->  	do {						\
->  		typecheck(unsigned long, flags);	\
-> -		flags = arch_local_irq_save();		\
-> +		flags = __raw_local_irq_save();		\
->  	} while (0)
->  #define raw_local_irq_restore(flags)			\
->  	do {						\
->  		typecheck(unsigned long, flags);	\
->  		raw_check_bogus_irq_restore();		\
-> -		arch_local_irq_restore(flags);		\
-> +		__raw_local_irq_restore(flags);		\
->  	} while (0)
->  #define raw_local_save_flags(flags)			\
->  	do {						\
->  		typecheck(unsigned long, flags);	\
-> -		flags = arch_local_save_flags();	\
-> +		flags = __raw_local_save_flags();	\
->  	} while (0)
->  #define raw_irqs_disabled_flags(flags)			\
->  	({						\
->  		typecheck(unsigned long, flags);	\
-> -		arch_irqs_disabled_flags(flags);	\
-> +		__raw_irqs_disabled_flags(flags);	\
->  	})
-> -#define raw_irqs_disabled()		(arch_irqs_disabled())
-> -#define raw_safe_halt()			arch_safe_halt()
->  
->  /*
->   * The local_irq_*() APIs are equal to the raw_local_irq*()
-> diff --git a/include/linux/preempt.h b/include/linux/preempt.h
-> index 2e689de7b29a..c953cdfb3cc2 100644
-> --- a/include/linux/preempt.h
-> +++ b/include/linux/preempt.h
-> @@ -54,31 +54,31 @@
->   *             NMI_MASK:	0xf0000000
->   * (PREEMPT_NEED_RESCHED is in a different word)
->   */
-> -#define PREEMPT_BITS	8
-> -#define SOFTIRQ_BITS	8
-> +#define PREEMPT_BITS		8
-> +#define SOFTIRQ_BITS		8
->  #define HARDIRQ_DISABLE_BITS	8
-> -#define HARDIRQ_BITS	4
-> -#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
-> +#define HARDIRQ_BITS		4
-> +#define NMI_BITS		(1 + 3 * IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
->  
-> -#define PREEMPT_SHIFT	0
-> -#define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
-> +#define PREEMPT_SHIFT		0
-> +#define SOFTIRQ_SHIFT		(PREEMPT_SHIFT + PREEMPT_BITS)
->  #define HARDIRQ_DISABLE_SHIFT	(SOFTIRQ_SHIFT + SOFTIRQ_BITS)
-> -#define HARDIRQ_SHIFT	(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
-> -#define NMI_SHIFT	(HARDIRQ_SHIFT + HARDIRQ_BITS)
-> +#define HARDIRQ_SHIFT		(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
-> +#define NMI_SHIFT		(HARDIRQ_SHIFT + HARDIRQ_BITS)
->  
-> -#define __IRQ_MASK(x)	((1UL << (x))-1)
-> +#define __IRQ_MASK(x)		((1UL << (x))-1)
->  
-> -#define PREEMPT_MASK	(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
-> -#define SOFTIRQ_MASK	(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
-> +#define PREEMPT_MASK		(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
-> +#define SOFTIRQ_MASK		(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
->  #define HARDIRQ_DISABLE_MASK	(__IRQ_MASK(HARDIRQ_DISABLE_BITS) << HARDIRQ_DISABLE_SHIFT)
-> -#define HARDIRQ_MASK	(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
-> -#define NMI_MASK	(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
-> +#define HARDIRQ_MASK		(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
-> +#define NMI_MASK		(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
->  
-> -#define PREEMPT_OFFSET	(1UL << PREEMPT_SHIFT)
-> -#define SOFTIRQ_OFFSET	(1UL << SOFTIRQ_SHIFT)
-> +#define PREEMPT_OFFSET		(1UL << PREEMPT_SHIFT)
-> +#define SOFTIRQ_OFFSET		(1UL << SOFTIRQ_SHIFT)
->  #define HARDIRQ_DISABLE_OFFSET	(1UL << HARDIRQ_DISABLE_SHIFT)
-> -#define HARDIRQ_OFFSET	(1UL << HARDIRQ_SHIFT)
-> -#define NMI_OFFSET	(1UL << NMI_SHIFT)
-> +#define HARDIRQ_OFFSET		(1UL << HARDIRQ_SHIFT)
-> +#define NMI_OFFSET		(1UL << NMI_SHIFT)
->  
->  #define SOFTIRQ_DISABLE_OFFSET	(2 * SOFTIRQ_OFFSET)
->  
-> @@ -90,18 +90,29 @@
->   *
->   * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
->   */
-> +
-> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-> +
-> +#define INIT_PREEMPT_COUNT	(PREEMPT_OFFSET + HARDIRQ_DISABLE_OFFSET)
-> +#define SCHED_PREEMPT_COUNT	(2 * PREEMPT_DISABLE_OFFSET + HARDIRQ_DISABLE_OFFSET)
-> +
-> +#else
-> +
->  #define INIT_PREEMPT_COUNT	PREEMPT_OFFSET
-> +#define SCHED_PREEMPT_COUNT	(2 * PREEMPT_DISABLE_OFFSET)
-> +
-> +#endif
->  
->  /*
->   * Initial preempt_count value; reflects the preempt_count schedule invariant
->   * which states that during context switches:
->   *
-> - *    preempt_count() == 2*PREEMPT_DISABLE_OFFSET
-> + *    preempt_count() == SCHED_PREEMPT_COUNT
->   *
-> - * Note: PREEMPT_DISABLE_OFFSET is 0 for !PREEMPT_COUNT kernels.
-> + * Note: SCHED_PREEMPT_COUNT is 0 for !PREEMPT_COUNT kernels.
->   * Note: See finish_task_switch().
->   */
-> -#define FORK_PREEMPT_COUNT	(2*PREEMPT_DISABLE_OFFSET + PREEMPT_ENABLED)
-> +#define FORK_PREEMPT_COUNT	(SCHED_PREEMPT_COUNT + PREEMPT_ENABLED)
->  
->  /* preempt_count() and related functions, depends on PREEMPT_NEED_RESCHED */
->  #include <asm/preempt.h>
-> @@ -168,6 +179,16 @@ static __always_inline unsigned char interrupt_context_level(void)
->  #define in_softirq()		(softirq_count())
->  #define in_interrupt()		(irq_count())
->  
-> +/*
-> + * Check whether a fault happened in an atomic context. Depending on
-> + * CONFIG_PREEMPT_COUNT and CONFIG_PREEMPTION this check might be useless.
-> + */
-> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-> +# define fault_in_atomic()	(preempt_count() != HARDIRQ_DISABLE_OFFSET)
-> +#else
-> +# define fault_in_atomic()	in_atomic()
-> +#endif
-> +
->  /*
->   * The preempt_count offset after preempt_disable();
->   */
-> @@ -322,6 +343,21 @@ do { \
->  
->  #endif /* CONFIG_PREEMPT_COUNT */
->  
-> +#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-> +static __always_inline void __preempt_count_inc_hardirqs_disable(void)
-> +{
-> +	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-> +}
-> +
-> +static __always_inline void __preempt_count_dec_hardirqs_disable(void)
-> +{
-> +	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-> +}
-> +#else
-> +static __always_inline void __preempt_count_inc_hardirqs_disable(void) { }
-> +static __always_inline void __preempt_count_dec_hardirqs_disable(void) { }
-> +#endif
-> +
->  #ifdef MODULE
->  /*
->   * Modules have no business playing preemption tricks.
-> diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
-> index eddbbb65ccc4..086de4c18575 100644
-> --- a/include/linux/uaccess.h
-> +++ b/include/linux/uaccess.h
-> @@ -296,9 +296,9 @@ static inline bool pagefault_disabled(void)
->   * stick to pagefault_disabled().
->   * Please NEVER use preempt_disable() to disable the fault handler. With
->   * !CONFIG_PREEMPT_COUNT, this is like a NOP. So the handler won't be disabled.
-> - * in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
-> + * fault_in_atomic() will report different values based on !CONFIG_PREEMPT_COUNT.
->   */
-> -#define faulthandler_disabled() (pagefault_disabled() || in_atomic())
-> +#define faulthandler_disabled() (pagefault_disabled() || fault_in_atomic())
->  
->  DEFINE_LOCK_GUARD_0(pagefault, pagefault_disable(), pagefault_enable())
->  
-> diff --git a/init/main.c b/init/main.c
-> index 2613d3f9b3ce..fa84ce260b04 100644
-> --- a/init/main.c
-> +++ b/init/main.c
-> @@ -991,7 +991,6 @@ void start_kernel(void)
->  
->  	cgroup_init_early();
->  
-> -	local_irq_disable();
->  	early_boot_irqs_disabled = true;
->  
->  	/*
-> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
-> index f294dad43bd7..c44607990219 100644
-> --- a/kernel/Kconfig.preempt
-> +++ b/kernel/Kconfig.preempt
-> @@ -152,6 +152,15 @@ config PREEMPT_DYNAMIC
->  	  Interesting if you want the same pre-built kernel should be used for
->  	  both Server and Desktop workloads.
->  
-> +config ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
-> +	bool
-> +
-> +config PREEMPT_COUNT_IRQFLAGS
-> +	bool "Enable reference counted interrupt disable/enable mechanisms"
-> +	depends on ARCH_SUPPORTS_PREEMPT_COUNT_IRQFLAGS
-> +	help
-> +	  FIXME: Add some useful blurb
-> +
->  config SCHED_CORE
->  	bool "Core Scheduling for SMT"
->  	depends on SCHED_SMT
-> diff --git a/kernel/entry/common.c b/kernel/entry/common.c
-> index e3d381fd3d25..3c93ce7f86f6 100644
-> --- a/kernel/entry/common.c
-> +++ b/kernel/entry/common.c
-> @@ -171,6 +171,7 @@ irqentry_state_t noinstr irqentry_nmi_enter(struct pt_regs *regs)
->  {
->  	irqentry_state_t irq_state;
->  
-> +	__preempt_count_inc_hardirqs_disable();
->  	irq_state.lockdep = lockdep_hardirqs_enabled();
->  
->  	__nmi_enter();
-> @@ -202,4 +203,5 @@ void noinstr irqentry_nmi_exit(struct pt_regs *regs, irqentry_state_t irq_state)
->  	if (irq_state.lockdep)
->  		lockdep_hardirqs_on(CALLER_ADDR0);
->  	__nmi_exit();
-> +	__preempt_count_dec_hardirqs_disable();
->  }
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index f78275192036..b6d14feaaf56 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -5343,7 +5343,7 @@ static struct rq *finish_task_switch(struct task_struct *prev)
->  	 *
->  	 * Also, see FORK_PREEMPT_COUNT.
->  	 */
-> -	if (WARN_ONCE(preempt_count() != 2*PREEMPT_DISABLE_OFFSET,
-> +	if (WARN_ONCE(preempt_count() != SCHED_PREEMPT_COUNT,
->  		      "corrupted preempt_count: %s/%d/0x%x\n",
->  		      current->comm, current->pid, preempt_count()))
->  		preempt_count_set(FORK_PREEMPT_COUNT);
-> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-> index eb73b65ce6c4..7132320035eb 100644
-> --- a/kernel/sched/idle.c
-> +++ b/kernel/sched/idle.c
-> @@ -380,7 +380,8 @@ static void do_idle(void)
->  	 * RCU relies on this call to be done outside of an RCU read-side
->  	 * critical section.
->  	 */
-> -	flush_smp_call_function_queue();
-> +	scoped_guard(irq)
-> +		flush_smp_call_function_queue();
->  	schedule_idle();
->  
->  	if (unlikely(klp_patch_pending(current)))
-> diff --git a/kernel/smp.c b/kernel/smp.c
-> index b696bcc60c08..d51e4bc8da1b 100644
-> --- a/kernel/smp.c
-> +++ b/kernel/smp.c
-> @@ -665,19 +665,17 @@ static void __flush_smp_call_function_queue(bool warn_cpu_offline)
->  void flush_smp_call_function_queue(void)
->  {
->  	unsigned int was_pending;
-> -	unsigned long flags;
->  
->  	if (llist_empty(this_cpu_ptr(&call_single_queue)))
->  		return;
->  
-> -	local_irq_save(flags);
-> +	lockdep_assert_irqs_disabled();
-> +
->  	/* Get the already pending soft interrupts for RT enabled kernels */
->  	was_pending = local_softirq_pending();
->  	__flush_smp_call_function_queue(true);
->  	if (local_softirq_pending())
->  		do_softirq_post_smp_call_flush(was_pending);
-> -
-> -	local_irq_restore(flags);
->  }
->  
->  static int __smp_call_function_single(int cpu, smp_call_func_t func,
-> diff --git a/kernel/softirq.c b/kernel/softirq.c
-> index e1a773e3eb4e..33f82d03ca2b 100644
-> --- a/kernel/softirq.c
-> +++ b/kernel/softirq.c
-> @@ -455,7 +455,10 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
->  		 * Run softirq if any pending. And do it in its own stack
->  		 * as we may be calling this deep in a task call stack already.
->  		 */
-> -		do_softirq();
-> +		if (IS_ENABLED(CONFIG_TRACE_IRQFLAGS))
-> +			do_softirq_irqsoff();
-> +		else
-> +			do_softirq();
->  	}
->  
->  	preempt_count_dec();
-> @@ -517,20 +520,21 @@ static inline void invoke_softirq(void)
->  
->  asmlinkage __visible void do_softirq(void)
->  {
-> -	__u32 pending;
-> -	unsigned long flags;
-> -
->  	if (in_interrupt())
->  		return;
->  
-> -	local_irq_save(flags);
-> +	guard(irqsave)();
-> +	if (local_softirq_pending())
-> +		do_softirq_own_stack();
-> +}
->  
-> -	pending = local_softirq_pending();
-> +void do_softirq_irqsoff(void)
-> +{
-> +	if (in_interrupt())
-> +		return;
->  
-> -	if (pending)
-> +	if (local_softirq_pending())
->  		do_softirq_own_stack();
-> -
-> -	local_irq_restore(flags);
->  }
->  
->  #endif /* !CONFIG_PREEMPT_RT */
-> diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-> index 530d61257b9a..977dd8928934 100644
-> --- a/kernel/time/hrtimer.c
-> +++ b/kernel/time/hrtimer.c
-> @@ -2068,7 +2068,7 @@ static void __run_hrtimer(struct hrtimer_cpu_base *cpu_base, struct hrtimer_cloc
->  
->  	lockdep_hrtimer_exit(expires_in_hardirq);
->  	trace_hrtimer_expire_exit(timer);
-> -	raw_spin_lock_irq(&cpu_base->lock);
-> +	raw_spin_lock_irqsave(&cpu_base->lock, flags);
->  
->  	/*
->  	 * Note: We clear the running state after enqueue_hrtimer and
-> 
-> 
-> 
+  echo crtc > /sys/kernel/debug/dri/<dev>/crtc-0/crc/control
+  cat /sys/kernel/debug/dri/<dev>/crtc-0/crc/data > /dev/null
+
+The WARN comes from the open(), not from the write to control:
+crtc_crc_open() -> amdgpu_dm_crtc_set_crc_source() ->
+amdgpu_dm_crtc_configure_crc_source() -> dc_stream_configure_crc() ->
+optc1_configure_crc() -> generic_reg_update_ex() -> ASSERT(mask != 0).
+
+Since commit ef45aaf73717 ("drm/amd/display: Configure all CRC engines in
+pipe CRC source path") the pipe CRC source path iterates every CRC engine,
+so crc_eng_inst = 1 now reaches optc1_configure_crc().  Its case 1 programs
+OTG_CRC1_WINDOWA/WINDOWB_X/Y_CONTROL before enabling the engine, but DCN3.2
+has neither the register entries nor the field masks for those four
+registers, so the masks are zero and the ASSERT fires.
+
+Commit c79354d12cb2 ("drm/amd/display: Fix CRC engine 1 enable/disable on
+DCN3.1.2+") added the OTG_CRC1_EN mask for DCN3.2 and guarded the enable
+write, but not the window writes above it.  As a result engine 1 is now
+enabled on DCN3.2 with its windows never programmed.
+
+The registers exist in hardware - regOTG0_OTG_CRC1_WINDOWA_X_CONTROL is at
+0x1b6f in dcn_3_2_0_offset.h with its field masks in dcn_3_2_0_sh_mask.h -
+so add the missing SRI_ARR and SF entries.
+
+Note that making case 1 return false instead would break CRC capture on
+DCN3.2 entirely: the caller in amdgpu_dm_crtc_configure_crc_source() does
+"ret = -EINVAL; goto unlock" on failure, so a card that warns but works
+today would stop working.
+
+The same entries are missing for DCN2.0, DCN3.0 and DCN3.1.  I have no such
+hardware and have not touched them.
+
+Fixes: ef45aaf73717 ("drm/amd/display: Configure all CRC engines in pipe CRC source path")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+The four added SRI_ARR lines follow the space indentation used by every
+line of the surrounding macro, hence the four checkpatch "no spaces at the
+start of a line" warnings.  Using tabs there would misalign them against
+their neighbours.  The added SF lines in dcn32_optc.h are tab indented,
+matching that file.
+
+Tested on a Radeon RX 7900 XTX (Navi 31, DCN3.2): after this patch the
+reproducer above leaves dmesg clean, and CRC capture on engine 0 still
+delivers a full 120 frames per second.
+
+ drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h    | 8 ++++++++
+ .../drm/amd/display/dc/resource/dcn32/dcn32_resource.h    | 4 ++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+index 60c01ec28b65..f696e4ee3bc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+@@ -146,6 +146,14 @@
+ 	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+ 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+ 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+ 	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index 68e7140f1505..30878aed61e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -1054,6 +1054,10 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
+       SRI_ARR(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),                          \
+       SRI_ARR(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),                          \
+       SRI_ARR(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),                          \
+       SR_ARR(GSL_SOURCE_SELECT, inst),                                         \
+       SRI_ARR(OTG_TRIGA_MANUAL_TRIG, OTG, inst),                               \
+       SRI_ARR(OTG_GLOBAL_CONTROL1, OTG, inst),                                 \
+-- 
+2.55.0
+
