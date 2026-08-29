@@ -1,365 +1,128 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC33341835B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597BA2E5B29
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788024013; cv=none; b=JD/oZGmsZa+Pp+6/wT8IS7Kfla4zXQwWjI/n9SedxB5cytfvFN21el29sByf+anrVbxwIb9z2jLkt6PKLyGEDDoCo+Cz5mnp/TIeOQMhCGn3KPNVpqctZPor/v0qkTkOJNBDd7fD69p7R+Is67WHihPKqwlQm76H2zdElyXgUfY=
+	t=1788024598; cv=none; b=bUaBfUvDaMnj8z8mlq8WxR4YKIHFcnrw36mebQh5Icoh1RM6sYV8ZsPLNTvLFZ91B/D3m+XXwGMhEkWRr2s2wYMSxj67nFo9bYOzM/F8xSbPsO9diXY3NL9yjipRZ/b0NNlur63Wrjgii8qeh6YAob6ev1pjUtDJwDJLJGWKQ/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788024013; c=relaxed/simple;
-	bh=OSaq2gMX1EKiVTeTsGVjMX55IkhV3apM5CD7fszP9uc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KFaruxdmjQsJ3YxA1cSoj2e3URxP0RrtIOgzYlSgQzdmMgSdkcrLC3v4jGeZnnjboQ9tXoroMcf7oYtFzx9yqg5giUUg0PP6zT1oCtmLVLoEnYDpm+Pe63Vcoe7axZq7wGhWuA9/tjUeuaHa0TuE4gniFrWvvHC9Uvz6xph4R60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WJNG3cb5; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788024598; c=relaxed/simple;
+	bh=LoQYd7VKaqre8qOks87R+wMsmKcrZeNVFtJmAw4spAk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dPesMH37ELMeFJAj9p5SkjXepjpPZ5N6Y55R2UG2etSkwaJTJS8z0YbIDsmZMfsPa+OdRuRyp3Jw9C85WSqYsrmT0e0dyHQ+0/wP14JNVVcb2Grx/jNtfxxl6vD5Y30e1AbjZfJoHFzYPl8FW0F+EZ5yMqW7cvyIhU78YM83OGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Is85ltsN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WJNG3cb5"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so18976595e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:20:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788024006; x=1788628806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H7iBDHstnVbLynr3vOPHFqOHTzA9DFC/5yqJJtpMTcc=;
-        b=WJNG3cb5qoBR/V5yQYm5CNkDNwPNNEXlVtzNdianob9DtxqG6xiLvW+OvnNl/+9tiS
-         t2JHum7suDGPAYKHznjTtPlthODcNzxcFcdyM3tb776BJ7i+AaTvz8ChfVxX9iET95HL
-         /W40wFuyMS6a/Uu5bsq+3b/mFU2aaGyZz0DJjcynOwGRXnZGY8XJgM7Ba86Q/GbyZHOb
-         +UtyIbAOayuN59KKEvAqxc/L4ZkbxTWbVqVWDqXHxw3IzcL2DSQVifPC42mzvHcRQfao
-         7MDGwJRUtFDzL5u/OWMcRrKNPqtjmWAueV2CDVZEZTE/xWcbUlRBnGwNKQwc8LsF0VVS
-         me6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788024006; x=1788628806;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H7iBDHstnVbLynr3vOPHFqOHTzA9DFC/5yqJJtpMTcc=;
-        b=dKCyap7Sv6PJPgHNfX6cL2Fittg0dZ4c1iUxlAE8lYah57P2zCo3ObVWOe1sh9vZYS
-         9hTteTRqypOmM3nPZDJR74g7L+U/eGFfMZk1QZpCTEA9A1ThHA3KCnZG5KXUV3n3BHfs
-         gdO32NEWI/tOsZo8Gkwj7turLZqIg4D0hZHzXDvJ5KTZ1+fp4QFgzhaUlO7+Wx9rdzYV
-         U/hYFSjhducUeCv1L/H4cw4QDa6bGUHzVtKAHAjgKrvw06lvJHBZ6pYDDTU0hiprFCp1
-         yuO5HcFcWiMuy9S55cooG0s5H1tjDXwxqrOqUfuZUgYHun+tH80D8YpWlDfl2glLTptP
-         sn7A==
-X-Forwarded-Encrypted: i=1; AHgh+Rrf5HztutsFtTqLFJ8qbz7YzKZBh2ayCDctas6/s+KyYCb2FGsbdOb07Mt0NIAPCk05+nqegkteDg1MxXg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXttpjnvYj4bOhaBT3onOD8oPT8cV5ranaBKLm1nsVLg7TJnmc
-	4NZ2mn4CHFySIJjSpz+PguSos+776sBPQY37arV1+sNwOC69nLi9Gg3p
-X-Gm-Gg: AR+sD10CM1at9cwGBe0zk9OrED4S8WsQrDiJwzqrQGIonCyNJ15HavHRPq2FM0HXgWE
-	nOdSG5rybu/3BwJoQfLPkfNJXm+D2+utN8btDM/fhKim5qTlXSapUhKJNgjYgZJ1j/iZ1K31IeU
-	ydi+1ePMH0y9dNl8I8xUzui+W8yIhwiBHzfMqo9w9qw/umvH2hC9v8ETTuA+KNnr5vKcWornzje
-	7tb2fPKZlxRKrmghaGmIbG+N6jLnEqnZKuD1AYIXI3SqByLfJzyFRDe/3jHP5LP0E9r3Hk8T3oS
-	PaVUpshC4bXWJ2bvH9DFBePGtVY8yS4bf2y/cUepKnW4ycjZiog053w8SpCQRpSP0dZuIk2iOIZ
-	K2H8o1nv1MZxWg1ebxBm8IaArggHsWGhlyw40uw1+gjvNDUQKuFRsQj+ctKgZc6j8sABTCgojy7
-	D1bM3X2+BGDKgMWWb+wm8BYmwC7eB1kROG+JkQhg9TWf5K4Z+QDtwhVfNm/aXaonic1kwIqnkPc
-	eAHLNCcATF6m0FqeDtDDfKnzigJvRvquCTk/4bCjuX1t92xVL0V
-X-Received: by 2002:a05:600c:34d1:b0:49c:ced8:303a with SMTP id 5b1f17b1804b1-49cced8316cmr53471535e9.14.1788024005472;
-        Sat, 29 Aug 2026 10:20:05 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm121080285e9.1.2026.08.29.10.20.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:20:05 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: nico@fluxnic.net,
-	rdunlap@infradead.org,
-	grahamr@qti.qualcomm.com,
-	kees@kernel.org,
-	pengpeng@iscas.ac.cn,
-	vegard.nossum@oracle.com,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH 4/4] kconfig: prevent out-of-bounds user input for numeric options
-Date: Sat, 29 Aug 2026 18:19:02 +0100
-Message-ID: <20260829171902.1510587-5-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829171902.1510587-1-julianbraha@gmail.com>
-References: <20260829171902.1510587-1-julianbraha@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Is85ltsN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B57CCC2BCB9;
+	Sat, 29 Aug 2026 17:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788024597;
+	bh=LoQYd7VKaqre8qOks87R+wMsmKcrZeNVFtJmAw4spAk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Is85ltsNVZ3Q+ZK8xjIZS5N+QTnEgMasgb0t//dUGqNw2OAAwVFsa73dsrEDTodeC
+	 QAHuz8YMQi9AK88U/SC4tON+5bnEuI+SnvPfWgeqDSDKDa/AHjN7XFZKbIUOZj5u68
+	 X9y50zArQ0pN7MaSIFcfm+0fNXwYMueZLCVXPze6OETM/CZyPvJVyym04dfpbBliB8
+	 V57GPhanCYODJmjlZbfWdd4w2YUfVu5zh6wEmVHN5wU1Wb9GKwjcm4stFuQohnc3+n
+	 4jba+BNGhlFOVxGj9xMLae+ENiBbU5k86+z6OwVfCXhvTK1GFsn11W1BHYKPNz0QFF
+	 F1jViE+EfICLw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91943C61DBE;
+	Sat, 29 Aug 2026 17:29:57 +0000 (UTC)
+From: Maximilian Passarello via B4 Relay <devnull+git.0xMax42.io@kernel.org>
+Date: Sat, 29 Aug 2026 19:29:42 +0200
+Subject: [PATCH] drm/amd/display: set remote MST sink power state on
+ payload changes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-mst-remote-sink-power-v1-1-b9eab331e0d5@0xMax42.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrB2IQWzjVcSF2kk7FBOZCSqE3
+ L2hy7f4P4OSMCmMTQahk5VjqOjaBrbPEt6E/KoGa+xgntbhrgmF9pgIlcMXj3iR4LYY//B9tzr
+ joLaHkOf7/53mUn63RxQXZwAAAA==
+X-Change-ID: 20260829-mst-remote-sink-power-ca0f7f41b909
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maximilian Passarello <git@0xMax42.io>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2297; i=git@0xMax42.io;
+ s=20251130; h=from:subject:message-id;
+ bh=z7GIZHa6GjvkEEzvyXbXQn2iCrZf54tBoOQm4lCih+c=;
+ b=owGbwMvMwCWWb8ayoV75uQzjabUkhqzJ4vz/IkqunV5o2zuhMGdJrLBU3wrFuSuC5RYI2RTmM
+ EQkPg7sKGVhEONikBVTZOlsXTbvoRJj8/TOAG+YOaxMIEMYuDgFYCL/sxj+l3J9OtnD9EJ5WnmC
+ 3JLcQ683M5xwz15ekCDGyPtm06wTGQz/LLV/L8i4fuhr4cmg8EW+yget2q8wTUrQt2hkkz7jdzu
+ VHwA=
+X-Developer-Key: i=git@0xMax42.io; a=openpgp;
+ fpr=BB652AF8176BC2EA82C83A5B025EF9E480AC8E43
+X-Endpoint-Received: by B4 Relay for git@0xMax42.io/20251130 with
+ auth_id=989
+X-Original-From: Maximilian Passarello <git@0xMax42.io>
+Reply-To: git@0xMax42.io
 
-Currently, user input of out-of-bounds values for 'int' and 'hex' options
-is possible, leading to later silent failures in Kconfig if that value is
-used in a comparison, or a warning by GCC or error by Clang if used in the
-C code.
+From: Maximilian Passarello <git@0xMax42.io>
 
-Let's factor out the out-of-bounds check on constants, so that it can be
-reused for checking user input.
+Some downstream MST displays keep their backlight on after DPMS off because
+removing the MST payload does not update DP_SET_POWER on the remote sink.
 
-The frontend will now reject an attempted user input of an out-of-bounds
-numeric value, similarly to how a value outside the active 'range' already
-does.
+Set the remote sink to D0 before allocating its payload and to D3 before
+removing it. Log AUX errors without changing the existing payload flow.
 
-For migration of existing configurations, a .config file with an
-out-of-bounds numeric value will be allowed for now, but will warn the
-user when read in by confdata.c
-
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
+Signed-off-by: Maximilian Passarello <git@0xMax42.io>
 ---
- scripts/kconfig/confdata.c                    |  6 +++++
- scripts/kconfig/lkc_proto.h                   |  1 +
- scripts/kconfig/menu.c                        | 11 +++-----
- scripts/kconfig/symbol.c                      | 20 +++++++++++++++
- scripts/kconfig/tests/warn_num_bounds/Kconfig | 24 ++++++++++++++++++
- .../kconfig/tests/warn_num_bounds/__init__.py | 25 +++++++++++++++++++
- scripts/kconfig/tests/warn_num_bounds/config  |  7 ++++++
- .../tests/warn_num_bounds/expected_config     | 11 ++++++++
- .../warn_num_bounds/expected_config_stderr    |  3 +++
- .../warn_num_bounds/expected_frontend_config  | 11 ++++++++
- .../warn_num_bounds/expected_frontend_stderr  |  0
- 11 files changed, 111 insertions(+), 8 deletions(-)
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/Kconfig
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/__init__.py
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/config
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_config
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
- create mode 100644 scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
-index 4234a51d16fd..2227d89d6328 100644
---- a/scripts/kconfig/confdata.c
-+++ b/scripts/kconfig/confdata.c
-@@ -354,6 +354,12 @@ static int conf_set_sym_val(struct symbol *sym, int def, int def_flags, char *p)
- 	case S_INT:
- 	case S_HEX:
- 		if (sym_string_valid(sym, p)) {
-+			if (def != S_DEF_AUTO &&
-+			    !sym_string_check_bounds(sym, p))
-+				/* hex uses 64-bit unsigned integer */
-+				conf_warning("value '%s' for %s is outside the 64-bit %s integer bounds",
-+					     p, sym->name,
-+					     sym->type == S_INT ? "signed" : "unsigned");
- 			sym->def[def].val = xstrdup(p);
- 			sym->flags |= def_flags;
- 		} else {
-diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
-index 8914b4e8f2a8..8b436c87ba4a 100644
---- a/scripts/kconfig/lkc_proto.h
-+++ b/scripts/kconfig/lkc_proto.h
-@@ -31,6 +31,7 @@ bool sym_set_tristate_value(struct symbol *sym,tristate tri);
- void choice_set_value(struct menu *choice, struct symbol *sym);
- tristate sym_toggle_tristate_value(struct symbol *sym);
- bool sym_string_valid(struct symbol *sym, const char *newval);
-+bool sym_string_check_bounds(struct symbol *sym, const char *str);
- bool sym_string_within_range(struct symbol *sym, const char *str);
- bool sym_set_string_value(struct symbol *sym, const char *newval);
- bool sym_is_changeable(const struct symbol *sym);
-diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index 2d8b0c65ce1e..6f99216ee76d 100644
---- a/scripts/kconfig/menu.c
-+++ b/scripts/kconfig/menu.c
-@@ -4,7 +4,6 @@
-  */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index ab15ceec4daa..ce27024a9593 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -372,6 +372,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	struct drm_dp_mst_topology_state *mst_state;
+ 	struct drm_dp_mst_atomic_payload *target_payload, *new_payload, old_payload;
+ 	struct drm_dp_mst_topology_mgr *mst_mgr;
++	int ret;
  
- #include <ctype.h>
--#include <errno.h>
- #include <stdarg.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -255,17 +254,13 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
- 		return 1;
- 	}
+ 	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+ 	/* Accessing the connector state is required for vcpi_slots allocation
+@@ -388,11 +389,23 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
  
--	errno = 0;
--	if (sym->type == S_INT) {
-+	if (sym->type == S_INT)
- 		type_bounds = "64-bit signed integer";
--		strtoll(sym2->name, NULL, 10);
--	} else {
-+	else
- 		/* hex */
- 		type_bounds = "64-bit unsigned integer";
--		strtoull(sym2->name, NULL, 16);
--	}
+ 	if (enable) {
++		ret = drm_dp_link_power_up(&aconnector->mst_output_port->aux,
++					   aconnector->mst_output_port->dpcd_rev);
++		if (ret < 0)
++			drm_dbg_dp(mst_mgr->dev,
++				   "Failed to power up remote MST sink: %d\n", ret);
++
+ 		target_payload = new_payload;
  
--	if (errno == ERANGE) {
-+	if (!sym_string_check_bounds(sym, sym2->name)) {
- 		fprintf(stderr,
- 			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
- 			prop->filename, prop->lineno, sym_type_name(sym->type),
-diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
-index 7e81b3676ee9..2d1c021fa395 100644
---- a/scripts/kconfig/symbol.c
-+++ b/scripts/kconfig/symbol.c
-@@ -5,6 +5,7 @@
- 
- #include <sys/types.h>
- #include <ctype.h>
-+#include <errno.h>
- #include <stdlib.h>
- #include <string.h>
- #include <regex.h>
-@@ -711,6 +712,21 @@ bool sym_string_valid(struct symbol *sym, const char *str)
- 	}
- }
- 
-+bool sym_string_check_bounds(struct symbol *sym, const char *str)
-+{
-+	errno = 0;
+ 		/* It's OK for this to fail */
+ 		drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload);
+ 	} else {
++		ret = drm_dp_link_power_down(&aconnector->mst_output_port->aux,
++					     aconnector->mst_output_port->dpcd_rev);
++		if (ret < 0)
++			drm_dbg_dp(mst_mgr->dev,
++				   "Failed to power down remote MST sink: %d\n", ret);
 +
-+	if (sym->type == S_INT)
-+		strtoll(str, NULL, 10);
-+	else if (sym->type == S_HEX)
-+		strtoull(str, NULL, 16);
-+	else
-+		/* string */
-+		return true;
-+
-+	return errno != ERANGE;
-+}
-+
- bool sym_string_within_range(struct symbol *sym, const char *str)
- {
- 	struct property *prop;
-@@ -722,6 +738,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
- 	case S_INT:
- 		if (!sym_string_valid(sym, str))
- 			return false;
-+		if (!sym_string_check_bounds(sym, str))
-+			return false;
- 		prop = sym_get_range_prop(sym);
- 		if (!prop)
- 			return true;
-@@ -731,6 +749,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
- 	case S_HEX:
- 		if (!sym_string_valid(sym, str))
- 			return false;
-+		if (!sym_string_check_bounds(sym, str))
-+			return false;
- 		prop = sym_get_range_prop(sym);
- 		if (!prop)
- 			return true;
-diff --git a/scripts/kconfig/tests/warn_num_bounds/Kconfig b/scripts/kconfig/tests/warn_num_bounds/Kconfig
-new file mode 100644
-index 000000000000..a810225a58a3
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/Kconfig
-@@ -0,0 +1,24 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+mainmenu "Numeric bounds test"
-+
-+config INT_TOO_LOW
-+	int "Integer below its type bounds"
-+
-+config INT_TOO_HIGH
-+	int "Integer above its type bounds"
-+
-+config HEX_TOO_HIGH
-+	hex "Hex value above its type bounds"
-+
-+config INT_MIN
-+	int "Minimum valid integer"
-+
-+config INT_MAX
-+	int "Maximum valid integer"
-+
-+config HEX_MIN
-+	hex "Minimum valid hex value"
-+
-+config HEX_MAX
-+	hex "Maximum valid hex value"
-diff --git a/scripts/kconfig/tests/warn_num_bounds/__init__.py b/scripts/kconfig/tests/warn_num_bounds/__init__.py
-new file mode 100644
-index 000000000000..db7518258217
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/__init__.py
-@@ -0,0 +1,25 @@
-+# SPDX-License-Identifier: GPL-2.0
-+"""Test user values outside the numeric type bounds."""
-+
-+
-+def test(conf):
-+    in_keys = (
-+        '-9223372036854775809\n'
-+        '-1\n'
-+        '9223372036854775808\n'
-+        '1\n'
-+        '0x10000000000000000\n'
-+        '0x1\n'
-+        '-9223372036854775808\n'
-+        '9223372036854775807\n'
-+        '0x0\n'
-+        '0xffffffffffffffff\n'
-+    )
-+
-+    assert conf.oldaskconfig(in_keys=in_keys) == 0
-+    assert conf.stderr_matches('expected_frontend_stderr')
-+    assert conf.config_matches('expected_frontend_config')
-+
-+    assert conf.olddefconfig('config') == 0
-+    assert conf.stderr_matches('expected_config_stderr')
-+    assert conf.config_matches('expected_config')
-diff --git a/scripts/kconfig/tests/warn_num_bounds/config b/scripts/kconfig/tests/warn_num_bounds/config
-new file mode 100644
-index 000000000000..74bf263f99bf
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/config
-@@ -0,0 +1,7 @@
-+CONFIG_INT_TOO_LOW=-9223372036854775809
-+CONFIG_INT_TOO_HIGH=9223372036854775808
-+CONFIG_HEX_TOO_HIGH=0x10000000000000000
-+CONFIG_INT_MIN=-9223372036854775808
-+CONFIG_INT_MAX=9223372036854775807
-+CONFIG_HEX_MIN=0x0
-+CONFIG_HEX_MAX=0xffffffffffffffff
-diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_config b/scripts/kconfig/tests/warn_num_bounds/expected_config
-new file mode 100644
-index 000000000000..8b1aef612bc6
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/expected_config
-@@ -0,0 +1,11 @@
-+#
-+# Automatically generated file; DO NOT EDIT.
-+# Numeric bounds test
-+#
-+CONFIG_INT_TOO_LOW=-9223372036854775809
-+CONFIG_INT_TOO_HIGH=9223372036854775808
-+CONFIG_HEX_TOO_HIGH=0x10000000000000000
-+CONFIG_INT_MIN=-9223372036854775808
-+CONFIG_INT_MAX=9223372036854775807
-+CONFIG_HEX_MIN=0x0
-+CONFIG_HEX_MAX=0xffffffffffffffff
-diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr b/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
-new file mode 100644
-index 000000000000..be2ed7fbf648
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/expected_config_stderr
-@@ -0,0 +1,3 @@
-+.config:1:warning: value '-9223372036854775809' for INT_TOO_LOW is outside the 64-bit signed integer bounds
-+.config:2:warning: value '9223372036854775808' for INT_TOO_HIGH is outside the 64-bit signed integer bounds
-+.config:3:warning: value '0x10000000000000000' for HEX_TOO_HIGH is outside the 64-bit unsigned integer bounds
-diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
-new file mode 100644
-index 000000000000..a7e842517026
---- /dev/null
-+++ b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_config
-@@ -0,0 +1,11 @@
-+#
-+# Automatically generated file; DO NOT EDIT.
-+# Numeric bounds test
-+#
-+CONFIG_INT_TOO_LOW=-1
-+CONFIG_INT_TOO_HIGH=1
-+CONFIG_HEX_TOO_HIGH=0x1
-+CONFIG_INT_MIN=-9223372036854775808
-+CONFIG_INT_MAX=9223372036854775807
-+CONFIG_HEX_MIN=0x0
-+CONFIG_HEX_MAX=0xffffffffffffffff
-diff --git a/scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr b/scripts/kconfig/tests/warn_num_bounds/expected_frontend_stderr
-new file mode 100644
-index 000000000000..e69de29bb2d1
+ 		/* construct old payload by VCPI*/
+ 		dm_helpers_construct_old_payload(mst_mgr, mst_state,
+ 						 new_payload, &old_payload);
+
+---
+base-commit: 75a5e1b6b3661c3f946885d01eebeb6b031035ef
+change-id: 20260829-mst-remote-sink-power-ca0f7f41b909
+
+Best regards,
 -- 
-2.55.0
+Maximilian Passarello <git@0xMax42.io>
+
 
