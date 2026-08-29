@@ -1,199 +1,190 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EA131195B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788040140; cv=pass; b=Jpxs3LT3tjeEXY0DptTGAJraydHoPuYiweI4wlcw15AyFOpYVLwsWT3N9rjWCPpPCW8F0EEl5lUIpirGXbRSvwpxLUV4KpHgqcCuArWEuzw4da8sie9XUWtDvfWBeAIGHRXupFV3ONVTdpmzJ1BBF+FR3ycPUKIsws+fNMk5qFc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788040140; c=relaxed/simple;
-	bh=H/9uYP1Y0PBrBKTFWJikeiR9zRmEoPiRFj12d2R9vT4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RYsdPKWbXToVk5fDOYRHWMNrTzSBSNNkFLs38F7l2DQ6jd86V7ak4BLxG3XwaGFxYdIQUbaRhU+V9JIKKCGvPWcGSJ16q3T9vhkYqvi/h6EXZAcozWcvxCun7rsbrsQ6x5awxrSbLYEZfRXYHK4K3BH5xQtKfRq5TqcuxrQNCOE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0TLnWst; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A8D41A56F;
+	Sat, 29 Aug 2026 21:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788040721; cv=none; b=DAylg0duQkQNYU+oPkl+STyigYTCj3xBllkRbsz8MZ2yF7p6fRYdZMe3KW3ZTz7vhOLLFOwDuXnL7WXWmTZmAJqgyBI97zQutwRr3rwQk2Q+sgGU5i3lUEvUbEVbyUOjMEAOJP2pUtQcfJyDpNTyvI5M1iRN+ffm5TVuqSBbEqA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788040721; c=relaxed/simple;
+	bh=jp7Lces/2Eg1UQKRgafSHJa0d9mOhphFOk2iZ6Iw1JI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GjdukcglSdjXEwwKJrepZkP59bT7Q8aFQ/wVHry1nw6z0stjlMbu9HRHQ9SZBPGNzmtslCuc9trPBaaCjVoRpCP8C7tg8EYyl9PtLfJMWdaWjok3DW/6evXFw4cOCABWdnh80lGhSio0f66rUixrkWbnGcCqCdKKXZl+f7PuC3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=f2h2yJOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0TLnWst"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8568e3ecfc3so1190798b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:48:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788040137; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zrve/4fP9SFPiVQNKV9OeMsADBN3mqKolGlk1Ya+A4c92hMcaEh+nOdDZ9ekW9gP7G
-         /UrJWwBHc9q+AYdq+0KBRbBrchz3EpCbN8XM2s9CvwNtZ4sa1SJZiu7wsUcTufU1DiC4
-         qqE6x2xhln76TssjtMR83+iZXckHf/Vg+pM3Fof70sLM9Mj+j+1leOQmK9KwkjfJOsjS
-         s0l3FQcbwlt1bnikEnDNtCMqh8hn809dC6zefvR27Zf7nFk0Y5iQOPkZhiliHSseV7gX
-         LmK5HjK5HZk0s+yUhVZMARYRqlpnQHDmXx2bZmwrWeIxXJe3Wzpr8xtmOgfYhLHFtG8J
-         9keQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ftkIDhd/30DKPZ6nznnqMe05znOkwZBhgu28kTzrKrY=;
-        fh=WHcwJo4dlkCzVORtlmi2saGI+G09GT5VZrL1NU+0h6o=;
-        b=C5m/xsfMfymlv0L25/6sPYpUP2q0grWVi1rJtrQ/yw1WI5EwGlt1ZK/aS+4wq4NdAT
-         wrpI9FmGUcFOQ7BlVrhzeAFBT9nYR3O6pURPyMZ5+Nm88aOJs0ZCoqMDSU78aMfiKRYE
-         TpbSDs6qrx1+P/gg0qxbwjcrc0Lr3uXcLeeIfDn7qwrgoGBEfBBKUg6rQK8zV6aILpwW
-         0nFvnVOoGVPYiH66sr69//UA6pwtOr5ymWipGJ8KoGU5dSY4yHJzpOvjqy/GxA7igbHP
-         bA9HUZ6FFQJ5OLpv+scBFU4HXGJQ6zezBIhbnzNin38NY4pp/foBjI84WBRH4n+455GR
-         39rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="f2h2yJOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405321F000E9;
+	Sat, 29 Aug 2026 21:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788040137; x=1788644937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ftkIDhd/30DKPZ6nznnqMe05znOkwZBhgu28kTzrKrY=;
-        b=o0TLnWstOJge42ij5H+k/i0aqIQZkIIdDlOALWA+yoj9L8jcs4zZEqowkN/rzjYEPI
-         GcczW6bOFaJXIizZh9TcFEcfZIMPxfQL6iOPeCAFeofHlpw/eUFIWCBwU/MDJYsK4maG
-         Rk85v85h64IGXfyMZ0QAzyd+ktLni5LAHrjH0ZPV6tnWxb68pkFnu/vU3d99itKBiTuc
-         GgUNNiGzM+2hlZKtVfPM5wWMbVGAYzCd5LjAQ+kWPnIlx7uzYHQojVNngfs9+Qc3/plL
-         wreVgwuPdryeYOxfxiN1GzpgEVmWhdqF7p+nRbfzia0az0xeNeXYaxa5Zf1WUotwEBs6
-         SpiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788040137; x=1788644937;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ftkIDhd/30DKPZ6nznnqMe05znOkwZBhgu28kTzrKrY=;
-        b=Q2A7Q3of0LBvfXSaaAHOP+34h+dGrTDHbH6U95FJZnV18s72eN5QT0ZXO5vnkFs2Gt
-         ZUzsGGF5jKJPBs6A+xpq/5qDMyckQGXxxtHDFsV6TtJjitD6gBkdv8geZx1/df4OXrjl
-         I33xfekkgnlL3PL8eZilbPQGZweCuXAZjea1zz+ooxCILtKQ3NseOw4VvssjErWHjHbS
-         xhKbfVH8YPx8WDQK1/Cqe4kjPV9CaKIXqM3mHiVxN5UMkVg5k12gnoUPONOHErSFlj1T
-         AT/4l8jFYNlZ277KwRgE3wUasIL5Jc0lL0SJ2YVpynd5cCNrnmsZ5wgr6Q8CBql8LCF5
-         vp4w==
-X-Forwarded-Encrypted: i=1; AHgh+Roieak+S++SAY5TyXMwwv/o9pGd/M87zu559T6lV1gEtNBYzoeehqxG1OdH10BhB4dYQZ5B2R4Jxy/SJRo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHubgNgpkBAiw4BxbLl7FJQs/VTO1JPNUpa1otAeaHO0e3kV4Q
-	CXPPRAZjMZ6bp6M4d/PtYfaeoykj8gDxndRbQv2c0qR1e0nX0ZzqQGB3J2ziOo2gZF9Ju8HfRpn
-	cEFI9QBZAFTa4JhJIOkHIvCSxNzlwMTA=
-X-Gm-Gg: AR+sD12R1Oh6+cQUMpUugtHdKtJlgtmt4LjF8q6NcWPeOOfesvrV9FUyF74CnkGDanD
-	rrc21KolywWRNnYexBiclNf1ZCJcTSwg1F9i4FVlyf5LSvyitpEMkJ8BHbKsX0r68UaU+XKjvN9
-	jkWIpVXnuxmxHl+pr0pY+JpzknpoYBFXR+GQ9xG2FEmZiwoYSEJd7JtUiSDs5HqkZYm6yhXyRjH
-	E2gqtW08CR1+Z4pJhDiEfyiwpobX02tmEwQkpdh677zK9E2/ae/WNjqegtShiGafrU1/vSICMHF
-	OrlzBK/mzYW8rvop1uNK/bL5zLn4WZvGpITwZZTTZXC47LTYQsH9Xy302KHgG3rPCd4TOVdgBLg
-	wh84L5adzO5C653A5OIc4hybBjAgedIQJ2vs8UmJLieT17lIqyTSvPFL5qsLT3lvAgKO1j55Dyj
-	mMPA==
-X-Received: by 2002:a05:6a00:14c1:b0:847:83bc:d2a4 with SMTP id
- d2e1a72fcca58-8562839d7b2mr27163440b3a.2.1788040136977; Sat, 29 Aug 2026
- 14:48:56 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1788040719;
+	bh=pdp2KYYF/8DbOvF5byyXuFVlInYv4CiLt0saQi9aJsQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f2h2yJOGpiZ7jQWOsex1MBBGzJDL2xe4GDMoiuttXJpgCWkVoS9zQq2EmHbs5TauG
+	 DTTp0Jd6w5/lSnMX/1ECf7h1m1rL98R6Co8g5recVRUDuTclbhBlFj0jRL2zkJknFw
+	 CYjzl9QlkJNzQLNUaJkI/JVrDPdgQW5bEhjAehNg=
+Date: Sat, 29 Aug 2026 14:58:38 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com>
+Cc: dvyukov@google.com, elver@google.com, glider@google.com,
+ jannh@google.com, kasan-dev@googlegroups.com, liam.howlett@oracle.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lorenzo.stoakes@oracle.com, netdev@vger.kernel.org, pfalcato@suse.de,
+ syzkaller-bugs@googlegroups.com, vbabka@suse.cz, Junjie Cao
+ <junjie.cao@intel.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in __mmap_complete
+Message-Id: <20260829145838.19351db0a28b30b7ccc1b295@linux-foundation.org>
+In-Reply-To: <6a934778.4d659fcc.734b4.002f.GAE@google.com>
+References: <695aefde.050a0220.1c9965.001c.GAE@google.com>
+	<6a934778.4d659fcc.734b4.002f.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260827-sctp-zero-chunk-inqueue-v2-1-2e7669c6a6cb@gmail.com>
-In-Reply-To: <20260827-sctp-zero-chunk-inqueue-v2-1-2e7669c6a6cb@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Sat, 29 Aug 2026 17:48:44 -0400
-X-Gm-Features: AcwNN1W4BkB_tLbeddy0Wwm7bmTO0fGD1p86kquDxuqJYp1vS5AQsqvG4z3gYNk
-Message-ID: <CADvbK_f-8-0f6i82iH3vuuNBjJwG+Gm2o_RxH37mpBpUc4nZ6w@mail.gmail.com>
-Subject: Re: [PATCH net v2] sctp: validate chunk length in the inqueue parser
-To: theminershive@gmail.com
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Vlad Yasevich <vladislav.yasevich@hp.com>, linux-sctp@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, security@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 5:33=E2=80=AFPM Charles Vosburgh via B4 Relay
-<devnull+theminershive.gmail.com@kernel.org> wrote:
->
-> From: Charles Vosburgh <theminershive@gmail.com>
->
-> SCTP chunks always include a four-byte generic header, but
-> sctp_inq_pop() currently accepts shorter declared lengths. A zero-length
-> chunk leaves chunk_end at the current header.
->
-> When ASCONF is covered by the association's SCTP-AUTH policy,
-> sctp_assoc_bh_rcv() can continue before the state machine performs its
-> normal chunk-length check. sctp_inq_pop() then returns the same malformed
-> chunk repeatedly and the receive softirq can lock up.
->
-> A remote SCTP peer can trigger this after establishing an association on
-> a kernel built with CONFIG_IP_SCTP and configured with
-> net.sctp.addip_enable=3D1 and net.sctp.auth_enable=3D1. The reproducer di=
-d
-> not require application credentials, a shared SCTP AUTH key, or
-> net.sctp.addip_noauth_enable=3D1.
->
-> On commit f967455fb2a5 ("seg6: reset IP6CB after IPv6 decapsulation"),
-> one zero-length ASCONF caused repeated
-> watchdog soft-lockup reports in a two-vCPU KVM guest. All 3 pre-trigger
-> health probes succeeded, while 36 of 37 post-trigger probes failed. With
-> this change, all 37 post-trigger probes succeeded and no equivalent
-> soft-lockup signature appeared.
->
-> Reject chunks shorter than the generic SCTP header at the shared inqueue
-> parser boundary. Mark the packet for discard before either caller can
-> continue processing it, while preserving the four-byte generic minimum.
-> Declared-length 1 through 4 controls and kernel-generated ASCONF traffic
-> remained healthy. The patched sctp_hello selftest passed for IPv4 and
-> IPv6.
->
-> The complete private reproducer and validation evidence are available
-> directly to maintainers on request.
->
-> Fixes: bbd0d59809f9 ("[SCTP]: Implement the receive and verification of A=
-UTH chunk")
-> Cc: stable@vger.kernel.org
-> Assisted-by: ChatGPT:GPT-5.6-Sol
-> Assisted-by: Vantix:claude-opus-5
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Charles Vosburgh <theminershive@gmail.com>
-> ---
-> Changes in v2:
-> - Fold the minimum-header check into the existing chunk classifier.
-> - Keep pr_debug() on the malformed path and leave chunk_end unchanged.
-> - Retest lengths 0--4, legitimate ASCONF, and IPv4/IPv6 SCTP traffic.
-> - Link to v1: https://patch.msgid.link/20260826-sctp-zero-chunk-inqueue-v=
-1-1-86769dcc7f8c@gmail.com
->
-> To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
-> To: Xin Long <lucien.xin@gmail.com>
-> To: "David S. Miller" <davem@davemloft.net>
-> To: Eric Dumazet <edumazet@google.com>
-> To: Jakub Kicinski <kuba@kernel.org>
-> To: Paolo Abeni <pabeni@redhat.com>
-> To: Simon Horman <horms@kernel.org>
-> To: Vlad Yasevich <vladislav.yasevich@hp.com>
-> Cc: linux-sctp@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  net/sctp/inqueue.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/net/sctp/inqueue.c b/net/sctp/inqueue.c
-> index 5f988b3a8814f..d666cec6b194e 100644
-> --- a/net/sctp/inqueue.c
-> +++ b/net/sctp/inqueue.c
-> @@ -212,8 +212,10 @@ struct sctp_chunk *sctp_inq_pop(struct sctp_inq *que=
-ue)
->         chunk->chunk_end =3D ((__u8 *)ch) + SCTP_PAD4(ntohs(ch->length));
->         skb_pull(chunk->skb, sizeof(*ch));
->         chunk->subh.v =3D NULL; /* Subheader is no longer valid.  */
-> -
-> -       if (chunk->chunk_end + sizeof(*ch) <=3D skb_tail_pointer(chunk->s=
-kb)) {
-> +       if (unlikely(ntohs(ch->length) < sizeof(*ch))) {
-> +               chunk->pdiscard =3D 1;
-> +       } else if (chunk->chunk_end + sizeof(*ch) <=3D
-> +                  skb_tail_pointer(chunk->skb)) {
->                 /* This is not a singleton */
->                 chunk->singleton =3D 0;
->         } else if (chunk->chunk_end > skb_tail_pointer(chunk->skb)) {
->
-> ---
-> base-commit: f967455fb2a5a2079b9eb5823e9ccf359174bf9f
-> change-id: 20260826-sctp-zero-chunk-inqueue-b478dca552c6
->
-> Best regards,
-> --
-> Charles Vosburgh <theminershive@gmail.com>
->
->
-Acked-by: Xin Long <lucien.xin@gmail.com>
+On Sat, 29 Aug 2026 13:56:24 -0700 syzbot <syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com> wrote:
+
+> syzbot has found a reproducer for the following iss
+> 
+> HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
+> git tree:       net-next
+> console output: https://syzkaller.appspot.com/x/log.txt?x=154d7d49580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+> dashboard link: https://syzkaller.appspot.com/bug?extid=e4aa91d7f20c34417d4e
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=134d7d49580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1177ae25580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/18856a03a9a3/disk-1b78070a.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/cc2bc68d7ef4/vmlinux-1b78070a.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/05a5e00f8f91/bzImage-1b78070a.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+e4aa91d7f20c34417d4e@syzkaller.appspotmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+
+From: Junjie Cao <junjie.cao@intel.com>
+Subject: net/sched: taprio: catch up in bounded time when the schedule falls behind
+Date: Thu, 20 Aug 2026 14:27:13 +0800
+
+advance_sched() advances exactly one entry per hrtimer expiry.  When the
+operational schedule falls behind - the timer was delayed, the CPU was
+starved, or the reference clock stepped forward - every elapsed entry is
+replayed back to back from hrtimer context with current_entry_lock held,
+and each replay rearms the timer with an expiry in the past.  Once the
+backlog is large enough the CPU never leaves timer processing and RCU
+stalls follow.  syzbot triggers this with schedules whose intervals are
+shorter than the cost of servicing one expiry, so the backlog only ever
+grows.
+
+Skip complete cycles arithmetically and walk at most one cycle of entries
+to land on the entry covering the current time.  Gate close times and
+budgets are still only computed for the entry landed on.  An admin
+schedule crossed by the jump is picked up by the existing
+should_change_schedules() check on the recomputed end time.  The walk is
+capped at twice the entry count as a safeguard against degenerate
+intervals; leftover backlog is then handled by the next expiry as today.
+
+Link: https://lore.kernel.org/20260820062715.278124-2-junjie.cao@intel.com
+Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ net/sched/sch_taprio.c |   56 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 53 insertions(+), 3 deletions(-)
+
+--- a/net/sched/sch_taprio.c~net-sched-taprio-catch-up-in-bounded-time-when-the-schedule-falls-behind
++++ a/net/sched/sch_taprio.c
+@@ -916,6 +916,51 @@ static bool should_change_schedules(cons
+ 	return false;
+ }
+ 
++/* The operational schedule fell behind, e.g. because the timer was delayed
++ * or the reference clock stepped forward. Advancing one entry per timer
++ * expiry would replay the whole backlog from hrtimer context, so skip
++ * complete cycles arithmetically and walk the remaining entries to land on
++ * the entry covering the current time.
++ */
++static void taprio_catch_up(struct sched_gate_list *oper,
++			    struct sched_entry **next, ktime_t *next_start,
++			    ktime_t *end_time, ktime_t now)
++{
++	int budget = 2 * oper->num_entries + 1;
++	struct sched_entry *entry = *next;
++	ktime_t start = *next_start;
++	ktime_t end = *end_time;
++	s64 behind = ktime_sub(now, end);
++
++	if (oper->cycle_time > 0 && behind >= oper->cycle_time) {
++		s64 jump = div64_s64(behind, oper->cycle_time) * oper->cycle_time;
++
++		start = ktime_add_ns(start, jump);
++		end = ktime_add_ns(end, jump);
++		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time, jump);
++	}
++
++	while (ktime_before(end, now) && --budget) {
++		if (list_is_last(&entry->list, &oper->entries) ||
++		    ktime_compare(end, oper->cycle_end_time) == 0) {
++			entry = list_first_entry(&oper->entries,
++						 struct sched_entry, list);
++			oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
++							    oper->cycle_time);
++		} else {
++			entry = list_next_entry(entry, list);
++		}
++
++		start = end;
++		end = ktime_add_ns(end, entry->interval);
++		end = min_t(ktime_t, end, oper->cycle_end_time);
++	}
++
++	*next = entry;
++	*next_start = start;
++	*end_time = end;
++}
++
+ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
+ {
+ 	struct taprio_sched *q = container_of(timer, struct taprio_sched,
+@@ -925,7 +970,7 @@ static enum hrtimer_restart advance_sche
+ 	int num_tc = netdev_get_num_tc(dev);
+ 	struct sched_entry *entry, *next;
+ 	struct Qdisc *sch = q->root;
+-	ktime_t end_time;
++	ktime_t end_time, next_start, now;
+ 	int tc;
+ 
+ 	spin_lock(&q->current_entry_lock);
+@@ -961,14 +1006,19 @@ static enum hrtimer_restart advance_sche
+ 		next = list_next_entry(entry, list);
+ 	}
+ 
+-	end_time = ktime_add_ns(entry->end_time, next->interval);
++	next_start = entry->end_time;
++	end_time = ktime_add_ns(next_start, next->interval);
+ 	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
+ 
++	now = hrtimer_cb_get_time(timer);
++	if (unlikely(ktime_before(end_time, now)))
++		taprio_catch_up(oper, &next, &next_start, &end_time, now);
++
+ 	for (tc = 0; tc < num_tc; tc++) {
+ 		if (next->gate_duration[tc] == oper->cycle_time)
+ 			next->gate_close_time[tc] = KTIME_MAX;
+ 		else
+-			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
++			next->gate_close_time[tc] = ktime_add_ns(next_start,
+ 								 next->gate_duration[tc]);
+ 	}
+ 
+_
+
