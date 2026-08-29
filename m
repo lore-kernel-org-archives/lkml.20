@@ -1,93 +1,195 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070FC31D39A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F8D125A0
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788005623; cv=none; b=HyLEvumuCGEiQ0wRYZ2UKCgQ/p0LliMpn8N+mJBvz9VAnqmTGQG5UtpoJmW0hTFfuLTV+DUgsCR2KJGwhFa1UBHg11FVUdoZM5h/4O93xLXSQ6gLTW52HUdLbcy4L1FsMwyvbWhUnzn/v3jdWjFcV+y/V0zmlDA+fjoAPixyb1Y=
+	t=1788005668; cv=none; b=gzH3s1HmON+aBM3AELcYWJ+cuygRdgHF5EXZdrHzCdIzuy+h8MObHN7bx0GVvrTRdUXIZAVhBdFy7ChnbK9XrnkbtpaVUJ+g8OJYp5v3K9NXpiupkxuCSmabD7neTpKqHAKSXkQSlrndUcsRibUl2lsIhoNuSZRbW5Q5UQB3Zn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788005623; c=relaxed/simple;
-	bh=JAONKe6FamLOeWHqWahtkO2yz33T3jhe2IjUwPgMEsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eCOYvvuVPXc6EKG+ucFWrkWw3kiZIrW/qR69JI6ECHw92NVhfXLqiT1Ojsd3w4nOXear1AjsqpqjOVBkPv1WBV16CLdCS6LpDN7TWv5ft/J8dq/PHzw79mQAj/Mb81IUOdfbq7aggbz/cG5Q37jObQ615ZVkNfwpL7q99m6RmoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hb9OckwD; arc=none smtp.client-ip=209.85.210.172
+	s=arc-20240116; t=1788005668; c=relaxed/simple;
+	bh=KW7HHHmgW8A4KSxm+ZoRDVSUyYqMMfLhPzmx4E4hIrA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YxSSCUbLCfPi0oje0mw3Q6XJOoyG7sZ+ckl41yjR/hUgramBAZz/FhxCayGa9ZENPAbqoviPdBMYjJQwNTZZkPzZC3EqJwTRyEXIcHtr7V5Do2Ktu7Hz/aChYvm4N82/6SPqK5GidMmPhtnn9jUS+NgeElKJ5KTdRCsutrjNBxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPo3iw6C; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hb9OckwD"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-852c481415fso2124289b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:13:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPo3iw6C"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc11a905ba5so1400813a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:14:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788005621; x=1788610421; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788005666; x=1788610466; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3qpiRKhTPXXV/T2+awybSnvPRBM65XAy0brn5CKaYMA=;
-        b=Hb9OckwDnr8wfbcsxCcBabOmKJv6GhFigIg31Itlf92ZBjaW+bkygcdIZUvoSABcxy
-         h/d1jnmnlmdmMHqu8ercDmvCfi1HVrdZLGP1XoryGxh9M3wmYT2olHWj6SMROdnNcoxx
-         AePdCFLz/u8RGB47ONZ8SL6w86nRxENim4MklUOek7SoApogJE5WjALEVYITlPgRFX9W
-         8Wtci3+eZ6yW9/1a2ThdDTNy/yjR2kKkR5lNUI1ttEKDW5meQ5+95FoQu6yC8/NpVlP9
-         DL5Mhst4a7EpiVu4v5GQO5oGDzAiCm1h5ivMcMIQPz8l30HLBlM0xknSU/jsQsI6OqsQ
-         w8vA==
+        bh=4ZjeSOJ3ZUdiMaD6OgZX4tAy8bDLNB2jkjQ2lfsH+rk=;
+        b=oPo3iw6C4d90PDn7KLV+8Wf7PiZz6hH7WVMkB5OxKZ83/EeOiVYx5m5PmOUjBwC3bo
+         ZJG7XZOPSttN9XZn9fD/7gcfRxwa9emars5kdmCyTUYsFVW9zngpFWATpCoN6/cEaiEM
+         4Vn/jEmYP48X/ar1zwPRtoy462UPkY4ICjWswMzA84y4OaELFzYRu5CvA/8PZJDDfq1G
+         iObwBb4VtwgpbCPw06gPAuqdRMse+bL1jFT+MwP751Gp/21e+P9vrmLUSEvDY8x/YMTC
+         A/6ruKQsa9QSfXq9wc7/X/joPul7j7dOJ2I3oZ9iTAstD3Q8mAut8n4rqKTph9mXlpKD
+         W4wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788005621; x=1788610421;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788005666; x=1788610466;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3qpiRKhTPXXV/T2+awybSnvPRBM65XAy0brn5CKaYMA=;
-        b=igDQDVQJ0k+qVVAS8VPix3jEivMPzCn20oq/yCapvSkxmov4+qljrK6LBOkbftTL7+
-         xgM3NJg1urkkoS7rS9LZooNsamEBEU3Epa+kQxdZhRpofV8zJDz7/H7NFwABXLZj0gu5
-         Og1ocJrRu04CO8qTC8HchXFYMR3F+KM1NEn6zoE5g901pHtvFHS6mqzMkmr/EX2al33F
-         x8xAisVa76nM4JaKW3PyhASIMPJiZbWjCNVDc0ECQLmG+cYwk6yoHgBHiXj2pP0N3bp3
-         YRYHZBMCiP2pqo8eSvLsVAw3+JYkdFpvf/nxJo7Ex0OgnuzsIKkajMJAEJiHXXgINBTs
-         8Hsg==
-X-Forwarded-Encrypted: i=1; AHgh+RqQArC3WRWwr5rYXZjXcR80MlQUyAcIrHqx29SNAGbkezkOVDDgVeKg4BrQlqUmElqzq/cwxvrFhd63e0s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ms0QxB36sWVh1riFEJDGM/fifc6Rh/66iQvnzwE8q26ujAFx0U
-	YJlE6iAYk8+u62MxI6ARORukk9BkBT6NQ2e50ojNRKgOpaMl6Kn2uKpU
-X-Gm-Gg: AR+sD10A4aTuoSUVpLqePTDjY0J+SemVbZsKxnFMP85N7Vv+bPtsOJP+hI0XgEkutw5
-	+8QqSkGf1kcGeHYOaztTePhlr2CZQE+8Ti1V+SVn+6bUGa2vkXUaxV+0CTf6qhktXrj9VXYJRaZ
-	y+3KS5tF3hB+peLhuxPOjZfP21rI6JYWWR8IEn6khmMWLKNUzwdWJ0U6viMeOMVWAJBDYXTYmT8
-	M8+70HcY0nb7DjFbwNvVbvWPkRNXH/RaIH1xo2D8eUWViIvEKjH0t/YqlQsMALjBM0NiALsQ+MV
-	knB8Ge9P8sNDgK02stujBixKy3QSZN3u8/Ppgml4QVToBqBqWn6+PSWNPVGY9CgdjfZUQXZTiq5
-	JyGtgJtbddOCMrC8sZamb8HJ+RzosVQPeK2L1tuWb8begKfH21rB1ZXCkVhuSUhP1cy0r90t0Kb
-	8sk45bdX5zP+PS9d1kgLBtkDPKEAzCsk0ztxYOBazeRh8AmPQE2h7I+fZT+ZPDJZS6RLcxon3zI
-	UkBRGh2wuGnXNrqYW5YFUvhnWSBHCTQNg==
-X-Received: by 2002:a05:6a00:348d:b0:857:7337:5dbb with SMTP id d2e1a72fcca58-85773375f79mr9928458b3a.25.1788005620844;
-        Sat, 29 Aug 2026 05:13:40 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569f984f4asm1439527b3a.15.2026.08.29.05.13.38
+        bh=4ZjeSOJ3ZUdiMaD6OgZX4tAy8bDLNB2jkjQ2lfsH+rk=;
+        b=VZ2TXyBQdUvjXHEdQ4/sE4dQT20z5quAyw/SlXX+lg7JToPv8Mr2K8ceIuxytjMbGV
+         tzrdvuUR8d26ZcKuHdBCMgYPd+RCi6esy2e1+3ouxKV5RtZgNDf3pg/hmzB89kHdJrQ6
+         agae9ll7dEhY2ISV60GrA4Js9W2MBluEj//BcVOFOzjdq2PjhjtrPJWgg4Bf/u64DYG/
+         RmO8nTeOcSyeD3AcLDfQ9XritDOeAu/+pR4KWOJ3OpP4rgudPewrKr4FXoknW2aHvCoW
+         R8MUHL0KLo4PhcnB9me7K93p8VsIceJjDaz9DsV4noWyK0WpYLp5y7IO/gBjnKQ5d1NV
+         tW7A==
+X-Forwarded-Encrypted: i=1; AKwUvByiKGa3wjIJdgX73Ht7obajTWKbGyvw7NidARvTBDZ3zekbbEFUQEJSON/P5v2b7tQkLPZbs/U9EfMVRnE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAqIJw7BDxRcqlDMy6/khrRytjpt8xo6GMTM5BE6sOHVdnR645
+	9YdeI6X9iGskP32ShnRvfyfJ06xiWi4AZA69xxwIl582HUzYT94EwcIfsslYfnxb
+X-Gm-Gg: AYBFou1bevq0V01HCd5dgQH/gF6b27o2bFm4akVxDWzUy8bqUP2mQdHuHHcHivGy+ja
+	m3SIizzdtLbztrInC85mRK3KYSik9GPTPlg4NT6GGKt7W86B1hjffSc/AW6uZLJZpoaMEfIVsuE
+	tm2Sn7H5krfuKONwAY7CSCUKB50wOp42c8K1xPrakuXcUtp+P3DELl4cva094bFvNLZOe+JuYgS
+	HrdsXVBscKQjIeoDPGvF5i3YTmcR6TZyv6Vl/6+XlVXzDWefkdxpAOXt5aVshpU2JKof9j+zcYt
+	hZtuJgouZZTgQw93JMgwrSYu7ij8Qxtn1Lcq2fALK+v1/wBL73iptzqdNw5V7EKZnIgnn5iRv02
+	nrZAoO4aEoWOdSsfhRAPIjeJIkW6ctYo9oLh22VF8bwnlbaIgqpzOH8UdD81OKx4lTjjcOxDVaW
+	JsMvZYhDSlFBjlAz2qeJm9i99ihE7Lar292jBEnu3dcC+yGBSaS42ocap+6dDxE6DVdK1SmYEj7
+	9RiVoOvuk27ER7ytieidY5XwiBZRQ==
+X-Received: by 2002:a17:90b:4a8c:b0:392:6638:2e6a with SMTP id 98e67ed59e1d1-396d0f69d10mr19229013a91.13.1788005666181;
+        Sat, 29 Aug 2026 05:14:26 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be440sm17396388eec.7.2026.08.29.05.14.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 05:13:40 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-To: akpm@linux-foundation.org
-Cc: willy@infradead.org,
-	jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	baohua@kernel.org,
-	qiwenjie@xiaomi.com
-Subject: Re: [PATCH] mm: filemap: tighten dropbehind completion context check
-Date: Sat, 29 Aug 2026 20:13:35 +0800
-Message-ID: <20260829121335.3491374-1-qwjhust@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828181035.ce6e23970d37e38b64818f10@linux-foundation.org>
-References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <20260828181035.ce6e23970d37e38b64818f10@linux-foundation.org>
+        Sat, 29 Aug 2026 05:14:25 -0700 (PDT)
+Date: Sat, 29 Aug 2026 05:14:22 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] Input: drv260x: Fix suspend and resume sequencing
+Message-ID: <apLD91vzHIrLOPWC@google.com>
+References: <cover.input-v2.1787872237.git.mauriziocasciano7@gmail.com>
+ <4454f96d3f5b78db90732cea5c1b1373ed0a2d65.1787872237.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4454f96d3f5b78db90732cea5c1b1373ed0a2d65.1787872237.git.mauriziocasciano7@gmail.com>
 
-I kept the helper private to avoid an MM dependency on <linux/bio.h>.
+Hi Maurizio,
 
-After looking further at the mapped-folio case Matthew raised, I think the
-better fix is to retain a dropbehind folio once it is mapped.  A mapping
-represents a competing cached user, and retaining it avoids the sleeping
-unmap path, so filemap no longer needs a stricter context helper; the
-existing in_task() guard remains.  I will respin the patch on that basis.
+On Fri, Aug 28, 2026 at 01:16:37AM +0200, Maurizio Casciano wrote:
+> Force-feedback playback is queued asynchronously, but system suspend
+> can cut the enable GPIO and vbat supply while the worker is pending.
+> Quiesce the worker and reject new playback requests after suspend
+> begins.
+
+Would it be easier to use disable_work_sync()/enable_work()?
+
+> 
+> The enable pin also disables I2C and resets volatile configuration.
+
+Again, this is not true.
+
+> Raise it before communicating on resume, observe the startup delay,
+> and rerun device initialization. Restore the same state if regulator
+> shutdown aborts suspend.
+> 
+> Assisted-by: Codex:gpt-5.6-sol sparse
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> ---
+>  drivers/input/misc/drv260x.c | 42 ++++++++++++++++++++++++++++--------
+>  1 file changed, 33 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
+> index f26a9052edd2..c64a86bc9bfd 100644
+> --- a/drivers/input/misc/drv260x.c
+> +++ b/drivers/input/misc/drv260x.c
+> @@ -181,6 +181,7 @@
+>   * @work: Work item used to off load the enable/disable of the vibration
+>   * @enable_gpio: Pointer to the gpio used for enable/disabling
+>   * @regulator: Pointer to the regulator for the IC
+> + * @suspended: Whether force-feedback work must remain quiesced
+>   * @magnitude: Magnitude of the vibration event
+>   * @mode: The operating mode of the IC (LRA_NO_CAL, ERM or LRA)
+>   * @library: The vibration library to be used
+> @@ -194,6 +195,7 @@ struct drv260x_data {
+>  	struct work_struct work;
+>  	struct gpio_desc *enable_gpio;
+>  	struct regulator *regulator;
+> +	bool suspended;
+>  	u8 magnitude;
+>  	u32 mode;
+>  	u32 library;
+> @@ -215,6 +217,13 @@ static int drv260x_calculate_voltage(unsigned int voltage)
+>  	return (voltage * 255 / 5600);
+>  }
+>  
+> +static void drv260x_set_suspended(struct drv260x_data *haptics,
+> +				  bool suspended)
+> +{
+> +	scoped_guard(spinlock_irqsave, &haptics->input_dev->event_lock)
+> +		haptics->suspended = suspended;
+> +}
+> +
+>  static void drv260x_worker(struct work_struct *work)
+>  {
+>  	struct drv260x_data *haptics = container_of(work, struct drv260x_data, work);
+> @@ -243,6 +252,9 @@ static int drv260x_haptics_play(struct input_dev *input, void *data,
+>  {
+>  	struct drv260x_data *haptics = input_get_drvdata(input);
+>  
+> +	if (haptics->suspended)
+> +		return 0;
+> +
+>  	/* Scale u16 magnitude into u8 register value */
+>  	if (effect->u.rumble.strong_magnitude > 0)
+>  		haptics->magnitude = effect->u.rumble.strong_magnitude >> 8;
+> @@ -583,17 +595,21 @@ static int drv260x_probe(struct i2c_client *client)
+>  static int drv260x_suspend(struct device *dev)
+>  {
+>  	struct drv260x_data *haptics = dev_get_drvdata(dev);
+> -	int error;
+> +	int error, restore_error;
+>  
+>  	guard(mutex)(&haptics->input_dev->mutex);
+>  
+>  	if (input_device_enabled(haptics->input_dev)) {
+> +		drv260x_set_suspended(haptics, true);
+> +		cancel_work_sync(&haptics->work);
+> +
+>  		error = regmap_update_bits(haptics->regmap,
+>  					   DRV260X_MODE,
+>  					   DRV260X_STANDBY_MASK,
+>  					   DRV260X_STANDBY);
+>  		if (error) {
+>  			dev_err(dev, "Failed to set standby mode\n");
+> +			drv260x_set_suspended(haptics, false);
+>  			return error;
+>  		}
+>  
+> @@ -602,9 +618,15 @@ static int drv260x_suspend(struct device *dev)
+>  		error = regulator_disable(haptics->regulator);
+>  		if (error) {
+>  			dev_err(dev, "Failed to disable regulator\n");
+> -			regmap_update_bits(haptics->regmap,
+> -					   DRV260X_MODE,
+> -					   DRV260X_STANDBY_MASK, 0);
+> +
+> +			gpiod_set_value(haptics->enable_gpio, 1);
+> +			usleep_range(250, 500);
+> +			restore_error = drv260x_init(haptics);
+> +			if (restore_error)
+> +				dev_err(dev, "Failed to restore configuration: %d\n",
+> +					restore_error);
+> +
+> +			drv260x_set_suspended(haptics, false);
+
+If we need error unwinding please use goto style.
+
+Thanks.
+
+-- 
+Dmitry
