@@ -1,278 +1,174 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DBE3F1047
-	for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787960895; cv=pass; b=aOoPAz7lYlLpvnYuCXszD3VcCaTuf9qNpKLJpMowfhC9ZaLthwuCsvvbqQTENPA2/Tllbox01UZjYMZ2Mkv7KeM8y9REkuiHHlZFrYzpwRE42XDifmB8hI1Qjb4togG2Ew1FiLSzIKLQ+hv2jFr7JYBpfg43lZYq/niR5hTnLbw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787960895; c=relaxed/simple;
-	bh=spX/covX2Eaw7V1D1WXRyeguV90YicWj8SfcKAVL6xg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cO2vPO51YAI9sCyOJeZAcTvXOcSYt6ZZ973N6zZ806897ScVmBjA/kCE8xXyzIQ61EJBX1pe9jk7TiOAHjct8VYktvbyRvxhKWwLInDhLoPE20CLnNy5zZ4MebDWNRMdKevjG7eEBB+hfCvJk3biqhNRDC2SW1go3Y6SrbMUykQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JBkwAxx0; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E484C6D
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 00:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787961689; cv=none; b=enZ13ywAkUTtoAKGvrBSUSdOe+CmBld5/GFv2wYlWj+Bx7LX8GWWc01P0EJzkej0bI0iprwvXxvIseaiZWvTUORQaQfygWep2zFzfgwesvXKouPENL7A9hrU8Prur2bTuZqH2ai/h+4txUh6dYhhcHBohw78XwJnMJZyWAN6J60=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787961689; c=relaxed/simple;
+	bh=XTtWz0UzJqkUF4/34oCqxMpiGnDoUtBqy/FaIC8xjoc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MyfGOe4J/ikKJyzOuiqt3T6HYgcL3gU2jeqCv2uKd/SoJe2WynSD7ygMGrHZuy9CH9U01tzz+WiNvJHGIQlDXHpjoLObr6zijhkOfPge3BnbjUPYRsxv7EPtBiv8HnPghfR/ASZG2UPh8VGSm5H8j07JMlXRcKWGHMgjzGoREeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=L/OWsm4V; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JBkwAxx0"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c01c79467so100851cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 16:48:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787960893; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ENbiUue0G70qSiLhGwWjMJNGsWM/DJcKjdOTY+3Ot1jyonACmsmfgD476syygHyGpf
-         8DGJiPQrISo7JCpGB8oJWiv59sZJzgDNNao8K8RXPwHQUklxoKMRcjMZjI/ruOaj9P2+
-         pRyWBmrPWOruVEmEpPE/JCWEJ0fBCFAyADmxRBQlR2EDedU0unzbXbB4OhdKS9hDDG5A
-         QrXS9sz8nfvpPLFogHjg1s3pUZfs3J7tN4dmdJNDW64/CiJ6hbDU+DDTXlvmoNg5TGLn
-         pJUlEK/TNoC+VFDLDBZ04DfSU9VBGMUzJ+oouo+xq3wokyTcwqBOTBih1Ol1G71Auwvd
-         d9+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yc+vOqjH7EkbGiYMYTHlmr955fm/fNcVpennfZlqFLU=;
-        fh=jcW4DGMaA7gbyun2HLcWXEnCvPG3CrXlsvEsvCLNXlc=;
-        b=VxXx3N79F6QCOcXlvGwClOMbqfKu1LP/zyksGbMJQhut+kq3Iz7hqUfrZubw+OYtmG
-         Ll1kpfS8IVYuOPG6MG7rh6CRH6HshEXxeMJUeQGgtDHwqaDKHdDL2HfZhAb7FBy+SKzi
-         k212Wtr4mhr6wfypzB+IxhgV1jLejWeIZgmA2tWnSiYvR2AUNYmQh6By+wk1Y34acnvW
-         xA6QSqS66DClsaIt3IBk2XjeicSu24z3fPI9PG4gQlSWtdKM2DJ2mFPZMimck8w97Fo+
-         XhgKTvE3EjwLbF1vrkr6BVrGL23rpPLnoVNBVtAKwLDm5Ndjac1fU26tGiKt7wuNC3vQ
-         PZyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="L/OWsm4V"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47fe45db360so232757f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 17:01:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787960893; x=1788565693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=suse.com; s=google; t=1787961686; x=1788566486; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yc+vOqjH7EkbGiYMYTHlmr955fm/fNcVpennfZlqFLU=;
-        b=JBkwAxx0fKinEjMn+7OFRh1VzaX2WLJYcsVHCJE1ICAQyN3swK8NA8Ajt+i/CzNL1r
-         RTgG5sVrZ0bJTCz6Jrs9mduXaK8Bm5EmK98Ie6WTiUbYF1lSU6mSfOQAMTS91BhySfTK
-         Jczc6VD3kD60hQ1GiOIBcQJtfUGELC17UCvUqd9FBTCSnHc/24RaRUR6S84Bzg2B6blt
-         4IOAvc8jgmPR6gSXkhgykR3+O6uYSUqC6ZQmDV7CEga/8L7ZeAEb3sQM2WsKHZaiCJ4P
-         h5qU4hNJEhPHRa5KGEC9WgGaXrYku6hbBXBNlS8QpTmxkIyTWb61yMBliwM+QtL9AFoG
-         xY3g==
+        bh=78uVeNXTFjv5Imt5OX67hFUHeeD2uCgnWEQFVSHEokI=;
+        b=L/OWsm4V5Tm3fnlMTNjY750vRJleykx6TgBN3H/Jdu4WHg5rrRyqNq7g2UsSKPLp/S
+         MsTn4Sa+qHSngLeN8OOBQTEV1JSlbWpfslodj97yWnGAo+ZG9I1wH2cT2hy21fvPHg92
+         tRW+dkktgKe7nMsZh052VKLBG4ibD8I7F43vbZvbsKxUYKMZ7VoAwxaeo3xyTiRT10LP
+         XTIGlzoRruz4y/UCtpGa0YMW9uwY41+sEfjmwggustk9VE1mI/S+e50p8e4N3Qq5SGi0
+         HWaQxiO7/LRrdRH73arxkzmyRQMBsNc7+vhdsmnz5NYpRnP2QMt+Seo2RwhCI8GvxwGm
+         ISiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787960893; x=1788565693;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787961686; x=1788566486;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yc+vOqjH7EkbGiYMYTHlmr955fm/fNcVpennfZlqFLU=;
-        b=mAM+kjQArHd+xmUgDTXbE2pvlfrbHv9BXwh9UMnZ361hgarmr5hIYg1IS71LbsGRVg
-         Y1dQSEKZeu6aphlepymW8+5cym26754/ajSpGDb2X8wb43smPVHy0VH0ixt5sWV/pCq6
-         H6/UhcqLvT/ZvadIrdUBoSP9LVuHtKc3ZdEjwjO4Ob6rbd1nombtGXQ6GlIlWx7Ywv/9
-         gtAXsy3aOnQMjkDupNLTwFaaVwCSopUZ5tRFTtJfZEuaVaIRr/v6nw9zogzwM0UD7LIX
-         jRETyP1r4TR6XAlGVP0/AT0HvusHDImv4OYL+/JJXMJaxhklT1vy+cOgBJZ6OSc6ty+V
-         uoLw==
-X-Gm-Message-State: AFuF++lh5gO+m/him0i+QGnoHdZXMVl2XKiMzop9zWY+FJNRuNwUoZCJ
-	AeG0lt5s9Wcm3h1KI7sMV/ExFibl9NFg8eT7nJiL5f0OtFAbo99A8FAGtl35zhmM/8PkdEmMLqd
-	+yGBLBRjFWZU0kUv2IzmuVc1k/C1lrSEPvTf/AKKH
-X-Gm-Gg: AR+sD12XoyWUuLSmZnsAM4wkPdjuU6uN8RC2ydiDTrVNzL5NvwpoU2VO4xhKeoObjxI
-	NFFxMfiTSTfCdXpVRFoU/o/VkVbim0H9bWWui1Ei4WcGw43zQtNm236aaoiC/DfItbne6M19zbR
-	4kfKAXHY8G3hJTtr0u4Vk8ix1aFpIU5TA6c5rFR1vL2+hcLdio8pJMRrK8Wiab9oOBAnFAwlgSp
-	/+tXZTwI9MWbJYg4Tf+OwjL8jjjDhK32XMv5aaOwQEsAmF+V7WdTDLS7yvHU9j7IuojwoCgiyWf
-	iu6VA6C+tlsxQmmVg0NRSi/Jscn1DtMNlGPH60k0EzA=
-X-Received: by 2002:a05:622a:90b:b0:52b:806e:2633 with SMTP id
- d75a77b69052e-52ff716a474mr6023051cf.1.1787960887478; Fri, 28 Aug 2026
- 16:48:07 -0700 (PDT)
+        bh=78uVeNXTFjv5Imt5OX67hFUHeeD2uCgnWEQFVSHEokI=;
+        b=QveozmrwTYKpbMkogiVsUObROt9UG6LTEslRwvRZ4oM+SI6Cf3c82YgktkfPYDKkD9
+         NifuJ2p33JREtCuS1iRV8pxxjefc2q3/q+ZIP+vmj2kargYGF173dnJHek/rafcLkIa1
+         SP48Dis+tRJhcaFdQNVuSGHLeO0fTDsiBzNgzdjr0q3OTdFr856VDn3BHiAdhmScRRdR
+         qsnZ2GWHMvBd2EdIGvOhuVOL/HZicGi0s/pRhdq3+TnQ5NbynXoEPclPB3EPfZMt46Ut
+         lZkdIL6n9XOSMdzO5dQYkBlUaNgVafEahAmmFubHovAmu/N1WTn5bGjNbGARHPPVfTJe
+         RbcA==
+X-Forwarded-Encrypted: i=1; AHgh+RpbkhOJugrTqKXjh8hbpoI7fOyE4YEmLw4UwF/orc5XJ+LHlETJr4MU9bnXtTMkaYYUvoesv/YEZ4fKW8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7MdP4G0TK3IPU4WxN7FAbfeZGC3p78BoP3qakio/PrWR9C0dh
+	BDJHMZSrukXRLMgyPi6k9KL4cTFBaBhPaVSCak9CmEQxAgEm+kGB2w6ZCWffCG3sKYk=
+X-Gm-Gg: AR+sD11VMJIzA7E5/1jc6VRyJfMpGLq5ulrNU6NCdHk6YTmbazaKFE8aoNGaDdkKMlP
+	zurdGRke7esnV8rhnjwT51v0Zxn2GVFypwv/Y8V+bkVB54d2WaEnswnEOi1v+uMZiG0DbOWph/b
+	1tyddeg/w8V4pkzbOQVMfJbsdBGcdUcxKXP9yFUyf+0cgaU4LZFmsF74VegqGxjCbsix8GdhWhR
+	nDShAmXqtst8CScv+7LROziHbFXkTQHW0M865cbApRqtURV+o2HVPti6tGzx6mrMcLGyoPCA+gY
+	KU48+XQBf4XgLGCN6y/yUL3tMABh3gh4a29+8jxZgAFxHuLV3eIdvp+FIE6lllR8uTCSera+W9w
+	pZToaESCXQ536B403iieVSZDy4R4/8x2/8s+iJ5CEE0pYHbHcZGSml2+ck15EzS6v0T4viNzIxN
+	GT7DJT+yAvizez89AmTkS+PzUui0AL+1biNBoGAzLFFhOgnWdbPRuiNy9PYEI=
+X-Received: by 2002:a05:600c:3103:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49b91c39a77mr80523985e9.1.1787961686337;
+        Fri, 28 Aug 2026 17:01:26 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569fe78fc3sm1024562b3a.24.2026.08.28.17.01.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 17:01:25 -0700 (PDT)
+Date: Sat, 29 Aug 2026 08:01:21 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Li Zetao <lizetao1@huawei.com>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] ocfs2: free replay slots in ocfs2_recovery_exit()
+Message-ID: <apIhL9ZVN4Hdc6Mu@p15>
+References: <20260828112825.666097-1-joseph.qi@linux.alibaba.com>
+ <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811025157.1632867-1-riel@surriel.com> <20260811025157.1632867-5-riel@surriel.com>
-In-Reply-To: <20260811025157.1632867-5-riel@surriel.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 28 Aug 2026 16:47:56 -0700
-X-Gm-Features: AcwNN1XddQRvVoPMDPAL9MgcNlHgxAaz5oDRgEf6NIvOFt4vTdIHMC1as1eA0bg
-Message-ID: <CAJuCfpF47Mpi40=8yujBNruCDvY-Ezk0WFEacCqxcdRjmUqt4g@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 4/8] mm/gup: break out follow_one_pte() helper
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828112825.666097-2-joseph.qi@linux.alibaba.com>
 
-On Mon, Aug 10, 2026 at 8:07=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> follow_page_pte() is 92 lines and does two separate things: work out
-> which page a PTE maps, if any, and commit to the page it found. The
-> first half reaches the second through five exit paths, two of which
-> unwind the PTE lock in different ways.
->
-> Split the resolve half into follow_one_pte(), which returns the page it
-> resolved, NULL when the PTE cannot be followed, or the errno the caller
-> must report. follow_page_pte() is left with one unlock and one exit.
->
-> no_page_table() can look up the page cache, so the case that needs it is
-> recorded and the call made after dropping the PTE lock, as before.
->
-> No functional changes intended.
->
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+On Fri, Aug 28, 2026 at 07:28:24PM +0800, Joseph Qi wrote:
+> Commit ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+> added ocfs2_free_replay_slots() calls to the mount error paths
+> out_dismount and out_check_volume to fix a leak of osb->replay_map.
+> However these calls are unlocked while the bail path of the recovery
+> thread, which is woken up by out_dismount right before the call, also
+> frees the replay slots under osb->recovery_lock.  Both sides can thus
+> observe a non-NULL osb->replay_map and trigger a double free.
+> 
+> Fix this by moving ocfs2_free_replay_slots() into ocfs2_recovery_exit()
+> after ocfs2_recovery_disable(), which waits for a running recovery
+> thread to exit under osb->recovery_lock, and drop the unlocked call
+> sites.  Both ocfs2_dismount_volume() and the out_super path of
+> ocfs2_fill_super() call ocfs2_recovery_exit(), so the replay slots are
+> freed on every path.  Since super.c no longer references it, make
+> ocfs2_free_replay_slots() static again.
+> 
+> Fixes: ce2fcf1516d6 ("ocfs2: fix memory leak in ocfs2_mount_volume()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+LGTM
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 > ---
->  mm/gup.c | 100 +++++++++++++++++++++++++++++++------------------------
->  1 file changed, 56 insertions(+), 44 deletions(-)
->
-> diff --git a/mm/gup.c b/mm/gup.c
-> index b755ceaac0f5..5af6a23285de 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -868,74 +868,86 @@ static long follow_page_pte_commit(struct vm_area_s=
-truct *vma,
->         return 0;
+>  fs/ocfs2/journal.c | 3 ++-
+>  fs/ocfs2/journal.h | 1 -
+>  fs/ocfs2/super.c   | 5 +----
+>  3 files changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+> index d8afbc1a76bb..a3938a03e93b 100644
+> --- a/fs/ocfs2/journal.c
+> +++ b/fs/ocfs2/journal.c
+> @@ -156,7 +156,7 @@ static void ocfs2_queue_replay_slots(struct ocfs2_super *osb,
+>  	replay_map->rm_state = REPLAY_DONE;
 >  }
->
-> -static long follow_page_pte(struct vm_area_struct *vma,
-> -               unsigned long address, pmd_t *pmd, unsigned int flags,
-> -               struct page **pages)
-> +/*
-> + * Resolve one present PTE to the page it maps. Returns no page and no e=
-rror
-> + * when the PTE cannot be followed but the caller may fault it in, and a
-> + * negative errno when the caller must report the failure.
-> + */
-> +static long follow_one_pte(struct vm_area_struct *vma, unsigned long add=
-ress,
-> +               pte_t *ptep, pte_t pte, unsigned int flags, struct page *=
-*pagep)
+>  
+> -void ocfs2_free_replay_slots(struct ocfs2_super *osb)
+> +static void ocfs2_free_replay_slots(struct ocfs2_super *osb)
 >  {
-> -       struct mm_struct *mm =3D vma->vm_mm;
-> -       struct folio *folio;
->         struct page *page;
-> -       spinlock_t *ptl;
-> -       pte_t *ptep, pte;
-> -       long ret;
->
-> -       ptep =3D pte_offset_map_lock(mm, pmd, address, &ptl);
-> -       if (!ptep)
-> -               return no_page_table(vma, flags, address);
-> -       pte =3D ptep_get(ptep);
-> +       *pagep =3D NULL;
-> +
->         if (!pte_present(pte))
-> -               goto no_page;
-> +               return 0;
->         if (pte_protnone(pte) && !gup_can_follow_protnone(vma, flags))
-> -               goto no_page;
-> +               return 0;
->
->         page =3D vm_normal_page(vma, address, pte);
->
->         /*
->          * We only care about anon pages in can_follow_write_pte().
->          */
-> -       if ((flags & FOLL_WRITE) &&
-> -           !can_follow_write_pte(pte, page, vma, flags)) {
-> -               ret =3D 0;
-> -               goto out;
-> -       }
-> +       if ((flags & FOLL_WRITE) && !can_follow_write_pte(pte, page, vma,=
- flags))
-> +               return 0;
-
-Before refactoring in the above case we would "goto out" and
-no_page_table() would not be called even if pte_none(pte). Now I think
-you will call it if pte_none(pte). I'm not sure if this does not
-matter but this seems like a functional change.
-
-
->
->         if (unlikely(!page)) {
->                 if (flags & FOLL_DUMP) {
->                         /* Avoid special (like zero) pages in core dumps =
-*/
-> -                       ret =3D -EFAULT;
-> -                       goto out;
-> -               }
-> -
-> -               if (is_zero_pfn(pte_pfn(pte))) {
-> -                       page =3D pte_page(pte);
-> -               } else {
-> -                       ret =3D follow_pfn_pte(vma, address, ptep, flags)=
-;
-> -                       goto out;
-> +                       return -EFAULT;
->                 }
-> +               if (!is_zero_pfn(pte_pfn(pte)))
-> +                       return follow_pfn_pte(vma, address, ptep, flags);
-> +               page =3D pte_page(pte);
->         }
-> -       folio =3D page_folio(page);
->
-> -       if (!pte_write(pte) && gup_must_unshare(vma, flags, page)) {
-> -               ret =3D -EMLINK;
-> -               goto out;
-> -       }
-> +       if (!pte_write(pte) && gup_must_unshare(vma, flags, page))
-> +               return -EMLINK;
->
->         VM_WARN_ON_ONCE_PAGE((flags & FOLL_PIN) && PageAnon(page) &&
->                              !PageAnonExclusive(page), page);
->
-> -       ret =3D follow_page_pte_commit(vma, address, folio, page, pte, fl=
-ags,
-> -                                    pages);
-> -       if (ret)
-> -               goto out;
-> -       ret =3D 1;
-> -out:
-> +       *pagep =3D page;
-> +       return 0;
-> +}
-> +
-> +static long follow_page_pte(struct vm_area_struct *vma,
-> +               unsigned long address, pmd_t *pmd, unsigned int flags,
-> +               struct page **pages)
-> +{
-> +       struct mm_struct *mm =3D vma->vm_mm;
-> +       bool need_no_page_table =3D false;
-> +       struct page *page;
-> +       spinlock_t *ptl;
-> +       pte_t *ptep, pte;
-> +       long ret;
-> +
-> +       ptep =3D pte_offset_map_lock(mm, pmd, address, &ptl);
-> +       if (!ptep)
-> +               return no_page_table(vma, flags, address);
-> +       pte =3D ptep_get(ptep);
-> +
-> +       ret =3D follow_one_pte(vma, address, ptep, pte, flags, &page);
-> +       if (!ret && page) {
-> +               ret =3D follow_page_pte_commit(vma, address, page_folio(p=
-age),
-> +                                            page, pte, flags, pages);
-> +               if (!ret)
-> +                       ret =3D 1;
-> +       } else if (!ret && pte_none(pte)) {
-> +               /*
-> +                * no_page_table() may look up the page cache, so it cann=
-ot run
-> +                * under the PTE lock.
-> +                */
-> +               need_no_page_table =3D true;
-> +       }
-> +
->         pte_unmap_unlock(ptep, ptl);
-> +
-> +       if (need_no_page_table)
-> +               return no_page_table(vma, flags, address);
->         return ret;
-> -no_page:
-> -       pte_unmap_unlock(ptep, ptl);
-> -       if (!pte_none(pte))
-> -               return 0;
-> -       return no_page_table(vma, flags, address);
+>  	struct ocfs2_replay_map *replay_map = osb->replay_map;
+>  
+> @@ -243,6 +243,7 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb)
+>  	/* XXX: Should we bug if there are dirty entries? */
+>  
+>  	kfree(rm);
+> +	ocfs2_free_replay_slots(osb);
 >  }
->
->  static long follow_pmd_mask(struct vm_area_struct *vma,
-> --
-> 2.55.0
->
->
+>  
+>  static int __ocfs2_recovery_map_test(struct ocfs2_super *osb,
+> diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
+> index f8b3b2a3d630..19fc920d26b1 100644
+> --- a/fs/ocfs2/journal.h
+> +++ b/fs/ocfs2/journal.h
+> @@ -151,7 +151,6 @@ void ocfs2_recovery_exit(struct ocfs2_super *osb);
+>  void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
+>  
+>  int ocfs2_compute_replay_slots(struct ocfs2_super *osb);
+> -void ocfs2_free_replay_slots(struct ocfs2_super *osb);
+>  /*
+>   *  Journal Control:
+>   *  Initialize, Load, Shutdown, Wipe a journal.
+> diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+> index f785c39d1fb8..6a8092b65bb5 100644
+> --- a/fs/ocfs2/super.c
+> +++ b/fs/ocfs2/super.c
+> @@ -1162,7 +1162,6 @@ static int ocfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+>  out_dismount:
+>  	atomic_set(&osb->vol_state, VOLUME_DISABLED);
+>  	wake_up(&osb->osb_mount_event);
+> -	ocfs2_free_replay_slots(osb);
+>  	ocfs2_dismount_volume(sb, 1);
+>  	goto out;
+>  
+> @@ -1776,14 +1775,12 @@ static int ocfs2_mount_volume(struct super_block *sb)
+>  	status = ocfs2_truncate_log_init(osb);
+>  	if (status < 0) {
+>  		mlog_errno(status);
+> -		goto out_check_volume;
+> +		goto out_system_inodes;
+>  	}
+>  
+>  	ocfs2_super_unlock(osb, 1);
+>  	return 0;
+>  
+> -out_check_volume:
+> -	ocfs2_free_replay_slots(osb);
+>  out_system_inodes:
+>  	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
+>  		ocfs2_shutdown_local_alloc(osb);
+> -- 
+> 2.39.3
+> 
