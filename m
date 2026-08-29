@@ -1,267 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E7B2D63E5
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1741F2EEE83
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787977328; cv=none; b=KYn3hvFLvfU7F267aJraeR/R5Kvx1RJ65lJ2gfjwoOvCgF5W4yNVCtO+injK7LCsxUEMwu45dnyhtHvCL2E0LmlJUZo33s4FVVugepVTpVohSe+agOuNOA9YSv1l2SomArTF9q7VRmb8O7tYhiXlBEoAvz5VXhDdo3PwrmGil+Q=
+	t=1787977359; cv=none; b=sSQzvcfq99Xq7GmaSv7+TBpw0V+VME3YdVFlLWZVxF8CIx3BwrKrk0RxCyh3u9nkAdPJKI7o6v4O3XFfZEcjLnUgaEMNfX3GTXt2G3yM/EigljHJLbFAdSJhyTntEswuygVuBHbqa6KYoUNhxPximujNKw9fYujyHvWmvt0TUGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787977328; c=relaxed/simple;
-	bh=r4WYyzkkBE0mPXm48wvbwttD83o4g4knOqtalsEAxp4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fQPHhV8NMXg5pDA9T/k3sQwPGzHLSG8Ebjw1mI1r/TPJjC8sy7V5YAFmFSCZX6vKAehmWxseW0cIIvE1yFPMPxRpRCX7XlqkTviQ7+s3LozPgmpqYWvSljd8vK1kRvKfST9xUei76ZSEUTGx/D7LC0BfLKx74zSZmZ4HzNic9C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/nXLGS3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787977359; c=relaxed/simple;
+	bh=AwOUkUcDpHDo5ZDzj3i/viDVju6Fox7LlmZcp7Ebp+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hok3PFuJOpk6273UCdw/KJhVF9sLYNu7UhifCKuLAH/apH6ZsmBhgPfEpJobxGBUii9Au6FDjOGRPTT8W71kGuZvXlVwKfqFxpGjSkD9KMNG91urCZ9SmdUJvwDri3DhMCZ6uinpwrxUvix/z1qneELuwfBR2/v7+V0TRrF9mw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8M6Z849; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/nXLGS3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473941F000E9
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 04:22:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787977326;
-	bh=sUIdUAglUHvjQA5UstqimaCYpxUJXrO5+6o5g4iKAhY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A/nXLGS3XO7kCgDykLFF++paQhssBgcInwc44XOvJb07xqD5Ta4pvYkPNB1vKuhdR
-	 BK7F09EHC9TSkHBk0Slt4RJVoLJklMVOUy1QIo94gVZsbOhCJA7lxYWDkNeHMbvlEh
-	 8LMM70HCHRmPSC6iVeo7R2A7sjITO3XXK+4RgXyxuETvOPNpmkg/ig5GOKqWpAmydr
-	 pgw+1CZvVanLQAznnYqjHO0X99OJgiIwphSwQu9m8AztStyGmyFyPNrKHlfGQRVdBm
-	 mPxvt4eL2Z0MPggRYmVOlvJjDIWzo6ndACb7KSmUIYPXZliEzKmf86XEENLx0HXoiX
-	 zV3+HT16B52sg==
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9384cb251fbso80342385a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:22:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrMHpbtPKfBWHqZGvkJktS9pYcyd31wikpvSuFa5kAV2fZ2KvF44QP9xFqGb6WaYA/41/dd6IhAIJnuw7k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksalHg55CFO1tzTF2O43CDBvEutqSveUYV+z64Jj09960pfaSi
-	kS0Ujn2tss27BeZtApfGJHaYEaEkAyJKHVaQRhjHcJBfWnlqygf9DP8Es2uhbQHk/0sluP76x9f
-	4dtjcH0qtQDG5Bui4vyU/SgdMZFQEhXE=
-X-Received: by 2002:a05:620a:a0c8:10b0:938:fdde:34e6 with SMTP id
- af79cd13be357-939138cc83cmr1095067085a.28.1787977325593; Fri, 28 Aug 2026
- 21:22:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8M6Z849"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6d28aa26cso12624325ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 21:22:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787977357; x=1788582157; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iVZiLDeRwsupettcPIKD0pcIzIKNg0UVhzocRgCkSCA=;
+        b=G8M6Z849XbvSWm0PmxKra7oVe4tWoR0vHtl7DHi2HlPE3e3uFPbPNb4X4M3e1tqUKV
+         cfTHkGd6wm984qbguQJENlb+CeRJ43TiIkNpLOcBnkxPJsTWq5LZu2oA+BL0EfSlwZzS
+         2blx+TNxwqusvGBBZU24lNOncnfesF/nu0HlYLl9WoSPmWdBfycvwpFxgRAvODBXOW7u
+         dek0VNW3fbcQ1lK/jra/XSvkdQpmiVX5HiSEll16efjdu5RI9maLRvkcfisRjXyROttM
+         iFUmppr7Z6mnfs0giQEWbY289yC7zrxty5Th7sQEhJRh04cd00i++NQeTxgnuxCUj0YH
+         NXDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787977357; x=1788582157;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iVZiLDeRwsupettcPIKD0pcIzIKNg0UVhzocRgCkSCA=;
+        b=TsQ8m4xByd7sILn0/e4ZPnP7+gTkQT1PjQRtJ708DwsZdn0P1Y2iZ1OE+XIOm3Uzp5
+         O1oL3rK7T1zVxjbeCNiE+zlKrgNUhXsexQGhZuLdmYoI0rCT9HJG83MUSsw2VlDboB9W
+         Ai52NzKBp1yjxwSwXRhUvOe2YF6ekm4tLdbJXm1hjLBEhWr4yhO1tiZkkK9h7/5f1W28
+         8/+CtvXJggQcr60dhZiJDn71ztHXmz+TDa+sZtDqmunr+VQ8F5+NIo0+vR3p2elJUe9M
+         piJaYkJ2u7jhOM2U1yzDXrhgdR3yL2Samx3iFYEUA+1AVkxcukWtWfmtEp6sdVjrPrY1
+         rwKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBoxcHpkZ+it7Pr+khyMJq2LE+P4ezs7yoBYfzTeoBKQ+xGI/hbYuPLNQENLGms02ldxjeMCpX++qNJOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIPHHLKe2KFgoOaqlKEiDmeq9F8T9iLHW6FCJAA0VO9QEDRmY1
+	Y4GsY78vTen45bhMLPpZ4nUSCOySLvcauLIeHgx44UE7N1FyTp5Oguk=
+X-Gm-Gg: AYBFou27RgB01f+HBHG7tqfBXZxk4cQhEqdClOUsoJ7DySFcCUoQ1DCHxZThuvLx+IC
+	dSith1b3lfgxMcpwwMCZ2HReIs+fnXdHt/Oh6JaeW7EMdpAsf2jLOqgMJgnH+aVa/Kqmss7wzJS
+	tmk85r4Q/xHgqrvTjiSm8sJ274i4zOd0zWCUcNX7u3gG5u2MUN6DRSu0rwac2fImwSrVVHdBzDY
+	26lDoSglXFCnjzjTkBjmrvp5KNaBDt+mVt6ZPQrva+UtEQCO9ADOERIeOUHAUYjtpb6uZMW3/KS
+	KTu8bz5NPVw21SYzSg/7ch2V8wW/GZKjq/IM9H2i2zzcTFLhnSRwp/hCq3mLabLfl7nxe5FU0F/
+	KNU7jZi0f1ZXbe28QBiw1drUPWHqN3+ncXQPdFAUGe1qlS1k6LaYTqlX7ypS/PiXyXSjMDF5WkM
+	Bqdw8sNQR+69X/rLnFOqZ2qoIBrQrS9xJnavA8mpFZmeUCOM+nEihWK/AxwNNfILe9irxT+RzoB
+	w==
+X-Received: by 2002:a17:903:1a30:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2d8d4cea3demr62880705ad.16.1787977357271;
+        Fri, 28 Aug 2026 21:22:37 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([113.185.106.34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598b98cbsm11139845ad.76.2026.08.28.21.22.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 21:22:36 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: andi.shyti@kernel.org
+Cc: bence98@sch.bme.hu,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Triet Hoang <triet.hoang.dev@gmail.com>
+Subject: [PATCH v3] i2c: cp2615: handle allocation failure
+Date: Sat, 29 Aug 2026 11:22:07 +0700
+Message-ID: <20260829042207.27323-1-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com> <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-2-d9f1c75549c8@tencent.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 29 Aug 2026 12:21:54 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VaDGpkXHfKukH9YIZjF_aPKgVmjSjw_MaStPGCt6H3-UaoYVrIk9ZAVQI
-Message-ID: <CAGsJ_4yasRXO52K-13dx9ZXPw95wEyn2bpnf0NiQ2z56dxf-vQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/6] mm/mglru: introduce helpers for manipulating gen
- and refs flags
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ridong Chen <ridong.chen@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 1:53=E2=80=AFAM Kairui Song via B4 Relay
-<devnull+kasong.tencent.com@kernel.org> wrote:
->
-> From: Kairui Song <kasong@tencent.com>
->
-> Instead of doing bit ops on folio->flags.f, introduce helpers for
-> adjusting a folio's refs and generation info, making the code easier
-> to debug and understand.
->
-> No functional change is intended: some combined atomic operations are
-> split into two, which only creates harmless transient states. There is
-> no measurable performance impact, and some paths even look slightly
-> better in the generated assembly.
+Check the result of kzalloc_obj() and return -ENOMEM
+when the allocation fails instead of passing a NULL pointer
+to the message initialization helpers, which would return -EINVAL.
 
-Hi Kairui,
+Also separate kzalloc_obj() calls from variable declarations.
 
-I like your idea. Overall, it looks good to me. With some cleanup,
-we might have the following:
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+---
+Changes in v2:
+- Clarify the commit message to describe the actual behavior change.
+- Fix coding style regression
+Changes in v3:
+- Separate kzalloc_obj() calls from variable declarations.
+---
+ drivers/i2c/busses/i2c-cp2615.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
->
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  include/linux/mm_inline.h | 76 +++++++++++++++++++++++++++++++++++++++++=
-+-----
->  include/linux/mmzone.h    |  1 +
->  mm/folio.c                | 19 +++++++-----
->  mm/vmscan.c               | 61 ++++++++++++++++++++-----------------
->  4 files changed, 114 insertions(+), 43 deletions(-)
->
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index 621c8653d8f7..edfaf2661812 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-> @@ -142,10 +142,42 @@ static inline int lru_tier_from_refs(int refs, bool=
- workingset)
->         return workingset ? MAX_NR_TIERS - 1 : order_base_2(refs);
->  }
->
-> -static inline int folio_lru_refs(const struct folio *folio)
-> +/**
-> + * lru_gen_from_flags - Return the LRU generation number from folio flag=
-s.
-> + * @flags: folio flags
-> + *
-> + * Returns: A number between 0 and (MAX_NR_GENS - 1), inclusive. Returns
-> + * -1 if the flags indicate the folio is off the list (e.g., isolated).
-> + */
-> +static inline int lru_gen_from_flags(unsigned long flags)
-> +{
-> +       int gen =3D ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF);
-> +
-> +       BUILD_BUG_ON(LRU_GEN_MASK & LRU_REFS_MASK);
-> +       gen -=3D 1;
-> +       VM_WARN_ON_ONCE(gen !=3D -1 && gen >=3D MAX_NR_GENS);
+diff --git a/drivers/i2c/busses/i2c-cp2615.c b/drivers/i2c/busses/i2c-cp2615.c
+index 951de6249834..62192e919744 100644
+--- a/drivers/i2c/busses/i2c-cp2615.c
++++ b/drivers/i2c/busses/i2c-cp2615.c
+@@ -124,10 +124,15 @@ static int cp2615_check_status(enum cp2615_i2c_status status)
+ static int
+ cp2615_i2c_send(struct usb_interface *usbif, struct cp2615_i2c_transfer *i2c_w)
+ {
+-	struct cp2615_iop_msg *msg = kzalloc_obj(*msg);
+ 	struct usb_device *usbdev = interface_to_usbdev(usbif);
+-	int res = cp2615_init_i2c_msg(msg, i2c_w);
++	struct cp2615_iop_msg *msg;
++	int res;
++
++	msg = kzalloc_obj(*msg);
++	if (!msg)
++		return -ENOMEM;
+ 
++	res = cp2615_init_i2c_msg(msg, i2c_w);
+ 	if (!res)
+ 		res = usb_bulk_msg(usbdev, usb_sndbulkpipe(usbdev, IOP_EP_OUT),
+ 				   msg, ntohs(msg->length), NULL, 0);
+@@ -171,11 +176,16 @@ cp2615_i2c_recv(struct usb_interface *usbif, unsigned char tag, void *buf)
+ /* Checks if the IOP is functional by querying the part's ID */
+ static int cp2615_check_iop(struct usb_interface *usbif)
+ {
+-	struct cp2615_iop_msg *msg = kzalloc_obj(*msg);
+-	struct cp2615_iop_accessory_info *info = (struct cp2615_iop_accessory_info *)&msg->data;
+ 	struct usb_device *usbdev = interface_to_usbdev(usbif);
+-	int res = cp2615_init_iop_msg(msg, iop_GetAccessoryInfo, NULL, 0);
++	struct cp2615_iop_msg *msg;
++	struct cp2615_iop_accessory_info *info;
++	int res;
++
++	msg = kzalloc_obj(*msg);
++	if (!msg)
++		return -ENOMEM;
+ 
++	res = cp2615_init_iop_msg(msg, iop_GetAccessoryInfo, NULL, 0);
+ 	if (res)
+ 		goto out;
+ 
+@@ -194,6 +204,7 @@ static int cp2615_check_iop(struct usb_interface *usbif)
+ 		goto out;
+ 	}
+ 
++	info = (struct cp2615_iop_accessory_info *)&msg->data;
+ 	switch (ntohs(info->part_id)) {
+ 	case PART_ID_A01:
+ 		dev_dbg(&usbif->dev, "Found A01 part. (WARNING: errata exists!)\n");
+-- 
+2.53.0
 
-Since `gen` is an `int`, it seems a bit odd to have
-`gen !=3D -1 && gen >=3D MAX_NR_GENS` combined here.
-
-Do you actually mean the following instead?
-
-VM_WARN_ON_ONCE(gen < -1 || gen >=3D MAX_NR_GENS);
-
-> +       return gen;
-> +}
-> +
-> +/**
-> + * lru_gen_set_flags - Set the LRU generation number to specified folio =
-flags.
-> + * @flags: pointer to the folio flags
-> + * @gen: generation number, between 0 and (MAX_NR_GENS - 1), inclusive.
-> + */
-> +static inline void lru_gen_set_flags(unsigned long *flags, int gen)
->  {
-> -       unsigned long flags =3D READ_ONCE(folio->flags.f);
-> +       VM_WARN_ON_ONCE(gen >=3D MAX_NR_GENS || gen < 0);
-> +
-> +       *flags &=3D ~LRU_GEN_MASK;
-> +       *flags |=3D (gen + 1UL) << LRU_GEN_PGOFF;
-> +}
-
-It seems that we are setting the gen in the flags, rather than
-setting the flags themselves.
-
-The current name makes me think that the function is setting the
-entire flags field, especially since `lru_gen` is used as the
-namespace for various MGLRU functions, e.g.:
-
-void lru_gen_add_mm(struct mm_struct *mm);
-void lru_gen_del_mm(struct mm_struct *mm);
-void lru_gen_migrate_mm(struct mm_struct *mm);
-struct lru_gen_folio;
-lru_gen_update_size(lruvec, folio, old_gen, new_gen);
-
-However, this function only sets the gen bits in the flags.
-Maybe we could use a name that makes this distinction clearer?
-
-Could they be named as below, or is there a better naming option?
-
-set_gen_to_flags(unsigned long *flags, int gen);
-get_gen_from_flags(unsigned long flags);
-
-Or something like flags_to_gen() or gen_from_flags()?
-
->
-> +/**
-> + * lru_refs_from_flags - Return LRU referenced / access count from folio=
- flags.
-> + * @flags: folio flags
-> + */
-> +static inline int lru_refs_from_flags(unsigned long flags)
-> +{
->         if (!(flags & BIT(PG_referenced)))
->                 return 0;
->         /*
-> @@ -155,11 +187,40 @@ static inline int folio_lru_refs(const struct folio=
- *folio)
->         return ((flags & LRU_REFS_MASK) >> LRU_REFS_PGOFF) + 1;
->  }
->
-> -static inline int folio_lru_gen(const struct folio *folio)
-> +/**
-> + * lru_refs_set_flags - Set the LRU referenced / access count to specifi=
-ed folio flags.
-> + * @flags: pointer to the folio flags
-> + * @refs: referenced / access count number, between 0 and LRU_REFS_MAX, =
-inclusive.
-> + */
-> +static inline void lru_refs_set_flags(unsigned long *flags, unsigned int=
- refs)
-> +{
-> +       VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
-> +       BUILD_BUG_ON(LRU_REFS_MAX !=3D (LRU_REFS_MASK >> LRU_REFS_PGOFF) =
-+ 1);
-> +
-> +       *flags &=3D ~LRU_REFS_FLAGS;
-> +       if (!refs)
-> +               return;
-> +       *flags |=3D (BIT(PG_referenced) | ((refs - 1UL) << LRU_REFS_PGOFF=
-));
-> +}
-
-Similar to the above, maybe we could use more descriptive names?
-
-> +
-> +static inline int folio_lru_refs(const struct folio *folio)
->  {
-> -       unsigned long flags =3D READ_ONCE(folio->flags.f);
-> +       return lru_refs_from_flags(READ_ONCE(*const_folio_flags(folio, 0)=
-));
-> +}
-> +
-> +static inline void folio_set_lru_refs(struct folio *folio, unsigned int =
-refs)
-> +{
-> +       unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
-io, 0));
-> +
-> +       do {
-> +               new_flags =3D old_flags;
-> +               lru_refs_set_flags(&new_flags, refs);
-> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
-s));
-> +}
->
-> -       return ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
-
-[...]
-
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 73a81b4a3e16..9ee9f8dc6805 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -843,19 +843,22 @@ static bool lru_gen_set_refs(struct folio *folio, c=
-onst vma_flags_t *vma_flags)
->         if (!folio_test_referenced(folio) && !folio_test_workingset(folio=
-)) {
->                 /* Activate file-backed executable folios after first usa=
-ge. */
->                 if (is_exec_file_folio(folio, vma_flags)) {
-> -                       set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BI=
-T(PG_workingset));
-> +                       folio_set_workingset(folio);
-> +                       folio_set_lru_refs(folio, 0);
->                         return true;
->                 }
->
-> -               set_mask_bits(&folio->flags.f, LRU_REFS_MASK, BIT(PG_refe=
-renced));
-> +               folio_set_lru_refs(folio, 1);
-
-We have quite a few instances of folio_set_lru_refs(folio, 1) and
-folio_set_lru_refs(folio, 0). Do these values have any special
-meaning? Could we add wrapper helpers to make the code more readable?
-
-`1` just means `PG_referenced`, right? Could we add a comment or
-changelog description to clarify that `1` actually means `refs =3D 0`,
-but `PG_referenced` is set?
-
-Thanks
-Barry
