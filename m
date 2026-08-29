@@ -1,214 +1,169 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022092.outbound.protection.outlook.com [52.101.101.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90232146A66;
-	Sat, 29 Aug 2026 08:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DF9146A66
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787991692; cv=fail; b=ug3HUgZviYuBw2k6KrY2obrJbfQjq5UeuWhoC6q61bLHjJ5FvvGdu6rpLUUAcDZ8OHx6WeQkQ5b2WDclg7ywAVBqtFBNg9ORP3of5/77fgUZ9Ahfwz+elKHpLoW70eArbWrpnRbxr+/4wYPROlkE5BRxIptTUVYv3Ao563XdhiI=
+	t=1787991702; cv=pass; b=cFPwKhIm2m7vWmyKifWGKFKuZaeEke4Ih2zmtb/P/tHQI4QDyKSU78dp9wR+E6uQEJvSwOuleFO1m8B4G8RcOQlU+FJjnCkBPySxmkTw3zcHqP8nGP+8YyXwDQocO/c8GHhdddfC/K8v6sf0cHIJkWEUDsTE/zYBeznmdmuHRE0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787991692; c=relaxed/simple;
-	bh=dbmAKv9lyweaR7opsDMpJihFCJcDCOHCWYOm99AXBoc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=iRteH9hr/fmp+o08H7JpmDf/ueZzzRr7EygUFSo/L1BDjqr+hUo5mP5rQR93d6WXHnvQDZxktSEyYjuObN4I4vTkSEMVB/nZS8eXsXm2DbAeqURk2Z4lXbLsvMt776yuBkVpI05PxPFxxGOGtoYNqdCUgZqhUxss2ht+veCGBXw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ecsyOAOUOWTe2IBfxUbqPqm5x3Vu/M6GWbdvEeQhPbusOkd2h3s+mC46S8kWqdt9mtYEpGJa17W15/VajUiNf8jhuK50Phsw+TvMmuCXnyQ+BB3yFNc5v19m1yI8ur2HG4lgDAHqcbHv82/NXw90Qw+DEruCdn0e38BGJLbCOKyG1X7zijncgeAY8vv/JMw9rUat4vJdNj2hIxtvON+u6X4kM8nKZksCOOzwkdOzBMBj+knxSdEylU6fy8xvwh98etFowdGbZ7QRBRFjGpNlXkwjflXsWR3Nxr0Jn+FAz6ipUdaAYlN9yW7mCeqEmb8+JBZ2R2TlTRbanUH6H4vBrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=P0Lwq58hTwKyLpKodvv8rlYvu8HyQ4FNgagCGRG5/7g=;
- b=evWPmlLWp8UfmjbSZtCisyJZAWbl0UKFhF3OR6ynbKIAxQ+o1hA5dIdNWLPScQrcRzEC4uSBh7O1Cx11e1XEBt3xCrHJpeGiCfeSSTwbmhc8X8xKD0wuUXsZuu0Q+I2RuSybpsWIhDjxSxBYxf06UPreXwo7N8GzjV36eK/K3DjtLshG+rLw0XeTPhUfzGnkaGC0c59TkwgJV47qsw5ltfGqLouAkk6Q2lQpUABSBHnIIeQhPIIyaUqlprl9fA4y1ysOynvFShJZx80fTuBfLsJgwMLT9znXmDodt0AE3VKPwAHPRAQAAybxEpaRDWkv5hUKWgms508DELuH07ghLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO2P123MB7179.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:328::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
- 2026 08:21:25 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 08:21:24 +0000
-Date: Sat, 29 Aug 2026 04:21:22 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, 
-	Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Farhad Alemi <farhad.alemi@berkeley.edu>
-Subject: Re: [PATCH] tracing: Have show_event_filters/triggers files take
- trace array ref
-Message-ID: <zhxmr4los4tkpyb4qscbeh3qg6urnvslx7onvzxrnbuhlyfvuf@a4dpkru2jdzl>
-References: <20260828094153.17b95037@gandalf.local.home>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828094153.17b95037@gandalf.local.home>
-X-ClientProxiedBy: LO4P265CA0204.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:318::14) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1787991702; c=relaxed/simple;
+	bh=Xmt2LcEI0vicxCfw80JA2tKyBEMb7Ir+ZWVj1/6whi0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YN1KZlBfaqU5xNDEnsfi9HriDJWNQ0/TgC09XzLRCP8G84y6geXm6rMYViQUCsNqbN8tZCNinYH5+U0sbHGp1I0gtI2ukcjCd8UxJAWBzf+XLl79DMHnonFGyFDdbWqTAkgFn9Mfho43PFXo+ajiBq87vqUod5/3xeAna5JsKIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EUZB4w3C; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EUZB4w3C"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so2463005a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:21:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787991699; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n646dEaRoa54B15NGaCwzUDw41h3FVp3B0Og8sZb2/eVxSp9s/3FTmv8b83RV4ZIKN
+         Dd150mNVXBnt8nHjzRZPpGhnVrLUumZ4f9w47alsWoyAqTZpYVc6rd/p57R4sVm14ORn
+         N9aEY7F9PPoR95FUji+t8O3FFIc5BJE7A9+f/Y8fHfGg6xoATivPvjIgQ08jwP44jN1l
+         3C5qclwvGlx+ZHVtgPwxXcp+hagpK8PGMaR3/vhCBk5tbYxHu4QuFccQUnH+fgAc6xz3
+         sWm1rQ4vW3NwjCbarl6ZSGo5vy7LafBuvGjW+PjHrqr30NAxUDGdHaSlljKzPU1Cmsct
+         Kokw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k1MZm2tWs3G68gpfTZLBsA7bA0jIxMZAYcuwV/qYMa8=;
+        fh=aBGmZkc9FBDH0rqb1oLEPJS4m7b9eY4IsqUgz8ZQaK8=;
+        b=Q6psn4xGSJgkpJyoC1ZNS0Ep6B7MDZwrBfrG6gnjp4PHAtnMAhlk94XfBzl/Mv/YZw
+         EYx+QdZ+SuccnqkakcH0yrk7aq8zEQcHG3CZNcMueWrP1bCR87FawUMxlL6d0HPGNwAj
+         P1cz8TwZYbNxyzdUaUZD1X4x/UdStrCmdpDWBbEzn132doGJCYxCIanyeWr1f6vcvuEU
+         UgTY+diLpcyBlJTxsP2gcjUiPWUymdBF8hPGgKo1R9UOkHEjl2kO9vuCe8ke/lO2l980
+         SyJ+QoBqrCWiJ2Zyc/zWlr/U+KEbe09NY/OIimv+p8yjgnsny1JNy39jL1M49zfJKQzs
+         ChxQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787991699; x=1788596499; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k1MZm2tWs3G68gpfTZLBsA7bA0jIxMZAYcuwV/qYMa8=;
+        b=EUZB4w3CYcGfbJU3K+vM0L4z5ks3yuu+si6bqvpzkOW7auF/CkhXiv/GKZlqBrqx9w
+         srQamFqer8NfMwAfL/Zhyon5jkVe0LoijnoK2709SpVIio5u3O4ou3xEaCnRgAt8T1sz
+         +5G4Ao/mF2Kf6jFdiBKNseSZ5a8MPTqK1JUvtvn2gc032AH/FWZRpLrNTN1MT65aRg0J
+         z+9vduLJb1tZCPKkd6/70B4GmOoLl8mlaPjg2uy//AwtIsO1b00sN9bGZ5G0Vr7HA2Mh
+         dHTdSImHEsENTCL6Aj1SVorkxH64N5/R+nAo7Q9MrBikHyfMKmFeUqq+RsFdb/rVEfUo
+         JmQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787991699; x=1788596499;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k1MZm2tWs3G68gpfTZLBsA7bA0jIxMZAYcuwV/qYMa8=;
+        b=kecUcIR6z/rXYpTqZHyfMbY+YRIepc4Cvb19nXidmJTKGvBN+EIQ0FJFYY0nSMII4c
+         fIL+WQHQ/2m+sIKwqPjXgVat7xIcvHZbdpC/+iiV4+UOvrEIGwGwUq6a9v6WO3x3kvoz
+         CeWk5+DokJaMSgbLUQ9ej7XrYDZLNqwo/W+cNZywtM4LCoXrHwGrB/n5ccXhzlowPZKY
+         78b5bzyl/pLHptxPzxcztextA7tWQBi6wX9B7PLmtj7EnEScmuOU4V6bWR48kf+BNrV/
+         JwAWgpVlOmltHLIZjKKHN7KOcTKK/87W/2F+DHnCHj0jFgaEO1aA2OE5nSXCqP3US6fj
+         W4DA==
+X-Forwarded-Encrypted: i=1; AKwUvByOZS/stFaXCV9MrqCw333cB+t7H0T+CF7l2FOvAxQlKEBWkc5EoouLQ4u12FIopdt0PoXqxuOmHQXEWJ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kymvDfbdJMEa2zJaVkNUUDN7BK0WF36jt+xec4X9CbSjyvlWlV
+	kikDCD4ia315V0Fv3y19rfXNpPnWrSPzFel4slkzqzPMd3ZjfambPhag3EWA8dbSTlcQspcX4UH
+	jfvxQQOdmHhInfJb6SzHwrh26rqkGWVi3JsQd
+X-Gm-Gg: AYBFou0MSJGl/zha70Cm3fzQYU4BKQ419zBInsqeM8k3/caUE6nBQIvTjrY20BH80EF
+	FXK7mpFxmBf6UmNyBVgsyIfPLHUtwS74bmNONa2lLAesgPjhBhP7q4ajc82SZigJ7jlNcBz4h4N
+	jWw2WpurWkOLSxMxJ1vpTL4XcZNU9YWjEQvI1lGHQSw8utiGVH/5BBuz6m6h0qwYJpUxzEML6rr
+	6LavFSYsDMIkvhNMXLhjB0Qof6CfCgeipCUKyPNjv9qbyoJT49VTZVL1PJ4nN/v3ojdw1jvm/Px
+	/YHyRl6zcphMo66dZ3+uGN1LtL+wUhhh74wNg40DtdHr3ke6hxf6mkg9XBpUqIhbMAZ9tYv0OD2
+	Q5aOYO0jyIN54yRkMQgOJlJJA9BWy9Gk=
+X-Received: by 2002:a05:6402:a2cd:10b0:6a6:fe1:ab10 with SMTP id
+ 4fb4d7f45d1cf-6a60fe1ae0dmr6209217a12.6.1787991698907; Sat, 29 Aug 2026
+ 01:21:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO2P123MB7179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18d8097c-6a37-4693-e922-08df05a68377
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|6133799003|10067099003|5023799004|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wzx1OV+Yu/QPjJnkvFrfdElNLvNGz8yuRtZgyYYb4/8fQIMqWKEv+at2uAQIJqBtU++OY/Agtkd+LVK1jh3qAdIP3qqZl5GdkPwpVl37JE3jaKcVdg9cuATl5fqeAyhmhzwaADYMgzgYiwytaVu7jVnkegJM8wY7jqRV4XwPb1iKqxm2FkXbM4dW+P39AVV3gl4Ikw/XbZBc3skTaS2NunK9E+9vm722GIQvwOmbsqfXXWmmegVspCRRqPkMKROmhTuwPMy8+TlWkMEX+pz0XI56FBcLAx96sZubV9tJ0FLaAMz2hbP8ydMfOOAXXiTJNt6h9kmjAJDkcS+dwo+mwkcbPRISmkHDfH+gM2vyTKrCjKCQBJ6yYaAcJof6R197SQAF/7aDeIXOC3zvKjIDxwYeUTfkdjXIqMWbUckgarexJw2/WqptgI96glAkY7/1ALp3B41ygfZT3uCKu9trZ/RCPkbRJ3mEF5eTqlDJtPPC67ohWcIS3Ykbroc1qOfJZSn+gKXjjNK+/Yb90XJQqSoUTfwP4ycPBZeAzUiUtZxx+MTe2JWUl8zHgnbZfkl/kNRF8ekSOlYdFS85Fv2HdlTaJhajnFMKtZ2VTMg0+Cky14SfBduIbv0wKdJuTmCC
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cjN1TGZIWVlTV0t4bGRDd0JkZDNDQ2t0NzllQngwbGdiOTV3SUsycWxhc3lq?=
- =?utf-8?B?bllOU1ZPTVZnS1d2TStOcHJTYWRWSnBFbkVLQW5nUGk3NEdRVFRaUVJDcGxV?=
- =?utf-8?B?NXlSdjE4N2NZdk0rSmU1MXZ2YU5YblhHV2pCNkxmMVFpckVqS0xMTzFNSmZz?=
- =?utf-8?B?NitUSnFmOGNiZWxRY2pDZzdhMk9tYnBXZUJ6ckR3QmhWSVkyQUNWaEhWZ3Na?=
- =?utf-8?B?MVc2VzJ0UXgydzFOclpzU2x1QmZ5UTVqZTFLKzF3YlJQcVhWUEtrSFpUMjlr?=
- =?utf-8?B?bG1KQ0RpM001bDd4eTV5ck41SE9JcmVjckg3cWdVN1hTa2Z1TWVkQUcrRmJW?=
- =?utf-8?B?cUVDbytVUkk5eTliQW5tSEJLOEFaUFhnREpLYXd0OVF1c0VwcEZ3eEZGLzlv?=
- =?utf-8?B?SjhnRjdMdkN0SWhhTU5BMnFFRGhITkVYU3VMQ3J4WWYzeS9hZm9DUjVITWFv?=
- =?utf-8?B?eHFTYjdVVUR4ZUFwVnNlNDVFTmVHU2ZDQTBUc1ZMN25yMTJnd3MwRE85NHhy?=
- =?utf-8?B?NzJlVkozQkRyS2w3UTJxS09wNGZLNytsMTF5WHRsUlNyTVA5amJyVXJrWFdm?=
- =?utf-8?B?VncxKzFoU2JGNmdGbkJPT2VmT2s0MS9kQnY5NHgwZnAxWnJUUmxXTUwzL0lO?=
- =?utf-8?B?dTk2dFlCemEyY0YvUmU1S3h5Qm51d0lUYVZqSFB6eUI4TDIrQlVnVmhFS005?=
- =?utf-8?B?Z0pma2Fnb2tuSVZvT0JodUNlN0NtclRabWpmbmxqL05FeEFtT3Q0eDhkNUVI?=
- =?utf-8?B?Umd1Rm9LNDNXZzg4Yk1yRXNZVi9SQkUrTS8xNUNKZGNOUHlNZHQ3UVZCWXlz?=
- =?utf-8?B?T2RjbGRNVmkvb1Z2QXVtd0p0ek9hVHprSGRsVDRHa01DSXJuM2xONkJaUUY4?=
- =?utf-8?B?bFU4ZXczVUlPYkl3a2diOEh4VW5yMENVVGo3TjNSbklVd3FqUTlFM25PN0o0?=
- =?utf-8?B?UUJ0N25NRHc0dVFzRllic3VmL2pWSmY3V3d3a1dJcW9OQkVObUhSZUVoaHhh?=
- =?utf-8?B?aWFXSE8wU1pTUjBpZTgwNFQzSVhMSnBwRnRFOTgyNmJFOTNDWS9sV0xnRm9V?=
- =?utf-8?B?cmsvOHNGSE01YkpORGlUeDY0VWFtSzh2ai8yYjBBV0YwcXFvc29xOUxpSVhp?=
- =?utf-8?B?Ui9hc3Yyd2JmM0R5bTJ2R2tFc3ZncG5CQkZ0eXZ3ZnRTQ1FORDB2b0FUTDUy?=
- =?utf-8?B?K01FdjBFNW5wNkZSN25aaEdVTE0rL2d1RnRocjgwd1pLdWl1U1hnVlkrdjlN?=
- =?utf-8?B?aFhkNnE4VGd3VFd5eGlzWmlyZ2tqaGYzV2E1cFNPcE1aUUg2cjJwRWZkZ3NM?=
- =?utf-8?B?V2xHZmZDQlRrMndaUHVuQkkvTmpkZ3A3eFMxUVNTbHdabEFORi93WVZ2TmJS?=
- =?utf-8?B?QUxKRHh3cEhDRE5UbkpuZU9DUzBtNlVkcExXMllGQ25uTS9mMHl6Z3FURVdG?=
- =?utf-8?B?dXRNdExBcjZzOGVwc1VzNzZUVTg1dVE2Vnpxa1o3L1F3TnNJU2tqTFBmMldZ?=
- =?utf-8?B?RUFpMHFYWHZONi92VklFTzN5LzZUZGtadktRQmRIdkhoZ3hHNTNmdERSa0JQ?=
- =?utf-8?B?dXVPRW1kSENQbzZBOUNtVWJIQ0QvaTYwd3hPbUNBdHYyR0FyYTBBaDQvQ3RB?=
- =?utf-8?B?bSt5OTJwdzVMTHRybkJYZGw2NURhSnE0MGptQjY0bVB0T05PcHJXaFFhTWNo?=
- =?utf-8?B?WTNlMDZ4R1BmcEhxZVJDbFNaN2VsS1g2bTlxUnFCa0RyTkZSMC93akJGL0Vk?=
- =?utf-8?B?UFpidGEwOGxUMHBXaTJtUzdLRmd6SzFwNHU0YUhtWTBaWmdiNWFYV2pIVytN?=
- =?utf-8?B?UVZUV1JJWmZ6UDBmN3FJeEdzd0FiVWpMLzVpdFRzSm0xVHc4VTRxcXdrMTJi?=
- =?utf-8?B?dCt0cENlMDUxZ3M1RmZ1QkthVGVKTWliSTBHcm5VNkxqWFB4RGtnK3JpUnNN?=
- =?utf-8?B?cklGb2doN0IreTB5eFZqNUNpTmJyQnQ4TFhsdGFudHIySXk1QmdyTmRFZi9o?=
- =?utf-8?B?cURrZXZFR1ZZTXpsYW01OWs2RXlyR0NTR2o4V245U3czV2c5WTBtbnowR1V2?=
- =?utf-8?B?K3V6aGNvbndtVU1lR1JKL2IrM2ZsanZLeFowUkdENzkwN3BnTDJJcHdCWHBq?=
- =?utf-8?B?NVRUdjZ2Z2pvNnQ0TTl3TlJtOER5MjNvWFBFUnhJN0hsUjFLRzBKYTBGVzZI?=
- =?utf-8?B?d0Qyb2JEL1ZpMkRMOXJIc241eTh2T2M1Uk53eXFhcnEvRGFiMlI5c2huekFr?=
- =?utf-8?B?M1Q2QjFLNXRkcnRNTDdtbkxZMnVSNzlmbHlyemtVN2xLS2VIRDh6MjR0c2Ry?=
- =?utf-8?B?SEJSRU1DdndDaFcxNEk3K3J4Z1Zwc1ZDdHJFSTRPQjQ0M3RTdjRRQT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18d8097c-6a37-4693-e922-08df05a68377
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 08:21:24.0630
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h1Ys9QyLi9F2o7vYN2LybNqu7gVBq1MDs1OSLeImWG5rfG1XNEp/Px57dwZ4cyOjDQoKVXa8tjGPHvj8+tb2sA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P123MB7179
+References: <20260827182757.6856-1-linmag7@gmail.com> <20260827182757.6856-5-linmag7@gmail.com>
+ <20260829062623.GA44338@ravnborg.org>
+In-Reply-To: <20260829062623.GA44338@ravnborg.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sat, 29 Aug 2026 10:21:27 +0200
+X-Gm-Features: AcwNN1Uqg3WNpv2SMeCAdSi_XoxXWJ1Qgmz64p5ll-3zF-vtkNvtYwWsshSym9U
+Message-ID: <CA+=Fv5Qf1AmpVEfscnXPoVB9t1AHSwsPjFs65OzmEUMNER7ZrA@mail.gmail.com>
+Subject: Re: [PATCH 4/5] sparc32: move early memory setup to setup_arch
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: sparclinux@vger.kernel.org, davem@davemloft.net, andreas@gaisler.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 02:41:53PM +0100, Steven Rostedt wrote:
-> From: Steven Rostedt <rostedt@goodmis.org>
-> 
-> The newly added files show_event_filters and show_event_triggers that show
-> all filters or triggers that are set within the trace array do not take a
-> reference for the trace array it is showing. Without taking a reference,
-> the trace_array may be freed via "rmdir" while a task is reading one of
-> theses files. Those files iterate all the events within an instance
-> (trace_array) and nothing prevents that instance from being freed while
-> its data is being read. This causes a use-after-free crash.
-> 
-> Have the open of both those files take the trace_array reference via the
-> trace_array_get() that prevents the trace_array from being freed while the
-> files are opened.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 729757b96a662 ("tracing: Add show_event_filters to expose active event filters")
-> Fixes: 6a80838814eea ("tracing: Add show_event_triggers to expose active event triggers")
-> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Closes: https://lore.kernel.org/all/CA+0ovCjerKZJLwXScM9bF2ga2rLi4_XOpUfK41NDbENpeu98jA@mail.gmail.com/
-> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  kernel/trace/trace_events.c | 28 ++++++++++++++++++++++++----
->  1 file changed, 24 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-> index 1d39eaf6a0f7..9dbc2441763b 100644
-> --- a/kernel/trace/trace_events.c
-> +++ b/kernel/trace/trace_events.c
-> @@ -2736,14 +2736,14 @@ static const struct file_operations ftrace_show_event_filters_fops = {
->  	.open = ftrace_event_show_filters_open,
->  	.read = seq_read,
->  	.llseek = seq_lseek,
-> -	.release = seq_release,
-> +	.release = ftrace_event_release,
->  };
->  
->  static const struct file_operations ftrace_show_event_triggers_fops = {
->  	.open = ftrace_event_show_triggers_open,
->  	.read = seq_read,
->  	.llseek = seq_lseek,
-> -	.release = seq_release,
-> +	.release = ftrace_event_release,
->  };
->  
->  static const struct file_operations ftrace_set_event_pid_fops = {
-> @@ -2908,7 +2908,17 @@ ftrace_event_set_open(struct inode *inode, struct file *file)
->  static int
->  ftrace_event_show_filters_open(struct inode *inode, struct file *file)
->  {
-> -	return ftrace_event_open(inode, file, &show_show_event_filters_seq_ops);
-> +	struct trace_array *tr = inode->i_private;
-> +	int ret;
-> +
-> +	ret = tracing_check_open_get_tr(tr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ftrace_event_open(inode, file, &show_show_event_filters_seq_ops);
-> +	if (ret < 0)
-> +		trace_array_put(tr);
-> +	return ret;
->  }
->  
->  /**
-> @@ -2922,7 +2932,17 @@ ftrace_event_show_filters_open(struct inode *inode, struct file *file)
->  static int
->  ftrace_event_show_triggers_open(struct inode *inode, struct file *file)
->  {
-> -	return ftrace_event_open(inode, file, &show_show_event_triggers_seq_ops);
-> +	struct trace_array *tr = inode->i_private;
-> +	int ret;
-> +
-> +	ret = tracing_check_open_get_tr(tr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ftrace_event_open(inode, file, &show_show_event_triggers_seq_ops);
-> +	if (ret < 0)
-> +		trace_array_put(tr);
-> +	return ret;
->  }
->  
->  static int
-> -- 
-> 2.53.0
-> 
+Hi Sam,
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+On Sat, Aug 29, 2026 at 8:26=E2=80=AFAM Sam Ravnborg <sam@ravnborg.org> wro=
+te:
+>
+> Hi Magnus
+>
+> On Thu, Aug 27, 2026 at 08:24:16PM +0200, Magnus Lindholm wrote:
+> > Move the early memory configuration out of SRMMU paging setup and next =
+to
+> > the rest of setup_arch(). Derive the PFN limits from memblock, reserve =
+the
+> > kernel and initrd there, and retain mem=3D support with
+> > memblock_enforce_memory_limit().
+> >
+> > When PAGE_OFFSET maps a relocated kernel, remove memory below phys_base
+> > from memblock because it cannot be reached through the linear map. This
+> > replaces the equivalent trimming of sp_banks.
+> >
+> Rebasing the relocate kernel patch on top of this would prevent the same
+> code to be patched twice. But the end result would ofc be the same.
+>
 
--- 
-Aaron Tomlin
+Doable, but as you say the end result would be the same. The relocate patch
+is part of the phys_base series that's already posted and is a boot
+prerequisite on my hardware, so pulling one patch out of it to re-land on
+top of this while both are in flight felt like more churn than the tidier
+history is worth.
+
+> > -     for (i =3D 0; sp_banks[i].num_bytes !=3D 0; i++) {
+> > -             unsigned long start =3D sp_banks[i].base_addr;
+> > -             unsigned long end =3D start + sp_banks[i].num_bytes;
+> > +     for_each_mem_range(i, &start, &end) {
+> > +             unsigned long start_pfn =3D PFN_DOWN(start);
+>
+> Here for_each_mem_pfn_range() could be used.
+>
+
+Yes, that make sense
+
+> > +     min_low_pfn =3D PFN_DOWN(memblock_start_of_DRAM());
+> > +     pfn_base =3D phys_base >> PAGE_SHIFT;
+> > +     max_pfn =3D PFN_DOWN(memblock_end_of_DRAM());
+> > +     last_valid_pfn =3D max_pfn;
+> last_valid_pfn can be replaced with max_low_pfn in all places.
+> > +     max_low_pfn =3D max_pfn;
+> Likewise, replace all uses of max_pfn with max_low_pfn.
+>
+> Code becomes easier to understand when the memblock defined variables
+> are used.
+>
+
+I agree, I will fix this.
+
+
+> > +     for_each_mem_range(i, &start, &end) {
+> >               while (start < end) {
+> >                       set_bit(start >> 20, sparc_valid_addr_bitmap);
+> >                       start +=3D PAGE_SIZE;
+> There are no users of sparc_valid_addr_bitmap, it would be better
+> to drop the whole function in a preparation patch.
+>
+Well spotted, will do.
+
+
+I'll get started on a v2 of this series and post it asap.
+
+Regards
+
+Magnus
