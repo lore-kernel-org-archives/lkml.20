@@ -1,80 +1,126 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F6C18FC97;
-	Sat, 29 Aug 2026 10:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BF1284690
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787998527; cv=none; b=MJVNrtiNoNGxhV9mYs2KQGnPal/QSDMZ+PO1XekalqWrA953Wnns0ITWcdbQKIvXlYxIGCM3KTn3pOo0ltv0uzuWNF81KQnzSsZW9d/m6Uk2zLbteZmek3l10yeu8AnovPH3FSkG6ZqUKV8cfnoo8sQsjmfC85C6LD8rULN+ePY=
+	t=1787998548; cv=none; b=aJzRqBdDeqy5EJwgLSxbdhGoCxt1718/oHGIowBvEm8tuRZbrIG4BYueEwR5lpEMgjHPlgRxbaMIKk6+micRje2yQe8Do4+2kzdxCQ1oks+bPFbUSZd5MAJ6BirB4TroJEakagqHQiT0VBf5JJ5QkfbdcRDpLwMNwSU/m2Fu1x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787998527; c=relaxed/simple;
-	bh=0LHTVujrq1CsKZO/WoUYdjGkoWUNdaiGEWftAdeIzlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oCji8O1Kxl7Ug0dx6kOV/JgKZ99aOWRhX3A6ncYCryrKU8neJaU13BJWzuJSio2D3n1M2bQT3eeg1CS8iVb9Rb1kkSlfDM+ghq4CRe32A7w9kybfxg5vB4iys8q5bks1RGXlBiuWDEVB5zjobXp2tTp7CdZ9Ync+lQymRYjWWG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=ZqGNPIOI; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	s=arc-20240116; t=1787998548; c=relaxed/simple;
+	bh=KAZpAufm9mY4Vi7JaMtV/dylFfUr1203jvM1ywXIWX4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=f3T1NwYB5u7JmgNM0QYbIOYfFrhMv5mKD9cSgzR+zPh3FRQxn2eAAtSKanDqJ9m8ow7xyOhtJhvZ6DnAeR/QEeYLHYnozM5JDsDmsBKqicBMDCrEb+TioW9+mU0Y6X/eIL9PyV5nYHvmQeXtwqSxYZF3Ce5napYgLfvH/8HF+fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPPojqJZ; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="ZqGNPIOI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1787998523;
-	bh=0LHTVujrq1CsKZO/WoUYdjGkoWUNdaiGEWftAdeIzlY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ZqGNPIOITjQWzyL+NvuxtEQn4v4Fdsb7eCIibL11gt9L3Wdmwv4cK2Z7ZwxA/2wp+
-	 E8WHqR0gr7Cd5l214e6tx/fZF5gbXXY9VHfEEAompHJ7MlU2YejoenPNuNvvX9m3xr
-	 2ahk7cxxlIxz2opYg0JSMqCi1ju1tav1aYji4kws=
-From: Paul Cercueil <paul@crapouillou.net>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paul Cercueil <paul@crapouillou.net>
-Subject: [PATCH v2] ARM: dts: samsung: exynos4210-i9100: Enable RTS/CTS in Bluetooth node
-Date: Sat, 29 Aug 2026 12:15:09 +0200
-Message-ID: <20260829101509.138284-1-paul@crapouillou.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPPojqJZ"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso18326925e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:15:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787998545; x=1788603345; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7EdZa0g63zlpWXBiLsDvt8kChhkbnx7osFInxK6j0I0=;
+        b=MPPojqJZysp4cM3WfSCRNLKhKlpmekp6eL8W5R9bJ4M8H8EYrMNBLkzr85OPukdumW
+         OLRkWuIi8q06H5ft0xiCU/aatfulPD4PoEelxuCD4OP2OmOvHYj9jwsPd2Fxm1I341ns
+         cEALyqHhFueFClG2Vz87ULz9e0EtXR69Unvw1JPjGmkz4XUVtMOWrDRO1KOdcdDaIWRL
+         /1E5/wi8PaLyH+R6uH64qVWFeJGpp8uMU6sDrOo/QVhggsCJLq7Ldx2r4TGQ7dd8N05p
+         MdzLbEB86z796egt5mMKhDRaLit17dNqn1XXKhKYlhWDovagzMI7p75CuslVOlGgeQhJ
+         xWDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787998545; x=1788603345;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7EdZa0g63zlpWXBiLsDvt8kChhkbnx7osFInxK6j0I0=;
+        b=GkzqAOphClqIgbQp+tcgEdGVWMTecvmCURdMq1f+EpGZYjR8Rx6Swr4k1jUr7r0iAu
+         r9xbNGCtagaIwNKcJfWNmgzmy2EedeKspmEaVUViMEMacKiXSrgRxRxOW83XYosK4zXM
+         Vrn3iIFYzxQmekpht8TjFLJmHFBqLeeqyp+KOStDtQVcA57SmlZud4EX33O06/1LEiPY
+         QU8yqAKIYTBPvUAmRu7IFWtsVCuw788HTU9hpAmZtzPMkseVF1Ye1pR+I8x+CVaSpUzk
+         JyZs00LJ8t8FqlV7FSnKjG0ipjD0slRUfwBoGRM4zBQxnd2z/hG0p9J/oOjJbMkz1EkU
+         /jVQ==
+X-Gm-Message-State: AFuF++mFAP3KP8m/smpCKA8GN1QLFLWdiWGY1SP65pyJmQ4WHYXiE73b
+	Muu4/KzVBWr5M3cZAL/5bBmHWSwq2oyAB2iOSCgq61YC/ZL5mtxCeLTpzuXQ
+X-Gm-Gg: AR+sD1002KVnjtl9Rsp/mjSeM9TloJGwPosasP632sh/eDCF2pTrGquCZNXK2mhMeQ2
+	+rqPlPoI8g6yUjBUxnlx8E2FCVxkL2uQpwJa/ixQq7UazKDW02fw39k1TTv4gIbyKh1RgT5MAtX
+	e5dW0InOKkpuYHktOp0pPu3RbSef5V1dqD9S1ZNXRQRnKLqWbAgHlAHTEu9TbWc1sfTnsnIpdUT
+	utkD6GZS8ekuIAVNBiLuSa08iO6h+cR+9bGv/siyAu6JujLQrszIMDw8Rdy9XUG7CkLk8rd1dCq
+	LCj3xmk9tvAquKv29Jbuyq+I1SDpXj8tlKamGeQj+RIuzASZuoezf8Ke30WojlfkjNnw05xCwLQ
+	my/pPoWTlJnV6V/jhEU/LNQUqDzxIdbDhPoPWDWNvF2vyBOBoq4cRbjxGV60jcWzVfxb4XVny9H
+	2G6A1azt4yxb4GTi4eLdF+MUSGsf8Kzr0Lkt4F/usUqSTjKMyYtaYcNdaNOE8PkspuzHlciGnHN
+	gZHTKe5u8xpHhIMQq32q4lJRupqc4A6yj2sqAKwxXcSoLsJxAUxQiMXPk4qk+cE0+uF9LzXSybo
+	GR+f
+X-Received: by 2002:a05:600c:8b35:b0:499:7a19:408b with SMTP id 5b1f17b1804b1-49b91c3b71dmr194656745e9.11.1787998544573;
+        Sat, 29 Aug 2026 03:15:44 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d06sm166010555e9.12.2026.08.29.03.15.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 03:15:44 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: mac80211: skip reconfiguration when the last emulated chanctx goes
+Date: Sat, 29 Aug 2026 13:15:32 +0300
+Message-ID: <20260829101532.1471682-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-rtscts'
-property.
+Drivers without native channel contexts get the emulated ops, and
+ieee80211_emulate_remove_chanctx() reconfigures the hardware with no
+context left, which ieee80211_calc_hw_conf_chan() turns into a channel
+change to the default channel. A monitor-mode retune releases its
+context before using the next one, so every retune costs the driver two
+channel changes: one to the default channel and one to the channel that
+was asked for. Nothing is on the air without a context and the next
+context sets the channel, so drop that reconfiguration; the radar flag
+is still cleared for the next configuration to carry.
 
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+On an AR9271 (ath9k_htc), where every channel change is a full reset
+over USB, hopping across the 13 standard 2.4 GHz channels with an
+unmodified driver showed 2006 drv_config CHANGE_CHANNEL calls for 1000
+hops with the reconfiguration and 1006 without, a median hop of 123.5 ms
+against 92.0 ms (p95 183 ms against 105 ms), and 99.1% against 98.3% of
+injected frames delivered on a second card.
+
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
+ net/mac80211/main.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Notes:
-    Changes:
-    
-    V1 was: "ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node"
-    
-    -v2: Drop max-speed property. It's only supposed to be used in some
-         cases, which don't apply here. As this was the "fix" for getting
-         Bluetooth to work on my device, which will be applied to the
-         driver instead, the Fixes: tag was removed.
-
- arch/arm/boot/dts/samsung/exynos4210-i9100.dts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-index 8a635bee59fa..95964be7daa8 100644
---- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-+++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-@@ -875,6 +875,7 @@ &serial_0 {
- 	status = "okay";
+diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+index a59837b9f480..b3f9b3bc3cac 100644
+--- a/net/mac80211/main.c
++++ b/net/mac80211/main.c
+@@ -289,9 +289,14 @@ void ieee80211_emulate_remove_chanctx(struct ieee80211_hw *hw,
+ {
+ 	struct ieee80211_local *local = hw_to_local(hw);
  
- 	pinctrl-names = "default";
-+	uart-has-rtscts;
- 	pinctrl-0 = <&bt_en>, <&bt_res>, <&uart0_data>, <&uart0_fctl>;
++	/*
++	 * With no context left there is nothing to configure: nothing is on
++	 * the air, and the next context sets the channel. Parking the radio
++	 * on the default channel here only to move it again when the next
++	 * context is added costs drivers without native channel contexts a
++	 * full channel change per retune.
++	 */
+ 	local->hw.conf.radar_enabled = false;
+-
+-	_ieee80211_hw_conf_chan(local, NULL);
+ }
+ EXPORT_SYMBOL(ieee80211_emulate_remove_chanctx);
  
- 	bluetooth {
+
+base-commit: ca800a9302764c445de0da0e84d2252400a770ee
 -- 
-2.53.0
+2.55.0
 
