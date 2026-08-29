@@ -1,67 +1,87 @@
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DABB236453
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 13:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F7223323;
+	Sat, 29 Aug 2026 13:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788010445; cv=none; b=WEQQL+2Krkjr57BmgU+PIQx+rJGy2twLKvfd+IPz4kDxxJnwUPfwuR0tKbEOm2gorqF/GKv1n8bSdHr/1qwbv29C7JFN+V44LSQLL+nmoJkSGtpQD6nGmcZpBhl8+d3K1bxazDotNtUYSG0taq/5rlO6TnbULN1IaEYxeyG9DYE=
+	t=1788010472; cv=none; b=OaWmEDkFtsMGRbqFFt7jwgT9GWkse58rtioqiW97W/HTKb4IphgzwJ46wWcLFjDdVoYk15EfG1L5JG5AND2DOQa3fsoNNa6NwxynP/FaCeSv5nzAf4nfYQHmPEYGu6UzYa7WnarF0C2r14zHm7jRj6P+jzSiJn5sYrT2XfcwPJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788010445; c=relaxed/simple;
-	bh=zLNmLkYC2mNWrkptxq6WVDe0r3Meoeeu7Y9ulURv8EU=;
-	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:From; b=rdtdbr2YLJ1jehS8AeXfUEyswejWo1r85zUn4YGHHKz6f09gt7FYoonXjueMg+3rFMnRVDox8+bucB3RvHunjYDBwCyi6k3pyIA2EdFtGshtOOxWbZqB1Id4W/4rnyNEf0EoKBXfTVjwAZ1/udrBJShmX5sXXdZ+G4At+rj1hhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
-Received: (qmail 94732 invoked by uid 3782); 29 Aug 2026 15:34:01 +0200
-Received: from muc.de (p4fe15d93.dip0.t-ipconnect.de [79.225.93.147]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Sat, 29 Aug 2026 15:34:00 +0200
-Received: (qmail 56993 invoked by uid 1000); 29 Aug 2026 13:33:59 -0000
-Date: Sat, 29 Aug 2026 13:33:59 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-  Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
-  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [Patch 3/9]: Replace scr_readw/writew by scr_readg/writeg, etc
-Message-ID: <apLfx9oqYaa36oyn@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
- <apCGKUotSUZLvngV@MAC.fritz.box>
- <2026082934-irrigate-tastiness-c4ff@gregkh>
+	s=arc-20240116; t=1788010472; c=relaxed/simple;
+	bh=sj2FbP662UfTlUjAdQZKBbfB9RMpolU9yUOO3V3+jlU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XnqTJyVO5eOogoAueEcRIEglO41awTvTq+tnEz32BwKluMA1hBFPA8SDMzZ3t9pU/m1uJm+3E1bCGipB6wrl7KN3y1HuskqIg1yYGuGAlxqJCyVVcyuuFnbL+hb6Zs3qphLM7U8dLjh3oo88UyUxtFHdqxKZ+/BCv1TxPl8Jsoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=EVUy7K8Y; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="EVUy7K8Y"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bcbd04cd;
+	Sat, 29 Aug 2026 21:34:15 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: mario.limonciello@amd.com
+Cc: runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	thomas.lendacky@amd.com,
+	john.allen@amd.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: ccp: Initialize DBC ioctl mutex before registering device
+Date: Sat, 29 Aug 2026 21:34:10 +0800
+Message-Id: <20260829133410.1708684-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026082934-irrigate-tastiness-c4ff@gregkh>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04dba607d03a1kunmfc30c173d0b66
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUkZVh0dTh9JSk8ZGU4eS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=EVUy7K8Y0chtFRbLbueu1YAq6XDxThYcLXwKbGy5mEqnpsHYndNEA1VpNtQdXW0TzmeqAgPXVASqTrb/IngOctDFkhF42206XLCferCdsOO9WLzQiTxsR36lRxDTz4DE6O9SCelHnGfLhQB0Gdj+D2WSkHxhqnbW2yhV5vBrdUk=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=yd9YtTllAlHctJiIZ5KUYqP4tsI/lD2hZypzZeaVt/g=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, Aug 29, 2026 at 14:11:00 +0200, Greg Kroah-Hartman wrote:
-> On Thu, Aug 27, 2026 at 06:47:05PM +0000, Alan Mackenzie wrote:
+dbc_dev_init() registers the DBC misc device before initializing
+ioctl_mutex. Once misc_register() publishes the device, userspace can
+open it and invoke dbc_ioctl() while the mutex is still uninitialized.
 
-> > vt: 32b glyph: 3. replace scr_readw/writew by scr_readg/writeg, etc.
+Initialize ioctl_mutex before calling misc_register() so the published
+ioctl callback always sees an initialized mutex.
 
-> I don't understand these lines in your patches, where are they from and
-> what are they for?
+Fixes: c04cf9e14f10 ("crypto: ccp - Add support for fetching a nonce for dynamic boost control")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Assisted-by: Codex:GPT-5
+---
+ drivers/crypto/ccp/dbc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-scr_readg and scr_writeg read and write an entire glyph, regardless of
-whether that glyph is 16-bit or 32-bit.  The latter is determined by the
-setting of CONFIG_FB_GLYPH_21BIT.
-
-This is the main complication in these patches; having to cope with both
-sizes of glyph, for backward compatibility, rather than just switching
-to 32-bit glyphs.
-
-> thanks,
-
-> greg k-h
-
--- 
-Alan Mackenzie (Nuremberg, Germany).
+diff --git a/drivers/crypto/ccp/dbc.c b/drivers/crypto/ccp/dbc.c
+index 410084a90..00c864413 100644
+--- a/drivers/crypto/ccp/dbc.c
++++ b/drivers/crypto/ccp/dbc.c
+@@ -240,12 +240,12 @@ int dbc_dev_init(struct psp_device *psp)
+ 	dbc_dev->char_dev.name = "dbc";
+ 	dbc_dev->char_dev.fops = &dbc_fops;
+ 	dbc_dev->char_dev.mode = 0600;
++	mutex_init(&dbc_dev->ioctl_mutex);
++
+ 	ret = misc_register(&dbc_dev->char_dev);
+ 	if (ret)
+ 		goto cleanup_mbox;
+ 
+-	mutex_init(&dbc_dev->ioctl_mutex);
+-
+ 	return 0;
+ 
+ cleanup_mbox:
