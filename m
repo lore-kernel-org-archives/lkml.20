@@ -1,85 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B8E2F28FF;
-	Sat, 29 Aug 2026 05:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0672F28FF;
+	Sat, 29 Aug 2026 05:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787982855; cv=none; b=fM9JdeRfZV9a2UxcKTN4ct377hi2iMpAV8AwoS7rGv7j8OiyNpj69PCkaixmMg6tW18AUvAMXD5rvbEv0Dc//PuCsF4Ck/mCFoRbawSX9J7d+y06fdh339gOjo5oRVSQeecTj7JTPIbxSbnyWpTNj5vwoDoi3IjDhOg+EFBEeZs=
+	t=1787982866; cv=none; b=UPMT/METDAXPy2+9YVxGSsT57qgU06zfAahTtLJElFsduCL6pg5qrQ8gMaTJhnLuYcE4Ec7aNwYkkTeuAELnEmTlh/zV6AzHJmN8Gy3EVBUAi7+U9V2BZUjYYEk9ZehHNsgU8IC1R4Oy+9U8WM7TD/uI2HLc79s5pu303F4IETY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787982855; c=relaxed/simple;
-	bh=6e5twiWPXIosp8OruVrNP6l+Q7LjcOHYdnLno5IGxLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o8BlF6JKwrZTrvK5DXZjakjrFXDIphcGulOa8I6dSzeZS7WSbik5gJ+XgoW8qbNc91psVAe8Kyx/T3v1Tk2pAPS6WY8r2KCEFiA1PTtiymjYuym7rAWI1LcQ/gmS+KosikVR4XarrSAxgGBcgrWbg4N4LX0UjHq1dEmwmWc6hS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IVPkMZuT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787982866; c=relaxed/simple;
+	bh=HIks4LV10ysmsNcUdePgwL6jjgFficWnCTvztD4WSGw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dl2aqQnW1P3EhQLqi5TaGSvRhOfXHMBmPR9/Fj8NnA7C+Lx//jfkV1eIAP1dDLVzkEo9Q7+rajOyPFBHsrWjDvQTi8QPvo2HefgXYE6pBBC4e4eeXXw3irOGRnphyQ56mbbnmOiJ1EJWJWAjniQRerZ5mYCQ+7DbSU21+Est+vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i134d/Wa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IVPkMZuT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2E71F000E9;
-	Sat, 29 Aug 2026 05:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787982853;
-	bh=YFW0XH/PSwQsLKnfNogApnQ0v2KuOhdfFX8Lu9Q6tl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IVPkMZuTzs2NFp1xt75PsOBImKyCTij0PhJgof2LrSSbCVrEn0OFNWfQ3JLYVkx6n
-	 lwVmFTnc0w4ZRoDJ7SdDDUM8bXY/nTaukoBNFWVgiKhnt3WvgaXOFg34/8SIfGhyZ6
-	 sCz4oR/VSU0bXBJYGlefULFTcWBe6JHYPawNz58M=
-Date: Sat, 29 Aug 2026 07:52:31 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Chuck Lever <cel@kernel.org>
-Cc: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>,
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	"J. Bruce Fields" <bfields@fieldses.org>, linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
-	tgopinath@linux.microsoft.com, kys@microsoft.com
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Message-ID: <2026082948-sleeve-blaming-b901@gregkh>
-References: <20260828041925.36758-1-blbllhy@gmail.com>
- <2026082828-palpable-dingo-241b@gregkh>
- <978293e7-430d-4b11-9a29-1fb479cb0082@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i134d/Wa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533FB1F000E9;
+	Sat, 29 Aug 2026 05:54:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787982865;
+	bh=yFTrJI2OeaOiAaQDcbHU1K6Yg8r+hEUD6sJwtiaktYE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=i134d/WacIrlcXNhsLMoRsdAUYUPQU+u5jVamSqmNuVIr31oNDoDyix3Bl7iQ3n4O
+	 cJ+/AWv1CT8il1Gy4Xhyz+/lXEW4ePaMV2mK0B+zawE6uIRXRiVqqyhF1AT5YsGMqp
+	 Z4VeVGpBz+Ra2Ovxs8VTNU2LA2HRxLYI6st5dFqRodePXpkNwBKWvMowdb4lDySqID
+	 /12B349d0ne77G9obHl+zZ3nHAgCn1YbqgpE+1i1hg96c1rGzVc+b1fMQWOlYNMFdx
+	 6ST4ftT2MkZXU5U1dLBCmCr2r1ZYrHJg8aLCtQLcAyiJZ+SYyMdufuVjQKNImiZ9SJ
+	 PEV9uQfDoOEYg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v9 2/7] firmware: hwrng: arm_smccc_trng: Register as an
+ SMCCC device
+In-Reply-To: <178794567779.4159892.8570190086048719424.b4-review@b4>
+References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
+ <20260805063255.1638614-3-aneesh.kumar@kernel.org>
+ <178794567779.4159892.8570190086048719424.b4-review@b4>
+Date: Sat, 29 Aug 2026 11:24:14 +0530
+Message-ID: <yq5atsodtqt5.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <978293e7-430d-4b11-9a29-1fb479cb0082@app.fastmail.com>
+Content-Type: text/plain
 
-On Fri, Aug 28, 2026 at 09:45:33AM -0400, Chuck Lever wrote:
-> 
-> 
-> On Fri, Aug 28, 2026, at 1:29 AM, Greg KH wrote:
-> > On Fri, Aug 28, 2026 at 12:19:25AM -0400, Cen Zhang (Microsoft Security 
-> > FORGE Labs) wrote:
-> >> client_has_openowners() walks clp->cl_openowners and reads so_stateids
-> >> without clp->cl_lock. nfs4_put_stateowner() unhashes that openowner under
-> >> cl_lock and then frees it, so a concurrent EXCHANGE_ID with mismatched
-> >> creds can use-after-free the nfs4_openowner.
-> >> 
-> >> BUG: KASAN: slab-use-after-free in client_has_state+0x10a/0x140
-> >>   fs/nfsd/nfs4state.c:3718 client_has_openowners()
-> >>   nfsd4_exchange_id
-> >>   nfsd4_proc_compound
-> >>   nfsd_dispatch
-> >>   svc_process
-> >> 
-> >> Take clp->cl_lock while client_has_state() walks the openowner list.
-> >> 
-> >> Fixes: 4eaea1342507 ("nfsd: improve client_has_state to check for unused openowners")
-> >> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> >> Cc: AutonomousCodeSecurity@microsoft.com
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
-> >
-> > Please use your microsoft.com email address, and not a random gmail.com
-> > address.  It's kind of odd that Microsoft would have to rely on Google
-> > to send kernel patches :)
-> 
-> Greg, would you prefer that I hold off on applying this to nfsd-testing
-> until Cen can post this one again?
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-That's your call.
+>> [ ... 58 lines skipped ... ]
+>> @@ -94,29 +96,37 @@ static int smccc_trng_read(struct hwrng *rng, void *data, size_t max, bool wait)
+>>  	return copied;
+>>  }
+>>  
+>> -static int smccc_trng_probe(struct platform_device *pdev)
+>> +static int smccc_trng_probe(struct arm_smccc_device *sdev)
+>>  {
+>>  	struct hwrng *trng;
+>>  
+>> -	trng = devm_kzalloc(&pdev->dev, sizeof(*trng), GFP_KERNEL);
+>> +	/* validate the minimum version requirement */
+>> +	if (!smccc_probe_trng())
+>> +		return -ENODEV;
+>
+> It feels like slightly poor practice to do this.. It is doing three
+> things:
+>
+> 1) ARM32 disables this entirely for some reason, shouldn't the bus do
+>    it? Maybe it already does?
+>
+
+Why? The bus only checks whether the firmware function is supported and
+creates the device if it is. Further validation should be the driver's
+responsibility, shouldn't it?
+
+>
+> 2) Checks the API exists and checks but the bus already did this.
+>
+
+This checks that the firmware supports the minimum ABI version required
+by the driver.
+
+>
+> 3) Checks the version number
+>
+> Maybe the bus should capture the version output and pass it in as an
+> argument to probe so the driver can do the min version check directly?
+>
+
+One of the earlier discussions suggested that the bus should only check
+whether the function ID is supported, rather than checking for an
+expected version or anything similar. This keeps the bus code generic.
+
+	arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
+	ret = res.a0;
+
+	if (ret == SMCCC_RET_NOT_SUPPORTED)
+		return false;
+
+The other alternative discussed was a device-specific callback that
+would perform additional validation and create the device only when
+those conditions were met. It was dropped in favor of the simpler bus
+code above.
+
+>
+> It is very minor anyhow, it looks OK
+>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+>
+> -- 
+> Jason
+
+-aneesh
