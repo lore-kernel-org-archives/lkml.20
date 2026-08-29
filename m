@@ -1,226 +1,114 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
+Received: from mta1.migadu.com (out-8.mta1.migadu.com [95.215.58.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3236D2E6CB8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615023B8BBF
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788017374; cv=none; b=rm4cAeOckmxTFhaK2csaLx7Q6vbZ3EeIWIENFFRMQ7ZmP54ptDvP7e0x4VpMtjLCP83coH5DI2iNb5HuKbSahLgP4YQZuKLMU0enHxj+z7H0ib8/adx+/enZ1ueS3YolTDy0vDJIZEp6b5uO1eca+B692uV7SlsCPms7nZXbilw=
+	t=1788017542; cv=none; b=L+tH8rdXu68Sk2wC0nzdrHOqcpi04BV0aoLcGbloDAh38FjPA8YH5MMw2GGg2As2wGq6zLnszI360zLT2jqZvyU5dy8Mzil5mX7g38zro+PUWQ6m+WQ+8Fzdy9k0/wzfUqC5/qSDK/KDmg4Gsy+Xixj09APYT6uSGOVdlJWigWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788017374; c=relaxed/simple;
-	bh=CMjiRMXOFhOQJ3t7mMhYPWlT9GWHNsHC2vJnmo61tCk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=tSNa/Jgu8b96kCCkwaMRI19ZhM2BCoWnPaw6wG69/1Mc97SfW/r2yMB8+N+6Sh11Cu0c87lT3llYY7zjDK+NMqlAyncDPOCNqOXXmrlojrG+andIiB+a2ua/D/09aXrZVizyJbZ5rQQXnTHl+4X8bzdSdwDpvjzqaL3lMlkJ1Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4ab2d8e7e4cso470988b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:29:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788017372; x=1788622172;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qzsG6loT0ZKDWeUwY7zsbCAw31VaYMQZw7KvYQB7hbk=;
-        b=HOAwDgckwVZTZKzZzQn4WToIGoosaPAzpP8rQw23lmHkDHpMk4gLEY9dwLNGogrmbO
-         1doD86wykInAz7Abj2YhMEKDCYpM4hfqSL/AXB9s02DUGzpr/nbG6K8zuYbxTX0M3KBf
-         hC0IR2aghwLbE0kaG62G0VmBuf4S7FrqOnG+7tCSbfP7YoKZbFfC8e03Qj6Yoo9KcfHT
-         m7QS5IqUDiiSmVP1EyMoTlb5i7aDe96nlZ+wtMSKHRtcYdHotzDxcEs77HpEflw2MExH
-         qEs9FTWDsAIlNL0Di4iQTSoFiE/MdA6uaOy7iaqP+nbPpdG+1uhEXWWgXWR/YLRzE+5F
-         gsCw==
-X-Forwarded-Encrypted: i=1; AHgh+RqkSWdi+/NINBkSFP41BCF8lT+4PviuywCi0f0RgXyogQwGQqqwfBfVqtW3F++IRPU6CF9QF9dOELlTo/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNexOosIHg9PKQFGC4WWA9oSMyb4gz2/L9A3Mh9lFjfq3Okwu+
-	ZV/HxN1Epwf9vT98kdDbvk9moSzpfNBy24HS9/jg5lVRaKfGIgw00B7IsbiU4SyWUEKukwuxvmg
-	dtF3YnByk9XgwMbpVeM0YWMiDP0djmgd9Kyh5Y2p4xFQjjuE7z/dCuX1dicg=
+	s=arc-20240116; t=1788017542; c=relaxed/simple;
+	bh=rVDiljO1F/6NW9J+RzyY5uFSv7wjCnJUzm58AOKLow4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wp6TDC2eU7i3HGjFw3W0eXeRU3E393XDvd96pCr/3EsKGlMhKgO2/BVGVf8kUcnxfkX4zU1l0IjbAAf9LweGWMzjuuc7uYG3yGSi/CYlxqkBSGxkbhGsUzXWbQLkWO3KNAz3udEr4VF9FOvigJZelvU2zoSvSjf01rXyxkWXDRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=IAiGhBJV; arc=none smtp.client-ip=95.215.58.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="IAiGhBJV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rVDiljO1F/6NW9J+RzyY5uFSv7wjCnJUzm58AOKLow4=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788017536; v=1; x=1788622336;
+ b=IAiGhBJV3ErO51HVBRJFLsS8+hV8bglKXR/gQMNrCWIXzS1wPrQBtvO5rXPHawySit5P0ht2
+ alwtPClTtQEKSI+z9CC7W6mJrQ3i0TT7n6tXH87LupeVrCEzZhyMRDBP6uALftDaCsnB5U0khy5
+ TxQYp3C9DUoU561WFe7quXgMWmyxD/wcWEDi+fT38p6TedHw8QHInleV1keouByW1PmP9xb6Ix4
+ vemyBxO3gvM1qcgmldaeh2L8fzPrF6pG8YNobiQq9A25cnVxIQfWoU48mNXgPWIPyNxt0o8P03B
+ NG6DMIr1YnIAwLvzt4qs2GFBFTbIVuhxNixC+F7WPHhOA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b9416c6ab96456f8;
+	Sat, 29 Aug 2026 15:32:06 +0000
+X-Mizu-Trace-ID: b9416c6ab96456f8
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 29 Aug 2026 23:32:02 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Yukai Wu <xiaoyewuz.ruster@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Chen-Yu Yeh <chenyou910331@gmail.com>
+Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
+Message-ID: <apL7ctZhcN5t77Yu@wyuan.org>
+References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2388:b0:4b3:1e40:640b with SMTP id
- 5614622812f47-4b39800d0ecmr15540866b6e.6.1788017372140; Sat, 29 Aug 2026
- 08:29:32 -0700 (PDT)
-Date: Sat, 29 Aug 2026 08:29:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a92fadc.08e933ee.dbf97.008f.GAE@google.com>
-Subject: [syzbot] [bluetooth?] possible deadlock in rfcomm_security_cfm
-From: syzbot <syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
 
-Hello,
+Hi, it's me again ;-)
 
-syzbot found the following issue on:
+On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
+> Update Documentation/arch/riscv/vm-layout.rst translation.
+> 
+> Update the translation through commit 954260ff5a46
+> ("Revert "RISC-V: mm: Document mmap changes"")
 
-HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of git://gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11b8ae25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=74071deb72339c215b2e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+Somehow I guess you didn't get the actual meaning behind this "Update xxx
+through commit...".
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Correct me if I'm wrong. If you write this line in your commit message.
+Then it means if we apply this patch of yours. The Chinese documentation
+of this file should be already _completely_ synchronized.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/7684a30c51dd/disk-cf72cbb3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4f401bdb1bb3/vmlinux-cf72cbb3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/4379cea44543/bzImage-cf72cbb3.xz
+However, the current translation of this file is missing this part:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+RISC-V Linux Kernel SV57
+------------------------
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L     
-------------------------------------------------------
-kworker/u9:2/5598 is trying to acquire lock:
-ffffffff90f7e040 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_security_cfm+0x3f/0x4b0 net/bluetooth/rfcomm/core.c:2222
-
-but task is already holding lock:
-ffffffff90f51500 (hci_cb_list_lock){+.+.}-{4:4}, at: hci_encrypt_cfm+0x11b/0x740 include/net/bluetooth/hci_core.h:2239
-
-which lock already depends on the new lock.
+... which is not translated/synchronized in your patch.
 
 
-the existing dependency chain (in reverse order) is:
+Note that I'm not blaming on you for this. But I feel this is a point
+that a newcomer might find confusing, including me and Chen-Yu a couple
+of weeks ago, if did not read the script.
 
--> #2 (hci_cb_list_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       hci_connect_cfm include/net/bluetooth/hci_core.h:2163 [inline]
-       hci_remote_features_evt+0x485/0x9b0 net/bluetooth/hci_event.c:3786
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4041
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
-       process_scheduled_works kernel/workqueue.c:3470 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Our current how-to.rst only asks to write this line in the commit
+message but does not explain the results or the actual work behind it.
 
--> #1 (&hdev->lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       l2cap_chan_connect+0xac/0x2050 net/bluetooth/l2cap_core.c:7266
-       l2cap_sock_connect+0x37a/0x770 net/bluetooth/l2cap_sock.c:255
-       kernel_connect+0x107/0x160 net/socket.c:3755
-       rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
-       __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
-       rfcomm_dlc_open+0x838/0xac0 net/bluetooth/rfcomm/core.c:428
-       rfcomm_sock_connect+0x42c/0x690 net/bluetooth/rfcomm/sock.c:421
-       connect_socket net/socket.c:2141 [inline]
-       connect_socket net/socket.c:2131 [inline]
-       __sys_connect_file+0x146/0x1a0 net/socket.c:2166
-       __sys_connect+0x141/0x170 net/socket.c:2183
-       __do_sys_connect net/socket.c:2189 [inline]
-       __se_sys_connect net/socket.c:2186 [inline]
-       __x64_sys_connect+0x72/0xb0 net/socket.c:2186
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[...]
+	Update the translation through commit b080e52110ea
+	("docs: update self-protection __ro_after_init status")
+	# 请执行 git log --oneline <您翻译的英文文档路径>，并替换上述内容
 
--> #0 (rfcomm_mutex){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
-       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
-       validate_chain kernel/locking/lockdep.c:3924 [inline]
-       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       rfcomm_security_cfm+0x3f/0x4b0 net/bluetooth/rfcomm/core.c:2222
-       hci_encrypt_cfm+0x18e/0x740 include/net/bluetooth/hci_core.h:2242
-       hci_encrypt_change_evt+0x3e1/0xfb0 net/bluetooth/hci_event.c:3715
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4041
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
-       process_scheduled_works kernel/workqueue.c:3470 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+	So when a newcomer comes and just does what this asks, without
+	considering whether his/her/its translation is completely
+	synchronized or not, our script would be kind of inaccurate. ?
 
-other info that might help us debug this:
+Maybe we can add a description or a hint like:
 
-Chain exists of:
-  rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+If your current changes make the translation completely in line with the
+English version, then please add this line after your descriptions and
+before a blank line and your sign-off:
 
- Possible unsafe locking scenario:
+Update the translation through commit e83c5163316f
+(Initial revision of "git", the information manager from hell)
 
-       CPU0                    CPU1
-       ----                    ----
-  lock(hci_cb_list_lock);
-                               lock(&hdev->lock);
-                               lock(hci_cb_list_lock);
-  lock(rfcomm_mutex);
-
- *** DEADLOCK ***
-
-locks held by kworker/u9:2/5598: 4, last CPU#0:
- #0: ffff88802e39e940 ((wq_completion)hci3#2){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
- #1: ffffc9000250fd08 ((work_completion)(&hdev->rx_work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
- #2: ffff88807d7b80b8 (&hdev->lock){+.+.}-{4:4}, at: hci_encrypt_change_evt+0x83/0xfb0 net/bluetooth/hci_event.c:3627
- #3: ffffffff90f51500 (hci_cb_list_lock){+.+.}-{4:4}, at: hci_encrypt_cfm+0x11b/0x740 include/net/bluetooth/hci_core.h:2239
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5598 Comm: kworker/u9:2 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Workqueue: hci3 hci_rx_work
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
- check_prevs_add kernel/locking/lockdep.c:3300 [inline]
- validate_chain kernel/locking/lockdep.c:3924 [inline]
- __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
- lock_acquire kernel/locking/lockdep.c:5908 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
- rfcomm_security_cfm+0x3f/0x4b0 net/bluetooth/rfcomm/core.c:2222
- hci_encrypt_cfm+0x18e/0x740 include/net/bluetooth/hci_core.h:2242
- hci_encrypt_change_evt+0x3e1/0xfb0 net/bluetooth/hci_event.c:3715
- hci_event_func net/bluetooth/hci_event.c:7887 [inline]
- hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
- hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4041
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+..then follows a template commit message
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Any ideas?
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+(Should I cc the original authors of the script?)
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks.
