@@ -1,101 +1,99 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C491229B38
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047362AE68
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 20:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788035695; cv=none; b=FuYHV+tWzk4sjdxuAoH55G0V3FBIYm3Fjm7QjKn3kvquNdc2IvTBTG4S3tvnfzq71rajUOiLhcorrs/GKfsZscV1lBGewDwn/jruEXReuwo327NAuiUF4jJJFGV7BBup7ZDAO01IESav9p6itaZt9M5sMDRLd/piBBvWXi0SUzc=
+	t=1788035734; cv=none; b=CZO9ZpCTgLvtfQfe97XNtN2nwOc0j4aykTRPJlgzBICyE+X6TeLFGitHaoWmixjcx0dNCKhEy3/9hkLG1nNylwR4UTRfUwNq55L/9snvqoQaOhuCUnRVNQyKZBP7MSqe8a73CJY6IZi7jY3NuPuil/5B5V4c8mt++GcLypRU8wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788035695; c=relaxed/simple;
-	bh=LmHThhbvjPXgboYQhnIF3k82lpmB7K5HeFuBzh5emlU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oqueFPltJZRa48CSdCLwBYFAXMensq1FJod9SZ5Q4UUXqgmlY7YWrvT9a91epASF5C+RvGpFkBWex+EE5NdYr9glU3QT3FNIrP3rup3bdttEUiMAQ4GaxUOP3/QjBBrtAk4lj+m6FuTLNKupII15T9YP0+lk43tFuVXpDOrGphY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=VbPZ/4se; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1788035734; c=relaxed/simple;
+	bh=26UloDN3pckdO1GiQm553vAEBFScY+P3R3riomFFHFo=;
+	h=Message-Id:Content-Type:To:Date:Cc:Subject:Mime-Version:From; b=FHHjfMHR74ARyZXKDL31/9txjxHl5bscFNbpFMWtqIEN8kQrKSztHDMTLqrke3/TuM+77ZfTK59Dt9szvCrMK4o5Tnpy+UaSzYsjM/CISkAOZRRrqAMW2BU3tDwu8gZHpBddE42e9CPnR/R+lsUQBL+pBzmL4UsIxx5qrgpxyiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=y5fXMTBi; arc=none smtp.client-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="VbPZ/4se"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id D9089C33D3;
-	Sat, 29 Aug 2026 23:34:49 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro D9089C33D3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1788035690;
-	bh=LmHThhbvjPXgboYQhnIF3k82lpmB7K5HeFuBzh5emlU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=VbPZ/4sejYQ08MK5FeKGtT6a7V8c4anHjI7xcUigVZgJ+D6qvgcdu2cBNLmgRIkSX
-	 9FkR0CXSGYQWSSj3ITSDnVhstbqeVarRqKWN8bkdxjO4H6iDhC/kB44jnNCU0HcYJA
-	 foWFazSi0UUZAIFJ2oYrlxU4kyX6wWiCPmU2QtZcDRVLcnz0MCJs+SOcCslrQDTzLS
-	 EHKTVabNwiHe/3yjR7BFl0wNMtXAno2VcgiUHFe6qkkleRMi4rCpdIjib9QKnZ2Wyu
-	 Xl30byq174iVpID0JAQxKj7C1hSsylV8lnfQMnUlG6x3cBkYTEQSsKd/WacJddmk0X
-	 zxZIsFyd37kgw==
-Message-ID: <31cd7357e666ecc74b7a995641b3de3c0aa1bd0b.camel@rendec.net>
-Subject: Re: [BUG] KASAN: slab-use-after-free Read in
- irq_migrate_all_off_this_cpu
-From: Radu Rendec <radu@rendec.net>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>, Thomas Gleixner
- <tglx@kernel.org>,  Mark Brown <broonie@kernel.org>
-Cc: falemi@asu.edu, linux-kernel@vger.kernel.org
-Date: Sat, 29 Aug 2026 16:34:47 -0400
-In-Reply-To: <CA+0ovCh1hKPQ3DSXBdaf3MHGZKv3-mbSNiWrAETr62mDd1weKg@mail.gmail.com>
-References: 
-	<CA+0ovCh1hKPQ3DSXBdaf3MHGZKv3-mbSNiWrAETr62mDd1weKg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="y5fXMTBi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788035718; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=lFVqAV4JkcIfwSJYin0Cux+02hj1M9RyVM7CgTQPVgs=;
+ b=y5fXMTBiQZmyI5BjlaygOLEYtbf4P80sXeMPZFUyanREY7yHs6cdyVObGIwUfj9rouBDeK
+ TI4kYzGBAHCzDSPaT9QAPEn0BshgFH0M/XGf9P6xHDJLqeEGfgReRBUHJ7EyLNEAdxV96e
+ Wnu9UZiqHCRBHbb+MQKpkrKpBFL/MgtQ3WrHveBFbfYJn6NRybwaieCm63kfrteyOls3Cc
+ /Pp9O0G+8QIUjMsQkEWV6OVF3bqPpKNNNuGMCuBFXS97kBUyQV9wzbK+iAYLfvVGg6d5vi
+ gIaMOn7Nl8Q1fDaIf7/TwPSvNjfHXrkwPEopMezkYoEZF4WYeqsVGIzySZEG+g==
+Message-Id: <20260830-enc28j60-cancel-works-v1-1-4c40f17d401e@cherr.cc>
+X-Change-Id: 20260827-enc28j60-cancel-works-62a0e02806af
+Content-Type: text/plain; charset=UTF-8
+To: "Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Claudio Lanconelli" <lanconelli.claudio@eptar.com>, 
+	"Jeff Garzik" <jeff@garzik.org>
+Date: Sun, 30 Aug 2026 04:35:13 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Lms-Return-Path: <lba+26a934284+56bd7d+vger.kernel.org+me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIAIBCk2oC/yWMQQrCQAwAv1JyNhBzWBe/Ih7WmGqqpLJpVSj9u 6seZ2BmgdBqGrDvFqj6tLDRG2w3Hci1+EXRzo2BiRNl3qG6cB4SoRQXveNrrLfAxIWUOFMqPbT 2UbW39+97ANcJjn8Z82lQmb5HWNcPZsXkA34AAAA=
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH net] net: enc28j60: fix use-after-free on remove
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Received: from [192.168.9.107] ([111.40.58.194]) by smtp.feishu.cn with ESMTPS; Sun, 30 Aug 2026 04:35:15 +0800
+Content-Transfer-Encoding: 7bit
 
-Hello Farhad,
+enc28j60_remove() frees the net_device without cancelling the
+tx_work, setrx_work, and restart_work items the ndo callbacks queue,
+so a work racing with remove can run after free_netdev(). A queued
+tx skb is also left waiting for its transmit-complete interrupt,
+which never arrives, and leaks.
 
-On Thu, 2026-08-27 at 22:41 -0700, Farhad Alemi wrote:
-> As part of the kernel research at ASU's SEFCOM
-> lab, we hit the crash below. Crash reports can be found here:
->=20
-> =C2=A0 https://github.com/farhad-alemi/public_bug_reports/tree/main/164-k=
-asan-slab-use-after-free-read-in-irq-migrate-all-off-this-cpu/
->=20
-> =C2=A0 BUG: KASAN: slab-use-after-free in irq_can_move_pcntxt
-> kernel/irq/internals.h:305 [inline]
-> =C2=A0 BUG: KASAN: slab-use-after-free in migrate_one_irq
-> kernel/irq/cpuhotplug.c:57 [inline]
-> =C2=A0 BUG: KASAN: slab-use-after-free in
-> irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplug.c:181
-> =C2=A0 Call Trace:
-> =C2=A0=C2=A0 irq_can_move_pcntxt kernel/irq/internals.h:305 [inline]
-> =C2=A0=C2=A0 migrate_one_irq kernel/irq/cpuhotplug.c:57 [inline]
-> =C2=A0=C2=A0 irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplu=
-g.c:181
-> =C2=A0=C2=A0 fixup_irqs+0x18/0x1e0 arch/x86/kernel/irq.c:527
-> =C2=A0=C2=A0 cpu_disable_common+0xb27/0xd90 arch/x86/kernel/smpboot.c:135=
-4
-> =C2=A0=C2=A0 native_cpu_disable+0x2f/0x40 arch/x86/kernel/smpboot.c:1366
-> =C2=A0=C2=A0 take_cpu_down+0xca/0x330 kernel/cpu.c:1282
-> =C2=A0=C2=A0 multi_cpu_stop+0x227/0x420 kernel/stop_machine.c:238
-> =C2=A0=C2=A0 cpu_stopper_thread+0x259/0x3e0 kernel/stop_machine.c:512
->=20
-> =C2=A0 BUG: KASAN: slab-out-of-bounds in
-> irq_migrate_all_off_this_cpu+0xdf/0xc80 kernel/irq/cpuhotplug.c:181
+Unregister the netdev, free the IRQ, and cancel the works before
+freeing the net_device, and release the leftover tx skb.
 
-Thanks for reporting this. For everyone interested, please note that it
-had been also reported by syzbot a few days before:
-https://lore.kernel.org/all/6a8c23a0.dbb3a75c.7844.0001.GAE@google.com/
-Currently there is no follow up to the syzbot report.
+Fixes: 3ec9c11da033 ("add driver for enc28j60 ethernet chip")
+Cc: stable@vger.kernel.org
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Found by source inspection. Compile-tested with
+CONFIG_SPI_ENC28J60=y and W=1; no ENC28J60 hardware was available,
+so no runtime reproducer or hardware test was performed.
+---
+ drivers/net/ethernet/microchip/enc28j60.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> Our reproducer.c is available upon request.
+diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
+index d6c9491537e4..d16564060fbc 100644
+--- a/drivers/net/ethernet/microchip/enc28j60.c
++++ b/drivers/net/ethernet/microchip/enc28j60.c
+@@ -1602,6 +1602,11 @@ static void enc28j60_remove(struct spi_device *spi)
+ 
+ 	unregister_netdev(priv->netdev);
+ 	free_irq(spi->irq, priv);
++	cancel_work_sync(&priv->tx_work);
++	cancel_work_sync(&priv->setrx_work);
++	cancel_work_sync(&priv->restart_work);
++	if (priv->tx_skb)
++		dev_kfree_skb(priv->tx_skb);
+ 	free_netdev(priv->netdev);
+ }
+ 
 
-If you could please send me the reproducer, I'd be happy to take a
-look.
+---
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+change-id: 20260827-enc28j60-cancel-works-62a0e02806af
 
-> Happy to test a patch if that would help.
-
-Thanks. If I figure it out and send a patch, I'll be sure to copy you.
-
---=20
-Regards,
-Radu
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
