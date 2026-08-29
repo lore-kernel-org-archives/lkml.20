@@ -1,76 +1,81 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B973B396579
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862DF393DF9
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787995230; cv=none; b=PYpRDqxjRZtbzjWNJCRs3BWAermPZjh2WAc/q7gomTYCXT8QHlocq48FA2UKHRYoNm4v0oum88NhEUrhT+r4GP2YsU+HZfT1Sle5rag2qUm06uqKB67+11KAIow1iWacUH3aSb6ric+AL/c4vQoeVTccCIU/hOHwfkEB0D6/SRs=
+	t=1787995232; cv=none; b=ddsrux7wcWFu56KhNioUaG915EhyFJCzseXQ7hUpqB6Vnbc1CJH/B9FJK8+rXtgKJ0UHn9wOCVzjqHWHgQEwlTNjrHQPwYtHnidna4+9WcdPGj1IUSawqZh+rzO35s92vZ4g/GHQTpqrN/o3VKy+ubWjAZmMuhwGlczksuLsQ1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787995230; c=relaxed/simple;
-	bh=xEJsUJXXq+AQ7oTTfzOKOEAmZg7d58nz4OsI75LCCcw=;
+	s=arc-20240116; t=1787995232; c=relaxed/simple;
+	bh=6xB3Jge7LArgZShSPxVIn+W+Gb3KQ8XI4Vfm6TKvBqM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TMRE/4PqucybfzSJHbnJ93f2a9wvIj+q92B95A/li8F1NNh+/cVt4cjYY36vYQ7pJEGR9alMnU0Vt3qC4pWFsY/vyC6S0UweND3hOIpQl2J1GEYGnAQotCGXn0Cr7mdrMwbWjiiP+tSO4tN7nsqC6Kz041UdjWYZSa5ZTXQcrn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3WVR+9z; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version:Content-Type; b=bpkNUwK+1nX4XJMoQj1va1o9Th+nYjc2HX1hE/BZowNtLFctvWsy97LU5nDybuu8NC8y9r+nFX+2ar7XHYaKDQ7JT//U2z3ubtSENlvxYDdVSo4Uo7Ss2Sdg5VdHIWD+yharTCMZ12HknxganiORUB7Q4qKAI4Ymoq7ewm4gtWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qK33L+Pz; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3WVR+9z"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so21324695e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:20:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qK33L+Pz"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso22094525e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787995226; x=1788600026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g1+HRCUsJSMaHeBVju8py9w9BV9sqUgEs0fVkhwu3rA=;
-        b=H3WVR+9zSVGEDR4B1B+nf4ASE48ffTgB9KdvfEkMyzya4pm5cQsRqpzOsguV6ppDWN
-         brBXDz8xRt+ZMqhrvC9nRYNx4tS6wchDlYwaW+LCzwWyGeoguT7rPy1QyKFLN9JzWW7S
-         wjWJPwE6beWr9tPIdYOhpJJuq+TjDCUFGQa2oI0soTiB9lA1+cAVzgJuIadfpJaMXB1x
-         dsTCuEoAsnojs86neyKJ6z/Zu5yEHMD4Q5JxEbR2se0yqy8baFpvl/X8/gD85C1Krpm/
-         8ecyOTqYjH9kN5fyVpKLlkd/cnj6wpemu1hkeRZXFf/+QBBm5bh0+4bZB8ySg1Fh72+P
-         zcSQ==
+        d=gmail.com; s=20251104; t=1787995229; x=1788600029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TYT9XbnSth8ElP68C5cM1zVyZdxbC9TKhXrTevWufdw=;
+        b=qK33L+Pzsr/wdT7gA79Jq03PHfJdCk/rYkcMkaYx4QwLxBgV3luWavzuOPbtxpsmjG
+         EA69oplpajb8d2uLl7guL1uHCC9oiZW4gP0nNaAHi+CEMISfl0Kw5YmMdGUz/dTvSoFb
+         MC4qq1Yc57aKlhnwBslktfVDvGBSSITzJAoIayY7RMliQRU38SPfV005CWWEyiygrwo1
+         fsbXaCHaSWo+hWNVlrj4nFQdqRSPn1FvsuvJcZLrMEb5yHF9NRTXHmaMNIjfeJOGfZj2
+         sgtgZ5woBcZ5rM4akd4I8mKKuput/f7kXRXYXuNRhlXJb29pop8TfmQO0EjQTtARAv+6
+         wo7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787995226; x=1788600026;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g1+HRCUsJSMaHeBVju8py9w9BV9sqUgEs0fVkhwu3rA=;
-        b=pWXWjsLBjUlpQ6c8o6mKTbgxr4JC7Az8hJgnmusy3UmoNFr4MZiKvpiLC9ZW742oQQ
-         5qvsBaWXAC6+DEbhLgDXaGEyx678IJmD5BH3/H8b8XRy8nIQNGDVWlckwx6y1psBv8zK
-         6mXyazmI+rojCWC0VozrDedKgciGqrT/VXozxV2ZGn0YicGZuuszRpfvq+9QnR4t5r2o
-         GAt3RVU5bCwU78oYLSErc3k+giff5WO2Qxl3pVBeyTrfw08p9njl/eMsgGWqcEygOdDz
-         D9BBUskU/1sImzgJLlnXKm6d4/QGh/RD74l5gqq/7oNEY9Ti3fFij2ct0s7U+pkXB6eR
-         3/rw==
-X-Forwarded-Encrypted: i=1; AHgh+RoyZ9alu4ajBcX/oBRCpxOqLJZjMQKwQ58vXye//rCI6AI+aSLAS04OTsZRqYT2hmouR0mnKAs32lr4Mag=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZt71mO6Ms8fuYr8rgs+d7XepIph3EFNxICaS+x8tCNbtrVJHw
-	Afsxfz4nGUh/SeMBqC2KQYURWuGnPdoKVZcHL54o7QZqOXZkSgIr5YqA
-X-Gm-Gg: AR+sD10QRSBJsYjZLO5m4UzsIuryL/srXskFme2gdEKtJgQFTKtitIQevAwNi9757cx
-	Cg13IwpRacHVNmCWI905vZZSB/dC8+qCF4tAyiU3ATF7mpbk3rkAlvkdxQOciyFhV1CP5bemQeP
-	mCA+S5nMXFJOlrDA74wtAOOayusaEcKHts05WDLzfANoqWuLw7ELItX+pT/W/1MZntJ7CmIquZb
-	b9B5OL6KBOeEFJUJmF9m6HX8fQwjfWFYaOIlDIkTRmDB9y+M6K86I7nOJxDueOIl1SWzp6YTsv/
-	hexAgFCXw9xIoTQsYz4fGf+91xBCDkn4gDeOWgcBw7QgP4gSDM1l934ydhGSVI/B5AMawf0baaz
-	S8axoElPPLntBJ2/y1naLnZxcjsIEvCpfqUUeIo5UInftstIHcETjklOLa3wNioXPzFxJjJbIas
-	wLyJ00Ffp0tlvAeZ8PfRa/DqhVqhMsbifEqU7nKVHWTfdxLm42b+l8OvP283npc0iu4gqcT4SuA
-	aUMO1B1ygVfXc6yBgHci6m9gYwRuVU6WbZDIfQNM+/AP8+KSdrQOIAxaDSsl2MhN67HimkZylqv
-	D+EQYtp9uigXWNzyACzG
-X-Received: by 2002:a05:600c:3493:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49b91c4792bmr196921055e9.10.1787995225544;
-        Sat, 29 Aug 2026 02:20:25 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787995229; x=1788600029;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TYT9XbnSth8ElP68C5cM1zVyZdxbC9TKhXrTevWufdw=;
+        b=SSmRZ+Fl0cJSg4W4pjRhw18L1TPYeQBDkZyAYtLpYRx6Oxh4tddyTm8gSEMB6fITlE
+         nykrAC6n+jIsCO1SpSUVXwTT27Xzar0AoNxxzq0g96o+H+/D23aBSJ3Rek02ZxdR5Y65
+         lT9Ii27q0vF+0hX7nUCcvpPEKbFtqkEEh4g2inK/V0/+nXpFhSOISvRKJ075B6Kg0oSE
+         7Inlc6nFXxAo51/x3v5wwxF/VtUrUTefJieEmGKbYeLJTZe0gCdYHBFz/3U5r7D4Tk7t
+         eFT82k3AjAMmNv9qEfvpIBOJD56iFNBae/X58Jj4UAyD1DN4j7I27Q3pUndE9psUjEtP
+         tXZg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpt4rDt57EOidxMJ6pZIAZ3o7Hjs4EBjPcLbWE4cOInrLt+1nVSLHsCeSWG09/pcV60a1nlMSCrIl7AiM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlVP4R2vCmVlvelLagRRmk6SrsHx4hFScxoyN+p5533bAiDpV8
+	tCsVXiN1yHnFzy6OpaA0gtGTwLSBj8vYE9cWl/XCCEwNip7wJGUWJKuP
+X-Gm-Gg: AR+sD13x+mz1DUaBl6xfX3qeD3nWiHp39UFBrRBIOCmUFpp+ilslA+t2Hob6ECCkCQB
+	/DU6/KG3vlL9H4uwPT/ht1RtjuKJ0ihIdqNaF5OTiVYn0jgSiTxDHGQzqrq2HuNm8Bs8GAvpY0i
+	h2EGArCdTiBRTM+iv38Zio2PHxIWX4zn5IRGyl2egGSpp10PT6/qWTymbo/hgCcBTLo0dxrJEjQ
+	Kr/NbF+8e6mwshW/5ei7XhFIXzrPtq/avCslHonFZZWhjVaiPfBvwA81AWEGYP338zgfhtzVvVd
+	pKQOCvCxTQA6diwvvHgAQ+Wdi9tvnEaFhih2xuJlz+3LsgkAN4luibWLpXq+NgWkg9yn9WQ0FLg
+	7Ri3aiG3flAoSVl8PU/FBfUtNMeXlzgfYmxPbmlfpx7KTDLdDaEvoCLPDq8kT5yb4CyJ87e7CM0
+	hHY3q7g+puJFHz4eo7WbKE2TrzF5he2U/U95wNjElnEPlvhC+DHpnm6PS7HdqfGHP+pxlvV3gdu
+	w0GZ/WmX3yJ2iBIc4tznzY4vCaJdh6Nl1zLTMqWWyQq4VWGACoPNqEKumh34+4Qk/xnpxbdsOAY
+	PYCOr4f9UkKG5tEXXC8V
+X-Received: by 2002:a05:600c:1908:b0:49b:9113:e03c with SMTP id 5b1f17b1804b1-49b91c26365mr146312215e9.8.1787995228439;
+        Sat, 29 Aug 2026 02:20:28 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-077-007-015-136.77.7.pool.telefonica.de. [77.7.15.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c510c9sm80468505e9.0.2026.08.29.02.20.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c510c9sm80468505e9.0.2026.08.29.02.20.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 02:20:24 -0700 (PDT)
+        Sat, 29 Aug 2026 02:20:28 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Haren Myneni <haren@us.ibm.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Dan Streetman <ddstreet@ieee.org>,
-	Andrew Morton <akpm@linux-foundation.org>
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
 	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/3] lib/842: require a complete history block for repeat templates
-Date: Sat, 29 Aug 2026 11:18:50 +0200
-Message-Id: <582dd9a92a793481f9836e1b90726935e90f5414.1787978627.git.kmehltretter@gmail.com>
+Subject: [PATCH v1 3/3] lib/842: add KUnit tests for the decompressor
+Date: Sat, 29 Aug 2026 11:18:51 +0200
+Message-Id: <e9659617ce2f1466f227d562f47b961f340ab3c7.1787978627.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1787978627.git.kmehltretter@gmail.com>
 References: <cover.1787978627.git.kmehltretter@gmail.com>
@@ -80,56 +85,242 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An 842 repeat template copies the preceding eight-byte output block. The
-decoder rejects a repeat only when no output has been produced. A
-short-data operation can produce between one and seven bytes before a
-repeat.
+Add table-driven tests for the 842 decompressor's output and history
+validation.
 
-Such a stream makes the repeat copy read before the start of the output
-buffer. Depending on the surrounding mapping, this can fault or bring
-preceding memory into the decompressed data.
+Three malformed streams cover an indexed copy larger than the remaining
+output, short data larger than the remaining output, and a repeat after
+fewer than eight output bytes. Every case checks the return value, output
+length and fixed guard bands on both sides of the output. Successful cases
+also check complete contents from a poison-filled destination. The repeat
+vector's CRC includes the leading guard byte, so the unfixed decoder
+successfully validates the CRC after reading before the buffer.
 
-This is also reachable through zram's compressed writeback path. With 842
-selected, targeted corruption of the compressed data on its backing device
-to a short-data-then-repeat stream made a KASAN kernel report a
-vmalloc-out-of-bounds read when zram read the page back.
+Three valid streams cover the same boundaries at equality: an I8 index
+consuming the final eight bytes, five short-data bytes consuming the final
+five, and a repeat with exactly one block of history.
 
-Require at least one complete output block before accepting a repeat.
+On an unmodified baseline the malformed cases fail and the boundary cases
+pass; with the preceding fixes all six pass.
 
-Fixes: 2da572c959dd ("lib: add software 842 compression/decompression")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 Review notes:
 
-  - add_short_data_template() has one caller, immediately before
-    add_end_template(), so valid compressor output cannot place a repeat
-    after short data.
-  - QEMU 11.0.2 TCG with x86_64 KASAN reproduced this through zram. A page
-    was written to a virtio backing disk with compressed_writeback enabled,
-    then the backing block was replaced with SHORT_DATA(seven bytes),
-    REPEAT(one block), END and CRC. Baseline readback reported an eight-byte
-    vmalloc-out-of-bounds read starting one byte before zram's output page.
-    Fixed readback returned -EIO without a KASAN report.
+  - CONFIG_842_DECOMPRESS_KUNIT_TEST=m selects 842_DECOMPRESS=m.
+  - A fixed x86_64 CONFIG_PROVE_LOCKING=y run passes all six cases without
+    a lockdep report.
 
- lib/842/842_decompress.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS                      |   1 +
+ lib/Kconfig.debug                |  15 ++++
+ lib/tests/842_decompress_kunit.c | 144 +++++++++++++++++++++++++++++++
+ lib/tests/Makefile               |   1 +
+ 4 files changed, 161 insertions(+)
+ create mode 100644 lib/tests/842_decompress_kunit.c
 
-diff --git a/lib/842/842_decompress.c b/lib/842/842_decompress.c
-index 87d1e0f8a4926..45a9815abd637 100644
---- a/lib/842/842_decompress.c
-+++ b/lib/842/842_decompress.c
-@@ -309,7 +309,7 @@ int sw842_decompress(const u8 *in, unsigned int ilen,
- 			if (ret)
- 				return ret;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 98c528c99917a..4456261cf5ea4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12459,6 +12459,7 @@ F:	drivers/crypto/nx/Makefile
+ F:	drivers/crypto/nx/nx-842*
+ F:	include/linux/sw842.h
+ F:	lib/842/
++F:	lib/tests/842_decompress_kunit.c
  
--			if (p.out == out) /* no previous bytes */
-+			if (p.out - p.ostart < 8) /* no complete previous block */
- 				return -EINVAL;
+ IBM Power in-Nest Crypto Acceleration
+ M:	Breno Leitão <leitao@debian.org>
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625e..48201092b3df6 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2225,6 +2225,21 @@ menuconfig RUNTIME_TESTING_MENU
  
- 			/* copy rep + 1 */
+ if RUNTIME_TESTING_MENU
+ 
++config 842_DECOMPRESS_KUNIT_TEST
++	tristate "KUnit tests for the 842 decompressor" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	select 842_DECOMPRESS
++	default KUNIT_ALL_TESTS
++	help
++	  Enable stream-validation and boundary tests for the software 842
++	  decompressor. The tests exercise indexed copies, short data and
++	  repeat operations at valid and invalid output or history boundaries.
++
++	  For more information on KUnit and unit tests in general, refer to
++	  Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config TEST_DHRY
+ 	tristate "Dhrystone benchmark test"
+ 	help
+diff --git a/lib/tests/842_decompress_kunit.c b/lib/tests/842_decompress_kunit.c
+new file mode 100644
+index 0000000000000..11202ba9539bc
+--- /dev/null
++++ b/lib/tests/842_decompress_kunit.c
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++#include <kunit/test.h>
++#include <linux/sw842.h>
++
++#define SW842_GUARD_SIZE	8
++#define SW842_MAX_OUTPUT	16
++#define SW842_GUARD_BYTE	0x42
++#define SW842_OUTPUT_POISON	0x5a
++
++/* ZEROS, I8(0), END, CRC32. */
++static const u8 sw842_index_exact_fit[] = {
++	0xe6, 0x40, 0x3c, 0x00, 0x00, 0x00, 0x00,
++};
++
++/* D8(eight zero bytes), I8(0), END, CRC32. */
++static const u8 sw842_index_output_overflow[] = {
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x06, 0x40, 0x3c, 0x00, 0x00, 0x00, 0x00,
++};
++
++/* ZEROS, SHORT_DATA(01 02 03 04 05), END, CRC32. */
++static const u8 sw842_short_data_exact_fit[] = {
++	0xe7, 0x68, 0x08, 0x10, 0x18, 0x20,
++	0x2f, 0xa9, 0x67, 0xfc, 0x07, 0xc0,
++};
++
++/* ZEROS, SHORT_DATA(five zero bytes), END, CRC32. */
++static const u8 sw842_short_data_output_overflow[] = {
++	0xe7, 0x48, 0x07, 0x80, 0x00, 0x00, 0x00, 0x00,
++};
++
++/* ZEROS, REPEAT(one block), END, CRC32. */
++static const u8 sw842_repeat_exact_history[] = {
++	0xe6, 0xc0, 0xf0, 0x00, 0x00, 0x00, 0x00,
++};
++
++/*
++ * SHORT_DATA(seven zero bytes), REPEAT(one block), END, CRC32.
++ * CRC32 includes SW842_GUARD_BYTE copied from before output into byte 7.
++ */
++static const u8 sw842_repeat_without_full_history[] = {
++	0xef, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0xd8, 0x1e, 0x09, 0xa3, 0x1d, 0xd6,
++};
++
++static const u8 sw842_zero_output[SW842_MAX_OUTPUT];
++static const u8 sw842_short_data_output[] = {
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x01, 0x02, 0x03, 0x04, 0x05,
++};
++
++struct sw842_decompress_test_case {
++	const char *name;
++	const u8 *compressed;
++	unsigned int compressed_len;
++	const u8 *expected_output;
++	unsigned int output_capacity;
++	int expected_ret;
++};
++
++#define SW842_DECOMPRESS_CASE(_name, _compressed, _compressed_len, _expected, \
++			      _capacity, _ret) \
++	{ \
++		.name = _name, \
++		.compressed = _compressed, \
++		.compressed_len = _compressed_len, \
++		.expected_output = _expected, \
++		.output_capacity = _capacity, \
++		.expected_ret = _ret, \
++	}
++
++static const struct sw842_decompress_test_case sw842_decompress_cases[] = {
++	SW842_DECOMPRESS_CASE("index_exact_fit", sw842_index_exact_fit,
++			      ARRAY_SIZE(sw842_index_exact_fit),
++			      sw842_zero_output, 16, 0),
++	SW842_DECOMPRESS_CASE("index_output_overflow",
++			      sw842_index_output_overflow,
++			      ARRAY_SIZE(sw842_index_output_overflow),
++			      sw842_zero_output, 8, -ENOSPC),
++	SW842_DECOMPRESS_CASE("short_data_exact_fit",
++			      sw842_short_data_exact_fit,
++			      ARRAY_SIZE(sw842_short_data_exact_fit),
++			      sw842_short_data_output,
++			      sizeof(sw842_short_data_output), 0),
++	SW842_DECOMPRESS_CASE("short_data_output_overflow",
++			      sw842_short_data_output_overflow,
++			      ARRAY_SIZE(sw842_short_data_output_overflow),
++			      sw842_zero_output, 8, -ENOSPC),
++	SW842_DECOMPRESS_CASE("repeat_exact_history",
++			      sw842_repeat_exact_history,
++			      ARRAY_SIZE(sw842_repeat_exact_history),
++			      sw842_zero_output, 16, 0),
++	SW842_DECOMPRESS_CASE("repeat_without_full_history",
++			      sw842_repeat_without_full_history,
++			      ARRAY_SIZE(sw842_repeat_without_full_history),
++			      sw842_zero_output, 15, -EINVAL),
++};
++
++KUNIT_ARRAY_PARAM_DESC(sw842_decompress, sw842_decompress_cases, name);
++
++static void sw842_decompress_test(struct kunit *test)
++{
++	const struct sw842_decompress_test_case *test_case = test->param_value;
++	u8 storage[SW842_GUARD_SIZE + SW842_MAX_OUTPUT + SW842_GUARD_SIZE];
++	u8 expected_guard[SW842_GUARD_SIZE];
++	u8 *output = storage + SW842_GUARD_SIZE;
++	unsigned int output_len = test_case->output_capacity;
++	int ret;
++
++	KUNIT_ASSERT_LE(test, test_case->output_capacity, SW842_MAX_OUTPUT);
++	memset(storage, SW842_GUARD_BYTE, sizeof(storage));
++	memset(expected_guard, SW842_GUARD_BYTE, sizeof(expected_guard));
++	memset(output, SW842_OUTPUT_POISON, test_case->output_capacity);
++
++	ret = sw842_decompress(test_case->compressed,
++			       test_case->compressed_len, output, &output_len);
++
++	KUNIT_EXPECT_EQ(test, ret, test_case->expected_ret);
++	/* Every successful case is an exact-fit boundary test. */
++	KUNIT_EXPECT_EQ(test, output_len,
++			test_case->expected_ret ? 0U : test_case->output_capacity);
++	if (!test_case->expected_ret)
++		KUNIT_EXPECT_MEMEQ(test, output, test_case->expected_output,
++				   test_case->output_capacity);
++	KUNIT_EXPECT_MEMEQ(test, storage, expected_guard, SW842_GUARD_SIZE);
++	KUNIT_EXPECT_MEMEQ(test, output + test_case->output_capacity,
++			   expected_guard, SW842_GUARD_SIZE);
++}
++
++static struct kunit_case sw842_decompress_test_cases[] = {
++	KUNIT_CASE_PARAM(sw842_decompress_test, sw842_decompress_gen_params),
++	{}
++};
++
++static struct kunit_suite sw842_decompress_test_suite = {
++	.name = "842-decompress",
++	.test_cases = sw842_decompress_test_cases,
++};
++
++kunit_test_suite(sw842_decompress_test_suite);
++
++MODULE_DESCRIPTION("Software 842 decompressor KUnit tests");
++MODULE_LICENSE("GPL");
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a7522..89ce3acad9c39 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -4,6 +4,7 @@
+ 
+ # KUnit tests
+ CFLAGS_bitfield_kunit.o := $(DISABLE_STRUCTLEAK_PLUGIN)
++obj-$(CONFIG_842_DECOMPRESS_KUNIT_TEST) += 842_decompress_kunit.o
+ obj-$(CONFIG_BASE64_KUNIT) += base64_kunit.o
+ obj-$(CONFIG_BITOPS_KUNIT) += bitops_kunit.o
+ obj-$(CONFIG_BITFIELD_KUNIT) += bitfield_kunit.o
 -- 
 2.53.0
