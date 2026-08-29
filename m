@@ -1,227 +1,141 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05143175A88
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 143D04C6D;
+	Sat, 29 Aug 2026 02:57:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787971837; cv=none; b=WKIxUve0rByPTMD1w8RBZjEzrhfAqquQh4IKK6vb+Sgf7UDoKZjGnlhHGIonBFNKdOS18eMJbTWJBF1zvTjHbdmZnu/cyUhC4lKLQVbGEHKqUtbQHczduYjAR4nrRErxUEL3t8/c9je3Zrh70QgRPeDDpSzwWSTNHR3FYf7K0nc=
+	t=1787972268; cv=none; b=j+ehbd6QiDhbOd2hCcSVWrL5W8neiNS02TZ49aCJLQQe/arGut2oZ4UloJURFSVGUDPdmww276kjMQg7QeyFTG+WM7gQz+XARpSVBkdZO+xnwV1OrdLv5Nm49v6I4hmGL5Avg7Lhtm68G/i4iJ3neb+8lrojTg19zBX6PpsJXOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787971837; c=relaxed/simple;
-	bh=lCZXxzRerXIchs3t7cBfPwyZnkO4/85G4yhAubjTB/M=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TgPk1KG8AIcz8lWSgcZkjZDXwVhHfWeA4kIWiGlrEtkNzGCQqdK5rGwzcGf0L3cq1va2f5hpMxwCck0AbQFI/FzBMoLiMaUAdcxp91mI44uLiV+za39mZ5sQuhDByxhqP0DjYIOj2COz0Ff3uA/bIIBljLTfXf85Fx4mqG/Raho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=a0ZHTeUK; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="a0ZHTeUK"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1a439db36so2270544a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:50:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787971835; x=1788576635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vFZPhakOwxRZAFtn7md9lSxeY1Cg1zyr2h0Gca9vEbU=;
-        b=a0ZHTeUK8witb+tda1eYJ+paPdPNF+KSWEbjlSb6Y8TdD2pSjwcFpviG2n7GoqggWm
-         rcRo6nkuh8NLRFzkNY2aWC0tTY9krs2qtAq3nvnDlWWkMMBwYVuwZeB+G+qBahnsuSOc
-         /3YkCzS1lYwkyKoMNvd7ieNg1NWYSI2Ef/18cG0Ru4NlC3MCoTNndZXWdq+YT2LkmzZc
-         PojQcW0g9tIKmu0UKWiXOJpwCWts+tLZyj2oGRaQf/uEHJR0DUWFNtQX6qfpPOt6HuME
-         xQwIINdNx/jE3Bp1soLBfhGBLjPt42oPsXxEj+fMYjcgt/sOga9pJjI5P+xjwZzLRcAC
-         /vRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787971835; x=1788576635;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vFZPhakOwxRZAFtn7md9lSxeY1Cg1zyr2h0Gca9vEbU=;
-        b=FCG6lSHJMVvTmUARbPxGDYHagzQGhHU9J7ytbV8pkN0qWmH+Jf8b0JejU+CQsjcJpJ
-         rzGrUT4+2Ldycd0i/1l2SysxMXLmc+EpUm6ttpblBo6gpVRZuA4zgRVH+VrNtU/sIJ6E
-         2hTL6fkJ2p2sDtHEVXG2BlLHZ6Fih40k2ZumQTZX1dtBN/rs92TkoZN4F0edPGeBCksa
-         maDNiGEwBHaGn6piTyjYtVZOdC1e9ab3BF2CY3pphOzUveLEKmddolDudFalevLc37WD
-         lbecAIX1ADU4D3ZbVKgO2BUWU0QHIWZR0qF46C4CegxWtC4Zc6uxJpRE/hXUkN6DmpdF
-         Or6A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1j8qIRRoTsathKZYfgBEZDHb9N2ZxhBhCuJLCD/Wqma8G37GCeCznueyw27lFFcSZQER3myW/NHPdKF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++laDClOV9jRokz7ovGh4sMKbqfPZrO/x1H8EOVvzQaF/3Sn2s1F
-	hfoKeUe1PgclX2xrTDoMPNwIcVQOwJedT3taoDxRMR9K5BVZvZy8xNq30cHbEgyhqtuuYGxxJc3
-	ZUpsOOvBRIWfldtwzo3xXJQ==
-X-Received: from pgby8-n2.prod.google.com ([2002:a05:6a02:6508:20b0:cc1:c78b:a2fb])
- (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:f94:b0:857:7317:cff4 with SMTP id d2e1a72fcca58-8577317d1bcmr6303601b3a.21.1787971835104;
- Fri, 28 Aug 2026 19:50:35 -0700 (PDT)
-Date: Sat, 29 Aug 2026 02:50:33 +0000
-In-Reply-To: <20260828183801.04fd2d2a6af837cb45b60e0f@linux-foundation.org>
+	s=arc-20240116; t=1787972268; c=relaxed/simple;
+	bh=TzJoHjCt8v3OyD1rEx+AxrfBI//whlUclKf2F/yk6dM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rDuNadk1Uw+6/c8qTD0fgGwl1rhYf66GYrDFGITvkIrrVIkztFyIZX/L0X4cMmbR8yTwzHfFpRcRaTrDWwrLmpt6NltbCLmnd48PpRfzKk08eUx/Pc29Dg+mf/P7iSBICCx1pgoWPYCMPW1HPFuXzfMJj25USOQ6aF0pLmoRYhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMA2vk+lSpJqiaEKAA--.25595S2;
+	Sat, 29 Aug 2026 10:57:41 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wCnRKGhSpJqOoYrAA--.39705S2;
+	Sat, 29 Aug 2026 10:57:39 +0800 (CST)
+Message-ID: <8490cbf8-0514-40a0-8456-d6a1085c29f0@hust.edu.cn>
+Date: Sat, 29 Aug 2026 10:57:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260828183801.04fd2d2a6af837cb45b60e0f@linux-foundation.org>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260829025034.2500920-1-jthoughton@google.com>
-Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
- uffd-minor-registered VMAs
-From: James Houghton <jthoughton@google.com>
-To: akpm@linux-foundation.org
-Cc: baohua@kernel.org, baolin.wang@linux.alibaba.com, david@kernel.org, 
-	dev.jain@arm.com, hughd@google.com, jthoughton@google.com, kas@kernel.org, 
-	lance.yang@linux.dev, liam@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, shy828301@gmail.com, stable@vger.kernel.org, 
-	usama.arif@linux.dev, ziy@nvidia.com, zokeefe@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/zh_CN: Update arch/riscv/patch-acceptance.rst
+ translation
+To: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260829022344.192491-1-xiaoyewuz.Ruster@gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <20260829022344.192491-1-xiaoyewuz.Ruster@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMA2vk+lSpJqiaEKAA--.25595S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jw1fAFW7Zr4kZF47CF1rWFg_yoW7WrWrpr
+	ZFgF9aqFn29r1UKa4xKr1UJFW8ZFsxWFZI934DA3s3tr4kJrWIgayDJ3srCF1ag3s3Zry0
+	va4kuFy8Ca47A3JanT9S1TB71UUUUb7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jw
+	0_GFylnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU-zBTDUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On Fri, Aug 28, 2026 at 6:38=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Fri, 28 Aug 2026 18:18:11 -0700 James Houghton <jthoughton@google.com>=
- wrote:
-> > Ah, just to be clear, I linked a repro on v1. Here[1] is that repro.
-> > Sorry, slipped my mind to also include it in the notes for this v2.
-> >
-> > [1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
->
-> Cool thanks, I'll slap this into the changelog.
->
-> # ./a.out
-> TAP version 13
-> 1..1
-> madvise(MADV_COLLAPSE) succeeded
-> ioctl(UFFDIO_CONTINUE) failed: File exists (errno=3D17)
-> not ok 1 - memfd userfaultfd MINOR continue test
->
->
-> We do have a ton of uffd selftesting code in there.  Adding this case
-> to uffd-unit-tests.c would presumably be pretty simple.  We don't
-> really have a policy on adding a test-case after fixing something -
-> it's common practice but why?  We already fixed it!
 
-Good idea. The below patch should work; I'll send it properly on Monday.
+On 8/29/26 10:23 AM, Yukai Wu wrote:
+> Update Documentation/arch/riscv/patch-acceptance.rst translation.
+>
+> Update the translation through commit ed843ae947f8
+> ("docs: move riscv under arch")
+>
+> Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
+Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+> ---
+> Changes in v2:
+>   - Changed "补丁跟踪系统" to "Patchwork".
+>   - Corrected branch selection to "for-next 或 fixes" (was "和").
+>   - Adjusted "已批准" or "已冻结" order.
+>   - Changed "只接受" to "只考虑".
+>   .../zh_CN/arch/riscv/patch-acceptance.rst     | 46 ++++++++++++++-----
+>   1 file changed, 34 insertions(+), 12 deletions(-)
+>
+> diff --git a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
+> index c8eb230ca8ee..20b91d0433a9 100644
+> --- a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
+> +++ b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
+> @@ -15,19 +15,41 @@ arch/riscv 开发者维护指南
+>   
+>   概述
+>   ----
+> -RISC-V指令集体系结构是公开开发的：
+> +RISC-V 指令集体系结构是公开开发的：
+>   正在进行的草案可供所有人查看和测试实现。新模块或者扩展草案可能会在开发过程中发
+> -生更改---有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给RISC-V Linux
+> -维护者带来挑战。Linux开发过程更喜欢经过良好检查和测试的代码，而不是试验代码。我
+> -们希望推广同样的规则到即将被内核合并的RISC-V相关代码。
+> +生更改 --- 有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给 RISC-V
+> +Linux 维护者带来挑战。Linux 维护者不赞成频繁的变更，且 Linux 开发过程更喜欢经过
+> +良好检查和测试的代码，而不是试验代码。我们希望推广同样的规则到即将被内核合并的
+> +RISC-V 相关代码。
+> +
+> +Patchwork
+> +---------
+> +
+> +RISC-V 有一个 patchwork 实例，可以在那里查看补丁的状态：
+> +
+> +  https://patchwork.kernel.org/project/linux-riscv/list/
+> +
+> +如果你的补丁不在默认视图中出现，那么 RISC-V 维护者很有可能已要求修改，或者希望
+> +将其应用到另一个代码树上。
+> +
+> +自动化流程会在该 patchwork 实例上运行，在每个补丁到达时立刻对其进行构建/测试。
+> +自动化流程会根据补丁是否被识别为修复，选用 RISC-V `for-next` 或 `fixes` 分支
+> +当前的 HEAD；若上述均应用失败，则使用 RISC-V `master` 分支。补丁系列被应用到的具
+> +体提交将标注在 patchwork 上。任何检查未通过的补丁通常不会被应用，并且在大多数情
+> +况下将需要重新提交。
+>   
+>   附加的提交检查单
+>   ----------------
+> -我们仅接受相关标准已经被RISC-V基金会标准为“已批准”或“已冻结”的扩展或模块的补丁。
+> -（开发者当然可以维护自己的Linux内核树，其中包含所需代码扩展草案的代码。）
+> -
+> -此外，RISC-V规范允许爱好者创建自己的自定义扩展。这些自定义拓展不需要通过RISC-V
+> -基金会的任何审核或批准。为了避免将爱好者一些特别的RISC-V拓展添加进内核代码带来
+> -的维护复杂性和对性能的潜在影响，我们将只接受RISC-V基金会正式冻结或批准的的扩展
+> -补丁。（开发者当然可以维护自己的Linux内核树，其中包含他们想要的任何自定义扩展
+> -的代码。）
+> +我们仅接受针对新模块或扩展的补丁，前提是这些模块或扩展的规范被列为未来不太可能发
+> +生不兼容的变更。对于来自 RISC-V 基金会的规范，这意味着“已冻结”或“已批准”，对于
+> +UEFI 论坛的规范，这意味着已发布的 ECR。（开发者当然可以维护自己的 Linux 内核树，
+> +其中包含他们所需的任何扩展草案的代码。）
+> +
+> +此外，RISC-V 规范允许实现者创建自己的自定义扩展。这些自定义扩展不需要通过 RISC-V
+> +基金会的任何审核或批准流程。为了避免因添加实现者特定的 RISC-V 扩展带来的维护复杂
+> +性和对性能的潜在影响，我们将只考虑符合以下任一条件的扩展补丁：
+> +
+> +- 已由 RISC-V 基金会正式冻结或批准
+> +- 已按照标准 Linux 惯例，在广泛可用的硬件中实现
+> +
+> +（实现者当然可以维护自己的 Linux 内核树，其中包含他们所需的任何自定义扩展的代码。）
 
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/s=
-elftests/mm/uffd-unit-tests.c
-index ef9b3956bdcf..227bcd6aef9d 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -518,19 +518,34 @@ static void uffd_wp_fork_pin_with_event_test(uffd_glo=
-bal_test_opts_t *gopts, uff
- 	uffd_wp_fork_pin_test_common(gopts, args, true);
- }
-=20
--static void check_memory_contents(uffd_global_test_opts_t *gopts, char *p)
-+static int __check_memory_contents(unsigned long offset,
-+				   unsigned long nr_pages,
-+				   uffd_global_test_opts_t *gopts,
-+				   char *p)
- {
- 	unsigned long i, j;
- 	uint8_t expected_byte;
-=20
--	for (i =3D 0; i < gopts->nr_pages; ++i) {
-+	if (nr_pages + offset < nr_pages)
-+		err("overflow in memory check");
-+	if (nr_pages + offset > gopts->nr_pages)
-+		err("out of bounds memory check");
-+
-+	for (i =3D offset; i < nr_pages; ++i) {
- 		expected_byte =3D ~((uint8_t)(i % ((uint8_t)-1)));
- 		for (j =3D 0; j < gopts->page_size; j++) {
- 			uint8_t v =3D *(uint8_t *)(p + (i * gopts->page_size) + j);
- 			if (v !=3D expected_byte)
--				err("unexpected page contents");
-+				return 1;
- 		}
- 	}
-+
-+	return 0;
-+}
-+
-+static int check_memory_contents(uffd_global_test_opts_t *gopts, char *p)
-+{
-+	return __check_memory_contents(0, gopts->nr_pages, gopts, p);
- }
-=20
- static void uffd_minor_test_common(uffd_global_test_opts_t *gopts, bool te=
-st_collapse, bool test_wp)
-@@ -539,6 +554,8 @@ static void uffd_minor_test_common(uffd_global_test_opt=
-s_t *gopts, bool test_col
- 	pthread_t uffd_mon;
- 	char c =3D '\0';
- 	struct uffd_args args =3D { 0 };
-+	unsigned long checked =3D 0;
-+	bool bad_contents;
- 	args.gopts =3D gopts;
-=20
- 	/*
-@@ -564,19 +581,51 @@ static void uffd_minor_test_common(uffd_global_test_o=
-pts_t *gopts, bool test_col
- 	if (pthread_create(&uffd_mon, NULL, uffd_poll_thread, &args))
- 		err("uffd_poll_thread create");
-=20
-+	if (test_collapse) {
-+		/*
-+		 * Read just a single page and try collapsing. The collapse
-+		 * should either be rejected or be a no-op.
-+		 */
-+		if (__check_memory_contents(0, 1, gopts, gopts->area_dst_alias))
-+			err("unexpected memory contents before collapse");
-+
-+		madvise(gopts->area_dst_alias, gopts->nr_pages * gopts->page_size,
-+			MADV_COLLAPSE);
-+		/*
-+		 * If the above collapse mapped pages that were not explicitly
-+		 * CONTINUE'd, the below __check_memory_contents() will not
-+		 * fault on some pages, resulting in incorrect contents. The
-+		 * PTE for the first page may get retracted, so avoid checking
-+		 * that page, as we might take a second fault, flipping the
-+		 * contents a second time.
-+		 */
-+		checked =3D 1;
-+	}
-+
- 	/*
- 	 * Read each of the pages back using the UFFD-registered mapping. We
- 	 * expect that the first time we touch a page, it will result in a minor
- 	 * fault. uffd_poll_thread will resolve the fault by bit-flipping the
- 	 * page's contents, and then issuing a CONTINUE ioctl.
- 	 */
--	check_memory_contents(gopts, gopts->area_dst_alias);
-+	bad_contents =3D !!__check_memory_contents(checked, gopts->nr_pages - che=
-cked,
-+						    gopts, gopts->area_dst_alias);
-=20
- 	if (write(gopts->pipefd[1], &c, sizeof(c)) !=3D sizeof(c))
- 		err("pipe write");
- 	if (pthread_join(uffd_mon, NULL))
- 		err("join() failed");
-=20
-+	if (bad_contents && test_collapse) {
-+		uffd_test_fail("unexpected memory contents after collapse");
-+		return;
-+	}
-+
-+	if (bad_contents) {
-+		uffd_test_fail("unexpected memory contents");
-+		return;
-+	}
-+
- 	if (test_collapse) {
- 		if (madvise(gopts->area_dst_alias, gopts->nr_pages * gopts->page_size,
- 			    MADV_COLLAPSE)) {
-@@ -593,7 +642,10 @@ static void uffd_minor_test_common(uffd_global_test_op=
-ts_t *gopts, bool test_col
- 		 * This won't cause uffd-fault - it purely just makes sure there
- 		 * was no corruption.
- 		 */
--		check_memory_contents(gopts, gopts->area_dst_alias);
-+		if (check_memory_contents(gopts, gopts->area_dst_alias)) {
-+			uffd_test_fail("unexpected memory contents");
-+			return;
-+		}
- 	}
-=20
- 	if (args.missing_faults !=3D 0 || args.minor_faults !=3D gopts->nr_pages)
