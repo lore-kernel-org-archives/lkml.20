@@ -1,108 +1,154 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C90B3859D4
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C5C361670;
+	Sat, 29 Aug 2026 17:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788025997; cv=none; b=sYoEkYGtGiQARCdu1/VgjZlu8Y/Q6DQ2S7mHfU9/PWilEL599tW+NFIii7hr7Q1xWL5eo10CGKlJnQs03mevIPIeIPtPHjQ3kqCc0qAdV3WB6DKqa+8NgX90wnKLR9nD6abM7OUWF3vreKjVoeZSTUfoNK9Ght3FBTiI1l2Xrbs=
+	t=1788026279; cv=none; b=i8yF+x8vZV3uQ3TE8Hdz92HOdz8WAPn6P4a682ru66EJuXFIf81LUtOO8Ee4F1y+988/iHBjz3oBPrIZhFpZyiRoMDSU+z2rbnL108wfcQGvlgy/LHSXFCLOxALIZRPCjIl3McZeUjln9qXU2nL/tO442yUMW1gPVF70pR/UQHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788025997; c=relaxed/simple;
-	bh=AGDArOvVArVKUmPEAtnxyA3zzxKgJY7DNkkyhH3xZbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KgII0PmrEhzQuzZmD01J5EnL6fRVfP8Bqibn6BAp1mvcR6xBIxKxESKzeBd9zH9YjaNClM42rNZsFtn3L3l+CK87I3FOrOAi/xLGeC/GhfSbfbzk6NCqf7ojCsFFQUpQcuzluYjwqXX74xXPBqSnF9Xkei86nQdamhhobXYrAy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rivian.com; spf=pass smtp.mailfrom=rivian.com; dkim=pass (2048-bit key) header.d=rivian.com header.i=@rivian.com header.b=gh8M/YIc; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rivian.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rivian.com
+	s=arc-20240116; t=1788026279; c=relaxed/simple;
+	bh=qpurbaUq8X+lLE7VO72kpjEA2yJO/x8JqnYptdzq/GY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=tSFQO9t4hFjXbqBsWtGgeMIIEbaKKZfj8rSD3CK8s5qiXRzHTdWZRUhtZ29un5wh9Obyk4Duxt8dnefP/xGHZT2NpcYHpQlRifswoZi1Olte1irXl+Qt0z0AcWbW3GBpopCKDJpFgVhxMp3TZygHWfxQFK8z9gMx8nit7vhh0Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NUi2ZcBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rivian.com header.i=@rivian.com header.b="gh8M/YIc"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d715f4a587so29031545ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:53:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rivian.com; s=google; t=1788025996; x=1788630796; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hBbzW+U1XX2evPmEKqq7snt9OxQ5avJUWLwD2vkYuH0=;
-        b=gh8M/YIc9VflWEc5fLWTk7PkUdqifWbiRNaKc7Jrv/e/6wlgaGDoKtBtnWz3JppP0s
-         TXXSv75FnyKFBwXT+He/Y04K1VXmBcReeC+4FpJEvu7ytjYDHy2Ef1qJR81Wmp6y4uM/
-         FbpxXUmZxM+wYIHZfelQSB+8TLWUFfCWHX20AthuQKuW3k4T8L90Zutr87COZNgQ6qg6
-         WAh5qmm1sXVr7INh7fbDsFjWaW/wUEPvXHGuGCTQj/yXcUyLH7M66Z37Ui68WzfbY9dY
-         HX61TxG2OSEHqkpzmOrEbkUQZgwYbJqVbFJeHJ9X7LsApfVxhU4enrLCCMasXT6sZL4/
-         YfJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788025996; x=1788630796;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hBbzW+U1XX2evPmEKqq7snt9OxQ5avJUWLwD2vkYuH0=;
-        b=sc/oI8TDWoeu7oxzd7+WBKvUw5Oq8pc2IQWAzH/0sEoiGv+N/4M23GU4Cqshp5IbeE
-         wAXkEvQooDZ/Ae9n3aYfW02Os7mnl4gaVP1sVMOHLgpnLjJm79/KXV3EPzxOtm+OZTxF
-         C7FdjXcdsQffwAWQsZFyKCa1hJaA4rmBiIq1Vtl+/Eh11c3sdYDWPbrm3Xl5odnla9GX
-         NoKBioEjeYVCcEQhBgRWQsQNfu7GelyPZknKl36JNH9WzEKtzrJa+k0uVKeCZ7vnWWrR
-         CB1q4cLNM75JFpqviTljDeaE81Aroo1QKpi8rqU45veZ6rXOSVKdNNF9juKtj6fopaL2
-         5hEw==
-X-Gm-Message-State: AFuF++mRxcWbPkvQJ8qMWM4RDlibDnlN/KQ4k95TwELdaFWUEkqOhZeM
-	1TZrRpvuM00DyW0iO/I8KWmZp+lrA3v7JSOHme3V9ne5Na6E/auKjwTHitoJr2aMkKkNJLZOKfo
-	3MNzxjng3gaaz27RJxXVb5MD/HHuEsQEeuh7c/sNNvetj581BoBi56Sq6nUQ=
-X-Gm-Gg: AYBFou3cOHGRl+6a83dlBqszo2W3YrfuBSudne7Po5hXwqf9BZi9Dgm7At2Cf3GnMiG
-	j3g1+kM7Uvtoms/o7fte06uwBrj5Pwr7TAAPCKIOa2f+w8LAyYrX2jybY45Y4csgdW/e18kSoyQ
-	D661tRYSKpaMn7zYyYmjITGyqqUiGpMJ5pwm/qqcWWAPcRPSGNcLgMadayJR5y186sO+uX1XXZl
-	eoNIZTiBYsVQmqwhanbhbuEfbOk/IVknd5EzAdlb95uCHvr/dPP7Onua8HwmKuSgsmqWsKI2okI
-	eIxmwvmBkuNzeCgZHGv74nTq8bBORas6Amd6nlxuOzVY5IQLzrVZgWje6RRUbq2BM/Xy2yHWgGT
-	ULD4r3+j9VAdTRMk5lgTVo+JJGlSPlInrCjsMW4siMBOiYG6t0nn5g2elsgKLSspYxMU73V6j1/
-	Hkac0EDXlH7dz8DY2o4s7OfrhfLXSiGdGYQLuxLysiKby7r6QbIF+8Ki9roomKI0OEQICZy7NJF
-	xj+HtvQt4yVNrxK4aldubk/5DM72XGisgQ3l33y1/qli7iYzTSW3RcRAwe99Hr4wr1c210I2gG4
-	wARm2WhzjIrdUUwh
-X-Received: by 2002:a17:902:d588:b0:2d7:1e07:4859 with SMTP id d9443c01a7336-2d74dbe40e6mr273366975ad.2.1788025995458;
-        Sat, 29 Aug 2026 10:53:15 -0700 (PDT)
-Received: from ip-10-198-159-19.us-west-2.compute.internal (ec2-44-232-128-107.us-west-2.compute.amazonaws.com. [44.232.128.107])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8fdf63db8sm2159795ad.27.2026.08.29.10.53.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 10:53:15 -0700 (PDT)
-From: Roland Dreier <rolanddreier@rivian.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/2] Couple of SCMI race fixes
-Date: Sat, 29 Aug 2026 17:53:14 +0000
-Message-ID: <20260829175314.4067393-1-rolanddreier@rivian.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260814-scmi-async-done-race-v1-0-335b163d77ee@rivian.com>
-References: <20260814-scmi-async-done-race-v1-0-335b163d77ee@rivian.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NUi2ZcBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14EDE1F000E9;
+	Sat, 29 Aug 2026 17:57:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788026277;
+	bh=TNceuBiUJTESrYAvt9YoVGu7PLhRCkBFu4MHwIToq0Q=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=NUi2ZcBKPfAZ/gf+g8sHiV9Ep22lMKLm5S2xFJ0/T8obbWBRGlypzPyGO17zk0E20
+	 7XoAMbABqrxjtneX3nB+ycVbelvNQgncIjE79zV9ppdNxnL2w+YC9ij6EuBbEGrVjp
+	 PosphYWhZkEKXFOU0F7/o4hg7l8UrgimFR9o0ukwF6FOLW4+4SV4ZiHf8JAmp1oULd
+	 q35d5rHEn//RcDWg6tq339D1MOrjFp7jgNw2zrhEPMYafT/moK+F11qp0/3w+uYOPD
+	 dtN6AyTF42pUtasaS9DKQyhcKKpknELz4igFRzAwhwMtJE48n1QhrmIrARAModVpnF
+	 90NQ02bMXBs4A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 03/11] iio: temperature: ltc2983: make headers
+ conform to IWYU
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260829-kernel-header-removal-v2-3-c67739d5dedf@gmail.com>
+References: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
+ <20260829-kernel-header-removal-v2-3-c67739d5dedf@gmail.com>
+Date: Sat, 29 Aug 2026 18:57:39 +0100
+Message-Id: <178802625991.2637008.10318808016519364966.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2473;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=qpurbaUq8X+lLE7VO72kpjEA2yJO/x8JqnYptdzq/GY=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqkx2XOOtp8bzjDP/jSDvSgBAeRqnz0pDDzOkOV
+ ENfnQwO5eeJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapMdlxEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiH6rD/4p3Ozpe6dOrzeWDEi0qbA1bSOb2hKlGvC9CreXc1z4mXr
+ LzS5Vnxo2enoaWZ5EnwiyWzNGGVgZEja2V7w3f3CoSMqPGa8RD9rjmgWsVaImB0gx7040XHgeEp
+ CVkCf/GR1hq2rnOzVD+drsJyWnVspQBQdpqmNrzpzZQxnMqNqKZ91+BpYSkMQxP4zkZH2t1UGBX
+ xkiL07cWxU+/C64/WgeGGJl2rOcBJRL27xRNnIHDnkx+dlqvmTSSI/OsCQbTCRwgGBbRTiAfT5P
+ Ti4zuzbuzoImU8rlH0PDqndrJZUcsUwhXSeBrqWvmpCRV5TCe5pjlLoDx4ByeKUPbPyjV+I/skx
+ b0rtjD1ffcjkfsdkMidBofBKfWdmQ8NVkf1sWcIg4rxAFJOMSsW857T1cbmCWEfRqmxqM4U6wXW
+ P7v0M11j1zCW1r9kPzYOSW3/c9QhT9lrlSTnXLupxfzCihvS9NTKPyRFNGVbT2S8FxFfW9qjJN1
+ PM9/f/Xv9bAq049bRMs/swx/5xWOOVY716pxUwH27YsXWAfBwKCiLm91qQl0s/adRFCkVZwumHG
+ yh23wwPpNmi98wvIB2DmSX4FWvIXLE7sN3eIwBtFgZz5Rv7IHTznMS2Iyz3osWIj0x1JcRf8TnW
+ CxV9sJC/zNpvhgw8dJMnz33/qL6yrQL5UxpM7Qg==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-> Noticed a couple of races in SCMI code around delayed responses that
-> time out. These are probably nearly impossible to hit in practice but
-> the fixes are pretty straightforward and it seems worth having the
-> code be sound.
+> Remove the catch-all kernel.h header and add the missing headers to
+> enforce IWYU.
 
-Hi, just wondering if you had a chance to look at these patches, let me
-know if there are any questions or fixes needed.
+Sashiko correctly observed that this wasn't really IWYU.  So, to avoid
+confusion we should be referring to something "approximate IWYU taking into
+account some headers that always include others".
 
-Thanks!
-  Roland
+> 
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+>
+> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+> index fe9eec3058d4..b8deb9aa9d48 100644
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
+> @@ -5,19 +5,26 @@
+>   *
+>   * Copyright 2019 Analog Devices Inc.
+>   */
+> +
+> +#include <linux/array_size.h>
+>  #include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+>  #include <linux/completion.h>
+> +#include <linux/container_of.h>
+> +#include <linux/dev_printk.h>
+>  #include <linux/device.h>
+>  #include <linux/err.h>
+> -#include <linux/errno.h>
+> -#include <linux/kernel.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/list.h>
+> +#include <linux/math64.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/slab.h>
+>  #include <linux/spi/spi.h>
+> +#include <linux/types.h>
+>  #include <linux/unaligned.h>
 
-                        |||
-Ignore any footer below vvv
+There were a few other sashiko comments... 
+
+  [Severity: Medium]
+  To fully conform to IWYU, are there other missing headers that should be
+  included here?
+
+  For example, __ltc2983_custom_sensor_new() calls strcmp():
+
+ 	if ((index % 2) != 0 && !strcmp(propname, "adi,custom-leak-detector"))
+ 		temp = temp * 1000000 + 273150000;
+
+  Does this require including <linux/string.h>?
+
+Seems reasonable to me.  Why did you not include it?
+
+  Similarly, ltc2983_probe() calls devm_gpiod_get_optional() and usleep_range():
+
+ 	gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(gpio))
+		return PTR_ERR(gpio);
+
+ 	usleep_range(1000, 1200);
+
+  Would including <linux/gpio/consumer.h> and <linux/delay.h> be necessary
+  here?
+
+Both seem reasonable to me.
+
+
+  Also, the ltc2983_pm_ops struct is defined using the DEFINE_SIMPLE_DEV_PM_OPS
+  macro:
+
+  static DEFINE_SIMPLE_DEV_PM_OPS(ltc2983_pm_ops, ltc2983_suspend,
+  				ltc2983_resume);
+
+  Does this macro require including <linux/pm.h>?
+
+
+Also seems sensible.
 
 -- 
-*CONFIDENTIALITY NOTE:* This electronic message (including any attachments) 
-may contain information that is privileged, confidential, and proprietary. 
-If you are not the intended recipient, you are hereby notified that any 
-disclosure, copying, distribution, or use of the information contained 
-herein (including any reliance thereon) is strictly prohibited. If you 
-received this electronic message in error, please immediately reply to the 
-sender that you have received this communication and destroy the material 
-in its entirety, whether in electronic or hard copy format. Although Rivian 
-has taken reasonable precautions to ensure no viruses are present in this 
-email, Rivian accepts no responsibility for any loss or damage arising from 
-the use of this email or attachments.
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
