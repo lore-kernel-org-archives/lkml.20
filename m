@@ -1,37 +1,66 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60695345EA2;
-	Sat, 29 Aug 2026 09:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0A41E9919;
+	Sat, 29 Aug 2026 09:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787995638; cv=none; b=kC4nTIgKYjGywSBeZADfDoKOJiLh5V6/I4tKwuoO6e9lfYy26gP2mi80jaICmXuXINA7rXdgMM3sdn9pza7zmowrgpY+eY0u2vldLrZH2WCoZyD83lZAGufVj70rDbXOYBzPiZjQnfjokaBE/FmzzqSgH/ufeLE5wbTWTD7PUN4=
+	t=1787995687; cv=none; b=SYDqyBhRg2FUNbFjnkhAyNVxO1LUsEgjBW8EZldcbreEy37dqAzHqXrORUjgziQrgw+Kb5h+an/GrM8BxShiQ+ZXJhZatDsJ5vqeaWMPrh3wrvAtDqVVhoaTmDgDOzWURdscXb9nFF5SJuX0Qo0X522sW9bcewwB/HR0SW9GPBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787995638; c=relaxed/simple;
-	bh=uJp1NnRh/Bf88nHyfhsdcROSGc3nvflbEuKnd0DbS9Y=;
+	s=arc-20240116; t=1787995687; c=relaxed/simple;
+	bh=v/8YmhLrFnQRVVkJDwi/gdfTFBqsiyk2BeUZ+ACMX/M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o480824L2NC/ydo1njoCYSR3YIBEfbDE4rCErNUXZWkvkIq81O3sZDEJ38n1jroaF1J89U2njKJf2ZWziVtDNf+Til0P1j6yi4cwyKWG4BNWkNrOjGP5ScGh5axpqwTCP8DETMyn/y2Zut8MKQYo6l5u7Ig9hnTtPNbAf1vkxUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id B2D1C6032B; Sat, 29 Aug 2026 11:27:07 +0200 (CEST)
-Date: Sat, 29 Aug 2026 11:27:07 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
-	netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, coreteam@netfilter.org,
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate
- recursion
-Message-ID: <apKl65BbdyWCtre7@strlen.de>
-References: <cover.1787903722.git.zihanx@nebusec.ai>
- <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
+	 Content-Type:Content-Disposition:In-Reply-To; b=oAm7wZ0FOOVhbsWmxPRJFpdpmMSuu5RtPxfU4IWdYIGz6CJh0gqvBe9haoLbH4xQAhYCU/lDy/XGfhhrGRI9msNXTRn2GjhZAnMmomLM6B12p4usRw7nnnfERI43WtllGoObJ6oT0Er2u4RL3H6huwrreEdSku6kcV59mA3t6ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MgBO+uT5; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MgBO+uT5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gsx9FzCn0fYeIPez1WlJp41xEuPVWj4SvlX0oJHdrIk=; b=MgBO+uT5JRXLPLYJ2slbhZllMv
+	jPZ0jbBQasvPZaSEPTCanzWK68CZziReYsRD7ykhO/Xs8gO+6ZLMxaUJ6sLbeCXgSZhAjDi4OT/72
+	zypaCnWwMWy3RB+Csm7TtXL9ujEzeFGRydGNksD4W3eppzoxr48IsE9I+dLEqvX3+zCp4raNnzMwz
+	QVVfCV/kq9qWmx3siUGyXd9TLqk4/2hXRjPcUgcR/u/zmA67Ak70R/MDQlban4dCjMKh071wHWb+P
+	FVlrTDubxDdk3960Gk2O3LOke7eHU16j5H8mullUKrsHTXHCkJD+O3idnU7ZKqTfOgRJLJYPnOD3i
+	cwixDHhw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x0FLP-00000008mBV-1tk0;
+	Sat, 29 Aug 2026 09:27:23 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6551A300382; Sat, 29 Aug 2026 11:27:21 +0200 (CEST)
+Date: Sat, 29 Aug 2026 11:27:21 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Qais Yousef <qyousef@layalina.io>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Jianyong Wu <jianyong.wu@outlook.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	Tingyin Duan <tingyin.duan@gmail.com>,
+	Vern Hao <vernhao@tencent.com>, Vern Hao <haoxing990@gmail.com>,
+	Len Brown <len.brown@intel.com>, Aubrey Li <aubrey.li@intel.com>,
+	Zhao Liu <zhao1.liu@intel.com>, Chen Yu <yu.chen.surf@gmail.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Adam Li <adamli@os.amperecomputing.com>,
+	Aaron Lu <ziqianlu@bytedance.com>, Tim Chen <tim.c.chen@intel.com>,
+	Josh Don <joshdon@google.com>, Luo Gengkun <luogengkun2@huawei.com>,
+	Gavin Guo <gavinguo@igalia.com>, Yi Lai <yi1.lai@intel.com>,
+	Ricardo Neri <ricardo.neri@intel.com>, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [RFC PATCH 0/7] sched/cache: Per-task control of cache aware
+ scheduling via prctl
+Message-ID: <20260829092721.GB776954@noisy.programming.kicks-ass.net>
+References: <cover.1787955777.git.tim.c.chen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,41 +69,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
+In-Reply-To: <cover.1787955777.git.tim.c.chen@linux.intel.com>
 
-Zihan Xi <zihanx@nebusec.ai> wrote:
-> nf_dup_ipv4() and nf_dup_ipv6() use current->in_nf_duplicate to keep
-> duplicated packets from being duplicated again while ip_local_out() or
-> ip6_local_out() walks netfilter hooks. The task flag is cleared as soon
-> as the output function returns.
-> 
-> NFQUEUE can retain a duplicate and return from the output hook. A later
-> NF_ACCEPT verdict resumes the same skb at the following hook from the
-> verdict task, after in_nf_duplicate has been cleared. A later TEE target
-> or dup expression can then duplicate it again. With an earlier queue
-> hook and a later duplication hook, one packet can sustain an unbounded
-> packet generation loop.
-> 
-> Record the duplication state in the cloned skb as well as the task. The
-> skb flag survives queuing, reinjection, and skb metadata copies, so an
-> asynchronously resumed duplicate cannot enter either IPv4 or IPv6
-> duplication helper again. Copy the flag through nf_copy() so fragments
-> retain the same state. Keep the task flag for the nested xtables jumpstack.
+On Fri, Aug 28, 2026 at 03:29:07PM -0700, Tim Chen wrote:
+ 
+> Feedbacks very welcome, especially on the interface shape (prctl vs. a QoS
+> attribute), the kernel-owned-cookie choice, and whether the always/advise/
+> never policy composition is the right model.
 
-Not sure about this one.  I think this is a case of "behaves as
-intended", you get oops because you *ask* the kernel to oops.
+Who would be using this -- what workload prompted you do do this etc.
 
-I think there are a great many other ways to OOM the kernel,
-outside of dup/TEE/nfqueue.
-
-IFF we prented that this is a real problem, then I would
-prefer to solve this in nf_dup, not involving sk_buff changes.
-
-I cannot see a sensible use case for nf_dup outside of
-physical hardware (sending packets to some external
-packet logging machine for instance).
-
-So. I think a better solution would be to either disable
-dup in user namespaces entirely, or, restore the "old" behaviour
-of passing the clone directly (no reentry) if we were configured
-from user namespace.
