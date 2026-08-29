@@ -1,79 +1,98 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E213BED59
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1C53C0A08
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018976; cv=none; b=T/t/NHH/+RwSu7GZq7wMkgj+4c/6RVFKvQPhw5Ee7MCyJqBVPd3lfLSPnrcaSdRteUCh38Er+/srdSCA2BWBP5d7JmiQOuA+lY4Pcneou1iDmv3WGUXosfIJcByWoH4juem/TCDCnneX42VqmFv/kvaDCgnp0MK85GmJ4W+mlyA=
+	t=1788018969; cv=none; b=TWM/wiR7Wgg0IZ4G1ZwQCP7fcnY19FhWAIBKL76NSL8m1S9njbSMFfKv8Yxe8asEA0slgHCF26un+8B+2TTlqSDRstBfKxsXQjsFG9MHiYK1gRu+iycX8FkMULyQXC03j0qv6cD4LN8JgIAvrBmjz1UMxPHYPoSqpuc8fBjLQfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018976; c=relaxed/simple;
-	bh=IFKHfgVFc1rWdGFd6rVv2M1jw45BBFJD2+4hD2V0JLY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=q1Hq42ZeZVNvjIZb1HsHukbo+w4cwmAG4Y60yFwjsM/c8jyVfNpZohwb7NLgC9GDmcJWmN6/bueHNuqIk1r4I7QFagyYF2LFviP89cL5wp405053fjctcJe1mlcH+st4YpXQxPkqrWUggrOE2T7WUeFXU3SAVRbhwG/2wB6def0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b37620eb73so4659554b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:56:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788018962; x=1788623762;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WXXv4xpnt1/RIHcZ+q2gQWeRw9AsLgQNjGhPdDBrae8=;
-        b=gSZBhBdQVSh/KRI/BFUYegjq+6s5s2JhyLkvFuKhroH3fSfnADsYtqduSIv6eO7MIs
-         muSGqCPIPd36TpSu2hjSXXbsSDdn87/reRNYKbyQwvj+NTfMzrwzzzM5OMvXlhRUIb/W
-         wk2FstEZ44NTJBUw46EVSxH6XK8rNZ3v9ESsKFZSaY65zaFtK7xqtz913Is72UeAVPd5
-         jv50vZhhglf6U35e9cvgqQr0p/10ZA4ENWMdlbLpxPrse3/z2I0jCS/b+JTQIP1kPQL6
-         BqXg8VMSrmB9jhyPUp+Q68JUjXi+oUcduQ6dazWrawOSuLwZpsXiNsisRMCexKqZq5rz
-         3Lmg==
-X-Forwarded-Encrypted: i=1; AHgh+RrjrwfRbGGK2rYzzR1wAf3tp47g5nOQzRkWh3sewdcwLBpdoENxI73dZOtMt9ta7feIvvMdvCnASxTXlB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXI5wwVlU+6eZK5SZov7LMYmul4PLO7ntWnNvUihnitWod61F6
-	9S5d+o7CG3N+RjngQmF0lx8s2mbIx4XYXTaDFvTPLPGyNiaqreiAAHI2ycMBHQ68Rc92KX220bU
-	jcWfQBu0ZLNexrhhhZVLUb5PB0Z+W81c8GQ3tHKQbYxec2NKlwiUN62O4z10=
+	s=arc-20240116; t=1788018969; c=relaxed/simple;
+	bh=3dTe4I+jOUWdWEDTdrRhpKO6zN5DvkrePHACeVTRXMA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tHjRP8j1nNNAA7PxaaVOYPfdED2fX5mBXdjH5X6WTetp8Yhav8aHOgYEh3+OuRQNTqP73hUxa0Y1LpDFiLJ/8vBPV54BiSKxPT0RQ5Q3KEmGufKMQeglzfX7hHtWa8DZ1G2mVxEdePaKHyFbjiODM4RISQ6v6EvM6JFDAc52Z+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dVvsLidc; arc=none smtp.client-ip=95.215.58.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dVvsLidc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3dTe4I+jOUWdWEDTdrRhpKO6zN5DvkrePHACeVTRXMA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788018957; v=1; x=1788623757;
+ b=dVvsLidcMR1dWi8BRMWNvY2WiZ7LvSHOqx/DoN+uDn0bNJi5i0K+PMyx9ExsmYnbBquGVCd6
+ iLzYQ1ap5VaYAHd6KkxAy4HXom3iQulxuXZTQJrYaIjHaQ08K5tMGqVMRay4znTB8N9Nny+qZD6
+ OFfbYsM39yzNm24lwUQQh7o4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 179e113f95269d76;
+	Sat, 29 Aug 2026 15:55:57 +0000
+X-Mizu-Trace-ID: 179e113f95269d76
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so4294e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:55:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy+GoX13byq0Z+k8LXgTdFYsZImO4WvjPljixPUOVJ70QxuXJPq69ou74Ckk53r5NndwKBWNNk9r6s2ta4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5TegNM+ER5CKpHxBOZuB+p7GizrFc4LnZuaGKzTdhnvzeaEn3
+	5BWOaanxD9OK3KnXDHO3G/yixP77+J3Voup89k/mvJ0guniCQoghLBeEUjsehIZidscbehVsX28
+	P1bHll0SecCdkS4vz3h5MkGCFtgs1DrsC7xnR64nn
+X-Received: by 2002:a05:6512:4484:b0:5b1:ca0b:25d2 with SMTP id
+ 2adb3069b0e04-5b5ef1bf21emr94137e87.4.1788018952785; Sat, 29 Aug 2026
+ 08:55:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6783:b0:496:11f1:f2ad with SMTP id
- 5614622812f47-4b3980587b6mr16630161b6e.6.1788018962740; Sat, 29 Aug 2026
- 08:56:02 -0700 (PDT)
-Date: Sat, 29 Aug 2026 08:56:02 -0700
-In-Reply-To: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a930112.1d9ded08.62e62.010c.GAE@google.com>
-Subject: Re: [syzbot] [media?] [dri?] WARNING in udmabuf_create
-From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
-To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
-	kraxel@redhat.com, linaro-mm-sig-bounces@lists.linaro.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, robert.mader@collabora.com, 
-	sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
-	vivek.kasireddy@intel.com
+References: <20260829054856.70549-1-kmehltretter@gmail.com>
+ <20260829054856.70549-2-kmehltretter@gmail.com> <CA+EHjTzQM0bf1x2X-Y+eMmUHSYUmJXpt_jQ4Csu7JpkjtFT72Q@mail.gmail.com>
+ <apL9jzg-KM_n3Vv2@gmail.com>
+In-Reply-To: <apL9jzg-KM_n3Vv2@gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Sat, 29 Aug 2026 16:55:16 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzP0ijpos=1UOTz36b6_e1Ux90rNPm8HV5AKRhMOd76Zg@mail.gmail.com>
+X-Gm-Features: AcwNN1VTjw50xqm9AUGeQ2iOjooRY4VH0Aw3j5JN4xMy5Uv_aVYtiX-pVxGi2Is
+Message-ID: <CA+EHjTzP0ijpos=1UOTz36b6_e1Ux90rNPm8HV5AKRhMOd76Zg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter
+ range at base 0
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-syzbot has bisected this issue to:
+On Sat, 29 Aug 2026 at 16:53, Karl Mehltretter <kmehltretter@gmail.com> wrote:
+>
+> On Sat, Aug 29, 2026 at 04:04:01PM +0100, Fuad Tabba wrote:
+> > > Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
+> > > Assisted-by: LLM
+> >
+> > nit: this should be `Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1]
+> > [TOOL2]` rather than LLM
+> >
+>
+> When I first saw 'LLM' in a patch I thought so too.
+>
+> But it is now allowed, see recent discussion and merge:
+>
+>   https://lore.kernel.org/r/87qzkuahlr.fsf@trenco.lwn.net/
 
-commit 44e9eb5a762142a4aa46c0b5da7c39bfeb78910e
-Author: Robert Mader <robert.mader@collabora.com>
-Date:   Wed Jul 22 11:01:45 2026 +0000
+I missed that. Makes sense to be honest. Either way, that was just a nit :)
 
-    dma-buf/udmabuf: Disable the size limit by default
+Thanks!
+/fuad
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17d14379580000
-start commit:   0a0d1d55dad5 Merge tag 'scftorture.2026.08.18a' of git://g..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=14314379580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=10314379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=335632b21d0ce540
-dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16c2719e580000
-
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+>
+>   816d9992d9ed ("coding-assistants: simplify attribution")
+>
+> > Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > Tested-by: Fuad Tabba < fuad.tabba@linux.dev>
+>
+> Thanks for the review and also testing!
+>
+> Karl
