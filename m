@@ -1,286 +1,195 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68A039794B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788021729; cv=none; b=faPZ1+EhpNYJebqNXNTnyV26+65BaCmLjfeYp1x8gL2PvPvQQvLq3f2QNrcmoVchXsqi12w9io4sIE45YXQbUwR6Wrwi8IZ99G6cTwXiygV2oYcbWxCw4yf4m13iu7Y1pV+sxjOLJ/whZ8x1Ykw4BjOT+bTVT0pDU3OV6vXJqSA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788021729; c=relaxed/simple;
-	bh=pPBIr68TwRqD8tO4XHKIhU+k8mwy4F9JSlUAQ3OMwYQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GtWU+OBQvLw5DCaDQzDxzpEy2g9GEdP4cJjtusEs1dP58qwKt1G0N8SVF4GufYxHqTEzv4XXE4+PWkYXEfaOcD1h/sE7eIE48L2Qnd3eLmoNibEhKUhkk0GMEHuoqVrdwayAOuRUgml2M3ZafJpjdqHjQsRo3fzXXSRv5MTcEQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OGQmFd/c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gF5kfdIE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0237B3C5845
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788021764; cv=pass; b=nl+A8MP+zejDFgPP374WK58wsfatkehJ+656Fhpo0HGbc1WNWar/9JpeYgZLVlUMNLvHG5dsZrmBD3CkDHSnlScUGQvwp5/TDA8bY07Oa72XBFh3NPelEkslLEpT8JYZN2WHDWOg2pxsLGWHglAatNHP69YXNrHLXsLt1VLMSkU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788021764; c=relaxed/simple;
+	bh=gVZFIq7E6DUEA7UcHTTV0g77Ncrm6ajPHymyOnK3Cyw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u94WwTtvb+o3n8NpNyan1yiJUyIlOuYsHLbVSkvrQqy+KUr7pjuf88X816iu6hiASdFA41NZ4ZDQjtlH052deLjJZ2qDg/qWODDhqpYrnrBIZBDwproCby9i1Aw2QHmqiwdgR9nxS88YYga9aJ8Od6UdDg04NbyjSWmZZIH3cKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTetC3FY; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OGQmFd/c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gF5kfdIE"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TE2Sq32095716
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:42:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lIXFuvY2+Ky3mMi2oni0IoCYc52BLAeik+B2WqFBEYI=; b=OGQmFd/c9qJtJPNp
-	ldSP6EBSQi3HSK9pbjnXSsTtpcM4nFs/2xgvU0o/Kc2WzzBePHfNOf+Gc0g3If8q
-	G58WGrCE4M8/kETzOQvRFyIRWd84r1GQwX9K6oWiY6op2OjmipusdL+kBhHLhCpP
-	lpreYo40QQsndOBsTykyD6fzN4catr8CcUCxXWEp93tQuHNgoXk07zj+C41Vdi7v
-	olEqum4FavDJk3qwcHN6duUfBt/+C7JeoRYuoCjqsS5y4sT77yitxhFrnTBv384B
-	UGkaSLUst4+0YdA4wfGx5WHzkrhAm6C/E+7MsHTkx7ZTGUba2oo2VFdDH+8H9Bjb
-	I/fuoQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhw9cnn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:42:06 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso3614490a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:42:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTetC3FY"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1c52d920b8so247142966b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:42:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788021761; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T2U6bX7mFzaPa2f5muB7g3sp9FSuUTAw6grCxLtcElY7VyQVAfSofJ4irCQexapFWk
+         jo1DhR3qWMDgetxKxXp+a/U9oMmiyDJZ9zJKVPHhEEkpwpx4fuforVkycxEiv3P4e0JI
+         2Nu26sVNFE1Hfu55XpHbhWUt59uM57hkz1QKRtWtU8Hjd5LTxRXQ6yhRN5h0N2QUlt4R
+         IHDxc7nAPIdQDN4Yobp426XE8baOkPGS23MSCLEu1td+brgXxzhvBvXxL7DvQH1fDnJr
+         kHaCQ1jGki4/j6hRDpcNDAicr4kv0/xtVYKV+DQos0T6cKesVOtpBrE+HP889TmwU03T
+         z4qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        fh=TEfHEPRjfeaEkzAztEz7ZilmS+PEs9ZnSI8OWdH46Nc=;
+        b=G2YNWRwK9KAj1gdt2vLunbER3QtEjbIhHhghL5vA7bQPk1Ir8IejGqwxSORa++D/M3
+         913++jbx1rsVcYcO2XoZOz2FEmDPR6ZIKmBfGXB5WWLfWTViMDjLAgAsDBqPTBBWy/qq
+         a02SNflwXwo0TnaTr7R3+eMXX09bWD+ZMg0nfBQJNYiRLtyBOgKArIdssFut0uCN7QZm
+         zP91tGnJcO2+z3BtbfW3fBA9grc3fYcdXjqayweDR51eL2LlrN70AQtThYFFZ3/CTxAH
+         RedwzLX3Lveb2CJYw55I5cVtOf16tQffpNfOcsGADnSb/y5bWHtjNb+LDaN3M3nNDOUw
+         HHPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788021725; x=1788626525; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lIXFuvY2+Ky3mMi2oni0IoCYc52BLAeik+B2WqFBEYI=;
-        b=gF5kfdIEdjONH4dNlt0izSsLYCJ1vVP4qoB1+/upzf9kZs4h+BJJ6ajlwBndxQSzhh
-         yJMjERcvu5J1hvTiSYz1UORppvtWdF8fDCwBO61AcgvcKVNbkDwmVAFotzO2jTGd5p1N
-         Q5zSNhGm1FUpAkS3xyBXF5YHpGxRsHGWyDW4YajO0LFutR3Yi+qx4T8jQsRT0dIneYpT
-         80tRcFBCf8mmKXqOzek/LBjg0EJZdWTLDBwdzUzxJd57oQEzggvw6WGiWAf6zj30G9/U
-         /+zUctV91SH5Sx98TxQK+M79xTYoeHGIWgbHfO52qCKp62Xh50Qj+IKfyfMqJTvjMYdx
-         tABA==
+        d=gmail.com; s=20251104; t=1788021761; x=1788626561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        b=OTetC3FY9YR2dT91pmq0tWTCBVQw98A+ro76zO0jrdRuA8IZtsnSh7UkqJxyoJsput
+         QYkwqUcp//atCTeq9nNabFfVtR3cltA4BnJlSN/uar5m/kgT+3MEs42eO0e02wospduc
+         rd7a0zJaN5uoUP6GJRavB4PZ8F3hyZZHH4PEbtX9YmOgSbCfGFN/PElptV+PHQz0J9vf
+         Bkx0xSdvVwNswH+ipIw1CNfsIk4PAx0dQAqh41NWWhrjuJmVCLhS+IToYESJMrG28Xbz
+         dtUzdafCWjb87kTs+7MK86BNNaSyY3rkhvgNFqCPfd9b+Pbk5DgfsG4pW4torbn/l2sa
+         A84w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788021725; x=1788626525;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lIXFuvY2+Ky3mMi2oni0IoCYc52BLAeik+B2WqFBEYI=;
-        b=QiUQieiFp72DNVzEmUy8gCirtUqwgwYQ3G1uUlUmtoVI4rEQlVv8HOmgk2WEXTbsqi
-         WU/hP4WbHuQgsDt8CVwgrGdpNkMAiNxZHc3sp58aVxfUvTF/i3MowWBd2Toa9uZRqhmW
-         zKwTkMTBIpefJ0mWaL7K7KRXzJ1KGp2FO2JzTQibJmmK/BsM90WXLTpzu109G3wUMCKv
-         4k34LOI/ZABHtcsRDA0gBMNGPZ8eaVIRLmhE8FeUX86h5zjrlLmsn7odX7jjOqUnBduY
-         GTISaOowRRlENrzUdqZBpfyXD6QwqokQaQmJAM3s+Zvu5PiDVS0rWY9L5ZuZGTgv8BmQ
-         0Q2g==
-X-Forwarded-Encrypted: i=1; AKwUvByhcXZLDMjhvKnrylD8h09zE+5rwcOk75SI7hXt+j2DABLKEO/w93ghjnF8AM445N1MCWOf828Cl3cnbO4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3HTtEaogNZJwtPBVS5KZjFcCXArClWo+oJ/Fe33zkHpDZMdYs
-	S74S/DPDiWqiykmbJ2Lx/g/HhH6O6xCAhag6Vs9J7P/OXuIAHDzdYXtpiE0ro6OHfdUKo9U+ZDL
-	wF6GSabKE4kGVUPEDWBK9jHnpm/Iqf268ueg8x0jIuRatPs4JVLNJqLbkFzGUzGfyAAA=
-X-Gm-Gg: AYBFou3Cmd1vOJpmqOeFZcxKkWCOuwkWzh7YUmjVFIRMiKcbqoh0XGnNY+nCJcJ9MDY
-	KDtxQR4DgizovdD92wTnCfMTLK70Bf7UnUESRAnjSVUpMLhtrsWbnBwdTaS8k7ldalcYg0+QqRc
-	DW47JKODsfMW2bbJ8OlFONK0g1y4RE9oVpAbgdcR5OihoXA4+2KoWOlQdDR89hmfhpxbLy8lyBJ
-	DXFXSK5v9wJzsYyI39dSVqtgj0Nrbua3MyMZfytRGLSgKMzLbx5XRJixaTOMEAzUGEm6LPe0beF
-	+qEJkGE1K1BpUKqgOvH4m80GSwTehc3Uusds7SqlKVGGUBuDfgLQvC36I2bIjbJmiumgfrmYYBS
-	mQmPcIOz2vMXEGegPYwknqmYOAc0F2otp5wMyxWgR9Mx/pI4ET1somGq4dhvDPlOKyqQ=
-X-Received: by 2002:a17:90b:48c5:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-3989be9ac97mr11639510a91.17.1788021725475;
-        Sat, 29 Aug 2026 09:42:05 -0700 (PDT)
-X-Received: by 2002:a17:90b:48c5:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-3989be9ac97mr11639439a91.17.1788021724980;
-        Sat, 29 Aug 2026 09:42:04 -0700 (PDT)
-Received: from [192.168.1.5] ([122.177.241.61])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398c3a10e6esm334612a91.13.2026.08.29.09.42.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Aug 2026 09:42:04 -0700 (PDT)
-Message-ID: <7d7c5d8f-a5e3-450e-95c8-c6b4e8ae8cf6@oss.qualcomm.com>
-Date: Sat, 29 Aug 2026 22:11:57 +0530
+        d=1e100.net; s=20251104; t=1788021761; x=1788626561;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        b=am618/8aRrWQQpVhr3A/r3IKd0JqNuInwcc26OdE6wIC5RcLGwku5fiJygaW8xUdho
+         TTiaNLSt2DUpF5RfcpeUUqNNinC0ssE7MqnGFXSORfqjfFkc93w8m3VawkuLMH3aPJ4F
+         xvguOi95YZpl5gWk64TlcdQX+AS1pgI8a0lvdRBnq8GgZFAh4e5wwu+NwaFYVRqxkgmb
+         dCqi9VRJPktiozx80jezO8AQtbyVbL5sxcTjuHyQn8oukz4fa3m8/fr4Ph8rAp/ykSKH
+         2IptOqvINfZgq4Vm/CSvLpcbcf736jkBCzjTM34GgDw3aZQXq5sm368F0O7qJZ23xdy4
+         AUvw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+8xZISediLwB6Lf6/uAkuGiJv1XP8uo7iLtl2hvUuZRbEi0jPyxqHhiMA9m6ora1JWr+hvdkM3PumkcY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0B+Vf8Nps/GCj+sb3b2GNMEfJN+foRgdp0fX3n+hAW7AbEnoJ
+	iPaDT3WBJJN1YVL5AGQx8TqpHvCi/rfiGax07nWeIZUtQUBauTq4qej8/xeDqgqDrRAMZkPa4QN
+	ktkivG240+eKynEviitCjdLAD6WyRo2HUcoC1EyA=
+X-Gm-Gg: AR+sD10GoNK4Ok2XBetbPgDUym+vLtNAOi8n/vEvyC+CfbJ2nQkgtrytRCiDzpLm+Hb
+	ji7vW83n7KAd/b5zjDrQGuPE0opI3sPJPvoNqQMt1T9vwcLHBHj7GKasOWKEMHp5u8T0XF3ZV30
+	jHkGVazQ6e2SCL5ZlsfhPgknFbmon8tlCXjqQqVg6v3aqYnx+rbJihWD+uiDl/P20kjSZ9jzZn3
+	XUgtlJomO0GOl4iNZBROtbrKOvHGkqn5hFgVFAA8XMVTO+Rg9QIv5J6zqJDd4yNEycfaXc+j+ZK
+	zdthYG7HAGhcXRSS/MilgDlMr7w0r1kiOE2Uqai1pWXnyw==
+X-Received: by 2002:a17:907:3ccc:b0:c15:f26a:3438 with SMTP id
+ a640c23a62f3a-c255741f461mr1048868466b.24.1788021760941; Sat, 29 Aug 2026
+ 09:42:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] arm64: dts: qcom: ipq8074: Flatten usb controller
- nodes
-To: george.moussalem@outlook.com
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-8-5c1f3170bbe9@outlook.com>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260825-ipq-flatten-usb-v1-8-5c1f3170bbe9@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pIu17QRXKUUyc6-os8rVNx4lPjKj8m2w
-X-Proofpoint-ORIG-GUID: pIu17QRXKUUyc6-os8rVNx4lPjKj8m2w
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE0NCBTYWx0ZWRfX2iW7X32Zy2is
- g0ABrNUkWhK/IaokXOkcQX9AadAvVscSApjBxrFL5BOigHhZZOVLTpThaH2yQ44HpRuBqc6ehK4
- 70jdv+NOooYVEC09W8rBskS/TMEscUI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE0NCBTYWx0ZWRfXw6Puw6A6l0Ha
- THgRqIU9fCyHacAvJJvmOX3H15ypOeODKgmKDJcCd5dQsOvADJS9dhrAVOy62pALQSkRLSdI87M
- nCFJTKUPDUbBunnVIgEaBRe30F3VoKnB67mYjUSs+HUpbm/seLgwM7xuY7bCMpfMmeDrkxJuwMB
- 982NIr2GyS9CTtpX+EOsQLS//JFMloY27ayNycoHC2UXzmI3Ac1ZDqg45bgr42vdRlMa33VjwAY
- JfbNPieHOQhw3VpgCYWT21Smbe52Bz2HrZC6n755x4rnmn+4FsnHq3zhuiK/2+w3gU9uVZRG1/p
- HNUUphVu7jMck6R6eyPF6eBAuol2jg57OQjkKPthQJH+Kw/rEvFOPSC2fHqAJcnvU75Q14QGdZf
- hJmq82/f2mSN9Uxr5O+gtxSfUh2wWBC2HOl6Kkg2svK6QrBCw9xvEl4ApQBPWvorfZlHTinP8Rj
- m8pwoQ/qzUX6dxevVOQ==
-X-Authority-Analysis: v=2.4 cv=YKKvDxGx c=1 sm=1 tr=0 ts=6a930bde cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=PZ14JaS8AzYbITig/tPzRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=UqCG9HQmAAAA:8 a=cNerkBHK4LsFKABZlZAA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290144
+References: <20260820175832.44512-1-kmehltretter@gmail.com>
+ <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com> <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
+ <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
+In-Reply-To: <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sat, 29 Aug 2026 18:42:28 +0200
+X-Gm-Features: AcwNN1VZx95EdI2tjlNCAWiVqqkY5zejH9GYUNhl8FvdsMNeGPTwmtuy5Ph3m7k
+Message-ID: <CAOQ4uxioiwVPntt1=QeXXftehoPPb5LFZHuctfJzkNJzrNq9Ng@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
+To: Paul Moore <paul@paul-moore.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Aug 29, 2026 at 12:05=E2=80=AFAM Paul Moore <paul@paul-moore.com> w=
+rote:
+>
+> On Fri, Aug 28, 2026 at 5:05=E2=80=AFAM Amir Goldstein <amir73il@gmail.co=
+m> wrote:
+> > On Thu, Aug 27, 2026 at 9:39=E2=80=AFPM Paul Moore <paul@paul-moore.com=
+> wrote:
+> > > On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+>
+> ...
+>
+> > > > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> > > > index 1ead2eee1944..171b90412ff1 100644
+> > > > --- a/security/selinux/hooks.c
+> > > > +++ b/security/selinux/hooks.c
+> > > > @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(stru=
+ct file *file)
+> > > >       return 0;
+> > > >  }
+> > > >
+> > > > +static inline u32 selinux_file_user_sid(const struct file *file)
+> > > > +{
+> > > > +     if (unlikely(file->f_mode & FMODE_BACKING))
+> > > > +             return selinux_backing_file(file)->uf_sid;
+> > > > +     return selinux_file(file)->sid;
+> > > > +}
+> > >
+> > > I'm a little concerned that this only works for one additional level =
+of
+> > > filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
+> > > FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
+> > > unreasonable concern that at some point in the future that number wil=
+l
+> > > increase without proper notification or testing and we will once agai=
+n
+> > > have a problem.
+> > >
+> > > At the absolute minimum we should have a BUILD_BUG_ON() for the stack=
+ing
+> > > depth.  It would be good if we could watch both the overlayfs and vfs
+> > > constants, but the overlayfs constant isn't available outside
+> > > fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit=
+).
+> > >
+> > >   BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
+> > >
+> > > Ideally, the code would be written to keep diving down the stack unti=
+l
+> > > it hit the true backing file.  No one likes to see recursion, but at =
+the
+> > > point where this function is called there should already be a reasona=
+ble
+> > > bound on the stacking depth and the work involved.
+> >
+> > Unless I am missing something, stack depth should not matter.
+> > file_user_path() should hold the user visible path, for all the backing=
+ files
+> > in all the depths of the backing files stack.
+> >
+> > This is the issue that was fixed with commit
+> > f2381b546e7e6 fs: fix user path of nested backing files
+> >
+> > This patch makes uf_sid behave the same way and also documents this:
+> >
+> > struct backing_file_security_struct {
+> > -       u32 uf_sid; /* associated user file fsec->sid */
+> > +       u32 uf_sid; /* top-level user file fsec->sid */
+> >  };
+>
+> Perhaps I'm not understanding your comment correctly (it's the end of
+> a long week), but selinux_backing_file_alloc() and the newly created
+> selinux_file_user_sid() functions don't operate on the
+> file_user_path() path struct.  In fact the path which is resolved in
+> backing_file_open() isn't even passed into the
+> security_backing_file_alloc() LSM hook.
 
+Right.
+But the file that is passed into the hook has the top-level uf_sid
+in selinux_file_user_sid().
 
-On 8/25/2026 4:12 PM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Flatten usb controller nodes and update to using latest bindings and
-> flattened driver approach.
-> 
-> In addition, fix indentation of properties in both nodes.
-> 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
->   arch/arm64/boot/dts/qcom/ipq8074.dtsi | 112 ++++++++++++++++------------------
->   1 file changed, 52 insertions(+), 60 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq8074.dtsi b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-> index 75a5ae30d966..d4a86b3815f2 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-> @@ -625,104 +625,96 @@ qpic_nand: nand-controller@79b0000 {
->   			status = "disabled";
->   		};
->   
-> -		usb_0: usb@8af8800 {
-> -			compatible = "qcom,ipq8074-dwc3", "qcom,dwc3";
-> -			reg = <0x08af8800 0x400>;
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -			ranges;
-> +		usb_0: usb@8a00000 {
-> +			compatible = "qcom,ipq8074-dwc3", "qcom,snps-dwc3";
-> +			reg = <0x08a00000 0xfc100>;
->   
->   			clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
-> -				<&gcc GCC_USB0_MASTER_CLK>,
-> -				<&gcc GCC_USB0_SLEEP_CLK>,
-> -				<&gcc GCC_USB0_MOCK_UTMI_CLK>;
-> +				 <&gcc GCC_USB0_MASTER_CLK>,
-> +				 <&gcc GCC_USB0_SLEEP_CLK>,
-> +				 <&gcc GCC_USB0_MOCK_UTMI_CLK>;
->   			clock-names = "cfg_noc",
-> -				"core",
-> -				"sleep",
-> -				"mock_utmi";
-> +				      "core",
-> +				      "sleep",
-> +				      "mock_utmi";
->   
->   			assigned-clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
->   					  <&gcc GCC_USB0_MASTER_CLK>,
->   					  <&gcc GCC_USB0_MOCK_UTMI_CLK>;
->   			assigned-clock-rates = <133330000>,
-> -						<133330000>,
-> -						<19200000>;
-> +					       <133330000>,
-> +					       <19200000>;
->   
-> -			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "pwr_event",
-> +			interrupt-names = "dwc_usb3",
-> +					  "pwr_event",
->   					  "qusb2_phy",
->   					  "ss_phy_irq";
->   
->   			power-domains = <&gcc USB0_GDSC>;
->   
-> +			phys = <&qusb_phy_0>, <&ssphy_0>;
-> +			phy-names = "usb2-phy", "usb3-phy";
-> +
-> +			snps,parkmode-disable-ss-quirk;
-> +			snps,is-utmi-l1-suspend;
-> +			snps,hird-threshold = /bits/ 8 <0x0>;
-> +			snps,dis_u2_susphy_quirk;
-> +			snps,dis_u3_susphy_quirk;
-> +			dr_mode = "host";
-> +
+>
+> Are you trying to explain that the way the backing files are allocated
+> in a stacked filesystem, regardless of the number of layers, is that
+> they will be allocated from the top down in such a way that the uf_sid
+> will trickle down to the bottommost backing file?
 
-I see this controller is DRD capable. Move this property to platform DTS 
-if dr_mode is needed as host.
+Yes, both selinux_file_user_sid() and file_user_path() should follow
+the same pattern independently - they always stash the top-most user visibl=
+e
+path/creds.
 
->   			resets = <&gcc GCC_USB0_BCR>;
-> -			status = "disabled";
->   
-
-[...]
-
-> +		usb_1: usb@8c00000 {
-> +			compatible = "qcom,ipq8074-dwc3", "qcom,snps-dwc3";
-> +			reg = <0x08c00000 0xfc100>;
->   
->   			clocks = <&gcc GCC_SYS_NOC_USB1_AXI_CLK>,
-> -				<&gcc GCC_USB1_MASTER_CLK>,
-> -				<&gcc GCC_USB1_SLEEP_CLK>,
-> -				<&gcc GCC_USB1_MOCK_UTMI_CLK>;
-> +				 <&gcc GCC_USB1_MASTER_CLK>,
-> +				 <&gcc GCC_USB1_SLEEP_CLK>,
-> +				 <&gcc GCC_USB1_MOCK_UTMI_CLK>;
->   			clock-names = "cfg_noc",
-> -				"core",
-> -				"sleep",
-> -				"mock_utmi";
-> +				      "core",
-> +				      "sleep",
-> +				      "mock_utmi";
->   
->   			assigned-clocks = <&gcc GCC_SYS_NOC_USB1_AXI_CLK>,
->   					  <&gcc GCC_USB1_MASTER_CLK>,
->   					  <&gcc GCC_USB1_MOCK_UTMI_CLK>;
->   			assigned-clock-rates = <133330000>,
-> -						<133330000>,
-> -						<19200000>;
-> +					       <133330000>,
-> +					       <19200000>;
->   
-> -			interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "pwr_event",
-> +			interrupt-names = "dwc_usb3",
-> +					  "pwr_event",
->   					  "qusb2_phy",
->   					  "ss_phy_irq";
->   
->   			power-domains = <&gcc USB1_GDSC>;
->   
-> +			phys = <&qusb_phy_1>, <&ssphy_1>;
-> +			phy-names = "usb2-phy", "usb3-phy";
-> +
-> +			snps,parkmode-disable-ss-quirk;
-> +			snps,is-utmi-l1-suspend;
-> +			snps,hird-threshold = /bits/ 8 <0x0>;
-> +			snps,dis_u2_susphy_quirk;
-> +			snps,dis_u3_susphy_quirk;
-> +			dr_mode = "host";
-> +
-
-Same comment as above.
-
-Regards,
-Krishna,
+Thanks,
+Amir.
