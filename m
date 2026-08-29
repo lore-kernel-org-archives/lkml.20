@@ -1,66 +1,84 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5993C9EEE
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED2D412C17
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788028900; cv=none; b=grFm60+NqLF7Y0pkVqjuXUngAx2vk+4JtPErPlIeJlkq4Z6QhjIXIypuLIiwH64/mV1f0y+/W950Ni4xf05JbUecveraIYLhfKVXE5x3wqR1NdIpqfaQ65DAc3FReAT9NPNTeSQEKvE1RMaGqR78WnEk2gXa/Vk2dhalqCC+5T8=
+	t=1788028983; cv=none; b=qzklUDvO+E1b7cBEfJmX5f33D/dqzEL3TSDtLYb57+YqvJtRTofQsmTfO4w7XPFGjCvVgy1cEONDUewOfLvmOajrd/EtezsCXQ8kXtPrMUIYt5zzBAIx0qykG8DQKakTD2jaQYob3fSGIL1OSea54T+rYjZCE+nR1+YqTPL/xYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788028900; c=relaxed/simple;
-	bh=gjh1l+NNPC/cZ6uQzI1O65AFFuEkwTycyBvCBbn0TTY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=u4E7A+c17bNymXitkvyL4YArmKAV3O/SA5bjnXj+DcA6rObzgRh0gMMgtoHeOGni1CXqMYF/xNvRLvIQ/kqOdbSnjFobAtkNpaR3EFyyVqoA3bd9LnJRBvd4d7jS5MNZ/sl6kMeZUkwmVPWNfGVQRQikG037xRaSLKUoh5lLoxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PgyLkuXw; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788028983; c=relaxed/simple;
+	bh=8Gj2G76gEDUSTrJh9wyKhjlV0WDG+1riVaR0UmTV1c4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=HwK/hcoRVGaEob6CRZc+K4ppkHMp7Rgf66c8F98aGIzHftBTS5rFvHrEwpNUIgdPKEWrnTtL7C68OGR2PSANCocUMQAwZJp7pjWixXle7HvXbbFRhHeodHCh0Lp54NSanH7z59NRRhp4Wu1Bl3NwJ+QKTCPshQkPqsJ8r8YDlaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=YaJycs+P; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=xJMFBU7G; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PgyLkuXw"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so19578145e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:41:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="YaJycs+P";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="xJMFBU7G"
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TIYsOh1917881
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:43:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=0bd5
+	PAmYpGy8JaYT1BKzRh2l/HCvYP+lW1f+KIURCm8=; b=YaJycs+PgkXAxiEmTQzc
+	x40/bpBx1OYZh241szBo3lKKjWsHNNTm/SUNCPAfRi3n/VvGgS3pPmiT6vJfeTeE
+	GiYqlQAcB9LxnBFHNoESzb5esOccev9qrcQWHm0gEHQGot5RZ3TlnUHgTh1mlvDz
+	d9N5rHFvicpTxBVJ1Kc7qEh1Y27NhJ6xXj8g377SAqIe5++so+krlfoZAvQs/gIU
+	kCMT6z/E5NYAilPWjvHEyj6ymy4uPe3Gtsnyao6hjzXSseIMYastb0rZJFYPC+xh
+	8rKV341s6RpP56zWTz8d8V831a4RBpe5IcA1BvubzOBoLFQUXRg3oy5g0dCR/q6W
+	2A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gbqy7b0u4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:42:59 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52ff59f2c47so24280711cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:42:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788028897; x=1788633697; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0H8PyiwPo+CDsOXKQ6pG40Z5MKHjfZ12JW+zPqmUMOM=;
-        b=PgyLkuXwccJ/iB5spApIN4v1aYJaXlKq1yg12HCq4KtSCkXDaTlT8BwJ+wVROxeWwJ
-         Khcw6xQ8XmNcfEdtkWhRJEp56KDmfHwVRe/uz8E/FilsZOzb3qiX4IduS1sn8/V1ubVl
-         hBL9nHMtfJma6+qu3aHPh+cbts9I5wisLc3GT+2jVcNBhq8lWyfaOsCUlJ2tjdaDfkIn
-         LcOAbgeo2ynjHz/5x+pjf108/ijktlIYno4UbPpBEdJ0sApCvwxC5ik9dThSFZyTSgpU
-         5zz3AUcSblasQjX+e2GQtvEKCmv/UyE4Vtlm9koKIhY2JGuP1dDj21LdIZB2Y3hZt9yW
-         u/Fw==
+        d=columbia.edu; s=lionmail; t=1788028979; x=1788633779; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0bd5PAmYpGy8JaYT1BKzRh2l/HCvYP+lW1f+KIURCm8=;
+        b=xJMFBU7GQCayIbfE/cZMP8mwh0IfylQylrPhUpZBxmpVYi2RVGAjfDyeBsDEwx9xzd
+         TfrpRpffrA/wJ6xl9pQYcSVBhmEKp9cDktrlyJojPzwSDh4OA40bIIK/lPQYNv4qiejL
+         Ui4/zvXdVV1fseG53Y3bbx05exgxDw/IqliY8WXjDbo65O8jB2hu4kgVxZV9V+4phyKk
+         1KyvFBv7Q8Oj9PIPcEy99NQJ6X0Y9HpYMDP1lDnhiAQc4uLTX1Y6+HABwvmdTv/BthEj
+         quQK3NYVN5hBoiMWWqQpwMP+iIedprzIMuUaz/g9KiNUtGdZnLUjB709S9MnDJCQyu9H
+         q9ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788028897; x=1788633697;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0H8PyiwPo+CDsOXKQ6pG40Z5MKHjfZ12JW+zPqmUMOM=;
-        b=jQYNKJC96yg7njhDCvG9PDo6ggIydaiBwxDSWA+0TKQvx3QoVbi6SZTcbRxwm06eY0
-         cHc4MmCrki/W6gdpPUta166Sf8b0drfKigkaMhUuzOMVnhncrMzwY33rzotf4aU4XEmB
-         Tcdx+DFQhb6oyhVXObzL2otUu35VvHWwfr6FHqshe3GSiTCxGckiaXT2OnZqxIvAhdkM
-         qk2QZwU5g0+t2BZxHx7NkP2AP4786HaGHrJ9hg17G5yYX8U2zb34jeNtgToiMsH8FtZx
-         eW1y1yFZeE3lUf6vMSwCz+WV1xfBXpa1SahCImVkSMnurnks1EP9hElufjNTuU/pXGmu
-         AWHw==
-X-Forwarded-Encrypted: i=1; AHgh+RpCw4Btf4BGsl81hL2RGU7P3+p5Vwk/R+X3xbJ6nqvtLBrGqIet6e5JuQMEUO1nkNbGOiy7vJTB3Xqex0k=@vger.kernel.org
-X-Gm-Message-State: AFuF++msaWCh1TDNXAEs3ir1XvOxrL8i4SPac0NXiRhDYdBGMftblu3k
-	85uxAMox1dvlN0EJ4Xg6s8oZlGW1IJGjVODCJdcH8quwu07ce4KwxxCLuMd0/CMdjC2b+DbW
-X-Gm-Gg: AR+sD12F4JWQUyCD3zztutSGRFQwwmWxefVNXvZpQ5iOesaxDebR2IrqX7zXGsF8gre
-	XJBv8UFTe1f73ZnBAifdRoVoEtcoikGi1PixRn/xS87hdD1dkqL2JiM1HhzdTmDLwr4cMkEqt9S
-	UaKPKoWY4HNmEKo8BIq8IiDPPsKfj8wUGfIEbEiwY7mX/ACIIlvv45UzYh9dZVnf0Vbvqx9NJDn
-	4TszH061su8MCUUwvpzPfpdWAUx/lgsLO53/t63qGv494lI+T+xsZF1mlGhs9qeqLxLZOdCZoqH
-	u6PwW11W77+0MXRlxidJOADOA+AjwqtzgCt5tJPcWejHQU5Ys/dwNmThtydvE0SdPLJl0n3xniP
-	MhiYq1sa5waB0t8TNdU0e18SsJedadUAqqKWe75tIgRlxVIEvW49BXm84Srs8HRO520uczzDlbU
-	eD4+zpvQaShFuLrku2P04DNvzXUoStUqt7zKR+qzpQICnTGSozC1c3oVwin+29Zk9Q9KLxtFuDs
-	EwaYG9OF2b+AZRP/GyIeQ==
-X-Received: by 2002:a05:600c:a403:b0:49b:924e:9a28 with SMTP id 5b1f17b1804b1-49b924e9b14mr211725925e9.1.1788028897076;
-        Sat, 29 Aug 2026 11:41:37 -0700 (PDT)
-Received: from [192.168.1.11] ([148.252.146.192])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49cc61cfsm252044895e9.6.2026.08.29.11.41.35
+        d=1e100.net; s=20251104; t=1788028979; x=1788633779;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0bd5PAmYpGy8JaYT1BKzRh2l/HCvYP+lW1f+KIURCm8=;
+        b=m18ALIjWHrH4fJUCg8P+ge8gas001HhnWA7SiJ88p5gNK7xnC1H9K7zBYQC7aRYW3c
+         JaMyd82bZkt7LDH8aBirGiWZvgUXa5+ee2dk30wteZKQTo1IKYwjuqhsgVrqUHHXSMTW
+         i3bQLVGuWVgN5Hl/RRtdzyNd5rHwFLk61rS0XKvlqgjz9B7Zxu3a5bifxmAfDcfDR5Bq
+         p3ApaNuHH4e2mBUmYllOE5bjr5unR8Xqm/gnYllLURoxlMoc7UkkAhzExTWpSUSPJm6O
+         ZWXELGhbfq4P7esF+VZ78ViZK5a59LElTck0HSZ9uuZ5CG5D76izOctqOjSdKt4yKsga
+         dYLg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro5uTD+aYvYtG0Q5rM+27zHDh738FEKSoylkZETX2urLpXq40U+I43VudVtnw5v0dm4jEMcF4mzpN3EIa0=@vger.kernel.org
+X-Gm-Message-State: AFuF++krpKm0oes5JqkRmbwBzNOJgS04onoWcbdhcNxJN7+0pGeNMl5G
+	ZFQZj5uBSYTiOexXJLCp16aAx18Tx8MEq3D+nKRq33VDiJZ5qToJyKAROKT/HVMg4ub6c39FO8U
+	ZDk/gtqdbSGEmFt/k2ocKIC2FmBkS9koft14+VRLhebUoCojaY8ChgxehmUpwgQ==
+X-Gm-Gg: AR+sD13VxM1Hl10bPITPtzqRddzYi9pCnThfsHgwJzPK+5Q+JH/hDfFXrzmFb21KN3G
+	RwD1mJCz2W9YvInhgwqBXNG12la2teLzYy+ortuwNfWnSBA17XRVyRM85/7H0Nit6lRQtjDWHkj
+	1dFyFCKapFXOxreOr1/1d5B8td65mmkbIR7wxss7kOonpcsigcO+XeloLQ1G38OS6IViVoSBx70
+	REvHS34yzsORFL6+7xr4l9joV1IvEua8YTIKpMe8oA+v3N3WPMlPfZdNctoX+wlGLONZzx/xC4D
+	8C2hvkoKzoJhh92qoTMfs9i5D9Z3doQ5fuQCX6Nzhb5PJUfeTvSwnyZKiSryZqEyzq3E3gKq+Dm
+	TKYiLGc98H7HGh574yewY5gCfuAzjDy0ngGB/dRlMepNsyeg=
+X-Received: by 2002:a05:622a:1910:b0:52e:4982:22cc with SMTP id d75a77b69052e-52fa1a4aab2mr249923121cf.5.1788028979072;
+        Sat, 29 Aug 2026 11:42:59 -0700 (PDT)
+X-Received: by 2002:a05:622a:1910:b0:52e:4982:22cc with SMTP id d75a77b69052e-52fa1a4aab2mr249922571cf.5.1788028978606;
+        Sat, 29 Aug 2026 11:42:58 -0700 (PDT)
+Received: from [127.0.1.1] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb32d30sm12171637f8f.34.2026.08.29.11.42.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 11:41:36 -0700 (PDT)
-From: Dale Whinham <daleyo@gmail.com>
-Date: Sat, 29 Aug 2026 19:41:30 +0100
-Subject: [PATCH] arm64: dts: qcom: x1-denali: Add volume up/down GPIO keys
+        Sat, 29 Aug 2026 11:42:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,103 +87,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-surface-pro-11-volume-buttons-v1-1-ace589343a68@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAwA0F8ZORtoyxzqr4iHNaZa0XYk7RiM/
- bvVHd/lraAskRUu3QrCc9SYU4M9dEDPMT0Y470ZnHGDObkzapUwEuMkGa3FOb/rh9HXUnJSDL3
- vDbsjMXloxyQc4vL/r7fdWv2LqfxS2LYvAJTkYYEAAAA=
-X-Change-ID: 20260829-surface-pro-11-volume-buttons-f4b40e25cecb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
- Dale Whinham <daleyo@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788028895; l=2043;
- i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=gjh1l+NNPC/cZ6uQzI1O65AFFuEkwTycyBvCBbn0TTY=;
- b=3g5gzi2RSLoc0SXrt332SzG91tDDODYz0ZGabjDixgUXJYo5rQau/5fDMmno3A9Wonyf6rJwC
- eAw2VtwPBI6DBPkvaqSbzF1UX5DQUjN7ZtPr6l+iXHfYAx2LjZOXzeO
-X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
- pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
+Subject: Re: [PATCH 6/6] userfaultfd: collapse
+ VM_UFFD_{MISSING,WP,MINOR,RWP} into single VM_UFFD
+From: Tal Zussman <tz2294@columbia.edu>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+        "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
+        Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
+        Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+        Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
+        Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+        Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Shakeel Butt <shakeel.butt@linux.dev>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+        Zi Yan <ziy@nvidia.com>, linux-doc@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org
+In-Reply-To: <apK7s4xSgA_GmY7d@kernel.org>
+References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
+ <20260823-uffd-vm-flags-v1-v1-6-3086981b33cf@kernel.org>
+ <ao16VxNvaYzlt2WG@gremlin> <ao_9R3CbjYFipFu7@kernel.org>
+ <apAB9GSnHNyNoSc1@gremlin> <apAcweThjiD-iIBF@gremlin>
+ <37f6af95-950e-4457-886e-6548d4719f0d@kernel.org>
+ <apK7s4xSgA_GmY7d@kernel.org>
+Date: Sat, 29 Aug 2026 14:42:52 -0400
+Message-Id: <178802897277.671075.10362065249796431311.b4-reply@b4>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788028972; l=1768;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=8Gj2G76gEDUSTrJh9wyKhjlV0WDG+1riVaR0UmTV1c4=;
+ b=cMv3WyS297uSy6OhyEPKL7TFiV6NgPyRlli6/52vFPU3U+wxk43IDrwyt65mNyPQi/updU28Q
+ fXkQOPOdareAvP+hQQ2rgHqvMZY30DpDTGX/m0/lnTSj2MdkKXGNeAi
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE2MCBTYWx0ZWRfX86YHZUQPthcB
+ dxyytB/zu3ZyrO0G1MvflptFgLQf705de9GM7brAbU6a2WnKhQiiq2/arv17aVsp3qdPekNcrkB
+ /IUa0ejxk38mGi0eb81nq8crChJ4P6p5V+rcn7jTdFBUlRrwJVdy
+X-Authority-Analysis: v=2.4 cv=e+I2j6p/ c=1 sm=1 tr=0 ts=6a932833 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=kX8B4L1VaituP6mSkuYA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: 3jwhtlEU--ZEJn5ApjlEnae-JWlj0OPc
+X-Proofpoint-GUID: 3jwhtlEU--ZEJn5ApjlEnae-JWlj0OPc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE2MCBTYWx0ZWRfXyFU/ZGtFqMMs
+ ONSzEVNuteuB4wZN5blN0lfAmbAhkUcby7ubgArFu7SvDuv1wc4NPGNB+QV9JYjOCvM5g6HI6mE
+ 9gltX5W07B8NZNIGi40JrH2Lfyfm2RbfimKFrBKdigTse8QGJV89wJQOH87V2UypE3SEZQW45fy
+ CBNHSckE9B+vJ3B5b2PnGAIXyTCA+4SXQLPq9Gz7yfjK9zST3iE1ig7xv3rVWKoUrAW2lVqNnL+
+ 5V63S30s7Hp9tPhjpaaSO9OmCvByoGQHmunjCojSyPFV5C6nWw1TRArpPym8d0IfDRvLPoQLXgE
+ MIfxE716SXuSY8NTfzJCgQYxh8cFOX4LvBRtlk7ZHkNgZGeLYQCeBxvTYCTY4809zCDzqHlOpCj
+ dOAxHx877A9P4wxxQ8/MxBzxiiAgNs3OywTePUujKZbgjNk4ojMDRohV7Y1NGLuho2r/3URMnlU
+ b02cAnZukUcOEXM6bRQ==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11890
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=10 bulkscore=10 phishscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=10 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290160
 
-Configure gpio6 and gpio8 as volume up and volume down respectively, to
-enable the volume rocker located at the top of the screen.
+On 2026-08-29 14:00 +0300, Mike Rapoport wrote:
+> On Thu, Aug 27, 2026 at 05:19:30PM +0200, David Hildenbrand (Arm) wrote:
+> > On 8/27/26 13:18, Lorenzo Stoakes (ARM) wrote:
+> > > On Thu, Aug 27, 2026 at 12:16:32PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > >> So actually you're increasing by a cacheline and increasing the VMA size by
+> > >> 64 bytes, i.e. 1/3, which is unacceptable obviously.
+> > >>
+> > >> Maybe there's something that can be done with:
+> > >>
+> > >> 		/* forced alignments: 1 */
+> > >>
+> > >> Perhaps? But that looks potentially ugly.
+> > >>
+> > > 
+> > > I say elsewhere (or think I do) but to highlight - I think probably we could fix
+> > > this by putting the flags in the low bits of vm_uffd_state.ctx?
+> > 
+> > if that's possible that would be clearly preferable memory-wise.
+> 
+> This gives only 4 bits and makes this completely not extendable.
 
-Signed-off-by: Dale Whinham <daleyo@gmail.com>
----
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 36 ++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+Wouldn't it be 6 bits? struct userfaultfd_ctx is allocated with
+kmem_cache_create() and SLAB_HWCACHE_ALIGN, and most of the flags are
+only available on 64 bit, so it should be 64-byte aligned in the
+relevant cases.
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-index 7559557610ed..c467f61545cb 100644
---- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-@@ -20,7 +20,7 @@ aliases {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&hall_int_n_default>;
-+		pinctrl-0 = <&hall_int_n_default>, <&vol_down_n>, <&vol_up_n>;
- 		pinctrl-names = "default";
- 
- 		switch-lid {
-@@ -30,6 +30,24 @@ switch-lid {
- 			wakeup-source;
- 			wakeup-event-action = <EV_ACT_DEASSERTED>;
- 		};
-+
-+		key-vol-down {
-+			debounce-interval = <15>;
-+			gpios = <&pm8550_gpios 8 GPIO_ACTIVE_LOW>;
-+			label = "Volume Down";
-+			linux,can-disable;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			wakeup-source;
-+		};
-+
-+		key-vol-up {
-+			debounce-interval = <15>;
-+			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
-+			label = "Volume Up";
-+			linux,can-disable;
-+			linux,code = <KEY_VOLUMEUP>;
-+			wakeup-source;
-+		};
- 	};
- 
- 	pmic-glink {
-@@ -995,6 +1013,22 @@ rtmr0_3p3_reg_en: rtmr0-3p3-reg-en-state {
- 		function = "normal";
- 		power-source = <1>; /* 1.8V */
- 	};
-+
-+	vol_down_n: vol-down-n-state {
-+		bias-pull-up;
-+		input-enable;
-+		pins = "gpio8";
-+		function = "normal";
-+		power-source = <1>; /* 1.8V */
-+	};
-+
-+	vol_up_n: vol-up-n-state {
-+		bias-pull-up;
-+		input-enable;
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>; /* 1.8V */
-+	};
- };
- 
- &pm8550ve_9_gpios {
+(Not that 6 is that much better than 4... but it's a little more wiggle
+room.)
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260829-surface-pro-11-volume-buttons-f4b40e25cecb
+It could in theory also be bumped up to 7 by setting align in
+kmem_cache_create(). userfaultfd_ctx already takes 192 bytes due to
+existing alignment. Aligning it to 128 bytes would make it 256 bytes,
+adding 64 bytes to each uffd rather than each VMA. But this sounds like
+more pain for little gain :)
 
-Best regards,
---  
-Dale Whinham <daleyo@gmail.com>
+> So I think I'll drop this for now and wait until VMA grows another cache
+> line or until having per-VMA uffd state rather than a pointer to per-fd
+> context is a must.
+>  
+> > -- 
+> > Cheers,
+> > 
+> > David
+> 
+> -- 
+> Sincerely yours,
+> Mike.
+> 
+> 
+
 
