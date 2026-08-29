@@ -1,254 +1,209 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FCC3A1A3F
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787965532; cv=none; b=kBPbNKsJd4kcLiVduiVWRDbnZc6MqCf5QKsv4Apf+UVgkDsOEApnOO8HH4UDKV0fyWozagCbEbM/CTmvYxCkKD6C2Rn7ni/CO0LbSJWzTjicWKnat/rZFe+2vI32CukRj0r3UotNSFWyUWpYipaI0/t1gE0ssKB14fQvWmoSNKM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787965532; c=relaxed/simple;
-	bh=FmvFQBzyHnAFK6uP90mZaFcbdD8qlhovGSeYZYah9VE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U7refQYoPP7khISLWqiRhWrixZZ83syiD4IcFFsQI14kzyUurRtxgc5kPNeh02yzSm+J2HUEbjkFJQE4E4PQEVGKFRsDKS3XYf7kgS9DUqsRxWSfHZIuM4BECI/n24phwZTaAOytiqnSdHEkxQJHqoolmSfYWSpz7TbUYxU8SVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJ1/ELTE; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79C92248B3
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787965822; cv=pass; b=rjpyHehLCFCtHf8yIDEp072/q7lamhJ5oyJrTnELkw2fSxDc2lXb6kt0cfG8snrS1nLfGteNOXpm9ZHeXxwppfmv/vzlQmdxzMA6vx0EfjEj6QGNN/kNyvXdt+vWiEW3DZK1eqv+BhYqq2x02hlKumNK9udrVSCHg5y/aC6SHHU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787965822; c=relaxed/simple;
+	bh=1mrl5vfsxPOcxX49j/Nr+QxRQPhhznHCQB+r9IYmE4g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XANpKM44I7Kfehzdqb9kCBaj5Mqb4+6fVHNH79NBuQuTG/8KaECRgcK2MTDhD+fURUtsFdGTFSKgcHaOKTemjthTryBgeDGQnFh2s0VipvGDeIevD2vDY438T3YIpUwYAkvxt50JrVOrioZSUm1ufQB0IjrkQi8aOO614KNG/dY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sKdAwxe+; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJ1/ELTE"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so2418660a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:05:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sKdAwxe+"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a623987d32so868883a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:10:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787965817; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZJ8G2ASAuNeiM1QH6B3XNiKZKk3Ti/xJJsDn1Ds8SOJzKDM7cQl66ExPA7wMUSO7j4
+         JWaodqtOHRKZ1gIaqh0YM3gNO99pmTv7yNN1xlJevDkH7sLaN0fqK2mh5vdHvL55fX2O
+         Yhp05OiVqSHwXkGPUS9uaXde2SzUYdQzeSPN/azRW+ZJYZnli/GwDuhEchDSUO3oHzAz
+         M6px+U0ULpMz5KXaHKQW/liMyWByYxrwsg53ULXxtkhEzVmocXo3jv9zdf8Jv1bvfe6/
+         gZmzQ7WRw2TIvAWVNqZ6jHCRNQheljEcITRxgf0lZ9xuj69NFidCZu+hmChC6x9Gf3c2
+         9s6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        fh=6X6EsUaBAcxiT84uQPs3Pfg6suUHTiGMYMbDHHXqwBs=;
+        b=Ph9fqki+VnYqruChCZfOVWssMtzjp/dnqLzRrWlgLUSwVZpi4qu8bHLdKdybj6/QfV
+         O3/jxXnt3VRN67/XCnR/d27Wo09tb10H8aaPbr89echGNfrNX+oA6KtJVEOllTORJwyH
+         H61WjJvRVbgZ36F8JN9c3V5bFA1mFgaalZuAOlXbcj+7uyzRQuLb9jgf+R+8VaRp086d
+         F7zAGpmtcA4Ssl9FzL8PLznDadssph/Nhp1oN+O4jQqFbmfNCGWsevZqugY1XqzQcSl+
+         ORao/S09Y/MMEjmoWYVv/qXukrqyd437dqh0INeNOxUkTpIPVLBU7MsbO0O214U3pa7e
+         p6WQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787965529; x=1788570329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zA5kSADrAaVAB+/2hR/f9WTYy/x0O4VhWpKvkd8WRIQ=;
-        b=OJ1/ELTE1dw9T6uw0SYmTGcevt8YHyOSOrZFrgP8a4/iCRATscvMKoakygQB+vbpYr
-         JeHWyABytzP/bRHZkQLCG9pwzT8ItJHM6pwUmAbxcGVQtH6ogJTBZfYQN9psb2JPe5LR
-         bP446XUe/FJp/zYaYdSZmPF8MwZgMnUXP0fmj+rLyxyLunX1J1SKktD3NA76bIVXkwKH
-         YSzaNLbPr7Mjaxf1JZ6Lh/RNboTLnFcKhTO9LiU1WGuY3TWRC0PV/MYiIWrN4qoxQQ5A
-         /seT66zRZwtEgNpKQsxlpOWJtLkFsLQKqEP+HIwpXFnjCpCv+SrEEjWQaAb/Zr1RQleV
-         mVPw==
+        d=google.com; s=20251104; t=1787965817; x=1788570617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        b=sKdAwxe+TdDSUVtnEMTy34PjYuYffS21Gj1+W31yG6GX2bVQxLnJuEiAGvz8+QlL7h
+         gDaRTGAxgD9odwoshYI5pQOS4wOv+bG/u9uAMckdXwEmSt/rP4qomh0jT0SlzhMmduh9
+         5Vl1GP1v4srPUFBZlwNuA/okJPQDdVM523TJjPQtUELhc5QBAVlPmStuYcrL3NIfPG3L
+         hPLo7wxOQ61536+Nr/buUYmj7LXAoCj+WWL9r+UR/AaY8Ts5YBvOsXTa9Rdpa8CUCKWh
+         eZpIJJ6NPukZ4qlZd7C2Hzs8bMLoVa31L/NnOpqWyAtq3h3i8u/akFztvDj3mfIAlA1E
+         h77Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787965529; x=1788570329;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zA5kSADrAaVAB+/2hR/f9WTYy/x0O4VhWpKvkd8WRIQ=;
-        b=BdMgmOQHHnBFaDeUFKZqYIZoL5HEX4ckt4hw4VFmT6FpctyGRCsMzuIKY3sASQRequ
-         NEqlhtBNEIwpAaTM9XaLrJXfpbZGaOOFCiZNI3mVC7ABkrO00Gb4TMs9u8XlwQM91//p
-         j2815A+sQa0USnlrp2t+mQBmkcPuNW5N5++NPYwfY/hynqB2dTGC5RVrkkWydpzr9e6L
-         /4hAD0FfpzffD07CMeIHDnWTKk6r1qSuSpnNYtpxPXCDrNw7CxpCLVOyQHhooUUHEOqi
-         5Pwx4P+NvkWBL4nNKd4R2J0RzSqh3PdxBFm3khlI5WRrTMIf7UApX6hZOo95UOeDRs8A
-         bXlA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqr1FU/xoVkc1uxzA7VCgbl9RnAZLGns6QuwxnCRYPcPTpDo8cwtWaQ3vzTpfukA/cKrjrhPefP7kEsjL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUg7rm1PsxwlmZoVUyVEB91gIfzbu+2uEeX4YaJAbfm8RPDLYu
-	FChHcFA+gMJhiRcNuYx8csfxKVCTrKn/Vk66VD+/hMSTdLiFQGQaczT5OVvb9k19y4/VZ7qG
-X-Gm-Gg: AR+sD12tDW5dVPHWGHEGVjUfr4h7IjyG5QLYzwJDiq0oSDskMspnu9u34UKmF/DOHtq
-	u6O/X9Iw93AisHyQK2Ryo8mgeHkGTo8Le8TMZdE0I81QddtPiV7glrEFeCGtp7GabsFMa0eF/EZ
-	vNbV0QnOOKMRhn91QYim3B1AASXrMKliyZpqeSBB02CsC22O2RVqDxBTTZED/y249K0PkuGZKzn
-	H5I5PI8oztF4pGOZ0UlKhwxMmz05zmk3TsVZWBBLvp/ICGNaq97U4YKzUQyz+o2N9XKIG0Uh8ja
-	lQVOzG9POJ8DjzFspGsagDbheae6yP/qObYlZJFe1dHHb7uoCcmzPBj2ryd9KabEojWWQwlOLcq
-	WVzt0+PdV2tl5YR7nJVpPFcGpatzUyEpRdRGbYW3ypLbZniDBTkLXGZvfyEePUvadGWNDEUFZ01
-	5+Od7q/1a631b0G2zg7q5Pks/xHlsvUZJoa8G4pFUlVAA+KRfLAFrb8PeLBYmDjtbl0flSW6CvU
-	tyzEblMKOsbhblqZnnLUMGuzq81FDNr/1JNCGfHQ7lmw9fcp7rRTSz3lDr2
-X-Received: by 2002:a17:907:94c1:b0:c25:6230:dfcd with SMTP id a640c23a62f3a-c256230e4d2mr524252866b.15.1787965528961;
-        Fri, 28 Aug 2026 18:05:28 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b28ebsm141649666b.29.2026.08.28.18.05.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 18:05:28 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>,
-	George Zhang <george.zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption on DCN32 at 120 Hz since a637a140ab86
-Date: Sat, 29 Aug 2026 06:05:25 +0500
-Message-ID: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1787965817; x=1788570617;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        b=BO2L9FEPpQk3u54DJhhdyQLzYCbjxVAsGy0l6fUIXe6IIVDQdQH8UYPSGG3mcftxbg
+         e21+xorXzIp783sQHsgT4PoNzlo1nEL0UjyGSMHJ4N1TLMkvF/Cu4si1EdP6Grl7vGVn
+         ns6ibutmJLiT0/QYToR3//eVQLk41FlBAl/SS8GZBAP2YInTCWTUw5gA37e6cfMKAbYz
+         /j01BFvKBSA7lOt3ycTcOXyIGPpe1tbdJl0wg1+t0rIR4thvmb2Gfw1SkAYAMlGKDNyu
+         aifbQwQh+FgFiI7uYPDrBZJZlS7EDEEgn0bpuK3oqm6g6v41B0rOlPNfutEwxWG9tH5y
+         /XqA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqvu5WyPCzoE4Q6XTYYBNjdJZ5cEQMVaWgB9r+JcDgz4x0hinAyWqtnlJW23pomovBh906i993YYloAJkU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mH6c4Oxp7fJSDpbmC1e88OVtmy0CjQ1LsR90b8Xjd4FawvnlMM
+	ndipdMtzZfypigBMTODOcr5Q7HA3iRsQxP3rfpB3KmIjOCB+3onPP7S4S3TZweCeICbITColfUA
+	Tqi8bHTh00xkNO8bmd8ebG5+nZsL5A2GmLI1Gah1j
+X-Gm-Gg: AR+sD11/T/hWCyYPbHNrkYrTavb/SVguwdupPVEytkeZNipf+AO4msJU60zVknBYcbu
+	dg2xtekIl26H6uzl8AmLq3Gj8uicWy6IPqGzaTD4V6FmxvZpHy0wiPz1NeE48sPx2UGtwN+BoYA
+	GBoMc6cQhn+3lsSCKALEL57ITY61XBOo9SU69HsbsS8H6k/1zB64+yhs9Z5oLuK/Dz4VHYWMnsb
+	Fxh9lT3u26SIWxZJTujdeyy/i3lyzDTnMTqBdZDSzZ2tfb3ItpNZEdURPxjRznN8CDegd8GFvfe
+	xJ2IOwI21FnBii8UTw22XZQxg7OjKz0XS4vQHzF4auc+O3dSDt4ibgD4HHsPPdULGTKE5wDMiRE
+	+lKRYOYWlYm9cR9IDolflY+rvaBJGxAv6wja8Ta04cQTSpITVXnxH34iDvdM6gZGhezhHEpy1Mm
+	pHfuGSOnLZbOgj
+X-Received: by 2002:a17:906:f592:b0:c25:d03:6794 with SMTP id
+ a640c23a62f3a-c2557416218mr792240166b.16.1787965816803; Fri, 28 Aug 2026
+ 18:10:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828222640.1638457-1-jthoughton@google.com> <20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
+In-Reply-To: <20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
+From: James Houghton <jthoughton@google.com>
+Date: Fri, 28 Aug 2026 18:09:39 -0700
+X-Gm-Features: AcwNN1UYXr9aSh6ZJb7y7EO3U_vx_4UVQ4qPVOOoPdPKw3zhEMSrjR8DApQcQpU
+Message-ID: <CADrL8HVzfEXgE9OQfULhe6wh1kMMOALsYuCNOUkgBqtzk_LUVg@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
+ uffd-minor-registered VMAs
+To: Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, 
+	zokeefe@google.com, hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Aug 28, 2026 at 5:33=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Fri, 28 Aug 2026 22:26:40 +0000 James Houghton <jthoughton@google.com>=
+ wrote:
+>
+> > Userfaultfd minor faults provides userspace with the ability to manuall=
+y
+> > install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+> > map holes in the VMA when a naturally-aligned THP is present without
+> > explicit action from userspace.
+> >
+> > This is a problem, as it bypasses userfaultfd minor faults that
+> > userspace is expecting to handle.
+> >
+> > If userspace implements post-copy live migration using userfaultfd mino=
+r
+> > faults, this situation is currently possible:
+> > 1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+> >    is mapped in the page tables.
+> > 2. A stale copy of a page is present in a naturally-aligned THP (from
+> >    pre-copy live migration).
+> > 3. khugepaged collapses the mapping of the THP, installs a PMD.
+> > 4. The VM now has access to the stale contents =3D> VM is broken.
+> > 5. After installing the correct contents, userspace attempts to map the
+> >    page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+> >    unexpectedly mapped the page.
+>
+> Did I read somewhere that this it biting you in a real-life scenario?
+> That would use useful info to spell out.
+>
+> Or is this a theoretical thing?
 
-Since the 7.3 merge window my desktop shows a band of pixel noise flashing
-across the screen at random on a 3840x2160@120 display driven by an
-RX 7900 XTX (Navi 31, DCN32).  Each occurrence lasts exactly one frame -
-8.3 ms - which is why it reads as a flicker rather than as corruption.  It
-is frequent enough to be painful to look at during ordinary work.
+So far it is only theoretical (but please do keep reading). I caught
+this while debugging a related, real problem.
 
-The band is not new.  It existed before, rarely enough to ignore, and back
-then a modeset (switching to 60 Hz and back) cleared it for a while.  What
-changed this merge window is that it became roughly two orders of magnitude
-more frequent, and the modeset workaround stopped helping.
+The real problem was that userspace was doing MADV_COLLAPSE (*without*
+userfaultfd registered) and assuming that page tables wouldn't be
+created. This is of course incorrect, but for some reason we only
+started hitting this after moving from a 6.6-based kernel to a
+6.18-based kernel. I don't know what change caused this (most likely a
+downstream change), but the real fix was for userspace to instead do
+something like:
+1. MADV_COLLAPSE (let's assume this must be done)
+2. UFFD_REGISTER_MODE_MINOR
+3. MADV_DONTNEED
+and we're good to go, right? Wrong, in fact!
 
-What I would like is help finding the underlying bug.  I am not asking for a
-revert: reverting the commit below does not fix the artefact, it only takes
-the rate back down to what it was before.  I could not work out how the
-commit leads to the symptom, so most of this mail is measurements and a list
-of mechanisms I was able to rule out.
+I noticed that there was indeed a circumstance where khugepaged could
+create PMDs even when userfaultfd *was* registered, making the
+userspace fix technically incomplete. That's what this patch fixes.
 
-A photo of the screen, taken with a phone because the artefact never appears
-in a screenshot:
+I haven't yet seen this in our production environment (as far as I am
+aware, hence "theoretical"); we don't actually have that many VMs
+running a userfaultfd-based live migration stack anymore though (maybe
+tens of thousands).
 
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
+I hope that extra context is helpful.
 
+> > The naturally-aligned THP case is the only case where this is a problem=
+.
+> > khugepaged otherwise requires all PTEs to be present for
+> > userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+> > correct. This check is essentially bypassed for naturally-aligned THPs.
+> >
+> > No changes are needed for file_backed_vma_is_retractable(), as zapping
+> > PTEs is safe. Userspace must already handle cases where PTEs are zapped
+> > without explicit action (e.g. due to reclaim).
+> >
+> > Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed p=
+te-mapped THPs by pmds")
+> > Cc: <stable@vger.kernel.org> # 6.1
+>
+> From the changelog it isn't clear why a -stable backport is proposed?
+> I assume the userspace-visible runtime effect is a rare and bogus
+> -EEXIST from UFFDIO_CONTINUE?
 
-Measuring it
-------------
+Although this bug is likely pretty inconsequential (I'm not sure how
+many users of userfaultfd minor faults there are), but rarely getting
+EEXIST back when UFFDIO_CONTINUE is a userspace-visible bug that
+doesn't really have a great workaround.
 
-The artefact is invisible to screen capture but visible to the CRTC CRC
-engine.  A frame in which it occurs has a CRC triple that differs from its
-neighbours while the neighbours are byte-identical to each other: displayed
-content did not change, but one scanned-out frame did.  A torn readback
-cannot produce that, because inside such a window the adjacent frames are
-identical and there is nothing to mix.
+Because this bug essentially breaks userfaultfd minor faults,
+*technically* live migration implemented with it can sometimes corrupt
+guest memory, and the hypervisor (like QEMU, but QEMU doesn't use
+minor faults) only learns about it after the fact, after we get EEXIST
+back. IMO this is enough to backport the patch to stable. But if
+others disagree, I don't really mind.
 
-The colour band moves all three CRC registers.  Single-frame content
-flicker in grey areas moves only CRC1 (Y), because on this YCbCr link the
-chroma of an achromatic region is unchanged.  That gives a built-in control:
-the CRC1-only population is content, not corruption, and its rate should not
-depend on the kernel.
+>
+> > Suggested-by: Lance Yang <lance.yang@linux.dev>
+> > Tested-by: Lance Yang <lance.yang@linux.dev>
+>
+> Wondering what Lance tested.  Was he able to reproduce the bug?
 
-All figures below are per *eligible* frame - frames where the quiet window
-existed - so runs against differently busy screens stay comparable.
+I assume he just re-ran my repro, but yeah I'm not sure, heh. Lance,
+what did you test?
 
+> Sashiko might have found another race in there:
+>
+>         https://sashiko.dev/#/patchset/20260828222640.1638457-1-jthoughto=
+n@google.com
 
-The regression
---------------
-
-I bisected the change in frequency to
-
-  commit a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
-
-Each bisect step was judged by eye over a kernel build's worth of ordinary
-desktop use at 120 Hz.  That is a weak criterion for a probabilistic bug, so
-I re-tested the endpoints with the CRC detector instead.  Both runs were
-ordinary desktop work, same machine, same display, no modeset before either
-run:
-
-                              a637a140ab86      a637a140ab86
-                                reverted           present
-  observation                    8.06 h            6.43 h
-  eligible frames              1,621,663         1,382,934
-  events, all three CRCs              12               924
-    per 1000 eligible               0.0074            0.6681
-  events, CRC1 only (control)         30                32
-    per 1000 eligible               0.0185            0.0231
-
-The artefact signature is 90x more frequent.  The content-flicker control is
-flat at 1.25x, so the detector, the screen activity and the sensitivity were
-comparable across the two runs.
-
-The composition changes too: with the commit reverted, 24% of detected
-events are all-three; with it present, 94% are.
-
-
-Refresh rate
-------------
-
-  4K120, YCbCr 4:2:0, 8 bpc, TMDS 594 MHz   artefact present
-  4K100, YCbCr 4:2:0, 8 bpc, TMDS 495 MHz   artefact present
-  4K60,  YCbCr 4:4:4, 8 bpc, TMDS 594 MHz   0 events in 70,691 eligible
-  4K60,  YCbCr 4:2:0, 12 bpc (forced)       0 events in 1,290,588 eligible
-
-The last row was measured with force_yuv_pixel_format=4 to separate refresh
-rate from chroma subsampling, since the two change together on this display.
-At 60 Hz with the same 4:2:0 encoding that shows the artefact at 120 Hz,
-1.29 million eligible frames produced nothing.  Link bandwidth is not the
-variable either: 594 MHz appears in a configuration that shows the artefact
-and in one that does not.
-
-So the dependency is on frame rate.
-
-
-What I could rule out
----------------------
-
-Twenty DTN snapshots taken within seconds of confirmed events, on the kernel
-with the commit reverted:
-
-  - HUBP underflow and OTG underflow read 0 in all twenty.
-  - dcfclk, dispclk, dppclk and fclk are identical in all twenty; no clock
-    transition happens near an event.
-  - vmax = vmin = 2249 with both select bits set, in all twenty: DRR is armed
-    but pinned to nominal, so no vblank stretching is available.
-  - The watermark sets, including dram_clk_change, are identical throughout.
-
-Caveat: the snapshots are taken seconds after the event, so a momentary
-transition would be missed.  But vmax = vmin and the identical watermark
-sets are configuration, not instantaneous state.
-
-Reading the commit, the buffer is pinned by amdgpu_bo_create_kernel(), so
-TTM eviction is not a factor either.  What the commit moves out of VRAM is
-every DMUB FB window at once - instruction constants, stack, BSS data,
-VBIOS, mailbox, trace buffer, firmware state, scratch, IB, shared state,
-LSDMA buffer and cursor offload.  I do not know how that leads to a single
-corrupted scanout frame; that is the part I am hoping someone from DC can
-see.
-
-Two details from the diff that I am not able to judge myself.
-
-AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS is still set unconditionally in
-amdgpu_bo_create_reserved(), and with the domain now GTT-only it no longer
-does anything.
-
-The commit immediately before this one in the same file is 5b69770e945c
-("drm/amd/display: Generalize DMUB memory flushes from host"), which adds a
-dmub_srv context parameter to the flush helper; the Linux implementation
-still ignores it and remains the generic read-back loop. That helper is
-called on scratch_mem_fb, on ib_mem_gart and on inst_fb during backdoor
-load. Before a637a140ab86 the remaining windows sat in VRAM; now all twelve
-are in system memory. Is that flush coverage still sufficient for the
-windows that moved? I am asking, not claiming - I do not know the coherency
-model for these buffers well enough to say.
-
-The commit's own comment says the restriction to DCN32/321 is temporary and
-that it will be made general to other dGPUs later, which is why I would
-rather this were understood before it spreads.
-
-
-Configuration
--------------
-
-  GPU        : AMD Radeon RX 7900 XTX (Navi 31, DCN32), 1002:744c rev c8
-  iGPU       : Raphael 1002:164e, bound to amdgpu, drives no display
-  Board      : ASUS ROG STRIX B650E-I GAMING WIFI, BIOS 3854 04/03/2026
-  CPU        : AMD Ryzen 9 7950X
-  Display    : LG OLED42C3 (42" OLED TV), HDMI, 3840x2160@120
-  Timing     : 3840 4016 4104 4400  2160 2168 2178 2250, 1188000 kHz
-  Encoding   : YCbCr 4:2:0 8 bpc at 120/100 Hz, YCbCr 4:4:4 8 bpc at 60 Hz
-  FreeSync   : enabled, range 40-120, reported FIXED by the display
-  DSC        : off
-  Kernel     : 7.2.0-66498c75b4f8-with-fixes-v1-m62-quirk+
-  Userspace  : Fedora Rawhide, GNOME on Wayland
-
-The kernel is tainted W: opening the CRTC CRC debugfs file triggers a
-WARN in dc_helper.c on DCN32.  That is a separate bug in the same merge
-window, with a patch already posted:
-
-  https://lore.kernel.org/all/20260829004608.25252-1-mikhail.v.gavrilov@gmail.com/
-
-It does not affect CRC0, which is what the measurements above use.
-
-Both the capture tool and the raw logs are available if they would help.
-
-Thanks,
-Mikhail Gavrilov
-
-#regzbot introduced: a637a140ab86
-#regzbot title: drm/amd/display: single-frame scanout corruption on DCN32 at 120 Hz
-#regzbot link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
+Let me get back to you on this. Best case, I'll send another
+(separate) patch. :)
