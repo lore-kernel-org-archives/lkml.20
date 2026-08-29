@@ -1,198 +1,84 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03B6331EDD
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8463502A9;
+	Sat, 29 Aug 2026 09:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787993990; cv=none; b=rzEByLi0xoJEHnfo0pw30wqoJxPOOpt11VHZU+COHiDTvLyjS6LqMAmfZ+Mve85SLUbe2uUwSoWmuaRhRzxXaFHO/uSFsTRNyKiUgJCXMRfPRygHTgSQq84wL5PcSIvZplIB/8UjhG48C+xTIrkN/EInrT3Wnmnn9se+l9vDvcY=
+	t=1787994182; cv=none; b=U/afQ1Nuk5eB+R5zulh0Rm6t9B96RikqhS6858+m7xmUOHbupEZRjmoG+x+UObcVLBBPrTxPi7CPSzRRONoNfN32BMLiuGYyA8HkF3P13ofUbGj6AUXD7nWnJIjGwglr/wUtan0BAARbxR2SGR5FedpBBfk2Qtlg3a5s2PmwGfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787993990; c=relaxed/simple;
-	bh=ZRJZ7QzBfGzFI/MDUBxk3TPtqDvXIsJnS36636a2wA0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MRqdKctuiPLED6O2uehP9Qwyhl/ee7Ov9nEl7Y6zqRiY1FLZPn0WlUwmnGUaq3yUMPvRgbqC/LIgDe1eCm2AHXZT9U1TalLxWNPOwwrTO4fD4ti0p9FHg7vs86EeDGI3kCQZG/6if7NCwAQqscc1MHUVjI1tRgWDstCJi+Gv8aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ukn6aF0j; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787994182; c=relaxed/simple;
+	bh=jEIKQgSNiXdm+fNuAyeKlmdiaBDspiGGjX8c9Rjjsr0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A83ETsCtkz0QSIoCK/u6MIBzxqeWij9AGYilVPjKpol5N96qbrpEUiP/vGk3ADoOwYxszqweMaaY4SxbDpBeAChRify9/JhVeEXRevR7QTMh442OmfVeSM/Qg9kSZCAj3FArNdz+JZOiGt+H3inpCHKcRD4YeFU+vC75LCfXnAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=anR1vMks; arc=none smtp.client-ip=217.70.183.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ukn6aF0j"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1600d040e4so288853466b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:59:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787993987; x=1788598787; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ibYckuXaq6TGpx88vTI/hlaavXq79ydxG55neiNaehY=;
-        b=Ukn6aF0jMYjydUZ1DFF0ATwy/tNtpd1VDmuMIZKJLVQrczE/EQm5kLRTzp3Y8YM1eB
-         7s4QaUZUxErTaQapC03l6aEM+EdscIKJMvkugW54oaScAar7qwwuEajTZCiybjVtDvuW
-         fWblzhNtxMcleNHQckk7q1fMOr2URy57jsmGGyzBy0G90xgODo8T1YZc2arz5kgEwxCq
-         1P5pm09xyxElVi61YkSy/sNOE3ZFsLbBC4hP+EQihuH9fyDTpLpI3lF0ul2nki/z8y2M
-         PX4oRZBL5WPSEV2P1NgU7qp5oe8NUncgH+Iz2cMRJuDKcRlb0o46xNQlSyUhItJktaPL
-         6QPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787993987; x=1788598787;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibYckuXaq6TGpx88vTI/hlaavXq79ydxG55neiNaehY=;
-        b=Ju45JR4R3Y8G8xLyITCu8Lx6RqFyTLKYQkudVBY+9300ZqU4zg3gYUeDLz+hjmAEp+
-         lVKfB3xjt/7n4FyKmo3muIHN3uZst8Pv4L/QyLDfePFuzCeJhbQM4Sh0tJLANMzGelyv
-         wk5NS7pN4xGXcJvY05Wn4KoJKN07o6FyBS2Q+55XArI+7MPB0F6VPjPDFURyHov8BURR
-         lar7DtHC3gJ5RSWa1E4HYzLbjQZX4nN+QOAvrqUiBflmk+FySGoKxADND2ua+fZoyXgF
-         1SMz6ksOapHx08BTRKjzV6uA0boTfH9qkRAkKdINtHPY2niCgpCiM5MNxA03YlpQ1IQW
-         6XHA==
-X-Forwarded-Encrypted: i=1; AHgh+RqE0Cd2lda+CX7TSSBD5kc6TQvBrwZFgFlqo+TzXygdtdBrgmkAEg7dFkECKbOZ0YMIOmiptYTuy0yI7Kw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4KmC47nvDmXLygzu8HqOiQCKJTBn7Iy4iowRKF8MReqtheyA4
-	NMiUEw3aBwImDoWoejqwF6TRgRiiQroU6QQw2yDa7ols2cIxaQcaAq5K
-X-Gm-Gg: AYBFou2CcPwsg5GJ+MY1bD0FIMFPq7YJ+t99gxCCTFUrIUegmIgC67wSVuEirTJhJgO
-	mHNKLUjxvjjLcFDgXn3+EHulVy5oBssFr8Hnr/m3yJlhk3uUjWwHjinZH3daSCt46qb3TLzICTi
-	+UCQCY4+BLE/81K0HB9pwz3K8R0HmfuWSA+3W8o0StKtFR8Ico7/seoLmHJUGD8FATWhQbXLumv
-	jHfrPrpWl3f20U8cHtRYVobR4rj8Eyhh5/Hht9C0CSUxXJv7bBDEQDxxtFBNU8rMGGbtog74Tty
-	tNhSw3nzicL/uSXcwhe2ZB+49Ojo9AS7GNkLEpBiOCqlsDDBMtsJAUi/c492rLOjZjn0DRLvWO0
-	QsrJxF+oDJLl9NJc5rm0/WrcdMpzSYZg2pyGCMS8E533k0cUMV8JUolcv6GPdCMaEE5nJcvHo2V
-	+1YOAPdqBIr5GqvYwIWCT/QNHJvGWvjsQywq8OKjIHJY7LgH1M7Dg6vlW/5UkrrlNS3ShKFoM2k
-	4mEhg2FppI8Iov92Yva64Aqf7/xZZqbHRDjEuKzMFASj/kskeOnQrqykt3i
-X-Received: by 2002:a17:906:9f8c:b0:c25:833d:3839 with SMTP id a640c23a62f3a-c25833d3ad7mr25284766b.15.1787993986608;
-        Sat, 29 Aug 2026 01:59:46 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f273e8bsm180812366b.62.2026.08.29.01.59.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 01:59:46 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Wayne Lin <Wayne.Lin@amd.com>,
-	ChiaHsuan Chung <chiahsuan.chung@amd.com>,
-	Roman Li <roman.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v2] drm/amd/display: add missing CRC engine 1 registers and masks for DCN3.2
-Date: Sat, 29 Aug 2026 13:59:41 +0500
-Message-ID: <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
-References: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="anR1vMks"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id CC2883EC03;
+	Sat, 29 Aug 2026 09:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1787994172;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cNDTOYX+Alcwl8fq0Y/kyG2b3q+u6oLf2cqqDD9VlRE=;
+	b=anR1vMksCcdcjDImtUdbTFMp8hsE2h7s9wTp4Go3LrhRs7by/E54qGXJHvTqYFaX8TrA0c
+	1Pxmm4SBZCPFZCw4t6Y7wFYT8w7C9J4NX8WhAt/QtgaT9eyqd1fLXKtP6Jx0OqWQBzXFpz
+	x/YRlxfYmRXQpf9bN6kVLdzeomoXh5gMrNFB//TCKfdZvd5nIv9EJtxBZPDqFpuZxvTH12
+	oDfEFt1cAeiz2jTnY48JDauadmMZrlvLINXBn7sjezbuiiveZlzQ4Gy6iVs7PZOB40Rvl4
+	FB2KfE5r4loca4CreLL+gkhEwEvEfyu/3wXa/jRsfGh5p2nhsKo7z8Vo0ymSEA==
+Message-ID: <9a3eabd1-4057-45cf-99b9-9c3c1b6260d3@gtucker.io>
+Date: Sat, 29 Aug 2026 11:02:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] scripts: add TOML config to container tool
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ automated-testing@lists.yoctoproject.org,
+ "kernelci lists.linux.dev" <kernelci@lists.linux.dev>
+References: <7d8ba914cd174d716340bb2b88723bef0f330627.1787565460.git.gtucker@gtucker.io>
+ <apG3hwaPA8f7SJeI@levanger> <b45e7864-928c-4b3c-aa62-64f4f63d85c7@gtucker.io>
+ <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com>
+Content-Language: en-US
+From: Guillaume Tucker <gtucker@gtucker.io>
+In-Reply-To: <CANiq72k6T9Y_Vubih6pFMQBxju2xQq0VQkCXT1WL0qSyCXKxyA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFWBQihkoJMTIE/mv9EszDwvkztOeC7orN5Cjkcw2DG26ZprwrwIJYUTzVG8t3ZdtynxeITFUpg8ofrB+dJvCmN2gVYOeGDX7lzC1AlKF6foAGJYhLKsEQ+yyIlAPXzUK8g1GMVnu2HoNG45fGSbXL9TBKWsdTcj6jUW+phskt2JASpvKa19ZfCIl7pOkJF5unF1D9VBlUSSkJfcHUoQLKkFUGy2SFc/TmUk75wtrYEDK+nhuxe6zkY+CMOgStTWIhZ+/FmcH7m3JWTBlE6nkgZBY33uq+5sKTpx/DcQ3EmzNn+7Lp8pB47E7SGMzLLbERP5Jkbq0dq8rFZ2l9YmSf2MDWWyeQ1mqHzU2YGqUlyXWTk+/yycUUR6nsWMVn53Hvfrp2wouZmg0R3eCu0bsFg1qvMJqaWXr3xXQOwV5vaQyyXOgbQjpjyHpUg13r00Sv0PldZWPg/BnPlMOrgf1qnZ5uUQ7Y3du6q6UXzJ3ncbOyOdwV4WvBWwG+5WtAZmg+a9FqVNR6Ck1oo2adqQ1QmfmsEmH0HxZAQX1R5KlOgg3sOfCbqTIi6H67xS93LD2iVccO2i5eupR006mDGuDVrGfzkmNoT9BOqCEr8905K5/118lkNbxk/Ibwj0O2oWFAUXJoZWsqvqsfnqmiCH0qgdh4fcTAZR8iwl2Ck8vQy9g
+X-GND-State: clean
 
-Opening the CRTC CRC debugfs file on a DCN3.2 card triggers a WARN from
-dc_helper.c on the first attempt after boot:
+On 28/08/2026 7:35 pm, Miguel Ojeda wrote:
+> On Fri, Aug 28, 2026 at 7:25 PM Guillaume Tucker<gtucker@gtucker.io> wrote:
+>> It states Python 3.9 which was already older than the 3.10 minimum
+>> set when the container tool was merged.  Also my understanding is
+>> that it's not a hard requirement for all the kernel tools, only for
+>> building and producing a functioning kernel.  If I misunderstood this
+> I didn't check at the moment, but at least back when the "(optional)"
+> tag was removed, it was only required for certain configurations from
+> what I understand (I am not sure why the tag was removed).
 
-  WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:53 at
-  set_reg_field_values.isra.0+0x30d/0x730 [amdgpu], CPU#1: cat/58468
+See "bc20c56e98e0 docs: changes: better document Python needs"
 
-Reproducer, on a fresh boot - the ASSERT is WARN_ON_ONCE, so it only fires
-once per boot:
+Also it's explained briefly in the docs here:
 
-  echo crtc > /sys/kernel/debug/dri/<dev>/crtc-0/crc/control
-  cat /sys/kernel/debug/dri/<dev>/crtc-0/crc/data > /dev/null
+   https://www.kernel.org/doc/html/latest/process/changes.html#python
 
-The WARN comes from the open(), not from the write to control:
-crtc_crc_open() -> amdgpu_dm_crtc_set_crc_source() ->
-amdgpu_dm_crtc_configure_crc_source() -> dc_stream_configure_crc() ->
-optc1_configure_crc() -> generic_reg_update_ex() -> ASSERT(mask != 0).
+So I guess that if it's needed for at least one build configuration,
+then it's not optional anymore.
 
-Since commit ef45aaf73717 ("drm/amd/display: Configure all CRC engines in
-pipe CRC source path") the pipe CRC source path iterates every CRC engine,
-so crc_eng_inst = 1 now reaches optc1_configure_crc().  Its case 1 programs
-OTG_CRC1_WINDOWA/WINDOWB_X/Y_CONTROL before enabling the engine, but DCN3.2
-has neither the register entries nor the field masks for those four
-registers, so the masks are zero and the ASSERT fires.
-
-Engine 1 needs three sets of definitions to be usable: the enable bit,
-the window registers that optc1_configure_crc() programs, and the data
-registers that optc1_get_crc() reads back.  DCN3.2 has only the first,
-added by commit c79354d12cb2 ("drm/amd/display: Fix CRC engine 1
-enable/disable on DCN3.1.2+").  As a result engine 1 is enabled with its
-windows never programmed, and a read through optc1_get_crc() case 1 would
-address OTG_CRC1_DATA_RG and OTG_CRC1_DATA_B at MMIO offset 0.
-
-Add the remaining two sets.  All six registers exist in hardware -
-regOTG0_OTG_CRC1_WINDOWA_X_CONTROL is at 0x1b6f and
-regOTG0_OTG_CRC1_DATA_RG at 0x1b73 in dcn_3_2_0_offset.h, with their
-field masks in dcn_3_2_0_sh_mask.h.
-
-Note that making case 1 return false instead would break CRC capture on
-DCN3.2 entirely: the caller in amdgpu_dm_crtc_configure_crc_source() does
-"ret = -EINVAL; goto unlock" on failure, so a card that warns but works
-today would stop working.
-
-The same entries are missing for DCN2.0, DCN3.0 and DCN3.1.  I have no such
-hardware and have not touched them.
-
-Fixes: ef45aaf73717 ("drm/amd/display: Configure all CRC engines in pipe CRC source path")
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-
-v2: also add the CRC1 data registers and masks (OTG_CRC1_DATA_RG,
-    OTG_CRC1_DATA_B), spotted by Sashiko AI review.  Engine 1 needs all
-    three sets to be usable, and v1 supplied only the windows.
-    Note that ordinary CRC capture through crtc-N/crc/data reads engine 0
-    only (hardcoded in amdgpu_dm_crc.c); the engine 1 readout path is
-    reached from the secure display code, which I am not able to exercise.
-
-The six added SRI_ARR lines follow the space indentation used by every
-line of the surrounding macro, hence the six checkpatch "no spaces at the
-start of a line" warnings.  Using tabs there would misalign them against
-their neighbours.  The added SF lines in dcn32_optc.h are tab indented,
-matching that file.
-
- .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h    | 11 +++++++++++
- .../amd/display/dc/resource/dcn32/dcn32_resource.h    |  6 ++++++
- 2 files changed, 17 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-index 60c01ec28b65..492760779226 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-@@ -146,6 +146,17 @@
- 	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
- 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
- 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
- 	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
- 	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
- 	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-index 68e7140f1505..fa8cc89cb3f7 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-@@ -1054,6 +1054,12 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
-       SRI_ARR(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),                          \
-       SRI_ARR(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),                          \
-       SRI_ARR(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),                          \
-+      SRI_ARR(OTG_CRC1_DATA_RG, OTG, inst),                                    \
-+      SRI_ARR(OTG_CRC1_DATA_B, OTG, inst),                                     \
-+      SRI_ARR(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),                          \
-+      SRI_ARR(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),                          \
-+      SRI_ARR(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),                          \
-+      SRI_ARR(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),                          \
-       SR_ARR(GSL_SOURCE_SELECT, inst),                                         \
-       SRI_ARR(OTG_TRIGA_MANUAL_TRIG, OTG, inst),                               \
-       SRI_ARR(OTG_GLOBAL_CONTROL1, OTG, inst),                                 \
--- 
-2.55.0
+Guillaume
 
