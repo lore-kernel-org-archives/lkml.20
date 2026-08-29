@@ -1,192 +1,157 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD662BDC28
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787972469; cv=pass; b=o2DHxDMKquK/yH83ke/AcGnVQFbU1nI2qFHzLk7t7ti78VwB964liCGMHFcpSVmQStJtHDp6Od8LikfZkFUdkwdJO70UybqHsV3VFQTGyexU0f8gTH8VwQt0TemG7hmvJrYeumtnVicXnhBWa9IC9n+NMCO+CdOsTKPE5G0AYao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787972469; c=relaxed/simple;
-	bh=N5OxGUQJMm/E5s6WX0aF7cckFy16MT61uNYp6MaFGo8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J8iYuz0z09LWgw2aN86mMbQuVZpyvoxXkKTtFbP20jrHA+jExTAT6VT0BUrO4MWpIQcNZms4R/PDOCLkZhFGTaspXKX9phajlZFNB8hgRgcFCPym8sMftyidP49Bmga9JWpVvLrtnkJ6sWuzOq6PZQKfyHloHL0dozGg29KhDn0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tpU7E7sB; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1FF2BE051
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 03:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787972494; cv=none; b=AqYmViWvOoOyZDy4vMaLKfVaNduS6v13LyvvQabmqJIzded5542vF01Ywo//jTWO1zvb6BjKQtcwaoV7qaAYHhUzbjiQMPafu2nbZhWUVo5Gw0m1kIR/T1CJyzkgwAv16oOXKwJsNdVQGD+zw91co4+k0hZz5Ik5FFgCp7Vya/M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787972494; c=relaxed/simple;
+	bh=qQdMi8Jgb8bfEkmTNXvPHUJmLQKYjK/Vxzq0/r/+LkE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DVn4EpoiG+xhERiQlEYMCmSzH0bbViNxz1ge/6L0uCMxx8yoBF+7xZaLNB3BAnnDLBPCaQMlpFHZMVAw3yyvaiVKK63iL7w0p1oHj0eunXaFEpxP145Lmy415zWGDV/T+UDgV7NR8tT2UOcoycBqYTIevW3KSWnwaYYfTeLHpH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O367jAo4; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tpU7E7sB"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c01c79467so116151cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:01:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787972466; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HCZNnzud7rFzVJB2J4s2OzVQM84dPTxYPqiqBrWZFgN+jizGinDgNNbqpDskX7SL9F
-         hk5gAHuHKc4v9s2GueHpVyLzckX0LLIB/FPZc0REBZlkHSR7ePjfZUnWf4MGoX0mx660
-         F0XIUCOX/8Cy64vQwuB1H2N+skKS1EAyvyD31IhnaQ2klBZXNR0W/+FpNj7tstuX6MoW
-         sXh/ZG/2jYt6cakosg8cd8XpXSLbzyns9o5mDfXlKHKQQtWR1CYwgAbi99wncuLIaTB1
-         oSRJoMEuSWJaAaoXH5LiN8lRZk058vE8fPAvi6A4vpc0ntBmwSYgfVBmnIPeN/Cdig4N
-         jbVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nLUy3j7XIC3MuF9b+5vRoq7wyMMTL5+219ycTFp+SUE=;
-        fh=jcW4DGMaA7gbyun2HLcWXEnCvPG3CrXlsvEsvCLNXlc=;
-        b=qcPsmcAaUus3p8q8PUt8sGvcJpgEtALiRqZUeO0IcizHNFAjW1GkJwmFDiWBK/ezpJ
-         GL2tFjEZxHnMQB7rG9UnDd/XhtjHTpYityk7R2z67RQ+VQZmgCUqS9Mun03zEHyp+bJY
-         tw73YPSTOjJNzven3mPwyceguhr7FwhZy4uLx3vZqSBN/2tpZ2AYy8LfZjkPXtN96M2K
-         nkfZ+VIZDmfE+1UcFtuKDgeFqXzba1KM5JpxWc0Y5mHxNVi1YS4d8Yin6WaKpOZfcEsw
-         vEmExZSPK0Z96UUu01Rg/EMdY8kJMbXtnGRWp602mj696VXe+EJ6cFXV507V2EzAfZI8
-         nU0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O367jAo4"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495590dde14so15119425e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 20:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787972466; x=1788577266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nLUy3j7XIC3MuF9b+5vRoq7wyMMTL5+219ycTFp+SUE=;
-        b=tpU7E7sB5RwDlNsYN753LRkInquFMtJTMhRZ51DbpiqbI/Kz2y9g/eVOJJQkgxsD/3
-         zY+g71DxUSUfn7UUzctx4YtblAGM50zO6FhAzC/VoDn7mI2PKVodJe4sIqUOA+786yC1
-         5jqBu+l+zt3wv5xfsLsVccJC6XAUSU5HV8lrCdSRqB3czarUhYgq1uZlI4QoBj0cCis/
-         Ow1nNZhB5cOsiL/jYQIuQZ+lAVpcgaQIczpCfU5xBF1ZK7drBjtYjpoO9Xw+ItxEtQHL
-         WS9m4pDDx0yYpITiLDHB+13TEBv5Q9+6OGhjlHoi5YqDdyik57tKrw+7rBQBjjZLkldY
-         uqKg==
+        d=gmail.com; s=20251104; t=1787972491; x=1788577291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5EH4v06YGJpqqsWC3cck6VVt8t8Ztw0dDHt3qG/Q8H0=;
+        b=O367jAo4IPDUqyw7wcAEErND/dFeWT5ZXlWhry/Vn656CCCYZBiQ3kezXjgF7CFh6u
+         wBPOXu3mTHk7iQ9Y9qUgEQxf5kpDrK1kQ1M3y8XoY/tfu2ULwFaZSYUbBUsEsJb9tjmY
+         OPNxPzdTo9aFbCTwH7o/w8VvIXetuCVoOv9HrnIpvHAwUod+LFDsLDZKJaYPx+bNRCqf
+         wol1s3XZxWPJGW7of1CPUQLF/7TxuqwZLFVdWfVDiy9zl3i3Ycragz5nhF1o5UsVISox
+         CH5PVIZribqDeH8hqlqE8068mzkAexKyT5djqInAHfzhl3ieSo9Yp5f5ehAPcZ3U3adZ
+         vQWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787972466; x=1788577266;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nLUy3j7XIC3MuF9b+5vRoq7wyMMTL5+219ycTFp+SUE=;
-        b=cLJ2X8KNRceGaxMTb5yn7yBaIBCxwGzTqWouz7bwn7ot6IoXie00+7s05IcXT2KeSU
-         iEvyNtzcLIVpZaPZsfqFEwLa6SMBTwSzMTvAg9nuou5gdCf1CbMwIOiGhMqZ0EVojJe0
-         DnZkEw3RCsPCOYg3a32vj+zztJDktRGjojj3OMC5XpTfMSmXEYmWRRSuWx+fHuBA7Ei/
-         KYuxAilz+EI8NNw03ht54UWJjJMDbC0cZzS9piDp8cpPZEIDLO7rMF1eD+WwsnwCKFm/
-         syF9gwtQZzz5kZ0WAd7cAZbMvPH1QHBLxQ0fa6NSCIbYekwnUO92JvfqjrOo3D5mRCji
-         E3Ng==
-X-Gm-Message-State: AFuF++lA3fhjYrprIbYkFhUqvdFB48nHhvfTUPpvgLbaMiA/oF0mVcf7
-	hULNXskNm+ftTiqe82p5mRtjrY9wN7+TQi6YWWulqVdfLxJcj/CEfYiAWZ937TbWBQQL3MhGUea
-	W6ZAMeulj6CH8DyiuKXDBQ0gqmR5vORC0qqaqIlmq
-X-Gm-Gg: AR+sD13+J0q0bAEoWpzNmVwWPAeKv1cqpmQM8htH8O+cM3ChpcMAouuVt/1N4fhcJB5
-	TLDlmiqoEPGRfE0S9OGq351rCzI29FxeWtYGAy7ADhbFbUNjwK7e4bQtzc6V5/w7LfO6jfVbywE
-	kfVu0US57hqzVdS3EY0qCRE0rz4gBUXc8bQDiGd1Fo9PfMx/vZv6Y9b7uz7z1jAnoniucKbLrHi
-	HyjOvRs8WfRtavXQevN0znqjfSrHp+id/S2NuwuVrS6Qh3eFI2rKiGEEgjGLSZg6Prn7PWIO//I
-	qEPlW6bkVPkehV5hMMrjdttLOt54tgMHII+vy+4fwSI=
-X-Received: by 2002:a05:622a:598e:b0:52d:7a3c:8396 with SMTP id
- d75a77b69052e-52ff6f30c8emr8619941cf.2.1787972465651; Fri, 28 Aug 2026
- 20:01:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787972491; x=1788577291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5EH4v06YGJpqqsWC3cck6VVt8t8Ztw0dDHt3qG/Q8H0=;
+        b=av9586uqnKHvYqcr0G9Y4LZmV10ZICbi0tmJBi29MKwiXgywvPU670MKJWrS4cQR4z
+         M68Bxr08eXm8PdPY+nLbo5/8WwqlvQxn2u8B9ocUukzg1lZCy5Sigel9WN+BzfTUKoEq
+         UjjSAIhy4ZvEeVzFcRKRnNccJmIU8JD0R6o58UlSNNQTHixxpPeFUsAiDm7C1ihsLcbq
+         ErXDcwl1O+SFqMUojA854xGIoUjrXCJiSgzWz5Au+debSFwZUoPsJQ6D0W42l89PnRuH
+         sVB5uwPf1Ue3h7nM+GACUKrpHa2AQXQhCafiqBFw2m40jpRmrv+oMOJREBEAVFwDxP/a
+         S/9w==
+X-Forwarded-Encrypted: i=1; AHgh+RqzibVycmSjTXw4w4wX5NChQtyy/2T3CzcSMv0z/oOkcSi5N5vTK7iTO/+ms5M5BaSPARCtBRFfOVhep7I=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+61ICZhYbbEEwdn/TMorzpdpyrOZ4GWjgrkZPMcsEDrjgJNo4
+	bBQkL4O+9QAqILrRThYRq/LFEFyCnL+W3WRm94fcGfh/8QbOCoJsup5t
+X-Gm-Gg: AR+sD11F5q8UzbssvU/QVXNdpbTYzvS8tfG93Y5l2u6cn/A/HtZV+KVjhRYTYUEblHg
+	8Hd7HFCViK1THBnW3WWXdzLQteSC1J6FVlyD81xKq4X5SHFUI7ZzXMfeST6q20J2WXMlpY511/C
+	fYnfZzLZ5z2pwDpymj1QovvoMBwaAf+9dY6s+HEasgiR+1OFPJvFQAOYWAyUNqikKtna0sSomE2
+	Sp0tTIlZ9JspXcBWIGlGowFyYTXaO6Oklr6Ak1a0tw9M+8yIpd8dBtS/Uvdnn1v/9eZLbkORa0b
+	VAACdHK8mwTr0IrhbGMJEq1H9JfWwKt6SH3cQ5oieu/yabXif+b0OMzd2URT2gWOeVX3BZfaUFx
+	craGHISih89KopAVShHhS5clz6VmHa5xWOfo6elNiCNq4kZqbtIt8VAM3H58pV7m5dZWBZpmdHC
+	4fo84ODnvGLiDTWB1XmSl7iPLHJrwbYyiuq6otVReFzD6G+Rx2KXWloc8A+1RQLjU4dlvrZ3ifs
+	08UI58TIRtWOw==
+X-Received: by 2002:a05:600c:3b1a:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-49b91c2d8f3mr136960095e9.7.1787972490411;
+        Fri, 28 Aug 2026 20:01:30 -0700 (PDT)
+Received: from kali ([169.224.126.247])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm116637235e9.8.2026.08.28.20.01.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 20:01:30 -0700 (PDT)
+From: Ali Firas <alishmery18@gmail.com>
+To: netdev@vger.kernel.org
+Cc: kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	idosch@nvidia.com,
+	razor@blackwall.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net] vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
+Date: Sat, 29 Aug 2026 06:00:41 +0300
+Message-ID: <20260829030041.940594-1-alishmery18@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811025157.1632867-1-riel@surriel.com> <20260811025157.1632867-6-riel@surriel.com>
-In-Reply-To: <20260811025157.1632867-6-riel@surriel.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 28 Aug 2026 20:00:54 -0700
-X-Gm-Features: AcwNN1Vj4z8Ya-qEYZ3MpBVI7mTdOXWm950pMK1qBQFZM9vP_MY4EVjBkzToltE
-Message-ID: <CAJuCfpE+BWwX1t7bO+TQq5njSNOMcewewMzSukO69G9vDiydMA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 5/8] mm/gup: fill the pages array outside the
- pud/pmd lock
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 8:07=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> follow_huge_pud() and follow_huge_pmd() fill pages[] and flush the page's
-> caches while still holding the pud or pmd lock. Neither flush_anon_page()
-> nor flush_dcache_page() needs that lock.
->
-> Have the huge paths store the page and let follow_pud_mask() and
-> follow_pmd_mask() do the fill after they unlock, so the flushes happen
-> outside the critical section.
->
-> This should be safe because try_grab_folio() has already taken a folio
-> reference before the unlock, so nothing can free the page while the fill
-> runs, and the fill itself touches neither the page tables nor the pud or
-> pmd entry it was reached through.
->
-> No functional changes intended.
->
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+VXLAN_VNIFILTER_ENTRY_START and VXLAN_VNIFILTER_ENTRY_END are declared as
+bare NLA_U32, so neither is range-checked before vxlan_process_vni_filter()
+passes them to vxlan_vni_add_del():
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+	int v, err = 0;
 
+	for (v = start_vni; v <= end_vni; v++) {
 
-> ---
->  mm/gup.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 5af6a23285de..4036d3dc27df 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -695,7 +695,8 @@ static long follow_huge_pud(struct vm_area_struct *vm=
-a,
->
->         *page_mask =3D HPAGE_PUD_NR - 1;
->
-> -       gup_fill_pages(vma, addr, page, 1, pages);
-> +       if (pages)
-> +               pages[0] =3D page;
->
->         return 1;
->  }
-> @@ -760,7 +761,8 @@ static long follow_huge_pmd(struct vm_area_struct *vm=
-a,
->         page +=3D (addr & ~HPAGE_PMD_MASK) >> PAGE_SHIFT;
->         *page_mask =3D HPAGE_PMD_NR - 1;
->
-> -       gup_fill_pages(vma, addr, page, 1, pages);
-> +       if (pages)
-> +               pages[0] =3D page;
->
->         return 1;
->  }
-> @@ -991,6 +993,14 @@ static long follow_pmd_mask(struct vm_area_struct *v=
-ma,
->         }
->         ret =3D follow_huge_pmd(vma, address, pmd, flags, page_mask, page=
-s);
->         spin_unlock(ptl);
-> +
-> +       /*
-> +        * The ref is already held, so the page cannot go away: fill the
-> +        * array and flush caches without the pmd lock.
-> +        */
-> +       if (ret > 0 && pages)
-> +               gup_fill_pages(vma, address, pages[0], ret, pages);
-> +
->         return ret;
->  }
->
-> @@ -1012,6 +1022,12 @@ static long follow_pud_mask(struct vm_area_struct =
-*vma,
->                 ptl =3D pud_lock(mm, pudp);
->                 ret =3D follow_huge_pud(vma, address, pudp, flags, page_m=
-ask, pages);
->                 spin_unlock(ptl);
-> +               /*
-> +                * The ref is already held, so the page cannot go away: f=
-ill
-> +                * the array and flush caches without the lock.
-> +                */
-> +               if (ret > 0 && pages)
-> +                       gup_fill_pages(vma, address, pages[0], ret, pages=
-);
->                 if (ret)
->                         return ret;
->                 return no_page_table(vma, flags, address);
-> --
-> 2.55.0
->
->
+v is int and end_vni is __u32, so the comparison is unsigned. With
+end_vni == U32_MAX the loop cannot terminate through its own condition:
+v reaches U32_MAX, wraps to 0, and 0 <= U32_MAX is true again. Every
+iteration allocates a vxlan_vni_node plus a per-CPU vxlan_vni_stats_pcpu
+block until the machine is out of memory. Neither allocation carries
+__GFP_ACCOUNT, so the memory is not charged to the caller's memory
+cgroup, and the per-CPU block multiplies the cost by the number of CPUs.
+
+The rtnl_msg_handler entry for RTM_NEWTUNNEL carries no
+RTNL_FLAG_DOIT_UNLOCKED, so the loop runs holding rtnl_lock. rtnl_lock is
+global rather than per-netns, so for as long as the loop runs every
+network configuration operation on the host blocks, in every namespace.
+There is no cond_resched() in the loop either.
+
+The interface is reachable without privilege: creating the device and
+adding VNIs only requires CAP_NET_ADMIN in the network namespace's user
+namespace, so an unprivileged user inside unshare(CLONE_NEWUSER |
+CLONE_NEWNET) can trigger this with a single netlink message.
+
+A VNI at or above VXLAN_N_VID is also accepted and stored, although the
+VXLAN header carries only 24 bits.
+
+The MDB interface in the same driver already range-validates its VNI
+attributes with an identical constraint (vxlan_mdb.c, vni_range with
+.max = VXLAN_N_VID - 1). Apply the same validation here.
+
+Tested under KASAN in a 2G guest: before the change, adding the range
+0-U32_MAX from an unprivileged user namespace drives a global OOM with
+the allocating task in vxlan_vnifilter_process(); after it, out-of-range
+values are rejected and the in-range case is unaffected.
+
+Reproducer available on request.
+
+Fixes: f9c4bb0b245c ("vxlan: vni filtering support on collect metadata device")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-6 [claude-code]
+Signed-off-by: Ali Firas <alishmery18@gmail.com>
+---
+ drivers/net/vxlan/vxlan_vnifilter.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index dd94085e0886..9e86ac39cf9d 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -459,9 +459,15 @@ static int vxlan_vnifilter_dump(struct sk_buff *skb, struct netlink_callback *cb
+ 	return err;
+ }
+ 
++static const struct netlink_range_validation vni_filter_vni_range = {
++	.max = VXLAN_N_VID - 1,
++};
++
+ static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX + 1] = {
+-	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
+-	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
++	[VXLAN_VNIFILTER_ENTRY_START] = NLA_POLICY_FULL_RANGE(NLA_U32,
++							      &vni_filter_vni_range),
++	[VXLAN_VNIFILTER_ENTRY_END] = NLA_POLICY_FULL_RANGE(NLA_U32,
++							    &vni_filter_vni_range),
+ 	[VXLAN_VNIFILTER_ENTRY_GROUP]	= NLA_POLICY_EXACT_LEN(sizeof_field(struct iphdr, daddr)),
+ 	[VXLAN_VNIFILTER_ENTRY_GROUP6]	= NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+ };
+-- 
+2.53.0
+
