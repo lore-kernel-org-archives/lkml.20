@@ -1,76 +1,45 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B191DED4C
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57389378D9C;
+	Sat, 29 Aug 2026 16:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788019958; cv=none; b=Hu3VslV6TnOwyoUSZ4C2RnhNE8d9PWS0C4o0npNbxF5de4RRHQymq08W5BxSeM+2uGmW+0U94Q845TIxlTaA75ibMOqjAIdNQjgKPJfqp+26JBDJ5ZTbETM5RIu5RYSVWSl2SKww47Yr2DMyWvDyYvrIAk3EKo5mzh5Ehjy1cDw=
+	t=1788020022; cv=none; b=OMHDkoIdAiQtNHL1jcV5k74tALmR4rQY781sQCox+NDEeqBnjP0Kf5G6kn+PKXiEhb6O5FHKVVvA7IMKTQkN5gphZ+JOa99yIpKbUZB8odSSDMm9Faj92BZsSLZZlfToStKfuf1fe4m6Mtf7lrOxdM0dZShx8/b1b+kCwsgZ8Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788019958; c=relaxed/simple;
-	bh=eG5YIgzMXOcqCGT4Jk4z1BaOWdy58axn9+gMXOnSjcc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ReBw0a2uN3HY2YQfyzVlN3hvkAq4ETNv2klwufqfq1f6XVt+5pSa7IDF28d67TQP2ZKdBTKLU41alz6nl9ysErI3zopQ+0mNB7NoTpoz8v2RW2dbdSG2Mntdzh0Uv3Wa/fe5W8IgmUxmD3ZbaYnfmR6jRt0kM3iE0P/n3ZnWVDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DuJ/d9A+; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788020022; c=relaxed/simple;
+	bh=fUlgM8CnOaMuuPMrcomCp9ui1YL6CpR0aSOVxgfXuJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KoigoPPTemOJS1CR92/4Ks+nOgAcZRuToc/6FEFhFWC++gYkjMrzgUeHEWOOM7Nd32//liYrxzQLlffImE7lCD0AoOKpvmc+a9aqr/I2m3OJMGPrAv92F68qWbVEm5WqFn/qTNHPle1csii5K3QpPifB8meJiIwV+64UhGgRFE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=U8L2Xle5; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lDKobK1p; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DuJ/d9A+"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b965570d7so16642455e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788019955; x=1788624755; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mwv37PIwHKtQkJcGqM8sABqKx/v0w6p6ScVxoJmsNZA=;
-        b=DuJ/d9A+YE1XMOlYaGuaTIqk+iKdmYRUmYwoWZatDFUjs0a5CK9Lqv3473SFYrpsXN
-         z1jIvIHE/0ccqSx1AmhHaU/FMtEk9/LD6QqbwEPPs+nUcIYFduGpzscv1EmkAsCjRKLC
-         r+EkTZwHW1kI68B+E5ba4QogdhQe/uMXm4VaNNgxATlh/CkFiRmGQfTF8KKtddiqR4rH
-         /Qr9DDqkXb28RnUJl4+qRC8hnpRDwhFwSlLJbgRxrCaM0lffRr+y6Yxm8pGPADPAUXV7
-         SQ63CvI23ywclRzct+wgnPgwQbA4Bj9AJegqxcx52y4B3qaQtXvWoXqtr18sHGrdA1h5
-         fF7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788019955; x=1788624755;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mwv37PIwHKtQkJcGqM8sABqKx/v0w6p6ScVxoJmsNZA=;
-        b=BJnb6ZSexw///9ViOdwxQnrksmDoct5jb2X9Jo4DiXnayhJhL/ARIr8BWLPmSDMqzN
-         0Tet+PlLcq3prG7TQow34+xYKhoDXMXgbEVWRpmZirfJyrC38e7h4S9kU2Ii+GAfE135
-         XkAqNk0ziftjpnngUlEfGJw/EXp/caFZVMo0MndFYVhEc8qZoV2nwJd26I3qwY2dSF+s
-         ORWZmEuo5uP1lynZjDKscwCf96f6GHRE1WgAVaeT/YvxxJq+De4Vz48CpTu8U5+V742R
-         0po5bD6tus17huCslBpRsJFgPDDPwUbZZzkcN+PlPV66HDkt4VXo8oygDTmaTBOxFHm8
-         YizQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roy6d9NSV1WEQxF9ueKCyUPbxfpv/rUQB3H2wUUolh3GKqV37q4Zru9xNJVJKVdvDNd/+tRtJzfwjIh7nU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM1JnyYdx0G5QtoxL0RrY38DaoCB+FyFHoHrK29KXpLwz7tcL/
-	GLaa98mCLGS2Kgqe8DfEFKSYo5oiLZ1N3nIFjsST40IxgfvesMvE2N1g
-X-Gm-Gg: AR+sD129ukhK7nS1Hk9DsX25bJ5ehLoh96ZHnFOrowtO95w3vx7ae3jgL4JxuKbbIlp
-	5KHp3udXePGUWQMDkOtLCmMChFgl6Twg1+sX7yRv0jwb/MLIWE9mq3JKWWqAP1tXpPaDw9WDhdH
-	eNW0I7LOmjfUjPo/20aIVRNkJB+11rzWbsx3MYFe1SEyxz0fFVHczVeORDR03MbsqvP7J+ErKL8
-	mXyPBUJp70tQ/eYToeb5TWt3zlg0Pdld4kOuxuTMLwrcsa1nunLPBTxAo3q0m2GKm1/KJAy4cOf
-	E2k38lGLtj6ZNr4U29jwTaXajG/51Suro23UEfgXY8JeJG5FDkaQ0KavdVwPVPwjRWxZbG3E9QJ
-	TBAMvni5M4bz5RxdqDqTZ6wbmio5iVxr8NN3Ps9F/83lHMQ3A4ge1sJ87qjQJxpiJqWLW7uBm4L
-	n9xEMQqm/11cR12WNnSxh01PGURAG5momcPqBYWohzysuS5f0ti+gy5RQhFdGcmMSBVUS8W68Wa
-	40bStmu+ic9lMMh5qgetWdUIH68Hi4y+XTju+cCsqIH4oqM2cSez7AzWoYDWRfIS8rpJ/uyLYEq
-	b/8QMypseHoWRgXOy8prAKYIEK9nYXJjhUDCg3OeXOyH6G0ElpgENn3kG7+q7I//ugBu
-X-Received: by 2002:a05:600c:354b:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49b91c4fb4amr204036035e9.10.1788019954390;
-        Sat, 29 Aug 2026 09:12:34 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ae86-1b01-80e2-8851-4221-68d8.310.pool.telefonica.de. [2a02:3100:ae86:1b01:80e2:8851:4221:68d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccf59324esm29871505e9.5.2026.08.29.09.12.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 09:12:33 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Stultz <jstultz@google.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	Deepa Dinamani <deepa.kernel@gmail.com>,
-	Cassio Neri <cassio.neri@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] time: Prevent time64_to_tm() day truncation on 32-bit
-Date: Sat, 29 Aug 2026 18:12:12 +0200
-Message-Id: <8d421725051450cecf0a7e6d2c514b6926df43b1.1788019619.git.kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="U8L2Xle5";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lDKobK1p"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=U8L2Xle58YRW+5uhvbg4ehl7xK7Z7qeDqR5jMv9hDs75v1z5C/
+	XphkXv9P1L4kpskOuPWM3vIqSioXpq5aPxWL2vxmYCNVGdwAP+Ojp+JjDHxQirsL1TP3fkWAiwu
+	4c8dyzGnNrhPiClcOLzO6cwRN11RwsAytY+R3EvHdsEpskeFfhcz8GyJ+5SOYJnmgBbZMj5I6ZQ
+	2BjqDTkWDqAvGFBksHBArHJgcIu+jjV8JsQEil5oR489WorZMtYSlxjCOWcqVm5OWNXvmg93Gij
+	MaTmnUAbcSaipWZczEju2aWevWIXyt10RbBiOm+NM5zIqiqhFdZhfsFYMvlmAa4awfg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=lDKobK1pxKM1yWXeWvN4kysJyHL3XRQ1n5C72t1WoTQ2aeqlig
+	lIlq7RZM3MFrRg+JYxxOgBJa22hD9a+zsZAw==;
+From: Bradley Morgan <include@grrlz.net>
+To: Andy Walls <awalls@md.metrocast.net>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH 1/5] media: ivtv: convert to kthread_run_worker
+Date: Sat, 29 Aug 2026 16:13:35 +0000
+Message-ID: <20260829161336.17646-1-include@grrlz.net>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260829161150.16301-1-include@grrlz.net>
+References: <20260829161150.16301-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,99 +48,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-time64_to_tm() accepts a 64-bit seconds value, but stores the quotient in
-long. On a 32-bit kernel the day count therefore wraps when it reaches
-2^31, even though the corresponding year remains representable in
-struct tm.
+From: Bradley Morgan <brads@mainlining.org>
 
-This is reachable when formatting externally supplied timestamps. For
-example, NILFS recovery copies the little-endian 64-bit ss_create field
-from an on-disk segment summary into time64_t. Its sysfs attributes then
-print that value with %ptTs, whose formatter calls time64_to_tm(). A
-corrupted image can consequently produce an architecture-dependent printed
-date.
+Embedding a kthread_worker and running kthread_worker_fn yourself is
+the old way. Convert ivtv to kthread_run_worker(), dropping the
+separate irq_worker_task pointer.
 
-Keep the day quotient in s64 while leaving the seconds-within-day remainder
-as long. Use div_s64_rem() for the weekday calculation so 32-bit builds do
-not require compiler runtime division helpers. Add a KUnit case at the
-first positive day count outside signed 32-bit range. The baseline i386
-kernel returns a negative year and wrong calendar fields; the fixed kernel
-returns the same result as x86_64.
+This is part of removing the worker->task self-assignment in
+kthread_worker_fn().
 
-Fixes: e6c2682a1da3 ("time: Add time64_to_tm()")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
 ---
-Review notes:
+ drivers/media/pci/ivtv/ivtv-driver.c | 14 ++++++--------
+ drivers/media/pci/ivtv/ivtv-driver.h |  3 +--
+ 2 files changed, 7 insertions(+), 10 deletions(-)
 
-  - On a test-only baseline, QEMU/i386 passed the existing case but failed
-    the wide-day case with tm_year=-5879541 and four other wrong fields.
-    Baseline x86_64 and fixed i386, x86_64 and lockdep x86_64 passed 2/2.
-  - A direct s64 modulo emitted __moddi3 on i386 and __aeabi_ldivmod on ARM
-    with Clang 21. The submitted form uses div_s64_rem(); W=1 builds of
-    both objects contain neither compiler-runtime reference.
-  - The narrow type came from time_to_tm() in the Fixes commit. The 2021
-    arithmetic rewrite kept it and tested only +/-80,000 years, below the
-    approximately 5.88-million-year 32-bit day boundary.
-
- kernel/time/time_test.c | 16 ++++++++++++++++
- kernel/time/timeconv.c  |  6 ++++--
- 2 files changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/time/time_test.c b/kernel/time/time_test.c
-index 1b99180da2881..8b718767b3baf 100644
---- a/kernel/time/time_test.c
-+++ b/kernel/time/time_test.c
-@@ -87,8 +87,24 @@ static void time64_to_tm_test_date_range(struct kunit *test)
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.c b/drivers/media/pci/ivtv/ivtv-driver.c
+index b9ea56ec9593..6f0e0e46deb5 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.c
++++ b/drivers/media/pci/ivtv/ivtv-driver.c
+@@ -703,15 +703,13 @@ static int ivtv_init_struct1(struct ivtv *itv)
+ 	spin_lock_init(&itv->lock);
+ 	spin_lock_init(&itv->dma_reg_lock);
+ 
+-	kthread_init_worker(&itv->irq_worker);
+-	itv->irq_worker_task = kthread_run(kthread_worker_fn, &itv->irq_worker,
+-					   "%s", itv->v4l2_dev.name);
+-	if (IS_ERR(itv->irq_worker_task)) {
++	itv->irq_worker = kthread_run_worker(0, "%s", itv->v4l2_dev.name);
++	if (IS_ERR(itv->irq_worker)) {
+ 		IVTV_ERR("Could not create ivtv task\n");
+ 		return -1;
  	}
- }
+ 	/* must use the FIFO scheduler as it is realtime sensitive */
+-	sched_set_fifo(itv->irq_worker_task);
++	sched_set_fifo(itv->irq_worker->task);
  
-+static void time64_to_tm_test_wide_day_count(struct kunit *test)
-+{
-+	/* 2^31 days: the first count that does not fit in a 32-bit long. */
-+	time64_t timestamp = (1LL << 31) * 86400;
-+	struct tm result;
-+
-+	time64_to_tm(timestamp, 0, &result);
-+
-+	KUNIT_EXPECT_EQ(test, result.tm_year, 5879680);
-+	KUNIT_EXPECT_EQ(test, result.tm_mon, 6);
-+	KUNIT_EXPECT_EQ(test, result.tm_mday, 12);
-+	KUNIT_EXPECT_EQ(test, result.tm_yday, 193);
-+	KUNIT_EXPECT_EQ(test, result.tm_wday, 6);
-+}
-+
- static struct kunit_case time_test_cases[] = {
- 	KUNIT_CASE_SLOW(time64_to_tm_test_date_range),
-+	KUNIT_CASE(time64_to_tm_test_wide_day_count),
- 	{}
- };
+ 	kthread_init_work(&itv->irq_work, ivtv_irq_work_handler);
  
-diff --git a/kernel/time/timeconv.c b/kernel/time/timeconv.c
-index 59b922c826e77..292a855827b7a 100644
---- a/kernel/time/timeconv.c
-+++ b/kernel/time/timeconv.c
-@@ -49,7 +49,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm *result)
- 	u32 u32tmp, day_of_century, year_of_century, day_of_year, month, day;
- 	u64 u64tmp, udays, century, year;
- 	bool is_Jan_or_Feb, is_leap_year;
--	long days, rem;
-+	s64 days;
-+	long rem;
- 	int remainder;
+@@ -1232,7 +1230,7 @@ static int ivtv_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
+ 	v4l2_ctrl_handler_free(&itv->cxhdl.hdl);
+ 	exit_ivtv_i2c(itv);
+ free_worker:
+-	kthread_stop(itv->irq_worker_task);
++	kthread_destroy_worker(itv->irq_worker);
+ err:
+ 	if (retval == 0)
+ 		retval = -ENODEV;
+@@ -1372,8 +1370,8 @@ static void ivtv_remove(struct pci_dev *pdev)
+ 	timer_shutdown_sync(&itv->dma_timer);
  
- 	days = div_s64_rem(totalsecs, SECS_PER_DAY, &remainder);
-@@ -70,7 +71,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm *result)
- 	result->tm_sec = rem % 60;
+ 	/* Kill irq worker */
+-	kthread_flush_worker(&itv->irq_worker);
+-	kthread_stop(itv->irq_worker_task);
++	kthread_flush_worker(itv->irq_worker);
++	kthread_destroy_worker(itv->irq_worker);
  
- 	/* January 1, 1970 was a Thursday. */
--	result->tm_wday = (4 + days) % 7;
-+	div_s64_rem(days + 4, 7, &remainder);
-+	result->tm_wday = remainder;
- 	if (result->tm_wday < 0)
- 		result->tm_wday += 7;
- 
-
-base-commit: cf72cbb39da84b6f02f90c07f33b102fc10b16f0
+ 	ivtv_streams_cleanup(itv);
+ 	ivtv_udma_free(itv);
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.h b/drivers/media/pci/ivtv/ivtv-driver.h
+index 000e8beecc7c..091bc44f13bc 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.h
++++ b/drivers/media/pci/ivtv/ivtv-driver.h
+@@ -668,8 +668,7 @@ struct ivtv {
+ 	/* Interrupts & DMA */
+ 	u32 irqmask;                    /* active interrupts */
+ 	u32 irq_rr_idx;                 /* round-robin stream index */
+-	struct kthread_worker irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+-	struct task_struct *irq_worker_task;		/* task for irq_worker */
++	struct kthread_worker *irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+ 	struct kthread_work irq_work;	/* kthread work entry */
+ 	spinlock_t dma_reg_lock;        /* lock access to DMA engine registers */
+ 	int cur_dma_stream;		/* index of current stream doing DMA (-1 if none) */
 -- 
-2.53.0
+2.47.3
+
