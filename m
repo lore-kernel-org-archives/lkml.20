@@ -1,395 +1,383 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011051.outbound.protection.outlook.com [52.101.62.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B843AD524
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018080; cv=fail; b=YdOE35poRyGgCHbweP//WeBBo9RqQbh4saeSD/t7HjXqpFTLLEvMb5xs5zYi2Atvyjh/gdMn1zgD3Lbypjy3ZsX3Sl9Z1c3cisK1YXmBLQAxfJhHh7SS7m7c+NapDZBJ04TGRrec3Kd0m3jGQW1/wB6RmWRSutmfYmyml2LkxmI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018080; c=relaxed/simple;
-	bh=n0xF7zUtKNPTOOwYweKeRDHglCX6E+H4ioyfK4pwTM0=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sb0p39P2s6CKp6pcRGra+2eBG989/SZ/KsKXFZ0R5brc95PVDw2m1x7ifKXdkwmH4uDxZz1LfH3u4R3beYPOBdD2deiRfcCx75f3/SsYhURWg8fz2QJui2zR9ud/WlLsBSL4cEbvqEdeJ4rc6p4ZgFcIR6VYf/FJY/HGCijsqs0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Qlei5mdy; arc=fail smtp.client-ip=52.101.62.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CE33BB102
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 15:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788018280; cv=none; b=d8g35AZsi1ET0qDJXV8AAj7vA6Xr+2a7K614k4ghn83gCII03QMhy+OD875crZR0g3R2ArTpH0KLd8Ulzeb4QFeoemDqKs5Yfn/JFK4e8WQ8stmMrABoFIajK9KCAVzmmb7QiLYmhuxrmCI2nt3aGJ33B3ZYI2XPjvBIRtBATIg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788018280; c=relaxed/simple;
+	bh=69ibjPTZgG7ViZ+H6zCd1OgPqca2VPP/2QSRmsSjLfU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZAVEVPGvCo5h6O9iO1jK64tETNu0drpsbmMA+XxhnR+n8TP27PSmmzswYISFMI6DHqz5UfV4MDKwcE7GOVU3YOctQSLld61IXlK+uIOuLSQZdiU13nh7WTyprdl3GEe7tX9ei1ZH2GusR8FTNL26Pm5kV3Xjf+OAlmu8Mwrq0mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OBj99KUy; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Qlei5mdy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BTf/uDjI17OYStiEjDNemM/FLYqQzmbowQMhpMn6L7DuxcBylR39FWBWi6xvQ+Ww3LoGMaZzwGWghDvpEWvKw2JnWkx7RgbYuoB/2J9/NMAmciUd7GLZkctkJXkWfSB+PSAPQPf+ZAbxqKjzcSMSp4TG216C7xjRxNua5uCL0FfqcuNY3nwiOPk6kQRpapRx/UxTUkixP+whEZrVZtaHyUVIxdusL2djs6F7lBzKdDpqKNousXc27TjXp6dB+JxJsy5esWbEpLMqExaJrDTzMl1RXvOXUHeg2wUqbGZP+NpJy09Q4naLcE3ZuU5N/pk2A6ZtCKJBQIgsSUW/cy3jQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4VJYkysNpjJ92AI1dWahq+vyPgGPHdah1H67bEyvrzc=;
- b=K1UJd3ulO31DKb1hkV9yOTwRWQmNZS9bSRBAjtR6ssSIAtcDGvsypHw5xG0ASeGC6fMLEGNthOApoJ+J3dWKE/Q/MJ1DCRuzIVJ+ofP4Y2Nt82Cc1bXufUa49qWffilTWZud7Z673LFBK0HJ9aq38bEE30qD0bl3OkEZk7wyQJKjFLEfmbMk0y5LWmtFrlBrmKQm08E3SjURJPYWi1+Ypehnk30JN6+aCy2IKJEcPDtc4l0EytFmWSm1UOQXvUVyJ2DC0jlBjdF6lpoep1lDyZwhISDX73UkDH39kDzk8XgUaWBwFiVNvKM/OP869tDOd+8yrt3One5HuKrqOHsYUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4VJYkysNpjJ92AI1dWahq+vyPgGPHdah1H67bEyvrzc=;
- b=Qlei5mdy1TcQEwRzeeeJoD5RbUtD6mzM0TBzKsNTh+aQZG1WWAozHXdV57+NVKlzes295UIEYZTWOAQz8zhMvEso7I1ETPNJJhQ59k6VxmSY101U7rpS4uozH072xwS9qKW8Jf5fgvcMSITuIZtaqCLKHP8FkbC+jOVHOz5RgtQ=
-Received: from BY3PR03CA0012.namprd03.prod.outlook.com (2603:10b6:a03:39a::17)
- by PH0PR12MB7906.namprd12.prod.outlook.com (2603:10b6:510:26c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Sat, 29 Aug
- 2026 15:41:14 +0000
-Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::34) by BY3PR03CA0012.outlook.office365.com
- (2603:10b6:a03:39a::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.12 via Frontend Transport; Sat,
- 29 Aug 2026 15:41:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Sat, 29 Aug 2026 15:41:13 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sat, 29 Aug 2026 10:41:12 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: <linux-kernel@vger.kernel.org>
-Subject: [PATCH 3/3] drm/xe: Convert xe_user_fence to drm_user_fence
-Date: Sat, 29 Aug 2026 21:10:31 +0530
-Message-ID: <20260829154031.42551-3-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260829154031.42551-1-srinivasan.shanmugam@amd.com>
-References: <20260829154031.42551-1-srinivasan.shanmugam@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OBj99KUy"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b965570d7so16492495e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 08:44:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788018276; x=1788623076; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n8nQYQ7Cl9qztsEwnAxBh67Qx5SoTbCnvhZ8LBGAfp4=;
+        b=OBj99KUykDJ5OQBb4pPBxJEzAcsjTmwWocWbdtzlBgQYo945ZKuuVWbIUAVOxdLIQO
+         J3cqub4FrAn9coufu8E/6nZFrRATPLN2ftn3/BqqTS2sjprghe3NdAQ5yfW0gYUIvTVU
+         CWxv6ZNVWk/XwHoXMRpiDTZAY+4YTUpMOQr1k+jBG8p1MGEg7JxxNG/+tiCGyO7kFxBW
+         7batMpSTLTLJGPdBfSu25UxHI1P6VEQmguEELZTYfg4fCX8ZxnEjdvnXcIP8G6TtMTjY
+         J88Eu9CoD6+d5Ur4kZUISGrwngVO633VFmSnWbkr5/rIJifma2HhgB4ooqaW3JJ0+P0N
+         85hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788018276; x=1788623076;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=n8nQYQ7Cl9qztsEwnAxBh67Qx5SoTbCnvhZ8LBGAfp4=;
+        b=cjAouELmidm1w7wOj4Kd6gBBmQOs0ZZHhaL25vHQxio7tQszrze0/OmdI2hZsR0a62
+         PYpbK/TJDc7xF1YXV5fcAsEerViuUwt4ipQ4miZtGkbb5shJh6Gv+LlQr5vnO3mrjNHf
+         C+mrVpFOam3vcw/ihu7f2jno7DyyRbRTBtE1OBjTh6OJY4inHXIniqmy9fiHFOFvyRhC
+         lUF3spuP2z148+yRST2aC06m6W9WUbw3crUo148Fq/KQ/0sIcfOAcWv//wIUKkdZxHij
+         Tcfo+IQTNp+KHYikFDYzuKrX8yobqmYxVKb3dHNb7F97Kih835odU9oETWaedLIhhgoQ
+         gVDQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4/IIEtVcOuTFNXqqT5dHzezKBvyWvA+QvyXqjHknWaScIHbQWTn/IjLqM/d+ELGVS0ceYenBNGc/jZm8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYsp//kVbdnkoKrs2Tou5CUw23bm9N1aw9baVJQ9w04wHhvEL4
+	SsKBiyNigBQeyIOz6NpJGW0TBEgR05ZaSraaQdp3C9DZKDEcb5pJmFgd
+X-Gm-Gg: AR+sD12/1UqyEQycPxqNdpS7P+O/htPI013ncl0K1PNFl587TVKCCLIBbejcgcS1Jow
+	N3jlWuEFGiRCPYlYDPvZx08nQcitxtwo6MQi1Adz7Qfp4BzkW0wsELRrzhYW4RZ7nl0WeAb4Bsn
+	mrAXeuji6Y3NNzKA5EuOJZuqrCfoz/B8jUo7ohMuEtW1cdIA35kYNPMp0o58NZjXUIZeNQ/BdVT
+	N+HfhujNVKyKgvSUsvF1aXpJn33f+/ePaOwLMoOx22JN9l2+Ux28/o8MpjKcFN4dFoTTb4SFnOe
+	9o3CSxBEkqiYX1hpDftZWcZPZ9/jatMlkM35X3BeLgTKx8Uu/PH5o30/a+NuWCS9mD2ctJJ4G8p
+	FgrcLOQ3yTYgeFVbqPxnyd9Zg5flXSzKdPPLpfQukT2Ng3s2vFWJAZJ7ahBc0S7WgEaGJ38mXFW
+	9DZ/lgecoxEtCcynvQGfaQh9ZGie7ErSNMa0AZ56bP5wFu7AHyGrO4030BmssoTceghFjyQSMuK
+	osjcnga3gHlRc36upHT
+X-Received: by 2002:a05:600c:a01:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49b91c33792mr190881725e9.7.1788018275680;
+        Sat, 29 Aug 2026 08:44:35 -0700 (PDT)
+Received: from [127.0.1.1] (89-65-152-218.dynamic.play.pl. [89.65.152.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm161111375e9.9.2026.08.29.08.44.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 08:44:35 -0700 (PDT)
+From: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
+Date: Sat, 29 Aug 2026 17:44:18 +0200
+Subject: [PATCH] riscv: mm: Trace TLB flush path selection
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|PH0PR12MB7906:EE_
-X-MS-Office365-Filtering-Correlation-Id: e109bde2-a3c6-42ce-9d18-08df05e3f527
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yhKlHJhFtKCAmCCOIsNpFW2gAf6Xls/DeeIwOmS+wVBUZAYBSSHj6+aMeNNfPtwlP7oUvK4Ut6u3R/LtJf7OPw1ghTUw6HGJvErfvsWI4OF8SUDIXp+50DFsXg1Y3e5lGyqgLrEg/fpivJZEB9Y1rwLp4kIYHqDboRNvfod0tVO0dB95kUEKOjN/DdZ+mQmWeaLjNROJMO6iQGvAFUqIU1Fk2DrJ5gKdROzks87lqZnJk/6q4YpXfqD0lCbe2ECVIX2JF88UuhhkBydIdV/POXoPnBBTNSg3fVFd7JcshBY8wYJ/jOU04Kuy8+JH7l7dsakmrQluhSslhrtXOEWhWxknaV5Y29MdARsK3FQwGo7rmjVh9fpxVO5vxlDBCIo+0Lcbx0cKl6N/KhkswhADfGziR8yIYHmIYo2uGC74tKXMaFSlJmyVsbpEkWMgEByuWrw5zpSBrqPxXs3HWsIzn74CJD0Le7k3mp0+8KeA/Lu+9pVBQ3LtZrq6UGvI9nUgTgoiw/60wOE+D7bcVDWip1ZiV19rJ658J51ZptLZpy1Gn6LXKFmG715yubNE5u8unib4VAyKzt9KFHpe/RJ3jo4LrXjhUEICZXFHsZXcMnZhaIRYCx/uAtcV2opkD9z4LWlzPmqsjdCM57wfiGjkd+P4wcRJ0QBgHkEoerbCX9bHwBH3XdUki4oYf9IVn+YfAQLIw69cyqYnQ7qHJO2atQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	N5QO5Drgq9f4kDO6f3WhG19iaH0ryoPql6IUCElyQzyOt8p61CY+6GSIR55hCduBkkY5ezbRCs70LoKJS9GSE5GumBLg9oVmBpX/Ac5taMEWBgplxJGxOvqWi45gXdnF+x4k4XxSwbnw9anNpVyK3m/7e1ldKnf9rP+S7VCcMzj33MervaumJNLkArd7ha8Z6VAt/FTNgdk9kGxb2+QmZimRjaM+93PygCif8E2wBs40ZCTpW98dbTR2zxHLSLxapaECLHY+HIAtPCOJc9tTLqNnmteeSiKKaK8D2RBkEeVfPYYwF6DZGMaodrgTGySW08YYR05qNlFqanugLZVGFhprWuZhcNCe7wGfXRRZSn8qO81pNhHfhYUSuo9LYF8EoId6XiJVoRHHcYmikV96eJd6u0BDAErsfWeb1qZtxwyF1sXtgsYUkmK83yPNcG+U
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 15:41:13.7605
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e109bde2-a3c6-42ce-9d18-08df05e3f527
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002320.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7906
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAFH+kmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyNL3ZKcpPiSosTk1IL8zLwSXQsTE0MD08QkUwNLIyWgpoKi1LTMCrC
+ B0bG1tQAPu5MbYAAAAA==
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
+X-Mailer: b4 0.13.0
 
-Replace the open-coded user fence implementation in xe_sync.c with the
-new common drm_user_fence helper.
+Make RISC-V TLB flush path selection observable. Record whether Linux
+handles an invalidation locally, delegates it to SBI RFENCE, or executes
+it through a cross-CPU call, so MM activity can be correlated with the
+RISC-V, firmware, or Linux cross-CPU path carrying the request.
 
-struct xe_user_fence now embeds struct drm_user_fence as its base.
-XE-specific fields (xe_device pointer for the ufence_wq wake-up,
-userspace VA, expected value, signalled flag) remain in the wrapper.
+The generic tlb:tlb_flush event describes TLB flush activity using
+architecture-independent reason and page-count information. The RISC-V
+implementation subsequently selects between local invalidation, SBI
+RFENCE, and Linux cross-CPU coordination, with additional
+architecture-specific request context available at that point.
 
-The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
-functions are removed. Their logic moves to xe_ufence_ops.worker and
-xe_ufence_ops.destroy, which are called by drm_user_fence_work().
+Making this selection observable is useful when debugging RISC-V TLB
+shootdowns. When a remote invalidation is observed to be slow, the
+selected path determines whether to investigate SBI firmware and
+platform handling or Linux cross-CPU and IPI handling. An unexpectedly
+broad target mask can reveal an unintended address-space CPU footprint,
+while the range and stride distinguish invalidation requests with
+different mapping granularities.
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: Ic61b6e0159874027e91e054103b676c4c63b1566
+Place the event in the RISC-V implementation because the local, SBI
+RFENCE, or cross-CPU choice is made there, and SBI RFENCE and the
+invalidation stride are RISC-V-specific semantics rather than properties
+of the generic MM flush request.
+
+Add riscv_tlb:riscv_tlb_flush_path in flush_tlb_all() and
+__flush_tlb_range(). Record start, size, stride, the hardware-visible
+ASID, whether a specific mm is associated with the request, the target
+CPU mask and its weight, the requested scope, and the selected path.
+
+Record the complete target mask in addition to its weight because CPU
+identity cannot be reconstructed from a count and is needed to correlate
+the request with per-CPU scheduler, IPI, and firmware activity.
+
+The event records the invalidation request and the path selected by Linux
+before the operation is dispatched. In particular, selecting the SBI
+RFENCE path means that Linux delegated the request to firmware; the event
+does not describe the implementation or outcome of that delegated
+operation.
+
+Tested on QEMU virt with OpenSBI using local and shared-mm
+mprotect()/munmap() workloads. Local requests reported path=local,
+while remote requests reported path=sbi-rfence and were followed by the
+existing riscv:sbi_call RFENCE event.
+
+The cross-CPU-call path was tested with QEMU virt using APLIC+IMSIC.
+A MADV_PAGEOUT reclaim workload was used to exercise mm-independent
+global flushes. All reported path values (local, sbi-rfence and
+cross-cpu-call) and scope values (single, range, address-space and all)
+were observed.
+
+Signed-off-by: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_sync.c       | 149 ++++++++++++++++-------------
- drivers/gpu/drm/xe/xe_sync.h       |   2 +
- drivers/gpu/drm/xe/xe_sync_types.h |   1 -
- drivers/gpu/drm/xe/xe_vm.c         |   1 +
- 4 files changed, 84 insertions(+), 69 deletions(-)
+Add a RISC-V tracepoint for observing the path selected by Linux for TLB
+invalidation requests: local invalidation, SBI RFENCE, or Linux
+cross-CPU coordination.
 
-diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-index 37866768d64c..2d1e07792506 100644
---- a/drivers/gpu/drm/xe/xe_sync.c
-+++ b/drivers/gpu/drm/xe/xe_sync.c
-@@ -6,12 +6,11 @@
- #include "xe_sync.h"
+The tracepoint is intended to make RISC-V TLB shootdown behavior easier
+to correlate with MM activity, CPU targeting, SBI calls, and IPI
+handling. The patch records the invalidation request context and the
+Linux path-selection decision before the operation is dispatched.
+
+The patch was tested on QEMU virt with both the SBI RFENCE path and an
+APLIC+IMSIC configuration. Local, SBI RFENCE, and cross-CPU-call paths
+were exercised. All reported scope values -- single, range,
+address-space, and all -- were also observed.
+---
+ arch/riscv/mm/tlbflush.c         |  60 +++++++++++++++++++--
+ include/trace/events/riscv_tlb.h | 113 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 169 insertions(+), 4 deletions(-)
+
+diff --git a/arch/riscv/mm/tlbflush.c b/arch/riscv/mm/tlbflush.c
+index 962db300a166..87cc409779f6 100644
+--- a/arch/riscv/mm/tlbflush.c
++++ b/arch/riscv/mm/tlbflush.c
+@@ -9,6 +9,9 @@
+ #include <asm/mmu_context.h>
+ #include <asm/cpufeature.h>
  
- #include <linux/dma-fence-array.h>
--#include <linux/kthread.h>
--#include <linux/sched/mm.h>
- #include <linux/uaccess.h>
- 
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
-+#include <drm/drm_user_fence.h>
- #include <uapi/drm/xe_drm.h>
- 
- #include "xe_device.h"
-@@ -19,36 +18,60 @@
- #include "xe_macros.h"
- #include "xe_sched_job_types.h"
- 
-+/*
-+ * xe_user_fence wraps drm_user_fence with XE-specific fields.
-+ * The drm_user_fence base handles MM borrowing and work-item lifetime.
-+ */
- struct xe_user_fence {
--	struct xe_device *xe;
--	struct kref refcount;
--	struct dma_fence_cb cb;
--	struct work_struct worker;
--	struct mm_struct *mm;
--	u64 __user *addr;
--	u64 value;
--	int signalled;
-+	struct drm_user_fence base;
-+	struct xe_device     *xe;
-+	u64 __user           *addr;
-+	u64                   value;
-+	int                   signalled;
- };
- 
--static void user_fence_destroy(struct kref *kref)
-+static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
- {
--	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
--						 refcount);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
- 
--	mmdrop(ufence->mm);
--	kfree(ufence);
--}
-+	/*
-+	 * Mark signalled before waking waiters so UMD can safely reuse
-+	 * the same ufence without hitting -EBUSY.
-+	 */
-+	WRITE_ONCE(ufence->signalled, 1);
- 
--static void user_fence_get(struct xe_user_fence *ufence)
--{
--	kref_get(&ufence->refcount);
-+	/*
-+	 * Ensure the signalled store is visible before the user memory write
-+	 * on weakly ordered architectures (e.g. ARM64). Without this barrier
-+	 * the CPU may reorder stores, causing userspace to observe the user
-+	 * memory update before signalled == 1.
-+	 */
-+	smp_wmb();
++#define CREATE_TRACE_POINTS
++#include <trace/events/riscv_tlb.h>
 +
-+	if (mm_ok) {
-+		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-+			drm_dbg(&ufence->xe->drm,
-+				"copy_to_user failed, user fence wasn't signaled\n");
+ #define has_svinval()	riscv_has_extension_unlikely(RISCV_ISA_EXT_SVINVAL)
+ 
+ /*
+@@ -63,6 +66,33 @@ void local_flush_tlb_kernel_range(unsigned long start, unsigned long end)
+ 	local_flush_tlb_range_asid(start, end - start, PAGE_SIZE, FLUSH_TLB_NO_ASID);
+ }
+ 
++static enum riscv_tlb_flush_scope
++riscv_tlb_get_flush_scope(unsigned long size, unsigned long stride, bool has_mm)
++{
++	if (size == FLUSH_TLB_MAX_SIZE)
++		return has_mm ? RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE :
++			RISCV_TLB_FLUSH_SCOPE_ALL;
++
++	return size <= stride ? RISCV_TLB_FLUSH_SCOPE_SINGLE :
++		RISCV_TLB_FLUSH_SCOPE_RANGE;
++}
++
++static __always_inline void
++riscv_tlb_trace_flush_path(const struct cpumask *cmask, unsigned long start,
++			   unsigned long size, unsigned long stride,
++			   unsigned long asid, bool has_mm,
++			   enum riscv_tlb_flush_path path)
++{
++	enum riscv_tlb_flush_scope scope;
++
++	if (!trace_riscv_tlb_flush_path_enabled())
++		return;
++
++	scope = riscv_tlb_get_flush_scope(size, stride, has_mm);
++	trace_riscv_tlb_flush_path(start, size, stride, asid, has_mm, cmask,
++				   scope, path);
++}
++
+ static void __ipi_flush_tlb_all(void *info)
+ {
+ 	local_flush_tlb_all();
+@@ -70,12 +100,26 @@ static void __ipi_flush_tlb_all(void *info)
+ 
+ void flush_tlb_all(void)
+ {
+-	if (num_online_cpus() < 2)
++	if (num_online_cpus() < 2) {
++		riscv_tlb_trace_flush_path(cpu_online_mask, 0,
++					   FLUSH_TLB_MAX_SIZE, 0,
++					   FLUSH_TLB_NO_ASID, false,
++					   RISCV_TLB_FLUSH_PATH_LOCAL);
+ 		local_flush_tlb_all();
+-	else if (riscv_use_sbi_for_rfence())
+-		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, FLUSH_TLB_NO_ASID);
+-	else
++	} else if (riscv_use_sbi_for_rfence()) {
++		riscv_tlb_trace_flush_path(cpu_online_mask, 0,
++					   FLUSH_TLB_MAX_SIZE, 0,
++					   FLUSH_TLB_NO_ASID, false,
++					   RISCV_TLB_FLUSH_PATH_SBI_RFENCE);
++		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE,
++					   FLUSH_TLB_NO_ASID);
 +	} else {
-+		drm_dbg(&ufence->xe->drm,
-+			"mmget_not_zero() failed, ufence wasn't signaled\n");
++		riscv_tlb_trace_flush_path(cpu_online_mask, 0,
++					   FLUSH_TLB_MAX_SIZE, 0,
++					   FLUSH_TLB_NO_ASID, false,
++					   RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL);
+ 		on_each_cpu(__ipi_flush_tlb_all, NULL, 1);
 +	}
-+
-+	wake_up_all(&ufence->xe->ufence_wq);
  }
  
--static void user_fence_put(struct xe_user_fence *ufence)
-+static void xe_ufence_destroy(struct drm_user_fence *base)
- {
--	kref_put(&ufence->refcount, user_fence_destroy);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
-+
-+	kfree(ufence);
- }
+ struct flush_tlb_range_data {
+@@ -107,12 +151,20 @@ static void __flush_tlb_range(struct mm_struct *mm,
  
-+static const struct drm_user_fence_ops xe_ufence_ops = {
-+	.worker  = xe_ufence_worker,
-+	.destroy = xe_ufence_destroy,
+ 	/* Check if the TLB flush needs to be sent to other CPUs. */
+ 	if (cpumask_any_but(cmask, cpu) >= nr_cpu_ids) {
++		riscv_tlb_trace_flush_path(cmask, start, size, stride, asid,
++					   !!mm, RISCV_TLB_FLUSH_PATH_LOCAL);
+ 		local_flush_tlb_range_asid(start, size, stride, asid);
+ 	} else if (riscv_use_sbi_for_rfence()) {
++		riscv_tlb_trace_flush_path(cmask, start, size, stride, asid,
++					   !!mm, RISCV_TLB_FLUSH_PATH_SBI_RFENCE);
+ 		sbi_remote_sfence_vma_asid(cmask, start, size, asid);
+ 	} else {
+ 		struct flush_tlb_range_data ftd;
+ 
++		riscv_tlb_trace_flush_path(cmask, start, size, stride, asid,
++					   !!mm,
++					   RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL);
++
+ 		ftd.asid = asid;
+ 		ftd.start = start;
+ 		ftd.size = size;
+diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/riscv_tlb.h
+new file mode 100644
+index 000000000000..3eff171ec54f
+--- /dev/null
++++ b/include/trace/events/riscv_tlb.h
+@@ -0,0 +1,113 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM riscv_tlb
++
++#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_RISCV_TLB_H
++
++#include <linux/cpumask.h>
++#include <linux/tracepoint.h>
++
++#ifndef _TRACE_RISCV_TLB_ENUMS
++#define _TRACE_RISCV_TLB_ENUMS
++
++enum riscv_tlb_flush_scope {
++	RISCV_TLB_FLUSH_SCOPE_SINGLE,
++	RISCV_TLB_FLUSH_SCOPE_RANGE,
++	RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
++	RISCV_TLB_FLUSH_SCOPE_ALL,
 +};
 +
- static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 					       u64 value)
- {
-@@ -63,51 +86,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 	if (!ufence)
- 		return ERR_PTR(-ENOMEM);
- 
--	ufence->xe = xe;
--	kref_init(&ufence->refcount);
--	ufence->addr = ptr;
-+	ufence->xe    = xe;
-+	ufence->addr  = ptr;
- 	ufence->value = value;
--	ufence->mm = current->mm;
--	mmgrab(ufence->mm);
-+	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
- 
- 	return ufence;
- }
- 
--static void user_fence_worker(struct work_struct *w)
--{
--	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
--
--	WRITE_ONCE(ufence->signalled, 1);
--	if (mmget_not_zero(ufence->mm)) {
--		kthread_use_mm(ufence->mm);
--		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
--			XE_WARN_ON("Copy to user failed");
--		kthread_unuse_mm(ufence->mm);
--		mmput(ufence->mm);
--	} else {
--		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
--	}
--
--	/*
--	 * Wake up waiters only after updating the ufence state, allowing the UMD
--	 * to safely reuse the same ufence without encountering -EBUSY errors.
--	 */
--	wake_up_all(&ufence->xe->ufence_wq);
--	user_fence_put(ufence);
--}
--
--static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
-+static void user_fence_get(struct xe_user_fence *ufence)
- {
--	INIT_WORK(&ufence->worker, user_fence_worker);
--	queue_work(ufence->xe->ordered_wq, &ufence->worker);
--	dma_fence_put(fence);
-+	drm_user_fence_get(&ufence->base);
- }
- 
--static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-+static void user_fence_put(struct xe_user_fence *ufence)
- {
--	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
--
--	kick_ufence(ufence, fence);
-+	drm_user_fence_put(&ufence->base);
- }
- 
- int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
-@@ -282,24 +276,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
- 	} else if (sync->syncobj) {
- 		drm_syncobj_replace_fence(sync->syncobj, fence);
- 	} else if (sync->ufence) {
--		int err;
--
- 		drm_syncobj_add_point(sync->ufence_syncobj,
- 				      sync->ufence_chain_fence,
- 				      fence, sync->ufence_timeline_value);
- 		sync->ufence_chain_fence = NULL;
- 
- 		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
--		user_fence_get(sync->ufence);
--		err = dma_fence_add_callback(fence, &sync->ufence->cb,
--					     user_fence_cb);
--		if (err == -ENOENT) {
--			kick_ufence(sync->ufence, fence);
--		} else if (err) {
-+		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
- 			XE_WARN_ON("failed to add user fence");
--			user_fence_put(sync->ufence);
--			dma_fence_put(fence);
--		}
-+		/* fence ref consumed by drm_user_fence_add_callback */
- 	}
- }
- 
-@@ -434,6 +419,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
- 	user_fence_put(ufence);
- }
- 
-+/**
-+ * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
-+ * @ufence: user fence reference
-+ *
-+ * Attempts to cancel the pending callback without waiting for the worker.
-+ * Safe to call while holding dma_resv_lock or vm->lock. If the callback
-+ * has already fired, the worker runs independently — xe_ufence_worker
-+ * only accesses device-level and userspace resources, both safe after
-+ * VMA teardown.
-+ */
-+void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
-+{
-+	drm_user_fence_cancel(&ufence->base);
-+}
++enum riscv_tlb_flush_path {
++	RISCV_TLB_FLUSH_PATH_LOCAL,
++	RISCV_TLB_FLUSH_PATH_SBI_RFENCE,
++	RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL,
++};
 +
-+/**
-+ * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
-+ * @ufence: user fence reference
-+ *
-+ * Cancels any pending dma-fence callback and waits for the worker to fully
-+ * complete before returning. Must be called during teardown before freeing
-+ * any resources accessed by the worker.
-+ */
-+void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
-+{
-+	drm_user_fence_cancel_sync(&ufence->base);
-+}
++#endif /* _TRACE_RISCV_TLB_ENUMS */
 +
- /**
-  * xe_sync_ufence_get_status() - Get user fence status
-  * @ufence: user fence
-diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
-index 6b949194acff..b5ff3387c592 100644
---- a/drivers/gpu/drm/xe/xe_sync.h
-+++ b/drivers/gpu/drm/xe/xe_sync.h
-@@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
- struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
- struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
- void xe_sync_ufence_put(struct xe_user_fence *ufence);
-+void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
-+void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
- int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
- 
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
-index b88f1833e28c..67048199b070 100644
---- a/drivers/gpu/drm/xe/xe_sync_types.h
-+++ b/drivers/gpu/drm/xe/xe_sync_types.h
-@@ -12,7 +12,6 @@ struct drm_syncobj;
- struct dma_fence;
- struct dma_fence_chain;
- struct drm_xe_sync;
--struct user_fence;
- 
- struct xe_sync_entry {
- 	struct drm_syncobj *syncobj;
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index b01f31ed4417..fbd2c28de8a6 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
- 	struct xe_bo *bo = xe_vma_bo(vma);
- 
- 	if (vma->ufence) {
-+		xe_sync_ufence_cancel(vma->ufence);
- 		xe_sync_ufence_put(vma->ufence);
- 		vma->ufence = NULL;
- 	}
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
++
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_LOCAL);
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_SBI_RFENCE);
++TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL);
++
++#define show_riscv_tlb_flush_scope(scope) \
++	__print_symbolic(scope, \
++		{ RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
++		{ RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
++		{ RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" }, \
++		{ RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
++
++#define show_riscv_tlb_flush_path(path) \
++	__print_symbolic(path, \
++		{ RISCV_TLB_FLUSH_PATH_LOCAL,          "local" }, \
++		{ RISCV_TLB_FLUSH_PATH_SBI_RFENCE,     "sbi-rfence" }, \
++		{ RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL, "cross-cpu-call" })
++
++/*
++ * Record the invalidation request received by the RISC-V architecture code
++ * and the path selected by Linux.
++ *
++ * The target CPU mask represents the CPUs Linux intends to cover for the
++ * request. It can be correlated with per-CPU activity, but does not describe
++ * which harts ultimately performed an invalidation.
++ *
++ * The ASID is hardware-visible and may be reused. It must not be treated as a
++ * persistent identifier for an mm.
++ *
++ * The stride describes the invalidation granularity supplied to the RISC-V
++ * implementation. SBI RFENCE receives start, size and ASID, but not stride.
++ *
++ * The event is emitted at path selection time. For SBI RFENCE, it records
++ * delegation of the request to firmware; firmware processing after that
++ * point is outside the event's scope.
++ */
++TRACE_EVENT(riscv_tlb_flush_path,
++	TP_PROTO(unsigned long start, unsigned long size,
++		 unsigned long stride, unsigned long asid, bool has_mm,
++		 const struct cpumask *cmask,
++		 enum riscv_tlb_flush_scope scope,
++		 enum riscv_tlb_flush_path path),
++
++	TP_ARGS(start, size, stride, asid, has_mm, cmask, scope, path),
++
++	TP_STRUCT__entry(
++		__field(unsigned long, start)
++		__field(unsigned long, size)
++		__field(unsigned long, stride)
++		__field(unsigned long, asid)
++		__field(bool, has_mm)
++		__field(unsigned int, target_mask_weight)
++		__cpumask(target_cpus)
++		__field(u8, scope)
++		__field(u8, path)
++	),
++
++	TP_fast_assign(
++		__entry->start = start;
++		__entry->size = size;
++		__entry->stride = stride;
++		__entry->asid = asid;
++		__entry->has_mm = has_mm;
++		__entry->target_mask_weight = cpumask_weight(cmask);
++		__assign_cpumask(target_cpus, cpumask_bits(cmask));
++		__entry->scope = scope;
++		__entry->path = path;
++	),
++
++	TP_printk("start=%#lx size=%#lx stride=%#lx asid=%#lx has_mm=%d target_mask_weight=%u target_cpus=%s scope=%s path=%s",
++		  __entry->start, __entry->size, __entry->stride,
++		  __entry->asid, __entry->has_mm,
++		  __entry->target_mask_weight, __get_cpumask(target_cpus),
++		  show_riscv_tlb_flush_scope(__entry->scope),
++		  show_riscv_tlb_flush_path(__entry->path))
++);
++
++#endif /* _TRACE_RISCV_TLB_H */
++
++/* This part must be outside protection. */
++#include <trace/define_trace.h>
+
+---
+base-commit: 77ae27fd98f3b548797c9f22c10ab5cf1c4ada53
+change-id: 20260829-tlb_tracepoint-844105ab5092
+
+Best regards,
 -- 
-2.34.1
+Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
 
