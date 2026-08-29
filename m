@@ -1,82 +1,85 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C871C28E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1D63859D4
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788025746; cv=pass; b=F9BLV/s/F7xupvZvhlNaF4Pdfeha9RotMsPLSp/bHVKx3FQnCMnDqAO8MUdYscxBy4Z/88mgdFRYS83SvOwKmrL2cvWeGOmUeRrhK5St2A7qdj+CS/ytDyCjq4ZFPjQDTuk7ku+L8ftoNbuJFmEoV2NyL3BcH0MOCgVNSpmTdyc=
+	t=1788025770; cv=pass; b=XyGEEd+qQlqCDRbXAy8k0GGHwjTsb0PMAaiJAcHvV9RSE5dpleYCo0CUG0I+tlJJzHfMsWUp0xYzw9FTGvoRIrvd9qN8PNu+wdROncJ3J0BH5pu9rLbjQHVWgIaJjqnOdiG+gU+Wy8tMCtsm0i85/obHFF8dkIB+yeJDGRDZDE0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788025746; c=relaxed/simple;
-	bh=Krb6QAdupWIGLMtadsgvbt8fmWKvL/C4HuCgBh8ZXmg=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=CUbMsCGGSJ0sM5qps8s77l+Oyt/D5seOOIGk/eIWycw04z9v2vKVb6D3qJVu52i4gW54C/3LbQriwEy955GFH4o0EXJ+UA20rYajXB9Nj/FziYB9JcbNqHHdvYrJGSTtwgpq9yzW42xgwZRjcse0WXhH/F0Fi4x/b/6E7sKtJZM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZ3pb4Aj; arc=pass smtp.client-ip=209.85.208.42
+	s=arc-20240116; t=1788025770; c=relaxed/simple;
+	bh=MXFqWr7Uky0TUxYJJ7ciGR+LjTO2h6aLcYNxNAXrW0o=;
+	h=From:MIME-Version:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HfvIotWJRdGfqgTuXF8sepiGrlCKE4EC/UFveBjUVUDANu+cp/YDZDalc1XN1Ddp8ozMqsqjTEsEFaBj9cYFMoDsbhyuffzwJ7KWk9TlWpnQpiW7f/6vMWZwEvPcUNuGQCfKq7pC1Ft7GkhZBnUVx1BAOJY4GvDScHSDHbP+CWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXGxxdOM; arc=pass smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZ3pb4Aj"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so3513041a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788025743; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXGxxdOM"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a600a1caf8so3238071a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:49:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788025767; cv=none;
         d=google.com; s=arc-20260327;
-        b=Vhdt010z/tiwqvOYwDLI1smNOqyYy6z8J1EqZkVpkMv6mJb4JRPZ+0r8miThxI3GQh
-         y73EVZIRaXv92iaixyUeW/VMU33AKFMl5SZx6y6G67WUuiVQbCqbkgQpnEOiHIoSeteQ
-         3/qIdcYph5SV6QJxZ0p/rmIrytWPs3BgGo+X5d1CHfw8bRVvvqMggcTUFtvpNCGxuBg/
-         hRx3JNDgt9X29O+db+AFtf2qnu62h7au+HXto6jDyA7xUZ664KcXjnpycAzTE/dTzbEM
-         wrNLZJT+K8Fx2WZQ5a38CLBmTcrqcFO9rzcMm3uJLlV9oKF2bssXXold9/ewvA7Cv4sQ
-         wyeQ==
+        b=B1EJURHOOlildLQGYpR7dD0nYuSiPvq701A4eOeB74ZmNAPKdy/2EogsOtJ/pyYXL0
+         iXcYD1SE9HWpsUMSwyhfEGWlR00BQlEfwxrF2C3i9fgx4U1gZXAbldmBnX7ATdQZ3fKK
+         rOQFz9py7wY3NmMohOle59HR2VSj02lMkK5QBa/P+IxZvXpIqoR2ZkJCkB6eXjyPz+5b
+         95xbWggD/x8ga/xAMSs3rnMusAq7lcE+7LKE7oiIZWtcU+AP3Fghb/q+EJnAVHDj7Xfr
+         yoNB8t1CRI0xIm2GHl15Y6QZSWH6ZsDrPSgtLobEV/unzpTgG0a4qUzOoldeCClKMWHE
+         NCFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=zjeV7NCdLgAGDWJtitErfI8jcGCQ5aP6bLcxQ2n9l7s=;
-        fh=bjOr2TM3O9PLpY2vY0lOQVSFfYQL64VCXvXC2gXsn80=;
-        b=lNRCYCiDIykmi2yM02YT8Fiaobq3eFVd+cPIQ1jUEMZ5kZXOaMyPcePPXcndoyuHqo
-         2gSl0ol8lHcdVFLi/dOYCJ0+nBZZ50TZmP+iDoEgWwvAPmjIhEjuhyspwueQ29OID+0d
-         jc4YmVQpVrqL64a5im2HBcTPDkxeRFVlU2tOabQSmFdjLi/MuCTMiK4cs3M+maQO/129
-         uGbdLrh56Fh2I6m7M9+taR/iMtZpGB4vyBg7swHMIu6+drVPOkuVVRQdJZcaz63Pk3Xn
-         0F68PME6nYc+quFSz1DfcDLB3IDxn8SlX69y1z39zRqS7ToOGMwmEaqM1lzL4ATON/TT
-         iGEg==;
+        h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
+         :from:dkim-signature;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        fh=qJH79Wt5rNgBT9a76iKfSTnjqhXzx7H5lAvM/0XLzlo=;
+        b=RlC03mU96L25BvARseZCJLYgiwGIf5ABGA3ryb8whq0uORBXzxm9/7u/Ih90+fVKD1
+         JCg4Ptggh8969fg81TimE8eW02lyFt8D1R8Wmkx4V9zZ4uvcNfWmseZZWUSTZ6tleXfD
+         vQTuLN9mlDjuLkd7VjR3+t8i7v9AAiwwx4drFj9AfFitK3cC1NHYAUzp2prMQk3Uqbu0
+         8Pb3QZq6WWObDpoNv/3ESiyV6NkOpSQ5NnXiD8+kRY6PjkNhGZykx5fJ5s893C5xvndr
+         TFM/vxdX6dZkOZJAo0UTD+FtmQ9JhhrxT6HuHmFjEMZrGJmLvfd34GUNtj6FRw17U9pL
+         XAOg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788025743; x=1788630543; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zjeV7NCdLgAGDWJtitErfI8jcGCQ5aP6bLcxQ2n9l7s=;
-        b=kZ3pb4AjZtQ3itRzo16O1Ro9u2wYR/YYtmpxyMaLMmACxXtpyFpJ9nMu6BGcj4f1xe
-         DqdT8DaDCKMZ60ksEupKUxoW8rYBK57PfEF2bWSbl0IhZHtMRtG8Bu+PsmOPooAyHAjf
-         5kE2bVjz+41jfOKDZDbh74o4u7SPWfhxJGiV0MsJpCp6jo2rX4MMACxZglqzjYK8PRJW
-         X38PSh2QgEtorKtLdYfpXZks/1F7GUIpmAi3VvZr1IeAGB5NJUfKTuD9y8gttavF0ceI
-         T6UF0FpChjX7o1GdkjA4UXKhJQTkPBVZXM5uXctzeOAeFBlAcSxa6SzmT/hjAlNhux7I
-         AeeA==
+        d=gmail.com; s=20251104; t=1788025767; x=1788630567; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=BXGxxdOMvCMYkVlC20CabLOWUxd39irk35iwpQjlw/rFAR1ayYccbkQcJUWZU5T9/N
+         /yKHUyzDX0QX52EcVhTyJfnrgGXF05hPVZY/OsduHZ77bDr1t04BuyWQEdGJ6GOZmDVX
+         pr9CJe+9SCpOZ9aRL871ZKN4u6iMiDLYi1lZB1uSd0hpKbEYM6iiAT4YMFC5EnR2QMYT
+         4bObScJAGxikogKIQjThUCNA0JCbVzetE+BhFSBMI6WMT11ImI2NJYqExUIQAINCfDaG
+         c/kdLMwn2lVHejt8iEypHl7+/c2NWI3b4gHwWQLXfOcxzRyv/Q8myjbKgCKSV3Qccxks
+         80ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788025743; x=1788630543;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zjeV7NCdLgAGDWJtitErfI8jcGCQ5aP6bLcxQ2n9l7s=;
-        b=palkvJtQXtaVsKDVQoGiEsIPKlHYyL54ml2pjZxO1unMf59eo3nk7M1QlhVbuvPuez
-         lYWjhjWuixU/2fu9oeuxPjNeDKlWvRaiS/VoWTR3o7DIEFnMBySvx/HT5sVijy51j2Ze
-         OqMZfBBzyDRBBypPNZ/fw6L2rSPuJUTkESdlrhe6v2MTKjrsTqLV7WAtzN8Evip72rID
-         YV97ZItCV7bgtwAYkp8FTN6+p6QdutiUzuub/yu1odGzGWfjZjepMR6InIXzI6FO9zuo
-         H6Azw0YW0CJ6aw++JK8aBWeTYsFC096T3VKvAEt4LiDCFWkHTb8x0/90/Zzs1si4mmHk
-         d2tA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFpQazwtD/gS6ufZC+9dqTEwJGcQ6Na1MbgMIYzOvbXX+KohqpCnkLSDKGVLZA6GXr42rGKOU5wsGte3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++laHbegEswF0V5fA4KftJbrOkrHqZix+3p5inaE0XZx/zcMKkFm
-	6IgLq5f9lUPSeSFzJHaYg8Go9FeJnEJ+dZU+YGltXsJDANIc9kmTEaayO1Znk2ZG+FB6h9rQuUg
-	07W7b/YYLZUGCUjR92WDIhAVFnrUo7EA=
-X-Gm-Gg: AYBFou2KeF2EE6VKhevGlWKe3SAu++bKHWp3Kt80uefy+TCq1wmqSAD4iuT/bvhzg8n
-	dwutNFBurRuX5bTwKowHWrcKg93u1jdP2bDtRSpvhFpB5A7Q1qfxmisPZDeQPnqeSh3swS2El+t
-	Ql5GJ4Ni+E7XUcq14Y3bh4HOY5SMwGn15gmKKZftyifbldj9klT0fc8WvL9dyFX+JDYFwFP7hj7
-	sOws7wAadoN74HFkcyS2Yd9/BwW1Rh1L9l9EL0XV5btAypkkNz3mSmD21TSqPXkdtyhaerMFLaw
-	975GYz6ocRTiLNV/T+NaONU4xyTbR2Dr1sOxrRRe4xIWDnsQjjZIBqgBJa6fKYSkpXLttoPz0jK
-	8bY7DCmOILksR
-X-Received: by 2002:a05:6402:c2d4:b0:6a6:d40:6d16 with SMTP id
- 4fb4d7f45d1cf-6a60d406e0amr8037773a12.6.1788025742752; Sat, 29 Aug 2026
- 10:49:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788025767; x=1788630567;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=OIUESAoPQZTElxkTKlr7kd4BhOZRpInJP6BDg21UANxMDnnMryL2cYZaIK+nQ+bTcU
+         HhuXeMEbCJYBOENmo3jZcDmYNaEP2A90+dxWsLD+EktQtfKyQTMxzr2mHY7IDiLuJ9vp
+         SeryCfXraMH+xaGCsxckjdHKM75npODfsjRyD0pb0Ggd8RIoSM5K2Z5QaWmIY5nzfVFm
+         UG6EvrtRFF8y4SOqwndbmjo9C+OEm+pOuGGd42oc2fjVE/ZSOQBKV3LonY6BTywZqAMM
+         lAGsdhieOhxZ89xPqwSe3NZ5/VyQtugTYnObuBzqu6/aHOMQ/qy+RVFFv///G6flyT+P
+         2dIA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/AezFY+mt31tSPugUdIRO097lX5uSABdOmER5ZTejv7tgyKStwjqmbl+0Qug98yGtDyjqZ8niA8cAv+4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFd/BCXdwPd+CZEZpO3hpZY9aqlRCuIAAWDaMB8qsXCpyfiObl
+	jYTvoqqBrU06S1M1knv96ozXaZ+SptI/6sLVkO4I+AwZMapnUQIFi/WSYYlba1SgS/kqye3gBB1
+	+U3+exM6X2RG+HBiDW7dLacRn44+kmC0=
+X-Gm-Gg: AYBFou0qffcMa5crDmNyuaLgXMo6p63lKALq1kDs8qIHnTDlps1YtLBgCtbZOu3egIx
+	/otIhAkgEGalb38PFtbtNS99rxgVC74v3X5vWDEKFoE6UrYB+hXy+MfwcbOpblPLATPnRXOE68l
+	QFjJQgfwaFh8/zPKQpN8oJNHOo3VtZgemxU+YPc/vb+yjTn2R5YDMamGDPrt6W6lkRjTN8rINgW
+	dW6hbMBicxXxMjwSyYhxF20YHBkzz/hoM9naFbAbs3kzQDy4U/blHkATYa8PnLbckbnceTkkAUB
+	xAADDfeJEjWLWXQgC+NJN/4PiKYIe1i3vbNnUJato3r+LVDTBkrwf8LLqLGxDoW3HtoRn477t+j
+	A1w==
+X-Received: by 2002:a05:6402:2354:b0:6a6:32f6:10 with SMTP id
+ 4fb4d7f45d1cf-6a632f6018fmr2135352a12.22.1788025766571; Sat, 29 Aug 2026
+ 10:49:26 -0700 (PDT)
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:01 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:26 -0700
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 29 Aug 2026 10:49:01 -0700
+ HTTPREST; Sat, 29 Aug 2026 10:49:26 -0700
 From: Xinping Zhang <zhangxp1998@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,81 +87,81 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 29 Aug 2026 10:49:01 -0700
-X-Gm-Features: AcwNN1UxYcFtMsRCZ2QxoFaPr_61cYZppUzVUR8sFKE168lb2ME5_XzR8EnEYfY
-Message-ID: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
-Subject: [PATCH v2 00/11] f2fs: prepare metadata layouts for runtime block sizes
+In-Reply-To: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
+References: <CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com>
+Date: Sat, 29 Aug 2026 10:49:26 -0700
+X-Gm-Features: AcwNN1VPFbUxMZo0vv3M1b072VLJ8ALxYO_nCN1eu9bWQAa0bdENrYB8eDbqABo
+Message-ID: <CAH=xXfFTThTDXpLX=F3j1Nmj8ypViopBLSRkwAvX2wGJ5wkaQQ@mail.gmail.com>
+Subject: [PATCH v2 01/11] f2fs: initialize sb_info early in f2fs_fill_super
 To: linux-f2fs-devel@lists.sourceforge.net
 Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-F2FS currently describes several on-disk metadata layouts and filesystem
-geometry values with constants derived from PAGE_SIZE or a fixed 4KB block
-size.  This series derives those values from the mounted filesystem's block
-size instead, as preparation for supporting filesystem blocks smaller than
-PAGE_SIZE.
+Previously, init_sb_info() was invoked late in f2fs_fill_super(), after
+processing superblock error tracking, mount options, and sb->s_maxbytes.
 
-The patches initialize sb_info early, describe the SIT, NAT, orphan, dentry,
-node, and xattr layouts dynamically, parameterize sector/byte/block
-conversion helpers, and derive node-tree geometry at runtime.
+However, read_raw_super_block() reads the superblock folio directly
+from the block device mapping using folio page offsets. This makes the
+initial static sb_set_blocksize(sb, F2FS_BLKSIZE) call redundant.
 
-This series does not relax the block-size mount check or enable subpage I/O.
-It is intended to be a behavior-preserving refactoring for currently
-supported 4KB-block filesystems.
+Move init_sb_info() to execute immediately after sbi->raw_super is
+attached, allowing the block device block size to be set dynamically via
+sb_set_blocksize(sb, sbi->blocksize).
 
-Changes since v1:
-- rebase onto f2fs/dev at c966d29e01bb
-- drop the unrelated free-NID underflow fix from this series
-- split the preparatory changes into 11 focused patches
-- initialize sb_info earlier and describe the xattr layout explicitly
-- separate sector, byte/block, and block-size macro parameterization
-- update commit messages and address checkpatch warnings
+This early initialization also prepares for upcoming patches that add
+dynamically computed filesystem geometry fields, such as
+sbi->addrs_per_block and sbi->nids_per_block, to init_sb_info(). These
+fields are required by earlier initialization steps, including mount option
+consistency checks and sb->s_maxbytes computation.
 
-v1: https://lore.kernel.org/linux-f2fs-devel/CAH=xXfFVAwQ3r_NdUDtmXhtg6Lw8kDWoNTzGL5oy4mwHMsJLJw@mail.gmail.com/
+Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+---
+ fs/f2fs/super.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-Tested with:
-- x86_64 F2FS build at every patch
-- arm64 16KB-page F2FS build at the series tip
-- scripts/checkpatch.pl --strict (no errors or warnings)
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 253a579e9d5b..2d9f5b77f815 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5125,12 +5125,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	}
+ 	mutex_init(&sbi->flush_lock);
 
-Kelvin Zhang (11):
-  f2fs: initialize sb_info early in f2fs_fill_super
-  f2fs: describe SIT block layout dynamically
-  f2fs: describe NAT block layout dynamically
-  f2fs: describe orphan block layout dynamically
-  f2fs: describe dentry block layout dynamically
-  f2fs: describe {i,d,id}node block layout dynamically
-  f2fs: describe xattr block layout dynamically
-  f2fs: parameterize sector conversion macros
-  f2fs: parameterize byte and block conversion macros
-  f2fs: parameterize block size and mask macros
-  f2fs: describe node tree geometry dynamically
+-	/* set a block size */
+-	if (unlikely(!sb_set_blocksize(sb, F2FS_BLKSIZE))) {
+-		f2fs_err(sbi, "unable to set blocksize");
+-		goto free_sbi;
+-	}
+-
+ 	err = read_raw_super_block(sbi, &raw_super, &valid_super_block,
+ 								&recovery);
+ 	if (err)
+@@ -5138,6 +5132,14 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
 
- fs/f2fs/checkpoint.c    |  75 ++++++++++--------
- fs/f2fs/data.c          |  85 +++++++++++---------
- fs/f2fs/debug.c         |   4 +-
- fs/f2fs/dir.c           |  51 ++++++------
- fs/f2fs/extent_cache.c  |   6 +-
- fs/f2fs/f2fs.h          | 122 +++++++++++++++++++++-------
- fs/f2fs/file.c          |  84 +++++++++++---------
- fs/f2fs/gc.c            |  27 ++++---
- fs/f2fs/inline.c        |  11 ++-
- fs/f2fs/inode.c         |  22 +++---
- fs/f2fs/node.c          | 171 +++++++++++++++++++++-------------------
- fs/f2fs/node.h          |  89 +++++++++++----------
- fs/f2fs/recovery.c      |   4 +-
- fs/f2fs/segment.c       |  60 +++++++-------
- fs/f2fs/segment.h       |  32 ++++----
- fs/f2fs/shrinker.c      |   2 +-
- fs/f2fs/super.c         |  83 +++++++++++++------
- fs/f2fs/sysfs.c         |  10 +--
- fs/f2fs/verity.c        |   6 +-
- fs/f2fs/xattr.c         |  10 ++-
- fs/f2fs/xattr.h         |  15 ++--
- include/linux/f2fs_fs.h | 131 ++++++++++++++++--------------
- 22 files changed, 636 insertions(+), 464 deletions(-)
+ 	sb->s_fs_info = sbi;
+ 	sbi->raw_super = raw_super;
++	init_sb_info(sbi);
++
++	/* set a block size */
++	if (!sb_set_blocksize(sb, sbi->blocksize)) {
++		f2fs_err(sbi, "unable to set blocksize %u", sbi->blocksize);
++		err = -EINVAL;
++		goto free_sb_buf;
++	}
+ 	sbi->max_atc_write_bio_size = UINT_MAX;
 
+ 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
+@@ -5217,8 +5219,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	if (err)
+ 		goto free_bio_info;
 
-base-commit: c966d29e01bbf829f8bb4a39a49811c56cdb49c3
+-	init_sb_info(sbi);
+-
+ 	err = f2fs_init_iostat(sbi);
+ 	if (err)
+ 		goto free_bio_info;
 -- 
 2.53.0
