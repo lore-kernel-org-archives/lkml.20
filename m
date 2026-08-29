@@ -1,57 +1,70 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507052E6CB8;
-	Sat, 29 Aug 2026 14:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788013354; cv=none; b=nvTKGkCU34wO5/4RkR+0O/5SuWSerTOeWQya/fM0YtpLX7WILBa4KI02ladaQ75/BMdQ4B3aMg8eb8SVsh+6uucFiyveyG0p3OSP8evAnWI+rdKLjRdpB2+V1LKRPK4/Xq2TmVIgqmP/QsXFJUfJb3a1/5RgHe0dT93QDY39FsU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788013354; c=relaxed/simple;
-	bh=kfLo9xopLkotzBk/sMZzgWP/0uT9bPa/ds3NhpIxaQc=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=YGH53XJFK16BTY+Nxvl9CGaEaqbvocX55XD5B7/eMXJ6VKlXrTK43FxGOhvZcsvhf4jKrstCVGCypCBgnJWimo6qppaRsyZrzy8hpFxJKrUta8suBbO+nXRNhRyJpHTnmG6+v3C9LHMncuPUV8OoBVh9/mjZuyrT7OF1GVwGqRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=orcOEPHH; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BD836F8E5;
+	Sat, 29 Aug 2026 14:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788013368; cv=pass; b=QRnRH8VJyuMLPs1BhNVxJAUkEJxeT/6MLMFz9D0nQlwZXzNNFcDZCFif3PQJ6gi8br5GW2LG+qF15BsK8DwZX4FqvPwNxZSJBTYlmnsehdfSlmxigWk639LZWSJp6+wrn6AF+BAYtd04EfkztfTPMoWYL4jFsIKHMoN95atrUFg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788013368; c=relaxed/simple;
+	bh=6f2/T2YdPWk825/l6BZ6NR8rusH1doGXtU/ILb4FGy4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cTvPWzL3JMfmvFayAXn4FKAZBkHQxkCz22C+SgbG60sp02x6VvMmVdJN7gtnPQYfM5KrPnGiEewMNZRE5St16gtOm64sJuUVo4wGtPoRK4C+Z0inq02J+qCPCD3AIoRiLJtg71hfL/eo8+MPExwZqC5MXUaEnYXrctL3ez+c1II=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=Z3l1zB+F; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="orcOEPHH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1788013339;
-	bh=RkJq1e9fQg4XVMb0XBeDfL6lo/lXf7u1ACzmwdvOUzw=;
-	h=From:To:Cc:Subject:Date;
-	b=orcOEPHH2MgXWOGot4xRwl0fsBeVXZ2xDsdymwhV6e8lbaT7+de9ER8ZCRfEgKbCT
-	 fIPP9Y7iS7NWrk56WNeWSc1bEA1z+gl8BWBRbAsKRnrgOaTRMfStJj3/s7JhXmNHXy
-	 AoE4Sn9eLiIljco9zpDcyjdgAb3tNxjRG8gzG9aY=
-Received: from LAPTOP-TKBJAGN4.localdomain ([2408:8256:2d02:da31:a433:ae59:7369:ddb4])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 57B20AC8; Sat, 29 Aug 2026 22:21:59 +0800
-X-QQ-mid: xmsmtpt1788013319tvsbvv2c8
-Message-ID: <tencent_7C427B4AC09AA718A8B2E56BAEEC908CE305@qq.com>
-X-QQ-XMAILINFO: NR2AmdDOCZJo4DgL4qiwP14GpP+gjVpx53cWpSTRYyrBieGB1bveR9J31SDWmB
-	 vK8PDGBwsO87ycxcZDeDyxihf4S5I6UKZnVYbJQiX+CMwHlFRWACqTEypvZ8dNqNRX+iE4xuMYqI
-	 4XwUG6J0mhWgqTqz6xGKhAM3zl77+gnsFftlCiZ4aE67PrDhuvIk0boDNAb0Qtf2/NUVq+j3L1QH
-	 uyHrEH3ySKpxVzVheOMAFqJFK4hBmQeeB6qcv4Aw/Il0M/vroeghSsiOd0y4ZyHSzH/OqYRnsAvR
-	 Z3F9yFK44sjbUNfR3ftsDBIVaEewGSJMWl9qjuE5/XVUUnukXO5n/lfpZlUGnQTI+viBpu3M53Fv
-	 wZ+SHk1dc2rzFbt+SKWYIREpkKQQ8kNti5NPQ4KJoodum9Yq/FrbPGDnRKFZXmc8rlNzYUcSZZ6H
-	 1hqZuf2vp7rl2vsxERUSmpY/3AtTWuq1Nwu+qGxtJZ/20d9PNRcH5PvCHDfWNe3AkKoo1aib12bN
-	 4etzAYB3WBaNZbxvEwDbwdCk1QK+N9VRhWDTRswFbZXkswy3KBd4e65kPQFEiirw/EqGRGXUmvp7
-	 pBk/Z2O2LTGM+JeehzjIRNvIOnZaQ5Z/OCEXIU28y7CO5Ef/IbYokMYxs2G+8MNsxv0P2jqnFs9l
-	 tbapXhzHvFuLcR4EWoa185MJwIaWXMcqIbxOek+v8wyoN8jmSIjW9qZz5zaW12YTiOrfh481BTL/
-	 2jr+74XSRoRQ8LQcUBd+a0I9HuoVn1tCL+TF3xznOzU53pRjJXmvC/D/2RiPYJZ3QmUljQfzEQ0I
-	 6I+9CXVW3qx6cQyVhMTI9aKEgZ68wyiMKR82+HKP0uxatqiuGhnj+HU84y6HrA4GeZlmyd9p5FfW
-	 tepzCxv33tNm7/kwK6GIyuNz1AagF9DIfA5QNy2mlN2eFeP0Pad6FosuuCTk0Q8Zb7uD57BHonLA
-	 0KtR9zKGHezvTT0fOeXvIhiXC1xaOsE1s3Fqq145iAzv5QzfKHu8f3VTPssCC9coq9K9ktF0HapJ
-	 vx+kTbreGLP9R6FZgDXz1NGxful1e0Zt1X4gn09TumzUfBzJuCtQxzvNRTaSLZXBIy0rmZLA==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Haobin Jiang <lemonoutput@foxmail.com>
-To: andi.shyti@kernel.org
-Cc: linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haobin Jiang <lemonoutput@foxmail.com>
-Subject: [PATCH 0/1] i2c: imx: honour I2C_M_IGNORE_NAK for write messages
-Date: Sat, 29 Aug 2026 22:21:47 +0800
-X-OQ-MSGID: <20260829142148.10536-1-lemonoutput@foxmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="Z3l1zB+F"
+Received: from monolith.lan (unknown [IPv6:2a03:1b20:1:e011::d701])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hXHXJ0LmXzyWl;
+	Sat, 29 Aug 2026 17:22:39 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1788013361;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/v1dQ0w80RABszAytoWbBxYusHWM3N5fTPq2MCPDXvg=;
+	b=Z3l1zB+FcdEC0prICJY3qKs5iheo5A6wGzQYGrazN/3AciG62AwUsE7lLTrWmK4Db1elbg
+	UTTgbWBVSrlROz9ELl/NNOb5GhdZmFmp8HssOdozNf4tW3KfE9RzVjmeTbIOJqimbAX2kx
+	pEkv6GuONhjxWZ6HShz0uPn+YmggqlY=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788013361;
+	b=wAzLmHEezlRFnJIZiEKhvbkl28H9knCxlTUYFaXxHhPCwADUXkToDcvAjcGX0rjbhRTjUR
+	41iBcmt9yGF6Rit2eUi3mpe/xDT+wg64QNKutf/w++Y8WYrzcAkKMfnGAsskQE14Jm6rOb
+	fIcfh/tY6C1b4TyDRZKRhMhTDgfgE2k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1788013361;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/v1dQ0w80RABszAytoWbBxYusHWM3N5fTPq2MCPDXvg=;
+	b=ozTEao5ZALs/IhLhUUt61sM3HC+rIgWzUpl62q08yt2Gzp9CeTrDzeRXLggsya/16KnDmE
+	2dj8q8NT2t40E2ZzOAWjFtmYP2nGtJ/8JM5KaSx4Bln4CGUVX4BuVCACTnNmNG4icFEN6r
+	HwT9LijVotUQ0tE8W98EcXRKC8cuAT8=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav smtp.mailfrom=pav@iki.fi
+From: Pauli Virtanen <pav@iki.fi>
+To: linux-bluetooth@vger.kernel.org
+Cc: Pauli Virtanen <pav@iki.fi>,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	oss@fourdim.xyz,
+	error27@gmail.com,
+	elver@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 10/16] Bluetooth: L2CAP: take lock for l2cap_chan_del in l2cap_ecred_rsp_defer
+Date: Sat, 29 Aug 2026 17:20:05 +0300
+Message-ID: <faaac11f2ee17bdec7a4cd18727d5d8af5702d54.1788013041.git.pav@iki.fi>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1788013041.git.pav@iki.fi>
+References: <cover.1788013041.git.pav@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,45 +73,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Andi,
+l2cap_ecred_rsp_defer() calls l2cap_chan_del without holding chan->lock,
+which ends up calling ops->teardown() with wrong lock context.
 
-This patch teaches the i.MX host driver to honour the standard
-I2C_M_IGNORE_NAK flag on writes, and advertises I2C_FUNC_PROTOCOL_MANGLING
-so the core will actually accept it.
+Fix by taking chan->lock in l2cap_ecred_rsp_defer().  AB-BA deadlocks
+between sibling l2cap_chan are avoided here via requiring l2cap_conn::lock
+to serialize all nested l2cap_chan locking on same nesting level.
 
-Today the driver has no hardware "ignore NAK" bit and treats every NAK as
-a fatal -ENXIO across all of its write paths. There are legitimate cases
-where a target NAKs a write on purpose and the transfer must still
-complete; the standard way to say so is I2C_M_IGNORE_NAK. One concrete
-in-tree example is the ATECC508A/608A wake sequence in
-drivers/crypto/atmel-i2c.c, where the still-asleep device NAKs every byte
-of the wake token. I mention it only as motivation: the change itself is
-driver-agnostic and simply exposes the standard flag the core already
-defines.
+In current code, there is no nested l2cap_chan locking on same nesting
+level, so we can add this new requirement.
 
-I did look into the earlier work in this area before writing it. A 2011
-mangling patch bundled NOSTART/REV_DIR_ADDR/IGNORE_NAK together and did
-not honour the flag on the address byte, and a 2013 retry-on-NAK patch
-retried at the controller layer, which is the wrong layer. This patch
-deliberately avoids both: it implements only the standard flag, leaves
-the NAK-vs-retry decision to the device driver, and changes nothing for
-transfers that do not set the flag.
+Also return early from  __l2cap_ecred_conn_rsp_defer() if chan did not
+have FLAG_DEFER_SETUP, as then no RSP shall be sent for it, to make sure
+SMP channels are excluded.
 
-I would appreciate any feedback, and I am happy to adjust the commit
-message or split the change if you would prefer it structured
-differently.
+Also hold chan reference over l2cap_chan_del(), in case chan_l reference
+was the last.
 
-Kind regards,
-Haobin Jiang
+Signed-off-by: Pauli Virtanen <pav@iki.fi>
+---
+ include/net/bluetooth/l2cap.h |  4 +++
+ net/bluetooth/l2cap_core.c    | 60 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 64 insertions(+)
 
-Haobin Jiang (1):
-  i2c: imx: honour I2C_M_IGNORE_NAK for write messages
-
- drivers/i2c/busses/i2c-imx.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
-
-
-base-commit: 04e9bf1648f846976b543e91c1838a712433772a
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index a991fc07515c..efd59b6f8afd 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -758,6 +758,10 @@ enum {
+  * otherwise considers all channels equal and will e.g. complain about a
+  * connection oriented channel triggering SMP procedures or a listening
+  * channel creating and locking a child channel.
++ *
++ * Lock nesting of channels at the same nesting level is allowed if the channels
++ * have the same l2cap_chan::conn and l2cap_chan::conn.lock is taken before the
++ * nested locks. l2cap_chan_try_sibling_lock() must be used.
+  */
+ enum {
+ 	L2CAP_NESTING_SMP,
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index ce51b0b0b37d..750b13f76203 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -848,6 +848,8 @@ static void __l2cap_chan_close(struct l2cap_chan *chan, int reason)
+ 
+ 	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
+ 
++	lockdep_assert_held(&chan->lock);
++
+ 	switch (chan->state) {
+ 	case BT_LISTEN:
+ 		chan->ops->teardown(chan, 0);
+@@ -3943,6 +3945,7 @@ static void l2cap_ecred_list_defer(struct l2cap_chan *chan, void *data)
+ }
+ 
+ struct l2cap_ecred_rsp_data {
++	struct l2cap_chan *locked_chan;
+ 	struct {
+ 		struct l2cap_ecred_conn_rsp_hdr rsp;
+ 		__le16 scid[L2CAP_ECRED_MAX_CID];
+@@ -3950,11 +3953,42 @@ struct l2cap_ecred_rsp_data {
+ 	int count;
+ };
+ 
++/* Lock @chan if it is not @locked_chan, and has same or lower nesting level.
++ *
++ * They must have the same chan->conn, and conn->lock must be held.
++ *
++ * Caller must ensure @chan has lock nesting level <= that of @locked_chan, as
++ * nested locking of l2cap_chan of different levels is allowed also without
++ * holding conn->lock.
++ *
++ * See l2cap.h for the global l2cap_chan locking rules.
++ */
++static bool l2cap_chan_try_sibling_lock(struct l2cap_chan *chan,
++					struct l2cap_chan *locked_chan)
++	__must_hold(&locked_chan->lock)
++	__must_hold(&locked_chan->conn->lock)
++	__cond_acquires(true, &chan->lock)
++{
++	if (chan == locked_chan)
++		return false;
++
++	if (WARN_ON_ONCE(locked_chan->conn != chan->conn))
++		return false;
++
++	if (WARN_ON_ONCE(atomic_read(&locked_chan->nesting)
++			 < atomic_read(&chan->nesting)))
++		return false;
++
++	mutex_lock_nest_lock(&chan->lock, &locked_chan->conn->lock);
++	return true;
++}
++
+ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
+ {
+ 	struct l2cap_ecred_rsp_data *rsp = data;
+ 	struct l2cap_ecred_conn_rsp *rsp_flex =
+ 		container_of(&rsp->pdu.rsp, struct l2cap_ecred_conn_rsp, hdr);
++	bool locked;
+ 
+ 	/* Check if channel for outgoing connection or if it wasn't deferred
+ 	 * since in those cases it must be skipped.
+@@ -3963,6 +3997,22 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
+ 	    !test_and_clear_bit(FLAG_DEFER_SETUP, &chan->flags))
+ 		return;
+ 
++	lockdep_assert_held(&rsp->locked_chan->lock);
++	lockdep_assert_held(&rsp->locked_chan->conn->lock);
++
++	l2cap_chan_hold(chan);
++
++	locked = l2cap_chan_try_sibling_lock(chan, rsp->locked_chan);
++
++	/* Cannot occur: PARENT channels do not appear in chan_l, and SMP
++	 * channels never have FLAG_DEFER_SETUP.
++	 */
++	if (context_unsafe(!locked && chan != rsp->locked_chan))
++		goto done;
++
++	lockdep_assert_held(&chan->lock);
++	lockdep_assert_held(&chan->conn->lock);
++
+ 	/* Reset ident so only one response is sent */
+ 	chan->ident = 0;
+ 
+@@ -3971,6 +4021,12 @@ static void l2cap_ecred_rsp_defer(struct l2cap_chan *chan, void *data)
+ 		rsp_flex->dcid[rsp->count++] = cpu_to_le16(chan->scid);
+ 	else
+ 		l2cap_chan_del(chan, ECONNRESET);
++
++done:
++	if (locked)
++		l2cap_chan_unlock(chan);
++
++	l2cap_chan_put(chan);
+ }
+ 
+ void __l2cap_ecred_conn_rsp_defer(struct l2cap_chan *chan)
+@@ -3982,11 +4038,15 @@ void __l2cap_ecred_conn_rsp_defer(struct l2cap_chan *chan)
+ 
+ 	if (!id)
+ 		return;
++	if (!test_bit(FLAG_DEFER_SETUP, &chan->flags))
++		return;
+ 
+ 	BT_DBG("chan %p id %d", chan, id);
+ 
+ 	memset(&data, 0, sizeof(data));
+ 
++	data.locked_chan = chan;
++
+ 	data.pdu.rsp.mtu     = cpu_to_le16(chan->imtu);
+ 	data.pdu.rsp.mps     = cpu_to_le16(chan->mps);
+ 	data.pdu.rsp.credits = cpu_to_le16(chan->rx_credits);
 -- 
-2.34.1
+2.55.0
 
