@@ -1,195 +1,163 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C572AD2C;
-	Sat, 29 Aug 2026 00:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787964682; cv=pass; b=JzVBpYdlq4TRWlgDH/rvaV/ppC7IJZchHUSjX5wZ/kkbGZzgeHqzOSqIFVQkZ0KSTczljK3LPO66JoOHz2Wzompu2/qdyh6KEGqkS0a892t1Rv+Ym6DmuLusRyfN75y2SiL9zBTLjDbWh5i2s0/odW01y7vulznjmoc9RFjK19k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787964682; c=relaxed/simple;
-	bh=tVXdyNOKYq3qisWP/jPBYLDndSKOYshz7xCR09Z+TcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PSaMi5tRBEMe7JW/uLZp/Hl4l6KMApWWJ18y6c6RYSY/ZrccujDInTFeDIZVJkB5Cb7QiSLOnt0QRYB1wCzxsgOamfb2YAe1sCbkmCRJGGKO9UD2YsAauVtFX+dsztfibe+MjsSrX2wj6f8qvALG1nKBABPjl6r6r2EE9dm9er0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=soh.re; spf=pass smtp.mailfrom=soh.re; dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b=OwHr1HNc; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=soh.re
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soh.re
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C121E347C6
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787965223; cv=none; b=RCMMtjtsvMP91Qdwj6Q/lM4mWGepN0Y0xiJFYZdm29Xl7v3vASaVp0EqftGyaFJysYK+y08Fta17vXbRsdc01kGvNztNeLODmtFRYNpwQvg3yeH7xt1OQA3eckiSjeBWAXNK2KzweVQRfKKDGqJwkUQ1gdT+iyHyjJEyaggl99U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787965223; c=relaxed/simple;
+	bh=iHfgxNKVO4v4tf6WK7u5A8eKuiYVIUoSXo1yuQ5Ow/A=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=IDG3KPoq8VBSt9VOHWih94YCk6/7pSufkR87SnhJZu/thh38ZUrF/du9DVHilYZEUx9RHQIWrQ0QBMNmsX59EWQwJ/2nLbIztmqSO6DJkVuRzFHA8LxNrrx7z+JeLhMpAQ1BABShwEXtYI4CrgR74wr/WwzoCuk0BqLTr8iv+nA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tmq8qeQT; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=soh.re header.i=jon@soh.re header.b="OwHr1HNc"
-ARC-Seal: i=1; a=rsa-sha256; t=1787964624; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PT8VBHVoZ6m7y17X1GbbBxsJ4u5KlGp+gyWyb5H8EzmG+ewYDutgvlWDb8snACf8Gfk9IrvkH3+BDkuNa4UGEVaAltwwVrmyMg8PhiOLgkEAJn2aa+qCXkx2m+FJX8rzwkyMohCPFmwMUudlM6nMxa6DyyK0iRADyKttUNVzqoI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787964624; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=B2dQm398SYqYVR2Fx56qj0yNqkR/SFsRTmj7xa8dWK8=; 
-	b=RSmGiHLV47hgaEiiqeHjM/9vxUh2SICxJnXl9lYmk8LJS+SVai4euldJDSb2JCe8voA9RaKS5NenZzO6LDvIzD9b2WgPrySjKE6ziUR7mxebFnrAEbEkLrHdfdsw2jq11Ir/vWFTy+A+sa0/2oNsbg1Wjf/ppvQf8aihCAZWkks=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=soh.re;
-	spf=pass  smtp.mailfrom=jon@soh.re;
-	dmarc=pass header.from=<jon@soh.re>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787964624;
-	s=zmail; d=soh.re; i=jon@soh.re;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=B2dQm398SYqYVR2Fx56qj0yNqkR/SFsRTmj7xa8dWK8=;
-	b=OwHr1HNcknp0MaWnQl15EbmNknI19ziAywj6JdHfXWfoVSPszpbxgGpxtKIAATnT
-	4Rs/XRO38YP+4hxBYncznpwX4c243AWRrzLfXP6UBgr9Qc8pun3NVfg8diBze4PtMlW
-	SxXbzbjl4PGPzHInUbIhZ/FMAE0JVvJ2B4bF/nfg=
-Received: by mx.zohomail.com with SMTPS id 1787964621972180.44364146302325;
-	Fri, 28 Aug 2026 17:50:21 -0700 (PDT)
-From: Jonathan Seth Mainguy <jon@soh.re>
-To: linux-sound@vger.kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	niklas@aldervall.se,
-	linux-kernel@vger.kernel.org,
-	Jonathan Seth Mainguy <jon@soh.re>
-Subject: [PATCH 4/4] ALSA: usb-audio: set Roland Capture rate during stream preparation
-Date: Fri, 28 Aug 2026 20:50:01 -0400
-Message-ID: <20260829005001.534571-5-jon@soh.re>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829005001.534571-1-jon@soh.re>
-References: <20260829005001.534571-1-jon@soh.re>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tmq8qeQT"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so3182919a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 18:00:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787965221; x=1788570021; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6jeJEAsPzG8bLM/eSAQ03cJ81HuHGeRShpXvkYOCkig=;
+        b=tmq8qeQTpW7186e5fi4CO+t6TwnRIAOVlgr7HNV+p6AcF7yrX6eolGmc3sYwWLzcj8
+         CPMBCyBTOTolQi+SSV0AUDMmnYOveRi42cqnH3X6jIO6Z2X7UoiPbph7baxuVBVSp20r
+         qCGyuBdd3TtH1QuqqD4hbv10L6UTkxzahLSm053GLZiqUkHtbRYbdDhSAXcNlYj4XwEw
+         kiHGFnm+aWQvs9MHfb9TASXeR4U+n3+j+1+MuTt3YLTqxlHWRppBh5sWCRjfCqPTW97d
+         CJJCqt3x0b35Ae8jbpeAZa1Y/3J5KymxeYZ9AVxEJrlYpgqO32NhA/ohOxsEbz6dol2C
+         fu+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787965221; x=1788570021;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6jeJEAsPzG8bLM/eSAQ03cJ81HuHGeRShpXvkYOCkig=;
+        b=AMRxSUlEyEQd4I8fDzms1YxQFnpNplQ5SE7KTfvQkIfg52jif88daowgaPKtfXIPax
+         xi+4AbPMsgaRKteBAsiyXVEeS01ueoUwV/BGO4kpBJpILyIF/o+cc3QNs7gMdSvrC9SJ
+         bS5N+F894Aqwz56EvB22zMfVxmcj9SQBS0hRNYJFy+3LBDNjwfKgZVTR8uYMd+3+BYOF
+         nlsSZS520YQENxoQQdPUJ8MmwsSnVk4sa2fbvrUgtUGx76IyrmtnxK300rBBaJrwrap7
+         nSHqRFfRWY//0QlSI6kxvrhSm0md5BjBFDWZ1y0btGaolHSSGnvP+xmZw3JBHszfEsel
+         aF8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxAerKqT63T8VcP62hNtmwxwErRNU4xHdIG83pVAw9POH3sqJ0KL5HUehtCtJOv5x0Nwh6GQePQmnQzEBc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKVe4v4KY6ax9SQGS6TmHDSZyvQ+w/sPFEnkW+FfzynlE/j6Ga
+	K3vzQObKGpTkBzJSREXdBd/biRdV2l5pkJfyZmNC1vpcky9ixtOTs6DUKlOo3tw3csf2ZC0dW7P
+	i7f0d2VQedg==
+X-Received: from dldyr27-n1.prod.google.com ([2002:a05:701b:451b:10b0:141:3e73:b5e9])
+ (user=mrungta job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c42:b0:398:9be8:ea6c
+ with SMTP id 98e67ed59e1d1-3989be8eb13mr3288145a91.25.1787965220658; Fri, 28
+ Aug 2026 18:00:20 -0700 (PDT)
+Date: Fri, 28 Aug 2026 17:59:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAAovkmoC/22NQQ7CIBREr9L8td8ARVpdeQ/TBRakP7FFoUFNw
+ 93F6tLlm8y8WSDaQDbCoVog2ESR/FRAbCroBz05i2QKg2BCsUZIvPd+xIeZcRoJv2NkSsvW6OY
+ s+Q7K8hbshZ6r9dQVHijOPrzWk8Q/6c9Xs7++xJFhrXWrDFdiz+XRee+udlu60OWc3+2qdYq3A AAA
+X-Change-Id: 20260724-qcom-wdt-nmi-series-06a48da7b415
+X-Developer-Key: i=mrungta@google.com; a=ed25519; pk=2Bjwbv/ibL10QnyvK9G7DoKpffXy7z6+M4NawEYgYDI=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787965218; l=4351;
+ i=mrungta@google.com; s=20260212; h=from:subject:message-id;
+ bh=iHfgxNKVO4v4tf6WK7u5A8eKuiYVIUoSXo1yuQ5Ow/A=; b=HwthxdUWbcqg5cH5ieSTUXzYHtBUpMsh5QaUg3GFxPuRKWUUU1IMDFa+Mqq0h3/+PQX3W4Sd3
+ qphKMjkPgxwBISxewOcqUPkB5zf8o3bEmxkc5U3gYxHmRPrk02FPTWM
+X-Mailer: b4 0.14.3
+Message-ID: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com>
+Subject: [PATCH v2 0/5] watchdog: qcom: Support NMI pretimeout warnings
+From: Mayank Rungta <mrungta@google.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, "Kirill A. Shutemov" <kas@kernel.org>, 
+	Douglas Anderson <dianders@chromium.org>, Mayank Rungta <mrungta@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Roland OCTA-CAPTURE and QUAD-CAPTURE select their hardware clock with
-a vendor control request. Streaming fails when the hardware clock differs
-from the rate selected for the USB endpoint.
+On ARM64 Qualcomm SoCs, when a system freezes completely due to hard
+locked CPUs with standard interrupts disabled, a standard watchdog
+pretimeout warning interrupt (bark) fails to fire. To diagnose total
+system lockups, we need to transition the Qualcomm hardware watchdog
+pretimeout bark interrupt into an NMI (or pseudo-NMI).
 
-During stream preparation, read the hardware rate and send the rate
-request only when it differs from the selected endpoint rate. The control
-transfer can complete before the device reports the new clock rate, so
-poll readback every 25 ms and continue as soon as it matches. Forty
-attempts avoid hammering the control endpoint while bounding an
-unresponsive transition to one second.
+Enabling NMI pretimeout handlers within a loadable driver module requires
+addressing NMI teardown synchronization, exporting NMI registration
+APIs, and ensuring watchdog pretimeout governor dispatch is NMI-safe.
 
-Run the transaction from the existing format-setup quirk, after ALSA has
-selected the endpoint rate and before data URBs are submitted. Hold the
-USB-audio device mutex so playback and capture preparation cannot issue
-overlapping clock changes.
+This 5-patch series achieves NMI pretimeout enablement for qcom-wdt:
+ 1) Enforces that interrupt controllers claiming NMI support must
+    implement ->irq_get_irqchip_state(), and synchronizes in-flight NMI
+    handlers during teardown (__cleanup_nmi) to prevent use-after-free
+    bugs during module unload or driver unbind.
+ 2) Implements synchronous disable_nmi() to ensure in-flight handlers on
+    other CPUs complete before returning.
+ 3) Exports request_nmi(), free_nmi(), enable_nmi(), disable_nmi(), and
+    disable_nmi_nosync() to GPL loadable kernel modules.
+ 4) Replaces spinlocks in watchdog_notify_pretimeout() with RCU to
+    guarantee safe governor execution from NMI context.
+ 5) Updates qcom-wdt to request its pretimeout bark interrupt as an
+    NMI (or pseudo-NMI) with fallback to standard IRQ.
 
-Apply the quirk to:
+Testing & Verification:
+ - Built and tested on ARM64 Qualcomm Snapdragon SoC (Google CoachZ)
+   loadable module configurations (CONFIG_QCOM_WDT=m).
+ - With GICv3 pseudo-NMI enabled, simulated hard CPU lockups and
+   IRQ-disabled hang conditions via lkdtm. Confirmed that qcom-wdt traps
+   the watchdog pretimeout bark interrupt as a pseudo-NMI and safely
+   executes watchdog_notify_pretimeout() without deadlocks.
+ - Verified that runtime transitions between pretimeout governors in
+   sysfs execute safely.
+ - Booted with pseudo-NMIs disabled and confirmed that qcom-wdt detects
+   unsupported NMI and cleanly falls back to standard IRQ.
 
-  0582:0120  Roland OCTA-CAPTURE
-  0582:012f  Roland QUAD-CAPTURE
-
-Tested on physical OCTA-CAPTURE and QUAD-CAPTURE units. Rate changes
-followed by full-duplex streaming succeeded at 44.1, 48, 96 and 192 kHz
-on both. External digital clocking on the OCTA-CAPTURE was tested at all
-supported rates: 44.1, 48 and 96 kHz. The OCTA-CAPTURE disables its
-digital input and output at 192 kHz, so external clocking is unavailable
-at that rate.
-
-Signed-off-by: Jonathan Seth Mainguy <jon@soh.re>
+Signed-off-by: Mayank Rungta <mrungta@google.com>
 ---
- sound/usb/quirks.c | 74 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+Changes in v2:
+- Added patch to require ->irq_get_irqchip_state() for NMI-capable
+  controllers in irq_supports_nmi(), and synchronize in-flight NMI
+  handlers via __synchronize_hardirq() in __cleanup_nmi() to prevent
+  use-after-free races during teardown.
+- Added patch implementing synchronous disable_nmi() wrapping
+  disable_irq().
+- Exported disable_nmi() alongside other NMI APIs in genirq export patch.
+- Re-ordered series to cluster genirq core changes (patches 1-3) followed
+  by watchdog core and driver changes (patches 4-5).
+- Fixed compiler warnings in watchdog pretimeout RCU patch by adding const
+  qualifiers to local governor pointers.
+- Dropped `irq_enabled` tracking from struct qcom_wdt in patch 5 since
+  watchdog_dev.c strictly pairs ops->start and ops->stop calls.
+- Used disable_nmi() in qcom_wdt_disable_irq() for synchronous stop.
+- Link to v1: https://lore.kernel.org/r/20260730-qcom-wdt-nmi-series-v1-0-3aa86d162914@google.com
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 91938172912a..4936d66f9591 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -3,6 +3,7 @@
-  */
- 
- #include <linux/cleanup.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-@@ -1855,6 +1856,75 @@ static int rme_digiface_set_format_quirk(struct snd_usb_substream *subs)
- 	return 0;
- }
- 
-+#define ROLAND_CAPTURE_RATE_REQUEST		3
-+#define ROLAND_CAPTURE_RATE_READ_VALUE		0x0001
-+#define ROLAND_CAPTURE_RATE_WRITE_VALUE		0x0008
-+#define ROLAND_CAPTURE_RATE_WRITE_PREFIX	0x40
-+#define ROLAND_CAPTURE_RATE_RETRIES		40
-+#define ROLAND_CAPTURE_RATE_POLL_MS		25
-+
-+/*
-+ * OCTA-CAPTURE and QUAD-CAPTURE use the same vendor request for their
-+ * hardware clock.  A read returns the 24-bit little-endian rate followed by
-+ * a transition-status byte.  A write carries 0x40 followed by the rate.
-+ */
-+static int roland_capture_read_rate(struct usb_device *dev, u32 *rate)
-+{
-+	u8 data[4];
-+	int err;
-+
-+	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
-+			      ROLAND_CAPTURE_RATE_REQUEST,
-+			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      ROLAND_CAPTURE_RATE_READ_VALUE, 0,
-+			      data, sizeof(data));
-+	if (err != sizeof(data))
-+		return err < 0 ? err : -EIO;
-+
-+	*rate = combine_triple(data);
-+	return 0;
-+}
-+
-+static void roland_capture_set_rate(struct snd_usb_substream *subs)
-+{
-+	struct snd_usb_audio *chip = subs->stream->chip;
-+	struct usb_device *dev = chip->dev;
-+	u32 rate = subs->data_endpoint->cur_rate;
-+	u32 current_rate;
-+	u8 data[4];
-+	int err;
-+	int i;
-+
-+	/* Serialize playback and capture endpoint starts during a clock change. */
-+	guard(mutex)(&chip->mutex);
-+	err = roland_capture_read_rate(dev, &current_rate);
-+	if (!err && current_rate == rate)
-+		return;
-+
-+	data[0] = ROLAND_CAPTURE_RATE_WRITE_PREFIX;
-+	data[1] = rate;
-+	data[2] = rate >> 8;
-+	data[3] = rate >> 16;
-+	err = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
-+			      ROLAND_CAPTURE_RATE_REQUEST,
-+			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      ROLAND_CAPTURE_RATE_WRITE_VALUE, 0,
-+			      data, sizeof(data));
-+	if (err != sizeof(data)) {
-+		usb_audio_warn(chip, "cannot set Roland sample rate to %u Hz: %d\n",
-+			       rate, err < 0 ? err : -EIO);
-+		return;
-+	}
-+
-+	for (i = 0; i < ROLAND_CAPTURE_RATE_RETRIES; i++) {
-+		err = roland_capture_read_rate(dev, &current_rate);
-+		if (!err && current_rate == rate)
-+			return;
-+		msleep(ROLAND_CAPTURE_RATE_POLL_MS);
-+	}
-+	usb_audio_warn(chip, "Roland sample rate did not reach %u Hz\n", rate);
-+}
-+
- void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
- 			      const struct audioformat *fmt)
- {
-@@ -1885,6 +1955,10 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
- 	case USB_ID(0x2a39, 0x3fa0): /* RME Digiface USB (alternate) */
- 		rme_digiface_set_format_quirk(subs);
- 		break;
-+	case USB_ID(0x0582, 0x0120): /* Roland OCTA-CAPTURE */
-+	case USB_ID(0x0582, 0x012f): /* Roland QUAD-CAPTURE */
-+		roland_capture_set_rate(subs);
-+		break;
- 	}
- }
- 
+Note on Sashiko review:
+Sashiko AI review on v1 noted a pre-existing issue regarding the lack of
+desc->request_mutex acquisition in free_nmi() and the request_nmi() error
+path.
+
+This pre-existing behavior is orthogonal to this series and not affected
+by exporting NMI symbols or in-flight NMI handler synchronization. To keep
+this series focused on module export, request_mutex handling is left unchanged.
+
+---
+Mayank Rungta (5):
+      genirq: Synchronize in-flight handlers during NMI teardown
+      genirq: Implement synchronous disable_nmi()
+      genirq: Export NMI APIs
+      watchdog: pretimeout: Protect governor access with RCU for NMI safety
+      watchdog: qcom: Register pretimeout interrupt as NMI
+
+ drivers/watchdog/qcom-wdt.c            | 52 +++++++++++++++++++++++++++++++---
+ drivers/watchdog/watchdog_pretimeout.c | 45 ++++++++++++++++-------------
+ include/linux/interrupt.h              |  1 +
+ include/linux/watchdog.h               |  2 +-
+ kernel/irq/manage.c                    | 45 +++++++++++++++++++++++++----
+ 5 files changed, 115 insertions(+), 30 deletions(-)
+---
+base-commit: 77ae27fd98f3b548797c9f22c10ab5cf1c4ada53
+change-id: 20260724-qcom-wdt-nmi-series-06a48da7b415
+
+Best regards,
 -- 
-2.55.0
+Mayank Rungta <mrungta@google.com>
 
