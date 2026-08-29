@@ -1,108 +1,139 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6690D2BDC28;
-	Sat, 29 Aug 2026 16:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788022729; cv=pass; b=CNQndoBk7BKuEBt1p895n65xqI3RWVjXh3yCmMR18PcNAvPbfFniQw76/LYcbjJFY9jmIOyu94EXIHdTqVh5o9Vj3HHpiVMlnNZ4V/IfYvsdNz181/TCIkp3rmeH1H6skYZ05I39NMFAs1OonrFG+P+JHrz170Qli7K9eYHwO+0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788022729; c=relaxed/simple;
-	bh=qbPktbUxLon+K3dddCkY1Q53zmB4mYwKG6oWen8WlRc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SPl5TN5YtpUSK1JtOTrkWiAXkjy3fAJ2mrgx1GPirgduEnxznYfGnGw7zgqu7LKI72Vr8RbrENfsfIu0I3dV/ea6YmSu2wjegzYK87Ws3chgM494j9//hFZgCGrvwQbkZ2BgTTlBwSjI8m48su0XReQW22VsZJRci5kbgv8Vf64=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=g3C7l7k2; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EACA23393E
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 17:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788023156; cv=none; b=d5+fhaz8/8aFNEdtQUS+/7EnpXGSmnuOZr+JdYJK3o+PZPg9LTgTkHGGsPjdrduWHZvNSt2LCGeOhvfET7DMs+kf/8mu23VE68HFhiRPza51ehbsnjWwsMH4mP0/zFcFHpllE6N5lwjUESJ2ueE4rGD77hpgVJ6u+zkRmYy0cZ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788023156; c=relaxed/simple;
+	bh=lcaIH443j7ZbU7odPFlIb8oOMxT3qKpiCDIOgGlK1EI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rCdzI0B7q5o4DdFl3yEB79/8+yHLaJXD5aGBb98KbnDf+HvD2LC9cRw3AGZgktXqeUALXyvbVQqr47Z/ATprcxJVep6dZyRFB9rAHqNaCZoLn3OPed/fBPAXA7hb983KZ27xvbEEyF1Djy8L7Qo5vZCeFIGVgXBsaNBKn/5wSws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jbP8k790; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="g3C7l7k2"
-ARC-Seal: i=1; a=rsa-sha256; t=1788022695; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YiT8gFXmzMQVyeqLt7nxxYDPkQJ64bcEgyY0TRj23f9Esi7u87jT8zG8Hdugp5McILbrPK4CNdNGmHQ3GXUqepLBKB1BhgvwGS2PgBC7ftfFrAhqSzDbAjLhKGFpXi+8JWavzRP5OsHX10eOMSqpq9WBdU4pa+n7HaQwtoD8Dcs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788022695; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CjVd702NccuiO5wKzGeLMyGwfIQYzeuw9yTi4k9/VvM=; 
-	b=ns1L7ps/IYTnH5iMfquqDOsBemIunAtW3BUMnqf6cGK+xbOCAzcVwvWU2j3SJN1xoql1Fh7wxcmiBw2M9xQucMif582iuBoqtqoCinwM6N47d0RGUYh2ZaJ35Vvu3+fRR41bEXtAwi/9QhBEJ8KIjtAS5pzsRhh+mUrn4g5vrSo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788022695;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=CjVd702NccuiO5wKzGeLMyGwfIQYzeuw9yTi4k9/VvM=;
-	b=g3C7l7k2e/YLmRR5ZRiZ+WxQxoW4rFYHshU0yy73teYPQ/hpE48c4l2UfZYv3WB9
-	9asgTSASX0FLRH+BQvcIMU47Fqwae5Y30XnZrNFbtvY2u8deoa1FejpBjt/NfpnvPO2
-	kzC3OXlQuIdWai8TzZbYUpJ+IBcvFoJ/NwN4RJKM=
-Received: by mx.zohomail.com with SMTPS id 1788022690786194.0425938326705;
-	Sat, 29 Aug 2026 09:58:10 -0700 (PDT)
-Date: Sat, 29 Aug 2026 16:57:49 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Yukai Wu <xiaoyewuz.ruster@gmail.com>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jbP8k790"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so221837266b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 10:05:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788023150; x=1788627950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nObHJJxKYbL0QP8ldGFvAbA9nLk/23W+3s2f++7bPgg=;
+        b=jbP8k790cbyT80UtGw9/Gze+x8eerHeIhzUiztrr6FauVnfrpl5HfXNozmG9Emivpz
+         iAQIHoqynqIfllfQ3Ap/VgPuXwVJCfCjI0SbBxf6dQ7nH+otDrPSx89mSG+rNdaaQbaj
+         p3IC4ApAyuerZ+oARZbi2oWy/7e/5fz9bp8UkaImnBA9OLM+2m2BR0dpII80N6qCnE86
+         WAT3zKPNPXq2JApjQgxA+qMox/7t9Rd8rN8yqb1JElJsPO8WfOaeOurRcMthgFn+GTb2
+         FXoNXcBeoRd1lH1RZEi0TxK82G+gR5GVa2iQZPv56L9b2j/spjJQAjPyhOjmrDFnfHU3
+         hPbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788023150; x=1788627950;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nObHJJxKYbL0QP8ldGFvAbA9nLk/23W+3s2f++7bPgg=;
+        b=E/Iw/tqkkCit89tOBePyX01aJecTTDS2W+tKrlExShimYeeDzqtJrWv8mpppPRNXIR
+         1ccwL9GMbTgY6dGRVkRLhtf5Oy0uXSKbb7o/Bu2VCuRMr5XlcA5ew1t36Nwug8cFevcu
+         4aFr8H3+jyIvWFbjaDnswZdUaxHXU0XoO44qjKWGwOD1LbsCGJ9cwX74/NI3QqWORCjz
+         S/lJfOocFJW+T00MULqoTv/IEtKamPQVBZbPNudxdrTNY2aZ42nk7quXLQLY2GRpoWqS
+         iTUlvLpJfb0CIMIZTG/4WoqNS12sKJJ0EJkCnFqG5+JPxUykujkKOziaBtcIoutc1iMu
+         IKMg==
+X-Forwarded-Encrypted: i=1; AHgh+RrIpEC2A5nQvtrkR2vPXZmEDy0HmSUvO8V9whgwT2gTgQ8CtQ29E+1bINxJLnL1YUw0DcK0uhv/SQnFelc=@vger.kernel.org
+X-Gm-Message-State: AFuF++msL3yjsPlH7GVVzqVzcPpCgw0ETIFnX3Z7Yf2pglIkRpVoo3EH
+	HXyAXsbo8Ki0AZ3DwXubU6ZJLzVQ6mPQMes8tII6HXYjz40jO7MVs9GW
+X-Gm-Gg: AR+sD13L9tCT0dBhbLsQ9k0suAzUBXMpOTlHlM3ox3p5RsYeZHhO+fVKiseKWg6mS34
+	ULg/TAfr9hiGVSq0WZ0nk3J7h+O69T+Jv0YXgFTJm8gt/P0FMs49f7EI6+U00xgwytDb0rDS0+u
+	epARGEWO7VB0ZPz9ymLMVzksWRe1gbmHl2VZFBhY5HJ7adDgpf2glVIwMani5km1/wbGDz4aTak
+	CvcJzYJ7vP+sQIwD6MoWsx3OeEf+LbZnRw/WCaMjfof49YLLZcuuvNfWumiY8CZ3EJvKOjjkz53
+	CyUr7KIIm5FK9vBmbJcBcoNmTr5yvY4+RRI6wrXx3pfkRjSJabQOq229pqcLjnbacKOXS8NuZzZ
+	L/iDqhGuVLmZPgO+pKeMJ0Sv2DM37DXesa4zujCU7n3eGhjPdYo9zu6+Q3u1936zBUj5IVu7cet
+	cimS0FLTKlbpkT9V0V3ClWHGxCot5dEF2AvNxJKo1ytJbv+SeEBKXoAPLpcPHnGIVqyGkhHn1GG
+	8Qxs1Y0Qr4UCg0=
+X-Received: by 2002:a17:907:9612:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c25574341c1mr937184966b.21.1788023149479;
+        Sat, 29 Aug 2026 10:05:49 -0700 (PDT)
+Received: from localhost ([2603:5004:20a0:100c:4701:1ac4:1c21:4a1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee288afsm213287266b.23.2026.08.29.10.05.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 10:05:48 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+To: Jean Delvare <jdelvare@suse.de>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	Benoit Masson <yahoo@perenite.com>,
+	Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	Alexandre Ghiti <alex@ghiti.fr>, linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH] docs/zh_CN: Update arch/riscv/vm-layout.rst translation
-Message-ID: <apMPjRICH06wAxPp@pie>
-References: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jerome Tollet <jerome.tollet@gmail.com>
+Subject: [PATCH v5 0/4] hwmon: it87: add IT8613E support
+Date: Sat, 29 Aug 2026 19:05:41 +0200
+Message-ID: <20260829170545.33401-1-jerome.tollet@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260829041542.256360-1-xiaoyewuz.Ruster@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/288.2.98
-X-ZohoMailClient: External
 
-On Sat, Aug 29, 2026 at 12:15:10PM +0800, Yukai Wu wrote:
-> Update Documentation/arch/riscv/vm-layout.rst translation.
-> 
-> Update the translation through commit 954260ff5a46
-> ("Revert "RISC-V: mm: Document mmap changes"")
-> 
-> Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-> ---
->  .../zh_CN/arch/riscv/vm-layout.rst             | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> index 4b9f4dcf6c19..0d0ec8ea5d05 100644
-> --- a/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> +++ b/Documentation/translations/zh_CN/arch/riscv/vm-layout.rst
-> @@ -15,7 +15,7 @@ RISC-V Linux上的虚拟内存布局
->  :作者: Alexandre Ghiti <alex@ghiti.fr>
->  :日期: 12 February 2021
->  
-> -这份文件描述了RISC-V Linux内核使用的虚拟内存布局。
-> +这份文件描述了 RISC-V Linux 内核使用的虚拟内存布局。
->  
->  32位 RISC-V Linux 内核
->  ======================
-> @@ -28,9 +28,9 @@ TODO
->  64位 RISC-V Linux 内核
->  ======================
->  
-> -RISC-V特权架构文档指出，64位地址 "必须使第63-48位值都等于第47位，否则将发生缺页异常。"：这将虚
-> -拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是RISC-V Linux
-> -内核所在的地方。
-> +RISC-V 特权架构文档指出，64 位地址“必须使第 63-48 位值都等于第 47 位，否则将发生缺页异常。”：
-> +这将虚拟地址空间分成两半，中间有一个非常大的洞，下半部分是用户空间所在的地方，上半部分是 RISC-V
-> +Linux 内核所在的地方。
+This is a respin of Benoit Masson's v4 series, with his permission.
+It replaces my fan-input-only RFC with the complete support requested
+in review.
 
-I think changes above are purely style improvements? If so please
-mention it in the commit message, instead of specifying it's "updating"
-only. Separate the changes into another commit might help, but I'm not
-sure whether it's worth the effort.
+The v4 series was dropped after a NULL pointer dereference was reported.
+The IT8613E device entry did not initialize reg_pwm, while the probe path
+unconditionally dereferences it. It also advertised six temperature
+offsets but the register table contained only three entries.
 
-Regards,
-Yao Zi
+Changes in v5:
+- Use the IT8665-style PWM register map for IT8613E, matching the
+  out-of-tree driver.
+- Extend the temperature offset register table with the three IT8613E
+  registers used by the out-of-tree driver.
+- Preserve the existing IT8689 behavior when introducing the per-chip
+  resource and PWM metadata now required by the series.
+- Combine IT8613E identification and configuration so no intermediate
+  patch binds to the device with an incomplete configuration.
+- Use octal permissions for the new sysfs attributes.
+
+Tested on an IT8613E at 0xa30, revision 12. Each patch builds as an
+external module with W=1, and the complete series passes checkpatch
+--strict with no warnings or errors.
+
+The final module loads without errors and exposes the same voltage,
+temperature, fan, temperature-offset, and PWM register values as the
+out-of-tree driver. On this system it exposes fan2_input and PWM2, PWM4,
+and PWM5. The value of pwm2_auto_channels_temp is 4 instead of the
+out-of-tree driver's 3 because the upstream ABI reports a channel bitmask
+(BIT(2)) rather than a one-based channel number.
+
+The PWM2 write path was tested by switching from automatic control to
+manual full duty (255). Fan2 increased from about 2100 RPM to 4687 RPM.
+The original duty (65), automatic mode, and temperature mapping were then
+restored.
+
+An S3 suspend/resume cycle with an RTC wakeup completed successfully.
+The PWM configuration and sensor readings were preserved, with no it87 or
+hwmon warnings in the kernel log.
+
+Link: https://lore.kernel.org/linux-hwmon/20260114221210.98071-1-yahoo@perenite.com/
+Link: https://lore.kernel.org/linux-hwmon/20260829113011.51290-1-jerome.tollet@gmail.com/
+
+benoit.masson (4):
+  hwmon: it87: describe per-chip temperature resources
+  hwmon: it87: prepare for extended PWM temp maps
+  hwmon: it87: expose additional temperature limits
+  hwmon: it87: add IT8613E support
+
+ Documentation/hwmon/it87.rst |   8 +
+ drivers/hwmon/it87.c         | 456 ++++++++++++++++++++++++++++-------
+ 2 files changed, 383 insertions(+), 81 deletions(-)
+
+
+base-commit: 75f2c0b3690702c90863c2e138cb5520670845ea
+-- 
+2.55.0
