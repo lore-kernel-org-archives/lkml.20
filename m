@@ -1,236 +1,124 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C0E3F107A
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB6B1A6822
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787996741; cv=none; b=tCXPJJnDaESD2ZBarWrbZtWxc7kVbekrWn5NzlepYkD3YD2qGUDJ6P5RBWzcNk5ioKU9WSzNnCtcplvUTMvcCS8rF8vL2eZcSDFsApr+wy+L6yDOeOl6qzj1rBLyijvQwJYTPuP7rA+mPjKG9WA9mfU9xfyy6PFLmFr94cjSRQI=
+	t=1787996883; cv=none; b=EWDfUok6ZK7MKLeB3tDwd6GADwObmOTxsB96eXiI5SW5uswtV+jMhQbFjJD0bNaotfmawzlxDZYu0zTPtc+0h5v47+HA2V+vJyDRMk5l3GjYn28G220+Z9iqA79uMcAwsQOr0rjLYSybq8lHe6qf1GKvJnLcddY+829wACy9lbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787996741; c=relaxed/simple;
-	bh=mdjEtmYNt6m0PH+g5Pl1yWCdrS33hSY1MaQVZQgn4T8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=T33keDL7/H8df2IyalofpTyiGL6LjebfhY/2acwYSyD4m8lNDBDf/C+koe/Za042wWtq7Ueqj6x5U6F9d56RhCrN/MhAS7ulccqPoJLAt3V5C4WHnAuPN3/aSHGZAJ1egG17M+C4xOSjgO/aOePXoEraQOlELap8LeW7RGKjHZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4b3880be385so811819b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:45:39 -0700 (PDT)
+	s=arc-20240116; t=1787996883; c=relaxed/simple;
+	bh=ZMTFeO2F9mCgdGlf939/k55/Zui5sS++GTzhcQ6cXkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T8QT59H+K7hOvFqrbfMSsHauI+6aHNKqh7+C6omERwI5PqYfLDsjtrokVGe5X7Lq62ZHqnznWpzUH8XEXGO4XmIBwERxzFQmkjh4zivViKdMChbg1nCj6eKMMSIPsw7/+mshtQRduSpjvfYxoK2i2MjsgLX9aEn+gLRaBSHw1FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49954b88fffso13005895e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:48:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787996738; x=1788601538;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qfen64N2iwo0bEIW3peyN+gV06ebUNeOYObnSGw4AG0=;
-        b=KV7uh52F7pH5iu/xpjDBOpWhJ28aYH+XPMBnGHLDS23T/IpSBV8nOidI3jOb/GXzfM
-         eKRw1Z3fS4pnEeUAaqSDNCxLAxFST3bin5H+eHY8yvCI2aRv6yy3nQZ37F9Pi4YhUc3l
-         07+R1ymYYm68V+7OFoSkQif5YW1kufxIhPfzddUqxmtZjuCACRRArDxdULxxVw/8UuE1
-         vyH3hu1GRw6OyO2pk7tux3fu5j+sVnozkYEg9k0uq3oGS8YNX7zCPpUXBbkpYbsX5QtF
-         TRkOfUEhLTYxkwXQpYuLmEZDYkCZlR7H27LGrLx6bxeTz1EOO+dERvdBhLFeURk25dLd
-         5XCA==
-X-Forwarded-Encrypted: i=1; AHgh+RqW9EoRNgJuoqru/rWw7FF5t4ID1VzSFc45yHPsRNFbXUCB1JpoOgi5q56Rig8/qSp1ml+K1gcmUVqNiBw=@vger.kernel.org
-X-Gm-Message-State: AFuF++li0abGtpqYU03zUjryIdM7MXxobrFoUAYOuo7jTDVR43YhuwMp
-	arytkC1Ba4kfhpDvPqnPtR9YxMC4cdo7ABq603mM4JmnnNoJgIWIQ3O6nGmtpgekavCq2AVFyqC
-	7OPsWtV6op+w4GVYQIThI69fn5LDSKzGHkBJFHEKEy8oOQ8dK6kXc7C/37D0=
+        d=1e100.net; s=20251104; t=1787996880; x=1788601680;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4rJ0DhyCHllIMH7L1DGiwV3mp7tCq7ghlGuKeBd4/eQ=;
+        b=SR1tfcZDtXr8X3tUg370fv+JzpjvSUMVRUEMzU8iruCVYCcVHRGHoBXATMlqN/xd8u
+         PEknv7sjGlArF7QGjS/ITD5lCMsRvgp/gsMv5R3+AvO6+DqQvM+OHBxy0NUGb46vY75h
+         4GmzT3xWQlhxp3liCONi+O6n1r+273YTCai05c0VdyXwtdZIaCqFluvAcDeUPpSy23QF
+         bWX/UIqFqFuVFck4GlxBmuK9Gc4axonGxBfPdJAV8Dsn4h+MODUtcT9Bp7tWLe8S33c3
+         Mo31FzJgGaIZklZU/WPH/qBGa61uCRhsWhtbG7ZoC5iZdwSRCYtoC+0Mfk5KEusTfLkA
+         p9zg==
+X-Forwarded-Encrypted: i=1; AHgh+RqJfDhwB/yzbnuttcGwV1UEIcA7jZZkNl/qLLpw+7rGKiSvAhoGy6ZMCiYbkFQZSObVwxYjOzBCTfnToOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++km9jRmNeVAiVBxB7bG+fX886vDc75UrR+x43mvC5Xi53TbsCmm
+	dXZ/w4YQA5HR8uzmySyC5UzgLRzwBn5N3/2tC34SLiylPtNSGsCjkcsW
+X-Gm-Gg: AR+sD13JdWGjS1mXGe+ZDHIM9hGO9O6X/myCuXsIFQt5vHPIuHgKqLhyTLWjBARdMI0
+	P9YMRd813tTcQNeDWD+bDn0kt2qYM7cBsATVQrUYRHesX6Cwu5uovluGhMry2oi2zBeu/w6nNfX
+	GQGKNFXLNcZTmKbQvVL8YduCAZRNJSAYSVUpz/cjuVeqNUuxnUvnq2Iyjv5enqrUir3CUFLk71B
+	FULCLMtJmHBXJlGqJTJniTg/p+Onh9XKWy6AdxcJyTusDovEofPoU4xj9DpAnuDJjT9gDLihrfp
+	RSUClmKRvW+h3Ss0tGipCd9BvDF/VFpmfuVoBCm3CncMBmtm4zbFx1mYlS5FZ7igeCLm8pdF2QR
+	126WsK/mzNJayP1M4sajjGL9ZuVPFqhY56ENCzMeReYT2WI4ekAOUCjfX7B5he2YjklQvOZrD6i
+	8+qzikJciUjC5KWSTJpdI8Ym4hee5wQPvgWkpWuL4KtEpKUm3J/VkmhCFznlhrFWQXfDVMnK3Zt
+	jRZN8aaQcpevSlXvHkpiOkNVwFL8ot2eeYN1g==
+X-Received: by 2002:a05:600c:1d1d:b0:499:ad2e:f7bc with SMTP id 5b1f17b1804b1-49b91c3ddbcmr152418085e9.10.1787996879686;
+        Sat, 29 Aug 2026 02:47:59 -0700 (PDT)
+Received: from threads.localdomain ([83.106.158.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20784sm9661562f8f.18.2026.08.29.02.47.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 02:47:59 -0700 (PDT)
+From: Lucas Tanure <tanure@linux.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Jian Hu <jian.hu@amlogic.com>,
+	Ronald Claveau <linux-kernel-dev@aliel.fr>,
+	Brian Masney <bmasney@redhat.com>,
+	Chuan Liu <chuan.liu@amlogic.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH 0/4] arm64: amlogic: t7: describe the VIM4 supplies and keep the fabric clocks running
+Date: Sat, 29 Aug 2026 10:47:54 +0100
+Message-ID: <20260829094758.23248-1-tanure@linux.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:190f:b0:4b3:74d0:6ef7 with SMTP id
- 5614622812f47-4b398037cdamr12522980b6e.4.1787996738186; Sat, 29 Aug 2026
- 02:45:38 -0700 (PDT)
-Date: Sat, 29 Aug 2026 02:45:38 -0700
-In-Reply-To: <6a8ce445.dbb3a75c.7844.0016.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a92aa42.08e933ee.dbf97.0088.GAE@google.com>
-Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in do_bad_area
-From: syzbot <syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com>
-To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+The Khadas VIM4 has needed clk_ignore_unused to boot reliably. Without it
+the board hangs at random, loses storage and corrupts memory, and the
+failures move around from boot to boot.
 
-HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
-git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
-console output: https://syzkaller.appspot.com/x/log.txt?x=16a01d79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9c4b7daf40ce2cde
-dashboard link: https://syzkaller.appspot.com/bug?extid=7bf725ed337e37307001
-compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15e5bd49580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11a01d79580000
+Six of the SoC's PWM outputs drive the board's voltage regulators: the
+always-on domain, both CPU clusters, the GPU, the NPU and the DRAM. None
+of them were described, so Linux saw the outputs as unused and switched
+them off about a second into boot. The regulators then drifted away from
+the levels the bootloader had set, which is where the corruption and the
+random hangs came from. 
+Thanks to Chuan Liu from Amlogic for helping me indetify which clocks are
+critical.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-45c13f3f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e9902fa4027d/vmlinux-45c13f3f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/b6ce3ac93fda/Image-45c13f3f.gz.xz
+Separately, four clocks feed the bus that carries data between the
+peripherals and memory. Nothing claims those either, and switching them
+off leaves any device that starts a transfer afterwards stuck. The SD
+card comes up about two seconds into boot, so it was the visible victim.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
+Two of the patches are pin group fixes. The description named groups that
+do not exist in the pinctrl driver, so anything referencing them refused
+to probe. That is what the supplies patch needs in order to work, and it
+had a second effect worth mentioning: the failing probe left one device
+unbound, which kept the clock controller's sync_state() deferred forever
+and quietly stopped every peripheral clock from ever being switched off.
+The board looked healthy for entirely the wrong reason.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in __lse__cmpxchg_case_acq_64 arch/arm64/include/asm/atomic_lse.h:272 [inline]
-BUG: KASAN: slab-use-after-free in __cmpxchg_case_acq_64 arch/arm64/include/asm/cmpxchg.h:122 [inline]
-BUG: KASAN: slab-use-after-free in __cmpxchg_acq arch/arm64/include/asm/cmpxchg.h:170 [inline]
-BUG: KASAN: slab-use-after-free in raw_atomic64_cmpxchg_acquire include/linux/atomic/atomic-arch-fallback.h:4181 [inline]
-BUG: KASAN: slab-use-after-free in raw_atomic64_try_cmpxchg_acquire include/linux/atomic/atomic-arch-fallback.h:4299 [inline]
-BUG: KASAN: slab-use-after-free in raw_atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-long.h:1482 [inline]
-BUG: KASAN: slab-use-after-free in atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4458 [inline]
-BUG: KASAN: slab-use-after-free in __mutex_trylock_fast kernel/locking/mutex.c:161 [inline]
-BUG: KASAN: slab-use-after-free in mutex_lock_interruptible+0x10/0x70 kernel/locking/mutex.c:1109
-Write at addr faf0000016813780 by task syz.3.150/3858
-Pointer tag: [fa], memory tag: [fe]
+Tested on a VIM4 booting from SD with no clk_ignore_unused: 74 clocks are
+still switched off, but the card enumerates and the root filesystem mounts
+and memtest runs clean over 512 MiB.
 
-CPU: 0 UID: 0 PID: 3858 Comm: syz.3.150 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: linux,dummy-virt (DT)
-Call trace:
- dump_backtrace arch/arm64/kernel/stacktrace.c:498 [inline] (C)
- show_stack+0x18/0x24 arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x60/0x80 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x1c4/0x4b0 mm/kasan/report.c:482
- kasan_report+0x84/0xac mm/kasan/report.c:595
- report_tag_fault arch/arm64/mm/fault.c:368 [inline]
- do_tag_recovery arch/arm64/mm/fault.c:380 [inline]
- __do_kernel_fault+0x1b4/0x220 arch/arm64/mm/fault.c:424
- do_bad_area+0x68/0x80 arch/arm64/mm/fault.c:529
- do_tag_check_fault+0x34/0x44 arch/arm64/mm/fault.c:909
- do_mem_abort+0x40/0x90 arch/arm64/mm/fault.c:985
- el1_abort+0x44/0x64 arch/arm64/kernel/entry-common.c:342
- el1h_64_sync_handler+0x50/0xac arch/arm64/kernel/entry-common.c:469
- el1h_64_sync+0x6c/0x70 arch/arm64/kernel/entry.S:585
- __lse__cmpxchg_case_acq_64 arch/arm64/include/asm/atomic_lse.h:272 [inline] (P)
- __cmpxchg_case_acq_64 arch/arm64/include/asm/cmpxchg.h:122 [inline] (P)
- __cmpxchg_acq arch/arm64/include/asm/cmpxchg.h:170 [inline] (P)
- raw_atomic64_cmpxchg_acquire include/linux/atomic/atomic-arch-fallback.h:4181 [inline] (P)
- raw_atomic64_try_cmpxchg_acquire include/linux/atomic/atomic-arch-fallback.h:4299 [inline] (P)
- raw_atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-long.h:1482 [inline] (P)
- atomic_long_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:4458 [inline] (P)
- __mutex_trylock_fast kernel/locking/mutex.c:161 [inline] (P)
- mutex_lock_interruptible+0x10/0x70 kernel/locking/mutex.c:1109 (P)
- do_dentry_open+0x128/0x4fc fs/open.c:996
- vfs_open+0x2c/0xe8 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x5b4/0x960 fs/namei.c:5000
- do_file_open+0xb0/0x168 fs/namei.c:5029
- do_sys_openat2+0x84/0x104 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __arm64_sys_openat+0x64/0xc0 fs/open.c:1434
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x54/0x10c arch/arm64/kernel/syscall.c:49
- el0_svc_common.constprop.0+0x40/0xe0 arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x1c/0x34 arch/arm64/kernel/syscall.c:140
- el0_svc+0x38/0x1fc arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:590
+Thread about these issues in Vim4:
 
-Allocated by task 3857:
- kasan_save_stack+0x3c/0x64 mm/kasan/common.c:57
- save_stack_info+0x40/0x160 mm/kasan/tags.c:106
- kasan_save_alloc_info+0x14/0x20 mm/kasan/tags.c:142
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- poison_kmalloc_redzone mm/kasan/common.c:371 [inline]
- __kasan_kmalloc+0xf8/0x120 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x1d0/0x470 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- activate_ep_files drivers/usb/gadget/legacy/inode.c:1610 [inline]
- gadgetfs_bind+0xd0/0x3c0 drivers/usb/gadget/legacy/inode.c:1701
- gadget_bind_driver+0x90/0x284 drivers/usb/gadget/udc/core.c:1662
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0xbc/0x2bc drivers/base/dd.c:706
- __driver_probe_device+0x11c/0x184 drivers/base/dd.c:868
- driver_probe_device+0x3c/0x114 drivers/base/dd.c:898
- __driver_attach+0x90/0x180 drivers/base/dd.c:1292
- bus_for_each_dev+0x7c/0xdc drivers/base/bus.c:383
- driver_attach+0x24/0x30 drivers/base/dd.c:1310
- bus_add_driver+0xe4/0x208 drivers/base/bus.c:763
- driver_register+0x68/0x130 drivers/base/driver.c:174
- usb_gadget_register_driver_owner+0x54/0xfc drivers/usb/gadget/udc/core.c:1752
- dev_config+0x214/0x484 drivers/usb/gadget/legacy/inode.c:1892
- vfs_write+0xd4/0x36c fs/read_write.c:685
- ksys_write+0x70/0x108 fs/read_write.c:739
- __do_sys_write fs/read_write.c:750 [inline]
- __se_sys_write fs/read_write.c:747 [inline]
- __arm64_sys_write+0x18/0x24 fs/read_write.c:747
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x54/0x10c arch/arm64/kernel/syscall.c:49
- el0_svc_common.constprop.0+0x40/0xe0 arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x1c/0x34 arch/arm64/kernel/syscall.c:140
- el0_svc+0x38/0x1fc arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:590
+https://lore.kernel.org/linux-clk/3930906f-783b-4d72-9260-ba25cc8081cb@linux.com/
 
-Freed by task 3857:
- kasan_save_stack+0x3c/0x64 mm/kasan/common.c:57
- save_stack_info+0x40/0x160 mm/kasan/tags.c:106
- kasan_save_free_info+0x18/0x40 mm/kasan/tags.c:147
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0xe8/0x160 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x150/0x420 mm/slub.c:6792
- put_ep.part.0+0x44/0x60 drivers/usb/gadget/legacy/inode.c:225
- put_ep include/linux/refcount.h:396 [inline]
- destroy_ep_files+0x104/0x170 drivers/usb/gadget/legacy/inode.c:1591
- gadgetfs_unbind+0x7c/0xc0 drivers/usb/gadget/legacy/inode.c:1664
- gadget_unbind_driver+0x7c/0x118 drivers/usb/gadget/udc/core.c:1724
- device_remove+0x4c/0x80 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x1cc/0x224 drivers/base/dd.c:1372
- driver_detach+0x4c/0xb0 drivers/base/dd.c:1435
- bus_remove_driver+0x6c/0xbc drivers/base/bus.c:832
- driver_unregister+0x30/0x60 drivers/base/driver.c:202
- usb_gadget_unregister_driver+0x20/0x40 drivers/usb/gadget/udc/core.c:1784
- dev_release+0x68/0x80 drivers/usb/gadget/legacy/inode.c:1207
- __fput+0xcc/0x2f8 fs/file_table.c:512
- ____fput+0x14/0x20 fs/file_table.c:540
- task_work_run+0x70/0xe0 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x168/0x19c kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- arm64_syscall_exit_to_user_mode arch/arm64/kernel/entry-common.c:108 [inline]
- el0_svc+0x1f0/0x1fc arch/arm64/kernel/entry-common.c:759
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:590
+Lucas Tanure (4):
+  clk: meson: t7: keep the memory fabric clocks running
+  arm64: dts: amlogic: t7: fix the pin groups of two PWM outputs
+  arm64: dts: amlogic: t7: khadas-vim4: add the PWM-driven supplies
+  arm64: dts: amlogic: t7: fix the pin groups of the vsync PWM
 
-The buggy address belongs to the object at fff0000016813780
- which belongs to the cache kmalloc-192 of size 192
-The buggy address is located 0 bytes inside of
- 192-byte region [fff0000016813780, fff0000016813840)
+ .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 110 +++++++++++++++++-
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi   |  44 ++++++-
+ drivers/clk/meson/t7-peripherals.c            |  13 ++-
+ 3 files changed, 156 insertions(+), 11 deletions(-)
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x56813
-flags: 0x1ffc00000000000(node=0|zone=0|lastcpupid=0x7ff|kasantag=0x0)
-page_type: f5(slab)
-raw: 01ffc00000000000 f0f0000003401300 dead000000000122 0000000000000000
-raw: 0000000000000000 0000000000150015 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
+-- 
+2.55.0
 
-Memory state around the buggy address:
- fff0000016813500: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
- fff0000016813600: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
->fff0000016813700: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
-                                           ^
- fff0000016813800: fe fe fe fe f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 fe
- fff0000016813900: fb fb fb fb fb fb fb fb fb fb fb fe fe fe fe fe
-==================================================================
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
