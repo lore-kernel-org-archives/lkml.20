@@ -1,166 +1,162 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD014632
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE509632;
+	Sat, 29 Aug 2026 09:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787996376; cv=none; b=NzV77Qz8PlYj6ipK7pD4J5VafCHk42cIwgFEbQi+TzhX+C/NV/vuXU9M72w7zfkO2vCyHSfvP+KjZUj19IBN0wEvhbqxnK4zBhA2K2eIx64dQnBEtEn55+PYGFi6PbOqKQuApQd+I1FUylviJaeSBLGnYFAJOpXkVuBrlooRK+I=
+	t=1787996551; cv=none; b=KfsngTwhZEIF0H1le7eRnza72lpaNDcbqN5aviXqXn6h4hhdi/xP/U5/iAgofyco9vGv9yIu3TAX/Qe5MioW3gLXTYtcJvAYIEgePhUyAUTXqb8mZu+yXrlct8QpQe3wUJ8sjkaO+BCCa0XiWRzhWMw8vOad0Dub/ykZjAdUGqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787996376; c=relaxed/simple;
-	bh=kQH8utjEcMuMrgMJOI0fiTjjeIf/7vys7+no0w6kqg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=biMQgL/9l7YpiJP4rnKRpp+MPHqYTbCErLgbHHtg2Vc4uiSZmXIHUDcSTEJrHNV8CDrq5za99Nwnjfhr8IjJhsiJtFerOLe5Dhug6zmxL3AjMkepH8GPzzk86xVzGx0NdOW+celM4ClrF9Zl/7xIWSGoPXQJizhAfmXyfeLRjSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mu2Qt7+a; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787996551; c=relaxed/simple;
+	bh=3WbhTlNcJF4Yk2bK6YGrhO8Fs4z46ZUw0CdTxeyPOtE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dl/V85q7nNNydfjtPp58oJCNNs4npJfyZZodt/m/RTgEYZf1xdSXG8wQAV+LLOiQiUDI2cUFXAMxypAaXUOZ/QDlUT7q6BEp2DiLnDR0PKw92DPJ8pcAs6Qa3ud/VBYGoL1derHCDVkreatU79w6OJloEF7K6UI4JrqRY8yGp/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IdTPy6eq; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mu2Qt7+a"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d590f4c291so5001835ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787996374; x=1788601174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QwISUhSllAbTBUsml1VPg6731YykdVgMhKzGhwZ5KiQ=;
-        b=mu2Qt7+aAdbwrfTdvj+zIcPwvdnxkntmauvhsd5hyjRmtKIsYC+1RI39dFoxCTChsi
-         5CUeW4KheNoBoiB+YrtX284vbdeIxNA35zr4Ymx4l/bfQ+u/BvScC/dScUb4hOa3vaky
-         FGVghA5v6B+2K32U8McN+QNQ0Uaz25tLLRUXT42PgrLZqxjRKSNhXva8/N41qVRAqASB
-         3rRNZPeNKa+fuEi6BfufkL3LuIIhIUZz8yJQ/oXWEEtHY5SZ12atwxgIuaVH06GNGR/u
-         PKnS376LT1JFRDKJr4rD01QW3uig0QYOt4A9+9SwwGiZH4n9t13K1SnNiZqWhUpMEyHL
-         8Q7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787996374; x=1788601174;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QwISUhSllAbTBUsml1VPg6731YykdVgMhKzGhwZ5KiQ=;
-        b=Gi3NL1qsyRmNH6V0SM6ElF5uH1BXufeLUW82iMVD+T8i0ijGwaccdY8axjV6KZ53fQ
-         cp5s8u2SfmIXhkMYSnoZ70xsYNsowtJw46QQolM4zPkEJXORlOiI0OEWpYwquV/ZcMD5
-         PgCYYTcssYUdX0l1p0tLMt9P/o+6GBTN3V379BCPMYoxKLOJ9mZp+7TLiZZfk1diikh9
-         9Hm3WUSgoshN+lK7MhwbAP0elu1e7u7yrdzvCdQZ2oJivJOWWZztvEUmDyzYOWpdcvnM
-         8bQf4RW6+xV/A3vu+aZY17yztL+VDzeAjHv6DGwKzL+Ze1rmvY9NyM4UWwqLmqH2hzXs
-         Sgyw==
-X-Forwarded-Encrypted: i=1; AHgh+RpFdfLB6WmNesVGLkDIyGFAA4ffEkPdE+qvAxj3HYBBdJnBLCRYeitWY+zSMF2T8YCMotjK+R6/CKIx9L4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3el0SZrZEGrgFYgL3EA0K2jyvB3JYvtgQfs9vMDL41WQJJcUO
-	qe6mbBHMPFna6ifyg9eA21xBNl2LTLzmxhNncgZrnhKAQH1riBvXvcSIALlEjZDmSAI=
-X-Gm-Gg: AR+sD11mECnmrHyU9uiFRNPJWBrbX9L5CE/xVigEGffDNtOgHPPihWaRovTV0ol6Bi2
-	Dgh0QLVHb93T76SGkiU/akL0Wnitgu8kYwXNKWl0Wlpjp3xIBGelCnJTYc4kN1AzM74e0to7HXy
-	8J/b5pSS1ckhLiIwjhtUk6ySfiv5ZzsZz3ZlwQjf8MMZAVAwD7BDNtrx70OpjGX6fALjXKz80cW
-	nIHfMGFE82N/FKdUpIH4SOX7pOkAYwE6X0ZJbXuB25YFCqS7u7jkZNnLxoxZ/x3C1PTyRA3kEek
-	+aTjFYNNNNb9HdkikRH0seHiYb8ulP0IGCLgkt7yP2ggidK7YkcCCwwTIsavM9MF2Az2yAxPGJs
-	ghnSIRXyn85JgHq3csyoOcD7o9wPE6S4caljEwrE7/MRMPUW/9kSsRXdEj1qdMrRSr3pFKSYw0O
-	+a404tBXRN7Q/t/s4l1HTGVVFJgTt60Fr1cMb1YSSfZtR1bg5uidxg19Pp08OR2vb6VAEjulJh+
-	VMgnC7nXfuaZhPSi45mbw5gvm1INSmMoQ==
-X-Received: by 2002:a17:902:f542:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d74e0a47b0mr118524575ad.4.1787996374029;
-        Sat, 29 Aug 2026 02:39:34 -0700 (PDT)
-Received: from cachyos-aura ([2409:40f2:3104:d691:c7eb:3b03:2c8d:127f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b0451sm16446310eec.16.2026.08.29.02.39.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 02:39:33 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: nika@nikableh.moe,
-	emmanuel.grumbach@intel.com
-Cc: helgaas@kernel.org,
-	miriam.rachel.korenblit@intel.com,
-	markpearson@lenovo.com,
-	linux-wireless@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>,
-	bhelgaas@google.com
-Subject: Re: [PATCH] x86/PCI: Disable D3cold on Intel BE200 Wi-Fi on Lenovo IdeaPad Pro 5 14IAH10
-Date: Sat, 29 Aug 2026 15:09:22 +0530
-Message-ID: <20260829093922.37103-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729125202.33719-1-nika@nikableh.moe>
-References: <20260722021321.68902-1-nika@nikableh.moe> <20260729125202.33719-1-nika@nikableh.moe>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IdTPy6eq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=TizvrXAhEHBgBs5wwOnXkKk/lvWUZcIhQIwsSoolUC8=; b=IdTPy6eqeIEkdPcfi56nkxrNRk
+	+2mUyic5oteUWH5V+/VVV7pyaDFYJoto/5mmnUUBCBzl4gZM8ukQelPdkr6oSrxWYjp4MQYn5F+L/
+	+lFYv2R49ln+rv12HXqsbs2t4kgbM0Xg+dkrxGCsLApgkcweikqMDQbMzXT7pmNgImdfQzDq5FdJZ
+	MI06PYe6hqS0/xXcdZecQSWEeF7twdbjiJeClv77BgXIyt76zGPVqKo7g8HOb/+MHeJAKV7ywKDty
+	q3tEpvOZm+mXlkxUAO+kHFLUNb2buCjSwhXFNgXw/yS0u++LQuNEkRFnr7fJfZsmHzwcQcFRPzB0o
+	W80UKoHg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0FZg-0000000GHap-2J8Q;
+	Sat, 29 Aug 2026 09:42:08 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F2DCE300382; Sat, 29 Aug 2026 11:42:07 +0200 (CEST)
+Date: Sat, 29 Aug 2026 11:42:07 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	xin@zytor.com, luto@kernel.org, jpoimboe@kernel.org,
+	rostedt@goodmis.org, akpm@linux-foundation.org,
+	rdunlap@infradead.org, elver@google.com, andreyknvl@gmail.com,
+	glider@google.com, gor@linux.ibm.com, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] x86/fred: Fix stack depot filtering of FRED event
+ stacks
+Message-ID: <20260829094207.GD776954@noisy.programming.kicks-ass.net>
+References: <20260827150022.1618235-1-xiangzao@linux.alibaba.com>
+ <20260827150022.1618235-3-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827150022.1618235-3-xiangzao@linux.alibaba.com>
 
-I hit this on a Lenovo Yoga Pro 7 14IAH10 (BIOS QGCN35WW), same BE200 and
-the same SUBSYS_00F48086 as your lspci dump, with an identical signature.
-I think I can explain why your AML trace looks clean and the link still
-does not train, and why Emmanuel's firmware-reset hunk made no difference.
+On Thu, Aug 27, 2026 at 11:00:22PM +0800, Yuanhe Shu wrote:
 
-Short version: PERST# alone does not restart this card once the rail has
-been removed, and the reset that does is already implemented in iwlwifi -
-it is just armed too late to ever run.
+> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+> index 15fd9ec5ecac..78b8eb4a925f 100644
+> --- a/arch/x86/Kconfig
+> +++ b/arch/x86/Kconfig
+> @@ -555,6 +555,7 @@ config X86_CPU_RESCTRL_INTEL_AET
+>  config X86_FRED
+>  	bool "Flexible Return and Event Delivery"
+>  	depends on X86_64
+> +	select ARCH_HAS_IN_IRQENTRY_TEXT
+>  	help
+>  	  When enabled, use Flexible Return and Event Delivery
+>  	  instead of the legacy SYSCALL/SYSENTER/IDT architecture for
 
-On my machine:
+I'm not sold on this being a CONFIG symbol, we have far too many of
+those. We have many other patterns that might work here.
 
-_PR3 -> PXP._OFF genuinely removes the module's rail; PON() then restores
-power, waits PEP0, enables the source clock and releases PERST#. I checked
-the pins directly via the ACPI GPIO accessors: after resume the power
-enable reads 1 and PERST# is deasserted. So the firmware does everything
-your trace says it does, and the card still does not come back. What does
-bring it back is a third, WLAN-specific reset line reached only through
-_PRR -> <pwrres>._RST.
+A common one for example is:
 
-That _RST is gated:
+#ifndef arch_in_irqentry_text
+static inline bool arch_in_irqentry_text(unsigned long addr) { return false; }
+#endif
 
-  Method (_RST) {
-      If (RSTY == One) { ...toggle the WLAN reset... }   /* product reset */
-      Else             { DCTR |= 0x8000; }               /* just an FLR   */
-  }
+And then have the arch/x86/include/asm/ header do:
 
-Disarmed, it degrades to an FLR, i.e. asking a device with no power to
-reset itself over a bus it is not on. That is the fallback that has been
-running all along.
+#define arch_in_irqentry_text arch_in_irqentry_text.
 
-RSTY is set over the vendor _DSM by iwl_trans_pcie_set_product_reset(),
-which iwlwifi already calls with EN_PROD_RESET|EN_WIFI_FLR|EN_BT_OFF_ON
-for discrete parts. But it is only called from iwl_trans_pcie_removal_wk(),
-once the device is already being torn down, and the _DSM dispatch is gated
-on the firmware reading the device's PCI ID back out of config space:
+> diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
+> index b98f8945dfff..620def9039a3 100644
+> --- a/arch/x86/entry/entry_64_fred.S
+> +++ b/arch/x86/entry/entry_64_fred.S
+> @@ -36,6 +36,17 @@
+>   */
+>  	.align 4096
+>  
+> +/*
+> + * Bounds of the FRED event entry text.  Every event delivered by FRED
+> + * enters here, including events which the core entry code forwards
+> + * through asm_fred_entry_from_kvm().  This is the FRED counterpart of
+> + * __irqentry_text_start..__irqentry_text_end and lets
+> + * in_irqentry_text() find the event entry point of a stack, see
+> + * arch_in_irqentry_text().
+> + */
+> +	.globl __fred_entry_text_start
+> +__fred_entry_text_start:
+> +
+>  SYM_CODE_START_NOALIGN(asm_fred_entrypoint_user)
+>  	FRED_ENTER
+>  	call	fred_entry_from_user
+> @@ -150,3 +161,6 @@ SYM_FUNC_START(asm_fred_entry_from_kvm)
+>  
+>  SYM_FUNC_END(asm_fred_entry_from_kvm)
+>  #endif
+> +
+> +	.globl __fred_entry_text_end
+> +__fred_entry_text_end:
+> diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
+> index 30e8ee7006f9..1b52239fcefd 100644
+> --- a/arch/x86/include/asm/sections.h
+> +++ b/arch/x86/include/asm/sections.h
+> @@ -5,6 +5,7 @@
+>  #include <asm-generic/sections.h>
+>  #include <asm/extable.h>
+>  
+> +extern char __fred_entry_text_start[], __fred_entry_text_end[];
+>  extern char __relocate_kernel_start[], __relocate_kernel_end[];
+>  extern char __brk_base[], __brk_limit[];
+>  extern char __end_rodata_aligned[];
+> diff --git a/arch/x86/kernel/stacktrace.c b/arch/x86/kernel/stacktrace.c
+> index ee117fcf46ed..4af7e52d9d97 100644
+> --- a/arch/x86/kernel/stacktrace.c
+> +++ b/arch/x86/kernel/stacktrace.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/stacktrace.h>
+>  #include <linux/export.h>
+>  #include <linux/uaccess.h>
+> +#include <asm/sections.h>
+>  #include <asm/stacktrace.h>
+>  #include <asm/unwind.h>
+>  
+> @@ -128,3 +129,15 @@ void arch_stack_walk_user(stack_trace_consume_fn consume_entry, void *cookie,
+>  	}
+>  }
+>  
+> +#ifdef CONFIG_X86_FRED
+> +bool arch_in_irqentry_text(unsigned long addr)
+> +{
+> +	/*
+> +	 * FRED delivers events to entry points in .noinstr.text, which
+> +	 * __irqentry_text_start..__irqentry_text_end does not cover.  See
+> +	 * __fred_entry_text_start in entry_64_fred.S.
+> +	 */
+> +	return addr >= (unsigned long)__fred_entry_text_start &&
+> +	       addr < (unsigned long)__fred_entry_text_end;
+> +}
+> +#endif
 
-  Method (WIST) { Switch (ToInteger (VDID)) { Case (0x272B8086) {...} } }
+This is all confusing at best. __fred_entry_text covers all entries, it
+cannot distinguish between irqentry and syscall. Why is that not a
+problem?
 
-With the rail off VDID reads 0xffffffff, WIST() returns 0, and the arming
-fails:
 
-  scheduling reset (mode=6)
-  ACPI _DSM not available (-19), cannot do product reset
-
-So it can never be armed at the moment it is needed. I confirmed this
-directly: with the device dead, evaluating the set-mode _DSM returns
-success but RSTY stays 0.
-
-Arming at probe instead, while the device still answers, makes the whole
-existing path work. I will post two small iwlwifi patches for this as a
-separate series and link it here. With them my card dies in D3cold on
-every s2idle exactly as before, and comes back on its own in about 5s,
-repeatedly.
-
-Control: with the reset skipped but everything else identical, the device
-stays absent (2/2), and recovers immediately once a real reset is issued.
-So the reset is doing the work, not the remove/rescan.
-
-Emmanuel - to your question, this is not a firmware reset during
-suspend/resume. It only fires when the device is provably not answering
-config cycles, which today is the case where the driver instead spends
-~2s on handshakes with absent hardware and produces a bogus
-ADVANCED_SYSASSERT dump.
-
-Nika - I could not decode LTSM 0x32B either. Worth noting your sibling
-port 00:06.2 reads 0x33/0x40 with its link up, so 0x01 does look like a
-state the port never occupies while trained - but that is just my
-observation, not a decode.
-
-Caveats, so nobody wastes time: tested on one machine and one BIOS, on the
-discrete (!integrated) path only. I have no integrated/CNVi hardware. The
-recovery costs ~4.3s of Sleep() inside the platform's _RST, which is
-firmware and not something we can shorten. And this is recovery rather
-than avoidance - it keeps D3cold and pays a per-resume cost, where the
-quirk in this thread avoids the problem entirely. I have not measured what
-the rail actually saves, so I am not claiming it is the better trade, only
-that the hardware can recover.
-
-Thanks,
-Navon
