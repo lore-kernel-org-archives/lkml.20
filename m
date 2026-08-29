@@ -1,25 +1,25 @@
 Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022081.outbound.protection.outlook.com [52.101.96.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C921357D13
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:53:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14289632
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.81
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788015213; cv=fail; b=QNPhP3fwDZalXNbg5yTneW9X3Q+5CiVW/cRMD48yJzg8ZDkLdaDAb6JuM23Ruqer8UTxgP0sO+BSd7nPXg6t7zy3QY6avX+RktCNO8O5jHR6VHvEzx8If0bBYZ1DYJWG7M+7XHK3b9MPBKNRZgJiLNFesaW0G8IF7pXLbVzVOm0=
+	t=1788015215; cv=fail; b=TQ6k0GhH6lYg3lz3FAdiGiGzh748P99NuLnjwBY7JnJg5FNF2JfBd9XOmg10AF8NmEVW6Z5vB99jz6CSPNLPatptqzymXfMIElnX27QKn6+UXYdyDxGyJVY+Y/Y80VQg6G3Wjri86ARqxz1SxWSIS/0PU9TB36AqudadrLMLGvA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788015213; c=relaxed/simple;
-	bh=VeG1ewZN56oy78LJ6IpKwu9u2dtqXCejMCX7TS+d484=;
+	s=arc-20240116; t=1788015215; c=relaxed/simple;
+	bh=+zPAQZXLUrnGlSQ9NPndLq/y58j3Vr5LYdcU01PAwxg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ILUnOi9aOk331oW9qrJVWkJzrGpelYxPtMXobTVyC7uy/vac7DmgRTw/KcgC+Wzjs+RENUEKJ7WmdK1amGJijVqhmgzUAc625k0B6a39lW2B1MdPatUEE7MzPofb1ZxpUEGF+SXKM3YPz39liHh6509Em/oyixMv58B8O/5ZDxE=
+	 Content-Type:MIME-Version; b=QRI7SwZBwnniM2wukR9EK1W49CyT+Ht7nA3G9r8yCxko4PbUM2x0O5oJ7tN4CLoDp84M1WmgraPzYj3SAi4aBoFXmgh1R++Fp47tikHxd2/ecuZtkJ/Qap9ah5LYiNFZuEsvUdBQY1HfUejCQ0r36aaPVtrHHPAtOReh4Ypv2qs=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hqk/iqr4sLKSH5klT/llAVtIQndxpGfVvi8XU7DmxIiiuXoL5GqplD+FQRFDEgbNrMOjVaJKEKIDyePuhQwzbJUPZuz75TrB5PGl+c7eR/A6vBRBCcNmaTL9pQ7BywEhmm5cijBMT+ypcGeQ+A70DdSBFlA7UpKiwnU9EDEy0FdY+A4YiE2j5RhrpH3AiI0lIzXfqC/mRN5+sTlemKabFtyZXNFOWGMxr685QKRrUkukcuThdECyb6kGZ959PG1dAA/sgPsfxcL2V/0Y8SuwioiRyevaQ62Oo8FOET1JdFXtead9duGsDMUEvwdqa/mW/EEZ0Qfit7mZDcfk+9mdfg==
+ b=caKgsoZ/5Tum+X26ukKX8c4iLc7hMiI5JHRg56WCdq+iLDb7Y1HrlT1EFqVXgX7APHsCGJxUkgxGcnys4PU2MGEw8zkko44JMtc8nlr81g4e0HOB1LdszTJmbv/tZgdew5sW4ByrKyDPCneiHwU/0E37at3kc0KzmF4rgCoDDFSR+JwHpJaV3owm/L7P+WZiS8LMaPMhIsZLoqf+iiOQyOK9GAXiaveCBchgGLSiPJG7NT3x+ihlTsMNso01lz/9wFdWbR2gsFgf4HA0yTlxNPCgRk1Cbk1NOnIbF4oKzfGQxJr0iEXQxMZI7dwOUSxwlFeb2r64WplC5nWR5vVq+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=OOhAIw85+cAnV43onnUPAfU+DW/ZWnbjRyQkHrXtVy0=;
- b=KE0KOrD+dg/54WvCebUnDHDlyJC6Hur1I9vRnEX5UNr4teb6fL+mZ9e42tbQ4uC3MQ7LKL/O0P0cE+nmsoi++uYrW0t29o5mDRi/eHfIqRqNoqTqkBMPjNrYeRnwc1tdtEb50VAsuyTeVv5PXoHKOOZQ7VKNb0Bl3PwvScMuh03G0YAKzdjDC/sQ0TogWws3D69SrrAILDwhZZX8TEsseOmrzaCs8P313c8GgscEW9gOMy7hmQ+i1gOQsQvhoMIC0WKaeb50Eec5EekgmXM78IDAYr7fKPkDqm9bnT8kskLRd37o1Eg7hsDU9JWQroogsc5GoRVHejxjENJ+G/wDGg==
+ bh=Wzm0JTEpq/iXmZBvQUwRVEjtoy1pZJJ8vdMsR6ZcImE=;
+ b=vV/lA1K4tTBoXBhBrs7pRZz9CtjBT4Ej9zKjlZSqEZMIoNDZEpviBQKKnnamgqOzn2MUq4knjAc6NR6D+bYwmaq3vunIOGcp5kzIl7D3sPxqD57lwQvAr8xyeCO0JC2TP85D+s0lF7ZePGDMip3U0fi8lqbmWsrx60Qa0Qgm6IvrLXy2pKaCm9tipMqae/peUaDs0N0mIWW98rhcjnZstn+GWpicR3cWpOIkaD2PnrNnNng4efTZYWabYqWx5MKg3WnrbbnMNAh8TC9+G5iD4vfTuZ7SOUliWzCS03uYOJUsCedpTEWTTzdRreLtwzXNpLWYu1cvnCd12hyl+Tf58Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO0P123MB7197.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:333::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
- 2026 14:53:29 +0000
+ 2026 14:53:33 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 14:53:29 +0000
+ 14:53:33 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: akpm@linux-foundation.org,
 	lance.yang@linux.dev,
@@ -48,16 +48,16 @@ Cc: linux-kernel@vger.kernel.org,
 	steve@abita.co,
 	mproche@gmail.com,
 	nick.lange@gmail.com
-Subject: [PATCH v10 1/2] hung_task: Reset warning budget when problem gets resolved
-Date: Sat, 29 Aug 2026 10:53:20 -0400
-Message-ID: <20260829145321.18423-2-atomlin@atomlin.com>
+Subject: [PATCH v10 2/2] hung_task: Log summary line when warning budget is exhausted
+Date: Sat, 29 Aug 2026 10:53:21 -0400
+Message-ID: <20260829145321.18423-3-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260829145321.18423-1-atomlin@atomlin.com>
 References: <20260829145321.18423-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0414.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::29) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BL1PR13CA0396.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::11) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,209 +67,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7197:EE_
-X-MS-Office365-Filtering-Correlation-Id: 829430b0-0b29-4d69-1afb-08df05dd49bf
+X-MS-Office365-Filtering-Correlation-Id: 0ffe653e-51a1-47a6-83b2-08df05dd4bf5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|10067099003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|6133799003|3023799007|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	zxYHy+cGkvaCGSolveBDHqIFAWnxLsQl188PyJZisI+jJ1wvNByJHEyyguCaOiyb05VIB5eKeTqLskl6CZdlJqFmgJCv/wV/+PO4wJvoAsA1Jkm4fN5sRAYyNwOhIy4l2PviuFfzfOt6GmWBorkwmQwgl7HFt9psDbbqJlEfdQLSs4jTREm0hm1ZyBf+bAO3MV5p7GTRcCOKoUYA/XmrM//9czaleBjYO2tiS3zPM+02E+CL+FriAlt8gwx0at+y0g8yTUf5s0oiCJ3/xloMrfxmwySeuMhYcNzuP82gTqXEzCsWly9DoI37iUjgU1N5uPo6gFiIOwYldBvd0WjM6BR2EagFRAnZaBQEcrvtnZkerlSFIiROMFaLWMW5a862s+8bZgPvPMRn5L+M7VzItfxwQ4bAdNPYrUTnBBqBxiBxt9ctiAA3zIl6KjVuOCI1+NuVppwHo0sJYZl762Jkkbc3B0uH7xneYCoAIo2opLSbXjQN9zjQNUj+lB+ctY9hDm6yvvtsLV64W9n7qwxmZx2c45dpVoN1JDMeOywtQnCgzS3v4PxKfURzhktxZ/6fPvJzMRcyvLUcX7ckI4+gRLvPQf1x4/gKcS/xXMe/VOIg5T/v72B+XxuZYdBbtqwV4IJbq6VZWqpV5mdVJeu+BJ+RK5l+W9bMRYBZ0bbcnnI=
+	LYm80oOf9nxJ3LLzC6Gn2jDuqzEw5wSnPOb4OG4ctpKhPMcW5xEJX5sYBfzHxZTomyfpVTYgvQyrPaejuJpvBUbNEJY44DC4eeVBcI/mrg7KWIUe0oREQLzsTXAcdVkkSDD1pZnvBT8AJDFryzRCR9V9Tbc/YqAu80u4eXGkt3yVe6nzsf0WryskIcIL6VqwU8NvKPrswHDl6X34zyYUSVvNArxNz9jtwZTe7EEWFkMzpyxJgn27YCDK0OnWQyA+AgufZMnTT3ejgmhB115/GCOirjxoDK2RsRbXmRLMTzI1g0aIcFToEkDLb3bUoTOoJ7rkN+lHn0ELMJmcU7iiUV1PylkGNDb5lePUyOq/KNmyCHzM/GG7uQLejEzkCldGPlC5+TTgIPFbX1fIu+wVOoWKI0BHpR+h5HwhSO2dYA1dAPO4/JVppOSbYVloHngztdwOVVp5mr/I9GhGXvup9/nQI9St7SBcCGsU/smMtW5yvdRkeqhI1OS00DY8hwV93PuqZJZ5q8axIkQnS+Laj7cCq0hE1aPcJhxnKu1Jpj6bgcUoL8AaQQIFB9JNa6eKwtI6gqdroh0eFZ8SSpqR3vEEWEfwi4xh0ngPgWLKItsT6PX0rw1P24VOJaRCLG1bvfP1b9gZRkv1uByA1hZFFS0/0sI4BHTSyrsfxk1hRFw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(6133799003)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dJPQac+8VXTurlzWglxd6f4bz/imUw8mtkWvGDram1WZnXb6GV1IihPp3yhU?=
- =?us-ascii?Q?PoM9Acv9lpfRtZIXzop0LA7c4QZctV/DCNWPhxuNU2AZEh5+rkkdmIqpK9MW?=
- =?us-ascii?Q?v3HOtn4i0clQZd0rjM8fZTYKPmeRME/XF7E/90rxBbVGU+EBj31EjTVItztv?=
- =?us-ascii?Q?KcEBAmqsObw8pWeKeUsNazNL02ath2mPEQcTfz7eCLfWNyhVqFaf5TqcCXXX?=
- =?us-ascii?Q?7HVMhcLQ8KOQdE3h1dT4kU4SpTErQagJsfnN8bYizHkYnkVtweHKy5oqBUUt?=
- =?us-ascii?Q?PMtLDU6LhJZ0TqPMy/Xk5RdwRhYCiT2juSBTBO77wI0JyzTN66JevO40ONwP?=
- =?us-ascii?Q?/xO7c8WC7jfzDEP4JedRGS67aY0Ii3BLN5VUZ/eW3VeY5wIHP+HNFDipckQA?=
- =?us-ascii?Q?181BB/CEnIAS2SHpI2qFvgkwIDtrqlyd83ik0aHPHS+fcV9mKftzyWLcT+8b?=
- =?us-ascii?Q?ecstN2M0Zo8u+pgA4pC2Ge4cwI1+aHmYYD2ejeQkbxMb6+3X8Dj1znK1VFsf?=
- =?us-ascii?Q?036dne45bgknOSRy6Io7YFv2NGoGXVEoet/cMoh8BognpuSRfw5LnaVorTwh?=
- =?us-ascii?Q?fGBZNWpSKY8n2SdThSf6lasXc4M0KGTY74tKounTzB73+dClF4eepNcxsfwI?=
- =?us-ascii?Q?PpKjdeUZfR3tFnpDg29Z9qkG1qs4yqzSlN+4wQK66cuDA7BFoON7tvRecVRR?=
- =?us-ascii?Q?MFElq0KINDAqgQHcqqkHrH4TYQVT+GUVUyBuKqruqQEGhKJQpy/0lH+lQz9f?=
- =?us-ascii?Q?AD3Sah7yGTHNDs+VonDFOWI0WQG2ylxNyEdVw7/mvONbyWiR1mYmCdsmCIKO?=
- =?us-ascii?Q?ZkIhsHc4s64yN4JkkN/JcFuUQjV7Us4tbYjAuUzXgEBKf6OJdYBlsdUJ/kml?=
- =?us-ascii?Q?wQQcQn64F43zTZ0qy6/5W+9iiwtrdlaGZEAmBXAV6xZGOpAAwJqH/Ovpt+/L?=
- =?us-ascii?Q?jBTTdkJlwBNvg1WGFOV43YuiFfCOOaPmTyIqbYfLx3yWagKsXnmHqj5G1MfP?=
- =?us-ascii?Q?0baXGkgvmAssuVaMVXLn0PjaxanCC0quOa5XOJiMHcttUXzEIx1u4vMh21fN?=
- =?us-ascii?Q?qKEaYcnmaHRCmAGxCdCLJQzCnF5M/rt8+Y7IYU6nyT9Hfv+qjNoloynqun0O?=
- =?us-ascii?Q?HvCUz/xeXlDKiX/5WgKXPKDT6xkUJWlJn5mvoBeVcqyW6Ut2wRX5H3uQ0dc0?=
- =?us-ascii?Q?A3gQPLd/4pKBf6+nYxBWLXyiIHlcrHyzCOnZOqsZph2giXEaDcfNslQYFVOv?=
- =?us-ascii?Q?Ht/DIvI9A1Pi+V6xUU1Yood5o5gIkuz+HNL1SzR6fs3ECWPMOYlIfFHwtaiN?=
- =?us-ascii?Q?VK5Qt1mWRL2C6etNnVuIsdckV9NJjR91ZQ7nO73GH+wVwOm+vTiV0XxCvJv5?=
- =?us-ascii?Q?2PTqQkfCkhfs2+k3lbFokdxy4+4RnJC8pxFL5F6ha8ODa51J4SiYVxGxMc7F?=
- =?us-ascii?Q?ifAomIonQO37bQi0rgLlwoAhuItb5FOJx8zYC82CY4ltnOHu+TbL926kjTVz?=
- =?us-ascii?Q?J45gx8dh1SvjaCIf+lbDX8E4xct2ahnXb1ur6BKAg6whqikMLGvPVyCWOl5q?=
- =?us-ascii?Q?JEwi2M4qp4c0ye5ANLp0EhPjEuUG35bnvroCFCFlPnsyeh7bggxjgd/0uLza?=
- =?us-ascii?Q?FSjf5TdNTL1iSt4q2cmwdC05OHa1zoxvUlCbStM6LzQjR5cI4zJ+KXSdBZvq?=
- =?us-ascii?Q?f5UGDh66dM3z0+fASQtW6agaW8K8FGbQgXBxygLF4NjFj33i4/C1IwEt0yga?=
- =?us-ascii?Q?KQ5h0ASzOg=3D=3D?=
+	=?us-ascii?Q?at45idlKPSgdCD/D4gOVqWW65fsHi74egUarip1/pteMPX9+aBZUt6h9s9yz?=
+ =?us-ascii?Q?KuKlugxhTy8ag/zNFjKVW0ZKVSmLtlOEtlIzjNfr5OqH8m6vBxO9epemOBAc?=
+ =?us-ascii?Q?FF1qdx6xTTCYs1ADGyzfPnlvzpd5xGIA21ejEc82l9BvcpZPkajJTzgasopx?=
+ =?us-ascii?Q?CH1GowdX4hLVkcs7Vn3G/NhYISEuZDu0f0tZiLvoepv/9b4CIULM3PhiL1e8?=
+ =?us-ascii?Q?qrbHdsZZVozhKsENAy6i3OLnODHlwbRlYvITmswj0G2/XfgDgSSSbVNmTHGf?=
+ =?us-ascii?Q?VU1W/DfMrsxqp+4pb/zqZ4n6XE0n/AbRBAK1W/R4v1CyvX6UroQiXydHHOkc?=
+ =?us-ascii?Q?ez2Bb7MgVn4pkIzW2H6B+TYK9UChpxpO3sX8AllkwXeBIStfSXeKiaptXGY3?=
+ =?us-ascii?Q?Y0OgUrwTMfLlcbIvP9VEgOIyiDv0XTAEYKxjyxweAHPtXvcQLhB0dQB9t4Kb?=
+ =?us-ascii?Q?yhNr4OsBDst1RQuQINB23GJvuvUDu7ux+h++pu9u5T0mozwyL0jKUk5e+37x?=
+ =?us-ascii?Q?i1OAcC03txmOQ0klHBdSZQp/VDeT23PJZKtkIvkKccq7TJxCy9BwJ4TRFmvv?=
+ =?us-ascii?Q?/LadFHpteLR775V2eZQPDBunJ+vY3h/J5wvqRefqlV0PbWn3yZrR6FsmdPT9?=
+ =?us-ascii?Q?JdFAJteuaP5iiHVKcbZU+QYz93RNbo8YXykcgCePdJfAfZGLrZVs9dOWDlv7?=
+ =?us-ascii?Q?SrRc5Ouf5fc8/u2ljInx0fxq1ISW5bvnrTvvt6RG7q5xuJJk4hCEgskFLAJm?=
+ =?us-ascii?Q?2iJ9e0GfNk+d1JGvxLPLsEn9BZPugvE+PJULoPmPLg+9diZf5pDad57V6GHT?=
+ =?us-ascii?Q?8f1J5lVCnkijQCxSlXDF3Hps9+j2yVpL316N98fhFP2l85GZt+g/g0f5izLi?=
+ =?us-ascii?Q?OURVNPiiQvc6P7sltO0KslHHbCvHvKvPLv9UKq/T8NZOSDSGJx0xHjTMUOma?=
+ =?us-ascii?Q?yH3+VGyrjfazCLiBMHeKG0ZdMx5P49E+GVZjHaxXiuPVPNxPZdvqxfoGSd4m?=
+ =?us-ascii?Q?4O5h3jnrGnJovsExB0KamKYEj90AXXP8Yvaqve/e7sXEsDtJpRgg4zq9mvh1?=
+ =?us-ascii?Q?1kitV/60hVDIafTL5mH30iUsFd6EQvH4DakXdoKoWATBoWJ/lP77qV8quqB4?=
+ =?us-ascii?Q?bcE34sFtitdUifEGJoxRMYob9+h8BfBHw8dcxbn61WF/YT2bSwTHA3qTjuLF?=
+ =?us-ascii?Q?jH1ykY85k3W6IlvKDXs65JOl0UPUv7Yk0pP8SCwJBQ3qq3t+/56+6hU7CJGS?=
+ =?us-ascii?Q?fMmx4RZ+4kGQFFyW62/Y7wKNXMHn6NYMniSxR+WQzqe0sHWGzGUzSGBNM+en?=
+ =?us-ascii?Q?Pinpegxzc4bbyxlnCOl9G5Wh0Nh5v+Gt1ITVS727Uq1oyRSt0vLYorZTh0Jn?=
+ =?us-ascii?Q?I4PQuqYerCVdxhbXARxejmtofPDJOPNJ4MnGRQpZ4VtsNNKZnk/Jq5Tm+VPg?=
+ =?us-ascii?Q?UGmoQhSQhLpPW5dwS49ZT2BBe3tQROkK/lJ9y1preoM83momID8Zi2x09DlP?=
+ =?us-ascii?Q?+wfVtccL9P8+UWB+vOUmxr4NFup8Dkd3VspwefudOS1mCusi87w8v1l4zepF?=
+ =?us-ascii?Q?rSTYRIe4qjYutB9IRKQtNUBa0XsmCGzDwnidmCpkePOBA0R10vsLtSkc/XY9?=
+ =?us-ascii?Q?MEzUyAZ7+fCJIU0VvvCziDk5RDODx51ZDUyXTjLj0Nz0hG100sCcJwa7bUkm?=
+ =?us-ascii?Q?KReKsDEDXGOQoft5WmCGGen2BdGyjoBo9KdlhjnGKMEAFpLrpvxDcVn9Emtn?=
+ =?us-ascii?Q?pBY30dPxpg=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 829430b0-0b29-4d69-1afb-08df05dd49bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ffe653e-51a1-47a6-83b2-08df05dd4bf5
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 14:53:29.4834
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 14:53:33.1246
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TysOcJBuVUy9oudiADytqsmyF2CxLScjk0z2nw7a10SOllV/3CEV6xMTdOTWhncc0bI3P+50WXFur3+sa3sYUQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: BX7dFWWIBQgo6WKF8zThpCreN5iZEgsnrL2vAEg9kW1gs7Zeehs6aNy0/jqvJbq5vgkRpyzQ02PMRU/G612lGA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7197
 
-The sysctl hung_task_warnings currently holds both the configured warning
-limit and the remaining budget. Each detailed report decrements the
-sysctl, so once it reaches zero, the configured limit is lost and cannot
-be restored automatically.
+Once the warning budget is exhausted, hung_task_info() normally stops
+printing per-task details. When panic is triggered, full details are
+still printed so diagnostics remain available before panic.
 
-Keep sysctl_hung_task_warnings as the configured warning limit and make
-khungtaskd the sole owner of the remaining budget. A check that finds no
-hung tasks reloads the budget directly from the configured limit. A
-successful sysctl write publishes an atomic reset request, which
-khungtaskd consumes at the start of the next check.
+To retain visibility without restoring per-task output after budget
+exhaustion, emit a single aggregate summary line at the end of each
+watchdog scan that detects hung tasks with an exhausted budget. This
+keeps non-panic per-task reports budgeted during system-wide hangs.
 
 Suggested-by: Petr Mladek <pmladek@suse.com>
 Suggested-by: Lance Yang <lance.yang@linux.dev>
-Tested-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- Documentation/admin-guide/sysctl/kernel.rst |  5 ++-
- kernel/hung_task.c                          | 49 +++++++++++++++++----
- 2 files changed, 44 insertions(+), 10 deletions(-)
+ kernel/hung_task.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index c6994e55d141..b0f8e55efc1a 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -459,8 +459,9 @@ hung_task_warnings
- ==================
- 
- The maximum number of warnings to report. During a check interval
--if a hung task is detected, this value is decreased by 1.
--When this value reaches 0, no more warnings will be reported.
-+if a hung task is detected, the internal warning budget is decreased by 1.
-+When this budget reaches 0, no more detailed warnings will be reported. The
-+warning budget is reset to the configured limit when no hung task is found.
- This file shows up if ``CONFIG_DETECT_HUNG_TASK`` is enabled.
- 
- -1: report an infinite number of warnings.
 diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-index 6fcc94ce4ca9..a5043188456d 100644
+index a5043188456d..49d47ae475ab 100644
 --- a/kernel/hung_task.c
 +++ b/kernel/hung_task.c
-@@ -57,8 +57,20 @@ unsigned long __read_mostly sysctl_hung_task_timeout_secs = CONFIG_DEFAULT_HUNG_
-  */
- static unsigned long __read_mostly sysctl_hung_task_check_interval_secs;
- 
-+/*
-+ * Limit the number of printed hung tasks to prevent printing
-+ * the same or similar backtraces repeatedly.
-+ */
- static int __read_mostly sysctl_hung_task_warnings = 10;
- 
-+/*
-+ * The number of hung tasks which still can be reported.
-+ * The budget gets restored to the original limit when
-+ * the previous stall is resolved.
-+ */
-+static int hung_task_warnings_budget = 10;
-+static atomic_t reset_hung_task_warnings = ATOMIC_INIT(0);
-+
- static int __read_mostly did_panic;
- static bool hung_task_call_panic;
- 
-@@ -245,11 +257,11 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
- 	/*
- 	 * The given task did not get scheduled for more than
- 	 * CONFIG_DEFAULT_HUNG_TASK_TIMEOUT. Therefore, complain
--	 * accordingly
-+	 * accordingly with full details if the budget is not exhausted.
- 	 */
--	if (sysctl_hung_task_warnings || hung_task_call_panic) {
--		if (sysctl_hung_task_warnings > 0)
--			sysctl_hung_task_warnings--;
-+	if (hung_task_warnings_budget || hung_task_call_panic) {
-+		if (hung_task_warnings_budget > 0)
-+			hung_task_warnings_budget--;
- 		pr_err("INFO: task %s:%d blocked%s for more than %ld seconds.\n",
- 		       t->comm, t->pid, t->in_iowait ? " in I/O wait" : "",
- 		       (jiffies - t->last_switch_time) / HZ);
-@@ -264,7 +276,7 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
- 		sched_show_task(t);
+@@ -277,7 +277,7 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
  		debug_show_blocker(t, timeout);
  
--		if (!sysctl_hung_task_warnings)
-+		if (!hung_task_warnings_budget)
- 			pr_info("Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings\n");
+ 		if (!hung_task_warnings_budget)
+-			pr_info("Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings\n");
++			pr_info("hung_task: further per-task details suppressed until warning budget is reset or panic is triggered (see sysctl kernel.hung_task_warnings)\n");
  	}
  
-@@ -304,7 +316,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
- 	unsigned long last_break = jiffies;
- 	struct task_struct *g, *t;
- 	unsigned long this_round_count;
--	int need_warning = sysctl_hung_task_warnings;
-+	int need_warning;
- 	unsigned long si_mask = hung_task_si_mask;
- 
- 	/*
-@@ -314,6 +326,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
- 	if (test_taint(TAINT_DIE) || did_panic)
+ 	touch_nmi_watchdog();
+@@ -363,6 +363,10 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
  		return;
+ 	}
  
-+	if (atomic_xchg_acquire(&reset_hung_task_warnings, 0))
-+		hung_task_warnings_budget =
-+			READ_ONCE(sysctl_hung_task_warnings);
-+	need_warning = hung_task_warnings_budget;
++	if (!hung_task_warnings_budget && !hung_task_call_panic)
++		pr_info("hung_task: %lu hung tasks detected, warning budget exhausted\n",
++			this_round_count);
 +
- 	this_round_count = 0;
- 	rcu_read_lock();
- 	for_each_process_thread(g, t) {
-@@ -340,8 +357,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
-  unlock:
- 	rcu_read_unlock();
- 
--	if (!this_round_count)
-+	if (!this_round_count) {
-+		hung_task_warnings_budget =
-+			READ_ONCE(sysctl_hung_task_warnings);
- 		return;
-+	}
- 
  	if (need_warning || hung_task_call_panic) {
  		si_mask |= SYS_INFO_LOCKS;
-@@ -425,6 +445,19 @@ static int proc_dohung_task_timeout_secs(const struct ctl_table *table, int writ
- 	return ret;
- }
  
-+static int proc_dohung_task_warnings(const struct ctl_table *table, int write,
-+				     void *buffer,
-+				     size_t *lenp, loff_t *ppos)
-+{
-+	int ret;
-+
-+	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
-+	if (!ret && write)
-+		atomic_set_release(&reset_hung_task_warnings, 1);
-+
-+	return ret;
-+}
-+
- /*
-  * This is needed for proc_doulongvec_minmax of sysctl_hung_task_timeout_secs
-  * and hung_task_check_interval_secs
-@@ -480,7 +513,7 @@ static const struct ctl_table hung_task_sysctls[] = {
- 		.data		= &sysctl_hung_task_warnings,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
-+		.proc_handler	= proc_dohung_task_warnings,
- 		.extra1		= SYSCTL_NEG_ONE,
- 	},
- 	{
 -- 
 2.55.0
 
