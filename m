@@ -1,201 +1,105 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A89A39795B
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788006063; cv=pass; b=qp3SncyK5Dwh5gHlrASrhrW1nEvxysYMFv6NoVVDS/AvHftw+IiImGRmb7onxo+OAow/826DP0JkA4xyPvBiwhlB8mkj/xHjEfxXb9QBlS4Zd5t9wt+W11A2xC3oUQcqcv8i1TisvFHVqVGyXDrp/vyLBizT1xyGoCfX1fm9BwU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788006063; c=relaxed/simple;
-	bh=YhhiT+lMqx5HjW0/PRoXbfXIAG7+7GDtlBab+gtNpMk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kAy4JBUAzYC4BORJZIneL8EhEg/4kKpzCMB7HoilXBLC2n8RuSrZSofcmOoTjBoqtG5GatCs3JRfKHdPB6zmxFja61ccKm/313GSvyIFosYwocVXPJjBPI5O0fOyVkDDnE67s+bZ1Qo+iqN1cqfyJMDV2OEvfN/4mET/IHGw9JU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=HFcDzDb6; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731A0392803
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 12:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788006093; cv=none; b=af2cWIKjWzmOcYCrV63a4IOBI9GlETpLJ7N9izwTUFGEky9+Ijwj2WE/e7BZdxTvtX9F+KpKv91QQjaICzgVnwUif3qd/Ajo783Uhxxnm6KufpFahfn/M58GXXvC0NMQLCVqHJ0EETRsg43zfRlIEyvq0Df125Qfha2wdmCGAj8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788006093; c=relaxed/simple;
+	bh=VcyCGctu1g0xc0Z6WK6gwbU+4XuhAb+0zAuOkn6SwdY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=iPAGKAhbtz6GwZgnv3cMek8NQL8/k37y11DlN4+07JChnxy4t3CIEOMQ3qk/Qfgyabl2bbRmf3g6GMMcx1NmrdKLjOGDrSNTQDT4dU7V/eD99nZ8QkQ9BDxIswZPZ+0kvWk38iWgD2c7zkxiOyJEDLPVoSbLbI2Vvaiam5wde04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPfMgSy8; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="HFcDzDb6"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a20367cf82so16299541fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:21:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788006059; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PZibBT7yII+WBJOFy+6LKkyI5gDprrY6XJM/U2OuT164uW+8qFySa683HZQXbkfSqx
-         d5l1CmQ256aUip6K0aQrwBUqL845B4ni2XYDgwJZarzTiBSYHHSCXfwfekZW4Mm1QcrC
-         4qJIsmVmK3DdA6XB+yLByBEPTjHXAnG63PVR+FwWiMGlEyp2qa1gN3GmfCKuHgOdZNx0
-         S4sRiOXdLuoFBXuzKdMTYO8ZIBs1OHoj35YiR/0nTHxTLxp+oGr0OGF7WCdClq5a+YRH
-         pZZ3sxkJMli+I4hrHU4RZebgth6RBMmBxZ5xkMogxhPCvkussGjm/09ea0UqJldILEpl
-         KD5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        fh=9Rd+OtU5nzs6+au1VNoNcR1ahuUIp3bDFO4jit4YISw=;
-        b=nLK/BX+QWbfHEauAFD1pwx7GMSGSC+nlnnCrxolr1E8T9oCbUo/172hg9EPaL10xmv
-         n3lpNp7zNsfhjsdR8FHNk/+lcR5J2ZgNBR3mC4WccLGJWUV0jtFOAqmIpA2JzTz0vZ9c
-         w7rnK42tU5RmDtLdaBk/Gl1n1iZ27uS7J8hbSpVxCXMeg+r34+1kj5vDiqcooKVILzWC
-         +ITgra9PwAr/VqFlAL/tYRScvrnTANtsgvrei8cDAAhHcxXcL/FaoZ21VZUAgaDx9WV/
-         hy38PNM6loMv8t7CDELhzOUz/kWkhL6EAMPlaRimUBPT7ASBSjblVn7AJnEEwz+R0pWR
-         TgmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPfMgSy8"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so16277435ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 05:21:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788006059; x=1788610859; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        b=HFcDzDb6kRKB9Quw6R/ZsGMk2g6xONxRRL7G7ZagrcGy+LkN9nw+h/uLM4ZNMHF89I
-         tMhKA+J4t0yIa2OombsSE6wxqK8xzFqfdZ1J4d25kNOfiszRZz20uL6iVVZhfwMPi5mw
-         qfJwwsnO6XEwWGBm1L3GmKfQGjjL1DlLzcjx1QWFS8Qe+MUd1Zwgdwreoj1Ii7Sj4Ze3
-         foymhnRv0iaJcgMc149nibCZNX5NuEcyBvm1v2nrYHyugSC/F8aByY+rzAzRdbxzxnZP
-         zNR7VMmsxXmV5gPT0prLq7SK1Ya4sQz8vjoJmg7tZ/1KY0HSPSxH+z5YR2EpPWP+JSsp
-         Ey4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788006059; x=1788610859;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788006092; x=1788610892; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        b=WrVRsxWQsSh5bwZs7eENlfJcfA/HP0eZ0K5Ery+34/bDjH/MiTchnW8bZwvWN86/L0
-         m7kEBgIhr3csbh1SpLoc69xLj+w8ZAevzS+ql2GfNxqJtQY86/DeU3BcEw93qFKOlAgA
-         Cq9KuPfDmKh2zA+PsKqDG/zDZBBM/y0D3pJ890dKkx+7f1K1tuhu/TnVuSeaT/oFKJu1
-         onqbCY+aSBMSlz6WTOVk6gGqQJJ3CJdEE+zmeapFnCKMrD9eb7jSkqgupeQ707Pfs8Xi
-         UaLDcdbj17FascO7wtPThd3ceEmuxmtCxLKHyv45qhOe1sZLelyE9C7sXgqDfhkmQ28s
-         tKYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhAN22Oyu20HGULhF+tinNZ3vFrw5I0EDAST10IP+O13aQcvva0yG1KaB96zji0msbQ9IiB1YaLI8sgio=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfJfGF9HgnLj32iKp3o+5Nsp1/r9bycW1KEtHTxcs53gKxv8yR
-	aJTslPr/tPovvbJFj3UVCao4YPJqD386KZrNtMbW6nnUwhyd4vaofeJyThSe68llCJ4latl4XdX
-	n71mHOH5iZoeUlhsR8s05Y0/CW7RRl2Z727G2tKPLngk=
-X-Gm-Gg: AYBFou3SHZR4Z0cvdATcFF66r7R8A/ghOZp9IuvhyZnawi1z2drVPccIvKv7om22SYs
-	Vq0SbeH1ve7Hf3bRzlYmrZmpfZLRWBL5A0XTKRTBquYRB0q1PdTyT0V9oIriHc68oFzGs6vjGUP
-	Cht0+3c7nkG30CBGX79ZYnISXRQeSxcdSEoz8arLQZKc+dOMd0KvAyCgE8Sr5nuXp81F9s0RYK1
-	nnUgI4Z9bpMua+r5RhCXWHHq2aYD4PsA0S3QDGeLN9nWwMFb3zJjS24RjqUD1r4EKyfeHhD0NZs
-	VySv5y1rVPMzZBL9EFxUYr/6OnbmqxFksQYXvhWytvC6+oVZDUkbCJw3qrE/2VQSHXByRVQ1lBf
-	0Oug4cgFQO+w=
-X-Received: by 2002:a05:651c:2227:b0:3a3:2127:8ef3 with SMTP id
- 38308e7fff4ca-3a321279098mr394261fa.10.1788006058169; Sat, 29 Aug 2026
- 05:20:58 -0700 (PDT)
+        bh=FcrdV1chy8E5sLFVdinxAMnEwzUKSY0vgBRq1ljoevQ=;
+        b=GPfMgSy8wbGkO3PpBbkYF+/p1vCz1uT0RG6OG+eM3/z1vASphskdgTi50KhAPW1x+v
+         xB8KrKTCYqH+Uawne5i6bKf9z+Jev4y+w7sp/50LDrH8DRPRzpbe5ueJDQIgOs/4ROF/
+         592H4m2SMJTy+HG2wpCPLsmpgbweV2kIxrzZ1f8K+w1CDWhGU6DgjnrAy7eXOQ7suAQ1
+         nKtBvXG/HDTdiIxXSKdWechEVGUy13D26RcbfinejSn/m7m5DnsJZlLmgsjLoklvfmd4
+         7TB72Q8rw6fGKIWWJvFQnzbNcaCcwsQpcLtPKjX4HcmrZne/q27UFXIGINRTMIcb0xg0
+         C0xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788006092; x=1788610892;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FcrdV1chy8E5sLFVdinxAMnEwzUKSY0vgBRq1ljoevQ=;
+        b=hzlP3hmsg3g/FhQQzYm7MVnm87XAQNWMANgx9RMLYPS6az3XKDwAvmN2gn8dp/5Q28
+         wKRo1niYqGOVCMnGt+37O1jJPwVhq6SGv8RLzPna5+oXXzJ+WXurmSvT3Ok8TALLSvFx
+         7EQunVwnfvjQBnmFDvn5HvgeYxktqeuTce+pDzDRwEEe24wRVvhVgjL1EHcBVnTjelgV
+         3tzikiHyAAmfcsiXLS8/IvRPVwOjOvRG8NMa0bIH4dK6mpf3JLIpViTgv05rhzmSTKZz
+         d0X8mNDY5xw3rZc7EEqJH4403zY7xpwnG5h4lM4JzBv7MWvEhq1i3maaXDrlUHzhoBlt
+         oNWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSd/SOMsrePO2Fn2xs6EsrsIwhpLW75aT9uAdr0iURukX9uczX2PKMB52bBkxWOEYON016NjWyi14P9Wk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxWgbMAjL2Ko0b3/j2TtQgMEfFy/mOR05F7yZvP82h4ojNxyrA
+	tWq3XTuW+ECm01zkZ43R3Gr5oSN/dCesZgbpk90lVbG8FSCfy+s4sgbKQSdgdyIJ
+X-Gm-Gg: AYBFou3i8zP7SIoh1DEEAJ4hF8057UsGlt7L/C9TipWY9atByk//+CbznMbdzIKIN5t
+	gGaLncFQvbSk4nhJ1Tatv2Xz00NMAPXAy+pp7H32A7rYDgAi+1urLOGBL03IuQxutxQUXaysSOQ
+	m43rmooSyLOrlcp6KVlVkRo7zGYKcSHQZwPy4ZDOcRncDxpYGHSQqZFY5TkXwP8M/S6zMcOKbuO
+	NRrnhe4kR5e8n8oR1KEcLI2BodHxEitxYL6M2WkJR6nKUVokx0v322yFn/AMfzrlGInScIQSCow
+	lxFLN0UxcSI1MKynmvbfpnD/rBdKafib0SaOZff5GSYXr9GBevXmCum2ZpU36zwZCymQez29M0s
+	L9KRg1WLVhxEJNR8WKpZy23QEoZCKqKO9DYM1c7YWMoURDVhPP2Pdn/y/GBHkqGsm0hOI70yCDI
+	6jf/pKQDYDBkbIKTIYwd8x70uAOcT5/maQewxLxcSXfnHVQ9Qudg07QkDsZvy9ZEcOczRJ05S11
+	EERfqidlLo8OXB8EPv6Ey6ofYHNyQ==
+X-Received: by 2002:a17:903:3884:b0:2d6:3c22:993a with SMTP id d9443c01a7336-2d74dbe96fdmr255095475ad.3.1788006091685;
+        Sat, 29 Aug 2026 05:21:31 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:54de:b26f:8c97:cc89])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm12041393eec.20.2026.08.29.05.21.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 05:21:31 -0700 (PDT)
+Date: Sat, 29 Aug 2026 05:21:28 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Input: drv260x - switch to using fsleep()
+Message-ID: <apLOXaWFZ8ueIEAm@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787903722.git.zihanx@nebusec.ai> <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
- <apKl65BbdyWCtre7@strlen.de>
-In-Reply-To: <apKl65BbdyWCtre7@strlen.de>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Sat, 29 Aug 2026 20:20:44 +0800
-X-Gm-Features: AcwNN1WiZi8R9J8wiesRuFh5zNnD6DxT-pHV8VKVtagX319I_sL7Cv1N8NzmPJ4
-Message-ID: <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
-Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate recursion
-To: Florian Westphal <fw@strlen.de>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, coreteam@netfilter.org, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, Aug 29, 2026 at 5:27=E2=80=AFPM Florian Westphal <fw@strlen.de> wro=
-te:
->
-> Zihan Xi <zihanx@nebusec.ai> wrote:
-> > nf_dup_ipv4() and nf_dup_ipv6() use current->in_nf_duplicate to keep
-> > duplicated packets from being duplicated again while ip_local_out() or
-> > ip6_local_out() walks netfilter hooks. The task flag is cleared as soon
-> > as the output function returns.
-> >
-> > NFQUEUE can retain a duplicate and return from the output hook. A later
-> > NF_ACCEPT verdict resumes the same skb at the following hook from the
-> > verdict task, after in_nf_duplicate has been cleared. A later TEE targe=
-t
-> > or dup expression can then duplicate it again. With an earlier queue
-> > hook and a later duplication hook, one packet can sustain an unbounded
-> > packet generation loop.
-> >
-> > Record the duplication state in the cloned skb as well as the task. The
-> > skb flag survives queuing, reinjection, and skb metadata copies, so an
-> > asynchronously resumed duplicate cannot enter either IPv4 or IPv6
-> > duplication helper again. Copy the flag through nf_copy() so fragments
-> > retain the same state. Keep the task flag for the nested xtables jumpst=
-ack.
->
-> Not sure about this one.  I think this is a case of "behaves as
-> intended", you get oops because you *ask* the kernel to oops.
->
-> I think there are a great many other ways to OOM the kernel,
-> outside of dup/TEE/nfqueue.
->
-> IFF we prented that this is a real problem, then I would
-> prefer to solve this in nf_dup, not involving sk_buff changes.
->
-> I cannot see a sensible use case for nf_dup outside of
-> physical hardware (sending packets to some external
-> packet logging machine for instance).
->
-> So. I think a better solution would be to either disable
-> dup in user namespaces entirely, or, restore the "old" behaviour
-> of passing the clone directly (no reentry) if we were configured
-> from user namespace.
+Switch from udelay() to fsleep() in drv260x_worker() as it runs in a
+sleepable workqueue context where busy-waiting is unnecessary.
 
-Hi Florian,
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/misc/drv260x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the review and for outlining the two possible directions.
+diff --git a/drivers/input/misc/drv260x.c b/drivers/input/misc/drv260x.c
+index 6c5c4c53753b..477ec84ea09b 100644
+--- a/drivers/input/misc/drv260x.c
++++ b/drivers/input/misc/drv260x.c
+@@ -222,7 +222,7 @@ static void drv260x_worker(struct work_struct *work)
+ 
+ 	gpiod_set_value(haptics->enable_gpio, 1);
+ 	/* Data sheet says to wait 250us before trying to communicate */
+-	udelay(250);
++	fsleep(250);
+ 
+ 	error = regmap_write(haptics->regmap,
+ 			     DRV260X_MODE, DRV260X_RT_PLAYBACK);
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
-I take your suggestion to mean that, if we decide this is worth addressing,=
- the
-fix should stay within nf_dup rather than add state to struct sk_buff. Befo=
-re
-deciding whether to pursue a patch, I rechecked the practical impact.
 
-The current reproducer intentionally drives the system into OOM, and this i=
-s
-not a memory-corruption issue. An unprivileged trigger requires user and
-network namespaces, NFQUEUE, TEE/dup support, and a userspace verdict servi=
-ce.
-CAP_NET_ADMIN is available in the child network namespace when user namespa=
-ces
-are enabled. However, vm.panic_on_oom is global and cannot be enabled by th=
-e
-child namespace. With the normal panic_on_oom=3D0 setting, the demonstrated=
- effect
-is resource pressure and possible OOM-killer activity, rather than a direct
-kernel panic. I have not demonstrated privilege escalation or a memory-safe=
-ty
-impact.
-
-The crash log in the cover letter came from a separate root validation run =
-with
-panic_on_oom=3D1. It should not be taken as evidence that an unprivileged u=
-ser can
-directly panic the host.
-
-Based on this reassessment, I do not think the original struct sk_buff guar=
-d
-series is justified. My current preference is therefore to withdraw that
-series, unless you think a defense-in-depth change is still desirable.
-
-If you do prefer to keep a small nf_dup-only change, I can prepare either:
-
-1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial user
-   namespace; or
-2. restore the historical direct ip_output()/ip6_output() path there.
-
-The second option preserves one duplicate but bypasses the clone's LOCAL_OU=
-T and
-POST_ROUTING netfilter processing, so it changes observable semantics. The
-first option removes dup/TEE functionality in those namespaces but avoids t=
-hat
-hook bypass.
-
-Please let me know whether you prefer that I withdraw the series or prepare=
- one
-of these defense-in-depth changes. I will hold off on sending a v2 of the
-struct sk_buff-field patch until then.
-
-Best regards,
-Zihan Xi
+-- 
+Dmitry
