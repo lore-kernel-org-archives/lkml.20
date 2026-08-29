@@ -1,123 +1,466 @@
-Received: from usb-smtp-delivery-121.mimecast.com (usb-smtp-delivery-121.mimecast.com [170.10.153.121])
+Received: from mailrelay-egress4.pub.mailoutpod2-cph3.one.com (mailrelay-egress4.pub.mailoutpod2-cph3.one.com [46.30.211.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DF4313E38
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B762D37C0F8
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 06:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787984788; cv=none; b=pZgNrNu7O0RO5wqO+wKSpmB2rdUoK9fx/9cORVKF3qC+DyMVIJCagYFhUYhG5GsiSRr21hf7C+r4Co0RAyl8eSbNvBQ+FUmLZAI9mwde8Z9QLGFOI7JiejAlPKj6e0o7FAI16ItXO04pN6Ezas8b3dluL1i1YYnWSIflQTGNk1Y=
+	t=1787984793; cv=none; b=DIvuES5X6mvC7xLmOmr1nvrfPvfYlid0UeVA4sljw+ObOpSmvQbwOLl85UL2vEJFfxz6q84dpOxs3s5odEHPU35pTT02OFPgCsMb000UAo0Oxj0DCQbZZCE662/QjL3QpPZGuiu8SPBQdvm/mZXWhdHB1dX8ngd+yHtlPk5FrOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787984788; c=relaxed/simple;
-	bh=TZFVk9+SsHc1swMhp3SUboW+aKy0gwpEnNLXJg0DOBs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DwWKFDr+9XSEpJGpWTkM/knx01IGBKBBzsjZFPAA7lk4aKUzIJYrWZALSgoGm/OjgjtupZDx00PHPUkwh4/8gDArR3BnoTgp344xK9GaNV0u/wuBvbHfOQQtHE2zhYdWCrStJmuzGXtsWpdBKSZxcNkk+mpdKHPLR07D2STiGvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=extrahop.com; spf=pass smtp.mailfrom=extrahop.com; dkim=pass (2048-bit key) header.d=extrahop.com header.i=@extrahop.com header.b=VKgHONii; arc=none smtp.client-ip=170.10.153.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=extrahop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=extrahop.com
+	s=arc-20240116; t=1787984793; c=relaxed/simple;
+	bh=q4GpF3OqPegTQd9cJ2QYPPj8QntQDa9G0gz+GvAYEU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LFqlYdA91UBgjwSrYR2N235lavhR9T50V9m8nvF1uUuhqgTzPu2Ww6Fl8Dph2DbY5HXWyF3JKtpFtYD0NtnuIOSbbJb9q97roywO4aGYUj4dbGdgCCnut/1fwaaAftZz8LG4GkK2Howx7SuGtnEwbWd8fcdk+UQQBXJhOmQsu0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org; spf=none smtp.mailfrom=ravnborg.org; dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=jsjnLpbC; dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=1OzQnMOD; arc=none smtp.client-ip=46.30.211.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ravnborg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=extrahop.com header.i=@extrahop.com header.b="VKgHONii"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=extrahop.com;
-	s=mimecast20251212; t=1787984785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TZFVk9+SsHc1swMhp3SUboW+aKy0gwpEnNLXJg0DOBs=;
-	b=VKgHONiijcabpuilBkYF316TY6yPZ5r+Ka0iWibZ3bjNu/pvTKVZfqGdEAdX+G4aG+Wr97
-	Q8f+McJl9rXWYH3LlwkRxp3rwENfp8wMPMMrUdUY9ftMKExzq/Fhghw+wmT/rIVtX7/XBK
-	YKwxrFGAToT/mnb8vGaJmJyjjh8HQVl66B1zLK37d3Z0QdOSLjcWdzJx5HsBseDLr8Zza3
-	2+tTVcZUSIzyPFVvsOrBp63/cWFKtToYkG9S8nNswHOdJ07y0RYNp+PRSMNzmV7Gzv8dWc
-	Wil5m4ssziBOJjf4ClDnWI1p7IQWFoFACg2JUjo3XowcJncEbNtehJ6KiNw6hw==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-62-B6Xwnn67N5yXwPANZ4HHOQ-1; Fri, 28 Aug 2026 23:25:12 -0700
-X-MC-Unique: B6Xwnn67N5yXwPANZ4HHOQ-1
-X-Mimecast-MFC-AGG-ID: B6Xwnn67N5yXwPANZ4HHOQ_1787984712
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-48e5de5a23cso2724010b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 23:25:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787984712; x=1788589512;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TZFVk9+SsHc1swMhp3SUboW+aKy0gwpEnNLXJg0DOBs=;
-        b=fDqFTR4aM46WXvdXrdEb9QUU5RRuuL9UpR2sGXv3tnZ8KPFn2CF6VUPfK0N4BhRkbj
-         Lx6IDnq38/EAkzz/RtZiIbjX8JgVZFMWiSWGrWjDJeA68ji2EsxjteNoQCHRK6e+BAMK
-         ogAyTv4//U6PPEkh/VU7bJO/xugnNz7QJ9jpIgGinJy6Wd1Z7+eWZveVj6e3/VC0NFIQ
-         AxB+rgKWAgBqUHd/Y8XzwZX9OkjT3UGaJr1Tb7iYXITRwHOKe1SBxSEGrlxAfI9DuT66
-         IJdzxEZW/DH9J5kLHSD46eXlpxna5xtp2JsxtnPxoEpfwNlkCpZPZWGh8NBVnhlkrVMp
-         mTdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqPydfVshQTUq60l0i+qxfz4TIBPbTJ2NEr1kDHYC/oll7Wiu3slSEPUv/2huR9ai8vs8J5NFxj1N2DP1s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntW/9JwTOcpTetH78+k5U64IxSwskcoU/eI/We9ypkIGvUovnk
-	d4859aj0KU4Gg9+ANfgrY2UlVRAunczAabKFW4RfvaSpeAt6zXRG5Y4wZqettNg5n0Hs9p+lqKo
-	KgLoE+VuXdjmIqloBlSNce4vivsyv2t98MZlwLMKHNKq/TRBf4Xz7xkD1i4FcWOvEwp8cu2BkqQ
-	f6rc0zNQu4vG6Wt3SVy8MA275XYO2AJUQih5+QG1tuiq10y7+O6NXu0ep914HL5GX/1VH+1RS+V
-	Jl4yuLVY39/Jf8pXbhM1sVaXCrNUjXe9BVWUf8v
-X-Gm-Gg: AR+sD129V9QaTujQ3Ern3mzfT3/7YVcE7t75ThkWAXX+InbaPa+SnbP3XK/YPQNyBaU
-	hy1eZwVsKyjMK483i4Nii6wOX4hXjrK1rXuT5UVO9LH8lT3L2oX3dDSuX7dRr4q5fBp6jj/8zot
-	kvoq9xJDpcme3u1LPOBSWN8ZCC2DPYB/v2Ctoa/woO5H2YoP5LXyTzVoOW
-X-Received: by 2002:a05:6808:4f2c:b0:497:c1f1:1511 with SMTP id 5614622812f47-4b39826e228mr15019431b6e.16.1787984711935;
-        Fri, 28 Aug 2026 23:25:11 -0700 (PDT)
-X-Received: by 2002:a05:6808:4f2c:b0:497:c1f1:1511 with SMTP id
- 5614622812f47-4b39826e228mr15019380b6e.16.1787984711397; Fri, 28 Aug 2026
- 23:25:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="jsjnLpbC";
+	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="1OzQnMOD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787984785; x=1788589585;
+	d=ravnborg.org; s=rsa1;
+	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+	 from:date:from;
+	bh=ofQlwmnGw3PEeR1WpbWm08yN0hlGqwWSnQ6hhvtMn/M=;
+	b=jsjnLpbCw9b+YQRpL7k6AorxLExmdr9Hdy7BBBWIsVeGi7qdAwWvz6rFdXNeHlxHhC40gG24OHa8X
+	 q4r+GkFBRwkrZe0VNBMBbI5mYXxy/pxFqz6JPChy0XAvqKrWi2hyW89ILRx6XuYocEaivpgAOFL6do
+	 /lVwtCZR8IAsxj/OE7QI5ySSim1LeeHOrblwMDr1b9q3DqdhUIwYpUa39jwQLgqnRbJwORvmp3P421
+	 ZtC8ETNXaT2wCMvoBbMLFzQsUbzq+I5/xFEmMx9mih9j1HBrC3WgrF1vAtm/AgD+eABpsLwtSql/vN
+	 me9A3YbDbKJpHHXNbrft+bJd3Ih6uMw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787984785; x=1788589585;
+	d=ravnborg.org; s=ed1;
+	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+	 from:date:from;
+	bh=ofQlwmnGw3PEeR1WpbWm08yN0hlGqwWSnQ6hhvtMn/M=;
+	b=1OzQnMODt3kbVZEmX8qEQpXYBpqpasB80hJcyWyj/sUMqurgo1QetqjwxfcKoGOv4V6KKcG6R9PUA
+	 XVuXBLeBw==
+X-HalOne-ID: 8d795de2-a372-11f1-a4cc-579199b74f77
+Received: from ravnborg.org (unknown [2a00:fd01:81e9:6100:cd23:4a74:8afa:914b])
+	by mailrelay5.pub.mailoutpod3-cph3.one.com (Halon) with ESMTPSA
+	id 8d795de2-a372-11f1-a4cc-579199b74f77;
+	Sat, 29 Aug 2026 06:26:24 +0000 (UTC)
+Date: Sat, 29 Aug 2026 08:26:23 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: sparclinux@vger.kernel.org, davem@davemloft.net, andreas@gaisler.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] sparc32: move early memory setup to setup_arch
+Message-ID: <20260829062623.GA44338@ravnborg.org>
+References: <20260827182757.6856-1-linmag7@gmail.com>
+ <20260827182757.6856-5-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828-b4-mlx5-temp-warn-revert-v1-1-4e2ae5a0351f@cressey.dev>
-In-Reply-To: <20260828-b4-mlx5-temp-warn-revert-v1-1-4e2ae5a0351f@cressey.dev>
-From: Will Mortensen <will@extrahop.com>
-Date: Fri, 28 Aug 2026 23:24:44 -0700
-X-Gm-Features: AcwNN1VIs84aW7h4LmG_OYt9spu4FqOdcNHlqLQ_KUB6rblJb6GvwjB57CH3xp0
-Message-ID: <CAMpnoC6XDYNN8HaEp_FtJATd5mUg0dk+66uvS-+0_T7+dcNWdQ@mail.gmail.com>
-Subject: Re: [PATCH net] Revert "net/mlx5: Add sensor name to temperature
- event message"
-To: Ben Cressey <ben@cressey.dev>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	Mark Bloch <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Shahar Shitrit <shshitrit@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	"Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Jcobmchjev9TOV3lu6Op4twIMo3ImX3mu7sngfvnN8U_1787984712
-X-Mimecast-Originator: extrahop.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827182757.6856-5-linmag7@gmail.com>
 
-On Thu, Aug 27, 2026 at 9:56=E2=80=AFPM Ben Cressey <ben@cressey.dev> wrote=
-:
-> print_sensor_names_in_bit_set() passes the sensor index from the
-> temperature warning event to hwmon_get_sensor_name(), which uses it
-> as an index into temp_channel_desc[]. That array is indexed by hwmon
-> channel, not by sensor index: it has one entry per ASIC or platform
-> sensor the device reports, plus at most one module sensor
-> (module_scount is 0 or 1). Module sensors have index 64 and up, so a
-> module temperature warning reads far past the end of the allocation
-> and prints whatever memory follows it, up to the next NUL byte, into
-> the log.
->
-> The mapping from sensor index to hwmon channel cannot be made
-> reliable here: the driver registers at most one module channel, while
-> the event can carry bits for other ports' modules, and the bitmap in
-> the existing warning already distinguishes the ASIC sensor (bit 0)
-> from module sensors (bit 64 and up). Drop the name lookup rather than
-> fix the mapping, as suggested in review of an earlier fix [1].
+Hi Magnus
 
-I don't know about "cannot be made reliable here", since my patch
-hopefully did make the warning reliable (although it didn't fix other
-fragile assumptions about sensors in hwmon.c, which aren't fixed by
-reverting either).
+On Thu, Aug 27, 2026 at 08:24:16PM +0200, Magnus Lindholm wrote:
+> Move the early memory configuration out of SRMMU paging setup and next to
+> the rest of setup_arch(). Derive the PFN limits from memblock, reserve the
+> kernel and initrd there, and retain mem= support with
+> memblock_enforce_memory_limit().
+> 
+> When PAGE_OFFSET maps a relocated kernel, remove memory below phys_base
+> from memblock because it cannot be reached through the linear map. This
+> replaces the equivalent trimming of sp_banks.
+> 
+Rebasing the relocate kernel patch on top of this would prevent the same
+code to be patched twice. But the end result would ofc be the same.
 
-Anyway, thanks for picking this up and sorry for dropping it on the floor. =
-:-)
+A few comments in the following.
 
-Reviewed-by: Will Mortensen <will@extrahop.com>
+	Sam
 
+> Suggested-by: Sam Ravnborg <sam@ravnborg.org>
+> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> ---
+>  arch/sparc/include/asm/pgtable_32.h |   3 +-
+>  arch/sparc/kernel/setup_32.c        | 118 +++++++++++++----------
+>  arch/sparc/mm/init_32.c             | 140 +---------------------------
+>  arch/sparc/mm/srmmu.c               |   4 -
+>  4 files changed, 73 insertions(+), 192 deletions(-)
+> 
+> diff --git a/arch/sparc/include/asm/pgtable_32.h b/arch/sparc/include/asm/pgtable_32.h
+> index f89b1250661d..91a6032cf6a2 100644
+> --- a/arch/sparc/include/asm/pgtable_32.h
+> +++ b/arch/sparc/include/asm/pgtable_32.h
+> @@ -37,8 +37,7 @@ struct vm_area_struct;
+>  struct page;
+>  
+>  void load_mmu(void);
+> -unsigned long calc_highpages(void);
+> -unsigned long __init bootmem_init(unsigned long *pages_avail);
+> +void __init find_ramdisk(unsigned long end_of_phys_memory);
+>  
+>  #define pte_ERROR(e)   __builtin_trap()
+>  #define pmd_ERROR(e)   __builtin_trap()
+> diff --git a/arch/sparc/kernel/setup_32.c b/arch/sparc/kernel/setup_32.c
+> index 795714959da6..e5f1c3ee36df 100644
+> --- a/arch/sparc/kernel/setup_32.c
+> +++ b/arch/sparc/kernel/setup_32.c
+> @@ -23,6 +23,7 @@
+>  #include <linux/syscalls.h>
+>  #include <linux/kdev_t.h>
+>  #include <linux/major.h>
+> +#include <linux/memblock.h>
+>  #include <linux/string.h>
+>  #include <linux/init.h>
+>  #include <linux/interrupt.h>
+> @@ -254,28 +255,77 @@ static __init void leon_patch(void)
+>  
+>  struct tt_entry *sparc_ttable;
+>  
+> -/* Drop RAM below the kernel; the linear map runs upward from phys_base
+> - * and cannot reach it.
+> - */
+> -static void __init trim_sp_banks_below(unsigned long base)
+> +unsigned long phys_base;
+> +EXPORT_SYMBOL(phys_base);
+> +
+> +unsigned long pfn_base;
+> +EXPORT_SYMBOL(pfn_base);
+> +
+> +unsigned long highend_pfn;
+> +
+> +static unsigned long __init calc_max_low_pfn(void)
+>  {
+> -	int i, j = 0;
+> +	unsigned long limit = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
+> +	unsigned long last_pfn = 0;
+> +	phys_addr_t start, end;
+> +	u64 i;
+>  
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long start = sp_banks[i].base_addr;
+> -		unsigned long end = start + sp_banks[i].num_bytes;
+> +	for_each_mem_range(i, &start, &end) {
+> +		unsigned long start_pfn = PFN_DOWN(start);
+Here for_each_mem_pfn_range() could be used.
+
+>  
+> -		if (end <= base)
+> -			continue;		/* wholly below - drop it */
+> -		if (start < base)
+> -			start = base;		/* straddles - trim the front */
+> +		if (start_pfn >= limit) {
+> +			if (last_pfn < limit)
+> +				limit = last_pfn;
+> +			break;
+> +		}
+>  
+> -		sp_banks[j].base_addr = start;
+> -		sp_banks[j].num_bytes = end - start;
+> -		j++;
+> +		last_pfn = PFN_DOWN(end);
+>  	}
+> -	sp_banks[j].base_addr = 0;
+> -	sp_banks[j].num_bytes = 0;
+> +
+> +	return limit;
+> +}
+> +
+> +static void __init setup_memory(void)
+> +{
+> +	unsigned long ram_base = memblock_start_of_DRAM();
+> +	unsigned long real_base = __get_phys(PAGE_OFFSET);
+> +	unsigned long size;
+> +
+> +	memblock_set_bottom_up(true);
+> +	memblock_allow_resize();
+> +
+> +	phys_base = ram_base;
+> +	if (real_base && real_base != phys_base) {
+> +		prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
+> +			    (unsigned int)phys_base, (unsigned int)real_base);
+> +		phys_base = real_base;
+> +		memblock_remove(0, phys_base);
+> +		prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
+> +			    (unsigned int)phys_base);
+> +	}
+> +
+> +	if (cmdline_memory_size)
+> +		memblock_enforce_memory_limit(cmdline_memory_size);
+> +
+> +	min_low_pfn = PFN_DOWN(memblock_start_of_DRAM());
+> +	pfn_base = phys_base >> PAGE_SHIFT;
+> +	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+> +	last_valid_pfn = max_pfn;
+last_valid_pfn can be replaced with max_low_pfn in all places.
+> +	max_low_pfn = max_pfn;
+Likewise, replace all uses of max_pfn with max_low_pfn.
+
+Code becomes easier to understand when the memblock defined variables
+are used.
+
+> +	highend_pfn = max_pfn;
+> +
+> +	if (max_low_pfn > pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT))
+> +		max_low_pfn = calc_max_low_pfn();
+> +
+> +	find_ramdisk(memblock_end_of_DRAM());
+> +
+> +	/* Reserve the kernel text/data/bss. */
+> +	size = __pa(PAGE_ALIGN((unsigned long)&_end)) - phys_base;
+> +	memblock_reserve(phys_base, size);
+> +	memblock_add(phys_base, size);
+> +
+> +	/* Only allow low memory to be allocated by memblock. */
+> +	memblock_set_current_limit(PFN_PHYS(max_low_pfn));
+>  }
+>  
+>  /* Called from head_32.S - before we have setup anything
+> @@ -306,9 +356,6 @@ void __init sparc32_start_kernel(struct linux_romvec *rp)
+>  
+>  void __init setup_arch(char **cmdline_p)
+>  {
+> -	int i;
+> -	unsigned long highest_paddr;
+> -
+>  	sparc_ttable = &trapbase[0];
+>  
+>  	/* Initialize PROM console and command line. */
+> @@ -343,36 +390,7 @@ void __init setup_arch(char **cmdline_p)
+>  
+>  	idprom_init();
+>  	load_mmu();
+> -
+> -	phys_base = 0xffffffffUL;
+> -	highest_paddr = 0UL;
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long top;
+> -
+> -		if (sp_banks[i].base_addr < phys_base)
+> -			phys_base = sp_banks[i].base_addr;
+> -		top = sp_banks[i].base_addr +
+> -			sp_banks[i].num_bytes;
+> -		if (highest_paddr < top)
+> -			highest_paddr = top;
+> -	}
+> -
+> -	/* phys_base must describe what PAGE_OFFSET maps to, not where RAM starts. */
+> -	{
+> -		unsigned long real_base = __get_phys(PAGE_OFFSET);
+> -
+> -		if (real_base && real_base != phys_base) {
+> -			prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
+> -				    (unsigned int)phys_base,
+> -				    (unsigned int)real_base);
+> -			phys_base = real_base;
+> -			trim_sp_banks_below(phys_base);
+> -			prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
+> -				    (unsigned int)phys_base);
+> -		}
+> -	}
+> -
+> -	pfn_base = phys_base >> PAGE_SHIFT;
+> +	setup_memory();
+>  
+>  	if (!root_flags)
+>  		root_mountflags &= ~MS_RDONLY;
+> diff --git a/arch/sparc/mm/init_32.c b/arch/sparc/mm/init_32.c
+> index 75050dfbc2ea..62c41d896421 100644
+> --- a/arch/sparc/mm/init_32.c
+> +++ b/arch/sparc/mm/init_32.c
+> @@ -39,66 +39,15 @@
+>  
+>  static unsigned long *sparc_valid_addr_bitmap;
+>  
+> -unsigned long phys_base;
+> -EXPORT_SYMBOL(phys_base);
+> -
+> -unsigned long pfn_base;
+> -EXPORT_SYMBOL(pfn_base);
+> -
+>  struct sparc_phys_banks sp_banks[SPARC_PHYS_BANKS+1];
+>  
+>  /* Initial ramdisk setup */
+>  extern unsigned int sparc_ramdisk_image;
+>  extern unsigned int sparc_ramdisk_size;
+>  
+> -unsigned long highstart_pfn, highend_pfn;
+> -
+>  unsigned long last_valid_pfn;
+>  
+> -unsigned long calc_highpages(void)
+> -{
+> -	int i;
+> -	int nr = 0;
+> -
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long start_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
+> -		unsigned long end_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
+> -
+> -		if (end_pfn <= max_low_pfn)
+> -			continue;
+> -
+> -		if (start_pfn < max_low_pfn)
+> -			start_pfn = max_low_pfn;
+> -
+> -		nr += end_pfn - start_pfn;
+> -	}
+> -
+> -	return nr;
+> -}
+> -
+> -static unsigned long calc_max_low_pfn(void)
+> -{
+> -	int i;
+> -	unsigned long tmp = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
+> -	unsigned long curr_pfn, last_pfn;
+> -
+> -	last_pfn = (sp_banks[0].base_addr + sp_banks[0].num_bytes) >> PAGE_SHIFT;
+> -	for (i = 1; sp_banks[i].num_bytes != 0; i++) {
+> -		curr_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
+> -
+> -		if (curr_pfn >= tmp) {
+> -			if (last_pfn < tmp)
+> -				tmp = last_pfn;
+> -			break;
+> -		}
+> -
+> -		last_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
+> -	}
+> -
+> -	return tmp;
+> -}
+> -
+> -static void __init find_ramdisk(unsigned long end_of_phys_memory)
+> +void __init find_ramdisk(unsigned long end_of_phys_memory)
+>  {
+>  #ifdef CONFIG_BLK_DEV_INITRD
+>  	unsigned long size;
+> @@ -128,83 +77,6 @@ static void __init find_ramdisk(unsigned long end_of_phys_memory)
+>  #endif
+>  }
+>  
+> -unsigned long __init bootmem_init(unsigned long *pages_avail)
+> -{
+> -	unsigned long start_pfn, bytes_avail, size;
+> -	unsigned long end_of_phys_memory = 0;
+> -	unsigned long high_pages = 0;
+> -	int i;
+> -
+> -	memblock_set_bottom_up(true);
+> -	memblock_allow_resize();
+> -
+> -	bytes_avail = 0UL;
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		end_of_phys_memory = sp_banks[i].base_addr +
+> -			sp_banks[i].num_bytes;
+> -		bytes_avail += sp_banks[i].num_bytes;
+> -		if (cmdline_memory_size) {
+> -			if (bytes_avail > cmdline_memory_size) {
+> -				unsigned long slack = bytes_avail - cmdline_memory_size;
+> -
+> -				bytes_avail -= slack;
+> -				end_of_phys_memory -= slack;
+> -
+> -				sp_banks[i].num_bytes -= slack;
+> -				if (sp_banks[i].num_bytes == 0) {
+> -					sp_banks[i].base_addr = 0xdeadbeef;
+> -				} else {
+> -					memblock_add(sp_banks[i].base_addr,
+> -						     sp_banks[i].num_bytes);
+> -					sp_banks[i+1].num_bytes = 0;
+> -					sp_banks[i+1].base_addr = 0xdeadbeef;
+> -				}
+> -				break;
+> -			}
+> -		}
+> -		memblock_add(sp_banks[i].base_addr, sp_banks[i].num_bytes);
+> -	}
+> -
+> -	if (cmdline_memory_size)
+> -		memblock_enforce_memory_limit(cmdline_memory_size);
+> -
+> -	/* Start with page aligned address of last symbol in kernel
+> -	 * image.
+> -	 */
+> -	start_pfn  = (unsigned long)__pa(PAGE_ALIGN((unsigned long) &_end));
+> -
+> -	/* Now shift down to get the real physical page frame number. */
+> -	start_pfn >>= PAGE_SHIFT;
+> -
+> -	max_pfn = end_of_phys_memory >> PAGE_SHIFT;
+> -
+> -	max_low_pfn = max_pfn;
+> -	highstart_pfn = highend_pfn = max_pfn;
+> -
+> -	if (max_low_pfn > pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT)) {
+> -		highstart_pfn = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
+> -		max_low_pfn = calc_max_low_pfn();
+> -		high_pages = calc_highpages();
+> -		printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
+> -		    high_pages >> (20 - PAGE_SHIFT));
+> -	}
+> -
+> -	find_ramdisk(end_of_phys_memory);
+> -
+> -	/* Reserve the kernel text/data/bss. */
+> -	size = (start_pfn << PAGE_SHIFT) - phys_base;
+> -	memblock_reserve(phys_base, size);
+> -	memblock_add(phys_base, size);
+> -
+> -	size = memblock_phys_mem_size() - memblock_reserved_size();
+> -	*pages_avail = (size >> PAGE_SHIFT) - high_pages;
+> -
+> -	/* Only allow low memory to be allocated via memblock allocation */
+> -	memblock_set_current_limit(max_low_pfn << PAGE_SHIFT);
+> -
+> -	return max_pfn;
+> -}
+> -
+>  /*
+>   * paging_init() sets up the page tables: We call the MMU specific
+>   * init routine based upon the Sun model type on the Sparc.
+> @@ -220,14 +92,10 @@ void __init paging_init(void)
+>  
+>  static void __init taint_real_pages(void)
+>  {
+> -	int i;
+> -
+> -	for (i = 0; sp_banks[i].num_bytes; i++) {
+> -		unsigned long start, end;
+> -
+> -		start = sp_banks[i].base_addr;
+> -		end = start + sp_banks[i].num_bytes;
+> +	phys_addr_t start, end;
+> +	u64 i;
+>  
+> +	for_each_mem_range(i, &start, &end) {
+>  		while (start < end) {
+>  			set_bit(start >> 20, sparc_valid_addr_bitmap);
+>  			start += PAGE_SIZE;
+There are no users of sparc_valid_addr_bitmap, it would be better
+to drop the whole function in a preparation patch.
+
+> diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+> index 3029527a5a9f..272e430f8bd8 100644
+> --- a/arch/sparc/mm/srmmu.c
+> +++ b/arch/sparc/mm/srmmu.c
+> @@ -884,7 +884,6 @@ void __init srmmu_paging_init(void)
+>  	pud_t *pud;
+>  	pmd_t *pmd;
+>  	pte_t *pte;
+> -	unsigned long pages_avail;
+>  
+>  	init_mm.context = (unsigned long) NO_CONTEXT;
+>  	sparc_iomap.start = SUN4M_IOBASE_VADDR;	/* 16MB of IOSPACE on all sun4m's. */
+> @@ -910,9 +909,6 @@ void __init srmmu_paging_init(void)
+>  		prom_halt();
+>  	}
+>  
+> -	pages_avail = 0;
+> -	last_valid_pfn = bootmem_init(&pages_avail);
+> -
+>  	srmmu_nocache_calcsize();
+>  	srmmu_nocache_init();
+>  	srmmu_inherit_prom_mappings(0xfe400000, (LINUX_OPPROM_ENDVM - PAGE_SIZE));
+> -- 
+> 2.43.0
