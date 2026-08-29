@@ -1,164 +1,172 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDD02D29C8
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787970277; cv=none; b=dWBsA7Q8UwC4vvM6WziwCXPwFrLLdDWTjm/glNA7ix/uOZGUPYQsHNrUCTfpE6yVcTnvtdyI42zh3faT8qUZBLdnySR2jYBNNdnc3NBNmHs7SA4QAEVhMZzc2vzcfH+L+j2LnmfzRkIdFIo9dxOoGoVZ4ceZJ/GKJCXAu+Os+Ik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787970277; c=relaxed/simple;
-	bh=j3858Zc7Gp3EzouFG0+CInLuLsSTmh64aYvsNmiOUV0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=E3h11MY4XNnp+K5vVfVnL1YYm8AG8vglFXbuFgbNs8qWDxuoeDCBtsS4yjH1k29UIN611Ya7NxstEp+fOZPXvgMIBVwEbomfSKWouhaDyMchP2bGd++6ludgSjO9KOisoNJ3ibsX39yKYorKhKsHHIpaKqOcFZ/I3gCGct+kuJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RFNhIIAz; arc=none smtp.client-ip=74.125.228.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B254308F39
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 02:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787970401; cv=fail; b=osXlGL9y072XVlL5h9giVy8mx4K1rTIAXo2b4yhqduUudnxWjKRZsY5USfl4N19Fpg42QpisEjc1ZHjMTGsXH+z52480grZ7dNqv1VXaOxJF8kDB3f7pCvQ6qufNPrny3wBEYgNqzUo+0cn++coJnlOv4PmQBt+oMAUnEpJQ1CA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787970401; c=relaxed/simple;
+	bh=MX049z3rEcffVHipVNdNxOLzJ4aDZRZFukoE0bYDhKk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=R0Mlp9dr2dRX2EX3FOHsXu7Wh0SZvK9yWjOEBff7hK/QH8tcMG1+CFlAdp4/rdjMKU6Ii350d/JQ3w226BFbrF4BOoOqQVBiWlzNQQKmM2PMj86mMReRevHBome73ttNb/hcdOyCHM1z2pHlV8vpTqHiVyw4/gOgN9arvjoCx8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JfyE4dN3; arc=fail smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RFNhIIAz"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc1cb48c030so976270a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 28 Aug 2026 19:24:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787970275; x=1788575075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+slNTZNH7eKf4SNfKudrYju+TQTUNZhz+DW3HyZw7Oo=;
-        b=RFNhIIAzXwciUROKlIWYOh5sEyvGKXMH5oXnGepErn4EhsULhxxfHpPO2uY4TblRdv
-         HEktm8PgvKVkigu8iJ/0Gzb2FcUv2+SV5ll8oBJgqlXKV3IJ7dkArgZAPkWDKnPCNnoC
-         nIwosAbRWZko8hByWJMA2Gh62c0FeMqs5ycaoJBvP/JdBFFtloH/ZTojYywmVzxLIhw3
-         Nd03fuyhsDfrkVRKiykPh+dSqRTcUbd8jPBb98bGP2Mt6uANzfRZf8V5iz5M6sOOn0a+
-         4HmAyO2Zap/XlYnZffsu11sH2fRe6uABgqu35AIOrfEQT7RBJ0+C5pzDalDTUPESfS6z
-         zuoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787970275; x=1788575075;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+slNTZNH7eKf4SNfKudrYju+TQTUNZhz+DW3HyZw7Oo=;
-        b=WIE0i/F63daw6WMHz1SbjLUj8NP1gaA21osjId5D0GeYLnMvrc/RuJ6q5GbDEaWUT3
-         lQrTjZHvdkFSw02IpnbnFnx2NxhBBE+vBdqa+kCQdJnUZ095erwgd4idapKjpUzgsHMC
-         MVCc/kpPpe2BMltyNcHmpiGWAlAKfIsTSry06XIcRMw+Cy9MvEEYKUxLggyUJDHVPase
-         4Vqi/gBTEbToYBWCV6RDf3AtgFkoSoEbQAd1rOyyR4NQ1bLtO6Wpt8KTlCcvMJpi2+zD
-         jSjTyhCNdvEDYlLryMWllZfYunrP0a95Ma7irOIdRVqOjt2HRvAiDiFJ47P7xUhdh6y2
-         xg1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrZxlFVEk5s1Y2tUXM2grtWCHc7N1/KdvpRAUuxTGf2QzlBBupZEvzwnngztbWjs+eIhxv0DZCsEWjjEpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAWfX/Um1kb4dQ//85yIrZ6ywcwwPEegfR5v1Vs/3Hi/jAclU1
-	8XSbxIhU3J90aSjb/9XuoVyDYBToUlPvWa5ha7omDBtWC+9h0t87Szmd
-X-Gm-Gg: AR+sD11/iL4T0gyt8BxFiChEHNrk1Rl0LAl8I2OgSgIpxrDcqGOm8AxcLh6osOLIkE/
-	4JzgRDr2cul1Ap+PTo+YdQ6WiEbsGWJ0wuGRXU1L+U7pyRPNIX/rrKSfZyDWR6G/QFFSkUQxhKy
-	Drjh6cyoNT6SHlhhQcOrfKic1F6GJtEk/SoEl9/ORPBEAnwrnzsKzJGvOsU4vP6khOb9Ew++euT
-	3BkS4BX7LUyt2DMT2uH1DGvKy0H4gI2T98O5AB9r23Qj6qqcBzSwq01tU0Z05v4bXhqVPRDdm5T
-	O4jbGmOr+AKvpOPAMgHLjWddjPgmM7R/Iba35pH0IOfPH8k9apqJjiECxJ283rSUhFruwXAnid4
-	r+o1hAe99VtGY05K9CwfRiWGfhX6nYAArUIfXlKmQr9MqVYa//wHqxx9KO2SWhavvlnAsi2g6va
-	idjwjzAv/LXh0nFRGv4C+SxJRX/OnK2ebUiHI81/GGfJ54pHD0/Vihr5PXnKMaWuAT3MhNykwvx
-	g==
-X-Received: by 2002:a05:6a00:2289:b0:852:355b:2430 with SMTP id d2e1a72fcca58-8562a001846mr21104959b3a.10.1787970275425;
-        Fri, 28 Aug 2026 19:24:35 -0700 (PDT)
-Received: from HPPC-archlinux ([101.68.111.107])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569f49f50bsm1108486b3a.11.2026.08.28.19.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 19:24:35 -0700 (PDT)
-From: Yukai Wu <xiaoyewuz.ruster@gmail.com>
-X-Google-Original-From: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yukai Wu <xiaoyewuz.Ruster@gmail.com>
-Subject: [PATCH v2] docs/zh_CN: Update arch/riscv/patch-acceptance.rst translation
-Date: Sat, 29 Aug 2026 10:23:27 +0800
-Message-ID: <20260829022344.192491-1-xiaoyewuz.Ruster@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JfyE4dN3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787970399; x=1819506399;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=MX049z3rEcffVHipVNdNxOLzJ4aDZRZFukoE0bYDhKk=;
+  b=JfyE4dN3jhk5gFl51W1eCqxzpSk2Sq6ztlAUYvd4mcDyrtMj5Tba8IRR
+   aVQ0idjJDlbUyYs3kNlMvwMrZVCC1WExKpfeZ/OMKBuSBJOXKrAfTbxdw
+   /f2qUu5wKr82OBHPDvGTd10PlxC3PAmkJ0B1GsJqqf8dn6GnYYZx5FU2G
+   h4JzJ5NU/VtlXBYAtnWHbp6nHnmJSGIIsRVLacVLXp09qZ6XOFe0/QLML
+   jmN3PlADRXGUhdQiZ6e/tROSRYNvsl9w9G4ufDXXoRPKyrjpNYWX1QBj0
+   ryDc46ZVnIsKomdQz5vWmqsIjBMnjFlZklMfGdEBcRAFNxFBzONtPCSb+
+   g==;
+X-CSE-ConnectionGUID: vqxmvoewSq6m7Y2DBjw48w==
+X-CSE-MsgGUID: laqFMg1iQAKI4HAhSgL/LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99988608"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="99988608"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 19:26:39 -0700
+X-CSE-ConnectionGUID: vDbDq08dS92PGYPNdfnsIw==
+X-CSE-MsgGUID: uN4750XVSraIZYvLs1Kjbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="291812540"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 19:26:39 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 19:26:38 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 19:26:38 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.41) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 19:26:38 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bb8EUWDqw6sCA6/uioU65I+EAV8siAB7cmjJRjPWsNfkyfVpQUIwXF6qkZ6U3pf1WJTEKrKRwe3N+XR377tjPlOdwnNnVP0wQI4YG5W6KxZ+Xq/jtYbW8eFZDW2NFiNnT0F5K6Xwo7aWqsEJEhZWVsRC0kxgeCpjV2yG0b9/vnktM2U2vUIixr5lTn7wJWL/XZiJCzsywy2QgVEte90Xzdd1+UDjVO7XdI2VPmyi2eCDZpHbuxnAsXeMGqNVCyr6z+M1E0gIndJVfzxo9WvbP44W8PLtKLQUGZoQBVFyyZt9cVaYqEbCDcQnaC3fTqXUuDd/v3Br9fF29284GaZ6FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MX049z3rEcffVHipVNdNxOLzJ4aDZRZFukoE0bYDhKk=;
+ b=b6waQVJGmSa4zQNyU161OgysYqEhSY7F0d5rIpFxzQIIeVkGjcQ3tBIchihCUTjIjNr6/cMpdSQjd8ZpUPP+E6MDmwXfOxXoLRF3CXwBqOsi+zIg1bT1rhoO8ru6S77cIeqh6wVdqpodTm16sdtIxcLowhwA2GwTAQ36Rupfc54O/UHlBHlt6pN1GagR5ppg7N5E8EyWrBGl58+QYPC8xtyXnIDT+cm2axaln7Z4+lXtA+gjOkQMyydyswaqOgyRxXcbirNMLPo3RDex2f5owrchinXI9HOSDphv3S4+RWuapMlwAvrLaWilZe0zQiOpJcR8IzMNcfLjYihffjN8BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA0PR11MB7881.namprd11.prod.outlook.com (2603:10b6:208:40b::20)
+ by DS6PR11MB178640.namprd11.prod.outlook.com (2603:10b6:8:4c7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Sat, 29 Aug
+ 2026 02:26:24 +0000
+Received: from IA0PR11MB7881.namprd11.prod.outlook.com
+ ([fe80::1f88:583a:5b43:4fa9]) by IA0PR11MB7881.namprd11.prod.outlook.com
+ ([fe80::1f88:583a:5b43:4fa9%6]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 02:26:24 +0000
+From: "Pan, Kris" <kris.pan@intel.com>
+To: Max Kellermann <max.kellermann@ionos.com>
+CC: "arnd@arndb.de" <arnd@arndb.de>, "gregkh@linuxfoundation.org"
+	<gregkh@linuxfoundation.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drivers/char/mem: splice the zero page for /dev/zero and
+ /dev/full
+Thread-Topic: [PATCH] drivers/char/mem: splice the zero page for /dev/zero and
+ /dev/full
+Thread-Index: AQHdNxd0cC8nmV5sM0a2ulVMMD3LIba0TBJA
+Date: Sat, 29 Aug 2026 02:26:23 +0000
+Message-ID: <IA0PR11MB78819384189FC6FF9E7583A19DAB2@IA0PR11MB7881.namprd11.prod.outlook.com>
+References: <20260820071217.1663709-1-kris.pan@intel.com>
+ <CAKPOu+-HdT7S-aGtVVBvV55FQPMSPn18=n3Oe7XaxwUBjMzciA@mail.gmail.com>
+In-Reply-To: <CAKPOu+-HdT7S-aGtVVBvV55FQPMSPn18=n3Oe7XaxwUBjMzciA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR11MB7881:EE_|DS6PR11MB178640:EE_
+x-ms-office365-filtering-correlation-id: d9177117-8ad1-4cb4-5c89-08df0574ebc6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|38070700021|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info: XHX73ZB9a6MVvLtNV4BoLh0UBZ2IgmEfgXalMRlP+IYS/gCRxUtzP0LFYnA7QwQ+Y3NXSfj1SPYfuCzfrpATJ1WL86RhxeXbAsRE77h610H9bIqB4DXNd+eKs/1JacbcgPmf1XznPb1sOIMKwimsiuld4+9Gd0hnIRGxXfnKaKmBCRMf/tSPR+5t9e0nxc88295a2sEdoF4M+QsqzCfc/ItKJpmy+Gx2L/nZcT7RakjrxPzO2uZS3CS9v+/i61gaAG122TfdjVXq7YGctttBxoGjVQslxaEeWG+P26d9m2NvW1KxZPTZ9CxzlLOQrShxX01HG7dNxGcNHhbr9YcYaE8IwJgEkngCMLMIWZyj7MZus+ttjvrx5zdhEfsZhRRcwvZwNeM+mlNPXLRQknyqT0ukDnpHcQ8jximMwTvEER45CL362eVl7HSEje98zbDyCEyC1A4JKB0o3uEOGH0uUbtSHGc6xcODz3OsISsCLbdwrpTVMlwWdGxu2ICPPMxvhmyLoJMMAUzFWrFaPAGQWC2P5lickiUlypltG6bEk9hmlM+W8Lt5BXxXKN/gDVe9ZjTAJMPaWyf5w/j6c2WoJMR4YSAzMhEvuRmISSFQIZGtrdXWlBxNmqouShjfCAilzJ2WyRXSRJnuYhKUAFkRCT+lYZAnGc4wn3Ex/kf/ZuThIYBsUAhnd+ZYj0FMvvWoQhJiYNuhmgt5ajdUjavhKBcFBZ/9FFgFVgE2U507MwA=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7881.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NjZWbGNDV0pNRllNSFJ0ZEZNRVpJSk51akpnQUpWeUsyMUZWM1NGQWdxaVVE?=
+ =?utf-8?B?Y1c2b1lGaXJxaXdlVDgvMk91TkxrQ0JoczR0bVpzSGNrZXlPU0NWZzA4WDdW?=
+ =?utf-8?B?R2pzSWI0Q1htYm11WEdKTEpqZ0dRQWZGY0hHLzZtTU1FZGFXUDk3Z2JGbUlQ?=
+ =?utf-8?B?VUtGMGVJWmZWNldLa21kRVB3ZEdFY0RkOFJMVmpIeERtOUdpd3FKOUtYMGRS?=
+ =?utf-8?B?aE9aQjhpMWZaeFZ0a0tXNXRITUhkdFpjT2Z0MzVBU2gzayt5TGpnQmtqQ20x?=
+ =?utf-8?B?ckRrY1RqWlZieHJOb0NUd3FZYS9ZY2JIaWZ4OUJWNVo4NFZHYXlNaXR0aFNQ?=
+ =?utf-8?B?dS8xNnJma2d2SWxmSDBuWXdjb1NDZDF3VXFNQ0cwMGhvSW5uN0tpOEJtQ1ds?=
+ =?utf-8?B?VGhaN0pYWHFxTGNVbUduRTd0L0haSzV2M2RJcm5MaWRCOVFFYWl6T3pJNjZQ?=
+ =?utf-8?B?a0ZIMFI1NERnSGtySkZtRUpiN0FrYWcwVzg1V3E2eW82cWNHNUlaaFZFWDFx?=
+ =?utf-8?B?OW0rSm00WGFuZ1pOMGFyWmZuc1ZQcmU0TGVZT0dxSlE4cEpiaDZyaTBnYnpM?=
+ =?utf-8?B?Sm81RWJxc1pCeWZ3TXFITlNwcml1NStOdUhPVFZRQWx2SGx5YUtCbFlFVThQ?=
+ =?utf-8?B?OUFDWVJoRmRFOWQ3WVB6UGFGWm1HaWEzOE9zbUx6Y3VtNDZ0RlZkQ3JjYytL?=
+ =?utf-8?B?Y00yV3lDb0JTV2U3VmoyQkNTQ3BaemhCN0FqdG1OQmRWLzR2NlA1SnVyZ05O?=
+ =?utf-8?B?YVBMZHl0RGl1RFB1MEVzSldFNHRtaUJDRW9nWklVVXB5TXNTLzhpS05kN0dB?=
+ =?utf-8?B?RWIzZXdzYWJ5WHAxSDJyNGV1WWpFbmRCVTJGaU5UWjF1em41ZHRRc0pxRjBz?=
+ =?utf-8?B?alJXY1ppQmNQMllCWHRYaGdIQW5JU29iUlo3K1JwdFV2R0d0cGNpYWxjYjgx?=
+ =?utf-8?B?TzQvaHVKeGhlK2ZuYmZTSXQ4aXgvQUczamNXcVF5MkJvMC9oc3dreEk3cS9i?=
+ =?utf-8?B?djRXVVpUeTVTZkExM2NjTjhyaTh0ejBsbjdxTXFKVVozTjAyeEdXQUpVTjVX?=
+ =?utf-8?B?enF1NFVjTk5WNVhHMXVQSFQ4NDljVjBwZG9Wc3NlWTl3VWsvenZqMTdibHJK?=
+ =?utf-8?B?S0M1SllKK3orb0FuQlA1dThSaENyYlo4UzdYRlh2NVRJVGZaNUwyMHpTS2xV?=
+ =?utf-8?B?aDBzcTRaNlgwdlRYRndRMEFFakRCc3dxS1d4dVVDeUo3SjY1bndpMFlqSVZT?=
+ =?utf-8?B?YURWdFl1YzhwbnkwcTd5YWNIRUNUQlBwUW5xT0xldmhhU0xpUUxya09VTGFu?=
+ =?utf-8?B?cTJvblJHelNwVEFVMzVEcmFhdkhpc3lFUEdYU0NxdlNWbjZYMDFPVFg4Q2pl?=
+ =?utf-8?B?L2hkUmxoY2dyUGdCWFNWOHdYNzBaVmt4Tk96cVo2MWFITXNZTnpzZFQzeUNr?=
+ =?utf-8?B?ZXpwK0dQQi9xc25HVDNaU0lEbzA0ODllRFYyckNLajk0SXJObVdPeStQa3Q2?=
+ =?utf-8?B?WFhVZmFTV2lRUDJKM1lVd1Q2NUNWbVYyVzlHUVN2ODZOZU5NcGxvenNVRzd1?=
+ =?utf-8?B?T0NuaGFqVHZSWEhxK1hmdGg5b3UzYmgwZXBvcjVNaFQyZU1IeWJhek40ZjVB?=
+ =?utf-8?B?MmNWRFlVUStrcUhQS2pVUnZJK2xVcFJacHJ0NkkyV1daWG5vRi8zQ1FnRWg4?=
+ =?utf-8?B?QlRPeUVuZDZKTjJVbi8wZWZ0ZmQwcElBMDJDakg3K0JsdElaOW5tbzd0dFdX?=
+ =?utf-8?B?ZDNlVWdpMDhvS3RGRDEzR1dJUEdFRk5nNnBmSVpsZVFMVXZyLzN4TjdUQVNL?=
+ =?utf-8?B?eWZtNEw3bzVkWE4xRmxDZ1V6c3ltZnJEMnJySS9iQytvZktzZG1vb2NMOEhS?=
+ =?utf-8?B?U1laeHdVM25UMWdXUmZVdlUzYU4vZm9WWnA1UG5qQ2JaOElveHhzZGpFNWhp?=
+ =?utf-8?B?Sm1xeUtOaW03a2NMSThwL1VSZ0VGaGp0b2U0KzRPNGUvWFdqUVE4ZWlSeHNj?=
+ =?utf-8?B?MWFaS3haRmMxb3NsR1VhZ2Zqc1I2cUltZWZGZHd5b0VzMDV3M2pkZ3R0dVdl?=
+ =?utf-8?B?VlU0QVM2MStLNloySFhNYVpKYWYyeGVWVGhyQjRacUtPUktNVEhZQnVDM1lp?=
+ =?utf-8?B?LzVhN2hrNUlLc0Fac0NTRVZ6clNrL2FhdDlvVVNzMko3TytwOWRuMXI1KzFF?=
+ =?utf-8?B?UU81eE5aT3VXSjNkWjRtTjYwRHNVTldWaGxtcW4zcVhpZCt5VUR1enBPSmhX?=
+ =?utf-8?B?d0NwRHJEQi9wazl5dXk0ajc5OXErWVI1R1htaGhMTVRhTVM4bmhOYm1YZDBU?=
+ =?utf-8?Q?Aa9nNXe6/zMLEmk7VH?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: sZIgBTGmwVoZ7RSnql7vd8xKtQsHRBu+YjAPMBYU01069g5wWv5E4R7L58aiHdh47xzfdRFy9iqTe1WVKUuEGHmjZt38Lm69DxGXTrpP+i4Uj1M79AFzYVDfh/Jn2MOjdql9sME2gWjY8EMLJT9jvecgyEfBu0cPxaZ++BZEvaeBj90KXHvWbgrpyfvYXmwhRt5ZZU3uNtY0luDXXX6Mqw7rPVDKJyeI5/dTE+4xHn8JJyHn1Kf2Ffg9nUoWKmjBi4R6h6PIE9O17Ip/VLmYwQbU1XWZnGHUnbWFWg7kEJuTbXavODn9zzDvIdc/1tYEumWUPPmcujLQP0bekUrRgw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7881.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9177117-8ad1-4cb4-5c89-08df0574ebc6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2026 02:26:23.9784
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Tvac2LUi+c+eNXUmd9fkKe8cWE+y1EDLaRBCj0m53OY+s7+5dlqfaeac8ESrzSOTR/FtSHatJWlgbcKbMNramw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB178640
+X-OriginatorOrg: intel.com
 
-Update Documentation/arch/riscv/patch-acceptance.rst translation.
-
-Update the translation through commit ed843ae947f8
-("docs: move riscv under arch")
-
-Signed-off-by: Yukai Wu <xiaoyewuz.Ruster@gmail.com>
----
-Changes in v2:
- - Changed "补丁跟踪系统" to "Patchwork".
- - Corrected branch selection to "for-next 或 fixes" (was "和").
- - Adjusted "已批准" or "已冻结" order.
- - Changed "只接受" to "只考虑".
- .../zh_CN/arch/riscv/patch-acceptance.rst     | 46 ++++++++++++++-----
- 1 file changed, 34 insertions(+), 12 deletions(-)
-
-diff --git a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-index c8eb230ca8ee..20b91d0433a9 100644
---- a/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-+++ b/Documentation/translations/zh_CN/arch/riscv/patch-acceptance.rst
-@@ -15,19 +15,41 @@ arch/riscv 开发者维护指南
- 
- 概述
- ----
--RISC-V指令集体系结构是公开开发的：
-+RISC-V 指令集体系结构是公开开发的：
- 正在进行的草案可供所有人查看和测试实现。新模块或者扩展草案可能会在开发过程中发
--生更改---有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给RISC-V Linux
--维护者带来挑战。Linux开发过程更喜欢经过良好检查和测试的代码，而不是试验代码。我
--们希望推广同样的规则到即将被内核合并的RISC-V相关代码。
-+生更改 --- 有时以不兼容的方式对以前的草案进行更改。这种灵活性可能会给 RISC-V
-+Linux 维护者带来挑战。Linux 维护者不赞成频繁的变更，且 Linux 开发过程更喜欢经过
-+良好检查和测试的代码，而不是试验代码。我们希望推广同样的规则到即将被内核合并的
-+RISC-V 相关代码。
-+
-+Patchwork
-+---------
-+
-+RISC-V 有一个 patchwork 实例，可以在那里查看补丁的状态：
-+
-+  https://patchwork.kernel.org/project/linux-riscv/list/
-+
-+如果你的补丁不在默认视图中出现，那么 RISC-V 维护者很有可能已要求修改，或者希望
-+将其应用到另一个代码树上。
-+
-+自动化流程会在该 patchwork 实例上运行，在每个补丁到达时立刻对其进行构建/测试。
-+自动化流程会根据补丁是否被识别为修复，选用 RISC-V `for-next` 或 `fixes` 分支
-+当前的 HEAD；若上述均应用失败，则使用 RISC-V `master` 分支。补丁系列被应用到的具
-+体提交将标注在 patchwork 上。任何检查未通过的补丁通常不会被应用，并且在大多数情
-+况下将需要重新提交。
- 
- 附加的提交检查单
- ----------------
--我们仅接受相关标准已经被RISC-V基金会标准为“已批准”或“已冻结”的扩展或模块的补丁。
--（开发者当然可以维护自己的Linux内核树，其中包含所需代码扩展草案的代码。）
--
--此外，RISC-V规范允许爱好者创建自己的自定义扩展。这些自定义拓展不需要通过RISC-V
--基金会的任何审核或批准。为了避免将爱好者一些特别的RISC-V拓展添加进内核代码带来
--的维护复杂性和对性能的潜在影响，我们将只接受RISC-V基金会正式冻结或批准的的扩展
--补丁。（开发者当然可以维护自己的Linux内核树，其中包含他们想要的任何自定义扩展
--的代码。）
-+我们仅接受针对新模块或扩展的补丁，前提是这些模块或扩展的规范被列为未来不太可能发
-+生不兼容的变更。对于来自 RISC-V 基金会的规范，这意味着“已冻结”或“已批准”，对于
-+UEFI 论坛的规范，这意味着已发布的 ECR。（开发者当然可以维护自己的 Linux 内核树，
-+其中包含他们所需的任何扩展草案的代码。）
-+
-+此外，RISC-V 规范允许实现者创建自己的自定义扩展。这些自定义扩展不需要通过 RISC-V
-+基金会的任何审核或批准流程。为了避免因添加实现者特定的 RISC-V 扩展带来的维护复杂
-+性和对性能的潜在影响，我们将只考虑符合以下任一条件的扩展补丁：
-+
-+- 已由 RISC-V 基金会正式冻结或批准
-+- 已按照标准 Linux 惯例，在广泛可用的硬件中实现
-+
-+（实现者当然可以维护自己的 Linux 内核树，其中包含他们所需的任何自定义扩展的代码。）
--- 
-2.55.0
-
+SGkgTWF4LA0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcgYW5kIHRoZSBSZXZpZXdlZC1ieS4NCg0K
+R29vZCBwb2ludCBhYm91dCB0aGUgZHVwbGljYXRpb24g4oCUIEknbGwgbW92ZSB6ZXJvX3BpcGVf
+YnVmX29wcyBhbmQNCnNwbGljZV96ZXJvcGFnZV9pbnRvX3BpcGUoKSBpbnRvIGZzL3NwbGljZS5j
+IHNvIGJvdGggbW0vc2htZW0uYyBhbmQNCmRyaXZlcnMvY2hhci9tZW0uYyBjYW4gc2hhcmUgdGhl
+bSwgYW5kIHJld29yayBzcGxpY2VfcmVhZF96ZXJvKCkgdG8gdXNlDQp0aGUgc2hhcmVkIGhlbHBl
+ci4gSSdsbCBzZW5kIGEgdjIgd2l0aCB0aGF0IHJlZmFjdG9yLg0KDQpUaGFua3MsDQpLcmlzDQo=
