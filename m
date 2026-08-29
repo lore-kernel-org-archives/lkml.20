@@ -1,154 +1,137 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDC6418348
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6E73B0ACB
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 16:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788020787; cv=none; b=nFT7Zfim/Ti3y4yyKL002JS6ioWk4HJ30t5UfqjGP97kiihvtfwU4h1fRVH0tHwiApLLuSVSdKSmLzkSWXXbl4nXV3g6fnz+UGM4QHxDlKBQ8BUTRNOuqOiJjqgmeizUSlVL11fSKeAfP7v0F01ASgv/dwPodME+MUUGzpE33hA=
+	t=1788021290; cv=none; b=YoFoxz7yZkxGGNw/u6oXfCK3POZaQt6GdxJhNgGLEvEiQij4XUH9n3WPp3Vvhgi3V1mI3Ajfvf3VRtSTksZlPV9zanCN8jG0Dogs+cynqLJqzpivjdRUzvjh+YxO41LIxIBx4ZxNcYOFWjo3UwF2f7taEDInM840Z0DPxK4lsGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788020787; c=relaxed/simple;
-	bh=sQVJMp3C2+a4ti+a7qwKMOTUI8kXgqbTgt5wFTn5j2s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oavzjeFgizl1UoOG+YTfQTm6Xe/xH9XNeJO/SBe1jot+6J3ppsjAVDsS6OQBnsGiXhOHBmVVMVoS9eZWOLDzLyV5AInQFmZxiKZO0N1vm9S+8kEd2eYrL6JSA9BXh13nadDKc5JzCKUTUG+ZalHepmJzKJad2S4dRZ9kc0pplfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E45fgCy4; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788021290; c=relaxed/simple;
+	bh=hVExYRrLgPRcRJFEdHlm/lR6vy7PMGHxSW/wkJhOTjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TrFXc3L0vv54e2gZ9A+5vRacUOBImOKQFOGSZ2xWm9qDYUCkY064T8ztRWDIGdsR8G66kQ5Zsm0E7sGLiuwJxrm5xsu4Ure2b0NiCV1Fo2ZeszDc7bOoiYxv2W/zYrc5qZmYVr1+3Ycov70sMRwb/MdvzBcK0Hy8SgT3eC2ahT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uu5klKV5; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E45fgCy4"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso12993575e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:26:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uu5klKV5"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso18144875e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 09:34:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788020773; x=1788625573; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=37NQ1+thP2Lwc8BjlF3YW6iY09VuBpxsUD1pSnN03YY=;
-        b=E45fgCy4JYJ2S2A13Ute6L/t7dv10Mjz8O2SopdR06602fNo+kJ+7L3Kn8edASIt9H
-         1o0urLvSr1aV8r68KeX1rdtXyVkU0mWDmZXUDtUldm030M9fAguxbJeKnkCFaXdHdrCT
-         VUTFqyawcFoduB3H6vPnsQkl7FoKRqDe+gRDa3SL5gWKWpQQ9ByY/BRaSuH7IW+5JD2i
-         fJgSWYxP66rOuAu1bdZmVUWG24XJRTpT7cthvuZl0Evled7J3oySAXDi5l6R2eaO29fR
-         NCkv4FwMT+KPgyGioEuDg64dlU66QKbCAMYIwewNC+aVrUjK4MbxOnAFvQJOJNh1QD1Z
-         dSWw==
+        d=gmail.com; s=20251104; t=1788021285; x=1788626085; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nZEugiUgDUntzd2j7JleFMnc4ZUpEg9vc3iXITyX7q0=;
+        b=Uu5klKV5qRiu0hAyYLvZsWq0BQJXiyHuZ2mECKoz9frWtMCj2jJX3CpZbUi73pgaEr
+         bhYsYciWlfDjYc+qqJwBt1sAD9dMnXXEahIlMcW6aNgwZW/dSJF38YapjvHM/ba1vQRN
+         rTdGPyfgh8sV3tjPDRYSuZphr43YiM/0mkmBQqRLMPFVJftosQGM5SCzECaI9q/pJpX0
+         t5ymyLIu10geK7rW3k1QgDT0iyastsz7TrXymwtwlrr0MtZkE6zBUB/ZuS0DqQtypE/A
+         MWyLnapuY2rh+MI9UPH+uUEJmwWfGBFC9NjBD735wT+8UySN2LDGNNE7Ch31BK3XhAJo
+         pK2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788020773; x=1788625573;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788021285; x=1788626085;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=37NQ1+thP2Lwc8BjlF3YW6iY09VuBpxsUD1pSnN03YY=;
-        b=rpc61TY84BRSNODJEiplFTmoSqRm9EUdcnTOyh1Kw15+vNfhKxc978m9ZZaLLPZrye
-         Fx9ZM6KlcmmIShKhjv7P3QZlPkPYIauvc9hZSvgSUnxfWcTGmb1t+CjVIsFRbFCnMon0
-         Ofv1BhA9VKo9dPGD+pzKu/EUtAxes79qNRzwYuXEQpMosxfojJ1oruHyg/bPjTQuqF8w
-         PzeRpGmHqiyY8k1cj/ALZkXxvFvGWvGBJ9KQGYZASjxz3eMY9zBVspvD0XZqcajiKX4h
-         3n11sX/frH5ZSmJoS9C7vGABlyFhxXwI2x9p6l0ClJrEXdryue4QFTX1LVSgmxaavAo6
-         gSWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpArKAm3Dv62a9LLflVbnI+mmusiMr2G1Zx9uRchdg0NLZo5BY3z/0j9yNSDGynxW0BUfJcS6c/eQ9uzR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUTIFuFip5F29jU5s87ADJC4N3oU2i1zeBd7vjvFwnHyTmQGeM
-	qmRjKPivzI22/pvXG9iLsl679hl/C9ylezowQkL3s7E+QD8H7l1xsUpk
-X-Gm-Gg: AR+sD10r3QvBTbMD11ybN8fCVoVDak4UBKPN5aCllKHLa4/eSQ14YWb0qNt0kZGYcEX
-	b1hydxbwF733PKRmBd8UQ9cl8d4cmRI18mXGQbZroeWCNDBRDge/kYqZa4MY/1HCrcgFLBY3KMO
-	biCMas+5I2Zfs9ajbvN3OZB8l0GtCQp+04apavfU9pZ90Xv8Y+Mz7IzMIn9Qs8mbhiWGlYBlBEt
-	FRdT0NknqQLV6hUOnHDA9ANjPtprqlOt/W8FtSSSJ1FI0ixh8K/CpHqPiw5GcuX1+GJmw8EltlI
-	AABGCoGNp703omTMINeQ+l/8uzBy36WKU/9vQgawKa1LaxBpZdNaZaobrHicgzlw40lUaFDOKAe
-	7kOBj6EnznnspWWNjhkKyol4xwai1v2PFAUX3vt6Qn58MA7A11vTQcX2xGKHRDbUT3CwGB27Mag
-	jj5b2vVHcrNhfSEMDPiZg2Di5W5xTmiRvvXpnljqtffBIWOLWzEcnjDm5W2f+WMjsStBZ28olVX
-	zzHykOt1EcD6Z9t65fID1a/BpQygB4fjZan3/FqPqJjpGOkoj9sqNm21ZQdhvC7gzunmbSMj46V
-	NnR6Q6/1IDVev9yLEPeOb9JpKsioVJo2MvIXuC1uyFU6fgjXucbGr26NnParODuCbH9fiviV66B
-	amQfUnGaVZ4bm2YJjUMWbRtIKX5BRhzvoJik=
-X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr259876155e9.7.1788020772776;
-        Sat, 29 Aug 2026 09:26:12 -0700 (PDT)
-Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b92679be5sm137861705e9.3.2026.08.29.09.26.12
+        bh=nZEugiUgDUntzd2j7JleFMnc4ZUpEg9vc3iXITyX7q0=;
+        b=i3RyU0xVpAf1ESSWcod8bHW0eX7MIhuJW0mZm2hxsa2moEIsWg3wHTtKSubFeipLuz
+         JGJiXAMlvLX/dh0fKybZuahC8Lq4iS4dSXLp/AWtzivwrd1iRf6PtdYHgSlsT8k6iVXu
+         Is8pw8qJbr1/8+tVuIbnJYMJo0+lV3lghvcPi8W+glA3meTX9w2+OnUF7v4QLjchEZ1o
+         p9KVaA9348d+3cOOU9lmDpD9ISWOmuVUQzVEWl/taJOPFMYDws7QK5oGO7pqx4XSSjO2
+         cmMkFBPQjRkMDGQEWIWW7WmKPiON0Uk2hldevkWKRg9dF3oVN8yuFrDSAJLUyF6WL6zI
+         Ps6A==
+X-Forwarded-Encrypted: i=1; AHgh+RrPXbNSjtbhDVKwbe/OD3nywIPiAXwoA6fGfAVdfwpOSP4pOpaG2aIN3H3pv5KBEAw3yB0Hk/hdZB2E7js=@vger.kernel.org
+X-Gm-Message-State: AFuF++k41s0lBHoHoM5I+sNlGnyBE0hk6zGh5PvJngEUu6JCBXDz1Dpb
+	OxcTz3EYHiYVr7WpRlO8HO5T0uOH/cRGXycdNrULaLFZp8l1X+BzY+9G
+X-Gm-Gg: AR+sD13ZHmLJu/ZOXpxk+Di1yrWcnNqaIYmefvL1XV8OOPjgrLx/GlIqNrEBd6yieAk
+	VIGH+vQDecX/6o5mzOfC9Cy9Nh5eP3aMOaDW82mGptOgjrMnu0N0fW+YlJxGqd6IYa75UxJo5pg
+	/H341IXKsd7HNh3ZCtPKRoGArMTJvpKvU8gdaSUeJKWwwLtnosEKs/4uLF5UHl/kHaWulSX7I2s
+	6D7TWQ8JVpLBXMZDO+mknCTnak1clNKSuvt8AH+NaRMkvX0byoIosPnU72J+tdbLLgwvbINuJB2
+	3THDP7oKbAypW8kEpIYWU9spi8ETJb5UoLXAlJ5srKZ3VjvsgJCLpIKBuPa4h46ZBTlQoY/Nz+s
+	hUtgjGiQL4ms0hwf8F9YMTHF5uyZ8YOnoE9wLw1o3LAkMaimZCKPmXHZIW/u65qsiZ9BaJX7COo
+	Mfw9bUH7mCUKl64zA5VSP0iY5yXFWx4cVC2dq2nJ6/dZYNTayC2kMHG3aMHDd1vo/Xapla0vlVn
+	wBJwcBoPcke/akQT543iHinRC1bdP1BhD1qWUe3DZgHFTxQYNnQ6ncXfK5D66Bn9iA6UYXSQlOe
+	on9qVlTtsrJKWTRDcuBZq2DXTKGHQfBgTwucKspVL/swJHQhBO784M3lJt6I6q7euJ0pre1KOtf
+	RXzXgRBXPYA9ISH1e7W+x
+X-Received: by 2002:a05:600c:c08b:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49b92027118mr191962305e9.6.1788021285069;
+        Sat, 29 Aug 2026 09:34:45 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4e2c1af7sm233169495e9.15.2026.08.29.09.34.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 09:26:12 -0700 (PDT)
+        Sat, 29 Aug 2026 09:34:44 -0700 (PDT)
+Date: Sat, 29 Aug 2026 18:34:43 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Sat, 29 Aug 2026 18:26:08 +0200
-Subject: [PATCH v2 11/11] iio: temperature: tsys02d: make headers conform
- to IWYU
+To: Cong Nguyen <congnt264@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Matt Ranostay
+ <mranostay@gmail.com>, Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: pulsedlight: fix iio_device left
+ registered on PM setup failure
+Message-ID: <20260829183443.3b5ac19f@systembl0wer>
+In-Reply-To: <20260828105909.2425439-1-congnt264@gmail.com>
+References: <20260828105909.2425439-1-congnt264@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-kernel-header-removal-v2-11-c67739d5dedf@gmail.com>
-References: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
-In-Reply-To: <20260829-kernel-header-removal-v2-0-c67739d5dedf@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, 
- Puranjay Mohan <puranjay@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788020764; l=1873;
- i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=sQVJMp3C2+a4ti+a7qwKMOTUI8kXgqbTgt5wFTn5j2s=;
- b=PDDTE3Ssmq27mEZddwEE7tj0c4EuQj5HRH2JegwaoBBBOj3IUVxhfhK4J376cavbir2b459rP
- hz9V/vF1eBPCLtlJC++UIqVKOpVI4fKZ7XJfCnX1BGjsXhhMRHuzLUg
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Remove the catch-all kernel.h header, add missing headers and remove
-unused headers.
+On Fri, 28 Aug 2026 17:59:09 +0700
+Cong Nguyen <congnt264@gmail.com> wrote:
 
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
-Header changes explained:
-Added:
-- <linux/array_size.h>: for ARRAY_SIZE()
-- <linux/bits.h>: for GENMASK() and BIT() macros
-- <linux/i2c.h>: for i2c_client and i2c_device_id
-- <linux/mutex.h>: for struct mutex and mutex_lock/unlock
-- <linux/sysfs.h>: for sysfs API
-- <linux/types.h>: for fixed-width integer types (u8, u16, etc.)
-Removed:
-- <linux/init.h>: not directly used in this driver
-- <linux/kernel.h>: catch-all header no longer needed
----
- drivers/iio/temperature/ltc2983.c | 1 -
- drivers/iio/temperature/tsys02d.c | 8 ++++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+> pm_runtime_set_active() failing in probe() jumps to error_unreg_buffer,
+> which only calls iio_triggered_buffer_cleanup() -- it does not undo the
+> iio_device_register() that already succeeded a few lines above. probe()
+> then returns the error, the devm-managed indio_dev is freed, but the
+> iio core still has it registered: the sysfs/chardev nodes stay live and
+> point at freed memory.
+> 
+> Add an error_unreg_dev label that unregisters the iio device before
+> falling through to the existing buffer cleanup, mirroring the teardown
+> order already used in lidar_remove().
+> 
+> Fixes: 4ac4e086fd8c ("iio: pulsedlight-lidar-lite: add runtime PM")
+> Assisted-by: Claude:claude-opus-4
+> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> ---
+>  drivers/iio/proximity/pulsedlight-lidar-lite-v2.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
+> index 400477b4c740..8a9ee21f2bf6 100644
+> --- a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
+> +++ b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
+> @@ -294,12 +294,14 @@ static int lidar_probe(struct i2c_client *client)
+>  
+>  	ret = pm_runtime_set_active(&client->dev);
+>  	if (ret)
+> -		goto error_unreg_buffer;
+> +		goto error_unreg_dev;
+>  	pm_runtime_enable(&client->dev);
+>  	pm_runtime_idle(&client->dev);
+>  
+>  	return 0;
 
-diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
-index b8deb9aa9d48..6c4de6854683 100644
---- a/drivers/iio/temperature/ltc2983.c
-+++ b/drivers/iio/temperature/ltc2983.c
-@@ -11,7 +11,6 @@
- #include <linux/bitops.h>
- #include <linux/completion.h>
- #include <linux/container_of.h>
--#include <linux/dev_printk.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
-diff --git a/drivers/iio/temperature/tsys02d.c b/drivers/iio/temperature/tsys02d.c
-index 377e27b45fdd..4946d0b14632 100644
---- a/drivers/iio/temperature/tsys02d.c
-+++ b/drivers/iio/temperature/tsys02d.c
-@@ -10,11 +10,15 @@
-  *  http://www.meas-spec.com/downloads/Digital_Sensor_TSYS02D.pdf
-  */
- 
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
- #include <linux/device.h>
--#include <linux/init.h>
--#include <linux/kernel.h>
-+#include <linux/i2c.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/stat.h>
-+#include <linux/sysfs.h>
-+#include <linux/types.h>
- 
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
+Hmm, you should just return iio_device_register() here instead of 0,
+as that should always be the last function called in any *_probe()
+function.
+
+No need to add a new label then.
+
+> +error_unreg_dev:
+> +	iio_device_unregister(indio_dev);
+>  error_unreg_buffer:
+>  	iio_triggered_buffer_cleanup(indio_dev);
+>  
 
 -- 
-2.55.0
-
+Kind regards,
+Joshua Crofts
