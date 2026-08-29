@@ -1,69 +1,69 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155833ABD80
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55454418A43
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 18:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788028388; cv=none; b=Lw3tXQBWz3OGq6V9AfZ3lKFEye9PRa8et1n0He7sH/Kf/7YRIcDfTAFdafZPyKzWhCn6Q53rmBmj4v5suhFFAjxlAUAHRmsvWG/N25vA+WoiROO/IifWqFVDdbPqz/5eTRjwj2Q5yAU6Hev4v002iZj6c/urk0TwUKFPL4fLqnA=
+	t=1788028389; cv=none; b=gn7mtvs/bCgNnezY0tH0JxFgH9ONIv0bZh1tHh7ijdu1Hii3DvcPB35OuAatxb6vZfB7iNky424vqAjwLzxWHxPlVkDjTe+VZUEfMDlGtfucyW4aNwcWSf3IhZ0sZRiByhZdjvMd8u/gl8oa2weUiWe+zgVxe3HX0GdjY2KguGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788028388; c=relaxed/simple;
-	bh=S0LqqKoJyhJE6B9oZp/qUrmlUVARoa7tbLYQwWMBiiI=;
+	s=arc-20240116; t=1788028389; c=relaxed/simple;
+	bh=vyCh1a/9f+HWTyY1McW6nzBV+qOi8oUrXthPikpGcDM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sDYMh/VAjZXZJ/Pkg4yh+WyVOHVRNoMjn4iQuQKYQg2gPHS9G22Bl29RqjWhPx/Po66Q3TxhDK4AJz/WSLJJa4XSgGUJtNOoDjgenKuRYAyti9zlbew7FyMLDwsrxLyjNB89EaZeXU+Fs7QS8bAT9Mc+k5OI6ZaYzhUC1QyW8ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mFc7WERY; arc=none smtp.client-ip=209.85.128.41
+	 In-Reply-To:To:Cc; b=alcewOZjPLrEkSKuAiaoxst1BcUG1ymNQu2eNcSUgtEIDobGqY+ubbeMxwl834bHkM2N3a01BD4mqSQMCv7A9wiEzCWwSStNypXG18EAYIGaZaYuWUdfVAS8pT4KdSylPy6dScE7uSE8Irm7EL7RkrMoRIqaeqzM4ggo/R19K+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RLgmVA74; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mFc7WERY"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b9320423cso20027105e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:33:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RLgmVA74"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso12954515e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 11:33:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788028385; x=1788633185; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788028386; x=1788633186; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=42z/82WlDmCCPPz2ajG39fqfbcCLmb2ayvQD7foaHV4=;
-        b=mFc7WERYUiKbhiTeTh4OV+9SdkJYuOvYwLaH8G6ips52/Zm0X85QPWEiIn/eQ6ET/X
-         91w8tzcRbvy+B+oSrtR1cLiwJClMFoCVU4TjA1gLcJ6N4Zp6GFYJ09DLLoEtkrpwkPTL
-         VR7o9peqqHzkEa0mU63Mt5HFDEJ4p3b/7Rb9Ooe8bfadOdsPSjfu/YdTaX5mIxEma2DS
-         qXZzio4W8X7MVadGFZpHKwNBGlv9oc5MguG3VUCJB1YwXo7LJ5JkEPbz4NvI/mR7O0Kv
-         JRBNwDMT98dhY2lH8f2+CHxHMhUWWmPYO5KTEUO2pBKyEIA/Ns2B5KtC2qGLb9dgt+F8
-         OjYw==
+        bh=6wuDpNUGIrjwH77k9nZgATZRXnq+7uzbWIulgX39iog=;
+        b=RLgmVA74Pv98zN79EveyDhNtzUOp0v5T8MFcoeLKODI2by1Uv5//ieDZaMkdIWZkBc
+         dNS0ekod/hH9gz24uIh3S7iKuepddVBFeGC3MfUAD8YBPBTZ28GBIAy6kf+43lOwGZc+
+         Ovfw+R113RTTSGc5FU+N0mLzRjtisvlRj6bPrhXKbMvzir3lHQwtcnKVAPh2ssN2pacg
+         ttJJ9dKgJSTz11xjrCEXVqzIJyKoby9DAHR/RyUJ511avUibTBvnG5roVluEQ66mdo/X
+         cy7zuNrflYrwUrVte17dBhrE0WhhpJBVf+02HYUAP411op2d/joClsTBbCqqj/n9j2xy
+         sgyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788028385; x=1788633185;
+        d=1e100.net; s=20251104; t=1788028386; x=1788633186;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=42z/82WlDmCCPPz2ajG39fqfbcCLmb2ayvQD7foaHV4=;
-        b=JRgLfa2zOXDZKkCtBRGeg/09jJRzfI6xM+6oB0suSa6FjEYwxE86w2tSi6NS+C9YAr
-         BA8DPxcgDeNZx0l4Q+Gb7M+XeeNW3Qg5X/VQw3GgdQ5ODaaSZb488lUxjnO/CbH37Ano
-         cGoA8b5PfnDiBAtJqN6t4v9nIfYFNu4pt4twbfS+vHPqe+oTC5mNRCLfi7ZI6V2OiFvc
-         teTCkVHro7JES+QML66hRdPE61kvY624BHl9ZQ/eXd0uHwrmogOAoxH8bs0UamCa5tMx
-         LfKKZdujBeh0UVwS1anje1MyIYYljp2JNqqGoQ9V6wEMwGC/8zOrS6o2Muw9usjeNzYo
-         2fpg==
-X-Forwarded-Encrypted: i=1; AHgh+RrcSZHDqONC+EsoGBPcCX43kVYjxI/SibR7SKRasLOh6X5pIq0eRJ1X6jdJ2N+ZlBNng5RanxG7eCZQIRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaHathMt6au6XO19Czg4iKqj4uvSfd61bnnLnrT80yvZcgvzfb
-	KIvfSDml7RgiwfYxN0GTZBeNzWMTdotUvUCnJa4Qq+b20JdRKqDabTIpO5clcq+2TlhVWyS+
-X-Gm-Gg: AR+sD13RPCIFQakQtRnhCgf+U8SiDnpdV0L6ck0hWXXpgdQl8G94vtpI9fK7Rf8j96r
-	+62mEeqSkv7NVLWGVr5sQzlc/lcszN6adq+IDWIqyXs7bRV9jPHDI0r7nEHGZQa76ywGXe/Jf85
-	OqmfO39AHglEQJl+aSrKgfiBPcBptU1o68L14/ag7JPYqKj/X/oqqhpuISJv88Ur2kBF73vaz7n
-	bW8pjvxnjQwA3FgNZ6eu0jrhW2/K8Xi7df4bs5A6ahY+q3w/OT6btkorVH7pnX7nBPtWtTsEGFr
-	6jAElxP6sQ/BBBCxg0iOWCFoM95InwPNLdSBt+HzfCaFItgGZ/y77KDvqpLP8uhX6OhFmreB5Ga
-	J0kuTz8QH/cy6C0c7qFDjgof9g7Tm+8RkPWD59WQqLOOx+4CYIlExFXlg0+HCVQzX7FRXwlytoH
-	mp4SASM5RteR0W7dHIa4y1baCsxNced8GCSxe0o6VRxqmRy6zpvBwzMUcFsaACltIDqgPXxezYU
-	lXr4mp6QoSex4uRpDpLXQ==
-X-Received: by 2002:a05:600c:3513:b0:499:7a15:fcec with SMTP id 5b1f17b1804b1-49b91c4faebmr219335465e9.13.1788028385003;
-        Sat, 29 Aug 2026 11:33:05 -0700 (PDT)
+        bh=6wuDpNUGIrjwH77k9nZgATZRXnq+7uzbWIulgX39iog=;
+        b=U/mfZyAQOMdlbsGGx1wdrw0EyQ71xC3/nbFtDAupUVgRTjvfC0cga/YB+LQf389sG9
+         6oAF+DoPG15lH7SNvazjpep4MvVIVixiZcCzCspjAVszntB+yMIDhlRVYei8qbdSi1/P
+         SagBmIAzOUpe+kDw8VmBTfW6GCRgmFOBj1fqxWVY96ils/YHc16LgxiC7CczG7iVmIWy
+         R6ytnQxVmvzkGNSnr2HrV6ed6u4/XUJjbjZFJoiib3zobVG2Ujk7BOyO3//QKXoI7BNP
+         TP77V3U98aMIMhMvSm2Z/XGwgKRg5JWLzkObGQrOV9WKVCffD3jaoTlV6fzA9Q+Jetxr
+         ijLA==
+X-Forwarded-Encrypted: i=1; AHgh+RqcE2XgjtKuz0UuO+5HXNRcs5FKY+GSff1XXpAgW6MB/aarCopNGsDAmokFFzhAAF1Ej3pT4zAGfurN6O4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOzixFii49NZNXXB2ktX1w+i7KTXu8jjHx9FYzQwvshsBTCgPS
+	M5xFVzyYBrXAxZdMfzA9L6bWLGbA8dy9y7cwyL+x50r4RTRS7/nSG4s584+JzTsRpaRxI9Tn
+X-Gm-Gg: AR+sD110B66kJ4zaw6QoV8fonus74Jfn/ug25DfEjAtgFWVRb7gsrBfFBG2rwdvPY0x
+	MVcm+fSMeBmMqwsensidibDoXzJoTwQdaMjR7xYvQBN1P1/wRT0k/WF7IoNwF5qXhwlmeSsoR86
+	pcJBXHH+kX+c6P/WdQS+2x3MaFww2ScftTxCExSMp2mCgJbcxLTDDPyvsJNwnm7nScMPidpwWOT
+	D1Zr8k1VdIVo3xdiUWPWJ1YI1g6jOuZZvGQzoqairr27b65SSaBn9e+ThapPWDIA9N8CDetMUMM
+	955YYJugkCnw9OPm4v4h36gnL0qY9lcM1R5qWI9hT/sMncs9NT/w20M5lQi2hD1f6lfUDGx97+f
+	+6aRQZG3cKy+WgvT7zJH8utYMPLmE/paxvNqhQ/l7RbrLPgDryyQSmzflyAAO1E9uxOco/vdgER
+	90DNmmfVugZIozi/lAo4sSlmwrNdyBbHtQGgFKWAAw1kEqcczJggtidPyYM/ZxRzWnKXPtP42Rv
+	mzI8O1aVhEznmISRk+CtA==
+X-Received: by 2002:a05:600c:4445:b0:493:e451:a9e1 with SMTP id 5b1f17b1804b1-49b91c2e150mr230254995e9.2.1788028386010;
+        Sat, 29 Aug 2026 11:33:06 -0700 (PDT)
 Received: from [192.168.1.11] ([148.252.146.192])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea6b814sm48682495e9.0.2026.08.29.11.33.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea6b814sm48682495e9.0.2026.08.29.11.33.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 11:33:04 -0700 (PDT)
+        Sat, 29 Aug 2026 11:33:05 -0700 (PDT)
 From: Dale Whinham <daleyo@gmail.com>
-Date: Sat, 29 Aug 2026 19:32:48 +0100
-Subject: [PATCH 2/3] platform/surface: aggregator_registry: Fix tablet-mode
- detection on Surface Pro 11
+Date: Sat, 29 Aug 2026 19:32:49 +0100
+Subject: [PATCH 3/3] platform/surface: aggregator_registry: Add performance
+ profile and fan support for Surface Pro 11
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-surface-pro-11-aggregator-registry-fixes-v1-2-ebf5cca9d205@gmail.com>
+Message-Id: <20260829-surface-pro-11-aggregator-registry-fixes-v1-3-ebf5cca9d205@gmail.com>
 References: <20260829-surface-pro-11-aggregator-registry-fixes-v1-0-ebf5cca9d205@gmail.com>
 In-Reply-To: <20260829-surface-pro-11-aggregator-registry-fixes-v1-0-ebf5cca9d205@gmail.com>
 To: Maximilian Luz <luzmaximilian@gmail.com>, 
@@ -82,44 +82,36 @@ Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
  Dale Whinham <daleyo@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788028380; l=1232;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788028380; l=918;
  i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=S0LqqKoJyhJE6B9oZp/qUrmlUVARoa7tbLYQwWMBiiI=;
- b=MXKPGUi9v6ZDIOHsG8KZbdfFkKBS2Fuug4bSn11uTjvSVS7i8HYopUzNE5BMyCzFXwnHALu6A
- nsXfwtyESDhD7Iec/6vULTZvzT3pLhEl0Y+WfiZY0PhT2htcRbXLR2y
+ bh=vyCh1a/9f+HWTyY1McW6nzBV+qOi8oUrXthPikpGcDM=;
+ b=4GzIgkBsV2o4Fqd+QlelJ0rMSJif4w7WE+Cw4asWjQBk4+WVAGjp4y+cfRpKmA4NfW5zuez0b
+ 3/1hdgl7oszASD4QYnwcRTv0O6IJc+fgx9N46hF73B9Ed3yFbDaGiYn
 X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
  pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
 
-Replace ssam_node_kip_tablet_switch with ssam_node_pos_tablet_switch, as
-Surface Pro 11 reports tablet-mode via the POS ('posture') subsystem and
-not the KIP subsystem.
-
-The KIP-based driver would remain stuck in a 'folded-back' state after
-suspend/resume, whereas the POS-based device reports its state correctly
-even after suspend/resume.
-
-This fixes the type cover keyboard/mouse being ignored by desktop
-environments after resume from sleep due to the erroneous 'folded-back'
-state.
+The EC on the Surface Pro 11 exposes the performance profile and fan
+interfaces. Enable their associated drivers.
 
 Signed-off-by: Dale Whinham <daleyo@gmail.com>
 ---
- drivers/platform/surface/surface_aggregator_registry.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/surface/surface_aggregator_registry.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-index 82c2144e10ec..2cb8278d98ea 100644
+index 2cb8278d98ea..061d4a567a06 100644
 --- a/drivers/platform/surface/surface_aggregator_registry.c
 +++ b/drivers/platform/surface/surface_aggregator_registry.c
-@@ -415,7 +415,7 @@ static const struct software_node *ssam_node_group_sp11[] = {
+@@ -410,7 +410,9 @@ static const struct software_node *ssam_node_group_sp11[] = {
+ 	&ssam_node_hub_kip,
+ 	&ssam_node_bat_ac,
+ 	&ssam_node_bat_main,
++	&ssam_node_tmp_perf_profile_with_fan,
+ 	&ssam_node_tmp_sensors,
++	&ssam_node_fan_speed,
+ 	&ssam_node_hid_kip_keyboard,
  	&ssam_node_hid_kip_penstash,
  	&ssam_node_hid_kip_touchpad,
- 	&ssam_node_hid_kip_fwupd,
--	&ssam_node_kip_tablet_switch,
-+	&ssam_node_pos_tablet_switch,
- 	NULL,
- };
- 
 
 -- 
 2.55.0
