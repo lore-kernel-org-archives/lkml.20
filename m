@@ -1,215 +1,131 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAAB38E5F9
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE82E06EF
+	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788038553; cv=none; b=o8OGXSWZ67ELqME3Yunmw8+btRktLsg3N2PnJ5ntujhKyjZwlhKN70OhC19YYEeVhTzfkGnM0NP2GkRVNTjyjEHRSBk3P+CtlyYj6/vxWle9FiyUC1Ux8BoiEX4hPATLd4+/6Bvq2cTjMMXSmfFz6EQfcWRLcoSoBngi9KEPuys=
+	t=1788039188; cv=none; b=J/QVjSqa+bxtFT1SODooAIP45PYJfcR59aoWGodaLL3Iou5mvbJqQmrNkHz/66L3wo2y0niGMkuQvFOUW76FnG/g75OEn0QEZxRhag8Z2tf54YPDW4nOhGU6fEkyM+8rrXPd4Xt2s+dN6rxPjLFDX0Yov+hNdyVD4bOOUxYZ9vY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788038553; c=relaxed/simple;
-	bh=WI7AZhtEqr9xVlLFzEDYIIFNWQlxz9PEtDtkd4+D4f0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=bWmGx5MepBZ4EeKu+onzdkQ5DunhXG10fdp2a0Cld790CD4eN/OW9cN00L+VUod+CDD1nomVGqRMyw2DUc6pN06Da2C5CBDzYcjjdvjg4SW4jSkOsfA5glwXFqzM6KkRBP6IG7gIbGvOOIEuSUsbIPjgu3ARPX7vxML0vu85A9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so726422b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:22:31 -0700 (PDT)
+	s=arc-20240116; t=1788039188; c=relaxed/simple;
+	bh=Zt6xM5ByKMqjss0Ju9Pq8lrUfSmBQl0+BHJmcT0gcU4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NlcEKjesz1lPHgovttwlr2tcR5qDpX0Lf3mivH+CVJsWlUSHKGO/QpID6WNpQlkiZeW3CzzjISU+8V1JNe/OEZQUNyJk9cDiOq4UCi3wPSqs4qQNqVK10I87G8/nAzusr0vLi/YNwsiKbY6S4/gw0ezC90eQxVLhFYo/mOpBhOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A1pRPMGO; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A1pRPMGO"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482e067e908so1534329f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 14:33:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788039185; x=1788643985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ucnD2vvZKQodkVcezxvV4KyyS73dxyfqz8xpesSWdQI=;
+        b=A1pRPMGONSvtnDEQSeM88hjsR4UhzcAQhj0khTIC7Kcg4ylw7Hs2Pp1ze0Wzml5xEY
+         vuEw+SVSZ/VOCZzx44S2OhfeEa97fyg++wvqcJ+h7khmMFjcxME3guYCom6RXQU2XX3v
+         TScKUqTfBJVT4IgbmJfe9G5pEfClUwmBXHlXLZTwtgnRhmGsgirYEHf6khLFQR1JnU3g
+         9X8Rtk5up1uqY+KmUDI1pXc7QLqp0I+sTCALkRSD3QZPa8kiXhJ3yffXwH06sl93+gcU
+         QnU57sOzivcNJ8juYFAMciOxBoJlyzZlFGKYTIrbMvpoq22mHXzt8bYXuIKTF4Zrmqgm
+         YgwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788038550; x=1788643350;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LJMEXdlk7d61VrtM7qDRU6Bog3O/MwGb1q5vlyd9SZA=;
-        b=FxBOWiGkc9C2MaPa24aDUBTMq5Rz+vMWh/ty4xdzWN1oOWj6/0CDH2sl41AXbBWFa7
-         7BWUVUbV41NOo17DBB2uCdcBqd+Mu+UWSYqt2ZQ2gLBiPSzBgSewRtdZHFn4YcE55Nxk
-         5Y0dWFNh5axCLVMZtchv5Cm6xnLyH7PEqluK/aIVdumMqw5Y54XalMLRYBGbCSJVGPn7
-         /TIk035/wPXJACun/akQSoBSfkXmVVWq4n/j1pekoxpLNA//5RM9Z4CY8eHhoO4RwHBV
-         M3cvDl5lCGFLdHVk/9Vtjt4eaEExTICtYtvbUbK7erp8TWq+Te7yUJNHnD20mlnjhOQW
-         WBKA==
-X-Forwarded-Encrypted: i=1; AHgh+RrUBDrzJGjFAij5c1oYmQgF2h5lP5+fCQwOjTcnFK8bUvv0e6D7U6R11SH6BZfWiFRdLE0TNwViPSCdoac=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnmkFLFeeauQ+dZMJVnZFP2555gsjfZFQDIDtRS11770SUq+Ap
-	7CNnWOsgmrBWO6Kt2NRylnP31dGSrck3NRzCiATE8BX7mdrzGttOhnfTsOnCPM/XMSSGLWQa+Qh
-	LM2wZfTPOITbKIHK4J2IUT1aiM70EFr+45fSM87bKMuckZjGld6WyRY/rt6M=
+        d=1e100.net; s=20251104; t=1788039185; x=1788643985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ucnD2vvZKQodkVcezxvV4KyyS73dxyfqz8xpesSWdQI=;
+        b=H2qnBrl5yaIm9Z6OuaFdaWPTC+4Qzz9IcbIgRhA8scGMhhHXtbHxbrnza55dEFXBpr
+         3GjBLCnoPAl8+wreFSkA2BWG7LlRoCH6HG6TRz4HHgX/0Twfx8Yp2SiEN/scZXfKOK8y
+         4hk/OJ0J0YbvcTPbciVJJGpCx2jsEC9QwxyQ12ZCjcC9vMy3ZnY0Avpr8PxhE1EFMlun
+         xsgFjAKKM2sMrinTrhO6xFlZSuObIVS3oFjjAAwgnvme82gHLO4YrIl2KRmNPGzqjQxD
+         zGebseQuG0QgS5vje9F5eosy7uX7oog7DRkfsWBmSyBOjbcTZWjDRmZ83nQTcg4BpaYQ
+         J2pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4/GGYXNDpFNyrwokNqpcclc6b+cEYwwcJFcrh3m/azl1IUlqztiNL6eiJV/U68WXD9rQ7QH13sd/rEzM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkLiF90fuhZIJTiK3G4T/jqcjLlm3yMCj0Sqkty+3UPf3Kd9XC
+	37fmSOEfvAJY8iBB9TintT5TdFKZUzyOH/CoDQ17cPvZE1aGu1uTQCzY
+X-Gm-Gg: AYBFou3LavRLzw6ZSdD6A13WlN4FyqE7owjPz469//6actDSP69TC8LvmA4Iv6Tj8DA
+	qS2EJJFzQElC6L3h+uoPQbqV99YYTztuBR2Nt52tiXna1odFPxCWWn0mx2zusl+ERpdrF18Lr+o
+	neBdX073YFlqLXoSnzorlZwqOrOFbqlN5kwryj0L32jwZ6aGmkpt3YHsEdaxrjgtMLhsGl18vg3
+	jidaLWZhYAkOajkFRKjLE7mMrZSJteCeXGJboD8cjTVNL7tZ+e9DaI438izxLbjYI79UuF2t4VE
+	w+XtOS5yyLoUf8BqS24mjzLufBzQCCtlCdTVfHfaVYr5MAlOLES0xcrLeb+unTf7qqWbZwY6QeP
+	mjdgZBd0yGhnzPp9TUTC6a6qG7eDPuMmVKWKLvJdQKxqZFgmRcfM1VVz0vJ5W/upGEdZ1XlnIlg
+	IMc959YHiZI1IVrj7yZ3UHLs91ptRacPmYbwqUh8NXbDB6BJU8wqxAvml795t2DWQBavtNl9DWG
+	DLtUZgw7Iaupzb4drJR8Z27BfaEDbjM7S+8/fEOMy4WSX7nd8CBScoynmkkoLVnR4YhqDjAXdd3
+	VR3NF/AQcoiswiHFYWLiIb9nUcFZClXkNZruwZbPAfM/xp0o9zMWBV8NfE0PYAHr84OGZ6xlPO5
+	0pw==
+X-Received: by 2002:a05:6000:38f:b0:484:3315:1a38 with SMTP id ffacd0b85a97d-48433152785mr8141778f8f.28.1788039184984;
+        Sat, 29 Aug 2026 14:33:04 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-ae86-1b01-80e2-8851-4221-68d8.310.pool.telefonica.de. [2a02:3100:ae86:1b01:80e2:8851:4221:68d8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb33070sm12540616f8f.36.2026.08.29.14.33.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 29 Aug 2026 14:33:03 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: selinux@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Ondrej Mosnacek <omosnace@redhat.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 0/2] selinux: fix nested backing-file mprotect checks
+Date: Sat, 29 Aug 2026 23:32:54 +0200
+Message-Id: <20260829213256.51527-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:10c8:b0:4b2:8d89:6a40 with SMTP id
- 5614622812f47-4b397ffa6e9mr16173861b6e.7.1788038550449; Sat, 29 Aug 2026
- 14:22:30 -0700 (PDT)
-Date: Sat, 29 Aug 2026 14:22:30 -0700
-In-Reply-To: <699fe31c.050a0220.2fcbed.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a934d96.08e933ee.dbf97.00aa.GAE@google.com>
-Subject: Re: [syzbot] [input?] possible deadlock in __kernfs_remove (3)
-From: syzbot <syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com>
-To: dmitry.torokhov@gmail.com, driver-core@lists.linux.dev, 
-	gregkh@linuxfoundation.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tj@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+Patch 1 preserves the top-level user file SID across nested backing files.
+Patch 2 preserves and rechecks each intermediate path, mounter SID, and
+file-description SID during mprotect(), including execmod checks.
 
-HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of git://gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14c09d79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=161fae25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1084c379580000
+The series is based on cf72cbb39da8, which contains
+commit f2381b546e7e ("fs: fix user path of nested backing files"). Neither
+patch needs that fix to apply or build, but without it the top-level check
+still resolves to the intermediate inode. It is already marked for stable.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-cf72cbb3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/755d053ff703/vmlinux-cf72cbb3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/0837738ba281/bzImage-cf72cbb3.xz
+The intermediate list is allocated only for nested backing files. It is
+captured at backing-file allocation time and remains immutable afterwards.
+Capturing it in the mmap hook would require synchronization between
+concurrent mappings of the same file.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
+Tested on arm64 QEMU with a small BusyBox initramfs, SELinux enforcing, and
+two nested overlayfs mounts. The original SID propagation test passes.
+Direct mmap(PROT_EXEC) and mmap(PROT_NONE) followed by mprotect(PROT_EXEC)
+are both denied against the intermediate inode when that permission is
+omitted. /proc/self/maps reports the top-level path.
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.0.17/6098 is trying to acquire lock:
-ffff88804e56bf08 (kn->active#66){++++}-{0:0}, at: __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
+Changes in v3:
+- Add the intermediate-mounter fix as patch 2.
+- Allocate intermediate state only for nested backing files.
+- Rebase and retest on mainline containing f2381b546e7e.
+- Document the BusyBox test environment.
 
-but task is already holding lock:
-ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
-ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40 drivers/input/serio/serio.c:677
+Changes in v2:
+- Add selinux_file_user_sid() instead of open-coding the lookup (Amir).
 
-which lock already depends on the new lock.
+v2: https://lore.kernel.org/selinux/20260820175832.44512-1-kmehltretter@gmail.com/
+
+Karl Mehltretter (2):
+  selinux: preserve user SID across nested backing files
+  selinux: recheck intermediate backing files on mprotect
+
+ security/selinux/hooks.c          | 150 ++++++++++++++++++++++++++----
+ security/selinux/include/objsec.h |  10 +-
+ 2 files changed, 142 insertions(+), 18 deletions(-)
 
 
-the existing dependency chain (in reverse order) is:
+base-commit: cf72cbb39da84b6f02f90c07f33b102fc10b16f0
+-- 
+2.53.0
 
--> #1 (serio_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
-       class_mutex_intr_constructor include/linux/mutex.h:255 [inline]
-       drvctl_store+0x3c/0x350 drivers/input/serio/serio.c:360
-       dev_attr_store+0x58/0x80 drivers/base/core.c:2509
-       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x6af/0x1050 fs/read_write.c:687
-       ksys_write+0x12a/0x250 fs/read_write.c:739
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #0 (kn->active#66){++++}-{0:0}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
-       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
-       validate_chain kernel/locking/lockdep.c:3924 [inline]
-       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       kernfs_drain+0x4f0/0x600 fs/kernfs/dir.c:532
-       __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
-       kernfs_remove_by_name_ns+0x7c/0x120 fs/kernfs/dir.c:1797
-       kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
-       remove_files+0x96/0x1c0 fs/sysfs/group.c:28
-       sysfs_remove_group+0x8b/0x1b0 fs/sysfs/group.c:328
-       sysfs_remove_groups fs/sysfs/group.c:352 [inline]
-       sysfs_remove_groups+0x60/0xb0 fs/sysfs/group.c:344
-       device_remove_groups drivers/base/core.c:2918 [inline]
-       device_remove_attrs+0x192/0x290 drivers/base/core.c:3048
-       device_del+0x36e/0x9b0 drivers/base/core.c:3964
-       serio_destroy_port+0x476/0x590 drivers/input/serio/serio.c:543
-       serio_unregister_port+0x2b/0x40 drivers/input/serio/serio.c:680
-       userio_char_release+0x91/0xe0 drivers/input/serio/userio.c:105
-       __fput+0x3ff/0xb50 fs/file_table.c:512
-       task_work_run+0x150/0x240 kernel/task_work.c:233
-       resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
-       __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
-       exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
-       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-       syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
-       __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
-other info that might help us debug this:
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(serio_mutex);
-                               lock(kn->active#66);
-                               lock(serio_mutex);
-  lock(kn->active#66);
-
- *** DEADLOCK ***
-
-locks held by syz.0.17/6098: 1, last CPU#2:
- #0: ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
- #0: ffffffff904e2360 (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40 drivers/input/serio/serio.c:677
-
-stack backtrace:
-CPU: 2 UID: 0 PID: 6098 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
- check_prevs_add kernel/locking/lockdep.c:3300 [inline]
- validate_chain kernel/locking/lockdep.c:3924 [inline]
- __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
- lock_acquire kernel/locking/lockdep.c:5908 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
- kernfs_drain+0x4f0/0x600 fs/kernfs/dir.c:532
- __kernfs_remove+0x34c/0xb80 fs/kernfs/dir.c:1579
- kernfs_remove_by_name_ns+0x7c/0x120 fs/kernfs/dir.c:1797
- kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
- remove_files+0x96/0x1c0 fs/sysfs/group.c:28
- sysfs_remove_group+0x8b/0x1b0 fs/sysfs/group.c:328
- sysfs_remove_groups fs/sysfs/group.c:352 [inline]
- sysfs_remove_groups+0x60/0xb0 fs/sysfs/group.c:344
- device_remove_groups drivers/base/core.c:2918 [inline]
- device_remove_attrs+0x192/0x290 drivers/base/core.c:3048
- device_del+0x36e/0x9b0 drivers/base/core.c:3964
- serio_destroy_port+0x476/0x590 drivers/input/serio/serio.c:543
- serio_unregister_port+0x2b/0x40 drivers/input/serio/serio.c:680
- userio_char_release+0x91/0xe0 drivers/input/serio/userio.c:105
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
- __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf6ffefec
-Code: Unable to access opcode bytes at 0xf6ffefc2.
-RSP: 002b:00000000ffbd8fbc EFLAGS: 00000202 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 0000000000000003 RCX: 000000000000001e
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
