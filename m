@@ -1,375 +1,464 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2D537C93E
-	for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 01:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787966586; cv=fail; b=QzKYIpdlBiVZxmiMcl5+fxj0Z2ZofXZ5aM0YYMhhdd8SJG9gHH+KIbMeO+JCp9FYfmp9tbF8cakt9HS0RhH5ZQmQ/4MJqRACadmVM90w7XoT92Jn/AaDHoz0CXjhHJ+uyw94qiQdVheR1QtsGj5XcVPsaJAhyRCwjBp6xzHOdYU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787966586; c=relaxed/simple;
-	bh=0jNIMZV7DddEdyE+9AoYVOLLDp4/aKaA6ojxdI/vWC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q6DDk8J83vdq3e12TBSZ3DtFGczSWKJ9yXcAOoYzV73jsAYz0RSADlQdtuNHHk65OkMu/lKNSF5bpDz8HmrcKkks6l6gd3nflyxquXKFaYEbgXZOG4RHD4W6LFNt0IqZhaHA5EhLEDSvmlSThi7QroQZsWFAvmBsWdCVEaRfoUM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o7TFt3YA; arc=fail smtp.client-ip=52.101.52.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE7E1DDA18;
+	Sat, 29 Aug 2026 01:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787966656; cv=none; b=QFgEII5UtC+pJTtmo7AowoE3AgEoZI5NJrbHusx1S49whcTIxGAGdwXuHGEUyWxLHOT1gTAwjqzpRSU5EdhmndjZGG7K6lWuFjmEuPHcvedbWbimT09QESzba8EUhc/W13tfPh2d8VT9Dy6uEuRg30pL2V8umQYfSWUJb3wR3XI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787966656; c=relaxed/simple;
+	bh=K2ODE5LpnUomQDchg8CeKV1Ya/gLals4Ilh/2O9C7V0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P0QiEv/k73vyAfvh/eY3cfnZjZ1fYaW3t+asXaML9NhUTZZuNRHsFgYFIuSFj+EFag8VXgjlJVEO8gqiCadOnTkGjNWDj3bvw1iJ86kZwvS/K6wA2j+zO6WUfDTib8qOfVdW6YsH1d14a8gcS/VRdaKNcygI1W/43Fhd0iaXlek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYNE/zNs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o7TFt3YA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IZphpruZn7V+Xh6opaFOxVpWosFiJ49HrxL9LAObCjEWy7MRhb5KoilWBq7MmQY6V5o7U3g0jfMggA8M7H3mY9nDetFl4dPZUE4AcUqWOemEGnYrfaoA+KbGBnzX/SnYYfnqOyrlcEceEWPYRytgbgDgdYOgGRCue8JkwwlIutFXc0j91P6uVjTiHRLNne0ZVC/J58pzhlzC1y7+1wBAbjpNl5Cd4l2n31am3dcbz1C9bdLzjoNGRbAwBZLvcQu48+8fQOTaBEk6DHjON61q87mZvngHu7ZC2TM7UCSy1QQymGXmMeG+PauhsCi6hIrKvMmtK0HU3+I0SSrs6EQwgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BhtvfWHqPYHrbizIucNd/EyShjvqWs0YJjFg8BRlFcM=;
- b=yau2b8zkJ+KiTaSA9qDd3pUmxZAgG1qHx3q/V1JMeR0NI+2X6ZPgUYO5P2mddqXH5Qy4ePiYFYmYAnofmALIK7ukx4p+jAfgWAWB0IJHJhRoV3dtZDI7Hb7g74us91r4XATAppejsuhWd0eq1OLMJaYbeNhj2ScYVB0W31GgLSD56QYphXKZpR/PoS/7xoBWt6O5GbC2DRSdPyxKLRKXhjK+H9uI1jdsEanGoP7D9AwHD2Oft/wMoVokTqPLEz9I7fZ31HNox/mbzWSF9qkwniANSbO2pUxIH5gkozyBiKmiGTXgn7ZjqFTkOgOzzANxXCcOue4LXbhVBGhFwJqlQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BhtvfWHqPYHrbizIucNd/EyShjvqWs0YJjFg8BRlFcM=;
- b=o7TFt3YAPyXqJ9SqAmrgfqlQ4/rJWJlPEgDkerLrH3VsXGdvzFv6kaa4VBnLSCkdyqS0v5q6vAwU5MBiDHPI1TxH52mwRU8hV7gaALVPvFbQpCNc/cdOoa5HPLCxtdZiQ9oPbWsGAy8HicdH6pb/ZM1fCPePffucVv3y60vAz33PPjZib4tziZezGb+utXaPIYikQ4Oel/TsPDbByg7N8ksoBiLVC43A8+OvaeLWHKjJEBJmvkyt/oAr84Q23AbfUCy6RhPhK/1HSdB85e3o2bn4DSF3FhTHfCdJy0e4boz8iiQVOTP4WFvQ2Yh532/4E1DeaTSk8s1WD/Y2Z9Qffw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 01:22:54 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 01:22:54 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	nova-gpu@lists.linux.dev,
-	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Will Pierce <wpierce@nvidia.com>
-Subject: [PATCH v2 05/15] gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
-Date: Fri, 28 Aug 2026 18:22:33 -0700
-Message-ID: <20260829012243.496697-6-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829012243.496697-1-jhubbard@nvidia.com>
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0097.namprd05.prod.outlook.com
- (2603:10b6:a03:334::12) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYNE/zNs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FB31F000E9;
+	Sat, 29 Aug 2026 01:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787966654;
+	bh=R5WVcDrT5XETZut+iUsGNvHNNk6Bn9BOjdIb0S6FsiM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mYNE/zNs5iyT7gIQVjg7cffkUT6tdnwyAQMkHDHqYmfWw6eipxR82QSCf4eCVqF6p
+	 W1w+4LHYPncEpjUrBwzDly4bHL5TVbNvz7Bx+TlgpdRylDsAvNgx6nXToKabE2ekEd
+	 ijgrIJ0U5uPcxpkDA75M2rSg7t3KKcoXa4btldhTg0JHU/5mkLMCwgbFUlsUI5uJj8
+	 C0KshmxJF/Lln62/svB94LzFjU+u8ndG+O12xYLPjsoTvkaFPiOUY9G54RzNtOxIhS
+	 hWwmz3PFqjAVhGOzK7u+5Ntt580VNAI2CGrFt20gvRJbv6YCQ+XADOzR2g+P3TqKv5
+	 6U5FBB6n9tQSw==
+Date: Sat, 29 Aug 2026 02:24:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Magnus
+ Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/9] iio: adc: rzt2h: implement DMA buffer support
+Message-ID: <20260829022407.4c9771e8@jic23-huawei>
+In-Reply-To: <178796644341.2599003.10846523729399514118.b4-review@b4>
+References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	<20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
+	<178796644341.2599003.10846523729399514118.b4-review@b4>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cb4cb09-6473-4d12-f2c0-08df056c0cf2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+aQlEqvFDcY1A0YGH74wSTRr4A9/vfK2P+kVBhBV62H8hN+cgY4udtONoudWgU8ngeagYYIU0kCy8s+h381/fkGrrl4S6R1p/9HsU7xxRNP1ZVnjWYWVA8P6MUv1jV1oIBRHH9hLvTtOA8Tb6htcDXQ0Tjsoxkqyjn57qLkz/pgqBAWKRQhLi91sku5/szDUkDQ4J3a8XE/sW2te2SiXtJNkuk/mYm27sPbQll19Z/znq+Le4Z9XFZLRH/cnCX7Y/TqiJDolNvxoJtkZoVmiCwaPjtU9TmKWQBTLxxnEFNN65VSJ2pel7qpCXuqw4RdTP54h2CwyCJSx1MrtzdKi2BcT6x9+BTQrKW+4Iy+Ysy15U8T/r2qxC3fz4MxQFSSfeVua5+Z+7DG4Pp9yMXXhC8MJt6W+y8LQVFz4gRnoMrrE/INgoMnSHIUJgu5C2hJ5qE3sCWLaG2R7L0TasILL7Dj30vPMXwwIN7jnjsMfo7j/twIFOr0IqOO26k/TADBigYwFHzZ6g7RpworrOF2+I0eOm1g9qi07IQmFz5LwI9ubMZ1tzDqXPxbUty12yl5RFg2iwftleV9lp4n/jIyRqAElQg/gVOws4mLdbI3ApBxXbsgic3OaPoD2K8gi81Sv8dO4iBRDCCJyHEP9wSSWcp4qflCGkXwwp7eWG5OBZVY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9ONqkxFdOgPoy+2lC3FReXoaC6I4TfO9uw861nNDa+WV3Xbl8r19hObWRSEa?=
- =?us-ascii?Q?Dhx9EJVIEYPplum9pwLSQUYfbxve9ZhD/Ibtfz8R9txXcry9RLv8xuN5BUO1?=
- =?us-ascii?Q?/xT6PSLmxvOe+hrLd4VrhIl71FzO/wwZ39K++yoXM+ds8hELmKySqILCtED7?=
- =?us-ascii?Q?lZVuNKD0M2/Ul2G4+PAQnzuUVfLID1vVY1WP7vx6yIVSHOt0eutJycywKvp8?=
- =?us-ascii?Q?v/T5vQiMAE6P2mpfOl39XuNrUWmHWN7kW60dcGJJJ4LH7Rvp3xJtVa3tc14j?=
- =?us-ascii?Q?uhkFx5FSrm1TTzZ6nKNbhcXWBgloLdL+xI96PTJovM4EK2s96N6lc25ZH2J3?=
- =?us-ascii?Q?VXoI4Ni0FTjWs/LpYiQP2K80H65QkOcNLvxWwWvnLf60pTRIOtx20nW60jDF?=
- =?us-ascii?Q?+trh7CZoLcnfnmo6EaDAtP+bYI/vPEHZOwQW9p/WvZy/K1peE26+HAqmSsgy?=
- =?us-ascii?Q?mduOjgUelt9lJ8sq43TFO5EZk9jwghmrGwiGTkxtcBvklP+p0DccI8DA/HzM?=
- =?us-ascii?Q?AuU+Ha9A4kmmGhKFyeXW+Bn5g9Yr0U4VZilkBw8PkMaEuSmqIG+sifbuLaMD?=
- =?us-ascii?Q?Bt4sdKWt9QHblQ+DDtpo8pLnEd6Xhqi65WC+0B22c+Wi272ighpvjAqCrscO?=
- =?us-ascii?Q?bAeuRhU3uijgZVXvOFrRwZjCu31r8snZRkeTcGiE0HQH0PHRyq6yU9jiTdiZ?=
- =?us-ascii?Q?5lzcf4ZxB5zT4qYWN/kxES4XDdjLC2U2I8rra3u7/kPPMH6gfW/d44snQ6j4?=
- =?us-ascii?Q?cYsLT1V5cauyxw+/pDOacyyFsNQMaWrLhwsZzXT1j41/k7yqisd4Hc7+VQet?=
- =?us-ascii?Q?6bXtj7H2VrlhMcOkIpNL1kl06cJy4tyPjnZnnXOwY9Oi5WyRggKZvgolSGKt?=
- =?us-ascii?Q?Rfou5JFCmN6HUOsb76C77xrOS5QEldLN2dkjCdXOGp8V1o3Ewx/YEko9F5LT?=
- =?us-ascii?Q?Lv/VoZsbOUrgr79miw0kL9Pa8lYp6K5fwSxILeDV4n4i5R5zL3FbqeiR4Inf?=
- =?us-ascii?Q?ufJMTVcqHTj28fHKu33BNu2Au+Q9AuWN3ioSmfuonNVA0Rh8cEL8XZ4aA7Tt?=
- =?us-ascii?Q?J49WRY0iCUPdsnok7EMNJK3zK9kUELuSNCQGx3j6NfxMwozVFLcaUgC/f3Cd?=
- =?us-ascii?Q?wr4u0pwuHz6IYjtPfCv5gEXIZyXdoqG54+WLcE9taHTQctcxx75E9bCDjD+r?=
- =?us-ascii?Q?2b3v5DB1ckVO8LkUCFidF95e1F7RsVgNLPC9gacKgsUK+zmncTpQjDSxnPLj?=
- =?us-ascii?Q?WDahCyDNSB5gsjxS6trmwKt/s26ZK4nxfRwgCEUx/pwH99VNmIyPRSFe/5ft?=
- =?us-ascii?Q?kh4EYa5yuoVgilv6HX3ZL9rnPQF8+mZ0jZ41ECLsPc8cxDHNKTSjOhj+PFTa?=
- =?us-ascii?Q?IvWM0VPSH+1DmRIE2LCgZ+RNZu1UT+Kr5wFxR87RSOWKY9/Y+smMIOWQYINk?=
- =?us-ascii?Q?bOr5FoHOGufin1z9NJx2ReM5ELa3JTCqqic8H87iVW62Li7LX3nO/Mr/kYf1?=
- =?us-ascii?Q?rV2irq5E5ShehtV5EGua+142TprKuxylLgWjPI1VblAai5ImY4sBYvHGCOXA?=
- =?us-ascii?Q?7CdeohE6Q4IRpf/zUeVtNOpRQz1+87npIK0hWxtCc1lGBK/Ig9GsdBKvFPxp?=
- =?us-ascii?Q?48VS/K+IH84MtlQrth30Aq0KCU3Oh67O6gHbopIRxKRo4x9CO7X40kRV35F4?=
- =?us-ascii?Q?KdVCHA/GZeWxME5FT8kzEe7Qq32yfQNTb0Oi4WB31CctYI47mTGMwtuWton7?=
- =?us-ascii?Q?6KdEu+/ysA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb4cb09-6473-4d12-f2c0-08df056c0cf2
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 01:22:54.3240
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2+0IlvAWm7lsWRQUDwCPSli+bMj/sZR/4TO26mcabZWiB3iZm0qKMD+LyzsR3eZ7CzcT3T3HJjkznrvTDSWXiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-GIN, the GPU Interrupt and Notification unit, is the GPU's interrupt
-controller. Each PCIe function has its own tree, whose leaf count
-depends on the GPU family.
+On Sat, 29 Aug 2026 02:20:43 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Message-signaled delivery stops after each edge until the CPU rearms it,
-and the rearm write differs by family and interrupt type:
+> > Implement buffered capture using a cyclic DMA transfer into a kfifo
+> > buffer to support continuous high-rate sampling.
+> > 
+> > On buffer enable, switch the ADC to continuous conversion mode and start
+> > a cyclic DMA transfer over the active channels.
+> > 
+> > Because the DMA controller does not support native scatter-gather, and
+> > because of the cyclic DMA setup, transfers must be done in widths
+> > covering all the enabled channels.
+> > 
+> > Since DMA transfer width must be a power of two and aligned to its size,
+> > cover the smallest power-of-two-aligned group of channel registers
+> > spanning the enabled channels.
+> > 
+> > Split the cyclic buffer into fixed-size periods. On each period
+> > completion, bump a pending counter and wake a consumer kthread from the
+> > DMA callback.
+> > 
+> > For every completed period, gather the enabled channels out of the DMA
+> > layout into the scan layout the IIO core expects and push each scan
+> > with iio_push_to_buffers().  
+> 
+> Could you instead use the available_scan_masks infrastructure.  bit annoying
+> to specify the full list but isn't that long I think with 16 channels
+> 
+> 16 x single
+> 8 x double,
+> 4 x quads
+> 2 x octect
+> 1 x all of them.
+> 
+> The the IIO demux in (sits behind the push_to_buffers path if
+> we have available_scan_masks set) will then deal with repacking
+> the data if necessary.
+> 
+> > 
+> > If the consumer kthread falls behind by a full buffer, drop the oldest
+> > periods.
+> > 
+> > Because the DMA transfer must cover all channels between the first and
+> > last enabled ones, skip disabled channels while compacting.
+> > 
+> > Also, the DMA controller transfers data in 32-bit words, but the ADC's
+> > data registers are 16-bit wide, causing adjacent channel data to be
+> > swapped. Swap consecutive channels while compacting to account for this.
+> > 
+> > Allocate the DMA buffer via dma_alloc_noncoherent() and synchronise it
+> > per period to allow it to be cached by the CPU while compacting.
+> > 
+> > Disable the completion IRQ for the duration of the DMA transfer, as the
+> > ICU does not mask this event from reaching the GIC even if it is being
+> > used to drive the DMA capture.
+> > 
+> > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>  
+> 
+> I'm messing around with b4 review tui and sashiko integration. I've
+> left the Sashiko comments in here as I'm out of time today to look
+> at them in detial.
 
-    * Pre-Hopper MSI writes an EOI through the BAR0 PCI configuration
-    space mirror.
+Apparently I got the options wrong to include the sashiko replies :(
 
-    * MSI for Hopper and later cycles the TOP enable bits of every
-    serviced subtree.
+So take a look at :
+https://sashiko.dev/#/patchset/20260828145943.2077589-1-cosmin-gabriel.tanislav.xa%40renesas.com
 
-    * MSI-X on any family cycles the bits of the handler's own subtree.
-
-Provide the leaf count and the rearm method through a per-architecture
-interrupt HAL.
-
-Assisted-by: Cursor:claude-opus-5
-Reviewed-by: Will Pierce <wpierce@nvidia.com>
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
----
- drivers/gpu/nova-core/irq.rs           |   1 +
- drivers/gpu/nova-core/irq/hal.rs       | 111 +++++++++++++++++++++++++
- drivers/gpu/nova-core/irq/hal/gh100.rs |  31 +++++++
- drivers/gpu/nova-core/irq/hal/tu102.rs |  30 +++++++
- 4 files changed, 173 insertions(+)
- create mode 100644 drivers/gpu/nova-core/irq/hal.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
-
-diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index 3066ceeb850c..02ecfc47f4d0 100644
---- a/drivers/gpu/nova-core/irq.rs
-+++ b/drivers/gpu/nova-core/irq.rs
-@@ -8,5 +8,6 @@
- //!
- //! See `Documentation/gpu/nova/core/interrupts.rst`.
- 
-+mod hal;
- mod interrupt_tree;
- mod regs;
-diff --git a/drivers/gpu/nova-core/irq/hal.rs b/drivers/gpu/nova-core/irq/hal.rs
-new file mode 100644
-index 000000000000..ee354859b965
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal.rs
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Per-architecture properties of the GIN CPU interrupt tree.
-+
-+mod gh100;
-+mod tu102;
-+
-+use kernel::{
-+    io::Io,
-+    pci::IrqType, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    gpu::{
-+        Architecture,
-+        Chipset, //
-+    }, //
-+};
-+
-+use super::{
-+    interrupt_tree::{
-+        LeafCount,
-+        Subtree,
-+        SubtreeSet, //
-+    },
-+    regs, //
-+};
-+
-+/// Register write that restores PCI interrupt delivery to the CPU.
-+///
-+/// A message-signaled interrupt is delivered once per edge, and the PCI side delivers no further
-+/// interrupt until the CPU rearms it. A handler that returns without this write receives no more
-+/// interrupts.
-+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-+pub(super) enum PciIrqRearmMethod {
-+    /// The MSI end-of-interrupt register in the BAR0 PCI configuration-space mirror, used by
-+    /// MSI on pre-Hopper GPUs.
-+    ConfigMirrorEoi,
-+
-+    /// A clear then a set of the `TOP` enable bits of every serviced subtree, which produces the
-+    /// edge that delivers the next interrupt.
-+    ///
-+    /// MSI has a single message that every subtree raises, so the rearm covers the whole serviced
-+    /// set.
-+    TopEnableCycleServiced,
-+
-+    /// The same enable cycle, restricted to the one subtree the handler serves.
-+    ///
-+    /// MSI-X gives each subtree its own table entry and its own handler.
-+    TopEnableCycleSubtree,
-+}
-+
-+impl PciIrqRearmMethod {
-+    /// Performs this method's register write.
-+    ///
-+    /// `serviced` holds every subtree the driver services, and `subtree` is the one subtree the
-+    /// calling handler serves. Each method uses whichever of the two its interrupt type delivers
-+    /// on, so both are required.
-+    pub(super) fn rearm(self, bar: Bar0<'_>, serviced: SubtreeSet, subtree: Subtree) {
-+        let subtrees = match self {
-+            // The written value is ignored, so any write rearms delivery.
-+            Self::ConfigMirrorEoi => {
-+                bar.write(regs::NV_XVE_CYA_2, 0u32.into());
-+                return;
-+            }
-+            Self::TopEnableCycleServiced => serviced,
-+            Self::TopEnableCycleSubtree => SubtreeSet::from(subtree),
-+        };
-+
-+        bar.write(
-+            regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR,
-+            subtrees.into_raw().into(),
-+        );
-+        bar.write(
-+            regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET,
-+            subtrees.into_raw().into(),
-+        );
-+    }
-+}
-+
-+/// Per-architecture properties of the GIN CPU interrupt tree.
-+///
-+/// The tree size and the method that rearms PCI interrupt delivery differ by family. The tree
-+/// walk, the vector encoding, and the read-and-clear sequence do not, and are in generic code.
-+///
-+/// See `Documentation/gpu/nova/core/interrupts.rst`.
-+pub(super) trait CpuInterruptHal {
-+    /// Returns the number of leaves the CPU tree implements.
-+    ///
-+    /// [`LeafCount::subtree_set`] gives the subtrees behind them, and
-+    /// [`LeafCount::vector_count`] the vectors they carry.
-+    fn leaf_count(&self) -> LeafCount;
-+
-+    /// Returns the method that rearms PCI interrupt delivery for `irq_type`.
-+    ///
-+    /// `None` means that `irq_type` needs no rearm write. That is the case for `INTx`, which is
-+    /// level-triggered, and which nova-core does not allocate.
-+    fn pci_irq_rearm_method(&self, irq_type: IrqType) -> Option<PciIrqRearmMethod>;
-+}
-+
-+/// Returns the [`CpuInterruptHal`] for `chipset`.
-+pub(super) fn cpu_interrupt_hal(chipset: Chipset) -> &'static dyn CpuInterruptHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
-+            gh100::GH100_HAL
-+        }
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/irq/hal/gh100.rs b/drivers/gpu/nova-core/irq/hal/gh100.rs
-new file mode 100644
-index 000000000000..32b9b4a01adb
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal/gh100.rs
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use kernel::pci::IrqType;
-+
-+use super::{
-+    CpuInterruptHal,
-+    LeafCount,
-+    PciIrqRearmMethod, //
-+};
-+
-+/// GIN parameters for Hopper and Blackwell, which implement a 16-leaf CPU tree. Only 12 leaves
-+/// carry sources.
-+struct Gh100;
-+
-+impl CpuInterruptHal for Gh100 {
-+    fn leaf_count(&self) -> LeafCount {
-+        LeafCount::Sixteen
-+    }
-+
-+    fn pci_irq_rearm_method(&self, irq_type: IrqType) -> Option<PciIrqRearmMethod> {
-+        match irq_type {
-+            IrqType::Intx => None,
-+            IrqType::Msi => Some(PciIrqRearmMethod::TopEnableCycleServiced),
-+            IrqType::MsiX => Some(PciIrqRearmMethod::TopEnableCycleSubtree),
-+        }
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn CpuInterruptHal = &GH100;
-diff --git a/drivers/gpu/nova-core/irq/hal/tu102.rs b/drivers/gpu/nova-core/irq/hal/tu102.rs
-new file mode 100644
-index 000000000000..e22eb37906a8
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal/tu102.rs
-@@ -0,0 +1,30 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use kernel::pci::IrqType;
-+
-+use super::{
-+    CpuInterruptHal,
-+    LeafCount,
-+    PciIrqRearmMethod, //
-+};
-+
-+/// GIN parameters for Turing, Ampere, and Ada, which implement an 8-leaf CPU tree.
-+struct Tu102;
-+
-+impl CpuInterruptHal for Tu102 {
-+    fn leaf_count(&self) -> LeafCount {
-+        LeafCount::Eight
-+    }
-+
-+    fn pci_irq_rearm_method(&self, irq_type: IrqType) -> Option<PciIrqRearmMethod> {
-+        match irq_type {
-+            IrqType::Intx => None,
-+            IrqType::Msi => Some(PciIrqRearmMethod::ConfigMirrorEoi),
-+            IrqType::MsiX => Some(PciIrqRearmMethod::TopEnableCycleSubtree),
-+        }
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn CpuInterruptHal = &TU102;
--- 
-2.55.0
+> >
+> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> > index 415e519ad4eb..6c7b30d2b6e7 100644
+> > --- a/drivers/iio/adc/Kconfig
+> > +++ b/drivers/iio/adc/Kconfig
+> > @@ -1551,6 +1551,8 @@ config RZT2H_ADC
+> >  	tristate "Renesas RZ/T2H / RZ/N2H ADC driver"
+> >  	depends on ARCH_RENESAS || COMPILE_TEST
+> >  	select IIO_ADC_HELPER
+> > +	select IIO_BUFFER
+> > +	select IIO_KFIFO_BUF
+> >  	help
+> >  	  Say yes here to build support for the ADC found in Renesas
+> >  	  RZ/T2H / RZ/N2H SoCs.
+> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> > index 95bcebdc02cb..d76226375f22 100644
+> > --- a/drivers/iio/adc/rzt2h_adc.c
+> > +++ b/drivers/iio/adc/rzt2h_adc.c
+> > @@ -4,11 +4,16 @@
+> >  #include <linux/cleanup.h>
+> >  #include <linux/completion.h>
+> >  #include <linux/delay.h>
+> > +#include <linux/dma-mapping.h>
+> > +#include <linux/dmaengine.h>
+> >  #include <linux/iio/adc-helpers.h>
+> > +#include <linux/iio/buffer.h>
+> >  #include <linux/iio/iio.h>
+> > +#include <linux/iio/kfifo_buf.h>
+> >  #include <linux/interrupt.h>
+> >  #include <linux/io.h>
+> >  #include <linux/iopoll.h>
+> > +#include <linux/kthread.h>
+> >  #include <linux/module.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/pm_runtime.h>
+> > @@ -18,6 +23,7 @@
+> >  #define RZT2H_ADCSR_ADIE_MASK		BIT(12)
+> >  #define RZT2H_ADCSR_ADCS_MASK		GENMASK(14, 13)
+> >  #define RZT2H_ADCSR_ADCS_SINGLE		0b00
+> > +#define RZT2H_ADCSR_ADCS_CONTINUOUS	0b10
+> >  #define RZT2H_ADCSR_ADST_MASK		BIT(15)
+> >  
+> >  #define RZT2H_ADANSA0_REG		0x04
+> > @@ -31,18 +37,47 @@
+> >  #define RZT2H_ADCALCTL_CAL_ERR_MASK	BIT(2)
+> >  
+> >  #define RZT2H_ADC_MAX_CHANNELS		16
+> > +#define RZT2H_ADC_CHANNEL_BYTES		sizeof(u16)
+> > +#define RZT2H_ADC_DMA_PERIOD_SAMPLES	128
+> > +#define RZT2H_ADC_DMA_PERIODS		64
+> > +#define RZT2H_ADC_DMA_BUFFER_SAMPLES	(RZT2H_ADC_DMA_PERIODS * \
+> > +					 RZT2H_ADC_DMA_PERIOD_SAMPLES)
+> > +#define RZT2H_ADC_DMA_BUFFER_SIZE	(RZT2H_ADC_DMA_BUFFER_SAMPLES * \
+> > +					 RZT2H_ADC_MAX_CHANNELS * \
+> > +					 RZT2H_ADC_CHANNEL_BYTES)
+> > +
+> > +struct rzt2h_adc_dma {
+> > +	struct dma_chan *chan;
+> > +	u16 *buf;
+> > +	dma_addr_t addr;
+> > +
+> > +	unsigned int period_index;
+> > +	unsigned int period_bytes;
+> > +	unsigned int first_chan;
+> > +	unsigned int sample_chans;
+> > +
+> > +	u8 gather[RZT2H_ADC_MAX_CHANNELS];
+> > +	unsigned int gather_len;
+> > +
+> > +	atomic_t pending_periods;
+> > +
+> > +	wait_queue_head_t wq;
+> > +	struct task_struct *thread;
+> > +};
+> >  
+> >  struct rzt2h_adc {
+> >  	void __iomem *base;
+> >  	struct device *dev;
+> >  
+> >  	phys_addr_t phys_base;
+> > +	struct rzt2h_adc_dma dma;
+> >  	struct completion completion;
+> >  	/* lock to protect against multiple access to the device */
+> >  	struct mutex lock;
+> >  
+> >  	const struct iio_chan_spec *channels;
+> >  	unsigned int num_channels;
+> > +	u16 buf[RZT2H_ADC_MAX_CHANNELS];
+> >  
+> >  	int irq;
+> >  };
+> > @@ -151,6 +186,253 @@ static int rzt2h_adc_calibrate(struct rzt2h_adc *adc)
+> >  	return 0;
+> >  }
+> >  
+> > +static void rzt2h_adc_push_period(struct iio_dev *indio_dev, u16 *period,
+> > +				  dma_addr_t addr)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	u16 *dst = adc->buf;
+> > +	u16 *src = period;
+> > +
+> > +	dma_sync_single_for_cpu(adc->dev, addr, adc->dma.period_bytes,
+> > +				DMA_FROM_DEVICE);
+> > +
+> > +	for (unsigned int sample = 0; sample < RZT2H_ADC_DMA_PERIOD_SAMPLES; sample++) {
+> > +		for (unsigned int i = 0; i < adc->dma.gather_len; i++)
+> > +			dst[i] = src[adc->dma.gather[i]];
+> > +
+> > +		src += adc->dma.sample_chans;
+> > +
+> > +		iio_push_to_buffers(indio_dev, adc->buf);
+> > +	}  
+> 
+> 
+> 
+> > +}
+> > +
+> > +static void rzt2h_adc_advance_period_index(struct rzt2h_adc *adc, unsigned int i)
+> > +{
+> > +	adc->dma.period_index += i;
+> > +	adc->dma.period_index %= RZT2H_ADC_DMA_PERIODS;
+> > +}
+> > +
+> > +static void rzt2h_adc_dma_thread_loop(struct iio_dev *indio_dev)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	int pending, drop;
+> > +	dma_addr_t addr;
+> > +	u16 *period;
+> > +
+> > +	pending = atomic_xchg(&adc->dma.pending_periods, 0);
+> > +
+> > +	if (pending >= RZT2H_ADC_DMA_PERIODS) {  
+> 
+> Add a comment here to say what is being dropped and why.
+> 
+> > +		drop = pending - RZT2H_ADC_DMA_PERIODS + 1;
+> > +
+> > +		rzt2h_adc_advance_period_index(adc, drop);
+> > +		pending -= drop;
+> > +	}
+> > +
+> > +	for (unsigned int i = 0; i < pending; i++) {
+> > +		unsigned int backlog = atomic_read(&adc->dma.pending_periods) +
+> > +				       pending - i;
+> > +
+> > +		/*
+> > +		 * Bail if enough new periods have completed since reading the
+> > +		 * pending_periods that the next period about to be read is at
+> > +		 * risk of being overwritten.
+> > +		 */
+> > +		if (backlog >= RZT2H_ADC_DMA_PERIODS)
+> > +			break;  
+> 
+> 
+> > +
+> > +		period = adc->dma.buf + adc->dma.period_index *
+> > +			 RZT2H_ADC_DMA_PERIOD_SAMPLES * adc->dma.sample_chans;
+> > +		addr = adc->dma.addr + adc->dma.period_index *
+> > +		       adc->dma.period_bytes;
+> > +
+> > +		rzt2h_adc_push_period(indio_dev, period, addr);
+> > +		rzt2h_adc_advance_period_index(adc, 1);
+> > +	}
+> > +}
+> > +
+> > +static int rzt2h_adc_dma_thread(void *data)
+> > +{
+> > +	struct iio_dev *indio_dev = data;
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +
+> > +	while (!kthread_should_stop()) {
+> > +		wait_event_interruptible(adc->dma.wq,
+> > +					 atomic_read(&adc->dma.pending_periods) ||
+> > +					 kthread_should_stop());  
+> 
+> I've not thought that much about the following but it seems plausible so please
+> take a look
+> 
+> 
+> > +
+> > +		if (kthread_should_stop())
+> > +			break;
+> > +
+> > +		rzt2h_adc_dma_thread_loop(indio_dev);
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static void rzt2h_adc_dma_callback(void *data)
+> > +{
+> > +	struct iio_dev *indio_dev = data;
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +
+> > +	atomic_inc(&adc->dma.pending_periods);
+> > +	wake_up(&adc->dma.wq);
+> > +}
+> > +
+> > +static void rzt2h_adc_dma_calc_layout(struct iio_dev *indio_dev)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	unsigned int hi = 0, lo = RZT2H_ADC_MAX_CHANNELS - 1;
+> > +	const struct iio_chan_spec *chan;
+> > +	unsigned int sample_chans;
+> > +	unsigned int first_chan;
+> > +	unsigned int scan_index;
+> > +	unsigned int swap;
+> > +	unsigned int idx;  
+> 
+> As mentioned at the top, I think you can probably avoid all this complexity.
+> Lots of devices have restrictions on combinations of channels that
+> are enabled together. For that we have available_scan_masks
+> and the demux stuff in the IIO core.
+> 
+> > +
+> > +	/* Find the lowest and highest enabled channel. */
+> > +	iio_for_each_active_channel(indio_dev, scan_index) {
+> > +		chan = &indio_dev->channels[scan_index];
+> > +
+> > +		lo = min_t(unsigned int, lo, chan->channel);
+> > +		hi = max_t(unsigned int, hi, chan->channel);
+> > +	}
+> > +
+> > +	/*
+> > +	 * The DMA has no scatter-gather and transfers must have a power-of-two
+> > +	 * width, so pick the smallest power-of-two-aligned block of channels
+> > +	 * that covers all enabled channels.
+> > +	 */
+> > +	for (sample_chans = 1; sample_chans < RZT2H_ADC_MAX_CHANNELS; sample_chans <<= 1) {
+> > +		first_chan = round_down(lo, sample_chans);
+> > +
+> > +		if (first_chan + sample_chans > hi)
+> > +			break;
+> > +	}
+> > +
+> > +	/*
+> > +	 * Build a table to map each enabled channel to its position in the
+> > +	 * transferred block, it will be used later to extract only the enabled
+> > +	 * channels out of it.
+> > +	 * The DMA moves data in 32-bit words, which swaps each pair of adjacent
+> > +	 * 16-bit channels. Undo it.
+> > +	 */
+> > +	adc->dma.gather_len = 0;
+> > +	swap = sample_chans > 1;
+> > +	iio_for_each_active_channel(indio_dev, scan_index) {
+> > +		chan = &indio_dev->channels[scan_index];
+> > +		idx = chan->channel - first_chan;
+> > +
+> > +		adc->dma.gather[adc->dma.gather_len++] = idx ^ swap;
+> > +	}
+> > +
+> > +	adc->dma.first_chan = first_chan;
+> > +	adc->dma.sample_chans = sample_chans;
+> > +	adc->dma.period_bytes = RZT2H_ADC_DMA_PERIOD_SAMPLES * sample_chans *
+> > +				RZT2H_ADC_CHANNEL_BYTES;
+> > +}
+> > +
+> > +static int rzt2h_adc_start_dma(struct iio_dev *indio_dev)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	struct dma_async_tx_descriptor *desc;
+> > +	struct dma_slave_config config = {};
+> > +	unsigned int buffer_bytes;
+> > +	dma_cookie_t cookie;
+> > +	int ret;
+> > +
+> > +	rzt2h_adc_dma_calc_layout(indio_dev);
+> > +
+> > +	config.src_addr = adc->phys_base + RZT2H_ADDR_REG(adc->dma.first_chan);
+> > +	config.src_addr_width = adc->dma.sample_chans * RZT2H_ADC_CHANNEL_BYTES;  
+> 
+> 	config = (struct dma_slave_config) {
+> 		.src_addr = adc->phys_base + RZT2H_ADDR_REG(adc->dma.first_chan),
+> 		.src_addr_width = adc->dma.sample_chans * RZT2H_ADC_CHANNEL_BYTES,
+> 	};
+> 
+> 	keeps all the filling in of info together and avoids need to do = { }
+> 	above then overwrite some of the zeroed memory.
+> 
+> > +
+> > +	buffer_bytes = RZT2H_ADC_DMA_PERIODS * adc->dma.period_bytes;
+> > +
+> > +	ret = dmaengine_slave_config(adc->dma.chan, &config);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	desc = dmaengine_prep_dma_cyclic(adc->dma.chan, adc->dma.addr,
+> > +					 buffer_bytes, adc->dma.period_bytes,
+> > +					 DMA_DEV_TO_MEM, DMA_PREP_INTERRUPT);
+> > +	if (!desc)
+> > +		return -EBUSY;
+> > +
+> > +	desc->callback = rzt2h_adc_dma_callback;
+> > +	desc->callback_param = indio_dev;
+> > +
+> > +	cookie = dmaengine_submit(desc);
+> > +	ret = dma_submit_error(cookie);
+> > +	if (ret) {
+> > +		dmaengine_terminate_sync(adc->dma.chan);
+> > +		return ret;
+> > +	}
+> > +
+> > +	adc->dma.thread = kthread_run(rzt2h_adc_dma_thread, indio_dev,
+> > +				      "rzt2h-adc-dma");
+> > +	if (IS_ERR(adc->dma.thread)) {
+> > +		dmaengine_terminate_sync(adc->dma.chan);
+> > +		return PTR_ERR(adc->dma.thread);
+> > +	}
+> > +
+> > +	disable_irq(adc->irq);
+> > +
+> > +	dma_async_issue_pending(adc->dma.chan);
+> > +
+> > +	return 0;
+> > +}
+> > +  
+> 
+> > +static int rzt2h_adc_setup_dma(struct iio_dev *indio_dev)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	struct device *dev = adc->dev;
+> > +	int ret;
+> > +
+> > +	adc->dma.chan = devm_dma_request_chan(adc->dev, "rx");
+> > +	if (IS_ERR(adc->dma.chan)) {
+> > +		ret = PTR_ERR(adc->dma.chan);
+> > +		if (ret != -ENODEV)
+> > +			return dev_err_probe(adc->dev, ret, "DMA channel request failed\n");  
+> 
+> You have dev that can be used here.
+> 
+> > +
+> > +		adc->dma.chan = NULL;
+> > +		return 0;
+> > +	}
+> > +
+> > +	adc->dma.buf = dma_alloc_noncoherent(adc->dev, RZT2H_ADC_DMA_BUFFER_SIZE,  
+> 
+> Same here.
+> 
 
