@@ -1,291 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C1779CD;
-	Sat, 29 Aug 2026 17:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788025014; cv=none; b=aaYk9/1VcRT+SJuIKz8Eo1oegc9Dvw7Sw+3WKvykf5YzOgX3pIGDhaUTMJHr+aE6okpsvCPhrgHUu4/g5bbDiRUL8ND6/MdGYw1S3Wc7YJu8QH4D0L+UHd3FD/YtMJUM4/ZeXAsngb5J/jwGTtVvCklnFFqiEEPd2wZ5XqwujqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788025014; c=relaxed/simple;
-	bh=srH0E+Bef3FLUxE2WXWOPDWFGjI35lRWb7diZ0584LY=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=G8tKfSAXJIY68zZwyvVEhFS2snSMKBgeqNGKqB/6P6Nq4wyHq3DwyjkDQpCn/SDdjxMJpWh6Rm2eyKb3SdexZyz2QxdEsUljDPzB31MhASBTkV/q2xBBSkUOLOxhbcrO2RPIi5SzioDZte91LZ/1MRtq7Rp+6NEdFIb7NaEb/ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzvpSyrw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658063BB115;
+	Sat, 29 Aug 2026 17:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788025061; cv=fail; b=lf3bU4bCUMEfFzENGafwCzInqXrh4h3SiWPtYHRkQvwcqHNtbGiuKdTsHVrB2jF38e65piWjBT7LlQNyBWZazvKB146rBlBXhhMwtOPWwGNaPdenzcYTDhsMbzDW60brKZfI1y8Gy/zg6q+6m7wMY0bE36R26fnzKVs1gJ0xMxo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788025061; c=relaxed/simple;
+	bh=1RTafKSrIcV/+HEsYHrfIYhFLWMbCl8PoREkHzYCKmg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=aNCs/F/v9mFFeYmh/XAOPaxcH80xU7y4DRanyZLvWplwzIImLEZJXsoGNjJaE88CjXyP+1VBL4w9HCEXee2NcM4LdQuT9+mpTRWqV9z6S4/386VjGHQF+EBoJGFJ2WP5Yv8kZEqetItn1E+lt8jJHCUo4peCsEgHeAoybMse0Bw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KU1tNFhR; arc=fail smtp.client-ip=40.107.209.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzvpSyrw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E721F000E9;
-	Sat, 29 Aug 2026 17:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788025013;
-	bh=arwNI5jvfLFyh17u1JnYh5UjicEST3xS0vCapCq6HXU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=HzvpSyrwPhC8/ro+FLt23pBGUSoPVX6y+8BZN7Std7iTmfSLArdsqpm5Q1rbFQ3NC
-	 4C2FSiu/M9NTub1Kas7xNpmINb/6x9FZdxxN+x6nKCx5Hn4Btw5xobGLEsh11R9UF8
-	 tfcuidY9ISZFbn0ayT3ct+4kAqr9rsacmTXaKnqXqQqggsz64vzvRnjcRO4P3iJOP9
-	 MKTvbn3TaIqBvNi+FbsbyEbxHwK9omx6V2zOTbEZfwOLBHdbXshiwV5uzfUAA6bBr3
-	 eNyuIjiFp+tCHqU7qWMEygV+n/SaE9h8Y8avZi9wnTZL3Jn57pEuWComSRKG7NLC1C
-	 4MrEJ8SLhO9hA==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KU1tNFhR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DrGOIGb3BmgDe7CpeGV5nxa9EMhvmzB5QMZ3OPiD8CGvdQW0G5z+kKZpd/9S9JnrxNkkscwnXAtavxUW1bcXO+l3353YOvzwjyToMZRQAkV3GNWd/8gsuptrAHmSG6jN20CGpCaEzJtLxTV9Q7l7VwRHelBIe5VyEv2zUDiRNkV35UbwpL32VKOD7V67rsevhpivHwtV6ONcgM/TCB+89jRUctQkDIA5iDcmyn+YKUikiRB2W/Mk4u1fUrHykyO+IV5y4b8WDnqwrSJjQIut5dO6LODBE/7TQxlR2yCqnXipHXv2aYKQFX79mxcTmRgBCSo5mLxirQGd9jlEEVsMyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LSNq/+gsBbKwxVpnGUmImlTj6jYvGjBhWOGgf0o5lNM=;
+ b=TKHjonoX94L7aFxomAx8r9ZH8iNIJNXzaABCm7gdxziVdOXBjpCU9maQfqTwNjph2vIyQM4uct+ce0YwOcLmsZFHuIF6LHZKZf0u5zmrBg81DL+asO65WnyHjFT964wdahKTnXREjaNi5gi7cpW1GDQUilpnUhvNkE08R5HKKqts5gLNhLsPdFXWyeEMMN6e1gZ8mQHEIPHEamaHVGfT/t752lSLn0/8bpkKBotzT26yPXVrTCwMKkfcSwb5OXN0JQNfehM0pgNfkvGPd/4GfQBl1efE0/hf1hJzZvOAjY8mrucQzwk/T84VJIqGxtHAJZk6I80DlWFEGh2gu3zJGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LSNq/+gsBbKwxVpnGUmImlTj6jYvGjBhWOGgf0o5lNM=;
+ b=KU1tNFhRnJ811Te7dk2AbE6OxOt3VLmz1O0ToWbH21rYYr7hYFwL87P5MIe4uyY1aPj5mD9nWwmqT4sJ4gaLlM0UTTYgkBjsbwUzjk1pRV1RHHxnFomz5ZqkQIwywNEgWVfzwqEcvlaE8FYtAdLVDJ8Z1LBblxcWkZIWehMvz6eVkkIWB/Sh2dPpVebDBAmg/lPRtBlLy4LK1zGqD+MTsyyVqLU6t9mKFqg8kgMspugNe0Y0Sxw9l39XjTqU3s0m1nWYe3y8AN7frKTNJ8xeHivXsjuFQisC8+Zw1Swe08C9tHcG5rpZ9+k9kUa6w/fh0ylIe9PZOmYd08csXPL2Xg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by IA0PR12MB8351.namprd12.prod.outlook.com (2603:10b6:208:40e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sat, 29 Aug
+ 2026 17:37:36 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
+ 17:37:36 +0000
+Date: Sat, 29 Aug 2026 13:37:34 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v8 11/12] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+Message-ID: <apMY3lO6LlEHP1Zr@yury>
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
+X-ClientProxiedBy: CH0PR08CA0025.namprd08.prod.outlook.com
+ (2603:10b6:610:33::30) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 4/4] iio: dac: ad3530r: add support for
- AD5710R/AD5711R
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
- devicetree@vger.kernel.org
-In-Reply-To: <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
-References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
- <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
-Date: Sat, 29 Aug 2026 18:36:30 +0100
-Message-Id: <178802499067.2615829.14956299998028570684.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7162;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=srH0E+Bef3FLUxE2WXWOPDWFGjI35lRWb7diZ0584LY=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqkxii+pi3yvN0pxqP2EwEQzk15cuG/5XNOp6yl
- kHtKh1ZeAKJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapMYohEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiGSrD/4+3H8g1HAsjTjdGfLbbwpilIetycaQh9ZtEq6AgXnlrf/
- Sqprc+OzwQf5uC0Bx7CiGr13SSJtocS+0K08G4OmRzv3AkPVZdruiugFRbteoBTFRbmbsatX6BO
- jcFY+nKnWDhqCpyTMoZWvocWoyNHn4jzRbtn5H4KdWQOdLVEO1y7jZWb+MGS36mSLMd38mF0raq
- RenLOI91GOrnemVJhSUjxesCrt8cRiiczmLvD2gA+c1FAOlZB93c4jC4tN2RDCByUrzuagHQxst
- yMFN+aryP9QPZDlKq1Tp+WdrvjXXO1Af100YzAibk9JVLjGhThdh7lFQeM7zpLz71JJt6zcoJw3
- OCHPIPjI8onqUJtzWiRxgI9xAPjUkE681QcJsC8G7fVpqq5shVjBIbP4dnLwOb3m0XJxC3p9SmI
- wUEvhrP9gspKF4wa54qUx1iLB8wD5Y6ULnlvKzqy+ecVZYGKQ/SUlFABhP78TTa/lT5eo9JkVMr
- nOuTooFEZxIaTw8ZKbPDXCnOENRYOpSOSA7dV1Ko8uSTFIFA2YBXdmPukE2kUYLtyvgQVBPI4uO
- iJsKsw9rwx6PaKjiH6gScDlSbLPcSk9CAzB9UH4I17FtV8w5kBGC+2CWFNfGj73pBGflYTPgxou
- 7JriFerrWuxuoFVQNOJ0GuFYq/aijv8D0wFfeFA==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|IA0PR12MB8351:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6cb2258c-da44-41c4-3d17-08df05f4369b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|11063799006|4143699003|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	y9Sfc+Jok1Um+PJ57Rmwcu1UnJg1Z/NYRVFb+vowEaR+4Ku29qfJgwlAF4itWZNrHoHvGVDby9p1vP328lR+lZmnwNV8DvzgwDcO8DYKUOkITIp/h6+nip+YNaUpUYbXr7/mLFkcxYRsAtr2CWQH1UtcaZ+OkX/Sb7cbjdVZ1v4Ttkb84jGmGvn5U/Wg31TgYFO/Qg3eqxcqLZOvatU55SlRpDv9ag0uKVvT8OeDRydmXN1hZDOdWuLs7HRwOlUE8eOn+A9uWF9KUVwN9J79NbNFk4TArqw9IYM0x5+qrTw339WmUVA6Wz5bnYF7qsNV/o7hwJlDIoCooLhUbCvIJ/2InhK7FpB1GdNKypfC/W3o01S0Mrwh1Y6Bkdqz9Kr+IWz9KXZ2ReoaQ9CQ+zufabm6Lu6zMC+MzcIeiz58sO9KXnJ6wQ0jt2E3lf9hCZ40qfEnBQ4AK/vZwgwfgJs2HrHMdrvudyWoWkU4UQ4Xi2o3PuPII+Rbnc4t9vvOsrjwvLP8ECHbBHR9FU3XJvjofhTwCpb37jkQWxZL2spB+vNp6MzYeV6emzmhvfOToakmZEsRq1a8Ewf2b/1mkiZYSss1MOpvz0oHc5OvMN6+FYcL5Ou4JV+7QkJZsAl0OjmNvIt16y8hmaL4a1TDrYOzOuYVlXT4jiLduWhSDmPiGBo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jNRurTn/AWLvLP0tEDiTGvmHrMkzePX/aSAWJU6TRM8AzIL/aXSufhg65V82?=
+ =?us-ascii?Q?fji4c1Nu2ciPa3M7Cd3eri4QvGAKkpD5ysxFg381t2kn0Q8/fT3Iig4fTGs1?=
+ =?us-ascii?Q?Z/BQZQ+vRHdUlnTc49PtQuQ7eG4NWrKMp3eRSMGwg/afw5uaIt8k3RkHVwWH?=
+ =?us-ascii?Q?rAfnd08rUIhrJAuBQ1kRdVUd2isovm+9rCWaJRHX5gNx02QxFKfUvSQKzaLt?=
+ =?us-ascii?Q?i56+ksyBdwSBBJ3LMmdmbpnog9n02DCqpwNVwPmsw8E2mCyzQTJfPNkfk1Iy?=
+ =?us-ascii?Q?tBzVIXzmRv5dGYyThvC2KlPy4sGXbl7vKveTegUJgW/EqWBxQy/mmNJiJWO2?=
+ =?us-ascii?Q?yckgHcq8HZk7j7rrL2CrFN8bSVdWDTJGqKl0JCMGmtqhanO15vAHQQSpl3Jw?=
+ =?us-ascii?Q?Mas3bC2LLGPYdjIvs/7myyPdOOU/SV86w0OD7qKYlPX4ZuyvF4KWq0HXI04m?=
+ =?us-ascii?Q?K5pbk4hvhxIQmmCHhQSn//Mh8ti3IyQIf8Xpt1yasPqE2UhqLX/FO6legGlM?=
+ =?us-ascii?Q?AEwbVgXv4UWDTa38SwfBjueQMLVcjWv8m311xQWgQzCZUnTujw3HiSyo1hRk?=
+ =?us-ascii?Q?sGvKDFRv3aSVPQ+/afG1/ealhHWcCJNe7m02z+Hk9pAPMHBagfq+Rzpw9ClZ?=
+ =?us-ascii?Q?0ifQuuR2iS42VzMqunF30MHChIXoP3MCS75vIgyGi4W0WISWy+lYXFc8RDy3?=
+ =?us-ascii?Q?DhdkpyoUpE/q1piGWTEdUDNIM5kxkJBYUj9zXfnNcfTGaucv2t8L7cju78Ke?=
+ =?us-ascii?Q?1aRYqQYK/15f3p/6Gtrp/dOdp1unUZfE9c417xtcpAgH9AQLrnCnU0u0K1H/?=
+ =?us-ascii?Q?QC6WedeiEQszoVCKcKPVHBA+OlTWt3Excnpatj/ku/zjxmbssdJ36TJFJAcN?=
+ =?us-ascii?Q?0sQ6TFp1eqpecSAfXmqx+gV4MugOoWvBOZUOWzXTCIACure5GOY+I8mCwD6Z?=
+ =?us-ascii?Q?ekmOb4W/vLGrJSlBzqiFWGNVVHPb/HJvFDrgQuVKjiFYI7CiCU70lqM1lCSE?=
+ =?us-ascii?Q?QBAfJ2/wQS2ObONF5I+vSE8tOkqaCdPZ+xKvsPidnWdSmxnt/KN7jko9ZXSP?=
+ =?us-ascii?Q?eGV9U0EtOd3VIG8ITNnCGZ19zeggx4aEDQvLkfYTCE2+ZlpUND/UGdpZhV4T?=
+ =?us-ascii?Q?JCxxVutjsfU+wzke4BDITKVWySjhAxJ4tAfHTj6FxQoTgFjxlS96QZSJyWZC?=
+ =?us-ascii?Q?bdzoJ5nNqy8rJfMG8MM3ZZwO2rPnBCqJJtj3yu3zI+SygVcbbolekc8xKWxi?=
+ =?us-ascii?Q?6kvosOg7vBMiIfrFStHUP6KavaEEzoXRYkif1SzVjSwE1uYKM4km5VDINiGO?=
+ =?us-ascii?Q?Gukc+vHHgLnVTeuRwPGiz3IOrhnybp0Tzl1pgvefn0cWjHV6CGLDjNisWkZQ?=
+ =?us-ascii?Q?A9VQPu2l3Edh4qBEo7QZx6dytZR+8TPugwwM7Qag7ifdXYSWMvfgABBpk4Du?=
+ =?us-ascii?Q?wbAEOhkotfnSyH2fMU+2feGWsGdzQ7W6Kto0LwIdT2o0sw5VUVridUQlMXtA?=
+ =?us-ascii?Q?FKFbuOTWMkHqwXwNN3zj1W2hYxRfzfSiF8mPFFy8dOlvzKiyU7kegT+MwJ3V?=
+ =?us-ascii?Q?Ik1WwVBu6D4SrIL+fJygjvu0IhE4iqRrE/6lQaqikX4QYhYNf85WIn09kcIP?=
+ =?us-ascii?Q?H1/vjQrTMHubk9naD6MdgEwlu+8FEHljrIbAN28pGP8O+IYDODVLiikVhsOX?=
+ =?us-ascii?Q?XOBFh6ZhP9YorP1T4W1P/vpm36CXMV5n8drryXNDUmMIUZZBKzVZc8P9ZDWQ?=
+ =?us-ascii?Q?X+3ZnOg1JRKroaeiAauMRHPqI8tCgcGD2fDYoP4ubem3koiFgE22fjZy1gAD?=
+X-MS-Exchange-AntiSpam-MessageData-1: DIeW0T0tOxyMcw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cb2258c-da44-41c4-3d17-08df05f4369b
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 17:37:36.0907
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CW9076Gbfikbrg1Joj6ZlNu5QatVYPyR47u+277HzTpzLmIt1MiMIX6dDys3zc3lHMxKv1PcCLXg+b+aLKie8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8351
 
-> Add support for the AD5710R/AD5711R, 8-channel 16-/12-bit configurable
-> IDAC/VDAC parts. They share the AD3530R register map and access model,
-> so fold them into this driver.
+On Thu, Aug 27, 2026 at 04:28:39PM +0900, Eliot Courtney wrote:
+> Current code in IdPool::with_capacity rounds the capacity up to
+> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> smaller than this and still uses an inline representation. Remove this
+> behaviour.
 > 
-> Each channel is configured as voltage or current output from its DT
-> channel@N node via adi,ch-func, building the iio_chan_spec dynamically.
-> Voltage channels enable VMODE_EN and report the reference-derived scale,
-> current channels report the 50 mA internal Iref scale. The powerdown
-> mode is read-only and derived from the channel's configured type.
+> This allows specifying a real capacity of 0, which was not previously
+> possible. This breaks `grow_request` in this case, so change it to grow
+> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+> `shrink_request`.
+
+It wasn't possible previously for a reason: allocating 0-bit bitmap is
+something questionable.
+ 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+>  1 file changed, 32 insertions(+), 6 deletions(-)
 > 
-> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
->
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 3b3c77d8b3e1..f108d5bac572 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -16,6 +16,7 @@ config AD3530R
->  	  - AD3530/AD3530R (8-channel)
->  	  - AD3531/AD3531R (4-channel)
->  	  - AD3532/AD3532R (16-channel)
-> +	  - AD5710R/AD5711R (8-channel configurable IDAC/VDAC)
+> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 06a4c71c4c6c..4f329249df9d 100644
+> --- a/rust/kernel/id_pool.rs
+> +++ b/rust/kernel/id_pool.rs
+> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+>      }
 >  
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called ad3530r.
-> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-> index 3056593a5ca0..dd8d5547fd16 100644
-> --- a/drivers/iio/dac/ad3530r.c
-> +++ b/drivers/iio/dac/ad3530r.c
-> @@ -3,6 +3,8 @@
->   * AD3530R/AD3530 8-channel, 16-bit Voltage Output DAC Driver
->   * AD3531R/AD3531 4-channel, 16-bit Voltage Output DAC Driver
->   * AD3532R/AD3532 16-channel, 16-bit Voltage Output DAC Driver
-> + * AD5710R 8-channel, 16-bit Configurable IDAC/VDAC Driver
-> + * AD5711R 8-channel, 12-bit Configurable IDAC/VDAC Driver
->   *
->   * Copyright 2025 Analog Devices Inc.
-
-FWIW this is a substantial enough change that I'd kind of expect any update
-on the copywrite to 2025-26.
-
->   */
-> @@ -27,6 +29,8 @@
->  #include <linux/types.h>
->  #include <linux/units.h>
+>      /// Constructs a new [`IdPool`] with space for a specific number of bits.
+> -    ///
+> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_LEN`].
+> -    ///
+> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      #[inline]
+>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, AllocError> {
+> -        let num_ids = usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>          let map = BitmapVec::new(num_ids, flags)?;
+>          Ok(Self { map })
+>      }
+> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+>      /// let resizer = alloc_request.realloc(GFP_KERNEL)?;
+>      /// pool.shrink(resizer);
+>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+> +    /// assert!(pool.shrink_request().is_none());
+> +    ///
+> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+> +    /// let small = IdPool::with_capacity(8, GFP_KERNEL)?;
+> +    /// assert!(small.shrink_request().is_none());
+>      /// # Ok::<(), AllocError>(())
+>      /// ```
+>      #[inline]
+> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer) {
 >  
-> +#include <dt-bindings/iio/addac/adi,ad74413r.h>
-> +
->  #define AD3530R_INTERFACE_CONFIG_A		0x00
->  #define AD3530R_OUTPUT_OPERATING_MODE_0		0x20
->  #define AD3530R_OUTPUT_OPERATING_MODE_1		0x21
-> @@ -39,6 +43,8 @@
->  #define AD3531R_SW_LDAC_TRIG_A			0xDD
->  #define AD3531R_INPUT_CH			0xE3
->  
-> +#define AD5710R_CHN_VMODE_EN			0xFF
-> +
->  /* AD3532R/AD3532 bank 0 registers (channels 0-7) */
->  #define AD3532R_INTERFACE_CONFIG_A_0		0x1000
->  #define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
-> @@ -62,9 +68,11 @@
->  #define AD3530R_OUTPUT_CONTROL_RANGE		BIT(2)
->  #define AD3530R_REFERENCE_CONTROL_SEL		BIT(0)
->  #define AD3530R_OP_MODE_CHAN_MSK(chan)		(GENMASK(1, 0) << 2 * (chan))
-> +#define AD5710R_CHN_VMODE_EN_BIT(chan)		BIT(chan)
->  
->  #define AD3530R_SW_RESET			(BIT(7) | BIT(0))
->  #define AD3530R_INTERNAL_VREF_mV		2500
-> +#define AD5710R_INTERNAL_IREF_mA		50
->  #define AD3530R_LDAC_PULSE_US			100
->  
->  #define AD3530R_CH_PER_REG			4
-> @@ -99,6 +107,7 @@ struct ad3530r_chip_info {
->  	unsigned int num_op_mode_regs;
->  	unsigned int resolution;
->  	bool internal_ref_support;
-> +	bool channel_configurable;
+>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if possible.
+>      ///
+> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`].
+>      ///
+> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::{
+> +    ///     alloc::AllocError,
+> +    ///     bitmap::BitmapVec,
+> +    ///     id_pool::IdPool, //
+> +    /// };
+> +    ///
+> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let mut pool = IdPool::with_capacity(0, GFP_KERNEL)?;
 
-If respinning for any other reason I think a more specific bool naming
-would likely prove a better bet for the future.
+Please don't add explicit examples for creating ID pools with 0
+capacity. It's a factual error, and should not be explicitly expressed
+in documentation.
 
->  };
+Also, it looks like your 0-bit bitmamp would trigger bitmap assertion:
 
-> +static const char * const ad5710r_powerdown_modes[] = {
-> +	"15kohm_to_gnd",
-> +	"three_state",
-> +};
+ IdPool::find_unused_id(0)
+   -> Bitmap::next_zero_bit()
+     -> assert!(start < self.len())
+       -> assert!(0 < 0)
+         -> panic if CONFIG_RUST_BITMAP_HARDENED=y
 
+I like your version because it allows to create an arbitrary capacity
+for ID pool, i.e. 4 bits. Right now one can explicitly create ID pool
+for 4 IDs, and allocate up to MAX_INLINE_LEN from it.
 
+But 0-bit ID pools must be prohibited.
 
-> +static const struct iio_enum ad5710r_powerdown_mode_enum = {
-> +	.items = ad5710r_powerdown_modes,
-> +	.num_items = ARRAY_SIZE(ad5710r_powerdown_modes),
-> +	.get = ad5710r_get_powerdown_mode,
-> +};
-
-> +static const struct iio_chan_spec_ext_info ad5710r_ext_info[] = {
-> +	{
-> +		.name = "powerdown",
-> +		.shared = IIO_SEPARATE,
-> +		.read = ad5710r_get_dac_powerdown,
-> +		.write = ad5710r_set_dac_powerdown,
-> +	},
-> +	IIO_ENUM("powerdown_mode", IIO_SEPARATE, &ad5710r_powerdown_mode_enum),
-> +	{ }
-> +};
-
-This doesn't make sense.  The code is I advertising a choice of two power
-own modes, but in reality as you state in the patch description there
-is no choice as it comes from whether it is a voltage or a current
-output channel.
-
-Upshot, you can either not provide powerdown_mode_available (easiest
-path here) or it for some reason userspace expects it, then you need
-to make it only list the variant you want which means you can't use
-the IIO_ENUM stuff to provide it.
-
-> +
->  #define AD3530R_CHAN(_chan, _ext_info)				\
->  {								\
->  	.type = IIO_VOLTAGE,					\
-> @@ -467,6 +574,17 @@ static const struct iio_chan_spec ad3532r_channels[] = {
->  	AD3530R_CHAN(15, ad3532r_ext_info),
->  };
-
-...
-
-> +static int ad3530r_parse_channel_cfg(struct iio_dev *indio_dev)
-> +{
-> +	struct ad3530r_state *st = iio_priv(indio_dev);
-> +	struct device *dev = regmap_get_device(st->regmap);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int num_chan, i;
-> +	int ret;
-> +	u32 reg;
-> +
-> +	num_chan = device_get_child_node_count(dev);
-> +	if (!num_chan)
-> +		return dev_err_probe(dev, -ENOENT, "No channels configured\n");
-> +
-> +	channels = devm_kcalloc(dev, num_chan, sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	i = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		unsigned int mode_reg, mode_mask, ch_func;
-> +		enum iio_chan_type chan_type;
-
-I think reg is only used in the loop. If so, declare it here.
-
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read reg property of %pfwP\n",
-> +					     child);
-> +
-> +		if (reg >= st->chip_info->num_channels)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "reg out of range in %pfwP\n",
-> +					     child);
-> +
-> +		ret = fwnode_property_read_u32(child, "adi,ch-func", &ch_func);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Missing adi,ch-func property for %pfwP\n",
-> +					     child);
-> +
-> +		switch (ch_func) {
-> +		case CH_FUNC_VOLTAGE_OUTPUT:
-> +			ret = regmap_set_bits(st->regmap, AD5710R_CHN_VMODE_EN,
-> +					      AD5710R_CHN_VMODE_EN_BIT(reg));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "Failed to set voltage output for %pfwP\n",
-> +						     child);
-> +
-> +			chan_type = IIO_VOLTAGE;
-> +			break;
-> +		case CH_FUNC_CURRENT_OUTPUT:
-> +			chan_type = IIO_CURRENT;
-> +			break;
-> +		default:
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "Invalid adi,ch-func %u for %pfwP\n",
-> +					     ch_func, child);
-> +		}
-> +
-> +		channels[i] = ad5710r_channels[reg];
-> +		channels[i].type = chan_type;
-> +		i++;
-> +
-> +		ad5710r_get_op_mode_reg(reg, &mode_reg, &mode_mask);
-> +
-> +		/* Enable the channel in normal operation mode */
-> +		ret = regmap_update_bits(st->regmap, mode_reg, mode_mask,
-> +					 field_prep(mode_mask, AD3530R_NORMAL_OP));
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to set normal operating mode for %pfwP\n",
-> +					     child);
-> +	}
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = num_chan;
-> +
-> +	return 0;
-> +}
-> +
-
-Rest looks good to me,
-
-Thanks
-
-Jonathan
-
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+>      #[inline]
+>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+> -        let num_ids = self.capacity() * 2;
+> +        let num_ids = usize::max(BitmapVec::MAX_INLINE_LEN, self.capacity() * 2);
+>          if num_ids > BitmapVec::MAX_LEN {
+>              return None;
+>          }
+> 
+> -- 
+> 2.55.0
