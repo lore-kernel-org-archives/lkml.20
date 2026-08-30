@@ -1,116 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F48E272E6D
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 00:42:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0591D5AD4;
+	Sun, 30 Aug 2026 00:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788050572; cv=none; b=mbnC6fD8v66nM7Cxs1pQqz1c1zquY7FJKnBjWGQ21jBsKacC2Vkf30vu37Ezwdt89IRX0WdjteHt7jFRdZ5cgukoW5TabfDZ9iGCh4w6XmY8mRlGj/cveFD6zvqUmVt+DSNxX+RD7X3EHWnaoFATD3QQ6Kn+6r+7nY4/BDAdB5I=
+	t=1788051137; cv=none; b=Rc87cbXGtEdpSvAGRszTnc/mLPBwsk4XUZUfYEKHoFmSQ0zMVbhP8V1vTNyxfXN9X6B/ShF4Hn0GS2XGSKdbMu9g9LRqNExBme5qbrUJPs7CY+99ei36zsyIVY2zcWnxzM8aZ/4ZJaha29CER6gZ8hoCoN/t7xgwNTE1BDC+YYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788050572; c=relaxed/simple;
-	bh=s5BKx2iSb8vLDzDquPpMfTn4fC8nKKZAdun3GFk61z0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=GuJ3JBSszGdvKxvElKkB+5r4VBBP4S6D+dHiPSXJw2cCUU2OVMTaVVK7NBaodUEg6+421dwGzAuh8/hGrS6kWWD9nGR0sHZGap7FR2Jq+yYMOiTHJ0hs/A2jJfWmpYkiNYLRu5G+tO1rNO3mhcUwMAgXERiOSkcp/YhgoWVD/00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zxNO408o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788051137; c=relaxed/simple;
+	bh=LRu1q11mMZxTGtLsfQAiw/NFsi+a5ZRJrmhiaAIAC2c=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=OEoIjWd1S5DSEYAIYwWTP5+m6xbfxt/88YS+o909BOGRaNBx2+O/MdZhElmVKCXAXuOaD+7wBmJrJsNUJhOFdASg+0mQrwbprYiyk/xXZRg6cfc5IniqDefFy+soJrU03/Nd43vTgiQ59l9Dn8VXD6/zwtvFLWqi5DC/64ow70M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMxlimcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zxNO408o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A761F000E9;
-	Sun, 30 Aug 2026 00:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788050571;
-	bh=maR1l87kHhHusUVm0LI9qVbcTjv61h6QEJDc+PMNXcY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=zxNO408oaOfEa8+UlW7umi3SreTJuVDWLj6UFBsCNWwGdbpZhuSRvgyyldQeQ+0Rb
-	 6TeRd8ozQpqOQE+nnwCwpTvODnmhRnJ2IWuc3U99L0+C3Yhh/OSlgetDVrDGnSpVPg
-	 U/GW3MPU1iMX8N392ZtuwFT9JX5Yfu6XP73VTNmU=
-Date: Sat, 29 Aug 2026 17:42:49 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng
- Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
- <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil
- Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn
- <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins
- <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Peter Xu
- <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed
- <yosry@kernel.org>, Chengming Zhou <chengming.zhou@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v3 0/2] mm, swap: don't spin on a bad swap entry
-Message-Id: <20260829174249.d723a5f0c29b9eee8d59826b@linux-foundation.org>
-In-Reply-To: <20260818-swap-v3-0-d3fa52598a59@debian.org>
-References: <20260818-swap-v3-0-d3fa52598a59@debian.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMxlimcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93AFB1F000E9;
+	Sun, 30 Aug 2026 00:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788051136;
+	bh=6Y44Tw889jZtwseR6Jk6Nei2teoPvq7Ug+NVgWC79Jw=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=kMxlimcwatWkKYblsCZsVCPmi3qWqVsXBZAGbCnF2oqKp4Zo8Zf7c1UDYOEZZS11S
+	 TJWRh1SjTr3p1pRL70/w2tTs6hW6fOG+CNMhICWe2JZ9l6f+f4x9Kak3oysGfZMxVy
+	 YNd72OVXeWSLqksZEUNGMPKkTGyBEL/HytHoHkyMhmj5GHe3Rr354BF6tgvAtqr93S
+	 2SFlcAk/k49KY5s2ON5AnlHKycZHfDysGI4RxBvSSEVCiLUPy9/18tflUz+xJT3bkY
+	 Do2VlM2GOulv0FlDgKg+oei9pLJoLI0fDAt1mgPZt6CF/qdG7BfxEA6NR64zOAt6NW
+	 umdGfgruci7Ug==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 0/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+From: Jonathan Cameron <jic23@kernel.org>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de, 
+ Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com, 
+ nuno.sa@analog.com, siratul.islam@linux.dev, u.kleine-koenig@baylibre.com, 
+ linux@roeck-us.net, joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com, 
+ krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260828083119.54495-1-stefan.popa@analog.com>
+References: <20260828083119.54495-1-stefan.popa@analog.com>
+Date: Sun, 30 Aug 2026 01:51:39 +0100
+Message-Id: <178805109906.2786293.17524353371768518972.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=825;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=LRu1q11mMZxTGtLsfQAiw/NFsi+a5ZRJrmhiaAIAC2c=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqk36dqUJx99FG/wtAzlOHytwDHdFneebSxTdL3
+ J+wPgVZAYOJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapN+nREcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiFbAD/99/qdGDfst3k3x9hu6G5x4TmMDcN9bZm0bLDz8uolbmJ2
+ A3fzFoXvzRrA1YAQKDRsZ6E5WpBdifDR4PRiZtkn0nxuKvfHf5TdLoZMj9hs9/ZlEaAWJ3d4jWf
+ zc07J2DKjmAr9C+yPU2FvvIkKShM9cweOTBjHmpTQDN7xsbcXpwBZWpmqcI7SYKs8HY9TAi7wOk
+ PZ2OnlWbuCkaVHo0SixoUlaHoj8VotzxV3oUVdOhmWlvrxeGSlaDq1vRowsDTCZRK0pOcbTIJ+u
+ ASl1aOWQ9NocXCzNBozvYzMXgBlDTX0DoBwpyJLlN6MLSopvZxwox5E6pfGF4L5kQb758Ioqv9X
+ fH6/AwxTOsGQO6kj4j1ml5bsdzKfRFwNIaoZwb+veAJ2/60h9JONamqH0dVCb7YU/N16VS1XYnD
+ zATbOcy+ojLt7uMWoDFEsOJLUCnJ7ahPbI64b6J+dEDYZSLb2v8ITkh2MlQ/lw6CUPit9tUYfrf
+ MtgXyuB1i6L2lmuXGcwsOWhQl+HWGplCjYEYyETsz37uPB06b2dwUS0eUFZLrI4lv5VYFQcUJxF
+ ORbeDAES7Z/Si4bHWx2eA+AQjsq3NL0tAfmGseR1HS+wqCBNLt7Zax9EN+Uf8NUfMlOxvmdI47+
+ jXbxaEJ/qPXMQkw90ki4KbOzwikl1BjZ3YssQ6A==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Tue, 18 Aug 2026 03:06:22 -0700 Breno Leitao <leitao@debian.org> wrote:
+> This series adds support for the MAX40080, a bidirectional current-sense
+> amplifier with an integrated 12-bit ADC.
+> 
+> The driver is placed in IIO rather than hwmon because:
+>   - IIO's scale/raw model naturally exposes the selectable gain ranges and
+>     lets userspace apply the correct scale per range.
 
-> I've seen some machines at Meta fleet that show the following type of
-> problem:
-> 
-> 1) It gets some weird warning:
-> 
->   BUG: Bad page map in process khugepaged  pte:f000eef300000017 pmd:00000067
->   addr:00007f57c0a01000 vm_flags:20200073 anon_vma:ffff88829af7c340 mapping:0000000000000000 index:7f57c0a01
-> 
-> The corruption is most likely the collapse/PT_RECLAIM race fixed by
-> commit 366a4532d96f ("mm: fix the race between collapse and PT_RECLAIM
-> under per-vma lock"). But this series is not about this one.
-> 
-> 2) Then the fault never makes progress. do_swap_page() returns 0 when
->    get_swap_device() fails, so the fault is retried, reads the same
->    entry and faults again. Nothing in the round trip changes the PTE,
->    and the same line comes out on every pass:
-> 
->   get_swap_device: Bad swap offset entry 3ffffffc043c5
-> 
-> Patch 1 makes get_swap_device() return ERR_PTR(-EIO) for a malformed
-> entry, keeping NULL for a device swapoff is taking away, and converts
-> the callers. No functional change expected.
-> 
-> Patch 2 uses that to return VM_FAULT_SIGBUS instead of retrying.
-> 
-> The rate limiting patch that used to open this series was split out and
-> posted on its own as a backportable hotfix [1], per Andrew's request. It
-> should land first: patch 1 here touches the lines next to it in
-> get_swap_device(). This patch will probably conflict with [1], but the
-> merge should be trivial, given the only change in [1] is the
-> addition of the __ratelimited() suffix. 
-> 
-> 	pr_err("%s: %s%08lx\n", __func__, Bad_file, entry.val);
-> 	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_file, entry.val);
-> 
+This one is a bit weaker as autoscaling is possible (if fiddly).
 
-Thanks.  The patches have bitrotted a little - get_swap_device() was an
-easy fixup but please double-check that I didn't miss anything.
+>   - Buffered capture support is planned for a follow-up series -- each
+>     conversion returns a matched current+voltage pair, which maps cleanly
+>     to IIO's buffered/triggered model.
 
-Or perhaps just refresh-retest-resend if there's any doubt.
+If you have this ready to post, I'd prefer seeing it sooner rather than
+later just to strengthen the arguement.  A link to a repo would do as well.
 
+Anyhow, just a nice to have!
 
-> The rate limiting patch that used to open this series was split out and
-> posted on its own as a backportable hotfix [1], per Andrew's request. It
-> should land first: patch 1 here touches the lines next to it in
-> get_swap_device(). This patch will probably conflict with [1], but the
-> merge should be trivial, given the only change in [1] is the
-> addition of the __ratelimited() suffix. 
-> 
-> 	pr_err("%s: %s%08lx\n", __func__, Bad_file, entry.val);
-> 		pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_file, entry.val);
-
-oh, you already said that.
-
-As usual when inspecting our error-path code, Sashiko said "you all suck":
-
-	https://sashiko.dev/#/patchset/20260818-swap-v3-0-d3fa52598a59@debian.org
-
-These things do seem on-topic for the changes you're proposing here, so
-please take a look?
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
