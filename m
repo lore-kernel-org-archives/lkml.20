@@ -1,107 +1,125 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FE4255F2C;
-	Sun, 30 Aug 2026 04:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DBA214812
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:26:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788063580; cv=none; b=UpfxRVikkCuHQMTRHURK+BTF4UQsA+N/YlN9ZtVugPcuYeSc+nD+0E1ZC555Bguzx/4hSFkiDpRcRIB7Hwx9dgKBj+vzPtBAJunYLdSqvOIoRLRCYuUuG4F6L5DxQWJ2Hr/ID/hiquAoKnmgfpwnlVIkP3nhmN5Jc1fLGdkx8FY=
+	t=1788063977; cv=none; b=G1CttDhb8ZWDpv7szghTMvAbeOKsnfcKzsS4joblnWU7OEbes4zz6EW2hiRxw3uAlTvr+1z8BFjyI76otmHXWVRFiQlKDrUWNx3zxp6vjKlFKQaOa4vPGzDmrgWCiIG1PZ67b4UjigQMOaFDW1sM2KafTBv4tFJL68uyhK1wgWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788063580; c=relaxed/simple;
-	bh=nLPIzmjRfN1fSQXLUCsxWyfSfsn6ZIaCiaqXynREmkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f5AEBobbgNpvxVc9y7qjd7xC0ozNxwV4F1bPOYhKBLgl4iIqtmTdccaYNnrAFoFRqb/EodVxu8JAJSWGhpXspbh/jsC4Lx+/6+LsFWSHtjXTttQKC28+1esHtteeRMmAp7RS0hofBvV3wiUuNY6bhNAZ/g0ellN4s9S9+xlUyDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SXgE0M1y; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788063977; c=relaxed/simple;
+	bh=Nxt0+qX/9FKclhGmwb8njKMErAZPvEqCa3jB6XoEnro=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JWnASaoqDt6aTvIzFAO6nlkylbf0JHNVYNPy2Ck+2is292iZg/NgQoThK9YI/wSANUWkNCnGaT9nUwiLZsSa1J3oGmsRfsV9SHxeBj75xja/5Mh7M3H9mzEHCmBbmUOl7ZLdTPtl5Nzjk1yYESfacmGWKFewAEsJmpMjWEGGotM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I95TTF0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SXgE0M1y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=Aq91nEzmhiWcCrw9x2W22xOz/ZEdIqQpE8kWR+O0NkA=; b=SXgE0M1yzk/4IOCBxbi6JCeibY
-	l/ZzAsS0d9y+MhWS2Zj9oR1xd6NyCOGh/uXFJXxsDD9xtXsFxzXDUTbwoYyo/r5vkaFA90qrevPzA
-	lcSx0f7Ff8JB4PB2wkE+34bN9lcF3sELubj2ZVBVVIerSOgz/TMjaYVTkk0ruejPn9ra/2ubKqhLW
-	ctO3gUBseMzwy+wqmQ1R2Fr2PyQcqg5BYkMS5LKClOhhCGxe1P18Ba7RoSizVxbOex3a5H+2Yow2J
-	Jh9eKWbRJUSE/07pvTMCiIrwGBZjrjspB9zentyvDPzibetEfrvZQpHdqArWGUVK9Yi3a/4OxIb8n
-	TXuImnLQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x0X0Y-000000000hK-3Hg9;
-	Sun, 30 Aug 2026 04:19:02 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Christian Brauner <christian@brauner.io>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	"Theodore Tso" <tytso@mit.edu>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Phillip Lougher <phillip@squashfs.org.uk>,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 0/9] Remove FGP_NOFS
-Date: Sun, 30 Aug 2026 05:18:47 +0100
-Message-ID: <20260830041901.2668-1-willy@infradead.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I95TTF0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BED71F00A3F
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:26:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788063976;
+	bh=z4oyq3XNxRWjvU5KSLZ3bRN6q9YknXc+HlOna4jRbr0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=I95TTF0QUvm2sKLPEjcrxd3aq353fdKMcv3SW7001GkL12ACKoyFefSQeeTGTkMd8
+	 ypJirdJ2KH0hio/e+7BT3gBUP+LdlL9BR+KBVnJZniMvujaw2fZVoT/ZiN7+epiI6L
+	 fcvYq31wwZ2Z3UknzLt7zCrD/fR61PAE5CRfnfUky/h+FIvob2hRkjFVfgburqe7nT
+	 pu/ZzTlFjds/E6JarfSKthPs6bq1tWRBGbEKtHx2Y8umTAybEYS07p4BxrzklkKRDX
+	 9yt2QCej+V97Rm97l0RyfXBhNxysNrL51AxX84WW8FFTIcOCNtjQd75waSxMrShwsf
+	 DDrJNHyfggdvw==
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92e6a434cabso130850785a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:26:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RraDTXpskcDdqohNbvkcbE9Sd7fbT1deyH7uDqjAq+EuVNjlSJieXKvukd0OFLbk9sD/UCBOfQIXO4FifY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mILDHVgOX8O2nKaTW4O+9tsiwKdpGAUGuzg11hZV6tuwKob62G
+	AZltxYvditfezO3ZY6YCVqG4YampCcF8nqw/mxlFETUX6DXknuX8QJ6fZYqmQbyEG+vjKCVUkW2
+	8fS9uLV1D9z6s2u2mpCF0plRZ4Jh75OY=
+X-Received: by 2002:a05:620a:1d08:b0:939:32cc:f2cd with SMTP id
+ af79cd13be357-93932ccf558mr159931785a.1.1788063975448; Sat, 29 Aug 2026
+ 21:26:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827234704.63163-3-baohua@kernel.org> <20260830035843.712320-1-kunwu.chan@linux.dev>
+In-Reply-To: <20260830035843.712320-1-kunwu.chan@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 12:26:04 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y0Pz2fiyhS1X4PY+D-z-o8ycSKdFar9R5PQg-o2Kd6pQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VgEblGKtPauG047hZ4EFaf4rQhRNcWvgLAHvyDRFW4jMs-EL1wXwED7J8
+Message-ID: <CAGsJ_4y0Pz2fiyhS1X4PY+D-z-o8ycSKdFar9R5PQg-o2Kd6pQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/7] mm/mglru: batch update lrugen->nr_pages in inc_min_seq()
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>, akpm@linux-foundation.org, lianux.mm@gmail.com, 
+	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, 
+	chenridong@xiaomi.com, david@kernel.org, hannes@cmpxchg.org, 
+	kasong@tencent.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	ljs@kernel.org, lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com, 
+	weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com, 
+	Xueyuan Chen <xueyuan.chen21@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-There is broad agreement that we should eliminate __GFP_FS in favour of
-using memalloc_nofs_save().  This is a small step in that direction by
-getting rid of FGP_NOFS.  It's also a nice simplification in its own right.
+On Sun, Aug 30, 2026 at 11:59=E2=80=AFAM Kunwu Chan <kunwu.chan@gmail.com> =
+wrote:
+>
+> On Fri, 28 Aug 2026 07:46:59 +0800 "Barry Song (Xiaomi)" <baohua@kernel.o=
+rg> wrote:
+>
+> > Currently, folio_inc_gen() updates lrugen->nr_pages for every folio
+> > as it advances generations. Instead, accumulate the size changes
+> > and update lrugen->nr_pages in a batch after scanning the entire
+> > oldest generation, or when the scan stops because remaining reaches
+> > zero.
+> >
+> > Since we only move folios from the oldest generation to the second
+> > oldest generation, the active/inactive state cannot change. We can
+> > therefore skip __lru_update_size().
+> >
+> > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> > Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > ---
+> >  mm/vmscan.c | 23 ++++++++++++++++++-----
+[...]
+> >
+> >                       if (!--remaining)
+> > -                             return false;
+> > +                             break;
+> >               }
+> > +             WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
+> > +                        lrugen->nr_pages[old_gen][type][zone] - delta)=
+;
+> > +             WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
+> > +                        lrugen->nr_pages[target_gen][type][zone] + del=
+ta);
+>
+> Hi Barry,
+>
+> One subtle point about the `remaining` handling:
+> when `remaining` reaches zero, we now `break` rather than return
+> so that the accumulated `delta` is applied before returning.
+>
+> As I understand it, this is required because `__folio_inc_gen()`
+> has already changed the generation of the scanned folios,
+> while `lrugen->nr_pages[]` is now updated only in batch.
+>
+> So the invariant is that every successful generation increment must
+> have its corresponding `delta` flushed before `inc_min_seq()` returns.
+>
+> Is this the intended accounting invariant?
 
-I added the documentation improvement at the start of this series, not
-because anything depends on that (obviously it doesn't), but because
-I thought the existing documentation was rather MM centric and it needs
-to be FS centric.  Hopefully the cc'd filesystem maintainers will have
-the chance to look at patch 1 and see if it makes sense to them.
+Yes, Kunwu, you're right. We can't return when `remaining =3D=3D 0`,
+otherwise we will miss the chance to flush the delta.
 
-There's a few different solutions here:
+So changing `return` to `break` is intentional. Another option would be
+to duplicate the code that flushes the delta and keep the `return`, but
+that would be ugly since we would have to duplicate the code below:
 
- - Filesystems specifying both FGP_NOWAIT and FGP_NOFS.  If you're not
-   waiting, it doesn't matter if you're allowed to reclaim from FS
-   context or not, you're just not doing reclaim.
- - We're already under memalloc_nofs.
- - We can prove that the MM should be allowed to reclaim from
-   filesystem memory (and so specifying FGP_NOFS was wrong).
- - We can add a call to memalloc_nofs_save().
+             WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
+                       lrugen->nr_pages[old_gen][type][zone] - delta);
+             WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
+                        lrugen->nr_pages[target_gen][type][zone] + delta);
 
-Matthew Wilcox (Oracle) (9):
-  mm: Improve memalloc_nofs_save() documentation
-  ext4: Remove uses of FGP_NOFS
-  erofs: Remove redundant FGP_NOFS
-  nfs: Remove redundant FGP_NOFS
-  ntfs: Remove FGP_NOFS from __ntfs_inode_resident_attr_pwrite()
-  ntfs: Remove redundant FGP_NOFS from ntfs_wof_collect_dest()
-  squashfs: Remove use of FGP_NOFS
-  filemap: Remove redundant FGP_NOFS
-  filemap: Remove FGP_NOFS
-
- fs/erofs/internal.h      |  2 +-
- fs/ext4/inline.c         |  6 ++----
- fs/nfs/dir.c             |  2 +-
- fs/ntfs/inode.c          |  2 +-
- fs/ntfs/wof.c            |  7 +++----
- fs/squashfs/file.c       |  5 ++++-
- include/linux/pagemap.h  | 12 +++++-------
- include/linux/sched/mm.h | 31 +++++++++++++++++++++++--------
- mm/filemap.c             |  2 --
- mm/readahead.c           | 14 ++------------
- 10 files changed, 42 insertions(+), 41 deletions(-)
-
--- 
-2.47.3
-
+Thanks
+Barry
