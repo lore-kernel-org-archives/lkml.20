@@ -1,110 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F8623D7FF;
-	Sun, 30 Aug 2026 23:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4FB312819
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788132916; cv=none; b=gYSzgsiC62CJ90PxBD4frqIE6BwuTsMDgiQe9XiZyex0EIIsWdfNFbBOct9sZwMr/C4Y+8toflvEUwfsH5mQSZzrMCj9r7yG20+hfxqosQRKcqzw6Fn7ycsfxaoBCvizQ3Wj/zf5YJnCRjozcV6PStrcHCZWnnMXOdIN2dV5AaQ=
+	t=1788133158; cv=none; b=Rh0IGNHIfXQlNwwIkIkuCCm7XBXdsa1yLf5JIwwPdGQRZAMxbS2+VzIhWDwhnnZW+mgzT1CylteWV38JormFcp244dOxaTkb08shCQMbH8DF54q2IZzASaGfwRR3dTY/Upt82A1B5gBMqLJ2+CXu7I1rl/xyisKld8nJxXLeS1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788132916; c=relaxed/simple;
-	bh=LBShqt0xPCqxxE1LaZQdL3gMiw0xbKNiZIoVt3PLeYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Wx9Q83qPNU3y+K9nQ6d5S2xIvjbXsD/etyQa9UYsA/1q8XRbKbJ3roy1HNZeQ/M2lNSHC+krTblUWq+IQKOS04Cmi6vL7WCI+QZoSCjJh9XWDPArgVSeJWfs1AnwgyRDAZw2Q51bue4SPccK9byPU8pg7PXwmmYXn+gRhJmyj5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9oxy5PK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788133158; c=relaxed/simple;
+	bh=Usx5lwl5n9XpT/PcyVdJkAARY+S5BiVlfV/s1vU7KQw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b/BbSD8Q5dWf8N07M2RCJs3tBCEQhKqF8YUOscsLBnPo62BHXQRNr5XXfyr9ilG7CYHGzd5FixGKWLEuyaN23p04xVWxx3RzftN6i79CmVNiLYmfMx6GlBZ2A6b/saa2Q3p6Jf9E4Ezno4GF+btXn74hVAzLimYErhGarEz+Jp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NTmzI+kW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9oxy5PK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27AF71F000E9;
-	Sun, 30 Aug 2026 23:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788132914;
-	bh=g2kf2DhCJC2zDOkOvPHPx9cq0nusW2H5hRVt9faL9fA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q9oxy5PK3aNtbjuABpxiYb7RqluwRMydJSJxwDlWAX3PV/IAWEDwOPnsEwd2foYpM
-	 r0e7aAvF9N+aAvEvRkAnqnuiqMVcB5fLBpfG07Hf3NI7u4f4QmbY/HuhYtFpBJXU4K
-	 /8GC3Zi01sxWpZ3kFrDsdDHFrvXWLQhrjwTqCyOZe+N54/PPT7yaDAab3JyvRkw/Lw
-	 tm2jsLZBZfadVKgU1hF6NNNny94mO0u9Boehp49fl5ACd+Rz+4RQ1ZuPsjQSpxhpK3
-	 XvzdiAjpeWp65kdR4s8PrFm7+38pO/yerA9MNw/x8DvFKJ515VZrSsj/9+D9ZhZXU3
-	 paOBpp/E2es/w==
-Date: Mon, 31 Aug 2026 00:35:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rishab M <rishab.madhugiri@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: core: Replace BUG() with WARN_ON_ONCE() and
- error return
-Message-ID: <20260831003509.4fb38052@jic23-huawei>
-In-Reply-To: <CANc32tPtHyJdg-PJa0iZHcqX4WDtMFikZFD+4aO96B1+zmf0_Q@mail.gmail.com>
-References: <20260826213140.37437-1-rishab.madhugiri@gmail.com>
-	<ao_cCHTp9kKfOV-U@ashevche-desk.local>
-	<CANc32tPtHyJdg-PJa0iZHcqX4WDtMFikZFD+4aO96B1+zmf0_Q@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NTmzI+kW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788133154;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5ol6gNgrKiwoeuBxPS4BqyR4X8WD4H1/GCsMThRbHN8=;
+	b=NTmzI+kWkqZnngo5Ps5kHkt11YcvOa35ovGfogYjMss1leHgEERsmWYH4DBtvOOXzKC13z
+	WqpJTZl+WKZr4qc88fdn3L1Z9xZHrwZSnM8OdZZV7Sir3ynaRiY0+6axTyaW5rCPoN7loj
+	mcUBV38m1Ptr0C/xOvHj2MvyfciCAQE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-639-aGhgeMCQNV21asgzB1t0IA-1; Sun,
+ 30 Aug 2026 19:39:11 -0400
+X-MC-Unique: aGhgeMCQNV21asgzB1t0IA-1
+X-Mimecast-MFC-AGG-ID: aGhgeMCQNV21asgzB1t0IA_1788133149
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B415219541A8;
+	Sun, 30 Aug 2026 23:39:09 +0000 (UTC)
+Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 512F2195608A;
+	Sun, 30 Aug 2026 23:39:08 +0000 (UTC)
+Message-ID: <8d38f7c0-f15d-4568-bc2f-559179ccb45c@redhat.com>
+Date: Sun, 30 Aug 2026 19:39:07 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] Drivers: hv: Avoid infinite retry loop in
+ init_vp_index()
+To: Michael Kelley <mhklinux@outlook.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>
+Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260827193750.662623-1-longman@redhat.com>
+ <SN6PR02MB415755118796082D643126ACD4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <aaf4826e-6b25-45ff-8aec-8cfeae3b4fd5@redhat.com>
+ <SN6PR02MB4157019C1A3D1233CAFAC2D0D4AA2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <SN6PR02MB4157019C1A3D1233CAFAC2D0D4AA2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Thu, 27 Aug 2026 15:24:52 -0700
-Rishab M <rishab.madhugiri@gmail.com> wrote:
+On 8/30/26 7:17 PM, Michael Kelley wrote:
+> From: Waiman Long <longman@redhat.com> Sent: Friday, August 28, 2026 6:22 PM
+>> On 8/27/26 5:10 PM, Michael Kelley wrote:
+>>> From: Waiman Long <longman@redhat.com> Sent: Thursday, August 27, 2026 12:38 PM
+>>>> There is a retry loop in init_vp_index() where the CPUs from a certain
+>>>> node are stripped out if they have already been in the allocated cpumask
+>>>> or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
+>>>> CPU left, the allocated cpumask is ignored and the process is retried
+>>>> again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
+>>>> out not to contain any CPU in that particular node, that will become an
+>>>> infinite retry loop.  This particular problem was reported by sashiko
+>>>> [1]. This should rarely happen, but we still need to guard against this.
+>>>>
+>>>> Fix this infinite loop problem by also skipping NUMA node that has no
+>>>> housekeeping CPU in the inner while loop of init_vp_index(). As the outer
+>>>> for loop will only be reached if the housekeeping cpumask isn't empty,
+>>>> a NUMA node with housekeeping CPUs will eventually be found.
+>>>>
+>>>> Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
+>>>> Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
+>>>> Signed-off-by: Waiman Long <longman@redhat.com>
+>>>> ---
+>>>>    drivers/hv/channel_mgmt.c | 7 +++++--
+>>>>    1 file changed, 5 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+>>>> index 89d214dda360..ed121d74d73f 100644
+>>>> --- a/drivers/hv/channel_mgmt.c
+>>>> +++ b/drivers/hv/channel_mgmt.c
+>>>> @@ -752,6 +752,7 @@ static void init_vp_index(struct vmbus_channel *channel)
+>>>>    	u32 i, ncpu = num_online_cpus();
+>>>>    	cpumask_var_t available_mask;
+>>>>    	struct cpumask *allocated_mask;
+>>>> +	const struct cpumask *node_mask;
+>>>>    	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_MANAGED_IRQ);
+>>>>    	u32 target_cpu;
+>>>>    	int numa_node;
+>>>> @@ -780,14 +781,16 @@ static void init_vp_index(struct vmbus_channel *channel)
+>>>>    				next_numa_node_id = 0;
+>>>>    				continue;
+>>>>    			}
+>>>> -			if (cpumask_empty(cpumask_of_node(numa_node)))
+>>>> +			node_mask = cpumask_of_node(numa_node);
+>>>> +			if (cpumask_empty(node_mask) ||
+>>>> +			    !cpumask_intersects(node_mask, hk_mask))
+>>> The cpumask_empty() test looks to be redundant. The
+>>> cpumask_intersects() test will catch the case where
+>>> node_mask is empty.
+>>>
+>>> Otherwise, I think this looks good as a solution to the core
+>>> problem.
+>>>
+>>> Michael
+>> Yes, I am aware that cpumask_empty() test is redundant and can be
+>> skipped. I keep it just to make it easier to read. I can certainly drop
+>> the cpumask_empty() statement.
+>>
+> The flip side is people like me try to figure out "why is this
+> here?", thinking there must be a reason. :-)  I'd say drop the
+> code and add a comment like "Also catches an empty node_mask".
 
-> Thanks for the feedback.  I totally understand the perspective on code ch=
-urn
-> versus making tree wide cleanups, and I will let Jonathan make the final =
-call
-> on whether this is suitable.  I've also noted the wrapping width feedback=
- for
-> commit messages in the future.
->=20
-Please comment inline.
-
-Anyhow, I have applied this but mostly because it is easier for cases like
-this to do so than to reply to a series of folk proposing the change.
-
-Slightly rubbish reason, but meh, too many patches floating around and this
-is a harmless way to potentially cut that down a little in the longer term.
+Fair, will do that.
 
 Thanks,
+Longman
 
-Jonathan
-
-> Best,
-> Rishab
->=20
-> On Wed, Aug 26, 2026 at 11:41=E2=80=AFPM Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> >
-> > On Wed, Aug 26, 2026 at 09:31:40PM +0000, Rishab Madhugiri wrote: =20
-> > > As documented in Documentation/process/deprecated.rst, the
-> > > use of BUG() and BUG_ON() should be avoided as they could
-> > > cause a complete system crash, preventing further debugging. =20
-> >
-> > Right, but deprecation doesn't mean the _old_ existing code must be imm=
-ediately
-> > changed. I leave it to Jonathan, but I see no value in this change exce=
-pt
-> > the unneeded churn. If we ever want to drop BUG(), it should be done tr=
-ee wide.
-> > Hence no tag given.
-> > =20
-> > > In iio_get_time_ns() and current_timestamp_clock_show(), the
-> > > clock type is already validated against supported clock
-> > > types prior to these calls, making the default switch
-> > > branches expected to be unreachable. Replace these with
-> > > WARN_ON_ONCE(1) followed by an error return to avoid a
-> > > crash and to log the highly unexpected condition. =20
-> >
-> > There is like 10+ character space on each line, the commit message shou=
-ldn't
-> > be that condensed.
-> >
-> > --
-> > With Best Regards,
-> > Andy Shevchenko
-> >
-> > =20
+> Michael
 
