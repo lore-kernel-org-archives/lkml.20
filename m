@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+Received: from mta0.migadu.com (out-251.mta0.migadu.com [91.218.175.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347201F1537
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BFB361962
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788133407; cv=none; b=g6FLDwE36X1+yF9e2tW4k2jCDUel/8tSQyh08ZR3p8Iz++x/2sAlnwKOf5y7q2mCrYIK8DDDApQNGUaL0BySv3y5XYi3/gteia3EWO+dxpvBJMkMYeETc/WT2XD3XOHvf8YOdJAwZuOai6u/BmoUixO1Rt2OGQb1CxKXA9bbo3E=
+	t=1788133412; cv=none; b=T5LqapxByGdSZfy5zOoZwJ9IyZsoeZ7oz/LOUnVf6//LIjx2eF4yGVXUarOvgUbe+Mv4l4OheJrfTfIdt2JFKHLgrXFEXZCO9MCslL0dNRTbVZce12RMVfWeWCCz5Qq3f55McZ6vCVwE9T1nA/Uc+L5Jkcbp25BjiuyUZ2JDFbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788133407; c=relaxed/simple;
-	bh=Q0L86DQgdKGZxnvz2LuexXaV2DU+Sx66oeqQVgrhoFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t71aHiSQqISYY7fBeJBViRHerCE2iv+yVQtyX3doARVVwIZ3GT/LnfhLpQyH/mMTucRGnoHlvL0TbWo3TkNW8z3g4+13DJM+FY5kRbSU0crJF8HszBl2dZL0z/HZSGv9mMVDspp7RdcHM1hoWXCZPnVqbA+w+G6MamRnrh3LXks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qGDQczUm; arc=none smtp.client-ip=91.218.175.237
+	s=arc-20240116; t=1788133412; c=relaxed/simple;
+	bh=lOArBZ4SHpSPpfqb1U+Fn9BBtFa7NaAhnNuuCHRhUl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t71D+KKrlo39XmuhibUAq4984c4ECbBfbsgHj6xpN3mLK33LZGdtJodFVGkjKaObfZVlVDo7Hltu3+58F3EYvYDne/K8/YrpSyAUUHrr84PtpdukMiBqXZaEARIRN5/14/BPmAoAUzA0VMCBAPwqXJ2jWXCnptjJ+RXm1wk6Y0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sShRi5C1; arc=none smtp.client-ip=91.218.175.251
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qGDQczUm"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sShRi5C1"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Q0L86DQgdKGZxnvz2LuexXaV2DU+Sx66oeqQVgrhoFE=;
+DKIM-Signature: a=rsa-sha256; bh=lOArBZ4SHpSPpfqb1U+Fn9BBtFa7NaAhnNuuCHRhUl0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788133403; v=1; x=1788738203;
- b=qGDQczUmXe1VkOT5ZWrEVris4Ab3bhoNED17DyrDC8AMS9Oa0uB8kHk9f/N14LdJIvwH3glC
- luXt/UlrPSmaDap55/ujdx6sJS6J37QfaWqTEC/+8lpMqBl4w0MLqy3QxqnzCnIVPzeYfZFwT1m
- zebAM3lOb+lhxFNj9gW2iz0g=
+ t=1788133408; v=1; x=1788738208;
+ b=sShRi5C1iKGYN0dpP1Q9hqvJHwGk1XtGy4et8XaWKM4hvVf5vbDpuD6IEopaJ8u57X7E5qs1
+ g4ex4MJaAXtX4Glah1vQKC8hQ/D4qtUw48uUe74HtT/oOWagYSsgi8BmoaNNC9neJ1RRCQnFoj3
+ DKLwxJfHrYDifnn5TvEyRjhs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dff9053847b265dd;
-	Sun, 30 Aug 2026 23:43:23 +0000
-X-Mizu-Trace-ID: dff9053847b265dd
+Received: by smtp.migadu.com with ESMTPS id 7fa101e621775e1d;
+	Sun, 30 Aug 2026 23:43:28 +0000
+X-Mizu-Trace-ID: 7fa101e621775e1d
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -40,10 +41,12 @@ Cc: linux-input@vger.kernel.org,
 	"Khamunetri Clark" <khamunetriclark@gmail.com>,
 	"Derek J. Clark" <derekjohn.clark@gmail.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v4 00/13] HID: asus: add support for ROG Ally handhelds
-Date: Sun, 30 Aug 2026 23:43:07 +0000
-Message-ID: <20260830234320.114356-1-denis.benato@linux.dev>
+Subject: [PATCH v4 05/13] HID: asus: add vibration strength configuration
+Date: Sun, 30 Aug 2026 23:43:12 +0000
+Message-ID: <20260830234320.114356-6-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830234320.114356-1-denis.benato@linux.dev>
+References: <20260830234320.114356-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,134 +55,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+ASUS ROG Ally handhelds support the vibration strength to be configured:
+add sysfs attributes to allow userspace configure motors vibration
+intensity.
 
-This patch series adds support for ROG Ally handhelds in the HID driver for ASUS devices.
+Assisted-by: opencode:glm-5.2
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Signed-off-by: Luke Jones <luke@ljones.dev>
+---
+ drivers/hid/hid-asus.c | 184 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 184 insertions(+)
 
-The changes include reinitialization of the device after exiting a sleep state,
-gamepad configuration, vibration strength configuration, joysticks and triggers
-range configuration, anti-deadzone configuration, response curve support,
-force feedback support, gamepad mode support, turbo buttons support,
-and button remapping support.
-
-This driver is based on the original Luke's work, which was a great starting point
-and I have reworked it to be upstreamable, while keeping the original functionality
-intact and extending hid-asus to avoid regressions in functionality such as the
-backlight control.
-
-The ally support has been a surprisingly long task, spanning multiple years and
-being used in Steam OS and well as other distributions for quite a while,
-and I am happy to finally be submitting it.
-
-At this time LEDs are not part of the patch series as I have work in progress to
-unify LEDs handling across all ASUS devices, and I will submit that in a separate
-patch series when the userspace interface will be ready to express capabilities
-of these devices, but that will take some more time.
-
-This driver is the culmination of a lot of work, from many different people,
-and I want to thank Luke for his original work, as well as the many people that have
-helped me test and provide feedback on the driver: Khamunetri, Jonathan, Derek,
-Matthew and others that have helped during these years.
-
-Best regards,
-Denis Benato
-
--v2
-  - HID: asus: add support for ROG Ally handhelds
-   - release all vendor buttons on resume
-   - align arguments of hid_asus_ally_raw_event()
-  - HID: asus: add gamepad configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add vibration strength configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add triggers inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks anti-deadzone configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add support for response curve
-   - normalize kernel-doc comment
-  - HID: asus: add support to force feedback
-   - remove a stale comment
-  - HID: asus: add support for gamepad mode
-   - remove a stale comment, normalize kernel-doc
-  - HID: asus: add support for turbo buttons
-   - remove stale comments, normalize kernel-doc
-  - HID: asus: add support for btn remapping
-   - convert function comments to kernel-doc
-
--v3
-  - HID: asus: add support for ROG Ally handhelds
-   - take references on input devices to avoid use-after-free on unbind
-   - reject probes from USB devices other than the recorded controller
-   - add open/close callbacks to the gamepad input device
-   - keyboard_input is populated after hid_hw_start(): issue does not apply
-  - HID: asus: add gamepad configuration
-   - restore cached Xbox controller mode after an MCU reset
-   - convert remaining scoped_guard() users to guard()
-   - avoid printing "(null)" for unnamed sysfs groups
-  - HID: asus: add vibration strength configuration
-   - send MCU commands through ally_gamepad_send_packet()
-  - HID: asus: add joysticks inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add triggers inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add joysticks anti-deadzone configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add support for response curve
-   - send MCU commands through ally_gamepad_send_packet()
-   - check resp_curve_support in show callbacks too
-  - HID: asus: add support to force feedback
-   - read ally_x_hdev under ally_data_lock and take a reference on it
-   - publish ally_x_hdev before registering the input device
-  - HID: asus: add support for gamepad mode
-   - convert remaining scoped_guard() users to guard()
-  - HID: asus: add support for turbo buttons
-   - pass the config pointer directly to ally_config_remove()
-   - run ally_config_remove() outside ally_data_lock
-   - restore cached values when the hardware rejects an update
-   - check turbo_support in show callbacks too
-   - reported scoped_guard warning verified as false positive
-  - HID: asus: add support for btn remapping
-   - look up default mappings by name instead of array index
-   - resend the old mapping when a sequential update fails midway
-   - allow macros regardless of the gamepad mode
-   - rename PAD_* codes to proper input event names
-   - convert remaining scoped_guard() users to guard()
-
-- v4
-  - HID: asus: do not send keyboard init reports to touchpads
-    - Added to avoid regressting touchpads and as guidance for maintainers
-  - HID: asus: reinitialize the device after exiting a sleep state
-    - Follow the modified logic of the previous patch
-  - Addressed issues of sashiko-bot albeit one was a false positive
-  - Rework patches: I made some disasters rebasing in v3
-
-Denis Benato (12):
-  HID: asus: reinitialize the device after exiting a sleep state
-  HID: asus: add support for ROG Ally handhelds
-  HID: asus: add gamepad configuration
-  HID: asus: add vibration strength configuration
-  HID: asus: add joysticks inner and outer range configuration
-  HID: asus: add triggers inner and outer range configuration
-  HID: asus: add joysticks anti-deadzone configuration
-  HID: asus: add support for response curve
-  HID: asus: add support to force feedback
-  HID: asus: add support for gamepad mode
-  HID: asus: add support for turbo buttons
-  HID: asus: add support for btn remapping
-
-Panz Dev (1):
-  HID: asus: do not send keyboard init reports to touchpads
-
- drivers/hid/Kconfig    |    1 +
- drivers/hid/hid-asus.c | 5007 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 4848 insertions(+), 160 deletions(-)
-
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 7fdb77432171..f825d650e1b7 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -206,6 +206,10 @@ struct ally_config {
+ 	u8 left_trigger_max;
+ 	u8 right_trigger_min;
+ 	u8 right_trigger_max;
++
++	/* Vibration settings */
++	u8 vibration_intensity_left;
++	u8 vibration_intensity_right;
+ };
+ 
+ struct ally_handheld {
+@@ -811,15 +815,193 @@ static ssize_t xbox_controller_store(struct device *dev,
+ 
+ static DEVICE_ATTR_RW(xbox_controller);
+ 
++/**
++ * ally_set_vibration_intensity() - Set vibration intensity values
++ * @ally: ally handheld structure
++ * @hdev: HID device
++ * @left: Left motor intensity (0-100)
++ * @right: Right motor intensity (0-100)
++ *
++ * Return: 0 on success, negative errno on failure
++ */
++static int ally_set_vibration_intensity(struct ally_handheld *ally,
++					struct hid_device *hdev, u8 left, u8 right)
++{
++	const u8 data[] = { left, right };
++	int ret;
++
++	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_VIBRATION_INTENSITY, data, sizeof(data));
++	if (!buf)
++		return -ENOMEM;
++
++	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set vibration intensity: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static ssize_t left_vibration_intensity_show(struct device *dev, struct device_attribute *attr,
++					     char *buf)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	return sysfs_emit(buf, "%u\n", cfg->vibration_intensity_left);
++}
++
++static ssize_t left_vibration_intensity_store(struct device *dev, struct device_attribute *attr,
++					      const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++	u8 value;
++	int ret;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value > 100)
++		return -EINVAL;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	ret = ally_set_vibration_intensity(ally, hdev, value,
++					   cfg->vibration_intensity_right);
++	if (ret < 0)
++		return ret;
++
++	cfg->vibration_intensity_left = value;
++
++	return count;
++}
++
++static ssize_t left_vibration_intensity_range_show(struct device *dev,
++						   struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0 100\n");
++}
++
++static ssize_t right_vibration_intensity_show(struct device *dev, struct device_attribute *attr,
++					      char *buf)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	return sysfs_emit(buf, "%u\n", cfg->vibration_intensity_right);
++}
++
++static ssize_t right_vibration_intensity_store(struct device *dev, struct device_attribute *attr,
++					       const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++	u8 value;
++	int ret;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value > 100)
++		return -EINVAL;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	ret = ally_set_vibration_intensity(ally, hdev,
++					   cfg->vibration_intensity_left, value);
++	if (ret < 0)
++		return ret;
++
++	cfg->vibration_intensity_right = value;
++
++	return count;
++}
++
++static ssize_t right_vibration_intensity_range_show(struct device *dev,
++						    struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0 100\n");
++}
++
++static struct device_attribute dev_attr_left_vibration_intensity =
++	__ATTR(intensity, 0644, left_vibration_intensity_show, left_vibration_intensity_store);
++
++static struct device_attribute dev_attr_left_vibration_intensity_range =
++	__ATTR(intensity_range, 0444, left_vibration_intensity_range_show, NULL);
++
++static struct device_attribute dev_attr_right_vibration_intensity =
++	__ATTR(intensity, 0644, right_vibration_intensity_show, right_vibration_intensity_store);
++
++static struct device_attribute dev_attr_right_vibration_intensity_range =
++	__ATTR(intensity_range, 0444, right_vibration_intensity_range_show, NULL);
++
+ static struct attribute *ally_config_attrs[] = {
+ 	&dev_attr_xbox_controller.attr,
+ 	NULL
+ };
+ 
++static struct attribute *ally_left_vibration_attrs[] = {
++	&dev_attr_left_vibration_intensity.attr,
++	&dev_attr_left_vibration_intensity_range.attr,
++	NULL
++};
++
++static struct attribute *ally_right_vibration_attrs[] = {
++	&dev_attr_right_vibration_intensity.attr,
++	&dev_attr_right_vibration_intensity_range.attr,
++	NULL
++};
++
+ static const struct attribute_group ally_attr_groups[] = {
+ 	{
+ 		.attrs = ally_config_attrs,
+ 	},
++	{
++		.name = "left_vibration",
++		.attrs = ally_left_vibration_attrs,
++	},
++	{
++		.name = "right_vibration",
++		.attrs = ally_right_vibration_attrs,
++	},
+ };
+ 
+ /**
+@@ -851,6 +1033,8 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 	cfg->left_outer_threshold = 90;
+ 	cfg->right_deadzone = 10;
+ 	cfg->right_outer_threshold = 90;
++	cfg->vibration_intensity_left = 100;
++	cfg->vibration_intensity_right = 100;
+ 
+ 	for (sysfs_i = 0; sysfs_i < ARRAY_SIZE(ally_attr_groups); sysfs_i++) {
+ 		ret = devm_device_add_group(&hdev->dev, &ally_attr_groups[sysfs_i]);
 -- 
 2.47.3
 
