@@ -1,83 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0497204C31
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4CE2BE7A7
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788064966; cv=none; b=BXOdsGXuNiYnOiSnEhTSJfA/KezGCMqumLkKNgQbpnrOAmwH/4y4Yo9a997VxezPpaDcx/viDvxx51+geaSco2EpYAbuvaTuA7UwEP7PDyD5FQhNw9eFySpUPaiSAwlN42tQhfawPnIq4kx1T1Ol7BxlkjnHg6XuRG8flbnjM/8=
+	t=1788064990; cv=none; b=jj1r7eOPO1qBQ/L9N1qQ99uiCxleV6h8oE62YzaCdpuYuyOUNh+/7NHGW1XyIPqDcMbBabdoa5KhaXrF5nk70KcljQ7lA+aFV+v4Y0TSkU6BEZWsKUls7eUPH4r+qPoJihDZC6qEAgK0x44gxDFkp7U9N1SbfGoeRfieJE5Wg4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788064966; c=relaxed/simple;
-	bh=fOjBJBo57fGr8gG7BviDgI81hpL2BRksULaXPOEUsUo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jAZ/NI9W5SgM74dXR3FErBC8vYAhovbqvpXN7KiUke86J7WDELSIJtNjplYpXSWyl5QDvtj2N3pwj6fII2idFZsSeZXLLML5oZUmZoTXoFE3LQZy6rSfjkhahjcGLBHfUdiKP3PWQq5AGppDT5PF0CRz410ZAaNB9f+vRES8pic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXL6crpH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788064990; c=relaxed/simple;
+	bh=qgiOqnVHrnbJlooRmY6T3DG7Cg9vDQsL3SwxKmFOo14=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=KYfFQslMp+Oxsk9miPYDFeuumMJj3Kyo1AojrUIWzWrWYSJP9rmSRYvo8sZeKV/VG/RqQz0Os8cl8jyhwaoK544B5VEwfsdS7kpg1OqGWPplx/kUY50UJsBq2giBOcV5zdxMDtp+DjR0jKBiIlHq9Jp43DrfERv85zsRXqfMINQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no; spf=pass smtp.mailfrom=optocloud.no; dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b=pdUsezRZ; arc=none smtp.client-ip=185.70.43.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=optocloud.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=optocloud.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXL6crpH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC491F00A3F
-	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788064963;
-	bh=atXEPa9UAnMS+WEK+D2z1APgofzXdx+YfnDKm8SmTWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WXL6crpHf4qLMx7U0l0mbpkhCHkDbNndDnhwawkm6rfHW1E2HhPZI9Fr0FtuiUKO9
-	 r2k3VTZmK3B25DOKGGRf0s3Jt0yx/1CnslCBcrGCj9VaDMtEIR2oCFKQx8vbPA6hgw
-	 rETJziXVcOXnOn2gCVeb9HEmUH78SDNW+E5a6smY1vLdJ0PqzCLTvnfjxRygz+yBzC
-	 68V2xyLNoDQCWoPpMAPurrVF4wNdlNSajsrnPVxdGqmwn+iTYZ7o1B/+9UWjQz4wz1
-	 M6eh7zVlQOliBwVlKcoDYj6FFCj7qwuc/iwnugGkpdjEiZ9dIu4KTFzHXaW4s2bm78
-	 9RXRN5NDdoaJg==
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92ed19f4d60so201830985a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 29 Aug 2026 21:42:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpxMTBD+TIC0KUurVICecEh/f5Lcsy58ig8WgbFveKUpQouUSRy+hghAsi/QG3a4tBcRavnYpfKzcQg6pE=@vger.kernel.org
-X-Gm-Message-State: AFuF++koZUl9NGL6HCh44mVdsRvvxU5adTEmuKfQi1NBypklP0Ali/jy
-	wGXpS6v5DYjigs4mwNH54zPI3/64kzFwk648guPg2DiePCBScK8eTWcPD/gLWjjSuMTcvA3kWG5
-	PQu6G1svaRQfwtdL2Z3rY6E+54Hn1Qm4=
-X-Received: by 2002:a05:620a:8388:b0:937:1b42:c949 with SMTP id
- af79cd13be357-93936bd569emr25376785a.4.1788064962983; Sat, 29 Aug 2026
- 21:42:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=optocloud.no header.i=@optocloud.no header.b="pdUsezRZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=optocloud.no;
+	s=protonmail; t=1788064980; x=1788324180;
+	bh=qgiOqnVHrnbJlooRmY6T3DG7Cg9vDQsL3SwxKmFOo14=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=pdUsezRZ6YYdXUkm4I7y5aG8dGb1KVB21WYua+dzFxuHoUmyeq5hRMieMqcUGhERT
+	 wu0oHZjyP089WlhseQdxnqGbBB/ETQb02Ypf5ON1RTAGovcCMT3qWOEaqeixokoltD
+	 NKzJaJcb031xBgpeMlOPxE6Qk1KqqKaLR/T4/UbCVob++N35LMbUpPRElmLWHWOgGN
+	 L2jgbRjY97/DPNpoNykPoX0zoAIrv8dMDLx+KQdSzL/hns7e3PanT7YV69WJnZ4dy1
+	 6hBK8517jsItLtLyPcMaDNXVMmyQxxig3QNfH9uPxnl0jk2JbmejmvtYvvcJCW5h8z
+	 NBR51XbGuwZSQ==
+Date: Sun, 30 Aug 2026 04:42:54 +0000
+To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>
+From: OptoCloud <git@optocloud.no>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Yazen Ghannam <yazen.ghannam@amd.com>, "x86@kernel.org" <x86@kernel.org>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+Subject: [PATCH 2/3] x86/mce/amd: Reset MCA_SYND1/2 between bank scans
+Message-ID: <7EacjuP2vbN93ctW6NuNj0xNiJK0J17etJfHrSNAotd0fSdNc9c1ZKr957iB6gkmpUu_xLHdgrGczfvoZPoyJQerWGYRCEnQYI4gqkhPXKs=@optocloud.no>
+Feedback-ID: 192797849:user:proton
+X-Pm-Message-ID: fd7114a9c9b7f20e913817a48baad6248489f775
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830042920.2280454-1-xueyuan.chen21@gmail.com> <20260830042920.2280454-2-xueyuan.chen21@gmail.com>
-In-Reply-To: <20260830042920.2280454-2-xueyuan.chen21@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 30 Aug 2026 12:42:32 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z8Yikc6UhHsHVY2cWcjcq0zej+20FOJAiumPUrpXxCQA@mail.gmail.com>
-X-Gm-Features: AcwNN1UcWf3lsTry6wH4EtqhXnPuQtp450q_InQVv-OuUEkbZ_FBtSJFcs3Tl4A
-Message-ID: <CAGsJ_4z8Yikc6UhHsHVY2cWcjcq0zej+20FOJAiumPUrpXxCQA@mail.gmail.com>
-Subject: Re: [PATCH v7 1/4] mm: add page_counter_margin()
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, zhaonanzhe@xiaomi.com, 
-	hannes@cmpxchg.org, ryncsn@gmail.com, youngjun.park@lge.com, 
-	baolin.wang@linux.alibaba.com, hughd@google.com, chrisl@kernel.org, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
-	muchun.song@linux.dev, david@kernel.org, ljs@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 30, 2026 at 12:29=E2=80=AFPM Xueyuan Chen <xueyuan.chen21@gmail=
-.com> wrote:
->
-> From: Johannes Weiner <hannes@cmpxchg.org>
->
-> mem_cgroup_get_nr_swap_pages() open-codes the remaining capacity across
-> the memcg swap counter hierarchy.
->
-> Add page_counter_margin() to return the minimum usable space from a page
-> counter to the root, and use it in mem_cgroup_get_nr_swap_pages(). This
-> is a pure refactoring with no intended behavior change.
->
-> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Same issue as the MCA_SYND leak, for the two supplemental AMD
+syndrome registers. mce_read_aux() writes
+err->vendor.amd.synd1/synd2 only when MCI_STATUS_SYNDV is set, and
+nothing clears them between bank iterations in either
+machine_check_poll() or __mc_scan_banks(). A bank without SYNDV can
+inherit synd1/synd2 from an earlier bank in the same scan.
 
-Thanks for working over the weekend. I've been waiting for this
-resending for a while. :-).  LGTM,
+Reset both fields at the start of each iteration in both loops.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+Found by code inspection; not reproduced on hardware.
+
+Fixes: d4fca1358ea9 ("x86/MCE/AMD: Add support for new MCA_SYND{1,2} regist=
+ers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eirik B=C3=B8e <git@optocloud.no>
+---
+ arch/x86/kernel/cpu/mce/core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.=
+c
+index 16183fa4ddc7..e4e588d02a18 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -809,6 +809,8 @@ void machine_check_poll(enum mcp_flags flags, mce_banks=
+_t *b)
+ =09=09m->misc =3D 0;
+ =09=09m->addr =3D 0;
+ =09=09m->synd =3D 0;
++=09=09err.vendor.amd.synd1 =3D 0;
++=09=09err.vendor.amd.synd2 =3D 0;
+ =09=09m->bank =3D i;
+=20
+ =09=09barrier();
+@@ -1349,6 +1351,8 @@ __mc_scan_banks(struct mce_hw_err *err, struct pt_reg=
+s *regs,
+ =09=09m->misc =3D 0;
+ =09=09m->addr =3D 0;
+ =09=09m->synd =3D 0;
++=09=09err->vendor.amd.synd1 =3D 0;
++=09=09err->vendor.amd.synd2 =3D 0;
+ =09=09m->bank =3D i;
+=20
+ =09=09m->status =3D mce_rdmsrq(mca_msr_reg(i, MCA_STATUS));
+--=20
+2.47.3
