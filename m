@@ -1,115 +1,125 @@
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1782EBB8D;
-	Sun, 30 Aug 2026 11:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630793ACEE0
+	for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 11:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788088401; cv=none; b=Cc5pxHY5pZT00qfSlU8OH3dkBhUVPj+IUAtVubNemgPilPD1nMhDL5MvVlIBiZG/pMMdYHIpjcUQ34l3V7O7u/ILtcc0z0OQ607QTZJW1G7B3iRskHKXLV2TMBokLlkwEfQPsEPc/q2KSEqFTKA/fv7v0XddOrQASDLKbe1AGhQ=
+	t=1788088518; cv=none; b=PKNi1nklE0yG7Bc2aciFo6YeELGYKPfNXBb+BLZ+JMnT/wEF+04GtSOJOndaFYp/Cg4yUl2ExHr+xcTInHWgE1xTsB7qE5Ik0hShKtk1ZTEl0yA0lo7h9/ieeN+1MGPHoNTpoLY9eDiIs7gKhtofUIp1T60ReiBlJ7q2XS66XZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788088401; c=relaxed/simple;
-	bh=9jtPWnys6WyDppmzeqDb8MHIOUwYRHyGTfX1Jvgk14k=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=nPZF55ha33V14pH/mEwbrtJDWIcCEwrjjQwtf/wW3PEAJCKqQQrEZ24wXIpVithrBEQgZxCvs1Xa06lugRa5tdEWV6xWGHMSBHw6xeDPO30Xu9E8bM/CaiJV0PG3VVHlNgzjVMmx8JmyKCEbondMKS6zDus1S0UCKdMsacohL4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hXqH03VYzz4x6DG;
-	Sun, 30 Aug 2026 19:13:00 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 67UBCteX004137;
-	Sun, 30 Aug 2026 19:12:55 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 30 Aug 2026 19:12:58 +0800 (CST)
-X-Zmail-TransId: 2afc6a94103a9c6-d4a4b
-X-Mailer: Zmail v1.0
-Message-ID: <20260830191258354QN6qx13iCRbQd2Uj3Ve2s@zte.com.cn>
-In-Reply-To: <20260830190743637MhXoixrAPc1rfm-G8eIcg@zte.com.cn>
-References: 20260830190743637MhXoixrAPc1rfm-G8eIcg@zte.com.cn
-Date: Sun, 30 Aug 2026 19:12:58 +0800 (CST)
+	s=arc-20240116; t=1788088518; c=relaxed/simple;
+	bh=7JC7WsOLkSZR7QF0lv+xw2ku0Pg/QnGWHEpCmQnckiE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nHmksZyF44PfxSgZyelUZJUrVNnU50yBxeF1IETyr3ZgKSvVwfdaawYys51/HKoJWODpLCKLi4MVR+vfiiylbVLhlTPeKkT1UCO0Sklxh2C5mzyj9epDrSks15LwJvD0FKs9j74y0G7lr4M1N0hmTVe674+Qgg25hdrAvSmI/ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pbyf5TaE; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pbyf5TaE"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so2728613a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 04:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788088514; x=1788693314; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=swnMIm+9bRtjZwoNNtbbuIBoOIF6i0dGJB4V71AxU5I=;
+        b=Pbyf5TaE5uv6s2SdP+VBLaWdwug8458VrEYALbBZKIfT+q6Tfnfxx6fU5lC+oUxlj8
+         Npmoq7ea5hOqv1BvkZ5l2vSg82YZMnvQVWn2ls1yt8JkMIVjy0ZAQbRw6qQVzonuSVPj
+         nRZT2g1PvOWzwULaO9zlJXyp+vvtETRMahEJRkMbSmQB0WEZuxuWa4ABD2Fff4VeQMGU
+         sj1sJFr0d0t1g+0I3od1KopJ6Y2nCdJKIKjFi0uvCtqJaHign3gW8phjFO7AeyB7cKkO
+         KeZvpwTnjH5luysT8A5Js0LjMkFm7g0NnK3gbMPofqh+PS3h1awgQQ4mbLsd8AXOA2VL
+         2ltg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788088514; x=1788693314;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=swnMIm+9bRtjZwoNNtbbuIBoOIF6i0dGJB4V71AxU5I=;
+        b=FdMZQEFWAUj7U2ynJIAHiGgS35tR6CNml8g3B6LMjyOGFUkZQzTIjegddIz4PecyaV
+         1peDnKWPLmf4dMpXWgxK76ZxUGIXMzfo6ZGwonoHK8PECohEtUrvyJSmmbUIS6cX3ASb
+         Xn1XYqxraJY4jUxvJUyXNbgSn03/9Va/mN7zzso8M5dUeZ0MAnv7/VeHlSKVQ9fPhmy9
+         DJmrS7r0XYkGbH6weUe3lZBf5i+Ycc1sM6JFlK4xjxQEk4OuLU3ScDBtvrNlmB5w2gSX
+         z+zfj5qsSuGJ/SH41bpNTruaLMHoBmzD968Dq2WEKiSFayfZacdVJz0APia40QeYkmVg
+         OGKg==
+X-Forwarded-Encrypted: i=1; AKwUvByitdXry8tpJaXmVpa7XsdTlEgBgawp1W66qijnW/7whSQK1holn3uDEll9uYUHi64DAc5E/7fT6U+gxZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOgKOUvbO2lH3oXJNkenXdsP7HUwEufd+jjJWiqZMJ5SHPV/IF
+	emq61VCpZ+l5E7ZhV08CiBST5/FyjR3pV4LL9dHwXF3mdaF+9djE05wC
+X-Gm-Gg: AYBFou2l8bhBgTCF20IY4Nz3OqeT+zCFEc6z7Au8l9fiR+gSvDXTxtkMBfWr69uUfO7
+	VRktWAHun6czL6KOdcOnstWkcDOlNnO3+iuhi+6kqZhnn5uLMDSzPI1nlBPDEVydBo4CByTP2YH
+	d5s9Niv6XsCtUJue/+fE4C01tqsQRfwrSzer0L+JoqolhiCG9WssknB6Y4sHPISj7KWftdx+xSh
+	vydY6cVrJNwCnnGBOkz77K062VqQ+/du2FVIwe+of/JkKMjEIcYIKrH+AjN2NSTB7yfLqt9comx
+	YjVV7FeZMaXAA6MuKawNTHGQuCxT+HkIWv5ABtB7CIGaB/Whx1XHey0KTBGtuoLZc4Kt/OBRfZl
+	9li1DfH0YvMkFLuFnY1/hpWoQjR58rHr/1BVxfjuLYsAWcYa3YYv/gnUj4qhxFLk9HgjEQ3JhiJ
+	jV+Jg5qXmO2CXAcNEPnYXdLHRXGdMcFiwa567Y/4FKBgce6lTeJ3wBrSLiBbm3ggS4QZiBGKkrl
+	fOAWGXvjdz+R0Vid7aNCaKbfQuHBtsYeXg62oG60P/z4mfBSm8=
+X-Received: by 2002:a17:90b:3b90:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-398c150e8d3mr7415565a91.4.1788088513714;
+        Sun, 30 Aug 2026 04:15:13 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c021:485f:75be:3c7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm18782313eec.20.2026.08.30.04.15.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 04:15:13 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 0/6] platform/x86: x86-android-tablets: fix Arizona and
+ Crystal Cove GPIO lookups
+Date: Sun, 30 Aug 2026 04:15:04 -0700
+Message-Id: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <hu.shengming@zte.com.cn>
-Cc: <rostedt@goodmis.org>, <mhiramat@kernel.org>,
-        <mathieu.desnoyers@efficios.com>, <mark.rutland@arm.com>,
-        <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-        <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <ran.xiaokai@zte.com.cn>,
-        <xu.xin16@zte.com.cn>, <zhang.run@zte.com.cn>
-Subject: =?UTF-8?B?W1JGQyBQQVRDSCA0LzRdIERvY3VtZW50YXRpb24vZnRyYWNlOiBEb2N1bWVudCBmdW5jdGlvbiBjb21tIGZpbHRlcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 67UBCteX004137
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sun, 30 Aug 2026 19:13:00 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6A94103C.001/4hXqH03VYzz4x6DG
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALgQlGoC/yXMQQ6CMBBG4auQWTsJNFKrVzEugP7oGDM1HUQSw
+ t2tuvwW761kyAKjU7VSxiwmSQuaXUXDrdMrWGIxudr5OrgjL8FzpzEnifyApjmxvTVF8CG04x6
+ Nb9E7Kv0zY5Tl9z5f/rZXf8cwfYe0bR+uuGNCfQAAAA==
+X-Change-ID: 20260829-x86-android-lenovo-swnode-785f4e165eb2
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Linus Walleij <linusw@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16-dev-b242f
 
-From: Shengming Hu <hu.shengming@zte.com.cn>
+When gpiolib dropped name-against-label matching in favor of firmware node
+identity mapping, lookups referencing unattached software nodes (such as
+arizona and gpio_crystalcove in x86-android-tablets) stopped working.
 
-Document set_ftrace_comm and set_ftrace_notrace_comm, including their
-write and O_TRUNC behavior, accepted comm names, interaction with PID
-filters, and when a task is rechecked after its comm changes.
+This series fixes the lookups and cleans up redundant software node
+registrations on Lenovo tablets:
+- Point Arizona GPIO property entries directly to the codec device software
+  node, which is attached to the parent device.
+- Hold a device reference in gpio_secondary_fwnode_init() to ensure safety
+  during devres action teardown.
+- Generalize gpio_secondary_fwnode_init() to accept a node group argument
+  and use it to attach crystalcove_gpiochip_node as a secondary firmware
+  node to INT33FD:00 on Lenovo Yoga Tab 2 models.
+- Drop redundant swnode group registrations on Lenovo Yoga Tab 3 and
+  Yoga Tab 2 models where codec software nodes are already registered when
+  attached to their respective devices.
 
-Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- Documentation/trace/ftrace.rst | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+Dmitry Torokhov (6):
+      platform/x86: x86-android-tablets: fix Arizona GPIO swnode references
+      platform/x86: x86-android-tablets: hold device reference for secondary fwnode teardown
+      platform/x86: x86-android-tablets: pass node group to gpio_secondary_fwnode_init()
+      platform/x86: x86-android-tablets: add Crystal Cove GPIO swnode support
+      platform/x86: x86-android-tablets: drop redundant swnode group on YT3
+      platform/x86: x86-android-tablets: use shared battery swnode group on Yoga Tab 2
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 7261f25f8b4b..a96fc436ec16 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -313,6 +313,37 @@ of ftrace. Here is a list of some of the key files:
-         If a PID is in both this file and "set_ftrace_pid", then this
-         file takes precedence, and the thread will not be traced.
+ drivers/platform/x86/x86-android-tablets/core.c    | 35 +++++++++++++++-----
+ drivers/platform/x86/x86-android-tablets/lenovo.c  | 37 +++++++---------------
+ .../x86/x86-android-tablets/x86-android-tablets.h  |  2 ++
+ 3 files changed, 40 insertions(+), 34 deletions(-)
+---
+base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
+change-id: 20260829-x86-android-lenovo-swnode-785f4e165eb2
 
-+  set_ftrace_comm:
-+
-+	Have the function and function_graph tracers trace only threads whose
-+	task comm is listed in this file. Names are matched exactly and must
-+	contain between 1 and TASK_COMM_LEN - 1 bytes.
-+
-+	Each write adds one name. A single trailing newline is ignored, while
-+	embedded newlines are rejected. A zero-length write or a write containing
-+	only a newline adds no entry. Duplicate entries have no effect.
-+
-+	Opening the file with O_TRUNC clears the filter. Otherwise, writes add
-+	names to the existing filter. From a shell, use >> to add a name without
-+	clearing the filter. Reading an empty filter prints `no comm`.
-+
-+	If both set_ftrace_pid and set_ftrace_comm contain entries, a thread must
-+	match both filters to be traced.
-+
-+  set_ftrace_notrace_comm:
-+
-+	Have the function and function_graph tracers ignore threads whose task
-+	comm is listed in this file. Matching and file operations have the same
-+	semantics as set_ftrace_comm.
-+
-+	A match in either set_ftrace_notrace_pid or set_ftrace_notrace_comm
-+	excludes the thread and takes precedence over all include filters.
-+
-+	Function-tracer task filters are evaluated when a task is scheduled in,
-+	and the result is cached per CPU. Changing a filter refreshes the result
-+	for currently running tasks. If a running task changes its comm, it is
-+	rechecked the next time it is scheduled in.
-+
-   set_event_pid:
+Thanks.
 
- 	Have the events only trace a task with a PID listed in this file.
 -- 
-2.25.1
+Dmitry
+
